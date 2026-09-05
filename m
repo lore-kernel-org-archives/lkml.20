@@ -1,358 +1,110 @@
-Received: from mta0.migadu.com (out-26.mta0.migadu.com [91.218.175.26])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A3DC50276
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 08:46:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.26
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A737314B95
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 08:50:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788598008; cv=none; b=fuj3se+5y4/tDjj04iA67GHpG4vX3FLkHkXE8cU+MoX7MQSHvajeiRhBn+GQmvoXhTLbXANzHcqNPzTir77HFUFuKh4CDMGTaCpxwCXtzUsRErrKc7w2ABerxDlQynyFPN0tSlVZNKXBvjUYSs7Ox329SbFlAmYlZH50zin4lH4=
+	t=1788598215; cv=none; b=uWIZL1v6jgoJF77ipMvEJGByGgoXkSzk8T0L3+1lmialJWXlskFEUg1L3a/OZM8vWAjoJXGuntxspOg/hMHIWLyzVHmNjig03usqyxaXgEwfVJiQbuM1SUlo7n624J6J7CpxIJ0TmZY2CLuDURCXMshDpUGxuB6NwgfJSN58c8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788598008; c=relaxed/simple;
-	bh=zeyrdHqJCWTsOqdcmMsci0O53Z2feyw3NPZRLgK3Tv4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RMMj3QxpUIMTqQMm3DB+u4QbbourQCcv4dJ2eg5fvgeVbYKzGOOvWTqRF2kEBTa+wDt4r6FV3I4UFIdTNvd5y1pdAwt5MRibXg4mtAPnaDIxrwx2gmVqXDKA2oyBTT4BEFEARkpmNasJk94FcYhdooguHGcbes3+0Gz6otVxcbc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JRok/Qpn; arc=none smtp.client-ip=91.218.175.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788598215; c=relaxed/simple;
+	bh=418GUUCHPriYoCUp96gnknZxNvDG4KIlym1boqpP0rc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RqCr59GnskiZArrMAXdq/o3BJoMSLjAKDnhgzRoVgD0STjfpjOd0e+IccxMvy7fKRdXarpMKB2HyE6C1TPVCHLz1FfzxZDUDx2ux6Y2rj9M9ALIma2EnuQx1cWWKDZQlWbKau2Luj81wHc9/6Fpbe3COtPHYQkrAZZWME0ksyig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FJXTtBmH; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JRok/Qpn"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=zeyrdHqJCWTsOqdcmMsci0O53Z2feyw3NPZRLgK3Tv4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788598003; v=1; x=1789202803;
- b=JRok/QpnQSATBs4n3iODN4TwvGBM3j81HxdqiPkqy73nw7EepMHbrUXQ/TmRvEp4o9HhfkOz
- A6rgdN3rykJOPC6+9aGqzkL9ql8i0+eP+TZQH+ZiKUndCfsBfUajxfwJBLfXP/vGFVt3kyBLBne
- QxU8JC+4P87ICP6YAv7kDNwk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id dcb893049c2a663d;
-	Sat, 05 Sep 2026 08:46:43 +0000
-X-Mizu-Trace-ID: dcb893049c2a663d
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <bfbfbed6-2946-4e85-830b-7a2505f316db@linux.dev>
-Date: Sat, 5 Sep 2026 16:46:30 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FJXTtBmH"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2db3305f94fso2089575ad.0
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 01:50:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788598209; x=1789203009; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wi1PNVlf9ygKz7D9d545aLc7cRBusDmxm541j+QdCUI=;
+        b=FJXTtBmH8oVgCY8S+WugEHHy2hRMiZO2kvYNnQkbYLZNIi07JneE0g+ml3Ak8xez4V
+         ILu9stX6ZYrLsRTG844fJxrYIRLa+tJR/LHI0BeSm48kyHmTaEPnwTWFiRMGb173kQXI
+         YVOCV5siki3s6qI0AwXCM/KIPLECGOuFqX1jbciA3C7HW+nEibLAsoXHU5iVa64AKwor
+         Qxx76kb1KpC2zNfxOKsqsjPJOjWjcI7HRjLGt5GNz3RUxisG5hloi5Sml2mEfDxYtHhx
+         xD6/O+mLxuiYXRzdgPK0k2DQSCYEZ9QTwiIIbpwiQTeO2m7qs4aH7pc498UMPyPFMlOr
+         MdoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788598209; x=1789203009;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wi1PNVlf9ygKz7D9d545aLc7cRBusDmxm541j+QdCUI=;
+        b=eCJSxXoS5fvga1hnYXXA41VRRdWRViMXRhvDRCbhQbikadFRH9s4LiA8FgtQYo45ek
+         fuIDurjUWJ143+0F1cLbuGTSD4ccuh+F18B8KSyBX9rXogNI0ROvyPXP63chGm7X5Y9Z
+         PWM2wcBXuJZP/c7+daoRe1pRAao40DWcq+AyWzp2PlXCFqtrxRvN4qEaLp+ELD25sGV6
+         V3yAnKYUpg5Ma/SdSK2HAb8m0qURM7kGEuTHLicvst3O8zAv9IHymnqjLIeosp4MiM4N
+         p15fXTORf4YSDSQdp9Y6SpbZiDYQJhUF1RcbwA8+YKYMWXlSXVjex5gB9cR46RXweY0I
+         ihpA==
+X-Forwarded-Encrypted: i=1; AKwUvBy3aKHgELdRlAsOdyv5XMw1Q226nAQWk/fnUpmUmHFLVF7CSoCziWXK7zWLGt41tR4cZ7k+BgrEMEZ9NcY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVmC1KdXvaifG36VG4N7E/PVLTWOsIQVYeLrZ3Z6uhOBhcFfg7
+	rLGy/TdBcBDew1/jm6YYFF6f4E6C2oYIwultVeKwqqxXWQGAlkYiZDdS
+X-Gm-Gg: AYBFou0BffrVEsx3JbP+JelXIAcHAgxU8Fr8UcuiGt1G6XLPra5kF/GBkrIhsY5b5Il
+	AsLASqRiKKsW3N3spP4seI9dp2mWhasNdOc391amWHGL9upnXZ1VKbQ9jXQcDHXbyjPJigln1Tp
+	Bgwh43uurRu9Elv2uNj5SkFWpFLLFzdyyxBXTgz805RQ5T+FUmS60AbkBN5Kt44luiz2Y4EfRSg
+	kfep47l9KP7w0Q3PGgvR35TC6wBf8EvOmhg9fNBeX3MNPbS4ih23h/a7lLSIQF058QaKSrxsHyI
+	dycmMWMYd01BZROJvsssmAWdE6i66cevYlFaItdQiHJG2APRWYigXvn7W1tTvOjmZjFU/ZiXY1V
+	wqJNWv0JRN8Lb3pa56lsaALunM3XsLCCxtnZx7HK47UjP3z1oya0IS2SuirGnXfOs+YbdN5LGFT
+	LRFfqhwNh6jyGrPRcWgHoWMGCbFq+d1W996ELy6izdkmbVtQAP+CAV11IA/gvQAYTf6Lali8V+S
+	7DAs6g/7iMZnZBip0Tv7iBhz4uaAd14iKCgmxPfZtLgS4ct4iruQBdSjksnWZVIx8M86RPWvSm/
+	TpfgCjfYfLvImn2+GfnGww==
+X-Received: by 2002:a17:902:8c83:b0:2d8:d4cc:5bb5 with SMTP id d9443c01a7336-2db128a7a5fmr111814335ad.21.1788598209380;
+        Sat, 05 Sep 2026 01:50:09 -0700 (PDT)
+Received: from arch.taild3b82f.ts.net ([2401:4900:531d:da35:5001:ad51:d51:ab15])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b123731sm11899378eec.18.2026.09.05.01.50.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 01:50:08 -0700 (PDT)
+From: Krish Gulati <krishgulati7@gmail.com>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Zhang Heng <zhangheng@kylinos.cn>,
+	Eric Naim <dnaim@cachyos.org>,
+	Damien Dagorn <damien.dagorn29@gmail.com>,
+	Kailang Yang <kailang@realtek.com>,
+	=?UTF-8?q?Habil=20Eren=20T=C3=BCrker?= <habilerenturker@hotmail.com>,
+	Krish Gulati <krishgulati7@gmail.com>
+Subject: [PATCH] ALSA: hda/realtek: Add quirk for HP Omen 16-wd0xxx mute LED
+Date: Sat,  5 Sep 2026 14:19:05 +0530
+Message-ID: <20260905084951.9595-1-krishgulati7@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v2 5/6] mm/memcg: move memcg private ID refcount to
- objcg
-To: bingfangguo@tencent.com
-Cc: cgroups@vger.kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, Dave Chinner
- <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
- Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Bingfang Guo <bfguo@icloud.com>
-References: <20260901-bingfangguo-memcgid-rework-v2-0-8edd7f7a7251@tencent.com>
- <20260901-bingfangguo-memcgid-rework-v2-5-8edd7f7a7251@tencent.com>
-Content-Language: en-US
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20260901-bingfangguo-memcgid-rework-v2-5-8edd7f7a7251@tencent.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+Add SND_PCI_QUIRK entry for HP Omen 16-wd0xxx (PCI SSID 103c:8ba9)
+using ALC245_FIXUP_HP_MUTE_LED_V1_COEFBIT, which controls the mute
+LED via a COEF bit write on the ALC245 codec. Without this quirk,
+the mute LED does not reflect mute state on this model.
 
+Tested on the affected hardware; mute LED now toggles correctly.
 
-On 2026/9/1 16:58, Bingfang Guo via B4 Relay wrote:
-> From: Bingfang Guo <bingfangguo@tencent.com>
->
-> The memcg private ID is used by objects that can't afford storing a
-> whole pointer and can outlive memcgs to track the memcg (notably swap
-> entries). The current design holds a refcount to the css, preventing the
-> memcg from being freed.  This patch unbinds the lifetime of memcgid from
-> the memcg so it can be freed.
->
-> The idea is to move the refcount of memcgid to one of the memcg's objcg
-> and hold a pointer and a reference to the objcg in the global memcgid
-> xarray. No more css reference to the memcg so swapped out pages no
-> longer pin the dying memcg.
->
-> When retrieving the online memcg from the id, the objcg is taken out of
-> the xarray, and resolves to the online parent memcg naturally, which is
-> exactly what is expected in normal swapin folio charging path.  For swap
-> uncharging, the objcg is used for putting the id refcount and getting
-> the online ancestor in one go.
->
-> The exceptions are list_lru and workingset recent test, which require
-> exact the memcg the id points to. Those callers are fixed in the next
-> patch.
->
-> Signed-off-by: Bingfang Guo <bingfangguo@tencent.com>
-> ---
->   include/linux/memcontrol.h | 15 +++++-----
->   mm/memcontrol.c            | 71 +++++++++++++++++++++++++++++++---------------
->   2 files changed, 55 insertions(+), 31 deletions(-)
->
-> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-> index f227348a3f24a..eafc817ff244c 100644
-> --- a/include/linux/memcontrol.h
-> +++ b/include/linux/memcontrol.h
-> @@ -66,11 +66,6 @@ struct mem_cgroup_reclaim_cookie {
->   
->   #define MEM_CGROUP_ID_SHIFT	16
->   
-> -struct mem_cgroup_private_id {
-> -	int id;
-> -	refcount_t ref;
-> -};
-> -
->   struct memcg_vmstats_percpu;
->   struct memcg1_events_percpu;
->   struct memcg_vmstats;
-> @@ -173,6 +168,7 @@ struct obj_cgroup {
->   	struct percpu_ref refcnt;
->   	struct mem_cgroup *memcg;
->   	atomic_t nr_charged_bytes;
-> +	refcount_t memcgid_ref;
+Signed-off-by: Krish Gulati <krishgulati7@gmail.com>
+---
+ sound/hda/codecs/realtek/alc269.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Since all the interfaces now include the private field, the name I'd
-recommend here is private_id_refcnt.
-
->   	union {
->   		struct list_head list; /* protected by objcg_lock */
->   		struct rcu_head rcu;
-> @@ -189,8 +185,8 @@ struct obj_cgroup {
->   struct mem_cgroup {
->   	struct cgroup_subsys_state css;
->   
-> -	/* Private memcg ID. Used to ID objects that outlive the cgroup */
-> -	struct mem_cgroup_private_id id;
-> +	/* The objcg holding private memcg ID. */
-> +	struct obj_cgroup *id_objcg;
-
-By the same logic, rename it to private_id_objcg.
-
->   
->   	/* Accounted resources */
->   	struct page_counter memory;		/* Both v1 & v2 */
-> @@ -255,6 +251,9 @@ struct mem_cgroup {
->   #endif
->   	int kmemcg_id;
->   
-> +	/* Private memcg ID. Used to ID objects that outlive the cgroup */
-> +	int id;
-
-Same, private_id. To better reflect the range that this private ID can
-express, I suggest defining it as an unsigned short.
-
-> +
->   #ifdef CONFIG_CGROUP_WRITEBACK
->   	struct list_head cgwb_list;
->   #endif
-> @@ -810,7 +809,7 @@ static inline unsigned short mem_cgroup_private_id(struct mem_cgroup *memcg)
->   	if (mem_cgroup_disabled())
->   		return 0;
->   
-> -	return memcg->id.id;
-> +	return memcg->id;
->   }
->   struct mem_cgroup *mem_cgroup_from_private_id(unsigned short id);
->   
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index f0503a1e5492d..38d2b00657a7a 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -3773,7 +3773,7 @@ static void memcg_online_kmem(struct mem_cgroup *memcg)
->   
->   	static_branch_enable(&memcg_kmem_online_key);
->   
-> -	memcg->kmemcg_id = memcg->id.id;
-> +	memcg->kmemcg_id = memcg->id;
->   }
->   
->   static void memcg_offline_kmem(struct mem_cgroup *memcg)
-> @@ -4032,19 +4032,23 @@ static DEFINE_XARRAY_ALLOC1(mem_cgroup_private_ids);
->   
->   static void mem_cgroup_private_id_remove(struct mem_cgroup *memcg)
->   {
-> -	if (memcg->id.id > 0) {
-> -		xa_erase(&mem_cgroup_private_ids, memcg->id.id);
-> -		memcg->id.id = 0;
-> +	if (memcg->id > 0) {
-> +		xa_erase(&mem_cgroup_private_ids, memcg->id);
-> +		memcg->id = 0;
->   	}
->   }
->   
-> -static void __mem_cgroup_private_id_put(struct mem_cgroup *memcg, unsigned int n)
-> +static void __mem_cgroup_private_id_put(struct obj_cgroup *objcg,
-> +		unsigned short id, unsigned int n)
->   {
-> -	if (refcount_sub_and_test(n, &memcg->id.ref)) {
-> -		mem_cgroup_private_id_remove(memcg);
-> +	struct obj_cgroup *objcg_free;
->   
-> -		/* Memcg ID pins CSS */
-> -		css_put(&memcg->css);
-> +	if (refcount_sub_and_test(n, &objcg->memcgid_ref)) {
-> +		objcg_free = xa_erase(&mem_cgroup_private_ids, id);
-> +		VM_WARN_ON(objcg_free != objcg);
-> +
-> +		/* Memcg ID pins the objcg */
-> +		obj_cgroup_put(objcg);
->   	}
->   }
->   
-> @@ -4055,18 +4059,20 @@ static void __mem_cgroup_private_id_put(struct mem_cgroup *memcg, unsigned int n
->    */
->   static struct mem_cgroup *mem_cgroup_private_id_put(unsigned short id, unsigned int n)
->   {
-> -	struct mem_cgroup *memcg;
-> +	struct mem_cgroup *memcg = NULL;
-> +	struct obj_cgroup *objcg;
->   
->   	rcu_read_lock();
-> -	memcg = mem_cgroup_from_private_id(id);
-> -	if (!memcg)
-> +	objcg = xa_load(&mem_cgroup_private_ids, id);
-> +	if (unlikely(!objcg))
->   		goto out;
->   
-> -	__mem_cgroup_private_id_put(memcg, n);
-> -
-> +	memcg = obj_cgroup_memcg(objcg);
->   	while (memcg_is_dying(memcg) || !mem_cgroup_tryget(memcg))
->   		memcg = parent_mem_cgroup(memcg);
->   
-> +	__mem_cgroup_private_id_put(objcg, id, n);
-> +
->   out:
->   	rcu_read_unlock();
->   	return memcg;
-> @@ -4074,12 +4080,17 @@ static struct mem_cgroup *mem_cgroup_private_id_put(unsigned short id, unsigned
->   
->   static void mem_cgroup_private_id_kill(struct mem_cgroup *memcg)
->   {
-> -	__mem_cgroup_private_id_put(memcg, 1);
-> +	__mem_cgroup_private_id_put(memcg->id_objcg, memcg->id, 1);
->   }
->   
->   struct mem_cgroup *mem_cgroup_private_id_get_online(struct mem_cgroup *memcg, unsigned int n)
->   {
-> -	while (!refcount_add_not_zero(n, &memcg->id.ref)) {
-> +	struct obj_cgroup *objcg;
-> +
-> +	rcu_read_lock();
-
-I think we need to make it mandatory here for the caller to hold the RCU 
-lock.
-Otherwise, if we don't enforce that, we would have to require that the 
-passed
-memcg holds at least one reference count. But either way—whether it's 
-holding
-the RCU lock or holding a reference count—the RCU read lock you added 
-here is
-useless. I suggest changing it to:
-
-     lockdep_assert_once(rcu_read_lock_held());
-
-Of course, I could be missing your point here, so please correct me if I'm
-wrong.
-
-> +	objcg = memcg->id_objcg;
-
-BTW, as long as the memcg isn't released, the objcg won't be released
-either, because the memcg holds a reference to the objcg.
-
-> +
-> +	while (!refcount_add_not_zero(n, &objcg->memcgid_ref)) {
->   		/*
->   		 * The root cgroup cannot be destroyed, so it's refcount must
->   		 * always be >= 1.
-> @@ -4089,7 +4100,10 @@ struct mem_cgroup *mem_cgroup_private_id_get_online(struct mem_cgroup *memcg, un
->   			break;
->   		}
->   		memcg = parent_mem_cgroup(memcg);
-> +		objcg = memcg->id_objcg;
->   	}
-> +
-> +	rcu_read_unlock();
->   	return memcg;
->   }
->   
-> @@ -4101,8 +4115,14 @@ struct mem_cgroup *mem_cgroup_private_id_get_online(struct mem_cgroup *memcg, un
->    */
->   struct mem_cgroup *mem_cgroup_from_private_id(unsigned short id)
->   {
-> +	struct obj_cgroup *objcg;
->   	WARN_ON_ONCE(!rcu_read_lock_held());
-> -	return xa_load(&mem_cgroup_private_ids, id);
-> +
-> +	objcg = xa_load(&mem_cgroup_private_ids, id);
-> +	if (!objcg)
-> +		return NULL;
-> +
-> +	return obj_cgroup_memcg(objcg);
->   }
->   
->   struct mem_cgroup *mem_cgroup_get_from_id(u64 id)
-> @@ -4203,7 +4223,7 @@ static struct mem_cgroup *mem_cgroup_alloc(struct mem_cgroup *parent)
->   	if (!memcg)
->   		return ERR_PTR(-ENOMEM);
->   
-> -	error = xa_alloc(&mem_cgroup_private_ids, &memcg->id.id, NULL,
-> +	error = xa_alloc(&mem_cgroup_private_ids, &memcg->id, NULL,
->   			 XA_LIMIT(1, MEM_CGROUP_ID_MAX), GFP_KERNEL);
->   	if (error)
->   		goto fail;
-> @@ -4348,9 +4368,10 @@ static int mem_cgroup_css_online(struct cgroup_subsys_state *css)
->   				   FLUSH_TIME);
->   	lru_gen_online_memcg(memcg);
->   
-> -	/* Online state pins memcg ID, memcg ID pins CSS */
-> -	refcount_set(&memcg->id.ref, 1);
-> -	css_get(css);
-> +	/* CSS pins memcg ID, memcg ID pins obj cgroup */
-> +	memcg->id_objcg = objcg;
-> +	refcount_set(&memcg->id_objcg->memcgid_ref, 1);
-> +	obj_cgroup_get(memcg->id_objcg);
->   
->   	/*
->   	 * Ensure mem_cgroup_from_private_id() works once we're fully online.
-> @@ -4362,7 +4383,7 @@ static int mem_cgroup_css_online(struct cgroup_subsys_state *css)
->   	 * publish it here at the end of onlining. This matches the
->   	 * regular ID destruction during offlining.
->   	 */
-> -	xa_store(&mem_cgroup_private_ids, memcg->id.id, memcg, GFP_KERNEL);
-> +	xa_store(&mem_cgroup_private_ids, memcg->id, memcg->id_objcg, GFP_KERNEL);
->   
->   	return 0;
->   free_objcg:
-> @@ -5832,7 +5853,11 @@ void __mem_cgroup_uncharge_swap(unsigned short id, unsigned int nr_pages)
->   	rcu_read_lock();
->   	memcg = mem_cgroup_private_id_put(id, nr_pages);
->   	if (memcg) {
-> -		if (!mem_cgroup_is_root(memcg)) {
-> +		/*
-> +		 * If the memcg was offline and reparented to root, swap needs
-> +		 * uncharging as well. We check this by comparing the memcgid.
-> +		 */
-> +		if (!mem_cgroup_is_root(memcg) || id != mem_cgroup_private_id(memcg)) {
-
-Swap accounting should be based on whether the associated objcg is a 
-root objcg,
-rather than whether its current memcg is the root memcg. Since an objcg 
-may be
-reparented while retaining its original root status, using 
-obj_cgroup_is_root()
-provides a stable criterion. Applying the same criterion in both the 
-charge and
-uncharge paths makes the accounting symmetric and avoids having to infer the
-original state through memcg ID comparisons.
-
-Muchun,
-Thanks.
-
->   			if (do_memsw_account())
->   				page_counter_uncharge(&memcg->memsw, nr_pages);
->   			else
->
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 95b40a177d2b..740476a9a344 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -8371,6 +8371,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0xf111, 0x000f, "Framework Laptop 13 Pro PTL", ALC295_FIXUP_FRAMEWORK_LAPTOP_LIMIT_INT_MIC_BOOST),
+ 	SND_PCI_QUIRK(0xf111, 0x010f, "Framework Laptop 13 PTL", ALC295_FIXUP_FRAMEWORK_LAPTOP_LIMIT_INT_MIC_BOOST),
+ 	SND_PCI_QUIRK(0xf111, 0x0010, "Framework Laptop", ALC295_FIXUP_FRAMEWORK_LAPTOP_LIMIT_INT_MIC_BOOST),
++	SND_PCI_QUIRK(0x103c, 0x8ba9, "HP Omen 16-wd0xxx", ALC245_FIXUP_HP_MUTE_LED_V1_COEFBIT),
+ 
+ #if 0
+ 	/* Below is a quirk table taken from the old code.
+-- 
+2.55.0
 
