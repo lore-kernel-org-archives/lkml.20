@@ -1,133 +1,142 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99650364929
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:11:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C3D24AF69C
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:11:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788621102; cv=none; b=LNR0ZU+SOfRAH2ixGwWRvc5ZdvCIZr5L4tkuSad90UYjOcWbRNQKttmRypqx8FR10Z9LpLVZlAskosQYnJadqJFHdxyXlTEpCncSaIfNYICA8h/VGEgfUo3Z9qRtdmTQisxN1pWHgjHbAtO0XGrA2MHdSAZTO3Gzm/dXIqoX8u0=
+	t=1788621120; cv=none; b=Mc7VTwjGWLPkvtS5jrSvlnt6SV4BD8q8BrFwBb3FOaCymzYW4cJeWVP/xXdHBhU0GjbXI0B3Io7L0Ii7/okDyZkqItGQSSm4D4j0o5hQFYNZN+Xfi6w4pmTxaMaueGnKmMjkNpdUVjxNB3sJe8suDjFxdLHwLXMzfobtwmLfBQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788621102; c=relaxed/simple;
-	bh=jcWgGXPavR4NDZXc348pVXSF9p4lh2CqNoZC0YX28IU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QfdLc97DxvbH2IQbq89jKOkpEO0MEo8L6ZRDJ4wE/BoL+0Z58Zm8lCEL5KAZStQTLiGoFkS1y2p1N4PfkBaz6e3V96/TQXDehe4Fv7vfT2amoKlZtiyVLHfRAUtAe9JdRWVNj3ZRFVj9kT35IVZ+VlDSHs86Enk/WJQe4nMHh6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NSWMvvqG; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788621120; c=relaxed/simple;
+	bh=cs3tMB5ZJP3WI9uIvt6r8CcZt7ukNuHK6xpdE6GGht4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=N6vTy6h8IX0VMB2MhNjRmPXgGr+qILIQ+fiMeR8/nxWJytikwvsOP+MIiHX7SzWSDgwf8ciBYfqOTeLDOA9STop9+Xmy7TTz67Zu3Y0++BPsLCxgBVgQU59yQ25oLAOiOiPXDTNR9zXQu+nbohBDqwshS4CbzvJ+VU5Gu3aDr4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YfpQ1vfe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NSWMvvqG"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843178b1c8so96222f8f.0
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 08:11:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788621093; x=1789225893; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=V6Tg/R56zXVR2Nup96RdAYV8c+PyuQeFJYrSPcXGgxo=;
-        b=NSWMvvqGARJanErDt2vACsLP+soKAYAvX9bcvceCn7MKSwZXvjq4ysW1CP2F1X5DhC
-         mtR+pKkr7aJ7Vg3cD27HQ/doFez751rCkk8ozJKmveD+cRXsuxkTABSkBRPta2kGTAp8
-         4E7hen1Aamuyd89qmoKNSZurgJ5SQBeeOnba+yC5YyJXbR2MWT2X/nbACtgZP4Vgidsb
-         lHFmhhWUUl3zWlir2XF+nqHiev3dtxXlpQdXTulXg4FFZsXTabAV9NF4YLsTeHWXiqo7
-         3nd6kQY4vShHirE6cBTg5LqOR1EX5z/350bzLCSABpdUqLcLxNZttOMXHI8pXxfWMagc
-         PqBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788621093; x=1789225893;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=V6Tg/R56zXVR2Nup96RdAYV8c+PyuQeFJYrSPcXGgxo=;
-        b=bQzt1hKVbRldi0LSIFJv1pEb2JSeJFeTJvNP/fQVAaduMhY237yVxvE8BTbwg0RPIG
-         NNxR+mBSYCc5wyUQkFU/6kkSrcreHr0RRIBpi1zJfmu7o9klDVtsz0HVv3SxlC/UR0CM
-         i4QkEAhtfdPoB1TWYSluU1wE8BwCpqaHMChUVVSfmK5nrhhb0/vMf/ipCg3SlEVzz1bl
-         cL+X6tHY0HTuhlsL6fvGRpzgDsCgS9yUA+SqC01gLBbxe4EXL0Dzly31cULyOkp6i8Hu
-         M3rXoN2OgQSEbvlldE8Dzz3svJk96NfXFHKNQz6hmUjoCT8dY6ssI1qkk0WUmXvQQAdq
-         tE/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBx3giwvCe6lDyGyLZDZWYB5NvQx4YRxlXLwNfZULECwB79EbPbgz/MvXYo/77rzYCP/ShGjoCHmJplK3wo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQZTB7iBhzlstvYyk4uOfgyn3X3umn+lu/WqVEmdljUC6CZZ+m
-	9rRP9JqSjI2/RFyACELNKJKCpx7NCfhVOLCRG8IBJztC4OONOxeVjKQt
-X-Gm-Gg: AYBFou2IGRnwzcRpcOGH442QBYETVQsicEO6PVZ+1SRfnhjQ+SqG6c/t26R21cctcPP
-	ewAG11VtlUlWcyUzsq42zz1IL+ftKpGGwU8/DGdtn5hXl5YfkQW5lLDawY3+4EZCGh3YlZxJUhp
-	Yd+s4M6F5B7dZmeBsdg5ekmr9apPqRpvad6LINYkyE+AaLZl9lcdI5KQbycJv1NaSsHy/c5lwpM
-	ufT7m+B7KG2lhJICCSNjXRwHcWWAF4G1J/7V4ImOmegv1z4AiIfdNA1X/d9Av3fqIWg8CVwgRes
-	ywx4xM/LHSdaVbMZ4kj3VSAsgup27O7wsoZ9gSPkK8s5lPJIp/lkz/gMqj9G8aGSpSvVL7iECwf
-	bbpwkL6mpBttBfVMFA40RVh5AjrK7okeBaGv6IohtQX7vPjcLRPvioONwSEg1etS7Lc3dEtJIJx
-	DDcLSQXACGDLGyjmJAhJv73/UXIKZNdDD/zpNlB6bZbQkI4mV68TYbVTRY46VZvL42+hJq1jhEQ
-	vk3N6MjB+fWmqFwRPx+0d8cJtfh86Tx3kMcsvupDTJVsFPvQxyJsE8WrvM3v4+wZg==
-X-Received: by 2002:a05:600c:860b:b0:49c:f9b8:bae0 with SMTP id 5b1f17b1804b1-49d01dd6b62mr41625625e9.2.1788621092762;
-        Sat, 05 Sep 2026 08:11:32 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME (20014C4E1B950E0061C002CD703C2CBB.dsl.pool.telekom.hu. [2001:4c4e:1b95:e00:61c0:2cd:703c:2cbb])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48588135600sm11955662f8f.2.2026.09.05.08.11.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 08:11:32 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Sidong Yang <sidong.yang@furiosa.ai>
-Cc: Igor Paunovic <royalnet026@gmail.com>,
-	Tomeu Vizoso <tomeu@tomeuvizoso.net>,
-	Oded Gabbay <ogabbay@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Jiaxing Hu <gahing@gahingwoo.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] accel/rocket: search every core slot when a core is removed
-Date: Sat,  5 Sep 2026 17:11:06 +0200
-Message-ID: <20260905151112.8752-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <apwUewaRnoTNXHCt@rock-5b-plus>
-References: <20260904125936.26234-1-royalnet026@gmail.com> <apwUewaRnoTNXHCt@rock-5b-plus>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YfpQ1vfe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 696F01F00A3E
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:11:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788621111;
+	bh=bL3w34qUiq6PKrSstiPLOgFf9oEN1oR7xJDQLGR9iRs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=YfpQ1vfenfqwtIYla5E2kEDfvPou/1j2+HsFW0tF5CMddYYLw56AUx5gwFc/uqvq4
+	 t4L9lcAJOp+Mg7jAtuIpdqyk90+5iN6qH6GtkrSujdeh/VW8dbA/KSSAgQagMnxIqQ
+	 sL6B+OtfvjxyV3iEx7xCEO8xRkXpvTAT4zlNjfXdFyekC1fypo59uVDJz6KYMzIP/Y
+	 tynHBx+eMmAo2DS5YxloO55IE56hEP2X8X5ma1FqOXRYLdJm8GH18xnVOFv+BrcuNK
+	 0qzvG8UqXVVUehIYyPJ0MevxbUOwXcdswf7CorEj2ssKjt1P95LA3LvzUnS+psmFc5
+	 j1QCH9NBCAiRg==
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a668cacdadso3088920a12.2
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 08:11:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwecPzJuglaV0RpnR4Wn+NcXYe9Tg9krT9/AzHhijS51KV9dE9c/Sz92ZnsAv42MG3YNFizDlvGqR+vkVE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mFNov1iE2SH7kk/NmSpxcNN2juSpXN4+wUfxO8m/jKaE0Va1V9
+	cNehFJ33N+wTW0AFthOpkCjFA3kE4sGNm54LJNZDJNR5BYVH8dpgGsD8Pfk3pd413Yvz4sBM4NT
+	o0KBFMfC/p3J0uBDRop7dyO6/mMsA68Y=
+X-Received: by 2002:a05:6402:2752:b0:6a7:ea54:38c with SMTP id
+ 4fb4d7f45d1cf-6a7ea54209dmr3447413a12.29.1788621110068; Sat, 05 Sep 2026
+ 08:11:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260814094738.2552440-1-cui.tao@linux.dev>
+In-Reply-To: <20260814094738.2552440-1-cui.tao@linux.dev>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Sat, 5 Sep 2026 23:11:38 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H5SRTceJzKUMCH2MXJXf+h5g0e4iyFgwStStg5hJOhB-w@mail.gmail.com>
+X-Gm-Features: AcwNN1VggpiIfHX09jVpMuhzax1l2O50S0Jc_dd9AH9e-iil6TqAP2EDuwdtxyE
+Message-ID: <CAAhV-H5SRTceJzKUMCH2MXJXf+h5g0e4iyFgwStStg5hJOhB-w@mail.gmail.com>
+Subject: Re: [PATCH v3] LoongArch: KVM: Fix TOCTOU race on pv_features
+To: Tao Cui <cui.tao@linux.dev>
+Cc: maobibo@loongson.cn, zhaotianrui@loongson.cn, kvm@vger.kernel.org, 
+	loongarch@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Tao Cui <cuitao@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Sidong,
+Applied, thanks.
 
-> I've tested this patch in Radxa Rock 5 B+ and it works.
+Huacai
 
-Thank you. That is the first test of it on an RK3588 that is not mine, and
-b4 collects your tag with the comment attached.
-
-> It seems that there is other issue about num_core. For example,
-> sched_to_core() finds core for sched with num_core and it could make
-> same error like find_core_for_dev().
-
-You were right, and it is worse than a failed lookup: neither caller checks
-what sched_to_core() returns.
-
-I built a KASAN kernel and unbound the middle of the three cores while three
-clients were submitting to all of them. It faults twice, once from the
-surviving core's job queue and once from its reset work:
-
-  KASAN: null-ptr-deref in range [0x0000000000000220-0x0000000000000227]
-  Workqueue: fdad0000.npu drm_sched_run_job_work [gpu_sched]
-  pc : rocket_job_run+0x234/0x838 [rocket]
-
-  KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-  Workqueue: rocket-reset-2 drm_sched_job_timedout [gpu_sched]
-  pc : rocket_job_timedout+0xf0/0x1e0 [rocket]
-
-Both are the third core. The workqueue names are its device and its
-core->index, and it had been left at slot 2 while num_cores was down to 2.
-
-The fix is one word, and it carries your Reported-by:
-
-  https://lore.kernel.org/dri-devel/20260905150432.7477-1-royalnet026@gmail.com/
-
-Same test on a kernel with it applied: no faults, journal clean. It applies
-on top of the patch you tested, since max_cores comes from that one.
-
-What it does not fix, and the patch says so: an open client keeps an entity
-pointing at the scheduler of the core that went away. drm_sched then logs
-"not ready, skipping" for every job that lands on it - 25006 of them in my
-run - and the client waits in dma_fence_default_wait for a fence that will
-never signal. The board stays up and the client hangs. Making one core of
-several safe to unbind while a client is open needs more than a fix, and I
-did not want to hide that behind a patch that only stops the oops.
-
-Thanks for reading it closely enough to spot the second one.
-
-Igor
+On Fri, Aug 14, 2026 at 5:47=E2=80=AFPM Tao Cui <cui.tao@linux.dev> wrote:
+>
+> From: Tao Cui <cuitao@kylinos.cn>
+>
+> The check-then-set on kvm->arch.pv_features in
+> kvm_loongarch_cpucfg_set_attr() is lockless, so two vCPUs can race
+> past the validation and set different values.  Add a spinlock to
+> serialize it.
+>
+> Reviewed-by: Bibo Mao <maobibo@loongson.cn>
+> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+> ---
+>
+> Changes in v2: use a spinlock instead of a cmpxchg loop (Bibo Mao).
+> Changes in v3: rename the lock to pv_setting_lock and place it next to
+> phyid_map_lock (Huacai Chen).
+>
+> v1: https://lore.kernel.org/all/20260810081321.157258-1-cui.tao@linux.dev=
+/
+> v2: https://lore.kernel.org/all/20260813232542.2098930-1-cui.tao@linux.de=
+v/
+>
+>  arch/loongarch/include/asm/kvm_host.h | 1 +
+>  arch/loongarch/kvm/vcpu.c             | 6 +++++-
+>  arch/loongarch/kvm/vm.c               | 1 +
+>  3 files changed, 7 insertions(+), 1 deletion(-)
+>
+> diff --git a/arch/loongarch/include/asm/kvm_host.h b/arch/loongarch/inclu=
+de/asm/kvm_host.h
+> index 23cfbecebbd7..3538a199aac6 100644
+> --- a/arch/loongarch/include/asm/kvm_host.h
+> +++ b/arch/loongarch/include/asm/kvm_host.h
+> @@ -125,6 +125,7 @@ struct kvm_arch {
+>         unsigned int  pte_shifts[MAX_PGTABLE_LEVELS];
+>         unsigned int  root_level;
+>         spinlock_t    phyid_map_lock;
+> +       spinlock_t    pv_setting_lock;
+>         struct kvm_phyid_map  *phyid_map;
+>         /* Enabled PV features */
+>         unsigned long pv_features;
+> diff --git a/arch/loongarch/kvm/vcpu.c b/arch/loongarch/kvm/vcpu.c
+> index 20c207d80e31..e47fa463a8be 100644
+> --- a/arch/loongarch/kvm/vcpu.c
+> +++ b/arch/loongarch/kvm/vcpu.c
+> @@ -1165,10 +1165,14 @@ static int kvm_loongarch_cpucfg_set_attr(struct k=
+vm_vcpu *vcpu,
+>                         return -EINVAL;
+>
+>                 /* All vCPUs need set the same PV features */
+> +               spin_lock(&kvm->arch.pv_setting_lock);
+>                 if ((kvm->arch.pv_features & LOONGARCH_PV_FEAT_UPDATED)
+> -                               && ((kvm->arch.pv_features & valid) !=3D =
+val))
+> +                               && ((kvm->arch.pv_features & valid) !=3D =
+val)) {
+> +                       spin_unlock(&kvm->arch.pv_setting_lock);
+>                         return -EINVAL;
+> +               }
+>                 kvm->arch.pv_features =3D val | LOONGARCH_PV_FEAT_UPDATED=
+;
+> +               spin_unlock(&kvm->arch.pv_setting_lock);
+>                 return 0;
+>         default:
+>                 return -ENXIO;
+> diff --git a/arch/loongarch/kvm/vm.c b/arch/loongarch/kvm/vm.c
+> index 1317c718f896..86ba7d54e81f 100644
+> --- a/arch/loongarch/kvm/vm.c
+> +++ b/arch/loongarch/kvm/vm.c
+> @@ -76,6 +76,7 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long typ=
+e)
+>                 return -ENOMEM;
+>         }
+>         spin_lock_init(&kvm->arch.phyid_map_lock);
+> +       spin_lock_init(&kvm->arch.pv_setting_lock);
+>
+>         kvm_init_vmcs(kvm);
+>         kvm_vm_init_features(kvm);
+> --
+> 2.43.0
+>
