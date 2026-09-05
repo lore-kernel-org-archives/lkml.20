@@ -1,105 +1,138 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B981A358D00;
-	Sat,  5 Sep 2026 02:58:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B062036B931
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 02:58:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788577101; cv=none; b=sD2OBkd4jkTkFkYT+Yi0S3WYrkfLIGFxhdqcJbkyspUcttu7wMrZA2wejzN7ZoCRu0Fy1Pvxu83oUjzJYOncPxMUfsK/fFZkIB3bEPMghr6b569eD/oK6dpGxk2IRIK4dZSjEUAF0wIE6b7SuFlwv5kusGceHYSXW5H+pO9nvrs=
+	t=1788577112; cv=none; b=Q7i6e2MpA5Vlsn0VVb1WCfMpa36w+m8HJCCsA9cWgIAkGXNDETVF4R2iBvIW0ZIvnok+v1w1YSBJtNgdU+ThJkoFp6k8Y1NqHfzjKVO/DdaJHKXoVClHcdsyIMYVt+Po7vbkgOwRl4bpR+TMPWcA+S67gUXTwUSjD7HDO2I6kBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788577101; c=relaxed/simple;
-	bh=c/ZRYHFwwl7P9ymT0f1zQ+VSU7PAgEnEte10astEePE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=arIgCmkjKVawRx8PvgfqbMklvVjosHHt3o8+IT2UUGikWtnS0n7U/Tr5Y0lpg42qBaKWQODT5ZNwa76P1oMq5bJzCTkogPEhWjya0MtTV3QHb61PNopiqlh30BFeiKGZvU/ta8fgTj2DcfnnpbKAIH3kKEX77iDRMP81yaYZGRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=r0GTWO4b; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788577112; c=relaxed/simple;
+	bh=ssSVIdhU28wBo3bZAvVEYRVb0VBjTnH+Szu3oc2gf4k=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=sKAjySwqGMHE41PuNXynvKyAmYeYHJOrTfCrgwY+fxKq5V4Ek8mKMEjsA0FRrN4fOlWTXJO2m7fhdgomaypC2A/0OdweZstZ0FqjTLkrwiJT6iw0xx6Myw5PXb5dYnNYJrDrceNHHrl/tY9EXifRBk7pStLtV3uFRBkwrZprWSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ram+X5t8; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="r0GTWO4b"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=JRuv1iNzwrkzYPanlW1KF3I/WUjJp6LiVqQvqYh8crA=; b=r0GTWO4bt/7blNhWIfG/B131zR
-	t4Ws19Qith2ad1L5E/CM5hcTqV1nEVVTkwiculx9GeyTS5AU1K9viG5x1Dj8w3eu2T41D9iLJ/EaX
-	CNmWWdiSZeMF8FS3Qn5kVteDPUnq+eKdUbWTOddhSkzLZa3Kxr61WNUk0PdPAlwtc/PZ+TDNGH158
-	MQwzNhSUxWBLkDCvF+e198+rvgv9AoenzsDiijXe/S9anz2mzng5HB/zcGu3F7D0ZPvRT+Yno14TI
-	HG175qtSkTS/Mgrh3LO43dU4ULWIdyvVTcsEcwxAZMAAMBy4nU2Etcj/g6ylhGjXidB9as2lNAkM4
-	trQAN9Zw==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x2gbe-00000003cUV-1RtA;
-	Sat, 05 Sep 2026 02:58:14 +0000
-Message-ID: <0bff3cf5-0d85-4ebb-9fdb-7fb5d12faf49@infradead.org>
-Date: Fri, 4 Sep 2026 19:58:13 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ram+X5t8"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48442ea8f59so2217984f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 19:58:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788577109; x=1789181909; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1Pep5Nu0BxhAqF2yFjcnol3vjVLD0FPuyRmanesgGxk=;
+        b=Ram+X5t88Rc52rdbBl5rGrcmD5N5GsjJalyvxYQVWeX1G1KhYdkxSyxmZ5kIpGH/fV
+         BsH1tZzE8yz8irEFDbiMpyCfAHs8LkK6JHm4BaE0n7IeOuowNxkIOkA+iXzkLfpxzs8s
+         08lAz+a6OjQXAgJ7X9CCEPGj4L/Giia1qW4bbgMoZoPhQSRZ9oRx81bCRD1Y+YCQU+JZ
+         XgMwr/okGbVm1MYzKI99asLpcKrBqqT+n/qnLUCCGqd2iacJ7EqGrMUNunhqvImNMgvG
+         udocngK3qgLJP91Dz59df9/iuhE5XJFAukF5sua/y4vD2kIKDPY+SN+j8/aLXLNmxB/K
+         7qMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788577109; x=1789181909;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1Pep5Nu0BxhAqF2yFjcnol3vjVLD0FPuyRmanesgGxk=;
+        b=V/i5g+2HPxnQUde6rtVv/jWAuvWwgfZpEEwCZDhdmECGaOPChSYnkVqwXwtKpDaqtA
+         b8ruO4JdftVtcglHY1lgiEBu+iiH2u6YI/AzAqzdJI6dLk65bhrtQGJQn6q7P22al0wO
+         E/LqjcxkuNT6axaAX6FmFYWRrkCqgXWaeEkcTU0glDj5FncUmVXnRh6A9e6u6z2JMHSF
+         nF3twYBrKYHdTRm2wvCOl3kd2+C/sHb9jy3UflOfZvnDcpw1tgcQgVh5sxnqgX8bakAp
+         8bfoEXsuko+0XWg0Kog6gn4hkRL8KXxqJoKvYq/dprdKIRBka79H4AXk/mN0GjmkmMzK
+         A/oQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx0e+xz8uFkIjU5VRQtd7lA+Oo0FVkNV40AIdpngwJW6lG/5lCqj0wjdDJ0N/WnYtkq4d7XforzWqsgcVQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lPpL18DNl+UPf0F/lHE38DxFzSa+Hkc+C8/ke/uipN4Of6EjOc
+	xrSUW6wydzTWRhBWvcw+2gsjeQ8TN8QurmD7h5AAl0QG30/QPZdIaDbU
+X-Gm-Gg: AYBFou1NtezZ9VqUnX1ghrOa+cIOFpOarPlvw56kzpn6B0fdrpF4HAzNtm9fZjQddq2
+	BTof7QQbDOU485WosmyMbKxPkXsS6r5IFiECHX50zXUG+aR8+kg3OprBGRkU4uxvnirRAjHHZ/Q
+	vFVLL6aCtprtZqVmf1ufata0lK4QaQI8wVDxwFCo7rfP7ph6WNg3BNriqVkC5x1zY8GAxjPLxfo
+	JQXddkuokpQPemohGWuqOSVGaUuae1HadjYL1MElagdPb1FTtZSaSdtVaLxC41X4p1brYcm/fxu
+	4JxYNERq7xO9tRfwqEl4AUIIT1Pfid0Pax52Oev+QbUTt35vi16mKDv0qIu2ZDTG94pN2yJSweR
+	JIDDZmfU2rXRh9V5g9NQSR0e9qRb54XDzi1SfFLruZQn2IX3JQp5IqJMnRvK1d5Jrrzgv/WIz2J
+	H7sewbaOWw5gS2kfIsomadbxiwivnz4to+S2jEIRvpCLBx25RL/i33pwiG4FpEYYCxRJN7Cgd+k
+	suAlbBUSFiZ3fsBWnYdWIItwtZgHwtna3GUddA3fKm8GxcPF9F2KJa1sXqOzo7LTblgZzjmh2Et
+	l7QD+yXOAovloOa1Ega3ZMcvl6VHIg7FEAjLL3TZYJGXQ1z9PXXF0W+MHLSgXGpTHok=
+X-Received: by 2002:a05:600c:871b:b0:49b:4eb6:6ffd with SMTP id 5b1f17b1804b1-49cf82cbac2mr87022315e9.5.1788577108604;
+        Fri, 04 Sep 2026 19:58:28 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a4eb-3001-c06d-af27-9fa2-ea53.310.pool.telefonica.de. [2a02:3100:a4eb:3001:c06d:af27:9fa2:ea53])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf770fcf5sm111088995e9.6.2026.09.04.19.58.27
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 04 Sep 2026 19:58:28 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Jonathan Corbet <corbet@lwn.net>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Dongliang Mu <dzm91@hust.edu.cn>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] docs: parse-headers: Fix script name and stale Makefile reference
+Date: Sat,  5 Sep 2026 04:58:21 +0200
+Message-Id: <20260905025821.83968-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs: KUnit: Fix cross-compiler prefix examples
-To: Karl Mehltretter <kmehltretter@gmail.com>,
- Brendan Higgins <brendan.higgins@linux.dev>
-Cc: David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Tim Bird <tim.bird@sony.com>, Harinder Singh <sharinder@google.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mairacanal@riseup.net>,
- Daniel Latypov <dlatypov@google.com>, linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com, workflows@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260905025126.83693-1-kmehltretter@gmail.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260905025126.83693-1-kmehltretter@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+The script is tools/docs/parse-headers.py, not parse_headers.py, and its
+FILE_RULES argument is optional. Commit 8a298579cdfc ("scripts:
+sphinx-build-wrapper: get rid of uapi/media Makefile") removed the
+Makefile the text points to as an example; the cross-references are now
+generated by the kernel-include directive, so point to a file that uses
+it.
 
+Fixes: d69a03a97a2d ("docs: doc-guide: parse-headers.rst update its documentation")
+Fixes: 8a298579cdfc ("scripts: sphinx-build-wrapper: get rid of uapi/media Makefile")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ Documentation/doc-guide/parse-headers.rst | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
 
-On 9/4/26 7:51 PM, Karl Mehltretter wrote:
-> The GNU target-tuple prefixes shown in the CROSS_COMPILE examples are
-> missing their trailing dash.
-> 
-> Fixes: 46201d47d6c4 ("Documentation: kunit: Reorganize documentation related to running tests")
-> Fixes: 957063874c76 ("Documentation: kunit: Add CLI args for kunit_tool")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-
-Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
-Thanks.
-
-> ---
->  Documentation/dev-tools/kunit/run_wrapper.rst | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/Documentation/dev-tools/kunit/run_wrapper.rst b/Documentation/dev-tools/kunit/run_wrapper.rst
-> index cecc110a3399f..9221acddf3fa8 100644
-> --- a/Documentation/dev-tools/kunit/run_wrapper.rst
-> +++ b/Documentation/dev-tools/kunit/run_wrapper.rst
-> @@ -189,10 +189,10 @@ via UML. To run tests on qemu, by default it requires two flags:
->    Kbuild. As a reminder, this will be the prefix for the toolchain
->    binaries such as GCC. For example:
->  
-> -  - ``sparc64-linux-gnu`` if we have the sparc toolchain installed on
-> +  - ``sparc64-linux-gnu-`` if we have the sparc toolchain installed on
->      our system.
->  
-> -  - ``$HOME/toolchains/microblaze/gcc-9.2.0-nolibc/microblaze-linux/bin/microblaze-linux``
-> +  - ``$HOME/toolchains/microblaze/gcc-9.2.0-nolibc/microblaze-linux/bin/microblaze-linux-``
->      if we have downloaded the microblaze toolchain from the 0-day
->      website to a directory in our home directory called toolchains.
->  
-> @@ -293,7 +293,7 @@ command line arguments:
->    - ``sparc64-linux-gnu-`` if we have the sparc toolchain installed on
->      our system.
->  
-> -  - ``$HOME/toolchains/microblaze/gcc-9.2.0-nolibc/microblaze-linux/bin/microblaze-linux``
-> +  - ``$HOME/toolchains/microblaze/gcc-9.2.0-nolibc/microblaze-linux/bin/microblaze-linux-``
->      if we have downloaded the microblaze toolchain from the 0-day
->      website to a specified path in our home directory called toolchains.
->  
-
+diff --git a/Documentation/doc-guide/parse-headers.rst b/Documentation/doc-guide/parse-headers.rst
+index a7bb01ff04eb..eb36c92e9a06 100644
+--- a/Documentation/doc-guide/parse-headers.rst
++++ b/Documentation/doc-guide/parse-headers.rst
+@@ -8,26 +8,27 @@ between the code and the documentation. Adding cross-references for
+ userspace API files has an additional advantage: Sphinx will generate warnings
+ if a symbol is not found at the documentation. That helps to keep the
+ uAPI documentation in sync with the Kernel changes.
+-The :ref:`parse_headers.py <parse_headers>` provides a way to generate such
+-cross-references. It has to be called via Makefile, while building the
+-documentation. Please see ``Documentation/userspace-api/media/Makefile`` for an example
+-about how to use it inside the Kernel tree.
++The :ref:`parse-headers.py <parse_headers>` provides a way to generate such
++cross-references. During the documentation build, the same parser is used by
++the ``kernel-include`` directive with the ``:generate-cross-refs:`` option.
++Please see ``Documentation/userspace-api/media/cec/cec-header.rst`` for an
++example about how to use it inside the Kernel tree.
+ 
+ .. _parse_headers:
+ 
+-tools/docs/parse_headers.py
++tools/docs/parse-headers.py
+ ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ 
+ NAME
+ ****
+ 
+-parse_headers.py - parse a C file, in order to identify functions, structs,
++parse-headers.py - parse a C file, in order to identify functions, structs,
+ enums and defines and create cross-references to a Sphinx book.
+ 
+ USAGE
+ *****
+ 
+-parse-headers.py [-h] [-d] [-t] ``FILE_IN`` ``FILE_OUT`` ``FILE_RULES``
++parse-headers.py [-h] [-d] [-t] ``FILE_IN`` ``FILE_OUT`` [``FILE_RULES``]
+ 
+ SYNOPSIS
+ ********
 -- 
-~Randy
+2.53.0
+
