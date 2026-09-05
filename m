@@ -1,367 +1,164 @@
-Received: from out199-5.us.a.mail.aliyun.com (out199-5.us.a.mail.aliyun.com [47.90.199.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C174C36308D
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:35:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.199.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5915636308D
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:35:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788622527; cv=none; b=TfydxYGPStSEF7qD8hWkj5hyrXQ6R0RN0ggCLiYlLPhiTllKHomX2jei7VPNyWaPQj0ryZ3zpbM/HhSTlq/j8+tBiO5cx2n7jxNdyHrD5yJAzR/YJFyyhXzxmTgJqZ5rag2/1dv5/cziROx/dYwd/cXIW2i3oXIgEXY/xfEZ6fw=
+	t=1788622542; cv=none; b=B3MTBgl/iGYh8d+hmED+M65NYBGiEdAFIJAXUgm/hlbkJ/lBdhWkIDuy+5Ij7Gieg9lfKO9Q+GTX2ClLEuld10Xtg1vkKGoiehxRzJ3fn7T0L44cQ7SJ99DDv/Vl/r7MCiJjEQoSEJNmND/g7j4h8wM+cE94oboIjcj2xEs3JsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788622527; c=relaxed/simple;
-	bh=SHdefSodIO7MzjKBdZ9aZERx/SO0uN8oMowo9phT/zw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fZ4NjiC70ZcaeE/2O+fbGhiZzO5mTB3PUoK8GkFHMHvXvIVDt253tLWCOEiAlnY+iY0Usy3+nZ9xX6DGcokgopBKsN4eH7xjJakaCjkiyHZUhFUAUxFvT/AKrrOGblUyI483UMdycDK1nEhhFeG997g2sUvMsFz8DZAPeer+784=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=CC7Dbjze; arc=none smtp.client-ip=47.90.199.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788622542; c=relaxed/simple;
+	bh=gFFdN1ha8Tp79B1B3Zl2oM554MhbhbybYNUFrHskT80=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rZmEGcpfyFAk7TYO2SxApCMybU18cYHPQtGKK8JW+nZY1UtdzXiUDeoYGNmKhjp1+5ZGKTr5cp4VVvyQUOgqGaAzIA7FB/gZ2cy99jYK0Vr18kA9tikQiu7Ebrm89Q0bOCo1K9Uin/YkLdJ6/j6RtIOTrMJ4WvJXaUwZZ16By+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cTjc9zAQ; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="CC7Dbjze"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788622503; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=UYVjswq1RMR0z0XOex2YFUtZECzTttw9BI75rZybL+c=;
-	b=CC7DbjzeiuBgRDvvdmPLEQVKrTD4HOjJoxGioVpb0+NFHuM4aoDRAdUp9nn63koEZ+rjh0YC138ig3aVJHl4Tw7dq2hCEdU3iBY0VPFZXPHKPNpovNXX99c6FE2+XRUep2V0GEVb7TzeIi5gTsQ3IPVFyDGsxUcC442kOf6m9no=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R741e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=xueshuai@linux.alibaba.com;NM=1;PH=DS;RN=15;SR=0;TI=SMTPD_---0XALGi4E_1788622501;
-Received: from 30.100.134.114(mailfrom:xueshuai@linux.alibaba.com fp:SMTPD_---0XALGi4E_1788622501 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Sat, 05 Sep 2026 23:35:02 +0800
-Message-ID: <f2357ad9-ece1-4331-844d-5911baaf571f@linux.alibaba.com>
-Date: Sat, 5 Sep 2026 23:35:01 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cTjc9zAQ"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39666e7c9eeso102787a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 08:35:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788622541; x=1789227341; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LAz1FDbqTt7J5VIP7BaX6RtKlr+dOf12zCQcqewm6No=;
+        b=cTjc9zAQMQaP8tfqSHpmUzL9cnJNsB6h4OVB1xtww8CHinZZzYWWVHZ1eAPveRfp/h
+         5stKEerJE/JtZyQpsMUxvDmVQyc3QNuA3EWZy+k27x8Zf0nyCvvlxIJScppa+GloAclV
+         ubOVFf4gdWqX0IRz7xV4JTT80N+R9lQTS8X6Btp/pBRaaU/s7Fj1IFUFPv+6/g2+0CXM
+         WahfTuZOGzkDeZSXDup5YxoKjKMTBSNvvzMHZX/wnJpUt+ywjFydLhUMdTKEODxCdue+
+         DJvxQ/6xpyqGu1GeQ5bMnTcdONgvGfR+HR7xnC4WAEN4mv+MrPdbG17zCIucEKMBEDUE
+         Ctcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788622541; x=1789227341;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LAz1FDbqTt7J5VIP7BaX6RtKlr+dOf12zCQcqewm6No=;
+        b=SMlrzz+aaZEWsxZIHRPyk6Fm0c5Mmk2gqbJjimUXu49So0FYb+LTpp5K2IkHergJ7D
+         9Xb0MZYseaPMzkV26UvLwhOaBywIbyvZMP0kRPU8iRbg8oPZBM3zGUvOl1JNKsXo8EjX
+         vW1u9yplRZYNQL0XmToYLh5YO35nwOz5wC5jeBF+Lnp5N/3G2eKS21Or4ynTDl2aIA+l
+         eLUN/TW390Sqzq6yRCBYrr07SEqxGaIDVDdYcE1JzDJFqTn9aqU8gWVL//4O3G4seSai
+         B1cuCL6iyKPscZ30+DFJR4paMye108yoHNRJ97p0s7vuxGSurwAKW5r87zhUibdFunkK
+         Ehfw==
+X-Forwarded-Encrypted: i=1; AKwUvBx6jo/LyHZXXwvH+HECUODXOBzdKySnT5vOdyNwXghb2TcY1Oec8DOvAvbBNmWHhoRs3tv9swtonVyRs/c=@vger.kernel.org
+X-Gm-Message-State: AFuF++kY/yPjMjG/u+XPpp1pwRUtb7pztaX0dw7Ly8FX1MMhpFS8USAf
+	fKABhPFZjUoavv3zxUBT/IF43X72URpSuLBkIihP++tuovaHX8xSlsAo
+X-Gm-Gg: AYBFou05D1N54W+PNAfSb4vkOe3ufZSN0XrOJy9UNVDJynFahBYcTLDIS0G7CD0D9PQ
+	MJn7QYH6EZcTmXXsZSi9at7Uy0zpOp/WL9GhqFWuWBcpUr7y1nqNp1PmutpHkLMo/JTj1gRDVKy
+	D75a6cwNxZDgYH5BAzlhYm5mehQ8QRBEPM3Y+xOzJe+eRjr7OBURu2ePxrU64vkMeHLj74lk5H9
+	9kC1BtbswZgZ2HJJLYwdHLJKy4LhH1Ksinf0DtM+pT8vjGItMeRpPmgiEHu55qAsLCLE0O8XkqG
+	k7Mjt4+kJC+pkBA+FrijPXcB9p+DnIyyRtVR1oBJMvj2O+Yewq/TOwIuGQhZnjqdnp+eHFRAgzL
+	O0ZjGuvax/wVzOEC6Ogpf0sZdJWHBAJWLGf17YBo0VLzIGD29aI+KOv2bvhZvraw5H7i9JSVsrS
+	MM0Lt6t8AR8hpLtm7D9jYmNzW3aHfkrZa1jW8lyww+GmaoZqHXoSfiTPneIhXySQ7WYtNuGaSZi
+	FdLl/qvxiLXzLY9PoqfC91zVeheVy+6FQH4vIuGplOz54KB8YEII5vnP13BEL79X8Q=
+X-Received: by 2002:a17:90b:562b:b0:396:d27b:86a4 with SMTP id 98e67ed59e1d1-39b3d5f2c09mr6126052a91.2.1788622540707;
+        Sat, 05 Sep 2026 08:35:40 -0700 (PDT)
+Received: from fedora.iiita.ac.in ([103.119.35.125])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b26123c99sm10493484a91.11.2026.09.05.08.35.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 08:35:40 -0700 (PDT)
+From: Ayush Mukkanwar <ayushmukkanwar@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: error27@gmail.com,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-kernel-mentees@lists.linuxfoundation.org,
+	skhan@linuxfoundation.org,
+	ayushmukkanwar@gmail.com,
+	sashiko-bot@kernel.org
+Subject: [PATCH 1/2] staging: octeon: fix use-after-free in tasklet teardown
+Date: Sat,  5 Sep 2026 21:05:29 +0530
+Message-ID: <20260905153530.36693-1-ayushmukkanwar@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/6] KVM: arm64: nv: Implement nested stage-2 reverse
- map (new data structure)
-To: Marc Zyngier <maz@kernel.org>
-Cc: Wei-Lin Chang <weilin.chang@arm.com>, Wang Han
- <wanghan@linux.alibaba.com>, linux-arm-kernel@lists.infradead.org,
- kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, oupton@kernel.org,
- tabba@google.com, joey.gouly@arm.com, seiden@linux.ibm.com,
- suzuki.poulose@arm.com, catalin.marinas@arm.com, will@kernel.org,
- ljs@kernel.org, itaru.kitayama@fujitsu.com
-References: <20260810205038.118843-1-weilin.chang@arm.com>
- <20260902163500.1841671-1-wanghan@linux.alibaba.com>
- <877bl26aqg.wl-maz@kernel.org>
- <wsnf276xrun3g4hjr3t6alprapctg5z4kpj422v3hujqdjnrsa@swq4blkqvvj5>
- <46342b48-550e-42c1-9d9f-e800c72269c2@linux.alibaba.com>
- <874ig55u5h.wl-maz@kernel.org>
-From: Shuai Xue <xueshuai@linux.alibaba.com>
-In-Reply-To: <874ig55u5h.wl-maz@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+cvm_oct_tx_shutdown() kills the tx cleanup tasklet while
+the net devices are still registered. This could lead
+to use-after-free when a tasklet is scheduled after the
+tasklet_kill() is called which might run after the net
+devices are freed.
+Fix it by unregistering the net devices before the tasklet
+is killed.
 
+Fixes: 4898c560103f ("Staging: Octeon:  Free transmit SKBs in a timely manner")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/message/20260615172734.42038-1-ayushmukkanwar%40gmail.com
+Signed-off-by: Ayush Mukkanwar <ayushmukkanwar@gmail.com>
+---
+Note: This patch has only been compile tested. No runtime testing was
+performed as I do not have access to Octeon hardware.
 
-On 9/4/26 3:54 PM, Marc Zyngier wrote:
-> On Fri, 04 Sep 2026 08:01:24 +0100,
-> Shuai Xue <xueshuai@linux.alibaba.com> wrote:
->>
->>
->>
->> On 9/3/26 9:28 PM, Wei-Lin Chang wrote:
->>> On Thu, Sep 03, 2026 at 08:43:35AM +0100, Marc Zyngier wrote:
->>>> On Wed, 02 Sep 2026 17:35:00 +0100,
->>>> Wang Han <wanghan@linux.alibaba.com> wrote:
->>>>>
->>>>> Hi Wei-Lin,
->>>>>
->>>>> I tested this series on a Yitian 710 system with an ARM Neoverse-N2 CPU
->>>>> (128 CPUs, 2 NUMA nodes).
->>>>>
->>>>> Test environment
->>>>> ----------------
->>>>>
->>>>>     L0 kernel: Linux v7.2-rc6
->>>>>     L1 guest: Ubuntu 26.04 LTS, kernel 7.0.0-27-generic (aarch64)
->>>>>     QEMU: 10.2.3
->>>>>
->>>>> L0 NUMA balancing was enabled (`/proc/sys/kernel/numa_balancing=1`).
->>>>> The host was booted with `kvm_arm.mode=nested`.
->>>>>
->>>>> This series fixes a functional hang that is exposed when NUMA balancing is
->>>>> enabled.  The previous nested stage-2 unmap path is too slow for this
->>>>> workload, making the performance problem user-visible: NUMA balancing can
->>>>> leave the L1 guest unable to make progress and eventually hang during boot.
->>>>>
->>>>> The L1 was started with 8 vCPUs and 32 GiB of RAM using:
->>>>>
->>>>>     qemu-system-aarch64 -smp 8 -m 32G \
->>>>>       -machine virt,accel=kvm,gic-version=3,virtualization=on \
->>>>>       -cpu host -nographic -enable-kvm \
->>>>>       -drive if=pflash,format=raw,readonly=on,file=pflash0_bak.img \
->>>>>       -drive if=pflash,format=raw,file=pflash1_bak.img \
->>>>>       -drive file=./ubuntu-vm.qcow2,format=qcow2,if=virtio,cache=none,aio=native \
->>>>>       -nic user,model=virtio-net-pci,hostfwd=tcp::11234-:22 \
->>>>>       -serial mon:stdio
->>>>>
->>>>
->>>> Puzzling. If you are only running an L1 in VHE mode, there is no
->>>> shadow S2, and therefore nothing to unmap. For shadow S2s to be built
->>>> and affect the MMU notifiers, you need to run an L2.
->>>
->>> I was thinking the same at first, but realized even with L1 in VHE mode
->>> there is a small period of time where L1 runs in its EL1 during boot, so
->>> one nested MMU will become valid for each vCPU. That causes
->>> kvm_nested_s2_unmap() to iterate through the entire IPA space 8 times
->>> (-smp 8).
->>>
->>> What I am curious about is whether one single notifier unmap is enough
->>> to hang L1, or were there multiple notifier unmaps.
->>>
->>> QEMU with -machine virt uses 40 IPA bits only, unmapping that takes:
->>> 1024  (4KB pages,  unmapping 1GB per iteration)
->>> 32768 (16KB pages, unmapping 32MB per iteration)
->>> 2048  (64KB pages, unmapping 512MB per iteration)
->>> iterations for each page size. There aren't many mappings in each
->>> iteration too. Does this really take that long on real hardware (even if
->>> this must be done 8 times)?
->>>
->>> Thanks,
->>> Wei-Lin Chang
->>>
->>>>
->>>> So what are your actual test conditions?
->>>>
->>>> 	M.
->>>>
->>
->> Hi, Wei-Lin and Marc,
->>
->> I was able to reproduce this issue and capture ftrace evidence that confirms
->> the root cause. Below is the analysis, trace log, and timing data.
-> 
-> [...]
-> 
->> Each set_migration_pte line is a single-page NUMA migration. Yet each
->> migration triggers one full kvm_nested_s2_unmap() that takes 877 ms.
-> 
-> And why is it taking so long? It should be *empty* after the first
-> iteration.
+ drivers/staging/octeon/ethernet.c | 21 +++++++++++++++++++--
+ 1 file changed, 19 insertions(+), 2 deletions(-)
 
-Good question.
-
-After dive into the details trace, let to try to answer the question.
-
-Yes, it is empty -- and that is exactly the point: the 877ms is paid *for*
-an empty table.
-
-The cost is not in the walk and not in clearing PTEs;
-**it is 262,144 broadcast TLB invalidations**, one at the end of every
-1GB chunk, each ~3.3us. Since v6.6 the cost of an unmap is
-proportional to the size of the IPA range, not to the number of
-mappings; an empty table pays in full.
-
-> 
-> [...]
-> 
->> ## Conclusion
->>
->> The root cause is confirmed: kvm_nested_s2_unmap() performs a full IPA space
->> unmap in the MMU notifier path instead of unmapping only the affected
->> GPA/CPAI range. The interval-tree-based precise range unmap approach is the
->> right fix.
-> 
-> No. This just indicates that this is papering over a bigger problem,
-> and your AI is jumping to conclusions.
-
-Sorry for the jumping up.
-
-The culprit is 7657ea920c54 ("KVM: arm64: Use TLBI range-based
-instructions for unmap", v6.6). kvm_pgtable_stage2_unmap() ends
-*every* call with an unconditional kvm_tlb_flush_vmid_range(), whether
-or not the walk cleared a single PTE:
-
-         ret = kvm_pgtable_walk(pgt, addr, size, &walker);
-         if (stage2_unmap_defer_tlb_flush(pgt))
-                 /* Perform the deferred TLB invalidations */
-                 kvm_tlb_flush_vmid_range(pgt->mmu, addr, size);
-
-stage2_apply_range() calls it once per 1GB chunk, and the nested MMU
-covers the guest PARange -- 48 bits here, so 262,144 calls per
-kvm_nested_s2_unmap(). Each broadcast is one IPAS2E1IS (range) plus one VMALLE1IS
-plus two DSB(ish), ~3.2-3.4us without ftrace:
-
-         877ms / 262,144 chunks = 3.35us per chunk
-
-which is exactly the per-broadcast cost.
-
-All numbers below are from
-ftrace function_graph on the same workload as Wang Han reported
-(Yitian 710, 128 CPUs, Neoverse-N2, L0 v7.2-rc6 with
-kvm_arm.mode=nested, QEMU virt machine, 8 vCPUs / 32G, 4K host
-pages), and can be checked against the trace (pre-change kernel, ~90s
-window):
-
-   $ grep -c 'kvm_nested_s2_unmap() {' trace.txt
-   31                                        # callbacks in the window
-   $ grep -c 'kvm_pgtable_stage2_unmap() {' trace.txt
-   8476033                                   # one call per 1GB chunk
-   $ grep -c '__kvm_tlb_flush_vmid_range();' trace.txt
-   8476033                                   # one broadcast per chunk
-
-The chunk count and the broadcast count are *equal*: every chunk call
-ends in a broadcast, mapped or not. Per chunk, instrumented:
-
-   kvm_pgtable_stage2_unmap()          median 5.097us
-     kvm_tlb_flush_vmid_range()        median 4.645us
-       __kvm_tlb_flush_vmid_range()    p50 4.0us / p90 5.0 / p99 6.25us
-
-so ~4.6us of every ~5.1us chunk is the flush; the walk of the empty
-chunk is ~0.4us. A representative uncontended episode, from the numad
-thread that executes the unmap itself: 1312ms total, of which 1147ms
-(87%) inside kvm_tlb_flush_vmid_range() and 106ms (8%) walking. And
-only 289 of the 8,476,033 chunk calls (0.003%) exceed 20us -- there is
-nothing in this table.
-
-Raw sample, pre-change kernel (every chunk is a frame, because it
-contains the traced flush):
-
-   13)   numad-1888   |               |        kvm_pgtable_stage2_unmap() {
-   13)   numad-1888   |               |          kvm_tlb_flush_vmid_range() {
-   13)   numad-1888   |   3.240 us    |            __kvm_tlb_flush_vmid_range();
-   13)   numad-1888   |   3.660 us    |          }
-   13)   numad-1888   |   4.060 us    |        }
-
-
-To confirm that the table is empty, we made the flush conditional on
-the walk having actually cleared a valid leaf PTE (candidate fix
-below; nothing else changes). The flush count then becomes a direct
-detector of "did this chunk clear anything?":
-
-- The first full-IPA unmap of the boot issued 2 flushes -- the
-   boot-time EL1-period mappings, the few dozen pages you predicted,
-   living in two 1GB chunks.
-- All 35 subsequent full-IPA unmaps in that run issued *zero*
-   flushes. So yes: empty after the first iteration, exactly as you
-   say. Before the change, each of those empty iterations still cost
-   877ms, because the broadcast does not depend on the walk having
-   cleared anything.
-- The same empty walk now measures 0.208us per chunk (median), i.e.
-   ~55ms of traced chunk time for a full 48-bit sweep:
-
-   24) qemu-sy-25907  |               |    kvm_nested_s2_unmap() {
-   24) qemu-sy-25907  |               |      kvm_stage2_unmap_range() {
-   24) qemu-sy-25907  |   2.740 us    |        kvm_pgtable_stage2_unmap();
-   24) qemu-sy-25907  |   0.300 us    |        kvm_pgtable_stage2_unmap();
-   24) qemu-sy-25907  |   0.260 us    |        kvm_pgtable_stage2_unmap();
-   24) qemu-sy-25907  |   0.240 us    |        kvm_pgtable_stage2_unmap();
-
-   while a canonical-S2 chunk that really does clear the migrated page
-   still flushes:
-
-   13) qemu-sy-25900  |               |  kvm_stage2_unmap_range() {
-   13) qemu-sy-25900  |               |    kvm_pgtable_stage2_unmap() {
-   13) qemu-sy-25900  |               |      kvm_tlb_flush_vmid_range() {
-   13) qemu-sy-25900  |   4.180 us    |        __kvm_tlb_flush_vmid_range();
-   13) qemu-sy-25900  |   4.780 us    |      }
-
-
-
-The candidate fix is below. Table entries
-(KVM_PGTABLE_WALK_TABLE_POST) are unaffected: stage2_unmap_put_pte()
-keeps issuing the immediate __kvm_tlb_flush_vmid_ipa() for them, and
-their child leaves are counted as leaves within the same walk, so any
-call that clears something still flushes a superset of what it
-cleared. This restores the pre-v6.6 semantics -- cost proportional to
-what is mapped. With it, an empty nested unmap costs ~110ms
-instrumented (the pure walk); getting to "exactly zero" would
-additionally require kvm_nested_s2_unmap() to skip nested MMUs that
-are valid but empty.
-
-Not proposing to apply anything as-is -- this is the measurement that
-answers "why is it taking so long", plus the minimal change that
-confirms it.
-
-Happy to share the full traces if that is useful.
-
-Thanks,
-Shuai
-
-
----8<---
-Subject: [PATCH] KVM: arm64: Skip deferred TLB invalidation for empty unmaps
-
-kvm_pgtable_stage2_unmap() issues kvm_tlb_flush_vmid_range()
-unconditionally at the end of every call, whether or not the walk
-cleared any PTE. As stage2_apply_range() calls it once per 1GB chunk,
-unmapping a sparse (or empty) range costs one broadcast per chunk:
-for a 48-bit IPA space that is 262,144 broadcasts, ~0.9s on a
-Neoverse-N2, paid by every mmu-notifier callback. This is the
-dominant cost of kvm_nested_s2_unmap() in the NUMA-balancing
-workload, where the nested shadow S2 is all but empty.
-
-Only perform the deferred invalidation when the walk actually
-cleared a valid leaf PTE, restoring the pre-v6.6 semantics of the
-cost being proportional to what is mapped. Table entries keep the
-immediate __kvm_tlb_flush_vmid_ipa() issued from
-stage2_unmap_put_pte(), and their child leaves are counted within
-the same walk, so any call that clears anything still flushes a
-superset of the range it cleared.
-
-Signed-off-by: Shuai Xue <xueshuai@linux.alibaba.com>
-
---- a/arch/arm64/kvm/hyp/pgtable.c
-+++ b/arch/arm64/kvm/hyp/pgtable.c
-@@ -891,11 +891,17 @@ static bool stage2_unmap_defer_tlb_flush(struct kvm_pgtable *pgt)
-  	return system_supports_tlb_range() && cpus_have_final_cap(ARM64_HAS_STAGE2_FWB);
-  }
-
-+struct stage2_unmap_data {
-+	struct kvm_pgtable	*pgt;
-+	u64			unmapped_leaves;
-+};
+diff --git a/drivers/staging/octeon/ethernet.c b/drivers/staging/octeon/ethernet.c
+index 42ec4b8324a8..98d4e025c301 100644
+--- a/drivers/staging/octeon/ethernet.c
++++ b/drivers/staging/octeon/ethernet.c
+@@ -113,7 +113,6 @@ static void cvm_oct_remove_device(int port)
+ 		cancel_delayed_work_sync(&priv->port_periodic_work);
+ 
+ 		cvm_oct_tx_shutdown_dev(dev);
+-		unregister_netdev(dev);
+ 		free_netdev(dev);
+ 		cvm_oct_device[port] = NULL;
+ 	}
+@@ -694,6 +693,7 @@ static int cvm_oct_probe(struct platform_device *pdev)
+ 	struct device_node *pip;
+ 	int mtu_overhead = ETH_HLEN + ETH_FCS_LEN;
+ 	struct octeon_ethernet_platform *plat;
++	int port;
+ 
+ 	plat = devm_kzalloc(&pdev->dev, sizeof(*plat), GFP_KERNEL);
+ 	if (!plat)
+@@ -729,7 +729,6 @@ static int cvm_oct_probe(struct platform_device *pdev)
+ 	num_interfaces = cvmx_helper_get_number_of_interfaces();
+ 	for (interface = 0; interface < num_interfaces; interface++) {
+ 		int num_ports = cvmx_helper_ports_on_interface(interface);
+-		int port;
+ 
+ 		for (port = cvmx_helper_get_ipd_port(interface, 0);
+ 		     port < cvmx_helper_get_ipd_port(interface, num_ports);
+@@ -953,8 +952,21 @@ static int cvm_oct_probe(struct platform_device *pdev)
+ 	return 0;
+ 
+ err_rx:
++	/* Unregister ethernet devices */
++	for (port = 0; port < TOTAL_NUMBER_OF_PORTS; port++)
++		if (cvm_oct_device[port])
++			unregister_netdev(cvm_oct_device[port]);
 +
-  static void stage2_unmap_put_pte(const struct kvm_pgtable_visit_ctx *ctx,
-  				struct kvm_s2_mmu *mmu,
-  				struct kvm_pgtable_mm_ops *mm_ops)
-  {
--	struct kvm_pgtable *pgt = ctx->arg;
-+	struct stage2_unmap_data *data = ctx->arg;
-+	struct kvm_pgtable *pgt = data->pgt;
-
-  	/*
-  	 * Clear the existing PTE, and perform break-before-make if it was
-@@ -1155,7 +1161,8 @@ int kvm_pgtable_stage2_annotate(struct kvm_pgtable *pgt, u64 addr, u64 size,
-  static int stage2_unmap_walker(const struct kvm_pgtable_visit_ctx *ctx,
-  			       enum kvm_pgtable_walk_flags visit)
-  {
--	struct kvm_pgtable *pgt = ctx->arg;
-+	struct stage2_unmap_data *data = ctx->arg;
-+	struct kvm_pgtable *pgt = data->pgt;
-  	struct kvm_s2_mmu *mmu = pgt->mmu;
-  	struct kvm_pgtable_mm_ops *mm_ops = ctx->mm_ops;
-  	kvm_pte_t *childp = NULL;
-@@ -1183,6 +1190,9 @@ static int stage2_unmap_walker(const struct kvm_pgtable_visit_ctx *ctx,
-  	 * block entry and rely on the remaining portions being faulted
-  	 * back lazily.
-  	 */
-+	if (kvm_pte_valid(ctx->old) && !kvm_pte_table(ctx->old, ctx->level))
-+		data->unmapped_leaves++;
+ 	cvm_oct_tx_shutdown();
++	goto disable_ipd;
 +
-  	stage2_unmap_put_pte(ctx, mmu, mm_ops);
+ err_tx:
++	/* Unregister ethernet devices */
++	for (port = 0; port < TOTAL_NUMBER_OF_PORTS; port++)
++		if (cvm_oct_device[port])
++			unregister_netdev(cvm_oct_device[port]);
++
++disable_ipd:
+ 	cvmx_ipd_disable();
+ 
+ 	atomic_inc_return(&cvm_oct_poll_queue_stopping);
+@@ -984,6 +996,11 @@ static void cvm_oct_remove(struct platform_device *pdev)
+ 	struct octeon_ethernet_platform *plat = platform_get_drvdata(pdev);
+ 	int port;
+ 
++	/* Unregister ethernet devices */
++	for (port = 0; port < TOTAL_NUMBER_OF_PORTS; port++)
++		if (cvm_oct_device[port])
++			unregister_netdev(cvm_oct_device[port]);
++
+ 	cvmx_ipd_disable();
+ 
+ 	atomic_inc_return(&cvm_oct_poll_queue_stopping);
+-- 
+2.54.0
 
-  	if (need_flush && mm_ops->dcache_clean_inval_poc)
-@@ -1198,14 +1208,18 @@ static int stage2_unmap_walker(const struct kvm_pgtable_visit_ctx *ctx,
-  int kvm_pgtable_stage2_unmap(struct kvm_pgtable *pgt, u64 addr, u64 size)
-  {
-  	int ret;
-+	struct stage2_unmap_data data = {
-+		.pgt			= pgt,
-+		.unmapped_leaves	= 0,
-+	};
-  	struct kvm_pgtable_walker walker = {
-  		.cb	= stage2_unmap_walker,
--		.arg	= pgt,
-+		.arg	= &data,
-  		.flags	= KVM_PGTABLE_WALK_LEAF | KVM_PGTABLE_WALK_TABLE_POST,
-  	};
-
-  	ret = kvm_pgtable_walk(pgt, addr, size, &walker);
--	if (stage2_unmap_defer_tlb_flush(pgt))
-+	if (stage2_unmap_defer_tlb_flush(pgt) && data.unmapped_leaves)
-  		/* Perform the deferred TLB invalidations */
-  		kvm_tlb_flush_vmid_range(pgt->mmu, addr, size);
