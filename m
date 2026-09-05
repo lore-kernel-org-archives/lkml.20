@@ -1,165 +1,115 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39C0F2D6E58;
-	Sat,  5 Sep 2026 01:35:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.22
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6DAE1332EC1
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 01:35:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788572145; cv=none; b=SDZIV2l3dVXxvmRlRGja6dTy1mHU3jRu7wCoOMZb568gC9Rdmu/vsykSeLoljOY7bXzS8LAkFsFtP1ptGWugpbYkZZwLv+TWwsAZTZOSYr0/o4XHeaODmOTq33u3SMTbRoU5FBQEugoKBjd6Q2wlrOpTZMv+k0XuOJTSXpuCeyI=
+	t=1788572155; cv=none; b=d9L0YuAC2a3fyOuoSjQJSs84iyrytpz7CknV4tqeHlixobHFgrYd7kZoOGpCb4JT3+5t4OKrLHlPn9FaGc9GjTfYkzIO7inKgv4aB4kWj7Z5ZkhqMqm/MPswxyXUwkkTUvagaURHM70z2TemCcOuuSmdkEUKDaN8MIAsIUc7nxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788572145; c=relaxed/simple;
-	bh=LUI+joIDxqVGyGedekzWR90BamOPuc6U/giAUO6Og2k=;
-	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=LsAtHiduXHrtH/tQEd9WWZT2RU4Di36tBgO+MKV8ir4cPolsc+la1z7fJS/ls+3PYbQukv7lAOLZIhur8G/2VFj/7eLRbkqYPYUD4nQ5TpwLgMu/n9HSB7jlBPbIFqrZyhKHcEDWNCUShZLIEyCVGdpG5AwNE7VwUYg2IdhUxOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=mirko.jechow@gmx.de header.b=ZuzeTShV; arc=none smtp.client-ip=212.227.17.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=mirko.jechow@gmx.de header.b="ZuzeTShV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1788572133; x=1789176933; i=mirko.jechow@gmx.de;
-	bh=LUI+joIDxqVGyGedekzWR90BamOPuc6U/giAUO6Og2k=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:From:
-	 Subject:Content-Type:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=ZuzeTShVei5a326jEMDs9HangkotmKbwKYr7zOPWYz7j7fZK82gIFduvs/TCmg3V
-	 P8QsxiawzkCd4lYA+P0rs+nVaLwfNNDt7nkUkzuNv9zTpjuNs+2d8BO8mxSE/H5Wi
-	 64MsIwN50laIUkkXFuEh5FLGEOfhaFo0OiT/Gf/lkwOO9GsihEgWry5Qn+N0Sph8f
-	 H6sG7uI9rqbmnZGBPVm9QTCMxgnLpqh0/RwnJUOWAeaT8v293y1TLrC8Xq1IXBNV0
-	 y9WCzNuKGj6PLYOQWyXB5VVPNbZ9RREZQHgbTn8ghiIwbAczqAv3gsaGefCdcYIpB
-	 7wxX/rEHnAWS4NBnMA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MvbG2-1wlgtX2ANS-013lP5; Sat, 05
- Sep 2026 03:35:33 +0200
-Message-ID: <6e81b0fa-de68-4a83-a152-fe26ea7cc359@gmx.de>
-Date: Sat, 5 Sep 2026 03:35:32 +0200
+	s=arc-20240116; t=1788572155; c=relaxed/simple;
+	bh=5tGNH0rpiDD3cULyX433fjsphOZuJ45mGAdzi4uXhuo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=orTufMXdJ13viBLy9wcoUkhMr1/Ai5mL7Pw36xrc5Uyh5GN5A1JPo48DkJIb0LMnoERjaQ11w06s8drpqoO6trzuEfYlg00q+qOkH3gQ/vW7LLmZMQr+528neWfU0DRTECJAexjsqlzGAnBNycanPcIiyTjIJmrN3r4WrzyaeVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wCXn3_scZtq3qnwAA--.9100S3;
+	Sat, 05 Sep 2026 09:35:41 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app3 (Coremail) with SMTP id zS_KCgB3j3HscZtqBf3wBA--.6942S2;
+	Sat, 05 Sep 2026 09:35:40 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: Jaegeuk Kim <jaegeuk@kernel.org>
+Cc: linux-f2fs-dev@lists.sourceforge.net,
+	Chao Yu <chao@kernel.org>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Cen Zhang <zzzccc427@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH 0/2] f2fs: fix use-after-free of sbi in the compressed read path
+Date: Sat,  5 Sep 2026 01:34:36 +0000
+Message-Id: <20260905013438.419932-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US, de-DE
-To: linux@stevetech.au
-Cc: mathias.nyman@intel.com, gregkh@linuxfoundation.org,
- Shyam-sundar.S-k@amd.com, hurryman2212@gmail.com, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org
-From: Mirko Jechow <mirko.jechow@gmx.de>
-Subject: Re: [PATCH v2] usb: xhci-pci: Add AMD 600 series to xhci-pci-prom21
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-X-Provags-ID: V03:K1:Jdp6Ic9BbppFLAIlA++PSsJ/6/AXJv+p6eNRCKMxv7CYIv75/O9
- XwW1XhpuXatuFo4X15maNO4CRxAUNHAwzx1f+SrkFwV6plEw0kGl9DfbFDGe/pwF5Eyx06G
- ruLdof0ISy6B3IpfcQzJAITIB5RqrD1x2dzKwWTt7AuzETHp5j1dXQldydOyC8He7sXRc5j
- VNCWiIpyS7d2wdcxHTMEA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:v54obBWbH8k=;IVN2fHzaF/oMBXIasoWLVMuB2HF
- CtxwZJi9DQj5h+omvibiop0Wyx6hxxQGiKfUBfz0H47paMJ0tVp8cngI2Q88GQ7e1vecfYhVf
- CG6RPQz8gILPVkVGxwTuBWEM0xSnIbn87ZrSVwAvYrqRLzvp8/3krJVLZu5iYB+Z/Zazjrj9O
- tdKaCbqcxKqfwZommJQGkUUVuauq0sYZ17J1jYRb9pMjaVQWXkNLWvaXSz6HCgMdtvLN9jnNT
- vdYxavlCj7F8pXGA/Bkj8J/+HBuCpsF8m76puCOWm9GLgxYyfAmzQsEg1QEMz4M3Jrnvbl4vK
- rH6+g8cJQQ4kMCiQGdtIx92HQs/6MC79AM9s1AhzerFkY+QAlCZGY4r2mYmYMzMuYSDYN3OuX
- 9fUpcOLFZDO3Q7HmiLXMqoaKO7+u5h5VVdiHhb+gGFOWU83H4P1keQ4zaNzVtGXqL/+8FvzAD
- K0EjLR9VbIWN6s7Uz7/ZsoIu1TIeZcmGouotn7zv3GOPcnLkk/VBGDinn9go43J+YLPdHvUpQ
- FE0kYfB1n8D+7KQe9DMukpEET+uGAv+NdItV0tBcyAlopwnTF2pTahk72gv1DVRlPpgycfFT+
- OpJsjLCf73ROml1wPo8aWqY4zrFk74KvtSf/tI+3divIxsbcpIW7MHy1yeADB3j1IMiifIDMj
- xOzxIn1q6Nq3V3dzsWnlMPVS2qYFg/jBPhOQJ9f7Yy5l+PPVdFEglmEqhJUoqSpUkH1gMxvYp
- lLpShn8S+o3MekOiHQmxg1sU/11w+D9zI4KzMIeaXLgCOPlcfzMBKI+kB/hNLpEli9XKbwLIK
- 4rrOAI0P4XwNonjcXbrMJMaPivUxz12tWk2HvzrpuBjY0q0xQ5EzsbC63gqVZUYT6vb9aLNLX
- sNyeCBqLYg/MD3gyokxtxq3cQ698ADwAqcgOtoODyqLOV0xCfKY8YZeR+jwm4rdnB6dg6QGAk
- szFI8V4dHdvys9bh1fkj7mFWJn9z3u+o9P6spIAbtVD9JXWWGmujFLYxl5bC5AyTC/h5kvrKt
- 3mMcPIV3yNc9+mKA4FDumoVEhDphWXIDu3vjN+a7/T7WsV58lux6VYjM+GulrfieBq3F+eVAC
- UNSDaVIqYGA9tl6fSyfLcqHYTYGuvAgdftP4DyqQUsvN12OWNFCU0x+l+/I/TSnXsM34q5xhQ
- wUH+rJUsU1k9p0Is30MO4TQwEVF1CuoWXp6hQGpOYTuelJvDFimgcnqjTeySvy+SHz2dBAAu4
- Lc8W5cAhn1gz7OcKL3muqrw2E21mjBRrLnUYXqSJZkNtisjLE6E6YjP7xp8HkJFdBtp9VmjqR
- JRtg6vNELg72d2CqN0LhQdXHwZJ4P0fjiclllDrmiT+it4K7j9aJu0POItxd4McC9VeqnLeMe
- xCBS/zcZC9QZuVY++iJG9SjbcKq0r1TaEVboHuv7gdKX25G2Sbpp+K/E991XbCb1Km8qU+jBn
- wo7bV9K6GF8IT21HMuBXDV88PLmgXjZj1vLYZUA1HEEbF+/LsHbHAjVvEzsfDEI7wjccXZt7A
- 94zto8iN+147Zyvwd5Ay0BoLN8zt/AEKd6nZ/9n4lQ7fcOwWtTlFVjQTCAaXP02cNLsa396no
- DuVFqxsr1be2LmkCbdRUdVEjKhfzWLqYoTXQbXulJ7c24RJJf0YLy/ys88swGC8ujSUXSwySr
- /wJZlGprc1C+maDOOOVN2ICzPHO7eznM/TUxdd6ZQ+Vv1gFuTMeTIpS9ymLSgkolLwNKH8Xv6
- KTH9rlNput1Q87IfiF4XI6f6gcHI/sq/tgxXGhDmyKNSuCW0oxEx5arpBGDsSg9tWjE6vP6u/
- RKHKvmRh2sxp01T/EaKRXrBoBoQqP9LQPINnqwvhPnt0ZTBocGzNRellDv2Y05jUGWYzQCs97
- ikJhCn5wjy4BhdDt13WadMo9sVQ9Was+YRyEz2FsvWNruTqrg5I//hPbPEjF0lwLL9FXZCmIZ
- psUFDPXvLhvdTx3lTL4yFOhjLP2D76/o3Crj9jgtNw+yMyRJqffwdbLkJKdrZNYmRLyYqk6Q3
- TDWqBgc/x1Jel7niN6IHOx4ViW+YkVMTtklXwxv2uApk2nwCD+QAorfx1UzF470UyXAIBbiDD
- QPMWAPS0yw9nSDgouFPgw9jAxnXWx6zPp/+QJwFKUUwC0h/oXRlDS9vKvccixoZ46Nid5i40T
- Uq045YtCcV0K8NM2Ua+KiWUKMkz4EicnKvpt+rCoU9N9RspwTTzc51fue5nCAI7AZkfviebyJ
- Vy3IixCs3GXmvfFdSFK7puJ8twZxOrFT2vX9jh/IkcrL8zcb9sMd4AYWy88FDhGyECvKuPPb1
- nuEYPUTpMq1rlm7LE5j08whCil1KXzWxPEzR8D6wdMDCKyXfpPanyQJpJzqtdiDm4krVH/VFv
- /mUGqZ1GjEFKZUwYr6X6zOb2vYzbrUyAM+myK8DEVzI4LSCQagl7tm+bAkVrzj5QjAUO4u5Tc
- AjKThYD88hjE14pgJw6ZhfyNyP1p+29tNAIia0OeaG0OJw7vskXW0fQDCMfybckmxniyB8Fbs
- 12lzSejNKjkFCDTXHNHEuyj9I73I4GqseQ8AhB/sOlGCnDekTfJV4rlGNQvwuuZXKRs2ZSjQd
- zDW96zq1raJaP3vZS8Djp4++MQQ1x9/a/m/khuVhBtJf9+NcVMumMHfDzejmSzQcJREaumfzA
- DrRHRQ5ehw+9WjW3AEHd8vjOvwIqhtRhrh05FRcqjWE5otDIVsI3XBhdkePde8Jp6dE2uQmcR
- dHA0Jxak972ctVYZfJxVvHeyarglFpfh4iq9zFwjKbbtFL9JodbUjrQQHIegiIa2U2hxRzb98
- II07KWN6CesPgAVoeXLf0x3m1IC0ynozrh5nNA30gPmrl85Ac0F/U+mYkJ2DOoaCu/wSAETjc
- btuWCyrjx+x9jItHKYBFifw+mS4PEjkw4qSVf2Y/8FX3D5HS/jYBSljPoAQjYLHvPoggCqAs7
- X0pngeeu41EqDU6+LWK/2eeSh5k6670E5uQLDTc710jtMQqWScwhEZwZ+CzjbtMwQ/awgOMHO
- VWF30+MrePL3LiPVs7JRH1LDjaje+fRPHcaRY/XpcaZQ8Gh2IHV0Qlq70JMPWnlqkQljEcuam
- 0cvOtBdcXcOzrDtcQez3K7yAH6IJ8Kp60oCHheNvE6XUa9FBWMxfi2V5E65irb09oR5vTxrtP
- YgmqTojja9q5pXKI0cCFO1Gwq4Q18W25gY5b5CldJ/1Xs7ml3L1rHKuwp9joVQ6Xt8sP19yDa
- 45WQkpNCoRs+FD7ocQk1UIP9ruBTSF+JxUKQNmoTgIt+Q+NlzGwNpHk/HW/R6eWVspTNub1lA
- oFxsRP04QLvt5Q8WQL97v0HtYANB06xSxeAs7fkjWzz0bESOVhw0I6SSonxsslI9/nITWCsjf
- 3sz2Fh66F4VxBGETCsVNHbUGki76wNaLT+LGgwEODARfJvE69RRJJWRuYwLmuME54AxAlG+Ks
- 3rs6FD2RCI142iF/5GNJMNnOPHP32gsO+zDGAHETd80paZAhF0u3iVbmzivJHA33spksLsJEC
- Z2oQp7Io4PPKFkxo7EFLxZw+f8eElEoYSAVlz9zR2lOW+m0NkDKZs52EWXJt8Sq4fWPMaGRdk
- MqM7CRUwh56NDuDfr7d5bLZqjM+5p3bA35NTroioEGNBLWioA0Ng2MJnSjuRxRfiHsUAcpo1U
- lZTjB/6BnzPAXtstgQApEf9gZkWTyYRDGmUz7YUnfEJBU3ebyr9ZJgIewgm7ir6xQtWW3nW6T
- HFOOgIbAcORLIpQM2c7D47gtjlsNn7o6j+FGSScvPMMwwfhihP2QMdZEbOALFpxXKBF74y8Hv
- W2LztiBpJTghNkoAIspE7kdatZATeTbZD7Orp2q8S8uvLjfBXDnM+HOt4n5HauCOiGlmz2FT8
- S/ZD5N/eFRWgboRvqU+nZ7/Pi8MkCdkOcdgF6dO0/BajEhx1+tMJK6azwfOwzHGmtD5z82iJg
- p9XlKSvJUCTidrqFCvm0+6P0re9CJRXEq1LDddiywKB4n2frCvxTWcmkfCs9bobBU1ozo2fCo
- MmSoaSsewr5/S+H1Wg9bESiF9aIUf6yUbel5Nlj0yk1fjslCG8YIQa3jt/loFPzNZxAYZQGUi
- NQYFFuSBnWq4wZ1Kqr6iZ+q4sASpIET91wWjB2LcWIz5a5JyVX8yV9o+ybnX+YwcAJygp8AvJ
- oyDk11LheIgi5GJzLVSEheUIbRe4HwKRjdm/lZ7BrOhsfPv9D7wwZN8NL22R+y01i5cidr/5w
- AmICNWDU5KosJPkQ18RZVpQpbBP3im++p3mLfYkCcKfV2XnhlxKhQCjAXDuj+3+QfxlXPSnu6
- kI4SYcuR6UFXqtsKGTzBMKv+SO1N0kuKFZIKKlfNCwVS+aM9/MhGIe6z4w2opa8t0j4hfDXQK
- 9bqQICTW7qvB4BdYhP3MwMkvoqfmLonL1tKM3VfNig6jvEjkN/qh48FiNqzp72LgRXBnIUYUX
- Samsc0wX00sJNsw6NHanc+pfgRBnmEk8cjCamGQ56BgEsVX0KiMmw0pXZEZ6oEr46klC+UwzX
- PMckNWJO6NbZ0/rdBuIoGAHaswkHPe0qq/4woK6Ifn4dzjBqtI/+4MPtM+DWQZjESeX2ZVppw
- NhBO7LeFlTcS/3zb1Bt2cc6CK39kkq6HaYdXWa2aza956yaCIn5+5uZlsstqd/VcbnT55Oe4p
- lWXd6CiRSV2ULfv4j4iIcGSqcUVMq38xhGE6MEJ73KmtZ1SceOr4eiUqtHinqhoEdM+TRyZuU
- Itq+xYBDuybd8ckGFs02XDajZ30WRXGcJYW+AzNW1xl2IHMgF3IjE+cazWF1VmY0Erkolt4WP
- N/MHf+uddYZAAH4VBc+xOeUwZH4hWYFm1gvbzjOMQX08mc4aLEBFWYSdwz+igGNLzF1a9PRKy
- 3YrrOTDLw1XgDHHVuYDGxeS6nEEE0yXGkxnyAcCWGE+bGj4WME1KETACmv+PfxLAYaqtVP5ul
- g4eUnkhXRWKFNIDzoFKoFjuFBurDHbx70WwRF5l2D46Ih0IDsx9cWaZQEinVfptUoJ7Jt+5kc
- f1SXp2r+jSms3GeXd1BuSLweA08t1mYkEz1IqrG9HZdMLNU55/PpHNvZvcohLlYwfXRB1mF0V
- koMzkV2MiM1ZIq+B9ys7lnJMrmb7w7o1gCd2eQGHBbq07J1lJkiHaJsfjixR5uiyYX64HW9zm
- RbYDEp+4MDbAwwai0BrNm3sMFPH3IqaHjeWU+O9E52MRQGRvq8VlcJLMTRTTiebKL5bSTruba
- mNvcc1ztrJStHJ29duHN8Dz9Ms7fPDGBijlN668iBvigshwBPd2PN5mF53X3c5DKqiKuqiEVi
- MOMZQgGwnF4YXEihtwg3shXvKCx+9EG1csuKMLY31vVefWKiXUgluJXwCEtN8LJkdPfqQTXTG
- ldDDhXJA+ZDfuJ9gZ6r2CQs5kAEbK4NLoUEYqE2rtKA9FtxAFbHTZb9sB1hv+9Ws0CKCCyRXr
- d/BhGmwCkRGEfP95cNsZlINeLB0bP/RdocwlMEl6Do09YUyWsCmx9KnGjWanNqcWi2ZRUtMZt
- tCpk1LgwirTijW1wu1S721Vg5O35et1wWnJc+gozrYfxznMQJbhAz+L2KUh7/IUSbwMSc+Db9
- ux3TbOHUXCpDMIdbNCbe3yKG0fydyXg74FFJRWpNVDjIuMAjvEmho3rIVyr2uLpP7swilkY2s
- r+QIS3a4sTgmVaUM5TM/q0Fk0zdIwJb7TABn8cG8PLhc6SxgO4J5513z9eOf52FWLw50lXevW
- WERUcv1HyjS8GPLxGdIzAc7aORK2GCthQWwYu2Cc5lA1Qhk5y2DeBF72ZEFymLznmbdYMvyUL
- UxdOvE+Z9RKrXX87XrTe7D93EZcK1R3wHYTVqVOZMr131l1ae6pH/rUgsCMWutEb1A9/rUfuN
- D265PFfcgUEwUu3EX7jgH8QOHg6c8OKK/k6SZN+BRgIyhGAyrdJHyX59h+ku7RS9lVXI77SKN
- AyhnLgCYCFu8tiO/sVZl2k7BsjN/2AGrxLysA6tiSB8EjlTFnveKVu7TZ6zdSmMIRENW0KG56
- ZWoYNsqYOfTBHRKhpGGCWtmsVa0qcUO2ImHYG77YoXjEST488GY+/uX16RTv9NdvKd+R7Jb0+
- 90fBjM+/tOIHKPhGFC87MNQCxb/Vt8LNmyFy6UMAVYc8ujNbKgzdqLQqdq3fI3xqzLnBieZPH
- 2TBoKz27CbfP2YQPgA6E3cA0f4FkR49LQnHlQXpQO7ook0mk63Cxi5CEYXLr6Lr5l4RsTa6Wc
- 0vrPx71JQunIR5c3WvE3S3wG4tfSgve+jhzOA+BToWpoKiefa7N4CUU/e7TcTxX2lAIJcPSuk
- XKKJlHKihI2UZ6xthqR4HpK4LBOFAVs4diQ==
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zS_KCgB3j3HscZtqBf3wBA--.6942S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?wXPGNgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnZPoDCNGYdHSfuFmYJL54WNSIh3+IPQ0/noQCGy6ZI2Ln4xL/QUJvLHPsjMUn3SmONec
+	kIdc81k0Mk4qmCLVK5M=
+X-Coremail-Antispam: 1Uk129KBj93XoW7CrWrtw1UCFyrtw47WF1fXwc_yoW5JryUpF
+	WY9as5Ar1kXrZ7trZxJ3W0gryS9rWrAa15Gr1agryfZ3WrJrnaqFyFgr1DZ3yUWryrA3sF
+	vw48W34kCr90yFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Cb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAF
+	wI0_Cr1j6rxdM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57
+	IF6xkI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE
+	14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2
+	IYc2Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I
+	3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxV
+	WUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAF
+	wI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcI
+	k0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j
+	6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jbo7NUUUUU=
 
-VGVzdGVkIG9uIGFuIE1TSSBNUEcgWDY3MEUgQ2FyYm9uIFdpRmkgKFJ5emVuIDkgNzk1MFgz
-RCkuIFRoZSBib2FyZCANCmV4cG9zZXMgdHdvIDYwMCBzZXJpZXMgY2hpcHNldCB4SENJIGZ1
-bmN0aW9ucywgMTAyMjo0M2Y3IGF0IDEzOjAwLjAgYW5kIA0KMTU6MDAuMCAtLSBYNjcwRSBp
-cyBidWlsdCBmcm9tIHR3byBQcm9tb250b3J5IDIxIGRpZXMuDQoNCldpdGhvdXQgdGhlIHBh
-dGNoIG5laXRoZXIgZnVuY3Rpb24gY3JlYXRlcyBhbiBhdXhpbGlhcnkgZGV2aWNlLCBzbyAN
-CnByb20yMS14aGNpIGhhcyBub3RoaW5nIHRvIGJpbmQgdG8gYW5kIHRoZSBzZW5zb3IgaXMg
-dW5hdmFpbGFibGUuIFdpdGggDQppdCBhcHBsaWVkIHRvIDcuMi4zLCBib3RoIGZ1bmN0aW9u
-cyBiaW5kIHhoY2ktcGNpLXByb20yMSwgYm90aCBhdXhpbGlhcnkgDQpkZXZpY2VzIGFwcGVh
-ciwgYW5kIGJvdGggZGllcyByZXBvcnQ6DQoNCiAgIHByb20yMV94aGNpLXBjaS0xMzAwICB0
-ZW1wMTogKzU3LjQgQw0KICAgcHJvbTIxX3hoY2ktcGNpLTE1MDAgIHRlbXAxOiArNjIuOCBD
-DQoNCmsxMHRlbXAgVGN0bCByZWFkICs1OC4wIEMgYXQgdGhlIHNhbWUgbW9tZW50LCBzbyB0
-aGUgY29udmVyc2lvbiBkZXJpdmVkIA0Kb24gODAwIHNlcmllcyBzaWxpY29uIGxvb2tzIHJp
-Z2h0IGhlcmUgdG9vLg0KDQpVU0IgaXMgdW5hZmZlY3RlZDogdGhlIGRldmljZXMgYmVoaW5k
-IGJvdGggY29udHJvbGxlcnMgZW51bWVyYXRlIA0Kbm9ybWFsbHkgYW5kIHRoZSBsb2cgc2hv
-d3Mgbm8gbmV3IHhIQ0kgZXJyb3JzIGFmdGVyIHRoZXkgbW92ZWQgdG8gdGhlIA0KZ2x1ZSBk
-cml2ZXIuDQoNClRlc3RlZC1ieTogTWlya28gSmVjaG93IDxtaXJrby5qZWNob3dAZ214LmRl
-Pg0K
+This series fixes two windows in which the completion of a compressed
+read drops the last reference of a decompress_io_ctx after the pages
+of the cluster were unlocked, so that f2fs_free_dic() dereferences sbi
+after a concurrent unmount may already have destroyed
+sbi->page_array_slab and freed sbi:
+
+ 1/2 reorders the direct completions (the fsverity worker tail and
+     the in-task decompression completion) so that their put of the
+     decompress_io_ctx happens before the last page unlock of the
+     cluster, closing the window when that put releases the final
+     reference.  It mirrors the ordering rule the write path already
+     has in f2fs_compress_write_end_io(), and needs no new state.
+
+ 2/2 makes f2fs_put_super() wait for in-flight decompress_io_ctx
+     before the post-read workqueue and the page-array slab are
+     destroyed.  It covers the remaining completion, where a mixed
+     bio of a verity file releases the compressed-page references on
+     the global fsverity workqueue, which unmount does not drain.
+     This is the design proposed in Cen Zhang's report of this bug.
+
+Both windows were reproduced with KASAN in QEMU on the f2fs dev tree
+baseline with a deterministic 10 s park inside the respective window
+(the instrumentation is disclosed in the note of patch 1/2; the
+use-after-free itself is the unmodified put_dic -> free_dic path):
+
+  readahead() on a compressed fsverity file, close(), umount():
+      28 reports, 0 with patch 1/2
+  readahead() spanning an incompressible and a compressible cluster
+  of a verity file, close(), umount():
+      14 reports with patch 1/2 alone, 0 with patch 2/2
+
+Cen Zhang reported this bug with a KASAN reproduction and proposed the
+counter design adopted in 2/2.
+
+Patch 1/2 is not a substitute for patch 2/2: the counter in 2/2 is
+the complete lifetime fix and closes every final-put completion
+measured here, including the worker tail that 1/2 reorders, while
+1/2 alone leaves the mixed-bio completion above still reporting.
+Apply the series together: with the reorder, the decompress_io_ctx is
+usually gone before the last page unlock, avoiding an unmount delay
+in the common case.
+
+Fan Wu (2):
+  f2fs: compress: fix use-after-free of sbi in read path
+  f2fs: compress: drain decompress contexts at unmount
+
+ fs/f2fs/compress.c | 38 +++++++++++++++++++++++++++++++++++---
+ fs/f2fs/f2fs.h     |  6 ++++++
+ fs/f2fs/super.c    |  3 +++
+ 3 files changed, 44 insertions(+), 3 deletions(-)
+
+-- 
+2.34.1
+
