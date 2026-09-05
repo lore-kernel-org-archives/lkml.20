@@ -1,92 +1,99 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-178.mta0.migadu.com [91.218.175.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2EB6367F41
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 16:26:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C2C737A485
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 16:28:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788625614; cv=none; b=jl6oeuJjLUSalBSEnAlsveOirP4ng5hoyTbTsJvehE1jzQAik0sI8p3/1+5t+XhLOEKc7E/Qo0bgj6quFGzFT+qCjSrpPrpZ3kAEEYh88aUApyQhz3UObs3fgYsWBBgClWrSvgPNKjZG5ZHGi8iDVE1GUVZPlTxzR934l18jjVg=
+	t=1788625738; cv=none; b=YEtzAYpLV/32qxRlqDZS4dFZfqDYnKXJDGuC83dXeCg+lnUoGOV0rn9W6QbvxZ0qwDBDc4GR6W0LBf1iSoY9EzkxhG13QtWCJMxl+VvU25TWmTjQFAsc3S7ULxha264LuisweqcoNezOJQK3fCL723UsB4bZ8SEWW+6zHuXCJHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788625614; c=relaxed/simple;
-	bh=3SS2H5X7fEPe/WUlOi2ijPcY3Sm5sDXvvcBImIaTxig=;
-	h=From:In-Reply-To:References:To:Cc:Subject:MIME-Version:
-	 Content-Type:Date:Message-ID; b=ZEFb4qYS+4R2biG/QQDhJJVqtVvS6OBbLPQ2sKQHm0jF5ua3lX4b3TIeZSBqmK8uqnMhh2/dJllNL8HDdEk5dCD9zl3jP48dD9EQDM+Cf9KlV3QEWOzJw00YBPPNCFN98VI+bzFtQvqLKh54rHVzZz6vk62LA8bPRX0Ha+eSl7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=eYO63SXb; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788625738; c=relaxed/simple;
+	bh=Sd+WtO5DRtPYTABH6V2gV0Ob5SWHGcjMM8zwwK0oVWY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=c+82Kpntc3z2fIwE/Z+DeqY9ZqwqcLHlH0zM/qHp0pBaTPvz3Izo4XVNxdeWRvhIaqdC56X4JGVJns5zEc09RaU4b1SBEMtnKxf0ut9+poOlvZDZoQSgB0jbQCqCTlWxdh8JERtuIdOj8q6q1jZ+Plhkp21gb5G77MIsGZvF3m4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ltwn0ZqS; arc=none smtp.client-ip=91.218.175.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="eYO63SXb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788625611;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jxdp3KRdBVi8QQnCMsuF6AtR6CEzxy4cd18pQFv2r+o=;
-	b=eYO63SXbG9SZpwMa7eQiBaKoAVW8Gxi87eMO/l1XXmDmk/wq8mY+bczdXiNg2YluFQiEwn
-	iHO1XIvmS5ZqOEXe/3mfPzufFzsTqPZQdrscD7rHZA70SRbWFJcfgBAETqLAS5/XAEpdqT
-	1dBFECerQ+Fdn6Y75zzl0PhCjoWc7XY=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-231-XC2ypVG4MOqDjyQSHPGeXg-1; Sat,
- 05 Sep 2026 12:26:48 -0400
-X-MC-Unique: XC2ypVG4MOqDjyQSHPGeXg-1
-X-Mimecast-MFC-AGG-ID: XC2ypVG4MOqDjyQSHPGeXg_1788625607
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D26C01801363;
-	Sat,  5 Sep 2026 16:26:45 +0000 (UTC)
-Received: from warthog.procyon.org.uk (unknown [10.44.32.158])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D41F55B1;
-	Sat,  5 Sep 2026 16:26:41 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <apsP3Hvlw-fpd6uF@kbusch-mbp>
-References: <apsP3Hvlw-fpd6uF@kbusch-mbp> <20260902112743.GA11999@lst.de> <1819786.1787768317@warthog.procyon.org.uk> <1895550.1787777192@warthog.procyon.org.uk> <350212.1788514937@warthog.procyon.org.uk>
-To: Keith Busch <kbusch@kernel.org>
-Cc: dhowells@redhat.com, Christoph Hellwig <hch@lst.de>,
-    Jens Axboe <axboe@kernel.dk>, Hannes Reinecke <hare@kernel.org>,
-    Alexander Viro <viro@zeniv.linux.org.uk>,
-    Paulo Alcantara <pc@manguebit.org>, netfs@lists.linux.dev,
-    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-    linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] block: Fix start and length check added to iov_iter_extract_bvecs()
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ltwn0ZqS"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Sd+WtO5DRtPYTABH6V2gV0Ob5SWHGcjMM8zwwK0oVWY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788625732; v=1; x=1789230532;
+ b=ltwn0ZqSyKoRR5xXKfHHetKn+HuOUpB7/GQ6bJ3jn+ULrBDg6H+3/YhSmIbHOrqLbjRFl+VP
+ peAAGzb4T8nPgLVAB1+XQeppyQY7qad8dDQnYNrKdxkrczP9EGVY1W4zQvnsSC/8QnK6UyYIkQH
+ szlq2TYnpR0647s+ar+46HXU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6a082eb6d975864f;
+	Sat, 05 Sep 2026 16:28:52 +0000
+X-Mizu-Trace-ID: 6a082eb6d975864f
+X-Migadu-Flow: FLOW_OUT
+Date: Sat, 5 Sep 2026 09:28:46 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Hui Zhu <hui.zhu@linux.dev>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, JP Kobryn <inwardvessel@gmail.com>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Martin KaFai Lau <martin.lau@linux.dev>, 
+	Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, 
+	Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
+	Shuah Khan <shuah@kernel.org>, Barry Song <baohua@kernel.org>, 
+	Geliang Tang <geliang@kernel.org>, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, Hui Zhu <zhuhui@kylinos.cn>
+Subject: Re: [PATCH bpf-next v7 1/2] mm/bpf: Add bpf_proactive_reclaim kfunc
+Message-ID: <apxB5tyglnSbqmEu@linux.dev>
+References: <cover.1788516769.git.zhuhui@kylinos.cn>
+ <7d8b77dc99ffe99a7bef874a257472fdaaf07e1c.1788516769.git.zhuhui@kylinos.cn>
+ <20260904110308.4473cde499e91aab14dbd5fc@linux-foundation.org>
+ <DL7CEX9EX781.23V26M3600JEI@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <1183137.1788625600.1@warthog.procyon.org.uk>
-Date: Sat, 05 Sep 2026 17:26:40 +0100
-Message-ID: <1183138.1788625600@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DL7CEX9EX781.23V26M3600JEI@gmail.com>
 
-Keith Busch <kbusch@kernel.org> wrote:
+On Sat, Sep 05, 2026 at 01:23:39PM +0200, Kumar Kartikeya Dwivedi wrote:
+> On Fri Sep 4, 2026 at 8:03 PM CEST, Andrew Morton wrote:
+> > On Fri,  4 Sep 2026 18:20:19 +0800 "Hui Zhu" <hui.zhu@linux.dev> wrote:
+> >
+> >> @@ -159,6 +160,74 @@ __bpf_kfunc void bpf_mem_cgroup_flush_stats(struct mem_cgroup *memcg)
+> >>  	mem_cgroup_flush_stats(memcg);
+> >>  }
+> >>
+> >> +/*
+> >> + * Reclaim must not recurse: try_to_free_mem_cgroup_pages() overwrites
+> >> + * current->reclaim_state, so a nested call would corrupt the outer
+> >> + * reclaim state. Reclaim windows are marked with PF_MEMALLOC;
+> >> + * reclaim_state is also checked because it is installed slightly
+> >> + * before PF_MEMALLOC.
+> >> + */
+> >> +static bool bpf_in_reclaim_context(void)
+> >> +{
+> >> +	return (current->flags & PF_MEMALLOC) || current->reclaim_state;
+> >> +}
+> >> +
+> >
+> > Would life improve if try_to_free_mem_cgroup_pages() didn't do that?
+> > If try_to_free_mem_cgroup_pages() (or some variant of it) were to
+> > permit nesting?
+> >
+> > 	rs = new_thing(current, &sc.reclaim_state);
+> > 	...
+> > 	set_task_reclaim_state(current, rs);
+> >
+> 
+> My understanding is that given the current restrictions on where this kfunc can
+> be called, this is mostly a defensive and shouldn't be firing (?). Given that,
+> we can probably revisit this when such reentrancy is necessary, even though I
+> doubt it would be the case in the future. It will at most be invoked from a wq
+> callback or a kthread, so should be fine.
+> 
 
-> If a block device behind an RDMA NIC really wants to DMA a single byte
-> at a time, we can't describe that capability today. That would require a
-> 0 mask, which is currently treated as "unset" and overridden with a
-> default 512b mask.
-
-The thing is, Christoph said:
-
-    Massage __bio_iov_iter_get_pages so that it doesn't need the bio, and
-    move it to lib/iov_iter.c so that it can be used by block code for
-    other things than filling a bio and by other subsystems like netfs.
-
-but unless it can have a 1-byte alignment, it's not actually much use for
-netfslib (I have to be able to support "unbuffered writes", which are almost
-exactly like DIO writes but without alignment restrictions).
-
-Do block devices really need an aligned "start memory address" or just an
-aligned "start file position" (whatever that means for a blockdev).
-
-David
-
+If with the current restrictions, this recursion can not happen then let's not
+add this check here. We never want recursion/reentrancy here.
