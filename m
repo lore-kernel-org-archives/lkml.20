@@ -1,101 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB9883BCD15
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:06:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B822949EC65
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:06:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788620801; cv=none; b=d4l/jgdV9S7k28fII4SBNuGzhIx2wmB8vLz0ILw65kD0ewM7PQphPfW2NS6vwi0/QFbbIcmHiq/NY/iKhrbRUmarDS98o6tfqHuBQ08vOdCUhwg35orZqUpZM+7z7FB1jx/wPB9Dm9kHqldygtXvCDicaqhuNbpC/8nTu3paMYY=
+	t=1788620817; cv=none; b=vEomCL/E1RVT6qAAdytbvrhT9ZdylfvHbBuIZP6qUv/ciM8j1wa3NafQVjZ1mQKRtIeVUdF7/sTkjc0/IuZJk/UGdrRpET/ba4JgcpdoYVOaALO9Ynit5aDEQOJkjOyCn+xBdsLPUUEFA03sL7wTYmqeP3GgveVBJ1TnrGSzUf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788620801; c=relaxed/simple;
-	bh=hXINgzBTHyvUTA5Y9ccisxYS6W2cQ8xWp0qIxBb66nk=;
+	s=arc-20240116; t=1788620817; c=relaxed/simple;
+	bh=jI7Sv6dqu67mx/4yCMTsESjYULfCa0K0RrvYfIjlPgs=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Cz+UwRQOTGxk/T0BUSzZj5bP7JVSiewHjV3hXw+pmKVsQdKc011fF+a64tWY4Le4qd2iImMvIRyh/RKVInIRTNcLTOejH4ZLWG9q6NkA1wJwH3gEaV/DdqXDYFGLemwkkITk248a/Que/hahq+HfGh6Nn5PdeqIjvT156ZtPkO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=arSFuFwg; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=LPsnfSqltCu2lJoPW2eGHTXaiLmD5jL2BgOYuq8j3M8eDKToZGZUMbO82atRGVd008JYOEVisBnc0zzFDutu5O8wNNa06LwLPUHAO69OlPdUqQyY2rOxSzaAHb+w6eAjzJcQgDMiYd5VyM7fT6HS2bmKEDcb1AV6yJlRJmpAALA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hu2kGYnj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="arSFuFwg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3C6C1F00A3E
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:06:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hu2kGYnj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72D051F00AC4
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:06:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788620800;
-	bh=lDGsIluFgVSmvTII8ADDyuGdCHsaszYABajfQunqWW0=;
+	s=k20260515; t=1788620815;
+	bh=nbJyISwukvfTNiu4CgjojEtsvVpKNyChClBc6A7uPvg=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=arSFuFwgRUZnv7LD2n5PcnbUM/ZO3YBtLctILt9mzDm57+cE/BD5ZCqI2qY3NlCZk
-	 kRV7efLEB9HpkYA8WLF9pFyL42fJWzZ9uFoD2+y3OD2/3uaVUEco8v4sHgC0zCd8yJ
-	 2Q31RplDehicDroa7GhyuTl/LB7g/FYpq6ef25UGgn67o+UqCVFfL1weEDXR+na9ud
-	 jQDpw8KDyr/ldF7fn2wDeoVOJncQ0O1vCZcLPeyCUfZrCf/MEBXrtwIHVoZxO13K6W
-	 6E0xuCwTO1uBfwlSqUtVpSTrkdFX+3NyF5INHVNus9QLvHL0HGeNkRdidfqGS5lisZ
-	 wmWJYUtAOvMBA==
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a7ea0046deso2520550a12.3
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 08:06:40 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByr85UIje32WNbQgXcetNA/1gw/4CdLkNWOssfG2fnx2Ry9MT5hPlw1DQDe2AU0IvtakTSOvIcQJchgnl4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kiRJj2pONr1vE4q7IsrroYxLGUZ4aF9FcadKQSHR1IIOcTeDsF
-	yERL01+5z1/MvvRcI+YpcSA+aB+XOF+WiYN3wG0+uHsK/qGX7MtggFcqlxmAiDh3l51G67iT73t
-	AUkv58ScLaTV0eVDG6zpu3HceIp29eYo=
-X-Received: by 2002:a05:6402:a0db:b0:6a5:ed9e:b490 with SMTP id
- 4fb4d7f45d1cf-6a7e8d94c7fmr4536791a12.14.1788620799387; Sat, 05 Sep 2026
- 08:06:39 -0700 (PDT)
+	b=hu2kGYnjF6VTA8ysP72FhkgAfp3R0tHfAbFkl0lksYtZhQkP7+h4u2fWpnbVE17Gz
+	 PUlsaPMmzMF63WaKN+bRHWaCQB3z3f9zLbRfBby71ErSTj2zM02QIqD15YCMMBGq9v
+	 gdhjQLTux0he7yAayCvtTWKVjtQZJKERMq5y/gJdK1N104tDW/lWtXwHi2JNzlyyHW
+	 j080T69R1nm3QjR5TI4tl1GDQdKjnCMKSM5giPcmz7i1Qjci5JMJWCR9LMmsKRl+vj
+	 ylF/07huds5xVDJLhuIqV7du8/oUm+xlUIm0QcPaqr1iE6D5X8i4MKZXHKWDqvjohY
+	 pdF6uEOMsesJg==
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-69fab5a852cso2909554a12.0
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 08:06:55 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxTq3jBH+yEze9pusB6/eAVjbu+gvf8Tb0XCRMHqBXZYiHZZwUZl5z7ywlOTPZVxeAiZ41fT33PxlxvqaE=@vger.kernel.org
+X-Gm-Message-State: AFuF++k8oA3KHmI/JCcqwk8Ckt5HtXb5eOMGuiONB2vGO8vD9IJy/lUn
+	ZjOLfyquNyN4JrOEHty3kffG0ZC9yZ/6WxVrCPX1zD6JS0HooOD8jdry3xOja7tnvOnyFce2op6
+	9smsKo+3afF6A850rxFT6c+S2wFLoxeU=
+X-Received: by 2002:a05:6402:4348:b0:6a7:e5e3:35a7 with SMTP id
+ 4fb4d7f45d1cf-6a7e8e92bffmr4264685a12.18.1788620814049; Sat, 05 Sep 2026
+ 08:06:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260817123918.2738447-1-nagachaithanya9911@gmail.com>
-In-Reply-To: <20260817123918.2738447-1-nagachaithanya9911@gmail.com>
+References: <20260817115847.2705791-1-nagachaithanya9911@gmail.com> <20260902070724.3459457-1-nagachaithanya9911@gmail.com>
+In-Reply-To: <20260902070724.3459457-1-nagachaithanya9911@gmail.com>
 From: Huacai Chen <chenhuacai@kernel.org>
-Date: Sat, 5 Sep 2026 23:06:28 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H7kgQngGAqJm1DOe6p7aFvZMmac-Xao8+aF8_d4C=cHVQ@mail.gmail.com>
-X-Gm-Features: AcwNN1U2JKNv-2kdY_yNpnc8sO-A7vh8ZHK951DGRlsgeKWhqOk3pz5pUnrHdDs
-Message-ID: <CAAhV-H7kgQngGAqJm1DOe6p7aFvZMmac-Xao8+aF8_d4C=cHVQ@mail.gmail.com>
-Subject: Re: [PATCH] LoongArch: KVM: Free init resources if kvm_init() fails
+Date: Sat, 5 Sep 2026 23:06:42 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H7_JYL=V9xJ3tg7_icGP-2MdspNw6upU6T7YpOqAe4LFQ@mail.gmail.com>
+X-Gm-Features: AcwNN1WD2efM3XhoaqL7ottq-qxRaL6RjwMjDJTIzqWK8m9MWRupmYERi2b7gLc
+Message-ID: <CAAhV-H7_JYL=V9xJ3tg7_icGP-2MdspNw6upU6T7YpOqAe4LFQ@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] LoongArch: KVM: Fix kvm_loongarch_env_init() error path
 To: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
 Cc: zhaotianrui@loongson.cn, maobibo@loongson.cn, kernel@xen0n.name, 
-	kvm@vger.kernel.org, loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
+	lixianglai@loongson.cn, kvm@vger.kernel.org, loongarch@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 Applied, thanks.
 
+
 Huacai
 
-On Mon, Aug 17, 2026 at 8:39=E2=80=AFPM Chaithanya Lagisetty
+On Wed, Sep 2, 2026 at 3:07=E2=80=AFPM Chaithanya Lagisetty
 <nagachaithanya9911@gmail.com> wrote:
 >
-> kvm_loongarch_init() calls kvm_loongarch_env_init() to allocate the
-> per-CPU kvm_context (vmcs) and kvm_loongarch_ops and to register the
-> perf callbacks, and then calls kvm_init(). If kvm_init() fails its
-> result is returned directly, but since module_init() does not run
-> module_exit() on failure, kvm_loongarch_env_exit() is never called and
-> those resources are leaked.
+> kvm_loongarch_env_init() leaves everything it has already acquired behind
+> when one of the IPI/EIOINTC/PCH-PIC/DMSINTC device registrations fails, a=
+nd
+> kvm_loongarch_init() does not call kvm_loongarch_env_exit() on that error=
+,
+> so nothing else cleans up either.
 >
-> Call kvm_loongarch_env_exit() when kvm_init() fails, matching the
-> teardown-on-failure pattern used by riscv_kvm_init().
+> v1 unwound only the memory and the perf callbacks. Bibo Mao pointed out
+> that the device registrations should be undone through wrapped unregister
+> helpers, so patch 1 adds those and patch 2 uses them to unwind the error
+> path in reverse order of registration. Patch 2 also uses them in
+> kvm_loongarch_env_exit(), so that the device ops are unregistered on norm=
+al
+> teardown as well.
 >
-> Fixes: 2bd6ac687261 ("LoongArch: KVM: Implement kvm module related interf=
-ace")
-> Signed-off-by: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
-> ---
->  arch/loongarch/kvm/main.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+> Link: https://lore.kernel.org/all/20260817115847.2705791-1-nagachaithanya=
+9911@gmail.com/ [v1]
 >
-> diff --git a/arch/loongarch/kvm/main.c b/arch/loongarch/kvm/main.c
-> index 3e1005526f4b..b6ddf5827c03 100644
-> --- a/arch/loongarch/kvm/main.c
-> +++ b/arch/loongarch/kvm/main.c
-> @@ -428,7 +428,11 @@ static int kvm_loongarch_init(void)
->         if (r)
->                 return r;
+> v2:
+>  - Add unregister helpers as suggested by Bibo Mao
+>  - Unwind device registrations in reverse order
+>  - Use unregister helpers in kvm_loongarch_env_exit()
+>  - Split into two patches, so the fix only uses the helpers
+>  - Reword commit message to avoid implementation-specific details, and
+>    retitle from "memory leak" to "resource leak"
 >
-> -       return kvm_init(sizeof(struct kvm_vcpu), 0, THIS_MODULE);
-> +       r =3D kvm_init(sizeof(struct kvm_vcpu), 0, THIS_MODULE);
-> +       if (r)
-> +               kvm_loongarch_env_exit();
-> +
-> +       return r;
->  }
+> Compile-tested only, no LoongArch hardware: loongson64_defconfig with
+> CONFIG_KVM=3Dm and CONFIG_KVM=3Dy, W=3D1, each patch built individually, =
+no new
+> warnings.
 >
->  static void kvm_loongarch_exit(void)
+> Chaithanya Lagisetty (2):
+>   LoongArch: KVM: Add unregister helpers for the KVM interrupt devices
+>   LoongArch: KVM: Fix resource leak in kvm_loongarch_env_init() error
+>     path
+>
+>  arch/loongarch/include/asm/kvm_dmsintc.h |  1 +
+>  arch/loongarch/include/asm/kvm_eiointc.h |  1 +
+>  arch/loongarch/include/asm/kvm_ipi.h     |  1 +
+>  arch/loongarch/include/asm/kvm_pch_pic.h |  1 +
+>  arch/loongarch/kvm/intc/dmsintc.c        |  5 ++++
+>  arch/loongarch/kvm/intc/eiointc.c        |  5 ++++
+>  arch/loongarch/kvm/intc/ipi.c            |  5 ++++
+>  arch/loongarch/kvm/intc/pch_pic.c        |  5 ++++
+>  arch/loongarch/kvm/main.c                | 32 +++++++++++++++++++++---
+>  9 files changed, 52 insertions(+), 4 deletions(-)
+>
 > --
 > 2.43.0
 >
