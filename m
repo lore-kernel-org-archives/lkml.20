@@ -1,135 +1,149 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-251.mta1.migadu.com [95.215.58.251])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F3B443F4DA;
-	Sat,  5 Sep 2026 07:29:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2045043F4B3
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 07:29:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788593343; cv=none; b=HkJh8+ixeAa0IMQOm3PkiG1MA+1I8LdLK+wECfCcE3dwnbvOXROhtmZ3r77S+zxubSJSMhLWdve1LMAFItHNxn0jSP37b2GwpGWO5SBqPgUeHpA81rdMtnkUb8XEgtFNqEPx+xib+K5+13oLoftwYFjrqDvAP6/GW9fjHZ//76I=
+	t=1788593348; cv=none; b=cWHW/gaa1pB2xacQygqnkYR9Zgj9CrlDb5NWnpYeO2/fsL1FZx6ZC2sC821MfJzJ3KNEKgmCS0N2swbJkripwo+pVcKMFf2RjC1DApeA0MZG6+sr7nKBSouATBjl4i8wHkHf7HEYk0jZtw3umBc24h9kWsi4/po/+EQEc3cBOjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788593343; c=relaxed/simple;
-	bh=GjFgpBtcGIZuLD01DYOZo0T5YtUY0JlA74XHFu34ew8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Eh2uhsxbbU6Ir5XWR+QWtteevl/GbLRo7RkaljdeiJoPXcRxCX7sH8kZ8i5g0y7asv0OP83xd/5pom6a9wScfOzYBuey16czZpkE7J+d7PRgcVEOPVqNnhXiSWuwd+NVViv4DUQSUkBM7HFg4dxQHHOZo7Du7px+3x+3Mm496eY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=TKH59S3b; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788593348; c=relaxed/simple;
+	bh=FO7uk+ZczJKUWeZKSugD0fmMxualw4LCIKgewWBGV1E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HK62tkmOkcgh+9oGJZwo3f0pyVYO8ki1aYXY/tW7a67ezAsyqvtHPP8SjkHu7YvjCQw0004TWttjBOvVZozqvrIEo9yH1N73pKkZTxvdNDsKYwxID1D8zwZeGDBJFVfXBg2VtBlaqGUS2/wt0lgwHVBnG+gCROn1lo/Rs1Mt0gM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=v+1aQHEU; arc=none smtp.client-ip=95.215.58.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="TKH59S3b"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 5BAA71A19C7;
-	Sat,  5 Sep 2026 07:29:00 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2F47D60580;
-	Sat,  5 Sep 2026 07:29:00 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A969311C79BC4;
-	Sat,  5 Sep 2026 09:28:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788593335; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=wLHCkOQCNBodgL/bDWc/dLG8A1S5U39KEwi8eztVGO0=;
-	b=TKH59S3b/AE9WIAT+ChXZT1h0rzOhLWx7Ojz6BkFa8v4Wypep/3aThhaJvnmj63AP/ugKs
-	Gn4ktRiOUmrMhIDiu3QlzhcmHKgwnzgDd5TfsQ99s6CnRgmrEdqPDAIAjf9IP3bb7kt6Bk
-	KAZ5ckLW9z/i6unIBkADUBlbGEJvZebJmO0yWUIc/pevIuxuj0DoqhJsV0EUYi6eBf8y7P
-	++aJ8lM/7fUqYz3RBGlyv+P10pZWEv6qxnOhJcfUbgv6Gox5UNA3hgQtnWM7fMSH0RLvnt
-	7jejW+HK4zNNE3dAHIXU7/afkwSd+rdiSTNcBN7JFypcYbsGm+zW8TbTHh4S1A==
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	Jakub Kicinski <kuba@kernel.org>,
-	davem@davemloft.net,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Yao Zi <me@ziyao.cc>,
-	Frank <Frank.Sae@motor-comm.com>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	thomas.petazzoni@bootlin.com,
-	=?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: [PATCH net-next v2 3/3] net: phy: motorcomm: Enable analog frontend on YT8531S
-Date: Sat,  5 Sep 2026 09:28:28 +0200
-Message-ID: <20260905072830.28986-4-maxime.chevallier@bootlin.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260905072830.28986-1-maxime.chevallier@bootlin.com>
-References: <20260905072830.28986-1-maxime.chevallier@bootlin.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="v+1aQHEU"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=FO7uk+ZczJKUWeZKSugD0fmMxualw4LCIKgewWBGV1E=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788593340; v=1; x=1789198140;
+ b=v+1aQHEU+7z/4vLhh+FgkM1jM2UCEcNhvKYSClOyo1EF4PPiORh2Pu44uQcj3BvD8MIXGA7r
+ xIN41nO+qratya6eMbBV1kzlVnpgowpS+u3MDj3XaNg5nt3tDWqQQ4EKE6a/mA/cGuBpyuZeSvj
+ 06r3tQATIwHDAoMErun48YRo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d6a05955758b5d40;
+	Sat, 05 Sep 2026 07:29:00 +0000
+X-Mizu-Trace-ID: d6a05955758b5d40
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c3bec318-ef9d-4d96-8a98-a68717c17201@linux.dev>
+Date: Sat, 5 Sep 2026 15:28:50 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v2 4/6] mm/memcg: return the memcg when putting
+ memcgid
+To: bingfangguo@tencent.com
+Cc: cgroups@vger.kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, Dave Chinner
+ <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Bingfang Guo <bfguo@icloud.com>
+References: <20260901-bingfangguo-memcgid-rework-v2-0-8edd7f7a7251@tencent.com>
+ <20260901-bingfangguo-memcgid-rework-v2-4-8edd7f7a7251@tencent.com>
+Content-Language: en-US
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20260901-bingfangguo-memcgid-rework-v2-4-8edd7f7a7251@tencent.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The YT6801 PCIe NIC includes the dwmac-motorcomm IP for the MAC part, as
-well as a YT8531S PHY, configured in GMII mode.
 
-It seems this PHY requires the Analog Front-end (AFE) DAC clock to be
-enabled for link to reliably establish, otherwise the link just doesn't
-come up.
 
-Let's enable it at config_init() whenever the PHY is in GMII mode.
+On 2026/9/1 16:58, Bingfang Guo via B4 Relay wrote:
+> From: Bingfang Guo <bingfangguo@tencent.com>
+>
+> __mem_cgroup_uncharge_swap() needs both the memcg and the id refcount
+> drop.  Right now it looks the memcg up by id, uncharges it, then looks
+> it up again inside mem_cgroup_private_id_put() to drop the reference.
+>
+> Make mem_cgroup_private_id_put() resolve the id once, drop the
+> reference, and return the nearest online memcg with a reference held for
+> the caller.  __mem_cgroup_uncharge_swap() then uses that memcg directly
+> and drops the reference after uncharging, avoiding the second xarray
+> lookup.
+>
+> Signed-off-by: Bingfang Guo <bingfangguo@tencent.com>
+> ---
+>   mm/memcontrol.c | 20 +++++++++++++++++---
+>   1 file changed, 17 insertions(+), 3 deletions(-)
+>
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index 048c9bb0fad79..f0503a1e5492d 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -4048,14 +4048,28 @@ static void __mem_cgroup_private_id_put(struct mem_cgroup *memcg, unsigned int n
+>   	}
+>   }
+>   
+> -static void mem_cgroup_private_id_put(unsigned short id, unsigned int n)
+> +/**
+> + * mem_cgroup_private_id_put - put memcgid and get the nearest online memcg
+> + * @id: the memcg private id got from mem_cgroup_id_get_online
+> + * @n: count of references to put
+> + */
+> +static struct mem_cgroup *mem_cgroup_private_id_put(unsigned short id, unsigned int n)
 
-This logic has been extracted from the vendor driver provided by
-Motorcomm.
+Having an API that put reference-counted resources return a struct pointer
+is a very strange design. Please don't do that.
 
-It's really unclear if this is specific to the integrated version of
-that PHY, and how this potentially interacts with the fiber mode this
-PHY supports, so this configuration is only enabled when the interface
-is GMII, i.e. the PHY is integrated.
+>   {
+>   	struct mem_cgroup *memcg;
+>   
+>   	rcu_read_lock();
+>   	memcg = mem_cgroup_from_private_id(id);
+> +	if (!memcg)
+> +		goto out;
+> +
+>   	__mem_cgroup_private_id_put(memcg, n);
+> +
+> +	while (memcg_is_dying(memcg) || !mem_cgroup_tryget(memcg))
+> +		memcg = parent_mem_cgroup(memcg);
+> +
+> +out:
+>   	rcu_read_unlock();
+> +	return memcg;
+>   }
+>   
+>   static void mem_cgroup_private_id_kill(struct mem_cgroup *memcg)
+> @@ -5816,7 +5830,7 @@ void __mem_cgroup_uncharge_swap(unsigned short id, unsigned int nr_pages)
+>   	struct mem_cgroup *memcg;
+>   
+>   	rcu_read_lock();
+> -	memcg = mem_cgroup_from_private_id(id);
 
-With this, the PHY reliably establishes link and the YT6801 PCIe card
-becomes fully functional. Supend/Resume was also tested, the link
-stays operational after resume.
+I think we can introduce a new helper like obj_cgroup_from_private_id(),
+We can use the ID to get the corresponding obj_cgroup, and then get the
+mem_cgroup.
 
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
----
-V2: Add details about suspend/resume testing and the fact we only do
-    this in GMII mode.
-
- drivers/net/phy/motorcomm.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/phy/motorcomm.c b/drivers/net/phy/motorcomm.c
-index 36c229460a77..90a4f86f2758 100644
---- a/drivers/net/phy/motorcomm.c
-+++ b/drivers/net/phy/motorcomm.c
-@@ -144,6 +144,11 @@
- #define YT8521_CLOCK_GATING_REG			0xC
- #define YT8521_CGR_RX_CLK_EN			BIT(12)
- 
-+/* Analog front-end control register 3 */
-+#define YT8531S_EXT_AFE_CTRL3			0x12
-+/* Analog front-end DAC clock enable */
-+#define YT8531S_AFE_CTRL3_CLKDAC_AON		BIT(13)
-+
- #define YT8521_EXTREG_SLEEP_CONTROL1_REG	0x27
- #define YT8521_ESC1R_SLEEP_SW			BIT(15)
- #define YT8521_ESC1R_PLLON_SLP			BIT(14)
-@@ -1740,8 +1745,15 @@ static int yt8531s_config_init(struct phy_device *phydev)
- 	if (ret)
- 		goto err_restore_page;
- 
--	if (phy_interface_is_rgmii(phydev))
-+	if (phy_interface_is_rgmii(phydev)) {
- 		ret = yt8531_set_ds(phydev);
-+		if (ret)
-+			goto err_restore_page;
-+	}
-+
-+	if (phydev->interface == PHY_INTERFACE_MODE_GMII)
-+		ret = ytphy_modify_ext(phydev, YT8531S_EXT_AFE_CTRL3,
-+				       0, YT8531S_AFE_CTRL3_CLKDAC_AON);
- 
- err_restore_page:
- 	return phy_restore_page(phydev, old_page, ret);
--- 
-2.55.0
+Muhcun,
+Thanks.
+> +	memcg = mem_cgroup_private_id_put(id, nr_pages);
+>   	if (memcg) {
+>   		if (!mem_cgroup_is_root(memcg)) {
+>   			if (do_memsw_account())
+> @@ -5825,10 +5839,10 @@ void __mem_cgroup_uncharge_swap(unsigned short id, unsigned int nr_pages)
+>   				page_counter_uncharge(&memcg->swap, nr_pages);
+>   		}
+>   		mod_memcg_state(memcg, MEMCG_SWAP, -nr_pages);
+> -		mem_cgroup_private_id_put(id, nr_pages);
+>   	}
+>   	rcu_read_unlock();
+>   
+> +	mem_cgroup_put(memcg);
+>   }
+>   
+>   long mem_cgroup_get_nr_swap_pages(struct mem_cgroup *memcg)
+>
 
