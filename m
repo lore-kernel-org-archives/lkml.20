@@ -1,159 +1,185 @@
-Received: from outbound.st.icloud.com (st-2005e-snip4-6.eps.apple.com [57.103.79.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98CD3233956
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 19:35:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.79.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904043BB40;
+	Sat,  5 Sep 2026 19:36:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788636953; cv=none; b=U9ckSvTxh6h3NZyKXuiLjR3pJImw/EAMWLyZa5hCXnzeRxe9zWezjb2lXqJBtakrGb2oCM9n1THClRUyCHuEPLSIAZo9pVHJivTWpElNBaZi3FDfiHUVz28HY4INQ+/HArB5ng8eCZWT8cy0be0uLAa+eh18rB43D/z+hfVeE3s=
+	t=1788637013; cv=none; b=oyIsUg8j2+722Q85yIyB+DAUxJG6qAqqXuYkxD2/zwFDKrIaXEFZsBB9AQE7oiozHHrpMUCZeDOPNjfjc5+unOjCXzofaufYPgw7v1LV6sYyDbQbMGc5MnNyVw0ratifYM2G7/0lv6wCp31Nt2xBlc0GYJYOl+3GV4G0oHHkheE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788636953; c=relaxed/simple;
-	bh=1YO3SgBQak4tGK61FOqQcBJJY6vKG97qYfPdKsjiw1I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=f7TVuKUqvFXfUsDczWtAotDHXwCgdVraEy595bp+Qx8HjYSUvRHa16CgqNihBnB1sHltwiMcfEvL09i7R2/dVm7vgitNZaukG9As5ZevrAAN0fwgr48/12v+YxRnI16NN0FWxT59nx+/NJkzcfqAFSh4m2WYpzQM5RBTxPqgH0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=xYlP7d/H; arc=none smtp.client-ip=57.103.79.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+	s=arc-20240116; t=1788637013; c=relaxed/simple;
+	bh=M2yKTvP7ENyCDZAyaDXgbDjJruQtDBz86p9V5ubdLmc=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=G8fRMMW5ezRuFURIueWVeO/FL6oyhzAZq98oaBQSJzSAitJhKMUN7Lz8AIARAFd5bKZF7c6YBKhBmcBKX4WaKBiDEKXFe/yaj9wFaKz/EtOYUL4uykRtXKp3YtUmefS2ElGIwDjNqWFOcx3HAxwu02HmMAdUmfodIXVFxM+luUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g5e8aqj3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="xYlP7d/H"
-Received: from outbound.st.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-1a-20-percent-1 (Postfix) with ESMTPS id 541171800362;
-	Sat, 05 Sep 2026 19:35:46 +0000 (UTC)
-X-ICL-RepId: 01a07311-df40-7bc0-814d-5f116123f2c8
-X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQtPHV4PRQBAC1YGVBcOVk1bHlQYWCtbE1UXRgkZCF0dGR5XUF4IXh9MHB0OWAYSAlpFAlQXA1ccVkVcGEMJXQVXHB0eQ0VbE1UXRgkZCF0dGQhHHwowA0IOVgNDB0UALRkcV1BeCF4fTBwdDlgGEh1QHA5RVhtKBnsRUiBVPVwSDxtFPHcpez5+PnIjcCxnPxQ1cF0JS0YJSR0OBFQHXQVd
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1788636950; x=1791228950; bh=5cezDtxlrHR9EE90cG0MGu9l/gtilxYv/wFRi03p5CY=; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=xYlP7d/HGHwwS9l4ltBvg+bwAR3UE2k8aaC0n9FRoe2EstONodWFCWhXdzjiXWr5YNGCWihIWyoJNqT4YOMc0V3swB9F3pv+yj58lCdug35TxJU66fv4STV7uVEcjrixwRmFqs9ru2yoZNXafdrcvAJ/OPZwu2BCdfb/y0j/JvVLgqkPNOo1uN2IWylRk6T07drRrZkCoYqPmDnpHGzSTgBn2NG03v8ijztiRonHxgx2J+pYzXOtip8G5rkSZ01Q4BVt2k9/nJdJPH1tlnODon2WwV4mZ4MQ+6JFenbZw3tglu09syklMz0AXySqenX1lx55ybNdAQjRoSB5u4ZZyQ==
-mail-alias-created-date: 1772519804199
-Received: from BINGFANGGUO-MC0 (unknown [17.156.216.30])
-	by p00-icloudmta-asmtp-us-east-1a-20-percent-1 (Postfix) with ESMTPSA id E677A180009D;
-	Sat, 05 Sep 2026 19:35:39 +0000 (UTC)
-Date: Sun, 6 Sep 2026 03:35:34 +0800
-From: Bingfang Guo <bfguo@icloud.com>
-To: Muchun Song <muchun.song@linux.dev>
-Cc: bingfangguo@tencent.com, cgroups@vger.kernel.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
-	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>
-Subject: Re: [PATCH RFC v2 2/6] mm/memcg: get memcgid reference only after
- swap charging success
-Message-ID: <apxvBiaMbVnb6cvQ@BINGFANGGUO-MC0>
-References: <20260901-bingfangguo-memcgid-rework-v2-0-8edd7f7a7251@tencent.com>
- <20260901-bingfangguo-memcgid-rework-v2-2-8edd7f7a7251@tencent.com>
- <a2fb9ea3-78dc-4bee-a64e-0928983961ad@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g5e8aqj3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A89BF1F00A3A;
+	Sat,  5 Sep 2026 19:36:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788637012;
+	bh=XpAbj95BR/+hBgihJ49UPIvDv6ikVG1x1iAZJsGRtO4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=g5e8aqj3jzdc7EBch7vcpHIW0JyQlY9yeOmMs1VAI0qrocBLwEaZ6SEn0C6O0Z9Ai
+	 Uq8gcfNJdub4iU1fhUX2UwEgVKExw5GYO1JN0iCudp3BGz2jnS4fMIeXy8tHtbynSx
+	 nmt5lVFcLK85F2JsbrPMVeaI2Pv5icsxUVeuIW1/mqqNsDWkj4Xfg7YXiAeLJMn7s2
+	 eCIqJfur+g81l1syfHYumphixjX/mEzt0u1eXE9uFTAD4Wm/jvV9Xn5B2l8Yue39AJ
+	 ANU1NWr21nZU1vvoIUpV8NRgsdUZl8y1dtlweTKRVuUOBtJ8P1250KPJ5FPVy29vbs
+	 t4LHu5EBis8jQ==
+Subject: Re: [PATCH net v2] vxlan: vnifilter: validate the VNI range in
+ vni_filter_entry_policy
+From: netdev-bot+sashiko@kernel.org
+To: alishmery18@gmail.com
+Cc: netdev@vger.kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ davem@davemloft.net, edumazet@google.com, andrew+netdev@lunn.ch,
+ idosch@nvidia.com, razor@blackwall.org, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Sat, 05 Sep 2026 19:36:51 +0000
+Message-ID: <178863701124.219967.14305621519981687842@kernel.org>
+In-Reply-To: <20260902154609.594009-1-alishmery18@gmail.com>
+References: <20260902154609.594009-1-alishmery18@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a2fb9ea3-78dc-4bee-a64e-0928983961ad@linux.dev>
-X-Proofpoint-GUID: f1AQX1aTWqZN4lSzMnJQFR8nPOtEeKPA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA1MDIxOCBTYWx0ZWRfX7iWWTN2q2aep
- YsFgd7msiqRVkD/rJQXi1/QlA+kVGXDWCKtn4WB9tUowU0vkGImtXVZ4hhsoHlCHnd/IeNQ6Dku
- MK+/ttyGh/Yz4c2V2oy06avcjMT6X5x1JnmH0YBw8H2cHoqI7WRSPpMJPj5b70ChIv4s50CGyoQ
- M4uK/OsaiXpI/5gqVECxKvrWAx1zEQuBIPJhVEo2HlaANoslSCHmuSelXpZxUkuZRaqApt27XXm
- SSnMHpLrDdPrLoNWvhXdfyVwA3KSpxgh2avBzAqTKz5u3YYI6pDP/g1EHel+vFvpk8pU0CwHTZi
- Z8j5tULbt0FreMybyaTkgEhknTxXIgdnt21gD0eYd1/9L15hnxH9lMXi9Lgdtc=
-X-Authority-Info-Out: v=2.4 cv=F/5at6hN c=1 sm=1 tr=0 ts=6a9c6f14
- cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
- a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10
- a=x7bEGLp0ZPQA:10 a=vu5NlEYW-o8A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=GvQkQWPkAAAA:8 a=kWxB-xFdqsxXOBgkBTwA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: f1AQX1aTWqZN4lSzMnJQFR8nPOtEeKPA
-X-JNJ: AAAAAAABQtsNwvohzyHt18T/0XBw4zXFE4+rSf1ZKh25MuxUte1NkrQswCQK75JHel8fA7OxzS92/1Hos834UchYn/lKqif2Zda/FvdlEf2XjL+bRuZsi3HuLgn2RkCfOJiOSByR8BM9/fy/332snyhjR4TsbZKBtWg7bb1oIkNpTKQzV8SeMeo+Qn3yI0m61IGRbpb+jNQNXLeVuNGwfjkHvP8sqZpHpAOrFkgsCtQwiuQZ5ZfEzkJEqkuQVG4Kx/cXOpJM/6M+5yxW7/TGDf2Z8rR3SoqFjIcT7zoq7sAMv6wTG1gcDd7W9mmFCe4olo6YgsjlfULevVzja6q3eek+f2G14qDi0Q8m46NjVAfLpsE11mh4ATE8m+zUClBwsmRwugerTW19PeG9uPRAuhpQZR8ySGZqCUUEpFc1lAkOAFlVg9eQKjsLY/gbT1VN9XInEjtWV23yvVhn+yYLROVcQ0CdTzkzMv/Fu5EkvmGXf99jt8KE1RQvsJKb5uzE11Tl7Dh7u8KR+ZaKHmxbbia6ajjKsBES5KedYxM1Tn3cRYruV5AFKSr3KuCS7V4SlKEeUrl7A0uEMzvUhv1kwIIrIVo2vr6tUaE2FRiwaWUX25bY6UISum/f3h+NcnQR0cN0zvB0yRgY3FlM6nWkW4b/U+EJBDEOnhN6dKx+fHOVEq6COLvQqXC873kXjyuMLLDpBrKTBjCVC2cB6TMyyIqH6q7k3JEthiP0LgqGQmiyx5sqOd5cr96OKQju+nydnCuamVFir597b7+cePYPSUKogHK69US98/eWOH1YxqqpPn9svSEy2sk6kI57wzfaIR9AmhLuNK5tyLbxGWDZKigtShbfmafSe0L4LGWdswZvX2zh7OGrmNWzKoSyyMSOCBz202q6bET2/LGDIc42K4IbAK1GqeR0qpH8GxkB2iYmhB4JgM9yxRtSjD5fH+dPpblA+8t9UQ7CBk4HycWePodsMRxyRk8
- 3Srh7gsBITtCb7xOUnRuawvoZwth+eUn9Kr6qyMQtzBJBYuPzaszmj3fKnM1kL47y05+/LqvSlIHM81Z9bPDajhoY5k+EO95NWk5iqKiXiJ6YCKukQm74qK98SRhNfkzR9N6+ADYJUymAboZvbbfUdwCvH7BOZ7bFBuHNMkh92ZrvjdkCj2tRJQknZmKKf21ETJd0m2CcHT960/G+RQr+aKLEPsKlNXns39TnUDVw354HLbH/DlVfrJFJPz9oAnyA1cqhJnMPFt0vljB4c2+N2qfvaKNgZ70d4qf48iMTDQAGoA633zMff+loSJAzXifQhEdBjMHHQ4nWt2s/hWuyjcc6btA9gHiWZIWz4d5SUlMU1mMKCj2GY+i5gfXW3lbufp76dNHQ8V084CR0H42em4wCaK2wCteBf7Tayiwh+a1X+NEE5FfT+yFw0HgqUDCHKMcznaUm7EJ262p8336/H3xhRk/4qi+RCCLamK2gEqwzzw==
 
-On Sat, Sep 05, 2026 at 03:12:19PM +0800, Muchun Song wrote:
-> 
-> 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-Hi, Muchun!  Thanks for your insightful reviews!
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-> On 2026/9/1 16:58, Bingfang Guo via B4 Relay wrote:
-> > From: Bingfang Guo <bingfangguo@tencent.com>
-> > 
-> > __mem_cgroup_try_charge_swap() pinned the memcg private id before the
-> > swap counter was charged and had to undo the pin on the failure path.
-> > Hold RCU lock for an extended period (which should be fine,
-> > __memcg1_swapout() does this as well) so concurrent memcg release can
-> > be avoided, and take the id reference to its online parent only after
-> > charging has succeeded.
-> > 
-> > The failure path is now a plain return, and the id is only pinned for
-> > entries that actually end up charged to swap.
-> > 
-> > Signed-off-by: Bingfang Guo <bingfangguo@tencent.com>
-> > ---
-> >   mm/memcontrol.c | 15 +++++++++------
-> >   1 file changed, 9 insertions(+), 6 deletions(-)
-> > 
-> > diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> > index 31cec9dde55f0..ecb4fb07d7735 100644
-> > --- a/mm/memcontrol.c
-> > +++ b/mm/memcontrol.c
-> > @@ -5755,6 +5755,7 @@ int __mem_cgroup_try_charge_swap(struct folio *folio)
-> >   	struct page_counter *counter;
-> >   	struct mem_cgroup *memcg;
-> >   	struct obj_cgroup *objcg;
-> > +	unsigned short memcgid;
-> >   	if (do_memsw_account())
-> >   		return 0;
-> > @@ -5772,22 +5773,24 @@ int __mem_cgroup_try_charge_swap(struct folio *folio)
-> >   		return 0;
-> >   	}
-> > -	memcg = mem_cgroup_private_id_get_online(memcg, nr_pages);
-> > -	/* memcg is pined by memcg ID. */
-> > -	rcu_read_unlock();
-> > +	while (memcg_is_dying(memcg))
-> > +		memcg = parent_mem_cgroup(memcg);
-> 
-> Since we've already chosen to expand the scope of RCU holding, it
-> seems we don't need to check whether the memcg is in a dying state
-> here. The upcoming stats updates aren't really tied to whether the
-> memcg is dying anyway, right? Why don't we just simplify the code?
-> 
-> Muchun,
-> Thanks.
+- [High] Incomplete fix relative to the impact its own changelog
+  describes: after the range clamp to VXLAN_N_VID-1, a single…
 
-Yeah, indeed. Whether the memcg is dying doesn't make much
-difference, and dying memcgs should be rare so walking up till
-some online parent should be useless in most cases. And it does
-seem a bit strange to do that here...
+--
 
-So I agree that removing the check would be better as well! I
-will make the change in the next version.
+vxlan: vnifilter: validate the VNI range in vni_filter_entry_policy
 
-Regards,
-Bingfang
+This adds an NLA_POLICY_FULL_RANGE constraint with .max = VXLAN_N_VID - 1
+to VXLAN_VNIFILTER_ENTRY_START and VXLAN_VNIFILTER_ENTRY_END, matching
+what vxlan_mdb.c already does for its VNI attributes.  The commit carries
+Fixes: f9c4bb0b245c and Cc: stable@vger.kernel.org.
 
-> >   	if (!mem_cgroup_is_root(memcg) &&
-> >   	    !page_counter_try_charge(&memcg->swap, nr_pages, &counter)) {
-> >   		memcg_memory_event(memcg, MEMCG_SWAP_MAX);
-> >   		memcg_memory_event(memcg, MEMCG_SWAP_FAIL);
-> > -		mem_cgroup_private_id_put(memcg, nr_pages);
-> > +		rcu_read_unlock();
-> >   		return -ENOMEM;
-> >   	}
-> >   	mod_memcg_state(memcg, MEMCG_SWAP, nr_pages);
-> > +	memcg = mem_cgroup_private_id_get_online(memcg, nr_pages);
-> > +	memcgid = mem_cgroup_private_id(memcg);
-> > +	rcu_read_unlock();
-> > +
-> >   	ci = swap_cluster_get_and_lock(folio);
-> > -	__swap_cgroup_set(ci, swp_cluster_offset(folio->swap), nr_pages,
-> > -			  mem_cgroup_private_id(memcg));
-> > +	__swap_cgroup_set(ci, swp_cluster_offset(folio->swap), nr_pages, memcgid);
-> >   	swap_cluster_unlock(ci);
-> >   	return 0;
-> > 
-> 
+No Link: tags in the commit header; the v1 posting is referenced in the
+patch notes as
+https://lore.kernel.org/netdev/20260829030041.940594-1-alishmery18@gmail.com/
 
+> diff --git a/drivers/net/vxlan/vxlan_vnifilter.c b/drivers/net/vxlan/vxlan_vnifilter.c
+> index dd94085e0886..9e86ac39cf9d 100644
+> --- a/drivers/net/vxlan/vxlan_vnifilter.c
+> +++ b/drivers/net/vxlan/vxlan_vnifilter.c
+> @@ -459,9 +459,15 @@ static int vxlan_vnifilter_dump(struct sk_buff *skb, struct netlink_callback *cb
+>  	return err;
+>  }
+>  
+> +static const struct netlink_range_validation vni_filter_vni_range = {
+> +	.max = VXLAN_N_VID - 1,
+> +};
+> +
+>  static const struct nla_policy vni_filter_entry_policy[VXLAN_VNIFILTER_ENTRY_MAX + 1] = {
+> -	[VXLAN_VNIFILTER_ENTRY_START] = { .type = NLA_U32 },
+> -	[VXLAN_VNIFILTER_ENTRY_END] = { .type = NLA_U32 },
+> +	[VXLAN_VNIFILTER_ENTRY_START] = NLA_POLICY_FULL_RANGE(NLA_U32,
+> +							      &vni_filter_vni_range),
+> +	[VXLAN_VNIFILTER_ENTRY_END] = NLA_POLICY_FULL_RANGE(NLA_U32,
+> +							    &vni_filter_vni_range),
+
+[Severity: High]
+Does this clamp close the problem the changelog describes, or only the
+U32_MAX endpoint?
+
+With the new .max, a single PF_BRIDGE RTM_NEWTUNNEL message carrying only
+VXLAN_VNIFILTER_ENTRY_END = 0xFFFFFF still passes validation, because
+vni_start defaults to 0 in vxlan_process_vni_filter():
+
+	u32 vni_start = 0, vni_end = 0;
+	...
+	if (vattrs[VXLAN_VNIFILTER_ENTRY_START]) {
+		vni_start = nla_get_u32(vattrs[VXLAN_VNIFILTER_ENTRY_START]);
+		vni_end = vni_start;
+	}
+
+	if (vattrs[VXLAN_VNIFILTER_ENTRY_END])
+		vni_end = nla_get_u32(vattrs[VXLAN_VNIFILTER_ENTRY_END]);
+
+	if (!vni_start && !vni_end) {
+		NL_SET_ERR_MSG_ATTR(extack, nlvnifilter,
+				    "vni start nor end found in vni entry");
+		return -EINVAL;
+	}
+
+vni_end is non-zero so the guard does not fire, and vxlan_vni_add_del() is
+entered with the full 0..0xFFFFFF span.
+
+Each of those 2^24 iterations goes through vxlan_vni_add() ->
+vxlan_vni_alloc(), which allocates a node plus a full per-CPU stats block:
+
+	vninode = kzalloc_obj(*vninode);
+	if (!vninode)
+		return NULL;
+	vninode->stats = netdev_alloc_pcpu_stats(struct vxlan_vni_stats_pcpu);
+
+followed by an rhashtable insert, a sorted list insert and a
+vxlan_vnifilter_notify().  Neither allocation uses __GFP_ACCOUNT, so the
+memory is charged globally rather than to the requesting cgroup.
+
+There is also no cond_resched() in vxlan_vni_add_del() (grep finds none in
+the file), no per-request work cap and no ceiling on vg->num_vnis, and
+vxlan_vnifilter_rtnl_msg_handlers registers the handler without
+RTNL_FLAG_DOIT_UNLOCKED, so the whole span runs under the global rtnl_lock.
+
+Given that, is the Fixes: plus Cc: stable framing accurate?  The changelog
+states:
+
+	It runs under rtnl_lock, which is global rather than per-netns, so
+	every network configuration operation on the host blocks for as long
+	as it runs, in every namespace.
+
+	The interface is reachable without privilege: creating the device and
+	adding VNIs only requires CAP_NET_ADMIN in the network namespace's
+	user namespace
+
+and then:
+
+	A request spanning the full in-range space, START=0 END=0xFFFFFF,
+	still exhausts memory on that guest both before and after, as
+	described above.
+
+Would a backporter reading the first part conclude that the rtnl_lock
+starvation and unprivileged memory exhaustion are closed, when the second
+part says they are not?
+
+Separately, is this description of the U32_MAX case right?
+
+	With end_vni == U32_MAX the loop cannot terminate through its own
+	condition: v reaches U32_MAX, wraps to 0, and 0 <= U32_MAX is true
+	again, so the request never returns.
+
+The test result in the same changelog says that request "drives a global OOM
+with the allocating task in vxlan_vnifilter_process()".  Doesn't the loop
+actually leave early once vxlan_vni_alloc() fails?
+
+	err = vxlan_vni_add(vxlan, vg, v, group, extack);
+	...
+	if (err)
+		goto out;
+
+so the observed exit is -ENOMEM rather than a loop that never returns.
+
+One more question on the partial-failure path: when vxlan_vni_add() fails
+part way through a range, nothing unwinds the VNIs already added, and they
+stay in vg->vni_hash and vg->vni_list until vxlan_vnigroup_uninit().  Is a
+partially applied range the intended behaviour here?
+
+Would it make sense to bound the per-request work in the same change, for
+example capping the number of VNIs one message may span, adding a reschedule
+point to the vxlan_vni_add_del() loop, and using __GFP_ACCOUNT for the node
+and stats allocations, so that the tags match what the patch removes?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260902154609.594009-1-alishmery18%40gmail.com
