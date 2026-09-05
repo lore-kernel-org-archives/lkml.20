@@ -1,78 +1,80 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A737314B95
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 08:50:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FF00311C32
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 08:50:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788598215; cv=none; b=uWIZL1v6jgoJF77ipMvEJGByGgoXkSzk8T0L3+1lmialJWXlskFEUg1L3a/OZM8vWAjoJXGuntxspOg/hMHIWLyzVHmNjig03usqyxaXgEwfVJiQbuM1SUlo7n624J6J7CpxIJ0TmZY2CLuDURCXMshDpUGxuB6NwgfJSN58c8k=
+	t=1788598221; cv=none; b=qj2gmCVf/HD5Lr3upqPmQsuHzTWRFiP4sS3/f6jkhwn4l8JdLDrWMxNmhpj0GjA/EpyCUii7kHBQw+FAK7s6ghC6YQ4SEx0nWr/qXKqVUSh3lnTLLz9YeeSNFQVMfamFjXA39wmwMEh92OEY21LlT/YYMDi33xVbfXDxWZ+7dWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788598215; c=relaxed/simple;
-	bh=418GUUCHPriYoCUp96gnknZxNvDG4KIlym1boqpP0rc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RqCr59GnskiZArrMAXdq/o3BJoMSLjAKDnhgzRoVgD0STjfpjOd0e+IccxMvy7fKRdXarpMKB2HyE6C1TPVCHLz1FfzxZDUDx2ux6Y2rj9M9ALIma2EnuQx1cWWKDZQlWbKau2Luj81wHc9/6Fpbe3COtPHYQkrAZZWME0ksyig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FJXTtBmH; arc=none smtp.client-ip=209.85.214.173
+	s=arc-20240116; t=1788598221; c=relaxed/simple;
+	bh=UamnaCiFCuL8dQ5tud7OMamejIVBv3CArWO/lHvmxZ0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HZ1XYS7EO6ZQrUnVZ1s/5mGhqSYHH0udnug5zvwuhveqm4J+CYkX8aUQrHGX2mpC8HbRJyO4gYhFeump24BHPEdU2jodceibF1j7HLuWH8jz7MvLrE05XYJsjCAMnn1FFJuu8V8Vsn/HO7LYOlvEC23Z/kgX6y/m/+2/Tia4Cvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h3CvXYfP; arc=none smtp.client-ip=209.85.214.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FJXTtBmH"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2db3305f94fso2089575ad.0
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 01:50:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h3CvXYfP"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2db18e5cb56so15094175ad.0
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 01:50:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788598209; x=1789203009; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788598214; x=1789203014; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wi1PNVlf9ygKz7D9d545aLc7cRBusDmxm541j+QdCUI=;
-        b=FJXTtBmH8oVgCY8S+WugEHHy2hRMiZO2kvYNnQkbYLZNIi07JneE0g+ml3Ak8xez4V
-         ILu9stX6ZYrLsRTG844fJxrYIRLa+tJR/LHI0BeSm48kyHmTaEPnwTWFiRMGb173kQXI
-         YVOCV5siki3s6qI0AwXCM/KIPLECGOuFqX1jbciA3C7HW+nEibLAsoXHU5iVa64AKwor
-         Qxx76kb1KpC2zNfxOKsqsjPJOjWjcI7HRjLGt5GNz3RUxisG5hloi5Sml2mEfDxYtHhx
-         xD6/O+mLxuiYXRzdgPK0k2DQSCYEZ9QTwiIIbpwiQTeO2m7qs4aH7pc498UMPyPFMlOr
-         MdoA==
+        bh=Tv9XV+nVKZ7VK7O3UquLUzncJ434G9d9+lSSoPTL0vA=;
+        b=h3CvXYfP9S808AKwNdlaNuNWJAGFzc6rPUXqBc8vOzZ8qqOgsnKybdexs7b7hqFYa/
+         c1lgcVmkndIHhpxz93605zpkqDkx4FJXIfulkbxuaBrHrWTbNQvbjsJddrMo/FJiS0B2
+         n277gKjf8NiUt31yEAvdKxyL0xgb4Tb8kfSn7Kz6d6wiVfEwzwkX0rBWgEFlmViNW+37
+         7YdRuxfvqjdON0C6RiA9FB3uu19jN9kZyj68dCpCWYtFXATI6LM5a3XnPvYpU/fdlL1C
+         pyDenU5TlTBHWz4SA/xnZVTCXP/3Assn0FAW2AHfFRDmlrOpQL4XSXYpTN98fYDJFbHV
+         fzJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788598209; x=1789203009;
+        d=1e100.net; s=20251104; t=1788598214; x=1789203014;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wi1PNVlf9ygKz7D9d545aLc7cRBusDmxm541j+QdCUI=;
-        b=eCJSxXoS5fvga1hnYXXA41VRRdWRViMXRhvDRCbhQbikadFRH9s4LiA8FgtQYo45ek
-         fuIDurjUWJ143+0F1cLbuGTSD4ccuh+F18B8KSyBX9rXogNI0ROvyPXP63chGm7X5Y9Z
-         PWM2wcBXuJZP/c7+daoRe1pRAao40DWcq+AyWzp2PlXCFqtrxRvN4qEaLp+ELD25sGV6
-         V3yAnKYUpg5Ma/SdSK2HAb8m0qURM7kGEuTHLicvst3O8zAv9IHymnqjLIeosp4MiM4N
-         p15fXTORf4YSDSQdp9Y6SpbZiDYQJhUF1RcbwA8+YKYMWXlSXVjex5gB9cR46RXweY0I
-         ihpA==
-X-Forwarded-Encrypted: i=1; AKwUvBy3aKHgELdRlAsOdyv5XMw1Q226nAQWk/fnUpmUmHFLVF7CSoCziWXK7zWLGt41tR4cZ7k+BgrEMEZ9NcY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lVmC1KdXvaifG36VG4N7E/PVLTWOsIQVYeLrZ3Z6uhOBhcFfg7
-	rLGy/TdBcBDew1/jm6YYFF6f4E6C2oYIwultVeKwqqxXWQGAlkYiZDdS
-X-Gm-Gg: AYBFou0BffrVEsx3JbP+JelXIAcHAgxU8Fr8UcuiGt1G6XLPra5kF/GBkrIhsY5b5Il
-	AsLASqRiKKsW3N3spP4seI9dp2mWhasNdOc391amWHGL9upnXZ1VKbQ9jXQcDHXbyjPJigln1Tp
-	Bgwh43uurRu9Elv2uNj5SkFWpFLLFzdyyxBXTgz805RQ5T+FUmS60AbkBN5Kt44luiz2Y4EfRSg
-	kfep47l9KP7w0Q3PGgvR35TC6wBf8EvOmhg9fNBeX3MNPbS4ih23h/a7lLSIQF058QaKSrxsHyI
-	dycmMWMYd01BZROJvsssmAWdE6i66cevYlFaItdQiHJG2APRWYigXvn7W1tTvOjmZjFU/ZiXY1V
-	wqJNWv0JRN8Lb3pa56lsaALunM3XsLCCxtnZx7HK47UjP3z1oya0IS2SuirGnXfOs+YbdN5LGFT
-	LRFfqhwNh6jyGrPRcWgHoWMGCbFq+d1W996ELy6izdkmbVtQAP+CAV11IA/gvQAYTf6Lali8V+S
-	7DAs6g/7iMZnZBip0Tv7iBhz4uaAd14iKCgmxPfZtLgS4ct4iruQBdSjksnWZVIx8M86RPWvSm/
-	TpfgCjfYfLvImn2+GfnGww==
-X-Received: by 2002:a17:902:8c83:b0:2d8:d4cc:5bb5 with SMTP id d9443c01a7336-2db128a7a5fmr111814335ad.21.1788598209380;
-        Sat, 05 Sep 2026 01:50:09 -0700 (PDT)
-Received: from arch.taild3b82f.ts.net ([2401:4900:531d:da35:5001:ad51:d51:ab15])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b123731sm11899378eec.18.2026.09.05.01.50.04
+        bh=Tv9XV+nVKZ7VK7O3UquLUzncJ434G9d9+lSSoPTL0vA=;
+        b=ekR+WtYA/Omq4CM5xnFMuTW8F7SlJphOebPo6voPvFfpirvDK3avoIZ+W2mBzvLyJ/
+         48AAcEoy4gh+VsvE5sG30LAawtTFs/t6NibRQaEsmXAFKK4BvCLgTuClMsBGR4Cwa/n6
+         uie0ppG0xv6zxkirMvrcqvK7bl6tr6ufCFpJfnf1rYskRDoF4Ytt5nCCESR5Y9uBZWjJ
+         LOubDyqQ7jbQD05GKaBBeLAULXTdKIt3qhkzRWTQ2DcMiOpiP0xG9TWVaN9liGWTLrxv
+         3zvdljA54ndxbWsC4xj8qEVFQgOyWiDVbOP0dq2B+rqcvhaGcxrw9rYMTifisjX5Zwv3
+         jswA==
+X-Forwarded-Encrypted: i=1; AKwUvBwXIzDIAEzDTrI5OpHwA4MnmL0+cDgQASeCanE6YQI0U8hXDphMcbWdkkMOmXJPbwNGCFOAq1fRjy3+h+w=@vger.kernel.org
+X-Gm-Message-State: AFuF++kM7pPVinkb8B6fQ4uHaMHauJLzsIvMn4UbrahuXGDMvF5uS9Ac
+	IFyOBYW9UxfgTDMBGnAJHmo6l5ecowFeh3XG6fcv6ym7/4atcoOIy0Mg
+X-Gm-Gg: AYBFou3v9dgT/raM9pmzQZCu1YVNj04eehOkeCuLEubYe8Kt30CVTzOTbQ8fkshrLqj
+	W6QZBv8APbXr2eOOh1+C0Dip1O9tUJeAY+SAyjj3ItWxujqEkctZJaTzqMJW5JjfFnXfZZW2Zg9
+	R1nzle7dXcAMVEIuT2XI9XyK+A/WaiqQ1XANSmtve9NZd3tSXvf5kLAWY03KbNNIk+xwkLKmzeV
+	aDTVO4IB0Thamw/ALTTOTbJa/lRxVETn79jC+pbHLgn044YFGJwxN/ZBPpjqEhBQ+w0b4F4Q9w9
+	n/8sTFRCZe+IJOXOz0YDqqyB5F5qrF8C0wPF95OaR6GvuLFQAfRlj+l8jiHSU0CklrNMHzG33uT
+	Yf4AxrgBPtNTAoilhhGdOA9qLrKbGJGf8WANQRUVA54T8bILa/yDZR2NOZ4JQRe636pl8MQd594
+	epzj4tBTcf95ieZuyHv0uR5QmE+2D4iqUBYxHhNm6q+Meqemrf9irgChyXxwZ2Q6DAr1ott0oP
+X-Received: by 2002:a17:902:f549:b0:2db:1f50:6515 with SMTP id d9443c01a7336-2db1f506689mr92875435ad.2.1788598213665;
+        Sat, 05 Sep 2026 01:50:13 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db149c15besm20099625ad.61.2026.09.05.01.50.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 01:50:08 -0700 (PDT)
-From: Krish Gulati <krishgulati7@gmail.com>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Zhang Heng <zhangheng@kylinos.cn>,
-	Eric Naim <dnaim@cachyos.org>,
-	Damien Dagorn <damien.dagorn29@gmail.com>,
-	Kailang Yang <kailang@realtek.com>,
-	=?UTF-8?q?Habil=20Eren=20T=C3=BCrker?= <habilerenturker@hotmail.com>,
-	Krish Gulati <krishgulati7@gmail.com>
-Subject: [PATCH] ALSA: hda/realtek: Add quirk for HP Omen 16-wd0xxx mute LED
-Date: Sat,  5 Sep 2026 14:19:05 +0530
-Message-ID: <20260905084951.9595-1-krishgulati7@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Sat, 05 Sep 2026 01:50:13 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+To: mingo@redhat.com,
+	peterz@infradead.org
+Cc: juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	yu.c.chen@intel.com,
+	mgorman@suse.de,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	zhanxusheng@xiaomi.com
+Subject: [PATCH v2 RESEND] sched/debug: Validate writes to the scan_size_mb debugfs knob
+Date: Sat,  5 Sep 2026 16:50:05 +0800
+Message-ID: <20260905085005.1290752-1-zhanxusheng@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,30 +83,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add SND_PCI_QUIRK entry for HP Omen 16-wd0xxx (PCI SSID 103c:8ba9)
-using ALC245_FIXUP_HP_MUTE_LED_V1_COEFBIT, which controls the mute
-LED via a COEF bit write on the ALC245 codec. Without this quirk,
-the mute LED does not reflect mute state on this model.
+scan_size_mb ends up as a divisor and debugfs_create_u32() stores whatever
+is written, so two values panic the kernel.
 
-Tested on the affected hardware; mute LED now toggles correctly.
+Zero, through MAX_SCAN_WINDOW / scan_size in task_scan_min():
 
-Signed-off-by: Krish Gulati <krishgulati7@gmail.com>
+  # echo 0 > /sys/kernel/debug/sched/numa_balancing/scan_size_mb
+
+  Oops: divide error: 0000 [#1] SMP PTI
+  RIP: 0010:task_scan_max+0x30/0x1a0
+  RAX: 0000000000000a00 RCX: 0000000000000000
+  Call Trace:
+   init_numa_balancing+0xe0/0x200
+   __sched_fork+0x13b/0x180
+   sched_fork+0x12/0x1d0
+   copy_process+0xdea/0x2370
+   kernel_clone+0xd6/0x4a0
+
+task_scan_min() is inlined into task_scan_max() there. It takes a CLONE_VM
+child rather than a fork, since init_numa_balancing() returns before that
+call for a new address space.
+
+And a multiple of 2^24 with 4K pages: MB_TO_PAGES() shifts an unsigned int,
+so it wraps to zero and task_nr_scan_windows() divides by that.
+
+  # echo 16777216 > /sys/kernel/debug/sched/numa_balancing/scan_size_mb
+  RIP: 0010:task_nr_scan_windows.isra.0+0x5c/0x70
+
+The sysctl this knob replaced enforced the lower bound with
+.extra1 = SYSCTL_ONE. The move to debugfs kept validation for
+tunable_scaling, which got sched_scaling_fops, but scan_size_mb became a
+plain u32 and lost it. The upper bound was never enforced.
+
+Reject both the way sched_scaling_fops does. scan_size_mb is documented in
+Documentation/scheduler/sched-debug.rst, so -EINVAL is better than storing
+a value that panics on the next clone. Hex input keeps working, as
+simple_attr_write_xsigned() allowed.
+
+Verified in a 2-node qemu guest: both writes panic v7.2-rc6 at the RIPs
+above; with this patch 0, 2^24 and 3*2^24 get -EINVAL and 512 still takes
+effect.
+
+Fixes: 8a99b6833c88 ("sched: Move SCHED_DEBUG sysctl to debugfs")
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Reviewed-by: Chen Yu <yu.c.chen@intel.com>
 ---
- sound/hda/codecs/realtek/alc269.c | 1 +
- 1 file changed, 1 insertion(+)
+No changes since v2.  Both writes still panic v7.3-rc, and the knob is
+still a plain debugfs_create_u32() in mainline and in tip/sched/core.
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 95b40a177d2b..740476a9a344 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -8371,6 +8371,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0xf111, 0x000f, "Framework Laptop 13 Pro PTL", ALC295_FIXUP_FRAMEWORK_LAPTOP_LIMIT_INT_MIC_BOOST),
- 	SND_PCI_QUIRK(0xf111, 0x010f, "Framework Laptop 13 PTL", ALC295_FIXUP_FRAMEWORK_LAPTOP_LIMIT_INT_MIC_BOOST),
- 	SND_PCI_QUIRK(0xf111, 0x0010, "Framework Laptop", ALC295_FIXUP_FRAMEWORK_LAPTOP_LIMIT_INT_MIC_BOOST),
-+	SND_PCI_QUIRK(0x103c, 0x8ba9, "HP Omen 16-wd0xxx", ALC245_FIXUP_HP_MUTE_LED_V1_COEFBIT),
+v2: https://lore.kernel.org/all/20260810142050.3828587-1-zhanxusheng@xiaomi.com/
+v1: https://lore.kernel.org/lkml/20260810081829.3149958-1-zhanxusheng@xiaomi.com/
+
+ kernel/sched/debug.c | 51 +++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 50 insertions(+), 1 deletion(-)
+
+diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
+index 72236db67983..68600b76a3fd 100644
+--- a/kernel/sched/debug.c
++++ b/kernel/sched/debug.c
+@@ -210,6 +210,55 @@ static const struct file_operations sched_scaling_fops = {
+ 	.release	= single_release,
+ };
  
- #if 0
- 	/* Below is a quirk table taken from the old code.
++#ifdef CONFIG_NUMA_BALANCING
++/*
++ * task_scan_min() divides MAX_SCAN_WINDOW by this, and
++ * task_nr_scan_windows() divides by MB_TO_PAGES() of it.  Zero breaks the
++ * first; a value that overflows the 32-bit shift in MB_TO_PAGES() wraps to
++ * zero and breaks the second.
++ */
++#define NUMA_SCAN_SIZE_MB_MAX	(UINT_MAX >> (20 - PAGE_SHIFT))
++
++static ssize_t sched_numa_scan_size_write(struct file *filp,
++					  const char __user *ubuf,
++					  size_t cnt, loff_t *ppos)
++{
++	unsigned int mb;
++	int ret;
++
++	ret = kstrtouint_from_user(ubuf, cnt, 0, &mb);
++	if (ret)
++		return ret;
++
++	if (!mb || mb > NUMA_SCAN_SIZE_MB_MAX)
++		return -EINVAL;
++
++	sysctl_numa_balancing_scan_size = mb;
++
++	*ppos += cnt;
++	return cnt;
++}
++
++static int sched_numa_scan_size_show(struct seq_file *m, void *v)
++{
++	seq_printf(m, "%u\n", sysctl_numa_balancing_scan_size);
++	return 0;
++}
++
++static int sched_numa_scan_size_open(struct inode *inode, struct file *filp)
++{
++	return single_open(filp, sched_numa_scan_size_show, NULL);
++}
++
++static const struct file_operations sched_numa_scan_size_fops = {
++	.open		= sched_numa_scan_size_open,
++	.write		= sched_numa_scan_size_write,
++	.read		= seq_read,
++	.llseek		= seq_lseek,
++	.release	= single_release,
++};
++#endif /* CONFIG_NUMA_BALANCING */
++
+ #ifdef CONFIG_SCHED_CACHE
+ static ssize_t
+ sched_cache_enable_write(struct file *filp, const char __user *ubuf,
+@@ -740,7 +789,7 @@ static __init int sched_init_debug(void)
+ 	debugfs_create_u32("scan_delay_ms", 0644, numa, &sysctl_numa_balancing_scan_delay);
+ 	debugfs_create_u32("scan_period_min_ms", 0644, numa, &sysctl_numa_balancing_scan_period_min);
+ 	debugfs_create_u32("scan_period_max_ms", 0644, numa, &sysctl_numa_balancing_scan_period_max);
+-	debugfs_create_u32("scan_size_mb", 0644, numa, &sysctl_numa_balancing_scan_size);
++	debugfs_create_file("scan_size_mb", 0644, numa, NULL, &sched_numa_scan_size_fops);
+ 	debugfs_create_u32("hot_threshold_ms", 0644, numa, &sysctl_numa_balancing_hot_threshold);
+ #endif /* CONFIG_NUMA_BALANCING */
+ 
+
+base-commit: 4d7d9486c04d917265f64c55bd23b2cc4fe7749c
 -- 
-2.55.0
+2.43.0
 
