@@ -1,156 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D634D35E926;
-	Sat,  5 Sep 2026 16:47:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 797A2368D45;
+	Sat,  5 Sep 2026 16:51:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788626823; cv=none; b=pNRAhIUSVOFZC7mOlwvzNlwVGSGk/5VbdfokDVcXgO0lVFE5PzDpRmt4YYDlDxcowojEgtCNy6US3L25J4LwPxAG77M0LSUfHS6atV2WkUOme26jRsilxERNf8XE7RgpqDSPlgOntHHdMikH5TUjqNYSLl4WMq1utAI1cC6GeyY=
+	t=1788627074; cv=none; b=uZSG8xteaLaJf5q0SAtDD4FHycWJfNiguWcUMstSNFEmdhm7SFZJvMiiTOleWo7aS1RckLvL3RCBNNzJ8hYYpL4EQfLqJl70CneI8zEpyAs9AkdtXjQVaHGeDVYw2E23/AnUj8o5dIqMrblvEKjVXdmU9wlpzWqOT4hhC3bM8BA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788626823; c=relaxed/simple;
-	bh=g1t0zFKzI4JtwTZki0m0h25T/+wfOW+X+j9Gq5OOu/w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ckMG2Yn8UK2TyEWX95+wOSUY5elwkVTNW0is74zE/CarZt0OqsfJhp/AVAHyYLDFsCHe5BGy27uv4RqwDYXvA0TjzohUszSQsd0hznOl41wMNKk5ttwwk+pxMpmqqOiPPrvLoKofsqxJvmLg3GYtThhw5E/IJY2lrNDRJgrPyUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EqWNb3ED; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788627074; c=relaxed/simple;
+	bh=dskzQeDGxBtirZ5ohMl5zEVdQosEdst7khpwTL27U/U=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=lRKkw/3Y6ynHiytVr1zCuusx7VQVFbU1xHmc6UgIarJOeJGfjaOjVHn3swj6l8sh0/SqjBEHILjBIDG6un0C3PErKhCA4W4TE8b0JtXCwS6IOIk6yhUnB4uXCFWlcQ2dm9HJwvnm3ajiqn576z8EQ1tyxZySgL3LJhwZsQnzV/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HX1nRK8D; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EqWNb3ED"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D49D1F00A3A;
-	Sat,  5 Sep 2026 16:46:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788626821;
-	bh=9Tjn9kv1hxb46aSkL0y6J6BeizBOSInInYI9R08z21U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EqWNb3EDnTcI/6DXDaeNxh+n9tWBIOmuE79v9CqJiW7vZmVLJS0Csma4b1BSDMe8k
-	 Xu1ytVRnn7IaAZfzUj8de2kGCMDaU7ldImjVvXmpkMeSWT2epjINvzT2cZanX4wsbc
-	 5MLbok9cMNj3WL1IKu3bmlpWgM3KHxgD3a3voYC7qRj0ErjaBvIhTgwcDhGlvdcf4R
-	 G4kr169I4qnchlarD22vurO7zrhYMhlnV3/MxRXCgtcX/vCNNHULV4TM81nSinfiFA
-	 FLGLlbcylN0HfXnUps+8y/unif3IzWQkfiGJ1XSQ5FE4mTgpqPK0ivupjersDavtrG
-	 BYXaYUU0gfUvQ==
-Date: Sat, 5 Sep 2026 17:46:57 +0100
-From: Simon Horman <horms@kernel.org>
-To: Aaron Ma <aaron.ma@canonical.com>
-Cc: Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Henry Tieman <henry.w.tieman@intel.com>,
-	"moderated list:INTEL ETHERNET DRIVERS" <intel-wired-lan@lists.osuosl.org>
-Subject: Re: [PATCH 2/2] ice: clear Flow Director entries before reset cleanup
-Message-ID: <20260905164657.GB40544@horms.kernel.org>
-References: <20260903074706.602087-1-aaron.ma@canonical.com>
- <20260903074706.602087-2-aaron.ma@canonical.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HX1nRK8D"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 21C4EC2BCF4;
+	Sat,  5 Sep 2026 16:51:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788627074;
+	bh=dskzQeDGxBtirZ5ohMl5zEVdQosEdst7khpwTL27U/U=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=HX1nRK8DRRdhEB8JADjUNXQ9wgUM2sxu0B7FBNFJrho3d+Os79D+Fnw64sRVm/+ms
+	 /hx+GP2r4U2uyMCFemTy1BgAgRZaDFW+Xu/irXLuRe4LN6824RQH2Wu9BB+4YyPXtl
+	 p6l2Rl/pJHG4y8jAZZF4WnFPOYpmYmbqbCFi9cKIOp6XVncjFC+qcAc76Kin3oDK4M
+	 37uLuVIpGk2BflXSS/o0vCNPyYMT+4Ie5ZOXLjPEdaZR24jNCqcZSqKflgahS9jNLy
+	 aeegFQEkg4ER29m0FFny+CQ5wp2b+MF1N5unCC74G2AklYGl4hyDaC4jP4vGIdjvQW
+	 WlWunQuVL5/Zw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C35AC624D3;
+	Sat,  5 Sep 2026 16:51:14 +0000 (UTC)
+From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
+Subject: [PATCH v6 0/6] mm/mglru: clean up folio counters and flag usage
+Date: Sun, 06 Sep 2026 00:51:05 +0800
+Message-Id: <20260906-mglru-flags-cleanup-v6-0-9aacbd77d4ca@tencent.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903074706.602087-2-aaron.ma@canonical.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33PTU7EMAwF4KuMsiYoTpP+sOIeiEVqO52gTjpq2
+ go06t1JhwVFU7F8kv09+yYSj4GTeDndxMhLSGGIOZRPJ4FnFzuWgXIWWulS1VDLS9ePs/S965L
+ Enl2crxLRNOgdldZ4kTevI/vweVff3n9ymtsPxmmjtolzSNMwft1rF9jm/m9YQCpZU9uSQ0W6x
+ teJI3KcnnG4iK1j0TtFm2NFZ0WBMlBoAOP4USn2SnmsFFmhxgNW1ubH60fF7JQCjhWTFU1giVh
+ RxQe32F+lUfpYsVlpqK1KoKpq2P9V1nX9BtZJkdHiAQAA
+X-Change-ID: 20260818-mglru-flags-cleanup-cc49cfad654f
+To: linux-mm@kvack.org
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+ Baoquan He <baoquan.he@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+ Roman Gushchin <roman.gushchin@linux.dev>, 
+ Muchun Song <muchun.song@linux.dev>, Chris Li <chrisl@kernel.org>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Ridong Chen <ridong.chen@linux.dev>, Lian Wang <lianux.mm@gmail.com>, 
+ Yu Zhao <yuzhao@google.com>, Zi Yan <ziy@nvidia.com>, 
+ Qi Zheng <qi.zheng@linux.dev>, cgroups@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Kairui Song <ryncsn@gmail.com>, 
+ Kairui Song <kasong@tencent.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788627071; l=3580;
+ i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
+ bh=dskzQeDGxBtirZ5ohMl5zEVdQosEdst7khpwTL27U/U=;
+ b=c12Fl395Bz9yonkrDDvw0bsBMU4J4OnfMbYdVzc+uUwH1FEGqU5ysTHxGqgnSRDcgtknxkfzX
+ YAvjHxzMlViCZNwTdVvDMg/KXp8x21JoepotrEeSoxF5dZeuTCH5m0k
+X-Developer-Key: i=kasong@tencent.com; a=ed25519;
+ pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
+X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
+ with auth_id=562
+X-Original-From: Kairui Song <kasong@tencent.com>
+Reply-To: kasong@tencent.com
 
-On Thu, Sep 03, 2026 at 03:47:06PM +0800, Aaron Ma wrote:
-> Flow Director profiles retain handles to generic flow entries. Reset calls
-> ice_clear_hw_tbls() to free those entries, but leaves the Flow Director
-> handles unchanged until replay replaces them.
-> 
-> If rebuild fails before replay completes, later driver removal follows a
-> stale handle and dereferences a freed flow entry in ice_flow_rem_entry().
-> KASAN reports a wild access to list poison from
-> ice_fdir_erase_flow_from_hw().
-> 
-> The failure is reported as:
-> 
->   KASAN: maybe wild-memory-access in range [0xdead000000000108-...]
->   RIP: ice_flow_rem_entry+0xaf/0x170 [ice]
->   ice_fdir_erase_flow_from_hw+0x1ee/0x420 [ice]
-> 
-> Clear the Flow Director handles before the hardware tables free their
-> entries. A successful replay installs new handles, while a failed rebuild
-> leaves them invalid for later cleanup.
-> 
-> Fixes: 148beb612031 ("ice: Initialize Flow Director resources")
-> Signed-off-by: Aaron Ma <aaron.ma@canonical.com>
-> ---
->  drivers/net/ethernet/intel/ice/ice.h          |  1 +
->  .../net/ethernet/intel/ice/ice_ethtool_fdir.c | 21 +++++++++++++++++++
->  drivers/net/ethernet/intel/ice/ice_main.c     |  2 ++
->  3 files changed, 24 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/intel/ice/ice.h b/drivers/net/ethernet/intel/ice/ice.h
-> index db3c7015c56c4..4739ff882b9ec 100644
-> --- a/drivers/net/ethernet/intel/ice/ice.h
-> +++ b/drivers/net/ethernet/intel/ice/ice.h
-> @@ -1029,6 +1029,7 @@ ice_get_fdir_fltr_ids(struct ice_hw *hw, struct ethtool_rxnfc *cmd,
->  		      u32 *rule_locs);
->  void ice_fdir_rem_adq_chnl(struct ice_hw *hw, u16 vsi_idx);
->  void ice_fdir_release_flows(struct ice_hw *hw);
-> +void ice_fdir_clear_flow_handles(struct ice_hw *hw);
->  void ice_fdir_replay_flows(struct ice_hw *hw);
->  void ice_fdir_replay_fltrs(struct ice_pf *pf);
->  int ice_fdir_create_dflt_rules(struct ice_pf *pf);
-> diff --git a/drivers/net/ethernet/intel/ice/ice_ethtool_fdir.c b/drivers/net/ethernet/intel/ice/ice_ethtool_fdir.c
-> index aceec184e89b2..faa16b5a12c0d 100644
-> --- a/drivers/net/ethernet/intel/ice/ice_ethtool_fdir.c
-> +++ b/drivers/net/ethernet/intel/ice/ice_ethtool_fdir.c
-> @@ -428,6 +428,27 @@ void ice_fdir_release_flows(struct ice_hw *hw)
->  		ice_fdir_erase_flow_from_hw(hw, ICE_BLK_FD, flow);
->  }
->  
-> +/**
-> + * ice_fdir_clear_flow_handles - clear handles freed during reset
-> + * @hw: pointer to HW instance
-> + */
-> +void ice_fdir_clear_flow_handles(struct ice_hw *hw)
-> +{
-> +	int flow;
-> +
-> +	for (flow = 0; flow < ICE_FLTR_PTYPE_MAX; flow++) {
-> +		struct ice_fd_hw_prof *prof = hw->fdir_prof[flow];
-> +		int tun, i;
-> +
-> +		if (!prof)
-> +			continue;
-> +
-> +		for (tun = 0; tun < ICE_FD_HW_SEG_MAX; tun++)
-> +			for (i = 0; i < prof->cnt; i++)
-> +				prof->entry_h[i][tun] = 0;
-> +	}
-> +}
-> +
->  /**
->   * ice_fdir_replay_flows - replay HW Flow Director filter info
->   * @hw: pointer to HW instance
-> diff --git a/drivers/net/ethernet/intel/ice/ice_main.c b/drivers/net/ethernet/intel/ice/ice_main.c
-> index a97a1941cec6a..7aa1235447310 100644
-> --- a/drivers/net/ethernet/intel/ice/ice_main.c
-> +++ b/drivers/net/ethernet/intel/ice/ice_main.c
-> @@ -601,6 +601,8 @@ ice_prepare_for_reset(struct ice_pf *pf, enum ice_reset_req reset_type)
->  		netif_device_detach(vsi->netdev);
->  skip:
->  
-> +	if (hw->fdir_prof)
-> +		ice_fdir_clear_flow_handles(hw);
->  	/* clear SW filtering DB */
->  	ice_clear_hw_tbls(hw);
->  	/* disable the VSIs and their queues that are not already DOWN */
+This is a cleanup series separated out from the MGLRU-FG series [1]. As
+that series is getting too long in following updates, seperate out the
+clean up part for easier review and merge.
 
-Hi Aaron,
+No feature change is intended, except one bugfix. It mostly replaces
+the open-coded bit operations scattered throughout the MGLRU code with
+new helpers, with proper kdocs, sanity debug checks, and hardens a few
+MGLRU functions.
 
-There is an AI-generated review of this patch available at
-https://sashiko.dev/#/patchset/20260903074706.602087-1-aaron.ma%40canonical.com?part=2
+A subtle generation counter leak is also found during the refactoring
+and the fix is included.
 
-Of that review, the following seems relevant.
-And I'd appreciate it if you could comment on it.
+Also collected review feedbacks on the cleanup part from the posted
+series.
 
-  Does calling ice_fdir_clear_flow_handles() here modify prof->entry_h
-  locklessly from the reset task?
+Link: https://lore.kernel.org/linux-mm/20260804-mglru-fg-v1-0-4d8dad39dad6@tencent.com/ [1]
+Signed-off-by: Kairui Song <kasong@tencent.com>
+---
+Changes in v6:
+- Rebase on top of mm-unstable, also mergable on mm-new.
+- Collect tags.
+- Link to v5: https://patch.msgid.link/20260902-mglru-flags-cleanup-v5-0-9db761d779ef@tencent.com
 
-  If an ethtool command to add or remove a Flow Director rule executes
-  concurrently with a PF reset, ice_add_fdir_ethtool() checks the reset flag
-  locklessly and then acquires hw->fdir_fltr_lock. Can this result in a data
-  race if the reset worker clears the array without holding the lock while the
-  ethtool thread updates it?
+Changes in v5:
+- Change atomic long to plain long in patch 1, and adjust commit message.
+- Rename is_file to type, and avoid touching folio_is_file_lru in patch 7/7.
+- Link to v4: https://patch.msgid.link/20260831-mglru-flags-cleanup-v4-0-2d15dde0d7ee@tencent.com
+
+Changes in v4:
+- Rename lru_gen_set_flags/lru_gen_from_flags to
+  lru_set_gen_flags/lru_get_gen_flags, similiar with lru refs helpers,
+  as suggested by [ Barry Song ].
+- Added some comments to cover concerned raised by [ Barry Song ] and [
+  Baolin Wang ].
+- A little code shuffling and better sanity check for concerns raised by 
+  [ Ridong Chen ].
+- Collect tags.
+- Link to v3: https://patch.msgid.link/20260826-mglru-flags-cleanup-v3-0-d9f1c75549c8@tencent.com
+
+Changes in v3:
+- Set PG_workingset before setting LRU refs bit to avoid any potential
+  under report of folio tier.
+- Migrate folio's referenced status before PG_update so lockless readers
+  won't set stale referenced status.
+- Link to v2: https://patch.msgid.link/20260824-mglru-flags-cleanup-v2-0-0104132114ae@tencent.com
+
+Changes in v2:
+- Dropped the redundant LRU_GEN_MAX macro.
+- Renamed folio_migrate_refs() to folio_migrate_lru_refs() and reworded
+  its commit message to describe the referenced state being transferred.
+- Rewrote patch 6's commit message with a detailed analysis of the
+  anon/file accounting race.
+- Dropped patch 7, it doesn't really fix anything, and might be in
+  conflict with other updating series.
+- Collected Reviewed-by tags.
+- Link to v1: https://patch.msgid.link/20260818-mglru-flags-cleanup-v1-0-8dbbdac0d28c@tencent.com
+
+---
+Kairui Song (6):
+      mm/memcontrol: move the lru_zone_size sanity check to the reader side
+      mm/mglru: introduce helpers for manipulating gen and refs flags
+      mm/migrate: copy all referenced state via folio_migrate_lru_refs
+      mm/mglru: move max_seq read into walk_update_folio
+      mm/mglru: use explicit tier range in read_ctrl_pos()
+      mm/mglru: fix potential generation folio number leak
+
+ include/linux/memcontrol.h |   9 +++-
+ include/linux/mm_inline.h  | 115 +++++++++++++++++++++++++++++++++++++++-----
+ include/linux/mmzone.h     |   3 ++
+ mm/folio.c                 |  19 ++++----
+ mm/memcontrol.c            |  18 +------
+ mm/migrate.c               |   6 +--
+ mm/vmscan.c                | 116 ++++++++++++++++++++++++---------------------
+ 7 files changed, 188 insertions(+), 98 deletions(-)
+---
+base-commit: b5529903123d9535bcf74386c1f4e185e8632dd9
+change-id: 20260818-mglru-flags-cleanup-cc49cfad654f
+
+Best regards,
+--  
+Kairui Song <kasong@tencent.com>
+
+
