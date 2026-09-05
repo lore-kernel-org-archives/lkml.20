@@ -1,100 +1,75 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C90D389E1A
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:21:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C3C49E5CA
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:27:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788621687; cv=none; b=hWtin6N64ZX/7RoTgH22t5lEbB41iW1tGQYDhH2HNeqBAg4B656vFR9ElW8XJd2UjKv34Q6MR/4Fgk8DZZ8t2BqFUBeLhq3erDfh3NRC28pM8JULUA+H52NiKcV60ne+9mI9Kqrr3QtGiYimXe7E26Bv5x63MaqIlznfPPyvF6A=
+	t=1788622043; cv=none; b=IVYBMlMA8RuiBCEjdKPO7rVqVUI+PYEcQWr/22JCgu51s8GAv07YL8OaPzIsUkyNY2lXC8hRyLPsjLmR9dsNzokcY+7MzAMVjVzxvD5O2sIshmyXR6PjwKHoGosJFg7s9VBRAwaNhpYWfiY3OGMalWL0VzlmH2Q73CJ3qIdtQqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788621687; c=relaxed/simple;
-	bh=jI2gGbzI+HUajhKyE8y1MbUEO4Zymfd1MC5nDoUrAZw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Gr3ZwjAiB5PRiHHEepVBJP+rU39Mt38BPdMiJ6q94H4scC+3diD2R+AgOg7SQkTOUxLJ4zntnewdvhyfuP1/Dt5hWXO/5TR69EBGIa2LuZNbWw1spfSquk/DX8HGmxosP7a/mT5lzKpdnPnVpaj02oPkj+x56oP1ES4HA3xrVME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qFXtyyGo; arc=none smtp.client-ip=209.85.128.46
+	s=arc-20240116; t=1788622043; c=relaxed/simple;
+	bh=tMQJVYJRQF3dBnJ/EJVxZ9yPBJ8gF4Va+0gud6j2SRs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J46/KbASHHwxjq3sxUfnSLw6IDDYIGuhQcHtiiScf6iNVzTC/qGW1GmfbeGpk6ZmUGuqr3nmTqzTf51w+BNt4KxnAxlt9Es3IXgkZwegBrOkfewJB8cZNlM3BqhNM1nNifO/61wTOh7K+7VrLF7IVC8xIN9jMVAvqGodaS0UGmY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gn2kWUUX; arc=none smtp.client-ip=209.85.208.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qFXtyyGo"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49b965570d7so23706935e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 08:21:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gn2kWUUX"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a7f27637d6so2239810a12.3
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 08:27:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788621681; x=1789226481; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Mqo0BMx1ifj9a2kCuZrCJMvmSnufIkatqKGeQLf7b/s=;
-        b=qFXtyyGoJs5rHpXjQFSVCdscc8B1IjaAIJKlgWg3Q/fFWuEVFc0/SgQUtx32CDtJ88
-         okSfUNnQg76FWheoT0eWdWNdN+wfuk1fRK4BZt2Uk4F1WDTFVRXKz5wyY/UHPlDVC5H8
-         CDfAstFm+wutQxh514nLe+IVZW91HvGrPlJcyg8myWGi5pa9DFnuQMiLgvh8fE40+M/8
-         eWqqhIZx6gXmPOXGQVFgXWxUsRp4fPHlYQHCuyGSWoXMSSSTPumeXx7sbT57dTRSt4Jt
-         U/gCaFRGcz2rI0inTgS1xAtxfXjv2D/CF/JXq6xvIb7Shd19bh/v0gnFtV5pAi1ss+F+
-         oS2Q==
+        d=gmail.com; s=20251104; t=1788622040; x=1789226840; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fMDzWqUveBSzd5QyaJkSDxL5FMTYjVkFKS0zQ+Fx1Uo=;
+        b=Gn2kWUUXukbwCwQUcU8FfxI96GvF/qA3yi+l/E4mkW5k0/0RS9Lxw2HAbZeJq4lJkS
+         6tZiyF3mx74vmZoHq4uDkPvdNKG2VEIoT3YC88GAMeXZCY6UdZWpL+HhxjlmYuRhdugG
+         HgHNQrPymz5GODDqKr4fF3nv9vPh6Nqi6VeD7lJ2h3AkJ2r3ASGXCW7clYvO0HJ0caeq
+         0JydRTT2tUJxnSxeKdKPwIkiV6k5YmuooAnOR7bM/FdZ2lx/Qb/7er56GZqiqhb/7Yqj
+         E+ugYHNFuMB++77CqtMT7Mke9UQ2VGlCtgFPRy7+mJCrQzMctg4FhzdGGaa7cKFjeozE
+         i8vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788621681; x=1789226481;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Mqo0BMx1ifj9a2kCuZrCJMvmSnufIkatqKGeQLf7b/s=;
-        b=bYhLDo0pFAT4CaZJxlHb0pT08Ya7YSGZu5eCefll1+c0NkqBOTBDa8t6m3VZ+yzroq
-         sYEc8vKBdfnzGfssy2jauBvwk1vawouuWEGV2Ck/9KXtC+2sGR+CsAorCw0QWizphOdq
-         pU60pMPAvh1zynJQ+FnTozMrSHEVKcaZ5v1R40ZqimrVGMb2XieVOsBrwYDhIY6MlBa3
-         vJrH5jGTxMK4GYUt5/Kny90pRJ6JSariQmJwfjeNH0s4fep6UC+iOC6Th50JZrfAaQYa
-         ORVh/zBDKOiTDrDJ4Mh/wpy80kkFELdWqnCSEjCirIFLgjJKHr+tfr6UDVV2n/aBDQOB
-         nzdA==
-X-Forwarded-Encrypted: i=1; AKwUvByZjMh8OL72VZ/wZS/2DSws9R97ipcxNuPETEym0BZxqBVXMUsbjD+vsuZyqHT0w7HNhggWIwKjAbPchUo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lPGWAWF1o9GaNxlmC7LZQu9dczreboNPB1ODD624t9JgQxNFS2
-	TaTGPN+DvpwmiN3UwoOihS2KS0RxTtFXv+7AOnzW44OUoJ6GvXpmnHYP
-X-Gm-Gg: AYBFou10h3D94iA21KPRcASY/up+6QNnpoTVc93BRTdTvns0T3NDAwghFU94RWrVXlK
-	NXW9hFwHA+nvGXHGXKwG0bKtO/YEPscqXiupHaSeYOmKB3rVW9+YDdgAnIqE7uOFp/ziF5GFICI
-	WkGKJsiFyLvU1wVOHa90u7q87rJ92N2dkqFaPVpoRbQzBH7Tx39oOeb6XEkrk2lmK4MM9mw4DA8
-	IkwpKQFlaqQOitg2eQ4QDKdwfr8VeqvMiaqjTCGG5+vJAFQYN28piAsGoiiQHDSD6McX+dlUpgU
-	XK0b+FGuxtXewFJFF1QIpo5lu+99UHaaljtPubomaqUGH6xLngdaYNqdkLtNeHkINBn+U/kkNQ1
-	w/t+LKJXuvOC7YzXGbtQ0xf+D+Pghzu9PZxa3pl8wIwU9T2+b32j3aFwiTb7qffjgftT3nrRsB0
-	1RM2PHDbSw1bdRXZ9kl7OBwYdVfMVs0e9jHNv+5435uFFVTCUKqHkm7TBXLXhbXsQRADhVR1XNp
-	9gKBYTbcatwMtZFNuHPETU2hx2FdTUpLT6nSEM7p7qClVBOST6f6fKb+yT0aK2BauYZgxuJ+OAN
-	sAz99K1V7M7TlPRyWzWJZWh7JiqRilHdnMH/m35kAiqrGGd+FwKMETklkaePCfOFRk4=
-X-Received: by 2002:a05:600c:1d2a:b0:49b:12c2:104f with SMTP id 5b1f17b1804b1-49cf81e52e8mr117561445e9.1.1788621680621;
-        Sat, 05 Sep 2026 08:21:20 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a4eb-3001-c06d-af27-9fa2-ea53.310.pool.telefonica.de. [2a02:3100:a4eb:3001:c06d:af27:9fa2:ea53])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf75ce49esm267779515e9.1.2026.09.05.08.21.19
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 05 Sep 2026 08:21:20 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: "Michael S . Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Gerd Hoffmann <kraxel@redhat.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Rusty Russell <rusty@rustcorp.com.au>,
-	Pawel Moll <pawel.moll@arm.com>,
-	Cornelia Huck <cohuck@redhat.com>,
-	Halil Pasic <pasic@linux.ibm.com>,
-	Eric Farman <farman@linux.ibm.com>,
-	Richard Weinberger <richard@nod.at>,
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Vadim Pasternak <vadimp@nvidia.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	virtualization@lists.linux.dev,
-	linux-input@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	kvm@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	platform-driver-x86@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/3] virtio: implement synchronize_cbs for remaining transports
-Date: Sat,  5 Sep 2026 17:20:59 +0200
-Message-Id: <20260905152059.89560-4-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20260905152059.89560-1-kmehltretter@gmail.com>
-References: <20260905152059.89560-1-kmehltretter@gmail.com>
+        d=1e100.net; s=20251104; t=1788622040; x=1789226840;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fMDzWqUveBSzd5QyaJkSDxL5FMTYjVkFKS0zQ+Fx1Uo=;
+        b=Orpb03sa8v27FyY7qa7fxI6UmQmXZqfVjUuCMsV+j/E9I8TE+OfLxpZZr0JaUI3lTu
+         BTt0w8yhBxC2EHEmhOITOQ+D3uxU6pFKWsMjXjbU+N2f8/AxL/Zr4LV5fMkOIyxLYCJ1
+         qCwy/XJSrZE0LfgS5Wjd3jbHmAtLrlb8DTXRbkpOnV+q4S11q7uhJH6Viuh7ue9evUnW
+         8y+VaeHebjzvtMBEkzSXc3JMVmNVOsyFD05CyGQaSGfjnCDHYdMnD0k+gYgw10EiDqXu
+         jcWBwfHYOXFiiQ/yPOdVoTwlg/QdTlh1sR0O3wpKh4LR98eP0cEDcpY6FGMnelNXOJ2J
+         q52w==
+X-Forwarded-Encrypted: i=1; AKwUvBw7iHecmlSpoMrWSLNxeBKWzEVY3Trl+48l1rnSrD9NH2qTt6W5OwbdTz4acNZwjS4iywAL//x4x8GDfLg=@vger.kernel.org
+X-Gm-Message-State: AFuF++neGtJgZlWwkFqZ/q4Ma1Urv7ShGXtHvclebL0tdeAA+AgjGKpE
+	+UdbivUkpeE4oRVjyevA1an+/XbwXGoDNdpdInronJJv1Cla9t+IKzKC
+X-Gm-Gg: AYBFou3KPGAXwWgVhtX1OT01eL9YgrWyY24b5iSb3awpp2yyddkxszcVQDryrnL2A2k
+	ggvRUf9GiIiJSUmyUgf4hwxKQ7xSzuKlxjk0xYdFy1d337uEtS3zUMHiFPB9dadlyyTtL9U10ae
+	ysJprFUO+aqnmCFz/qhR8PaP8FOWCnEYkQw83+c03rkcszi/U7V14I1DlwczLNo1pwvS2MQPjVs
+	hNDxVsc7l9elRNXqum10HzoUBhorBd5CwyfaY4VRiEwOh//o7SEjJytjYnzKDiZLCdLXG1s8Mew
+	QHU2BAqy7zMRAhcc1BcRR49qHoMYGhH2Wtnxf4YE+mC5Xi17civATw9648NO3g4tsAXydIu9dnQ
+	R/oMEIknvlNaCIHeSwtdGkkDA3ZaQvnO+9rzD9f2QR4ekeM4NpQ4FnI8oDFNV0umOtbnwJG6NIr
+	5gLP9IZi/VrRhUTYpbfAYfqfuJXbckGS41TeizYm5zehjpJ9Zcr2p6
+X-Received: by 2002:a17:906:c107:b0:c25:ec7a:a488 with SMTP id a640c23a62f3a-c260c9780b9mr862792266b.1.1788622040355;
+        Sat, 05 Sep 2026 08:27:20 -0700 (PDT)
+Received: from localhost.localdomain ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d5497cbsm236702166b.34.2026.09.05.08.27.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 08:27:19 -0700 (PDT)
+From: "Uladzislau Rezki (Sony)" <urezki@gmail.com>
+To: linux-mm@kvack.org,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Baoquan He <bhe@redhat.com>,
+	LKML <linux-kernel@vger.kernel.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	stable@vger.kernel.org,
+	Dev Jain <dev.jain@arm.com>,
+	Ye Liu <ye.liu@linux.dev>,
+	lirongqing <lirongqing@baidu.com>
+Subject: [PATCH RESEND] mm/vmalloc: Use dedicated unbound workqueues for vmap drain
+Date: Sat,  5 Sep 2026 17:27:17 +0200
+Message-ID: <20260905152717.11711-1-urezki@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -103,284 +78,190 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-virtio_reset_device() now calls synchronize_cbs to wait for running
-callbacks. Its synchronize_rcu() fallback does not cover workqueue or
-sleepable callbacks.
+drain_vmap_area_work() function can take >10ms to complete
+when there are many accumulated vmap areas in a system with
+high CPU count, causing workqueue watchdog warnings when run
+via schedule_work():
 
-Add the missing hooks. UML waits for its shared IRQ; TmFIFO takes the
-existing per-direction locks held around vring_interrupt(). Virtio-vdpa
-uses a per-device rwlock around its callbacks, which must already be
-hard-IRQ safe.
+  workqueue: drain_vmap_area_work hogged CPU for >10000us
 
-Remoteproc callbacks can run in hard-IRQ or process context, and rpmsg
-callbacks can sleep, so use one SRCU domain per rproc. Enter it before
-looking up the queue. Initialize it in rproc_alloc(), returning NULL if
-that fails, and clean it up at final release. cleanup_srcu_struct() can
-sleep, so document that rproc_put() and rproc_free() may sleep when
-dropping the last reference.
+Move the top-level drain work to a dedicated WQ_UNBOUND
+workqueue so the scheduler can run this background work
+on any available CPU, improving responsiveness. Use the
+WQ_MEM_RECLAIM to ensure forward progress under memory
+pressure.
 
-These hooks wait for callbacks already running. UML, TmFIFO and
-remoteproc still allow new callbacks after reset.
+Move purge helpers to separate WQ_UNBOUND | WQ_MEM_RECLAIM
+workqueue. This allows drain_vmap_work to wait for helpers
+completion without creating dependency on the same rescuer
+thread and avoid a potential parent/child deadlock.
 
-Suggested-by: Michael S. Tsirkin <mst@redhat.com>
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Simplify purge helper scheduling by removing cpumask-based
+iteration to iterating directly over vmap nodes checking
+work_queued state.
+
+Cc: stable@vger.kernel.org
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Ye Liu <ye.liu@linux.dev>
+Cc: lirongqing <lirongqing@baidu.com>
+Fixes: 72210662c5a2 ("mm: vmalloc: offload free_vmap_area_lock lock")
+Link: https://lore.kernel.org/all/20260319074307.2325-1-lirongqing@baidu.com/
+Reviewed-by: Baoquan He <bhe@redhat.com>
+Signed-off-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
 ---
- arch/um/drivers/virtio_uml.c             | 10 ++++++++++
- drivers/platform/mellanox/mlxbf-tmfifo.c | 14 ++++++++++++++
- drivers/remoteproc/remoteproc_core.c     | 10 ++++++++++
- drivers/remoteproc/remoteproc_virtio.c   | 20 +++++++++++++++++---
- drivers/virtio/virtio_vdpa.c             | 21 ++++++++++++++++++++-
- include/linux/remoteproc.h               |  3 +++
- 6 files changed, 74 insertions(+), 4 deletions(-)
+ mm/vmalloc.c | 79 ++++++++++++++++++++++++++++++++++------------------
+ 1 file changed, 52 insertions(+), 27 deletions(-)
 
-diff --git a/arch/um/drivers/virtio_uml.c b/arch/um/drivers/virtio_uml.c
-index 7425a8548141..baca6b09e9ac 100644
---- a/arch/um/drivers/virtio_uml.c
-+++ b/arch/um/drivers/virtio_uml.c
-@@ -20,6 +20,7 @@
-  *
-  * Based on Virtio MMIO driver by Pawel Moll, copyright 2011-2014, ARM Ltd.
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index bea9f76ed7e7..89c327a6ce7d 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -972,6 +972,7 @@ static struct vmap_node {
+ 	struct list_head purge_list;
+ 	struct work_struct purge_work;
+ 	unsigned long nr_purged;
++	bool work_queued;
+ } single;
+ 
+ /*
+@@ -1090,6 +1091,8 @@ static void reclaim_and_purge_vmap_areas(void);
+ static BLOCKING_NOTIFIER_HEAD(vmap_notify_list);
+ static void drain_vmap_area_work(struct work_struct *work);
+ static DECLARE_WORK(drain_vmap_work, drain_vmap_area_work);
++static struct workqueue_struct *drain_vmap_helpers_wq;
++static struct workqueue_struct *drain_vmap_wq;
+ 
+ static __cacheline_aligned_in_smp atomic_long_t vmap_lazy_nr;
+ 
+@@ -2351,6 +2354,16 @@ static void purge_vmap_node(struct work_struct *work)
+ 	reclaim_list_global(&local_list);
+ }
+ 
++static bool
++schedule_drain_vmap_work(struct workqueue_struct *wq,
++		struct work_struct *work)
++{
++	if (wq)
++		return queue_work(wq, work);
++
++	return false;
++}
++
+ /*
+  * Purges all lazily-freed vmap areas.
   */
-+#include <linux/interrupt.h>
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/platform_device.h>
-@@ -869,6 +870,14 @@ static void vu_reset(struct virtio_device *vdev)
- 	vu_dev->status = 0;
+@@ -2358,19 +2371,12 @@ static bool __purge_vmap_area_lazy(unsigned long start, unsigned long end,
+ 		bool full_pool_decay)
+ {
+ 	unsigned long nr_purged_areas = 0;
++	unsigned int nr_purge_nodes = 0;
+ 	unsigned int nr_purge_helpers;
+-	static cpumask_t purge_nodes;
+-	unsigned int nr_purge_nodes;
+ 	struct vmap_node *vn;
+-	int i;
+ 
+ 	lockdep_assert_held(&vmap_purge_lock);
+ 
+-	/*
+-	 * Use cpumask to mark which node has to be processed.
+-	 */
+-	purge_nodes = CPU_MASK_NONE;
+-
+ 	for_each_vmap_node(vn) {
+ 		INIT_LIST_HEAD(&vn->purge_list);
+ 		vn->skip_populate = full_pool_decay;
+@@ -2390,10 +2396,9 @@ static bool __purge_vmap_area_lazy(unsigned long start, unsigned long end,
+ 		end = max(end, list_last_entry(&vn->purge_list,
+ 			struct vmap_area, list)->va_end);
+ 
+-		cpumask_set_cpu(node_to_id(vn), &purge_nodes);
++		nr_purge_nodes++;
+ 	}
+ 
+-	nr_purge_nodes = cpumask_weight(&purge_nodes);
+ 	if (nr_purge_nodes > 0) {
+ 		flush_tlb_kernel_range(start, end);
+ 
+@@ -2401,29 +2406,31 @@ static bool __purge_vmap_area_lazy(unsigned long start, unsigned long end,
+ 		nr_purge_helpers = atomic_long_read(&vmap_lazy_nr) / lazy_max_pages();
+ 		nr_purge_helpers = clamp(nr_purge_helpers, 1U, nr_purge_nodes) - 1;
+ 
+-		for_each_cpu(i, &purge_nodes) {
+-			vn = &vmap_nodes[i];
++		for_each_vmap_node(vn) {
++			vn->work_queued = false;
++
++			if (list_empty(&vn->purge_list))
++				continue;
+ 
+ 			if (nr_purge_helpers > 0) {
+ 				INIT_WORK(&vn->purge_work, purge_vmap_node);
++				vn->work_queued = schedule_drain_vmap_work(
++					READ_ONCE(drain_vmap_helpers_wq), &vn->purge_work);
+ 
+-				if (cpumask_test_cpu(i, cpu_online_mask))
+-					schedule_work_on(i, &vn->purge_work);
+-				else
+-					schedule_work(&vn->purge_work);
+-
+-				nr_purge_helpers--;
+-			} else {
+-				vn->purge_work.func = NULL;
+-				purge_vmap_node(&vn->purge_work);
+-				nr_purged_areas += vn->nr_purged;
++				if (vn->work_queued) {
++					nr_purge_helpers--;
++					continue;
++				}
+ 			}
+-		}
+ 
+-		for_each_cpu(i, &purge_nodes) {
+-			vn = &vmap_nodes[i];
++			/* Sync path. Process locally. */
++			purge_vmap_node(&vn->purge_work);
++			nr_purged_areas += vn->nr_purged;
++		}
+ 
+-			if (vn->purge_work.func) {
++		/* Wait for completion if queued any. */
++		for_each_vmap_node(vn) {
++			if (vn->work_queued) {
+ 				flush_work(&vn->purge_work);
+ 				nr_purged_areas += vn->nr_purged;
+ 			}
+@@ -2487,7 +2494,8 @@ static void free_vmap_area_noflush(struct vmap_area *va)
+ 
+ 	/* After this point, we may free va at any time */
+ 	if (unlikely(nr_lazy > nr_lazy_max))
+-		schedule_work(&drain_vmap_work);
++		schedule_drain_vmap_work(READ_ONCE(drain_vmap_wq),
++			&drain_vmap_work);
  }
  
-+static void vu_synchronize_cbs(struct virtio_device *vdev)
+ /*
+@@ -5587,3 +5595,20 @@ void __init vmalloc_init(void)
+ 	vmap_node_shrinker->scan_objects = vmap_node_shrink_scan;
+ 	shrinker_register(vmap_node_shrinker);
+ }
++
++static int __init vmalloc_init_workqueue(void)
 +{
-+	struct virtio_uml_device *vu_dev = to_virtio_uml_device(vdev);
++	struct workqueue_struct *drain_wq, *helpers_wq;
++	unsigned int flags = WQ_UNBOUND | WQ_MEM_RECLAIM;
 +
-+	if (vu_dev->irq >= 0)
-+		synchronize_irq(vu_dev->irq);
++	drain_wq = alloc_workqueue("vmap_drain", flags, 0);
++	WARN_ON_ONCE(drain_wq == NULL);
++	WRITE_ONCE(drain_vmap_wq, drain_wq);
++
++	helpers_wq = alloc_workqueue("vmap_drain_helpers", flags, 0);
++	WARN_ON_ONCE(helpers_wq == NULL);
++	WRITE_ONCE(drain_vmap_helpers_wq, helpers_wq);
++
++	return 0;
 +}
-+
- static void vu_del_vq(struct virtqueue *vq)
- {
- 	struct virtio_uml_vq_info *info = vq->priv;
-@@ -1121,6 +1130,7 @@ static const struct virtio_config_ops virtio_uml_config_ops = {
- 	.reset = vu_reset,
- 	.find_vqs = vu_find_vqs,
- 	.del_vqs = vu_del_vqs,
-+	.synchronize_cbs = vu_synchronize_cbs,
- 	.get_features = vu_get_features,
- 	.finalize_features = vu_finalize_features,
- 	.bus_name = vu_bus_name,
-diff --git a/drivers/platform/mellanox/mlxbf-tmfifo.c b/drivers/platform/mellanox/mlxbf-tmfifo.c
-index 3c6408581373..c260e3a1544e 100644
---- a/drivers/platform/mellanox/mlxbf-tmfifo.c
-+++ b/drivers/platform/mellanox/mlxbf-tmfifo.c
-@@ -1135,6 +1135,19 @@ static void mlxbf_tmfifo_virtio_reset(struct virtio_device *vdev)
- 	tm_vdev->status = 0;
- }
- 
-+static void mlxbf_tmfifo_virtio_synchronize_cbs(struct virtio_device *vdev)
-+{
-+	struct mlxbf_tmfifo_vdev *tm_vdev = mlxbf_vdev_to_tmfifo(vdev);
-+	struct mlxbf_tmfifo *fifo = tm_vdev->vrings[0].fifo;
-+	unsigned long flags;
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(fifo->spin_lock); i++) {
-+		spin_lock_irqsave(&fifo->spin_lock[i], flags);
-+		spin_unlock_irqrestore(&fifo->spin_lock[i], flags);
-+	}
-+}
-+
- /* Read the value of a configuration field. */
- static void mlxbf_tmfifo_virtio_get(struct virtio_device *vdev,
- 				    unsigned int offset,
-@@ -1179,6 +1192,7 @@ static const struct virtio_config_ops mlxbf_tmfifo_virtio_config_ops = {
- 	.find_vqs = mlxbf_tmfifo_virtio_find_vqs,
- 	.del_vqs = mlxbf_tmfifo_virtio_del_vqs,
- 	.reset = mlxbf_tmfifo_virtio_reset,
-+	.synchronize_cbs = mlxbf_tmfifo_virtio_synchronize_cbs,
- 	.set_status = mlxbf_tmfifo_virtio_set_status,
- 	.get_status = mlxbf_tmfifo_virtio_get_status,
- 	.get = mlxbf_tmfifo_virtio_get,
-diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-index 1ed406714849..1b139d25ab2b 100644
---- a/drivers/remoteproc/remoteproc_core.c
-+++ b/drivers/remoteproc/remoteproc_core.c
-@@ -2410,6 +2410,7 @@ static void rproc_type_release(struct device *dev)
- 
- 	dev_info(&rproc->dev, "releasing %s\n", rproc->name);
- 
-+	cleanup_srcu_struct(&rproc->vq_srcu);
- 	idr_destroy(&rproc->notifyids);
- 
- 	if (rproc->index >= 0)
-@@ -2507,6 +2508,11 @@ struct rproc *rproc_alloc(struct device *dev, const char *name,
- 	if (!rproc)
- 		return NULL;
- 
-+	if (init_srcu_struct(&rproc->vq_srcu)) {
-+		kfree(rproc);
-+		return NULL;
-+	}
-+
- 	rproc->priv = &rproc[1];
- 	rproc->auto_boot = true;
- 	rproc->elf_class = ELFCLASSNONE;
-@@ -2571,6 +2577,8 @@ EXPORT_SYMBOL(rproc_alloc);
-  *
-  * If no one holds any reference to rproc anymore, then its refcount would
-  * now drop to zero, and it would be freed.
-+ *
-+ * Context: May sleep if this drops the last reference.
-  */
- void rproc_free(struct rproc *rproc)
- {
-@@ -2586,6 +2594,8 @@ EXPORT_SYMBOL(rproc_free);
-  *
-  * If no one holds any reference to rproc anymore, then its refcount would
-  * now drop to zero, and it would be freed.
-+ *
-+ * Context: May sleep if this drops the last reference.
-  */
- void rproc_put(struct rproc *rproc)
- {
-diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
-index d5e9ff045a28..ecc022e354db 100644
---- a/drivers/remoteproc/remoteproc_virtio.c
-+++ b/drivers/remoteproc/remoteproc_virtio.c
-@@ -23,6 +23,7 @@
- #include <linux/err.h>
- #include <linux/kref.h>
- #include <linux/slab.h>
-+#include <linux/srcu.h>
- 
- #include "remoteproc_internal.h"
- 
-@@ -89,14 +90,19 @@ static bool rproc_virtio_notify(struct virtqueue *vq)
- irqreturn_t rproc_vq_interrupt(struct rproc *rproc, int notifyid)
- {
- 	struct rproc_vring *rvring;
-+	int srcu_idx;
-+	irqreturn_t ret;
-+
-+	srcu_idx = srcu_read_lock(&rproc->vq_srcu);
- 
- 	dev_dbg(&rproc->dev, "vq index %d is interrupted\n", notifyid);
- 
- 	rvring = idr_find(&rproc->notifyids, notifyid);
--	if (!rvring || !rvring->vq)
--		return IRQ_NONE;
-+	ret = rvring && rvring->vq ? vring_interrupt(0, rvring->vq) : IRQ_NONE;
-+
-+	srcu_read_unlock(&rproc->vq_srcu, srcu_idx);
- 
--	return vring_interrupt(0, rvring->vq);
-+	return ret;
- }
- EXPORT_SYMBOL(rproc_vq_interrupt);
- 
-@@ -242,6 +248,13 @@ static void rproc_virtio_reset(struct virtio_device *vdev)
- 	dev_dbg(&vdev->dev, "reset !\n");
- }
- 
-+static void rproc_virtio_synchronize_cbs(struct virtio_device *vdev)
-+{
-+	struct rproc *rproc = vdev_to_rproc(vdev);
-+
-+	synchronize_srcu(&rproc->vq_srcu);
-+}
-+
- /* provide the vdev features as retrieved from the firmware */
- static u64 rproc_virtio_get_features(struct virtio_device *vdev)
- {
-@@ -330,6 +343,7 @@ static const struct virtio_config_ops rproc_virtio_config_ops = {
- 	.find_vqs	= rproc_virtio_find_vqs,
- 	.del_vqs	= rproc_virtio_del_vqs,
- 	.reset		= rproc_virtio_reset,
-+	.synchronize_cbs = rproc_virtio_synchronize_cbs,
- 	.set_status	= rproc_virtio_set_status,
- 	.get_status	= rproc_virtio_get_status,
- 	.get		= rproc_virtio_get,
-diff --git a/drivers/virtio/virtio_vdpa.c b/drivers/virtio/virtio_vdpa.c
-index de2af696de6c..4f9e70c1332e 100644
---- a/drivers/virtio/virtio_vdpa.c
-+++ b/drivers/virtio/virtio_vdpa.c
-@@ -27,6 +27,7 @@
- struct virtio_vdpa_device {
- 	struct virtio_device vdev;
- 	struct vdpa_device *vdpa;
-+	rwlock_t callback_lock;
- 	u64 features;
- };
- 
-@@ -123,8 +124,24 @@ static irqreturn_t virtio_vdpa_config_cb(void *private)
- static irqreturn_t virtio_vdpa_virtqueue_cb(void *private)
- {
- 	struct virtqueue *vq = private;
-+	struct virtio_vdpa_device *vd_dev;
-+	unsigned long flags;
-+	irqreturn_t ret;
- 
--	return vring_interrupt(0, vq);
-+	vd_dev = to_virtio_vdpa_device(vq->vdev);
-+	read_lock_irqsave(&vd_dev->callback_lock, flags);
-+	ret = vring_interrupt(0, vq);
-+	read_unlock_irqrestore(&vd_dev->callback_lock, flags);
-+
-+	return ret;
-+}
-+
-+static void virtio_vdpa_synchronize_cbs(struct virtio_device *vdev)
-+{
-+	struct virtio_vdpa_device *vd_dev = to_virtio_vdpa_device(vdev);
-+
-+	write_lock_irq(&vd_dev->callback_lock);
-+	write_unlock_irq(&vd_dev->callback_lock);
- }
- 
- static struct virtqueue *
-@@ -439,6 +456,7 @@ static const struct virtio_config_ops virtio_vdpa_config_ops = {
- 	.reset		= virtio_vdpa_reset,
- 	.find_vqs	= virtio_vdpa_find_vqs,
- 	.del_vqs	= virtio_vdpa_del_vqs,
-+	.synchronize_cbs = virtio_vdpa_synchronize_cbs,
- 	.get_features	= virtio_vdpa_get_features,
- 	.finalize_features = virtio_vdpa_finalize_features,
- 	.bus_name	= virtio_vdpa_bus_name,
-@@ -472,6 +490,7 @@ static int virtio_vdpa_probe(struct vdpa_device *vdpa)
- 	vd_dev->vdev.config = &virtio_vdpa_config_ops;
- 	vd_dev->vdev.map = vdpa->map;
- 	vd_dev->vdpa = vdpa;
-+	rwlock_init(&vd_dev->callback_lock);
- 
- 	vd_dev->vdev.id.device = ops->get_device_id(vdpa);
- 	if (vd_dev->vdev.id.device == 0)
-diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
-index a44368737b39..ad6bccbdfabc 100644
---- a/include/linux/remoteproc.h
-+++ b/include/linux/remoteproc.h
-@@ -11,6 +11,7 @@
- #include <linux/types.h>
- #include <linux/mutex.h>
- #include <linux/spinlock.h>
-+#include <linux/srcu.h>
- #include <linux/virtio.h>
- #include <linux/cdev.h>
- #include <linux/completion.h>
-@@ -230,6 +231,7 @@ enum rproc_features {
-  * @rvdevs: list of remote virtio devices
-  * @subdevs: list of subdevices, to following the running state
-  * @notifyids: idr for dynamically assigning rproc-wide unique notify ids
-+ * @vq_srcu: SRCU domain for virtqueue callbacks
-  * @index: index of this rproc device
-  * @attach_work: workqueue for attaching rproc
-  * @crash_handler: workqueue for handling a crash
-@@ -276,6 +278,7 @@ struct rproc {
- 	struct list_head rvdevs;
- 	struct list_head subdevs;
- 	struct idr notifyids;
-+	struct srcu_struct vq_srcu;
- 	int index;
- 	struct work_struct attach_work;
- 	struct work_struct crash_handler;
++early_initcall(vmalloc_init_workqueue);
 -- 
-2.39.5 (Apple Git-154)
+2.47.3
+
