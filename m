@@ -1,137 +1,94 @@
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84E2D2C15BB;
-	Sat,  5 Sep 2026 06:50:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9785836D500;
+	Sat,  5 Sep 2026 06:56:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788591051; cv=none; b=haawi3PzFT/h9wDUWEQzMafOijixOA5t6ouhGUsEmphz/Duw0sO++eIVCl/2DYf+LiSt36BBUQHDFtxqxHt/uQyJ/aXnOnW11SjthvtSDXvErMS8U96sh8l9JR4pEL15JRaYo+9MWhr6UOSxzE8/8Ul7xlF5Hq8O2VEUGvjJ5os=
+	t=1788591419; cv=none; b=o/kv4/sJ3/trEbC57br13qc1CcOyMmPhyXUWoi9G3ZKZp44ELTfJx9USZaIPViKijSSjLuaYToZu/gKIcMvlDPUb5+8cLpHNt/8hH+zjNztVO3HCaaXB3QPrJ6Jy101ABQyOqvdH11FmsyZQDoOeRjGSHfJr3wGfIqserHnOpuE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788591051; c=relaxed/simple;
-	bh=9C1ZfOoC7dHlhjbpSr1qydCg/5uAk1aS02Q5yg74amE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BJfdWu1VaBRk5Za0d+mWdZ3zqsJezJDOExlfQq8qWhKGe8X6WRCP2C0CaRqdAphf84GH+uG27l5F2ZyYMBh22EzQHwC2BI6sJ9c3K/cY8GemZSqrV7M09G97k5O3jlgPvQ3tvkU+4TE0w6xcc2QjgD2PhqcIyrrSk6gpM/k7mxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=none smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.177])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hcP8W5fR4zKHMWJ;
-	Sat,  5 Sep 2026 14:49:47 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.112])
-	by mail.maildlp.com (Postfix) with ESMTP id 542A34058F;
-	Sat,  5 Sep 2026 14:50:44 +0800 (CST)
-Received: from huaweicloud.com (unknown [10.50.85.155])
-	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgB3YAvCu5tqtCpEAw--.2810S4;
-	Sat, 05 Sep 2026 14:50:44 +0800 (CST)
-From: Zizhi Wo <wozizhi@huaweicloud.com>
-To: gregkh@linuxfoundation.org,
-	jirislaby@kernel.org,
-	npitre@baylibre.com,
-	linux-serial@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	yangerkun@huawei.com,
-	chengzhihao1@huawei.com,
-	wozizhi@huawei.com
-Subject: [PATCH] vt: skip screen update for DEC alignment test on backgroup consoles
-Date: Sat,  5 Sep 2026 14:43:37 +0800
-Message-ID: <20260905064337.3083103-1-wozizhi@huaweicloud.com>
-X-Mailer: git-send-email 2.52.0
+	s=arc-20240116; t=1788591419; c=relaxed/simple;
+	bh=TR2O9ECcg6yQtpwzX9vsx4nZ+WrTN6YKf5+Cft5E6Z0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=t9geR1eoq1wIMf4EXkMheEMlJTHqh02wJrpZ2gaH7DxtGb0Gi0Vu66SN+tyXG8hlHNrDKuG4QJ1FfBBYWTpMUnPMAji81GPRS1uaytr4z8qjJVu74A+lHgsE3Ydju2VFH+0QDMibLSOSknJylUHFG5buOe1qx8bzDjkI4d0jnWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=I4kfNSLl; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="I4kfNSLl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788591417; x=1820127417;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=TR2O9ECcg6yQtpwzX9vsx4nZ+WrTN6YKf5+Cft5E6Z0=;
+  b=I4kfNSLlRP6QV8o4iEGIrxoR4xwkTImC9czD2gMJKnIE/V8KyqojPBY/
+   Xg9MgWLh7FeYzrRsJoR4UCLlXgWTxRNY+5cw+kxcNLL7ZXbFBrfCG09Uk
+   1HFyfH5Dff73QWh6bxJ+TL2IXVlkH3Cg2xKlyUjvIe5ZqX/k1RxDL+N1i
+   CJTZaenbLSBIJo6HcjevA15dxXgn0+oqacBDlsBtWetN5VoFou51hYAGd
+   PyEsBtZXv+BryMf4kNb7suFdycbHIQvTHAzLiUQHZc7gOqPxLutFqs/db
+   sSQRAy8uwRPVDf3UiMZVrUPd+Ai0rtMx8srfUVJYbX7pfmGtv3t8f3qXQ
+   g==;
+X-CSE-ConnectionGUID: /VQ/y8/JSRWb/xEAawhz3A==
+X-CSE-MsgGUID: 42UEiH6jS3iPy953SYJguw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11896"; a="100245121"
+X-IronPort-AV: E=Sophos;i="6.25,263,1779174000"; 
+   d="scan'208";a="100245121"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 23:56:56 -0700
+X-CSE-ConnectionGUID: jZlFHu74Sw2oy0YRMDcQuQ==
+X-CSE-MsgGUID: 6EwboxHuSZmPCh7vgBvYng==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,263,1779174000"; 
+   d="scan'208";a="295108721"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.245.105])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 23:56:54 -0700
+Date: Sat, 5 Sep 2026 09:56:52 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Linux ACPI <linux-acpi@vger.kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v1] ACPI: glue: Reduce debug noise from
+ acpi_device_notify()
+Message-ID: <apu9NIro83DpSu3z@ashevche-desk.local>
+References: <2868233.mvXUDI8C0e@rafael.j.wysocki>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:cCh0CgB3YAvCu5tqtCpEAw--.2810S4
-X-Coremail-Antispam: 1UD129KBjvJXoWxArWkKw4DWF1Dtr1UtFWxCrg_yoW5WrWrp3
-	yFkF1vvws2gr4kZa1qyw45ZFyrA39FqryUurZ3AF47ZF15ZrykWa47ta4kWrZ7XwsakryS
-	y3WUZr9YvF1093DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUyKb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I
-	0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
-	x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
-	0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij
-	64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x
-	8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE
-	2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42
-	xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF
-	7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUwxhLUUUUU
-X-CM-SenderInfo: pzr2x6tkl6x35dzhxuhorxvhhfrp/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2868233.mvXUDI8C0e@rafael.j.wysocki>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Zizhi Wo <wozizhi@huawei.com>
+On Fri, Sep 04, 2026 at 02:55:03PM +0200, Rafael J. Wysocki wrote:
+> From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+> 
+> When debug is enabled in the ACPI glue code that handles binding
+> devices to ACPI companions, acpi_device_notify() produces a lot of
+> message noise related to devices that have no ACPI companions.
+> 
+> Reduce that noise by checking the most obvious cases, ACPI device
+> objects and devices without a bus type, directly and returning from
+> acpi_device_notify() in these cases without printing any debug
+> messages.
+> 
+> Also make the debug messages that get printed more informative and
+> change the format prefix to "ACPI/glue", so it is easier to filter
+> these messages.
 
-[BUG]
-Recently, we encountered a KASAN warning as follows:
+I would argue that the consistent formatting will be "ACPI: glue: "
 
-BUG: KASAN: slab-out-of-bounds in fb_pad_aligned_buffer+0x11f/0x140
-Read of size 1 at addr ff1100015fd9f6a4 by task tty_fbcon_oob/1239
-CPU: 7 UID: 0 PID: 1239 Comm: tty_fbcon_oob Not tainted 7.3.0-rc1 #100 PREEMPT(full)
-Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-4.fc41 04/01/2014
-Call Trace:
- <TASK>
- ...
- kasan_report+0xf0/0x120
- fb_pad_aligned_buffer+0x11f/0x140
- ccw_putcs+0x86c/0xa80
- fbcon_putcs+0x338/0x410
- do_update_region+0x21d/0x450
- do_con_write+0x1e0e/0x4880
- con_write+0x13/0x80
- n_tty_write+0x374/0x1010
- file_tty_write.isra.0+0x404/0x7a0
- ...
+$ git grep -n 'pr_fmt.*ACPI: [^"]'  -- drivers/acpi/ | wc -l
+24
 
-reproduce:
-1) open /dev/tty0, set a KDFONTOP ioctl with op.op = KD_FONT_OP_SET,
-op.width = 8 and op.height = 16 (visible VC1)
-2) open /dev/tty1, set a KDFONTOP ioctl with op.op = KD_FONT_OP_SET,
-op.width = 28 and op.height = 24 (invisible VC2)
-3) echo 3 > /sys/devices/virtual/graphics/fbcon/rotate_all
-4) write EShash8(esc hash8) to tty1
+The / is used only in two cases: acpi/hmat and acpi/mrrm.
 
-[CAUSE]
-All VCs render to the framebuffer. setfont only modifies the target VC's
-font without resizing the framebuffer backing buffer (par->rotated.buf);
-the buffer is only resized for the visible VC
-(fbcon_do_set_font -> ... -> vc_do_resize -> update_screen). This relies on
-the con_should_update() check performed before every update_region().
-
-However, the ESC # 8 path (do_con_trol -> do_update_region) omits the
-con_should_update() check. After changing the font size of an invisible VC,
-do_update_region() fills using the new font size against a buffer that was
-never resized, causing an out-of-bounds access.
-
-[FIX]
-Only push the update when the console is visible and not blanked, add
-the con_should_update() check in the do_con_trol() like every other call
-site of do_update_region() (update_region(), invert_screen(), ...).
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Zizhi Wo <wozizhi@huawei.com>
----
- drivers/tty/vt/vt.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
-index 8f467b22b799..901bb2ce01dc 100644
---- a/drivers/tty/vt/vt.c
-+++ b/drivers/tty/vt/vt.c
-@@ -2858,11 +2858,12 @@ static void do_con_trol(struct tty_struct *tty, struct vc_data *vc, u8 c)
- 			vc->vc_video_erase_char =
- 				(vc->vc_video_erase_char & 0xff00) | 'E';
- 			csi_J(vc, CSI_J_VISIBLE);
- 			vc->vc_video_erase_char =
- 				(vc->vc_video_erase_char & 0xff00) | ' ';
--			do_update_region(vc, vc->vc_origin, vc->vc_screenbuf_size / 2);
-+			if (con_should_update(vc))
-+				do_update_region(vc, vc->vc_origin, vc->vc_screenbuf_size / 2);
- 		}
- 		return;
- 	case ESsetG0:	/* ESC ( */
- 		vc_setGx(vc, 0, c);
- 		vc->vc_state = ESnormal;
 -- 
-2.52.0
+With Best Regards,
+Andy Shevchenko
+
 
