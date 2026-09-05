@@ -1,82 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B05DF20DD51;
-	Fri,  4 Sep 2026 23:59:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBB505474E
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 00:02:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788566364; cv=none; b=Z8N6FRV2fw8NNE+TKnPHW3N22DhQA6oprs0C13h93wZk2SVQxFuSgBW4qmpIArHmeDbsYtNS9UHbr+/gnnsMta8Wg2xtRx9vYrvbWavPtNSZVZ8h0oI+eou759QvsrzuozMzqhW3j3y9LC0YO6hdtpetYTzc2sE0y4OYmhy/q70=
+	t=1788566585; cv=none; b=te0Of/cTJjQVSS3mxhHRHBZD2kQps6mgBCyGWmugs6qma3FuSPRGET2Aubkzac7NSlUArhShR1y3ZMKmo+FcFEI1PkEqYF87IVC9hmNRwqRp2PUGvOw+GFkb3FqP9z70a0Hv+s2Pl/TDtNl8CHgfYJPIgbEknCL6JB9vec/Q66Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788566364; c=relaxed/simple;
-	bh=WHzdFsrJQSCCVC6yMxL1HpWyzM2KSkS2Xmm5/Nf1p+I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cwkgeetmGSUX+i/g9Zz8+JC3UvfdfhBu2WFYh//PFWIt0Oo4/VmkM1nRTswRM120Dz3lzDLdlgcyBaC82yc7kyIpSIfyCgGe74GeMCnD2wpa4vXWz0kagXBwc5esq0RAQ0ohsi5t8Mj2M6XKkTAddQEODc6DISf5s7dpFuew9WI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TO2wh+yi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788566585; c=relaxed/simple;
+	bh=jRGHH5+dJasYl6QasqZcBXjDc5Ioc8QJO+SuMvwIw8Y=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZeLUQfcjuHUN6FFjun47hCMT0vyh8Q/0FdaYkXcZ6r7WQ6Az9+pzY8IpXKzPg+Mw1Hj7ANyXeQrW/74kG2HW2m7TCyx3N7Z70zCepRYsAep8je3+uywiFIUu/jkdH4SWoWqRGoHy8DiEIaVVpcHDdCc08nyvoK8zywO9Gfyq/rc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=Mtc76hyz; arc=none smtp.client-ip=109.224.244.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TO2wh+yi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCFEB1F00A3D;
-	Fri,  4 Sep 2026 23:59:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788566363;
-	bh=q6CYCkPfdGnTvONd8HyYxDOWKWY6Ru41NtJnnGeiMOg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TO2wh+yiKuCY1xzOsag6p5uyZOXkGCKAu9zZFjNh15nMGEvsNeP3JUEKP/3W6gy4g
-	 WbwV4TwI9PmwEOMxdK1pUyUclBKMjDYdCkbwfZPK+g7Mjk/SPZCKrCzozGJzrPSp0n
-	 5bv8HIAON+IMF62uJcQs+DduMLKa6eaNblScfGB/m50OIaNQGqCJ6XrKD9sUPZ9/3Y
-	 Mh2J/WDXU7wQzlDDTU8ydWzWZ/3yb1jHO2u+4ILT+G4ObOjIq0e/Iq83JxXY5o39KW
-	 r9afyp+V+wiGXbaD0D3k1ylmzO1hUcXV5jqLlW0/m5JA1OXOzbSXrS7qOJQT17lHju
-	 uv+gfGJJnXxmA==
-From: SJ Park <sj@kernel.org>
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-arch@vger.kernel.org
-Subject: Re: [PATCH 1/5] asm-generic: fix typo "explicity" in comment
-Date: Fri,  4 Sep 2026 16:59:15 -0700
-Message-ID: <20260904235916.67459-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260904104854.25272-2-hemanth.selam@gmail.com>
-References: 
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="Mtc76hyz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1788566577; x=1788825777;
+	bh=kYCP7L+RxrvA8YLVkCaLEUw3ZFxkZz5HDaaTujWhlUQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=Mtc76hyzA3Wbr52GD1zOGMKwP/iNRXq+mKtWKZbSPfahKQdBBJyrJBubkICF9JmYZ
+	 XkSj/89GFnCIRCQU9C5f7jSzZZmN49ivzOa7xP5wI7qe41TkGno9wNfcdKQ3GZ/dJ6
+	 mm9Rmb6b4qK6Er37OUck2YHDp1vqh0Oo9dn4MzL8b30lmmRH0bj6crFUBILlb2e+59
+	 DMFcAbgS/XVUKKmcQJoSAZ0BKqXiAxupqXX/ToBjph/X7F+edhMo4VYkCuH6tcl69t
+	 klGv6D+ADcxwi44ZuJVZdyeA49QU6NQVgIxkVRV5fYioBaUxiXOkJ/aicfDrxrDYDa
+	 Enr7EKBBkRCvg==
+Date: Sat, 05 Sep 2026 00:02:52 +0000
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+From: Cole Munz <Munzzyy1@proton.me>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] usb: dwc3: gadget: don't error on dequeue of a completed request
+Message-ID: <20260905000240.2267367-1-Munzzyy1@proton.me>
+In-Reply-To: <aptTU3JD0xPMPmfL@vbox>
+References: <20260904161344.2191362-1-Munzzyy1@proton.me> <2026090406-unrevised-stays-4832@gregkh> <7bef11b63feb88f89b37bbc86323ed3dba794f43.1788541086.git.Munzzyy1@proton.me> <2026090413-hurdle-puzzling-aadd@gregkh> <a0cdcd76b7a6a3c841b7957a2b761ae71ceb46fc.1788549031.git.Munzzyy1@proton.me> <aptTU3JD0xPMPmfL@vbox>
+Feedback-ID: 209578162:user:proton
+X-Pm-Message-ID: d7868ab47e7d4a561e27fead25e9169f0cf54be5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri,  4 Sep 2026 16:18:46 +0530 Hemanth Selam <hemanth.selam@gmail.com> wrote:
+On Fri, Sep 04, 2026, Thinh Nguyen wrote:
+> NAK.
+>
+> This is not a fix. This changes the dequeue() behavior. You're breaking
+> the documented behavior of usb_ep_dequeue():
 
-> Correct "explicity" to "Explicitly", reported by scripts/checkpatch.pl
+You're right, the return value is documented and I shouldn't change it.
 
-Too trivial, but 's/explicity/Explicity/'
+The part that actually hurts is the dev_err. f_fs dequeues ep0req on
+every teardown on purpose since ce405d561b02, so every unbind logs
 
-> using the misspelling list in scripts/spelling.txt.
+  dwc3 23000000.usb: request 00000000ad92f1c4 was not queued to ep0out
 
-Again, too trivial, but I think mentioning spelling.txt is not necessary.  LLMs
-might disagree.
+for a request that completed normally, and that noise buries real
+errors. Would you take a version that keeps the -EINVAL return and only
+lowers the message to dev_dbg when the request is COMPLETED on its own
+endpoint? The never-queued and wrong-endpoint cases would keep the
+dev_err.
 
-> Only touches comments,
-> no code changes.
+If that's not worth doing either, I'll drop it.
 
-Anyway good catch, and looks correct to me.  Thank you for fixing this.
+Regards,
+Cole
 
-> 
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
-
-Reviewed-by: SJ Park <sj@kernel.org>
-
-
-Thanks,
-SJ
-
-[...]
