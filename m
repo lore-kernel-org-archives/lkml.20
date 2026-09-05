@@ -1,498 +1,190 @@
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011005.outbound.protection.outlook.com [40.107.130.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC29318CC13
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 05:29:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788586161; cv=pass; b=JJAbT+dbV+uiJNwd2/zqoEJd6jNWMWt9VCuZdVIKZMiG3kBJDBXz8Er4UI2TthuFN4PnTMvDUvpHiclRwipwyagfY+wjjC6b7QWnmeZril8etbOYcgOduoiutR9dCMwIvLFsLVp8zRkItc4rxUvdDw2LpwNmm2rs2v1ToTZ1Otw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788586161; c=relaxed/simple;
-	bh=p+U6slXGSkZV2gS8bWjG0Z2gRjO1LEC+tQzZbsv+2SM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=khlXXUrNDmWJUsT9CaMlksmcJsqWK+N82uZLRicAmYHbs88iSnnqCjTZczfc1fN97mI/juUuEdX5DEUxgVUyQ4L6f+avoV6yR8WeyMHUwH1OCqZIFHTucQZicMLLqzsTOhAMwBrEzOOXH77i3DsqsPa0uN6QYKcNclhAInhsw2g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ryTpQCTI; arc=pass smtp.client-ip=209.85.160.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2412327144B;
+	Sat,  5 Sep 2026 05:31:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.5
+ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788586268; cv=fail; b=qKScQJFOsmJCqu7Km+iEyGY7fvBZncMS/eD5PByTAIR+rCYupam7LSm1rbCKKl7hcQhlcQpJH0Kg8XtYg0G4SkBRZd69lR278T9beM5A/dArtRsddS9GqOiGqf+XPHKISW5DvAhDYYTN3Zu75PPAlQqloM4zekftaBzr/j6CtNk=
+ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788586268; c=relaxed/simple;
+	bh=a2knge4ZdNfgIQWIiom/xgCfSchoRQgzumUFSqi27sI=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=kiy2auGCZahpQg560q6J8/OkNStta2Lg875sg45vHMwZv4oei7XI4sPKFw28DvtiiAyd/1TKJPSGgh8qPaInoX37k56QaY+tDSOasP9ILnLD4Y9woiXWQmPa+bgTfiz6XsVBhwxWrpo1fp+MiH3W5UajX/z51Pf612G+FexXGo4=
+ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=V3qRL55e; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=V3qRL55e; arc=fail smtp.client-ip=40.107.130.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ryTpQCTI"
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-53069ec6e61so2461741cf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 22:29:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788586159; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nPs8BLdZ16RPUdD6L3YAgp2r3SQ9GhGB9bs+f+cgvpMNz0SULAurOcCyuFT2Fyz7l2
-         Bmt4jiIUzatRmTzkiN9nKzQOjh9sSc+v8B3h27WnyU6cPTGFYkRfHz5x8pz1L6GD8a6j
-         sY/NgaElsFwrplKXLpuPPz7V2ImcB8dXBhdziOOxIzdYjHj6gl2duWZTDjAfkn9PHY1B
-         m0FZcooXWAAvP0+nEeqZZ/Kfxxoav7Kns2amhj4Ig+EspiNGv35RasDDnZztw5ztt6Lq
-         oKzMT0OkkaomIKTsbMvx4YaMnbr5LkU+oyo5p45ooAUEI54JKaYMYamcs3vP04CqLjL9
-         xu1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=zOOtROkozwZMIXH8rgnwGdPPygaONrUYrSuVGiaR5T8=;
-        fh=HN9/QOKeryNamZhWjDJ/iDYqtGbg2MrNCgPHzenxwUg=;
-        b=m/v03HeHof7oSH/UtT5Ts635RugKTg05M16QiG2vxwrkQ1Tpdrk2wLTkuNxlq3zVfR
-         xMA2rzPiCNrFyJ8iCw2nCwjAY/TkViW24cYgES9GLHAzzA4Fdwwvpa0wF3mZgcwe0FQC
-         WgfgfyjoU3BsHPsrRqvYNKRSGI5NlLKF0mvuXyiJbgvJK1JI4bTooq6G0yptC6Ylr5pl
-         ujYurf9mEvdKDxIDq3ZC2RTkp1Fi6Ci36xu+wsCzIulA/5KlJKy8tGuVM6La0V/COTog
-         8WTBY62HdEGdzGZvVooG3uWOz0kp1Mnp3KsBUnzIylTXZROCsZf5r1SJJpVH7E2aDc3D
-         L42A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788586159; x=1789190959; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zOOtROkozwZMIXH8rgnwGdPPygaONrUYrSuVGiaR5T8=;
-        b=ryTpQCTIUGnKwlhGsfM91kqWq7Yb+qTJ296iaGsdSKWGFwi0+7wxBuDdf/WIGMZvJT
-         PM49qsRwcupAev78tDccFVnwt7uMALeo4QwwtxVwuISNa7PNWkjyWvtQX+dhqvKMPPj0
-         hFc3z2j7R6Wm4ICXrHCXekJ4jBE+7NsALZrkJfE4FwQZI5vx43enr/HZEwf9rd1kqCCt
-         cavB+RhBsUiVVsUPntl04YT3kWJMGBv+3pM5BrIa6ISdb26E52NTPqeFnQHZqNCMPcHI
-         lbWveV6NBnZKFxipVhBWvczJjS/iSTVWbmnJvhyt+DQfBN2YVwQWrHWQyubFu0BdgHtp
-         SDzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788586159; x=1789190959;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zOOtROkozwZMIXH8rgnwGdPPygaONrUYrSuVGiaR5T8=;
-        b=tX3BhyzzY/bds22h/DJ7jVF35S5C7ltlYkEHfSYIq7oyLIdoCGlLpk72fohJtY5uWn
-         pWk+bmiPFjG2TGeQYUvJXSYwqS9Bm5zW6gores9HIW4bW8Nm5wLIdtBgGr7vSaM8FV/J
-         EUxhVnd523Ok+hYDQT9HuS3Wsl15KP7x7dl8GHbDm/1tpcljkdHtyl4W4PrqSJnggjzR
-         RwKbpL5nn9jCFEQ24/RHWwGQRnzNU0nsQYlZpytQhYps4Dj6LPCkQA0d7YUym12HlPdk
-         v/NkGLnnmXJcSjNKOUGTQSh+ZjHxMtD9ain/Soe/FaZDtHVi206cQVBQVIyx+PPXK72n
-         K+Ww==
-X-Forwarded-Encrypted: i=1; AKwUvBwxMR2vBzGhYtWGUo6JjTGmWD+IkNo7qudFEZIvJEFdXMf9wGbabJzDU/4BjtQ7MxBXFAMtxSnaV/CukYs=@vger.kernel.org
-X-Gm-Message-State: AFuF++ln5BnwJnLKpNQc7dp7ZNOCCi6egOg1E37dpRZoAhBx9nFLFM3E
-	ibijakC9n/VX1LtzzUJKZMvhBu+FHKTlfGUQ7pGTDtUGqC44UkCGm0Pxlt4rwsavdbkm0aPkGLx
-	GZJIpMVbNYPgMck1frs/PsPScYI/r34Y=
-X-Gm-Gg: AYBFou1yD6PAkIPEuAzOahOYE6UO56QH43dizaqGi35ewrfMR0M+c5v7HTsPd9K9AN/
-	mj/t2S3fdv0A2opoEamGd+cDzQRm0eqXskjXMl/Y6g0zOqKSETKGZpNZXD8kZB4Y8GxDFdd6rYC
-	41FmXrwfdrMIaKdWTTItAT5g9wh3WZLhbLLwwtW5roAjJb+p5L5S/4H2VzMxPVR9sEeGYT2/Anj
-	H5/i+9ZXZ3VkThCH9rpOoCAFvamGrMRtDDzq3xifAcPnzyz1C8D15iMCC8kXclMwNrrDmGHYmhy
-	ruZ+cF+deKMt4DWeze3CdfWXl4YdFSBPkve9PicuTAxs
-X-Received: by 2002:ac8:690b:0:b0:530:430e:8126 with SMTP id
- d75a77b69052e-53054a4add9mr136508981cf.47.1788586158690; Fri, 04 Sep 2026
- 22:29:18 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="V3qRL55e";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="V3qRL55e"
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=HCv/fYRKCvZ39aYmhO2V8kDFx6mOybCGe95/cBCjA9uffLFJiHdnxh54R8Mv1RtV+67RpOm6AOF5+0B5yWGTO94tftG/qG/0UqU/12SG58n1z6PoLxNx8k3BdVO0wkmtcGXT6JS0+Rj1uFdi8K4oOVCsgk2URAAeyVl4je95YRGRbGn4rw3/CXRBarYaghVsltu8bsT6YWzJ7Wb6XSTpUax1gXnoDafqQ4Olsxbw7AxCxabDqJlb2Z+mGXqueoz+jkdHbHFDoooLp2pkj3jm5e0Yg/ihPLbhyyVkOckVdPvaJKFdLxT3y8GPdAyegz+Owr0z2b5gjggqrt0zauQWpQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qEzw9NpKj2v4Y0rr7vpIazbg7IYkwJn7QitUro15kZA=;
+ b=h7vIJF6hssPwJVoZRcDi2jDUFuUQht3sBWK8pyy/KulUKbMGm5NI+VrUmh7x0F9a1IjINtbTMSOyqLmmiQu79+7o7sGt7p4R00J9ho/cdYpVTRHy333+R4VpRVbRiuPwoJGnzNKdK2qSsIJVNQB/oux4vnSmdxfkeB4QtreH9FBHRPxngGCCsg/H5J0hq7K15/WeqywCmwKuMt+5d3GofzsTGcl6BF6N6//7xuItUql7fi6Rxo4wBiZoS3Zu3Yp+834Ach9daH1yoB7ocGRJxPkjbWeVqBI+txaN1u+4KgT5Tewe3/HDTX56R/uyym/rR8r+6gqaqljRrfUsYLW2Ug==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=linux-foundation.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qEzw9NpKj2v4Y0rr7vpIazbg7IYkwJn7QitUro15kZA=;
+ b=V3qRL55e6WKI9rtw9Ch/lSTeiGuQTjR90Cl4BluD00RX2HKm6GqSq89ShdOQG4Zfnx6KBhRQxM9NPnvnqjrYCeIQ35nwGIqkt23CiTk6cioNnub6YW4odahDacZQmLxPqhOKW8ieeLgOle+FRVaEtnWszEV8oSvByfz9azSOGsk=
+Received: from PR3P189CA0035.EURP189.PROD.OUTLOOK.COM (2603:10a6:102:53::10)
+ by AS8PR08MB5912.eurprd08.prod.outlook.com (2603:10a6:20b:29f::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Sat, 5 Sep
+ 2026 05:30:59 +0000
+Received: from AM7PEPF00000056.EURPRD83.prod.outlook.com
+ (2603:10a6:102:53:cafe::2b) by PR3P189CA0035.outlook.office365.com
+ (2603:10a6:102:53::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.13 via Frontend Transport; Sat, 5
+ Sep 2026 05:30:58 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ AM7PEPF00000056.mail.protection.outlook.com (10.167.242.42) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.1
+ via Frontend Transport; Sat, 5 Sep 2026 05:30:58 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=acCP+4TGqxQAu2P/FND7F1eILVrFs4zolk5Ef3IIzOVxvvJYRLqdzolfcvS3IUvY7cOWPwWm7XwYlOTM8PZTsj/umT3X5ca9dPrjOZt+swJarPSltKH7g8IRnrHDPjOab/NFSIIg9c9XRKiNmkVsJEM5qw19N/mUOzwsjylM4hRq4ALgVvh3+SybA/3ZXEr+tcApiGImD7x9aUPcrFriXv6/c0t10xfdBQUFKGsAOFZJR5NpXj/OBCaoh7jeMMHhfKp7WO8LSh1t2O1J5LhHSPf31YVPTGP8uCK1tTnQHltSPv5n6SSesQHoFFMaMo/8QDNPS7BDsGMAtm58+GaX0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qEzw9NpKj2v4Y0rr7vpIazbg7IYkwJn7QitUro15kZA=;
+ b=sJUNILhPaNyv8cJfXh/wzTlt7f0jki0aaHWCKnxFqHPFBXulEjddLE+FQIousmsqO+MEwe3ORPgMLi9oKa4cySGVyHLKIMIPZE+EyNoq11yFybAIP0ko6uOXfa33G+HgIDo5S9fUA+7eBc+hdJF6a3qQ3RbdreWyv9q0MyqoO/y/to3lbd6O0HOyAkPAkFTduvfYURHKqv8zAStmQmYLtvHa4pl0H8UujMKjjPV2ljaVWI0rXRXFJfOBUZxbaJ0yYo9i3YxOnhM2qln1DpQkPEiNr0HJRzOxqPquNy/pfr4qQXoE46Lf8BqCgfAvrk7u34jTIB0HznSRunMEZGmgVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qEzw9NpKj2v4Y0rr7vpIazbg7IYkwJn7QitUro15kZA=;
+ b=V3qRL55e6WKI9rtw9Ch/lSTeiGuQTjR90Cl4BluD00RX2HKm6GqSq89ShdOQG4Zfnx6KBhRQxM9NPnvnqjrYCeIQ35nwGIqkt23CiTk6cioNnub6YW4odahDacZQmLxPqhOKW8ieeLgOle+FRVaEtnWszEV8oSvByfz9azSOGsk=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from DU0PR08MB9203.eurprd08.prod.outlook.com (2603:10a6:10:417::12)
+ by AM8PR08MB5633.eurprd08.prod.outlook.com (2603:10a6:20b:1d3::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.9; Sat, 5 Sep 2026
+ 05:30:24 +0000
+Received: from DU0PR08MB9203.eurprd08.prod.outlook.com
+ ([fe80::f1e:73f2:57df:4047]) by DU0PR08MB9203.eurprd08.prod.outlook.com
+ ([fe80::f1e:73f2:57df:4047%6]) with mapi id 15.21.0406.002; Sat, 5 Sep 2026
+ 05:30:24 +0000
+Message-ID: <d199cb21-f90c-4e40-bc7f-5537793518af@arm.com>
+Date: Sat, 5 Sep 2026 11:00:15 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 0/6] selftests/mm: separate GUP microbenchmarking from
+ functional testing
+To: Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+ Shuah Khan <skhan@linuxfoundation.org>, Jonathan Corbet <corbet@lwn.net>,
+ Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Leon Romanovsky <leon@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Mark Brown <broonie@kernel.org>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Muhammad Usama Anjum <usama.anjum@arm.com>, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260904123631.198697-1-sarthak.sharma@arm.com>
+Content-Language: en-US
+From: Sarthak Sharma <sarthak.sharma@arm.com>
+In-Reply-To: <20260904123631.198697-1-sarthak.sharma@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA0PR01CA0027.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:b8::20) To DU0PR08MB9203.eurprd08.prod.outlook.com
+ (2603:10a6:10:417::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904012537.503230-1-physicalmtea@gmail.com> <app1fIXbKd5xOFK3@sgarzare-redhat>
-In-Reply-To: <app1fIXbKd5xOFK3@sgarzare-redhat>
-From: Jia Jia <physicalmtea@gmail.com>
-Date: Sat, 5 Sep 2026 13:28:42 +0800
-X-Gm-Features: AcwNN1XrvSv63r-nDWqA7Y1OadR_GJjIuT2x_LlB_kswrVT-kKW3Ujpwni4K7sE
-Message-ID: <CAJwVaM+LM+gPj2_UivF1Qs=ixJfDzx7NmuzN+Q-dE5ahq_-d9A@mail.gmail.com>
-Subject: Re: [PATCH v3] vhost/vsock: batch RX used-ring updates
-To: Stefano Garzarella <sgarzare@redhat.com>
-Cc: Stefan Hajnoczi <stefanha@redhat.com>, "Michael S . Tsirkin" <mst@redhat.com>, 
-	Jason Wang <jasowang@redhat.com>, =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
-	kvm@vger.kernel.org, virtualization@lists.linux.dev, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-TrafficTypeDiagnostic:
+	DU0PR08MB9203:EE_|AM8PR08MB5633:EE_|AM7PEPF00000056:EE_|AS8PR08MB5912:EE_
+X-MS-Office365-Filtering-Correlation-Id: 208e5a89-a87d-4bb3-a6f6-08df0b0eddc8
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|7416014|10070799003|22082099003|18002099003|56012099006|6133799003|10067099003|5023799004|11063799006;
+X-Microsoft-Antispam-Message-Info-Original:
+ g043FfBbbXYT/5s8n4R2OfmkTUoAaqBNPUoD9VMRQLAdLIdPH3N5utCTNi92kS7JtpSdx4TUcNSZJlSKAOYH03hYSlABsvrg2mZcZkcYmQVLp/IuAH5pAI7xXPr7HsmjpwXJ9xARTV9DRiKAUNDWBMb+Ajwg0cY+jTLnRP20rhHBlzIEWzUmeyydjRC4be89qN0bcAJAJNBVOxbh3FHC/kOJ9CRxl5QOQQEGDBUXsMfS2ys2T1lYPwL2IQwFmpP2SevIyjFmWdevfzsLq7Ysu5yawujgTMuzGc/j4uf2tS656dqiaKwZDx0Z3nKir5J5LBMaFQqc1runRTjDp3vGEy2/H5VdDaQvs+XWVFcmUIkeJY9h69Zn0Zgb5OE75DytTvlE9G7o5HoGVxpCU09XFLJ3Fj+S+S8xJwH0/JSR8PmUEegwTD3izQejI1CQF8oUfM6b61ednBV7lB66+8/lgDe6qTXuK5wyEFifGToIeCfZqbmjwgfPe9Bvadg5YbcN3qfc+QaFvsmraYgeT+e1OMIbbiJWdwSAOUsTaz8UhOXR2TRnuy47Ymvf3IAwt2y53OQtc0aj9l1TIuUBhmkDYtP/nwpZMDqTKPf79EXOp+s=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU0PR08MB9203.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(7416014)(10070799003)(22082099003)(18002099003)(56012099006)(6133799003)(10067099003)(5023799004)(11063799006);DIR:OUT;SFP:1101;
+X-Exchange-RoutingPolicyChecked:
+ y7qkliCrBJdRcHSSMRK4BdaXnbUcVP1bCz0B8StBls2zPq18J22nYM8WajKKk5uDcQ4t7Igo74lC/DAmAqOxL1McwetdiWNqMiGCjKdGHOKchy0sLXJdLV55YK9/gcfix2bW6C8wIFdKMoGLFHzF0HEL4149JLRPzpl4YlgwWo6IX9c71Kx/1D475+D1VThzvcFQzZu4i/K5uH7O7eleb0Nh10JzwXKyraOJtBmEjoheqo14XyWfAiWZXzJ+nl6BXR5Ke+tRQSmlZk5qxtdaUd7HYDPACChQaBMumw7nu7HgRbYkwCBf5jiwDbOASIHmNHmakDSrcrI5l0CoWJDpsg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR08MB5633
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM7PEPF00000056.EURPRD83.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	6a3c3975-d9ab-4202-4e1b-08df0b0ec925
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|35042699022|14060799003|376014|7416014|23010399003|36860700016|13003099007|6133799003|10067099003|11063799006|56012099006|22082099003|18002099003|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	FteF1LjEDJXzHx6PUAE43muYvk4++03tnIynJjKAHlnapyV51098s9rX2bctdtRVzfzn1zUxGcT1iMhpMZpr+4HoSbk2sKo3HA2J7zm1DQE8ec8wFvRDSgx4y1MjmGg7cqqIzZRicvaV5SEybm+ZjluUhDSBE1nghySsAbdoqvS1uRq6wxin+HyswDnb+BHKJ44rpG+reqntE4uZVR5Svg+JD6hyxAiwM2Py6joxnp8VKcsoEz+3aVtW0+g1/iI0GyFf7mbOJFs6Unek2QtHDB168RMZepPlHH3g+mXqArN98b5ODQY9xNw2qkQ4462WV/HOMBEhC+zbPy6VnFFBIXBnSzm/08u2CMgBwOC8pBjEzEBPG1RJZzY2GyNFKqcniClzXITAaH6+kq6mOn9RCn0tgV9XziuIdoc+gRbTw5MMti47Aq4dM5uIgwxsvQHXXifWKNSoMqUX+hzNTUTS55meyx8oB++3khkGgnqWQTxEMpwVGZRK7oMJ2JVbjzDc/dmTVMt6PfnV/qvS3J398Q9HQUBiHH7uG1iDC73ZPUySMUvbiX7hAUKmD3DexUSzq4PAlzWRV7j53Rtepez5xh4k5cZGEF5+ZSekzW4sXhk=
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(35042699022)(14060799003)(376014)(7416014)(23010399003)(36860700016)(13003099007)(6133799003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003)(5023799004);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	bBG6djEu01P/ac0tb+IVZNQ4Pvam7sAArsqQkrig7ebFs4O8U3ODBvjkpBxHZL7O48oViHtyr7Y331fa9dnjRqDiZLEXVPcHgPJGuvznXb/GlXmGVKYGWXRDWk7OsKmie8/IWVByUQkWIRZ4pTBYgSoMzkI1QGE/qn2hkq3mcHGZsgeL2X3um1eUJYRflDQwuLxpNC1rCy5eJrVdT4My+LHwFGxo3zKQBFXURbAZPLDymEGOU7F/q+cDw01EGujl0SJIXDUAveah6b2Q/TUTPHX4FQsBK2VeeEVx37LqJhl4NxowyK6ZuxcUrl8HD7LG8UZMSKuziTOU4+KKeU/JUi2TtGv110JO9XIfzjA9F8EOXc4qIEUPvX54JKWtiLPPYEKBP139pI/gCz0RQ5VdBh2WGeCJ3uLFEDqqHYcA4XlKAPmegfy9RgZEvM0gdE7R
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 05:30:58.7330
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 208e5a89-a87d-4bb3-a6f6-08df0b0eddc8
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM7PEPF00000056.EURPRD83.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB5912
 
->
-> On Fri, Sep 04, 2026 at 09:25:37AM +0800, Jia Jia wrote:
-> >vhost_transport_do_send_pkt() calls vhost_add_used() for every Guest RX
-> >buffer even though it delays the Guest signal until the worker finishes.
-> >Each call publishes one used entry and updates the used index separately=
-.
-> >
-> >Collect the completed buffer heads in the arrays already allocated for t=
-he
-> >virtqueue and publish them with vhost_add_used_n().  Bound the batch by =
-the
-> >ring size, array capacity, and worker packet budget.  Flush before
-> >re-enabling notifications or leaving the worker.
-> >
-> >Each used entry describes one completed RX buffer and keeps its actual u=
-sed
-> >length, so set nheads to 1 for every entry.  This patch does not change
-> >negotiated features or compress multiple buffers into one used entry.
-> >
-> >This patch is limited to the current skb-based vhost-vsock RX path.
-> >
-> >Performance:
->
-> It's great to include the performance metrics in the commit, and thanks
-> for that, but I don't think we need all this AI slop that follows,
-> please summarize it.
->
 
-Thanks for the thorough review.   I'll summarize the performance
-section in the next version.
 
-> >
-> >Tested with a QEMU/KVM guest on a host with 4 online CPUs, using 2 vCPUs
-> >pinned to host CPUs 2 and 3, QEMU 10.2.1, q35, 1536 MiB, and Linux
-> >7.2.0-rc3-next-20260713-next-debug-kasan.  The vhost-vsock source is bas=
-ed
-> >on linux-next master at 49362394dad7df66c274c867a271394c10ca2bb8.
-> >
->
-> e.g. from here...
->
-> >Current vhost-vsock does not implement VIRTIO_F_IN_ORDER or
-> >VIRTIO_F_RING_PACKED, so both configurations used packed=3Doff and
-> >in_order=3Doff:
-> >
-> >  baseline:                 RX batching=3Doff
-> >  vhost-vsock RX batching:  RX batching=3Don
->
-> ... to here, can be removed.
->
+On 9/4/26 6:06 PM, Sarthak Sharma wrote:
+> gup_test.c currently serves two separate purposes: benchmarking
+> (GUP_FAST_BENCHMARK, PIN_FAST_BENCHMARK and PIN_LONGTERM_BENCHMARK) and
+> functional testing (GUP_BASIC_TEST, PIN_BASIC_TEST and
+> DUMP_USER_PAGES_TEST). Keeping both in one program makes the functional
+> tests harder to run and report individually, while run_vmtests.sh has to
+> invoke the program repeatedly with different options.
+> 
+> Separate these roles into tools/mm/gup_bench for benchmarking and
+> tools/testing/selftests/mm/gup for functional testing. Move the shared
+> file and hugepage helpers to tools/lib/mm/ so both programs can use them
+> without duplicating the implementation.
+> 
 
-Understood. I'll remove this setup and configuration description.
+I went through Sashiko's review on this patchset [1] and wanted to
+address the concerns it raises.
 
-> >
-> >The test used vsock_perf.  The Guest receiver was started with:
-> >
-> >  vsock_perf --port PORT --buf-size 64M --vsk-size 64M --rcvlowat 1
-> >
-> >The Host sender was started with:
-> >
-> >  vsock_perf --sender 3 --port PORT --bytes BYTES \
-> >      --buf-size SEND_BUF --vsk-size 64M
-> >
-> >Each workload transferred BYTES=3D1 GiB.  The SEND_BUF values were 256 B
-> >(SEND_BUF=3D256), 512 B (SEND_BUF=3D512), 4 KiB (SEND_BUF=3D4K), and 64 =
-KiB
-> >(SEND_BUF=3D64K).
->
-> Put `1 GiB` directly after --bytes, no?
+Both the concerns here are false positives, as it assumes that
+FIXTURE_TEARDOWN() will run if FIXTURE_SETUP() fails. But in the
+kselftest harness, we initialize the variable no_teardown to true before
+calling FIXTURE_SETUP() and make it false only when FIXTURE_SETUP()
+completes successfully. So, if ASSERT_*() fails in FIXTURE_SETUP(),
+FIXTURE_TEARDOWN() won't run. Therefore neither stdin will be closed nor
+self->gup_fd will be closed twice.
 
-I'll change the command to use `--bytes 1G`.
-
->
-> About SEND_BUF values, use SEND_BUF in the table header, and remove the
-> text here.
->
-
-Understood. I'll put `SEND_BUF` in the table header and remove the
-explanatory text.
-
-> >Each state used a fresh Guest.  Each workload uses 20 paired runs, with =
-10
-> >runs in each order.  The reported values are
-> >Guest RX throughput in Gbits/s.  The baseline and batching columns are t=
-he
-> >geometric means over the 20 runs; change is batching / baseline - 1,
-> >computed from the unrounded values:
->
-> Ditto, summarize or remove (e.g. Gbits/s can be put in the table
-> header).
->
-
-I'll put the unit in the table header and remove the extra explanation.
-
-> >
-> >  workload   baseline RX    batching RX   change   faster
-> >  256 B      0.0795724      0.0831509      +4.497%  20/20
-> >  512 B      0.1194885      0.1210297      +1.290%  14/20
-> >  4 KiB      0.7208273      0.7242053      +0.469%  11/20
-> >  64 KiB     2.1712797      2.1951941      +1.101%  13/20
-> >
->
-> What about the latency?
->
-
-I will run an additional userspace request-response test:
-
-Host send -> Guest echo -> Host userspace receive
-
-The host will timestamp before sending and after receiving the echo to
-measure the round-trip time. If this approach looks reasonable, I will
-include the results in the next version.
-
-> >For reference, the table below gives the 95% normal-approximation interv=
-als
-> >obtained from the 20 paired log(batching / baseline) values:
-> >
-> >  workload   paired 95% interval
-> >  256 B      +3.985% to +5.011%
-> >  512 B      +0.206% to +2.385%
-> >  4 KiB      -1.442% to +2.416%
-> >  64 KiB     -1.474% to +3.745%
-> >
-> >All transfers passed byte-count checks, and no kernel errors were observ=
-ed
-> >in the logs.  The 256-byte workload improved in every pair.  The 512 B
-> >workload was faster in 14 of 20 pairs, with a small gain.  The 4 KiB and
-> >64 KiB workloads showed no material throughput change; the difference
-> >between their results may be due to scheduling and execution variation.
->
-> All this text can be removed, it's clear from the table, no?
->
-
-I'll remove it.
-
-> >
-> >The Guest RX throughput results above are the primary performance
-> >measurement. For additional Host-side context, I measured the vhost
-> >worker thread servicing the vhost-vsock RX queue in a separate set of
-> >10 paired runs, with five runs in each AB/BA order. Counters were
-> >normalized by the verified transferred GiB and summarized using
-> >geometric means. Worker cycles/GiB improved by 3.846%, 2.162%, and
-> >4.109% for 256 B, 4 KiB, and 64 KiB, respectively. The corresponding
-> >worker instructions/GiB improvements were 2.548%, 2.084%, and 4.637%.
-> >The patched implementation used fewer cycles in 10/10, 8/10, and
-> >10/10 paired runs, respectively, and fewer instructions in 10/10
-> >paired runs for all three workloads. This measures the complete vhost
-> >worker thread during the transfer, rather than an individual helper
-> >function, and is supplementary to the Guest RX throughput results.
->
-> Please, summarize.
->
-
-I'll summarize the host-side perf results as supplementary data.
-
-> >
-> >Link: https://lore.kernel.org/r/20181214082146-mutt-send-email-mst@kerne=
-l.org
->
-> You put this link, but you didn't explain why...
->
-> >Link: https://lore.kernel.org/r/20220901055434.824-4-qtxuning1999@sjtu.e=
-du.cn
->
-> Ditto.
->
-
-The first link points to the earlier vhost-vsock RX batching discussion,
-and the second points to related vhost-vsock TX/IN_ORDER batching work.
-I included them as background for the design choices, but I agree that
-they are not necessary here and will remove both links in the next version.
-
-> >Signed-off-by: Jia Jia <physicalmtea@gmail.com>
-> >Acked-by: Eugenio P=C3=A9rez <eperezma@redhat.com>
-> >---
-> >Changes in v3:
-> >- Add supplementary Host-side perf measurements for the complete
-> >  vhost worker thread during the transfer.
-> >---
-> > drivers/vhost/vsock.c | 53 +++++++++++++++++++++++++++++++++++++++++--
-> > 1 file changed, 51 insertions(+), 2 deletions(-)
-> >
-> >diff --git a/drivers/vhost/vsock.c b/drivers/vhost/vsock.c
-> >index 9aaab6bb8061..9e72c67c287f 100644
-> >--- a/drivers/vhost/vsock.c
-> >+++ b/drivers/vhost/vsock.c
-> >@@ -103,12 +103,35 @@ static bool vhost_transport_has_remote_cid(struct =
-vsock_sock *vsk, u32 cid)
-> >       return found;
-> > }
-> >
-> >+static bool vhost_vsock_flush_used(struct vhost_virtqueue *vq,
-> >+                                 unsigned int used_count)
-> >+{
-> >+      if (!used_count)
-> >+              return false;
-> >+
-> >+      vhost_add_used_n(vq, vq->heads, vq->nheads, used_count);
-> >+      return true;
-> >+}
-> >+
-> >+static void vhost_vsock_add_used(struct vhost_virtqueue *vq,
-> >+                               unsigned int used_count,
-> >+                               unsigned int head, unsigned int len)
-> >+{
-> >+      struct vring_used_elem *used =3D &vq->heads[used_count];
-> >+
-> >+      used->id =3D cpu_to_vhost32(vq, head);
-> >+      used->len =3D cpu_to_vhost32(vq, len);
-> >+      vq->nheads[used_count] =3D 1;
-> >+}
->
-> Would it be better to move these functions to vhost.c?
-> (not a strong opinion)
->
-
-I'd prefer to keep them in vsock.c for now, since vhost-vsock is
-currently the only caller.
-I can move them to vhost.c if you prefer.
-
-> >+
-> > static void
-> > vhost_transport_do_send_pkt(struct vhost_vsock *vsock,
-> >                           struct vhost_virtqueue *vq)
-> > {
-> >       struct vhost_virtqueue *tx_vq =3D &vsock->vqs[VSOCK_VQ_TX];
-> >       int pkts =3D 0, total_len =3D 0;
-> >+      unsigned int used_count =3D 0;
-> >+      unsigned int used_limit;
-> >       bool added =3D false;
-> >       bool restart_tx =3D false;
-> >
-> >@@ -120,6 +143,12 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vso=
-ck,
-> >       if (!vq_meta_prefetch(vq))
-> >               goto out;
-> >
->
-> Can you add a comment whith the reason of this limit?
->
-
-Sure. I'll add a comment explaining why the limit is bounded by both the
-used-ring size and the scratch-array capacity.
-
-> >+      used_limit =3D min_t(unsigned int, vq->num,
-> >+                         min_t(unsigned int, vq->dev->iov_limit,
-> >+                               vq->dev->weight));
->
-> Why adding `vq->dev->weight` in the limit, the loop is already limited
-> by that, no?
->
-> (this is why a comment here is needed...)
->
->
-
-I checked this again. weight is already enforced by vhost_exceeds_weight(),
-so including it in used_limit is redundant. Thanks for pointing that
-out. I'll change it to:
-
-used_limit =3D min_t(unsigned int, vq->num, vq->dev->iov_limit);
-
-> >+      if (unlikely(!used_limit))
-> >+              goto out;
-> >+
-> >       /* Avoid further vmexits, we're already processing the virtqueue =
-*/
-> >       vhost_disable_notify(&vsock->dev, vq);
-> >
-> >@@ -134,9 +163,20 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vso=
-ck,
-> >               u32 offset;
-> >               int head;
-> >
-> >+              if (used_count =3D=3D used_limit) {
-> >+                      if (vhost_vsock_flush_used(vq, used_count)) {
-> >+                              added =3D true;
-> >+                              used_count =3D 0;
-> >+                      }
-> >+              }
->
-> Can we move this in the vhost_vsock_add_used() or just after calling it?
-> IMO, it's easier to read: add something, check if I've reached the
-> limit, then flush.
->
-
-I'll move the check immediately after adding the used entry:
-
-    vhost_vsock_add_used(vq, used_count, head,
-                         sizeof(*hdr) + payload_len);
-    used_count++;
-
-    if (used_count =3D=3D used_limit) {
-            added |=3D vhost_vsock_flush_used(vq, used_count);
-            used_count =3D 0;
-    }
-
-> >+
-> >               skb =3D virtio_vsock_skb_dequeue(&vsock->send_pkt_queue);
-> >
-> >               if (!skb) {
-> >+                      if (vhost_vsock_flush_used(vq, used_count)) {
-> >+                              added =3D true;
-> >+                              used_count =3D 0;
-> >+                      }
->
-> Why you need this, if after the loop we are calling
-> vhost_vsock_flush_used() in any case?
->
-
-My reason for flushing there was that, when used_count > 0 and
-skb is NULL, the batch can still contain completed RX descriptors that
-have not yet been published. Flushing there makes those completions
-visible sooner. I will follow your suggestion and rely on the flush
-after the loop instead, which makes the control flow more uniform. I
-will also measure the latency impact.
-
-> >                       vhost_enable_notify(&vsock->dev, vq);
-> >                       break;
-> >               }
-> >@@ -153,6 +193,10 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vso=
-ck,
-> >                       /* We cannot finish yet if more buffers snuck in =
-while
-> >                        * re-enabling notify.
-> >                        */
->
-> Move the comment or update it explaining why we are flushing.
->
-
-I'll update the comment to explain why we flush on that path
-
-> >+                      if (vhost_vsock_flush_used(vq, used_count)) {
-> >+                              added =3D true;
-> >+                              used_count =3D 0;
-> >+                      }
-> >                       if (unlikely(vhost_enable_notify(&vsock->dev, vq)=
-)) {
-> >                               vhost_disable_notify(&vsock->dev, vq);
-> >                               continue;
-> >@@ -230,8 +274,9 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vsoc=
-k,
-> >                */
-> >               virtio_transport_deliver_tap_pkt(skb);
-> >
-> >-              vhost_add_used(vq, head, sizeof(*hdr) + payload_len);
-> >-              added =3D true;
-> >+              vhost_vsock_add_used(vq, used_count, head,
-> >+                                   sizeof(*hdr) + payload_len);
-> >+              used_count++;
-> >
-> >               VIRTIO_VSOCK_SKB_CB(skb)->offset +=3D payload_len;
-> >               total_len +=3D payload_len;
-> >@@ -264,6 +309,10 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vso=
-ck,
-> >                       virtio_transport_consume_skb_sent(skb, true);
-> >               }
-> >       } while(likely(!vhost_exceeds_weight(vq, ++pkts, total_len)));
->
-> Please leave a blank line here.
->
-
-Understood
-
-> >+      if (vhost_vsock_flush_used(vq, used_count)) {
-> >+              added =3D true;
-> >+              used_count =3D 0;
->
-> Why setting this here that we are going to exit?
->
-> IMO this can be simplified in:
->         added |=3D vhost_vsock_flush_used(vq, used_count);
->
-> or you can collapse this in the check for the vhost_signal:
->
->         if (vhost_vsock_flush_used(vq, used_count) || added)
->                 vhost_signal(&vsock->dev, vq);
->
-> >+      }
->
-
-Thanks for pointing this out. Resetting used_count is unnecessary
-since the function is about to return. I'll simplify it to:
-
-added |=3D vhost_vsock_flush_used(vq, used_count);
-
-> Please leave a blank line here.
->
-
-Understood
-
-> Stefano
->
-> >       if (added)
-> >               vhost_signal(&vsock->dev, vq);
-> >
-> >--
-> >2.34.1
-> >
->
+[1]
+https://sashiko.dev/#/patchset/20260904123631.198697-1-sarthak.sharma%40arm.com
