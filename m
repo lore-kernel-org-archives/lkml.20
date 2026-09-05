@@ -1,168 +1,512 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013021.outbound.protection.outlook.com [40.107.201.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93B05345EBB
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 02:38:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.21
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788575891; cv=fail; b=Y+5JZ/q+z3P2I/S6qGRbWrZlOZlRCqEAPDlRgE7Az/3f6qRf+gwf1Cmf9Ft92g2zknHdEWcmmacZy2aGHpV7iA/RqGWRHHmskmclrJyBDTR8STe12kTYD50IXtyFZn5k6/FR4eWzbKGulrhWOZFTR0G63Rr0sDK3Xa2Hwd4qcuM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788575891; c=relaxed/simple;
-	bh=++o1HYOql5R+gbzmqv1LJn3BpewV01Xr/Stcs9OUQ9c=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=r/8mBAWsCCDDdTN8yMFygou8DWdw7Yt40aIHfPIFMNTAHzv5xvph2IRGaAnClMvz/5wkntdEyfiDCqx3YcwsDHg9G2Wb8Ek5GflwBQix6hwKzlv1tnt5aN0+dWSmW+wt3PmX1y7A4klYq81jFY/9UgaF0E+XV0VrB4lfhouqQ6M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=l71y+cJZ; arc=fail smtp.client-ip=40.107.201.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="l71y+cJZ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qTw9pQjiBg47bOjadna+znEw3CyAbzADTAgnFNqid5qB26lNj5C85dYIH5GoxWq2QI+XXh5eQpAHONfowAxO5mk1cd7tczwGI9GKE69ouqOgLo90M92mDb/YGsPklbJt8wGWl9b5pKlCN6WD/Kr92xC2gAhRSKBxoLwo0eyfB/yDztAbZQSfoo8KJ1MY/HOK7eMCofqp8JKVLMVdrG22JpDmIVn3qldywIfAMMxLMzUXyyTXmH23h24EiFoMypgmjUI6sPuXrUBPJ4q0qKn4eK6qH8eD7SR4iXl+5p5aVRpQTnAKh9+v8E46WggaoKakm/Gc95hcWvq/vjly7bNszA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yv8Jzef51eXewJ6/B6X/6fjnL6A7nkCFYF18NWWH6OA=;
- b=MIQesbZkYKHEmvIFIPVsbHVrW8KkRT80I9TOduAm7jU5Qq0ayeifrGudMz3oE00jtpbW53Y9p1Omblel1l/5Jtaby1VCRVwy2u031Rf2PhNjavc/cP/WymLUAmXQNyCkrdbg0Ui645wlRKQ3nK6itMoi2OqDLrmYK37Zf8NLRpjNe3ko5LVtJsrOOMH1SP+A4mzIToYHE0SYEDVeT9I2We8ibRcu5/89ES0bRIai4aBGTpssP2421qbEj6o5KOx4PzbYANuqpK/oJsmCtzMhFdnIAAE8LUmwc+p9bBxEHWfq875b+dNijV+gmFA3PQRt+wL9N0QBmYmMvx+Jgey84g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yv8Jzef51eXewJ6/B6X/6fjnL6A7nkCFYF18NWWH6OA=;
- b=l71y+cJZZv9MYK6PYpXh0KwctcXiiS61xk107f4zYs4ACYX/zepeFISNWzAu2ffreJLPJVMexl3RMowdlRXVz+DnlNxBIdV0RJnoa6b/mTD7gBtBlKccGc3269YMBteF7uf7be6CSQkRgl5+G360CH/qUgXXlRy0EcLB/YdbVDcyPForUUDWSf9dSM+RMUY4FPoSTIl4ep9xduaEaZhhvkHdPH7GjjOYXEMzrBtn5ohjSA/dPD/x3F0zayLUvorkvhEkmYswKYGCTBc6IdW1b17hQYzHtvMU1EQKHvJfGeUyVtWtcNnuo60Wr07pF0lpsjHGoO897IRT5gMuUUYITQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- MW4PR12MB7481.namprd12.prod.outlook.com (2603:10b6:303:212::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Sat, 5 Sep
- 2026 02:38:03 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0360.008; Sat, 5 Sep 2026
- 02:38:02 +0000
-From: John Hubbard <jhubbard@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>
-Cc: Timur Tabi <ttabi@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Eliot Courtney <ecourtney@nvidia.com>,
-	Zhi Wang <zhiw@nvidia.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Alex Gaynor <alex.gaynor@gmail.com>,
-	Boqun Feng <boqun.feng@gmail.com>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	nova-gpu@lists.linux.dev,
-	LKML <linux-kernel@vger.kernel.org>,
-	John Hubbard <jhubbard@nvidia.com>
-Subject: [PATCH] gpu: nova-core: gsp: fix a broken doc link on GspMessage
-Date: Fri,  4 Sep 2026 19:38:00 -0700
-Message-ID: <20260905023800.1293631-1-jhubbard@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-X-NVConfidentiality: public
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR05CA0100.namprd05.prod.outlook.com
- (2603:10b6:a03:334::15) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
+Received: from zg8tmja2lje4os43os4xodqa.icoremail.net (zg8tmja2lje4os43os4xodqa.icoremail.net [206.189.79.184])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 16E35358378;
+	Sat,  5 Sep 2026 02:38:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.79.184
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788575932; cv=none; b=S9Ie//6aHlPkt7B77WoBCntrcsPybhHHKyCh3WQavaWlXkf/sUWMLGCvBa2SYZe4YgEJN0/YSwpiFn8WO2i/YTZxBHoxFckrz5f7eczQlX1C1VnR5dpxw5T7Y1KaS/vPNUCWIKrTK+q/FrSaJRtF149nFNCOHQIVFZVzb0WLK6g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788575932; c=relaxed/simple;
+	bh=dPiz1k8MShIscV7U7Ejf2SZEObGZkZZAB3U+4lvncgw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QQ47VrzdaFl9tX1im+be+1Hz6rjqCDTKPThLLEK1n2Ipk24h6dlQ3G9phgPZPGwfnaiqVtMh3Q7xFxMGvUojsD5HOPsJBCicv7CtMa1vXV324bn4JBHZq3ysVWjIAB5gSa6clb1bk8KpBNB6lqVYV36yvBk2QhKllVS71nV3Ydg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=206.189.79.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wA3FSikgJtqRt3wAA--.5526S3;
+	Sat, 05 Sep 2026 10:38:30 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app3 (Coremail) with SMTP id zS_KCgCHcnehgJtq+C_xBA--.15226S2;
+	Sat, 05 Sep 2026 10:38:25 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: netdev@vger.kernel.org
+Cc: kys@microsoft.com,
+	haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	longli@microsoft.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	Song Li <songl@zju.edu.cn>
+Subject: [PATCH net v2] net: mana: fix reset work race with device removal
+Date: Sat,  5 Sep 2026 02:36:02 +0000
+Message-Id: <20260905023602.425827-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|MW4PR12MB7481:EE_
-X-MS-Office365-Filtering-Correlation-Id: 67f80937-7fba-4491-8b22-08df0af6b51b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|10067099003|5023799004|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	n+Jx9/bse5trY+oKS38fq6r5zi1bUwDFlUBN+JPxlNzkVHD57F1+O3xwW+OJucyLbTwWaitc4Ym8AdLlO3HmhTACxJKicJ6eFHbnqLCkgMrRscjdJHi/PI/Ls7NLd8HdpSMM9TDM4xKFWPdpaZ1kcoI4E6tLsUi7qLSvb8RydmgugOYCAemhk6oY/miNk4bg8iZYgOqPN+ISHj8FwhimzDWgeHh9ewZs+JFDeFV9I82xI8pkDMTGfiqPEPGNNeI6Ki2SCn/mUPXPi+lakBr2xza5LPhcR8zaK407A+QYKgDGTHK5jht+blJufq4kbTg18dJMY4VDB6AbIFrXOwe9UOZv7IhIQoAEFou96ABqXkkXIWPXXlqFHxIM2aBzai/JBkFBYhAKhW+AnvxKiZ6qXOxHchOz7TBsMZgb/YXM3tMqYpIdhrc9+jE7l6wfonl6eZg8WFmjPZsvSbY0vFV0gjEFUlyvZ1cWys0iwgAdDEjdeRSQm0ke1Xnq5s1xYrYJu4Wbhz8iuLu8qCa/46416X0RxxD5JaKETLi7YdnCnjdIIWPd0uuoMvzjc4svvieOs0d/moS36Ps07x89kVwaMrSqWyeqLcw9NwX0OZ/ZQesURIMHA28KeMwtr+P7vIUMncBcN638otvh05Pf0vWSA6sSYvxQOG+7MSOLPf2qLy8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(10067099003)(5023799004)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?kG4VXDpbQAeGN8rF3lJvtiZ4GW0dFpznnc/SFmrURFj98OnR0bOa7GGdKBww?=
- =?us-ascii?Q?ZWY18EhLCHm0eyWBpJUNpOdbTEVr428W7+NFjO74bDbl88cyMVSweZpqmCyj?=
- =?us-ascii?Q?ttlXKUNmLhAI8wXCyDBrAVsxlpyfDalQOE9mRyuFX5NkiaJuIkegfN0UanK9?=
- =?us-ascii?Q?6uQRQjXeowJObebYKg3N72OlB841efABoa1GZPvLNKn1RBLidbrCofu9jr7n?=
- =?us-ascii?Q?FixELccYqPoNp9jcSMa2sEACs6+lNMseVj0YICOSaFyKPtIaXuvyeBjpAJg/?=
- =?us-ascii?Q?lDsX3Y7llDWY1soKXf/ItB+WW56ST2PWk62t9AQfR+oc2n2HbND+mM3j46xq?=
- =?us-ascii?Q?55beKVdTLzD8nxNCPy+1HMTdusdb1PY9cETojRPU/X9eB9re4K2rhEXVhz5x?=
- =?us-ascii?Q?jBMpQuWidTxM3pFunumbWeAUn/BmPrJpyB8eFKWg0dnXo1S5/8MqW24lm1vA?=
- =?us-ascii?Q?CDhvK4JT8FEFURi6Wqjgut3uMUqf4zxwdiO7JNahhB6cjyqlEmj/oJdts8hO?=
- =?us-ascii?Q?AlKSPrdiKsI+z0aiNC2bkRsmfF/wbtpgz8PlH84rNKJRGnr8xSmOSQYpf6fF?=
- =?us-ascii?Q?cyDpo+jXan4iU9efprc/xJzzvf/bxhs91qWmJVpd+On000fkHmw4o4RbpHRz?=
- =?us-ascii?Q?lkzrvOnrt30NR9tnW3+1CmKAQuBOWzotEblJrb0r6XAmNIbYGYav11Roc/Ig?=
- =?us-ascii?Q?udaPxCxX1ZJ+2H+tQZ14mPIa1unal+DEr3JGw7Uwu/zJQGzBGAunYcz82Bpi?=
- =?us-ascii?Q?oajHXUlw8FWbKqzvl1m1axlUGtQkqLgHlOVzlSfNdkJk0zArIN6yRC1Tv2c2?=
- =?us-ascii?Q?oh4Yen5w8UgRJgXOkckKP34VkPN96nHpBWGB8CKrnhkQ+ed7pow7bCxvjO/1?=
- =?us-ascii?Q?b+4T28Fyrbc/TtYkbjGwmS2XHP5ixPhEOxDT4Hh6JhWKkgf3xLUmiXeyonJj?=
- =?us-ascii?Q?UFomCKPGFEVR/HhUdIB1MysqGilFO1cpV8OcIZ4HKZlMNGOkOfW2b7i9ShHC?=
- =?us-ascii?Q?wIffr/VYgLSPp0rJhu2Hb7sVTQABow0/92+ZxZ50jr14neGLYtOR/Uvep0p5?=
- =?us-ascii?Q?rdEH/CMWnUtDWhumHyaapTXgtINBKfWKCsdatl9k7v7DUYyrdV8sCFX7sG8v?=
- =?us-ascii?Q?viDS/KiZfhWIXwnc+XWAKgr3JgvNfhTIn2HhZxfytQn6DyoOucIwLryJK5WM?=
- =?us-ascii?Q?gB22DW4d3fmh+6SjTsHAb14zr068pFnZgsdwC7WTgSw4FOaVLLWQ4LvlRzBw?=
- =?us-ascii?Q?3NizXiGn/171VL/wgbGac3BwE57jMP1xRaz+dnvjFyjLbgTRRcoAi2BLtVOU?=
- =?us-ascii?Q?UwyUQ6I2sUnItIaEd6CWUoTlYpzjKtaLrW00wMtjL55BPZb9e/bc8tabM5rC?=
- =?us-ascii?Q?8NmXYXXFZU/ya9FAKaYTTFnYgVDhwLJqmoglbseeJDsm0uboyXYyijU2DE+9?=
- =?us-ascii?Q?e6A1aHWLBnXHZe4Z9QLaG24TTFpxV0tP19rwxjad+2h5Cmno1+oYMoSIsOhf?=
- =?us-ascii?Q?zXrItFGcEMfAxcJHjuxMl8/gA62Gqb2U1ggAkKN/M4c6ljQxXChJ6D/nu33/?=
- =?us-ascii?Q?BkTSiWaDCcT/5cK9ksbiKgH8uWACVMbBks9GWoHyxZGi9iN/7ZSrJoYraR6U?=
- =?us-ascii?Q?9oQpaR4KVCMG+TaaIp2SPctNl4Lwe1ewh3+fZfJy2YeTYiREnR7GM0bQDksv?=
- =?us-ascii?Q?zK0WEag7ZFoP5rEvBfPx5DmRqM1IIBCHXFsI2uoUkzGbdoXHrFD+F6HAcvuv?=
- =?us-ascii?Q?GxT6FgZsWQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 67f80937-7fba-4491-8b22-08df0af6b51b
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 02:38:02.7892
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HTyVyczHsRBb/iPETkLd4PryQTmJcRZ/hrl7oTftarxs3A/EJxjEAL0yoI7GselKtl7CCS5r5OjzIgJE+odcxQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7481
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zS_KCgCHcnehgJtq+C_xBA--.15226S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?iYxUtQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnZPoDCNGYdHSfuFmYJL54WNAQamieo0OhYHiuKjLXq8p5uZ2lCS+heQbNv0sWTfuRmsI
+	EzhGf2FuLLnaNHu7kzVM4mgi+E1YyIsSrNptnRNP
+X-Coremail-Antispam: 1Uk129KBj9fXoW3tF1xAr4kury5JF1fZF1fuFX_yoW8XF1DCo
+	WfXrnxXw4rt3y5C3yktrykJFy3uFW093Z5XF48uFZrAw1UX3Wjk348Cr13Jwn8WF1rK342
+	va4fXwn7uF90vwnrl-sFpf9Il3svdjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8wcxFpf
+	9Il3svdxBIdaVrn0xqx4xG64xvF2IEw4CE5I8CrVC2j2Jv73VFW2AGmfu7bjvjm3AaLaJ3
+	UjIYCTnIWjp_UUUOj7kC6x804xWl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI
+	8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xG
+	Y2AK021l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14
+	v26r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAF
+	wI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjx
+	CEc2xF0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAF
+	wI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0x
+	vY0x0EwIxGrwACjcxG0xvY0x0EwIxGrVCF72vEw4AK0wACI402YVCY1x02628vn2kIc2xK
+	xwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r
+	1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij
+	64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr
+	0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF
+	0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jbo7NUUUUU=
 
-The doc comment on the GSP message type names Cmdq as the type that
-defines wait_for_msg. That method belongs to CmdqInner, so the link has
-no target. Nothing catches the break, because rustdoc resolves a link
-only in an item it documents, and the kernel's rustdoc run skips private
-items.
+The reset service work is queued on the system workqueue and can
+outlive mana_gd_remove(), which frees the GDMA context. It may
+then dereference gc through the stale service work.
 
-Point the link at CmdqInner.
+Embed the service work in gdma_context and make GC_IN_SERVICE describe
+whether it may still access gc. Removal and probe unwind close new
+admission with GC_REMOVING and wait for an admitted cycle to retire
+before clearing drvdata and freeing gc. Service exits retire before
+taking the PCI rescan/remove lock, avoiding a lock-cycle with remove.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+Do not admit service work while probe is still constructing or
+unwinding the device. Latch reset events seen during probe and let
+the probe rollback/recovery path handle them; a boundary recheck
+preserves events racing probe completion.
+
+The service work stays on the system workqueue because a reset cycle
+destroys and re-creates gc->service_wq.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: fbe346ce9d62 ("net: mana: Handle Reset Request from MANA NIC")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- drivers/gpu/nova-core/gsp/cmdq.rs | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index 14a711307654..28876c4aa42c 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -478,7 +478,7 @@ struct GspCommand<'a> {
+Changes since v1 (<20260805143812.220509-1-fanwu01@zju.edu.cn>,
+https://lore.kernel.org/netdev/20260805143812.220509-1-fanwu01@zju.edu.cn):
+
+- Dropped the device_lock() serialisation: holding the driver-core
+  device lock across mana_gd_suspend() + msleep() + mana_gd_resume()
+  blocks unbind, reboot, device PM and all PCI hotplug for up to a
+  full reset cycle, and can deadlock against the
+  flush_workqueue()/destroy_workqueue() of gc->service_wq.
+
+- Replaced it with admission/drain gates: GC_REMOVING closes new
+  admission and the freeing paths wait for an admitted cycle to
+  retire (clear_bit_unlock/test_bit_acquire pairing) before clearing
+  drvdata and calling vfree(); the failed-resume rescan no longer
+  reopens admission, and mana_tx_timeout() also skips queue-reset
+  work during removal.
+
+- No longer admit service work before the probe completes (the
+  reset-event handler no longer overloads GC_PROBE_SUCCEEDED with a
+  mid-probe latch); the FPGA reconfig exit and the probe-failure
+  recovery path are gated as well.
+
+- Reference series for the HWC lifecycle model:
+  https://lore.kernel.org/netdev/20260813174243.3044348-1-longli@microsoft.com
+---
+ .../net/ethernet/microsoft/mana/gdma_main.c   | 176 ++++++++++++++----
+ drivers/net/ethernet/microsoft/mana/mana_en.c |  11 +-
+ include/net/mana/gdma.h                       |  14 +-
+ 3 files changed, 150 insertions(+), 51 deletions(-)
+
+diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+index f92b2d0..eec8634 100644
+--- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
++++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+@@ -678,10 +678,38 @@ out:
+ 	pci_unlock_rescan_remove();
+ }
  
- /// A message ready to be processed from the message queue.
- ///
--/// This is the type returned by [`Cmdq::wait_for_msg`].
-+/// This is the type returned by [`CmdqInner::wait_for_msg`].
- struct GspMessage<'a> {
-     // Reference to the header of the message.
-     header: &'a GspMsgElement,
-
-base-commit: 6cb331644c441ff4101a4f8726283a6ed0d5947e
--- 
-2.55.0
+-static void mana_serv_fpga(struct pci_dev *pdev)
++/* Retire one service cycle: GC_IN_SERVICE is the last state published
++ * by the work, so remove() and the probe unwind may free gc once it
++ * is clear.  Must run before the exit paths take pci_lock_rescan_remove():
++ * removal can be waiting on the bit while holding that lock.
++ */
++static void mana_service_done(struct gdma_context *gc)
++{
++	/* Pairs with test_bit_acquire() on the wait side. */
++	clear_bit_unlock(GC_IN_SERVICE, &gc->flags);
++	/* wake_up_var() requires a full barrier between the update of the
++	 * waited-on variable and the wake.
++	 */
++	smp_mb__after_atomic();
++	wake_up_var(&gc->flags);
++}
++
++/* Retire a cycle whose exit removes the device: close admission
++ * first so no new cycle can be admitted in the retire window.
++ */
++static void mana_service_done_removing(struct gdma_context *gc)
++{
++	set_bit(GC_REMOVING, &gc->flags);
++	mana_service_done(gc);
++}
++
++static void mana_serv_fpga(struct pci_dev *pdev, struct gdma_context *gc)
+ {
+ 	struct pci_bus *bus, *parent;
+ 
++	if (gc)
++		mana_service_done_removing(gc);
++
+ 	pci_lock_rescan_remove();
+ 
+ 	bus = pdev->bus;
+@@ -706,9 +734,8 @@ out:
+ 	pci_unlock_rescan_remove();
+ }
+ 
+-static void mana_serv_reset(struct pci_dev *pdev)
++static void mana_serv_reset(struct pci_dev *pdev, struct gdma_context *gc)
+ {
+-	struct gdma_context *gc = pci_get_drvdata(pdev);
+ 	struct hw_channel_context *hwc;
+ 	int ret;
+ 
+@@ -738,6 +765,7 @@ static void mana_serv_reset(struct pci_dev *pdev)
+ 	if (ret == -ETIMEDOUT || ret == -EPROTO) {
+ 		/* Perform PCI rescan on device if we failed on HWC */
+ 		dev_err(&pdev->dev, "MANA service: resume failed, rescanning\n");
++		mana_service_done_removing(gc);
+ 		mana_serv_rescan(pdev);
+ 		return;
+ 	}
+@@ -748,22 +776,25 @@ static void mana_serv_reset(struct pci_dev *pdev)
+ 		dev_info(&pdev->dev, "MANA reset cycle completed\n");
+ 
+ out:
+-	clear_bit(GC_IN_SERVICE, &gc->flags);
++	mana_service_done(gc);
+ }
+ 
+-static void mana_do_service(enum gdma_eqe_type type, struct pci_dev *pdev)
++static void mana_do_service(enum gdma_eqe_type type, struct pci_dev *pdev,
++			    struct gdma_context *gc)
+ {
+ 	switch (type) {
+ 	case GDMA_EQE_HWC_FPGA_RECONFIG:
+-		mana_serv_fpga(pdev);
++		mana_serv_fpga(pdev, gc);
+ 		break;
+ 
+ 	case GDMA_EQE_HWC_RESET_REQUEST:
+-		mana_serv_reset(pdev);
++		mana_serv_reset(pdev, gc);
+ 		break;
+ 
+ 	default:
+ 		dev_err(&pdev->dev, "MANA service: unknown type %d\n", type);
++		if (gc)
++			mana_service_done(gc);
+ 		break;
+ 	}
+ }
+@@ -779,12 +810,26 @@ static void mana_recovery_delayed_func(struct work_struct *w)
+ 	spin_lock_irqsave(&work->lock, flags);
+ 
+ 	while (!list_empty(&work->dev_list)) {
++		struct gdma_context *gc;
++
+ 		dev = list_first_entry(&work->dev_list,
+ 				       struct mana_dev_recovery, list);
+ 		list_del(&dev->list);
+ 		spin_unlock_irqrestore(&work->lock, flags);
+ 
+-		mana_do_service(dev->type, dev->pdev);
++		/* Serialize the drvdata lookup and admission against
++		 * probe/remove.  Do not call sleeping functions while
++		 * holding the device lock.
++		 */
++		device_lock(&dev->pdev->dev);
++		gc = pci_get_drvdata(dev->pdev);
++		if (gc)
++			mana_schedule_serv_work(gc, dev->type);
++		device_unlock(&dev->pdev->dev);
++
++		if (!gc)
++			mana_do_service(dev->type, dev->pdev, NULL);
++
+ 		pci_dev_put(dev->pdev);
+ 		kfree(dev);
+ 
+@@ -796,48 +841,49 @@ static void mana_recovery_delayed_func(struct work_struct *w)
+ 
+ static void mana_serv_func(struct work_struct *w)
+ {
+-	struct mana_serv_work *mns_wk;
+-	struct pci_dev *pdev;
+-
+-	mns_wk = container_of(w, struct mana_serv_work, serv_work);
+-	pdev = mns_wk->pdev;
++	struct gdma_context *gc = container_of(w, struct gdma_context, serv_work);
++	struct pci_dev *pdev = to_pci_dev(gc->dev);
+ 
+-	if (pdev)
+-		mana_do_service(mns_wk->type, pdev);
++	mana_do_service(gc->serv_type, pdev, gc);
+ 
++	/* The rescan exits of mana_do_service() remove the device, which
++	 * frees gc before returning.  Only touch the pdev and the module
++	 * reference from here on; both are held until this point drops them.
++	 */
+ 	pci_dev_put(pdev);
+-	kfree(mns_wk);
+ 	module_put(THIS_MODULE);
+ }
+ 
+ int mana_schedule_serv_work(struct gdma_context *gc, enum gdma_eqe_type type)
+ {
+-	struct mana_serv_work *mns_wk;
+-
+ 	if (test_and_set_bit(GC_IN_SERVICE, &gc->flags)) {
+ 		dev_info(gc->dev, "Already in service\n");
+ 		return -EBUSY;
+ 	}
+ 
++	/* Pairs with set_bit(GC_REMOVING) + smp_mb__after_atomic() in
++	 * mana_gd_remove(): the test_and_set_bit() above is fully ordered,
++	 * so either this read sees GC_REMOVING and the cycle aborts, or
++	 * remove() observes GC_IN_SERVICE and waits for the cycle to retire
++	 * before it frees gc.
++	 */
++	if (test_bit(GC_REMOVING, &gc->flags)) {
++		dev_info(gc->dev, "Device is being removed\n");
++		mana_service_done(gc);
++		return -EBUSY;
++	}
++
+ 	if (!try_module_get(THIS_MODULE)) {
+ 		dev_info(gc->dev, "Module is unloading\n");
+-		clear_bit(GC_IN_SERVICE, &gc->flags);
++		mana_service_done(gc);
+ 		return -ENODEV;
+ 	}
+ 
+-	mns_wk = kzalloc(sizeof(*mns_wk), GFP_ATOMIC);
+-	if (!mns_wk) {
+-		module_put(THIS_MODULE);
+-		clear_bit(GC_IN_SERVICE, &gc->flags);
+-		return -ENOMEM;
+-	}
+-
+ 	dev_info(gc->dev, "Start MANA service type:%d\n", type);
+-	mns_wk->pdev = to_pci_dev(gc->dev);
+-	mns_wk->type = type;
+-	pci_dev_get(mns_wk->pdev);
+-	INIT_WORK(&mns_wk->serv_work, mana_serv_func);
+-	schedule_work(&mns_wk->serv_work);
++
++	gc->serv_type = type;
++	pci_dev_get(to_pci_dev(gc->dev));
++	queue_work(system_wq, &gc->serv_work);
+ 	return 0;
+ }
+ 
+@@ -957,14 +1003,20 @@ static void mana_gd_process_eqe(struct gdma_queue *eq)
+ 	case GDMA_EQE_HWC_RESET_REQUEST:
+ 		dev_info(gc->dev, "Recv MANA service type:%d\n", type);
+ 
+-		if (!test_and_set_bit(GC_PROBE_SUCCEEDED, &gc->flags)) {
++		if (!test_bit(GC_PROBE_SUCCEEDED, &gc->flags)) {
+ 			/*
+-			 * Device is in probe and we received a hardware reset
+-			 * event, the probe function will detect that the flag
+-			 * has changed and perform service procedure.
++			 * Probe not completed: latch the event and let the
++			 * probe roll back, the recovery path will rescan.
++			 * Never admit service work before probe success;
++			 * the success re-check below preserves an event
++			 * racing probe completion.
+ 			 */
+-			dev_info(gc->dev,
+-				 "Service is to be processed in probe\n");
++			if (!test_and_set_bit(GC_SERVICE_DURING_PROBE,
++					      &gc->flags))
++				dev_info(gc->dev,
++					 "Service is to be processed in probe\n");
++			else if (test_bit(GC_PROBE_SUCCEEDED, &gc->flags))
++				mana_schedule_serv_work(gc, type);
+ 			break;
+ 		}
+ 		mana_schedule_serv_work(gc, type);
+@@ -2546,6 +2598,7 @@ static int mana_gd_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 
+ 	gc->bar0_va = bar0_va;
+ 	gc->dev = &pdev->dev;
++	INIT_WORK(&gc->serv_work, mana_serv_func);
+ 	xa_init(&gc->irq_contexts);
+ 
+ 	err = mana_gd_setup(pdev);
+@@ -2558,19 +2611,36 @@ static int mana_gd_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 
+ 	err = mana_rdma_probe(&gc->mana_ib);
+ 	if (err)
+-		goto cleanup_mana;
++		goto service_quiesce;
+ 
+ 	/*
+ 	 * If a hardware reset event has occurred over HWC during probe,
+-	 * rollback and perform hardware reset procedure.
++	 * rollback and perform hardware reset procedure.  Storing the
++	 * success bit before the latch check pairs with the handler's
++	 * latch-then-recheck, so an event racing probe completion is
++	 * admitted rather than lost.
+ 	 */
+-	if (test_and_set_bit(GC_PROBE_SUCCEEDED, &gc->flags)) {
++	set_bit(GC_PROBE_SUCCEEDED, &gc->flags);
++	if (test_and_set_bit(GC_SERVICE_DURING_PROBE, &gc->flags)) {
+ 		err = -EPROTO;
+-		goto cleanup_mana_rdma;
++		goto service_quiesce;
+ 	}
+ 
+ 	return 0;
+ 
++service_quiesce:
++	/* The stats work can admit a service cycle once mana_probe()
++	 * has run: close admission and retire an in-flight cycle
++	 * before any teardown, like mana_gd_remove() does.  Earlier
++	 * failure points cannot have admitted service work.
++	 */
++	set_bit(GC_REMOVING, &gc->flags);
++	/* Pairs with the ordered test_and_set_bit(GC_IN_SERVICE) in
++	 * mana_schedule_serv_work().
++	 */
++	smp_mb__after_atomic();
++	wait_var_event(&gc->flags,
++		       !test_bit_acquire(GC_IN_SERVICE, &gc->flags));
+ cleanup_mana_rdma:
+ 	mana_rdma_remove(&gc->mana_ib);
+ cleanup_mana:
+@@ -2581,6 +2651,14 @@ unmap_bar:
+ 	xa_destroy(&gc->irq_contexts);
+ 	pci_iounmap(pdev, bar0_va);
+ free_gc:
++	/* Backstop: drain before every vfree(). */
++	set_bit(GC_REMOVING, &gc->flags);
++	/* Pairs with the ordered test_and_set_bit(GC_IN_SERVICE) in
++	 * mana_schedule_serv_work().
++	 */
++	smp_mb__after_atomic();
++	wait_var_event(&gc->flags,
++		       !test_bit_acquire(GC_IN_SERVICE, &gc->flags));
+ 	pci_set_drvdata(pdev, NULL);
+ 	vfree(gc);
+ release_region:
+@@ -2624,6 +2702,20 @@ static void mana_gd_remove(struct pci_dev *pdev)
+ {
+ 	struct gdma_context *gc = pci_get_drvdata(pdev);
+ 
++	/* Close admission and retire an in-flight cycle before any
++	 * teardown: the service work is the only user of gc that
++	 * remove() does not otherwise synchronise with.  The service
++	 * exits retire before taking the PCI rescan/remove lock, so
++	 * this wait cannot deadlock against them.
++	 */
++	set_bit(GC_REMOVING, &gc->flags);
++	/* Pairs with the ordered test_and_set_bit(GC_IN_SERVICE) in
++	 * mana_schedule_serv_work().
++	 */
++	smp_mb__after_atomic();
++	wait_var_event(&gc->flags,
++		       !test_bit_acquire(GC_IN_SERVICE, &gc->flags));
++
+ 	pci_disable_sriov(pdev);
+ 
+ 	mana_rdma_remove(&gc->mana_ib);
+@@ -2635,6 +2727,8 @@ static void mana_gd_remove(struct pci_dev *pdev)
+ 
+ 	pci_iounmap(pdev, gc->bar0_va);
+ 
++	/* Prevent late recovery work from using freed gc. */
++	pci_set_drvdata(pdev, NULL);
+ 	vfree(gc);
+ 
+ 	pci_release_regions(pdev);
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+index 7a1ac85..67c7e7e 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_en.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+@@ -924,8 +924,8 @@ static void mana_tx_timeout(struct net_device *netdev, unsigned int txqueue)
+ 		return;
+ 	}
+ 
+-	/* Already in service, hence tx queue reset is not required.*/
+-	if (test_bit(GC_IN_SERVICE, &gc->flags))
++	if (test_bit(GC_IN_SERVICE, &gc->flags) ||
++	    test_bit(GC_REMOVING, &gc->flags))
+ 		return;
+ 
+ 	/* Note: If there are pending queue reset work for this port(apc),
+@@ -4056,9 +4056,12 @@ static void mana_gf_stats_work_handler(struct work_struct *work)
+ 		dev_warn(gc->dev,
+ 			 "Gf stats wk handler: gf stats query timed out.\n");
+ 		/* As HWC timed out, indicating a faulty HW state and needs a
+-		 * reset.
++		 * reset.  Never admit service work before the probe has
++		 * completed: a probe that is failing unwinds netdevs and the
++		 * HWC channel itself and cannot drain a cycle.
+ 		 */
+-		mana_schedule_serv_work(gc, GDMA_EQE_HWC_RESET_REQUEST);
++		if (test_bit(GC_PROBE_SUCCEEDED, &gc->flags))
++			mana_schedule_serv_work(gc, GDMA_EQE_HWC_RESET_REQUEST);
+ 		return;
+ 	}
+ 	schedule_delayed_work(&ac->gf_stats_work, MANA_GF_STATS_PERIOD);
+diff --git a/include/net/mana/gdma.h b/include/net/mana/gdma.h
+index 308950f..fd4b967 100644
+--- a/include/net/mana/gdma.h
++++ b/include/net/mana/gdma.h
+@@ -228,12 +228,6 @@ enum gdma_page_type {
+ 
+ #define GDMA_INVALID_DMA_REGION 0
+ 
+-struct mana_serv_work {
+-	struct work_struct serv_work;
+-	struct pci_dev *pdev;
+-	enum gdma_eqe_type type;
+-};
+-
+ struct gdma_mem_info {
+ 	struct device *dev;
+ 
+@@ -420,6 +414,8 @@ struct gdma_irq_context {
+ enum gdma_context_flags {
+ 	GC_PROBE_SUCCEEDED	= 0,
+ 	GC_IN_SERVICE		= 1,
++	GC_REMOVING		= 2,
++	GC_SERVICE_DURING_PROBE	= 3,
+ };
+ 
+ struct gdma_context {
+@@ -479,6 +475,12 @@ struct gdma_context {
+ 
+ 	struct workqueue_struct *service_wq;
+ 
++	/* The in-flight MANA service cycle, queued on the system workqueue:
++	 * a reset cycle destroys and re-creates @service_wq.
++	 */
++	struct work_struct	serv_work;
++	enum gdma_eqe_type	serv_type;
++
+ 	unsigned long		flags;
+ 
+ 	/* Protect access to GIC context */
 
