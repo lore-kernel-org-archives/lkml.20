@@ -1,85 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F4136F91F;
-	Sat,  5 Sep 2026 07:34:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A4884CCDFD;
+	Sat,  5 Sep 2026 07:40:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788593697; cv=none; b=Vtx6yejClG94QysLl39EUmwk43FKBhJAHiukGxXIj9NxBc/0ifSf9kD0n+uMGCsoYOoaimbCSCgunH17s01AG0oEkHbrdCzwVtEezDDPkJv6PXbb/50cz79hFFL3N0Yv4ZV/1qx+bInxlyRCeTx7MNrQJco7bpMiR2bRvjtvmKY=
+	t=1788594017; cv=none; b=Rat+tYFHI28+wk/dcROSCShMsw6ziJUH3vGgwWgH412toG6Qy+NoEmNmaq+cdPf75RaNjCPWRVQ4ACJpHoF2Rz4c/t561ZeU8clgx6NPbOl0/UOCQck4NkjSZlp2t72C/tBjDxj3KglVOuI7emabHhJrHUfTzxEGQ/JsGd5OoGs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788593697; c=relaxed/simple;
-	bh=KqhRb7TRaO4oUTnAn3+0uR6jeZjjx+QI/9BBsvkDdrw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Wb4QPJuAvAmSpjaQtspDU+t59pO5Zhbb4PZWSVkAXK4WmAaL+St/J2CkZ5E/x8d6tsG0nHImS7Zf4dPaSeTJHXBXU/QWJbtS0nWBbKzjziZPTrRsswepGEoQ7jTEep9CjNRKcXxtwl8E4K7Qqg7ZutNuiktI/d12RDqIDkNO4Ug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VjnMXgcp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788594017; c=relaxed/simple;
+	bh=x/A+MZz14friRoHCsWJHWWAB6I+96EUaty/rUP12mY8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z2Q8bupAH6a3j6ZuBbbSc7HV7/i/f8n/YF1uBtXt6dYpGlZKMyjfVJ2HIkP85/wk0bbjU+Otpuib10KQfwnX5Oht3jOkv3tp5O9jaDkAX9NuWC5uFf5q2VF8SoRYzuXlMfNknB2Y+fc81+j+N9v1sKInw9d3Fmrw2sE8RM094qE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hXfYmZ/J; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VjnMXgcp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 288E91F00A3D;
-	Sat,  5 Sep 2026 07:34:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788593695;
-	bh=JUhUTyBAxM0l7I08t5Sh934jIW0eNDg1bZYMXNdSnOI=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=VjnMXgcpfqz1VY9tQ6xqIxdT0yLbLVH1nxzvmUVRarBcZnhMnKcWSsSqYIutvfr3H
-	 P9oz/qxswT6yFzcOg2Bri1WAmMwQPty5gn0VCtlbwpS/cN5tJ9jFPdaLcKkVtwydtt
-	 H+J9pIzHQeiOVTW9CMCV6QJW3JFxRF9tEbwzFZl1sKqit2oYvgTqBkOo3v9aHXPfto
-	 DX/FaBYmdcvfWRPU2RT+WPxBi4acVjzz6C6GCKlhYdiTBOjhHr3Nrm2u3Dicz8dXt6
-	 wXM7O+ydyEXd4ZQ/L2VNF/3mci5SMICPm6mpJFyRe850nexE6FiDkNw6+2ifwNldm2
-	 U30v4duv5qN4Q==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, Hyunwoo Kim <imv4bel@gmail.com>,
- Frederic Weisbecker <frederic@kernel.org>, Christian Brauner
- <brauner@kernel.org>, Peter Zijlstra <peterz@infradead.org>, John Stultz
- <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>, Alexander Viro
- <viro@zeniv.linux.org.uk>, "Eric W. Biederman" <ebiederm@xmission.com>,
- stable@vger.kernel.org
-Subject: Re: [patch 1/8] signal: Prevent exec() race
-In-Reply-To: <apqs6wgDtpdLI-k8@redhat.com>
-References: <20260904112100.683893401@kernel.org>
- <20260904112202.074391651@kernel.org> <apqs6wgDtpdLI-k8@redhat.com>
-Date: Sat, 05 Sep 2026 09:34:52 +0200
-Message-ID: <87zexw5exv.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hXfYmZ/J"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788594015; x=1820130015;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=x/A+MZz14friRoHCsWJHWWAB6I+96EUaty/rUP12mY8=;
+  b=hXfYmZ/J1x0i5Ar53YDWczKUbaSaZEOcVeah//B3r3vhLRlS1XwLHIxH
+   JYbB2qvZDLIn4JojzZbk7fw9nI+R5RKa+oPbUmV6+4bEOTZNbk9nozQFI
+   5ytWUlopIiOC6ILE3ZsdxUFBbMDsa0ZwMOB8l0HYCVUmkPqP9wcl0tIVR
+   wQc6KOnlCtkKT9DZtuEoGX5JhBYCxnxckfo1P1L4kZ78dpiRDZm6Ng3kZ
+   y0TZyd7V6Ma2zcBJ6iziGZObG8xW8ITAw2YGNTYab+rHw4USci5KQW2GT
+   mmms/QA0X433NE2lAlWQ/hnwieBrazVZvNt/kJLRVOahKC7iSpjcuuPXG
+   Q==;
+X-CSE-ConnectionGUID: 09vvhxzxRYmUa9l0OJGPuQ==
+X-CSE-MsgGUID: EuFytHi0RQSiQHaIzcL9Iw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11896"; a="99681687"
+X-IronPort-AV: E=Sophos;i="6.25,263,1779174000"; 
+   d="scan'208";a="99681687"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Sep 2026 00:40:14 -0700
+X-CSE-ConnectionGUID: 6ufdODcLRyifkg7hUgdXCA==
+X-CSE-MsgGUID: 2q7LkCwxSaKrRhpf0EOS3Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,263,1779174000"; 
+   d="scan'208";a="295119163"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.245.105])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Sep 2026 00:40:10 -0700
+Date: Sat, 5 Sep 2026 10:40:08 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux@analog.com, jic23@kernel.org, nuno.sa@analog.com,
+	dlechner@baylibre.com, andy@kernel.org,
+	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org
+Subject: Re: [PATCH v1 01/13] iio: Fix typo in vendor name
+Message-ID: <apvHWCXRp-s7rcut@ashevche-desk.local>
+References: <cover.1788368334.git.marcelo.schmitt@analog.com>
+ <e508718734a06f005704051b8bc3d3d7a1a3b48d.1788368334.git.marcelo.schmitt@analog.com>
+ <apkSNlQuQkjdNKvx@ashevche-desk.local>
+ <apse4gHE2pblXnN2@debian-BULLSEYE-live-builder-AMD64>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apse4gHE2pblXnN2@debian-BULLSEYE-live-builder-AMD64>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Sep 04 2026 at 13:35, Oleg Nesterov wrote:
-> Thomas, I can't read this series today, will try on Weekend.
->
-> But you didn't reply to
-> https://lore.kernel.org/all/apgHJj0qH7HlAXKO@redhat.com/
-> Let me quote that email here:
->
-> 	OK... lets suppose the exiting task T passes exit_signals().
->
-> 	Suppose we have an "ignored" timer tmr. Another sub-thread calls
-> 	do_sigaction() -> posixtimer_sig_unignore() and finds that tmr
-> 	in ->ignored_posix_timers list.
->
-> 	But posixtimer_queue_sigqueue() doesn't check PF_EXITING, I guess
-> 	it should check it too?
+On Fri, Sep 04, 2026 at 04:41:22PM -0300, Marcelo Schmitt wrote:
+> On 09/03, Andy Shevchenko wrote:
+> > On Wed, Sep 02, 2026 at 02:21:34PM -0300, Marcelo Schmitt wrote:
 
-From the patch:
+...
 
-@@ -1990,6 +2004,9 @@ void posixtimer_send_sigqueue(struct k_i
-	if (!likely(lock_task_sighand(t, &flags)))
-		return;
+> > > Now
+> > > find drivers/iio/ -type f | xargs grep -i "Analog Device "
+> > > finds no leftover occurrence of such typo.
+> > > 
+> > > Also,
+> > > grep -nrIi drivers/iio/ -e "Analog Device" | wc -l
+> > > and
+> > > grep -nrIi drivers/iio/ -e "Analog Devices" | wc -l
+> > > both count the same number of lines.
+> > 
+> > Why not `git grep ...`?
+> > 
+> Could be. I'm just more used to non-git grep.
 
-+	if (unlikely(tmr->it_pid_type == PIDTYPE_PID && (t->flags & PF_EXITING)))
-+		goto unlock;
-+
+The rationale here is that `grep` goes over filesystem (and files) while
+`git grep` goes over index which requires much less resources to waste and
+hence 10x faster or so). That said, I highly recommend using `git grep`
+when it's applicable.
 
-> 	Or perhaps it makes more sense to check PF_EXITING in
-> 	posixtimer_get_target() ?
+...
 
-No. Because that's outside of the sighand locked region and therefore
-can't provide a reliable answer.
+> Thanks for suggestions to other patches too. Will apply them for v2.
 
-Thanks,
+You're welcome!
 
-        tglx
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
