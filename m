@@ -1,133 +1,119 @@
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1BC636606B
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 06:19:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788589193; cv=pass; b=XBBuviFjnxKtML5G/Sga+PzFwECCae8PaMluZcZoPwW4xIMrkknMR2Du4RpDoRQNrSVJjpZXyhmA9YBqoK+OCv/zf0PNYSySZ+kfRq2f9E9LrQDo8cGb34w2S657yAHlAsOr0rta2x/Ejvog7nhx3/ARDKSkdqP9os13gzsXrro=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788589193; c=relaxed/simple;
-	bh=DgVweYSWbQFkjqzyjgTXapKpHPz95R4xlOm930OD0hg=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0484363083
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 06:22:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788589346; cv=none; b=K4UYKEkHTDSq0ulsse46UGxeK7hlx/H8aMCs/kXHJGLGbvZH3Zoar7hbOzeF1h0c2GGl2ptmqo/wu9mKzeEYN7VkP3yBqajioFGQhcFWlLTtBzB4RVtowu5at2N1axHrgG2kAD/cMvq2YcRK4j2GBfR4ZM5JHX7PIhj7cfzix0U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788589346; c=relaxed/simple;
+	bh=5A2DXfLvOuztE0W8xwBhWwJAwffc3mOvguOK2Ayp/kI=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=G+Yi9oHTTxDEfr1qotFnGB3CJad3QaTVZUxLvWDp3vVJ0lE9cwlHBBtwy5fqQfHIoIICp6f05LUyTldPILtAXNnR7aZaFaCra2bWAfxs9ApF4/Dt6q0QCxSXph0Zm/BgUJC3Mra/iJ6rXt9Z5pK5tR2WXEz5a5lwzq9fA5ZzmW4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i/M7zchY; arc=pass smtp.client-ip=209.85.167.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=X3ivQdoE2rWl5J02o/R4xvnSa8XQxizFPkWHTqPNpBR/istc9IO2s3PhezCNIkLNuYg+1Y22mRYuQbrTJLzKXnQJewzdrb1qn4t7CQS6U7WoFDGD1Ih63aX7Dgo15Cq6U6E9Ecsvbxsrkon6ZJfKzGzT5+6t3gxydEuYum2NDtg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H3Dw0Bhv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i/M7zchY"
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5b60bc6b4eeso1207757e87.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 23:19:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788589190; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RgJyRYINzfeiLyXEO/rEMnjtjKZE5KU8nBt2qann8wvOZSL8EPvcqw9jMK9ejHWtFv
-         bErisZBnadTfNzCBItvUtammrqa1BKFfR0f1fSd3NYKFzqCSzXeyE10VK/nMBAr1AsZk
-         bys8BdMqgqUZA2BbYI/q4xKW/9Xz48GKmElM/F32DQx8/FLAnoaauwVpWs1wJkjhkGC6
-         53Nf3D2328AIj4WZWVq2eLfhVv7FBr3Vr/esbL/NBIr49Y/cPVoXoe7P8l1x4ib4RF+r
-         sTbupNcYBiNMu/ZA2QrfyOifVtCyOtoRtuX6/9SzhJD2ZvmNhVASlgFwqGah/Haq6d33
-         HJ+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DgVweYSWbQFkjqzyjgTXapKpHPz95R4xlOm930OD0hg=;
-        fh=n5g9PnrRZ/Kq1UqmtaYuvWnhNXO8hiYF/KSOGOIlsE8=;
-        b=HY3Lc5/Vg3/7tRb3bKsKF9Y2MXl3W24tk8BZK66h/gMdqYIf5obSpyq+HOqy154GLL
-         mE7WFbeH8QZGu0vBAtwiAhxjW2YhtHN0nUjCLaysGffCYBAF27FwHivkObdSx83uzaUw
-         aFb2xRAblDM4iSuEVBZD2JWxA7qaArmtFWuPv/DmYXX8phX0RurXIkFNY0w6AtF6v6f7
-         FnHp1DYKfdqvOo0A4vYLwQh15853XMvL8hxghUMor/5rp8a/E2mLfEB3tF30HZTXlhLF
-         8xN2La1Po9iI5X3SulwhW2EU0Xs5mJt0UUPMqck5JFdsXwOJWtV2k6+mJs0ieP2aQcry
-         yTMQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788589190; x=1789193990; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DgVweYSWbQFkjqzyjgTXapKpHPz95R4xlOm930OD0hg=;
-        b=i/M7zchY78vRSJvpMh7Qa9vuaIfzWcJtyiI+soT50eSvXIXaCfkMHpyeyweSLozicX
-         xAzMsoDxdqk0xm1y/ygEZXa0LeLOhouq8SmThqo9+dxibrHgNKYA20zA4cTL9NgsqBDj
-         JpyE6zqy+81nU8XPY2EQXa3Tod02EnksR/f0hZwYQYwlbdJENy2IvRR6J8xNdZOJtdE9
-         M8lAzQDmz4xVlCh3PhmkNPy9nD/agIfIG7lPvOSsuD3E2r7P+7y65A87V5RLWawDz3oI
-         POS1E7vOeACWJFAZ+OlZjxEkQX/xblxACIK1vxH6GrtbH1cA5AM4GeN97vgP/+KlP8zE
-         jaUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788589190; x=1789193990;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DgVweYSWbQFkjqzyjgTXapKpHPz95R4xlOm930OD0hg=;
-        b=J61JVcNUBOm0EJOag0XT1djW2j5SCriycykM+dimXqAfXhXx7puuuW9P7pO1Bl5SX6
-         mlGG7yS8pOquM7Kn8NpeENfytPkGE+dkkrTj+QJgtkGxhl2IAFLDAT1kpK8tuLHSLqkr
-         tNAlu8PoeuLQzpEccGN4Xoh6rADYr6ZAssePcKWCw1+7/THI61+ZSynGbbB3SbhFCVAd
-         huFiY1ydjmndcHpi0TNBCtv3++mqziJ0UXUiVtNHGlMpaB73hzWbV5QbgR62sYx3rpI0
-         Lp9vOdQwFuy88PsbXiJZba7tsnuFHqfhuiHUeiEMd8+hLsC0u5Y3YqRTPQ/QqdiLiP1V
-         GKsg==
-X-Forwarded-Encrypted: i=1; AKwUvBzZuqjPOeMiDNFtINKqOWlVSHwjdu/TbJg7YGJ45huGFE6fMZJ6JxLdKndmeK7JtcaV8C2UfeDQloV+gY8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mXWt2+pnnvNh/N8fbZEknKc8S5tPYCC5fIgsRkp9P4gStVhR17
-	vJXJz4NpCewlRAxh5QqiCdpF41lKc+MV8GRwroEYvmN5PWEKXspr+Q8vDsJCx7hvL2gUaHMCQD1
-	g2FEsSoSyL9Fkj2lxxmQjslbZgBQ+i84=
-X-Gm-Gg: AYBFou12f6FANbajD2T0HuGEJTneInbYWIHL2z1KS1+5N7drEuopVUeNEe6CMA5oRRe
-	gBFt4UGzUmGJUNEzUxBGm0t7A3NOGban9IZ/PKrVxLlbyJ1F5olpOZTL1yPpt1SQPcXMq1K37K9
-	Pki0xOrZEqlXfh9kc7W4ZzPD/KuGTL27FiVx42nbVTTxIJ88FDo151REKjhzJwK/ZYnTetHn9CW
-	2eHGoSU+VLiZJi0q49cdBuVGgPN86JxAj8V+9JXNH2SQa1SOP8qvrYrfeNeMnqVWjsmZW/sWYK2
-	g5n0evbS5ycq7jXSYfJr3p9lmGyUVdCNedO/Bmfumf/ylA==
-X-Received: by 2002:a05:6512:3ca0:b0:5b5:e265:5215 with SMTP id
- 2adb3069b0e04-5b616f2389fmr2673007e87.22.1788589189444; Fri, 04 Sep 2026
- 23:19:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H3Dw0Bhv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 971971F00A3D
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 06:22:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788589344;
+	bh=5A2DXfLvOuztE0W8xwBhWwJAwffc3mOvguOK2Ayp/kI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=H3Dw0BhvbgIDKrZ7WLMSQH8TkTOqZnCo7Xu79F7tLZHLeCti8E/CbnuZd6mPjAtuG
+	 rygHtNfF/Aj7PNLTdZ1h5RSror8m9lQOgx0kVbekRPCNpeFcq0BnVhLtovqHqopJIk
+	 7xc1NN3IoJ7slHk83Zyj2j+gSyosY/YHaRx+04bDIcBybNNmI8N92xy24b+ATU9eJv
+	 rfNmmO2RmM/KMu58iQAMevYHR7Oqammr6+cD/3zR0b9o753R2mdvkxT/tLD39KYomR
+	 ryvUfgOesgbGDUIgr1cCIGQeaC5wRcxJhuxqlIR4/rV6DMC1P9qJVvkQ+XnbSTFcCe
+	 atARB/r89/l9A==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5b4ab0e4da6so1713784e87.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 23:22:24 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzfBb5jTuatFwAWAcLs44JqHzIglSvlEPxUPnQbtDP5Vz9dPOwebTx8nmfuOjm4cnSvOPKt+K3ZXf5bjYk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kFH7h4P5IQN0FLItOegLzMGwyUj1YAzeAOm2BZaA1yqej0IBHY
+	Pgl1qSpNWX+i97Sw7VrjqQd1eeu1YbbhHKTZjLhnMQVBB6xbNNYFr1h3C4EvML3a4bwAyUsBn3E
+	8T1OeiBMVAADvt7Jhfdq4NfPblk2akCg=
+X-Received: by 2002:a05:6512:3b0d:b0:5b6:183c:5c94 with SMTP id
+ 2adb3069b0e04-5b6183c5ecdmr1369894e87.50.1788589343322; Fri, 04 Sep 2026
+ 23:22:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAEsQvcuaNZvLxyxNH_NOy5qwTmkrk-A9QdVtZD0GiCtPwk4A+A@mail.gmail.com>
- <20260904182023.4486-1-hhkieu@gmail.com> <CAEsQvcuMFt=m=njsPzRtKarz04Gwbds+f8p2S+SdSQmaiW1fLw@mail.gmail.com>
- <CAEWo5SpV6eyHo-tn+hKX4s98uCjGJg5Dz9fMkoWNDNqgofJ5og@mail.gmail.com>
-In-Reply-To: <CAEWo5SpV6eyHo-tn+hKX4s98uCjGJg5Dz9fMkoWNDNqgofJ5og@mail.gmail.com>
-From: Geraldo Nascimento <geraldogabriel@gmail.com>
-Date: Sat, 5 Sep 2026 03:19:37 -0300
-X-Gm-Features: AcwNN1Xcn7gxVJ-XcwGRHw8YjMjtJQlhyxhOoGl5Xct5WzB2wM4Yh49lGrcXjFs
-Message-ID: <CAEsQvcsG_Q2uZQ8Q_MBhUyhY+n4HymMsuowSHfk-CHCBj6mbzQ@mail.gmail.com>
-Subject: Re: [PATCH] ALSA: usb-audio: add Pioneer DJ DDJ-SZ support
-To: Hanh Kieu <hhkieu@gmail.com>
-Cc: perex@perex.cz, tiwai@suse.com, linux-sound@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+References: <20260904-ksz9897-sgmii-port-v5-1-9bd4a0381aa8@vaisala.com>
+In-Reply-To: <20260904-ksz9897-sgmii-port-v5-1-9bd4a0381aa8@vaisala.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Sat, 5 Sep 2026 08:22:11 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=2U-at=iDwkQ3yNfk97xQc1mGS3uSTRdheMYwT_7YGWw@mail.gmail.com>
+X-Gm-Features: AcwNN1Ur2s0ncXM5BZAkSfX08tc-OATaVAVH71F_Mih3jw8yqeqp5DWO2pNSju4
+Message-ID: <CAD++jL=2U-at=iDwkQ3yNfk97xQc1mGS3uSTRdheMYwT_7YGWw@mail.gmail.com>
+Subject: Re: [PATCH net-next v5] net: dsa: microchip: enable the SGMII port of
+ the KSZ9897S
+To: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Cc: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
+	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Tristram Ha <tristram.ha@microchip.com>, 
+	Nicolai Buchwitz <nb@tipi-net.de>, Jerry Ray <Jerry.Ray@microchip.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 5, 2026 at 2:35=E2=80=AFAM Hanh Kieu <hhkieu@gmail.com> wrote:
->
-> Hi Geraldo,
->
-> I looked further into the is_pioneer_implicit_fb() check you pointed out.
->
-> It seems the DATA case is intentional. In the original Pioneer DJM-900NXS=
-2 work, Fabian Lesniak described the observed behavior as:
->
-> =E2=80=9Cthe playback streams also tries to start the capture endpoint as=
- sync source.=E2=80=9D
->
-> https://gist.github.com/flesniak/074ab23bbc833663b782f44174eae6a4
->
-> Takashi Iwai later formalized this in the Pioneer implicit-feedback handl=
-ing, explicitly accepting either USB_ENDPOINT_USAGE_DATA or USB_ENDPOINT_US=
-AGE_IMPLICIT_FB for the secondary IN endpoint before passing it to add_impl=
-icit_fb_sync_ep():
->
-> https://github.com/torvalds/linux/commit/167c9dc84ec384c0940359e067301883=
-ad2b42a8
->
+On Fri, Sep 4, 2026 at 8:03=E2=80=AFAM Tapio Reijonen
+<tapio.reijonen@vaisala.com> wrote:
 
-Every other Pioneer device has that USB_ENDPOINT_USAGE_IMPLICIT_FB
-on the IN endpoint. Yours would be the first without it in the IN
-endpoint. Unless
-your hardware doesn't rely on implicit feedback for syncing then there's a =
-good
-chance that implicit.c short-circuiting and still picking up implicit
-feedback for you
-isn't correct, but what you need to do is cool down now and wait for proper
-maintainer response which takes time.
+> The KSZ9897 has an SGMII/1000BASE-X capable port 7, but its chip_info
+> entry never set .sgmii_port. ksz_has_sgmii_port() is therefore false,
+> ksz9477_pcs_create() is never called and ksz9477_phylink_mac_select_pcs()
+> returns NULL for port 7, so a phy-mode =3D "sgmii" or "1000base-x" link o=
+n
+> that port cannot come up.
+>
+> Only the KSZ9897S has that port; the KSZ9897R has a second RGMII port
+> instead. Both report chip ID 0x00989700, so the port cannot be enabled
+> from the chip ID alone, and enabling it unconditionally breaks the
+> KSZ9897R badly: ksz9477_setup() propagates the failure of
+> xpcs_create_pcs_mdiodev() on a part without an XPCS, so the switch as a
+> whole stops probing.
+>
+> The variants do differ in the read-only bit 7 of the port 7 XMII control
+> 0 register, which reads one on the KSZ9897S and zero on the KSZ9897R.
+> Compare the KSZ9897S data sheet DS00002394C section 5.2.4.1 with the
+> KSZ9897R data sheet DS00002330D section 5.2.3.1.
+>
+> Read that bit in ksz_switch_register() and use it to select a KSZ9897S
+> chip_data entry, which is the KSZ9897 one plus .sgmii_port =3D 7, with
+> port 7 no longer marked as supporting MII, RMII and RGMII. On the
+> KSZ9897S that port is permanently an SGMII port and only its
+> differential pairs are brought out, so advertising the xMII modes on it
+> would let phylink accept a mode the driver never programs:
+> ksz_phylink_need_config() skips the XMII control registers for the SGMII
+> port. The KSZ9477, which also has SGMII on port 7, is described the same
+> way. See DS00002394C section 4.11.
+>
+> KSZ9897S_CHIP_ID selects that chip_data entry and nothing else.
+> dev->chip_id keeps the KSZ9897 chip ID that both parts report, so no
+> other chip ID comparison has to know about the variant,
+> ksz_check_device_id() is unchanged, and a device tree naming the KSZ9897
+> keeps matching whichever part is fitted. No binding change is needed and
+> existing device trees keep working.
+>
+> Tested on a KSZ9897S with a 1000BASE-LX fibre SFP on port 7: bit 7 of
+> the port 7 XMII control 0 register reads one, the switch is identified
+> as a KSZ9897S and the PCS is created. The port advertises
+> 1000baseX/Full, clause 37 in-band autonegotiation completes against the
+> link partner, and the link comes up at 1Gbps/full duplex and passes
+> traffic.
+>
+> Suggested-by: Nicolai Buchwitz <nb@tipi-net.de>
+> Suggested-by: Jerry Ray <Jerry.Ray@microchip.com>
+> Suggested-by: Tristram Ha <Tristram.Ha@microchip.com>
+> Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
 
-Geraldo Nascimento
+I think this approach looks good.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+
+Yours,
+Linus Walleij
