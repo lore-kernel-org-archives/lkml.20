@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA62650EC13;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D2750AC13;
 	Sat,  5 Sep 2026 18:13:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788632022; cv=none; b=hjP5X68us3xZcwpdpFyQsjjB55Pks4lLVempDRMawKhDxXcCxTs/wMQrdsqhXoYmfhxRGtVnBNarlODik3P4dqH5pInAzmp57qXfo0C2yRJnDpkaMcAlwmchQp+IO56dVKRZ34hkzg79svI2JvWHSyeAD/Gf3ISOe97P8OqjXJg=
+	t=1788632022; cv=none; b=jQ/v/lexigfnQ+kTlx9FhpJQsLP23eiaGX7GSA6bsb00v5V9evcj3VhuVS2WrGqklOPLhbO1XBLhawJ9d077fruhUHL7OYk19aSuVDhRefBWElXNrqKrH8zvw6uFjRboZvey4/K65KDOvM/YVyWlpXvwzHQAdPaWLH7GM/johPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788632022; c=relaxed/simple;
-	bh=qrPtwJH4xwU0Lry5Na4F7EhErraZ3upmBw8qtxWkjD0=;
+	bh=f8/WVjeIXdxcBybxmZ5krtHJz1eQsWrSA+dC2jCH97I=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HI6UR+FOWtcHXEnAoDczTFh2+vRMcw4PgtfRVCmRq6LDMMApx50cypNK7bP7CpbONXBx8mUxXR4Yy3ea3PNrVO0qxZosN73gD7LL4R7d7MVU1IDoJH70/icbvlYxS2fDBsyLKHvO54GpSy0zQBwG0ZBDaY7Yh9HfGCGk9jIE95U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ua7ajBlr; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=kyAUBt3KHRU9H3nAYdegs6AuFM92kSApsAB92JmwmVFsHmag/vu4lTApVRk1aYMErFfpbrUi+Uo13ZOzgfUUjPR1MSP2nGTAFaZnwRlQx5wJj4fQPtvy9glcS2fpMMa4f/G9CRI4wkSNmiRbYONl4yyfi2KSs+CuDhByVWwDIfA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cvAiHTPY; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ua7ajBlr"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8FBC4C2BCF4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cvAiHTPY"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 552EDC4AF54;
 	Sat,  5 Sep 2026 18:13:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788632022;
-	bh=qrPtwJH4xwU0Lry5Na4F7EhErraZ3upmBw8qtxWkjD0=;
+	bh=f8/WVjeIXdxcBybxmZ5krtHJz1eQsWrSA+dC2jCH97I=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Ua7ajBlrTnu+Atzw15VCpz8iVlsHfHUNROiNsMCcy1ZA47zOcSeiHw0p2yH+V/szo
-	 1G5vEOzRfKrxSUg+OitxVJix8C8W5Ubd2quzxfbr1MIsORqcS2gcHlejAopWLZzbHd
-	 TGO7zfSc8HKrdhsIi+yu54gzhijRFICKFhM+sHCFE77+9VDxtuXdroizpZzWFKEn16
-	 4v7v2JH4ff901+VfqiB91MsPFr+5bOWdW96uSm+iBPIj2dtBpnEAweOHkpCE63VmnJ
-	 PMTR2AmjobHt6LoVjcrFVljuIT/7OWmc2a0nzs7S/5H1EyT/JnwbEiw5eSJk0qwErI
-	 BZy7ulQ5ZvKOg==
+	b=cvAiHTPYJ+X7HIQb8hL2B28gYTp/no9O34mQKPCXMg5cfVGOvHSdEyy5b0aEGmi/+
+	 +idBi2kQa515v9HM2jqHMok7zece9BGQoDoh17ia5wqj3GhdBF6phB9mCTktFENl/l
+	 n+f3XgybwtphTd1NtvOxF4fXvIhpxTlPTI8tMFTfKlhMFdyACT7P3vp9thmPfGgiP0
+	 TZboxfCqrlT2uOCshISFCl1DFK/2HCDOR6nCLhWN0YllBCUv85fEfLM4L5cTmxrlmN
+	 Z7kQrWWkab4qurh+ZSQ03THgoJp4sxD4TR5uLcDvY7mPTkd0ahkGSZt4fdEPQhxnzt
+	 h713j4XqFs6zw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7EF80C79F9E;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 409D1C624DB;
 	Sat,  5 Sep 2026 18:13:42 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Sat, 05 Sep 2026 12:13:56 -0600
-Subject: [PATCH v8 42/43] dyndbg: add DEBUG-biased fallback stubs for
- _dynamic_func_call_cls
+Date: Sat, 05 Sep 2026 12:13:53 -0600
+Subject: [PATCH v8 39/43] dyndbg: Ignore additional arguments from pr_fmt
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,8 +39,8 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260905-dd-cmap-part2-clean-v8-42-a4cc0674f6fd@gmail.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260905-dd-cmap-part2-clean-v8-39-a4cc0674f6fd@gmail.com>
 References: <20260905-dd-cmap-part2-clean-v8-0-a4cc0674f6fd@gmail.com>
 In-Reply-To: <20260905-dd-cmap-part2-clean-v8-0-a4cc0674f6fd@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -59,13 +58,13 @@ Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
  linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
  linux-kbuild@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>, 
- kernel test robot <lkp@intel.com>
+ Philipp Hahn <phahn-oss@avm.de>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788632017; l=2698;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788632017; l=8312;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=FiBDV3LWTxR2wrM17OJ5JIb1tweLA5e70DwpUu8mXrw=;
- b=JW3IjIesFU6hgwqCH8RSVbzTagigHpQczLM9R5QVDiYdmQPaUxgXSO1LWKBvCdgoXXqL02ZdD
- 75tpQ4Kn+76AL/Td21Bu3ReokjYuRUAovk88G5Rb9vAxeVIyn/jouug
+ bh=emu4+qhrK1ZLKiDIRNHJ+kSxfMaMHPbDRgjl3ckBxAo=;
+ b=Ko17QfDvWw1ewhixWjtTBkaRRaStrE3qk5ZLM4bmPS0RM7wsuTWE58jAPP+uWVL6DweryPTpy
+ B3K9nBjHRbHAsVjZ4t7mFnfM0XjdKcfgI5t6N0zOoLaws2KGWZgM6Gv
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -73,65 +72,164 @@ X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
 X-Original-From: Jim Cromie <jim.cromie@gmail.com>
 Reply-To: jim.cromie@gmail.com
 
-From: Jim Cromie <jim.cromie@gmail.com>
+From: Philipp Hahn <phahn-oss@avm.de>
 
-When the dynamic debug core is enabled (CONFIG_DYNAMIC_DEBUG_CORE=y) but
-the global CONFIG_DYNAMIC_DEBUG is disabled, subsystems can opt-in to
-dynamic debug by defining DYNAMIC_DEBUG_MODULE.
+pr_fmt can be used to add a common prefix to any output from a module:
+	#define pr_fmt(fmt) KBUILD_MODNAME ".%s " fmt, __func__
 
-However, for built-in code (like DRM core) where DYNAMIC_DEBUG_MODULE
-is not defined, the macros fall back to the disabled #else block in
-include/linux/dynamic_debug.h.
+But adding additional arguments breaks dynamic debug:
+> error: macro "DEFINE_DYNAMIC_DEBUG_METADATA_CLS" passed 4 arguments, but takes just 3
+> |         pr_debug_ratelimited("%s", "Hello world!");
+> |                                                  ^
+> note: macro "DEFINE_DYNAMIC_DEBUG_METADATA_CLS" defined here
+> | #define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt)       \
+> |
+> error: ‘DEFINE_DYNAMIC_DEBUG_METADATA_CLS’ undeclared (first use in this function)
+> |         DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, _DPRINTK_CLASS_DFLT, fmt)
+> |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> note: in expansion of macro ‘DEFINE_DYNAMIC_DEBUG_METADATA’
+> |         DEFINE_DYNAMIC_DEBUG_METADATA(descriptor, pr_fmt(fmt));         \
+> |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> note: in expansion of macro ‘pr_debug_ratelimited’
+> |         pr_debug_ratelimited("%s", "Hello world!");
+> |         ^~~~~~~~~~~~~~~~~~~~
 
-In this block, the family of _dynamic_func_call_cls macros were
-completely undefined. This caused build failures (implicit declarations)
-in subsystems (like DRM) that attempt to use these macros to wrap their
-own debug functions even when dynamic debug is disabled.
+Add an additional ', ...' to DEFINE_DYNAMIC_DEBUG_METADATA_CLS to slurp
+any additional argument, which `pr_fmt` might add.
 
-Add stub definitions that mirror the enabled behavior and respect the
-DEBUG macro, similar to pr_debug. If DEBUG is defined, they inject NULL
-as the first argument (to satisfy the expected descriptor pointer) and
-pass the arguments through, allowing the wrapped function's own slow-path
-fallback logic to execute. If DEBUG is not defined, they use an if (0)
-statement-expression to compile out the call while returning 0, achieving
-zero overhead while maintaining compile-time argument checking.
-
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202605201408.x1sHT6fx-lkp@intel.com/
-Assisted-by: Gemini-CLI:gemini-2.5-pro
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
+[pr_fmt change on test_dynamic_debug_submod instead of parent]
+Reviewed-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ include/linux/dynamic_debug.h                      |  2 +-
+ lib/test_dynamic_debug.c                           |  4 +-
+ .../selftests/dynamic_debug/dyndbg_selftest.sh     | 68 +++++++++++-----------
+ 3 files changed, 37 insertions(+), 37 deletions(-)
 
 diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 0e3af8948a56..ce142ad366dc 100644
+index d00605ef651e..82cde8e6b46c 100644
 --- a/include/linux/dynamic_debug.h
 +++ b/include/linux/dynamic_debug.h
-@@ -538,6 +538,23 @@ void ddebug_increment_call_count(void);
- #define DYNAMIC_DEBUG_BRANCH(descriptor) false
- #define DECLARE_DYNDBG_CLASSMAP(...)
+@@ -362,7 +362,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+ 		dump_stack();					\
+ }
  
-+#if defined(DEBUG)
-+#define _dynamic_func_call_cls(cls, fmt, func, ...)		\
-+	do { func(NULL, ##__VA_ARGS__); } while (0)
-+#define _dynamic_func_call_cls_no_desc(cls, fmt, func, ...)	\
-+	do { func(__VA_ARGS__); } while (0)
-+#else
-+#define _dynamic_func_call_cls(cls, fmt, func, ...)		\
-+	do { if (0) func(NULL, ##__VA_ARGS__); } while (0)
-+#define _dynamic_func_call_cls_no_desc(cls, fmt, func, ...)	\
-+	do { if (0) func(__VA_ARGS__); } while (0)
-+#endif
-+
-+#define _dynamic_func_call(fmt, func, ...)			\
-+	_dynamic_func_call_cls(_DPRINTK_CLASS_DFLT, fmt, func, ##__VA_ARGS__)
-+#define _dynamic_func_call_no_desc(fmt, func, ...)		\
-+	_dynamic_func_call_cls_no_desc(_DPRINTK_CLASS_DFLT, fmt, func, ##__VA_ARGS__)
-+
- #define dynamic_pr_debug(fmt, ...)					\
- 	no_printk(KERN_DEBUG pr_fmt(fmt), ##__VA_ARGS__)
- #define dynamic_dev_dbg(dev, fmt, ...)					\
+-#define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt)	\
++#define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt, ...)	\
+ 	static struct _ddebug  __aligned(8)			\
+ 	__section("__dyndbg_descs") name = {			\
+ 		.modname = DDEBUG_MODNAME,			\
+diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+index 2d4be5442d46..2cf4092e7ec4 100644
+--- a/lib/test_dynamic_debug.c
++++ b/lib/test_dynamic_debug.c
+@@ -23,7 +23,7 @@
+  * the usage clearer.
+  */
+ #if defined(TEST_DYNAMIC_DEBUG_SUBMOD)
+-  #define pr_fmt(fmt) "test_dd_submod: " fmt
++  #define pr_fmt(fmt) "test_dd_submod: %s " fmt, __func__
+ #else
+   #define pr_fmt(fmt) "test_dd: " fmt
+ #endif
+@@ -269,7 +269,7 @@ static int __init test_dynamic_debug_init(void)
+ 
+ static void __exit test_dynamic_debug_exit(void)
+ {
+-	pr_debug("exited\n");
++	pr_debug_ratelimited("exited\n");
+ }
+ 
+ module_init(test_dynamic_debug_init);
+diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+index 5ef10cf8f6c3..eeb5018d6f82 100755
+--- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
++++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+@@ -683,50 +683,50 @@ function GOLDEN_RECORDS {
+ #K= f49de2063a545721cf5e959efc160836 FT_multi_query.2
+ #K= 2ff49f0c4d18ec99bcb1c30840fe8afc FT_multi_query.3
+ #K= 9a1b13c32a15363dcf93913308edeea5 FT_multi_query.4
+-#K= d4923595eea382923aee64aed15c7c35 FT_test_classes.1
++#K= 26586ed28518bdd7d718ff4172635c42 FT_test_classes.1
+ #K= a15ec4843acd721fbdfddc0b512c8032 FT_test_classes.2
+ #K= b4a593a1e1cab60da0156fcd5582d24c FT_test_classes.3
+-#K= 2d5fccd52e747b803c0dc96186675f3f FT_classmap_inheritance.1
+-#K= 3dcfea837b96c36bc61150414d810f9d FT_classmap_inheritance.2
+-#K= d4937472530af6fdcb0a2440d4a366ea FT_classmap_inheritance.3
+-#K= 5a78f2fdd6958ef6329aaff2f67c0e1e FT_classmap_inheritance.4
+-#K= f43e0aff8a4b38435b73d90ed8100d1b FT_classmap_inheritance.5
++#K= 62501908ed46fb83205bebd80f850d56 FT_classmap_inheritance.1
++#K= 1d2ac19332c416e913d9fff8661db4b9 FT_classmap_inheritance.2
++#K= 8dd8f7c4b3b7777d5279b6635ec83f7b FT_classmap_inheritance.3
++#K= a8dfa89c4daf89f13a015e87a36077c1 FT_classmap_inheritance.4
++#K= 62b6803edf43519186d6185bebf34352 FT_classmap_inheritance.5
+ #K= 94610c57ac44bd7011002a654fd78f93 FT_modprobe_w_param.1
+ #K= 94610c57ac44bd7011002a654fd78f93 FT_modprobe_w_param.2
+-#K= c1309e18dc9bf2f57184fa13164d917d FT_modprobe_w_param.3
+-#K= 030cda0a59aaae95750d5ec55acbcb8c FT_modprobe_w_param.4
+-#K= a1232e658d95fbca8b23a69e9a0db965 FT_modprobe_w_param.5
+-#K= 030cda0a59aaae95750d5ec55acbcb8c FT_modprobe_w_param.6
+-#K= af7b3d532325b1c5ab990e4b32fed577 FT_modprobe_w_param.7
+-#K= 030cda0a59aaae95750d5ec55acbcb8c FT_modprobe_w_param.8
++#K= 8ce6fcd5958d99524509f8ee8b337762 FT_modprobe_w_param.3
++#K= ef22493a8baadddc5dd0291577e413c8 FT_modprobe_w_param.4
++#K= e99561131cb0877e244ded16465d17be FT_modprobe_w_param.5
++#K= ef22493a8baadddc5dd0291577e413c8 FT_modprobe_w_param.6
++#K= a6c1e1585418e199de271b71a9746d93 FT_modprobe_w_param.7
++#K= ef22493a8baadddc5dd0291577e413c8 FT_modprobe_w_param.8
+ #K= 591411c42cf52d7c4c46d76bcc345a5f FT_modprobe_w_param.9
+-#K= 030cda0a59aaae95750d5ec55acbcb8c FT_modprobe_w_param.10
+-#K= 46d24fecc507a8f9be0bd120e27ff64f FT_modprobe_w_param.11
+-#K= 030cda0a59aaae95750d5ec55acbcb8c FT_modprobe_w_param.12
+-#K= 79298a323d3dcca4f74fb9fc0de5a87e FT_modprobe_w_param.13
+-#K= 030cda0a59aaae95750d5ec55acbcb8c FT_modprobe_w_param.14
+-#K= f649752dfb07a68087f04dafc00ed1e8 FT_modprobe_w_param.15
+-#K= 030cda0a59aaae95750d5ec55acbcb8c FT_modprobe_w_param.16
++#K= ef22493a8baadddc5dd0291577e413c8 FT_modprobe_w_param.10
++#K= b425428024ebf309fd38ac6c67d954ef FT_modprobe_w_param.11
++#K= ef22493a8baadddc5dd0291577e413c8 FT_modprobe_w_param.12
++#K= 35c26142670166a021b523097db2e418 FT_modprobe_w_param.13
++#K= ef22493a8baadddc5dd0291577e413c8 FT_modprobe_w_param.14
++#K= 090cde34d0a22f90f2bba1fed561aa9c FT_modprobe_w_param.15
++#K= ef22493a8baadddc5dd0291577e413c8 FT_modprobe_w_param.16
+ #K= 73a93377a823739e8aae44856a20fa7f FT_modprobe_w_param.17
+-#K= 030cda0a59aaae95750d5ec55acbcb8c FT_modprobe_w_param.18
++#K= ef22493a8baadddc5dd0291577e413c8 FT_modprobe_w_param.18
+ #K= 10464b2c3e3972f05e93c609700f8fb2 FT_modprobe_w_param.19
+ #K= 10464b2c3e3972f05e93c609700f8fb2 FT_modprobe_w_param.20
+-#K= 07c1f81d5a58675a291dc77acd6938c4 FT_modprobe_w_param.21
+-#K= 030cda0a59aaae95750d5ec55acbcb8c FT_modprobe_w_param.22
+-#K= b070066b0eb13a033446bd05850b15e2 FT_modprobe_w_param.23
+-#K= 030cda0a59aaae95750d5ec55acbcb8c FT_modprobe_w_param.24
+-#K= 32ca47823c27e629e03c21aebfc25095 FT_modprobe_w_param.25
+-#K= 030cda0a59aaae95750d5ec55acbcb8c FT_modprobe_w_param.26
++#K= 69502938a4be4936847568d8aad027f6 FT_modprobe_w_param.21
++#K= ef22493a8baadddc5dd0291577e413c8 FT_modprobe_w_param.22
++#K= 51fe322a7f368d936d2292c951247b33 FT_modprobe_w_param.23
++#K= ef22493a8baadddc5dd0291577e413c8 FT_modprobe_w_param.24
++#K= 91391932971be1d599d19ba04d6f6a34 FT_modprobe_w_param.25
++#K= ef22493a8baadddc5dd0291577e413c8 FT_modprobe_w_param.26
+ #K= 7b91db8e9f160aebb1ee87fab2232404 FT_modprobe_w_param.27
+-#K= 030cda0a59aaae95750d5ec55acbcb8c FT_modprobe_w_param.28
+-#K= d6b0165e279e8b9d06fa637d17bb8b07 FT_modprobe_w_param.29
+-#K= 030cda0a59aaae95750d5ec55acbcb8c FT_modprobe_w_param.30
+-#K= a067091b2133dfe203a1c53f7e5f8b00 FT_modprobe_w_param.31
+-#K= 030cda0a59aaae95750d5ec55acbcb8c FT_modprobe_w_param.32
+-#K= 677ccaca4125771d6c42d5612de0b0b3 FT_modprobe_w_param.33
+-#K= 030cda0a59aaae95750d5ec55acbcb8c FT_modprobe_w_param.34
++#K= ef22493a8baadddc5dd0291577e413c8 FT_modprobe_w_param.28
++#K= 82bddad95d7ac6ecae367c7b63f1778b FT_modprobe_w_param.29
++#K= ef22493a8baadddc5dd0291577e413c8 FT_modprobe_w_param.30
++#K= 6686e8b91736913b0047202ca8f0f20e FT_modprobe_w_param.31
++#K= ef22493a8baadddc5dd0291577e413c8 FT_modprobe_w_param.32
++#K= 8d71e5a7ec153e0be606ca80c6125342 FT_modprobe_w_param.33
++#K= ef22493a8baadddc5dd0291577e413c8 FT_modprobe_w_param.34
+ #K= ff5bf6afec9642da83d3dcdb5e732ab9 FT_modprobe_w_param.35
+-#K= 030cda0a59aaae95750d5ec55acbcb8c FT_modprobe_w_param.36
++#K= ef22493a8baadddc5dd0291577e413c8 FT_modprobe_w_param.36
+ EOF
+         # Read the K-recs and skip those for tests that can't run
+         while read -r line; do
 
 -- 
 2.55.0
