@@ -1,165 +1,181 @@
-Received: from mta1.migadu.com (out-62.mta1.migadu.com [95.215.58.62])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00506264F80
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 04:08:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.62
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D750F282F29
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 04:11:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788581285; cv=none; b=Ipz6pb6hHTkXLmYXvGx1bkQuy0FjHiBA4vrqIzA6oBgEQUajXuMCEKFUJRVQeG98uxsLMjycDCfpdYo7GpVCl0reqC8nVFmkzQGrWBGHIxhlhF43W4o6Rj9kqEo65an508E/X3ISlfvas/g8/Or+6IvL1rhWm7M62ezb+NwqT9s=
+	t=1788581512; cv=none; b=i3oURJBPRH6GAVYbEL0pEsbHR+tBukftGPanfGaw0HE3E9yVcvIl7RggfrTzgURBxvINzGART7pDebA20etMGykCpOg4Uh8YskIzkpkc4mWhSAfrgeaod6cYs1cANJ0vNnMwIHr8lynLomsULoLZZtsiwrkWI2q04FmFYnPvQKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788581285; c=relaxed/simple;
-	bh=Ogjcy6AWuIiNMoFElPu+5M0YUvjA1DAHyKooz++N5NU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VjMYAwljD59eNS7KsATFrUBsSvKHrjK1WW70QBKM8ycmN39eCRa7WIxP7GVdYr1QTiYRSs0Uo422zYhiqO+2Bv3CoZPiO0OElIL9grfIPy8nYlF4Y411L+kRJkksaM4epak2DvRqLhuhe6M0WkXTazfs4I1q+MsotM0KDozmRVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xp3PGqb5; arc=none smtp.client-ip=95.215.58.62
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788581512; c=relaxed/simple;
+	bh=sYMF8HiBgrDz0rTpxnoD6/dHcCUNYGU1WeAXPZnfMMs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=BMPR3uoxzqXSItJRFTtFW4wjXtBJkKopk4/bvLA69GLjr4zX+9ekMCNWnQhFgs6a565jtTG/OgPW3+FyXlzq9pUVN9wqhGlfICcDNiLb1OPNB6sLPA9AtDo/HV9cSAbK+TtRNELX2Jo2iQEEL2k18qXwnv9nHaFoetTEuDDSYq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=l3FSkkhQ; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=IXjolMZ+; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xp3PGqb5"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Ogjcy6AWuIiNMoFElPu+5M0YUvjA1DAHyKooz++N5NU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788581279; v=1; x=1789186079;
- b=xp3PGqb5Lz1gONrGpfi/BLIEu2g3aX0B9rpxBidB0s0enaQcEbFRLGQan2/l5Qk11QkDu1nU
- ng8iDuCVjJYga0qPlYZxu/BsPWS/XCUEDvcnN2dJwwsti4t2IGUbkfYbZPfKkS2juoxmqOb9een
- xTyGUwQ5rcX04/RX+ya/VlHM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 92059d4e748b9bc4;
-	Sat, 05 Sep 2026 04:07:59 +0000
-X-Mizu-Trace-ID: 92059d4e748b9bc4
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <ffe712c9-6c24-4452-b703-c8e01828ed18@linux.dev>
-Date: Fri, 4 Sep 2026 21:07:50 -0700
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="l3FSkkhQ";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="IXjolMZ+"
+From: Nam Cao <namcao@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788581508;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BwJxxpIKPnBHI4VY7zARluva0nthe+9f+WADNwWm2Bw=;
+	b=l3FSkkhQoNL0712CA+vw8oKaDvXVKh6pZDOfh4BsyjVg4vfx/6DZz5PYBwmKgshCKy8bP0
+	rxUo/8X7154WI3cI+HaL/lN1Tn+yfegJnDtN0ZroGSRWEReFmZWij8ytu1oZnYRaTg9Wnl
+	aM65xf1xIGy4wlMKZUZqz+KOx58XXtjOjyM6n7iFFE11gt0K83HSJvVnfegOjKAAu15Itg
+	q9s8NgS2U+30xe8c9YN5RIcwgRq/ehjjYUHjuw4JY5vY+yzLJijtArguLiSrIvKmFlH91k
+	Jg4CusJ+v41+PZTnWu9FaWY1D80x+kC2EjXNbgs0d5ht+X0iRn+RPPhG8Bu/GQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788581508;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BwJxxpIKPnBHI4VY7zARluva0nthe+9f+WADNwWm2Bw=;
+	b=IXjolMZ++uvgU20IV4cGzEcHabqvWQLW9BKfXr4L8HPNAOC/JcVcbQ24EPmgrw4/0xFI49
+	ehdZY/sPqhQ+KvCw==
+To: Thomas Gleixner <tglx@kernel.org>, Haofeng Li <lihaofeng@kylinos.cn>
+Cc: linux-kernel@vger.kernel.org, Haofeng Li <13266079573@163.com>, Haofeng
+ Li <lihaofeng@kylinos.cn>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
+ <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
+ <alex@ghiti.fr>, Samuel Holland <samuel.holland@sifive.com>,
+ linux-riscv@lists.infradead.org, Marc Zyngier <maz@kernel.org>, Radu
+ Rendec <radu@rendec.net>
+Subject: Re: [PATCH 00/16] irqchip: harden initialization error paths
+In-Reply-To: <87y0e1i648.ffs@fw13>
+References: <20260714122351.3274006-1-lihaofeng@kylinos.cn>
+ <87y0e1i648.ffs@fw13>
+Date: Sat, 05 Sep 2026 06:11:46 +0200
+Message-ID: <87ik4k9w1p.fsf@yellow.woof>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 17/20] vfio: selftests: Add
- vfio_pci_liveupdate_kexec_test
-To: Vipin Sharma <vipinsh@google.com>
-Cc: kexec@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, kvm@vger.kernel.org, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, ajayachandra@nvidia.com, alex@shazbot.org,
- amastro@fb.com, ankita@nvidia.com, apopple@nvidia.com, bhelgaas@google.com,
- chrisl@kernel.org, christian.koenig@amd.com, corbet@lwn.net,
- dmatlack@google.com, graf@amazon.com, jacob.pan@linux.microsoft.com,
- jgg@nvidia.com, jgg@ziepe.ca, jrhilke@google.com, julianr@linux.ibm.com,
- kees@kernel.org, kevin.tian@intel.com, leon@kernel.org, leonro@nvidia.com,
- lukas@wunner.de, mattev@meta.com, michal.winiarski@intel.com,
- parav@nvidia.com, pasha.tatashin@soleen.com, praan@google.com,
- pratyush@kernel.org, rananta@google.com, rientjes@google.com,
- rodrigo.vivi@intel.com, rppt@kernel.org, saeedm@nvidia.com,
- schnelle@linux.ibm.com, skhan@linuxfoundation.org, skhawaja@google.com,
- vivek.kasireddy@intel.com, witu@nvidia.com, yi.l.liu@intel.com,
- "yanjun.zhu@linux.dev" <yanjun.zhu@linux.dev>
-References: <20260714151505.3466855-1-vipinsh@google.com>
- <20260714151505.3466855-18-vipinsh@google.com>
- <0556e2fc-3be5-4023-a9a4-8482fa8c88b2@linux.dev>
- <20260805055042.GA806762.vipinsh@google.com>
-From: Zhu Yanjun <yanjun.zhu@linux.dev>
-In-Reply-To: <20260805055042.GA806762.vipinsh@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-
-在 2026/8/4 23:02, Vipin Sharma 写道:
-> On Tue, Aug 04, 2026 at 03:19:34PM -0700, Yanjun.Zhu wrote:
->> On 7/14/26 8:15 AM, Vipin Sharma wrote:
->>> Add a selftest to exercise preserving a vfio-pci device across a Live
->>> Update. For now the test is extremely simple and just verifies that the
->>> device file can be preserved and retrieved. In the future this test will
->>> be extended to verify more parts about device preservation as they are
->>> implemented.
->>>
->>> This test is added to TEST_GEN_PROGS_EXTENDED since it must be run
->>> manually along with a kexec.
->>>
->>> To run this test manually:
->>>
->>>    $ tools/testing/selftests/vfio/scripts/setup.sh 0000:00:04.0
->>>    $ tools/testing/selftests/vfio/vfio_pci_liveupdate_kexec_test --stage 1 0000:00:04.0
->>>
->>>    $ kexec ...   # NOTE: Exact method will be distro-dependent
->>>
->>>    $ tools/testing/selftests/vfio/scripts/setup.sh 0000:00:04.0
->>>    $ tools/testing/selftests/vfio/vfio_pci_liveupdate_kexec_test --stage 2 0000:00:04.0
->> Hi, Vipin
->>
->> Thanks a lot for your help. I followed your suggestion, vfio-pci setup can
->> work.
-> I am glad your setup using virsh is working.
+Thomas Gleixner <tglx@kernel.org> writes:
+> A lot of these "fixes" are purely cosmetic and create a false sense of
+> correctness because if the initialization of the root interrupt
+> controller of a system fails then machine won't boot at all.
 >
->> The followings are the test result. In the step 3, after kexec, there are
->> some fails. I am not sure if these are known problem or not.
->>
->> 1. Before kexec command
->>
->> + modprobe -v vfio-pci
->> + tools/testing/selftests/vfio/scripts/setup.sh 0000:00:04.0
->> + echo "vfio-pci" > /sys/bus/pci/devices/0000:00:04.0/driver_override
->> + echo "0000:00:04.0" > /sys/bus/pci/drivers/vfio-pci/bind
->> + tools/testing/selftests/vfio/vfio_pci_liveupdate_kexec_test --stage 1
->> 0000:00:04.0
->> Preserving device in session
->> Preserving memfd of size 0x40100000 in session
->> # [STAGE 1] Forking persistent child to hold sessions...
->> # [STAGE 1] Child PID: 1236. Resources are pinned.
->> # [STAGE 1] You may now perform kexec reboot.
->> + set +x
->>
->> 2. Run kexec command
->>
->> 3. After kexec command
->>
->> + echo "vfio-pci" > /sys/bus/pci/devices/0000:00:04.0/driver_override
->> + echo "0000:00:04.0" > /sys/bus/pci/drivers/vfio-pci/bind
->> Checking open(/dev/vfio/devices/vfio0) fails  <--- I can confirm that the
->> /dev/vfio/devices/vfio0 exists. But open this failed.
-> This is correct output. Test is verifying that open should fail. If it
-> didn't fail the ntest would have exited with an error. A preserved VFIO
-> FD can only be retrived using Live Update session ioctls and not through
-> usual VFIO dev path.
->
->> Checking ioctl(group_fd, VFIO_GROUP_GET_DEVICE_FD, "0000:00:04.0") fails
->> (vfio_type1_iommu)      <--- fails
->> Checking ioctl(group_fd, VFIO_GROUP_GET_DEVICE_FD, "0000:00:04.0") fails
->> (vfio_type1v2_iommu).  <--- fails
->> Checking ioctl(group_fd, VFIO_GROUP_GET_DEVICE_FD, "0000:00:04.0") fails
->> (iommufd_compat_type1)  <--- fails
->> Checking ioctl(group_fd, VFIO_GROUP_GET_DEVICE_FD, "0000:00:04.0") fails
->> (iommufd_compat_type1v2). <--- fails
-> These are all correct output. Test is verifying that userspace should
-> not be able to get VFIO device FD only through Live Update session
-> ioctls and nothing else.
->
->> Retrieving memfd from LUO
->> Finishing the session before retrieving the device (should fail)
->> Retrieving the device FD from LUO
->> Finishing the session before binding to iommufd (should fail)
->> Binding the device to an iommufd and setting it up
->> Finishing the session
->>
-> This is shows VFIO FD is successfully retrived by Live Update ioctl.
->
-> So, you saw expected output from successful test run. I will change
-> the message getting printed to avoid confusion. I think current way of
-> printing ".... fails" is confusing.
+> So instead of adding tons of cleanups we rather go and analyze which
+> controllers are actually root controllers and therefore essential for
+> the machine to boot. For those the only valid error handling is:
 
-Thanks a lot. I have made tests in KVM. I can get the same test results.
+PLIC is one of those. I will send a patch.
 
-Reviewed-and-tested-by: Zhu Yanjun <yanjun.zhu@linux.dev>
+Nam
 
-Zhu Yanjun
-
->
-> Thanks
-> Vipin
-
--- 
-Best Regards,
-Yanjun.Zhu
-
+diff --git a/drivers/irqchip/irq-sifive-plic.c b/drivers/irqchip/irq-sifive-plic.c
+index 5b0dac104814..0fbecaf0d317 100644
+--- a/drivers/irqchip/irq-sifive-plic.c
++++ b/drivers/irqchip/irq-sifive-plic.c
+@@ -643,13 +643,11 @@ static int plic_probe(struct fwnode_handle *fwnode)
+ 
+ 	error = plic_parse_nr_irqs_and_contexts(fwnode, &nr_irqs, &nr_contexts, &gsi_base, &id);
+ 	if (error)
+-		goto fail_free_regs;
++		return error;
+ 
+ 	priv = kzalloc_obj(*priv);
+-	if (!priv) {
+-		error = -ENOMEM;
+-		goto fail_free_regs;
+-	}
++	if (!priv)
++		return -ENOMEM;
+ 
+ 	priv->fwnode = fwnode;
+ 	priv->plic_quirks = plic_quirks;
+@@ -668,10 +666,8 @@ static int plic_probe(struct fwnode_handle *fwnode)
+ 	priv->acpi_plic_id = id;
+ 
+ 	priv->prio_save = bitmap_zalloc(nr_irqs, GFP_KERNEL);
+-	if (!priv->prio_save) {
+-		error = -ENOMEM;
+-		goto fail_free_priv;
+-	}
++	if (!priv->prio_save)
++		return -ENOMEM;
+ 
+ 	for (i = 0; i < nr_contexts; i++) {
+ 		error = plic_parse_context_parent(fwnode, i, &parent_hwirq, &cpu,
+@@ -735,10 +731,8 @@ static int plic_probe(struct fwnode_handle *fwnode)
+ 
+ 		handler->enable_save = kcalloc(priv->irq_groups, sizeof(*handler->enable_save),
+ 					       GFP_KERNEL);
+-		if (!handler->enable_save) {
+-			error = -ENOMEM;
+-			goto fail_cleanup_contexts;
+-		}
++		if (!handler->enable_save)
++			return -ENOMEM;
+ done:
+ 		for_each_device_irq(hwirq, priv) {
+ 			plic_toggle(handler, hwirq, 0);
+@@ -748,10 +742,8 @@ static int plic_probe(struct fwnode_handle *fwnode)
+ 	}
+ 
+ 	priv->irqdomain = irq_domain_create_linear(fwnode, nr_irqs, &plic_irqdomain_ops, priv);
+-	if (WARN_ON(!priv->irqdomain)) {
+-		error = -ENOMEM;
+-		goto fail_cleanup_contexts;
+-	}
++	if (!priv->irqdomain)
++		return -ENOMEM;
+ 
+ 	/*
+ 	 * We can have multiple PLIC instances so setup global state
+@@ -799,33 +791,13 @@ static int plic_probe(struct fwnode_handle *fwnode)
+ 	pr_info("%pfwP: mapped %d interrupts with %d handlers for %d contexts.\n",
+ 		fwnode, nr_irqs, nr_handlers, nr_contexts);
+ 	return 0;
+-
+-fail_cleanup_contexts:
+-	for (i = 0; i < nr_contexts; i++) {
+-		if (plic_parse_context_parent(fwnode, i, &parent_hwirq, &cpu, priv->acpi_plic_id))
+-			continue;
+-		if (parent_hwirq != RV_IRQ_EXT || cpu < 0)
+-			continue;
+-
+-		handler = per_cpu_ptr(&plic_handlers, cpu);
+-		handler->present = false;
+-		handler->hart_base = NULL;
+-		handler->enable_base = NULL;
+-		kfree(handler->enable_save);
+-		handler->enable_save = NULL;
+-		handler->priv = NULL;
+-	}
+-	bitmap_free(priv->prio_save);
+-fail_free_priv:
+-	kfree(priv);
+-fail_free_regs:
+-	iounmap(regs);
+-	return error;
+ }
+ 
+ static int plic_platform_probe(struct platform_device *pdev)
+ {
+-	return plic_probe(pdev->dev.fwnode);
++	if (plic_probe(pdev->dev.fwnode))
++		panic("Failed to initialize root interrupt controller\n");
++	return 0;
+ }
+ 
+ static struct platform_driver plic_driver = {
+@@ -842,7 +814,10 @@ builtin_platform_driver(plic_driver);
+ static int __init plic_early_probe(struct device_node *node,
+ 				   struct device_node *parent)
+ {
+-	return plic_probe(&node->fwnode);
++	if (plic_probe(&node->fwnode))
++		panic("Failed to initialize root interrupt controller\n");
++	return 0;
+ }
+ 
+ IRQCHIP_DECLARE(riscv, "allwinner,sun20i-d1-plic", plic_early_probe);
