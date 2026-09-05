@@ -1,479 +1,137 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5031136F915
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 06:43:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84E2D2C15BB;
+	Sat,  5 Sep 2026 06:50:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788590587; cv=none; b=iQsHh8PNnemRpbzB4PVH7dni51h071PRjFgsqFoBdl5nkKDroYKEb24B77H4GyON3d0vUHy4b3Rg2Bgfq8cOA//w+aiVWk/fRom1kIDiCpNJ0HFmeT6uwEZbN94CwUuGEgrDm0Sy0hLInN+npYVmbumrvh9pVoq24AWmHKepks4=
+	t=1788591051; cv=none; b=haawi3PzFT/h9wDUWEQzMafOijixOA5t6ouhGUsEmphz/Duw0sO++eIVCl/2DYf+LiSt36BBUQHDFtxqxHt/uQyJ/aXnOnW11SjthvtSDXvErMS8U96sh8l9JR4pEL15JRaYo+9MWhr6UOSxzE8/8Ul7xlF5Hq8O2VEUGvjJ5os=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788590587; c=relaxed/simple;
-	bh=9e1CDBZ5qXyPweEnk5YwGajjCLZUFMAY+tL3lOR/dnw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CJKlVx7+d/XVCMbKBfV6HdlvvwEAsYA1UTQ+sYEckHIVr7XY8lfM2IywZi3nlQLXxTfBeQgc43ex2bKwD3GsvtisSioFkvCZj6cBpoyC40XRFjrLal5yFZ12X29McncrR+tPU9pe85KEuxbfS7e39ptcKGpCvLj12ScBdXuBUsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PqJGgh3+; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PqJGgh3+"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso18082915e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 23:43:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788590582; x=1789195382; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tjkyY2xqPL7I9woz0da0q5nTHjDAuM+FGeb1WmGHRXM=;
-        b=PqJGgh3+WVMUiFuBZrE2HYpS4VJDsOB3F6aGjpK0rjhulYBfU5ZbPiBphXDY4DOUzR
-         hQ2i1TVO3mIMioXs7wdXqFrkKmO1GrG9O3F7mWeLK7w1iy5iKacBonnpRxwwTRKVhMTd
-         Gah6pX93SzDClzCiTKwgK+sacvVUhaVUd44b68ioFBH1klRVEvTRw6kBx0uK3vlN+n/5
-         rkiVeOAA3m193yRkYizFmODtr9RUtTQHBybRZubFqcgFbkIL3LQPD91CYXV+yWAXqnes
-         MHNXAiVDlys4ECMonOrpOeA7ANRnV/j0Yn2npgZfVGPyBinQG5NNmCPfV93RWYSSN160
-         Iyrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788590582; x=1789195382;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tjkyY2xqPL7I9woz0da0q5nTHjDAuM+FGeb1WmGHRXM=;
-        b=rmiNWmRRQddfVKvcb3PybTtfQ4wXdbZxg9zbT8+lq5E55zJq3xsWtJjfvnc1U/dPrL
-         NHRHODJXjHJO9xp1sHc7ob6MV2e7gtVyC6/5rEEIff975yPm+QYmJhFyR+pX/O9dH6vP
-         Qf97xyolgES4Ift3MGH4/MZBUsd2EzrsT+F6L/E9SG3puGOzWh7x+X8bMWhfqMetKfWo
-         88aooBvYWzmI2FjKGmqyGRGLgJP0pPAgz/iO3ZxgkLIQutQQd0sKO6ph1EZYvT8nAJJh
-         SSCst8wMevDz+ATWIR3GEj+h1ENgiWocDF8K+J9EcHfb95Dmi+VEdXUVbH/zVnXoDbUj
-         /CWg==
-X-Forwarded-Encrypted: i=1; AKwUvBzVfgSNJpYvEX70TdMEJtH0yKCsyXKrjAbJOlWLpbBnLypfpoRHdm4lBr1u63oe0B21DHY1LyX2EZWZbik=@vger.kernel.org
-X-Gm-Message-State: AFuF++lZJJMlXcZgSPo8gOWUu7bXzTm3N1HzXDY8sUvt+xRnU7Vx/ANl
-	UBT8C08HgedEamEdJ9FGzeV8t65SUoW+pYkFoZNHswnTSZXBLhPPlvVY60iSY/I3qkM=
-X-Gm-Gg: AYBFou2i2OUc85toP/kATNwYMkMzqf3+Q/T/zOmBpvl0C3Q6hrOQYfQIHuS8yUMnlM5
-	iAFdalD9tmzfWWRzwP0e8tAqvLxvN5fhNNfuYRMuL+LUQwtsusz4HaU6hqURNk4jtXA+TrVyKIP
-	5mwJ9E1fFooLJWl7V+WzhysS2n+wBcAiHf/EK/aIbccAC6iTy//Lzd9OBxfRKQPD0NZJKbges86
-	yFWn205YcCKF9fP5ayntBKfXcFrH0OhDI8eqyWreA8IntKHGRVoMwnrOk3qXfl9m2mGyzORKZx7
-	ZaPVBVmvhXOGkuXixyiqsjJaM2BHDrb6iY7jZTlxnWbfljvAW/8fePsFZy8ZDEMFp0SOwSBUdmF
-	49cSnQh6oT574C+gha5vNXcX9to48SzQqv5Aj+6Y5nQr/S2dJFEGHyfmzjcgoWqlb9TVI8wv4/L
-	OEaoyx3/Aog7KxmPCvkvap4z6ItqcddjPgAwt9tPv3k71Zyi6+PI82L493Xnv1FB/dKiRb4fxyC
-	zCS7M8vm8f0VS7wCkRFHTKX5TrwrlfQPCBRVrN+f54OERTv4SPDPQC5FfC30JvmzlRitPTrmerw
-	DiANvKOPP3QqbDfRHCor0qKVr/O9r0MD9fJKV+bcrtjJ/1h2EgO0GovhIebQmpr7HKKZVJ9F10K
-	oOb/0o5SpbENhR+nuxTbL7P5O/lWvXoQl/2W7tA==
-X-Received: by 2002:a05:600d:8490:20b0:49c:f89b:f82 with SMTP id 5b1f17b1804b1-49cf89b1bc2mr154079265e9.12.1788590582198;
-        Fri, 04 Sep 2026 23:43:02 -0700 (PDT)
-Received: from systembl0wer ([212.89.239.241])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfbdacc45sm97802275e9.11.2026.09.04.23.43.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 23:43:02 -0700 (PDT)
-Date: Sat, 5 Sep 2026 08:42:58 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Chang Yu <marcus.yu.56@gmail.com>
-Cc: Andy Shevchenko <andy@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] iio: light: add AS7343 multi-spectral sensor driver
-Message-ID: <20260905084258.350fdccb@systembl0wer>
-In-Reply-To: <521c26094635bae6376d92f3cecf84c911d5a740.1788586814.git.marcus.yu.56@gmail.com>
-References: <cover.1788586814.git.marcus.yu.56@gmail.com>
-	<521c26094635bae6376d92f3cecf84c911d5a740.1788586814.git.marcus.yu.56@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	s=arc-20240116; t=1788591051; c=relaxed/simple;
+	bh=9C1ZfOoC7dHlhjbpSr1qydCg/5uAk1aS02Q5yg74amE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BJfdWu1VaBRk5Za0d+mWdZ3zqsJezJDOExlfQq8qWhKGe8X6WRCP2C0CaRqdAphf84GH+uG27l5F2ZyYMBh22EzQHwC2BI6sJ9c3K/cY8GemZSqrV7M09G97k5O3jlgPvQ3tvkU+4TE0w6xcc2QjgD2PhqcIyrrSk6gpM/k7mxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=none smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.177])
+	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hcP8W5fR4zKHMWJ;
+	Sat,  5 Sep 2026 14:49:47 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.112])
+	by mail.maildlp.com (Postfix) with ESMTP id 542A34058F;
+	Sat,  5 Sep 2026 14:50:44 +0800 (CST)
+Received: from huaweicloud.com (unknown [10.50.85.155])
+	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgB3YAvCu5tqtCpEAw--.2810S4;
+	Sat, 05 Sep 2026 14:50:44 +0800 (CST)
+From: Zizhi Wo <wozizhi@huaweicloud.com>
+To: gregkh@linuxfoundation.org,
+	jirislaby@kernel.org,
+	npitre@baylibre.com,
+	linux-serial@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	yangerkun@huawei.com,
+	chengzhihao1@huawei.com,
+	wozizhi@huawei.com
+Subject: [PATCH] vt: skip screen update for DEC alignment test on backgroup consoles
+Date: Sat,  5 Sep 2026 14:43:37 +0800
+Message-ID: <20260905064337.3083103-1-wozizhi@huaweicloud.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:cCh0CgB3YAvCu5tqtCpEAw--.2810S4
+X-Coremail-Antispam: 1UD129KBjvJXoWxArWkKw4DWF1Dtr1UtFWxCrg_yoW5WrWrp3
+	yFkF1vvws2gr4kZa1qyw45ZFyrA39FqryUurZ3AF47ZF15ZrykWa47ta4kWrZ7XwsakryS
+	y3WUZr9YvF1093DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUyKb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I
+	0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
+	x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
+	0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij
+	64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x
+	8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE
+	2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42
+	xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF
+	7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUwxhLUUUUU
+X-CM-SenderInfo: pzr2x6tkl6x35dzhxuhorxvhhfrp/
 
-Hi Chang,
+From: Zizhi Wo <wozizhi@huawei.com>
 
-Comments inline.
+[BUG]
+Recently, we encountered a KASAN warning as follows:
 
-Josh
+BUG: KASAN: slab-out-of-bounds in fb_pad_aligned_buffer+0x11f/0x140
+Read of size 1 at addr ff1100015fd9f6a4 by task tty_fbcon_oob/1239
+CPU: 7 UID: 0 PID: 1239 Comm: tty_fbcon_oob Not tainted 7.3.0-rc1 #100 PREEMPT(full)
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-4.fc41 04/01/2014
+Call Trace:
+ <TASK>
+ ...
+ kasan_report+0xf0/0x120
+ fb_pad_aligned_buffer+0x11f/0x140
+ ccw_putcs+0x86c/0xa80
+ fbcon_putcs+0x338/0x410
+ do_update_region+0x21d/0x450
+ do_con_write+0x1e0e/0x4880
+ con_write+0x13/0x80
+ n_tty_write+0x374/0x1010
+ file_tty_write.isra.0+0x404/0x7a0
+ ...
 
-On Fri,  4 Sep 2026 22:53:26 -0700
-Chang Yu <marcus.yu.56@gmail.com> wrote:
+reproduce:
+1) open /dev/tty0, set a KDFONTOP ioctl with op.op = KD_FONT_OP_SET,
+op.width = 8 and op.height = 16 (visible VC1)
+2) open /dev/tty1, set a KDFONTOP ioctl with op.op = KD_FONT_OP_SET,
+op.width = 28 and op.height = 24 (invisible VC2)
+3) echo 3 > /sys/devices/virtual/graphics/fbcon/rotate_all
+4) write EShash8(esc hash8) to tty1
 
-> This patch adds a driver for the AMS AS7343 14-channel multi-spectral
-> sensor with I2C interface.
-> 
-> The driver exposes 12 spectral channels (11 visible + 1 near-infrared)
-> via the IIO sysfs interface. Each channel's raw data is provided as a
-> 16-bit little-endian unsigned integer.
-> 
-> Basic power management (suspend/resume) is supported. More complex
-> features such as interrupt support and configurable gain/integration
-> time will be added in future patches.
-> 
-> Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
-> ---
->  MAINTAINERS                |   7 +
->  drivers/iio/light/Kconfig  |  11 ++
->  drivers/iio/light/Makefile |   1 +
->  drivers/iio/light/as7343.c | 309 +++++++++++++++++++++++++++++++++++++
->  4 files changed, 328 insertions(+)
->  create mode 100644 drivers/iio/light/as7343.c
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 04fa5322d9f7..236102b3c28e 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -1430,6 +1430,13 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/iio/light/ams,as73211.yaml
->  F:	drivers/iio/light/as73211.c
->  
-> +AMS AS7343 DRIVER
-> +M:	Chang Yu <marcus.yu.56@gmail.com>
-> +L:	linux-iio@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+[CAUSE]
+All VCs render to the framebuffer. setfont only modifies the target VC's
+font without resizing the framebuffer backing buffer (par->rotated.buf);
+the buffer is only resized for the visible VC
+(fbcon_do_set_font -> ... -> vc_do_resize -> update_screen). This relies on
+the con_should_update() check performed before every update_region().
 
-This goes into the first patch in your series, i.e. the dt-binding
-patch.
+However, the ESC # 8 path (do_con_trol -> do_update_region) omits the
+con_should_update() check. After changing the font size of an invisible VC,
+do_update_region() fills using the new font size against a buffer that was
+never resized, causing an out-of-bounds access.
 
-> +F:	drivers/iio/light/as7343.c
+[FIX]
+Only push the update when the console is visible and not blanked, add
+the con_should_update() check in the do_con_trol() like every other call
+site of do_update_region() (update_region(), invert_screen(), ...).
 
-This line should be then added in this patch.
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Zizhi Wo <wozizhi@huawei.com>
+---
+ drivers/tty/vt/vt.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-> +
->  AMT (Automatic Multicast Tunneling)
->  M:	Taehee Yoo <ap420073@gmail.com>
->  L:	netdev@vger.kernel.org
-> diff --git a/drivers/iio/light/Kconfig b/drivers/iio/light/Kconfig
-> index ef36824f312f..edbeeba9d873 100644
-> --- a/drivers/iio/light/Kconfig
-> +++ b/drivers/iio/light/Kconfig
-> @@ -149,6 +149,17 @@ config AS73211
->  	 This driver can also be built as a module.  If so, the module
->  	 will be called as73211.
->  
-> +config AS7343
-> +	tristate "AMS AS7343 14-Channel Multi-Spectral Sensor"
-> +	depends on I2C
-> +	select REGMAP_I2C
-> +	help
-> +	 Say Y here to build support for the AMS AS7343 14-channel
-> +	 multi-spectral sensor.
-> +
-> +	 To compile this driver as a module, choose M here: the module will
-> +	 be called as7343.
-> +
->  config BH1745
->  	tristate "ROHM BH1745 colour sensor"
->  	depends on I2C
-> diff --git a/drivers/iio/light/Makefile b/drivers/iio/light/Makefile
-> index 64e354c49ed8..5d0d33802519 100644
-> --- a/drivers/iio/light/Makefile
-> +++ b/drivers/iio/light/Makefile
-> @@ -16,6 +16,7 @@ obj-$(CONFIG_APDS9306)		+= apds9306.o
->  obj-$(CONFIG_APDS9960)		+= apds9960.o
->  obj-$(CONFIG_APDS9999)		+= apds9999.o
->  obj-$(CONFIG_AS73211)		+= as73211.o
-> +obj-$(CONFIG_AS7343)		+= as7343.o
->  obj-$(CONFIG_BH1745)		+= bh1745.o
->  obj-$(CONFIG_BH1750)		+= bh1750.o
->  obj-$(CONFIG_BH1780)		+= bh1780.o
-> diff --git a/drivers/iio/light/as7343.c b/drivers/iio/light/as7343.c
-> new file mode 100644
-> index 000000000000..b620dd308380
-> --- /dev/null
-> +++ b/drivers/iio/light/as7343.c
-> @@ -0,0 +1,309 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Support for AMS AS7343 14-channel multi-spectral sensor.
-> + * (7-bit I2C slave address 0x39)
-> + *
-> + * Based on the work of:
-> + *   Christian Eggers <ceggers@arri.de> (AS73211 driver)
-> + *
-> + * Copyright (c) 2026 Chang Yu <marcus.yu.56@gmail.com>
-> + *
-> + * Datasheets:
-> + *   https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
-> + *
-> + * TODO:
-> + *   - Support for configurable gain and integration time
-> + *   - Interrupt support
-> + *   - Add support for reading the VIS channel
-> + *   - Flicker detection
-> + */
-> +
-> +#include "linux/array_size.h"
-> +#include "linux/regmap.h"
-
-Why did you use quotation marks here? <linux/array_size.h>
-and <linux/regmap.h> are valid.
-
-> +#include <linux/bitfield.h>
-> +#include <linux/i2c.h>
-> +#include <linux/iio/iio.h>
-
-It's common to have the IIO headers separately below the
-generic <linux/*> headers.
-
-> +#include <linux/module.h>
-> +#include <linux/pm.h>
-> +#include <linux/stringify.h>
-
-You're missing err.h, regulator/consumer.h,
-> +
-> +#define AS7343_DRV_NAME "as7343"
-> +#define AS7343_DEVICE_ID 0x81
-> +
-> +/* AS7343 registers */
-> +#define AS7343_REG_ID 0x5a
-> +#define AS7343_REG_ENABLE 0x80
-> +#define AS7343_REG_ATIME 0x81
-> +#define AS7343_REG_CFG0 0xbf
-> +#define AS7343_REG_CFG1 0xc6
-> +#define AS7343_REG_CFG20 0xd6
-> +#define AS7343_REG_CONTROL 0xfa
-> +#define AS7343_REG_ASTATUS 0x94
-
-Blank line here.
-
-> +/* AS7343 data registers */
-> +#define AS7343_REG_DATA_FZ 0x95
-> +#define AS7343_REG_DATA_FY 0x97
-> +#define AS7343_REG_DATA_FXL 0x99
-> +#define AS7343_REG_DATA_NIR 0x9b
-> +#define AS7343_REG_DATA_F2 0xa1
-> +#define AS7343_REG_DATA_F3 0xa3
-> +#define AS7343_REG_DATA_F4 0xa5
-> +#define AS7343_REG_DATA_F6 0xa7
-> +#define AS7343_REG_DATA_F1 0xad
-> +#define AS7343_REG_DATA_F7 0xaf
-> +#define AS7343_REG_DATA_F8 0xb1
-> +#define AS7343_REG_DATA_F5 0xb3
-> +#define AS7343_REG_MAX 0xff
-> +
-> +/* AS7343 register bit masks */
-> +#define AS7343_ENABLE_PON BIT(0)
-> +#define AS7343_ENABLE_SP_EN BIT(1)
-> +#define AS7343_CFG0_REG_BANK BIT(4)
-> +#define AS7343_CFG20_AUTO_SMUX GENMASK(6, 5)
-> +#define AS7343_CONTROL_SW_RESET BIT(3)
-> +#define AS7343_CFG1_AGAIN GENMASK(4, 0)
-> +
-> +/* AS7343 settings */
-> +#define AS7343_INT_TIME 29 /* (29 + 1) * 2.87ms = 83.4ms */
-> +#define AS7343_GAIN 7 /* 64x gain */
-> +#define AS7343_AUTO_CHANNEL_READOUT 3 /* Automatic all-channel readout */
-> +
-> +/* AS7343 scan indices */
-> +#define AS7343_SCAN_INDEX_F1 0
-> +#define AS7343_SCAN_INDEX_F2 1
-> +#define AS7343_SCAN_INDEX_FZ 2
-> +#define AS7343_SCAN_INDEX_F3 3
-> +#define AS7343_SCAN_INDEX_F4 4
-> +#define AS7343_SCAN_INDEX_FY 5
-> +#define AS7343_SCAN_INDEX_F5 6
-> +#define AS7343_SCAN_INDEX_FXL 7
-> +#define AS7343_SCAN_INDEX_F6 8
-> +#define AS7343_SCAN_INDEX_F7 9
-> +#define AS7343_SCAN_INDEX_F8 10
-> +#define AS7343_SCAN_INDEX_NIR 11
-> +#define AS7343_SCAN_INDEX_TS 12
-> +
-> +#define AS7343_SCAN_MASK_ALL                                      \
-> +	(BIT(AS7343_SCAN_INDEX_F1) | BIT(AS7343_SCAN_INDEX_F2) |  \
-> +	 BIT(AS7343_SCAN_INDEX_FZ) | BIT(AS7343_SCAN_INDEX_F3) |  \
-> +	 BIT(AS7343_SCAN_INDEX_F4) | BIT(AS7343_SCAN_INDEX_FY) |  \
-> +	 BIT(AS7343_SCAN_INDEX_F5) | BIT(AS7343_SCAN_INDEX_FXL) | \
-> +	 BIT(AS7343_SCAN_INDEX_F6) | BIT(AS7343_SCAN_INDEX_F7) |  \
-> +	 BIT(AS7343_SCAN_INDEX_F8) | BIT(AS7343_SCAN_INDEX_NIR))
-> +
-> +static const unsigned long as7343_scan_masks[] = { AS7343_SCAN_MASK_ALL, 0 };
-> +
-> +#define AS7343_CHAN(_chan) \
-> +	{ \
-> +	.type = IIO_INTENSITY, \
-> +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW), \
-> +	.address = AS7343_REG_DATA_##_chan, \
-> +	.extend_name = __stringify(_chan), \
-> +	.scan_index = AS7343_SCAN_INDEX_##_chan, \
-> +	.scan_type = { \
-> +		.sign = 'u', \
-> +		.realbits = 16, \
-> +		.storagebits = 16, \
-> +		.endianness = IIO_LE, \
-> +	}, \
-> +}
-> +
-> +static const struct iio_chan_spec as7343_channels[] = {
-> +	AS7343_CHAN(F1),
-> +	AS7343_CHAN(F2),
-> +	AS7343_CHAN(FZ),
-> +	AS7343_CHAN(F3),
-> +	AS7343_CHAN(F4),
-> +	AS7343_CHAN(FY),
-> +	AS7343_CHAN(F5),
-> +	AS7343_CHAN(FXL),
-> +	AS7343_CHAN(F6),
-> +	AS7343_CHAN(F7),
-> +	AS7343_CHAN(F8),
-> +	AS7343_CHAN(NIR),
-
-Don't forget to update any mentions of only 12 channels being
-implemented once you add support for the Flicker and VIS channel.
-
-> +	IIO_CHAN_SOFT_TIMESTAMP(AS7343_SCAN_INDEX_TS),
-> +};
-> +
-> +/**
-> + * struct as7343_data - Instance data for one AS7343
-> + * @client: I2C client.
-> + * @regmap: Register map.
-> + */
-
-Eh, I'd remove the comment for now as the contents of the struct
-are pretty self explanatory.
-
-> +struct as7343_data {
-> +	struct i2c_client *client;
-> +	struct regmap *regmap;
-> +};
-> +
-> +static int as7343_read_raw(struct iio_dev *indio_dev,
-> +			   struct iio_chan_spec const *chan, int *val,
-> +			   int *val2, long mask)
-> +{
-> +	struct as7343_data *data = iio_priv(indio_dev);
-> +	unsigned int low, high;
-> +	unsigned int unused;
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW: {
-> +		/* Reading ASTATUS latches all data registers to this read.
-> +		 * We don't care about the returned saturation/gain status for
-> +		 * now.
-> +		 */
-> +		ret = regmap_read(data->regmap, AS7343_REG_ASTATUS, &unused);
-> +		if (ret < 0)
-> +			return ret;
-> +
-> +		ret = regmap_read(data->regmap, chan->address, &low);
-> +		if (ret < 0)
-> +			return ret;
-
-Blank line here.
-
-> +		ret = regmap_read(data->regmap, chan->address + 1, &high);
-> +		if (ret < 0)
-> +			return ret;
-> +		*val = (high << 8) | low;
-> +		return IIO_VAL_INT;
-> +	}
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-
-...
-
-> +	/* Need to set REG_BANK to 1 before we can access ID */
-> +	ret = regmap_set_bits(data->regmap, AS7343_REG_CFG0,
-> +			      AS7343_CFG0_REG_BANK);
-> +	if (ret < 0)
-> +		return ret;
-> +	/* Check device ID */
-
-Unnecessary comment, add a blank line instead.
-
-> +	ret = regmap_read(data->regmap, AS7343_REG_ID, &val);
-> +	if (val != AS7343_DEVICE_ID)
-> +		return -ENODEV;
-
-It's better to just do a dev_warn() in case of any fallback
-devices instead of a hard return.
-
-> +	/* Unset REG_BANK */
-
-Unnecessary comment.
-
-> +	ret = regmap_clear_bits(data->regmap, AS7343_REG_CFG0,
-> +				AS7343_CFG0_REG_BANK);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	/* Configure the SMUX to readout all channels */
-> +	ret = regmap_update_bits(data->regmap, AS7343_REG_CFG20,
-> +				 AS7343_CFG20_AUTO_SMUX,
-> +				 FIELD_PREP(AS7343_CFG20_AUTO_SMUX,
-> +					    AS7343_AUTO_CHANNEL_READOUT));
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	/* Set 83.4ms integration time and x64 gain for now */
-
-Good for an initial draft, however you'll definitely have to
-implement the write function for this to get merged into mainline.
-Skimming the datasheet shows that there are more integration times
-possible, not to mention that you can also set the gain etc.
-
-> +	ret = regmap_write(data->regmap, AS7343_REG_ATIME, AS7343_INT_TIME);
-> +	if (ret < 0)
-> +		return ret;
-
-Blank line.
-
-> +	ret = regmap_update_bits(data->regmap, AS7343_REG_CFG1,
-> +				 AS7343_CFG1_AGAIN,
-> +				 FIELD_PREP(AS7343_CFG1_AGAIN, AS7343_GAIN));
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	/* Start measurements */
-> +	ret = regmap_set_bits(data->regmap, AS7343_REG_ENABLE,
-> +			      AS7343_ENABLE_SP_EN);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	return devm_iio_device_register(dev, indio_dev);
-> +}
-> +
-> +static int as7343_suspend(struct device *dev)
-> +{
-> +	struct iio_dev *indio_dev = i2c_get_clientdata(to_i2c_client(dev));
-> +	struct as7343_data *data = iio_priv(indio_dev);
-> +
-> +	return regmap_clear_bits(data->regmap, AS7343_REG_ENABLE,
-> +				 AS7343_ENABLE_SP_EN);
-> +}
-> +
-> +static int as7343_resume(struct device *dev)
-> +{
-> +	struct iio_dev *indio_dev = i2c_get_clientdata(to_i2c_client(dev));
-> +	struct as7343_data *data = iio_priv(indio_dev);
-> +
-> +	return regmap_set_bits(data->regmap, AS7343_REG_ENABLE,
-> +			       AS7343_ENABLE_SP_EN);
-> +}
-> +
-
-You have suspend/resume functions, yet you're missing a
-devm_pm_runtime_enable() in probe. Additionally, you could enable
-the autosuspend function as well (note, you'll have to wake the
-device before reading, there are macros that simplify this though,
-see PM_RUNTIME_ACQUIRE_AUTOSUSPEND)
-
-Also, there isn't any devm_add_action_or_reset() function that
-guarantees powering the device off on teardown (you can reuse your
-suspend function as the callback).
-
-> +static DEFINE_SIMPLE_DEV_PM_OPS(as7343_pm_ops, as7343_suspend, as7343_resume);
-> +
-> +static const struct of_device_id as7343_of_match[] = {
-> +	{ .compatible = "ams,as7343" },
-> +	{},
-
-Remove the comma + add a space in between the {}
-
-Same goes for the struct i2c_device_id definition.
-
+diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
+index 8f467b22b799..901bb2ce01dc 100644
+--- a/drivers/tty/vt/vt.c
++++ b/drivers/tty/vt/vt.c
+@@ -2858,11 +2858,12 @@ static void do_con_trol(struct tty_struct *tty, struct vc_data *vc, u8 c)
+ 			vc->vc_video_erase_char =
+ 				(vc->vc_video_erase_char & 0xff00) | 'E';
+ 			csi_J(vc, CSI_J_VISIBLE);
+ 			vc->vc_video_erase_char =
+ 				(vc->vc_video_erase_char & 0xff00) | ' ';
+-			do_update_region(vc, vc->vc_origin, vc->vc_screenbuf_size / 2);
++			if (con_should_update(vc))
++				do_update_region(vc, vc->vc_origin, vc->vc_screenbuf_size / 2);
+ 		}
+ 		return;
+ 	case ESsetG0:	/* ESC ( */
+ 		vc_setGx(vc, 0, c);
+ 		vc->vc_state = ESnormal;
 -- 
-Kind regards,
-Joshua Crofts
+2.52.0
+
