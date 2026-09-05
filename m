@@ -1,45 +1,44 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A64271450;
-	Sat,  5 Sep 2026 13:33:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E519A362156;
+	Sat,  5 Sep 2026 13:33:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788615202; cv=none; b=lf4VuWx2SIR8M/ZnYrZQvPyjzbxTGsZcA7t4EkzCbq9trMkvexYNaxrZl/Q3ggf9Y0oQW77D0ValwypI4T3aW5PMedLXgtLjGCZATx3sSG1t/gtxicfLZa3Hd24VLXti9I6IZ053HmC/LGkj5J1FawmKIfcn4neU+8YHWrUauj0=
+	t=1788615222; cv=none; b=aIbwgCNWLb4c5kUZCferGX18o0G4tGDnsbt2r0wMarBkr9+RLTjxXpDJksuRvhXoDPn0l48VbLNmqsHHFFCx+f2ZC4te+mk1FhiFKS+OdEV790WbVYkkTO7S/eudU+BHBjsvOM4lyqAjilYW1txNXPPsGh9cyJ2xfF2Cdc6Ls7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788615202; c=relaxed/simple;
-	bh=1Qv7JfjGhW/7k8Z2oYogvu1+3LYgK3QU+AS3mGZ1jlQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JxhwP9pRR7d+VfxdtPnUy5wm9lJvcnrCCeWuXoYdJMUVIBafbI6ZuH8cpFT4uBZ1C7cp1M55eCg/pAClaLgwRR5cwRc6/VZ4zqYsJKQuBl8zLZ/1n0dO7dtmHliFwYXnLZHiqQTPHLlBkgVGrEEBoGZz1e6kG6CW5MQqbtzchYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=hRbSmjZw; arc=none smtp.client-ip=117.135.210.3
+	s=arc-20240116; t=1788615222; c=relaxed/simple;
+	bh=Z1ZAX2uEYyVMv4TdY2rwsi2q9yHKRszxqfQwgQrGiBo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KYRW1uGX4HPjZIEe0jW6+Ik+GTy5UdLwg/9/o/nYI1yhgHXi4PJLMduRtTxdvzXYtiAEmtQ6aX87JkAWGduvxLF6dLkdyXhCgBxT/KgvpBZ8PoSJN/Aco74punJRHVL48gRqYGNGlxeORP44eiYCbgA0d74dTpJwurPXmvLa1Oo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=fvSJ78Z2; arc=none smtp.client-ip=117.135.210.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="hRbSmjZw"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="fvSJ78Z2"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Vv
-	5oyIV+iTroIryK8q4maG4WM3D8XmfLPN5y+EKtsQ8=; b=hRbSmjZw69hGPwR3A3
-	ipZw9GJiaGSslzOOkNu1xKXAswe05ODdCp7nz4P6xdJnrB9x8/zjd9UJAuY/uQlr
-	mJQ3aF/l0+S9fVJB1gc5EjivlKhxz/N/APQzbCiFkVDDqo1UDRP4gXESMLl+lJ03
-	AUnJcyyrlT3YqSyJY/HBHKO5M=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=u4
+	uq7fmGlh/XA4usOS9KLTTti8JWGLl4olBoqOeznME=; b=fvSJ78Z21fx0Jfmfq0
+	UMDmcoKpLtF7sumJQ2HaxhS4mFm2LVH7D+9a3pkapPASKGWYM2dsbWIEcsi+80I6
+	daVABUGBZzsznT6wuuIMMmZpmMF4NDpLg6HXKza/woLQheZMgrlhMwAzVRPuQHtd
+	Q7fiGiOIBLx62bFAmiMuXK7VE=
 Received: from localhost.localdomain (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgD3_wzcGZxqt90VOw--.17760S2;
-	Sat, 05 Sep 2026 21:32:13 +0800 (CST)
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3P5sEGpxqJrZuAw--.15361S2;
+	Sat, 05 Sep 2026 21:32:53 +0800 (CST)
 From: "hpp.iscas" <hppiscas@163.com>
-To: Liam Girdwood <lgirdwood@gmail.com>
+To: Yassine Oudjana <y.oudjana@protonmail.com>
 Cc: "hpp.iscas" <hppiscas@163.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
 	Matthias Brugger <matthias.bgg@gmail.com>,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	linux-clk@vger.kernel.org,
 	linux-mediatek@lists.infradead.org,
-	Kai Chieh Chuang <kaichieh.chuang@mediatek.com>
-Subject: [PATCH] ASoC: mt6351: Publish the OF module alias
-Date: Sat,  5 Sep 2026 21:32:10 +0800
-Message-ID: <20260905133210.63803-1-hppiscas@163.com>
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH] clk: mediatek: mt6735-imgsys: Publish the OF module alias
+Date: Sat,  5 Sep 2026 21:32:50 +0800
+Message-ID: <20260905133250.63975-1-hppiscas@163.com>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -48,37 +47,39 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-X-CM-TRANSID:PSgvCgD3_wzcGZxqt90VOw--.17760S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrtF43Jr4xXF4kJry3XFyrJFb_yoWfuFb_Cw
-	48WayUurW8Cry7Cr4YqrsYvF4IqF1SkF1ktrn0kF18Xa47Xr1rZrsFqr17uayUZ3Z2qas8
-	WFnxXF1ruFy3JjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRR9YFtUUUUU==
-X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7R0-CGqcGd1OvwAA3E
+X-CM-TRANSID:_____wD3P5sEGpxqJrZuAw--.15361S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Wr47Zw4kAry8ur1xWw4fuFg_yoWkJFX_C3
+	WDXryxZw1UtrZY9FWfK3WfZayxKw45ZFykXa45trW3Xry7CF1DXwsFv3yvvr1UWa40vF4D
+	JF93uF48CFnrAjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRRvtCDUUUUU==
+X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbCxgVJEmqcGgUObQAA3S
 
-The MT6351 codec platform driver uses mt6351_of_match to bind devices=0D
-with compatible mediatek,mt6351-sound. The codec can be a separate=0D
-module, but the OF table is not exported to module alias metadata.=0D
+The MT6735 imgsys driver is a separately selectable tristate driver.=0D
+Its OF table is registered with the platform bus, but is not published=0D
+for module autoloading. Loading the main MT6735 clock driver does not=0D
+load the separate imgsys module.=0D
 =0D
-Publish the existing table without changing codec matching, register=0D
-access or the machine-driver configuration.=0D
+Publish the existing OF match table.=0D
 =0D
-Fixes: a74d51ba0e17 ("ASoC: add mt6351 codec driver")=0D
+Fixes: 0bd9b1211f74 ("clk: mediatek: Add drivers for MT6735 syscon clock an=
+d reset controllers")=0D
 Signed-off-by: hpp.iscas <hppiscas@163.com>=0D
 ---=0D
- sound/soc/codecs/mt6351.c | 1 +=0D
+ drivers/clk/mediatek/clk-mt6735-imgsys.c | 1 +=0D
  1 file changed, 1 insertion(+)=0D
 =0D
-diff --git a/sound/soc/codecs/mt6351.c b/sound/soc/codecs/mt6351.c=0D
-index 1768c24..3be0491 100644=0D
---- a/sound/soc/codecs/mt6351.c=0D
-+++ b/sound/soc/codecs/mt6351.c=0D
-@@ -1478,6 +1478,7 @@ static const struct of_device_id mt6351_of_match[] =
-=3D {=0D
- 	{.compatible =3D "mediatek,mt6351-sound",},=0D
- 	{}=0D
+diff --git a/drivers/clk/mediatek/clk-mt6735-imgsys.c b/drivers/clk/mediate=
+k/clk-mt6735-imgsys.c=0D
+index c564f8f..813241d 100644=0D
+--- a/drivers/clk/mediatek/clk-mt6735-imgsys.c=0D
++++ b/drivers/clk/mediatek/clk-mt6735-imgsys.c=0D
+@@ -41,6 +41,7 @@ static const struct of_device_id of_match_mt6735_imgsys[]=
+ =3D {=0D
+ 	{ .compatible =3D "mediatek,mt6735-imgsys", .data =3D &imgsys_clks },=0D
+ 	{ /* sentinel */ }=0D
  };=0D
-+MODULE_DEVICE_TABLE(of, mt6351_of_match);=0D
++MODULE_DEVICE_TABLE(of, of_match_mt6735_imgsys);=0D
  =0D
- static struct platform_driver mt6351_codec_driver =3D {=0D
- 	.driver =3D {=0D
+ static struct platform_driver clk_mt6735_imgsys =3D {=0D
+ 	.probe =3D mtk_clk_simple_probe,=0D
 
