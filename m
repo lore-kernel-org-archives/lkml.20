@@ -1,38 +1,43 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C1E330D4C;
-	Sat,  5 Sep 2026 13:38:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FB7F3126D6
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 13:39:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788615506; cv=none; b=eZ+OmCKvA4EAJJgV3hRX8uXh6upJyc2+cDb7HFL+ptE3H02J0Z0sbnXOnsxH2b/OER+s11eh6UEtYZAP+HyI58ePkMa4CYWKBCCGLvxHMnyTj/TqGREqZ7Cs2xFRHeZH35Q5s7IzNtQbcsPZt3XxIOY+822EflCE/IrGLRe0Itg=
+	t=1788615565; cv=none; b=SUA2sjETlhRRIeqhKImXfhTx78MtjORgCl9upeY1KAfwcdrLd6ZllatRbga8znnKBkpMZbRrj933xf4r7LuR+AwjTqeXJHcMJJUAZ8XL+7EeZqaAm3FXxaZbBp8N1HHDxmA0XjRYKMU51OBTBSMjAl7+lWgQXtkbqAmMmkzi9cY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788615506; c=relaxed/simple;
-	bh=XjZN9qwyW/FUFL1VNm9JNjZkf2IKMPMxJ2eRyGcJvUo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CVJ5f6ZI0H49aEM3W7j6PHjoRR9jH/30LPCUsUX3X2uEUML014jBNiOPq7rjz5F1F/YeN1XgAF2NiqbX0UJh5Ru+5Om4ATyTW0ZYLmu0FST4HWAwxbjdZLLRQ7LlNty6rLpbXrGi+RufwJ5iVydiLn3LqqhCsHp73spYtILtlPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=i8HeJIgu; arc=none smtp.client-ip=117.135.210.3
+	s=arc-20240116; t=1788615565; c=relaxed/simple;
+	bh=7Qbzw+Tkhg7HfUq38C0BA0wWTWKC88J0cbC11SZTjPk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l19dyaIL6ARjml46gVyNcT2yaLwc5HDPqhBRUvOi2r7LbW8j3x1y6cPi6cRCwSw+E++yi2sH5TYLVN2uW15qnI+sr1S9g8PoxjHFUw4qWH0a1CqrPFhvRUYzj/uJ39H0//mD3DaTGNAb8AIhZuI1MYc30jHAv0oYLWv8iwQikYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=TICd8S/H; arc=none smtp.client-ip=117.135.210.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="i8HeJIgu"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="TICd8S/H"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=e1
-	aUrh6XcAxcSn80p44qSD2s+VJ1fDi7YxQ58ctkMaQ=; b=i8HeJIgu/ETFXL2JFa
-	xfY2bCg4T/XxP3GBG3skHVJIJGJX0OpU+rBEKCK4tPCn31wwfmD8SAuPQ6wWAlNd
-	CnWItLqEapF9MrEOyv2P5KAOvsln0vGBl2Eh2OjMiTFlVv38vbDBfTgjrg2ypgxh
-	A8wrlGuznhDapUzji791dCyxQ=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=gg
+	7yGPoxmOER5IO+qS0nz0EXCl4ZbJfKsrGtP/+PZC4=; b=TICd8S/Hf6akrFKnns
+	Qzg9Hn3X+BW4if5c3xiO5prSgs19MEXmnHwxLkgVEGtseZOftFi2B50Ly+48XhtD
+	0PHv4PvNLLsKmlwVC7hf7umxRL9p7RgoY2GOEHPbKsfBuowPlL4I2ZbpImIMnz11
+	tRGU/7X5ltsjqh7epUOIogUTM=
 Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wAnT4I7G5xqBlZvAw--.12445S2;
-	Sat, 05 Sep 2026 21:38:03 +0800 (CST)
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgBH5ABXG5xqgnQWOw--.14941S2;
+	Sat, 05 Sep 2026 21:38:31 +0800 (CST)
 From: "hpp.iscas" <hppiscas@163.com>
-To: Guenter Roeck <linux@roeck-us.net>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
 Cc: "hpp.iscas" <hppiscas@163.com>,
-	linux-hwmon@vger.kernel.org,
+	Mike Leach <mike.leach@arm.com>,
+	James Clark <james.clark@linaro.org>,
+	Leo Yan <leo.yan@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	coresight@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Peter Yin <peteryin.openbmc@gmail.com>
-Subject: [PATCH] hwmon: (xdp710) Publish the OF module alias
-Date: Sat,  5 Sep 2026 21:38:00 +0800
-Message-ID: <20260905133800.65749-1-hppiscas@163.com>
+	Jie Gan <quic_jiegan@quicinc.com>
+Subject: [PATCH] coresight: ctcu: Publish the OF module alias
+Date: Sat,  5 Sep 2026 21:38:29 +0800
+Message-ID: <20260905133829.65890-1-hppiscas@163.com>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -41,37 +46,37 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-X-CM-TRANSID:_____wAnT4I7G5xqBlZvAw--.12445S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7Xr4DGry8Ww15CF17GFyrtFb_yoWfWrgEkr
-	45XFZ7uF40krsYkw1FkFy5u34kt34FgFn3GFsaqan8Z34UXrn8ZFWqv347Xw13CrWUtFnx
-	Ga15W3Z5uF47KjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUU3fH5UUUUU==
-X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbCxhuWX2qcGzserAAA3w
+X-CM-TRANSID:PSgvCgBH5ABXG5xqgnQWOw--.14941S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrKrW7Jry8JrW7uFWfXF43KFg_yoWDuFX_Aw
+	1vqF9rZry8GrZFkF1UJwnxCr1fGrZ3urs5Xr10qrZavr9Fvw1fAr4kKrW7Aa18CrWvvF97
+	KF4DWr15u3y5tjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRRBHq3UUUUU==
+X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbCxRedZmqcG1ct1gAA3o
 
-The XDP710 driver registers xdp710_of_match, but only exports its I2C=0D
-ID table. Device Tree clients emit an OF modalias instead of the=0D
-legacy I2C alias.=0D
+The CTCU platform driver binds qcom,sa8775p-ctcu devices through=0D
+ctcu_match and can be built as a module. Its OF match table is not=0D
+published for module autoloading.=0D
 =0D
-Publish the existing OF table to make module selection available for=0D
-that enumeration path.=0D
+Publish the table. This leaves the TMC dependency, probe and power=0D
+management callbacks unchanged.=0D
 =0D
-Fixes: 35fe06d94e39 ("hwmon: (pmbus) Add support for Infineon XDP710")=0D
+Fixes: f78d206f3d73 ("Coresight: Add Coresight TMC Control Unit driver")=0D
 Signed-off-by: hpp.iscas <hppiscas@163.com>=0D
 ---=0D
- drivers/hwmon/pmbus/xdp710.c | 1 +=0D
+ drivers/hwtracing/coresight/coresight-ctcu-core.c | 1 +=0D
  1 file changed, 1 insertion(+)=0D
 =0D
-diff --git a/drivers/hwmon/pmbus/xdp710.c b/drivers/hwmon/pmbus/xdp710.c=0D
-index 494dbe4..bd062d1 100644=0D
---- a/drivers/hwmon/pmbus/xdp710.c=0D
-+++ b/drivers/hwmon/pmbus/xdp710.c=0D
-@@ -108,6 +108,7 @@ static const struct of_device_id xdp710_of_match[] =3D =
-{=0D
- 	{ .compatible =3D "infineon,xdp710" },=0D
+diff --git a/drivers/hwtracing/coresight/coresight-ctcu-core.c b/drivers/hw=
+tracing/coresight/coresight-ctcu-core.c=0D
+index 9043cad..a7caa5b 100644=0D
+--- a/drivers/hwtracing/coresight/coresight-ctcu-core.c=0D
++++ b/drivers/hwtracing/coresight/coresight-ctcu-core.c=0D
+@@ -295,6 +295,7 @@ static const struct of_device_id ctcu_match[] =3D {=0D
+ 	{.compatible =3D "qcom,sa8775p-ctcu", .data =3D &sa8775p_cfgs},=0D
  	{}=0D
  };=0D
-+MODULE_DEVICE_TABLE(of, xdp710_of_match);=0D
++MODULE_DEVICE_TABLE(of, ctcu_match);=0D
  =0D
- static const struct i2c_device_id xdp710_id[] =3D {=0D
- 	{ .name =3D "xdp710" },=0D
+ static struct platform_driver ctcu_driver =3D {=0D
+ 	.probe          =3D ctcu_platform_probe,=0D
 
