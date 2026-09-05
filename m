@@ -1,166 +1,136 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B6A1320CD1
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:03:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4753836DA1A
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:03:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788620587; cv=none; b=psduQ3PV0wuMLR1Hn+ja2M+JFdGpm0zdhV9opesqwW8mAnp80qzqsMO8t510mNN644Jpr00DlnTMO9CnhAaqxjFy6WTzc7uvkh6mesuHYnXO+LarYo0VtIe+4tOhizZCHryJeDmIeC7TLv+5qPIPYgxSbe8hgjucoY69ghRapGY=
+	t=1788620639; cv=none; b=MPViH1G+6YIfJaM6UDNH+r+aCo+UgOlzOap7Ss76qjIC93JWgJoFY214WtEfGn7xmTWhWK29oLS1mPPUcVubdidGvjzHs4EKq/mOOoAQQp0ENrpxGGizNMJkKF0qp0jMAkO09AOXv933IPWUD+dZItyvnDVLqsDudyUTTrJlCxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788620587; c=relaxed/simple;
-	bh=ix2jsdPytUfBxhlQ03yeIyNNme19gAi4Ev5xrjI063E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GToLIYvMvQXMm2U1Fkkdh6QSygis/uU9hd3kDjbKDCiselqVEqT1LJRbNgCqlPmB0i1/m/FaniWYjHljASNTYSmCVg8hHMcuVX8h03qcIH7Y0WODkjlBmOT6jnB+vwFDcjiPQoyGPbqdx2VH6ltSvfIdLTclq4KUapff+frub54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dTmqwLmG; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788620639; c=relaxed/simple;
+	bh=39cTLyJAo2+EsBBGUEPxOl2NuySOzeO7aPaDIjgaGXA=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=HWBg/yN2JtqwYviUlNibszEiwHygosBdl9+uyTSgCjCUHJS27n8Z9o7b0WLWQzVW3i2S5KaK1xyqWSamTQ9EC8UmkZ70/9wm18twXP/Ycf/4aThQ4PT42gJLVdH2GS/kTcxZNeEBxr4I7p454vzc6KVDNWSTLs095c+W3G0u2qQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QYuLEbML; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dTmqwLmG"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so25677885e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 08:03:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788620584; x=1789225384; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MLvnLjmDLrGiiA1v07CX3ZMiXBmMM+gMXxqBKqBcsk8=;
-        b=dTmqwLmG6SDBT/Qo/E4VK8ssxokWZDyc0KPeY1JMyaJzzex1dxHLByCYPYFCQGhhES
-         iPrDDUxeffsFLJ/xc1wSNLYff4LpwbbrluVY17Jsb5j4SCIh5spq5Rt3lW3Ae3XYqUzT
-         KlrcxbK5asOSfnv3bRSUeAF4jkGbZ7+BnJKSo661ZfW9EtpDBVIv0CKon9JPxV6IP/bo
-         KhwU/fTupnbOjK5/4FPNOypjulfB8HicubC2fv1cyhqbHrGNBi8HaPISLReJpPIc74RV
-         WouTVjpx1mz06SKtmY7LQS96WsKXkJUL6OEDp10DEaVgUqCsACSH83SPpxY9toRDpUN9
-         xGuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788620584; x=1789225384;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=MLvnLjmDLrGiiA1v07CX3ZMiXBmMM+gMXxqBKqBcsk8=;
-        b=hHWBF9PlBkwBGdP+gC9p8Db3UyrGFNyIB+570YSARO7N0SdrWhD0NFjmuPfIOxT/fF
-         w6mGlfWNqL3dwtBqMGuHMv+8pmg6mSKdDrlcvyWrV3rLaEJ2ajSykYlzwYBzUUlO0eHf
-         7qg7XJZxCfhq+NJaXesgEmyONdN2YS/7AgRzugKokBngojxY+AuaEk7kXlnaFZrNHC2B
-         6VW3djtbYQubOughpEmWKn6k5MRQyJFwz+ybSVtSHjfREJVZE4OCQ1clt6lCpd1jshrm
-         empg3/ZMdK/kq0sTBKutan19qx7YN19oocfxyfZ94QkVVT3dKsQJu2MKTL9Hd9+hUauJ
-         Brtg==
-X-Forwarded-Encrypted: i=1; AKwUvByuXNdxPijNTMyfaSzXBsDoGk2sU3xLwd8BngoEhHH6qwiIa9YsQQpECiuSvQ7uaB4atTE+/7ogoBRqtNA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfv53DYhdU7WENvepAn/QorKloiXGPjYxetB+0KksIIzElU0i3
-	yyte6zGR5hXmr5vlPIqIeoNAmNxWgXo/ENCZ+q32xQtovryAHa8AhJuq
-X-Gm-Gg: AYBFou2Rj45/lEtJdtcAMMI4/jyQjQHZ8QUPkassdWFHXix/S+9Krt1RP3JpUclzohu
-	aNsUEEeksN5DWxLrmqVAp+lYahWDxrevfs7blQ4kjsi1GRSK+g5AdwBhyqKLIu9b0f+0+ktNzrE
-	AaLVEYJBz9p4JQ+n/3wEKDut3EAZ63T2lTwwMH2LKgBTIHY1BtEs/4cA+Mxepr/CauWZllHGZow
-	HUvAwmOTdrw3vq8sIMn1MIDGZMBMpAE3xyNAeBHaj7QRPWudEqTn6f6oE54Fc4zW3DRr3JlZWBm
-	SNSTMGQqTTR7luALbuYWIh2pgOv2jRlWJdFPKzzRbVW3IH7+xFOuQ7a1AbjhhBEaF2JKImhujf7
-	eKZKOGFnEbfhDKsW4EZC7mzW7p+xs6iV/iF31wu8C2HnhmISwEVy0m0mp2T+RG2ApmuRAm2dyZT
-	a64/OtbpBOyJnCPJsYKAkFKnhDSfAJudQnOUPXRR52zNV/b2kM1/zse205pNfPl0j2mbYRAglP3
-	TZA5ovHHuYXFlr8S0UsR/OWGo0qt5AJ6Z58neDjhnb80d87wOrzD2u7CQ==
-X-Received: by 2002:a05:600c:3e19:b0:49c:fa21:e747 with SMTP id 5b1f17b1804b1-49cfa21e977mr101661385e9.29.1788620583491;
-        Sat, 05 Sep 2026 08:03:03 -0700 (PDT)
-Received: from [10.128.10.232] (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7740d44sm337818035e9.15.2026.09.05.08.03.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 05 Sep 2026 08:03:02 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <54814f0e-d36e-428f-9255-3c7c2c09b39a@gmail.com>
-Date: Sat, 5 Sep 2026 16:03:01 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QYuLEbML"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788620638; x=1820156638;
+  h=date:from:to:cc:subject:message-id;
+  bh=39cTLyJAo2+EsBBGUEPxOl2NuySOzeO7aPaDIjgaGXA=;
+  b=QYuLEbML7prvsLC88ZPB41V4OxCzLcXXbRpiAq//BDmiWWmTYKIl/pGW
+   pcOvOftvRyhLQpWSyzzeUOA2/czCYr4cUb+yb5L+FzYzYQG9KviCawoza
+   6Lk9Ool2mzp68LHO5csyYFXftjY4i3pSX8QnP78leMqXOX13MZIQQ+fH8
+   27+wDkPlQWKGhFZQAJWFhL5Jt3JmnGrnLroa43dryKrTkJrCpCo0zXKSh
+   /W6cvAwk/wb0T83l/0sGPuf3j8O+voBWLSr+fJvSiK4MjG7K39QKJwz/a
+   A7jyfB0E9fckJ6SaD2fKfOhTaDJkYdOrCUjL4aXcrcQ2+Qb+CNBDlX//b
+   w==;
+X-CSE-ConnectionGUID: fsZHMNvAQkGgWMzYu07KPA==
+X-CSE-MsgGUID: x7jqr5ZCTPyGrGt4z27c5A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11897"; a="106463554"
+X-IronPort-AV: E=Sophos;i="6.25,264,1779174000"; 
+   d="scan'208";a="106463554"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Sep 2026 08:03:55 -0700
+X-CSE-ConnectionGUID: mGKkEgEaTwa91kqDJ2IdUA==
+X-CSE-MsgGUID: CVB2pHasTZ+ackCiqerWTw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,264,1779174000"; 
+   d="scan'208";a="274118424"
+Received: from lkp-server01.sh.intel.com (HELO 73f3364bc37e) ([10.239.97.150])
+  by orviesa004.jf.intel.com with ESMTP; 05 Sep 2026 08:03:54 -0700
+Received: from kbuild by 73f3364bc37e with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x2rvr-000000000dB-2zYT;
+	Sat, 05 Sep 2026 15:03:51 +0000
+Date: Sat, 05 Sep 2026 23:02:57 +0800
+From: kernel test robot <lkp@intel.com>
+To: "x86-ml" <x86@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: [tip:x86:kdump] BUILD SUCCESS
+ d949fa7b1ec54c626b656f873b95d76b8ab0d143
+Message-ID: <202609052355.NWuvBrGk-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs: kconfig: fix shell function syntax in caveats
-To: Erkan Erdem <hexvalid@gmail.com>, Nathan Chancellor <nathan@kernel.org>,
- Nicolas Schier <nsc@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, linux-kbuild@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260905124045.42713-1-hexvalid@gmail.com>
-Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <20260905124045.42713-1-hexvalid@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-Hi Erkan,
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git x86/kdump
+branch HEAD: d949fa7b1ec54c626b656f873b95d76b8ab0d143  crash: Update stale NR_CPUS_DEFAULT references in elfcorehdr sizing docs
 
-Thanks for the patch!
+elapsed time: 3556m
 
-On 9/5/26 13:40, Erkan Erdem wrote:
-> Kconfig separates a function name from its arguments with a comma, but
-> the caveats section uses Make-style whitespace in its shell calls.
-> These expressions expand as undefined variables rather than invoking
-> the shell function, so the supposedly working CC_HAS_ENDIAN_FLAG
-> example fails to parse.
-> 
-> Add the missing commas to the shell calls in this section. Keep the
-> Make examples unchanged.
-> 
-> Fixes: 316d55d55f49 ("Documentation: kconfig: document a new Kconfig macro language")
-> Assisted-by: LLM
-> Signed-off-by: Erkan Erdem <hexvalid@gmail.com>
-> ---
-> 
-> The issue was found and this patch and changelog were prepared with an AI
-> coding assistant after a request to find a small, verifiable Linux fix.
-> The assistant also prepared and ran the verification described below.
-> 
-> Validation:
-> - Built the current Kconfig conf tool on macOS with Clang, Bison and Flex,
->   using -Wall -Wmissing-prototypes -Wstrict-prototypes -Werror.
-> - Extracted the documented working CC_HAS_ENDIAN_FLAG example into a
->   minimal Kconfig, with a test gcc-check-flag helper returning y for either
->   endian flag. Before: syntax errors and no helper invocations for either
->   CPU endianness. After: both probes execute and CC_HAS_ENDIAN_FLAG=y.
-> - Built the changed page alone with Sphinx, treating warnings as errors.
->   The complete kernel documentation set and kernel were not built.
-> 
->  Documentation/kbuild/kconfig-macro-language.rst | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Documentation/kbuild/kconfig-macro-language.rst b/Documentation/kbuild/kconfig-macro-language.rst
-> index 6163467f..e15af278 100644
-> --- a/Documentation/kbuild/kconfig-macro-language.rst
-> +++ b/Documentation/kbuild/kconfig-macro-language.rst
-> @@ -225,7 +225,7 @@ not work::
->              $(MY_TYPE) "foo"
->              default y
->  
-> -Obviously from the design, $(shell command) is expanded in the textual
-> +Obviously from the design, $(shell,command) is expanded in the textual
->  substitution phase. You cannot pass symbols to the 'shell' function.
->  
->  The following does not work as expected::
-> @@ -236,12 +236,12 @@ The following does not work as expected::
->              default "-mlittle-endian" if CPU_LITTLE_ENDIAN
->  
->      config CC_HAS_ENDIAN_FLAG
-> -            def_bool $(shell $(srctree)/scripts/gcc-check-flag ENDIAN_FLAG)
-> +            def_bool $(shell, $(srctree)/scripts/gcc-check-flag ENDIAN_FLAG)
+configs tested: 59
+configs skipped: 0
 
-Here, the space after the comma is actually included in the argument.
+The following configs have been built successfully.
+More configs may be tested in the coming days.
 
-Checking the tree, I found 20 instances of this, but none of them use
-whitespace after the comma. It may be harmless in most (all?) cases, but
-we probably want to exclude it when documenting ideal usage, anyway.
+tested configs:
+alpha         allnoconfig    gcc-16.1.0
+alpha        allyesconfig    gcc-16.1.0
+arc          allmodconfig    gcc-16.1.0
+arc           allnoconfig    gcc-16.1.0
+arc          allyesconfig    clang-24
+arm           allnoconfig    clang-17
+arm           allnoconfig    gcc-16.1.0
+arm          allyesconfig    gcc-16.1.0
+arm64        allmodconfig    clang-24
+arm64         allnoconfig    gcc-16.1.0
+csky         allmodconfig    gcc-16.1.0
+csky          allnoconfig    gcc-16.1.0
+hexagon      allmodconfig    gcc-16.1.0
+hexagon       allnoconfig    clang-24
+hexagon       allnoconfig    gcc-16.1.0
+i386         allmodconfig    clang-22
+i386          allnoconfig    gcc-14
+i386          allnoconfig    gcc-16.1.0
+i386         allyesconfig    clang-22
+loongarch    allmodconfig    clang-24
+loongarch     allnoconfig    clang-20
+loongarch     allnoconfig    gcc-16.1.0
+m68k         allmodconfig    gcc-16.1.0
+m68k          allnoconfig    gcc-16.1.0
+m68k         allyesconfig    gcc-16.1.0
+microblaze    allnoconfig    gcc-16.1.0
+microblaze   allyesconfig    gcc-16.1.0
+mips         allmodconfig    gcc-16.1.0
+mips          allnoconfig    gcc-16.1.0
+mips         allyesconfig    gcc-16.1.0
+nios2        allmodconfig    clang-20
+nios2         allnoconfig    clang-24
+openrisc     allmodconfig    clang-20
+openrisc      allnoconfig    clang-24
+parisc       allmodconfig    gcc-16.1.0
+parisc        allnoconfig    clang-24
+parisc       allyesconfig    gcc-16.1.0
+powerpc      allmodconfig    gcc-16.1.0
+powerpc       allnoconfig    clang-24
+riscv        allmodconfig    clang-24
+riscv         allnoconfig    clang-24
+riscv        allyesconfig    clang-24
+s390         allmodconfig    clang-24
+s390          allnoconfig    clang-24
+s390         allyesconfig    gcc-16.1.0
+sh           allmodconfig    gcc-16.1.0
+sh            allnoconfig    clang-24
+sh           allyesconfig    gcc-16.1.0
+sparc         allnoconfig    clang-24
+sparc64      allmodconfig    clang-20
+um           allmodconfig    clang-17
+um            allnoconfig    clang-24
+um           allyesconfig    gcc-16.1.0
+x86_64       allmodconfig    clang-22
+x86_64        allnoconfig    clang-24
+x86_64       allyesconfig    clang-22
+x86_64      rhel-9.4-rust    clang-22
+xtensa        allnoconfig    clang-24
+xtensa       allyesconfig    clang-20
 
-I think you got it right in your earlier '$(shell,command)' example.
->  
->  Instead, you can do like follows so that any function call is statically
->  expanded::
->  
->      config CC_HAS_ENDIAN_FLAG
->              bool
-> -            default $(shell $(srctree)/scripts/gcc-check-flag -mbig-endian) if CPU_BIG_ENDIAN
-> -            default $(shell $(srctree)/scripts/gcc-check-flag -mlittle-endian) if CPU_LITTLE_ENDIAN
-> +            default $(shell, $(srctree)/scripts/gcc-check-flag -mbig-endian) if CPU_BIG_ENDIAN
-> +            default $(shell, $(srctree)/scripts/gcc-check-flag -mlittle-endian) if CPU_LITTLE_ENDIAN
-> 
-> base-commit: 4d7d9486c04d917265f64c55bd23b2cc4fe7749c
-
-Same thing here.
-
-- Julian Braha
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
