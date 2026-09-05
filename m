@@ -1,33 +1,33 @@
-Received: from mta0.migadu.com (out-149.mta0.migadu.com [91.218.175.149])
+Received: from mta0.migadu.com (out-153.mta0.migadu.com [91.218.175.153])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D2C328B71
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 03:05:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C1D23E25B
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 03:05:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.153
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788577548; cv=none; b=b/2WZM6QNUCtg3aR8UbhdJQKGIvbtTlPgBeaXxlJT3jYD0UVkPIOZxfJ3OlRG1YWvJGiaA7Zwb4ebH7/PWx6zN2Q0+JGulN4svS57fuOZindFQrOtbMsMzk/oaSsO4oBw8SF1AGygJBmSZUMoCem9DRoB4uLAauAJ34QAeInepM=
+	t=1788577554; cv=none; b=I3S10slfNg+BGGGQvdz93vCs1SryujrVa+27H2ktfEsaR3K31tNW1A70op10bh7UzTYJsjjL4zQ/QFjJ6enjv8btoKXG/HnSnIH9wM+8j+KqtimDfsTUOMmyhPSjvYd8wtA8m6KFmSwvMZZOc4l/Cyv3tHHcL4w1Qqy1fB8mlLM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788577548; c=relaxed/simple;
-	bh=DhoeiXFp7UyoSRxvvEzH1+kOUdYsRS2oS9Jn9zavQlk=;
+	s=arc-20240116; t=1788577554; c=relaxed/simple;
+	bh=F1dMlE3SNbCaduwN58Kn4je6GZ6Gq4FaW4vEejZffVI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hMoxbCg9Fx9DJ/yJFqrmz7unMk3+Oftg4v+PK3QG38UYBt5dQ7mLUwmN5GoohRxkWYyC9q64MPqh3r3fxNFbncMzDja6IPYWg8YIXcPE458ny3KAMIRoQSjH3iTLGWA43GCaxSitoaD1jM4147rWPwZHVxwrnOq4eqTPs91+JvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Yql80JcS; arc=none smtp.client-ip=91.218.175.149
+	 MIME-Version; b=s8f42/khY1fYYMyXiSyocbdWekoFOBiVFLVq4w1czaTlBtmzSZRhsXjkA6twWJFxQcsAGL8f7U0lXngh1tQpUasqAGbEGR80bWp83IzE40RTVB6wOMIi6wV0uK2SB3d2bWG77/nqvdhn5usLS8KSVMy5p6M9HAWUgUA733xJaF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=W4umrh0I; arc=none smtp.client-ip=91.218.175.153
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Yql80JcS"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="W4umrh0I"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=DhoeiXFp7UyoSRxvvEzH1+kOUdYsRS2oS9Jn9zavQlk=;
+DKIM-Signature: a=rsa-sha256; bh=F1dMlE3SNbCaduwN58Kn4je6GZ6Gq4FaW4vEejZffVI=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788577544; v=1; x=1789182344;
- b=Yql80JcSu02o0RCt4JLOLCs8wE+G4nIh0vSz84qwOwMxZ34VFcmPmb3dTFVIdefKdWQl5TnG
- RVj6URvSfwVQf7/hjowyk4xVaFC/aoAvO+JOiHFFjBuZ4T9xDtmt0qygmjUlWm9IOYmrXM0ecxH
- YcoDIQqR1JopgQtbUDFn94d8=
+ t=1788577548; v=1; x=1789182348;
+ b=W4umrh0IBWw2xAtN6p/GkEoZsBz4q6SjKzBfB2DcwN7fRn7kt1mQY1OM5kwQiDY0aJv2Cslo
+ Mha+oI7LfBQ/iYrxmRdjM1sX8svD2NsmLC8YtT/dLYK+JBD72iYOVv97jucH4b5YpUx0ZdYg5KN
+ 2Xykk6h1w08ilRUR5LxPhN4Y=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2febea93e74d4996;
-	Sat, 05 Sep 2026 03:05:44 +0000
-X-Mizu-Trace-ID: 2febea93e74d4996
+Received: by smtp.migadu.com with ESMTPS id e1ea12b19bf4cab9;
+	Sat, 05 Sep 2026 03:05:48 +0000
+X-Mizu-Trace-ID: e1ea12b19bf4cab9
 X-Migadu-Flow: FLOW_OUT
 From: Shakeel Butt <shakeel.butt@linux.dev>
 To: Andrew Morton <akpm@linux-foundation.org>
@@ -40,9 +40,9 @@ Cc: Johannes Weiner <hannes@cmpxchg.org>,
 	cgroups@vger.kernel.org,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 4/6] memcg: group the cold fields of struct mem_cgroup
-Date: Fri,  4 Sep 2026 20:05:20 -0700
-Message-ID: <20260905030522.1887837-5-shakeel.butt@linux.dev>
+Subject: [PATCH 6/6] memcg: group the fields of struct mem_cgroup_per_node
+Date: Fri,  4 Sep 2026 20:05:22 -0700
+Message-ID: <20260905030522.1887837-7-shakeel.butt@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260905030522.1887837-1-shakeel.butt@linux.dev>
 References: <20260905030522.1887837-1-shakeel.butt@linux.dev>
@@ -54,142 +54,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-These fields are only touched by the cgroup control paths:
+Replace the two ad-hoc CACHELINE_PADDING members with named cache line
+groups:
 
-  memory_peaks, swap_peaks, peaks_lock   memory.peak open/read/release
-  events_file, events_local_file,
-  swap_events_file                       cgroup_file_notify()
-  cgwb_list, cgwb_domain, cgwb_frn       writeback setup and the
-                                         foreign dirty slow path
-  mm_list                                MGLRU mm list
+  memcg_pn_read_mostly   memcg, lruvec_stats_percpu, lruvec_stats,
+                         shrinker_info, objcg
+  memcg_pn_lruvec        lruvec
+  memcg_pn_write_hot     lru_zone_size, iter, nmi slab stats
+  memcg_pn_cold          orig_objcg, objcg_list
 
-They sit in the middle of the struct today. The three cgroup_file
-members alone are 192 bytes of notify state next to the vmstats
-pointer. Put them in one cache line group.
+The group markers give the same isolation the padding did, but they
+are named and the build now checks them.
+
+lruvec still gets its own lines. Commit f59adcf59332 ("mm: memcg: add
+cacheline padding after lruvec in mem_cgroup_per_node") showed why
+that matters: lru_zone_size[] is written under lru_lock but read
+without it by lruvec_lru_size(), so it must not share a line with
+lruvec.
+
+Splitting the cold fields out costs one extra cache line per node per
+memcg.
 
 No functional change.
 
 Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
 ---
- include/linux/memcontrol.h | 49 ++++++++++++++++++++++----------------
- mm/memcontrol.c            | 25 +++++++++++++++++++
- 2 files changed, 53 insertions(+), 21 deletions(-)
+ include/linux/memcontrol.h | 32 ++++++++++++++++++++++----------
+ mm/memcontrol.c            | 30 ++++++++++++++++++++++++++++++
+ 2 files changed, 52 insertions(+), 10 deletions(-)
 
 diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-index 32b77ec5ba98..635929a1f13b 100644
+index d0f3458f9250..e10a3eaae890 100644
 --- a/include/linux/memcontrol.h
 +++ b/include/linux/memcontrol.h
-@@ -228,11 +228,37 @@ struct mem_cgroup {
+@@ -82,7 +82,8 @@ struct mem_cgroup_reclaim_iter {
+  * per-node information in memory controller.
+  */
+ struct mem_cgroup_per_node {
+-	/* Keep the read-only fields at the start */
++	/* Set when the memcg is created, then only read. */
++	__cacheline_group_begin_aligned(memcg_pn_read_mostly);
+ 	struct mem_cgroup	*memcg;		/* Back pointer, we cannot */
+ 						/* use container_of	   */
  
- 	__cacheline_group_end_aligned(memcg_write_hot);
+@@ -91,14 +92,30 @@ struct mem_cgroup_per_node {
+ 	struct shrinker_info __rcu	*shrinker_info;
+ 	struct obj_cgroup __rcu		*objcg;
  
+-	CACHELINE_PADDING(_pad1_);
++	__cacheline_group_end_aligned(memcg_pn_read_mostly);
+ 
+-	/* Fields which get updated often at the end. */
 +	/*
-+	 * Off the charge and fault paths.  Not write free: cgwb_domain is
-+	 * written on every writeout completion and mm_list on fork, exit and
-+	 * MGLRU aging.  They are grouped here so those writes cannot land on
-+	 * a line that the fast paths read.
++	 * Keep lruvec on its own lines. Sharing them with lru_zone_size[]
++	 * regressed, see commit f59adcf59332 ("mm: memcg: add cacheline
++	 * padding after lruvec in mem_cgroup_per_node").
 +	 */
-+	__cacheline_group_begin_aligned(memcg_cold);
- 	/* registered local peak watchers */
- 	struct list_head memory_peaks;
- 	struct list_head swap_peaks;
- 	spinlock_t	 peaks_lock;
- 
-+	/* memory.events and memory.events.local */
-+	struct cgroup_file events_file;
-+	struct cgroup_file events_local_file;
++	__cacheline_group_begin_aligned(memcg_pn_lruvec);
+ 	struct lruvec		lruvec;
+-	CACHELINE_PADDING(_pad2_);
++	__cacheline_group_end_aligned(memcg_pn_lruvec);
 +
-+	/* handle for "memory.swap.events" */
-+	struct cgroup_file swap_events_file;
-+
-+#ifdef CONFIG_CGROUP_WRITEBACK
-+	struct list_head cgwb_list;
-+	struct wb_domain cgwb_domain;
-+	struct memcg_cgwb_frn cgwb_frn[MEMCG_CGWB_FRN_CNT];
++	/* Written on every LRU update and on every reclaim iteration. */
++	__cacheline_group_begin_aligned(memcg_pn_write_hot);
+ 	unsigned long		lru_zone_size[MAX_NR_ZONES][NR_LRU_LISTS];
+ 	struct mem_cgroup_reclaim_iter	iter;
++#ifdef CONFIG_MEMCG_NMI_SAFETY_REQUIRES_ATOMIC
++	/* slab stats for nmi context */
++	atomic_t		slab_reclaimable;
++	atomic_t		slab_unreclaimable;
 +#endif
-+
-+#ifdef CONFIG_LRU_GEN_WALKS_MMU
-+	/* per-memcg mm_struct list */
-+	struct lru_gen_mm_list mm_list;
-+#endif
-+	__cacheline_group_end_aligned(memcg_cold);
-+
- #ifdef CONFIG_ZSWAP
- 	unsigned long zswap_max;
++	__cacheline_group_end_aligned(memcg_pn_write_hot);
  
-@@ -248,37 +274,18 @@ struct mem_cgroup {
- 	 */
- 	bool oom_group;
- 
--	/* memory.events and memory.events.local */
--	struct cgroup_file events_file;
--	struct cgroup_file events_local_file;
++	/* Touched only when the memcg is reparented or freed. */
++	__cacheline_group_begin_aligned(memcg_pn_cold);
+ 	/*
+ 	 * orig_objcg preserves a pointer (and a reference) to the original
+ 	 * objcg until the end of life of memcg.
+@@ -106,12 +123,7 @@ struct mem_cgroup_per_node {
+ 	struct obj_cgroup	*orig_objcg;
+ 	/* list of inherited objcgs, protected by objcg_lock */
+ 	struct list_head objcg_list;
 -
--	/* handle for "memory.swap.events" */
--	struct cgroup_file swap_events_file;
--
- 	/* memory.stat */
- 	struct memcg_vmstats	*vmstats;
- 
- 	int kmemcg_id;
- 
--#ifdef CONFIG_CGROUP_WRITEBACK
--	struct list_head cgwb_list;
+-#ifdef CONFIG_MEMCG_NMI_SAFETY_REQUIRES_ATOMIC
+-	/* slab stats for nmi context */
+-	atomic_t		slab_reclaimable;
+-	atomic_t		slab_unreclaimable;
 -#endif
--
- 	/* Keep the hot per-CPU stats pointer away from memory event counters. */
- 	struct memcg_vmstats_percpu __percpu *vmstats_percpu
- 		____cacheline_aligned_in_smp;
++	__cacheline_group_end_aligned(memcg_pn_cold);
+ };
  
--#ifdef CONFIG_CGROUP_WRITEBACK
--	struct wb_domain cgwb_domain;
--	struct memcg_cgwb_frn cgwb_frn[MEMCG_CGWB_FRN_CNT];
--#endif
--
--#ifdef CONFIG_LRU_GEN_WALKS_MMU
--	/* per-memcg mm_struct list */
--	struct lru_gen_mm_list mm_list;
--#endif
--
- #ifdef CONFIG_MEMCG_V1
-+	/* v1 only. Not grouped: v1 is legacy, sorting it is not worth it. */
-+
- 	/* Legacy consumer-oriented counters */
- 	struct page_counter kmem;		/* v1 only */
- 	struct page_counter tcpmem;		/* v1 only */
+ struct mem_cgroup_threshold {
 diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 2e209dedeb4f..b2cc82c936ed 100644
+index 4a5a30439a03..6976a60c911f 100644
 --- a/mm/memcontrol.c
 +++ b/mm/memcontrol.c
-@@ -5754,6 +5754,31 @@ static void __init memcg_struct_check(void)
- 				      high_irq_work);
- 	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_write_hot,
- 				      high_work);
+@@ -5796,6 +5796,36 @@ static void __init memcg_struct_check(void)
+ 				      kmemcg_id);
+ 	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_read_mostly,
+ 				      oom_group);
 +
-+	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_cold,
-+				      memory_peaks);
-+	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_cold,
-+				      swap_peaks);
-+	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_cold,
-+				      peaks_lock);
-+	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_cold,
-+				      events_file);
-+	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_cold,
-+				      events_local_file);
-+	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_cold,
-+				      swap_events_file);
-+#ifdef CONFIG_CGROUP_WRITEBACK
-+	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_cold,
-+				      cgwb_list);
-+	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_cold,
-+				      cgwb_domain);
-+	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_cold,
-+				      cgwb_frn);
++	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup_per_node,
++				      memcg_pn_read_mostly, memcg);
++	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup_per_node,
++				      memcg_pn_read_mostly, lruvec_stats_percpu);
++	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup_per_node,
++				      memcg_pn_read_mostly, lruvec_stats);
++	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup_per_node,
++				      memcg_pn_read_mostly, shrinker_info);
++	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup_per_node,
++				      memcg_pn_read_mostly, objcg);
++
++	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup_per_node,
++				      memcg_pn_lruvec, lruvec);
++
++	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup_per_node,
++				      memcg_pn_write_hot, lru_zone_size);
++	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup_per_node,
++				      memcg_pn_write_hot, iter);
++#ifdef CONFIG_MEMCG_NMI_SAFETY_REQUIRES_ATOMIC
++	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup_per_node,
++				      memcg_pn_write_hot, slab_reclaimable);
++	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup_per_node,
++				      memcg_pn_write_hot, slab_unreclaimable);
 +#endif
-+#ifdef CONFIG_LRU_GEN_WALKS_MMU
-+	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_cold,
-+				      mm_list);
-+#endif
++
++	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup_per_node,
++				      memcg_pn_cold, orig_objcg);
++	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup_per_node,
++				      memcg_pn_cold, objcg_list);
  }
  
  int __init mem_cgroup_init(void)
