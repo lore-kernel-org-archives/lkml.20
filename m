@@ -1,70 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DCA33AFB1B;
-	Sat,  5 Sep 2026 20:12:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E7C03783CC
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 20:13:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788639164; cv=none; b=ACwYxRDg+DcydWJu+9h6P330PPed/dsQ9IY+Fh09jYEeG0o9Giz4mzhbRpkJ/7oDR6tZPArpdMIZ+xgBcnvyp2hR7Y/bb26aXaRrdDt5C17P+PNdUX94/mTOvjL4cRvizDT5Gz9vr6G21RkVyBuiV2vaR3Az+lVUT+vYrv5AmvQ=
+	t=1788639224; cv=none; b=rzKPJEGXmxMJdlOPEI+KguKjtPA5B9cCRvRVMo82VXVuzjX9QdHaoSBI35kyj4oQPtfnYaLUwqALt5M5B3PJ1tnKd6J+p3b1U434uiuYHd8J7Lz6DsRGd5P/8BavKMElZRPlV/g9LcMRe4hlIs9yKLEXbl7KjyztpD5rKxF1lWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788639164; c=relaxed/simple;
-	bh=5TQfNG1CzxgK1SZw/KxXisYZc/as6DcbJrDW3tvpCEM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=h2suyZjNEaMFzTuUuDDz4+P4+16mSc+ZE+tBY12gyhu0de3Ts8pMEDB3GDs51xjOHvdQQWBQnhiUKy+gfq2+hZWWcPwwRmvxR5Aw80NGlqAqoqye4FNdmb7fWaKUzWTTCmICDGo4TNqdLuzo4salJexCkQY4kO/8spIcBgGk2RI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oiJxifnH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788639224; c=relaxed/simple;
+	bh=3PKFXcmHlUz3OfVy3HJ0w8Q/d1ojlG+0EylTJLYM3SI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Wlh/5UdKcxzMK9XNIiwBzbvenXpkgvWlCH827pIOiBHf047s4aOKAr9K1j0FyQr0wGjMeER8Psr+gU6ABov8BpM4/GXrf6F5GgpxL/pPxuTcSKWFDwLHqq/60VjncTg/g+7KbModAe0ILja4dP9/he7TKEH/leBBcZvUf6r4L0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=dmdFl6QZ; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oiJxifnH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB17F1F00A3A;
-	Sat,  5 Sep 2026 20:12:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788639162;
-	bh=7YUwzqUuCttKXScpOw0rR5PWnJiFbEbUAD5VJetCK9o=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=oiJxifnHsSpZV0sY02P4vhV0iw/K9pP/QTwpG6RvGoJb9KxAbwy/IHr2J+TaTqIWl
-	 BKQERaAxazwc9XTxWVDwHafzTWPLp8hJFEatvsvrZBUgy5QBW+HpIlYrWWmfkF1xlQ
-	 U0SyKP0bZs9rACht4bOG9XTJeCF99zPGjv/UN3GHxToWdY6c5PkzK9WPUD01DY0fW9
-	 af98u0HanHl4G2SkZiSGgQQ3xrG/rg2SA0HmKMT8eQMgqpPuq64gX5qiX6ui+0a9E5
-	 I0b0B1YjqhrKBStxIxTUN/JW0V9QbyhEU9kQ9PjHRT2G9DrorRc3yI/iUWotlJUPYr
-	 WVlnuEfyN4KuA==
-Date: Sat, 5 Sep 2026 13:12:41 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Tariq Toukan <tariqt@nvidia.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>, Akiva Goldberger
- <agoldberger@nvidia.com>, Edward Srouji <edwards@nvidia.com>, Gal Pressman
- <gal@nvidia.com>, Kees Cook <kees@kernel.org>, Leon Romanovsky
- <leon@kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-rdma@vger.kernel.org>, Maher Sanalla <msanalla@nvidia.com>, Mark
- Bloch <mbloch@nvidia.com>, Or Har-Toov <ohartoov@nvidia.com>, Parav Pandit
- <parav@nvidia.com>, Patrisious Haddad <phaddad@nvidia.com>, Saeed Mahameed
- <saeedm@nvidia.com>, Shay Drori <shayd@nvidia.com>, Simon Horman
- <horms@kernel.org>
-Subject: Re: [PATCH net 0/4] net/mlx5: SD LAG and devcom stability fixes
-Message-ID: <20260905131241.19654927@kernel.org>
-In-Reply-To: <20260902163716.3656279-1-tariqt@nvidia.com>
-References: <20260902163716.3656279-1-tariqt@nvidia.com>
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="dmdFl6QZ"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49b0d8bc2aaso27403315e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 13:13:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1788639221; x=1789244021; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AYLQLVPrMZqzYFFCaoEPigRERkkXFvdO1k2M4yUI9oI=;
+        b=dmdFl6QZXKDFYW7ZXcLx4SgmtzM9XmrjpVDyhnN3zr2IFJTPBgLnbqNpOGrATEomtI
+         7uVhlNU0Y5Ua8ffPbYq/aAMdTLrekF9FDflA8R0zynvovdy6jvTd94AzdiCDIX3+0Aj1
+         nei79Vd6st3S1DULfr4GzMTI5kUOMt3DJaVTpV10VBF7iPpCT8Xp4pKukKO80+zs73zH
+         VHocThow9yOBBCV6vOZGhLjpzml0V0qV4V/JJnu2ltZkkPYVVgAU3fEOd4ZpSCT91U5W
+         z0eWQERO8nEF1rERvsqOTDqnVsM7+Mhku+yajDzAhYLpcxyX5c226LLlpl4oBw7tqZfD
+         2KsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788639221; x=1789244021;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AYLQLVPrMZqzYFFCaoEPigRERkkXFvdO1k2M4yUI9oI=;
+        b=GYEKFrm0MuHmEzp45FUI++ycLZAiaJdthzx2cMV01X2ZXaJzgsa0rq+I0Z3Bn2zG5j
+         1jh2kweAy8+abcMkLBaKndb5oxce1NwbG4l3FCLaZhEj43QSDUxNbHCeHR5iH5+GMeK1
+         /W3ZnZ5kL1y0J0jarfHBoKNoBMxk5fyBS6dsiPRVd3xS6o9em28b+j+Y90jwN6K1J3Is
+         B9jiaZOpYWd3gVEfM7mLPNkjzdkzNLo4d/sVReHsv1VUj6AFD8vm2LXRzWfLv4yBWK3F
+         445y0g2ncZvRQHWIKcNHNoT96uSr+LN6WZOsSbWWsVL/2n774r7o/NSUBjg4JadHhbz7
+         YCpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzbJvVCI4ujASfaMN+U7kyA7l2QN77/OL9AnFsWLU1LiY+RpJGD8zAqhu3300EXP5IDvsZI+V4ZI1j3vXU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mEPZBk5UtO6xZPNPlx1R3L67GIqkMH22OsUIiE81JzJbOEE3uw
+	d3eZTGID+5RzqQYO4EpR1drWuS3sMq+1YYjUp7Qb6V1ep3ITsrffp0Y=
+X-Gm-Gg: AYBFou0MyWlwKkFLZHh+Cf6Vx78CpXex8To0Y2lWSRKBrmCOY5U0FLsTRrQBspnLljK
+	l4EUF1e1QqhVk6sVCrzoz3aj28bnZI1G09yyHmH3iMM0FhHpiiiT2WxEXUDwTPVtYmfV0pcQ/4P
+	E69nTAtnsjmuvPkkTRJF1uxIGtETZ24eYqKaFsJinzyIJD54IFGkqr6Z+oL8Hus1SEU+rc1fJNE
+	zdZZwYJtmSJzNy81tzybdIe2kJuahjLr+SKdZYTAnxtxNcM3cZOGVtwPiIhkvFEpeFbsiw7xYfz
+	tDnBuqBhGh38362ahk2LcpB+kXUU7TTgPTj0n49TSn610HzEq5vWUoitnqPgVqJxixCXwvOfX0i
+	mGSroCJJ5MBtjbsYlHQW0d7dueuYgj39dXtFtYlMMvZ1vPFzxAjEHF11w7qPkoIT4q6fQekCkLA
+	/4CO+8FV5H1EDCKn5qrJX6Op+u6XEdbeSJNHu6dQIDROrtITqyRVKev0j0gVAewoyl2oYPdQQME
+	XQZO0pDvdSrWtZjVXGuF4bAiBX7k43/lOCuKr83
+X-Received: by 2002:a05:600c:4684:b0:49c:fc6c:be14 with SMTP id 5b1f17b1804b1-49cfc6cc10bmr112637755e9.26.1788639221125;
+        Sat, 05 Sep 2026 13:13:41 -0700 (PDT)
+Received: from [192.168.1.3] (p5b2acda4.dip0.t-ipconnect.de. [91.42.205.164])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee6023edsm253975395e9.7.2026.09.05.13.13.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 05 Sep 2026 13:13:40 -0700 (PDT)
+Message-ID: <6b05880f-daa4-468c-bf98-389111b2646c@googlemail.com>
+Date: Sat, 5 Sep 2026 22:13:40 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.18 000/551] 6.18.50-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260905115635.269562615@linuxfoundation.org>
+Content-Language: de-DE
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20260905115635.269562615@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2 Sep 2026 19:37:12 +0300 Tariq Toukan wrote:
-> Hi,
-> 
-> This series by Shay fixes four bugs in the Socket Direct LAG and devcom
-> subsystems, all related to initialization/teardown ordering and
-> concurrent access to the LAG device.
+Am 05.09.2026 um 13:58 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.18.50 release.
+> There are 551 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-Patchwork seems right, this doesn't apply.
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
 
-Failed to apply patch:
-Applying: net/mlx5: SD, serialize SD LAG init/cleanup against LAG mode changes
-error: git diff header lacks filename information when removing 1 leading pathname component at .git/rebase-apply/patch:10
-error: could not build fake ancestor
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
-The format of the pre-replies seems to break git am?
+
+Beste Grüße,
+Peter Schneider
+
+-- 
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
+
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
