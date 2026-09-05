@@ -1,157 +1,153 @@
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D3822472AF;
-	Sat,  5 Sep 2026 03:08:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5508C339362
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 03:10:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788577704; cv=none; b=d3uRokIbyhXiwuWfyaMOjJH2GcHHdENufdvPhYdxXhrvOd1VVj7nbZgD8OrAjEhbqO8Nl5MZhXm+Angw8o901RnV/L+x0BpV/r7zvIz38A0TN5+F68g16FXCk1dQGRgQ1ffWEtIykmx9YspWCbRr+4Vv8XGD5f8ITurID5I5d4A=
+	t=1788577852; cv=none; b=gkydbsnu9HD2CnvYQD/bNjlQiJE4OEYNaxVW+puOHjNRYWmW3SOzr7+Ez9y7ON/XRO0PwuRzEtgLfGLBMfwB+z1rgPsikVf2yLOBoWKRZj5TtcC/gTr0t9GsFA3czlgSpI01xMU8Yg54YrwEhpaYyRPOzIT8O8h7L6LsVEKL/Gg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788577704; c=relaxed/simple;
-	bh=aAn6XXVpZxkC4xYEu2hExGNPc3HYP0pNew+8EKplVpE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=L9dgpaVI4aitVXT9N5EEvhwtV6ylBdlsBuxz2YfntlHG5LxS3WiVj2yL6bz2GPJMGQ22j2L34p5RkNJ+JfH+bmzJ/Ri1ZO4N/XUemRoI9fjzuO2yab1XgpoW35L2mYsdWbyJQLolqQpzkLdtat5B42t1rjBgBvgKxo0TWn+7MHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=6XxG4jvV; arc=none smtp.client-ip=113.46.200.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1788577852; c=relaxed/simple;
+	bh=vdgR4utXbS4WIf13bFEUhjcSZ8JVbzQkU2HH3yVaBDc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cM4EzvInsMW92+6Le7XkGcdC5zSlkYfH54S9N8/F6IkFQn9uAid1CG3X62Qf2+n7thJte1mb9suY/HlMIs9uth7b5fYyETT8+o2nbBLuoaf/ltGf2RHKd4LkswTt/rIabShJWhrnaLgypxozF25CQm03k9G5dm57fl0U0v3s9pA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BNiGHmGM; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="6XxG4jvV"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=Rau380fv/C3PIMO8upUmN2ndspPXutqa2G+T2w4vG2g=;
-	b=6XxG4jvVSS2yP6Twqz++PqKHMDiJ+xiJaTnRUXE78I1KRddCIO/l3t/PVROSi3vqBhDcqvNBg
-	VH80GddnFqp8jbISNmo1hRfzgljAx81PxpoS6zKcY9grHjWlBZvaEeeXrhQwRmKAsbXe389JuT9
-	gCkFoSX+kvTN1iDo/uk6uI0=
-Received: from mail.maildlp.com (unknown [172.19.163.214])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4hcJ0B121DzLlXB;
-	Sat,  5 Sep 2026 10:57:14 +0800 (CST)
-Received: from kwepemf100007.china.huawei.com (unknown [7.202.181.221])
-	by mail.maildlp.com (Postfix) with ESMTPS id CE5C74056C;
-	Sat,  5 Sep 2026 11:08:05 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemf100007.china.huawei.com
- (7.202.181.221) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sat, 5 Sep
- 2026 11:08:04 +0800
-Message-ID: <3e7fb313-021a-49d0-9def-fd9f03e3c2bb@huawei.com>
-Date: Sat, 5 Sep 2026 11:08:04 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BNiGHmGM"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-381b831d535so2530230a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 20:10:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788577850; x=1789182650; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TEDx0u/j8mK8gsN+sx6zWxRhPUDYmCXQuIOCg9q59xM=;
+        b=BNiGHmGMgS4UTQ15VvXctH8jPmdLLyzN+SGC2jcf2cETxWfBtAXBBqBGawgUgc2plZ
+         2RNfKTobzPCyzl3oj5wX2G4SuPm2hF3f7dkpjOxRBPJMIImLijcJyH7DyR8+qZCLHYJg
+         2MIImv8SEfY5yNNs9Rh+lolrlDgoamNcQ5jPzip6cdPSbT0uBRzQNeumbA5v+9TqiVDO
+         ykuV3FnLXwtxpGY3euroQiRZ/16O4Cr1PbqLvvTu/BAo4dZDDjcgqxKlK6KfenG/qsgQ
+         hX9ySYTVqcmy5uE4dMfVhTtVtlnQFDYszFimpYcH8WCRftFqLyzcdvRSH9uqw8I/Zxiw
+         Qjjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788577850; x=1789182650;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TEDx0u/j8mK8gsN+sx6zWxRhPUDYmCXQuIOCg9q59xM=;
+        b=ZJzW5hZAtpr2vz/udW5PdO7PVdwXzOE6ATHZ75r/IehhLa7HnnbntZsnQS9JyBzMHP
+         Y25oS5yQE+2FDyIDigRNnkONkVbZiRBBAENTpGnT9VLnK1oXSsAtFQEHH4NxxZBXwSaQ
+         Q+OIGrR2oDc/Ymp69mehPo87DBh9Hstjp7UMFEE5vE+N2yGTK/9K+yYq1Ntp1lEmEEBX
+         Ube2BNZvLEG93K2xV3DepgXowoxDgHnuLRrGsArcV0im7IVjldlx+Q7uL9Ah5GCFKHzE
+         bPftEyyDUJVQ5NfG0KKRXbxQTnWc+BfGNCvfjGbbjJuYJVXMQvFfPneA9sSy9YSnnzX2
+         xG0w==
+X-Forwarded-Encrypted: i=1; AKwUvBzSixuo/KlSH/QfObqtWYuFVNYjuYfQeyM/BAemnRy1x7PrhR+zWVIRiSJMfsMiHh0FAEd5WTrKTJDF0EI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nvSsh4sofYpZ54K9mNqWRQTCaI+GF4uJql/oiZinuYJicNd+df
+	bR2YsYIfukhWdrFPHfZAgIbf8rGkuMuL0oBgv5I4pbVtOf5gm7hK2Umz
+X-Gm-Gg: AYBFou2qd/XZeA44QZ4RND4VZNXOaeyBsV8ZiYMfjg+5e69+gd0lrlbiyfzRdSaNR/y
+	rYHr5x4hjRCad/QdcDPANqki5TFTTCA0RcsdM61TaZmsDkuUqzUNReV4fJokBDoTdZSze/2gVgn
+	pyqEXzbmcONrbiLSm6wggEQ6yOx0S3sel87zvA/YwefHWpDozpkVpZFOSShhJDnHR6/53npkD4x
+	h9NbCHtwrryzAMhFDvHSFO+XbBfckCgUgRmGm8md7eLIUh7Ft3j0CnMt/lRKSl1qNNsKxjh3qj5
+	4BXFo5OFG0RAM/BawIUiPosIiJdFh4Rm10TTDSROjDLLJO9Yc3EeU8GuUNDXxUcLoUiiGQhR87l
+	cLyXZrNDqtiH8F4lRM6xbjU6HiPGBedIv2HAavVcdNcThblemrHxrpBu/jfenCta/jBbqFZhNE8
+	G7XaIU+ZodadtNq0WNfi11Zspb/xdQAxF854jApXCrxk38WMdPZQau4bTfht3ZIZ4ELqI3hf+bZ
+	Hh7Cs+XHe5hcoaw8ywAw+4EMZqQB8AWIVl7vkCUCDZcN+JvyYJ7TrGmKB3k4RKhoRdS6G6EsvKn
+	gg1nY6bzBpLj2836QQk18ONO
+X-Received: by 2002:a17:90a:da8f:b0:398:9be5:b41e with SMTP id 98e67ed59e1d1-39b26299957mr14761317a91.25.1788577850435;
+        Fri, 04 Sep 2026 20:10:50 -0700 (PDT)
+Received: from rikka.tailabced6.ts.net ([240b:10:ff82:b100:8ce2:c181:4224:d11d])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08bcc090sm13566328a91.4.2026.09.04.20.10.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 20:10:49 -0700 (PDT)
+From: wakasio <scarabeeta@gmail.com>
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: Mathias Nyman <mathias.nyman@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: xhci_hcd / ASMedia ASM4242: Bulk-OUT -EPROTO with Logitec 0789:0308 during DVD+RW recording
+Date: Sat,  5 Sep 2026 12:10:11 +0900
+Message-ID: <20260905031011.954183-1-scarabeeta@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260904203024.52398f1f.michal.pecio@gmail.com>
+References: <20260904203024.52398f1f.michal.pecio@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf v2] bpf, riscv: Make arena support depend on ZACAS
-Content-Language: en-US
-To: Chen Pei <cp0613@linux.alibaba.com>, <ast@kernel.org>,
-	<daniel@iogearbox.net>, <andrii@kernel.org>, <memxor@gmail.com>,
-	<bjorn@kernel.org>, <puranjay@kernel.org>
-CC: <ihor.solodrai@linux.dev>, <eddyz87@gmail.com>, <martin.lau@linux.dev>,
-	<song@kernel.org>, <yonghong.song@linux.dev>, <jolsa@kernel.org>,
-	<emil@etsalapatis.com>, <pjw@kernel.org>, <palmer@dabbelt.com>,
-	<guoren@kernel.org>, <bpf@vger.kernel.org>,
-	<linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-References: <20260902061451.1416-1-cp0613@linux.alibaba.com>
-From: Pu Lehui <pulehui@huawei.com>
-In-Reply-To: <20260902061451.1416-1-cp0613@linux.alibaba.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemf100007.china.huawei.com (7.202.181.221)
+Content-Transfer-Encoding: 8bit
 
-Hi Pei,
+Hi Michal,
 
-On 2026/9/2 14:14, Chen Pei wrote:
-> The arena range tree allocates its nodes with kmalloc_nolock() since
-> commit f8c67d8550ee ("bpf: Use kmalloc_nolock() in range tree").
-> kmalloc_nolock() requires slab caches with cmpxchg128 support
-> (__CMPXCHG_DOUBLE); on riscv cmpxchg128 is provided by the ZACAS
-> extension. On systems without ZACAS every arena map creation fails
+Thanks for the reply, and sorry about the line wrapping. (I did use an
+LLM to help translate my report). I'm not a native English speaker, so
+please do tell me if anything I write is unclear.
 
-This limitation has a significant impact, as much of the hardware on the 
-market lacks ZACAS support given that it is not mandatory in RVA23.
+On the cable suggestion: I should clarify that cable/adapter/connector
+orientation substitution was already tested quite extensively before
+I sent the report (see the "Controlled-variable test matrix" section,
+tests 6-14), the original suspect cable turned out to be fine on
+every other controller/port, and a completely different known-good
+cable+adapter still fails on this specific ASM4242 port. So at this
+point I'm fairly confident it isn't the cable itself, though I can't
+rule out something specific to the SuperSpeed lanes on this particular
+ASM4242 port's physical connector.
 
-> with a misleading -ENOMEM.
-> 
-> Report the missing support instead: make bpf_jit_supports_arena()
-> return system_has_cmpxchg128() where it is defined, so arena map
+I ran the dynamic debug you suggested and reproduced the failure while
+it was active. Result:
 
-Originally, I thought rv_ext_enabled(ZACAS) && 
-IS_ENABLED(CONFIG_TOOLCHAIN_HAS_ZACAS) would make it more explicit, but 
-system_has_cmpxchg128() seems to better capture what we were missing.
+There were two separate clusters, and they look qualitatively
+different:
 
+Cluster 1, right at the very start of the cdrecord invocation
+(before any error is visible to userspace), ~45 seconds before the
+actual failure:
 
-Acked-by: Pu Lehui <pulehui@huawei.com>
+  Stalled endpoint for slot 1 ep 2
+  Hard-reset ep 2, slot 1
 
-> creation fails with -EOPNOTSUPP on systems without ZACAS. The macro
-> is only defined when both CONFIG_RISCV_ISA_ZACAS and
-> CONFIG_TOOLCHAIN_HAS_ZACAS are enabled, so guard it with #ifdef the
-> same way mm/slab.h consumes it, and reject arena otherwise. This
-> matches how arena BPF_CMPXCHG instructions are already gated on ZACAS
-> in bpf_jit_supports_insn().
-> 
-> Fixes: f8c67d8550ee ("bpf: Use kmalloc_nolock() in range tree")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
-> ---
-> Changes since v1:
-> - Guard system_has_cmpxchg128() with #ifdef instead of calling it
->    unconditionally: the macro is only defined when both
->    CONFIG_RISCV_ISA_ZACAS and CONFIG_TOOLCHAIN_HAS_ZACAS are enabled
->    (as reported by sashiko-bot), so v1 broke the build when either
->    was disabled. This mirrors how mm/slab.h consumes the macro.
-> 
-> Why #ifdef rather than rv_ext_enabled(ZACAS)? The predicates differ
-> exactly in the configurations that matter:
-> 
->    scenario (ISA_ZACAS/TOOLCHAIN/hw)  v1           rv_ext_enabled  #ifdef
->    ISA=n or TOOLCHAIN=n               build fails  rejects         rejects
->    ISA=y TOOLCHAIN=n hw has ZACAS     build fails  accepts, then   rejects
->                                                    -ENOMEM again
->    ISA=y TOOLCHAIN=y hw has ZACAS     exact        exact           exact
-> 
-> rv_ext_enabled(ZACAS) does not check CONFIG_TOOLCHAIN_HAS_ZACAS, but
-> slab's cmpxchg128 - and thus kmalloc_nolock() - does require it, so
-> on an old toolchain with ZACAS hardware it would accept arena maps
-> and bring back the very -ENOMEM failure this patch fixes. The #ifdef
-> form builds in every configuration and matches exactly the
-> kmalloc_nolock() availability gate in mm/slab.h.
-> 
-> This issue was reported by sashiko-bot:
-> https://sashiko.dev/#/patchset/20260901120013.16104-1-cp0613@linux.alibaba.com?part=1
-> 
-> Question for reviewers: should the arena selftests gate on ZACAS,
-> e.g. probing it via riscv_hwprobe() (RISCV_ISA_EXT_ZACAS) and
-> SKIPping cleanly on systems without the extension?
+repeated 4 times back to back, all within about 1 second. I suspect
+this is benign startup housekeeping (drive power calibration / initial
+TEST UNIT READY polling by cdrecord) rather than part of the actual
+failure mechanism, since a STALL condition is a normal completion code
+that requires a Reset Endpoint per spec anyway. Let me know if you
+think this is worth digging into further.
 
-riscv isn't currently integrated into the BPF CI, and handling this 
-locally via qemu is fairly straightforward, so I'm not entirely sure 
-this is strictly necessary.
+Cluster 2, at the exact moment cdrecord reported the write error
+(matches the timestamp of "write track data: error after 103088128
+bytes" in cdrecord's own log):
 
-> 
->   arch/riscv/net/bpf_jit_comp64.c | 10 +++++++++-
->   1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/riscv/net/bpf_jit_comp64.c b/arch/riscv/net/bpf_jit_comp64.c
-> index 74efe4b138d2..151031e97a24 100644
-> --- a/arch/riscv/net/bpf_jit_comp64.c
-> +++ b/arch/riscv/net/bpf_jit_comp64.c
-> @@ -2128,7 +2128,15 @@ bool bpf_jit_supports_ptr_xchg(void)
->   
->   bool bpf_jit_supports_arena(void)
->   {
-> -	return true;
-> +	/*
-> +	 * The arena range tree uses kmalloc_nolock(), which needs
-> +	 * cmpxchg128, provided by ZACAS on riscv.
-> +	 */
-> +#ifdef system_has_cmpxchg128
-> +	return system_has_cmpxchg128();
-> +#else
-> +	return false;
-> +#endif
->   }
->   
->   bool bpf_jit_supports_insn(struct bpf_insn *insn, bool in_arena)
+  Transfer error for slot 1 ep 3 on endpoint
+  Soft-reset ep 3, slot 1
+  Transfer error for slot 1 ep 3 on endpoint
+  Soft-reset ep 3, slot 1
+  Transfer error for slot 1 ep 3 on endpoint
+  Soft-reset ep 3, slot 1
+  Transfer error for slot 1 ep 3 on endpoint
+  Soft-reset ep 3, slot 1
+  Transfer error for slot 1 ep 3 on endpoint
+  Hard-reset ep 3, slot 1
+  usb 6-1: reset SuperSpeed USB device number 2 using xhci_hcd
+  xhci_hcd 0000:77:00.0: Stopped on No-op or Link TRB for slot 1 ep 2
+
+So to answer your question directly: it is not constant background
+noise throughout the write. It's a single, tight burst of 5 "Transfer
+error" events on the same endpoint within about one second. The first
+4 were recovered with a soft-reset and the write continued; the 5th
+one failed to recover with a soft-reset and escalated to a hard-reset,
+which is what triggers the port-level reset that ultimately kills the
+transfer (matches the -EPROTO / resid=23552 I described in the
+original usbmon capture, that URB is the one hitting this 5th
+error).
+
+If it's useful I can capture the full raw dynamic debug log (this was
+just the relevant grep) and/or a fresh usbmon capture with this
+tracing enabled at the same time, so you can correlate the URB-level
+and TRB-level views of the exact same failure. Just let me know what
+would help.
+
+Thanks,
+wakasio
