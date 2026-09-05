@@ -1,188 +1,132 @@
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
+Received: from mta0.migadu.com (out-96.mta0.migadu.com [91.218.175.96])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04A324A3D25
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 12:57:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7591382397
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 12:57:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.96
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788613051; cv=none; b=XYvBywQ0+vBg9ErLejT3sVVA6IymaFE7bZtGCEE21MJuPAN6oStrgXKM8DDO6lrj5G5Tu4ztVhGY5XnevHbafw/OEv9y1mVc+heqIev+/4yhPARcsTKk7XsG/8uNWGZPpUAyu/wfe+l5wUAnvukqO0dIx3bQEInS0WTsw7D9u5c=
+	t=1788613078; cv=none; b=OYkSXplEY6eN78Hyv03igL+Hdfzf6Pqx/dMhcyZX7gRq+ae8vkaM8swi4FrI3DM2O6PY849LvmIo/46x5mHKszZ6Yk7NnncTyLUaFuHFUYcOsbe9JHRn1qcsb2cjvJkECuiarIRP95WwPlTR/tqukl3adg383R8kLTgOrGpDNIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788613051; c=relaxed/simple;
-	bh=0GbiNyL6PaCeFSnzxifaG0jpg42+buGimYKFRJQqiJM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TCUm6sznyw6IIAOruLHvwS/rcdoT+VX0rk+3UFa2sogoT/hpb86xSmb3knPr4THp0nWeR7kDmi/dSmKfyeuPtYNpA4R3Bd2U3zbzNLWmy1+04OfSLtBgxQ1ZiTnRChr/yLZTz+siU/fIVb0G+MPjKb7sM41RpDUoTOxn5VMJVGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n3oLJKZa; arc=none smtp.client-ip=209.85.221.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788613078; c=relaxed/simple;
+	bh=6PIvpKWK+Ee59Xh6tlvDfoJ4/XkFQFEdfgzS5msTKzA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WhNSfY1Tin7/+wtKnvHfRr0Qkbm2/UY0zGhCSdDO1TsKdxoKxGrG0VI+MMvUBFSMqIW0fMqyiPvQRV9TgfRzkPSz48faQL6HHAJV+PhwYqwqUHaE200x3I3y4R5cqtoRLAji/WztCUHz15iEh1p4VGasTc75pVx3HEFVhCMh4Ls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=i5NENDXr; arc=none smtp.client-ip=91.218.175.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n3oLJKZa"
-Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5c79c9f7b54so997189e0c.3
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 05:57:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788613048; x=1789217848; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iiwxf8iLXv/0xdcKcz3UiNeEjss20ShbniaWoqOFMcg=;
-        b=n3oLJKZaNXmFW6Yf2Cypg3MGiS2SsM328KySSP0gUAGCFp8qiyietkXsCCfYTj1hOA
-         EuqFdMK1nntLl/8Kpeyzr5QV5Ov6Cncq1Jyn7k+GrVl6X/bDACbqr17tHfwTSFYD3he0
-         WqggruOPZ4xYJz0wdut63nVeCvOlzi+QRkx+SXOe2hSt9KDiJIRrVf/HGhUkS65V2T8m
-         JiSiflHBiD6AYGZCODOljRLwUQh+UpZxemZnWobR4F/os790afQhlalP97TsP0V68UWd
-         /GmvwHP6Fw0Y9J32X6bX7XTfTVBWsebp/ISCrC0Q952ETaP0GpN018G6JgXLIMrAakQX
-         tbhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788613048; x=1789217848;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iiwxf8iLXv/0xdcKcz3UiNeEjss20ShbniaWoqOFMcg=;
-        b=F+c1LERZdeQZbkSBhd5cd2WOv1AoutcghLcU7WtlxKHbzpxg5nlueOD0lf4yqbyxLC
-         WYnyQaB7BYtE4aN/vDymqma9rZ4TALyElulo2sPBSjFYywC9tyAS9Sq6/Qi6Y4egx0to
-         eed/yf3iqxwHRmhxuPUjBFW7lJ7bNsEGuL8uvXFWXehW8HB2Dsg+LxwdyDZy9YoCpDO/
-         qaCnCwY3aaDgZ0ajItvVbmGWCxJElfAnymCEp3veJ4UwUvk0ycCuKZ1xN45hiHBoLLSK
-         LKckEYtT/ixhWfXNwEHqOxHwa4r2XgKVgmg43lzhi/onszq2EdYrviLg4I+f7w4LKEMC
-         d1LA==
-X-Forwarded-Encrypted: i=1; AKwUvBySNByUc4XiyqS0N8+EW922H+UneM6zPmyFlLsEV2mxc+E1J+5NHwUSMhFABqUma+MR+QTEk4dPKhRfmeo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mYWLTU/Zxib3oGWsqevQ1JySVwyfe4ca6+v8SDFoJWsU0OBQdZ
-	lHcLY72o/znMAZMwQyG/Ss0JP0l55SFS0b5p1OjxitoVPqxDl9/08Gq8
-X-Gm-Gg: AYBFou3wUUeRPszGJXM7+w+Dm+GlGyi6kzXWXPgLI3xgzcVvKCZEOTOdIwL1/Q7Rkdz
-	ZJcFdBVlyLcnK8dLT+KPzno9gTDCEl1adsHOiqwbZ8AELMn/OFtqcWpyVIqIPlqiXGsn2VI1ydc
-	HrmPHh27AlRnY44zeqe+goryp5gmpCiOg0r+zPnCwyc7BzeAC9KMBxIzwmVuI9eW/jJRp28eHVp
-	N0/EG6WB1VnTENI9PRGYF+BLDXks/SH7tJzvt141gDbf9URdi++y6jF99EKoJAU3MAEJXVTIV7u
-	ULHM3uAEcar/f1zm1V9uv0x3jdv1mycnuApbUKigvDr+TOr6CTcZ4P1MK+sRNJ1vN9ryLTnDFkD
-	sOvnn4aoavu7KjRlofFvB/rkg9kjXtYpPD0Hz1yzPFZQR3GyDfqcvKwnXC6GPKNh9nmq6U7/irF
-	MTza3JrMhz6CvAFedQFr8jl1Yv8xjBUeFVgJBmOlhbKdRnSDQaMVOVe1b0u2/SRlikaD+ZDsuJx
-	vfSVS6exDC68UgSHimXCdbp3Syu5Wm75TmmW2T+Op4=
-X-Received: by 2002:a05:6122:1d47:b0:5c4:1f03:a1fe with SMTP id 71dfb90a1353d-5c7ed298c90mr4817731e0c.1.1788613047695;
-        Sat, 05 Sep 2026 05:57:27 -0700 (PDT)
-Received: from Biostar-A520MT.. ([187.94.13.245])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ec1ef7a5sm4349416e0c.5.2026.09.05.05.57.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 05:57:27 -0700 (PDT)
-From: Breno Rodrigues Alves <breno3011alves@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: torvalds@linux-foundation.org,
-	linux-kernel@vger.kernel.org,
-	arnd@arndb.de,
-	linux-clk@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-fbdev@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	Breno Rodrigues Alves <breno3011alves@gmail.com>
-Subject: [PATCH v8 3/3] media: dvb-core: extirpate defective and unsafe ULE debug block
-Date: Sat,  5 Sep 2026 09:57:06 -0300
-Message-ID: <20260905125706.6550-3-breno3011alves@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260905125706.6550-1-breno3011alves@gmail.com>
-References: <20260905125706.6550-1-breno3011alves@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="i5NENDXr"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=6PIvpKWK+Ee59Xh6tlvDfoJ4/XkFQFEdfgzS5msTKzA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788613073; v=1; x=1789217873;
+ b=i5NENDXr/ZrDyO6VqLA7b42fpX/hQMJoCXqfg2fMu/9kq8uwIM622WgEYZncHFu0MA5ZQd7U
+ ccGN5+c0VlelVwcmxIGdFnWlW43wem2tkhULMgNXt1oAa5qAHgYySkkzFoWZ8DEtZaLbAe41Rd8
+ v6XX7en4NTzvr+7zaRvKNJGM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id fc90dd21752b853b;
+	Sat, 05 Sep 2026 12:57:43 +0000
+X-Mizu-Trace-ID: fc90dd21752b853b
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <568a4f04-e0db-342a-13a8-886cf6b2a8ab@linux.dev>
+Date: Sat, 5 Sep 2026 08:57:42 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] dma-mapping: don't trace the DMA address when the
+ allocation fails
+Content-Language: en-US
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Robin Murphy <robin.murphy@arm.com>, Steven Rostedt
+ <rostedt@goodmis.org>, iommu@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260905071919.30784-1-donggeunyoo.kernel@gmail.com>
+From: Sean Anderson <sean.anderson@linux.dev>
+In-Reply-To: <20260905071919.30784-1-donggeunyoo.kernel@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Completely purge the unmaintained DVB_ULE_DEBUG code block from
-dvb_net.c and its Kconfig definition to eliminate severe lockless race
-conditions and clean up unused function parameters.
+On 9/5/26 03:19, Donggeun Yoo wrote:
+> dma_alloc_attrs() passes *dma_handle to trace_dma_alloc() and
+> debug_dma_alloc_coherent() without checking whether the allocation
+> succeeded.
 
-Assisted-by: OpenCode AI
-Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
----
- drivers/media/dvb-core/Kconfig   | 11 ---------
- drivers/media/dvb-core/dvb_net.c | 40 --------------------------------
- 2 files changed, 51 deletions(-)
+I don't understand what you mean. We are literally in an if-statement
+that checks whether the allocation succeeded.
 
-diff --git a/drivers/media/dvb-core/Kconfig b/drivers/media/dvb-core/Kconfig
-index 8b3f2d53c..c6a97add8 100644
---- a/drivers/media/dvb-core/Kconfig
-+++ b/drivers/media/dvb-core/Kconfig
-@@ -67,14 +67,3 @@ config DVB_DEMUX_SECTION_LOSS_LOG
- 
- 	  If you are unsure about this, say N here.
- 
--config DVB_ULE_DEBUG
--	bool "Enable DVB net ULE packet debug messages"
--	depends on DVB_CORE
--	help
--	  Enable extra log messages meant to detect problems while
--	  handling DVB network ULE packet loss inside the Kernel.
--
--	  Should not be enabled on normal cases, as logs can
--	  be very verbose.
--
--	  If you are unsure about this, say N here.
-diff --git a/drivers/media/dvb-core/dvb_net.c b/drivers/media/dvb-core/dvb_net.c
-index a2159b2bc..ae0073b94 100644
---- a/drivers/media/dvb-core/dvb_net.c
-+++ b/drivers/media/dvb-core/dvb_net.c
-@@ -68,19 +68,6 @@ static inline __u32 iov_crc32( __u32 c, struct kvec *iov, unsigned int cnt )
- 
- #define DVB_NET_MULTICAST_MAX 10
- 
--#ifdef DVB_ULE_DEBUG
--/*
-- * The code inside DVB_ULE_DEBUG keeps a history of the
-- * last 100 TS cells processed.
-- */
--static unsigned char ule_hist[100*TS_SZ] = { 0 };
--static unsigned char *ule_where = ule_hist, ule_dump;
--
--static void hexdump(const unsigned char *buf, unsigned short len)
--{
--	print_hex_dump_debug("", DUMP_PREFIX_OFFSET, 16, 1, buf, len, true);
--}
--#endif
- 
- struct dvb_net_priv {
- 	int in_use;
-@@ -320,16 +307,6 @@ static int dvb_net_ule_new_ts_cell(struct dvb_net_ule_handle *h)
- {
- 	/* We are about to process a new TS cell. */
- 
--#ifdef DVB_ULE_DEBUG
--	if (ule_where >= &ule_hist[100*TS_SZ])
--		ule_where = ule_hist;
--	memcpy(ule_where, h->ts, TS_SZ);
--	if (ule_dump) {
--		hexdump(ule_where, TS_SZ);
--		ule_dump = 0;
--	}
--	ule_where += TS_SZ;
--#endif
- 
- 	/*
- 	 * Check TS h->error conditions: sync_byte, transport_error_indicator,
-@@ -659,23 +636,6 @@ static void dvb_net_ule_check_crc(struct dvb_net_ule_handle *h,
- 			h->ts_remain > 2 ?
- 				*(unsigned short *)h->from_where : 0);
- 
--	#ifdef DVB_ULE_DEBUG
--		hexdump(iov[0].iov_base, iov[0].iov_len);
--		hexdump(iov[1].iov_base, iov[1].iov_len);
--		hexdump(iov[2].iov_base, iov[2].iov_len);
--
--		if (ule_where == ule_hist) {
--			hexdump(&ule_hist[98*TS_SZ], TS_SZ);
--			hexdump(&ule_hist[99*TS_SZ], TS_SZ);
--		} else if (ule_where == &ule_hist[TS_SZ]) {
--			hexdump(&ule_hist[99*TS_SZ], TS_SZ);
--			hexdump(ule_hist, TS_SZ);
--		} else {
--			hexdump(ule_where - TS_SZ - TS_SZ, TS_SZ);
--			hexdump(ule_where - TS_SZ, TS_SZ);
--		}
--		ule_dump = 1;
--	#endif
- 
- 		h->dev->stats.rx_errors++;
- 		h->dev->stats.rx_crc_errors++;
--- 
-2.43.0
+--Sean
+
+> No backend writes it on failure: dma_direct_alloc(),
+> iommu_dma_alloc() and the dma_map_ops instances assign it only on the
+> path that returns a buffer. Callers usually pass an uninitialized
+> automatic variable, so with the tracepoint enabled a failed allocation
+> records whatever the stack held, next to the virt_addr=(null) that marks
+> the record as an error.
+> 
+> The device coherent pool path is the same: a non-zero return from
+> dma_alloc_from_dev_coherent() means the request was handled, not that it
+> succeeded, so cpu_addr is NULL and dma_handle untouched once the pool
+> runs out.
+> 
+> Split both sites on cpu_addr, as dma_alloc_pages() and
+> dma_alloc_noncontiguous() do further down the file, and pass 0 for the
+> failure case like the two error paths already in this function.
+> 
+> Fixes: 038eb433dc14 ("dma-mapping: add tracing for dma-mapping API calls")
+> Fixes: 68b6dbf1f441 ("dma-mapping: trace more error paths")
+> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+> ---
+> Compile-tested only, with CONFIG_DMA_API_DEBUG=y and CONFIG_TRACEPOINTS=y
+> so that both changed calls are built. The claim that no backend writes
+> *dma_handle on failure was checked against dma_direct_alloc() and its
+> helpers, iommu_dma_alloc(), iommu_dma_alloc_remap() and every in-tree
+> dma_map_ops .alloc implementation.
+> 
+>   kernel/dma/mapping.c | 20 +++++++++++++++-----
+>   1 file changed, 15 insertions(+), 5 deletions(-)
+> 
+> diff --git a/kernel/dma/mapping.c b/kernel/dma/mapping.c
+> index bf2651a70b7c..098cd57e1157 100644
+> --- a/kernel/dma/mapping.c
+> +++ b/kernel/dma/mapping.c
+> @@ -656,8 +656,12 @@ void *dma_alloc_attrs(struct device *dev, size_t size, dma_addr_t *dma_handle,
+>   		attrs |= __DMA_ATTR_ALLOC_CC_SHARED;
+>   
+>   	if (dma_alloc_from_dev_coherent(dev, size, dma_handle, &cpu_addr)) {
+> -		trace_dma_alloc(dev, cpu_addr, *dma_handle, size,
+> -				DMA_BIDIRECTIONAL, flag, attrs);
+> +		if (cpu_addr)
+> +			trace_dma_alloc(dev, cpu_addr, *dma_handle, size,
+> +					DMA_BIDIRECTIONAL, flag, attrs);
+> +		else
+> +			trace_dma_alloc(dev, NULL, 0, size, DMA_BIDIRECTIONAL,
+> +					flag, attrs);
+>   		return cpu_addr;
+>   	}
+>   
+> @@ -676,9 +680,15 @@ void *dma_alloc_attrs(struct device *dev, size_t size, dma_addr_t *dma_handle,
+>   		return NULL;
+>   	}
+>   
+> -	trace_dma_alloc(dev, cpu_addr, *dma_handle, size, DMA_BIDIRECTIONAL,
+> -			flag, attrs);
+> -	debug_dma_alloc_coherent(dev, size, *dma_handle, cpu_addr, attrs);
+> +	if (cpu_addr) {
+> +		trace_dma_alloc(dev, cpu_addr, *dma_handle, size,
+> +				DMA_BIDIRECTIONAL, flag, attrs);
+> +		debug_dma_alloc_coherent(dev, size, *dma_handle, cpu_addr,
+> +					 attrs);
+> +	} else {
+> +		trace_dma_alloc(dev, NULL, 0, size, DMA_BIDIRECTIONAL, flag,
+> +				attrs);
+> +	}
+>   	return cpu_addr;
+>   }
+>   EXPORT_SYMBOL(dma_alloc_attrs);
 
