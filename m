@@ -1,95 +1,127 @@
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5545372ECD
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 09:37:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFE62388878
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 09:37:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788601053; cv=none; b=pP2YINcCCTMD4kGErCPLiZ2E3tP3/oho+sCIDFbaXxgVI0F16oqw43mIP7zAWZMQamoRdJcrW4PLFmIIGc9A2xzFroOJVueDnHNEP8zitPptlQvY5YgMaF3D+OJrWbXDohQPMvVvXApHKx8CN4Quu+S1Cze4bG3w16jvFnyNIIo=
+	t=1788601055; cv=none; b=GlZFPxTj7bXVvZYD7qbtTQDhvAQb2MyA7Ti7A0Mnvx3cJ1NK0qQLJ/hUaWBjJtcGN4pz/TcSSMfK4zOaufj2rDcO+rRIg1PpUKxJXWBtZXOp18zqN3+Pi44cqX5ASNtRRnigWdkrRSlvGZ01c5rrUL7gYQ9wB6fX9BXfivABbjw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788601053; c=relaxed/simple;
-	bh=ezr4BNZLWb6MT7EgMXHLkLvSrE/gd0KLEILyGK6/znQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aV3UAFd5QjlBqYj2hITCAvYDe2ovLNQDXPjY/bi8trXFyfjJn5CnzLWvfSoyD1IpSF0HO9WlOa8o48OHMP+y7V54FnrFvycvbRyPkcTFHN3EE39m16HnKOSRfwOymKixauraLrxuGRZBqbEZbGfILLNFCHD47y6BN/w+aKZL5kE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hjxdkRk1; arc=none smtp.client-ip=209.85.215.178
+	s=arc-20240116; t=1788601055; c=relaxed/simple;
+	bh=Xp9ENmv/lelwk4unttBWYQyxWUh9lt3BGxEuS6wNFkA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jeq04YMjl5Bf9LTQVwxlRp/pjy03s/dJSIxqU2/avSBvi1J8RHiyKYHDrN5nNoknsELADj4EqYqkko8nFj4gXzChAIoh0Lqt5LxQ9dBLRJqHJt+llDGXPqfperPD+ZkosV8hLjMbuo5MC3kDSmV2ZKYMfGOgdoismUzvj9ZQVMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r/6pu3pz; arc=none smtp.client-ip=209.85.216.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hjxdkRk1"
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc1bcdb3c4cso1364272a12.2
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 02:37:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r/6pu3pz"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-39b35105ba4so1232730a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 02:37:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788601051; x=1789205851; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qIk+EbZ1mbotjHlbU5KOJAFSs4jlrNY2j9DG/30vshg=;
-        b=hjxdkRk1rYsDF2Z2Xz7i+HMiA6qcpVdLGu4qy3MAVYnrTuTsaqy47IvcF1HJIo2pKx
-         Qc9WRhZMRVRf7P6emHQ1FIqnb5iGq8gUCgk8pZfJWCoxkPoaqYEDzEGacs3+906zyTir
-         tglM3DUVSgrqdYRKPMEYwztinxZPcepwRwxnEOxuKPQ+SLTWxB2GC0RzKWGdxV/gln5z
-         oO1Ou6Lzem+3x0vK7i/nGiOwj07V1becodaPaomEaHd6KN74kwf7M/znWr9WkLHj+xT6
-         jvve+Of2eSu8eoWy5gd1bhbEOXMtv5QxxGGHbRqnPTHk19n9IH6pQ7D7zw1DZ2UFrHGY
-         43Ow==
+        d=gmail.com; s=20251104; t=1788601053; x=1789205853; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9qSf28+gMU1cPc/sgLS/ZHLrlXSMGyx8oSsqQzyWeBs=;
+        b=r/6pu3pzfhbiP6NDy5oXJU8bHG4PUYoqswdSgm1oCFDSY2AkCvxUDM8fjqvhmcyw/F
+         Ln3AcTdW6VAZV5O55BJi4YnNbRVyafctoo9ghvpDgknXJWpv2MuprBMYqtfM5KOOYnoH
+         vWP2PnhQ5Q0YuGwCQMbkWUt+QV5Ga4CHmzkLnGRvB0sP1JECMebyqIZea7MGR0ugoeYN
+         hgfw7D2mSBMzcQOY8Nm6MuWpHXJcMl9XqykPuwxrquYJW0a/BtL16XiGrQt/L7hclLEz
+         n/D1k0D33+PmMDss7qQ6T1usQ1l4Mrcz/b4zZjctw0bHOS3/ftJKFRYydI6xdnQHniRH
+         QuuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788601051; x=1789205851;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qIk+EbZ1mbotjHlbU5KOJAFSs4jlrNY2j9DG/30vshg=;
-        b=Yx+0UWB6hAP66FMekldk6Wn0HZ/+bdiTGDTjKhEXBM2ThYzGXngh8oy4X7U9FCMiGD
-         mdGID7lkqIZR99lO5/tx17R2JUqm5OtwioXqW0qGuwo0nbNEDYILb+kisVKl9eg0KX+C
-         7+MeD0+CAWafBmt0Kl3XN3Wnp5KrzE25zV29/PaQZIh4f6Pvw2fQ7uRL5QOR1qFv+xzd
-         rJnNbGnL3VNE0DtXRk240yMN/OlXZSMDc9c+Rk9zCxHc6GdUvIVWpM/CBi+thRXcK/WD
-         BVv0ubx6891xcg7ioQ9ocsVnV2LTbIyNRADfWkmZw1DX6ERXPuVCvYseaJX1uAwC1BhL
-         6a+w==
-X-Forwarded-Encrypted: i=1; AKwUvByL+ooV/1er+rQOzBK1J5CzFwDPqKU8kjwSPC7STfZUdX21INhzPvqHf9dV3cdRogEAAA3bWAP9ubYAEP0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mtuX1Xno6A1ZzUn84fiTScSEuAJHsXPkD8mqxbdLVQD4TP8ksR
-	XHcKL0BS2flhf25vZZiXB+5piYh2sHFTpba+3+7RzPKsfOaiWsBn7fXydm2a+CBAGvA=
-X-Gm-Gg: AYBFou2CKbl2DnK20fm000s9DRWOwlFT38yulplqm9mvufsxjYSfOWJYBDNoccO2H32
-	CuwnvRmYq7Pfe8ICN64i5ekt3n2pDgGXx4QQWzqJRdCnmf0wTNKWNzEVTNW+o3YonljinO6UMRD
-	IBT/D/lncPaASuHXQ2fe1Kd6uuFiNKRAxnFUM5/d5WyXMpTn/0KUNzB+mVikUsS8hb3Xbzc6JFr
-	YMB5Xwa2Dlbx8lK3z0t3O/EOUTyoVDKchl9+34JILhMO0dCGbz3osvuOOmnOJKHsmdEROvIk8BK
-	NEha44CceOQhAqGGZ9qIBjU9Zi5PQqMt1fB93OG1VZuIltKn/eG3xwgsIq/IW+yYQg0Or0/618W
-	yAvC0jWMBAH0RzmbyYXGWqUYeQZpP8IDbXAmjt2JSXUFM2D3UXl3ocrsCfgweZrWvH8mO3/X8UC
-	wvQhI967GwXJme4qlI48vFMD+KhO5Amzh1HOkDTrlsFakBEw5skm3sZ1Y5/l3MLU5ZBnKZ49Dpq
-	+QoQduKBt3S85GYdRW3hNZP9nhanw==
-X-Received: by 2002:a05:6a21:3397:b0:3bf:63af:855 with SMTP id adf61e73a8af0-3da39d18db4mr19264229637.1.1788601050951;
-        Sat, 05 Sep 2026 02:37:30 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:ff40:39da:76d2:2e7d])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14324356931sm18718525c88.4.2026.09.05.02.37.29
+        d=1e100.net; s=20251104; t=1788601053; x=1789205853;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9qSf28+gMU1cPc/sgLS/ZHLrlXSMGyx8oSsqQzyWeBs=;
+        b=D0sJtEHvyoxbug/qzokbjU/us8/wrWXK9bDe54Ln/0yleS+8F+xz4V7VDshQNNTtNx
+         r32+iAx4pBAqOeAyb5f1CBMpTn+Su5gbut1T4Q5JA4s5RN5AE6Jq1ReInmopT4/uj+Kc
+         85Jg6D93fswsJut9rCNEfaMreXnHwuwVyXLYvtJH1qXvEwc3BJdKiAs7k0UCVqyTrq9q
+         Dg7mZ87Zevz2i2mThlEXj/NH712ND9LvboRs15G6nRtyhlragfjDpaG9bS7stwjCgpoT
+         OO/ggsI3jDXGjTJqny9FJbhMGUVW8vFE0L2LVQJ3dqMvYsUHQrjeVpY3lGPFCx1ziwmc
+         YFwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy0uwm7B/s9p5in9esL2tk+IbUt3D2ph7W/Mi0wSlxko8A2lQ4dKxt1vLBCIgoqfLzNjDOw+Wc7afQ8zME=@vger.kernel.org
+X-Gm-Message-State: AFuF++mxcKO5bY6+9FImrfDAZR0eOruEK+38vQsA3SkoYXoas9huIp5T
+	KydB5I/SbHIBhxCeLa+4gry2KH1wxXtHyZUpyGfwyql+uNb2q4g7HWz4
+X-Gm-Gg: AYBFou170mfv8sg7DFE2aLK4ytn5T4mHbRBP5jUwOgJTGAIEohLxRMeqxNz8wKIdW3p
+	YJ7pg40pR0rjgYCnNj6xTJgl2L1GxvXYJKpoakNWQcHIntnUeWEOnEMKLSOAj+pkySuHlh/ItSl
+	XX+puuszGnULecGXgcvKwy3QrWxxHkmOonHhu9YOrTeUAWuUMEx1oEfjuoeLVz/DDj73ywgmw2M
+	ui6hm07bfTrQiSP700FMTdcIb14OmxPgRbCTxCizWzHg26+G5FMgo31suQ/QPO5q+bRmmF4WtZM
+	yiUMSt6V8CrZScFIECno/nPoGkPPsmjznbkVP0vhxNzTVhhu/Q2h8IhwrDrF5wp1sgP0KlWeF8H
+	7Y0RTGfapSh7MI94kcMdsdivBF0Up+Af+J1uMDme4OuHFNC8+d3mRojT6M9HBMdr5QAAKvyh7u7
+	ap2oDBq3yy+VYXGQI5tHwLGn3J/xCKWiQ44UEpBx7rRB9fw6LbkXhsyNkJrw==
+X-Received: by 2002:a17:90b:1a8f:b0:398:d2a0:87ff with SMTP id 98e67ed59e1d1-39b26101029mr16362724a91.1.1788601053217;
+        Sat, 05 Sep 2026 02:37:33 -0700 (PDT)
+Received: from ubuntu.. ([2405:201:8026:213e:5b5:60e7:9f67:1689])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08d086adsm15763353a91.15.2026.09.05.02.37.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 02:37:29 -0700 (PDT)
-Date: Sat, 5 Sep 2026 02:37:27 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Zhian Liang <liangzhan5dev@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] Input: tca8418_keypad -  Add devm cleanup to disable
- interrupts on unload
-Message-ID: <apvip-xz2GFH96uU@google.com>
-References: <20260903192942.21906-1-liangzhan5dev@gmail.com>
+        Sat, 05 Sep 2026 02:37:32 -0700 (PDT)
+From: mdshahid03@gmail.com
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Ray Jui <rjui@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>,
+	bcm-kernel-feedback-list@broadcom.com,
+	linux-iio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Mohammad Shahid <mdshahid03@gmail.com>
+Subject: [PATCH v3 2/6] iio: adc: bcm_iproc_adc: fix include dependencies
+Date: Sat,  5 Sep 2026 15:06:27 +0530
+Message-ID: <20260905093631.48667-3-mdshahid03@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260905093631.48667-1-mdshahid03@gmail.com>
+References: <20260905093631.48667-1-mdshahid03@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903192942.21906-1-liangzhan5dev@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Zhian,
+From: Mohammad Shahid <mdshahid03@gmail.com>
 
-On Fri, Sep 04, 2026 at 03:29:41AM +0800, Zhian Liang wrote:
-> tca8418_configure() enables TCA8418 interrupts by writing the CFG
-> register.  If input_register_device() fails afterwards, probe returns
-> an error and devres releases the IRQ handler, but the hardware is
-> left with interrupts still enabled.
+Add the headers required directly by the driver for the APIs and
+types it uses.
 
-What kind of issues does it cause?
+Remove the unused linux/io.h header now that register access is
+handled through regmap APIs.
 
-Thanks.
+Signed-off-by: Mohammad Shahid <mdshahid03@gmail.com>
+---
+ drivers/iio/adc/bcm_iproc_adc.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/iio/adc/bcm_iproc_adc.c b/drivers/iio/adc/bcm_iproc_adc.c
+index e46e3761993a..e54f613d266a 100644
+--- a/drivers/iio/adc/bcm_iproc_adc.c
++++ b/drivers/iio/adc/bcm_iproc_adc.c
+@@ -2,15 +2,18 @@
+ /*
+  * Copyright 2016 Broadcom
+  */
+-
++#include <linux/array_size.h>
++#include <linux/bits.h>
+ #include <linux/clk.h>
++#include <linux/completion.h>
+ #include <linux/delay.h>
+ #include <linux/interrupt.h>
+-#include <linux/io.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/platform_device.h>
+ #include <linux/regmap.h>
++#include <linux/types.h>
+ 
+ #include <linux/iio/iio.h>
+ 
 -- 
-Dmitry
+2.43.0
+
