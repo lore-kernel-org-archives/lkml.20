@@ -1,133 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08709392837;
-	Sat,  5 Sep 2026 12:33:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED29849EC7F
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 12:34:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788611641; cv=none; b=B9ii//ZDj0bwc/JLpoAfgsMGog6rCzwm7kb6nYL537DCeJg+a7e3JdN5MWHImR933GQ7Z1WfUuvgmMaYOcfqOaWcQ7VafpNOZNTyc/AMD5kRiTihrMRTzWMbrXJr5BRxSO3IAdQeONOifn6ROP3WO1hiat0pBao0ZweFK4hF2UM=
+	t=1788611701; cv=none; b=cI3miMjzg1fPvbJanDTEmf9peHVWorIJ36U9QGEXZkSXtpnx3t6nB3N9Eg4K5IyLeHeyXzCJykTpnGetj5eDlnFN4LD3jgcD7YUFXu29MFoM5gv4K8/phi+NrcFiFppbmRSNyUHa9IfUUU6S8XCIJ+EvpY337IUPhElf0KQARoQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788611641; c=relaxed/simple;
-	bh=J7SMtiKlBBbZWYclvHQTLte3uDjJ0fcR8VtDcDYr970=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DLNcqNVNnd4AMM3tsPKsO9zi7tsGDjTGDjHSh3QvMxVAC6lJqNyAicDY8zs4WvEQnlS9q1ziTHBaEl8rZMDNdtlP5/Z0oIyPmSxuw30Zx9lS9VW4dPXkfRVu56TVM1M9rbxJ2t/nz86PwqQbIIU5em826GBdp3WJTxmA1Sms9Io=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l1aYzDlf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788611701; c=relaxed/simple;
+	bh=6f5p//qeeEhJiLT6hla2lNz47zEGEWS2WmSvXXHcHig=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=noOtzqAGgEneCWVssvigoY+1kaRs1kla/iqX51C/pv1wi240pgEltXcrsQCaDTQjMvcs3Zjjjfn/WHKpkYi+30IQQ/+RDIj3Vx5hcTjo2mjuCKxjSb9leJlgNW78vJHjUMvQuNTtXRWb7R6fxNazCRr7RPyRfabcsOLyos0pCh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YtbnSs8q; arc=none smtp.client-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l1aYzDlf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 280C61F00A3D;
-	Sat,  5 Sep 2026 12:33:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788611639;
-	bh=XgBtZNIDFz3WZ+CFXbgS4Jg3hHYLaVlrTvEDPXGq3UA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=l1aYzDlfPrfIKGZu9mfRkVqWPh5UFihTOkOFXUzNHoDlKMG3pcGpxpYKZYr8LQBEE
-	 JWZHKOIHoIaSt99fDvR2Hopj20RfLLhX5mWqTN8mWUlchCjlSRac5v4OCe862nXMEW
-	 ytMcVDv+vQR+1MJw5+r7IU3fUMvVYdi438YDELxDUGs4iFW5GIvX0uEG1Tt9m/94yz
-	 GUyfCjPdeDQIxEuLBZdClED1DE+m6mHmuT2FQ2dhbgKE7LjuNd3SwcqMOiUbvu83bj
-	 YHx9UDNSOQ/4KtXiqCJjsBA4tCFFJpNkUMpQM6AqujAkqPNDnxGwpBoiahxqv4J++x
-	 /77z8ydjdZDlg==
-Message-ID: <68403ee8-59a9-4f31-8384-99f70b93c3cd@kernel.org>
-Date: Sat, 5 Sep 2026 14:33:56 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YtbnSs8q"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc1cb472b76so1728174a12.0
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 05:34:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788611696; x=1789216496; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sCkeW/rlDEZbQRwhNQlqYVSLXnulFlxF+aDVtk4kLrI=;
+        b=YtbnSs8qfPdzgH+oeRaodn+q8Vb2tox19c9H6lxT0EFKc+LY1/TEPedO12k3EV0weq
+         ZubHW2aMvu5d9wRdvZ2JZKz7OYJGt9lSYnONx4iIPgTgklB3Zi9nQUeDscBHQNI2nipN
+         8PAydIGehlYBeD+FYQjwg6pUJGFz8Zv+UkkQ3/NrLop+gj8ozrTjmwWo2IbPI+M0RoI2
+         BN+5/uzNIMcpl8wO3T4RqLVBYURIS6zQbCgT+MIiipkpQV3o9deat8Ivesk3Ege7KHGV
+         agTdBI1D8e/AHP9rHdTaJMom7wYS+xvDGlXRUX3Io89bY3cqjDkY4ewjOrVt3ANdSDC6
+         BPIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788611696; x=1789216496;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sCkeW/rlDEZbQRwhNQlqYVSLXnulFlxF+aDVtk4kLrI=;
+        b=RgHoTwn1cyo2R1h00jyH+Feh49icvDPIFlhJlKxuMGbpmzSZJAlQWoY4YuIvl7boAF
+         INqJSHHJnpT7evwTEYqyXpNKmntzkogy96iQil3ps3JwORa4qkqKAQYOKqcEv9uw5x62
+         U+v/pAlzF8diZq1Pw6tNXLmQF59/gB4y8Sv/7vFbhqgW89OU7LrY8udkJTJAm8IZRjXy
+         1+sRwXmJaL6aGQuHDjn/XddDvHQHNuC0/I+CEq9pvt+d1cxSGTbLVCgClRpF5+3EkmOb
+         itdNgQdn2SIS6bsovbXrs/SLLF2jTWQzJt/i1Hd7Ldz6u2YGyAUXf8FlfHryIlbFKnqq
+         CQzQ==
+X-Forwarded-Encrypted: i=1; AKwUvByB14g3e9JgJoXd+8vdOAT4LNM51FLT4ZtUCrC3bXkzaJMAVmA+tTmH/VsIgeV0BN9m+tFCr38EmP2HMKY=@vger.kernel.org
+X-Gm-Message-State: AFuF++neUN7KAuXHt721yp+6vDPyYaAxwJ813319OvNwbY3GLwHAk/iJ
+	zg2akYFYPgYKIfC/SCh6/W6agzY1DPdMrDAWclUyEdLwSDKGkP8VCrkO
+X-Gm-Gg: AYBFou0dAAWw9jPieS15NRZgG9WX7RklRJw+OVHHrUpXt6fMA+rXZaGg02mb/q8hO/x
+	gZzx2oudWF5DaUlvgfOe51Td3HVg0FQN80v8CpTgrMNurySVZ5UOrUo7gb1+0WkkS7upXJMtJY1
+	gEvJGwLCDOnzmKGBMbe5QBorErGzeRXjTtmOImDM9QA6WchmUAJ1ufX7LdfJv81Vjr3JqV2COsQ
+	cykL/xjtTkxiblin4jGTFiLrKJymVPoS4KA929puafAMoj5msgHMcMz51K7aG6NWxQKgYk7HtVm
+	o0Co+2klWNNA5Gh+u2HxP3uDjcLpDWW/WBJf2FFNb2T0Byl/OfHMrhjrdc52Xe6DTarqsv0uU24
+	bRpPAvwKE9V1CDYS1CNHqHzWBcnTShiCJfoSSyorEldbaZI5jojjlwEKwztQXpqjhxqErupt/sT
+	7BhPA6ocmDozuS+YAXYN0leIf1Ar8HBseRnLFIG9G8rnTbGZSUw16GsRjeQKmTZzRl3SRzmAro1
+	asrXdwLPSv2yDsqY+EDXK/crnwUyJoa
+X-Received: by 2002:a17:90b:5905:b0:398:9bd5:490b with SMTP id 98e67ed59e1d1-39b262133ccmr17366120a91.18.1788611696373;
+        Sat, 05 Sep 2026 05:34:56 -0700 (PDT)
+Received: from Biostar-A520MT.. ([187.94.13.245])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339bdf26c5sm13829815eec.27.2026.09.05.05.34.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 05:34:55 -0700 (PDT)
+From: Breno Rodrigues Alves <breno3011alves@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: torvalds@linux-foundation.org,
+	linux-kernel@vger.kernel.org,
+	arnd@arndb.de,
+	linux-clk@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-fbdev@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	Breno Rodrigues Alves <breno3011alves@gmail.com>
+Subject: [PATCH v6 1/4] interconnect: mediatek: fix Makefile typo for mt8196
+Date: Sat,  5 Sep 2026 09:34:47 -0300
+Message-ID: <20260905123450.5620-1-breno3011alves@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] iio: adc: axp288: Add TS bias override for Haier HV103H
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Vladyslav Ivashchenko <cactucatu4eckuu@gmail.com>,
- David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Chen-Yu Tsai <wens@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260904133155.51290-1-cactucatu4eckuu@gmail.com>
- <bdd9e2c0-ce13-422b-90ff-0311cc251b15@kernel.org>
- <20260905024225.468a2959@jic23-huawei>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20260905024225.468a2959@jic23-huawei>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Jonathan,
+Correct a copy-paste typo in the MediaTek interconnect Makefile that
+mapped mt8196.o to CONFIG_INTERCONNECT_MTK_MT8195 instead of MT8196.
 
-On 5-Sep-26 03:42, Jonathan Cameron wrote:
-> On Fri, 4 Sep 2026 21:48:21 +0200
-> Hans de Goede <hansg@kernel.org> wrote:
-> 
->> Hi,
->>
->> On 4-Sep-26 3:31 PM, Vladyslav Ivashchenko wrote:
->>> The Haier HV103H firmware configures the AXP288 TS pin bias
->>> current to 60 uA. This causes the battery temperature reading to
->>> cross the charging temperature threshold under load, incorrectly
->>> stopping battery charging.
->>>
->>> Setting the TS bias current to 80 uA fixes the temperature
->>> measurement and prevents charging from being incorrectly disabled.
->>>
->>> Add a DMI quirk to use the 80 uA TS bias current on the Haier
->>> HV103H.
->>>
->>> Signed-off-by: Vladyslav Ivashchenko <cactucatu4eckuu@gmail.com>  
->>
->> Thanks, patch looks good to me:
->>
->> Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
->>
->> Regards,
->>
->> Hans
->>
-> 
-> Fixes tag appropriate?  There was the original dance of keeping the firmware
-> version, then this table was added to fix that up.  Anyhow, I'm thinking yes
-> and tag should be:
-> 
-> 
-> Fixes: 9bcf15f75cac ("iio: adc: axp288: Fix TS-pin handling")
-> 
-> But bit awkward as anyone trying to just back port to that better have
-> been paying attention and picked up the following, so lets have that as well with comment
-> Fixes: 048058399f19 ("iio: adc: axp288: Override TS pin bias current for some models") # Add necessary infrastructure
-> 
-> With those two, applied to the fixes-togreg branch of iio.git
-> 
-> Shout if you think this should be done differently.
+Assisted-by: OpenCode AI
+Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
+---
+ drivers/interconnect/mediatek/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This sounds good to me, thank you for taking care of this.
-
-Regards,
-
-Hans
-
-
->>
->>> ---
->>>  drivers/iio/adc/axp288_adc.c | 8 ++++++++
->>>  1 file changed, 8 insertions(+)
->>>
->>> diff --git a/drivers/iio/adc/axp288_adc.c b/drivers/iio/adc/axp288_adc.c
->>> index c8283279c47..c98863d612a 100644
->>> --- a/drivers/iio/adc/axp288_adc.c
->>> +++ b/drivers/iio/adc/axp288_adc.c
->>> @@ -207,6 +207,14 @@ static const struct dmi_system_id axp288_adc_ts_bias_override[] = {
->>>  		},
->>>  		.driver_data = (void *)(uintptr_t)AXP288_ADC_TS_BIAS_80UA,
->>>  	},
->>> +	{
->>> +		/* Haier HV103H */
->>> +		.matches = {
->>> +		  DMI_MATCH(DMI_SYS_VENDOR, "Haier"),
->>> +		  DMI_MATCH(DMI_PRODUCT_NAME, "HV103H"),
->>> +		},
->>> +		.driver_data = (void *)(uintptr_t)AXP288_ADC_TS_BIAS_80UA,
->>> +	},
->>>  	{ }
->>>  };
->>>    
->>
-> 
+diff --git a/drivers/interconnect/mediatek/Makefile b/drivers/interconnect/mediatek/Makefile
+index 6bd656668..64170ab16 100644
+--- a/drivers/interconnect/mediatek/Makefile
++++ b/drivers/interconnect/mediatek/Makefile
+@@ -3,4 +3,4 @@
+ obj-$(CONFIG_INTERCONNECT_MTK_DVFSRC_EMI) += icc-emi.o
+ obj-$(CONFIG_INTERCONNECT_MTK_MT8183) += mt8183.o
+ obj-$(CONFIG_INTERCONNECT_MTK_MT8195) += mt8195.o
+-obj-$(CONFIG_INTERCONNECT_MTK_MT8195) += mt8196.o
++obj-$(CONFIG_INTERCONNECT_MTK_MT8196) += mt8196.o
+-- 
+2.43.0
 
