@@ -1,161 +1,112 @@
-Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021099.outbound.protection.outlook.com [52.101.95.99])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C23F22116F4
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 14:25:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.99
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788618338; cv=fail; b=C2aUx1qcXNkfkR8Fux0lU5f9rSRurcO8vzl1VNgFmHoq4c4tp+FmdrM6f8Lg3odTDIA+wdSirCxv5K6GavRJOigPA/0U+GiCCmp55X3TfuNFLrpx2pk3Av6N1Iwmt43h77HzOdjcaZ6+2Ye4UI72UC0/Jh3qByTJdndt03QLFRw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788618338; c=relaxed/simple;
-	bh=4F7ejrN4CSMEmWaH4GKar/yLFZXlP2ysUoCQ8gwb6ZQ=;
-	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:References:
-	 In-Reply-To:MIME-Version; b=qOcZnlMMKp43k1UzdHYo4SET3iHX936i8/quE4B7960lrf0oEWlM9Q0VhVv3GbIwZoUlLzqEy/qeYpyql2epWr7JFLQgaoVykf/XuiwiS25+Qhc94yfW8fOgtM+bOjKvQdKWh9VqBEQRGnaJDG6Sp9ywgz+vdQZszfemNENLIIg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=FtZIcVAB; arc=fail smtp.client-ip=52.101.95.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2687B324B24;
+	Sat,  5 Sep 2026 14:25:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788618351; cv=none; b=IkNtCben9y7XSAi/WDjsdoBRh/769I0Bj+4PNI6i5wwA2rQ4kanfAOp7UfkyUfSWNMtmrtDFupRewlP3PnIchP0z9O0po8JypfGwYTuyhVf9YmJ7k4Lyn1V84zGCqicGVKqlPwhlUImzFVdNri4gYL6NB2Z/Fgnph/5heu6wHCw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788618351; c=relaxed/simple;
+	bh=jndXAAKHidpqftMQBa26cKlXG5nvYlOXafytPCALO5Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hDklFlvx/tg1A+J+Sa9ePF4UHoO4XaApLQtcDSUSB/+Ra3fJlqR0cJz4g+QVnZN+jsi77SH41qncOZNFWP0+WLU1sl3COW0ZZMKUk5deeTxgIKjk8PiBndmanP8SUBXCi2ObXfdexXpP6cRvWNW3TEI6POkV1cmTgQMMH0KOdvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dUGZCBem; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="FtZIcVAB"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OGHS1yq+V3d3paQ1uaFC1qiLdAAV4zZTgkbOM7yos2uLuSqdRnbR+xBtQ0kb7DtJtGTNT5vLuM4bft/POo4KDPnIgEKCpfr9DQ3A5ekoBFZhBC1t82EJ+s8NS5SQbUO3m7FwGBJBLr/3twv4AJX2eO6fi9+DZTxr/QbSovE3ciN7BLgRthOp6gE7K0b4iDPJhXNdDyqK6AvucrZqZ1D65SCmgVx0DMxjU9bw0EuP5yECF7FglK0jbMYCMEFHNVf/tnMSYvOG8C3+OZk0YVgiNottgUf+EtagZ/GCL1tTFlbnmLyplfR4cmt/ZoSQfoD5M+aq+b/GoT6A8AW6EK8k8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1DTq0XtbQf2/qV3KWMNnD2ePhVgnRR9D+69SXfiww28=;
- b=WOY5W2Hp8zwTXr9/+saOE6gil8Je7xnWWnZkk5Mj9h6WZ0arqhE0QsCnvR+qD3UD6LLZdlQTlBCIDkncj1Nsr1jpgDUe6K79dFKo6e+AnExAMMXrQdvyEv1eq8oM9F61spqu3Jj7WUvExcNG/kyc8UmVvdPwdP1re56vvmmbnRYF33qPhGOxuPGzYPIx8PPbkNvMSgUsC2Nb5SqnOgozm9++b/vTexuq79d8UztDpU+CLh3Fpuf0Ne9+0lgsW0X4J6T91rT2XStHfEHegDOK6DfoZgHQiGWTaxmzqpTDvxNWOOAkmila0FhjKHDdJbCGG61VU8T+D5zyaxLsWTIu/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1DTq0XtbQf2/qV3KWMNnD2ePhVgnRR9D+69SXfiww28=;
- b=FtZIcVABe1yQ3Khq0e6jS1/G24XlwxWKNGZSAN64YfrJ0oLBaYdxHZOu3w3eu0cWkMVNdTLmxwK1lHTfF4MEkMvvnUchAR3YbgNRUsEQt8z4ZbHr+dxaeJVYpiP9g2tmNnPfcUHAuQF1VW99u7U+xK/UViorJ58YKcttaPHMG+k=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO9P265MB7587.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3a5::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Sat, 5 Sep
- 2026 14:25:33 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0382.014; Sat, 5 Sep 2026
- 14:25:33 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 05 Sep 2026 15:25:32 +0100
-Message-Id: <DL7GA6P85PED.6EMA7BRKKBIX@garyguo.net>
-To: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>
-Cc: "Timur Tabi" <ttabi@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>,
- "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Bjorn Helgaas" <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>,
- "Alex Gaynor" <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>,
- "Gary Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] gpu: nova-core: gsp: fix a broken doc link on
- GspMessage
-From: "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.22.0
-References: <20260905023800.1293631-1-jhubbard@nvidia.com>
-In-Reply-To: <20260905023800.1293631-1-jhubbard@nvidia.com>
-X-ClientProxiedBy: LO4P265CA0126.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2c6::17) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dUGZCBem"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788618348; x=1820154348;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=jndXAAKHidpqftMQBa26cKlXG5nvYlOXafytPCALO5Q=;
+  b=dUGZCBemVzGI3Yv0mWk75ahfd3A1Z1XFKypefigZ9uzvtfTw7lm14ADA
+   tKxNXruVYTPPHNQj93pV4Knloab5ThDFwJTtUbLjKWb9LbQMjcsKbtp0D
+   YbmC1JXiYpeg2SyzZ89+Cbh5lQFmNLBoJ5m9He3IHuO6l/A6TrePx6dzR
+   cdtIRem0BHzDwWceKcK8sEIL2h4LHb5HT559bOFCsTdE2+vmA6p8NMxIX
+   bIAJZrianiAE03HPERatIyp137ui+njaHNK8fwhvmPzaoR7HMahBP8XAZ
+   3wqghnF2uh/yq8Bc1ID/waBkxnClk8cbsrP5WDxTFQ4d19C7wQZ5rnBR7
+   A==;
+X-CSE-ConnectionGUID: XH7xWYRCQ02VGJu+2MvdLQ==
+X-CSE-MsgGUID: RAvUzEy+Tiyo2asooDXV/w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11896"; a="99755054"
+X-IronPort-AV: E=Sophos;i="6.25,263,1779174000"; 
+   d="scan'208";a="99755054"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Sep 2026 07:25:46 -0700
+X-CSE-ConnectionGUID: 8U27AxlCS3SUnHoCDZJdLA==
+X-CSE-MsgGUID: iracYlDuRPuLQIaGChvIkQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,263,1779174000"; 
+   d="scan'208";a="272247298"
+Received: from lkp-server01.sh.intel.com (HELO 73f3364bc37e) ([10.239.97.150])
+  by fmviesa004.fm.intel.com with ESMTP; 05 Sep 2026 07:25:42 -0700
+Received: from kbuild by 73f3364bc37e with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x2rKs-000000000Z9-3kZH;
+	Sat, 05 Sep 2026 14:25:38 +0000
+Date: Sat, 5 Sep 2026 22:25:12 +0800
+From: kernel test robot <lkp@intel.com>
+To: Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Markus Elfring <Markus.Elfring@web.de>, linux-block@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Damien Le Moal <dlemoal@kernel.org>, Jens Axboe <axboe@kernel.dk>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-next@vger.kernel.org,
+	lkp@intel.com, oe-lkp@lists.linux.dev,
+	Christian Brauner <brauner@kernel.org>,
+	Christoph Hellwig <hch@infradead.org>,
+	Hillf Danton <hdanton@sina.com>, Mark Brown <broonie@kernel.org>,
+	Oliver Sang <oliver.sang@intel.com>, linux-btrfs@vger.kernel.org
+Subject: Re: [PATCH v8] loop: Fix NULL pointer dereference in lo_rw_aio()
+Message-ID: <202609052240.ovdWUOyj-lkp@intel.com>
+References: <dc2f1e00-5e10-4e02-9415-c6ecb2cbc6b3@I-love.SAKURA.ne.jp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO9P265MB7587:EE_
-X-MS-Office365-Filtering-Correlation-Id: e8e33a81-8d92-4524-a98f-08df0b598bab
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|23010399003|7416014|366016|1800799024|376014|10067099003|18002099003|22082099003|56012099006|5023799004;
-X-Microsoft-Antispam-Message-Info:
-	o1uOR6OqrZ1J2Q57c2Zh8J/oDR/run37mXecjbGDsHR19O/JrYtkaOwcYd0emUr70Ak1UuQBRxLPVny8z2wJ+noRchxOCNBYr0pCbfb1Z+JMWirysgU3eypKBTRt1LMLJO+aMibpEZ2TskZPaC71eq1BliM8HN0k/mAhRP1+/vTrmGYswesYHZGY0IzjdqQJAGcNnES6mGpRiAhmz/v2vf6ERbmDkt5ZMHHCeg1cKH28tnJfjg7neH3x4L1E7m/PqtP0MSWvv27rW0glr2M7en1oOG/uJepcTMukKtDKOSf7Ej4NKWXpHEambN89q0fTV1OodYO44WSkp5BnrRb0OPL1529YGOe2w+8yq/uTFNluuwDYMRzzt02Nz7XiOmOsJH4q4Grxoe8m6gk+ubvFk250raU21nA80qHmezzCE6u6A1FK+d/eustTKUfU2VsFgV4GFM0lbQ9BMti1CmfW9NQzNYI+KtzkvC+DLLNn5Di59LoKXURxTVy0g3E0pQREBE5bqJXJq+pVsJIHAjBjnYKZpecENLkX45aFeuZOMXBFTC9vZLSI4eeVlQbnwGybwaLHS6iAYcGZ4j28BzAOtSuR0qUg9J9f7RGUQYgFp4eui6MaadePcmoGUPbLjIO+f9pXFH1+iO9wOfxWN4DS8xXG3hQRDc2NC1046f8P9hE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(7416014)(366016)(1800799024)(376014)(10067099003)(18002099003)(22082099003)(56012099006)(5023799004);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SG81L1ZmeEZ4Z2xZRmxoanV2QnpKamV0dmtoamFvMlhUOTd0cEVGZFdlT3lz?=
- =?utf-8?B?MFpMMjZhOGRPb1lZbHR6Q1hFYzZoZ0hmTW04ZytGdEludjZySXhNU0ZWZmlw?=
- =?utf-8?B?eXMrZWdlRXIxVkR6eEpSSG1FbWYzYzlQTldjQjVWMGZpYUY5SkxldTRUUDBT?=
- =?utf-8?B?b2toMUFYT25pMDY5dFE1SkZ0Ri9aVlFSNlBtRDdzTFlvbnArbFRsTWNrd2wz?=
- =?utf-8?B?RHBZc0ozUGQzZGFVTDhPVXdjVitQSUwzUi84R3gzYnB1WGJSYldHbFBwYlha?=
- =?utf-8?B?RUpMU1ZvNTN2UXBYOGVoWWpXWjROMkNMeU0reDdackhOSDdOdUNPR01JMXo1?=
- =?utf-8?B?ekVWVjhwS1E4VU1QejNtOFk1K05LTXZKVHBESC9kdklRT3RjT2UzYjAxR1hU?=
- =?utf-8?B?aDlQeGNZK1BMd1U3M1RERFZnNlR3OUx3eHd4dFk2K2RicEh6ZXFSSmxxTEk0?=
- =?utf-8?B?cG9DajU0MlQ3RU9EM1FhTXUveUdRL2wvZGRRR3ozRVlIQVBwYXl3SnkvTWhC?=
- =?utf-8?B?Vmh5b2Y0dzd3eWdPQjlEaC90by9GZ2JORUtTTVFoNWFmWnMrOTFWb1FqN3Z3?=
- =?utf-8?B?bGZuQUE2dUJ1d0pyMTJxemdWYjNOcTl0VG1CYjd2Z0k2cEZRMWtvUlB2Q0pn?=
- =?utf-8?B?eDlZN3ZFZmxsemorVEozZUhsNEtDYVpRUjhha0RxVUo5NkZ2Ty95emw1UHps?=
- =?utf-8?B?OGl6VUU0SDJsdFJNVTZXdDhsbTAxeWU4NXpQbWxOek1Zcmd1UmhkZTBqbTJ3?=
- =?utf-8?B?SEpBOGYwUHpKM2ZrNFY1ZlpGOUtZalZUeVpvMG9wL1RqUUhGTm1EcFRMbmlv?=
- =?utf-8?B?T3cxNGhIdjlkZVRGQlVGWEorVi9JSFp0RjdYRmtOaTdjY1lDWi9TYm41NHRV?=
- =?utf-8?B?clVxcWxNV2xlcENrTzA2clN5cWVVVmhDUWFub2lJNEZweHJyL2J4NmErd0sz?=
- =?utf-8?B?eW1PS0pLYm1JWmZxZDdOWHo1R1phKzF0K2pabGtUY3hzVVdIKzI0NWREeElN?=
- =?utf-8?B?cXBvTkFLOHRMUWZjN01scE8wRllORTdWbG9vbGhwYm9QOSt1WW84NVNGTVBE?=
- =?utf-8?B?U3JHZ2tNVkJjRTNlbVR0ZldJRFZhdFBKSTRrRTlUZWlDQ3F1dmxETHF2NXJo?=
- =?utf-8?B?MDFjVklabkM0TWttS2xNaWtxbW8za0NveU5kZXhmMGtsVGh2alVxZHNseVhR?=
- =?utf-8?B?amo3Z0FDYmxoVjU1bUo1a3pIb21rWWxLRjRPVVR6cGVaK3FlWkNVSUN1amF0?=
- =?utf-8?B?M0gwNjZqcHRFRGRDUTY3SGI0RFZQUktvTFQ3dEkwZ0trVjlzd0NYM2NuVFhE?=
- =?utf-8?B?YWc3MVFKOG9zWFJGZVA3UlZobEtLbjZFWUdEdFV3VzEyR0FXdXRZbUtOaVla?=
- =?utf-8?B?SnhtSFBRREZTQm55SUF0dG5GWC8rdzJrYlQvLzdUdnoxNWNKT2U4NzJQbGk0?=
- =?utf-8?B?bWlDcWtMbkxoL2w2ZVRROEJLVGwxaEgwWURqRVBFd1VXd1lTSVBDMHNwQXlH?=
- =?utf-8?B?TWcwQm5CUmZDRGN0alE2c0p6enI5RmwrRG1BRjk5UjNqNWZFeHVKYlEwVHNs?=
- =?utf-8?B?WWlKbVkwb1ZUYjkzRXh3QWhkMUlpNXdsZDl1YzhDZVJMK05RUzNhbnJmVmFj?=
- =?utf-8?B?K0RKWnVPWmN1ZlBOZnBiek9vcmxLSWZFTHQvekcybXdrS1laM0JDbHFNMzAw?=
- =?utf-8?B?cGNNdWhKRHJhVkVEbFk4WUJYYUg1NDkvY3ROa3lCenBsd1kraHRuTUF2T1VF?=
- =?utf-8?B?NnhIaWNGR0w4WDBvb3dObnQrb2QrYkU0L25VRmtGVkViaW5COEE0Y0tTdzJl?=
- =?utf-8?B?ZkYzZ2tKM1dzcHlKQnZRNW9QaUNHbEw1VVpseU00Q3VlR1VpelBTSWllNzhq?=
- =?utf-8?B?eHFvTEJYU1NTeWtaSzFpanZMaHgwNC9yVTZpQUJPSXlHK1dodTNKZFRla2xJ?=
- =?utf-8?B?dWRmN1BqdTNCQXN5andIQzMyU0VXeGN0TDF4bXhQck1yY3VGWnV0Q1htSits?=
- =?utf-8?B?KzltR0xmVW5jN05iTE9VMUdJYVk2UlFId25veXAzNDN3RU4ra0Z1ZThwc1Fl?=
- =?utf-8?B?WDBwT0JZb05ua3EzQy9yaThsd3RWTkR0amMyTGNCU0dSMFRqTmhSMGdGWE5o?=
- =?utf-8?B?L2tpT08ydVQrQ0Z2aWVTbGZPWVQrQkFtOXpTa04ySHFXOXoyaklUZmRRL2dM?=
- =?utf-8?B?MDR0NzZUcGZ2L1FMRURjQVVJbDYvL0puV3JzeHpGQzliKzU3L04wU2I5Rm1t?=
- =?utf-8?B?NW1CckF4M1V1MTJib0RVd2F5STArRzVUSDdWWWRzWFJ5UmlMV1FNTER6QlFm?=
- =?utf-8?B?anBYTTRVTzc5c0twQ0pkOG94Tzk0dDJqczQxYzZxREpQRlQ1SEZhdz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8e33a81-8d92-4524-a98f-08df0b598bab
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 14:25:33.3788
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: o3TPFsLoZPP0WzIWhHpPF5PM8BcUoWU3xDEPJzmNlrYgUW25ijUZUatC12C2npy7oMYlZHlXZnYl5K/wllT8pQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO9P265MB7587
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <dc2f1e00-5e10-4e02-9415-c6ecb2cbc6b3@I-love.SAKURA.ne.jp>
 
-On Sat Sep 5, 2026 at 3:38 AM BST, John Hubbard wrote:
-> The doc comment on the GSP message type names Cmdq as the type that
-> defines wait_for_msg. That method belongs to CmdqInner, so the link has
-> no target. Nothing catches the break, because rustdoc resolves a link
-> only in an item it documents, and the kernel's rustdoc run skips private
-> items.
->=20
-> Point the link at CmdqInner.
->=20
-> Assisted-by: Cursor:claude-opus-5
+Hi Tetsuo,
 
-nit: kernel policy has changed and this should just say "Assisted-by: LLM" =
-now.
+kernel test robot noticed the following build errors:
 
-> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+[auto build test ERROR on axboe/for-next]
+[also build test ERROR on linus/master v7.3-rc1 next-20260904]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Reviewed-by: Gary Guo <gary@garyguo.net>
+url:    https://github.com/intel-lab-lkp/linux/commits/Tetsuo-Handa/loop-Fix-NULL-pointer-dereference-in-lo_rw_aio/20260904-085046
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux.git for-next
+patch link:    https://lore.kernel.org/r/dc2f1e00-5e10-4e02-9415-c6ecb2cbc6b3%40I-love.SAKURA.ne.jp
+patch subject: [PATCH v8] loop: Fix NULL pointer dereference in lo_rw_aio()
+config: arm64-allmodconfig (https://download.01.org/0day-ci/archive/20260905/202609052240.ovdWUOyj-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 0edd1b088cc36b4faee80358c925a91e16006258)
+rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260905/202609052240.ovdWUOyj-lkp@intel.com/reproduce)
 
-> ---
->  drivers/gpu/nova-core/gsp/cmdq.rs | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609052240.ovdWUOyj-lkp@intel.com/
 
+All errors (new ones prefixed by >>):
+
+>> error[E0063]: missing field `post_release` in initializer of `block_device_operations`
+   --> rust/kernel/block/mq/gen_disk.rs:128:58
+   |
+   128 |         const TABLE: bindings::block_device_operations = bindings::block_device_operations {
+   |                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `post_release`
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
