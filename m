@@ -1,270 +1,161 @@
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 365AC36493A
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 17:44:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788630292; cv=none; b=fLxf/Cf4m8vVHftav7Fc3zVfl2oFh4VFWNfPo6vWudoOkjiBLwJ86gQiGjw49dskqw9a6DMqKRvAsVro4Y/T5YuVezaWE0pIYm592g56ivqRTs6Ngw4kYiVxEfHS1Ek3UJL5hMtntpEuqjzIFddLIs1aQicP3AjA/2KZIJkOI44=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788630292; c=relaxed/simple;
-	bh=SaLwmO+luWwbiiLzkb1B1Ad9MkWiYuGsCg2CNy2tBtE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=U3VLyAQzEIh+GxMkG3IZPqkMdmSv28JDquNKK/wcCqvLyGCelBr6KE6uNy63UVCkGhEN30KCla0NYe1appFYmh3DdRLvCQ1xIexeuwwMg/87J8bXBggJku6w81PKWYvL3XN7SSHAV29PdbquFmYcuKYn4hCrlTL0h2PmlfJP4ds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=a1I0oamd; arc=none smtp.client-ip=185.67.36.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE8CF36A35C;
+	Sat,  5 Sep 2026 17:46:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788630373; cv=pass; b=ODd0V3N0m1gGp2grFEqRkLUvHZeyzu+/Q+vDWsqezSzXYXGLlTZCvGZF/Be2PB6VS+l4hxARdqS1YOaLSUV9opFiNUgX8ty9OH2P7lM2c9ItkcwGnEy8Qq0FWzpmwOog+BnWMBCTqJynpWvLsZWUINZZ1bNhGLu+lF5lhSlzjp0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788630373; c=relaxed/simple;
+	bh=5uhz3zPKmg7MeOTZph5AS8lS+MnWzydKmQm8fqk+qSI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OOrMb3AdOi9CztAYg9Xg6Se6GgS22FMToLCRcDZias0VLEzLotMgKfdiUpCAtTqDzYv3ye9BJURAj54G+hgC0D/i6fJuX+dkyrfXWa+Hani8js5xsqk+7mC0QOQRgBtwK81qHufXVMP1XvChzPduYJVbSc/Hn4ahybHDaLuQtmk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=Hi6nG0S9; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="a1I0oamd"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout01.posteo.de (Postfix) with ESMTPS id 4DC8E24002B
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 19:44:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1788630288;
-	bh=yBR8+5niRtrX5UqH9UPN0V91v64h25Y16qGA/opBUwY=;
-	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
-	 MIME-Version:OpenPGP:From;
-	b=a1I0oamd1/j+ZjhwfPzx2LX3C9q1hyc0IBFv/DhCT2DyY1Rx/O5pIxYxZqkx6JcHz
-	 DV/8cHVOIbOWAVbwRgDQa4qT54KE6pNou9UhTk5SjzBrJeaqIvSkeGejNH5uhD+dCQ
-	 OHvlapXB0JEZEhlRSUHfWiyHdaxtRw3IjQcYnHqai1Qe7oS73dQ5POGM0yhwLOc+GD
-	 r2MEPcfo6bpXwQGyyABUqiRXR7TRoz/CEnXGufi3o74AexwLB96rIS7wRsupDdVpW9
-	 dk6b1HNKDRu0PACH1Is3r/W9s/IGPHQ+09s58Bl+mdf6QceyRwTmV4t2DeNqZT5/s8
-	 Rj5t7oQ4HUCpg==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4hcghG17zQz6tw4;
-	Sat,  5 Sep 2026 19:44:46 +0200 (CEST)
-Message-ID: <807e4200759a58fb822db8e6a5a57f09e551ae73.camel@posteo.de>
-Subject: Re: [PATCH v2 1/2] rust: serdev: Fix race condition on driver unbind
-From: Markus Probst <markus.probst@posteo.de>
-To: Gary Guo <gary@garyguo.net>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
-	 <boqun@kernel.org>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida	 <daniel.almeida@collabora.com>, Tamir Duberstein
- <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>, Onur
- =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, Greg Kroah-Hartman	
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: linux-serial@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, Sashiko Bot
-	 <sashiko-bot@kernel.org>
-Date: Sat, 05 Sep 2026 17:44:47 +0000
-In-Reply-To: <DL7G35VOSQ6H.V15LOQS4I2RJ@garyguo.net>
-References: <20260905-rust_serdev_fix-v2-0-35dfcd06ef2e@posteo.de>
-	 <20260905-rust_serdev_fix-v2-1-35dfcd06ef2e@posteo.de>
-	 <DL7G35VOSQ6H.V15LOQS4I2RJ@garyguo.net>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-pZHKrurTBhyis2whvu8t"
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="Hi6nG0S9"
+ARC-Seal: i=1; a=rsa-sha256; t=1788630367; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=GrOk6ZfbYtAj7/EB6W+Y75LBRByVBwxzY8RgWZ753Amu9RA0jdMEleofY9feLBPjDMatWLwszPvvFUy+waheNdwhThE00G7RyT5PkKEKAUHfKtbtZKi0sj8z/4ERIiKyMgpZp2yIva/zxp2DWh8f5kAnzkJJBeqCY5mZPgqaV8o=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788630367; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=QE5R5fAoLrk8JJJFLNeZLS3DgtOBX690cH1EOVQ1MMU=; 
+	b=XIvBt20He3faBzh8TpNlH0MDB19H/fq+n2rU2sg+jOAGCRKIuGu3R0cu43/drh0E5ZQO+0E+HeL6AWd1pfCQ7MNIXsO2OWqe7HVv7km48OUWGFyqni8kKPUX8T9WLzcO35hYf+4+DIgcmQVCFx+z+UMM80fn40QqBjPS71sRfzg=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788630367;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=QE5R5fAoLrk8JJJFLNeZLS3DgtOBX690cH1EOVQ1MMU=;
+	b=Hi6nG0S9X91BVYe/auAvwBAKnB6XWOJ80yeYuFrFxidBvuo7OORNLAgq0o9MQSzd
+	TXv+Bhd3pGZoGAf3coO54ilrFT9Wxj3ppY2X4UTwOQkfayqt+5SE2Pxx70vZ9M8jgbe
+	tZ9spmiaDcsvnMxEpMqvrSCUw4SR3iqxg9+5ABbI=
+Received: by mx.zohomail.com with SMTPS id 17886303659001018.1388607569507;
+	Sat, 5 Sep 2026 10:46:05 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id 768E3180921; Sat, 05 Sep 2026 19:46:01 +0200 (CEST)
+Date: Sat, 5 Sep 2026 19:46:01 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Itay Shem-tov <itayst@gmail.com>
+Cc: rafael@kernel.org, lenb@kernel.org, linux-acpi@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ACPI: SBS: report relative state of charge as CAPACITY
+Message-ID: <apxVEvGoao0iVGlh@venus>
+References: <20260903104244.25556-1-itayst@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="lrvelqnztqiomtnt"
+Content-Disposition: inline
+In-Reply-To: <20260903104244.25556-1-itayst@gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.604.18
+X-ZohoMailClient: External
 
 
---=-pZHKrurTBhyis2whvu8t
-Content-Type: text/plain; charset="UTF-8"
+--lrvelqnztqiomtnt
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] ACPI: SBS: report relative state of charge as CAPACITY
+MIME-Version: 1.0
 
-On Sat, 2026-09-05 at 15:16 +0100, Gary Guo wrote:
-> On Sat Sep 5, 2026 at 2:30 PM BST, Markus Probst wrote:
-> > On device unbind, the pointer to the driver data (`PrivateData`) will f=
-irst
-> > be set to NULL by `drvdata_obtain` and only after that the serdev devic=
-e
-> > will be closed by Drop. Thus there is a small window in which the serde=
-v
-> > device is still open, but the pointer to the driver data is NULL. There=
-fore
-> > it is possible that `receive_buf_callback` might try to access the `act=
-ive`
-> > mutex on a null pointer.
-> >=20
-> > Add function `drvdata_drop` that leaves the pointer to the driver data
-> > valid until the Drop has completed. Use it in the post unbind callback.
-> >=20
-> > Fixes: 99f59aa82341 ("rust: add basic serial device bus abstractions")
-> > Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
-> > Closes: https://lore.kernel.org/linux-serial/20260905000836.C8FC91F00A3=
-D@smtp.kernel.org/
-> > Signed-off-by: Markus Probst <markus.probst@posteo.de>
-> > ---
-> >  rust/kernel/device.rs | 27 +++++++++++++++++++++++++++
-> >  rust/kernel/driver.rs |  2 +-
-> >  2 files changed, 28 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/rust/kernel/device.rs b/rust/kernel/device.rs
-> > index 2291d85b6849..3886cc713c28 100644
-> > --- a/rust/kernel/device.rs
-> > +++ b/rust/kernel/device.rs
-> > @@ -219,6 +219,7 @@ pub fn set_drvdata<T>(&self, data: impl PinInit<T, =
-Error>) -> Result {
-> >      ///
-> >      /// - The type `T` must match the type of the `ForeignOwnable` pre=
-viously stored by
-> >      ///   [`Device::set_drvdata`].
-> > +    /// - Must only be called before the device is fully unbound.
-> >      pub(crate) unsafe fn drvdata_obtain<T>(&self) -> Option<Pin<KBox<T=
->>> {
-> >          // SAFETY: By the type invariants, `self.as_raw()` is a valid =
-pointer to a `struct device`.
-> >          let ptr =3D unsafe { bindings::dev_get_drvdata(self.as_raw()) =
-};
-> > @@ -236,6 +237,32 @@ pub(crate) unsafe fn drvdata_obtain<T>(&self) -> O=
-ption<Pin<KBox<T>>> {
-> >          //   in `into_foreign()`.
-> >          Some(unsafe { Pin::<KBox<T>>::from_foreign(ptr.cast()) })
-> >      }
-> > +
-> > +    /// Drop the private data stored in this [`Device`].
-> > +    ///
-> > +    /// The pointer to the private data remains valid until the drop i=
-s complete.
-> > +    ///
-> > +    /// # Safety
-> > +    ///
-> > +    /// - The type `T` must match the type of the `ForeignOwnable` pre=
-viously stored by
-> > +    ///   [`Device::set_drvdata`].
-> > +    pub(crate) unsafe fn drvdata_drop<T>(&self) {
-> > +        // SAFETY: By the type invariants, `self.as_raw()` is a valid =
-pointer to a `struct device`.
-> > +        let ptr =3D unsafe { bindings::dev_get_drvdata(self.as_raw()) =
-};
-> > +
-> > +        if ptr.is_null() {
-> > +            return;
-> > +        }
->=20
-> How does this help the problem? While drop is running, other code should =
-not
-> attempt to obtain a reference to the data anymore. Otherwise this still h=
-ave UB
-> potential by accessing fields that are just destroyed (not to mention tha=
-t Rust
-> alias model also forbid it).
->=20
-> I think the existing actually catches it better, because *if* NULL pointe=
-r can
-> be observed by callbacks, a synchronization is missing in the subsystem. =
-The bus
-> should first perform a synchronization to ensure callbacks are no longer =
-fired,
-> and then proceed to clean up resources.
-The abstraction has been written, so the serdev device stays open until
-the drivers private data has been dropped. Until then, the driver can
-still have a reference to the device, which can access calls that are
-only valid if open.
+Hi,
 
-I don't think I am allowed to rewrite that logic in a rc period.
-
-Thanks
-- Markus Probst
-
+On Thu, Sep 03, 2026 at 01:42:44PM +0300, Itay Shem-tov wrote:
+> acpi_sbs reads SBS command 0x0e (AbsoluteStateOfCharge) into
+> battery->state_of_charge, which is exported unmodified as
+> POWER_SUPPLY_PROP_CAPACITY.
 >=20
-> Best,
-> Gary
+> Per the Smart Battery Data Specification 1.1, 0x0e is expressed as a
+> percentage of DesignCapacity and is explicitly permitted to exceed 100%.
+> Documentation/ABI/testing/sysfs-class-power specifies the capacity
+> attribute as "Valid values: 0 - 100 (percent)", so any pack whose
+> FullChargeCapacity exceeds its DesignCapacity - the normal state of a
+> new or recently replaced battery - makes the driver report out of range.
 >=20
-> > +
-> > +        // SAFETY:
-> > +        // - If `ptr` is not NULL, it comes from a previous call to `i=
-nto_foreign()`.
-> > +        // - `dev_get_drvdata()` guarantees to return the same pointer=
- given to `dev_set_drvdata()`
-> > +        //   in `into_foreign()`.
-> > +        drop(unsafe { Pin::<KBox<T>>::from_foreign(ptr.cast()) });
-> > +
-> > +        // SAFETY: By the type invariants, `self.as_raw()` is a valid =
-pointer to a `struct device`.
-> > +        unsafe { bindings::dev_set_drvdata(self.as_raw(), core::ptr::n=
-ull_mut()) };
-> > +    }
-> >  }
-> > =20
-> >  impl<Ctx: InternalBoundContext> Device<Ctx> {
-> > diff --git a/rust/kernel/driver.rs b/rust/kernel/driver.rs
-> > index c9c74c4dde8f..83410141ef1c 100644
-> > --- a/rust/kernel/driver.rs
-> > +++ b/rust/kernel/driver.rs
-> > @@ -204,7 +204,7 @@ extern "C" fn post_unbind_callback(dev: *mut bindin=
-gs::device) {
-> >          //
-> >          // SAFETY: By the safety requirements of the `Driver` trait, `=
-T::DriverData` is the
-> >          // driver's bus device private data type.
-> > -        drop(unsafe { dev.drvdata_obtain::<T::DriverData<'_>>() });
-> > +        unsafe { dev.drvdata_drop::<T::DriverData<'_>>() };
-> >      }
-> > =20
-> >      /// Attach generic `struct device_driver` callbacks.
+> The correct source is 0x0d (RelativeStateOfCharge), a percentage of
+> FullChargeCapacity, which the specification bounds to 0..100.
 >=20
+> This is the same defect that was fixed in the i2c SBS driver by commit
+> b1f092f6480e ("sbs-battery.c: Capacity attr =3D remaining relative
+> capacity"), whose reasoning applies verbatim here; drivers/acpi/sbs.c was
+> not updated at the time. drivers/power/supply/sbs-battery.c has used 0x0d
+> since, so the two SBS drivers currently disagree about what CAPACITY
+> means.
+>=20
+> Observed on a MacBookPro11,1 with an SMP/bq20z451 pack
+> (FullChargeCapacity 6775 mAh, DesignCapacity 6400 mAh). Both registers
+> read back-to-back from the pack at a full charge:
+>=20
+>   0x0d RelativeStateOfCharge =3D 100 %
+>   0x0e AbsoluteStateOfCharge =3D 106 %
+>=20
+> /sys/class/power_supply/BAT0/capacity reported 106 while upower, which
+> computes charge_now/charge_full itself rather than trusting the driver,
+> reported 100.
+>=20
+> battery->state_of_charge has no other consumer, so no other property
+> changes behaviour.
+>=20
+> Signed-off-by: Itay Shem-tov <itayst@gmail.com>
+> ---
 
---=-pZHKrurTBhyis2whvu8t
+That also matches the sbs-battery driver (drivers/power/supply/sbs-battery.=
+c):
+
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+
+Greetings,
+
+-- Sebastian
+
+>  drivers/acpi/sbs.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/acpi/sbs.c b/drivers/acpi/sbs.c
+> index 86b7c79..862cb94 100644
+> --- a/drivers/acpi/sbs.c
+> +++ b/drivers/acpi/sbs.c
+> @@ -318,7 +318,7 @@ static struct acpi_battery_reader state_readers[] =3D=
+ {
+>  	{0x0a, SMBUS_READ_WORD, offsetof(struct acpi_battery, rate_now)},
+>  	{0x0b, SMBUS_READ_WORD, offsetof(struct acpi_battery, rate_avg)},
+>  	{0x0f, SMBUS_READ_WORD, offsetof(struct acpi_battery, capacity_now)},
+> -	{0x0e, SMBUS_READ_WORD, offsetof(struct acpi_battery, state_of_charge)},
+> +	{0x0d, SMBUS_READ_WORD, offsetof(struct acpi_battery, state_of_charge)},
+>  	{0x16, SMBUS_READ_WORD, offsetof(struct acpi_battery, state)},
+>  };
+>=20
+> --
+> 2.51.0
+
+--lrvelqnztqiomtnt
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmqcVP8bFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSSYAP/jj0kHhzzq9C5jzFK72U
-hsViRZcMOCSetYHIfX0Ww9eaLwG7shYasUgHTjEagku7V/LOty5rmWTHOzle9aa1
-SdRVYzKQITVkK+qt4xcWPaMZ0rVaOtGE0U+cgYdMeDtJCKXD1+0hQFyeegvKiNxO
-fmbz1rchWeRGQlXzfiBIszIb8nlbmi8PdK8AEpAYnLq6555hoDpymVRBuKr1lNSJ
-3vTGBe7Ch3JUV7wUAeaKIbCu4AX+rC3nf0WqfFOUx8G3/tPDSLxCb/2oi8EfqT5g
-36YsDG8AgAtMzOUT0yGAGxUDCUir1u9Gh32s0qkaPwAPJ/KQXn+BVfNbDx5AwPzO
-pmCRxxkkCtyO2Kao4LTasYHZ7XYV3ysTnHKCNMmuSojOI4fnk+K6GJXapwKAgZJF
-L7kBBfQcTqZjflNPPXRF9Sz6HwtPf/noTETO4TglUV3SMawYZ6gM2B5pjz5V2esy
-1cF14nJSQ5bQPvDPCp5C1nCERcJipl45TdYMr4WcKR9aAcLmprx6JLZUdhUUzB62
-Y5gJBUvfewDY95tnMydKOcV7TAemMQNQij1bOljjG933UrfNNdAmpJlN+7G8LaWs
-DM+PYksTbNYDd1i5OAHba6WeJ0ZkypZMu2ezRGF404yfEVn2S6PqqL11XYHCJnTu
-Rh6JrSHLSl34pXVXwtgubVZ3
-=S6nE
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmqcVVYACgkQ2O7X88g7
++po7RhAAoruDVvUNPtdJ8J6J7bWwFbFbrg4zuKPkMAvO/XjqaoQmP6pvdMA9dq4p
+Bfdj2b+sjjAlr+Htezih6bIJ9+M4BTk20ZXoKeslqoFgmwAMqPJbSRsbV+mHE/Tg
+E4HSeLlsgTmaA5d4rZ6+3B94c6As78+vpuR2a3VC2ZO9cVjknV/20DX+ebqZgEpe
+QDI1acFzap6OIt0TIMs7T2VbAcdja307jZWYqZV4gkpnnVnFV1qDqHkAJsqdoeXr
++pVwhLFJlTGIZvE5YycsLDyrdilN9dvwlkensP5hp5i/zMvnMM+tbpVMyYndi6Ge
+krCh5jZQLm0H4dUGDBMk5f399N8zQgLMqvgjineH+CYWELrzpJYRTf5HYx3JySEg
+b7xp4iX4lXETbWQyru4yrXA2+9pl6BCLXtT5aqr1KyW632B5YFVnph5sEvzlJ00a
+KhpoRtLNqR8Nsu4yAfe+n2c0/XNkBcxlzJbQ+agdh8FAgsemhGDRcNoY1jog9zAb
+W2Lfh6pTFjVBK797DPgC9qVWu8yWXDkqfV8XJoD1qFSKV/p0/ya2Via8LG/IK5c+
+7SUagftME2jOY7ZAxiqiRpWHYb9nxNrxRFKuCtjHOqV8ZWAcA/6TodGYBjjphmvm
+3KGqMP/fbHBx318n9vudHN0H4hnAixPHe8Tpuw9EeHCDf4EzYO0=
+=amjn
 -----END PGP SIGNATURE-----
 
---=-pZHKrurTBhyis2whvu8t--
+--lrvelqnztqiomtnt--
