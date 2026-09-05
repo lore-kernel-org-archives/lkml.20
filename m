@@ -1,293 +1,115 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C854EE858
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 18:39:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF454B8DF2
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 18:40:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788633573; cv=none; b=ezkw6nBDNfkpFCrQGRdvp8rGGHZHSNJScD4mn1EuxqZks127DZtQodrstLLLqoiyCgPoDXzkpccn2vNZhCtevEiOGsOmFbIYOoQDX9i8E8ExTw+Orlo1ZMTPAZJbwr+8hjVk6RXBX1iF+hUBcqzsH2g6QvlvFJkM3HTb4gbtSWk=
+	t=1788633613; cv=none; b=JPxrjw92CbOZDInrGzo5ktdS3aSYlihsoHK8nFIU82jk52l+FED/tEaq0X6VEuCPYsOR+J96S9gjXnMLbvqfDQKzdwZFwj5pMramGzidyh4g2FNyjW1eQYXDjPAIJbZhilUgl9Nn1v12OnbOiDwquki3SepP1UYM3QqZoSfkNlc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788633573; c=relaxed/simple;
-	bh=4p0t4kxqdtq0p2YlJ6VyfHFrgxr8bBrSXVIfvZ+IBtg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HB24lAOHF8BOJifJ0oHKKzVyxRTse761GpDTwEcu2imQl70G4VrVxV9nTixO7zdi23vO9wjivDiFtZWW2aN2ldJmeRCU+E7JnrtH8S5Pn4Agh8THlOAEjd6zbAJqVfxCivkd8Uv1FKWqmYtROIY7bFqKmeMtRw2lJdoi2IZ9iHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jxvoPhZw; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788633613; c=relaxed/simple;
+	bh=vdTyZNyfSIyq4CLkO3uXENZ6xhUhmmZP0fKuJPU5Z9o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UVXaghRlSy5D29H+FQcuFFisrWpp/cH3OfBz+s7pkw2krveD12IuiNxbMFuz/WhgIYhVCl7Yf+htbVPnrOoMtkMrJaH6Fj9/GQ8Sr9YcGK7cADW5N913WW3CnVOGzZSKDNUR7WbkMp2CVuGkpFfQuU1IKhg8yYtF9Q4B2jB7iLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=QpVAFtSl; arc=none smtp.client-ip=35.89.44.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jxvoPhZw"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48589798dbbso1706315f8f.3
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 11:39:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788633569; x=1789238369; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rlmalfwKU2dFS/LTehgVnk0Im0uZNUUABZEx/k40zk4=;
-        b=jxvoPhZwtSGgT8QDyqU7Zj0JE2o5we5PiPxJrP3EO1ueGLZCgbbCxspTgr2aLqnToN
-         NlvUsfMf4dzdZb115hfVLu+zSitgRcoKPyuEudcrbSVOL6A6AVR+tNn1bI8+vAW95Bsj
-         vTr8yNxomkxngy46ykISeiNSnJ+3xWajc7kegT+7VJKUVHxTZSAXaF5QnSZbGGqM9yI2
-         7Rxuq1KEBmYIuQHsD02gZ56o6i2Pzxx043UrMKOmM6wwMw7QMpHscAbgD2Jd+mj+0Ld/
-         hrzzYOFuygiKaitTp1/gZhbtBPNpcDWQ7LyWjVG410gBH3ATsbCPukoxsoyhK/wY/Zfg
-         vLdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788633569; x=1789238369;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rlmalfwKU2dFS/LTehgVnk0Im0uZNUUABZEx/k40zk4=;
-        b=shc0EeZHYHzYWpMweZ88g8eXBfPGZ8TWtDshSMp4BZea8HI9Ahk3gxsvc1zRLqa2L0
-         oFyLiZ37Y/0J25YTmA05gvEXpPBqOoCx7XIx0bP9ev1mRJT2RwU1/BQcgVlX0MNchlth
-         q6s6nNe7Uw0LSmp+rdUJVoLIDbgMTQKWKwLQfM0gH25Ei7ulclFnrZPPl74AQn19o284
-         SyeypSDR0zdveLdi1lBcvZI6zxj0LIE9jxh/Oc3XbnNa0HM0vsAJq5lkplSRKlMxbXGh
-         vrkNg3c5iYNoZ1+C3D3MF55Nn0om0J5j93lUIy6RG5H92WfHA1jiBK69gwqLotUx/5oz
-         5l2A==
-X-Forwarded-Encrypted: i=1; AKwUvBxIehSfJN90AU5ta4Ut5PaJKIuzZ6uBKW+gR2tI8+hWRRRDl7H/MSs1b6sK8meVjo2gcNhORU749umbVow=@vger.kernel.org
-X-Gm-Message-State: AFuF++nA6E1UYP1E7MueknTgyoVoKCp5nJsvyHMUXwaX3pw1n5SNgbLj
-	RA58KdRaJLanPb2loS41IreqjJWd3zlwpN1cqbI0KaSb+YsQLV9DRqLK
-X-Gm-Gg: AYBFou2babg8dUSfFqcahqzOxdMLYXnm/1vLmMJjyCQvL3QQX51jNKJntydIVNx04WK
-	4FKMzIyA11zQutKJg3Gnr6fDKBRx3jFKzzg0QSKHAjysjidUC+5usGA7m77+n9BWuUqesOcX+iC
-	FHMcgsIAmsT9DSVYZ6k0YGWoDBixdJF+nnq8w2YWeJPzpr36Gr2qNMNzM1ZOTJ0qwllfuWg1qaD
-	oXMQHu0mvLZkAsK8xuqUBGFbX3Hpd3S3X/4k0I2xb69IeoOyUREo5VpjcxoZPiHv7RbJW0edAV9
-	gFCXPHEwwQvhIghPNWIvFzkHbK+V2AlMBWKYElY9gUC8hRnylWbZ3iAhERSO4pUlOkaKK7Tz7oT
-	5zqrgPP88PvZCWCgM09SBgvu56EcrCWj0UnKeW4/G0ygopLhJNNSM4iU7J1BiElyCVCWXg/VeEw
-	9543Qt071xsBO7qz8+DZZHvhwzBEL0wDNHm2BHx/enUOeOtGu/doTPClfgB04PprizH/dTvxYcH
-	A==
-X-Received: by 2002:a5d:64e1:0:b0:485:8f42:e8cd with SMTP id ffacd0b85a97d-4858f42ec28mr6981886f8f.3.1788633569252;
-        Sat, 05 Sep 2026 11:39:29 -0700 (PDT)
-Received: from 1c44f78ca37e.fritz.box ([2.210.128.137])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885bfdf6sm16333603f8f.34.2026.09.05.11.39.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 11:39:28 -0700 (PDT)
-From: Abhin Parekadan Jose <abhinjoses@gmail.com>
-To: bhelgaas@google.com,
-	lukas@wunner.de,
-	mst@redhat.com
-Cc: linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	kees@kernel.org,
-	xueshuai@linux.alibaba.com,
-	Abhin Parekadan Jose <abhinjoses@gmail.com>
-Subject: [PATCH RFC 3/3] misc: Add edu_srpoc surprise removal POC driver
-Date: Sat,  5 Sep 2026 18:39:00 +0000
-Message-ID: <20260905183905.997833-4-abhinjoses@gmail.com>
-X-Mailer: git-send-email 2.51.1
-In-Reply-To: <20260905183905.997833-1-abhinjoses@gmail.com>
-References: <20260905183905.997833-1-abhinjoses@gmail.com>
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="QpVAFtSl"
+Received: from eig-obgw-6007b.ext.cloudfilter.net ([10.0.30.166])
+	by cmsmtp with ESMTPS
+	id 2rahxM91nusRS2vJDxFmCo; Sat, 05 Sep 2026 18:40:11 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id 2vJCx9BeLF2DA2vJCxaIjD; Sat, 05 Sep 2026 18:40:10 +0000
+X-Authority-Analysis: v=2.4 cv=FaM3xI+6 c=1 sm=1 tr=0 ts=6a9c620a
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=49j0FZ7RFL9ueZfULrUA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=E96Kx0X+4zgNMaUc81mHH8LGkvMndRM5B5hRiRMrV3M=; b=QpVAFtSl4Xrs7HrGpRVeKtXWSY
+	XMtN/2v55/GEljcKk0OaODW0QJtQ8zi5Qrotzay/ysZ5Gw2G24g7VHomcU4XVGBHRAoNHaNnBYKc+
+	WoVYtMYjqz7muMmYNCs2r3/7iTuGLg8JAXNUD1X7O89+1p6913cisV/hKPi4HYmvRo2iZuL7LNcdz
+	nBjKKYzVZzXJa/V4YY8siyH2kyylVU1+QfCqb2wruhAeNm6iXswzQgc+ZjG57WbYBlgZ4obgaAj62
+	Z4o+9KU0bCLYXfCL43svaYsnOxIo4PUKrOuGUpvVbAWOMRoz/B9ZtDRgxm5w1Rth7pdlqTwNKfaNX
+	/z3r7DxA==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:58894 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.99.5)
+	(envelope-from <re@w6rz.net>)
+	id 1x2vJB-000000007MR-3FvI;
+	Sat, 05 Sep 2026 12:40:09 -0600
+Message-ID: <2a532274-08ec-4dd1-97e0-de9a4a885c3e@w6rz.net>
+Date: Sat, 5 Sep 2026 11:40:08 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 000/551] 6.18.50-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260905115635.269562615@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260905115635.269562615@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1x2vJB-000000007MR-3FvI
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:58894
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 37
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfC3uVs7oeGm5kxKDOnUUxokCbWv6I0r2amAIYn/bGdGVY+v9Dvb22KTgNWT5/9HgY2g0XFbnPSrUIjT2w5AWq2nnzUiB+5oJlRVcIcS7LaXnrSPwqU5D
+ hEsMwuvkZuQ2jZkDlLlwM2DQdwJDS+0T8krubClpvdRPlz0lMGqh9yi3cFTGCUJjzxPl5mN4a6mi1EV+grDUQkhBr1JqoZgaeFU=
 
-A test driver for the QEMU edu device that reproduces the surprise
-removal hang described in MST's RFC v5 thread.
+On 9/5/26 04:58, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.50 release.
+> There are 551 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Mon, 07 Sep 2026 11:55:07 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.50-rc2.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-- hacked in a reg to the edu device on qemu to raise a delayed irq
-- This driver writes to that reg in remove and waits for the irq to be
-  handled. This simulates del_gendisk() blocked in
-  blk_mq_freeze_queue_wait()
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-Assisted-by: LLM
-Signed-off-by: Abhin Parekadan Jose <abhinjoses@gmail.com>
----
- drivers/misc/Makefile    |   1 +
- drivers/misc/edu_srpoc.c | 169 +++++++++++++++++++++++++++++++++++++++
- 2 files changed, 170 insertions(+)
- create mode 100644 drivers/misc/edu_srpoc.c
-
-diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
-index e8d8d5d88c0d..1479bf19c646 100644
---- a/drivers/misc/Makefile
-+++ b/drivers/misc/Makefile
-@@ -9,6 +9,7 @@ obj-$(CONFIG_AD525X_DPOT_I2C)	+= ad525x_dpot-i2c.o
- obj-$(CONFIG_AD525X_DPOT_SPI)	+= ad525x_dpot-spi.o
- obj-$(CONFIG_ATMEL_SSC)		+= atmel-ssc.o
- obj-$(CONFIG_DUMMY_IRQ)		+= dummy-irq.o
-+obj-y				+= edu_srpoc.o
- obj-$(CONFIG_ICS932S401)	+= ics932s401.o
- obj-$(CONFIG_LKDTM)		+= lkdtm/
- obj-$(CONFIG_TI_FPC202)		+= ti_fpc202.o
-diff --git a/drivers/misc/edu_srpoc.c b/drivers/misc/edu_srpoc.c
-new file mode 100644
-index 000000000000..f536bc4aa253
---- /dev/null
-+++ b/drivers/misc/edu_srpoc.c
-@@ -0,0 +1,169 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * edu_srpoc.c Surprise Removal POC driver for the QEMU edu device
-+ *
-+ * In remove(), schedules a delayed interrupt on the edu device and
-+ * blocks waiting for it to complete. This simulates del_gendisk()
-+ * blocked in blk_mq_freeze_queue_wait() on slow in-flight I/O.
-+ *
-+ * Surprise-remove the device during this window to reproduce the hang.
-+ *
-+ * edu BAR 0 registers used:
-+ *   0x08  Factorial: write N to compute N! asynchronously
-+ *   0x20  Status: write EDU_STATUS_IRQFACT to enable IRQ on completion
-+ *   0x24  IRQ status: bit 0 = FACT_IRQ, bit 9 = DELAY_IRQ
-+ *   0x30  Delayed IRQ: write N (ms). Hacked in this functionality(not upstream).
-+ *   0x64  IRQ lower: write bitmask to ack
-+ */
-+
-+#include <linux/module.h>
-+#include <linux/pci.h>
-+#include <linux/interrupt.h>
-+#include <linux/completion.h>
-+#include <linux/delay.h>
-+
-+#define PCI_VENDOR_ID_EDU	0x1234
-+#define PCI_DEVICE_ID_EDU	0x11e8
-+
-+#define EDU_REG_FACT		0x08
-+#define EDU_REG_STATUS		0x20
-+#define EDU_REG_DELAYED_IRQ	0x30
-+#define EDU_REG_IRQ_STATUS	0x24
-+#define EDU_REG_IRQ_LOWER	0x64
-+
-+#define EDU_STATUS_IRQFACT	0x80
-+#define EDU_FACT_IRQ		BIT(0)
-+#define EDU_DELAY_IRQ		BIT(9)
-+
-+struct edu_dev {
-+	struct pci_dev		*pdev;
-+	void __iomem		*regs;
-+	struct completion	irq_done;
-+};
-+
-+static irqreturn_t edu_irq_handler(int irq, void *data)
-+{
-+	struct edu_dev *edu = data;
-+	u32 status;
-+
-+	status = ioread32(edu->regs + EDU_REG_IRQ_STATUS);
-+	if (!status)
-+		return IRQ_NONE;
-+
-+	iowrite32(status, edu->regs + EDU_REG_IRQ_LOWER);
-+
-+	if (status & (EDU_FACT_IRQ | EDU_DELAY_IRQ)) {
-+		complete(&edu->irq_done);
-+	}
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static void edu_disconnect(struct work_struct *work)
-+{
-+	struct pci_dev *pdev = container_of(work, struct pci_dev,
-+					    disconnect_work);
-+	struct edu_dev *edu = pci_get_drvdata(pdev);
-+
-+	if (!pci_test_and_clear_disconnect_enable(pdev))
-+		return;
-+
-+	if (!edu)
-+		return;
-+
-+	dev_info(&pdev->dev, "disconnect_work fired — unblocking remove()\n");
-+	complete(&edu->irq_done);
-+}
-+
-+static int edu_probe(struct pci_dev *pdev, const struct pci_device_id *id)
-+{
-+	struct edu_dev *edu;
-+	int err;
-+
-+	edu = devm_kzalloc(&pdev->dev, sizeof(*edu), GFP_KERNEL);
-+	if (!edu)
-+		return -ENOMEM;
-+
-+	edu->pdev = pdev;
-+	init_completion(&edu->irq_done);
-+
-+	err = pci_enable_device(pdev);
-+	if (err)
-+		return err;
-+
-+	err = pci_request_regions(pdev, "edu_srpoc");
-+	if (err)
-+		goto err_disable;
-+
-+	edu->regs = pci_iomap(pdev, 0, 0);
-+	if (!edu->regs) {
-+		err = -ENOMEM;
-+		goto err_release;
-+	}
-+
-+	pci_set_master(pdev);
-+
-+	err = pci_alloc_irq_vectors(pdev, 1, 1, PCI_IRQ_MSI | PCI_IRQ_INTX);
-+	if (err < 0)
-+		goto err_iounmap;
-+
-+	err = request_irq(pci_irq_vector(pdev, 0), edu_irq_handler,
-+			  IRQF_SHARED, "edu_srpoc", edu);
-+	if (err)
-+		goto err_free_vectors;
-+
-+	pci_set_drvdata(pdev, edu);
-+
-+	INIT_WORK(&pdev->disconnect_work, edu_disconnect);
-+	pci_set_disconnect_work(pdev);
-+
-+	dev_info(&pdev->dev, "edu_srpoc probed\n");
-+	return 0;
-+
-+err_free_vectors:
-+	pci_free_irq_vectors(pdev);
-+err_iounmap:
-+	pci_iounmap(pdev, edu->regs);
-+err_release:
-+	pci_release_regions(pdev);
-+err_disable:
-+	pci_disable_device(pdev);
-+	return err;
-+}
-+
-+static void edu_remove(struct pci_dev *pdev)
-+{
-+	struct edu_dev *edu = pci_get_drvdata(pdev);
-+
-+	iowrite32(EDU_STATUS_IRQFACT, edu->regs + EDU_REG_STATUS);
-+	iowrite32(600000, edu->regs + EDU_REG_DELAYED_IRQ);
-+
-+	dev_info(&pdev->dev, "Waiting for IRQ in remove()\n");
-+	wait_for_completion(&edu->irq_done);
-+	dev_info(&pdev->dev, "Unblocked, cleaning up\n");
-+
-+	pci_clear_disconnect_work(pdev);
-+	free_irq(pci_irq_vector(pdev, 0), edu);
-+	pci_free_irq_vectors(pdev);
-+	pci_iounmap(pdev, edu->regs);
-+	pci_release_regions(pdev);
-+	pci_disable_device(pdev);
-+}
-+
-+static const struct pci_device_id edu_ids[] = {
-+	{ PCI_DEVICE(PCI_VENDOR_ID_EDU, PCI_DEVICE_ID_EDU) },
-+	{ 0 }
-+};
-+MODULE_DEVICE_TABLE(pci, edu_ids);
-+
-+static struct pci_driver edu_driver = {
-+	.name		= "edu_srpoc",
-+	.id_table	= edu_ids,
-+	.probe		= edu_probe,
-+	.remove		= edu_remove,
-+};
-+
-+module_pci_driver(edu_driver);
-+MODULE_AUTHOR("Abhin Parekadan Jose");
-+MODULE_DESCRIPTION("edu surprise removal POC driver");
-+MODULE_LICENSE("GPL");
--- 
-2.51.1
+Tested-by: Ron Economos <re@w6rz.net>
 
