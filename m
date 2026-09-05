@@ -1,232 +1,230 @@
-Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8073E308F3C;
-	Sat,  5 Sep 2026 15:28:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A59584ADD88
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:29:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788622108; cv=none; b=K6OKGMmd4+yoDlDNQ8DhgJqkuDKX731AjCYHWqsayUNyHaJqrzcMfDzAFiXgQNJNlf2deYedPK70ryxU2ZkTgrnMzwCGKVOZAnquBCybP7pxGUeTY+47BcxUiyYh3WKbVMICc6tnVIXh8LeR84lcxwt62AYJd2qELO9hGRDV118=
+	t=1788622159; cv=none; b=ibkjWFwlx7BivqzloFsd+eYqD+P5xFovtIUjwdMcyJRdEVW7YMjr2/GqbIDrqbUf+GPT7gQSLIobI/Wa86c0p+BaM7Uu4IG+QSFdLJ9D6VwOuOdg4DGK8jIpW2i8zcE/Mj4Z6IFqgSjGIyBcXV47UFhKH0OBeFLZZldYQQ2EzJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788622108; c=relaxed/simple;
-	bh=21oJQRptMENRZuUZmexVQ+gWTGcDjbnKzzfRNDMXibQ=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=BRJ54STiSLcvF531UbXmC61OIHjq2tDdu9rQ47hUNih2UMpPwjhlJKQLLkVSnhyw+MMeqAp7iQ5t3VPfhOBtG8OXlOaE+xO6yaCXIpBfkxvp3xjlTwp7JnZg9YnONPumi0BFl1jrWVOcPpeA860SMIgq6ZUh73NkUett7vhArW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=OZuRYJfB; arc=none smtp.client-ip=162.62.57.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1788622159; c=relaxed/simple;
+	bh=S6XBJpEz5Dek815jzmE0b9XkrXDLKdAJjoolsM8gc9o=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=BUxA+68zUFtjfbZX7lUF7k9uGaXe91FQkc0VXxHvto48YCjF/9hfHF7BlRwtVoihGYQ9X0URLGPJATSQPXiAJciDgFoGSRnWGDzvLq1rOVXIodPk83A/bzHPYgk7T2dt1bFtKOxPhjiXDEu+QuEBXdBTEt7jhvob3TlkrFB/KbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LxP5jvUx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Gn+kIKDB; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="OZuRYJfB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1788622094; bh=5aMJrkMTz3jHWrYt/87UGN6IlGuZj6u75bboj0AZyvw=;
-	h=From:To:Cc:Subject:Date;
-	b=OZuRYJfBuzMi8Ifk7ZB7f8B7AMKNTKV4KZW/iJc7J37QWB5Ghwa439J6ivCYRnAdL
-	 ZxXjeA6thR/laL9V1vlJCzWOrnvjpZXDnwtIXaDCrQfOJQ1CdwbehGMxwYS7eGUS1V
-	 jzDMUkIS+QFNZqMPY9G9EjXqWqCDES0/AmNOC/Ok=
-Received: from xgyy.localdomain ([2408:8352:603:550:7498:ece5:3e9a:a20e])
-	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
-	id 6F8AAE65; Sat, 05 Sep 2026 23:27:56 +0800
-X-QQ-mid: xmsmtpt1788622076thuzxais1
-Message-ID: <tencent_EB4BC71944911E53F173CF6B5D92EB1AA908@qq.com>
-X-QQ-XMAILINFO: NbgegmlEc3JuUC+7w6S+ptkaDcQvZL/mryoUACkxr1mFy09Uuj+C6YMs1L5Mxg
-	 bnbs8w25A28YA4MJSzxeodK/yvI/X8tgmq02ysZeFTLucw1eVVjFzt8l1FxK8xGb4LJSiwyDvkHN
-	 B3NB2T7v01/h0HtmZodk09WoqE/wAutFUGNPJIZj2sIt5Ozt58AuyX0Ql1T9IdKgWKyUhHfUA3ex
-	 Q+/sg90Ga5PiXWYg6PnEOPpVAV5OBu3qNWt9YJkH22IDuAJVleWhvr9IuWT1oS7DurBEwcuSM0kD
-	 +dK2rn8ia6/KTNMRGNPlgEJLE1JZm0LcjHXMs2SeYF+sjvml63nz4TgkRGlzgH1WZLv6I6GkkfGF
-	 45GIxT3TenAY9+ACNi3TuKkPUdt0c9M/0Eh+2TvPy1MZVouS9DsGD8vPu9xZhAMfw7wHbQ9Hfjjs
-	 cAOHMb8RzzW9EHy51axD4DMF18H4UQk1fcn4saDlNiAFolDari8fXhf7YurUPRlcZ/6wKJyX8kWH
-	 lrysTC2qibPrIWb6w1o04D2LZxNS1fjX5uV8dYCoOlebIebyG9ylG5Uxd50E2Cy8Yo2/IJNSCoWS
-	 o//DKnmGYutOzEDb+QugO9LugQauh+AUa/ZLmoSJYD6XOyjcMaj1GApfJtbpnMPGVk7ApcQQqwxH
-	 0RgEke0r18BE4jffuOS43RBgN8H2HTytG4KL+nF6JFs5O+xlExkOu6t96SnRo9l558kfokRi51S5
-	 +dL4spzpjROtEn9SSwwvt2KYeSMu2nIxlRhE7vot8eEAoUEK59kDl1pjX+P9SRlKQVcAY+1NaEVR
-	 YirY3rA0TzWxfp3/p/FSlq8NmaTTtYDLsZEX/hHsh3x7wE0Lb/w2ElF8sSH8kF5edjbUWg2HqO3z
-	 21kzTYPqUulWoiEjF33YLLebsDSbKx10Xe36Htl39SYMA5DU00PFMbwaCse9ziSuk1qx5uTU1Nz3
-	 7PONtyHf8kSRNOBuCQQzOg5cHiVGxrZFGgPGnvXT7ur5GfWZZiYI/Ss5SF/G18GOJZNVAP3hg2fd
-	 mbrc//0LWmU3mBl1/JyYohLQCRSj6nVB8RBuGlz6EWg/hraoEakjZ5fd7qI60g8Oq+FCeh8ZvaYl
-	 5PsrntmRX/Nr4z89VL2Ri9uAOG+6+ZEiKMXraEzw4UoLerDF0=
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-From: Zhu Ling <zhuling0805@qq.com>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Zhu Ling <zhuling0805@qq.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Pavel Machek <pavel@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	driver-core@lists.linux.dev
-Subject: [PATCH] genirq/PM: Re-enable chained interrupts after hibernation
-Date: Sat,  5 Sep 2026 23:27:51 +0800
-X-OQ-MSGID: <20260905152752.50126-1-zhuling0805@qq.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LxP5jvUx";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Gn+kIKDB"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 685Egn6r2541109
+	for <linux-kernel@vger.kernel.org>; Sat, 5 Sep 2026 15:29:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=1J5mbzKQXdFCMf3jwBjnv/
+	NJRWMI84WrAPPqfVmtmcw=; b=LxP5jvUx2lKO/eOcO1/amnatFkIbZ6u9R5XRuV
+	zabkJz515FblvKsvfODp8AHwH6L21GuSYhnl7dHBbRDMFEH82hiFs2/0poDhObl9
+	22ODcFy1Pmeua3qym7an/qDSEJ3uKzSWkKFu6k8hYCB8qCLhpMphQo41ItIgfKqK
+	0PDXMdn3XI7/zRh0W2pvMTUjdgh//gcnoNp/VF8nKJ44BFT7OtHHuQ9hYLICHyzO
+	RHz0+kRVSVXfVA9ehghnsv+kuUgEhy1TxZlFLK9BHS+4lKFjiMjHNZeyNdNkkBHx
+	4XdJhiiKLdIyNAmLkvJVfjHBa1qhcOJpqIBkPWLBkAgsgzZA==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ggadhhg9u-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 15:29:16 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc435388657so2636889a12.3
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 08:29:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788622155; x=1789226955; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=1J5mbzKQXdFCMf3jwBjnv/NJRWMI84WrAPPqfVmtmcw=;
+        b=Gn+kIKDBkJyLmuSgXmuKhdBH65eqf8c1iWnpTGKfxITVebt5uiUTryv0rZfRVIz8PP
+         yfpjnj04zwxAJ38at99aun8r0RmIxKlriymJxTulvMGHl4qZ5YDjt8/ekH0vPXLcq5OY
+         pw0UQ1/RKWVJXCaCu3MqenWoEMSNKjd4/ioxS/uyC/mTdHjncdFblGZfCOwHjMqTw5LJ
+         XiewLzDaZLDx3j/txB4wryPx6q7o8OHw0ZZcNXlMJ9kHLXwbUEz5b5CkxyRfDkaBUWbm
+         4mlcNXiXVJQk0OezhMAmQ0LbmVN4EKrCil61D3wzBhJGrrSYH+ltAQe1RwznolD1JE04
+         JYGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788622155; x=1789226955;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=1J5mbzKQXdFCMf3jwBjnv/NJRWMI84WrAPPqfVmtmcw=;
+        b=hGp+Ns3zBnxAIN7nGzAZ1YBQ9Ti45glBAN6MSgcbwTfEW9c8a43DATSu31F8Ng+Asg
+         vCaHTAgKME6cttJyU1sfZez0B3yXGYAr5IO9i+JZ4N2WDAn6gXTT/7bDUCr6kmsciX+E
+         f44JSD8nssBcCynEYzAnNoaVEF9dFPTgB/eGehWPhkngp5A88LHJLeFGQFRtxOb1VSGE
+         1Dq0r8d3Tk0JMl6+FY8MM/AJrTJKic5L8tk3HXXOIcS2gcmU8wFvVu/hUDa+B0hGD1qZ
+         FZPVcowUZjgC39ohw1NMe1fBw2gSsAFM6ciWx4l2GFhpbPsWwxbB37+swiEaUDPwXx3j
+         MM4w==
+X-Forwarded-Encrypted: i=1; AKwUvBwFkoGVulQLhrhmRqJ8LBF5EOfMqFRkEZFo7O1dv1lwxT9ovTvjGaNDYIVg0umXVmy7QGp2WypHqLXBMWw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mzBGvSVyXeDn2mTbRIq3CmBLgkFjdW8TUljfVRG1D0kIVfmXFW
+	AOISshz89l/Mv/XVifaFFaHYt0pvxxsHSs+7+aH9u2REeoBy69aiJb3Iw2LIwSPdnyOPPrToQJ3
+	M5MRbmU4oH9SMmRV2RGbSTdtrIwLDDrDKXaTuYM0Nn82m6ddm7l0bjUJMwNlY7975kt+C41L0n+
+	w=
+X-Gm-Gg: AYBFou1LJipNf+D08PjjMeFc4YEpU4qbRdhX3naaE2H8aqiGPYxbbfzdgx8M79weHyx
+	8epF1k/C0a5UxS09Rt3On7Gd+pKOn44NzgHOKCCAQp1Aho1ArpsJoVtvTynwt0Y8e4PmbriLoRV
+	bp51h+CaJIDVor/SBdOffy/0+IQYH2HbX8EZr8Z9MATuHEgfqnYCrOOkjAJx6I5tpOPi5PBo64s
+	R/UC5rQ/LnUInF9il94dePuiHZytJyv3H9FhuIBLJJLjNyNWAjvbolwhoWCtl/n2YK5WP3nAsGd
+	1k2SXeqomIq/mmlQb/m5G+SRPxKVqRffqb05/Ktj9twXoG4QkxhGuBaOOj55U8n37zo2G267srt
+	RpBh5D1F+u8qGQ5rfBIbiiKCtDt+E+76Da1vyimf2g3PJ6CqNDk6H7gus+bVm9r6U0Qnvpw==
+X-Received: by 2002:a05:6a21:7117:b0:3d8:5a37:549c with SMTP id adf61e73a8af0-3da39eb8acbmr22462829637.7.1788622155343;
+        Sat, 05 Sep 2026 08:29:15 -0700 (PDT)
+X-Received: by 2002:a05:6a21:7117:b0:3d8:5a37:549c with SMTP id adf61e73a8af0-3da39eb8acbmr22462764637.7.1788622154950;
+        Sat, 05 Sep 2026 08:29:14 -0700 (PDT)
+Received: from hu-kriskura-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm23592635eec.16.2026.09.05.08.29.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 08:29:14 -0700 (PDT)
+From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Subject: [PATCH v7 0/5] Modify interrupt handling for eUSB2 Phy targets
+Date: Sat, 05 Sep 2026 20:59:04 +0530
+Message-Id: <20260905-eusb2-interrupt-v7-v7-0-820cf5377a70@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEE1nGoC/yXMMQ7CMAxA0atUnrEUTCGBq1QMJDVghlDZSYVU9
+ e4NML7h/wWMVdjg0i2gPIvJOzf4XQfpecsPRhmbgRyd3NkdkatFQsmFVetUcPZIlMIY9ocQfQ8
+ tnJTv8vlNh+vfVuOLU/meYF038Eu/vXYAAAA=
+X-Change-ID: 20260905-eusb2-interrupt-v7-22c8d8138b74
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-usb@vger.kernel.org,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788622149; l=3296;
+ i=krishna.kurapati@oss.qualcomm.com; s=20260707; h=from:subject:message-id;
+ bh=S6XBJpEz5Dek815jzmE0b9XkrXDLKdAJjoolsM8gc9o=;
+ b=8BWq9KCEu1Xr+PEyUZ9vWUy23HYTgxcbm+CJXK14EYPeucN7Aj/6bD/42c4UKRxSERI8X1aKh
+ 6/B3WjwWnZHC7BRkzspkFzGOdKecsDCXY2lhE7zTbAzc7CGtCZrYW83
+X-Developer-Key: i=krishna.kurapati@oss.qualcomm.com; a=ed25519;
+ pk=6PmiuwGCdov3wRO+bdmRlRxRtmJyDKz3ED57LLPVgds=
+X-Proofpoint-ORIG-GUID: dzJtYWQi42Zn1gazo9WTaI1eSjcRgZ3o
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA1MDE3MCBTYWx0ZWRfX4mYr1eIORcYq
+ syHVkQtvNKghFIzxd09WtqmsLXsE/kTafdrix1EurUY3T6ynRiaf3V/HoVxMpiqZ1AGvsuWat6d
+ H+ywgXPQ4vd75IZLPVA3lhuE5ZVcX0EhEMwxjm9YtZr5Xy8e4pNRRkgo//q6GJFXSmbA4CM6Ndh
+ W66oKssgsehEYDFxnNnU615urRTSKaHcyPjwzYQpkuoRO1wZzYYNtjUepUfe662NixOnGKXYemp
+ xB/tU3CmKlB4kLU6Qkh4rP5dxCDzrGJGwwk89K82v5d++st4Q3wVuI+v4Ql+Cku2K5Er+fqklza
+ Yh/tm4xYl4faC24hChu4i55YnX4gCIA1BEQmMuExxFa2JIvpCYQpViy8+66d0NIOuqGXQkTpyKp
+ SyuzuKPRIR19BgpIwgnUuAccGU09O4pV44sjcqpDAOZtu9Wrq7HGKcoo2SgozF9QI11uwfVQfGy
+ ZHoVcwlReOyummD+sxw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA1MDE3MCBTYWx0ZWRfX8OBCnfvCBiOn
+ yxSqVDsH+44+0bz5S0wkkAzzPJJY8COux4l1DOitWHlMOoskdF4Nl2mOby6RVCw4zMdSKhce9PO
+ eCRPAIrcC53Es4ux2Jp5GdzoxpzddbA=
+X-Authority-Analysis: v=2.4 cv=OceoyBTY c=1 sm=1 tr=0 ts=6a9c354c cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=7T7YwCvgW8qH-pAI4vUA:9 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-GUID: dzJtYWQi42Zn1gazo9WTaI1eSjcRgZ3o
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-05_05,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 priorityscore=1501 suspectscore=0 phishscore=0
+ malwarescore=0 impostorscore=0 adultscore=0 spamscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609050170
 
-Chained interrupts remain enabled across suspend because they can be part
-of a wakeup path. Consequently, suspend_device_irq() does not set
-IRQS_SUSPENDED for them, and they do not have IRQF_FORCE_RESUME accounting.
+eUSB2 targets handle wakeup interrupts differently depending on device
+speed when operating in host mode.
 
-After restoring a hibernation image, the interrupt controller can have a
-chained parent interrupt masked while the restored descriptor still marks
-it started and enabled. For example, the restore kernel may initialize the
-controller without probing the driver that installs the chained handler.
-resume_irq() skips the parent in this state, leaving interrupts from the
-devices below it blocked.
+According to the eUSB2 specification, remote wakeup signaling in host
+mode is detected via different data-line assertions based on the
+connected device speed.
 
-Pass the hibernation restore context from dpm_resume_noirq() to the IRQ PM
-code and force active chained interrupts through the existing force-resume
-path. Set the disabled and masked state before enabling the interrupt so
-that cached descriptor state cannot suppress the irqchip callback. Calling
-irq_startup() alone on an already started and enabled interrupt can skip
-the hardware access when the descriptor also records it as unmasked.
+When a low-speed device is connected, the host repeater drives eD+ to
+logic '1' upon detecting a K-state on the USB lines during remote wakeup
+(eUSB2 specification, Section 5.5.14).
 
-Leave disabled and unstarted chained interrupts alone. Keep the existing
-behavior for ordinary resume, hibernation thaw and recovery, and the early
-syscore resume pass.
+When a full-speed or high-speed device is connected, the host repeater
+drives eD- to logic '1' upon detecting a K-state on the USB line during
+remote wakeup (eUSB2 specification, Sections 5.5.15 and 5.5.18).
 
-Fixes: 0a0c5168df27 ("PM: Introduce functions for suspending and resuming device interrupts")
-Assisted-by: LLM
-Signed-off-by: Zhu Ling <zhuling0805@qq.com>
+Since the eUSB2 PHY's "DP" and "DM" interrupt lines monitor the eD+ and
+eD- line states, configure the wakeup interrupts accordingly
+
+Add support for a new phy "type" attribute to be set by eusb2 phy drivers
+and be read by consumers (in this case usb controller) and act accordingly
+
+Changes pushed on top of usb-testing branch. And v7 is only compile tested.
+
+Changes in v7:
+- Removed NULL check for phy pointer.
+
+Link to v6:
+https://lore.kernel.org/all/20260826-eusb2-interrupt-v6-v6-0-ae2601cfa80c@oss.qualcomm.com/
+
+Changes in v6:
+- Update commit messages to reflect why new EUSB2 phy type is added
+- Update phy reading via index rather than by name
+- Remove redundant header files in phy driver changes
+
+Link to v5:
+https://lore.kernel.org/all/20260723-eusb2-int-handling-v5-v5-0-f32ea6c1a318@oss.qualcomm.com/
+
+Changes in v5:
+- Add support for phy "type" attribute and set it from m31 and snps eusb2
+phy probes.
+- Removed adding a new binding property
+
+Link to v4:
+https://lore.kernel.org/all/20260709-eusb2-interrupt-handling-v5-v4-0-d4f993925608@oss.qualcomm.com/
+
+Changes in v4:
+- Moved to using binding approach as suggested by Thinh
+
+Link to v3:
+https://lore.kernel.org/all/20260511094422.3561509-1-krishna.kurapati@oss.qualcomm.com/
+
+Changes in v3:
+- Removed multiple glymur-dwc3-mp pdata entries
+- Replaced use of ternary operators with if-else
+
+Link to v2:
+https://lore.kernel.org/all/20260505194242.1947891-1-krishna.kurapati@oss.qualcomm.com/
+
+Changes in v2:
+- Updated commit message
+- added supported eUSB2 targets
+
+Link to v1:
+https://lore.kernel.org/all/20260502095616.666938-1-krishna.kurapati@oss.qualcomm.com/
+
+Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
 ---
-Found by inspection and reproduced with a fake irq_chip in UML KUnit.
-The reproducer installs a chained handler, runs the IRQ suspend path, and
-sets the simulated hardware mask without changing the descriptor. On the
-unpatched kernel, resume leaves the hardware masked with no enable/unmask
-callback and no interrupt delivery. With the fix, delivery resumes.
+Krishna Kurapati (5):
+      dt-bindings: phy: Add PHY_TYPE_EUSB2 definition
+      include: linux: phy: Add phy attribute "type" and associated helpers
+      phy: snps-eusb2: Set phy type to EUSB2
+      phy: qcom: m31-eusb2: Set phy type to EUSB2
+      usb: dwc3: qcom: Modify interrupt handling for eUSB2 Phy targets
 
-Validation:
-  - UML KUnit: 24 cases passed; the same suite failed 6 cases without the
-    fix. Covers irq_enable and irq_unmask callbacks, disabled depth,
-    shutdown, existing force-resume behavior and pending interrupt resend.
-  - x86_64 defconfig (GCC 13.3) and arm64 defconfig (Clang 18.1):
-    kernel/irq/pm.o and drivers/base/power/main.o built with W=1.
-  - x86_64 tinyconfig (PM disabled): kernel/irq/chip.o built with W=1.
-  - checkpatch.pl --strict and git apply --check passed.
+ drivers/phy/phy-snps-eusb2.c              |  2 +
+ drivers/phy/qualcomm/phy-qcom-m31-eusb2.c |  2 +
+ drivers/usb/dwc3/dwc3-qcom.c              | 63 +++++++++++++++++++++++--------
+ include/dt-bindings/phy/phy.h             |  1 +
+ include/linux/phy/phy.h                   | 27 +++++++++++++
+ 5 files changed, 80 insertions(+), 15 deletions(-)
+---
+base-commit: edc1518454f6439e50a9220e9a3ba09044ea8d8b
+change-id: 20260905-eusb2-interrupt-v7-22c8d8138b74
 
-No physical-board hibernation test has been performed. Sparse was attempted
-but rejected by checker-valid.sh because the installed sparse 0.6.4 lacks
-__typeof_unqual__ support.
-
-AI assistance: an LLM inspected the supplied patch and local IRQ/PM code,
-prepared the fix and changelog, and wrote and ran the fake-irqchip tests.
-
- drivers/base/power/main.c |  2 +-
- include/linux/interrupt.h |  2 +-
- kernel/irq/pm.c           | 29 ++++++++++++++++++++---------
- 3 files changed, 22 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
-index e130da428141..370ce28fb7b3 100644
---- a/drivers/base/power/main.c
-+++ b/drivers/base/power/main.c
-@@ -952,7 +952,7 @@ void dpm_resume_noirq(pm_message_t state)
- {
- 	dpm_noirq_resume_devices(state);
- 
--	resume_device_irqs();
-+	resume_device_irqs(state.event == PM_EVENT_RESTORE);
- 	device_wakeup_disarm_wake_irqs();
- }
- 
-diff --git a/include/linux/interrupt.h b/include/linux/interrupt.h
-index 3bf969ad8fe0..1cf8808adf7f 100644
---- a/include/linux/interrupt.h
-+++ b/include/linux/interrupt.h
-@@ -253,7 +253,7 @@ extern int irq_inject_interrupt(unsigned int irq);
- 
- /* The following three functions are for the core kernel use only. */
- extern void suspend_device_irqs(void);
--extern void resume_device_irqs(void);
-+void resume_device_irqs(bool restore);
- extern void rearm_wake_irq(unsigned int irq);
- 
- /**
-diff --git a/kernel/irq/pm.c b/kernel/irq/pm.c
-index 99ff65466d87..325b5dd4495e 100644
---- a/kernel/irq/pm.c
-+++ b/kernel/irq/pm.c
-@@ -141,7 +141,7 @@ void suspend_device_irqs(void)
- 	}
- }
- 
--static void resume_irq(struct irq_desc *desc)
-+static void resume_irq(struct irq_desc *desc, bool restore)
- {
- 	struct irq_data *irqd = &desc->irq_data;
- 
-@@ -160,9 +160,18 @@ static void resume_irq(struct irq_desc *desc)
- 	if (desc->istate & IRQS_SUSPENDED)
- 		goto resume;
- 
--	/* Force resume the interrupt? */
--	if (!desc->force_resume_depth)
-+	if (restore && irq_desc_is_chained(desc)) {
-+		/*
-+		 * Chained interrupts are not suspended to preserve wakeup paths.
-+		 * After restoring a hibernation image, the controller may have
-+		 * them disabled despite the restored descriptor state. Force
-+		 * active chained interrupts through the hardware enable path.
-+		 */
-+		if (!irqd_is_started(irqd) || irqd_irq_disabled(irqd))
-+			return;
-+	} else if (!desc->force_resume_depth) {
- 		return;
-+	}
- 
- 	/* Pretend that it got disabled ! */
- 	desc->depth++;
-@@ -173,7 +182,7 @@ static void resume_irq(struct irq_desc *desc)
- 	__enable_irq(desc);
- }
- 
--static void resume_irqs(bool want_early)
-+static void resume_irqs(bool want_early, bool restore)
- {
- 	struct irq_desc *desc;
- 	int irq;
-@@ -187,7 +196,7 @@ static void resume_irqs(bool want_early)
- 			continue;
- 
- 		guard(raw_spinlock_irqsave)(&desc->lock);
--		resume_irq(desc);
-+		resume_irq(desc, restore);
- 	}
- }
- 
-@@ -217,7 +226,7 @@ void rearm_wake_irq(unsigned int irq)
-  */
- static void irq_pm_syscore_resume(void *data)
- {
--	resume_irqs(true);
-+	resume_irqs(true, false);
- }
- 
- static const struct syscore_ops irq_pm_syscore_ops = {
-@@ -238,12 +247,14 @@ device_initcall(irq_pm_init_ops);
- 
- /**
-  * resume_device_irqs - enable interrupt lines disabled by suspend_device_irqs()
-+ * @restore: Whether memory has been restored from a hibernation image
-  *
-  * Enable all non-%IRQF_EARLY_RESUME interrupt lines previously
-  * disabled by suspend_device_irqs() that have the IRQS_SUSPENDED flag
-- * set as well as those with %IRQF_FORCE_RESUME.
-+ * set as well as those with %IRQF_FORCE_RESUME. Also re-enable active chained
-+ * interrupts when restoring a hibernation image.
-  */
--void resume_device_irqs(void)
-+void resume_device_irqs(bool restore)
- {
--	resume_irqs(false);
-+	resume_irqs(false, restore);
- }
-
-base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
--- 
-2.43.0
+Best regards,
+--  
+Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
 
