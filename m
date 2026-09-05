@@ -1,156 +1,209 @@
-Received: from mail-oo2-f7.google.com (mail-oo2-f7.google.com [74.125.231.135])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2133.outbound.protection.partner.outlook.cn [139.219.146.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60BB72F49F6
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 10:20:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.135
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788603631; cv=none; b=nfzCjHe5hzAhGpmT1cnIXxoObUlv4RAOPNUPOf9G8bDNqcE5WiLI5hxZZunSdGXN1zB9yb76BIoAJxsM6mnx8km+vYf41zS8m7fqCiERmsxxHZpCf3BvRsBOSRdSMUtPZ4+Nw3edDqouwDTk6hC98fE5yr583Fvlne1XKA9L2Ko=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788603631; c=relaxed/simple;
-	bh=Idlkh55hRaoETuuycgLnH7GVDVp/axxy3xzNgdKbXv8=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=ljrjgFmDWRaG3WCAh+V61bvuCZHGEG8+2W7lx1amlbobrgyURB1CSL/fh2fNPU6XJl8qKJtu6qtgnirNyOMtq+KMM89Q+uUYHk7uhiH+AwMvlPcWO20EALgT4hC/sIKbqG+qvg1nHDBd9xnU9Ogjxbyc8XqFqad1E2Mq7hto/Xc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f7.google.com with SMTP id 006d021491bc7-6b1bebb3ae8so494796eaf.1
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 03:20:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788603629; x=1789208429;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jTlvTJJ4fA8El4tFO6YJiCOtiTrCeymc5pubKYwelis=;
-        b=AVSjmZHMK+zo1bORmH6OT21x+dD1bUGzHgSXAUE19AXH4hbdX63ucliwqKcSLPJYVz
-         J2Jc9IQPWI30rwG2TBIY2u63DzGGfeqNenSQdmxKb8sype6w4m1ggbn3g32Kb0rqphBe
-         ZzPu45RlNtFxlDSEAvvqH6e4OZUiMyX6KUoPtMRNbfjMG22fvaA7tGK+MAzP541vZTKw
-         kDq3VDuzbuOnm7HrwOBjS3edAZ4hz7EvsNI0I5+6qF5/+eKpueM0M11fV3pKP98uqgZd
-         p8WiqB2zuU3VMQFkbjILLzNY8Y2I8adbrTUsVzF91NiqiOHiMJulOtfiLFriqYXpUMsn
-         0Sug==
-X-Forwarded-Encrypted: i=1; AKwUvBzYziIE5SfThueWIo1TdJdpsj06jGtykj1cyUhCwIUG4ZdFWjewJADX7MV6A0fHK6AF/9BIGt0DZGVux5s=@vger.kernel.org
-X-Gm-Message-State: AFuF++kEhlZbGm87CYdAalQBvINxlKnAlmSvQFsqegEJ697kGsT5CJ9h
-	sLJpql47NYtSihyXqS0p/yVD+KzWEMsk9VPHgs5MFQV7YRaxDp69W50CaiBz0W/C+7mnTog/609
-	kVsfvDg7YTOHQtNp0tmV14kXAIiZxTHHxA9TOKUys8IOJvsOZMnVjOkgUVvs=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF5053876BB;
+	Sat,  5 Sep 2026 10:29:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.133
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788604173; cv=fail; b=GSfghncFFGNj4E3G0m6IGhQhjMnHH+H+QNddSMPHBD2Wi6LT0OT8Ps5EALWZMehfKfDSiyqcjZV273xX3QNli/yAT5Q9ZVE5Hvefn3fJ5eq/2KlCYui8x/vd+y289cg4J8pUEQVSHGUIIfOPmwnY4DppqhRppuCfd20p0aesKuc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788604173; c=relaxed/simple;
+	bh=6bBa+BZ1lxIm+PKeaHn/wKcOG3SO/2yPPbXpzSI/S/w=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=UCJ8ibslCdcvVOVDNQXb6n04lL15DyCAKqtkxycu3HL+G4bu97336eCW00Hih0fmS22Rjoq+NjZ4Mh/B7VBd9K9wPk3qhP8TXNorrv6fGkpFgIxsEpQ+PPCpCZNzeAZzV8oYZMMfSQ4JyrzWlJJkRb2aI8qudX9M50A5RVnx7eM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Z4gaR8wP3mfVsXtlrDj/qeeWY66OgxXCbwus+E41ncd4kv/3rMlJjvZR1EEN97Q8610dANIRK2tlQe0zzDQiMbqszjsdFgSTv/lSlXS9E5IVPIzpa6T2xy7PqyLINeY3SJ0CTluWIYTAvi+gACqIc3HvTgnco1Z0sJ9onKvWlGu5Y803LkgBqn8kF3km1Yd6ZJ8zQBpEueOdeVyCWZaD6PPEN+edb3aE1Eijjj6sRGHWh9N6pqPU/lCyOpSRW931G4k5SegNSTA33JdmfCJW47P8f2ud1drYYD3LT4TCSNzD7eAIGsniKfDFJTi+xHxvH+nP2fvd7Vp5TamfAVE4gw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0CNuR7HWfq+QfYinMdIdDVfIF6bEdOBDp+r8MMPyU5U=;
+ b=Ucv9/d5Nypsinpw8RUi1gxjk4jDqOAMwlUNsIqAH4QvD08qERjy+FMZo4yCnOrjkqWqcU48fUimqYVT9PZ2UB+ZGT/IwjZzbqvTiIIa03NNOWPExOXcZojFK4WHWgoP+UVWs/FvjgpuC5i5qZDclrvDEidJRGKeyLtJCJuloxIJdPB+UC1IMqB6/3QnUG+cuOqAcjEYXGTaA1Q7apyJH5f6br3sCN196IXh069VEfghqi6xBrGrZETJzwYOeeCoy76+0Q179YXJR4sa+7e4i94lGU1aUmIzYxy6bOdLNcg0N78MqyemUohW/4ZCQtD7nRnmFzFgidDCUN0HjemFFow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1329.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:16::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Sat, 5 Sep
+ 2026 10:29:15 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0315.011; Sat, 5 Sep 2026 10:29:15 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Chia-Wei Wang <chiawei_wang@aspeedtech.com>,
+	Oskar Senft <osk@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Changhuang Liang <changhuang.liang@starfivetech.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Jani Nikula <jani.nikula@intel.com>,
+	Vitaly Lubart <lubvital@gmail.com>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Alexander Usyskin <alexander.usyskin@intel.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Breno Leitao <leitao@debian.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	James Morse <james.morse@arm.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Stephen Hemminger <stephen@networkplumber.org>,
+	Dave Penkler <dpenkler@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Dan Williams <djbw@kernel.org>,
+	Mukesh Rathor <mrathor@linux.microsoft.com>,
+	Vladimir Oltean <vladimir.oltean@nxp.com>,
+	Alexandra Winter <wintera@linux.ibm.com>,
+	Julian Braha <julianbraha@gmail.com>,
+	Karthikeyan KS <karthiproffesional@gmail.com>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	openbmc@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org
+Subject: [PATCH v2 0/4] Add support for StarFive JHB100 UART Routing
+Date: Sat,  5 Sep 2026 03:28:57 -0700
+Message-Id: <20260905102901.126035-1-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: NT0PR01CA0032.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:c::6) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:168f:b0:6b0:4199:3cc4 with SMTP id
- 006d021491bc7-6b6fea84e5dmr9121676eaf.27.1788603629283; Sat, 05 Sep 2026
- 03:20:29 -0700 (PDT)
-Date: Sat, 05 Sep 2026 03:20:29 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9beced.a5e650b3.26d8a.000b.GAE@google.com>
-Subject: [syzbot] [fs?] WARNING in do_new_mount (6)
-From: syzbot <syzbot+2a13ad6914e6fcec716c@syzkaller.appspotmail.com>
-To: brauner@kernel.org, jack@suse.cz, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
-	viro@zeniv.linux.org.uk
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1329:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2d2f000f-80eb-4cad-4991-08df0b3888f9
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|52116014|7416014|1800799024|23010399003|38350700014|10067099003|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Qvd6GxNvGrJhBxKdQnzmSMYROzoZ55iYxkdJWY5BemilJPR9CVjC4DJadx9Rnj2z+ucj8swB7RImXVsTGGnbwPfvIvx1zGtPOIuv7Nr4a0dNaDWQAi2rBQGFJ7FkUiPK3gsgD/0sFYGvFq4AVXOumasLBlLxeTG6g2bGV2c3TgslV8EdJrPtEMcP32LpHXehlBDaTb+KYj33tp6ZPolCWrjEYFsR03ZhW0518MVr2ytjzaFepkr169KuDJA7TZ4PQwktJDCpn8Cgktd1w6zlY95lCVvVd2AdsOjDndmCKiYH9ysKWFh8llLl4ICh+jbA4qvrsHIeATeZdvhEi7xjxveLSA/bI10zujIswCe/55k1f9LerE5QNC7nvxSAessejCXTJ4ATIeEAS4/CVnutEQFm5tsMx8ZaGQrVtvs8hwnBalXnJgsNJKZfrJAqrtKvmy+XPh1HEemPkZYkCsqmopWecTO14hWpWqubo47usRDIb96NdbaBqzHfjIC7AbsuuU4Tupcw8Dg6BauTsitSxp8JvS9yXStmgFBeDJNXrT5TBAquDqMO76h5TsWJFMcD
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(52116014)(7416014)(1800799024)(23010399003)(38350700014)(10067099003)(56012099006)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?gz2SSq8zCy0SF1IPyNv1m3kIbc1CJpte01pSzK//cwk4LOQwTechqTYeLat8?=
+ =?us-ascii?Q?BsWMfxcCqpmOYDHh5uztU3L9hogu1oAcU1hRvBJzp6ddCu1RJJ3wXu/YvJdf?=
+ =?us-ascii?Q?r4i/4Zzn59Jvz1ZQ0sr7OChgZLSy/JFJiQqD1PJRjCdS5BD6iekSXvYZlhZU?=
+ =?us-ascii?Q?jhtG5bVaLTUjU+voZVBPwmukwHq0jf+EgnDw7mLqTggleLijphflaergCPOR?=
+ =?us-ascii?Q?LPB+1UHuGEP2peuyyAGYWWrUQ6sBzikXUltHyNmrcTufT+cSQLWMi4ibnJ7z?=
+ =?us-ascii?Q?pgYO2DuneM48KGuDs216j0USkVNXf3diJ8lDMryzKZtmX7VCfE8TdU6G7elw?=
+ =?us-ascii?Q?JxEZbETvKGoa0eyLZPAWmhxbMnhnuYPdSQAaXm16LC1vhpk0ck07huHOT6Pv?=
+ =?us-ascii?Q?z8Z76q2LAdd2JbWMXgSd8RX1Srh65HYvju1gvT0QHeFUqhXFt709OdYE/umA?=
+ =?us-ascii?Q?0n9xS4mE5StHbxLiHGG7uHSfTZuJMTmH+G0NaePCxqlf2qrgqyAoDk3NbXxh?=
+ =?us-ascii?Q?g7B5I91lyofl345M/XzudUPN+s0j3TyT4E6z2Ee6gQzDE9k/YWccrPFMAeYH?=
+ =?us-ascii?Q?wrQo8vuP8hP6WSXr7GG+lhZmQnEj3Fu9vKA1ue+x924q8Tbs6AqJOCBzPWyd?=
+ =?us-ascii?Q?QTQz4+YQsf59j+thRjZZsGGBzd22c3mhcgMclVmatyD1CTHqmOQZpP/xwE9B?=
+ =?us-ascii?Q?A5Vzjyv41BlSSiY+SQmq6uYSKA0JJPvwYt6iZaP0EaS+N9SSxG9LIQczvSKN?=
+ =?us-ascii?Q?FYBTlYvUb0VOdfaPHmARoJk9jReyte4ly4EGMnDmZ9xDR5L9TC6BwlP8D7yx?=
+ =?us-ascii?Q?PPPJqP/rf9tiTpXtp4EqpMXJTqQ4+wCXNrz/XK60mxkNv/RIrCtmCzJ0VS0A?=
+ =?us-ascii?Q?qKltG4aR73qjxnPY4Z7d/0fFLr8/elrmdhy7X51KnS2rnS39G8m8J7Ap11X6?=
+ =?us-ascii?Q?sIxF9ExBpZHnRRG/6meINNAfLwn0OOPs2zR0P6TyIelEESUoEM5ViTaETSFj?=
+ =?us-ascii?Q?WWvNhKl5YcmSg/gRuoYD1cmQvSO2k0vf28kqNXLQ/ei6mmVHRIDCufn8BblY?=
+ =?us-ascii?Q?ssK4LYCMsgKLmqOpbN9aWGeYlAoaRODIPG43jeBcUSy0uTqbE94tHHWAvNYt?=
+ =?us-ascii?Q?fQ0rbX+iGfbGVTQZu9I0b5kY1tgJJs0HPTgUDOIlJsgmirm0wSMJ0E0VN861?=
+ =?us-ascii?Q?/KQZX9R5QyMn5MJ0dD15sM8SJJUNwoswuOw8IOExOHOg24cX8CP+Ohh1Gp1F?=
+ =?us-ascii?Q?TOUTjDFLL9rEJGFb3Gg+lTzXZNCWhOb2uELN1usd7gWQjzLyOqeY27PqxB8i?=
+ =?us-ascii?Q?ah5iUJq2+ODsT8mPN1O2GdXxvGxT871pX4Q4wjAfxoh8Z9PD+32avhoheYAI?=
+ =?us-ascii?Q?ggsPz7QFrKmtbGbxNI0rLyxwZwuyv1O1oFrtecttPslR1tGMU0p5b3k19S7z?=
+ =?us-ascii?Q?RokDxC2NNAtLbGUNY0UfIYqIRqPuXjJuXCdYQhzLnpxBK0P0aJEcidM8qYle?=
+ =?us-ascii?Q?IhhUTzKMjFNyDsjTX0sw9dKAdJkcM8iVgTOTaSYPtXz0lYcPhu4ZQpMh17bj?=
+ =?us-ascii?Q?xIlcuVL/jkqv/F+KYKLqHXa9BqfSYjoZNe8Go+/qaLCxpZd8xsVaQ5GVPNyT?=
+ =?us-ascii?Q?OqtA8Psx7kz4XquP3aONqL/YV4eblv8c52xqAImWWH9hoRjS6pkIsxafdkJC?=
+ =?us-ascii?Q?FgTxc35oQj8I7pTPL/rcekWZidx1WiJXg1MkkNCJbRJUhnbbaexcDPRstZIh?=
+ =?us-ascii?Q?4S9Nzdsum8rEMiC47Y6DTIUpbP23RRrp3ALhtWwOdHwYrV8pKs50?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d2f000f-80eb-4cad-4991-08df0b3888f9
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 10:29:15.5281
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Xb+Y3br2dEJCIENJ3gNq3HUGRENliUbPV/9kse3Xe+JY3U0xPbNo+mXKoSciMqxAg4YOdkIwWEZ00P+3rtSFeWsD2rm38ZDdfg2i7cN37px4Nhk7VR9zLASQXIjXpPf5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1329
 
-Hello,
+Currently, since Aspeed also has a similar driver, there is some code
+with identical structures on both sides, but a common framework is
+lacking. Therefore, this series introduces a generic UART routing
+framework. It also moves aspeed-uart-routing.c under this generic
+framework and makes it use the interfaces provided by the generic
+framework. At the same time, StarFive also registers its own driver
+based on this generic framework.
 
-syzbot found the following issue on:
+StarFive JHB100 UART Routing allows dynamic routing of inputs between
+built-in UARTs and physical serial I/O ports, enabling use cases such
+as Host <-> BMC communication via UARTs.
 
-HEAD commit:    654ae5d73c05 Merge tag 'drm-fixes-2026-09-05' of https://g..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=143968f9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=b454dc6b1b7acd30
-dashboard link: https://syzkaller.appspot.com/bug?extid=2a13ad6914e6fcec716c
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+This series has been tested on the EVB1 board.
 
-Unfortunately, I don't have any reproducer for this issue yet.
+changes since v1:
+- Add a new patch 1 to implement the generic UART routing framework
+  (drivers/uart-routing).
+- Add a new patch 2 to switch aspeed-uart-routing.c to use the generic
+  UART routing framework
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/49c1a99f815b/disk-654ae5d7.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/6fcecf1b8c8d/vmlinux-654ae5d7.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/fa54b23691ca/bzImage-654ae5d7.xz
+PATCH 3:
+- Move the dt-bindings to the uart-routing directory.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+2a13ad6914e6fcec716c@syzkaller.appspotmail.com
+PATCH 4:
+- Register the JHB100 UART routing driver via the UART routing framework
 
-------------[ cut here ]------------
-DEBUG_LOCKS_WARN_ON(rt_mutex_owner(lock) != current)
-WARNING: kernel/locking/rtmutex_common.h:193 at debug_rt_mutex_unlock kernel/locking/rtmutex_common.h:193 [inline], CPU#0: syz.5.471/9806
-WARNING: kernel/locking/rtmutex_common.h:193 at rt_mutex_slowunlock+0x734/0xa30 kernel/locking/rtmutex.c:1432, CPU#0: syz.5.471/9806
-Modules linked in:
-CPU: 0 UID: 0 PID: 9806 Comm: syz.5.471 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-RIP: 0010:debug_rt_mutex_unlock kernel/locking/rtmutex_common.h:193 [inline]
-RIP: 0010:rt_mutex_slowunlock+0x73b/0xa30 kernel/locking/rtmutex.c:1432
-Code: b1 8f 48 c1 e8 03 42 0f b6 04 20 84 c0 0f 85 cf 02 00 00 83 3d 39 5d 5a 04 00 75 13 48 8d 3d 5c 4f 5d 04 48 c7 c6 20 28 6d 8b <67> 48 0f b9 3a 90 e9 cf f9 ff ff 48 8d 3d 53 4f 5d 04 67 48 0f b9
-RSP: 0018:ffffc9000620fbc0 EFLAGS: 00010046
-RAX: 0000000000000000 RBX: ffff888061d9a9f8 RCX: 0000000000080000
-RDX: ffffc9000ddd9000 RSI: ffffffff8b6d2820 RDI: ffffffff8fb4e1f0
-RBP: ffffc9000620fcb0 R08: 0000000000000000 R09: 0000000000000000
-R10: dffffc0000000000 R11: fffffbfff1f63df9 R12: dffffc0000000000
-R13: 1ffff92000c41f80 R14: ffff888061d9a9a8 R15: 0000000000000246
-FS:  00007fc0841446c0(0000) GS:ffff888125bd4000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ffd88506f52 CR3: 000000003a478000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- inode_unlock include/linux/fs.h:1034 [inline]
- __unlock_mount fs/namespace.c:2808 [inline]
- unlock_mount fs/namespace.c:2818 [inline]
- do_new_mount_fc fs/namespace.c:3795 [inline]
- do_new_mount+0x82d/0xdc0 fs/namespace.c:3848
- do_mount fs/namespace.c:4181 [inline]
- __do_sys_mount fs/namespace.c:4397 [inline]
- __se_sys_mount+0x31d/0x420 fs/namespace.c:4374
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fc085f2e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fc084144028 EFLAGS: 00000246 ORIG_RAX: 00000000000000a5
-RAX: ffffffffffffffda RBX: 00007fc0861b6180 RCX: 00007fc085f2e159
-RDX: 0000200000000080 RSI: 0000200000000040 RDI: 0000000000000000
-RBP: 00007fc085fc5024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fc0861b6218 R14: 00007fc0861b6180 R15: 00007ffc1374c1d8
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	b1 8f                	mov    $0x8f,%cl
-   2:	48 c1 e8 03          	shr    $0x3,%rax
-   6:	42 0f b6 04 20       	movzbl (%rax,%r12,1),%eax
-   b:	84 c0                	test   %al,%al
-   d:	0f 85 cf 02 00 00    	jne    0x2e2
-  13:	83 3d 39 5d 5a 04 00 	cmpl   $0x0,0x45a5d39(%rip)        # 0x45a5d53
-  1a:	75 13                	jne    0x2f
-  1c:	48 8d 3d 5c 4f 5d 04 	lea    0x45d4f5c(%rip),%rdi        # 0x45d4f7f
-  23:	48 c7 c6 20 28 6d 8b 	mov    $0xffffffff8b6d2820,%rsi
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	90                   	nop
-  30:	e9 cf f9 ff ff       	jmp    0xfffffa04
-  35:	48 8d 3d 53 4f 5d 04 	lea    0x45d4f53(%rip),%rdi        # 0x45d4f8f
-  3c:	67                   	addr32
-  3d:	48                   	rex.W
-  3e:	0f                   	.byte 0xf
-  3f:	b9                   	.byte 0xb9
+v1: https://lore.kernel.org/all/20260830065118.51551-1-changhuang.liang@starfivetech.com/
 
+Changhuang Liang (4):
+  uart-routing: Add common UART routing framework
+  soc: aspeed: Move UART routing driver to drivers/uart-routing
+  dt-bindings: uart-routing: Add binding for StarFive JHB100 UART
+    routing
+  uart-routing: Add UART Routing driver for StarFive JHB100 SoC
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ .../sysfs-driver-starfive-uart-routing        |  45 ++
+ .../uart-routing/starfive,uart-routing.yaml   |  46 ++
+ Documentation/driver-api/index.rst            |   1 +
+ Documentation/driver-api/uart-routing.rst     | 145 +++++
+ MAINTAINERS                                   |  25 +
+ drivers/Kconfig                               |   2 +
+ drivers/Makefile                              |   1 +
+ drivers/soc/aspeed/Kconfig                    |  10 -
+ drivers/soc/aspeed/Makefile                   |   1 -
+ drivers/soc/aspeed/aspeed-uart-routing.c      | 601 ------------------
+ drivers/uart-routing/Kconfig                  |  44 ++
+ drivers/uart-routing/Makefile                 |   5 +
+ drivers/uart-routing/aspeed-uart-routing.c    | 415 ++++++++++++
+ drivers/uart-routing/starfive-uart-routing.c  | 192 ++++++
+ drivers/uart-routing/uart-routing.c           | 200 ++++++
+ drivers/uart-routing/uart-routing.h           |  84 +++
+ 16 files changed, 1205 insertions(+), 612 deletions(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
+ create mode 100644 Documentation/devicetree/bindings/uart-routing/starfive,uart-routing.yaml
+ create mode 100644 Documentation/driver-api/uart-routing.rst
+ delete mode 100644 drivers/soc/aspeed/aspeed-uart-routing.c
+ create mode 100644 drivers/uart-routing/Kconfig
+ create mode 100644 drivers/uart-routing/Makefile
+ create mode 100644 drivers/uart-routing/aspeed-uart-routing.c
+ create mode 100644 drivers/uart-routing/starfive-uart-routing.c
+ create mode 100644 drivers/uart-routing/uart-routing.c
+ create mode 100644 drivers/uart-routing/uart-routing.h
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+--
+2.25.1
