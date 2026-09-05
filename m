@@ -1,136 +1,232 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9483363C48
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 13:59:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788616775; cv=pass; b=ixSM/zoIcC06pr9Ld0bW1oSkNwpZseIf7MQiWF9l0wC97AEyEnXp4z0LHOT1acA2+zQTTwo5vj+2Q6BNhx8n1aNfWSbafh1yxuHs0Zd/dO1Y2Kodq5+g9R1PDsUgih1kCnYpZqgLGeAieEJJCCNgO37HGCoTuE3xV1mwLUtm2DM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788616775; c=relaxed/simple;
-	bh=0NZgvcjxD//y9TcBVnzxsrfCCQmI3Ud37a8Ni4R+RGs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CIkJ3UR5mJgB9dL/jZj0Y0DSfZdMzAx0DCXRZkA444kB0r+HzZy8ioSo3FTZNcf8EREoKoFBmJ8rlb7sA3sSIFLfL9s66ZRlrSih6DCIeRzb+0I/KGM8x1Hbu0jsgecDPNQkUEuB2f8CLT3KTo6mObx7mMJBE0yar4BOXhmKw+Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H+hYeY0e; arc=pass smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4196B38CFED
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 14:00:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788616819; cv=none; b=JqXm4cPVvL4kKugcLM6l4Z9szt2wnz7r8u4f/0u2kBgODhQINY37bog/XbfzozvmBSb44LMJW5nbyKWs+zRP4/+EN2P0lTQ2XgeR6R2ENzfAq+m05T43qpLxixVf2SCfgqqTxz4a1XcLvkOW7ZacyTgzmNys0mbTRYNAJxzh9JI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788616819; c=relaxed/simple;
+	bh=oXxWnRS+AdfFJqDsjojKHzCcVJO8S5rnuvTS7DO7YnI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AKgRAeTNWHOFi9Kj9LcNdDn1xVolZpgD0oNDz8BN59zGnCEBXHOuQLXj7QsS/uyigLQWyJrNue0C+XeNKTTApgysU5g8X2G01fQsOkSqTRj34uQw0YsFuWs18ycxoGagGq9h7hscfq3A4UJgGbRKLMO8F9/x9nz6tPWE/BhXZRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=epLnaBH5; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H+hYeY0e"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a5e329c0f2so2254310a12.3
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 06:59:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788616772; cv=none;
-        d=google.com; s=arc-20260327;
-        b=f2bTKyFNP9q/XzLgr/LZuh1pAsv/ymfTJjRP8gYXivGp0F3ZYBwjgBolKby4VV9lru
-         FBuS9d3mnucUv7v1e3w6i6RJ58CVqdIp6PmpyBsZN9K4O+NyWn+lv7YiQitKSYDCm8e5
-         Jlnil2tQjUYygMqyTyNL6VqkQU5Nu747OlpGmZOVjLuD6BqDLtELaELcoTIwLIZvgoSv
-         YoqUBrHiVZOpI1i0eZaQB02JdWXqiecGc5s1+uObHAVuH9JMGFuC49mfInJvC/w+7DTI
-         ZneMw4htN20SJ3AmlCfPoP4y1mGs5K7QwMqzGRNbNGEMbubdXgyh3HGWOlm8EDzppXiH
-         vcIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=iWHfzIxXlwPck3mW+IxFV0BJz5vdTVjdjrFzdDbobSI=;
-        fh=fw8BLWGJ/vUI58FR+yWrSuzv065/kVVn0JdO20ykkBE=;
-        b=n7YzCjZl1AQaZsS5M99QElUjV35whmcS0yQ4mYDE087kR1qeMkI79OOVXacjRJCRck
-         4bdf9tW4sxru8cGTmnyhCN/iLqzTT4UQtdS9hhgddTS2+jTCb96lGsL2jqgmTdUvvveK
-         BH6HMnfHO//kCigUih14C4koIa3TdUg0bLg5CGVonD5KicfqSVexk0E3EqqqVPGGu/Ni
-         CX8tMVmBtrj51g1ZoKJ72jdd13EImYx3X3JZyr6vFZD3yPGrbahefWYE06ITkCtOPEnn
-         D+SnBJI9oN/DLUE6xC2LON4JxbZ20ZXcEWCNhWoaYo9j71eJHymnlWewnXyk8RyBQ9gy
-         jF8w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788616772; x=1789221572; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=iWHfzIxXlwPck3mW+IxFV0BJz5vdTVjdjrFzdDbobSI=;
-        b=H+hYeY0ekhuwq6EzSOpXyPjw0JubJRtzQzwN/zPkUWxz1pC22fokJYR+IdLNkhJEwt
-         FzTT973ks9udGWyjCXyQERFn+DMXlEgwLy1pw/rI7PhYnfJNZUOJU5xykhiRsGbl+1tZ
-         adj2azTtCGVhP/eiaphHW1PRm7SIvIuu9Fn2wIBpQK339QMu3h6bp86+yYBoELNVcc/N
-         F70nc2EL+wcecxCApC1qxRsf61QaGrAkerrTtEIHzkBCVJxuY3l9hHelNEpbY8K4i184
-         Z/EJRQLe+wZQ2yNqgedjWTNfh7MYZ9ys5PzSicFnad5QEgMMA3j9y+cQ+97ee5AJqH0c
-         nG8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788616772; x=1789221572;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iWHfzIxXlwPck3mW+IxFV0BJz5vdTVjdjrFzdDbobSI=;
-        b=WZ+W2VN+sHDYH5XkunhQI4anbOLo88J5SdkqKaNrtpTMrfE71GJdYAYhiUfDRo9pHF
-         TsJ4R4z0RxXSCEkAEcqho99nZMgdRvT1guL1ENWg4WzV+Eq0v1ua97XL8dTSAZRIvRYF
-         CLtA6Nl+sbZUKr0bVyYsyJF1X8pc0Tbp3scooY5ZsXn3yH/Yb6RD4CR8jPJ9lxXCEbiw
-         rnO2Zdj37aVenaert2VWi88M+6Mo494KasCHnAC8asPG1ZIdN1+BIkfPGSq0Z2jYtcgQ
-         ReFRllQPnKAiG3m3EiVfvnmQsDDqi4hUMJBBDvmufaki65lPx5obV20vx6bD6cP9MYwu
-         ZB2Q==
-X-Forwarded-Encrypted: i=1; AKwUvBx3oy8hqG8W9H77OqgR3O9pcFEIkbmvdxYoFscKAXBdYNqqwMrBlX0+NRubzJhWNyLXLf0NcxwVdptPapY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kUpzyX+YMliKxxpZot3MhIJKkrwxJiazemW4UanUcI4BSXe7lV
-	93HLIR7s27epYjh1zxIlBdHHSThLDoEn8ijp0IkUgwAgKN9qjQLL7IUrbHDqWXLcHlegevO6ND6
-	lIc4EJu7UsOTmOc9Kzj4HhjC1j8KWNIM=
-X-Gm-Gg: AYBFou1PmElQMFkfbxO+dxY90Lutq0ovEUOrTZbNAGBDY5k1HUwpaB/yfkTBIxlNH39
-	RoQ6h+syMFtStg+GGS8oZO+EY9m+hqcO3gLGXb4Sm4YDv2SjrKFRftmHs96EpkzoSCL8I9caQFL
-	di4AQaoQTqBbGKSy8O/KOhf8NrSacMJhrpmCGnsDOkynF03gGFQKlw9cZXyyHummxPUncm0PRhI
-	0Ddnn+tTEj8H0frjcN9oRR9en0XgaSNYxKFCSFLev3y6dFwNgfK7b9iNvorZv5YA3Mapsx16N+/
-	ARN+SqWqoZnhk/xRZwvF+4HIjAav2FtrvPzUuHObCPpVoQ==
-X-Received: by 2002:a05:6402:4343:b0:6a7:ea53:f624 with SMTP id
- 4fb4d7f45d1cf-6a7ea540b3dmr3578271a12.35.1788616771728; Sat, 05 Sep 2026
- 06:59:31 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="epLnaBH5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=/5
+	9agzCrPmhBck/yw6BbEltqL63IxYMentpbd6nNL1A=; b=epLnaBH509CkYc8HYU
+	gSGHHQEuNiHPuAcYt6TOQ5FqSl2E0QLwR0kEdojoXe2oOqyzqo6ROtuaVD8xP//1
+	kybmSQ4gEJtRKZklDNbZrPmaXiklCpEzRTG1pZ+7qToDu3SOVyOTOdMIfnhVfPJS
+	r67SNYSiFEZClNGLCZ/5zoWvk=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDnr1ISIJxqmAdmAw--.23231S2;
+	Sat, 05 Sep 2026 21:58:44 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: Tim Chen <tim.c.chen@linux.intel.com>,
+	"Chen, Yu C" <yu.c.chen@intel.com>
+Cc: Hui Su <sh_def@163.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Valentin Schneider <vschneid@redhat.com>,
+	John Stultz <jstultz@google.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] sched/numa: Drive NUMA task tick from execution context
+Date: Sat,  5 Sep 2026 21:58:43 +0800
+Message-ID: <20260905135843.2818510-1-sh_def@163.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <0d6117e597e6ca3ab3179c6304d6e5e454f53759.camel@linux.intel.com>
+References: <20260903041154.2479761-1-sh_def@163.com> <20260903041154.2479761-2-sh_def@163.com> <4593a7a4-cde1-499c-bba8-2fbe24f35422@intel.com> <08f682ba75a4700694d6f94719b367b4d26c032f.camel@linux.intel.com> <20260904141017.1512404-1-sh_def@163.com> <0d6117e597e6ca3ab3179c6304d6e5e454f53759.camel@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904103920.4471-1-luis@igalia.com> <20260904103920.4471-4-luis@igalia.com>
-In-Reply-To: <20260904103920.4471-4-luis@igalia.com>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Sat, 5 Sep 2026 15:59:20 +0200
-X-Gm-Features: AcwNN1W2vMf-WzY4zwsWBAU_vcsCDCHvVaEThEDUXBh2gwCNW5IHuyRc5r8QctI
-Message-ID: <CAOQ4uxjCFCS=V5SLH7QT0q1VmJUKKVkWMSgd9DAtdM9U=a_EWw@mail.gmail.com>
-Subject: Re: [RFC PATCH v3 3/8] selftests/fuse: check that fusectlfs is mounted
-To: Luis Henriques <luis@igalia.com>
-Cc: Miklos Szeredi <miklos@szeredi.hu>, Chen Linxuan <me@black-desk.cn>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, fuse-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	Matt Harvey <mharvey@jumptrading.com>, kernel-dev@igalia.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnr1ISIJxqmAdmAw--.23231S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3AFyrWF4xWrW8tF15uF1kAFb_yoWxWFy7pa
+	98ZrW2qa1kJ3W0yFyUZrs3uFy3X3s3Jr1UXrn0kFyrCr1Yqw15tF40gF1YvFZI9rs29Fy2
+	vr40v39ru3Wjq3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUx-BtUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwRTOLmqcIBQ4FgAA3Z
 
-On Fri, Sep 4, 2026 at 12:38=E2=80=AFPM Luis Henriques <luis@igalia.com> wr=
-ote:
+On Fri, Sep 4, 2026 at 1:15 PM, Tim Chen wrote:
+> Yes, you have a good point. The code I proposed just look at whether
+> we have consumed our allotment in the current slice.
 >
-> The control filesystem for FUSE needs to be mounted for the fusectl_test =
-to
-> be successfully run.  Skip the test is that is not the case.
+> What we should have looked at is whether the donor's total run time has
+> exceeded its quota when doing core scheduling. And we may happen to
+> hit __entity_slice_used() at the front of the slice after advancing
+> the deadline and __entity_slice_used()
+> returns false instead of true, even though I have consumed more than
+> my fair share when looking at longer time period across multiple slices.
 >
-> Signed-off-by: Luis Henriques <luis@igalia.com>
+> The accumulated run time of the donor since it was picked for running
+> should be used for selection time baseline.
+>
+> So maybe a patch like the following instead.
 
-Reviewed-by: Amir Goldstein <amir73il@gmail.com>
-> ---
->  tools/testing/selftests/filesystems/fuse/fusectl_test.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
->
-> diff --git a/tools/testing/selftests/filesystems/fuse/fusectl_test.c b/to=
-ols/testing/selftests/filesystems/fuse/fusectl_test.c
-> index 0d1d012c35ed..b828173c01bd 100644
-> --- a/tools/testing/selftests/filesystems/fuse/fusectl_test.c
-> +++ b/tools/testing/selftests/filesystems/fuse/fusectl_test.c
-> @@ -106,8 +106,15 @@ TEST_F(fusectl, abort)
->         char path_buf[PATH_MAX];
->         int abort_fd, test_fd, ret;
->
-> -       sprintf(path_buf, "/sys/fs/fuse/connections/%d/abort", self->conn=
-ection);
-> +       snprintf(path_buf, PATH_MAX, "%s/%d", FUSECTL_MOUNTPOINT,
-> +                self->connection);
-> +       if (access(path_buf, F_OK) !=3D 0)
-> +               SKIP(return,
-> +                    "fusectl doesn't seem to be mounted: %s",
-> +                    strerror(errno));
->
-> +       snprintf(path_buf, PATH_MAX, "%s/%d/abort", FUSECTL_MOUNTPOINT,
-> +                self->connection);
->         ASSERT_EQ(0, access(path_buf, F_OK));
->
->         abort_fd =3D open(path_buf, O_WRONLY);
+Thanks for the updated prototype.
+
+I tested the pick-time vruntime snapshot further. With a fixed weight,
+it behaves as expected: it fixes the proxy case and continues to match
+the existing runtime-based predicate in the non-proxy tests I ran.
+
+I then tested it with CONFIG_FAIR_GROUP_SCHED, using nested cgroups and
+changing the hierarchical weights in an observation-only setup. The
+kernel computes the existing predicate, the pick-time vruntime predicate,
+and a pick-time task-clock predicate on the same tick, while the existing
+predicate remains the actual return value.
+
+I think the "same weight scaling" condition in the non-proxy equivalence
+is the interesting part here. If the hierarchical weight changes after
+core_slice_vruntime is captured, vused represents service accumulated
+since the pick-time baseline, while vslice is converted using the current
+weight.
+
+Across 11 instrumented runs I observed 5985 non-proxy samples. 29 of
+those were explicitly identified as cases where the same task's
+sched_entity had been reweighted after the current selection-time
+baseline was taken. The existing and task-clock predicates matched in all
+5985 non-proxy samples, while the vruntime predicate differed in four of
+the 29 reweight-after-pick samples.
+
+I also reproduced the divergence with actual runnable load in the
+hierarchy. In one causal trace:
+
+        selection=5
+        pick_hweight=1048576
+        current_hweight=15138
+
+        reweight_vruntime=768327601->768327601
+
+        existing:
+                rtime=7980540
+                used=1
+
+        pick-time vruntime:
+                vused=7980540
+                vslice=145462386
+                used=0
+
+        task-clock:
+                rtime=7980540
+                used=1
+
+This was the same selection: the pick-time baseline had already been
+established, the hierarchical weight then changed, and there was no
+new pick before the predicate was evaluated.
+
+In this example reweight_eevdf() did not change se->vruntime, so the
+divergence does not depend on a vruntime coordinate adjustment. The
+weight change alone is enough for the accumulated vused and the
+current-weight vslice to no longer necessarily use the same scale.
+
+I also observed the reverse predicate direction in the observation-only
+runs, although I have not yet reduced that case to the same detailed
+causal trace.
+
+One way to keep the vruntime approach would be to rebase the accumulated
+virtual service whenever the relevant weight changes, preserving the
+vused / vslice ratio across the reweight. Simply resetting
+core_slice_vruntime at reweight time would lose service already consumed
+before the reweight.
+
+A simpler alternative I have been testing is to keep the check in the
+same real-time domain as the existing predicate:
+
+        set_next_entity():
+                core_sched_start = se->exec_start;
+
+        __entity_slice_used():
+                rtime = se->exec_start - se->core_sched_start;
+
+                return rtime * min_nr_tasks > se->slice;
+
+update_se() advances the donor's exec_start from rq_clock_task() while
+it is the scheduling context, including during proxy execution, even
+though the task-level sum_exec_runtime is charged to rq->curr. This
+keeps the force-idle slice check in the same real-time domain as the
+existing sum_exec_runtime - prev_sum_exec_runtime comparison and avoids
+converting accumulated service across weight changes.
+
+For reference, the local task-clock variant I am testing is below. It
+is not intended as a formal posting yet:
+
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index 8b3d47a325cc..c32d9931129f 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -590,6 +590,9 @@ struct sched_entity {
+ 	u64				sum_exec_runtime;
+ 	u64				prev_sum_exec_runtime;
+ 	u64				vruntime;
++#ifdef CONFIG_SCHED_CORE
++	u64				core_sched_start;
++#endif
+ 	/* Approximated virtual lag: */
+ 	s64				vlag;
+ 	/* 'Protected' deadline, to give out minimum quantums: */
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index f78275192036..22ae5dc57337 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -4580,6 +4580,9 @@ static void __sched_fork(u64 clone_flags, struct task_struct *p)
+ 	p->se.prev_sum_exec_runtime	= 0;
+ 	p->se.nr_migrations		= 0;
+ 	p->se.vruntime			= 0;
++#ifdef CONFIG_SCHED_CORE
++	p->se.core_sched_start		= 0;
++#endif
+ 	p->se.vlag			= 0;
+ 	p->se.rel_deadline		= 0;
+ 	INIT_LIST_HEAD(&p->se.group_node);
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 8dff37059faf..1bd05c906d3a 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -6502,6 +6502,9 @@ set_next_entity(struct cfs_rq *cfs_rq, struct sched_entity *se)
+ 	}
+ 
+ 	se->prev_sum_exec_runtime = se->sum_exec_runtime;
++#ifdef CONFIG_SCHED_CORE
++	se->core_sched_start = se->exec_start;
++#endif
+ }
+ 
+ static bool __dequeue_task(struct rq *rq, struct task_struct *p, int flags);
+@@ -14748,10 +14751,9 @@ static void rq_offline_fair(struct rq *rq)
+ static inline bool
+ __entity_slice_used(struct sched_entity *se, int min_nr_tasks)
+ {
+-	u64 rtime = se->sum_exec_runtime - se->prev_sum_exec_runtime;
+-	u64 slice = se->slice;
++	u64 rtime = se->exec_start - se->core_sched_start;
+
+-	return (rtime * min_nr_tasks > slice);
++	return (rtime * min_nr_tasks > se->slice);
+ }
+ 
+ #define MIN_NR_TASKS_DURING_FORCEIDLE	2
+
+The task-clock version has matched the existing predicate in the
+non-proxy tests so far and fixes the proxy reproducer as well. I am
+still validating reselection, migration, and the remaining proxy
+boundary cases, so I have not posted either implementation.
+
+Do you think keeping the check in the original real-time/task-clock
+domain is a reasonable direction here, or would you prefer preserving
+the vruntime approach by carrying the accumulated service across
+reweights?
+
+Thanks,
+Hui
+
