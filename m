@@ -1,186 +1,92 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B116327AC45;
-	Sat,  5 Sep 2026 16:25:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2EB6367F41
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 16:26:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788625517; cv=none; b=dq2ii/xsXAnA1+5cua7x9ABbb7AkCgygdUX0yK/Ucjz/zyqexNdF9vLVt+ffEbhshvN8qDKv7fB7mi/uOdr6wPWtg4kAmAD/X1KpvwTngcARLblsMklg8ITgkCsxsll/RrQTNOeMeSPyKRjnyMidX6DJVNYsMm0RtA8K7kXo5as=
+	t=1788625614; cv=none; b=jl6oeuJjLUSalBSEnAlsveOirP4ng5hoyTbTsJvehE1jzQAik0sI8p3/1+5t+XhLOEKc7E/Qo0bgj6quFGzFT+qCjSrpPrpZ3kAEEYh88aUApyQhz3UObs3fgYsWBBgClWrSvgPNKjZG5ZHGi8iDVE1GUVZPlTxzR934l18jjVg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788625517; c=relaxed/simple;
-	bh=bibvW/OI2KKpB1OFUFwCpu1LHqDAkTxOtirPg+HkdN8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r+ydUdKcpB/cmsw2jH6p+pJTEWTid9qNnNjORE5+spRsghtkCarFD8IM0SiflZs/k8d5lVrDOw7rwZnCAFtbgxO9eDDpoBsVJj+WCWy+lU63DFJAUyO2Hde1XG5Ke1HIE5r0gQBVVfxdsgPNPJRAmNipoV9Wjf+YxM7U/oYCiW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=tYYZIjFf; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=U6DSmOoO; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788625614; c=relaxed/simple;
+	bh=3SS2H5X7fEPe/WUlOi2ijPcY3Sm5sDXvvcBImIaTxig=;
+	h=From:In-Reply-To:References:To:Cc:Subject:MIME-Version:
+	 Content-Type:Date:Message-ID; b=ZEFb4qYS+4R2biG/QQDhJJVqtVvS6OBbLPQ2sKQHm0jF5ua3lX4b3TIeZSBqmK8uqnMhh2/dJllNL8HDdEk5dCD9zl3jP48dD9EQDM+Cf9KlV3QEWOzJw00YBPPNCFN98VI+bzFtQvqLKh54rHVzZz6vk62LA8bPRX0Ha+eSl7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=eYO63SXb; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="tYYZIjFf";
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="U6DSmOoO"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="eYO63SXb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788625611;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jxdp3KRdBVi8QQnCMsuF6AtR6CEzxy4cd18pQFv2r+o=;
+	b=eYO63SXbG9SZpwMa7eQiBaKoAVW8Gxi87eMO/l1XXmDmk/wq8mY+bczdXiNg2YluFQiEwn
+	iHO1XIvmS5ZqOEXe/3mfPzufFzsTqPZQdrscD7rHZA70SRbWFJcfgBAETqLAS5/XAEpdqT
+	1dBFECerQ+Fdn6Y75zzl0PhCjoWc7XY=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-231-XC2ypVG4MOqDjyQSHPGeXg-1; Sat,
+ 05 Sep 2026 12:26:48 -0400
+X-MC-Unique: XC2ypVG4MOqDjyQSHPGeXg-1
+X-Mimecast-MFC-AGG-ID: XC2ypVG4MOqDjyQSHPGeXg_1788625607
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 639A721C90;
-	Sat,  5 Sep 2026 16:25:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1788625509; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=uRc3XZyYCapTXZ7/lREVkVyHENJuGfY4NrdU71AjO0E=;
-	b=tYYZIjFftWZFaLkmzgPlU7LPLdPdfWxOTSy6SfebfskESX6dNfEZAyX4dc4T/mDv7/oZYN
-	LwKbJu2qXI5TWeJMXExkYWa8yM4iUa8PRlqJnzpgcxIS0XRNiv9v9nXE4b89AJP/vajAI7
-	bsw8CaBc+CpGrNK3V3v5ScYfkqC1CM8=
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=U6DSmOoO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1788625505; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=uRc3XZyYCapTXZ7/lREVkVyHENJuGfY4NrdU71AjO0E=;
-	b=U6DSmOoOwo3cYGdcNYejBfCsoaur+vX9+JSY5gtNL9F5xVR95d3mYUvcGi5MnpqbdF35t2
-	Z7IJZrdgBz6LqdboA8XuViyOmZmKSKMiAOA+2QH8PoTTpsxvhh35v65mYMnpuH/88kIaIa
-	Tg6m/e6jao3R3g4NMiNEdYdW8cujBAI=
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1E39B13341;
-	Sat,  5 Sep 2026 16:25:05 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 2mn6BmFCnGrpTgAAD6G6ig
-	(envelope-from <dsterba@suse.com>); Sat, 05 Sep 2026 16:25:05 +0000
-From: David Sterba <dsterba@suse.com>
-To: torvalds@linux-foundation.org
-Cc: David Sterba <dsterba@suse.com>,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL] Btrfs fixes for 7.3-rc2
-Date: Sat,  5 Sep 2026 18:25:01 +0200
-Message-ID: <cover.1788623834.git.dsterba@suse.com>
-X-Mailer: git-send-email 2.55.0
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D26C01801363;
+	Sat,  5 Sep 2026 16:26:45 +0000 (UTC)
+Received: from warthog.procyon.org.uk (unknown [10.44.32.158])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D41F55B1;
+	Sat,  5 Sep 2026 16:26:41 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <apsP3Hvlw-fpd6uF@kbusch-mbp>
+References: <apsP3Hvlw-fpd6uF@kbusch-mbp> <20260902112743.GA11999@lst.de> <1819786.1787768317@warthog.procyon.org.uk> <1895550.1787777192@warthog.procyon.org.uk> <350212.1788514937@warthog.procyon.org.uk>
+To: Keith Busch <kbusch@kernel.org>
+Cc: dhowells@redhat.com, Christoph Hellwig <hch@lst.de>,
+    Jens Axboe <axboe@kernel.dk>, Hannes Reinecke <hare@kernel.org>,
+    Alexander Viro <viro@zeniv.linux.org.uk>,
+    Paulo Alcantara <pc@manguebit.org>, netfs@lists.linux.dev,
+    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+    linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] block: Fix start and length check added to iov_iter_extract_bvecs()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: -3.01
-X-Rspamd-Queue-Id: 639A721C90
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_THREE(0.00)[4];
-	DKIM_TRACE(0.00)[suse.com:+]
-X-Spam-Flag: NO
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <1183137.1788625600.1@warthog.procyon.org.uk>
+Date: Sat, 05 Sep 2026 17:26:40 +0100
+Message-ID: <1183138.1788625600@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-Hi,
+Keith Busch <kbusch@kernel.org> wrote:
 
-please pull the following fixes and updates. Thanks.
+> If a block device behind an RDMA NIC really wants to DMA a single byte
+> at a time, we can't describe that capability today. That would require a
+> 0 mask, which is currently treated as "unset" and overridden with a
+> default 512b mask.
 
-- preserve inode compression level when changing attributes
+The thing is, Christoph said:
 
-- fix lost wakeup when waiting for a zstd workspace
+    Massage __bio_iov_iter_get_pages so that it doesn't need the bio, and
+    move it to lib/iov_iter.c so that it can be used by block code for
+    other things than filling a bio and by other subsystems like netfs.
 
-- fix bio context leaks after ordered extent processing errors
+but unless it can have a 1-byte alignment, it's not actually much use for
+netfslib (I have to be able to support "unbuffered writes", which are almost
+exactly like DIO writes but without alignment restrictions).
 
-- in send, handle unexpected extents for non-regular inodes
+Do block devices really need an aligned "start memory address" or just an
+aligned "start file position" (whatever that means for a blockdev).
 
-- handle edge case in creation of reloc tree with enabled quotas
+David
 
-- in scrub report the exact failing offset, not the stripe base
-
-- error handling fixes
-  - error code propagation in send, zoned mode and raid-stripe-tree
-  - restore active device pointer after seeding device addition error
-  - transaction abort fixups
-
-- update Chris' email address
-
-----------------------------------------------------------------
-The following changes since commit 4096e2a06f43fae209d6472d395f3219e02ab2e6:
-
-  btrfs: skip hole detection during full fsync for files without holes (2026-08-07 19:17:19 +0200)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux.git tags/for-7.3-rc1-tag
-
-for you to fetch changes up to 6a7a45b1d94799a5eb8e6d26e65cf31a3fcda9e5:
-
-  MAINTAINERS: update Chris Mason's email address (2026-09-02 22:19:30 +0200)
-
-----------------------------------------------------------------
-Avi Weiss (1):
-      btrfs: send: fix lost error return value in will_overwrite_ref()
-
-Chris Mason (1):
-      MAINTAINERS: update Chris Mason's email address
-
-FAN YE (1):
-      btrfs: zstd: fix lost wakeup when waiting for a workspace
-
-Guanghui Yang (3):
-      btrfs: clean up target device if block group marking fails
-      btrfs: detach failed sprout device from transaction update list
-      btrfs: restore active device pointers after failed sprout
-
-James C. Owens (1):
-      btrfs: scrub: report the failing sector's address, not the stripe base
-
-Johannes Thumshirn (2):
-      btrfs: zoned: finish active block group cleanup if call_zone_finish() fails
-      btrfs: zoned: propagate do_zone_finish() error in btrfs_zone_finish_endio()
-
-Leo Martins (1):
-      btrfs: abort transaction before releasing tree_log_mutex on commit failure
-
-Qu Wenruo (4):
-      btrfs: fix the possible bioc_list memory leak during error
-      btrfs: return proper negative error code for update_raid_extent_item()
-      btrfs: do not force reloc root creation during qgroup_account_snapshot()
-      btrfs: tests: do not touch page cache if root/inode allocation failed
-
-Sam Ho (1):
-      btrfs: preserve the compression property when other inode flags change
-
-Shuangpeng Bai (1):
-      btrfs: fix transaction use-after-free in raid stripe insertion
-
-ZhengYuan Huang (1):
-      btrfs: send: reject extents for non-regular inodes
-
- MAINTAINERS                      |  2 +-
- fs/btrfs/dev-replace.c           |  2 +-
- fs/btrfs/inode.c                 |  3 +++
- fs/btrfs/ioctl.c                 | 21 ++++++++++++++++++---
- fs/btrfs/raid-stripe-tree.c      | 25 ++++++++++++++++---------
- fs/btrfs/raid-stripe-tree.h      |  1 +
- fs/btrfs/scrub.c                 | 24 ++++++++++++++----------
- fs/btrfs/send.c                  |  9 ++++++++-
- fs/btrfs/tests/extent-io-tests.c |  5 +++--
- fs/btrfs/transaction.c           | 19 ++++++++++++++++++-
- fs/btrfs/volumes.c               |  4 ++++
- fs/btrfs/zoned.c                 | 16 +++++++---------
- fs/btrfs/zstd.c                  | 11 ++++++++++-
- 13 files changed, 104 insertions(+), 38 deletions(-)
