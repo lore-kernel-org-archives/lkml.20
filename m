@@ -1,219 +1,109 @@
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD0DE43FD0B
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 08:28:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788596908; cv=pass; b=YPlE0xlKDMg9klySLmxnWKbVTOV3ZIQ6Ws40e352TJZJMHgxsUdKGcVI3caicPu1yuxPVwpqybUg1oD+1qNlI7QBzkOM6uy5IzkfvCwcj/EqrpmNkj6okpNa6WO1/rT133UnzwFvr5GkAzSP6ULb6bXGDNquMnQwYLXdPPqG6os=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788596908; c=relaxed/simple;
-	bh=dEeeQ/Ld/SPbrHHzTAdy/x/ViwYuRifyJ/MhYnT2RHk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lD9yv/7+0DTakgj9tf3pJVV3EmlUr0jxt9tR663xOdselTRsH2ypKQYze7duAqPGfsWAanRXguyuNAfJthoAEDwgZpTivN+/CMa2mm70DbAFaJFWMjgn06hCuzpp6KLW2WVWB0eTPHRUMofIRDIL7zywKUmSfxEsRTAOpS0N26s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qySph6hI; arc=pass smtp.client-ip=209.85.208.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A831D63E4
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 08:33:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788597213; cv=none; b=TpD7X9iaSYbbnU2614nP2Crt4IHICOuBbWCtLDQTHPXtUDV0wvppQokXdzW4Noh8dP59cDeZpOd3Rdm0QfCeFQispQ42HSwX4XoLyJH6Ci7w7F8zRgmPel/BFDuWnvO2eBGuCUB7Y/BNwx3wutKbphVtB9ibEokZSApt0D+4IQY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788597213; c=relaxed/simple;
+	bh=STucfeqAzDbnQyz8bcZHitmXTwvCmxN5/KZ9q/WAUrs=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=daxONCTsrpFexyf3mXsTZLJ3JDDU5/GwbOVTl5gHUcW/mvDixVGzkNZTlI5uxx3aBi3lRCFIpe5Ek/IPqFebd9FnASpki9dbgTo+VzXJI3s4SWCEySv+KD2A5mXb3o6oVXS1/nobI4m4nrCkE64J8vMAsoSwUbQrimTPX29B66s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=XiReQxJf; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=dJuDjmHJ; arc=none smtp.client-ip=202.12.124.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qySph6hI"
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6a374bea882so2747263a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 01:28:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788596905; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZOtiCYZfS9ChEDD8KL5vYInQi7zXW2p29lF2FZ8tEvSnIeB47Jwn1n2WXwMyTWzrCg
-         YZn8El8q9loxzRHLhRnX7OFwLxBcWpVlcXYB0Y/uuz7QVKuBuv+gweVoT7x02iC1mNrj
-         18pS5dQjbo7ohgLqigaxwgFCv54UW8a1NsMuHLoZCcn989TEHNCoyLkPPpYDL3fa3uXo
-         mokVOknjnte7mZESt2NRpBCp7ead4McrSVWjbWZJw4rMA6iRicdp44kMjftgEhuwt1gq
-         aTVeS3BHcMsZGV9rbExZPx5qXEcV0+KWGodhI+SR8rzyA+ia/kHv1pny0FSGALfzmnIR
-         knbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tJsqc6z3AKrTn+Z6km/q3e7TQ2SEpwjOBKcD5f+R56o=;
-        fh=Khed4DMUanKgwYqMaStSnGtLNHIIjQ5SIeBEhB3SjNU=;
-        b=YEGPhAcjB47XL1F6jRezF/Qz7KtWSHwsOKQWjfxbaNzDPo1vK7OFZpJTq7elyTmFcW
-         //bhVBe5bf49l9TrzThWQvPmV2uODb+tDTFN8MbC5sk9HWU1WbBnpEIYZxtKYgpBF6ZT
-         T5Dp5zfu/a81FJ2cIW6+WctzmC+VrRDFeTptIYjZV8uB2izac3bFStP//YEZrGW4+FuY
-         dKk1qzIxWR6dx8DOKvDc0RXbcyCPj3qvEaqeq+BNM9IR3sTJ3sSCAoxXVeimPWMTVoqH
-         SKIkXDvuIsCrYJUNEFip9t9jtE8OB0mG/yw9CM+nhOR/7gNp5DilfpPJ7bLdlvDL/VNu
-         doKQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788596905; x=1789201705; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tJsqc6z3AKrTn+Z6km/q3e7TQ2SEpwjOBKcD5f+R56o=;
-        b=qySph6hIJMh1hwDCisHljm/57onXP75IoeoS/zVa/BL8FDDCIHmKl44yARfFOY4/pm
-         PjvF6RHuFHy+JLhrsoNTy7Izgq6XXYoOwpIo+/gCNsMRVLrV5azjgQdlntCSASMKKzqS
-         h8BD0X1MkVDzm75PdkHado3iNtmDlzP86vvLKFGVMDiB2JmQ/9xBJqhgWEhInrZgsMV2
-         TEaq4uE5Iby8FKDdEYp3Bj7HPnu/r4mJhqKhOvVnzfP+ZKsI+CztKF4o7t0caTxH712K
-         KoczdQHgOCyg9QkFeSVivsBnGms/tMTPPVlb899cpjx7JZJPRtnUOA9wqQBEeonyQvv9
-         HweA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788596905; x=1789201705;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tJsqc6z3AKrTn+Z6km/q3e7TQ2SEpwjOBKcD5f+R56o=;
-        b=Kp1iHobJLIb/HuOrSbbENBbJokKwF/AQ9lcH5lzT/9hnxhsXU8NXaZSQZkInPIMMHK
-         P/XKS+r8H71gYFibqPDu3Xr6J4VxrM66HTPT09xc/EkkCn2lGQaS/wtaG2wS8RHT9/Oi
-         U+pqRbDKfi3kZVOBLOCZrkXfPF+YCS4NQEBUhyJBX0/nqfF/HiSCmS9Cng1L8CxtEUrm
-         fAsy1OS07JodRK93cNYRhI/4nzDrb67bxvEHJ1Ph9wSN4ZsZQu436LgU1ndDQ9hKHFd0
-         SckFh8kh9WPaGImPKuZFflAAmKXeGtCmkrJheTbMI/CZqcqIiHuGNTYGsNNYK/R4H9vV
-         kNeA==
-X-Forwarded-Encrypted: i=1; AKwUvByc+VwxpWHhxcz8OLxFvgrs1rsk++bQFeGXOSLorbx6Nt+AfelRskJvsYyZKBWiebHQlXFKZtBZ9elIHXo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kTjbUu+kjNA5OMnbAF7mLn4oYyghr4DuQohskvR1FCsjObyShN
-	5uCSLpmR4WClX6JMpRRSNGQ1ETZ/OsVbrMISrQRpNSKfy6aggRh/9LIFjYJETVG+ABHscxnhF5K
-	R1zSRdxmyRngm4AjSkKk1i9/1MVcHeZk=
-X-Gm-Gg: AYBFou1i0PnAUMJIePIGl9rkfZQ2eMCdW7nTmkYL6EdJND2PkA1GTMiSXjAMbM+/Id7
-	wRgpfiDlImka+iTkZm2g7lWq1cPexQatZlG7Xc/iRXroz+MFLt4t7SfLCJDz6baFt5Xp6y3155x
-	kUtATWU8k5CIkUTPniGXKsN3bilrw1yOF5HOTY5CM1ry6i5SYRn0HHk5o9itTIHm5a4jVAjH+5x
-	E2cP64xMVIk9/WeOgeROFM+E7bE07z+Op1TiBt/rStzglHf0jVNSfW8/sliofZsFBpTtGpolWW5
-	kbfWJRtHSfsPAYbR2WRv/O0WxgBv8wp5NkLFA0FSZxIU60zlHW2LhhkycVY9ge3PqoJ+AJ52VFX
-	Vply3xCdP+yNG9sCa4+9Ei2CIO3WnTu8=
-X-Received: by 2002:a05:6402:51ca:b0:6a6:58e:f84b with SMTP id
- 4fb4d7f45d1cf-6a7e8d6432dmr6902620a12.9.1788596904544; Sat, 05 Sep 2026
- 01:28:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="XiReQxJf";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="dJuDjmHJ"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.stl.internal (Postfix) with ESMTP id 3177D1D00110;
+	Sat,  5 Sep 2026 04:33:30 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Sat, 05 Sep 2026 04:33:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1788597209;
+	 x=1788683609; bh=bjpxt6wC/Xqqhz10TpneDwIthvnLaZnI4SDqGOP6+ZA=; b=
+	XiReQxJf3fKHMVMCFra5ekrLe3In7ybcXSbNVe1BbPL7i5jju30KU8rv2hRyPZ2B
+	YUC28h2LYhMZlU3w80UCHefPFEzK5ppUhSkhO7wdXDyQYTGzh+B3OF72UUpeR4YU
+	pfJW+U8a/nU1ES0WyGIH4SG9X1m87uckCZlNhKpYUjuAFlAVc3oqV3ZFYuuqkthF
+	OaoVQRCyw2jg67qCrBKfRsBSSJ0LOetjunMl75ngJtSBcTC5cIlPBR0miF2EHNxD
+	bnMNQOTy+Z44gV7l9l6Tit/4OjSPbHAXMwT+5lZuKqyi2422RX5Y17GzUnr89/CE
+	VQTrTjl94LhTxnCq7I9bgA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788597209; x=
+	1788683609; bh=bjpxt6wC/Xqqhz10TpneDwIthvnLaZnI4SDqGOP6+ZA=; b=d
+	JuDjmHJQhIvtJhQP/7cSnXvxpfBzCOpsF31Q0X2TFHl1laVjMwNvFT/SnAFb9pJv
+	92IjFXyrGsA3hDTPE+SmZpDixx8FnWkFryKSH0x92rA4jaQqpj5X5PYHDVL1z2Rj
+	A+u0XtaTpyupWqBVhRrGULIPB9exeAf1KQBArIgHZ2zENogwm704cEaoJGTUuWXK
+	PWYfQnTx9NyeibRHI46BHXpIr6tZdycRoq76QF2xfRiy9DLw1FBzQykoViv5gmH5
+	jQtto9rk9Cd3tSNgERxGHwY3et4Uwy216CMaW9bPwxULQcRYwysDYCw9KBwI6ej/
+	mE+o3IWXE4iN4M44H2QUA==
+X-ME-Sender: <xms:1tObar_sKX-LHkTYCBnV3To_SIb_zCw91et8bHDemH92UGO0vMmm6g>
+    <xme:1tObaig7MI3frM1W9mt5Ay1Hyihuzwkq97CKVoWswYgKWnEscmBJuSAkqUkkul1ol
+    9Pa0xjK0G_5-7ok8gw4yB_ho9HTlvt3-TYb4XuUlVJhns_xW9fP7of->
+X-ME-Proxy-Cause: dmFkZTF7vvIsIfkh8YrQepq3MAeq8OLybosXLfrXuMIxHNKGBQNOOI1uJTUnFAYx+ypv1K
+    cOTncklBM80ffcbSwmfekHFIWthX5KxkkpN6XzGP4xL7grJlCj+0H0VbzvxawMTWv4Ryik
+    kfA+9vaWM499hmXFrVvAbCrpEvE8XZnT++oI2ylUcd5Lqn0wbFlXVdoaOwJPfn/ZiJ6Hyt
+    U/y5vgPsjwMqoQKZonUgCkaoCvomqLZSeS8bfm6ieT0U3xMklR9XEZE8GHirQOuPRiVbnM
+    eBxRCF6S5twVgrQtpJS+wWUpoRhWPUl2yBORnSYpHqkkqV/TUlvLzO7nKIqhHtSXcAFhrq
+    k6d/fHa6HY6HVp8t6zyhJqU8q+yiAemjho866becBUUE36FqXB2d2zhM55BOupyUIz4ZfG
+    jdeI7FYGwJkqZWy8EOPh0nAEvvI8rBJARR793eK4+gCvh1uyPMpzbATOwOcbe/ylaVn/bm
+    OThQNWMQzxYwXIit5HiylJJZUGFShilwiJVidWJKqg+xGrQNpFQ094GjuE+SJBrZM7eiAU
+    392iCWOrQ+6LUDQFDP5yWk2aZJ9n2lzeFSYIbGns3vY9Hc2BgyHxX03X5nE1GSojPjLNRd
+    qSn11h4bXILso8SwmGuBrvJslQ+RKyCLJ+CHA4X6m6r3VDjak7gOdrsWi8eQ
+X-ME-Proxy: <xmx:19ObagG7kzvG5o70cAy_KQOK78VQLlodfs-5bI022Y8GFZxbHVdp5Q>
+    <xmx:19ObakzTa6lD0Z_KF1p0txglWoq64HJGP2eI0L5b_1MaZKNdF3rjDw>
+    <xmx:19ObatpSujzv1G_oog5AyeTTQA90mGi3O0XZvI9_w-8AUT1-jQkztg>
+    <xmx:19ObamgJ6skZi7bWTYsVjxp6sMHWcfTmx9ukP_FfMKRdrDTsKm8sTg>
+    <xmx:2dObaj4_OMhQ9rVTWFHxM5hGRXzJozJ-03syHECtAQBbLhQvYvU7HawL>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 141CC32A0078; Sat,  5 Sep 2026 04:33:26 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788277742.git.mattst88@gmail.com> <3c54e7e410438437640d56501a7a46fb0443427d.1788277742.git.mattst88@gmail.com>
- <CA+=Fv5Rr-Zqs_nfssP0LsZd3x-=hCVybxXtOETDvR=1RGZTnLg@mail.gmail.com> <CAEdQ38EUiwdoxF=JvdrDEfs_mmKexCvF9Mp8KgFPpxKrxi24OQ@mail.gmail.com>
-In-Reply-To: <CAEdQ38EUiwdoxF=JvdrDEfs_mmKexCvF9Mp8KgFPpxKrxi24OQ@mail.gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Sat, 5 Sep 2026 10:28:12 +0200
-X-Gm-Features: AcwNN1VUf-bdQUHqoA0JOgHzWD7r4I4RMu_zFbUkrcsnqBxfZvADcFjdWESqYbw
-Message-ID: <CA+=Fv5QBYRWZMXfQkns7knHmq_StRuCeKFh_2hvyphOv=tURDQ@mail.gmail.com>
-Subject: Re: [PATCH 02/24] alpha: enter hardirq context before looking up the
- irq descriptor
-To: Matt Turner <mattst88@gmail.com>
-Cc: linux-alpha@vger.kernel.org, richard.henderson@linaro.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-ThreadId: AFUWYdGrjtbg
+Date: Sat, 05 Sep 2026 10:33:05 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Karl Mehltretter" <kmehltretter@gmail.com>,
+ "Krzysztof Kozlowski" <krzk@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Message-Id: <a9e4e94a-9325-45de-a8c9-64c9ab8b1eea@app.fastmail.com>
+In-Reply-To: <20260905052216.11986-1-kmehltretter@gmail.com>
+References: <20260905052216.11986-1-kmehltretter@gmail.com>
+Subject: Re: [PATCH] ARM: configs: Update axm55xx FS-Cache options
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Hi Matt,
+On Sat, Sep 5, 2026, at 07:22, Karl Mehltretter wrote:
+> CONFIG_FSCACHE_HISTOGRAM, CONFIG_CACHEFILES_HISTOGRAM and
+> CONFIG_FSCACHE_OBJECT_LIST were removed in v5.15, and
+> CONFIG_FSCACHE_DEBUG was renamed to CONFIG_NETFS_DEBUG in v6.11, so
+> none of these lines has any effect any more.
+>
+> Drop the removed options and select NETFS_DEBUG in place of
+> FSCACHE_DEBUG, keeping the debugging support this defconfig has always
+> asked for rather than silently losing it.
+>
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+>  arch/arm/configs/axm55xx_defconfig | 5 +----
 
-On Sat, Sep 5, 2026 at 4:43=E2=80=AFAM Matt Turner <mattst88@gmail.com> wro=
-te:
->
-> On Thu, Sep 3, 2026 at 6:07=E2=80=AFPM Magnus Lindholm <linmag7@gmail.com=
-> wrote:
-> >
-> > Hi Matt,
-> >
-> > On Tue, Sep 1, 2026 at 5:50=E2=80=AFPM Matt Turner <mattst88@gmail.com>=
- wrote:
-> > >
-> > > handle_irq() called irq_to_desc() before irq_enter(), so that lookup =
-ran
-> > > with the preempt count still saying task context and with RCU not yet
-> > > watching.  Generic code called from an interrupt handler should see
-> > > hardirq context, and irq_to_desc() is more than an array index once
-> > > SPARSE_IRQ is in use.
-> > >
-> > > Move irq_enter() to the top of the function and add the matching
-> > > irq_exit() to the invalid interrupt path.
-> > >
-> > > Assisted-by: Claude:claude-opus-5
-> > > Signed-off-by: Matt Turner <mattst88@gmail.com>
-> > > ---
-> > >  arch/alpha/kernel/irq.c | 9 ++++++---
-> > >  1 file changed, 6 insertions(+), 3 deletions(-)
-> > >
-> > > diff --git ./arch/alpha/kernel/irq.c ./arch/alpha/kernel/irq.c
-> > > index 4a6a8b1d5a8b..5867a1655045 100644
-> > > --- ./arch/alpha/kernel/irq.c
-> > > +++ ./arch/alpha/kernel/irq.c
-> > > @@ -107,18 +107,21 @@ handle_irq(int irq)
-> > >          * handled by some other CPU. (or is disabled)
-> > >          */
-> > >         static unsigned int illegal_count=3D0;
-> > > -       struct irq_desc *desc =3D irq_to_desc(irq);
-> > > -
-> > > +       struct irq_desc *desc;
-> > > +
-> > > +       irq_enter();
-> > > +
-> > > +       desc =3D irq_to_desc(irq);
-> > >         if (!desc || ((unsigned) irq > ACTUAL_NR_IRQS &&
-> > >             illegal_count < MAX_ILLEGAL_IRQS)) {
-> > >                 irq_err_count++;
-> > >                 illegal_count++;
-> > >                 printk(KERN_CRIT "device_interrupt: invalid interrupt=
- %d\n",
-> > >                        irq);
-> > > +               irq_exit();
-> > >                 return;
-> > >         }
-> > >
-> > > -       irq_enter();
-> > >         generic_handle_irq_desc(desc);
-> > >         irq_exit();
-> > >  }
-> > > --
-> > > 2.54.0
-> > >
-> >
-> > Going over this code again, I noticed what may be redundant hardirq
-> > accounting in the existing device-interrupt path.
-> >
-> > For type 3 interrupts, do_entInt() already wraps
-> > alpha_mv.device_interrupt() in irq_enter()/irq_exit(). The platform
-> > dispatcher then calls handle_irq(), which enters and exits hardirq
-> > context again. Therefore, irq_to_desc() is already reached in hardirq
-> > context before this patch. The patch moves it from nesting level one
-> > to level two rather than from task context to hardirq context.
-> >
-> > The RTC path does not have the outer irq_enter(), so the change is
-> > needed there.
-> >
-> > Would it be cleaner for do_entInt() to own the hardirq context for
-> > both paths and remove the pair from handle_irq()? Or is there another
-> > caller which requires handle_irq() to manage it itself?
-> >
-> > I tested the patch on a two-CPU UP2000 with lockdep, IRQ flag tracing,
-> > and sparse IRQs enabled. SCSI and network interrupts operated normally,
-> > I observed no lockdep or IRQ-related warnings, and debug_locks remained
-> > enabled in /proc/lockdep_stats.
->
-> Hi Magnus,
->
-> Good question. Yes, do_entInt() should own irq_enter()/irq_exit() for
-> the RTC and device-interrupt cases too, same as it already does for
-> IPI, machine-check, and perf. RTC and device-interrupt are the only
-> two that don't, and only because handle_irq() does it internally.
->
-> There's a wrinkle. A bunch of device_interrupt() implementations call
-> handle_irq() in a loop over several pending vectors: sys_takara.c,
-> sys_eiger.c, sys_alcor.c, sys_dp264.c, sys_cabriolet.c,
-> sys_noritake.c, sys_mikasa.c, sys_rx164.c, irq_pyxis.c, irq_i8259.c.
-> Right now each of those handle_irq() calls enters and exits hardirq
-> context on its own, so one hardware interrupt that demuxes to N IRQs
-> does N enter/exit pairs. Moving the pair up to do_entInt() collapses
-> that to one per hardware interrupt, matching how the
-> IPI/machine-check/perf cases already work.
->
-> I don't see anything in the per-machine device_interrupt() bodies that
-> needs task context before the first handle_irq() call -- it's all
-> vector decode. But I've only got one Marvel box to boot-test on, so
-> I'm not comfortable folding the reshuffle into this patch without at
-> least reading through the other machine types more carefully.
->
-> I'll send it as a follow-up on top of the series rather than reworking
-> patch 2. Easier to drop if something turns out to care. Let me know if
-> you think that's wrong.
->
+I'm going to post a patch to remove all of axm55xx soon, so
+I think we can skip this one, otherwise it obviously looks
+correct.
 
-That sounds like a good plan, we treat that as a follow-up once this
-has landed.
-
-Regards
-
-Magnus
+     Arnd
