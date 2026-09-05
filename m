@@ -1,75 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF0F35C687
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 21:30:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26D75357A25
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 21:33:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788643849; cv=none; b=oNoPqiaWkwjVqzkXIDpXTYbMnv98kTFpu+RqDHZp1rKPWYGDcQEWRley1gohQJtbrl6+CFg5A1jq32mz9zyUlu2d0H+pyVjBn9n67HR8BDuclHEztebr3TWsD3zJTssqiIBJbcxsKAAJ7DgKlPyOjRlKcTDpWvvrE9cdtz8NjUw=
+	t=1788643988; cv=none; b=bFs8yW4zBoUXPP5G3JxQ/Y8fdUsrmDGEcE1jX8+Om6tWbd1krObbWEkQ9/ud3Lt7bCiKsEBPUu3yHDHX7LCcGykBjOG+hP58Rdg5IVh13ZBxQQzjHpwt17Qqe7brB2pWuh65p4C9zwXH+m7ZrnI1/85tmbZ34sPlpPun7tZemC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788643849; c=relaxed/simple;
-	bh=RulQUVvjeTmRLGMORFoDPT3Fne4v/IRjI+E5mDdtrX0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=ZyscZbkigKnnxtBD/M1yBjXHfQO+eLGu+4fDDWzGPQUGsDM5pT/xlmfWMFLDzCLXBV15LpCVOJrUVE5KPxCoJbY3pja4300l4ltMcIELc/pEli0swhTnz4D73fBByp5+VaAbHZEP/DgCZgaMoTH6198onFWNh056eVKjr6H9NzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J0AtCoEQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788643988; c=relaxed/simple;
+	bh=9UJ4ID1SqwczIpWWbBOMjl/HJB4y+wZ5O5ZenYFnsP4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Jatuo6WhRphwRM8A1/uBLc9d8qEUMwUpz4d9i/S2dnKH2VJ73rttstvUUR0Ar+h8LnsdH15AqZK6jePV1DhB+pVIVbG59xu4hrfExw6o7O72LLGX0u3RNSuVibFIWw4dHKjU9yTmdc4LIXuBgjZjCC0WItAR4MyAwnn5PpUnwv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=io22aViG; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J0AtCoEQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED1B31F00A3A;
-	Sat,  5 Sep 2026 21:30:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788643847;
-	bh=2FsQkijurDodlXzSgnVUIeMF+0Mv7R4D+E6ps34X7dg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=J0AtCoEQhw7cg+X8IGyiq0Qq5QxvKsW5O2L/9mobICDmRnrYp1RTsWKLhFRTYsWhH
-	 8CBPzGDujIdxK5EA1ltlDpYpBBMjUElsfinyG9NEAe/cbYVipym3mDGL+e8IVh43jY
-	 aV8oDVZpRQDkL7dTtR/r401rEvYCONLjtzN99c1ZsrvaTT7+b5E71XyPj1GrLC0cMr
-	 r7asLl6/gt9jcdxKatLeDXajxofeVOV37EBNQblJADQ1tZ9EtT/Zl1fmxzv35KApVe
-	 31SkyiHw/625dpL2iLH+vRN+2aA0Kdf+nfji2pg8iyvRLMQjELA5GuNTBbB56e4BVP
-	 phOr/ZM4sZfyA==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Anup Patel <anup@brainfault.org>
-Cc: LKML <linux-kernel@vger.kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org,
- Radu Rendec <radu@rendec.net>, Marc Zyngier <maz@kernel.org>, Paul
- Walmsley <pjw@kernel.org>
-Subject: Re: Interrupt chip driver maintainence
-In-Reply-To: <CAAhSdy1=Z-VjEhGsGOJ15QptCSZP_6zG1NF=B972KwzEJhFbFg@mail.gmail.com>
-References: <871pb9841j.ffs@fw13>
- <CAAhSdy1=Z-VjEhGsGOJ15QptCSZP_6zG1NF=B972KwzEJhFbFg@mail.gmail.com>
-Date: Sat, 05 Sep 2026 23:30:44 +0200
-Message-ID: <87ecf74c8r.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="io22aViG"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff2f2c50so1831985ad.2
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 14:33:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788643986; x=1789248786; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=XyGVgmspBFSKOa90eeJZ9nCd08vo4mMc1cOO4gNIWBs=;
+        b=io22aViGEzokgpzzlogr9f45Hq4PbkNfMeUEe+BwTTUx+WuoovZMgIedP3nQ5dzrYs
+         tUvyCociLvZLJOkE1wk3YOLlqsUXIX0rqhkdu04KzK1FFZ/fYUn3RMd6m/iv82TUjn4g
+         tNeFKpvu88dhebOEn8bhUcucxJYMTN0hiPu2fg3qkyGXO1RRrhLdWCAl4bvNytt965hw
+         Rv/5t8Qy/5XtlMKSoJF6ERl1OXO5XyXNwhEXcZjCyUR1go/gB4echf0SdIBtYOBEWoVJ
+         EBwO3kKFm3kDOvmspW0/pFmswpbkvae3yZrCys0a+yVQtleZ2JxHJoOJuRK/FnZ7USOw
+         M0mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788643986; x=1789248786;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=XyGVgmspBFSKOa90eeJZ9nCd08vo4mMc1cOO4gNIWBs=;
+        b=r/UxUFjZpI7Q3Qlu7/YHtD0uZvMxG56nZNeYQnNVARkJmcO2gsbkgd7FF3wuHpNu94
+         9GtCJTueygw2Cy8usBQvag7vXQad+iATyXsTkbhMMzrrumn/IVbt/7XLDe4szpQw7pMb
+         x9ATf3mH6YPPKblKokVJGYvy1WYd+mknw4CCrZp3AK0IzzgxBL0u/BkzVplROOQ23d7v
+         K56BtFI7Hl12fvjVJoWdmK/UNXHrnm6s1Bnzu9eqhruxhLBnyBY3g1KXBOff4kDuVnuj
+         sLNr6zuZrfHxOPa0BwzX5U7wZO8P/EieHVJLuqBHc0ZPxhgT5HnQgHxyIT4drW7KoEJD
+         PdAg==
+X-Forwarded-Encrypted: i=1; AKwUvByPbNZEW6X/u/cizEkAhYV7qC+t0QiXRE0UmYoWBxQvkdS0iBIc71NG4Q9hrzAtbAuI8w3RZ1JfiVCFYaI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVmv3Yx+k+eKaU8Z4NdJdFNuCmxA4cCCHWvVSDyjfQgE5ZcpB8
+	r4VBo2KKt+0BQTAB4w72i0qNEWMYNTPDlq9R7FhrSVIPSMKOupoytwlE
+X-Gm-Gg: AYBFou04kJERqVFG0hwCPPm0aCQZqkZG7iYTM3cbwzDsxM1EG6re873vn9epFtS7Un/
+	3YV2UBbTniqxnGYxit+/Pmgegc3VdSi6d9e/18krKVpkzH6ttkbPaDK8oGB43bSNl5w2S3AY0gH
+	mv18BoKkfAQVKOD+TDT5HUDovPgY8WxiAI3309JReXiNryaoUYl75Tb6shkvYeaJpTz3NwcYbET
+	YdnXVrHOMYzbg+4izaw2gR6VL/POtd/8zn0FvOSLxgwIvz9sr0YpJOFcgP2VQN/vh7dtfUB3sDY
+	9rP5sEyoLRuQGAHSqsf5S7Tq+dHBCrynUv3e42kHxSfqzyVCJhKKAC2hmMJKc3EmCGBRWNsCZWV
+	NzBpo/uJ847OBqcrtjWsxp23rs99EiGDRyDaDWdE6BO8IBeTJr4yhJsJf5/yUUeUqKjiYrXgO6b
+	dpgTy2ueOLoCdhU+fldsiHGyJbmy5maPez6uGtO/2SefFM4WkXFDjP0IAdbGjunhY5WGmk26P42
+	w==
+X-Received: by 2002:a17:90b:2801:b0:38f:aa76:88b with SMTP id 98e67ed59e1d1-39b3d7d056fmr6825771a91.4.1788643986574;
+        Sat, 05 Sep 2026 14:33:06 -0700 (PDT)
+Received: from [10.63.138.252] ([2409:40c2:5007:4aea:63cc:914c:1243:e03c])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08ce4221sm21538010a91.14.2026.09.05.14.32.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 14:33:06 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Subject: [PATCH v3 0/2] dt-bindings: clock: ti,dra7-atl: convert to
+ dt-schema
+Date: Sun, 06 Sep 2026 03:02:38 +0530
+Message-Id: <20260906-ti-dra7-atl-v3-0-5962d8f608ed@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1WNyw7CIBQFf6VhLQZusVhX/odxQXm0mD4MINE0/
+ XehxqRdTnJmzoy8dlZ7dClm5HS03k5jgvJQINmJsdXYqsQICFTkTAEHi5UTHIvQY6YlcEZMTTh
+ ByXg6bex7rd3uP/av5qFlyIm86KwPk/usd5Hm3b9c7sqRYoKBN1VNDZNKmms7CNsf5TSgXI6wd
+ U97F5KrmopJyrgEDVt3WZYv6hwtBfQAAAA=
+X-Change-ID: 20260812-ti-dra7-atl-4ec2740f9070
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Peter Ujfalusi <peter.ujfalusi@ti.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
+ daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788643973; l=1453;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=9UJ4ID1SqwczIpWWbBOMjl/HJB4y+wZ5O5ZenYFnsP4=;
+ b=ZwBnH9Fz65KpIlRI6GGGP700zZGQ+0Gjj9mHkLSJXCileSssepzHtbunho04P6EYba9Agf/kc
+ paK+yQ9q22vDRDlwPEaWKRfoPJ8WQpbpi1Se5e/4LYndmHXBhRphoUM
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-On Sat, Sep 05 2026 at 16:37, Anup Patel wrote:
-> On Fri, Sep 4, 2026 at 8:19=E2=80=AFPM Thomas Gleixner <tglx@kernel.org> =
-wrote:
->> I'm still going to pick up obvious and simple bug fixes, but for
->> anything which requires deep knowledge on the underlying hardware, I'm
->> going to just mark them obsolete when they molded in my inbox unreviewed
->> by the people who understand it for six weeks.
->>
->
-> I think this is a fair ask.
->
-> Currently, I am focused on reviewing and testing anything which
-> touches RISC-V AIA drivers. The SiFive PLIC driver on other hand
-> seems to have no active reivewers from RISC-V space. Few years
-> back I did try to actively review SiFive PLIC driver but these days
-> I don't have bandwidth for that.
+Convert the DRA7 ATL (Audio Tracking Logic) text binding to dt-schema.
+The original dra7-atl.txt contains two bindings mixed in one file:
+- ti,dra7-atl-clock: clock output nodes for the common clock framework
+- ti,dra7-atl: IP controller with register configuration
 
-I don't blame you and I put you on the CC list because you are in the
-RISCV space.
+This series splits them into two separate YAML schemas.
+Patch 1 converts the clock output binding.
+Patch 2 converts the IP controller binding.
 
-I don't know what's wrong with SiFive but they really need to get their
-act together. Paul?
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+---
+Changes in v3:
+- Rebased to latest mainline rc.
+- Collected tags.
+- Link to v2: https://lore.kernel.org/r/20260815-ti-dra7-atl-v2-0-db64c147c2e2@gmail.com
 
-Thanks,
+Changes in v2:
+- Added items: maxItems: 1 constraint to the ti,provided-clocks
+  property, as the referenced phandles have zero argument cells
+- Link to v1: https://lore.kernel.org/r/20260813-ti-dra7-atl-v1-0-27b691f4cdcf@gmail.com
 
-        tglx
+---
+Bhargav Joshi (2):
+      dt-bindings: clock: ti,dra7-atl-clock: convert to DT schema
+      dt-bindings: clock: ti,dra7-atl: convert to dt-schema
+
+ .../devicetree/bindings/clock/ti/dra7-atl.txt      |  94 -------------------
+ .../bindings/clock/ti/ti,dra7-atl-clock.yaml       |  38 ++++++++
+ .../devicetree/bindings/clock/ti/ti,dra7-atl.yaml  | 100 +++++++++++++++++++++
+ 3 files changed, 138 insertions(+), 94 deletions(-)
+---
+base-commit: 9f0346dcbea363787186c94ef94dd01aaa215afa
+change-id: 20260812-ti-dra7-atl-4ec2740f9070
+
+Best regards,
+--  
+Bhargav
+
