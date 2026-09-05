@@ -1,54 +1,46 @@
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from embla.dev.snart.me (embla.dev.snart.me [54.252.183.203])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D03574CB8D4
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 17:09:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=121.127.44.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8E233F5BE
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 17:11:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.252.183.203
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788628177; cv=none; b=Op/pWSekcd0vcC0ktZPizsnDwNlKAhgBe6a61xqUcZrjh1QMAQ2SX2WtUxafJ+7hGYjnRNLr6VZXEG77F7lAOYd6uy1oE8Q15E6oUqvTnhMycx5z1dIziPftwO+wR5ZTpAgZUGMfG/nZMkTj9reih+kkF60rq9YLyDdrhDva1bI=
+	t=1788628265; cv=none; b=Bp4XW8TbJ8R6xaqqv9EjFccgILE4Lks6iaLzmlYt0cIKzeOLCep3ST3B4BPcfeZ8WbVjxIUOCYIloJ4Ya0zwocgKxiHgt6GBYeza8Wv0m8hEE3VgF9FJcZgfQarAn0H2HjTc8B/VdoNyLND/BIbyMCRGLvkL6eIolkSENafNimM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788628177; c=relaxed/simple;
-	bh=XEoAw4DKPa6yIybongMIDg5i7fjs0rZTNiUMQ13Vtc8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=L0L5m1yzrMQvpOsrLiEITO9G3OW+7Ehlykx+6GH6C3VKDnmd1oo7gkGHahuxqBxRuJMNnau0fZ3ikuMmwEvfT9h2eBM7CuwaZchdtY56h+qLSfeTEXF0kUfPDT1EaYN5Ui8DQszkFCq2lH5/UPinaXhM72cGD/HHd10Ay2Fp4kE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org; dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b=Dcs1aoHQ; arc=none smtp.client-ip=121.127.44.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org
+	s=arc-20240116; t=1788628265; c=relaxed/simple;
+	bh=B3YSYo+2NgX2FHZXCofDYBDxT+tEHw6keTCviXLSCSI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F8h8Ycbz4hBiuy3GC+xiUi2ZRFjnfsHq+keYbrm9GreFJCVd2dqWW/vldm8ckrmgLHHwhyq6/Xnt4UTLhzmo6UQ+wCE8p3ZvaL35HQ0Me+xU/11XCnSFuDZQD2CkJclPP+xChKaMcFDT+gs3Ily0DTI/ZfmCSwPD83urcMS2DLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dev.snart.me; spf=pass smtp.mailfrom=dev.snart.me; dkim=pass (1024-bit key) header.d=dev.snart.me header.i=@dev.snart.me header.b=LPkpbXWd; arc=none smtp.client-ip=54.252.183.203
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dev.snart.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dev.snart.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b="Dcs1aoHQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lineageos.org;
- h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
- Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-2eefaa527c;
- t=1788628168; bh=y4eky23W4x6qwsT9spIefqH8w29vOa9FRVJKGih9qEU=;
- b=Dcs1aoHQ+5lh3fL88jNGuOHWqD9/cT8sowEHOm3DF4rnb078HNPWJhLtXkOMSZM/ZJsxhrnX3
- NG6+qeEmG+6PPYXDulEFIeavjAyIel2wGckLa2oB8x6XxRAoeVIS04PsjAo/c8d3VsEwijA/knI
- IoJUUtAt4xXVGTNbYIoAgjA=
-X-Forward-Email-ID: 6a9c4cc4a8f35195ccacae5d
-X-Forward-Email-Sender: rfc822; tturner@lineageos.org,
- smtp.forwardemail.net, 121.127.44.73
-X-Forward-Email-Version: 2.14.2
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-From: Thomas Turner <tturner@lineageos.org>
-To: semen.protsenko@linaro.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	peter.griffin@linaro.org
-Cc: alim.akhtar@samsung.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=dev.snart.me header.i=@dev.snart.me header.b="LPkpbXWd"
+Received: from embla.dev.snart.me (localhost [IPv6:::1])
+	by embla.dev.snart.me (Postfix) with ESMTP id 90CE41D452;
+	Sat,  5 Sep 2026 17:11:01 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 embla.dev.snart.me 90CE41D452
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=dev.snart.me; s=00;
+	t=1788628262; bh=B3YSYo+2NgX2FHZXCofDYBDxT+tEHw6keTCviXLSCSI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=LPkpbXWdJ9/gJb/i1ZHeAosA/JgEQsC5yW1ZDIwh+ejsJHPgh/vr90KXVCXvuCgID
+	 hF1ztPc/p9FMJxSI7VIA7+wJh7BFVNv0XUk16fQAqOb3g4Dje3PjDIHzuK9zhooCYy
+	 M7Lp4Yn7P9DrVt719xmoP41JM4nZmC6cMPUrvN2c=
+Received: from maya.d.snart.me ([182.226.25.243])
+	by embla.dev.snart.me with ESMTPSA
+	id 30O2ECVNnGrEmwUA8KYfjw
+	(envelope-from <dxdt@dev.snart.me>); Sat, 05 Sep 2026 17:11:01 +0000
+From: David Timber <dxdt@dev.snart.me>
+To: Namjae Jeon <linkinjeon@kernel.org>,
+	Sungjong Seo <sj1557.seo@samsung.com>,
+	Yuezhang Mo <yuezhang.mo@sony.com>
+Cc: exfat@lists.linux.dev,
+	Hyunchul Lee <hyc.lee@gmail.com>,
 	linux-kernel@vger.kernel.org,
-	thomas_turner@talktalk.net
-Subject: [PATCH v3 2/2] arm64: dts: exynos: Add GPU/Mali Bifrost node to Exynos850
-Date: Sat,  5 Sep 2026 18:09:14 +0100
-Message-ID: <20260905170914.1640-3-tturner@lineageos.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260905170914.1640-1-tturner@lineageos.org>
-References: <20260905170914.1640-1-tturner@lineageos.org>
+	David Timber <dxdt@dev.snart.me>
+Subject: [PATCH v1 0/2] exfat: update percent_in_use, remove runtime integer division
+Date: Sat,  5 Sep 2026 17:10:41 +0000
+Message-ID: <20260905171043.922793-1-dxdt@dev.snart.me>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,78 +49,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add nodes for GPU (Mali Bifrost) to Exynos850. Does not provide support
-for temperature throttling, DVFS, power domains, governor support,
-boosting and voltage control. Once PMIC is properly implemented, support
-will hopefully increase. However, the panfrost driver probes, the
-Mali-G52 GPU initializes and the core clock is set-up.
+Changes from RFC v0:
 
-Testing for this patch was done on a device not currently supported by
-linux, the Galaxy A21s. After enabling this node for that device
-locally, I was able to test and confirm basic GPU functionality. As of
-now, this patch has no users which have tested GPU capabilities and so
-the node has been set to "disabled".
+  - use mul_u64_u32_div() for 32-bit arch without 64-bit integer
+    division
 
-Here are some logs I pulled:
+mul_u64_u32_div() isn't so popular API, so I'm not sure it's available
+on all arch.
 
-panfrost 11500000.gpu: clock rate = 377000000
-panfrost 11500000.gpu: mali-g52 id 0x7212 major 0x0 minor 0x0 status 0x0
-panfrost 11500000.gpu: features: 00000000,00000df7, issues: 00000000,00000400
-panfrost 11500000.gpu: Features: L2:0x07100206 Shader:0x00000000 Tiler:0x00000809 Mem:0x1 MMU:0x00002830 AS:0xff JS:0x7
-panfrost 11500000.gpu: shader_present=0x1 l2_present=0x1
-panfrost 11500000.gpu: [drm] Using Transparent Hugepage
-[drm] Initialized panfrost 1.6.0 for 11500000.gpu on minor 0
+I don't have a beefy machine to test my patches for all arch... If you'd
+like to apply, I suggest waiting for the CI bots to finish testing. I
+believe all submitted patches that apply to the master branch are tested
+by the bots. I'll ping when the patches get a pass.
 
-OpenGL core profile vendor: Mesa
-OpenGL core profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL core profile version: 3.1 (Core Profile) Mesa 26.1.6
-OpenGL core profile shading language version: 1.40
-OpenGL compatibility profile vendor: Mesa
-OpenGL compatibility profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL compatibility profile version: 3.1 (Core Profile) Mesa 26.1.6
-OpenGL compatibility profile shading language version: 1.40
-OpenGL ES profile vendor: Mesa
-OpenGL ES profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL ES profile version: OpenGL ES 3.1 Mesa 26.1.6
-OpenGL ES profile shading language version: OpenGL ES GLSL ES 3.10
 
-Signed-off-by: Thomas Turner <tturner@lineageos.org>
----
-Changes in v3:
-  - Re-word commit message to be less ambiguous
-  - Provide some logs in the commit message
-  - Add a blank line before status property
+David Timber (2):
+  exfat: update percent_in_use field when updating volume flags
+  exfat: remove runtime integer division
 
-Changes in v2:
-  - Add a patch addressing the samsung,exynos850-mali compatible string
+ fs/exfat/dir.c      |  3 ++-
+ fs/exfat/exfat_fs.h |  1 +
+ fs/exfat/namei.c    |  4 ++--
+ fs/exfat/super.c    | 20 +++++++++++++++++---
+ 4 files changed, 22 insertions(+), 6 deletions(-)
 
- arch/arm64/boot/dts/exynos/exynos850.dtsi | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/exynos/exynos850.dtsi b/arch/arm64/boot/dts/exynos/exynos850.dtsi
-index 911643008b9f..721b2b2c4ffb 100644
---- a/arch/arm64/boot/dts/exynos/exynos850.dtsi
-+++ b/arch/arm64/boot/dts/exynos/exynos850.dtsi
-@@ -310,6 +310,19 @@ cmu_g3d: clock-controller@11400000 {
- 			clock-names = "oscclk", "dout_g3d_switch";
- 		};
- 
-+		gpu: gpu@11500000 {
-+			compatible = "samsung,exynos850-mali", "arm,mali-bifrost";
-+			reg = <0x11500000 0x5000>;
-+			interrupts = <GIC_SPI 126 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 127 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 125 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "job", "mmu", "gpu";
-+			clocks = <&cmu_g3d CLK_GOUT_G3D_GPU_CLK>;
-+			clock-names = "core";
-+
-+			status = "disabled";
-+		};
-+
- 		cmu_apm: clock-controller@11800000 {
- 			compatible = "samsung,exynos850-cmu-apm";
- 			reg = <0x11800000 0x8000>;
 -- 
-2.47.3
+2.55.0
 
