@@ -1,100 +1,158 @@
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f8.google.com (mail-wm2-f8.google.com [74.125.225.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CADB38E8C9
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 14:02:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9920221FB6
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 14:02:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788616944; cv=none; b=NaKIIlImDZX8qg2JO0qyRlDq5TdJS79GeQnJihhzr34YUxZiHAgDfKGrELI4z1m7AYpKx7nYFzK2pgb1sgw7lbkLxWE633pk9HBZQPbW3k+o3qE7Cl/Y34CYf4h2sCCJR/XsJPLx+o9Kl30KyoqxhqHVuNNCdciJurNld2Ub1Zg=
+	t=1788616938; cv=none; b=Q9iYxagsnxcE17w3t/klmdkg1RtydCbxBz5D1mFZAcXMhcfviEO/zUtJJgKI6sBNVd5gZru5yZeL3LhytdfqJyMAxKyr04ubOnmp1fUFwHS6/N5z8uXc/lsqUwdsmkBRW9Vp8z+F/jT5W7jvWicFDeCc+6OAXGyKVmoU8n1SvtE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788616944; c=relaxed/simple;
-	bh=QwgqemQ6kkGPbeLyLmP0AbZfwf8ojDJys5CRG/YYaS8=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jK8sTWSFqyj1YkGRHhWqLVunf/ifurb44ZzAGXQX8MOsjhm/9UwUok3U3ZPEUl4J27mptZyvEcDA7tQVrcP5x56uhff30wcleSb2Cw0xCmflHCSbNde+gGqjKdz84cx7zqkf2FjTZzK9C6hk8AEPpO6k0QVC6CnetZ6iP/N+HrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=HT2FYBMn; arc=none smtp.client-ip=80.86.107.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	s=arc-20240116; t=1788616938; c=relaxed/simple;
+	bh=fVURs952Qxa+Ey6m7QLrY+2zX9hiMyr1lqWQc/XAV7w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sHDQwziYk8gN00UEFbSmikrrsok65bWRrUQPJlNrpWLQONq0bFSzgkxNdjyONHb6QBAoGT6mkVPcMtBHOhn+dGgVna61JGrwLZW1Z7pKZJrduucVo/155l2bIhVOid97/I4DRrGjegogeI3ZMxI5o5Si9qStBln5MMVcZt6BYpc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jETfmPkI; arc=none smtp.client-ip=74.125.225.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="HT2FYBMn"
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id 3A62DC2AEE;
-	Sat,  5 Sep 2026 17:02:10 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 3A62DC2AEE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1788616930;
-	bh=LqeIVlUbmpcRaU7P29CqGIRWHizbkhq/AqRtl+ZbQkM=;
-	h=Subject:From:To:Date:In-Reply-To:References:From;
-	b=HT2FYBMn1Oa+4t1pU++m6uBY7PfvrsY8JgucygbJsVbhzaywW3YM53UWBiFBHCpiA
-	 89SmGTWj9ZkbSpxJwMCXr42hVn9+EvKQuJKwD3K4OFqcSs0DOplleIPRvacw1RyDPG
-	 vnStAw6Pz5C5Yhe4K9b3q06fLxLhreC5GZ37YOGsrYeUILNSLA/AmT/+lBiNwj/G1r
-	 f08x/dGe2AcRShediKNhuoijo56x0Ef9DFwKKQp6pCdpum7i3Sub0kxgmKSdWfgQsf
-	 deLkfKtLwWkfmx2xsRlTXy1EYaMN0aNOsFaD28sACS6fJwg/yK6bwTz1A2VDS/H1xx
-	 UMaCoRtYAmhzQ==
-Message-ID: <6716ab989d1b81beefe46f4fd807bd87172c8d65.camel@rendec.net>
-Subject: Re: [PATCH 1/2] irqchip/pruss-intc: Use match data directly
-From: Radu Rendec <radu@rendec.net>
-To: Andrew Davis <afd@ti.com>, Thomas Gleixner <tglx@kernel.org>, 
-	linux-kernel@vger.kernel.org
-Date: Sat, 05 Sep 2026 10:02:08 -0400
-In-Reply-To: <20260903185220.2014861-1-afd@ti.com>
-References: <20260903185220.2014861-1-afd@ti.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jETfmPkI"
+Received: by mail-wm2-f8.google.com with SMTP id 5b1f17b1804b1-4956bc73c0eso7428485e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 07:02:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788616924; x=1789221724; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XYwBU5ZHVueM1YfQFwjzrz4zbhTksf0+irRokmEvL88=;
+        b=jETfmPkIzfjOrQHlfkZkTC4icmnUvlICnczkIUqcSSatvMQlQIEu/BQ/Gvh9lqr9ta
+         zCFnggOTdQ+DGgnl9XvOl+ihTwkYD2tQCoHaNdP10KuU1HD63AhfIpvNHgCifUCb+ENA
+         9WD0YJEdPHPUZys7QCR0AYnxB6Ya5bwW05gsM5pBqsxg50vZLTJKGuZejFkeBWS8zM2b
+         8Eqk923Kq83+KOEQmXU7yax6UuctSNrTGsMoep0hLCTKRK7hQGDsVSG1O3G9VLOxs8oL
+         qukFkmhN9T+1OfqxbuttLyhGcNJZCJYLmDXx6xxupIO6cZpXSA/oWPh3pUZjJZOFXJ80
+         Cy3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788616924; x=1789221724;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XYwBU5ZHVueM1YfQFwjzrz4zbhTksf0+irRokmEvL88=;
+        b=kmRmwYWAatIPsFDEKTsPL918lyuHHgEPXjT6qu2vnQzkBx6EEilv4FOSVQDToXapDf
+         RqNGti3SCDCQq43fUrRqqK8RGLWRqTCXAUtUFqDP8kENuIkpe6oqQ56ZcaQNahr6VmJ3
+         lFVkIcOFswg4oR+smkHYqBJyIDQrrRKExGT4KM+h1oPgC1TiCzWKHBRDwMxlOnwOZ6Fg
+         enq+Qvmu/gOM5Z4PqsndZ8mscZlKi/apVXGrQzozQzenLha4Z0c/e4rSj6vWEHKvAi4T
+         lUI8/9PBHqvw7NPcUBNIGBjaMkFmE5sVzx2Ot1w9h2yFcv023RuWaCTRs6xbKSpix45A
+         bejQ==
+X-Forwarded-Encrypted: i=1; AKwUvBww/4yHDUP+B+e4+x827B+ALBkNuz0ixnJYWgpF5OOxtOk5XqlAlVY9YWN3v1JbhAmfy0KTsVZ1Ij5i/3Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++mberKGj/hyCjsVtZhYW5rYdiwW/wfB434AAiTdwrWcZ0P+ddbt
+	UCSXnLIAZ7DO0pMICP3pUffmOcS/B754XCtc1OV7N3j9c0b9oX3ghb7G
+X-Gm-Gg: AYBFou1cUuHMVrhu81fhnMf6NCnNzhuSD3bsOuVsPa0hdP4nZX1T+m/Nf3biTN67Hq1
+	hMy5scjGRvxlRgcuGPvieRC4Nc55IjtEnlUUYbj4+vsWW7A0Fr9MGCClbjO1LMP/TxYaA0GLy4L
+	WfdXoIFNlD7hr0UyuYI2LyZFClMZMWfS3gc4kWwZKI3lYPVTR4rwOQ36w6QIHmkl0/BjpUgnsw7
+	KZ0L9ZiH85bYVDPQDuovz7OMi88hnxw01DWx8OcwQ/fwNesBpB3T92Gqfeg4EnSEQUzHBEV+7wJ
+	r+kIv24h/nLXlcxz0J5MiH+Fr/kfPo2KoURoYyu8Vvx1U/uYDbcms+pLl892X8REknkO1ljz9Fc
+	7ryU1YtCrR+IkcZ8xpm/wR743tXkZrbWvfN/QiJ18Gz8BT3hBvbkTKPLmNDDY7OEvyW8dAiuZTY
+	zUEQxRVmhwC9AeATpprgg0FSfMOBlaLaRsC/dEn5utlLYJZfNtiW7WljuFx1mycHP3UmEp+0L8v
+	3PHRKuqRjwbUlPdHgHg/6dEFqZ3t3OpBgNPIv+TQg==
+X-Received: by 2002:a05:600c:81c5:b0:49d:433:c3b6 with SMTP id 5b1f17b1804b1-49d0443096amr36943665e9.27.1788616923081;
+        Sat, 05 Sep 2026 07:02:03 -0700 (PDT)
+Received: from outlook.com ([2a02:587:6022:4b00:84ac:4417:9f37:a496])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf755c22esm149866765e9.0.2026.09.05.07.02.00
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 05 Sep 2026 07:02:02 -0700 (PDT)
+From: Christos Skarlos <christosskarlos.kernel@gmail.com>
+To: akpm@linux-foundation.org,
+	david@kernel.org,
+	muchun.song@linux.dev,
+	osalvador@suse.de,
+	ljs@kernel.org,
+	hannes@cmpxchg.org
+Cc: ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	vbabka@kernel.org,
+	jannh@google.com,
+	pfalcato@suse.de,
+	kasong@tencent.com,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	mhocko@kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Christos Skarlos <christosskarlos.kernel@gmail.com>
+Subject: [PATCH] mm/huge_memory: fix various coding style warnings
+Date: Sat,  5 Sep 2026 17:01:37 +0300
+Message-ID: <20260905140140.60792-2-christosskarlos.kernel@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260905140140.60792-1-christosskarlos.kernel@gmail.com>
+References: <20260905140140.60792-1-christosskarlos.kernel@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2026-09-03 at 13:52 -0500, Andrew Davis wrote:
-> The match data is fetched before the instance data is available, but it i=
-s
-> not used until after. Skip the temporary variable and fetch the match dat=
-a
-> after it has a place to be stored.
->=20
-> Signed-off-by: Andrew Davis <afd@ti.com>
-> ---
-> =C2=A0drivers/irqchip/irq-pruss-intc.c | 13 +++++--------
-> =C2=A01 file changed, 5 insertions(+), 8 deletions(-)
->=20
-> diff --git a/drivers/irqchip/irq-pruss-intc.c b/drivers/irqchip/irq-pruss=
--intc.c
-> index 81078d56f38dc..cc3a7c21c2904 100644
-> --- a/drivers/irqchip/irq-pruss-intc.c
-> +++ b/drivers/irqchip/irq-pruss-intc.c
-> @@ -516,24 +516,21 @@ static const char * const irq_names[MAX_NUM_HOST_IR=
-QS] =3D {
-> =C2=A0
-> =C2=A0static int pruss_intc_probe(struct platform_device *pdev)
-> =C2=A0{
-> -	const struct pruss_intc_match_data *data;
-> =C2=A0	struct device *dev =3D &pdev->dev;
-> =C2=A0	struct pruss_intc *intc;
-> =C2=A0	struct pruss_host_irq_data *host_data;
-> =C2=A0	int i, irq, ret;
-> =C2=A0	u8 max_system_events, irqs_reserved =3D 0;
-> =C2=A0
-> -	data =3D of_device_get_match_data(dev);
-> -	if (!data)
-> -		return -ENODEV;
-> -
-> -	max_system_events =3D data->num_system_events;
-> -
-> =C2=A0	intc =3D devm_kzalloc(dev, sizeof(*intc), GFP_KERNEL);
-> =C2=A0	if (!intc)
-> =C2=A0		return -ENOMEM;
-> =C2=A0
-> -	intc->soc_config =3D data;
-> +	intc->soc_config =3D of_device_get_match_data(dev);
-> +	if (!intc->soc_config)
-> +		return -ENODEV;
-> +	max_system_events =3D intc->soc_config->num_system_events;
-> +
-> =C2=A0	intc->dev =3D dev;
-> =C2=A0	platform_set_drvdata(pdev, intc);
-> =C2=A0
+Resolve coding style issues flagged by checkpatch.pl Specifically:
+- Add missing blank lines after variable declarations.
+- Remove unnecessary braces {} for a single statement block.
 
-Reviewed-by: Radu Rendec <radu@rendec.net>
+No functional changes are introduced.
+
+Signed-off-by: Christos Skarlos <christosskarlos.kernel@gmail.com>
+---
+ mm/huge_memory.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index ced400f72d43..371ee8d38c45 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -1104,6 +1104,7 @@ subsys_initcall(hugepage_init);
+ static int __init setup_transparent_hugepage(char *str)
+ {
+ 	int ret = 0;
++
+ 	if (!str)
+ 		goto out;
+ 	if (!strcmp(str, "always")) {
+@@ -1510,6 +1511,7 @@ static void set_huge_zero_folio(pgtable_t pgtable, struct mm_struct *mm,
+ 		struct folio *zero_folio)
+ {
+ 	pmd_t entry;
++
+ 	entry = folio_mk_pmd(zero_folio, vma->vm_page_prot);
+ 	entry = pmd_mkspecial(entry);
+ 	pgtable_trans_huge_deposit(mm, pmd, pgtable);
+@@ -2613,6 +2615,7 @@ bool move_huge_pmd(struct vm_area_struct *vma, unsigned long old_addr,
+ 
+ 		if (pmd_move_must_withdraw(new_ptl, old_ptl, vma)) {
+ 			pgtable_t pgtable;
++
+ 			pgtable = pgtable_trans_huge_withdraw(mm, old_pmd);
+ 			pgtable_trans_huge_deposit(mm, new_pmd, pgtable);
+ 		}
+@@ -3901,9 +3904,8 @@ int folio_check_splittable(struct folio *folio, unsigned int new_order,
+ 	 * swapcache folio split. Only uniform split to order-0 can be used
+ 	 * here.
+ 	 */
+-	if ((split_type == SPLIT_TYPE_NON_UNIFORM || new_order) && folio_test_swapcache(folio)) {
++	if ((split_type == SPLIT_TYPE_NON_UNIFORM || new_order) && folio_test_swapcache(folio))
+ 		return -EINVAL;
+-	}
+ 
+ 	if (is_huge_zero_folio(folio))
+ 		return -EINVAL;
+-- 
+2.55.0
+
