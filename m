@@ -1,54 +1,54 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25753468C3D
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 10:52:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 469233E6DD0
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 10:53:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788605538; cv=none; b=hkYM5rydrDlxW50/eBWyczxMIZsSVAVhP9oRj2xVsFZ+syZ1w2ACxJpcG2zFGLxaKQw2QsAzqlxHz2BYvLAaQyGtVKVJ8wkjYi5/C9zSj7AE6f9tgMhuqilneXZLfUU5/i5pbMIvRTqFqWuhiBzUXTv2G4XN2IffrLm0OydEdr4=
+	t=1788605600; cv=none; b=rgyDX1xjfnkfw04b7ppSB7bMjC2dKs0V71SImCFrUTy7Md1RzuVbG1mUdYvUSmp1SbRSJgOdrLl5+V9UBXsdZirbbSaGIq7bqQyahgwnKrvSWS77j4fXkkjW0pVB5S4eXIWby2l+mqQnKPVAORqQj7J3sJAqglLkZyUxr0JXTVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788605538; c=relaxed/simple;
-	bh=NtchyYKwRIGUXVrtQ0jO9YBLefxN8FB3ugsFlO16HMA=;
+	s=arc-20240116; t=1788605600; c=relaxed/simple;
+	bh=GwwIxQgkGwVM+G43IIXtraKZ/pHWrEky2k82RnB0hvs=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=S15r+NKCukwro69CcJMH4UQzGRkjdmjF9gE+/pylz1o1K3BK2hDjc+heVRdUnHvTpVEDTmbRHXKjlMfRW4UCch9M/OifWYfesD4UPx5xeB3DJuUSU7oPScItr5sh+vvVat7JYkR8UJa+MHi2KRLPNcmxJ76x+49rx50zRS1WIt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IQqBzJ9S; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=q9SXZk5FnpkcDCeeo86GG7TlCKRKXolA9N6PTAUKbjpo2HKrsvlcetRflvCnT0VGAQEzmA1zn4RBf1qsYwfW6htAoAoF95McJMN09GG+nrDlLfZhsw/Qi7TQWZFLgT02wdBhcCLhhCsmY63ODteO8SyXgUy4NwBl3Et4cfuLw1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M8p3RND3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IQqBzJ9S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C4F01F0155A
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 10:52:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M8p3RND3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41B111F0155B
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 10:53:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788605536;
-	bh=NtchyYKwRIGUXVrtQ0jO9YBLefxN8FB3ugsFlO16HMA=;
+	s=k20260515; t=1788605598;
+	bh=GwwIxQgkGwVM+G43IIXtraKZ/pHWrEky2k82RnB0hvs=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=IQqBzJ9S7MhInSmQHhC+/89oCvr32JPoZr+9dQW/UnrRnR2oTG7xNeZ//8VgQAuoZ
-	 bel7HWxqYuux6YK+Ua18fxGY9h2IxGqIjhCzwll8RyDeA6W5EQX95XBislwdJFkDlT
-	 Bq+BewNXMCQaVQk0Yc51QufIb3lJ5T4UJ3MUeZfwZxecyqfRlOTJpgVc+3/0Z3UOov
-	 5lS2I4L8c/jaZXk1YNdJ7gywevQOF+2E7GcRm4NdpHU/34Jy0gDwQWdRIO7erXWD/P
-	 xYwyU+6q3SeQfDrLmAb4d7fYqgMoxA1G8O1aFGaIrBJtk0EqqerT299+4MlM5pRm5H
-	 aluI6YGYPv+lg==
-Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-9399c77e2ebso2170085a.1
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 03:52:15 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwCLm6NkdsvorWE9xLVz/Y0ibWWb3vU9LWxy1p5JladNPOBLG4vAqhQ1vRKyhPj0XWMcZ7j6OnCrbEpiaY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kgcghacze9q7iqWT4Lc8bQk7utBIgBvite7Sbmwn9W6PRRzI6r
-	Rkx332yHRmFQSEz9f2xYAtygQ+BsE84JZ7R7Ns/SdDhbA7wB9KzkSPgLpw4rmeVtqTkTACt13W9
-	lxJVHH8RBdz8J2tS/RHt+oTYgJFqMMIQ=
-X-Received: by 2002:a05:620a:2905:b0:939:934b:dd61 with SMTP id
- af79cd13be357-939934be353mr216074385a.22.1788605535375; Sat, 05 Sep 2026
- 03:52:15 -0700 (PDT)
+	b=M8p3RND3Ta20PlWOdmlPvnRKaH4rU4b9EKO22tdQmYQnv0URL0HU/DSw+Tgzpqpwc
+	 Emq1yd/xFSBVAaBz7KKnDjafm9Zb23TdWp5PRqu9ZMKN51ZMDK1zwdlaS/WIMMY3yY
+	 qFmA9tU+GqokH+imz+eVXEWO4MwKiC8BxxWbX2ck1Lm+n9mEeRNv0uFNE1NVUT3WKd
+	 5XibiSTolZb+SdXOAw1obHXImQEqMgEAgHdUTrOdMWoEL5+d+BVBH3Vk8gdRGcxjT8
+	 3yYVgUEHDcTICWc/5FSsrLLtDflqiQgx2O1mT72lxs2UaKl1ilrWxmugeg+N9GYRkN
+	 cyNqsbXELoRyg==
+Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-5218927884fso30149741cf.3
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 03:53:18 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz5gX7arKr/nQTMTIoKAXBid66zbuVi45566th3T1KyMuHp+HyL7BqbVbtKOoh8WQ6VJ9XpxPlYgKWaroM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kHX675gKCqTpPHIxCPORZJdUtNj2aJbklvoi4G2isqp7I/H+kd
+	w2JGYxSkX+LfpP4sWmwIdxgpjGt/i9Nf4dTltYCddIm8OIgLYXTjA6zhQQfRXzsG1LR7tMc6mYi
+	4A49hrWFWRu/GOGJ8cTGtgmXekJ/kMuw=
+X-Received: by 2002:a05:620a:a412:10b0:939:8116:fcc8 with SMTP id
+ af79cd13be357-93981170886mr762226185a.51.1788605597677; Sat, 05 Sep 2026
+ 03:53:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260901054358.4049095-1-dev.jain@arm.com> <20260901054358.4049095-7-dev.jain@arm.com>
-In-Reply-To: <20260901054358.4049095-7-dev.jain@arm.com>
+References: <20260901054358.4049095-1-dev.jain@arm.com> <20260901054358.4049095-8-dev.jain@arm.com>
+In-Reply-To: <20260901054358.4049095-8-dev.jain@arm.com>
 From: Barry Song <baohua@kernel.org>
-Date: Sat, 5 Sep 2026 18:52:03 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4zByTsOgMRZHPsqiFw9HhWCJhtfkC5aYSnmyTYCqr19Lg@mail.gmail.com>
-X-Gm-Features: AcwNN1WqV8gqvn0kri-vxqJflABlnJROJZJbXDW0Uofbb8st9bHSXv2-ep7QvYY
-Message-ID: <CAGsJ_4zByTsOgMRZHPsqiFw9HhWCJhtfkC5aYSnmyTYCqr19Lg@mail.gmail.com>
-Subject: Re: [PATCH v2 6/8] mm/internal: add set_softleaf_ptes
+Date: Sat, 5 Sep 2026 18:53:06 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4ynguzJkBD5TY_b8qJa8-QG+Y4oJOU+s9eHX9VOhR+TCg@mail.gmail.com>
+X-Gm-Features: AcwNN1UeolQ4e3PMULxDOqfsECQTeGbroVuUoAuu7VwKERT-1DPC95ILoXEsb8M
+Message-ID: <CAGsJ_4ynguzJkBD5TY_b8qJa8-QG+Y4oJOU+s9eHX9VOhR+TCg@mail.gmail.com>
+Subject: Re: [PATCH v2 7/8] mm/memory: use set_softleaf_ptes for uffd-wp markers
 To: Dev Jain <dev.jain@arm.com>
 Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
 	hughd@google.com, chrisl@kernel.org, kasong@tencent.com, riel@surriel.com, 
@@ -61,20 +61,10 @@ Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 1, 2026 at 1:44=E2=80=AFPM Dev Jain <dev.jain@arm.com> wrote:
+On Tue, Sep 1, 2026 at 1:45=E2=80=AFPM Dev Jain <dev.jain@arm.com> wrote:
 >
-> Currently we have a helper called set_ptes() which is used to set
-> consecutive present ptes in the pgtables. To do the same operation but
-> to set "consecutive" nonpresent (softleaf) ptes, add set_softleaf_ptes().
->
-> The softleaves which have a notion of consecutivity is swap softleaf,
-> and those grouped by softeaf_has_pfn(). The latter is trivial; future
-> code can convert present ptes pointing to the same large folio to
-> swap softleaves with consecutive offsets using this helper.
->
-> The other case is softleaf markers. They do not have a notion of a swap
-> offset or PFN, so future code can use set_softleaf_ptes() to store
-> multiple (same) markers on the ptes.
+> Use set_softleaf_ptes() to store multiple uffd-wp marker entries instead
+> of open coding the batched setting.
 >
 > Signed-off-by: Dev Jain <dev.jain@arm.com>
 > ---
