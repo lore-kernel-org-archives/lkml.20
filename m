@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA12C157487;
-	Sat,  5 Sep 2026 07:24:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1C2E3F787E
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 07:25:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788593042; cv=none; b=cJWjV3PG5q8iGLbIOE4ZO2LP6nXkQg6H8yCabiQBVEJ3yNZnEl7wdH3h/9gqnZXeqoGBu0QaBFDjkBYI93Eb8snRRX7dNVaR7ZN0VN/aObMXED1bG7/33Kx7STk+gxPzfNyEF5V9JC8rI4c+YatGVzlgG2Rin5HkMxp+AQOuhwY=
+	t=1788593152; cv=none; b=tUrNd8FzmbPwSO2npHUbTxddr86ZVrUDu1fQvLV+5i0XP1IPH9HDaqMfdbtBduqppQfL5ITOYy9J6I08uD31FimmukHoUsNi9xrqPHgCXrJaiqxKd2SmC6hr5YHW6HEX6xS/FrFo+GkisPYL6R+fwzve1QF4yIO0qu4YM5vzTzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788593042; c=relaxed/simple;
-	bh=PEBzC3S0JI75n5VBsuBEcq6KZ2X2zosEmddKkozGznY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rqtuFeHKq9zToRZ/wpeI0hjaJK0OnPCds4NJEA5xCQSGOmIBnebRbB6kFOZVv04VtFGtcQV1p0FBQSneuwQ0l8xEm5V3jB5uzAhPaQDssovDREUSpJYOWUA+1pnslIluA65BnMa42lTcxVF7qnomVqR29YGdmR+kkVlWPGth+tk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=osTI83GN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788593152; c=relaxed/simple;
+	bh=NSI/eJ/ZckHcgEDfNpfeeAWrQ1+/t5M6WSuBvwwBRII=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=FDpD3eHJOsCd7KNqVB7kGMYXmLGOvBfchdoMSU++0XIFSC0q3tbjsJjfhmIUohxGJwsb/zSwVqmCAitBu6vsMFa/AW+WqtFKmOu+7GLQa/AdJCWdtRfcLPd2Hg3U6qvigfYnKdUjoBG2uBMQ6mroNDZ7GnKQzbnkE2HYHf81fmY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KUoe86nu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="osTI83GN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31F041F00A3D;
-	Sat,  5 Sep 2026 07:23:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KUoe86nu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9788F1F00A3D;
+	Sat,  5 Sep 2026 07:25:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788593041;
-	bh=Xiwpi2faUxugeCUvNAsAyi7Zk0kOwCX0ncOguHEg+6Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=osTI83GNcsHceFcTKXIAmNQNGm0oFM1jlMuWlVD8kc1J6isRVXK3mVEoFywYw+TPr
-	 r2aRma7HoN+vNpRObXzO5V7NbpsC3lplqHQCfq1XbwTmm8JYBcP413Plv7qWZW4GbO
-	 L2gjh2n6EIyTTlxY19+qbdBLQFl7LNVG9pbxwF4u/O8LmKXntifkMTu8M05pFDeY9c
-	 uoLqL0Szv7dtJCUW8kJgsHCw7L7r/hHYwllyM7fAc3HT2ZQQpmf9/ShToS+Xvm3l/D
-	 iSR5E5UZxgNYwsjpTQUkqINz4mJ7oDZOn8I/Yomo1yfNOG8ZPKuJbc8F+fiwojqqQC
-	 SjYRg5s6cGBhw==
-Message-ID: <ad07557f-edb7-4c67-8681-6c90a9da9def@kernel.org>
-Date: Sat, 5 Sep 2026 09:23:56 +0200
+	s=k20260515; t=1788593151;
+	bh=NSI/eJ/ZckHcgEDfNpfeeAWrQ1+/t5M6WSuBvwwBRII=;
+	h=Date:Subject:To:References:From:In-Reply-To;
+	b=KUoe86nu9axfzVam/sTqqp2sdfwUnpuGN6BJEBmDTLZQJuDARvDlGRB52Yc/COpIh
+	 S1G38sRFDTZEj/E5eIDowg6FeIkDcAcs7GNHGoflvXJkcyevjQKzF4zrXxJjYjuLtv
+	 uKVsv38zN8pUmZ/wpI/nQF3jtRaH0SfmQum05j9ArY7RtsUkLQH7NnVaKuw0zkk15h
+	 6y/hautrbpThxf+IKvxDVETtG01R6ius/OnSHbpzZfIF9Ez6VSIdvB5CTzHysJOFiz
+	 4QS8+JdEGmrMvrzv819BJObNmBFg268wLhBaFsdQTrKQHSTq0MghSHug+OAFHMsxaB
+	 0MpBmOTKu47tA==
+Message-ID: <c0d47fa1-1f6f-484d-93ce-7838e9aa9e52@kernel.org>
+Date: Sat, 5 Sep 2026 09:25:47 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,13 +35,11 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: iio: light: add as7343
-To: Chang Yu <marcus.yu.56@gmail.com>, Andy Shevchenko <andy@kernel.org>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <cover.1788586814.git.marcus.yu.56@gmail.com>
- <a516f5bdfaf9a2cee9e22b80c17fb42f860afdf2.1788586814.git.marcus.yu.56@gmail.com>
+Subject: Re: [PATCH] arm64: defconfig: Enable Lontium LT9211 driver
+To: Vishnu Saini <vishnu.saini@oss.qualcomm.com>,
+ linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com,
+ Jessica Zhang <jesszhan0024@gmail.com>
+References: <20260904-for-next-lt9211-defconfig-v1-1-97221f0109d7@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -87,34 +85,21 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <a516f5bdfaf9a2cee9e22b80c17fb42f860afdf2.1788586814.git.marcus.yu.56@gmail.com>
+In-Reply-To: <20260904-for-next-lt9211-defconfig-v1-1-97221f0109d7@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05/09/2026 07:53, Chang Yu wrote:
-> Add binding for AMS AS7343 which is a 14-channel multi-spectral sensor
-> with i2c address of 0x39.
-> 
-> Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
+On 04/09/2026 19:48, Vishnu Saini wrote:
+> Lontium LT9211 driver is extended to support LT9211C bridge
+> which is used on Qualcomm lemans/monaco/kodiak platforms.
+
+Lemans, Monaco and Kodiak are SoCs and they do not have this chip.
 
 
-Please use scripts/get_maintainers.pl to get a list of necessary people
-and lists to CC. It might happen, that command when run on an older
-kernel, gives you outdated entries. Therefore please be sure you base
-your patches on recent Linux kernel.
+You could have just look at history how this could be written.
 
-Tools like b4 or scripts/get_maintainer.pl provide you proper list of
-people, so fix your workflow. Tools might also fail if you work on some
-ancient tree (don't, instead use mainline) or work on fork of kernel
-(don't, instead use mainline). Just use b4 and everything should be
-fine, although remember about `b4 prep --auto-to-cc` if you added new
-patches to the patchset.
-
-You missed at least devicetree list (maybe more), so this won't be
-tested by automated tooling. Performing review on untested code might be
-a waste of time.
-
-Please kindly resend and include all necessary To/Cc entries.
+Or lore:
+https://lore.kernel.org/all/20260130-add-lt9211c-bridge-for-rb3gen2-industrial-mezzanine-v2-2-a98714fa1531@oss.qualcomm.com/
 
 Best regards,
 Krzysztof
