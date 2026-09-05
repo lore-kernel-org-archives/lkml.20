@@ -1,144 +1,193 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 178B53655D6
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 13:25:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 597A1356766
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 13:28:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788614723; cv=none; b=RubRA2PVQHd7dCSUJpWAZ0f46aCHKjlkqW9Nx1fE3k3/U/y9NmZcOElOiv0PRtW4Z7dGSKlinUJUkY2gVgCg7Xt04HqlDmOBmYMtU/Wa1Guek95D6qSaFA3HVqtbh1NY45euqGNc2KlCPwEyoXL6j+oGDzIqQy5lGTiN69OWPQI=
+	t=1788614900; cv=none; b=I5zgEggjjUv9ytf4EcNGpQPfKB1ycaKQGFVnnyXmn12HOwct/6cljkpwFlKbv9ClW74FbuAWZtXR04UABKbbFMB1Mm3h9CHsqPRGBE/m+oOp8HVXKczDHi8ZjEqKcTCcBCk0FrwlgLZhTHCXv/Ik/gKOdnVwI0QzcFuaWwUN6Xw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788614723; c=relaxed/simple;
-	bh=QWMEwIOcooRWk9BjRJruRUeNG+YYS3+Mj6K7qm+NBO4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=GzfmoAF7xb0lXWRMNJs+Md4qAr9APXmbsVVL0iUrOmPl5Hnn5bKG0+RfeLx8AUCUUGWSI4DLiMC/qRrkNQI+h1rCz7HLwFn1hORnr4dl88ENrNtGouaBYWMauRfDWYLfjWwXs35/xlpCycRVIJGDavriyXE0212o8PBqlH2/UGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nalBfOAz; arc=none smtp.client-ip=209.85.216.53
+	s=arc-20240116; t=1788614900; c=relaxed/simple;
+	bh=onVBlW7MOcXY/4u/1wLc1luNV8JQgXpPbl+Dwq4jXa0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IHGNJf7kVXvzeN3XuOoEADwv9eZIwqLk/EKUJg6mWTOT6Kqe1ZTLt4n9Nn1p9r0mI5bTDQ/bnhl6HQTSXTU+Jtk+ZMDODsJPbCEEruTKsCj7tETcb6UYAoOeTcAcjvA3hsZPKUJpnEQ1cKdjXpTpnMGxflWmV71/Jo6feAQbLpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=proxrBbi; arc=none smtp.client-ip=209.85.215.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nalBfOAz"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so2024092a91.0
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 06:25:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="proxrBbi"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc1c73645a1so1587873a12.1
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 06:28:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788614721; x=1789219521; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=j7J8yt/imrohgMlytkvN5MFJVOTIoeTWumRUjiqHbP0=;
-        b=nalBfOAzcxXSukBq4VWtPHxcRx+8as5w0R2J/TmaRu8enVw1kYk4L/YwSpnwtuJCvW
-         ORmFvlUf6gA4ZrDGrNeILHXKhV07jLJVNtNj+s8xnvbaPd1fxYeQli/5Y1aUv1Afqg1Q
-         XjLh+0sRECj+2C30qjqejM8nZtMRy04woKwaeHoz2lw+4NCad57ea9XGLJHxcpNxRk/n
-         Fh6I+Al1MQTzdxWNS7PdP3j4O42BHHnqERxKxAcb9ApKJpoW0ihveUUcMgcQ6X3oQokO
-         OBWi+D6hrH379l2yZ6nMwuIDNaOO4lg1Yxf1WdRuVUZCL/jqBh/28XivB/Yk8ptwtdq8
-         /KPg==
+        d=gmail.com; s=20251104; t=1788614899; x=1789219699; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=005z03CIhBd04YrgIq3DK9hNQnxi1U/rfpjn1baG6tI=;
+        b=proxrBbiH3O8aIhSVBd7bwFR1sNFBFytnO0dkOCjos3EQURKq3hak/q53uBEwkQFLX
+         CwJTjRaqg6QEkTNg0X0Wrzeh+b7HZzl4Rp9GU9okMeLvooArfXDn7mWHY2+OvAog3z3J
+         aePdSgCD4Xkg/MouWROmUf1dVfEJEKNVJnF66EH02ZHnt/YZPsYs1YUyvErTBd1dYGmV
+         o3zc5b+n9576xEatU3DZ5T8ZiO42kYVoOlEy281bq2UHsqfDukFGCevkC5qW6xb0Gc4h
+         CgaCE4qlURCOMBykT8Ftev8MpZHp/xC2kRI9cvKHoU0bQ8khCFq464AGfA8Pelat2vaB
+         PU3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788614721; x=1789219521;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=j7J8yt/imrohgMlytkvN5MFJVOTIoeTWumRUjiqHbP0=;
-        b=sn7I66AOHpkarZ5cgHS+ejt0pgP2C03cNT4A3kGBjYc2J/lLArndQpMF9HHCtJu78z
-         ZAvRcQ6zZjWf6Fdc5Pi9mL17xNiN21jw7FgxtHtDhuCLZy+S01qqbmZAsIT9X255THZM
-         7lD9yq9+Cjsn0bBkuWGarC+NQ3W2ka25jeiLjFOy/BswmkoRHl13soQSCO5C2xnv/tlC
-         m0j+0yHu6zmVm+ByqpSZHzQjEkuCXNJZRhgkR/fwwsrEwYrE5YI70/7ar+BD5xnxOWC7
-         TiI6o4sFVtDgE9GRBZ6DxZRPXOy3AK1p9k0r7qE6gQZhsrRYUotpCRl3Ug7ExK1DR4GM
-         2BaA==
-X-Forwarded-Encrypted: i=1; AKwUvBxg008QSBA3g2dUScdNrm4D+cXmWOQXkMKi00O32FbhSbK508f+pX+8XWvvg5fuM4FXFzbvlaAfreyki7E=@vger.kernel.org
-X-Gm-Message-State: AFuF++nmn9KPe0wZN7U9Uv++5U1OLCtQpIOgXw//sEVh2LbuQqkw/d+q
-	VdNFkzWXjw00GqhSHSqx/11pztsg4g4nXp6qMIRm+MNC8CeflVcv0rUrZ63Xrg==
-X-Gm-Gg: AYBFou2NvuQhLmZ3uCpEwpYIz47/Dr75vEaLO89Q2Ezc2nX9ombE2JcBKMcBXoBGHFy
-	7zxyqhKfDTxB6TLXbtxfqrjp33fqZxiuHdBm7VbO5YQoLt1MbH/gU/9CKM+C6BTn8oo3FkzPVr3
-	dsJx7IqR70+ghiHID9hzkbB3grj22P2fhUMu9V4ekc6c6MTp4oo1jTXOJhH340StCVLmaYMtm88
-	O5wJXOo4xitQi4CormGaVsV6bXy8T9qv0m0CUxI0MDINs5sj6kh+0wlINKzm5yJgIaFV5QjUoCz
-	AbSSJxyySTdWRgRAzgLFUiav+gOMfIarA3+danhZC+e9GHIa92Jg8UuBg+fY+BeTAshcmra/9rx
-	Y9VC7v9DdrhisuWZN9BDic2+tIpUPU3OCTVWz9cJlVGu/7Z2NoCeRstfHRmoklbZ7EGyA7pIxdp
-	PtkkYfeQCbho3+NLGJkecA+90mueKrVR2/jIYN3Tj3nxBbQvlhnjqQpfN8x2z4Y2ChzUNFPZl8J
-	P9AfjnEUAf/SDlUpho/xCAiYuG1CcTIUKwMl4IHkjllfT016i7FxCWrOLlShahBL0g=
-X-Received: by 2002:a17:90b:3ccf:b0:399:ea1:5a82 with SMTP id 98e67ed59e1d1-39b26101277mr16779258a91.3.1788614721206;
-        Sat, 05 Sep 2026 06:25:21 -0700 (PDT)
-Received: from junjungu-PC.localdomain ([223.166.246.74])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08cacba5sm17171847a91.12.2026.09.05.06.25.19
+        d=1e100.net; s=20251104; t=1788614899; x=1789219699;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=005z03CIhBd04YrgIq3DK9hNQnxi1U/rfpjn1baG6tI=;
+        b=gpgFwZrGFlTbD+ZdkBimepm+lLzUQQIgyk4A91amOWDBgTr7hKvkb7aesEyEe2mMFk
+         uXDTICMRVBtKrQcdnm+qhr3DrO+2zHnxQjSPXm2zRIw63/gjLokeITyRDEE6y2C/OWZF
+         YA/JOMeCOuQ2Owzh/pHQNLxsCaWCDTALov3ixoZCMVbTNtV7ZB1pU/k6KLGy8WuR9Qhv
+         6+f246TU1TF/W5VH1t8E85bB7EBDASflpriwSqO70+bCOPpQ5D6prm45i8lq0OU2YhW2
+         Wz/P7fXzFZA5rrns5EML+bXVju/WVZtyoIbKReIVhneymAFFD6xS6HMiaUYlDFDNiClO
+         TB5g==
+X-Forwarded-Encrypted: i=1; AKwUvBwndEqtJ0jY59l8VKhoE2cE6ybsFQkqRetA5UsMj4xyCUuUdqSnyrx2sGA617f0EO9ZgaTx1pH7SmmSJWA=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9jHAYB3Qo+8PcvPLSyJoRiQyJ+m80nrcWtnBuVjc/sNMALATc
+	O5QukycPEOXrzOTQPT1Avq4ab4Xhr9hY8CE3cyfcnPl7CEQb/hRPaGCv
+X-Gm-Gg: AYBFou2HGibdsKGC3Vq6PPpOkQMcSDocyPLTdyjHqZjGfsIBJX3cJnGK8yeDEtjIw+g
+	uY56JNPlZWYmhLKWYP7RFKCQVsGfh5JGfd6kg8bHVba9u+CtUfgZ1ZuVIzboIR+HhCmD1/nVRyM
+	UjBFJaNBEFDxuAkLO1wb/cp5yR1N2D0+QfBJ9ZhbVTv6yuihrkU/NlvGp+Q0w9fuyXzdWwVrZCZ
+	tGyP0+7kZaG5BMDhaif7ZDKkogJYxt+jZOJecLj5iaibhTGk2rbLX/3kYjyYHrZOAsRQYAJ++3T
+	RJft+LMViP50eLPwUT7cYluko0Oa+zaNFl6fomf7pyNsO7UhziALSapZqanRk+GPkhMpRs8bh7y
+	URjTRuDzNebjpsG63Za8vARLJNwPFeijC4qoNSNoFGyKLCQZ+X28ROzrOttJTluX+O5zTLn+gUl
+	slKwwkXf85Kq1gDW+cHmPCzKiNneTL9Dnf5bEW4NeDdfsYBuOpez7+dVm3pP9stUPne4W/1aRky
+	7NgbMTqjdFliaqpmQW6oFOLyx/40+EcpFXr+98AJ5I5
+X-Received: by 2002:a17:90b:2d07:b0:398:ceed:6d44 with SMTP id 98e67ed59e1d1-39b262abd26mr18147120a91.25.1788614898686;
+        Sat, 05 Sep 2026 06:28:18 -0700 (PDT)
+Received: from Biostar-A520MT.. ([187.94.13.245])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1433171a97esm7243548c88.12.2026.09.05.06.28.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 06:25:20 -0700 (PDT)
-From: Felix Gu <ustc.gu@gmail.com>
-Date: Sat, 05 Sep 2026 21:25:15 +0800
-Subject: [PATCH] i2c: ljca: drop redundant explicit adapter deletion
+        Sat, 05 Sep 2026 06:28:18 -0700 (PDT)
+From: Breno Rodrigues Alves <breno3011alves@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: torvalds@linux-foundation.org,
+	linux-kernel@vger.kernel.org,
+	arnd@arndb.de,
+	linux-clk@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-fbdev@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	Breno Rodrigues Alves <breno3011alves@gmail.com>
+Subject: [PATCH v10] media: dvb-core: extirpate defective and unsafe ULE debug block
+Date: Sat,  5 Sep 2026 10:28:12 -0300
+Message-ID: <20260905132812.8521-1-breno3011alves@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260905-ljca-v1-1-9109616ff1c6@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDSwNT3Zys5ERdI2NjAyMTA3PTVAtjJaDSgqLUtMwKsDHRsRB+cWlSVmp
- yCUivUm0tAIrpKCFoAAAA
-X-Change-ID: 20260905-ljca-233024075e83
-To: Lixu Zhang <lixu.zhang@intel.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Andi Shyti <andi.shyti@kernel.org>
-Cc: linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Felix Gu <ustc.gu@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788614718; l=1642;
- i=ustc.gu@gmail.com; h=from:subject:message-id;
- bh=QWMEwIOcooRWk9BjRJruRUeNG+YYS3+Mj6K7qm+NBO4=;
- b=ow4Lq3WIn0W0SECO4+FYZlyW3O6Iff6mqZS2VExdtK069vdz3l6PrZk0Jeb8l6Lu3jPpQWYrR
- aRIYqpXbv6eAdUq6TlV6YoMlUHmUQMDsKxhsXMlc7Iot5unwrk66DrS
-X-Developer-Key: i=ustc.gu@gmail.com; a=ed25519;
- pk=fjUXwmjchVN7Ja6KGP55IXOzFeCl9edaHoQIEUA+/hw=
+Content-Transfer-Encoding: 8bit
 
-This driver uses devm_i2c_add_adapter(), so manual i2c_del_adapter()
-in remove() is unnecessary.
+Completely purge the unmaintained DVB_ULE_DEBUG code block from
+dvb_net.c and its Kconfig definition to eliminate severe lockless race
+conditions and clean up the unused function signature parameter.
 
-Remove ljca_i2c_remove() along with the now unneeded
-auxiliary_setdrvdata().
-
-Signed-off-by: Felix Gu <ustc.gu@gmail.com>
+Assisted-by: OpenCode AI
+Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
 ---
- drivers/i2c/busses/i2c-ljca.c | 9 ---------
- 1 file changed, 9 deletions(-)
+ drivers/media/dvb-core/Kconfig   | 11 ---------
+ drivers/media/dvb-core/dvb_net.c | 42 +-------------------------------
+ 2 files changed, 1 insertion(+), 52 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-ljca.c b/drivers/i2c/busses/i2c-ljca.c
-index 93274f0c2d72..da3370968c8e 100644
---- a/drivers/i2c/busses/i2c-ljca.c
-+++ b/drivers/i2c/busses/i2c-ljca.c
-@@ -297,7 +297,6 @@ static int ljca_i2c_probe(struct auxiliary_device *auxdev,
- 	device_set_node(&ljca_i2c->adap.dev, dev_fwnode(&auxdev->dev));
+diff --git a/drivers/media/dvb-core/Kconfig b/drivers/media/dvb-core/Kconfig
+index 8b3f2d53c..c6a97add8 100644
+--- a/drivers/media/dvb-core/Kconfig
++++ b/drivers/media/dvb-core/Kconfig
+@@ -67,14 +67,3 @@ config DVB_DEMUX_SECTION_LOSS_LOG
  
- 	i2c_set_adapdata(&ljca_i2c->adap, ljca_i2c);
--	auxiliary_set_drvdata(auxdev, ljca_i2c);
+ 	  If you are unsure about this, say N here.
  
- 	ret = ljca_i2c_init(ljca_i2c, ljca_i2c->i2c_info->id);
- 	if (ret)
-@@ -315,13 +314,6 @@ static int ljca_i2c_probe(struct auxiliary_device *auxdev,
- 	return 0;
- }
+-config DVB_ULE_DEBUG
+-	bool "Enable DVB net ULE packet debug messages"
+-	depends on DVB_CORE
+-	help
+-	  Enable extra log messages meant to detect problems while
+-	  handling DVB network ULE packet loss inside the Kernel.
+-
+-	  Should not be enabled on normal cases, as logs can
+-	  be very verbose.
+-
+-	  If you are unsure about this, say N here.
+diff --git a/drivers/media/dvb-core/dvb_net.c b/drivers/media/dvb-core/dvb_net.c
+index a2159b2bc..5060b8866 100644
+--- a/drivers/media/dvb-core/dvb_net.c
++++ b/drivers/media/dvb-core/dvb_net.c
+@@ -68,19 +68,6 @@ static inline __u32 iov_crc32( __u32 c, struct kvec *iov, unsigned int cnt )
  
--static void ljca_i2c_remove(struct auxiliary_device *auxdev)
+ #define DVB_NET_MULTICAST_MAX 10
+ 
+-#ifdef DVB_ULE_DEBUG
+-/*
+- * The code inside DVB_ULE_DEBUG keeps a history of the
+- * last 100 TS cells processed.
+- */
+-static unsigned char ule_hist[100*TS_SZ] = { 0 };
+-static unsigned char *ule_where = ule_hist, ule_dump;
+-
+-static void hexdump(const unsigned char *buf, unsigned short len)
 -{
--	struct ljca_i2c_dev *ljca_i2c = auxiliary_get_drvdata(auxdev);
--
--	i2c_del_adapter(&ljca_i2c->adap);
+-	print_hex_dump_debug("", DUMP_PREFIX_OFFSET, 16, 1, buf, len, true);
 -}
--
- static const struct auxiliary_device_id ljca_i2c_id_table[] = {
- 	{ "usb_ljca.ljca-i2c", 0 },
- 	{ /* sentinel */ }
-@@ -330,7 +322,6 @@ MODULE_DEVICE_TABLE(auxiliary, ljca_i2c_id_table);
+-#endif
  
- static struct auxiliary_driver ljca_i2c_driver = {
- 	.probe = ljca_i2c_probe,
--	.remove = ljca_i2c_remove,
- 	.id_table = ljca_i2c_id_table,
- };
- module_auxiliary_driver(ljca_i2c_driver);
-
----
-base-commit: 9d80aa4617b32f5054c5aa471d06b66704854935
-change-id: 20260905-ljca-233024075e83
-
-Best regards,
---  
-Felix Gu <ustc.gu@gmail.com>
+ struct dvb_net_priv {
+ 	int in_use;
+@@ -320,16 +307,6 @@ static int dvb_net_ule_new_ts_cell(struct dvb_net_ule_handle *h)
+ {
+ 	/* We are about to process a new TS cell. */
+ 
+-#ifdef DVB_ULE_DEBUG
+-	if (ule_where >= &ule_hist[100*TS_SZ])
+-		ule_where = ule_hist;
+-	memcpy(ule_where, h->ts, TS_SZ);
+-	if (ule_dump) {
+-		hexdump(ule_where, TS_SZ);
+-		ule_dump = 0;
+-	}
+-	ule_where += TS_SZ;
+-#endif
+ 
+ 	/*
+ 	 * Check TS h->error conditions: sync_byte, transport_error_indicator,
+@@ -659,23 +636,6 @@ static void dvb_net_ule_check_crc(struct dvb_net_ule_handle *h,
+ 			h->ts_remain > 2 ?
+ 				*(unsigned short *)h->from_where : 0);
+ 
+-	#ifdef DVB_ULE_DEBUG
+-		hexdump(iov[0].iov_base, iov[0].iov_len);
+-		hexdump(iov[1].iov_base, iov[1].iov_len);
+-		hexdump(iov[2].iov_base, iov[2].iov_len);
+-
+-		if (ule_where == ule_hist) {
+-			hexdump(&ule_hist[98*TS_SZ], TS_SZ);
+-			hexdump(&ule_hist[99*TS_SZ], TS_SZ);
+-		} else if (ule_where == &ule_hist[TS_SZ]) {
+-			hexdump(&ule_hist[99*TS_SZ], TS_SZ);
+-			hexdump(ule_hist, TS_SZ);
+-		} else {
+-			hexdump(ule_where - TS_SZ - TS_SZ, TS_SZ);
+-			hexdump(ule_where - TS_SZ, TS_SZ);
+-		}
+-		ule_dump = 1;
+-	#endif
+ 
+ 		h->dev->stats.rx_errors++;
+ 		h->dev->stats.rx_crc_errors++;
+@@ -843,7 +803,7 @@ static void dvb_net_ule(struct net_device *dev, const u8 *buf, size_t buf_len)
+ 				       *(tail - 2) << 8 |
+ 				       *(tail - 1);
+ 
+-			dvb_net_ule_check_crc(&h, iov, ule_crc, expected_crc);
++			dvb_net_ule_check_crc(&h, ule_crc, expected_crc);
+ 
+ 			/* Prepare for next SNDU. */
+ 			reset_ule(h.priv);
+-- 
+2.43.0
 
