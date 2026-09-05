@@ -1,209 +1,136 @@
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2448E395AE4
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 02:43:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788576198; cv=pass; b=hC26drFp060Lj35OBOHNjY4FQmBpgSCKNnEZj0IVS8pD7CtuSb0xvSPRSfnAP9LplpQNEfpbuiWuXKGGt8Vyc+4iND7UAzP1LTLj9zT94tyU4v4P/aY4FGon6yJyOo4GB57gp1VSME+0C3yR4QkSW9+rvYmcontsZ1+j9/wr+CU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788576198; c=relaxed/simple;
-	bh=twYErhKVgqBqU7Gm8PxAPOGpKdduvfjHWVPWHKQNgHA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MvOWVRTxiVH7Sny8PEpEYWS5/3UsTR87qxDnPuqmD585MuRpaGGjvW9+MP1iHZu5fUt1XgeupVUDPbRGKPGZipUXnGpvJ3MjJ1cVv/IUzzl/MG+HZpcBHbgQFZOAvMIMoI+lfFqAG3tr7H55TE/sYjHqBRjR48mjkECNA/r8rX4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jnw/Z0wW; arc=pass smtp.client-ip=209.85.167.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F5761F1304
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 02:43:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788576199; cv=none; b=GK+a7u4PxkbfmGjXF9vvu00f0CzDBiph5TYfqxPpJyQa8YKDwc/M/iY2m6ISUag2K+kMViKRWUQzOGXHhbu9LIZKx7x8857OcjfVtA1Fbys0blfcD7H+YP2LDiVyNiCIx0XxhyYLFPWII5dcqCuMZWdb3SWKeYEA4h+pDzg9q8g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788576199; c=relaxed/simple;
+	bh=cafiR8PF1xxgKNVKQNGmb4iU4+qztAjRhOi4JbCGlvw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ngpRXMnKv2tkm/OFAqS9EsWFuG/Wr5BhyBqLrziQB/2vTwQi37Xay3PzOuhEWDa8hV8AuolUJ1djVlTKq+aBF+4ERgzUbmpGO3lDenJNe85by4d4D6kya1KCY9QRiaJHiZAMOp+pAL+gmKQby2STXBTrGetgTi2eZb/JYKuzvXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VTRxJF+E; arc=none smtp.client-ip=209.85.214.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jnw/Z0wW"
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5b4afc8465eso2372215e87.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 19:43:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788576195; cv=none;
-        d=google.com; s=arc-20260327;
-        b=F3WRzPp+NevqoLxrWZuNCE4IfZGCRW2uFQKKQta9lgCem7xKS+mpiTxmwLOp6WKUHJ
-         7/PrzyVL8C9cUiuC87W5xA0BXnLufjoDSiZ9rwbpAqlYqlcFi3s78nJKG9zVc/uKiF2n
-         aCKDn9dI893+Qcn0b5pZnuuKMflXnwwHBthEH28609OXHk1U7xmWGcVbUBFiPSq3R5IT
-         8/wqFXGZq7wGzWan5QXiYgT3A5EMKv8t8HISnhH3j4ppFWFoeP6A+UbXNpgg8PcNSB72
-         qJjq0JndINsT7AGSxZfheni2eeb9Wd7L3aLizs5AO6FrjUfD+uUdie6JdGeWTDw03fGj
-         nM2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=90Y+nmSB/SvDSpHXiaKM1v9ANMSfhJiNXw80E/ieTaY=;
-        fh=pgsiZD8wC6DfT/GMrpS8UtvGmM9sG+rfuHcewM7iHP8=;
-        b=BWXe7DG4teEQ+bvgrBxTcPloDHmXO91n3lDMplpcuftss3f3rYtSdVtz7mWnmcKE6v
-         9H91sxpuUDutLZKFK0MPSz50DiaXHgBP7wg/QcTgKvtL1Plsqt0f8u7j/a5oUVPcO9Fd
-         Y+EAIw19u3v4cJ4I6JJQMUHpc7R6o3Ijk24E4j/jU+FHJRDU71SGblZ6AL1VlqsplhNC
-         +12IWni7Ob2VLAXGHweWWNHzMEf3rW50WzgBYz0b89jFCYrwcsK6729N5+GfGWf2vRVK
-         tF/bRo/w0+sdQS3h1W4muiavcbLP4JrLzsZ8crm7BfHiETvhaHbrsGR7WJUuaF7pjKym
-         QUTw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VTRxJF+E"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d8f265cbe6so13135995ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 19:43:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788576195; x=1789180995; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788576198; x=1789180998; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=90Y+nmSB/SvDSpHXiaKM1v9ANMSfhJiNXw80E/ieTaY=;
-        b=jnw/Z0wWLee3whrF2sAePXrhbk8/hmlrxJPNVdYBsw4JENIjVv6+Ogtudwmm8ecyf3
-         MppmafxukbfXavo1VEQ+Pe+1EfRX/A8jbbYNeimxx5TMWIRMYd8xIvwOoekBFNoyMtHf
-         8JK31XWtDm1lSWuEJJW7KctWl1K7pjh+lsVA04hHQW4qWG2ne8I0pXz5UHDCjNCQgtah
-         DSH1hNkqZhywwZlqf/iJMFvk1QTDiAPlixripGb71UMsxEmal3ETocwfgS0yilMUsQ4S
-         DeYhrmyzgrL8xS7TONpLoYKU+8+68J3rrb1y6W1H/cKMC48mccOp9jMJFpx6O3Y0qSD5
-         QReA==
+        bh=nN1oOZhHFA6iOMNOJ2Qu+h7C5QPyvLKsSkfURb8yDX4=;
+        b=VTRxJF+EwLDTQfCVdPMYYNeWfcqecpZbhyU/tLwPzpZY07vaYQP0CzWNMY2o8R/ijI
+         5pzeHmP7zhmFDrpMeMTD7iHlbK+vHfTTQRCGL00lM17XdlB1vjdx6vYbduKN7APB+g/b
+         WLxd9p8HM2+p1Z1e52TdhJsnL+9eAxSqnZUTim8XLuTYgjuQvSCvLprAnnMVAvsveNn1
+         dlwCJ8+772zjzGXCKqggkVQLTGrGB2rJmai/N0lkntPXKi83D1YnAdLgJhY8pRIUR6Ji
+         ZKXnMPqIVWxqaFNyEnyy1kLGvmUFkEiA6Ysd52ksd1js/uYCyptygp2Xg+4hfgXDkX1K
+         7dCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788576195; x=1789180995;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788576198; x=1789180998;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=90Y+nmSB/SvDSpHXiaKM1v9ANMSfhJiNXw80E/ieTaY=;
-        b=VAP40rTS/soFNgFitJkNXY+nrtrLi3B7RnKqNxJ+7D1wLuZjdKqXqi6Wiauxm+8LR9
-         PEI+DpQV4omE035iXkgraWmsyhGDUQdZXBAVQzxO1sIsVeNdOXb9tXn23xvBtNPSl758
-         F8NW+w91TTh7MuTeoNbF0bxQXsM6ONg08IxisptReiSjasNPZ6eUL9mw15Y8a9eTaUpf
-         KwTSwQ6KEHlbHFZpyBQor9xzZl3CJK34OJ0HusOZhL533uttgPf2riRYzhmBE4G9yakV
-         p9O0qyifnFS1UxDcaCM2kjFNVc8Ce4rwEcWRZ9jxrlSp9KsyPh3T0Fr3HE1Duz/7C6Md
-         GA6A==
-X-Forwarded-Encrypted: i=1; AKwUvBwarPIHvlsIoFOavSX+srSdirkXbg6+p9FAZvzfS7gD23xHoGMkvzbBr67MsU0H/f9TI9sKlWSDgRcBOfY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lNROmrWm6xZ37f1NajME3sR1rGizyR34CVW71Ei2/+iSeEMHu6
-	uMezmkC5NVLPtlQxR6eqgfcPKvYaYnWVACDgfhDNp5pqbVn5wxLsRaGDkbLmFc7G56ULMrBXRRp
-	gdDMnkrxdNT4KPVuex7sTAmME/iGWrr+FDaFq7RQ=
-X-Gm-Gg: AYBFou1SIIJPgU12UxEF4d3a1jU88s2XMOJbUX1SebplB4B6AC3MfZSqIWG8nLwB9YN
-	hGNgelVaFZWaeBG9aRlAcRdAP6HPCP+wUrlIjs5nejsFTtzpU+sJrtSFrCBRGoX+uMEMnRnT3dX
-	3OvJg2WYN6G9lM2cDZa6s4PPSVDUE2zHCSFA9Xblo9+HIIZeQXFKHkQ5yV6w10M83gHc5uPpb93
-	P5FS7dlUb0KcqYed9z0ML9yyDJlLZrGxEZVFYwAFzPg8rKq3qtkruNFuau6PlaW8Fbs8t8OhfFg
-	vBM6rJwf9De3I8ZaqL5QMlKg9RCszAzPAbApi7U2tT9wjnFWHSXqkJSICPF+L45D+ys8pVzElT5
-	XJhFuxzAAtDoEyQ==
-X-Received: by 2002:a05:6512:1252:b0:5b6:4ae:19e7 with SMTP id
- 2adb3069b0e04-5b61706d22fmr1818771e87.26.1788576194608; Fri, 04 Sep 2026
- 19:43:14 -0700 (PDT)
+        bh=nN1oOZhHFA6iOMNOJ2Qu+h7C5QPyvLKsSkfURb8yDX4=;
+        b=Xj+2wBpKiFl7cMoVDaQpeZn08A0InVV8VBr9Vg4E7ZaP2iiER+g0hSczqfNyKDnePM
+         x7rDhOa3jj47NJVSM9H9EbQzvNDF6+X51RJun+xDPCa3OGDYfb6AznjRhiRBAfXvIna4
+         MEMK4oTUt6OUhdUp+6WRCuOS36BQnFhg2LO85bfQn5hP++7WxWurnyTVneW3GglvWgvY
+         bDGllIkNuQ8k7i1w87ihc3u5BNNPhiEDnTw1b7TYAmcEQD86KWsvTW6pls/RM/Vo0tdO
+         5X3xvyOG7kk4pbNAjplBVxRbraWp9yTreoM/UEILZ5jhlHOlmHgnNie1KCbdcTB9TKAh
+         +uxg==
+X-Forwarded-Encrypted: i=1; AKwUvByna8VdO8VokS2s7hGjUfFdUTjiGvi1ER2mqF3wJn7eycSBzO/BrvGTW8N9JIJK9jzq+k1DckwyUAn2InA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lT/txZqqpLR8InfOCGk8WelbebYm6qDh1Pf57q2gjwXJGwuiXH
+	ue5hSyBUBOjo1UaCuNkCvHXpaCdRWJ7wWmSXyIQoMR48CT/X0a9A6C9/
+X-Gm-Gg: AYBFou3ptXW/9H3ONS4jgzQR/GGVPxpfxpojUHDekaGFz47/IGEOZK6eW7rRhvhsQt+
+	TMW6+TtrjMrGyysqOAiUPsZWabl6H+yoqwZGCWf2sr7cqMtGm6CUwhHTTJFq9v0UFTDOyLh6Gjq
+	IjNUQCzIKDZOuxE5HjgwOCTOtknb1Gm4pPdHwENy03ORKHBNWp3Pr9MW0NZivI2YD2yl/3O3Ldq
+	he0BqdPZj2OtpfI1Acbw/1rdA3+Pt1iHILDzeTN5B/fVy47QY0+QRyYbpanbG1igp+cvp5f0Pt/
+	eSnGJgTL3lsgKgwq0T5edY/fuGfMos8kBsRd+oLo+LRmJ0Pub2jsAknMTiRjNMiejTuupxOJjZD
+	lXaXnNJxtL8EdWi6or/f8Tzjvf0CUhiKYypRGUcMSJzD+5eRDYK5+96sj/gtS9eDvd02ib5YgkX
+	21PKO0JopcRE5LziDiDVSafR1EkIiSFJe+FyNtjBm8OPcKnIY7+09QeE5EnXd10ILuzjgjLyt2E
+	TQ/QWLzkE1h/Y7a5RLoAzgVnOO2b1RA2V5loA89zUV7NJ+H+CoSC2YMd+SzOdoHQJV3pMfMEjCg
+	yIPVUKMjZcE=
+X-Received: by 2002:a17:90b:5807:b0:398:9be9:ab8c with SMTP id 98e67ed59e1d1-39b26229bd7mr15729029a91.17.1788576197758;
+        Fri, 04 Sep 2026 19:43:17 -0700 (PDT)
+Received: from nickhuang (2001-b400-e206-2f43-77ca-14d0-ff57-9965.emome-ip6.hinet.net. [2001:b400:e206:2f43:77ca:14d0:ff57:9965])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08d086adsm13735453a91.15.2026.09.04.19.43.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 19:43:17 -0700 (PDT)
+Date: Sat, 5 Sep 2026 02:43:10 +0000
+From: Nick Huang <sef1548@gmail.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: "Liam R. Howlett" <liam@infradead.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Andrew Ballance <andrewjballance@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>, maple-tree@lists.infradead.org,
+	linux-mm@kvack.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] docs: maple_tree: Replace removed bulk insertion API
+Message-ID: <apuBvv2sLEKPHlQN@nickhuang>
+References: <20260905015509.76265-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788277742.git.mattst88@gmail.com> <3c54e7e410438437640d56501a7a46fb0443427d.1788277742.git.mattst88@gmail.com>
- <CA+=Fv5Rr-Zqs_nfssP0LsZd3x-=hCVybxXtOETDvR=1RGZTnLg@mail.gmail.com>
-In-Reply-To: <CA+=Fv5Rr-Zqs_nfssP0LsZd3x-=hCVybxXtOETDvR=1RGZTnLg@mail.gmail.com>
-From: Matt Turner <mattst88@gmail.com>
-Date: Fri, 4 Sep 2026 22:43:02 -0400
-X-Gm-Features: AcwNN1Vbr4fIHhsxleCbheamvgLG-ZaL3XtXdEPbTMws2xJTeqak-MMskTBAz6c
-Message-ID: <CAEdQ38EUiwdoxF=JvdrDEfs_mmKexCvF9Mp8KgFPpxKrxi24OQ@mail.gmail.com>
-Subject: Re: [PATCH 02/24] alpha: enter hardirq context before looking up the
- irq descriptor
-To: Magnus Lindholm <linmag7@gmail.com>
-Cc: linux-alpha@vger.kernel.org, richard.henderson@linaro.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260905015509.76265-1-kmehltretter@gmail.com>
 
-On Thu, Sep 3, 2026 at 6:07=E2=80=AFPM Magnus Lindholm <linmag7@gmail.com> =
-wrote:
->
-> Hi Matt,
->
-> On Tue, Sep 1, 2026 at 5:50=E2=80=AFPM Matt Turner <mattst88@gmail.com> w=
-rote:
-> >
-> > handle_irq() called irq_to_desc() before irq_enter(), so that lookup ra=
-n
-> > with the preempt count still saying task context and with RCU not yet
-> > watching.  Generic code called from an interrupt handler should see
-> > hardirq context, and irq_to_desc() is more than an array index once
-> > SPARSE_IRQ is in use.
-> >
-> > Move irq_enter() to the top of the function and add the matching
-> > irq_exit() to the invalid interrupt path.
-> >
-> > Assisted-by: Claude:claude-opus-5
-> > Signed-off-by: Matt Turner <mattst88@gmail.com>
-> > ---
-> >  arch/alpha/kernel/irq.c | 9 ++++++---
-> >  1 file changed, 6 insertions(+), 3 deletions(-)
-> >
-> > diff --git ./arch/alpha/kernel/irq.c ./arch/alpha/kernel/irq.c
-> > index 4a6a8b1d5a8b..5867a1655045 100644
-> > --- ./arch/alpha/kernel/irq.c
-> > +++ ./arch/alpha/kernel/irq.c
-> > @@ -107,18 +107,21 @@ handle_irq(int irq)
-> >          * handled by some other CPU. (or is disabled)
-> >          */
-> >         static unsigned int illegal_count=3D0;
-> > -       struct irq_desc *desc =3D irq_to_desc(irq);
-> > -
-> > +       struct irq_desc *desc;
-> > +
-> > +       irq_enter();
-> > +
-> > +       desc =3D irq_to_desc(irq);
-> >         if (!desc || ((unsigned) irq > ACTUAL_NR_IRQS &&
-> >             illegal_count < MAX_ILLEGAL_IRQS)) {
-> >                 irq_err_count++;
-> >                 illegal_count++;
-> >                 printk(KERN_CRIT "device_interrupt: invalid interrupt %=
-d\n",
-> >                        irq);
-> > +               irq_exit();
-> >                 return;
-> >         }
-> >
-> > -       irq_enter();
-> >         generic_handle_irq_desc(desc);
-> >         irq_exit();
-> >  }
-> > --
-> > 2.54.0
-> >
->
-> Going over this code again, I noticed what may be redundant hardirq
-> accounting in the existing device-interrupt path.
->
-> For type 3 interrupts, do_entInt() already wraps
-> alpha_mv.device_interrupt() in irq_enter()/irq_exit(). The platform
-> dispatcher then calls handle_irq(), which enters and exits hardirq
-> context again. Therefore, irq_to_desc() is already reached in hardirq
-> context before this patch. The patch moves it from nesting level one
-> to level two rather than from task context to hardirq context.
->
-> The RTC path does not have the outer irq_enter(), so the change is
-> needed there.
->
-> Would it be cleaner for do_entInt() to own the hardirq context for
-> both paths and remove the pair from handle_irq()? Or is there another
-> caller which requires handle_irq() to manage it itself?
->
-> I tested the patch on a two-CPU UP2000 with lockdep, IRQ flag tracing,
-> and sparse IRQs enabled. SCSI and network interrupts operated normally,
-> I observed no lockdep or IRQ-related warnings, and debug_locks remained
-> enabled in /proc/lockdep_stats.
+On Sat, Sep 05, 2026 at 03:55:09AM +0200, Karl Mehltretter wrote:
+> Commit e3852a1213ff ("maple_tree: Drop bulk insert support") removed
+> mas_expected_entries() but left the documentation describing it.
+> Document the current preallocation interface instead.
+> 
+> Fixes: e3852a1213ff ("maple_tree: Drop bulk insert support")
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+>  Documentation/core-api/maple_tree.rst | 9 ++++-----
+>  1 file changed, 4 insertions(+), 5 deletions(-)
+> 
+> diff --git a/Documentation/core-api/maple_tree.rst b/Documentation/core-api/maple_tree.rst
+> index 12bccfb6aac1..836342fb1eec 100644
+> --- a/Documentation/core-api/maple_tree.rst
+> +++ b/Documentation/core-api/maple_tree.rst
+> @@ -214,11 +214,10 @@ Advanced Allocating Nodes
+>  -------------------------
+>  
+>  Allocations are usually handled internally to the tree, however if allocations
+> -need to occur before a write occurs then calling mas_expected_entries() will
+> -allocate the worst-case number of needed nodes to insert the provided number of
+> -ranges.  This also causes the tree to enter mass insertion mode.  Once
+> -insertions are complete calling mas_destroy() on the maple state will free the
+> -unused allocations.
+> +need to occur before a write occurs then calling mas_preallocate() will
+> +allocate the nodes needed to store the provided entry.  The entry is then
+> +stored with mas_store_prealloc().  If the store is abandoned, calling
+> +mas_destroy() on the maple state will free the unused allocations.
+>  
+>  .. _maple-tree-advanced-locks:
+>  
+> -- 
+> 2.53.0
+Hi Karl
 
-Hi Magnus,
+The documented behavior appears to be consistent with the existing tests in
+tools/testing/radix-tree/maple.c, in particular the mas_preallocate() /
+mas_store_prealloc() / mas_destroy() handling around lines 35173-35185:
 
-Good question. Yes, do_entInt() should own irq_enter()/irq_exit() for
-the RTC and device-interrupt cases too, same as it already does for
-IPI, machine-check, and perf. RTC and device-interrupt are the only
-two that don't, and only because handle_irq() does it internally.
+https://elixir.bootlin.com/linux/v7.2.2/source/tools/testing/radix-tree/maple.c#L35173
+https://elixir.bootlin.com/linux/v7.2.2/source/tools/testing/radix-tree/maple.c#L35185
 
-There's a wrinkle. A bunch of device_interrupt() implementations call
-handle_irq() in a loop over several pending vectors: sys_takara.c,
-sys_eiger.c, sys_alcor.c, sys_dp264.c, sys_cabriolet.c,
-sys_noritake.c, sys_mikasa.c, sys_rx164.c, irq_pyxis.c, irq_i8259.c.
-Right now each of those handle_irq() calls enters and exits hardirq
-context on its own, so one hardware interrupt that demuxes to N IRQs
-does N enter/exit pairs. Moving the pair up to do_entInt() collapses
-that to one per hardware interrupt, matching how the
-IPI/machine-check/perf cases already work.
+Acked-by: Nick Huang [sef1548@gmail.com](mailto:sef1548@gmail.com)
 
-I don't see anything in the per-machine device_interrupt() bodies that
-needs task context before the first handle_irq() call -- it's all
-vector decode. But I've only got one Marvel box to boot-test on, so
-I'm not comfortable folding the reshuffle into this patch without at
-least reading through the other machine types more carefully.
 
-I'll send it as a follow-up on top of the series rather than reworking
-patch 2. Easier to drop if something turns out to care. Let me know if
-you think that's wrong.
-
-Thanks,
-Matt
