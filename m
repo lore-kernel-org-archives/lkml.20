@@ -1,81 +1,77 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAEA71A9FB7
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 00:07:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA123224AFA
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 00:09:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788566848; cv=none; b=f5CEDkxofdRpVbTAyx+VsvrHppc4PdXTG9GIZJfu7I+xsBFwG9BFgE48+wYIbKE4grrgeTznwRYH3LCl3S2EQp1vaYUOxkmSGfr+JbtwZEjXUt/5JwloNH6H+tlZLVRjLVejNvJ0M4KrG8eCztghkNcoEfYFE4aSRIDDQmfXnbk=
+	t=1788566965; cv=none; b=D+Z53AZoo/VRtALmk5UOSnE0fzXiG6I6Y8QF9CKc/Ltz3OUPynMLzr9tjp2ZzIevTWtSD0LGIIpml3KqgK0q9K56sMKwQFK/ymb9x6tA/BJY4foUqdnd7oxjvOgFCKvTNf+dKo29gBL2R29sXnfqu+9V9SuIpQxzkfA/zFCW9lU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788566848; c=relaxed/simple;
-	bh=H4BO10PJj0joa3aauFnjIEEAGKsQ4HeJy1y1Pu6cprI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Tm0CbnFZhSTv5BxLFvfSx+Nu0uwj6qbGP3nfkDHoRosH2QqXylk9BzlUi2EffDeQFqsqK6lAksWK3HecDLTIe0ycqoAouc6xo0gVgeuAs8qZZxmr7iWGl9vhNnqcYlB/CoFJpk58JBY6q8hn/5lEegK8bXqHoULPRTuwitMDwf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=hEbKSFtp; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
+	s=arc-20240116; t=1788566965; c=relaxed/simple;
+	bh=Z0eqXMInzFdWundp0bdyqvyQWa4WYterHClI/OnGILA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=j+p0hfJHSgPYOfiirHkL2dBzd7esHjA4UqDqHJHi4b7CvugRqJmlfvQYlD7NDyAkhSxhze7Obk7iD2VzEXoaQM81MvMVonxZkT2QmKpQv7v4yCnBVmpoVHJPYoOArcRc8GFqVADsYWJU+H9Y75MyaFUw7eizu1h3Vg892a+0V9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fucYi3dP; arc=none smtp.client-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="hEbKSFtp"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48436251906so1762302f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 17:07:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fucYi3dP"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-52d8679c149so16606561cf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 17:09:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1788566845; x=1789171645; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=H4BO10PJj0joa3aauFnjIEEAGKsQ4HeJy1y1Pu6cprI=;
-        b=hEbKSFtpLKhcQTmbzLOVB5mDFCxkFxP2KopbmxrARUjsBMyQUBk64m8gPBZW5SBUWR
-         FTqNiI6MmE79PL2Rm/9KUysBmuDgZo+7amlK5wjpA7pG0YSR6/B1gnqoWo7thnrGfV//
-         7g6n2hkqiZF7EKrJx2IjlqACTe6jLYDRaztjRn+OrnZ4bwf/byK7Xb4z8KJmPbheWcJw
-         JSvTKw/7AOwxUhT3wknmmpuR1nmLUo0kCPtphO+w4ZF57MIPVl50QFcGYjybAWe8dNmn
-         2s+e8Zvfb+CiOUzHzxx20lq/SSWnlz2fvt5qoIsP8tW8ULjxjAV2ow51rHz9O4pd7VQq
-         UB2Q==
+        d=gmail.com; s=20251104; t=1788566963; x=1789171763; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=o5lvUDKi34eWgpEQ9bn1qS/2tjyT90hT4Ul3KLa+Q40=;
+        b=fucYi3dPfRb/u7nOr0gUdD3Ka/yaeSL0KJtpSf6GwvdQrt/fCh5kRd7JzaPBe47xQV
+         EH0VUYp62gWD6xkoZMHEfuLjhfxSESoHA1OJNV6YtBqVpxKeVDRQs6LfhMWWPTrlUKgt
+         WdP2HNq2uHbTWx7aaFyfNXsAiM6CtVXlxZ87YngTQfmZdJ1vyK0QM1YrGMjJ9f/z5Qel
+         nFVRqNr+mrRxy1LZqhdZkIRN2XUX+rzeDYnbSFrhsFG1ByugtGtm0wXhCCmLSfvObacT
+         C5+sbPWKvl2wPepZgaxxZJjZdJ86jwzrt9sNsA2BzRZNfyIkKmV57ZxAu8vbY39Manma
+         AqBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788566845; x=1789171645;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H4BO10PJj0joa3aauFnjIEEAGKsQ4HeJy1y1Pu6cprI=;
-        b=OkQqtooJ8gIayp5nWDrUAa6ToIjDlWZD0Tezwxf5IeryYSjf7FzQ8CO8ixbRmDeBLN
-         W+TkX1ejBAAsV0mqVvJRL/LEStlBwttChGUOsRTbFY6P5XSJHilMnrrEGKiTUT04aWjX
-         e/iwbA3P2fwoaQRMQnGL0eTZqKpmJqX+8vnCh1+CtRbxjDOY/5Uc5+vqL5nmubHhBdf5
-         D5LlKFGGmaeW4hPeniTuHB/0d5RUbh4Qh5m8Fcdzo3dUnbVdbpuS60SFBEfpoOqJtwTB
-         3dkBs8zaiTu5QD8SwO9nKbuu1b+YMhsnLiCtEwLHsezhSPsosJyq08vGmJPhWtFX49oj
-         TnoA==
-X-Forwarded-Encrypted: i=1; AKwUvByY95+MkJDkinBfJMjksI9T8weEeWoBtJncI5zhZf/akA0PnNpbhLwalcQrAoj63TDtjPpc8a37v3Qd09c=@vger.kernel.org
-X-Gm-Message-State: AFuF++mF98fAQ9q6OvxzVVhFOAZfRgAGkg52DMXUn4xhR5huJbDrOf+i
-	VLKuVkKodlX/ghSKV0U70e0DS3p3eYX/3mku6AuMmc0EYAEpTmgPrpqwGVMVo/RjHIY=
-X-Gm-Gg: AYBFou2WmQekppo4PAbcS5Wnju2QGZoZB7+7Q6ARgzElYn5SfBxoiqNUwF7/8Y+61/L
-	jah5TrHivG6QyEEk93i39F/F8N+wR/ftsSfUx9tweN50U71ekHjgH+ewa2sdw7TnFalX24QGpV2
-	j2oGgqnD6zPtPZXMhYwzVliw43F4QOgzWNagtF9byKIzxhsOkYyDmyO0y4q611zBu+E0viN3G9g
-	kcx8j//v6pYGXnAIGKnbckuAMJVvjuLJvCJNk3n2Ar5YE04ToKw6pZ37MruDOu0QSzj3bzOBEWP
-	8GJ0ziiyXnGe2S76aQAlH3UfVXVmrTSQewio4u7TMnx8kKCqU1AcjPhrYRGbnqkQgC3EauPYbft
-	FJziMdSRZT8VGRn93hnlz9hwQwoo1kNOjB5uuayMPp1nAzwxFZAHykiQB33eORQ5oWdwyOVAb42
-	JCSGfVNUWtBYE0lOn7jmTMohEpb+0TAEmKrUexQh8=
-X-Received: by 2002:a05:6000:481d:b0:484:36c1:2881 with SMTP id ffacd0b85a97d-48586e4a5c8mr21303352f8f.2.1788566844492;
-        Fri, 04 Sep 2026 17:07:24 -0700 (PDT)
-Received: from remote-01 ([84.17.55.227])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883be709sm9575928f8f.21.2026.09.04.17.07.23
+        d=1e100.net; s=20251104; t=1788566963; x=1789171763;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o5lvUDKi34eWgpEQ9bn1qS/2tjyT90hT4Ul3KLa+Q40=;
+        b=js7X1aygLsdPURNAO6vAR1gh26gV2HZ4Zf24mCyI/x3HffthJz2wEG0F7hdZgVWyaM
+         bw22jptKH2ru6l7wHsDy89yAd4VO/ZYcuqRDxJxkd79e1rS2HaPIIBtLjeW4RZbDptU6
+         2t+H3IScEBeQKcAY98lgrrY3Gxzv7j1ogGtJCyBmB0BBDx3oNQ0uR67MEqrk3PJ4N2tZ
+         fvhrDIN74ULzQQJG4KdnGdm9blj8NqU0mZSYdAgYzI/lujcrdqCdwy4W9ivpC8DsfuZ6
+         yyQybxzfmpkkkwUIpLTihXb5rZ57Ae9lzod4YRcsq5Ag0L4jJ8j0zNi+BI3eCdDV1Uy5
+         7Olw==
+X-Forwarded-Encrypted: i=1; AKwUvBzhlYru4MsWkUqWdP+Lj0fsDVKEMbm4yS1CfQjH20vLhlkYm1v0+m3M35sTmEplXJd4Cpscos/411ok0uk=@vger.kernel.org
+X-Gm-Message-State: AFuF++l09GSWkhMN/Moc27y/UpwfHOx8Gr77xs+54myw0lNm8/gqcclG
+	mglEas6GR+X2aqvGjOrsbfrMWG/C6Lm/0U4mkT5mH2jIVDqhjaLlHr8K
+X-Gm-Gg: AYBFou1ZuEsvQ3nBiwZrgBknSsdlMR7XLJXO2DbK5LmTuMli/DELa+RC+CbOSgrgoPF
+	g7ThotgkCCmnziYCpfNNeZg12ZOg3y9mzJ4PUh0fSgpLucPSHGVvSX3UjusG/KUnJLs738RvqN2
+	x61mvsM6I+gMELFgcR+wGrgbSffPzuTWEr1SnP0He25ltzNUjFUrORoN1gOqSRW34PBXnhu1a5c
+	l94bl/moGv9qhIg4/HyKCeDc63HWghCAoU/iAdiJEfd3Ujf7J19SSh05gzgmf/WQZqZLs3jyAog
+	9lqGWgQZ44qTaRETUtRnmA1vOBpfCoHdE/CQiusiGKwUJNbUQ9nFs8PM4oA0pMnAjvw9xH75MAr
+	SIE7hJFU+7FZTkMHyjzHlPBOoDMdRlxpU69NuSRplhkHyYl0iBYuNdu/9VWJ5fvgxKAf0PJ7AaY
+	SeftfGiX08d6S2TIKInyqbVRxkhVPY8uDDe6Jw3yxzeam5U9La2a2kDO9gZbv9v+FLpUlq83NuP
+	b+pXgWIpP/4UTDimPUuMUJo+LW2S76EovhwOLOOg4Gcmfl0l1hf6JOolpL/rnbGvqQRnUA7bwbK
+	xMXHmXwASfK93+BTqA8obNoC6vomYMU3NOJfRQ==
+X-Received: by 2002:a05:622a:258d:b0:51a:896c:9aae with SMTP id d75a77b69052e-53054876057mr102752221cf.13.1788566962767;
+        Fri, 04 Sep 2026 17:09:22 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53053ef5af3sm33158421cf.0.2026.09.04.17.09.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 17:07:24 -0700 (PDT)
-From: Aleksei Sviridkin <f@lex.la>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	olteanv@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v4 2/2] net: phy: restore the interrupt after a generic-driver bind cycle
-Date: Sat,  5 Sep 2026 00:07:22 +0000
-Message-ID: <20260905000722.422652-1-f@lex.la>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <69f2a065-6855-454a-96cf-1ceb9656369b@lunn.ch>
-References: <20260902080511.2211261-1-f@lex.la> <20260902080511.2211261-3-f@lex.la> <69f2a065-6855-454a-96cf-1ceb9656369b@lunn.ch>
+        Fri, 04 Sep 2026 17:09:21 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Peter Robinson <pbrobinson@gmail.com>,
+	linux-gpio@vger.kernel.org (open list:GPIO SUBSYSTEM),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] dt-bindings: gpio: pca95xx: add onnn,pca9655 compatible
+Date: Fri,  4 Sep 2026 17:09:19 -0700
+Message-ID: <20260905000919.155694-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,38 +80,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Wed, 2 Sep 2026 22:53, Andrew Lunn wrote:
-> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+The pca9655 is the On Semi variant of the pca9555 16-bit I2C GPIO
+expander and is register-compatible with it. The addition of the
+compatible in the driver missed the documentation update.
 
-Thanks, but please hold that one. The Sashiko bot pointed at bus->irq[]
-afterwards and it is right, so v4 does not do what its changelog says on
-a fair number of buses. I would rather tell you before sending a v5 that
-changes the approach.
+Fixes: 6d49b3a0f351 ("gpio: pca953x: Add support for the On Semi pca9655")
+Assisted-by: opencode:big-pickle
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-mdiobus_alloc_size() fills the whole table with PHY_POLL, and consumers
-that install the interrupt only on the phy_device never touch it.
-smsc95xx does "pdata->phydev->irq = phy_irq" and lan78xx does
-"phydev->irq = dev->domain_data.phyirq", both without a matching write
-to bus->irq[]. There my helper reads PHY_POLL back out and restores
-nothing, while the comment I put next to it claims the table still holds
-the pre-bind value. Only fwnode_mdio, stmmac_mdio and mlxbf_gige mirror
-it, so only they are covered.
+diff --git a/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml b/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
+index 4631388a7d91..563f61e6e543 100644
+--- a/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
++++ b/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
+@@ -67,6 +67,7 @@ properties:
+               - nxp,pcal9555a
+               - onnn,cat9554
+               - onnn,pca9654
++              - onnn,pca9655
+               - ti,pca6107
+               - ti,pca9536
+               - ti,tca6408
+-- 
+2.55.0
 
-The same bot made a second point I cannot argue with: the == PHY_POLL
-test cannot tell a bind-installed PHY_POLL from one the caller asked
-for. PHY_F_NO_IRQ in phy_attach_direct(), and ixp4xx_eth, ax88796c and
-emac-mac after connect, all write it deliberately. On a bus that does
-mirror a live interrupt, phy_detach() would hand back a number the board
-took out of service.
-
-So the shape I would like to send instead: save phydev->irq in
-phy_probe() before it is overwritten, and put it back in phy_remove().
-That drops the table as a source, drops the provenance guess, and it is
-the symmetric undo, since phy_remove() already reverts other probe-time
-state and is reachable through a sysfs unbind that never goes near
-phy_detach().
-
-The part I would rather agree with you first is where the saved value
-lives. A field in struct phy_device is the obvious answer and also the
-most expensive one. Is that acceptable, or would you rather it went
-somewhere else?
