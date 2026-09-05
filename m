@@ -1,297 +1,140 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27BE630E82D
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 01:30:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A6D245020;
+	Sat,  5 Sep 2026 01:31:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788571844; cv=none; b=TJ9MxGm+4XN9UvZhBx/CWc/BYuP16d7ZQYVu9Gg1swmJ1oYrFRmv7DySF0EOmGUe9vNrXGF7XJpB8CAN6GAvpWqKKp1kRSQqqZWNwJQvK+Z3VYyTXisH36mNyhLCiq5IVgdS2t9ah8hBt7Nkv+AOpHcyK0TWb/7ur/EZow6KSB4=
+	t=1788571914; cv=none; b=g/zjO5qBjFdb0CZeuGRcrUZXVRLB4x3yrPU3nVtrM8PhK1w9sY/IIxLqQRwvWw9KoGyvgHloGy795dF69NiVLV3XhTQOqYKfQO5baFCL0HcACVYJNwoJ9ncHmC5d5qYRly4aPmqI0V4D2PJPi1kGbVi3uqt94bGOA8gtGk0hdxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788571844; c=relaxed/simple;
-	bh=lp5GSr6dro/MHpnWBR/CKVwMj1uEeL7tJ18Z/HaXDW0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Dm9Tb7ZHOdaTWUPZKZbgApKQBUYt6E/w1COLkmYXQze3yM4UAKwEvUFwFCSGkpgAb8JI4vXZKk6NAcqG+5Py1qfJg+dcMky2UXTV9xV5ZR2tPp+9i0/4BMJGpxjIF93PkgNwckD72DkPKDBeHUdETWaINozSMNmwLtXpfgLJ/e0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=H1ZZTPcM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=arBgqUfP; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788571914; c=relaxed/simple;
+	bh=dQ+iMzGQujr1wMp3y+oQef4ll45dw99ZPy0bdSro3j8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KAVQens3zlLVbxOvnlY6FN4OjNXmJjTwtcSoLrDJrnuDcYUo4hsQyRlYX5qrKeLlk+gBUkYCnIjqpIm4jANWJ73kJMO2NrxWq+pXz4Lgloz5dEhMzk1mb9zzGW91AB8NONw297nTbY/i+sRWyOK7wNEE6kAO2lmwCXueQoDutcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TvPyPeXb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="H1ZZTPcM";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="arBgqUfP"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6850v7DP877774
-	for <linux-kernel@vger.kernel.org>; Sat, 5 Sep 2026 01:30:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	b732Qrl/cyt7vxGomUN8jM9ZetTs7fQWQIIlc8LO3qU=; b=H1ZZTPcM48Vv0rPp
-	FcauIBrMBMWfpDprsa/jK7mNpskLk+MBbl4aDHvhxJI6WYVSAIVummKbrddi0Miu
-	eIR3cVEeKUw4VRMYqplSaXzBaV57OkwjmL2DWkMtB+NTCPsULHSgBjBdMEUCd2Yd
-	f5rOkT9ElJUWzTNNqCyjLaGBNetRhaad1e3GgkXMnfy9HMdeN3gLolfwvgWVfLFe
-	NL263kaUxnnBikAq9b5y2hmLTnnOgzWtLIa7t+s/OGeEXkcskwlkI9T39ifLKpPj
-	pdxxFCs28a+SpMXoCkb91llLdkw+FGSZk4IREheEWHRc5yYPab170EVehQE9q/gg
-	RztwtQ==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gg01233dk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 01:30:40 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3989c51d5daso350552a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 18:30:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788571839; x=1789176639; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b732Qrl/cyt7vxGomUN8jM9ZetTs7fQWQIIlc8LO3qU=;
-        b=arBgqUfP99ZofWApPEgZJpnB6G3D1uJrUvQca42CduWuTyHdDnAwI+2iXlqg3OpNDw
-         xBQi+SPcvw4k6fVKwHvLsnZjz4dF00K7P6LuDY3sqn3Ux39BqcYumJf9+ysIEtxaY+8j
-         x9qP7m2/N9Su3M7eBEfCknuT5qh8FO/pUnhRXtWsQ7JUKC0KzUbYm3RdVaICd7OUGqnL
-         Ic7WG+WeckL01F32d14KoJfS3UtD2k9eSykVwQ0NmzqHOzR8LVxf9XG4Qg3WLbhXTL1V
-         3sKfC0FqWpzB6u9mWfjNBDZuvGdwYkSAD4enKE4bbK5ZwAnQO/i3AVFNVZ96xHjs+zrL
-         lZwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788571839; x=1789176639;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=b732Qrl/cyt7vxGomUN8jM9ZetTs7fQWQIIlc8LO3qU=;
-        b=FRdb1uLNf4m2GhBAbpnPHv/GYyNGKjAS/AsK4otja+otlGEnkbatSSqDlcI/hyrdRf
-         gjFh0OWFi8cFxZnH/59DeYd12lRtH3RDubBBuzKkZwX+9VaOSJPiMu4g8NlAggD6T305
-         kcPCISiTQ8vw4aFXuW888q2OZFwvSt82peJVUo0+mGXdzj9dTFYQmAs7nVTuIuRTVZcN
-         e/NB5en2K3fy1AljlYjv+itrQ0csWfxd5Mh4R1t98E9TywzkG5C6HOGWjdnjwDM3VtWT
-         4aH6wM9PJ8WSn1xmRFSz5lkG/MVO711d7L39aA59R7RMR8GVmshNziCbcCCG06YWzUtI
-         hiww==
-X-Forwarded-Encrypted: i=1; AKwUvBzKGslEHn8T0mHorxKBAss8iKl/O6QcD6nPlO2m3cVmZMQOl/n9fZuwc9lqI6qG02Yqd3cG7O4+I+LUfbs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nOppV9MolP7J4f3ZcwVw0drg2G5z56G/LRkmpO/ufPoGv+t6DQ
-	w8Kh8KI+/2IMgaJVhrZ5kPqjtMzK2I2AKeAk2G3Q4oV/YOIUQYU21jh/0GV/vF9wUh4tocccIdY
-	6ZriNt6m6SAPIuGb/P10yf8MFCVHluP7Jp2Icujs3XRYZWIxz9FXFQ3qlW3ThO5y/f1E=
-X-Gm-Gg: AYBFou1qiFCZQYAvzFNXt2h+HlUHTWh3yRAMG5S5xN6RG605vW8O/YdrzpvA3FUMKtn
-	ERIeVKn5qoeUuOnQE013bkjvSuTnD+AQNYIwmGTsst/sAAuTi9EJwzFjeusZTZ8uIVq6fnEf0YX
-	bCZkjL9mGvi3ErhNYb2OcnY7WL+19cbCSiKPRVZDmbWKDRKapIkytSueAyvMeXfQAbeyaHwEQRy
-	o1ybIHUzytOXP32RB3ty2x3XY+xTArvNcjGxwkj6vl5Ga281fXNU794GFqFXbHmevCWvYSUmntx
-	/VZCTX3Auke2MpYx5CgHXBB4dVfYxHqA0Aql9t+ifFFia7tTGoukJ7FgEaCMfVFOvK6LufeTDQz
-	H0Y5PoxYN3aJqaSVUyMMVwt054SQsU1ZBnIYjDVwEaaPurJriTKqOlyyZDopUh67s2GnVgQ6bqB
-	pp4ilfJQpooL+D1TN50t8K
-X-Received: by 2002:a17:90b:384d:b0:398:bac0:238e with SMTP id 98e67ed59e1d1-39b3d8377camr2854607a91.6.1788571839122;
-        Fri, 04 Sep 2026 18:30:39 -0700 (PDT)
-X-Received: by 2002:a17:90b:384d:b0:398:bac0:238e with SMTP id 98e67ed59e1d1-39b3d8377camr2854565a91.6.1788571838653;
-        Fri, 04 Sep 2026 18:30:38 -0700 (PDT)
-Received: from hu-vishsain-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa33e96sm10170457eec.12.2026.09.04.18.30.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 18:30:38 -0700 (PDT)
-From: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-Date: Sat, 05 Sep 2026 07:00:17 +0530
-Subject: [PATCH v3 3/3] arm64: dts: qcom: qcs6490-rb3gen2: Add LVDS display
- overlay
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TvPyPeXb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C419F1F00A3D;
+	Sat,  5 Sep 2026 01:31:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788571912;
+	bh=1dIzkHmMftwvydeIU/+1JhlMCWhKPntxvGcUwLCu+H4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=TvPyPeXb6ybBZRSdkj2vGuE+IY/eGSMyy1mal7oC09tb35q1uXD7ls7QV0yH6q6wi
+	 IEz5/RmCfKNJzRYZzEVOdScGlnNT2CylvwaBKIqSopyPpFs5x+C7Ebg7NeSsgdQtzr
+	 IywzsLmRnAOlPM8gHLwIROIfSQdjE+bBGOFn2HPaw1rLzjsS0UIvAvCrSwov5tvG9w
+	 Vuj/3Zb1zCtqTmYPX+v0Du59YnHuSXXaxlRhRkyJVqGTnBrWWYalcfJt9hJdqbVVBI
+	 6uzbD8lVkfciK3b+gOsLTfrOZIPFOdMWUgxesK7i22vcgJh0H9r+/6f0JtdT81twZr
+	 0cUlSkwws1V4Q==
+Date: Sat, 5 Sep 2026 02:31:47 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Wadim Mueller <wafgo01@gmail.com>
+Cc: Maxwell Doose <maxwell@maxwelld.cc>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Jonathan Cameron
+ <jonathan.cameron@oss.qualcomm.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Li Youhong <dayou5941@163.com>, Li Youhong
+ <liyouhong@kylinos.cn>, Brendan Higgins <brendan.higgins@linux.dev>, David
+ Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com
+Subject: Re: [PATCH 2/2] iio: flow: slf3s: add KUnit tests for the PM
+ regulator balance
+Message-ID: <20260905023147.006d181c@jic23-huawei>
+In-Reply-To: <20260904-iio-slf3s-pm-regulator-kunit-v1-2-5ea61e6d6db2@gmail.com>
+References: <20260904-iio-slf3s-pm-regulator-kunit-v1-0-5ea61e6d6db2@gmail.com>
+	<20260904-iio-slf3s-pm-regulator-kunit-v1-2-5ea61e6d6db2@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260905-lvds-support-v3-3-b40a1b03f63c@oss.qualcomm.com>
-References: <20260905-lvds-support-v3-0-b40a1b03f63c@oss.qualcomm.com>
-In-Reply-To: <20260905-lvds-support-v3-0-b40a1b03f63c@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Vishnu Saini <vishnu.saini@oss.qualcomm.com>,
-        venkata.valluru@oss.qualcomm.com,
-        Jessica Zhang <jesszhan0024@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788571821; l=4364;
- i=vishnu.saini@oss.qualcomm.com; s=20251113; h=from:subject:message-id;
- bh=lp5GSr6dro/MHpnWBR/CKVwMj1uEeL7tJ18Z/HaXDW0=;
- b=LQB/IRje+CR1Ov0URj40aSCPy3t7eP3fgqM2OR83fm3VezT9Oq7JuV4Dz13/wtL01PnYiTd0D
- MTPVGJxOCo8B2k7Kvq7gBX9uUP66nLwduk3CI/7s0JX7wvBfLVyzEtE
-X-Developer-Key: i=vishnu.saini@oss.qualcomm.com; a=ed25519;
- pk=8hlXlF8j/3GeOaDK3w2LYhkv9FanCQru0c7kRH/It7k=
-X-Authority-Analysis: v=2.4 cv=dfSwG3Xe c=1 sm=1 tr=0 ts=6a9b70c0 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=So681qseQLv-PdXLquQA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA1MDAxMSBTYWx0ZWRfX+PX2qT6heC+7
- /XoZyb2wCpiR81kzCseN86SoMrJ08DspnmnzdZIShKwKsk4KN9EITRsp0deOD4qTxtwdQttjPOf
- iRC9LvoCCmOVcLA8+osQY06Z1000nsUQs3wf7ZepWxeH0QV+o22Ugp0G5IzECIUT41RgrFAn6uW
- 1arnaj6bG7aAXJkm/vtuWbCxHBPKzMTY6S0bpfF9ZXt8pEV4ezfb2Ps1g0qs4/lhW8doo5dJ7GD
- K96Kb+ErlpJpFcuo5YIyCpZfHrLN1NB2YQn5QJKmfcsbvmJm/axqQ0c9sIwVcCL2PW05zsM/l/L
- iI+4EpPr7LiWh4jozn+RDKeiOjT/W+ViSFsUtfFHS3iqFs9Src+eoW4/yQG5eNJU6rZIkk9m8LB
- 9ggPMKd6d4tNhLqOKcuYWh6aUTnj8h6InbtzXyePhWSNm8/fQsBs5IYp1urm/b803il48YSfW0A
- SXbdWcCALelUaoAFpkw==
-X-Proofpoint-GUID: ReoF0QNs2FYc0Ffx5REKzjAC2qwFH6mW
-X-Proofpoint-ORIG-GUID: ReoF0QNs2FYc0Ffx5REKzjAC2qwFH6mW
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA1MDAxMSBTYWx0ZWRfXxb4FNi3JQ3+9
- UNou3vkdz8g64dLE15SzLHkAz/Szpb8UXU9T+kWqOsJjpvcpPcdv9VxcXai5sGlN48q/yZ0XMAx
- ICiykKzNz3qlo2IgAn1JqvWpe6Qwulc=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-05_01,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 phishscore=0 clxscore=1015 malwarescore=0
- lowpriorityscore=0 adultscore=0 impostorscore=0 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609050011
 
-The QCS6490 RB3 Gen2 industrial mezzanine supports LVDS display output
-using the Lontium LT9211C DSI-to-LVDS bridge as an alternative to the
-default HDMI output via the LT9611UXC bridge.
+On Fri, 04 Sep 2026 21:24:26 +0200
+Wadim Mueller <wafgo01@gmail.com> wrote:
 
-Add a DTBO overlay,
-qcs6490-rb3gen2-industrial-mezzanine-lvds-boe,dv215fhm-r01.dtso, that
-disables HDMI (hdmi-connector and lt9611_codec) and wires up the LT9211C
-bridge on I2C1 (address 0x29) with reset on GPIO117. The overlay adds a
-dual-channel panel-lvds node for the boe,dv215fhm-r01 panel, matched
-against the panel-simple-lvds-dual-ports binding which supplies the
-panel's size and timing internally.
+> Bind the driver to an emulated SLF3S on a fake I2C adapter, back it with
+> a regulator whose enable and disable callbacks are counted, and check
+> that the two stay paired across suspend and resume - including the cycles
+> in which the sensor NACKs a command or the supply refuses to come up.
+> 
+> The suspend/resume helpers reproduce the PM core's rule that a resume
+> callback only runs after a suspend callback that returned 0, so that the
+> tests cannot construct an ordering the core never produces.  One of the
+> tests relies on it: it cycles the device ten times with rotating failure
+> injection and asserts that the driver's enable count never climbs above
+> one.
+> 
+> Signed-off-by: Wadim Mueller <wafgo01@gmail.com>
 
-The overlay is built as a composite DTB combining the base
-qcs6490-rb3gen2.dtb, the industrial mezzanine overlay, and this LVDS
-overlay.
+Interesting approach to testing the flows.
+I'm not sure we want to carry this level of testing for a driver in the
+tree. Would like to hear the views of others on this.
 
-Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/Makefile                  |   6 ++
- ...industrial-mezzanine-lvds-boe,dv215fhm-r01.dtso | 106 +++++++++++++++++++++
- 2 files changed, 112 insertions(+)
+There is some really nice stuff in here.  Makes me wonder if we should
+build a specific test device + driver that would hit all the widest possible
+set of corner cases that aren't device specific.  The one slightly unusual
+thing for this device is the error on telling to stop when it is already stopped.
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 8cf82e7067e2..d3c09bb4d1a9 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -196,6 +196,12 @@ qcs6490-rb3gen2-vision-mezzanine-dtbs := qcs6490-rb3gen2.dtb qcs6490-rb3gen2-vis
- qcs6490-rb3gen2-industrial-mezzanine-dtbs := qcs6490-rb3gen2.dtb qcs6490-rb3gen2-industrial-mezzanine.dtbo
- 
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-rb3gen2-industrial-mezzanine.dtb
-+
-+qcs6490-rb3gen2-industrial-mezzanine-lvds-boe,dv215fhm-r01-dtbs := \
-+	qcs6490-rb3gen2.dtb qcs6490-rb3gen2-industrial-mezzanine.dtbo \
-+	qcs6490-rb3gen2-industrial-mezzanine-lvds-boe,dv215fhm-r01.dtbo
-+dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-rb3gen2-industrial-mezzanine-lvds-boe,dv215fhm-r01.dtb
-+
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-rb3gen2-vision-mezzanine.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-thundercomm-minipc-g1iot.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-thundercomm-rubikpi3.dtb
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine-lvds-boe,dv215fhm-r01.dtso b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine-lvds-boe,dv215fhm-r01.dtso
-new file mode 100644
-index 000000000000..5501ea09f43b
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine-lvds-boe,dv215fhm-r01.dtso
-@@ -0,0 +1,106 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+&{/} {
-+	model = "Qualcomm Technologies, Inc. Industrial RB3gen2 LVDS";
-+
-+	hdmi-connector {
-+		status = "disabled";
-+	};
-+
-+	panel_lvds: panel-lvds {
-+		compatible = "boe,dv215fhm-r01";
-+		power-supply = <&lcd_disp_bias>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				dual-lvds-odd-pixels;
-+
-+				panel_in_lvds_odd: endpoint {
-+					remote-endpoint = <&lt9211c_out_odd>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+				dual-lvds-even-pixels;
-+
-+				panel_in_lvds_even: endpoint {
-+					remote-endpoint = <&lt9211c_out_even>;
-+				};
-+			};
-+		};
-+	};
-+
-+	lcd_disp_bias: regulator-lcd-disp-bias {
-+		compatible = "regulator-fixed";
-+		regulator-name = "lcd_disp_bias";
-+		regulator-min-microvolt = <5500000>;
-+		regulator-max-microvolt = <5500000>;
-+		vin-supply = <&vreg_l18b_1p8>;
-+        };
-+};
-+
-+&i2c1 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	status = "okay";
-+
-+	lvds_bridge: lvds-bridge@29 {
-+		compatible = "lontium,lt9211c";
-+		reg = <0x29>;
-+		reset-gpios = <&tlmm 117 GPIO_ACTIVE_HIGH>;
-+		vccio-supply = <&vreg_l18b_1p8>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				lt9211c_in: endpoint {
-+					data-lanes = <1 2 3 4>;
-+					remote-endpoint = <&mdss_dsi0_out>;
-+				};
-+			};
-+
-+			port@2 {
-+				reg = <2>;
-+
-+				lt9211c_out_odd: endpoint {
-+					remote-endpoint = <&panel_in_lvds_odd>;
-+				};
-+			};
-+
-+			port@3 {
-+				reg = <3>;
-+
-+				lt9211c_out_even: endpoint {
-+					remote-endpoint = <&panel_in_lvds_even>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&lt9611_codec {
-+	status = "disabled";
-+};
-+
-+&mdss_dsi0_out {
-+	remote-endpoint = <&lt9211c_in>;
-+};
-+
+A couple of things I noted whilst taking a first look.
+I'll want to take some time when I'm a lot more awake than I am today
+to look at this closely.
 
--- 
-2.34.1
+Thanks!
 
+Jonathan
+
+> diff --git a/drivers/iio/flow/slf3s-kunit.c b/drivers/iio/flow/slf3s-kunit.c
+> new file mode 100644
+> index 000000000000..d5e2db855838
+> --- /dev/null
+> +++ b/drivers/iio/flow/slf3s-kunit.c
+> @@ -0,0 +1,734 @@
+
+
+> +
+> +static void slf3s_fake_put_word(struct slf3s_fake *f, u8 *dst, u16 val)
+> +{
+> +	dst[0] = val >> 8;
+> +	dst[1] = val & 0xff;
+
+Use a put_unaligned_be16() for this.
+
+> +	dst[2] = crc8(f->crc_table, dst, 2, SLF3S_TEST_CRC8_INIT);
+> +}
+> +static int slf3s_test_init(struct kunit *test)
+> +{
+> +	struct regulator_consumer_supply *supply;
+> +	struct regulator_init_data *init_data;
+> +	struct i2c_board_info info = { };
+> +	struct regulator_config config = { };
+> +	struct slf3s_test_ctx *ctx;
+> +	struct device *parent;
+> +	char *consumer;
+> +	int ret;
+> +
+> +	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
+> +	KUNIT_ASSERT_NOT_NULL(test, ctx);
+> +	test->priv = ctx;
+> +
+> +	/* Actions run in reverse, so destroy after the unbind takes the locks. */
+> +	mutex_init(&ctx->fake.lock);
+> +	ret = kunit_add_action_or_reset(test, slf3s_test_destroy_mutex,
+> +					&ctx->fake.lock);
+> +	KUNIT_ASSERT_EQ(test, ret, 0);
+> +
+> +	mutex_init(&ctx->reg.lock);
+> +	ret = kunit_add_action_or_reset(test, slf3s_test_destroy_mutex,
+> +					&ctx->reg.lock);
+> +	KUNIT_ASSERT_EQ(test, ret, 0);
+
+Given those are deep in the emulation which is not what we are testing, do
+we need to bother with the mutex destroy calls?  That is only there
+for some debugging of locks that isn't relevant here I think.
+
+> +
+> +	crc8_populate_msb(ctx->fake.crc_table, SLF3S_TEST_CRC8_POLY);
+> +	ctx->fake.state = SLF3S_FAKE_OFF;
