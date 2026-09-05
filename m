@@ -1,128 +1,131 @@
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out16-54.antispamcloud.com (out16-54.antispamcloud.com [185.201.18.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCE72311946
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 19:25:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788636328; cv=pass; b=GCD/LpjR1J1pKKz7ui/gaRqcek/l6rmtrP2SaK2TPPUoXL8QXGqA8tXEM4RJuZS9yUWBZvuVPIVkW7kt9oE14H7uAhTOvPS8Uk2RW/UwANEdXS/2MYeni56A1XXszQ8ATEcJpClnHgsIgm6DOpbtmWxbM2ttB+P4EceepgOvRyM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788636328; c=relaxed/simple;
-	bh=2Tss1OLFh74zP/YO6lC1hnEpTj6L5m5wTk/nWpTbZIw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GZnu7vNQ4YFF3zI5b+jHYlnrNXjY/2Cl+8YJtMQqSGdMmevMYYYJhXieBi4i9k+3QEYB9juwYUjOm4DEe/q7MZQT2DicWUgVkmF66iT4SQstDZ18VOhmIzQElGASNiRo7bDI1715zyUF5n5FrSUNBovP3475M59wSP4taXMrDmQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mFvh5E+R; arc=pass smtp.client-ip=209.85.208.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A504272803;
+	Sat,  5 Sep 2026 19:25:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.201.18.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788636344; cv=none; b=kuL889KnJu6DXJIYxUNcyCCnKC1Sf7ZZBgC7Vi5Ld9LhjwaviWTJKlh/s23pK+5gjVYNAEZwu7dIk7hMQFZDDOdVXw7/zDPuRG8PBnxGYNXJYUWKOv9+RhZFwOy/bxzDuSILO/xR62UW+8bz4f15oTAcjIJnJJCBJXk++Aq8EaU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788636344; c=relaxed/simple;
+	bh=Pg1q+59ODENEdfiPYOqTEYvT02K4TprCqSPHm8zd9fo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TKxK6IFEz1jLhzbGZq8juOqzX5TmciwYgKbjMRX2uStNO49dNzhyMnsrJI5mzZzfijAhivhqW7QAPghaNReh+D/xPYA1Rks4+mmWRG2SFmakLWlITHy2WmJMWUCvFUNgkxv6NuICL06dZPZF2Q6GNoqx8melAixayZaj6vIkXKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=reactivated.net; spf=pass smtp.mailfrom=reactivated.net; dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b=MBK+0tZF; arc=none smtp.client-ip=185.201.18.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=reactivated.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=reactivated.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mFvh5E+R"
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a63667b78aso3506244a12.3
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 12:25:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788636325; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lNYgg75K+vX8EaefWegjsK8odTtiW7OVl0nBWy/A2opz1tR2bIAdELcp53EquF1cvf
-         4hHhEDU36ABOQf3ijA4As7I9MkXqvqZoQPXjKiCvmd+4J3lsOTdC6bO+5Cl0+RNVTZy1
-         ejFon55hZ90gNDzxfr6AFLAjWClRDzHQ1ihjmcbwXUq10VZgvilFPBKFgi2DGn5OQGyt
-         e8pLgX00QZ/ZAUEOCGjJTO1eYSCPDgY3OnoxINPjPCa35B9/otX6mkw1Ey8xyjQ5FnnW
-         3PXDeds9tN07qztSG3Zo3spO0v+Ong2HwTkS4Gglspt03VJSnaJilpuEm2dzR7/EPr3a
-         rD3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2Tss1OLFh74zP/YO6lC1hnEpTj6L5m5wTk/nWpTbZIw=;
-        fh=jzoJ/pFowCGv3IhOeMnfkBsGbaIT7fzr5tsoktNDkiQ=;
-        b=D67/ms0SXJGBSUZLa3Zn7JXaPokcrbuR64TWZezdEmaILCrnZ2unB1pEHOoH6AbpUr
-         1mB5lJ8Bjrv7ZDWpSULRo7g6gnBCfKomLeiBeTC4eKwtCelUBP+9slcC3CRNvQ7/E5Aj
-         0xpgzf0yFBd08QalFExvB3mA6jJyiMfe3HF/clg4lUUI4dpp1I/teGI4y3OdXvK4fEMx
-         gj6F8JvoQCPZcbDL0A+sGEKFm55IJmPJCdxIG4A0Aa8qY4vgV9vExAYe/lmraU0iWLH7
-         8q1M6gaTZQ8q3xJpP1ku10ira5qzvRih9llOMuEWy50u/tGZwBxUfB4Jew3FoRDpkC+Y
-         LQXw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788636325; x=1789241125; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2Tss1OLFh74zP/YO6lC1hnEpTj6L5m5wTk/nWpTbZIw=;
-        b=mFvh5E+RfS4aNj0vy+YT58yiX5gXrqVTmIyvgCwl7s4+N8bAysfWJFRiBZchZHSZP1
-         xDITBb9j3SypuZd5P0/6K4I5UmMSmoMBIQN2nBHdmVxV5V3xiJKCrfjS3oEchRJgz1XF
-         w5WxNlnmLWbZGXXH5v4xtjVDWrsQwi8g0uNekvGul/R5js8SYY5tTcZ8NQC5wqgAl09u
-         m/RDe731TzJzY24shmP/QfiGau42eQ1cYicgWaEg25xwFkJaD+Y1lOibwCgKY10QRrKk
-         DqiY6wsiqdW0c4ykZY4pnjjC8Ad0sEsZKFiVFQb3B6NJglzTDtxQTdobzJbdWTbqxOfR
-         6g/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788636325; x=1789241125;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2Tss1OLFh74zP/YO6lC1hnEpTj6L5m5wTk/nWpTbZIw=;
-        b=JNhQCJYkLgMAA9UFmSUKYvSsAX+GEsNs+NiAJlVZr1gJ6rQ9q2xDHFR1BI300781at
-         DytjAXq03yQ3XQ8KGE/QWqSgQWJHb7UhThuAAP4wz87MsUFg7ZF8X2u/awkjwQ8cksCy
-         vr3zhJ+jfpSpBvX1bYCi4Qwlpik1pP3rslg9OV30m15TaNsbevjK638xOk70dKiRi18K
-         Rs2t3i+YyEtha552WibC16ZeHbijuhcb1gnQxSrW8Bc7u2TcO+yUI5F22T1MsSJnr3zX
-         HelM3x63TL1EPs4F4loz9CcVrn6ISEsqFl/xphj7iVdcRby7w6aQaCrk1/0MN5uSpLR2
-         Mzzg==
-X-Forwarded-Encrypted: i=1; AKwUvByWLd+jHZ9Eb8GJrsmfNtI68/XTcNLeRDQxIfc7f/U/yid/FoPJwqJRJI995XbwJxP3QHvQ08fmDynf8xQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lrXzT3xL7Zlpq9QRg2j5naw4b9QnVwn5z+trTS3fwCeAT1tUSv
-	ZSlJAuGh7OQoq5hBjZiyucn/e7XUzKcTwEjyTEeR5+3oyhz8l2ZbXtkaW5EWXDsW7MmkQt/8bT7
-	NpMW4X8g1ZGzEBwzeAeGjFa85DfNuZsA=
-X-Gm-Gg: AYBFou2hfssOBbGEPWu7HuyWTFEJgoNzk9lKUT2QdrqkrlgP5Fb8QXMgGGFPSwjvX4O
-	IwA3otw2ffduGH/uqILDgWCr4+mXYu3uw28nrLJ4oLjpGe6qMdfmliMBxFlh/WFgDe7NHAFYWMJ
-	VxNp5/O5nvyMETx1F5Lf9ca+jttXQTNNltSWL9MsEpuGlwOMgpbCL6BZOyy3p0Mm54QVit5b2Wf
-	wWm9563jGNCYpGTaT78ZsjoPoSIEe6tMVAk5HdMsWPmuLfhtxSAg+ZVqX7OTMdYiNHH7Q5KGPic
-	lDrgWAfCdDh4EMxINOgm/7h3c/QejWtUNeXLI5axRx4Vr9QlWeXxoGH30ufh0Z/OR0izl2xA3mI
-	OfZu0ESDr7UiUCy2MZfYfLNxX8SZfxoU=
-X-Received: by 2002:a05:6402:42c6:b0:6a7:fb24:264e with SMTP id
- 4fb4d7f45d1cf-6a7fb2427d6mr1836272a12.34.1788636324671; Sat, 05 Sep 2026
- 12:25:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b="MBK+0tZF"
+Received: from s1041.use1.mysecurecloudhost.com ([192.250.231.249])
+	by mx322.antispamcloud.com with esmtps  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <dan@reactivated.net>)
+	id 1x2w15-009Yb0-JP; Sat, 05 Sep 2026 21:25:34 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=reactivated.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=I29P3lyigJMFnu99k3G+NxV5W8FFUhlm/5S9hJLKxPc=; b=MBK+0tZFAa/Gn/q6Wbfi1QYf2m
+	+SMUMMRhQ+QQRJQMWzBMgk2nJYC66M0gzBYG6o9W3evx36FHo5lHLUAxeHKY9ocu1QGe9f2W7Qfgf
+	raetyrvpYvrCs+6Py7sWOjWWxfT0yVemhIjfYuesw2jVNy2U5r+l+UyINrIJwxawCUjGtrLAyWwfN
+	dnsVBcbb1X9FfPOF8EX7866M0yOh3yVxb65Z/vxLN3du24NGNU8TxYoWUD78YQmmMFHEu0pEMo+3y
+	/g77FpBBbYB2RaJXHcbPSPC7s8mrWeIQBdff8KrYnyUKe+bqVHG3DvSgv1i6Id5Waq8IsM3DjLkqf
+	ATUGo8MA==;
+Received: from [188.251.249.2] (port=51350 helo=[192.168.1.123])
+	by s1041.use1.mysecurecloudhost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.99.5)
+	(envelope-from <dan@reactivated.net>)
+	id 1x2w0y-00000007arG-289l;
+	Sat, 05 Sep 2026 19:25:24 +0000
+Message-ID: <3b5830a2-31f8-48bc-a56e-ed70377bbb1b@reactivated.net>
+Date: Sat, 5 Sep 2026 20:25:19 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904123843.375633-1-linmag7@gmail.com> <20260905140755.GA2875205@electric-eye.fr.zoreil.com>
-In-Reply-To: <20260905140755.GA2875205@electric-eye.fr.zoreil.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Sat, 5 Sep 2026 21:25:12 +0200
-X-Gm-Features: AcwNN1VaRI4G-HQNxdXx9quUjsgkaAUNPekVT3Kj7muTqDDS35k5taSE0YYNcaY
-Message-ID: <CA+=Fv5TyOLB-wWap6PCpMw646QnovtDV6xwqyg9ygpaBemXaPA@mail.gmail.com>
-Subject: Re: [PATCH] net: tulip: use mod_timer() in t21142_lnk_change()
-To: Francois Romieu <romieu@fr.zoreil.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org, 
-	linux-parisc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-alpha@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/5] Add support for Broadcom BCM2712 IOMMU driver
+ (Raspberry Pi 5)
+To: Jim Quinlan <james.quinlan@broadcom.com>
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ nick.hollinghurst@raspberrypi.com, Jason Gunthorpe <jgg@ziepe.ca>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260902-bcm2712-iommu-submit-v4-0-9dbb657578c1@reactivated.net>
+ <CA+-6iNxpKmqCo+brvnchoEsrmE7nJPqJs_7S0m_HzjooEa+KNg@mail.gmail.com>
+Content-Language: en-US
+From: Daniel Drake <dan@reactivated.net>
+In-Reply-To: <CA+-6iNxpKmqCo+brvnchoEsrmE7nJPqJs_7S0m_HzjooEa+KNg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Get-Message-Sender-Via: s1041.use1.mysecurecloudhost.com: authenticated_id: dan@reactivated.net
+X-Authenticated-Sender: s1041.use1.mysecurecloudhost.com: dan@reactivated.net
+X-Spampanel-Domain: s1041.use1.mysecurecloudhost.com
+X-Spampanel-Username: 192.250.231.249
+Authentication-Results: antispamcloud.com; auth=pass smtp.auth=192.250.231.249@s1041.use1.mysecurecloudhost.com
+X-Spampanel-Outgoing-Class: ham
+X-Spampanel-Outgoing-Evidence: Combined (0.07)
+X-Recommended-Action: accept
+X-Filter-ID: 9kzQTOBWQUFZTohSKvQbgI7ZDo5ubYELi59AwcWUnuUnZbjr8C3tcPbSEFoPsgmLeziwPHUKuLxe
+ 4qBq1a+FYCu2SmbhJN1U9FKs8X3+Nt06bFpPrNOlRAlE9AVLwR4uGVjKNnzF3nQoDoQtBifM84JL
+ M0i5ZAms0EHrvcCaVINi54ngXV2h9XXLXGvseU+LGnT3EFAinyrilm9zau/FuzkQt9Nb4Ml7QXdk
+ EetczWBpY9ovdkP9RmEvieRDWoEFGZ7f+7oeClYYrL6OxfWC1jM0MOKiGRkxO3FaI58br05WBb39
+ uS1TjWG2Inx+Ts2QrtVmombMJ4e2pn5C0yBMHZ0fE47nEjvubMSTLAkKCKclZzoe+TZdeH39wA4E
+ grA4pE2PuLHIFQdBY9qb1rRWgyz0f29FZkQs6Ir87R/YNAszN6aoC8HwQTObwM1qLvCNTb6qMngR
+ zAI55MutK7Hm2WVdqUWFH/m7thLakJHUNLOhsIXfQJBdziWVxbPM+eqcfxRAkuNPA/wWXImf2l3i
+ esXQ7SopzlRh1zifXgrC4UG2Pt4fUgp+DZoShaPoyYliAoajAWweUFMTbU8ebAWhOjONRA9OfeQx
+ MUNSsA9S/7adOer54gFeYIyf/VI1wUg/KaAJeWYTMyqvWPctqnwRLXABYtQiKS6L1oPObXHG4XuB
+ tw8JhfTSZBah6TYySBe/EJBsfXIzfzvfdU6fGHDZThLSXiI9Gw+7tmoMdcYgrgLaoR1Y7hdEFeOM
+ IzpuIYvQDyMYLxvGW3IbtaX54tMKOB2mlP2W9u+agdcanH6cUDOvoGd0qTR9MAtZbKbqHklG6k7o
+ 5kYCtjHeNVHQXMZukoUpztNsa0DUHNL9jMWEuCzM24OD2qGt6TVUNM5e7f/lvCzv9KG+9VPIbHp+
+ ++0+2ndXPd2mu86jxvGTfZNouT6f3He7jw4SoVhmTJ/3eP9ONMaEXCDUS2PfGmfkjBlSS66CbGpy
+ vykVsbKD1nW2UNFDcZMNsyd9sNan/JeWgUakIgJkZA66p7JimgfMa++iLXrAJbyB+/fbKGEqMODx
+ 8DkuTvTndFR/A9egQIH068lsbT7SCD6kQJ3tI0MR7rn/4WYZnjq45i1nYESwVKwzZiFUI1t4mPoi
+ rRq4PJLWMw/6KojFOrGz33upi7EPNu9rNFYFvf25LVONYbYifH5OzZCiewdqCBE/0+/4pwUv7rIU
+ PjeR1T1JQdoCddsmjeKIhdiBBNhBSGY5vxrKJClYskFrCVDof/XkQioXeG4M8YMPbkgXenfBtLq6
+ AZRXEgMVECJ/QUl/m3QUU16YM5JjcEIdidSTnS8IQ6usOik9AEZrgOZSaRnsNZVApQzHT4cVx0KY
+ do0DOHLiFskKAucWHRMw/Kfe29CB0IyEr6OHBrCQYuMBA7a+Mv5xKXYo4UIrAadw9dTKdIb1I20+
+ dwSq6lZSDrVoSWcG6DQ3YMS+IGJeO4HbHw0XswOVNt4vqF35kGyDFhtwEYMSACKY0kCaWypm4zuN
+ RcgRKiGg7nXFaZTxaded/ujSY2/ltFtdZhvFO590VAkmxqByO8Gsjp12nsFfQXgXgQLLTOYxoIZ9
+ JstU8UMsiAJ6CG7rwwRyQmbntPkbCX79rLXRvB1uJYgnM9NZK591ReVrrqRv1hvAuCIEifnL+9wg
+ oTj4ygNPw1XfNyJNE/BHENwcVg2HSapJFbos6C1ONGDORvH/2vBiQAW/8UMsiAJ6CG7rwwRyQmbn
+ tHLAjYtUbr3Dqh+N9NAloToxL7hrJSk60SF3F6RYOYr2
+X-Report-Abuse-To: spam@quarantine16.antispamcloud.com
+X-Complaints-To: abuse@master.antispamcloud.com
 
-Hi Francois,
+On 03/09/2026 19:14, Jim Quinlan wrote:
+> I wish you had kept the dma-iova offset hack but I understand why you
+> did not.
 
-On Sat, Sep 5, 2026 at 4:08=E2=80=AFPM Francois Romieu <romieu@fr.zoreil.co=
-m> wrote:
 
->
-> The current code may avoid concurrent run (#1) of t21142_start_nway and
-> t21142_media_task. It may also deadlock (#2) as you have noticed.
->
-> As far as I understand the code, current users - if any - may experience
-> #1 (avoid concurrent run) or #2 (deadlock) alone as well as #1 and #2
->
-> Users of modified code won't experience #2 but they may fail more often
-> at #1.
->
-> It may deserve a minor comment explaining either the choice or why it is
-> not an issue.
->
+Well, having an initial iommu driver upstream will provide a good base 
+on top of which we can work on that specific problem. It'll need some 
+consideration/discussion to be done in a way that is not regarded as a 
+hack. I might come back to this later, time permitting.
 
-Thanks for catching that, you're right that swapping to mod_timer()
-alone loses the pending-timer protection timer_delete_sync() gave for
-free. I'll put out a v2 reorders to mod_timer() before
-t21142_start_nway(), which
-should restore it for the pending case; I don't think anything short
-of cancel_work_sync() on media_work covers the already-queued case,
-which the old code didn't either.
+ > I've built and successfully tested your driver on the> Broadcom 
+sister chip of the RpI 5.  I am mostly interested in the
+> iommu attached to the PCIe controller.  I tested this by running
+> multiple tests where 10MiB is sent by a Wifi chip.  Data integrity was
+> validated of course.
+> 
+> I did not use the driver code as is.  I tried merely decrementing the
+> MMMU_PT_PA_BASE value for the 4GB iova-offset required for our
+> configuration, but that did not work for some reason.  So I just
+> hacked in some iova conversions and got it working.
 
-Magnus
+Thanks for the review and testing! I'll send an updated version that 
+removes the blocking domain, hopefully that will be ready for inclusion.
+
+Daniel
+
