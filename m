@@ -1,82 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC8C3374E5B;
-	Sat,  5 Sep 2026 23:12:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BABB1350A18
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 23:15:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788649937; cv=none; b=qXZ0VVPl16vi2XcOPj6fOOdd4AtNpqYG78b4cSLRyG7i4js2q8i5cQa1nOI/z9D+dGGrtwoMOJ2zWXDnQ8piLoZHmkeRdV7mTxBNl+cRX2iXSvXAnUE0Z0sse43al6jxqVhDckOpPWyvshiZL0BN3G8A6nwA2gg3gqJNR2ZMCqg=
+	t=1788650135; cv=none; b=sSZU1Tyx923NouMh8fAwwS/JwO5g35UKtcOupIWeSJkQB10sBhpsZGAtzKjvkuPcOee0d8JMkTUBrzYJCcd4IdGU4gCTTvnSr0v1dnp1U2itrZjI+dJIXUKLQmpJrdgPo3k2N1z57AglAdrrImd9XPUxQYulc8IKh9Z8RZp7OHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788649937; c=relaxed/simple;
-	bh=DoVSC1fhlioAlinlkDSEkN7ODDfYCA77qXHG7mHG0R4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TF6noM571iQzXo1/E9JF280YoXOWXyx/m6UjAzL5pX6LPwzwWlkZyDEaiFeOXFDwt6EzXzWzY64LX2Za055mNjP6FuU27MNTHW50qQUF6BsPVq2ALvvoRN57vj+6btepuvpUCqKYxiSDBGCXu7KJpp40A74e4ImNUzDqc7WenQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IvWVhgLU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788650135; c=relaxed/simple;
+	bh=ZiTz7Qa/G6sR1D2oS6VJicw2PYN3htCTPywCV9DsBu4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=BDm4LXearrk5mwe/MKO3nuFVBdkjaSI+A/zRPaH6iqkGYfR6kF7VP/WtIEPTjALIfujdOOqGxAsULBUZQsvMKbMaLBC0I8/GAPuHTX54Rm7ZcJfvg6/NUzKO2aUXloNAbGjMZtQI70rixkvbrSzz29iW79iC5rXmzp+JAJh+Kwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=C881xpbS; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=pbTi2MVf; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IvWVhgLU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5FB41F00A3A;
-	Sat,  5 Sep 2026 23:12:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788649936;
-	bh=Yy3lD8Cq1n7kC4ScfAeBgM+F92uIGUofo0TrwsUicyI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IvWVhgLUWTemcUTV16INXhHHyJgO0FJY4YdcGcxbC2vH3sAyh15H4mwuB4YOCWz9j
-	 tT6TqYzpsDcAqj+Cb/SCrq1jUX48EmOKdRGvx/7QTuBO1168FQFnVdpVFvuZ0weaDw
-	 BKWQ/NodNXupHE+RhUVth1vZ5hrDGmzk5wfqvydtpzgARKuwZk8Oqb/G3/oKDf7Tdz
-	 adH+TQEdC4ObgqJ8g82Vv327tw1qS6ZC6kLcMXJDF0AAa5XbLGdmQxpCHx786jOO3j
-	 BzXG3Brgz/uhhhGcQTCHgT/Fu1V2+Sn2XUIKRGKHZ2QFsJLQB0E2d9MKa6zIhp/jn1
-	 39Y7rJKYVJevA==
-From: Danilo Krummrich <dakr@kernel.org>
-To: John Hubbard <jhubbard@nvidia.com>
-Cc: Danilo Krummrich <dakr@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Timur Tabi <ttabi@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Eliot Courtney <ecourtney@nvidia.com>,
-	Zhi Wang <zhiw@nvidia.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Alex Gaynor <alex.gaynor@gmail.com>,
-	Boqun Feng <boqun.feng@gmail.com>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	nova-gpu@lists.linux.dev,
-	LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] gpu: nova-core: gsp: fix a broken doc link on GspMessage
-Date: Sun,  6 Sep 2026 01:12:08 +0200
-Message-ID: <20260905231208.2946715-1-dakr@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260905023800.1293631-1-jhubbard@nvidia.com>
-References: <20260905023800.1293631-1-jhubbard@nvidia.com>
-X-Patch-Reply: applied
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="C881xpbS";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="pbTi2MVf"
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788650129;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SiDXFGa23Fp54xARcEvJJTEcjmmDUs3g5SjxYCl8aw4=;
+	b=C881xpbSKqnTxNmsY5wUhADTe8+MD2MohoNicU+Evq27egUKu50oofR1XBsdEJej9q49t/
+	n5hqQVxE8spAkH6/QehX6RvuUus4W/3HqKuu2PglyF0JJNp47H9GTBD4C3RQaqInSk5Svz
+	4HEfyMzZv4b6Ls/3aQ2A2KHiZR6iS8Mr2OobjyePTwcts5rM9DOa1aJTXcPtAZyrEnL6Xa
+	Fyi4tBlwGyXfnKrv1uwvZ5axH30D7oqBVlxkhWB5eqUu47DHkB8XbEuCfEpDNC0C4/ELgW
+	7YZhAJ3SS9p2yV6mwYkawwzzZmz2QTBupgPU+LWMiCewmsB4/CAp1s7qp/MCQQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788650129;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SiDXFGa23Fp54xARcEvJJTEcjmmDUs3g5SjxYCl8aw4=;
+	b=pbTi2MVf8WseP/9QXCOFAvdNeBJFPtqdnyQTnoLMFUXi0nVjhdz2NW0ta5XmJWpZEM20eZ
+	BeGgKPGaHcvxtTCg==
+To: Bradley Morgan <brads@mainlining.org>, liushugao@xiaomi.com
+Cc: frederic@kernel.org, isaacmanjarres@google.com, lingyue@xiaomi.com,
+ linux-kernel@vger.kernel.org, weipengliang@xiaomi.com,
+ wengjinfei@xiaomi.com, xiongliang@xiaomi.com, zhangjiawei8@xiaomi.com,
+ zhukaiqian@xiaomi.com, Daniel Lezcano <daniel.lezcano@kernel.org>
+Subject: Re: =?utf-8?B?5Zue5aSNOg==?= [External Mail][PATCH] tick/broadcast:
+ Plug clockevents
+ replacement race
+In-Reply-To: <347CE2FE-3675-44AA-80D4-1CF8632C8C9D@mainlining.org>
+References: <20361A3E-0D14-4CC5-946E-D75244CB4A45@mainlining.org>
+ <87h5k34cob.ffs@fw13>
+ <4FDB69E5-7DEE-43CE-A66A-23A2D8DC987C@mainlining.org>
+ <87bjab4avu.ffs@fw13>
+ <347CE2FE-3675-44AA-80D4-1CF8632C8C9D@mainlining.org>
+Date: Sun, 06 Sep 2026 01:15:28 +0200
+Message-ID: <8733vn47e7.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On Fri,  4 Sep 2026 19:38:00 -0700, John Hubbard wrote:
-> [PATCH] gpu: nova-core: gsp: fix a broken doc link on GspMessage
+On Sat, Sep 05 2026 at 23:06, Bradley Morgan wrote:
+> On 5 September 2026 23:00:05 BST, Thomas Gleixner <tglx@linutronix.de>
+> wrote:
+>>On Sat, Sep 05 2026 at 22:24, Bradley Morgan wrote:
+>>> On 5 September 2026 22:21:24 BST, Thomas Gleixner <tglx@linutronix.de>
+>>wrote:
+>>>>On Thu, Sep 03 2026 at 16:12, Bradley Morgan wrote:
+>>>>> Hi, I have a pixel 7, if I could be asked to backport this, then I'll
+>>be
+>>>>> happy to, for the fix, add:
+>>>>>
+>>>>> Reviewed-by: Bradley Morgan <brads@mainlining.org>
+>>>>
+>>>>It would be helpful to respond to the actual patch and not to some
+>>>>arbitrary reply. That way you might avoid your tags to be overseen by
+>>>>tools.
+>>>>
+>>> Sorry my mail client sometimes glitches,
+>>
+>>I fail to see how your mail client is responsible for you to hit reply
+>>on the wrong mail.
+>>
+>>But what do I know about all these new fangled mail clients who decide
+>>on their own what to do. When this happens to me I'm 100% confident that
+>>_I_ got it wrong and not my mail client. Maybe I'm just too old-school.
+>>
+> Remove Daniel too. Bounces.
 
-Applied, thanks!
+Sorry no. That's not how this works
 
-  Branch: drm-rust-next
-  Tree:   https://gitlab.freedesktop.org/drm/rust/kernel.git
+ #1 An OOO response is purely informational and does not justify to
+    remove the recipient from the CC list just because
 
-[1/1] gpu: nova-core: gsp: fix a broken doc link on GspMessage
-      commit: e1df8a1560a9
+ #2 A bouncing email address is of course a valid reason to remove
+    someone from CC, but it is a matter of courtesy in the context of
+    the Linux kernel lists to lookup whether the person vansished from
+    the planet or just changed the mail address. That's what the
+    MAINTAINERS file is for.
 
-The patch will appear in the next linux-next integration (typically within 24
-hours on weekdays).
+    The thread you responded to was from TWO years ago...
 
-The patch is queued up for the upcoming merge window for the next major kernel
-release.
+Aside of that you did not respond to my actual complaint about
+responding to a random reply instead of responding to the actual patch.
+
+If you fail to review what the AI agent of your choice hallucinates
+then so be it, but don't be surprised that I'm going to put you on my
+ignore list as a consequence and recommend to all other maintainers to
+do so as well.
+
+   Thomas
+
+
+
