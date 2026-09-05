@@ -1,64 +1,64 @@
-Received: from mail-wr2-f0.google.com (mail-wr2-f0.google.com [74.125.225.64])
+Received: from mail-wr2-f11.google.com (mail-wr2-f11.google.com [74.125.225.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C29ED388880
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 14:02:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43CD038E8B4
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 14:02:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.75
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788616947; cv=none; b=vB0ztbMGc1Eh37o/EsWeRbLJwTpfXCv3yWoNUkE4eXKOlCgqPyNdxW1W+kLQSFujou6+QgmfKBb20WulZWbro3RvF5FRxtJ9vJFFNIETLZBz7Ha0xqmXr0K7lUMdcJB9dwT4ZIqow2U/Y8KmEYLOzkzrkS+8hScBp52ZpP52HEY=
+	t=1788616953; cv=none; b=reOZnYC9k8i9HQj3+8doBaR48E2XfFZnp33rWKG920vK3hsX9NOjnLq6WKdXcUWd5SmDCTMAjbm+FCRATFJXlxRs/J/JVlZCT12u3y0WWLpIT/R7Wax1DAuzcLFoyrnGksxTkaO299Mj8ThV5VQ5K4g4ax/EVGG6VZXMLtkvwqo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788616947; c=relaxed/simple;
-	bh=ivNMj0j4sdXK5+XtlbC7L0D6sf/KfptnZi74YjwFkIM=;
+	s=arc-20240116; t=1788616953; c=relaxed/simple;
+	bh=XYa/sNO0rkEa/2+8FJLR+KN9FCWceJLtMiHEoyXNxqE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Lt+theclzmAzbqLyNWbb53sRgJC/tfbhqdvcxpd3CzCF0aG/SPNliqJbkfkmyz+mkpPws8xWKKuSNUiszCPUmgJYMtSQqMkam9SFWY1YVKGuRazlaDiBNINI+jOtSJyqOpiDCA8RbptN0NXMZPwk3xb5M3srxEh3RhTV2z/R9e0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jDn7XQsU; arc=none smtp.client-ip=74.125.225.64
+	 MIME-Version; b=ZMDdHrOIOW9jszkkJJFl1URkXUtPOcewFOkrD4q78TrV2NI64K4PFYVqeIeDMWhHP33mpXVIMBkjWli16jizbb1tWpRhmgpUCCwCtK6W9u4jNmNCWScAYeolVBN5r+QIE0b5/lVLlYypuV+ZIlBa5FtzPt5FZCuLnZs5XsK/yIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EVTmcyka; arc=none smtp.client-ip=74.125.225.75
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jDn7XQsU"
-Received: by mail-wr2-f0.google.com with SMTP id ffacd0b85a97d-48437cc1b11so551771f8f.1
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 07:02:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EVTmcyka"
+Received: by mail-wr2-f11.google.com with SMTP id ffacd0b85a97d-483960225ccso630196f8f.1
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 07:02:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788616934; x=1789221734; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788616941; x=1789221741; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1j3T5b2cEL6pgSZfKmDhv9K0ynuzYhpAf3KEcht699E=;
-        b=jDn7XQsUb05tq8tPXK2WWfOeS137avwJiN+n24LBMXD1DwYg1Rcpvz4h+Y/Rn7YkzH
-         htOgtpVBwGBwJKJ5vRKrZdu+nSaUy12I7Lxx5k+JDeV2uWWHixyNlbAl9V4K940W0cDZ
-         kuobth1REkBVVAhbzTkoQyOrcSDPUElRkunhVIJ2/JTVRn2RCoYn2FqTAEesNxv5l8MN
-         ee4Pna2/k36FzutBVEUAMLH4IYH1n3Gildv2em0PxyR4Va/ElNZDKKawBQ0HeQnLnSZ+
-         SGBpmjKiC2DlHwMu2zT/vp9sI6y30jLv2z6nVSF/Eiv7wBTJa2d7hHlHkT9f0z6hFKRS
-         p7jw==
+        bh=lAVqgBHrMqJB3BSpfl35IypQuNVtfirpz6pazsL02KQ=;
+        b=EVTmcykaSU1FRZcFYRZd03FJBIySZvbcWt2oTXrQhHDgzfmHpP5m7QcpmZnViEgKkR
+         J29mtBFmylGBP2xjQhHHEFwjzDwhepVS6KqyccJg/XH0io1FmPP3MXmRTjIm9PpzSlUZ
+         gWz1a5C+5tI0KxZncAoio2zgch8++j6WBVkvc7UAJ8rSYUfTcJR8Q/7Przjl4L/lAsvQ
+         sv8WX05vwnomK7TYf9ekGzcRRPRbIkSaNsYdx7HTELKhGnlmBMqyBmQhzgd+g8XlcsSX
+         F8NtuA6KwmkxNpjCx8cLpEGJ/BnpItegv8+FOYwqdN+ZejuKzoxwfufm7aF5ofva1py5
+         UmpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788616934; x=1789221734;
+        d=1e100.net; s=20251104; t=1788616941; x=1789221741;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1j3T5b2cEL6pgSZfKmDhv9K0ynuzYhpAf3KEcht699E=;
-        b=bhlbJpgSL/+bNwKswNoRhB3L8xe+seYwtpMWp65fvncUxcZ5OEJ6d/hLTdqwtQzaNE
-         WubIpIPIRSexeIXk3bvJGPzHUS32gxvXh4dTi6j0KD0lydZ4aP7jrIZu6foDzizwy761
-         fIu9X1kp3KK2yNZQy4IDYN0rVzA0vesHIxFEtvgCv0caMJCZZsXczjciVm5zEqILwvZq
-         ZDiqVtnLf+x4+8mtClplv29ZaAXJq8KVPbk99MW+9EW/dT8OrPbjUvw+6Z0+vubrAyq+
-         LZO5MnOiHtYup9lS2m9RdUH+frV7OZl+wUvTayf+XJb7J4CRDhHemTGrGe+rrWPmqMC+
-         2ZeA==
-X-Forwarded-Encrypted: i=1; AKwUvByplF/NWBBG65k8Pu0QijIRRf91Z+6ebwEvoKM0bo6dfoN9UOZW3CeZcwXAqlkM6WlPX5szLJ3sFlLWIV4=@vger.kernel.org
-X-Gm-Message-State: AFuF++m/vymvHKUnFQY8lttJT532/8ujdto6ovR6dxicb+rsf5TBtD2S
-	mYBJ8CLBiRbuZKpJJ+Yyz5JVn0TSLwjy7BVVc+9KmgIt6kqu4Qni7CLj
-X-Gm-Gg: AYBFou0ijBJ3AfsVeVNPJMPKlKQbMH8R8h4dBOKiUOJyd+ceNPcoVKM6xJgCp02c5Vw
-	O5/SMjnWc2er+NAxWzUZj9yUk7fSfiQqNpb8EmlILEqdbiSnSHRkB0TPpI3XZFBrLA4jIQzmupD
-	+rOhIs+53zRP3WLoFpVFMa+omh6JFaS1yOxzga+CVcTieSX3DGyFR706Ih2QFbtqjB9D34Lb/iU
-	RD5rugj+kW8Hkn8bP5kj2pREQltSfZsktdoNGIywymbtoe2ZXrelUQb5WyAJV1lCboK0kx6DhJi
-	lyIOtHAH9QlKJpl4POAjsAZ0cQup2soBJ6IBXbNNxmhdYLIQ9G/9yChX+K8hSwuB4qYS7WTx4YX
-	vXJCGtj0JBP8aEoLPBlzhrtHzTI0+7HDT7QyJKFh8TNj8FLwJy8zP5/p1iP4cZFbF3CyFx8MBtr
-	uq+KT4srGv6o4C9YP7sDFCuzJ2DCZifulSIVMOenvsincQghUL3AzZat2fs8+92FtPuqeFESoqt
-	YT+azq94kwqUY/XF7KVfm0yxCTf7w==
-X-Received: by 2002:a05:600c:c1d7:20b0:49c:ffe3:2b3f with SMTP id 5b1f17b1804b1-49cffe32f58mr50527755e9.3.1788616933800;
-        Sat, 05 Sep 2026 07:02:13 -0700 (PDT)
+        bh=lAVqgBHrMqJB3BSpfl35IypQuNVtfirpz6pazsL02KQ=;
+        b=C07TLNJOIMZfdBoMMML4Qp5CJuysNY6I/8nYSqwFNoFZ+W45LCHaSEVNnUIEscgoG4
+         bgGgTLln5cs3xZQ0ie2OUNEaR0BUm0K4V/tLRzpEqdXnO6yDa3SiVBA90dLrtBvzXhJi
+         kwaE+gMB1E7I+ZW/TUZOyooOTOdb7RSXKOGNX4xV6aG9MfyaF1trNzTOzLDvNug7HJ6o
+         5MBIg1oNIR2me8X9yvXnLBLgtkNreO33m4h4+3ZemtPeelMVjgcYBfwz7U6jm1Ajtiic
+         Q+ehAhj7EyBSUD2/5sGRCU0g+3eqhzr2xaz3qk53Qr025rGwZibMiLFgWWk5nM6E+2wD
+         IOaQ==
+X-Forwarded-Encrypted: i=1; AKwUvByHsTFLvvJExb+o6+bd2w0LoI/xvUR6hx3BbqcFcW/fB9vFaOfF/mbbi8rFwHxDFQsxyTR7Y5sr3XrZlcs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lLBFB7HjfCVZjrdY+152417gPLproNyFgHYIbDZ8B2ARUPgt+O
+	E6R/T+4XsI2ec0s6JnmXw1gjwow9S3pxJJz+1Qj8PyamhYLo+cG1QmCt
+X-Gm-Gg: AYBFou0OMX/QD1DV7DB/hh+FuH6p559yDarS8avRf5kY8aDTgfkGaenVOotiGiDhuk0
+	ssoFbfDZpI7AY7vQjFblBqv0cnkcl49v3w5P86WpAcw53SGWYTWlbOl1VzYazIkL9ENM7G/RClV
+	Hfr1X6fQHRehLb1j1LBytyJhZT0PiERUC43M9H2PNlZRrbGpuabRSE0c2Hc/WS3Yw+yXTcIgZ6R
+	YTcVOw8JaGn5vNePBb4WFEeZZcg5HfPV8DtyPgPLadBnFUTahiSWn33LLFb0uSbNADWmaFvb5Jr
+	3OG6aDA6VCgh29nFRkajEGFj9rEByeexl/YU9oXRze5YveQJfm8mEJCI1nxWX1HlsOGmfAhnJVF
+	OXBVANKsmpL6W22XPlC32DgtybSZCMZmW23cS8rG98N5HVH/V6E16SbDKXYFjGa86ZvqjGJWwkr
+	7Ezgz64YcGRJSEoxhHR+9bYWfwKJByxCvJOGE1b7BlswKSl6kshHLoHrWF7dtuywHUnliIRru8S
+	vEdAdhyA6wH6ezEF8ic5+PnOEEk4Q==
+X-Received: by 2002:a05:600c:4f83:b0:49d:91:274 with SMTP id 5b1f17b1804b1-49d00910374mr51848155e9.10.1788616941497;
+        Sat, 05 Sep 2026 07:02:21 -0700 (PDT)
 Received: from outlook.com ([2a02:587:6022:4b00:84ac:4417:9f37:a496])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf755c22esm149866765e9.0.2026.09.05.07.02.11
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf755c22esm149866765e9.0.2026.09.05.07.02.19
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 05 Sep 2026 07:02:13 -0700 (PDT)
+        Sat, 05 Sep 2026 07:02:21 -0700 (PDT)
 From: Christos Skarlos <christosskarlos.kernel@gmail.com>
 To: akpm@linux-foundation.org,
 	david@kernel.org,
@@ -89,9 +89,9 @@ Cc: ziy@nvidia.com,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
 	Christos Skarlos <christosskarlos.kernel@gmail.com>
-Subject: [PATCH 2/3] mm/vamscan: fix various coding style warnings and errors
-Date: Sat,  5 Sep 2026 17:01:39 +0300
-Message-ID: <20260905140140.60792-4-christosskarlos.kernel@gmail.com>
+Subject: [PATCH 3/3] mm/hugetlb: fix various coding style warnings.
+Date: Sat,  5 Sep 2026 17:01:40 +0300
+Message-ID: <20260905140140.60792-5-christosskarlos.kernel@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260905140140.60792-1-christosskarlos.kernel@gmail.com>
 References: <20260905140140.60792-1-christosskarlos.kernel@gmail.com>
@@ -103,76 +103,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Resolve coding style issues flagged by checkpatch.pl script. Specifically:
+Resolve coding style issues flagged by the checkpatch.pl script. Specifically:
+- Fix block comment formatting to keep tailing '*/' on a separate line.
 - Add missing blank lines after variable declarations.
-- Replace "unsigned" with "unsigned int".
-- Replace spaces with tabs where possible.
+- Remove anecessary braces {} from single statement blocks.
 
-No functional changes are introduced.
+No functional changes where introduced.
 
 Signed-off-by: Christos Skarlos <christosskarlos.kernel@gmail.com>
 ---
- mm/vmscan.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ mm/hugetlb.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index f11491ee9ed5..8637cc0910fa 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -535,7 +535,7 @@ void reclaim_throttle(pg_data_t *pgdat, enum vmscan_throttle_state reason)
- 	 * writeback to a slow device to excessive referenced folios at the tail
- 	 * of the inactive LRU.
- 	 */
--	switch(reason) {
-+	switch (reason) {
- 	case VMSCAN_THROTTLE_WRITEBACK:
- 		timeout = HZ/10;
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 4f6f58bf3db6..ec8e799e356e 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -145,7 +145,8 @@ static inline void unlock_or_release_subpool(struct hugepage_subpool *spool,
  
-@@ -1529,6 +1529,7 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
- 		VM_BUG_ON_FOLIO(folio_test_active(folio), folio);
- 		if (!folio_test_mlocked(folio)) {
- 			int type = folio_is_file_lru(folio);
+ 	/* If no pages are used, and no other handles to the subpool
+ 	 * remain, give up any reservations based on minimum size and
+-	 * free the subpool */
++	 * free the subpool
++	 */
+ 	spin_unlock_irqrestore(&spool->lock, irq_flags);
+ 
+ 	if (free_subpool) {
+@@ -3700,6 +3701,7 @@ static void try_to_free_low(struct hstate *h, unsigned long count,
+ 	for_each_node_mask(i, *nodes_allowed) {
+ 		struct folio *folio, *next;
+ 		struct list_head *freel = &h->hugepage_freelists[i];
 +
- 			folio_set_active(folio);
- 			stat->nr_activate[type] += nr_pages;
- 			count_memcg_folio_events(folio, PGACTIVATE, nr_pages);
-@@ -2073,8 +2074,8 @@ static void shrink_active_list(unsigned long nr_to_scan,
- 	LIST_HEAD(l_hold);	/* The folios which were snipped off */
- 	LIST_HEAD(l_active);
- 	LIST_HEAD(l_inactive);
--	unsigned nr_deactivate, nr_activate;
--	unsigned nr_rotated = 0;
-+	unsigned int nr_deactivate, nr_activate;
-+	unsigned int nr_rotated = 0;
- 	bool file = is_file_lru(lru);
- 	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
+ 		list_for_each_entry_safe(folio, next, freel, lru) {
+ 			if (count >= h->nr_huge_pages)
+ 				goto out;
+@@ -3764,6 +3766,7 @@ static int set_max_huge_pages(struct hstate *h, unsigned long count, int nid,
+ 	unsigned long allocated;
+ 	struct folio *folio;
+ 	LIST_HEAD(page_list);
++
+ 	NODEMASK_ALLOC(nodemask_t, node_alloc_noretry, GFP_KERNEL);
  
-@@ -2614,7 +2615,7 @@ static void get_scan_count(struct lruvec *lruvec, struct scan_control *sc,
  	/*
- 	 * If there is enough inactive page cache, we do not reclaim
- 	 * anything from the anonymous working right now to make sure
--         * a streaming file access pattern doesn't cause swapping.
-+	 * a streaming file access pattern doesn't cause swapping.
- 	 */
- 	if (sc->cache_trim_mode) {
- 		scan_balance = SCAN_FILE;
-@@ -3416,6 +3417,7 @@ static bool get_next_vma(unsigned long mask, unsigned long size, struct mm_walk
- {
- 	unsigned long start = round_up(*vm_end, size);
- 	unsigned long end = (start | ~mask) + 1;
+@@ -4188,9 +4191,9 @@ void __init hugetlb_add_hstate(unsigned int order)
+ 	struct hstate *h;
+ 	unsigned long i;
+ 
+-	if (size_to_hstate(PAGE_SIZE << order)) {
++	if (size_to_hstate(PAGE_SIZE << order))
+ 		return;
+-	}
 +
- 	VMA_ITERATOR(vmi, args->mm, start);
+ 	BUG_ON(hugetlb_max_hstate >= HUGE_MAX_HSTATE);
+ 	BUG_ON(order < order_base_2(__NR_USED_SUBPAGE));
+ 	WARN_ON(order > MAX_FOLIO_ORDER);
+@@ -4832,11 +4835,11 @@ static pte_t make_huge_pte(struct vm_area_struct *vma, struct folio *folio,
+ 	pte_t entry = folio_mk_pte(folio, vma->vm_page_prot);
+ 	unsigned int shift = huge_page_shift(hstate_vma(vma));
  
- 	VM_WARN_ON_ONCE(mask & size);
-@@ -7748,7 +7750,7 @@ static int __init kswapd_init(void)
- 	int nid;
+-	if (try_mkwrite && (vma->vm_flags & VM_WRITE)) {
++	if (try_mkwrite && (vma->vm_flags & VM_WRITE))
+ 		entry = pte_mkwrite_novma(pte_mkdirty(entry));
+-	} else {
++	else
+ 		entry = pte_wrprotect(entry);
+-	}
++
+ 	entry = pte_mkyoung(entry);
+ 	entry = arch_make_huge_pte(entry, shift, vma->vm_flags);
  
- 	for_each_node_state(nid, N_MEMORY)
-- 		kswapd_run(nid);
-+		kswapd_run(nid);
- 	register_sysctl_init("vm", vmscan_sysctl_table);
- 	return 0;
- }
+@@ -4919,6 +4922,7 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
+ 	last_addr_mask = hugetlb_mask_last_page(h);
+ 	for (addr = src_vma->vm_start; addr < src_vma->vm_end; addr += sz) {
+ 		spinlock_t *src_ptl, *dst_ptl;
++
+ 		src_pte = hugetlb_walk(src_vma, addr, sz);
+ 		if (!src_pte) {
+ 			addr |= last_addr_mask;
+@@ -6321,6 +6325,7 @@ int hugetlb_mfill_atomic_pte(pte_t *dst_pte,
+ 		folio = alloc_hugetlb_folio(dst_vma, dst_addr, false);
+ 		if (IS_ERR(folio)) {
+ 			pte_t *actual_pte = hugetlb_walk(dst_vma, dst_addr, PMD_SIZE);
++
+ 			if (actual_pte) {
+ 				ret = -EEXIST;
+ 				goto out;
 -- 
 2.55.0
 
