@@ -1,172 +1,116 @@
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2EB35F5E1
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 03:30:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788579031; cv=pass; b=YbqxkyRFuTpfTH040vFAutQEw1lDWZ2HkzG9iKBWhlC193V0CQW0jIIup1Hk8HAtnZ2BWQp7uE/Hkoua36GWjExIVqm1i2lb4LD5MZYSd1+vH6gbMQBrLFlSf+aFCjqWvn2686phJkhUpWQMkKa6PeJd/LqQz4nUcb5B8eyASBY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788579031; c=relaxed/simple;
-	bh=73YgTfRY5PQ5ZLAadl5YBKFBHFoLXMnXGa/HgmJQYGs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TkXArnBdXUUllZr527g1kPjRBs5w/XSufY7+xuxqAZmmT1MOppq5JvldY7CXDYAS13+kn/BEDppRv1HccrTTvyVWsyaBY0u0njO7oOQRZI6nEFRJsi9TVRzEPITEdd3ihCBkfyUMjIz1mqyChWZ+NaDo0qeygWEW5y06bYz/RXc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UsfX8jAE; arc=pass smtp.client-ip=209.85.167.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UsfX8jAE"
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b4ab40d839so1614452e87.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 20:30:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788579026; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LXPuRFbGALX+olkYSCim/oJ4Nhd/Zzky9JpMPLPcQ0YIrwLwSiYFnMaeMucgNZZXFf
-         2NmlSZeHG40l+tKT7zkMwwKyeqMlUsEEQXXFfC2GKRh0uDmq4A8kDDLWwYd4TVYLTXw4
-         kqbi7CYG2IsTkt7KgyjnCJovAe1IPMECaEFEL/TSHypshNN0Ll1QlWWKa45sZx/JH60g
-         DD904Z64eIhe/ImB8yIIWaXmRJMNGY/OF5n8ND7MGd3YAWjTaqDVgUiruAHEl3VNAm/t
-         wqIlreZ8M89DJ9Z0Zc7oI/B7tpJgHU9a2pCdgF8+hUw5xT6+nF7fAcb+NP7KG71T0uBt
-         BZrg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hPpL3LX8Ta/oFQQyARurckrGJqtP8qcS5JHXnp5HuTQ=;
-        fh=U5fepe+Getj5Qz9ydD9tsfIFyIBuBDuZxLZrtqs2lcc=;
-        b=SXLjavSJO0ubP4WNTSgfjoz6TCEe7tEbS9Kg4d+/Khkvud7umNOf4X24PdJdpM5bHc
-         sCVM/Zw/3RuIemh4qhV5rxPKCtpYdDBwf2Yceu+/RIDPM8V4CFgF1R29617PhUptO+qJ
-         aM2qs8t95eBK/PF4ooHkuxPO3r2a5rno+q9FJpZdZtQI/fnIUfST+GRm1t5rYcbCskGy
-         anj+ydrrY4OuPs5xpleNnyZcOysBYdnLJSWKTGEsUehRNSSoSaD/UM4zK6NiXzOoDcK7
-         Q08Rf4nf2ub4RICGDZx3mkmGqRq0OJZagYzq09Q4nl2pPt91aOdtbRvjW1sOOg4k1ecq
-         VRVg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788579026; x=1789183826; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hPpL3LX8Ta/oFQQyARurckrGJqtP8qcS5JHXnp5HuTQ=;
-        b=UsfX8jAEGfKfgg+Y9st6Z8Id5TJFRw41C5+ziZWlF9uqy2pY5UXtVIl+Lh97XSeyrt
-         yVPRvaFL/uuZNzxjm4Tu7vM8escGzU3zyyveTlJNCGBGLDe24HrVuGUZPVKV21DC+0rH
-         lnTUnKeChFcuIDlBaYLNDFIo2sKe4kQKVBuSCyFvSGVHhdLUDwmlEXjNZ+Cb7yS+yyJm
-         kVrHMA7OGS1XfRa2UxDJlLTYmxqHIvxVi9emuxSJmW1Kxh7i5el8ndGZRtLsLQhbFwOP
-         MWMFVdX318m2/AoNaz79yGGJojxr6KFKDOTBA/bQfUekN1mZ3yeT9f+1GGYvSABz3y3V
-         KR3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788579026; x=1789183826;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hPpL3LX8Ta/oFQQyARurckrGJqtP8qcS5JHXnp5HuTQ=;
-        b=jHTMN6Os21GdOjp8Vb2f/DnC8++aa/Z8qSPdjilysh6l+bdId1b9HSn1DaVB1QVwaZ
-         3/ffDychb6vu4irAiFysO7tmarkzUVtJIH4Kpqc+65oFmmjw4lUrczpTyY7rgrk618Bz
-         4wSMu1SH6Jmo/vWN7fK2d/o2cUuoLLZ9LDZCXbsBXAt8yAsmUGonjf+vxpDRZ4inZ5Qk
-         lh8unrQ6T15MJiIalvRt+RyW85i/FxB2v2tvqK3TpmJpUkjbjHRHOipQdYA4LI27QOu9
-         piduEIgcD5CVeSp9kjjBq1iF/zp6w8tw+01AsdASrc7wsSIwoNxZKhr5E86gavKlecQB
-         eMFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwSluk3njyJYbRgBWZSWIwz7naiYmyjWt+Bg7RSGmcFdCwl5YbNtY1po1l6s+pSCbSao88dhTlEnQk2YYM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lHDKEwbHn9k5WMX8PwKrfSEB+R10i00MbxPyLzUsrglkbD1S1F
-	cvpuMq4bCTV/j0xJ8I7FhCZAhkHXkOWYj5WBcAE98JRFPjUBzymhfcwZuZYNlb5mIdIjInwGODG
-	r1h3FXEph5yuIIyPmhq8mI+qzguySJeI=
-X-Gm-Gg: AYBFou2xqUSNSgo1WCaQujaRHE3twKKt1ux37aJfSI3WGjENgQoHHCOVJedslYtWcoc
-	qgWb/0KjgCS0Jl4SW44MjSe2YWac13DncKXmiN3I/x8AaM1jst2VYoyft500Q2omFFeC91kVgil
-	N5iMhC7IrAqg2P+Skfm+/QkMGw3ZLtwRHoFHPJ5ErmmmR3IWA9zpncqT3nLW6Mc6w145YKT2rf8
-	6rMUQLmJhWqQC4bK/DQ9HX5IdwH5U2GVAIoHncU/y26OZ6Oe8E4AQR2UURHO2/zRu3RpiMB0Kko
-	iOh1zKsFI5ke0BfWHvrJBFqBPTjpOmvxheBQR7jQeLY9Sw==
-X-Received: by 2002:a05:6512:3e08:b0:5b6:4b2:de81 with SMTP id
- 2adb3069b0e04-5b617058c7emr1560231e87.31.1788579026068; Fri, 04 Sep 2026
- 20:30:26 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE231F4634
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 03:32:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788579150; cv=none; b=JpiDcXMaqSsG+l0IN4wN3UP+BgSAMwyyv/+RFmGMlQyJ95OHw4yQmpS9wTj/y7JHEn+Mg8cQm9zsufna9TvlE2l8W9OoXnsKNEAkaFgt0W/HMftHBqybFi3/K9kwrhUr8MPoBsxGibjB57Cj360I5AUS2wTPdZrIqLi4BzBk1Kw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788579150; c=relaxed/simple;
+	bh=7HazKxD2mV8gt+sK19mSzAqs/+mLzQ4wgfN+3D049SU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QcSN2lsiGR2P2x9GOppotgcv0OWDjYqZbkkVVbsYqh7f02ESdDxSYt3YhSANWoUA/ZLKhrkGKosn1C1PVpCp0478VVXvdhvQkae4CRs3YIol4YdVzKI2fnL1e3v6C0lZlpH4BCVIFUT/7Efm7bJfW2WdiPAdppvZq5C5RfQtl4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.198])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hcJll2tCqzYQtkM
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 11:31:31 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.112])
+	by mail.maildlp.com (Postfix) with ESMTP id 15FA440574
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 11:32:17 +0800 (CST)
+Received: from huaweicloud.com (unknown [10.50.87.109])
+	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgBnUAswjZtq6hczAw--.190S4;
+	Sat, 05 Sep 2026 11:32:16 +0800 (CST)
+From: Zeng Heng <zengheng@huaweicloud.com>
+To: catalin.marinas@arm.com,
+	suzuki.poulose@arm.com,
+	anshuman.khandual@arm.com,
+	gshan@redhat.com,
+	david@kernel.org,
+	will@kernel.org
+Cc: wangkefeng.wang@huawei.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] arm64: io: Reject present-invalid user prot in ioremap_prot()
+Date: Sat,  5 Sep 2026 11:31:48 +0800
+Message-ID: <20260905033148.3657516-1-zengheng@huaweicloud.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAEsQvcuaNZvLxyxNH_NOy5qwTmkrk-A9QdVtZD0GiCtPwk4A+A@mail.gmail.com>
- <20260904182023.4486-1-hhkieu@gmail.com>
-In-Reply-To: <20260904182023.4486-1-hhkieu@gmail.com>
-From: Geraldo Nascimento <geraldogabriel@gmail.com>
-Date: Sat, 5 Sep 2026 00:30:13 -0300
-X-Gm-Features: AcwNN1XqapVpSljR1RHwVb9QBxMZ9ZPENJ6iH6m31QN5659LjwkwMc11dhFfhzA
-Message-ID: <CAEsQvcuMFt=m=njsPzRtKarz04Gwbds+f8p2S+SdSQmaiW1fLw@mail.gmail.com>
-Subject: Re: [PATCH] ALSA: usb-audio: add Pioneer DJ DDJ-SZ support
-To: Hanh Kieu <hhkieu@gmail.com>
-Cc: perex@perex.cz, tiwai@suse.com, linux-sound@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:cCh0CgBnUAswjZtq6hczAw--.190S4
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ww17Kry3ZFWkWr15Ar4xWFg_yoW8uF4xpa
+	4kur1kWrWDWa4xAw4jgrZ2gF4rWws5JFWvgw1v9F1qvFy2qFWxJr4vg34Ygry8GFZ2gw48
+	KFsag343GFyUtFDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUyEb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x
+	0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
+	6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
+	Cjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI
+	7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxV
+	Cjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY
+	6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6x
+	AIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY
+	1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU17KsUUUUUU==
+X-CM-SenderInfo: p2hqwxhhqjqx5xdzvxpfor3voofrz/
 
-Hi Hanh,
+From: Zeng Heng <zengheng4@huawei.com>
 
-On Fri, Sep 4, 2026 at 3:20=E2=80=AFPM Hanh Kieu <hhkieu@gmail.com> wrote:
->
-> Geraldo Nascimento wrote:
-> > Are you sure is_pioneer_implicit_fb() isn't returning false and you're
-> > picking up on a generic sync ep instead?
-> >
-> > You should double-check that function is returning true or false becaus=
-e
-> > it will return false when USB_ENDPOINT_USAGE_IMPLICIT_FB isn't
-> > set on bmAttributes of a Isochronous IN EP.
->
-> Good catch, thanks -- I checked against the real device rather than
-> assuming.
+Mapping a stack-top page via /dev/mem with PROT_NONE and then reading
+that process's /proc/<pid>/cmdline triggers a spurious WARN in
+ioremap_prot() through generic_access_phys():
 
-Thanks.
+  WARNING: ./arch/arm64/include/asm/io.h:275 at generic_access_phys
+  Call trace:
+    generic_access_phys+0x1c8/0x228 (P)
+    __access_remote_vm+0x2b4/0x398
+    access_remote_vm+0x14/0x30
+    get_mm_cmdline+0xf8/0x2a0
+    proc_pid_cmdline_read+0x68/0x120
 
->
-> lsusb -v on the DDJ-SZ shows both endpoints (0x01 OUT, 0x82 IN) as
-> Isochronous / Asynchronous with Usage Type =3D Data (bmAttributes =3D 0x0=
-5).
-> is_pioneer_implicit_fb() accepts the capture endpoint's usage being
-> either USB_ENDPOINT_USAGE_DATA or USB_ENDPOINT_USAGE_IMPLICIT_FB, not
-> IMPLICIT_FB exclusively, so Data usage does pass that check.
+generic_access_phys() passes the full pgprot derived from the user PTE
+to ioremap_prot(). A PROT_NONE /dev/mem mapping is encoded as PAGE_NONE,
+which clears PTE_VALID and sets the software PTE_PRESENT_INVALID bit.
+On arm64 such an entry is still pte_present(), so follow_pfnmap_start()
+reports the pfn and generic_access_phys() reaches ioremap_prot().
+The PTE_USER assertion, which is meant to catch kernel prots being
+passed by mistake, then fires for a PROT_NONE user mapping
+that legitimately lacks PTE_USER, producing the spurious WARN.
 
-Thanks for this report.
+Reject a user prot encoding a present-invalid (i.e. PROT_NONE) entry up
+front so that generic_access_phys() cleanly fails the access instead
+of warning. Note that PTE_PRESENT_INVALID aliases the PTE_NG bit and
+is only meaningful when PTE_VALID is clear, so both bits must be
+checked together.
 
-The code snippet in question is in the body of is_pioneer_implicit_fb()
-in sound/usb/implicit.c:
+Fixes: 8f098037139b ("arm64: io: Extract user memory type in ioremap_prot()")
+Signed-off-by: Zeng Heng <zengheng4@huawei.com>
+---
+ arch/arm64/include/asm/io.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-epd =3D get_endpoint(alts, 1);
-if (!usb_endpoint_is_isoc_in(epd) ||
-   (epd->bmAttributes & USB_ENDPOINT_SYNCTYPE) !=3D USB_ENDPOINT_SYNC_ASYNC=
- ||
-   ((epd->bmAttributes & USB_ENDPOINT_USAGE_MASK) !=3D
-    USB_ENDPOINT_USAGE_DATA &&
-    (epd->bmAttributes & USB_ENDPOINT_USAGE_MASK) !=3D
-    USB_ENDPOINT_USAGE_IMPLICIT_FB))
-return false;
+diff --git a/arch/arm64/include/asm/io.h b/arch/arm64/include/asm/io.h
+index 21c8e400107c..bbfbc4682639 100644
+--- a/arch/arm64/include/asm/io.h
++++ b/arch/arm64/include/asm/io.h
+@@ -272,6 +272,10 @@ static inline void __iomem *ioremap_prot(phys_addr_t phys, size_t size,
+ 	pgprot_t prot;
+ 	ptval_t user_prot_val = pgprot_val(user_prot);
+ 
++	if ((user_prot_val & (PTE_VALID | PTE_PRESENT_INVALID)) ==
++	     PTE_PRESENT_INVALID)
++		return NULL;
++
+ 	if (WARN_ON_ONCE(!(user_prot_val & PTE_USER)))
+ 		return NULL;
+ 
+-- 
+2.43.0
 
-In my opinion the logical AND at the end of the if condition is short-circu=
-ited
-by doing that inequality comparison between USB_ENDPOINT_USAGE_DATA
-and the result of the bitwise AND between bmAttributes and
-USB_ENDPOINT_USAGE_MASK, because 0x05 & 0x30 =3D=3D 0x00.
-
-When that first condition evaluates to false C never bothers to check the o=
-ther
-half of the logical AND, for logical and practical reasons.
-
-What I'm not sure of is that's the kind of check we want for Pioneer implic=
-it fb
-matching... Takashi will have to be the judge here, but I think it is
-not intended
-behavior that this function picks up implicit fb without
-USB_ENDPOINT_USAGE_IMPLICIT_FB being set. The fact is does so probably
-means that code in implicit.c needs a bit of improvement.
-
-
->
-> I also traced snd_usb_parse_implicit_fb_quirk()'s dispatch order for
-> this device to make sure nothing generic intercepts first: no fixed or
-> capture quirk-table entry matches 08e4:0191, it isn't UAC2
-> (bInterfaceClass is vendor-spec, not USB_CLASS_AUDIO), and it isn't the
-> Roland vendor ID. So is_pioneer_implicit_fb() is the function actually
-> being reached and returning true for this device, not a coincidental
-> generic fallback.
-
-Again, thanks for your due dilligence, and for all your work, it's looking
-good.
-
-Thanks,
-Geraldo Nascimento
