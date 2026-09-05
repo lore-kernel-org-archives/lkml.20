@@ -1,232 +1,210 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f0.google.com (mail-oo2-f0.google.com [74.125.231.128])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4196B38CFED
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 14:00:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38053383310
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 14:00:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.128
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788616819; cv=none; b=JqXm4cPVvL4kKugcLM6l4Z9szt2wnz7r8u4f/0u2kBgODhQINY37bog/XbfzozvmBSb44LMJW5nbyKWs+zRP4/+EN2P0lTQ2XgeR6R2ENzfAq+m05T43qpLxixVf2SCfgqqTxz4a1XcLvkOW7ZacyTgzmNys0mbTRYNAJxzh9JI=
+	t=1788616848; cv=none; b=Qu4hcDAdrZLb82Sh1/Qv6O1ew8dxwXx/qYUKgOFtFnOROU8JxjdrpHk/kVM9fzOQckx0oUbKwGRErrRMUZsjC8Zi9hx+PQALm9r7ZIRGxSC7iD6JzXI7MftjaGL7OWTtqCoOW35LHjI458Tnnp5XOBpnKuTHE9MHUcm2uAigZVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788616819; c=relaxed/simple;
-	bh=oXxWnRS+AdfFJqDsjojKHzCcVJO8S5rnuvTS7DO7YnI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AKgRAeTNWHOFi9Kj9LcNdDn1xVolZpgD0oNDz8BN59zGnCEBXHOuQLXj7QsS/uyigLQWyJrNue0C+XeNKTTApgysU5g8X2G01fQsOkSqTRj34uQw0YsFuWs18ycxoGagGq9h7hscfq3A4UJgGbRKLMO8F9/x9nz6tPWE/BhXZRk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=epLnaBH5; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="epLnaBH5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=/5
-	9agzCrPmhBck/yw6BbEltqL63IxYMentpbd6nNL1A=; b=epLnaBH509CkYc8HYU
-	gSGHHQEuNiHPuAcYt6TOQ5FqSl2E0QLwR0kEdojoXe2oOqyzqo6ROtuaVD8xP//1
-	kybmSQ4gEJtRKZklDNbZrPmaXiklCpEzRTG1pZ+7qToDu3SOVyOTOdMIfnhVfPJS
-	r67SNYSiFEZClNGLCZ/5zoWvk=
-Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDnr1ISIJxqmAdmAw--.23231S2;
-	Sat, 05 Sep 2026 21:58:44 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: Tim Chen <tim.c.chen@linux.intel.com>,
-	"Chen, Yu C" <yu.c.chen@intel.com>
-Cc: Hui Su <sh_def@163.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Valentin Schneider <vschneid@redhat.com>,
-	John Stultz <jstultz@google.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] sched/numa: Drive NUMA task tick from execution context
-Date: Sat,  5 Sep 2026 21:58:43 +0800
-Message-ID: <20260905135843.2818510-1-sh_def@163.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <0d6117e597e6ca3ab3179c6304d6e5e454f53759.camel@linux.intel.com>
-References: <20260903041154.2479761-1-sh_def@163.com> <20260903041154.2479761-2-sh_def@163.com> <4593a7a4-cde1-499c-bba8-2fbe24f35422@intel.com> <08f682ba75a4700694d6f94719b367b4d26c032f.camel@linux.intel.com> <20260904141017.1512404-1-sh_def@163.com> <0d6117e597e6ca3ab3179c6304d6e5e454f53759.camel@linux.intel.com>
+	s=arc-20240116; t=1788616848; c=relaxed/simple;
+	bh=7NwBpm0C1FLF+kYXPASGbIf8/Uxzy6O/7cUeUmnNlQQ=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=NDtYaovUrGsri840rI2bEWbiiFyMOagISUt7Ew88UC0G0KoZV3GuEcHXPI8zbT/SJY9XHTfqJo55ZqnZioyt+mr4I9szbBy+BxDp+qr248GgqCf0Aef6dTOYJmKW9RzLJyQGhDdouiO5ULjGP4fzCtRU/OPrg3IZz58HRL19zu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f0.google.com with SMTP id 006d021491bc7-6a3900cb2b5so838736eaf.0
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 07:00:34 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788616831; x=1789221631;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=focEC3DqDk0O4jsiJOz9zVQ7X7PAcbJMwH+HkhI9hZA=;
+        b=OIfqMNKl5oQIiU7mBTqKmUJ5eRL4C6tVpdC24y9soDNR2BE/KW1PsasN+atIhO0oWw
+         hJxPt5XKM6uEJ6mnaT67wYoFVwfroXNY7DV4twChVBoVgV5PXfeP7PQXbn7IWzJpttWu
+         LXmqVhZ4CzksOrwPBGmaHX9NOOFMtybau0d/26wGEL+kABi2KHHCuksKb3Jbj94L5ohs
+         xF/PXDG5nPgk8zPSBWfccHmCGdlGi4GI+Nz09+GprbmK/M6Lp+ZKYCG+x4NYENr08CLf
+         O0pcgN4JvI+0KyIwHfwmOgvlefqQUMyfgVA8ItrEy19sM4IW+fMiMBvhOeHVb67gqXFD
+         cjIw==
+X-Forwarded-Encrypted: i=1; AKwUvBwJdRZuKWuRApRpBqFwW7UuDscDHwgDaQnVVh3B/dPaJWa/LfM7GYGDssm3MtZV4A8nWnDbFXgiBrPTPG0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lxN0AsRIqZmeJmuI1Fnxz0PBkCT652BvCgLqBOHJtyqj9b5vcm
+	5GN+P8JDmXEbXbob2wf+cK00CemMwP1Ha8NOiB3BhPSnwP/RAqvWkHgrtFzqHATZ1ndxxew5dc2
+	xrW59vztukD1saMpMi5zDoHU4+yYUZITQ4+7+t/GufZf/np3PK8DCUsOFOy4=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnr1ISIJxqmAdmAw--.23231S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3AFyrWF4xWrW8tF15uF1kAFb_yoWxWFy7pa
-	98ZrW2qa1kJ3W0yFyUZrs3uFy3X3s3Jr1UXrn0kFyrCr1Yqw15tF40gF1YvFZI9rs29Fy2
-	vr40v39ru3Wjq3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUx-BtUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwRTOLmqcIBQ4FgAA3Z
+X-Received: by 2002:a05:6820:4b94:b0:6b1:a5c7:58ff with SMTP id
+ 006d021491bc7-6b6fcdcfd63mr8053847eaf.26.1788616831189; Sat, 05 Sep 2026
+ 07:00:31 -0700 (PDT)
+Date: Sat, 05 Sep 2026 07:00:31 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9c207f.a6639fcc.23b8b0.0002.GAE@google.com>
+Subject: [syzbot] [usb?] [nfc?] KASAN: use-after-free Read in pn533_acr122_is_rx_frame_valid
+From: syzbot <syzbot+1853daab1a47603d4678@syzkaller.appspotmail.com>
+To: david@ixit.cz, krzk@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-usb@vger.kernel.org, netdev@vger.kernel.org, 
+	oe-linux-nfc@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Sep 4, 2026 at 1:15 PM, Tim Chen wrote:
-> Yes, you have a good point. The code I proposed just look at whether
-> we have consumed our allotment in the current slice.
->
-> What we should have looked at is whether the donor's total run time has
-> exceeded its quota when doing core scheduling. And we may happen to
-> hit __entity_slice_used() at the front of the slice after advancing
-> the deadline and __entity_slice_used()
-> returns false instead of true, even though I have consumed more than
-> my fair share when looking at longer time period across multiple slices.
->
-> The accumulated run time of the donor since it was picked for running
-> should be used for selection time baseline.
->
-> So maybe a patch like the following instead.
+Hello,
 
-Thanks for the updated prototype.
+syzbot found the following issue on:
 
-I tested the pick-time vruntime snapshot further. With a fixed weight,
-it behaves as expected: it fixes the proxy case and continues to match
-the existing runtime-based predicate in the non-proxy tests I ran.
+HEAD commit:    edc1518454f6 usb: typec: hd3ss3220: Add support for supply..
+git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
+console output: https://syzkaller.appspot.com/x/log.txt?x=14f27215580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=c451f9f64434b622
+dashboard link: https://syzkaller.appspot.com/bug?extid=1853daab1a47603d4678
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=15de68f9580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12c86b49580000
 
-I then tested it with CONFIG_FAIR_GROUP_SCHED, using nested cgroups and
-changing the hierarchical weights in an observation-only setup. The
-kernel computes the existing predicate, the pick-time vruntime predicate,
-and a pick-time task-clock predicate on the same tick, while the existing
-predicate remains the actual return value.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/7b8a8fc7809a/disk-edc15184.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/6ff1ab9249a0/vmlinux-edc15184.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/249551c4918b/bzImage-edc15184.xz
 
-I think the "same weight scaling" condition in the non-proxy equivalence
-is the interesting part here. If the hierarchical weight changes after
-core_slice_vruntime is captured, vused represents service accumulated
-since the pick-time baseline, while vslice is converted using the current
-weight.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+1853daab1a47603d4678@syzkaller.appspotmail.com
 
-Across 11 instrumented runs I observed 5985 non-proxy samples. 29 of
-those were explicitly identified as cases where the same task's
-sched_entity had been reweighted after the current selection-time
-baseline was taken. The existing and task-clock predicates matched in all
-5985 non-proxy samples, while the vruntime predicate differed in four of
-the 29 reweight-after-pick samples.
+==================================================================
+BUG: KASAN: use-after-free in pn533_acr122_is_rx_frame_valid drivers/nfc/pn533/usb.c:325 [inline]
+BUG: KASAN: use-after-free in pn533_acr122_is_rx_frame_valid+0x132/0x150 drivers/nfc/pn533/usb.c:315
+Read of size 1 at addr ffff88816b5da3ce by task swapper/0/0
 
-I also reproduced the divergence with actual runnable load in the
-hierarchy. In one causal trace:
+CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted syzkaller #0 PREEMPT(lazy) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+Call Trace:
+ <IRQ>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ pn533_acr122_is_rx_frame_valid drivers/nfc/pn533/usb.c:325 [inline]
+ pn533_acr122_is_rx_frame_valid+0x132/0x150 drivers/nfc/pn533/usb.c:315
+ pn533_recv_frame+0x1b7/0x6d0 drivers/nfc/pn533/pn533.c:2203
+ __usb_hcd_giveback_urb+0x38e/0x610 drivers/usb/core/hcd.c:1657
+ usb_hcd_giveback_urb+0x3ca/0x4a0 drivers/usb/core/hcd.c:1741
+ dummy_timer+0xdb2/0x3700 drivers/usb/gadget/udc/dummy_hcd.c:2019
+ __run_hrtimer kernel/time/hrtimer.c:2067 [inline]
+ __hrtimer_run_queues+0x462/0x9c0 kernel/time/hrtimer.c:2124
+ hrtimer_run_softirq+0x1ca/0x360 kernel/time/hrtimer.c:2141
+ handle_softirqs+0x1d9/0x9b0 kernel/softirq.c:645
+ __do_softirq kernel/softirq.c:679 [inline]
+ invoke_softirq kernel/softirq.c:519 [inline]
+ __irq_exit_rcu+0x192/0x210 kernel/softirq.c:767
+ irq_exit_rcu+0x9/0x30 kernel/softirq.c:784
+ instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
+ sysvec_apic_timer_interrupt+0x8f/0xb0 arch/x86/kernel/apic/apic.c:1062
+ </IRQ>
+ <TASK>
+ asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
+RIP: 0010:pv_native_safe_halt+0xf/0x20 arch/x86/kernel/paravirt.c:64
+Code: bf c3 01 e9 43 fa 02 00 0f 1f 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa 66 90 0f 00 2d e3 ff 1e 00 fb f4 <c3> cc cc cc cc 66 2e 0f 1f 84 00 00 00 00 00 66 90 90 90 90 90 90
+RSP: 0018:ffffffff89607d00 EFLAGS: 00000242
+RAX: 000000000009c36b RBX: ffffffff8962c940 RCX: ffffffff878789d5
+RDX: 0000000000000001 RSI: ffffffff89327d4e RDI: ffffffff87d2a600
+RBP: fffffbfff12c5928 R08: 0000000000000001 R09: ffffed103eac673d
+R10: ffff8881f56339eb R11: 0000000000000001 R12: 0000000000000000
+R13: 0000000000000000 R14: 1ffffffff12c0fa4 R15: dffffc0000000000
+ arch_safe_halt arch/x86/include/asm/paravirt.h:62 [inline]
+ default_idle+0x9/0x10 arch/x86/kernel/process.c:768
+ default_idle_call+0x6c/0xb0 kernel/sched/idle.c:122
+ cpuidle_idle_call kernel/sched/idle.c:199 [inline]
+ do_idle+0x3ae/0x5b0 kernel/sched/idle.c:355
+ cpu_startup_entry+0x4f/0x60 kernel/sched/idle.c:454
+ rest_init+0x2d3/0x2e0 init/main.c:727
+ start_kernel+0x489/0x490 init/main.c:1185
+ x86_64_start_reservations+0x24/0x30 arch/x86/kernel/head64.c:310
+ x86_64_start_kernel+0x12b/0x130 arch/x86/kernel/head64.c:291
+ common_startup_64+0x13e/0x158
+ </TASK>
 
-        selection=5
-        pick_hweight=1048576
-        current_hweight=15138
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x16b5da
+flags: 0x200000000000000(node=0|zone=2)
+raw: 0200000000000000 ffffea0005ad7688 ffffea0005ad7688 0000000000000000
+raw: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner info is not present (never set?)
 
-        reweight_vruntime=768327601->768327601
+Memory state around the buggy address:
+ ffff88816b5da280: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+ ffff88816b5da300: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+>ffff88816b5da380: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+                                              ^
+ ffff88816b5da400: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+ ffff88816b5da480: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+==================================================================
+----------------
+Code disassembly (best guess):
+   0:	bf c3 01 e9 43       	mov    $0x43e901c3,%edi
+   5:	fa                   	cli
+   6:	02 00                	add    (%rax),%al
+   8:	0f 1f 00             	nopl   (%rax)
+   b:	90                   	nop
+   c:	90                   	nop
+   d:	90                   	nop
+   e:	90                   	nop
+   f:	90                   	nop
+  10:	90                   	nop
+  11:	90                   	nop
+  12:	90                   	nop
+  13:	90                   	nop
+  14:	90                   	nop
+  15:	90                   	nop
+  16:	90                   	nop
+  17:	90                   	nop
+  18:	90                   	nop
+  19:	90                   	nop
+  1a:	90                   	nop
+  1b:	f3 0f 1e fa          	endbr64
+  1f:	66 90                	xchg   %ax,%ax
+  21:	0f 00 2d e3 ff 1e 00 	verw   0x1effe3(%rip)        # 0x1f000b
+  28:	fb                   	sti
+  29:	f4                   	hlt
+* 2a:	c3                   	ret <-- trapping instruction
+  2b:	cc                   	int3
+  2c:	cc                   	int3
+  2d:	cc                   	int3
+  2e:	cc                   	int3
+  2f:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  36:	00 00 00
+  39:	66 90                	xchg   %ax,%ax
+  3b:	90                   	nop
+  3c:	90                   	nop
+  3d:	90                   	nop
+  3e:	90                   	nop
+  3f:	90                   	nop
 
-        existing:
-                rtime=7980540
-                used=1
 
-        pick-time vruntime:
-                vused=7980540
-                vslice=145462386
-                used=0
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-        task-clock:
-                rtime=7980540
-                used=1
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-This was the same selection: the pick-time baseline had already been
-established, the hierarchical weight then changed, and there was no
-new pick before the predicate was evaluated.
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-In this example reweight_eevdf() did not change se->vruntime, so the
-divergence does not depend on a vruntime coordinate adjustment. The
-weight change alone is enough for the accumulated vused and the
-current-weight vslice to no longer necessarily use the same scale.
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
 
-I also observed the reverse predicate direction in the observation-only
-runs, although I have not yet reduced that case to the same detailed
-causal trace.
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-One way to keep the vruntime approach would be to rebase the accumulated
-virtual service whenever the relevant weight changes, preserving the
-vused / vslice ratio across the reweight. Simply resetting
-core_slice_vruntime at reweight time would lose service already consumed
-before the reweight.
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
-A simpler alternative I have been testing is to keep the check in the
-same real-time domain as the existing predicate:
-
-        set_next_entity():
-                core_sched_start = se->exec_start;
-
-        __entity_slice_used():
-                rtime = se->exec_start - se->core_sched_start;
-
-                return rtime * min_nr_tasks > se->slice;
-
-update_se() advances the donor's exec_start from rq_clock_task() while
-it is the scheduling context, including during proxy execution, even
-though the task-level sum_exec_runtime is charged to rq->curr. This
-keeps the force-idle slice check in the same real-time domain as the
-existing sum_exec_runtime - prev_sum_exec_runtime comparison and avoids
-converting accumulated service across weight changes.
-
-For reference, the local task-clock variant I am testing is below. It
-is not intended as a formal posting yet:
-
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 8b3d47a325cc..c32d9931129f 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -590,6 +590,9 @@ struct sched_entity {
- 	u64				sum_exec_runtime;
- 	u64				prev_sum_exec_runtime;
- 	u64				vruntime;
-+#ifdef CONFIG_SCHED_CORE
-+	u64				core_sched_start;
-+#endif
- 	/* Approximated virtual lag: */
- 	s64				vlag;
- 	/* 'Protected' deadline, to give out minimum quantums: */
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index f78275192036..22ae5dc57337 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -4580,6 +4580,9 @@ static void __sched_fork(u64 clone_flags, struct task_struct *p)
- 	p->se.prev_sum_exec_runtime	= 0;
- 	p->se.nr_migrations		= 0;
- 	p->se.vruntime			= 0;
-+#ifdef CONFIG_SCHED_CORE
-+	p->se.core_sched_start		= 0;
-+#endif
- 	p->se.vlag			= 0;
- 	p->se.rel_deadline		= 0;
- 	INIT_LIST_HEAD(&p->se.group_node);
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 8dff37059faf..1bd05c906d3a 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -6502,6 +6502,9 @@ set_next_entity(struct cfs_rq *cfs_rq, struct sched_entity *se)
- 	}
- 
- 	se->prev_sum_exec_runtime = se->sum_exec_runtime;
-+#ifdef CONFIG_SCHED_CORE
-+	se->core_sched_start = se->exec_start;
-+#endif
- }
- 
- static bool __dequeue_task(struct rq *rq, struct task_struct *p, int flags);
-@@ -14748,10 +14751,9 @@ static void rq_offline_fair(struct rq *rq)
- static inline bool
- __entity_slice_used(struct sched_entity *se, int min_nr_tasks)
- {
--	u64 rtime = se->sum_exec_runtime - se->prev_sum_exec_runtime;
--	u64 slice = se->slice;
-+	u64 rtime = se->exec_start - se->core_sched_start;
-
--	return (rtime * min_nr_tasks > slice);
-+	return (rtime * min_nr_tasks > se->slice);
- }
- 
- #define MIN_NR_TASKS_DURING_FORCEIDLE	2
-
-The task-clock version has matched the existing predicate in the
-non-proxy tests so far and fixes the proxy reproducer as well. I am
-still validating reselection, migration, and the remaining proxy
-boundary cases, so I have not posted either implementation.
-
-Do you think keeping the check in the original real-time/task-clock
-domain is a reasonable direction here, or would you prefer preserving
-the vruntime approach by carrying the accumulated service across
-reweights?
-
-Thanks,
-Hui
-
+If you want to undo deduplication, reply with:
+#syz undup
