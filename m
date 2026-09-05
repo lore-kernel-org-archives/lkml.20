@@ -1,233 +1,144 @@
-Received: from smtp-o-3.desy.de (smtp-o-3.desy.de [131.169.56.156])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0AC34BA50
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 14:42:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=131.169.56.156
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49E644A3412
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 14:45:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788619373; cv=none; b=pTspH48/rXR8BqlyZMLRmNtuVyeorG62qPGFFL6l5H21i7KvOb25EQm6qBPur1z1UaeX/QfVgrt++UlWoz7eIgOZGrI4Wr5Q0ORjJw2vGLiigxmROn4YhXZ9X6DSx2l4HuQiP7AoJaKqPtv/zU9OZHMgTQY/Xr0KjchGw3Fl5W0=
+	t=1788619518; cv=none; b=r1u4QYm+VcwB6JOml5tNHbHqqHWHJ2ziKJBC64xNFm9nWXx3l8pE0zKqsF0ePeolGFhEuXT+od5dVGCOdPHIXxfE68PqGHzhJbPVLMe4gHIwvYEjDBKmivb+rwcrUtHLannmum5nPpy7EHpikdY3Dfk2H6O10h1dGicmViG5ql8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788619373; c=relaxed/simple;
-	bh=ZOUVY1knb2L6YQzafaenn8BIdhXzBd+ebTgcY/+eC8s=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=G+3zsnuQu0Rue9PSeUU4aTAxaH/QIYttR6xkcd9uxW5yiGh/3a2Kf4KAqfvZkUUj7xm+meAWIHH/+mbK8iuXBnYr1qNDG4Y2WaMmkQAueYce6e6rE6J1VT+hWEEEr+QDZ+Fok3H/VBTlQeNT2pEJRq1i0T9tcXfwFh9aCmAd2Lo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=desy.de; spf=pass smtp.mailfrom=desy.de; dkim=pass (1024-bit key) header.d=desy.de header.i=@desy.de header.b=ZpHzZFh2; arc=none smtp.client-ip=131.169.56.156
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=desy.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=desy.de
+	s=arc-20240116; t=1788619518; c=relaxed/simple;
+	bh=3dSaD3qzEawWjYdUkb2MHJo1tgSjCE1Kkoj7/OKb2TQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g/UqMsqltgANFXJ8PKsQuCl5SC0xJ3mmdA+WEoWCR5+5R6PL36rawRiLyQAsPPfT27PdXHMloneA+wodyC9PYBYr1WLfx8lGLznhi0NnPSuygpkkjuc0grtB8L2UxVBht/RCOl+sadkGQjdrlknkH1eVDQmYcvXqTNwzNTw3CXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=SqNiXqOF; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=desy.de header.i=@desy.de header.b="ZpHzZFh2"
-Received: from smtp-o-2.desy.de (smtp-o-2.desy.de [131.169.56.155])
-	by smtp-o-3.desy.de (Postfix) with ESMTP id B722311FA86
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 16:37:14 +0200 (CEST)
-Received: from smtp-buf-3.desy.de (smtp-buf-3.desy.de [IPv6:2001:638:700:1038::1:a6])
-	by smtp-o-2.desy.de (Postfix) with ESMTP id BA4F113F654
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 16:37:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp-o-2.desy.de BA4F113F654
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=desy.de; s=default;
-	t=1788619026; bh=IJLZab2I2PVon6ToarSblskmLwJoguiKb1VvW8Dw2rs=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
-	b=ZpHzZFh2QmDsycoEfqeKzT3gDjdw2axR0NEc5Ky1V0M4tuIUGYWWu+uF5humuLSVY
-	 NRDxmb5DNld8+V2o7Gy7yRspxW2DdahHWzJ93MGCZXMiEgR1z8Ev5dJdhSkKKysc7w
-	 OCKuwscbDWAKuwTgrsVnQTfK9TrsusFdwQfi20JQ=
-Received: from smtp-m-1.desy.de (smtp-m-1.desy.de [IPv6:2001:638:700:1038::1:81])
-	by smtp-buf-3.desy.de (Postfix) with ESMTP id 9E698C0040;
-	Sat,  5 Sep 2026 16:37:06 +0200 (CEST)
-Received: from b1722.mx.srv.dfn.de (b1722.mx.srv.dfn.de [IPv6:2001:638:d:c302:acdc:1979:2:e7])
-	by smtp-m-1.desy.de (Postfix) with ESMTP id 884EF40045;
-	Sat,  5 Sep 2026 16:37:06 +0200 (CEST)
-Received: from smtp-intra-1.desy.de (smtp-intra-1.desy.de [IPv6:2001:638:700:1038::1:52])
-	by b1722.mx.srv.dfn.de (Postfix) with ESMTP id 100CE160060;
-	Sat, 05 Sep 2026 16:37:03 +0200 (CEST)
-Received: from z-mbx-3.desy.de (z-mbx-3.desy.de [131.169.55.141])
-	by smtp-intra-1.desy.de (Postfix) with ESMTP id 9EEBA8004E;
-	Sat,  5 Sep 2026 16:37:03 +0200 (CEST)
-Date: Sat, 5 Sep 2026 16:37:03 +0200 (CEST)
-From: "Mkrtchyan, Tigran" <tigran.mkrtchyan@desy.de>
-To: Rick Macklem <rick.macklem@gmail.com>
-Cc: Jeff Layton <jlayton@kernel.org>, Chuck Lever <cel@kernel.org>, 
-	NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, 
-	Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, 
-	Tom Haynes <thomas.haynes@hammerspace.com>, 
-	linux-nfs <linux-nfs@vger.kernel.org>, 
-	linux-kernel <linux-kernel@vger.kernel.org>, 
-	Benji Wiebe <itsme@benjiwiebe.com>
-Message-ID: <1805277599.19343755.1788619023447.JavaMail.zimbra@desy.de>
-In-Reply-To: <CAM5tNy7Yjk=mm9rq9YUuYF6LEd2v2tp3p3unDxgEv8xU4oXO0Q@mail.gmail.com>
-References: <20260904-pnfs-ff-v1-1-5f502cf25401@kernel.org> <CAM5tNy7Yjk=mm9rq9YUuYF6LEd2v2tp3p3unDxgEv8xU4oXO0Q@mail.gmail.com>
-Subject: Re: [PATCH] nfsd: don't offer flexfiles layouts when NFSv3 isn't
- being served
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="SqNiXqOF"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48435bcf9d9so94322f8f.1
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 07:45:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788619513; x=1789224313; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=up/rgxumaxsCy5JEMTBUZLpY+yoJXx9XvOAZd1MctPw=;
+        b=SqNiXqOFqCcPpxOP/h1yMkERrUq8SvCZprQrDjTBQGNoiK4ME4qCHxyFOjI/or/H9p
+         rwoiI23ZFvShfxreUWQzUqPfMRV+5jgfe7P4PhzB/owpaXzNVBWHTLwP7iKVap63brK+
+         fbJ4bjB8P7I6eDKrIg91LtNkI75VVssExjP+EyuJhnjcGtQU7v68BKfa+E1WYcwUbxBg
+         WMd3nwk8N8YVyTIdbgp5s25FpqmP5vmlCzOpX1ISPOwzgaAq+0cXZhvpItUj8Ji690if
+         0e4Y0OuZQmadUtWKNe0iXxouoRc6b/f7eQPTWXu0HFUxV/3jzBEoAkIUaNfACc2lPNyP
+         wfYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788619513; x=1789224313;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=up/rgxumaxsCy5JEMTBUZLpY+yoJXx9XvOAZd1MctPw=;
+        b=BWcMIeR5ym7KOhyL2B7PvBPixc3s3v7TtO78AkcrsEenk6XIrbQlvBaAwpg2kAJxg4
+         ejsbYYzLUkG4pB6wmpbzjx4BWEeVJX+K+yj1o9JZlSGx2JVm8cEgxPG+nqkkwN56TDvp
+         aua+j1i4ABH3lFzbGZDYQKH6y1Wl/29o7lLCMv7cAG/HVQVPJrAcBSD5QLPpHd272aNM
+         j/eKj6z6NG+2x08e2agvKUFz9o8T6IBXoECh1+XU/IDvE4QGk8dXBhT+s4nE0GsDt1ei
+         4jFV/DOK46vGYW8M+tCq7Gnxpj9gJHj/8XaEtCpPmpfHikkydYBmVQca/vWzbNHRs/Vv
+         NbsQ==
+X-Forwarded-Encrypted: i=1; AKwUvBykn3QiSg+P+HDoqwrehgcsTmMrAxrviCEKMcSA121l9A+VKkxgO7QvGzSbLdMPOx/ZIoSni+sC03JGXLc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mzOQI/eVLsgKSPj2QYWAsBNr4eo8adJjEAL9ZIWn+70dvC/1CX
+	tLvuToYY0sfvQCmwv5xmZl7Uu40CDu03uUY+e7Xvira4hZb6jdtW/YKpD7ChYW2PXBs=
+X-Gm-Gg: AYBFou1CVponrG9BBmva9MNvsWJpXPAGRuQm9Sh012fvBiaBekoW/6dTt6moqKqjLZ3
+	jmVTOBTtujHYL6/JcBJoh2VNv1o2tetGB62sVg4h4E0GtnQN3kvTEZtNNz9NnhwCUTqzfVSEy6Y
+	IS1hY4qrp3gJxGMts6PgiVuuEQn/FLxtzNfuF7rNnaSMGfqQ0rfugUpWtsMCyhBMmkWs92M1yAf
+	IhWjhDNMM9M6ggSCNm+mVZA+f5lj9tTbiOHK2D2FcT40xbcbMY7FzJLMje8phn0m5ZEpFo2DMde
+	pdLvI1zdxSUW5cqAlDRSbLGFPPvP0g8jBi9KQFdYaZixUYZnXDiHHLMPNOdb8ZAuD3zdawH0Y1/
+	I1sB2jMJjmuRmQ1CV5M7XiQzm8in3anrV+b97BgMBzONzein5lxJYcx+UPDFuufOoxXNYCba5VO
+	Z4Yeo/d3gifLNigvQHUL7AhDJP9L/89Cf46/2/Ye8cIlqkuojkU0UwvC2fnYdzLwH0tLGbnA==
+X-Received: by 2002:a05:600c:8b2e:b0:49c:cbf4:572b with SMTP id 5b1f17b1804b1-49d01dcc1fdmr48391805e9.2.1788619513504;
+        Sat, 05 Sep 2026 07:45:13 -0700 (PDT)
+Received: from localhost ([202.127.77.110])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b2612d3f1sm10186499a91.13.2026.09.05.07.45.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 07:45:11 -0700 (PDT)
+Date: Sat, 5 Sep 2026 22:45:08 +0800
+From: Heming Zhao <heming.zhao@suse.com>
+To: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, ocfs2-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] ocfs2: validate dl_blkno and dl_fs_generation of
+ dir index leaf blocks
+Message-ID: <apwp-6JMpJckN3If@p15>
+References: <20260905142144.2869105-1-joseph.qi@linux.alibaba.com>
+ <20260905142144.2869105-2-joseph.qi@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256; 
-	boundary="----=_Part_19343756_246654939.1788619023590"
-X-Mailer: Zimbra 10.1.20_GA_4893 (ZimbraWebClient - FF155 (Linux)/10.1.20_GA_4894)
-Thread-Topic: nfsd: don't offer flexfiles layouts when NFSv3 isn't being served
-Thread-Index: Oj2HF3nIqZ3QKgLnwLGlEMO/Ts8Tdg==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260905142144.2869105-2-joseph.qi@linux.alibaba.com>
 
-------=_Part_19343756_246654939.1788619023590
-Date: Sat, 5 Sep 2026 16:37:03 +0200 (CEST)
-From: "Mkrtchyan, Tigran" <tigran.mkrtchyan@desy.de>
-To: Rick Macklem <rick.macklem@gmail.com>
-Cc: Jeff Layton <jlayton@kernel.org>, Chuck Lever <cel@kernel.org>, 
-	NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, 
-	Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, 
-	Tom Haynes <thomas.haynes@hammerspace.com>, 
-	linux-nfs <linux-nfs@vger.kernel.org>, 
-	linux-kernel <linux-kernel@vger.kernel.org>, 
-	Benji Wiebe <itsme@benjiwiebe.com>
-Message-ID: <1805277599.19343755.1788619023447.JavaMail.zimbra@desy.de>
-In-Reply-To: <CAM5tNy7Yjk=mm9rq9YUuYF6LEd2v2tp3p3unDxgEv8xU4oXO0Q@mail.gmail.com>
-References: <20260904-pnfs-ff-v1-1-5f502cf25401@kernel.org> <CAM5tNy7Yjk=mm9rq9YUuYF6LEd2v2tp3p3unDxgEv8xU4oXO0Q@mail.gmail.com>
-Subject: Re: [PATCH] nfsd: don't offer flexfiles layouts when NFSv3 isn't
- being served
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Zimbra 10.1.20_GA_4893 (ZimbraWebClient - FF155 (Linux)/10.1.20_GA_4894)
-Thread-Topic: nfsd: don't offer flexfiles layouts when NFSv3 isn't being served
-Thread-Index: Oj2HF3nIqZ3QKgLnwLGlEMO/Ts8Tdg==
+On Sat, Sep 05, 2026 at 10:21:44PM +0800, Joseph Qi wrote:
+> ocfs2_validate_dx_leaf() checks the checksum, the signature and the
+> entry list counts, but it never checks dl_blkno or dl_fs_generation.
+> The inode, extent block, xattr block, refcount block and dir index root
+> validators all check the on-disk block number against bh->b_blocknr and
+> the generation against the superblock, and both dir index leaf fields
+> are documented as "Must match super block".
+> 
+> Without the checks, a stale dir index leaf block left on the device from
+> a previously formatted filesystem at the same physical block number can
+> pass validation as long as its signature, entry counts and checksum
+> match.  Its index entries would then be used in the new filesystem
+> context.
+> 
+> Both fields are written unconditionally when a leaf block is formatted
+> in ocfs2_dx_dir_format_cluster(), from the live superblock generation
+> and the real block number, so a correctly formatted filesystem cannot
+> trip the new checks.  The leaf block number read back here comes from
+> on-disk dir index root extent records.
+> 
+> Reject dir index leaf blocks whose dl_blkno or dl_fs_generation does not
+> match, like the dir index root validator does.
+> 
+> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+> ---
+>  fs/ocfs2/dir.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/fs/ocfs2/dir.c b/fs/ocfs2/dir.c
+> index 329680b46227..55c4a305a282 100644
+> --- a/fs/ocfs2/dir.c
+> +++ b/fs/ocfs2/dir.c
+> @@ -733,6 +733,18 @@ static int ocfs2_validate_dx_leaf(struct super_block *sb,
+>  		return ocfs2_error(sb, "Dir Index Leaf has bad signature %.*s\n",
+>  				   7, dx_leaf->dl_signature);
+>  
+> +	if (le64_to_cpu(dx_leaf->dl_blkno) != bh->b_blocknr)
+> +		return ocfs2_error(sb,
+> +				   "Dir Index Leaf # %llu has an invalid dl_blkno of %llu\n",
+> +				   (unsigned long long)bh->b_blocknr,
+> +				   (unsigned long long)le64_to_cpu(dx_leaf->dl_blkno));
 
-Hi Rick,
+The patch looks fine to me.
+Reviewed-by: Heming Zhao <heming.zhao@suse.com>
 
-our server runs with v4.1 DSes whenissues FF layouts.
-The patch is touching server side only, so I hope the
-client side still works as expected. For quite some time
-I had submitted a patch[0] that decomples ff layout driver
-from v3 client so that client still can use v4.1 DSes
-ever if v3 client in not compiled.
+Only question: Do we add the same check for dl_blkno in ocfs2_validate_dx_root()?
 
-[0]: a68c6fbb638a "nfs41: drop dependency between flexfiles layout driver a=
-nd NFSv3 modules"
-
-Best regards,
-   Tigran.
-
-
------ Original Message -----
-> From: "Rick Macklem" <rick.macklem@gmail.com>
-> To: "Jeff Layton" <jlayton@kernel.org>
-> Cc: "Chuck Lever" <cel@kernel.org>, "NeilBrown" <neil@brown.name>, "Olga =
-Kornievskaia" <okorniev@redhat.com>, "Dai Ngo"
-> <Dai.Ngo@oracle.com>, "Tom Talpey" <tom@talpey.com>, "Tom Haynes" <thomas=
-.haynes@hammerspace.com>, "linux-nfs"
-> <linux-nfs@vger.kernel.org>, "linux-kernel" <linux-kernel@vger.kernel.org=
->, "Benji Wiebe" <itsme@benjiwiebe.com>
-> Sent: Friday, 4 September, 2026 21:04:18
-> Subject: Re: [PATCH] nfsd: don't offer flexfiles layouts when NFSv3 isn't=
- being served
-
-> On Fri, Sep 4, 2026 at 9:50=E2=80=AFAM Jeff Layton <jlayton@kernel.org> w=
-rote:
->>
->> The flexfiles layout driver hands out a deviceinfo that names this serve=
-r
->> as an NFSv3 DS (flexfilelayout.c hardcodes da->version =3D 3). With v3
->> disabled, the client can't talk to the DS: it loops on v3 NULL calls tha=
-t
->> the server answers with PROG_MISMATCH, and I/O hangs in D state.
->>
->> Skip LAYOUT_FLEX_FILES in nfsd4_setup_layout_type() unless v3 is enabled=
-.
->>
->> Reported-by: Benji Wiebe <itsme@benjiwiebe.com>
->> Closes:
->> https://lore.kernel.org/linux-nfs/c734eeb8-8486-4491-bb4d-b9656cbaffbe@a=
-pp.fastmail.com/
->> Fixes: 9b9960a0ca47 ("nfsd: Add a super simple flex file server")
->> Assisted-by: LLM
->> Signed-off-by: Jeff Layton <jlayton@kernel.org>
->> ---
->>  fs/nfsd/nfs4layouts.c | 4 +++-
->>  1 file changed, 3 insertions(+), 1 deletion(-)
->>
->> diff --git a/fs/nfsd/nfs4layouts.c b/fs/nfsd/nfs4layouts.c
->> index 22bcb6d09f70..cef4d40c89a2 100644
->> --- a/fs/nfsd/nfs4layouts.c
->> +++ b/fs/nfsd/nfs4layouts.c
->> @@ -127,10 +127,12 @@ nfsd4_set_deviceid(struct nfsd4_deviceid *id, cons=
-t struct
->> svc_fh *fhp,
->>
->>  void nfsd4_setup_layout_type(struct svc_export *exp)
->>  {
->> +       struct nfsd_net *nn =3D net_generic(exp->cd->net, nfsd_net_id);
->>         struct super_block *sb =3D exp->ex_path.mnt->mnt_sb;
->>         expfs_block_layouts_t block_supported =3D exportfs_layouts_suppo=
-rted(sb);
->>
->> -       if (IS_ENABLED(CONFIG_NFSD_FLEXFILELAYOUT))
->> +       if (IS_ENABLED(CONFIG_NFSD_FLEXFILELAYOUT) &&
->> +           nfsd_vers(nn, 3, NFSD_TEST))
->>                 exp->ex_layout_types |=3D 1 << LAYOUT_FLEX_FILES;
->>         if (IS_ENABLED(CONFIG_NFSD_BLOCKLAYOUT) &&
->>             (block_supported & EXPFS_BLOCK_IN_BAND_ID))
-> Although most ffv1 servers use NFSv3 DSs, it is possible for an ffv1
-> layout to specify NFSv4.
->=20
-> rick
-> ps: I don't know how you'd check to see if the layout will be an
->      NFSv3 one. (If the server only does NFSv3 layouts, then I'd
->      guess this patch is ok?)
->=20
->>
->> ---
->> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
->> change-id: 20260904-pnfs-ff-485ac21042a6
->>
->> Best regards,
->> --
->> Jeff Layton <jlayton@kernel.org>
->>
-
-------=_Part_19343756_246654939.1788619023590
-Content-Type: application/pkcs7-signature; name=smime.p7s; smime-type=signed-data
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCAMIIF
-2zCCBEOgAwIBAgIQF4XHXEetKIAlPr4cevwe6zANBgkqhkiG9w0BAQsFADBUMQswCQYDVQQGEwJO
-TDEZMBcGA1UECgwQR0VBTlQgVmVyZW5pZ2luZzEqMCgGA1UEAwwhR0VBTlQgVENTIEF1dGhlbnRp
-Y2F0aW9uIFJTQSBDQSA1MB4XDTI2MDgxOTEwMjQyMloXDTI3MDkxODEwMjQyMVowgakxEzARBgoJ
-kiaJk/IsZAEZFgNvcmcxFjAUBgoJkiaJk/IsZAEZFgZ0ZXJlbmExEzARBgoJkiaJk/IsZAEZFgN0
-Y3MxCzAJBgNVBAYTAkRFMS4wLAYDVQQKDCVEZXV0c2NoZXMgRWxla3Ryb25lbi1TeW5jaHJvdHJv
-biBERVNZMSgwJgYDVQQDDB9UaWdyYW4gTWtydGNoeWFuIHRpZ3JhbkBkZXN5LmRlMIIBojANBgkq
-hkiG9w0BAQEFAAOCAY8AMIIBigKCAYEA1eVMTvYES3GLqhn0zqaiJ3+XELMB9tHgwI+HtD3+n3V8
-tmPEw6Rkoo+3WKEg/Mo1vgJrGaYROtXEaS5fGx+AAMa9vVJyfPMjumhcIjXUXl2CU5HbCAu08grX
-czcniDMT5QRR/W7n17XA3aK+okPpX51RTk4sg5r3JXglII8htTr3qNLNvH1a9xF3ha79h+24H2ST
-+sYiCgG4xBSmkwZiS/to00/aQ95WQ3vDbfNrPWwItWBecf7EqVuopNHLhODCfnVxdbovoGn6ro/+
-dDup9DtKC6EyYT3GiNEr/1eogutQXgS5H8xNc8qnJy5XhuVi8heqQZ94gohqoR44a5QELk3znB92
-PLDpW2Gl1N1+SXdXe7QnpOivsYQHIFIGsTzAsMlKP6Cdl7dfRVsymfp8ZAZCyA3fBg9K0Ir/C9rd
-PHPAL4rUphHBlL6Em+GF0LO39HrJhpAFzT9n0dYVR31gQ49VsgttPdYniQ9dnIL0X5/FEOkq9zvp
-ogJ9ByBlPW5/AgMBAAGjggFRMIIBTTAfBgNVHSMEGDAWgBSDrT4rvBOJjYgJHL8g3F+4MVXq8TBX
-BggrBgEFBQcBAQRLMEkwRwYIKwYBBQUHMAKGO2h0dHA6Ly9jcnQuZ2VhbnQtcHJ2LmhhcmljYS5n
-ci9HRUFOVC1UQ1MtQ2xpZW50LUF1dGgtUjUuY2VyMDUGA1UdIAQuMCwwDAYKKoZIhvdMBQICBTAN
-BgsqhkiG90wFAgMDAzANBgsqhkiG90wFAgMBAjAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUH
-AwQwTAYDVR0fBEUwQzBBoD+gPYY7aHR0cDovL2NybC5nZWFudC1wcnYuaGFyaWNhLmdyL0dFQU5U
-LVRDUy1DbGllbnQtQXV0aC1SNS5jcmwwHQYDVR0OBBYEFCFcUBIsi3uUE1kq670tMz37WCGaMA4G
-A1UdDwEB/wQEAwIFoDANBgkqhkiG9w0BAQsFAAOCAYEAYnxTcPN9abeQXN8K8LPynNHsq08LUVDd
-ROKGdsmCdVJLdDLI4VF2qxw/hyPALNb2XrjnYz6F7zpsOjGWh13IpDCN1ydcy14kurOq0XWeXPuJ
-Cwh2+Q35xZX0CiMxDXVV8HbW5DLSkmMti5lAshu47KgJmQc2OqRY2Fx1A4d/eAsNfP0tmF6Z6wpW
-AtTd2F0Tlv9yovu5uRWlSBrQOgzTKA4L9yELBtFwxZfRJXf7TdzJqcEmOxZqcRkA8vGMCTcaRzaQ
-4az1+q6raJV8DvkKjtxrxg+CyjlY2ARFev1ofuPUXlJ2RGA1hhFuSWPIg/FFRiAUYkEkyrFSEmsx
-ZhGuRFuikFrg9+lpqNv2Qnx8VHi0ZWZXRCbua2qv8bpYLv17jVSfUPT65Iha/0zVZiE9YeeE4r62
-WH6cQdKylQM4vw0iVSgdbxA59um3VKi10sVGJnA076uEvCJw05tVpBb7Ac6CpIgPFJ2A/QzhFm5V
-u+aRa6gZyRqPl0tGh5YNmmVkAAAxggLkMIIC4AIBATBoMFQxCzAJBgNVBAYTAk5MMRkwFwYDVQQK
-DBBHRUFOVCBWZXJlbmlnaW5nMSowKAYDVQQDDCFHRUFOVCBUQ1MgQXV0aGVudGljYXRpb24gUlNB
-IENBIDUCEBeFx1xHrSiAJT6+HHr8HuswDQYJYIZIAWUDBAIBBQCggc4wGAYJKoZIhvcNAQkDMQsG
-CSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMjYwOTA1MTQzNzAzWjAtBgkqhkiG9w0BCTQxIDAe
-MA0GCWCGSAFlAwQCAQUAoQ0GCSqGSIb3DQEBCwUAMC8GCSqGSIb3DQEJBDEiBCDPmIHiyF8+Y5YW
-SDm3iUojIVz/Nx91u18ySKS0XBe/HTA0BgkqhkiG9w0BCQ8xJzAlMAoGCCqGSIb3DQMHMA4GCCqG
-SIb3DQMCAgIAgDAHBgUrDgMCBzANBgkqhkiG9w0BAQsFAASCAYBPehPDt7qEAMX9y0Vwa4XcC8gr
-1F+4yVPthtuiBhNEKAYASWbfRUIeNahLwH66g2zfLf/4ZIk6J33eUoVhW25cYnUQ7BGwu1h/DwlP
-8nJOwxd8/XzJ33LBr99NUZPLictNDYHiqHLgKlwSTIbZ+JGS2lXfY6/0SfMCHxDv5S0kmJ3nABn+
-uykzrFpkpQtjQLqkPIQePUJT90M0RdkiFiXbM0sE53jDegc/Yv+cRw0AiZ0gPycdkHIDMNxhyjeO
-P8SmmXvCuXLX5RJAM8gcqTQK4CyueRl+MGsFOR38BqRkr1BpgVSGTf+l8DMS+xMbUGNmUFh7UaWi
-E4VBcNZ8UiA3coL9au9kLrVsbe48Q6ctVBtAr4uuxxpVgThAejnG0vHb25fwtrMJjInUzIC829oK
-Lm9ku1ISVh4Xp7tDL2dwYWz9dSMPs4ywf1QY0RM/1AFDSiQ8ae3c+EYa8CqLQx8A1b8RGSRxsZcB
-T5AFBBjEgYPpNQCwFtWAi8lHesteQoMAAAAAAAA=
-------=_Part_19343756_246654939.1788619023590--
+Thanks,
+Heming
+> +
+> +	if (le32_to_cpu(dx_leaf->dl_fs_generation) != OCFS2_SB(sb)->fs_generation)
+> +		return ocfs2_error(sb,
+> +				   "Dir Index Leaf # %llu has an invalid dl_fs_generation of #%u\n",
+> +				   (unsigned long long)bh->b_blocknr,
+> +				   le32_to_cpu(dx_leaf->dl_fs_generation));
+> +
+>  	if (le16_to_cpu(dx_leaf->dl_list.de_count) !=
+>  	    ocfs2_dx_entries_per_leaf(sb))
+>  		return ocfs2_error(sb,
+> -- 
+> 2.39.3
+> 
