@@ -1,226 +1,152 @@
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011018.outbound.protection.outlook.com [52.101.62.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4E837DAA9
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 18:47:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788634049; cv=none; b=Y3fDjIrGnP/UijtzkPd88JOVh1L3slgWxGz/WdejuxYUmCDrBqQ8u/NBOLf6fwNKQoisspbcLyAyTgl7L/fHBMt6Z/BoP4xpeE0G9FLjM4lY8ebZaiWN/kLbhkwib8W/Ue+cjfbq/S8WDHzIHLvSLAOHNaBIEHyU+qImCqBARiE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788634049; c=relaxed/simple;
-	bh=o/ZuesuPC4jvCYksIb0EkV7sO86FmYjBkDa7SK+0/ac=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=JwJlPPYL2jYCqI72PS8NDvQAYtv1kcah6cM2nl+VHFMF2H/Mgc4q+G3eecTorR57RShwqUmYOU2gUrYBCZUvghm2nmLQdgg13mhTqUXZrLNsyRdIhjxF1Otnqoie+dnpIC8rRRGPPrWVLF4OSEdAmu3Q43k0vwt3gYTfUcc/5g8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=KebWxYx5; arc=none smtp.client-ip=185.67.36.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4086F1A2C04;
+	Sat,  5 Sep 2026 18:52:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.18
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788634342; cv=fail; b=hqL3CC6lmgP0FZWcf43rHnxDDTRuRxekhJcXYOfVBIDzRGWW5MtCBtaYowaaOQPQJrb8C/4kN3m+T5DZ3YeibI10kFdth3Rt3uFRP3R+UXzb4zrgIclArLIs/gMphA5T1p0ixUtmWuqdPHAmzqlnIGN+kT0FkfNmrrk6DoPtxIk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788634342; c=relaxed/simple;
+	bh=2iW1Mp7ZZbfi0qESyMLQumFP6tmNjl3L3M9kQftKOMA=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=EObkI8g9XNTI1jt9t+0EFvTEptyUftSUMLua7rp2rlL532xM4QeIC7pJClRK82XszUwz8gTzMGmoUbAfRiy7dowaoresadMVBxXwf82i63ffC5YrrLaWegRi+ZbEMhoTkQ0dH30YyDBROknONn1VAHrVVKyqFBpI4n7gc3umNaA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=bUigbG4b; arc=fail smtp.client-ip=52.101.62.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="KebWxYx5"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout01.posteo.de (Postfix) with ESMTPS id 324B4240029
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 20:47:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1788634045;
-	bh=oigscXGTpJQB4Kl3D2vzx/9L2fPbaTa0C5Ge7FLEu34=;
-	h=From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
-	b=KebWxYx5AF1TuPp6JfuBpCBMMINnB6thkfoaq3GaBLKAf3/vsPH3CCEZNexOtnGRf
-	 Z+F+l056T89PH/C6npOXzGLyVMVSPGtXnYam8KYJa/yUC8RfpuA8K8IPgTTdbhwO0H
-	 02+fiHggu9QzHpEtGKNEu5y3JD4gEU8iMuWm6sVVLrNZYrpP450rJDEFlVAZ64M0kD
-	 uSNG89D9MtDZIvIZR90xK64phKowYr0a73PJDgHvfU6DZWiOF3mwcOlqjE+Ur0tYOt
-	 QnZoUAT21/Rjl8XFUnt+6bGr4rqurksyl/IW51QNchOZvMtrU+6DNneJzaDGki1asl
-	 +P295li3lGA/g==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4hcj4W2h5Fz9rxB;
-	Sat,  5 Sep 2026 20:47:23 +0200 (CEST)
-From: Markus Probst <markus.probst@posteo.de>
-Date: Sat, 05 Sep 2026 18:47:24 +0000
-Subject: [PATCH v4] rust: serdev: Mitigate race conditions
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="bUigbG4b"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Umumd6PLcNMlrhXXXzaHZmhYp4/Pj9g3JgfZgUORi4zF7KpYi84MOjKeU1rL22gULHCl6HaUizbwWzTVyByAGBE8h9meIjvhJrNGJaWi+kvnAixigaxqrG9/f+KtPVSZbvGyi+zEvqRwcQORC1CwCha+dCkn34MLzbCFqE0angA/8RM0XfI8w7I56HdADVG5K0FKEfIGQb9Si+hef1kLLFOPG/MtxlIxau/UXm6gi+nB+zmHe2JFmkgIpHEW4xnUpZTiNoxSP5COk5/78fM6/AF5kic0xusyn2TWqge/rBJkdVmjF9Ic5Z5jUh7GRPDlP79nLmX5YkQNxhZELgVSpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2iW1Mp7ZZbfi0qESyMLQumFP6tmNjl3L3M9kQftKOMA=;
+ b=r7SLrg9YcazqWsol6qWkCxtkFtEPxmrXh6eIqkuWamPyeQYTyYgSxj0LfJfIAlyquvStHPlLuKcBZNdJA8dBYPPtKdHZ39cjiwiTe2MfbdjcvvIUTA+zRrChqOYhL/r0YGpq3bk8d2HYffxFSPtootUtXNGNIaJFdIsrRIpnNSERaVz8SLd+rDdS6WfNMFIk0Kxx4V1oNQTcHpTKa1BbClV8xIgSmItpOmii/tnrdj1cNQlOmrsnhAjzep4mVcooFTZ88pGX3ohF3slB76J1ja9fuE4BKs6vr6GspPWmQ8c0gJNWy/Ct77n6NUjbOmPrZRe0/Sh2rNEAKygS/gFb0w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2iW1Mp7ZZbfi0qESyMLQumFP6tmNjl3L3M9kQftKOMA=;
+ b=bUigbG4bbImJ2UI6DFI5XcuDJw1z+ny0VbnFzPB63pCVmoV2AlxquuXcRP2y8iq0mCLdAdzkgplkad9tkFe2MCcBPeZcAZU8AsTXA2CT0XI+siKbW8N9iiRshpKa3wywFSEa1Hl4ulZgfOmrVsj6JAFkZ/Nlxzx53TN9KWxm9LM=
+Received: from BN9PR12MB5259.namprd12.prod.outlook.com (2603:10b6:408:100::17)
+ by MN2PR12MB4406.namprd12.prod.outlook.com (2603:10b6:208:268::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.13; Sat, 5 Sep
+ 2026 18:52:18 +0000
+Received: from BN9PR12MB5259.namprd12.prod.outlook.com
+ ([fe80::122c:cca7:c2b3:90ed]) by BN9PR12MB5259.namprd12.prod.outlook.com
+ ([fe80::122c:cca7:c2b3:90ed%2]) with mapi id 15.21.0382.007; Sat, 5 Sep 2026
+ 18:52:18 +0000
+From: "Garg, Shivank" <shivankg@amd.com>
+To: "seanjc@google.com" <seanjc@google.com>
+CC: "jmattson@google.com" <jmattson@google.com>, "david@kernel.org"
+	<david@kernel.org>, "ackerleytng@google.com" <ackerleytng@google.com>,
+	"pshier@google.com" <pshier@google.com>, "shuah@kernel.org"
+	<shuah@kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-kselftest@vger.kernel.org"
+	<linux-kselftest@vger.kernel.org>, "pbonzini@redhat.com"
+	<pbonzini@redhat.com>, "ricarkol@google.com" <ricarkol@google.com>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>
+Subject: Re: [PATCH v2 3/4] KVM: selftests: add get_numa_mem_nodes()
+Thread-Topic: [PATCH v2 3/4] KVM: selftests: add get_numa_mem_nodes()
+Thread-Index: AQHdOesdqtOlDnaM3EG9JvMCmbDNLra50zmAgAaIRwA=
+Date: Sat, 5 Sep 2026 18:52:18 +0000
+Message-ID: <c15678d5ea8f229d9b7eb8afb1f0a0c94faf8e20.camel@amd.com>
+References: <20260901-gmem-selftests-fix-v2-0-5a273153354c@amd.com>
+	 <20260901-gmem-selftests-fix-v2-3-5a273153354c@amd.com>
+	 <apbqEfeCQhgdAvKa@google.com>
+In-Reply-To: <apbqEfeCQhgdAvKa@google.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5259:EE_|MN2PR12MB4406:EE_
+x-ms-office365-filtering-correlation-id: b882de53-5568-40cc-f1a1-08df0b7ecf52
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|7416014|11063799006|56012099006|4143699003|10067099003|18002099003|22082099003|38070700021;
+x-microsoft-antispam-message-info:
+ 5Yy6nmlhH3RZQ5agOP355iNFA7gf7TD3+9bYUjEAkQ1NhB05XsKZ+bPkS5Vf9BK3TEgUBqeVdkcsrzB4gwSXoZ1pC83XJcBtXsJD6PxxNEhTzwDQ+xRgI9EZyZpyLdU9ZdthVMRpqRIR7iBX5ipYNnw5MgBfNRG7hcX2ZesStVBOPTh7I77lrf/stDf8papfPe9EEgPUalM57Qv/++TzhHtgN18VZqK15ibzvUyvdeYbUCFVxqzTCLUOD07XjnClqK3QUc0I/yAEDQg5ITcrQyH44Yzp2Wc89qIErCvqyaXe75Hr5aepqX42q9kE2/RdgeXTItbCm6ryIG86HoHUh6Be0Yu37UquNki3HszFcDtVPwT/TBiVsFqXg0GpAfE1kY0aLKVCouLLkyZqIJQhVzJvEyFeBdDe/4j3Ek+ioEMg9mfi+HMbWe5QwGgpmxxcLzzPDdq9JS9ZQgNxWN6eND0Isi+rdJzvtilLaaKPLczfdEhb05dFa3/E+ITQ9rDUyxiwCyXCZHdTETaojaGEcXquV3ka9UO0XIxQQC1nQ6ntu+y6DchH0yfYSwID3TvqmlEGOlkcJvnv/fBRIZn2qp+uIsGTOpz66jjpHpA+Fc9CKYLVJTJBHeBIbvql0MmDBk37MKMcvO9HrdAi9v77SV1Gzx/pbr+7MbphxdwDctuYPm28dCAq0jqnckEcpauoyg6zHbEtvIlT+efYMshD0g==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5259.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(7416014)(11063799006)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?a3BFT2dYY1ViSVJXbmMzTDA0OWNkTVJHUVRVREp5WkZmaHBNZ2JVRjh4eTl6?=
+ =?utf-8?B?dFNBNUdDb2M4WS8rZnRwNXhTaWdjK0Y0bjdrSHNsT0Z5U3pSK05KOFpaSiti?=
+ =?utf-8?B?RG9COC8rZFRLWkVLMVJiY3NtODV6WUtkdkM5TCt2RVBBMlZ3MUg3QVYzNDNq?=
+ =?utf-8?B?RTJrclFCc1ZBa01zRTVQaHVvcWgyVjI0THJtcnY2bWdlbHlXUVVGNjZuSEhi?=
+ =?utf-8?B?cFozK2RRWDl2SWM2L0hNOS8rVUgzOUpoZHkwaWlrcXZ4MXQ2UUhwTFhaUlN2?=
+ =?utf-8?B?b0JyOXRXQkdtaHlTZGY2L3ZLTVE1akhybnJWbXo3NU5xeHVGNndUNFBScVc0?=
+ =?utf-8?B?ZEFxR3lST29tM1VibnNXVlIydlJHR3JYY2V4YUU2cW16b2Z4SmUxTTRSMmE5?=
+ =?utf-8?B?MExzY1IvYlIyVmU2ekRlRFJBakMzUkNhblIwTFViRXVqT0tpNUk1eVpRQUph?=
+ =?utf-8?B?K3ZTVk05MDdpbTlZRUVHQWMwWmNQQms1SXVKNFhuQm9ZbHJibVp6b3R6SkNL?=
+ =?utf-8?B?azFBc2tHSHMxeWE0S3ZHTlNGb3VDQVM2b2gwTHlJeVkvTFJGK3VheWNYYU8w?=
+ =?utf-8?B?NjQ0WFFSZ0RRYWgzR1dGVmFWTnlFTURVY2JkTEdvZWZQYnR6dXdUVjhoSHVM?=
+ =?utf-8?B?aW1iR0pWY2MvT2NCNUt3TEszY1ZMYmlJVUJOMXlrMUpqREkrbEVvNEhHWHlh?=
+ =?utf-8?B?YmRhQTR1emdYUkQ5cGNsamJkWlYrbFNGbzBhRW9HM3VLS3JoNmFWbndSOWpG?=
+ =?utf-8?B?UktZWXpwQzBxMUt4SS8rdHdER1VxVVNBaHhzUDNwRFNYZy9sMHFSeVJ6K1d3?=
+ =?utf-8?B?R0tnL0Rib0M2N0RUbXgrMTNrbnpmbEw1QXljTDFCNTdVd0pvSml0amQySUt1?=
+ =?utf-8?B?VXFjTTdKZmM4N3NnbzIrQndUcDVtUTJBT05LSURPZFkwYmNHckgwd2RIZENa?=
+ =?utf-8?B?eGFaeEVkMFdpbmgrYS82ZVIySHZmVzdheUJNU2FrVTQ0OVAySW8zUWYyWlcw?=
+ =?utf-8?B?blFGTnhua0FHN0JjZ1FvUUluMldRMmo3MmFGbzkvc1JIQmRmYWtYZkpuYUc4?=
+ =?utf-8?B?d28xK0xBRjZ6RkNEbVlIMXRnblNkVWxSakJlU29kekg2d3QvM2tpNVpYcjVt?=
+ =?utf-8?B?dGd1T2dSckRwMHRTUE9uTTRRYVBpQzVGSW1CeFJPK1JhQUZiY2MzWXJja2lZ?=
+ =?utf-8?B?WkxuQzJadWZoVWZyU1FCVHd4MEZlMVJSalUrUjVIaTRLcVhRNjJ2amJnUGFq?=
+ =?utf-8?B?Nm5nTWZqeElEWDJDU2R0K3cxNEJjaHgyVmp5RHpDaStuUm1SdlFMZzg0Ujlz?=
+ =?utf-8?B?djZlSmVzYU12cW1aS3hEdHpDTkVpUytoaUdLaDJYT09Bb2Z4V2ZIU0hZaWp1?=
+ =?utf-8?B?SHpkUXRvbGsyaWZXOVlhdTh2eFlTOHpqN1lEckNDbXVIVGdyRWM4aTZxYUVJ?=
+ =?utf-8?B?bk0zWTZQUG1zYzhaRS8veld6QUlyQjdHdjN3c1pwSGVad0w3VkF2Wm54RVMv?=
+ =?utf-8?B?U3BMYzJXdGh5VWdOY3hxdWJuTW16K0RxTXZZL2JJMjlPaE9JOWVHUmlaZjU1?=
+ =?utf-8?B?bWZZL1BxL1EreEZmVzFFMVZ2amtkUDFYUlNTNFBMOUIxNlhZdXBOOVU3YnRn?=
+ =?utf-8?B?VVBrcVRmOFIxSzNlUmFoTkFnbUhOQUExeFFKUjZNNW1xU0NMdG5MS2xTR2xq?=
+ =?utf-8?B?UTlrWmtLaXF3UWdWWXhuOTVKS3BKanRnSmJ5b1FqbFhWWkd3bWlyM0ZWNjJN?=
+ =?utf-8?B?Rkw1MTJ6a0tMSThyUU5OQzBNUUZ4N3BINXd6VVg3NDl0eUx5ajg4OEE0L3pG?=
+ =?utf-8?B?QmczRVEyeGltU0ZDSzlnZHFPdU12dmE4eXdBSEFkVEdvNHY4VCtCcnF2UUhy?=
+ =?utf-8?B?bThWaU1QQ2xoU2ZINVdERXZOcWd6NHYrSGdxZStiZzJaUWtZQ2JFOVplNWNa?=
+ =?utf-8?B?ZUN5QmJDUlBmSDRFbWlsM2Z0TjM1UjhSTk51bEJRWHNJTXRQYUhCQTBpeTl2?=
+ =?utf-8?B?ZGkwWEF2UGQ1d2VuRHZWZDNaRkxkRUwxNDhRbGpycVl2ME1HaW12L0tPb1hF?=
+ =?utf-8?B?b0RSdk42R1pJalp2bHhkamx3SkhUdkpZYlNydlQ1dlpRT01uMXRTbG9PbWtP?=
+ =?utf-8?B?VXRFeCtDVU00YzZkVGFJZnpnSkhpQTZBdkRpbm9jdTYxWk1icE1ESFNjdWtO?=
+ =?utf-8?B?cis1OWdGamQyYS9oMkw0d1JmeTY0eGJZRU94RFhTYys5bVp5Uk92WjBhcGtY?=
+ =?utf-8?B?ZlNrZGpKUTNGY0ROYjliUThvR0FRYnFmblU2TFhKTTQwT09lb1dZM2h4N2N2?=
+ =?utf-8?B?L2FFZFY4MzhCZWREK2ZLSzZRMU1nR0hidGxFOWZndGpKTVBma2NsQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <E2962F076A7DA9488AEFDBDC93B4DD3F@namprd12.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260905-rust_serdev_fix-v4-1-31e1bbcc0c00@posteo.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WOy27CMBREfyXyuhf5EZuEFf+BKuTHdXElMNiO1
- Qrl32sCC0QXLGc0Z2auJGMKmMmmu5KENeQQT030Hx2xB336QgiuacIpV3SkPaQpl32DHNa9Dz9
- gUHg/2kFLHEijzgmbvTTuPu86T+YbbbnVPBIJL1ObKvcYMToj2Hg8hrLp6nolIFlGbvQh5BLT7
- 3KvsiX8eCL/PakMGHDUIzdM9lqZ7TnmgnHlcOmq/A3PgYKQzltHFXqOr7x4w4u2bwZFpbLCr3X
- /zM/z/AfPJO0LbAEAAA==
-X-Change-ID: 20260904-rust_serdev_fix-be3ff9c8a5e8
-To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-serial@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Sashiko Bot <sashiko-bot@kernel.org>, 
- Markus Probst <markus.probst@posteo.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3402;
- i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=o/ZuesuPC4jvCYksIb0EkV7sO86FmYjBkDa7SK+0/ac=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBqnGO7KLpMTXKl33nXtPNgH6ll0dqR55m8o0VqL
- kytWAeuhsmJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCapxjuxsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9JOaQ//UiwR8aEn1dOtqTx1ldOydSdbtb9Hkux
- jZg4aXVgiqPrMMU3sfezdR6FkkBUexCXQxGXiquw8sOhDV2YnYfW/3oMXPydYr5CDSYgYTZ9iXV
- iwuOZ+xcB/JOgfqmHHsBe+jMZp9xi1hLWSKqTXs85Y6EvJOJMAy0vGafd5/PNC5RX/jO24rmNJb
- D4OvBeqYzVsAQALUPzeniVB7A55ZObhQ8sVZ1kUSRIfDMiYLWRav4rBkFWd3wOu3gzam1HHdj4E
- o0mAEznT9d2iHxbad8gsxd7QmdqYHLmWKAQepQrA4DJnOa+98vQdLISZOVjupmyBgYpA2kd47SH
- DQsZGqS7eT4NasQR8LT3+dGgRXP7TQLSZja2rVI3DtxKBMugLK1pRspmJerhd/OTo5Q7mcqf7Q5
- Mo16dRV5zbXAvIpzRw+DXQdgOhSV4EksAQ5MqD1zhAS0u4MrLvybkBtK/mVl1pmD7Zg1PMWEe0Z
- ZlII6UZ84ZbyCxMhWasJS872v34kN1n9t94zM0UQAxDctd5b9qFz6tMAdqq2RF0aluzG2KH2r2/
- ArPDOxOcTC/24e4Xlq7KXXVtZnk8QQky6E8XGCYSmDYsJZB392zLI6r5otWTLg/Y5XF0t1TPENO
- xAem6KyihcwtY5F1T8vBfnMw2eHw5Mpx/CxMurqcw+eT1e30r/MY=
-X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
- fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
-  keydata=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
-  aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5259.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b882de53-5568-40cc-f1a1-08df0b7ecf52
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Sep 2026 18:52:18.1757
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: eeeG0gkCRv1kCrVH3BLulAW+wJePQRczQChCpXTBm1Y1vXbAyUicvsmGWPIp9+dG2aehT5Pze7+GRBI5BUso6Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4406
 
-There are currently 2 race conditions:
-- in probe if `Driver::probe` returns Err
-- in unbind
-. In those cases the driver data will be set to NULL before the serdev
-device was closed. If data is received while the driver data is dropped,
-the `receive_buf_callback` might try to access the `active` mutex on a
-null pointer. The race conditions can only occur if `Driver::receive` is
-implemented.
-
-The issue cannot be cleanly fixed without rewriting some logic, which
-might introduce new regressions.
-
-Temporarily disable the use of `Driver::receive`, until fixed in the
-next release.
-
-Fixes: 99f59aa82341 ("rust: add basic serial device bus abstractions")
-Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/linux-serial/20260905000836.C8FC91F00A3D@smtp.kernel.org/
-Closes: https://lore.kernel.org/linux-serial/20260903222159.70A911F000E9@smtp.kernel.org/
-Signed-off-by: Markus Probst <markus.probst@posteo.de>
----
-I will submit a patch (for the next merge cycle) soon, which will
-address this issue and make the probe and unbind code less convoluted.
----
-Changes in v4:
-- remove comments
-- Link to v3: https://patch.msgid.link/20260905-rust_serdev_fix-v3-1-b86056c3f7a4@posteo.de
-
-Changes in v3:
-- mitigate it
-- Link to v2: https://patch.msgid.link/20260905-rust_serdev_fix-v2-0-35dfcd06ef2e@posteo.de
-
-Changes in v2:
-- also fix race condition on unbind
-- Link to v1: https://patch.msgid.link/20260905-rust_serdev_fix-v1-1-2ea92b154a6b@posteo.de
----
- rust/kernel/serdev.rs              |  6 +++---
- samples/rust/rust_driver_serdev.rs | 13 +------------
- 2 files changed, 4 insertions(+), 15 deletions(-)
-
-diff --git a/rust/kernel/serdev.rs b/rust/kernel/serdev.rs
-index 17ca504b7f8d..f4c0f43b5273 100644
---- a/rust/kernel/serdev.rs
-+++ b/rust/kernel/serdev.rs
-@@ -148,9 +148,8 @@ fn drop(self: Pin<&mut Self>) {
- 
- impl<T: Driver> Adapter<T> {
-     const OPS: &'static bindings::serdev_device_ops = &bindings::serdev_device_ops {
--        receive_buf: if T::HAS_RECEIVE {
--            Some(Self::receive_buf_callback)
--        } else {
-+        receive_buf: {
-+            const_assert!(!T::HAS_RECEIVE);
-             None
-         },
-         write_wakeup: Some(bindings::serdev_device_write_wakeup),
-@@ -233,6 +232,7 @@ extern "C" fn remove_callback(sdev: *mut bindings::serdev_device) {
-         T::unbind(sdev, data_pinned);
-     }
- 
-+    #[expect(dead_code)]
-     extern "C" fn receive_buf_callback(
-         sdev: *mut bindings::serdev_device,
-         buf: *const u8,
-diff --git a/samples/rust/rust_driver_serdev.rs b/samples/rust/rust_driver_serdev.rs
-index 51b4898cd855..3fd3eef15371 100644
---- a/samples/rust/rust_driver_serdev.rs
-+++ b/samples/rust/rust_driver_serdev.rs
-@@ -4,10 +4,7 @@
- 
- use kernel::{
-     acpi,
--    device::{
--        Bound,
--        Core, //
--    },
-+    device::Core,
-     of,
-     prelude::*,
-     serdev,
-@@ -60,14 +57,6 @@ fn probe<'bound>(
- 
-         Ok(Self { sdev: sdev.into() })
-     }
--
--    fn receive<'bound>(
--        sdev: &'bound serdev::Device<Bound>,
--        _this: Pin<&Self>,
--        data: &[u8],
--    ) -> usize {
--        sdev.write(data).unwrap_or_default() as usize
--    }
- }
- 
- impl Drop for SampleDriver {
-
----
-base-commit: e5e04726cdd043e309677071ab1b65a4b18f422b
-change-id: 20260904-rust_serdev_fix-be3ff9c8a5e8
-
+T24gVHVlLCAyMDI2LTA5LTAxIGF0IDA4OjA2IC0wNzAwLCBTZWFuIENocmlzdG9waGVyc29uIHdy
+b3RlOg0KPiBPbiBUdWUsIFNlcCAwMSwgMjAyNiwgU2hpdmFuayBHYXJnIHdyb3RlOg0KPiA+IFRo
+ZSB4QVBJQyBJUEkgdGVzdCB1c2VzIE1QT0xfRl9NRU1TX0FMTE9XRUQgdG8gZ2V0IHRoZSBtZW1v
+cnkgbm9kZXMNCj4gPiBhdmFpbGFibGUgdG8gdGhlIGN1cnJlbnQgcHJvY2Vzcy4gTW92ZSB0aGUg
+cXVlcnkgdG8gbnVtYWlmLmggYXMNCj4gPiBnZXRfbnVtYV9tZW1fbm9kZXMoKSBzbyBvdGhlciBL
+Vk0gc2VsZnRlc3RzIGNhbiB1c2UgaXQuDQo+ID4gDQo+ID4gQ2FsbCBnZXRfbWVtcG9saWN5KCkg
+ZGlyZWN0bHkgaW5zdGVhZCBvZiB1c2luZyB0aGUgYXNzZXJ0LW9uLWZhaWx1cmUNCj4gPiBrdm1f
+Z2V0X21lbXBvbGljeSgpIHdyYXBwZXIuIFRoZSB4QVBJQyB0ZXN0IGFscmVhZHkgYXNzZXJ0cyBp
+dHMgdHdvDQo+ID4gbm9kZSByZXF1aXJlbWVudC4NCj4gDQo+IE5BSy4gIFRoaXMgaXMgbm90IGFu
+IGltcHJvdmVtZW50LiAgZ2V0X21lbXBvbGljeSgpIHN0cmFpZ2h0IHVwIHNob3VsZCBub3QgZmFp
+bA0KPiBmb3IgdGhpcyB1c2FnZS4NCg0KQWdyZWVkLiBJIHdpbGwgZHJvcCB0aGlzIHBhdGNoLg0K
+WW91ciBrdm1fZ2V0X251bWFfbWVtb3J5X25vZGVzKCkgLyBrdm1fZ2V0X25leHRfbnVtYV9ub2Rl
+KCkgaGVscGVycyBhcmUNCm1vcmUgdXNlZnVsIGhlcmUuDQoNClRoYW5rcywNClNoaXZhbmsNCg==
