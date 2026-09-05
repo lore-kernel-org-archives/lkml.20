@@ -1,197 +1,410 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012043.outbound.protection.outlook.com [40.93.195.43])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A452E33DEF7
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 06:11:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788588702; cv=fail; b=P78c5twoPUP7x4GeB61IH9PqFZ+1S7PjdJNF++X3+M8RyMPHfHXKtDVL6Zv/5YZ57vqxKEaICtczB68i8i4h7QqQiJrjrSAQHwzN0jmvYe7tXc7ZiUSAUPHH7CqSvsEP26bXrB7u9DW8M4bhnK1BOqYLmnhwFZU0neU9zB9DnMg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788588702; c=relaxed/simple;
-	bh=YVwlNWXvzIpn9L+a/zdWyTz/MhyRdZDDVVpQmAvYFEs=;
-	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
-	 In-Reply-To:MIME-Version; b=a9xwcdL8YdrP1s3QxykQJPp7v73mLCRY/5fbHhbWzOiniEJTxqWK7Sm0xLYc9YD/Kun3UZJA82SF/MlKjC6cnzQwb7qpxVQLuDyS8tWWyjPGcW2TfyCcagzToTvjEzTXyPQeF//cmgqbMpsQOwrXn4RfMC5WpBpRC2nJ4aGyIWI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=mHgZdEB5; arc=fail smtp.client-ip=40.93.195.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D2C7340DA6
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 06:13:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788588809; cv=none; b=aBX3vBMhv5wk6QPI5PBWY+5GV4fRpbG6o+CYB0zZDJecIsG3aLik/jny3SnL5RDTlX4jRPMA6YjIKDBo6uL0wSM/FspQXVlUtUHbJsBfy3lgmCXVIZmZ4hSI+gQ0Q09wh+i3sI3BaOPY3RiNCWo1s5AiwqtoU2U0mQ1cERI+DAk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788588809; c=relaxed/simple;
+	bh=yEdwamXMI29bHYwAh3IdEnB5iQaZ7BP8howmNG+W2dk=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=R7g3KQIIFD1EEJ74AhK8mF4KqByD5WlVbRjp2qEnq2rHUbQ4LPkjiF5xtTzXkxM3/x8LxtKlo4XuOfdnVBlvWLJ18OA/CyhAmsk7bIzaddUx2b/oZGMDOKtgl6CoxtHGbkQnz3jiPVa/c0bAe5/kghX+Pq1GTRkG25dpUl9ETAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Eo9RXTHj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="mHgZdEB5"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yRMwGrGeuGblWEGMwIipkL1aG1z3ywsJObzULm24iVbuX+g1bNfez016hUv7blY+Um81PioHJ5y0gNbQwEPGOo2I3yyMhm06zTWx076GsTidNMfdCZVvbN3Mjlq/fFkOn3VHYa1KZVsJ2uM7TAFS6skkQA7vgCAFRzXNDlXVMESGnvIwrCUgUj5U/N8lEPc40xSEt/AtmuIvb6FAmsYVLk+rtTjIGeye/QmLqksAR0XK4NfDiwg3/NsPh+5fLLX6V3xW+3tIIIYt7eF9RNT9ybFJHYue+uIv65nQFCdVQqIVL3H+PxiL8TSIhYh2C+vdacnVGWdHmjn+GbWeBIR4rQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MT6LyIex1KPu3qHroDd/R9cG41Ltot2wTA9/mRxBPRY=;
- b=Rdmlc0jqkti7DnYO4biZtMpXrqIkmSljiMSox7J81qcyy7yC6DZXxC0ffcbiyWSl/Q1KYJPWXjil2jEVR2BU48j8IG/CrxfU2DpwApBfIlqe/OMld+Iw7Azc4iOUeAR5ifK4iZJTGONT2UCvF/Ui6McXextpXQup1eHgs7syTCIaSNeAd7+YxvBPkMybsmYuxqJYPOHwnydEfXQL1QqlrjtG5zHRTBkzbMsC3eQ0kMM0Ko3LW7T3i+EPPnbrfqTy8nHy0CrQ9Z9cE7qtK3OyQ6llZH+J4Jg7UX9Hycl9NdlAbff+V7CvsjIKCxtRVElvD1IPG+zQY7M7O+s6neyeYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MT6LyIex1KPu3qHroDd/R9cG41Ltot2wTA9/mRxBPRY=;
- b=mHgZdEB5/wKdut7rrIPCnVgI5nqPNtKkXAtR3Dl7PY3nLUTsLxj6nPofmtyHtMRm8Zq8GdiR4+ssluuAz40mi6ZWtBN+yduHbr5qWUWnGzXCZFPAU+4AGKc6LlFqppbVGXcRfmiJBQEsdqskSDe87HfR22/HnPw+KPuF7zM3SB0dr5imhBiqCMgXe872zkc31SEvrqQNMAJMJW0aduu6kmz0H3mIMx5UG7Bkxp+CyGbFgrqvDZRd5+u1dz6OqpOEAYjec394R7+0nXm7L5EjY+WCVSQYLX3Wtlu9VM3MmdsHw6eYw7rDFnvaBEk+nIx+WcCSqqvtmkg+LSTACml32A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by DS4PR12MB9561.namprd12.prod.outlook.com (2603:10b6:8:282::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.13; Sat, 5 Sep
- 2026 06:11:34 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0382.007; Sat, 5 Sep 2026
- 06:11:33 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 05 Sep 2026 15:11:30 +0900
-Message-Id: <DL75RX18QG1G.M0BWB9Q6CHP4@nvidia.com>
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "John Hubbard" <jhubbard@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
- "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex Gaynor"
- <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
- <linux-kernel@vger.kernel.org>, "Will Pierce" <wpierce@nvidia.com>
-Subject: Re: [PATCH v3 05/14] gpu: nova-core: add the per-architecture GIN
- CPU interrupt HAL
-Content-Transfer-Encoding: quoted-printable
-References: <20260903031514.1515905-1-jhubbard@nvidia.com>
- <20260903031514.1515905-6-jhubbard@nvidia.com>
-In-Reply-To: <20260903031514.1515905-6-jhubbard@nvidia.com>
-X-ClientProxiedBy: OSTPR01CA0085.jpnprd01.prod.outlook.com
- (2603:1096:604:218::15) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Eo9RXTHj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10EAF1F00A3D;
+	Sat,  5 Sep 2026 06:13:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788588807;
+	bh=QrxI7mqAy55p6XQPqdWZBFEz5nGe3PIJJErn0xZ3rqU=;
+	h=Date:From:To:Cc:Subject;
+	b=Eo9RXTHjiF1zmiF2AfHHVJDrRi8j0L7mdhXcKGNgwWEHenF1nafDZe/9k0yjMEpg9
+	 0xjJZgUGJsu+XNkw1ql430TygypYwCNho0PElvlOePig0GBkpxhzs/OmALHr2Os1tB
+	 90vSDE2gpfXRrSx5Y1Voed09nLlmenJvzV72oWKi7IXBbVDCPLedJee1Fgo/krNTGD
+	 dB+Jj8TFQF2VhpL8ebUJJpgehsEOoceytZVQA6rU9+BYGt5maUcgNJ8c7C4xQcDQvY
+	 GYouyyX4O946x3UjqQkhbKIg5uBov0XsJKoyKFXN6TFNRm1NrPSZ7uVkm+xzWS7h54
+	 L1RBucaPf6HBg==
+Date: Fri, 4 Sep 2026 23:13:26 -0700
+From: Kees Cook <kees@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	Kees Cook <kees+treewide@kernel.org>,
+	Manuel Ebner <manuelebnerli@mailbox.org>
+Subject: [GIT PULL] kmalloc_obj() conversions for v7.3-rc2
+Message-ID: <202609042302.CE61BD262@keescook>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DS4PR12MB9561:EE_
-X-MS-Office365-Filtering-Correlation-Id: e99ef69c-15cb-4f7b-16e3-08df0b1488d6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|366016|23010399003|376014|7416014|1800799024|10067099003|6133799003|22082099003|18002099003|11063799006|5023799004|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	ZMJCXBy+Wt36dTTdrM5dOhLCLM+2Y88eWxc5lQPWKsu8ePYy3e7ZYWPYk3639rvkAqWKcO2ruFkYqS9g8YTBzreGktPKNodDawl7Gz6tKol4DVFE565SQtVtRU41lmw1o1unHr73eP6GjdjSJU9Z8VwyNueWfe1f8C8qdHNIcAw6YbV/3cxjxoGxpJGQRWwK99MK/ioi9RLNMA+JU7iX1jUaeWZGIm49riv6Smv6RBP5azstgA2uXbnriSmhKK21tRT9bWyfTQY3zOvK+oZWwhNfPPDZnoabZahew5X5XCS+ZTm4ci1QS8+kGgQ6CLbV45XTEEMMRl+viKNUemZ0eiaBiAqt5HEQFoh9UYzLtU9wUgg1kl2XYRvYX6NgZN8DDHWLol0mycNtgiX5rDCE+7mYA+1KC0fR3/Mu3l1hBP4Z9+UkJLs9YmnfA6O5s2nWTbSkJoc4K6OAvUgbN4y/RfMlZIBfer9ehYJntcYoht4vfsZSiAbUH5haLEIVNQrWGZXR6Egg97q2xvpMU61HTehpRAk9IdfSdLHlYazt6AVx4efzeIUYrdAnrA9AeujbjIT7+4pUqrre4B7xpbuyFq9uRFvFzBhhZL9fdeJfwI1DsA0yzJ2b4PF1XiOEKgseX9q4gvWPjBaS2eeUC03rYeg4EUj9G+H9+lprTtDvD3Y=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(23010399003)(376014)(7416014)(1800799024)(10067099003)(6133799003)(22082099003)(18002099003)(11063799006)(5023799004)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZTcvSFFkVlIyYytqNEFwaVZQaDJMN2FjcWFMTFJkamtmY01nMXFmV2FUNHI0?=
- =?utf-8?B?V25lSmdLbTg0UFo1WTlCbDhVdXIrRGhKNmlNOVQ4S014Z3ErOExPZDVXalUy?=
- =?utf-8?B?cjg4RzFUR1ZVaFQrUkxsK3dCL005aEcydEtZdjJja1QyOHpnSDZ5WkVaT01o?=
- =?utf-8?B?NmpHaHBra0s4akZSbWFPVWt1ejUxUDJ2UHdTOVVGYmR0NEwrUGpZNEYvVjdZ?=
- =?utf-8?B?Q21JTGk5dTh2ZkdVL2FReGNzTTV0K0ZJSVBId1NUallaM3BJN1dwaGVoUGVH?=
- =?utf-8?B?SnpZSVIyQmZUWE1TWkJBVlUzNitGN3VTVEFNUHZTZkRkR0xpRWV2cXNmbjJx?=
- =?utf-8?B?NDcvNks0Smd0NEx5K2J3VVpKaTl2RHhTWSttK1ZXUjkzTURnNDVHckRzVVBF?=
- =?utf-8?B?amVOUEZrelFqVXpOTFB5clhCNitnWk1ONFY5clBiaXd4dUtiMjFMaCtqZzBJ?=
- =?utf-8?B?SDhnTFFSNnF4WThGcTYveHNhaml2N2dLelYwYjJBTHFCc2pjWVdGOVRpMWVw?=
- =?utf-8?B?U1lMa0JjVXJuclQzZHo4cFVsRVZuTFJpMGRGdEVPY0JTTXg1Zk9QNUlwYmVJ?=
- =?utf-8?B?VytWQU1PSzlSV0p5MXdELzhXaDVGanZydUpya1kxWndLTHU2bmk5VVNpcHNr?=
- =?utf-8?B?WkJncDFjZ1JCN0liZFhJY01OK1hyN0dDVS9CbldOM1R2RmVqNWNDZTVpdHlo?=
- =?utf-8?B?dGEvZkMvSzkvVCsxZTFpMHNsVC9ZTy96ZU9zZ3FjUk1yQkV3aWpmUWxFMklj?=
- =?utf-8?B?R1ZxaXpPcnZIWklZaUY5MitKU0s3NDZTaFM0NTlLL0tqL3VvQWJwOTVvT1ZW?=
- =?utf-8?B?WXBzcDdTbDNIdTNlS2M5SEVOTWo5SkVUeWtjb2FLWTlBZ2ZqZDgrWVBTZXBv?=
- =?utf-8?B?SitoNzF2TmlkbzhhREVkaXE2QVpDdnZQcGhUaTdvWFkxMUMvQ1dBdEVIWGRZ?=
- =?utf-8?B?Mm1Zbm9NMW90T3dSUGc0ZFNFTWxxcmRKMVY1NVVvWFZiclppWDdoUHR5Zmg2?=
- =?utf-8?B?OCtSMGN5V21XUnhDSFhnczNwNTdWcVA5b2F4VnJOWUd6a0pucSt0dVdvem1H?=
- =?utf-8?B?eWVRbUthME5Hd0k2ODc2NFNmZzhRSGhQS1hXNVZMb1FqRklZUFVscjlOTTVS?=
- =?utf-8?B?OFRMMTF3M3FyVGJNeTNzejRPSnRQV04xQzMzVlpBQjZWakQ0NGI0T0RNa2FD?=
- =?utf-8?B?WFY0TmFldzAxZ1R3M3VaZWtXL1BlRUY2ME9LZ2c1aGNQdnArb0UxWmNxd1Yw?=
- =?utf-8?B?T3g4Rzl6Ujc2Z2NzblhReTdpQ3VxOHZhWngzODhSekV5T2JMc1lZWTErN2Vs?=
- =?utf-8?B?WFJ6U0tnSUIrMzlmdHp4RXdaMTNPNG1Xc1FFMkppK0F2VjdtRzB6K3p0ZEFQ?=
- =?utf-8?B?ZzRTU0l1ay9ubzRLamJrbzFwajh0VTVQU1FpSG1mSUFEK3BmRHEwTVpSK2FJ?=
- =?utf-8?B?Qmg2Tlpvd3p6OWlHU2pDMEFOd0NqL1d0TGx1U1V5MzhZSlZWY20xOWdCRzBU?=
- =?utf-8?B?WS9BL2lXcUY5a1Z2RWhEMjVIU0xnMiszQkRnUFZWV2RLZzJmc0Zwc01GQ0hX?=
- =?utf-8?B?N2pJQVE3eHVRQ2ZOblc1NmlOUTRIT1pKM1RXMFliWnUyNVJUbng1OEdXa2xP?=
- =?utf-8?B?dThIbVMxRWw1djZsbUVJS3cyeTJRajkxdWJnTjNvS1NUcXRsQmhGTUcvQzdD?=
- =?utf-8?B?WnJhQkpsbnZWc3FNYkVwRm0za0ZKQkUxOTN4TlVhd2JYQjQzVFVZdXJrRXpt?=
- =?utf-8?B?eE5JRjlxV3VBdW0xbFBpbjJ5cWJqWng2QXZqNHNsYVR2Q1JQMFVNUVVaUDRi?=
- =?utf-8?B?UU9VdS9GZGxWUkp4a0NHQktMTjloZW5lY2Mwa01uQjNuRXFiSGJINHZnNU53?=
- =?utf-8?B?NkpzNG1QSVFqdTArSnV0bUQ4Wm1BKy9Td2Q2VndYNVJSek1ZRTFYelZJZ3lR?=
- =?utf-8?B?eCtNemR2M1BZSHdVM1E4NVFpQ0VWSlFaTHBZL1RuTEt6QUZZcytHQnIrYm1I?=
- =?utf-8?B?MXFiaDUrUkVoK3VQUFdMbUhNa3J2enF4V2NocEdPQWE1djhtc2R0eHhEd0xC?=
- =?utf-8?B?YWo3WG5FdzFObjBadUpDR2NIYTZsNmQ1R2NEdnhYRHFsUmpqNVBab0VyWTRl?=
- =?utf-8?B?a21SVnRFQ241NUxzcms5U0Q1NTVrQjkvT2NCdVVXMnB1MkwyQ21waVpDQmky?=
- =?utf-8?B?Mk5zYldrRUZvNDZBRjNkNG41dHNmZXRnMi9JWWVINkZjTkh4NXpyV1NyV3Iv?=
- =?utf-8?B?K3ViNXBSRTUwSVpnc2ZIV21scGk4TWs0czQ0Uk5ocytueE90RENtT2ErdHdH?=
- =?utf-8?B?aXB6T0lDeHAvWmUyanVUUnIzMGlwV01YdlZPQ0lwd0JMWGJ1VU9oQlNXZ1Ar?=
- =?utf-8?Q?6Q4Y2BD+jEx3oyKeiMgMqWX/H1Y4XVlxkVmB6tTf8bFcb?=
-X-MS-Exchange-AntiSpam-MessageData-1: QH1xoaYqLTK7OA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e99ef69c-15cb-4f7b-16e3-08df0b1488d6
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 06:11:33.7464
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IB4yghuJMokRmqHbghMSIRYsAg+Ql4TGKJflsQHAIY2BwNDVr8DCKdJW/becGPupsn7/8SRDn3N2Pnn5NArDzw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9561
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Thu Sep 3, 2026 at 12:15 PM JST, John Hubbard wrote:
-> GIN, the GPU Interrupt and Notification unit, is the GPU's interrupt
-> controller. Each PCIe function has its own tree, whose leaf count
-> depends on the GPU family.
->
-> Message-signaled delivery stops after each edge until the CPU rearms it,
-> and the rearm write differs by family and interrupt type:
->
-> * Pre-Hopper MSI writes an EOI through the BAR0 PCI configuration space
->   mirror.
->
-> * MSI for Hopper and later cycles the TOP enable bits of every serviced
->   subtree.
->
-> * MSI-X on any family cycles the bits of the handler's own subtree.
->
-> Provide the leaf count and the rearm method through a per-architecture
-> interrupt HAL, and name the interrupt type with nova-core's own two
-> variants rather than the PCI core's three, which include the
-> level-triggered INTx that nova-core never allocates.
->
-> Assisted-by: Cursor:claude-opus-5
-> Reviewed-by: Will Pierce <wpierce@nvidia.com>
-> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-> ---
->  drivers/gpu/nova-core/irq.rs           |  14 ++++
->  drivers/gpu/nova-core/irq/hal.rs       | 106 +++++++++++++++++++++++++
->  drivers/gpu/nova-core/irq/hal/gh100.rs |  29 +++++++
->  drivers/gpu/nova-core/irq/hal/tu102.rs |  28 +++++++
->  4 files changed, 177 insertions(+)
->  create mode 100644 drivers/gpu/nova-core/irq/hal.rs
->  create mode 100644 drivers/gpu/nova-core/irq/hal/gh100.rs
->  create mode 100644 drivers/gpu/nova-core/irq/hal/tu102.rs
->
-> diff --git a/drivers/gpu/nova-core/irq.rs b/drivers/gpu/nova-core/irq.rs
-> index 3066ceeb850c..d21dee1b89a0 100644
-> --- a/drivers/gpu/nova-core/irq.rs
-> +++ b/drivers/gpu/nova-core/irq.rs
-> @@ -8,5 +8,19 @@
->  //!
->  //! See `Documentation/gpu/nova/core/interrupts.rst`.
-> =20
-> +mod hal;
->  mod interrupt_tree;
->  mod regs;
-> +
-> +/// The message-signaled interrupt type a vector allocation obtained.
-> +///
-> +/// nova-core allocates MSI-X or MSI and nothing else, so the level-trig=
-gered INTx that
-> +/// [`kernel::pci::IrqType`] also names has no representation here.
-> +#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-> +pub(crate) enum MsiType {
+Hi Linus,
 
-This type is module-local and can stay private (same for the `msi_type`
-method).
+Please pull these kmalloc_obj() conversions for v7.3-rc2.
+
+If this is too late in the cycle, no worries, I'll wait and do it in the
+second week of the v7.4 merge window for its -rc1. I only discovered
+earlier this week that Coccinelle had missed a bunch in the v7.0
+tree-wide conversions due to its (silent) failure to parse functions
+using scope_guard() and family[1]. Since -rc2 hadn't cut yet, I thought
+if you wanted these now, I could get them to you.
+
+Anyway, here's the commit log repeated:
+
+This is another run of the Coccinelle script for converting kmalloc()
+family of allocations to kmalloc_obj() via the existing rules in
+scripts/coccinelle/api/kmalloc_objs.cocci
+
+This catches both the set of kmalloc() uses added since the first
+kmalloc_obj() conversions in v7.0 and adds a large group missed in the
+first pass due to Coccinelle not interacting well with the cleanup.h
+scoped_...() family of macros[1]. I worked around this with spatch's
+"--macro-file" argument to a file with all the scoped_...() macros mapped
+to Coccinelle's YACFE_ITERATOR[2] as that was the closest viable control
+flow indicator I could find.
+
+Build tested allmodconfig on x86, arm64, arm, loongarch, mips, powerpc,
+riscv, and s390 with no new warnings.
+
+Link: https://lore.kernel.org/lkml/202609021314.8A9C0B8@keescook/ [1]
+Link: https://github.com/coccinelle/coccinelle/blob/master/standard.h [2]
+
+Thanks!
+
+-Kees
+
+The following changes since commit 986c24e0fe44f844b44d365b71ce831947f50298:
+
+  Merge tag 'hid-for-linus-2026090401' of git://git.kernel.org/pub/scm/linux/kernel/git/hid/hid (2026-09-04 09:25:38 -0700)
+
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/kees/linux.git tags/kmalloc_obj-v7.3-rc2
+
+for you to fetch changes up to 3a2c4d55e32ad65efebdb6de44eef3bfa08bb49d:
+
+  treewide: refresh kmalloc_obj() conversions (2026-09-04 21:37:00 -0700)
+
+----------------------------------------------------------------
+kmalloc_obj conversions for v7.3-rc2
+
+- Run scripts/coccinelle/api/kmalloc_objs.cocci for v7.3
+
+----------------------------------------------------------------
+Kees Cook (2):
+      drm/amd/display: Fix harmless type mismatch in allocation
+      treewide: refresh kmalloc_obj() conversions
+
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h        |  2 +-
+ mm/damon/tests/vaddr-kunit.h                       |  2 +-
+ drivers/media/platform/renesas/rcar-isp/core.c     |  2 +-
+ drivers/net/ethernet/amd/pds_core/core.c           |  3 +-
+ drivers/nvme/host/core.c                           |  3 +-
+ drivers/opp/core.c                                 |  4 +-
+ drivers/pmdomain/core.c                            |  2 +-
+ drivers/power/sequencing/core.c                    |  2 +-
+ kernel/events/core.c                               |  5 +--
+ kernel/futex/core.c                                |  6 +--
+ net/wireless/core.c                                |  5 +--
+ arch/arm64/crypto/aes-neonbs-glue.c                |  4 +-
+ arch/arm64/kvm/nested.c                            |  2 +-
+ arch/loongarch/kvm/intc/dmsintc.c                  |  2 +-
+ arch/mips/bcm47xx/buttons.c                        |  8 ++--
+ arch/powerpc/sysdev/xive/common.c                  |  2 +-
+ arch/riscv/kvm/vcpu_pmu.c                          |  4 +-
+ arch/s390/kvm/s390/s390.c                          |  4 +-
+ drivers/accel/rocket/rocket_job.c                  |  2 +-
+ drivers/acpi/irq.c                                 |  8 ++--
+ drivers/base/property.c                            |  2 +-
+ drivers/block/drbd/drbd_nl_gen.c                   | 40 +++++++++--------
+ drivers/block/ublk_drv.c                           |  4 +-
+ drivers/block/zram/backend_lz4.c                   |  2 +-
+ drivers/clk/ti/composite.c                         |  2 +-
+ drivers/clk/ti/mux.c                               |  2 +-
+ drivers/cpufreq/amd-pstate.c                       |  2 +-
+ drivers/crypto/inside-secure/eip93/eip93-common.c  |  5 +--
+ .../crypto/intel/qat/qat_common/qat_comp_algs.c    |  3 +-
+ drivers/crypto/ti/dthev2-aes.c                     |  8 ++--
+ drivers/devfreq/hisi_uncore_freq.c                 |  2 +-
+ drivers/dma-buf/st-dma-fence.c                     |  2 +-
+ drivers/dma-buf/udmabuf.c                          |  4 +-
+ drivers/dma/switchtec_dma.c                        |  7 ++-
+ drivers/edac/versalnet_edac.c                      |  2 +-
+ drivers/firmware/arm_scmi/driver.c                 |  2 +-
+ drivers/firmware/qcom/qcom_tzmem.c                 |  8 ++--
+ drivers/firmware/ti_sci.c                          |  2 +-
+ drivers/fpga/dfl-afu-dma-region.c                  |  2 +-
+ drivers/gpio/gpio-aggregator.c                     |  4 +-
+ drivers/gpio/gpio-mpsse.c                          |  2 +-
+ drivers/gpio/gpio-sim.c                            |  3 +-
+ drivers/gpio/gpio-virtuser.c                       |  3 +-
+ drivers/gpio/gpiolib-cdev.c                        |  2 +-
+ drivers/gpio/gpiolib.c                             |  4 +-
+ drivers/gpu/buddy.c                                | 13 ++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c   |  5 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c        |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |  5 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c            |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c    |  6 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c           |  6 +--
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           | 12 ++---
+ .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     |  2 +-
+ .../display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c  |  8 ++--
+ .../display/amdgpu_dm/tests/amdgpu_dm_irq_test.c   | 18 ++++----
+ .../display/amdgpu_dm/tests/amdgpu_dm_plane_test.c |  4 +-
+ .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   |  2 +-
+ drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c   |  2 +-
+ .../amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c   |  4 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c           |  3 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_surface.c   |  2 +-
+ .../gpu/drm/amd/display/dc/dccg/dcn42/dcn42_dccg.c |  2 +-
+ .../gpu/drm/amd/display/dc/dccg/dcn60/dcn60_dccg.c |  2 +-
+ drivers/gpu/drm/amd/display/dc/gpio/hw_ddc.c       |  2 +-
+ .../amd/display/dc/irq/dcn42/irq_service_dcn42.c   |  2 +-
+ .../amd/display/dc/irq/dcn60/irq_service_dcn60.c   |  3 +-
+ .../drm/amd/display/dc/pg/dcn42/dcn42_pg_cntl.c    |  2 +-
+ .../amd/display/dc/resource/dcn30/dcn30_resource.c |  4 +-
+ .../display/dc/resource/dcn302/dcn302_resource.c   |  4 +-
+ .../display/dc/resource/dcn303/dcn303_resource.c   |  4 +-
+ .../amd/display/dc/resource/dcn31/dcn31_resource.c |  4 +-
+ .../display/dc/resource/dcn314/dcn314_resource.c   |  4 +-
+ .../display/dc/resource/dcn315/dcn315_resource.c   |  4 +-
+ .../display/dc/resource/dcn316/dcn316_resource.c   |  4 +-
+ .../amd/display/dc/resource/dcn32/dcn32_resource.c |  4 +-
+ .../display/dc/resource/dcn321/dcn321_resource.c   |  4 +-
+ .../amd/display/dc/resource/dcn35/dcn35_resource.c |  4 +-
+ .../display/dc/resource/dcn351/dcn351_resource.c   |  4 +-
+ .../amd/display/dc/resource/dcn36/dcn36_resource.c |  4 +-
+ .../display/dc/resource/dcn401/dcn401_resource.c   |  4 +-
+ .../amd/display/dc/resource/dcn42/dcn42_resource.c | 50 ++++++++++-----------
+ .../display/dc/resource/dcn42b/dcn42b_resource.c   | 46 +++++++++----------
+ .../amd/display/dc/resource/dcn60/dcn60_resource.c | 42 +++++++++--------
+ drivers/gpu/drm/amd/display/modules/power/power.c  |  5 +--
+ .../gpu/drm/amd/display/modules/power/power_abm.c  |  3 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c    |  2 +-
+ .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c   |  4 +-
+ drivers/gpu/drm/amd/ras/core/cmd.c                 |  4 +-
+ drivers/gpu/drm/drm_exec.c                         |  2 +-
+ drivers/gpu/drm/drm_syncobj.c                      |  2 +-
+ drivers/gpu/drm/qxl/qxl_display.c                  |  2 +-
+ drivers/gpu/drm/tilcdc/tilcdc_panel_legacy.c       |  2 +-
+ drivers/gpu/drm/verisilicon/vs_plane.c             |  4 +-
+ drivers/gpu/drm/virtio/virtgpu_prime.c             |  4 +-
+ drivers/gpu/drm/vkms/vkms_configfs.c               |  8 ++--
+ drivers/gpu/drm/xe/xe_amc.c                        |  2 +-
+ drivers/gpu/drm/xe/xe_vm.c                         |  2 +-
+ drivers/hid/hid-asus.c                             |  6 +--
+ drivers/hid/hid-steam.c                            |  4 +-
+ drivers/hid/hid-steelseries-arctis.c               |  2 +-
+ drivers/hv/channel.c                               |  5 +--
+ drivers/hv/hv_balloon.c                            |  2 +-
+ drivers/hwmon/applesmc.c                           | 17 ++++---
+ drivers/hwtracing/coresight/coresight-core.c       |  2 +-
+ drivers/i2c/busses/i2c-gpio.c                      |  2 +-
+ drivers/i3c/master/amd-i3c-master.c                |  4 +-
+ drivers/iio/adc/ad7280a.c                          |  4 +-
+ drivers/iio/buffer/industrialio-buffer-dmaengine.c |  2 +-
+ drivers/iio/inkern.c                               |  2 +-
+ drivers/infiniband/core/nldev.c                    |  2 +-
+ drivers/infiniband/hw/hns/hns_roce_debugfs.c       |  3 +-
+ drivers/input/input.c                              |  2 +-
+ drivers/input/keyboard/adp5585-keys.c              |  4 +-
+ drivers/input/keyboard/atkbd.c                     |  2 +-
+ drivers/input/misc/ims-pcu.c                       |  2 +-
+ drivers/input/mouse/psmouse-smbus.c                |  2 +-
+ drivers/input/serio/serio_raw.c                    |  2 +-
+ drivers/iommu/iommufd/device.c                     |  2 +-
+ drivers/iommu/iommufd/driver.c                     |  2 +-
+ drivers/iommu/iommufd/hwpt_noiommu.c               |  2 +-
+ drivers/iommu/vsi-iommu.c                          |  2 +-
+ drivers/irqchip/irq-gic-v5-irs.c                   |  2 +-
+ drivers/irqchip/irq-loongarch-ir.c                 |  2 +-
+ drivers/irqchip/irq-realtek-rtl.c                  |  2 +-
+ drivers/mailbox/riscv-sbi-mpxy-mbox.c              |  2 +-
+ drivers/md/dm-inlinecrypt.c                        |  2 +-
+ drivers/md/md-llbitmap.c                           |  4 +-
+ drivers/media/platform/allegro-dvt/allegro-core.c  |  2 +-
+ drivers/media/platform/amd/isp4/isp4_interface.c   |  6 +--
+ drivers/media/rc/igorplugusb.c                     |  2 +-
+ drivers/mfd/mfd-core.c                             |  4 +-
+ drivers/mfd/ucb1x00-assabet.c                      |  2 +-
+ drivers/mtd/mtd_virt_concat.c                      |  4 +-
+ drivers/mtd/mtdconcat.c                            |  2 +-
+ drivers/net/dsa/mv88e6xxx/tcflower.c               |  2 +-
+ drivers/net/ethernet/alibaba/eea/eea_adminq.c      |  7 ++-
+ drivers/net/ethernet/alibaba/eea/eea_net.c         |  8 ++--
+ drivers/net/ethernet/alibaba/eea/eea_pci.c         |  2 +-
+ drivers/net/ethernet/alibaba/eea/eea_ring.c        |  2 +-
+ drivers/net/ethernet/alibaba/eea/eea_rx.c          |  5 +--
+ drivers/net/ethernet/alibaba/eea/eea_tx.c          |  3 +-
+ drivers/net/ethernet/amd/pds_core/fw.c             |  6 +--
+ drivers/net/ethernet/cadence/macb_main.c           |  2 +-
+ drivers/net/ethernet/cisco/enic/enic_admin.c       |  2 +-
+ drivers/net/ethernet/cisco/enic/enic_main.c        |  6 +--
+ .../net/ethernet/freescale/dpaa2/dpaa2-switch.c    |  5 +--
+ drivers/net/ethernet/intel/libie/controlq.c        |  3 +-
+ .../net/ethernet/marvell/octeontx2/af/cn20k/npc.c  | 13 +++---
+ drivers/net/ethernet/mellanox/mlx5/core/eswitch.c  |  3 +-
+ .../ethernet/mellanox/mlx5/core/eswitch_offloads.c |  2 +-
+ .../net/ethernet/mellanox/mlx5/core/sf/hw_table.c  |  2 +-
+ .../mellanox/mlx5/core/steering/sws/dr_icm_pool.c  |  2 +-
+ drivers/net/ethernet/meta/fbnic/fbnic_irq.c        |  2 +-
+ drivers/net/ethernet/microsoft/mana/gdma_main.c    |  8 ++--
+ drivers/net/ntb_netdev.c                           |  3 +-
+ drivers/net/wireless/ath/ath12k/ahb.c              |  2 +-
+ .../net/wireless/intel/iwlwifi/mld/regulatory.c    |  3 +-
+ drivers/net/wireless/mediatek/mt76/mt7921/regd.c   |  2 +-
+ drivers/net/wireless/mediatek/mt76/mt7925/main.c   |  2 +-
+ drivers/net/wireless/mediatek/mt76/mt7925/regd.c   |  2 +-
+ drivers/net/wireless/morsemicro/mm81x/mac.c        |  9 ++--
+ drivers/net/wireless/morsemicro/mm81x/yaps.c       | 10 ++---
+ drivers/net/wireless/nxp/nxpwifi/cfg80211.c        | 14 +++---
+ drivers/net/wireless/nxp/nxpwifi/cmdevt.c          |  2 +-
+ drivers/net/wireless/nxp/nxpwifi/ie.c              | 14 +++---
+ drivers/net/wireless/nxp/nxpwifi/init.c            |  2 +-
+ drivers/net/wireless/nxp/nxpwifi/main.c            |  8 ++--
+ drivers/net/wireless/nxp/nxpwifi/scan.c            | 13 +++---
+ drivers/net/wireless/nxp/nxpwifi/sta_cfg.c         |  2 +-
+ drivers/net/wireless/nxp/nxpwifi/sta_cmd.c         |  2 +-
+ drivers/net/wireless/nxp/nxpwifi/uap_event.c       |  2 +-
+ drivers/nvdimm/region_devs.c                       |  3 +-
+ drivers/nvme/host/pci.c                            |  2 +-
+ drivers/pci/endpoint/pci-ep-msi.c                  |  4 +-
+ drivers/platform/x86/amd/hsmp/acpi.c               |  5 +--
+ .../platform/x86/hp/hp-bioscfg/enum-attributes.c   |  4 +-
+ drivers/platform/x86/intel/pmc/pwrm_telemetry.c    |  3 +-
+ drivers/power/reset/reboot-mode.c                  |  6 +--
+ drivers/power/sequencing/pwrseq-pcie-m2.c          |  2 +-
+ drivers/power/supply/power_supply_core.c           |  6 +--
+ drivers/ptp/ptp_chardev.c                          |  2 +-
+ drivers/s390/block/dasd.c                          |  2 +-
+ drivers/scsi/fnic/fnic_debugfs.c                   |  2 +-
+ drivers/scsi/leapraid/leapraid_func.c              | 52 +++++++++-------------
+ drivers/scsi/scsi_scan.c                           |  2 +-
+ drivers/soc/bcm/brcmstb/common.c                   |  2 +-
+ drivers/spi/spi-offload.c                          |  2 +-
+ drivers/staging/greybus/raw.c                      |  2 +-
+ drivers/staging/media/atomisp/pci/sh_css.c         | 30 +++++--------
+ .../staging/media/atomisp/pci/sh_css_firmware.c    |  4 +-
+ drivers/tee/qcomtee/user_obj.c                     |  3 +-
+ drivers/thunderbolt/stream.c                       | 12 +++--
+ drivers/tty/moxa.c                                 |  3 +-
+ drivers/tty/vt/consolemap.c                        |  3 +-
+ drivers/ufs/core/ufs-txeq.c                        |  2 +-
+ drivers/ufs/host/ufs-qcom.c                        |  2 +-
+ drivers/usb/gadget/function/f_ncm.c                |  2 +-
+ drivers/usb/usbip/usbip_common.c                   |  2 +-
+ drivers/xen/grant-table.c                          |  2 +-
+ fs/9p/vfs_dentry.c                                 |  3 +-
+ fs/afs/dir.c                                       |  2 +-
+ fs/afs/symlink.c                                   |  3 +-
+ fs/binfmt_misc.c                                   |  7 ++-
+ fs/ceph/addr.c                                     |  2 +-
+ fs/ceph/mds_client.c                               |  2 +-
+ fs/ceph/subvolume_metrics.c                        |  2 +-
+ fs/coredump.c                                      |  2 +-
+ fs/ext4/fast_commit.c                              |  4 +-
+ fs/fuse/file.c                                     |  3 +-
+ fs/fuse/readdir.c                                  |  2 +-
+ fs/hfs/bnode.c                                     |  2 +-
+ fs/namespace.c                                     |  2 +-
+ fs/nfsd/export.c                                   |  7 ++-
+ fs/nfsd/nfs4callback.c                             |  4 +-
+ fs/nfsd/nfs4state.c                                |  7 +--
+ fs/nfsd/nfsctl.c                                   |  2 +-
+ fs/ntfs/bitmap.c                                   |  2 +-
+ fs/ntfs/compress.c                                 |  8 ++--
+ fs/ntfs/dir.c                                      | 16 +++----
+ fs/ntfs/ea.c                                       |  2 +-
+ fs/ntfs/index.c                                    |  2 +-
+ fs/ntfs/logfile.c                                  |  2 +-
+ fs/ntfs/mft.c                                      | 10 +++--
+ fs/ntfs/runlist.c                                  | 14 +++---
+ fs/ntfs/super.c                                    |  2 +-
+ fs/overlayfs/readdir.c                             |  2 +-
+ fs/smb/client/cifs_swn.c                           |  2 +-
+ fs/smb/client/dfs_cache.c                          |  2 +-
+ fs/smb/client/smb2inode.c                          |  2 +-
+ fs/smb/server/ksmbd_work.c                         |  2 +-
+ fs/smb/server/smb2pdu.c                            |  2 +-
+ fs/xfs/libxfs/xfs_da_btree.c                       |  4 +-
+ init/initramfs_test.c                              |  2 +-
+ io_uring/napi.c                                    |  2 +-
+ io_uring/zcrx.c                                    |  4 +-
+ kernel/bpf/diagnostics.c                           |  2 +-
+ kernel/bpf/hashtab.c                               |  2 +-
+ kernel/bpf/liveness.c                              |  2 +-
+ kernel/bpf/log.c                                   |  2 +-
+ kernel/bpf/verifier.c                              |  5 +--
+ kernel/dma/map_benchmark.c                         |  3 +-
+ kernel/irq/manage.c                                |  2 +-
+ kernel/jump_label.c                                |  5 +--
+ kernel/kthread.c                                   |  2 +-
+ kernel/sched/ext/cid.c                             | 16 +++----
+ kernel/sched/ext/ext.c                             |  2 +-
+ kernel/sched/ext/sub.c                             |  2 +-
+ kernel/trace/fprobe.c                              |  2 +-
+ kernel/trace/ring_buffer.c                         |  4 +-
+ kernel/trace/trace_eprobe.c                        |  2 +-
+ kernel/trace/trace_remote.c                        | 10 ++---
+ lib/test_rhashtable.c                              |  2 +-
+ lib/test_workqueue.c                               |  4 +-
+ lib/tests/kunit_iov_iter.c                         |  2 +-
+ net/batman-adv/hard-interface.c                    |  2 +-
+ net/bluetooth/hci_sync.c                           |  3 +-
+ net/devlink/netlink.c                              |  2 +-
+ net/devlink/param.c                                |  7 ++-
+ net/ipv4/tcp_ipv4.c                                |  4 +-
+ net/mac80211/nan.c                                 |  3 +-
+ net/mctp/test/route-test.c                         |  2 +-
+ net/mctp/test/utils.c                              |  2 +-
+ net/netfilter/nf_tables_api.c                      |  2 +-
+ net/netfilter/nfnetlink_cttimeout.c                |  2 +-
+ net/rds/info.c                                     |  2 +-
+ net/rxrpc/key.c                                    |  2 +-
+ net/sched/act_gate.c                               |  4 +-
+ net/sched/act_tunnel_key.c                         |  2 +-
+ net/sunrpc/auth_gss/gss_krb5_crypto.c              |  5 +--
+ net/sunrpc/svcauth_unix.c                          |  4 +-
+ net/sunrpc/xdr.c                                   |  3 +-
+ net/unix/af_unix.c                                 |  4 +-
+ net/wireless/nl80211.c                             |  9 ++--
+ security/integrity/ima/ima_queue.c                 |  3 +-
+ sound/core/compress_offload.c                      |  4 +-
+ sound/core/control.c                               |  6 +--
+ sound/core/control_led.c                           |  2 +-
+ sound/core/init.c                                  |  2 +-
+ sound/core/misc.c                                  |  2 +-
+ sound/core/oss/mixer_oss.c                         |  2 +-
+ sound/core/pcm_native.c                            |  2 +-
+ sound/core/seq/oss/seq_oss_synth.c                 |  2 +-
+ sound/core/seq/seq_clientmgr.c                     |  2 +-
+ sound/core/seq/seq_virmidi.c                       |  2 +-
+ sound/core/timer.c                                 |  2 +-
+ sound/drivers/aloop.c                              |  4 +-
+ sound/isa/gus/gus_dma.c                            |  2 +-
+ sound/pci/cs46xx/cs46xx_lib.c                      |  2 +-
+ sound/pci/ctxfi/ctamixer.c                         |  4 +-
+ sound/pci/ctxfi/ctdaio.c                           |  4 +-
+ sound/pci/ctxfi/ctsrc.c                            |  4 +-
+ sound/pci/ctxfi/cttimer.c                          |  2 +-
+ sound/pci/emu10k1/emufx.c                          |  2 +-
+ sound/soc/codecs/simple-amplifier.c                |  2 +-
+ sound/soc/generic/simple-card-utils.c              |  2 +-
+ sound/soc/meson/gx-formatter.c                     |  2 +-
+ sound/soc/qcom/qdsp6/q6afe.c                       |  2 +-
+ sound/soc/sdca/sdca_functions.c                    | 19 ++++----
+ sound/soc/sof/sof-client-probes-ipc4.c             |  2 +-
+ sound/soc/sof/sof-client.c                         |  2 +-
+ sound/sparc/amd7930.c                              |  2 +-
+ 304 files changed, 637 insertions(+), 726 deletions(-)
+
+-- 
+Kees Cook
