@@ -1,222 +1,157 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EC1E33F58B
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 03:08:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D3822472AF;
+	Sat,  5 Sep 2026 03:08:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788577690; cv=none; b=D8BF+lcuDIBLCAaSYJXEOtgEJ3wdUGll0XdUJVdFWybxnUQ5f36jUBie3KBKIRtvkr15XBJq+vV4xZD2uRSD7DOWMo8kqrWDzGrKHg/66Z7MVq8X8Ykz1VBicAtbB5K2mjiqODHL9SAsR9C448elMvlmGcfFEF6zcMJ8cQy5y54=
+	t=1788577704; cv=none; b=d3uRokIbyhXiwuWfyaMOjJH2GcHHdENufdvPhYdxXhrvOd1VVj7nbZgD8OrAjEhbqO8Nl5MZhXm+Angw8o901RnV/L+x0BpV/r7zvIz38A0TN5+F68g16FXCk1dQGRgQ1ffWEtIykmx9YspWCbRr+4Vv8XGD5f8ITurID5I5d4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788577690; c=relaxed/simple;
-	bh=5Urq4eDrVzgAFrC+1rVv6neHrmL/040TUCMXwO44DOo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n36rVoDvdynguWeEXKUJfsBwHP0OUDjH2E0Qzhvve22zoBgpMvb6DjUElHNnH/ST3ajxFOBTEuPwZep1NPF/FxP0DlFQDKYQcFYugNjvrVqMho/mzwEmUuBwmNsM0nu4vcm8dpnj2yl3ruDjcf2sodpVQRBfzRjx+aMBPajtKcY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n5xN/s7I; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788577704; c=relaxed/simple;
+	bh=aAn6XXVpZxkC4xYEu2hExGNPc3HYP0pNew+8EKplVpE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=L9dgpaVI4aitVXT9N5EEvhwtV6ylBdlsBuxz2YfntlHG5LxS3WiVj2yL6bz2GPJMGQ22j2L34p5RkNJ+JfH+bmzJ/Ri1ZO4N/XUemRoI9fjzuO2yab1XgpoW35L2mYsdWbyJQLolqQpzkLdtat5B42t1rjBgBvgKxo0TWn+7MHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=6XxG4jvV; arc=none smtp.client-ip=113.46.200.222
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n5xN/s7I"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d72ae08fa1so15988915ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 20:08:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788577689; x=1789182489; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5OrCwhNdL89P0wEagSgqn6hXLxeGiWl+S+zwJeufNsc=;
-        b=n5xN/s7IpxIq5ONyFOUUY69eWqo6z422bXAHlsJZu3IfC8U2tdRTX8TG3wxykXBHV7
-         BJtkcu0wa5KULJeR8pCP4zUx44+8JvXrhE9SIwH72fBIoVrYxdQfwUEr1CQFwgywHl74
-         0dDzIMxGb1L+im6zTgAfPqwK5NVZ/05CDEsjXFH19t2Q4gAb7osgvQrc5HuU81iIk7JJ
-         jnsEwNCQxhNf0yrDfZStafcdmWvnJoP2vKkZkbHaIz14tBJgiej3nLbVNVNVsyHnAurR
-         +Dpu/4dKDgsLn3cTwJTBy2d2PXHet0JxTUB5cjeZcsgMQpeDl/hjhZHLO+8+Z4UydcQU
-         020Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788577689; x=1789182489;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5OrCwhNdL89P0wEagSgqn6hXLxeGiWl+S+zwJeufNsc=;
-        b=PMRRKMAITQV6n5SrOnjibQzGJiJOVh4bU1MqNKWxhXF9m3I/qLW9j20JZVLiYQuukV
-         3kyu/oeUL0GRgpl3yeJhWnZJ9mVPcRsYi9GZmMi91ARrnYcUeiIqL7yIu5adxHj2Jq9w
-         EMJBIQoxKpti7+BoJvWOqK9mvIEV79JbBASuxqTYq09KZvEzwPa3Y3gJWv74U1dKPz9D
-         Qo7e9z3pDdTAcBX2aCCeSuntK+aFIr/Bl3BWa/rOdy+FX76DtG+ee2LWW2C6GpOLn8VO
-         frd53T15N+raq0VEMzQ2RoRu+AItol5qt0m3HDSYYR60ETDH6ZCEPZN1L6oz0GOcnUTw
-         jq+g==
-X-Forwarded-Encrypted: i=1; AKwUvByoLx/79icH7R9R/pDiylrJyQv99kubUCXPTyHS4zQE/b7q6UZYUm8ahZXzsfMVnQKZh1x5Px9pbW1oyso=@vger.kernel.org
-X-Gm-Message-State: AFuF++lrwMjMB21Wq3lgr6/AjhAuPFUDnVnCaJbuMurSZbzc1rNdBzUe
-	rIjhbm9yVC9LFsHed7Qtu9asKQgxCy7VmQ4YmZW5T1icKvVJsHp3jH1W
-X-Gm-Gg: AYBFou39lnD80k+VQm0pcQ+eMsHpHDHC/OqiU8Yput6WabVF4e4M+tNE6Tpf68EBAW5
-	7rp+izclIxTX0LcIg0iaz8Ce50RqLJ5aPymBhXQaVv9UkolRZWETyEuvAkPYQ1iULumvh+xPjBF
-	aUjJlkCDHEb6GTxC3+TStz8Y+WnlSNfN4x9+9eR7YwtzVxc7kuSR7mSoKmzGiSjPkUqzudyE8Xz
-	zfY9PwkOSbrZvln7nd0Ju+pllUDdPrTwcKiBD/XFkKdvEVF48boxHpyJSD1P3g8HdKRS50RG6bI
-	p6M7ur+dImohtViYCJkSr0fa3qP6Pniw+CbD3p0mZJ8hDV0uzDCdyN6HkS45AB1jTqt8tIdJUG9
-	o91lKCzhAAnppyooOeueHuj1C+S9A3J7BgTTJwDQkyjmm3WxyXLdngqmusylYcZC8ktafBNopy6
-	0DQXVoKopBBIfdi3cz1N+ugs7RhoyoRTl7BNTi6Id393yVIEVXi+qLgluP8RtfK7IQ7vrUA/e1U
-	LvjmY4smoc2OtFzsRyWJXgwXw==
-X-Received: by 2002:a17:903:1b0b:b0:2d9:3083:a3ac with SMTP id d9443c01a7336-2db12620112mr179499975ad.15.1788577688543;
-        Fri, 04 Sep 2026 20:08:08 -0700 (PDT)
-Received: from archsung (186-244-17-112.user3p.vtal.net.br. [186.244.17.112])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa31b24sm10344142eec.13.2026.09.04.20.08.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 20:08:08 -0700 (PDT)
-From: Felipe Calliari <calliarifelipe@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Felipe Calliari <calliarifelipe@gmail.com>
-Subject: [PATCH 3/3] media: ov02c10: Accept a 26 MHz external clock
-Date: Sat,  5 Sep 2026 00:07:32 -0300
-Message-ID: <20260905030732.39196-3-calliarifelipe@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260905030732.39196-1-calliarifelipe@gmail.com>
-References: <20260905030732.39196-1-calliarifelipe@gmail.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="6XxG4jvV"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=Rau380fv/C3PIMO8upUmN2ndspPXutqa2G+T2w4vG2g=;
+	b=6XxG4jvVSS2yP6Twqz++PqKHMDiJ+xiJaTnRUXE78I1KRddCIO/l3t/PVROSi3vqBhDcqvNBg
+	VH80GddnFqp8jbISNmo1hRfzgljAx81PxpoS6zKcY9grHjWlBZvaEeeXrhQwRmKAsbXe389JuT9
+	gCkFoSX+kvTN1iDo/uk6uI0=
+Received: from mail.maildlp.com (unknown [172.19.163.214])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4hcJ0B121DzLlXB;
+	Sat,  5 Sep 2026 10:57:14 +0800 (CST)
+Received: from kwepemf100007.china.huawei.com (unknown [7.202.181.221])
+	by mail.maildlp.com (Postfix) with ESMTPS id CE5C74056C;
+	Sat,  5 Sep 2026 11:08:05 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemf100007.china.huawei.com
+ (7.202.181.221) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sat, 5 Sep
+ 2026 11:08:04 +0800
+Message-ID: <3e7fb313-021a-49d0-9def-fd9f03e3c2bb@huawei.com>
+Date: Sat, 5 Sep 2026 11:08:04 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf v2] bpf, riscv: Make arena support depend on ZACAS
+Content-Language: en-US
+To: Chen Pei <cp0613@linux.alibaba.com>, <ast@kernel.org>,
+	<daniel@iogearbox.net>, <andrii@kernel.org>, <memxor@gmail.com>,
+	<bjorn@kernel.org>, <puranjay@kernel.org>
+CC: <ihor.solodrai@linux.dev>, <eddyz87@gmail.com>, <martin.lau@linux.dev>,
+	<song@kernel.org>, <yonghong.song@linux.dev>, <jolsa@kernel.org>,
+	<emil@etsalapatis.com>, <pjw@kernel.org>, <palmer@dabbelt.com>,
+	<guoren@kernel.org>, <bpf@vger.kernel.org>,
+	<linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+References: <20260902061451.1416-1-cp0613@linux.alibaba.com>
+From: Pu Lehui <pulehui@huawei.com>
+In-Reply-To: <20260902061451.1416-1-cp0613@linux.alibaba.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemf100007.china.huawei.com (7.202.181.221)
 
-Several Meteor Lake / Lunar Lake designs (e.g. the Samsung Galaxy Book3/4
-series) wire the OV02C10 to a 26 MHz external clock instead of the
-19.2 MHz assumed so far. The IPU6 ipu-bridge forwards the rate from the
-ACPI SSDB verbatim as the "clock-frequency" property, so probe() just
-rejects it today:
+Hi Pei,
 
-  ov02c10 i2c-OVTI02C1:00: external clock 26000000 is not supported
+On 2026/9/2 14:14, Chen Pei wrote:
+> The arena range tree allocates its nodes with kmalloc_nolock() since
+> commit f8c67d8550ee ("bpf: Use kmalloc_nolock() in range tree").
+> kmalloc_nolock() requires slab caches with cmpxchg128 support
+> (__CMPXCHG_DOUBLE); on riscv cmpxchg128 is provided by the ZACAS
+> extension. On systems without ZACAS every arena map creation fails
 
-Rename OV02C10_MCLK to OV02C10_MCLK_19_2MHZ, add OV02C10_MCLK_26MHZ and
-accept both.
+This limitation has a significant impact, as much of the hardware on the 
+market lacks ZACAS support given that it is not mandatory in RVA23.
 
-The PLL register tables are the 19.2 MHz ones; OmniVision's 26 MHz PLL
-programming is not publicly available. With a 26 MHz input the same
-dividers make every internal clock, and therefore the MIPI link, run
-26/19.2 = 1.3542x faster: a ~541.7 MHz link and ~40 fps instead of the
-nominal 400 MHz / 30 fps. Rather than leave link-frequency and
-pixel-rate describing the 19.2 MHz case, add a second
-V4L2_CID_LINK_FREQ menu entry (400 MHz * 26 / 19.2) and select it when
-the external clock is 26 MHz. pixel-rate is derived from the link
-frequency and scales with it, so the frame rate and exposure times
-reported to userspace match the hardware, and the IPU6 CSI-2 receiver
-programs its D-PHY high-speed frequency range and bandwidth budget for
-the rate the sensor actually transmits.
+> with a misleading -ENOMEM.
+> 
+> Report the missing support instead: make bpf_jit_supports_arena()
+> return system_has_cmpxchg128() where it is defined, so arena map
 
-The ipu-bridge fwnode only lists the nominal 400 MHz link frequency
-(keyed by ACPI HID, not by clock rate), so v4l2_link_freq_to_bitmap()
-still matches on the 400 MHz entry and the 541.7 MHz index is selected
-explicitly for the 26 MHz case.
+Originally, I thought rv_ext_enabled(ZACAS) && 
+IS_ENABLED(CONFIG_TOOLCHAIN_HAS_ZACAS) would make it more explicit, but 
+system_has_cmpxchg128() seems to better capture what we were missing.
 
-On a Meteor Lake test machine a single CSI-2 "frame sync error" may
-still be logged by the IPU6 receiver at stream start, after which
-capture runs cleanly; this looks like a sensor PLL settling transient
-and is not addressed here.
 
-While touching the clock check, terminate its error string with a
-newline.
+Acked-by: Pu Lehui <pulehui@huawei.com>
 
-Signed-off-by: Felipe Calliari <calliarifelipe@gmail.com>
----
- drivers/media/i2c/ov02c10.c | 45 ++++++++++++++++++++++++++++++++-----
- 1 file changed, 40 insertions(+), 5 deletions(-)
+> creation fails with -EOPNOTSUPP on systems without ZACAS. The macro
+> is only defined when both CONFIG_RISCV_ISA_ZACAS and
+> CONFIG_TOOLCHAIN_HAS_ZACAS are enabled, so guard it with #ifdef the
+> same way mm/slab.h consumes it, and reject arena otherwise. This
+> matches how arena BPF_CMPXCHG instructions are already gated on ZACAS
+> in bpf_jit_supports_insn().
+> 
+> Fixes: f8c67d8550ee ("bpf: Use kmalloc_nolock() in range tree")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
+> ---
+> Changes since v1:
+> - Guard system_has_cmpxchg128() with #ifdef instead of calling it
+>    unconditionally: the macro is only defined when both
+>    CONFIG_RISCV_ISA_ZACAS and CONFIG_TOOLCHAIN_HAS_ZACAS are enabled
+>    (as reported by sashiko-bot), so v1 broke the build when either
+>    was disabled. This mirrors how mm/slab.h consumes the macro.
+> 
+> Why #ifdef rather than rv_ext_enabled(ZACAS)? The predicates differ
+> exactly in the configurations that matter:
+> 
+>    scenario (ISA_ZACAS/TOOLCHAIN/hw)  v1           rv_ext_enabled  #ifdef
+>    ISA=n or TOOLCHAIN=n               build fails  rejects         rejects
+>    ISA=y TOOLCHAIN=n hw has ZACAS     build fails  accepts, then   rejects
+>                                                    -ENOMEM again
+>    ISA=y TOOLCHAIN=y hw has ZACAS     exact        exact           exact
+> 
+> rv_ext_enabled(ZACAS) does not check CONFIG_TOOLCHAIN_HAS_ZACAS, but
+> slab's cmpxchg128 - and thus kmalloc_nolock() - does require it, so
+> on an old toolchain with ZACAS hardware it would accept arena maps
+> and bring back the very -ENOMEM failure this patch fixes. The #ifdef
+> form builds in every configuration and matches exactly the
+> kmalloc_nolock() availability gate in mm/slab.h.
+> 
+> This issue was reported by sashiko-bot:
+> https://sashiko.dev/#/patchset/20260901120013.16104-1-cp0613@linux.alibaba.com?part=1
+> 
+> Question for reviewers: should the arena selftests gate on ZACAS,
+> e.g. probing it via riscv_hwprobe() (RISCV_ISA_EXT_ZACAS) and
+> SKIPping cleanly on systems without the extension?
 
-diff --git a/drivers/media/i2c/ov02c10.c b/drivers/media/i2c/ov02c10.c
-index 114db38c0..5184eb1cc 100644
---- a/drivers/media/i2c/ov02c10.c
-+++ b/drivers/media/i2c/ov02c10.c
-@@ -16,7 +16,16 @@
- #include <media/v4l2-fwnode.h>
- 
- #define OV02C10_LINK_FREQ_400MHZ	400000000ULL
--#define OV02C10_MCLK			19200000
-+/*
-+ * The PLL register tables target a 19.2 MHz input clock.  On boards that
-+ * clock the sensor at 26 MHz the same dividers yield a 26/19.2 = 1.3542x
-+ * faster MIPI link (and frame rate).  OmniVision's 26 MHz PLL values are
-+ * not public, so rather than re-normalise the link the driver advertises
-+ * the real, scaled link frequency: 400 MHz * 26 / 19.2 = 541.667 MHz.
-+ */
-+#define OV02C10_LINK_FREQ_541MHZ	541666667ULL
-+#define OV02C10_MCLK_19_2MHZ		19200000
-+#define OV02C10_MCLK_26MHZ		26000000
- #define OV02C10_RGB_DEPTH		10
- 
- #define OV02C10_NATIVE_WIDTH		1928
-@@ -345,8 +354,14 @@ static const char * const ov02c10_test_pattern_menu[] = {
- 	"Color Bar type 4",
- };
- 
-+enum {
-+	OV02C10_LINK_FREQ_400MHZ_IDX,	/* 19.2 MHz external clock */
-+	OV02C10_LINK_FREQ_541MHZ_IDX,	/* 26 MHz external clock */
-+};
-+
- static const s64 link_freq_menu_items[] = {
--	OV02C10_LINK_FREQ_400MHZ,
-+	[OV02C10_LINK_FREQ_400MHZ_IDX] = OV02C10_LINK_FREQ_400MHZ,
-+	[OV02C10_LINK_FREQ_541MHZ_IDX] = OV02C10_LINK_FREQ_541MHZ,
- };
- 
- static const struct ov02c10_mode supported_modes[] = {
-@@ -396,6 +411,9 @@ struct ov02c10 {
- 	/* MIPI lane info */
- 	u32 link_freq_index;
- 	u8 mipi_lanes;
-+
-+	/* External (sensor) clock rate, Hz */
-+	u32 xvclk_freq;
- };
- 
- static inline struct ov02c10 *to_ov02c10(struct v4l2_subdev *subdev)
-@@ -507,7 +525,8 @@ static int ov02c10_init_controls(struct ov02c10 *ov02c10)
- 	ov02c10->link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr,
- 						    &ov02c10_ctrl_ops,
- 						    V4L2_CID_LINK_FREQ,
--						    ov02c10->link_freq_index, 0,
-+						    ov02c10->link_freq_index,
-+						    ov02c10->link_freq_index,
- 						    link_freq_menu_items);
- 	if (ov02c10->link_freq)
- 		ov02c10->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-@@ -875,6 +894,21 @@ static int ov02c10_check_hwcfg(struct ov02c10 *ov02c10)
- 	/* v4l2_link_freq_to_bitmap() guarantees at least 1 bit is set */
- 	ov02c10->link_freq_index = ffs(link_freq_bitmap) - 1;
- 
-+	/*
-+	 * The IPU6 ipu-bridge always describes the nominal 19.2 MHz link
-+	 * (400 MHz) in the fwnode, keyed by ACPI HID, even on boards that
-+	 * clock the sensor at 26 MHz.  There the real link frequency is
-+	 * 26/19.2 higher; advertise it so the CSI-2 receiver programs its
-+	 * D-PHY frequency band and bandwidth budget for the rate the sensor
-+	 * actually transmits.
-+	 */
-+	if (ov02c10->xvclk_freq == OV02C10_MCLK_26MHZ)
-+		ov02c10->link_freq_index = OV02C10_LINK_FREQ_541MHZ_IDX;
-+
-+	dev_dbg(dev, "%u Hz external clock, link freq %lld Hz\n",
-+		ov02c10->xvclk_freq,
-+		link_freq_menu_items[ov02c10->link_freq_index]);
-+
- 	if (bus_cfg.bus.mipi_csi2.num_data_lanes != 1 &&
- 	    bus_cfg.bus.mipi_csi2.num_data_lanes != 2) {
- 		ret = dev_err_probe(dev, -EINVAL,
-@@ -924,10 +958,11 @@ static int ov02c10_probe(struct i2c_client *client)
- 				     "failed to get imaging clock\n");
- 
- 	freq = clk_get_rate(ov02c10->img_clk);
--	if (freq != OV02C10_MCLK)
-+	if (freq != OV02C10_MCLK_19_2MHZ && freq != OV02C10_MCLK_26MHZ)
- 		return dev_err_probe(ov02c10->dev, -EINVAL,
--				     "external clock %lu is not supported",
-+				     "external clock %lu is not supported\n",
- 				     freq);
-+	ov02c10->xvclk_freq = freq;
- 
- 	v4l2_i2c_subdev_init(&ov02c10->sd, client, &ov02c10_subdev_ops);
- 
--- 
-2.55.0
+riscv isn't currently integrated into the BPF CI, and handling this 
+locally via qemu is fairly straightforward, so I'm not entirely sure 
+this is strictly necessary.
 
+> 
+>   arch/riscv/net/bpf_jit_comp64.c | 10 +++++++++-
+>   1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/riscv/net/bpf_jit_comp64.c b/arch/riscv/net/bpf_jit_comp64.c
+> index 74efe4b138d2..151031e97a24 100644
+> --- a/arch/riscv/net/bpf_jit_comp64.c
+> +++ b/arch/riscv/net/bpf_jit_comp64.c
+> @@ -2128,7 +2128,15 @@ bool bpf_jit_supports_ptr_xchg(void)
+>   
+>   bool bpf_jit_supports_arena(void)
+>   {
+> -	return true;
+> +	/*
+> +	 * The arena range tree uses kmalloc_nolock(), which needs
+> +	 * cmpxchg128, provided by ZACAS on riscv.
+> +	 */
+> +#ifdef system_has_cmpxchg128
+> +	return system_has_cmpxchg128();
+> +#else
+> +	return false;
+> +#endif
+>   }
+>   
+>   bool bpf_jit_supports_insn(struct bpf_insn *insn, bool in_arena)
