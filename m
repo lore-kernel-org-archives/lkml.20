@@ -1,186 +1,197 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012043.outbound.protection.outlook.com [40.93.195.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3548135CB95
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 06:11:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788588662; cv=none; b=MqvSurs9sHHcC9OwSr1+rLzsEjew/5xdMwBbxdp2jrJtQpVqUwnPfg+1ntreTWdiGcVxRi88dNNQNj/Rp5pWzbKy5uOLz7VdfHiG3+o+cGg03QoeMlsEp6lCteJn6J1RET+62SuflJXs8zgsdFeGUQmeQF09ZCvGhV2u6e6Jto8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788588662; c=relaxed/simple;
-	bh=ry4vGBSSpg5YRi73Rr4LpPYlWBEEFTeBm5uwyKo224Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XAozNBs4RQoCTq9p65OhDrn1D9HUvpeovwVVPt1osxMo1F4r7K71y66ERfJrDUxbSU6RC1lKDbb89M9pnUu73Yfw8LHZIJ+IXepDGwtwOIrw2JD8dMgw424p2vjOQrIDoDq3NYi3rSnCrLgbpRT8tPMjn2WKl024bqIvm77PN60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BSoQ5SMW; arc=none smtp.client-ip=209.85.215.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A452E33DEF7
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 06:11:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788588702; cv=fail; b=P78c5twoPUP7x4GeB61IH9PqFZ+1S7PjdJNF++X3+M8RyMPHfHXKtDVL6Zv/5YZ57vqxKEaICtczB68i8i4h7QqQiJrjrSAQHwzN0jmvYe7tXc7ZiUSAUPHH7CqSvsEP26bXrB7u9DW8M4bhnK1BOqYLmnhwFZU0neU9zB9DnMg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788588702; c=relaxed/simple;
+	bh=YVwlNWXvzIpn9L+a/zdWyTz/MhyRdZDDVVpQmAvYFEs=;
+	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
+	 In-Reply-To:MIME-Version; b=a9xwcdL8YdrP1s3QxykQJPp7v73mLCRY/5fbHhbWzOiniEJTxqWK7Sm0xLYc9YD/Kun3UZJA82SF/MlKjC6cnzQwb7qpxVQLuDyS8tWWyjPGcW2TfyCcagzToTvjEzTXyPQeF//cmgqbMpsQOwrXn4RfMC5WpBpRC2nJ4aGyIWI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=mHgZdEB5; arc=fail smtp.client-ip=40.93.195.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BSoQ5SMW"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc439aa0078so1520592a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 23:11:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788588660; x=1789193460; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QcCFJXuQosl03AWfODASRunsfDvx3Vteq/vYGjFiQtc=;
-        b=BSoQ5SMWA7Ry71E2InyaGh9zXB/24pdFrNA/H8WqJ5jL85E9HuAW0F+ak0V1kBjB9v
-         ZGf+1nv44pxZ5l3/lLH748B1pSEFKwtW8qh9ynuKzw+IabhHPPBxFdMX2MMraMQGp1+s
-         pHjhGZDte3rMHKn5ABehg1X4l0i3Ayf9+I/wwkcW9/Wq6knvath9q3C3OTzDm1wt7YM7
-         lzDJkg5vYUjTPP00fgsgvm1vfAaMS5W1pIsJlmNeTKRjqqDl7lk7nEDQRdlbdv1W1Y0A
-         dw4cAazL4Gsqfz1SAkaGkEP/XGSNJhyTdRB2ygrz7PQa9658JuU0rOHUlBNldm+oqOs8
-         Zqvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788588660; x=1789193460;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QcCFJXuQosl03AWfODASRunsfDvx3Vteq/vYGjFiQtc=;
-        b=rJKYs+FyypCl8tvPkcISyUF+mxzxYsIVknWmltvkdmEXtwtW0455qivszJ1ek9fPRr
-         yuriHkAZjr09X1kC/dTdS7XbVDbOSoAJ5OHZb2NuKIIxeAeP9Vvtc3ZzE7rwkrelVmQB
-         N451WXhjnWh8adCEiptCBCjkUr93v8lN9U820oJduq5spIOdIQ0EJl4krSwzJAjRe0Ei
-         Fbb1+H3zk154AO00XDBmZL0Zk6ri0kWwSVFBYRdgzf0ZONH+/yl7BaAB1mQfbzre3sDH
-         IFcsv0+8W0zrB02ZiZfDdMsm4U+x2tZRLXb38bFd4GeMei0Ofr8fIAifhsEg1buN8SoB
-         ++iA==
-X-Forwarded-Encrypted: i=1; AKwUvBylE1Enfagqe2RNpOjY+Eg2NSAXMioHfAJGO1VJ0g57IleHO/Qo5BxWUhiQrOitHTVqW5Yzt9KOjPPZuUY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nTt2Zz8n7FeYFWCEiKxw5vpNxPMeP7WnHt+J8Ct6ZFPVNqo0Xn
-	6Y1AVoWSLZGlZTZgTD8EFPB+TqZyQxxC/F8bgkhPRqfEJ/VWSwu09erw
-X-Gm-Gg: AYBFou3j0ynQm9ZGyIL+NdU5y1rO3NmRUsv+pEySOQjZVgudcUUXiF/5VzeDyrGbnDn
-	J7gvUCh4Tg3019jIzK/EANf7e6iym4ZMjR/F/aUdQChnFyAiUSJ3Dk3HRacbiglOextDC02gCJv
-	JcNTuNrvcbVJJrhwAgAOmSLTYijyzb1bWgyFs5lAbPKpSC7feUcOfwMTfuhiNiffXwDhTaAvdxB
-	ogqM/+7jbaUhBGAkfnJ4vG5Jrt6zjIUxN+3a7DCg9h+az5RKEEW/E+rsByPMxNoaPmRbW7wnwvu
-	zXyDZiPW7r5MFs+EgopaS8HqUBVIZfbDFgfxWeV63EIwZJQ/RpHK4JHIBDoni5+HsxnDhyXwZDM
-	GlmaX7u7kM50PaaZVjHFRXuEwJZZk1DtjOiVOyOiO6BwKk2INyngh5uFCDBJJvyvMM9I2EcZcoz
-	kkhu6ZMIhxGP14G4u3X01LerNsXVwMe/2Sir9jFlbOg9hEaOw6bGzPP8EGE786LtIjzawXbPFPt
-	WoK0y/e3Vi1fOU=
-X-Received: by 2002:a05:6a20:1605:b0:3d1:66cb:d49 with SMTP id adf61e73a8af0-3da39b71971mr16962469637.4.1788588660390;
-        Fri, 04 Sep 2026 23:11:00 -0700 (PDT)
-Received: from localhost.localdomain ([103.16.69.192])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432441f5f2sm12653118c88.15.2026.09.04.23.10.57
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 04 Sep 2026 23:10:59 -0700 (PDT)
-From: Aditya Dash <mradityadash@gmail.com>
-To: "Derek J . Clark" <derekjohn.clark@gmail.com>
-Cc: Benjamin Tissoires <bentiss@kernel.org>,
-	Jiri Kosina <jikos@kernel.org>,
-	Mark Pearson <mpearson-lenovo@squebb.ca>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 5/7] HID: hid-lenovo-go: normalize calibration failure status
-Date: Sat,  5 Sep 2026 11:40:54 +0530
-Message-ID: <20260905061054.50663-1-mradityadash@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <205C547F-BF6B-43D3-A8F0-829B657167EC@gmail.com>
-References: <205C547F-BF6B-43D3-A8F0-829B657167EC@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="mHgZdEB5"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yRMwGrGeuGblWEGMwIipkL1aG1z3ywsJObzULm24iVbuX+g1bNfez016hUv7blY+Um81PioHJ5y0gNbQwEPGOo2I3yyMhm06zTWx076GsTidNMfdCZVvbN3Mjlq/fFkOn3VHYa1KZVsJ2uM7TAFS6skkQA7vgCAFRzXNDlXVMESGnvIwrCUgUj5U/N8lEPc40xSEt/AtmuIvb6FAmsYVLk+rtTjIGeye/QmLqksAR0XK4NfDiwg3/NsPh+5fLLX6V3xW+3tIIIYt7eF9RNT9ybFJHYue+uIv65nQFCdVQqIVL3H+PxiL8TSIhYh2C+vdacnVGWdHmjn+GbWeBIR4rQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MT6LyIex1KPu3qHroDd/R9cG41Ltot2wTA9/mRxBPRY=;
+ b=Rdmlc0jqkti7DnYO4biZtMpXrqIkmSljiMSox7J81qcyy7yC6DZXxC0ffcbiyWSl/Q1KYJPWXjil2jEVR2BU48j8IG/CrxfU2DpwApBfIlqe/OMld+Iw7Azc4iOUeAR5ifK4iZJTGONT2UCvF/Ui6McXextpXQup1eHgs7syTCIaSNeAd7+YxvBPkMybsmYuxqJYPOHwnydEfXQL1QqlrjtG5zHRTBkzbMsC3eQ0kMM0Ko3LW7T3i+EPPnbrfqTy8nHy0CrQ9Z9cE7qtK3OyQ6llZH+J4Jg7UX9Hycl9NdlAbff+V7CvsjIKCxtRVElvD1IPG+zQY7M7O+s6neyeYA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MT6LyIex1KPu3qHroDd/R9cG41Ltot2wTA9/mRxBPRY=;
+ b=mHgZdEB5/wKdut7rrIPCnVgI5nqPNtKkXAtR3Dl7PY3nLUTsLxj6nPofmtyHtMRm8Zq8GdiR4+ssluuAz40mi6ZWtBN+yduHbr5qWUWnGzXCZFPAU+4AGKc6LlFqppbVGXcRfmiJBQEsdqskSDe87HfR22/HnPw+KPuF7zM3SB0dr5imhBiqCMgXe872zkc31SEvrqQNMAJMJW0aduu6kmz0H3mIMx5UG7Bkxp+CyGbFgrqvDZRd5+u1dz6OqpOEAYjec394R7+0nXm7L5EjY+WCVSQYLX3Wtlu9VM3MmdsHw6eYw7rDFnvaBEk+nIx+WcCSqqvtmkg+LSTACml32A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by DS4PR12MB9561.namprd12.prod.outlook.com (2603:10b6:8:282::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.13; Sat, 5 Sep
+ 2026 06:11:34 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0382.007; Sat, 5 Sep 2026
+ 06:11:33 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 05 Sep 2026 15:11:30 +0900
+Message-Id: <DL75RX18QG1G.M0BWB9Q6CHP4@nvidia.com>
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "John Hubbard" <jhubbard@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
+ "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex Gaynor"
+ <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
+ <linux-kernel@vger.kernel.org>, "Will Pierce" <wpierce@nvidia.com>
+Subject: Re: [PATCH v3 05/14] gpu: nova-core: add the per-architecture GIN
+ CPU interrupt HAL
+Content-Transfer-Encoding: quoted-printable
+References: <20260903031514.1515905-1-jhubbard@nvidia.com>
+ <20260903031514.1515905-6-jhubbard@nvidia.com>
+In-Reply-To: <20260903031514.1515905-6-jhubbard@nvidia.com>
+X-ClientProxiedBy: OSTPR01CA0085.jpnprd01.prod.outlook.com
+ (2603:1096:604:218::15) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DS4PR12MB9561:EE_
+X-MS-Office365-Filtering-Correlation-Id: e99ef69c-15cb-4f7b-16e3-08df0b1488d6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|366016|23010399003|376014|7416014|1800799024|10067099003|6133799003|22082099003|18002099003|11063799006|5023799004|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	ZMJCXBy+Wt36dTTdrM5dOhLCLM+2Y88eWxc5lQPWKsu8ePYy3e7ZYWPYk3639rvkAqWKcO2ruFkYqS9g8YTBzreGktPKNodDawl7Gz6tKol4DVFE565SQtVtRU41lmw1o1unHr73eP6GjdjSJU9Z8VwyNueWfe1f8C8qdHNIcAw6YbV/3cxjxoGxpJGQRWwK99MK/ioi9RLNMA+JU7iX1jUaeWZGIm49riv6Smv6RBP5azstgA2uXbnriSmhKK21tRT9bWyfTQY3zOvK+oZWwhNfPPDZnoabZahew5X5XCS+ZTm4ci1QS8+kGgQ6CLbV45XTEEMMRl+viKNUemZ0eiaBiAqt5HEQFoh9UYzLtU9wUgg1kl2XYRvYX6NgZN8DDHWLol0mycNtgiX5rDCE+7mYA+1KC0fR3/Mu3l1hBP4Z9+UkJLs9YmnfA6O5s2nWTbSkJoc4K6OAvUgbN4y/RfMlZIBfer9ehYJntcYoht4vfsZSiAbUH5haLEIVNQrWGZXR6Egg97q2xvpMU61HTehpRAk9IdfSdLHlYazt6AVx4efzeIUYrdAnrA9AeujbjIT7+4pUqrre4B7xpbuyFq9uRFvFzBhhZL9fdeJfwI1DsA0yzJ2b4PF1XiOEKgseX9q4gvWPjBaS2eeUC03rYeg4EUj9G+H9+lprTtDvD3Y=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(23010399003)(376014)(7416014)(1800799024)(10067099003)(6133799003)(22082099003)(18002099003)(11063799006)(5023799004)(56012099006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZTcvSFFkVlIyYytqNEFwaVZQaDJMN2FjcWFMTFJkamtmY01nMXFmV2FUNHI0?=
+ =?utf-8?B?V25lSmdLbTg0UFo1WTlCbDhVdXIrRGhKNmlNOVQ4S014Z3ErOExPZDVXalUy?=
+ =?utf-8?B?cjg4RzFUR1ZVaFQrUkxsK3dCL005aEcydEtZdjJja1QyOHpnSDZ5WkVaT01o?=
+ =?utf-8?B?NmpHaHBra0s4akZSbWFPVWt1ejUxUDJ2UHdTOVVGYmR0NEwrUGpZNEYvVjdZ?=
+ =?utf-8?B?Q21JTGk5dTh2ZkdVL2FReGNzTTV0K0ZJSVBId1NUallaM3BJN1dwaGVoUGVH?=
+ =?utf-8?B?SnpZSVIyQmZUWE1TWkJBVlUzNitGN3VTVEFNUHZTZkRkR0xpRWV2cXNmbjJx?=
+ =?utf-8?B?NDcvNks0Smd0NEx5K2J3VVpKaTl2RHhTWSttK1ZXUjkzTURnNDVHckRzVVBF?=
+ =?utf-8?B?amVOUEZrelFqVXpOTFB5clhCNitnWk1ONFY5clBiaXd4dUtiMjFMaCtqZzBJ?=
+ =?utf-8?B?SDhnTFFSNnF4WThGcTYveHNhaml2N2dLelYwYjJBTHFCc2pjWVdGOVRpMWVw?=
+ =?utf-8?B?U1lMa0JjVXJuclQzZHo4cFVsRVZuTFJpMGRGdEVPY0JTTXg1Zk9QNUlwYmVJ?=
+ =?utf-8?B?VytWQU1PSzlSV0p5MXdELzhXaDVGanZydUpya1kxWndLTHU2bmk5VVNpcHNr?=
+ =?utf-8?B?WkJncDFjZ1JCN0liZFhJY01OK1hyN0dDVS9CbldOM1R2RmVqNWNDZTVpdHlo?=
+ =?utf-8?B?dGEvZkMvSzkvVCsxZTFpMHNsVC9ZTy96ZU9zZ3FjUk1yQkV3aWpmUWxFMklj?=
+ =?utf-8?B?R1ZxaXpPcnZIWklZaUY5MitKU0s3NDZTaFM0NTlLL0tqL3VvQWJwOTVvT1ZW?=
+ =?utf-8?B?WXBzcDdTbDNIdTNlS2M5SEVOTWo5SkVUeWtjb2FLWTlBZ2ZqZDgrWVBTZXBv?=
+ =?utf-8?B?SitoNzF2TmlkbzhhREVkaXE2QVpDdnZQcGhUaTdvWFkxMUMvQ1dBdEVIWGRZ?=
+ =?utf-8?B?Mm1Zbm9NMW90T3dSUGc0ZFNFTWxxcmRKMVY1NVVvWFZiclppWDdoUHR5Zmg2?=
+ =?utf-8?B?OCtSMGN5V21XUnhDSFhnczNwNTdWcVA5b2F4VnJOWUd6a0pucSt0dVdvem1H?=
+ =?utf-8?B?eWVRbUthME5Hd0k2ODc2NFNmZzhRSGhQS1hXNVZMb1FqRklZUFVscjlOTTVS?=
+ =?utf-8?B?OFRMMTF3M3FyVGJNeTNzejRPSnRQV04xQzMzVlpBQjZWakQ0NGI0T0RNa2FD?=
+ =?utf-8?B?WFY0TmFldzAxZ1R3M3VaZWtXL1BlRUY2ME9LZ2c1aGNQdnArb0UxWmNxd1Yw?=
+ =?utf-8?B?T3g4Rzl6Ujc2Z2NzblhReTdpQ3VxOHZhWngzODhSekV5T2JMc1lZWTErN2Vs?=
+ =?utf-8?B?WFJ6U0tnSUIrMzlmdHp4RXdaMTNPNG1Xc1FFMkppK0F2VjdtRzB6K3p0ZEFQ?=
+ =?utf-8?B?ZzRTU0l1ay9ubzRLamJrbzFwajh0VTVQU1FpSG1mSUFEK3BmRHEwTVpSK2FJ?=
+ =?utf-8?B?Qmg2Tlpvd3p6OWlHU2pDMEFOd0NqL1d0TGx1U1V5MzhZSlZWY20xOWdCRzBU?=
+ =?utf-8?B?WS9BL2lXcUY5a1Z2RWhEMjVIU0xnMiszQkRnUFZWV2RLZzJmc0Zwc01GQ0hX?=
+ =?utf-8?B?N2pJQVE3eHVRQ2ZOblc1NmlOUTRIT1pKM1RXMFliWnUyNVJUbng1OEdXa2xP?=
+ =?utf-8?B?dThIbVMxRWw1djZsbUVJS3cyeTJRajkxdWJnTjNvS1NUcXRsQmhGTUcvQzdD?=
+ =?utf-8?B?WnJhQkpsbnZWc3FNYkVwRm0za0ZKQkUxOTN4TlVhd2JYQjQzVFVZdXJrRXpt?=
+ =?utf-8?B?eE5JRjlxV3VBdW0xbFBpbjJ5cWJqWng2QXZqNHNsYVR2Q1JQMFVNUVVaUDRi?=
+ =?utf-8?B?UU9VdS9GZGxWUkp4a0NHQktMTjloZW5lY2Mwa01uQjNuRXFiSGJINHZnNU53?=
+ =?utf-8?B?NkpzNG1QSVFqdTArSnV0bUQ4Wm1BKy9Td2Q2VndYNVJSek1ZRTFYelZJZ3lR?=
+ =?utf-8?B?eCtNemR2M1BZSHdVM1E4NVFpQ0VWSlFaTHBZL1RuTEt6QUZZcytHQnIrYm1I?=
+ =?utf-8?B?MXFiaDUrUkVoK3VQUFdMbUhNa3J2enF4V2NocEdPQWE1djhtc2R0eHhEd0xC?=
+ =?utf-8?B?YWo3WG5FdzFObjBadUpDR2NIYTZsNmQ1R2NEdnhYRHFsUmpqNVBab0VyWTRl?=
+ =?utf-8?B?a21SVnRFQ241NUxzcms5U0Q1NTVrQjkvT2NCdVVXMnB1MkwyQ21waVpDQmky?=
+ =?utf-8?B?Mk5zYldrRUZvNDZBRjNkNG41dHNmZXRnMi9JWWVINkZjTkh4NXpyV1NyV3Iv?=
+ =?utf-8?B?K3ViNXBSRTUwSVpnc2ZIV21scGk4TWs0czQ0Uk5ocytueE90RENtT2ErdHdH?=
+ =?utf-8?B?aXB6T0lDeHAvWmUyanVUUnIzMGlwV01YdlZPQ0lwd0JMWGJ1VU9oQlNXZ1Ar?=
+ =?utf-8?Q?6Q4Y2BD+jEx3oyKeiMgMqWX/H1Y4XVlxkVmB6tTf8bFcb?=
+X-MS-Exchange-AntiSpam-MessageData-1: QH1xoaYqLTK7OA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e99ef69c-15cb-4f7b-16e3-08df0b1488d6
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 06:11:33.7464
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IB4yghuJMokRmqHbghMSIRYsAg+Ql4TGKJflsQHAIY2BwNDVr8DCKdJW/becGPupsn7/8SRDn3N2Pnn5NArDzw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9561
 
-Hi Derek,
+On Thu Sep 3, 2026 at 12:15 PM JST, John Hubbard wrote:
+> GIN, the GPU Interrupt and Notification unit, is the GPU's interrupt
+> controller. Each PCIe function has its own tree, whose leaf count
+> depends on the GPU family.
+>
+> Message-signaled delivery stops after each edge until the CPU rearms it,
+> and the rearm write differs by family and interrupt type:
+>
+> * Pre-Hopper MSI writes an EOI through the BAR0 PCI configuration space
+>   mirror.
+>
+> * MSI for Hopper and later cycles the TOP enable bits of every serviced
+>   subtree.
+>
+> * MSI-X on any family cycles the bits of the handler's own subtree.
+>
+> Provide the leaf count and the rearm method through a per-architecture
+> interrupt HAL, and name the interrupt type with nova-core's own two
+> variants rather than the PCI core's three, which include the
+> level-triggered INTx that nova-core never allocates.
+>
+> Assisted-by: Cursor:claude-opus-5
+> Reviewed-by: Will Pierce <wpierce@nvidia.com>
+> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/irq.rs           |  14 ++++
+>  drivers/gpu/nova-core/irq/hal.rs       | 106 +++++++++++++++++++++++++
+>  drivers/gpu/nova-core/irq/hal/gh100.rs |  29 +++++++
+>  drivers/gpu/nova-core/irq/hal/tu102.rs |  28 +++++++
+>  4 files changed, 177 insertions(+)
+>  create mode 100644 drivers/gpu/nova-core/irq/hal.rs
+>  create mode 100644 drivers/gpu/nova-core/irq/hal/gh100.rs
+>  create mode 100644 drivers/gpu/nova-core/irq/hal/tu102.rs
+>
+> diff --git a/drivers/gpu/nova-core/irq.rs b/drivers/gpu/nova-core/irq.rs
+> index 3066ceeb850c..d21dee1b89a0 100644
+> --- a/drivers/gpu/nova-core/irq.rs
+> +++ b/drivers/gpu/nova-core/irq.rs
+> @@ -8,5 +8,19 @@
+>  //!
+>  //! See `Documentation/gpu/nova/core/interrupts.rst`.
+> =20
+> +mod hal;
+>  mod interrupt_tree;
+>  mod regs;
+> +
+> +/// The message-signaled interrupt type a vector allocation obtained.
+> +///
+> +/// nova-core allocates MSI-X or MSI and nothing else, so the level-trig=
+gered INTx that
+> +/// [`kernel::pci::IrqType`] also names has no representation here.
+> +#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+> +pub(crate) enum MsiType {
 
-The Stop reply changes based on calibration state. Its status appears to be
-the current failure_mask + 1. However, this mask does not always match the
-failure mask returned when calibration times out.
-
-Here are some requests and responses from the experiments done:
-
-Joystick calibration:
-
-Left Start:
-  05 00 0c 04 03 01 ...
-
-Left Stop:
-  05 00 0c 04 03 02 ...
-
-No movement:
-
-Without Stop:
-  04 00 a0 02 03 02 02 07 00 ...
-
-With Stop:
-  04 00 a0 02 03 02 06 00 00 ...
-
-The timeout error contains deflection 0x01, center 0x02, and turns 0x04.
-Stop does not set the center bit, giving mask 0x05 and status 0x06.
-
-One full outer turn, returned to center:
-
-Without Stop:
-  04 00 a0 02 03 02 02 06 00 ...
-
-With Stop:
-  04 00 a0 02 03 02 05 00 00 ...
-
-The timeout error contains center 0x02 and turns 0x04. Stop does not set the
-center bit, giving mask 0x04 and status 0x05.
-
-One full outer turn, then held away from center (right controller):
-
-Without Stop:
-  04 00 a0 02 04 02 02 06 00 ...
-
-With Stop:
-  04 00 a0 02 04 02 07 00 00 ...
-
-Two full outer turns, then held away from center:
-
-Without Stop:
-  04 00 a0 02 03 02 02 02 00 ...
-
-With Stop:
-  04 00 a0 02 03 02 03 00 00 ...
-
-Stop with no calibration running:
-  04 00 a0 02 03 02 08 00 00 ...
-
-Trigger calibration:
-
-Start:
-  05 00 0a 04 03 01 ...
-
-Stop:
-  05 00 0a 04 03 02 ...
-
-One full press and release:
-
-Without Stop:
-  04 00 a0 02 03 03 02 00 06 ...
-
-With Stop:
-  04 00 a0 02 03 03 05 00 00 ...
-
-The nonzero timeout reason byte is 0x06: return 0x02 and press count 0x04.
-Stop does not set the return bit, giving mask 0x04 and status 0x05.
-
-Gyroscope calibration:
-
-Start:
-  05 00 0e 06 03 01 ...
-
-Stop:
-  05 00 0e 06 03 02 ...
-
-Continuous movement:
-
-Without Stop:
-  04 00 a0 02 03 01 02 01 00 ...
-
-With Stop:
-  04 00 a0 02 03 01 02 02 00 ...
-
-The reason changes from 0x0001 to 0x0002 although no connection change was
-made. The cause of this discrepancy is not known.
-
-Successful calibration responses were as expected. The corresponding cases
-produced the same outcomes on the other controller where repeated.
-
-Connection-change cases are not yet tested.
-
-Thanks,
-Aditya
+This type is module-local and can stay private (same for the `msi_type`
+method).
