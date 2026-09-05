@@ -1,225 +1,126 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012058.outbound.protection.outlook.com [52.101.48.58])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 719181A5BAE
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 02:37:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.58
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788575826; cv=fail; b=XhK2bQll2B17lGFsV3R0EuIUq9NgdqytWG06Wdmx55Zcryv9nrAeQdLGZGZg2UTKcOBeS8kE7+oRxkVWqRv2PGj4V6oSPCwWP98JE0GIgODuBQ1nxt9FBx2t+aF/k/LIo0HITaCsY3lRtbOyjLGBOSPWGcDfKbiHhncdEeNz29c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788575826; c=relaxed/simple;
-	bh=DlUkrLJf18h+2NpRzQh5SpvnI341Q7AvxnJnwr2YuFI=;
-	h=Content-Type:Date:Message-Id:Cc:To:From:Subject:References:
-	 In-Reply-To:MIME-Version; b=EsO+YjhWQX+gOPJS4VBWC3KOMy2MnpXnu7NKsWv4NAp556iyorTn2Oc8W2jXGN1+tblP6Pz8B/gVqVELIYVOCoimGi6BUg6DyTX8J4wMn+Xzx5BLEeKPF769fOwwdsYxE8nm2KbJ3Y4XQiWINwxNY1tmgirI1wIyVjjrbc/BgqI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=JnwORHPk; arc=fail smtp.client-ip=52.101.48.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2189927A916
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 02:37:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788575841; cv=none; b=n7GtQ+wBU/CFYC6TjSYceyngnVcb+df6kTgd5TQ4TCXTEVcCPRg4bePvk6sZQVPaMYnaZJySK4b80iLYtuuutTkC6Pq4OL7/0k1zFx73nKhLWqd2XJ1WOw6JUYcwJsZuZAzmJGsJRG3JIlgB0b2GzZbSg+69CRF8jfbKUblaFfI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788575841; c=relaxed/simple;
+	bh=wquW73nnBwWT6XnD+X/Pe7ShK7x7XDj8Y7JBFd/eb/U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dxTHsyVQQfiHlZBFSbArC9z9dAfJKjox6EzexXZqiJAVk+73IQ6yt+iz3q+7C04BttA7DHCNdD1fS8EEB5jbbsHGC7Sdyt+CjZyt71lE6Y5Xm8JIPK75iuD+NZoJA5gaUZAh9rGDsQbgQBFDjOqIKzYNgcoN5Dsw7GByL6CBr24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=kFvZp8Ge; arc=none smtp.client-ip=209.85.160.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="JnwORHPk"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kQKKB5cpplmm9eij4LkcHHKiUoEAsVqJ58nRfhr3jcLlBS3ve9fRvu1h5xtis6QYaznmXMOMsFLKUxQ8wSSc+pipXDu0t8MtPKOwyIRj9zY6a9Ow1DcPICEjvqfmFzvB0C406QXLVw89KWzZanxT2yp4u32h0TqaI/OKoXj7ipP9me+FporSMsFuBUt2m/ltoVlJPXvQbyD4eCEERY1c15kD7K8ZZD7FFQZ+pc2bXDvO1GIohQPeeEQPPmiqXG6vZkQuU0sXf/uCLwhMNn6mW0nNdZAIFzSRMnOnWYtUKhqVx4sWJNMrh3O7jRDx5Et2NPBfCQ9hlN3uH3HA9OlK9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=00VTiHvXBXR1im67l0teKDeBdBJ3nbPFrA+9lfii96Y=;
- b=i0m/xX1HZ81LyJQpWDEeneCkPgEL12vQDNfcIw3JKHuakeGlXZ0jEBSTVVZUGKsY+reQP0cZN8n5HVLmQteNEn/cb4HsUDDJ5ebz7ubFbJu1ZfSlrdN8Xz4cwJcXKtoLsA2f4MJBa11NmXT/EvTmPIXIcwbvkFvgMwiGgelf2TjcGzN5pPnPsIjc705rGxMZizYNTyxgOM93Y77SZHY21wIzS51MiuS5+KAs+1Wd8x8OT91hQjWtXTDs69MtnM0u4xo/gQsFuSYhfsnwDfyZMI6FkzO4YE1O8ysfDB7/GUx0rpUmfGBXg2mKKGAB7hxrcyW7CwtxtPI33y1Mu3qFSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=00VTiHvXBXR1im67l0teKDeBdBJ3nbPFrA+9lfii96Y=;
- b=JnwORHPkZRPZBsivgiGKgoSQgP++ETUjEErbu0hvy6tMGNuJ5PXenCQcLqY3T7CFk50GabTETjtJ3/JLrraSfGcUoZYv0napJQj8pPYvZWn0TRfzXemc9N8OI2y7YaAqGgvn+V8FHvAkly/OhalMPszf1l4rsBbTZZv/QEIA7vpSHN3x/h1JHaXvJgv353/MnIlbnmESQWx2BgUzn48eRZsD/x7/EfsnzxBvbNXjjyMJ1r5oRCU/5w+pdNQES3PXQFldspEsliNklAum4AMHxEjgtNmZkBr3rnMa+nB0JzKvaG7wkteoO6Zi8gUorGzjGK30kNOC8lWwNNy3WWhTRg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by CH3PR12MB8185.namprd12.prod.outlook.com (2603:10b6:610:123::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Sat, 5 Sep
- 2026 02:36:59 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0360.008; Sat, 5 Sep 2026
- 02:36:59 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 04 Sep 2026 22:36:58 -0400
-Message-Id: <DL717O23OZOA.2UYSFURHZH0H2@nvidia.com>
-Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
- <kernel-team@meta.com>, "Baolin Wang" <baolin.wang@linux.alibaba.com>,
- "Liam R . Howlett" <liam@infradead.org>, "Nico Pache"
- <nico.pache@linux.dev>, "Ryan Roberts" <ryan.roberts@arm.com>, "Dev Jain"
- <dev.jain@arm.com>, "Barry Song" <baohua@kernel.org>, "Lance Yang"
- <lance.yang@linux.dev>, "Usama Arif" <usama.arif@linux.dev>, "Vlastimil
- Babka" <vbabka@kernel.org>, "Jann Horn" <jannh@google.com>, "Kiryl
- Shutsemau (Meta)" <kas@kernel.org>
-To: "Kiryl Shutsemau" <kirill@shutemov.name>, "Andrew Morton"
- <akpm@linux-foundation.org>, "David Hildenbrand" <david@kernel.org>,
- "Lorenzo Stoakes" <ljs@kernel.org>
-From: "Zi Yan" <ziy@nvidia.com>
-Subject: Re: [PATCH 04/12] mm/collapse: add collapse.h for the collapse
- interface
-X-Mailer: aerc 0.22.0
-References: <cover.1788533997.git.kas@kernel.org>
- <ec5230f43af7153e18aed02c6ee38f010106d8e8.1788533997.git.kas@kernel.org>
-In-Reply-To: <ec5230f43af7153e18aed02c6ee38f010106d8e8.1788533997.git.kas@kernel.org>
-X-ClientProxiedBy: BLAPR03CA0178.namprd03.prod.outlook.com
- (2603:10b6:208:32f::32) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="kFvZp8Ge"
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-52f83889a93so20461291cf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 19:37:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1788575839; x=1789180639; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9w9CEy1DQ4ao93Pe4ROwaoUm/boruq1IRty3oKe6EUU=;
+        b=kFvZp8GeJt+dxSRLgvQ3t+Dx3U7qM72zhme6hYyVbLWdoc1trdrLswWsw17loWdits
+         zmNgfG05ovuBHX9oNVLLM1fy1a9gYBv2aN+I2horU1L7oHuuvS6hIdexPKUfHuoALHxf
+         JbY7NhzUwBalqtVMfSOCm+PV0ctep1PfsWPCmToBSallndG3gqpBIUP1iarRwPguUEhI
+         CqNqaKhY7WMuSQNktxtP2PYvDqBYg7/Etu6UaQ916dMMvTBPlMod9UuxSEmSpqPWGrc3
+         kYpD8GzgXMhjM7a9pganKBWWh6NeOU+urCxDTl+4yuDC9vFcyKtwhf9Jdz3z0iiaUjzq
+         SKlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788575839; x=1789180639;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9w9CEy1DQ4ao93Pe4ROwaoUm/boruq1IRty3oKe6EUU=;
+        b=o6K7Oztf69/vYjeHmdUdiu9dmFBrVR6fUsHBSkGx05c1wualjN+vUQRrObrLFxbj1q
+         WyQmOLMmlSl/13o8Ewl3azNvTiCTMJ5bOPT1nOb39S1H9ol+OHiXQTV20UazImudXeqK
+         kWQahgwcO9y4FBCKTQ8IiJtTgKtvzCBLMn2v5RULeDh1DG/X0OVLJ9erU7HyVS3KbXvW
+         mgYbiPIgHdJGfqKZl7PmydxLrkuB9vPgo+xi5YWZ+6VMkQupPFH2/pfRLrzgjDc3XqFQ
+         GJDwNdGknNQ+7ehz8Shy+Oyb2WwsGL4LES8ruwsvd8OweZ973Um/w0R30nljfGnM2Vla
+         zXxw==
+X-Forwarded-Encrypted: i=1; AKwUvByDH9jFCxs24oCp5A/JuURsBHxr8Kh7mbEqOYcPzAMB2hmSgKpDpG2enmpM54kiy5mgQQK9QCAsIArT0oc=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0kTXs+qFFkHYmQ6aeaKEJC80b5RJpy66ROIcqPcEis4lDrcSp
+	Gn6nEKCCse+UpqUpkxQmgKedRjHFnXCeNwh0+c0DJkU/xBgvar2XV2R+svD1iiD98A==
+X-Gm-Gg: AYBFou01KWS1fAiNBib/s1Pe2C1hI7S/Cra+XWC5Or84AnsbA4Gg2XIIsEMc0arVd6b
+	zYeOUQfXSatFoiEiklnLphrFs96CvDbV8GUDQOfsREk51N4VMg5b7yOAkwd66q4DafKbz13TRPM
+	q7gINFVJpBF6h9tKoutpnwLmllCMzBSNxfxDGUhjEfq6J4l6dBopCBJe1ZYM9EuGChT6HMtfU2D
+	NJ7beJHSraPvWceQj59zvYEzAoV203YW5pBiRQpMVXvfUclrVQdI6qvXhJxXMlNhYSK+Vc/yjZv
+	pMCgU37kej2yUoM7X7edJN7AWq2mYEEDXgVhea8jTUnllOLQqCsr13d97bM5QjfMgqyuj9YYDBt
+	D2n7fgP/0OdW6w/XIIBBTWNI+Tt0L+A5fLDdTTrmTZJulP2tDDjxeoZsbZcKt8IQghSi7oBh7dn
+	iAqrXEhsnpGEr3VsVbV8SfWPk92Iy8L9N2OTzq3CHKWeR5ruYlCxuN8V+gfNmdI50=
+X-Received: by 2002:a05:622a:411b:b0:530:4310:53a3 with SMTP id d75a77b69052e-53054a34ee4mr115702161cf.48.1788575838780;
+        Fri, 04 Sep 2026 19:37:18 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-910406bf8c3sm35302066d6.48.2026.09.04.19.37.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 19:37:18 -0700 (PDT)
+Date: Fri, 4 Sep 2026 22:37:15 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Arka Mondal <arka@arkamondal.net>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Matthew Dharm <mdharm-usb@one-eyed-alien.net>,
+	Daniel Drake <dsd@gentoo.org>, linux-usb@vger.kernel.org,
+	usb-storage@lists.one-eyed-alien.net, linux-kernel@vger.kernel.org,
+	arkamondalofficial@gmail.com
+Subject: Re: [PATCH 0/3] usb-storage: alauda: fix DMA from the stack and two
+ block-map bugs
+Message-ID: <0a60fe87-181a-405f-a758-90883ea7c60e@rowland.harvard.edu>
+References: <20260901065831.43567-1-arka@arkamondal.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CH3PR12MB8185:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7c21f18a-251c-4767-cddb-08df0af68f81
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|11063799006|10067099003|4143699003|5023799004|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	B09o7i/IBPws5SHBHBxRfOpTPakTZtaDjZ6awT6QPEY4ehWtzxt0jb55vvVQNoUAr4vaEA5ZpAv3v5xkzyK7taxd1L5k/yovsPxaomz2c+jB9Jiv5kk2obCHbjszt/U8X5umdfRULTQhXH+nPUNK9LCxXP7Y61ESl+bcMHfa1fMJwKfTjSjRGH/feLyN4QxbwXY+TGoEuJj1Dphe1es7MygaQSs5uhGxjrBpIRZX9vKfEeI5nmdaA22kHGEF9V+QiPSXwhN3OLV1vG51MefizmHuROngM+kwqMqXvj5Tp7r9i/gfOxJmtOWwiOB1+6mrgtxTj4FvegktVMrIgFp3cpphPaVPUZ8tkxKCTpZq5hZVCta320q8UeDgkHkGHiNoH5qmRB0eZ7C5wzHhTT7+RoYiirKlg8aEGu/y9JD9tFtdgrX7i/JSK/SVVhXDpZuHhbt/8uBYWHUCHLV6gFJpFfIhckPc7UbI4yqu3WzL6/53SvpLYUyyPirWPKxVIfeAt37567f1HzFlxLBKpzfvB5PPJYUT/XDTvm1FouQhIdsNNR4ZhTn612Em6TzOSy9heaUhl2sUns0s+uLdzEIMsosOPn3zq3IGibO6quf5tGpYjxTKbJSuQjx5mQJbhGniO3vtbD9ooH2P9GjgpOHwZLfOyIvGzrX/JyDmUrTjO8I=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(11063799006)(10067099003)(4143699003)(5023799004)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TnhiUk9hODhyQVdEYWVXRTJkZ0NhSk40OWhvUVFJQ0djN0J3UmRIZVVVNENG?=
- =?utf-8?B?MHZvR0w5Q0J1elRzSmxCb1FWRkM5TWlDcWs1WXpJc25xV0pMU2laKy9seTVp?=
- =?utf-8?B?Lzkwa0VuYnRpZWdycWNYblFzQjFQQi9KRkV3bXFVMnc1bSt5SG12UVV4ck5q?=
- =?utf-8?B?UVBhT3BnOUNLYnhDYzJTU1I3dlVyeVZtbnRGQWJJUXlzU3BEQnltUUxlb1U5?=
- =?utf-8?B?SnBkcGtGMlQxelBLODZGQkpUNy9XOHBVK0VKTkp4YThNOVg5T2ZGS2l3UFFF?=
- =?utf-8?B?NTVTbExXanExdU1RQjQxR3lTSDRRTGRDdTc4OFExY0JhRVZjMlBESVdTTG03?=
- =?utf-8?B?RFFzNkk3U1prR1hWQVY3clJpc3g4ZW9XTWxRMGY1NXk1REc3WGdIREl3dGdP?=
- =?utf-8?B?VWNlNXloSlFxbXRDR21kV3JNSGFwWm84QWN1eFdvd1ZEQUN0Q2V2VHJxNmxD?=
- =?utf-8?B?OXdMZkFRdi8vbXRxSVVjcmx0bEpBN2J4S3RraWFsTWJVb2liaDZnbUJLT2g2?=
- =?utf-8?B?cEJvbnhHWU90UkdGOXJuYWt1TUZGcFphamt1YjhjTFdHd1dleXRFUDVXemV5?=
- =?utf-8?B?TzBRMm5qZVBqdm1wWTViZUQ5MkRRMmZGZlFFdHkxZmpyQ2JMd3hGWG5tYXZB?=
- =?utf-8?B?SWhpeGhHSWdVLzdqRDJwdmNQenk3SGhyaFBBQUhRNzVOR2RkbklPRTk3b3ZN?=
- =?utf-8?B?dUMwaG5uUE5SUzFYV2NHakpMZXFOaEk5M1ZzdXZGdzltbUJHdytSa0dRYnhD?=
- =?utf-8?B?OUdtTGpQU3R6UHpTcU9pSGdocUlpRjZvVW5Nby9aMGFWSE9GaVM1WUhSQ2c4?=
- =?utf-8?B?NTlhd0Z1MGUwMk4yKzJjK2dvbktDbVR6dy9aUlkyK3hmOUZuc3RrL2dhVzhi?=
- =?utf-8?B?QjVucGNURTZ0VGpDZ3QxQVNBdDk0MGkrR2lKL0VVWVpyS3c5eUcvMmNkcFcv?=
- =?utf-8?B?OWpPN1hJOEtOU0RTUXlJMjNmZXFXWEt5bkc4OCtzT2JKVnZ1ZWFUMXZ4N3RB?=
- =?utf-8?B?blpEQ2FudkVBd1NTN0JOa0x6QWloQStuSC9ObUsxNHR6eG1VTnlXUzdDM3hu?=
- =?utf-8?B?bGR6Tnc0WTdrSm9mRDF1WmJweFFFclE3YnpEeVcwN1JNcjRTbFp6Y3NFaEdY?=
- =?utf-8?B?dVF4QXluZzFkRm8zbUFzYmZ6SGsvNzhWZWZNMnBjOHZSMmExT2JVajY2T0pD?=
- =?utf-8?B?OFJVMzNvNTR0RVM1Nmk3NHZnUEdlUXdCKy9lM3hKTHFGVzNVSzlJWFRJRW54?=
- =?utf-8?B?MTZDTXAyT1FSYXlid0MzNnErbjMzM1ZwZjN4R2pFcElia00rMVBlK3I3WnZ4?=
- =?utf-8?B?ajJPYnJrVWdoT0l4L0FHYlZPNmNCQXhPKzR2SjI5RGc1bmRlZWFoeVdiOU40?=
- =?utf-8?B?d0doTUJQWHNoZ0dLaGljQUI5Y0c5SFJKY0xwdW5Kd01xWVlOakNNTHZMeG9y?=
- =?utf-8?B?MkdZRDBISU9MZlU2SlNMS1o3Qk4zZWhlYnVCanQ4NTBkQ1pLU2RzeFBHZDNq?=
- =?utf-8?B?OEFaQnJTWHVlVlhDblJjUVdROG1xMEVaRi9jUmtQRU1BNDAyVHhIZitZMkgy?=
- =?utf-8?B?dnBKcTNJY1ZLTFErNkFQYk5VclhwaGwwWWZUdkNKaWdBTUtDVGllQlJDeE5V?=
- =?utf-8?B?RzlEY2wyUi81NzlOVjZoWk4yMzg2Y0hiY3Z4Sm9FYXVxeStrazFFWG5yMyt2?=
- =?utf-8?B?SU1BTHN0Q1B0TkpwdFFlcGwraUdMVURNM3RzcXREeVF3UTFPcG15L1lwUDhs?=
- =?utf-8?B?RkFFNzJoeFRHdVRoVk1sNWl3dWZiMVJUUG85NjNUTlhKZ1ZtU3lkVkY1TzZp?=
- =?utf-8?B?M0U1Z05WSXpmSEpvRVE5RGYvczNuU3JHV3o4M0srMGFtdHNBYk5iWHVnbUUx?=
- =?utf-8?B?aU85MmhuSjVDRGtiT1k0NldVbEVHWVBaRVY4SXhGWW0yMzh4K2pyY3NSWjhx?=
- =?utf-8?B?TVBwVC80cmkxVDFXRWpGUGtleXFWa3NZNFNsUUZvZC9hT1ZwbUlsMVlEdEda?=
- =?utf-8?B?K1NzMWJOazB3cm5sK3J3SWg3UmRDSHNiTFoyYTFxYzEwUVdzS0VDdFo1M0t1?=
- =?utf-8?B?Zk1mdVdYR1VIeGJ5YzdEd1k3aGNnLzRuQTFGcjdzR25jK0NnUStBdlF2bGNm?=
- =?utf-8?B?T3laYisvZlhiZDVXR1k4NkpBb2NwYXZJc01Sa1pwYXZBdFE1b29NZWNVNDUw?=
- =?utf-8?B?VFlaZXUxWHJWOTBqUnd3d1hmYTRVYnlBS0xuVTBWbVRQWFhNajBsYnZRa2U2?=
- =?utf-8?B?ZFd3SExnQzhDYUJDNThyOCtHTHcyeVlCeGpQTzYzdlBhTVRwd2pSejVvbzNp?=
- =?utf-8?Q?bVFP75qdH2iJY/0Lpk?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c21f18a-251c-4767-cddb-08df0af68f81
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 02:36:59.6752
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mbieu9s7oJtYHnaJuHYBeXbbWW+HG9hsf88ZmUCVWGCrw6rd50NFmKcJeDmHh5uq
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8185
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901065831.43567-1-arka@arkamondal.net>
 
-On Fri Sep 4, 2026 at 11:10 AM EDT, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
->
-> khugepaged.c holds both the users of collapse and the machinery that
-> performs it.  The daemon's scan loop, the sysfs tunables, MADV_COLLAPSE's
-> entry point and the collapse itself all sit in one file and reach into
-> each other freely.  Nothing marks where a user ends and the engine
-> begins.
->
-> Start drawing that line.
->
-> Add mm/collapse.h for what the two sides have to agree on:
->
->   - enum scan_result - what the engine hands back;
->   - struct collapse_control - the state a request carries.
->
-> And two constants move with them:
->
->   - KHUGEPAGED_MAX_PTES_LIMIT -> COLLAPSE_MAX_PTES_LIMIT;
->   - KHUGEPAGED_MIN_MTHP_ORDER -> COLLAPSE_MIN_MTHP_ORDER.
->
-> Neither is a fact about the daemon, so both lose the KHUGEPAGED_ prefix.
->
-> No functional change.
->
-> Assisted-by: Claude-Code:claude-opus-5
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> ---
->  MAINTAINERS     |  1 +
->  mm/collapse.h   | 67 +++++++++++++++++++++++++++++++++++++++++
->  mm/khugepaged.c | 79 ++++++++-----------------------------------------
->  3 files changed, 81 insertions(+), 66 deletions(-)
->  create mode 100644 mm/collapse.h
->
+On Tue, Sep 01, 2026 at 03:58:28PM +0900, Arka Mondal wrote:
+> The alauda subdriver builds its commands in stack arrays and passes them
+> to usb_stor_bulk_transfer_buf(). usb_hcd_map_urb_for_dma() rejects a
+> buffer on the stack, so on a host controller that uses DMA every alauda
+> command fails. Patch 1 moves the buffers to us->iobuf.
+> 
+> The first command to fail is the one that builds the block map, and
+> alauda_ensure_map_for_zone() ignores that failure, so the next access
+> dereferences a NULL map. Patch 2 checks it.
+> 
+> Separately, the zone index used to reach those maps can be num_zones,
+> one element past the end of both arrays, because max_lba counts physical
+> blocks while the index is computed from usable ones. Patch 3 bounds it.
+> 
+> Alan Stern <stern@rowland.harvard.edu> wrote an equivalent fix for
+> patch 1 in 2023, attachment 305027 on the bug below, and offered to let
+> me post it. Patch 1 here uses us->iobuf directly, as the other
+> usb-storage subdrivers do, rather than the memcpy that attachment uses.
+> Alan also diagnosed the NULL dereference in comment 11 of that bug, and
+> suggested the reordering that is half of patch 3.
+> 
+> None of this makes the card reader work. Alan has said it may be better
+> to mark the driver BROKEN; that is a separate decision, and these are
+> bugs in the code either way.
+> 
+> Compile tested only; no relevant hardware available.
+> 
+> Link: https://bugzilla.kernel.org/show_bug.cgi?id=217862
+> Link: https://lore.kernel.org/linux-usb/20260821080951.39905-1-arkamondalofficial@gmail.com/
+> 
+> Arka Mondal (3):
+>   usb-storage: alauda: do not do DMA from the stack
+>   usb-storage: alauda: check the return value of alauda_read_map()
+>   usb-storage: alauda: fix out-of-bounds zone index
+> 
+>  drivers/usb/storage/alauda.c | 95 +++++++++++++++++++++++++-----------
+>  1 file changed, 67 insertions(+), 28 deletions(-)
 
-<snip>
-> +
-> +enum scan_result {
-> +	SCAN_FAIL,
-> +	SCAN_SUCCEED,
-> +	SCAN_NO_PTE_TABLE,
-> +	SCAN_PMD_MAPPED,
-> +	SCAN_EXCEED_NONE_PTE,
-> +	SCAN_EXCEED_SWAP_PTE,
-> +	SCAN_EXCEED_SHARED_PTE,
-> +	SCAN_PTE_NON_PRESENT,
-> +	SCAN_PTE_UFFD,
-> +	SCAN_PTE_MAPPED_HUGEPAGE,
-> +	SCAN_LACK_REFERENCED_PAGE,
-> +	SCAN_PAGE_NULL,
-> +	SCAN_SCAN_ABORT,
-> +	SCAN_PAGE_COUNT,
-> +	SCAN_PAGE_LRU,
-> +	SCAN_PAGE_LOCK,
-> +	SCAN_PAGE_ANON,
-> +	SCAN_PAGE_LAZYFREE,
-> +	SCAN_PAGE_COMPOUND,
-> +	SCAN_ANY_PROCESS,
-> +	SCAN_VMA_NULL,
-> +	SCAN_VMA_CHECK,
-> +	SCAN_ADDRESS_RANGE,
-> +	SCAN_DEL_PAGE_LRU,
-> +	SCAN_ALLOC_HUGE_PAGE_FAIL,
-> +	SCAN_CGROUP_CHARGE_FAIL,
-> +	SCAN_TRUNCATED,
-> +	SCAN_PAGE_HAS_PRIVATE,
-> +	SCAN_STORE_FAILED,
-> +	SCAN_COPY_MC,
-> +	SCAN_PAGE_FILLED,
-> +	SCAN_PAGE_DIRTY_OR_WRITEBACK,
-> +};
+For all three patches:
 
-Are you planning to clean up scan_result? SCAN_SCAN_ABORT sounds funny,
-SCAN_ANY_PROCESS means nothing, SCAN_COPY_MC might better be
-COLLAPSE_COPY_MC.
+Acked-by: Alan Stern <stern@rowland.harvard.edu>
 
-Anyway, for this patch,
-
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-
-
-
---=20
-Best Regards,
-Yan, Zi
 
