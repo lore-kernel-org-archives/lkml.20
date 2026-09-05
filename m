@@ -1,193 +1,101 @@
-Received: from mail-wr2-f11.google.com (mail-wr2-f11.google.com [74.125.225.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out28-98.mail.aliyun.com (out28-98.mail.aliyun.com [115.124.28.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43CD038E8B4
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 14:02:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF30C383980;
+	Sat,  5 Sep 2026 14:03:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788616953; cv=none; b=reOZnYC9k8i9HQj3+8doBaR48E2XfFZnp33rWKG920vK3hsX9NOjnLq6WKdXcUWd5SmDCTMAjbm+FCRATFJXlxRs/J/JVlZCT12u3y0WWLpIT/R7Wax1DAuzcLFoyrnGksxTkaO299Mj8ThV5VQ5K4g4ax/EVGG6VZXMLtkvwqo=
+	t=1788616992; cv=none; b=V338JUJYAmLGwrZ+99J9xP7gzbxPhs5oO/3OLO1Q1H/KYR0nRxr+RGKGq3+ZcI7rp58SWOvN+NfzIdR5AqYP1RPee/qXUv2enKt8qHWKnMMqYj3KmBwXetarzXFC+fC7TysMRBCF6QkpCW1QERcej+teCitev+ua947N1WsZUns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788616953; c=relaxed/simple;
-	bh=XYa/sNO0rkEa/2+8FJLR+KN9FCWceJLtMiHEoyXNxqE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZMDdHrOIOW9jszkkJJFl1URkXUtPOcewFOkrD4q78TrV2NI64K4PFYVqeIeDMWhHP33mpXVIMBkjWli16jizbb1tWpRhmgpUCCwCtK6W9u4jNmNCWScAYeolVBN5r+QIE0b5/lVLlYypuV+ZIlBa5FtzPt5FZCuLnZs5XsK/yIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EVTmcyka; arc=none smtp.client-ip=74.125.225.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EVTmcyka"
-Received: by mail-wr2-f11.google.com with SMTP id ffacd0b85a97d-483960225ccso630196f8f.1
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 07:02:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788616941; x=1789221741; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lAVqgBHrMqJB3BSpfl35IypQuNVtfirpz6pazsL02KQ=;
-        b=EVTmcykaSU1FRZcFYRZd03FJBIySZvbcWt2oTXrQhHDgzfmHpP5m7QcpmZnViEgKkR
-         J29mtBFmylGBP2xjQhHHEFwjzDwhepVS6KqyccJg/XH0io1FmPP3MXmRTjIm9PpzSlUZ
-         gWz1a5C+5tI0KxZncAoio2zgch8++j6WBVkvc7UAJ8rSYUfTcJR8Q/7Przjl4L/lAsvQ
-         sv8WX05vwnomK7TYf9ekGzcRRPRbIkSaNsYdx7HTELKhGnlmBMqyBmQhzgd+g8XlcsSX
-         F8NtuA6KwmkxNpjCx8cLpEGJ/BnpItegv8+FOYwqdN+ZejuKzoxwfufm7aF5ofva1py5
-         UmpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788616941; x=1789221741;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lAVqgBHrMqJB3BSpfl35IypQuNVtfirpz6pazsL02KQ=;
-        b=C07TLNJOIMZfdBoMMML4Qp5CJuysNY6I/8nYSqwFNoFZ+W45LCHaSEVNnUIEscgoG4
-         bgGgTLln5cs3xZQ0ie2OUNEaR0BUm0K4V/tLRzpEqdXnO6yDa3SiVBA90dLrtBvzXhJi
-         kwaE+gMB1E7I+ZW/TUZOyooOTOdb7RSXKOGNX4xV6aG9MfyaF1trNzTOzLDvNug7HJ6o
-         5MBIg1oNIR2me8X9yvXnLBLgtkNreO33m4h4+3ZemtPeelMVjgcYBfwz7U6jm1Ajtiic
-         Q+ehAhj7EyBSUD2/5sGRCU0g+3eqhzr2xaz3qk53Qr025rGwZibMiLFgWWk5nM6E+2wD
-         IOaQ==
-X-Forwarded-Encrypted: i=1; AKwUvByHsTFLvvJExb+o6+bd2w0LoI/xvUR6hx3BbqcFcW/fB9vFaOfF/mbbi8rFwHxDFQsxyTR7Y5sr3XrZlcs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lLBFB7HjfCVZjrdY+152417gPLproNyFgHYIbDZ8B2ARUPgt+O
-	E6R/T+4XsI2ec0s6JnmXw1gjwow9S3pxJJz+1Qj8PyamhYLo+cG1QmCt
-X-Gm-Gg: AYBFou0OMX/QD1DV7DB/hh+FuH6p559yDarS8avRf5kY8aDTgfkGaenVOotiGiDhuk0
-	ssoFbfDZpI7AY7vQjFblBqv0cnkcl49v3w5P86WpAcw53SGWYTWlbOl1VzYazIkL9ENM7G/RClV
-	Hfr1X6fQHRehLb1j1LBytyJhZT0PiERUC43M9H2PNlZRrbGpuabRSE0c2Hc/WS3Yw+yXTcIgZ6R
-	YTcVOw8JaGn5vNePBb4WFEeZZcg5HfPV8DtyPgPLadBnFUTahiSWn33LLFb0uSbNADWmaFvb5Jr
-	3OG6aDA6VCgh29nFRkajEGFj9rEByeexl/YU9oXRze5YveQJfm8mEJCI1nxWX1HlsOGmfAhnJVF
-	OXBVANKsmpL6W22XPlC32DgtybSZCMZmW23cS8rG98N5HVH/V6E16SbDKXYFjGa86ZvqjGJWwkr
-	7Ezgz64YcGRJSEoxhHR+9bYWfwKJByxCvJOGE1b7BlswKSl6kshHLoHrWF7dtuywHUnliIRru8S
-	vEdAdhyA6wH6ezEF8ic5+PnOEEk4Q==
-X-Received: by 2002:a05:600c:4f83:b0:49d:91:274 with SMTP id 5b1f17b1804b1-49d00910374mr51848155e9.10.1788616941497;
-        Sat, 05 Sep 2026 07:02:21 -0700 (PDT)
-Received: from outlook.com ([2a02:587:6022:4b00:84ac:4417:9f37:a496])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf755c22esm149866765e9.0.2026.09.05.07.02.19
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 05 Sep 2026 07:02:21 -0700 (PDT)
-From: Christos Skarlos <christosskarlos.kernel@gmail.com>
-To: akpm@linux-foundation.org,
-	david@kernel.org,
-	muchun.song@linux.dev,
-	osalvador@suse.de,
-	ljs@kernel.org,
-	hannes@cmpxchg.org
-Cc: ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	lance.yang@linux.dev,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	vbabka@kernel.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	kasong@tencent.com,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	mhocko@kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Christos Skarlos <christosskarlos.kernel@gmail.com>
-Subject: [PATCH 3/3] mm/hugetlb: fix various coding style warnings.
-Date: Sat,  5 Sep 2026 17:01:40 +0300
-Message-ID: <20260905140140.60792-5-christosskarlos.kernel@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260905140140.60792-1-christosskarlos.kernel@gmail.com>
-References: <20260905140140.60792-1-christosskarlos.kernel@gmail.com>
+	s=arc-20240116; t=1788616992; c=relaxed/simple;
+	bh=cynATu6H8LPAyOX7rSQ7vzYVC4beIv65DY7wS3H1ifY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=umeXGJMC67RC7ig+H2NcOVB4LD6K4+/ml8mL3mK9FNhHPrLj4KYpPv1zaZmiVNJ2w/o9W/VdOM89YQXutDougTT8SfJmGw7YoZYiew0+DrlCB08Udww82ayAzf9NHPe/FFsxDKIj+L3sH4FSnLsB6+/bRy1CvVSTe9LYHs9/BuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net; spf=pass smtp.mailfrom=open-hieco.net; arc=none smtp.client-ip=115.124.28.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07438851|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00467713-0.00028342-0.995039;FP=11412257327081435002|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037026024;MF=zhang_wei@open-hieco.net;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.j6PS1ef_1788616970;
+Received: from 192.168.1.4(mailfrom:zhang_wei@open-hieco.net fp:SMTPD_---.j6PS1ef_1788616970 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Sat, 05 Sep 2026 22:02:51 +0800
+Message-ID: <aeb97d5c-d4aa-4b5c-aeae-dcc6aacfdf1b@open-hieco.net>
+Date: Sat, 5 Sep 2026 22:02:50 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/8] KVM: nSVM: Track fresh hardware DecodeAssist bytes
+To: Jim Mattson <jmattson@google.com>
+Cc: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org,
+ Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>,
+ zhouyanjing@hygon.cn, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260824123954.315112-1-zhang_wei@open-hieco.net>
+ <20260824123954.315112-4-zhang_wei@open-hieco.net>
+ <CALMp9eTUv+4v3jT7w3T8XoQmoSwkEjx6LHr39oJ9k8QNiQnyUA@mail.gmail.com>
+Content-Language: en-US
+From: Tina Zhang <zhang_wei@open-hieco.net>
+In-Reply-To: <CALMp9eTUv+4v3jT7w3T8XoQmoSwkEjx6LHr39oJ9k8QNiQnyUA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Resolve coding style issues flagged by the checkpatch.pl script. Specifically:
-- Fix block comment formatting to keep tailing '*/' on a separate line.
-- Add missing blank lines after variable declarations.
-- Remove anecessary braces {} from single statement blocks.
 
-No functional changes where introduced.
 
-Signed-off-by: Christos Skarlos <christosskarlos.kernel@gmail.com>
----
- mm/hugetlb.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+On 9/5/2026 7:42 AM, Jim Mattson wrote:
+> On Mon, Aug 24, 2026 at 5:40 AM Tina Zhang <zhang_wei@open-hieco.net> wrote:
+>>
+>> VMCB02 instruction bytes are valid only for the hardware VM-Exit that
+>> populated them.  Track whether VMCB02 contains instruction bytes for the
+>> data #PF or #NPF currently being reflected to L1 so that stale bytes are
+>> not copied to VMCB12.
+>>
+>> Clear the VMCB02 instruction-byte fields and freshness state before each
+>> nested run.  Mark the bytes as fresh only when a data #PF or #NPF came
+> 
+> By "nested run," do you mean "emulated VMRUN"? IIUC, that's when the
+> bytes and freshness are cleared.
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 4f6f58bf3db6..ec8e799e356e 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -145,7 +145,8 @@ static inline void unlock_or_release_subpool(struct hugepage_subpool *spool,
- 
- 	/* If no pages are used, and no other handles to the subpool
- 	 * remain, give up any reservations based on minimum size and
--	 * free the subpool */
-+	 * free the subpool
-+	 */
- 	spin_unlock_irqrestore(&spool->lock, irq_flags);
- 
- 	if (free_subpool) {
-@@ -3700,6 +3701,7 @@ static void try_to_free_low(struct hstate *h, unsigned long count,
- 	for_each_node_mask(i, *nodes_allowed) {
- 		struct folio *folio, *next;
- 		struct list_head *freel = &h->hugepage_freelists[i];
-+
- 		list_for_each_entry_safe(folio, next, freel, lru) {
- 			if (count >= h->nr_huge_pages)
- 				goto out;
-@@ -3764,6 +3766,7 @@ static int set_max_huge_pages(struct hstate *h, unsigned long count, int nid,
- 	unsigned long allocated;
- 	struct folio *folio;
- 	LIST_HEAD(page_list);
-+
- 	NODEMASK_ALLOC(nodemask_t, node_alloc_noretry, GFP_KERNEL);
- 
- 	/*
-@@ -4188,9 +4191,9 @@ void __init hugetlb_add_hstate(unsigned int order)
- 	struct hstate *h;
- 	unsigned long i;
- 
--	if (size_to_hstate(PAGE_SIZE << order)) {
-+	if (size_to_hstate(PAGE_SIZE << order))
- 		return;
--	}
-+
- 	BUG_ON(hugetlb_max_hstate >= HUGE_MAX_HSTATE);
- 	BUG_ON(order < order_base_2(__NR_USED_SUBPAGE));
- 	WARN_ON(order > MAX_FOLIO_ORDER);
-@@ -4832,11 +4835,11 @@ static pte_t make_huge_pte(struct vm_area_struct *vma, struct folio *folio,
- 	pte_t entry = folio_mk_pte(folio, vma->vm_page_prot);
- 	unsigned int shift = huge_page_shift(hstate_vma(vma));
- 
--	if (try_mkwrite && (vma->vm_flags & VM_WRITE)) {
-+	if (try_mkwrite && (vma->vm_flags & VM_WRITE))
- 		entry = pte_mkwrite_novma(pte_mkdirty(entry));
--	} else {
-+	else
- 		entry = pte_wrprotect(entry);
--	}
-+
- 	entry = pte_mkyoung(entry);
- 	entry = arch_make_huge_pte(entry, shift, vma->vm_flags);
- 
-@@ -4919,6 +4922,7 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
- 	last_addr_mask = hugetlb_mask_last_page(h);
- 	for (addr = src_vma->vm_start; addr < src_vma->vm_end; addr += sz) {
- 		spinlock_t *src_ptl, *dst_ptl;
-+
- 		src_pte = hugetlb_walk(src_vma, addr, sz);
- 		if (!src_pte) {
- 			addr |= last_addr_mask;
-@@ -6321,6 +6325,7 @@ int hugetlb_mfill_atomic_pte(pte_t *dst_pte,
- 		folio = alloc_hugetlb_folio(dst_vma, dst_addr, false);
- 		if (IS_ERR(folio)) {
- 			pte_t *actual_pte = hugetlb_walk(dst_vma, dst_addr, PMD_SIZE);
-+
- 			if (actual_pte) {
- 				ret = -EEXIST;
- 				goto out;
--- 
-2.55.0
+Yes, I meant when KVM prepares VMCB02 after emulating L1's VMRUN. The 
+same helper is also used when restoring nested state. I'll reword the 
+commit message to make that clear.
+
+
+>> +static void nested_svm_clear_insn_bytes(struct vmcb *vmcb)
+>> +{
+>> +       vmcb->control.insn_len = 0;
+>> +       memset(vmcb->control.insn_bytes, 0,
+>> +              sizeof(vmcb->control.insn_bytes));
+>> +}
+> 
+> Is it necessary to clear the bytes? The APM says, "All other
+> intercepts clear bits 7:0 in this field to zero (to indicate an
+> invalid condition); implementations may leave the other bytes
+> untouched."
+> 
+> Are you concerned about leaking bytes from unreflected VM-exits handled by L0?
+
+No, clearing the entire byte array isn't necessary.  VMCB02 is private 
+to L0, and insn_len determines whether the bytes are valid and how many
+bytes may be copied to VMCB12.  Setting insn_len to zero is sufficient
+and matches the behavior allowed by the APM. I'll drop the memset().
+
+
+>> -int nested_svm_exit_handled(struct vcpu_svm *svm)
+>> +int nested_svm_exit_handled(struct vcpu_svm *svm, bool from_hardware)
+> 
+> I don't think 'from_hardware' is necessary. The two callsites where
+> from_hardware is false are for opcode exits, and will be ruled out by
+> the check for nested_svm_vmexit_has_insn_bytes(svm->vmcb). If you drop
+> this extra parameter, there will be less churn.
+
+Agreed. Both non-hardware callsites set an opcode exit code before 
+calling nested_svm_exit_handled(), so nested_svm_vmexit_has_insn_bytes() 
+will reject them.  I'll drop the from_hardware parameter from 
+nested_svm_exit_handled() and restore its callers.
+
+Thanks,
+Tina
 
