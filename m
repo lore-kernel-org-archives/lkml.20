@@ -1,122 +1,114 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A50DB453A57;
-	Sat,  5 Sep 2026 19:00:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDCE73B994A;
+	Sat,  5 Sep 2026 19:02:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788634807; cv=none; b=M/Dsb4tdX9EXLUxF3tdryHNMQVgoDaTDgdudlwUalRPr+E4j3HfbwOu9Q77Of/70690gNhGXK/EGlKLb4IRqLtWJXylFNh5jTLtef61HjWuSTXDyNFwf/6/P4fNGaPz1IqlUOp7yxoQ95+YeWe/yo3+kMaTKqdm7vUffb6o+xtU=
+	t=1788634943; cv=none; b=seROcBMFkBdMIYOsbxmt0AqL83NSHI+zmDznt/Hh+qTMmk1HiAFUDtt3znLhj3o07x++AlyoB8xc1CoOF833FqA6q+zXbx5vYhvwBX5D2+a6vusgtCAePJdMDkB0nA9dw7r+0ix8h9rjhjZGO8dQjfVxaBkrBsfnVRAh8g76bQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788634807; c=relaxed/simple;
-	bh=0re+RL3TXAr1v6sBEYuYzFqLuuCNYJhUyA4gJJGm8qA=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=nlfzAsRvjWrmUFU6wBa+VeuKQaE0THw9wXq0zSUQggs6aLNw8+FSt1G81qdRwwihxVtcUyCt6fnwYYP3kw66gVx+T3BISIjle4TjfEHyoSevl87tk9F5XHurRoLuVm3Ixn/K9oiM4o2AMUhqMmyFCbLq+FQBF1Ha0Z1Vs34aIMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=g2tsCof+; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=uh9Sibek; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788634943; c=relaxed/simple;
+	bh=0Vt1CxIWa3xf7zF0GUYRtISlccsSkXlDxhyroxC/qZQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QpwGdP6D3NshLx3LfVjaDNXRUMFdFgioaG40Jj78q89MdsGXFt6S3u2gPmqy7N+mcjyv3T+rL/mA47D8XZRg/jULjQLduQsukfPAZNguqKTOzPumuCUHHRSKPyeC9Ce9Nmjv0o+e/MWxN6mgAaPkxEByEBhF4lRIB2EvXr0aryU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GP+AT1oq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="g2tsCof+";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="uh9Sibek"
-Date: Sat, 05 Sep 2026 19:00:00 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788634802;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1ozl1WxTECGA8UW4XwvxdTc+gq1ncREK76dnOZLxVZI=;
-	b=g2tsCof+5eUL01VNkSXQ5zlr3BCD46xbu5W2AEnDQ7AB47mOAOxceBLaRYKV6Jzx1WVOSz
-	W6bYKTZkHUHgtD/bGmtlFBjmOI5D8SFofKQJyMBxWSw3CdvUlvwZQC52pYVQt88C6bFkDr
-	RkKhnYpj+14tR3sys+eaDsm3A2H7C5InJpmSdcdOLUoP2mWrMsuAEAtr7V0Z7fqbye3rjP
-	WvZ7gigEMET7tRDyj8KxmQV9irKgIKTj2SNzdDIk5pZeNXhSPK4Fk6GeegSKVs1dafVZob
-	l9m7RX8NYPbXwiwK4nErpNTVh87sKyBrmWqBHnQbMONRZU9XFcOiei5nMdoqOQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788634802;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1ozl1WxTECGA8UW4XwvxdTc+gq1ncREK76dnOZLxVZI=;
-	b=uh9SibekDjdgn63wmvVx68i7VBjCJ/MUtqaZ+iTxNP8ysaL76atSEGAyaXoayiyUzKTxVa
-	2/4Hk/obm76/FnAg==
-From: "tip-bot2 for Enlin Mu" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: irq/core] softirq: Remove redundant h->action from
- preempt_count mismatch error
-Cc: Thomas Gleixner <tglx@linutronix.de>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Enlin Mu <enlin.mu@linux.dev>, Thomas Gleixner <tglx@kernel.org>,
- Bradley Morgan <include@grrlz.net>, x86@kernel.org,
- linux-kernel@vger.kernel.org, maz@kernel.org
-In-Reply-To: <20260825011509.8505-1-enlin.mu@linux.dev>
-References: <20260825011509.8505-1-enlin.mu@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GP+AT1oq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6D2C1F00A3A;
+	Sat,  5 Sep 2026 19:02:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788634941;
+	bh=3IFWBkpwt0DglCJ3/MwQDW/O3Cn5kGPmagAF2kfRUj4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GP+AT1oq7qVonqXJI/yx6FqzXulAvrqUmCCAoz/El9ASH3nQxk8XfFbcSo9fB8maz
+	 p42HmiM6Mx8ZWHOoIKyeutET2LBSoMoQRoWL1oEkTktiwAQRWrE3LqKmFY0eCrSPR9
+	 eUNtAkeGmEFMSHkwR3dcetmyO1Ropwwxzkt4wOIrluc4RR6gTwzEfFIVGU/4xaNKqg
+	 wI0MzUTFxwuKiymuLdpkddcw0OkSPdCw1hVqGXyYwR2//KOc8Tel/E1/UY7tYEZvFa
+	 grAjPRDkQYa+ikmm4Gx3/eF0MNgEJDpaB3Qc/fdQGmbHAp6efSzQm5L3qix1cdlUSE
+	 c34XjApZFbg9w==
+Date: Sat, 5 Sep 2026 20:02:17 +0100
+From: Simon Horman <horms@kernel.org>
+To: zihan xi <zihanx@nebusec.ai>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, xemul@parallels.com,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	vega@nebusec.ai
+Subject: Re: [PATCH net 1/1] udp: diag: bound bucket lock hold time
+Message-ID: <20260905190217.GE40544@horms.kernel.org>
+References: <133b6aee9e2c908c9da37d5585b3d2cd016906cd.1788187473.git.zihanx@nebusec.ai>
+ <20260905151227.75099-1-horms@kernel.org>
+ <CAANe3eRpVGnYpygfiQTsXd2VmBO43P-P1RfREkdDypgXBZB9Uw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178863480086.623050.12464885106905159266.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAANe3eRpVGnYpygfiQTsXd2VmBO43P-P1RfREkdDypgXBZB9Uw@mail.gmail.com>
 
-The following commit has been merged into the irq/core branch of tip:
+On Sat, Sep 05, 2026 at 11:49:05PM +0800, zihan xi wrote:
+> On Sat, Sep 5, 2026 at 11:12 PM Simon Horman <horms@kernel.org> wrote:
+> >
+> > This is an AI-generated review of your patch. The human sending this
+> > email has considered the AI review valid, or at least plausible.
+> > Full review at: https://sashiko.dev/#/patchset/133b6aee9e2c908c9da37d5585b3d2cd016906cd.1788187473.git.zihanx@nebusec.ai?part=1
+> > ---
+> > udp: diag: bound bucket lock hold time
+> >
+> > This patch limits the time the UDP hash bucket spinlock is held during
+> > netlink socket dumps by collecting a bounded batch of matching sockets.
+> > It takes a reference to each socket, releases the lock, processes the
+> > batch, and resumes from a preserved cursor.
+> >
+> > > diff --git a/net/ipv4/udp_diag.c b/net/ipv4/udp_diag.c
+> > > index f4b24e628cf8d..18cfe0df654dd 100644
+> > > --- a/net/ipv4/udp_diag.c
+> > > +++ b/net/ipv4/udp_diag.c
+> > [ ... ]
+> > > +static void udp_diag_dump_done(struct netlink_callback *cb)
+> > > +{
+> > > +     struct inet_diag_dump_data *cb_data = cb->data;
+> > > +     struct sock *sk = (struct sock *)cb->args[2];
+> > > +
+> > > +     if (sk) {
+> > > +             cb->args[2] = 0;
+> > > +             sock_put(sk);
+> > > +     }
+> > > +     cb_data->dump_done = NULL;
+> > > +     module_put(THIS_MODULE);
+> > > +}
+> >
+> > [Severity: High]
+> > Does this module_put() introduce a race condition with module unloading?
+> >
+> > When an active netlink dump for UDP sockets finishes, inet_diag_dump_done()
+> > invokes udp_diag_dump_done(). This function drops its module reference using
+> > module_put(THIS_MODULE) as its final step.
+> >
+> > If this was the last reference, a concurrent rmmod udp_diag operation can
+> > proceed and unmap the module's text segment before the thread executing
+> > udp_diag_dump_done() executes its return instruction to return to inet_diag.
+> >
+> > Could this result in a kernel panic due to the CPU attempting to execute
+> > unmapped memory?
+> 
+> Yes.  If that module_put() drops the last reference, rmmod can unmap
+> udp_diag while dump_done() is still returning to inet_diag.
+> 
+> I will keep the extra module_get() in udp_diag_dump(), and move the
+> matching module_put() into inet_diag_dump_done() so it runs after the
+> callback has returned.
 
-Commit-ID:     a0e1fdb96578ea562a03c487f70673d228824d0a
-Gitweb:        https://git.kernel.org/tip/a0e1fdb96578ea562a03c487f70673d2288=
-24d0a
-Author:        Enlin Mu <enlin.mu@linux.dev>
-AuthorDate:    Tue, 25 Aug 2026 09:15:09 +08:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Sat, 05 Sep 2026 20:52:12 +02:00
+I think that the fundamental problem here is that managing module lifecycle
+from within the module itself tends to be unsafe. I'm not sure your
+proposal addresses that problem.
 
-softirq: Remove redundant h->action from preempt_count mismatch error
+I think one possible solution is to move the module_put into delayed work.
+And another, is to move module lifecycle handling into the core.
 
-When a preempt_count mismatch is detected in handle_softirqs(), the
-error message currently prints the softirq action handler (h->action).
+Possibly the first option is cleaner as I think that only udp_diag
+has the need for this.
 
-However, as Thomas Gleixner pointed out, the action handler for a given
-softirq vector is always a known, fixed function (e.g., run_timer_softirq
-for TIMER_SOFTIRQ). Printing it provides zero diagnostic value. The real
-issue typically lies in the functions invoked *within* that handler, not
-the handler entry point itself.
-
-Therefore, as suggested by Sebastian Andrzej Siewior, remove h->action
-from the print statement entirely to clean up the error message.
-
-Suggested-by: Thomas Gleixner <tglx@linutronix.de>
-Suggested-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Signed-off-by: Enlin Mu <enlin.mu@linux.dev>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Reviewed-by: Bradley Morgan <include@grrlz.net>
-Link: https://patch.msgid.link/20260825011509.8505-1-enlin.mu@linux.dev
----
- kernel/softirq.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/softirq.c b/kernel/softirq.c
-index 7980a4a..800d81c 100644
---- a/kernel/softirq.c
-+++ b/kernel/softirq.c
-@@ -645,8 +645,8 @@ restart:
- 		h->action();
- 		trace_softirq_exit(vec_nr);
- 		if (unlikely(prev_count !=3D preempt_count())) {
--			pr_err("huh, entered softirq %u %s %p with preempt_count %08x, exited wit=
-h %08x?\n",
--			       vec_nr, softirq_to_name[vec_nr], h->action,
-+			pr_err("huh, entered softirq %u %s with preempt_count %08x, exited with %=
-08x?\n",
-+			       vec_nr, softirq_to_name[vec_nr],
- 			       prev_count, preempt_count());
- 			preempt_count_set(prev_count);
- 		}
