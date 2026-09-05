@@ -1,175 +1,64 @@
-Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com [209.85.160.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD67A33C198
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 01:53:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788573187; cv=pass; b=ZTmchvHAaXZF4PnjhJfxXnbOdXo1sUmyBJQdRnPnCELXGwIDB1OZBwGfVniP8DV/njNwsmspcGHXMVYRGGaFAwcwuoiixUfaAirjKQn+i72Qwq9LYw06mt1As2dEqPFtSoSbXnf/dGOFm3jVX951Y2sPC3FTypHS8SuBpnGJ3IQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788573187; c=relaxed/simple;
-	bh=Wpt7DuNPNgIESG4CCHysgiXD1WUySeU8KIWxMrrs66w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gu2L/7cnmqW1yeW3mTrAbg0cJge+P+vlDXtTsNJImlXwRelZuN1K6U39FtzWgkBH7+ZraaSYNGWGc2b1LWK6QshJMpdpjw22uRNz9IcZJX2FEHJzKdzAjETiyOlkJFzqYMks//Dw1ttf7s6tPgojBr9NKz1XMG3JwrCuzoooqik=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=u2w1n9Rd; arc=pass smtp.client-ip=209.85.160.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99B1F157487;
+	Sat,  5 Sep 2026 01:54:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788573280; cv=none; b=WTzNueXi+mNyV95uC2aNZineDkeQsUM8DTi217hoiSC2m3dorfDDnRDjvedCrXn9oPToMLOcyFDCr6Eyl1YwetIPeRRYmuVx+YCUP8OC4w/QNNZOBWoBZsHwLrf9aHoUVpPygMREVRAa+dMo9vXsMllS4Fd7G1GxedwH6njLu+I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788573280; c=relaxed/simple;
+	bh=/AOLLvTTuyVsVf1WBHMYhqaApTeUERzsKCCeLnyvpKs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=I8oPNO1bsYlRjo/08CTLYeDW0Y35vOQPFU3CrzbA0AiuZ3hLFH0GWnrVaLZwqXagTrrGrRp087Z4oxHmm9mdU7CItEVt4VZPTekzS/JQjOoLXsXrQmvgTXesvUd4dBIL0aaTWZXeETxiT6BMJaDvTuRdFcX1nDQET+nt40VzUag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dWu+fuaI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="u2w1n9Rd"
-Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-46556b9e02cso1276293fac.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 18:53:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788573185; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OMzfFtpXgqghcyuqIcbgeUM03m9q0/AtEo/SauG1Bm+94tDklMdAbzbtzEscbFn1of
-         KOUQu/FdtPkJB/Jwq57Swx7NVN6+2kZYb4fJv4y5V/QMd9D6BmScNK6VB51xRWzi8A0l
-         dKMC0UtmEimsgSVA0qEhuaT+LM75gN+imusVXWvN6HUCwj6LTeuUA+qa89PciGMHPFQI
-         fxykrtwkcasSg6R6AJjtf+Ct7ZN3iWlv0re8Eo+GMsu0DWyIOnY7YptBdRCHJZO02f2a
-         OP7DgTjpgI3+y1GvjcAlWbZHpmrnzfiruh3CX/pLf9IKFgMgiN/jM9GCzrrRZ8CRTXmz
-         qG0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Wpt7DuNPNgIESG4CCHysgiXD1WUySeU8KIWxMrrs66w=;
-        fh=JvdL6X1taZoPwAva984IyPC3dMgi6yUr+rJcrUKchvw=;
-        b=ZNeQFS5mWk8iPHn5Sfipk1ttIcFFes6k/MwVJWzlbHYzzBCf671bHrqeYbosAsseIF
-         8xtIfi84R0fIwBynFje6LjlpmoRP5qMgSIw+xTgsvo3iF/iYkHkez50g/vv+BqIGTlBN
-         j2QPOqMfhp+7o/9ntTPs3IPd/I9UGUFb6ziYG+x7N57ctsG/XcPWW9wM4siEGKk+KElh
-         IReG4WX8ydBi4UG1LIrVlEDLhffp3k2lXFngtnVItbtYXdoSyhrehJlRlfA5w0gNvIXV
-         l3gY7niKlK7DQKi01ISlLSnBjjtf6exv0cfTJ1ZOJxMYkTd1j0XGeoy1kHUwcmII3AnE
-         I1Aw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788573185; x=1789177985; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Wpt7DuNPNgIESG4CCHysgiXD1WUySeU8KIWxMrrs66w=;
-        b=u2w1n9Rdm/fi/caIGnIJx1DRzbOe7hXOBTsRChqCiUM63Hmn2SmGx7ld53tl0Pk8iD
-         msb4f0eIhRBoLiWGCC6z/CmdAy4aEnAjj2ND+soRG8eA/8ESb68wlMVTp2FVJr735X8p
-         hgAv3r3adoX3U3EIxoFOOsL6T7miwgPpTW2GyiRZ7d6XghS/qHattMuFvANXCUUy7T0O
-         fMFhFnt/RwAuqSiQMtMHlqdj9ItJKrXjvvyzK0ae6t5AUK0q4dAVdkhcfpLrNB2b+ee3
-         cJbzEM0ZOPEIOdV6avlXpfpZZ6I2b17oxZhubFX1BuYeVr/MqP5KJDodaL7tv6gd7JFi
-         A8DA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788573185; x=1789177985;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Wpt7DuNPNgIESG4CCHysgiXD1WUySeU8KIWxMrrs66w=;
-        b=nFE1xqUGR5uCtP/7p9p1On/b50JspHUAoFlR3mTDLCG+6TweSYUf/A0+BKWPTQV6Tr
-         hX9zhhltNesuIcohKsro3PMUubXIGGK+0IQNs6J4zJsdHh/oZDfPLGzeZHDlHoFKDBWy
-         F91w/4Vh822tf+6hDRuYYSEeKiLstJVFi5+V/REHaH/Q0DvKWDnsGXHi5cEdslD3k+JB
-         CVUsp7Wqa/WHohsRqIAqoQ71N91TO17H3ME+jSh77cjTcW5qMrRIka4QWLeXzfYlaoGQ
-         oQOkKoT+OaiPFGRwlB65pqWU370moowqbJzw4DEoQqeBusn/qaaUZgpYx82wSe+M6c4t
-         prOg==
-X-Forwarded-Encrypted: i=1; AKwUvBxLpWxH4tGs0y9IxNaCgPVZpYXE8J1+UT1r5pcOjV5KNOVfWpDD401luX/iRluTVimZGcLnc2H+ur9GEBg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lvCkhnk7drtTxjcNX6WiM6lE6mS66qSemZKKfySybznQXfTJ7k
-	3NqR0P1i/sr4vsZWgJnGD6AVIL66kLG3uErbAVSIW+Icexigrxb6h2/EkfeGwGyuqS17E5fV4Nc
-	Q0j8EU8zczMfmm6u3E/nsaKr6AW9iiYG+sRKO0Ht7
-X-Gm-Gg: AYBFou0wmzXYSNh4m+RrSz2LavXsXWq7gOGc1rx0oS5rVPlWEm5IIeGOjpfj3GuUEad
-	GWK7i0h2b7C3m3MkLn118zhH0gqBgIFUtOcT5AYmqB5F5qVSk9RvE2XPCvF5bfFEOIBBvME6Rd0
-	GYd/qTrl8H8RDxmHNbsQoWCB4NUXJm0EA9XNg9QDTJjHxwM8npAA9V+x0FXslv+taberywti/ZB
-	2oJf6FTB7Yns+JM4NeHW/q3muc9tQAc1ii41Ij6vqcZ0ZJmyIco3fIZbcZMiztwZsdmzjNhWlIP
-	UYR5QJ9s01/pKngVem0Kg1uSqqZjyqL8IaWQ/dnKygvdWiFs0qtP2KO/Jlq8mvjqZhEPMeM/TCJ
-	0bQ==
-X-Received: by 2002:a05:6871:552:b0:470:e97e:8f89 with SMTP id
- 586e51a60fabf-470e98e3742mr5556974fac.25.1788573184127; Fri, 04 Sep 2026
- 18:53:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dWu+fuaI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 168331F00A3D;
+	Sat,  5 Sep 2026 01:54:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788573279;
+	bh=4MJcl8W46wmt24cCDnHxwj7bbU8/1Quzf4Ca/V5P5wk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=dWu+fuaIHQGGxEBbTuXRWfpeCDAUcgwvqZqYLiHWMaZBvY+8gi2BZOiIpXf7DNg8S
+	 X5bllaVPZw8GOZe1MvXK4xLu/gqGi8O1lySE5ohZguUlCiFdq4pA+ewQwc0rHzPWro
+	 iuaK4y6FmmKVfNXUkSPWEEtu0VYONWPXrd07Piknl2YHDTji8XnJ8fKNDINKokSD+s
+	 NARSQdXAOfgdG/3ukIcKuHUM9R7MqXWm61vbjA/B9/mmRZxfUx+bZZUvsCZ3RwPW9I
+	 fqHErchyUVBSToz3jtRTH6uNr58lnNOJdyNixdNIl+fishmQVwX/0yFTALBMt+Prwn
+	 QQfqErzciSs0w==
+Date: Sat, 5 Sep 2026 02:54:31 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Flaviu Nistor <flaviu.nistor@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>, Antoniu
+ Miclaus <antoniu.miclaus@analog.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: iio: adc: ti,ads1015: Add label
+ property
+Message-ID: <20260905025431.1d1e4d1d@jic23-huawei>
+In-Reply-To: <20260902172230.5234-1-flaviu.nistor@gmail.com>
+References: <20260902172230.5234-1-flaviu.nistor@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902-qcom-wdt-nmi-series-v3-0-f3999362a9ea@google.com>
- <20260902-qcom-wdt-nmi-series-v3-3-f3999362a9ea@google.com>
- <87ecf98ivn.ffs@fw13> <CAD=FV=VMExH-K68aDfNsFBnQRSaYSNwbHo7hLhpzhpWN+r+Fsw@mail.gmail.com>
- <87y0dh6oqe.ffs@fw13>
-In-Reply-To: <87y0dh6oqe.ffs@fw13>
-From: Mayank Rungta <mrungta@google.com>
-Date: Fri, 4 Sep 2026 18:52:53 -0700
-X-Gm-Features: AcwNN1VPx2heUjeMS3C93bR1ek6ti7FrnovSxIJqv1HXxVhsBQVkdAztmW7cHPQ
-Message-ID: <CABz7rdABFgW-cQ3qJC_=Q2uJZvc-JxJmUhokBztF82RUdJk7vA@mail.gmail.com>
-Subject: Re: [PATCH v3 3/5] genirq: Export NMI APIs
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Doug Anderson <dianders@chromium.org>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
-	Guenter Roeck <linux@roeck-us.net>, Radu Rendec <radu@rendec.net>, linux-watchdog@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	"Kirill A. Shutemov" <kas@kernel.org>, Marc Zyngier <maz@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 4, 2026 at 8:05=E2=80=AFAM Thomas Gleixner <tglx@kernel.org> wr=
-ote:
->
-> On Fri, Sep 04 2026 at 07:07, Doug Anderson wrote:
-> > On Fri, Sep 4, 2026 at 2:29=E2=80=AFAM Thomas Gleixner <tglx@kernel.org=
-> wrote:
-> >> On Wed, Sep 02 2026 at 18:54, Mayank Rungta wrote:
-> >> > Currently, request_nmi(), free_nmi(), enable_nmi(), disable_nmi_nosy=
-nc(),
-> >> > and disable_nmi() are restricted to built-in kernel code because the=
-y are
-> >> > not exported.
-> >> >
-> >> > Export these symbols with EXPORT_SYMBOL_GPL so loadable kernel modul=
-es can
-> >> > register and manage NMIs.
-> >>
-> >> I'm not really fond of that.
-> >
-> > Is this to be taken a NAK on the whole idea, then?
-> >
-> > The last patch in the series [1] wants to promote a HW watchdog bark
-> > interrupt to NMI. This seems like a pretty useful thing to do and an
-> > appropriate use of NMI, but the HW watchdog driver is a kernel module.
-> > Do you have another suggestion for solving that?
->
-> I understand the intent and why it might be a good idea, but letting
-> random modules convert interrupts into NMIs is a scary thought.
->
-> We can export it in a restricted way though to limit the exposure and
-> force people to go through a thorough review of these use cases.
->
-> That could be a subsystem restricted export or an explicit restriction
-> via EXPORT..FOR_MODULES().
->
+On Wed,  2 Sep 2026 20:22:29 +0300
+Flaviu Nistor <flaviu.nistor@gmail.com> wrote:
 
-That makes sense. Do you have a preference between
-`EXPORT_SYMBOL_NS_GPL(..., WATCHDOG)` and
-`EXPORT_SYMBOL_FOR_MODULES(..., "qcom_wdt")`? Happy to go with
-whichever you prefer for v4 (which I'll hold off on sending until we
-reach an agreement on the NMI teardown discussion in patch 1).
+> Add support for an optional label property per channel similar to other adc
+> chips. This allows assigning distinct names for each channel which can
+> match the schematic signal name.
+> 
+> Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>
+Please always use a cover letter for multipatch series.
+Makes it easier to handle them with tooling and also provides a place
+for general comments etc.
 
-> >> Funny enough there is already a driver which claims it can be built as
-> >> module which uses these interfaces. Oh well...
-> >>
-> >> > Assisted-by: Antigravity:gemini
-> >>
-> >> I'm impressed that AI is required to add four EXPORT_SYMBOL_GPL()
-> >> instances.
-> >
-> > Hmm, I guess it's hard to figure out the guidance here. I think Mayank
-> > is only adding this tag to try match what's documented in
-> > `coding-assistants.rst`. If you've got an AI helping you with a
-> > series, it's pretty much touching all the patches. I guess you're
-> > suggesting that, even if AI touched it, trivial patches should remove
-> > the tag?
->
-> I really have no strong opinion about it. But it just amused me and I
-> couldn't help my self from commenting.
->
-
-Actually, I was able to add the first 4 exports by myself, it was the
-5th one I really needed help with! :)
-
-Jokes aside, since the whole series went through AI review and
-different maintainers have different expectations around AI
-attribution right now, I conservatively added the tag across all
-patches. I'll drop `Assisted-by:` from trivial patches like this in
-the next revision.
-
-Thanks,
-Mayank
