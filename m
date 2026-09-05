@@ -1,145 +1,191 @@
-Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
+Received: from SY2PR01CU004.outbound.protection.outlook.com (mail-australiaeastazon11021085.outbound.protection.outlook.com [40.107.39.85])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFD22258EE9
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 04:22:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90661222597;
+	Sat,  5 Sep 2026 04:30:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.39.85
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788582135; cv=pass; b=UwGZR0wGXCIdooVC3xuYu22XMotLwGEl4SCnvZwH08mcARfuAlsPXFFHL4XnjnoToyBhv1knObkmb2xBHjFQnyGJoP9jvycxHR0dsHi+muNy6qoGSENH9rdlkvKFXnNfgjmfHFV3Cf2o0wqqBYcOMu0FRxoZ1LxJh843lMSvR4U=
+	t=1788582640; cv=fail; b=TCagTOQBLUw+3K9/Y2grZAxQVGlJplyPrVTHFvCJND2gnU7yewzo3KfoQhlj/0H5g0Q6d3CRqZYX5SsCx5lvleBJ0f/Oc5N+Pbln44cmA66hAZThF9BZoM/cMf9KY1vcMROjNPONpmbwslD4p7RJzYrS/7bH/mioWx1GbfrG358=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788582135; c=relaxed/simple;
-	bh=g+C84RLk8fAVr0FAD/3eGHy3iHfn5lM+pPwezj8cgeA=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=uw8wBE8kKFhkMvhrxRILKZzYRMPW9QYI4dAO+bqNmu6BIhgVvillk7mz5O+AN4+lXT+rgLeJMB8xJawncH204I3ll7PlOGHDEfGsOHy60fyVm3jEhOnSCEoKMEOc8e3htrWC+OnmjJe6BWnHwO0CzvpzSHZXshF0xzFQwbXrnMU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=gvri4wuA; arc=pass smtp.client-ip=185.185.170.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	s=arc-20240116; t=1788582640; c=relaxed/simple;
+	bh=l5eFSWmDrWUmlGzbag1icVP3QsrBf1/XmaJ0kgccP/E=;
+	h=Date:From:To:Cc:Subject:Message-ID:Content-Type:
+	 Content-Disposition:MIME-Version; b=XJMO/QJDx6NwlD7rH3dH9BKxlogJWVYFO5d0YNZypd7jaf0wiB+bi6lbgDsQ4WH1NvpOYPxHkdI8J3X/X98TVNhbcKv0Yg5sG3UThAdDvr46JeH5J2k/GZGtmqsA3K17knhH3l0e0Ew4bXi/MX5vnWqdkbtKRKTkG5RGt/RzRzI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=heitbaum.com; spf=pass smtp.mailfrom=heitbaum.com; dkim=pass (2048-bit key) header.d=heitbaum.com header.i=@heitbaum.com header.b=Xe7RXmEF; arc=fail smtp.client-ip=40.107.39.85
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=heitbaum.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=heitbaum.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="gvri4wuA"
-Received: from fauth-c2-smtp.messagingengine.com (fauth-c2-smtp.messagingengine.com [204.75.18.201])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: jmtilli)
-	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4hcKsz3qKBz49Pyr;
-	Sat, 05 Sep 2026 07:21:58 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
-	t=1788582120;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=y3uwQYhWWHu/wXddzFOmjJgjqHenok1Flg+cIe9gNoc=;
-	b=gvri4wuA1k2XUuwcHikhL+Z8TyUMKe7RFn3TJXBDmTQ2ZZjtt7sy/Fqzn9mgc91m1ev4nf
-	NXUl9GRvft/UUL1TN02l2zBtTmf97d/Hy0XbPKQp4Pe1AJEsqo6Fx9RRgaXPzih3uP6mGg
-	lnbiQKV3Grz30R62fbg6WxGXSxkJHRIjfRqNJHOkBsMpG0535hb/yV+1ESiYUV8txy3OFV
-	QJL8BgoE7zM17NSRFT8O/kaOVtv04LuDeKDtPIP5VRFxyR+WzSmVEezJNF1+8jkYZinn2g
-	UFFlUUDUiBqQGz/5x+wmT0T8iBawB/efWB9FHVQQ9QAIzkn5Hhan/Sgg+rugWg==
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1788582120;
-	b=aPUdK15HAoIIQVB/8cnDcsgcVfDTye2nP3/0gEWiggh8TcGMyF0OWvyfhlWciq/6d0JTLf
-	YuKr5OsWrAf23+nhmKEa7Gl7DaFthbDnm4kq803pKRV7PNTbt2P/YgPsOLzOStDgpw8kor
-	imWK1vEldDBYfOCsdYSHtaM4qkyR7qRca0hJMH5BYO0YWzsO8qIT9Ofpa+fmvbTMRdKrPH
-	JkEuiCIce1/5Zgbriv1jxxN/1K19c7EwjmsbMtzLfp0kmYOT8zjqxtf7LTE62gMi7PC1UW
-	eOy7xyZ4sdO9EefbCwSDEGxXLYoqwMM1J66pAbzBf4Kb/FLjhD7hS0MZLQok8w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=lahtoruutu; t=1788582120;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=y3uwQYhWWHu/wXddzFOmjJgjqHenok1Flg+cIe9gNoc=;
-	b=mVvm+RLJUmuyy3ZV4SWYDu+U37Hb2tctRIEyi9udLw6kOXAaSvlbslrRbxpCcEZSAoIXdc
-	FzzSbBrcfs+Qrqw9siQOinMTqqE7QhCNH9RbAgaUGskaZ2bka5OOv8eGWlNGnQHrygEnHh
-	8XMfMoaBSA6UdKdfYsKtF8GXPXk8N2+x0vsfHD8RljxTkBHg6YEi4pbGBdBWwzwc2wqzpB
-	LiBu7GxcprRdokNye1v4d/9/j2TAY8wDopFQTXgtuew61/wpKD1P24ZgdFVbjW2YDrN54d
-	q3DvxXQ290gVwCmrNLTbxlSuHZRUErZ0nMgg8ID/nRkyjKC2SkqBgs62mEqYHA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=jmtilli smtp.mailfrom=juha-matti.tilli@iki.fi
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id D1776198006E;
-	Sat,  5 Sep 2026 00:21:57 -0400 (EDT)
-Received: from ams-imap-13 ([10.64.2.33])
-  by ams-compute-02.internal (MEProxy); Sat, 05 Sep 2026 00:21:57 -0400
-X-ME-Sender: <xms:45ibaoQddBuqZTXNYUhi583YWnz41jhPsvLFN43v87NQ8PJJuiCs5A>
-    <xme:45ibagn9M4yGmu-Uid_tbN8Gs6-0iO9-rNyZc4awMlkV24KGV_RFffHAM86OmUPy8
-    4wqlNt5nbF4mTIdDxOE0CCwr9vDooUHevCqCd1lPL2khODTxk4q3_M>
-X-ME-Proxy-Cause: dmFkZTGoFIH3WITUQMH9wWS9ETTwWD3+gSemNpKRVvzkQC1ebGQhg56hbbZ58t6gSLllbl
-    GjkRcBKvgO9sIYW5ScfUiR2nqTwRuOOAdTOyPlNDAuAj9CNoyoI+5tQ5rmyOcWm8D1oUi+
-    QTD6fp4jKtwuuiCXywcTKguAh/YuhPSw4ax/bqSY8msvgSyR7EA4nUxPUTX9SO4GpbDwBa
-    e8b4mAWVFrPxtgaR2BSoUYmW4me53zgAaruWmBkkWiWXE1FrzvNc/s8Bdlb46FRg2hF/65
-    bEtTWZiBnnkjfwglSeCsNJpe7oa0tTXW55ePRzJMsxrgHiJJIrIfPk89Ro1fE1KdCsXNgA
-    UR/PSBXJe/mrkw1ZOBOS8He1J0AkpB3cNE/OCifxSFwR47/pm/EbS+JXJNgZb8HmVjzgdC
-    93UjIsoVvzFO0giv7jL4kXm9WQZEd46sUpZAKu8SQt9h3Jfge4UyyTFR/XoKmorKx9thys
-    TFvSlQdVMTQL4Djf5VZy79F46jvk4lwbtvqJUaR9/+elbQqHA8c9jj1idTnZosp67r1J4a
-    2YDZi+RQmQUf3Vo27tX1ykU5wOMLtjSnOPiGUz3JB3QL8GmYwxeiVlajfxw2YcCm2rTT2W
-    hxOvtb1OKizLEX7vFJ/DpVMq/WtwOedW1x4GMKTMbTFbDTYet/bwE0cnONog
-X-ME-Proxy: <xmx:5ZibasWXBqGcIYiBvStlhat0eJCRMFo16Xo74UBxP_QsVx0PAmNOvw>
-    <xmx:5ZibahAQcG-4Zr9jn6be9XPJMZO5oPb-0s5AxF2zEnkw6kPp1Hiqfg>
-    <xmx:5ZibagKnyDCO02nGwGWTJIyhXdUGNnc1_K8tVr8tMV_9jHAw26fUsg>
-    <xmx:5Zibanu35BPNaZurdNGMvOJmMWrnnVWNe5fAqcdJDUCET8u3GLLHkw>
-    <xmx:5ZibagWsSd_VLD63S3qMWc0u2I8gd24ZR5pAXnOzkLvXoGhMomDb9GKw>
-Feedback-ID: i02414972:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 27CC2F80082; Sat,  5 Sep 2026 00:21:55 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=heitbaum.com header.i=@heitbaum.com header.b="Xe7RXmEF"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DenOUPWv38mli+M5zePJtR4ppcG+TI/KDw8u3fQDWUhw439Jhs8ztvqHAmpZKJw3LocGPpH8ol7+2hoRqN2/9S0NrKgdcHirw5sf9vsS3ztQG0sYrpVzJUSjQSJjzn2XQ2VdlOprZU8eV0fv8d1C59IOqwBSiQ1KoKK/41D2P0QwjtgIhzk2e/kQXI8gPmaV+ituggf9Vki/R2A0FAt9jc531WxWB2a+W0VbNfni5h0kjqRFN5Il63/2vRnzSfrCbI8oQ5dFLhLbeAtbE3JkLU2Vyaf4G0EAz5O8N+0d88v7av8asHtS4weyvAi0kfok0u9B+23Krys97hcfOPlSKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gKYNfv7fUIyGoeuG98IwjaZu2+pcz+Wi2Zy+6/QOmOc=;
+ b=hsPuqbkH3XaBK/K7d8Qrh9nkWtvQnWsE3JQFMvCXffR1rQ46ymQw8yh8Y9av+88mwEfqbPrygnfgTZ4E7YmWHOxCe9o2jnXO7G1HdDAtSNQJ501tMuauB8UPBpOW0Bv4tE1f5lPddsN+AFCDohg3SZSuB1PG2tV7pACj7AW/1iGRIbzxs5OMF+kWsy47Ansubk1r2JGlTr82dprugahUhg2FLGstKZS+2C+I20TgmGu2OZAGGk27uIgFrdxADeszYeX+LK5n5JEdx2LPs9liEK1lCkIVFgWziUGG7i49M+UlmxjXFRJnOjuU3dTBJU3x72sLsSrovpuvNDyD5fuw+A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=heitbaum.com; dmarc=pass action=none header.from=heitbaum.com;
+ dkim=pass header.d=heitbaum.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=heitbaum.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gKYNfv7fUIyGoeuG98IwjaZu2+pcz+Wi2Zy+6/QOmOc=;
+ b=Xe7RXmEFI2EsFVqJs+89tN3oRKTr8a6GsKibE/cBqvvDqzSHeD49tIhrhoY1bGAXL4vj5kSQi0FwA69PUjb0JA8TT3WbIJgOzVbTGpTBTlJuqXjQ2pySFi6HipKycqVt81GL++6NKs8Wx5SJJyIsSLF55GSRy9qQqpcwP2GpW0YY46QmbdJ3djq3buH+syp1wyEYMCfUh9ZWgnUCPWawhNriM2eeikUSIdgSeoGRbWJ0EIpwELUfxeZTUUkoOOR1P68a1NBoz5OWItwpuq6Jm1GC4Mr+ki/NdUPBW3QejkI9XTh6Yvysivd6gN0nz/miXgYyocgn+RboEp3Yl5ovjw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=heitbaum.com;
+Received: from SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:279::22)
+ by MEYP282MB1542.AUSP282.PROD.OUTLOOK.COM (2603:10c6:220:c2::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Sat, 5 Sep
+ 2026 04:30:33 +0000
+Received: from SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
+ ([fe80::21b6:91f8:614d:1fdd]) by SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
+ ([fe80::21b6:91f8:614d:1fdd%4]) with mapi id 15.21.0382.012; Sat, 5 Sep 2026
+ 04:30:31 +0000
+Date: Sat, 5 Sep 2026 04:30:17 +0000
+From: Rudi Heitbaum <rudi@heitbaum.com>
+To: Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+	Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>
+Cc: Matthias Kaehlcke <mka@chromium.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	rudi@heitbaum.com
+Subject: [PATCH v2] usb: onboard_dev: add the Rockchip rk1808
+Message-ID: <apua2dvd7gBXHVM-@1b5ead44ca90>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-ClientProxiedBy: MEVPR01CA0042.ausprd01.prod.outlook.com
+ (2603:10c6:220:1ff::6) To SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:279::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AWdxuz6OZDWw
-Date: Sat, 05 Sep 2026 07:21:33 +0300
-From: "Juha-Matti Tilli" <juha-matti.tilli@iki.fi>
-To: "Jakub Kicinski" <kuba@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, "Manivannan Sadhasivam" <mani@kernel.org>,
- "Eric Dumazet" <edumazet@google.com>,
- "Kuniyuki Iwashima" <kuniyu@google.com>, "Paolo Abeni" <pabeni@redhat.com>,
- "Willem de Bruijn" <willemb@google.com>,
- "David S . Miller" <davem@davemloft.net>, "Simon Horman" <horms@kernel.org>,
- "Marcel Holtmann" <marcel@holtmann.org>, "Andy Gross" <agross@kernel.org>,
- "Mihai Moldovan" <ionic@ionic.de>, "Denis Kenzior" <denkenz@gmail.com>,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Message-Id: <0cc80b04-1bf0-419a-809c-e16be3f6a933@app.fastmail.com>
-In-Reply-To: <20260904184038.5c1e673a@kernel.org>
-References: <20260901131934.225991-1-juha-matti.tilli@iki.fi>
- <20260901131934.225991-14-juha-matti.tilli@iki.fi>
- <20260904184038.5c1e673a@kernel.org>
-Subject: Re: [PATCH v6 13/15] net: qrtr: limit endpoint range to 16 bits on 32-bit
- machines
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SY7P282MB4909:EE_|MEYP282MB1542:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7f77573a-9fdd-4755-42e2-08df0b066bbb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|10067099003|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Y7LYbEVjiFx/I/LHBRm9Svf9s3/YSgE6AGDfiJZD44HyiDoktCPCSceHUYdDDEFGGF+8KanR+aWnCOk/yZG+8zZFftlXqPTnjbg6EVKBYf4J0aCJOjYtKxKfhHiXwVjn1PkLRXoC0QOzuQF39MPqxXabPBLS04cJBJ3U3r5NlAho8ShUFRii/ZT05OUFFyl78+dx32MghYflnK6yK7fAGUmgcHXFwkIQLLVnN7u5/TpUyKEyJM/QfhND1pwvOt5rZ9jOzpnW7Vlzfcn8/lv1be1hM5VIXnvDCZvX7UDG24MllqXFyi8Tmv8kd05mXz5x5Lh4bl6YxFvWc6VD7NdcA8eLZwPjOghQdU1A+pr+1WBL7zYLZAIOaFHKLaGoAOw27LrISdeWMhVFV8j88MWtnOGviXDYGBiowjTzzE+snxHnSROnw4JIMfvAQ/Cd6PEJ22GKAuBkbczu6vM6AIoCGxrLPPA40RA8Zm+03ONhzO5k9mtJv83CK0T2SMYWcyn7C8Qbp8AiukQz60ALOkJb4iIRo9Av3IjNDcBXUBomjRtwnxyimz1Kvgv0ff5Ifb2+kz6gWjoUUshfDpbad7jakljuJ7ycJ3aqWFJRML7xdYQHImUQax/54GVv6YcxVWi2LiLHdFVbZNnaX1ZkhA8+BDIRXq7xAz/CfCEufRdr5ms=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(10067099003)(56012099006)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?TO0UWNI/0nPiXP5ggHYMoruhxpsn62qr7e0mfL7vFCTZOpP81ZUorc/iGk1b?=
+ =?us-ascii?Q?4+A3uZhCsFJ2OIAfsrbX/yaSQSVTa/XqXxmgjlV4lVG+0oLPujpG6qhHjFYA?=
+ =?us-ascii?Q?k3cNs4lFtZ7IFYM8nV9r2kKiiWwLn0iReJ9XMsZaUNyNtUT/HIwkMfaRsDyY?=
+ =?us-ascii?Q?Dc+mcJiVyIO1TQbnXVmuH7fdbag9V1/IHo/IDX5XT0inY5g/kYW0iQdKdP7U?=
+ =?us-ascii?Q?7/FzGJOAjU8SpALBtk88pfVYc/nRyzJGrGQt61IjzggtJcG/Yzn4yRlka22l?=
+ =?us-ascii?Q?yaJ4qxPPOrW9MTqp9uNzbcTbQrk0Zoa7kVKorEdAdNXZsCUZv0UN3zkc+bKa?=
+ =?us-ascii?Q?H6Vsn61gzVBtbkWaPnZh24k7xrNfMqsEZklJhU8/vn96mi1ArC072N3yMuvo?=
+ =?us-ascii?Q?ov0/ek0jC33tQRApnp8chVrnnx9LDuSm6rcVrGT5+lvCPBZnamSzg2krdCnf?=
+ =?us-ascii?Q?Fs0QuN37wZk2hTL7uo7PhZlf69dCrCHejIhNId65ENwB9+SPjSf4V4q0Rz99?=
+ =?us-ascii?Q?zgonpxS6W6Qpa4MWTvWyPONDEJEb78pAvHrOBiKTRkg3WN288jjkF1ycEoUJ?=
+ =?us-ascii?Q?2YtUatwl7DwlLSxlZii/00FHIMnf23TIM6jCG2Y6qH58+6h6YToukS2Q1oRj?=
+ =?us-ascii?Q?J1y6iS6SjMwwIiD/Ly9d3mYmWe09BJN938kyc4n3UIRgmD/BJ3QUcm5pXVVi?=
+ =?us-ascii?Q?s3QL8yECHTZ9no+0sd18P+U66CYvt/c0CoygzvH7feOo9mKAz7rbxUQJLSqD?=
+ =?us-ascii?Q?yBHApxcrTp2exl+e7id+oozm2EPVQ0WUOA33iDn1W46dQoHIOHgbiZClCSYo?=
+ =?us-ascii?Q?LacWDXAIuZWm0jFGugqEIOsKFNw5MwcoX1OIB8Bg0faIxEPCQ9FU/Fktdxbo?=
+ =?us-ascii?Q?3d9MtNdysTgjeYLJArfHHV3Zs+lLW/gz8jVdtHLVR1r3Ac3rjFFeuP+pp7EK?=
+ =?us-ascii?Q?FFC8WW6BB1rkHyJFuc4d1Sj+JXfm/jlLorebTJZqPp/IYAgAykaCx0v2ZT2F?=
+ =?us-ascii?Q?+RfMo86MaUD1ehUqFpXnrsgzTafpocKrGk7rjRYJLpkYJQP+x9hM4XTEOyBr?=
+ =?us-ascii?Q?bfgqekjg1VKXY1S8YGRybD/tkRTW0mAQzaJXlIEn+MYee4ICAhhrLBd1xlWo?=
+ =?us-ascii?Q?qoxhKXlROKx0qCAciWX+rG5klu1iOB9KGmUOHKM0S9Ajh6s0v+nH6ZNph7Gq?=
+ =?us-ascii?Q?UVq9zGtZdBFLFxGRYs1kUlmUi8jWnP9VQUEsa5mqjZoju23BWvTXaR9vsQ1h?=
+ =?us-ascii?Q?DcES8o62qJZDa2L10imhbydPpwmeke9Nn92qNM4KMZZJNnBjD6/v5D+eBfR9?=
+ =?us-ascii?Q?pMRaer5cxEeSeJH7053SbV0dllhtUnTSu/E/krUYLRaxHrQnXQI5bOzrUbgF?=
+ =?us-ascii?Q?upoWCSF9rKhiWfyKlDMUNlD2mYgB2XdFS5BK9RActCgCjKQ0OzkmQvV5MZQH?=
+ =?us-ascii?Q?koQ0WmxoJJ7LTQpSql7qHPizupYNlMIThq/W7odyUIoOKtRHMXFWhguDmmrR?=
+ =?us-ascii?Q?0IVw5w4cn5s/wADWRo21hfR+JFFGUESUYdpCPdrNhhO2ZWcZsKb20vF7VePK?=
+ =?us-ascii?Q?JnaQdktCW6CjZ4MLZVIolSR7RKZmaGBIJ0R9d5qiiLnqm4fMEM7c5gZz5J0M?=
+ =?us-ascii?Q?DxPdfqj0GyBp+XIVfY24Dh5IJ911oW1dHk4eQPx8rzW2ZLtVZr5he63oQdy/?=
+ =?us-ascii?Q?owi+i1x4+Q/9s7VbeSW9yPAVNI7P6KZdAwMA9Wey7PrS49S5?=
+X-OriginatorOrg: heitbaum.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f77573a-9fdd-4755-42e2-08df0b066bbb
+X-MS-Exchange-CrossTenant-AuthSource: SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 04:30:31.6638
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 35ffebb5-7282-4da6-8519-efab29b0108e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PHz4LI992pDHY8R/D+ImIcDVOPvEdINUNMXExO5QbsQT3+OBYlrJicqZvJwk55o8YlhmM9SLdDtdIqKOiihDHw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MEYP282MB1542
 
+The rk1808 is the npu die in an rk3399pro package. It is wired to one of the
+usb3 controllers rather than to an external port, and it needs its reference
+clock running before it will boot, which is what this driver exists to do
+for onboard devices. It also needs six rails up and its reset released
+before it appears on the bus.
 
+MAX_SUPPLIES changes from 2 to 6 for the supplies. The array is fixed size
+in the static pdata and onboard_dev_priv.
 
-On Sat, Sep 5, 2026, at 04:40, Jakub Kicinski wrote:
-> On Tue,  1 Sep 2026 16:19:32 +0300 Juha-Matti Tilli wrote:
-> > On 64-bit machines, use the full range for endpoint ids, but on 32-b=
-it
-> > machines, use only 16 bits. This gives plenty of endpoints, 65534 to
-> > be specific, apart from the invalid zero value and the local endpoin=
-t.
-> >=20
-> > [snip]
->=20
-> Doesn't build on 32bit x86:
->=20
-> ../net/qrtr/af_qrtr.c: In function =E2=80=98qrtr_endpoint_register=E2=80=
-=99:
-> ../net/qrtr/af_qrtr.c:28:58: error: =E2=80=98UINT16_MAX=E2=80=99 undec=
-lared (first use in this function)
->    28 | #define QRTR_ENDPOINT_RANGE XA_LIMIT(qrtr_local_nid + 1, UINT1=
-6_MAX)
-> [snip]
+The rails have no ordering requirement, so enabling them together
+and releasing reset 25 ms later is reliably working.
 
-Indeed, I will later post a new version with UINT16_MAX replaced by
-65535.
+Both product ids are matched. 2207:180a is the die in maskrom awaiting
+a firmware download, 2207:1808 the same die afterwards.
 
-I thought I was careful testing these, but now I recall that the
-individual patches were test-compiled on 64-bit and only the branch
-head with all patches was tested on 32-bit.
+Signed-off-by: Rudi Heitbaum <rudi@heitbaum.com>
+---
+v2:
+- describe the six rails and the reset instead of binding with an empty
+  entry, so the die is brought up by the kernel rather than a userspace
+  script
+- raise MAX_SUPPLIES from 2 to 6 to make room for them
+- checked on hardware that the rails have no ordering requirement, so the
+  concurrent regulator_bulk_enable() already in onboard_usb_dev is
+  sufficient (Chaoyi Chen)
 
-Thanks for noticing!
+v1: https://lore.kernel.org/all/aouw7rH6FZxscUTO@0d3a7a881997/
 
-BR, Juha-Matti
+---
+ drivers/usb/misc/onboard_usb_dev.h | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/misc/onboard_usb_dev.h b/drivers/usb/misc/onboard_usb_dev.h
+index 3523f8f8a149..b252cce32f86 100644
+--- a/drivers/usb/misc/onboard_usb_dev.h
++++ b/drivers/usb/misc/onboard_usb_dev.h
+@@ -6,7 +6,7 @@
+ #ifndef _USB_MISC_ONBOARD_USB_DEV_H
+ #define _USB_MISC_ONBOARD_USB_DEV_H
+ 
+-#define MAX_SUPPLIES 2
++#define MAX_SUPPLIES 6
+ 
+ struct onboard_dev_pdata {
+ 	unsigned long reset_us;		/* reset pulse width in us */
+@@ -134,6 +134,13 @@ static const struct onboard_dev_pdata xmos_xvf3500_data = {
+ 	.is_hub = false,
+ };
+ 
++static const struct onboard_dev_pdata rockchip_rk1808_data = {
++	.reset_us = 25000,
++	.num_supplies = 6,
++	.supply_names = { "vdd", "vddlog", "vddcpu", "vdd0v8", "vcc1v8", "vccio" },
++	.is_hub = false,
++};
++
+ static const struct of_device_id onboard_dev_match[] = {
+ 	{ .compatible = "usb-a-connector", .data = &usb_a_conn_data, },
+ 	{ .compatible = "usb424,2412", .data = &microchip_usb424_data, },
+@@ -167,6 +174,8 @@ static const struct of_device_id onboard_dev_match[] = {
+ 	{ .compatible = "usb2109,817", .data = &vialab_vl817_data, },
+ 	{ .compatible = "usb2109,2817", .data = &vialab_vl817_data, },
+ 	{ .compatible = "usb20b1,0013", .data = &xmos_xvf3500_data, },
++	{ .compatible = "usb2207,1808", .data = &rockchip_rk1808_data, },
++	{ .compatible = "usb2207,180a", .data = &rockchip_rk1808_data, },
+ 	{ .compatible = "usb3431,6241", .data = &corechips_sl6341_data, },
+ 	{ .compatible = "usb3431,6341", .data = &corechips_sl6341_data, },
+ 	{ .compatible = "usb5986,1198", .data = &bison_intcamera_data, },
+-- 
+2.53.0
+
