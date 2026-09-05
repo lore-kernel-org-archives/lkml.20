@@ -1,120 +1,82 @@
-Received: from mta1.migadu.com (out-167.mta1.migadu.com [95.215.58.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E528A3346BE
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 06:02:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4F402E762C
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 06:09:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788588175; cv=none; b=aaNMmVEbuTTPThRieB8f327HffyrNr9s1jVT6RfFIK5I7IwkJgljOIhfPTQMvR7/PNoUOAIfDT+6p5VQBWNJryydhQyG4C1Jw/fZ0F7/PP7vOm5rziBhn5yYBmTTkxaOBMQILPfGAToFCVSy2AZvuVkVxXY7sotJ9lu18bEWeio=
+	t=1788588569; cv=none; b=Sdb3jsP6w5km9XO6bCT2ZC4HxOJuKAd0CPWP2QgWjr1pheQkhGBnZ4bFYjTwHqPEpGWQOW5t08b38HK/ZKfqVGeREiavVNsNVG0lZd6ch5MTMIyN5gHxEkFQ+Pf/Hmnx7wF0Z4b/7SyR1tgQoew7wnTilcVJrVLweSFG/XJ3ufI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788588175; c=relaxed/simple;
-	bh=g00xPURkl0HXiJrLznFEGazxWq25zrYenZGCIwbXv6A=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=LP/Wn+65djJuZT+iRqTuiQVTfNf4OdBksJ7SCtAFzqR19GVImQPatoHiM7Ei6uyt5PCe9aJEb0+G+hcWwJl42I++4PrI830uFEGRGmXSsTduyZjmwt6MVjaSg5Bwz6vB12xmua+2YOeXTTI4jo8W8bAE1BhPyUyWHoyZZK9xhmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=iJvRJmKG; arc=none smtp.client-ip=95.215.58.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788588569; c=relaxed/simple;
+	bh=ZEkZQAS7f7y1Xw1yZ7phr3KECVum9x/VK0lR129nVOY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tQKo0VruE8HmtiG3IhnhCP1Lj5DnqvwOQ5nnrSyxPre+ubdGtZMVpfvqrmOBpPoOR52TXrKZq4yE9KU9FMFL+qvDBhfvSBsPg78NZIvZUe2EnFFNBB+G/7KNmnaLeQ10uz0YlzuEkzjQbOdJNgABaOZgdkXil2GD+fYwgVfJudg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oa8n0aAD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="iJvRJmKG"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=g00xPURkl0HXiJrLznFEGazxWq25zrYenZGCIwbXv6A=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788588169; v=1; x=1789192969;
- b=iJvRJmKGQucLctr2CG2GzbCdQlJfK8BJV5QTTg/tKXQ+vbnFnpNImhDfPw1hecUS+d4zM6CV
- Em8eFTyTcB2YJqN3U07thggCvdrwfkB39SZJ5+oGe3SHHa4yb9mndmf0mDZCqRWKMnelo0HK2Aj
- 5aoc+NUvF6UGpxLk84E/HJFs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6927321ae16174ca;
-	Sat, 05 Sep 2026 06:02:39 +0000
-X-Mizu-Trace-ID: 6927321ae16174ca
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <0bda54a1-7cdc-42c9-89f3-408067b2f8a3@linux.dev>
-Date: Sat, 5 Sep 2026 14:02:30 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oa8n0aAD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D8361F00A3F
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 06:09:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788588567;
+	bh=MICPlX8LMsX3aYkaZBnp6d2gX+eIWi36orYNaQ0JbHM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=oa8n0aAD1SLQiqBgrQzTqWZODSdbouEsz5MCd2DRL37n32wCFomb31buKZxtXcBDu
+	 UfsY6Vt7YV/syZVzMyBNNXfii4Pw+2QMHNMthb26YdOjvvV64GuX7JE2yNEwztRCS8
+	 JiipLCZRjheFcGDRBmpgWrDaZNjuGt0gsI/A3PRajX5j0XZTSq2EcM9BL97UTp5Rm0
+	 ugwsF6nMPaQbfFTXF4FzmOgcbBTUn3JK+7jXfKgFTSismF3vEECSpIEVOBr1f4o2d8
+	 TheV3kSQeC6yzaGUcLXrtxzkSQyHphwKebXkHAdoaBartffBE/7AQ0dl2junEnFnaF
+	 QTUNfmz21RecA==
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b60bcf9051so1563965e87.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 23:09:27 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzHf6Q61YubjyGQ5/6gce8OAMQuMm9MgRKTQPjXWeljld2JtVycJXlR37ZAppdYutMaU/rNYi17XhJ4M8U=@vger.kernel.org
+X-Gm-Message-State: AFuF++mMUdXBpRofwOxax8iC4q6dYvFHDnzGsCvEuhyYI0Y2RLCusEXs
+	IMFvjoDYVvNcd42wIeYD+82Uz63cle1ZqnHn+TC/iJzDEwpjQFGZZyZOzcnlKuwVnRQL69URv7O
+	0Eq2prtnJNpuszBXVjGmvtZDSh/WvCb0=
+X-Received: by 2002:a05:6512:3a8d:b0:5b6:7fa:e96b with SMTP id
+ 2adb3069b0e04-5b616f075bdmr3330109e87.14.1788588566319; Fri, 04 Sep 2026
+ 23:09:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
-Subject: Re: [PATCH net v2 0/2] mac802154: fix queued RX descriptor lifetime
-To: linux-wpan@vger.kernel.org, miquel.raynal@bootlin.com
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- alex.aring@gmail.com, stefan@datenfreihafen.org, david.girault@qorvo.com,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, stable@vger.kernel.org,
- Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-References: <20260903123202.60152-1-xuanqiang.luo@linux.dev>
-In-Reply-To: <20260903123202.60152-1-xuanqiang.luo@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260905004334.177074-1-rosenp@gmail.com>
+In-Reply-To: <20260905004334.177074-1-rosenp@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Sat, 5 Sep 2026 08:09:14 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=p8LV9XEBK0bC5m9-5aLm78jf4=2OLVxpeO03_6KzzeQ@mail.gmail.com>
+X-Gm-Features: AcwNN1XQiwZeqHz6EoFBHGg8DB3jBApt-wzxY6JecJ0GuvMdw3AkXWi1wdHiROw
+Message-ID: <CAD++jL=p8LV9XEBK0bC5m9-5aLm78jf4=2OLVxpeO03_6KzzeQ@mail.gmail.com>
+Subject: Re: [PATCH] gpio: mvebu: name regmaps to fix debugfs collisions
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linux-gpio@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
+	open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Sat, Sep 5, 2026 at 2:43=E2=80=AFAM Rosen Penev <rosenp@gmail.com> wrote=
+:
 
-在 2026/9/3 20:32, Xuanqiang Luo 写道:
-> From: Xuanqiang Luo<luoxuanqiang@kylinos.cn>
+> Each marvell,armada-370-gpio node provides both 'gpio' and 'pwm'
+> register windows, and the driver creates one regmap per window on the
+> same platform device.  The shared regmap_config was unnamed, so both
+> maps defaulted their debugfs directory to dev_name(), e.g.
 >
-> mac802154 queues one descriptor per received beacon or MAC command, but
-> each worker invocation dequeues only one. Since queue_work() coalesces
-> attempts to queue the same pending work item, a burst can add more
-> descriptors than scheduled invocations. A later frame may schedule another
-> invocation, but also adds a descriptor, so it does not necessarily reduce
-> the backlog. Descriptors can therefore remain queued indefinitely once
-> reception stops. The RX path, workers, and scan cleanup also access the
-> descriptor lists without common synchronization.
+>   debugfs: 'f1018100.gpio' already exists in 'regmap'
 >
-> A queued descriptor carries its receiving interface beyond the RCU
-> read-side critical section without holding a netdev reference. If the
-> interface is removed first, the worker can dereference freed memory.
+> because the PWM regmap (and on Armada XP the per-CPU regmap) claimed
+> the same directory as the GPIO regmap.
 >
-> Protect the descriptor lists with a spinlock and keep the workers running
-> until the queues are empty. Then hold the netdev for the lifetime of each
-> queued descriptor to prevent it from being freed too early.
+> Give each regmap a distinct .name so the debugfs directories become
+> '<dev>.gpio', '<dev>.percpu' and '<dev>.pwm'.  This only affects
+> debugfs naming; register access is unchanged.
 >
-> This ordering is required. Without the queue-draining fix, a descriptor
-> stranded by queue_work() coalescing would also strand its netdev reference,
-> as netdev_put() runs only when the descriptor is released, leaving the
-> netdev pinned indefinitely.
->
-> ---
-> Changes:
-> v2:
->    Patch 1 (new):
->    - Serialize descriptor list access and requeue each worker while another
->      descriptor remains.
->    - Detach queued beacons under the same lock before scan cleanup frees
->      them.
->
->    Patch 2:
->    - Replace the v1 drain_workqueue() approach, which does not cover work
->      queued after the drain or the DEL_INTERFACE path, with a netdev
->      reference held by each queued descriptor. (Sashiko.)
->
-> v1:https://lore.kernel.org/all/20260828101905.26865-1-xuanqiang.luo@linux.dev/
->
-> Xuanqiang Luo (2):
->    mac802154: serialize and drain queued RX descriptors
->    mac802154: pin netdevs for queued RX descriptors
->
->   include/net/cfg802154.h      |  2 ++
->   net/mac802154/ieee802154_i.h |  2 ++
->   net/mac802154/main.c         |  1 +
->   net/mac802154/rx.c           | 36 ++++++++++++++++++++++++++++++------
->   net/mac802154/scan.c         |  8 +++++++-
->   5 files changed, 42 insertions(+), 7 deletions(-)
->
->
-> base-commit: dc4b95b8fee95113587e93ca116356032d271371
+> Assisted-by: opencode:big-pickle
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
 
-I realized that the issues addressed by this series appear to have
-already been fixed by:
+Makes sense.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-https://lore.kernel.org/all/20260725135154.99876-1-security@auditcode.ai/
-
-I missed that, so please disregard this one.
-
-Thanks,
-
-pw-bot: rejected
-
+Yours,
+Linus Walleij
