@@ -1,217 +1,108 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497DE388E6E
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 14:01:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788616884; cv=pass; b=g3YpMMysNf284yuw1PjOGlEfcAh3DOXQZeuVTy4tHGkn3sObz4soQbQB7/Df6oosv6lAIIvXSPYYV6ti6XdliW7Mmqv2FVgmvrVf25fpQhGkHq2DtR02yNR70R6CtfLUSah5zxdEYkBkk3VAC2DX9XGCSHI/rv17R5lCIsfvt34=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788616884; c=relaxed/simple;
-	bh=M7fAdXtBDfEORDW145jXu6v4iUab4x+K54eSd0w9thQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ESqWGQjmxaThJieZCY0UkQmpV0HoId136pDz4cYOw7sIXLGS4x2g62UL9uPmR4UVFC2I3XrTChLHdIcjIm2gw8+Jz8ZwArU7FMT9nF5BBfxis1OtTqqqIaxVtb0BR21jurOlHgoP6UJ3vJhVQfl1gQs9YF02Ocq/m2l5dtZKcZI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IEXpHs7A; arc=pass smtp.client-ip=209.85.208.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D863438CFE1
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 14:01:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788616899; cv=none; b=WS74khfcLoYwDdGXUiy6gb5K5iIoX+kd6Wz4nFYDRhB7WRqtV6jcOa4WEsaah8oy4Kq1vsoB+RvQqXnFcqigxpqjDjrLsPlR0DXdv09BwoVLJMMXH3OK4fKFYNDcN4eKwkgJxSbmNLz97/TErBgxsM367/hpWE4ic6A9f8fIMZU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788616899; c=relaxed/simple;
+	bh=6f5p//qeeEhJiLT6hla2lNz47zEGEWS2WmSvXXHcHig=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fGAsBePiR++KBFTfp9O1zcqqovA6EHuoEYU5l212vSwUp2w1vqh/2pVFURhpREcg4AcKBXwIKGo4agsDGjyJZ9UsxFyWUb29nQgWYAPZtIho5Hv5LGF+teiXU7X9me2TCdGbnjR7VGNmh0HVP+D/uYmjeySd4CNrZIBmuTB0bDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MZpV17zU; arc=none smtp.client-ip=209.85.217.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IEXpHs7A"
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a7f27637d6so2162818a12.3
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 07:01:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788616870; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Bcjl3SgT8H3aENfkPITR7+JiEuFIeFRhbYYsvOGXHKUWIhwkWY5igxNepteXlsYp7x
-         fCIU5AbQpDgtUmGmF/T9E/E9VrTjrYwOYB1Ho+M6lReCbUu0Ahh8UZAE8f6T/zKrBrzj
-         rXLo8iAJRNQxz8fa2B2k8TaWdhkA/zUn5/I9/90CN0l2F/8fh451AHc4sgB5ZExIkUAD
-         /5yNRnv8nHtQ9bak5QQyOumSTGQSbXcKUc/psXV3hKzjpwawEmXY7/nFow9oKFHwifeo
-         AU+cALSYG3SalAhQAWh7jJwTbm9F9ounSEy/jCyM3rXqWOqbus94lFunp7I1hMXmBC/q
-         xkuQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=I+I8QUj3WVciHxoRXxP9OcDrC3AowirtGwOcl3KlFtc=;
-        fh=MOuK29JE01WwnufiVKTjwivJYMvupozKUkNMvHi79ns=;
-        b=EvOJfUDL659DmBoo+MsSlqZT4e7UyfF4rxmcfmgr+qwcNCvyj27VtZOp0lPLyKI4k9
-         +ZTqqrxvr7+ZadLCt5oTxnp2OKve0MEa6hr8b9d3PfPopehDaktYzvErbdsSP0LHEbPN
-         ujObi2MldH1vo5Y2mUqQkS3oGEwVB+EgyE9HBdkU4YAUh4nSquDH3K3q0pkPO9aVl6WA
-         LWrIomxsTr6Zn+BaXQxT4ytTearPgftmF4hkqeCH1suZLa3lHMLntUT/B2bGrw+mPA/3
-         0RhvvhUrWwnxB9Oz+71TmZJFrB7Op6XiR1eLioX06RZxfnoQTtnm5VDK1qp2eLGbdwGT
-         cH2Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MZpV17zU"
+Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-785073ad5ccso1450683137.1
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 07:01:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788616870; x=1789221670; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=I+I8QUj3WVciHxoRXxP9OcDrC3AowirtGwOcl3KlFtc=;
-        b=IEXpHs7AZQC+p/V7N+rI4lfrDYHccP7qJKR7h2RUSxx1BlzQqzqvOm01VndKlKraBx
-         ihEhA4VVCgtWG1VgSU7timB3t1XhuIJfi1dqIReAiVVtwa8H/U48iJl/DSXDdqyWAQtT
-         N/a9lYFJehhlhfR4gXC8kox3Gp+js9wD/P6G30USh8TBAhmKGZLPhk8HbamsehVbZdJc
-         An7hVEKJiTpH8uuFwJ2N10Pk1QDjzd6w361h38ATts9O4nJGgXEKmVCvt0vzvxEuznIa
-         oradz+5ceD88bhbGCfSlQkbvfCElTEmfcwa+uWYjZvykubzUqT/6b15BzHhgpgVRWMMc
-         YzpA==
+        d=gmail.com; s=20251104; t=1788616883; x=1789221683; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sCkeW/rlDEZbQRwhNQlqYVSLXnulFlxF+aDVtk4kLrI=;
+        b=MZpV17zU6O8ZzOYCM6mSh6Pc5bMWELB+jnQuQi5HQCi6EKwnfgmZ0AEBpaSpAQDW8S
+         16IVmCmWPcQCQ7FUoAc2mjdXI6Vun4CESOtgp7TZ/BbzPL1ysQvKYMFBk+jIWWhuCbdj
+         gBI6DgINw00GjdIA9p44lmwqHYK57/id3xwbTs5uCy8v4cZNIxLxiIv0AMx2XLjAnH3C
+         Ea+l+j6WgNoLX1w28TuRU6e+lpGdTNOmLFjggreQG9OFR3L71bhcUPSJ4VvBiNxuPuvq
+         ddKBGzFKZUmonKqMeFOYYTi1Tw6vtCRVa1cj6NAo3DraG3ex8OCKO8Q8YmVB4pM+sOEV
+         hYeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788616870; x=1789221670;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I+I8QUj3WVciHxoRXxP9OcDrC3AowirtGwOcl3KlFtc=;
-        b=sjH4hdebU/pdzm59TloPbk0dETTfxljo3nLdO9W2609xw1UQpG9J6dRHWhQUJFZ29G
-         12I+vg+EAUibMX96woyjXQQky/tODWRdnWbYxZ2UJiWe9UEhkmrYiMUiOeE+oUCY4mxA
-         y1jB/0RCY1bUAH53Eo83vhLWvlTOYzdnEPUm1WR9Sw+tJiuUDrSjFp6A0o73ick5XOiH
-         cxbt7js4uJI8Ky+3q1YE6XUvbThitiMMeRlqA6VFJXsAmyuhicHBTf/9nWxHVCRg9NB1
-         rhz0AIY2NZ+u14Iw/GkdJgnpjqdEixTxFR3uWvlzoRKgpK33BvjsqDcCrKX4+Dfd3mvB
-         WoWg==
-X-Forwarded-Encrypted: i=1; AKwUvBzqQVldSNZfNG2SleJmaf3FrKCHLTHhvKXnl1S3EVKY+i/3UCwrCFwPhwd3ytMfrxJ/Jfziv+B9LBgZj7c=@vger.kernel.org
-X-Gm-Message-State: AFuF++mZmUixS7wl+uFUsmUv4RzpPj0yYsTXGRo2PzzJXWrearJj0fWQ
-	+s/FCNoBu1vDpwCiF+s+9QMMY03Y1VsXyVz2aCpbNGMIZ6uKIrFGgHDT8eEbXwR+7GpWByr+bc5
-	b2AwbtNC4BS49z46eA54RlezHj5HRByo=
-X-Gm-Gg: AYBFou3UY0fh43nANzhOpXfuZBejlRCqSG06BeHIt4DF68eqN1F3Z715xq/NT3fAvIP
-	rfmM88gltPLHoIniDOLzdjIA3KihkCKejlMQeTtYfVFLiOY5sq126vQNqdAkSy5zRKYdMxqXJAa
-	qgI+KjwQPTtumUNaivXueE/fzgtXYSvCsZmfsdKg0iDLLeXMya+vgq9tqkkPOqPhgNMdlTOvDeW
-	hoofVKDKZTuPCyb7exmIEigCK2H1tVAzgG71xp4R/IfWlVFUzt0PQeBpcMz1MgI6KzPJQo73hZN
-	P3XBx+5qX+Yg9WZKBYXlXdXfDDnLVm2hbpecglui6ZDYQQ==
-X-Received: by 2002:a05:6402:3220:b0:6a6:3ee3:655a with SMTP id
- 4fb4d7f45d1cf-6a7e8d368f2mr9247527a12.3.1788616869820; Sat, 05 Sep 2026
- 07:01:09 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788616883; x=1789221683;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sCkeW/rlDEZbQRwhNQlqYVSLXnulFlxF+aDVtk4kLrI=;
+        b=Bky/RzF+hgvONdZR1DopDL7AU9pTdH2lZ1z2BvIXzqd4OiyagV+vOShcplZvwVMyQj
+         CMg0Cd0DMlKt7xvqFYvwn2LAeegcUpxm9Kqql7KuT17sFJrYGmjv8VlqUVFgNfl5zfVU
+         /m6EGqjPxKS4WPh8iMEiK41o5prrjHdhkPQq262HsKzrg/TSTPPMiU50n4Pbl9GU8zFm
+         oqe4F4srq319WhHKG8GvQKmeAobCiyZM1T9ScESLuTbVc3RoWc8Yu/xIhsHYbRiirmC9
+         +9Mnx2Dt8kcV4WvJFRgqs0di+HJGZhOhsZyN3zSeyn8dNz/SgP/48ifIRQlbauuojH9x
+         GXeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwTxv+1fdXqKtQG/OFzhoZQyLMBZ5X+Spi57lQFJcO6R1JB5OHY78FrXymK61wcQutDIePJlkOzjP79mRg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kLcnpKTZmQFAFsqJ+/zdfSJ6fBFDy1qQySi4JSc6GumqkMIly3
+	YwUgXoXPl07LxGN3Okx5YWk/ONYBBbXQnnt9KIQ3ItWN8MUE8VYG9Ay5
+X-Gm-Gg: AYBFou0RZkxRg8pbaEg13ItQ6xzmIA0wE0SNr5AI8j+AEnq2dO/knYfxj53uUA/47oI
+	ZiGnyYoH8B3wpjjHDf/xqHGGK7b1WJzhPmwtI8UshrfF2he06UOHet1rJiYHiyqQ8DRk0zG4yZE
+	Qtj2UYT+uukzlazsnan9teUeqwNbm3YnKQCAKVdqcjB9XB0BU+RlpFort4X6ApAlSzSzFk04WK0
+	A6cLkUjmePZuePYvTsIXdr4qb5oeouTrzQzLt9RNaMrOdIgGtFbqcS+1SqubApiJcitIgRl5hnT
+	AxmSvTOmTekswxKpbLXfEELmZTwi99Y7HSadQDwUEYDgyKwwnNnhlD6YDPUjMfuhlquxEsmbHmu
+	wWWRHIt3YRfe7FqY7EgOA4H0If/RX5NkgbcDnYJVh8Wgl0vc4gzvKdepEmJ/2sqMQ3dVTEjRcpr
+	M8vlLf6ghDyXmoihkeJ8+563NFtVYN+zkf3OOBWbIhT7bhIlVNvDJlNlX30Cd9SXgS41iDovtU/
+	QOszaHMgk+MaU90rjSW1shLUnAv/GRu
+X-Received: by 2002:a05:6102:1484:b0:785:1d9c:633c with SMTP id ada2fe7eead31-78a4a8436b7mr5213627137.7.1788616882765;
+        Sat, 05 Sep 2026 07:01:22 -0700 (PDT)
+Received: from Biostar-A520MT.. ([187.94.13.245])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9808ee4d743sm3706877241.9.2026.09.05.07.01.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 07:01:20 -0700 (PDT)
+From: Breno Rodrigues Alves <breno3011alves@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: torvalds@linux-foundation.org,
+	linux-kernel@vger.kernel.org,
+	arnd@arndb.de,
+	linux-clk@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-fbdev@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	Breno Rodrigues Alves <breno3011alves@gmail.com>
+Subject: [PATCH v11 1/3] interconnect: mediatek: fix Makefile typo for mt8196
+Date: Sat,  5 Sep 2026 11:01:11 -0300
+Message-ID: <20260905140113.21638-1-breno3011alves@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904103920.4471-1-luis@igalia.com> <20260904103920.4471-6-luis@igalia.com>
-In-Reply-To: <20260904103920.4471-6-luis@igalia.com>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Sat, 5 Sep 2026 16:00:58 +0200
-X-Gm-Features: AcwNN1XVifAlKbq_jupyMk4YvbgYjZtTaM8XtGl9N8tec_dpEk5CYKJCab76ZDY
-Message-ID: <CAOQ4uxjMvHdaZfwjkHK3tV6ChsapobpHE9mq8NJSvduOGruvMg@mail.gmail.com>
-Subject: Re: [RFC PATCH v3 5/8] selftests/fuse: use dynamically allocated
- memory to store ACLs
-To: Luis Henriques <luis@igalia.com>
-Cc: Miklos Szeredi <miklos@szeredi.hu>, Chen Linxuan <me@black-desk.cn>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, fuse-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	Matt Harvey <mharvey@jumptrading.com>, kernel-dev@igalia.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 4, 2026 at 12:38=E2=80=AFPM Luis Henriques <luis@igalia.com> wr=
-ote:
->
-> Instead of directly using static arrays for the ACL value, allocate memor=
-y
-> for storing it.  This will make it easier to implement ACL tests that als=
-o
-> set the xattr dynamically.
->
-> Signed-off-by: Luis Henriques <luis@igalia.com>
+Correct a copy-paste typo in the MediaTek interconnect Makefile that
+mapped mt8196.o to CONFIG_INTERCONNECT_MTK_MT8195 instead of MT8196.
 
-Reviewed-by: Amir Goldstein <amir73il@gmail.com>
-> ---
->  .../filesystems/fuse/fuse_acl_cache_test.c    | 32 ++++++++++++++++---
->  1 file changed, 27 insertions(+), 5 deletions(-)
->
-> diff --git a/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test=
-.c b/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test.c
-> index 12cbf9753d03..c2d6658ff7de 100644
-> --- a/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test.c
-> +++ b/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test.c
-> @@ -80,7 +80,7 @@ static const uint8_t acl_b[] =3D {
->
->  struct daemon_state {
->         pthread_mutex_t lock;
-> -       const uint8_t  *acl;
-> +       uint8_t        *acl;
->         size_t          acl_size;
->         int             getxattr_count;
->  };
-> @@ -142,15 +142,26 @@ static void fs_getattr(fuse_req_t req, fuse_ino_t i=
-no,
->  static void fs_getxattr(fuse_req_t req, fuse_ino_t ino, const char *name=
-,
->                         size_t size)
->  {
-> +       uint8_t *acl =3D NULL;
-> +       size_t acl_size;
-> +
->         if (ino !=3D FILE_INO ||
->             strcmp(name, "system.posix_acl_access") !=3D 0) {
->                 fuse_reply_err(req, ENODATA);
->                 return;
->         }
->
-> +       if (size) {
-> +               acl =3D malloc(size);
-> +               if (!acl) {
-> +                       fuse_reply_err(req, ENOMEM);
-> +                       return;
-> +               }
-> +       }
->         pthread_mutex_lock(&g_ds.lock);
-> -       const uint8_t *acl      =3D g_ds.acl;
-> -       size_t         acl_size =3D g_ds.acl_size;
-> +       acl_size =3D g_ds.acl_size;
-> +       if (acl && (size >=3D acl_size))
-> +               memcpy(acl, g_ds.acl, acl_size);
->         g_ds.getxattr_count++;
->         pthread_mutex_unlock(&g_ds.lock);
->
-> @@ -160,6 +171,8 @@ static void fs_getxattr(fuse_req_t req, fuse_ino_t in=
-o, const char *name,
->                 fuse_reply_err(req, ERANGE);
->         else
->                 fuse_reply_buf(req, (const char *)acl, acl_size);
-> +
-> +       free(acl);
->  }
->
->  static const struct fuse_lowlevel_ops fs_ops =3D {
-> @@ -181,8 +194,10 @@ FIXTURE_SETUP(acl_cache)
->  {
->         char err[MAX_ERR_MSG];
->
-> -       g_ds.acl =3D acl_a;
->         g_ds.acl_size =3D sizeof(acl_a);
-> +       g_ds.acl =3D malloc(g_ds.acl_size);
-> +       ASSERT_NE(g_ds.acl, NULL);
-> +       memcpy(g_ds.acl, acl_a, g_ds.acl_size);
->         g_ds.getxattr_count =3D 0;
->
->         if (fs_setup(&self->se, self->mountpoint, &fs_ops, &self->thread,=
- err))
-> @@ -195,6 +210,7 @@ FIXTURE_SETUP(acl_cache)
->  FIXTURE_TEARDOWN(acl_cache)
->  {
->         fs_teardown(self->se, self->thread, self->mountpoint);
-> +       free(g_ds.acl);
->  }
->
->  static int do_force_statx(const char *path)
-> @@ -210,6 +226,7 @@ TEST_F(acl_cache, stale_after_force_sync)
->         char    buf[512];
->         ssize_t sz;
->         int     count;
-> +       uint8_t *acl;
->
->         /*
->          * Step 1: two getxattr calls before any statx(FORCE_SYNC).
-> @@ -270,8 +287,13 @@ TEST_F(acl_cache, stale_after_force_sync)
->          * !fc->posix_acl mounts (it skips forget_all_cached_acls in that=
- case).
->          * On a fixed kernel the ACL was never cached, so this is moot.
->          */
-> +       acl =3D malloc(sizeof(acl_b));
-> +       ASSERT_NE(acl, NULL);
-> +       memcpy(acl, acl_b, sizeof(acl_b));
-> +
->         pthread_mutex_lock(&g_ds.lock);
-> -       g_ds.acl      =3D acl_b;
-> +       free(g_ds.acl);
-> +       g_ds.acl      =3D acl;
->         g_ds.acl_size =3D sizeof(acl_b);
->         pthread_mutex_unlock(&g_ds.lock);
->         TH_LOG("step 4: daemon switched to ACL_B (%zu bytes)", sizeof(acl=
-_b));
+Assisted-by: OpenCode AI
+Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
+---
+ drivers/interconnect/mediatek/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/interconnect/mediatek/Makefile b/drivers/interconnect/mediatek/Makefile
+index 6bd656668..64170ab16 100644
+--- a/drivers/interconnect/mediatek/Makefile
++++ b/drivers/interconnect/mediatek/Makefile
+@@ -3,4 +3,4 @@
+ obj-$(CONFIG_INTERCONNECT_MTK_DVFSRC_EMI) += icc-emi.o
+ obj-$(CONFIG_INTERCONNECT_MTK_MT8183) += mt8183.o
+ obj-$(CONFIG_INTERCONNECT_MTK_MT8195) += mt8195.o
+-obj-$(CONFIG_INTERCONNECT_MTK_MT8195) += mt8196.o
++obj-$(CONFIG_INTERCONNECT_MTK_MT8196) += mt8196.o
+-- 
+2.43.0
+
