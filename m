@@ -1,144 +1,132 @@
-Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE38F3DC856;
-	Sat,  5 Sep 2026 10:58:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788605891; cv=pass; b=N9GcAlTwwxbGNi/mcZXgncjYNNtEWiREbIfl86BLAym60hlutVtYEBZP5Je8zndM6IuQTVqbdql+OSP84PgGVJqGt4fCkJTL+8DrZCW3pph7SyKgLZUbM2FeOhCxWQmQprY9skTcFsdy+gRce/c9T5HacviSvuWsrnHa1hETH9Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788605891; c=relaxed/simple;
-	bh=8/LRCf2d/Vb8yj1T6vOnmEEE07PqtOSZJGPqAQuSuiQ=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=RaSmIaBaDiBdpfSv2Rk4WjTqn16HtoOvGvtZZ+79/7FADImgCeAjWNo4WOTxBY1Lyb6vV1+2RfAl1sM6TnPy1q9zPNU4aAik9I8C9q5SLODbZGrut5JcKmSVQjSosOXT+NyFK2NKoU8OKlepWduV8RxyZPWHWP203aGCHdGceAw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=eqv17CtE; arc=pass smtp.client-ip=195.140.195.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37787434E21
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 11:07:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788606447; cv=none; b=YsLr8C5BbyhD/V49ZcDagwf1cggLZ+nbzrVhPIsf7xxZ3jzdfkcYl/hC/kIcUWQuY06bOT8fUfyfc3+/EbZ4e/7FUziIT2zH+M8YFqw0bIFT6vlppb2Qu/cGXKbRGwbNzz3FgWXdXKw/tYnfv5VF/RLeIilcksHxGleLdR4ueXA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788606447; c=relaxed/simple;
+	bh=ypaOgYr8SkldlyI5CBUa4bdeiCX+pOmT+GE7aoozdv4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hl4dEQuDYcn0dWyc6gFD/9GwqxvY3gtAGOH4effjxjb9bsPPPhV/FTRCnXH+/O6YnFuc2qMU8GmB0UYk5LZX31w9Dh5iOJjw5J5LNRS5Jq/l4b2lbl/VPqdVoQjfnvE+SqELTZKpDjOd5AqDiZY5M0sCACGijqAb4BTfUA04SiE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d9jtBriI; arc=none smtp.client-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="eqv17CtE"
-Received: from fauth-c2-smtp.messagingengine.com (fauth-c2-smtp.messagingengine.com [204.75.18.201])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: jmtilli)
-	by meesny.iki.fi (Postfix) with ESMTPSA id 4hcVfx6zmwzyTZ;
-	Sat, 05 Sep 2026 13:58:01 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
-	t=1788605882;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qGf3EGNvMC+tCJO1atmXj/XjW6IrJkfyCoTSb8aqIhk=;
-	b=eqv17CtEASYM38q8/zb1i35g50Q3asRS8pGm6zfhVbGkS+W2Cj3stf7lXP8qHbVl+4sOjq
-	cbS9R9wh+83hyj6up0IAgT48lHf6tYPnRY64cnqzi4qFHA6Z3fQBd7e/DiNnKgfczyqrAx
-	qRLs9ZGFgafsFmPUjAMQW07VHiJW/hg=
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1788605882;
-	b=FLP5bVagObojUp0yV8P76bAIi9YKKxgBIh/j2EKh2I6SVeM/nSB6lXrj+v8rQRO35nLTFL
-	hZio94dbw+xI2MSRDbUN3YLzU7AwcDamB0ONHD/8S6CkKN/XX9EsvM4AToHwW+thZs62N3
-	2wFX6eR9Q4UdySPpf8fdhswXEYotCx8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=meesny; t=1788605882;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qGf3EGNvMC+tCJO1atmXj/XjW6IrJkfyCoTSb8aqIhk=;
-	b=DtlXJAyLnN+HykwaaGU6x+dSlcdqz/kqHRDwA2PEU3CniToYb8ma+vxPVoe2iuqYQtdTu+
-	qUPKaFZErlZP1vc+N57yDBQlmKCDbjRxfl0vEFwcUfvo4RZiL41hFAKtiy5Q8ilZ8+nFGg
-	yffEpoQeshWyEjWi4K4hPoMKgo4Fbsc=
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=jmtilli smtp.mailfrom=juha-matti.tilli@iki.fi
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 65FAD198005C;
-	Sat,  5 Sep 2026 06:58:00 -0400 (EDT)
-Received: from ams-imap-13 ([10.64.2.33])
-  by ams-compute-02.internal (MEProxy); Sat, 05 Sep 2026 06:58:00 -0400
-X-ME-Sender: <xms:tfWbah5TQKB-Q050Xvn_LROh9Yc8w52AZAVvShIfr_av3nmO5oN5kg>
-    <xme:tfWbapsrR4UUjK9IvN5y_dgOz889aeYtLr_YFn4YGhsqRhmXRO7zxj1Nf5GFKpqP_
-    xqe1O0snu9rdOlg14bjmXZjcwYZ9N2oZO-_Cq00oJTe4rgSTBEhC5WF>
-X-ME-Proxy-Cause: dmFkZTELQ3SQvWgUATuEy9cPGDpMSwyORhxHL5EyoGz4mQ0tjQ2VPPRI6D26AhuGC/0AlV
-    PTPBEW281iUHFAgAuTVVxwrMqFHVCaSkNf6L9X9DVaqneok3ZOj4gmKcKzzSYV0zwsCQK4
-    0N6ZNJAKd9220k8PgxwyxGgq+k4BSZ6tkjoq9r4I19hOpZH/YaX/bmNv968AAL1ZEazzQR
-    +IJajjO7UQ8nxqioRXnLoRC1ZEK45qIefKf9Ip/e3CZi3nusUN+EDKAmXLAGl3lOfBjeBX
-    wWBJvIvI0XW85xldtqP8CuySRyaOv3HcXLCl5cP2hscci3cpL2plESjUb7vzGPdYhPYFTx
-    YsAKLuxNXqufHJVULMh+mZLF1XqVh5ZvkcCe9hyc/m2CJuuKsYeayV0nrKkgVnqgIKAE2P
-    9LIgaoYcrpULe9pdHKC9pNJ9JkJzG/07we+ME8tFz5SGgTGM8RN8DzTK12BQtfe8QeNQIh
-    PDCPJAozcP+QnALOm/FakGthLxFq1rUyMTWOwy4UIvcFwMvd6g+jn5hf7OSKRb1BjuFwiV
-    MhN+yYtqJ7iTgUgzcAAFFugSVFwQlC9xJp6+2uS7pjvtwHClDtgGrez3iXEy/VyMdPEWWV
-    JJuqURugfQ84mhYBud1YZgJ4y5jnkddqafsYjlGfZERcakTQoJkJTTrjnxNA
-X-ME-Proxy: <xmx:uPWbarlFvTiNKzKyU7_YbABY3FgBrPbj1Ux2wT4SfLUvMT6iJCes7g>
-    <xmx:uPWbatUjTckt8OLHq_AR6bJcvib65sm9Xmwm44VUhLG3w4hAognx1A>
-    <xmx:uPWbaoe7YThptqpQ-GxxnXfsWnEQuVJM48SlgiuuDkPK8wttGFdCRw>
-    <xmx:uPWbajlu8pOVaDvDHAstuMT1LiVTEVBiFhVkcesroMDA4sEluUTmlA>
-    <xmx:uPWbaiBiy6eKwjQm9U55aZnbvOdluy1tzwAJ6qOwYbpnaQ1b8uSf0Hy7>
-Feedback-ID: i02414972:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 997CFF80083; Sat,  5 Sep 2026 06:57:57 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d9jtBriI"
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc1c9879395so1385913a12.1
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 04:07:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788606445; x=1789211245; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yl+A1TCnMoj0CT3g6Nbon3RjU8W/dyxhnmvmd3XUicE=;
+        b=d9jtBriILpJ2Cg15vd1gY7x2PNblfmEbt3Aj2fc44QJkyev+f3XCNG6POCOwCtmD1k
+         PMe4ZkJf6s2kDaOYSWX5IM/Y+nLNtLS0XoeuEn30JRomdKP/bqn6JufhS/d9UlPxHekB
+         16RrUBP6zgOUXTmqosV7kM2BpY/kENNAl7yJuOVD2MYsHbBFtoeOfYDgbbK2po2RR7tN
+         Tpx/gI/4BOMIG7qcget7HPNRRx5fZCnaOu1dXueJyhnKWGQkvOrz/cJVWK08/I7rYIDS
+         DhpiRcPSNQ3PMaTgBE84Z9ifLYNhGC2E/4JVaQfLy0KZ8r1N2y1VMR2zDmVZ1C+Bx4CW
+         MrEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788606445; x=1789211245;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yl+A1TCnMoj0CT3g6Nbon3RjU8W/dyxhnmvmd3XUicE=;
+        b=rM20R2qt944Pv3ZCFm/dGUKk0Z3c74hBfIKHSlkJ4W7xV7rvtjDGDJ1WElF3B+imi+
+         bvFgu6pjglVPxSwOtEEg402GxrTGknmPqLG5E0SXIK+Nt8p55YXpagnQx+mrdRUTireG
+         NqWKkUW/suOh2RAKI9SoW5vR2dWRMHFAmieIjjEAn55V0tFfhWYIpK1Io3pi5bFZ0K5w
+         Ure2eZzdUSiQ3ndUnamC/LyobRdXklTAu903lioNO1/dUcfO3BoEiTKuH3MoUKlAiGMh
+         QDX8fI5lO9+YQHlNHGhG+Wz4eOAPdrFJ/KLh3WBUDPhSjyYI9G3ROIL2WWI/nZoTYJ2x
+         4mLQ==
+X-Gm-Message-State: AFuF++kP5+qNL26dBU2JmMLBRAgxmBjTjyxlGD8DT9II4KpheovVZS24
+	Wr1NRDj1/hiknh9H14xjmfckRpYcFEWU61lXnXFwaAI7OtzABAhJBjc1
+X-Gm-Gg: AYBFou1W3kPbbWVXDyKm3TF0c0Ox6wyOkrpw8S+YcrNCoV7UVkjTHrgZ6P0LTzYBLbm
+	3UjsSuzFVNQAJntvz0V4ERPmZXunOnvPgEW4V6+aMz918A/ps08yJVW2NBKTrLE/X2pcv1cfWfC
+	4ULWXiovb+Q3twvoDQNRREeV+dHibnAwSSxOBNadDQRRt4guzlVg3UZZQfTNsQUR248JvXZcUnl
+	3WgWalgBtN90YoICHJOlsVx61Inwpc1ir+QpDWB6cAi3dVXwDAgbnPJK70zL2h1EKuXZGIKUoYv
+	i7NU1VyWyvprcdWeLU6aLXaiLfinwxcFHMM066Xy024w7XhLeyexvIGNxHhrrTTWK/SzWB+UPQQ
+	YJLE+yF1TQGVdCCBiV1S4n+gHyVgOEoPBxBhBXbOiIdrsQ6Cbbx37SsPcrSPWHk5kw1iZ4//2wW
+	FUZFw7ro4HqiqUPfaaBJ2BZ3+zwsWwuM4u5C4qsA6ghVS4lQ5H+9lDHdGP+VGUT3CNd82YgGqac
+	IbWlttbZQ==
+X-Received: by 2002:a17:90b:2687:b0:398:9c0c:7c71 with SMTP id 98e67ed59e1d1-39b26277b88mr17422556a91.24.1788606445325;
+        Sat, 05 Sep 2026 04:07:25 -0700 (PDT)
+Received: from fedora.tail24a085.ts.net ([14.241.170.199])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b083e4fafsm15614755a91.1.2026.09.05.04.07.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 04:07:24 -0700 (PDT)
+From: Mai Hai Son <haison120404@gmail.com>
+To: dsterba@suse.com,
+	clm@fb.com,
+	linux-btrfs@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Mai Hai Son <haison120404@gmail.com>
+Subject: [PATCH] btrfs: wait for RCU readers before freeing a new device
+Date: Sat,  5 Sep 2026 18:06:40 +0700
+Message-ID: <20260905110640.152156-1-haison120404@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AWdxuz6OZDWw
-Date: Sat, 05 Sep 2026 13:55:43 +0300
-From: "Juha-Matti Tilli" <juha-matti.tilli@iki.fi>
-To: "David Laight" <david.laight.linux@gmail.com>
-Cc: "Jakub Kicinski" <kuba@kernel.org>, linux-arm-msm@vger.kernel.org,
- "Manivannan Sadhasivam" <mani@kernel.org>,
- "Eric Dumazet" <edumazet@google.com>,
- "Kuniyuki Iwashima" <kuniyu@google.com>, "Paolo Abeni" <pabeni@redhat.com>,
- "Willem de Bruijn" <willemb@google.com>,
- "David S . Miller" <davem@davemloft.net>, "Simon Horman" <horms@kernel.org>,
- "Marcel Holtmann" <marcel@holtmann.org>, "Andy Gross" <agross@kernel.org>,
- "Mihai Moldovan" <ionic@ionic.de>, "Denis Kenzior" <denkenz@gmail.com>,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Message-Id: <4531eba0-e44c-462d-8fcc-b189f6df1f31@app.fastmail.com>
-In-Reply-To: <20260905110727.0ff502e4@pumpkin>
-References: <20260901131934.225991-1-juha-matti.tilli@iki.fi>
- <20260901131934.225991-14-juha-matti.tilli@iki.fi>
- <20260904184038.5c1e673a@kernel.org>
- <0cc80b04-1bf0-419a-809c-e16be3f6a933@app.fastmail.com>
- <20260905110727.0ff502e4@pumpkin>
-Subject: Re: [PATCH v6 13/15] net: qrtr: limit endpoint range to 16 bits on 32-bit
- machines
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+btrfs_init_new_device() adds the new device to the RCU-protected
+fs_devices->devices list before completing the device-add operation. If a
+later step fails, error_sysfs removes the device with list_del_rcu() and
+then frees it without waiting for an RCU grace period.
 
+A concurrent reader such as btrfs_ioctl_dev_info() may still hold the
+device pointer it obtained under rcu_read_lock() and dereference it
+after btrfs_free_device() has already freed it, triggering a KASAN
+slab-use-after-free report:
 
-On Sat, Sep 5, 2026, at 13:07, David Laight wrote:
-> On Sat, 05 Sep 2026 07:21:33 +0300
-> "Juha-Matti Tilli" <juha-matti.tilli@iki.fi> wrote:
-> > Indeed, I will later post a new version with UINT16_MAX replaced by
-> > 65535.
-> 
-> Makes more sense anyway because it is an arbitrary bound (rather than
-> ensuring the result will fit in 16 bits.
-> Indeed, it might be better to use a different limit.
+  BUG: KASAN: slab-use-after-free in btrfs_ioctl+0x58e4/0x5d40
+  Read of size 8 at addr ffff8881176fa870 by task poc/84
+  Call Trace:
+   kasan_report+0xe4/0x1a0
+   btrfs_ioctl+0x58e4/0x5d40
+   __x64_sys_ioctl+0x121/0x1a0
+   do_syscall_64+0xf7/0x5a0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Well, on that I might disagree. As of this commit, the code will have to 
-cram that into 16 bits on 32-bit platforms. Only the later commit will 
-remove the restriction that lookups are limited to 32 bits total.
+  Allocated by task 81:
+   btrfs_alloc_device+0xb0/0x3e0
+   btrfs_init_new_device+0x4b2/0x3660
+   btrfs_ioctl_add_dev+0x179/0x430
+   btrfs_ioctl+0x11e0/0x5d40
 
-Node ids are 32-bit by definition, so 32+16=48 > 32, so u16 won't help.
+  Freed by task 81:
+   kfree+0x1b8/0x550
+   btrfs_init_new_device+0x56b/0x3660
+   btrfs_ioctl_add_dev+0x179/0x430
+   btrfs_ioctl+0x11e0/0x5d40
 
-Of course, there's the possibility that if the later commit is what we
-want, that this will be squashed with the later commit.
+Wait for an RCU grace period after removing the device from the list and
+before freeing it.
 
-I looked at most XA_LIMIT users and they seem to follow the policy that 
-allocations are limited to usually 16, 31 or 32 bits. And I found
-USHRT_MAX -- that's what I was looking for instead of UINT16_MAX.
+Fixes: 39379faaad79 ("btrfs: revert fs_devices state on error of btrfs_init_new_device")
+Assisted-by: Codex:gpt-5.6
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Mai Hai Son <haison120404@gmail.com>
+---
+ fs/btrfs/volumes.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-So I still think that "limited by kernel memory" is the best here. While 
-I can't envision a system with more than 65534 QRTR endpoints, I'm still
-uncomfortable with setting the limit to a low value.
+diff --git a/fs/btrfs/volumes.c b/fs/btrfs/volumes.c
+index 9b66eb584..af59291b7 100644
+--- a/fs/btrfs/volumes.c
++++ b/fs/btrfs/volumes.c
+@@ -3133,6 +3133,7 @@ int btrfs_init_new_device(struct btrfs_fs_info *fs_info, const char *device_path
+ 	btrfs_update_per_profile_avail(fs_info);
+ 	mutex_unlock(&fs_info->chunk_mutex);
+ 	mutex_unlock(&fs_info->fs_devices->device_list_mutex);
++	synchronize_rcu();
+ error_trans:
+ 	if (trans)
+ 		btrfs_end_transaction(trans);
 
-So, the next patchset will have USHRT_MAX. Soon my patchset of actually
-having multiple ath11k/ath12k is ready for review so I'll post that too.
-It fixes the memory leak in Mihai's original set.
-
-BR, Juha-Matti
+base-commit: 4d7d9486c04d917265f64c55bd23b2cc4fe7749c
