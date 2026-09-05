@@ -1,121 +1,194 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F3931B142D
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 01:55:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D86333D6D5;
+	Sat,  5 Sep 2026 01:55:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788573325; cv=none; b=f/zt+CkNgDXEKkB366l8tdSZt0BE9XSbuRlSWTclAxDNq8eiKhtSZeQjWpvQvueWtMp+uxIV0C380OPIyjOYOf2NQLHphniVMgFAzhlySsM1Pm95I8miG6gv757JNBCgPv4ZKZol6vlDsO8ZDdlnCCTpNybLBiF8nyxWYECHbtc=
+	t=1788573325; cv=none; b=pbBBjN+UPoCczYCo3E/8+hCJBRndYrNNCl56SDK3IQuu4VCrrPkj/0SqmWnClNDUV1WaulD5b29sLKdFxNg9EBzXwXsB1DFNZwQ99ZY3EVnQABOl9UX7PCKVyGcBV6TkOUDr1T5y1xwCiJ9eQE668E8vV+enf2+6XWv2wwhjzF8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788573325; c=relaxed/simple;
-	bh=XqniSnxjZywG1UJ0scWRsx8K04ODl3ZvGr+5qxPtkCc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=g+7aSFWidq44gGEtdNCjlX04/3ThiJuA/T6gsdNinX7d3/UBIjmngxusvb4d79IH3MZLM74KrT99seLtTCFXoJfC0XpeeDKGTDIRANnyP1WqjJv8xMRi3N1DJmlFyaOr+2VNfbRIto/TixRt7+zbfu47Jr6uTepBfrEgF/hiTNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ENoIpTYo; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=ByG5P7zpz5OiywzwozxpHFc2VfRLDF5KWqmhU3aoOoI=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=sf7Ard0aocJBz2jpF/0rB7Zuu726k32sk42yExNeWCvn5uQV5a4F4mXpvjONkt+Pot1yjd82+WgCaWOT6IdUjqKkQczQxEwvIjWNxn1asMEjKo9UPz+u2t19IU0gLLn/lLmyONP2XWCTICVNcFxsjy89Ss/ayTb6ZdwxUPRLmEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jZEz0OYo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ENoIpTYo"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-499ae1c6471so14704345e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 18:55:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788573322; x=1789178122; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bGqr/uumCH3i/wD1gHE7y7ihUxVOE4Gxi7P61fIxB4A=;
-        b=ENoIpTYobYbBK93UEdjZ0EOcLebBhAwxMAE6G3P02k2YSsbaLxzfFtsbCbDPQ6N4tJ
-         /40qDeWNQKW6VA9ShH/hHMuzUlHWdvl1SfT9Xvw3vX+8mlJeOKC0L32cN8W+qs/7TUyb
-         d4IYwTESbKKUvtQoaAukFRu9Di81EBfQzG2LcBklBqU73oxo2DOqXyAIxHeHB6aV9Q6p
-         IJmCdtHE9YhmYjxz0ju52iRifgEhGuFMet/b9l/5pwUVXJ5iOl0JR9lzbcdBCjyYfvcp
-         UjENxil9FxZuqiTrN9+tzBs/6ltqsaJ+UxEjjWiFQCNdQ9c4RuZxbZyBnDrwX+2K6QBM
-         Kwcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788573322; x=1789178122;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bGqr/uumCH3i/wD1gHE7y7ihUxVOE4Gxi7P61fIxB4A=;
-        b=V4thCyO9ys/NYrrdgOrIoGkqfl6CbO1AL5xEdPWZg7GHThH24VUBJbBzLCGV2jj23k
-         M3xtIGYnzv/x6hWanbaSbmy7sUQqXxWjoC+4L2Ju0ctiRTC/bgSf3gw0ztWmdft1sa0k
-         8mDmkJAcFtq5Qihl3jU63c6x0uZzU6HiN/MeCEhwfgK4VdQySR/GXTCxY7kI0tLDLa1u
-         CcHGPwS4kq4cmZQZYl1eBawJKYyKaj9DU1uzVfpYpdxHQYxGTqtKM/be1sqnIaZ4I+dj
-         /mLOdtUeh+qlXbNtys5VZkX5JBIE9ciGYmrLue2xGKhDcgb794Hohz14Wi+t7ZCLyOPL
-         pMAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzjSKB7aO1QpKcL8wTQeWEugV4LnTQBv0ef0Nw0yNA4iDGsviF/Qsjs0zlcuhvcEkozVEjf9SufHrvpEVU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nn6w1oZkNqC8jzPnlwj80TKp1S3mk1xsXMFMNt/V7oQwtGixe2
-	RruGnM6RmdxcOSReDgVSRCKSpC2gwam+DomEB019shwlpLoJhLy0xJ9D
-X-Gm-Gg: AYBFou3E5nEwlBWhauaIw1DNlHZ6eM5fib856pnfPZPpuXZ0rCQioab77UU7wwpRQQi
-	p2e76Jpd7NmhF83fTHxbjkogie15/7h2sN+vjqxpvM6G6bdHdzN6evvTn0R1JCG5vIHeQBAOQnE
-	YwEzOqNVrVyZ7L3FKzjYQ1opLJv0umZ+SZ1W1Ac38YJeMrANPTm4Yk0NJnxWSAzCJ5Qcf6frHwu
-	acgGo1cE7AIApzZ24FejS0bve7ABw/oWKhdIfQuke5ATO42rN+i9VhKc7HiINpZNHPgKKcLAStK
-	ybq+1p92stR669ROcma8/skz3dsqXDb4CqHgd3zAy5fmzy4a5F/yRPGHkJBChJS5ZGZh0geYblq
-	/sx9EtdcNF34evOxsbJyOS/DtiacmF33z2VchRLTsDAAq69cyk8fpOV4obpHzaVoYlNtgPI/qQg
-	5MUqsxY7r4/76VM+Zb/Pnj8XzpUfVhrCBipZ6Rm2LJVgs4AnvAgZE9Jr2+hG2wQMF5iuhUxoP5s
-	1pf8KialVFeVUS+E0Gp7HN03lKZu1pkzfmPb+RoVzklaFqnisBAZzxiZddtrJoQ+Fm9MYqCxmmR
-	Unplj+yvjETwd6bejXBnhxj9om6LKDbblJ5NKrzc8haU0w1jsBha3tt5XHXW8iAohyc=
-X-Received: by 2002:a05:600c:6290:b0:499:8174:9f39 with SMTP id 5b1f17b1804b1-49cf7f3d239mr199069625e9.0.1788573321755;
-        Fri, 04 Sep 2026 18:55:21 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a4eb-3001-c06d-af27-9fa2-ea53.310.pool.telefonica.de. [2a02:3100:a4eb:3001:c06d:af27:9fa2:ea53])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cff8195ffsm51258345e9.14.2026.09.04.18.55.20
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 04 Sep 2026 18:55:21 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: "Liam R. Howlett" <liam@infradead.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Andrew Ballance <andrewjballance@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	maple-tree@lists.infradead.org,
-	linux-mm@kvack.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] docs: maple_tree: Replace removed bulk insertion API
-Date: Sat,  5 Sep 2026 03:55:09 +0200
-Message-Id: <20260905015509.76265-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jZEz0OYo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EE6B1F00A3E;
+	Sat,  5 Sep 2026 01:55:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788573323;
+	bh=Fr11NjnJVVQfzGouHabD2M2yd5DSZ4XdF7Updqjh2aY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=jZEz0OYoaXPNkD7H0dSjyUptK9q5sTK+Xud5QEnwBYzh0NS4DUbcDMaEh7RDtaDeJ
+	 uAr5KDd2vjY2s3MCPtRWc3ZJFva7SVWkRh3RYIHC+UkhU1iYUBAKWsfOPRJquzwyMo
+	 i1ZaQU+C8a1AlAikABJBkFpCAG1EjcE+qlD5X9Ay1i0ZDQb0euVX6M158CBOc4ecO6
+	 rYLSScYkw9g6Ac/w279AiHzvZMo44TR81QcXTtVk1q2RVEGZjIyIvT+JXjIYip7Yfs
+	 HehkPv5eEbeNtDQTxY7fQcrUfPkjqYHUHCUrC+p3+IaZomNXn7gS4LubVdsv6WAgXr
+	 xgxoQbFivY92g==
+Subject: Re: [PATCH net-next v2 02/10] net: dsa: microchip: add the number of
+ periodic signals to chip infos
+From: netdev-bot+sashiko@kernel.org
+To: bastien.curutchet@bootlin.com
+Cc: woojung.huh@microchip.com, UNGLinuxDriver@microchip.com, andrew@lunn.ch,
+ olteanv@gmail.com, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, richardcochran@gmail.com, pascal.eberhard@se.com,
+ miquel.raynal@bootlin.com, thomas.petazzoni@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Sat, 05 Sep 2026 01:55:22 +0000
+Message-ID: <178857332257.219967.393836021052995350@kernel.org>
+In-Reply-To: <20260902-ksz-perout-v2-2-6f277fcc9e68@bootlin.com>
+References: <20260902-ksz-perout-v2-2-6f277fcc9e68@bootlin.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Commit e3852a1213ff ("maple_tree: Drop bulk insert support") removed
-mas_expected_entries() but left the documentation describing it.
-Document the current preallocation interface instead.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-Fixes: e3852a1213ff ("maple_tree: Drop bulk insert support")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- Documentation/core-api/maple_tree.rst | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+Critical: 0 · High: 0 · Medium: 0 (1) · Low: 1 (1)
 
-diff --git a/Documentation/core-api/maple_tree.rst b/Documentation/core-api/maple_tree.rst
-index 12bccfb6aac1..836342fb1eec 100644
---- a/Documentation/core-api/maple_tree.rst
-+++ b/Documentation/core-api/maple_tree.rst
-@@ -214,11 +214,10 @@ Advanced Allocating Nodes
- -------------------------
- 
- Allocations are usually handled internally to the tree, however if allocations
--need to occur before a write occurs then calling mas_expected_entries() will
--allocate the worst-case number of needed nodes to insert the provided number of
--ranges.  This also causes the tree to enter mass insertion mode.  Once
--insertions are complete calling mas_destroy() on the maple state will free the
--unused allocations.
-+need to occur before a write occurs then calling mas_preallocate() will
-+allocate the nodes needed to store the provided entry.  The entry is then
-+stored with mas_store_prealloc().  If the store is abandoned, calling
-+mas_destroy() on the maple state will free the unused allocations.
- 
- .. _maple-tree-advanced-locks:
- 
+- [Low] Incomplete conversion for KSZ8463: `ksz_ptp_clock_register()`
+  (drivers/net/dsa/microchip/ksz_ptp.c:1054) now takes the advertised…
+
+Pre-existing issues:
+- [Medium] The driver advertises `n_per_out` periodic-output channels (3
+  for every PTP-capable chip, now sourced from chip data) but keeps only…
+- [Low] In `ksz_ptp_tou_reset()`
+  (drivers/net/dsa/microchip/ksz_ptp.c:66-88, the TRIG_RESET write at…
+
+--
+
+net: dsa: microchip: add the number of periodic signals to chip infos
+
+This adds an n_per_out field to struct ksz_chip_data and uses it in
+ksz_ptp_clock_register() instead of the hardcoded value 3.  The field is
+populated with 3 for every chip entry carrying .ptp_capable = true.
+
+> diff --git a/drivers/net/dsa/microchip/ksz_common.c b/drivers/net/dsa/microchip/ksz_common.c
+> index d01fba253af57..041bb4f963659 100644
+> --- a/drivers/net/dsa/microchip/ksz_common.c
+> +++ b/drivers/net/dsa/microchip/ksz_common.c
+> @@ -1195,6 +1195,7 @@ const struct ksz_chip_data ksz_switch_chips[] = {
+>  		.wr_table = &ksz8563_register_set,
+>  		.rd_table = &ksz8563_register_set,
+>  		.n_pins = 2,
+> +		.n_per_out = 3,
+>  	},
+>  
+>  	[KSZ8795] = {
+
+[Severity: Low]
+Should the KSZ8463 entry get an n_per_out value too?
+
+The commit message says "Set it to 3 for all the PTP-capable switches", which
+matches the .ptp_capable chip-data flag, but KSZ8463 registers a PTP clock
+without that flag:
+
+drivers/net/dsa/microchip/ksz8.c:ksz8463_setup() {
+	...
+	if (dev->irq > 0) {
+		...
+		ret = ksz_ptp_clock_register(ds);
+		if (ret) {
+			dev_err(dev->dev, "Failed to register PTP clock: %d\n", ret);
+	...
+}
+
+The [KSZ8463] initializer in ksz_switch_chips[] sets neither .n_pins (added
+by the preceding patch) nor .n_per_out, so both stay 0 in this static const
+table.  Does that mean the KSZ8463 clock now advertises n_per_out = 0
+(previously 3) and n_pins = 0 (previously KSZ_PTP_N_GPIO), making the PTP
+core reject every PTP_PEROUT_REQUEST with -EINVAL and leaving
+ptp_find_pin() with no descriptors?
+
+No working output is actually lost at this commit, since the only perout
+implementation here is ksz_ptp_enable_perout(), which programs ksz9477-only
+registers, and the later patch "net: dsa: microchip: add periodic output
+support for the KSZ8463" does set .n_pins = 12 and .n_per_out = 12 on that
+entry.  Would it be cleaner to set the KSZ8463 values in this patch so no
+intermediate commit advertises zero channels or pins?
+
+[ ... remaining ksz_common.c chip entries and the ksz_common.h hunk snipped ... ]
+
+> diff --git a/drivers/net/dsa/microchip/ksz_ptp.c b/drivers/net/dsa/microchip/ksz_ptp.c
+> index c92936bf78d3d..f80015250e5ab 100644
+> --- a/drivers/net/dsa/microchip/ksz_ptp.c
+> +++ b/drivers/net/dsa/microchip/ksz_ptp.c
+> @@ -1051,7 +1051,7 @@ int ksz_ptp_clock_register(struct dsa_switch *ds)
+>  	ptp_data->caps.enable		= ksz_ptp_enable;
+>  	ptp_data->caps.verify		= ksz_ptp_verify_pin;
+>  	ptp_data->caps.n_pins		= dev->info->n_pins;
+> -	ptp_data->caps.n_per_out	= 3;
+> +	ptp_data->caps.n_per_out	= dev->info->n_per_out;
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but now that the advertised
+number of periodic outputs becomes per-chip data, is the driver's shadow
+state able to describe more than one trigger unit?
+
+ksz_ptp_enable_perout() programs the unit selected by the request index:
+
+	data32 = FIELD_PREP(PTP_GPIO_INDEX, pin) |
+		 FIELD_PREP(PTP_TOU_INDEX, request->index);
+
+but only one tou_mode, one perout_period and one perout_target_time_first
+are stored, and the re-arm path hardcodes unit 0:
+
+drivers/net/dsa/microchip/ksz_ptp.c:ksz_ptp_restart_perout() {
+	...
+	request.period.nsec = ptp_data->perout_period.tv_nsec;
+	request.index = 0;
+	request.flags = 0;
+
+	return ksz_ptp_enable_perout(dev, &request, 1);
+}
+
+If userspace arms channel 1 or 2 (the -EBUSY guard only compares tou_mode,
+never the unit index), does a later settime/adjtime leave hardware unit 1
+or 2 still TRIG_ENABLE'd with a target time in the old timebase while the
+driver re-arms idle unit 0?
+
+There is a second effect on the same path: ksz_ptp_enable_perout() starts
+with ptp_find_pin(ptp_data->clock, PTP_PF_PEROUT, request->index).  With a
+pin assigned only to channel 1, the lookup for index 0 fails, so
+ksz_ptp_settime()/ksz_ptp_adjtime() return -EINVAL after the RTC has
+already been written and before ptp_data->clock_time is refreshed under
+clock_lock.  Does that leave the software clock shadow stale and skew
+timestamp reconstruction?
+
+This is still the case at the end of the series, where KSZ8463 additionally
+advertises 12 channels against the same single-unit shadow state.
+
+[Severity: Low]
+This is a pre-existing issue and the patch does not touch this function,
+but the TRIG_RESET write result in ksz_ptp_tou_reset() is discarded:
+
+drivers/net/dsa/microchip/ksz_ptp.c:ksz_ptp_tou_reset() {
+	/* Reset trigger unit (clears TRIGGER_EN, but not GPIOSTATx) */
+	ret = ksz_rmw32(dev, REG_PTP_CTRL_STAT__4, TRIG_RESET, TRIG_RESET);
+
+	data = FIELD_PREP(TRIG_DONE_M, BIT(unit));
+	ret = ksz_write32(dev, REG_PTP_TRIG_STATUS__4, data);
+	if (ret)
+		return ret;
+	...
+}
+
+ret is overwritten before it is tested.  If the read-modify-write fails but
+the following write succeeds, can the helper return 0 with the trigger unit
+never put into reset, so ksz_ptp_enable_perout() rewrites TRIG_CTRL, cycle
+width, cycle count, pulse width and target time on a still-enabled unit?
+On the !on path, tou_mode is also set to KSZ_PTP_TOU_IDLE while the unit may
+remain armed.
+
+This is unchanged at the end of the series.
+
 -- 
-2.53.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260902-ksz-perout-v2-0-6f277fcc9e68%40bootlin.com
