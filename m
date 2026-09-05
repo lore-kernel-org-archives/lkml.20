@@ -1,140 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.smtp-ext.broadcom.com (lpdvsmtp12.broadcom.com [192.19.144.207])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A6D245020;
-	Sat,  5 Sep 2026 01:31:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA63F2C0298;
+	Sat,  5 Sep 2026 01:34:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.144.207
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788571914; cv=none; b=g/zjO5qBjFdb0CZeuGRcrUZXVRLB4x3yrPU3nVtrM8PhK1w9sY/IIxLqQRwvWw9KoGyvgHloGy795dF69NiVLV3XhTQOqYKfQO5baFCL0HcACVYJNwoJ9ncHmC5d5qYRly4aPmqI0V4D2PJPi1kGbVi3uqt94bGOA8gtGk0hdxQ=
+	t=1788572085; cv=none; b=WO220SM4Uox3cbFXlEJ/VMYiRmYtkpD/xn2Qw67POKMBv9Fx6PnJVwoOksmEn2o8DSo+tYeK0cjo2q6codJ38FG36fhH0ofp+ZHdhvNZSC5ZqEYl+I1++w+zPD0EqrsuqT4aOQtUeTEzgAf17ntJnIgrYiMflLKB8vfWLpb8dOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788571914; c=relaxed/simple;
-	bh=dQ+iMzGQujr1wMp3y+oQef4ll45dw99ZPy0bdSro3j8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KAVQens3zlLVbxOvnlY6FN4OjNXmJjTwtcSoLrDJrnuDcYUo4hsQyRlYX5qrKeLlk+gBUkYCnIjqpIm4jANWJ73kJMO2NrxWq+pXz4Lgloz5dEhMzk1mb9zzGW91AB8NONw297nTbY/i+sRWyOK7wNEE6kAO2lmwCXueQoDutcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TvPyPeXb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788572085; c=relaxed/simple;
+	bh=u6VVhAhlj3OULcbiNGFXTh2I1gvcsZC+g7Ec00v8w3k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aVqP1wQOnZgLeAWILTbfQ/XSuKN5vjudDFq+7sdCL/gm2zFWZjIzmi3x5lBwtipmiG8egDbcGxATs7CnCvLE2xGRDseb6ePxULOHYB+PSE/ES3DOcpQ4ula9h2HR/AUMnozpUl2J1Nsx+vVBaSuj76oFONv/yFgim0Av1zmQLMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=mrGsH/JP; arc=none smtp.client-ip=192.19.144.207
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TvPyPeXb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C419F1F00A3D;
-	Sat,  5 Sep 2026 01:31:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788571912;
-	bh=1dIzkHmMftwvydeIU/+1JhlMCWhKPntxvGcUwLCu+H4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=TvPyPeXb6ybBZRSdkj2vGuE+IY/eGSMyy1mal7oC09tb35q1uXD7ls7QV0yH6q6wi
-	 IEz5/RmCfKNJzRYZzEVOdScGlnNT2CylvwaBKIqSopyPpFs5x+C7Ebg7NeSsgdQtzr
-	 IywzsLmRnAOlPM8gHLwIROIfSQdjE+bBGOFn2HPaw1rLzjsS0UIvAvCrSwov5tvG9w
-	 Vuj/3Zb1zCtqTmYPX+v0Du59YnHuSXXaxlRhRkyJVqGTnBrWWYalcfJt9hJdqbVVBI
-	 6uzbD8lVkfciK3b+gOsLTfrOZIPFOdMWUgxesK7i22vcgJh0H9r+/6f0JtdT81twZr
-	 0cUlSkwws1V4Q==
-Date: Sat, 5 Sep 2026 02:31:47 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Wadim Mueller <wafgo01@gmail.com>
-Cc: Maxwell Doose <maxwell@maxwelld.cc>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Jonathan Cameron
- <jonathan.cameron@oss.qualcomm.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, Li Youhong <dayou5941@163.com>, Li Youhong
- <liyouhong@kylinos.cn>, Brendan Higgins <brendan.higgins@linux.dev>, David
- Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com
-Subject: Re: [PATCH 2/2] iio: flow: slf3s: add KUnit tests for the PM
- regulator balance
-Message-ID: <20260905023147.006d181c@jic23-huawei>
-In-Reply-To: <20260904-iio-slf3s-pm-regulator-kunit-v1-2-5ea61e6d6db2@gmail.com>
-References: <20260904-iio-slf3s-pm-regulator-kunit-v1-0-5ea61e6d6db2@gmail.com>
-	<20260904-iio-slf3s-pm-regulator-kunit-v1-2-5ea61e6d6db2@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="mrGsH/JP"
+Received: from mail-lvn-it-01.broadcom.com (mail-lvn-it-01.lvn.broadcom.net [10.36.132.253])
+	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 69B13C0003D7;
+	Fri,  4 Sep 2026 18:34:42 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 69B13C0003D7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
+	s=dkimrelay; t=1788572082;
+	bh=u6VVhAhlj3OULcbiNGFXTh2I1gvcsZC+g7Ec00v8w3k=;
+	h=From:To:Cc:Subject:Date:From;
+	b=mrGsH/JPqe3t3qmf+0NFRbvwxEVLZFqPoLPi0Pr/gkienlAgS0r8Ju6+JzaeHMHGb
+	 nGW3a5lmYmOLn/JXomhJ4zAvArQmC7ubczuh6xrPTkg7kx+s4Ko0BlqAuSXhFoS9oA
+	 b03Ps3deSVgMUcvsR156y0KQq+Yvga8I6ORo4rOQ=
+Received: from bse-build-07.ric.broadcom.net (unknown [10.136.28.187])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id 96D04A9A;
+	Fri,  4 Sep 2026 18:34:41 -0700 (PDT)
+From: Danesh Petigara <danesh.petigara@broadcom.com>
+To: florian.fainelli@broadcom.com,
+	jonas.gorski@gmail.com,
+	andrew@lunn.ch,
+	olteanv@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: vivien.didelot@gmail.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Justin Chen <justin.chen@broadcom.com>,
+	Danesh Petigara <danesh.petigara@broadcom.com>
+Subject: [PATCH net] net: dsa: bcm_sf2_cfp: fix NULL deref when port_num is out of bounds
+Date: Fri,  4 Sep 2026 18:34:04 -0700
+Message-ID: <20260905013404.2712866-1-danesh.petigara@broadcom.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Fri, 04 Sep 2026 21:24:26 +0200
-Wadim Mueller <wafgo01@gmail.com> wrote:
+From: Justin Chen <justin.chen@broadcom.com>
 
-> Bind the driver to an emulated SLF3S on a fake I2C adapter, back it with
-> a regulator whose enable and disable callbacks are counted, and check
-> that the two stay paired across suspend and resume - including the cycles
-> in which the sensor NACKs a command or the supply refuses to come up.
-> 
-> The suspend/resume helpers reproduce the PM core's rule that a resume
-> callback only runs after a suspend callback that returned 0, so that the
-> tests cannot construct an ordering the core never produces.  One of the
-> tests relies on it: it cycles the device ten times with rotating failure
-> injection and asserts that the driver's enable count never climbs above
-> one.
-> 
-> Signed-off-by: Wadim Mueller <wafgo01@gmail.com>
+bcm_sf2_cfp_rule_insert() validates port_num against
+priv->hw_params.num_ports, but the bounds check was placed after the
+calls to dsa_is_user_port() and dsa_is_cpu_port():
 
-Interesting approach to testing the flows.
-I'm not sure we want to carry this level of testing for a driver in the
-tree. Would like to hear the views of others on this.
+    if (ring_cookie == RX_CLS_FLOW_DISC ||
+        !(dsa_is_user_port(ds, port_num) ||
+          dsa_is_cpu_port(ds, port_num)) ||
+        port_num >= priv->hw_params.num_ports)
 
-There is some really nice stuff in here.  Makes me wonder if we should
-build a specific test device + driver that would hit all the widest possible
-set of corner cases that aren't device specific.  The one slightly unusual
-thing for this device is the error on telling to stop when it is already stopped.
+Both helpers call dsa_to_port(), which iterates the port list and
+returns NULL if no entry matches.  With a user-supplied ring_cookie
+large enough to produce an out-of-bounds port_num, dsa_to_port()
+returns NULL and the immediate ->type dereference faults.
 
-A couple of things I noted whilst taking a first look.
-I'll want to take some time when I'm a lot more awake than I am today
-to look at this closely.
+Move the bounds check first so dsa_is_user_port()/dsa_is_cpu_port()
+are never reached with an invalid port_num.
 
-Thanks!
+Fixes: 4a5b85ffe2a0 ("net: dsa: use dsa_is_user_port everywhere")
+Signed-off-by: Justin Chen <justin.chen@broadcom.com>
+Assisted-by: Claude:claude-sonnet-4-6 vscode
+Signed-off-by: Danesh Petigara <danesh.petigara@broadcom.com>
+---
+ drivers/net/dsa/bcm_sf2_cfp.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Jonathan
+diff --git a/drivers/net/dsa/bcm_sf2_cfp.c b/drivers/net/dsa/bcm_sf2_cfp.c
+index 84a086c3e99b..6ac5cf154f31 100644
+--- a/drivers/net/dsa/bcm_sf2_cfp.c
++++ b/drivers/net/dsa/bcm_sf2_cfp.c
+@@ -867,9 +867,9 @@ static int bcm_sf2_cfp_rule_insert(struct dsa_switch *ds, int port,
+ 	port_num = ring_cookie / SF2_NUM_EGRESS_QUEUES;
+ 
+ 	if (ring_cookie == RX_CLS_FLOW_DISC ||
++	    port_num >= priv->hw_params.num_ports ||
+ 	    !(dsa_is_user_port(ds, port_num) ||
+-	      dsa_is_cpu_port(ds, port_num)) ||
+-	    port_num >= priv->hw_params.num_ports)
++	      dsa_is_cpu_port(ds, port_num)))
+ 		return -EINVAL;
+ 
+ 	/* If the rule is matching a particular VLAN, make sure that we honor
+-- 
+2.54.0
 
-> diff --git a/drivers/iio/flow/slf3s-kunit.c b/drivers/iio/flow/slf3s-kunit.c
-> new file mode 100644
-> index 000000000000..d5e2db855838
-> --- /dev/null
-> +++ b/drivers/iio/flow/slf3s-kunit.c
-> @@ -0,0 +1,734 @@
-
-
-> +
-> +static void slf3s_fake_put_word(struct slf3s_fake *f, u8 *dst, u16 val)
-> +{
-> +	dst[0] = val >> 8;
-> +	dst[1] = val & 0xff;
-
-Use a put_unaligned_be16() for this.
-
-> +	dst[2] = crc8(f->crc_table, dst, 2, SLF3S_TEST_CRC8_INIT);
-> +}
-> +static int slf3s_test_init(struct kunit *test)
-> +{
-> +	struct regulator_consumer_supply *supply;
-> +	struct regulator_init_data *init_data;
-> +	struct i2c_board_info info = { };
-> +	struct regulator_config config = { };
-> +	struct slf3s_test_ctx *ctx;
-> +	struct device *parent;
-> +	char *consumer;
-> +	int ret;
-> +
-> +	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
-> +	KUNIT_ASSERT_NOT_NULL(test, ctx);
-> +	test->priv = ctx;
-> +
-> +	/* Actions run in reverse, so destroy after the unbind takes the locks. */
-> +	mutex_init(&ctx->fake.lock);
-> +	ret = kunit_add_action_or_reset(test, slf3s_test_destroy_mutex,
-> +					&ctx->fake.lock);
-> +	KUNIT_ASSERT_EQ(test, ret, 0);
-> +
-> +	mutex_init(&ctx->reg.lock);
-> +	ret = kunit_add_action_or_reset(test, slf3s_test_destroy_mutex,
-> +					&ctx->reg.lock);
-> +	KUNIT_ASSERT_EQ(test, ret, 0);
-
-Given those are deep in the emulation which is not what we are testing, do
-we need to bother with the mutex destroy calls?  That is only there
-for some debugging of locks that isn't relevant here I think.
-
-> +
-> +	crc8_populate_msb(ctx->fake.crc_table, SLF3S_TEST_CRC8_POLY);
-> +	ctx->fake.state = SLF3S_FAKE_OFF;
