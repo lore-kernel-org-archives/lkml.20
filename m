@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C285E4F4752;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B874F55CD;
 	Sat,  5 Sep 2026 18:13:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788632020; cv=none; b=Er+gMFnkhfK39W+XpjTARDAZM5KKp3B2O/Gw2nUilxv/ZMUsE6oCTfPx6XMH1i1EXARTtxQnsr/tarCjmwETewGFHwKBuwZwCRsMTikTy/VpJf2eTtrwZg/xt7dly27oS8A48479Z/5Vii8qOBEw0Cn0OzQrIEzOUgY6dBaek0s=
+	t=1788632021; cv=none; b=Pq3ukFy7TNvOQAplJywZ184gOkzo0zatiUayPWSIbJRJZW0pwFKgE9L//8w6AzaFNYYJYHehmqeccI99cGvfZ1PUaSpO8lrx+rUthEAAIFrcrMNrEupjFqOXnLVIfDKehYKsluoVtkZS/SnhWievMeT47spGgBpQP0KKpyaom3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788632020; c=relaxed/simple;
-	bh=039hD2i/u3Xzim3T+Y+Npe87/xD0kbnHfCWs5owZRF8=;
+	s=arc-20240116; t=1788632021; c=relaxed/simple;
+	bh=FyqiMJOQIIXWVnPhGdNUYdutTzZsipfkHxX+w5Ssz9I=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dGMZvRNa2hrxE/8t5RIMoZ85CBASfvfYtkkjjGMnk9c8hOImgrqK6xiDk8meJilHqG3Ew3zOZ25NIYF0v7OtFHKBegYj8QZpkfv0oC/qTNw8fxXoLmv/zbnR2H2bNskk/RII842UlpsHoSjnCr/jHcSWU3VPNEvF7tpM3t8uKOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dvRKTz6K; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=k4QgQHrgK3wKojUY9rHv5/rh4gv5SYidJQrYQSJcZGHGdzD3aLtORLt63XoY/xfw19DGtCyIPZGweMpVr3+T8CkNZ3Oj5MDCNwLDvJNR09uNGYeGs36iVUWoF4I03faB4P4fda+4FV9xRQNv1qYWfrzDElrwkmRA+nn0QDywTng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uSdWuVh8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dvRKTz6K"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A2D16C2BCFC;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uSdWuVh8"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C506FC2BD04;
 	Sat,  5 Sep 2026 18:13:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788632020;
-	bh=039hD2i/u3Xzim3T+Y+Npe87/xD0kbnHfCWs5owZRF8=;
+	bh=FyqiMJOQIIXWVnPhGdNUYdutTzZsipfkHxX+w5Ssz9I=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=dvRKTz6KcudoJS/UYzhqgyNZwgeeEqbWYlV4nm5wgvGsaSSsXpFLiawmwgJY6z4vy
-	 A/oB5waY5QDDTz68lAu4Ht4J99VdfO0y1BHD4z0E/23UTx9nwBCXvkWH0B2elvqtSQ
-	 26NX7ROY0VeYni5X8iLTjqOZ3csVNDVa6GZ2D04w2YuwU+FutfIN9Xf86U6K7a8nlk
-	 myp3f/tvR7E393fjAdeK70e6X2NyVGdwNOBnmsYCAo/0uRE66HB6JolINPJ841tlDe
-	 REl7R2o5NxMWVoagn3cKw5K1Xfokm56RvGvVd5JXpZAM5qZzsade15TzUK0RjTkTMt
-	 QlL83TIX4kpDQ==
+	b=uSdWuVh8YUQYcYnxu1PblDEqNbkAb7lg+fhLKxlIMo75+CWTHNwMt9IA6L26QKU0A
+	 8kL95jizt7LOF7PzjgV9/eHrTBw9Mkn0udVWDJzea3WSoLtRGv4md+PSshXbN28a5E
+	 +pI2DXK2CNH1GaiXBukUq4oyPB3nNK/iyXbV759MwMehL1Z0BibdV+Hbwz5FACyhfk
+	 AFVx9E0OrFA3d1QGslx1U6Kn7TDxTMC5Qb8UScM3SVIH9ian0HCG2yDlp2saYAK3Qv
+	 R2lKisy8Oj4801WI6edt/RLeftX/JuYx+c2XIFNLFZIun2WoDfyeIPy5YxtjiKaSVI
+	 mVwWgwDgQ+z4A==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8EB95C79F91;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B16FCC79F8B;
 	Sat,  5 Sep 2026 18:13:40 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Sat, 05 Sep 2026 12:13:31 -0600
-Subject: [PATCH v8 17/43] lib/parser: add match_wildcard_hyphen() for
- agnostic matching
+Date: Sat, 05 Sep 2026 12:13:33 -0600
+Subject: [PATCH v8 19/43] dyndbg: refactor param_set_dyndbg_classes and
+ below
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260905-dd-cmap-part2-clean-v8-17-a4cc0674f6fd@gmail.com>
+Message-Id: <20260905-dd-cmap-part2-clean-v8-19-a4cc0674f6fd@gmail.com>
 References: <20260905-dd-cmap-part2-clean-v8-0-a4cc0674f6fd@gmail.com>
 In-Reply-To: <20260905-dd-cmap-part2-clean-v8-0-a4cc0674f6fd@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -58,13 +58,14 @@ To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>,
 Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
  linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kbuild@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>
+ linux-kbuild@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788632017; l=4874;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788632017; l=6792;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=ihDFqL0diDWV3lWPKWnxgngrFJlU5Ge2Bo6Sm1Qc/y4=;
- b=ITFzTkTlOK8gnfGL2YM3ijp8DCaJowlDsEzlcxJv2oxk0MNM1acuBr0vVQn8ZzwJTs13b0kJ6
- AmztAHB5R5HDw4V+U8rJiHVsLxRyvr75BSpqEgn4uTtTU/tvo7SEenB
+ bh=3N66fDJtqesR5DTA1YtRVwEjPz+ZNcyqSUGzcXmHXtA=;
+ b=LvdUXEJczLRdKqGYZYwv07ilxAumkTJck7v456YGCTyzLt2VHHAWpYvoy090SEAY7b2MehziL
+ WxdDo+3Ef1JCqJIEK7Wdtas/m3D0dK7bZWRTujAWPjScW7n0mLrAEtl
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -74,140 +75,173 @@ Reply-To: jim.cromie@gmail.com
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-This commit introduces match_wildcard_hyphen() as a variant of the
-existing match_wildcard() function. It treats hyphens and underscores
-as identical characters during the matching process.
+Refactor the callchain below param_set_dyndbg_classes(1) to allow
+mod-name specific settings.  Split (1) into upper/lower fns, adding
+modname param to lower, and passing NULL in from upper.  Below that,
+add the same param to ddebug_apply_class_bitmap(), and pass it thru to
+_ddebug_queries(), replacing NULL with the param.
 
-This is necessary for subsystems like dynamic_debug that need to match
-module names provided by users (who often use underscores) against
-names stored in the kernel (which may use hyphens, especially when
-using KBUILD_MODFILE for built-ins).
+This allows the callchain to update the classmap in just one module,
+vs just all as currently done.  While the sysfs param is unlikely to
+ever update just one module, the callchain will be used for modprobe
+handling, which should update only that just-probed module.
 
-To avoid code duplication, the core logic is refactored into a private
-__match_wildcard() function marked as __always_inline. This allows the
-compiler to generate optimized versions for both the strict and agnostic
-callsites with zero runtime overhead.
+In ddebug_apply_class_bitmap(), also check for actual changes to the
+bits before announcing them, to declutter logs.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
-v5: move ahead of array-slice patch to silence sashiko complaint about it
-v4: initial version
+v2: move RvB after SoB
+v8: drop kdoc on static fn,
 ---
- include/linux/parser.h                             |  1 +
- lib/parser.c                                       | 58 ++++++++++++++++------
- .../selftests/dynamic_debug/dyndbg_selftest.sh     |  2 +-
- 3 files changed, 45 insertions(+), 16 deletions(-)
+ lib/dynamic_debug.c | 73 ++++++++++++++++++++++++++++++++++-------------------
+ 1 file changed, 47 insertions(+), 26 deletions(-)
 
-diff --git a/include/linux/parser.h b/include/linux/parser.h
-index dd79f45a37b8..a3cc7bc5fb93 100644
---- a/include/linux/parser.h
-+++ b/include/linux/parser.h
-@@ -34,6 +34,7 @@ int match_u64(substring_t *, u64 *result);
- int match_octal(substring_t *, int *result);
- int match_hex(substring_t *, int *result);
- bool match_wildcard(const char *pattern, const char *str);
-+bool match_wildcard_hyphen(const char *pattern, const char *str);
- size_t match_strlcpy(char *, const substring_t *, size_t);
- char *match_strdup(const substring_t *);
- 
-diff --git a/lib/parser.c b/lib/parser.c
-index 62da0ac0d438..d5be01fa9adf 100644
---- a/lib/parser.c
-+++ b/lib/parser.c
-@@ -268,20 +268,13 @@ int match_hex(substring_t *s, int *result)
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 2f18d2970aa6..82c4d60d931e 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -618,9 +618,10 @@ static int ddebug_exec_queries(char *query, const char *modname)
+ 	return nfound;
  }
- EXPORT_SYMBOL(match_hex);
+ 
+-/* apply a new bitmap to the sys-knob's current bit-state */
++/* apply a new class-param setting */
+ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+-				     unsigned long *new_bits, unsigned long *old_bits)
++				     unsigned long *new_bits, unsigned long *old_bits,
++				     const char *query_modname)
+ {
+ #define QUERY_SIZE 128
+ 	char query[QUERY_SIZE];
+@@ -628,7 +629,9 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 	int matches = 0;
+ 	int bi, ct;
+ 
+-	v2pr_info("apply: 0x%lx to: 0x%lx\n", *new_bits, *old_bits);
++	if (*new_bits != *old_bits)
++		v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
++			  *old_bits, query_modname ?: "'*'");
+ 
+ 	for (bi = 0; bi < map->length; bi++) {
+ 		if (test_bit(bi, new_bits) == test_bit(bi, old_bits))
+@@ -637,12 +640,16 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 		snprintf(query, QUERY_SIZE, "class %s %c%s", map->class_names[bi],
+ 			 test_bit(bi, new_bits) ? '+' : '-', dcp->flags);
+ 
+-		ct = ddebug_exec_queries(query, NULL);
++		ct = ddebug_exec_queries(query, query_modname);
+ 		matches += ct;
+ 
+ 		v2pr_info("bit_%d: %d matches on class: %s -> 0x%lx\n", bi,
+ 			  ct, map->class_names[bi], *new_bits);
+ 	}
++	if (*new_bits != *old_bits)
++		v2pr_info("applied bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
++			  *old_bits, query_modname ?: "'*'");
++
+ 	return matches;
+ }
+ 
+@@ -651,22 +658,17 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 
+ #define CLASSMAP_BITMASK(width) ((1UL << (width)) - 1)
  
 -/**
-- * match_wildcard - parse if a string matches given wildcard pattern
-- * @pattern: wildcard pattern
-- * @str: the string to be parsed
+- * param_set_dyndbg_classes - class FOO >control
+- * @instr: string echo>d to sysfs, input depends on map_type
+- * @kp:    kp->arg has state: bits/lvl, map, map_type
 - *
-- * Description: Parse the string @str to check if matches wildcard
-- * pattern @pattern. The pattern may contain two types of wildcards:
+- * Enable/disable prdbgs by their class, as given in the arguments to
+- * DECLARE_DYNDBG_CLASSMAP.  For LEVEL map-types, enforce relative
+- * levels by bitpos.
 - *
-- * * '*' - matches zero or more characters
-- * * '?' - matches one character
-- *
-- * Return: If the @str matches the @pattern, return true, else return false.
-- */
--bool match_wildcard(const char *pattern, const char *str)
-+static inline char dash2underscore(char c)
-+{
-+	return (c == '-') ? '_' : c;
-+}
-+
-+static __always_inline bool __match_wildcard(const char *pattern, const char *str,
-+					     bool hyphen_agnostic)
+- * Returns: 0 or <0 if error.
++/*
++ * param-setter helper to validate numeric input, clamp its value by
++ * the classmap type and size, and apply the bits.
+  */
+-int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
++static int param_set_dyndbg_module_classes(const char *instr,
++					   const struct kernel_param *kp,
++					   const char *mod_name)
  {
- 	const char *s = str;
- 	const char *p = pattern;
-@@ -301,7 +294,9 @@ bool match_wildcard(const char *pattern, const char *str)
- 			pattern = p;
- 			break;
- 		default:
--			if (*s == *p) {
-+			if (hyphen_agnostic ?
-+			    (dash2underscore(*s) == dash2underscore(*p)) :
-+			    (*s == *p)) {
- 				s++;
- 				p++;
- 			} else {
-@@ -319,8 +314,41 @@ bool match_wildcard(const char *pattern, const char *str)
- 		++p;
- 	return !*p;
+ 	const struct ddebug_class_param *dcp = kp->arg;
+ 	const struct ddebug_class_map *map = dcp->map;
+-	unsigned long inrep, new_bits, old_bits;
++	unsigned long inrep, new_bits, old_bits, old_val;
+ 	int rc, totct = 0;
+ 
+ 	rc = kstrtoul(instr, 0, &inrep);
+@@ -686,9 +688,10 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
+ 				KP_NAME(kp), inrep, CLASSMAP_BITMASK(map->length));
+ 			inrep &= CLASSMAP_BITMASK(map->length);
+ 		}
+-		v2pr_info("bits:%lx > %s\n", inrep, KP_NAME(kp));
+-		totct += ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits);
+-		*dcp->bits = inrep;
++		old_val = READ_ONCE(*dcp->bits);
++		v2pr_info("bits:0x%lx > %s.%s\n", inrep, mod_name ?: "*", KP_NAME(kp));
++		totct += ddebug_apply_class_bitmap(dcp, &inrep, &old_val, mod_name);
++		WRITE_ONCE(*dcp->bits, inrep);
+ 		break;
+ 	case DD_CLASS_TYPE_LEVEL_NUM:
+ 		/* input is bitpos, of highest verbosity to be enabled */
+@@ -697,11 +700,12 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
+ 				KP_NAME(kp), inrep, map->length);
+ 			inrep = map->length;
+ 		}
+-		old_bits = CLASSMAP_BITMASK(*dcp->lvl);
++		old_val = READ_ONCE(*dcp->lvl);
++		old_bits = CLASSMAP_BITMASK(old_val);
+ 		new_bits = CLASSMAP_BITMASK(inrep);
+ 		v2pr_info("lvl:%ld bits:0x%lx > %s\n", inrep, new_bits, KP_NAME(kp));
+-		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits);
+-		*dcp->lvl = inrep;
++		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits, mod_name);
++		WRITE_ONCE(*dcp->lvl, inrep);
+ 		break;
+ 	default:
+ 		pr_warn("%s: bad map type: %d\n", KP_NAME(kp), map->map_type);
+@@ -710,16 +714,33 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
+ 	vpr_info("%s: total matches: %d\n", KP_NAME(kp), totct);
+ 	return 0;
  }
 +
 +/**
-+ * match_wildcard - parse if a string matches given wildcard pattern
-+ * @pattern: wildcard pattern
-+ * @str: the string to be parsed
++ * param_set_dyndbg_classes - classmap-based kernel parameter setter
++ * @instr: string value to set (numeric bitmask or level)
++ * @kp:    kernel parameter info referencing classmap state
 + *
-+ * Description: Parse the string @str to check if matches wildcard
-+ * pattern @pattern. The pattern may contain two types of wildcards:
++ * Enable or disable all class'd pr_debug callsites in the classmap,
++ * independent of the module they're in.
 + *
-+ * * '*' - matches zero or more characters
-+ * * '?' - matches one character
-+ *
-+ * Return: If the @str matches the @pattern, return true, else return false.
++ * Returns: 0 on success, or a negative error code.
 + */
-+bool match_wildcard(const char *pattern, const char *str)
++int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
 +{
-+	return __match_wildcard(pattern, str, false);
++	return param_set_dyndbg_module_classes(instr, kp, NULL);
 +}
- EXPORT_SYMBOL(match_wildcard);
+ EXPORT_SYMBOL(param_set_dyndbg_classes);
  
-+/**
-+ * match_wildcard_hyphen - parse if a string matches given wildcard pattern
-+ * @pattern: wildcard pattern
-+ * @str: the string to be parsed
-+ *
-+ * Description: Same as match_wildcard, but treats '-' and '_' as identical.
-+ *
-+ * Return: If the @str matches the @pattern, return true, else return false.
-+ */
-+bool match_wildcard_hyphen(const char *pattern, const char *str)
-+{
-+	return __match_wildcard(pattern, str, true);
-+}
-+EXPORT_SYMBOL(match_wildcard_hyphen);
-+
  /**
-  * match_strlcpy - Copy the characters from a substring_t to a sized buffer
-  * @dest: where to copy to
-diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-index 67b568730acc..8e881b5c860c 100755
---- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-+++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -593,7 +593,7 @@ builtin_tests=(
-     FT_grammar_errs
-     FT_basic_queries
-     #FT_path_module_queries
--    #FT_hyphen_underscore
-+    FT_hyphen_underscore
- )
- 
- # Modular Feature Tests (Require CONFIG_MODULES=y and test_dynamic_debug*.ko available)
+- * param_get_dyndbg_classes - classes reader
++ * param_get_dyndbg_classes - classmap kparam getter
+  * @buffer: string description of controlled bits -> classes
+  * @kp:     kp->arg has state: bits, map
+  *
+- * Reads last written state, underlying prdbg state may have been
+- * altered by direct >control.  Displays 0x for DISJOINT, 0-N for
+- * LEVEL Returns: #chars written or <0 on error
++ * Reads last written state, underlying pr_debug states may have been
++ * altered by direct >control.  Displays 0x for DISJOINT classmap
++ * types, 0-N for LEVEL types.
++ *
++ * Returns: ct of chars written or <0 on error
+  */
+ int param_get_dyndbg_classes(char *buffer, const struct kernel_param *kp)
+ {
 
 -- 
 2.55.0
