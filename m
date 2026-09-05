@@ -1,58 +1,91 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F51367B77;
-	Sat,  5 Sep 2026 07:51:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 629D83845CB;
+	Sat,  5 Sep 2026 07:55:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788594714; cv=none; b=qYvb9sgXHSNqVxnEterNip3t6Z+10VBuYGqymJ98ee3zMdJFiLYBcJYi1Ywt3TwHDfZiLEHu/kMLCmqlO8uPbFls8BUjYGVKOlDdzQtrFs+gJgda1ktbmq6jw14PixXr52G/rSlKuRE/LUzGN5LAlxDL3qd2TCE8ilmkIQx0IdU=
+	t=1788594925; cv=none; b=t6qAsG3PfZg2TCkaBI37A06sQR/DpK/Lr9vT+z7u1qXX7JOjUar/mbrdoZ3mcUmnbux3Nm2iAtrHagfs73MLvQ2UFOJQ2IpcukHa8TKG7UTJP55ntRY22LpfpSzBJLNLFnFU3IbUDnVcOgwgKIU3jh5Zltsx0lHmeIlWTpG3Dyo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788594714; c=relaxed/simple;
-	bh=LWY8tiTk5qnc52EJdSFD7boNBmN8diWz2g/O0olX4V4=;
+	s=arc-20240116; t=1788594925; c=relaxed/simple;
+	bh=nVoM4RkYZfBPC9WAJEVNQ4+CpJomELlbuzuYSgYBRRs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fjW0uspaRycW5SrMXeLfnjzS5cBQWTB/agMxjFCWyW8KSw7R4dPjQhEHQyFKF3/nXi+4f2IpVz4JqPH/Ks0yejRTJBgs4kLgTzssass8Xe1CDJ7F9BWUu0oNmZPc4LCbzV28iWy8BHWJNOBBg3GiuDSzvlaQ25DRkiuZoXdfC2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VtMkae3P; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=k+3DGj4o97qqMp5oMC5xoIL6m4FteQhYlEI8N+tmQqafXpP3C8DDA+GEo864Hwq2ABWaoU2OgnRoQoICEsUnrTrF8i1b8n+LZ6O0HKqyWfwoQZ+zkfAiMiE8TqYrvOdaMHIwmMuP/M9m+8kuUkY9RdGsJtkc5sXwNpeSeMDgj7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HHyLHpAP; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VtMkae3P"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HHyLHpAP"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788594713; x=1820130713;
+  t=1788594924; x=1820130924;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=LWY8tiTk5qnc52EJdSFD7boNBmN8diWz2g/O0olX4V4=;
-  b=VtMkae3P8MgViSUI6E74FruC6j/1+g88Lj4ZwlYGbIlSijX2eZPfJ8Jd
-   1poU2zTyfJhAJBnfhZiJ3YNRGq8FaF0MUsqQOfMfc184QZem+s+T2cUdp
-   YsuPMxjWqMOAQHPzp0fLKYEDZs5zIK+7ietApAlxD5s3ulctXZW7AM63k
-   U2tIgw2eaht3HCxp94uyK0xyYo89pKpwbmVm87wKo3PEE0/WsCZP+gI/y
-   ehPE+M9qtJa19oqFjvUJTBn+vj0EqnE7E5N5v+AQ4IEA5LuyP32cmKBhc
-   dO05/l8HNUSpJljDbuTF9FNPOKh9EunrQgjbeBBAeEbaEEhoOZd7shNe1
-   Q==;
-X-CSE-ConnectionGUID: rQmC41L4SdKXhAVfrjQ55w==
-X-CSE-MsgGUID: 3eqm4TMXSxeIRdzNm8LcbQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11896"; a="111862456"
+  bh=nVoM4RkYZfBPC9WAJEVNQ4+CpJomELlbuzuYSgYBRRs=;
+  b=HHyLHpAPAm05JgjkhpwKwPO4HkO3E+OG4b4YyLjlAbje4L0BddcT6okT
+   3CLMvlcvCLDmBUcl2+buAkRGdugRhkFD7XBY7XZ/oQZ5cn5c5vqOmWZPz
+   IaTWOu1SFf4JUnNdWtKewExdd0N3DGMgixdmsEwRRPaJmcsUYZBylS39U
+   kXc8r19KReZcHBwSsl6XZYGLkANPRSC2v5rjPLY2J4DWQ43hPV9SHY6U5
+   p78ikW+JWsBkBJl9pBzJ+ysrq/Syrmd19BlFKzC7rXsMLwj/RM5EcefBI
+   crX42Pyqua/BnCHqDaJUyeU2UtC95AjZSAoDfPgp41GH87RBY5FGceteL
+   w==;
+X-CSE-ConnectionGUID: wYnvnd8KS6aQAQ0mHnjxUg==
+X-CSE-MsgGUID: CH1F+no4SOOpYIfX/0qNIA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11896"; a="88933091"
 X-IronPort-AV: E=Sophos;i="6.25,263,1779174000"; 
-   d="scan'208";a="111862456"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Sep 2026 00:51:53 -0700
-X-CSE-ConnectionGUID: xXt3xrzWTxiTye9NbUNLSg==
-X-CSE-MsgGUID: xrGG1af7R6WKtkAp3Qq/Yg==
+   d="scan'208";a="88933091"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Sep 2026 00:55:23 -0700
+X-CSE-ConnectionGUID: EEhu5k1rQMWULfktoCCXzQ==
+X-CSE-MsgGUID: lwmOrv2pTjCcruQ2CcFOzw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,263,1779174000"; 
-   d="scan'208";a="273787017"
+   d="scan'208";a="267010278"
 Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.245.105])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Sep 2026 00:51:51 -0700
-Date: Sat, 5 Sep 2026 10:51:48 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Chang Yu <marcus.yu.56@gmail.com>
-Cc: Andy Shevchenko <andy@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] Add support for AS7343 multi-spectral sensor
-Message-ID: <apvKFENwRCFrZhDO@ashevche-desk.local>
-References: <cover.1788586814.git.marcus.yu.56@gmail.com>
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Sep 2026 00:55:14 -0700
+Date: Sat, 5 Sep 2026 10:55:12 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Frank.Li@oss.nxp.com
+Cc: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	Patrice Chotard <patrice.chotard@foss.st.com>,
+	=?iso-8859-1?Q?Am=E9lie?= Delaunay <amelie.delaunay@foss.st.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Ludovic Desroches <ludovic.desroches@microchip.com>,
+	Viresh Kumar <vireshk@kernel.org>,
+	Keguang Zhang <keguang.zhang@gmail.com>,
+	Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Daniel Mack <daniel@zonque.org>,
+	Haojian Zhuang <haojian.zhuang@gmail.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Kelvin Cao <kelvin.cao@microchip.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	linux-arm-kernel@lists.infradead.org, dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-trace-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
+	linux-actions@lists.infradead.org, linux-sunxi@lists.linux.dev,
+	imx@lists.linux.dev, Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 2/4] dmaengine: use dma_chan_name() helper to get
+ per-channel device name
+Message-ID: <apvK39-BqTHo_CZF@ashevche-desk.local>
+References: <20260904-dma-chan_dev-rename-v3-0-685601b0b788@nxp.com>
+ <20260904-dma-chan_dev-rename-v3-2-685601b0b788@nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,21 +94,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <cover.1788586814.git.marcus.yu.56@gmail.com>
+In-Reply-To: <20260904-dma-chan_dev-rename-v3-2-685601b0b788@nxp.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Sep 04, 2026 at 10:53:24PM -0700, Chang Yu wrote:
+On Fri, Sep 04, 2026 at 05:49:44PM -0400, Frank.Li@oss.nxp.com wrote:
+
+> Use the existing dma_chan_name() helper to obtain the per-channel device
+> name instead of open-coding: dev_name(chan->dev->device) /
+> dev_name(chan2dev())
+> 
+> Simplify the code and improve consistency.
+> 
+> No functional change intended.
 
 ...
 
-> Datasheet: [1]
-> 
-> Link: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf [1]
+> @@ -507,7 +507,7 @@ static int idma64_alloc_chan_resources(struct dma_chan *chan)
+>  	struct idma64_chan *idma64c = to_idma64_chan(chan);
+>  
+>  	/* Create a pool of consistent memory blocks for hardware descriptors */
+> -	idma64c->pool = dma_pool_create(dev_name(chan2dev(chan)),
+> +	idma64c->pool = dma_pool_create(dma_chan_name(chan),
+>  					chan->device->dev,
+>  					sizeof(struct idma64_lli), 8, 0);
 
-This is a Datasheet link, no need to have three lines for it, just
+For example here it may now be condensed to less LoC:
 
-Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
+	idma64c->pool = dma_pool_create(dma_chan_name(chan), chan->device->dev,
+					sizeof(struct idma64_lli), 8, 0);
+
+Consider that in case you will need a new version (no need
+to address it separately).
 
 -- 
 With Best Regards,
