@@ -1,93 +1,225 @@
-Received: from va-2-47.ptr.blmpb.com (va-2-47.ptr.blmpb.com [209.127.231.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012058.outbound.protection.outlook.com [52.101.48.58])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7812F311968
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 02:35:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788575720; cv=none; b=niH+w+qJZtSQvjTz/xeJi8RfCzLrlI5tGHQAfOJp5wORmn3QLrBWQPhaZhq/hvOLmUobzYYfomU2pRC8gic4EHa2VKRGO+/GHkGTV4riaCz4SRQHj8WJd0m13NWuOxBmU9YKvu/dJ6pxIqXeJgKxlftAB4QmkZkqx4octP3MW6Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788575720; c=relaxed/simple;
-	bh=CBXNwm9vesu0knmhlW205s6GjNq/H0HmefUw+ip7AWk=;
-	h=In-Reply-To:Subject:Date:Content-Type:To:Cc:References:Message-Id:
-	 Mime-Version:From; b=iZDvGnrYdkPId09nFCWGJZs6S1jNL56QDCZvM/VnlWcRpl5e0z2tk/qkAzARzak4KTNTdMH/YLhtqbmX9RJJi/+kjIoz3tt7AK2LdUBInkabbETZAIr90HxVyysMUXshFs5IYusTUr185jngZqAH6bBC04jgpJoH1Hchz872wRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=mXKjQ7aN; arc=none smtp.client-ip=209.127.231.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 719181A5BAE
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 02:37:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.58
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788575826; cv=fail; b=XhK2bQll2B17lGFsV3R0EuIUq9NgdqytWG06Wdmx55Zcryv9nrAeQdLGZGZg2UTKcOBeS8kE7+oRxkVWqRv2PGj4V6oSPCwWP98JE0GIgODuBQ1nxt9FBx2t+aF/k/LIo0HITaCsY3lRtbOyjLGBOSPWGcDfKbiHhncdEeNz29c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788575826; c=relaxed/simple;
+	bh=DlUkrLJf18h+2NpRzQh5SpvnI341Q7AvxnJnwr2YuFI=;
+	h=Content-Type:Date:Message-Id:Cc:To:From:Subject:References:
+	 In-Reply-To:MIME-Version; b=EsO+YjhWQX+gOPJS4VBWC3KOMy2MnpXnu7NKsWv4NAp556iyorTn2Oc8W2jXGN1+tblP6Pz8B/gVqVELIYVOCoimGi6BUg6DyTX8J4wMn+Xzx5BLEeKPF769fOwwdsYxE8nm2KbJ3Y4XQiWINwxNY1tmgirI1wIyVjjrbc/BgqI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=JnwORHPk; arc=fail smtp.client-ip=52.101.48.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="mXKjQ7aN"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1788575705;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=ZAe8AZ99IGJFH5/GQCEbo629wM2EP3I3IIgi4uALfdk=;
- b=mXKjQ7aNQI56mDXc6u0vye4o0C6Zvf6Qe+lr8ADkBwWCJ/L78teENQugVCZ9t0/A5ZnEVn
- WroBDpsarFL4Q+aiLP1Y+SUCJTM27+VcXYpQFDuGWbkxwmmzF82r8O38OgBuoZnD6TsJGf
- mkL5jXjH/CMauiAKeitheK9TN5fy2a3O0a61zD/2c4W3Z5+klwChPBnb7ybbB55RGlcxJL
- NfyvE24vIs/zDXt/rIwuu0BVDj9uxlsmg73eF8XZtnRdjmvn4qczoAxOBmvckVKurL4h2f
- 5DyELrNuGz+W6Fksrh6pIMqHZ1FHJStG1nxSR6j0qiNBCtvBPiBcW4Fe6kxgmw==
-X-Original-From: yu kuai <yukuai@fygo.io>
-In-Reply-To: <20260827080341.112296-1-ghuicao@163.com>
-Subject: Re: [PATCH v4 1/2] md/raid5: track disks array size to fix extra_page leak on error paths
-Date: Sat, 5 Sep 2026 10:34:59 +0800
-Received: from [192.168.1.104] ([39.182.0.178]) by smtp.larksuite.com with ESMTPS; Sat, 05 Sep 2026 02:35:03 +0000
-Content-Type: text/plain; charset=UTF-8
-To: <ghuicao@163.com>, "Song Liu" <song@kernel.org>, 
-	"yu kuai" <yukuai@fygo.io>
-Cc: "Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
-	<linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>, "Cao Guanghui" <caoguanghui@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="JnwORHPk"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kQKKB5cpplmm9eij4LkcHHKiUoEAsVqJ58nRfhr3jcLlBS3ve9fRvu1h5xtis6QYaznmXMOMsFLKUxQ8wSSc+pipXDu0t8MtPKOwyIRj9zY6a9Ow1DcPICEjvqfmFzvB0C406QXLVw89KWzZanxT2yp4u32h0TqaI/OKoXj7ipP9me+FporSMsFuBUt2m/ltoVlJPXvQbyD4eCEERY1c15kD7K8ZZD7FFQZ+pc2bXDvO1GIohQPeeEQPPmiqXG6vZkQuU0sXf/uCLwhMNn6mW0nNdZAIFzSRMnOnWYtUKhqVx4sWJNMrh3O7jRDx5Et2NPBfCQ9hlN3uH3HA9OlK9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=00VTiHvXBXR1im67l0teKDeBdBJ3nbPFrA+9lfii96Y=;
+ b=i0m/xX1HZ81LyJQpWDEeneCkPgEL12vQDNfcIw3JKHuakeGlXZ0jEBSTVVZUGKsY+reQP0cZN8n5HVLmQteNEn/cb4HsUDDJ5ebz7ubFbJu1ZfSlrdN8Xz4cwJcXKtoLsA2f4MJBa11NmXT/EvTmPIXIcwbvkFvgMwiGgelf2TjcGzN5pPnPsIjc705rGxMZizYNTyxgOM93Y77SZHY21wIzS51MiuS5+KAs+1Wd8x8OT91hQjWtXTDs69MtnM0u4xo/gQsFuSYhfsnwDfyZMI6FkzO4YE1O8ysfDB7/GUx0rpUmfGBXg2mKKGAB7hxrcyW7CwtxtPI33y1Mu3qFSQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=00VTiHvXBXR1im67l0teKDeBdBJ3nbPFrA+9lfii96Y=;
+ b=JnwORHPkZRPZBsivgiGKgoSQgP++ETUjEErbu0hvy6tMGNuJ5PXenCQcLqY3T7CFk50GabTETjtJ3/JLrraSfGcUoZYv0napJQj8pPYvZWn0TRfzXemc9N8OI2y7YaAqGgvn+V8FHvAkly/OhalMPszf1l4rsBbTZZv/QEIA7vpSHN3x/h1JHaXvJgv353/MnIlbnmESQWx2BgUzn48eRZsD/x7/EfsnzxBvbNXjjyMJ1r5oRCU/5w+pdNQES3PXQFldspEsliNklAum4AMHxEjgtNmZkBr3rnMa+nB0JzKvaG7wkteoO6Zi8gUorGzjGK30kNOC8lWwNNy3WWhTRg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by CH3PR12MB8185.namprd12.prod.outlook.com (2603:10b6:610:123::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Sat, 5 Sep
+ 2026 02:36:59 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0360.008; Sat, 5 Sep 2026
+ 02:36:59 +0000
 Content-Transfer-Encoding: quoted-printable
-References: <20260827063235.85375-1-ghuicao@163.com> <20260827080341.112296-1-ghuicao@163.com>
-Reply-To: yukuai@fygo.io
-Message-Id: <28837a31-ccbe-4add-951e-9e09bf06eadf@fygo.io>
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 04 Sep 2026 22:36:58 -0400
+Message-Id: <DL717O23OZOA.2UYSFURHZH0H2@nvidia.com>
+Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
+ <kernel-team@meta.com>, "Baolin Wang" <baolin.wang@linux.alibaba.com>,
+ "Liam R . Howlett" <liam@infradead.org>, "Nico Pache"
+ <nico.pache@linux.dev>, "Ryan Roberts" <ryan.roberts@arm.com>, "Dev Jain"
+ <dev.jain@arm.com>, "Barry Song" <baohua@kernel.org>, "Lance Yang"
+ <lance.yang@linux.dev>, "Usama Arif" <usama.arif@linux.dev>, "Vlastimil
+ Babka" <vbabka@kernel.org>, "Jann Horn" <jannh@google.com>, "Kiryl
+ Shutsemau (Meta)" <kas@kernel.org>
+To: "Kiryl Shutsemau" <kirill@shutemov.name>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "David Hildenbrand" <david@kernel.org>,
+ "Lorenzo Stoakes" <ljs@kernel.org>
+From: "Zi Yan" <ziy@nvidia.com>
+Subject: Re: [PATCH 04/12] mm/collapse: add collapse.h for the collapse
+ interface
+X-Mailer: aerc 0.22.0
+References: <cover.1788533997.git.kas@kernel.org>
+ <ec5230f43af7153e18aed02c6ee38f010106d8e8.1788533997.git.kas@kernel.org>
+In-Reply-To: <ec5230f43af7153e18aed02c6ee38f010106d8e8.1788533997.git.kas@kernel.org>
+X-ClientProxiedBy: BLAPR03CA0178.namprd03.prod.outlook.com
+ (2603:10b6:208:32f::32) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: "yu kuai" <yukuai@fygo.io>
-X-Lms-Return-Path: <lba+26a9b7fd8+a3f002+vger.kernel.org+yukuai@fygo.io>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CH3PR12MB8185:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7c21f18a-251c-4767-cddb-08df0af68f81
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|11063799006|10067099003|4143699003|5023799004|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	B09o7i/IBPws5SHBHBxRfOpTPakTZtaDjZ6awT6QPEY4ehWtzxt0jb55vvVQNoUAr4vaEA5ZpAv3v5xkzyK7taxd1L5k/yovsPxaomz2c+jB9Jiv5kk2obCHbjszt/U8X5umdfRULTQhXH+nPUNK9LCxXP7Y61ESl+bcMHfa1fMJwKfTjSjRGH/feLyN4QxbwXY+TGoEuJj1Dphe1es7MygaQSs5uhGxjrBpIRZX9vKfEeI5nmdaA22kHGEF9V+QiPSXwhN3OLV1vG51MefizmHuROngM+kwqMqXvj5Tp7r9i/gfOxJmtOWwiOB1+6mrgtxTj4FvegktVMrIgFp3cpphPaVPUZ8tkxKCTpZq5hZVCta320q8UeDgkHkGHiNoH5qmRB0eZ7C5wzHhTT7+RoYiirKlg8aEGu/y9JD9tFtdgrX7i/JSK/SVVhXDpZuHhbt/8uBYWHUCHLV6gFJpFfIhckPc7UbI4yqu3WzL6/53SvpLYUyyPirWPKxVIfeAt37567f1HzFlxLBKpzfvB5PPJYUT/XDTvm1FouQhIdsNNR4ZhTn612Em6TzOSy9heaUhl2sUns0s+uLdzEIMsosOPn3zq3IGibO6quf5tGpYjxTKbJSuQjx5mQJbhGniO3vtbD9ooH2P9GjgpOHwZLfOyIvGzrX/JyDmUrTjO8I=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(11063799006)(10067099003)(4143699003)(5023799004)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TnhiUk9hODhyQVdEYWVXRTJkZ0NhSk40OWhvUVFJQ0djN0J3UmRIZVVVNENG?=
+ =?utf-8?B?MHZvR0w5Q0J1elRzSmxCb1FWRkM5TWlDcWs1WXpJc25xV0pMU2laKy9seTVp?=
+ =?utf-8?B?Lzkwa0VuYnRpZWdycWNYblFzQjFQQi9KRkV3bXFVMnc1bSt5SG12UVV4ck5q?=
+ =?utf-8?B?UVBhT3BnOUNLYnhDYzJTU1I3dlVyeVZtbnRGQWJJUXlzU3BEQnltUUxlb1U5?=
+ =?utf-8?B?SnBkcGtGMlQxelBLODZGQkpUNy9XOHBVK0VKTkp4YThNOVg5T2ZGS2l3UFFF?=
+ =?utf-8?B?NTVTbExXanExdU1RQjQxR3lTSDRRTGRDdTc4OFExY0JhRVZjMlBESVdTTG03?=
+ =?utf-8?B?RFFzNkk3U1prR1hWQVY3clJpc3g4ZW9XTWxRMGY1NXk1REc3WGdIREl3dGdP?=
+ =?utf-8?B?VWNlNXloSlFxbXRDR21kV3JNSGFwWm84QWN1eFdvd1ZEQUN0Q2V2VHJxNmxD?=
+ =?utf-8?B?OXdMZkFRdi8vbXRxSVVjcmx0bEpBN2J4S3RraWFsTWJVb2liaDZnbUJLT2g2?=
+ =?utf-8?B?cEJvbnhHWU90UkdGOXJuYWt1TUZGcFphamt1YjhjTFdHd1dleXRFUDVXemV5?=
+ =?utf-8?B?TzBRMm5qZVBqdm1wWTViZUQ5MkRRMmZGZlFFdHkxZmpyQ2JMd3hGWG5tYXZB?=
+ =?utf-8?B?SWhpeGhHSWdVLzdqRDJwdmNQenk3SGhyaFBBQUhRNzVOR2RkbklPRTk3b3ZN?=
+ =?utf-8?B?dUMwaG5uUE5SUzFYV2NHakpMZXFOaEk5M1ZzdXZGdzltbUJHdytSa0dRYnhD?=
+ =?utf-8?B?OUdtTGpQU3R6UHpTcU9pSGdocUlpRjZvVW5Nby9aMGFWSE9GaVM1WUhSQ2c4?=
+ =?utf-8?B?NTlhd0Z1MGUwMk4yKzJjK2dvbktDbVR6dy9aUlkyK3hmOUZuc3RrL2dhVzhi?=
+ =?utf-8?B?QjVucGNURTZ0VGpDZ3QxQVNBdDk0MGkrR2lKL0VVWVpyS3c5eUcvMmNkcFcv?=
+ =?utf-8?B?OWpPN1hJOEtOU0RTUXlJMjNmZXFXWEt5bkc4OCtzT2JKVnZ1ZWFUMXZ4N3RB?=
+ =?utf-8?B?blpEQ2FudkVBd1NTN0JOa0x6QWloQStuSC9ObUsxNHR6eG1VTnlXUzdDM3hu?=
+ =?utf-8?B?bGR6Tnc0WTdrSm9mRDF1WmJweFFFclE3YnpEeVcwN1JNcjRTbFp6Y3NFaEdY?=
+ =?utf-8?B?dVF4QXluZzFkRm8zbUFzYmZ6SGsvNzhWZWZNMnBjOHZSMmExT2JVajY2T0pD?=
+ =?utf-8?B?OFJVMzNvNTR0RVM1Nmk3NHZnUEdlUXdCKy9lM3hKTHFGVzNVSzlJWFRJRW54?=
+ =?utf-8?B?MTZDTXAyT1FSYXlid0MzNnErbjMzM1ZwZjN4R2pFcElia00rMVBlK3I3WnZ4?=
+ =?utf-8?B?ajJPYnJrVWdoT0l4L0FHYlZPNmNCQXhPKzR2SjI5RGc1bmRlZWFoeVdiOU40?=
+ =?utf-8?B?d0doTUJQWHNoZ0dLaGljQUI5Y0c5SFJKY0xwdW5Kd01xWVlOakNNTHZMeG9y?=
+ =?utf-8?B?MkdZRDBISU9MZlU2SlNMS1o3Qk4zZWhlYnVCanQ4NTBkQ1pLU2RzeFBHZDNq?=
+ =?utf-8?B?OEFaQnJTWHVlVlhDblJjUVdROG1xMEVaRi9jUmtQRU1BNDAyVHhIZitZMkgy?=
+ =?utf-8?B?dnBKcTNJY1ZLTFErNkFQYk5VclhwaGwwWWZUdkNKaWdBTUtDVGllQlJDeE5V?=
+ =?utf-8?B?RzlEY2wyUi81NzlOVjZoWk4yMzg2Y0hiY3Z4Sm9FYXVxeStrazFFWG5yMyt2?=
+ =?utf-8?B?SU1BTHN0Q1B0TkpwdFFlcGwraUdMVURNM3RzcXREeVF3UTFPcG15L1lwUDhs?=
+ =?utf-8?B?RkFFNzJoeFRHdVRoVk1sNWl3dWZiMVJUUG85NjNUTlhKZ1ZtU3lkVkY1TzZp?=
+ =?utf-8?B?M0U1Z05WSXpmSEpvRVE5RGYvczNuU3JHV3o4M0srMGFtdHNBYk5iWHVnbUUx?=
+ =?utf-8?B?aU85MmhuSjVDRGtiT1k0NldVbEVHWVBaRVY4SXhGWW0yMzh4K2pyY3NSWjhx?=
+ =?utf-8?B?TVBwVC80cmkxVDFXRWpGUGtleXFWa3NZNFNsUUZvZC9hT1ZwbUlsMVlEdEda?=
+ =?utf-8?B?K1NzMWJOazB3cm5sK3J3SWg3UmRDSHNiTFoyYTFxYzEwUVdzS0VDdFo1M0t1?=
+ =?utf-8?B?Zk1mdVdYR1VIeGJ5YzdEd1k3aGNnLzRuQTFGcjdzR25jK0NnUStBdlF2bGNm?=
+ =?utf-8?B?T3laYisvZlhiZDVXR1k4NkpBb2NwYXZJc01Sa1pwYXZBdFE1b29NZWNVNDUw?=
+ =?utf-8?B?VFlaZXUxWHJWOTBqUnd3d1hmYTRVYnlBS0xuVTBWbVRQWFhNajBsYnZRa2U2?=
+ =?utf-8?B?ZFd3SExnQzhDYUJDNThyOCtHTHcyeVlCeGpQTzYzdlBhTVRwd2pSejVvbzNp?=
+ =?utf-8?Q?bVFP75qdH2iJY/0Lpk?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c21f18a-251c-4767-cddb-08df0af68f81
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 02:36:59.6752
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mbieu9s7oJtYHnaJuHYBeXbbWW+HG9hsf88ZmUCVWGCrw6rd50NFmKcJeDmHh5uq
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8185
 
-=E5=9C=A8 2026/8/27 16:03, ghuicao@163.com =E5=86=99=E9=81=93:
-
-> From: Cao Guanghui<caoguanghui@kylinos.cn>
+On Fri Sep 4, 2026 at 11:10 AM EDT, Kiryl Shutsemau wrote:
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 >
-> free_conf() iterates conf->pool_size entries to free extra_page
-> allocations, but pool_size may not reflect the actual size of the
-> conf->disks array.  Two scenarios cause a mismatch:
+> khugepaged.c holds both the users of collapse and the machinery that
+> performs it.  The daemon's scan loop, the sysfs tunables, MADV_COLLAPSE's
+> entry point and the collapse itself all sit in one file and reach into
+> each other freely.  Nothing marks where a user ends and the engine
+> begins.
 >
-> 1. setup_conf() early abort: pool_size is 0 (not yet set by
->     grow_stripes) but conf->disks has max_disks entries with
->     extra_page allocated.  The loop iterates 0 times, leaking all
->     pages.
+> Start drawing that line.
 >
-> 2. resize_stripes() Step 4 failure: conf->disks was replaced with
->     a newsize-entry array in Step 3, but pool_size is only updated
->     on success.  The loop iterates pool_size (old, smaller value)
->     times, leaking (newsize - pool_size) pages.
+> Add mm/collapse.h for what the two sides have to agree on:
 >
-> Add a dedicated disks_cnt field to track the actual number of
-> entries in conf->disks.  Set it immediately after each allocation
-> or replacement (in setup_conf and resize_stripes Step 3, where the
-> array is safely stalled with no concurrent access), and use it in
-> free_conf() instead of pool_size.
+>   - enum scan_result - what the engine hands back;
+>   - struct collapse_control - the state a request carries.
 >
-> This leaves pool_size untouched, preserving the check_reshape()
-> retry behavior that depends on pool_size only being updated on
-> full success.
+> And two constants move with them:
 >
-> Fixes: d7bd398e97f2 ("md/r5cache: handle alloc_page failure")
-> Cc:stable@vger.kernel.org
-> Signed-off-by: Cao Guanghui<caoguanghui@kylinos.cn>
+>   - KHUGEPAGED_MAX_PTES_LIMIT -> COLLAPSE_MAX_PTES_LIMIT;
+>   - KHUGEPAGED_MIN_MTHP_ORDER -> COLLAPSE_MIN_MTHP_ORDER.
+>
+> Neither is a fact about the daemon, so both lose the KHUGEPAGED_ prefix.
+>
+> No functional change.
+>
+> Assisted-by: Claude-Code:claude-opus-5
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 > ---
->   drivers/md/raid5.c | 4 +++-
->   drivers/md/raid5.h | 1 +
->   2 files changed, 4 insertions(+), 1 deletion(-)
-Applied v4 to md-7.3.
+>  MAINTAINERS     |  1 +
+>  mm/collapse.h   | 67 +++++++++++++++++++++++++++++++++++++++++
+>  mm/khugepaged.c | 79 ++++++++-----------------------------------------
+>  3 files changed, 81 insertions(+), 66 deletions(-)
+>  create mode 100644 mm/collapse.h
+>
+
+<snip>
+> +
+> +enum scan_result {
+> +	SCAN_FAIL,
+> +	SCAN_SUCCEED,
+> +	SCAN_NO_PTE_TABLE,
+> +	SCAN_PMD_MAPPED,
+> +	SCAN_EXCEED_NONE_PTE,
+> +	SCAN_EXCEED_SWAP_PTE,
+> +	SCAN_EXCEED_SHARED_PTE,
+> +	SCAN_PTE_NON_PRESENT,
+> +	SCAN_PTE_UFFD,
+> +	SCAN_PTE_MAPPED_HUGEPAGE,
+> +	SCAN_LACK_REFERENCED_PAGE,
+> +	SCAN_PAGE_NULL,
+> +	SCAN_SCAN_ABORT,
+> +	SCAN_PAGE_COUNT,
+> +	SCAN_PAGE_LRU,
+> +	SCAN_PAGE_LOCK,
+> +	SCAN_PAGE_ANON,
+> +	SCAN_PAGE_LAZYFREE,
+> +	SCAN_PAGE_COMPOUND,
+> +	SCAN_ANY_PROCESS,
+> +	SCAN_VMA_NULL,
+> +	SCAN_VMA_CHECK,
+> +	SCAN_ADDRESS_RANGE,
+> +	SCAN_DEL_PAGE_LRU,
+> +	SCAN_ALLOC_HUGE_PAGE_FAIL,
+> +	SCAN_CGROUP_CHARGE_FAIL,
+> +	SCAN_TRUNCATED,
+> +	SCAN_PAGE_HAS_PRIVATE,
+> +	SCAN_STORE_FAILED,
+> +	SCAN_COPY_MC,
+> +	SCAN_PAGE_FILLED,
+> +	SCAN_PAGE_DIRTY_OR_WRITEBACK,
+> +};
+
+Are you planning to clean up scan_result? SCAN_SCAN_ABORT sounds funny,
+SCAN_ANY_PROCESS means nothing, SCAN_COPY_MC might better be
+COLLAPSE_COPY_MC.
+
+Anyway, for this patch,
+
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+
+
 
 --=20
-Thanks,
-Kuai
+Best Regards,
+Yan, Zi
+
