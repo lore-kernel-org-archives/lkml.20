@@ -1,185 +1,165 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022075.outbound.protection.outlook.com [52.101.96.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D483515FF
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 14:22:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788618154; cv=none; b=nXg2aLmkraJ9ih/G/etWryd+amkVWT9xPjX51xmvOe9GDwf4WSiO0iHpTDNumIreqD5dqscfM8Y8oosN8cpAmQXx/Q3HoBbzqY5awgRQx6uWrf+DKwxs7Hhjh7dLY7add+0DIBwh/evZ1CTYodeZ1B0FxTMos509LVkhHU/pE+c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788618154; c=relaxed/simple;
-	bh=onVBlW7MOcXY/4u/1wLc1luNV8JQgXpPbl+Dwq4jXa0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Xt3NSEudaK1qx0Pc1V133dhuYWRd2klnx9rWzNkYf2ozeUPcpiFJ5lcbODSxbiFXdEexbNj+BCzzwRyEROoEL99fzoT/CR45oGe7BjA6rQsfi7wmFDLUwG0QrXi6Ecmz4D1AH5paqn5/UyX/jZ0TGzlnE6B4BiDTC16PyVIoHcc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c/hNJN39; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 532851F938;
+	Sat,  5 Sep 2026 14:24:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788618269; cv=fail; b=U3/HJ+FtpN9RPszx0YUqEn1lvMxiMKIVLeu0JXbrfw8NaeJMHqVqIhx+O2qVHvLTRJz2TD/1wCoddh3zOkWaTjZ2hKpF8tWg7hsztLJcRYDWxFLnWKx4BknIYRJLoIUbPPa8F6uTp73tNP6RoGGI6ur0xbHH+cE23Y96Qvm13qo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788618269; c=relaxed/simple;
+	bh=6WN5/q0JEoyXFw4KNK5stJwbjAKF7QN+H13RSB0V3hs=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=AOMbe2pVvJPBhxBUlilzV9XlhgPG9zSKDuudSzVRwxnb1tmdSDBbipjYAOsca/cXVgiJsxrxxzMAdLCC+2CxKwJPq/c3JxPARp0GXE59Uz1N3mIrVUvkUnQappxT/tXR9GOBVy3/9375tl2MBAnLgjofiuPzrKQM21Ewqm86Rgg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=WLaYjThH; arc=fail smtp.client-ip=52.101.96.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c/hNJN39"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-398d2b28acfso1488385a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 07:22:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788618147; x=1789222947; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=005z03CIhBd04YrgIq3DK9hNQnxi1U/rfpjn1baG6tI=;
-        b=c/hNJN39rjgbVh8w0XjfqOqL4Y658Q6hGf2lAhAV+DtF1ml1UIvc0b6DiG3ihMlWMU
-         7A0o7+QAUU84hpZvF1XGpe6mdl7odM5QA8haXWbAdiDwWAsv+tYF5VOfWhUWwKpTeNcM
-         7Jsa4mbpI+St1q3oE4xF2Gf32bkhNVBkw7A2Utum4oaqv0PVkrHp7ChS+wUcAiPRDPHn
-         t7n0VkOya2RabVLMaTc/mVBi3XHRFEzvlmK+2bgwT+zfCx3wA8Cz7RONZOlGlmkmx/8y
-         vsSF1YVI6Ofi4x4ciXMY/oTmbYje0zsSyCcQ1wA+972XeZVOxuAH1PUXRP8/IqRAz6cD
-         CtVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788618147; x=1789222947;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=005z03CIhBd04YrgIq3DK9hNQnxi1U/rfpjn1baG6tI=;
-        b=e4n7OId4/AiIGTMa2GshnrX09ylAKQOdRGfWi4oKZbXS/PMujGkOdzKCChPqLh99oA
-         mEptwenwcw5sZdORmSFMa4KTMChDZrJrBViq85GLA1LeMQ+W1rJ0/PrlcYnJi/XzzXdR
-         ZHTQ5UUspzYvISDZWy+K3lpiEIDH7+zLlhGhTZjpFqA71Q7UgZhWe+aUWWsCXYZi0JNn
-         nIZE9Kby9MZzvGiXfylNm36rAR4HPO6l29SrqQzNvrOBXM6rR8hPxKMKNu61Jdnvfo1i
-         9khpXuk3CmjPjNa3EOuxPuoJdNY49T3k5n+UP45mzg8bCPTEJlXtT0VaYUA1/xhjRfDG
-         lFNw==
-X-Forwarded-Encrypted: i=1; AKwUvBxF1f1tg/BnPHhCSQg0qNGhbm30ayYiDIHU7hya/UdmFg/Sgy3GGpox22uYrk7SWDQFZYsxEafqudFVJjc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nhZqF3MABXYQRw3+sXK5NHc4YkF75mqXuOocuY8fK/McSCUvVR
-	bjzsE94pTBcUhmnipNVNGUPT2+hPguUqK3XRO4O9ks5IJSoqkcBANTwg
-X-Gm-Gg: AYBFou3xW0d89Ne/s6kpjxi/PKmmxtaC6J8P+4SZVEcQqnLGVQ+PCLivqwjOwuk+U+h
-	INRfn77kElLEjXeJTMbn+pJ6l18PRXRZBxT7uUgrF9Zidb2u/4nrRAa/Uc4w5qZxXJrTOjeHPQY
-	1uQRyLcI+Jo+lhwGSZw5oOrcmh2m9tLej9k6dkOxiqHKLUyGUSLojd5EDTRq9ygaPW1QK9GNiMH
-	lrY4Z58wkb74JUtU+baF4AxGaGNIcH/wpXTYoy9auEUg8xCrHIBnhoQFA4K3lXCVLNnFBu3SShn
-	Ys4qS9+WVSo3Eu0+06LDPm3S5PF815/wm3qEjBlqbfcaAz/1Jd38YIr6IkzDVuMCtdiFYxiRL2+
-	wyZ+k54nrLNIKrxz7nIxV0k+QHTl0Vx4aWpBNn/GhNzg0UTbuN8ZIrDHtrV/MKzhCtxmWrdZPoW
-	48D9BjiEZ36mqaCPRMbMbcggGKDjGfqsTBrQEzcAiSGqetAENTBaBQht6eB3WtkJ/DwSb7xz8B7
-	29xPdb9Wn1FhigzYiEqErva6KHOtVX7
-X-Received: by 2002:a17:90b:2784:b0:395:4de5:1054 with SMTP id 98e67ed59e1d1-39b26272bdcmr22265404a91.16.1788618147352;
-        Sat, 05 Sep 2026 07:22:27 -0700 (PDT)
-Received: from Biostar-A520MT.. ([187.94.13.245])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243a9388sm13347645c88.10.2026.09.05.07.22.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 07:22:26 -0700 (PDT)
-From: Breno Rodrigues Alves <breno3011alves@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: torvalds@linux-foundation.org,
-	linux-media@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Breno Rodrigues Alves <breno3011alves@gmail.com>
-Subject: [PATCH v2] media: dvb-core: extirpate defective and unsafe ULE debug block
-Date: Sat,  5 Sep 2026 11:22:22 -0300
-Message-ID: <20260905142222.22818-1-breno3011alves@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="WLaYjThH"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Jp1IdwMKnRJUpmUUuDE7IRLGZ+0aazXtfxvEc2THbdWxDMO1gZJdFbeB2vefdYwEGgvcLuhXVuU36f9hpMFhTLc2a3Ck7k1/1e+d5m86w8qZlJAumhT8AeiMJ/x/7RZiMifCljlLNxNthU7QuNBCNA12uAeZVinGpkjPbwWDt01/DP/0HC/LnCDTpj4E4Kq1HP00JgEgTzwKzShID8xucE0EY2OBqSwfp+H/vwiUxLrEtFeiKvl/BbvNb0t4s1XXu/8TI1xmc3pMpfKXU7vJa8wbUSoOK3wNWHo3C4xX28xveWdAMk+rUo6rkHWCNDXMenyRhqlKt9Tl2zT1dk/FzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6WN5/q0JEoyXFw4KNK5stJwbjAKF7QN+H13RSB0V3hs=;
+ b=oQEB2hJGQn+n+5htyhrQZYDW42VZfgNSNmgw8Lv9ZvhsQeUFWd+Sbi29+7BVNlMDgfiRhLD2yiXTQkHcZnDnaniQJpNXd1KV4aajIBZQ1W3hYazupCSyM152+bMIdTaoqPGD5yk3V3hg48qj5cqgEU+EC1t8lX1p8u7c0mtM9ZV9MGCOVcT0mrrEDlKv2RMFeMSjyf1/qKQA4OJEGAVfWEnRU7Iaijpq8u3ra5md2qbACZeOAyK3E4bxoFETA/4/ek38UYSpakMqqnVI7ooHNhTlonBrV0IAhVQNxzSqS1qk4qaMAqXXWS75g0u9L3MMBiPStDSd/N4Og2/u9lcSKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6WN5/q0JEoyXFw4KNK5stJwbjAKF7QN+H13RSB0V3hs=;
+ b=WLaYjThHQKMyu6ghY/sEQyuDtGQ6nODqDv+uaTVv9r2tfXRpV32TsCYNbg2HnRm7LVn13cSk73KMzKkLO7C22596NZWC7s8f3wj1x/+0PfMaMzkoJ0+7RQnj9ZNbkG/SUgTQEZHr1YWKTYE7BGGsmK/5egBiYcywLylvh93NRA0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO9P265MB7587.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3a5::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Sat, 5 Sep
+ 2026 14:24:25 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0382.014; Sat, 5 Sep 2026
+ 14:24:25 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 05 Sep 2026 15:24:24 +0100
+Message-Id: <DL7G9BAEFESY.2LS09S43WOK9V@garyguo.net>
+Cc: <linux-serial@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Sashiko Bot" <sashiko-bot@kernel.org>
+Subject: Re: [PATCH] rust: serdev: Fix race condition on driver probe fail
+From: "Gary Guo" <gary@garyguo.net>
+To: "Markus Probst" <markus.probst@posteo.de>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>
+X-Mailer: aerc 0.22.0
+References: <20260905-rust_serdev_fix-v1-1-2ea92b154a6b@posteo.de>
+ <1b247f730001ea39b6e4044f5673e1a01e187362.camel@posteo.de>
+In-Reply-To: <1b247f730001ea39b6e4044f5673e1a01e187362.camel@posteo.de>
+X-ClientProxiedBy: LO4P123CA0613.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:314::19) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO9P265MB7587:EE_
+X-MS-Office365-Filtering-Correlation-Id: 39a945ee-19f5-43e9-6530-08df0b5962e3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|23010399003|7416014|366016|1800799024|376014|10067099003|18002099003|22082099003|56012099006|4143699003|921020;
+X-Microsoft-Antispam-Message-Info:
+	tYrxO1fHXs5pZIepZy5xx7XXUkUy/McHfTqqKYM+G4c+3tP3DXctt5BIzy4QeKA36vnmmvqJVTMewa099vSw0l0q56nZVb9q+mSm0ylMjrQfD13PM1vrSQJ65Io2VgF0HIPsWB5P4NfTud1XbvmfkrgsRAtc6kU7qmJg24VBTLcLLEExE6/m8qA8M6yyzZcFlP3mElbf6rfVulXdD6Egz+KmKtuffU+5ljLC+XViTEtLzIRX7fhPBzurMum7Qw0NWCXmZLJca8vrdn/pVBz7CtIJlvolVRthXzD7Sn3ycLE+9DStwEqz1vNBcBNNGQYI53P+hmCy3wnV2ignBYL5Sg7ZDIFx3Uz3V/TRyNCH6pdUeA3sGthzXyV7XWaiKdPtmmDIcU/6RNUEZQoTrkWVDf6FRApn7Fz2OcAPFGWrjMtQ3fUfpptGonM8lY9h9MWbbkR8p2MFedcJvkHus3fpgubfMEZTmfvkU7C8Dqzjjbqx65wxUoJhmkJP5Qet3GqmN3OxoEAViek41y2apka8SdxDXBqmkijkT2N5Rl/RLgBpRIxoqF+LLW2vsiD+6GGk/WvT7Kj67W3z3RVIlnHOCi5XH9gyIBGP0uw/V5rmDyM7u4QbWUqwpo5xiJBekdHExDY59aEEiTXwAqvMcS363w==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(7416014)(366016)(1800799024)(376014)(10067099003)(18002099003)(22082099003)(56012099006)(4143699003)(921020);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TkJBYkZRS2p2Q29HVE9TaENjR3lqbW5JMDJ5Y3pZSDkyZzhMT0RhaGdFU2hS?=
+ =?utf-8?B?MzhPTEg1UE9mNmJKdFhTTU42elVMeWgyZVpybnkxWWt3TXIxbnFzaXRReCtm?=
+ =?utf-8?B?YXpkeUpQeHpLZnFCRndkU0cxR1lwalg2ckRYa3ZEWmtGdTVwYlpZRnZvVU5T?=
+ =?utf-8?B?VFV0Zll2SWhqOWcwWStiQndnYkZubWVwQVN4bW5GK0NFOEE5L2ZWdjNIVFRH?=
+ =?utf-8?B?VEExN3JqNFZ6a3cwUmpPKzZmb3AvTGxFMCtOWGd4NkUvWTVsQ0JFL3pFZGlE?=
+ =?utf-8?B?em1pbzg4ZmdsVUFZd0dVVVVhUmRqSG9qWTdNUWRwYmxYZFFOZTJ2cFp3dGFj?=
+ =?utf-8?B?MmhHSGp0dnpwSUdpenpKTFJPSnVqM1lGMzFuS1dXS0tNeDZpODViQ21Kbld0?=
+ =?utf-8?B?QUc0WkFEVkFTbFJQUGc2bC9mbFBDUHRpODBTUlZkdXJnRm9jbjZScEVQMDZJ?=
+ =?utf-8?B?S05yUnBqeDlTTGx3NURaSWtzc3o0aTRveUNxSjY3eDlZc21rNW5aZDFUV1Jt?=
+ =?utf-8?B?Z05aQ1JWY0FyWGkxY1RGNmlPZkcrUjdhK1kzZndCNWdBWlFtQUNGSHdHTWJm?=
+ =?utf-8?B?SDBSenJDRHRUOFVmMlBBTHczVFdUU1VEUE1kc2tBNzZwejlTRElrOVNGZW13?=
+ =?utf-8?B?blVTZ1Bjd3Jpbnd5YjgxZ2RFR3RCenU3MHE5eS9ZWmd1MXhORDNkeHA4a0k5?=
+ =?utf-8?B?U2FFOWxKczVOYStiWS9OamFDMHJ4QmRTb3hoTEg0NDR6Z1NwME8reVNtejR1?=
+ =?utf-8?B?NUtPZGhyQlRGQjJvZU5oSmY0ZXRKSnZoU09pWXl5ZHpOZG53QTlzeVlvS1Jk?=
+ =?utf-8?B?d3F3N0FyRVBSMTBVQmdTZlo3bUliZnFhS3k3cGpIUlRDaS8zVDRwR1JycGlR?=
+ =?utf-8?B?OCtJWHZXU3lBbEd1aUZTYlNvSTBzdTBoeFNkN1kyaEhySzVkUHU3VlRIUlBV?=
+ =?utf-8?B?Zi84ZHdYQm1PYklnNlcybEIveGFqZzlQMmg4U21NTVBkUENTUi9UV2ZiNGtX?=
+ =?utf-8?B?cFJLVjVZWXVPMzZuM3JSQVNlRlFwYkp1TVZuV094dmcxMWlZaG90cndvdnFs?=
+ =?utf-8?B?Tk44L2xmbktpMUJIbHhuczBQWTZVTkZ4bGhoSU5mV1Bsc0hoZER5Nzh0RGRX?=
+ =?utf-8?B?bFlxMUdWTXg2QTRLMmpWVjFQSFM2aG9jcy85MUVDRVkrbWJFY0NGUzBpRmQy?=
+ =?utf-8?B?RFRldnFRT2hkUGZyV1hpQnlzS3FKZHZhVG4rTUJWQ25SOGIvWkhjVzFrUlJa?=
+ =?utf-8?B?QnZ3eG9tUFFuY25MQUk2dlkwZlBiRnBvN1pIelloOExwT3FuL0paRHZ0dTJY?=
+ =?utf-8?B?VzQ0YXFWaVFiVHVzU0xWNE9pUlUvRkhiY3poekE1ZTBnZ3RkdmQxRmxJWEtw?=
+ =?utf-8?B?SVFheUNYTjB5cDV1MnduTVNMNWxOUUNXOHp2bHFMY3hsWlBSZ3QrejcxcUV6?=
+ =?utf-8?B?aWtML2pSS1NJdUsyRVRvT0psUTMwK3Fxa3dTVTRVQTdVMVdDNk8wcnFJc3Bh?=
+ =?utf-8?B?N3NCd1lXMnJPSzc4ZkFVd0lmTEtNNi83MTBPWDJVNHdpSWd4cmt2V3pCR3lw?=
+ =?utf-8?B?TDgva29vaXVnbmtKcGV1Ym1Ibm9CVWIxU2RieTBXdzVvcUNpcGNnbE9ZSmRZ?=
+ =?utf-8?B?ZVVyZ0V1MU53OG5RL3o3dG1GdmpHWndDMTF1bnhCYU1IQ2VONkRVTFdPVzdC?=
+ =?utf-8?B?Z1Awd292RG1JWkM1aG9qN2FPa1BBc2YwdFViU0pDZHRGdWlEdk1lODZEUVFM?=
+ =?utf-8?B?bURNa3BkTFlWQzJLU0lxUzVjQ1NoQ1lkSS9UNHJrbTE4T2VRckxCVHMvblVK?=
+ =?utf-8?B?cDg2MVJaUHJQSVdvZnZTL1p1RVRUS1M3dmdaRlByTDU5akhaRlB3WU1DNEhq?=
+ =?utf-8?B?b08wajVBZ1YxQ2NVT2IyOTg4OUNZR0d5VUNUNjVLWWpxUFhDMzFLQ2QwMFRz?=
+ =?utf-8?B?NlNzY0RadVhZUUp6QmMvVG54czkzRHRtNnNDQjZTRFNvODFBQUVxdlVidmdx?=
+ =?utf-8?B?M3FJODhxU3lqLzlKN2xYV0dSMlpCZGk3MXMxMDFwTnlUanBHOHpRazVyWk40?=
+ =?utf-8?B?ZFl6YVkvVUpBWTRuSmRWUURzdjVTZzBSUXBPdlg1Vm5UekxqNk82RkZoejEx?=
+ =?utf-8?B?d3B0RDVTUXNHV004Y3NiV3Y5KzBiY0VSd01LY2E2cHhYRnlISzRrMkhiMmdl?=
+ =?utf-8?B?TzgwWkdlemxRdUFzT3JUMFFOK0FqMjhYUjVnSFFORFFFVkM3aGFYUHl6dUVI?=
+ =?utf-8?B?WHNtK3kvK1BjTE9iOFFVNERZaVcybHZ4YlFmRW9zMkxBeXpiang4Zlp3OU5Z?=
+ =?utf-8?B?d0lPVlB0aG8xSitYdTFpaDNicnRzbWMyUGd1eWxuWWdYYzluNTBldz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 39a945ee-19f5-43e9-6530-08df0b5962e3
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 14:24:24.9606
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EhN5P88DDqKdlefAXzWp5h4x7uGdRDKH22UxSucivrL8uTuIoEFHiqseuPaQjrl+KgNHLTE7uBK2U+dBWCSB0g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO9P265MB7587
 
-Completely purge the unmaintained DVB_ULE_DEBUG code block from
-dvb_net.c and its Kconfig definition to eliminate severe lockless race
-conditions and clean up the unused function signature parameter.
+On Sat Sep 5, 2026 at 1:22 AM BST, Markus Probst wrote:
+> On Fri, 2026-09-04 at 23:54 +0000, Markus Probst wrote:
+>> If `Driver::probe` fails, the pointer to the driver data (`PrivateData`)
+>> will first be set to NULL by `drvdata_obtain` and only after that the
+>> serdev device will be closed by Drop. Thus there is a small window in
+>> which the serdev device is still open, but the pointer to the driver dat=
+a
+>> is NULL. Therefore it is possible that `receive_buf_callback` might try =
+to
+>> access the `active` mutex on a null pointer.
+> It seems, Sashiko found the same issue in a different unrelated place
+> too (while reviewing this patch):
+>
+> https://sashiko.dev/#/patchset/20260905-rust_serdev_fix-v1-1-2ea92b154a6b=
+%40posteo.de
+>
+> Unfortunately, I cannot fix this one so easily, because the serdev
+> device needs to be open for the entire lifetime of the "real" driver
+> data (Driver::Data).
 
-Assisted-by: OpenCode AI
-Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
----
- drivers/media/dvb-core/Kconfig   | 11 ---------
- drivers/media/dvb-core/dvb_net.c | 42 +-------------------------------
- 2 files changed, 1 insertion(+), 52 deletions(-)
+What would go wrong if the device is closed before destroying the driver da=
+ta?
 
-diff --git a/drivers/media/dvb-core/Kconfig b/drivers/media/dvb-core/Kconfig
-index 8b3f2d53c..c6a97add8 100644
---- a/drivers/media/dvb-core/Kconfig
-+++ b/drivers/media/dvb-core/Kconfig
-@@ -67,14 +67,3 @@ config DVB_DEMUX_SECTION_LOSS_LOG
- 
- 	  If you are unsure about this, say N here.
- 
--config DVB_ULE_DEBUG
--	bool "Enable DVB net ULE packet debug messages"
--	depends on DVB_CORE
--	help
--	  Enable extra log messages meant to detect problems while
--	  handling DVB network ULE packet loss inside the Kernel.
--
--	  Should not be enabled on normal cases, as logs can
--	  be very verbose.
--
--	  If you are unsure about this, say N here.
-diff --git a/drivers/media/dvb-core/dvb_net.c b/drivers/media/dvb-core/dvb_net.c
-index a2159b2bc..5060b8866 100644
---- a/drivers/media/dvb-core/dvb_net.c
-+++ b/drivers/media/dvb-core/dvb_net.c
-@@ -68,19 +68,6 @@ static inline __u32 iov_crc32( __u32 c, struct kvec *iov, unsigned int cnt )
- 
- #define DVB_NET_MULTICAST_MAX 10
- 
--#ifdef DVB_ULE_DEBUG
--/*
-- * The code inside DVB_ULE_DEBUG keeps a history of the
-- * last 100 TS cells processed.
-- */
--static unsigned char ule_hist[100*TS_SZ] = { 0 };
--static unsigned char *ule_where = ule_hist, ule_dump;
--
--static void hexdump(const unsigned char *buf, unsigned short len)
--{
--	print_hex_dump_debug("", DUMP_PREFIX_OFFSET, 16, 1, buf, len, true);
--}
--#endif
- 
- struct dvb_net_priv {
- 	int in_use;
-@@ -320,16 +307,6 @@ static int dvb_net_ule_new_ts_cell(struct dvb_net_ule_handle *h)
- {
- 	/* We are about to process a new TS cell. */
- 
--#ifdef DVB_ULE_DEBUG
--	if (ule_where >= &ule_hist[100*TS_SZ])
--		ule_where = ule_hist;
--	memcpy(ule_where, h->ts, TS_SZ);
--	if (ule_dump) {
--		hexdump(ule_where, TS_SZ);
--		ule_dump = 0;
--	}
--	ule_where += TS_SZ;
--#endif
- 
- 	/*
- 	 * Check TS h->error conditions: sync_byte, transport_error_indicator,
-@@ -659,23 +636,6 @@ static void dvb_net_ule_check_crc(struct dvb_net_ule_handle *h,
- 			h->ts_remain > 2 ?
- 				*(unsigned short *)h->from_where : 0);
- 
--	#ifdef DVB_ULE_DEBUG
--		hexdump(iov[0].iov_base, iov[0].iov_len);
--		hexdump(iov[1].iov_base, iov[1].iov_len);
--		hexdump(iov[2].iov_base, iov[2].iov_len);
--
--		if (ule_where == ule_hist) {
--			hexdump(&ule_hist[98*TS_SZ], TS_SZ);
--			hexdump(&ule_hist[99*TS_SZ], TS_SZ);
--		} else if (ule_where == &ule_hist[TS_SZ]) {
--			hexdump(&ule_hist[99*TS_SZ], TS_SZ);
--			hexdump(ule_hist, TS_SZ);
--		} else {
--			hexdump(ule_where - TS_SZ - TS_SZ, TS_SZ);
--			hexdump(ule_where - TS_SZ, TS_SZ);
--		}
--		ule_dump = 1;
--	#endif
- 
- 		h->dev->stats.rx_errors++;
- 		h->dev->stats.rx_crc_errors++;
-@@ -843,7 +803,7 @@ static void dvb_net_ule(struct net_device *dev, const u8 *buf, size_t buf_len)
- 				       *(tail - 2) << 8 |
- 				       *(tail - 1);
- 
--			dvb_net_ule_check_crc(&h, iov, ule_crc, expected_crc);
-+			dvb_net_ule_check_crc(&h, ule_crc, expected_crc);
- 
- 			/* Prepare for next SNDU. */
- 			reset_ule(h.priv);
--- 
-2.43.0
+Best,
+Gary
 
