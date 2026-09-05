@@ -1,103 +1,176 @@
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022120.outbound.protection.outlook.com [52.101.101.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E182472AF
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 23:31:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788651065; cv=none; b=Fp5bFQ2cUHTiIDMzVB2wBrDfhpAJty1Utpli6ZRRWchetTWWXSC2x2ntA+0JfwyR/qQHqPW3ALeZBJ0HYS2W6eF4epu4RYx15EP/rKZY+C0SeBGeCIqeyShw8ycRfWGWkkEgJuECeZH6e0DzAkE9/FSV8Pvyj2I3PkhS+A8KTBI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788651065; c=relaxed/simple;
-	bh=1gjw1JLl6E4CZT0M7vNz4xDeXI03YlilM+CEuXg2mtw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZRwO3vCEFE/TzWHbHl2zg7s6dC9svo9WehdVJShAIhb9EsqT2dUqxzmFKQDIoLGnU7q/zP4t0KLBYTZhRhGbdud+c7qMWdkP9RZMMLCodM7wH7G9WODpFF5iH65jZOM9cgHDFHNyTWYzW0AxXCVaHdYB/6jVBRZRmfjiHz8KhEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gv+VUho6; arc=none smtp.client-ip=209.85.208.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 192A3322C73;
+	Sat,  5 Sep 2026 23:32:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.120
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788651161; cv=fail; b=lSzth5RUjzD/XUiTYIKr4HVYxWs1BcnbuuLjxQPnGDprulYOXFjgBvbvIZxfdF0CHQFsILHOitCxErue6gLA+MZOgrX2b88qf88ECxlkpKFnmCUbpez8lD0JV3EJlYr1bXSLvGthXE4YH3qp06ZHMA1iwAryO2Mx8FCJMlLix6U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788651161; c=relaxed/simple;
+	bh=R6jp99bRIZED4TSzot7iBUIRDFlRTv9U+1PC9s32H2g=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=sKil88pvw4+JBTiLads8QBqXBcsa/RA9CCQSjp/7IG1syzXwhKlQWeK7CUIFXrDpCaNucQXgWDx0N3WIRAv5oxOGDaLiF1aer3kx6yZYdK7yCvz8vpczW+NabX67gRCZtK+rmPMVEZixNErOnlZIlbdsrRjoCw8PHC+umUjNxI0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=VFGNARHH; arc=fail smtp.client-ip=52.101.101.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gv+VUho6"
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3a20f06cce6so23491031fa.1
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 16:31:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788651062; x=1789255862; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7yzJKanOzKSOnMYKEyJngbZRM6LI+anOWm8IP0V+9O0=;
-        b=Gv+VUho6SHSF0OTM+gpDWVPwYMPGD1WQl8zD+4nWhqzaru9wBY3NCaYkA0Hxbn5q0v
-         koftgGwIU0fc8Gf+uDr7jfM3//At4lPPFQum0+3prz0XvW5yDA57ydYe4bQZrzl5vRi3
-         i2KJgajJsAPW49zR597ZeRY66AFooBpgMbcXDfc2NhIHMHRxe+FTbTjpM2OWC6Q5+Xad
-         Unlab/ykn/auvqrL6KTJQ0CTutrb9PvRSmaMFWwnwCrh5zATS+pT0bklxLWgcAsnNLw+
-         JpjeKbLUJgMgOYPlogUwZl2sXjUm3Z4ShoxasBTcFiKPIXgVJu7tKF/ZwkKOzEhjqdox
-         Kawg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788651062; x=1789255862;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7yzJKanOzKSOnMYKEyJngbZRM6LI+anOWm8IP0V+9O0=;
-        b=tFhXSEz7r+/52O1rWnUwlb2IYYEiKjpm3yk05GAmvc/Th8vT1PfvuJmd07DmChYVfQ
-         rb0ukIVWORqAIdTVteHB5TTevT07kUIJZhkQa8s+lzEaiJK5NdWYiftrOBOHQw7eyaex
-         ZSSCcrzOg7ZUw6N3u5/8IJ1A1yIoqyAgwvgN2WrpYgoxP+twL7nHDWlJJKulXUV8Bgoj
-         y0poysg2M02ipwUpoZ2GvKqwsG2jwWD05rv+Ew9FbrA9TDcRN/CzIfvGuMS1EYikVnm3
-         gaqg31/xuQ9DAEGa3hEwgS3w/mTP1zvopiSPWomcTJnO/cLVbF+vgt9NDI+aC0XcF7Bt
-         J9LQ==
-X-Forwarded-Encrypted: i=1; AKwUvByGULNb01yRdM5VZ7UEauQr72XHuIbCA+QlDZG7SgQXUTNL55zEzsOwj8nO9wAU5DMvuvdZr9yB3niLseM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kRbKFH+5kXtEyxpgwBG8cbkViG8vQuHOOGUgrA4u/UVr66W+4v
-	D517u3Z0qeKyxyDG/yR9bU0lUk+fmXzkm2DhsuJ5hfpqU9sawjC6lPXkDTlh6aEJFwP/XA==
-X-Gm-Gg: AYBFou1Ousxy1C/qhiTv4mNtquPWW3wTSTvi2wuAXRL97kNCPh38d+QxiwkgRCDoDL+
-	2GrttKToWnaDf6tiFnHMy+z43iBasaAm7r5XHXt60vL5O6H24x+fGgNbc94BpBf6nYYCS7TODQ/
-	a72BNISnz/PL6iyI+KcoFs8H1qJUl0ZSsIkduAQ62hNlUETVL9tFnhFDRS53MzbhO4dHrE4Caia
-	J50LSd8xxGnbr/Uyvd+FXAQsLB9paFKS9beYakPsuvmAnbx7+PpVZVBIAI1pNftbxTl0jskq636
-	j1wWvNUaOETNETXiiDXNMGG+wAHfZXoGjUplau+ul/9z14e01k5841XezVdmii6LHKzQqToCmGD
-	WA9XcVxbkWRColzZVZPFhkUmf7nRi9OElsTyjqv/Dnj/Lv7QVdhFCKpo5elUTxH8LvY+mSDaF4L
-	OLPpZtJOYfACM0UU8IcNYe26sNLsRCuS7Nw2w02KF7oKKBcZ6srnJu7n2owTOxKVpVHNcNOVG60
-	rujtA==
-X-Received: by 2002:a05:651c:510:b0:39c:a24b:f0b8 with SMTP id 38308e7fff4ca-3a372c9383bmr12639611fa.2.1788651061389;
-        Sat, 05 Sep 2026 16:31:01 -0700 (PDT)
-Received: from localhost.localdomain ([80.66.93.20])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a370588231sm16849751fa.22.2026.09.05.16.30.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 16:31:00 -0700 (PDT)
-From: Maxim Skokov <skokovmaksimevg@gmail.com>
-To: nfraprado@collabora.com,
-	pkshih@realtek.com
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Maxim Skokov <skokovmaksimevg@gmail.com>
-Subject: Re: [PATCH] wifi: rtw89: Don't return default channel from disabled bands
-Date: Sun,  6 Sep 2026 02:30:28 +0300
-Message-ID: <20260905233031.5561-1-skokovmaksimevg@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260812-rtw89-2ghz-quirk-fix-v1-1-7fd2a46e7a02@collabora.com>
-References: <20260812-rtw89-2ghz-quirk-fix-v1-1-7fd2a46e7a02@collabora.com>
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="VFGNARHH"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dAvRhrFYZkMXBJpcbJJ/lIIqZ6HjpM3Ag/m6I38SkYFXk+vPLaV3n72fgdAtPCCOUoET/25qXVItUjOVtkYSrMZGEfv592zJ2513yn8r2TZUSMamFdFP0xecOIL9DyJEwcyQCS3/V4ZOIz43nx/uOpz9YkU3++uqlUg6fsn1g4HxAWrROM3B2PLVfCpM1XCHkFDbXBhPNCO7sWs6uMZiYcCQv2tcOqpNiWGrvr0oBTLnzzeYnwd3f417vDzjvpMiATOmpi3YzxQtoZ0dWzlLtA6bDIPYFjiHmGivXpEDV2QDO4806qd+9sYsNwT0gpQoLPVfOT0kO7vRG2u6b8mziA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4k8FLvNwHhAb4SZo9hiMdWeCIkOp4k2nDFc5G2ofxl0=;
+ b=jPp3yeRMyG0mLnmP6lp+jAnqrHVGRYew04YFTNVAx3IFDrGsF5WJ+Xg4DxFdqOLK6Qx0jdhOyjEOOcDOspArcbl9sFWn85mf9hQD5DNwkydH702fi1wugi4vJsijRk03+rPPzad+kmaRNtuAFF5d3JVVtyx+cupQv/rC8snzxnTRPw1fB676iLhqBiUTMsRNrHuvyEwXbcH4WISYgiVVSEI4ll9UKXW1bHPUHJFtug+NkE+xivHVINSkaRt6kPgNbadvQApoCKKnm3cCqTSoTKgyyDnTU0tswKe6e5ODhY6cBCDHC5evENNlgTyfxKiLec3qYhX/ZlQOtSuabpd5PQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4k8FLvNwHhAb4SZo9hiMdWeCIkOp4k2nDFc5G2ofxl0=;
+ b=VFGNARHHj+uwgPiTpRw1Mq4YdTrbWEqTz1FQz7bei4Yj1RdfDtbVy6zBpaoHyP7i2QuxeoO/YtE45JJoQBnEleZ3R3LlqAn1oG+XTjgmizvju5uVWvLDna0xBDF/uF7mM+bWyMY8PoVTgHXelm//LoaTMVsRHIfvV0lTEptSmRw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO5P265MB9367.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4c5::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Sat, 5 Sep
+ 2026 23:32:36 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0382.014; Sat, 5 Sep 2026
+ 23:32:36 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 06 Sep 2026 00:32:35 +0100
+Message-Id: <DL7RX130417U.10PL9U4D6JU9L@garyguo.net>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Bjorn Helgaas" <bhelgaas@google.com>,
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-pci@vger.kernel.org>
+Subject: Re: [PATCH v4 03/16] rust: mem: add `AsRepr` and `AsReprMut`
+From: "Gary Guo" <gary@garyguo.net>
+To: "Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com>, "Gary Guo"
+ <gary@garyguo.net>
+X-Mailer: aerc 0.22.0
+References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
+ <20260901-typed_register-v4-3-5552b1d59525@garyguo.net>
+ <CANiq72nxtehkGdb9RZpd=MsjWzp9euoLw=MmCzvcqOgxxEwymg@mail.gmail.com>
+In-Reply-To: <CANiq72nxtehkGdb9RZpd=MsjWzp9euoLw=MmCzvcqOgxxEwymg@mail.gmail.com>
+X-ClientProxiedBy: LO4P123CA0264.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:194::17) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO5P265MB9367:EE_
+X-MS-Office365-Filtering-Correlation-Id: b10b0471-7cb2-47a9-bd2f-08df0ba5f773
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|10070799003|366016|376014|7416014|10067099003|56012099006|4143699003|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	J8cuk3Q0JAHS0+yqnjJPGo/We1AOhtPm3zAhbw1a89JXag1n5dKqaLx0+Fz8q7OP91BiE7cpL6DKe8JxknK8/zib4CPSvtP6GP2HBVpN6ap9zLoedf1C2T7pqUu5VKwVGogdpgP+2On02UVIrrJsOA+sepFX9KG3SNaz0dzqUF21GknDSFD21t7UsT1pu4oWz63mk1u7SgGbArY8jUXZF++hRFm5IcH4JFh7+o1MuyoTPsY37U3T/JtsuZKocUHCv0cQHWm/hcs9VMMuPCMoForqVQoY288mqxLnZuAWAg0soyAPzWvD/byhxRwIp8YQtUtbrbR3n/B7jQtszNFKwShB7686KcdtCbb+RwYQoIpF24RCNsKPmFI9PwhbRsEzz6MlwIstS4qCxa4YQs+/ovkNbkNKoYGeHS5vQAU/+ohAiVF9EPAow28LtgWi9fLrxvADDjzdIJU896KLsGrVMuUL6iA59Tv3ClqCh5UsIjz5cpV4Z7jzXOEqK3nIXilUE2E4B7oCtejzDT6yg5EVsZpI0i9QABJqNKO6VyIopVgrYSrSQkj/MnuUhv+/sh1grS279UakWWP+lL7kUYK4TZU/KVOXrBJMFC3PCt90d3uFzQ534pn02eCPl34A/SB5ObSdbgqG6dQ4H/NEcLmKVk641h4yqPe8lkdZgCgYkiE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(10070799003)(366016)(376014)(7416014)(10067099003)(56012099006)(4143699003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?eTBVL1ArODhRbEJYZ1Q4aXR0Q2pOMTVQODZnRDFVbFN0eWExbitFQzRjMXdz?=
+ =?utf-8?B?a2hISjFNNExYemdOa2UzN1JId3BDeFdOVkU5d2J6ZjFUdjEwMXU1OFpwdTB4?=
+ =?utf-8?B?NU1BYnNGb3VNMkgvQ1AxODNpVVNKUnMzMENEQjdGcVFZd3kzdUg2cWdrWnM4?=
+ =?utf-8?B?bHBaSytNUmxERFhFWVpKMUFMSEpLWUZjZktlNDM4M3ovRW9CNjVabTNycC85?=
+ =?utf-8?B?c0xrbkFTR05yOFQ3UFRqRHJGT29yd3dNaGlFMGpXNGFrTU9mbENSK1lYUVMx?=
+ =?utf-8?B?NEtBM1pSV2Z0cXdqdTE5ejJjL2E1dWlMU1B5SWpQcEZuSWk1OTBwRHAwMS83?=
+ =?utf-8?B?ck1GQ2FwOE01ajBqRWcvZmtNUTZwNGlQUHp2UXVRTXM4ZWlTVGNaSmErak5G?=
+ =?utf-8?B?MUtLMUhnUHAvVVp2Yy9kMWhwWWt5ZGx5UVJPa1pObTBWalRLbGptUXZxOHVn?=
+ =?utf-8?B?MHFQWjB2MXRjNWtNbGJWcFU0SHBob0k2ajB2Zi8xTE02bW5VR2VwOVVjeTZK?=
+ =?utf-8?B?alN2SDF6ZER0SHVvOGJVSEFlSVViZVpFZDdFZCtWVGVpOWdaUVRNNkI5M1U0?=
+ =?utf-8?B?dWhOZXpDdHlHdHE2MXY0SG15RnVGL3JxNzFHYWFpalM5L2thVFJzcUd1cnU2?=
+ =?utf-8?B?bDJEeFN2eU5uSHNMRjhWeEs5cGRvYjZqdk5PaUFDUFRDdDlBUGt3d3lMTXF6?=
+ =?utf-8?B?c0xQaXV1UHVjL0pJQURKNURwNFN1TGpzVTYwbGlWVGFkMTBIaVFyQnZNWC8w?=
+ =?utf-8?B?bWoyV0pQM3g5QUpXTzdmNDZmQzBHSGtVVjdRZG5xeCs1LzdCbVFGSXpLcStP?=
+ =?utf-8?B?VEUrSTluWlJSM3dJUFpxMVJwOUNvUm03VzJHQUdPSVcrKzF2SkNqRTZSaVYx?=
+ =?utf-8?B?TTNmWGhSNjRtaFNwTlloMDR1QUIweXBNV1R2UXVxazl5WTFKc0hoUk1XZEhM?=
+ =?utf-8?B?bmNHU21IZE1vWDVKaVFWQkc5TjloV3U5SXI4L0dKQTkybkQ5MC9NcmUwVS95?=
+ =?utf-8?B?NmlhSjhqY253N1NWdHVKVVEzYllPSDhpelVNbkl2cTFzOUNQbzQzQU95VnNz?=
+ =?utf-8?B?ZzlxUmlvNTFJMkdJeFgvQ0owV08wL1V4RUhtaDRPbXdQbVRmUkFpdFNodFFD?=
+ =?utf-8?B?MFhyVFJEeVJxaWJJNlhreUsrOW5TNTJmd1R1bjFEUUkyeVJPSUtvTTNvSFFP?=
+ =?utf-8?B?K1NRR3AvRzZmazVFMUNGVUpoOWwva0tXaWZhR3JzNEd4OWhtMC82djE1TkhP?=
+ =?utf-8?B?dzgvZlM1SjNqbnVlVVVyYkpLMitKVlFwZ1NjK1NjaDJYY29jdGdMM1N6cUFs?=
+ =?utf-8?B?cytwWC9xT3E0MWlWWWFnRzRNbU9pZUZZcG8rNnRwSHNGdDh3a0RZREk5OVJO?=
+ =?utf-8?B?RmFHYUpnc3VIb2tRdWZEUzROMitTeWExNGgxOVE3cmUvS2Q1WVY2T0FuSXRF?=
+ =?utf-8?B?K1lnSU5TM3lEcEE4YXltVG1zbXpJdkhGVndYREN4clorMENqR0lRYTJad3Bt?=
+ =?utf-8?B?QXdaZkVyaUNobkY3ZkVXcFhDMHlRSmE5ekIvK2RITmN0OEtBbGozRTVCM040?=
+ =?utf-8?B?MUE5QkR5dUxoZitPOHd6SE1paVYyWjlLSklXUWxrYTZiQlVUMFdRZlBNNmtl?=
+ =?utf-8?B?amdsOUVrZW9TY1RyMHFzcW5ub1hseWpMK1F0NDlvZEJQOUdYQmczbW94NDls?=
+ =?utf-8?B?VWdMTm14cUhCRmtab2NpZ1IwbzBSbzRXM0xZcHgzQi9EYVp0bGpoU3FwcXVK?=
+ =?utf-8?B?NkR5VnphTjNpVXFoNnN3cDhPTjBJM0lhZkhqeGNGV2tkK0plZGJrTDFvaHRz?=
+ =?utf-8?B?MFd5c21jTE43UDFTZCtxY2VIb0ZMQnk1ZEpJR2dmTCtUWnNrYVJrVGNCempO?=
+ =?utf-8?B?aHpHeFg1RDJ2TkxCZVZ0elhiZEU0b25paVNvZjdxZnJ1aG5GMVBFRlh0bEVm?=
+ =?utf-8?B?dFhmMGRvT1RURUhUVTlHRzBtdjBQYWZHc3dXcnZ5dDM2dm9tMU05c05wU2Q2?=
+ =?utf-8?B?blBlYXNTTzZ2QWIrWkJLWnBWbzVwWkNBeXBXWkFCTkU4dXJoNGthTVZreDMz?=
+ =?utf-8?B?YkVEYjFsMis1U09rZWdRcElTSktBRy8rbkg1T040Q2hFTlFucnJIUWhDZGZr?=
+ =?utf-8?B?VDgrUGpzWU11RUdiVUhZc2NJTGhVN3JENWt2YjBXZEJmUmQ1OUhmNlRXRXJk?=
+ =?utf-8?B?N3Z3TnZic093Tmg5T3NDcGJJN0x2dEFqU0xXa1M0cDRmdy9vWk0zSFlBQmtv?=
+ =?utf-8?B?dUNNODYwZ2w4ek1zOVRBcG9nTkwyT2NNZTNqVzNNS3REYXE2WW5ZWnhXcFRu?=
+ =?utf-8?B?ckZrOU1ZL3RHTzZ5OG1ZQUF5U2sySTZPWmIrWVhOcjZKNG5iSmRsZz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: b10b0471-7cb2-47a9-bd2f-08df0ba5f773
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 23:32:36.0060
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MdjhwE+bnTq1J7lK6IdUXgY0bXRRrxeqOeBm8CuD1wezsuYwhN2sHCdSUbu5qrBc3cGvHeMsFqIPz4CRuwNwDw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO5P265MB9367
 
-On Wed, Aug 12, 2026 at 04:36:28PM -0400, Nícolas F. R. A. Prado wrote:
-> Update rtw89_get_default_chandef() to consider the available bands when
-> picking the default channel.
+On Sat Sep 5, 2026 at 8:22 PM BST, Miguel Ojeda wrote:
+> On Tue, Sep 1, 2026 at 6:50=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
+>>
+>> +    /// Convert from `Self` to [`Self::Repr`].
+>
+> I think [`Self`] etc. work too.
 
-Tested on RTL8851BE (rtw89_8851be), applied on top of wireless-next at
-base-commit ca800a9302764c445de0da0e84d2252400a770ee.
+I'm not sure why we'd want a self link.
 
-This chip declares BIT(NL80211_BAND_2GHZ) in support_bands and does not
-set RTW89_QUIRK_DISABLE_2GHZ, so it takes the first branch of the new
-logic -- the path that has to keep behaving exactly as before. No
-regression observed:
+Best,
+Gary
 
- - driver probes cleanly, firmware 0.29.41.3 loads, no WARNs and no
-   backtraces in dmesg
- - both bands still enumerate in 'iw phy': 14 channels on 2.4 GHz,
-   24 channels on 5 GHz
- - association and traffic verified on both bands separately, 2.4 GHz
-   (channel 6) and 5 GHz (channel 36)
+>
+>> +/// - [`Self`] must be [transmutable] from [`Self::Repr`].
+>
+> We say "can" in the `AsRepr` one -- we should be consistent.
+>
+>> +// SAFETY: `bool` has the same size and alignment as `u8`, and Rust gua=
+rantees that `bool` has
+>> +// only two valid bit patterns: 0 (false) and 1 (true). Thus `bool` can=
+ be transmuted to `u8`.
+>
+> `false`, `true`
+>
+>> +        // SAFETY: $unsigned has the same size and alignment with itsel=
+f, and is transmutable to
+>
+> `$unsigned` (a few below).
+>
+> Cheers,
+> Miguel
 
-Tested-by: Maxim Skokov <skokovmaksimevg@gmail.com>
+
