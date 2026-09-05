@@ -1,145 +1,151 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B578E38A734;
-	Sat,  5 Sep 2026 07:16:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 607D236D9EC
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 07:19:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788592592; cv=none; b=PjYr4Ck6/Iq5bmb7eQCpgApWSrvh3ELx/BrFeY0RIDND9xPXYkkF2qSVZPtZVKV2IXHY1hOkUdWM5ySlv9HQdPABpxw/MHEW0tL4hrBWXViQiNBzRJt/0rFwKAm9VtBzScI6WU0sNCEEz8no6NSnGcvpXr5qKwxvH2vjoFlYPvE=
+	t=1788592765; cv=none; b=d7LToVEI67RD8pqe00apfCuMQcJK1mtVLPagihSrbFsOvEUqa3FnoF/lUr9Lmu78c8AjrpsPUEEQm5UH3jCl+XTQ9PjO9qHD2h6IXIAK8K5R1jC2uDg0mMUxDaEyGFw2KV7+UqZNN8NWHh6AERufFI7enDWg6sFbCf+bky6A4tA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788592592; c=relaxed/simple;
-	bh=E2Z5XEDCWcyBLtyczHnP6+X4+IDocqHd2V9+v7mlb0o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Q4tC6EuscsHLfxt/wUaoZVs4YsPk04OJ1riwSwW/mnAtFJE7RcyQG1IoMCya8GP/UqwKxQGYeaDm0pBGN0uKGo6JK3RoDQp5WiF2Sm/QqG+M/aociTA9EUUoj3xB7xBbH4ACZc2O29vJO+HDktor2dBrxqOqpHYe3Du0Y2z2MIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=mdxCrggv; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788592765; c=relaxed/simple;
+	bh=6b8GbCqKZboTdKKyOVySbbcctduCni9WHEE4apbn298=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=p+PGx1pS/EVdrmljzX1bt4pbSaPGWofDsfld1A7D++b2b0OE2hX2o3a5XPWpCWn4KYC2bDdjOWVY87T5IEuOUDahw2QF5XGlq98vYVIeuiBnZPHrrjl7U9duTZzwQYb5LPvvcvAAeZm0aEs47UGv5Z5a/ZtxPNRsXV6qk0RAqbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mcKis87h; arc=none smtp.client-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="mdxCrggv"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id B29FA4E41530;
-	Sat,  5 Sep 2026 07:16:25 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7E9E860580;
-	Sat,  5 Sep 2026 07:16:25 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A54E511C787BD;
-	Sat,  5 Sep 2026 09:16:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788592579; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=H8ZBz3umxxhqbNlNKwwRtIpUr3ROModBIAzMxPN9tJ4=;
-	b=mdxCrggvFgOKR57ekJavFuca8kF/tZLdQVofV1pOlWkUdhy920vM1TTOJHl8jBzc/iOL5l
-	mL+6R0aWf87hDbdMavHLnZVdWm+ILMgikU/zgNUQr8MHl1n00tcpVzXIpCXVJoHqnFgpx+
-	xKozSahmSbVDuGeV5Y4s4muuDoc2jQfnPs2pV4yYiHLyr13jSLsGBrnS9k+kdrhkr/j4T+
-	4vsBJe6hH2TJjJLzYqLcqkIxzwIotj1MlSEfJtVXsmWAiJyRV8iH/r6JS2FNehK+K8mCQO
-	lX1ZLalhg56CS2J7Y0Z3L4mbk/j8B98YRbqspcDvMp3H87QT2g8mQZm4/5Gx3Q==
-Message-ID: <84a2f232-06ed-4fa4-bcdd-4e72a792bf12@bootlin.com>
-Date: Sat, 5 Sep 2026 09:16:09 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mcKis87h"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8485b358552so1578479b3a.2
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 00:19:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788592763; x=1789197563; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Kniu51pKGU1eVNIl2Gb8/92qXSKg7BhfDHviVd7hho4=;
+        b=mcKis87htc0ZU/Gcm6uOUoMLdO1WnNMYBxQBHULRZMZNNn4cUktgcb6cZlCZyjC8g7
+         cDkAdk4v5F8Efz7aH1thubaQgZIggKoW4GejwBhqqCTUeH9oGGSS88UZRxMrckVdGnwM
+         KOf5FrFIge8F/YE4SpvM/5Ie26T90v5Nj1gQmlBlDycccuXdh0fNS11rD4Jlvyu5g8Xl
+         aTJ7XFFciB69xZ4Jkdk3w3kTCC5znnN9fUyanjQS9VwcqEUHK1jhaWRPLEz9/gYOxf0N
+         rvYWqcnKBF7hPztWLpNAmC4uaOS1ccPVFU+pBr+GyqxspzM/XBAewQhpyRFV7EjXX+a/
+         cH/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788592763; x=1789197563;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Kniu51pKGU1eVNIl2Gb8/92qXSKg7BhfDHviVd7hho4=;
+        b=Ti4XJRzOApM0TnsQASGqVAp9mJUE7tnw4t18cN+0KMRlT1XwUg1uOwBKcc5H+WuazR
+         9vCOrKU2TZU4EV1R3kf/h3r0mwIIqDzAqmytqGecbgbvfvu15jvlvuYwd6c1g3f6EWBc
+         EKsbq0I1yDcpgaZ3pJPjiMVORbO8K+DcqqkXhbdxRznjNo4PnbYasyVPjpYGK7rJLjaS
+         z/s1jCpZqMppJDuHRqeRv9yBbFmLxbJ/q6QTMeh+/QYN7kPmvjrd1g4nuBoLIMK1aqAP
+         KknFWMEwYkrY01eMoPiM8362eOUo7+v1OyeQxNgUHb8p89LMRK443Mm/S5DyybQdR/ti
+         U0ZA==
+X-Forwarded-Encrypted: i=1; AKwUvBx1u5+rX6yqvEQD/M+Xjn4C+Fb8iyeOUpQJVqAH5kLzHyxhIMMROuV3CukvGFTrgH+ROVUAPltuiOILttk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kspYS2pxnYO9UjnWXPd+9YQ2drlPy0l3ABFA3Ej7qKX+nl38Mm
+	ExUt8xpm8luOms71BKn9k3fxryqHihyKtvJKHBYqmhmJGN7AD9xT1XU=
+X-Gm-Gg: AYBFou14IRl9PPPeFiIwLdcoeycRs7sqllrHoH/JEuL6u7bCbFSMm+SMlp9tQ9Q7g4n
+	+8GaF22+EAZvS0k3WSm3SHhZm7W1XVbH3qjc1lKFpOUb9ELXftSC8ZxD27Be6NVuLRuNCNBL5zy
+	S7xdQgnRiC9wALuZ342MiJv0ZM03ENnUstE4RGc42P2W0hgOnBVALM2OYZVGNfoAt7Q8i3AquUo
+	L4pRohr3T6m2GJhKHm+cpdfEGPpZZj7TP9UntGXjZ2J7kRZ3B3B3/AAO+q9yChFX6ip61oqLgFM
+	U5E6QyrwctpLzcxN1J5jIaediJtAzln81a8Ed7/htcwz1wKhGgI9gzgF8v0QIMz/duzfScKH9ig
+	0VcKWZuKIUT6HSuuPQ0AZvUcx+2ePjga0CRXYULC/YwAJN6dlk/K+daxutmiuUyIvv5QLBczt9x
+	+7W0rN2WXx41+tL1si2717sREOR0qc9djcJJBQDeM5uBO3ILy4Y/BXctiOMeyVV3wuXHe+ZXMkV
+	uO2dxzYgFlzK6M=
+X-Received: by 2002:a05:6a00:3008:b0:857:3b70:209 with SMTP id d2e1a72fcca58-86167aa9918mr14558768b3a.1.1788592763408;
+        Sat, 05 Sep 2026 00:19:23 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([211.230.25.193])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-861520404f7sm2033047b3a.16.2026.09.05.00.19.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 00:19:22 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Robin Murphy <robin.murphy@arm.com>,
+	Sean Anderson <sean.anderson@linux.dev>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	donggeunyoo.kernel@gmail.com
+Subject: [PATCH] dma-mapping: don't trace the DMA address when the allocation fails
+Date: Sat,  5 Sep 2026 16:19:19 +0900
+Message-ID: <20260905071919.30784-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 3/3] net: phy: motorcomm: Enable analog frontend
- on YT8531S
-To: Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Jakub Kicinski <kuba@kernel.org>, davem@davemloft.net,
- Eric Dumazet <edumazet@google.com>, Simon Horman <horms@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Russell King <linux@armlinux.org.uk>, Heiner Kallweit
- <hkallweit1@gmail.com>, Yao Zi <me@ziyao.cc>,
- Frank <Frank.Sae@motor-comm.com>
-Cc: thomas.petazzoni@bootlin.com, =?UTF-8?Q?Alexis_Lothor=C3=A9?=
- <alexis.lothore@bootlin.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20260831073747.361482-1-maxime.chevallier@bootlin.com>
- <20260831073747.361482-4-maxime.chevallier@bootlin.com>
- <17e50070-46c9-46dd-8109-95007a4f681f@redhat.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <17e50070-46c9-46dd-8109-95007a4f681f@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Hi,
+dma_alloc_attrs() passes *dma_handle to trace_dma_alloc() and
+debug_dma_alloc_coherent() without checking whether the allocation
+succeeded. No backend writes it on failure: dma_direct_alloc(),
+iommu_dma_alloc() and the dma_map_ops instances assign it only on the
+path that returns a buffer. Callers usually pass an uninitialized
+automatic variable, so with the tracepoint enabled a failed allocation
+records whatever the stack held, next to the virt_addr=(null) that marks
+the record as an error.
 
-On 9/1/26 15:59, Paolo Abeni wrote:
-> On 8/31/26 9:37 AM, Maxime Chevallier wrote:
->> The YT6801 PCIe NIC includes the dwmac-motorcomm IP for the MAC part, as
->> well as a YT8531S PHY, configured in GMII mode.
->>
->> It seems this PHY requires the Analog Front-end (AFE) DAC clock to be
->> enabled for link to reliably establish, otherwise the link just doesn't
->> come up.
->>
->> Let's enable it at config_init().
->>
->> This logic has been extracted from the vendor driver provided by
->> Motorcomm.
->>
->> It's really unclear if this is specific to the integrated version of
->> that PHY, and how this potentially interacts with the fiber mode this
->> PHY supports, so this configuration is only enabled when the interface
->> is GMII, i.e. the PHY is integrated.
->>
->> With this, the PHY reliably establishes link and the YT6801 PCIe card
->> becomes fully functional.
->>
->> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
->> ---
->>  drivers/net/phy/motorcomm.c | 14 +++++++++++++-
->>  1 file changed, 13 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/net/phy/motorcomm.c b/drivers/net/phy/motorcomm.c
->> index 36c229460a77..90a4f86f2758 100644
->> --- a/drivers/net/phy/motorcomm.c
->> +++ b/drivers/net/phy/motorcomm.c
->> @@ -144,6 +144,11 @@
->>  #define YT8521_CLOCK_GATING_REG			0xC
->>  #define YT8521_CGR_RX_CLK_EN			BIT(12)
->>  
->> +/* Analog front-end control register 3 */
->> +#define YT8531S_EXT_AFE_CTRL3			0x12
->> +/* Analog front-end DAC clock enable */
->> +#define YT8531S_AFE_CTRL3_CLKDAC_AON		BIT(13)
->> +
->>  #define YT8521_EXTREG_SLEEP_CONTROL1_REG	0x27
->>  #define YT8521_ESC1R_SLEEP_SW			BIT(15)
->>  #define YT8521_ESC1R_PLLON_SLP			BIT(14)
->> @@ -1740,8 +1745,15 @@ static int yt8531s_config_init(struct phy_device *phydev)
->>  	if (ret)
->>  		goto err_restore_page;
->>  
->> -	if (phy_interface_is_rgmii(phydev))
->> +	if (phy_interface_is_rgmii(phydev)) {
->>  		ret = yt8531_set_ds(phydev);
->> +		if (ret)
->> +			goto err_restore_page;
->> +	}
->> +
->> +	if (phydev->interface == PHY_INTERFACE_MODE_GMII)
->> +		ret = ytphy_modify_ext(phydev, YT8531S_EXT_AFE_CTRL3,
->> +				       0, YT8531S_AFE_CTRL3_CLKDAC_AON);
-> 
-> Sashiko suspects this will not survive a suspend/resume:
-> 
-> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260831073747.361482-1-maxime.chevallier%40bootlin.com
+The device coherent pool path is the same: a non-zero return from
+dma_alloc_from_dev_coherent() means the request was handled, not that it
+succeeded, so cpu_addr is NULL and dma_handle untouched once the pool
+runs out.
 
-Managed to get some time to test that, the config does survive a suspend/resume
-cycle, so sashiko's suspicion wasn't correct. The bit doesn't get cleared
-after a resume.
+Split both sites on cpu_addr, as dma_alloc_pages() and
+dma_alloc_noncontiguous() do further down the file, and pass 0 for the
+failure case like the two error paths already in this function.
 
-I see the series was dropped from PW though, I'll add a few comments and details
-in the commit log and resend.
+Fixes: 038eb433dc14 ("dma-mapping: add tracing for dma-mapping API calls")
+Fixes: 68b6dbf1f441 ("dma-mapping: trace more error paths")
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+---
+Compile-tested only, with CONFIG_DMA_API_DEBUG=y and CONFIG_TRACEPOINTS=y
+so that both changed calls are built. The claim that no backend writes
+*dma_handle on failure was checked against dma_direct_alloc() and its
+helpers, iommu_dma_alloc(), iommu_dma_alloc_remap() and every in-tree
+dma_map_ops .alloc implementation.
 
-Maxime
+ kernel/dma/mapping.c | 20 +++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
 
-> 
-> /P
-> 
+diff --git a/kernel/dma/mapping.c b/kernel/dma/mapping.c
+index bf2651a70b7c..098cd57e1157 100644
+--- a/kernel/dma/mapping.c
++++ b/kernel/dma/mapping.c
+@@ -656,8 +656,12 @@ void *dma_alloc_attrs(struct device *dev, size_t size, dma_addr_t *dma_handle,
+ 		attrs |= __DMA_ATTR_ALLOC_CC_SHARED;
+ 
+ 	if (dma_alloc_from_dev_coherent(dev, size, dma_handle, &cpu_addr)) {
+-		trace_dma_alloc(dev, cpu_addr, *dma_handle, size,
+-				DMA_BIDIRECTIONAL, flag, attrs);
++		if (cpu_addr)
++			trace_dma_alloc(dev, cpu_addr, *dma_handle, size,
++					DMA_BIDIRECTIONAL, flag, attrs);
++		else
++			trace_dma_alloc(dev, NULL, 0, size, DMA_BIDIRECTIONAL,
++					flag, attrs);
+ 		return cpu_addr;
+ 	}
+ 
+@@ -676,9 +680,15 @@ void *dma_alloc_attrs(struct device *dev, size_t size, dma_addr_t *dma_handle,
+ 		return NULL;
+ 	}
+ 
+-	trace_dma_alloc(dev, cpu_addr, *dma_handle, size, DMA_BIDIRECTIONAL,
+-			flag, attrs);
+-	debug_dma_alloc_coherent(dev, size, *dma_handle, cpu_addr, attrs);
++	if (cpu_addr) {
++		trace_dma_alloc(dev, cpu_addr, *dma_handle, size,
++				DMA_BIDIRECTIONAL, flag, attrs);
++		debug_dma_alloc_coherent(dev, size, *dma_handle, cpu_addr,
++					 attrs);
++	} else {
++		trace_dma_alloc(dev, NULL, 0, size, DMA_BIDIRECTIONAL, flag,
++				attrs);
++	}
+ 	return cpu_addr;
+ }
+ EXPORT_SYMBOL(dma_alloc_attrs);
+-- 
+2.53.0
 
