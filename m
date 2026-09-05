@@ -1,81 +1,88 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 597A1356766
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 13:28:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D12E35E95C
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 13:29:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788614900; cv=none; b=I5zgEggjjUv9ytf4EcNGpQPfKB1ycaKQGFVnnyXmn12HOwct/6cljkpwFlKbv9ClW74FbuAWZtXR04UABKbbFMB1Mm3h9CHsqPRGBE/m+oOp8HVXKczDHi8ZjEqKcTCcBCk0FrwlgLZhTHCXv/Ik/gKOdnVwI0QzcFuaWwUN6Xw=
+	t=1788615009; cv=none; b=F916MsWOdl3EA/JFeCWd47mZY03kvZPT0zko3S27TfFoBzw11/GPrh8MSSZPk775/XVdzYmbvBYawJIcMrgy2+1SWf0Qj7AExEePFcfOkSOC3Mkb+h0mHh6FswIIsLvU6QyaYwkL2WV7DO/1f2fvCnBC9QqCBBDgJ8czcLIUPFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788614900; c=relaxed/simple;
-	bh=onVBlW7MOcXY/4u/1wLc1luNV8JQgXpPbl+Dwq4jXa0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IHGNJf7kVXvzeN3XuOoEADwv9eZIwqLk/EKUJg6mWTOT6Kqe1ZTLt4n9Nn1p9r0mI5bTDQ/bnhl6HQTSXTU+Jtk+ZMDODsJPbCEEruTKsCj7tETcb6UYAoOeTcAcjvA3hsZPKUJpnEQ1cKdjXpTpnMGxflWmV71/Jo6feAQbLpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=proxrBbi; arc=none smtp.client-ip=209.85.215.180
+	s=arc-20240116; t=1788615009; c=relaxed/simple;
+	bh=SltN6IXvVZySJLNlF9QjGwMOqiRfXZapoOtgvjPGYc4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Z8SRhV76cDIZsC0GGYoQt6YN5a+Tb1w1kzgAF9B775r4GDylkzUMRV2Sxv6QlndPHspWfZdaksvU63oVNDzrZp1RwUcAL7VUwJWlYQM4Erp9DoyhfwiJ8xSIc1850RQHQ/c73H7fd8JcfPkgN4kYpkxVSp7rJ6vTH6gkUQY9I9o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N/J8uzzS; arc=none smtp.client-ip=209.85.215.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="proxrBbi"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc1c73645a1so1587873a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 06:28:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N/J8uzzS"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc149372c14so1021858a12.1
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 06:29:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788614899; x=1789219699; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=005z03CIhBd04YrgIq3DK9hNQnxi1U/rfpjn1baG6tI=;
-        b=proxrBbiH3O8aIhSVBd7bwFR1sNFBFytnO0dkOCjos3EQURKq3hak/q53uBEwkQFLX
-         CwJTjRaqg6QEkTNg0X0Wrzeh+b7HZzl4Rp9GU9okMeLvooArfXDn7mWHY2+OvAog3z3J
-         aePdSgCD4Xkg/MouWROmUf1dVfEJEKNVJnF66EH02ZHnt/YZPsYs1YUyvErTBd1dYGmV
-         o3zc5b+n9576xEatU3DZ5T8ZiO42kYVoOlEy281bq2UHsqfDukFGCevkC5qW6xb0Gc4h
-         CgaCE4qlURCOMBykT8Ftev8MpZHp/xC2kRI9cvKHoU0bQ8khCFq464AGfA8Pelat2vaB
-         PU3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788614899; x=1789219699;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788614989; x=1789219789; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=005z03CIhBd04YrgIq3DK9hNQnxi1U/rfpjn1baG6tI=;
-        b=gpgFwZrGFlTbD+ZdkBimepm+lLzUQQIgyk4A91amOWDBgTr7hKvkb7aesEyEe2mMFk
-         uXDTICMRVBtKrQcdnm+qhr3DrO+2zHnxQjSPXm2zRIw63/gjLokeITyRDEE6y2C/OWZF
-         YA/JOMeCOuQ2Owzh/pHQNLxsCaWCDTALov3ixoZCMVbTNtV7ZB1pU/k6KLGy8WuR9Qhv
-         6+f246TU1TF/W5VH1t8E85bB7EBDASflpriwSqO70+bCOPpQ5D6prm45i8lq0OU2YhW2
-         Wz/P7fXzFZA5rrns5EML+bXVju/WVZtyoIbKReIVhneymAFFD6xS6HMiaUYlDFDNiClO
-         TB5g==
-X-Forwarded-Encrypted: i=1; AKwUvBwndEqtJ0jY59l8VKhoE2cE6ybsFQkqRetA5UsMj4xyCUuUdqSnyrx2sGA617f0EO9ZgaTx1pH7SmmSJWA=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9jHAYB3Qo+8PcvPLSyJoRiQyJ+m80nrcWtnBuVjc/sNMALATc
-	O5QukycPEOXrzOTQPT1Avq4ab4Xhr9hY8CE3cyfcnPl7CEQb/hRPaGCv
-X-Gm-Gg: AYBFou2HGibdsKGC3Vq6PPpOkQMcSDocyPLTdyjHqZjGfsIBJX3cJnGK8yeDEtjIw+g
-	uY56JNPlZWYmhLKWYP7RFKCQVsGfh5JGfd6kg8bHVba9u+CtUfgZ1ZuVIzboIR+HhCmD1/nVRyM
-	UjBFJaNBEFDxuAkLO1wb/cp5yR1N2D0+QfBJ9ZhbVTv6yuihrkU/NlvGp+Q0w9fuyXzdWwVrZCZ
-	tGyP0+7kZaG5BMDhaif7ZDKkogJYxt+jZOJecLj5iaibhTGk2rbLX/3kYjyYHrZOAsRQYAJ++3T
-	RJft+LMViP50eLPwUT7cYluko0Oa+zaNFl6fomf7pyNsO7UhziALSapZqanRk+GPkhMpRs8bh7y
-	URjTRuDzNebjpsG63Za8vARLJNwPFeijC4qoNSNoFGyKLCQZ+X28ROzrOttJTluX+O5zTLn+gUl
-	slKwwkXf85Kq1gDW+cHmPCzKiNneTL9Dnf5bEW4NeDdfsYBuOpez7+dVm3pP9stUPne4W/1aRky
-	7NgbMTqjdFliaqpmQW6oFOLyx/40+EcpFXr+98AJ5I5
-X-Received: by 2002:a17:90b:2d07:b0:398:ceed:6d44 with SMTP id 98e67ed59e1d1-39b262abd26mr18147120a91.25.1788614898686;
-        Sat, 05 Sep 2026 06:28:18 -0700 (PDT)
-Received: from Biostar-A520MT.. ([187.94.13.245])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1433171a97esm7243548c88.12.2026.09.05.06.28.15
+        bh=y4u0GWyaTeRSvMtQ0YnsmqSEps2foZyTtNF0hC2tn64=;
+        b=N/J8uzzSJHC2Y/zhuamwIuQiBr4fSCcySVSUF9pnuntkDLlKk2Y9EKBp/AokxqGDPN
+         UbQT/iAatYPG4beX3RLt0yDg8JVt6vhojDfY6mMzpa1ERZGQ2BdD6hDKL8L0rj+wnKtu
+         Czdvqz79AACcWPMgqv6wKAuqv5WLff+ZScu9lWzD1toFlLG0g7xAkDaveofOKYzNQF+x
+         PxN7W2L0wBdi5Cic/8nk8anc3d+wU0s84hobz1YaWwBB1njRaIwPw2htpKMaylz1T8Sl
+         IPbbtBnM4VssRsZBIamvjvSsBwFTWxhX9iAkDMLtnOazGl2TNRHsqxtrH68PzBBypbHN
+         JNMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788614989; x=1789219789;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=y4u0GWyaTeRSvMtQ0YnsmqSEps2foZyTtNF0hC2tn64=;
+        b=G+zuGVcYUOF2vV2spnVBZ3b1+5lI4R4zi0SXEraqcp6hGsMTai+0kb0lzQ+QxW8E6Y
+         LihuJ/xIFssR/ulchH/1+zJq5Rn88jptJ9ZPLe+Ooz1/EACi3uI81+S8pM1McUO5KnMz
+         7AnZyAuiEIWYC7RpJdo2FkN5VM8UB+ECRDodDJG8bkRNvgojuazfpVK0VdC5MFEazIyS
+         wm9kuwhl2rfkGt2hw+k2F1SXuBAujxjfPescyLLfK/H6bUjlgtY6f6ETDMXeOmWsZdfo
+         HHtreadrMltrKH4y4uRb3NXbCrnbVdJr+CAhedC2YPByme7N3yrzkVz6ZPGXYGqmeNwl
+         sG3A==
+X-Forwarded-Encrypted: i=1; AKwUvBwcTHSurPMxcHeE6e+2xeVigE+tBQyJmsXAGJSzAGLrQItf55eSrJjhhCtCtuluuKR6rX7VCmGNL41Huxs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mNASrgPjvVyW2X+x1grQ8qIvQLENE3FZwIFpoJnKSiXjdLtJ8e
+	kyBEal31DJB0b3bw4V1N8HDG9u9FBdZKeXDzEtjvPuOhSEdj2nU6S8dQ
+X-Gm-Gg: AYBFou2NxEsf0p+EspM5UQsac4xO8A0WBjzbNNevyVF2MVLP4naToFV8P4rUYNALujt
+	liHe7pFJ7+RDTA8gREHWky/f3J7rn3BNa30V5UVZlWzYhv7YOCuTWrn9vXd5aRyJQI0Z+PU5cDZ
+	23w2iqr0uoxpNS8JbeArjOHlIdDY83oyS8obMgu0XfqD/68tLc2jAjnXSsQHRRsSzzyVFcM/8tr
+	Cv79coE5NP+Dvldze//FeQ38L7SB1IXqLZpwsWDmGzcRROI8lN+YpUnanULnjo1SwBeLvZsDOQa
+	1vuJVLFJk7N+iBcQKLRCYdmltxtvL7oWhL+fdKLjj8ERhuKHY5bdV2Xwv1pWYP4mXhghCmtzKId
+	Nn28zz2ik1OuBZVD9/7W7q0DCU0NwlQwwrWOhYe4q4BDS5A2ymKy7dATrLBE0vO0/FsmN5ob4a8
+	EyUwxapO6A0wrIVc7cbtkG8vTnTVxjiGPkzFnwiDLSHRRHFaVLeIyUDB6Z95XljUSz8qo1Cnxtv
+	b9ftUE/3YCmspsllgdOhw==
+X-Received: by 2002:a17:90b:4d06:b0:366:10f1:3d91 with SMTP id 98e67ed59e1d1-39b2614df74mr17583898a91.1.1788614988974;
+        Sat, 05 Sep 2026 06:29:48 -0700 (PDT)
+Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c397b1sm16146499a91.8.2026.09.05.06.29.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 06:28:18 -0700 (PDT)
-From: Breno Rodrigues Alves <breno3011alves@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: torvalds@linux-foundation.org,
+        Sat, 05 Sep 2026 06:29:47 -0700 (PDT)
+From: Wenjie Qi <qwjhust@gmail.com>
+To: syzbot+cid5582b8164122eda@syzkaller.appspotmail.com
+Cc: syzbot@lists.linux.dev,
+	syzkaller-bugs@googlegroups.com,
+	jaegeuk@kernel.org,
+	chao@kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
-	arnd@arndb.de,
-	linux-clk@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-fbdev@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	Breno Rodrigues Alves <breno3011alves@gmail.com>
-Subject: [PATCH v10] media: dvb-core: extirpate defective and unsafe ULE debug block
-Date: Sat,  5 Sep 2026 10:28:12 -0300
-Message-ID: <20260905132812.8521-1-breno3011alves@gmail.com>
+	hch@lst.de,
+	jack@suse.cz,
+	axboe@kernel.dk,
+	tz2294@columbia.edu,
+	baohua@kernel.org,
+	linux-block@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
+	qiwenjie@xiaomi.com,
+	qwjhust@gmail.com
+Subject: [PATCH] f2fs: handle NULL kiocb in write_begin
+Date: Sat,  5 Sep 2026 21:29:40 +0800
+Message-ID: <5fdd4d960a6b47ab7cfa6ef0f44fb575fc45d1ca.1788611415.git.qiwenjie@xiaomi.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <6a9bbf94.a5e650b3.26d8a.0006.GAE@google.com>
+References: <cover.1788438786.git.qiwenjie@xiaomi.com> <6a9bbf94.a5e650b3.26d8a.0006.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,110 +91,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Completely purge the unmaintained DVB_ULE_DEBUG code block from
-dvb_net.c and its Kconfig definition to eliminate severe lockless race
-conditions and clean up the unused function signature parameter.
+From: Wenjie Qi <qiwenjie@xiaomi.com>
 
-Assisted-by: OpenCode AI
-Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
+The address-space write_begin callback is also used by internal callers
+that pass a NULL kiocb, including page_symlink().
+
+Check iocb before propagating IOCB_DONTCACHE into the F2FS-specific folio
+lookup flags.
+
+Fixes: cd5bc4fbb900 ("f2fs: enable buffered RWF_DONTCACHE")
+Reported-by: syzbot+cid5582b8164122eda@syzkaller.appspotmail.com
+Closes: https://ci.syzbot.org/series/cbb9ded8-1388-4a7b-bfa7-44082b04025b
+Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
 ---
- drivers/media/dvb-core/Kconfig   | 11 ---------
- drivers/media/dvb-core/dvb_net.c | 42 +-------------------------------
- 2 files changed, 1 insertion(+), 52 deletions(-)
+#syz test
 
-diff --git a/drivers/media/dvb-core/Kconfig b/drivers/media/dvb-core/Kconfig
-index 8b3f2d53c..c6a97add8 100644
---- a/drivers/media/dvb-core/Kconfig
-+++ b/drivers/media/dvb-core/Kconfig
-@@ -67,14 +67,3 @@ config DVB_DEMUX_SECTION_LOSS_LOG
+ fs/f2fs/data.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index 6e816c9349a..63625ab3f1e 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -3890,7 +3890,7 @@ static int f2fs_write_begin(const struct kiocb *iocb,
+ 	block_t blkaddr = NULL_ADDR;
+ 	int err = 0;
  
- 	  If you are unsure about this, say N here.
+-	if (iocb->ki_flags & IOCB_DONTCACHE)
++	if (iocb && iocb->ki_flags & IOCB_DONTCACHE)
+ 		fgp_flags |= FGP_DONTCACHE;
  
--config DVB_ULE_DEBUG
--	bool "Enable DVB net ULE packet debug messages"
--	depends on DVB_CORE
--	help
--	  Enable extra log messages meant to detect problems while
--	  handling DVB network ULE packet loss inside the Kernel.
--
--	  Should not be enabled on normal cases, as logs can
--	  be very verbose.
--
--	  If you are unsure about this, say N here.
-diff --git a/drivers/media/dvb-core/dvb_net.c b/drivers/media/dvb-core/dvb_net.c
-index a2159b2bc..5060b8866 100644
---- a/drivers/media/dvb-core/dvb_net.c
-+++ b/drivers/media/dvb-core/dvb_net.c
-@@ -68,19 +68,6 @@ static inline __u32 iov_crc32( __u32 c, struct kvec *iov, unsigned int cnt )
- 
- #define DVB_NET_MULTICAST_MAX 10
- 
--#ifdef DVB_ULE_DEBUG
--/*
-- * The code inside DVB_ULE_DEBUG keeps a history of the
-- * last 100 TS cells processed.
-- */
--static unsigned char ule_hist[100*TS_SZ] = { 0 };
--static unsigned char *ule_where = ule_hist, ule_dump;
--
--static void hexdump(const unsigned char *buf, unsigned short len)
--{
--	print_hex_dump_debug("", DUMP_PREFIX_OFFSET, 16, 1, buf, len, true);
--}
--#endif
- 
- struct dvb_net_priv {
- 	int in_use;
-@@ -320,16 +307,6 @@ static int dvb_net_ule_new_ts_cell(struct dvb_net_ule_handle *h)
- {
- 	/* We are about to process a new TS cell. */
- 
--#ifdef DVB_ULE_DEBUG
--	if (ule_where >= &ule_hist[100*TS_SZ])
--		ule_where = ule_hist;
--	memcpy(ule_where, h->ts, TS_SZ);
--	if (ule_dump) {
--		hexdump(ule_where, TS_SZ);
--		ule_dump = 0;
--	}
--	ule_where += TS_SZ;
--#endif
- 
- 	/*
- 	 * Check TS h->error conditions: sync_byte, transport_error_indicator,
-@@ -659,23 +636,6 @@ static void dvb_net_ule_check_crc(struct dvb_net_ule_handle *h,
- 			h->ts_remain > 2 ?
- 				*(unsigned short *)h->from_where : 0);
- 
--	#ifdef DVB_ULE_DEBUG
--		hexdump(iov[0].iov_base, iov[0].iov_len);
--		hexdump(iov[1].iov_base, iov[1].iov_len);
--		hexdump(iov[2].iov_base, iov[2].iov_len);
--
--		if (ule_where == ule_hist) {
--			hexdump(&ule_hist[98*TS_SZ], TS_SZ);
--			hexdump(&ule_hist[99*TS_SZ], TS_SZ);
--		} else if (ule_where == &ule_hist[TS_SZ]) {
--			hexdump(&ule_hist[99*TS_SZ], TS_SZ);
--			hexdump(ule_hist, TS_SZ);
--		} else {
--			hexdump(ule_where - TS_SZ - TS_SZ, TS_SZ);
--			hexdump(ule_where - TS_SZ, TS_SZ);
--		}
--		ule_dump = 1;
--	#endif
- 
- 		h->dev->stats.rx_errors++;
- 		h->dev->stats.rx_crc_errors++;
-@@ -843,7 +803,7 @@ static void dvb_net_ule(struct net_device *dev, const u8 *buf, size_t buf_len)
- 				       *(tail - 2) << 8 |
- 				       *(tail - 1);
- 
--			dvb_net_ule_check_crc(&h, iov, ule_crc, expected_crc);
-+			dvb_net_ule_check_crc(&h, ule_crc, expected_crc);
- 
- 			/* Prepare for next SNDU. */
- 			reset_ule(h.priv);
+ 	trace_f2fs_write_begin(inode, pos, len);
 -- 
 2.43.0
-
