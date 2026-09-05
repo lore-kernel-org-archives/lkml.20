@@ -1,152 +1,227 @@
-Received: from www74.your-server.de (www74.your-server.de [213.133.104.74])
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazolkn19012048.outbound.protection.outlook.com [52.103.20.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14FC51A9F96;
-	Sat,  5 Sep 2026 15:41:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.133.104.74
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788622876; cv=none; b=OKq2mHt1r7+/q6w2qT6C4lrgMnR+tK6OxPovvV7qGWpikdRx8JcGADl4SwRCLiIfylxsMhydYJ5IYK4QUZIBlK3zzAYBhbSPsdRW2mk2N1jMTmaeiwjGcaNhIgBF57PmQzR4ML4F9w1e6MQCWgv2rcCKvOOSody7TQ8t9++SpNU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788622876; c=relaxed/simple;
-	bh=W0vqP7ZDXWAayUQvdP1iDcCGosmxbiO6PbWb8Yu/AZo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dvRs5fHA/lrnO8LTSjvG0gxkHYxJ2ugsCu3vcNUtFxgrSQDuP42NrIbZfRWtQYHxeP/vTi7FhZUn5oo14/5BV+Rd5MkecOXy7BaS1bkTZVQVJ7Sx5gaKEYYumajoUhYekO5pk3AgjDnny10doX7Uyp+BJwqqk593iOZ5sCkIGjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=computerix.info; spf=pass smtp.mailfrom=computerix.info; dkim=pass (2048-bit key) header.d=computerix.info header.i=@computerix.info header.b=oytu1VGI; arc=none smtp.client-ip=213.133.104.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=computerix.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=computerix.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C445352021;
+	Sat,  5 Sep 2026 15:45:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.20.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788623145; cv=fail; b=YT2EkLRt1iXIVayxzyP8/6x2k87+qzlNaST/fHEpbchSKtu5bsFPo0shI+33dncxtXOCICe51/zYqRkGurVAcHlhG3niF+fkZ+mWPoj3QYaNPqAxSPPP5dsEnYgU+TfeFbyaXEjU1PDI7YJXzjiYc/m2MQBksuLT9gjuBQj6//o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788623145; c=relaxed/simple;
+	bh=OWZkuEr5u4ophfSVvWTl4BdzEjnAuUGSPyLaovXg8mY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=IW81i+RCw83emkirwSlClAiuQfNsNki/KiB3xmTnyWCN4I61PB3ThV1fA6WzM4RtYOef+5YGUDQqFZftyG1GJV0CoLao5l/TP28OFGDrCsXIvRsqjBWV1bL7uU5nnHuYm41FjooLVJLL29JD31UeEagY8lHusZy/IaqOGSj4ytA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=lVrkBawV; arc=fail smtp.client-ip=52.103.20.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=computerix.info header.i=@computerix.info header.b="oytu1VGI"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=computerix.info; s=default2306; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=SCh+61Iwqro2r3rqpqY2xI3Sn0uPvozbHukCZz+Sx3Q=; b=oytu1VGIceAhDrXH9MVK9mcOVh
-	zsVwbr3ZWei+XbA3okDIgh9xDUgToSjQM/eFBKCBo6aEQyzBk7AjGPZ6sbe/wEX8xHkPDlJRm92nr
-	NvTBbGOPhEn5fMGplTLyN6juWBLGthT6xnJ+QP1cgxl3glU5zcmMz6zXEPqbisV8pi2kyJu43+dVX
-	KjgENcT9z6M2aLgcvnBKxXniLKdGGvK6M656Iqa2VFA+gMXvdvTA3mEnagdkHNMg2zXqME08zyak0
-	XToIdFjADp4d3MXYWTRwVL0x9h7KyMCtqsPyMXjRq6ajIuZ+4TahzOZ4UBHgGG3CH2tO6MVKhO0Er
-	9Dx2ZETA==;
-Received: from sslproxy07.your-server.de ([78.47.199.104])
-	by www74.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <klaus.kusche@computerix.info>)
-	id 1x2sVo-0005zm-1a;
-	Sat, 05 Sep 2026 17:41:00 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy07.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <klaus.kusche@computerix.info>)
-	id 1x2sVn-000Eb4-2i;
-	Sat, 05 Sep 2026 17:40:59 +0200
-Message-ID: <14630984-9287-4454-b52f-3a1e526e1fdf@computerix.info>
-Date: Sat, 5 Sep 2026 17:40:59 +0200
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="lVrkBawV"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZHEvw+9VfxzAqn/n/4Bpjrau7tyc7d+qtER9Q7gt9RPqXT9OBCY2ZEdh0Mt4kzdu6shSUyk74WZmKcTCfeXukaz/1GsOyOLMBbauBP0h3sFvv0mfQDDiJ5+Yx9mfbLBtcypS5B7dBpq2Zh0qWOYQvbHXyUihCDDOZ+IVh9296lCqGlmxYBZ5AaSBNq/7vRCofTwJowOeymk1PVz7lbI5KXe5YxjTMrQJhOXuQ4Pxvh0PespcRjo9uMK4R0wz8gR4d7/o0cBFWY8NdTm/+6RVnkbzu556PDZkLwWttOocOWleY0Re69NELdc/iBpjgPskaCe1M8VEzb13HHEhduYAHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JJz0pMuIppVSbdraWPsvrhGi2vwvVq/mbsX8XAv4akU=;
+ b=JGZoKjn14QmZmYvOVjraUJD0meFanjhNrbBqcyzAB7SFggs7/Ylis3O1ZyYgBnag2fUCVjoPz2AyLqzADMJBXo2WuWr04+z71wKc5FSn9V1gzgK2FN2bU+XTKiSP8glQ7TDJJzog3BYULZg8NymUirrcdtbovhWiRkl0Loe2W5WKZRqsp/mId/ieL4iDaya5JHAJgHwxdWQErx7srKUIwyA4yjNIykx8n6esvvHaWP+bWlWYNIYNZNECdzh800Zv2gaR2IkPv70mo9ji0hZ9tsxUEYraB3I5FuSFdjxMuPjDS5GAnp1tSDinGiZCfWWMQgT32B2arXFszyke7V6kmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JJz0pMuIppVSbdraWPsvrhGi2vwvVq/mbsX8XAv4akU=;
+ b=lVrkBawVtMy3FXzSWgyTytZOKXUg+mvP27tSEaShCbRYzmGXY9y4ZSlCx36D2l9VfOemB1mMTBzBF1Sd+a+Sw1xNx+PBVImTw1X8albGxJ9tS3BmbWidDL3myfPE6Psd/Ex3r4PlHU1PwB/ru/RpQjOqootEK3mzH7iaR8+exROKsst7EhknxpPUI70lwwr8FGmLH8luNrCyAKo27Anrcc2nq3dWOvxagMwaI1FWrb/8057N9mLp//WebpkHtWZOXPY7wY56WaQsMOPHITTrEmj8qcCuA8wMTW/Fbsd34ANX/WUkNsLL7frK+d7aUgrq/UegHq51ibp6CtTlLWX4Ng==
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
+ by DS4PR02MB11263.namprd02.prod.outlook.com (2603:10b6:8:327::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Sat, 5 Sep
+ 2026 15:45:42 +0000
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::900:1ccf:2b1e:52b6]) by SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::900:1ccf:2b1e:52b6%3]) with mapi id 15.21.0382.012; Sat, 5 Sep 2026
+ 15:45:42 +0000
+From: Michael Kelley <mhklinux@outlook.com>
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>, Marek Szyprowski
+	<m.szyprowski@samsung.com>
+CC: Robin Murphy <robin.murphy@arm.com>, Konrad Rzeszutek Wilk
+	<konrad.wilk@oracle.com>, Chanho Park <chanho61.park@samsung.com>, Bumyong
+ Lee <bumyong.lee@samsung.com>, "iommu@lists.linux.dev"
+	<iommu@lists.linux.dev>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Subject: RE: [PATCH] swiotlb: use the adjusted address for the highmem page
+ lookup
+Thread-Topic: [PATCH] swiotlb: use the adjusted address for the highmem page
+ lookup
+Thread-Index: AQGeGvH8ZjIry23Y+a5bprIc/rGHIbc+YC5Q
+Date: Sat, 5 Sep 2026 15:45:41 +0000
+Message-ID:
+ <SN6PR02MB41579A137BC1D48AFE93E27FD4B42@SN6PR02MB4157.namprd02.prod.outlook.com>
+References: <20260905084210.148255-1-donggeunyoo.kernel@gmail.com>
+In-Reply-To: <20260905084210.148255-1-donggeunyoo.kernel@gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|DS4PR02MB11263:EE_
+x-ms-office365-filtering-correlation-id: 2b6f5b52-cde7-4eae-6dd5-08df0b64bdd8
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|8062599012|37011999003|19110799012|8060799015|31061999003|13091999003|24021099003|55001999006|41001999006|15080799012|25010399006|8022599003|2607281247196008|3071699003|102099032|3412199025|440099028;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?KdkkVUeQuWrKW5RCySn9wu8/WEwlzl5uw6ZeF7JjspCXhPDxzSNp63A5hbXH?=
+ =?us-ascii?Q?mfoqfp16TFqVByS3NqjnrT0311HrxfbNUFgqHueiXrkH96sw2sHkJW3AmFUJ?=
+ =?us-ascii?Q?/oTyF82qZ0TURdqiPTeIpQPDQhCHoqxeRqCfjJ15yMUFTxI8GvznRR9oOv0T?=
+ =?us-ascii?Q?ZOoPjPy5ujiagTPUvkFAaYto9wzSyq1D0k8rGSGHGdzXhpst2SPNgsei4e5Y?=
+ =?us-ascii?Q?z6T3jXgWztbRoqui9ao6S8tKBDLygVY3JsoxhOVnNbbuTid2trP2O2FoPvzH?=
+ =?us-ascii?Q?xFBjv2U4Oy2BWixdkoQP2HP84XeKEGJvUKwzBU5DZtoEGZCaXEYbMYytv8od?=
+ =?us-ascii?Q?uvlAOiEDXS/bFZ4rgjBrotdMPOP4DdEINRElYPF4ANkXxILO8caMPAVCuq75?=
+ =?us-ascii?Q?VsRNVtT9Ukz2KOhp3bBMitlVLUbtoGWOV9m/jGq0NVKcOWvqnDG/MjNvv1QM?=
+ =?us-ascii?Q?aSu12TbDOKR8B76sDNIwmq+SnLQd8uGtMj+H7VhV+S4+5/8KyCj/EL3TDlz/?=
+ =?us-ascii?Q?qFd8pDMT8VOx5GXjAiB8YJlAmk03PNb7Wii98e2xS3FNJ+exjeCFXX0JOLvm?=
+ =?us-ascii?Q?fHf3dawKvlgNcP/lDH4uOFFGxGFTIucB2mOgMIwgYQSES1yZiGgWi1aOa+5N?=
+ =?us-ascii?Q?0tAxHRs3GY8uZC1x1X64uYFPCZ09Jj6xw1d8iqgpgPo92lDzbEY0GcXx/5Ai?=
+ =?us-ascii?Q?DMBZJXXMYd2kyxU06TFIUXknKf0iSf4N9iym8Es2IiOmDrvzmENPp/aGxfyU?=
+ =?us-ascii?Q?TCskWse7JLzOSXtUuMH9USZgejrVeyW5oWBv4n4r1ivdFWpx60aEMh2CP0Ah?=
+ =?us-ascii?Q?QO+InsQYXMMi5kBJ0qX7205XddapoGcp1CiKU0Jm5rR1BebaEL5iY+QwxAnf?=
+ =?us-ascii?Q?oEsOC81XFR5VaDOxjoXQoMEoXcpQn0KeWis+gQdxy8Ae0OIZaTsVNUj4v7Pi?=
+ =?us-ascii?Q?oqzdLYVhAImN1i0bxacdJXmcBYDdyXTXyzG/k1rsL2F+V15C5bUmkIpd6kab?=
+ =?us-ascii?Q?Pt/kbq2+Oqq3IP+A5C73cpIvSQJ5W7ekmiJ2HuEpQiDMOhnMpQsHd91rhAfO?=
+ =?us-ascii?Q?6C1yClyT?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?aLoVXK5Sc8zLZAiTI7V0tbCgtcJEgecsfZOpJCGxK7ke/yNfj5bfQmaZNpX2?=
+ =?us-ascii?Q?7Af0ZAvzvvSlEekjWJm7HF4+/nH3Zsgjsq2mAV2Xzo8mpSkoGUJKdVmf5cgd?=
+ =?us-ascii?Q?qzu0GzWDUoFZ63WYeDdvIfXOREaHeLtStjq96Z26ybMWtoo5CZhql8nJt107?=
+ =?us-ascii?Q?4Wpge0VnBO78ltIdNSWuJsDn3uoFTcjhFvB/a05BuqaKsOyzMDXY4ipU1taO?=
+ =?us-ascii?Q?XCRzyq3DL59HotWtEHYHSqZW4NnQJgB9iD3E3RU3hxTN71byM0KSVEylz+bZ?=
+ =?us-ascii?Q?J1W693OfnKTcwPqvrEQnMky0L3+gsItTsFLpTGrG5h+4LpF7UHUmmOi+4D0V?=
+ =?us-ascii?Q?PNIjaVusN4kX+p1DPUEaPaXlk+L9utNOnZdskP+UwZtQfLnQV6lUJakmTHfa?=
+ =?us-ascii?Q?s6epq4MGrCWAivpqNISSU1PAmGmBRwf3VniivKsxX+yoc82FmfDaGusOZ2m3?=
+ =?us-ascii?Q?ZEDvChTN+lz9jVRv4Q75TDacCmKwmwn7MIODRe9O3LRCtHU328T4VwqEWPcb?=
+ =?us-ascii?Q?JJYwyqslzNDb8A/PckcWe8KqzAWA2mMHn3wmFguGWPhxuwD+XZV4yAHmSGdZ?=
+ =?us-ascii?Q?CLxFPnUAujKzNRMf4kedEnIvS5z6ed8bqdaxZ3LmMrboaVthcugsuK4bC2Ck?=
+ =?us-ascii?Q?NLTljqxF8npBMKmQTyfhtR3jDcbtKj2Z8wxR42xkIyhIucCp2l2cDR/lOdrf?=
+ =?us-ascii?Q?cKWqTCmj19i6AJWJifr39SHUHkMRvcSdB/z7MBlyr/sG36Izce/9MTRTCN8x?=
+ =?us-ascii?Q?y1PU/WxuCXebgI2AvgmVt4d6IaE/aM7Y/7ZW6ek2tuQsodQuaMz3yJPVuvpQ?=
+ =?us-ascii?Q?X1Vvx+lQKgCW8nwxCk03AGLie0wtjMxNo+nz8qCqdULrcvR7SYbXdE+51aa3?=
+ =?us-ascii?Q?TEyvp3lzfyu6K6uX6i6n0eKSb+O8MOXNoHKQHAc/4jGs0pKNxTL/6GjN2vmL?=
+ =?us-ascii?Q?mnXits4+88g5mwFkTenPaeFpftKbnOX1xhpJ01PMRLmk/2rN3IQn2m/ISi8+?=
+ =?us-ascii?Q?mE15xPLv1GEqFwFNXaLrXp29BpZN4cfAtkipPTTxKyrsN2+s/n9VGFfL0FTX?=
+ =?us-ascii?Q?ZxNdHSWPZO/hM4laxKEpQy2wI37lVuag6JhGoWJt7J/z1W8STpL8Em+iuLRJ?=
+ =?us-ascii?Q?4lY+BTwj+9buFrEvord8MVgTwqDUhQEoOE2/+00tZR865t/h6aio54bs9Lyx?=
+ =?us-ascii?Q?gldDSDMtGFbRCCrnWj4BG5jHCjkU3IkWx3fUascw9Iuh/36kzwrenr/jpMm0?=
+ =?us-ascii?Q?JGGr0vTrI9WSzuAHBhY6WFCXiffl68sAo60+Yf74C4HCzMXmfoAp7DpHrAM7?=
+ =?us-ascii?Q?kU1ohpilmQXe67aRxsBRYXRT01NFSfySLUbV/MCQcmZH8OfBJLBH+6AyT/V1?=
+ =?us-ascii?Q?0NfMuZM=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Cache-aware scheduling does not work well with amd big/little
- cores
-To: Tim Chen <tim.c.chen@linux.intel.com>, "Chen, Yu C"
- <yu.c.chen@intel.com>, Mario Limonciello <mario.limonciello@amd.com>
-Cc: "Badole, Vishal" <Vishal.Badole@amd.com>,
- Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
- "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
- platform-driver-x86@vger.kernel.org, K Prateek Nayak
- <KPrateek.Nayak@amd.com>, ricardo.neri@intel.com
-References: <2180ea5a-eb28-4152-8d4d-cd00b0c24b2e@computerix.info>
- <8064e1d8-b51c-48e5-a312-8c31581991f5@amd.com>
- <b475039b-defe-46e7-ab85-46e3196da667@intel.com>
- <369d0bbb-db7a-4f86-bee2-332d5295c452@computerix.info>
- <406a5c407bbe60cafc24f715e089f5552a0791f9.camel@linux.intel.com>
-Content-Language: en-US
-From: Klaus Kusche <klaus.kusche@computerix.info>
-In-Reply-To: <406a5c407bbe60cafc24f715e089f5552a0791f9.camel@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28114/Sat Sep  5 08:23:38 2026)
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b6f5b52-cde7-4eae-6dd5-08df0b64bdd8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Sep 2026 15:45:41.9287
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR02MB11263
 
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com> Sent: Saturday, September=
+ 5, 2026 1:42 AM
+>=20
+> swiotlb_bounce() reads the page frame number from the slot's recorded
+> orig_addr, then advances orig_addr by tlb_offset to reach the address
+> the caller asked about. The highmem branch mixes the two: the offset
+> within the page comes from the adjusted address, the page from the value
+> before it.
+>=20
+> Once the adjustment crosses a page boundary the pair no longer describes
+> one location, and the whole copy lands one page below the intended one
+> for a positive tlb_offset, one above for a negative one. DMA_FROM_DEVICE
+> writes the device data over the wrong page and leaves the intended one
+> stale, DMA_TO_DEVICE feeds the device from a page the mapping may not
+> cover. Partial syncs through dma_sync_single_range_for_*() are what make
+> tlb_offset non-zero.
 
-Hello,
+Yes -- this all makes sense. Current code is clearly using the wrong starti=
+ng
+pfn in the highmem branch, and your fix looks good.
 
-On 31/08/2026 19:29, Tim Chen wrote:
-> On Mon, 2026-08-31 at 13:24 +0200, Klaus Kusche wrote:
->> Hello,
->>
->> both patches in combination seem to have the desired effect.
->>
->> But I just look at a bar graph showing the current load
->> of each core. 
->> The graph suggests that long-running CPU-intensive processes 
->> migrate to fast cores when fast cores become available.
->> And I have the impression that LTO compilations
->> finish significantly faster now.
->>
->> I don't have exact numbers or benchmarks.
-> 
-> Thanks for testing the fix.
-> 
-> If you just apply https://lore.kernel.org/lkml/20260825174112.2580942-1-tim.c.chen@linux.intel.com/,
-> with default aggr_tolerance, what numbers do you see?
-> 
-> That will be helpful for further tuning.  Thanks.
-> 
-> Tim 
+>=20
+> The branch test is picked the same way, so a slot recorded in lowmem can
+> be adjusted into highmem and the lowmem path then hands a highmem
+> address to phys_to_virt().
 
-I did some quick testing (no perfect benchmark environment,
-just checking runtime and CPU consumption with "time").
+I don't understand this paragraph, but that may be because I'm not that
+familiar with highmem. Are all the slots making up a particular swiotlb
+mapping either highmem or lowmem? If a mixture is possible, then a
+partial sync could start somewhere in a lowmem page and cross over
+into a highmem page, which would break.
 
-I timed a kernel build (-j 24 and full lto, my own .config)
-and an application build (also with a lot of parallelism)
-with three different kernels:
+Michael
 
-a) Cache aware scheduling completely configured off
+>=20
+> Take both from orig_addr once it is final and keep pfn in the branch
+> that uses it. PhysHighMem() asks the question straight from the address,
+> as dma-debug already does.
+>=20
+> Fixes: 5f89468e2f06 ("swiotlb: manipulate orig_addr when tlb_addr has off=
+set")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+> ---
+> Reproduced under QEMU (qemu-system-arm -M virt, 2G) with a 32-bit ARM
+> kernel built from multi_v7_defconfig plus CONFIG_ARM_LPAE=3Dy and
+> CONFIG_HIGHMEM=3Dy, which brings in CONFIG_SWIOTLB, booted with
+> swiotlb=3Dforce. A test module maps two highmem pages at page offset 3840=
+,
+> writes a pattern into the bounce buffer 500 bytes in and calls
+> dma_sync_single_range_for_cpu() over that range, so that 3840 + 500
+> crosses into the second page:
+>=20
+>   before: swbug: pages pfn=3D700d4 highmem=3D1
+>           swbug: orig phys=3D700d4f00 (page off 3840)
+>           swbug: RESULT page0_off=3D244 page1_off=3D-1
+>   after:  swbug: RESULT page0_off=3D-1 page1_off=3D244
+>=20
+> The pattern lands one page below its intended location without the
+> change and in the right place with it.
+>=20
+>  kernel/dma/swiotlb.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+> index ded7016a46a7..aa2f1c4588b9 100644
+> --- a/kernel/dma/swiotlb.c
+> +++ b/kernel/dma/swiotlb.c
+> @@ -1019,7 +1019,6 @@ static void swiotlb_bounce(struct device *dev, phys=
+_addr_t tlb_addr, size_t size
+>  	int index =3D (tlb_addr - mem->start) >> IO_TLB_SHIFT;
+>  	phys_addr_t orig_addr =3D mem->slots[index].orig_addr;
+>  	size_t alloc_size =3D mem->slots[index].alloc_size;
+> -	unsigned long pfn =3D PFN_DOWN(orig_addr);
+>  	unsigned char *vaddr =3D mem->vaddr + tlb_addr - mem->start;
+>  	int tlb_offset;
+>=20
+> @@ -1052,7 +1051,8 @@ static void swiotlb_bounce(struct device *dev, phys=
+_addr_t tlb_addr, size_t size
+>  		size =3D alloc_size;
+>  	}
+>=20
+> -	if (PageHighMem(pfn_to_page(pfn))) {
+> +	if (PhysHighMem(orig_addr)) {
+> +		unsigned long pfn =3D PFN_DOWN(orig_addr);
+>  		unsigned int offset =3D orig_addr & ~PAGE_MASK;
+>  		struct page *page;
+>  		unsigned int sz =3D 0;
+> --
+> 2.53.0
+>=20
 
-b) Cache aware scheduling turned on, but without patch
-
-c) Cache aware scheduling turned on, with patch
-
-Big/little scheduling was always on, 
-Mario's patch was always applied
-(without it, results are significantly worse,
-because I use kernels without debugfs,
-so big/little scheduling is off without the patch).
-
-Results:
-
-There is no significant difference between b) and c) 
-(<= 1 % wallclock time)
-Sometimes b) is better, sometimes c) is better,
-I'd say the differences are below the accuracy of my tests.
-
-But a) was reproducibly better than b) and c)
-w.r.t. wallclock time: 2-2.6 %
-It was also very slightly better w.r.t. total kernel CPU seconds.
-The results w.r.t. total usermode CPU seconds varied too much.
-(I always ran the application build twice,
-and for all a), b) and c), the second run consumed
-significantly more usermode CPU seconds,
-but took a little less wallclock time - I don't know why).
-
-So in short, at least for the two build benchmarks I made,
-and with respect to the wallclock time they took, AMD Ryzen HX 370 
-does slightly better completely *without* cache aware scheduling,
-but cache aware scheduling looses less than 3 %,
-both with and without the patch.
-
-The big difference I observed when 7.2 came out 
-was perhaps due to the fact
-that the older version of Mario's patch I had
-did not apply correctly or did not work as expected with 7.2.
-
-Greetings
-
--- 
-Prof. Dr. Klaus Kusche
-Privat: Söllmnitz 32 d, D-07554 Gera/Söllmnitz
-036695/859909 klaus.kusche@computerix.info https://www.computerix.info
-Dienstlich: DHGE Gera, Weg der Freundschaft 4, D-07546 Gera
-klaus.kusche@dhge.de https://www.dhge.de
