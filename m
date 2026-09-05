@@ -1,114 +1,64 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDCE73B994A;
-	Sat,  5 Sep 2026 19:02:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84E7F503BE1;
+	Sat,  5 Sep 2026 19:04:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788634943; cv=none; b=seROcBMFkBdMIYOsbxmt0AqL83NSHI+zmDznt/Hh+qTMmk1HiAFUDtt3znLhj3o07x++AlyoB8xc1CoOF833FqA6q+zXbx5vYhvwBX5D2+a6vusgtCAePJdMDkB0nA9dw7r+0ix8h9rjhjZGO8dQjfVxaBkrBsfnVRAh8g76bQU=
+	t=1788635061; cv=none; b=KYQgB48/abORWAt0wn1Ld4krv0LXVTHkDseHKFqyWEa6Ij41q3FGl5zA/hR5miT5a4QYNIqGJlvfe1dxNyg8gkF6V+JlpD/0MW/CXaJLKh/+p67S1cSJF7iSqcxx0nBN8TS2U/Luu3Gt1ov5WaDJlR4jooJcLe/KRg6fsZyzo+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788634943; c=relaxed/simple;
-	bh=0Vt1CxIWa3xf7zF0GUYRtISlccsSkXlDxhyroxC/qZQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QpwGdP6D3NshLx3LfVjaDNXRUMFdFgioaG40Jj78q89MdsGXFt6S3u2gPmqy7N+mcjyv3T+rL/mA47D8XZRg/jULjQLduQsukfPAZNguqKTOzPumuCUHHRSKPyeC9Ce9Nmjv0o+e/MWxN6mgAaPkxEByEBhF4lRIB2EvXr0aryU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GP+AT1oq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788635061; c=relaxed/simple;
+	bh=3PKqR68qlAXpWYCDCsb2pa60Dq73qV795ShAArVg4og=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=ta5sJn6hXs6L37qEcAkaEsg1K2E6ySNfpbYqyeYmhiO8lP1IuPpvxueQEBZ+Rmwod3t4MlVEoGZe1b6wa75UO+KIF2zkWY7BARRSbzN1+0kWNyjPaC8iE2P0TzikgpmJCxJiKc/G2CmrOeD7seG2II576N7TWphQoQB1VzWzyXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VzwSflsn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GP+AT1oq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6D2C1F00A3A;
-	Sat,  5 Sep 2026 19:02:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VzwSflsn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D02F1F00A3A;
+	Sat,  5 Sep 2026 19:04:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788634941;
-	bh=3IFWBkpwt0DglCJ3/MwQDW/O3Cn5kGPmagAF2kfRUj4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GP+AT1oq7qVonqXJI/yx6FqzXulAvrqUmCCAoz/El9ASH3nQxk8XfFbcSo9fB8maz
-	 p42HmiM6Mx8ZWHOoIKyeutET2LBSoMoQRoWL1oEkTktiwAQRWrE3LqKmFY0eCrSPR9
-	 eUNtAkeGmEFMSHkwR3dcetmyO1Ropwwxzkt4wOIrluc4RR6gTwzEfFIVGU/4xaNKqg
-	 wI0MzUTFxwuKiymuLdpkddcw0OkSPdCw1hVqGXyYwR2//KOc8Tel/E1/UY7tYEZvFa
-	 grAjPRDkQYa+ikmm4Gx3/eF0MNgEJDpaB3Qc/fdQGmbHAp6efSzQm5L3qix1cdlUSE
-	 c34XjApZFbg9w==
-Date: Sat, 5 Sep 2026 20:02:17 +0100
-From: Simon Horman <horms@kernel.org>
-To: zihan xi <zihanx@nebusec.ai>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, xemul@parallels.com,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	vega@nebusec.ai
-Subject: Re: [PATCH net 1/1] udp: diag: bound bucket lock hold time
-Message-ID: <20260905190217.GE40544@horms.kernel.org>
-References: <133b6aee9e2c908c9da37d5585b3d2cd016906cd.1788187473.git.zihanx@nebusec.ai>
- <20260905151227.75099-1-horms@kernel.org>
- <CAANe3eRpVGnYpygfiQTsXd2VmBO43P-P1RfREkdDypgXBZB9Uw@mail.gmail.com>
+	s=k20260515; t=1788635060;
+	bh=aYEsHFPzEvoogHPMqIdbp+QL0E+vLvhu1+JQ8QWRANo=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=VzwSflsnA09RUQgNsbDv3oaFOp8ICtx4u9W/A/ud+tknKqVIk95I3NSh6Vl/yWeK1
+	 6lWOYPFc+yBUIjg/JToTfMdHVfFvhyM2RzYX9mG6f6SO+flh3kBDXFqM9ST7Eqc7GV
+	 iOPMsUQ3/Hpj10w0HA5S2cqrCGSaa91Me/DiEuBGstBK3GvZ3gzFqY0dLiuNo876iW
+	 uqtoN4fcDUZCeoHMsyhl+05T828Bs/reYCSqiREziyBUzZ226zG7rTQhRayldomrYX
+	 49UQUV+DuE6F0OX2ZuBnRCR/6ajndDfzhcNsxVhwm0LmQCIUYWjIbTJ87mdg81ci7I
+	 u4MZ84RUroKSA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0FA13924FED;
+	Sat,  5 Sep 2026 19:03:21 +0000 (UTC)
+Subject: Re: [GIT PULL] Driver core fixes for 7.3-rc2
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <DL7M1DO08S9L.H03E514TN2H2@kernel.org>
+References: <DL7M1DO08S9L.H03E514TN2H2@kernel.org>
+X-PR-Tracked-List-Id: <rust-for-linux.vger.kernel.org>
+X-PR-Tracked-Message-Id: <DL7M1DO08S9L.H03E514TN2H2@kernel.org>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git tags/driver-core-7.3-rc2
+X-PR-Tracked-Commit-Id: f6d752278c13839888425294c110174fb6c87e3d
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 9f0346dcbea363787186c94ef94dd01aaa215afa
+Message-Id: <178863500032.1324450.8181158385380881123.pr-tracker-bot@kernel.org>
+Date: Sat, 05 Sep 2026 19:03:20 +0000
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Saravana Kannan <saravanak@kernel.org>, Andrew
+ Morton <akpm@linux-foundation.org>, Tejun Heo <tj@kernel.org>, driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAANe3eRpVGnYpygfiQTsXd2VmBO43P-P1RfREkdDypgXBZB9Uw@mail.gmail.com>
 
-On Sat, Sep 05, 2026 at 11:49:05PM +0800, zihan xi wrote:
-> On Sat, Sep 5, 2026 at 11:12 PM Simon Horman <horms@kernel.org> wrote:
-> >
-> > This is an AI-generated review of your patch. The human sending this
-> > email has considered the AI review valid, or at least plausible.
-> > Full review at: https://sashiko.dev/#/patchset/133b6aee9e2c908c9da37d5585b3d2cd016906cd.1788187473.git.zihanx@nebusec.ai?part=1
-> > ---
-> > udp: diag: bound bucket lock hold time
-> >
-> > This patch limits the time the UDP hash bucket spinlock is held during
-> > netlink socket dumps by collecting a bounded batch of matching sockets.
-> > It takes a reference to each socket, releases the lock, processes the
-> > batch, and resumes from a preserved cursor.
-> >
-> > > diff --git a/net/ipv4/udp_diag.c b/net/ipv4/udp_diag.c
-> > > index f4b24e628cf8d..18cfe0df654dd 100644
-> > > --- a/net/ipv4/udp_diag.c
-> > > +++ b/net/ipv4/udp_diag.c
-> > [ ... ]
-> > > +static void udp_diag_dump_done(struct netlink_callback *cb)
-> > > +{
-> > > +     struct inet_diag_dump_data *cb_data = cb->data;
-> > > +     struct sock *sk = (struct sock *)cb->args[2];
-> > > +
-> > > +     if (sk) {
-> > > +             cb->args[2] = 0;
-> > > +             sock_put(sk);
-> > > +     }
-> > > +     cb_data->dump_done = NULL;
-> > > +     module_put(THIS_MODULE);
-> > > +}
-> >
-> > [Severity: High]
-> > Does this module_put() introduce a race condition with module unloading?
-> >
-> > When an active netlink dump for UDP sockets finishes, inet_diag_dump_done()
-> > invokes udp_diag_dump_done(). This function drops its module reference using
-> > module_put(THIS_MODULE) as its final step.
-> >
-> > If this was the last reference, a concurrent rmmod udp_diag operation can
-> > proceed and unmap the module's text segment before the thread executing
-> > udp_diag_dump_done() executes its return instruction to return to inet_diag.
-> >
-> > Could this result in a kernel panic due to the CPU attempting to execute
-> > unmapped memory?
-> 
-> Yes.  If that module_put() drops the last reference, rmmod can unmap
-> udp_diag while dump_done() is still returning to inet_diag.
-> 
-> I will keep the extra module_get() in udp_diag_dump(), and move the
-> matching module_put() into inet_diag_dump_done() so it runs after the
-> callback has returned.
+The pull request you sent on Sat, 05 Sep 2026 20:56:09 +0200:
 
-I think that the fundamental problem here is that managing module lifecycle
-from within the module itself tends to be unsafe. I'm not sure your
-proposal addresses that problem.
+> git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git tags/driver-core-7.3-rc2
 
-I think one possible solution is to move the module_put into delayed work.
-And another, is to move module lifecycle handling into the core.
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/9f0346dcbea363787186c94ef94dd01aaa215afa
 
-Possibly the first option is cleaner as I think that only udp_diag
-has the need for this.
+Thank you!
 
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
