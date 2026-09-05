@@ -1,88 +1,129 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from gate2.alliedtelesis.co.nz (gate2.alliedtelesis.co.nz [202.36.163.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAA802D73A0
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 05:09:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F613403F2
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 05:09:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.36.163.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788584943; cv=none; b=L/q3q7Z2/zWfqmV2eLcc9T2iC6UNnpamr3bmGtrHc8UnvCW74tNvqpqLUlpmkBBEl7UjjGY2codpEQwgaebwdar+l7DrQr2LbZrqLzywYJhYUI2DpPyriQYYbJ4U4I2OrsjV1HR1TB9ZqFxkobBiP+Ti9UoYqmZWFKn7cvr3+iw=
+	t=1788584951; cv=none; b=UNe1+quBod+9wDxebYMj8HUkIeCBkU/5bzKcyUlqBudcBnvYrzSfPMiXXbpFuHVgXv1Cb0944ggJaNNvE/hctHzjt5IokOX3VyKrBGyuMTZyNkFWQKuYUSt1zlc1KRi2gvmA18HagT+6dky+eKx8ZoK3I4ks4lwntdIFJUGEUPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788584943; c=relaxed/simple;
-	bh=R/WlR+5WhojrQIVjjVAqZ7/vKIW6bTsqhfcxstYRIf4=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=Sj5nBfNA6hpVcx+OCsb1fjRTjoNTXovAAUvNDODoSoAxbAWiDVqxWIdh09qD5m+geZeUNKgKXD/2iyrtw8pDQKjKdTk4YqAACWY6wHd4gcopWOlM/264SXgD7i+ECdnWTyGsC+OuquER5JOuh2896nTs2CbNJr8ZwTplomzzBZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NaVhQRF3; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788584951; c=relaxed/simple;
+	bh=6rWlbDJFag2xG3H5cPnaDgqlUQ6IGyzfSlpMt65jL4w=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=B3hgRADypfXpoBmDWeXBVGlrn0gciZVxyBKPLOhBiAAmXgcFSXhDmBIkF+8E0NLChLMZzRrrwPuZ6BC0EZTf2GYPrmVaaneisDIWeSs5A+TRhSLzQmngg/X8z8UZT+S4AfMrTGjDmBCq59FWtVkztOiucbCk6Wxe/fWRZW+X2vo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz; spf=pass smtp.mailfrom=alliedtelesis.co.nz; dkim=pass (2048-bit key) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.b=W7FnTplK; arc=none smtp.client-ip=202.36.163.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alliedtelesis.co.nz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NaVhQRF3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788584942; x=1820120942;
-  h=date:from:to:cc:subject:message-id;
-  bh=R/WlR+5WhojrQIVjjVAqZ7/vKIW6bTsqhfcxstYRIf4=;
-  b=NaVhQRF3ySiEPekxwHYKOS05MRqMC3Wy391ru87pZjihc2ngkXWzb7jr
-   h59SxmicD4zXLjd8+KKaAakbWvX3/vY6N2XWglYUStrJrdvGc4hN/IzGn
-   K4GYLVvLdmOr5cAFA5tCF8wbCmSRMVjXooN2kShTE8lsegbUkNs2kvch7
-   X7SVJtvVGhksbUrX0rboN782SCvOSpfYYwa8OTwS3BlZZyfodY/9Ycwfu
-   uaQ/SwibDXUvyvgDsDStLj+DORgzJhF0R+wBaGiEWFq/PTj8shqTtfFwq
-   vS2exvbLHclwBRIWvMKDZy+0u5dHYnnIah5NMMp5wOnFVApTc08MBlcn4
-   A==;
-X-CSE-ConnectionGUID: TTQVyvkfQRiSN6mtB35JNQ==
-X-CSE-MsgGUID: xXFFrYuIRme2Nd5v3RxWtw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11896"; a="89008085"
-X-IronPort-AV: E=Sophos;i="6.25,263,1779174000"; 
-   d="scan'208";a="89008085"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 22:09:02 -0700
-X-CSE-ConnectionGUID: sQo1poxsQwS9tV96SjkIZA==
-X-CSE-MsgGUID: GZ0jPC60SHWPc1EaqDUY3Q==
-X-ExtLoop1: 1
-Received: from lkp-server01.sh.intel.com (HELO 73f3364bc37e) ([10.239.97.150])
-  by fmviesa003.fm.intel.com with ESMTP; 04 Sep 2026 22:08:59 -0700
-Received: from kbuild by 73f3364bc37e with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x2ie8-0000000003d-3Cea;
-	Sat, 05 Sep 2026 05:08:56 +0000
-Date: Sat, 05 Sep 2026 13:08:28 +0800
-From: kernel test robot <lkp@intel.com>
-To: Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Sudeep Holla <sudeep.holla@arm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Alexey Klimov <alexey.klimov@linaro.org>
-Subject: {standard input}:2362: Error: Insn bl has an instruction
- mpyuw with limm in its delay slot.
-Message-ID: <202609051329.lSNL4i6x-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.b="W7FnTplK"
+Received: from svr-chch-seg1.atlnz.lc (mmarshal3.atlnz.lc [10.32.18.43])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by gate2.alliedtelesis.co.nz (Postfix) with ESMTPS id 91DDB2C0362;
+	Sat,  5 Sep 2026 17:09:00 +1200 (NZST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alliedtelesis.co.nz;
+	s=mail181024; t=1788584940;
+	bh=6rWlbDJFag2xG3H5cPnaDgqlUQ6IGyzfSlpMt65jL4w=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:Reply-To:From;
+	b=W7FnTplKxwQjt/tjjT1quH7aknJVwLZLVJjJJU3NfqvusVavts5nTICH0802DIZWf
+	 ylOMU75XDZ5NCkKVIXtPkto+OcroVa9JFnkDPPjaMinYPn13158VoyXIybXEPXNgs6
+	 L5bF9ejqNG/TrzcRpL4b3g4t7mHSuovDk1Mg8gRBDW+Qcz+lWonT72S13pnhAzI6gC
+	 I8WIPjOKyUor4/K5w5QRhkDM40oZKjjvlZsgXchguwTH9k0qM1M8RI1xx6B6SeAu3Y
+	 rriXoyiELb41G4b31HDPoz/vD0v+Vqq1EzZXiVE0emSDlI/J7k/5jDgkF17xqvXsQw
+	 QzMraJyeH54JA==
+Received: from svr-chch-ex2.atlnz.lc (Not Verified[2001:df5:b000:bc8::76]) by svr-chch-seg1.atlnz.lc with Trustwave SEG (v8,2,6,11305)
+	id <B6a9ba3ec0001>; Sat, 05 Sep 2026 17:09:00 +1200
+Received: from svr-chch-ex2.atlnz.lc (2001:df5:b000:bc8:f753:6de:11c0:a008) by
+ svr-chch-ex2.atlnz.lc (2001:df5:b000:bc8:f753:6de:11c0:a008) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.39; Sat, 5 Sep 2026 17:09:00 +1200
+Received: from svr-chch-ex2.atlnz.lc ([fe80::a9eb:c9b7:8b52:9567]) by
+ svr-chch-ex2.atlnz.lc ([fe80::a9eb:c9b7:8b52:9567%15]) with mapi id
+ 15.02.1748.039; Sat, 5 Sep 2026 17:09:00 +1200
+From: Aryan Srivastava <Aryan.Srivastava@alliedtelesis.co.nz>
+To: Guenter Roeck <linux@roeck-us.net>
+CC: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v0 1/2] hwmon: pmbus: Fix vout_mode parsing
+Thread-Topic: [PATCH v0 1/2] hwmon: pmbus: Fix vout_mode parsing
+Thread-Index: AQHdPAfdXeryQ3ldDEu0QhDXxTqLO7a9vCGAgADr9oA=
+Date: Sat, 5 Sep 2026 05:09:00 +0000
+Message-ID: <201ff34f-98b0-4f8a-a15b-0e6d82d1f19e@alliedtelesis.co.nz>
+References: <20260904005351.2136374-1-aryan.srivastava@alliedtelesis.co.nz>
+ <20260904005351.2136374-2-aryan.srivastava@alliedtelesis.co.nz>
+ <f52af5ef-2cf3-480e-9e71-735b7514b9c9@roeck-us.net>
+In-Reply-To: <f52af5ef-2cf3-480e-9e71-735b7514b9c9@roeck-us.net>
+Reply-To: "f52af5ef-2cf3-480e-9e71-735b7514b9c9@roeck-us.net"
+	<f52af5ef-2cf3-480e-9e71-735b7514b9c9@roeck-us.net>
+Accept-Language: en-US, en-NZ
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <AD3642C51399C74FBC1D74C3A4F79FC6@alliedtelesis.co.nz>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-SEG-SpamProfiler-Analysis: v=2.4 cv=CKmJXgrD c=1 sm=1 tr=0 ts=6a9ba3ec a=Xf/6aR1Nyvzi7BryhOrcLQ==:117 a=xqWC_Br6kY4A:10 a=oKJsc7D3gJEA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=62ntRvTiAAAA:8 a=VwQbUJbxAAAA:8 a=pjqE3aksAAAA:8 a=vy6WobZbp4477RDcuxoA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=pToNdpNmrtiFLRE6bQ9Z:22 a=JJ78nBxWC37LRl2_MMt9:22
+X-SEG-SpamProfiler-Score: 0
 
-Hi Vivek,
-
-FYI, the error/warning still remains.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   4d7d9486c04d917265f64c55bd23b2cc4fe7749c
-commit: 6c2fd7a71e7ab490a0a9d591486d923712012f59 firmware: arm_scmi: Increase performance MAX_OPPS limit to 64
-date:   9 months ago
-config: arc-allyesconfig (https://download.01.org/0day-ci/archive/20260905/202609051329.lSNL4i6x-lkp@intel.com/config)
-compiler: arc-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260905/202609051329.lSNL4i6x-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 6c2fd7a71e7a ("firmware: arm_scmi: Increase performance MAX_OPPS limit to 64")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609051329.lSNL4i6x-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   Assembler messages:
->> {standard input}:2362: Error: Insn bl has an instruction mpyuw with limm in its delay slot.
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+T24gMDUvMDkvMjAyNiAzOjA0IEFNLCBHdWVudGVyIFJvZWNrIHdyb3RlOg0KPiBPbiA5LzMvMjYg
+MTc6NTMsIEFyeWFuIFNyaXZhc3RhdmEgd3JvdGU6DQo+PiBDdXJyZW50bHkgdGhpcyBwYXJzaW5n
+IGFzc3VtZXMgdGhlIHRvcC1tb3N0IGJpdCBvZiB0aGUgcmVnaXN0ZXIgaXMNCj4+IHVuc2V0LCBh
+bGxvd2luZyBpdCB0byBtYXRjaCBhZ2FpbnN0IGFsbCAyYml0IG51bWJlcnMuIEluIHRoZSBjYXNl
+IHdoZXJlDQo+PiB0aGUgdG9wIGJpdCBpcyBzZXQsIHRoZSBwYXJzaW5nIGZhaWxzIGFzIHRoZSBl
+eHRyYWN0ZWQgdmFsdWUgaXMgYWx3YXlzIGENCj4+IDMgYml0IG51bWJlci4NCj4+DQo+PiBBTkQg
+dGhlIHJlYWQgdmFsdWUgYWZ0ZXIgdGhlIGJpdCBzaGlmdCB0byBlbnN1cmUgb25seSAyIGJpdHMg
+YXJlIGJlaW5nDQo+PiBwYXJzZWQgb3V0Lg0KPj4NCj4gDQo+IFRoaXMgaXNuJ3QgdGhhdCBlYXN5
+LiBCaXQgNyBpcyBmb3IgInJlbGF0aXZlIG1vZGUiIHN0YXJ0aW5nIHdpdGgNCj4gUE1CdXMgdjEu
+My4gUmVsYXRpdmUgbW9kZSBpcyBub3QgY3VycmVudGx5IHN1cHBvcnRlZCBieSB0aGUgZHJpdmVy
+LA0KPiBhbmQgaWdub3JpbmcgdGhlIGJpdCBjb3VsZCBwb3RlbnRpYWxseSBiZSBmYXRhbC4NCj4g
+DQo+IEEgcGF0Y2ggYWRkaW5nIHN1cHBvcnQgZm9yIGl0IHdhcyBzdWJtaXR0ZWQgYSB3aGlsZSBh
+Z28uDQo+IGh0dHBzOi8vc2Nhbm1haWwudHJ1c3R3YXZlLmNvbS8/Yz0yMDk4OCZkPWg5NmE2dGI3
+R3RNMmFGYThSOXRBZnZGM2l0Rk1ZSFF6Y0tMQjhaSzRrQSZ1PWh0dHBzJTNhJTJmJTJmcGF0Y2h3
+b3JrJTJla2VybmVsJTJlb3JnJTJmcHJvamVjdCUyZmxpbnV4LWh3bW9uJTJmcGF0Y2glMmYyMDI0
+MDMxNTE1MTg1NSUyZTM3NzYyNy0yLWxhcnMlMmVwZXR0ZXIlMmVtb3N0YWQlNDBhcHBlYXIlMmVu
+ZXQlMmYNCj4gVW5mb3J0dW5hdGVseSBJIG5ldmVyIGdvdCB0byB0ZXN0IGl0LiBUaGlzIG9yIHNv
+bWV0aGluZyBzaW1pbGFyIHdpbGwNCj4gYmUgbmVlZGVkLiBBZ2Fpbiwgd2UgY2FuIG5vdCBqdXN0
+IGlnbm9yZSB0aGUgInJlbGF0aXZlIG1vZGUiIGJpdC4NCj4gDQo+IFRoYW5rcywNCj4gR3VlbnRl
+cg0KDQpIaSBHdWVudGVyLA0KDQpUaGFuayB5b3UgZm9yIHlvdXIgcmVwbHkuIEkgYWdyZWUgc2lt
+cGx5IGlnbm9yaW5nIHRoZSB0b3AgYml0IGlzIG5vdCBhbiBvcHRpb24uDQpNeSBpbml0aWFsIHBh
+dGNoIHdhcyBzaG9ydC1zaWdodGVkLg0KDQpJIHdpbGwgdGVzdCB0aGUgYWJvdmUgcGF0Y2ggb24g
+bXkgSFcuIEkgYWxzbyBsb29rZWQgaW50byB0aGUgZHJpdmVyIGZvciB0aGUgDQp0cHM1NDZkMjQs
+IGJ1dCBvbiB0aGUgdHBzNTQ2ZTI1IChteSBIVykgdGhlIHJlbGF0aXZlIG1vZGUgYml0IGlzIHJl
+YWQgb25seS4NCg0KVGhhbmtzLA0KQXJ5YW4uDQo+PiBTaWduZWQtb2ZmLWJ5OiBBcnlhbiBTcml2
+YXN0YXZhIDxhcnlhbi5zcml2YXN0YXZhQGFsbGllZHRlbGVzaXMuY28ubno+DQo+PiAtLS0NCj4+
+IMKgIGRyaXZlcnMvaHdtb24vcG1idXMvcG1idXMuY8KgwqDCoMKgwqAgfCAyICstDQo+PiDCoCBk
+cml2ZXJzL2h3bW9uL3BtYnVzL3BtYnVzX2NvcmUuYyB8IDIgKy0NCj4+IMKgIDIgZmlsZXMgY2hh
+bmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQ0KPj4NCj4+IGRpZmYgLS1naXQg
+YS9kcml2ZXJzL2h3bW9uL3BtYnVzL3BtYnVzLmMgYi9kcml2ZXJzL2h3bW9uL3BtYnVzL3BtYnVz
+LmMNCj4+IGluZGV4IDdhN2VhYzkwZDYyZS4uYjYyOWFjYmZmYmZiIDEwMDY0NA0KPj4gLS0tIGEv
+ZHJpdmVycy9od21vbi9wbWJ1cy9wbWJ1cy5jDQo+PiArKysgYi9kcml2ZXJzL2h3bW9uL3BtYnVz
+L3BtYnVzLmMNCj4+IEBAIC0xMjEsNyArMTIxLDcgQEAgc3RhdGljIGludCBwbWJ1c19pZGVudGlm
+eShzdHJ1Y3QgaTJjX2NsaWVudCAqY2xpZW50LA0KPj4gwqAgwqDCoMKgwqDCoMKgwqDCoMKgIHZv
+dXRfbW9kZSA9IHBtYnVzX3JlYWRfYnl0ZV9kYXRhKGNsaWVudCwgMCwgUE1CVVNfVk9VVF9NT0RF
+KTsNCj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAodm91dF9tb2RlID49IDAgJiYgdm91dF9tb2Rl
+ICE9IDB4ZmYpIHsNCj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN3aXRjaCAodm91dF9tb2Rl
+ID4+IDUpIHsNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN3aXRjaCAoKHZvdXRfbW9kZSA+
+PiA1KSAmIDB4Mykgew0KPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY2FzZSAwOg0KPj4g
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBicmVhazsNCj4+IMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIGNhc2UgMToNCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2h3bW9uL3Bt
+YnVzL3BtYnVzX2NvcmUuYyBiL2RyaXZlcnMvaHdtb24vcG1idXMvcG1idXNfY29yZS5jDQo+PiBp
+bmRleCA1ZjY5YzE0MjBiNGUuLjU1MzkxZGI1YjQxNCAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMv
+aHdtb24vcG1idXMvcG1idXNfY29yZS5jDQo+PiArKysgYi9kcml2ZXJzL2h3bW9uL3BtYnVzL3Bt
+YnVzX2NvcmUuYw0KPj4gQEAgLTI3NTMsNyArMjc1Myw3IEBAIHN0YXRpYyBpbnQgcG1idXNfaWRl
+bnRpZnlfY29tbW9uKHN0cnVjdCBpMmNfY2xpZW50ICpjbGllbnQsDQo+PiDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCAqIE5vdCBhbGwgY2hpcHMgc3VwcG9ydCB0aGUgVk9VVF9NT0RFIGNvbW1hbmQsDQo+
+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCAqIHNvIGEgZmFpbHVyZSB0byByZWFkIGl0IGlzIG5vdCBh
+biBlcnJvci4NCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgICovDQo+PiAtwqDCoMKgwqDCoMKgwqAg
+c3dpdGNoICh2b3V0X21vZGUgPj4gNSkgew0KPj4gK8KgwqDCoMKgwqDCoMKgIHN3aXRjaCAoKHZv
+dXRfbW9kZSA+PiA1KSAmIDB4Mykgew0KPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGNhc2UgMDrCoMKg
+wqAgLyogbGluZWFyIG1vZGXCoMKgwqDCoMKgICovDQo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCBpZiAoZGF0YS0+aW5mby0+Zm9ybWF0W1BTQ19WT0xUQUdFX09VVF0gIT0gbGluZWFyKQ0K
+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVOT0RFVjsNCj4g
+DQo=
