@@ -1,365 +1,139 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4C492367B5
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 12:45:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788612324; cv=pass; b=XFr+vB2qUMdnvKLOEOO/A8pkOkzUkU8q2N+b3lhAOAE2SJ3WKQS+jf1Qy895DH68pLc4E6fpAsBj8Pppoq/9prAc4yl4z1TDXenanOQ4vXpbeWpgGzDrG0VF7u6XhCZPiRbCVOaGOHtclYZOHXcH7SgRhbOGJih1I94KuF6kZD8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788612324; c=relaxed/simple;
-	bh=fBWEGcX5+6BMMIJlFafz91zXoPt1lhGtk3Zdv3Oy89w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WiB4Fottlw0tJjkP7XI1Gnk2Ak6rWndO2VAvz26o7VZ3AFVcw9F8Wms3ujUUlQpHX5xpn5XQ5UMogk/a44USCI1DOi4YeAwmTNcaxcLyJv3jostyi8nSXhuy+n+hF6fA5V47Wroe7MnR+glFshTGsv/5t/Gxwi2EKwY5s4EK4Z8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ac/h074N; arc=pass smtp.client-ip=209.85.208.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C21148CD5F
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 12:47:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788612435; cv=none; b=V/oENlD9hxiXmnxUV/ML5P3lHTnW+KfbY3SyXSBZx27BZAosO57Rl5X8mMY66AksyAMReV/oOx4iQ58pccBN/ZufKrrdsJ8n3swiIL1aRKXY9llGV9ZVJYKP2VGkMYnq/r3XvnGhgTGtQGVTScKdMkT1TLWUL7PMkYiHaqe6ZQA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788612435; c=relaxed/simple;
+	bh=HyoJEb4h13ThEffr3wFJxPnbY3zePrqVNCcnR3fUkBw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=R3M2hA4qFYfQ/yB7r2DPZBtd5tOo1RNRtwhu3ZythkcMtYWkHGC1w1ceHwGdPnCnLkcF2JGrIDEx06vSm8IYhJ0zCxbGvvYjC7M1qpTwHQJ9i1p68f9vFwl+1MAXT1w9zr7kKLkU8dl+bmlCFcBzLm36sJF9hC5vLdJtkEiaMCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X17bLVH7; arc=none smtp.client-ip=209.85.216.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ac/h074N"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a600a1caf8so3159354a12.2
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 05:45:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788612321; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lfw2Tgxo3CG2m1RQjaB4pQNFRPN+/yMf1u6AaeyxxldUBkk9Eqy8jGrNsvtplPivp+
-         khNsU+K9uAjWmRo0EPIZ2OfEkVknqJytQyNLCty2Nrgs30xfES3V64zsm6RTXotZjkgl
-         xVy7+jw4EG18ydsanve3Zl3zWhYJEBdX7P7+Vc9KZjhAqAFRXwOFXJZA/M/zamm8j5AZ
-         PywSatsYPRixkgtI1Y8ptVzrzoYLVr3w7cCsnINIEzEXFUFRwtbKCvZPLGF5pZJKlZ7O
-         0srpQA8zL0kztlZGe2TqnZhcrMM6D/+GUPFAfgFrKbrrSkAUspujBfgX1LuVkx2HMDCy
-         IcEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tGM/0WGqNNlVNkDUUKOgVaHbElh413E3DzLNpPh8458=;
-        fh=ZideoO7MFREM10Nj6iEWfBN60hc8SmJIn+em+Hj2Zsc=;
-        b=G9eQwLRon5AXF0Q1g1hJ7bcWFqP5vEbBk1nFsMO3V5eoCk7xPLzX29FeOBP4g5TMw8
-         H1DwOiiIK86RqCM2I1v9wI0ALf0MVMkN8zNtFviQylNoV78iswfyYhY5iJ2gqveqbuMB
-         vtUbUP4g7ZneJjsZhdz9H+h4wbc1eUcA7CkMRra+2OPLvwB3sWSbjcnKcyhUMHKupW2q
-         wcte8s6CEbtjHsO4QahQUM3mICRASWwZl3M1BOTuIipdzYmfpWkih5UL0LPIQFVW/1jM
-         WBAg9MvFCU8zMpQnC9XK7U70HoyUD+CfPfHDjqMs3dwqyf37ZqpjgZyVeckVaONCemkZ
-         LE2Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X17bLVH7"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-398b3c37877so1850202a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 05:47:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788612321; x=1789217121; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tGM/0WGqNNlVNkDUUKOgVaHbElh413E3DzLNpPh8458=;
-        b=ac/h074NI8wTt5Gt3eW3DYI4LZIW64GQRms1hZWpU6wQMdG9BBdG+CEqG41kMb5u5o
-         rq+QDEZFYpxaf81HWKgmMDCsaEBxt+UTzi/fWiShz+0BrfwjY1dE8IfX8PRAI6Bclhb1
-         OcpVd0K/CUF0KVo6YgVeSNxwGnU1Y4ZSo6Xx2Dn/STxbSbkbGxZiYnZfQY1aZbOo5T+r
-         7dH5yIJnFn23gj3L2CFHTSztIZbot4kSt5iJq6PvWzcbXTY8AM973RR3eH36DLxOxGqF
-         8+uCFQ9oSVZoFuu2dXUsyl5she7+LfwrOEXpyJIDhlaUQgAFZJX+sudkP6cYC0pVY6Z8
-         9w1g==
+        d=gmail.com; s=20251104; t=1788612434; x=1789217234; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ziQh4+EYTP4FJ/w1XHqXZYM290fo3MHX7d8c+O4yS34=;
+        b=X17bLVH7WVrqODMy+02A+TUtTwt2J2Bo+uqELrP3nNUbkV73PLYnrnwYGroRsXW9S0
+         ms+sYNruxZcapn0tjYm7CppdMGMFavJ8ZCOSeMVx4fbP60+sf9vXnvdx5aZsH0k4rQTx
+         qMQSn/wb/e9BXVCIHnhOq0kN+3B5UZj5Ei4vvyHqQhOubo53g3mrGYnfd8pi1TPq98Ez
+         3dh2TSr7LQufCDqthExLQINWzlivFzJINcd6Ig4Uz6fnF/fmUWyiofN80dLRvx4WXm+q
+         cykNgB6cQQwkceQYG3al/WhJRHrdTq/RcNvTS/O9GJ307gHiTRl0+ypKJxjy5NhyekK/
+         56Ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788612321; x=1789217121;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tGM/0WGqNNlVNkDUUKOgVaHbElh413E3DzLNpPh8458=;
-        b=W2IonaejL9NpChOJXewZ4m+2KNKMmVFgcdIwEoZ7Mm1t3py7nW58B/SrqTRurA7+R2
-         OoaEK/Z99+wC1B0LHSJIOGyXkAqf2jWTa/5bEZoTg5AiPJjoKKwn5X2jr4VxnIlqul5W
-         d43qAjecOvbW7AZmyCEEeZ4ty7uB6IUB135CtNoyC9v33/a5KseUh+R0Eq3z7HqLoKw+
-         J/rwyw4zhamxNe+zV+7AVnxdOVBntyuHQt6cHYfeVx7LygxP0dOer3UwELJhP4wX9AQ6
-         WlCOIbch5+9ZCs8lH8s8s0OgXEy589J+LSngEkC0/aCdNgWwtWhEhM4ILlGQB7tevrWV
-         NYhg==
-X-Forwarded-Encrypted: i=1; AKwUvBzELZsYC61mxeBLa/e9Sx8woWzfO9u4awtGWBmU3ttgPp9YFKZXBjPPkhcSjTHrs6SMXPAAaMYhNYbCaL8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mDv+6H5t3KvM4oZoialpFbHpvnhq0JJXyEohtejoJcVnrZNBT/
-	MnIlsfvhRANI4eB9JfVeSbrmzI4r03Lw/9GeUja3nN5JXKDk0hnT0QyhyixGoEYjJCS+ps56Tdy
-	Tij+Zqlv3xJE/DP5ZKw//8laNfCZ/w5w=
-X-Gm-Gg: AYBFou3cTJAqRBakACAdpYP4y0t8+Bm6ZUKPp0bOKFmPkfc7X14Wb4lRfYSONn/cfsX
-	koNiKyw2WzvNogVdxpGHKGMD2j2yba7iUF0ln78XmAgKxhBAOERl1+vG9e3ZxD8ZWyXASzfo674
-	9yfYiTXHWZRzzc6+B1pZ+qk7VzNKL+ulL6unyqosJHlheqbaq222LdhAwdvjj259OtZlPRKtPky
-	/sYvmiPHLZXZ3agBtVBSR5r7oP5KdlB+pNR7xgfUn2fjNA02zhmedxQgDDmUsoBXptzPjKzqNUZ
-	/TQtyaEh2mYF4LBidks3qkzt12ES4lNahE1Ryh3Cn72pWQ==
-X-Received: by 2002:a05:6402:a547:10b0:6a7:f25e:6db1 with SMTP id
- 4fb4d7f45d1cf-6a7f25e6e51mr2032344a12.37.1788612320869; Sat, 05 Sep 2026
- 05:45:20 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788612434; x=1789217234;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ziQh4+EYTP4FJ/w1XHqXZYM290fo3MHX7d8c+O4yS34=;
+        b=hjAAO2qhcNm9om0qbYEbsDRJlubthuiunRkLIWKk5Q9+IZ/gQq7c3Cekg2cIaa9im6
+         ncd0w0fFAepn7HfCoXYfsqpbVrYNrRAChfucglnSM4jsm3Fd2CKhSmWhrqN+fIpoArq2
+         16nqDyhcGgqvL9skM2ZncCTPK1tevOfMtnz5wEw4TIKQHsSw/Hgx83DH1Z9QOX0VTP/I
+         Y6/GXqqJVRttgxfc0uW2HDhECdjRVSMQQpT1quTdsRIW/POl+8gvYyZlCllHgGGMOF1c
+         tU/1NJevLew7HrNDsk0N8V0R0RNajhzFEskurCxLfVeiXr+zojD4PQG6lzucwIRxnTh7
+         V5jQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx1EqOCHtotxlDDDr/6IVte23VwaoJOTxXIsSheSjr0tSy2iMaLlQ32o5ZUCSUJNkFBOgBGUBZHBWLdfSw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lD907+kWLthfRpnoL9E+6tKx2jbvacfGOxe16ZLlQ85l6hXzmH
+	UBAB7zTQfvrXwP0CdPHLRQ6YZIFhQEPYQwuBRmKFaf54PcmWQ4dsw1277ypJeg==
+X-Gm-Gg: AYBFou3POXAzWaPYa4jy6bHsJLnt/TNt8oFCRcIL9gzcN7tChtOjJxcK8iqK9xaQtKX
+	qHH5dZ+02gzTiKQ2bWzmreQ7BCmhXArMiqizN/7FgO8grxGieSlowv62m0tQi7Fs5vPbjkjfS0B
+	7hz6Nhv2tiWSLgWgpHLZruB65YhyA6f8dW4nl0dzErb38V01xe7AOQ/qjcGAA/OwIQFkuAFrbGv
+	JkhEoyhG+K6gROOF7prAt8MqemcECPkCnA4MOyZ93jgzew3PDqdfYrGoQDMbAzonHcL/QgaTx8I
+	EPlKLtRCHG6iyxQ05Or4hWrQybkBAnLVUesWN7xyS/BwXgrHqh1AGQKZsLX2BVT4B/Wf+wTAWFH
+	isLhOv0GEH1//ThN6MxV3803e/uXlPtrWVXyoMG0sJYEM1261a6tTRvLFwmMM8cQ+M78dP9d7Xa
+	kE1ADrWRs2b/lH54cAygSWzZuXV2xyQ7FaFXpqYBhCjdu6b1YmIbD6lzMSxXIY34lGqg==
+X-Received: by 2002:a17:90b:534e:b0:398:ba0e:96f6 with SMTP id 98e67ed59e1d1-39b2624f0f4mr18020789a91.23.1788612433720;
+        Sat, 05 Sep 2026 05:47:13 -0700 (PDT)
+Received: from celestia.taila51cc2.ts.net ([115.164.90.14])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260cd15asm9929306a91.4.2026.09.05.05.47.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 05:47:12 -0700 (PDT)
+From: Liew Rui Yan <aethernet65535@gmail.com>
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Liew Rui Yan <aethernet65535@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] mm/damon/core: allow esz to be set to zero
+Date: Sat,  5 Sep 2026 20:44:58 +0800
+Message-ID: <20260905124706.3398-1-aethernet65535@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904103920.4471-1-luis@igalia.com> <20260904103920.4471-5-luis@igalia.com>
-In-Reply-To: <20260904103920.4471-5-luis@igalia.com>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Sat, 5 Sep 2026 14:45:08 +0200
-X-Gm-Features: AcwNN1XW76aTEzUfZkegLGWoMyxaeMkdHeOExTNGv0PjSuMsOiLdN22V8KyQ1vU
-Message-ID: <CAOQ4uxgR8v6H=8fHMmLjChsuXUn8560nzda55t8pCNA1ocvg_A@mail.gmail.com>
-Subject: Re: [RFC PATCH v3 4/8] selftests/fuse: factor-out test fixture setup/teardown
-To: Luis Henriques <luis@igalia.com>
-Cc: Miklos Szeredi <miklos@szeredi.hu>, Chen Linxuan <me@black-desk.cn>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, fuse-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	Matt Harvey <mharvey@jumptrading.com>, kernel-dev@igalia.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 4, 2026 at 12:38=E2=80=AFPM Luis Henriques <luis@igalia.com> wr=
-ote:
->
-> In order to reduce new tests setup/teardown code duplication, factor-out
-> these functions from the existing acl_cache test into a new fuse_common.c
-> file that can be reused in other tests.
->
-> Signed-off-by: Luis Henriques <luis@igalia.com>
-> ---
->  .../selftests/filesystems/fuse/Makefile       |  8 ++-
->  .../filesystems/fuse/fuse_acl_cache_test.c    | 62 +++----------------
->  .../selftests/filesystems/fuse/fuse_common.c  | 60 ++++++++++++++++++
->  .../selftests/filesystems/fuse/fuse_common.h  | 25 ++++++++
->  4 files changed, 100 insertions(+), 55 deletions(-)
->  create mode 100644 tools/testing/selftests/filesystems/fuse/fuse_common.=
-c
->  create mode 100644 tools/testing/selftests/filesystems/fuse/fuse_common.=
-h
->
-> diff --git a/tools/testing/selftests/filesystems/fuse/Makefile b/tools/te=
-sting/selftests/filesystems/fuse/Makefile
-> index a3ee9b3a2f5d..7744f796eb06 100644
-> --- a/tools/testing/selftests/filesystems/fuse/Makefile
-> +++ b/tools/testing/selftests/filesystems/fuse/Makefile
-> @@ -21,8 +21,12 @@ ifeq ($(VAR_LDLIBS),)
->  VAR_LDLIBS :=3D -lfuse3 -pthread
->  endif
->
-> +CFLAGS +=3D $(VAR_CFLAGS)
-> +LDLIBS +=3D $(VAR_LDLIBS)
-> +
->  $(OUTPUT)/fuse_mnt: CFLAGS +=3D $(VAR_CFLAGS)
->  $(OUTPUT)/fuse_mnt: LDLIBS +=3D $(VAR_LDLIBS)
->
-> -$(OUTPUT)/fuse_acl_cache_test: CFLAGS +=3D $(VAR_CFLAGS)
-> -$(OUTPUT)/fuse_acl_cache_test: LDLIBS +=3D $(VAR_LDLIBS)
-> +$(OUTPUT)/fuse_acl_cache_test: fuse_common.c fuse_acl_cache_test.c
-> +
-> +EXTRA_CLEAN :=3D fuse_common.o
-> diff --git a/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test=
-.c b/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test.c
-> index 2411a6e285f1..12cbf9753d03 100644
-> --- a/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test.c
-> +++ b/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test.c
-> @@ -33,23 +33,15 @@
->   */
->
->  #define _GNU_SOURCE
-> -#include <errno.h>
->  #include <fcntl.h>
->  #include <linux/limits.h>
-> -#include <pthread.h>
->  #include <stdint.h>
-> -#include <stdio.h>
-> -#include <stdlib.h>
-> -#include <string.h>
-> -#include <sys/stat.h>
->  #include <sys/xattr.h>
-> -#include <unistd.h>
-> -
-> -#define FUSE_USE_VERSION 31
-> -#include <fuse_lowlevel.h>
->
->  #include "kselftest_harness.h"
->
-> +#include "fuse_common.h"
-> +
->  /* ---- ACL binary encoding --------------------------------------------=
----- */
->  /*
->   * POSIX ACL v2 xattr format (little-endian):
-> @@ -176,69 +168,33 @@ static const struct fuse_lowlevel_ops fs_ops =3D {
->         .getxattr =3D fs_getxattr,
->  };
->
-> -/* ---- Daemon thread --------------------------------------------------=
------ */
-> -
-> -static void *run_daemon(void *arg)
-> -{
-> -       fuse_session_loop((struct fuse_session *)arg);
-> -       return NULL;
-> -}
-> -
->  /* ---- kselftest harness ----------------------------------------------=
------ */
->
->  FIXTURE(acl_cache) {
->         struct fuse_session *se;
-> -       char                 mountpoint[PATH_MAX];
-> +       char                 mountpoint[MOUNTPOINT_SZ];
->         char                 file_path[PATH_MAX];
->         pthread_t            thread;
->  };
+When the temporal quota goal tuner determines that the goal has been
+achieved (score >= 10000), it sets esz_bp to zero so that the esz
+becomes zero.  However, damos_set_effective_quota() clamps the esz to
+min_region_sz when quota->ms is set.
 
-Nice!
-I think it would be even nicer to have struct fuse_common_ctx
-with the common members embedded in the per test state,
-but I'll let you decide if you want to do that or not.
+This is a minor issue, the main problem is that it doesn't match the
+description in the documentation, which state that if the goal has
+already been [over-]achieved, the quota will be set to zero.
 
-Thanks,
-Amir.
+Fix this by set quota (esz) as minimum as possible.
 
->
->  FIXTURE_SETUP(acl_cache)
->  {
-> -       char *fuse_argv[] =3D { "fuse_acl_cache_test", NULL };
-> -       struct fuse_args args =3D FUSE_ARGS_INIT(1, fuse_argv);
-> +       char err[MAX_ERR_MSG];
->
-> -       g_ds.acl            =3D acl_a;
-> -       g_ds.acl_size       =3D sizeof(acl_a);
-> +       g_ds.acl =3D acl_a;
-> +       g_ds.acl_size =3D sizeof(acl_a);
->         g_ds.getxattr_count =3D 0;
->
-> -       strcpy(self->mountpoint, "/tmp/acl_cache_test_XXXXXX");
-> -       if (!mkdtemp(self->mountpoint))
-> -               SKIP(return, "mkdtemp: %s", strerror(errno));
-> +       if (fs_setup(&self->se, self->mountpoint, &fs_ops, &self->thread,=
- err))
-> +               SKIP(return, err);
->
->         snprintf(self->file_path, sizeof(self->file_path),
->                  "%s/" FILE_NAME, self->mountpoint);
-> -
-> -       self->se =3D fuse_session_new(&args, &fs_ops, sizeof(fs_ops), NUL=
-L);
-> -       if (!self->se) {
-> -               rmdir(self->mountpoint);
-> -               SKIP(return, "fuse_session_new failed");
-> -       }
-> -
-> -       if (fuse_session_mount(self->se, self->mountpoint)) {
-> -               fuse_session_destroy(self->se);
-> -               rmdir(self->mountpoint);
-> -               SKIP(return, "fuse_session_mount failed "
-> -                            "(missing fusermount3 or insufficient privil=
-eges)");
-> -       }
-> -
-> -       if (pthread_create(&self->thread, NULL, run_daemon, self->se)) {
-> -               fuse_session_unmount(self->se);
-> -               fuse_session_destroy(self->se);
-> -               rmdir(self->mountpoint);
-> -               SKIP(return, "pthread_create: %s", strerror(errno));
-> -       }
-> -
-> -       fuse_opt_free_args(&args);
->  }
->
->  FIXTURE_TEARDOWN(acl_cache)
->  {
-> -       fuse_session_exit(self->se);
-> -       fuse_session_unmount(self->se);
-> -       pthread_join(self->thread, NULL);
-> -       fuse_session_destroy(self->se);
-> -       rmdir(self->mountpoint);
-> +       fs_teardown(self->se, self->thread, self->mountpoint);
->  }
->
->  static int do_force_statx(const char *path)
-> diff --git a/tools/testing/selftests/filesystems/fuse/fuse_common.c b/too=
-ls/testing/selftests/filesystems/fuse/fuse_common.c
-> new file mode 100644
-> index 000000000000..3a91cac25b81
-> --- /dev/null
-> +++ b/tools/testing/selftests/filesystems/fuse/fuse_common.c
-> @@ -0,0 +1,60 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +#include "fuse_common.h"
-> +
-> +static void *run_daemon(void *arg)
-> +{
-> +       fuse_session_loop((struct fuse_session *)arg);
-> +       return NULL;
-> +}
-> +
-> +int fs_setup(struct fuse_session **se, char *mountpoint,
-> +            const struct fuse_lowlevel_ops *fs_ops,
-> +            pthread_t *thread, char *err)
-> +{
-> +       char *fuse_argv[] =3D { "fuse_test", NULL };
-> +       struct fuse_args args =3D FUSE_ARGS_INIT(1, fuse_argv);
-> +
-> +       strcpy(mountpoint, MOUNTPOINT_TEMPLATE);
-> +       if (!mkdtemp(mountpoint)) {
-> +               snprintf(err, MAX_ERR_MSG, "mkdtemp: %s", strerror(errno)=
-);
-> +               return -1;
-> +       }
-> +
-> +       *se =3D fuse_session_new(&args, fs_ops, sizeof(*fs_ops), NULL);
-> +       if (!*se) {
-> +               rmdir(mountpoint);
-> +               snprintf(err, MAX_ERR_MSG, "fuse_session_new failed");
-> +               return -1;
-> +       }
-> +
-> +       if (fuse_session_mount(*se, mountpoint)) {
-> +               fuse_session_destroy(*se);
-> +               rmdir(mountpoint);
-> +               snprintf(err, MAX_ERR_MSG, "fuse_session_mount failed "
-> +                       "(missing fusermount3 or insufficient privileges)=
-");
-> +               return -1;
-> +       }
-> +
-> +       if (pthread_create(thread, NULL, run_daemon, *se)) {
-> +               fuse_session_unmount(*se);
-> +               fuse_session_destroy(*se);
-> +               rmdir(mountpoint);
-> +               snprintf(err, MAX_ERR_MSG, "pthread_create: %s", strerror=
-(errno));
-> +               return -1;
-> +       }
-> +
-> +       fuse_opt_free_args(&args);
-> +
-> +       return 0;
-> +}
-> +
-> +void fs_teardown(struct fuse_session *se, pthread_t thread, char *mountp=
-oint)
-> +{
-> +       fuse_session_exit(se);
-> +       fuse_session_unmount(se);
-> +       pthread_join(thread, NULL);
-> +       fuse_session_destroy(se);
-> +       rmdir(mountpoint);
-> +}
-> +
-> diff --git a/tools/testing/selftests/filesystems/fuse/fuse_common.h b/too=
-ls/testing/selftests/filesystems/fuse/fuse_common.h
-> new file mode 100644
-> index 000000000000..77d5eb58550d
-> --- /dev/null
-> +++ b/tools/testing/selftests/filesystems/fuse/fuse_common.h
-> @@ -0,0 +1,25 @@
-> +#ifndef __SELFTEST_FUSE_COMMON_H__
-> +#define __SELFTEST_FUSE_COMMON_H__
-> +
-> +#define _GNU_SOURCE
-> +#include <errno.h>
-> +#include <pthread.h>
-> +#include <stdio.h>
-> +#include <stdlib.h>
-> +#include <string.h>
-> +#include <unistd.h>
-> +
-> +#define FUSE_USE_VERSION 31
-> +#include <fuse_lowlevel.h>
-> +
-> +#define MAX_ERR_MSG 256
-> +
-> +#define MOUNTPOINT_TEMPLATE "/tmp/fuse_test_XXXXXX"
-> +#define MOUNTPOINT_SZ 64
-> +
-> +int fs_setup(struct fuse_session **se, char *mountpoint,
-> +            const struct fuse_lowlevel_ops *fs_ops,
-> +            pthread_t *thread, char *err);
-> +void fs_teardown(struct fuse_session *se, pthread_t thread, char *mountp=
-oint);
-> +
-> +#endif /* __SELFTEST_FUSE_COMMON_H__ */
+Fixes: 8bbde987c2b8 ("mm/damon/core: disallow time-quota setting zero esz")
+Cc: <stable@vger.kernel.org> # v7.1.x
+Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
+---
+
+Changes from v2:
+- v2: https://lore.kernel.org/damon/20260902082050.19566-1-aethernet65535@gmail.com
+- Changed implementation, more general implementation provided by SJ. [1]
+
+[1] https://lore.kernel.org/damon/20260902150301.88535-1-sj@kernel.org
+
+Changes from v1:
+- v1: https://lore.kernel.org/damon/20260901105951.106246-1-aethernet65535@gmail.com
+- Changed implementation.  The initial solution skipped the
+  min_region_sz clamping when esz was already zero.  However, this would
+  revert the fix from commit 8bbde987c2b8 and cause a regression.  This
+  revision fixes the issue by adding a specific check for a zero esz_bp.
+- Changed patch title, original title: fix quota could not be set to
+  zero
+
+---
+ mm/damon/core.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 644daf5a1656..2b294fb46648 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3091,6 +3091,7 @@ static void damos_set_effective_quota(struct damon_ctx *ctx, struct damos *s)
+ 	struct damos_quota *quota = &s->quota;
+ 	unsigned long throughput;
+ 	unsigned long esz = ULONG_MAX;
++	unsigned long esz_time;
+ 
+ 	if (!quota->ms && list_empty(&quota->goals)) {
+ 		quota->esz = quota->sz;
+@@ -3111,8 +3112,8 @@ static void damos_set_effective_quota(struct damon_ctx *ctx, struct damos *s)
+ 					1000000, quota->total_charged_ns);
+ 		else
+ 			throughput = PAGE_SIZE * 1024;
+-		esz = min(throughput * quota->ms, esz);
+-		esz = max(ctx->min_region_sz, esz);
++		esz_time = max(throughput * quota->ms, ctx->min_region_sz);
++		esz = min(esz_time, esz);
+ 	}
+ 
+ 	if (quota->sz && quota->sz < esz)
+-- 
+2.55.0
+
