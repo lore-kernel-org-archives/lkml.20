@@ -1,46 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C670435202A
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 01:44:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 503433515D0;
+	Sun,  6 Sep 2026 01:44:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788659057; cv=none; b=GUPtfSObbSxlb8Uj3l1jfflVGqLG+XTBmtnObMFaoEpyT2/d2c2ct5Ol7Kqn8stJEs5sfxfbB5a01ngqYZCDztwPgDsxn1v6+LYjxnoWC0oK6VIsLAmhlhF58gmbhBJR38LiK1ZJXwTCbK9P38SSPD3obKc7jVBaxBCeiZc7HeY=
+	t=1788659059; cv=none; b=dqITl2USeFcfG3cPGXE4Hc5x+IgmK7rkLm4aPrOZ7ZKoFD2BEywrEKICh5MdNs1mhj9ou2uCAEp8O9OLvXms9UJj81ynGT3D+Qmd+yaFhtDS37AT4NMskKGrQ67qNsBPwqxAzOXJbCGqJKDTH1DY2KxlXg/nxWnWjXsxxca4VD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788659057; c=relaxed/simple;
-	bh=d435VnZOzrrH2rPG5AX1NWYNf20yXTSkwuew4D4FkHI=;
+	s=arc-20240116; t=1788659059; c=relaxed/simple;
+	bh=Qhe8iKJL1KONTtWn+bZJUW9hzqDn7ddhvHht6YcFZAQ=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=T4j47N1k3TcD77b6ekp55HO6wMPsMLNtXkpiK+QiGACgL6c1YqqBF0tctAhxBXR6dSMgfZe4gvSlrLtHiB0102hGYNOPUToE/6W/abSBEy/4HcfCOdWyp3/ayO9R6fk3roNnAmHe7lB2WXCfi9aBTrCOi0+kiq544L4PeoDzwiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JtmA8M4Q; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=GXHPEJzuuENr6s1wLsvt/plMo08VtLMz3ZU2vTVCXcASBQMWGnEfCrhuB53pbdD/X1URaThbtakUrk08ESkd1MUTYEn/kiaZwiBP/3YS8fAceJaalWOu4sDLBUnI69BqX17XTuHItanYSQ9K4iwbc0Zz+SUEWfckTCHc46EL23g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h5j8UW2G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JtmA8M4Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24B761F00A3D;
-	Sun,  6 Sep 2026 01:44:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h5j8UW2G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1D691F00A3E;
+	Sun,  6 Sep 2026 01:44:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788659055;
-	bh=3p0f1YA0YMYemkiQzWv4tPMOkk68SoOlGOuPphnLWXY=;
+	s=k20260515; t=1788659056;
+	bh=VE72MNcUzceeZKE8KO67OwSgR318FFvhmYWi2dpqdhY=;
 	h=Date:From:To:Cc:Subject:References;
-	b=JtmA8M4Qf1KAF1XyAYukij6oL0Fy18+uyrix6GqANoMTZGYfdt0E10+l5l/73sQvc
-	 52ehpUeNId3kSo1wOA3MS+1F/ddUDt9JeqOUIImJ12gjRWYu/WqTLltxcHa0Xhc9Ku
-	 eEAlBCiohQvYHd2SxU5OqIMXTRrdEQCHTGiTRNf9FT8ru6phUH4iAYYHEojJ5XZG87
-	 OiW7gJA0tzKxQbJOdhzTm8XkhpdWTpNAB9ecGtrMBK78Ak3ZBwFo3QEE0Tx32WubM/
-	 bZEdq8qwpScxi5d1gnz/W5IcQVrdVTD8zU5VAjwRrwoWHEmnTteDNhRBG6W2l8bx9V
-	 Yd/Bd6egCz9ZA==
+	b=h5j8UW2GGKcWc1hhwPqWz327UcUt8iaZtJKwIkxFtQEfIqveyyfufsS30f58GKYHg
+	 kLhyvtAav6MX3ir1HNUQtKCHDpQ63d1uNNMGtRNadNw4TurR8VzVOUteYoz/+1+pGA
+	 bq9MzzJ8K/Qen7OARfsRXrCikN4ZkU7RDSnjN77lp25n+LYG3Decb8tbyypy+xrpaj
+	 J4VnFqF4DX46X3kPtkFbjjQQtHifGyzN58J+qwl3pDpuNJDhE47w7dVzmmJ5Hhv0g6
+	 rxRw17ahZ8NLI22n65+z4pvOp7CjZjq4ZIs4VEw0GfwPTWyEfwlePBgSJCHbQvCbX2
+	 Toy2PREtME8oA==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1x2whQ-00000006JDB-1vzs;
-	Sat, 05 Sep 2026 16:09:16 -0400
-Message-ID: <20260905200916.331062125@kernel.org>
+	id 1x2whP-00000006JAB-2F06;
+	Sat, 05 Sep 2026 16:09:15 -0400
+Message-ID: <20260905200915.374076181@kernel.org>
 User-Agent: quilt/0.69
-Date: Sat, 05 Sep 2026 16:08:37 -0400
+Date: Sat, 05 Sep 2026 16:08:31 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mark Rutland <mark.rutland@arm.com>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
- Vincent Donnefort <vdonnefort@google.com>
-Subject: [for-linus][PATCH 10/12] ring-buffer: Prevent truncation of nr_pages / nr_subbufs
+ Vincent Donnefort <vdonnefort@google.com>,
+ stable@vger.kernel.org,
+ sashiko-bot@kernel.org
+Subject: [for-linus][PATCH 04/12] tracing: Take trace_array reference when opening options file
 References: <20260905200827.773347757@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -50,242 +52,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Vincent Donnefort <vdonnefort@google.com>
+From: Steven Rostedt <rostedt@goodmis.org>
 
-Although ring_buffer_per_cpu::nr_pages is defined as unsigned long, it
-is capped to 32-bits in a few places, limiting the operations possible
-on a very large buffer. Use `unsigned long` where appropriate and
-prevent truncation of values using nr_pages (or nr_subbufs).
+The options files do not take the trace_array reference for the options
+they represent. This could cause a use-after-free kernel crash if one of
+these files is opened by one task and another task removes the instance
+that the option is for. Because it doesn't take a reference upon opening,
+it will not stop the removal which will free the options descriptor that
+is being used.
 
-While at it, subbuf_size must be at least `unsigned int`.
+As the options are somewhat dynamic in their creation at boot up, each
+file represents a flag in the trace_array. The trace_array has an array of
+indexes to represent each of these flags that is stored in the
+trace_flags_index array. The address of the index array element is used to
+pass to the inode->i_private pointer. Then that element is read which
+holds the index (which represents the flag) and then the index is used to
+calculate the trace_array descriptor from its trace_flags_index array.
 
-Note that persistent, remote and user-mapped ring buffers are capping
-the number of pages to 30 bits already, making "int" safe in many
-places.
+One issue is that the index element can not be referenced until the
+trace_array's reference is taken. To handle this, create a new helper
+function called: trace_array_options_get() that will iterate all the
+existing trace_arrays in the ftrace_trace_arrays list (under the
+trace_types_lock), and compare the passed in address of the index element
+with the entire array of the trace_array's trace_flags_index array.
+If it matches, then up the corresponding trace_array's reference and
+return.
 
-Link: https://patch.msgid.link/20260904164450.1345852-5-vdonnefort@google.com
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260902121918.5a9e9d1b@gandalf.local.home
+Fixes: 577b785f55168 ("tracing: add tracer dependent options to options directory")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/linux-trace-kernel/20260828135858.2AC501F000E9@smtp.kernel.org/
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/ring_buffer.c | 61 +++++++++++++++++++-------------------
- 1 file changed, 30 insertions(+), 31 deletions(-)
+ kernel/trace/trace.c | 67 +++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 63 insertions(+), 4 deletions(-)
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 76fed01f1c49..220b8405adfc 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -1683,7 +1683,7 @@ static void rb_check_pages(struct ring_buffer_per_cpu *cpu_buffer)
-  * This is used to help find the next per cpu subbuffer within a mapped range.
-  */
- static unsigned long
--rb_range_align_subbuf(unsigned long addr, int subbuf_size, int nr_subbufs)
-+rb_range_align_subbuf(unsigned long addr, unsigned int subbuf_size, unsigned long nr_subbufs)
- {
- 	addr += sizeof(struct ring_buffer_cpu_meta) +
- 		sizeof(int) * nr_subbufs;
-@@ -1693,13 +1693,12 @@ rb_range_align_subbuf(unsigned long addr, int subbuf_size, int nr_subbufs)
- /*
-  * Return the ring_buffer_meta for a given @cpu.
-  */
--static void *rb_range_meta(struct trace_buffer *buffer, int nr_pages, int cpu)
-+static void *rb_range_meta(struct trace_buffer *buffer, unsigned long nr_pages, int cpu)
- {
--	int subbuf_size = rb_subbuf_size(buffer);
-+	unsigned int subbuf_size = rb_subbuf_size(buffer);
- 	struct ring_buffer_cpu_meta *meta;
- 	struct ring_buffer_meta *bmeta;
--	unsigned long ptr;
--	int nr_subbufs;
-+	unsigned long ptr, nr_subbufs;
- 
- 	bmeta = buffer->meta;
- 	if (!bmeta)
-@@ -1745,7 +1744,7 @@ static void *rb_range_meta(struct trace_buffer *buffer, int nr_pages, int cpu)
- /* Return the start of subbufs given the meta pointer */
- static void *rb_subbufs_from_meta(struct ring_buffer_cpu_meta *meta)
- {
--	int subbuf_size = meta->subbuf_size;
-+	unsigned int subbuf_size = meta->subbuf_size;
- 	unsigned long ptr;
- 
- 	ptr = (unsigned long)meta;
-@@ -1757,11 +1756,11 @@ static void *rb_subbufs_from_meta(struct ring_buffer_cpu_meta *meta)
- /*
-  * Return a specific sub-buffer for a given @cpu defined by @idx.
-  */
--static void *rb_range_buffer(struct ring_buffer_per_cpu *cpu_buffer, int idx)
-+static void *rb_range_buffer(struct ring_buffer_per_cpu *cpu_buffer, unsigned long idx)
- {
- 	struct ring_buffer_cpu_meta *meta;
-+	unsigned int subbuf_size;
- 	unsigned long ptr;
--	int subbuf_size;
- 
- 	meta = rb_range_meta(cpu_buffer->buffer, 0, cpu_buffer->cpu);
- 	if (!meta)
-@@ -1777,7 +1776,7 @@ static void *rb_range_buffer(struct ring_buffer_per_cpu *cpu_buffer, int idx)
- 
- 	ptr = (unsigned long)rb_subbufs_from_meta(meta);
- 
--	ptr += subbuf_size * idx;
-+	ptr += (unsigned long)subbuf_size * idx;
- 	if (ptr + subbuf_size > cpu_buffer->buffer->range_addr_end)
- 		return NULL;
- 
-@@ -1854,13 +1853,12 @@ static bool rb_meta_init(struct trace_buffer *buffer, int scratch_size)
-  * must be the same.
-  */
- static bool rb_cpu_meta_valid(struct ring_buffer_cpu_meta *meta, int cpu,
--			      struct trace_buffer *buffer, int nr_pages,
-+			      struct trace_buffer *buffer, unsigned long nr_pages,
- 			      unsigned long *subbuf_mask)
- {
--	int subbuf_size = PAGE_SIZE;
- 	unsigned long buffers_start;
- 	unsigned long buffers_end;
--	int i;
-+	unsigned long i;
- 
- 	if (!subbuf_mask)
- 		return false;
-@@ -1876,7 +1874,7 @@ static bool rb_cpu_meta_valid(struct ring_buffer_cpu_meta *meta, int cpu,
- 	}
- 
- 	buffers_start = meta->first_buffer;
--	buffers_end = meta->first_buffer + (subbuf_size * meta->nr_subbufs);
-+	buffers_end = meta->first_buffer + (meta->nr_subbufs * PAGE_SIZE);
- 
- 	/* Is the head and commit buffers within the range of buffers? */
- 	if (meta->head_buffer < buffers_start ||
-@@ -2114,8 +2112,8 @@ static void rb_meta_validate_events(struct ring_buffer_per_cpu *cpu_buffer)
- 	struct buffer_page *head_page, *orig_head, *orig_reader;
- 	struct rb_validation_state state = { 0 };
- 	bool skip = false;
-+	unsigned long i;
- 	int ret;
--	int i;
- 
- 	if (!meta || !meta->head_buffer)
- 		return;
-@@ -2166,7 +2164,7 @@ static void rb_meta_validate_events(struct ring_buffer_per_cpu *cpu_buffer)
- 		rb_validate_buffer(head_page, cpu_buffer, meta, &state, 0, state.ts);
- 	}
- 	if (i)
--		pr_info("Ring buffer [%d] rewound %d pages\n", cpu_buffer->cpu, i);
-+		pr_info("Ring buffer [%d] rewound %lu pages\n", cpu_buffer->cpu, i);
- 
- 	/* The last rewound page must be skipped. */
- 	if (head_page != orig_head)
-@@ -2250,7 +2248,8 @@ static void rb_meta_validate_events(struct ring_buffer_per_cpu *cpu_buffer)
- 	}
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index a946e0183fd1..722d0ba2d233 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -7842,11 +7842,70 @@ trace_options_core_write(struct file *filp, const char __user *ubuf, size_t cnt,
+ 	return cnt;
  }
  
--static void rb_range_meta_init(struct trace_buffer *buffer, int nr_pages, int scratch_size)
-+static void rb_range_meta_init(struct trace_buffer *buffer, unsigned long nr_pages,
-+			       int scratch_size)
- {
- 	struct ring_buffer_cpu_meta *meta;
- 	unsigned long *subbuf_mask;
-@@ -2350,8 +2349,8 @@ static int rbm_show(struct seq_file *m, void *v)
- 			   rb_meta_subbuf_idx(meta, (void *)meta->head_buffer));
- 		seq_printf(m, "commit_buffer: %d\n",
- 			   rb_meta_subbuf_idx(meta, (void *)meta->commit_buffer));
--		seq_printf(m, "subbuf_size:   %d\n", meta->subbuf_size);
--		seq_printf(m, "nr_subbufs:    %d\n", meta->nr_subbufs);
-+		seq_printf(m, "subbuf_size:   %u\n", meta->subbuf_size);
-+		seq_printf(m, "nr_subbufs:    %u\n", meta->nr_subbufs);
- 		return 0;
- 	}
++/*
++ * The tr_index is the address of a trace_array->trace_flags_index[]
++ * element that holds the index of the trace flag. But since the
++ * trace_array reference has not been taken yet, it cannot be referenced
++ * as it could have been freed by a rmdir of the instance the trace_array
++ * represents.
++ *
++ * Search the list of trace_arrays and compare the tr_index to the
++ * address of the entire trace_array trace_flags_index array for each
++ * trace_array in the list. If one is matched, then take the reference
++ * and return it. If not, the trace_array no longer exits.
++ */
++static int trace_array_options_get(void *tr_index)
++{
++	struct trace_array *tr;
++	int ret;
++
++	ret = security_locked_down(LOCKDOWN_TRACEFS);
++	if (ret)
++		return ret;
++
++	if (tracing_disabled)
++		return -ENODEV;
++
++	guard(mutex)(&trace_types_lock);
++	list_for_each_entry(tr, &ftrace_trace_arrays, list) {
++		if (tr_index >= (void *)&tr->trace_flags_index[0] &&
++		    tr_index < (void *)&tr->trace_flags_index[TRACE_FLAGS_MAX_SIZE])
++			return __trace_array_get(tr);
++	}
++	return -ENODEV;
++}
++
++static int trace_options_open(struct inode *inode, struct file *filp)
++{
++	void *tr_index = inode->i_private;
++
++	if (trace_array_options_get(tr_index) < 0)
++		return -ENODEV;
++
++	filp->private_data = tr_index;
++
++	return 0;
++}
++
++static int trace_options_release(struct inode *inode, struct file *filp)
++{
++	void *tr_index = filp->private_data;
++	struct trace_array *tr;
++	unsigned int index;
++
++	get_tr_index(tr_index, &tr, &index);
++
++	trace_array_put(tr);
++
++	return 0;
++}
++
+ static const struct file_operations trace_options_core_fops = {
+-	.open = tracing_open_generic,
+-	.read = trace_options_core_read,
+-	.write = trace_options_core_write,
+-	.llseek = generic_file_llseek,
++	.open		= trace_options_open,
++	.read		= trace_options_core_read,
++	.write		= trace_options_core_write,
++	.llseek		= generic_file_llseek,
++	.release	= trace_options_release,
+ };
  
-@@ -2436,7 +2435,7 @@ static void *ring_buffer_desc_page(struct ring_buffer_desc *desc, unsigned int p
- }
- 
- static int __rb_allocate_pages(struct ring_buffer_per_cpu *cpu_buffer,
--		long nr_pages, struct list_head *pages)
-+			       unsigned long nr_pages, struct list_head *pages)
- {
- 	struct trace_buffer *buffer = cpu_buffer->buffer;
- 	struct ring_buffer_cpu_meta *meta = NULL;
-@@ -2564,7 +2563,7 @@ static int rb_allocate_pages(struct ring_buffer_per_cpu *cpu_buffer,
- }
- 
- static struct ring_buffer_per_cpu *
--rb_allocate_cpu_buffer(struct trace_buffer *buffer, long nr_pages, int cpu)
-+rb_allocate_cpu_buffer(struct trace_buffer *buffer, unsigned long nr_pages, int cpu)
- {
- 	struct ring_buffer_per_cpu *cpu_buffer __free(kfree) =
- 		alloc_cpu_buffer(cpu);
-@@ -2721,8 +2720,8 @@ static void rb_test_inject_invalid_pages(struct trace_buffer *buffer)
- 	struct ring_buffer_cpu_meta *meta;
- 	struct buffer_data_page *dpage;
- 	unsigned long entry_bytes = 0;
-+	unsigned int subbuf_size;
- 	unsigned long ptr;
--	int subbuf_size;
- 	int invalid = 0;
- 	int cpu;
- 	int i;
-@@ -2792,8 +2791,8 @@ static struct trace_buffer *alloc_buffer(unsigned long size, unsigned flags,
- 					 struct ring_buffer_remote *remote)
- {
- 	struct trace_buffer *buffer __free(kfree) = NULL;
--	long nr_pages;
--	int subbuf_size;
-+	unsigned int subbuf_size;
-+	unsigned long nr_pages;
- 	int bsize;
- 	int cpu;
- 	int ret;
-@@ -5882,12 +5881,12 @@ __rb_get_reader_page_from_remote(struct ring_buffer_per_cpu *cpu_buffer)
- static struct buffer_page *
- __rb_get_reader_page(struct ring_buffer_per_cpu *cpu_buffer)
- {
--	int max_loops = cpu_buffer->ring_meta ? cpu_buffer->nr_pages : 3;
-+	unsigned long max_loops = cpu_buffer->ring_meta ? cpu_buffer->nr_pages : 3;
- 	struct buffer_page *reader = NULL;
-+	unsigned long nr_loops = 0;
- 	unsigned long overwrite;
- 	unsigned long flags;
- 	int missed_events = 0;
--	int nr_loops = 0;
- 	bool ret;
- 
- 	local_irq_save(flags);
-@@ -6205,8 +6204,8 @@ rb_iter_peek(struct ring_buffer_iter *iter, u64 *ts)
- 	struct trace_buffer *buffer;
- 	struct ring_buffer_per_cpu *cpu_buffer;
- 	struct ring_buffer_event *event;
--	int nr_loops = 0;
--	int max_loops;
-+	unsigned long nr_loops = 0;
-+	unsigned long max_loops;
- 
- 	if (ts)
- 		*ts = 0;
-@@ -7446,8 +7445,8 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
- 	struct ring_buffer_per_cpu *cpu_buffer;
- 	struct buffer_page *bpage, *tmp;
- 	unsigned int old_capacity;
-+	unsigned long nr_pages;
- 	int old_order;
--	int nr_pages;
- 	int psize;
- 	int err;
- 	int cpu;
-@@ -7629,10 +7628,10 @@ static void rb_setup_ids_meta_page(struct ring_buffer_per_cpu *cpu_buffer,
- 				   struct buffer_page **subbuf_ids)
- {
- 	struct trace_buffer_meta *meta = cpu_buffer->meta_page;
--	unsigned int nr_subbufs = cpu_buffer->nr_pages + 1;
-+	unsigned long nr_subbufs = cpu_buffer->nr_pages + 1;
- 	struct buffer_page *first_subbuf, *subbuf;
--	int cnt = 0;
--	int id = 0;
-+	unsigned int cnt = 0;
-+	unsigned int id = 0;
- 
- 	id = rb_page_id(cpu_buffer, cpu_buffer->reader_page, id);
- 	subbuf_ids[id++] = cpu_buffer->reader_page;
+ struct dentry *trace_create_file(const char *name,
 -- 
 2.53.0
 
