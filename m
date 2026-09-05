@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29149503BCF;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA62650EC13;
 	Sat,  5 Sep 2026 18:13:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788632022; cv=none; b=pfiBcXUQoFNLGGEtlRmwtz2kR9X3I06frHlDZfRmfLOCrjS2GdB3YNORYTn52ECiQ2DBPrXwsLCDZrrlVbiL8msQ5y1ZjqWYvOk/FPBWnfuAs2KY0LuKASaTmom0wl/YWhaPNL08No3a+Wc0iFsQ/6qkpBdPzjB+0278CgT1eSU=
+	t=1788632022; cv=none; b=hjP5X68us3xZcwpdpFyQsjjB55Pks4lLVempDRMawKhDxXcCxTs/wMQrdsqhXoYmfhxRGtVnBNarlODik3P4dqH5pInAzmp57qXfo0C2yRJnDpkaMcAlwmchQp+IO56dVKRZ34hkzg79svI2JvWHSyeAD/Gf3ISOe97P8OqjXJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788632022; c=relaxed/simple;
-	bh=0bw5Y/d1Vt3BBT52tVqXN77HIRc2kvL8jZ8bS/J10Rs=;
+	bh=qrPtwJH4xwU0Lry5Na4F7EhErraZ3upmBw8qtxWkjD0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aajTiN39Tz73wnYJe/aCdryXrXKh1+JwR9JFbKIGEpyhHzGQQ/pL0N4XwvWSA5Pdfn1mHhPpNAMAgFdBQvLooMqn+uKLaHz9k+ZFjg468NL8yrO2QTegi3xsydHyaXbDu5JifxOPq+B6UH8vD41tnUh3xR5p1jzli4o5cE7O+wU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=r8pk20Iz; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=HI6UR+FOWtcHXEnAoDczTFh2+vRMcw4PgtfRVCmRq6LDMMApx50cypNK7bP7CpbONXBx8mUxXR4Yy3ea3PNrVO0qxZosN73gD7LL4R7d7MVU1IDoJH70/icbvlYxS2fDBsyLKHvO54GpSy0zQBwG0ZBDaY7Yh9HfGCGk9jIE95U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ua7ajBlr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="r8pk20Iz"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 09FF9C2BCF4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ua7ajBlr"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8FBC4C2BCF4;
 	Sat,  5 Sep 2026 18:13:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788632022;
-	bh=0bw5Y/d1Vt3BBT52tVqXN77HIRc2kvL8jZ8bS/J10Rs=;
+	bh=qrPtwJH4xwU0Lry5Na4F7EhErraZ3upmBw8qtxWkjD0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=r8pk20IzB26EbT3OHqFIWGpdWGe1qaeE2+wvIVAt+6A1Dm3l3RZrEfmxiSLbBQ8kg
-	 GO58DyXg+IjEPtuwOO/PEsRmSnWe4NCYGA+hNdAuQSswT0SpQF2vaQEgRol6TwxiF+
-	 tbMhh7qCtSRKJNXB6LjTadZE0cnuZQHS65/GZGDwkUzU0ZqOtEh3zsTHzk1AAJO9if
-	 ZyAcFRfDotoLM/KDADW11O6qGQSrEv1cTx1YqHDwvnsUQy+94/dhHTCBc+kU1tqyMw
-	 oG6BddzGKzD6nmX+zTG/SifEiaHOao+gE/rFxpfrFE8W4eTsFGfBwhgkHNGhtWfYSn
-	 lvuqgUfuNKC3g==
+	b=Ua7ajBlrTnu+Atzw15VCpz8iVlsHfHUNROiNsMCcy1ZA47zOcSeiHw0p2yH+V/szo
+	 1G5vEOzRfKrxSUg+OitxVJix8C8W5Ubd2quzxfbr1MIsORqcS2gcHlejAopWLZzbHd
+	 TGO7zfSc8HKrdhsIi+yu54gzhijRFICKFhM+sHCFE77+9VDxtuXdroizpZzWFKEn16
+	 4v7v2JH4ff901+VfqiB91MsPFr+5bOWdW96uSm+iBPIj2dtBpnEAweOHkpCE63VmnJ
+	 PMTR2AmjobHt6LoVjcrFVljuIT/7OWmc2a0nzs7S/5H1EyT/JnwbEiw5eSJk0qwErI
+	 BZy7ulQ5ZvKOg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EA226C79F91;
-	Sat,  5 Sep 2026 18:13:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7EF80C79F9E;
+	Sat,  5 Sep 2026 18:13:42 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Sat, 05 Sep 2026 12:13:49 -0600
-Subject: [PATCH v8 35/43] dyndbg: split multi-query strings with @
+Date: Sat, 05 Sep 2026 12:13:56 -0600
+Subject: [PATCH v8 42/43] dyndbg: add DEBUG-biased fallback stubs for
+ _dynamic_func_call_cls
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260905-dd-cmap-part2-clean-v8-35-a4cc0674f6fd@gmail.com>
+Message-Id: <20260905-dd-cmap-part2-clean-v8-42-a4cc0674f6fd@gmail.com>
 References: <20260905-dd-cmap-part2-clean-v8-0-a4cc0674f6fd@gmail.com>
 In-Reply-To: <20260905-dd-cmap-part2-clean-v8-0-a4cc0674f6fd@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -57,13 +58,14 @@ To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>,
 Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
  linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kbuild@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>
+ linux-kbuild@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>, 
+ kernel test robot <lkp@intel.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788632017; l=6505;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788632017; l=2698;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=z2Xf/mk9z8sNrbYhXGijk7HKJ6AHG4/NBKYqQ79X+aQ=;
- b=5CVLLP5tSNbmi0HMBnceJZ4BXAt6FMVv6xmDSUVqmN6T5rCh2WiOfB4J/1lQOWYojtVHDlnPf
- jJlNDUm/GkRB16iaXMSrSWwpH0Zb9O6SQ61tTSRhpXd2KFaiu7bLGQ5
+ bh=FiBDV3LWTxR2wrM17OJ5JIb1tweLA5e70DwpUu8mXrw=;
+ b=JW3IjIesFU6hgwqCH8RSVbzTagigHpQczLM9R5QVDiYdmQPaUxgXSO1LWKBvCdgoXXqL02ZdD
+ 75tpQ4Kn+76AL/Td21Bu3ReokjYuRUAovk88G5Rb9vAxeVIyn/jouug
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -73,153 +75,63 @@ Reply-To: jim.cromie@gmail.com
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-Since
-commit 85f7f6c0edb8 ("dynamic_debug: process multiple debug-queries on a line")
+When the dynamic debug core is enabled (CONFIG_DYNAMIC_DEBUG_CORE=y) but
+the global CONFIG_DYNAMIC_DEBUG is disabled, subsystems can opt-in to
+dynamic debug by defining DYNAMIC_DEBUG_MODULE.
 
-Multi-query commands have been allowed:
+However, for built-in code (like DRM core) where DYNAMIC_DEBUG_MODULE
+is not defined, the macros fall back to the disabled #else block in
+include/linux/dynamic_debug.h.
 
-  modprobe drm dyndbg="class DRM_UT_CORE +p; class DRM_UT_KMS +p"
-  modprobe drm dyndbg=<<EOX
-     class DRM_UT_CORE +p
-     class DRM_UT_KMS +p
-  EOX
+In this block, the family of _dynamic_func_call_cls macros were
+completely undefined. This caused build failures (implicit declarations)
+in subsystems (like DRM) that attempt to use these macros to wrap their
+own debug functions even when dynamic debug is disabled.
 
-More recently, the need for quoting was avoided by treating a comma
-like a space/token-terminator:
+Add stub definitions that mirror the enabled behavior and respect the
+DEBUG macro, similar to pr_debug. If DEBUG is defined, they inject NULL
+as the first argument (to satisfy the expected descriptor pointer) and
+pass the arguments through, allowing the wrapped function's own slow-path
+fallback logic to execute. If DEBUG is not defined, they use an if (0)
+statement-expression to compile out the call while returning 0, achieving
+zero overhead while maintaining compile-time argument checking.
 
-  modprobe drm dyndbg=class,DRM_UT_CORE,+p\;class,DRM_UT_KMS,+p
-
-That works, but it needs the escaped semicolon, which is a shell
-special-char (one of the bash control operators), so it is brittle
-when passed in/down/around scripts.
-
-So this patch adds '@' to the existing ';' and '\n' multi-command
-separators, which is more shell-friendly, so you can more fully avoid
-quoting and escaping hassles.
-
-Update selftests script, adding a multi-query split on @
-
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202605201408.x1sHT6fx-lkp@intel.com/
+Assisted-by: Gemini-CLI:gemini-2.5-pro
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
-v5: avoid +t flag in content tests - pid is not predictable.
-    remove Reviewed-by: <louis.chauvet@bootlin.com> - too many changes
+ include/linux/dynamic_debug.h | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-v2:
-
-replace '%' with '@' as multi-query splitter, as it is:
- - not a sshell special cahr
- - allows matching on format strings with format specifiers
----
- Documentation/admin-guide/dynamic-debug-howto.rst  |  8 +++++---
- lib/dynamic_debug.c                                |  2 +-
- .../selftests/dynamic_debug/dyndbg_selftest.sh     | 24 ++++++++++++++++------
- 3 files changed, 24 insertions(+), 10 deletions(-)
-
-diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index fe86a9997ab5..6b934fab695b 100644
---- a/Documentation/admin-guide/dynamic-debug-howto.rst
-+++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -85,10 +85,12 @@ by spaces, tabs, or commas.  So these are all equivalent::
-   :#> ddcmd '  file   svcsock.c     line  1603 +p  '
-   :#> ddcmd file,svcsock.c,line,1603,+p
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 0e3af8948a56..ce142ad366dc 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -538,6 +538,23 @@ void ddebug_increment_call_count(void);
+ #define DYNAMIC_DEBUG_BRANCH(descriptor) false
+ #define DECLARE_DYNDBG_CLASSMAP(...)
  
--Command submissions are bounded by a write() system call.
--Multiple commands can be written together, separated by ``;`` or ``\n``::
-+Command submissions are bounded by a write() system call.  Multiple
-+commands can be written together, separated by ``@``, ``;`` or ``\n``::
- 
--  :#> ddcmd "func pnpacpi_get_resources +p; func pnp_assign_mem +p"
-+  :#> ddcmd func foo +p @ func bar +p
-+  :#> ddcmd func foo +p \; func bar +p
-+  :#> ddcmd "func foo +p ; func bar +p"
-   :#> ddcmd <<"EOC"
-   func pnpacpi_get_resources +p
-   func pnp_assign_mem +p
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 6f700de9738c..93a5a481c8b8 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -631,7 +631,7 @@ static int ddebug_exec_queries(char *query, const char *modname)
- 	int i, errs = 0, exitcode = 0, rc, nfound = 0;
- 
- 	for (i = 0; query; query = split) {
--		split = strpbrk(query, ";\n");
-+		split = strpbrk(query, "@;\n");
- 		if (split)
- 			*split++ = '\0';
- 
-diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-index f0b18afa7372..0bb3c3e11df7 100755
---- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-+++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -325,9 +325,19 @@ function FT_basic_queries {
-     ddcmd "module params +l"  'kernel/params.c'
-     ddcmd "module params -m"  'kernel/params.c'
-     ddcmd "module params =_"  'kernel/params.c'
-+}
++#if defined(DEBUG)
++#define _dynamic_func_call_cls(cls, fmt, func, ...)		\
++	do { func(NULL, ##__VA_ARGS__); } while (0)
++#define _dynamic_func_call_cls_no_desc(cls, fmt, func, ...)	\
++	do { func(__VA_ARGS__); } while (0)
++#else
++#define _dynamic_func_call_cls(cls, fmt, func, ...)		\
++	do { if (0) func(NULL, ##__VA_ARGS__); } while (0)
++#define _dynamic_func_call_cls_no_desc(cls, fmt, func, ...)	\
++	do { if (0) func(__VA_ARGS__); } while (0)
++#endif
 +
-+function FT_multi_query {
-+    v_echo "${GREEN}# MULTI_QUERY_TESTS ${NC}"
-+    if [ $LACK_DD_BUILTIN -eq 1 ]; then
-+	echo "SKIP - test requires params, which is a builtin module"
-+	return
-+    fi
-+    ddcmd =_ # zero everything
- 
--    # multi-query commands split on ; on a single line
-+    # multi-query commands on a single line, split on ;/@ respectively
-     ddcmd "module params +mf ; module params func parse_args +sl"  'kernel/params.c'
-+    ddcmd "module params -f ; module params func parse_args -l"  'kernel/params.c'
- 
-     # verify multi-cmd input, newline separated, with embedded comments
-     ddcmd =_ # reset before multiline query to capture full transition
-@@ -493,7 +503,7 @@ function FT_test_classes {
-     verify_control_slice '\[test_dynamic_debug\]'
- 
-     # 2. Verify state transition and live-printing end-to-end via ddcmd_load!
--    ddcmd_load "class D2_CORE +pmf;class D2_KMS +pls;class D2_ATOMIC +pml" \
-+    ddcmd_load "class,D2_CORE,+pmf;class,D2_KMS,+pls;class,D2_ATOMIC,+pml" \
-         '\[test_dynamic_debug\]' \
-         "/sys/module/test_dynamic_debug/parameters/do_classes" "1"
- 
-@@ -591,6 +601,7 @@ builtin_tests=(
-     FT_path_module_queries
-     FT_hyphen_underscore
-     FT_comma_terminators
-+    FT_multi_query
- )
- 
- # Modular Feature Tests (Require CONFIG_MODULES=y and test_dynamic_debug*.ko available)
-@@ -614,7 +625,7 @@ modular_tests=(
- # ==============================================================================
- function GOLDEN_RECORDS {
-     cat << 'EOF' | {
--#K= f3dbd5afb9aa1750f93275b634499e22 FT_grammar_errs.1   
-+#K= f3dbd5afb9aa1750f93275b634499e22 FT_grammar_errs.1
- #K= 200c01632c52a63f6d186da1c6460740 FT_grammar_errs.2
- #K= 7d7141900ce6e32f15c99202309c63a4 FT_grammar_errs.3
- #K= 1bb798a5831d0119789d424ef6cb55c4 FT_grammar_errs.4
-@@ -660,9 +671,6 @@ function GOLDEN_RECORDS {
- #K= eb3bd35439cc289ef59ee967aad4d540 FT_basic_queries.2
- #K= 00359a9a05d439ec3a850a55e437fcbd FT_basic_queries.3
- #K= b24b1a8081d7514fa593cc28f6fb645b FT_basic_queries.4
--#K= de950a3e60669fdd58d0a8c2867a056d FT_basic_queries.5
--#K= 2ff49f0c4d18ec99bcb1c30840fe8afc FT_basic_queries.6
--#K= 9a1b13c32a15363dcf93913308edeea5 FT_basic_queries.7
- #K= 4b902c159d7f08f91377bf0a353e0051 FT_path_module_queries.1
- #K= bede904b02278e5648bb7a8243be8d98 FT_path_module_queries.2
- #K= 4b902c159d7f08f91377bf0a353e0051 FT_path_module_queries.3
-@@ -671,6 +679,10 @@ function GOLDEN_RECORDS {
- #K= 99985cce918eb5108ecb3658249f6bc7 FT_comma_terminators.2
- #K= 68b329da9893e34099c7d8ad5cb9c940 FT_comma_terminators.3
- #K= 85f93d30f4006c99a806639970b92f20 FT_comma_terminators.4
-+#K= de950a3e60669fdd58d0a8c2867a056d FT_multi_query.1
-+#K= f49de2063a545721cf5e959efc160836 FT_multi_query.2
-+#K= 2ff49f0c4d18ec99bcb1c30840fe8afc FT_multi_query.3
-+#K= 9a1b13c32a15363dcf93913308edeea5 FT_multi_query.4
- #K= d4923595eea382923aee64aed15c7c35 FT_test_classes.1
- #K= a15ec4843acd721fbdfddc0b512c8032 FT_test_classes.2
- #K= 40a294034c886787960f4c751b196da9 FT_test_classes.3
++#define _dynamic_func_call(fmt, func, ...)			\
++	_dynamic_func_call_cls(_DPRINTK_CLASS_DFLT, fmt, func, ##__VA_ARGS__)
++#define _dynamic_func_call_no_desc(fmt, func, ...)		\
++	_dynamic_func_call_cls_no_desc(_DPRINTK_CLASS_DFLT, fmt, func, ##__VA_ARGS__)
++
+ #define dynamic_pr_debug(fmt, ...)					\
+ 	no_printk(KERN_DEBUG pr_fmt(fmt), ##__VA_ARGS__)
+ #define dynamic_dev_dbg(dev, fmt, ...)					\
 
 -- 
 2.55.0
