@@ -1,658 +1,187 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F8027CCE0
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 21:48:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDDF73546F3
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 21:49:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788644899; cv=none; b=m3NMPhVMwoBGbqUdZU637LloHzilp0kY0wtNsQfhsjn4NGjxAyPJvskNN8Hb51xY39qh+A+Rx9HNxR6jhyJFnVEN62sRZX93KmEU0Tu8mebuFSQTHXBZjc5YTFple8hLbhC92JslGCAmcHbdt0WfPn51Y/PQ+3DiQSmQilc2f+o=
+	t=1788644989; cv=none; b=ETjnkkZc1JiUtcEYPeSxJsrOdvggpInK3sHSzMuFX6+jsp8xBid+Kk+/zNGKoF62XocKKb8bWZVC/FQKIx2YYNKAML5X2xB9XqZmcTwZDzoc/d2E5a7lN0WO+jmMg/OygJ6rxWkP67n62L6/uo5/dbhM6aq0DwIFLU4dzUlV7Os=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788644899; c=relaxed/simple;
-	bh=8GsMM0DpL7AWXW2SKKhntCHDlxXo/w1VJ2AvNXfC8Q8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=V15LX0nQfhC40gdDUBFnVOzvd4V1KMlJBC2WaGjpG2/7ZtTjW+UmMoFUQZOINHtKPla6+9NJCRHVBTSeJ65+xoao3PhCaRiPd48tCTU90bJTM5qS5cHzXVn5lxxyU2Gt/9RXWSCGCkVOxmaCWZ037fS5BN9hc/CwMBesL+9hiyA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hLG7FVlo; arc=none smtp.client-ip=209.85.221.53
+	s=arc-20240116; t=1788644989; c=relaxed/simple;
+	bh=wOHmL+aSMCizXI5eCNy7a0JbPOFoQHkkra26PNCQttE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tqu2MaVIQHIuivEWSDrt7+wnYmuQGtWGa0YR+Zpv3f9AjtXjdBvpWtwSnTEGdD91nanDRmI19gHDV/eSoJXzz1sjhYzOXX9DIMivUW1BNshdCJGjfurYghtnagB3w+0O5pZ6oysDSSixR0bM1USs+ACxswuXWm+valh+Q60/q9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LBddbFAQ; arc=none smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hLG7FVlo"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48586861639so1566218f8f.0
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 14:48:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LBddbFAQ"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49557167508so26951255e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 14:49:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788644896; x=1789249696; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lg+QuN7VRsgQzcs6dMFfAXHItf+Rhj5cjNF6dBC2FiU=;
-        b=hLG7FVloepU+dIxZEMkVya/m8PcAtvtvI1dsv9f0dGsYegkUJEbyMeZ6O88minqdQ4
-         XoOIsactmocKXgFHN6AjJD6D7HCXmE1LwlPCTZLcENjIKb/VCGQq531CyJWFVSSbB2du
-         d4odDqBaCSI+m+5JP8bFP6BD2tuwDOfH/9wodVGgkPa/QsNvAh3wrI0rw/++AEgbJW1i
-         ysZFMZP4/qfLoSprXeSI7oB4x+DR2V3WrbhVKFl5rQRBYwlmCCPNaltpangbsbKOcYuM
-         xDdNC/cI9Ug5wR0q2ND7J+wHzg/3Ft13oS+EHHuG/8sAHuwUtvvp6UKqOHyaO3OiFI6C
-         1KuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788644896; x=1789249696;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788644986; x=1789249786; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=lg+QuN7VRsgQzcs6dMFfAXHItf+Rhj5cjNF6dBC2FiU=;
-        b=YnmCALKXvTDkALi5zQFZDArVVgWOQIyRec7dPO4ikWduwbSkd5hojCRWG6BKfz+TJy
-         rXxVtfjW4IqRcd+8g5nKbaJkEb09hVFIUhNmb5EAOnMa6vj07ky4Rt6eyzwXDGDuzGZS
-         u/8YS06WCFb5DGXJF7el25GV+CSCWzj3xIWT/U7zhfZuvl8OwSbOgvgwYS9EwXLgAMpy
-         3/9RwDABIowmNDxFyKqEJ7XnXXtnV8e8E+CHxaPYAEKzXrRNOjN44pd+P8P6xzPd1ErJ
-         CWHsXCwDO75mFmgy93Ry/vz8cXup0oMX9KfcqloodAAM/uXF6byJ0MxirWnuKMTvYs9r
-         0ckw==
-X-Forwarded-Encrypted: i=1; AKwUvBwl1an9bHrI9x3if0qzXcQ8tfvVDlHC5dzXVYalfjWvxCIbGZ9BFVTMsAg4qzwoFj209Sc9lRI+mEEMnro=@vger.kernel.org
-X-Gm-Message-State: AFuF++mLUuiz0kbikmyO/3J0SpIg9N1AyWZGPqIPde6+gGmK4bZhHOz+
-	eMfv47ZO8aJXG84V/HxwiQnePZ2VSFzff9JIJkBR7ru45WWAo1gbMTPa
-X-Gm-Gg: AYBFou2cMMSOC25AB2CjUiUR94vFYZ/cmNfCdMgBbW9iNchrwJCZ1vXINrWPGFqDs8N
-	F7yrj7woJTBQjEh4OCE+J1I/bdkJcV5k3OUZYjnL8kjQHUpMUvqHnO92pjwZ9wCN9+Wl6gtxsiX
-	vnq2KYYxV+DjYTnJGCbkD0yxKEGNjkZJLchk83IO1cLrbgU/GSBglW7N321/vcEYWXeEXwZHMWs
-	2nA5w4baonUo+CmFwtpK3btz2MGQLAQxFRG0/wJ0uWBly2fQjkKWpvYdz6m7jwfHNvtwNDVeUsf
-	+oEcOzcWnUop424oQRkI4o8uM02iRVFPVUWfUBWjoX8H1OPI5KHQlTHHQPJZB8/2EsP1A6EQ3zG
-	meQphTpHcyUH/fx7q+ou34MBlcDCtJGPvWLsKQcg6f9QKCTlMLhYz3o5yXwkT7lZXlNngvJ0WpO
-	GbgyPND1YyOmfO4iJ93p9H3V5MNzjNkva4AjRPIz+wV+zeCogZJRDg2GB0G/o8NljYLTRuZFENs
-	/+3zKgc/rrgkQGUZWxkCzn6JL1Xfc65zF3JuXZRRw==
-X-Received: by 2002:a05:6000:490d:b0:482:fbb6:1b29 with SMTP id ffacd0b85a97d-485891e729fmr13298374f8f.10.1788644895483;
-        Sat, 05 Sep 2026 14:48:15 -0700 (PDT)
-Received: from fedora ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485881353e8sm16918073f8f.1.2026.09.05.14.48.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 14:48:14 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: Jorge Lopez <jorge.lopez2@hp.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Muhammad Bilal <meatuni001@gmail.com>
-Subject: [PATCH] platform/x86: hp-bioscfg: consolidate common package-element parsing
-Date: Sun,  6 Sep 2026 02:48:01 +0500
-Message-ID: <20260905214801.76265-1-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        bh=aCVMoBjhOb7Ok3wVZ5FY6NGTV9ixb6pFAGBj1ywt02k=;
+        b=LBddbFAQ3Mh6Rf7kJn6t42CAuyIXNbCGGbft3eXpUGaxmhWV00iAaJTgibYwO38Uql
+         8xcF5fvUEjHlKc+crvh+XfzaYCy5311AMma3Wk0SyhYpRe/e0aa2aYzx1I9mBrc3QPIj
+         EapASTjgShnT5NxHYdp8vG5m8jIIFlk6X5h2eAv6ENkCc16YPKC08jNiVqLHe/ELnVSo
+         vR6jJLVjZ/dVAtFjFTMlHiiGN3/JmqIPAD2o8WqYWFP6WVELRa13RsEqWzYJCxJO1y93
+         r1R0W+aGOkb5zBUStTMwlpY0EEXr4ATt5Tq+w3CshZyVv+/nZEGEmjomyN5AB6u65mdT
+         GyIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788644986; x=1789249786;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aCVMoBjhOb7Ok3wVZ5FY6NGTV9ixb6pFAGBj1ywt02k=;
+        b=TpO4JWuXKRg4L+jaDeah6AbWUb+oHI7JEP/Ae7Belm73IdL+Jj1WhfYOw+ovJldIgN
+         L7GnjUj6XWypP9P3Jo0QmcIjBLH24gVXMGJYd30ELXeNrXi9+PaCLI1NMBFAyKB53tii
+         HSf4oX4sRBWlcluy4/t+EHqtGqV+zi+Be/hrR5mdTXXLy7V28vduV/iB3FmC4iEvVyCQ
+         As792SxBYHZRTqBA4y5UvPXyenIuKKZg4l8mNbOjinZhnYzpUQzyQMpUtmtIIWcgIT64
+         L05LBiUcvA//qAdOw4wlYTy8OjwqgoOxnpNnzSiWtEb2WP8oaQ+ya2mnfSxPhHDrKFto
+         bAJg==
+X-Forwarded-Encrypted: i=1; AKwUvBxg4x7z7tiXM4n1ekb/6aS4Bgh81vVcnXxT4YAwRpcFxIev5eBLGzUrcNN/T0iD8IyDxdfpjA91tFHk3qs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lFoEaN7rVUnynaeBaGdv87aN/XwWIn6BEojpvymz5qQH856zzt
+	1Ww9qFBe9fwIrWnELxuvEivBIHyaXxu1bFWgXwqZJd3hveuH9aJIzqJnhWV2sA==
+X-Gm-Gg: AYBFou3SOI3NHUQYpeh5mo2oOknWigITvNH0xDBY26oUl9IcWz9wuNWZYzf9lfio2fh
+	7Uyt0clZJX0CZf53iq1Bpl9ZRVgncjG62zYqMNr3alRXabx22nou8ebw15o4BPWyhpsCHLtdtfM
+	NrZoi/CSsAdK2wxep59Qeyj55v357YtXF+sxH0qCWbay0Vl7bjnL2B0Z9j1QstCldvyWG/qoQrY
+	uI/cxpwqyo4QMG18+9AgSm01ajyTA+GXW3Cv6iQkYRWGBk57Bn6uKqc23YMawVTXe59RnJSsc5I
+	M6DALNbNEI3ddCDuQx37TXbdcXP+0IA5POC4+6LqTYQimihRjx4J66mfvCFF+wVRE4Z6oZv02OP
+	1R+RNAgvJBTuqjjDYwmcQ9BRj9xezBu8cJx7V8TKocjSnJJrvVXE/VG31EXhdOcXNJLDv0c/yDs
+	Ci4HHA88pJ5dBtwDj+hDYbR6flPQG4sUFO/4KV5812GjJJ0+8Fzi3yE+R18sFHFKZlRbx4CQ==
+X-Received: by 2002:a05:600d:6450:10b0:49c:ffaf:95a1 with SMTP id 5b1f17b1804b1-49cffaf95c3mr130492025e9.1.1788644985856;
+        Sat, 05 Sep 2026 14:49:45 -0700 (PDT)
+Received: from foxbook (bfg95.neoplus.adsl.tpnet.pl. [83.28.44.95])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7703cefsm241296655e9.5.2026.09.05.14.49.44
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Sat, 05 Sep 2026 14:49:45 -0700 (PDT)
+Date: Sat, 5 Sep 2026 23:49:42 +0200
+From: Michal Pecio <michal.pecio@gmail.com>
+To: wakasio <scarabeeta@gmail.com>
+Cc: Mathias Nyman <mathias.nyman@intel.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: xhci_hcd / ASMedia ASM4242: Bulk-OUT -EPROTO with Logitec
+ 0789:0308 during DVD+RW recording
+Message-ID: <20260905234752.1f0c9c83.michal.pecio@gmail.com>
+In-Reply-To: <20260905134555.168362-1-scarabeeta@gmail.com>
+References: <20260905101837.4b7849c5.michal.pecio@gmail.com>
+	<20260905134555.168362-1-scarabeeta@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-hp_populate_string_elements_from_package(),
-hp_populate_integer_elements_from_package(),
-hp_populate_enumeration_elements_from_package(),
-hp_populate_ordered_list_elements_from_package(), and
-hp_populate_password_elements_from_package() each parse the same
-PATH..SECURITY_LEVEL range into their own struct common_data
-sub-object, copy-pasted five times. Factor it into
-hp_get_common_data_from_package(), called from all five, mirroring
-hp_get_common_data_from_buffer()'s existing split for the buffer
-side.
+On Sat,  5 Sep 2026 22:45:55 +0900, wakasio wrote:
+> Hi Michal,
+> 
+> I applied your patch and reproduced the failure with all three debug
+> functions enabled. Result:
+> 
+> Cluster 1 (ep 2, at the very start of the write, unrelated as you
+> said): same as before, 4 Stall/Hard-reset pairs, spread over about
+> 323 ms, roughly 22 seconds before the real failure.
+> 
+> Cluster 2 (ep 3, the real failure), with full timestamps this time:
+> 
+>   17:38:44.749474 Transfer error, ep 3, at ffffd52c40703f40, resid 23552
+>   17:38:44.749743 Soft-reset ep 3
+>   17:38:44.758367 Transfer error, ep 3, at ffffd52c40703f40, resid 23552
+>   17:38:44.758454 Soft-reset ep 3
+>   17:38:44.768370 Transfer error, ep 3, at ffffd52c40703f40, resid 23552
+>   17:38:44.768577 Soft-reset ep 3
+>   17:38:44.775052 Transfer error, ep 3, at ffffd52c40703f40, resid 23552
+>   17:38:44.775217 Soft-reset ep 3
+>   17:38:44.785047 Transfer error, ep 3, at ffffd52c40703f40, resid 23552
+>   17:38:44.785313 Soft-reset ep 3
+>   17:38:44.790469 Transfer error, ep 3, at ffffd52c40703f40, resid 23552
+>   17:38:44.790732 Soft-reset ep 3
+>   17:38:44.799187 Transfer error, ep 3, at ffffd52c40703f40, resid 23552
+>   17:38:44.799346 Soft-reset ep 3
+>   17:38:44.808558 Transfer error, ep 3, at ffffd52c40703f40, resid 23552
+>   17:38:44.808720 Soft-reset ep 3
+>   17:38:44.819176 Transfer error, ep 3, at ffffd52c40703f40, resid 23552
+>   17:38:44.819317 Soft-reset ep 3
+>   17:38:44.832378 Transfer error, ep 3, at ffffd52c40703f40, resid 23552
+>   17:38:44.832552 Soft-reset ep 3
+>   17:38:44.850677 Transfer error, ep 3, at ffffd52c40703f40, resid 23552
+>   17:38:44.850815 Soft-reset ep 3
+>   17:38:44.861706 Transfer error, ep 3, at ffffd52c40703f40, resid 23552
+>   17:38:44.861938 Hard-reset ep 3
+>   17:38:44.981704 usb 6-1: reset SuperSpeed USB device number 2
+>   17:38:44.998378 Stopped on No-op or Link TRB, slot 1 ep 2
+>   17:38:46.645044 clear err_count at ffffd52c40707000
+> 
+> It survived 11 soft-resets this time instead of 4, then hit the raised
+> limit and hard-reset on the 12th. The gap between retries grows from
+> about 9 ms near the start to about 18 ms near the end.
 
-The five PREREQUISITES loops weren't identical: on a bad
-prerequisite string, string/integer/ordered_list continue,
-enumeration returns -EINVAL, password breaks. The shared helper
-continues, matching the majority and
-hp_get_common_data_from_buffer()'s own handling of the equivalent
-failure. This changes enumeration (no longer aborts the package)
-and password (no longer leaves later prerequisites unfilled).
+Yes, "survived" 11 attempts at resuming operation, without making any
+progress. Looks like the HW got stuck in some invalid state - device FW
+crashed and stopped responding, or the host controller flow controls
+it wrong, or they somehow disagreed on current sequence number, IDK.
 
-The expected_*_types[eloc] != obj[elem].type check above this
-switch has the same split -- enumeration warns and continues, the
-rest pr_err() and return -EIO -- left alone here; consolidating it
-needs each type's expected_*_types[] table passed into a shared
-checker, not just struct common_data.
+No idea why this only happens with this particular host-device pair.
 
-Suggested-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
----
- drivers/platform/x86/hp/hp-bioscfg/bioscfg.c  | 97 +++++++++++++++++++
- drivers/platform/x86/hp/hp-bioscfg/bioscfg.h  |  3 +
- .../x86/hp/hp-bioscfg/enum-attributes.c       | 57 +----------
- .../x86/hp/hp-bioscfg/int-attributes.c        | 57 +----------
- .../x86/hp/hp-bioscfg/order-list-attributes.c | 58 +----------
- .../x86/hp/hp-bioscfg/passwdobj-attributes.c  | 57 +----------
- .../x86/hp/hp-bioscfg/string-attributes.c     | 58 +----------
- 7 files changed, 125 insertions(+), 262 deletions(-)
+This may very well be a HW bug, but maybe one more thing worth trying
+would be this second patch (either with or without the previous one,
+doesn't matter). I'm aware of one thing the driver does out of spec -
+maybe it confuses the ASM4242, maybe it's unrelated. Let's check.
 
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-index 309634c1cc20..22c198680903 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-+++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-@@ -484,6 +484,103 @@ int hp_convert_hexstr_to_str(const char *input, u32 input_len, char **str, int *
- 	return ret;
- }
+diff --git a/drivers/usb/host/xhci-mem.c b/drivers/usb/host/xhci-mem.c
+index 83ed26c4f9e4..0e091d5cce17 100644
+--- a/drivers/usb/host/xhci-mem.c
++++ b/drivers/usb/host/xhci-mem.c
+@@ -381,7 +381,7 @@ struct xhci_ring *xhci_ring_alloc(struct xhci_hcd *xhci, unsigned int num_segs,
+ 		return NULL;
  
-+/**
-+ * hp_get_common_data_from_package() - Parse the package elements shared
-+ * by every attribute type (PATH..SECURITY_LEVEL)
-+ * @obj: ACPI object package for this attribute instance
-+ * @obj_count: Number of elements in @obj
-+ * @elem: Current position in @obj; advanced in place when PREREQUISITES
-+ *	  consumes additional array elements
-+ * @eloc: Current common-element locator; advanced in place when
-+ *	  PREREQUISITES_SIZE is zero, since PREREQUISITES is then omitted
-+ *	  by BIOS
-+ * @int_value: Integer value already decoded by the caller for *@eloc,
-+ *	       when applicable
-+ * @str_value: String value already decoded by the caller for *@eloc, when
-+ *	       applicable; reused and reset to NULL while walking
-+ *	       PREREQUISITES, same as the caller does with its own copy
-+ * @common: Destination common_data struct for this attribute instance
-+ *
-+ * Called by each type's own hp_populate_*_elements_from_package()
-+ * instead of duplicating this parsing per type, since every BIOS
-+ * attribute package uses the same layout for these elements (see
-+ * struct common_data).
-+ *
-+ * Return: 0 on success, or -EINVAL if @obj is too small for the
-+ * declared PREREQUISITES_SIZE.
-+ */
-+int hp_get_common_data_from_package(union acpi_object *obj, int obj_count,
-+				    int *elem, int *eloc, u32 int_value,
-+				    char **str_value, struct common_data *common)
-+{
-+	int value_len;
-+	int reqs;
-+	int size;
-+
-+	switch (*eloc) {
-+	case PATH:
-+		strscpy(common->path, *str_value);
-+		break;
-+	case IS_READONLY:
-+		common->is_readonly = int_value;
-+		break;
-+	case DISPLAY_IN_UI:
-+		common->display_in_ui = int_value;
-+		break;
-+	case REQUIRES_PHYSICAL_PRESENCE:
-+		common->requires_physical_presence = int_value;
-+		break;
-+	case SEQUENCE:
-+		common->sequence = int_value;
-+		break;
-+	case PREREQUISITES_SIZE:
-+		if (int_value > MAX_PREREQUISITES_SIZE) {
-+			pr_warn("Prerequisites size value exceeded the maximum number of elements supported or data may be malformed\n");
-+			int_value = MAX_PREREQUISITES_SIZE;
-+		}
-+		common->prerequisites_size = int_value;
-+
-+		/*
-+		 * This step is needed to keep the expected
-+		 * element list pointing to the right obj[elem].type
-+		 * when the size is zero. PREREQUISITES
-+		 * object is omitted by BIOS when the size is
-+		 * zero.
-+		 */
-+		if (common->prerequisites_size == 0)
-+			(*eloc)++;
-+		break;
-+	case PREREQUISITES:
-+		size = min_t(u32, common->prerequisites_size, MAX_PREREQUISITES_SIZE);
-+
-+		for (reqs = 0; reqs < size; reqs++) {
-+			if (*elem + reqs >= obj_count) {
-+				pr_err("Error elem-objects package is too small\n");
-+				return -EINVAL;
-+			}
-+
-+			if (hp_convert_hexstr_to_str(obj[*elem + reqs].string.pointer,
-+						     obj[*elem + reqs].string.length,
-+						     str_value, &value_len))
-+				continue;
-+
-+			strscpy(common->prerequisites[reqs], *str_value);
-+			kfree(*str_value);
-+			*str_value = NULL;
-+		}
-+		if (size)
-+			*elem += size - 1;
-+		break;
-+	case SECURITY_LEVEL:
-+		common->security_level = int_value;
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
- /* map output size to the corresponding WMI method id */
- int hp_encode_outsize_for_pvsz(int outsize)
+ 	ring->num_segs = num_segs;
+-	ring->bounce_buf_len = max_packet;
++	ring->bounce_buf_len = max_packet * 16;
+ 	INIT_LIST_HEAD(&ring->td_list);
+ 	ring->type = type;
+ 	if (num_segs == 0)
+diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
+index b9d005ca5877..fa2480c83dd9 100644
+--- a/drivers/usb/host/xhci-ring.c
++++ b/drivers/usb/host/xhci-ring.c
+@@ -3537,15 +3542,13 @@ static u32 xhci_td_remainder(struct xhci_hcd *xhci, int transferred,
+ 
+ 
+ static int xhci_align_td(struct xhci_hcd *xhci, struct urb *urb, u32 enqd_len,
+-			 u32 *trb_buff_len, struct xhci_segment *seg)
++			 u32 *trb_buff_len, struct xhci_segment *seg, u32 max_pkt)
  {
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.h b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.h
-index ac57d6eab4c3..94619c034187 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.h
-+++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.h
-@@ -493,5 +493,8 @@ void hp_friendly_user_name_update(char *path, const char *attr_name,
- 				  char *attr_display, int attr_size);
- int hp_wmi_error_and_message(int error_code);
- int hp_get_common_data_from_buffer(u8 **buffer_ptr, u32 *buffer_size, struct common_data *common);
-+int hp_get_common_data_from_package(union acpi_object *obj, int obj_count,
-+				    int *elem, int *eloc, u32 int_value,
-+				    char **str_value, struct common_data *common);
+ 	struct device *dev = xhci_to_hcd(xhci)->self.sysdev;
+ 	unsigned int unalign;
+-	unsigned int max_pkt;
+ 	u32 new_buff_len;
+ 	size_t len;
  
- #endif
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/enum-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/enum-attributes.c
-index 446dd18d2cee..8f1ecbf127bc 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/enum-attributes.c
-+++ b/drivers/platform/x86/hp/hp-bioscfg/enum-attributes.c
-@@ -132,7 +132,6 @@ static int hp_populate_enumeration_elements_from_package(union acpi_object *enum
- 	u32 size = 0;
- 	u32 int_value = 0;
- 	int elem = 0;
--	int reqs;
- 	int pos_values;
- 	int ret;
- 	int eloc;
-@@ -176,64 +175,18 @@ static int hp_populate_enumeration_elements_from_package(union acpi_object *enum
- 		case VALUE:
- 			break;
- 		case PATH:
--			strscpy(enum_data->common.path, str_value);
--			break;
- 		case IS_READONLY:
--			enum_data->common.is_readonly = int_value;
--			break;
- 		case DISPLAY_IN_UI:
--			enum_data->common.display_in_ui = int_value;
--			break;
- 		case REQUIRES_PHYSICAL_PRESENCE:
--			enum_data->common.requires_physical_presence = int_value;
--			break;
- 		case SEQUENCE:
--			enum_data->common.sequence = int_value;
--			break;
- 		case PREREQUISITES_SIZE:
--			if (int_value > MAX_PREREQUISITES_SIZE) {
--				pr_warn("Prerequisites size value exceeded the maximum number of elements supported or data may be malformed\n");
--				int_value = MAX_PREREQUISITES_SIZE;
--			}
--			enum_data->common.prerequisites_size = int_value;
--
--			/*
--			 * This step is needed to keep the expected
--			 * element list pointing to the right obj[elem].type
--			 * when the size is zero. PREREQUISITES
--			 * object is omitted by BIOS when the size is
--			 * zero.
--			 */
--			if (int_value == 0)
--				eloc++;
--			break;
--
- 		case PREREQUISITES:
--			size = min_t(u32, enum_data->common.prerequisites_size, MAX_PREREQUISITES_SIZE);
--			for (reqs = 0; reqs < size; reqs++) {
--				if (elem + reqs >= enum_obj_count) {
--					pr_err("Error enum-objects package is too small\n");
--					return -EINVAL;
--				}
--
--				ret = hp_convert_hexstr_to_str(enum_obj[elem + reqs].string.pointer,
--							       enum_obj[elem + reqs].string.length,
--							       &str_value, &value_len);
--
--				if (ret)
--					return -EINVAL;
--
--				strscpy(enum_data->common.prerequisites[reqs], str_value);
--
--				kfree(str_value);
--				str_value = NULL;
--			}
--			if (size)
--				elem += size - 1;
--			break;
--
- 		case SECURITY_LEVEL:
--			enum_data->common.security_level = int_value;
-+			ret = hp_get_common_data_from_package(enum_obj, enum_obj_count,
-+							      &elem, &eloc, int_value, &str_value,
-+							      &enum_data->common);
-+			if (ret)
-+				return ret;
- 			break;
+-	max_pkt = xhci_usb_endpoint_maxp(urb->dev, urb->ep);
+ 	unalign = (enqd_len + *trb_buff_len) % max_pkt;
  
- 		case ENUM_CURRENT_VALUE:
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/int-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/int-attributes.c
-index a27907066448..f2774eff613b 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/int-attributes.c
-+++ b/drivers/platform/x86/hp/hp-bioscfg/int-attributes.c
-@@ -145,9 +145,7 @@ static int hp_populate_integer_elements_from_package(union acpi_object *integer_
- 	int ret;
- 	u32 int_value = 0;
- 	int elem;
--	int reqs;
- 	int eloc;
--	int size;
- 	struct integer_data *integer_data = &bioscfg_drv.integer_data[instance_id];
- 
- 	if (!integer_obj)
-@@ -192,63 +190,18 @@ static int hp_populate_integer_elements_from_package(union acpi_object *integer_
- 			integer_data->current_value = int_value;
- 			break;
- 		case PATH:
--			strscpy(integer_data->common.path, str_value);
--			break;
- 		case IS_READONLY:
--			integer_data->common.is_readonly = int_value;
--			break;
- 		case DISPLAY_IN_UI:
--			integer_data->common.display_in_ui = int_value;
--			break;
- 		case REQUIRES_PHYSICAL_PRESENCE:
--			integer_data->common.requires_physical_presence = int_value;
--			break;
- 		case SEQUENCE:
--			integer_data->common.sequence = int_value;
--			break;
- 		case PREREQUISITES_SIZE:
--			if (int_value > MAX_PREREQUISITES_SIZE) {
--				pr_warn("Prerequisites size value exceeded the maximum number of elements supported or data may be malformed\n");
--				int_value = MAX_PREREQUISITES_SIZE;
--			}
--			integer_data->common.prerequisites_size = int_value;
--
--			/*
--			 * This step is needed to keep the expected
--			 * element list pointing to the right obj[elem].type
--			 * when the size is zero. PREREQUISITES
--			 * object is omitted by BIOS when the size is
--			 * zero.
--			 */
--			if (integer_data->common.prerequisites_size == 0)
--				eloc++;
--			break;
- 		case PREREQUISITES:
--			size = min_t(u32, integer_data->common.prerequisites_size, MAX_PREREQUISITES_SIZE);
--
--			for (reqs = 0; reqs < size; reqs++) {
--				if (elem + reqs >= integer_obj_count) {
--					pr_err("Error elem-objects package is too small\n");
--					return -EINVAL;
--				}
--
--				ret = hp_convert_hexstr_to_str(integer_obj[elem + reqs].string.pointer,
--							       integer_obj[elem + reqs].string.length,
--							       &str_value, &value_len);
--
--				if (ret)
--					continue;
--
--				strscpy(integer_data->common.prerequisites[reqs], str_value);
--				kfree(str_value);
--				str_value = NULL;
--			}
--			if (size)
--				elem += size - 1;
--			break;
--
- 		case SECURITY_LEVEL:
--			integer_data->common.security_level = int_value;
-+			ret = hp_get_common_data_from_package(integer_obj, integer_obj_count,
-+							      &elem, &eloc, int_value, &str_value,
-+							      &integer_data->common);
-+			if (ret)
-+				return ret;
- 			break;
- 		case INT_LOWER_BOUND:
- 			integer_data->lower_bound = int_value;
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/order-list-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/order-list-attributes.c
-index 5bf8d40bdf81..95fca0919f1f 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/order-list-attributes.c
-+++ b/drivers/platform/x86/hp/hp-bioscfg/order-list-attributes.c
-@@ -130,11 +130,9 @@ static int hp_populate_ordered_list_elements_from_package(union acpi_object *ord
- 	char *str_value = NULL;
- 	int value_len = 0;
- 	int ret;
--	u32 size;
- 	u32 int_value = 0;
- 	int elem;
- 	int olist_elem;
--	int reqs;
- 	int eloc;
- 	char *tmpstr = NULL;
- 	char *part_tmp = NULL;
-@@ -180,64 +178,18 @@ static int hp_populate_ordered_list_elements_from_package(union acpi_object *ord
- 			replace_char_str(ordered_list_data->current_value, COMMA_SEP, SEMICOLON_SEP);
- 			break;
- 		case PATH:
--			strscpy(ordered_list_data->common.path, str_value);
--			break;
- 		case IS_READONLY:
--			ordered_list_data->common.is_readonly = int_value;
--			break;
- 		case DISPLAY_IN_UI:
--			ordered_list_data->common.display_in_ui = int_value;
--			break;
- 		case REQUIRES_PHYSICAL_PRESENCE:
--			ordered_list_data->common.requires_physical_presence = int_value;
--			break;
- 		case SEQUENCE:
--			ordered_list_data->common.sequence = int_value;
--			break;
- 		case PREREQUISITES_SIZE:
--			if (int_value > MAX_PREREQUISITES_SIZE) {
--				pr_warn("Prerequisites size value exceeded the maximum number of elements supported or data may be malformed\n");
--				int_value = MAX_PREREQUISITES_SIZE;
--			}
--			ordered_list_data->common.prerequisites_size = int_value;
--
--			/*
--			 * This step is needed to keep the expected
--			 * element list pointing to the right obj[elem].type
--			 * when the size is zero. PREREQUISITES
--			 * object is omitted by BIOS when the size is
--			 * zero.
--			 */
--			if (int_value == 0)
--				eloc++;
--			break;
- 		case PREREQUISITES:
--			size = min_t(u32, ordered_list_data->common.prerequisites_size,
--				     MAX_PREREQUISITES_SIZE);
--			for (reqs = 0; reqs < size; reqs++) {
--				if (elem + reqs >= order_obj_count) {
--					pr_err("Error elem-objects package is too small\n");
--					return -EINVAL;
--				}
--
--				ret = hp_convert_hexstr_to_str(order_obj[elem + reqs].string.pointer,
--							       order_obj[elem + reqs].string.length,
--							       &str_value, &value_len);
--
--				if (ret)
--					continue;
--
--				strscpy(ordered_list_data->common.prerequisites[reqs], str_value);
--
--				kfree(str_value);
--				str_value = NULL;
--			}
--			if (size)
--				elem += size - 1;
--			break;
--
- 		case SECURITY_LEVEL:
--			ordered_list_data->common.security_level = int_value;
-+			ret = hp_get_common_data_from_package(order_obj, order_obj_count,
-+							      &elem, &eloc, int_value, &str_value,
-+							      &ordered_list_data->common);
-+			if (ret)
-+				return ret;
- 			break;
- 
- 		case ORD_LIST_SIZE:
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
-index a9e178637416..95fa0aeba920 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
-+++ b/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
-@@ -224,7 +224,6 @@ static int hp_populate_password_elements_from_package(union acpi_object *passwor
- 	u32 size;
- 	u32 int_value = 0;
- 	int elem;
--	int reqs;
- 	int eloc;
- 	int pos_values;
- 	struct password_data *password_data = &bioscfg_drv.password_data[instance_id];
-@@ -268,64 +267,18 @@ static int hp_populate_password_elements_from_package(union acpi_object *passwor
- 		case VALUE:
- 			break;
- 		case PATH:
--			strscpy(password_data->common.path, str_value);
--			break;
- 		case IS_READONLY:
--			password_data->common.is_readonly = int_value;
--			break;
- 		case DISPLAY_IN_UI:
--			password_data->common.display_in_ui = int_value;
--			break;
- 		case REQUIRES_PHYSICAL_PRESENCE:
--			password_data->common.requires_physical_presence = int_value;
--			break;
- 		case SEQUENCE:
--			password_data->common.sequence = int_value;
--			break;
- 		case PREREQUISITES_SIZE:
--			if (int_value > MAX_PREREQUISITES_SIZE) {
--				pr_warn("Prerequisites size value exceeded the maximum number of elements supported or data may be malformed\n");
--				int_value = MAX_PREREQUISITES_SIZE;
--			}
--			password_data->common.prerequisites_size = int_value;
--
--			/* This step is needed to keep the expected
--			 * element list pointing to the right obj[elem].type
--			 * when the size is zero. PREREQUISITES
--			 * object is omitted by BIOS when the size is
--			 * zero.
--			 */
--			if (int_value == 0)
--				eloc++;
--			break;
- 		case PREREQUISITES:
--			size = min_t(u32, password_data->common.prerequisites_size,
--				     MAX_PREREQUISITES_SIZE);
--
--			for (reqs = 0; reqs < size; reqs++) {
--				if (elem + reqs >= password_obj_count) {
--					pr_err("Error elem-objects package is too small\n");
--					return -EINVAL;
--				}
--
--				ret = hp_convert_hexstr_to_str(password_obj[elem + reqs].string.pointer,
--							       password_obj[elem + reqs].string.length,
--							       &str_value, &value_len);
--
--				if (ret)
--					break;
--
--				strscpy(password_data->common.prerequisites[reqs], str_value);
--
--				kfree(str_value);
--				str_value = NULL;
--
--			}
--			if (size)
--				elem += size - 1;
--			break;
- 		case SECURITY_LEVEL:
--			password_data->common.security_level = int_value;
-+			ret = hp_get_common_data_from_package(password_obj, password_obj_count,
-+							      &elem, &eloc, int_value, &str_value,
-+							      &password_data->common);
-+			if (ret)
-+				return ret;
- 			break;
- 		case PSWD_MIN_LENGTH:
- 			password_data->min_password_length = int_value;
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/string-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/string-attributes.c
-index f3dfba270f7e..e9bfbef8a3a4 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/string-attributes.c
-+++ b/drivers/platform/x86/hp/hp-bioscfg/string-attributes.c
-@@ -135,9 +135,7 @@ static int hp_populate_string_elements_from_package(union acpi_object *string_ob
- 	int ret = 0;
- 	u32 int_value = 0;
- 	int elem;
--	int reqs;
- 	int eloc;
--	int size;
- 	struct string_data *string_data = &bioscfg_drv.string_data[instance_id];
- 
- 	if (!string_obj)
-@@ -181,64 +179,18 @@ static int hp_populate_string_elements_from_package(union acpi_object *string_ob
- 			strscpy(string_data->current_value, str_value);
- 			break;
- 		case PATH:
--			strscpy(string_data->common.path, str_value);
--			break;
- 		case IS_READONLY:
--			string_data->common.is_readonly = int_value;
--			break;
- 		case DISPLAY_IN_UI:
--			string_data->common.display_in_ui = int_value;
--			break;
- 		case REQUIRES_PHYSICAL_PRESENCE:
--			string_data->common.requires_physical_presence = int_value;
--			break;
- 		case SEQUENCE:
--			string_data->common.sequence = int_value;
--			break;
- 		case PREREQUISITES_SIZE:
--			if (int_value > MAX_PREREQUISITES_SIZE) {
--				pr_warn("Prerequisites size value exceeded the maximum number of elements supported or data may be malformed\n");
--				int_value = MAX_PREREQUISITES_SIZE;
--			}
--			string_data->common.prerequisites_size = int_value;
--
--			/*
--			 * This step is needed to keep the expected
--			 * element list pointing to the right obj[elem].type
--			 * when the size is zero. PREREQUISITES
--			 * object is omitted by BIOS when the size is
--			 * zero.
--			 */
--			if (string_data->common.prerequisites_size == 0)
--				eloc++;
--			break;
- 		case PREREQUISITES:
--			size = min_t(u32, string_data->common.prerequisites_size,
--				     MAX_PREREQUISITES_SIZE);
--
--			for (reqs = 0; reqs < size; reqs++) {
--				if (elem + reqs >= string_obj_count) {
--					pr_err("Error elem-objects package is too small\n");
--					return -EINVAL;
--				}
--
--				ret = hp_convert_hexstr_to_str(string_obj[elem + reqs].string.pointer,
--							       string_obj[elem + reqs].string.length,
--							       &str_value, &value_len);
--
--				if (ret)
--					continue;
--
--				strscpy(string_data->common.prerequisites[reqs], str_value);
--				kfree(str_value);
--				str_value = NULL;
--			}
--			if (size)
--				elem += size - 1;
--			break;
--
- 		case SECURITY_LEVEL:
--			string_data->common.security_level = int_value;
-+			ret = hp_get_common_data_from_package(string_obj, string_obj_count,
-+							      &elem, &eloc, int_value, &str_value,
-+							      &string_data->common);
-+			if (ret)
-+				return ret;
- 			break;
- 		case STR_MIN_LENGTH:
- 			string_data->min_length = int_value;
--- 
-2.55.0
+ 	/* we got lucky, last normal TRB data on segment is packet aligned */
+@@ -3690,9 +3693,8 @@ int xhci_queue_bulk_tx(struct xhci_hcd *xhci, gfp_t mem_flags,
+ 		if (enqd_len + trb_buff_len < full_len) {
+ 			field |= TRB_CHAIN;
+ 			if (trb_is_link(ring->enqueue + 1)) {
+-				if (xhci_align_td(xhci, urb, enqd_len,
+-						  &trb_buff_len,
+-						  ring->enq_seg)) {
++				if (xhci_align_td(xhci, urb, enqd_len, &trb_buff_len,
++						ring->enq_seg, ring->bounce_buf_len)) {
+ 					send_addr = ring->enq_seg->bounce_dma;
+ 					/* TD bounced at least, and last on this seg */
+ 					td->bounce_seg = ring->enq_seg;
+
+
 
