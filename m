@@ -1,119 +1,100 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 181EF2FC00D
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 00:45:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788569106; cv=pass; b=E0176YcQ02ZSxbswSiutiyT3GgvbYaIo51FfrZWvyzUBTI4+cu36LbQYY0W+GofQYiozHP7L1RvKijRGjBtkl3OZMGProJ/6jq6/oTZy8wIhEUNu7ISMwj5J3ozypuhJCRo+/G+k6sUC6wpNw2w5mfzB+Lr31cwnsVKKgzG/My0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788569106; c=relaxed/simple;
-	bh=DW6wbmUxstvUjLcrpQZmIK9RqXPWAOU7XHIXv6Rvtno=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=g+avSRRf5FesLSastw7A7Crfw4zKT35KqWH1lZJudOurEFcXJnIgN83ibsECl964+gHJX26t0tSBXbcmi67lKfsNHgzjZaxlV0j8VXcW5nSqOP4yG7gMpKU9qkksta+i0rATeV0ZsaLiB0u/8Ght4qQmtA8oqjSxj2kj4u2wsus=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OyI9fs46; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB611D7E5C;
+	Sat,  5 Sep 2026 00:45:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788569144; cv=none; b=gnoTme9UH2+ZTWk7Gs/KjHbv4767ABJ3GvwryFkpkgKRbq7fVrjwNmjypoYKPcgQOqPanNaOmWhp4m6FiFkC2ovGGG9j+EJkcGil5f6uY1UmAISwu7a1tAda2CK5lH6Pcb7CtLPTvFEoyoecTgtFT7VZJ1fn8i/j8AgrXvCCHRo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788569144; c=relaxed/simple;
+	bh=a0cW6PYD2Tr3wJD2E0ngQ0wexkWk1v4S7G4nYtgrnGk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hONm0DNEFgEK0mvay1Q0OhwoRQd3XgNkbCOPEVYDoeL+456upRlCef3MPNR7OmALO1d31JWwUA41b8UKpxKtpsq3z8Tu82/oZX4nDssMLYganLHXEntYjtMEbmu2jP+5i1E/CkUZ6nO3rxi8bnMoTPP6EqqzUBOgzJ5cTENdIlQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=KeE8Kb2d; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OyI9fs46"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a5d8fd8d8dso1789a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 17:45:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788569102; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GIpjBzDqMVKJTZO2I5AjKopjtxhv6vzO8I/5frB27c8siXYwnhlgoG4MugFUasMCVV
-         zZa6sOZZaYYbo5cLelfquJXfYp4nq4Lh6LVYymtiepPLl8/AoO9NW6NcWhbSjSnU4gGl
-         GbwHVYB9owQ1eUDpfVurTOJeHuGpRjVYKJIYW0HUvgm4JhG69AEWiZLZR08jHrocqZqx
-         JvlOMUqH1Q9uvLPGlbp+BH5dvnNSgflGIksfjL+zUj6zrrdQrPPNBGSM2dgNxatxfbZ6
-         5zmu/ZhdsGo9gZWmY58tjYfloYUbYeMgqJMe1z8DDmKx4REaxLYslY3SjvD+k9acUBlz
-         BCOA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=P0qdXiSaaoLWSkRGl4kXPpi2MGKhx4sNOFo2eMkbT7Q=;
-        fh=vK9Iv+Pc3jGh1i955OBbTI+QrvWFFqR6ep0fQKCrVu0=;
-        b=baxoeUdL+jmx00Npo8nwj3VV5LEOBol9vw+QtHVGsb04InpIrU+sC/+xnuM8e79ErM
-         W+owbjlUUnGT8S84XL28XmbquUa3zYU+zuXUPdFc6MYGIVq6pc7bn6LwTSWSTtXY0K0e
-         svdXiKI8W7S8FSGnMOhYLaJIIAv6Idr5+t7pYfNi3wSN+QcQYFMpqE7qYCS5MBUj/e2C
-         /92o05btVR7/b5Ef1XG7oU+QH536Y+rfR9l5gBGRcqAEzjhMCuZh3NyRYRpH9Ur91IlE
-         DcGDo0sndLj6pFtSnpPjY8FtMgDHVcCAYUqAa5zC4JV/FWdMutE2X6tu4ziO+3q1JNVZ
-         R6ew==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788569102; x=1789173902; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=P0qdXiSaaoLWSkRGl4kXPpi2MGKhx4sNOFo2eMkbT7Q=;
-        b=OyI9fs46s9KMNJD7zN0urJ2M2pLl4IzvJarbo0V33R8l8ylqpl+3wEZEfwkXElkoz4
-         21yBThMXt8LoGu3v2xbogXWB9+B+xIUmd8M/qipodHejCfYlyS8hdfd62LlEOOk+xqSg
-         ly5l3fjwbyDs8MRaKow1+6UyH/NQ72+RU31PfGmrCT41jPfib50DlRzDqjW5Gn2067sa
-         w8paSdpGcdO9f1XEM18/kNr+aGlRQOm04nKJar490EwIxSOa2dFCDem/CHTj7Vs6hISm
-         EMtPPDpVU2jexo2y48QtYW0/C9aJ81cO9p3gTrvVpLoFx7ILMVH35lVkRYv9HbJlrs6k
-         BkjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788569102; x=1789173902;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=P0qdXiSaaoLWSkRGl4kXPpi2MGKhx4sNOFo2eMkbT7Q=;
-        b=L2+qmXRDhVTn7YWYwu7b+HJaxv5vF3h6dqYft/IRPpmFBCRrqJ4g/5iWvdwhS3YE60
-         pAqZepPBZTDqmI6NriCWA1dGJbrNfcVf5Fo0T8vYkTyWTjG9/AnlQ8XgjQK2vMnKPnL+
-         bNnn3fAwKxF1RsFsn5wJiRx6wzvGUiMC5AxfPvCGSIvXEAuao6W/Uv6uQVaIj0xfki68
-         HRORkpaxbRtKkJ29jkg7kq3eVaiJA0QbpvkJViRAZCAFa55JDkYlJOdR7n1EH7G7XEQa
-         47SM9TOOcKpCFbqO4TzEcdoR6vFS5kpjJMQ1dsoCfYODf/zAqBT1zxBQFJPQ43fsK+ro
-         D5NQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz/72+r3JW2uUxY2BXNaDWGcVeaG7G5NDXgiKqN2OaI6Y7WJlGvAu7ER84lAmWBhpuZvF15wpAo66eSTh0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lZSLxrbT0FgMsOsNqc5L6CRbiYSr56Q6XW5ZVQbruagb5M3T1K
-	bIrvNV30XSoZCM6ielT7GN9m9SmfdB+F8atDCeuIM1SKiaV+4fFIA2tcis1VB/MspSOrdB7t3nu
-	zpZzlsbiB91Fm4s9QBC01s4Fe27HqRoMIqV0jPxrJ
-X-Gm-Gg: AYBFou0Oui8NY64+StzqGvf4A/hVuxAJkWH9BCM8YSkDDrRHK07T/KkNF76+bKq4NXv
-	aMVEJL6aYRmZDcyVGtZ/MWXmrqJm7h9dK888Lte3doUD8NTHOZK4DoPZQosLTcBTSlkssGhHKYC
-	ND54hZdV1dewd1Pd8UK3qSWoJBwSg4lbfhfnRYrTLXArYOnNNzgn5V7Hy3mermTAIsP5Eq1gAYD
-	PfsWqtJzS27eh1UHplHevn9unZS6uxh41ufGqKPhC/uKc29VVChdHG2gy7V/0oTvS4sMS5GpbMb
-	mrVx8bQZyU/HCRwVKpAp1cABR6SeMG6HVUDkn5slzl/3gMoT/D3mVeY=
-X-Received: by 2002:a05:6402:1a4c:b0:6a6:9d10:f52b with SMTP id
- 4fb4d7f45d1cf-6a7f682636amr13303a12.12.1788569101906; Fri, 04 Sep 2026
- 17:45:01 -0700 (PDT)
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="KeE8Kb2d"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id F1A4540E016C;
+	Sat,  5 Sep 2026 00:45:33 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id 3y-QtSAJBYRS; Sat,  5 Sep 2026 00:45:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1788569124; bh=nORnCbVbH5mxAliZabDrZOjSHlsyvMySDHzBkM2HwuU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=KeE8Kb2dJnLpc0Ry3NEKvf3vCEVLMrMV5QyBRo0KxYaxV6VWbglrWNnrM8qZ2VlEs
+	 ueh8B2nHU+9dRPzuM6kk9rWnQUyj5td8sG11Qu7nvf+nXlKe/Y37FBMmcVj5FAL6u1
+	 VT0i/uuIUTac3SnYSaDI641+CO3QgfQkn0KDmsS7SZztN2am2SvPlOLRI3jPEXq292
+	 VrTouNMrb/w0olJhxn9MlEoY4GLkSVlXYMDH9IEGfyELbP9kx80sAnZIG9jaZgfq/G
+	 74/j2OdNPx3DYb1f+JyjQ/Su6akocpeeBsC+0zjuf4cujmMG/aAKr6vlBeTZKtEHOQ
+	 b4iJx2bsGvAkioblq8nCMLSR0DrIOInD52wduSNooIPkeM2v/IbFEWlWc765lHdBgc
+	 akFqn4qBCWTPJBkq4l+Df/Vaa92wdDrNZ2kPNXw6di8BuKngMNfUD+QSMuzg6WcV+N
+	 rfU4i6KVr+I7GcgHGvcuIGiI+NpnqeUi9TremNXpJTLbQ1z7HgWjDS0eGXtKCWPwhu
+	 7XkLHhs+rydTLhEqlSMPr7ObvpPwEKh1jJD/mUSBOF8kD4NhUGM29XP6Akx75CjKXP
+	 C+tVq40iIVxeWjYZ1zdIk9Iq5hZe+Ib8qVj5QjnAnD76ty8L9dc4usZ1PIfLT8Ajup
+	 6wdQMImKL4K6CzagrtA8O8sE=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::2a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 38E8340E01E1;
+	Sat,  5 Sep 2026 00:45:09 +0000 (UTC)
+Date: Fri, 4 Sep 2026 17:45:05 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Reinette Chatre <reinette.chatre@intel.com>
+Cc: Ben Horgan <ben.horgan@arm.com>, x86@kernel.org, james.morse@arm.com,
+	fenghuay@nvidia.com, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, tglx@linutronix.de,
+	mingo@redhat.com, dave.hansen@linux.intel.com, hpa@zytor.com,
+	corbet@lwn.net, linux-doc@vger.kernel.org, dave.martin@arm.com
+Subject: Re: [PATCH v5 0/3] x86,fs/resctrl,arm_mpam: Factor MBA parse-time
+ conversion to be per-arch
+Message-ID: <20260905004505.GAaptmEVxltONVfl2J@fat_crate.local>
+References: <20260709093111.367851-1-ben.horgan@arm.com>
+ <165e7636-d7e9-4d16-aad1-657b4a9698d0@intel.com>
+ <b0a7035e-7ffe-4e22-a4ae-a177640234b8@intel.com>
+ <20260904033751.GCapo9D5ZZXWuQkIpc@fat_crate.local>
+ <20260904173615.GOapsBjyiT7uXHd-Qc@fat_crate.local>
+ <35ebb8d4-2ef0-4bc0-ac3f-afff0c95ae89@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824123954.315112-1-zhang_wei@open-hieco.net> <20260824123954.315112-8-zhang_wei@open-hieco.net>
-In-Reply-To: <20260824123954.315112-8-zhang_wei@open-hieco.net>
-From: Jim Mattson <jmattson@google.com>
-Date: Fri, 4 Sep 2026 17:44:47 -0700
-X-Gm-Features: AcwNN1UZwSKJ9MC3qwJwI8ljAn8Hu3imGZF6CsHrJI6l7M3IeDffrx60t7WpNbE
-Message-ID: <CALMp9eSTK_m4XMyBk2U10dhQo-ve+M8CmToVyFcS40o7RoSX7A@mail.gmail.com>
-Subject: Re: [PATCH v5 7/8] KVM: nSVM: Advertise DecodeAssists to L1
-To: Tina Zhang <zhang_wei@open-hieco.net>
-Cc: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>, zhouyanjing@hygon.cn, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <35ebb8d4-2ef0-4bc0-ac3f-afff0c95ae89@intel.com>
 
-On Mon, Aug 24, 2026 at 5:40=E2=80=AFAM Tina Zhang <zhang_wei@open-hieco.ne=
-t> wrote:
->
-> Advertise DecodeAssists to L1 now that KVM virtualizes the
-> guest-visible DecodeAssist state in VMCB12: EXITINFO1 decode data for
-> MOV CR/DR, INTn, and INVLPG exits, plus instruction bytes for nested
-> page faults and intercepted #PF exits.  INVLPGA's linear address remains
-> available directly from the saved guest rAX, as required by the APM.
->
-> Expose the feature only when supported by hardware, as KVM still relies
-> on hardware DecodeAssists for VM-Exits that are reflected directly from
-> L2.
->
-> With DecodeAssists exposed, QEMU configurations that require the feature
-> (e.g. "-cpu ...,+decodeassists,...,enforce") are no longer rejected.
->
-> Signed-off-by: Tina Zhang <zhang_wei@open-hieco.net>
+On Fri, Sep 04, 2026 at 02:15:08PM -0700, Reinette Chatre wrote:
+> Sashiko's second comment is about resctrl's existing (not introduced by this patch)
+> Intel specific enumeration being resilient against a hypervisor misconfiguration.
+> Thus far resctrl assumed the enumeration would return what the actual hardware
+> is known to support.
+> 
+> Sashiko had similar "hypervisor misconfiguration" comments in response to another
+> resctrl series that already falls under the "cleanup" umbrella. It is not clear to
+> me how far resctrl needs to go to be resilient against hypervisor misconfiguration
+> but I can include needed validation addressing this report as part of [1]. 
 
-Once the implementation issues are addressed...
+I would always ask myself how realistic is the use case. Here, I'm thinking
+not that realistic unless you guys wanna support resctrl in a guest. Which
+would be weird, IMHO, because a guest can fake all kinds of hw so controlling
+resources of a fake hw is an exercise in futility.
 
-Reviewed-by: Jim Mattson <jmattson@google.com>
+So might as well answer that Sashiko review comment with "thanks, but no
+thanks."
+
+:-)
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
