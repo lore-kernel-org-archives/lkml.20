@@ -1,75 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10A6F23D28C
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 00:32:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D2A123D28C;
+	Sat,  5 Sep 2026 00:32:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788568368; cv=none; b=dR+jvEecZ7aIK7tmzyD4jgtioi9mfwkC4ShxGII4lHsdAsNqn6lbXRoaz36Uhqwl8LYM4lyofzZVMqO9XSNSS7F6Vald3jh6lxs+ilW64YROLoeW57CtwBz/cxVS3UZiirOd5PviO/gRZVulzjXTgdilgYXKkq7JaXh+tmlGod0=
+	t=1788568379; cv=none; b=W3D1fy9ovPlS0o3ny22zP94GnnqWLOyA63OMMaUuNF3WpIpLj/Hm9e94xf47LnfQFS1zmy8MD9tSsSEtvVRxC23R7PuFVxAn5w585g6cEtUcqUaCZWLN4Bns8kBKFi1vG5B9jU+EfguJDlk2bUaVYOsjVBQOqpnH2nKnEDtXafc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788568368; c=relaxed/simple;
-	bh=LzifNNzyxob20MAj/BylBsNG5hVA47kSF0gkQmEZc5E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fa0yS5IJcVzvaTs527U1Pfy7MWCsHQYZfOO0K2faZU5xkOTWYa3dgPHmQOL3mbEo+NoN+xrNqzqTtFUK2qyv3fQy4nMaZO+Ker1L+MCMVcAvo0lFp5aSmJamL0WJhOWzlxbFqj9GkAkfSMNtPk/n7KDe6awg9IvNehdPo8e7AHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kUmtwxlj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788568379; c=relaxed/simple;
+	bh=O7na85LJzeeW9urrmTT+ZcC5YkqIgHTZo4aYjjs6JNg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OMd6ka1tzbNMHwd6nx1VB/JbZ3e+groMBbJu6Kc+iy+thTZl3h7pv6PQrSethsPOQJJ+Y7pQG0bFnC2Vi467FuJApfdTilSjrw5ha2AkS94DILPCQgipAbUnH+fY7Bi0HzOjVf9v8KQ5ucah1ZMZxTAPMnspnamv/ZFgtJrygAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LviXth5l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kUmtwxlj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FC931F00A3D;
-	Sat,  5 Sep 2026 00:32:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LviXth5l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CB001F00A3D;
+	Sat,  5 Sep 2026 00:32:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788568366;
-	bh=1ZGSo/wx6Gpxvgtz7JFDR5HrEIDwWaXUEU46GxXEPYk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kUmtwxljSOu0DtqF3BOYN9BT2IjZ4jJJ+JTLIdMIQMrWWxAoIsxdUZMasEqJVxLLQ
-	 mGrQLTrTouiXaN7SBI1hVjNLyHMtJySAI4KmRjBPGXH9PxdgoWcG3rA77atCMa1q4u
-	 aW2phhFygK/YqRjEBWxTqrQBHuZuTV+EIn6PnOkvqxo22/aESSlTLw1XJwRyUAcJI3
-	 mDAVIXuVyAlSn7sKLuvRie55QZAdRSudmW8BYPD4/wFua5+piTgdYCGpZovg0XRpDI
-	 cTLkxKRN6OIWajWIu930OJg71DGZVBLnYdtXnITZzCe8+LLbNfgzlU7E/9Fy/pILtS
-	 WMfoahHmzMO2g==
-From: SJ Park <sj@kernel.org>
-To: Ye Liu <ye.liu@linux.dev>
-Cc: SJ Park <sj@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Ye Liu <liuye@kylinos.cn>,
-	David Rientjes <rientjes@google.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/8] mm/oom_kill: convert process/thread iterators to for_each_*_rcu
-Date: Fri,  4 Sep 2026 17:32:38 -0700
-Message-ID: <20260905003239.68043-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260904083001.553587-3-ye.liu@linux.dev>
-References: 
+	s=k20260515; t=1788568377;
+	bh=Q5oBfAwVgZGXYsPQcMyKaSyqzRQDV+E4ggbXvLfpz8M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LviXth5l1ro8TYsEj8bIErmuV36c+DsXqxY3I/u5WRXhbGGnIGpzjTFos9yRKs33H
+	 yZb/FfWlW+nLzEx9F7VpBYohgc2xwGuvok+JgAMWjmx1tF/y86IW9CO6l5GV5Ec65s
+	 9cvegQqK+dZ0OZpD0Ql8mGg/0D092dfkWREg+XAIw77yi7InzQRjceCvJYOhL97iPI
+	 KvP3UK5WN655fClRGCJCA6uK9OLWMMQfV7TBEp4k1682dLTnyD5kpVX5D6TtV/p9dr
+	 M6irV93RRdOWaBJajQ13S+1XVc5pQwLteoIsgvrVDny7/HOXoqFjjypwyBC5ezpJzh
+	 ukgNhUKn9g0Lw==
+Date: Fri, 4 Sep 2026 21:32:54 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: markdamirkan@gmail.com, Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] perf evsel: Validate cross-endian samples before
+ byte swapping
+Message-ID: <aptjNjaz3RYTW-TF@x2>
+References: <20260903-sympwn-linux-002-final-v2-v2-0-0aee1fca1f95@gmail.com>
+ <CAP-5=fW5uHsW0wgffWgc8f5ibDf8ArF8qJW6sWzrorL44CqnNw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAP-5=fW5uHsW0wgffWgc8f5ibDf8ArF8qJW6sWzrorL44CqnNw@mail.gmail.com>
 
-On Fri,  4 Sep 2026 16:29:54 +0800 Ye Liu <ye.liu@linux.dev> wrote:
-
-> From: Ye Liu <liuye@kylinos.cn>
+On Thu, Sep 03, 2026 at 01:19:07PM -0700, Ian Rogers wrote:
+> On Thu, Sep 3, 2026 at 4:05 AM Mark Amirkan via B4 Relay
+> <devnull+markdamirkan.gmail.com@kernel.org> wrote:
+> >
+> > Two paths in __evsel__parse_sample() use values from an
+> > opposite-endian perf.data record to modify the record before checking that
+> > the data fits within event->header.size.
+> >
+> > Patch 1 checks the complete branch stack before swapping entry flags.
+> > Patch 2 checks the RAW payload and the complete 64-bit words touched by
+> > mem_bswap_64() before swapping the data.
+> >
+> > The malformed branch-stack and RAW records reproduce as out-of-bounds
+> > reads and writes. Each patch adds a Sample parsing regression test that
+> > checks rejected records do not modify data past the declared event.
+> >
+> > Signed-off-by: Mark Amirkan <markdamirkan@gmail.com>
 > 
-> Replace the manual rcu_read_lock()/rcu_read_unlock() pairs wrapping
-> for_each_process()/for_each_thread() loops with for_each_process_rcu()
-> and for_each_thread_rcu(), so that the RCU read-side critical section
-> is scoped to the loop body.
+> Reviewed-by: Ian Rogers <irogers@google.com>
 
-Looks clean to me :)
+Thanks, applied to perf-tools-next, for v7.4.
 
-> 
-> No functional change.
-> 
-> Signed-off-by: Ye Liu <liuye@kylinos.cn>
-
-Reviewed-by: SJ Park <sj@kernel.org>
-
-
-Thanks,
-SJ
-
-[...]
+- Arnaldo
