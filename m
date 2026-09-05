@@ -1,314 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A3D03451D6
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 00:44:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5E5102EDD78;
+	Sat,  5 Sep 2026 00:44:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788569049; cv=none; b=LXCEu6SzsbrH/PvKohEDdQwA3C6+AdGI7dltDRSVnAI2h/u+KrxZ2OkGvVDNol+BRP5b858qjrvVWDKQwk4NGVrFWJc2+Ln6DVaaBbHqdvRzPd5s4SBmGHBZ+hTlNHzDmg8S6gVu2+xu0SDRk9+fZ6M+JSf5VExatpz33T1ekHE=
+	t=1788569084; cv=none; b=lIs5zIT0ei/dVtqxZLgGGXdRhEBcfTfp9umM8bFNd0sqdUEWb+jmm8PDa1Dr/+pc7cqBADuyzvTtd8XD4dG6qjP1NdTVb/ufxH29IQwW9RNCjVQbYmKFCyZIdZFoanaLMLJRVXTR/y6bRBFC/P7mC6NyKT4olLESYjCcLvrRhe0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788569049; c=relaxed/simple;
-	bh=7FvF0LsOOP/A5Gws/keC9jZqZEEc9tsbJ+BDq1qMj1c=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=n6T7ktToFx0CPVTyl+TBWmjGY9L3oTcJArxSxRbK5+Kq4EUzadjPArHLfiUewb8yYokFYpZX1TX1vGCgyOJFIDaKys4QLQe2EYPD1zvZa0R4HLS8xkdJ+cyKyq9+P0l2t3pcaI3fIAG/TnQw2l0er9LqEKnm2KJj/gPmnWPyqm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VBNKzIZL; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VBNKzIZL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA7841F00A3D;
-	Sat,  5 Sep 2026 00:44:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788569048;
-	bh=gOf3VSIqxOmbHAVcGO5wfYGM1fC17JtOjg45s12VHI4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=VBNKzIZLPp7+BITYZiWqTi2Sm58BKIc24t9M+9IclKApTLc4mbeqxOpe/00OjNfDA
-	 dzctUb8s9bukc+8oVNeNHeh32X7G7erhNvRlMuBJ2fwTZGJFQ8ao/K/JOOqVFnkBfv
-	 JrQG9xhh4Nm/174uGYa963rHbZURqNFCLj4nH1UzU0JAp+E9JmDMxBpDJZywgYyRPN
-	 6c9DjLjFav74BH0X5ZW77qnwgnpoS5YC/dFIj8kNxerLherTYj7GFZ0Y/2And/4pBq
-	 /XfTipk5qXJhFJYSM7+TsQaDy5fGgHW4USC4Dc+Z0spjHlosXsi5gQObSqz2QsABV0
-	 ntenCPiXg5OFQ==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Fri, 04 Sep 2026 19:43:38 -0500
-Subject: [PATCH v2 19/19] accel: ethosu: Validate resize operations
+	s=arc-20240116; t=1788569084; c=relaxed/simple;
+	bh=AB/1YXHK2PmOEoylzqWAd6eEVPGd6KSQLDbaN4SHlvs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m+S5Cw5YlPTziAImjShby3ClQi8PxWl1vADx0HxSqpFYg2GAjR/20EvzNV5H31ofgosYoSsLmYnpZuVLv5OUquEt3DeIrQMOZ5ADlbIKc779Zxs74+U0+J96DpyqvN9njvP7ikCsRPZi4uMyyl/9KOYy0wFetvF+SpJczgpspOg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Received: by linux.microsoft.com (Postfix, from userid 1202)
+	id 25D6320B7167; Fri,  4 Sep 2026 17:44:05 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 25D6320B7167
+From: Long Li <longli@microsoft.com>
+To: Long Li <longli@microsoft.com>,
+	Konstantin Taranov <kotaranov@microsoft.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	"K . Y . Srinivasan" <kys@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	shradhagupta@linux.microsoft.com,
+	Simon Horman <horms@kernel.org>,
+	ernis@linux.microsoft.com,
+	stephen@networkplumber.org,
+	shirazsaleem@microsoft.com
+Cc: netdev@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net] net: mana: do not discard an ethtool-configured RSS table on a queue rebuild
+Date: Fri,  4 Sep 2026 17:44:01 -0700
+Message-ID: <20260905004401.3937066-1-longli@microsoft.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-ethosu-fixes-v2-19-3767738756a4@kernel.org>
-References: <20260904-ethosu-fixes-v2-0-3767738756a4@kernel.org>
-In-Reply-To: <20260904-ethosu-fixes-v2-0-3767738756a4@kernel.org>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
- Frank Li <Frank.Li@nxp.com>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.16-dev
+Content-Transfer-Encoding: 8bit
 
-Resize input coordinates are controlled by the scale, offset, and step
-registers. Require those values to be explicitly programmed, validate
-the scale and step relationships, and use a conservative coordinate
-bound when validating the input feature map.
+mana_alloc_queues() regenerates the RSS indirection table from the driver
+default every time the queues are built, so a table installed with
+"ethtool -X" is silently replaced by any operation that rebuilds them:
+an MTU change, a ring-size, channel-count or private-flag change, an XDP
+attach, TX-timeout reset recovery, or resume.
 
-This prevents retained or malformed resize state from accessing beyond
-the validated input feature-map buffer.
+The driver never clears the core's IFF_RXFH_CONFIGURED, so
+netif_is_rxfh_configured() keeps reporting a user table while the
+hardware has been reprogrammed with the default one. "ethtool -x" then
+shows a table the user did not ask for, with no indication it changed:
 
-Assisted-by: LLM
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+  # ethtool -X ens1 equal 2
+  # ethtool -x ens1
+  RX flow hash indirection table for ens1 with 16 RX ring(s):
+      0:      0     1     0     1     0     1     0     1
+      8:      0     1     0     1     0     1     0     1
+  # ip link set ens1 mtu 1400
+  # ethtool -x ens1
+  RX flow hash indirection table for ens1 with 16 RX ring(s):
+      0:      0     1     2     3     4     5     6     7
+      8:      8     9    10    11    12    13    14    15
+
+Keep the table instead, and rebuild it only when it is driver-generated
+or cannot be honoured. An entry may not be kept if it points past the
+last queue: mana_config_rss() uses these entries to index apc->rxqs[],
+which holds apc->num_queues pointers. That is reachable because
+mana_attach() calls mana_init_port(), which lowers apc->num_queues to the
+maximum the device reports, so a table configured for more queues can
+outlive them.
+
+A table that cannot be kept is still replaced by the default silently,
+without ethtool_rxfh_indir_lost(). That helper sends
+ETHTOOL_MSG_RSS_NTF, which requires the netdev instance lock, and
+mana_alloc_queues() runs both with that lock held, from ndo_open, and
+without it, from mana_attach() on the reset and resume paths. Leaving
+the core's view untouched is what the driver did for every table before
+this change.
+
+Opt the RSS ethtool operations into rtnl_lock() while here. Reading the
+table in mana_alloc_queues() has to be serialized against mana_set_rxfh()
+replacing it, and the two had no lock in common: mana_set_rxfh() ran under
+the netdev instance lock alone, while mana_alloc_queues() reaches this
+point holding only RTNL, from ndo_open and from mana_attach() on the reset
+and resume paths. Taking the instance lock there instead is not possible,
+since ndo_open already runs with it held. The same flag covers the netlink
+and ioctl entry points.
+
+Fixes: ca9c54d2d6a5 ("net: mana: Add a driver for Microsoft Azure Network Adapter (MANA)")
+Signed-off-by: Long Li <longli@microsoft.com>
 ---
-v2:
- - new patch
----
- drivers/accel/ethosu/ethosu_device.h |   8 ++
- drivers/accel/ethosu/ethosu_gem.c    | 159 ++++++++++++++++++++++++++++++++++-
- 2 files changed, 166 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/microsoft/mana/mana_en.c | 37 ++++++++++++++++++-
+ .../ethernet/microsoft/mana/mana_ethtool.c    |  3 +-
+ 2 files changed, 38 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/accel/ethosu/ethosu_device.h b/drivers/accel/ethosu/ethosu_device.h
-index 3f1fa0a36bd9..2974173bbc40 100644
---- a/drivers/accel/ethosu/ethosu_device.h
-+++ b/drivers/accel/ethosu/ethosu_device.h
-@@ -120,6 +120,8 @@ enum ethosu_cmds {
- 	NPU_SET_OFM_HEIGHT_M1 = 0x112,
- 	NPU_SET_OFM_DEPTH_M1 = 0x113,
- 	NPU_SET_OFM_PRECISION = 0x114,
-+	NPU_SET_OFM_BLK_WIDTH_M1 = 0x115,
-+	NPU_SET_OFM_BLK_HEIGHT_M1 = 0x116,
- 	NPU_SET_OFM_WIDTH0_M1 = 0x11a,
- 	NPU_SET_OFM_HEIGHT0_M1 = 0x11b,
- 	NPU_SET_OFM_HEIGHT1_M1 = 0x11c,
-@@ -130,6 +132,10 @@ enum ethosu_cmds {
- 	NPU_SET_ACC_FORMAT = 0x124,
- 	NPU_SET_WEIGHT_REGION = 0x128,
- 	NPU_SET_SCALE_REGION = 0x129,
-+	NPU_SET_RESIZE_X_SCALE_N_M1 = 0x12a,
-+	NPU_SET_RESIZE_Y_SCALE_N_M1 = 0x12b,
-+	NPU_SET_RESIZE_X_OFFSET = 0x12c,
-+	NPU_SET_RESIZE_Y_OFFSET = 0x12d,
- 	NPU_SET_DMA0_SRC_REGION = 0x130,
- 	NPU_SET_DMA0_DST_REGION = 0x131,
- 	NPU_SET_DMA0_SIZE0 = 0x132,
-@@ -180,6 +186,8 @@ enum ethosu_cmds {
- 	NPU_SET_WEIGHT2_LENGTH = 0x4093,
- 	NPU_SET_WEIGHT3_BASE = 0x4094,
- 	NPU_SET_WEIGHT3_LENGTH = 0x4095,
-+	NPU_SET_RESIZE_X = 0x4096,
-+	NPU_SET_RESIZE_Y = 0x4097,
- };
- 
- #define NPU_ACC_FORMAT_INPUT_MASK	GENMASK(5, 4)
-diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
-index 8114447891b2..67bee9612934 100644
---- a/drivers/accel/ethosu/ethosu_gem.c
-+++ b/drivers/accel/ethosu/ethosu_gem.c
-@@ -139,6 +139,15 @@ struct feat_matrix {
- 	u8 pad_right;
- };
- 
-+struct resize_axis {
-+	u16 scale_n;
-+	s16 offset;
-+	u16 one_step_int;
-+	u16 one_step_mod;
-+	u16 blk_step_int;
-+	u16 blk_step_mod;
-+};
-+
- #define NPU_CMD0_REGS	0x200
- #define NPU_CMD1_REGS	0x100
- 
-@@ -152,6 +161,9 @@ struct cmd_state {
- 	struct feat_matrix ofm;
- 	struct feat_matrix ifm;
- 	struct feat_matrix ifm2;
-+	u16 ofm_blk_width;
-+	u16 ofm_blk_height;
-+	struct resize_axis resize[2];
- };
- 
- static void cmd_state_init(struct cmd_state *st)
-@@ -619,6 +631,96 @@ calc_acc_input_size(struct drm_device *ddev,
- 	return ret;
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+index 7a1ac853e3abcd28c4a1e5c6987ec631a18ad840..97386e17b9421aedefa25bab6fbf0b7b1f2996d4 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_en.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+@@ -3306,6 +3306,28 @@ static void mana_rss_table_init(struct mana_port_context *apc)
+ 			ethtool_rxfh_indir_default(i, apc->num_queues);
  }
  
-+static int resize_axis_size(struct cmd_state *st, int axis, u16 ofm_size,
-+			    u16 ofm_blk_size, u32 *size)
++/* Whether the current indirection table can be kept for apc->num_queues,
++ * rather than rebuilt from the driver default.
++ *
++ * Only a user table ("ethtool -X") is worth keeping; a driver-generated one
++ * is rebuilt so that it spreads over every queue. An entry pointing past the
++ * last queue cannot be kept: mana_config_rss() uses these entries to index
++ * apc->rxqs[], which holds apc->num_queues pointers.
++ */
++static bool mana_rss_table_keep(struct mana_port_context *apc)
 +{
-+	struct resize_axis *resize = &st->resize[axis];
-+	u64 one_step, blk_step, coord;
++	u32 i;
 +
-+	if (resize->offset < -(s16)resize->scale_n ||
-+	    resize->offset >= resize->scale_n ||
-+	    resize->one_step_mod >= resize->scale_n ||
-+	    resize->blk_step_mod >= resize->scale_n)
-+		return -EINVAL;
++	if (!netif_is_rxfh_configured(apc->ndev))
++		return false;
 +
-+	one_step = resize->one_step_int * resize->scale_n +
-+		resize->one_step_mod;
-+	blk_step = resize->blk_step_int * resize->scale_n +
-+		resize->blk_step_mod;
-+	if (check_mul_overflow((u64)ofm_blk_size, one_step, &coord) ||
-+	    blk_step != coord)
-+		return -EINVAL;
++	for (i = 0; i < apc->indir_table_sz; i++)
++		if (apc->indir_table[i] >= apc->num_queues)
++			return false;
 +
-+	if (check_mul_overflow((u64)ofm_size, one_step, &coord) ||
-+	    check_add_overflow(coord, (u64)resize->scale_n - 1, &coord))
-+		return -EINVAL;
-+
-+	coord = div_u64(coord, resize->scale_n);
-+	if (coord >= U32_MAX)
-+		return -EINVAL;
-+
-+	*size = coord + 1;
-+	return 0;
++	return true;
 +}
 +
-+
-+static int calc_sizes_resize(struct drm_device *ddev,
-+			     struct ethosu_validated_cmdstream_info *info,
-+			     struct cmd_state *st)
-+{
-+	struct ethosu_device *edev = to_ethosu_device(ddev);
-+	u32 ifm_width, ifm_height;
-+	u64 len;
-+	int ret;
-+
-+	if (!cmd_state_reg_is_set(st, NPU_SET_KERNEL_WIDTH_M1) ||
-+	    !cmd_state_reg_is_set(st, NPU_SET_KERNEL_HEIGHT_M1) ||
-+	    !cmd_state_reg_is_set(st, NPU_SET_OFM_BLK_WIDTH_M1) ||
-+	    !cmd_state_reg_is_set(st, NPU_SET_OFM_BLK_HEIGHT_M1) ||
-+	    !cmd_state_reg_is_set(st, NPU_SET_RESIZE_X_SCALE_N_M1) ||
-+	    !cmd_state_reg_is_set(st, NPU_SET_RESIZE_Y_SCALE_N_M1) ||
-+	    !cmd_state_reg_is_set(st, NPU_SET_RESIZE_X_OFFSET) ||
-+	    !cmd_state_reg_is_set(st, NPU_SET_RESIZE_Y_OFFSET) ||
-+	    !cmd_state_reg_is_set(st, NPU_SET_RESIZE_X) ||
-+	    !cmd_state_reg_is_set(st, NPU_SET_RESIZE_Y))
-+		return -EINVAL;
-+
-+	ret = resize_axis_size(st, 0, st->ofm.width, st->ofm_blk_width,
-+			       &ifm_width);
-+	if (ret)
-+		return ret;
-+	ret = resize_axis_size(st, 1, st->ofm.height[2], st->ofm_blk_height,
-+			       &ifm_height);
-+	if (ret)
-+		return ret;
-+
-+	ret = feat_matrix_size(edev, info, st, &st->ifm, FEAT_MATRIX_IFM,
-+			       max(ifm_width, (u32)st->ifm.width),
-+			       max(ifm_height, (u32)st->ifm.height[2]), st->ifm.depth,
-+			       false, &len);
-+	dev_dbg(ddev->dev, "op %d: IFM:%d:0x%llx-0x%llx\n", NPU_OP_RESIZE,
-+		st->ifm.region, st->ifm.base[0], len);
-+	if (ret)
-+		return ret;
-+
-+	ret = feat_matrix_size(edev, info, st, &st->ofm, FEAT_MATRIX_OFM,
-+			       st->ofm.width, st->ofm.height[2], st->ofm.depth,
-+			       true, &len);
-+	dev_dbg(ddev->dev, "op %d: OFM:%d:0x%llx-0x%llx\n", NPU_OP_RESIZE,
-+		st->ofm.region, st->ofm.base[0], len);
-+	if (ret)
-+		return ret;
-+
-+	ret = calc_acc_input_size(ddev, info, st);
-+	if (ret)
-+		return ret;
-+
-+	if (!feat_matrix_chained(edev, &st->ofm))
-+		info->output_region[st->ofm.region] = true;
-+
-+	return 0;
-+}
-+
- static int buffer_size(struct ethosu_validated_cmdstream_info *info,
- 		       struct cmd_state *st, struct buffer *buf, s8 region,
- 		       u16 region_cmd, u16 base_cmd, u16 length_cmd, bool optional)
-@@ -926,7 +1028,12 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
- 				return ret;
- 			break;
- 		case NPU_OP_RESIZE: // U85 only
--			return -EINVAL;
-+			if (ethosu_is_u65(edev) || param > 2)
-+				return -EINVAL;
-+			ret = calc_sizes_resize(ddev, info, &st);
-+			if (ret)
-+				return ret;
-+			break;
- 		case NPU_SET_KERNEL_WIDTH_M1:
- 			st.ifm.width = param;
- 			break;
-@@ -1017,6 +1124,12 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
- 			}
- 			st.ofm.precision = param;
- 			break;
-+		case NPU_SET_OFM_BLK_WIDTH_M1:
-+			st.ofm_blk_width = param & 0x7f;
-+			break;
-+		case NPU_SET_OFM_BLK_HEIGHT_M1:
-+			st.ofm_blk_height = param & 0x7f;
-+			break;
- 		case NPU_SET_OFM_REGION:
- 			st.ofm.region = param & 0x7;
- 			break;
-@@ -1087,6 +1200,34 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
- 		case NPU_SET_SCALE_REGION:
- 			st.scale[0].region = param & 0x7;
- 			break;
-+		case NPU_SET_RESIZE_X_SCALE_N_M1:
-+			if (ethosu_is_u65(edev))
-+				break;
-+			if (param & GENMASK(15, 11))
-+				return -EINVAL;
-+			st.resize[0].scale_n = param + 1;
-+			break;
-+		case NPU_SET_RESIZE_Y_SCALE_N_M1:
-+			if (ethosu_is_u65(edev))
-+				break;
-+			if (param & GENMASK(15, 11))
-+				return -EINVAL;
-+			st.resize[1].scale_n = param + 1;
-+			break;
-+		case NPU_SET_RESIZE_X_OFFSET:
-+			if (ethosu_is_u65(edev))
-+				break;
-+			if (param & GENMASK(15, 12))
-+				return -EINVAL;
-+			st.resize[0].offset = sign_extend32(param, 11);
-+			break;
-+		case NPU_SET_RESIZE_Y_OFFSET:
-+			if (ethosu_is_u65(edev))
-+				break;
-+			if (param & GENMASK(15, 12))
-+				return -EINVAL;
-+			st.resize[1].offset = sign_extend32(param, 11);
-+			break;
- 		case NPU_SET_WEIGHT_BASE:
- 			st.weight[0].base = addr;
- 			break;
-@@ -1123,6 +1264,22 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
- 		case NPU_SET_WEIGHT3_LENGTH:
- 			st.weight[3].length = cmds[1];
- 			break;
-+		case NPU_SET_RESIZE_X:
-+		case NPU_SET_RESIZE_Y:
-+			if (ethosu_is_u65(edev))
-+				break;
-+			if ((cmds[0] & BIT(31)) ||
-+			    (cmds[1] & (GENMASK(31, 27) | GENMASK(15, 11))))
-+				return -EINVAL;
-+			st.resize[cmd - NPU_SET_RESIZE_X].one_step_int =
-+				FIELD_GET(GENMASK(19, 16), cmds[0]);
-+			st.resize[cmd - NPU_SET_RESIZE_X].blk_step_int =
-+				FIELD_GET(GENMASK(30, 20), cmds[0]);
-+			st.resize[cmd - NPU_SET_RESIZE_X].one_step_mod =
-+				FIELD_GET(GENMASK(10, 0), cmds[1]);
-+			st.resize[cmd - NPU_SET_RESIZE_X].blk_step_mod =
-+				FIELD_GET(GENMASK(26, 16), cmds[1]);
-+			break;
+ int mana_disable_vport_rx(struct mana_port_context *apc)
+ {
+ 	return mana_cfg_vport_steering(apc, TRI_STATE_FALSE, false, false,
+@@ -3621,7 +3643,20 @@ int mana_alloc_queues(struct net_device *ndev)
+ 		goto destroy_rxq;
+ 	}
  
- 		case NPU_SET_DMA0_SRC_REGION:
- 			if (param & NPU_DMA_REGION_INDEX_MODE)
-
+-	mana_rss_table_init(apc);
++	/* Keep a user-configured table across the rebuild: its entries are
++	 * queue indices and stay meaningful while they are all still in range.
++	 * Only a driver-generated table is regenerated here.
++	 *
++	 * A table that cannot be kept is replaced by the default without
++	 * telling the core, which keeps reporting the table as user
++	 * configured. That is what this function did for every table before,
++	 * and reporting it here is not an option: ethtool_rxfh_indir_lost()
++	 * sends ETHTOOL_MSG_RSS_NTF, which requires the netdev instance lock,
++	 * and this runs both with that lock held (ndo_open) and without it
++	 * (mana_attach() from the reset and resume paths).
++	 */
++	if (!mana_rss_table_keep(apc))
++		mana_rss_table_init(apc);
+ 
+ 	err = mana_config_rss(apc, TRI_STATE_TRUE, true, true);
+ 	if (err) {
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
+index ece7ff9cc409a806b6a6de70a85b44874bfa6dad..e3acaf17efabcd62f7cffabdb8404cf16b917272 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
+@@ -871,7 +871,8 @@ const struct ethtool_ops mana_ethtool_ops = {
+ 	.op_needs_rtnl		= ETHTOOL_OP_NEEDS_RTNL_SCHANNELS |
+ 				  ETHTOOL_OP_NEEDS_RTNL_SRINGPARAM |
+ 				  ETHTOOL_OP_NEEDS_RTNL_SPFLAGS |
+-				  ETHTOOL_OP_NEEDS_RTNL_GLINK,
++				  ETHTOOL_OP_NEEDS_RTNL_GLINK |
++				  ETHTOOL_OP_NEEDS_RTNL_RSS,
+ 	.get_ethtool_stats	= mana_get_ethtool_stats,
+ 	.get_sset_count		= mana_get_sset_count,
+ 	.get_strings		= mana_get_strings,
 -- 
-2.53.0
+2.43.0
 
