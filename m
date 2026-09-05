@@ -1,87 +1,275 @@
-Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com [209.85.221.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 595AC37F8DB
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 14:37:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B49C63859F9;
+	Sat,  5 Sep 2026 14:37:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788619065; cv=none; b=f1+70TOMnL/IqiKDHiugaEL4YG0DTxfp9RrbmHR8Wgct+VNaRBq+jshNmUAZJRabd0yCrgSr+mPx8Ia9f0FFpjVD01oxiNJz1OHnaMxeEhZb4aD8ulr7HcJrLtme3y5SpGF+rYnr4kBZvvdhPeaxQFqFusETF04Ov/HJXb4kFD8=
+	t=1788619076; cv=none; b=f6HKklqbIh4jcH+f0PI41qEvqPYwkyXDagW/CEu+/Ytobsq8N/wdRE+2FBLXLubz7ugUP5pvBs4LLbkqlcCjlJB73wFK1GeO+jGb0lZR4vCcDkOFV6O4bpLV8XNix1cImkVInycM03MVDVin0/rxzgNdHV+9YeE2JH1ehPDEkag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788619065; c=relaxed/simple;
-	bh=ysevVIWJ5TtntjDXiekqdlkXzHSTlLCPSnJtv8zueuU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EMOjWwesC6v8tSQYXSBcE1cRkAn7mJEW1X7wXWGurJ/fDlW0yd1xDI5uiJdlYCru4IavcBnGgus0AGF8ZGB2QvHNZWM973qQw+h9O001Zja99xZKuTTseBHzxZf14XpI8rwWzTicEz9bFj/Qz+q1LSmQ5QB/HcfeeeTUbT4BqhU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tDUdNFr3; arc=none smtp.client-ip=209.85.221.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788619076; c=relaxed/simple;
+	bh=z2Uxr5OY4jeXX+GVYA1k45x5fFNTv4zpWaRa5K9NolU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AyvWYYcJ1E4lgwaz8SiexKDLvi/hk60o5JfGq4IZCjo3tQJDKLW+NIVLHeuliTDOL/etNbfyDyb8lzdDp/TNC+fbJd5gzU8VGW4D9/J7utUXWmCuPyoASzApqkbPU+fBrv1LEUtmCK7eoMbRWAPEgh9fOhqqJ6Br6qTrMyuAe+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jTMvJPwG; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tDUdNFr3"
-Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-5c5ac25089bso863482e0c.0
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 07:37:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788619063; x=1789223863; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ysevVIWJ5TtntjDXiekqdlkXzHSTlLCPSnJtv8zueuU=;
-        b=tDUdNFr3V0K4/yIuRF5DH2iYLzo4cGsw1Y1EeTA16NZULeqbxDsUKl5AfG8CmxrLH6
-         2/k2RbG6bC28yn4wJC04aTqXXxiGbK8fkFNR5MXE9b/XJDJZ/QHZzuHxA4Bu825F/5Zl
-         euFN6Bf/yKMJC6fHG4RvbhxfeGFS7Z6jAk2enrVb6Caj09VcvRQ58B41W+lPBUHOlzrc
-         Q+gDFQouF99rwdnlWXyTHz+6s6XFrbarVNBGACKrFvsLFiW1UBhypQ44FcqSYR1P2GeS
-         Ln9nF2fS4FKRxodQAGbtEy5mdFxYMreBY2zZtJOz6qmPa0T16kbLMg5BF5Gf6hy5kn3K
-         4zvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788619063; x=1789223863;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ysevVIWJ5TtntjDXiekqdlkXzHSTlLCPSnJtv8zueuU=;
-        b=LRt9nSoB8SRT1sq+esNbAina0f8VxgUxaeCIJHTXqfo+4YWupZazm9xCb+zIR/G+hP
-         lc/8gbXYXyy/nmotrDkbqHyPMqg18jQgmKduSjcgs73QdV2Cgj37yQQwZ48bGVcm/qKO
-         Bqkz43ksNrNW5r9M+vXukyLIBrLag3C3UWz42uLFujM0WCcBlRakl53yJoTP0CxTFXE1
-         Lxc583E3C/Yr8pJ6W9n9tmZYkZICJ7nS6bMGCD9oHKIH2PgptqaB1/VWoFvVoC/+RToU
-         Q1csNibgAtVP7jl3ce735jMJTXbs6kTiX8M7XYMI7TXKvVnqmLRtgLWDfvDlyX/8db8D
-         YJhQ==
-X-Forwarded-Encrypted: i=1; AKwUvByIIKKWHeBw3gWOJms/UHL6/3dO7JU/Bq3gJhboZMzStA4AAnfAuTekORNe6VuSQ8PzoZ/wMoVHgVnogEA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mAkDsSOgy/BoeDUGoPzQtuy8O8m9Xp030KvjskBu0AAu2MEYMO
-	uXrO8x4H8ha8kesP6BoBMLG4L4w2R47DM8A8mzWV9awNf5vzORcUKZSZ
-X-Gm-Gg: AYBFou0wka4i2vf9vZqkvPKSSmevhainXGYO02uOq7RCPr6IDV8aKIViTeRDggdjFOG
-	MiaartkTua3aI1fBJzjT0TQTKEf2S8G4x10nlXxAAdY491i2+RxOxLWj9tOWsT/MdCfQKUR14JW
-	0ctrySCyS1p/OWfRztleUOKybo7cCT3Hd4wHcOqh7CDu9aS5Q4N4OdclOTXu+XKpD2DzCov3a7N
-	eUKOc77LrOp46Solk0tJ8LZRCNxHqjPZtCGK45cYWjjfhQAv7yE8+DDnNZR4+dDA4Yje2wcawna
-	8GAr9YXkGJswpVD21RSgb2i5/hgN6KSkiC48Em+lVjXoDGEOCnt+wqWjclxq8kHQmJJh3DNiAEW
-	4ET92tNFXTzIWMvsXmK+a504k1lrFUj71sRerzqZ2VWohYR0taasDCyMvYXyskkX9VnEbDG6SDf
-	YLzk7LQ3aytXSiHb50bnIVtdZ45mNFDIyHEuV1zsayluLkL4oMYQkzvH3xnlDr3T9sGHdLUWDwI
-	7uzjcTVXDlhCSY82ogIgmqnEYsunLsU8Q==
-X-Received: by 2002:a05:6122:1d50:b0:5c6:81c2:5496 with SMTP id 71dfb90a1353d-5c7ed7a8eaamr4533368e0c.4.1788619063063;
-        Sat, 05 Sep 2026 07:37:43 -0700 (PDT)
-Received: from Biostar-A520MT.. ([187.94.13.245])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ecac1033sm4248210e0c.18.2026.09.05.07.37.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 07:37:41 -0700 (PDT)
-From: Breno Rodrigues Alves <breno3011alves@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: torvalds@linux-foundation.org,
-	linux-media@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Request to withdraw all current and past patch submissions
-Date: Sat,  5 Sep 2026 11:37:37 -0300
-Message-ID: <20260905143737.25125-1-breno3011alves@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jTMvJPwG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788619073; x=1820155073;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=z2Uxr5OY4jeXX+GVYA1k45x5fFNTv4zpWaRa5K9NolU=;
+  b=jTMvJPwGnGR5W91IQvk+xG+E0FMVNgrwjtFcZWaNcIk9aJjVUF7ZrodF
+   By0UrZtV737HbT5wwx4aC9iK8rFnnag+J1aI0L06WKRBW1iFM0Mh1GrGK
+   x9OOqKtlMVrbREsLO42zM3tPNt84MFDw35w/Cfc+WIRe+PMPwU4mOIPpG
+   nMHvHzIl9T4sKCsQbkwRyDK9LOMUrErEO7i5m9kA4qn0QJL3fWCP3XGVR
+   uVI46eWZyKl2yiVmguFRTfMFvOTVhPdB/ZsBbWlLFPKbK1b/PXIKd6mUt
+   1os3yPY3WpUNilcTYUbWV1q1IzCFSi+FVBxf9/tMLlrx9SsRNAt10n0qF
+   g==;
+X-CSE-ConnectionGUID: UwP2ijpBTvCbdYdoD2EBUg==
+X-CSE-MsgGUID: H1hfbl3/QySmtPVeZ9gMZg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11897"; a="91608009"
+X-IronPort-AV: E=Sophos;i="6.25,263,1779174000"; 
+   d="scan'208";a="91608009"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Sep 2026 07:37:52 -0700
+X-CSE-ConnectionGUID: AI37bKLuSUyibPRWiB4qWQ==
+X-CSE-MsgGUID: ytLOcFNsS+uohxsWGxzrVw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,263,1779174000"; 
+   d="scan'208";a="274451791"
+Received: from lkp-server01.sh.intel.com (HELO 73f3364bc37e) ([10.239.97.150])
+  by orviesa005.jf.intel.com with ESMTP; 05 Sep 2026 07:37:45 -0700
+Received: from kbuild by 73f3364bc37e with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x2rWX-000000000Zf-2kRh;
+	Sat, 05 Sep 2026 14:37:41 +0000
+Date: Sat, 5 Sep 2026 22:37:16 +0800
+From: kernel test robot <lkp@intel.com>
+To: Bradley Morgan <brads@mainlining.org>, linux-kernel@vger.kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Tejun Heo <tj@kernel.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Waiman Long <longman@redhat.com>,
+	Christian Brauner <brauner@kernel.org>, Kees Cook <kees@kernel.org>,
+	Andy Walls <awalls@md.metrocast.net>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Bradley Morgan <brads@mainlining.org>, netdev@vger.kernel.org,
+	linux-serial@vger.kernel.org, linux-pm@vger.kernel.org
+Subject: Re: [PATCH v2 5/5] kthread: remove worker->task self assignment
+Message-ID: <202609052214.xVrPcUI7-lkp@intel.com>
+References: <c925e99c73bea9e0cdab656ba09453df7e81dcb2.1788513591.git.brads@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c925e99c73bea9e0cdab656ba09453df7e81dcb2.1788513591.git.brads@mainlining.org>
 
-Hello,
+Hi Bradley,
 
-Please discard all patch series and submissions associated with my name, including all past contributions and current ones. I would like to completely withdraw my contributions at this time.
+kernel test robot noticed the following build errors:
 
-All the patches created by me contain many errors due to my lack of thorough review. I am very sorry for this kind of behavior and for any inconvenience caused to the maintainers and the community. I tend to overlook these verification steps, but I promise that in the future I will review everything properly and correctly before any submission.
+[auto build test ERROR on tty/tty-testing]
+[also build test ERROR on tty/tty-next tty/tty-linus rafael-pm/linux-next rafael-pm/bleeding-edge brauner-vfs/vfs.all linus/master v7.3-rc1 next-20260904]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Thank you very much for your time, patience, and understanding.
+url:    https://github.com/intel-lab-lkp/linux/commits/Bradley-Morgan/media-ivtv-convert-to-kthread_run_worker/20260904-093753
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/tty.git tty-testing
+patch link:    https://lore.kernel.org/r/c925e99c73bea9e0cdab656ba09453df7e81dcb2.1788513591.git.brads%40mainlining.org
+patch subject: [PATCH v2 5/5] kthread: remove worker->task self assignment
+config: riscv-allmodconfig (https://download.01.org/0day-ci/archive/20260905/202609052214.xVrPcUI7-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 0edd1b088cc36b4faee80358c925a91e16006258)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260905/202609052214.xVrPcUI7-lkp@intel.com/reproduce)
 
-Best regards,
-Breno Rodrigues Alves
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609052214.xVrPcUI7-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/media/pci/ivtv/ivtv-irq.c:1053:22: error: incompatible pointer types passing 'struct kthread_worker **' to parameter of type 'struct kthread_worker *'; remove & [-Wincompatible-pointer-types]
+    1053 |                 kthread_queue_work(&itv->irq_worker, &itv->irq_work);
+         |                                    ^~~~~~~~~~~~~~~~
+   include/linux/kthread.h:263:48: note: passing argument to parameter 'worker' here
+     263 | bool kthread_queue_work(struct kthread_worker *worker,
+         |                                                ^
+   1 error generated.
+
+
+vim +1053 drivers/media/pci/ivtv/ivtv-irq.c
+
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   917  
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   918  irqreturn_t ivtv_irq_handler(int irq, void *dev_id)
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   919  {
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   920  	struct ivtv *itv = (struct ivtv *)dev_id;
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   921  	u32 combo;
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   922  	u32 stat;
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   923  	int i;
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   924  	u8 vsync_force = 0;
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   925  
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   926  	spin_lock(&itv->dma_reg_lock);
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   927  	/* get contents of irq status register */
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   928  	stat = read_reg(IVTV_REG_IRQSTATUS);
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   929  
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   930  	combo = ~itv->irqmask & stat;
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   931  
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   932  	/* Clear out IRQ */
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   933  	if (combo) write_reg(combo, IVTV_REG_IRQSTATUS);
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   934  
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   935  	if (0 == combo) {
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   936  		/* The vsync interrupt is unusual and clears itself. If we
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   937  		 * took too long, we may have missed it. Do some checks
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   938  		 */
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   939  		if (~itv->irqmask & IVTV_IRQ_DEC_VSYNC) {
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   940  			/* vsync is enabled, see if we're in a new field */
+4e1af31aaaa8cc drivers/media/video/ivtv/ivtv-irq.c Andy Walls    2010-03-13   941  			if ((itv->last_vsync_field & 1) !=
+4e1af31aaaa8cc drivers/media/video/ivtv/ivtv-irq.c Andy Walls    2010-03-13   942  			    (read_reg(IVTV_REG_DEC_LINE_FIELD) & 1)) {
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   943  				/* New field, looks like we missed it */
+4e1af31aaaa8cc drivers/media/video/ivtv/ivtv-irq.c Andy Walls    2010-03-13   944  				IVTV_DEBUG_YUV("VSync interrupt missed %d\n",
+4e1af31aaaa8cc drivers/media/video/ivtv/ivtv-irq.c Andy Walls    2010-03-13   945  				       read_reg(IVTV_REG_DEC_LINE_FIELD) >> 16);
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   946  				vsync_force = 1;
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   947  			}
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   948  		}
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   949  
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   950  		if (!vsync_force) {
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   951  			/* No Vsync expected, wasn't for us */
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   952  			spin_unlock(&itv->dma_reg_lock);
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   953  			return IRQ_NONE;
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   954  		}
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   955  	}
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   956  
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   957  	/* Exclude interrupts noted below from the output, otherwise the log is flooded with
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   958  	   these messages */
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   959  	if (combo & ~0xff6d0400)
+bd58df6d522d5a drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-07-10   960  		IVTV_DEBUG_HI_IRQ("======= valid IRQ bits: 0x%08x ======\n", combo);
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   961  
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   962  	if (combo & IVTV_IRQ_DEC_DMA_COMPLETE) {
+bd58df6d522d5a drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-07-10   963  		IVTV_DEBUG_HI_IRQ("DEC DMA COMPLETE\n");
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   964  	}
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   965  
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   966  	if (combo & IVTV_IRQ_DMA_READ) {
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   967  		ivtv_irq_dma_read(itv);
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   968  	}
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   969  
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   970  	if (combo & IVTV_IRQ_ENC_DMA_COMPLETE) {
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   971  		ivtv_irq_enc_dma_complete(itv);
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   972  	}
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   973  
+dc02d50a6d71cb drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-05-19   974  	if (combo & IVTV_IRQ_ENC_PIO_COMPLETE) {
+dc02d50a6d71cb drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-05-19   975  		ivtv_irq_enc_pio_complete(itv);
+dc02d50a6d71cb drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-05-19   976  	}
+dc02d50a6d71cb drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-05-19   977  
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   978  	if (combo & IVTV_IRQ_DMA_ERR) {
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   979  		ivtv_irq_dma_err(itv);
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   980  	}
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   981  
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   982  	if (combo & IVTV_IRQ_ENC_START_CAP) {
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   983  		ivtv_irq_enc_start_cap(itv);
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   984  	}
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   985  
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   986  	if (combo & IVTV_IRQ_ENC_VBI_CAP) {
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   987  		ivtv_irq_enc_vbi_cap(itv);
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   988  	}
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   989  
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   990  	if (combo & IVTV_IRQ_DEC_VBI_RE_INSERT) {
+dc02d50a6d71cb drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-05-19   991  		ivtv_irq_dec_vbi_reinsert(itv);
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   992  	}
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   993  
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   994  	if (combo & IVTV_IRQ_ENC_EOS) {
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   995  		IVTV_DEBUG_IRQ("ENC EOS\n");
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   996  		set_bit(IVTV_F_I_EOS, &itv->i_flags);
+fd8b281a2809d2 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-08-23   997  		wake_up(&itv->eos_waitq);
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   998  	}
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27   999  
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1000  	if (combo & IVTV_IRQ_DEC_DATA_REQ) {
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1001  		ivtv_irq_dec_data_req(itv);
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1002  	}
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1003  
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1004  	/* Decoder Vertical Sync - We can't rely on 'combo', so check if vsync enabled */
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1005  	if (~itv->irqmask & IVTV_IRQ_DEC_VSYNC) {
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1006  		ivtv_irq_vsync(itv);
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1007  	}
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1008  
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1009  	if (combo & IVTV_IRQ_ENC_VIM_RST) {
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1010  		IVTV_DEBUG_IRQ("VIM RST\n");
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1011  		/*ivtv_vapi(itv, CX2341X_ENC_REFRESH_INPUT, 0); */
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1012  	}
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1013  
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1014  	if (combo & IVTV_IRQ_DEC_AUD_MODE_CHG) {
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1015  		IVTV_DEBUG_INFO("Stereo mode changed\n");
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1016  	}
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1017  
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1018  	if ((combo & IVTV_IRQ_DMA) && !test_bit(IVTV_F_I_DMA, &itv->i_flags)) {
+33bc4dea0ece37 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-08-18  1019  		itv->irq_rr_idx++;
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1020  		for (i = 0; i < IVTV_MAX_STREAMS; i++) {
+33bc4dea0ece37 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-08-18  1021  			int idx = (i + itv->irq_rr_idx) % IVTV_MAX_STREAMS;
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1022  			struct ivtv_stream *s = &itv->streams[idx];
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1023  
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1024  			if (!test_and_clear_bit(IVTV_F_S_DMA_PENDING, &s->s_flags))
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1025  				continue;
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1026  			if (s->type >= IVTV_DEC_STREAM_TYPE_MPG)
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1027  				ivtv_dma_dec_start(s);
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1028  			else
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1029  				ivtv_dma_enc_start(s);
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1030  			break;
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1031  		}
+b6e436b263b354 drivers/media/video/ivtv/ivtv-irq.c Ian Armstrong 2009-12-21  1032  
+b6e436b263b354 drivers/media/video/ivtv/ivtv-irq.c Ian Armstrong 2009-12-21  1033  		if (i == IVTV_MAX_STREAMS &&
+b6e436b263b354 drivers/media/video/ivtv/ivtv-irq.c Ian Armstrong 2009-12-21  1034  		    test_bit(IVTV_F_I_UDMA_PENDING, &itv->i_flags))
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1035  			ivtv_udma_start(itv);
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1036  	}
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1037  
+dc02d50a6d71cb drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-05-19  1038  	if ((combo & IVTV_IRQ_DMA) && !test_bit(IVTV_F_I_PIO, &itv->i_flags)) {
+33bc4dea0ece37 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-08-18  1039  		itv->irq_rr_idx++;
+dc02d50a6d71cb drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-05-19  1040  		for (i = 0; i < IVTV_MAX_STREAMS; i++) {
+33bc4dea0ece37 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-08-18  1041  			int idx = (i + itv->irq_rr_idx) % IVTV_MAX_STREAMS;
+dc02d50a6d71cb drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-05-19  1042  			struct ivtv_stream *s = &itv->streams[idx];
+dc02d50a6d71cb drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-05-19  1043  
+dc02d50a6d71cb drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-05-19  1044  			if (!test_and_clear_bit(IVTV_F_S_PIO_PENDING, &s->s_flags))
+dc02d50a6d71cb drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-05-19  1045  				continue;
+dc02d50a6d71cb drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-05-19  1046  			if (s->type == IVTV_DEC_STREAM_TYPE_VBI || s->type < IVTV_DEC_STREAM_TYPE_MPG)
+dc02d50a6d71cb drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-05-19  1047  				ivtv_dma_enc_start(s);
+dc02d50a6d71cb drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-05-19  1048  			break;
+dc02d50a6d71cb drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-05-19  1049  		}
+dc02d50a6d71cb drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-05-19  1050  	}
+dc02d50a6d71cb drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-05-19  1051  
+2f3a98931f51be drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-08-25  1052  	if (test_and_clear_bit(IVTV_F_I_HAVE_WORK, &itv->i_flags)) {
+3989144f863ac5 drivers/media/pci/ivtv/ivtv-irq.c   Petr Mladek   2016-10-11 @1053  		kthread_queue_work(&itv->irq_worker, &itv->irq_work);
+2f3a98931f51be drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-08-25  1054  	}
+dc02d50a6d71cb drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-05-19  1055  
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1056  	spin_unlock(&itv->dma_reg_lock);
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1057  
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1058  	/* If we've just handled a 'forced' vsync, it's safest to say it
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1059  	 * wasn't ours. Another device may have triggered it at just
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1060  	 * the right time.
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1061  	 */
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1062  	return vsync_force ? IRQ_NONE : IRQ_HANDLED;
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1063  }
+1a0adaf37c30e8 drivers/media/video/ivtv/ivtv-irq.c Hans Verkuil  2007-04-27  1064  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
