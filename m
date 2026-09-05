@@ -1,124 +1,73 @@
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 961973859D3
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 19:29:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3AB2391835;
+	Sat,  5 Sep 2026 19:29:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788636573; cv=none; b=LQiboq3Lf8EI0P8N9gqje8DAWWqTMr0VQrK00LSbas4YIv9d5o9v0JR6CFARPPwxhYgr7Alhv2sWXKpVVgv9K2qugmfn8NQfoMUWxcKIST+PXlFu6r10EdADw3RBBOvE16Rpl8jpD+V/DeyHJNLJj3Sszs3rFTBSiRrbv6Smxb0=
+	t=1788636572; cv=none; b=FQPue0XB78JP15hAlwfeAMi51zhSlQlZdK0nnOKdm/qBsBWbwN18d1xW8ZHJ47kPBh8BV8Crm9WtVTMS0pM5jWJPo4dSfHqrjB9N5sSNJvyv1ZCW9PxmZ8kkRRhE8knKWpixYo0B/FzA4SL1iu5OGFitRjnXr7jFiFll8nL2OgM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788636573; c=relaxed/simple;
-	bh=vVEOPIoJhhKnaEymhmIy29uvCDgfhn7KwYHNS4eI4Ls=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JdD2fiyMbHSCERzduhH721wVQH+DFEE0zi8n9cXWe+hWxZng/wpWirCvrdGT41WcdCYM390GHs8OQvgyM9FBDePuKA9KjaYl6BfEJgs1eS2UkgV+L41/GTVSx2oenHHlBrIij5MBl7hh4oTMKSg2Ks+6b0K4HQ0H0E2LwnplQUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A4A71kTe; arc=none smtp.client-ip=74.125.224.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788636572; c=relaxed/simple;
+	bh=B1ppOpPbviRzyBRvzSXjY0WHZU3/VeGa9sEQ843QBNI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=s3VClHZauspzMEgU3ngaCs/WwCRRwnhO4OrsiwSjD0G7kky5GVBex9nnYSJJ9Xq/D4ziu7MOjJPzsY/6EFD+viSAs9sSzB8GlxOFJjc4qSmjVnAuD0eqQs/Quu0iJwgtwavtIB5ewZQYeXyEG6W7foyCd6K8fyBk0gNRecmF2+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gGTfy18A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A4A71kTe"
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-66c744a00edso1865623d50.2
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 12:29:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788636570; x=1789241370; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=F/3SiLHuAw4CPDUEV3jnJHbnIRJUdzpYKq468IdHDhk=;
-        b=A4A71kTeqvmHXtS0FdWbO5bySAWCsbXPcUNFJlFKq310PdrVUdZC7+2k5gMVtSgVNl
-         T4HvgYpsHN1lzwMz+QYgyAC6ezxDaTr5SMsi2eEE2Dc+/mbBxdbUvxDZID/1okgjq6r0
-         Aedov6NIc5D0FumJ8v6cAe2pQwW4GCjKDl5xeCQm2aAEHzdH2qXrXTBr592vK1szYNM2
-         Xw7Kbx6NN46fIXJVvovfa/+RpdCiR+3W8QGmljlPnSanvZ8lUeDi359l9CvTAXdtzOch
-         6UiWsBuEa+qfRaES7Au4ILL6875lecxtqqtCy+o/2tE+cgEZH8sWb75z6AefgVpDyCYO
-         ty8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788636570; x=1789241370;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=F/3SiLHuAw4CPDUEV3jnJHbnIRJUdzpYKq468IdHDhk=;
-        b=jME0xWO5xcsAXad+8qKkjyfsAEN4AJgZy+EIsr+TdsX4mTAX+pR/qEl1VVPOXOwH0y
-         h0ly6gBUebLILg3BGe6e3CuhEITcvJiXNy1C7wWO9rCj4cpDC7nnJrfG3pSOgWNoX80z
-         VlOVCoIYRnWoana5awKyi+2Ofx/YHZlS3NiF+c0In2XqD17bYus0bdQiEwhgLdHM+uLz
-         UoylRyNaizj2/c6rr4bdqYwes5iUOMB7Yy3db5oioaX0pfVUYy56b9ospdISGEaMq4yK
-         AFU5K0FgT4R7xEmDzBW8CtCcVYhCdIHLX9pzrTCtxkpxM0a6kM7X7f0nowdJe2n2tVOl
-         7KnA==
-X-Forwarded-Encrypted: i=1; AKwUvBz48PdUNSZrgFTPkG3UlvMldLZBxkz9srLF/hMtGhRox6O5par3qa7a8dCZ8Oh22YiF4ioIMG9T/c4zMwg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mE3FLVOp40UTd8l4B0aAng19CCMzNOk+Kcs5r+qKg+QJK1+E4v
-	tDSudnVnTGWngQ8l3/uTVSCxK/h/sEmfURqxMSi9lcfJE/0xuocMHHg5
-X-Gm-Gg: AYBFou1LSGeYGEdEd9KYOh9ZBrKH1VwVThIdJQCga+sBESAiuU458Kmm808Y71lDdwD
-	turyMymEXmDRBZK4mKOid5v96kZ/V1lXryuThxKGbPLKdK3jtlF98MGn2y3QMCuNqWTC/fLfYty
-	27L/DzaDWnJ+PIaOt1pY3dnEra3l+g4untg/SDqjHiDV4OrzpXfI2kfBRnVXqPhDryOypcTfa8x
-	ihaRVsauIeiiAOxNFPSdKRU/Zc2imwubpcrb51JtDUFZEHnMO3o2URXbK3ISVmGKwXQ4yJ7E/eV
-	zv8uJcO44ZjzRsPXsVQexobleWSWoFoLW+0zbX+iI2413mXCf9Wmjp6W3+jV5cbG2FTPGB0DpZf
-	8xubmuYzcefQPPWABGSqdiQTdEptPQCWxxgVuCSbyIVdHmL7H4VbsnbkG+EKY6kdEuLKb3OG3K5
-	D2yKmcOXmgCmi/BwxO3n9Sa49h/Wrv1EabntH3i8YP7lLRNmBG+MCKnQFB4w6j
-X-Received: by 2002:a05:690e:1446:b0:66f:cddc:44c3 with SMTP id 956f58d0204a3-66fcddc45b7mr690034d50.16.1788636570423;
-        Sat, 05 Sep 2026 12:29:30 -0700 (PDT)
-Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb7c7e8d7sm4196494d50.14.2026.09.05.12.29.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 12:29:29 -0700 (PDT)
-From: Matt Turner <mattst88@gmail.com>
-Date: Sat, 05 Sep 2026 15:29:23 -0400
-Subject: [PATCH v2 02/22] alpha: select ARCH_HAS_UBSAN
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gGTfy18A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B43E1F00A3A;
+	Sat,  5 Sep 2026 19:29:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788636570;
+	bh=kIarTBDrMQaXpsAeKpsxpWu81PITLhaO4Nrvi/ktLpA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=gGTfy18A878jp0Qd0kp76iheNgEcPIrBfYVMPTbEUHW5X/Gqol/in8NnkcmiQmhbh
+	 37gVpizpqUtH6o+BxWHpZiolxMjDneZBRA0QRQtGfRyrVC3RFegLDQyWGwTH2CK3MA
+	 G42PFyDRaIvCwI5adpVNjSnnfQ/UEpOqb1QqZqNWRImozeSsXEKUOCUqnCUGZhE0hs
+	 nz3RDJZe+Wf7586dzT3OAUJCi497al7S17Y6pM2/S+Q3TE4WkQK0q5xXyq32dYsbLX
+	 pr47mDz8i15KdA4n67EQVaO7pyIaI2YQJfaycl3ouwWU2GaGZTnEbZOki5zUEHQ6Aq
+	 djXVc3phma0DA==
+Date: Sat, 5 Sep 2026 12:29:29 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: zihan xi <zihanx@nebusec.ai>
+Cc: Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ xemul@parallels.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ vega@nebusec.ai
+Subject: Re: [PATCH net 1/1] udp: diag: bound bucket lock hold time
+Message-ID: <20260905122929.5bd1bd45@kernel.org>
+In-Reply-To: <CAANe3eRpVGnYpygfiQTsXd2VmBO43P-P1RfREkdDypgXBZB9Uw@mail.gmail.com>
+References: <133b6aee9e2c908c9da37d5585b3d2cd016906cd.1788187473.git.zihanx@nebusec.ai>
+	<20260905151227.75099-1-horms@kernel.org>
+	<CAANe3eRpVGnYpygfiQTsXd2VmBO43P-P1RfREkdDypgXBZB9Uw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260905-arch-kconfig-options-v2-v2-2-83e8245761a2@gmail.com>
-References: <20260905-arch-kconfig-options-v2-v2-0-83e8245761a2@gmail.com>
-In-Reply-To: <20260905-arch-kconfig-options-v2-v2-0-83e8245761a2@gmail.com>
-To: Richard Henderson <richard.henderson@linaro.org>, 
- Magnus Lindholm <linmag7@gmail.com>, Kees Cook <kees@kernel.org>, 
- Marco Elver <elver@google.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
- Andrey Ryabinin <ryabinin.a.a@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
- kasan-dev@googlegroups.com, linux-hardening@vger.kernel.org, 
- linux-doc@vger.kernel.org, Matt Turner <mattst88@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=856; i=mattst88@gmail.com;
- h=from:subject:message-id; bh=vVEOPIoJhhKnaEymhmIy29uvCDgfhn7KwYHNS4eI4Ls=;
- b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLLm5E7WKReZHFC/1HvG4fgzU+6tfbHDcW9j4tKns9Z7X
- 97gGb2Dt+MjC4MYF8NMMUWWuPWKLLPadiz1OS39C2YOKxPIEGmRBgYgYGHgy03MKzXSMdIz1TbU
- MwQydIziIXJ6DBqZxcWlqUW6aQVFDnn5JYklmfl5xXr5Bal5BekFemmZaSUZGflFxalAI/TyUkt
- MXR3djAwNTCwdLcycLBxNTZydnQyd3BwdnV2djCzNTQycLR1NXC3NGbg4BWCuSdrIyNCxd3kfb4
- 3phnOtUmsfG/2XOHTnd6va4webUn8HTGaqFylnZNjxxedc4R3T9++ebDUx3Mtt1pJX6LF2nceNV
- yXrD0nKqTECAA==
-X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
- fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-GCC's undefined behavior sanitizer has no architecture-specific runtime
-requirements. Enable it for Alpha to allow UBSAN instrumentation of the
-kernel.
+On Sat, 5 Sep 2026 23:49:05 +0800 zihan xi wrote:
+> > When an active netlink dump for UDP sockets finishes, inet_diag_dump_done()
+> > invokes udp_diag_dump_done(). This function drops its module reference using
+> > module_put(THIS_MODULE) as its final step.
+> >
+> > If this was the last reference, a concurrent rmmod udp_diag operation can
+> > proceed and unmap the module's text segment before the thread executing
+> > udp_diag_dump_done() executes its return instruction to return to inet_diag.
+> >
+> > Could this result in a kernel panic due to the CPU attempting to execute
+> > unmapped memory?  
+> 
+> Yes.  If that module_put() drops the last reference, rmmod can unmap
+> udp_diag while dump_done() is still returning to inet_diag.
+> 
+> I will keep the extra module_get() in udp_diag_dump(), and move the
+> matching module_put() into inet_diag_dump_done() so it runs after the
+> callback has returned.
+> 
+> v2 incoming.
 
-Assisted-by: Claude:claude-opus-4-6
-Signed-off-by: Matt Turner <mattst88@gmail.com>
-Tested-by: Magnus Lindholm <linmag7@gmail.com>
-Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
----
- arch/alpha/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/arch/alpha/Kconfig b/arch/alpha/Kconfig
-index 51a7391869dd..713a0c1cc930 100644
---- a/arch/alpha/Kconfig
-+++ b/arch/alpha/Kconfig
-@@ -7,6 +7,7 @@ config ALPHA
- 	select ARCH_32BIT_USTAT_F_TINODE
- 	select ARCH_HAS_CURRENT_STACK_POINTER
- 	select ARCH_HAS_DMA_OPS if PCI
-+	select ARCH_HAS_UBSAN
- 	select ARCH_MIGHT_HAVE_PC_PARPORT
- 	select ARCH_MIGHT_HAVE_PC_SERIO
- 	select ARCH_MODULE_NEEDS_WEAK_PER_CPU if SMP
-
--- 
-2.54.0
-
+FTR your patch also looks atrociously ugly.
+If you send v2 please make it better.
