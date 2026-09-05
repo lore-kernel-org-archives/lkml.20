@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A60312DEA61;
-	Sat,  5 Sep 2026 01:42:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D31282F1C;
+	Sat,  5 Sep 2026 01:44:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788572552; cv=none; b=LkmE0ZAgAsCnEn9MXC9xbRfOZqSkZMAEcGMUcUUzKoV+SsDc6k/pa0WF2PwgTZmt9nkptlNm2B2CXT7Sl32yud7vgTxr+v3mW/gNXyu2JCjwVRsfuZsfuwuEOlF4GRP9qWeX6fBQ4aQfOKuzdA6qTmEYLQZSrP1TyLrKKRDh6+A=
+	t=1788572674; cv=none; b=UTdcHylK0DBTHT5CKDqKokPQAH9W+NkqINuTXfxOWjQQgOwiLmPuavow6Jrny8o0uPtt0J4Ow5fOgo0p4olIJsKtNNnBuAFrm5shrUSEon+U4p1mpWOg+P+X2Jn55qEkhmQDvDAUs+AlDkpdwmBLmAt7xLT+M6Xs3KBa7rENHEs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788572552; c=relaxed/simple;
-	bh=N8YkD6Wp7Lk6TGB7lq6v2Ub/Clxfsbb9vMlCMDLBEkU=;
+	s=arc-20240116; t=1788572674; c=relaxed/simple;
+	bh=mq/PKKU3QC6tZ88dzDiqjdpKPJxivWXKes9rrwtDd00=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BuNe4z+vIEigO5zKWPpJ1Ea4IB1gcOg1KZdBaT0ZUMZtR7C3LwI1EqqvAORIgPjUOTRDEe8AxLGBZCCwilJJvavSdrrbhRNaYIQ+qVoEOvaIxSIWFaJACgN0Dr/yxdd0HYVo7B0RyLovJqHx0aPwIXOGT5ScYleBwk6WqgdoAso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VefCHUmW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=MVTDQqUJadHxYiBvFkv0NWinBpOfxlp+xW+WfFlJHnJBVY29XklKNL9iGwr3PLf9IlBrwWW/9W255uWiUARmfmzpaMOHF9YwEw0lEcGnkxKoGEDD6O3CGyA/QFvF9DelYF455KOfGxhCGxzbcMpV6wfWgY86SFnivwhYHBKax5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VOZWqHw9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VefCHUmW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E60DF1F00A3D;
-	Sat,  5 Sep 2026 01:42:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VOZWqHw9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B96881F00A3D;
+	Sat,  5 Sep 2026 01:44:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788572551;
-	bh=MfsEVPw7kIKne+Ntx/TjFc2LVvyDbkTQDSPDWVMF1PE=;
+	s=k20260515; t=1788572673;
+	bh=RtCepbsVnIiv1BwCgcpAIdkzWkfGkVZQNUx8DmzI2Xc=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=VefCHUmWj0dUhkhii1npy3JB2vKsFWxXmJDzOuvD1cZrimqUveNwHN5iLd3qCIQyB
-	 u0xM2l3QXa01Dzc87D/0Lb2nSx6IWrpDw3udZw+SSxPw9QkmbcKVbZYocelvwFFj/H
-	 8aQbLrELvUQ+TsBQS4SRw3lzekvOPl7T9kzEQPJxQi4ROUnAzep8Cla2YNoT/TJJGv
-	 +mYx62DsMh5huYYtGuKuQdo61QzbRUNyrP10QHIN0Cthe5krL3fk6NEKcIkLaYMRmi
-	 E4VuJWii4CdRz7lsqQGYopR3hwOFpE49dLXV0t5H1mzZUfuKOboMyBLNzfpbQDSp5H
-	 JhrfehV7z3KPQ==
-Date: Sat, 5 Sep 2026 02:42:25 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Hans de Goede <hansg@kernel.org>
-Cc: Vladyslav Ivashchenko <cactucatu4eckuu@gmail.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: adc: axp288: Add TS bias override for Haier HV103H
-Message-ID: <20260905024225.468a2959@jic23-huawei>
-In-Reply-To: <bdd9e2c0-ce13-422b-90ff-0311cc251b15@kernel.org>
-References: <20260904133155.51290-1-cactucatu4eckuu@gmail.com>
-	<bdd9e2c0-ce13-422b-90ff-0311cc251b15@kernel.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	b=VOZWqHw9jqJU6ugXyInzqxP1Qv3BEpLFCNkjwyQgwJF0mqcjhaVrBpYUnkPZmudKH
+	 5TnXc+STML6yOIp6mXpLcIqZEJ0ggKQjk49LPZdvBWw2qqt+5wwjwn9CJqbiOBi6l/
+	 TKROscEGaR3ACOhNqbqFKkrVP3H2AugfQUfM4vQi+8sj4FAE3rVFEIGO9ZuJt0ggjB
+	 GnX9N0LEU7bc/wfaXKDNoW8b3g3jgv+VT/ma0bs5FzJwjzHnj7m57lTvneD5I5dnx4
+	 BKttE275RPDojAIsb8yoxt4cjg07/AO67iAzVrXotWhNHJ7UewUO0+ypysypSXI6t5
+	 VkdE1wkZ/dRLA==
+Date: Fri, 4 Sep 2026 18:44:32 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Vineeth Karumanchi <vineeth.karumanchi@amd.com>
+Cc: <theo.lebrun@bootlin.com>, <conor.dooley@microchip.com>,
+ <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+ <pabeni@redhat.com>, <git@amd.com>, <netdev@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net-next] net: macb: detach netdev before closing on
+ shutdown
+Message-ID: <20260904184432.02fd59a1@kernel.org>
+In-Reply-To: <20260901142541.1469544-1-vineeth.karumanchi@amd.com>
+References: <20260901142541.1469544-1-vineeth.karumanchi@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,71 +47,48 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Fri, 4 Sep 2026 21:48:21 +0200
-Hans de Goede <hansg@kernel.org> wrote:
+On Tue, 1 Sep 2026 19:55:40 +0530 Vineeth Karumanchi wrote:
+> macb_shutdown() calls netif_device_detach() after dev_close().
+> netif_device_detach() only stops the TX queues when the device is
+> still running:
+> 
+> 	if (test_and_clear_bit(__LINK_STATE_PRESENT, &dev->state) &&
+> 	    netif_running(dev))
+> 		netif_tx_stop_all_queues(dev);
+> 
+> By that point dev_close() has already cleared the running state, so the
+> detach only clears __LINK_STATE_PRESENT and the netif_tx_stop_all_queues()
+> step is skipped.
+> 
+> Reorder so the device is detached while still running, letting
+> netif_device_detach() mark it absent and stop the TX queues as intended,
+> before dev_close() tears the interface down.
+> 
+> This is a cleanup with no functional change: dev_close() stops the queues
+> and quiesces the DMA/HW via macb_close() regardless of ordering, so the
+> reboot/kexec safety path is unaffected.
 
-> Hi,
-> 
-> On 4-Sep-26 3:31 PM, Vladyslav Ivashchenko wrote:
-> > The Haier HV103H firmware configures the AXP288 TS pin bias
-> > current to 60 uA. This causes the battery temperature reading to
-> > cross the charging temperature threshold under load, incorrectly
-> > stopping battery charging.
-> > 
-> > Setting the TS bias current to 80 uA fixes the temperature
-> > measurement and prevents charging from being incorrectly disabled.
-> > 
-> > Add a DMI quirk to use the 80 uA TS bias current on the Haier
-> > HV103H.
-> > 
-> > Signed-off-by: Vladyslav Ivashchenko <cactucatu4eckuu@gmail.com>  
-> 
-> Thanks, patch looks good to me:
-> 
-> Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-> 
-> Regards,
-> 
-> Hans
-> 
+I'd guess the driver is trying to clear PRESENT so that the device
+can't be opened again. It's not about stopping queues.
+The patches doesn't make sense to me as is. You say yourself that
+the move is a nop.
 
-Fixes tag appropriate?  There was the original dance of keeping the firmware
-version, then this table was added to fix that up.  Anyhow, I'm thinking yes
-and tag should be:
-
-
-Fixes: 9bcf15f75cac ("iio: adc: axp288: Fix TS-pin handling")
-
-But bit awkward as anyone trying to just back port to that better have
-been paying attention and picked up the following, so lets have that as well with comment
-Fixes: 048058399f19 ("iio: adc: axp288: Override TS pin bias current for some models") # Add necessary infrastructure
-
-With those two, applied to the fixes-togreg branch of iio.git
-
-Shout if you think this should be done differently.
-> 
-> > ---
-> >  drivers/iio/adc/axp288_adc.c | 8 ++++++++
-> >  1 file changed, 8 insertions(+)
-> > 
-> > diff --git a/drivers/iio/adc/axp288_adc.c b/drivers/iio/adc/axp288_adc.c
-> > index c8283279c47..c98863d612a 100644
-> > --- a/drivers/iio/adc/axp288_adc.c
-> > +++ b/drivers/iio/adc/axp288_adc.c
-> > @@ -207,6 +207,14 @@ static const struct dmi_system_id axp288_adc_ts_bias_override[] = {
-> >  		},
-> >  		.driver_data = (void *)(uintptr_t)AXP288_ADC_TS_BIAS_80UA,
-> >  	},
-> > +	{
-> > +		/* Haier HV103H */
-> > +		.matches = {
-> > +		  DMI_MATCH(DMI_SYS_VENDOR, "Haier"),
-> > +		  DMI_MATCH(DMI_PRODUCT_NAME, "HV103H"),
-> > +		},
-> > +		.driver_data = (void *)(uintptr_t)AXP288_ADC_TS_BIAS_80UA,
-> > +	},
-> >  	{ }
-> >  };
-> >    
-> 
+> diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+> index 76ee4f506033..21ebaee00f9e 100644
+> --- a/drivers/net/ethernet/cadence/macb_main.c
+> +++ b/drivers/net/ethernet/cadence/macb_main.c
+> @@ -6246,12 +6246,11 @@ static void macb_shutdown(struct platform_device *pdev)
+>  	struct net_device *netdev = platform_get_drvdata(pdev);
+>  
+>  	rtnl_lock();
+> +	netif_device_detach(netdev);
+>  
+>  	if (netif_running(netdev))
+>  		dev_close(netdev);
+>  
+> -	netif_device_detach(netdev);
+> -
+>  	rtnl_unlock();
+>  }
+>  
 
