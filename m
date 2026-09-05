@@ -1,69 +1,69 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B59D2386555
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 14:12:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E720331E845
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 14:12:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788617524; cv=none; b=WrI95nBIGADhunJ/qgw1fGhMXyFDkCEbXbHfxEwH1zT27S9miEeuUm/xlcpJl+jxJ/7Pk2iiZcwosjVXy3kFIeAKrjbBFGk7Ogq/L376LfbLW7Xu0Eb1IbYiDLVf/CbeCGGfWaEqVj3ofGPZlEO70AT6qU39t9AiUSzjZkB4lD8=
+	t=1788617531; cv=none; b=RMs4wDsQrFp0hyccz9fRb1eVCah/HrZxbF9jBd0X6FvDKPFHaklRQrERHscXzVbsLuin/bHEL7bG5/Ltc07Gxqz5PycfMG7iTu8B7/6nNjaSJmyhM7G+06Cz46r7yAWC2jpVsO+wZXh0RvQldHGqFKlPAZghP999o6OYLnG+vNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788617524; c=relaxed/simple;
-	bh=CVZPkrxO4ZjxlZq4m/NTIsRuImoqLdCSbn0hsNp0bpo=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=amcv9e8p624jH6oJzBMwPVXGiToruvTlfS0XlI17Mq9NIRDFnKyoYqqj4ZRHOWQ3IebpnXmyFpbGUQ6GFXT6GJkvg+Fequ0uuMf9Y000aD07su8BSMK1gYbFzHjeIlgr3gcIeGASWkcAo1haWfAveZ18EL0NO+xK0tb9u27WR28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ryTZ53Vv; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1788617531; c=relaxed/simple;
+	bh=dVRcGzv9h0irsWyILqEtWRT0KkdEsucKXFHPvFGGb5E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ls2gO6bIeHJKPW3lASve9NzpDcaiPMVyMhHoRsMimzky3ZSNMi4eYxJNwOnL8D47R9Pjw6+0OMWpyQIXrN0YdsuSvCfupeoIGHsBo97StOwjPE+OZpnSooHdmqvG5YnFwmD1EQFUpYRak1OTTNe3e2kq/nLPQozlH0l7sXIX2UQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eDwwJzeW; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ryTZ53Vv"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49b0d78a801so18817685e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 07:12:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eDwwJzeW"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38759bcd877so1995587a91.2
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 07:12:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788617521; x=1789222321; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:sender:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788617529; x=1789222329; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Wmtijk9kXljBXbjb31VQhm6h6MUm1AT3Wt8mqzADjcM=;
-        b=ryTZ53VvNKbeybZRgLP9ECfQ+9bOGUl/DXVLXJxVHBk2EpvKSs3UAyV7dqz1WPN4JZ
-         LGbgf/Sqwg0mH0clAUm0hHg2rad28W4Qce9B/LyKNxhRUXGCzQY8pO+240tDEt7jiKbr
-         eFvf8MRZEuRifDTNkJyXU5Ji4HPiuleRJCjJWBpsIXRpLUIJMftDLs3wDv4fYEwl36lJ
-         x8uaxI6dr9NFR/49tY0qhjeIlwHJgF/tTZ0e2qUQVpKgrSFx5yNfvsUFYh7JjLlRsnIH
-         70CVwBQ1hUUDYBU21+6ewM3rqoS8kq7e9VOsMOikCWcg7DVy2x+xuGdKC8A8//Cj3N7I
-         ctYg==
+        bh=irbYyE9Vb2d5N7dfKu4p+oTxnQ486yTFt9QMjpZO6mE=;
+        b=eDwwJzeWz2gJH0+ZHdEoIDL/ZcapBVOy3/p1sJ7t1qrgweA33PIog4hEacX6Asu7ny
+         p6vlsBb1b7m3BwIKfDo+Qdj35QGlaJaCuj45p9ZPjtZfpSHs5KLF1C+pyuXQuYS9FoF3
+         0tB9doPV57+aSLHO9F6n3svbWziVLk0c34o1+DA2f1HcbQdjzgHJHk7tatLn8YGDOULn
+         T+0EGyqixshgHUCiIgdXzvIhB6Q116nXImK0qFpf7RcCb7rEUVvI1wo/eOg5kYSxwls0
+         jDoztYVWkY2Ldl+2Cu4CD8r2Blu1Gq/HCz6GmSm62Y+/l+k2H0mdw5zoIsslLBjGrg2c
+         yKgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788617521; x=1789222321;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Wmtijk9kXljBXbjb31VQhm6h6MUm1AT3Wt8mqzADjcM=;
-        b=bD94He505oMGtcgOcDm2ZXfZBMrSuIHbaaIIxmXtLEQ4PhDB+koRXTsNlK7u1yLRbK
-         wqG+wuxm9aXZP9V65NXcbs8Nq/IVVGl58C7+dv5ng+k6nSsFWVfBqcndw1H3KCqzktZk
-         R70WbD6OQ8lwfh54maxyMEDC26JWacalwWvWwzlIVJs+V9AjylXka7lvPX1tO3AXnFjN
-         /VV24wdHDSgeViXR8Fs0+fT/5zOdeOkemeO0Qa/TIaOWf3x8yCxIzB6tBbo4A6KUStrV
-         JwJv6tWpnKxnjO7r5SayQ4IqVraX1YQi6crSQebNEA8DNL6lrP1esk6wEzxmjVVteZ9h
-         GdnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwpfTvEF+4IBE3Fdv2v9rxYHU7Ih/3mlzfzNB+Wo9RywmgCHhUYg11UpdpoFpMRmIeBm6CR99kO/tZjMNY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mgM5+iTx3wLUq8e6SzrZ1PszI3+kRG+Qwni8U+7/lDhppiefAX
-	jYYdp99asjjrfN35GIs+rvUIhxalD9TByGe5GK1Vr/IVuykJacD2yXY2
-X-Gm-Gg: AYBFou0D12CltV7aDp+6CS/ROExGbcVOXj4A1Knu36wqTckboHZy7fdlsJFzn0xpCoX
-	uTiQYj/gcia3LGBviwJGtChrDCCotOLq+Ig06IdgJXJwQ8csHekGTw70tgbWfF8vUEcTf1Al56I
-	ckvbMDPMrEoKMJZuNwxJbgoYrNBMsBtbm9VIp+jnjCqvIR9fM3nykBFixpqIbiBLbM11CeJr2zi
-	Pwp5IgP8mZ3XvCDNNH4AFSpTeUWxM41MPoZ46yztTmUGcuLIwid/N0DC/3cpflVvOrx8ws33cWI
-	nK1o9AWvTDYxAcbPliF4OnGsWyeR0IYUPDtMNMk7F6IfGcoYc7AT9EWv4cEmI0t7Os6vtzC+CBq
-	6i9UpuJfppruTDBXLiL06Ep9j3T3vDNukbJQ8Al54VWnaGyGeEwBQVGEY/Me4rAUn3wVOQehJvW
-	c/VIEH+/6QvMROkk77W8/Vc7F6p+vKdI6NpF7Ck34sU2Twj1NsBjPP91lG+kuhjC1L4vJIPX7JY
-	06lDYNNTchHogAAYyWgc40s9Pn9i/Ddf23WCLD51inzGzjbJoPOvNWz
-X-Received: by 2002:a05:600c:6748:b0:49c:fc6c:bdfa with SMTP id 5b1f17b1804b1-49cfc6cbfa2mr97421215e9.17.1788617520610;
-        Sat, 05 Sep 2026 07:12:00 -0700 (PDT)
-Received: from [10.128.10.232] (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf75ce49esm260757225e9.1.2026.09.05.07.11.59
+        d=1e100.net; s=20251104; t=1788617529; x=1789222329;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=irbYyE9Vb2d5N7dfKu4p+oTxnQ486yTFt9QMjpZO6mE=;
+        b=coNXqqF6hHZvq2RWuzEMCzPzYuI2yDX7cvV7VdjnZmCgqyumoOv1MTTyw1p1cQxXkp
+         6vCFUyQdkTlQ1wa4qYDhUIZvSkW8Xizd4sYxg60ODTGqTPVzmSEWv8NCZAwLRFFR5Bi3
+         tcz4eHG323/WEmUVYPoe6t4UlYC9eS1Rtn6IZmnCoVFKOu3Ffa7NKutjespljs7nfcMq
+         BxI4Q9B8s7ipflBfbzerOcUUHO6EFbpkARmcZ7hHe69QzNMPsnvbHUs4f4q6sqy41/QA
+         ZC6+H7wp6wPeBRKPJ3oZS2jAq/+BAfCdKZlbMbdoXHLDaRuK+ogdtgWeg7jkhr4W7k4/
+         aL9g==
+X-Forwarded-Encrypted: i=1; AKwUvByUo+0I3LDC6Xm4+4OWKMJ9f/icg2PUYaIsWWP9xDZPTC2IOjB2VyB3ugav0gJ0CPcFLxjxlqDo4vaY+4M=@vger.kernel.org
+X-Gm-Message-State: AFuF++lYKZk7YXTH2qXrR4I1F0IB2APN8y8x4rgT2m/7WtjD3XfFuTNw
+	nmOMJaoI4kl6ECyF6WqD2WDFTO3O5w3MxH+oVhahafZOtsQap0V7MlpB
+X-Gm-Gg: AYBFou0vNnAqaVmmrYBxWNplY0s06CKDCJhM5jHp4sWo8GD5pn9a1wjC08/BGQKMSkM
+	nOLJgT1xddyT5s8f+5oRzpbWriOzpzw2kaCqC8VgwSRafiOLI0vFItB/mcqk2dzmyVuz/sd+Ji+
+	eZZpq8N7i0waD5BIDyTj0arUymNhzdm7MR2uC85s5XKXKx+hqCeyKZPhvS2sfpMq8ktmihGSEME
+	dPyU2uWpwkLCl1Mirn+herFO2EQTkpsjsFraGgvfYrM0TjAYh1XimEnyxTKxnNJ56LFDI6ICLNj
+	jyz16qrPSjEM+x4w8adH4HZO0kJqbrSt9ojbTIMXP/TEJafmcggRY2jnCoDZ94BKS9atLDPgdYj
+	MjfTWpB7AzwUwZyITjgEg/e5Qh8HYmEYJ3HJrVWjXPhy7csO50LxG/epWjUNIJCuXCMb0ClfTpt
+	mIIjS7qcb0gAnMyPxjTZeTIUnUxifhhRWuWWotZ2TjHW/Nl+S2L2HT1YwemrzEe5DhuAykBX7Ln
+	s1verBtb4/oSZX/czzcfoAZepT0zES1m85xGw==
+X-Received: by 2002:a17:90b:3b8d:b0:398:b426:ca4b with SMTP id 98e67ed59e1d1-39b2624f10amr18330008a91.22.1788617525368;
+        Sat, 05 Sep 2026 07:12:05 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b2ad8028dsm2877512a91.4.2026.09.05.07.12.04
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 05 Sep 2026 07:12:00 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <5e66cd9d-845e-4f87-bf4e-d14eed4ef9c6@gmail.com>
-Date: Sat, 5 Sep 2026 15:11:59 +0100
+        Sat, 05 Sep 2026 07:12:04 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <9064a049-698f-4ac8-b827-ac0826ca1b07@roeck-us.net>
+Date: Sat, 5 Sep 2026 07:12:03 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,93 +71,95 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Julian Braha <julianbraha@gmail.com>
-Subject: Re: [PATCH 2/2] checkkconfigsymbols: resolve revisions before
- resetting the tree
-To: Erkan Erdem <hexvalid@gmail.com>, Nathan Chancellor <nathan@kernel.org>,
- Nicolas Schier <nsc@kernel.org>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260905123237.40670-1-hexvalid@gmail.com>
- <20260905123237.40670-2-hexvalid@gmail.com>
+Subject: Re: [PATCH] hwmon: (xdp710) Publish the OF module alias
+To: "hpp.iscas" <hppiscas@163.com>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Peter Yin <peteryin.openbmc@gmail.com>
+References: <20260905133800.65749-1-hppiscas@163.com>
 Content-Language: en-US
-In-Reply-To: <20260905123237.40670-2-hexvalid@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260905133800.65749-1-hppiscas@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 9/5/26 13:32, Erkan Erdem wrote:
-> The commit comparison resets the current branch to commit_a before
-> resolving commit_b. If the second revision is HEAD or the current branch
-> name, it then resolves to the first revision. For example, --diff
-> HEAD^..HEAD compares the parent with itself and silently misses newly
-> undefined symbols. The same problem affects --commit with the current
-> branch name.
+On 9/5/26 06:38, hpp.iscas wrote:
+> The XDP710 driver registers xdp710_of_match, but only exports its I2C
+> ID table. Device Tree clients emit an OF modalias instead of the
+> legacy I2C alias.
 > 
-> Resolve and verify both revisions as commits before the first reset.
-> This keeps their meaning stable throughout the comparison and rejects
-> invalid endpoints before changing the working tree.
+> Publish the existing OF table to make module selection available for
+> that enumeration path.
 > 
-> Keep lookup diagnostics separate from the resolved hashes. Use the
-> resolved range for --find too, since resetting also updates ORIG_HEAD.
-> 
-> Fixes: b1a3f243485f ("checkkconfigsymbols.py: make it Git aware")
-> Link: https://lore.kernel.org/20210901145212.478066-1-arielmarcovitch@gmail.com/
-> Assisted-by: LLM
-> Signed-off-by: Erkan Erdem <hexvalid@gmail.com>
+> Fixes: 35fe06d94e39 ("hwmon: (pmbus) Add support for Infineon XDP710")
+> Signed-off-by: hpp.iscas <hppiscas@163.com>
+
+.... add a line saying::
+
+         Signed-off-by: Random J Developer <random@developer.example.org>
+
+using a known identity (sorry, no anonymous contributions.)
+
+Sorry, I can not accept your patches. hpp.iscas is not a known identity.
+
+Guenter
+
 > ---
+>   drivers/hwmon/pmbus/xdp710.c | 1 +
+>   1 file changed, 1 insertion(+)
 > 
-> An AI coding assistant found the issue, prepared the fix and changelog,
-> and ran the verification below after a request to find reproducible
-> functional bugs in Linux development tools.
-> 
-> Validation:
-> - Ran the actual CLI against disposable Git repositories, comparing the
->   original script with the patched source. All 15 patched cases pass.
-> - Covered HEAD-relative ranges, branch names, hashes, tags, annotated
->   tags, ambiguous branch/tag names, identical revisions, --commit,
->   --find, ORIG_HEAD and invalid or non-commit endpoints.
-> - Checked HEAD, current branch, index and tracked file contents after
->   every invocation. The patched cases preserve these values, including
->   when the second revision is invalid.
-> 
->  scripts/checkkconfigsymbols.py | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
-> 
-> diff --git a/scripts/checkkconfigsymbols.py b/scripts/checkkconfigsymbols.py
-> index 36c920e7..e0a1a631 100755
-> --- a/scripts/checkkconfigsymbols.py
-> +++ b/scripts/checkkconfigsymbols.py
-> @@ -150,6 +150,13 @@ def print_undefined_symbols():
->              undefined_a = {}
->              undefined_b = {}
->  
-> +        commit_a = execute(["git", "rev-parse", "--verify", commit_a + "^{commit}"],
-> +                           stderr=None).strip()
-> +        commit_b = execute(["git", "rev-parse", "--verify", commit_b + "^{commit}"],
-> +                           stderr=None).strip()
-> +        if args.diff:
-> +            args.diff = commit_a + ".." + commit_b
-> +
->          # get undefined items before the commit
->          reset(commit_a)
->          undefined_a, _ = check_symbols(args.ignore)
-> @@ -223,10 +230,10 @@ def red(string):
->      return "\033[31m%s\033[0m" % string if COLOR else string
->  
->  
-> -def execute(cmd):
-> +def execute(cmd, stderr=subprocess.STDOUT):
->      """Execute %cmd and return stdout.  Exit in case of error."""
->      try:
-> -        stdout = subprocess.check_output(cmd, stderr=subprocess.STDOUT, shell=False)
-> +        stdout = subprocess.check_output(cmd, stderr=stderr, shell=False)
->          stdout = stdout.decode(errors='replace')
->      except subprocess.CalledProcessError as fail:
->          exit(fail)
+> diff --git a/drivers/hwmon/pmbus/xdp710.c b/drivers/hwmon/pmbus/xdp710.c
+> index 494dbe4..bd062d1 100644
+> --- a/drivers/hwmon/pmbus/xdp710.c
+> +++ b/drivers/hwmon/pmbus/xdp710.c
+> @@ -108,6 +108,7 @@ static const struct of_device_id xdp710_of_match[] = {
+>   	{ .compatible = "infineon,xdp710" },
+>   	{}
+>   };
+> +MODULE_DEVICE_TABLE(of, xdp710_of_match);
+>   
+>   static const struct i2c_device_id xdp710_id[] = {
+>   	{ .name = "xdp710" },
 
-This patch is unrelated to your patch 1/2, so they should be sent
-separately.
-
-Sets of patches are intended for changes that depend on each other, or
-at least are closely related.
-
-- Julian Braha
