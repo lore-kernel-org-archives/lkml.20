@@ -1,79 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D2A123D28C;
-	Sat,  5 Sep 2026 00:32:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3D5A175A9D;
+	Sat,  5 Sep 2026 00:33:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=183.62.165.209
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788568379; cv=none; b=W3D1fy9ovPlS0o3ny22zP94GnnqWLOyA63OMMaUuNF3WpIpLj/Hm9e94xf47LnfQFS1zmy8MD9tSsSEtvVRxC23R7PuFVxAn5w585g6cEtUcqUaCZWLN4Bns8kBKFi1vG5B9jU+EfguJDlk2bUaVYOsjVBQOqpnH2nKnEDtXafc=
+	t=1788568413; cv=none; b=ncN+8QDQj2Iv/4AtyusTrr4DjqMyrPn5bB25QirGx7393mucRKT9wH4rgbewg+8/KtO5rWuJGwCMBIHl+F/otn+Nu3l6TOse0od2T/v3OmfY05KDjNoONGMSquJRQVXyFjj6z+ByWxWRwTAB+S9hxcqnbm80O9ZvMLzITQcNeTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788568379; c=relaxed/simple;
-	bh=O7na85LJzeeW9urrmTT+ZcC5YkqIgHTZo4aYjjs6JNg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OMd6ka1tzbNMHwd6nx1VB/JbZ3e+groMBbJu6Kc+iy+thTZl3h7pv6PQrSethsPOQJJ+Y7pQG0bFnC2Vi467FuJApfdTilSjrw5ha2AkS94DILPCQgipAbUnH+fY7Bi0HzOjVf9v8KQ5ucah1ZMZxTAPMnspnamv/ZFgtJrygAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LviXth5l; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LviXth5l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CB001F00A3D;
-	Sat,  5 Sep 2026 00:32:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788568377;
-	bh=Q5oBfAwVgZGXYsPQcMyKaSyqzRQDV+E4ggbXvLfpz8M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LviXth5l1ro8TYsEj8bIErmuV36c+DsXqxY3I/u5WRXhbGGnIGpzjTFos9yRKs33H
-	 yZb/FfWlW+nLzEx9F7VpBYohgc2xwGuvok+JgAMWjmx1tF/y86IW9CO6l5GV5Ec65s
-	 9cvegQqK+dZ0OZpD0Ql8mGg/0D092dfkWREg+XAIw77yi7InzQRjceCvJYOhL97iPI
-	 KvP3UK5WN655fClRGCJCA6uK9OLWMMQfV7TBEp4k1682dLTnyD5kpVX5D6TtV/p9dr
-	 M6irV93RRdOWaBJajQ13S+1XVc5pQwLteoIsgvrVDny7/HOXoqFjjypwyBC5ezpJzh
-	 ukgNhUKn9g0Lw==
-Date: Fri, 4 Sep 2026 21:32:54 -0300
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Ian Rogers <irogers@google.com>
-Cc: markdamirkan@gmail.com, Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] perf evsel: Validate cross-endian samples before
- byte swapping
-Message-ID: <aptjNjaz3RYTW-TF@x2>
-References: <20260903-sympwn-linux-002-final-v2-v2-0-0aee1fca1f95@gmail.com>
- <CAP-5=fW5uHsW0wgffWgc8f5ibDf8ArF8qJW6sWzrorL44CqnNw@mail.gmail.com>
+	s=arc-20240116; t=1788568413; c=relaxed/simple;
+	bh=NmyXnDbB2wZrHH6qXdu4y1K9w0bmVY+v6QbdEpm/Ygk=;
+	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type; b=szI0RP347GNK58jFqR7TMPigse5ij0BFwDAUzLlfQHLAVtEKfyLchsN5ZYB7HPdd4FCUiaePN/SGZEBzMmnF1cxYDVwl/Uib1xgYjMH5ZrtCIxkFBDA1euzhJeRVjx9Xg8wTQX+/OdpYcaYQmjY6617NzeWcEQMmgUNrxo7nG5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4hcDpG4B8Rz4x6B2;
+	Sat, 05 Sep 2026 08:33:26 +0800 (CST)
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl2.zte.com.cn with SMTP id 6850XP1u025056;
+	Sat, 5 Sep 2026 08:33:25 +0800 (+08)
+	(envelope-from wang.yaxin@zte.com.cn)
+Received: from mapi (xaxapp05[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Sat, 5 Sep 2026 08:33:25 +0800 (CST)
+X-Zmail-TransId: 2afc6a9b635567c-a5055
+X-Mailer: Zmail v1.0
+Message-ID: <20260905083325942Joui9AuK11_fy6cREJVPh@zte.com.cn>
+In-Reply-To: <20260829154319.5d5422b8da6a93eaa72a00bc@linux-foundation.org>
+References: 20260829171238191s9SIXoZPTlZSmA2Px30hn@zte.com.cn,20260829154319.5d5422b8da6a93eaa72a00bc@linux-foundation.org
+Date: Sat, 5 Sep 2026 08:33:25 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAP-5=fW5uHsW0wgffWgc8f5ibDf8ArF8qJW6sWzrorL44CqnNw@mail.gmail.com>
+Mime-Version: 1.0
+From: <wang.yaxin@zte.com.cn>
+To: <akpm@linux-foundation.org>
+Cc: <fan.yu9@zte.com.cn>, <yang.yang29@zte.com.cn>,
+        <thomas.weissschuh@linutronix.de>, <corbet@lwn.net>,
+        <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+        <xu.xin16@zte.com.cn>
+Subject: =?UTF-8?B?UmU6IFtQQVRDSCB2NSAwLzRdIHRvb2xzL2FjY291bnRpbmc6IHJlZmFjdG9yIGRlbGF5IGZpZWxkcyBhbmQgc2hhcmUgZm9ybWF0X3RpbWVzcGVjKCk=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 6850XP1u025056
+X-TLS: YES
+X-ENVELOPE-SENDER: wang.yaxin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Sat, 05 Sep 2026 08:33:26 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6A9B6356.000/4hcDpG4B8Rz4x6B2
 
-On Thu, Sep 03, 2026 at 01:19:07PM -0700, Ian Rogers wrote:
-> On Thu, Sep 3, 2026 at 4:05 AM Mark Amirkan via B4 Relay
-> <devnull+markdamirkan.gmail.com@kernel.org> wrote:
-> >
-> > Two paths in __evsel__parse_sample() use values from an
-> > opposite-endian perf.data record to modify the record before checking that
-> > the data fits within event->header.size.
-> >
-> > Patch 1 checks the complete branch stack before swapping entry flags.
-> > Patch 2 checks the RAW payload and the complete 64-bit words touched by
-> > mem_bswap_64() before swapping the data.
-> >
-> > The malformed branch-stack and RAW records reproduce as out-of-bounds
-> > reads and writes. Each patch adds a Sample parsing regression test that
-> > checks rejected records do not modify data past the declared event.
-> >
-> > Signed-off-by: Mark Amirkan <markdamirkan@gmail.com>
-> 
-> Reviewed-by: Ian Rogers <irogers@google.com>
+>> - Convert per-field delay members in struct task_info to an array indexed
+>>   by enum delay_type, eliminating offsetof() pointer arithmetic.
+>> 
+>> - Add __kernel_old_time_t typedef to tools/include/uapi/linux/time_types.h
+>>   per Thomas's suggestion for backward compatibility with pre-v5.5
+>>   UAPI headers.
+>> 
+>> - Factor out a common format_timespec() implementation shared by getdelays
+>>   and delaytop, using strftime for cleaner timestamp formatting.
+>> 
+>> - Replace the complex sizeof/ULL/shift Y2038 guard with a direct narrowing
+>>   truncation check ((long long)time_sec != ts->tv_sec).
+>
+>Thanks.  I can't figure out how to apply this, and neither can Sashiko:
+>	https://sashiko.dev/#/patchset/20260829171238191s9SIXoZPTlZSmA2Px30hn@zte.com.cn
+>
+>Seems there's a dependency on your "delaytop: add delay max, timestamp
+>and sorting for top latency analysis" series which didn't get applied
+>for reasons which I don't recall.
 
-Thanks, applied to perf-tools-next, for v7.4.
+Hi Andrew,
 
-- Arnaldo
+Thanks for your reply!
+
+You're right — this patch is part of a larger refactoring effort for
+delaytop, so it does depend on the precursor series "delaytop: add
+delay max, timestamp and sorting for top latency analysis".
+
+I have read the discussion at the link below to figure out why the
+precursor patch was reverted:
+https://lore.kernel.org/all/20260804031240.D97F81F00A3E@smtp.kernel.org/
+
+From that thread, I understand that commit [1] ("delaytop: fix a bunch
+of docs build problems") was reverted due to issues it introduced.
+Consequently, this patch [2] ("delaytop: sort by max delay to highlight
+top latency processes") was also reverted because it depended on the
+documentation changes from [1].
+
+If I resubmit patch [2] as-is, running make htmldocs will again
+produce warnings in Documentation/accounting/delay-accounting.rst.
+Those warnings (e.g., indentation and formatting issues in the rst
+table) were originally fixed by [1], but since [1] is gone, they would
+reappear.
+
+My proposed solution is to update the next version of patch [2] to
+include the necessary rst formatting fixes directly in that same patch.
+This way, patch [2] no longer depends on [1] and can be applied
+independently. The documentation fix would be part of this patch
+rather than a separate precursor.
+
+Thanks
+Yaxin
