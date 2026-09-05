@@ -1,466 +1,267 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2133.outbound.protection.partner.outlook.cn [139.219.146.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f5.google.com (mail-oo2-f5.google.com [74.125.231.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA6B43F8BF;
-	Sat,  5 Sep 2026 10:29:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.133
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788604188; cv=fail; b=HVIe8uPXHUdfvQZcQaJk35F6LaBTfl2MChPRh+uD1o+mOL1eNXBZSEHeKMtgnpi1FztxHnUNyVNW+lsFdi7sKjfSrTPlPkEm46iYHfI6gI/7DKHjLxveTm28BADD4Mie49Y85IXYAAWqvJvm7yqwBpDTUbyO7EPuKMdRC3OvWEw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788604188; c=relaxed/simple;
-	bh=6MngHWcGsdzkWmlq1IU0jr0eHRVEI0v7glmW1LAerX8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=PkRszvbixI4m//5t3CKK2OoWRFA7ccuP2fixX9lWZ2I9mLBmUsb9stiZr27tYTBEzSWV6KqASjBxLaAHRbH1xtK5KPVFxzN0+CXvSovluS0nSgqtvIoEw/NVFoHe50OB9L7scoKXm7zSWURdr4J9/uWdQbgMQEyadhLKcSCsrNY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O29hJzAmI8L9qBthLIS4wQYil2UUYS5yScpu+WQboIIidJS2BGK7M4eeL2D/vt1iry1CHieqSF1lwrGfN9UsIhsADdZLQlSn49eoI0HLXuPns0wBcPp4qNJfgYuCPt9BpCVFd7JtnbFy3SEwkf0Ozf0nzM6U+g4pbKZ6jUq7FHvxmTeiGcM7sGNWJfo6CL6tUO27HkLulGqEYddVXzooNvdVaBLX1tru9qCMQzCbqYquGmzWPnE/YMJE+UwZofMndKGjzM22+XohatpN506VAlBRdpv2o293Jvr/Pq5OHquMJzcl9DTrzZA7g9T4mYkspnAhVilOju3d39luB/LHZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+rjw8I+RB3PFqpXkXoNJJuO5rM3Pv6gzIM//0L3gaWY=;
- b=Ny4PW3X0yF0zsFOTauV6Ckg5TU+Z0otJkbchcNwvpuhpRx253ZR/xQMu+z/pkqcjnhpehqZQuB65pD3i6PvenwuoMc0Km4r1dvA/cqBewCwGpK0VwfnE7Pw83TT4Zk/pjvGVsEm/qaEyzP3VJRdc2nkTw5rbj3Eo+KH/94gqo9uqejbYRGXjf+QxEqm7ohj+pYDBCnFSZspQDGz+eWIfO6jXgAAMai74vNIV33CBNDQm4LG/DFSprFmjLejxUFdIzmO6L6RKGO4lDmILLWSJEjiO3FUoU9M1+szhmG3p68NLVsdxT1pK4cOk1Rp/Sotnp86yIu7BktHlqgLW1FBk0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1329.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:16::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Sat, 5 Sep
- 2026 10:29:25 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0315.011; Sat, 5 Sep 2026 10:29:25 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Chia-Wei Wang <chiawei_wang@aspeedtech.com>,
-	Oskar Senft <osk@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Changhuang Liang <changhuang.liang@starfivetech.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Jani Nikula <jani.nikula@intel.com>,
-	Vitaly Lubart <lubvital@gmail.com>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Alexander Usyskin <alexander.usyskin@intel.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Breno Leitao <leitao@debian.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	James Morse <james.morse@arm.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Stephen Hemminger <stephen@networkplumber.org>,
-	Dave Penkler <dpenkler@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dan Williams <djbw@kernel.org>,
-	Mukesh Rathor <mrathor@linux.microsoft.com>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Alexandra Winter <wintera@linux.ibm.com>,
-	Julian Braha <julianbraha@gmail.com>,
-	Karthikeyan KS <karthiproffesional@gmail.com>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	openbmc@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org
-Subject: [PATCH v2 4/4] uart-routing: Add UART Routing driver for StarFive JHB100 SoC
-Date: Sat,  5 Sep 2026 03:29:01 -0700
-Message-Id: <20260905102901.126035-5-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260905102901.126035-1-changhuang.liang@starfivetech.com>
-References: <20260905102901.126035-1-changhuang.liang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: NT0PR01CA0032.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:c::6) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B0853E00A5
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 10:30:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.133
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788604235; cv=none; b=AlUqj0tI8WV0onDU1LtDyqanAryhLiZskuCzWQzNXPCbvmzxrCvy7L2kqoOpG3rhZLLSMPM7x9bKThr9Cy2jK9E+u23gJiILwDcqwSLfdkfIUjj9IunQzHGbGihMthwS0JFrEQwk3DspaKtjpZQy5u/Wu02R/PoYMPt9EumrvHA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788604235; c=relaxed/simple;
+	bh=KnT7J76VOs0JF4MkaqyU7PKqA4YcPl9vPwF1cPE55wM=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=bqd36QT/x1ESBL5oXs+EIA6vs9ho0O5k9BkEE0R+JV/A642Hmi0iBmtkE45KNSLmPpcXTanxK4yFKkLpcuQs6U1sLW42vM1qhnQhGlZlxTLNXgpWZ7EvI+eUPSJuYARV9hE1hxF8DeG2pf0JjHdHhjBOZcC5yqciEbm+n+SH9Ps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f5.google.com with SMTP id 46e09a7af769-7f4e6693089so657415a34.0
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 03:30:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788604232; x=1789209032;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=2ikTUDMvgbs6Pvx2tv73p+QKcEhBgflCF3gftTATyaI=;
+        b=qRNQE0/XmnDqYIK80qKmJhAaEGOa4n9CQf72BcvB6RxTl9qW7LiknFOE1b6RwncPsu
+         6ruPA2q0ZV2E1XFxWgAzSZshru8zp3RsQaiXUQWOmPcXbOZeS18hcw0DUfUYONFsPGYx
+         uia5l1AYMTtS0dShJDNIhbUkIbDg9StHzMHYLYk/3fjonzmv4cJYEsrwNlj3YFa4OY4r
+         Rri4zLPTjYYvJ1MjOsX+/ueulzylTSiPmqNNh8uxyQTMlYDQJNX2tk3X+LqPa4hdWQkf
+         LbOwF01xGiR4Nym5hyE7rD1cv/Ptz/00cYQrtON2shDFPQpqZd9QHVEUkly22lzumO/w
+         Hljg==
+X-Forwarded-Encrypted: i=1; AKwUvBztJtdVBGjNVg0Ex9lOVJkSA0UuZd2+f+BVuE0aptYHkLQvnjK+Azk7a8S7DqPkwmfnVOVvLeK5OygDa84=@vger.kernel.org
+X-Gm-Message-State: AFuF++lwlPC2b8wvtYVV3+1/WjkKmfLbE61JHE0n1mfB5qJb+HxGfl77
+	y1QK6yKjeLqLLfJC5gCujnZkUew3Iw3k9pPC4rmAwGtZVeuT0eAT8OdPYeC6coChK4r/v/vuqTx
+	4CfLqMXGb5+DqVRZOyktDfT9P93BC3mXS6OwsuA/tEVhpjCcel3s+SMvhL2s=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1329:EE_
-X-MS-Office365-Filtering-Correlation-Id: f226a6ef-3f81-4526-6628-08df0b388ede
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|52116014|7416014|1800799024|23010399003|38350700014|10067099003|6133799003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	4TMhB+2H9v8iBqVSZQX4jph18C3SqrMG/DIIhUjIICVbeHr1MqPkBRpIZDPYBSihsMEHHRab4AEB87GkWavzdN+6ZFYGfuzCWnquTEI3mHELZpjcSKC5ov9NJV2WRd5xcEnL3vQHPsf1zDvJBhuNR2ZtNAHYowxI8cSFXkyf8NzrI7KwfLAstuSzGml0tGR2hKNiiVrxjYvjnfIeiAyKII8CNFr+yQbxRkV+tIa88kZVqQQPnIWxeEtKvuZa9usPWyXzl1ylxjn4r4Sd3uMt77oNN3Y7ExlLjnDozyDBO6Wjy51bvnJ4cGU2lwPsxX15Gm+NDlqJpOMFkX3hZGJQh7+324w0/FtRsAX+zWs6FMiCmwKeyggc+6R1pXCR1A8mk2cXCCVxJrCVJWye8H6B2+jorJ48+Xd3sDuvIyoaw1jjOFPqCX5ISOLgP/FE0TPtsYVoduAvPli4NyesgO6ddK/RuYNvMJqXqyfBjlRhoYG2ft7dDrHEmkhxyKZ0sKByzDqtIJaCr3jS/gXRs5QuTQlliFjwJ1lf1jEpCyvRJb2aBUdVMgI7fs/vNE28Twr4
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(52116014)(7416014)(1800799024)(23010399003)(38350700014)(10067099003)(6133799003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?rDra99gohWFCsdjrtKc7Ul8LERnEmzuu5o3kWaateS66vVlDJLdGF/H4Qtm4?=
- =?us-ascii?Q?wGlwT+PMKOVHKWIYcDVv6ITvYHRY9l37WIPEMYJa4YbunZxX1giEiuTwdHwd?=
- =?us-ascii?Q?Lp0NfmxMOhgGdnqPqeEK2nmCUMKjycfT7hUTU+M8/UkNe4rgLLEBl2g1W/Lv?=
- =?us-ascii?Q?6qXudz3J8WqDN1vFqMkHuOeFvW0S7zDdgMaleIeyYF37/NNiwGTYyh1RUIAs?=
- =?us-ascii?Q?vGQKfvqqcpplfOIJW9gvx8UW3a4si2yM8Owbf+B7m1j4docZn7JuhCT1X6hG?=
- =?us-ascii?Q?xfTii1wdiTsnzhagJvYPfb9imo7FNXxAZquY3yhSfHi8ndJnBNZtzIngL4cT?=
- =?us-ascii?Q?jmBqL6BUwXtGeauhu1/hG20x4LzlulqD+06AB+R8M1lHplRfgOij7bWWWbHA?=
- =?us-ascii?Q?qE7uLwd35xHIrEsGPH6DIWHzCwZU7Ebu+cXgOwduUIKQiy+tgb6yJ9nzRLdL?=
- =?us-ascii?Q?PPQZ8umBIItd6BUyRlkBZLuxnkTQxbSXk5YhGRdo9Mmc4bBAVEN3qCYvgJJx?=
- =?us-ascii?Q?JyhHtA1x26VvHTJ+pjd9EPQikiQ1FCZzrTeAjdLo6qsz+x651CzK0LRQxu9E?=
- =?us-ascii?Q?olbzyn5YL/UX4eXQk2B2kkbS7lgo5Z/8/RE0vLx6F5/fTR83/no1xKM5lVxW?=
- =?us-ascii?Q?nSmc+kezQ//xkhgw5mttGEharsbz8wS4ECLTdOdofIwDRU1Y0IR1sVOgcVPQ?=
- =?us-ascii?Q?nsQqaB5rgwPXR8DTSDaCaHhOHQUKfNqcVqYsTe3/KV/JHARpssIGZeV6Hex2?=
- =?us-ascii?Q?VHiKgJxl0iGIvhLk2MghrGbVln2u7W2/61v4TIZLBw42A6RBpZS/wZ4gYXm/?=
- =?us-ascii?Q?JNXRWk+A+KwENfZarKi2c7abovuGRW/NASLUDmFqqU8OcpINrXnqYxvLUX6w?=
- =?us-ascii?Q?v++bbQFei+kM3pCGRD0XAdrA5VJZhPk9cWP7vBZFOoO94YFZXhmbHprozUpH?=
- =?us-ascii?Q?QTXRApCyxaNylkreckCluDkYIePhh40SqumTD7LeOF3OSUNN8o34RLmC3YLL?=
- =?us-ascii?Q?+dQR1bvrG8sgleZP4tM/FjhxEaZXE/AwXAKnv6skWQjLWvezZmRjX/7EQKXi?=
- =?us-ascii?Q?QgkuldUM3a7/LbVj7Mjn0PFkw178YoPhjOmd3RYUHPU3T5s44wp+F/921J/r?=
- =?us-ascii?Q?gJ0HjvKLAbbsqw5AY/lU1bmltFOshf6vh/6yGPED56t8r7fkaoie0IIk23J9?=
- =?us-ascii?Q?TToFNrnRGWPjEzgwrFO/tGJdoPvBuJSVuUiUsdqnMhPzhXwlAx4JyZ+FggWD?=
- =?us-ascii?Q?cijSQTFewoDj9jODSFd4enoIof9bZy+QJyUC8X67DMoJjjZc/lkAmb8ouR7G?=
- =?us-ascii?Q?weD1evNjzW7HuPevcBTnvshgy+aN2bPBu5KyrVXJq2M3nhQ3wrkiM01zoond?=
- =?us-ascii?Q?2jUcuAkxpZCnGLjRraNIyaXPrs2Pm4y1O7aGnXrr6M2M7WHo7ilBbX6Eb3Sb?=
- =?us-ascii?Q?sAzF9Y4m/F8gfzdto8cDEJGawCUL4+gzODe8pOGJ6LYGpdR02kPADS/Dqk2w?=
- =?us-ascii?Q?/wdSI4McXL4QoL1nsDoOrXo4+9lNkuOe/wcr8CsBjpqUgh5V3/ZyhW+Zx5gt?=
- =?us-ascii?Q?EmzLuPPqVppSIwbT8lyYInqwWUFNTeeK2gVjqxjpvl9L/SEOssjmjiUQRWGD?=
- =?us-ascii?Q?EQg3mXy4v5ptonzN0i147IkwOqfen5mWxPU+zT6F67Q7/i2yuzJ62KaNa1HK?=
- =?us-ascii?Q?sQSC37RXANAvZzMt/md+IV6QWf2TemcFrSw3NfJD690CHMe1Rjq6Vrhw67fT?=
- =?us-ascii?Q?RzS1MMfLwi/DJPC4CJedkYH9rvV0oxXLgKAzjNlSrWa5WpoaVh4p?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f226a6ef-3f81-4526-6628-08df0b388ede
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 10:29:25.3973
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NulqFZ5LZS2Vokl1Wb27sXRnUX5LQFayXkle70resGhoVFESIgPAsZ1nh8lxKa34fROy7DnV4JPW5Xcar4fvAUhJp6/gNYjObwBPV6xQmDfgo2+FdZULWZXZW/frSBdD
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1329
+X-Received: by 2002:a05:6820:2019:b0:6b1:7251:41d5 with SMTP id
+ 006d021491bc7-6b6fabe1b66mr11573347eaf.3.1788604231940; Sat, 05 Sep 2026
+ 03:30:31 -0700 (PDT)
+Date: Sat, 05 Sep 2026 03:30:31 -0700
+In-Reply-To: <6a6a9895.7eebbf3c.214d51.000d.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9bef47.37659fcc.e790.0002.GAE@google.com>
+Subject: Re: [syzbot] [ext4?] possible deadlock in process_measurement (6)
+From: syzbot <syzbot+c0bfa7a9a227036e8454@syzkaller.appspotmail.com>
+To: dmitry.kasatkin@gmail.com, eric.snowberg@oracle.com, 
+	gregkh@linuxfoundation.org, jmorris@namei.org, linux-ext4@vger.kernel.org, 
+	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, linux-usb@vger.kernel.org, 
+	paul@paul-moore.com, roberto.sassu@huawei.com, serge@hallyn.com, 
+	syzkaller-bugs@googlegroups.com, zohar@linux.ibm.com
+Content-Type: text/plain; charset="UTF-8"
 
-Add driver support for JHB100 UART Routing control, allowing runtime
-configuration of RX muxes between UART controllers and I/O pins.
+syzbot has found a reproducer for the following issue on:
 
-A sysfs interface is provided for easy checking and updating of routing
-paths.
+HEAD commit:    654ae5d73c05 Merge tag 'drm-fixes-2026-09-05' of https://g..
+git tree:       upstream
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=14c568f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b454dc6b1b7acd30
+dashboard link: https://syzkaller.appspot.com/bug?extid=c0bfa7a9a227036e8454
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12c568f9580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17cc6b49580000
 
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/49c1a99f815b/disk-654ae5d7.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/6fcecf1b8c8d/vmlinux-654ae5d7.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/fa54b23691ca/bzImage-654ae5d7.xz
+mounted in repro: https://storage.googleapis.com/syzbot-assets/7be96c47c44b/mount_0.gz
+  fsck result: OK (log: https://syzkaller.appspot.com/x/fsck.log?x=12041125580000)
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+c0bfa7a9a227036e8454@syzkaller.appspotmail.com
+
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+syz-executor428/5602 is trying to acquire lock:
+ffff88803f38b458 (&ima_iint_mutex_key[depth]){+.+.}-{4:4}, at: process_measurement+0x7e0/0x1c20 security/integrity/ima/ima_main.c:319
+
+but task is already holding lock:
+ffff888038eee198 (&common->filesem){++++}-{4:4}, at: fsg_store_file+0x163/0x400 drivers/usb/gadget/function/storage_common.c:452
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #3 (&common->filesem){++++}-{4:4}:
+       down_read+0x97/0x200 kernel/locking/rwsem.c:1574
+       fsg_show_file+0x2d/0x140 drivers/usb/gadget/function/storage_common.c:339
+       fill_read_buffer fs/configfs/file.c:68 [inline]
+       configfs_read_iter+0x2ba/0x620 fs/configfs/file.c:88
+       __kernel_read+0x4d3/0x970 fs/read_write.c:532
+       integrity_kernel_read+0x89/0xd0 security/integrity/iint.c:28
+       ima_calc_file_hash_tfm security/integrity/ima/ima_crypto.c:222 [inline]
+       ima_calc_file_hash+0x45d/0x8a0 security/integrity/ima/ima_crypto.c:280
+       ima_collect_measurement+0x521/0xa10 security/integrity/ima/ima_api.c:300
+       process_measurement+0x1282/0x1c20 security/integrity/ima/ima_main.c:425
+       ima_file_check+0xe1/0x130 security/integrity/ima/ima_main.c:685
+       security_file_post_open+0xb3/0x260 security/security.c:2755
+       do_open fs/namei.c:4839 [inline]
+       path_openat+0x148a/0x1d60 fs/namei.c:5000
+       do_file_open+0x23e/0x4a0 fs/namei.c:5029
+       do_sys_openat2+0x115/0x200 fs/open.c:1417
+       do_sys_open fs/open.c:1423 [inline]
+       __do_sys_openat fs/open.c:1439 [inline]
+       __se_sys_openat fs/open.c:1434 [inline]
+       __x64_sys_openat+0x138/0x170 fs/open.c:1434
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #2 (&p->frag_sem){.+.+}-{4:4}:
+       down_read+0x97/0x200 kernel/locking/rwsem.c:1574
+       fill_read_buffer fs/configfs/file.c:66 [inline]
+       configfs_read_iter+0x1cf/0x620 fs/configfs/file.c:88
+       __kernel_read+0x4d3/0x970 fs/read_write.c:532
+       integrity_kernel_read+0x89/0xd0 security/integrity/iint.c:28
+       ima_calc_file_hash_tfm security/integrity/ima/ima_crypto.c:222 [inline]
+       ima_calc_file_hash+0x45d/0x8a0 security/integrity/ima/ima_crypto.c:280
+       ima_collect_measurement+0x521/0xa10 security/integrity/ima/ima_api.c:300
+       process_measurement+0x1282/0x1c20 security/integrity/ima/ima_main.c:425
+       ima_file_check+0xe1/0x130 security/integrity/ima/ima_main.c:685
+       security_file_post_open+0xb3/0x260 security/security.c:2755
+       do_open fs/namei.c:4839 [inline]
+       path_openat+0x148a/0x1d60 fs/namei.c:5000
+       do_file_open+0x23e/0x4a0 fs/namei.c:5029
+       do_sys_openat2+0x115/0x200 fs/open.c:1417
+       do_sys_open fs/open.c:1423 [inline]
+       __do_sys_openat fs/open.c:1439 [inline]
+       __se_sys_openat fs/open.c:1434 [inline]
+       __x64_sys_openat+0x138/0x170 fs/open.c:1434
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #1 (&buffer->mutex){+.+.}-{4:4}:
+       __mutex_lock_common kernel/locking/rtmutex_api.c:559 [inline]
+       mutex_lock_nested+0x5a/0x1d0 kernel/locking/rtmutex_api.c:578
+       configfs_read_iter+0x73/0x620 fs/configfs/file.c:86
+       __kernel_read+0x4d3/0x970 fs/read_write.c:532
+       integrity_kernel_read+0x89/0xd0 security/integrity/iint.c:28
+       ima_calc_file_hash_tfm security/integrity/ima/ima_crypto.c:222 [inline]
+       ima_calc_file_hash+0x45d/0x8a0 security/integrity/ima/ima_crypto.c:280
+       ima_collect_measurement+0x521/0xa10 security/integrity/ima/ima_api.c:300
+       process_measurement+0x1282/0x1c20 security/integrity/ima/ima_main.c:425
+       ima_file_check+0xe1/0x130 security/integrity/ima/ima_main.c:685
+       security_file_post_open+0xb3/0x260 security/security.c:2755
+       do_open fs/namei.c:4839 [inline]
+       path_openat+0x148a/0x1d60 fs/namei.c:5000
+       do_file_open+0x23e/0x4a0 fs/namei.c:5029
+       do_sys_openat2+0x115/0x200 fs/open.c:1417
+       do_sys_open fs/open.c:1423 [inline]
+       __do_sys_openat fs/open.c:1439 [inline]
+       __se_sys_openat fs/open.c:1434 [inline]
+       __x64_sys_openat+0x138/0x170 fs/open.c:1434
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #0 (&ima_iint_mutex_key[depth]){+.+.}-{4:4}:
+       check_prev_add kernel/locking/lockdep.c:3181 [inline]
+       check_prevs_add kernel/locking/lockdep.c:3300 [inline]
+       validate_chain kernel/locking/lockdep.c:3924 [inline]
+       __lock_acquire+0x15ff/0x2e40 kernel/locking/lockdep.c:5254
+       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5908
+       __mutex_lock_common kernel/locking/rtmutex_api.c:559 [inline]
+       mutex_lock_nested+0x5a/0x1d0 kernel/locking/rtmutex_api.c:578
+       process_measurement+0x7e0/0x1c20 security/integrity/ima/ima_main.c:319
+       ima_file_check+0xe1/0x130 security/integrity/ima/ima_main.c:685
+       security_file_post_open+0xb3/0x260 security/security.c:2755
+       do_open fs/namei.c:4839 [inline]
+       path_openat+0x148a/0x1d60 fs/namei.c:5000
+       do_file_open+0x23e/0x4a0 fs/namei.c:5029
+       file_open_name fs/open.c:1375 [inline]
+       filp_open+0x16d/0x1d0 fs/open.c:1392
+       fsg_lun_open+0x6c/0xe00 drivers/usb/gadget/function/storage_common.c:194
+       fsg_store_file+0x19e/0x400 drivers/usb/gadget/function/storage_common.c:455
+       flush_write_buffer fs/configfs/file.c:207 [inline]
+       configfs_write_iter+0x33a/0x430 fs/configfs/file.c:229
+       new_sync_write fs/read_write.c:595 [inline]
+       vfs_write+0x61e/0xbb0 fs/read_write.c:687
+       ksys_write+0x156/0x270 fs/read_write.c:739
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+other info that might help us debug this:
+
+Chain exists of:
+  &ima_iint_mutex_key[depth] --> &p->frag_sem --> &common->filesem
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(&common->filesem);
+                               lock(&p->frag_sem);
+                               lock(&common->filesem);
+  lock(&ima_iint_mutex_key[depth]);
+
+ *** DEADLOCK ***
+
+locks held by syz-executor428/5602: 4, last CPU#0:
+ #0: ffff88801d734510 (sb_writers#8){.+.+}-{0:0}, at: file_start_write include/linux/fs.h:2753 [inline]
+ #0: ffff88801d734510 (sb_writers#8){.+.+}-{0:0}, at: vfs_write+0x231/0xbb0 fs/read_write.c:683
+ #1: ffff888028b16678 (&buffer->mutex){+.+.}-{4:4}, at: configfs_write_iter+0x81/0x430 fs/configfs/file.c:226
+ #2: ffff888025f30b68 (&p->frag_sem){.+.+}-{4:4}, at: flush_write_buffer fs/configfs/file.c:205 [inline]
+ #2: ffff888025f30b68 (&p->frag_sem){.+.+}-{4:4}, at: configfs_write_iter+0x23b/0x430 fs/configfs/file.c:229
+ #3: ffff888038eee198 (&common->filesem){++++}-{4:4}, at: fsg_store_file+0x163/0x400 drivers/usb/gadget/function/storage_common.c:452
+
+stack backtrace:
+CPU: 0 UID: 0 PID: 5602 Comm: syz-executor428 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2059
+ check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2191
+ check_prev_add kernel/locking/lockdep.c:3181 [inline]
+ check_prevs_add kernel/locking/lockdep.c:3300 [inline]
+ validate_chain kernel/locking/lockdep.c:3924 [inline]
+ __lock_acquire+0x15ff/0x2e40 kernel/locking/lockdep.c:5254
+ lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5908
+ __mutex_lock_common kernel/locking/rtmutex_api.c:559 [inline]
+ mutex_lock_nested+0x5a/0x1d0 kernel/locking/rtmutex_api.c:578
+ process_measurement+0x7e0/0x1c20 security/integrity/ima/ima_main.c:319
+ ima_file_check+0xe1/0x130 security/integrity/ima/ima_main.c:685
+ security_file_post_open+0xb3/0x260 security/security.c:2755
+ do_open fs/namei.c:4839 [inline]
+ path_openat+0x148a/0x1d60 fs/namei.c:5000
+ do_file_open+0x23e/0x4a0 fs/namei.c:5029
+ file_open_name fs/open.c:1375 [inline]
+ filp_open+0x16d/0x1d0 fs/open.c:1392
+ fsg_lun_open+0x6c/0xe00 drivers/usb/gadget/function/storage_common.c:194
+ fsg_store_file+0x19e/0x400 drivers/usb/gadget/function/storage_common.c:455
+ flush_write_buffer fs/configfs/file.c:207 [inline]
+ configfs_write_iter+0x33a/0x430 fs/configfs/file.c:229
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x61e/0xbb0 fs/read_write.c:687
+ ksys_write+0x156/0x270 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f29897e19a9
+Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffe566936c8 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00002000000002c0 RCX: 00007f29897e19a9
+RDX: 0000000000000005 RSI: 00002000000003c0 RDI: 0000000000000005
+RBP: 0000200000000200 R08: 00005555573c7560 R09: 00005555573c7560
+R10: 00005555573c7560 R11: 0000000000000246 R12: 6769666e6f632f2e
+R13: 0000000000000002 R14: 431bde82d7b634db R15: 00007f298984104b
+ </TASK>
+mass_storage.0/lun.0: file too small: file0
+
+
 ---
- .../sysfs-driver-starfive-uart-routing        |  45 ++++
- MAINTAINERS                                   |   8 +
- drivers/uart-routing/Kconfig                  |  13 ++
- drivers/uart-routing/Makefile                 |   1 +
- drivers/uart-routing/starfive-uart-routing.c  | 192 ++++++++++++++++++
- 5 files changed, 259 insertions(+)
- create mode 100644 Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
- create mode 100644 drivers/uart-routing/starfive-uart-routing.c
-
-diff --git a/Documentation/ABI/testing/sysfs-driver-starfive-uart-routing b/Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
-new file mode 100644
-index 000000000000..737afdf428bc
---- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
-@@ -0,0 +1,45 @@
-+What:		/sys/bus/platform/drivers/starfive-uart-routing/\*/uart\*
-+Date:		August 2026
-+Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
-+Description:	Selects the RX source of the UARTx device.
-+
-+		When read, each file shows the list of available options with currently
-+		selected option marked by brackets "[]". The list of available options
-+		depends on the selected file.
-+
-+		e.g.
-+		cat /sys/bus/platform/drivers/starfive-uart-routing/\*.uart-routing/uart1
-+		io0 [io1] io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14 uart0 uart1
-+		uart2 uart3 uart4 uart5 uart6 uart7 uart8 uart9 uart10 uart11 uart12 uart13 uart14
-+
-+		In this case, UART1 gets its input from IO1 (physical serial port 1).
-+
-+		To switch the RX source of UART1 to UART2, write the desired source to the file:
-+		echo uart2 > /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/uart1
-+
-+		This indicates that UART1 now receives its input from UART2.
-+
-+Users:		OpenBMC.  Proposed changes should be mailed to
-+		openbmc@lists.ozlabs.org
-+
-+What:		/sys/bus/platform/drivers/starfive-uart-routing/\*/io\*
-+Date:		August 2026
-+Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
-+Description:	Selects the RX source of IOx serial port. The current selection
-+		will be marked by brackets "[]". The list of available options
-+		depends on the selected file.
-+
-+		e.g.
-+		cat /sys/bus/platform/drivers/starfive-uart-routing/\*.uart-routing/io9
-+		uart0 uart1 uart2 uart3 uart4 uart5 uart6 uart7 uart8 [uart9] uart10 uart11 uart12
-+		uart13 uart14 io0 io1 io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14
-+
-+		In this case, IO9 (physical serial port 9) gets its input from UART9.
-+
-+		To switch the RX source of IO9 to UART10, write the desired source to the file:
-+		echo uart10 > /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/io9
-+
-+		This indicates that IO9 now receives its input from UART10.
-+
-+Users:		OpenBMC.  Proposed changes should be mailed to
-+		openbmc@lists.ozlabs.org
-diff --git a/MAINTAINERS b/MAINTAINERS
-index ad6706c18f37..16c2fa9aff57 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -26115,6 +26115,14 @@ M:	Changhuang Liang <changhuang.liang@starfivetech.com>
- S:	Maintained
- F:	Documentation/devicetree/bindings/soc/starfive/starfive,jhb100-syscon.yaml
- 
-+STARFIVE UART ROUTING DRIVER
-+M:	Changhuang Liang <changhuang.liang@starfivetech.com>
-+L:	openbmc@lists.ozlabs.org (moderated for non-subscribers)
-+S:	Maintained
-+F:	Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
-+F:	Documentation/devicetree/bindings/uart-routing/starfive,uart-routing.yaml
-+F:	drivers/uart-routing/starfive-uart-routing.c
-+
- STATIC BRANCH/CALL
- M:	Peter Zijlstra <peterz@infradead.org>
- M:	Josh Poimboeuf <jpoimboe@kernel.org>
-diff --git a/drivers/uart-routing/Kconfig b/drivers/uart-routing/Kconfig
-index b67c2a6de74c..13b2424d47c7 100644
---- a/drivers/uart-routing/Kconfig
-+++ b/drivers/uart-routing/Kconfig
-@@ -28,4 +28,17 @@ config ASPEED_UART_ROUTING
- 	  If M is selected, the module will be called
- 	  aspeed-uart-routing.
- 
-+config STARFIVE_UART_ROUTING
-+	tristate "StarFive uart routing control"
-+	depends on ARCH_STARFIVE || COMPILE_TEST
-+	select UART_ROUTING
-+	select REGMAP_MMIO
-+	help
-+	  Provides a driver to control the UART routing paths, allowing
-+	  users to perform runtime configuration of the RX muxes among
-+	  the UART controllers and I/O pins.
-+
-+	  If M is selected, the module will be called
-+	  starfive-uart-routing.
-+
- endmenu
-diff --git a/drivers/uart-routing/Makefile b/drivers/uart-routing/Makefile
-index 226980c639a4..59d9b65c2273 100644
---- a/drivers/uart-routing/Makefile
-+++ b/drivers/uart-routing/Makefile
-@@ -2,3 +2,4 @@
- obj-$(CONFIG_UART_ROUTING)			+= uart-routing.o
- 
- obj-$(CONFIG_ASPEED_UART_ROUTING)		+= aspeed-uart-routing.o
-+obj-$(CONFIG_STARFIVE_UART_ROUTING)		+= starfive-uart-routing.o
-diff --git a/drivers/uart-routing/starfive-uart-routing.c b/drivers/uart-routing/starfive-uart-routing.c
-new file mode 100644
-index 000000000000..3bd83ca5a258
---- /dev/null
-+++ b/drivers/uart-routing/starfive-uart-routing.c
-@@ -0,0 +1,192 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * StarFive JHB100 UART Routing driver
-+ *
-+ * Copyright (C) 2026 StarFive Technology Co., Ltd
-+ */
-+
-+#include <linux/bits.h>
-+#include <linux/device.h>
-+#include <linux/err.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/reset.h>
-+#include <linux/sysfs.h>
-+
-+#include "uart-routing.h"
-+
-+/* One selector register per channel, holding the IO and UART RX mux. */
-+#define JHB100_ROUTING_SEL(ch)		((ch) * 0x04)
-+#define JHB100_ROUTING_IO_SHIFT		0
-+#define JHB100_ROUTING_UART_SHIFT	8
-+#define JHB100_ROUTING_MASK		GENMASK(4, 0)
-+
-+#define JHB100_UART_PORTS		15	/* UART0-UART14 */
-+
-+#define JHB100_IO_TARGETS						\
-+	"io0",  "io1",  "io2",  "io3",  "io4",				\
-+	"io5",  "io6",  "io7",  "io8",  "io9",				\
-+	"io10", "io11", "io12", "io13", "io14"
-+
-+#define JHB100_UART_TARGETS						\
-+	"uart0",  "uart1",  "uart2",  "uart3",  "uart4",		\
-+	"uart5",  "uart6",  "uart7",  "uart8",  "uart9",		\
-+	"uart10", "uart11", "uart12", "uart13", "uart14"
-+
-+/*
-+ * The two mux fields of a channel index the same target list, but starting
-+ * from a different end of it: field value 0 selects IO0 for the RX mux of a
-+ * UART, and UART0 for the RX mux of an IO pin.
-+ */
-+static const char *const jhb100_uart_rx_options[] = {
-+	JHB100_IO_TARGETS,
-+	JHB100_UART_TARGETS,
-+	NULL,
-+};
-+
-+static const char *const jhb100_io_rx_options[] = {
-+	JHB100_UART_TARGETS,
-+	JHB100_IO_TARGETS,
-+	NULL,
-+};
-+
-+#define JHB100_UART_SELECTOR(_ch)					\
-+	UART_ROUTING_SELECTOR(jhb100_uart##_ch##_sel, uart##_ch,	\
-+			      JHB100_ROUTING_SEL(_ch),			\
-+			      JHB100_ROUTING_UART_SHIFT,		\
-+			      JHB100_ROUTING_MASK,			\
-+			      jhb100_uart_rx_options)
-+
-+#define JHB100_IO_SELECTOR(_ch)						\
-+	UART_ROUTING_SELECTOR(jhb100_io##_ch##_sel, io##_ch,		\
-+			      JHB100_ROUTING_SEL(_ch),			\
-+			      JHB100_ROUTING_IO_SHIFT,			\
-+			      JHB100_ROUTING_MASK,			\
-+			      jhb100_io_rx_options)
-+
-+/* RX source of UART0-UART14 */
-+JHB100_UART_SELECTOR(0);
-+JHB100_UART_SELECTOR(1);
-+JHB100_UART_SELECTOR(2);
-+JHB100_UART_SELECTOR(3);
-+JHB100_UART_SELECTOR(4);
-+JHB100_UART_SELECTOR(5);
-+JHB100_UART_SELECTOR(6);
-+JHB100_UART_SELECTOR(7);
-+JHB100_UART_SELECTOR(8);
-+JHB100_UART_SELECTOR(9);
-+JHB100_UART_SELECTOR(10);
-+JHB100_UART_SELECTOR(11);
-+JHB100_UART_SELECTOR(12);
-+JHB100_UART_SELECTOR(13);
-+JHB100_UART_SELECTOR(14);
-+
-+/* RX source of IO0-IO14 */
-+JHB100_IO_SELECTOR(0);
-+JHB100_IO_SELECTOR(1);
-+JHB100_IO_SELECTOR(2);
-+JHB100_IO_SELECTOR(3);
-+JHB100_IO_SELECTOR(4);
-+JHB100_IO_SELECTOR(5);
-+JHB100_IO_SELECTOR(6);
-+JHB100_IO_SELECTOR(7);
-+JHB100_IO_SELECTOR(8);
-+JHB100_IO_SELECTOR(9);
-+JHB100_IO_SELECTOR(10);
-+JHB100_IO_SELECTOR(11);
-+JHB100_IO_SELECTOR(12);
-+JHB100_IO_SELECTOR(13);
-+JHB100_IO_SELECTOR(14);
-+
-+static struct attribute *jhb100_uart_routing_attrs[] = {
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart0_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart1_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart2_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart3_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart4_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart5_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart6_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart7_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart8_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart9_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart10_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart11_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart12_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart13_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart14_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io0_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io1_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io2_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io3_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io4_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io5_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io6_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io7_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io8_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io9_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io10_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io11_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io12_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io13_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io14_sel),
-+	NULL,
-+};
-+
-+static const struct attribute_group jhb100_uart_routing_attr_group = {
-+	.attrs = jhb100_uart_routing_attrs,
-+};
-+
-+static const struct regmap_config jhb100_uart_routing_regmap_cfg = {
-+	.reg_bits	= 32,
-+	.reg_stride	= 4,
-+	.val_bits	= 32,
-+	.max_register	= JHB100_ROUTING_SEL(JHB100_UART_PORTS - 1),
-+};
-+
-+static int starfive_uart_routing_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct reset_control *rst;
-+	void __iomem *reg_base;
-+	struct regmap *regmap;
-+
-+	reg_base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(reg_base))
-+		return dev_err_probe(dev, PTR_ERR(reg_base),
-+				     "Unable to map IO resources\n");
-+
-+	rst = devm_reset_control_get_exclusive_deasserted(dev, NULL);
-+	if (IS_ERR(rst))
-+		return dev_err_probe(dev, PTR_ERR(rst),
-+				     "Unable to get and deassert reset control\n");
-+
-+	regmap = devm_regmap_init_mmio(dev, reg_base,
-+				       &jhb100_uart_routing_regmap_cfg);
-+	if (IS_ERR(regmap))
-+		return dev_err_probe(dev, PTR_ERR(regmap),
-+				     "Unable to init regmap\n");
-+
-+	return devm_uart_routing_register(dev, regmap,
-+					  &jhb100_uart_routing_attr_group);
-+}
-+
-+static const struct of_device_id starfive_uart_routing_match[] = {
-+	{ .compatible = "starfive,jhb100-uart-routing" },
-+	{ /* sentinel */ },
-+};
-+MODULE_DEVICE_TABLE(of, starfive_uart_routing_match);
-+
-+static struct platform_driver starfive_uart_routing_driver = {
-+	.probe = starfive_uart_routing_probe,
-+	.driver	= {
-+		.name = "starfive-uart-routing",
-+		.of_match_table = starfive_uart_routing_match,
-+	},
-+};
-+
-+module_platform_driver(starfive_uart_routing_driver);
-+
-+MODULE_AUTHOR("Changhuang Liang <changhuang.liang@starfivetech.com>");
-+MODULE_DESCRIPTION("StarFive JHB100 UART Routing driver");
-+MODULE_LICENSE("GPL");
--- 
-2.25.1
-
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
