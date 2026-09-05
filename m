@@ -1,79 +1,55 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 443524B0C9D
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:35:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5CF34B0495;
+	Sat,  5 Sep 2026 15:36:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788622547; cv=none; b=N8OJGxGXvMxqSa7AaEmS1teAejbF+47qTkihshyc7ihZBIVbCYw24loDApz2nrtTEFWmifWeL/AcH4rC1DV/tau2l/ORodFxMOFNrfu8ZWL8e9YZ/4YZFHA7GxnlUUQyyLzrpj3tKreJEFJBtoOv7ZVJ7IvJKZiYC2zxBHyCY8E=
+	t=1788622596; cv=none; b=iB6qU9ujAj+/x0Gk7YXJe3wjbAXbOEgmkNDnOUNAfW7OXLeJUhetXtc9O2Rq/VAARDfNPy+Sd3Fjz7iDOWP9TNI9my/U5EPPqz+wpSvtCTMBfSJVmrlBRn1LOjxLiIs8Qt9HU2oG8zEwIm6zY5UFeLhh0mNFoTJ2+I3Vf5e9KIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788622547; c=relaxed/simple;
-	bh=GvmssypO3wFrEaIA/09y7tkUfGE1ozQEU6tFnebwajA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HdLekyoX1DrYJri0BWOZH9/5j/kezEmcn35n4WpOCVWtK5y1eBPkMyFWb86O8trivE4VNWZ8RMRR/Vkx8vYgYYjeJi2cmCm3ZAWt72KuTHLUIvLeu+NNDNU+S0gU0BB9u/Nip/KvX/ZYCT3HSGywLNb/3/mNEGMESYPcsvqnmPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BLXWQDYs; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788622596; c=relaxed/simple;
+	bh=1MlI5//YnPlCkNTCdkd8+ZBjEpxPzDfVlXzv5d8aufI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=YxJwnjIVbjyBhQp6DH8584xTrNqbxLcFABo9Or5CZCAQzwu2zG6+fYBcL0pc8foN0xitkziIMopAEab0J8xQ/DkRiOGvhJgMPVqDmyLlAcrUkAm3pRcsFX9fuQx/FoYFjeObjf5rEK5Ww8NoDP/gbe4odx3NNT+c5eHIHJAOAkk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=n1HFzLaD; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BLXWQDYs"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39666e7c9efso91035a91.3
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 08:35:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788622545; x=1789227345; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Lm42doHswCi3RtZeu7IIEEdGs2pytFeZf/X0boG9eKM=;
-        b=BLXWQDYsEuEDb+L+/BqcaWkGdfwqWbYkwLpMqi9bkjFH7mEDRF8Gh6cnHO2V2GfryR
-         J/E7t1T+lGX+qw8XsP+lQSUQySoeQXvQbGHMgW/nywCLlxz9fbwKvWdwy40+mbyizGxD
-         2P5LlzR9vx4LVnnWPnCQFNxFmcToorqDSX/1hSdLtKzPR4MRAjWhi6Zf2DcNpuR+28mf
-         LTphv1djz4eYeP1Qa9ZW30i54NGrL1v2gcvG0SgQ65ctM9ZE8nVELSR+VxCkIIMy+At1
-         9xGYRUmhY5dnuY8O8PuBh4cNrQhfpkTSWuj3Tknbl9a+BlZvQLcsA+p7egaBByymiDgo
-         BrVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788622545; x=1789227345;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Lm42doHswCi3RtZeu7IIEEdGs2pytFeZf/X0boG9eKM=;
-        b=UG/B5tjFU8L+6hZvhcvCFFbzkHBaYAx4yF10YyVoVlbo7lEucTPtqS83Wdx86fVUws
-         5SoRP3y5VjDT1ewOgztdxKFlqvSW5cYH/ChQYsndyUk2DVccIAalgc1gu8eygrARXcJ1
-         l2pTyF03Rx2qCYhA5h4HmtJq7YJruMWPKUZ5mmA9lWbjDdnY41SW/7H61Z3mphGGaJW8
-         lVYjZ9/ITvaU1pOo1CLlSwYYI7yqwIvcHSejOdN2avv213ByC3hwIEitfWMrKu0TEzXw
-         mtWl1aBvgpBcIJRH0RhkzajTidJVOCBGK7sF245tU/0HCDguqTPra+QtL6GUGuyugUoE
-         LAAQ==
-X-Forwarded-Encrypted: i=1; AKwUvByZQf0cM9t1NDIhTmyGhtux5/oiMlK3+9Bg52voRi5cgR8eKhHwxvPo6bTeeC6+3CzCNQNGQQnrhTzAops=@vger.kernel.org
-X-Gm-Message-State: AFuF++kWBX5LwWtmRTZAYJmuwxbtffk+vACQWcXG+nogRVRxjLLubnBB
-	ihR+36OUiN+v9y9jgME/R/0qy8CyA4qNmOYAWrsPbh5T5C5i/8IloknO
-X-Gm-Gg: AYBFou0E1mH6SATJ3lVke/O6I7pqI0vVtCbZIadiurrzViS5BXLIAmj4uzU4buIWdxF
-	UxzGBYysQ8xj4ZYy+J2Df72ZNz/PjZpzg0drFGHflpeQSrtyrI5rY9mzaySo6Z2OH9RkTApl3BG
-	vln1mrR+l3TOXBZc1HM8iBdll8DQs1MN0b+Kz3v+XnvGVgVTTYzPVMq1hQ/mQHGuAm1nDZ/zKlI
-	GL2ucjN75VtHrtwJ9HfdEbipFZAjrSTEeNBFYHLCRhOw2VP9tlIyWlkj+1vB5DWzWisTciM7lLi
-	CuPAFwOw2hp8pv32SyZCJnTcFzKSO6shGaLyby/22ZDzapKOJuXJAofS8MftpPGOWRYZNHqK/t/
-	aY7jSLH7VH5YubjjhMjkk7TsFfRswEMVIzrNMMJmCzJNJgtW99oof53nmaDHWrt/s0etf8OXMXQ
-	4ur9JkNwQAigabKZdOLEz+bxKfjO7ptWFeocbFtKnMUt4wrY0M2xcr9B1uaOF3KTkSwtWoj26Os
-	UBhGKl/p3jD2lkBQU6lvPom137/AysObAMGGF0/kIXLFM+coZ4C/9Cb5WUpd0SpRa+BEuqpuBcC
-X-Received: by 2002:a17:90b:528c:b0:38e:7069:7117 with SMTP id 98e67ed59e1d1-39b3d3f7890mr7019686a91.0.1788622544549;
-        Sat, 05 Sep 2026 08:35:44 -0700 (PDT)
-Received: from fedora.iiita.ac.in ([103.119.35.125])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b26123c99sm10493484a91.11.2026.09.05.08.35.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 08:35:44 -0700 (PDT)
-From: Ayush Mukkanwar <ayushmukkanwar@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: error27@gmail.com,
-	linux-staging@lists.linux.dev,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="n1HFzLaD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=BG
+	tVfsD+Idm0Rru8q8gaU08QlFQGRmR/5Ipf/gp+BbE=; b=n1HFzLaD/Mr3yToOrQ
+	jwQOj7VG8257/rB70mvnwEH/keRu2+VoPsTMJedavH49zScoRTtz/IjzTyboAHHL
+	VrMpeZ+eHc4PDw2J+GatHJsoPPS8f+qnqURcYOI1vFMBh4TEztNCMPXczxXoK3FX
+	/TBn1iDsHFSD0zBJBgm8y58j0=
+Received: from 4CV529F122.company.local (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wBn8j+dNpxqczV5Aw--.37655S2;
+	Sat, 05 Sep 2026 23:35:10 +0800 (CST)
+From: Ding Hui <dinghui1111@163.com>
+To: andrew@lunn.ch
+Cc: alexandre.torgue@foss.st.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	dinghui1111@163.com,
+	dinghui@lixiang.com,
+	edumazet@google.com,
+	kuba@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-kernel-mentees@lists.linuxfoundation.org,
-	skhan@linuxfoundation.org,
-	ayushmukkanwar@gmail.com,
-	sashiko-bot@kernel.org
-Subject: [PATCH 2/2] staging: octeon: fix out-of-bounds reads in tx path
-Date: Sat,  5 Sep 2026 21:05:30 +0530
-Message-ID: <20260905153530.36693-2-ayushmukkanwar@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260905153530.36693-1-ayushmukkanwar@gmail.com>
-References: <20260905153530.36693-1-ayushmukkanwar@gmail.com>
+	linux-stm32@st-md-mailman.stormreply.com,
+	liuxuanjun@lixiang.com,
+	maxime.chevallier@bootlin.com,
+	mcoquelin.stm32@gmail.com,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	xiasanbo@lixiang.com,
+	yangchen11@lixiang.com
+Subject: Re:Re: [PATCH] net: stmmac: fix NULL pointer dereference in tx/rx resource cleanup
+Date: Sat,  5 Sep 2026 23:34:53 +0800
+Message-Id: <20260905153453.1648537-1-dinghui1111@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <3fd3506f-f254-4bff-a7ee-1063bf413919@lunn.ch>
+References: <3fd3506f-f254-4bff-a7ee-1063bf413919@lunn.ch>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,78 +57,39 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wBn8j+dNpxqczV5Aw--.37655S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ur4DAF4kCr1Utw1UXw4kCrg_yoW8Gry5p3
+	yIva1qk390g3y8Zr47Xw45Xa1SkanakrWUXr1S9rZF9anxWF95tFWjqr1UWryUJryruw40
+	vr4Uua97AFWDZaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRiYFdUUUUU=
+X-CM-SenderInfo: pglqwx1xlriiqr6rljoofrz/xtbC0g56pmqcNq7OUAAA3w
 
-1. cvm_oct_xmit() and cvm_oct_xmit_pow() blindly trust
-skb->protocol == htons(ETH_P_IP) and dereference the IP header
-without verifying if the packet is long enough or if the header
-is in the linear skb data area.
-Fix by checking if skb_headlen is larger than
-skb_network_offset + size of ip header.
+At 2026-08-30 22:06:16, "Andrew Lunn" <andrew@lunn.ch> wrote:
+>On Sun, Aug 30, 2026 at 12:06:08PM +0800, Ding Hui wrote:
+>> From: Ding Hui <dinghui@lixiang.com>
+>> 
+>> The DMA descriptor ring allocation in __init_dma_rx_desc_rings() and
+>> __alloc_dma_tx_desc_resources() is split into multiple steps, each of
+>> which may fail and return early while the per-queue cleanup paths still
+>> call the free helpers for the partially-initialized queue.
+>
+>"and return early", is the real problem here. When a function returns
+>an error, it should first undo what it has done, up to the point of
+>the error.
+>
+>Rather than add extra NULL checks, please work on
+>__init_dma_rx_desc_rings() and __alloc_dma_tx_desc_resources() and
+>make them cleanup on error.
+>
+>I would say the problem you are trying to fix does not bother anybody,
+>so is not for stable. So i aim the patches for net-next.
 
-2. cvm_oct_xmit_pow() copies packet data into a fixed size
-hardware buffer using a hardcoded memcpy() size. If a packet
-is smaller than it, memcpy() will read past the end of the
-skb buffer. Fix this by using min_t() so that it does not read
-past the end of the skb.
-
-Fixes: 80ff0fd3ab64 ("Staging: Add octeon-ethernet driver files.")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/message/20260615172734.42038-1-ayushmukkanwar%40gmail.com
-Signed-off-by: Ayush Mukkanwar <ayushmukkanwar@gmail.com>
----
-Note: This patch has only been compile tested. No runtime testing was
-performed as I do not have access to Octeon hardware.
-
- drivers/staging/octeon/ethernet-tx.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/staging/octeon/ethernet-tx.c b/drivers/staging/octeon/ethernet-tx.c
-index 5e536827f87a..452bc9fc8a5d 100644
---- a/drivers/staging/octeon/ethernet-tx.c
-+++ b/drivers/staging/octeon/ethernet-tx.c
-@@ -361,6 +361,8 @@ netdev_tx_t cvm_oct_xmit(struct sk_buff *skb, struct net_device *dev)
- 
- 	/* Check if we can use the hardware checksumming */
- 	if ((skb->protocol == htons(ETH_P_IP)) &&
-+		(skb_network_offset(skb) >= 0) &&
-+		(skb_network_offset(skb) + sizeof(struct iphdr) <= skb_headlen(skb)) &&
- 	    (ip_hdr(skb)->version == 4) &&
- 	    (ip_hdr(skb)->ihl == 5) &&
- 	    ((ip_hdr(skb)->frag_off == 0) ||
-@@ -571,6 +573,14 @@ netdev_tx_t cvm_oct_xmit_pow(struct sk_buff *skb, struct net_device *dev)
- 	work->packet_ptr.s.back = (copy_location - packet_buffer) >> 7;
- 
- 	if (skb->protocol == htons(ETH_P_IP)) {
-+		if (unlikely(!pskb_may_pull(skb, ETH_HLEN + sizeof(struct iphdr)))) {
-+			cvmx_fpa_free(packet_buffer, CVMX_FPA_PACKET_POOL, 0);
-+			cvmx_fpa_free(work, CVMX_FPA_WQE_POOL, 1);
-+			dev->stats.tx_dropped++;
-+			dev_kfree_skb_any(skb);
-+			return NETDEV_TX_OK;
-+		}
-+
- 		work->word2.s.ip_offset = 14;
- 		work->word2.s.tcp_or_udp =
- 		    (ip_hdr(skb)->protocol == IPPROTO_TCP) ||
-@@ -587,7 +597,7 @@ netdev_tx_t cvm_oct_xmit_pow(struct sk_buff *skb, struct net_device *dev)
- 		 * does.
- 		 */
- 		memcpy(work->packet_data, skb->data + 10,
--		       sizeof(work->packet_data));
-+		       min_t(unsigned int, skb->len - 10, sizeof(work->packet_data)));
- 	} else {
- 		work->word2.snoip.is_rarp = skb->protocol == htons(ETH_P_RARP);
- 		work->word2.snoip.is_arp = skb->protocol == htons(ETH_P_ARP);
-@@ -596,7 +606,8 @@ netdev_tx_t cvm_oct_xmit_pow(struct sk_buff *skb, struct net_device *dev)
- 		work->word2.snoip.is_mcast =
- 		    (skb->pkt_type == PACKET_MULTICAST);
- 		work->word2.snoip.not_IP = 1;	/* IP was done up above */
--		memcpy(work->packet_data, skb->data, sizeof(work->packet_data));
-+		memcpy(work->packet_data, skb->data,
-+		       min_t(unsigned int, skb->len, sizeof(work->packet_data)));
- 	}
- 
- 	/* Submit the packet to the POW */
--- 
-2.54.0
+Thanks for the review and the direction.
+You are right. The proper fix is to make __alloc_dma_rx_desc_resources()
+and __alloc_dma_tx_desc_resources() clean up their own allocations on
+error, rather than relying on the callers to handle partially-initialized
+state.
+I've reworked the patch accordingly: each function now will undo what they
+have done before they return error. I also kept the NULL checks in the free
+helpers as a defensive measure.
 
