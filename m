@@ -1,93 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86174DF59;
-	Sat,  5 Sep 2026 23:16:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3779454788;
+	Sat,  5 Sep 2026 23:21:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788650198; cv=none; b=Ko3pFhpHyLZIMjxQsmr36NV8zKOjMfMhSJgL/yxCjBHgbHdvjopMSm4tDkxOwWLYphq4chP+l1y7NPMRY3dA72HblU+Go+dP9KFIhmQqkU7f0xEM2KW2BDIuUKPkj5+6Ngp+Ww2digdJQ5ipAHqTIxoqbyT2/r8SOAtadJmPMh8=
+	t=1788650499; cv=none; b=SGKTmKBvAWZ3BwzIwsbWoscRNcBlyHDgRRsTKU9Wxnh4hADV66eMTF0kh1GH+UIG8BUZhOPvvW1VBvhNwq300+xMPr6PQT0uciQj7Ho/gb0UiHZbgHiZsa8VAF0g/8DDLvOZzsY2MLdDDLFKBI+qYeB15KIQRUkzB9I8vYJXfqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788650198; c=relaxed/simple;
-	bh=HmZbG7JW7gKXJhVn4VEZFs6dZNy28cQKYgB9AV6ZT7c=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oDwOnTQ2jnUsv2UdLPb0uPUc7oS+G0Q0dKxudtSa0m8aNUA75QVeI5zQJXk0xVwGeRvhmcnMe7IDTC72e3JjO2DenUZVIrS8RYdmaPEbhoV7EaG1lIEzNk8+iwfgH0/T3wJNTvWq1oRvAQzAMSiKt8YCDgS0vK6Cf6+x3NZb1mU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k4ms5D6Q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788650499; c=relaxed/simple;
+	bh=5T/aicP0TnclLPU5wnf84xNr+s/WFtsD1IJ6HkgnE28=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 MIME-Version:Content-Type; b=P86bXYWXLrlLCc8hOhsbfH8wFwlqgXsNCp+WMSl6cSkf8TiU5LYu1Z5b+CioT8IhYhr29jD4bNcZc81y/ulO+rqpyY4BCYybnJFSDIhmASVJ9S3aeMxLy/vHFElzq+WugEpHZGJzQysb19vtEBb9KGKXeuyPAIcVFdnQjWuB5XM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=l3m/LLkC; arc=none smtp.client-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k4ms5D6Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEA211F00A3A;
-	Sat,  5 Sep 2026 23:16:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788650196;
-	bh=Wpf11T6Giu5XollLLrXUyCg/uxAa/DjAXxuZ3yG+gcM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=k4ms5D6QfXgapwjt8lV2+kNcMTTYEyZv0vnr0vP5FeZ+VUjjBu7bKoIXHICxwxY0+
-	 V6QJ6OfRb8d0UivE6CrEN8du3+3uoVgx11QrEA5pFFCVTxqv4QpOsxh8LV4poUdps8
-	 vIuGWluneFHCztqYeD7L81UWWW4WaBDzz2qhBQbiRJNrGuWNepdH/ShsdH0MUfZs6l
-	 0azPc2ua3SHflYRsUQtMgN1VI+XlyEU6D/IFB8aN68bRDGpdNRnR8+Yiym59J4W6sV
-	 TTn6ygqmtKWJLoL9eU7TLh5v1oCGNZZIzz115c7soMSUhRkTj3cZdQPEhizmlFUgfW
-	 sZh6Adsz+aFcQ==
-Date: Sun, 6 Sep 2026 00:16:30 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: "hpp.iscas" <hppiscas@163.com>
-Cc: Petre Rodan <petre.rodan@subdimension.ro>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, Tiberiu Breana <tiberiu.a.breana@intel.com>
-Subject: Re: [PATCH] iio: accel: bma220: Publish the SPI driver's ACPI alias
-Message-ID: <20260906001630.392bb533@jic23-huawei>
-In-Reply-To: <20260905133901.66016-1-hppiscas@163.com>
-References: <20260905133901.66016-1-hppiscas@163.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="l3m/LLkC"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
+	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=bKhkQNF7LlWqke6YHxjBoK7l4G+YBO31j9ZWaMZeeK8=; b=l3m/LLkC13uXj8e5NnkFzXZ8KF
+	IKmWh2PyZw3At1a2pTbw6K2W/1QmkYTcI7YMZQSor8JlczNGGTcp9//AiEidkexktWbhRkwbcps/z
+	Pagi6r/RChVYVv3Wwr3UGZyz9SxJkXMYvz8y0RbDIm1/Pl2WvMNHGJryNiru1NajS/lo8iy96W2rC
+	bZ/h/F+Dezb0d+P9t562I3VPE2VthBYC9w6QP6aYXwpJuugfFUd/k4zgZa2ovzXhXGSREqidEGzN4
+	fQ+uMu4trkbvxSU5pvVza4EHp2RxeEF3SXgneF34tPfF5Su3IKmCHA29OYBPsbibydwnJ42ure74X
+	A43Vg1zw==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
+	id 1x2zhO-00000000lU5-0GUj;
+	Sat, 05 Sep 2026 20:21:26 -0300
+Message-ID: <b79a2d5372c3b983a57e33d2732fd45b@manguebit.org>
+From: Paulo Alcantara <pc@manguebit.org>
+To: Bjoern Doebel <doebel@amazon.de>, Namjae Jeon <linkinjeon@kernel.org>
+Cc: stable@vger.kernel.org, Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+ Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
+ Bharath
+ SM <bharathsm@microsoft.com>, linux-cifs@vger.kernel.org,
+ samba-technical@lists.samba.org, linux-kernel@vger.kernel.org, Aurelien
+ Aptel <aaptel@suse.com>, doebel@amazon.de
+Subject: Re: [PATCH] smb: client: avoid leaking refcount in
+ cifs_queue_oplock_break()
+In-Reply-To: <20260903212858.728118-1-doebel@amazon.de>
+References: <20260903212858.728118-1-doebel@amazon.de>
+Date: Sat, 05 Sep 2026 20:21:25 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On Sat,  5 Sep 2026 21:39:01 +0800
-"hpp.iscas" <hppiscas@163.com> wrote:
+Bjoern Doebel <doebel@amazon.de> writes:
 
-> The BMA220 SPI driver registers an ACPI match table containing BMA0220,
-> but exports only its SPI and OF tables. SPI devices with an ACPI
-> companion emit an ACPI modalias, which neither existing table covers.
-> 
-> Publish the ACPI table without changing either of the other matches.
-> 
-> Fixes: bf2a5600a3eb ("iio: accel: Add support for Bosch BMA220")
-> Signed-off-by: hpp.iscas <hppiscas@163.com>
-Same issue. I see Guenter also replied with similar. We need something
-more 'known' as an identity.  I see you sent quite a few patches out on
-similar issues.  I'd suggest perhaps focusing on just getting one or two
-through the process as it will save time on duplicated feedback like this.
-You can scale up later!
+> cifs_queue_oplock_break() unconditionally takes a reference on the
+> target file before queueing cifs_oplock_break(). Only that work item
+> decreases the reference counter again.
+>
+> If another oplock break arrives while that work is still queued,
+> queue_work() will return false and not queue this second work item. As a
+> result, we will never reach the point to drop the file reference again
+> and are leaking this reference. This can be triggered when interacting
+> with a slow-responding server.
+>
+> As a result, later unmount operations for this file system will fail with
+>
+>   BUG: Dentry ... still in use (1) [unmount of cifs cifs]
+>   VFS: Busy inodes after unmount of cifs (cifs)
+>   kernel BUG at fs/super.c:777!
+>
+> Fix this by only incrementing the reference count if the work has been
+> queued successfully. Taking it after queue_work() is safe because all
+> three callers hold tcon->open_file_lock across the call and
+> _cifsFileInfo_put() decrements under that same lock, so a worker that
+> starts the handler in the window cannot drop the reference before it has
+> been taken.
+> ...
 
-one other thing inline.
-> ---
->  drivers/iio/accel/bma220_spi.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/iio/accel/bma220_spi.c b/drivers/iio/accel/bma220_spi.c
-> index d6c1087..13b156b 100644
-> --- a/drivers/iio/accel/bma220_spi.c
-> +++ b/drivers/iio/accel/bma220_spi.c
-> @@ -33,6 +33,7 @@ static const struct acpi_device_id bma220_acpi_id[] = {
->  	{ "BMA0220", 0 },
-
-This line has changed suggesting you are working on on old tree.  Give
-7.3-rc1 is out, that is a good base for new pathes at this point.
-
->  	{ }
->  };
-> +MODULE_DEVICE_TABLE(acpi, bma220_acpi_id);
->  MODULE_DEVICE_TABLE(spi, bma220_spi_id);
-This line should be under the spi_device_id table, so please move it in this
-patch as well as adding the acpi one.
-
-
->  
->  static const struct of_device_id bma220_of_spi_match[] = {
-> 
-
+Applied.
