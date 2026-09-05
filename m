@@ -1,187 +1,350 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDDF73546F3
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 21:49:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DAB23546F3
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 21:52:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788644989; cv=none; b=ETjnkkZc1JiUtcEYPeSxJsrOdvggpInK3sHSzMuFX6+jsp8xBid+Kk+/zNGKoF62XocKKb8bWZVC/FQKIx2YYNKAML5X2xB9XqZmcTwZDzoc/d2E5a7lN0WO+jmMg/OygJ6rxWkP67n62L6/uo5/dbhM6aq0DwIFLU4dzUlV7Os=
+	t=1788645168; cv=none; b=N++MnTiC3R9QnPLK0qflnd23it/FkjblL6iia/WaD1DcYC2V6O2XjR+kj9H4fta2WmHYnpKs/lvnO8xq/mMixrrDebDLb7+UtBdf8LaF1EsmIVfdnYaH4hp3pa+1mjSN9LN1b/VD7Rt9rfbHxaltjosuwql3GLtdo64y+i1M6iY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788644989; c=relaxed/simple;
-	bh=wOHmL+aSMCizXI5eCNy7a0JbPOFoQHkkra26PNCQttE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tqu2MaVIQHIuivEWSDrt7+wnYmuQGtWGa0YR+Zpv3f9AjtXjdBvpWtwSnTEGdD91nanDRmI19gHDV/eSoJXzz1sjhYzOXX9DIMivUW1BNshdCJGjfurYghtnagB3w+0O5pZ6oysDSSixR0bM1USs+ACxswuXWm+valh+Q60/q9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LBddbFAQ; arc=none smtp.client-ip=209.85.128.42
+	s=arc-20240116; t=1788645168; c=relaxed/simple;
+	bh=+8fq0VGHmZ+jIIifRhTsmw5nC8PD26zUCtpHZTRIBBE=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=JPJr2GH5QRqfISLkftXNMG6NBtsFsMdILpUEgIykLwRfw7Y03OcNmL5/QaiT68rtEBwDt+B7/PJ1aL8QE2gy5SNCXSdFFiufMBEaNoumz/ypu3C55Q1UXGjLwGEpV1qktiUnDb7nrNLDhK3idhPAfMG+nd9wx3/v44hbtnmvBdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HAmXChYh; arc=none smtp.client-ip=209.85.221.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LBddbFAQ"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49557167508so26951255e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 14:49:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HAmXChYh"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48436251906so2488945f8f.0
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 14:52:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788644986; x=1789249786; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aCVMoBjhOb7Ok3wVZ5FY6NGTV9ixb6pFAGBj1ywt02k=;
-        b=LBddbFAQ3Mh6Rf7kJn6t42CAuyIXNbCGGbft3eXpUGaxmhWV00iAaJTgibYwO38Uql
-         8xcF5fvUEjHlKc+crvh+XfzaYCy5311AMma3Wk0SyhYpRe/e0aa2aYzx1I9mBrc3QPIj
-         EapASTjgShnT5NxHYdp8vG5m8jIIFlk6X5h2eAv6ENkCc16YPKC08jNiVqLHe/ELnVSo
-         vR6jJLVjZ/dVAtFjFTMlHiiGN3/JmqIPAD2o8WqYWFP6WVELRa13RsEqWzYJCxJO1y93
-         r1R0W+aGOkb5zBUStTMwlpY0EEXr4ATt5Tq+w3CshZyVv+/nZEGEmjomyN5AB6u65mdT
-         GyIQ==
+        d=gmail.com; s=20251104; t=1788645165; x=1789249965; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=N6JGOcfYrEaC/Ge4obmi2SIi++QOKaMHavxPseBP1/Y=;
+        b=HAmXChYhMioYg/CV1qbejZJ8lWV7tfSUDyCfyrxNPQR6h9rRPQUbmUJ2sJE5MCHw4R
+         t5DyALwuhH5uO/c7vGURVbKExlKduK9LebdgunzRr95x9AZLtvpRMx6zNczny2Z+lpkX
+         8Et5uDV+KR7O769GFAVdfh66GSjHtPgcnMx6qxo8Kf2Z7zkwDkF74VBN7DvQBkS///zh
+         YLH9FlJfJspQactO3Fo/z98Y/kLXit+Ilq4XvQjCvCjBA8c4mRs2QFpDlCGnWBFwsGxN
+         8+vKB811PeJuxJokjNARsGu87kEHh/LT6diuhjKcbyMZ93QerXnfFNA24aZAXr5vIex+
+         KioQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788644986; x=1789249786;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aCVMoBjhOb7Ok3wVZ5FY6NGTV9ixb6pFAGBj1ywt02k=;
-        b=TpO4JWuXKRg4L+jaDeah6AbWUb+oHI7JEP/Ae7Belm73IdL+Jj1WhfYOw+ovJldIgN
-         L7GnjUj6XWypP9P3Jo0QmcIjBLH24gVXMGJYd30ELXeNrXi9+PaCLI1NMBFAyKB53tii
-         HSf4oX4sRBWlcluy4/t+EHqtGqV+zi+Be/hrR5mdTXXLy7V28vduV/iB3FmC4iEvVyCQ
-         As792SxBYHZRTqBA4y5UvPXyenIuKKZg4l8mNbOjinZhnYzpUQzyQMpUtmtIIWcgIT64
-         L05LBiUcvA//qAdOw4wlYTy8OjwqgoOxnpNnzSiWtEb2WP8oaQ+ya2mnfSxPhHDrKFto
-         bAJg==
-X-Forwarded-Encrypted: i=1; AKwUvBxg4x7z7tiXM4n1ekb/6aS4Bgh81vVcnXxT4YAwRpcFxIev5eBLGzUrcNN/T0iD8IyDxdfpjA91tFHk3qs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFoEaN7rVUnynaeBaGdv87aN/XwWIn6BEojpvymz5qQH856zzt
-	1Ww9qFBe9fwIrWnELxuvEivBIHyaXxu1bFWgXwqZJd3hveuH9aJIzqJnhWV2sA==
-X-Gm-Gg: AYBFou3SOI3NHUQYpeh5mo2oOknWigITvNH0xDBY26oUl9IcWz9wuNWZYzf9lfio2fh
-	7Uyt0clZJX0CZf53iq1Bpl9ZRVgncjG62zYqMNr3alRXabx22nou8ebw15o4BPWyhpsCHLtdtfM
-	NrZoi/CSsAdK2wxep59Qeyj55v357YtXF+sxH0qCWbay0Vl7bjnL2B0Z9j1QstCldvyWG/qoQrY
-	uI/cxpwqyo4QMG18+9AgSm01ajyTA+GXW3Cv6iQkYRWGBk57Bn6uKqc23YMawVTXe59RnJSsc5I
-	M6DALNbNEI3ddCDuQx37TXbdcXP+0IA5POC4+6LqTYQimihRjx4J66mfvCFF+wVRE4Z6oZv02OP
-	1R+RNAgvJBTuqjjDYwmcQ9BRj9xezBu8cJx7V8TKocjSnJJrvVXE/VG31EXhdOcXNJLDv0c/yDs
-	Ci4HHA88pJ5dBtwDj+hDYbR6flPQG4sUFO/4KV5812GjJJ0+8Fzi3yE+R18sFHFKZlRbx4CQ==
-X-Received: by 2002:a05:600d:6450:10b0:49c:ffaf:95a1 with SMTP id 5b1f17b1804b1-49cffaf95c3mr130492025e9.1.1788644985856;
-        Sat, 05 Sep 2026 14:49:45 -0700 (PDT)
-Received: from foxbook (bfg95.neoplus.adsl.tpnet.pl. [83.28.44.95])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7703cefsm241296655e9.5.2026.09.05.14.49.44
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Sat, 05 Sep 2026 14:49:45 -0700 (PDT)
-Date: Sat, 5 Sep 2026 23:49:42 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: wakasio <scarabeeta@gmail.com>
-Cc: Mathias Nyman <mathias.nyman@intel.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: xhci_hcd / ASMedia ASM4242: Bulk-OUT -EPROTO with Logitec
- 0789:0308 during DVD+RW recording
-Message-ID: <20260905234752.1f0c9c83.michal.pecio@gmail.com>
-In-Reply-To: <20260905134555.168362-1-scarabeeta@gmail.com>
-References: <20260905101837.4b7849c5.michal.pecio@gmail.com>
-	<20260905134555.168362-1-scarabeeta@gmail.com>
+        d=1e100.net; s=20251104; t=1788645165; x=1789249965;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=N6JGOcfYrEaC/Ge4obmi2SIi++QOKaMHavxPseBP1/Y=;
+        b=NT5ifpaGorGknpWP9bS9tPBuN/M8eJyEhsAQP7hiZS2H4yH8VejJtcYBUVaOA+oHVR
+         m5SjdslJhop3+0MiKq3GxfNQLy5AvfjnNWYxbtAUkebtM1HvSajnlIECgUQu46hPc+5S
+         tlR1RjA+XecbHQSaktbz4VsjS3j9EVSG4dcFeMmPGavLSy6VGlP0cLTSd8oWj2r4TMtz
+         G0KfyZq7nr3zCaAaepG2m1IoR8Hg8m/eWhjP64XYIwQgJiv75CtM7HJ7DpFimYe1O6tK
+         9+iQoCJhYGIfPOGb31rM7HJRcJsqn2wq7+hZsJwVMjugSlAVildYwTGQIvhOc8GosHZj
+         aCAw==
+X-Forwarded-Encrypted: i=1; AKwUvBxmO7ADHlW6I79xkfRqMzkq/BjJqSG0CHx8KVx8j0cLHoIebFXZAVTvsu1UKWV5Er2MnkBXdARMcT/vR/M=@vger.kernel.org
+X-Gm-Message-State: AFuF++mXQrmtPa9d6Yz1adGxWgGh6sfS24NLkyImry471IySF1p3jmdq
+	IuyYgo+UvWjbhl5I9shPuOMAFjYHpfJsWJ9XsIM9tuaP/doA0wpDe6pcrxyBHg==
+X-Gm-Gg: AYBFou0FE42hR8JrzRRTnFwN5+LdUxzWW6rfJS60NPFP75ighHfA1xT4nIuUoe3I6oy
+	sLElggecjC57E8RzzvKMHEn5/AI4zByWGIk0vDiUNoBoUZz20EYgB1AWpGNEH27KQdrCML41yxF
+	FsQorEjXuEK2otnguwjt+Wp8XkdftYImJgTdJhUkH0RgkHzm5P7nJF2yRL4dr99kGpVn62RH6d6
+	AufMnB9yIJwjsfUtNLLMP6sEbuWRtRC7zxdhTBimjyllHcNWho96gQ2AtRWaBrzbOOicN0eyIWn
+	FJitIA/xZffgDazUMfuAd2C/BpxzAYE8JlplY+UWRkbilYL2+F26Tm2xsi7UTVd/7d+TR4ouz5Q
+	pxsVC4vP+/g6g8Wr6pMOJmRMkX0nPAFYnpon2/mnTB17DU+qTUxPlIfSkOSlO/y2655ZoZlZyxI
+	/MklUDr+H8fAVm6XvviFlWipMfVFfCs0iwrd7A+AcpYIuQ6ztxWlKYK4r8kBpx5JOWt28pUr5zC
+	o4I/badmR4+wL0961S8aBNH7iYE3oeRxBQ0nEh7WQ==
+X-Received: by 2002:a05:6000:4b11:b0:484:3310:c4fe with SMTP id ffacd0b85a97d-4858709b13amr30736305f8f.25.1788645164635;
+        Sat, 05 Sep 2026 14:52:44 -0700 (PDT)
+Received: from localhost.localdomain ([82.137.32.184])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-485883acd33sm15700165f8f.18.2026.09.05.14.52.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 14:52:43 -0700 (PDT)
+From: Eduard Bostina <egbostina@gmail.com>
+To: Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	Eduard Bostina <egbostina@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Lee Jones <lee@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	mfd@lists.linux.dev,
+	Rob Herring <robh@kernel.org>
+Subject: [PATCH v4] dt-bindings: mfd: Convert TI TWL6040 to DT schema
+Date: Sat,  5 Sep 2026 21:52:34 +0000
+Message-ID: <20260905215234.454266-1-egbostina@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Sat,  5 Sep 2026 22:45:55 +0900, wakasio wrote:
-> Hi Michal,
-> 
-> I applied your patch and reproduced the failure with all three debug
-> functions enabled. Result:
-> 
-> Cluster 1 (ep 2, at the very start of the write, unrelated as you
-> said): same as before, 4 Stall/Hard-reset pairs, spread over about
-> 323 ms, roughly 22 seconds before the real failure.
-> 
-> Cluster 2 (ep 3, the real failure), with full timestamps this time:
-> 
->   17:38:44.749474 Transfer error, ep 3, at ffffd52c40703f40, resid 23552
->   17:38:44.749743 Soft-reset ep 3
->   17:38:44.758367 Transfer error, ep 3, at ffffd52c40703f40, resid 23552
->   17:38:44.758454 Soft-reset ep 3
->   17:38:44.768370 Transfer error, ep 3, at ffffd52c40703f40, resid 23552
->   17:38:44.768577 Soft-reset ep 3
->   17:38:44.775052 Transfer error, ep 3, at ffffd52c40703f40, resid 23552
->   17:38:44.775217 Soft-reset ep 3
->   17:38:44.785047 Transfer error, ep 3, at ffffd52c40703f40, resid 23552
->   17:38:44.785313 Soft-reset ep 3
->   17:38:44.790469 Transfer error, ep 3, at ffffd52c40703f40, resid 23552
->   17:38:44.790732 Soft-reset ep 3
->   17:38:44.799187 Transfer error, ep 3, at ffffd52c40703f40, resid 23552
->   17:38:44.799346 Soft-reset ep 3
->   17:38:44.808558 Transfer error, ep 3, at ffffd52c40703f40, resid 23552
->   17:38:44.808720 Soft-reset ep 3
->   17:38:44.819176 Transfer error, ep 3, at ffffd52c40703f40, resid 23552
->   17:38:44.819317 Soft-reset ep 3
->   17:38:44.832378 Transfer error, ep 3, at ffffd52c40703f40, resid 23552
->   17:38:44.832552 Soft-reset ep 3
->   17:38:44.850677 Transfer error, ep 3, at ffffd52c40703f40, resid 23552
->   17:38:44.850815 Soft-reset ep 3
->   17:38:44.861706 Transfer error, ep 3, at ffffd52c40703f40, resid 23552
->   17:38:44.861938 Hard-reset ep 3
->   17:38:44.981704 usb 6-1: reset SuperSpeed USB device number 2
->   17:38:44.998378 Stopped on No-op or Link TRB, slot 1 ep 2
->   17:38:46.645044 clear err_count at ffffd52c40707000
-> 
-> It survived 11 soft-resets this time instead of 4, then hit the raised
-> limit and hard-reset on the 12th. The gap between retries grows from
-> about 9 ms near the start to about 18 ms near the end.
+Convert the Texas Instruments TWL6040 audio codecs family bindings to DT
+schema.
 
-Yes, "survived" 11 attempts at resuming operation, without making any
-progress. Looks like the HW got stuck in some invalid state - device FW
-crashed and stopped responding, or the host controller flow controls
-it wrong, or they somehow disagreed on current sequence number, IDK.
+During the conversion, the following updates were made:
+- Changed 'twl6040,audpwron-gpio' to 'ti,audpwron-gpio', which was
+  misnamed in the old txt binding.
+- Made 'gpio-controller', '#gpio-cells', and 'ti,audpwron-gpio' optional
+  because modern platforms do not require them.
+- Renamed the vibra 'vddvibl_uV'/'vddvibr_uV' properties to
+  'ti,vddvibl-uV'/'ti,vddvibr-uV', the names actually read by the
+  twl6040-vibra driver.
+- Required 'vddvibl-supply' and 'vddvibr-supply' when the 'vibra' child
+  node is present, since the twl6040-vibra driver unconditionally
+  requests both.
 
-No idea why this only happens with this particular host-device pair.
+Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+---
+Changes in v4:
+- Add blank lines between the vibra child node's properties for
+  readability, as requested in review. No functional change.
 
-This may very well be a HW bug, but maybe one more thing worth trying
-would be this second patch (either with or without the previous one,
-doesn't matter). I'm aware of one thing the driver does out of spec -
-maybe it confuses the ASM4242, maybe it's unrelated. Let's check.
+Link to v3: https://lore.kernel.org/all/20260817100207.2970303-1-egbostina@gmail.com/
+Link to v2: https://lore.kernel.org/all/20260816092847.2522994-1-egbostina@gmail.com/
+Link to v1: https://lore.kernel.org/all/20260815083451.2147129-1-egbostina@gmail.com/
 
-diff --git a/drivers/usb/host/xhci-mem.c b/drivers/usb/host/xhci-mem.c
-index 83ed26c4f9e4..0e091d5cce17 100644
---- a/drivers/usb/host/xhci-mem.c
-+++ b/drivers/usb/host/xhci-mem.c
-@@ -381,7 +381,7 @@ struct xhci_ring *xhci_ring_alloc(struct xhci_hcd *xhci, unsigned int num_segs,
- 		return NULL;
- 
- 	ring->num_segs = num_segs;
--	ring->bounce_buf_len = max_packet;
-+	ring->bounce_buf_len = max_packet * 16;
- 	INIT_LIST_HEAD(&ring->td_list);
- 	ring->type = type;
- 	if (num_segs == 0)
-diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
-index b9d005ca5877..fa2480c83dd9 100644
---- a/drivers/usb/host/xhci-ring.c
-+++ b/drivers/usb/host/xhci-ring.c
-@@ -3537,15 +3542,13 @@ static u32 xhci_td_remainder(struct xhci_hcd *xhci, int transferred,
- 
- 
- static int xhci_align_td(struct xhci_hcd *xhci, struct urb *urb, u32 enqd_len,
--			 u32 *trb_buff_len, struct xhci_segment *seg)
-+			 u32 *trb_buff_len, struct xhci_segment *seg, u32 max_pkt)
- {
- 	struct device *dev = xhci_to_hcd(xhci)->self.sysdev;
- 	unsigned int unalign;
--	unsigned int max_pkt;
- 	u32 new_buff_len;
- 	size_t len;
- 
--	max_pkt = xhci_usb_endpoint_maxp(urb->dev, urb->ep);
- 	unalign = (enqd_len + *trb_buff_len) % max_pkt;
- 
- 	/* we got lucky, last normal TRB data on segment is packet aligned */
-@@ -3690,9 +3693,8 @@ int xhci_queue_bulk_tx(struct xhci_hcd *xhci, gfp_t mem_flags,
- 		if (enqd_len + trb_buff_len < full_len) {
- 			field |= TRB_CHAIN;
- 			if (trb_is_link(ring->enqueue + 1)) {
--				if (xhci_align_td(xhci, urb, enqd_len,
--						  &trb_buff_len,
--						  ring->enq_seg)) {
-+				if (xhci_align_td(xhci, urb, enqd_len, &trb_buff_len,
-+						ring->enq_seg, ring->bounce_buf_len)) {
- 					send_addr = ring->enq_seg->bounce_dma;
- 					/* TD bounced at least, and last on this seg */
- 					td->bounce_seg = ring->enq_seg;
+ .../devicetree/bindings/mfd/ti,twl6040.yaml   | 156 ++++++++++++++++++
+ .../devicetree/bindings/mfd/twl6040.txt       |  67 --------
+ 2 files changed, 156 insertions(+), 67 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/mfd/ti,twl6040.yaml
+ delete mode 100644 Documentation/devicetree/bindings/mfd/twl6040.txt
 
-
+diff --git a/Documentation/devicetree/bindings/mfd/ti,twl6040.yaml b/Documentation/devicetree/bindings/mfd/ti,twl6040.yaml
+new file mode 100644
+index 000000000000..5efcd79b527c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/mfd/ti,twl6040.yaml
+@@ -0,0 +1,156 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/mfd/ti,twl6040.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments TWL6040 family audio codec
++
++maintainers:
++  - Eduard Bostina <egbostina@gmail.com>
++
++description:
++  The TWL6040s are 8-channel high quality low-power audio codecs providing
++  audio, vibra and GPO functionality on OMAP4+ platforms. They are connected
++  to the host processor via i2c for commands, McPDM for audio data and
++  commands.
++
++properties:
++  compatible:
++    enum:
++      - ti,twl6040
++      - ti,twl6041
++
++  reg:
++    const: 0x4b
++
++  interrupts:
++    maxItems: 1
++
++  gpio-controller: true
++
++  "#gpio-cells":
++    const: 1
++
++  "#clock-cells":
++    const: 0
++
++  ti,audpwron-gpio:
++    maxItems: 1
++    description: Power on GPIO line for the twl6040
++
++  vio-supply:
++    description: Regulator for the twl6040 VIO supply
++
++  v2v1-supply:
++    description: Regulator for the twl6040 V2V1 supply
++
++  enable-active-high:
++    type: boolean
++    description: To power on the twl6040 during boot.
++
++  clocks:
++    minItems: 1
++    maxItems: 2
++
++  clock-names:
++    minItems: 1
++    maxItems: 2
++    items:
++      enum:
++        - clk32k
++        - mclk
++
++  vddvibl-supply:
++    description: Regulator for the left vibra motor
++
++  vddvibr-supply:
++    description: Regulator for the right vibra motor
++
++  vibra:
++    type: object
++    additionalProperties: false
++    properties:
++      ti,vibldrv-res:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description: Resistance parameter for left driver
++
++      ti,vibrdrv-res:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description: Resistance parameter for right driver
++
++      ti,viblmotor-res:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description: Resistance parameter for left motor
++
++      ti,vibrmotor-res:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description: Resistance parameter for right motor
++
++      ti,vddvibl-uV:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description: vddvibl default voltage if it needs to be changed
++
++      ti,vddvibr-uV:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description: vddvibr default voltage if it needs to be changed
++
++    required:
++      - ti,vibldrv-res
++      - ti,vibrdrv-res
++      - ti,viblmotor-res
++      - ti,vibrmotor-res
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - "#clock-cells"
++  - vio-supply
++  - v2v1-supply
++
++allOf:
++  - if:
++      required:
++        - vibra
++    then:
++      required:
++        - vddvibl-supply
++        - vddvibr-supply
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        audio-codec@4b {
++            compatible = "ti,twl6040";
++            reg = <0x4b>;
++            interrupts = <0 119 IRQ_TYPE_LEVEL_HIGH>;
++            interrupt-parent = <&gic>;
++            gpio-controller;
++            #gpio-cells = <1>;
++            #clock-cells = <0>;
++            ti,audpwron-gpio = <&gpio4 31 0>;
++
++            vio-supply = <&v1v8>;
++            v2v1-supply = <&v2v1>;
++            enable-active-high;
++
++            /* regulators for vibra motor */
++            vddvibl-supply = <&vbat>;
++            vddvibr-supply = <&vbat>;
++
++            vibra {
++                ti,vibldrv-res = <8>;
++                ti,vibrdrv-res = <3>;
++                ti,viblmotor-res = <10>;
++                ti,vibrmotor-res = <10>;
++            };
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/mfd/twl6040.txt b/Documentation/devicetree/bindings/mfd/twl6040.txt
+deleted file mode 100644
+index dfd8683ede0c..000000000000
+--- a/Documentation/devicetree/bindings/mfd/twl6040.txt
++++ /dev/null
+@@ -1,67 +0,0 @@
+-Texas Instruments TWL6040 family
+-
+-The TWL6040s are 8-channel high quality low-power audio codecs providing audio,
+-vibra and GPO functionality on OMAP4+ platforms.
+-They are connected to the host processor via i2c for commands, McPDM for audio
+-data and commands.
+-
+-Required properties:
+-- compatible : "ti,twl6040" for twl6040, "ti,twl6041" for twl6041
+-- reg: must be 0x4b for i2c address
+-- interrupts: twl6040 has one interrupt line connecteded to the main SoC
+-- gpio-controller:
+-- #gpio-cells = <1>: twl6040 provides GPO lines.
+-- #clock-cells = <0>; twl6040 is a provider of pdmclk which is used by McPDM
+-- twl6040,audpwron-gpio: Power on GPIO line for the twl6040
+-
+-- vio-supply: Regulator for the twl6040 VIO supply
+-- v2v1-supply: Regulator for the twl6040 V2V1 supply
+-
+-Optional properties, nodes:
+-- enable-active-high: To power on the twl6040 during boot.
+-- clocks: phandle to the clk32k and/or to mclk clock provider
+-- clock-names: Must be "clk32k" for the 32K clock and "mclk" for the MCLK.
+-
+-Vibra functionality
+-Required properties:
+-- vddvibl-supply: Regulator for the left vibra motor
+-- vddvibr-supply: Regulator for the right vibra motor
+-- vibra { }: Configuration section for vibra parameters containing the following
+-	     properties:
+-- ti,vibldrv-res: Resistance parameter for left driver
+-- ti,vibrdrv-res: Resistance parameter for right driver
+-- ti,viblmotor-res: Resistance parameter for left motor
+-- ti,viblmotor-res: Resistance parameter for right motor
+-
+-Optional properties within vibra { } section:
+-- vddvibl_uV: If the vddvibl default voltage need to be changed
+-- vddvibr_uV: If the vddvibr default voltage need to be changed
+-
+-Example:
+-&i2c1 {
+-	twl6040: twl@4b {
+-		compatible = "ti,twl6040";
+-
+-		interrupts = <0 119 4>;
+-		interrupt-parent = <&gic>;
+-		twl6040,audpwron-gpio = <&gpio4 31 0>;
+-
+-		vio-supply = <&v1v8>;
+-		v2v1-supply = <&v2v1>;
+-		enable-active-high;
+-
+-		/* regulators for vibra motor */
+-		vddvibl-supply = <&vbat>;
+-		vddvibr-supply = <&vbat>;
+-
+-		vibra {
+-			/* Vibra driver, motor resistance parameters */
+-			ti,vibldrv-res = <8>;
+-			ti,vibrdrv-res = <3>;
+-			ti,viblmotor-res = <10>;
+-			ti,vibrmotor-res = <10>;
+-		};
+-	};
+-};
+-
+-/include/ "twl6040.dtsi"
+-- 
+2.43.0
 
