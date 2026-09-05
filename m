@@ -1,169 +1,172 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011007.outbound.protection.outlook.com [52.101.62.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 066482AEE1
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 05:03:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C621F7916;
+	Sat,  5 Sep 2026 05:08:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.7
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788584617; cv=pass; b=QhHR7DTnHuGAd4Houax4kQClGZX6TLbXXgFxToL1d0AD5XuvlePQKXce/7Sg52pZc2GQYiWPnwke7ZYt/8ELKyCpCGPBr9C+DbkUE8TBCMYqHiERbmAXH2EufFW1yuDycMcP8TXDibE51o7UsUOFn6IpOi7MAJbNRJnMoqI6PlM=
+	t=1788584932; cv=fail; b=QCrBdncOVmSNA9nLOeQv++d6snvDp7J+FoiPYhhUD8sBb76CWQT409fgqXFL5605dY9cGL2HdywduasIoJY3yWx8+0JhpCtTUUeRcp0J5FXSrl67BzyMIQxUPYULtLzAAgPCzkcTfGzwzu86Da3QiJ2pOwUHzI/cG2/Q6170jZA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788584617; c=relaxed/simple;
-	bh=/21RzNPQD7xrfTM96+h1WAecDdpRBWhDl0owEilHAAE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tDTU1k++NJ+hnbeAlLS2RU9AyM02W2q3AzTUm1NiTbNN2hN/NqBTFg7Q63OzERIzqVe9+elR1LA6xkbdhnd6PjRaop5UzxXdQ6g/Fc1MGCfWqyGWFGHXm7v3YrR0SjpXhdkaYwKZGM3nUuyVNtZ0kSLoAmfvIJilq7O4kArSQrs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=P0MEWBeX; arc=pass smtp.client-ip=209.85.215.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788584932; c=relaxed/simple;
+	bh=L52FrSlMX/4oikXDHmU1wuFjK4JMYKWWMcH5WLJcNcY=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=c9UUkm+X6512glr1elaOvqzXYn+g19oZTaQEun3K5RTwjOujwBEoesVuA8cORYXTNzxqjMmGvDyyEexWqrpJ8fEf01ZEtOcwRrgmRfJIwxe79aQJpF142APOiLYRiX91Md/whW/xnFnW4Kyzr7MP9YSdBfY8vEr4tQpdWSjUd1s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=FI1Rquu+; arc=fail smtp.client-ip=52.101.62.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="P0MEWBeX"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-c9e7391839cso1700418a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 22:03:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788584612; cv=none;
-        d=google.com; s=arc-20260327;
-        b=f0DqEuBUj+YIeqvNZNcLg7U1vfK7K0b6u8hvyGhNsblkj+ruWt4H4Iy4wTGLPIeIcb
-         91ZsuPQEsCm9Y29SUCarCfWM6V76rLmvZHyRL2PuWsNc2VWqP67cgQtAjLOwOIy3enSO
-         BaMTK9dTz7ZwjZAW0DDdrlPDoFzrhEQkSLCeKDzVXa2L9rm2KY2P8C60nAYTMn6MHnM5
-         5puVIAGeKDHfG+gm/AbC8lXOQp22qU1ScjfISHZ6TQ15ZqE3jh3yE0aE86x8CSNESMQe
-         9ZpmSzegOqZTm+qQaOJiZr9CHUKU2DV9ZL94z7GoU3j8YFo5vnRDoEzJrlfuJZgUOI16
-         K72g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dGA2Mcq21FlK5ZYfe6/lNBf/DykvEi95f+iz3baYnsU=;
-        fh=ivPK83FoE8DQumAbGOz/qy/4oM9zz77wQeYkKp3u+6o=;
-        b=qIqmjpOiZMWWylQ5mtEOlFX61GJua9H5gkxkdt87QirPeWrBl7JKi4htdx9ZwDieZn
-         MM+toYm67WwbZ8Hl36sD/zfQPxyIIoewlY/T58jMbO3gwJXitissbt0NCdKAn5G3+pXO
-         f3gifYFs5WB9Ql5RBK7zOuefVR7n9xcyrVBmvSIeA1VLh/7GZglfGS991nULBoEdL8MZ
-         /VntW/E4bdm3+jhY769E6a/qpCWBFGQ/8b6WGSgmYwP/sQs7i6z9lgprWFaecGzAQgIC
-         jF51zKn6fcHFo/sG+X5WEZxQc6dS2Qk4zJfPRT2nmGReIROUq31sh2Zus3u3iAFuWbI5
-         j3NQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788584612; x=1789189412; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dGA2Mcq21FlK5ZYfe6/lNBf/DykvEi95f+iz3baYnsU=;
-        b=P0MEWBeXBEvHAgPRLTxnRMQro8Wg3zzYLfTKiH4le+Wb2MNJUtApzKqwmvT6tksk8H
-         JBT5SWa8OgjbIKrDZfIqGwcVPMnL5snuqoADBr+7ZLoef+VBfFVqYWETprQsdG8goESO
-         WwidGxjtXC1YSO1XI22toeOo682r1gbwV2WKfj6V4tcDM90AXNQ8XAAq9wJdRX5VBmdJ
-         rNGZ3fQBebkrDliONbQjAPJED12lSFZqp9c5tOKXvyvMENoYovv9jir6jbE/J+KojR4h
-         dUKjHcxjgdmxgKfplIGvvRcfiprhLSFkGe+ybzocmg+SKaFLb7gTw4lvpOkH2vhz8jtL
-         LZZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788584612; x=1789189412;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dGA2Mcq21FlK5ZYfe6/lNBf/DykvEi95f+iz3baYnsU=;
-        b=epI78O/HCLn/Kf1bNCiahd9kSCZNUXSWfGOkAKe+0q4BoYGu0kQ/ab02HTuSmIkojF
-         9SPrsvC6uMYOn9aeajljM1pDxH+ZtjO4hJDoEwWQi7klFqubABYxEjaJfUaft/ypIhgb
-         Sc3d5ORU4mYGxIlZwnHk6LuVfgVwvtI+3RIU4Js+/JYec8mo9IS+gjDMJ+WdFDC7ZQIE
-         R8VW6vfQdXQzcpaR/dddTCryulP3YV8//ZGrMbOuIkCZKaOK6B0MgczdiGfrFQw3y8mK
-         T/cbFqLcLmE67mYN48lLK4NM0RMj9OXpQ2L+WtxgxP/ljB77g2E37MLQEZ2jJBlDvlb4
-         G8Sw==
-X-Forwarded-Encrypted: i=1; AKwUvBwmqa70bjqYmJrZQMLlufGEsVwsiKhDaEmjaVKsB5Y0LDj2KktenhVwtuyxHi4bNX61TZAe7TF99FZ3fjQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lPNadqIez/tOU+I86tAl0j85YHeD6Oyo8aDHirNB4v+RKPczQ2
-	l91Eejm3gq5lTo5CpRG5L58kvdUqsPz2/xYPzwEtv1SS1J+4wkxXn+quMiHJ6SLbivjYrBSWXDL
-	gbWk5Xq0QiyRLeXIBmcfTeFLDtRIV9NY/j2GDz10m
-X-Gm-Gg: AYBFou2dHMfHpEmJqIHM0VlXf62YBurVrwSYPUyqfXpg2a65tqTgkfOAtL3n8KGSyMG
-	0pMQXpmHiy7ZZqMQPI3jJRUyPIJq8Ay9qBOaTv036sarEKHBqmD182LaFyyWW0Ce+S2BM8mx9FX
-	vTOW8yM8W+lcsif/pB0536K4OZ+EIl090HftqVgC9xy4X7BEZv1gVPtyt+klBo7QZp2Ok+0cuuZ
-	ef8vEUK7EZpYHbuBh9Gi6qcHi/h7Yj4DD0+IQ70sQXo34m1BB/RDb02rbmlPB+k+hvKZslCZo8K
-	IsE1KLTd2c7U0B0JpeQAW4bhtpTwsfJ+Ja8kgqe0rAoLDwNymFeIQG2J5f5bKzlcaSKOTHkNnjh
-	d63KfN0U/vishJoKBdg0+ddoIrKWZNMh5l7K4mu0q3ZtaP9u2L4uy6bwI/UaqgCcjKok7J7Nqt8
-	V7v3yMf9lyJvsXJVUzFBTMuTc=
-X-Received: by 2002:a17:90b:3d48:b0:396:5f7f:52f5 with SMTP id
- 98e67ed59e1d1-39b260e13e0mr15346017a91.3.1788584611809; Fri, 04 Sep 2026
- 22:03:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="FI1Rquu+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=X+pST/5GgdhHvWykJK/BtyYK1hnxAvzYo4wWivdA0oGOQg54buyiSgwQZFTa0wWPevzi+1QnN5CiJPevJ7+AWbLjzeQcBpr2SDcKtNElVKOQcwduRbPgvZby4LezxoHUXJ6FMwv42oQqlmHdWDOWuahFPdMbNlTk6tQRzaJOlnlJIjz4QOVp6amnUVk/ixLfRnpEgfrcmh1pjdeONFgLK8XLem7theGLoNEEyfaF9Xz12eYWh5WtO10a52tZpSEHUfnfIJp8Nn1NScd7pA+V7u2uPo9FGvC2WYKyJpW/1yiUddykXlbr/ov4iXSzecQIUkpilsRHLDafPLf+Jd4A8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DSTL3G8Okrk5MjJZPA99K85GO7GEcUfdLMk5e7059iI=;
+ b=cVr2Gtks6OZINui3s0Rw67HEWjl7gWS4GXbwrDI6YO1iSsNWgh97IfRbDeocggIpJoCNs5l0Nht8KUUUEItQuglK0ncStTqbpuUexghbL0qNyFKXWl51NNoUquLyvSgPDnFsxBGwDMqSxOTStNCW9gqeGEwM3S58eQABXF4aX9LFr/0LJm4mjlQME6HQ23TcMn6JLmL6ohYnDWsN097bZBpzw4LPj8TYc+9A3/W73bJAOYfq514hNIpidwO8Mr6dg42+dITQbgq8QVmRl2cwGAEaEzUoQ3lJpUwQrKCl9zBAo1knRGULcWZkFYq6bicG1XaXNtDMri4zBpUUSWs22A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.232) smtp.rcpttodomain=oss.qualcomm.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DSTL3G8Okrk5MjJZPA99K85GO7GEcUfdLMk5e7059iI=;
+ b=FI1Rquu+zhSztAjrJzOCAmmpdjCt6eVPSMd6nllVpMNguTA5FYjDKY2sZZT1jF4Pz7tqCjEDzIDnhqw/v3R37SK0WaEDdIajA2cwQ1Qo00iFKg7MBf6LVjSM7pW2nYeFl3KaAqv+TzULjxv8gQh/f/iO7Y6WwAYDpqhfXhJCLKUcVAj3ghLAxsQeB0fWUyMFoBzSRe4PB6YdCD62jNZO4mT32qO68PNxOhfBi8LF/5oHnkc93suGIj85Foeq+ixvYse0wLEld9kEg1O28YNCZS8eP79ojeKySSFUYQkXD49rAyyvjS/OTZCanuvM+mi998nY6tQmJWHNbuIkUjruAQ==
+Received: from CH5P223CA0022.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:1f3::12)
+ by DS0PR12MB8341.namprd12.prod.outlook.com (2603:10b6:8:f8::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Sat, 5 Sep
+ 2026 05:08:46 +0000
+Received: from DS2PEPF000061C7.namprd02.prod.outlook.com
+ (2603:10b6:610:1f3:cafe::8a) by CH5P223CA0022.outlook.office365.com
+ (2603:10b6:610:1f3::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.14 via Frontend Transport; Sat, 5
+ Sep 2026 05:08:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.232)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.232) by
+ DS2PEPF000061C7.mail.protection.outlook.com (10.167.23.74) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Sat, 5 Sep 2026 05:08:46 +0000
+Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
+ (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 4 Sep
+ 2026 22:08:31 -0700
+Received: from drhqmail201.nvidia.com (10.126.190.180) by
+ drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 4 Sep 2026 22:08:31 -0700
+Received: from nvidia.com (10.127.8.11) by mail.nvidia.com (10.126.190.180)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46 via Frontend
+ Transport; Fri, 4 Sep 2026 22:08:25 -0700
+Date: Fri, 4 Sep 2026 22:08:24 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+CC: <will@kernel.org>, <robin.murphy@arm.com>, <jgg@nvidia.com>,
+	<joro@8bytes.org>, <bhelgaas@google.com>, <praan@google.com>,
+	<kevin.tian@intel.com>, <kees@kernel.org>, <smostafa@google.com>,
+	<baolu.lu@linux.intel.com>, <linux-arm-kernel@lists.infradead.org>,
+	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+	<linux-pci@vger.kernel.org>, <skaestle@nvidia.com>, <mmarrid@nvidia.com>,
+	<skolothumtho@nvidia.com>, <bbiber@nvidia.com>, <harsha.v@oss.qualcomm.com>
+Subject: Re: [PATCH v3 09/13] iommu/arm-smmu-v3: Support PRI Page Request in
+ arm_smmu_handle_ppr()
+Message-ID: <apujyBWK+COCa3Ts@nvidia.com>
+References: <cover.1788222485.git.nicolinc@nvidia.com>
+ <0fe5f381aae307045e4cab97f8000c575f34a9ee.1788222486.git.nicolinc@nvidia.com>
+ <178846311318.1308030.15663048615954357081.b4-review@b4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902073334.397685-1-ruanjinjie@huawei.com> <20260902073334.397685-2-ruanjinjie@huawei.com>
-In-Reply-To: <20260902073334.397685-2-ruanjinjie@huawei.com>
-From: Kuniyuki Iwashima <kuniyu@google.com>
-Date: Fri, 4 Sep 2026 22:03:20 -0700
-X-Gm-Features: AcwNN1UJ7xwWxxQ81tPyjPpyE-hF9bqjWtpFyW1Lxujb4Xxpx3uiU1MQORH7rPg
-Message-ID: <CAAVpQUAw4ybYXUuosJ2esyhjW2q-o73-i+sAB2bJyPjE6ZaOUQ@mail.gmail.com>
-Subject: Re: [PATCH net-next v3 1/2] 8021q: Fix data race when publishing vlan
- net_device pointers
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
-	pabeni@redhat.com, horms@kernel.org, nb@tipi-net.de, sdf@fomichev.me, 
-	liuhangbin@gmail.com, da-x@monatomic.org, jeff@garzik.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <178846311318.1308030.15663048615954357081.b4-review@b4>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF000061C7:EE_|DS0PR12MB8341:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3560613f-abf9-44ca-696d-08df0b0bc380
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|36860700016|1800799024|82310400026|4143699003|5023799004|10067099003|11063799006|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	RbEhO5iXZdjDWM5N22uhUZx7XUrlzMpAiJA52r76Mbq00e/Jv8khDj227aXMtsHG0ZeGmjBD+D2pxVOfAOz/L8LzlWqmNAe5VFC/Ungw4H8I7n9E5JR2yhKzhw6TcwNiUyhI5KPnKDylXWLH+Oo3UmCBjwnvJJAseqVf/u0YHIuiKllCjgVUNNPTai5RWDoVIgsaCAsFHqwsR64pPcmWoiKDE/VAySAGJkH2i8mrAfiqCauo8pzC0m31Z7T6Peup1ZjLQMTwidwoTGtiswbiY5mY9Ed7BFeqb+L2SMg7LLyeVEsU66gFXl4eRBy454tdwjvhADa6bp8Sy1C0IzXqIr1vk+pmkJzVdhjugf9v/cGUa4g6KDCEzjh1zsArA5wqlpfYd/18UMKOWMDr/iqEjg1xqjOlB2pO/4pDKmSavE8VyiCNKcVbCjG4yHZtHnEon3l/g5AkcbIVAPHt6mH6zMNyVivYO20/WpowqLHd/IAxb1+gthzWQlwvms2id2+Nd+9ww8w/fJ7vkwBhLwl/M7N2gxnSs4E7xfIF5KtWxy0MHjrDR1htPEMFcE5B4ahMY3xsGz/qKWungpwjKRkarsewqQ/2WmXm5lh44BAPMBg1VIHZZMF+BpbiCMa2/zOqlTZLPbH64EGGTmAhZT3Rs9YfBHNv3el9OnxCAfAl2rQkLWfIlDiHYlzIDFIqP3R4P0f3d2Jmzz/sEwAnDTH1VQ==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(4143699003)(5023799004)(10067099003)(11063799006)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	4jv8fMZx9tmjaXWq5kZp9FPPrJg4h4FLAbzDrNhTIE05E12l5UykOCzE2C/TDCBABR07gnvR2Yr/HRbKnDwx0WeRLJ8P/YYH8z2BmG/fNyz6y0U5Y/RLO3IsAxQFCmPHleXuiz/XzDZlK6f7+cZHGyRgB2GIetufokI8ieNp2OhEmt9bJBpCrfhx3J+JrB6CgLlWCG4E2HMsvxfw0F7WJqGY/v6HLSTOfuSNPTq3bpj/2+214aMUaJMD/e6mJ7JNW0BIS69OXbSHCKv3rjH1mVryQcNmQLeKG5A1mUCflaCCFZrGbabFXHeaSNT5yNeten8izOjthhLCKAqGLxE9wePYcJhl8/HE72ltj9JadJFdMD3FEZARUtNM4peU1vrxnCAm+63NKLEVKGxlSdgiQc+HNfRTWDOUr0EStueVUDRyziaF/o3diKSylTiO5Ba9
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 05:08:46.0971
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3560613f-abf9-44ca-696d-08df0b0bc380
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS2PEPF000061C7.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8341
 
-On Wed, Sep 2, 2026 at 12:32=E2=80=AFAM Jinjie Ruan <ruanjinjie@huawei.com>=
- wrote:
->
-> A plain C read and assignment of the net_device pointer
-> in the vlan_devices_arrays leaf entries lack proper atomicity
-> and ordering barriers. A concurrent lockless reader on the packet
-> receive fast-path could observe a torn or partially initialized
-> net_device pointer, leading to a potential out-of-bounds read or kernel
-> panic.
->
-> The data race occurs between the netlink/ioctl configuration paths
-> (holding the per-netns rtnl_nets_lock or RTNL lock) and the softirq
-> receive fast-path (holding rcu_read_lock()):
->
->   CPU 0 (Writer, rtnl_nets_lock/RTNL)      CPU 1 (Reader, rcu_read_lock()=
-)
->   -----------------------------------      ------------------------------=
--
->    rtnetlink_rcv_msg()
->      // RTM_NEWLINK handler with RTNL_FLAG_DOIT_PERNET
->      rtnl_newlink()
->        ops->newlink() =3D=3D vlan_newlink()
->    OR
->    vlan_ioctl_handler()
->      [ADD_VLAN_CMD] -> register_vlan_device()
->
->      register_vlan_dev()
->        vlan_group_set_device()
->                                       netif_receive_skb_core()
->                                           vlan_do_receive()
->                                               vlan_find_dev()
->                                                  __vlan_group_get_device(=
-)
->                                                   // Speculative / torn r=
-ead
->                                                   [Loads bad net_device *=
-]
->            [Plain C store]
->            array[vlan_id] =3D dev;
->                                                   // Dereferences bad poi=
-nter
->                                                   // during device status=
- check
->                                                   vlan_dev->flags (PANIC!=
-)
->
-> Fix this by using rcu_assign_pointer() in vlan_group_set_device()
-> and rcu_dereference_raw() in __vlan_group_get_device() to enforce
-> proper ordering and memory atomicity for the leaf entry traversal.
->
-> Cc: stable@vger.kernel.org
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: Eric Dumazet <edumazet@google.com>
-> Cc: Jakub Kicinski <kuba@kernel.org>
-> Cc: Paolo Abeni <pabeni@redhat.com>
-> Cc: Simon Horman <horms@kernel.org>
-> Cc: Stanislav Fomichev <sdf@fomichev.me>
-> Cc: Kuniyuki Iwashima <kuniyu@google.com>
-> Cc: Nicolai Buchwitz <nb@tipi-net.de>
-> Cc: Dan Aloni <da-x@monatomic.org>
-> Cc: Jeff Garzik <jeff@garzik.org>
-> Fixes: 5c15bdec5c38 ("[VLAN]: Avoid a 4-order allocation.")
-> Link: https://sashiko.dev/#/patchset/20260825095422.3166067-1-ruanjinjie%=
-40huawei.com
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+On Thu, Sep 03, 2026 at 12:18:33PM -0700, Jonathan Cameron wrote:
+> > For an unrecognised StreamID or a master without master->pri_enabled, fall
+> > through to the existing "unexpected PRI request" log + LAST-page DENY path
+> > to release the credit per the PCIe PRI spec. Merge its two info prints in
+> 
+> Either don't bother mentioning pcie spec explicitly or expand that
+> to a useful reference - so section number, section title.
 
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Dropped:
+
+For an unrecognised StreamID or a master without master->pri_enabled, fall
+through to the existing "unexpected PRI request" log + LAST-page DENY path.
+Merge its two info prints in the path into one single ratelimited line, as
+a malfunctioning device can spam unrecognised requests that will flood the
+kernel log.
+
+> > On PRIQ overflow, partial requests stored via report_partial_fault() whose
+> > LAST-page entry was lost stay in iopf_param->partial. Drop them by calling
+> > iopf_queue_discard_partial(), matching intel-iommu's handling. Do it after
+> > the queue is fully drained, since the visible entries all precede the loss
+> > point: a group whose LAST-page entry is still in the queue gets assembled
+> > before the discard, rather than losing its stored partials to it. Nor can
+> > a new arrival race against the discard, since an active overflow inhibits
+> > new entries from being written to the PRI queue (IHI0070 8.1), up until a
+> > final CONS write acknowledges it.
+> 
+> Kind of a general comment.  I'm guessing AI assisted heavily in these.
+> Whilst I haven't found much that definitely doesn't belong in a patch
+> description, they do end up rather more verbose than ideal.  Maybe
+> poke it to be more terse in English language choices at least?
+
+Well, some of the paragraphs in the commit messages turned out to be
+indeed verbose, compared to my original writings. One of the reasons
+was to justify against Sashiko that often nitpicks on a corner case,
+(which surprisingly works well).
+
+I broke it into parts; hope this might ease a bit:
+
+On PRIQ overflow, partial requests stored via report_partial_fault() whose
+LAST-page entry was lost stay in iopf_param->partial. Drop them by calling
+iopf_queue_discard_partial(), matching intel-iommu's handling.
+
+Do it only after the queue is fully drained, since the visible entries all
+precede the loss point: a group whose LAST-page entry is still in the queue
+gets assembled before the discard, rather than losing its stored partials
+to it.
+
+Nothing can arrive in between, as an active overflow inhibits new entries
+from being written to the PRI queue until a final CONS write acknowledges
+it (IHI0070 8.1).
+
+Thanks
+Nicolin
