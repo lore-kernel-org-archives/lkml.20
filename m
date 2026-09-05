@@ -1,107 +1,142 @@
-Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6376C2512C8
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 03:06:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38BC426ED3C;
+	Sat,  5 Sep 2026 03:06:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.153
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788577581; cv=none; b=FLPjyMuu314n0euvH/Pvm72AqElzGlxH+UZsuMzqWK/asGrhCac4sMVERcura98OHcLg+SHhi4tqPjz+S96NaB2xO1qwXWpvb0xzQeZMrXdRI158YKb2DP38yuIeVnLmjoaQUUb1TxEVWdDbs7HanCs42JwXaG9ZPsurQOtF6HU=
+	t=1788577590; cv=none; b=fiDWhWavC9Sal54MMZXorKRktnbknjgHuZsPTlo43OE2hM9D3oomZzuKqUCWUUTxCT9EicyVwG829w0kPQUoYn3VrqFX/WkaGw9TN5vj0TXLN2AWFN/4ANokPqMSJWeNyLGth4gTu3ox0ddfdzKZb0MONaORwZPm7gij/0u9D7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788577581; c=relaxed/simple;
-	bh=05onUa78HA/34vDAUE1i4DkCsbgasfejcqApElO2zE0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fIWNvWhoOCEdw6S9M/a89Y5OkZGo1omKwq+OBU0AK4fOjuxNggwb2sIdsBnB9I9JWawIgtiW75edg7PwNzA5p9nnst4cqoYHyJeyljAB70h0bxqdpdjzq72QuKYDmu9p6YJTG5EPd3Arb/S23LNOgKHgTz7Ts8mAu1zvFaV6MHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=Cqpje6bl; arc=none smtp.client-ip=209.85.219.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1788577590; c=relaxed/simple;
+	bh=RGDlyQ9H2nwJBex9eUF1DjBJUtvfwEUx0wzG1Ww522k=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=ouOhum496+ce+rH6d/ZiaKasrd3mpoQe5fQnV2yNGyhxdQNGhUqt9zZH/+4tQr7dxnONfnk5lIASvh4saQUJdpmG/Wg3oYV7ZW1QR4DHHQEfUEd3xkmBJdrFaKGO589puuF0970Rg1qpy61FoORwykBVj0Roh++6zre2sfP/nPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=U8/fiiDh; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=uJ6pY9vP; arc=none smtp.client-ip=103.168.172.153
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="Cqpje6bl"
-Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-90ce3971a86so19428136d6.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 20:06:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1788577577; x=1789182377; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VakFjZ3yG4j6XtWzGOyJF4+PPwgn5fG+FnI3gon9QLA=;
-        b=Cqpje6blRQPSLQikhcy8iq2juBHT7Q8wCtawHUcslIX5ebs3FupRcfYx/jUaKdJgrC
-         haZEWaMGC5YVSb0thSx4Y4W/g2B5ckYunihw8drTbVbJCU7eeE+c+sQg8D7Yegoq9COO
-         huFAt1YoJTPZaIL+0ngqjcJQgNI5Bgce7eRF0mhv6zqSiPjvki8rafSyMj+wRanXw9uX
-         Tg/hWzB/00S4WJRRQaOHssaxnt3IX3/Xsp3LCqDyRvHDNKYq+XBNTIGEmvU2Bb7cnm7H
-         DjxS8vv7t5p4vm+PRQJzb/R6oYrJtjztaPjH1zBOwFk9bFS5pbPuvxj7rZjWw6OKRGxP
-         xryA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788577577; x=1789182377;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VakFjZ3yG4j6XtWzGOyJF4+PPwgn5fG+FnI3gon9QLA=;
-        b=ducghJtSUYdvoXM6RDKtG3khMh5ELaooATSzEOGSmE1RLaiTh/rdkij1Pb8rcit2+k
-         /a+7GzTqn491vjHSCV1fIEuXo6U1QrBV9fbxYHNWMaRYriewzsmy4nTh7gA3yAqpTiVn
-         AxdCCZF9RmOZmPpQiNb3LMYLeXKuSE+HMM0+vdVYmRMkezBpHLwSzzzdspbe70dhjyFX
-         TKY4D0FjObR/HbY1rFWU3yyVGx6jBj9uBxSzzhTQWc68ZxsCjGGbuQyz+F14NUDqGCCb
-         dX4N0Tl0L8xADLYaIugk2uM7o94vmqtA8C9gWmFdN9R5pTE5rLx2mf6NMTpGOHPvCf5l
-         IxxA==
-X-Forwarded-Encrypted: i=1; AKwUvBz2ukTlixaFgdM4gMn3Uh5PxetukytzN6HKDfOWI6Oj7DW++mO/PRf6p5quxQHgv/bgUJqG6na4eW3vCjA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mEIPTE2vBALiQLtfTJu+Vm4bAa13N9a63DN6OmMsEFXbp0CKIw
-	MPQPuCiMAQcEco4IovvYU3CLNGLra1IuWxGM7KbcHvseGag6RW6qVm+9D7O0I22otriTzUR4rD/
-	6UbqaVw==
-X-Gm-Gg: AYBFou3OACDBLBiC5NIykIthdRIazkvrDmM8ySmrMPvDZZhXk0fsHnv469QvpFemZ7p
-	NC7zPfF1uwC9JtiDFMJnqVBkdd349jZ2C+kCznNPtbIVAUdLkKzkGjk3PkIXFCI72j6T3DbsBgh
-	cBlobvjzvAZxIav/vEKFDWf+BuIJkaCM0xZgSnWvoNgFZJnisYkbZ8wM5Iv+NQH0qX/kU5rTE/C
-	Qr/nm0k7xYtScW5EaQlQHJQos7W6H33kppyxpBsDJPG1ybyS5N/rJ7HgcDbMGHOcawWQ4FOKRHg
-	IsgO8FyBF07kje5pnWOuu+OS/xArBns1UG1hImWid+aqM2ZXVICGzfmfBqme45V+IxRrPEP7Wfx
-	OhDE8itBBcoX0WcZchzIl4ObzaMF6hC99MYQCph5htfMWxLmaTdnZTA9kwOtB61C6EtTDaw8bzf
-	AE2CzUA3FodcbYxSXQr90Z8yGa2Ld+5TkzZe4F3G//UguIKRs0805Pa45EitmXcA==
-X-Received: by 2002:a0c:f09b:0:b0:90c:e240:3e89 with SMTP id 6a1803df08f44-9103ef16760mr116075456d6.13.1788577577271;
-        Fri, 04 Sep 2026 20:06:17 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-910406625d9sm35033016d6.20.2026.09.04.20.06.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 20:06:16 -0700 (PDT)
-Date: Fri, 4 Sep 2026 23:06:13 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Daniel Palmer <daniel@thingy.jp>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/6] usb: ehci: support non-standard port status
- registers
-Message-ID: <cebb04f1-83c7-46b7-9516-4a5ca422d21c@rowland.harvard.edu>
-References: <20260903-gemini-usb-fotg2-v3-0-dd92ecf5675b@kernel.org>
- <20260903-gemini-usb-fotg2-v3-1-dd92ecf5675b@kernel.org>
+	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="U8/fiiDh";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="uJ6pY9vP"
+Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id E91351400175;
+	Fri,  4 Sep 2026 23:06:26 -0400 (EDT)
+Received: from stl-imap-02 ([10.204.2.93])
+  by stl-compute-04.internal (MEProxy); Fri, 04 Sep 2026 23:06:27 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1788577586;
+	 x=1788663986; bh=dn9SeHDAQcIwe9HEChWstYauXrPTAcknUczQtqewXPk=; b=
+	U8/fiiDhXwUGVExA8rxK4uNAeUJJ1jagEoLx3d/K+f7fca4e/BOAp473MpPdQPMr
+	0dtfWsXTOdy42VZYbBzSo8qnRiqBq0psmoSyp3u61ZulB6dSpV+khoGZ2azgXS/z
+	pLWhC868+HAGG2Rgg+XBFqj7iDnrWoR7zpQH9jqWdaTmQvbN88mcLGodK42i9/8D
+	C/PF9XOYD1UI01YdrPTHLByCzCyaBAI7Dr3+ivqPugT8RW/WoNDUM1I9remS3ZJZ
+	1cptwBsOgO5SY34p7k/tF6t3w1DLLpzN5PhYH6a8kWZ9U0nqe9KGYYMyxlI8I3vD
+	6XAxcsIa+Mza3W4Faz9qZQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788577586; x=
+	1788663986; bh=dn9SeHDAQcIwe9HEChWstYauXrPTAcknUczQtqewXPk=; b=u
+	J6pY9vPRh6vbzy5ASzmq+FJmqrPnGU3zz749CTB+zgcctdvmNvCoNm9PPFmd+FQj
+	pEA9Uq5wDZ+Aw9y/CAE0UCO9lLV120Kjcu3ugWfrEREKwZn7p6IsnZhFcjeMkiG+
+	sj+nVTHw6MR4m6h29Zs5he0Ie234i3kl9EXCY3UWbaWSLe3Ak5uQngz6i+Af30e2
+	eHd9laEAtE69vw1DccgaXb9sBxcdZf9O1xn/thlrDXoguPngz2BFZWu8ugWfo9H0
+	UFAFikUtg9w/CEDCGMe63317SG7fpmG3lMEjkAWJEUzKTDXULjmBdsQiMKBDSuyk
+	dArq/ALUu21a+/t9Tg3Pg==
+X-ME-Sender: <xms:MYebaqxmv7UiAkEqFAxCd_x7n3zyZz8uSs0MImieQ0KWcSa2JP06uw>
+    <xme:MYebahET3AKv0xC0xXCmrdB88Fnn9F3qM1hGUpZatSuSdTBD5ImLi_WfTv7Wkv1Y_
+    dgXZSYKPZCKnEf7lKPBCLZcgjFXMqscaYSJjKUV2bF2-MfdS9nPlUQ>
+X-ME-Proxy-Cause: dmFkZTEym1Tn+eMhDvRwnfE+SC2gn+fopTr1iM7H4lJ+v2c1irG/VFAZtUvb7I1pCQn8GS
+    qsOuV26ugKoDPm4+xa42Xhii5OPHccVRFJ9pC07sKjntWY+lbP2q/QJAKzE1ye8M+GSTTW
+    Y3AHtAtB2yX7lXHD33ObMrhSsTGe6Xx/ztr4/x8S7AtAzqdfXBT8wwWnGKq99h2Fwq0KxV
+    tNaPL73ZVyernDpwMhMqtf8oGo+cMx6LFqXMgBvCvAqBbmt27/LgMz92Yz8CPBVohvBttk
+    MPvfjtSMRU+E/4MbKaJs4bzXBQAtHWse42rCYyJRSTPqzumoWW+T9ljJfdLA6RXumolhB9
+    wyER5CRVl8/5tZTDtpS2TxdDG1YVvTpSsp9zXLj/0bLObSzMwslO49jjid8x9V0rzTjhrr
+    /1nqc3OhYqvKSKtcww+B8HF9njUlt33NHHxqDh5GZbbFg7oLAco7Qdz+FFNymwhSNcmX0t
+    dgwelP3Lssset2ROHx3H8ozerwWj6MoA5xagzdXKcKV7dIMCsfifsNshs8pVdy2R7QYmxz
+    L5JX/ue5AB4nZB7uvGQo+r26kBnFtqsFqch2IvctBhYmNgH/QvehlNgzt2NVP4HosmJkJ6
+    J/hrYgmCjcWp7ndLakrlCQJqnWPhAmP6EF60uDWfqikMNrVKUhp0F3BZKBDA
+X-ME-Proxy: <xmx:MYebagDH5PPPf5AbYiU5w_KQy30pINEN7gl8vEfZkxwuHrAu3JJ7UQ>
+    <xmx:MYebai9x1Oh3wo7gXsr_5QGHnE7b1_sId0uGiy0SSTwZqH9KjRjyAg>
+    <xmx:MYebakRnf-Jjm5phiEp2j8B5QEpUZ0Pafk6R0e-ANIH40uSGdjQ10A>
+    <xmx:MYebauX2gYmC5GXZEB9AAvshMDv0UYkoFwyd2jqz7NMvLiiICTIKeQ>
+    <xmx:MoebankE0J_IYLLeElulh0vqGjeARo2_kgytXvrUYAg9E_OfKF-mlU3j>
+Feedback-ID: ibe194615:Fastmail
+Received: by mailuser.stl.internal (Postfix, from userid 501)
+	id 213682C00065; Fri,  4 Sep 2026 23:06:25 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903-gemini-usb-fotg2-v3-1-dd92ecf5675b@kernel.org>
+X-ThreadId: AYFWDccwDRGw
+Date: Fri, 04 Sep 2026 23:06:04 -0400
+From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
+To: "Hemanth Selam" <hemanth.selam@gmail.com>,
+ "Henrique de Moraes Holschuh" <hmh@hmh.eng.br>,
+ "Derek J . Clark" <derekjohn.clark@gmail.com>,
+ "Hans de Goede" <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org,
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+ ibm-acpi-devel@lists.sourceforge.net
+Message-Id: <e696b6f2-79c7-4db4-8683-77cc740ce156@app.fastmail.com>
+In-Reply-To: <20260904113650.18527-1-hemanth.selam@gmail.com>
+References: <20260904113650.18527-1-hemanth.selam@gmail.com>
+Subject: Re: [PATCH] platform: x86: fix typos in comments
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 03, 2026 at 11:17:38PM +0200, Linus Walleij wrote:
-> Some EHCI implementations place the port status registers outside the
-> standard operational register layout.
-> 
-> Add a per-controller port status base and use a helper for all PORTSC
-> accesses, while preserving the standard location by default.
-> 
-> Gate the alternate member and lookup behind the hidden
-> USB_EHCI_DEVIANT_PORT_STATUS_REG option. This avoids growing struct
-> ehci_hcd or adding a runtime branch on systems using the standard port
-> status register location.
-> 
-> Suggested-by: Alan Stern <stern@rowland.harvard.edu>
-> Suggested-by: Daniel Palmer <daniel@thingy.jp>
-> Assisted-by: LLM
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
+On Fri, Sep 4, 2026, at 7:36 AM, Hemanth Selam wrote:
+> Fix typos in comments, reported by scripts/checkpatch.pl using the
+> misspelling list in scripts/spelling.txt.  Only touches comments, no code
+> changes.
+>
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 > ---
-
-For patches 1-4:
-
-Acked-by: Alan Stern <stern@rowland.harvard.edu>
-
-Alan Stern
+>  drivers/platform/x86/lenovo/thinkpad_acpi.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c 
+> b/drivers/platform/x86/lenovo/thinkpad_acpi.c
+> index 1661f070c571..bfb292e727c4 100644
+> --- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
+> +++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
+> @@ -7069,7 +7069,7 @@ static bool software_mute_active;
+>  static int software_mute_orig_mode;
+> 
+>  /*
+> - * Used to syncronize writers to TP_EC_AUDIO and
+> + * Used to synchronize writers to TP_EC_AUDIO and
+>   * TP_NVRAM_ADDR_MIXER, as we need to do read-modify-write
+>   */
+>  static struct mutex volume_mutex;
+> @@ -7262,7 +7262,7 @@ static int volume_set_software_mute(bool startup)
+> 
+>  	/*
+>  	 * In software mute mode, the standard codec controls take
+> -	 * precendence, so we unmute the ThinkPad HW switch at
+> +	 * precedence, so we unmute the ThinkPad HW switch at
+>  	 * startup.  Just on case there are SAUM-capable ThinkPads
+>  	 * with level controls, set max HW volume as well.
+>  	 */
+> @@ -7981,7 +7981,7 @@ TPACPI_HANDLE(fanw, ec, "FANW",	/* E531 */
+>  	   );			/* all others */
+> 
+>  /*
+> - * Unitialized HFSP quirk: ACPI DSDT and EC fail to initialize the
+> + * Uninitialized HFSP quirk: ACPI DSDT and EC fail to initialize the
+>   * HFSP register at boot, so it contains 0x07 but the Thinkpad could
+>   * be in auto mode (0x80).
+>   *
+> -- 
+> 2.48.1
+All good.
+Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
+Mark
