@@ -1,200 +1,101 @@
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3717C37A836
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 13:30:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D95C037A496;
+	Sat,  5 Sep 2026 13:30:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788615032; cv=none; b=JSdWRV+v8/zSkkR7zPN+AfMk2Wz5TsP9CFPJWKR8JwLKXBUW1WJQ3SC1LvJC8m38bBBZ1rEw9axQeOVKSbpqFSF3p9GaMfkRE/DqISti0eOcw1SVyFsQtk8XbGBJTj+h7AoyE3tP4cqJe2ELz1DBwa529ILzpEGPTlOxxnNXjbk=
+	t=1788615073; cv=none; b=Skev6VxCoBi0xb3ACJ93xwusCvI2PYsKonoQkVaEoGc7MzQ/rL5icFfFBhZVYiVoWZsc+CJ0lkyu7IbwJvfoNvp5cusDT2J7vxtYueph7u5tyt0iHdRtUzE+KqftFg9G9ERbtjkCQZPG1qNLFLonPnmGfsymu4QXAdSDWXCfKCo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788615032; c=relaxed/simple;
-	bh=0sSBP2cprqjuaV+c2HHo+xNsGybFsYHAYG6+y+2l4nU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=q5r03Xn+0pgSt3oVy6t2iErSzq/JzmG80Fb1iu84WC6/cugp0rBcfxbY8N73lilx7a044m9KqpWxA2iGOfgTk5fwueIG433GH3Ft3ruR+TaqovUmGiA/EufA5bpm4DhhbD6DkW/PcpTvypIOEckc0A53JuCo3oITfUqhp2oCdCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=eS0WYOXm; arc=none smtp.client-ip=185.67.36.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	s=arc-20240116; t=1788615073; c=relaxed/simple;
+	bh=Zkfi1HVvrwSQhZHkNPnA77UHSfEJTPixXsCO8TP0Eus=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mxZ6uCLIFLL3KENLl/RzkLgTdVcRJb06F75uBIESDsp9GQWNHN6my8/MgVD43Av4zE9FoxZCMYAfXAypzzztVIEFcrM96srCIZAi/gt0pYlLD/UPWPJn0fFzsW9RsP3x4p2ZVgTnlyPdNdf4ceBhbo4I71hRmoBlY0+ROcB0ozE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=cjzPXlNg; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="eS0WYOXm"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout01.posteo.de (Postfix) with ESMTPS id 3300124002A
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:30:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1788615013;
-	bh=bfa+sUbkpDzQYYGeZZKcZXo0idL7gh16q6bK32R5j28=;
-	h=From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
-	b=eS0WYOXmli7nWeEa6tSmNdMlEuJkVq+NIDUd6Iui1oJZiLCiZH1uCrV6koQOX1tMJ
-	 6qRzErvKtw38L37TuQWFTfHE7g1NoMhpI7Fbm+0uwl3ks5IQ16GhrgTSnEPu26S26Y
-	 v/HwRAAbPaWf3gUMpL1HUgwPc0GRFdFloV0SfvwHquWl9bnR88ZjYlBZYGJsb2nfxz
-	 YoLggbACG+2QtGdryeCucA+sbXE59EaV89OipHkaA+EZeFy+j6yKo1xrxWmQmu57WO
-	 epsErNND8y18PzL2XUjnZQQruPLJeOHIxhKFr9hmMZYICxmBx5xurGs6AtBhSuk+7c
-	 Ul+e451TuxWqQ==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4hcZ2W0Bztz9rxL;
-	Sat,  5 Sep 2026 15:30:11 +0200 (CEST)
-From: Markus Probst <markus.probst@posteo.de>
-Date: Sat, 05 Sep 2026 13:30:12 +0000
-Subject: [PATCH v2 2/2] rust: serdev: Fix race condition on driver probe
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="cjzPXlNg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=V1
+	sLHMDzzOomdHPsx4yOfg/S51LMi0KB8zcg4r6QBE8=; b=cjzPXlNgjdUrDfwt8p
+	G/H1/R4hyDfaevn8O4LgQZYoMshQZODBhPIdmpJhUtXIHwTb9UUiq34nB9Q4rxHr
+	p+7Dm/VgXgFzbfnzxRzmEUigrM3zc0ch/FExK14hB+i4WORaSBbH3Eo//XZ5Uzu9
+	lprewofHTgnp984KbAxbqLXjo=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wA3cXBYGZxqS2BuAw--.57639S2;
+	Sat, 05 Sep 2026 21:30:01 +0800 (CST)
+From: "hpp.iscas" <hppiscas@163.com>
+To: Jian Shen <shenjian15@huawei.com>
+Cc: "hpp.iscas" <hppiscas@163.com>,
+	Jijie Shao <shaojijie@huawei.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jiangfeng Xiao <xiaojiangfeng@huawei.com>
+Subject: [PATCH] net: hip04: use 16-bit byte order for HI13X1 TX fields
+Date: Sat,  5 Sep 2026 21:29:58 +0800
+Message-ID: <20260905132958.63085-1-hppiscas@163.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260905-rust_serdev_fix-v2-2-35dfcd06ef2e@posteo.de>
-References: <20260905-rust_serdev_fix-v2-0-35dfcd06ef2e@posteo.de>
-In-Reply-To: <20260905-rust_serdev_fix-v2-0-35dfcd06ef2e@posteo.de>
-To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: linux-serial@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
- Markus Probst <markus.probst@posteo.de>, 
- Sashiko Bot <sashiko-bot@kernel.org>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3431;
- i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=0sSBP2cprqjuaV+c2HHo+xNsGybFsYHAYG6+y+2l4nU=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBqnBlfx2sPL/zq72ZUWElTRxokkNvkBYNGBmbWf
- o3+JzcuPymJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCapwZXxsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9IdLhAAhyNMuqVjsUADZqyxpUP9bzZSUF5WmyE
- rnAWo28VtYYoWXJ+DEdD1fZgUdVHvYiWduM8TcQUXC9RMy9CvX5oNZI5U0tjFPmWGEGDKDGGY+S
- EFc8y5ObBQHti0z6aM4fK/5mdCs3hl8ZXi/GNGyYc9oe2AmMtCDzCU42NK2I3Lqs+EppgpbRB8I
- QXPEYw0f2ZzjRxXZ3u9yOWdyWMzZJKKjiNnIgDag/lE98iGcgr5Av4dFm5qGalRKpkVoxhBLhqt
- BBushxqbesNgH+fvkOywUwZty8yfqoHjZmm4qfEGi9YIxYkwOntDGC0MfT6C1oECrRRLdfUT8kj
- Vk2pK5/Y4JazAc4Q85HFFyhNRWfjf/HIbnXldOYnASP2/fH3gipbA6b3Djeb9ks3xFA5x8GFqW4
- ifNm4Q8Jowirf4uHuKfpN5K4JMp1gCQpUeKQeBPVd/++MJtKs8BpQ00nCAO4IzqjxP3VX2huxy4
- TzmqM9IN0ocfDZyzr6MeTxbKxOTr79BMaDoZCR/ge+zst7HofawHa8W67yLMqVufLz7tG72R31a
- 2CrIzB5waBPeE9VytsgsiHhcsZLeLJuTGJyFvsz1OSBLtS17SvCWCVGLJIojIn927bRdzL05VwS
- 9u/Avb1uSeCsFIb8vL+lC9TFWIZQWm7gx78/WN1ZuwraVL4lJWeU=
-X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
- fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
-  keydata=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
-  aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+Content-Transfer-Encoding: quoted-printable
+X-CM-TRANSID:_____wA3cXBYGZxqS2BuAw--.57639S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7uryDXFW7uFWxZw43XF4Utwb_yoW8CF13pa
+	1DCFW3Kr1jvw15X3Wvgwn2q348ua1Sg34xGa15u34a9r1Syr409ryDKFWUCrWjqrs7XF4q
+	934F9anxJFs3K37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UBa0dUUUUU=
+X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7Rke5mqcGVlG+AAA3E
 
-If `Driver::probe` fails, the pointer to the driver data (`PrivateData`)
-will first be set to NULL by `drvdata_obtain` and only after that the
-serdev device will be closed by Drop. Thus there is a small window in
-which the serdev device is still open, but the pointer to the driver data
-is NULL. Therefore it is possible that `receive_buf_callback` might try to
-access the `active` mutex on a null pointer.
-
-Use previously added `drvdata_drop` instead of `drvdata_obtain`, so the
-serdev device will first be closed with Drop and after that the pointer to
-the driver data will be set to NULL.
-
-Remove `drvdata_obtain`, as it is now dead code.
-
-Fixes: 99f59aa82341 ("rust: add basic serial device bus abstractions")
-Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/linux-serial/20260903222159.70A911F000E9@smtp.kernel.org/
-Signed-off-by: Markus Probst <markus.probst@posteo.de>
----
- rust/kernel/device.rs | 25 -------------------------
- rust/kernel/serdev.rs |  2 +-
- 2 files changed, 1 insertion(+), 26 deletions(-)
-
-diff --git a/rust/kernel/device.rs b/rust/kernel/device.rs
-index 3886cc713c28..834fea0eb0a7 100644
---- a/rust/kernel/device.rs
-+++ b/rust/kernel/device.rs
-@@ -213,31 +213,6 @@ pub fn set_drvdata<T>(&self, data: impl PinInit<T, Error>) -> Result {
-         Ok(())
-     }
- 
--    /// Take ownership of the private data stored in this [`Device`].
--    ///
--    /// # Safety
--    ///
--    /// - The type `T` must match the type of the `ForeignOwnable` previously stored by
--    ///   [`Device::set_drvdata`].
--    /// - Must only be called before the device is fully unbound.
--    pub(crate) unsafe fn drvdata_obtain<T>(&self) -> Option<Pin<KBox<T>>> {
--        // SAFETY: By the type invariants, `self.as_raw()` is a valid pointer to a `struct device`.
--        let ptr = unsafe { bindings::dev_get_drvdata(self.as_raw()) };
--
--        // SAFETY: By the type invariants, `self.as_raw()` is a valid pointer to a `struct device`.
--        unsafe { bindings::dev_set_drvdata(self.as_raw(), core::ptr::null_mut()) };
--
--        if ptr.is_null() {
--            return None;
--        }
--
--        // SAFETY:
--        // - If `ptr` is not NULL, it comes from a previous call to `into_foreign()`.
--        // - `dev_get_drvdata()` guarantees to return the same pointer given to `dev_set_drvdata()`
--        //   in `into_foreign()`.
--        Some(unsafe { Pin::<KBox<T>>::from_foreign(ptr.cast()) })
--    }
--
-     /// Drop the private data stored in this [`Device`].
-     ///
-     /// The pointer to the private data remains valid until the drop is complete.
-diff --git a/rust/kernel/serdev.rs b/rust/kernel/serdev.rs
-index 17ca504b7f8d..a12b1dea12aa 100644
---- a/rust/kernel/serdev.rs
-+++ b/rust/kernel/serdev.rs
-@@ -176,7 +176,7 @@ extern "C" fn probe_callback(sdev: *mut bindings::serdev_device) -> kernel::ffi:
-             let private_data = unsafe { sdev.as_ref().drvdata_borrow::<PrivateData<'_, T>>() };
-             let private_data = ScopeGuard::new_with_data(private_data, |_| {
-                 // SAFETY: We just set drvdata to `PrivateData<'_, T>`.
--                drop(unsafe { sdev.as_ref().drvdata_obtain::<PrivateData<'_, T>>() });
-+                unsafe { sdev.as_ref().drvdata_drop::<PrivateData<'_, T>>() };
-             });
-             let mut active = private_data.active.lock();
- 
-
--- 
-2.55.0
+The HI13X1 transmit descriptor stores send_size and data_offset in u16=0D
+fields, but hip04_mac_start_xmit() converts both values with=0D
+cpu_to_be32() before assigning them. On little-endian systems the=0D
+assignment truncates the converted value, leaving neither field with the=0D
+intended 16-bit big-endian representation.=0D
+=0D
+Use cpu_to_be16() for the two HI13X1 fields. Keep the original 32-bit=0D
+conversion for the other descriptor format.=0D
+=0D
+Fixes: d413779cdd93 ("net: hisilicon: Add an tx_desc to adapt HI13X1_GMAC")=
+=0D
+Signed-off-by: hpp.iscas <hppiscas@163.com>=0D
+---=0D
+ drivers/net/ethernet/hisilicon/hip04_eth.c | 5 +++--=0D
+ 1 file changed, 3 insertions(+), 2 deletions(-)=0D
+=0D
+diff --git a/drivers/net/ethernet/hisilicon/hip04_eth.c b/drivers/net/ether=
+net/hisilicon/hip04_eth.c=0D
+index fc2c47d..2920985 100644=0D
+--- a/drivers/net/ethernet/hisilicon/hip04_eth.c=0D
++++ b/drivers/net/ethernet/hisilicon/hip04_eth.c=0D
+@@ -527,13 +527,14 @@ hip04_mac_start_xmit(struct sk_buff *skb, struct net_=
+device *ndev)=0D
+ 	priv->tx_skb[tx_head] =3D skb;=0D
+ 	priv->tx_phys[tx_head] =3D phys;=0D
+ =0D
+-	desc->send_size =3D (__force u32)cpu_to_be32(skb->len);=0D
+ #if defined(CONFIG_HI13X1_GMAC)=0D
++	desc->send_size =3D (__force u16)cpu_to_be16(skb->len);=0D
+ 	desc->cfg =3D (__force u32)cpu_to_be32(TX_CLEAR_WB | TX_FINISH_CACHE_INV=
+=0D
+ 		| TX_RELEASE_TO_PPE | priv->port << TX_POOL_SHIFT);=0D
+-	desc->data_offset =3D (__force u32)cpu_to_be32(phys & SOC_CACHE_LINE_MASK=
+);=0D
++	desc->data_offset =3D (__force u16)cpu_to_be16(phys & SOC_CACHE_LINE_MASK=
+);=0D
+ 	desc->send_addr =3D  (__force u32)cpu_to_be32(phys & ~SOC_CACHE_LINE_MASK=
+);=0D
+ #else=0D
++	desc->send_size =3D (__force u32)cpu_to_be32(skb->len);=0D
+ 	desc->cfg =3D (__force u32)cpu_to_be32(TX_CLEAR_WB | TX_FINISH_CACHE_INV)=
+;=0D
+ 	desc->send_addr =3D (__force u32)cpu_to_be32(phys);=0D
+ #endif=0D
 
