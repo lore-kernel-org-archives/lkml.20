@@ -1,34 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 845BF326945
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 00:43:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32F643375D5
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 00:43:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788569039; cv=none; b=PnwitaDMVsrdQYd+ONuKs10txbfWYuwpKXWYrkrsywpi73pJi2Tnhx57hk89jFgxcKmI4fm0rNQnBBAc2O4xmUFVEZrvgCjXAOEmKpUdRvuTiUA0IJMk7HTmv9A7OvTttNtyrB6LxrVrKsauIZd79VU/FCxOaJGDTG/nEEI7vec=
+	t=1788569041; cv=none; b=uBfMstWly+5O4MRKJljC8v1IJGNS76i1vkhGRXY3MKNL2U71uxkMJ0ugrwJNceU8bJ36XTX0bW5BgC/Vzb2w7c6nUHCySsjwLzhX+LBC8He2V/z9ylrhib5SRPP+gH54DaYWfagSsVAM+2ZuYVYczE6X+qR7IYBeULHE+Aohi7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788569039; c=relaxed/simple;
-	bh=/RwCnv4v8jOVpi3A1II7WcwoWGlNyoxRSFgBzM0Q1VI=;
+	s=arc-20240116; t=1788569041; c=relaxed/simple;
+	bh=4FD78D0s5EkxjQSGpgWww5IPR/qwgwDPGSb3au56H5c=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=E7NX0oyivhm9a43j2HGNAqFqJCiVqv33VmTBQBKYqZ9yRUSnYpa5rlhm/CsgIclxql5lsdsCWxBySwvpJQ8UpboroqUkhWInixS04xbSvk8YMNO8lrMcsURDPkJGCSxDY6kG/n93y3ByD96r8bYvvxRe+B5bwZKI07Zcwj55fls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ovefgT/z; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=rDLavXPxWSMUotAW5pHMBOyO6ryEBSzWHcpprELOHWq7SlDCac//NxMxFcjy0GGb6Evo7pUZh5QrE0yIKWlnEsl8h+fh1JEOpze6+2k0sqgtq6Fc4WfgfIYOGAuD8VDr042MFLIp9PpyZA4ij6l5xYIEAkaQfyhwQoQndweX2sM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nzjkDY7X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ovefgT/z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2791D1F00A3F;
-	Sat,  5 Sep 2026 00:43:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nzjkDY7X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D2B61F00A3D;
+	Sat,  5 Sep 2026 00:43:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788569038;
-	bh=dPB9D6QSCZEEXMqkqQJch5Q/B371Mby843THkvip74w=;
+	s=k20260515; t=1788569039;
+	bh=L3p3dOtxKM3kZeWqbQEMIGtwYcwhJiwLZnqu4yNzFOg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=ovefgT/zedTqlPPjCh7b8J38ufTfaRPw0KKjvqVjVfRZutxz+tkJ1CeULR1lPGtT2
-	 VubL3wkqU38cS32rJFg14/tUHNQCxgKoWaqCDBxbB5R+DplE74fIitVAhIeKzFijHG
-	 48niboopdNIUh8OVd6UynD0REMZvQrF77StRszeHSA0H4gf6UAO7rAk8GoO4Nnpjw+
-	 MOFLgyxiAE4KhHV/EFtZWEzsdijovQe8RIiHBZg1m8gnGWDRAwaF06571ulDAmO7kO
-	 lQ3QZ2eMt+RjW8FC+A4n7ckW+F9Dp1wPLC0Dg7lvbuFqXZYWcjcRZeKbc6kkofmEqW
-	 lsfXcwD/mbXYA==
+	b=nzjkDY7XpAz95vaKdaaYASYI0ImOjJcjHXqtY/yWTwXeuto0+KcB49BSbvQP9JXRQ
+	 Is9/+Vpzh0X0lPfDhCbOzKJFbcjXpiBMudrDayH+2OBAag+yZpUfY43Vptoh/rm8uS
+	 E7BVRFXksA7CcuVlqeqH6vFkPCRSwX6/ld09+bDoRrsalfLXEXynQqkAlCar+vzoXb
+	 8jTPxgiNi7m+AjhJlYtsjE5Xy3FuYh0cCSjyXQUc0uWARtrPf0i0xSRWGioPEIOK0m
+	 LEejnnKtvh5/iAjTexx6ITF2Z08ja/dwcWhvULvVnLR0E9gQhNDQzFVOgwJFYGj1qU
+	 A+/LkHzH5fGdA==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Fri, 04 Sep 2026 19:43:31 -0500
-Subject: [PATCH v2 12/19] accel: ethosu: Validate convolution parameter
+Date: Fri, 04 Sep 2026 19:43:32 -0500
+Subject: [PATCH v2 13/19] accel: ethosu: Account for kernel dilation in IFM
+ size
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-ethosu-fixes-v2-12-3767738756a4@kernel.org>
+Message-Id: <20260904-ethosu-fixes-v2-13-3767738756a4@kernel.org>
 References: <20260904-ethosu-fixes-v2-0-3767738756a4@kernel.org>
 In-Reply-To: <20260904-ethosu-fixes-v2-0-3767738756a4@kernel.org>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
@@ -45,13 +46,12 @@ To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16-dev
 
-The U65 NPU_OP_CONV command has no parameter fields, but the
-validator interpreted bit zero as the U85 weights_ifm2 field. A crafted
-U65 stream could consequently make validation skip the weight buffer
-that hardware accesses.
+Kernel dilation increases the input feature-map area accessed by a
+kernel operation. Include the x and y dilation settings when
+calculating the required IFM bounds.
 
-Require a zero parameter on U65 and reject the reserved U85 parameter
-bits.
+Without this, a command stream using x2 dilation can access IFM
+memory past the range validated by the driver.
 
 Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
 Cc: stable@vger.kernel.org
@@ -61,38 +61,46 @@ Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 v2:
  - new patch
 ---
- drivers/accel/ethosu/ethosu_device.h | 1 +
- drivers/accel/ethosu/ethosu_gem.c    | 5 ++++-
- 2 files changed, 5 insertions(+), 1 deletion(-)
+ drivers/accel/ethosu/ethosu_device.h |  2 ++
+ drivers/accel/ethosu/ethosu_gem.c    | 10 ++++++++--
+ 2 files changed, 10 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/accel/ethosu/ethosu_device.h b/drivers/accel/ethosu/ethosu_device.h
-index c330048dbcca..d7e1e3c8ca12 100644
+index d7e1e3c8ca12..8e23fdbf7f8a 100644
 --- a/drivers/accel/ethosu/ethosu_device.h
 +++ b/drivers/accel/ethosu/ethosu_device.h
-@@ -87,6 +87,7 @@ struct gen_pool;
- #define PMU_EV_TYPE_IDLE	0x20
+@@ -88,6 +88,8 @@ struct gen_pool;
  
  #define NPU_DMA_REGION_INDEX_MODE	BIT(11)
-+#define NPU_OP_CONV_WEIGHTS_IFM2	BIT(0)
+ #define NPU_OP_CONV_WEIGHTS_IFM2	BIT(0)
++#define NPU_KERNEL_DILATION_X		BIT(3)
++#define NPU_KERNEL_DILATION_Y		BIT(4)
  
  enum ethosu_cmds {
  	NPU_OP_STOP = 0x0,
 diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
-index bca68fab0527..d60a2a453302 100644
+index d60a2a453302..63dd07791f31 100644
 --- a/drivers/accel/ethosu/ethosu_gem.c
 +++ b/drivers/accel/ethosu/ethosu_gem.c
-@@ -733,7 +733,10 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
- 				st.dma.dst.region, st.dma.dst.offset, dstlen);
- 			break;
- 		case NPU_OP_CONV:
--			use_ifm2 = param & 0x1;  // weights_ifm2
-+			if ((ethosu_is_u65(edev) && param) || (param & ~NPU_OP_CONV_WEIGHTS_IFM2))
-+				return -EINVAL;
-+
-+			use_ifm2 = param & NPU_OP_CONV_WEIGHTS_IFM2;
- 			if (!cmd_state_reg_is_set(&st, NPU_SET_OFM_PRECISION))
- 				return -EINVAL;
- 			use_scale = !(st.ofm.precision & 0x100);
+@@ -536,10 +536,16 @@ static int calc_sizes(struct drm_device *ddev,
+ 			((st->ifm.stride_kernel >> 1) & 0x1) + 1;
+ 		u32 stride_x = ((st->ifm.stride_kernel >> 5) & 0x2) +
+ 			(st->ifm.stride_kernel & 0x1) + 1;
++		u32 dilation_y = 1 + !!(st->ifm.stride_kernel &
++					 NPU_KERNEL_DILATION_Y);
++		u32 dilation_x = 1 + !!(st->ifm.stride_kernel &
++					 NPU_KERNEL_DILATION_X);
+ 		s32 ifm_height = st->ofm.height[2] * stride_y +
+-			st->ifm.height[2] - (st->ifm.pad_top + st->ifm.pad_bottom);
++			st->ifm.height[2] * dilation_y -
++			(st->ifm.pad_top + st->ifm.pad_bottom);
+ 		s32 ifm_width = st->ofm.width * stride_x +
+-			st->ifm.width - (st->ifm.pad_left + st->ifm.pad_right);
++			st->ifm.width * dilation_x -
++			(st->ifm.pad_left + st->ifm.pad_right);
+ 
+ 		if (ifm_height < 0 || ifm_width < 0)
+ 			return -EINVAL;
 
 -- 
 2.53.0
