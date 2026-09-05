@@ -1,370 +1,96 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7CF830F543
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:55:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96B9130F543;
+	Sat,  5 Sep 2026 15:55:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788623722; cv=none; b=PskqBP2uTiE0eybFdJQ8NFqy5+raIuq336PNtP/gwaNkHdmkQAzPWq79yy+/AL3pF0duKWc5wtoe/ln33JlCTRmrO2NlUyzAC/YiBnTS0jscTT6W4ONiVkWt7UnmeD02Sai3O5SPjhvuEys1S7u3bSaCHn2qsSZXyVZ6qE4iNLs=
+	t=1788623735; cv=none; b=Bf6uI9JEn1tTEmIT+rCP8ENKB2lj4XRr1bNt51mkMpZZKCKa+x0BAbMFsWLrqhfXh51D3axo7xYeqlAUuHjhXxQ/VhsTfecnkcgbB+j3AGYzSSa70k5CIYCcT7gm+lR0GtONgIyDySQBatYN2C5vJwvqmvGs+1lFFLoinlA21XI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788623722; c=relaxed/simple;
-	bh=pV+5IwkMLFn8Fx7djk9Yp6iUxrqGZmoFgCFV9E+GkBY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oPou65d/yqvkrqlG2gmRMMtPdrE7ZeTbfjEdQkQxwUpG0mMe9sosGukBjhe3WJcqeExmhIZBgl/8Fsso8PDka9JEF/QeYto0i50dhGFpHBNGbFDToPqyFnFXL8VL4C9RHZmIprLCipZeYe+/hbE02cZl9WPI4KmXrldkK2KMY+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PFeq9kiS; arc=none smtp.client-ip=209.85.210.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788623735; c=relaxed/simple;
+	bh=8ZGZUo8i0fE2yZpbiih4Dl0tZGg3Behl1hzeBiE4lVQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uAaPtN/gh3zOm2MFGXUD7ViduOM/beyY9FuMDA/TReXHy25/g9QkOXBXcWtLdfz54S46xk7Po0TeS6/W/XfUWBMgdVyihCd3DVoN+NqdZ2LOxnYo5ZJ6xuLwA9X6r4emrzKPOMoijKAb+I91ZyqHdr25NaEPeMJ3RjtLbHj0atI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O0+pBOdg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PFeq9kiS"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-85377c8bc96so1860791b3a.3
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 08:55:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788623715; x=1789228515; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=F2dEMJL1vhZK8124yTxwhBFPgoAwEv2z5aul9rIHN7w=;
-        b=PFeq9kiSaw+J5qTIcXskZ+geHKAbNgPJFhwy4EtTIXOL08y1nJHI0u3njprFtSXEPK
-         8V2skKdyhBC2P3rtgvPMeBBTwt5oeGZcqKP835z+gkEfV/QHtO18JjqF+p0dM7HVLhN4
-         +jyeRUSfqsuc520bNSKpEbjvYHhLwGXczS6uKSUcUaAZp/Q/pIvJ8YcuqDZFmt+0DJOV
-         8dQICAtYVeeKfo983hbZ4ND0lcVpjQWNRjKwnKKDrWTco2lKLnZx+86VuaEOTXDIL1/4
-         f2TuZoKClrZRE96fzAZURcmZ0JZ8HivYs1pjgscek5aDIjBjgK4APAtL4b5dOSc58MtM
-         pA9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788623715; x=1789228515;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F2dEMJL1vhZK8124yTxwhBFPgoAwEv2z5aul9rIHN7w=;
-        b=RvaM4Wi7RnkdPr4NreKYxL7slyDKR24qOJy9uPIiRetcuIyX1l/8uW+nND/nBxDlOb
-         8JASe1Nq1ADDeOsLfSNlrHXmZlVqtCWr+Vp27jDi/YA8DjRxaiSKzjtNj2ibsYbkYC7W
-         OyEIoYbSDfr2qs7e2HRybYUv0ztr44wO26Dfom0sRl0OLe31TUy0ZVwpmWvSxeiYfqyn
-         3yJmISp3lDMtR9dHJBmWcfv/RRxZksy+zsdSiV4aBUA5ax6tW/d/FEgbyGm7u74WQ0hL
-         w+6agF1m3FOUKamyzYv4B6/zODC+4UKwhle74FKICUtP3vSt0y8LlCUh4NfWLXVw4Cr6
-         s4OQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwVbR9h1qLsWRG2JWkXvRF3xyjZotkZ77GoYPRAcRw8ndxBmYhh8RcCt/jDRTHJAY6yOxF9CniYW69ovvU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lG8LZlg/4ek9A/KELNNGaDPJHp53g47DnK370NhSEU53XrOWN5
-	rqe1le1E7tOa15lLh0x42wmKz9OgfFTxvaZQDxzSXT6ZVlWD6RjO4rc7
-X-Gm-Gg: AYBFou2RE/5d3UGpTXTxHyzbvltJ1Ww3aWaraJZX7kD2mSpxmiXDbdLzzuQvQYjaiQk
-	kQtxfE8DPHxjn3+Ru0TKrk3Fs6mWJYOpMS+EjXnkJVm2Er17H0UAD/9rfoS1Qz65jvHNsNaDhmi
-	nU7SNcLCL2QYq9pL2kZzdIQTFE6H74uestWkPQ6VeY1Eso1ZsQJoIsUj0y5qsbL1klejXzR5RnK
-	Td8GvRbFtZNDzOfsPFxYRk3WL1z6i5vv+Wc7kN3binWO1CJH1DNfSRa77aEXzwpx1uLiely+sCt
-	+U9jbYfeBPE3RYo6msI8ShsL/RbKpb1kpPuKJfHqFNylkRxsIQr85QpWFAwLTsjNPxRlAW4hWrA
-	8AGybnXE+M4+VBk9nfxb9szUBaAveMIxJKALDTCXknEfg/6SgnavEnQkEbbN+n3hM1gNZjpAn8B
-	R3Avh/V5ebGB5B2SYeT1JMzndevfGdKd4/15RAsd9GYI5v9nogdqHGwMHo1lUBJjL5xOZivjeN3
-	AH3wldPVcJmJ4HDjoHMcrXXwMLLCiBr5k78BtThcrwsTRHus0zutwCpOpKhXkSo2/GXVYRqZw==
-X-Received: by 2002:a05:6a00:4c8f:b0:84f:5cd7:e3c6 with SMTP id d2e1a72fcca58-861662d4ce4mr18597533b3a.5.1788623715142;
-        Sat, 05 Sep 2026 08:55:15 -0700 (PDT)
-Received: from lima-arm64-dev.hitronhub.home (180-176-144-38.dynamic.kbronet.com.tw. [180.176.144.38])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc455448d54sm2101674a12.17.2026.09.05.08.55.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 08:55:14 -0700 (PDT)
-From: Harry Hsu <x90613@gmail.com>
-To: pmladek@suse.com,
-	jpoimboe@kernel.org,
-	jikos@kernel.org,
-	mbenes@suse.cz,
-	joe.lawrence@redhat.com,
-	shuah@kernel.org,
-	song@kernel.org
-Cc: live-patching@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Harry Hsu <x90613@gmail.com>
-Subject: [PATCH] selftests/livepatch: Test rejection of aliased symbols in one object
-Date: Sat,  5 Sep 2026 23:55:07 +0800
-Message-ID: <20260905155507.273262-1-x90613@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260830173343.52759-1-x90613@gmail.com>
-References: <20260830173343.52759-1-x90613@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O0+pBOdg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06F431F00A3A;
+	Sat,  5 Sep 2026 15:55:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788623734;
+	bh=ZbTROn2XMJRinRQck/0z8ofFxMzsslytuT8P6jNEoSk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=O0+pBOdg9C1mFoFBbVYhln7tAYR2LncMzHVU3jfXsccjpJQ6V7PGuRUfZN7ZFQFkA
+	 v1KS5MtKOcjN5C5/pHQaPV3gw1NIzOUVkZpk+s0dKiD96m3vq5KLiFXyvZWOsuxc7m
+	 bPYSjQ6ueB5et8T/8e+KYMf+6g9MtRf7ahP3gQeJj7MfyX+MasWU0n8nj8AwA6caQc
+	 yr5nEUfPyZk7HrQ4dEp7yrqUk0DToZSgPC27sQVLOSp7g3r8cXtjdXv34fKu1EJmWT
+	 NiNpoeiqP3DAkamwRgKHMgJmbOwz+uyBKM38QWK1ZTgB7FuYe7gZ8wKgHJ7OwMsdkW
+	 2psCuITcFfaUg==
+Date: Sat, 5 Sep 2026 17:55:25 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Nick Huang <sef1548@gmail.com>
+Cc: "hpp.iscas" <hppiscas@163.com>, 
+	Senchuan Zhang <zhangsenchuan@eswincomputing.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, Yu Ning <ningyu@eswincomputing.com>, 
+	Yanghui Ou <ouyanghui@eswincomputing.com>
+Subject: Re: [PATCH] PCI: eswin: Publish the platform driver's OF alias
+Message-ID: <wg57x6u3fomukerbnfbmmxywoljyrlqlctytfnqdlhl74jvigg@t3aygzlhtpui>
+References: <20260905134251.67210-1-hppiscas@163.com>
+ <apwrUYd3VybxbAm7@nickhuang>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <apwrUYd3VybxbAm7@nickhuang>
 
-klp_init_object_loaded() now rejects an object whose klp_funcs resolve to
-the same address, because aliased symbols would push two klp_funcs of one
-livepatch onto a single ops->func_stack and leave the redirection
-ambiguous.
+On Sat, Sep 05, 2026 at 02:46:41PM +0000, Nick Huang wrote:
+> On Sat, Sep 05, 2026 at 09:42:51PM +0800, hpp.iscas wrote:
+> > The ESWIN PCIe host controller is a platform driver matched through
+> > eswin_pcie_of_match. PCIE_ESWIN is tristate, but the table is not
+> > published for OF module autoloading.
+> > 
+> > Publish this platform-device table. Do not change the RISC-V host
+> > initialization sequence or PCI device matching.
+> > 
+> > Fixes: b593c26d081a ("PCI: eswin: Add ESWIN PCIe Root Complex driver")
+> > Signed-off-by: hpp.iscas <hppiscas@163.com>
+> > ---
+> >  drivers/pci/controller/dwc/pcie-eswin.c | 1 +
+> >  1 file changed, 1 insertion(+)
+> > 
+> > diff --git a/drivers/pci/controller/dwc/pcie-eswin.c b/drivers/pci/controller/dwc/pcie-eswin.c
+> > index ce8d64f..1bb4469 100644
+> > --- a/drivers/pci/controller/dwc/pcie-eswin.c
+> > +++ b/drivers/pci/controller/dwc/pcie-eswin.c
+> > @@ -388,6 +388,7 @@ static const struct of_device_id eswin_pcie_of_match[] = {
+> >  	{ .compatible = "eswin,eic7700-pcie", .data = &eswin_eic7700_data },
+> >  	{}
+> >  };
+> > +MODULE_DEVICE_TABLE(of, eswin_pcie_of_match);
+> >  
+> >  static struct platform_driver eswin_pcie_driver = {
+> >  	.probe = eswin_pcie_probe,
+> >
+> Hi hpp.iscas
+> 
+> Since this driver uses `builtin_platform_driver(eswin_pcie_driver)`, it
+> appears to be built-in only. In that case, `MODULE_DEVICE_TABLE()` seems
+> unnecessary.
+> 
 
-Add a target module providing test_klp_alias_show() together with its
-__alias() sibling, and a livepatch naming both of them.  Two test cases
-cover both callers of klp_init_object_loaded(): the klp_enable_patch()
-path, where the target module is loaded before the livepatch, and the
-klp_module_coming() path, where the livepatch is loaded first and the
-module loader has to refuse the target module.
+Nope. builtin_platform_driver() only prevents removing the driver once loaded.
+Since the driver is defined as 'tristate' in Kconfig, it can still be loaded
+dynamically. So MODULE_DEVICE_TABLE() would still be necessary for udev to
+autoload the module based on modalias.
 
-Suggested-by: Song Liu <song@kernel.org>
-Signed-off-by: Harry Hsu <x90613@gmail.com>
----
-This is the selftest I promised in the v2 thread [1].
+- Mani
 
-It applies on top of patch 1/3 of the series [2] and does not touch the
-rest of it.  Petr, since you are going to post v4 of the whole patchset
-anyway, please feel free to fold this in as the last patch.  Otherwise I
-am happy to resend it as a separate follow-up once the series lands --
-whichever is less work for you.
-
-Tested on arm64 with CONFIG_LIVEPATCH=y:
-
-  # ./test-alias.sh
-  TEST: livepatch of two aliased symbols in one object ... ok
-  TEST: aliased symbols in a module coming after the livepatch ... ok
-
-[1] https://lore.kernel.org/all/CAPhsuW70RpkZ1ciioSjt6qkQePWyeic_L+98d0h-Ao3ze-TmkA@mail.gmail.com/
-[2] https://lore.kernel.org/all/20260830173343.52759-1-x90613@gmail.com/
-
- tools/testing/selftests/livepatch/Makefile    |  3 +-
- .../testing/selftests/livepatch/test-alias.sh | 81 +++++++++++++++++++
- .../selftests/livepatch/test_modules/Makefile |  4 +-
- .../test_modules/test_klp_alias_patch.c       | 62 ++++++++++++++
- .../test_modules/test_klp_alias_target.c      | 48 +++++++++++
- 5 files changed, 196 insertions(+), 2 deletions(-)
- create mode 100755 tools/testing/selftests/livepatch/test-alias.sh
- create mode 100644 tools/testing/selftests/livepatch/test_modules/test_klp_alias_patch.c
- create mode 100644 tools/testing/selftests/livepatch/test_modules/test_klp_alias_target.c
-
-diff --git a/tools/testing/selftests/livepatch/Makefile b/tools/testing/selftests/livepatch/Makefile
-index a080eb54a215..ddbeff4cb53d 100644
---- a/tools/testing/selftests/livepatch/Makefile
-+++ b/tools/testing/selftests/livepatch/Makefile
-@@ -11,7 +11,8 @@ TEST_PROGS := \
- 	test-ftrace.sh \
- 	test-sysfs.sh \
- 	test-syscall.sh \
--	test-kprobe.sh
-+	test-kprobe.sh \
-+	test-alias.sh
- 
- TEST_FILES := settings
- 
-diff --git a/tools/testing/selftests/livepatch/test-alias.sh b/tools/testing/selftests/livepatch/test-alias.sh
-new file mode 100755
-index 000000000000..4ae701de0dbf
---- /dev/null
-+++ b/tools/testing/selftests/livepatch/test-alias.sh
-@@ -0,0 +1,81 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+# Copyright (C) 2026 Harry Hsu <x90613@gmail.com>
-+
-+. $(dirname $0)/functions.sh
-+
-+MOD_TARGET=test_klp_alias_target
-+MOD_LIVEPATCH=test_klp_alias_patch
-+
-+setup_config
-+
-+
-+# $MOD_TARGET provides two symbols that share a single address.  A
-+# livepatch naming both of them would push two klp_funcs of the same
-+# patch onto one ops->func_stack, leaving the redirection ambiguous, so
-+# klp_init_object_loaded() has to reject the object.
-+#
-+# - load the target module and verify it produces the original output
-+# - verify that a livepatch naming both aliases fails to load
-+# - verify that the target module has been left unpatched
-+
-+start_test "livepatch of two aliased symbols in one object"
-+
-+load_mod $MOD_TARGET
-+
-+if [[ "$(cat /proc/$MOD_TARGET)" != "$MOD_TARGET: original output" ]] ; then
-+	echo -e "FAIL\n\n"
-+	die "livepatch kselftest(s) failed"
-+fi
-+
-+load_failing_mod $MOD_LIVEPATCH
-+
-+if [[ "$(cat /proc/$MOD_TARGET)" != "$MOD_TARGET: original output" ]] ; then
-+	echo -e "FAIL\n\n"
-+	die "livepatch kselftest(s) failed"
-+fi
-+
-+unload_mod $MOD_TARGET
-+
-+check_result "% insmod test_modules/$MOD_TARGET.ko
-+$MOD_TARGET: ${MOD_TARGET}_init
-+% insmod test_modules/$MOD_LIVEPATCH.ko
-+livepatch: 'test_klp_alias_show' and 'test_klp_alias_show_alias' resolve to the same address, aliased symbols are not supported
-+insmod: ERROR: could not insert module test_modules/$MOD_LIVEPATCH.ko: Invalid parameters
-+% rmmod $MOD_TARGET
-+$MOD_TARGET: ${MOD_TARGET}_exit"
-+
-+
-+# The same object is initialized from klp_module_coming() when the
-+# livepatch is loaded while the target module is still absent.  There
-+# the error has to be propagated to the module loader instead.
-+#
-+# - load the livepatch, it is accepted because the object is not loaded
-+# - verify that loading the target module is refused afterwards
-+
-+start_test "aliased symbols in a module coming after the livepatch"
-+
-+load_lp $MOD_LIVEPATCH
-+load_failing_mod $MOD_TARGET
-+disable_lp $MOD_LIVEPATCH
-+unload_lp $MOD_LIVEPATCH
-+
-+check_result "% insmod test_modules/$MOD_LIVEPATCH.ko
-+livepatch: enabling patch '$MOD_LIVEPATCH'
-+livepatch: '$MOD_LIVEPATCH': initializing patching transition
-+livepatch: '$MOD_LIVEPATCH': starting patching transition
-+livepatch: '$MOD_LIVEPATCH': completing patching transition
-+livepatch: '$MOD_LIVEPATCH': patching complete
-+% insmod test_modules/$MOD_TARGET.ko
-+livepatch: 'test_klp_alias_show' and 'test_klp_alias_show_alias' resolve to the same address, aliased symbols are not supported
-+livepatch: failed to initialize patch '$MOD_LIVEPATCH' for module '$MOD_TARGET' (-22)
-+livepatch: patch '$MOD_LIVEPATCH' failed for module '$MOD_TARGET', refusing to load module '$MOD_TARGET'
-+insmod: ERROR: could not insert module test_modules/$MOD_TARGET.ko: Invalid parameters
-+% echo 0 > $SYSFS_KLP_DIR/$MOD_LIVEPATCH/enabled
-+livepatch: '$MOD_LIVEPATCH': initializing unpatching transition
-+livepatch: '$MOD_LIVEPATCH': starting unpatching transition
-+livepatch: '$MOD_LIVEPATCH': completing unpatching transition
-+livepatch: '$MOD_LIVEPATCH': unpatching complete
-+% rmmod $MOD_LIVEPATCH"
-+
-+exit 0
-diff --git a/tools/testing/selftests/livepatch/test_modules/Makefile b/tools/testing/selftests/livepatch/test_modules/Makefile
-index a13d398585dc..532403e2b5ff 100644
---- a/tools/testing/selftests/livepatch/test_modules/Makefile
-+++ b/tools/testing/selftests/livepatch/test_modules/Makefile
-@@ -1,7 +1,9 @@
- TESTMODS_DIR := $(realpath $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
- KDIR ?= /lib/modules/$(shell uname -r)/build
- 
--obj-m += test_klp_atomic_replace.o \
-+obj-m += test_klp_alias_patch.o \
-+	test_klp_alias_target.o \
-+	test_klp_atomic_replace.o \
- 	test_klp_callbacks_busy.o \
- 	test_klp_callbacks_demo.o \
- 	test_klp_callbacks_demo2.o \
-diff --git a/tools/testing/selftests/livepatch/test_modules/test_klp_alias_patch.c b/tools/testing/selftests/livepatch/test_modules/test_klp_alias_patch.c
-new file mode 100644
-index 000000000000..1b50088bc92d
---- /dev/null
-+++ b/tools/testing/selftests/livepatch/test_modules/test_klp_alias_patch.c
-@@ -0,0 +1,62 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// Copyright (C) 2026 Harry Hsu <x90613@gmail.com>
-+
-+#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-+
-+#include <linux/module.h>
-+#include <linux/kernel.h>
-+#include <linux/livepatch.h>
-+#include <linux/seq_file.h>
-+
-+static int livepatch_alias_show(struct seq_file *m, void *v)
-+{
-+	seq_printf(m, "%s: %s\n", THIS_MODULE->name,
-+		   "this has been live patched");
-+	return 0;
-+}
-+
-+/*
-+ * Both names resolve to one address, so they end up on a single
-+ * ops->func_stack and the redirection would be ambiguous.  Loading this
-+ * livepatch is expected to fail.
-+ */
-+static struct klp_func funcs[] = {
-+	{
-+		.old_name = "test_klp_alias_show",
-+		.new_func = livepatch_alias_show,
-+	},
-+	{
-+		.old_name = "test_klp_alias_show_alias",
-+		.new_func = livepatch_alias_show,
-+	},
-+	{},
-+};
-+
-+static struct klp_object objs[] = {
-+	{
-+		.name = "test_klp_alias_target",
-+		.funcs = funcs,
-+	},
-+	{},
-+};
-+
-+static struct klp_patch patch = {
-+	.mod = THIS_MODULE,
-+	.objs = objs,
-+};
-+
-+static int test_klp_alias_patch_init(void)
-+{
-+	return klp_enable_patch(&patch);
-+}
-+
-+static void test_klp_alias_patch_exit(void)
-+{
-+}
-+
-+module_init(test_klp_alias_patch_init);
-+module_exit(test_klp_alias_patch_exit);
-+MODULE_LICENSE("GPL");
-+MODULE_INFO(livepatch, "Y");
-+MODULE_AUTHOR("Harry Hsu <x90613@gmail.com>");
-+MODULE_DESCRIPTION("Livepatch test: patch two aliased symbols of one object");
-diff --git a/tools/testing/selftests/livepatch/test_modules/test_klp_alias_target.c b/tools/testing/selftests/livepatch/test_modules/test_klp_alias_target.c
-new file mode 100644
-index 000000000000..b0f5fc35adf8
---- /dev/null
-+++ b/tools/testing/selftests/livepatch/test_modules/test_klp_alias_target.c
-@@ -0,0 +1,48 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// Copyright (C) 2026 Harry Hsu <x90613@gmail.com>
-+
-+#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-+
-+#include <linux/module.h>
-+#include <linux/kernel.h>
-+#include <linux/proc_fs.h>
-+#include <linux/seq_file.h>
-+
-+static struct proc_dir_entry *pde;
-+
-+static noinline int test_klp_alias_show(struct seq_file *m, void *v)
-+{
-+	seq_printf(m, "%s: %s\n", THIS_MODULE->name, "original output");
-+	return 0;
-+}
-+
-+/*
-+ * Alias the function above so that both names resolve to one address, the
-+ * way __do_sys_fork(), __ia32_sys_fork() and __x64_sys_fork() do in vmlinux.
-+ * Nothing calls the alias, it only has to show up in the module's symbol
-+ * table for the livepatch to name it.
-+ */
-+static int test_klp_alias_show_alias(struct seq_file *m, void *v)
-+	__used __alias(test_klp_alias_show);
-+
-+static int test_klp_alias_target_init(void)
-+{
-+	pr_info("%s\n", __func__);
-+	pde = proc_create_single("test_klp_alias_target", 0, NULL,
-+				 test_klp_alias_show);
-+	if (!pde)
-+		return -ENOMEM;
-+	return 0;
-+}
-+
-+static void test_klp_alias_target_exit(void)
-+{
-+	pr_info("%s\n", __func__);
-+	proc_remove(pde);
-+}
-+
-+module_init(test_klp_alias_target_init);
-+module_exit(test_klp_alias_target_exit);
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Harry Hsu <x90613@gmail.com>");
-+MODULE_DESCRIPTION("Livepatch test: target module with two aliased symbols");
 -- 
-2.43.0
-
+மணிவண்ணன் சதாசிவம்
