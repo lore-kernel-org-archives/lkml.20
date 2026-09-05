@@ -1,119 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80DC049C4D4
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:10:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99650364929
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:11:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788621025; cv=none; b=QZBDw1Kd+NN7g6NKjb4RteFhwaatGeYYLgEIV+Z0EJaNHPDjMGuj2Zv5uMJLBzxhUShRBWgPVIlESg/WGlLdVlBYCvSKdgIx0jvok37SAevSlAvG3OUl7eMZj+GBBueAZXuL2ZrbiAk9QW7blgb3H3ZoWCWFtz68JQN0aqrmKGE=
+	t=1788621102; cv=none; b=LNR0ZU+SOfRAH2ixGwWRvc5ZdvCIZr5L4tkuSad90UYjOcWbRNQKttmRypqx8FR10Z9LpLVZlAskosQYnJadqJFHdxyXlTEpCncSaIfNYICA8h/VGEgfUo3Z9qRtdmTQisxN1pWHgjHbAtO0XGrA2MHdSAZTO3Gzm/dXIqoX8u0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788621025; c=relaxed/simple;
-	bh=2mJGIwyj/xSapbZTBjcCCPDQG9hmyLml1tmEw/lAXg4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=W/9Gx76BLuSSqlMA6oA+Z+0zv0zUjQ8HoSnkbiFxtqfjeiKjYeFZs3iqN4LtZagyAmWl5aR492PhdG1mX7nI5i/Fbiorknf2F4HwGngCwQSY0rWPVx8NlaMaPexMtVsxvcPfS7rKOjtj/U0zcNAR2Ggo2CUQU++JeWpHdNPC09Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nV6uVKpL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788621102; c=relaxed/simple;
+	bh=jcWgGXPavR4NDZXc348pVXSF9p4lh2CqNoZC0YX28IU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QfdLc97DxvbH2IQbq89jKOkpEO0MEo8L6ZRDJ4wE/BoL+0Z58Zm8lCEL5KAZStQTLiGoFkS1y2p1N4PfkBaz6e3V96/TQXDehe4Fv7vfT2amoKlZtiyVLHfRAUtAe9JdRWVNj3ZRFVj9kT35IVZ+VlDSHs86Enk/WJQe4nMHh6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NSWMvvqG; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nV6uVKpL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD43F1F00ADB
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:10:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788621017;
-	bh=+ngsQXI4zC+888E4/OJjdNvUmB+wO5RAGN8skdj0V40=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=nV6uVKpLTHEp92ojh5OIDyFlT2qxb10Gzvnd+exrHrBkT8Gf1sVt9N/BdHtO+mEoH
-	 S2JLnrgI1wAvdUENdAdM1pZ+MKRqpnfUgDKTR1XAaM8T7i8I0HImhUbBxnBqpinB8x
-	 ezMftbRgj4MsAZmGLM6KwFvfkexUlg1+N/88EUKqvDLQIeWXL9+dwjNlbqd+p+VDB1
-	 vCmOOoQIsQPHFFPBYSqdWMEZ7BVbViGnxIcv97KWDAtXI21zQTy6H/MsVoUG3/1BaM
-	 c7lAPoY7nLb99+DVD1/5Rhi6NH77XXVTLA51EbrNFv+KF3T1TJKEKPloyXctBCTa/o
-	 eDAkMEF/BYykQ==
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6a668ce86abso3205773a12.2
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 08:10:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwIhfkPtrRUs0nBPcOu3WygCixdZhHxmqeh3jd2bJQvaj5Lx0SYzbZB7VsTN7WdesjpQuvW1XVdq6c7MP4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lJTAvUNosCU/0tDiya+EPlmFIxdCwSpL5sNxiZAfvUWDrO6Mph
-	wlV74mbwNMYN3NurWXYwJs1ml7BIFZq71ZlDuE5e1IvbcERWduvKhEfnep3i13NsLx9Hje5rL3S
-	RTnGnmdCtiivZNeewrzeN6TChugxBjyA=
-X-Received: by 2002:a05:6402:2b91:b0:6a6:32f5:90b0 with SMTP id
- 4fb4d7f45d1cf-6a7e8f973f7mr7958295a12.18.1788621016394; Sat, 05 Sep 2026
- 08:10:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NSWMvvqG"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843178b1c8so96222f8f.0
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 08:11:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788621093; x=1789225893; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=V6Tg/R56zXVR2Nup96RdAYV8c+PyuQeFJYrSPcXGgxo=;
+        b=NSWMvvqGARJanErDt2vACsLP+soKAYAvX9bcvceCn7MKSwZXvjq4ysW1CP2F1X5DhC
+         mtR+pKkr7aJ7Vg3cD27HQ/doFez751rCkk8ozJKmveD+cRXsuxkTABSkBRPta2kGTAp8
+         4E7hen1Aamuyd89qmoKNSZurgJ5SQBeeOnba+yC5YyJXbR2MWT2X/nbACtgZP4Vgidsb
+         lHFmhhWUUl3zWlir2XF+nqHiev3dtxXlpQdXTulXg4FFZsXTabAV9NF4YLsTeHWXiqo7
+         3nd6kQY4vShHirE6cBTg5LqOR1EX5z/350bzLCSABpdUqLcLxNZttOMXHI8pXxfWMagc
+         PqBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788621093; x=1789225893;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=V6Tg/R56zXVR2Nup96RdAYV8c+PyuQeFJYrSPcXGgxo=;
+        b=bQzt1hKVbRldi0LSIFJv1pEb2JSeJFeTJvNP/fQVAaduMhY237yVxvE8BTbwg0RPIG
+         NNxR+mBSYCc5wyUQkFU/6kkSrcreHr0RRIBpi1zJfmu7o9klDVtsz0HVv3SxlC/UR0CM
+         i4QkEAhtfdPoB1TWYSluU1wE8BwCpqaHMChUVVSfmK5nrhhb0/vMf/ipCg3SlEVzz1bl
+         cL+X6tHY0HTuhlsL6fvGRpzgDsCgS9yUA+SqC01gLBbxe4EXL0Dzly31cULyOkp6i8Hu
+         M3rXoN2OgQSEbvlldE8Dzz3svJk96NfXFHKNQz6hmUjoCT8dY6ssI1qkk0WUmXvQQAdq
+         tE/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx3giwvCe6lDyGyLZDZWYB5NvQx4YRxlXLwNfZULECwB79EbPbgz/MvXYo/77rzYCP/ShGjoCHmJplK3wo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nQZTB7iBhzlstvYyk4uOfgyn3X3umn+lu/WqVEmdljUC6CZZ+m
+	9rRP9JqSjI2/RFyACELNKJKCpx7NCfhVOLCRG8IBJztC4OONOxeVjKQt
+X-Gm-Gg: AYBFou2IGRnwzcRpcOGH442QBYETVQsicEO6PVZ+1SRfnhjQ+SqG6c/t26R21cctcPP
+	ewAG11VtlUlWcyUzsq42zz1IL+ftKpGGwU8/DGdtn5hXl5YfkQW5lLDawY3+4EZCGh3YlZxJUhp
+	Yd+s4M6F5B7dZmeBsdg5ekmr9apPqRpvad6LINYkyE+AaLZl9lcdI5KQbycJv1NaSsHy/c5lwpM
+	ufT7m+B7KG2lhJICCSNjXRwHcWWAF4G1J/7V4ImOmegv1z4AiIfdNA1X/d9Av3fqIWg8CVwgRes
+	ywx4xM/LHSdaVbMZ4kj3VSAsgup27O7wsoZ9gSPkK8s5lPJIp/lkz/gMqj9G8aGSpSvVL7iECwf
+	bbpwkL6mpBttBfVMFA40RVh5AjrK7okeBaGv6IohtQX7vPjcLRPvioONwSEg1etS7Lc3dEtJIJx
+	DDcLSQXACGDLGyjmJAhJv73/UXIKZNdDD/zpNlB6bZbQkI4mV68TYbVTRY46VZvL42+hJq1jhEQ
+	vk3N6MjB+fWmqFwRPx+0d8cJtfh86Tx3kMcsvupDTJVsFPvQxyJsE8WrvM3v4+wZg==
+X-Received: by 2002:a05:600c:860b:b0:49c:f9b8:bae0 with SMTP id 5b1f17b1804b1-49d01dd6b62mr41625625e9.2.1788621092762;
+        Sat, 05 Sep 2026 08:11:32 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME (20014C4E1B950E0061C002CD703C2CBB.dsl.pool.telekom.hu. [2001:4c4e:1b95:e00:61c0:2cd:703c:2cbb])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48588135600sm11955662f8f.2.2026.09.05.08.11.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 08:11:32 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Sidong Yang <sidong.yang@furiosa.ai>
+Cc: Igor Paunovic <royalnet026@gmail.com>,
+	Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Oded Gabbay <ogabbay@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Jiaxing Hu <gahing@gahingwoo.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] accel/rocket: search every core slot when a core is removed
+Date: Sat,  5 Sep 2026 17:11:06 +0200
+Message-ID: <20260905151112.8752-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <apwUewaRnoTNXHCt@rock-5b-plus>
+References: <20260904125936.26234-1-royalnet026@gmail.com> <apwUewaRnoTNXHCt@rock-5b-plus>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260828093604.56622-1-zeng_chi911@163.com>
-In-Reply-To: <20260828093604.56622-1-zeng_chi911@163.com>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Sat, 5 Sep 2026 23:10:05 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H4Jc4txZ-cQO-h6yZmfk3YEgeEptKtRQcDO=US3sies0A@mail.gmail.com>
-X-Gm-Features: AcwNN1UKvRHYPv7HdHEqhee4ixh5TS5UumQJLZJh8j4AXNvX5xvnzRkPfAjWnIM
-Message-ID: <CAAhV-H4Jc4txZ-cQO-h6yZmfk3YEgeEptKtRQcDO=US3sies0A@mail.gmail.com>
-Subject: Re: [PATCH] LoongArch: KVM: Validate MSI data before routing it to EIOINTC
-To: Zeng Chi <zeng_chi911@163.com>
-Cc: zhaotianrui@loongson.cn, maobibo@loongson.cn, yury.norov@gmail.com, 
-	kvm@vger.kernel.org, loongarch@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	zengchi@kylinos.cn, stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Applied, thanks.
+Hi Sidong,
 
+> I've tested this patch in Radxa Rock 5 B+ and it works.
 
-Huacai
+Thank you. That is the first test of it on an RK3588 that is not mine, and
+b4 collects your tag with the comment attached.
 
-On Fri, Aug 28, 2026 at 5:36=E2=80=AFPM Zeng Chi <zeng_chi911@163.com> wrot=
-e:
->
-> From: Zeng Chi <zengchi@kylinos.cn>
->
-> pch_msi_set_irq() passes e->msi.data straight into eiointc_set_irq() as
-> the irq number.  The MSI data comes from userspace, either via a
-> KVM_IRQ_ROUTING_MSI entry set with KVM_SET_GSI_ROUTING (used by irqfd
-> and KVM_IRQ_LINE) or directly via KVM_SIGNAL_MSI, and is never checked
-> against EIOINTC_IRQS.
->
-> eiointc_set_irq() uses the value with __set_bit()/__clear_bit() on the
-> 256-bit isr bitmap, eiointc_update_irq() then indexes sw_coremap[] and
-> the per-cpu coreisr/sw_coreisr bitmaps with it.  A data value >=3D 256
-> therefore reads and writes memory past the end of those arrays, i.e.
-> any process holding a VM fd can corrupt kernel memory beyond the
-> loongarch_eiointc allocation.
->
-> Reject MSI data that doesn't fit in the EIOINTC irq space.  The DMSINTC
-> path is unaffected as it decodes the vector from the address and masks
-> it.
->
-> Fixes: 1928254c5ccb ("LoongArch: KVM: Add irqfd support")
-> Cc: stable@vger.kernel.org
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/20260531140921.1B1181F00893@smtp.kern=
-el.org/
-> Signed-off-by: Zeng Chi <zengchi@kylinos.cn>
-> ---
->  arch/loongarch/kvm/intc/pch_pic.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/=
-pch_pic.c
-> index e7b77705c516..81fb534ce8dd 100644
-> --- a/arch/loongarch/kvm/intc/pch_pic.c
-> +++ b/arch/loongarch/kvm/intc/pch_pic.c
-> @@ -78,6 +78,9 @@ int pch_msi_set_irq(struct kvm *kvm, struct kvm_kernel_=
-irq_routing_entry *e, int
->                 return dmsintc_set_irq(kvm, msg_addr, e->msi.data, level)=
-;
->         }
->
-> +       if (e->msi.data >=3D EIOINTC_IRQS)
-> +               return -EINVAL;
-> +
->         eiointc_set_irq(kvm->arch.eiointc, e->msi.data, level);
->
->         return 0;
-> --
-> 2.25.1
->
->
-> No virus found
->                 Checked by Hillstone Network AntiVirus
->
+> It seems that there is other issue about num_core. For example,
+> sched_to_core() finds core for sched with num_core and it could make
+> same error like find_core_for_dev().
+
+You were right, and it is worse than a failed lookup: neither caller checks
+what sched_to_core() returns.
+
+I built a KASAN kernel and unbound the middle of the three cores while three
+clients were submitting to all of them. It faults twice, once from the
+surviving core's job queue and once from its reset work:
+
+  KASAN: null-ptr-deref in range [0x0000000000000220-0x0000000000000227]
+  Workqueue: fdad0000.npu drm_sched_run_job_work [gpu_sched]
+  pc : rocket_job_run+0x234/0x838 [rocket]
+
+  KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+  Workqueue: rocket-reset-2 drm_sched_job_timedout [gpu_sched]
+  pc : rocket_job_timedout+0xf0/0x1e0 [rocket]
+
+Both are the third core. The workqueue names are its device and its
+core->index, and it had been left at slot 2 while num_cores was down to 2.
+
+The fix is one word, and it carries your Reported-by:
+
+  https://lore.kernel.org/dri-devel/20260905150432.7477-1-royalnet026@gmail.com/
+
+Same test on a kernel with it applied: no faults, journal clean. It applies
+on top of the patch you tested, since max_cores comes from that one.
+
+What it does not fix, and the patch says so: an open client keeps an entity
+pointing at the scheduler of the core that went away. drm_sched then logs
+"not ready, skipping" for every job that lands on it - 25006 of them in my
+run - and the client waits in dma_fence_default_wait for a fence that will
+never signal. The board stays up and the client hangs. Making one core of
+several safe to unbind while a client is open needs more than a fix, and I
+did not want to hide that behind a patch that only stops the oops.
+
+Thanks for reading it closely enough to spot the second one.
+
+Igor
