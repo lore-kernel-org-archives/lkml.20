@@ -1,48 +1,78 @@
-Received: from mta1.migadu.com (out-83.mta1.migadu.com [95.215.58.83])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5653B17C203
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 19:16:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.83
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EEDA314B63
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 19:16:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788635803; cv=none; b=uC6gMy36mGsre7VkC63ei2y/IadSY7N94f6ggT79ldAGAl5XEWpIMQ20bpJqqrFad+bPvSBcb69LdbuMMaAyoe5qbAE7GZMfw8TdIDuwiixGvhTXZilxN40d9auMbU0Q7ET4ZOtXF+Laf5qGtFPwRRHLxVkniOMZctL6xHlp+cI=
+	t=1788635810; cv=none; b=jbk1rVBQTdsmJmPOii3ApJbJNuxCtLiWqljKH3hwJuqNU+yxuBDUHJ3S0HzxxVBxw29Ccuj0pCm3PiDgT2TF0flX14Wvysd1PTXyVTcbQ88z5OBFSQjRvdmXmzZZ9gDGjWwG0Ab3dzrqqFdhTFhMj/cUdwNwvsMvPncbu55ptz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788635803; c=relaxed/simple;
-	bh=B7GMcmolD2T4Q/YoXp324L2Yk7TLtKzhIO850KXzPmo=;
+	s=arc-20240116; t=1788635810; c=relaxed/simple;
+	bh=MQ70GUo6Al8lXOJcr2PlWC8uCB3dRhogRoP/FLW6/Do=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mlPV0+xmE4ySNikLxEreL50AdKrvkekYgZ1NGscIGxKwV2vvyb5XEtDDlrKHy/bA70oz2t8Adl9CuYJBY+LxAW1HLU5vuzMMyHZpm+ffn8GQS0Y2Q39uKtrNNwASIH1ViedyHqNAOyR2kCCIo73Cooy8JP9XsVLZayb82iaLz8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Z1btD1VS; arc=none smtp.client-ip=95.215.58.83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 MIME-Version; b=nl0m2ZPTPAkTyfqLluOx/WUZoeZmMVgBlhvO2NwmLjwmqbAphnqx8EtBfUpmeGUL0jsb8+pzythh9Fsiefses+bY65hVL0inoWZZTazkS0RIAxtmP+p0xUIWOUaiYrPrS6rfK5R5TI8RF0cc6mGgQkMxMTPzS2dxQAztqIw8O3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dAYAqXsM; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Z1btD1VS"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=B7GMcmolD2T4Q/YoXp324L2Yk7TLtKzhIO850KXzPmo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788635800; v=1; x=1789240600;
- b=Z1btD1VSkIcyATo5dTpvZO5bWxhKYGYQxcEgjnkyD1lkQ87UZ+UVSQTmEEnWQLt/0S0O8tMJ
- Kt613VwwjPxDf1pNkLWeipv7FNiw8Qp5p2qxMO+14edtZdIwylmlG3L3vEuSK5nQaPTKP2iCJrZ
- YflB+vcUulW8B/V2gKgTiWwI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 52e3934d4d77491d;
-	Sat, 05 Sep 2026 19:16:40 +0000
-X-Mizu-Trace-ID: 52e3934d4d77491d
-X-Migadu-Flow: FLOW_OUT
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tejun Heo <tj@kernel.org>,
-	Christian Brauner <christian@brauner.io>
-Cc: Meta kernel team <kernel-team@meta.com>,
-	linux-kselftest@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 4/4] kernfs: fix up the unlocked attribute reads on the creation paths
-Date: Sat,  5 Sep 2026 12:16:13 -0700
-Message-ID: <20260905191613.3143937-5-shakeel.butt@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dAYAqXsM"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d94c868ea5so22390645ad.3
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 12:16:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788635799; x=1789240599; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=e4Ym2Cy/+2xCx8lotVDxU3Xy1r3ogvpZwKy3EYgHfC4=;
+        b=dAYAqXsM99FLRjTWk+cGDXCYpVPt0DVeTgMeSbsDhbsM4g0rAN8tFEuOAj9jSiFWSx
+         7f8lgdLwkupWVq5pMVkM+ihpcQCY1HCvnnUvAduJsY2V5RJRW1YI680KlxFTNV8cfEnz
+         e16BEIbgZx7dg5zGqCaLjU4F5FeJZVy+nxBgbGqS1W68wufyfaIRpzG96ruecAh7YeqL
+         8B2OzYXp5kCQyUjF+pVeRVH5qJV+5f1l3ztNwD1cmmIVdkMIaBDxGkpx2GISB/ozMH/K
+         wAMPrXqZXd17bxUVthwSPefnf1+Lvh9DblqJ9wlBIFCQ9XacKWp+neo0OWle7XEB+ann
+         vpwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788635799; x=1789240599;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=e4Ym2Cy/+2xCx8lotVDxU3Xy1r3ogvpZwKy3EYgHfC4=;
+        b=aTUO+RLeM2zYiNh2JvZcO2DUmhxskSabY4fjf+oOrEtE2lGd+rGYroYb6nnMeP1+mP
+         6D4e4haiNalHMuG7gyPRUmQNdKD4Y2JzQkVp5EUaNrE1g6dnnwT08U4BN4CUy4yk7YRr
+         Bc/YrlBEZJI12xuFlaIv2+krGsIXQjpaPpitbz2suC8WjQK/pYI5i8TYgsVnqDMORRan
+         gaHoD/jBi4hB//Flw0O1NKlBMY0wlllJqAH8HRT71OE+GVm+nbBTRjXkFVGvnqeqhyLn
+         Dmmp/uPmCLN/HmcUbvzcrWBcFURgwN59pKUvnRMT6nveC9qNpBDisoOpLw9v+QP6qW8u
+         IAEg==
+X-Forwarded-Encrypted: i=1; AKwUvBwvDS2AeMDFvlAUMZFAnQI9y1y5sTUZA58C6jxdYbruyQw8BAcF3WsHvkTZLaK88Of1qxFMHBbxSJUQqlg=@vger.kernel.org
+X-Gm-Message-State: AFuF++n65YRQC5QRHoLR7lf4FE+gXHLYxPsHsS0lIPGhP7cjxdNgd9+X
+	17kQNW5KtBXMquqoQuTEsIWKUNUmkXT5+SCSuhXSEu/JKJqbJFeBqwA=
+X-Gm-Gg: AYBFou1cmfdt+p7sWDjx00DQGAet6R/D2GqEjdj+6s3KxQGirbqY0pWSjeyGtRrssvY
+	y4CHyIdat2bx+OcujdoGgzpYbIUeHA+2AAo5UkIHx8JVfinWRDn+SgVxTI7UN2H8G+ccERV8b88
+	D/v7gzyTJOqRbSzWh/qT8n6lz1bIZ7beGqnwm2jcjA4HTifSuGCUvpGoddC3H7o0GuyUY3N+nYb
+	xxdKbH1djjvmjs800l15HiP/SYWa3kAVCZYNnQcUGBcoXa6vF1A7hZgzS/TIWI9QTAzcP4llwoj
+	GDGUzSjDAKtr9zoHcDB4dQGMNgpMiP7sgt4I3X1/Qk47p2PkuOMDpEkrAUIuLuZHIeUIoH2lSqZ
+	PzTLDAwnlQoCzujWo7U6tinaChjwSXfnYDDWHVRW8gEEJHk7kVDpSIxzMD7BFLOBRphEV97WNjp
+	rCcH8BcQz62xteb7PVR0U44YdEsyK5T8SX5nekn9Qdns64Wxu1LkghKT7RSq9dBY7v6GYOCHc6K
+	6qgYQwmO13O1TQ=
+X-Received: by 2002:a17:902:ebc3:b0:2db:20fa:9443 with SMTP id d9443c01a7336-2db20fa96d6mr142156685ad.13.1788635798877;
+        Sat, 05 Sep 2026 12:16:38 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([211.230.25.193])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1499dad4sm24859645ad.55.2026.09.05.12.16.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 12:16:38 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: Sean Anderson <sean.anderson@linux.dev>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Subject: Re: [PATCH] dma-mapping: don't trace the DMA address when the allocation fails
+Date: Sun,  6 Sep 2026 04:16:34 +0900
+Message-ID: <20260905191634.179897-1-donggeunyoo.kernel@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260905191613.3143937-1-shakeel.butt@linux.dev>
-References: <20260905191613.3143937-1-shakeel.butt@linux.dev>
+In-Reply-To: <b36f40ac-cd77-a480-d558-139334334b16@linux.dev>
+References: <20260905071919.30784-1-donggeunyoo.kernel@gmail.com> <568a4f04-e0db-342a-13a8-886cf6b2a8ab@linux.dev> <20260905172650.158565-1-donggeunyoo.kernel@gmail.com> <b36f40ac-cd77-a480-d558-139334334b16@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,94 +81,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Two creation paths read a live node's attributes without holding
-kernfs_iattr_rwsem, which kernfs_iop_setattr() takes for writing.  They
-need different fixes.
+On 9/5/26 14:37, Sean Anderson wrote:
+> Ah, I see what you mean. TBH I would just do something like
+> 
+> cpu_handle ? *dma_handle : NULL
+> 
+> to make it clear what we're doing
 
-kernfs_create_link() copies the target's ia_uid and then its ia_gid into
-the new link.  A chown of the target between the two reads leaves the
-link with the old uid and the new gid, an owner the target never had.
-Read both under the rwsem.
+It would have to be 0, dma_handle being a dma_addr_t, and
+debug_dma_alloc_coherent() reads *dma_handle too -- it drops the value
+when virt is NULL, but the read is still there -- so the conditional ends
+up written three times.
 
-kernfs_new_node() reads the parent's mode and ia_gid for S_ISGID
-inheritance.  Either value is fine there: the node does not exist yet,
-so nothing orders a racing chmod or chown against the creation.  Taking
-the rwsem would only pick between two answers that are both right.  Mark
-the reads with READ_ONCE() instead.
+68b6dbf1f441 gave dma_alloc_pages() and dma_alloc_noncontiguous() the
+if/else split rather than a guarded argument, and I kept dma_alloc_attrs()
+in that shape so that the three read the same way.
 
-The pointer that leads to them is already fine: __kernfs_iattrs()
-publishes kernfs_node::iattr with try_cmpxchg(), and both sides read it
-with READ_ONCE(), like the rest of fs/kernfs.
-
-The Fixes tag is for the symlink half.  kernfs_create_link() has read
-the pair unlocked since it started copying the target's owner; only the
-name of the lock its writer takes has changed.  The READ_ONCE() markings
-are not a fix.
-
-Fixes: 488dee96bb62 ("kernfs: allow creating kernfs objects with arbitrary uid/gid")
-Acked-by: Tejun Heo <tj@kernel.org>
-Assisted-by: LLM
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
----
- fs/kernfs/dir.c     | 12 +++++++++---
- fs/kernfs/symlink.c | 17 ++++++++++++++---
- 2 files changed, 23 insertions(+), 6 deletions(-)
-
-diff --git a/fs/kernfs/dir.c b/fs/kernfs/dir.c
-index 214c97130a8a..07abf59f0264 100644
---- a/fs/kernfs/dir.c
-+++ b/fs/kernfs/dir.c
-@@ -736,13 +736,19 @@ struct kernfs_node *kernfs_new_node(struct kernfs_node *parent,
- {
- 	struct kernfs_node *kn;
- 
--	if (parent->mode & S_ISGID) {
-+	/*
-+	 * The mode and the gid below are read unlocked on purpose: they feed
-+	 * a node that does not exist yet, so nothing orders a racing chmod or
-+	 * chown against this creation.
-+	 */
-+	if (READ_ONCE(parent->mode) & S_ISGID) {
- 		/* this code block imitates inode_init_owner() for
- 		 * kernfs
- 		 */
-+		struct kernfs_iattrs *attrs = READ_ONCE(parent->iattr);
- 
--		if (parent->iattr)
--			gid = parent->iattr->ia_gid;
-+		if (attrs)
-+			gid = READ_ONCE(attrs->ia_gid);
- 
- 		if (flags & KERNFS_DIR)
- 			mode |= S_ISGID;
-diff --git a/fs/kernfs/symlink.c b/fs/kernfs/symlink.c
-index 90e2b3221b83..3e53105d3abf 100644
---- a/fs/kernfs/symlink.c
-+++ b/fs/kernfs/symlink.c
-@@ -31,9 +31,20 @@ struct kernfs_node *kernfs_create_link(struct kernfs_node *parent,
- 	kuid_t uid = GLOBAL_ROOT_UID;
- 	kgid_t gid = GLOBAL_ROOT_GID;
- 
--	if (target->iattr) {
--		uid = target->iattr->ia_uid;
--		gid = target->iattr->ia_gid;
-+	/*
-+	 * A symlink takes its owner from its target, so both fields have to
-+	 * come from the same moment: read them under kernfs_iattr_rwsem, or
-+	 * a chown of the target racing this could leave the link with the
-+	 * old uid and the new gid.  The section ends before kernfs_add_one()
-+	 * takes kernfs_rwsem.
-+	 */
-+	scoped_guard(rwsem_read, &kernfs_root(target)->kernfs_iattr_rwsem) {
-+		struct kernfs_iattrs *attrs = READ_ONCE(target->iattr);
-+
-+		if (attrs) {
-+			uid = attrs->ia_uid;
-+			gid = attrs->ia_gid;
-+		}
- 	}
- 
- 	kn = kernfs_new_node(parent, name, S_IFLNK|0777, uid, gid, KERNFS_LINK);
--- 
-2.53.0-Meta
-
+I don't feel strongly about it. Say the word and I'll respin with the
+conditional inline.
