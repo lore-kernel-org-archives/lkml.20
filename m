@@ -1,168 +1,80 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 120A8442B0A;
-	Sat,  5 Sep 2026 07:59:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FE273E4C9F;
+	Sat,  5 Sep 2026 08:00:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788595198; cv=none; b=aFLQPZV2eDU+ikGOBmkTTEIT3zf56LxDyzvwnjKoFv0m1lFC8bEdS3zAoPePwk5T/u5r/9k+Pej4jF09TipeOCgy96Ht/AOdEQUN5mE6wCm0YWeQDjS8wt1wwZje4y2w8SaxTPusH2n153Vx05CfZF08jJpqbBuoQQq7jKURI7E=
+	t=1788595213; cv=none; b=uty6C0UsFIUbnX9DY0Q3JP+qrSap9CwGkJ9j5zHfKO85xIh+ddcT2cx098av2OSROuCQENG2Z29DoB8N4njahfQPbOVOy0w+Bfk7vWc3Qhfmt5/SQHDtAaUO2eRk0UTOMHF4sundT6Bc5AoPph18lMeUWEBA4SX49IjmmSZuQH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788595198; c=relaxed/simple;
-	bh=pbA6rvFYYarR8MxJYGq5cw/7vkB61rDNf7lyNAo93QA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Pr+FK4VlKjdOBKgdybcCWh2x5z0oa84f5/jJN1gcWv8s4h6yFyH5fVLWfidlAgi4WwsFYbsBTHeGoOfMmqhtFfczE2AR6cm0Ya7fT48dQ5iqjpL9Aj+fOYTdQVlmnvze1mFXa883/+kKPmHiLWxCyOB++o4FOGPpsX2IWdmODoI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DzAnZRtu; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788595213; c=relaxed/simple;
+	bh=Ys0EXsW/iQZvbZ+wdSIk/9ZJlufhqMHJBNUUbCJRhTI=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=IlcfW4X+yDnl3GxlSHKMk/redK+34ney+sADc2WhNYHgiJgb0EeylEMZQbgxmVdf71ZmxHH1ozH2/BA5kLJuwpZ7Wah6kxyBZT5i5IOv8mGl2qvjg5BpbtHSQ5+nuzAvW0K4q6pYt/6QdkIcz1u7eVHyt0Wl5PyKOayijdhQft0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UrWmeRH0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DzAnZRtu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788595193; x=1820131193;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=pbA6rvFYYarR8MxJYGq5cw/7vkB61rDNf7lyNAo93QA=;
-  b=DzAnZRtu1APOyPMK1LdihdyxbWQ6vCjwcYlI1LrRFNsI3GEXSA3Eus0L
-   Duwrg1QUsuaxKhNHVE7GgKcsbN5YPbnQ7YbQbBrsu5XTFZd56Si/T233i
-   da662Ea5IWPBxIjzzD6chmU3/z2s1qhTvRqR3blBYGEuXoReioqCI7BPy
-   f5OBbOU7fppXOcyhC24FFZAFZdggvy6fr6LlMTYEXgJgAowR0+wyvUbHw
-   5UFOrF2GMRB7HFlOkZMza70QM/gNdI0TZBwn3XrKQe2Pqt+RJTB0XtCwn
-   Khkh+RO1BGOt2wHxMpPKZisTXPLryNSlTfv5QYNDgzcL3ERliB4gQv4Uw
-   Q==;
-X-CSE-ConnectionGUID: pPkDbu7NRq+Dkqg0k/kGRw==
-X-CSE-MsgGUID: pEHWzqntT+OhMx285TMMBA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11896"; a="99682093"
-X-IronPort-AV: E=Sophos;i="6.25,263,1779174000"; 
-   d="scan'208";a="99682093"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Sep 2026 00:59:47 -0700
-X-CSE-ConnectionGUID: Xf5I0G4OTMOcp1QBaOOGYQ==
-X-CSE-MsgGUID: ynFtavY4QxibRVi+CHkcdw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,263,1779174000"; 
-   d="scan'208";a="295125461"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.245.105])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Sep 2026 00:59:38 -0700
-Date: Sat, 5 Sep 2026 10:59:35 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Frank.Li@oss.nxp.com
-Cc: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	Patrice Chotard <patrice.chotard@foss.st.com>,
-	=?iso-8859-1?Q?Am=E9lie?= Delaunay <amelie.delaunay@foss.st.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Ludovic Desroches <ludovic.desroches@microchip.com>,
-	Viresh Kumar <vireshk@kernel.org>,
-	Keguang Zhang <keguang.zhang@gmail.com>,
-	Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Daniel Mack <daniel@zonque.org>,
-	Haojian Zhuang <haojian.zhuang@gmail.com>,
-	Robert Jarzmik <robert.jarzmik@free.fr>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Kelvin Cao <kelvin.cao@microchip.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	linux-arm-kernel@lists.infradead.org, dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-trace-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
-	linux-actions@lists.infradead.org, linux-sunxi@lists.linux.dev,
-	imx@lists.linux.dev, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 4/4] dmaengine: add union chan_dev for dma_chan::dev
- for clarity
-Message-ID: <apvL5yXKGHrEyp9Z@ashevche-desk.local>
-References: <20260904-dma-chan_dev-rename-v3-0-685601b0b788@nxp.com>
- <20260904-dma-chan_dev-rename-v3-4-685601b0b788@nxp.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UrWmeRH0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E74461F00A3D;
+	Sat,  5 Sep 2026 08:00:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788595212;
+	bh=gP9G6nGDbEt6seiJf/e5HFhvzZwqPiQgpFOg/RjaH6s=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=UrWmeRH0V7G3RqAtg8JnHdCkMuNInzwII1uDMmThveoy65V7BLl3fGSOZfrHiLMzS
+	 TloF4wVWA8r+eTv6cQxbGdHOZnc0ssYgKzFuOJAx1bOOciRUazqP+T/YDPenM+HNOV
+	 +7R8h+DoxFNszyoQGGeCbUYbbTOUfH+7POKrNsjQ6+adcaYhatlw+pfhjyeL4syJaD
+	 TBYwqMZdt/jhqFP036Vw2sdBv3Efcqhf4MUXi3yg9er9eUS6zPJd9QdPaO1bJ41CBn
+	 oU8pRXeDDQyGk/GCasPOhqK/ZY5LFHV9PK1O6nK+pBg5RQeOb+WEqFndMOCfqdbcHZ
+	 dVVIFNeORQ+Rw==
+Content-Type: multipart/mixed; boundary="===============0877743137689148681=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904-dma-chan_dev-rename-v3-4-685601b0b788@nxp.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Message-Id: <27b33e8d655c23498a546736e58ef01721ddc18462164e181864295a3b01ef42@mail.kernel.org>
+In-Reply-To: <20260905070409.4141522-2-pulehui@huaweicloud.com>
+References: <20260905070409.4141522-2-pulehui@huaweicloud.com>
+Subject: Re: [PATCH bpf-next v4 1/3] riscv, bpf: Remap BPF_REG_0 and RV_REG_TCC
+From: bot+bpf-ci@kernel.org
+To: pulehui@huaweicloud.com,bpf@vger.kernel.org,linux-riscv@lists.infradead.org,linux-kernel@vger.kernel.org,jiangfeng@kylinos.cn
+Cc: bjorn@kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,puranjay@kernel.org,pjw@kernel.org,palmer@dabbelt.com,alex@ghiti.fr,pulehui@huawei.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Sat,  5 Sep 2026 08:00:10 +0000 (UTC)
 
-On Fri, Sep 04, 2026 at 05:49:46PM -0400, Frank.Li@oss.nxp.com wrote:
+--===============0877743137689148681==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-> The current dma_chan structure contains both "device" and "dev". So
-> 
-> chan->device->dev refers to the DMA engine device.
-> chan->dev->device refers to the per-channel device instance.
-> 
-> Their similar naming makes the distinction unclear and increases reader
-> confusion.
-> 
-> Add union dma_chan::chan_dev to make its purpose explicit and clearly
-> identify it as the per-channel device. After all user switch to chan_dev,
-> union and dma_chan::dev will be removed.
-> 
-> Update the kernel-doc accordingly. Besides its sysfs usage, the per-channel
-> device is also used by some DMA engine drivers for IOMMU mapping and
-> therefore deserves a more accurate description.
-> 
-> No functional change intended.
+> diff --git a/arch/riscv/net/bpf_jit_comp64.c b/arch/riscv/net/bpf_jit_comp64.c
+> index e7378be171a9..aac128b9f0a4 100644
+> --- a/arch/riscv/net/bpf_jit_comp64.c
+> +++ b/arch/riscv/net/bpf_jit_comp64.c
 
-I was almost ready to give a tag for the entire series, but found a minor
-issue here...
+[ ... ]
 
-...
+> @@ -1075,7 +1075,7 @@ int arch_prepare_bpf_trampoline(struct bpf_tramp_image *im, void *ro_image,
+>
+>  	save_ret = flags & (BPF_TRAMP_F_CALL_ORIG | BPF_TRAMP_F_RET_FENTRY_RET);
+>  	if (save_ret)
+> -		stack_size += 16; /* Save both A5 (BPF R0) and A0 */
+> +		stack_size += 16; /* Save both T6 (BPF R0) and A0 */
 
-> +++ b/include/linux/dmaengine.h
-> struct dma_router {
-
->   * @lock: protect between config and prepare transfer when driver have not
->   *	  implemented callback device_prep_config_sg().
->   * @chan_id: channel ID for sysfs
-> - * @dev: class device for sysfs
-> + * @chan_dev: class channel device for sysfs, some device use it for per-channel
-> + *            iommu mapping.
-
-IOMMU
-
->   * @name: backlink name for sysfs
->   * @dbg_client_name: slave name for debugfs in format:
->   *	dev_name(requester's dev):channel name, for example: "2b00000.mcasp:tx"
-
-> struct dma_chan {
-
->  
->  	/* sysfs */
->  	int chan_id;
-> -	struct dma_chan_dev *dev;
-> +	union {
-> +		struct dma_chan_dev *chan_dev;
-> +		/*
-> +		 * please use chan_dev, dev will be removed after all user
-> +		   switch to chan_dev
-> +		*/
-
-Something went wrong with this comment style. It also need to respect English
-grammar and punctuation as we do for multi-line comments.
-
-> +		struct dma_chan_dev *dev;
-> +	};
->  	const char *name;
->  #ifdef CONFIG_DEBUG_FS
->  	char *dbg_client_name;
-
--- 
-With Best Regards,
-Andy Shevchenko
+Should the comment read "Save both T6 (BPF R0) and A0"? The patch updates
+regmap[BPF_REG_0] from RV_REG_A5 to RV_REG_T6, and the stack slot at
+retval_off - 8 is written via regmap[BPF_REG_0] in the save_ret block
+(emit_sd(RV_REG_FP, -(retval_off - 8), regmap[BPF_REG_0], ctx)), so the
+comment still naming "A5" contradicts the new mapping. After this series
+a5 becomes an argument register (the 6th BPF argument maps to a5 in a
+later commit), which makes "A5" actively misleading here since a reader
+could mistake this slot for argument spill space rather than R0/return
+value storage.
 
 
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33952202002
+--===============0877743137689148681==--
