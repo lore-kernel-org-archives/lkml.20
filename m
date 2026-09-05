@@ -1,277 +1,125 @@
-Received: from mail.srv.csmantle.top (mail.srv.csmantle.top [77.93.157.103])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBAF3175A6B;
-	Sat,  5 Sep 2026 03:47:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.93.157.103
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E274E348C7C;
+	Sat,  5 Sep 2026 03:54:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788580069; cv=none; b=f+Oy/dRkx+YV/yZcd3s+IlbZlnY46dwpUOIJw1nX1WcnYDh+P6RAVLickBmk2d2ctskz9BDE34FN1Jp3OHwgr5hSSRb3dEcPoih17nOsfW7S/vpQyacIPuYvJiO4dfDeXgtwaArbfLckKJPHOrqeAEs9fFq4n3FnbopKE1r51cc=
+	t=1788580485; cv=none; b=c8NBK8mXdR1X++nKnBRF+rC4aVGsDSSIVQe7uAZ9sLsc1+sYvU76YKbUrtCBd8f0ZYg2z9TiHhKPgDo1nP3z3uRYyMH+bfQY65BdmQOiCopb2x21iExkMZDGfQeHFkz6WjSEimn/LyjhVBRX9QSRsMtpyo1yARO6TYj1zznxyMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788580069; c=relaxed/simple;
-	bh=lv9yVDePp6C20XWvEfa5Mghh+KKqIkoBMuO5eDjZVDs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TRHxaEZyN1JRsMco94Vh5+1+vpgfbZTFt5PfxJD3KYl/2kePEMK//xHxWbnDnd0YsOv4PDKZJaBwXN9cyIPQcgZD2KgRB1U94Bq0ycSHDExUR3fm9eqtu3cAg8ypEq9Q9a+irnhFvhSVWEYvsFFJRzk3NSG523FdLqveTdJnAH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=csmantle.top; spf=pass smtp.mailfrom=csmantle.top; dkim=permerror (0-bit key) header.d=csmantle.top header.i=@csmantle.top header.b=nweJFBQ5; dkim=pass (3072-bit key) header.d=csmantle.top header.i=@csmantle.top header.b=g68Jwli7; arc=none smtp.client-ip=77.93.157.103
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=csmantle.top
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csmantle.top
+	s=arc-20240116; t=1788580485; c=relaxed/simple;
+	bh=QzEHEv8xYqf0BBYtRfwmoT+sXS6FhpyXY1bM4vANBOM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SlN/BEh2ezmL1xptbw/s1zPAIavgcg0Yf7zhz4nknOQ68lYmyHPAuEuwjbQopJN2lJ7t4d5g9cqcbWZymA8YXmrFrP/j88gOdH/TdMBm3R6W0WNpcsUWk+8QKL8jgS+sMje9TVKWgIcueoIHGZY/c55jYmuIEb/NuQ5Mt77z8r8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=OSmjqKUk; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror (0-bit key) header.d=csmantle.top header.i=@csmantle.top header.b="nweJFBQ5";
-	dkim=pass (3072-bit key) header.d=csmantle.top header.i=@csmantle.top header.b="g68Jwli7"
-DKIM-Signature: v=1; a=ed25519-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=csmantle.top; s=self-ed25519; h=BIMI-Selector:Content-Transfer-Encoding:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:In-Reply-To:References:BIMI-Selector;
-	bh=WDYW7gXRlodz8zDFJ7HbVgThqGhyhpwVabc9ZOJDGMI=; t=1788580067; x=1789184867; 
-	b=nweJFBQ5h1IK17FtYFxVE7L105fc9X3cC52uLDxyX+e3+ArdS3Hopl6SzQgk2znEUWZbd81fJIo
-	1PevaBdT3DA==;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="OSmjqKUk"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=csmantle.top; s=self-rsa3072; h=BIMI-Selector:Content-Transfer-Encoding:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:In-Reply-To:References:BIMI-Selector;
-	bh=WDYW7gXRlodz8zDFJ7HbVgThqGhyhpwVabc9ZOJDGMI=; t=1788580067; x=1789184867; 
-	b=g68Jwli7+mUGK2fJzBq7FGLN5yby9kf4l/FFeHpGLt+L0BIQmskGkdHtXlzsg44NFoP8WAqaCId
-	QCd8RAVG37tRxWzZ90bBiGk1m8WVqfwQVZT9VNlCu/XfM4MP5qzvh4Eh5D0rAh9NQwbLBjui+tx5d
-	zzuAQoXzHOYokd8LfwXwSLoczofxgxn15p0Y+8xRDjkz91vfDyY/czov34iAMuu6rmtMH4q/KhDyn
-	/ays1h+Tse7GXP9OWjekM5QTO7RyIeQdRJM5gx/VoY4bNN+nUb4O4IzGw0OFxT9iCZSoADJxohFYV
-	6wAPbRCLJjV4EkMSuH55E7lGfTPHMGC3DlQW5vBxmAkYAG4Ww9cApMCCsFT53ht4gk6N/7GjY7guC
-	MsUbBhVAeToB0AL3Ha2rZmXj6SrEWuxn5mCbe6DUCFx0Bq4XKKRkvLXIva7pXmRVwKjw3NPtHiAss
-	T2kIQHZpDRF98oTo0ENOFdCyJ6XKG6OczcnY9z43BMvl7qqMvWhg;
-Received: from [47.76.78.191] (helo=loongcatbox)
-	by mail.srv.csmantle.top with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <rong.bao@csmantle.top>)
-	id 1x2gx8-00000000ETz-3lWm;
-	Sat, 05 Sep 2026 11:20:27 +0800
-From: Rong Bao <rong.bao@csmantle.top>
-To: Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Hengqi Chen <hengqi.chen@gmail.com>,
-	Tiezhu Yang <yangtiezhu@loongson.cn>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Rong Bao <rong.bao@csmantle.top>,
-	George Guo <dongtai.guo@linux.dev>,
-	Yangyang Lian <lianyangyang@kylinos.cn>
-Cc: Kexy Biscuit <kexybiscuit@aosc.io>,
-	Mingcong Bai <jeffbai@aosc.io>,
-	Rong Bao <baorong2005@126.com>,
-	Yawei Li <liyawei@loongson.cn>,
-	loongarch@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] loongarch: expose LAMCAS existence via cpuinfo and hwcap
-Date: Sat,  5 Sep 2026 11:19:46 +0800
-Message-ID: <20260905032010.4962-1-rong.bao@csmantle.top>
-X-Mailer: git-send-email 2.55.0
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=u2+a3WmhmYeXRp/uYpf+0p324kyOb4FAm+bW3eCxpAc=; b=OSmjqKUkhHJQADe5cUs0s8H67e
+	Nnd7wxW1akbcU/tsPK+bl2eA1CEkOJmv+1KFDRNuZUZnTuW/QZnAEwNw0PQbPHMqUh0pPkOsjK50v
+	Dec2Bub2wUmKrPkOMa1tVKTrAgUE9ZPNYxPPt/q2ccGE5e6I51LhmMNWNqo8vJkzxvv/1K/pbEPBU
+	FHUG//Q4RZTeb+frjWqO9GmkawhY1vI1kgUYcFRXLPzpMSAlgCfEU5383PY/9mzlxYan5yDwYP0+U
+	CbbOSRqdvIej30wn8h5ulLZdihouB/mddluAcNPKfrrhOIJXDMZrkfATtRDW+bVchoHLqWRiv3B7T
+	FCTqCdhQ==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x2hUD-00000003eXj-33pO;
+	Sat, 05 Sep 2026 03:54:37 +0000
+Message-ID: <58d769f8-7378-4f8e-9bf1-b33ef5bf8ca3@infradead.org>
+Date: Fri, 4 Sep 2026 20:54:36 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rcpt-Check: Accepted by authentication
-X-42: Don't panic! 
-BIMI-Selector: v=BIMI1; s=me
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] docs: parse-headers: Fix script name and stale Makefile
+ reference
+To: Karl Mehltretter <kmehltretter@gmail.com>,
+ Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ Dongliang Mu <dzm91@hust.edu.cn>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260905025821.83968-1-kmehltretter@gmail.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260905025821.83968-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Currently, neither /proc/cpuinfo nor hwcap exposes the existence of the
-LAMCAS extension, which is part of LA64v1.1. For example, on a Loongson
-3B6000, /proc/cpuinfo is as follows:
 
-        processor               : 23
-        package                 : 0
-        core                    : 11
-        global_id               : 31
-        CPU Family              : Loongson-64bit
-        Model Name              : Loongson-3B6000
-        PRID                    : LA664 (0014d011)
-        CPU Revision            : 0x11
-        FPU Revision            : 0x01
-        CPU MHz                 : 2200.00
-        BogoMIPS                : 4400.00
-        TLB Entries             : 2112
-        Address Sizes           : 48 bits physical, 48 bits virtual
-        ISA                     : loongarch32r loongarch32s loongarch64
-        Features                : cpucfg lam lam_bh scq ual fpu lsx lasx
-        crc32 complex crypto lspw lvz lbt_x86 lbt_arm lbt_mips
-        Hardware Watchpoint     : yes, iwatch count: 8, dwatch count: 4
 
-... while the CPUCFG 2 instruction reads "0x7e7ccfcf", whose bit 28 is 1,
-indicating the actual presence of LAMCAS.
+On 9/4/26 7:58 PM, Karl Mehltretter wrote:
+> The script is tools/docs/parse-headers.py, not parse_headers.py, and its
+> FILE_RULES argument is optional. Commit 8a298579cdfc ("scripts:
+> sphinx-build-wrapper: get rid of uapi/media Makefile") removed the
+> Makefile the text points to as an example; the cross-references are now
+> generated by the kernel-include directive, so point to a file that uses
+> it.
+> 
+> Fixes: d69a03a97a2d ("docs: doc-guide: parse-headers.rst update its documentation")
+> Fixes: 8a298579cdfc ("scripts: sphinx-build-wrapper: get rid of uapi/media Makefile")
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 
-This hinders user-space inspection and detection of LAMCAS. For example,
-in SpiderMonkey, we need to switch to larchintrin.h and raw __cpucfg()
-to manually perform the bit extraction. Also, a curious user reading
-/proc/cpuinfo might be puzzled by the lack (of display) of LAMCAS.
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
 
-Expose the existence of LAMCAS via cpuinfo and hwcap. The definition
-point of the new LOONGARCH_CPU_LAMCAS flag is chosen to match the
-practices in commit 1dd3e8a8eeb4059fb34b07578362380cf35b7ed5 ("LoongArch:
-Define instruction formats for AM{SWAP/ADD}.{B/H} and DBAR").
+I would like to see documentation for kernel-include added to
+Documentation/doc-guide/kernel-doc.rst or doc-guide/parse-headers.rst.
+I'm surprised that it's there already.
 
-After this patch, /proc/cpuinfo looks like the following:
+Thanks.
 
-        processor               : 23
-        package                 : 0
-        core                    : 11
-        global_id               : 31
-        CPU Family              : Loongson-64bit
-        Model Name              : Loongson-3B6000
-        PRID                    : LA664 (0014d011)
-        CPU Revision            : 0x11
-        FPU Revision            : 0x01
-        CPU MHz                 : 2200.00
-        BogoMIPS                : 4400.00
-        TLB Entries             : 2112
-        Address Sizes           : 48 bits physical, 48 bits virtual
-        ISA                     : loongarch32r loongarch32s loongarch64
-        Features                : cpucfg lam lam_bh lamcas scq ual fpu lsx
-        lasx crc32 complex crypto lspw lvz lbt_x86 lbt_arm lbt_mips
-        Hardware Watchpoint     : yes, iwatch count: 8, dwatch count: 4
+> ---
+>  Documentation/doc-guide/parse-headers.rst | 15 ++++++++-------
+>  1 file changed, 8 insertions(+), 7 deletions(-)
+> 
+> diff --git a/Documentation/doc-guide/parse-headers.rst b/Documentation/doc-guide/parse-headers.rst
+> index a7bb01ff04eb..eb36c92e9a06 100644
+> --- a/Documentation/doc-guide/parse-headers.rst
+> +++ b/Documentation/doc-guide/parse-headers.rst
+> @@ -8,26 +8,27 @@ between the code and the documentation. Adding cross-references for
+>  userspace API files has an additional advantage: Sphinx will generate warnings
+>  if a symbol is not found at the documentation. That helps to keep the
+>  uAPI documentation in sync with the Kernel changes.
+> -The :ref:`parse_headers.py <parse_headers>` provides a way to generate such
+> -cross-references. It has to be called via Makefile, while building the
+> -documentation. Please see ``Documentation/userspace-api/media/Makefile`` for an example
+> -about how to use it inside the Kernel tree.
+> +The :ref:`parse-headers.py <parse_headers>` provides a way to generate such
+> +cross-references. During the documentation build, the same parser is used by
+> +the ``kernel-include`` directive with the ``:generate-cross-refs:`` option.
+> +Please see ``Documentation/userspace-api/media/cec/cec-header.rst`` for an
+> +example about how to use it inside the Kernel tree.
+>  
+>  .. _parse_headers:
+>  
+> -tools/docs/parse_headers.py
+> +tools/docs/parse-headers.py
+>  ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  
+>  NAME
+>  ****
+>  
+> -parse_headers.py - parse a C file, in order to identify functions, structs,
+> +parse-headers.py - parse a C file, in order to identify functions, structs,
+>  enums and defines and create cross-references to a Sphinx book.
+>  
+>  USAGE
+>  *****
+>  
+> -parse-headers.py [-h] [-d] [-t] ``FILE_IN`` ``FILE_OUT`` ``FILE_RULES``
+> +parse-headers.py [-h] [-d] [-t] ``FILE_IN`` ``FILE_OUT`` [``FILE_RULES``]
+>  
+>  SYNOPSIS
+>  ********
 
-Note the addition of "lamcas" to the "Features" row.
-
-Link: https://bugzil.la/2069431 ("[loong64] Use LA64v1.1 LAMCAS
- extension to simplify atomic cmpxchg operations")
-Signed-off-by: Rong Bao <rong.bao@csmantle.top>
----
- arch/loongarch/include/asm/cpu-features.h |  1 +
- arch/loongarch/include/asm/cpu.h          | 64 ++++++++++++-----------
- arch/loongarch/include/uapi/asm/hwcap.h   |  1 +
- arch/loongarch/kernel/cpu-probe.c         |  4 ++
- arch/loongarch/kernel/proc.c              |  2 +
- 5 files changed, 41 insertions(+), 31 deletions(-)
-
-diff --git a/arch/loongarch/include/asm/cpu-features.h b/arch/loongarch/include/asm/cpu-features.h
-index 62059c5551b9cdcc63c26033f8ccb44d63b18482..19cb0ccd0fb62bbbeb80a31bc447c101560bed32 100644
---- a/arch/loongarch/include/asm/cpu-features.h
-+++ b/arch/loongarch/include/asm/cpu-features.h
-@@ -36,6 +36,7 @@
- #define cpu_has_cpucfg		cpu_opt(LOONGARCH_CPU_CPUCFG)
- #define cpu_has_lam		cpu_opt(LOONGARCH_CPU_LAM)
- #define cpu_has_lam_bh		cpu_opt(LOONGARCH_CPU_LAM_BH)
-+#define cpu_has_lamcas		cpu_opt(LOONGARCH_CPU_LAMCAS)
- #define cpu_has_scq		cpu_opt(LOONGARCH_CPU_SCQ)
- #define cpu_has_ual		cpu_opt(LOONGARCH_CPU_UAL)
- #define cpu_has_fpu		cpu_opt(LOONGARCH_CPU_FPU)
-diff --git a/arch/loongarch/include/asm/cpu.h b/arch/loongarch/include/asm/cpu.h
-index 91b96938861eb9f81882b128ab0bd0a925ce0dbb..334ca9d69ec4a649848133d0a81555bfc37fbf9d 100644
---- a/arch/loongarch/include/asm/cpu.h
-+++ b/arch/loongarch/include/asm/cpu.h
-@@ -96,41 +96,43 @@ static inline char *id_to_core_name(unsigned int id)
- #define CPU_FEATURE_CPUCFG		0	/* CPU has CPUCFG */
- #define CPU_FEATURE_LAM			1	/* CPU has Atomic instructions */
- #define CPU_FEATURE_LAM_BH		2	/* CPU has AM{SWAP/ADD}[_DB].{B/H} instructions */
--#define CPU_FEATURE_SCQ			3	/* CPU has SC.Q instruction */
--#define CPU_FEATURE_UAL			4	/* CPU supports unaligned access */
--#define CPU_FEATURE_FPU			5	/* CPU has FPU */
--#define CPU_FEATURE_LSX			6	/* CPU has LSX (128-bit SIMD) */
--#define CPU_FEATURE_LASX		7	/* CPU has LASX (256-bit SIMD) */
--#define CPU_FEATURE_CRC32		8	/* CPU has CRC32 instructions */
--#define CPU_FEATURE_COMPLEX		9	/* CPU has Complex instructions */
--#define CPU_FEATURE_CRYPTO		10	/* CPU has Crypto instructions */
--#define CPU_FEATURE_LVZ			11	/* CPU has Virtualization extension */
--#define CPU_FEATURE_LBT_X86		12	/* CPU has X86 Binary Translation */
--#define CPU_FEATURE_LBT_ARM		13	/* CPU has ARM Binary Translation */
--#define CPU_FEATURE_LBT_MIPS		14	/* CPU has MIPS Binary Translation */
--#define CPU_FEATURE_TLB			15	/* CPU has TLB */
--#define CPU_FEATURE_CSR			16	/* CPU has CSR */
--#define CPU_FEATURE_IOCSR		17	/* CPU has IOCSR */
--#define CPU_FEATURE_WATCH		18	/* CPU has watchpoint registers */
--#define CPU_FEATURE_VINT		19	/* CPU has vectored interrupts */
--#define CPU_FEATURE_CSRIPI		20	/* CPU has CSR-IPI */
--#define CPU_FEATURE_EXTIOI		21	/* CPU has EXT-IOI */
--#define CPU_FEATURE_PREFETCH		22	/* CPU has prefetch instructions */
--#define CPU_FEATURE_PMP			23	/* CPU has perfermance counter */
--#define CPU_FEATURE_SCALEFREQ		24	/* CPU supports cpufreq scaling */
--#define CPU_FEATURE_FLATMODE		25	/* CPU has flat mode */
--#define CPU_FEATURE_EIODECODE		26	/* CPU has EXTIOI interrupt pin decode mode */
--#define CPU_FEATURE_GUESTID		27	/* CPU has GuestID feature */
--#define CPU_FEATURE_HYPERVISOR		28	/* CPU has hypervisor (running in VM) */
--#define CPU_FEATURE_PTW			29	/* CPU has hardware page table walker */
--#define CPU_FEATURE_LSPW		30	/* CPU has LSPW (lddir/ldpte instructions) */
--#define CPU_FEATURE_MSGINT		31	/* CPU has MSG interrupt */
--#define CPU_FEATURE_AVECINT		32	/* CPU has AVEC interrupt */
--#define CPU_FEATURE_REDIRECTINT		33	/* CPU has interrupt remapping */
-+#define CPU_FEATURE_LAMCAS		3	/* CPU has AMCAS[_DB].{B/H/W/D} instructions */
-+#define CPU_FEATURE_SCQ			4	/* CPU has SC.Q instruction */
-+#define CPU_FEATURE_UAL			5	/* CPU supports unaligned access */
-+#define CPU_FEATURE_FPU			6	/* CPU has FPU */
-+#define CPU_FEATURE_LSX			7	/* CPU has LSX (128-bit SIMD) */
-+#define CPU_FEATURE_LASX		8	/* CPU has LASX (256-bit SIMD) */
-+#define CPU_FEATURE_CRC32		9	/* CPU has CRC32 instructions */
-+#define CPU_FEATURE_COMPLEX		10	/* CPU has Complex instructions */
-+#define CPU_FEATURE_CRYPTO		11	/* CPU has Crypto instructions */
-+#define CPU_FEATURE_LVZ			12	/* CPU has Virtualization extension */
-+#define CPU_FEATURE_LBT_X86		13	/* CPU has X86 Binary Translation */
-+#define CPU_FEATURE_LBT_ARM		14	/* CPU has ARM Binary Translation */
-+#define CPU_FEATURE_LBT_MIPS		15	/* CPU has MIPS Binary Translation */
-+#define CPU_FEATURE_TLB			16	/* CPU has TLB */
-+#define CPU_FEATURE_CSR			17	/* CPU has CSR */
-+#define CPU_FEATURE_IOCSR		18	/* CPU has IOCSR */
-+#define CPU_FEATURE_WATCH		19	/* CPU has watchpoint registers */
-+#define CPU_FEATURE_VINT		20	/* CPU has vectored interrupts */
-+#define CPU_FEATURE_CSRIPI		21	/* CPU has CSR-IPI */
-+#define CPU_FEATURE_EXTIOI		22	/* CPU has EXT-IOI */
-+#define CPU_FEATURE_PREFETCH		23	/* CPU has prefetch instructions */
-+#define CPU_FEATURE_PMP			24	/* CPU has perfermance counter */
-+#define CPU_FEATURE_SCALEFREQ		25	/* CPU supports cpufreq scaling */
-+#define CPU_FEATURE_FLATMODE		26	/* CPU has flat mode */
-+#define CPU_FEATURE_EIODECODE		27	/* CPU has EXTIOI interrupt pin decode mode */
-+#define CPU_FEATURE_GUESTID		28	/* CPU has GuestID feature */
-+#define CPU_FEATURE_HYPERVISOR		29	/* CPU has hypervisor (running in VM) */
-+#define CPU_FEATURE_PTW			30	/* CPU has hardware page table walker */
-+#define CPU_FEATURE_LSPW		31	/* CPU has LSPW (lddir/ldpte instructions) */
-+#define CPU_FEATURE_MSGINT		32	/* CPU has MSG interrupt */
-+#define CPU_FEATURE_AVECINT		33	/* CPU has AVEC interrupt */
-+#define CPU_FEATURE_REDIRECTINT		34	/* CPU has interrupt remapping */
- 
- #define LOONGARCH_CPU_CPUCFG		BIT_ULL(CPU_FEATURE_CPUCFG)
- #define LOONGARCH_CPU_LAM		BIT_ULL(CPU_FEATURE_LAM)
- #define LOONGARCH_CPU_LAM_BH		BIT_ULL(CPU_FEATURE_LAM_BH)
-+#define LOONGARCH_CPU_LAMCAS		BIT_ULL(CPU_FEATURE_LAMCAS)
- #define LOONGARCH_CPU_SCQ		BIT_ULL(CPU_FEATURE_SCQ)
- #define LOONGARCH_CPU_UAL		BIT_ULL(CPU_FEATURE_UAL)
- #define LOONGARCH_CPU_FPU		BIT_ULL(CPU_FEATURE_FPU)
-diff --git a/arch/loongarch/include/uapi/asm/hwcap.h b/arch/loongarch/include/uapi/asm/hwcap.h
-index 90e96113ba51003cd4dde5c7c79744f5e0755a03..d354787b937c3ae9eb8c3d58a4e7e96bd066f6fd 100644
---- a/arch/loongarch/include/uapi/asm/hwcap.h
-+++ b/arch/loongarch/include/uapi/asm/hwcap.h
-@@ -20,5 +20,6 @@
- #define HWCAP_LOONGARCH_LSPW		(1 << 14)
- #define HWCAP_LOONGARCH_SCQ		(1 << 15)
- #define HWCAP_LOONGARCH_LAM_BH		(1 << 16)
-+#define HWCAP_LOONGARCH_LAMCAS		(1 << 17)
- 
- #endif /* _UAPI_ASM_HWCAP_H */
-diff --git a/arch/loongarch/kernel/cpu-probe.c b/arch/loongarch/kernel/cpu-probe.c
-index 74d31f260dfd889e66a1f55c5bcc47a3657d101f..93176e4d017b4d8fc82c817a7064af0656133c15 100644
---- a/arch/loongarch/kernel/cpu-probe.c
-+++ b/arch/loongarch/kernel/cpu-probe.c
-@@ -182,6 +182,10 @@ static void cpu_probe_common(struct cpuinfo_loongarch *c)
- 		c->options |= LOONGARCH_CPU_LAM_BH;
- 		elf_hwcap |= HWCAP_LOONGARCH_LAM_BH;
- 	}
-+	if (config & CPUCFG2_LAMCAS) {
-+		c->options |= LOONGARCH_CPU_LAMCAS;
-+		elf_hwcap |= HWCAP_LOONGARCH_LAMCAS;
-+	}
- 	if (config & CPUCFG2_SCQ) {
- 		c->options |= LOONGARCH_CPU_SCQ;
- 		elf_hwcap |= HWCAP_LOONGARCH_SCQ;
-diff --git a/arch/loongarch/kernel/proc.c b/arch/loongarch/kernel/proc.c
-index d4ce5b585453700caf2187c3dcc8f4f3cc8a9226..f86be83ad6f134c5793667fa6dbe2bf82fd58a2e 100644
---- a/arch/loongarch/kernel/proc.c
-+++ b/arch/loongarch/kernel/proc.c
-@@ -66,6 +66,8 @@ static int show_cpuinfo(struct seq_file *m, void *v)
- 		seq_puts(m, " lam");
- 	if (cpu_has_lam_bh)
- 		seq_puts(m, " lam_bh");
-+	if (cpu_has_lamcas)
-+		seq_puts(m, " lamcas");
- 	if (cpu_has_scq)
- 		seq_puts(m, " scq");
- 	if (cpu_has_ual)
-
-base-commit: 654ae5d73c05bd2943d65636ce6cd0aa46e62f18
 -- 
-2.55.0
-
+~Randy
