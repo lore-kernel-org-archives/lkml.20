@@ -1,137 +1,161 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out28-77.mail.aliyun.com (out28-77.mail.aliyun.com [115.124.28.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF1CA471256
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 11:07:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788606470; cv=pass; b=tdvgfeZahBCmMaFC95S+q29GIr82S7SgSooY38HCmIx5gezjRZrXTebiG5kzhuMYqFnAXN1/kxP1IxVzm1cv9TRMmRnJ3/k/hLQDXHN2yj6rreDbRKxRsq3vgv4v76cRqlNOi+lICvI5N45MUvSBb8DDZupqeOSBkrVi/Z/6wn0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788606470; c=relaxed/simple;
-	bh=WVtlZkuDGXxOI8toXmO4w4iQku+tgCpTeAvW2uxcMZI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RJFX6+jGd6F5hP+GymYhqoGfGZJ3unfu8LbS31nVZD1p7W+O0SElOSRJLAlsTqTaGHGR6FBGPTibUEnuwrfPHfGcT3bovjFTyL99T8tv/8CXvvgtCaA8f8UF+jpIGB3afehP5+xw3HM8TM/yLmPscXJdMo9FZcscDkmHLOs48Mk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=OU0ufY21; arc=pass smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7672434E21;
+	Sat,  5 Sep 2026 11:08:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.77
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788606508; cv=none; b=H7DvVR6hYf29xrRTIvbV9Fx26ICAP6XVLLioYTtMt/2NrqnmOz3o7qHcl6TVmtIkV9jUzs5AKT0YLw+puv+1jtfzme4FcWiQBxL05Su6x0HdI0/a5ch8Lop+/6/e4e4QxzyIonpNlVm349Quu47qdlAZ8lq2py0wL55yvxL5mJ4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788606508; c=relaxed/simple;
+	bh=qVX/kHhQxbRS06bauUjWPo2+Y5pvhFS5SSCI9+p6kaY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TAuczZu2XyZYLEOWqHv72tc2/jzQ28ouR4P35UilX+FGH7oVs+8tmW8CVeOeJoitz3Lt2NOVzUSydk3No56g+U/v8vyW28K39BIlvGVCBnn3AEUCtf0FICvUkbLurvW1m1M1BAiwNEHrfw5utS+2WBMwUtVsgqal+GCdSEA/DQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=r6etbjbJ; arc=none smtp.client-ip=115.124.28.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="OU0ufY21"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48584dc164fso1821222f8f.0
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 04:07:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788606467; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EUCEwLJKJQ18jkTH+pgFDzYNAvwisc51X5GOnikaB5xFxneabJzDVtRT7/RIBd2Bjj
-         +3E7+d07vf4ZlCUz+5hAFOaoXPB3qF6Vjy60kQN82u6LZh8nFrOTV6BB6p/ufM/ezHSL
-         oGDXQmFbGSMh/p/lIMCmvwygs1180svi7Blekv56IwJ2mU2d7lAKWPG/M4e/bKgjqDRz
-         fn/MhG0QkDVNLh0gP2jARajbh3teVwvS+Fhfhx21gRfzMs7C5UZ9STMhQr8L5HLeIUI7
-         TPu9iw3VGYBUjQIi2oNCiEhKr3hzkDe7ZAWoTeBceluJ5V2R0DZTO/8yxqBeMsqJWNVB
-         tuEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WVtlZkuDGXxOI8toXmO4w4iQku+tgCpTeAvW2uxcMZI=;
-        fh=EPt3K8qTKcfv/dB7XCe+F+VIMFyZcgueHk9tNvpMZrY=;
-        b=CuiHo28f98vjiyIzBXK6PtTe5Gnxpv95nBNklvlqcokPrt4wAALqhtFKC4merWWoz0
-         mMO0EMVZs0EuBzOYNHNAM74MLxOdHe90SoAnhmRmDKfIkpn8UnEkhXYQwWggWg9FVsDJ
-         iag+cXWh/azURw0var5PyL1jixhar5qf5ibvhYPV3bObW7YN06AvtCY2KxBPkgBuipcf
-         DUhuFAFNVn6DCeCNUx0mFwF5U9e55dYyBFnzAkXTAcjhq/hek+W8Pvd16eRfgri7MoQl
-         VHMsdfnDMBpSs/koKDx/oZD3FqaFl524Vb6ldbeL+neApMqnWZIj1hzTeMSjc7o1NOeC
-         hR0Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1788606467; x=1789211267; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WVtlZkuDGXxOI8toXmO4w4iQku+tgCpTeAvW2uxcMZI=;
-        b=OU0ufY21A4XH+Wo1K6Anp7GhVyxRzP/KRkAjDEqvOCsZFKdMXwiDPaKfOsmpHXznyO
-         e/LPo8zGpdbWpHSytPbXf+7L5b55ccVt9MY/OWJYV989PshBkFhvYvVC8gZplgzT0Oqf
-         vyqnPQvtJo1ggu3Mgizfo7IITI9F9lT5o/qLYIhRTkTrhBHr7A03fgyd9Cbq2kxao4PX
-         4BfdiTnoQjr0EmgzqZ6Wr1GEx95M2j/P4hzlmdhekj/25T7qrAx7BVKfIuaBLPZT0AOL
-         uQToz8hZKGfXnnHxMZxv6WEjItC0XCnOm30xw79vNZ98b7FPWySiaPyCC6wDyv5aoQiX
-         MCGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788606467; x=1789211267;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WVtlZkuDGXxOI8toXmO4w4iQku+tgCpTeAvW2uxcMZI=;
-        b=f8VYMIQ1gtuJYs4d2WOSRma2rBfBSq3MMbtTb+BwQgTEnk5yMsCV/TX1PnyMz2xMfU
-         hv7AArsu9Hu2VBEAOtNR7zINL7yPnf1ic3sFR/hlnVbwjwHWziw7p9bbTh+MrXaTHAP/
-         2spLYVWdIaFJ/WeP2Q1KtNHcMJc2iYos64Q8W8sgWxZdBnJ1Vyqnllg8hByPKfc1mXB+
-         WusBGLjtQaGwHKQFucCsgM9jGmwOQ+MrMz0sKEyAVa3fui5M206SJAXlmSmDhITpKVeQ
-         QuhtLLJSaEK7QD1j/wJD5GYciB7l8oQKOwPqVMU4lBEYXdIUQa5g5disw3quWb+SsIay
-         sgVQ==
-X-Gm-Message-State: AFuF++lklFc45AHlamkFdkVLsvQQ+BLkzZVMhF4VS/YPhsEWqml1k2dn
-	eFMzu7I3iZ3Inr4NmeQiI3jhkcdaMoTzQIk5s3Sp6eBb3sgX5X7lM6/e6TpN40vIPs/YEEwDd0c
-	NxyWwUAfKb2nejX9ZqIucqTigaLFbX54JsNypogautG3eIDDXjEuoxdw=
-X-Gm-Gg: AYBFou01rRUMO7xw47YCtKuv30uY/6BIi7K4omkbu0FvhlzI2CZJ5Ct9uHrkA9H+B8q
-	Ooj4ZBpfOUtdYS2zEZj0GYeTm60xIySkqNiRXbGCSgj7ObFea6ZIeC7gt//5qJxgMHp2lfcr517
-	Uw1Emm79ls8pwi3bnREKvrRcS/kpCxI4rWBRHul+GnQETvzb+LuiLk98E6KLicjadjg4MKYLZbC
-	D+zMBrZYuGTW9KemhluFEuNbhUVxtF3LbPFCzSKLdMPwpkDdAAoT7ntPZMUlfEU5M48FSqTYZ2z
-	7PDH8oMsCAPa9cjW3HxNDzt0GU9TBq/yxJlCAcDPkg2LQbLme1sy+7OgaGRxIXg/c6Ibw3W2AEZ
-	q7o6Kxladj7O+l7/y0acIyeMwYsGhWnRxRL77Nzs/8F1V1Ds0AZ0n7Gm9XpVFroWA
-X-Received: by 2002:a05:6000:420f:b0:484:f26c:b9f3 with SMTP id
- ffacd0b85a97d-485872ebd4emr13447348f8f.28.1788606466907; Sat, 05 Sep 2026
- 04:07:46 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="r6etbjbJ"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1788606494; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=YilmYO5G+M7tedW7DLjoBBbCENZkZk8Z5GGZz+7RmVE=;
+	b=r6etbjbJ1SAGJU5K3jwMDLcCA0xh0mpZgfaMFUVBNHz/0fHzA8HZaaWcwFgGvKkZhCN5Mhrbbti92f6T3kJm25/dMZXqxYle+pOCSfl0dzgXINeKdyk0qSDmmSX5gJgplimOG5mmr64XL1nTtbRKBym3IKFBmjQm1r8PgTVCZXI=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436459|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00844834-0.00229274-0.989259;FP=7057237632770475591|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037031241;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.j6IKN8r_1788606493;
+Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.j6IKN8r_1788606493 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Sat, 05 Sep 2026 19:08:14 +0800
+From: liuc63 <liuc63@xiaopeng.com>
+To: Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>
+Cc: Aaron Tomlin <atomlin@atomlin.com>,
+	linux-modules@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Liu Chao <liuc63@xiaopeng.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] module: validate sh_name for SHT_NULL sections
+Date: Sat,  5 Sep 2026 19:08:13 +0800
+Message-ID: <20260905110813.150411-1-liuc63@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <871pb9841j.ffs@fw13>
-In-Reply-To: <871pb9841j.ffs@fw13>
-From: Anup Patel <anup@brainfault.org>
-Date: Sat, 5 Sep 2026 16:37:34 +0530
-X-Gm-Features: AcwNN1WQxHO5cqvfPg3ullsdiCu5_mZrtsE7_CGgcOOk53j9-4tDEAMo1ePLZfE
-Message-ID: <CAAhSdy1=Z-VjEhGsGOJ15QptCSZP_6zG1NF=B972KwzEJhFbFg@mail.gmail.com>
-Subject: Re: Interrupt chip driver maintainence
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, linux-arm-kernel@lists.infradead.org, 
-	linux-riscv@lists.infradead.org, Radu Rendec <radu@rendec.net>, 
-	Marc Zyngier <maz@kernel.org>, Paul Walmsley <pjw@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 4, 2026 at 8:19=E2=80=AFPM Thomas Gleixner <tglx@kernel.org> wr=
-ote:
->
-> Folks!
->
-> I'm wading through my inbox full of patches for interrupt chip drivers
-> and I'm thoroughly annoyed. The way how this works today is not
-> sustainable.
->
-> Patches end up in my and Radu's inbox and all we can do is go through
-> them mostly on a formal basis, but it's out of our scope to look at the
-> correctness vs. a particular hardware. In the past I just picked up
-> patches when I had the gut feeling they are remotely correct, but I'm
-> tired of this.
->
-> I've just marked about 20 patches and patch series obsolete due to zero
-> feedback from the relevant architecture/SoC people who were on Cc.
->
-> And I'm going to do that from now on very consequently. If the
-> architecture, SoC experts can't be bothered to look after their stuff,
-> then don't expect me to suck all of this crap up and then deal with the
-> complaints when it breaks.
->
-> I'm still going to pick up obvious and simple bug fixes, but for
-> anything which requires deep knowledge on the underlying hardware, I'm
-> going to just mark them obsolete when they molded in my inbox unreviewed
-> by the people who understand it for six weeks.
->
+From: Liu Chao <liuc63@xiaopeng.com>
 
-I think this is a fair ask.
+elf_validity_cache_secstrings() checks that every section name offset is
+inside the section name table, but skips headers of type SHT_NULL, since
+ELF leaves their field values undefined.
 
-Currently, I am focused on reviewing and testing anything which
-touches RISC-V AIA drivers. The SiFive PLIC driver on other hand
-seems to have no active reivewers from RISC-V space. Few years
-back I did try to actively review SiFive PLIC driver but these days
-I don't have bandwidth for that.
+However, the section lookup helpers do not check sh_type. This is
+find_any_unique_sec(), which load_module() uses to locate ".modinfo":
 
-Regards,
-Anup
+	for (i = 1; i < info->hdr->e_shnum; i++) {
+		if (strcmp(info->secstrings + info->sechdrs[i].sh_name,
+			   name) == 0) {
+
+find_any_sec() and module_enforce_rwx_sections() read sh_name the same
+way, the latter from index 0. find_sec() is only shielded by its
+SHF_ALLOC test, which a crafted module can satisfy.
+
+ELF also permits SHT_NULL entries above index 0. A module that carries
+one with a large sh_name passes validation and then reads out of bounds:
+
+  BUG: unable to handle page fault for address: ffffc9004052f988
+  Oops: 0000 [#1] SMP KASAN PTI
+  CPU: 0 UID: 0 PID: 261 Comm: insmod Not tainted 6.18.0-rc7 #2
+  RIP: 0010:strcmp+0xc/0x40
+  Call Trace:
+   ? find_any_unique_sec+0x89/0xf0
+   load_module+0x516/0x3d30
+   init_module_from_file+0xf5/0x180
+   __x64_sys_finit_module+0x91/0x100
+
+The read happens in elf_validity_cache_copy(), before the blacklist check
+in early_mod_check().
+
+Bounds check sh_name for every section header. The name table is already
+known to be non-empty, so the sh_name of 0 that ELF requires at index 0
+still passes, and a name offset that points outside the name table is
+malformed regardless of section type. Neither an Ubuntu 20.04 x86_64
+build (GCC 9.4, 6025 modules) nor an aarch64 vendor build (GCC 13.2, 127
+modules) has a header with an out-of-bounds sh_name, or any SHT_NULL
+header above index 0.
+
+Link: https://lore.kernel.org/linux-modules/20260708013301.C4D4A1F000E9@smtp.kernel.org/
+Cc: stable@vger.kernel.org
+Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
+---
+The same report lists two more SHT_NULL gaps, both from
+elf_validity_cache_sechdrs skipping offset and size validation:
+move_module will memcpy such a section, and elf_validity_cache_index_mod
+rejects SHT_NOBITS but not SHT_NULL. Sending this one on its own first,
+happy to respin all three as a series if you would rather have them
+together.
+
+The Oops line says KASAN, but the access faults rather than producing a
+KASAN report, because lib/string.o is built with KASAN_SANITIZE disabled.
+
+No Fixes tag. 3c5700aeabd8 ("module: Factor out
+elf_validity_cache_secstrings") is where the exemption was added, but the
+problem predates it: before that commit sh_name was only checked for
+SHF_ALLOC sections and the ".modinfo" strcmp() ran ahead of the check, so
+find_any_sec() could already walk off the end. Same conclusion as
+9a5ff4568932 ("module: validate string table section types"), which went
+in with Cc: stable and no Fixes tag. checkpatch complains about that
+combination.
+
+The scan behind that last paragraph applies exactly the predicate this
+patch introduces, sh_name >= strhdr->sh_size, to every section header
+from index 0. On the x86_64 host it covered 17546 modules across three
+kernel trees (5.15.0-181, 5.15.0-190, 5.4.0-182), all built by GCC 9.4.0;
+those trees are the same toolchain recompiling much the same driver set,
+so the changelog quotes one tree rather than the total. The aarch64 side
+is a 5.10 vendor kernel built with Arm GNU Toolchain 13.2. Both are GNU
+toolchains - no clang-built module set was available to me.
+
+Reproducer, needs root and an unsigned module on a kernel without
+CONFIG_MODULE_SIG_FORCE. Build any minimal module, then append a
+SHT_NULL section header with an out-of-bounds sh_name:
+
+  python3 - <<'EOF'
+  import struct
+  SHDR = 0x40
+  data = bytearray(open('dummy.ko', 'rb').read())
+  shoff = struct.unpack_from('<Q', data, 0x28)[0]
+  shnum = struct.unpack_from('<H', data, 0x3c)[0]
+  old = bytes(data[shoff:shoff + shnum * SHDR])
+  evil = bytearray(SHDR)
+  struct.pack_into('<I', evil, 0, 0x40000000)
+  data += b'\0' * ((8 - len(data) % 8) % 8)
+  new_shoff = len(data)
+  data += old + bytes(evil)
+  struct.pack_into('<Q', data, 0x28, new_shoff)
+  struct.pack_into('<H', data, 0x3c, shnum + 1)
+  open('evil.ko', 'wb').write(data)
+  EOF
+
+  insmod evil.ko
+
+ kernel/module/main.c | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/kernel/module/main.c b/kernel/module/main.c
+index d0e1e0bd2ad0..7d5943cd6543 100644
+--- a/kernel/module/main.c
++++ b/kernel/module/main.c
+@@ -2060,9 +2060,6 @@ static int elf_validity_cache_secstrings(struct load_info *info)
+ 
+ 	for (i = 0; i < info->hdr->e_shnum; i++) {
+ 		shdr = &info->sechdrs[i];
+-		/* SHT_NULL means sh_name has an undefined value */
+-		if (shdr->sh_type == SHT_NULL)
+-			continue;
+ 		if (shdr->sh_name >= strhdr->sh_size) {
+ 			pr_err("Invalid ELF section name in module (section %u type %u)\n",
+ 			       i, shdr->sh_type);
