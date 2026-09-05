@@ -1,139 +1,121 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13B2D367B77
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 06:31:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E66030EF68;
+	Sat,  5 Sep 2026 06:34:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788589897; cv=none; b=hZ7R9gCtZJ+SiTCsjDRpPuIChDRsmVXoiSIViX0pIgsziMbjIhAqNj5OTRVyl3Qm/yoohxyioLv8BpPFON5tHRZfgmQn/xtz2yc9TNS/JhLQCwStoAn/ZBKUwGEnonNmJ4akmjxXWjHKKrNGwGkKzbtPIWOgY1VK03sx+4fb2HU=
+	t=1788590061; cv=none; b=j1mpP9K5BxHHod7t7oPYqwCPYbSMgj72k5wUNmeshA7wBbSe5jXL/lypkqnXGR5Bht+e3m8iRGRDUtKefbV7nxsAxJZ5lQ9REPsk3ZE5WUYbGfkHB3u86mJ0Ii5V7eLasOe6J3s1Rlw00vcDV03Tr7YOjil0SEgmGODra0vL38A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788589897; c=relaxed/simple;
-	bh=CSdPRELROkYKXy+2tVtR16UKWCgrtQnEIaCw5HxeGSY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=en6gV+HUIzOsTnIRSz3ESVNtCXREmeSVn2X3VJPmctxyTrESJkpT/1Kt+nkfBT7F8Ff22Op/IkUf9NN/+EcplhwIlEUPBTT9H7sMFe8/qZs1SViicYjzX9LBlRRhH30ZF8xe3+LJ7BPUC5E+7tzcliaGhQhrMz5HmoYlykMArLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hFFi5FYk; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788590061; c=relaxed/simple;
+	bh=ulsYmydCQwXv3NJEJ6v4AaFI+0YuCeAKzqzLHRlYT4M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ltOFwWSyewNQZNwAq9CpzkbYTVdf1Ocll/XnOixOK0h5VgobV4HPco7+MXSd80FghVUuxBZeR1Jy92IVQjJZExwjIlNYhvkZWgKQjSKXC2H1AZE3bphcc/CBa2aSFSJLIpprBwZ8wMtGDfrhXureyzvd7jyo5cVnLm/J2/KJ954=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=r2oEVAIP; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=U9xrqHw4; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hFFi5FYk"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49b965570d7so20454675e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 23:31:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788589894; x=1789194694; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=E0jfYxlquFYCTLGleo8vFGywQI0ODEMKtD2q20GPHRE=;
-        b=hFFi5FYkEeheJKxTd6NpdlYlW6XEAX2xWBQdisIdVI+P58B0fJZPDFEYTTNjs1xHsd
-         Fj869yNm/ZJQ1sDscqTmgdyrWCk9keGzKb7tDFnUlN5aytzo8FnRrc6vAib+ds0CXTUo
-         znk380OhJKNGdrorzvXkCnKk708LmG3mmsIJmlUl8s7lYCMSW3ugiUrJ20+lOmfBco0J
-         V5WX9Pv/jLFvowgYmxu/gj5NCKdiGSSJpZaOQu0dS7+f3pT3CXNwOU30PnLSNZil1wFk
-         y/35Q1THjmaxiTqtCEqzbIcSKNbWWmirQeGiKngG/lYyZrRxwsOFU4Hu0azfnt18u2HT
-         4CLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788589894; x=1789194694;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=E0jfYxlquFYCTLGleo8vFGywQI0ODEMKtD2q20GPHRE=;
-        b=MN47Ms2TFbYLCYX067gOemfQiwmSGSbjfpgNBmIGhfkQ93xDLpZBeroNvEmU15eHYG
-         25uv10cNHpCmVPixQOrof3np8pMWIbTMN0sL8JcEAGi5yICFwV5loFK745HcRgidjxDP
-         aATAZPdpDjgc2ZHtS5ATYs2Sd0bFXgViFqHOkOoziiHOytUKfVHd5YMtf28srYPiXxpI
-         ALdKTU5HI2Et08UqMij3fyzKo/9GCtoxCESF/lGQKixFsXJ/EKnkf6MT3DiP3DRoerFe
-         GlFUPmg3RGDkJnRAgwKO7ec0CYUsqavFiU2+Hd9MGYFkLRxQlN5Qy6SQu7cg7SuqJSP7
-         O6fg==
-X-Forwarded-Encrypted: i=1; AKwUvBzKLDn9KTuOII45eHEdJD2YwhisY2BLmpK73NJpsZLcgGZiAdbN+Ex4fK9e2KFPNzv38lT8ZLdCPKw+R3s=@vger.kernel.org
-X-Gm-Message-State: AFuF++kle/uqqGEzyBVwYJuulr5fj/PbRDqySow17mR9rQy/UMASUzOU
-	KCyGS8zZgAOG75LoLYH43wDI53I6EDPYJ6LgEiG+/j9WPZ+mgk3i/RJY
-X-Gm-Gg: AYBFou0LuaXcRFqcdtlUVSXEn5Uymser5IJrqtFntz259h2Q2AwPParquQtYL8h/jLp
-	sKBEEc1vlcWMBxlMDUqc3byLcUbwcw+3xSuBzxa9mQDckvOduay40B94lRMmR+qyDUUdI7aSnE2
-	OtfmXCgewxj+YQ4QX+XjnIhc3xLJpA6HoY2yfzxBbkSgMiC0Fvo+E+ahpU78GoP+nSQTbE9TbzK
-	/8B+zoM1+SY9KC89cFej/QKha52K5QYHf/3xzSaytKQSVYfKWKzdCJB6stdOfCs4c9dZ4epbESv
-	rezqZQJqO6pHf7qP0dVvfzOgRqsmFlm9gWEPcaprXL0KPMhwE1SavJNq4Lza59xnlbrjXo2uv+9
-	D9sATPkCMTO2jQyJi9y979jLr+FktgRWylRMxEjALB6VUWJF17BSLNCUessK35djo2XneZ9lCVc
-	9Fdw11h2EiumM/HsMkwAiLhKKsRA8M5LZ0jvSKH0FrxhgoGNon5Zu331/SqIqEVcV6vUWVBhGGH
-	eJt2u4pNVgrR2dqcnEwRqDgEzHwWFsJxtaQ+TxBLznsSWyX9SxaoAsoN9azePmf3PkBymijiENd
-	xMgV4FGCw/Lfj+YRCx2qiT05I/S1/7uo6kTvA0FyxrDGpcvIGTDwLnwMtssyIG/as0qPX+VdnZQ
-	=
-X-Received: by 2002:a05:600c:3b02:b0:49b:9202:6f80 with SMTP id 5b1f17b1804b1-49cf8220edemr113027825e9.6.1788589893900;
-        Fri, 04 Sep 2026 23:31:33 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-2a02-3100-a4eb-3001-c06d-af27-9fa2-ea53.310.pool.telefonica.de. [2a02:3100:a4eb:3001:c06d:af27:9fa2:ea53])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7710aa5sm123259535e9.7.2026.09.04.23.31.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 23:31:33 -0700 (PDT)
-Date: Sat, 5 Sep 2026 08:31:32 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Paulo Alcantara <pc@manguebit.org>, linux-fsdevel@vger.kernel.org, linux-cifs@vger.kernel.org, 
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="r2oEVAIP";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="U9xrqHw4"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hcNpd2JklzMlGr;
+	Sat, 05 Sep 2026 08:34:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788590057;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=aUN12GwvDepL+tk3DWK0mSOUPqSxmWkpN0sg4aFAd9U=;
+	b=r2oEVAIPjkTodbjbWSRnhod0kgKmYt8m2a7eYNcG35ldlgpiimur5mfw3Xj2a+3089+21p
+	Y08IZRvvR1R497M0UVLXiGnKatJ9NXqNQRU0earaY+AQFzJTYKj5yuVqQ4thYrrxTYzjp8
+	4uTlmI94BbsRFkeplzISfr5rrAVVnIxLrdVs8J4kt8xzdgtWE2TREO1RaWB0d7YM1jKGvt
+	WT9OM0qmD7DgVnAoAJ4/XnzzBvVrbvDDy/WgRuvMrmScuK6cxky4+NufCPFiU3Ph7hNYSn
+	+cywgOB1rK04zYdU9C7oqeD9bi8SfPXNdzYpHpFf5vP5UoSgrx3nBrsJSpANxg==
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788590055;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=aUN12GwvDepL+tk3DWK0mSOUPqSxmWkpN0sg4aFAd9U=;
+	b=U9xrqHw4Adi3adKn0WSk+VCXeyG3VscCwPR++mLwGJw/EVNY1wM0lpLp+p48iPzSEKcPF7
+	x4MqbM1Wcdd/9NkZskzKnLF5Tl7d4MC8SaqV4YKwoXiZKhKBPLj4YeNmUZwpcemGfv8VvV
+	5El4qOpKbB5XQaJ71tK+optJ6NaUUfYmrCYTSu3+wNBm+fppGTtIDFwz7fzUTJYeEjA64g
+	Fr7jBQ22sCFYBaJZrfGgK1JL02G7NdccKUzaXKiZrNoupmP9OMtoWkUqmsBVj8csqZ+U8G
+	fR7aqx6Xbbl28lRRXC0YkR8MXr+DTbrgrb9qK8h/yQTFu8QPIjGR+cot/Imkqw==
+To: Henk Vergonet <Henk.Vergonet@gmail.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-input@vger.kernel.org,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] super: make iterate_supers_type() deletion-safe
-Message-ID: <apu0mCbJ4S0TKIQM@gmail.com>
-References: <20260903013336.92081-1-kmehltretter@gmail.com>
- <32afuwcqxfzvc2qwsvx6ecpyvbunr45wnvmezbbqzz25qtfn35@tvotjvtm3soe>
- <20260904-astronaut-anpfiff-unbebaut-743381f4995a@brauner>
- <20260904-rockkonzert-bergtour-dahin-23c9c5c87d0f@brauner>
+Subject: [PATCH v2] Input: yealink.rst: Fix typos and word order
+Date: Sat,  5 Sep 2026 08:33:34 +0200
+Message-ID: <20260905063335.792618-2-manuelebnerli@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904-rockkonzert-bergtour-dahin-23c9c5c87d0f@brauner>
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: d0af4c34ac50fda69c5
+X-MBO-RS-META: mzgjhxba9hfpx9em7krwxhemnx1i9i6e
 
-On Fri, Sep 04, 2026 at 01:11:53PM +0100, Christian Brauner wrote:
-> 
-> Draft, feel free to grab, Jan or Karl.
-> 
-> ---
->  fs/kernfs/mount.c |  4 ++--
->  fs/super.c        | 39 +++++++++++++++++++--------------------
->  2 files changed, 21 insertions(+), 22 deletions(-)
-> 
+Improve readability.
 
-Thanks, I found no issues with your draft.
-All the tests I ran on my patch also pass with your draft.
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+CC: Randy Dunlap <rdunlap@infradead.org>
+---
+[v2]
+ add ']' instead of remove '[' as randy suggested
+ fix a couple more issues in the file
 
-Below is my proposed changelog. If it looks good, I'll send v2 with you as
-author. Could you provide your Signed-off-by?
+[v1]
+ https://lore.kernel.org/all/20260904121026.759218-3-manuelebnerli@mailbox.org/
+---
+ Documentation/input/devices/yealink.rst | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-super: make iterate_supers_type() deletion-safe
+diff --git a/Documentation/input/devices/yealink.rst b/Documentation/input/devices/yealink.rst
+index bb5a1aafe..79ac21690 100644
+--- a/Documentation/input/devices/yealink.rst
++++ b/Documentation/input/devices/yealink.rst
+@@ -81,7 +81,7 @@ Format description:
+ 
+     Icons or pictograms:
+     '.' : For example like AM, PM, SU, a 'dot' .. or other single segment
+-	  elements.
++          elements.
+ 
+ 
+ Driver usage
+@@ -120,9 +120,9 @@ Reading /sys/../lineX will return the format string with its current value.
+ Writing to /sys/../lineX will set the corresponding LCD line.
+ 
+  - Excess characters are ignored.
+- - If less characters are written than allowed, the remaining digits are
++ - If less characters than allowed are written, the remaining digits are
+    unchanged.
+- - The tab '\t'and '\n' char does not overwrite the original content.
++ - The tab '\t' and newline '\n' char does not overwrite the original content.
+  - Writing a space to an icon will always hide its content.
+ 
+   Example::
+@@ -205,7 +205,7 @@ Troubleshooting
+ :Q: Module yealink compiled and installed without any problem but phone
+     is not initialized and does not react to any actions.
+ :A: If you see something like:
+-    hiddev0: USB HID v1.00 Device [Yealink Network Technology Ltd. VOIP USB Phone
++    hiddev0: USB HID v1.00 Device [Yealink Network Technology Ltd. VOIP USB Phone]
+     in dmesg, it means that the hid driver has grabbed the device first. Try to
+     load module yealink before any other usb hid driver. Please see the
+     instructions provided by your distribution on module configuration.
+-- 
+2.54.0
 
-iterate_supers_type() drops sb_lock while invoking the callback and keeps
-only a passive reference to the current superblock. That reference keeps
-the object allocated, but does not keep its s_instances node linked.
-
-After the iterator releases s_umount, final teardown can unlink the current
-s_instances node. The iterator then advances through a reinitialized node.
-With the current hlist it stops without visiting the remaining superblocks.
-The unlink moved from generic_shutdown_super() to kill_super_notify(), but
-the cursor lifetime has been unsafe since the helper was introduced.
-
-The CIFS DFS lookup can consequently miss a matching superblock and return
--EINVAL.
-
-Move removal from fs_supers to put_super(), alongside removal from
-super_blocks, so a passive reference keeps both list nodes linked. Keep
-the filesystem module reference until then, since unlinking s_instances
-may touch type->fs_supers.
-
-Make sget_fc() skip SB_DEAD superblocks before invoking test(), and set
-SB_DEAD under sb_lock to serialize with those callbacks. This allows
-kernfs to free its private information after kill_anon_super() returns.
-Keep matching SB_DYING superblocks until SB_DEAD is set so concurrent
-mounts still wait for teardown before retrying.
-
-Fixes: 43e15cdbefea ("new helper: iterate_supers_type()")
-Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
-Suggested-by: Jan Kara <jack@suse.cz>
-Cc: stable@vger.kernel.org
-<your Signed-off-by>
-Tested-by: Karl Mehltretter <kmehltretter@gmail.com>
-Assisted-by: LLM
-<my Signed-off-by>
-
-Thanks,
-Karl
