@@ -1,328 +1,149 @@
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+Received: from mta1.migadu.com (out-34.mta1.migadu.com [95.215.58.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AD6143FD0B
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 10:05:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BBFF3F484D
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 10:06:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788602761; cv=none; b=S8wrxJ+P/TLTZxzHmEBAlzJhPtC3X1N0oc/rPxqAmPDXksDMQvb0BMilMhfFcoUzWcyN5K/19qZIcyUjJgCELGjkwkuZjyeQauEKi8qHeQ762uWkhLIAvABD4eIvXwHdXbBTCdSNgcDannvRg3PVfKLgeVbEeu/ek7vxxhYTLLM=
+	t=1788602804; cv=none; b=rLLbfygJGFNOinDfcpInQ+1XgqYXoEHfYfs0jJ6WAQT1TBeeEEZMLTFuf4DN0OlhbzEh2xgmOxR1JNw8Wp374rOEIcUvZgG9JB9UQ+ELllzYNLDOiL834kJ6zCAMasBPHz070DqgwDagdrp6pQudub69Ga2iHuokIYkztuVaLws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788602761; c=relaxed/simple;
-	bh=Whe7LKSU7peul1T6lvFdN+CuWYm1rV468che/7NJ/GA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OS1M5PE3Vxp+fiVfjGxSxmiTMplCTBv6sGjtMTb9YRqDRgNOKpWXQu4hk02FdS/8tSGYH4DnU9bEUaEws+TF5mg61zMxSCrdSjA9l+Gjf5QFBGV1Vylnx8RhyJtlKBarhTAzBaoORxkgw2HaJ3hdA/GkxxUwjQrW0+8IJcxh0Nk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eAfw8dIh; arc=none smtp.client-ip=209.85.208.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788602804; c=relaxed/simple;
+	bh=DJljWi/FDKXT+Grnmn40sS5FMRuuqHi97aHRYZis3sQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=MQ72SQ/dykeeTdP9c3rezqkdhZ5Sr8jqbGEWo52UGBtvNr0zhPqFvzjreuYzhXiyXHhkA7pW9bzK5+/A1+axoAABJfVHw1lHbxETofYTR14itn6bAnoL8r0PBrtPlOyIjUYySsEJgo1BcWHUjku/Jznhs7CsqQXnmU71w2uVSWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org; spf=pass smtp.mailfrom=wyuan.org; dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b=MIWemT8c; arc=none smtp.client-ip=95.215.58.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eAfw8dIh"
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-39f20d19895so15055141fa.2
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 03:05:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788602757; x=1789207557; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UVZO7xqLMmMI/VAYMXFHUsaCZa1hDMcAPBs6DtMLFLo=;
-        b=eAfw8dIhGw8bftvcNa8mnM8sc2anksqW3+rs1HfRs47Y78SJ6TKB8AEc3Rb7fUr2s2
-         ooAwRGbxwe4CeAvDJkfAFlzehcu9S09MJGoEWChm/GpB/aUIKlUZLgvCvQFOV5FbZPHu
-         s3LWdgSXYSlu/GQCsjYtu/p2fOn+KDYI59iTcbPAbc7UuC/5d627VB7ddYx4ycHIY5d3
-         V7jZ0smtBGa1frq6wdSQ+hccynRPWZWfK/S2eB83cIFEpdgF0xzUlH9R+gzLPF/UFuIt
-         0qqUfV0eSo8vXm8/U6lIQZGedFAhBFMYPsnxvW1tm9b76Lqmd58xAtmfuL/pjXoWrEPb
-         MICA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788602757; x=1789207557;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UVZO7xqLMmMI/VAYMXFHUsaCZa1hDMcAPBs6DtMLFLo=;
-        b=QP1FK8/sNnG8SscQEkFQpbkQhKMTV5CpafDSJW7PJxg1Mfj4Y+wh28j6bNXYagOvCj
-         05nkeG7lfAyavOh1rMcrLmgoT/itCnOideapai+gL4fMwBeZaqcENwGQBzcjs99zIzyz
-         Bb9JPxn0TCsme4pZMBNlaEeKM7UtwkA9qxp/zzuhp/jDCMjWIqQRq0VN3gKFTxBKaSrH
-         6QqgJwWFmNWrye1Ubx2vNULASGMPz3r8bpznY9raWely3Ih86MxmnsGK3SR6z8HhZFt9
-         Waru9TANajp4pyiI5loowc7emg3xVR6aJ3SLu3lD5UBO4ZqLxeF8JWKtnFqZe1JAfYdk
-         Jzig==
-X-Forwarded-Encrypted: i=1; AKwUvByG8Bg1r2gMr37n8v21XGODe3cH42V8Lq9GHWa5VQnznd0vd/9rleQKsVnP4hwsqP+K19AIZ73zKoLIDx8=@vger.kernel.org
-X-Gm-Message-State: AFuF++k9EgTGo48MtulLIXSfr2uybqlBuUNN7bdaMIqHZH/TD6VTxzYG
-	hcAKumfuALoFtQ4Wtvxz0WseaUonk9LfPVgbMhrJz169f425MtayeIpY
-X-Gm-Gg: AYBFou01225sigerA53UFKQ/QUnEMghMuWZUTkv8slj0tSa8aimGXeR/72xpFahbsu/
-	B9AgdfDqovRAVtc29xKwWJ7jnyBujLHEMqHfSJeh0nHp1TrYa4jlpHS5NcfAydEiLvLPegBNz0G
-	1h3zfcr/VWKK+2ajiOQ8BvxsYoQHiOFSdU5XWBVXwmSiEmf+tn56GIf+xR8bBDu/en1kIxLMnxi
-	eAzFf2SgxURb5Gja+ZlVPMF8LmnqdGYn8QKAv9EGQ4vdbcJEllGwHQAr0kkpI/TFF7wjGDl7BhY
-	+ATjN0FizwFjwo0OFbe7M8UnrA+kv3uI+3j0Ax82nthXnj6WG9FDs168pGXmGuljUXc5trwi4cr
-	jvXLRJBI7WtIEaNcwY/PtgeUj0EF9hHp90HCbH9X0D6xSjI5n22nXJPRI4m/kmlmcDyU3h2uS9m
-	h5l4YFMkfiGe0dU9XPgrwUWA1ABu2kAVqf1/drac0GY6ZXVemcNgI2fqGECcrkFSrUczbMERtt9
-	3AjYiunbRpYkW7sp04/iYie+XFZ5zNd4QolApSzD/7T6J/2nSC97K4Y7GgGzg==
-X-Received: by 2002:a05:651c:1543:b0:3a3:4997:ec3c with SMTP id 38308e7fff4ca-3a375b328cbmr9829791fa.2.1788602756438;
-        Sat, 05 Sep 2026 03:05:56 -0700 (PDT)
-Received: from archlinux ([94.180.80.42])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a3705868a0sm13107741fa.19.2026.09.05.03.05.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 03:05:56 -0700 (PDT)
-From: Arsenii Pashchenko <ulijg308@gmail.com>
-To: pkshih@realtek.com
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Arsenii Pashchenko <ulijg308@gmail.com>
-Subject: [PATCH rtw-next v8 2/3] wifi: rtw88: rtw8822c: Convert DAC IQ calibration path to signed math
-Date: Sat,  5 Sep 2026 17:05:47 +0700
-Message-ID: <afafa518cf4f34ff906927eeae488fb25d9aa7bb.1788601784.git.ulijg308@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1788601784.git.ulijg308@gmail.com>
-References: <cover.1788601784.git.ulijg308@gmail.com>
+	dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b="MIWemT8c"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=DJljWi/FDKXT+Grnmn40sS5FMRuuqHi97aHRYZis3sQ=;
+ c=simple/simple; d=wyuan.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788602797; v=1; x=1789207597;
+ b=MIWemT8czikkYgSx8WCg9KcUFiOP9VQjy5cLJpHzEN0tlQUj8ZfrE/SSucUm3kiInJEnVXdP
+ FS+LBNhp3yorbBeO49cV1Pir81+zZLECq6Y8CP9pT6hHXSd5QbWGDs7iur6DgTh6MnOc3YRHNdN
+ FbcB9oqmQQvGEjk2caKm7DzCRHm1B9dGSL1iYKIxFWOxq4WulIcpT9WUbfCMLFrZYtWfWaWnsTJ
+ 1ROSUUyZjrRB32LNQor/T3CP1bTieEwDT/DVDRMvjQg7z6DqQFn/aim69vABxLnae0oHEk3EnSz
+ TiQHbdYN1E1TkwRVvyxNxX3lYyY3wuq/okTnGqySIGfMg==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id cff7936aa012e533;
+	Sat, 05 Sep 2026 10:06:37 +0000
+X-Mizu-Trace-ID: cff7936aa012e533
+X-Migadu-Flow: FLOW_OUT
+From: Weijie Yuan <wy@wyuan.org>
+Date: Sat, 05 Sep 2026 18:06:25 +0800
+Subject: [PATCH v2 1/2] docs/zh_CN: sync maintainer/configure-git with
+ upstream
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20260905-configure-git-v2-1-ab194db8c6b9@wyuan.org>
+References: <20260905-configure-git-v2-0-ab194db8c6b9@wyuan.org>
+In-Reply-To: <20260905-configure-git-v2-0-ab194db8c6b9@wyuan.org>
+To: Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>, 
+ Dongliang Mu <dzm91@hust.edu.cn>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.17-dev
 
-Convert the temporary stack arrays 'iv' and 'qv' from u32 to s32.
-Update all internal function signatures to accept s32 pointers and
-handle signed values natively.
+The English document updated the signed-tag instructions to describe
+selecting a key with -u <key-id>, configuring a default key, and using
+-s. It also removed the explicit section label and the instructions for
+adding Link trailers automatically with an applypatch-msg hook, because
+Link: trailers should only point to useful additional information.
 
-Use sign_extend32() combined with FIELD_GET_SIGNED() to properly interpret
-the 10-bit hardware values as signed integers. This allows flattening
-the complex nested unsigned boundary conditions in
-rtw8822c_dac_iq_check() into a simple amplitude boundary check. Ensure
-rtw8822c_dac_iq_offset() properly maps the signed average back to a
-10-bit unsigned format expected by the hardware registers via GENMASK().
+Update the translation through commit 944df7a31452
+("docs: update the guidance for Link: tags").
 
-Signed-off-by: Arsenii Pashchenko <ulijg308@gmail.com>
+Also point the pull-request reference to the Chinese translation.
+
+Signed-off-by: Weijie Yuan <wy@wyuan.org>
 ---
- drivers/net/wireless/realtek/rtw88/rtw8822c.c | 141 ++++++------------
- 1 file changed, 46 insertions(+), 95 deletions(-)
+ .../zh_CN/maintainer/configure-git.rst             | 48 +++++-----------------
+ 1 file changed, 11 insertions(+), 37 deletions(-)
 
-diff --git a/drivers/net/wireless/realtek/rtw88/rtw8822c.c b/drivers/net/wireless/realtek/rtw88/rtw8822c.c
-index 137544649..4b8a7e777 100644
---- a/drivers/net/wireless/realtek/rtw88/rtw8822c.c
-+++ b/drivers/net/wireless/realtek/rtw88/rtw8822c.c
-@@ -153,49 +153,14 @@ static void rtw8822c_dac_restore_reg(struct rtw_dev *rtwdev,
- 	}
- }
+diff --git a/Documentation/translations/zh_CN/maintainer/configure-git.rst b/Documentation/translations/zh_CN/maintainer/configure-git.rst
+index a45ea736f73b..693d4e5247a6 100644
+--- a/Documentation/translations/zh_CN/maintainer/configure-git.rst
++++ b/Documentation/translations/zh_CN/maintainer/configure-git.rst
+@@ -5,58 +5,32 @@
+ :译者:
  
--static void rtw8822c_rf_minmax_cmp(struct rtw_dev *rtwdev, u32 value,
--				   u32 *min, u32 *max)
-+static void __rtw8822c_dac_iq_sort(struct rtw_dev *rtwdev, s32 *v1, s32 *v2)
- {
--	if (value >= 0x200) {
--		if (*min >= 0x200) {
--			if (*min > value)
--				*min = value;
--		} else {
--			*min = value;
--		}
--		if (*max >= 0x200) {
--			if (*max < value)
--				*max = value;
--		}
--	} else {
--		if (*min < 0x200) {
--			if (*min > value)
--				*min = value;
--		}
+  吴想成 Wu XiangCheng <bobwxc@email.cn>
++ 袁维杰 Weijie Yuan <wy@wyuan.org>
+ 
+-.. _configuregit_zh:
++配置 Git
++========
+ 
+-Git配置
+-=======
++本章介绍维护者级别的 Git 配置。
+ 
+-本章讲述了维护者级别的git配置。
 -
--		if (*max  >= 0x200) {
--			*max = value;
--		} else {
--			if (*max < value)
--				*max = value;
--		}
--	}
--}
+-Documentation/maintainer/pull-requests.rst 中使用的标记分支应使用开发人员的
+-GPG公钥进行签名。可以通过将 ``-u`` 标志传递给 ``git tag`` 来创建签名标记。
+-但是，由于 *通常* 对同一项目使用同一个密钥，因此可以设置::
++拉取请求中使用的带标签分支（参见 Documentation/translations/zh_CN/maintainer/pull-requests.rst）
++应使用开发者的 GPG 公钥签名。向 ``git tag`` 传递 ``-u <key-id>`` 可以创建签名标签。
++不过，由于你对同一项目 *通常* 会使用同一个密钥，因此可以在配置中设置该密钥并
++使用 ``-s`` 选项。使用以下命令设置默认的 ``key-id``::
+ 
+ 	git config user.signingkey "keyname"
+ 
+-或者手动编辑你的 ``.git/config`` 或 ``~/.gitconfig`` 文件::
++也可以手动编辑你的 ``.git/config`` 或 ``~/.gitconfig`` 文件::
+ 
+ 	[user]
+ 		name = Jane Developer
+ 		email = jd@domain.org
+ 		signingkey = jd@domain.org
+ 
+-你可能需要告诉 ``git`` 去使用 ``gpg2``::
++你可能需要让 ``git`` 使用 ``gpg2``::
+ 
+ 	[gpg]
+ 		program = /path/to/gpg2
+ 
+-你可能也需要告诉 ``gpg`` 去使用哪个 ``tty`` （添加到你的shell rc文件中）::
++你可能还需要告诉 ``gpg`` 使用哪个 ``tty`` （将其添加到 shell 的 rc 文件中）::
+ 
+ 	export GPG_TTY=$(tty)
 -
--static void __rtw8822c_dac_iq_sort(struct rtw_dev *rtwdev, u32 *v1, u32 *v2)
--{
--	if (*v1 >= 0x200 && *v2 >= 0x200) {
--		if (*v1 > *v2)
--			swap(*v1, *v2);
--	} else if (*v1 < 0x200 && *v2 < 0x200) {
--		if (*v1 > *v2)
--			swap(*v1, *v2);
--	} else if (*v1 < 0x200 && *v2 >= 0x200) {
-+	if (*v1 > *v2)
- 		swap(*v1, *v2);
--	}
-+
- }
- 
--static void rtw8822c_dac_iq_sort(struct rtw_dev *rtwdev, u32 *iv, u32 *qv)
-+static void rtw8822c_dac_iq_sort(struct rtw_dev *rtwdev, s32 *iv, s32 *qv)
- {
- 	u32 i, j;
- 
-@@ -207,30 +172,22 @@ static void rtw8822c_dac_iq_sort(struct rtw_dev *rtwdev, u32 *iv, u32 *qv)
- 	}
- }
- 
--static void rtw8822c_dac_iq_offset(struct rtw_dev *rtwdev, u32 *vec, u32 *val)
-+static u32 rtw8822c_dac_iq_offset(struct rtw_dev *rtwdev, s32 *vec)
- {
--	u32 p, m, t, i;
-+	s32 sum = 0;
-+	s32 avg;
-+	u32 i;
- 
--	m = 0;
--	p = 0;
--	for (i = 10; i < DACK_SN_8822C - 10; i++) {
--		if (vec[i] > 0x200)
--			m = (0x400 - vec[i]) + m;
--		else
--			p = vec[i] + p;
--	}
-+	for (i = 10; i < DACK_SN_8822C - 10; i++)
-+		sum += vec[i];
- 
--	if (p > m) {
--		t = p - m;
--		t = t / (DACK_SN_8822C - 20);
--	} else {
--		t = m - p;
--		t = t / (DACK_SN_8822C - 20);
--		if (t != 0x0)
--			t = 0x400 - t;
--	}
-+	avg = sum / (DACK_SN_8822C - 20);
- 
--	*val = t;
-+	/*
-+	 * Map the signed average back to a 10-bit hardware format.
-+	 * Example: avg = -1, returns 0x3FF (signed 10-bit value)
-+	 */
-+	return avg & GENMASK(9, 0);
- }
- 
- static u32 rtw8822c_get_path_write_addr(u8 path)
-@@ -271,20 +228,18 @@ static u32 rtw8822c_get_path_read_addr(u8 path)
- 	return base_addr;
- }
- 
--static bool rtw8822c_dac_iq_check(struct rtw_dev *rtwdev, u32 value)
-+static bool rtw8822c_dac_iq_check(struct rtw_dev *rtwdev, s32 value)
- {
--	bool ret = true;
- 
--	if ((value >= 0x200 && (0x400 - value) > 0x64) ||
--	    (value < 0x200 && value > 0x64)) {
--		ret = false;
-+	if (value > 100 || value < -100) {
- 		rtw_dbg(rtwdev, RTW_DBG_RFK, "[DACK] Error overflow\n");
-+		return false;
- 	}
- 
--	return ret;
-+	return true;
- }
- 
--static void rtw8822c_dac_cal_iq_sample(struct rtw_dev *rtwdev, u32 *iv, u32 *qv)
-+static void rtw8822c_dac_cal_iq_sample(struct rtw_dev *rtwdev, s32 *iv, s32 *qv)
- {
- 	u32 temp;
- 	int i = 0, cnt = 0;
-@@ -292,8 +247,8 @@ static void rtw8822c_dac_cal_iq_sample(struct rtw_dev *rtwdev, u32 *iv, u32 *qv)
- 	while (i < DACK_SN_8822C && cnt < 10000) {
- 		cnt++;
- 		temp = rtw_read32(rtwdev, 0x2dbc);
--		iv[i] = FIELD_GET(RTW8822C_DAC_IV_MASK, temp);
--		qv[i] = FIELD_GET(RTW8822C_DAC_QV_MASK, temp);
-+		iv[i] = FIELD_GET_SIGNED(RTW8822C_DAC_IV_MASK, temp);
-+		qv[i] = FIELD_GET_SIGNED(RTW8822C_DAC_QV_MASK, temp);
- 
- 		if (rtw8822c_dac_iq_check(rtwdev, iv[i]) &&
- 		    rtw8822c_dac_iq_check(rtwdev, qv[i]))
-@@ -302,67 +257,63 @@ static void rtw8822c_dac_cal_iq_sample(struct rtw_dev *rtwdev, u32 *iv, u32 *qv)
- }
- 
- static void rtw8822c_dac_cal_iq_search(struct rtw_dev *rtwdev,
--				       u32 *iv, u32 *qv,
-+				       s32 *iv, s32 *qv,
- 				       u32 *i_value, u32 *q_value)
- {
--	u32 i_max = 0, q_max = 0, i_min = 0, q_min = 0;
-+	s32 i_max = 0, q_max = 0, i_min = 0, q_min = 0;
- 	u32 i_delta, q_delta;
- 	u32 temp;
--	int i, cnt = 0;
-+	u32 i, cnt = 0;
- 
- 	do {
- 		i_min = iv[0];
- 		i_max = iv[0];
- 		q_min = qv[0];
- 		q_max = qv[0];
--		for (i = 0; i < DACK_SN_8822C; i++) {
--			rtw8822c_rf_minmax_cmp(rtwdev, iv[i], &i_min, &i_max);
--			rtw8822c_rf_minmax_cmp(rtwdev, qv[i], &q_min, &q_max);
-+		for (i = 1; i < DACK_SN_8822C; i++) {
-+			if (iv[i] < i_min)
-+				i_min = iv[i];
-+			if (iv[i] > i_max)
-+				i_max = iv[i];
-+			if (qv[i] < q_min)
-+				q_min = qv[i];
-+			if (qv[i] > q_max)
-+				q_max = qv[i];
- 		}
- 
--		if (i_max < 0x200 && i_min < 0x200)
--			i_delta = i_max - i_min;
--		else if (i_max >= 0x200 && i_min >= 0x200)
--			i_delta = i_max - i_min;
--		else
--			i_delta = i_max + (0x400 - i_min);
-+		i_delta = i_max - i_min;
-+		q_delta = q_max - q_min;
- 
--		if (q_max < 0x200 && q_min < 0x200)
--			q_delta = q_max - q_min;
--		else if (q_max >= 0x200 && q_min >= 0x200)
--			q_delta = q_max - q_min;
--		else
--			q_delta = q_max + (0x400 - q_min);
- 
- 		rtw_dbg(rtwdev, RTW_DBG_RFK,
--			"[DACK] i: min=0x%08x, max=0x%08x, delta=0x%08x\n",
-+			"[DACK] i: min=%d, max=%d, delta=%d\n",
- 			i_min, i_max, i_delta);
- 		rtw_dbg(rtwdev, RTW_DBG_RFK,
--			"[DACK] q: min=0x%08x, max=0x%08x, delta=0x%08x\n",
-+			"[DACK] q: min=%d, max=%d, delta=%d",
- 			q_min, q_max, q_delta);
- 
- 		rtw8822c_dac_iq_sort(rtwdev, iv, qv);
- 
- 		if (i_delta > 5 || q_delta > 5) {
- 			temp = rtw_read32(rtwdev, 0x2dbc);
--			iv[0] = FIELD_GET(RTW8822C_DAC_IV_MASK, temp);
--			qv[0] = FIELD_GET(RTW8822C_DAC_QV_MASK, temp);
-+			iv[0] = FIELD_GET_SIGNED(RTW8822C_DAC_IV_MASK, temp);
-+			qv[0] = FIELD_GET_SIGNED(RTW8822C_DAC_QV_MASK, temp);
- 			temp = rtw_read32(rtwdev, 0x2dbc);
--			iv[DACK_SN_8822C - 1] = FIELD_GET(RTW8822C_DAC_IV_MASK, temp);
--			qv[DACK_SN_8822C - 1] = FIELD_GET(RTW8822C_DAC_QV_MASK, temp);
-+			iv[DACK_SN_8822C - 1] = FIELD_GET_SIGNED(RTW8822C_DAC_IV_MASK, temp);
-+			qv[DACK_SN_8822C - 1] = FIELD_GET_SIGNED(RTW8822C_DAC_QV_MASK, temp);
- 		} else {
- 			break;
- 		}
- 	} while (cnt++ < 100);
- 
--	rtw8822c_dac_iq_offset(rtwdev, iv, i_value);
--	rtw8822c_dac_iq_offset(rtwdev, qv, q_value);
-+	*i_value = rtw8822c_dac_iq_offset(rtwdev, iv);
-+	*q_value = rtw8822c_dac_iq_offset(rtwdev, qv);
- }
- 
- static void rtw8822c_dac_cal_rf_mode(struct rtw_dev *rtwdev,
- 				     u32 *i_value, u32 *q_value)
- {
--	u32 iv[DACK_SN_8822C], qv[DACK_SN_8822C];
-+	s32 iv[DACK_SN_8822C], qv[DACK_SN_8822C];
- 	u32 rf_a, rf_b;
- 
- 	rf_a = rtw_read_rf(rtwdev, RF_PATH_A, 0x0, RFREG_MASK);
+-
+-创建链接到lore.kernel.org的提交
+--------------------------------
+-
+-http://lore.kernel.org 网站是所有涉及或影响内核开发的邮件列表的总存档。在这里
+-存储补丁存档是推荐的做法，当维护人员将补丁应用到子系统树时，最好提供一个指向
+-lore存档链接的标签，以便浏览提交历史的人可以找到某个更改背后的相关讨论和基本
+-原理。链接标签如下所示：
+-
+-	Link: https://lore.kernel.org/r/<message-id>
+-
+-通过在git中添加以下钩子，可以将此配置为在发布 ``git am`` 时自动执行：
+-
+-.. code-block:: none
+-
+-	$ git config am.messageid true
+-	$ cat >.git/hooks/applypatch-msg <<'EOF'
+-	#!/bin/sh
+-	. git-sh-setup
+-	perl -pi -e 's|^Message-Id:\s*<?([^>]+)>?$|Link: https://lore.kernel.org/r/$1|g;' "$1"
+-	test -x "$GIT_DIR/hooks/commit-msg" &&
+-		exec "$GIT_DIR/hooks/commit-msg" ${1+"$@"}
+-	:
+-	EOF
+-	$ chmod a+x .git/hooks/applypatch-msg
+
 -- 
-2.55.0
+2.55.0.966.g6673acef38
 
