@@ -1,105 +1,370 @@
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88FEF3537F5
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:52:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788623573; cv=pass; b=RjodgAe9xk9MI8vPj9G6jB6L2LZpBylkvGMV4EKmsUy+E6o6oG/WkkQf5hF+ZV1GSuahWs/FojLjcVekHtpkOzOe+ucGu/IuFpY55U6iOJfG+ZoEsEe+3eib1BCiMfh2WPcnASNA1V79XB2u0Jo+jokHREa0pwHuhtG1wMwW2ug=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788623573; c=relaxed/simple;
-	bh=Kv0M8qyBz8AiZgOwtl2kafCJPZCOeq5ea1CJHXP95kY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Fy4aiAUqnOvokKkhLhPsdS4q9uvesXnH1FEgfY/UPwSGzcNTJHfXJqcZQ3CYoeh+5ufnCGh/ADhl5NnS2MVfYPdA6lx7qoifQZMHVWVgJYc9GcyF6zSX6aA90BEDtPYIekG28A54I6/BlVKMR7N0m78CZGPDCUI8vhYxjTeFiyQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZwCWJ/Wk; arc=pass smtp.client-ip=209.85.167.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7CF830F543
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:55:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788623722; cv=none; b=PskqBP2uTiE0eybFdJQ8NFqy5+raIuq336PNtP/gwaNkHdmkQAzPWq79yy+/AL3pF0duKWc5wtoe/ln33JlCTRmrO2NlUyzAC/YiBnTS0jscTT6W4ONiVkWt7UnmeD02Sai3O5SPjhvuEys1S7u3bSaCHn2qsSZXyVZ6qE4iNLs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788623722; c=relaxed/simple;
+	bh=pV+5IwkMLFn8Fx7djk9Yp6iUxrqGZmoFgCFV9E+GkBY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oPou65d/yqvkrqlG2gmRMMtPdrE7ZeTbfjEdQkQxwUpG0mMe9sosGukBjhe3WJcqeExmhIZBgl/8Fsso8PDka9JEF/QeYto0i50dhGFpHBNGbFDToPqyFnFXL8VL4C9RHZmIprLCipZeYe+/hbE02cZl9WPI4KmXrldkK2KMY+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PFeq9kiS; arc=none smtp.client-ip=209.85.210.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZwCWJ/Wk"
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b28c91fba5so2608730e87.1
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 08:52:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788623570; cv=none;
-        d=google.com; s=arc-20260327;
-        b=E2YE5bspieJtJJVsVo2YIkpoiF9AVx+PtnfKMSIdqqPuIGDHea1cHgJhQ2U7m95Nvb
-         MZc90iUE5+68f/TUnSAe7nLRwdVdN63aS8iV75xBgAcqOVAepVj2U//lh41Mh85fJscA
-         ZWqhw4Dtx5z8J5ZzPrhUkJyGBOxsHp5OCEzggcq99przqqAN5bJkilBdNVXimubHOAHf
-         Ann4szMvsmLKSwL05jDhGlBXBLZSOGedF4kZhZ9R1JESUHTSQbB1sop9rbDKT6GjDF1w
-         1eLXL3b1VaF1AizDabzs+7fmZdNG8b44i4TRI9uY5mIbslUQ0XSI3/a2hYQ6nE9w53AY
-         4D4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=Kv0M8qyBz8AiZgOwtl2kafCJPZCOeq5ea1CJHXP95kY=;
-        fh=79Xs8vWqPB4Z1rOFbhTjGZSuvNXU29zqw9LttJXyFMc=;
-        b=s7DavWZqbosyM9VT/Ja9IhXOCh22rYSIBfmI1/WtgpJc9cwqOnRWziw/UAQvoXL+/P
-         AaetbHuC1gNXOh62mqTm34J1XceHffZbPrhYX77uLK7792y3NeTgcCDMYtEapVF0R6l2
-         qzM7Fn48BG32sZzrvRUbdq4z4SFt7zSWE1etUL4ME+nT6UYXLQPfW3/SIywPoxMjFi+x
-         fhu751t7vrW47wTdZeRjrHdRtMbOomUh7/QNZ5XoZ2FNwnV5PGf+Z3z86WyhLEyCv1yd
-         d0brt58Z583XT7wEWRtnZfrPAD8/1pbCjZ2ssHyA0rrlJ6c7xbYJ2XxcyTatuehCmKah
-         UGpA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PFeq9kiS"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-85377c8bc96so1860791b3a.3
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 08:55:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788623570; x=1789228370; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Kv0M8qyBz8AiZgOwtl2kafCJPZCOeq5ea1CJHXP95kY=;
-        b=ZwCWJ/Wkmk54JCJsv+brbbazhG2lzR69i2e645S6SoVdDNQ7EJYfbpc72aTvCqxxQv
-         SKoNK+p2qhFs9ZHuBFugLLyiB+4j9ZIyPvkr85DQeqNOQWQqzt2Er1hMLZ1SPxIqYEiQ
-         qT7n9PuG93YP0KrJQQaeU8GP7A4UKjkmyuULId+bCqh79K1vx9rKd8o4mGD3IbN7BSpk
-         zBJpVWopXSG3+tAkl92gWrkkpeaXENzaZrAMUqefdSdquRO6pWfHDB0GpyMAPCI7ZkWW
-         46RgmKesMedhqyD1Y7z2TQEzEOnyqQpGN9zeoxyoodbdWQoOIRYYkbmBthga1Ny5UrZX
-         lyRQ==
+        d=gmail.com; s=20251104; t=1788623715; x=1789228515; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F2dEMJL1vhZK8124yTxwhBFPgoAwEv2z5aul9rIHN7w=;
+        b=PFeq9kiSaw+J5qTIcXskZ+geHKAbNgPJFhwy4EtTIXOL08y1nJHI0u3njprFtSXEPK
+         8V2skKdyhBC2P3rtgvPMeBBTwt5oeGZcqKP835z+gkEfV/QHtO18JjqF+p0dM7HVLhN4
+         +jyeRUSfqsuc520bNSKpEbjvYHhLwGXczS6uKSUcUaAZp/Q/pIvJ8YcuqDZFmt+0DJOV
+         8dQICAtYVeeKfo983hbZ4ND0lcVpjQWNRjKwnKKDrWTco2lKLnZx+86VuaEOTXDIL1/4
+         f2TuZoKClrZRE96fzAZURcmZ0JZ8HivYs1pjgscek5aDIjBjgK4APAtL4b5dOSc58MtM
+         pA9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788623570; x=1789228370;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Kv0M8qyBz8AiZgOwtl2kafCJPZCOeq5ea1CJHXP95kY=;
-        b=Ef8MGa2bY/qpBjhZelcMhEEtVEnb3y3cZAWjZTnGhn+/luqP+SNv96Fbsz/UfPhsrf
-         OBa6fTAahjrbzIQ1RbybpBIzlgLNHUCW2ZIr85Oc0kIZiVzKE1iB/sk8HbdXKwFJsQkX
-         9AuKp5LKlDdU7TxbV17zrXF1UO7VKIBhmSJkrmLID1AQE5Lj/mYng3BW6pqLFbwzjYxQ
-         2MkHvtti0JgzQYKGU+G3pdH42o3n5mmQN/XqKgtJnYFGC7U2GHEATOR97XcE6SCkkE1S
-         SuVY9vSYhdeJQccM0Bpuy1bYdT+HQ8FXIDCNCYMHkJymTlqSAv2izB7L4ItkrNA1xqhS
-         YvEw==
-X-Forwarded-Encrypted: i=1; AKwUvBxR+yQ40Py7PGkpPsS6ZNunAUtwRTQ6e8X+ZWfsi/Kij2MmK/jSQGBBCAGXypWxO35ib21pNuAaDYjabjQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kPyxyULNot+pUoHk0BwOjqeIoQv7qQe8IPKaWH9W57VawFfHHp
-	cDkoO83hxueayhWvPAhlGKCT6iQvEtcPZ3nZxq7N/bTRTx/RdIKynkvQ7QaD3vsDNuxHhKrP6WY
-	zRl/YgP2Ji+fLg/0IbXKbf7wRXqcaLNQ=
-X-Gm-Gg: AYBFou2rLoEJJzaU07T9Vpja9I2hjL15uyhkYAbhIpnFcGjxM8oyfsvZ+N1IT5lSzJB
-	HfopFwGBMhHBJZlmYRTCb/GN+aU+XzB8e3G1g3ygrKf+2Qq9/Gv4zexKR/3eepijwBt1Hq5qm5G
-	Xso/+dGB+0jeHyHKfJk13Uo6ZSTLqqZ5MLriXmKLVB79layfNC1yry04FA+ntEKl3Xky0FTE+J+
-	MAKfzJ0wjYbx6gTzVbE1raesdHfRnGAFeqGdEy7/8VFbORoEBlxB5gXBN6Q+wgqBqTwrHD7Au5S
-	60LsWvMPYSuScNQep/yF6IGBNCi/bOVosLlPrljU5IkE/6dekQI8oBQZq2hfFoTE3ZlsN2AlhQo
-	tUSZAxHNoKnnKBIsyjju0d0pXPsA=
-X-Received: by 2002:a05:6512:10c6:b0:5b3:12b1:be93 with SMTP id
- 2adb3069b0e04-5b6170dee63mr1554897e87.0.1788623570165; Sat, 05 Sep 2026
- 08:52:50 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788623715; x=1789228515;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F2dEMJL1vhZK8124yTxwhBFPgoAwEv2z5aul9rIHN7w=;
+        b=RvaM4Wi7RnkdPr4NreKYxL7slyDKR24qOJy9uPIiRetcuIyX1l/8uW+nND/nBxDlOb
+         8JASe1Nq1ADDeOsLfSNlrHXmZlVqtCWr+Vp27jDi/YA8DjRxaiSKzjtNj2ibsYbkYC7W
+         OyEIoYbSDfr2qs7e2HRybYUv0ztr44wO26Dfom0sRl0OLe31TUy0ZVwpmWvSxeiYfqyn
+         3yJmISp3lDMtR9dHJBmWcfv/RRxZksy+zsdSiV4aBUA5ax6tW/d/FEgbyGm7u74WQ0hL
+         w+6agF1m3FOUKamyzYv4B6/zODC+4UKwhle74FKICUtP3vSt0y8LlCUh4NfWLXVw4Cr6
+         s4OQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwVbR9h1qLsWRG2JWkXvRF3xyjZotkZ77GoYPRAcRw8ndxBmYhh8RcCt/jDRTHJAY6yOxF9CniYW69ovvU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lG8LZlg/4ek9A/KELNNGaDPJHp53g47DnK370NhSEU53XrOWN5
+	rqe1le1E7tOa15lLh0x42wmKz9OgfFTxvaZQDxzSXT6ZVlWD6RjO4rc7
+X-Gm-Gg: AYBFou2RE/5d3UGpTXTxHyzbvltJ1Ww3aWaraJZX7kD2mSpxmiXDbdLzzuQvQYjaiQk
+	kQtxfE8DPHxjn3+Ru0TKrk3Fs6mWJYOpMS+EjXnkJVm2Er17H0UAD/9rfoS1Qz65jvHNsNaDhmi
+	nU7SNcLCL2QYq9pL2kZzdIQTFE6H74uestWkPQ6VeY1Eso1ZsQJoIsUj0y5qsbL1klejXzR5RnK
+	Td8GvRbFtZNDzOfsPFxYRk3WL1z6i5vv+Wc7kN3binWO1CJH1DNfSRa77aEXzwpx1uLiely+sCt
+	+U9jbYfeBPE3RYo6msI8ShsL/RbKpb1kpPuKJfHqFNylkRxsIQr85QpWFAwLTsjNPxRlAW4hWrA
+	8AGybnXE+M4+VBk9nfxb9szUBaAveMIxJKALDTCXknEfg/6SgnavEnQkEbbN+n3hM1gNZjpAn8B
+	R3Avh/V5ebGB5B2SYeT1JMzndevfGdKd4/15RAsd9GYI5v9nogdqHGwMHo1lUBJjL5xOZivjeN3
+	AH3wldPVcJmJ4HDjoHMcrXXwMLLCiBr5k78BtThcrwsTRHus0zutwCpOpKhXkSo2/GXVYRqZw==
+X-Received: by 2002:a05:6a00:4c8f:b0:84f:5cd7:e3c6 with SMTP id d2e1a72fcca58-861662d4ce4mr18597533b3a.5.1788623715142;
+        Sat, 05 Sep 2026 08:55:15 -0700 (PDT)
+Received: from lima-arm64-dev.hitronhub.home (180-176-144-38.dynamic.kbronet.com.tw. [180.176.144.38])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc455448d54sm2101674a12.17.2026.09.05.08.55.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 08:55:14 -0700 (PDT)
+From: Harry Hsu <x90613@gmail.com>
+To: pmladek@suse.com,
+	jpoimboe@kernel.org,
+	jikos@kernel.org,
+	mbenes@suse.cz,
+	joe.lawrence@redhat.com,
+	shuah@kernel.org,
+	song@kernel.org
+Cc: live-patching@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Harry Hsu <x90613@gmail.com>
+Subject: [PATCH] selftests/livepatch: Test rejection of aliased symbols in one object
+Date: Sat,  5 Sep 2026 23:55:07 +0800
+Message-ID: <20260905155507.273262-1-x90613@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260830173343.52759-1-x90613@gmail.com>
+References: <20260830173343.52759-1-x90613@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788298883.git.ahmadexp@gmail.com> <89780f7db207c7fe7adbd45e1f38f0a041794c8f.1788298883.git.ahmadexp@gmail.com>
- <apnRfWVAiXj1fRXs@ashevche-desk.local> <apusvKc2PnSShaoI@gryt> <apvJaBo4Zzz2GAMx@ashevche-desk.local>
-In-Reply-To: <apvJaBo4Zzz2GAMx@ashevche-desk.local>
-From: Ahmad Byagowi <ahmadexp@gmail.com>
-Date: Sat, 5 Sep 2026 08:52:38 -0700
-X-Gm-Features: AcwNN1Uulc5j99vd1g8KKcjM_9c1_I_u87n5sCZVaRosxcsgyccAcFuaDvKiJZQ
-Message-ID: <CAOQiBWPf1qPcVqFGyw_L2zn46+Nkp8WZpkodM3sC1hpFgYnEHw@mail.gmail.com>
-Subject: Re: [PATCH v9 1/2] i2c: mux: Factor out channel node lookup
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Peter Rosin <peda@lysator.liu.se>, Andi Shyti <andi.shyti@kernel.org>, 
-	Andy Shevchenko <andy@kernel.org>, Jakub Kicinski <kuba@kernel.org>, linux-i2c@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Peter, Andy,
+klp_init_object_loaded() now rejects an object whose klp_funcs resolve to
+the same address, because aliased symbols would push two klp_funcs of one
+livepatch onto a single ops->func_stack and leave the redirection
+ambiguous.
 
-Thanks for clarifying. I'll use one declaration per line for dev_node,
-mux_node, and child in both patches in the next revision.
+Add a target module providing test_klp_alias_show() together with its
+__alias() sibling, and a livepatch naming both of them.  Two test cases
+cover both callers of klp_init_object_loaded(): the klp_enable_patch()
+path, where the target module is loaded before the livepatch, and the
+klp_module_coming() path, where the livepatch is loaded first and the
+module loader has to refuse the target module.
 
-Regards,
-Ahmad
+Suggested-by: Song Liu <song@kernel.org>
+Signed-off-by: Harry Hsu <x90613@gmail.com>
+---
+This is the selftest I promised in the v2 thread [1].
+
+It applies on top of patch 1/3 of the series [2] and does not touch the
+rest of it.  Petr, since you are going to post v4 of the whole patchset
+anyway, please feel free to fold this in as the last patch.  Otherwise I
+am happy to resend it as a separate follow-up once the series lands --
+whichever is less work for you.
+
+Tested on arm64 with CONFIG_LIVEPATCH=y:
+
+  # ./test-alias.sh
+  TEST: livepatch of two aliased symbols in one object ... ok
+  TEST: aliased symbols in a module coming after the livepatch ... ok
+
+[1] https://lore.kernel.org/all/CAPhsuW70RpkZ1ciioSjt6qkQePWyeic_L+98d0h-Ao3ze-TmkA@mail.gmail.com/
+[2] https://lore.kernel.org/all/20260830173343.52759-1-x90613@gmail.com/
+
+ tools/testing/selftests/livepatch/Makefile    |  3 +-
+ .../testing/selftests/livepatch/test-alias.sh | 81 +++++++++++++++++++
+ .../selftests/livepatch/test_modules/Makefile |  4 +-
+ .../test_modules/test_klp_alias_patch.c       | 62 ++++++++++++++
+ .../test_modules/test_klp_alias_target.c      | 48 +++++++++++
+ 5 files changed, 196 insertions(+), 2 deletions(-)
+ create mode 100755 tools/testing/selftests/livepatch/test-alias.sh
+ create mode 100644 tools/testing/selftests/livepatch/test_modules/test_klp_alias_patch.c
+ create mode 100644 tools/testing/selftests/livepatch/test_modules/test_klp_alias_target.c
+
+diff --git a/tools/testing/selftests/livepatch/Makefile b/tools/testing/selftests/livepatch/Makefile
+index a080eb54a215..ddbeff4cb53d 100644
+--- a/tools/testing/selftests/livepatch/Makefile
++++ b/tools/testing/selftests/livepatch/Makefile
+@@ -11,7 +11,8 @@ TEST_PROGS := \
+ 	test-ftrace.sh \
+ 	test-sysfs.sh \
+ 	test-syscall.sh \
+-	test-kprobe.sh
++	test-kprobe.sh \
++	test-alias.sh
+ 
+ TEST_FILES := settings
+ 
+diff --git a/tools/testing/selftests/livepatch/test-alias.sh b/tools/testing/selftests/livepatch/test-alias.sh
+new file mode 100755
+index 000000000000..4ae701de0dbf
+--- /dev/null
++++ b/tools/testing/selftests/livepatch/test-alias.sh
+@@ -0,0 +1,81 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++# Copyright (C) 2026 Harry Hsu <x90613@gmail.com>
++
++. $(dirname $0)/functions.sh
++
++MOD_TARGET=test_klp_alias_target
++MOD_LIVEPATCH=test_klp_alias_patch
++
++setup_config
++
++
++# $MOD_TARGET provides two symbols that share a single address.  A
++# livepatch naming both of them would push two klp_funcs of the same
++# patch onto one ops->func_stack, leaving the redirection ambiguous, so
++# klp_init_object_loaded() has to reject the object.
++#
++# - load the target module and verify it produces the original output
++# - verify that a livepatch naming both aliases fails to load
++# - verify that the target module has been left unpatched
++
++start_test "livepatch of two aliased symbols in one object"
++
++load_mod $MOD_TARGET
++
++if [[ "$(cat /proc/$MOD_TARGET)" != "$MOD_TARGET: original output" ]] ; then
++	echo -e "FAIL\n\n"
++	die "livepatch kselftest(s) failed"
++fi
++
++load_failing_mod $MOD_LIVEPATCH
++
++if [[ "$(cat /proc/$MOD_TARGET)" != "$MOD_TARGET: original output" ]] ; then
++	echo -e "FAIL\n\n"
++	die "livepatch kselftest(s) failed"
++fi
++
++unload_mod $MOD_TARGET
++
++check_result "% insmod test_modules/$MOD_TARGET.ko
++$MOD_TARGET: ${MOD_TARGET}_init
++% insmod test_modules/$MOD_LIVEPATCH.ko
++livepatch: 'test_klp_alias_show' and 'test_klp_alias_show_alias' resolve to the same address, aliased symbols are not supported
++insmod: ERROR: could not insert module test_modules/$MOD_LIVEPATCH.ko: Invalid parameters
++% rmmod $MOD_TARGET
++$MOD_TARGET: ${MOD_TARGET}_exit"
++
++
++# The same object is initialized from klp_module_coming() when the
++# livepatch is loaded while the target module is still absent.  There
++# the error has to be propagated to the module loader instead.
++#
++# - load the livepatch, it is accepted because the object is not loaded
++# - verify that loading the target module is refused afterwards
++
++start_test "aliased symbols in a module coming after the livepatch"
++
++load_lp $MOD_LIVEPATCH
++load_failing_mod $MOD_TARGET
++disable_lp $MOD_LIVEPATCH
++unload_lp $MOD_LIVEPATCH
++
++check_result "% insmod test_modules/$MOD_LIVEPATCH.ko
++livepatch: enabling patch '$MOD_LIVEPATCH'
++livepatch: '$MOD_LIVEPATCH': initializing patching transition
++livepatch: '$MOD_LIVEPATCH': starting patching transition
++livepatch: '$MOD_LIVEPATCH': completing patching transition
++livepatch: '$MOD_LIVEPATCH': patching complete
++% insmod test_modules/$MOD_TARGET.ko
++livepatch: 'test_klp_alias_show' and 'test_klp_alias_show_alias' resolve to the same address, aliased symbols are not supported
++livepatch: failed to initialize patch '$MOD_LIVEPATCH' for module '$MOD_TARGET' (-22)
++livepatch: patch '$MOD_LIVEPATCH' failed for module '$MOD_TARGET', refusing to load module '$MOD_TARGET'
++insmod: ERROR: could not insert module test_modules/$MOD_TARGET.ko: Invalid parameters
++% echo 0 > $SYSFS_KLP_DIR/$MOD_LIVEPATCH/enabled
++livepatch: '$MOD_LIVEPATCH': initializing unpatching transition
++livepatch: '$MOD_LIVEPATCH': starting unpatching transition
++livepatch: '$MOD_LIVEPATCH': completing unpatching transition
++livepatch: '$MOD_LIVEPATCH': unpatching complete
++% rmmod $MOD_LIVEPATCH"
++
++exit 0
+diff --git a/tools/testing/selftests/livepatch/test_modules/Makefile b/tools/testing/selftests/livepatch/test_modules/Makefile
+index a13d398585dc..532403e2b5ff 100644
+--- a/tools/testing/selftests/livepatch/test_modules/Makefile
++++ b/tools/testing/selftests/livepatch/test_modules/Makefile
+@@ -1,7 +1,9 @@
+ TESTMODS_DIR := $(realpath $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
+ KDIR ?= /lib/modules/$(shell uname -r)/build
+ 
+-obj-m += test_klp_atomic_replace.o \
++obj-m += test_klp_alias_patch.o \
++	test_klp_alias_target.o \
++	test_klp_atomic_replace.o \
+ 	test_klp_callbacks_busy.o \
+ 	test_klp_callbacks_demo.o \
+ 	test_klp_callbacks_demo2.o \
+diff --git a/tools/testing/selftests/livepatch/test_modules/test_klp_alias_patch.c b/tools/testing/selftests/livepatch/test_modules/test_klp_alias_patch.c
+new file mode 100644
+index 000000000000..1b50088bc92d
+--- /dev/null
++++ b/tools/testing/selftests/livepatch/test_modules/test_klp_alias_patch.c
+@@ -0,0 +1,62 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (C) 2026 Harry Hsu <x90613@gmail.com>
++
++#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
++
++#include <linux/module.h>
++#include <linux/kernel.h>
++#include <linux/livepatch.h>
++#include <linux/seq_file.h>
++
++static int livepatch_alias_show(struct seq_file *m, void *v)
++{
++	seq_printf(m, "%s: %s\n", THIS_MODULE->name,
++		   "this has been live patched");
++	return 0;
++}
++
++/*
++ * Both names resolve to one address, so they end up on a single
++ * ops->func_stack and the redirection would be ambiguous.  Loading this
++ * livepatch is expected to fail.
++ */
++static struct klp_func funcs[] = {
++	{
++		.old_name = "test_klp_alias_show",
++		.new_func = livepatch_alias_show,
++	},
++	{
++		.old_name = "test_klp_alias_show_alias",
++		.new_func = livepatch_alias_show,
++	},
++	{},
++};
++
++static struct klp_object objs[] = {
++	{
++		.name = "test_klp_alias_target",
++		.funcs = funcs,
++	},
++	{},
++};
++
++static struct klp_patch patch = {
++	.mod = THIS_MODULE,
++	.objs = objs,
++};
++
++static int test_klp_alias_patch_init(void)
++{
++	return klp_enable_patch(&patch);
++}
++
++static void test_klp_alias_patch_exit(void)
++{
++}
++
++module_init(test_klp_alias_patch_init);
++module_exit(test_klp_alias_patch_exit);
++MODULE_LICENSE("GPL");
++MODULE_INFO(livepatch, "Y");
++MODULE_AUTHOR("Harry Hsu <x90613@gmail.com>");
++MODULE_DESCRIPTION("Livepatch test: patch two aliased symbols of one object");
+diff --git a/tools/testing/selftests/livepatch/test_modules/test_klp_alias_target.c b/tools/testing/selftests/livepatch/test_modules/test_klp_alias_target.c
+new file mode 100644
+index 000000000000..b0f5fc35adf8
+--- /dev/null
++++ b/tools/testing/selftests/livepatch/test_modules/test_klp_alias_target.c
+@@ -0,0 +1,48 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (C) 2026 Harry Hsu <x90613@gmail.com>
++
++#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
++
++#include <linux/module.h>
++#include <linux/kernel.h>
++#include <linux/proc_fs.h>
++#include <linux/seq_file.h>
++
++static struct proc_dir_entry *pde;
++
++static noinline int test_klp_alias_show(struct seq_file *m, void *v)
++{
++	seq_printf(m, "%s: %s\n", THIS_MODULE->name, "original output");
++	return 0;
++}
++
++/*
++ * Alias the function above so that both names resolve to one address, the
++ * way __do_sys_fork(), __ia32_sys_fork() and __x64_sys_fork() do in vmlinux.
++ * Nothing calls the alias, it only has to show up in the module's symbol
++ * table for the livepatch to name it.
++ */
++static int test_klp_alias_show_alias(struct seq_file *m, void *v)
++	__used __alias(test_klp_alias_show);
++
++static int test_klp_alias_target_init(void)
++{
++	pr_info("%s\n", __func__);
++	pde = proc_create_single("test_klp_alias_target", 0, NULL,
++				 test_klp_alias_show);
++	if (!pde)
++		return -ENOMEM;
++	return 0;
++}
++
++static void test_klp_alias_target_exit(void)
++{
++	pr_info("%s\n", __func__);
++	proc_remove(pde);
++}
++
++module_init(test_klp_alias_target_init);
++module_exit(test_klp_alias_target_exit);
++MODULE_LICENSE("GPL");
++MODULE_AUTHOR("Harry Hsu <x90613@gmail.com>");
++MODULE_DESCRIPTION("Livepatch test: target module with two aliased symbols");
+-- 
+2.43.0
+
