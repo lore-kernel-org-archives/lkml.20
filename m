@@ -1,86 +1,113 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62939360EF2;
-	Sat,  5 Sep 2026 07:44:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2859E258EE9;
+	Sat,  5 Sep 2026 07:45:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788594271; cv=none; b=S0EE3Olef+tfSbQjc27r0SKHbKvPJN1yuA1HIxI1ICt8AiFprRZoAxHs6P/GnVUr0qzWlDK4VUvzx0LHpXng3fcqNaJSTcVEsZIQ/CSiEd7aBgOlaOS7QkJ8Hkmjfxtuqmwk2bsovW3de95O+RuPQurCqngBo/o7l4rm4kz9Gn4=
+	t=1788594337; cv=none; b=H3MUhLMtZabQGTstXBMNwZ822EyO6cp6OXI1nNB9WdGnmdEKBclQaf/zteeaSxavvnkepvq6gDOqIAEPvzrbL6tdIRCXbZByAy/8LHdtDY6LR5HZZ37/QwSBHVjkgHaklxXfkKHnXdlN0RMF1OSy5cKL7Qke81tIFH0ISFB6Q6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788594271; c=relaxed/simple;
-	bh=j3wvVFfckmgjrFD3yF7a6wyniicOFkDp+N7/iU6mACE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AmltW7uhmPm+v6EmLtG03DBvIhBZ4hd7GND7qMEsLN+NRfxyARugCSsYaN8b8ZG+sjCB28PvLG+TxzmVkdDkYerCdGt9Onh36/3dEnr7Ls1QEZfALi3KqXb9WCy/aYhVDz3yXDw3rpoYjgDQx92Qn884Egt9PSwar71rB5QqDx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RoWRky+l; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788594337; c=relaxed/simple;
+	bh=F8I23AU+j838hjXhl1ya9Hoh94IUJB6RgV6WyOcUdpY=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=IzxzQ3DAfQ5y9UhLtx7WELhw9OoMnMPQNrs/EZOTR/3Uc/eQh70Wab3bc19hB1ms1iMG1PJKhM9ee+YEMMagWwruAUtvCqhjETfvtRDSRMSDRbRPh9dwdMxCiwxDSQWcxczkI4h9yM58BFRzPO8bL6mJoDze3Ryss2Rz/t9HBLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dQ0j8Z/X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RoWRky+l"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788594269; x=1820130269;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=j3wvVFfckmgjrFD3yF7a6wyniicOFkDp+N7/iU6mACE=;
-  b=RoWRky+lJkhhBizeS13+AiZv54WRfL7V3thW76iehwChpK1ZArqV5xhy
-   x1NqtquM3Ky+wIaR8JvHX7YKFq5bA0G0+Tvw4tVntAtAwO4tYyTzyXx+m
-   93zFlzoA7aQuGPI+rQObR9uKSuwZ9cfrQXkFji3XLM97/67g210XbvcYx
-   lPTvexkjFnHoq1o5T+bRPHDtMeYA6LQAOOJLv/zGlXZN3uwqM+ODU/ud1
-   UwoaRmDJPm8SgomdiUdQiZ1KUXue9cyqfTyVT4S0q03Xxp2ypwH+hM695
-   e2Y5U/jdFTPBd5n2xttg3qJOopIvZYqgZqNPfPa+pSnkmXggB3PXHjzRc
-   w==;
-X-CSE-ConnectionGUID: 9IeRF07BQieXfL4R3uHpLA==
-X-CSE-MsgGUID: gEVsRvLvTkeimrs+uGLp1g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11896"; a="92955856"
-X-IronPort-AV: E=Sophos;i="6.25,263,1779174000"; 
-   d="scan'208";a="92955856"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Sep 2026 00:44:29 -0700
-X-CSE-ConnectionGUID: MtiZCHO/QVqlSY3MbRboSQ==
-X-CSE-MsgGUID: +U3QRXWBQW+TuSc3diu8aA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,263,1779174000"; 
-   d="scan'208";a="308487217"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.245.105])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Sep 2026 00:44:26 -0700
-Date: Sat, 5 Sep 2026 10:44:23 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Tejun Heo <tj@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org,
-	driver-core@lists.linux.dev
-Subject: Re: [PATCH] driver core: fix typos in comments
-Message-ID: <apvIV6uIkqFI5dlF@ashevche-desk.local>
-References: <20260904111816.31254-1-hemanth.selam@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dQ0j8Z/X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E6531F00A3D;
+	Sat,  5 Sep 2026 07:45:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788594335;
+	bh=7yOxbGjvD5wE0Hp6BWVA5Rm3CoQLfyp/woX5BV7pxRk=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=dQ0j8Z/Xlikm1kfjAyCjsTDBJEGEqnfRe88eQVGnQeuofnhc8atPho0+xkyxlztfu
+	 bNwZlfsv9iXQ649b14RT2AUFJfXQdUh/9sIruDdNyjdsLF0DjER7yEW4DJgANFzrDm
+	 s26tzieG9TOc1wqFKN/FCZO0rXZYiQ80ma42Dl+BnD9bawuWVCidUETJUkjjYmrZpC
+	 FIWHuYup0D89otgLZBlbfzpzGdYY9O2cBa/9QI99fw5WoKTJA0opFEb4j8+HaeTFAd
+	 GBA4YUY1yz2vzwXobLfaR8K/+i9+uEXbuOtdnrgFzNBPESkYt2ykwdImL5h7up4EZV
+	 JoA6i2hcg2nFQ==
+Content-Type: multipart/mixed; boundary="===============0711090133430070351=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904111816.31254-1-hemanth.selam@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Message-Id: <5e50a375b8cc6ff27c370db71783041b6ceebdf6a014a008bb2ecbfb2dca88ca@mail.kernel.org>
+In-Reply-To: <20260905070409.4141522-4-pulehui@huaweicloud.com>
+References: <20260905070409.4141522-4-pulehui@huaweicloud.com>
+Subject: Re: [PATCH bpf-next v4 3/3] selftests/bpf: Enable stack argument tests for RV64
+From: bot+bpf-ci@kernel.org
+To: pulehui@huaweicloud.com,bpf@vger.kernel.org,linux-riscv@lists.infradead.org,linux-kernel@vger.kernel.org,jiangfeng@kylinos.cn
+Cc: bjorn@kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,puranjay@kernel.org,pjw@kernel.org,palmer@dabbelt.com,alex@ghiti.fr,pulehui@huawei.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Sat,  5 Sep 2026 07:45:34 +0000 (UTC)
 
-On Fri, Sep 04, 2026 at 04:48:14PM +0530, Hemanth Selam wrote:
-> Fix typos in comments, reported by scripts/checkpatch.pl using the
-> misspelling list in scripts/spelling.txt.  Only touches comments, no code
-> changes.
+--===============0711090133430070351==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Not sure if it's okay to combine three different areas in one patch. OTOH
-this is quite minor fix and I wouldn't expect any conflicts with anything.
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Enable the stack argument selftests for RV64. The riscv guard is
+> restricted to __riscv_xlen == 64 since stack arguments are only
+> supported by the RV64 JIT.
+>
+> Keep the __BPF_FEATURE_STACK_ARGUMENT gate, defined by clang with
+> BPF stack argument support [1].
+>
+> [1] https://github.com/llvm/llvm-project/pull/189060
+>
+> Signed-off-by: Feng Jiang <jiangfeng@kylinos.cn>
 
--- 
-With Best Regards,
-Andy Shevchenko
+The changelog says "Enable the stack argument selftests for RV64", but
+one arch-gated stack-argument test remains on x86_64/arm64 only.
+
+Exhaustive list of every arch-gated stack-argument test in
+tools/testing/selftests/bpf:
+
+  progs/btf__stack_arg_precision.c        updated by this patch
+  progs/btf__verifier_stack_arg_order.c   updated by this patch
+  progs/stack_arg.c                       updated by this patch
+  progs/stack_arg_kfunc.c                 updated by this patch
+  progs/stack_arg_precision.c             updated by this patch
+  progs/verifier_stack_arg.c              updated by this patch
+  progs/verifier_stack_arg_order.c        updated by this patch
+  progs/stack_arg_fail.c                  no arch gate - already runs
+  progs/exceptions.c:383                  intentionally left alone
+  progs/arena_kfunc.c:219-230             not updated, not explained
+
+progs/exceptions.c is correctly left alone: DENYLIST.riscv64 lists
+'exceptions' with the comment "JIT does not support exceptions", and
+arch/riscv/net/ implements no bpf_jit_supports_exceptions().
+
+progs/arena_kfunc.c is not explained. It gates its stack-argument test
+with test_loader arch annotations rather than a preprocessor guard:
+
+  #if defined(__BPF_FEATURE_ADDR_SPACE_CAST) && \
+          defined(__BPF_FEATURE_STACK_ARGUMENT)
+  SEC("syscall")
+  __arch_x86_64
+  __arch_arm64
+  __failure __msg("arena pointer cannot be a stack argument")
+  int arena_arg_stack(void *ctx)
+
+test_loader.c skips any test whose arch mask does not contain the running
+arch, so arena_arg_stack stays skipped on RV64 after this patch.
+
+Does anything block it from running on RV64?  bpf_jit_supports_arena()
+returns true on riscv64, DENYLIST.riscv64 contains only 'exceptions', and
+arena_arg_stack is a __failure test so it only needs the verifier to reach
+the "arena pointer cannot be a stack argument" check - which now happens
+on RV64 because the preceding commit makes bpf_jit_supports_stack_args()
+return true.
+
+Should __arch_riscv64 be added to progs/arena_kfunc.c's arena_arg_stack
+(and the #else dummy_test, which carries the same two annotations), or is
+there a reason it should stay on x86_64/arm64 only?
 
 
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33952202002
+--===============0711090133430070351==--
