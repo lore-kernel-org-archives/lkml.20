@@ -1,113 +1,242 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013038.outbound.protection.outlook.com [40.107.201.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F0B363081
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 02:45:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788576306; cv=none; b=bFASB+eT6Zve9U2Wd3sG5tKllDPBpi7t2n2r0fFUtLi1lTz5Wjq7N3yTFA7d8qjklGMY0w0KpYFa2rrXl2M2zE1Mh09lTJ18L7b2mQMKehNCVftTNfCRK+eQxjfkdapFLboSI1MExVNoYQh7SA13SB+oo40JtqC2YMuP5bRmPro=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788576306; c=relaxed/simple;
-	bh=6V+wcAi6aIjzEQtsFtZ35bhks7J+sTDymPNLuPNKj2o=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=aWnvyoo60L5slaJglCtI3AD54eH4DMi0gKBpVKwUbTzCkJTRD7oIgVY2UQAWs2wClWLRoWcfInCdsgk95dVag8XWeOi68Ye/TUxy+u5pOAqOM6eW1GLkRMWAjfR5W/27SWUAev1JdhiwHQghpC5jvJIUl0T5+Md/tntXDDsoeFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jSmaAG4c; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 789063A48C5
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 02:45:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.38
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788576308; cv=fail; b=ovrdeKxzxTSsvFQffTzgEwUtYlZiK2IU1p8kkl7bD0ChgW11tWdbP/zNqAgATSHHdHXsUVoMJxMMDEPa8wOEA+JtKt4YAPSwnsYh03IeCPYO/E453Vol7dWU4a+qk46gA8g9nAEhCOW7SZX8KWKUakduJCxkmc5uhUot1hucBRE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788576308; c=relaxed/simple;
+	bh=vnCoi9ZCWbWYZxU+uz/CyEBj8ZoTJ0OdVP3wrIf66CE=;
+	h=Content-Type:Date:Message-Id:From:Subject:Cc:To:References:
+	 In-Reply-To:MIME-Version; b=UMo6PIGREkneDuL89tjUkdgyqTEKAVTuTj/e5cKwtrYBsXwzNFFTeyt7BquRAQpRsIREQ+y2bGEaFSeKyvuOlNMRap2fkMUJIR8yBfUoqL3jqWYxD740k06IGC/fx7OJXh5nQhBFiqt7JgfVM4eGNnTctl/Z+KGn2eUiwEa/vSI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=my10TE+8; arc=fail smtp.client-ip=40.107.201.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jSmaAG4c"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49b8ce9b733so13425105e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 19:45:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788576303; x=1789181103; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r3yyxISqKrXTZ8z7qHYkJWu3PYgeGWsbzCukGt/ffek=;
-        b=jSmaAG4c2+u0n1L5uvpBWThtbjgkAcLjUe/zP1HSXq1vE3ktLb3oyRO33JIPS35Z4H
-         hH8agVs4bdwkk/oLcRukGxNrxepnTd4a2XI47ZP1GN8fVS3z5mVD1ouWKihgA0CE27O4
-         yRbE1EVFCbNOtB2IdihJ2PT8env5l0qRv9iRccEJmmZ2I0WFc2HLw6hynQv1jdV3mx7l
-         O8o5nKpa7Odij6l32ZMAeOl7nK49wLWZw2ooW7TIQddB+djv2IXj1q/ZwvolbBKGT9Si
-         5GbD5xa6NfySvnSSoGEyH5Ra5BKchMhCcRAWOKM3U6IaZAv3mj1gm0Y+IzIzHjbrO1Z+
-         zdcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788576303; x=1789181103;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=r3yyxISqKrXTZ8z7qHYkJWu3PYgeGWsbzCukGt/ffek=;
-        b=Mldq0NNT3nAAWW5nA7Cg2KoWvzsQ34FGAaFjsJvi7Arpd+2BrKYtvy1br4hNRVizmC
-         FExpw3O7PMHR0EXy8zM+dV0AmUNTDpLEU1qg1UTAZHQOBEhQtJBfV1wCVuFwermMWCGv
-         rixPzLrun4Z9MG2K/b88w3bH2zHkbtIjgo1IO+YnWLHWMXkImLvWnTMpIPNDTOHG8VuN
-         JbFQDx2IKJvovTmn/PZrbJWvvGfHakFt6D94Cep70N36Igohru2UrB1jMXhVlm5Bc3Dk
-         yoGrv+bMy55HfrB6MbheX96GLhhqVxoSS8S+3FNx9yZhz7mPVYnAipTXR/i6/EQAaCYv
-         6rng==
-X-Forwarded-Encrypted: i=1; AKwUvBzLMsAp7+TRHkrQgKdKqK0WrdevnHFTSUviJOYh49lcxY+8fEmYgdnsf0uf5HBEwP2VvoONO1Z4Fw6wrs0=@vger.kernel.org
-X-Gm-Message-State: AFuF++l5Riob407n76wPLVh1aA0G0wga3UdORQNnH9QU/n/WQ6bfXJn8
-	izGzXCQpK52BlxwozxLuPgew3+yUCmNOnkeAI815alSumO/AjBJoG59A
-X-Gm-Gg: AYBFou3q1OgJzXxmClqOx7ns4TZKmqRq0zBI7BdlqjVLKtR9xuuyovyBE9u6PKXBbwj
-	t2AfGLbeXFtFD/fc0s+cprEtg7kgkROY83mIyZzdFXFdCdsYeH++422P7hYbfGSFxJU2pwBRFr0
-	jyw8dlyuvupCPgYz7hATRFIIO/FImPN8+YVcaM2N54ztG1tdgAinbcsiyCXW55vyjrtvV+1q/lC
-	cj67JBeMp7sm81ss6lEWNkVHkQ1TQHX1QaOhhme7uEKtoAcnY+65ZNxcCjn5p9IwVMkVd2ym+Ib
-	8Fn+eARApCeEReRk6NxsIcBVAW3ORgZuGobwNAPWKRmqunzHEOp/yNaYlCp0MDZ4w+oRpS8sPUA
-	lgV/1hLOcJtkkK4aOL95SPZauq31bFc4Fd/OyqurJ3HliIhcwbvFbwm3QzyPPQeGO/3G3surRl8
-	hnhGkYcqMvBOSACC91fmuCQrHMCadgsfs4JBf7IpMeUrjHhLIK8ZDit+EV0dNCobKmyUupmjSEM
-	JrAnr0zoKLlktsIn4gnC1uYNdsPr5tkagSjGnvfyqusqWBZL86N9kaq0viNRrb0ekp3+ZE2OUyt
-	2u1Qmxz6CSfZ+6yTSW4/0GG5MYdgzRD65wboBYmkPGrJ512eCWaY5UxoZyrWP/wUAGE=
-X-Received: by 2002:a05:600c:1986:b0:499:8aff:59b6 with SMTP id 5b1f17b1804b1-49cf825cef5mr83527625e9.14.1788576302692;
-        Fri, 04 Sep 2026 19:45:02 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a4eb-3001-c06d-af27-9fa2-ea53.310.pool.telefonica.de. [2a02:3100:a4eb:3001:c06d:af27:9fa2:ea53])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885be1c1sm10052560f8f.32.2026.09.04.19.45.00
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 04 Sep 2026 19:45:01 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Brendan Higgins <brendan.higgins@linux.dev>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	David Gow <david@davidgow.net>,
-	Rae Moar <raemoar63@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sadiya Kazi <sadiyakazi@google.com>,
-	linux-kselftest@vger.kernel.org,
-	kunit-dev@googlegroups.com,
-	workflows@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] docs: KUnit: Fix qemu_configs path
-Date: Sat,  5 Sep 2026 04:44:55 +0200
-Message-Id: <20260905024455.83413-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="my10TE+8"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oCU4sinYV5IiOtGO6CZza341n+STzU8NM2+zvI6VoSvfHsub7z2ZBDp0SsZrQH+uaq50Wej/cTlazDyaJLbR+idBiBTLwLe2T6pHRA6afO+AjoZWMwUDRpzCz2cMhut4sasiZTkDEpZJbAZWDpTW7v20RSRfpRt6Nap2c1FfXdi8FLdccEXoxX38QiqKeF+2fKixf8N9yoqacCgmpgPTIxRcsMtBC39UgObKF41F7PZArFqgxIaZUNd4pJcAtnaDUxEyRSYNtTNoI34K8xaq0G7V//Wq7GH20xkpel1Um8rsTGuJF3YF57wBVO7o+2cZiHxoGe3fcRyrhGkN24q/Xg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2YdiYCDW0ds85cdHpCtFo6bH34eI4T8Bz1wBZJRlKbM=;
+ b=pEkkQxULwRQwqXwgn5Cs7J1c+/PkkF7dbv/c5F9sSO0brnDN1DSAiD8dchUbXYn47EBPV7NkWgiVNOySuxdrH92/XHv0phPMP8OTEQgGu2s36j1x3e8foc86LpuYy7BY5Evub6jGVUwu/2kkRVD/m8nrhGbQkqHFO+olern4XPeLdKod7SldDjRBOy+Q8FAGOoUlKfOp2Kpz0w/BQGjpG1wrf4ProF747EVjfsGn7d6zS7SjX9YYEMEbNypWkSqbO3vrOid6No9qIGKWoEEPrmKQBMzIQTpUdxiYrjETt4ohlrbvaNgdYXZO1y4qnbIKsNqpQPrhr/9J9Ow63GPqHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2YdiYCDW0ds85cdHpCtFo6bH34eI4T8Bz1wBZJRlKbM=;
+ b=my10TE+8eHvya81QJ8U1AhnKmNz5zSDIZKI6gTH/WaCRPlJpAKS7NDRrnwhbZwIVgUc6hBmAB4iJndZDx+Yc3WIR3IHiR1A16VMw3FfNpOVp/hYaxhJ0UwzZTNJ+JZy6m4q9FSFQsFX31/Mf3gfOe8R2sOcshjaV+aXjO0eW26TUgAwJRCEDaHJF2Ypvwp4i175SMony0NYdTy/IU/DtVCqU7Zojpx3DkBTGGEm5XiOAf2+tWAVNOY768Id7XmqN00S/XrXF3dYZ7m7hUQigHBHCKkbret3tGaSijZMYx7jFBHDuMA2Zbo/7zojqnmtVjG8E7RQOtP+h2KSzbzYkWw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by CH1PPFE5ACC0FD2.namprd12.prod.outlook.com (2603:10b6:61f:fc00::629) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Sat, 5 Sep
+ 2026 02:45:00 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0360.008; Sat, 5 Sep 2026
+ 02:45:00 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 04 Sep 2026 22:44:58 -0400
+Message-Id: <DL71DSES00K6.5JMVM0IJLPHP@nvidia.com>
+From: "Zi Yan" <ziy@nvidia.com>
+Subject: Re: [PATCH 05/12] mm/collapse: state what a collapse may do in the
+ policy
+Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
+ <kernel-team@meta.com>, "Baolin Wang" <baolin.wang@linux.alibaba.com>,
+ "Liam R . Howlett" <liam@infradead.org>, "Nico Pache"
+ <nico.pache@linux.dev>, "Ryan Roberts" <ryan.roberts@arm.com>, "Dev Jain"
+ <dev.jain@arm.com>, "Barry Song" <baohua@kernel.org>, "Lance Yang"
+ <lance.yang@linux.dev>, "Usama Arif" <usama.arif@linux.dev>, "Vlastimil
+ Babka" <vbabka@kernel.org>, "Jann Horn" <jannh@google.com>, "Kiryl
+ Shutsemau (Meta)" <kas@kernel.org>
+To: "Kiryl Shutsemau" <kirill@shutemov.name>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "David Hildenbrand" <david@kernel.org>,
+ "Lorenzo Stoakes" <ljs@kernel.org>
+X-Mailer: aerc 0.22.0
+References: <cover.1788533997.git.kas@kernel.org>
+ <b01681c3cc945a7f7c3c7ca1de502f7cc0e93fe8.1788533997.git.kas@kernel.org>
+In-Reply-To: <b01681c3cc945a7f7c3c7ca1de502f7cc0e93fe8.1788533997.git.kas@kernel.org>
+X-ClientProxiedBy: YQBPR0101CA0267.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:68::27) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CH1PPFE5ACC0FD2:EE_
+X-MS-Office365-Filtering-Correlation-Id: fb90b19c-69af-4dec-faeb-08df0af7ae03
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|11063799006|10067099003|4143699003|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	1BIL/gSwww0dzMy6qQ4m/rCPwrO9q1JIiouon4v8KwbiL0qG2noa79nMmhhdQbqvXc5pdQJCfPzz5OPP9YD07MuwAqbiHxrNMeZrUXPDw97yZupSmwQqNY2ViOkeG4WWBYSymrGTEJugp8srv/HNZOCDdhnfYuyLuhslEWY0oAYUQEt61OLRVdCfIl055bHBl7a2Ye2cZ+CIg82A9faLCtsm2GooBA9gfKf4ze+CVf8WAB925nYquTglnZ78HWqy+BYwLaFfHRgPbfwEdPPXWTfYX9qxJO2VqkTxNhfbAamNLf2zhRUG5e3sIG2hzLzmwaF7cQ+2dYFIhBPBmBEley7n+dm0SaqxbEAxxV1X3K73u4q9fuvqRWHmSWnHAdRgryfMrN77jydupfr4cWo9xP6MAQiF2VGgynrAtBJaPA5zn6ZLnf2s4x5BB+7vSdGNWrib8aBwSwUdmNYnxGo+XTskqXWSNQJCmVxnYoG9NDxsxaXIK5TBbwfD9I92OsOy+aaWfsKsJTb28VnL977BnL3jEm7wp7QnbG0mxCqwB1GiCdmpHsCmRyCTURzReK+UST180gozsxENgF2Lj5xprJ1C2Qaz+lSyeXfZityCce49Pguxg4rgZFw9S1b13cDnOgyRu1xNk3/bksr6Y8dHKgrtn3bCWyRxnTrzbPZFlJs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(11063799006)(10067099003)(4143699003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NjhNYVpqaHA1RXFNcUgycWtKZlltTUlIUWxqK2g1cE9RTFpZSUVyWCtLcUwx?=
+ =?utf-8?B?R084L3BRMzhHRjhtbXJnaEJvUkVLOWFJUTJGMnlFQ0NucXBqQnFIZUZyNzY4?=
+ =?utf-8?B?TUhJc0xZQmVTTHVpa1ArQzRONkJQNkxGK29pZnZ1aG05bmk2RmpXbDF4SGdl?=
+ =?utf-8?B?WnNQRVppeWgvaTQvb2xUbnBGWU5ZS1ZuNTcvblJSaWdrMUJ0SUcvaTRjY1FH?=
+ =?utf-8?B?eVJvTzRmVWRTZUFiZmxpL09WQjJQaFNuQi9HZTJKbnU1U1dDOEdlOFRmQXRt?=
+ =?utf-8?B?ekdab1NJMjZkelhudy9jdmJJbS9jZzRkcjBobUx5QUl2NmhmS2Q5T0xUS3Ur?=
+ =?utf-8?B?UEFYOUZmV1JTTnZFRm1xOGV1Y0RJRGN2eG1XbE1kTEZxSTlNUjJUTlpCazJH?=
+ =?utf-8?B?NHplcU5Qb2hGOEtWMEQ2ZHdkY3pTa1BkWjg3WnVuYlJjZVgrRG9SQ2tHY2wz?=
+ =?utf-8?B?OFlXVFZUS2ErdG5taC9pMkY2U1l3OWpQODB1RFRsRXFsL2RQQ0EwaGtLdnFI?=
+ =?utf-8?B?OGhvKzFEalhObTlhbW9IaUFTSitWbnJWUUhRZSsxQ1ZqL0U2Mk9YdjdEMmty?=
+ =?utf-8?B?em5NMnZsWGYrM3ZwZklVcXpsRjNaUmRvbUhIVEpSZ3ZWdGpCMndNb28vQkUv?=
+ =?utf-8?B?end6eVIyMktSSE5lek9xbzgwUHNQMkJiaElMRHF6OGtwSkJsN0Rrc3RiVzYy?=
+ =?utf-8?B?VlR5cE5kQnM2T3B5bjJSbndJdWt2c2d0VVNuSDBjTFZIM3BmN2duNk1TZ2ov?=
+ =?utf-8?B?N1MwOC9jTnZaTC9MTmJ2VklRSmttZDd6SUxIaGhjY2FvczhjNjBUbFd1ME1W?=
+ =?utf-8?B?c00xZWFzbTd2ZlBSRzQrUzltRHVkUWFlUWU1VVFjaHRqdWFHRzhWY3VtTW5B?=
+ =?utf-8?B?NXp0YUJ0bHd3UFZTY2JEQjBIbEY2YUxKM0MxUEVyU0E5Vi9JRTY3ckhCTXE3?=
+ =?utf-8?B?bUZkcVlGRS9aU0V2RG1BRTUyNkNYZ1FBczVmMzE1Y1lxZUtUTVJpRU1DeDhM?=
+ =?utf-8?B?WGF6TFl2aks1U01BZWpaWFVwSU1wVkJsSDBOVkdCbSs2YXc3MGN3M24rRFVM?=
+ =?utf-8?B?Ukg5QXZla2JhK1VyeWtwWXNxZDQ1RllDYWFlUDdsZFdqWjBmUDRqaGRqSWxX?=
+ =?utf-8?B?VGE2eC81VHJIR0orVVlhbzR5bmVKVWcwZWJkczBrNEJPdFIrSVhSNk1sYXdZ?=
+ =?utf-8?B?bnZJZW4zU0VpVzJPVVFFa0FWazNHYnBvdTlTV2ZsUEVsa3AvY0R6S3E0SE00?=
+ =?utf-8?B?cU44U1hMeUZCRUMxTG1iL0xDa21RMEwwendJNDRaNVZpLzRScUF6Z3BINlJm?=
+ =?utf-8?B?ckIyenBnR3UwQ1V4Z25Ockx3ZnQ4aEhndjRJbjZlRWx3NVlYcS9uQ05NdjIx?=
+ =?utf-8?B?d2RJUkRRVGFsc3YzSm95Q2xwQUdQR012RDRVQWxEQlVTMWpvR013TXl4c3dB?=
+ =?utf-8?B?S3cwQkozd0pEczRtTko3VWdnVlFEc2VNM1JvNGpON2FsSHFvbXM0WXRHOGhu?=
+ =?utf-8?B?a0x3Uyt6MzMwZlU1U255WG9BcG9oczhDS0g0VHFMdjlkL1k3cXBvdEJ5T0xq?=
+ =?utf-8?B?TjZDOG5zRFhHOEhrWWplZ040cmxuQ2ZGeVJsZmhJTkwyd1d4ZXg0NVA2VDRu?=
+ =?utf-8?B?RllzVVFYY0NUVDk0cC9GL1JjdUxnNW1JUGtZc2R1OWc1bllPR1RvbDUydnJJ?=
+ =?utf-8?B?b1FNMUlaQWUvYkc5ZzNHVDMvOHM0MitwVXlrVEV6R1dad0U5NURGTk5lbmxa?=
+ =?utf-8?B?UDFDeGxYTmxCdElVRzFtcm9iRkY5ODRKQ1k2S1BjMWxlUjkvWG1nTkZXd0tB?=
+ =?utf-8?B?dTNmMlN2eHZMblI2VzRxbnlmRiticE90M1VNOWNMbXpGdVdJQTlGZ0hoRmlJ?=
+ =?utf-8?B?ZlFEMHo1R2ZxRkFGRXFwb250enh0YkNPaUQyLzN1T3JiYnFaYUZtdEZkSkdW?=
+ =?utf-8?B?YmhRSGJxSzdQeFI4cWNkb0p5dUs2SHhXQmI2OGEvemt3dC80djVhSVpkRHVK?=
+ =?utf-8?B?a1JwZjdvdU5uaG9zbzdscG8yWXlXVkVWU0RwZjR6YjBXbUtZbEVTbjRJSFh5?=
+ =?utf-8?B?UXhRQS9BNi9ZT2REYUU3NmljTFZWSVBlUGxPSFBUZTdhdXo0Q1cvRnB1QUlW?=
+ =?utf-8?B?eG9xZDRqQTFkOXREUy9Hek5OelpmekNxSjI3aytBSG84ZGVmeUZYT2RWSTQ5?=
+ =?utf-8?B?dUE1QllYZGdhVDUxbFYzQmV2QVpVVDlKZDV3TUMzbEhwNWJNdERTSExLb2tB?=
+ =?utf-8?B?c0prZDE3N2FPbzBwYTVkSE1sQnRyVkJmTlFYdkliUWlLVGl2VElPYm9Jazk2?=
+ =?utf-8?Q?IkRoKXNHVPsuQcl7La?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb90b19c-69af-4dec-faeb-08df0af7ae03
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 02:45:00.3296
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FjDu00++RhIEExT/39tMM9mLv5t32d/16LK4U9fCiKVvhDFMWl9ii+m54CWB3G75
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPFE5ACC0FD2
 
-The example path is written "qemu configs"; the directory is
-tools/testing/kunit/qemu_configs. While at it, make the verb on the
-same line agree with its plural subject.
+On Fri Sep 4, 2026 at 11:10 AM EDT, Kiryl Shutsemau wrote:
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+>
+> Tests scattered through the collapse path decide what a collapse is
+> allowed to do by asking whether khugepaged started it.  Between them they
+> settle:
+>
+>  - which VMAs are eligible, and how hard to try for a folio;
+>  - how many empty, swapped-out or shared PTEs a window may contain, and
+>    whether a sub-PMD window is held to a stricter rule than a PMD;
+>  - whether a range has to look used, and whether a MADV_FREE'd page is
+>    left alone;
+>  - whether the PMD is mapped as part of the request, and whether dirty
+>    pages are worth writing back and retrying.
+>
+> None of those is a fact about khugepaged.  Each is something the caller
+> decided before asking, and the collapse code should not have to look up
+> who called to find out.
+>
+> Add struct collapse_policy for the caller to fill: khugepaged from its
+> own settings, MADV_COLLAPSE from the fact that a user asked explicitly.
+> Every test becomes a read of a field, and cc->is_khugepaged goes, having
+> no reader left.
+>
+> khugepaged fills the policy once per scan pass, MADV_COLLAPSE once per
+> call.  That is the one change in behaviour.  The max_ptes_* limits and th=
+e
+> defrag setting behind the allocation mask are sampled once per pass rathe=
+r
+> than on every table.  A table scanned early in a pass and one scanned lat=
+e
+> are then judged alike.
+>
+> collapse_file() also drops a NULL check on the collapse_control.  It has
+> one call site, reached only from collapse_single_pmd(), which dereference=
+s
+> cc unconditionally, so the check was already dead.
+>
+> Assisted-by: Claude-Code:claude-opus-5
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> ---
+>  mm/collapse.h   |  40 ++++++++++++++++-
+>  mm/khugepaged.c | 114 ++++++++++++++++++++++++++----------------------
+>  2 files changed, 102 insertions(+), 52 deletions(-)
+>
+> diff --git a/mm/collapse.h b/mm/collapse.h
+> index 1c40229b9554..05282eed9a35 100644
+> --- a/mm/collapse.h
+> +++ b/mm/collapse.h
+> @@ -48,8 +48,46 @@ enum scan_result {
+>  	SCAN_PAGE_DIRTY_OR_WRITEBACK,
+>  };
+> =20
+> +/* What a collapse is allowed to do, decided by the caller that asks for=
+ it */
+> +struct collapse_policy {
+> +	/* Limits, stated per PMD; HPAGE_PMD_NR means "no limit" */
+> +	unsigned int max_ptes_none;
+> +	unsigned int max_ptes_swap;
+> +	unsigned int max_ptes_shared;
+> +
+> +	/*
+> +	 * Hold a sub-PMD window to a stricter rule than a PMD: no swapped-out
+> +	 * and no shared PTEs at all, and max_ptes_none as
+> +	 * collapse_max_ptes_none() scales it.
+> +	 */
+> +	bool strict_sub_pmd;
+> +
+> +	/*
+> +	 * Collapse only where it looks worth doing: require some sign the
+> +	 * range is in use, and leave clean lazyfree folios for reclaim rather
+> +	 * than collapsing them into a folio that is not lazyfree.
+> +	 */
+> +	bool skip_lazyfree;
+> +	bool require_referenced;
+> +
+> +	/*
+> +	 * Finish the job rather than leaving it half done for a fault to pick
+> +	 * up: map the PMD over a file collapse before returning, and write
+> +	 * dirty pages back and retry once instead of refusing them.  Both cost
+> +	 * latency the caller has to be willing to pay.
+> +	 */
+> +	bool install_pmd;
+> +	bool writeback_dirty;
+> +
+> +	/* How hard to try for a destination folio */
+> +	gfp_t gfp;
+> +
+> +	/* Which VMAs are eligible, as thp_vma_allowable_orders() spells it */
+> +	enum tva_type tva_type;
+> +};
+> +
+>  struct collapse_control {
+> -	bool is_khugepaged;
+> +	struct collapse_policy policy;
 
-Fixes: f13ecba04bab ("Documentation: Kunit: Update architecture.rst for minor fixes")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- Documentation/dev-tools/kunit/architecture.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Can it be made const since it seems to be read-only?
 
-diff --git a/Documentation/dev-tools/kunit/architecture.rst b/Documentation/dev-tools/kunit/architecture.rst
-index f335f883f8f6..dc291c6187a7 100644
---- a/Documentation/dev-tools/kunit/architecture.rst
-+++ b/Documentation/dev-tools/kunit/architecture.rst
-@@ -167,7 +167,7 @@ Documentation/dev-tools/kunit/run_manual.rst) or use ``kunit_tool``
- - ``configure`` command generates the kernel ``.config`` from a
-   ``.kunitconfig`` file (and any architecture-specific options).
-   The Python scripts available in ``qemu_configs`` folder
--  (for example, ``tools/testing/kunit/qemu configs/powerpc.py``) contains
-+  (for example, ``tools/testing/kunit/qemu_configs/powerpc.py``) contain
-   additional configuration options for specific architectures.
-   It parses both the existing ``.config`` and the ``.kunitconfig`` files
-   to ensure that ``.config`` is a superset of ``.kunitconfig``.
--- 
-2.53.0
+
+--=20
+Best Regards,
+Yan, Zi
 
