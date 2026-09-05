@@ -1,151 +1,172 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012025.outbound.protection.outlook.com [52.101.43.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C45C1346AFB;
-	Sat,  5 Sep 2026 03:25:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2EB35F5E1
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 03:30:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.50
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788578754; cv=fail; b=SKwkuiLV+X1IiKsHwc6HU0kC60il544XeOOwOysUkaV8kLhmfUJCDR11FvE/lcVfOg7atoL6CdO5Sz3XLclk+VXI3PFGA2qv8L3sG/eDb57lvLwbUEjH91EFYVSCHyaK7q3BsbQDIrmNKy4OtuyMDP47SVC7KFtyTN5Zh4vKvD4=
+	t=1788579031; cv=pass; b=YbqxkyRFuTpfTH040vFAutQEw1lDWZ2HkzG9iKBWhlC193V0CQW0jIIup1Hk8HAtnZ2BWQp7uE/Hkoua36GWjExIVqm1i2lb4LD5MZYSd1+vH6gbMQBrLFlSf+aFCjqWvn2686phJkhUpWQMkKa6PeJd/LqQz4nUcb5B8eyASBY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788578754; c=relaxed/simple;
-	bh=3r6gMKvBW2LkPo/VnmQjCPYZPZ+k0rcMUKWzKA2QZTQ=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dMDFwseyvV6etCPQG1+hbR/8sBXqcFVPzmUJJndID/z6a0dYpA4gCAnDSuuOzjHf9z6XXUocr+VmGpPx+AaVhuk8AzArEdHbDbQkyHFH3i6Pn0Wi+2yQNoNNFCcwHlq67WddBwp9rkaqqQ4FzXrjiDIiVznNHAku2xRfy0hcCCs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=JuuEgRDn; arc=fail smtp.client-ip=52.101.43.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1788579031; c=relaxed/simple;
+	bh=73YgTfRY5PQ5ZLAadl5YBKFBHFoLXMnXGa/HgmJQYGs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TkXArnBdXUUllZr527g1kPjRBs5w/XSufY7+xuxqAZmmT1MOppq5JvldY7CXDYAS13+kn/BEDppRv1HccrTTvyVWsyaBY0u0njO7oOQRZI6nEFRJsi9TVRzEPITEdd3ihCBkfyUMjIz1mqyChWZ+NaDo0qeygWEW5y06bYz/RXc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UsfX8jAE; arc=pass smtp.client-ip=209.85.167.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="JuuEgRDn"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yAcCFaiVizlCmfvK/mknCZD5WV2kZbGg9Bgq7/rreuwzOeZAWVPMnV8DEkOnCV6z8FjQ6O1j5cbNXmh+mAUySyNQRLhzJGxXnQ6lqHEsjAIooqZ03A1nS1zZFbiw1k55R1zF6Ut6tAJf8MaLl8wyra8YkvDY8JjjgasN/8BlHUi+4Dmza88qd+6OKIpdG75Kqu/UY1kY4EVIlG9+Kk2gLGxA2Wo7Gsnklgy8aLxCQlIHaf+2ZB81A6v6vViPBrQkFellTqetnLSXqQ32rwFF98eFrtI4hXn6Xl/k7qD5NyrLYTW3uAzi5nXtsYTq4JRZboXa1tdRoeW9i7+WiEWU+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C87ceICwqHWFazhK3YCduUkTtmc6pkDDD2ghB3jqD3c=;
- b=xc1XwbMf3mjLMX9zva8wS4y/w1jMZb+zTDBeeAypNjaKqiT82/95/Vv8ssN829giKaW7hiXNuJwBzBPzC+a3iSFlgCWZ2yK8GxA4M52mwsh8U4IxEgzm5kVbNGSCc/EKBpJn/05uh6X3kwSh8gFUADdydJ45XvKcJcDQsszrRr3OKLkFUiCVK6RwUj0QMOL5JYk5NTCBlnxBVK6eKMEotfmXUj8rbj51qmWxS+zKsw0c4s+smhVHRN0nsGVd8S0L0xjkNFLCWkT9v0aOJ7Cro9qPpZ9/Fxn5cXgDtW2aA2OvG2ufWunquZvFebku0QV6x1S5jZktzFDgJhIuDjN3Kw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=oss.qualcomm.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C87ceICwqHWFazhK3YCduUkTtmc6pkDDD2ghB3jqD3c=;
- b=JuuEgRDni6/KR+Gx39gY17p5VQonc1eHsqKYIhGPY5/jtiO9aRFFqzDQhTVcTYilWzE4ayjGjz8YTPwfdCrLbJnXdIwReJqx4jg4LAUx+kK3AILcuWLKMUqzayytDGxXaVler3/8Op3FkKhyA/FeohO0ES6X4m8dIkN64hMVEK6I9t99ipa5jpABl57BhjDalvM5Jw3o8IX+DtUoLf9BnjBDCnOmEKPUCIznTHWeOwp8zJ4PAjDLt7VTCPYCWRtr4Fyc9KtY1Y7j1H2lOBveM3YgGbzAbOcX2//cZM/l5rXuQnNI5fQhRUmXtKT1CEoFyJjMnqIhEfu/HdVQpBxR3w==
-Received: from BN9PR03CA0780.namprd03.prod.outlook.com (2603:10b6:408:13a::35)
- by PH7PR12MB6738.namprd12.prod.outlook.com (2603:10b6:510:1a9::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.12; Sat, 5 Sep
- 2026 03:25:41 +0000
-Received: from BN7PEPF0000009E.namprd04.prod.outlook.com
- (2603:10b6:408:13a:cafe::3f) by BN9PR03CA0780.outlook.office365.com
- (2603:10b6:408:13a::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.13 via Frontend Transport; Sat, 5
- Sep 2026 03:25:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- BN7PEPF0000009E.mail.protection.outlook.com (10.167.248.150) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Sat, 5 Sep 2026 03:25:39 +0000
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 4 Sep
- 2026 20:25:24 -0700
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail202.nvidia.com
- (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 4 Sep
- 2026 20:25:24 -0700
-Received: from nvidia.com (10.127.8.13) by mail.nvidia.com (10.129.68.7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46 via Frontend
- Transport; Fri, 4 Sep 2026 20:25:04 -0700
-Date: Fri, 4 Sep 2026 20:24:54 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-CC: <will@kernel.org>, <robin.murphy@arm.com>, <jgg@nvidia.com>,
-	<joro@8bytes.org>, <bhelgaas@google.com>, <praan@google.com>,
-	<kevin.tian@intel.com>, <kees@kernel.org>, <smostafa@google.com>,
-	<baolu.lu@linux.intel.com>, <linux-arm-kernel@lists.infradead.org>,
-	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
-	<linux-pci@vger.kernel.org>, <skaestle@nvidia.com>, <mmarrid@nvidia.com>,
-	<skolothumtho@nvidia.com>, <bbiber@nvidia.com>, <harsha.v@oss.qualcomm.com>
-Subject: Re: [PATCH v3 07/13] iommu/arm-smmu-v3: Disable the queue IRQs
- before disabling the SMMU
-Message-ID: <apuLhri9BpqncLRT@nvidia.com>
-References: <cover.1788222485.git.nicolinc@nvidia.com>
- <a6fba7f7a01f5955dfb44d34adc6262c8534e829.1788222486.git.nicolinc@nvidia.com>
- <178846311318.1308030.6301643510859406126.b4-review@b4>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UsfX8jAE"
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b4ab40d839so1614452e87.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 20:30:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788579026; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LXPuRFbGALX+olkYSCim/oJ4Nhd/Zzky9JpMPLPcQ0YIrwLwSiYFnMaeMucgNZZXFf
+         2NmlSZeHG40l+tKT7zkMwwKyeqMlUsEEQXXFfC2GKRh0uDmq4A8kDDLWwYd4TVYLTXw4
+         kqbi7CYG2IsTkt7KgyjnCJovAe1IPMECaEFEL/TSHypshNN0Ll1QlWWKa45sZx/JH60g
+         DD904Z64eIhe/ImB8yIIWaXmRJMNGY/OF5n8ND7MGd3YAWjTaqDVgUiruAHEl3VNAm/t
+         wqIlreZ8M89DJ9Z0Zc7oI/B7tpJgHU9a2pCdgF8+hUw5xT6+nF7fAcb+NP7KG71T0uBt
+         BZrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=hPpL3LX8Ta/oFQQyARurckrGJqtP8qcS5JHXnp5HuTQ=;
+        fh=U5fepe+Getj5Qz9ydD9tsfIFyIBuBDuZxLZrtqs2lcc=;
+        b=SXLjavSJO0ubP4WNTSgfjoz6TCEe7tEbS9Kg4d+/Khkvud7umNOf4X24PdJdpM5bHc
+         sCVM/Zw/3RuIemh4qhV5rxPKCtpYdDBwf2Yceu+/RIDPM8V4CFgF1R29617PhUptO+qJ
+         aM2qs8t95eBK/PF4ooHkuxPO3r2a5rno+q9FJpZdZtQI/fnIUfST+GRm1t5rYcbCskGy
+         anj+ydrrY4OuPs5xpleNnyZcOysBYdnLJSWKTGEsUehRNSSoSaD/UM4zK6NiXzOoDcK7
+         Q08Rf4nf2ub4RICGDZx3mkmGqRq0OJZagYzq09Q4nl2pPt91aOdtbRvjW1sOOg4k1ecq
+         VRVg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788579026; x=1789183826; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hPpL3LX8Ta/oFQQyARurckrGJqtP8qcS5JHXnp5HuTQ=;
+        b=UsfX8jAEGfKfgg+Y9st6Z8Id5TJFRw41C5+ziZWlF9uqy2pY5UXtVIl+Lh97XSeyrt
+         yVPRvaFL/uuZNzxjm4Tu7vM8escGzU3zyyveTlJNCGBGLDe24HrVuGUZPVKV21DC+0rH
+         lnTUnKeChFcuIDlBaYLNDFIo2sKe4kQKVBuSCyFvSGVHhdLUDwmlEXjNZ+Cb7yS+yyJm
+         kVrHMA7OGS1XfRa2UxDJlLTYmxqHIvxVi9emuxSJmW1Kxh7i5el8ndGZRtLsLQhbFwOP
+         MWMFVdX318m2/AoNaz79yGGJojxr6KFKDOTBA/bQfUekN1mZ3yeT9f+1GGYvSABz3y3V
+         KR3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788579026; x=1789183826;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hPpL3LX8Ta/oFQQyARurckrGJqtP8qcS5JHXnp5HuTQ=;
+        b=jHTMN6Os21GdOjp8Vb2f/DnC8++aa/Z8qSPdjilysh6l+bdId1b9HSn1DaVB1QVwaZ
+         3/ffDychb6vu4irAiFysO7tmarkzUVtJIH4Kpqc+65oFmmjw4lUrczpTyY7rgrk618Bz
+         4wSMu1SH6Jmo/vWN7fK2d/o2cUuoLLZ9LDZCXbsBXAt8yAsmUGonjf+vxpDRZ4inZ5Qk
+         lh8unrQ6T15MJiIalvRt+RyW85i/FxB2v2tvqK3TpmJpUkjbjHRHOipQdYA4LI27QOu9
+         piduEIgcD5CVeSp9kjjBq1iF/zp6w8tw+01AsdASrc7wsSIwoNxZKhr5E86gavKlecQB
+         eMFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwSluk3njyJYbRgBWZSWIwz7naiYmyjWt+Bg7RSGmcFdCwl5YbNtY1po1l6s+pSCbSao88dhTlEnQk2YYM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lHDKEwbHn9k5WMX8PwKrfSEB+R10i00MbxPyLzUsrglkbD1S1F
+	cvpuMq4bCTV/j0xJ8I7FhCZAhkHXkOWYj5WBcAE98JRFPjUBzymhfcwZuZYNlb5mIdIjInwGODG
+	r1h3FXEph5yuIIyPmhq8mI+qzguySJeI=
+X-Gm-Gg: AYBFou2xqUSNSgo1WCaQujaRHE3twKKt1ux37aJfSI3WGjENgQoHHCOVJedslYtWcoc
+	qgWb/0KjgCS0Jl4SW44MjSe2YWac13DncKXmiN3I/x8AaM1jst2VYoyft500Q2omFFeC91kVgil
+	N5iMhC7IrAqg2P+Skfm+/QkMGw3ZLtwRHoFHPJ5ErmmmR3IWA9zpncqT3nLW6Mc6w145YKT2rf8
+	6rMUQLmJhWqQC4bK/DQ9HX5IdwH5U2GVAIoHncU/y26OZ6Oe8E4AQR2UURHO2/zRu3RpiMB0Kko
+	iOh1zKsFI5ke0BfWHvrJBFqBPTjpOmvxheBQR7jQeLY9Sw==
+X-Received: by 2002:a05:6512:3e08:b0:5b6:4b2:de81 with SMTP id
+ 2adb3069b0e04-5b617058c7emr1560231e87.31.1788579026068; Fri, 04 Sep 2026
+ 20:30:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <178846311318.1308030.6301643510859406126.b4-review@b4>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF0000009E:EE_|PH7PR12MB6738:EE_
-X-MS-Office365-Filtering-Correlation-Id: 81a19117-4dd0-4314-a0d6-08df0afd5bd6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|82310400026|1800799024|36860700016|10067099003|3023799007|22082099003|18002099003|11063799006|4143699003|5023799004|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	oBYXOpw/FDSeraw2Xxj1AAacfOsP5mQ9FAlg++EJi3U5RaQorsMiPVZaZU6wOHBgg9DDy0A6DzpkswxSr8iwV11ZbogN77W6r2NN3q61aBEhepIxmJ46barlPBPuEI/pefoL97jUnPLtpXP+Gsp4c7YhxiOr8LIdbYuoV608uFb37J8UYtk8e6B8lxmTdiiuvTmw/BOLbJZKWNeXcEf1Y6jUTUytZNBZ1xASMh9CVG9ooS1xz3ZqHizmVwGqNmnjpP2INXj/A/FPjmITrOTxMoU8Y3WCkXggP0moeIovPIq0zkUrBs7EYTwhIjQpQih3b/aFW+nnihw5iLWeoqWbxYFq8zcZUGDF/VmkyOwcuEqzH/k0HILaeqD51yb6SEA2IVAqr+TvKm6OghCgV5EcbI8wL+najHwLOdpaBiyf1dsU+MKEMlpj+KAY9aAR7OWrv58cTZoUz4EpMyryrkSBbWb8IvAWWx+D7gKLt5zCouH0QiO5Yh/2Z5D/imIEDHN3+j9nMZ82uPeSeLmhIn1vjdI5NekMlH7b4xlujVrSxdGK7K+jryTd0MjUedbBSy9CC+tiIKW3kVmGyXQHqezB1fXI9DJA+vJyBGuiyVO/G53874TJ+ypBPyECT8hZGGicXfD9qYBdqRXX4XGQAl0aJ3Ce9m80LGEgWlqVb4iIp3jsJXHJJbNY51jPxcmfAM+laQSmi01ytKvtTyDqWtra3g==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(82310400026)(1800799024)(36860700016)(10067099003)(3023799007)(22082099003)(18002099003)(11063799006)(4143699003)(5023799004)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ZdgvWQOQW7PyQD9IgXbDcjFR3oOZBbpje6jVmKo1wXLiAvFkh7LuRASbZgcKmgZPT9SQq+/fnCGN7LsJkF9YTtYhFnj3ujJ5HLff38MY3izJ0wiq0skjWARzv3ERvTMyRLjqa0Y+fze21IeQiIlcy3fpTA7FOcfGLjGfZpQC/U/ppEq37505dMeStmnZu0kwb8YKbTzCzeu6uZJxIB9pOq9H3UsBx4phF7I6bNZTpooP+uGx9WpVwe0gJDrFQQaBnrvBeZC6AszoER8qP/j8AySdpEHvZV9wnekTlFUWeg+wD4LygnqjaCtYdyOPIBKGwSvQjma9i4Hc5ix1pPstYbtuaq/Lgaveu4KLMDNpYZ8f3x6iHAC3w7PtyKm0eaNkj14T85AJUYLVeImQne2OTYKd5dS/NS+FklyN0B1HIbIPGe7L5A7I+IQlhSmYkmKp
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 03:25:39.1774
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 81a19117-4dd0-4314-a0d6-08df0afd5bd6
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN7PEPF0000009E.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6738
+References: <CAEsQvcuaNZvLxyxNH_NOy5qwTmkrk-A9QdVtZD0GiCtPwk4A+A@mail.gmail.com>
+ <20260904182023.4486-1-hhkieu@gmail.com>
+In-Reply-To: <20260904182023.4486-1-hhkieu@gmail.com>
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
+Date: Sat, 5 Sep 2026 00:30:13 -0300
+X-Gm-Features: AcwNN1XqapVpSljR1RHwVb9QBxMZ9ZPENJ6iH6m31QN5659LjwkwMc11dhFfhzA
+Message-ID: <CAEsQvcuMFt=m=njsPzRtKarz04Gwbds+f8p2S+SdSQmaiW1fLw@mail.gmail.com>
+Subject: Re: [PATCH] ALSA: usb-audio: add Pioneer DJ DDJ-SZ support
+To: Hanh Kieu <hhkieu@gmail.com>
+Cc: perex@perex.cz, tiwai@suse.com, linux-sound@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 03, 2026 at 12:18:33PM -0700, Jonathan Cameron wrote:
-> > The EVTQ, PRIQ and combined IRQ handlers are threaded and issue commands of
-> > their own, e.g. a CMDQ_OP_PRI_RESP for a page request. Disabling the SMMU
-> > while one is in flight hands that command to a queue consuming nothing, so
-> > its poll waits out a full timeout.
-> > 
-> > Two paths disable the SMMU while those IRQs are still requested: a failing
-> > arm_smmu_device_reset() returns to a probe that disables the device itself,
-> > and arm_smmu_disable_action() covers an unbind or any later probe failure.
-> > Both can run after arm_smmu_setup_irqs() requested the IRQs.
-> > 
-> > Disable those IRQs first in both paths, so that no handler is left running
-> > once the SMMU goes down.
-> 
-> Why this soluton rather than a flag to stop them queuing new work + a
-> synchronize_irq() to deal with threads in flight.
-> 
-> irq disables always worry me a little as they tend to be patching over
-> something nastier.  I think this works though so I'm not going to
-> strongly object.
+Hi Hanh,
 
-Well, I don't see a reason to add extra flags: each irq here only
-has one single source, so disable_irq() is fundamentally similar
-to a flag + synchronize_irq(), but also masks the irq line, which
-makes sense in the probe-revert and shutdown paths. Above all, it
-is cleaner.
+On Fri, Sep 4, 2026 at 3:20=E2=80=AFPM Hanh Kieu <hhkieu@gmail.com> wrote:
+>
+> Geraldo Nascimento wrote:
+> > Are you sure is_pioneer_implicit_fb() isn't returning false and you're
+> > picking up on a generic sync ep instead?
+> >
+> > You should double-check that function is returning true or false becaus=
+e
+> > it will return false when USB_ENDPOINT_USAGE_IMPLICIT_FB isn't
+> > set on bmAttributes of a Isochronous IN EP.
+>
+> Good catch, thanks -- I checked against the real device rather than
+> assuming.
 
-If there is a solid reason for not using disable_irq() here, I'd
-not mind changing that though.
+Thanks.
 
-Thanks
-Nicolin
+>
+> lsusb -v on the DDJ-SZ shows both endpoints (0x01 OUT, 0x82 IN) as
+> Isochronous / Asynchronous with Usage Type =3D Data (bmAttributes =3D 0x0=
+5).
+> is_pioneer_implicit_fb() accepts the capture endpoint's usage being
+> either USB_ENDPOINT_USAGE_DATA or USB_ENDPOINT_USAGE_IMPLICIT_FB, not
+> IMPLICIT_FB exclusively, so Data usage does pass that check.
+
+Thanks for this report.
+
+The code snippet in question is in the body of is_pioneer_implicit_fb()
+in sound/usb/implicit.c:
+
+epd =3D get_endpoint(alts, 1);
+if (!usb_endpoint_is_isoc_in(epd) ||
+   (epd->bmAttributes & USB_ENDPOINT_SYNCTYPE) !=3D USB_ENDPOINT_SYNC_ASYNC=
+ ||
+   ((epd->bmAttributes & USB_ENDPOINT_USAGE_MASK) !=3D
+    USB_ENDPOINT_USAGE_DATA &&
+    (epd->bmAttributes & USB_ENDPOINT_USAGE_MASK) !=3D
+    USB_ENDPOINT_USAGE_IMPLICIT_FB))
+return false;
+
+In my opinion the logical AND at the end of the if condition is short-circu=
+ited
+by doing that inequality comparison between USB_ENDPOINT_USAGE_DATA
+and the result of the bitwise AND between bmAttributes and
+USB_ENDPOINT_USAGE_MASK, because 0x05 & 0x30 =3D=3D 0x00.
+
+When that first condition evaluates to false C never bothers to check the o=
+ther
+half of the logical AND, for logical and practical reasons.
+
+What I'm not sure of is that's the kind of check we want for Pioneer implic=
+it fb
+matching... Takashi will have to be the judge here, but I think it is
+not intended
+behavior that this function picks up implicit fb without
+USB_ENDPOINT_USAGE_IMPLICIT_FB being set. The fact is does so probably
+means that code in implicit.c needs a bit of improvement.
+
+
+>
+> I also traced snd_usb_parse_implicit_fb_quirk()'s dispatch order for
+> this device to make sure nothing generic intercepts first: no fixed or
+> capture quirk-table entry matches 08e4:0191, it isn't UAC2
+> (bInterfaceClass is vendor-spec, not USB_CLASS_AUDIO), and it isn't the
+> Roland vendor ID. So is_pioneer_implicit_fb() is the function actually
+> being reached and returning true for this device, not a coincidental
+> generic fallback.
+
+Again, thanks for your due dilligence, and for all your work, it's looking
+good.
+
+Thanks,
+Geraldo Nascimento
