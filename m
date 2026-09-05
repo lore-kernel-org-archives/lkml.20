@@ -1,110 +1,95 @@
-Received: from host.sedf.de (host.sedf.de [94.16.114.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-130.mta0.migadu.com [91.218.175.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7120B48D864;
-	Sat,  5 Sep 2026 12:11:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=94.16.114.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B30B430C168
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 12:18:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788610271; cv=none; b=rDeLz1Ibw20Vv+IJIQO+rJJBY/7oIdtkcmp/yaRZfi6MYKLYuGDxzyzXcSQdfvog2ltLuiShnIH7DXNGSZV7yYRbctzWJix8jWYZK8pn4wNl1MYoG1hC1Krs3/NcGxK3+IvdIy5X/cvof/kHHk/stv6pCylIFBHSAfDTkZf84ns=
+	t=1788610721; cv=none; b=nNeto5hNuVZfljfDikAS+aaHUVBVJ3RgGExYatLrauVARRV/swpOWk3f/vrcvlK5fyWn0oG/O9jpn81TDzaVBB0quczpDY9dzbQM8l75Omqv03SvEiBy6gRbkgG7XZhfvZ5Cb+OWHIVQtMZgSJNMb4fP1IF9P16HT627gQIQve8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788610271; c=relaxed/simple;
-	bh=CHw6mAcxOpO3wL84JxmYPrcHDkbsAMlAbCP0sNIQIHM=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=AWV3eRr5PJI1uJzDVityjGtWG2nXHA8UwFuLYP8wBYRDYwnJq1ynvXvuLeQp2eFNcE/tIp/vAglq8njLWOI33oWQOimwnmc7m1S1zaddTcqpzW+gKK776C7rMBHiBzth5YVzDE74tlE6iz1xctAMBMalZIWZi5zjyjP8SOowdtM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sedf.de; spf=pass smtp.mailfrom=sedf.de; dkim=pass (1024-bit key) header.d=sedf.de header.i=@sedf.de header.b=AR4Yj70H; arc=none smtp.client-ip=94.16.114.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sedf.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sedf.de
+	s=arc-20240116; t=1788610721; c=relaxed/simple;
+	bh=ySkuT1pGEsfWYtaDY+C44/DFGOfxtIvjurzCYJAaaQE=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=GBGHo1+UZLt4yEEfE4OSCTMzjxmsfWXRznCYO9Trhi5Z71EBc3fUJ6ec8srMLg2f22NWBqIkg1oJBrJ40Zhwwa32IY27l3XrcDUnQuT5nJc1xbVIRup1yWqd7ch2DvyE0HVZkva4+bef4VcCnECEPg1EZKj2cMEaL/O95D0ohW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mQkaeJ+R; arc=none smtp.client-ip=91.218.175.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sedf.de header.i=@sedf.de header.b="AR4Yj70H"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sedf.de;
-	s=20180621; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
-	Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:Content-Description:
-	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=2cu6GLPUUzLAWq1fdl8FgOxDdPJnf8oNVQ+KdzVMG+c=; b=AR4Yj70HA+UZNeSP1QtwOl5D7X
-	yK2Kv/SUrDA1RT+p1hRashm8fx6OX4GXf9nNh+H5d97OHyAtNGlJPZpbdc72LXVJoUf9dd9z4Qz2+
-	iCgSOS7zVhkEEls64jgP37zF+VqAaDWOVAiV+bhSISm1M/flX54l3mLjfFeFgh3GG5q0=;
-Received: from dynamic-077-003-072-010.77.3.pool.telefonica.de ([77.3.72.10] helo=tf.fritz.box)
-	by host.sedf.de with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <sd@sedf.de>)
-	id 1x2p8c-000000007ll-2yg5;
-	Sat, 05 Sep 2026 14:10:47 +0200
-Date: Sat, 5 Sep 2026 14:11:12 +0200
-From: Sebastian =?utf-8?Q?Dalfu=C3=9F?= <sd@sedf.de>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: usb-audio: Add boot quirk for Behringer CM1A
-Message-ID: <apwG4DRfNyvmRzyb@sedf.de>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mQkaeJ+R"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ySkuT1pGEsfWYtaDY+C44/DFGOfxtIvjurzCYJAaaQE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788610716; v=1; x=1789215516;
+ b=mQkaeJ+Ru1jBnLEKNvofl9iKMEqOqeWxneOId2uofPFFUrfOziGHTNyciHTMHWWBg8A5sUfK
+ 0Rn0I/MZJY82eJK3JfUJPFCbecRlT3WegZdFndHolumtLnfUkxX3kCUGuwvt+EZBHVFfWt/9eb3
+ bUrzcsFHHYqy/YeJRNC/wV3c=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id b1c979f2108c0cd3;
+	Sat, 05 Sep 2026 12:18:26 +0000
+X-Mizu-Trace-ID: b1c979f2108c0cd3
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
+Subject: Re: [PATCH RFC v2 6/6] mm/memcg: filter out reparented memcgs got
+ from memcgid
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20260901-bingfangguo-memcgid-rework-v2-6-8edd7f7a7251@tencent.com>
+Date: Sat, 5 Sep 2026 20:18:03 +0800
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Dave Chinner <david@fromorbit.com>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>,
+ David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ Bingfang Guo <bfguo@icloud.com>,
+ cgroups@vger.kernel.org,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <3F681C23-8462-4BA3-B3C6-B7A45A9341DE@linux.dev>
+References: <20260901-bingfangguo-memcgid-rework-v2-0-8edd7f7a7251@tencent.com>
+ <20260901-bingfangguo-memcgid-rework-v2-6-8edd7f7a7251@tencent.com>
+To: bingfangguo@tencent.com
+X-Mailer: Apple Mail (2.3864.700.51.1.1)
 
-After a power cycle and reenumeration, the Behringer CM1A* leaves its
-MIDI endpoint inoperative. USB enumeration and driver binding
-complete successfully, but MIDI outputs remain pending.
 
-A GET_DESCRIPTOR request for the device descriptor, issued after USB
-configuration, makes the endpoint operational. Add a one time boot quirk
-to perform that request before ALSA initializes the device.
 
-*
-ID 1397:1234 BEHRINGER International GmbH CM1A
+> On Sep 1, 2026, at 16:58, Bingfang Guo via B4 Relay =
+<devnull+bingfangguo.tencent.com@kernel.org> wrote:
+>=20
+> From: Bingfang Guo <bingfangguo@tencent.com>
+>=20
+> mem_cgroup_from_private_id() looks up the objcg that owns the id and
+> returns the objcg's current memcg.  After reparenting, that memcg can
+> differ from the one the id originally belonged to.
+>=20
+> Callers such as the list lru and workingset refault code expect to get
+> back exactly the memcg referred to by the memcgid, so check that the
+> returned memcg still owns the id and return NULL otherwise. In this
+> case, make list_lru just skip and workingset tests use the root (as =
+the
+> comments said in workingset.c:460).
+>=20
+> Signed-off-by: Bingfang Guo <bingfangguo@tencent.com>
 
-Signed-off-by: Sebastian Dalfuß <sd@sedf.de>
----
- sound/usb/quirks.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+We should move this patch earlier to avoid introducing the problem first
+and then fixing it later.
 
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 4936d66..f82d7a6 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -850,6 +850,27 @@ static int snd_usb_accessmusic_boot_quirk(struct usb_device *dev)
- 	return 0;
- }
- 
-+/*
-+ * A post configuration device descriptor read is needed to make the CM1A
-+ * operational after reenumeration.
-+ */
-+static int snd_usb_cm1a_boot_quirk(struct usb_device *dev)
-+{
-+	struct usb_device_descriptor *desc __free(kfree) = kmalloc_obj(*desc);
-+	int err;
-+
-+	if (!desc)
-+		return -ENOMEM;
-+
-+	err = usb_get_descriptor(dev, USB_DT_DEVICE, 0, desc, sizeof(*desc));
-+	if (err < 0) {
-+		dev_err(&dev->dev, "failed to read device descriptor: %d\n", err);
-+		return err;
-+	}
-+
-+	return 0;
-+}
-+
- /*
-  * Some sound cards from Native Instruments are in fact compliant to the USB
-  * audio standard of version 2 and other approved USB standards, even though
-@@ -1682,6 +1703,8 @@ int snd_usb_apply_boot_quirk_once(struct usb_device *dev,
- 	switch (id) {
- 	case USB_ID(0x07fd, 0x0008): /* MOTU M Series, 1st hardware version */
- 		return snd_usb_motu_m_series_boot_quirk(dev);
-+	case USB_ID(0x1397, 0x1234): /* Behringer CM1A */
-+		return snd_usb_cm1a_boot_quirk(dev);
- 	}
- 
- 	return 0;
+Muchun,
+Thanks.
 
-base-commit: 4c4e4be4edd5dbf5f7f6a3ef4fc0c243f2d01b3c
--- 
-2.53.0
