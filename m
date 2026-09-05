@@ -1,93 +1,118 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40EB030D3E0;
-	Sat,  5 Sep 2026 07:49:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E99B426EB2
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 07:50:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788594542; cv=none; b=B8qMd5HoDevt+jd4/35cCvLhAu9lkJSXxdl+VzLGTp8df5+lSTVCPWoGAfUVr+ogRCmhGmlumGhhvJVzoOf7ZgqCxnWZ8rnAkjiKVHDD1WMhUL5/sVQJkC3OwJgClOwG6ABsljHle6KAu2jtfU2v38sTzqbiiR+U1+6eqqNfJmg=
+	t=1788594615; cv=none; b=V5RYtLv/p5yymg0am3cvxWxn0859/bWMAm8OStj14Ynfkzm5t8X4jwvfy6B8E3sYkQl1YTZ+uCs+ZqH5XtjA5tVZa90rxtqkkV8Y9m+Kny4HJMZ3ln3+Q2qVMje7nMIfMTRMm6oy3i/KS0NSIO4qO0cgChBNw6s7t+/IAOIv9bo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788594542; c=relaxed/simple;
-	bh=egGzBShQ6WlzwWjn7JYd1KUqRp7nJX9LDdJwRCk2UF0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CyPOUATBi9WZ11+K7Nm4m+F197nc2m8ReEcsw+SFcH0TAwpfPqXQ8KrKC/dxU+CFuaCtWpE+EheSISieRapILHXTAn2aQbUNiYYKOY0n6c22AnGqUmNAQpOh3VGcX6f04U6iSTwDNo30d8GiTS/IEPch9kuMM8O1boN80eCb9Sw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZLvhZ2qc; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788594615; c=relaxed/simple;
+	bh=M7oIxkZDsinP+eUkCJKpXvzllMqeqZQvNRJIy9JFz3Q=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=ZKc54w0pE8J5QNFHbe4YgkKvsWulIZQxl0l7llEDogCXJLH+zziHqvZG6EGWKv75H9YFkh0p8VTXXxpXys0M6acooldukXPuPtJt82y4UtuMypycy87LLefM+x9yglGAj0nyTaMonUBqRFy+0kVcORgPzmAUvEZo1f7CN4TXdUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WmXgT8KX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZLvhZ2qc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788594541; x=1820130541;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=egGzBShQ6WlzwWjn7JYd1KUqRp7nJX9LDdJwRCk2UF0=;
-  b=ZLvhZ2qcveKOhwZ3KQr0t4Es+jGijDjWviTbjHxJPACO5zzJZiuLD3YQ
-   +Z4nkkaE1lMTLgAh6yPNhZknZ+yOE9hKGtxh8QHbXXeFmC4EmriVMUB2U
-   QQ0B7+AosmjvxX0Pb+vYbqudmUBD12w1+kcPEqDvTlIrS8zrclRM6/Br2
-   bfafWHV4P+X8Odvyi413f96yHwXNN1iEHkr35ysKyZn51SpcIodys17xW
-   hFVrOvPOVCe7PSpTeN6bc6buCkMbboBf7Kq4zl3HY2Iu+pMxADKuN1FeI
-   XCA5H7I2MRj7vWa70QlBtS4/xiH9o9oyoXHhKrQt8sN0JKgIcG+mBmsJf
-   A==;
-X-CSE-ConnectionGUID: 1a9hdcaBQYOr8ERGOKSAZg==
-X-CSE-MsgGUID: 7GXWL+kLTj6k3l+fi5qHZg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11896"; a="91598516"
-X-IronPort-AV: E=Sophos;i="6.25,263,1779174000"; 
-   d="scan'208";a="91598516"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Sep 2026 00:49:00 -0700
-X-CSE-ConnectionGUID: P3J8wFb8QpqavtHvY+s9gw==
-X-CSE-MsgGUID: veq7M1oJTyGZNpcKzYhmPA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,263,1779174000"; 
-   d="scan'208";a="269741486"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.245.105])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Sep 2026 00:48:58 -0700
-Date: Sat, 5 Sep 2026 10:48:56 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Peter Rosin <peda@lysator.liu.se>
-Cc: Ahmad Byagowi <ahmadexp@gmail.com>, Andi Shyti <andi.shyti@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 1/2] i2c: mux: Factor out channel node lookup
-Message-ID: <apvJaBo4Zzz2GAMx@ashevche-desk.local>
-References: <cover.1788298883.git.ahmadexp@gmail.com>
- <89780f7db207c7fe7adbd45e1f38f0a041794c8f.1788298883.git.ahmadexp@gmail.com>
- <apnRfWVAiXj1fRXs@ashevche-desk.local>
- <apusvKc2PnSShaoI@gryt>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WmXgT8KX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B64121F00A3D;
+	Sat,  5 Sep 2026 07:50:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788594612;
+	bh=HO1kYze8PEUYZ8DIDdm3n1ENtSBCKzy3wHFxr8TiLxg=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=WmXgT8KXvH40zlR2H/SK1Ssa78Soyj0NZWAG2lUhAMB8AsE+MjuzIOTx/1KMpp0J0
+	 DlcA4utsOCMuk89wFR9nixMs5U18YsIxT5YRlUOI1qYXXfDowYh2qYsrO9/WVicrIp
+	 u1HIOTSwQ/39jHdBIaERieOeXroeNzn+S9z6qXGLPG8hqFP9KUBHYSMPB8rhZJHjew
+	 jX9EHm8HbOvSoiUFYnrscb4hUtB3ehsYUbC/mk9VKsi/STAfCxSXAWP11OElJaMcJI
+	 aSNAnPxBHRPxaQ7qr2uNSNiUY2uXIXu8aPsWDv0tlOEXa94BVGsYP7btpkmv8QEhpJ
+	 WzQ++WSKf87lg==
+From: Thomas Gleixner <tglx@kernel.org>
+To: "Eric W. Biederman" <ebiederm@xmission.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, Hyunwoo Kim <imv4bel@gmail.com>,
+ Oleg Nesterov <oleg@redhat.com>, Frederic Weisbecker
+ <frederic@kernel.org>, Christian Brauner <brauner@kernel.org>, Peter
+ Zijlstra <peterz@infradead.org>, John Stultz <jstultz@google.com>, Ingo
+ Molnar <mingo@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>
+Subject: Re: [patch 7/8] posix-cpu-timers: Prevent enqueueing when
+ PF_EXITING is set
+In-Reply-To: <87ik4lauhx.fsf@email.froward.int.ebiederm.org>
+References: <20260904112100.683893401@kernel.org>
+ <20260904112202.400768514@kernel.org>
+ <871pb9cjbj.fsf@email.froward.int.ebiederm.org>
+ <87ik4lauhx.fsf@email.froward.int.ebiederm.org>
+Date: Sat, 05 Sep 2026 09:50:09 +0200
+Message-ID: <87wlt05e8e.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apusvKc2PnSShaoI@gryt>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain
 
-On Sat, Sep 05, 2026 at 07:46:36AM +0200, Peter Rosin wrote:
-> Den Thu, Sep 03, 2026 at 10:58:53PM +0300, skrev Andy Shevchenko:
-> > On Thu, Sep 03, 2026 at 12:40:55PM -0700, Ahmad Byagowi wrote:
+On Fri, Sep 04 2026 at 10:47, Eric W. Biederman wrote:
+> "Eric W. Biederman" <ebiederm@xmission.com> writes:
+>> Thomas Gleixner <tglx@kernel.org> writes:
+>>
+>>>  
+>>> +static inline bool task_can_enqueue(struct k_itimer *timer, struct task_struct *p)
+>>> +{
+>>> +	if (likely(!(p->flags & PF_EXITING)))
+>>> +		return true;
+>>> +
+>>> +	/* Allow TGID type unless the last thread is on the way out. */
+>>> +	return clock_pid_type(timer->it_clock) == PIDTYPE_TGID && atomic_read(&p->signal->live);
+>>
+>> Couldn't this be?
+>>
+>> 	/* Allow TGID type unless the group is on the way out. */
+>> 	return (clock_pid_type(timer->it_clock) == PIDTYPE_TGID) &&
+>>         	!(p->signal->flags & SIGNAL_GROUP_EXIT);
+>>> +}
+>>
+>> I don't understand why we would want to re-arm a timer after it has
+>> been decided the group is dying.
+>>
+>> Plush I really don't like the idea of p->signal->live spreading to more
+>> places.  In the future that has the potential to complicate any changes
+>> to the group_dead calculation.
+>
+> Hmm.
+>
+> Now that I think about it this could be:
+>
+> static inline bool task_can_enqueue(struct k_itimer *timer, struct task_struct *p)
+> {
+> 	/* Is the process exiting? */
+> 	if (signal->flags & SIGNAL_GROUP_EXIT)
+>         	return false;
+>
+> 	/* Is the thread exiting? */
+> 	if ((clock_pid_type(timer->it_clock) == PIDTYPE_PID) &&
+> 	    (p->flags & PF_EXITING))
+> 		return false;
+>
+> 	return true;
+> }
+>
+> Unless I am missing something subtle with the parts of shutdown.  As
+> there is a difference between starting the shutdown, and having reached
+> do_exit.
+>
+> But unless there is some subtle reason to start a timer after some
+> thread has called exit() or after a fatal signal has been received
+> I suspect stopping as soon as SIGNAL_GROUP_EXIT is set is a good idea.
 
-...
+I don't see a reason why that would be a problem. It puts the cutoff a
+little bit earlier, but who cares. The task/process is going to exit no
+matter what.
 
-> > > +	struct device_node *dev_node;
-> > > +	struct device_node *mux_node, *child;
-> > 
-> > Now all three can be defined in a single line.
-> 
-> They could, but three is a crowd. So, if you bother to send an update,
-> please use one declaration per line instead to make future diffs
-> clearer.
+So the "observable" difference would be that a POSIX CPU timer which is
+attached to the process by a different entity will stop firing a little
+bit earlier. The resulting "fallout" is a purely academic problem IMO.
 
-True, but it can reduce churn between these two patches if placed on
-a single line. Whatever, it's a bikeshedding, so go with what Peter
-prefers (as he is a maintainer IIRC of this code).
+Thanks,
 
--- 
-With Best Regards,
-Andy Shevchenko
+        tglx
 
 
