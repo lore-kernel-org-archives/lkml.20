@@ -1,118 +1,105 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B9A8D367B89;
-	Sat,  5 Sep 2026 02:57:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B981A358D00;
+	Sat,  5 Sep 2026 02:58:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788577049; cv=none; b=RQbPbtX5ltsTC2TG4IEULzq1oEM7H0IaclSXfftNP63jmJnV0UDxIPB/CYNW9Pl3rb9hjkHrweO+EYr8tv9erTzzRrkS8ARhe7xIBXC/GOkB9IC/ZqWRHfOKhrGKHpKFeL7ptrSkXkYPRwnwZLeQBd57IeJM11kMdTcU6dPNHwY=
+	t=1788577101; cv=none; b=sD2OBkd4jkTkFkYT+Yi0S3WYrkfLIGFxhdqcJbkyspUcttu7wMrZA2wejzN7ZoCRu0Fy1Pvxu83oUjzJYOncPxMUfsK/fFZkIB3bEPMghr6b569eD/oK6dpGxk2IRIK4dZSjEUAF0wIE6b7SuFlwv5kusGceHYSXW5H+pO9nvrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788577049; c=relaxed/simple;
-	bh=xvMAxdykKJMrlWh+AEoP34z6GvzFoitid+x6KM2d6X4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=n/Om9nI5yTRzdRcgOFL2Es8R8+2WKLbgvtnp1qvwJ2FXhSSwpsSwenU3f8Cv5tRKPk9Swo05Hg7Db6T31oeFBGMSIR4EA2y3dGymZAggOk9vkhB+B6Dn7WWjP1+efD9uQn7Y/44VPPJzHGhZEw4+0oK2aFJM3KEPkclKCjj6d4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=mw7sp3cq; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
+	s=arc-20240116; t=1788577101; c=relaxed/simple;
+	bh=c/ZRYHFwwl7P9ymT0f1zQ+VSU7PAgEnEte10astEePE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=arIgCmkjKVawRx8PvgfqbMklvVjosHHt3o8+IT2UUGikWtnS0n7U/Tr5Y0lpg42qBaKWQODT5ZNwa76P1oMq5bJzCTkogPEhWjya0MtTV3QHb61PNopiqlh30BFeiKGZvU/ta8fgTj2DcfnnpbKAIH3kKEX77iDRMP81yaYZGRQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=r0GTWO4b; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="mw7sp3cq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=4HuF45kaCua5XxLzD235BdFaTg40woHG3w
-	Kmj9GKF40=; b=mw7sp3cqNwM+0h8QMe0eVtP+AWVci1rW9Sx0as5XXoe0cpt6a3
-	L+laQCJjHiZV7U5VlL94q6Ex6hDXCVF4imR7d9jZliER5Lr2L8D1mw6jTfOyDmb4
-	pQ8VbJ2hsXNZRj3d3H0MsqPLfT5XGmUJCfcliqt7lmWkYrc494SowKbVs=
-Received: from leopard.. (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwDHQAcKhZtqDUQAAA--.300S4;
-	Sat, 05 Sep 2026 10:57:35 +0800 (CST)
-From: Xincheng Zhang <zhangxincheng@ultrarisc.com>
-To: Jingoo Han <jingoohan1@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Jia Wang <wangjia@ultrarisc.com>,
-	Niklas Cassel <cassel@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xincheng Zhang <zhangxincheng@ultrarisc.com>
-Subject: [PATCH v2 2/2] PCI: ultrarisc: Skip MEM outbound iATU setup on DP1000
-Date: Sat,  5 Sep 2026 10:56:35 +0800
-Message-Id: <20260905025635.211390-3-zhangxincheng@ultrarisc.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260905025635.211390-1-zhangxincheng@ultrarisc.com>
-References: <20260905025635.211390-1-zhangxincheng@ultrarisc.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="r0GTWO4b"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=JRuv1iNzwrkzYPanlW1KF3I/WUjJp6LiVqQvqYh8crA=; b=r0GTWO4bt/7blNhWIfG/B131zR
+	t4Ws19Qith2ad1L5E/CM5hcTqV1nEVVTkwiculx9GeyTS5AU1K9viG5x1Dj8w3eu2T41D9iLJ/EaX
+	CNmWWdiSZeMF8FS3Qn5kVteDPUnq+eKdUbWTOddhSkzLZa3Kxr61WNUk0PdPAlwtc/PZ+TDNGH158
+	MQwzNhSUxWBLkDCvF+e198+rvgv9AoenzsDiijXe/S9anz2mzng5HB/zcGu3F7D0ZPvRT+Yno14TI
+	HG175qtSkTS/Mgrh3LO43dU4ULWIdyvVTcsEcwxAZMAAMBy4nU2Etcj/g6ylhGjXidB9as2lNAkM4
+	trQAN9Zw==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x2gbe-00000003cUV-1RtA;
+	Sat, 05 Sep 2026 02:58:14 +0000
+Message-ID: <0bff3cf5-0d85-4ebb-9fdb-7fb5d12faf49@infradead.org>
+Date: Fri, 4 Sep 2026 19:58:13 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:AQAAfwDHQAcKhZtqDUQAAA--.300S4
-X-Coremail-Antispam: 1UD129KBjvJXoW7AF18Kr1kKw1UAFy5JF48tFb_yoW8CFWkpF
-	9rKw1UA3WDtFs8Ka1Iy3y8Z3WYvFsrAFWqgFnFkry7ua13u34UXryFkayYk3WDCwn5Zr1Y
-	gr1YyryxJF13X37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmm14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jryl82xGYIkIc2
-	x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
-	Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l84
-	ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2AI
-	xVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20x
-	vE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xv
-	r2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04
-	v7MxkF7I0En4kS14v26r1q6r43MxkIecxEwVCm-wCF04k20xvY0x0EwIxGrwCFx2IqxVCF
-	s4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r
-	1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWU
-	JVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r
-	1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1U
-	YxBIdaVFxhVjvjDU0xZFpf9x0JUQXo7UUUUU=
-X-CM-SenderInfo: x2kd0wp0lquxxhqjq3powut2xlvfhudrp/1tbiAQABDGqaaqQAMAAAsC
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] docs: KUnit: Fix cross-compiler prefix examples
+To: Karl Mehltretter <kmehltretter@gmail.com>,
+ Brendan Higgins <brendan.higgins@linux.dev>
+Cc: David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Tim Bird <tim.bird@sony.com>, Harinder Singh <sharinder@google.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mairacanal@riseup.net>,
+ Daniel Latypov <dlatypov@google.com>, linux-kselftest@vger.kernel.org,
+ kunit-dev@googlegroups.com, workflows@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260905025126.83693-1-kmehltretter@gmail.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260905025126.83693-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-DP1000 has 16 outbound iATU windows and each window can map up to 4GB. One
-window is used for CFG accesses, one for I/O space and one for the 32-bit
-MEM aperture, leaving only 13 windows for the 64-bit MEM aperture.
 
-This limits the 64-bit MEM aperture that can be described with outbound
-iATU windows. DP1000 routes MEM transactions without using outbound iATU
-windows, so skip generic DWC MEM outbound iATU setup to allow a larger
-64-bit MEM aperture.
 
-DP1000 does not use ECAM for this controller. Config space accesses keep
-using the normal DWC config access path and CFG outbound iATU programming.
-I/O space is also unchanged and still uses an outbound iATU window. The new
-flag only skips generic MEM-window programming.
+On 9/4/26 7:51 PM, Karl Mehltretter wrote:
+> The GNU target-tuple prefixes shown in the CROSS_COMPILE examples are
+> missing their trailing dash.
+> 
+> Fixes: 46201d47d6c4 ("Documentation: kunit: Reorganize documentation related to running tests")
+> Fixes: 957063874c76 ("Documentation: kunit: Add CLI args for kunit_tool")
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 
-The DP1000 integration has SoC wrapper address decode for the PCIe MEM
-apertures described by the "ranges" property. CPU physical accesses to
-those MEM apertures are routed directly as PCIe MEM transactions with the
-corresponding PCIe bus address, without consuming outbound iATU windows.
+Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
+Thanks.
 
-Set dw_pcie_rp::bypass_ob_mem_iatu for this controller.
+> ---
+>  Documentation/dev-tools/kunit/run_wrapper.rst | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/Documentation/dev-tools/kunit/run_wrapper.rst b/Documentation/dev-tools/kunit/run_wrapper.rst
+> index cecc110a3399f..9221acddf3fa8 100644
+> --- a/Documentation/dev-tools/kunit/run_wrapper.rst
+> +++ b/Documentation/dev-tools/kunit/run_wrapper.rst
+> @@ -189,10 +189,10 @@ via UML. To run tests on qemu, by default it requires two flags:
+>    Kbuild. As a reminder, this will be the prefix for the toolchain
+>    binaries such as GCC. For example:
+>  
+> -  - ``sparc64-linux-gnu`` if we have the sparc toolchain installed on
+> +  - ``sparc64-linux-gnu-`` if we have the sparc toolchain installed on
+>      our system.
+>  
+> -  - ``$HOME/toolchains/microblaze/gcc-9.2.0-nolibc/microblaze-linux/bin/microblaze-linux``
+> +  - ``$HOME/toolchains/microblaze/gcc-9.2.0-nolibc/microblaze-linux/bin/microblaze-linux-``
+>      if we have downloaded the microblaze toolchain from the 0-day
+>      website to a directory in our home directory called toolchains.
+>  
+> @@ -293,7 +293,7 @@ command line arguments:
+>    - ``sparc64-linux-gnu-`` if we have the sparc toolchain installed on
+>      our system.
+>  
+> -  - ``$HOME/toolchains/microblaze/gcc-9.2.0-nolibc/microblaze-linux/bin/microblaze-linux``
+> +  - ``$HOME/toolchains/microblaze/gcc-9.2.0-nolibc/microblaze-linux/bin/microblaze-linux-``
+>      if we have downloaded the microblaze toolchain from the 0-day
+>      website to a specified path in our home directory called toolchains.
+>  
 
-Signed-off-by: Xincheng Zhang <zhangxincheng@ultrarisc.com>
----
- drivers/pci/controller/dwc/pcie-ultrarisc.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/pci/controller/dwc/pcie-ultrarisc.c b/drivers/pci/controller/dwc/pcie-ultrarisc.c
-index 51e89180490d4..0d4989a0f3afc 100644
---- a/drivers/pci/controller/dwc/pcie-ultrarisc.c
-+++ b/drivers/pci/controller/dwc/pcie-ultrarisc.c
-@@ -154,6 +154,12 @@ static int ultrarisc_pcie_probe(struct platform_device *pdev)
- 
- 	pp = &pci->pp;
- 
-+	/*
-+	 * DP1000 routes MEM transactions without outbound iATU windows, which
-+	 * avoids the 16-window/4GB-per-window aperture limit.
-+	 */
-+	pp->bypass_ob_mem_iatu = true;
-+
- 	platform_set_drvdata(pdev, ultra);
- 
- 	ret = ultrarisc_pcie_init_clks(ultra);
 -- 
-2.34.1
-
+~Randy
