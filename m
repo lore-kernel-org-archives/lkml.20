@@ -1,40 +1,42 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CBBC378833;
-	Sat,  5 Sep 2026 13:43:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB4E9330D4C;
+	Sat,  5 Sep 2026 13:44:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788615829; cv=none; b=QFfRbALfJmeD+JSfUit9UIJKH2xjN8B+p51T0a2ghx9d2H4Q66lLam3h06NEBFlYXHkI2/qaICIJKnDzGZqB+m7g9SsMO7R6iR3BZnXf0z6q9ENmnjFe/yaHEOWHwdQV0s2w4nh0y8/T83t+/aHRnjr/p4Jy+9D3qjNL25LLorU=
+	t=1788615843; cv=none; b=M8S1RPqFE7IhDjBT4PQW+UXxKRkfi5j9p3ksChoxfUiMHBqJi0uMuzxkMcbFnuo9rY2Jg0BChkoM+bABTrcz7frdcKnmlO/ws7Prdviy+LxVUFqxeZLlSrD2ztqsJ+yx2ESCvOAmhKkZffP6rZZa77DB0w6mwa1VjozccGKFARk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788615829; c=relaxed/simple;
-	bh=qvcHCguQpdBUrPSb0sBgRuCWzDwRVhvoMIPvZ4e9Igs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gIMo2a4seEkJzGBVG/mZMDMVmrLQ0JZwSFYS0FTzx8ppcH4X2nizJA3ufRCCOA9/LJtV0FoD19eoybv7rsXa4TFn/1esAuQ0AIlzl8eFSfAxNx5neGkyPl8Rmgst5KSYcI6Dh8TAZrwrYDvNewVW/0AgfuUXL4MBrfrtCiCTCAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=nmnRJw3Y; arc=none smtp.client-ip=220.197.31.5
+	s=arc-20240116; t=1788615843; c=relaxed/simple;
+	bh=ycc5GsipWVpNhZ5fE2LxnnyEHtEDd7uBGr478t5UgOE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Zzhi+ImWiRBMZRDRIL/Bj6a9UAJnpUXyaS7zzEcF/QHMXe1x+4lFjs8PtiCEsY80a0oPb3OCcl7qrQ6XB8c/74cpI0zW+m4qNgmhXoZQ6msWTZschBkA/MO5PoLcadYLs3j4zQgf7VtMag9HX/4bWHHtm4ru2YwA6IkKrWSqgOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=oNzUIlMs; arc=none smtp.client-ip=220.197.31.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="nmnRJw3Y"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="oNzUIlMs"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=dZ
-	3ak0MZQGVE/7EAGjEDrOFT1fT6lEwINHAvDHJa5sc=; b=nmnRJw3YPaD7dPT+R1
-	LQMy17GJvcOHzY/2FSBW73zHGsViv7BxIjaMwt0AC7wZobr7fEtAmF5EsBGwIBdm
-	DyRmLyMfNzhRBTuFlyN0pFLc78eLvVQDYQRQ1j+lXwlCj8k/md/8nRllv7UJwfJM
-	c89VghPFcwOz2hD/Mrk/p75/A=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=UW
+	u3/8Xjz6xMGSiDSxBKSj/Tl3/LVtgAjs+U+h5KuJ8=; b=oNzUIlMsPFjAut1Ge4
+	2wKMwerTQJJWSl0F4cGRT7ZMsCjQSlDV2bG53b08CXAvLAa9ySdEQDBMjFSLTf6c
+	l+wl0HNlboLOeuN8wRv4kgQYEO5KrsKejNBNMWYsIskkh1d94DiYgW2vBtqpaMrU
+	cTeliYE8eTqxZIHpslpUP9cHE=
 Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wCnVTl3HJxqo0uOAw--.16301S2;
-	Sat, 05 Sep 2026 21:43:20 +0800 (CST)
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wCXw0GOHJxqegVwAw--.55937S2;
+	Sat, 05 Sep 2026 21:43:43 +0800 (CST)
 From: "hpp.iscas" <hppiscas@163.com>
-To: Will Deacon <will@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
 Cc: "hpp.iscas" <hppiscas@163.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-perf-users@vger.kernel.org,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Bhaskara Budiredla <bbudiredla@marvell.com>
-Subject: [PATCH] perf/marvell: cn10k_tad: Publish the OF module alias
-Date: Sat,  5 Sep 2026 21:43:17 +0800
-Message-ID: <20260905134317.67317-1-hppiscas@163.com>
+	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: [PATCH] pinctrl: qcom: ipq5210: Publish the OF module alias
+Date: Sat,  5 Sep 2026 21:43:40 +0800
+Message-ID: <20260905134340.67477-1-hppiscas@163.com>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -43,37 +45,38 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-X-CM-TRANSID:_____wCnVTl3HJxqo0uOAw--.16301S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7Jr47tr4UKr1rtw1UJr4fKrg_yoWfuFg_ur
-	13XF40g3s5Kr1Dtw1jyr4rCryfKr17uFWDXrWvgrnYq34xXFnxArsFyrWxA3s0gr4jyFWD
-	ZrWUWFyjqrW3GjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUjbdbUUUUUU==
-X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbCxRjmr2qcHHg9nwAA3k
+X-CM-TRANSID:_____wCXw0GOHJxqegVwAw--.55937S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrKw1UAr45Xw1rZw43ArWfuFg_yoWfKFb_CF
+	y8XFyUXrWUCwnxXFyS9r1avFyvyF4UZrnYgrnYqFyrZ343Zwn0grWv9rZ5Cw18Wr45JFyD
+	JFy5Wr15CrW7AjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRRBOJ3UUUUU==
+X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbCxg-rtGqcHI8wqwAA3o
 
-The TAD PMU platform driver has ACPI and OF match tables, but only=0D
-the ACPI table is published. A Device Tree platform device emits an=0D
-OF modalias, so the ACPI alias does not select this module for it.=0D
+The IPQ5210 TLMM platform driver can be a module and matches through=0D
+ipq5210_tlmm_of_match. This table is not published for OF modalias=0D
+matching.=0D
 =0D
-Publish the OF table inside CONFIG_OF and retain ACPI support.=0D
+Publish the existing table, preserving arch_initcall ordering and=0D
+the shared MSM pinctrl probe.=0D
 =0D
-Fixes: 036a7584bede ("drivers: perf: Add LLC-TAD perf counter support")=0D
+Fixes: a549fe22376f ("pinctrl: qcom: Introduce IPQ5210 TLMM driver")=0D
 Signed-off-by: hpp.iscas <hppiscas@163.com>=0D
 ---=0D
- drivers/perf/marvell_cn10k_tad_pmu.c | 1 +=0D
+ drivers/pinctrl/qcom/pinctrl-ipq5210.c | 1 +=0D
  1 file changed, 1 insertion(+)=0D
 =0D
-diff --git a/drivers/perf/marvell_cn10k_tad_pmu.c b/drivers/perf/marvell_cn=
-10k_tad_pmu.c=0D
-index 54909d0..301be4d 100644=0D
---- a/drivers/perf/marvell_cn10k_tad_pmu.c=0D
-+++ b/drivers/perf/marvell_cn10k_tad_pmu.c=0D
-@@ -424,6 +424,7 @@ static const struct of_device_id tad_pmu_of_match[] =3D=
- {=0D
- 	{ .compatible =3D "marvell,cn10k-tad-pmu", .data =3D &tad_pmu_data },=0D
- 	{},=0D
+diff --git a/drivers/pinctrl/qcom/pinctrl-ipq5210.c b/drivers/pinctrl/qcom/=
+pinctrl-ipq5210.c=0D
+index 827a4ad..d5b4eb3 100644=0D
+--- a/drivers/pinctrl/qcom/pinctrl-ipq5210.c=0D
++++ b/drivers/pinctrl/qcom/pinctrl-ipq5210.c=0D
+@@ -867,6 +867,7 @@ static const struct of_device_id ipq5210_tlmm_of_match[=
+] =3D {=0D
+ 	{ .compatible =3D "qcom,ipq5210-tlmm", },=0D
+ 	{ },=0D
  };=0D
-+MODULE_DEVICE_TABLE(of, tad_pmu_of_match);=0D
- #endif=0D
++MODULE_DEVICE_TABLE(of, ipq5210_tlmm_of_match);=0D
  =0D
- #ifdef CONFIG_ACPI=0D
+ static int ipq5210_tlmm_probe(struct platform_device *pdev)=0D
+ {=0D
 
