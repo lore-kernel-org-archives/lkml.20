@@ -1,94 +1,119 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-214.mta1.migadu.com [95.215.58.214])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 196C91ADC97;
-	Sat,  5 Sep 2026 09:01:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F09C329E44
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 09:08:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.214
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788598913; cv=none; b=Gx41zdriakkJrDqFVBr58rgxUWhNjPiDNH3hc+G+rWLux06kKqF1RB+jlUSVMDj+Uw8bo71MEJQkaOgpUmwVuC8zGGXbrkZsyn+MSmTD3KAHYqG/YrNs5YU3bRRb3K6E/N09eFfYkwUMxqLDeC34H1Ny+3zVid1ORKgoTstzmdY=
+	t=1788599314; cv=none; b=Cl0sy3Is+GiICBvMFRuFcYonr7Unwp4OOjQLoBarMC6gAOKqIJcw3qOCPldSQjHVd2OYAgjXHBFMZ2NRs7CQM/68QrJ0KRDTCoHYObjIIx29BphFaS+3YyoveBxTw7IFuSWzth2vpFuzuYdmQBJS4sjnSXeSJaEPxf2kHOR2NhM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788598913; c=relaxed/simple;
-	bh=XoKKLCWWyPpzx9bJwras2xkhD9hwumeOqWXMnZLTe58=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=AoJQxLjGk70hR33Q33BVFdp6Hw2BOSeNLSmDCHWIuVwamfmp9WQjs4JfBfsyNh26Pbp/H9FHHyUtiwyiXhQvADOOX2WNrosAolNaUpF3sc+POgP3l/oDXBsVA5CLTaeJ9gqRJUg+9J79rwMYKhGbpr9J1pTfm+FMWS/Fk1O04pY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=Fjoov5bt; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=2ilZNK52; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1788599314; c=relaxed/simple;
+	bh=928ftpQdBwt+cq+MctmlsoRyqL5DINpZLnaKzBho3a0=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=FP6+Cid1sCjdmIA6Q5fVGpdr6U0s34MHlkEjmf/jDSj98gJrR2aikT3GnUV1r2tyGEIBdWoColbSLxDAWTfFbetyh2IoGXFNdCYVwXiWf+AGuRZWhccA0QsTl/LnPZEYfSe0qycGSWWy6346eKkiq6jOdulLTNPBU2yE8QTI964=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=M/3gHvGu; arc=none smtp.client-ip=95.215.58.214
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="Fjoov5bt";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="2ilZNK52"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1788598896; bh=smRVxRxj7y9lDxdI0UuhTwe
-	jfjKYFeZrPnoYR9EBjLg=; b=Fjoov5btEyzdPUNpa4dtNBM36ykH+EGZz+w+XqemlbGkl+mpz3
-	Po6I9qkxSiMdLZcrQW7fWIR35hPEMEQAx4KDS+fjkwN8RSO9gJbhlEBGz1Je57JOHUT7es/sE5y
-	XpME804qdccBHVPZS7im1QLphj3eQZiQone1shyeCMVUXococ32GiGkJ8gmQESJmXxxtvmDZOWY
-	alUcZrfda4q1m7aadHNHpFmm3fK9YuklOTQNLJduocMkzG99odILdhLT/oqGpnpVELAjN2JCxwh
-	CPf8rCGQ0+LIshDvo7zFABic4eKEbwPU93KdeYqkuaugx3+IIge7gup7mF54SSfTFaA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1788598896; bh=smRVxRxj7y9lDxdI0UuhTwe
-	jfjKYFeZrPnoYR9EBjLg=; b=2ilZNK52t8m5oNrPYn6bY4RHp2z7hht0XJDClR3W9aKYPZm2PO
-	kjFqpr4h/RaPFYD7f6w7Sh28AMg1gxatDDDA==;
-Date: Sat, 05 Sep 2026 10:01:35 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: kmehltretter@gmail.com
-CC: bvanassche@acm.org, corbet@lwn.net, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, martin.petersen@oracle.com,
- rdunlap@infradead.org, skhan@linuxfoundation.org, yangerkun@huawei.com
-Subject: Re: [PATCH] docs: sysctl: Remove obsolete sg-big-buff entry
-In-Reply-To: <20260905010952.57451-1-kmehltretter@gmail.com>
-Message-ID: <F43D0A29-8D61-4FD9-8B54-14E2A8D4E842@mainlining.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="M/3gHvGu"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=928ftpQdBwt+cq+MctmlsoRyqL5DINpZLnaKzBho3a0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788599311; v=1; x=1789204111;
+ b=M/3gHvGuKQyseerPBMWaIjrR9HHkxe5vMov/rwP54TOMft2DvArQHmeOJW8Ae+u0Y3Iiacvc
+ iBNr1wkYBkLXlHElqXC4KyebKuUxmI/t+D/phJhRSMxQJcOrfRXA88FmD7JxUdjZ6tifxt6PdOR
+ xvaUARySrGnmETV689CwX1Kc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 6189846893d99aae;
+	Sat, 05 Sep 2026 09:08:31 +0000
+X-Mizu-Trace-ID: 6189846893d99aae
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
+Subject: Re: [PATCH 06/11] mm/sparse-vmemmap: switch device DAX to shared tail
+ vmemmap pages
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <e3d0eaf8-a85f-48ff-96c2-dced4945b085@linux.dev>
+Date: Sat, 5 Sep 2026 17:08:12 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>,
+ Oscar Salvador <osalvador@suse.de>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Jonathan Corbet <corbet@lwn.net>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org,
+ linux-doc@vger.kernel.org,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>,
+ Randy Dunlap <rdunlap@infradead.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <861645FA-43D5-4619-82B6-7A0C889F95B8@linux.dev>
+References: <20260831075342.57563-1-songmuchun@bytedance.com>
+ <20260831075342.57563-7-songmuchun@bytedance.com>
+ <e3d0eaf8-a85f-48ff-96c2-dced4945b085@linux.dev>
+To: Qi Zheng <qi.zheng@linux.dev>
+X-Mailer: Apple Mail (2.3864.700.51.1.1)
 
-On 5 September 2026 02:09:52 BST, Karl Mehltretter <kmehltretter@gmail.com>
-wrote:
->The sg-big-buff sysctl no longer exists. The documented SG_BIG_BUFF
->macro is only a compatibility alias and changing it does not alter the
->driver default.
->
->Fixes: 50209dec14f8 ("scsi: sg: Remove deprecated sg-big-buff")
->Assisted-by: LLM
-
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
 
 
->Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
->---
-> Documentation/admin-guide/sysctl/kernel.rst | 13 -------------
-> 1 file changed, 13 deletions(-)
->
->diff --git a/Documentation/admin-guide/sysctl/kernel.rst b/Documentation/admin-guide/sysctl/kernel.rst
->index b6328cd0f43e9..d9e9b12136eb2 100644
->--- a/Documentation/admin-guide/sysctl/kernel.rst
->+++ b/Documentation/admin-guide/sysctl/kernel.rst
->@@ -1334,19 +1334,6 @@ seccomp
-> See Documentation/userspace-api/seccomp_filter.rst.
-> 
-> 
->-sg-big-buff
->-===========
->-
->-This file shows the size of the generic SCSI (sg) buffer.
->-You can't tune it just yet, but you could change it on
->-compile time by editing ``include/scsi/sg.h`` and changing
->-the value of ``SG_BIG_BUFF``.
->-
->-There shouldn't be any reason to change this value. If
->-you can come up with one, you probably know what you
->-are doing anyway :)
->-
->-
-> shmall
-> ======
-> 
->
+> On Sep 5, 2026, at 16:35, Qi Zheng <qi.zheng@linux.dev> wrote:
+>=20
+>=20
+>=20
+> On 8/31/26 3:53 PM, Muchun Song wrote:
+>> HugeTLB vmemmap optimization now uses per-zone shared tail vmemmap =
+pages.
+>> Device DAX has not been switched to that mechanism yet.
+>> Switch device DAX to vmemmap_shared_tail_page() as well. This aligns =
+DAX
+>> with HugeTLB by using the common per-zone shared tail vmemmap page.
+>> Since the shared tail page can now back ZONE_DEVICE vmemmap mappings,
+>=20
+> Could you explain this in more detail?
+>=20
+> As sashiko pointed out [1], it looks like this assumption is
+> problematic: dax_folio_reset_order() may end up modifying all shared
+> tail pages?
 
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+I believe Sashiko's report is a false positive, because the issue =
+Sashiko
+raised is based on assumptions from code analysis for FS-DAX. =
+Unfortunately,
+the current implementation that supports HVO is DEV-DAX, and DEV-DAX =
+does
+not modify tail struct pages. Moreover, this patch itself is intended to
+migrate DEV-DAX to section-based vmemmap optimization, so there is no =
+issue
+at all.
+
+BTW, the current logic for determining whether DEV-DAX applies HVO is =
+based
+on pgmap->vmemmap_shift, and pgmap->vmemmap_shift is only assigned =
+during the
+initialization of DEV-DAX devices.
+
+Muchun,
+Thanks.
+
+>=20
+> [1]. =
+https://sashiko.dev/#/patchset/20260831075342.57563-1-songmuchun%40bytedan=
+ce.com
+>=20
+>> initialize its entries with PG_reserved for device zones. Also skip
+>> poisoning vmemmap-optimizable sections while their struct pages may =
+be
+>> shared.
+
