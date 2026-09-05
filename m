@@ -1,202 +1,277 @@
-Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+Received: from mail.srv.csmantle.top (mail.srv.csmantle.top [77.93.157.103])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB9B35E1AE;
-	Sat,  5 Sep 2026 03:44:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBAF3175A6B;
+	Sat,  5 Sep 2026 03:47:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.93.157.103
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788579878; cv=none; b=Y2mXkEuLuCmpWyLrcG/YkORfr9JtwU39dd/YsbAxP6+AcxjuXibIO6g5huld82mc5La9WLcCZnVA3hLAy9VE9qbQvzdez70GbzH7Ibt9zrB4XUXKl7BU0VBSNKXo//zfFqz8yqFddSnejKLJg2S3SrWeQHIIGdkH54zY8JiGwZE=
+	t=1788580069; cv=none; b=f+Oy/dRkx+YV/yZcd3s+IlbZlnY46dwpUOIJw1nX1WcnYDh+P6RAVLickBmk2d2ctskz9BDE34FN1Jp3OHwgr5hSSRb3dEcPoih17nOsfW7S/vpQyacIPuYvJiO4dfDeXgtwaArbfLckKJPHOrqeAEs9fFq4n3FnbopKE1r51cc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788579878; c=relaxed/simple;
-	bh=gUqfJVUvVAp7wj+4z59uWgVlitAYeLg/P9Y4JcBFQ40=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=fCUYOWJ8LsjvsNzslEoAaiESK+e39T+6hc91JX9FTcVxRdEilaUAoy0/6DFMYnXuoPoGx5vbzQhZIgUyQzhKedn8duWsrRUaTUd6isD1+sILKD2llmUQ8BC0C8kzTOA3NZFJ3Y/ObdUumexnbUByuFLPW3K7IW4w25FOZ/arWgw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Ehcwnko2; arc=none smtp.client-ip=113.46.200.218
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1788580069; c=relaxed/simple;
+	bh=lv9yVDePp6C20XWvEfa5Mghh+KKqIkoBMuO5eDjZVDs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TRHxaEZyN1JRsMco94Vh5+1+vpgfbZTFt5PfxJD3KYl/2kePEMK//xHxWbnDnd0YsOv4PDKZJaBwXN9cyIPQcgZD2KgRB1U94Bq0ycSHDExUR3fm9eqtu3cAg8ypEq9Q9a+irnhFvhSVWEYvsFFJRzk3NSG523FdLqveTdJnAH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=csmantle.top; spf=pass smtp.mailfrom=csmantle.top; dkim=permerror (0-bit key) header.d=csmantle.top header.i=@csmantle.top header.b=nweJFBQ5; dkim=pass (3072-bit key) header.d=csmantle.top header.i=@csmantle.top header.b=g68Jwli7; arc=none smtp.client-ip=77.93.157.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=csmantle.top
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csmantle.top
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Ehcwnko2"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=Wp8B10J8KdXX1ICuZjCb5MGZd4JK6ZEKI5ReZhq+g4I=;
-	b=Ehcwnko2Vb9qOtg+1UmGVeyXzxq46q9jfDNH07nTQRZXRZSokJdIoiDr0+bjiVtdKFTWmSunl
-	vGPexvkmmBGBApKXAHoRiENF5Zbe2zAIJ4RNXBW5xhAIBQYLxa5NO247RXAEFsYt+XoZuAER5nr
-	YnbWasldB983YP6uFpE5n90=
-Received: from mail.maildlp.com (unknown [172.19.162.144])
-	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4hcJnQ36SMzpSvB;
-	Sat,  5 Sep 2026 11:32:58 +0800 (CST)
-Received: from kwepemf100007.china.huawei.com (unknown [7.202.181.221])
-	by mail.maildlp.com (Postfix) with ESMTPS id 16D3A4056D;
-	Sat,  5 Sep 2026 11:44:24 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemf100007.china.huawei.com
- (7.202.181.221) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sat, 5 Sep
- 2026 11:44:23 +0800
-Message-ID: <7fbae9ac-44e4-4607-8aba-15db9779f80d@huawei.com>
-Date: Sat, 5 Sep 2026 11:44:22 +0800
+	dkim=permerror (0-bit key) header.d=csmantle.top header.i=@csmantle.top header.b="nweJFBQ5";
+	dkim=pass (3072-bit key) header.d=csmantle.top header.i=@csmantle.top header.b="g68Jwli7"
+DKIM-Signature: v=1; a=ed25519-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=csmantle.top; s=self-ed25519; h=BIMI-Selector:Content-Transfer-Encoding:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:In-Reply-To:References:BIMI-Selector;
+	bh=WDYW7gXRlodz8zDFJ7HbVgThqGhyhpwVabc9ZOJDGMI=; t=1788580067; x=1789184867; 
+	b=nweJFBQ5h1IK17FtYFxVE7L105fc9X3cC52uLDxyX+e3+ArdS3Hopl6SzQgk2znEUWZbd81fJIo
+	1PevaBdT3DA==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=csmantle.top; s=self-rsa3072; h=BIMI-Selector:Content-Transfer-Encoding:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:In-Reply-To:References:BIMI-Selector;
+	bh=WDYW7gXRlodz8zDFJ7HbVgThqGhyhpwVabc9ZOJDGMI=; t=1788580067; x=1789184867; 
+	b=g68Jwli7+mUGK2fJzBq7FGLN5yby9kf4l/FFeHpGLt+L0BIQmskGkdHtXlzsg44NFoP8WAqaCId
+	QCd8RAVG37tRxWzZ90bBiGk1m8WVqfwQVZT9VNlCu/XfM4MP5qzvh4Eh5D0rAh9NQwbLBjui+tx5d
+	zzuAQoXzHOYokd8LfwXwSLoczofxgxn15p0Y+8xRDjkz91vfDyY/czov34iAMuu6rmtMH4q/KhDyn
+	/ays1h+Tse7GXP9OWjekM5QTO7RyIeQdRJM5gx/VoY4bNN+nUb4O4IzGw0OFxT9iCZSoADJxohFYV
+	6wAPbRCLJjV4EkMSuH55E7lGfTPHMGC3DlQW5vBxmAkYAG4Ww9cApMCCsFT53ht4gk6N/7GjY7guC
+	MsUbBhVAeToB0AL3Ha2rZmXj6SrEWuxn5mCbe6DUCFx0Bq4XKKRkvLXIva7pXmRVwKjw3NPtHiAss
+	T2kIQHZpDRF98oTo0ENOFdCyJ6XKG6OczcnY9z43BMvl7qqMvWhg;
+Received: from [47.76.78.191] (helo=loongcatbox)
+	by mail.srv.csmantle.top with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <rong.bao@csmantle.top>)
+	id 1x2gx8-00000000ETz-3lWm;
+	Sat, 05 Sep 2026 11:20:27 +0800
+From: Rong Bao <rong.bao@csmantle.top>
+To: Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Hengqi Chen <hengqi.chen@gmail.com>,
+	Tiezhu Yang <yangtiezhu@loongson.cn>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Rong Bao <rong.bao@csmantle.top>,
+	George Guo <dongtai.guo@linux.dev>,
+	Yangyang Lian <lianyangyang@kylinos.cn>
+Cc: Kexy Biscuit <kexybiscuit@aosc.io>,
+	Mingcong Bai <jeffbai@aosc.io>,
+	Rong Bao <baorong2005@126.com>,
+	Yawei Li <liyawei@loongson.cn>,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] loongarch: expose LAMCAS existence via cpuinfo and hwcap
+Date: Sat,  5 Sep 2026 11:19:46 +0800
+Message-ID: <20260905032010.4962-1-rong.bao@csmantle.top>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next] bpf, riscv: Register extable entries at probe
- insn call sites
-Content-Language: en-US
-To: Chen Pei <cp0613@linux.alibaba.com>, <ast@kernel.org>,
-	<daniel@iogearbox.net>, <andrii@kernel.org>, <memxor@gmail.com>,
-	<bjorn@kernel.org>, <puranjay@kernel.org>
-CC: <ihor.solodrai@linux.dev>, <eddyz87@gmail.com>, <martin.lau@linux.dev>,
-	<song@kernel.org>, <yonghong.song@linux.dev>, <jolsa@kernel.org>,
-	<emil@etsalapatis.com>, <pjw@kernel.org>, <palmer@dabbelt.com>,
-	<shuah@kernel.org>, <guoren@kernel.org>, <bpf@vger.kernel.org>,
-	<linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20260901120013.16104-1-cp0613@linux.alibaba.com>
-From: Pu Lehui <pulehui@huawei.com>
-In-Reply-To: <20260901120013.16104-1-cp0613@linux.alibaba.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemf100007.china.huawei.com (7.202.181.221)
+Content-Transfer-Encoding: 8bit
+X-Rcpt-Check: Accepted by authentication
+X-42: Don't panic! 
+BIMI-Selector: v=BIMI1; s=me
 
+Currently, neither /proc/cpuinfo nor hwcap exposes the existence of the
+LAMCAS extension, which is part of LA64v1.1. For example, on a Loongson
+3B6000, /proc/cpuinfo is as follows:
 
-On 2026/9/1 20:00, Chen Pei wrote:
-> add_exception_handler() filters insns by matching BPF_MODE() against
-> the probe mode values. These values occupy unused opcode slots and
-> collide with legitimate encodings: BPF_PROBE_MEM32SX (0xc0) shares
-> its mode value with BPF_ATOMIC. Relying on the mode alone therefore
-> risks registering exception table entries for the wrong instructions,
-> as would happen for plain atomics without the LDX class check.
-> 
-> Make the decision explicit at the call sites instead: register an
-> entry only when emitting a probe load, a PROBE_MEM32 store, or a
-> PROBE_ATOMIC atomic, and drop the fragile mode gate from
-> add_exception_handler() along with the now unused insn argument. No
-> functional change intended.
-> 
-> Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
-> ---
-> base-commit: d761934c9483ecde93fe99d8705282f716dfee50
-> 
->   arch/riscv/net/bpf_jit_comp64.c | 50 ++++++++++++++++++---------------
->   1 file changed, 28 insertions(+), 22 deletions(-)
-> 
-> diff --git a/arch/riscv/net/bpf_jit_comp64.c b/arch/riscv/net/bpf_jit_comp64.c
-> index e7378be171a9..726c0169fc60 100644
-> --- a/arch/riscv/net/bpf_jit_comp64.c
-> +++ b/arch/riscv/net/bpf_jit_comp64.c
-> @@ -731,9 +731,8 @@ bool ex_handler_bpf(const struct exception_table_entry *ex,
->   	return true;
->   }
->   
-> -/* For accesses to BTF pointers, add an entry to the exception table */
-> -static int add_exception_handler(const struct bpf_insn *insn, int dst_reg,
-> -				 struct rv_jit_context *ctx)
-> +/* Add an entry to the exception table for a faulting probe insn */
-> +static int add_exception_handler(int dst_reg, struct rv_jit_context *ctx)
->   {
->   	struct exception_table_entry *ex;
->   	unsigned long pc;
-> @@ -744,14 +743,6 @@ static int add_exception_handler(const struct bpf_insn *insn, int dst_reg,
->   	    ctx->ex_insn_off <= 0 || ctx->ex_jmp_off <= 0)
->   		return 0;
->   
-> -	if (BPF_MODE(insn->code) != BPF_PROBE_MEM &&
-> -	    BPF_MODE(insn->code) != BPF_PROBE_MEMSX &&
-> -	    BPF_MODE(insn->code) != BPF_PROBE_MEM32 &&
-> -	    !(BPF_MODE(insn->code) == BPF_PROBE_MEM32SX &&
-> -	      BPF_CLASS(insn->code) == BPF_LDX) &&
-> -	    BPF_MODE(insn->code) != BPF_PROBE_ATOMIC)
-> -		return 0;
+        processor               : 23
+        package                 : 0
+        core                    : 11
+        global_id               : 31
+        CPU Family              : Loongson-64bit
+        Model Name              : Loongson-3B6000
+        PRID                    : LA664 (0014d011)
+        CPU Revision            : 0x11
+        FPU Revision            : 0x01
+        CPU MHz                 : 2200.00
+        BogoMIPS                : 4400.00
+        TLB Entries             : 2112
+        Address Sizes           : 48 bits physical, 48 bits virtual
+        ISA                     : loongarch32r loongarch32s loongarch64
+        Features                : cpucfg lam lam_bh scq ual fpu lsx lasx
+        crc32 complex crypto lspw lvz lbt_x86 lbt_arm lbt_mips
+        Hardware Watchpoint     : yes, iwatch count: 8, dwatch count: 4
 
-Hi Pei,
+... while the CPUCFG 2 instruction reads "0x7e7ccfcf", whose bit 28 is 1,
+indicating the actual presence of LAMCAS.
 
-This patch looks fine, but I still tend not to introduce these changes. 
-I think the function itself should handle its own defensive checks, and 
-we should also avoid "shotgun surgery".
+This hinders user-space inspection and detection of LAMCAS. For example,
+in SpiderMonkey, we need to switch to larchintrin.h and raw __cpucfg()
+to manually perform the bit extraction. Also, a curious user reading
+/proc/cpuinfo might be puzzled by the lack (of display) of LAMCAS.
 
-> -
->   	if (WARN_ON_ONCE(ctx->nexentries >= ctx->prog->aux->num_exentries))
->   		return -EINVAL;
->   
-> @@ -1360,6 +1351,15 @@ int arch_prepare_bpf_trampoline(struct bpf_tramp_image *im, void *ro_image,
->   	return ret < 0 ? ret : size;
->   }
->   
-> +/* Probe loads fault on unmapped memory and need an exception table entry */
-> +static bool insn_is_probe_ldx(const struct bpf_insn *insn)
-> +{
-> +	return BPF_MODE(insn->code) == BPF_PROBE_MEM ||
-> +	       BPF_MODE(insn->code) == BPF_PROBE_MEMSX ||
-> +	       BPF_MODE(insn->code) == BPF_PROBE_MEM32 ||
-> +	       BPF_MODE(insn->code) == BPF_PROBE_MEM32SX;
-> +}
-> +
->   int bpf_jit_emit_insn(const struct bpf_insn *insn, struct rv_jit_context *ctx,
->   		      bool extra_pass)
->   {
-> @@ -1929,9 +1929,11 @@ int bpf_jit_emit_insn(const struct bpf_insn *insn, struct rv_jit_context *ctx,
->   
->   		emit_ldx(rd, off, rs, BPF_SIZE(code), sign_ext, ctx);
->   
-> -		ret = add_exception_handler(insn, rd, ctx);
-> -		if (ret)
-> -			return ret;
-> +		if (insn_is_probe_ldx(insn)) {
-> +			ret = add_exception_handler(rd, ctx);
-> +			if (ret)
-> +				return ret;
-> +		}
->   
->   		if (BPF_SIZE(code) != BPF_DW && insn_is_zext(&insn[1]))
->   			return 1;
-> @@ -1959,9 +1961,11 @@ int bpf_jit_emit_insn(const struct bpf_insn *insn, struct rv_jit_context *ctx,
->   
->   		emit_st(rd, off, imm, BPF_SIZE(code), ctx);
->   
-> -		ret = add_exception_handler(insn, REG_DONT_CLEAR_MARKER, ctx);
-> -		if (ret)
-> -			return ret;
-> +		if (BPF_MODE(insn->code) == BPF_PROBE_MEM32) {
-> +			ret = add_exception_handler(REG_DONT_CLEAR_MARKER, ctx);
-> +			if (ret)
-> +				return ret;
-> +		}
->   		break;
->   
->   	/* STX: *(size *)(dst + off) = src */
-> @@ -1981,9 +1985,11 @@ int bpf_jit_emit_insn(const struct bpf_insn *insn, struct rv_jit_context *ctx,
->   
->   		emit_stx(rd, off, rs, BPF_SIZE(code), ctx);
->   
-> -		ret = add_exception_handler(insn, REG_DONT_CLEAR_MARKER, ctx);
-> -		if (ret)
-> -			return ret;
-> +		if (BPF_MODE(insn->code) == BPF_PROBE_MEM32) {
-> +			ret = add_exception_handler(REG_DONT_CLEAR_MARKER, ctx);
-> +			if (ret)
-> +				return ret;
-> +		}
->   		break;
->   
->   	/* Atomics */
-> @@ -2001,7 +2007,7 @@ int bpf_jit_emit_insn(const struct bpf_insn *insn, struct rv_jit_context *ctx,
->   			ret = emit_atomic_rmw(rd, rs, insn, ctx);
->   
->   		/* ret can be 1 (skip-zext); extable entry still needs to be added */
-> -		if (ret >= 0) {
-> +		if (ret >= 0 && BPF_MODE(insn->code) == BPF_PROBE_ATOMIC) {
->   			/*
->   			 * A load-acquire reads into dst_reg, and a read-modify-write
->   			 * carrying BPF_FETCH reads the old value into src_reg, or into
-> @@ -2010,7 +2016,7 @@ int bpf_jit_emit_insn(const struct bpf_insn *insn, struct rv_jit_context *ctx,
->   			 */
->   			int load_reg = bpf_atomic_load_reg(insn);
->   
-> -			ret = add_exception_handler(insn, load_reg < 0 ?
-> +			ret = add_exception_handler(load_reg < 0 ?
->   					REG_DONT_CLEAR_MARKER : regmap[load_reg],
->   					ctx) ?: ret;
->   		}
+Expose the existence of LAMCAS via cpuinfo and hwcap. The definition
+point of the new LOONGARCH_CPU_LAMCAS flag is chosen to match the
+practices in commit 1dd3e8a8eeb4059fb34b07578362380cf35b7ed5 ("LoongArch:
+Define instruction formats for AM{SWAP/ADD}.{B/H} and DBAR").
+
+After this patch, /proc/cpuinfo looks like the following:
+
+        processor               : 23
+        package                 : 0
+        core                    : 11
+        global_id               : 31
+        CPU Family              : Loongson-64bit
+        Model Name              : Loongson-3B6000
+        PRID                    : LA664 (0014d011)
+        CPU Revision            : 0x11
+        FPU Revision            : 0x01
+        CPU MHz                 : 2200.00
+        BogoMIPS                : 4400.00
+        TLB Entries             : 2112
+        Address Sizes           : 48 bits physical, 48 bits virtual
+        ISA                     : loongarch32r loongarch32s loongarch64
+        Features                : cpucfg lam lam_bh lamcas scq ual fpu lsx
+        lasx crc32 complex crypto lspw lvz lbt_x86 lbt_arm lbt_mips
+        Hardware Watchpoint     : yes, iwatch count: 8, dwatch count: 4
+
+Note the addition of "lamcas" to the "Features" row.
+
+Link: https://bugzil.la/2069431 ("[loong64] Use LA64v1.1 LAMCAS
+ extension to simplify atomic cmpxchg operations")
+Signed-off-by: Rong Bao <rong.bao@csmantle.top>
+---
+ arch/loongarch/include/asm/cpu-features.h |  1 +
+ arch/loongarch/include/asm/cpu.h          | 64 ++++++++++++-----------
+ arch/loongarch/include/uapi/asm/hwcap.h   |  1 +
+ arch/loongarch/kernel/cpu-probe.c         |  4 ++
+ arch/loongarch/kernel/proc.c              |  2 +
+ 5 files changed, 41 insertions(+), 31 deletions(-)
+
+diff --git a/arch/loongarch/include/asm/cpu-features.h b/arch/loongarch/include/asm/cpu-features.h
+index 62059c5551b9cdcc63c26033f8ccb44d63b18482..19cb0ccd0fb62bbbeb80a31bc447c101560bed32 100644
+--- a/arch/loongarch/include/asm/cpu-features.h
++++ b/arch/loongarch/include/asm/cpu-features.h
+@@ -36,6 +36,7 @@
+ #define cpu_has_cpucfg		cpu_opt(LOONGARCH_CPU_CPUCFG)
+ #define cpu_has_lam		cpu_opt(LOONGARCH_CPU_LAM)
+ #define cpu_has_lam_bh		cpu_opt(LOONGARCH_CPU_LAM_BH)
++#define cpu_has_lamcas		cpu_opt(LOONGARCH_CPU_LAMCAS)
+ #define cpu_has_scq		cpu_opt(LOONGARCH_CPU_SCQ)
+ #define cpu_has_ual		cpu_opt(LOONGARCH_CPU_UAL)
+ #define cpu_has_fpu		cpu_opt(LOONGARCH_CPU_FPU)
+diff --git a/arch/loongarch/include/asm/cpu.h b/arch/loongarch/include/asm/cpu.h
+index 91b96938861eb9f81882b128ab0bd0a925ce0dbb..334ca9d69ec4a649848133d0a81555bfc37fbf9d 100644
+--- a/arch/loongarch/include/asm/cpu.h
++++ b/arch/loongarch/include/asm/cpu.h
+@@ -96,41 +96,43 @@ static inline char *id_to_core_name(unsigned int id)
+ #define CPU_FEATURE_CPUCFG		0	/* CPU has CPUCFG */
+ #define CPU_FEATURE_LAM			1	/* CPU has Atomic instructions */
+ #define CPU_FEATURE_LAM_BH		2	/* CPU has AM{SWAP/ADD}[_DB].{B/H} instructions */
+-#define CPU_FEATURE_SCQ			3	/* CPU has SC.Q instruction */
+-#define CPU_FEATURE_UAL			4	/* CPU supports unaligned access */
+-#define CPU_FEATURE_FPU			5	/* CPU has FPU */
+-#define CPU_FEATURE_LSX			6	/* CPU has LSX (128-bit SIMD) */
+-#define CPU_FEATURE_LASX		7	/* CPU has LASX (256-bit SIMD) */
+-#define CPU_FEATURE_CRC32		8	/* CPU has CRC32 instructions */
+-#define CPU_FEATURE_COMPLEX		9	/* CPU has Complex instructions */
+-#define CPU_FEATURE_CRYPTO		10	/* CPU has Crypto instructions */
+-#define CPU_FEATURE_LVZ			11	/* CPU has Virtualization extension */
+-#define CPU_FEATURE_LBT_X86		12	/* CPU has X86 Binary Translation */
+-#define CPU_FEATURE_LBT_ARM		13	/* CPU has ARM Binary Translation */
+-#define CPU_FEATURE_LBT_MIPS		14	/* CPU has MIPS Binary Translation */
+-#define CPU_FEATURE_TLB			15	/* CPU has TLB */
+-#define CPU_FEATURE_CSR			16	/* CPU has CSR */
+-#define CPU_FEATURE_IOCSR		17	/* CPU has IOCSR */
+-#define CPU_FEATURE_WATCH		18	/* CPU has watchpoint registers */
+-#define CPU_FEATURE_VINT		19	/* CPU has vectored interrupts */
+-#define CPU_FEATURE_CSRIPI		20	/* CPU has CSR-IPI */
+-#define CPU_FEATURE_EXTIOI		21	/* CPU has EXT-IOI */
+-#define CPU_FEATURE_PREFETCH		22	/* CPU has prefetch instructions */
+-#define CPU_FEATURE_PMP			23	/* CPU has perfermance counter */
+-#define CPU_FEATURE_SCALEFREQ		24	/* CPU supports cpufreq scaling */
+-#define CPU_FEATURE_FLATMODE		25	/* CPU has flat mode */
+-#define CPU_FEATURE_EIODECODE		26	/* CPU has EXTIOI interrupt pin decode mode */
+-#define CPU_FEATURE_GUESTID		27	/* CPU has GuestID feature */
+-#define CPU_FEATURE_HYPERVISOR		28	/* CPU has hypervisor (running in VM) */
+-#define CPU_FEATURE_PTW			29	/* CPU has hardware page table walker */
+-#define CPU_FEATURE_LSPW		30	/* CPU has LSPW (lddir/ldpte instructions) */
+-#define CPU_FEATURE_MSGINT		31	/* CPU has MSG interrupt */
+-#define CPU_FEATURE_AVECINT		32	/* CPU has AVEC interrupt */
+-#define CPU_FEATURE_REDIRECTINT		33	/* CPU has interrupt remapping */
++#define CPU_FEATURE_LAMCAS		3	/* CPU has AMCAS[_DB].{B/H/W/D} instructions */
++#define CPU_FEATURE_SCQ			4	/* CPU has SC.Q instruction */
++#define CPU_FEATURE_UAL			5	/* CPU supports unaligned access */
++#define CPU_FEATURE_FPU			6	/* CPU has FPU */
++#define CPU_FEATURE_LSX			7	/* CPU has LSX (128-bit SIMD) */
++#define CPU_FEATURE_LASX		8	/* CPU has LASX (256-bit SIMD) */
++#define CPU_FEATURE_CRC32		9	/* CPU has CRC32 instructions */
++#define CPU_FEATURE_COMPLEX		10	/* CPU has Complex instructions */
++#define CPU_FEATURE_CRYPTO		11	/* CPU has Crypto instructions */
++#define CPU_FEATURE_LVZ			12	/* CPU has Virtualization extension */
++#define CPU_FEATURE_LBT_X86		13	/* CPU has X86 Binary Translation */
++#define CPU_FEATURE_LBT_ARM		14	/* CPU has ARM Binary Translation */
++#define CPU_FEATURE_LBT_MIPS		15	/* CPU has MIPS Binary Translation */
++#define CPU_FEATURE_TLB			16	/* CPU has TLB */
++#define CPU_FEATURE_CSR			17	/* CPU has CSR */
++#define CPU_FEATURE_IOCSR		18	/* CPU has IOCSR */
++#define CPU_FEATURE_WATCH		19	/* CPU has watchpoint registers */
++#define CPU_FEATURE_VINT		20	/* CPU has vectored interrupts */
++#define CPU_FEATURE_CSRIPI		21	/* CPU has CSR-IPI */
++#define CPU_FEATURE_EXTIOI		22	/* CPU has EXT-IOI */
++#define CPU_FEATURE_PREFETCH		23	/* CPU has prefetch instructions */
++#define CPU_FEATURE_PMP			24	/* CPU has perfermance counter */
++#define CPU_FEATURE_SCALEFREQ		25	/* CPU supports cpufreq scaling */
++#define CPU_FEATURE_FLATMODE		26	/* CPU has flat mode */
++#define CPU_FEATURE_EIODECODE		27	/* CPU has EXTIOI interrupt pin decode mode */
++#define CPU_FEATURE_GUESTID		28	/* CPU has GuestID feature */
++#define CPU_FEATURE_HYPERVISOR		29	/* CPU has hypervisor (running in VM) */
++#define CPU_FEATURE_PTW			30	/* CPU has hardware page table walker */
++#define CPU_FEATURE_LSPW		31	/* CPU has LSPW (lddir/ldpte instructions) */
++#define CPU_FEATURE_MSGINT		32	/* CPU has MSG interrupt */
++#define CPU_FEATURE_AVECINT		33	/* CPU has AVEC interrupt */
++#define CPU_FEATURE_REDIRECTINT		34	/* CPU has interrupt remapping */
+ 
+ #define LOONGARCH_CPU_CPUCFG		BIT_ULL(CPU_FEATURE_CPUCFG)
+ #define LOONGARCH_CPU_LAM		BIT_ULL(CPU_FEATURE_LAM)
+ #define LOONGARCH_CPU_LAM_BH		BIT_ULL(CPU_FEATURE_LAM_BH)
++#define LOONGARCH_CPU_LAMCAS		BIT_ULL(CPU_FEATURE_LAMCAS)
+ #define LOONGARCH_CPU_SCQ		BIT_ULL(CPU_FEATURE_SCQ)
+ #define LOONGARCH_CPU_UAL		BIT_ULL(CPU_FEATURE_UAL)
+ #define LOONGARCH_CPU_FPU		BIT_ULL(CPU_FEATURE_FPU)
+diff --git a/arch/loongarch/include/uapi/asm/hwcap.h b/arch/loongarch/include/uapi/asm/hwcap.h
+index 90e96113ba51003cd4dde5c7c79744f5e0755a03..d354787b937c3ae9eb8c3d58a4e7e96bd066f6fd 100644
+--- a/arch/loongarch/include/uapi/asm/hwcap.h
++++ b/arch/loongarch/include/uapi/asm/hwcap.h
+@@ -20,5 +20,6 @@
+ #define HWCAP_LOONGARCH_LSPW		(1 << 14)
+ #define HWCAP_LOONGARCH_SCQ		(1 << 15)
+ #define HWCAP_LOONGARCH_LAM_BH		(1 << 16)
++#define HWCAP_LOONGARCH_LAMCAS		(1 << 17)
+ 
+ #endif /* _UAPI_ASM_HWCAP_H */
+diff --git a/arch/loongarch/kernel/cpu-probe.c b/arch/loongarch/kernel/cpu-probe.c
+index 74d31f260dfd889e66a1f55c5bcc47a3657d101f..93176e4d017b4d8fc82c817a7064af0656133c15 100644
+--- a/arch/loongarch/kernel/cpu-probe.c
++++ b/arch/loongarch/kernel/cpu-probe.c
+@@ -182,6 +182,10 @@ static void cpu_probe_common(struct cpuinfo_loongarch *c)
+ 		c->options |= LOONGARCH_CPU_LAM_BH;
+ 		elf_hwcap |= HWCAP_LOONGARCH_LAM_BH;
+ 	}
++	if (config & CPUCFG2_LAMCAS) {
++		c->options |= LOONGARCH_CPU_LAMCAS;
++		elf_hwcap |= HWCAP_LOONGARCH_LAMCAS;
++	}
+ 	if (config & CPUCFG2_SCQ) {
+ 		c->options |= LOONGARCH_CPU_SCQ;
+ 		elf_hwcap |= HWCAP_LOONGARCH_SCQ;
+diff --git a/arch/loongarch/kernel/proc.c b/arch/loongarch/kernel/proc.c
+index d4ce5b585453700caf2187c3dcc8f4f3cc8a9226..f86be83ad6f134c5793667fa6dbe2bf82fd58a2e 100644
+--- a/arch/loongarch/kernel/proc.c
++++ b/arch/loongarch/kernel/proc.c
+@@ -66,6 +66,8 @@ static int show_cpuinfo(struct seq_file *m, void *v)
+ 		seq_puts(m, " lam");
+ 	if (cpu_has_lam_bh)
+ 		seq_puts(m, " lam_bh");
++	if (cpu_has_lamcas)
++		seq_puts(m, " lamcas");
+ 	if (cpu_has_scq)
+ 		seq_puts(m, " scq");
+ 	if (cpu_has_ual)
+
+base-commit: 654ae5d73c05bd2943d65636ce6cd0aa46e62f18
+-- 
+2.55.0
+
