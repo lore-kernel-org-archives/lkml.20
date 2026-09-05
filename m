@@ -1,66 +1,66 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BED63C13E3
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 08:58:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 078A73CDBB1
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 08:58:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788598740; cv=none; b=RXmQxdMKZCqvjpX9AjtFtzf/0vqh5RJ0b7TteJtUIf1ENUNYeT4Fg6D0nWh35uTiihnuM4BuZbd9RCfNqJM7MbBaUZkzZM6mYqj2ZOxB4UPngtN+eKOZ2+WoFJkLdHCb/1tAgg3C4yHzCG2dlQ0yX9/AcQBxQoOPKl2888ceTBQ=
+	t=1788598741; cv=none; b=t+PAxl8lVYGEnndwuZihpBHgctX6C2uqt/ajwDZiC65mUri4ZJwaGk/TpIpZPdziLRCaBeR/d8ks0Lb/XsLVcLTdZ4URxhjtPvfee49lOv3wiuL9LSQYBOvNglncVJNAFpTY9Fges7s5vjurjKp1eJpM/JLqL3waohhODb4P9Vc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788598740; c=relaxed/simple;
-	bh=wwO1tiUatXUNiREkAKHOy4KgtEdLsUuk32neGIK+pVw=;
+	s=arc-20240116; t=1788598741; c=relaxed/simple;
+	bh=6zz9Ag85LOmpD6O7B3WH4S6lYKS21tOMt9b0pe3DHRg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XM7n5YdGUuP5qJZPEL8TsQ+ZNQLux1hHEWYu/OqaXU0cnwXyft0VzDBqPdsq8Zr6iK7bpP3Zmdjtj5bj3xc0MQd1MrWl+3vtpK6DJojSvpkGKXbdysMB2LfwSwulcwjV8rfcF6uH0bCTJBG82Obd7BtlwTGA0nkD5z01OVAkZ1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QEP7kryX; arc=none smtp.client-ip=209.85.128.41
+	 MIME-Version:Content-Type; b=sWmZr8n8ZuitafrJywgSi/D7G1+RnbIFbTrb/KP++xvt9NhjttN5my9+gf6RpmDwD/2xTRtwN+x3lA0iCW6UF6bIboCS6U3VmUnQgQrCjUlwUnVigZaHMLq03/ERQCSN4fElWis12Vq2nwhPKArwd1sIjS4HJM+k/AZYuuPQZaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ADidD9x2; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QEP7kryX"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49b0d8bc2aaso22458125e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 01:58:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ADidD9x2"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4956869750eso14349085e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 01:58:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788598734; x=1789203534; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788598735; x=1789203535; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:sender:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=gvGhL3HZ4A6FyUQcqo6y9PFuXiif2pxtShOv+n9uw9o=;
-        b=QEP7kryXnMSQRxg9RVwS1KJY3vLyUE0xdDqTyG6OoQi6zGM9a3fJm4kStxxu/V+nw+
-         pL/0o5aaJZZWbGNovZyrBHlhAA/sm3ieYr8VDoTloEDfFhJGafoDHbqNz7NFD+yUQzH+
-         MmxIoPBQ5f7vZyccQbXeMAb3shM5KWB9d7ep0HjJg9itf2KAuJp5OP6kfD9uhmQID6hW
-         r46x5P6uV/tw9VFPng8Z0isW7w/gFmg+pWLo0dwGuIYVztPPGCDGo+Ow9VXSWfBcIvpP
-         pb8y/K8zqdxI2MFfY6b3uQ1Lz97UYQ2U1Ao6jUmdKY8nbjyPKGyDs7CC0t3Qpj9YEVWn
-         IaRg==
+        bh=GUrJMaiglIbT6L941pCJUScecxh9O9MwXfOfsOlfv0Y=;
+        b=ADidD9x2/cstVJ/31ydDidK8pdHM7PBb8VDP1eB4gn1ZVwCulPaevTYBkIU9U5iJV6
+         cuTDM3ht+gIq3PWdSxEa8/7XnALp38cwZntGSQCGjG3Bnf1tdmP0s0ArFHAJZzAUZazX
+         KlvkLvCV5sxnQuro9vddeCuWDa/t+/rgtJS5fa5b0QgByIsWcT/bt++n9QNxxPEkfcTE
+         lM9jQwEI6d3scr9FqYbdkogbccpgBqiP8Po+lQBUL38a1YAXd33iJI+iUsqnait71/bZ
+         E48CT7UMOHEH4A/8cWskl/v9oXeVh8txjEUD6TOpwVQIVEPEgacba1NN/k02xy66QNNT
+         Q6kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788598734; x=1789203534;
+        d=1e100.net; s=20251104; t=1788598735; x=1789203535;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gvGhL3HZ4A6FyUQcqo6y9PFuXiif2pxtShOv+n9uw9o=;
-        b=iRlft0dkDfCcTmdL3pZqFA2HkGQqoO+cELMedH6rSSY6DyLn5yigj7XOR+HDUenbpv
-         2EjFWmF1Q9tB3mWwV4P+XFai+9limH2k2YD1QMz/Tl2HuC+Zx7o2ZE4G5GYiHs/S+T29
-         RXOimdTLDQwaBtaqoEpquNK3G+8y1crqS+ZPUvLr9qyLy3x9tP0fYSNsgLnMuktdh8k3
-         cHXkdXWM0B1DwEKOvznb3eWUwuo18Tqoxc9quUra8yGmZguyUa6ThQf5BabWL4TxWSTO
-         8icjN53w61iGNodn/ITAvWnVLa5Pw086dLWYjRRhTR4URXfPjphxWdjVjZFINeAoy8hD
-         l6EQ==
-X-Forwarded-Encrypted: i=1; AKwUvByeUtJzaX+kVINfcDROkJxDljYSHsQ6kIMmhwksTgwYOCGRSE+pL0asZt9tP5e9aWnF+KUov3rWIuFO75I=@vger.kernel.org
-X-Gm-Message-State: AFuF++mQrbWMAtMgp3B6S5bvt3vPDvyqHgnvELkYvri+t1UsOhRqDqR1
-	KphH28dJ6TRvseijX2l2x6ksBCQJ7Vkjyd0NseuehSt4976ooCLh2/A=
-X-Gm-Gg: AYBFou19djMJ8WRw7siBfR4wTkcI8zDgOBMCX6fBTO1YTGSyRX8sbzBJ/ybRzKwIIgl
-	VXcfJfq4eq4HscEtxQmkci4Tc9NUSBdISHvRBxSreqMCmPWHWUnc+rqQkMaVTUpTLEpz+p3Q8je
-	Jk9p1Imw+O/BG9r1uv2SVh9FNOE1lh3l9vv4snMSosfjLJYuhvTjk3YXNDgxxw3z1m1R+mn8coB
-	cN/6Q7Gu0M/DRy8sh59DnaLKyDIokBvSGSazjitpwQZWd0nLKz30OfyrI0GuzxXELDSbcj2wxeN
-	qOi4NrhC8mu3HXfoUwQV9pt9GONBhmkqTfjz1G5Dx/mLMiCyJiujy4w5sTqGVjHMfWzHeCG4VSM
-	TU2g+Lvk8HSK9R2s7krcGXxVjQVOD/xtKY5bRskPmtrRKGCJrHyIeQI8AMlFgGoopE9O5kmjUav
-	hYD+WW5+v5sdBWHP3qWBWxBuNCyubPX1WO1WdWfEJ5HGCq9S84J7J1QaryYTQVCFEImTXPTyi7M
-	Clh+MBVOxZRZrUy7U6n2q1+vYASZuSYSDBgBEoD4fqR38vkDJgQQGWRNQrVDeiFPpEB1idgOgRY
-	7yF1ww==
-X-Received: by 2002:a05:600c:35c3:b0:49c:fc6c:be10 with SMTP id 5b1f17b1804b1-49cfc6cc055mr83086845e9.22.1788598734103;
-        Sat, 05 Sep 2026 01:58:54 -0700 (PDT)
+        bh=GUrJMaiglIbT6L941pCJUScecxh9O9MwXfOfsOlfv0Y=;
+        b=GD0u9ucFVcMFBpZuuI6rS/I+LSogyBt8qaPMkWIreJCHtbhZEB8RhhrhbudvhOSizu
+         M2qxCvWX8wtaMZVZ4Jqdhcvb3gfaIv+Ke1usBMeEkuvlZvmMCaoeI9gi7wNw+tijNEqV
+         Ogc+wa0bWAzLnMoN6ofs47HY6buKTXwP42yxuNArdYrIiztjKnjb+rTE9OfX9K0Bn5GV
+         qQhtxfREfHzzCBGFqP5mMktAvRch0QhDKie8OPd784OefYR7CeJ0Ys/dXoFdfn+BylZN
+         a2nSCZ0hqiDOBAhcNXa7Prvx/PDOHLV/SXlFqH/n4fuI38ybBpBcQttg2m5diJfLWMVR
+         UCrA==
+X-Forwarded-Encrypted: i=1; AKwUvBxmWwlr/PFs3KKFbrnPnJsPactEtdw95aLkW669DbJRLEd6xw3+H0pGCq+bH0GecZwietd2cFjJUf4m0sE=@vger.kernel.org
+X-Gm-Message-State: AFuF++l/ncSF2Xk0bLw7yUwx6i3WOdWRbp3Y8TZzF0QcHG96OTbqUvg8
+	3pNtaiu6lUSDarMwP8a757vbOYwr9pVbB0wz58SwKiGgeqge7P4w2dwlo+15
+X-Gm-Gg: AYBFou3KbyBCC7ymRl6g0/HIcQu5shCout8HIyMumT0LfJf1g/Hpla0zjC095zOcTDg
+	YOSvRZDtivHuLgDuEmYP0C+Cuy2NxFTJ83/3VabuBniDyL/qEu7NEovwEc0ER0q8sFSM7F3mSRo
+	fuOr5oWG5uTcDDmK4bKIOv8n2PDfQjScQgwVcROhYIqj+P0aOE8CdtWjBUEfbMKFpnu51XsToTA
+	hUhSq1VHwI0IElPud/eb1Ertf1SkEI+DKqY1LZzQ5MoMpUi3pnGUa7rcrUOecbG+rr7sNJuheoU
+	g9hbU5DW6TzRsR907rp6zalY2z4hSE9hb5xW0iY0jiaS1hLQMAj7gh6xpsf+irbuxjr7Da/zgYh
+	1LiYQefkiiDim4thklr+KR+nobU1nNj1Aanh6jn60l862d1LrFHYKM4XyiW4u3WQaS3rNarY7l8
+	zmchQUrn15r2eACB823mNLStxZtfgta9O+8KwHR062BEkJC00EGmKuw2fA1/BcS4vCie4wlTw99
+	4HLjT9N7zzbLKo/92H/AXRG4dIYw8gDuiSgMmER2wswaf4VKUccMl3z3sgv2YUZu/AtqKiqqBon
+	9eKX
+X-Received: by 2002:a05:600c:8b32:b0:49b:d03:8d3a with SMTP id 5b1f17b1804b1-49cf8244878mr121200985e9.11.1788598735193;
+        Sat, 05 Sep 2026 01:58:55 -0700 (PDT)
 Received: from nn ([2001:1ab8:1003:0:5454:f357:ba89:4e22])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5952560sm228306435e9.3.2026.09.05.01.58.52
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5952560sm228306435e9.3.2026.09.05.01.58.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 01:58:53 -0700 (PDT)
+        Sat, 05 Sep 2026 01:58:54 -0700 (PDT)
 Sender: N B <gen.benner@gmail.com>
 From: =?UTF-8?q?Nerijus=20Bend=C5=BEi=C5=ABnas?= <nerijus.bendziunas@gmail.com>
 To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
@@ -68,9 +68,9 @@ To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
 Cc: Kalle Valo <kvalo@kernel.org>,
 	Oleksij Rempel <linux@rempel-privat.de>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 1/2] wifi: ath9k_htc: fix the byte count of a full RMW buffer flush
-Date: Sat,  5 Sep 2026 11:58:06 +0300
-Message-ID: <20260905085807.384488-2-nerijus.bendziunas@gmail.com>
+Subject: [PATCH v3 2/2] wifi: ath9k_htc: refuse a command that fills whole USB packets
+Date: Sat,  5 Sep 2026 11:58:07 +0300
+Message-ID: <20260905085807.384488-3-nerijus.bendziunas@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260905085807.384488-1-nerijus.bendziunas@gmail.com>
 References: <20260905085807.384488-1-nerijus.bendziunas@gmail.com>
@@ -83,83 +83,48 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The AR9271 PA calibration has been running with its last five
-register writes dropped since the RMW buffer was added.
-ar9271_hw_pa_cal() queues exactly 15 read-modify-writes, which fills
-the buffer, and ath9k_reg_rmw_buffer() sizes that flush with
-sizeof(struct register_write), 8 bytes, instead of
-sizeof(struct register_rmw), 12 bytes. The firmware gets 120 of the
-180 bytes and applies only the first 10.
+The firmware ends a command on the interrupt OUT endpoint only when a
+packet is shorter than 64 bytes (usb_reg_out_patch() in
+open-ath9k-htc-firmware). The one such command this driver can
+produce, 192 bytes, was never delivered: the device stopped answering
+WMI and stayed dead through a warm reboot until power was removed.
 
-Fixing the size alone kills the device. The command becomes
-8 (HTC) + 4 (WMI) + 180 = 192 bytes, three full 64-byte USB packets,
-and the firmware ends a command only on a short packet
-(usb_reg_out_patch() in open-ath9k-htc-firmware). The 192-byte
-command is never delivered: the device stops answering WMI and stays
-dead through a warm reboot until power is removed. An AR9271 hangs
-this way on the first interface open, with the linux-firmware 1.4.0
-blob and with an open-firmware build alike.
+Nothing in the driver checks for this. Check the length in
+hif_usb_send_regout(), where the packet size is known, and refuse the
+command with a warning. The command then fails the way any other WMI
+command failure does: ath9k_wmi_cmd() frees the buffer and returns
+the error.
 
-So cap the buffer at 14 entries as well. A command of n entries is
-12 * (n + 1) bytes, a multiple of 64 only at n = 15 within the
-buffer's reach. The next largest RMW batch, ath9k_hw_4k_set_gain(),
-queues at most 14 entries, 180 bytes, and a register write batch is
-8n + 12 bytes, never a multiple of 64. The PA calibration then goes
-out as 14 + 1 entries and all 15 writes reach the chip.
-AR9271_AN_RF2G6_OFFS then reads 30 on 40 of 40 opens, where the
-truncated command gave 32 on 78 of 80; a firmware with fixed
-reassembly, given the full 15-entry command, gave 30 on 19 of 20. The
-on-air effect is not measured yet. With the cap, 120 interface opens
-ran clean: 60 with this patch, 20 of them on the linux-firmware 1.4.0
-blob and 20 on a second AR9271, and 60 with a bench build of the same
-wire lengths.
-
-Fixes: 8badb50cfab6 ("ath9k_htc: add new WMI_REG_RMW_CMDID command")
-Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Nerijus Bendžiūnas <nerijus.bendziunas@gmail.com>
 ---
-Changes in v3:
-- v2 said no caller fills the buffer; ar9271_hw_pa_cal() does, on
-  every AR9271 reset.
-- Cap MAX_RMW_CMD_NUMBER at 14 in the same patch: the corrected size
-  alone yields a 192-byte command the firmware never delivers.
-- Assisted-by in the form Documentation/process/coding-assistants.rst
-  now asks for.
-Changes in v2:
-- Add Assisted-by, rewrite the commit message, rebase onto ath-next.
+New in v3.
 
- drivers/net/wireless/ath/ath9k/htc_drv_init.c | 2 +-
- drivers/net/wireless/ath/ath9k/wmi.h          | 3 ++-
- 2 files changed, 3 insertions(+), 2 deletions(-)
+ drivers/net/wireless/ath/ath9k/hif_usb.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/net/wireless/ath/ath9k/htc_drv_init.c b/drivers/net/wireless/ath/ath9k/htc_drv_init.c
-index 6de78ae85726..0b49d2cc99f0 100644
---- a/drivers/net/wireless/ath/ath9k/htc_drv_init.c
-+++ b/drivers/net/wireless/ath/ath9k/htc_drv_init.c
-@@ -405,7 +405,7 @@ static void ath9k_reg_rmw_buffer(void *hw_priv,
- 	if (priv->wmi->multi_rmw_idx == MAX_RMW_CMD_NUMBER) {
- 		r = ath9k_wmi_cmd(priv->wmi, WMI_REG_RMW_CMDID,
- 			  (u8 *) &priv->wmi->multi_rmw,
--			  sizeof(struct register_write) * priv->wmi->multi_rmw_idx,
-+			  sizeof(struct register_rmw) * priv->wmi->multi_rmw_idx,
- 			  (u8 *) &rsp_status, sizeof(rsp_status),
- 			  100);
- 		if (unlikely(r)) {
-diff --git a/drivers/net/wireless/ath/ath9k/wmi.h b/drivers/net/wireless/ath/ath9k/wmi.h
-index 5c3b710b8f31..256f46098a6b 100644
---- a/drivers/net/wireless/ath/ath9k/wmi.h
-+++ b/drivers/net/wireless/ath/ath9k/wmi.h
-@@ -126,7 +126,8 @@ enum wmi_event_id {
- };
+diff --git a/drivers/net/wireless/ath/ath9k/hif_usb.c b/drivers/net/wireless/ath/ath9k/hif_usb.c
+index d3491ff08e6e..49303c7e3fef 100644
+--- a/drivers/net/wireless/ath/ath9k/hif_usb.c
++++ b/drivers/net/wireless/ath/ath9k/hif_usb.c
+@@ -99,10 +99,17 @@ static void hif_usb_regout_cb(struct urb *urb)
+ static int hif_usb_send_regout(struct hif_device_usb *hif_dev,
+ 			       struct sk_buff *skb)
+ {
++	u16 maxpacket = usb_maxpacket(hif_dev->udev,
++				      usb_sndintpipe(hif_dev->udev,
++						     USB_REG_OUT_PIPE));
+ 	struct urb *urb;
+ 	struct cmd_buf *cmd;
+ 	int ret = 0;
  
- #define MAX_CMD_NUMBER 62
--#define MAX_RMW_CMD_NUMBER 15
-+/* 15 entries make 192 bytes, three full USB packets: never delivered. */
-+#define MAX_RMW_CMD_NUMBER 14
- 
- struct register_write {
- 	__be32 reg;
++	if (WARN_ONCE(maxpacket && skb->len % maxpacket == 0,
++		      "%u-byte command fills whole USB packets\n", skb->len))
++		return -EINVAL;
++
+ 	urb = usb_alloc_urb(0, GFP_KERNEL);
+ 	if (urb == NULL)
+ 		return -ENOMEM;
 -- 
 2.55.0
 
