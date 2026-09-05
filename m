@@ -1,103 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEFEA28690;
-	Sat,  5 Sep 2026 01:40:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A60312DEA61;
+	Sat,  5 Sep 2026 01:42:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788572441; cv=none; b=tKbvQQwBCTyj63KLSaGf8adoz/P8J/Qr7zEtunsRhyUmBJ4Cwm3MD2gPVGOfT/04QofVN4AkzrrJgsz+iURmEU1D3ZYNp/qaYi2ulkJDthVNX/pPEohp73nN8kZdkq3KKRngxRR+nY/UO+J1R4NoC2FfALh0AMM2puori5pycBE=
+	t=1788572552; cv=none; b=LkmE0ZAgAsCnEn9MXC9xbRfOZqSkZMAEcGMUcUUzKoV+SsDc6k/pa0WF2PwgTZmt9nkptlNm2B2CXT7Sl32yud7vgTxr+v3mW/gNXyu2JCjwVRsfuZsfuwuEOlF4GRP9qWeX6fBQ4aQfOKuzdA6qTmEYLQZSrP1TyLrKKRDh6+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788572441; c=relaxed/simple;
-	bh=OWPRvLI6HbaMKUmln7N2q3JVQxGXT5/mHZCjkBP0icI=;
+	s=arc-20240116; t=1788572552; c=relaxed/simple;
+	bh=N8YkD6Wp7Lk6TGB7lq6v2Ub/Clxfsbb9vMlCMDLBEkU=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fOggfugy1dOFrB5uWYpNVANT0Ld624S2weUM2hYUb5GGjVlGxWbwZfJfirhmGQZh8Pbj7dHKDR2PUplPkBOSD4FnvSKpk6dskqMGuJrDCNwkfh89dWY9oscfLF0vYpKzZ6LKqSMyZdQF5deX+JikE9UTBEmu1vM6/j7y76UkIIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VzJVlzUN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=BuNe4z+vIEigO5zKWPpJ1Ea4IB1gcOg1KZdBaT0ZUMZtR7C3LwI1EqqvAORIgPjUOTRDEe8AxLGBZCCwilJJvavSdrrbhRNaYIQ+qVoEOvaIxSIWFaJACgN0Dr/yxdd0HYVo7B0RyLovJqHx0aPwIXOGT5ScYleBwk6WqgdoAso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VefCHUmW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VzJVlzUN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 285601F00A3D;
-	Sat,  5 Sep 2026 01:40:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VefCHUmW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E60DF1F00A3D;
+	Sat,  5 Sep 2026 01:42:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788572439;
-	bh=zbhyHSsH0ZYYjgOOJWQuXogkQGEQro74ZKlP+VE/PLk=;
+	s=k20260515; t=1788572551;
+	bh=MfsEVPw7kIKne+Ntx/TjFc2LVvyDbkTQDSPDWVMF1PE=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=VzJVlzUNJt+HsXkPCovtCSDjV3mgXCzLF9/55RWt7ll6tDfvR5c+ZEHWCTllcBWh/
-	 +o3qvBJijkdm6tOzRNDTmIErrDsHleliF8RBVC/YvISn6V+HteTtx4ZwvDqkgU7jSm
-	 +c5/3mgFwDLs00VHt+HXZHDH0jp3W5c0vxy+WZeVcXcokzaRQVwHv8EVFBfYYhdjdE
-	 20vSwoVpPJA3OWNSOluNCks0iPVP8e3StPkkdegvsM5hBB0KL8eY1p+gLs5yLWQOdb
-	 /7B3OcFljKbQX3XwLkRQOGcEWvke029r2VbOlD6aUMXM8Mz2KiFrecu3MCELL/roiT
-	 xal2lx0Xm330g==
-Date: Fri, 4 Sep 2026 18:40:38 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
-Cc: linux-arm-msm@vger.kernel.org, Manivannan Sadhasivam <mani@kernel.org>,
- Eric Dumazet <edumazet@google.com>, Kuniyuki Iwashima <kuniyu@google.com>,
- Paolo Abeni <pabeni@redhat.com>, Willem de Bruijn <willemb@google.com>,
- "David S . Miller" <davem@davemloft.net>, Simon Horman <horms@kernel.org>,
- Marcel Holtmann <marcel@holtmann.org>, Andy Gross <agross@kernel.org>,
- Mihai Moldovan <ionic@ionic.de>, Denis Kenzior <denkenz@gmail.com>,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH v6 13/15] net: qrtr: limit endpoint range to 16 bits on
- 32-bit machines
-Message-ID: <20260904184038.5c1e673a@kernel.org>
-In-Reply-To: <20260901131934.225991-14-juha-matti.tilli@iki.fi>
-References: <20260901131934.225991-1-juha-matti.tilli@iki.fi>
-	<20260901131934.225991-14-juha-matti.tilli@iki.fi>
+	b=VefCHUmWj0dUhkhii1npy3JB2vKsFWxXmJDzOuvD1cZrimqUveNwHN5iLd3qCIQyB
+	 u0xM2l3QXa01Dzc87D/0Lb2nSx6IWrpDw3udZw+SSxPw9QkmbcKVbZYocelvwFFj/H
+	 8aQbLrELvUQ+TsBQS4SRw3lzekvOPl7T9kzEQPJxQi4ROUnAzep8Cla2YNoT/TJJGv
+	 +mYx62DsMh5huYYtGuKuQdo61QzbRUNyrP10QHIN0Cthe5krL3fk6NEKcIkLaYMRmi
+	 E4VuJWii4CdRz7lsqQGYopR3hwOFpE49dLXV0t5H1mzZUfuKOboMyBLNzfpbQDSp5H
+	 JhrfehV7z3KPQ==
+Date: Sat, 5 Sep 2026 02:42:25 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Hans de Goede <hansg@kernel.org>
+Cc: Vladyslav Ivashchenko <cactucatu4eckuu@gmail.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: adc: axp288: Add TS bias override for Haier HV103H
+Message-ID: <20260905024225.468a2959@jic23-huawei>
+In-Reply-To: <bdd9e2c0-ce13-422b-90ff-0311cc251b15@kernel.org>
+References: <20260904133155.51290-1-cactucatu4eckuu@gmail.com>
+	<bdd9e2c0-ce13-422b-90ff-0311cc251b15@kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue,  1 Sep 2026 16:19:32 +0300 Juha-Matti Tilli wrote:
-> On 64-bit machines, use the full range for endpoint ids, but on 32-bit
-> machines, use only 16 bits. This gives plenty of endpoints, 65534 to
-> be specific, apart from the invalid zero value and the local endpoint.
->=20
-> This should fix any issues where a long-running system with lots of
-> allocations might allocate an endpoint id bigger than 65535 on a 32-bit
-> system. The node id, the secondary part, is already combined with port
-> id into a value that is potentially 32 bits in existing old code.
->=20
-> NOTE: please don't merge yet. This commit will have to be either
-> squashed or removed.
+On Fri, 4 Sep 2026 21:48:21 +0200
+Hans de Goede <hansg@kernel.org> wrote:
 
-Doesn't build on 32bit x86:
+> Hi,
+> 
+> On 4-Sep-26 3:31 PM, Vladyslav Ivashchenko wrote:
+> > The Haier HV103H firmware configures the AXP288 TS pin bias
+> > current to 60 uA. This causes the battery temperature reading to
+> > cross the charging temperature threshold under load, incorrectly
+> > stopping battery charging.
+> > 
+> > Setting the TS bias current to 80 uA fixes the temperature
+> > measurement and prevents charging from being incorrectly disabled.
+> > 
+> > Add a DMI quirk to use the 80 uA TS bias current on the Haier
+> > HV103H.
+> > 
+> > Signed-off-by: Vladyslav Ivashchenko <cactucatu4eckuu@gmail.com>  
+> 
+> Thanks, patch looks good to me:
+> 
+> Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+> 
+> Regards,
+> 
+> Hans
+> 
 
-../net/qrtr/af_qrtr.c: In function =E2=80=98qrtr_endpoint_register=E2=80=99:
-../net/qrtr/af_qrtr.c:28:58: error: =E2=80=98UINT16_MAX=E2=80=99 undeclared=
- (first use in this function)
-   28 | #define QRTR_ENDPOINT_RANGE XA_LIMIT(qrtr_local_nid + 1, UINT16_MAX)
-      |                                                          ^~~~~~~~~~
-../include/linux/xarray.h:248:70: note: in definition of macro =E2=80=98XA_=
-LIMIT=E2=80=99
-  248 | #define XA_LIMIT(_min, _max) (struct xa_limit) { .min =3D _min, .ma=
-x =3D _max }
-      |                                                                    =
-  ^~~~
-../net/qrtr/af_qrtr.c:746:30: note: in expansion of macro =E2=80=98QRTR_END=
-POINT_RANGE=E2=80=99
-  746 |                              QRTR_ENDPOINT_RANGE, &next_endpoint_id,
-      |                              ^~~~~~~~~~~~~~~~~~~
-../net/qrtr/af_qrtr.c:16:1: note: =E2=80=98UINT16_MAX=E2=80=99 is defined i=
-n header =E2=80=98<stdint.h>=E2=80=99; this is probably fixable by adding =
-=E2=80=98#include <stdint.h>=E2=80=99
-   15 | #include "qrtr.h"
-  +++ |+#include <stdint.h>
-   16 |=20
-../net/qrtr/af_qrtr.c:28:58: note: each undeclared identifier is reported o=
-nly once for each function it appears in
-   28 | #define QRTR_ENDPOINT_RANGE XA_LIMIT(qrtr_local_nid + 1, UINT16_MAX)
-      |                                                          ^~~~~~~~~~
-../include/linux/xarray.h:248:70: note: in definition of macro =E2=80=98XA_=
-LIMIT=E2=80=99
-  248 | #define XA_LIMIT(_min, _max) (struct xa_limit) { .min =3D _min, .ma=
-x =3D _max }
-      |                                                                    =
-  ^~~~
-../net/qrtr/af_qrtr.c:746:30: note: in expansion of macro =E2=80=98QRTR_END=
-POINT_RANGE=E2=80=99
-  746 |                              QRTR_ENDPOINT_RANGE, &next_endpoint_id,
-      |                              ^~~~~~~~~~~~~~~~~~~
+Fixes tag appropriate?  There was the original dance of keeping the firmware
+version, then this table was added to fix that up.  Anyhow, I'm thinking yes
+and tag should be:
+
+
+Fixes: 9bcf15f75cac ("iio: adc: axp288: Fix TS-pin handling")
+
+But bit awkward as anyone trying to just back port to that better have
+been paying attention and picked up the following, so lets have that as well with comment
+Fixes: 048058399f19 ("iio: adc: axp288: Override TS pin bias current for some models") # Add necessary infrastructure
+
+With those two, applied to the fixes-togreg branch of iio.git
+
+Shout if you think this should be done differently.
+> 
+> > ---
+> >  drivers/iio/adc/axp288_adc.c | 8 ++++++++
+> >  1 file changed, 8 insertions(+)
+> > 
+> > diff --git a/drivers/iio/adc/axp288_adc.c b/drivers/iio/adc/axp288_adc.c
+> > index c8283279c47..c98863d612a 100644
+> > --- a/drivers/iio/adc/axp288_adc.c
+> > +++ b/drivers/iio/adc/axp288_adc.c
+> > @@ -207,6 +207,14 @@ static const struct dmi_system_id axp288_adc_ts_bias_override[] = {
+> >  		},
+> >  		.driver_data = (void *)(uintptr_t)AXP288_ADC_TS_BIAS_80UA,
+> >  	},
+> > +	{
+> > +		/* Haier HV103H */
+> > +		.matches = {
+> > +		  DMI_MATCH(DMI_SYS_VENDOR, "Haier"),
+> > +		  DMI_MATCH(DMI_PRODUCT_NAME, "HV103H"),
+> > +		},
+> > +		.driver_data = (void *)(uintptr_t)AXP288_ADC_TS_BIAS_80UA,
+> > +	},
+> >  	{ }
+> >  };
+> >    
+> 
+
