@@ -1,67 +1,37 @@
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C41C13C0619
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 19:30:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7075233956;
+	Sat,  5 Sep 2026 19:31:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788636618; cv=none; b=sba08+WP9+7L0eHgOwJnGvtdGn0e/LiRIQTbnWR2xpXqDbBaBlHNZ8zPY6x3zSjSSXylpsQWWwgQIcwYXcMQCOEt0r5m+7ckUEmZOyUKBk9rbdp8cL056Vv8B2l0WH6AJYIFGDd+hFnncLhGuHFSr4vmDjbj2BweZKHGYP3NYsY=
+	t=1788636700; cv=none; b=HMCfjRaujqpyxgNsWaxM9US0rk0yDDlrTL1bi5ldgyWxiE9WGEPw2q0PkBcxOx2uf8XQLzrcRrPbK56tURDM6QYXL9rsBzLhHd9i5/Lb5ktHg3ZrJy4TdZME9HCleIXaoKrMRO4ZOHp99Ts1PHADa91BxoW8HwXHq5TWQViCe8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788636618; c=relaxed/simple;
-	bh=9kl8Y4vXW7mpcYtSnyY94BwJEUxoog49+h/hz2eg8PE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OKf0EK18XYgBB3nP6vYOdWz9oXANO4+YJG6opaDT/RRupUa2tQntz1SqSNOxRTq+oyhfLcVSXuNMgJjZJgc0u5tjkMV9IjrLRgDphUw3a+ULcETT/6G4BvpFxfxsDztYfSLKde1Lon2r2IxiGJB855CWn687O9o9/j3V/VtH+Ec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kVbmw/zN; arc=none smtp.client-ip=74.125.224.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788636700; c=relaxed/simple;
+	bh=81ogLEBruLFWfZs9XspWOevupF1WL2eVGLRg8ByszV0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=rgP4PCYFIXA9z2kT4nj+rT5zTGK4f0MPlN8S8ffcxaN4Cl01PsAzJWJ6vS5fQ/e2iD8xUu7xYgwskASx0sLOz6wzg2zk8K8bXDuOToggnbakBvoV8zW6Ci6ZbzQcdIldb08FqYJlZO8Bbbo1iAgvG3d5IizLqWH+5OHYKyFf/B4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NKcCVNmX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kVbmw/zN"
-Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-66c711b7f2aso1801769d50.3
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 12:30:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788636616; x=1789241416; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=h/GbBOFsbRaUEtva+q/Brm1zRmQM42j0+LGr/vouMN8=;
-        b=kVbmw/zNA55pCQkMY5CKimyQLwiVpEmquXuGvVBuWsEwm/QBdVzq7yphIXBACucWoD
-         z1XqqADYPIYEt8wo9FIyFJGaM5bGsGwfTFPSwhOfVjv/PgKc6juOHGDfi2E12ajhxlCU
-         /IlETlz2G6CCu3Y6NkXypIkOimZiJiea6nUTw4ShqyC9SELum00hcvIsd9I8dCQ2tRmN
-         OmGMBB/uNJuGPE38puLnLL15WFLREnyBho0lUUMalQePdaiPI0nnK+pVNLbttOFboCXT
-         Lu1U0I8VGJPQRx9AhWE7XDbIP3K2MRemkIEqXV05cuq4UTCh7zWBGpiEhmHejkRXF1B5
-         CGQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788636616; x=1789241416;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=h/GbBOFsbRaUEtva+q/Brm1zRmQM42j0+LGr/vouMN8=;
-        b=UVvRactiCmFAwLG/3mAER/BpbHmM+aBV6SgCsFgYCxsJWiZ5LH7MAEmjVwi0CY7187
-         EGmUfe81mJXeI3czRUS7bjwpQ9dugo7XCUJ+9StGkBWFNJrirNp8vOVYld2C7U/4icdB
-         SelBVKxlIINLCqYyGELrp1blBpF8XW4TWiuOKvGni9PVKhK+kyAl1Lf9mmCabn8TDLP2
-         IM6lgyXiJrFU5peB+2dnkMbW0cr6TKYXqbDaFwK4LNLt7TqasSPugYvyVmqUKJQ0zCai
-         J0/vq2YmYsPV8sfpS/r+JIzZQMWcMAueAdPaeqGPWvBUajgFw6L2itxSa0Updx4dsFni
-         U48g==
-X-Forwarded-Encrypted: i=1; AKwUvBy3TxvfN6bxwnXP/Wb5anSMqV9ZKwThjdHFnVO4aCasIr7ATo008aasfrdntklIMq/TDf41BGunVGaP2IU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lLxWGTVA+g9jIlzQhEBJj5oVyL3TfuImR1Gs6KKG4HwFxVqur1
-	4C55vsWqnPlrDyOtSI2Auua/4sJrgGbbykEyz00HcIpD9Gd32QDftuOC
-X-Gm-Gg: AYBFou2loZ/N4mJw4rNiw7sJV59F9nOgeuNbC3OTFOZhZRPmlpqvVW5IP/wumhfLyAu
-	xYa7Gdx7+Jy8Lc2fxiR6DNDEmvCYkDlTtAhjPGKxZlTO7qshaVeD/vhFqhpBBznFazrQ1ddkfpy
-	6ZXOOQR+0AORYxrjvpBbgHdDDQAhG2BpKp/tDIypePu+NuiOhRIPanVHUTR0evdhDU99vdELILA
-	ZoNdo7Gs5iT5SXbIw2boohrU8//8TeKV3nykLDeS3Z48snxLRgj9ROQQFm1dr41P6ANoi6nXjqu
-	MaVCvVJN3LQhJFE0rUpCeq3AuhJ9HVrnAplQEmR9qVzC/aO2cUjIV444uQt03DPOOFg3xbElkok
-	uhkMwkapRK+dmX68CoOzbCDnzurliQRNF3G3awOwFiSfdSW+mY/XDoNCckQ+RXhQBHtcxEeS3p/
-	r+cMrpMpyjFn7rWZ8uQKLLfYH9zq8wz4rSJf4Qr/NdmQUhSC7qhlM9mqOWvy6rAWBP8z7MV0o=
-X-Received: by 2002:a05:690e:4401:b0:66e:5123:8e91 with SMTP id 956f58d0204a3-66fc1be2bbemr1785122d50.40.1788636615624;
-        Sat, 05 Sep 2026 12:30:15 -0700 (PDT)
-Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb48b374bsm5071393d50.3.2026.09.05.12.30.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 12:30:13 -0700 (PDT)
-From: Matt Turner <mattst88@gmail.com>
-Date: Sat, 05 Sep 2026 15:29:43 -0400
-Subject: [PATCH v2 22/22] alpha: select SPARSE_IRQ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NKcCVNmX"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6D4D9C2BCB3;
+	Sat,  5 Sep 2026 19:31:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788636700;
+	bh=81ogLEBruLFWfZs9XspWOevupF1WL2eVGLRg8ByszV0=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=NKcCVNmXKmPrgCIDyAlYVabkdDUbalECKDbab6LUk1hy46eX4LK5nfGulq1TqegTN
+	 6ipYMkaIw68q50GBsSt28iwRGm9ESGtzuwUW7l1BAWd4jUNCQZKerevUqm2cv5P6c0
+	 Mw3hxCn1wX082JGY0uUt4cncCrfkJbrCqLedOl2MzKndlVNzJITiOvUR7e7EWk7uLM
+	 zXs8KSXz5mi9EiuluzKzPzZh+ZQpA/p1S+joTsLT9G3a1TrIQx7e4ekjok2Iprj7UU
+	 UyT/1iAOrlmiMzLiSDB/AFP5+/lPELS5SetPvVN8Hf6Cm8UizzWS8EDcvryClNjbeA
+	 FFDtBnOjLyG9g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 57E58C79F8B;
+	Sat,  5 Sep 2026 19:31:40 +0000 (UTC)
+From: Bingfang Guo via B4 Relay <devnull+bingfangguo.tencent.com@kernel.org>
+Date: Sat, 05 Sep 2026 19:31:04 +0000
+Subject: [PATCH v4] mm/memcg: clear folio memcg after changing per memcg
+ stats
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,99 +40,292 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260905-arch-kconfig-options-v2-v2-22-83e8245761a2@gmail.com>
-References: <20260905-arch-kconfig-options-v2-v2-0-83e8245761a2@gmail.com>
-In-Reply-To: <20260905-arch-kconfig-options-v2-v2-0-83e8245761a2@gmail.com>
-To: Richard Henderson <richard.henderson@linaro.org>, 
- Magnus Lindholm <linmag7@gmail.com>, Kees Cook <kees@kernel.org>, 
- Marco Elver <elver@google.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
- Andrey Ryabinin <ryabinin.a.a@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
- kasan-dev@googlegroups.com, linux-hardening@vger.kernel.org, 
- linux-doc@vger.kernel.org, Matt Turner <mattst88@gmail.com>
+Message-Id: <20260905-memcg-swapcache-stats-fix-v4-1-d3626d305d4f@tencent.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NywrCMBAF0F+RrI3k0dTGlf8hLpLJpM2iD5JQF
+ em/G0VQFMqs7oV75k4SxoCJHDZ3EnEOKYxDCdV2Q6AzQ4s0uJKJYKJmjWhojz20NF3MBAY6pCm
+ bnKgPV8otopcOpPGWlP0UsdQv+3QuuQspj/H2ejXzZ/tWJV9RZ07LAWu4RutsUx8zDoBD3sHYk
+ 6c7i4+l2aoliqXBGCclq5S2/5b8tsSaJYu118orVynl9z/WsiwPu/02W1wBAAA=
+X-Change-ID: 20260828-memcg-swapcache-stats-fix-1beef3dc3afb
+To: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Bingfang Guo <bfguo@icloud.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Bingfang Guo <bingfangguo@tencent.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2841; i=mattst88@gmail.com;
- h=from:subject:message-id; bh=9kl8Y4vXW7mpcYtSnyY94BwJEUxoog49+h/hz2eg8PE=;
- b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLLm5E7Z/VGjNvWDkNLMcMfspqrPuR3JkysU9s1eEnrO0
- 4lRm5G94yMLgxgXw0wxRZa49Yoss9p2LPU5Lf0LZg4rE8gQaZEGBiBgYeDLTcwrNdIx0jPVNtQz
- BDJ0jOIhcnoMGpnFxaWpRbppBUUOefkliSWZ+XnFevkFqXkF6QV6aZlpJRkZ+UXFqUAj9PJSS0x
- dHd2MDA1MLB0tzJwsHE1NnJ2dDJ3cHB2dXZ2MLM1NDJwtHU1cLc0ZuDgFYK5ZGszwz/5u4I1MDY
- OzIWs3n9wufsWl7rL8oT+Fcg3fO7KneU47XcHwv2quW4PA6a8r310vfNKWvkeB4+RuLtfeo8lva
- 6bs2V+YwAcA
-X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
- fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788636698; l=8951;
+ i=bingfangguo@tencent.com; s=20260905; h=from:subject:message-id;
+ bh=DIpah5Yww/+rqsuzrwiWNQ5MGJz3CjI/NOy+g9af3+g=;
+ b=N5a8+npxnrKNoEA/KwCjmvCf7Mb0YkYF1HiU8MOq3f11phm3y9GTdVBp+KhU0LYbYOFwPmVOw
+ fS7PzHv12D/CChOWVjFxD+rr6TqT/nPfpHScEbviB2sCzq6BwcnxIOF
+X-Developer-Key: i=bingfangguo@tencent.com; a=ed25519;
+ pk=7YoBtD5pTW/XZHfmJ9x+FaHVq1TstMOvF31LTY3F+0w=
+X-Endpoint-Received: by B4 Relay for bingfangguo@tencent.com/20260905 with
+ auth_id=1006
+X-Original-From: Bingfang Guo <bingfangguo@tencent.com>
+Reply-To: bingfangguo@tencent.com
 
-NR_IRQS on Alpha is sized for the largest configuration each platform
-supports, and for Marvel that is 32 PIDs, or 32784 interrupts.  Without
-SPARSE_IRQ that becomes a static irq_desc[] array of 12.6 MB in .data,
-carried by every Marvel and every generic kernel regardless of how many
-interrupts the machine actually has.  A real ES47 uses 87 of them.
+From: Bingfang Guo <bingfangguo@tencent.com>
 
-That is not just wasted memory, it constrains where the kernel can be
-loaded.  The image links at a fixed 0xfffffc0001010000, just above the
-console's low memory reservation, and with memory striping enabled the
-console leaves only about 16 MB of usable low memory before the rest is
-relocated to an interleaved aperture.  A 12.6 MB array of mostly unused
-interrupt descriptors is the difference between fitting and not.
+I notice extremely high swapcached count in the per memcg level
+memory.stat when running tests with cgroupv1 setup by swapping pages in
+and out.  It seems that the counter never gets decreased so the value is
+rather useless and confusing to users reading it. So I think fixing it
+so that the value can reflect the actual swapcache usage correctly could
+be helpful.
 
-Alpha already goes through irq_to_desc() rather than indexing irq_desc[]
-directly, so nothing stands in the way.  The platforms do wire up their
-interrupts by number, though, which needs the descriptors to exist by
-then, so provide arch_probe_nr_irqs() returning the machine vector's
-count instead of taking the NR_IRQS_LEGACY default.  Without it every
-interrupt above 15 would have no descriptor and the handler setup would
-be silently dropped.
+__memcg1_swapout() transfers the memsw charge of a folio to its swap
+entry and clears folio->memcg_data as part of that.  In the vmscan
+swapout path it runs before __swap_cache_del_folio(), which then
+decrements the swapcache stats through lruvec_stat_mod_folio().  Since
+folio->memcg_data has already been cleared, folio_memcg() returns NULL
+and the NR_SWAPCACHE decrement only updates the node-level counter
+instead of the memcg's lruvec, leaking the per-memcg swapcache count.
 
-Tested on an ES47 (Marvel, 2 EV7z): boots with all device interrupts
-working, and .data drops by 12.6 MB, from 15.7 MB to 3.1 MB.
+Move the __memcg1_swapout() call into __swap_cache_del_folio(), after
+the NR_FILE_PAGES and NR_SWAPCACHE updates but before
+__swap_cache_do_del_folio() removes the folio from the swap cache.  This
+keeps the stats attributed to the folio's memcg while still recording
+the swap cgroup with a valid folio->swap.  Add a swapout parameter so
+the plain swap_cache_del_folio() path is left unchanged.
 
-Signed-off-by: Matt Turner <mattst88@gmail.com>
-Tested-by: Magnus Lindholm <linmag7@gmail.com>
-Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
+Fixes: 2732acda82c9 ("mm, swap: use swap cache as the swap in synchronize layer")
+Signed-off-by: Bingfang Guo <bingfangguo@tencent.com>
 ---
- arch/alpha/Kconfig            |  1 +
- arch/alpha/kernel/irq_alpha.c | 13 +++++++++++++
- 2 files changed, 14 insertions(+)
+The problem is reproducible using the following script and program:
 
-diff --git a/arch/alpha/Kconfig b/arch/alpha/Kconfig
-index 96b38d320eb8..8efb2da3246f 100644
---- a/arch/alpha/Kconfig
-+++ b/arch/alpha/Kconfig
-@@ -64,6 +64,7 @@ config ALPHA
- 	select CPU_NO_EFFICIENT_FFS if !ALPHA_EV67
- 	select MMU_GATHER_NO_RANGE
- 	select MMU_GATHER_RCU_TABLE_FREE
-+	select SPARSE_IRQ
- 	select SPARSEMEM_EXTREME if SPARSEMEM
- 	select SYSCTL_EXCEPTION_TRACE
- 	select ZONE_DMA
-diff --git a/arch/alpha/kernel/irq_alpha.c b/arch/alpha/kernel/irq_alpha.c
-index f90ff898a71a..8366d6de439d 100644
---- a/arch/alpha/kernel/irq_alpha.c
-+++ b/arch/alpha/kernel/irq_alpha.c
-@@ -152,6 +152,19 @@ common_init_isa_dma(void)
- 	outb(0, DMA2_CLR_MASK_REG);
+```
+#!/bin/bash
+set -e
+
+CG=/sys/fs/cgroup/memory/swapcache-leak-test
+SIZE=$((256 * 1024 * 1024))   # 256 MiB of anon memory
+
+[ "$(id -u)" -eq 0 ] || { echo "must run as root"; exit 1; }
+grep -q . /proc/swaps <<<"$(tail -n +2 /proc/swaps)" || { echo "no swap active; run: swapon <dev>"; exit 1; }
+
+cleanup() { rmdir "$CG" 2>/dev/null || true; }
+trap cleanup EXIT
+
+cc -O2 swapout.c -o swapout
+
+mkdir -p "$CG"
+echo "+memory" > /sys/fs/cgroup/cgroup.subtree_control 2>/dev/null || true
+
+echo "== before reclaim =="
+grep -E '^(swapcached|anon) ' "$CG/memory.stat"
+
+# Put ourselves in the cgroup, allocate & touch anon memory, then wait to be reclaimed.
+(
+        echo $BASHPID > "$CG/cgroup.procs"
+        # Allocate and dirty SIZE bytes of anonymous memory.
+        ./swapout
+) &
+WORKER=$!
+sleep 2
+
+echo "== after reclaim (swap cache should drain to ~0) =="
+grep -E '^(swapcached|anon) ' "$CG/memory.stat"
+
+SWAPCACHED=$(awk '/^swapcached /{print $2}' "$CG/memory.stat")
+echo
+if [ "$SWAPCACHED" -gt $((1024 * 1024)) ]; then
+        echo "LEAK DETECTED: swapcached = $SWAPCACHED bytes (expected ~0)  [BUGGY kernel]"
+        RC=1
+else
+        echo "OK: swapcached = $SWAPCACHED bytes  [FIXED kernel]"
+        RC=0
+fi
+
+kill "$WORKER" 2>/dev/null || true
+wait "$WORKER" 2>/dev/null || true
+exit $RC
+```
+
+swapout.c:
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/mman.h>
+
+int main(int argc, char **argv)
+{
+        size_t mib = (argc > 1) ? strtoul(argv[1], NULL, 10) : 256;
+        size_t size = mib * 1024UL * 1024UL;
+        long page = sysconf(_SC_PAGESIZE);
+        char *buf;
+        size_t i;
+
+        buf = mmap(NULL, size, PROT_READ | PROT_WRITE,
+                   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+        if (buf == MAP_FAILED) {
+                perror("mmap");
+                return 1;
+        }
+
+        /* Fault in and dirty every page so it becomes reclaimable anon. */
+        for (i = 0; i < size; i += page)
+                buf[i] = 1;
+
+        printf("allocated and dirtied %zu MiB, paging out...\n", mib);
+
+        /* Force the whole range out to swap. */
+        if (madvise(buf, size, MADV_PAGEOUT)) {
+                perror("madvise(MADV_PAGEOUT)");
+                return 1;
+        }
+
+        /* Give reclaim a moment, then stay alive so the cgroup can be inspected. */
+        printf("paged out; sleeping so memory.stat can be read. pid=%d\n", getpid());
+        sleep(30);
+
+        munmap(buf, size);
+        return 0;
+}
+```
+
+Test result:
+
+before:
+```
+== before reclaim ==
+swapcached 0
+allocated and dirtied 256 MiB, paging out...
+paged out; sleeping so memory.stat can be read. pid=4778
+== after reclaim (swap cache should drain to ~0) ==
+swapcached 268435456
+
+LEAK DETECTED: swapcached = 268435456 bytes (expected ~0)  [BUGGY kernel]
+```
+
+after the patch:
+```
+== before reclaim ==
+swapcached 0
+allocated and dirtied 256 MiB, paging out...
+paged out; sleeping so memory.stat can be read. pid=2601
+== after reclaim (swap cache should drain to ~0) ==
+swapcached 0
+
+OK: swapcached = 0 bytes  [FIXED kernel]
+```
+---
+Changes in v4:
+- Update and use the correct fixes tag. (Kairui)
+- Briefly describe the context for @swapout param in the kdoc. (Kairui)
+- Cc the stable list. (Kairui)
+- Link to v3: https://lore.kernel.org/r/20260902-memcg-swapcache-stats-fix-v3-1-795f5d455f7b@tencent.com
+
+Changes in v3:
+- Add doc for the new parameter.
+- Link to v2: https://lore.kernel.org/r/20260901-memcg-swapcache-stats-fix-v2-1-9caad330459b@tencent.com
+
+Changes in v2:
+- Update the commit message to describe the problem in the beginnning.
+- Change function declaration for !CONFIG_SWAP as well.
+- Link to v1: https://lore.kernel.org/r/20260831-memcg-swapcache-stats-fix-v1-1-1c0819ebdb86@tencent.com
+---
+ mm/swap.h       |  6 ++++--
+ mm/swap_state.c | 13 ++++++++++---
+ mm/vmscan.c     |  3 +--
+ 3 files changed, 15 insertions(+), 7 deletions(-)
+
+diff --git a/mm/swap.h b/mm/swap.h
+index 0b5d507739bc..b3b54c28929a 100644
+--- a/mm/swap.h
++++ b/mm/swap.h
+@@ -319,7 +319,8 @@ struct folio *swap_cache_alloc_folio(swp_entry_t target_entry, gfp_t gfp_mask,
+ void __swap_cache_add_folio(struct swap_cluster_info *ci,
+ 			    struct folio *folio, swp_entry_t entry);
+ void __swap_cache_del_folio(struct swap_cluster_info *ci,
+-			    struct folio *folio, swp_entry_t entry, void *shadow);
++			    struct folio *folio, swp_entry_t entry, void *shadow,
++			    bool swapout);
+ void __swap_cache_replace_folio(struct swap_cluster_info *ci,
+ 				struct folio *old, struct folio *new);
+ 
+@@ -452,7 +453,8 @@ static inline void swap_cache_del_folio(struct folio *folio)
  }
  
-+/*
-+ * The platforms wire up their interrupts by calling into the generic irq
-+ * code with fixed interrupt numbers, so the descriptors have to exist by
-+ * then.  Preallocate the machine's full complement rather than take the
-+ * NR_IRQS_LEGACY default, which would leave everything above IRQ 15
-+ * without a descriptor and silently drop the handler setup.
-+ */
-+int __init
-+arch_probe_nr_irqs(void)
-+{
-+	return alpha_mv.nr_irqs;
-+}
-+
- void __init
- init_IRQ(void)
+ static inline void __swap_cache_del_folio(struct swap_cluster_info *ci,
+-		struct folio *folio, swp_entry_t entry, void *shadow)
++		struct folio *folio, swp_entry_t entry, void *shadow,
++		bool swapout)
  {
+ }
+ 
+diff --git a/mm/swap_state.c b/mm/swap_state.c
+index 305877e1f4d7..38916ea96ac5 100644
+--- a/mm/swap_state.c
++++ b/mm/swap_state.c
+@@ -306,21 +306,28 @@ static void __swap_cache_do_del_folio(struct swap_cluster_info *ci,
+  * @folio: The folio.
+  * @entry: The first swap entry that the folio corresponds to.
+  * @shadow: shadow value to be filled in the swap cache.
++ * @swapout: whether this operation swaps out the folio.
+  *
+  * Removes a folio from the swap cache and fills a shadow in place.
+  * This won't put the folio's refcount. The caller has to do that.
+  *
+  * Context: Caller must ensure the folio is locked and in the swap cache
+  * using the index of @entry, and lock the cluster that holds the entries.
++ * If @swapout is set, the folio should be in reclaim path and IRQs
++ * should be disabled.
+  */
+ void __swap_cache_del_folio(struct swap_cluster_info *ci, struct folio *folio,
+-			    swp_entry_t entry, void *shadow)
++			    swp_entry_t entry, void *shadow, bool swapout)
+ {
+ 	unsigned long nr_pages = folio_nr_pages(folio);
+ 
+-	__swap_cache_do_del_folio(ci, folio, entry, shadow);
+ 	node_stat_mod_folio(folio, NR_FILE_PAGES, -nr_pages);
+ 	lruvec_stat_mod_folio(folio, NR_SWAPCACHE, -nr_pages);
++
++	if (swapout)
++		__memcg1_swapout(folio, ci);
++
++	__swap_cache_do_del_folio(ci, folio, entry, shadow);
+ }
+ 
+ /**
+@@ -339,7 +346,7 @@ void swap_cache_del_folio(struct folio *folio)
+ 	swp_entry_t entry = folio->swap;
+ 
+ 	ci = swap_cluster_lock(__swap_entry_to_info(entry), swp_offset(entry));
+-	__swap_cache_del_folio(ci, folio, entry, NULL);
++	__swap_cache_del_folio(ci, folio, entry, NULL, false);
+ 	swap_cluster_unlock(ci);
+ 
+ 	folio_ref_sub(folio, folio_nr_pages(folio));
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 245f68c75b28..29bced43b0ce 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -755,8 +755,7 @@ static int __remove_mapping(struct address_space *mapping, struct folio *folio,
+ 
+ 		if (reclaimed && !mapping_exiting(mapping))
+ 			shadow = workingset_eviction(folio, target_memcg);
+-		__memcg1_swapout(folio, ci);
+-		__swap_cache_del_folio(ci, folio, swap, shadow);
++		__swap_cache_del_folio(ci, folio, swap, shadow, true);
+ 		swap_cluster_unlock_irq(ci);
+ 	} else {
+ 		void (*free_folio)(struct folio *);
 
+---
+base-commit: b5529903123d9535bcf74386c1f4e185e8632dd9
+change-id: 20260828-memcg-swapcache-stats-fix-1beef3dc3afb
+
+Best regards,
 -- 
-2.54.0
+Bingfang Guo <bingfangguo@tencent.com>
+
 
