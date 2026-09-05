@@ -1,123 +1,75 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF1DC17C203;
-	Sat,  5 Sep 2026 21:30:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF0F35C687
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 21:30:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788643828; cv=none; b=q8yEFV5dQTLJNkVw/aO9SR8/8/xbsQImG87Q0casxSGPoUgZ+HdZ+GQjiYUkQCXUgsFApCucOoir4yh8fPB4frcmMnVLfAGax3tJGmqoNo7C+kH3fh4p7fvhAp23usu6i+v1v+ydD3VqkNc53sP2jseU6XYAkcxqw5o4fJIuM/0=
+	t=1788643849; cv=none; b=oNoPqiaWkwjVqzkXIDpXTYbMnv98kTFpu+RqDHZp1rKPWYGDcQEWRley1gohQJtbrl6+CFg5A1jq32mz9zyUlu2d0H+pyVjBn9n67HR8BDuclHEztebr3TWsD3zJTssqiIBJbcxsKAAJ7DgKlPyOjRlKcTDpWvvrE9cdtz8NjUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788643828; c=relaxed/simple;
-	bh=ADIeX0b/Z1MSFV35rrSlUD6o4B7Qsu/LwJr8u30uiBE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=skytHB8M56wZqtXbYar86JHGeNYK3bn8ZnLIwH4Geblqb0Nmj9NlOqMEin09BxZVEW2CmYRAoMQRnfmRcd7IQtWpaqP64xbSSn82TvswJYaNDBMYWruMrGwmwo4yBGYJhceB27CZv5WVr4wwj5NtvA4rI2WjmXoJ49tIkgaITsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=bENKsbHd; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788643849; c=relaxed/simple;
+	bh=RulQUVvjeTmRLGMORFoDPT3Fne4v/IRjI+E5mDdtrX0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=ZyscZbkigKnnxtBD/M1yBjXHfQO+eLGu+4fDDWzGPQUGsDM5pT/xlmfWMFLDzCLXBV15LpCVOJrUVE5KPxCoJbY3pja4300l4ltMcIELc/pEli0swhTnz4D73fBByp5+VaAbHZEP/DgCZgaMoTH6198onFWNh056eVKjr6H9NzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J0AtCoEQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="bENKsbHd"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=gc5MQtXVsiNYPaYMh7CzDXLqpr76YYaGFfFr/RDjf9Y=; b=bENKsbHdHc7z9DqmCCxhoBgEkp
-	4U6F6cXEPlgO5EQKQNkhcEj4hwWgaf6tWZypoSl+QGkrM2D2oDhZpooKxr2o7T8OBKm+d0DxauomJ
-	ixqSBif68UoCzaEOhB5HoD1MzHi2ujJMypC3nTf0yPMeCG3yiEzQq04zJvS1FObK9Vvcjle/JzN/9
-	ZJw3uVDDCAaOCIjrAPCmZVlHH0DshPDxUa0rRbLnTqw3nBC/cfyTtBkOVFJ42CczHqiTnzV3bmNTI
-	2GfqYE3ESAd3q9kZELSiQk7TXEB3IHb7PMngunWQnB333R809Tge1ROdD6Wd0lqQsKPVlThLZEPPq
-	59gNoI+g==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x2xxu-00000004QUT-09mS;
-	Sat, 05 Sep 2026 21:30:22 +0000
-Message-ID: <7f1f350f-29a3-4bf2-b08a-f0bdc285aa43@infradead.org>
-Date: Sat, 5 Sep 2026 14:30:21 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J0AtCoEQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED1B31F00A3A;
+	Sat,  5 Sep 2026 21:30:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788643847;
+	bh=2FsQkijurDodlXzSgnVUIeMF+0Mv7R4D+E6ps34X7dg=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=J0AtCoEQhw7cg+X8IGyiq0Qq5QxvKsW5O2L/9mobICDmRnrYp1RTsWKLhFRTYsWhH
+	 8CBPzGDujIdxK5EA1ltlDpYpBBMjUElsfinyG9NEAe/cbYVipym3mDGL+e8IVh43jY
+	 aV8oDVZpRQDkL7dTtR/r401rEvYCONLjtzN99c1ZsrvaTT7+b5E71XyPj1GrLC0cMr
+	 r7asLl6/gt9jcdxKatLeDXajxofeVOV37EBNQblJADQ1tZ9EtT/Zl1fmxzv35KApVe
+	 31SkyiHw/625dpL2iLH+vRN+2aA0Kdf+nfji2pg8iyvRLMQjELA5GuNTBbB56e4BVP
+	 phOr/ZM4sZfyA==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Anup Patel <anup@brainfault.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org,
+ Radu Rendec <radu@rendec.net>, Marc Zyngier <maz@kernel.org>, Paul
+ Walmsley <pjw@kernel.org>
+Subject: Re: Interrupt chip driver maintainence
+In-Reply-To: <CAAhSdy1=Z-VjEhGsGOJ15QptCSZP_6zG1NF=B972KwzEJhFbFg@mail.gmail.com>
+References: <871pb9841j.ffs@fw13>
+ <CAAhSdy1=Z-VjEhGsGOJ15QptCSZP_6zG1NF=B972KwzEJhFbFg@mail.gmail.com>
+Date: Sat, 05 Sep 2026 23:30:44 +0200
+Message-ID: <87ecf74c8r.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] Input: yealink.rst: Fix typos and word order
-To: Manuel Ebner <manuelebnerli@mailbox.org>,
- Henk Vergonet <Henk.Vergonet@gmail.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Jonathan Corbet
- <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-input@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260905063335.792618-2-manuelebnerli@mailbox.org>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260905063335.792618-2-manuelebnerli@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Sat, Sep 05 2026 at 16:37, Anup Patel wrote:
+> On Fri, Sep 4, 2026 at 8:19=E2=80=AFPM Thomas Gleixner <tglx@kernel.org> =
+wrote:
+>> I'm still going to pick up obvious and simple bug fixes, but for
+>> anything which requires deep knowledge on the underlying hardware, I'm
+>> going to just mark them obsolete when they molded in my inbox unreviewed
+>> by the people who understand it for six weeks.
+>>
+>
+> I think this is a fair ask.
+>
+> Currently, I am focused on reviewing and testing anything which
+> touches RISC-V AIA drivers. The SiFive PLIC driver on other hand
+> seems to have no active reivewers from RISC-V space. Few years
+> back I did try to actively review SiFive PLIC driver but these days
+> I don't have bandwidth for that.
 
-On 9/4/26 11:33 PM, Manuel Ebner wrote:
-> Improve readability.
-> 
-> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
-> CC: Randy Dunlap <rdunlap@infradead.org>
-> ---
-> [v2]
->  add ']' instead of remove '[' as randy suggested
->  fix a couple more issues in the file
-> 
-> [v1]
->  https://lore.kernel.org/all/20260904121026.759218-3-manuelebnerli@mailbox.org/
-> ---
->  Documentation/input/devices/yealink.rst | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Documentation/input/devices/yealink.rst b/Documentation/input/devices/yealink.rst
-> index bb5a1aafe..79ac21690 100644
-> --- a/Documentation/input/devices/yealink.rst
-> +++ b/Documentation/input/devices/yealink.rst
-> @@ -81,7 +81,7 @@ Format description:
->  
->      Icons or pictograms:
->      '.' : For example like AM, PM, SU, a 'dot' .. or other single segment
-> -	  elements.
-> +          elements.
+I don't blame you and I put you on the CC list because you are in the
+RISCV space.
 
-Why this whitespace change?
-Does it make a difference? does it matter?
+I don't know what's wrong with SiFive but they really need to get their
+act together. Paul?
 
->  
->  
->  Driver usage
-> @@ -120,9 +120,9 @@ Reading /sys/../lineX will return the format string with its current value.
->  Writing to /sys/../lineX will set the corresponding LCD line.
->  
->   - Excess characters are ignored.
-> - - If less characters are written than allowed, the remaining digits are
-> + - If less characters than allowed are written, the remaining digits are
+Thanks,
 
-s/less/fewer/
-
->     unchanged.
-> - - The tab '\t'and '\n' char does not overwrite the original content.
-> + - The tab '\t' and newline '\n' char does not overwrite the original content.
-
-s/char does not/chars do not/ at a minimum.
-I would s/char does not/characters do not/ and split that line
-into 2 lines if needed.
-
->   - Writing a space to an icon will always hide its content.
->  
->    Example::
-> @@ -205,7 +205,7 @@ Troubleshooting
->  :Q: Module yealink compiled and installed without any problem but phone
->      is not initialized and does not react to any actions.
->  :A: If you see something like:
-> -    hiddev0: USB HID v1.00 Device [Yealink Network Technology Ltd. VOIP USB Phone
-> +    hiddev0: USB HID v1.00 Device [Yealink Network Technology Ltd. VOIP USB Phone]
->      in dmesg, it means that the hid driver has grabbed the device first. Try to
->      load module yealink before any other usb hid driver. Please see the
->      instructions provided by your distribution on module configuration.
-
--- 
-~Randy
-
+        tglx
