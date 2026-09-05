@@ -1,84 +1,123 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-63.mta0.migadu.com [91.218.175.63])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B99A839902B;
-	Sat,  5 Sep 2026 06:15:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC7FF3264FC
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 06:16:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.63
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788588921; cv=none; b=oYqKy6E8xaspXaViR+euqdi5VTrrNXr26Bm013Ny9T1lST6t86cGpHvxoyxmQraszF4FKbL9zHTeNplQy/PrFO0woRISvynplc9GByvrGG+IODUh4tZyVeKgSD6nq3v7G7XKGRBv956ABd98m21JiehhZFDeV6kAA9uxqFogRIA=
+	t=1788588986; cv=none; b=DyyNm1guVU1GlEB7rv7bRdslGMzuB6bc2f6xSBtiACqUA/Md+jNOqoaPZ98UXMa8Qsk/UtIB6Rjdw5ULDxe2wZJX8M2YopjC3sHCacbdnj3otKq5dPK38JQ7UhjLkPtvFiPdlT1memjT3CIfLgTkUviMHf/3WI4RB91CwmdIKws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788588921; c=relaxed/simple;
-	bh=0PE2nVJEfLd+eGJIsDNB7qnEJvVfkDaVwCZbyEIv80M=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Gxsy35mVm7CnUOqmrNI7BRalQ4O4HfeBM7rX3s9VUhfIkPQ5goM0KhWXwAn3+jplvEXMt1VCbg2TDYHFKFtXC3KSRh3PBhe8NVAF6iB0SpW4mM8riwnQCTzYxV18358D8M19qxKhTiAubThsyCLZ7ULbtFr5eFqFgjgLDttOU2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=s3P4geiT; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	s=arc-20240116; t=1788588986; c=relaxed/simple;
+	bh=wVvQY6FcjQcbsN6NidnWh4uveTQRJ0Nlbs9VKkQ617g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AczM6mT/y9L+IjLNlD4EA4OPVtKv+ZOreutWvVm9krDanXf16bhTHGezggh62vUY1DKzzZvboUr+/0ll3WRHY1I4tKilHIcAfdVuvM8fVExyEqhimzHPSMQvSvAMWXz+QAS79w20VJN8stPU9uSm4m2kriUfKMyQ664M/v9OHbg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BJ807yFd; arc=none smtp.client-ip=91.218.175.63
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="s3P4geiT"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=0PE2nVJEfLd+eGJIsDNB7qnEJvVfkDaVwCZbyEIv80M=;
-	t=1788588917; x=1789798517; b=s3P4geiT9fzS+dU2HE0zTI1+IqDYMU6keOqOWmSj7Fj5U2a
-	bC6+dZXNJsgsTo+0GOIFpDQp1JhY25r8WsFyI3RbPmUGedJiWYgvpyt7XKuc+TmvxKTsZPxXh6Zyb
-	/7+VV15Fm3UQ1HGUmf49nIZxzN4A+XKeBoCUYlAnj61rSV4YYzgRXA3bcNmH+USmA/ZX6FDquynJM
-	ILR5QkTybA+Q2p7djbJ4UZl+PRXIMu4TfHsf+GBlK7sT/LkJID27e+3dWK4DejGTzTANukEIcRmLA
-	L5KLehQ98fnPiN4nfjwFleM+IdovDjLW/PITScv8sJ3uHwek4ekLZgVlTWRJottg==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1x2jgB-00000002B0b-0Qjr;
-	Sat, 05 Sep 2026 08:15:07 +0200
-Message-ID: <9d91e1719383f8ba6dfc45650a92b1f2c2bc2f6b.camel@sipsolutions.net>
-Subject: Re: [PATCHv2 wireless] mac80211: stop tpt LED trigger timer before
- freeing trigger
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-wireless@vger.kernel.org, "John W. Linville"
- <linville@tuxdriver.com>,  open list <linux-kernel@vger.kernel.org>
-Date: Sat, 05 Sep 2026 08:15:06 +0200
-In-Reply-To: <CAKxU2N9ZPRSotiPhayrQFyzbf=sPcU7X3o6ozRECOibhCj_kbA@mail.gmail.com> (sfid-20260904_211629_075221_49F57F20)
-References: <20260815190724.16943-1-rosenp@gmail.com>
-	 <12f4b21bb334a49c88bf28428b92589adecfa53a.camel@sipsolutions.net>
-	 <CAKxU2N9ZPRSotiPhayrQFyzbf=sPcU7X3o6ozRECOibhCj_kbA@mail.gmail.com>
-	 (sfid-20260904_211629_075221_49F57F20)
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BJ807yFd"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=wVvQY6FcjQcbsN6NidnWh4uveTQRJ0Nlbs9VKkQ617g=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788588981; v=1; x=1789193781;
+ b=BJ807yFd+6B2mldC73pmhoOB1hBovbUNzjx7cyeY/FBRxOgVfD7gJICoGf+UPLOsgZd3NGFT
+ IYjhiYd/leVjO+dRQxdRIfPz60MWU9nmv8lY78yuY5ZPfYlFeFeNiu5L/lQ7fEssWMqrx/bu0Bz
+ GFdl9iq1i0rzX0cQiLsVr1Zg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a0fbfabdf52cb018;
+	Sat, 05 Sep 2026 06:16:21 +0000
+X-Mizu-Trace-ID: a0fbfabdf52cb018
+X-Migadu-Flow: FLOW_OUT
+From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+To: linux-wpan@vger.kernel.org
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	alex.aring@gmail.com,
+	stefan@datenfreihafen.org,
+	miquel.raynal@bootlin.com,
+	david.girault@qorvo.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	stable@vger.kernel.org,
+	Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Subject: [PATCH net v1] mac802154: avoid extra skb references in RX queues
+Date: Sat,  5 Sep 2026 14:15:23 +0800
+Message-ID: <20260905061524.91223-1-xuanqiang.luo@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Content-Transfer-Encoding: 8bit
 
-On Fri, 2026-09-04 at 12:16 -0700, Rosen Penev wrote:
-> On Fri, Sep 4, 2026 at 12:41=E2=80=AFAM Johannes Berg <johannes@sipsoluti=
-ons.net> wrote:
-> >=20
-> > On Sat, 2026-08-15 at 12:07 -0700, Rosen Penev wrote:
-> > > On a hot unplug, the device is torn down
-> > > through ieee80211_unregister_hw() without ever going through
-> > > ieee80211_do_stop(), so the timer is never stopped.
-> >=20
-> > I don't buy this.
-> >=20
-> > Also, missed wifi: prefix.
-> >=20
-> > Please don't just feed me LLM garbage. Do you have a crash reported on
-> > this?
-> Not formally no. However I am able to reliably panic the kernel. After
-> this patch I can't.
+From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 
-Then you can probably enable debug objects etc. to figure out why?
+__ieee802154_rx_handle_packet() passes each cloned skb to
+ieee802154_subif_frame() and does not release it after the call. The
+callee consumes the skb on every path: it either frees it, hands it to
+the networking stack, or stores it in a queued RX descriptor.
 
-I don't think this patch really fixes the cause, just the symptom.
+The beacon and MAC command paths nevertheless call skb_get() before
+storing the skb. The worker drops only that additional reference, leaving
+the original clone reference without an owner and leaking every queued
+skb.
 
-Maybe it's related to this:
-https://lore.kernel.org/linux-wireless/20260904165722.044aa432f873.I601a67a=
-2cd558b8ef8416a07554ae7efe896e9d8@changeid/
+kmemleak report:
 
-johannes
+unreferenced object 0xffff0000c1fcd480 (size 232):
+  comm "softirq", pid 0, jiffies 4295683396
+  hex dump (first 32 bytes):
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+    00 60 fd d4 00 00 ff ff 00 00 00 00 00 00 00 00  .`..............
+  backtrace (crc ee03f6a1):
+    kmemleak_alloc+0xcc/0xf8
+    kmem_cache_alloc_noprof+0x240/0x418
+    skb_clone+0x60/0xe0
+    ieee802154_rx+0x19c/0x280 [mac802154]
+    ieee802154_tasklet_handler+0xa8/0xb8 [mac802154]
+    tasklet_action_common+0x148/0x528
+    tasklet_action+0x38/0x50
+    handle_softirqs+0x10c/0x450
+    __do_softirq+0x1c/0x28
+
+Transfer the existing skb reference to the descriptor instead of taking
+another one.
+
+Fixes: 57588c71177f ("mac802154: Handle passive scanning")
+Fixes: d021d218f6d9 ("mac802154: Handle received BEACON_REQ")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+---
+ net/mac802154/rx.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/net/mac802154/rx.c b/net/mac802154/rx.c
+index 19b5382e85a84..ad602d222e861 100644
+--- a/net/mac802154/rx.c
++++ b/net/mac802154/rx.c
+@@ -287,7 +287,7 @@ ieee802154_subif_frame(struct ieee802154_sub_if_data *sdata,
+ 		if (!mac_pkt)
+ 			goto fail;
+ 
+-		mac_pkt->skb = skb_get(skb);
++		mac_pkt->skb = skb;
+ 		mac_pkt->sdata = sdata;
+ 		mac_pkt->page = sdata->local->scan_page;
+ 		mac_pkt->channel = sdata->local->scan_channel;
+@@ -304,7 +304,7 @@ ieee802154_subif_frame(struct ieee802154_sub_if_data *sdata,
+ 		if (!mac_pkt)
+ 			goto fail;
+ 
+-		mac_pkt->skb = skb_get(skb);
++		mac_pkt->skb = skb;
+ 		mac_pkt->sdata = sdata;
+ 		netdev_hold(sdata->dev, &mac_pkt->dev_tracker, GFP_ATOMIC);
+ 		spin_lock(&sdata->local->rx_lock);
+-- 
+2.43.0
+
