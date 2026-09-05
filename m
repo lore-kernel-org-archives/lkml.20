@@ -1,64 +1,59 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99DB93BB124;
-	Sat,  5 Sep 2026 20:42:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0DE03112AB
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 20:43:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788640945; cv=none; b=ZxCfIGGZu6h6OgIkUnlbfpC2oNxR07FDvzKUgyIp3VtMOkbb8BOeXYchQQuuDBeFbi7+a+WPO+KgouRU9vPQ8N7/sZTGQ/nL24ZST53xyFlEfCA/IIpwkLVqxZmyEnO35c7r8TK20XUpArvEX05/vD0/b9GQLoHqwoFpLmq45QU=
+	t=1788640994; cv=none; b=gpZxc6d8D2rvu92wemY70vPmdVD+s1VmE5efegHz6TRXUFHEXg3ze0t8q/9ikQR8vy98hMAOcy2d7Iv16DNZlC1TwfV1IzOyCxk1Iq9llRLKpjt/RnE96uHRE3rL5iZSdozW3KPoS8UC1jYcXwJxBRqjaBNFRTkk4cVkLlvZpn4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788640945; c=relaxed/simple;
-	bh=/fAPAdx4/GzrMW/hwBWEwYUpO5jDoI9jcjDG21RXJhU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=asFoZf2zn4cHh/cyf4ZI2DUIUrmmE7xe5nKIX/DHHo/AI6QMNM0Ls+pLB2ygWwuNR4TKKGA2r9TsrxDi3sp+Eory0Uqbf9n2U5Duf9w3wcbFEjTouTpQ4117EKH2Rb2SQ24nw8SIW+A442awGhb8di5Me0caeWOqNPEfSCWgiRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eYKflOhe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788640994; c=relaxed/simple;
+	bh=dnYKMk6YjEmdL8gg9bm3PtY0jaS65mXugokEpHlbZDE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=BKe8SNp4KO1elu7zGnLiF8YOYkZx5P1D20lTJitXYwCW0PttWb0kwzj+Mt/W9JU0Ly5xXBoG0fbWG/nA2CG0sd4UXnW22iFIXPtisRwM/jRC5imOaT1RGRFQYgZAX3yPAlz3S0H3na0aiWLqCPeJ+N1R4t+bMqRgxLwoS3WfOUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KSSLA6ca; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eYKflOhe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07C291F00A3A;
-	Sat,  5 Sep 2026 20:42:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KSSLA6ca"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FDF91F00A3A;
+	Sat,  5 Sep 2026 20:43:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788640942;
-	bh=8nsdlGIzl2XD+lbi7c8VIZD6pHl0s5VgaJBuohl7ScY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=eYKflOheSYbP4/XvNREJPf4QZJ9D5B7uykHiqol23mylQxF94A/ESnQnDqeUc7mMA
-	 ryhIwZ5g1gLLpoWarmz8bw9XteZuJPpfElusN02e1l2lGoMkYpGyhFP442w0mlU5Ob
-	 wvqzteuTsI+x3bAiVj1GOHTC1DZHwTegXi11embCssWHOzwvM1Muue2MPT8FfiyxeU
-	 FqjmcvAT+iqJgWi0Anx7OhlGOgT6hhvFLUvXmOT88Ykeir3W0KkmQMCzHDiZPUoz3a
-	 ks86L3XmYaGqYTfQvwE5VEpZ+RzHWI9klyBQjE5Kg6UMXSSS/wLtYCTXayEBvfBKwX
-	 CSeOQoP1eTrYg==
-Date: Sat, 5 Sep 2026 13:42:21 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: <jhs@mojatatu.com>, <jiri@resnulli.us>, <davem@davemloft.net>,
- <edumazet@google.com>, <pabeni@redhat.com>, <horms@kernel.org>,
- <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net-next v3] net: sched: act_gact: use acquire/release
- for tcfg_ptype
-Message-ID: <20260905134221.233ae6b5@kernel.org>
-In-Reply-To: <20260902071659.395509-1-ruanjinjie@huawei.com>
-References: <20260902071659.395509-1-ruanjinjie@huawei.com>
+	s=k20260515; t=1788640992;
+	bh=7raetGH3N/3LsAeqrleG0G72XbGZlhlKaXeKl002SMM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=KSSLA6cagBWsNFHqKbSxI3XKMJ7naUKHWSHgO5B/q5UblKVlJgWv4Q58/SKSUGGgS
+	 WL9GBgMEi0VNMZylYGRzg7IIJal/8tMgPG34iFUP8jtPWLDpmxqXYwVXZzenQbj9DP
+	 3XnHhywSud/wJ71iHofz2Wdj4X2HTz42YXpgdKIannNHo3AfMOS7wgRmcvyW1mGhPL
+	 hkF4zfcxJjn7BMhN9OofGk818logehL96IFivYCKUKyxVeZghIeCF0TGb4PQkIvjFz
+	 yNd48O6LMBym7SC3t6k16ON1uWyt8RlDyu4WFlSeV+c+LZf/AtualGqXXwSbFfgRfw
+	 sqfakdZMGXCvw==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>, thomas.weissschuh@linutronix.de
+Cc: luto@kernel.org, vincenzo.frascino@arm.com,
+ david.laight.linux@gmail.com, zhanxusheng@xiaomi.com,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/4] vdso/math64: Use OPTIMIZER_HIDE_VAR() in
+ __iter_div_u64_rem()
+In-Reply-To: <20260902033801.2912699-2-zhanxusheng@xiaomi.com>
+References: <20260902033801.2912699-1-zhanxusheng@xiaomi.com>
+ <20260902033801.2912699-2-zhanxusheng@xiaomi.com>
+Date: Sat, 05 Sep 2026 22:43:09 +0200
+Message-ID: <87zexv4eg2.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On Wed, 2 Sep 2026 15:16:59 +0800 Jinjie Ruan wrote:
-> @@ -160,7 +155,8 @@ TC_INDIRECT_SCOPE int tcf_gact_act(struct sk_buff *skb,
->  
->  #ifdef CONFIG_GACT_PROB
->  	{
-> -	u32 ptype = READ_ONCE(gact->tcfg_ptype);
-> +	/* Pairs with smp_store_release() in tcf_gact_init() */
-> +	u32 ptype = smp_load_acquire(&gact->tcfg_ptype);
->  
->  	if (ptype)
->  		action = gact_rand[ptype](gact);
+On Wed, Sep 02 2026 at 11:37, Zhan Xusheng wrote:
+> The loop subtracts because the quotient is tiny at every caller, and the
 
-Clashiko points out that you are turning what used to be a conditional
-barrier into one that's always obeyed, even if ptype is 0.
--- 
-pw-bot: cr
+Which loop?
+
+Care to read and follow:
+
+  https://docs.kernel.org/process/maintainer-tip.html#patch-submission-notes
+
+That's not optional.
+
