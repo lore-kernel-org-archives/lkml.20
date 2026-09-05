@@ -1,58 +1,58 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80303BCD15
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:08:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80DC049C4D4
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:10:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788620909; cv=none; b=YASS01NMiGhygKWCzv+tF29rx4kK2ivohonEiH0LH3z7oMJiXiHHARYSqcJTEQMHBGP9D7onFzFsZ5rZDnpkHivKC5fITIhAwU7UASkhunrAUQ0yROlc7o3FwH6/XsMRcWI2L4Txcv7tn2xDSfi1ByWm+MqUt4bCRGldWwmG4OI=
+	t=1788621025; cv=none; b=QZBDw1Kd+NN7g6NKjb4RteFhwaatGeYYLgEIV+Z0EJaNHPDjMGuj2Zv5uMJLBzxhUShRBWgPVIlESg/WGlLdVlBYCvSKdgIx0jvok37SAevSlAvG3OUl7eMZj+GBBueAZXuL2ZrbiAk9QW7blgb3H3ZoWCWFtz68JQN0aqrmKGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788620909; c=relaxed/simple;
-	bh=D9MLe2FWXK8l0yp8EOopvSy3WBRMUQxSHtOgPpBFNfI=;
+	s=arc-20240116; t=1788621025; c=relaxed/simple;
+	bh=2mJGIwyj/xSapbZTBjcCCPDQG9hmyLml1tmEw/lAXg4=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qZnc0NG+uNauEM8rNyuWVCPia2mGZjE78krNNc/Ydg8jPQhgYHSJ4mkQ+u5RYj0UbyDhem68LeaRAQaToVEoy0Q1YsiHo4hKac+0ombXLOZbKgVHW/7qbTG952ZxFPY5iCzldz0Y3nYSyehONEmv6f2396eHYG3NHZ3ocL2x0ig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HsIFm+Fu; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=W/9Gx76BLuSSqlMA6oA+Z+0zv0zUjQ8HoSnkbiFxtqfjeiKjYeFZs3iqN4LtZagyAmWl5aR492PhdG1mX7nI5i/Fbiorknf2F4HwGngCwQSY0rWPVx8NlaMaPexMtVsxvcPfS7rKOjtj/U0zcNAR2Ggo2CUQU++JeWpHdNPC09Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nV6uVKpL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HsIFm+Fu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 677FD1F00ACF
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:08:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nV6uVKpL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD43F1F00ADB
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:10:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788620907;
-	bh=GHQttfGoEPmKo0nF5OG9d9wyjf9R2olHU8vn/gkHgUw=;
+	s=k20260515; t=1788621017;
+	bh=+ngsQXI4zC+888E4/OJjdNvUmB+wO5RAGN8skdj0V40=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=HsIFm+FuRKgV+q5t2XjwxKz5+M9UFpJmFUPBjUuaxmSxZpgdo21UJSMv54sHBTHu+
-	 lKWIBC2zP81+0g29OQSwsMuDgoUZd0fNji3+DPpF09lqjC0RVPZkos5xKBdlas9bsG
-	 aZSqi5WMGK9wYFei3ntfZAynKLvHpS7xEwqvQ2EjWUCv7fyPTwvFF53o5roOWMcGF7
-	 fC3psp8K0af9ZFs6Q+wdWidIebkYW+KWOWq+szXHy5CnG6BzyXUR9kVjESvV6Z2syi
-	 HS+EObHttWwubXwEu9JpSGORjwrB9hXI5y9oMN/tGVv8nELE+w3CQ6l/9Kp4MHgIAq
-	 mWzXF56lgf8jA==
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a68ca482e2so2722132a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 08:08:27 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxPNXK3gcKSxbpPpJksK+tXez83qfM6Lfd6gc0j+fNTfUaUSd8esoFbtHxL8Ch6tytOrBuwlQjubKxNERk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lpXZjaSk6bdZPE1IHjiSoDZ/5phmtdLKM5pRUzjnIHf3UAk4L9
-	Lx10tlxbSbKS7abW8rv/umXOZwcw4JCGi4FgVbeJjWiA0s4HZ3j9oVa7rJz5+DaJsXLIUUDhZwb
-	/JHLP2sQ0Yx1Ht680bO6rlzNSeNxsgqU=
-X-Received: by 2002:a05:6402:24c2:b0:6a6:8dd:c76b with SMTP id
- 4fb4d7f45d1cf-6a7e8d37131mr7093669a12.1.1788620906040; Sat, 05 Sep 2026
- 08:08:26 -0700 (PDT)
+	b=nV6uVKpLTHEp92ojh5OIDyFlT2qxb10Gzvnd+exrHrBkT8Gf1sVt9N/BdHtO+mEoH
+	 S2JLnrgI1wAvdUENdAdM1pZ+MKRqpnfUgDKTR1XAaM8T7i8I0HImhUbBxnBqpinB8x
+	 ezMftbRgj4MsAZmGLM6KwFvfkexUlg1+N/88EUKqvDLQIeWXL9+dwjNlbqd+p+VDB1
+	 vCmOOoQIsQPHFFPBYSqdWMEZ7BVbViGnxIcv97KWDAtXI21zQTy6H/MsVoUG3/1BaM
+	 c7lAPoY7nLb99+DVD1/5Rhi6NH77XXVTLA51EbrNFv+KF3T1TJKEKPloyXctBCTa/o
+	 eDAkMEF/BYykQ==
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6a668ce86abso3205773a12.2
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 08:10:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwIhfkPtrRUs0nBPcOu3WygCixdZhHxmqeh3jd2bJQvaj5Lx0SYzbZB7VsTN7WdesjpQuvW1XVdq6c7MP4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJTAvUNosCU/0tDiya+EPlmFIxdCwSpL5sNxiZAfvUWDrO6Mph
+	wlV74mbwNMYN3NurWXYwJs1ml7BIFZq71ZlDuE5e1IvbcERWduvKhEfnep3i13NsLx9Hje5rL3S
+	RTnGnmdCtiivZNeewrzeN6TChugxBjyA=
+X-Received: by 2002:a05:6402:2b91:b0:6a6:32f5:90b0 with SMTP id
+ 4fb4d7f45d1cf-6a7e8f973f7mr7958295a12.18.1788621016394; Sat, 05 Sep 2026
+ 08:10:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260828094825.357630-1-zeng_chi911@163.com>
-In-Reply-To: <20260828094825.357630-1-zeng_chi911@163.com>
+References: <20260828093604.56622-1-zeng_chi911@163.com>
+In-Reply-To: <20260828093604.56622-1-zeng_chi911@163.com>
 From: Huacai Chen <chenhuacai@kernel.org>
-Date: Sat, 5 Sep 2026 23:08:14 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H71dcn46t7_cmnCDhJf6T3oHTrpz3c==BB1WGJ3mtXSjQ@mail.gmail.com>
-X-Gm-Features: AcwNN1VQ6eiUw0Xp7Wb5Tv7Wnaju8g9BBNESfujGrbWOW852vJ9OiobZMxdp2RM
-Message-ID: <CAAhV-H71dcn46t7_cmnCDhJf6T3oHTrpz3c==BB1WGJ3mtXSjQ@mail.gmail.com>
-Subject: Re: [PATCH] LoongArch: KVM: Preserve memslot arch flags on KVM_MR_FLAGS_ONLY
+Date: Sat, 5 Sep 2026 23:10:05 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H4Jc4txZ-cQO-h6yZmfk3YEgeEptKtRQcDO=US3sies0A@mail.gmail.com>
+X-Gm-Features: AcwNN1UKvRHYPv7HdHEqhee4ixh5TS5UumQJLZJh8j4AXNvX5xvnzRkPfAjWnIM
+Message-ID: <CAAhV-H4Jc4txZ-cQO-h6yZmfk3YEgeEptKtRQcDO=US3sies0A@mail.gmail.com>
+Subject: Re: [PATCH] LoongArch: KVM: Validate MSI data before routing it to EIOINTC
 To: Zeng Chi <zeng_chi911@163.com>
-Cc: zhaotianrui@loongson.cn, maobibo@loongson.cn, kvm@vger.kernel.org, 
-	loongarch@lists.linux.dev, linux-kernel@vger.kernel.org, zengchi@kylinos.cn, 
-	stable@vger.kernel.org
+Cc: zhaotianrui@loongson.cn, maobibo@loongson.cn, yury.norov@gmail.com, 
+	kvm@vger.kernel.org, loongarch@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	zengchi@kylinos.cn, stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -61,63 +61,55 @@ Applied, thanks.
 
 Huacai
 
-On Fri, Aug 28, 2026 at 5:48=E2=80=AFPM Zeng Chi <zeng_chi911@163.com> wrot=
+On Fri, Aug 28, 2026 at 5:36=E2=80=AFPM Zeng Chi <zeng_chi911@163.com> wrot=
 e:
 >
 > From: Zeng Chi <zengchi@kylinos.cn>
 >
-> kvm_arch_prepare_memory_region() computes new->arch.flags, i.e. whether
-> a memslot is KVM_MEM_HUGEPAGE_CAPABLE or KVM_MEM_HUGEPAGE_INCAPABLE, only
-> for KVM_MR_CREATE and KVM_MR_MOVE, and returns early for every other
-> change.  But the generic code allocates a zeroed memslot for every
-> change and never copies old->arch, so after a KVM_MR_FLAGS_ONLY update,
-> e.g. toggling KVM_MEM_LOG_DIRTY_PAGES for live migration, the active
-> memslot has arch.flags =3D=3D 0.
+> pch_msi_set_irq() passes e->msi.data straight into eiointc_set_irq() as
+> the irq number.  The MSI data comes from userspace, either via a
+> KVM_IRQ_ROUTING_MSI entry set with KVM_SET_GSI_ROUTING (used by irqfd
+> and KVM_IRQ_LINE) or directly via KVM_SIGNAL_MSI, and is never checked
+> against EIOINTC_IRQS.
 >
-> With both flags clear, fault_supports_huge_mapping() falls through to
-> the alignment check on the HVA range alone, which no longer verifies
-> that the GPA and HVA have the same offset within a PMD.  A memslot that
-> was marked KVM_MEM_HUGEPAGE_INCAPABLE because of a GPA/HVA offset
-> mismatch can then be mapped with PMD entries on read faults, and since
-> kvm_map_page() aligns the gfn and the pfn independently, the guest ends
-> up accessing the wrong host pages, exactly the "d -> f, e -> g" case
-> described in the comment above the check.
+> eiointc_set_irq() uses the value with __set_bit()/__clear_bit() on the
+> 256-bit isr bitmap, eiointc_update_irq() then indexes sw_coremap[] and
+> the per-cpu coreisr/sw_coreisr bitmaps with it.  A data value >=3D 256
+> therefore reads and writes memory past the end of those arrays, i.e.
+> any process holding a VM fd can corrupt kernel memory beyond the
+> loongarch_eiointc allocation.
 >
-> Carry the arch flags over from the old memslot for KVM_MR_FLAGS_ONLY,
-> as the GPA, HVA and size are guaranteed to be unchanged for that case.
+> Reject MSI data that doesn't fit in the EIOINTC irq space.  The DMSINTC
+> path is unaffected as it decodes the vector from the address and masks
+> it.
 >
-> Fixes: 7ab6fb505b2a ("LoongArch: KVM: Optimization for memslot hugepage c=
-hecking")
+> Fixes: 1928254c5ccb ("LoongArch: KVM: Add irqfd support")
 > Cc: stable@vger.kernel.org
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/all/20260531140921.1B1181F00893@smtp.kern=
+el.org/
 > Signed-off-by: Zeng Chi <zengchi@kylinos.cn>
 > ---
->  arch/loongarch/kvm/mmu.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
+>  arch/loongarch/kvm/intc/pch_pic.c | 3 +++
+>  1 file changed, 3 insertions(+)
 >
-> diff --git a/arch/loongarch/kvm/mmu.c b/arch/loongarch/kvm/mmu.c
-> index e104897aa532..4ca7c6ea8f08 100644
-> --- a/arch/loongarch/kvm/mmu.c
-> +++ b/arch/loongarch/kvm/mmu.c
-> @@ -383,6 +383,16 @@ int kvm_arch_prepare_memory_region(struct kvm *kvm, =
-const struct kvm_memory_slot
->         hva_t hva_start;
->         size_t size, gpa_offset, hva_offset;
+> diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/=
+pch_pic.c
+> index e7b77705c516..81fb534ce8dd 100644
+> --- a/arch/loongarch/kvm/intc/pch_pic.c
+> +++ b/arch/loongarch/kvm/intc/pch_pic.c
+> @@ -78,6 +78,9 @@ int pch_msi_set_irq(struct kvm *kvm, struct kvm_kernel_=
+irq_routing_entry *e, int
+>                 return dmsintc_set_irq(kvm, msg_addr, e->msi.data, level)=
+;
+>         }
 >
-> +       /*
-> +        * The generic code allocates a fresh, zeroed memslot for every c=
-hange,
-> +        * so the arch flags computed below must be carried over when onl=
-y the
-> +        * userspace flags change, e.g. when dirty logging is toggled.
-> +        */
-> +       if (change =3D=3D KVM_MR_FLAGS_ONLY) {
-> +               new->arch =3D old->arch;
-> +               return 0;
-> +       }
+> +       if (e->msi.data >=3D EIOINTC_IRQS)
+> +               return -EINVAL;
 > +
->         if ((change !=3D KVM_MR_MOVE) && (change !=3D KVM_MR_CREATE))
->                 return 0;
->         /*
+>         eiointc_set_irq(kvm->arch.eiointc, e->msi.data, level);
+>
+>         return 0;
 > --
 > 2.25.1
 >
