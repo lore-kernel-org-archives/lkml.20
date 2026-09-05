@@ -1,30 +1,36 @@
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-62.mta1.migadu.com [95.215.58.62])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 664534A23
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 04:03:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00506264F80
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 04:08:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.62
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788580991; cv=none; b=vAKyOWFau2ZBOu4vAypY4gCApNI910CNnQyy8a8aKH4934ochhFXQ4iAQdTmBeweVmmVa3I3toB21BxiG9TLcumnI7h6idojG0+m0KxbsFMArU6BKtU0UbyDOpeOwY3xXqzXXpeTxFZwQjVu3lymDqLpzQ6obVZfahD7OReig1s=
+	t=1788581285; cv=none; b=Ipz6pb6hHTkXLmYXvGx1bkQuy0FjHiBA4vrqIzA6oBgEQUajXuMCEKFUJRVQeG98uxsLMjycDCfpdYo7GpVCl0reqC8nVFmkzQGrWBGHIxhlhF43W4o6Rj9kqEo65an508E/X3ISlfvas/g8/Or+6IvL1rhWm7M62ezb+NwqT9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788580991; c=relaxed/simple;
-	bh=HOm76wCRr9lGlb51rtsDl6pdm6VtnH5a0FwlzQOTo+4=;
+	s=arc-20240116; t=1788581285; c=relaxed/simple;
+	bh=Ogjcy6AWuIiNMoFElPu+5M0YUvjA1DAHyKooz++N5NU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tB8ns7LeUt3u7Y7sZlDwrC5REnN9iDzwy4tAiv8uF3gJ3ak9H89ycNW029Fr4YOKrIHg7GWkxjrIYezs8P0mWISmin16RBqdaYuss4wCdVXHdaPDQYg0vvSvrTlpkhXIdb6vXD9mtIMtqiNnSNAK7rLwx7BJ7VewRHtIg3IW7W8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.177])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hcKR629StzKHMPj
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 12:02:10 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.252])
-	by mail.maildlp.com (Postfix) with ESMTP id A15064057D
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 12:03:06 +0800 (CST)
-Received: from [10.166.163.161] (unknown [10.166.163.161])
-	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgB3NbN5lJtqvW00Aw--.4273S2;
-	Sat, 05 Sep 2026 12:03:06 +0800 (CST)
-Message-ID: <ac358441-95be-4254-ae2e-f9b2f6eb544e@huaweicloud.com>
-Date: Sat, 5 Sep 2026 12:03:05 +0800
+	 In-Reply-To:Content-Type; b=VjMYAwljD59eNS7KsATFrUBsSvKHrjK1WW70QBKM8ycmN39eCRa7WIxP7GVdYr1QTiYRSs0Uo422zYhiqO+2Bv3CoZPiO0OElIL9grfIPy8nYlF4Y411L+kRJkksaM4epak2DvRqLhuhe6M0WkXTazfs4I1q+MsotM0KDozmRVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xp3PGqb5; arc=none smtp.client-ip=95.215.58.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xp3PGqb5"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Ogjcy6AWuIiNMoFElPu+5M0YUvjA1DAHyKooz++N5NU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788581279; v=1; x=1789186079;
+ b=xp3PGqb5Lz1gONrGpfi/BLIEu2g3aX0B9rpxBidB0s0enaQcEbFRLGQan2/l5Qk11QkDu1nU
+ ng8iDuCVjJYga0qPlYZxu/BsPWS/XCUEDvcnN2dJwwsti4t2IGUbkfYbZPfKkS2juoxmqOb9een
+ xTyGUwQ5rcX04/RX+ya/VlHM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 92059d4e748b9bc4;
+	Sat, 05 Sep 2026 04:07:59 +0000
+X-Mizu-Trace-ID: 92059d4e748b9bc4
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <ffe712c9-6c24-4452-b703-c8e01828ed18@linux.dev>
+Date: Fri, 4 Sep 2026 21:07:50 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -32,102 +38,128 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] mm, swap: Fix potential NULL dereference when
- trying a sleep table allocation
-To: Andrew Morton <akpm@linux-foundation.org>, Kairui Song <ryncsn@gmail.com>
-Cc: chrisl@kernel.org, kasong@tencent.com, nphamcs@gmail.com,
- baoquan.he@linux.dev, youngjun.park@lge.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20260820115505.20027-1-shikemeng@huaweicloud.com>
- <20260820115505.20027-2-shikemeng@huaweicloud.com>
- <ao_ybL9yRO_pHphW@KASONG-MC4>
- <20260828180338.0e62379137b832bd66d48b7d@linux-foundation.org>
-From: Kemeng Shi <shikemeng@huaweicloud.com>
-In-Reply-To: <20260828180338.0e62379137b832bd66d48b7d@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v5 17/20] vfio: selftests: Add
+ vfio_pci_liveupdate_kexec_test
+To: Vipin Sharma <vipinsh@google.com>
+Cc: kexec@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, kvm@vger.kernel.org, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, ajayachandra@nvidia.com, alex@shazbot.org,
+ amastro@fb.com, ankita@nvidia.com, apopple@nvidia.com, bhelgaas@google.com,
+ chrisl@kernel.org, christian.koenig@amd.com, corbet@lwn.net,
+ dmatlack@google.com, graf@amazon.com, jacob.pan@linux.microsoft.com,
+ jgg@nvidia.com, jgg@ziepe.ca, jrhilke@google.com, julianr@linux.ibm.com,
+ kees@kernel.org, kevin.tian@intel.com, leon@kernel.org, leonro@nvidia.com,
+ lukas@wunner.de, mattev@meta.com, michal.winiarski@intel.com,
+ parav@nvidia.com, pasha.tatashin@soleen.com, praan@google.com,
+ pratyush@kernel.org, rananta@google.com, rientjes@google.com,
+ rodrigo.vivi@intel.com, rppt@kernel.org, saeedm@nvidia.com,
+ schnelle@linux.ibm.com, skhan@linuxfoundation.org, skhawaja@google.com,
+ vivek.kasireddy@intel.com, witu@nvidia.com, yi.l.liu@intel.com,
+ "yanjun.zhu@linux.dev" <yanjun.zhu@linux.dev>
+References: <20260714151505.3466855-1-vipinsh@google.com>
+ <20260714151505.3466855-18-vipinsh@google.com>
+ <0556e2fc-3be5-4023-a9a4-8482fa8c88b2@linux.dev>
+ <20260805055042.GA806762.vipinsh@google.com>
+From: Zhu Yanjun <yanjun.zhu@linux.dev>
+In-Reply-To: <20260805055042.GA806762.vipinsh@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_Ch0CgB3NbN5lJtqvW00Aw--.4273S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kr1rGr45Gr4DXFy3Aw1DWrg_yoW8Zw48pF
-	sYga98KF45tr9rXr4vya4vva4ruw4F934DW3WxKw1293Z8Xr1xWrWkCrZYvFyDC3Z7Xryq
-	gr1UKw17uws0vrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUymb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I
-	0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
-	x7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
-	0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vI
-	r41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
-	xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0
-	cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8V
-	AvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E
-	14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07UG-eOUUUUU=
-X-CM-SenderInfo: 5vklyvpphqwq5kxd4v5lfo033gof0z/
 
-在 2026/8/29 9:03:38, Andrew Morton 写道:
-> On Thu, 27 Aug 2026 17:10:54 +0800 Kairui Song <ryncsn@gmail.com> wrote:
-> 
->>> --- a/mm/swapfile.c
->>> +++ b/mm/swapfile.c
->>> @@ -466,8 +466,6 @@ static int swap_cluster_alloc_table(struct swap_cluster_info *ci, gfp_t gfp)
->>>  	if (!table)
->>>  		return -ENOMEM;
->>>  
->>> -	rcu_assign_pointer(ci->table, table);
->>> -
->>>  #ifdef CONFIG_MEMCG
->>>  	if (!mem_cgroup_disabled()) {
->>>  		VM_WARN_ON_ONCE(ci->memcg_table);
->>> @@ -487,6 +485,12 @@ static int swap_cluster_alloc_table(struct swap_cluster_info *ci, gfp_t gfp)
->>>  		return -ENOMEM;
->>>  	}
->>>  #endif
->>> +
->>> +	/*
->>> +	 * Make tables visible to cluster_is_usable() after everything is
->>> +	 * ready.
->>> +	 */
->>> +	rcu_assign_pointer(ci->table, table);
+
+在 2026/8/4 23:02, Vipin Sharma 写道:
+> On Tue, Aug 04, 2026 at 03:19:34PM -0700, Yanjun.Zhu wrote:
+>> On 7/14/26 8:15 AM, Vipin Sharma wrote:
+>>> Add a selftest to exercise preserving a vfio-pci device across a Live
+>>> Update. For now the test is extremely simple and just verifies that the
+>>> device file can be preserved and retrieved. In the future this test will
+>>> be extended to verify more parts about device preservation as they are
+>>> implemented.
+>>>
+>>> This test is added to TEST_GEN_PROGS_EXTENDED since it must be run
+>>> manually along with a kexec.
+>>>
+>>> To run this test manually:
+>>>
+>>>    $ tools/testing/selftests/vfio/scripts/setup.sh 0000:00:04.0
+>>>    $ tools/testing/selftests/vfio/vfio_pci_liveupdate_kexec_test --stage 1 0000:00:04.0
+>>>
+>>>    $ kexec ...   # NOTE: Exact method will be distro-dependent
+>>>
+>>>    $ tools/testing/selftests/vfio/scripts/setup.sh 0000:00:04.0
+>>>    $ tools/testing/selftests/vfio/vfio_pci_liveupdate_kexec_test --stage 2 0000:00:04.0
+>> Hi, Vipin
 >>
->> Hmm, but for the error paths above, they will leak the new allocated table?
-> 
-> Sashiko thinks so ;)
-> 
-> It also might have found a pre-existing data-race which seems
-> sufficiently on-topic for this patchset?
-> 
-> 	https://sashiko.dev/#/patchset/20260820115505.20027-1-shikemeng@huaweicloud.com
-Thanks for thre review, I will address the leak in the next version.
+>> Thanks a lot for your help. I followed your suggestion, vfio-pci setup can
+>> work.
+> I am glad your setup using virsh is working.
+>
+>> The followings are the test result. In the step 3, after kexec, there are
+>> some fails. I am not sure if these are known problem or not.
+>>
+>> 1. Before kexec command
+>>
+>> + modprobe -v vfio-pci
+>> + tools/testing/selftests/vfio/scripts/setup.sh 0000:00:04.0
+>> + echo "vfio-pci" > /sys/bus/pci/devices/0000:00:04.0/driver_override
+>> + echo "0000:00:04.0" > /sys/bus/pci/drivers/vfio-pci/bind
+>> + tools/testing/selftests/vfio/vfio_pci_liveupdate_kexec_test --stage 1
+>> 0000:00:04.0
+>> Preserving device in session
+>> Preserving memfd of size 0x40100000 in session
+>> # [STAGE 1] Forking persistent child to hold sessions...
+>> # [STAGE 1] Child PID: 1236. Resources are pinned.
+>> # [STAGE 1] You may now perform kexec reboot.
+>> + set +x
+>>
+>> 2. Run kexec command
+>>
+>> 3. After kexec command
+>>
+>> + echo "vfio-pci" > /sys/bus/pci/devices/0000:00:04.0/driver_override
+>> + echo "0000:00:04.0" > /sys/bus/pci/drivers/vfio-pci/bind
+>> Checking open(/dev/vfio/devices/vfio0) fails  <--- I can confirm that the
+>> /dev/vfio/devices/vfio0 exists. But open this failed.
+> This is correct output. Test is verifying that open should fail. If it
+> didn't fail the ntest would have exited with an error. A preserved VFIO
+> FD can only be retrived using Live Update session ioctls and not through
+> usual VFIO dev path.
+>
+>> Checking ioctl(group_fd, VFIO_GROUP_GET_DEVICE_FD, "0000:00:04.0") fails
+>> (vfio_type1_iommu)      <--- fails
+>> Checking ioctl(group_fd, VFIO_GROUP_GET_DEVICE_FD, "0000:00:04.0") fails
+>> (vfio_type1v2_iommu).  <--- fails
+>> Checking ioctl(group_fd, VFIO_GROUP_GET_DEVICE_FD, "0000:00:04.0") fails
+>> (iommufd_compat_type1)  <--- fails
+>> Checking ioctl(group_fd, VFIO_GROUP_GET_DEVICE_FD, "0000:00:04.0") fails
+>> (iommufd_compat_type1v2). <--- fails
+> These are all correct output. Test is verifying that userspace should
+> not be able to get VFIO device FD only through Live Update session
+> ioctls and nothing else.
+>
+>> Retrieving memfd from LUO
+>> Finishing the session before retrieving the device (should fail)
+>> Retrieving the device FD from LUO
+>> Finishing the session before binding to iommufd (should fail)
+>> Binding the device to an iommufd and setting it up
+>> Finishing the session
+>>
+> This is shows VFIO FD is successfully retrived by Live Update ioctl.
+>
+> So, you saw expected output from successful test run. I will change
+> the message getting printed to avoid confusion. I think current way of
+> printing ".... fails" is confusing.
 
-As for data-race concern, I analyzed it in [1] and concluded that the cluster lock
-already serializes all accesses in question:
+Thanks a lot. I have made tests in KVM. I can get the same test results.
 
-/* ci->table: protected by cluster lock */
-swap_cluster_lock()
-cluster_is_usable()
- cluster_table_is_alloced()
-swap_cluster_unlock()
+Reviewed-and-tested-by: Zhu Yanjun <yanjun.zhu@linux.dev>
 
-/* memcg_table: protected by cluster lock */
-mem_cgroup_try_charge_swap
- swap_cluster_get_and_lock()
- __swap_cgroup_set()
- swap_cluster_unlock()
+Zhu Yanjun
 
-/* zero_bitmap: protected by cluster lock */
-swap_writeout
- swap_zeromap_folio_set
-  swap_cluster_get_and_lock
-  __swap_table_set_zero
-  swap_cluster_unlock
+>
+> Thanks
+> Vipin
 
-Since all three accessors acquire the same cluster lock, no data race
-or memory-ordering issue exists on these shared variables.
-
-Please let me know if I miss any case.
-
-[1] https://lore.kernel.org/all/76738b02-1f12-4deb-84f7-542d9830b0b5@huaweicloud.com/
-
-Thanks,
-Kemeng
+-- 
+Best Regards,
+Yanjun.Zhu
 
