@@ -1,30 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F23345EA8;
-	Sat,  5 Sep 2026 08:55:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C7E37AA9F;
+	Sat,  5 Sep 2026 08:55:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788598529; cv=none; b=ZCXe2KzIqXvO4e8MTNDkkfxUiWn7/Wg7GeqIAR26ujpQS7SRwEk6oSH0nknIj0WYsCa9cROLWQwthfEyI1V3ZJ7RPsJqaDbYPtOzxQ4IRfOnI6QqTCHqmzzEsdQij9L8uqt6oS6artmvd4bEFuU6tzAEBu+6QoI8V9PlV7Wl0FA=
+	t=1788598544; cv=none; b=MHpmsnk27q3s+EX0/4mQyjEAddRtZUR+At5LYHVuLgduAeGD2yNt6MfqwqG9OjNWNjy9HyJUYxQVcQHHWswYAsYC6+4i+qo0WIkzq8OJFX/M++TE1VFAtDmFqPmUahNrWMMjTNe3SdcI8o8KValkgaWlNo473YdCgYdDYiJfTPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788598529; c=relaxed/simple;
-	bh=FFZ0kQa898oEQ5KNASAayXyJTzN4Yw3S1U+j1satHjA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=FLoGcAfkAeq03jEhFWoXppxxGdXg/zFt1M8+G9D+cz2NrgGzGBhEuc75Jh6ZKHTRxCQSgioe6mOJm6J1LItivjmIZwdXtpugzTZViMqHbnbDbeD7HAO6CbvuuE+D1fJGF092wsZ6g7NPPR7Ew6dTRw1X1UPdGslslaxw6uzfvYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I1QFbGJz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788598544; c=relaxed/simple;
+	bh=EO/DauOYW4TtZT2a8/moYn9E1EV6Pnh1V5d1nsVJNSc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=g0OjcoSoTMfb9yD9YXYJE3CPevDK7uVjJ0n7pekGY/fNDe9ZeupDY58GQZPt+gbsYgRLWvQS3oK+ejud2KRDrf24wnARvkTGdq2DeD25WjCfESfj4mckdX97m8Qsi2Llnlt3K2H9UHYRmEtbQnIP4zyrlFN6b1iqxnKzKCBTr04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EC9TjBFT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I1QFbGJz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50AA61F00A3D;
-	Sat,  5 Sep 2026 08:55:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EC9TjBFT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2390A1F00A3D;
+	Sat,  5 Sep 2026 08:55:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788598526;
-	bh=AAIFzKjFFkz3N/01guRg3UyBx8eOsBKDeOIo7q2+H8A=;
-	h=From:To:Cc:Subject:Date;
-	b=I1QFbGJzBubAAt1ONZ/T9m5FEsaTWq1eed9ja1McK/9Wf1YjYnIjGwb1n6YwOXPEe
-	 uZck0/Xc8ZiqeHXfcYoTee8Gx0JLWiUypU+eBISlO/E9AdDotDKVs2FoaT8rKtXcwc
-	 CeAuOac6B7hGqrEpSWZN8rxYx/PE2leN5zi2/bX1QbnoDfiYNDGjadWFwQbOE640JJ
-	 uKQpygdEGMtIyLiFAmbCj8LGvrP/+1r98iKjhmrqskKuFx4+ZayqMGh7bjtrReLcFN
-	 /OHXvAPskZl7l0NxjFtr03pKYEzqClkU4kDQJttkfzvcCoO0WEGpTB8fS/DDD5HlHo
-	 uH4Z11UxJki/A==
+	s=k20260515; t=1788598540;
+	bh=0Mylv/zjucclPhSFWD9H4kpgBfaJoJIM1JbCqsv9PYA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=EC9TjBFTQIQLUsk0iIGli6uRHfd/+cw5DbG2qtso+MfnUkRxSMepYHZhjpm+0mntI
+	 7g/VVps0SwoDr9ZCs1VeNWtDkWdreGKZGVCXQAxW1TJqyp7sCswd7nv6hrp3VrqjAs
+	 +53U9ycaYy2pncyWk5GfEJTAhlUQj0FvhYzqs2FAQGiutrHaZTBKyHHGfV0b+63tBv
+	 VRv0HX07kWlgebWUoDWVjd/GK9Q8EIu/0Xkebep6h06rI14iMi38wMneqSs1I0O/bF
+	 szCRrjAwW0l6eb8NOAd/OyNu9X0G4l97ooBYSzt6SmTPhAR3a0+i8dr+4a63WC2giT
+	 OyjyEAsesnV0A==
 From: Philipp Stanner <phasta@kernel.org>
 To: Miguel Ojeda <ojeda@kernel.org>,
 	Boqun Feng <boqun@kernel.org>,
@@ -54,10 +55,12 @@ Cc: linux-kernel@vger.kernel.org,
 	rust-for-linux@vger.kernel.org,
 	linux-media@vger.kernel.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH v11 0/2] rust / dma_buf: Add abstractions for dma_fence
-Date: Sat,  5 Sep 2026 10:53:41 +0200
-Message-ID: <20260905085343.1827305-2-phasta@kernel.org>
+Subject: [PATCH v11 2/2] MAINTAINERS: Add entry for Rust dma-buf
+Date: Sat,  5 Sep 2026 10:53:43 +0200
+Message-ID: <20260905085343.1827305-4-phasta@kernel.org>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260905085343.1827305-2-phasta@kernel.org>
+References: <20260905085343.1827305-2-phasta@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,217 +70,52 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Based on drm-rust-next.
+Rust does now have abstractions for dma_fence. These abstractions are
+quite complicated and require expertise with both the C and the Rust
+side. Therefore, using the existing entry also for maintenance of the
+Rust code appears reasonable.
 
-Changes since v10:
-  - Rebase on drm-rust-next, solve small conflict.
-  - Improve some comments.
-  - More spellchecking. (Danilo)
-  - Use reference instead of rawpointer for FenceOps. (Danilo)
-  - Take a &CStr as argument for FenceContext. (Danilo)
-  - Remove unnecessary (?) unsafe comment. (Danilo)
-  - Improve formatting / style in doctest examples. (Danilo)
+Philipp volunteers to help maintain the dma_fence abstractions. Add a
+corresponding MAINTAINERS entry.
 
-Changes since v9:
-  - Rebase on rust-next, since Miguel has merged our prerequisites.
-  - Add R-b from Daniel.
-  All from Gary:
-  - Use an Atomic<usize> for nr_of_unsignaled_fences.
-  - Comment improvement / formatting.
-  - *const instead of *mut raw pointer.
-  - Make small public functions `inline`.
-  - Rename "called" callback to "on_signal".
-  - Improve the internal helper lock FenceGuard.
-  - Add needs_drop fastpath check in DriverFence::drop().
-
-Changes since v8:
-  - Improve function naming. (Daniel)
-  - Panic in case of forgotten fences. (Alice)
-    (reason being that this cannot happen with the intended JobQueue
-    design, it would be a fatal bug anyways and we can easily fix this up)
-  - Improve spelling and grammar. (Daniel)
-  - Add Daniel's Tested-by
-  - Improve Copyright notice to SPDX. (Daniel)
-
-Changes since v7:
-  - Remove the forgotten-fences-tracking from FenceContext. Merely warn
-    in this unlikely case, using an atomic integer.
-  - Be more verbose in warnings about what exactly the problem is.
-
-Changes since v6:
-  - Add Timur's error code patch (just so that the series builds. Merge
-    however you prefer). (Timur)
-  - Replace XArray with list, remove XArray patch.
-  - Detail the issue with core::mem::forget() in the commit message.
-  - Some code formatting etc.
-
-Changes since v5:
-  - Because Rust can "forget" DriverFences, it could bypass the lifetime
-    ensuring that DriverFences don't outlive a FenceContext. Mitigate
-    this by having the FenceContext keep track of unsignaled fences.
-    (Danilo)
-  - To support the point above, add support for memory reservations to
-    XArray.
-  - To support the point above, have FenceContext::alloc_fence()
-    increment the sequence number. This is necessary for the xarray
-    index. It might become critical with fence seqno holes.. please
-    review.
-  - Remove acronyms in declarations. (Daniel)
-  - Allow for providing initial seqno in FenceContext::new(). (Daniel)
-  - Flesh out documentation about DriverFence <-> Fence. (Daniel)
-  - Flesh out documentation about weirdness in C backend. (Daniel)
-  - Add new, purely internal locking helper / guard for dma_fence.
-  - Use the kernel atomics (Gary).
-  - Curse angrily at my computer.
-
-Changes since v4:
-  - Fix an uninitialized memory bug for FenceCbRegistration with
-    ManuallyDrop.
-  - Return FenceCtx as impl PinInit
-  - Make FenceCtx return an impl PinInit<T, Error> (Danilo)
-  - Reformat some comments
-
-Changes since v3:
-  - Add a FIXME for an encountered Rust compiler bug. (Gary)
-  - Add new Rust files also to DRM drivers & common infrastructure
-    MAINTAINERS file. (Danilo)
-  - Reposition ECANCELED error code. (Miguel)
-  - Replace refcounted FenceCtx in DriverFenceData with a reference plus
-    life time. (Boris)
-  - Re-add rcu_barrier() patch, since we now can use it for dropping the
-    fence context. (Danilo)
-  - Add forgotten R-b from Alice, and Acks for MAINTAINERS from
-    Christian and Sumit.
-
-Changes since v2:
-  - Don't drop DriverFenceData as a whole, but only the members we
-    really want to drop. Gives more robustness. (Gary).
-  - Break apart large pin_init_from_closure(). (Danilo, Onur)
-  - Remove rcu_barrier() and synchronize_rcu() from FenceCtx::drop().
-    FenceCtx might drop in atomic context, where you must not perform
-    those operations. With the current way C dma_fence is designed, the
-    driver must wait for a grace period manually until it unloads.
-  - Repair the DriverFenceBorrow implementation, properly injecting a
-    life time into it. (Danilo)
-  - Fix memory layout bug for rcu_head. (Onur)
-  - Drop RCU patches, since this series doesn't need them anymore.
-
-Changes since v1:
-  - Remove unnecessary mutable references (Alice)
-  - Split up unsafe comments where possible (Danilo)
-  - Remove PhantomData + implement FenceCtx ops trait (Boris)
-  - Consistently call FenceCtx generic data `T`. FenceDataType is
-    derived from that. (Boris)
-  - Add abstractions for call_rcu() and synchronize_rcu() (Danilo)
-  - Add ECANCELED error code in Rust (Alice)
-  - Remove the rcu_barrier() from FenceCtx::drop() – because we now use
-    call_rcu(), there can be no UAF access to the FenceCtx anymore. In
-    any case, it is illegal to use either call_rcu() or
-    synchronize_rcu() in FenceCtx::drop(), because our new
-    drop_driver_fence_data() can run in atomic context and might put the
-    last fence_ctx reference.
-    So we now only have to guard against module unload, which it seems
-    either the driver or Rust driver-core / module unload infrastructure
-    must solve.
-  - Minor formatting etc. changes
-  - Add C helpers to MAINTAINERS. (Danilo)
-  - Ensure that `Fence::is_signaled()` is fully synchronized, i.e., all
-    callbacks really have run. See [1] and [2]. (Myself, Christian
-    König)
-
-Changes since the RFCs:
-  - Include support for ForeignOwnable for ARef, so that a Fence can be
-    stuffed into an XArray et al. (Code by Danilo)
-  - Implement ForeignOwnable (with new borrow type) for DriverFence, so
-    that it can be stuffed into an XArray.
-  - Include the rcu::RcuBox data type to defer dropping data with RCU
-    (Cody by Alice)
-  - Port DmaFence to RcuBox to make UAF bugs through later, new dma_fence
-    callbacks (backend_ops) impossible.
-  - Force users to pass their fence data in an RcuBox (or have it not
-    need drop()) through a Sealed trait.
-  - Document the rules for the user's DriverFence::data's drop
-    implementation very clearly (deadlock danger).
-  - rustfmt, Clippy.
-  - Various style suggestions, safety comments, etc. (Önur)
-  - Add __rust_helper prefix to helper functions. (Önur)
-
-Changes in RFC v3:
-  - Omit JobQueue patches for now
-  - Completely redesign the memory layout: Instead of a Fence
-    refcounting a DriverFence, both now live in the same allocation to
-    allow for future support the dma_fence backend_ops callbacks which
-    need to do container_of. (mostly Boris's feedback)
-  - Allow for pre-allocating fences to avoid deadlocks when submitting
-    jobs to a GPU. (Boris)
-  - Simultaneously, allow for pre-preparing fence callback objects, so
-    the driver can allocate them when it sees fit. (code largely stolen
-    and inspired by Daniel).
-  - Signal fences on drop, ensure synchronization.
-  - Force users to set an error code when signalling.
-  - Write more documentation
-  - A ton of minor other changes.
-
-
-[1] https://lore.kernel.org/dri-devel/20260608142436.265820-2-phasta@kernel.org/
-[2] https://lore.kernel.org/dri-devel/20260612104251.2264707-2-phasta@kernel.org/
-
-
-Alright, so since the last RFCs did not reveal significant design
-issues, I decided to transition this series to a v1 and hope that we can
-get it upstream.
-
-This now includes code for more common infrastructure that dma_fence
-needs, contributed by Danilo and Alice.
-
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
+Acked-by: Christian König <christian.koenig@amd.com>
+Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
 ---
+ MAINTAINERS | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Old cover letter for RFC:
-
-So, this is the spiritual successor of the first / second RFC [1]. v2
-also contained code for drm::JobQueue, but mostly to show how the fence
-code would be used. JobQueue is under heavy rework right now, so I don't
-want to bother your eyes with it. The docstring examples should show how
-Rust fences are supposed to be used, though.
-
-This v3 contains a huge amount of highly valuable feedback from a
-variety of people, notably Boris, but also from Alice, Gary and Danilo.
-
-There are some TODOs open (a better trait for fence backend_ops and RCU
-support), but my hope is that this effort is now finally approaching its
-end.
-
-I would greatly appreciate feedback and especially more information
-about what might be missing to make this usable, which is obviously
-where Daniel's and Boris's feedback will be valuable once more.
-
-Please regard this patch just as what it's titled: an RFC, to discuss a
-bit more and to inform a broader community about what the current state
-is and where this is heading at.
-
-Many regards,
-Philipp
-
-[1] https://lore.kernel.org/rust-for-linux/20260203081403.68733-2-phasta@kernel.org/
-
-Philipp Stanner (2):
-  rust: Add dma_fence abstractions
-  MAINTAINERS: Add entry for Rust dma-buf
-
- MAINTAINERS                      |    5 +
- rust/bindings/bindings_helper.h  |    1 +
- rust/helpers/dma_fence.c         |   49 ++
- rust/helpers/helpers.c           |    1 +
- rust/kernel/dma_buf/dma_fence.rs | 1023 ++++++++++++++++++++++++++++++
- rust/kernel/dma_buf/mod.rs       |   14 +
- rust/kernel/lib.rs               |    1 +
- 7 files changed, 1094 insertions(+)
- create mode 100644 rust/helpers/dma_fence.c
- create mode 100644 rust/kernel/dma_buf/dma_fence.rs
- create mode 100644 rust/kernel/dma_buf/mod.rs
-
-
-base-commit: 6cb331644c441ff4101a4f8726283a6ed0d5947e
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3a19da74d00c..88db6fb06042 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -7680,6 +7680,7 @@ F:	fs/dlm/
+ DMA BUFFER SHARING FRAMEWORK
+ M:	Sumit Semwal <sumit.semwal@linaro.org>
+ M:	Christian König <christian.koenig@amd.com>
++M:	Philipp Stanner <phasta@kernel.org>
+ L:	linux-media@vger.kernel.org
+ L:	dri-devel@lists.freedesktop.org
+ L:	linaro-mm-sig@lists.linaro.org (moderated for non-subscribers)
+@@ -7693,6 +7694,8 @@ F:	include/linux/dma-buf.h
+ F:	include/linux/dma-buf/
+ F:	include/linux/dma-resv.h
+ F:	rust/helpers/dma-resv.c
++F:	rust/helpers/dma_fence.c
++F:	rust/kernel/dma_buf/
+ K:	\bdma_(?:buf|fence|resv)\b
+ 
+ DMA GENERIC OFFLOAD ENGINE SUBSYSTEM
+@@ -8697,7 +8700,9 @@ T:	git https://gitlab.freedesktop.org/drm/rust/kernel.git
+ F:	drivers/gpu/drm/nova/
+ F:	drivers/gpu/drm/tyr/
+ F:	drivers/gpu/nova-core/
++F:	rust/helpers/dma_fence.c
+ F:	rust/helpers/gpu.c
++F:	rust/kernel/dma_buf/
+ F:	rust/kernel/drm/
+ F:	rust/kernel/gpu.rs
+ F:	rust/kernel/gpu/
 -- 
 2.55.0
 
