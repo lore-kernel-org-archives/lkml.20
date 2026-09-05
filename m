@@ -1,133 +1,197 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2580E381AEC;
-	Sat,  5 Sep 2026 12:05:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C170313527;
+	Sat,  5 Sep 2026 12:05:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788609913; cv=none; b=raOiDdJ028hxpj3c8A1msBe8c1D6k8FA5pwtR2JjW3EKIeGFrpSxCmNQaN7fXjMtrtFhdOL5MYCEUQofOQZ9WgqVJq2QHQhjR9GOnYzhHjdEkgkqDfQa6i1y7jo6s8pFaatMA619tyBVYuEeI+Mw8YFcFUjk+ZFJKwYTdZq23E4=
+	t=1788609946; cv=none; b=jrN8VZI9d3OyTxi+h0segTZ8EY3kY7CUE1tO1RoMTed+nJvhbx4KK6zhQqfn3QKAf+iqJe+nWfmDBXvyzVHbI7xlexU3lQDPFj4PryEhPN/6NuKmLKK/R78YJBNhQKvnBE0QETY1I9kP6lIvTqd167MmTfqX2J487SiI/U9cCNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788609913; c=relaxed/simple;
-	bh=K6MbrBQlIeiFcBEDt6UWI0HR0lk3Q+lvtJD3LHvHCkg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=lrj27za7WgGTXtePU3gdUvs5lEiqzafMKOs8Bsfu0EzuIMzKCxvNEeylaYFNwS0iaG06irepqxVXtrjSPFdUwLa5habNxExwWJDHpOlSGzaByf2wgeBuiO3lrUvqHA1v4icBNqSlymBKmu2U1oiHtj2laSPMHAd4dpeq3cXNdpM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=khNbDBMZ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788609946; c=relaxed/simple;
+	bh=Ib8tZNKo1V2rLQH5Uu0f1JmvjoWo8NE9HsiSFNTRUlI=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=MQoKd69znNVzpyc75iBecdIW78bHiVd2NdXQEXJKApiHw1VQs/6Ono74Cvx0E6YgCGlT1qp2HxwNgtRbM8SOZCgIbU6WSMrggyQxbbP7UbzBWy71qFw04CkgeWFaRmw9SNXcNGMS3e3X8SzJlvolaNa0tfFNexCbEIyMM0RfB1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SDmBi7k1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="khNbDBMZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 98250C2BCB3;
-	Sat,  5 Sep 2026 12:05:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788609912;
-	bh=K6MbrBQlIeiFcBEDt6UWI0HR0lk3Q+lvtJD3LHvHCkg=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=khNbDBMZrw5bPU+uQO+VeAyB9KL1HMtzUV6cI5XwnF6t5XMtT7xqYA+SS4Sa/MFhx
-	 QKwyxPr6ApK3njE6QB/+RV8u6BbeahNAvxE5NqKKqHgq/Qb8IFh74BmMjNPqWJQop1
-	 uD0laK/flyrdKyDqrcRwQofNZqwzsXT0njuP7xYBUdQK2ngk5VElBi3y2/ae9aCHFT
-	 DvNcoeZWMIQeAdbo+WYK880TkTJpXE7cD1PGU9WetboNJMIK3gQFW1JP+KEbm4/Mcj
-	 gkP4rTfbmvqqCoPxBwLRr03S8himVIJzkaIV1S44B5Eg9+XvH3TsIUIFR59JK+U8HV
-	 oTJZhgEaqp69w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6DAD6C624DB;
-	Sat,  5 Sep 2026 12:05:12 +0000 (UTC)
-From: =?utf-8?q?Nikolaj_Klitlund_B=C3=B8rty_via_B4_Relay?= <devnull+nbn.sj.dk@kernel.org>
-Date: Sat, 05 Sep 2026 14:05:12 +0200
-Subject: [PATCH] Bluetooth: btusb: Add device ID for Realtek RTL8761BUE
- (StarTech AV53C1)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SDmBi7k1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E68E81F00A3D;
+	Sat,  5 Sep 2026 12:05:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788609944;
+	bh=H+P3r3pU8scUhbCgwtS4r/2uCahe7yBWVuu+dcLoT/E=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=SDmBi7k1+FPPLuDItGOYXKbVeYlmFbvMUCf5d7zbORc9o0nlQqi2AyS8+VD8NFw2R
+	 XMYwOhUmRyRkY0XqvFG/3DqiIHrD6ly0Qur6I+E8uHhZQPBoX3n8GKYdHXcj5UtNF/
+	 btiZWRfmxHZa64FD2jGq44w+p4jHt2q7S9h2+ZlnU09LXbvjirAycdluHVRoYrNNJJ
+	 Lx2G+HxckGC6r/6uR/UyqNwHmk9DquDukqSuKUOOtHCogt+OYouIDjB+QkR3Hia0Jw
+	 UttGOFkU4jRTSEGed2CSlCg3soh/05HwuQjgPuAq158cpd5xvnhHTWxhXwBE8Go4IR
+	 ZxS2PAEMGaI9g==
+Message-ID: <d0a41184-e65f-4b3c-9c65-eef123ffa5e0@kernel.org>
+Date: Sat, 5 Sep 2026 14:05:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260905-startech-av53c1-v1-1-3385f9bb220c@sj.dk>
-X-B4-Tracking: v=1; b=H4sIAHcFnGoC/x3MQQqAIBBA0avIrBPUsqirRAubxppNhYoE0t2Tl
- m/xf4FIgSnCJAoEyhz5Oit0IwAPd+4keasGo0yvRmVlTC4kwkO6bFvUUq8d2dYbq3GAWt2BPD/
- /cV7e9wNlCZg3YQAAAA==
-X-Change-ID: 20260905-startech-av53c1-1b4e53f251c7
-To: Marcel Holtmann <marcel@holtmann.org>, 
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, =?utf-8?q?Nikolaj_Klitlund_B=C3=B8rty?= <nbn@sj.dk>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788609911; l=2680;
- i=nbn@sj.dk; s=20260905; h=from:subject:message-id;
- bh=qikB7+kXC0YvR5kdQ4345D7/gSWOZ6njl78gr4Q01Mc=;
- b=KvlU26Ro04cGwNSf5bWuo5LvGwBncPF0PXfBHwsjW6ROazoTYySahibtxhOFiV3/0PuoK3dqP
- L/xMQdFIWkzDD18eU1CaGm6EAv6HszIS9+xbLfUElaHsJBhPP7Vrk57
-X-Developer-Key: i=nbn@sj.dk; a=ed25519;
- pk=gSabhnk9EeLlA58h6ZHttMKWKQwb5LGja3BORiZv9gQ=
-X-Endpoint-Received: by B4 Relay for nbn@sj.dk/20260905 with auth_id=1005
-X-Original-From: =?utf-8?q?Nikolaj_Klitlund_B=C3=B8rty?= <nbn@sj.dk>
-Reply-To: nbn@sj.dk
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] efi/libstub: populate LoaderDevicePartUUID
+From: Vincent Mailhol <mailhol@kernel.org>
+To: Ard Biesheuvel <ardb@kernel.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>
+Cc: linux-kernel@vger.kernel.org, linux-efi@vger.kernel.org
+References: <20260903-efi_stub_bli-v2-1-dbf7ba915117@kernel.org>
+ <b3982808-5ae5-48b8-a677-9f284a764685@app.fastmail.com>
+ <d6b7cdae-8b99-49a2-9d9d-03eb77deb1dd@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=mailhol@kernel.org; keydata=
+ xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
+ JFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbEBrZXJuZWwub3JnPsKZBBMWCgBBFiEE7Y9wBXTm
+ fyDldOjiq1/riG27mcIFAmdfB/kCGwMFCQp/CJcFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcC
+ F4AACgkQq1/riG27mcKBHgEAygbvORJOfMHGlq5lQhZkDnaUXbpZhxirxkAHwTypHr4A/joI
+ 2wLjgTCm5I2Z3zB8hqJu+OeFPXZFWGTuk0e2wT4JzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrb
+ YZzu0JG5w8gxE6EtQe6LmxKMqP6EyR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDl
+ dOjiq1/riG27mcIFAmceMvMCGwwFCQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8V
+ zsZwr/S44HCzcz5+jkxnVVQ5LZ4BANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
+In-Reply-To: <d6b7cdae-8b99-49a2-9d9d-03eb77deb1dd@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Nikolaj Klitlund Børty <nbn@sj.dk>
+On 05/09/2026 at 00:06, Vincent Mailhol wrote:
+> On 04/09/2026 at 18:12, Ard Biesheuvel wrote:
+>> Hello Vincent,
+>>
+>> On Thu, 3 Sep 2026, at 23:19, Vincent Mailhol wrote:
+>>> The Boot Loader Interface [1] defines LoaderDevicePartUUID. That EFI
+>>> variable records the GPT partition UUID of the partition containing the
+>>> boot loader.
+>>>
+>>> This is used, for example, by systemd-gpt-auto-generator [2] to identify
+>>> the disk the boot loader was launched from and automatically detect and
+>>> mount partitions on it.
+>>>
+>>> GRUB [3] and systemd-boot [4] populate it, but when the kernel is
+>>> started directly by EFI firmware, there is no conventional external boot
+>>> loader to provide the variable. In that case, because the EFI stub
+>>> performs the boot loader role, it should provide the variable itself.
+>>>
+>>
+>> Fair enough.
+>>
+>> But shouldn't it set LoaderInfo as well then?
+> 
+> Sure. This is quite easy to do.
+> 
+> Any preference of what to put in that variable? I am thinking of
+> adding the release number like this:
+> 
+> 	#define EFI_BLI_LOADER_INFO L"Linux EFI stub " UTS_RELEASE
+> 
+> This looks consistent with what the other boot loaders are doing:
+> 
+> 	$ cat /sys/firmware/efi/efivars/LoaderInfo-4a67b082-0a4c-41cfb6c7-440b29bb8c4f 
+> 	GRUB 2.12
+> 
+> Also, this gave me an idea. Maybe we can use the LoaderInfo variable
+> as a sentinel for all other variables:
+> 
+> 	void efi_bli_set_variables(efi_loaded_image_t *image)
+> 	{
+> 		unsigned long size = 0;
+> 
+> 		if (get_efi_var(L"LoaderInfo", &loader_entry_guid,
+> 				NULL, &size, NULL) != EFI_NOT_FOUND)
+> 			return;
+> 
+> 		efi_bli_populate_loader_info();
+> 		efi_bli_populate_loader_part_uuid(image);
+> 	}
+> 
+> If it is set, we bail out, otherwise, we assume that the earlier boot
+> stage did not implement BLI and we blindly populate everything. No
+> more additional check on whether LoaderDevicePartUUID or other
+> variables are set!
 
-Add the USB ID 0x14b0:0x047a for the StarTech AV53C1-USB-BLUETOOTH
-adapter, a Realtek RTL8761BUE based Bluetooth 5.3 dongle.
+FYI, this is my latest WIP:
 
-Without this entry btusb treats the device as a generic Bluetooth
-adapter and never loads the Realtek firmware, leaving the controller on
-its ROM firmware. In that state it advertises and scans actively, but
-never reports advertisements during passive scanning. LE connections
-initiated by the kernel wait for a passive-scan report before issuing
-LE Create Connection, so connecting and pairing from BlueZ time out
-without any error from the controller.
+	void efi_bli_set_variables(efi_loaded_image_t *image)
+	{
+		static efi_char16_t loader_info[] = L"Linux EFI stub " UTS_RELEASE;
+		unsigned long size = 0;
+	
+		if (get_efi_var(L"LoaderInfo", &loader_entry_guid,
+				NULL, &size, NULL) != EFI_NOT_FOUND)
+			return;
+	
+		if (set_efi_var(L"LoaderInfo", &loader_entry_guid,
+				EFI_VARIABLE_BOOTSERVICE_ACCESS | EFI_VARIABLE_RUNTIME_ACCESS,
+				sizeof(loader_info), loader_info) != EFI_SUCCESS)
+			return;
+	
+		efi_bli_populate_loader_part_uuid(image);
+	}
 
-The same product is also sold with the ID 0x2c0a:0x8761, which is
-already supported.
+The idea is that the sentinel check will not only be the presence of
+LoaderInfo but also the fact that we could successfully set it. The
+other variables (LoaderDevicePartUUID and whatever might comme in the
+future) are set without further check and failure to set them is
+silencely ignored.
 
-lsusb -v output for the device:
+> Does this approach make sense?
 
-Bus 001 Device 010: ID 14b0:047a StarTech.com Ltd. Bluetooth Radio
-Device Descriptor:
-  bcdUSB               1.10
-  bDeviceClass          224 Wireless
-  bDeviceSubClass         1 Radio Frequency
-  bDeviceProtocol         1 Bluetooth
-  idVendor           0x14b0 StarTech.com Ltd.
-  idProduct          0x047a
-  bcdDevice            2.00
-  iManufacturer           1 Realtek
-  iProduct                2 Bluetooth Radio
-  iSerial                 3 00E04C239987
-  bNumInterfaces          2
-    Interface Descriptor:
-      bInterfaceClass       224 Wireless
-      bInterfaceSubClass      1 Radio Frequency
-      bInterfaceProtocol      1 Bluetooth
+(...)
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Nikolaj Klitlund Børty <nbn@sj.dk>
----
-Tested on Home Assistant OS 18.2 (kernel 6.18.39): without this entry the
-adapter enumerates and scans, but btusb never loads rtl_bt/rtl8761bu_fw.bin,
-and LE connections from BlueZ never complete because the controller reports
-no advertisements during passive scanning. Details in the commit message.
----
- drivers/bluetooth/btusb.c | 2 ++
- 1 file changed, 2 insertions(+)
+>> I'm reluctant to add this kind of code as a special one-off, so I got a
+>> bit carried away and took this code and put it in the stub's printf
+>> layer.
+> 
+> Thanks for the extra work!
+> 
+>> Could you please check whether the first two patches at [0] are
+>> sufficient for efi_bli_guid_to_str() to be replaced by a simple
+>> efi_snprintf("%pUl", ...) call here?
+> 
+> Ack. I already rebased and did a compile test, OK so far. The runtime
+> test will come later. If I find an issue, I will send you a fix. If
+> not, I will just send the v3 rebased on top of your
+> efi-libstub-native-utf16 branch.
 
-diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
-index d70a3e7a13f5d18c75bc1c9fbc1ac5706e832f61..c3c581a5adbb09f7118a3932cdda210d68d2336d 100644
---- a/drivers/bluetooth/btusb.c
-+++ b/drivers/bluetooth/btusb.c
-@@ -860,6 +860,8 @@ static const struct usb_device_id quirks_table[] = {
- 						     BTUSB_WIDEBAND_SPEECH },
- 	{ USB_DEVICE(0x37ad, 0x0600), .driver_info = BTUSB_REALTEK |
- 						     BTUSB_WIDEBAND_SPEECH },
-+	{ USB_DEVICE(0x14b0, 0x047a), .driver_info = BTUSB_REALTEK |
-+						     BTUSB_WIDEBAND_SPEECH },
+I spoke a bit too quick. Compiling
+
+  drivers/firmware/efi/libstub/lib.a
+
+worked well, but in a full build,
+
+  arch/x86/boot/compressed/error.c
+
+failed to link because it expects libstub to provide vsnprintf()
+(c.f. comment above panic()) which you removed in commit edbd49dfea2a
+("efi/libstub: Add widestring support to vsnprintf()").
+
+You need to squash this in that commit:
+
+---8<---
+diff --git a/drivers/firmware/efi/libstub/vsprintf.c b/drivers/firmware/efi/libstub/vsprintf.c
+index 521bdace031df..337326ce00488 100644
+--- a/drivers/firmware/efi/libstub/vsprintf.c
++++ b/drivers/firmware/efi/libstub/vsprintf.c
+@@ -663,6 +663,11 @@ int snprintf(char *buf, size_t size, const char *fmt, ...)
+ 	return i;
+ }
  
- 	/* Additional Realtek 8761CU Bluetooth devices */
- 	{ USB_DEVICE(0x0b05, 0x1bef), .driver_info = BTUSB_REALTEK |
++int vsnprintf(char *buf, size_t size, const char *fmt, va_list args)
++{
++	return efi_vsnprintf(buf, size, fmt, args, false, false);
++}
++
+ int efi_snprintf(efi_char16_t *buf, size_t size, const char *fmt, ...)
+ {
+ 	va_list args;
+---8<---
 
----
-base-commit: 4d7d9486c04d917265f64c55bd23b2cc4fe7749c
-change-id: 20260905-startech-av53c1-1b4e53f251c7
-
-Best regards,
--- 
-Nikolaj Klitlund Børty <nbn@sj.dk>
+or modify arch/x86/boot/compressed/error.c to take another vsnprintf()
+variant.
 
 
+Yours sincerely,
+Vincent Mailhol
