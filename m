@@ -1,73 +1,70 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE54032B112
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 05:22:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CFFE18CC13
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 05:26:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788585748; cv=none; b=kLjZCIkSk/Senww6JfZ6/YLzGst3oS1W9p1RcLZkBu0hl0w7/Ga7DzMN1SkveG15X0Y+KKJ+rbtQQkgM4AtxsVd9upDqL7GbZRp0vXysVPoJFEpg20SLB4mZ+I2FJVjlFFrXc+wn8NO5rbji1aJW9BOFDcJtPcRPdQEg/I/AG5c=
+	t=1788585998; cv=none; b=fkFEd9ieGiyA5EfUo1svRMt5uCYhzg1TPf7Z9eSmwcgMywUNa5PipdIaemg/lcpbtOCk+wwUhlDHONBsN4JVySyuWF+/R5hVgHNmwek82Am7Ul2sFDH659as3+6v82N32ewgU270s69sXki/xMahaXmZcGCsQC9hA4t21/fBZqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788585748; c=relaxed/simple;
-	bh=mCYwkpSBA7nQPXmu86fcBv4w6bzMHVo7Rsf7nBHmsKo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jufqL3Qk6TbTz2CbNshjH9njXMxtFzWGjpjVG1Tr2dJ3bhKr3DvS5xKMl73Tbd6ZhI3iJsfzfIkXLx41EL61kIrdKgcf6poi11h5/Y/qjRYeGeHrK59cg889L18Jdns/xbBWbYYDFUSB10mSVKnRfHX3IFnnWS3/P0rk+LLklNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B/1W98Ci; arc=none smtp.client-ip=209.85.128.47
+	s=arc-20240116; t=1788585998; c=relaxed/simple;
+	bh=jjflGscwYtudxdZnHYIMwnz2V64NNA/6DVxhk1ezhhI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZrjW4/k2jdeejXLIwFRgiuGJrWaTYBW/U3B3nNJGZEyhYwYEtxWY2E/Pl80G+EHIPoDzzRK+QYB9vBy+AwBiKEb4rzMiBE5fHUVXDPvoqyDjbbLQ5UgBqqei5TC3XVzPogRhHqTu5UcQL83mV+UlGoaCysp6MBbWIrvs7f0vR7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VZni5SJz; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B/1W98Ci"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49b0d8bc2aaso21124845e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 22:22:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VZni5SJz"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49a97714f5dso14805405e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 22:26:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788585745; x=1789190545; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788585995; x=1789190795; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W6LzuWxJpMnBn9aKpi+zBOEnJnyIuwuuYGfuHrQdAgo=;
-        b=B/1W98CipZPFItzS7FRVaM/4WWPfqPsECuBsWwr/zBUn43wUv2mpdzJxCLoPfopoI7
-         7Vj36XIxYnz8jNuluHlCT2i4RCFLq6vyYuaDrmAGLtSQiYlQjJ2cRuqKp7UU54ZMaju7
-         2DZ2YiUIhFusHwwzHwxYOsi0xRH0fkTMDX8cFhQyLWPsLp0XLtrKcQYDgBcYcVQnJpFJ
-         KerXtJLTXZxJkuDKubWvT47lsryQePgc2UvLq6TcBE2W1aDSL6k855LjwyW+ihKehRR1
-         UfnDhXcyErcMEGLOyZ7ry3l2cTy2oDDOakkOBncn10YtCe3Gl33LGKH33dtxJQtDWJWj
-         HW4w==
+        bh=CHKqV3GoiDC8ykENHF+0la0g7JB/SkIgxNqVg7j65gQ=;
+        b=VZni5SJzcJZvmPbZupSwSQdw6cVDDYjTUm6t4HpWqcnINqLhgiBZJp+oQL40ltuNsm
+         wrv+cmy+ocGttAvmRbmRULbc+c10lNpCbQ7E/FtGlkcEKRWLuHpd1RZJi48U0c1wQ6rd
+         RMiXefDQwjVjHOQ3yTh+Ji6cWjmSYwTUDnlldOFLHcQmvQZhusGvHT4FZU6sQmMEufHS
+         ofcd1hflIxZ6cdH1gCmLdoE2FTVIIxcinugHBMaBaS3G3VCHxORc5rUgPOveXk8ZTZe1
+         QKiWRXJoLLHP1DX2jARaThCVpBCXBwi7aG0NB3U87od+NO8FU/V+M2HSlyDnXosRKXws
+         u3kA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788585745; x=1789190545;
+        d=1e100.net; s=20251104; t=1788585995; x=1789190795;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=W6LzuWxJpMnBn9aKpi+zBOEnJnyIuwuuYGfuHrQdAgo=;
-        b=pwTVH+Tz7l7Ka91zPEEYBA2HDleZrwOtStKUGBpfyY4VQaiS1i1rmF7PkUbvFF5WWu
-         cn8ltVEij758J6EQYkb7HLucB7rNfy1pPETnK6YVcayGXOg71sHEUN2npgRgm+HehKYS
-         zPgMvz4Mw6NLNDcIZUF1l91MEnZlVc+0wijCUXIYLr2MY9S/g6p9CIEcppXSDJe4Bq98
-         plzdA78CN0+BmcBR761Z0jI9yP0HjQQOCXEKhYEJVjZC7SxueiWRPSf7Nb82Kp6FBqXS
-         +n0k0M2dyKPuxs73aYBJFdvRq6LFz+URXHYY0eM/GAh4B+0UI1vyIATFYyoIlI71HMMJ
-         8bSw==
-X-Forwarded-Encrypted: i=1; AKwUvBzt5WElRdb+RjNYen08oq2wBTIkknlVaLsoGDgRJfz6h06T/V9Ek73U7J3P5udNW7615m7BSLdNxV7m+8o=@vger.kernel.org
-X-Gm-Message-State: AFuF++mNF7fSTddqip0rXFrIFooSeuIfbkGxVziQWzrHaP13Sl53hqtE
-	XI2U1ZwmKzFO3VwjqyoobV3TgYtd66EmHnnttqQfFiStAmV+WvKnnjoO
-X-Gm-Gg: AYBFou14fSPRGacicLs+sY++wwTD46WVURU3KAAfkqkJEupsYSScdeP2N05M44qx8mL
-	DJIGiiRxAjXf8tDuSrPGCmtIK/y4vWgfqaBPsOZ4sGJ7Jwb0qGmrSu2KLh5biVT4N6sKfeU9j7w
-	PsGdzEvl6miwFAavDWLo8gX71jFeF1KbhrZVLcM+rOTP8eD0Yn3EVLQqfF0d+ZkQr+D3ctVwSn+
-	Z2h0/X5ya7Vsq7lQj4zNYJq2677lAlc2TmjYd0Tj/+mdYaRNxN0+3QySsB8bd9pAjawes0iX820
-	K4Qrr+sbtahACNnmiqBdD1vYacKM13xriWriuES55Bqxnrst/gIE8a75dWID8HtOB0i6uctVvH1
-	OnDvbZ75T4yU1yvLCnuvXB0sBfsHNnezVoA+adaqDIyj1HWIFFW44zbD7gZnOEnGAv3zld20gfw
-	Q9wJIc9yx0pBaJVv6Uvh/ytqqgL2xz9AR/sQYKn/dSKf6cs/xvo6LzZ4uOXbXKS2BVI1JD12WcW
-	l0HeHOGjDUScNPlG9vHXA/97yXTLBzjchUV0uRKemb1hGjXZM1Jho7k5aIjs+62sF2Mmj95ruSQ
-	G6VQEcfbTjEYWwgdXkTrz6nGOsge6eYynBzpgBEMW9HaHScqOlGoyhyUCi33rl9PQno=
-X-Received: by 2002:a05:600c:474a:b0:499:79b9:e220 with SMTP id 5b1f17b1804b1-49cf825d722mr95046655e9.10.1788585744908;
-        Fri, 04 Sep 2026 22:22:24 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a4eb-3001-c06d-af27-9fa2-ea53.310.pool.telefonica.de. [2a02:3100:a4eb:3001:c06d:af27:9fa2:ea53])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858ac2b4cdsm9598692f8f.16.2026.09.04.22.22.23
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 04 Sep 2026 22:22:24 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ARM: configs: Update axm55xx FS-Cache options
-Date: Sat,  5 Sep 2026 07:22:16 +0200
-Message-Id: <20260905052216.11986-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        bh=CHKqV3GoiDC8ykENHF+0la0g7JB/SkIgxNqVg7j65gQ=;
+        b=bfKZAaCX2rPEav7Qr0cxZ1GcsJN4PZkFobkmWo5ntKnW8v0A1C8B9fOWOu4TnMusOf
+         ViC3XEDpfp8Pk8F8+NfZY6e+uVIE1Za5JrxvC9TdvVOJNKsSg6TQmPEXbsRu9ICAHKem
+         ytqgv/3CQdmAhVNhLMB++cLPOfcVup4qQYBarqR9m3OD7s8x4vZfLNMZZztWCV9wQ5g0
+         /ZY+E2pQZCRiWhC2V1LEr01kzxqdGtWRFB9nIDZL8hs/R9/U3O6vgQpefQB5VVUxsdBX
+         4u1jX6io01X1zyzWwPqQa3g3U0YKS/KWwwgHHebCPujovwJyyB4P0u4RWUBl2faAWPW6
+         HM3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy67JFt+QgtVC9BKOWrBW6ozD+0d6Csh9pQGtUQu4SPRshbMyx2r8oNuJWBZmhp6vzFnJ3HPnZErEDEj/A=@vger.kernel.org
+X-Gm-Message-State: AFuF++nShMV+b0ROJ57ZS9UYxs4jAs4x8oFrfZ/NwGtlNZ4EisrnVoqE
+	+B5Cogwrpw2JaWDWV5FwUql/tbpZnz0H6+Lx2ucxXKyzLnQgoqL5MZMh
+X-Gm-Gg: AYBFou1JaO6Kn0JAw9mevfWIMmWdS7wx9NKfERBt9VeM10F9/ULRC7/YfGmLAB/u3qt
+	+CFgUtKiK7q3lzDg8K2R1JwC1DbMwneX5eIbTzJWR2guva8GlbTS7N22JNW+DTNpfW6QtwW5MVb
+	UMj+3RzV7k7pifwtfeKTMTgjU3eueLCqFZc9Tc5bosQvxdhgXMfnwpsPC1NGRLW42jhE6XlRVI/
+	1WusvdgWIwr8auvVK7+6VDVJDza29Sg4Mck7bFwbNcrPWCZD3GYka3MyfvboJ3oNWPL+WPReEh9
+	2pXDBhyRTSEGQk/izZc79S4n9T6VBIggSMatbVEOSIOwbHSq1lP7cui/xNaBKTNIOm8AkXblBHw
+	hhHZDEgfLd+zUVazbukp0Y0WZXdONIDraM3awPVDlsybyNLZ75PbzHueltAsmse2CQHW4zVG27+
+	1QNnQHkemr3uVRvoJJpSsTDpjIuz78vP/4eT+M3/vL/jIMlhdxZ4mvkd8=
+X-Received: by 2002:a05:600c:37c8:b0:49c:cee2:a508 with SMTP id 5b1f17b1804b1-49cf826c4e2mr95872415e9.16.1788585994655;
+        Fri, 04 Sep 2026 22:26:34 -0700 (PDT)
+Received: from zeph.. ([154.192.250.0])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfd3f815bsm66073735e9.4.2026.09.04.22.26.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 22:26:32 -0700 (PDT)
+From: Muhammad Israr <7israr.work@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Muhammad Israr <7israr.work@gmail.com>
+Subject: [PATCH] staging: rtl8723bs: replace msleep with usleep_range in rtw_pwrctrl.c
+Date: Sat,  5 Sep 2026 10:26:13 +0500
+Message-ID: <20260905052614.8201-1-7israr.work@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,40 +73,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-CONFIG_FSCACHE_HISTOGRAM, CONFIG_CACHEFILES_HISTOGRAM and
-CONFIG_FSCACHE_OBJECT_LIST were removed in v5.15, and
-CONFIG_FSCACHE_DEBUG was renamed to CONFIG_NETFS_DEBUG in v6.11, so
-none of these lines has any effect any more.
+The checkpatch tool flags msleep() calls for durations less than 20ms
+because they can sleep for much longer due to timer granularity. Use
+usleep_range() for the 1ms delay to provide a flexible sleep window
+and avoid inaccurate task scheduling.
 
-Drop the removed options and select NETFS_DEBUG in place of
-FSCACHE_DEBUG, keeping the debugging support this defconfig has always
-asked for rather than silently losing it.
-
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Muhammad Israr <7israr.work@gmail.com>
 ---
- arch/arm/configs/axm55xx_defconfig | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ drivers/staging/rtl8723bs/core/rtw_pwrctrl.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm/configs/axm55xx_defconfig b/arch/arm/configs/axm55xx_defconfig
-index 541e38e2205b1..7582c964fba0a 100644
---- a/arch/arm/configs/axm55xx_defconfig
-+++ b/arch/arm/configs/axm55xx_defconfig
-@@ -196,13 +196,10 @@ CONFIG_EXT4_FS=y
- CONFIG_AUTOFS_FS=y
- CONFIG_FUSE_FS=y
- CONFIG_CUSE=y
-+CONFIG_NETFS_DEBUG=y
- CONFIG_FSCACHE=y
- CONFIG_FSCACHE_STATS=y
--CONFIG_FSCACHE_HISTOGRAM=y
--CONFIG_FSCACHE_DEBUG=y
--CONFIG_FSCACHE_OBJECT_LIST=y
- CONFIG_CACHEFILES=y
--CONFIG_CACHEFILES_HISTOGRAM=y
- CONFIG_ISO9660_FS=y
- CONFIG_UDF_FS=y
- CONFIG_MSDOS_FS=y
+diff --git a/drivers/staging/rtl8723bs/core/rtw_pwrctrl.c b/drivers/staging/rtl8723bs/core/rtw_pwrctrl.c
+index 448611ad8..5ef44a3ae 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_pwrctrl.c
++++ b/drivers/staging/rtl8723bs/core/rtw_pwrctrl.c
+@@ -410,7 +410,7 @@ int LPS_RF_ON_check(struct adapter *padapter, u32 delay_ms)
+ 		if (jiffies_to_msecs(jiffies - start_time) > delay_ms)
+ 			return -ETIMEDOUT;
+ 
+-		msleep(1);
++		usleep_range(1000, 2000);
+ 	}
+ }
+ 
+@@ -561,7 +561,7 @@ void LPS_Leave_check(struct adapter *padapter)
+ 		if (jiffies_to_msecs(jiffies - start_time) > 100)
+ 			break;
+ 
+-		msleep(1);
++		usleep_range(1000, 2000);
+ 	}
+ }
+ 
 -- 
-2.53.0
+2.43.0
 
