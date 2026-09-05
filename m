@@ -1,192 +1,105 @@
-Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D555E35B64C
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:49:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.99
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788623389; cv=none; b=m1Q5fD8hQH9Rw2O4VnXc+bKKwpOnudMzkjd25eQJVBbI5aVXq/ssfvpf8plW/rvmIfvsPgsbI2DtfJebqDZz70PjoVJHWCzQUPPHm+BqRr220qdPE47cv6ZumhVfrxoc3FBz3u1BxARG1d93uQv34LEJ6wZpA7H1GPR+xTASJvM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788623389; c=relaxed/simple;
-	bh=1raF9hKpxW1taHQ74FAdyWBZETQB2ZuJx53fgvEryjk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=I40w/OUTMiOGBD6fRx8FFeV3QJyh2GUT53xUFAm+//Ae+pHDV2N3X+qum7YAEDKr6/hV8qiABuUIuANvdG8mjf5gnuzTRFRCq9888COuIL3uTzCuPaOMt1/7w2+wgxcd9o0Alk4JZ5vpTLuj7XJMyd8V3GVwlCe5fPjJtvZQjNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=BKH11Yn+; arc=none smtp.client-ip=115.124.30.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88FEF3537F5
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:52:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788623573; cv=pass; b=RjodgAe9xk9MI8vPj9G6jB6L2LZpBylkvGMV4EKmsUy+E6o6oG/WkkQf5hF+ZV1GSuahWs/FojLjcVekHtpkOzOe+ucGu/IuFpY55U6iOJfG+ZoEsEe+3eib1BCiMfh2WPcnASNA1V79XB2u0Jo+jokHREa0pwHuhtG1wMwW2ug=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788623573; c=relaxed/simple;
+	bh=Kv0M8qyBz8AiZgOwtl2kafCJPZCOeq5ea1CJHXP95kY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Fy4aiAUqnOvokKkhLhPsdS4q9uvesXnH1FEgfY/UPwSGzcNTJHfXJqcZQ3CYoeh+5ufnCGh/ADhl5NnS2MVfYPdA6lx7qoifQZMHVWVgJYc9GcyF6zSX6aA90BEDtPYIekG28A54I6/BlVKMR7N0m78CZGPDCUI8vhYxjTeFiyQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZwCWJ/Wk; arc=pass smtp.client-ip=209.85.167.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="BKH11Yn+"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788623375; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=WkTxrdiPtb120sX9TKnjMh5DPVxZ2gJIoYJu4yxR7vI=;
-	b=BKH11Yn+rEdlb8oN8xYjmwsyKLLXBG+0jMulc3nO/gRl/OCpXWicmp7AxMrvaBwTEkJ81gYp0yTmbm3EI/IGCN2qdeyEnVu6F2rpUj/io4vsRFUwsYlk3OL2sMkIv0gkpTKZf1Izyxhl5JGo523yg+8PLt3CANDtSXXoRcmD+fc=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=xueshuai@linux.alibaba.com;NM=1;PH=DS;RN=15;SR=0;TI=SMTPD_---0XALG-eb_1788623373;
-Received: from 30.100.134.114(mailfrom:xueshuai@linux.alibaba.com fp:SMTPD_---0XALG-eb_1788623373 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Sat, 05 Sep 2026 23:49:34 +0800
-Message-ID: <2bde734c-eb86-4c7a-958d-b431e6d13671@linux.alibaba.com>
-Date: Sat, 5 Sep 2026 23:49:32 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZwCWJ/Wk"
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b28c91fba5so2608730e87.1
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 08:52:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788623570; cv=none;
+        d=google.com; s=arc-20260327;
+        b=E2YE5bspieJtJJVsVo2YIkpoiF9AVx+PtnfKMSIdqqPuIGDHea1cHgJhQ2U7m95Nvb
+         MZc90iUE5+68f/TUnSAe7nLRwdVdN63aS8iV75xBgAcqOVAepVj2U//lh41Mh85fJscA
+         ZWqhw4Dtx5z8J5ZzPrhUkJyGBOxsHp5OCEzggcq99przqqAN5bJkilBdNVXimubHOAHf
+         Ann4szMvsmLKSwL05jDhGlBXBLZSOGedF4kZhZ9R1JESUHTSQbB1sop9rbDKT6GjDF1w
+         1eLXL3b1VaF1AizDabzs+7fmZdNG8b44i4TRI9uY5mIbslUQ0XSI3/a2hYQ6nE9w53AY
+         4D4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=Kv0M8qyBz8AiZgOwtl2kafCJPZCOeq5ea1CJHXP95kY=;
+        fh=79Xs8vWqPB4Z1rOFbhTjGZSuvNXU29zqw9LttJXyFMc=;
+        b=s7DavWZqbosyM9VT/Ja9IhXOCh22rYSIBfmI1/WtgpJc9cwqOnRWziw/UAQvoXL+/P
+         AaetbHuC1gNXOh62mqTm34J1XceHffZbPrhYX77uLK7792y3NeTgcCDMYtEapVF0R6l2
+         qzM7Fn48BG32sZzrvRUbdq4z4SFt7zSWE1etUL4ME+nT6UYXLQPfW3/SIywPoxMjFi+x
+         fhu751t7vrW47wTdZeRjrHdRtMbOomUh7/QNZ5XoZ2FNwnV5PGf+Z3z86WyhLEyCv1yd
+         d0brt58Z583XT7wEWRtnZfrPAD8/1pbCjZ2ssHyA0rrlJ6c7xbYJ2XxcyTatuehCmKah
+         UGpA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788623570; x=1789228370; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Kv0M8qyBz8AiZgOwtl2kafCJPZCOeq5ea1CJHXP95kY=;
+        b=ZwCWJ/Wkmk54JCJsv+brbbazhG2lzR69i2e645S6SoVdDNQ7EJYfbpc72aTvCqxxQv
+         SKoNK+p2qhFs9ZHuBFugLLyiB+4j9ZIyPvkr85DQeqNOQWQqzt2Er1hMLZ1SPxIqYEiQ
+         qT7n9PuG93YP0KrJQQaeU8GP7A4UKjkmyuULId+bCqh79K1vx9rKd8o4mGD3IbN7BSpk
+         zBJpVWopXSG3+tAkl92gWrkkpeaXENzaZrAMUqefdSdquRO6pWfHDB0GpyMAPCI7ZkWW
+         46RgmKesMedhqyD1Y7z2TQEzEOnyqQpGN9zeoxyoodbdWQoOIRYYkbmBthga1Ny5UrZX
+         lyRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788623570; x=1789228370;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Kv0M8qyBz8AiZgOwtl2kafCJPZCOeq5ea1CJHXP95kY=;
+        b=Ef8MGa2bY/qpBjhZelcMhEEtVEnb3y3cZAWjZTnGhn+/luqP+SNv96Fbsz/UfPhsrf
+         OBa6fTAahjrbzIQ1RbybpBIzlgLNHUCW2ZIr85Oc0kIZiVzKE1iB/sk8HbdXKwFJsQkX
+         9AuKp5LKlDdU7TxbV17zrXF1UO7VKIBhmSJkrmLID1AQE5Lj/mYng3BW6pqLFbwzjYxQ
+         2MkHvtti0JgzQYKGU+G3pdH42o3n5mmQN/XqKgtJnYFGC7U2GHEATOR97XcE6SCkkE1S
+         SuVY9vSYhdeJQccM0Bpuy1bYdT+HQ8FXIDCNCYMHkJymTlqSAv2izB7L4ItkrNA1xqhS
+         YvEw==
+X-Forwarded-Encrypted: i=1; AKwUvBxR+yQ40Py7PGkpPsS6ZNunAUtwRTQ6e8X+ZWfsi/Kij2MmK/jSQGBBCAGXypWxO35ib21pNuAaDYjabjQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kPyxyULNot+pUoHk0BwOjqeIoQv7qQe8IPKaWH9W57VawFfHHp
+	cDkoO83hxueayhWvPAhlGKCT6iQvEtcPZ3nZxq7N/bTRTx/RdIKynkvQ7QaD3vsDNuxHhKrP6WY
+	zRl/YgP2Ji+fLg/0IbXKbf7wRXqcaLNQ=
+X-Gm-Gg: AYBFou2rLoEJJzaU07T9Vpja9I2hjL15uyhkYAbhIpnFcGjxM8oyfsvZ+N1IT5lSzJB
+	HfopFwGBMhHBJZlmYRTCb/GN+aU+XzB8e3G1g3ygrKf+2Qq9/Gv4zexKR/3eepijwBt1Hq5qm5G
+	Xso/+dGB+0jeHyHKfJk13Uo6ZSTLqqZ5MLriXmKLVB79layfNC1yry04FA+ntEKl3Xky0FTE+J+
+	MAKfzJ0wjYbx6gTzVbE1raesdHfRnGAFeqGdEy7/8VFbORoEBlxB5gXBN6Q+wgqBqTwrHD7Au5S
+	60LsWvMPYSuScNQep/yF6IGBNCi/bOVosLlPrljU5IkE/6dekQI8oBQZq2hfFoTE3ZlsN2AlhQo
+	tUSZAxHNoKnnKBIsyjju0d0pXPsA=
+X-Received: by 2002:a05:6512:10c6:b0:5b3:12b1:be93 with SMTP id
+ 2adb3069b0e04-5b6170dee63mr1554897e87.0.1788623570165; Sat, 05 Sep 2026
+ 08:52:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/6] KVM: arm64: nv: Implement nested stage-2 reverse
- map (new data structure)
-To: Wei-Lin Chang <weilin.chang@arm.com>, Marc Zyngier <maz@kernel.org>
-Cc: Wang Han <wanghan@linux.alibaba.com>,
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
- linux-kernel@vger.kernel.org, oupton@kernel.org, tabba@google.com,
- joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com,
- catalin.marinas@arm.com, will@kernel.org, ljs@kernel.org,
- itaru.kitayama@fujitsu.com
-References: <20260810205038.118843-1-weilin.chang@arm.com>
- <20260902163500.1841671-1-wanghan@linux.alibaba.com>
- <877bl26aqg.wl-maz@kernel.org>
- <wsnf276xrun3g4hjr3t6alprapctg5z4kpj422v3hujqdjnrsa@swq4blkqvvj5>
- <875x0l5udh.wl-maz@kernel.org>
- <eylfcgxs2xzu57czyuhkpmum45lpxyccyu2yh3mipr67aq3xo6@xinygxzavoja>
-From: Shuai Xue <xueshuai@linux.alibaba.com>
-In-Reply-To: <eylfcgxs2xzu57czyuhkpmum45lpxyccyu2yh3mipr67aq3xo6@xinygxzavoja>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <cover.1788298883.git.ahmadexp@gmail.com> <89780f7db207c7fe7adbd45e1f38f0a041794c8f.1788298883.git.ahmadexp@gmail.com>
+ <apnRfWVAiXj1fRXs@ashevche-desk.local> <apusvKc2PnSShaoI@gryt> <apvJaBo4Zzz2GAMx@ashevche-desk.local>
+In-Reply-To: <apvJaBo4Zzz2GAMx@ashevche-desk.local>
+From: Ahmad Byagowi <ahmadexp@gmail.com>
+Date: Sat, 5 Sep 2026 08:52:38 -0700
+X-Gm-Features: AcwNN1Uulc5j99vd1g8KKcjM_9c1_I_u87n5sCZVaRosxcsgyccAcFuaDvKiJZQ
+Message-ID: <CAOQiBWPf1qPcVqFGyw_L2zn46+Nkp8WZpkodM3sC1hpFgYnEHw@mail.gmail.com>
+Subject: Re: [PATCH v9 1/2] i2c: mux: Factor out channel node lookup
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Peter Rosin <peda@lysator.liu.se>, Andi Shyti <andi.shyti@kernel.org>, 
+	Andy Shevchenko <andy@kernel.org>, Jakub Kicinski <kuba@kernel.org>, linux-i2c@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+Peter, Andy,
 
+Thanks for clarifying. I'll use one declaration per line for dev_node,
+mux_node, and child in both patches in the next revision.
 
-On 9/5/26 6:42 AM, Wei-Lin Chang wrote:
-> On Fri, Sep 04, 2026 at 08:49:14AM +0100, Marc Zyngier wrote:
-> 
-> [...]
-> 
->>>>>
->>>>> The L1 was started with 8 vCPUs and 32 GiB of RAM using:
->>>>>
->>>>>    qemu-system-aarch64 -smp 8 -m 32G \
->>>>>      -machine virt,accel=kvm,gic-version=3,virtualization=on \
->>>>>      -cpu host -nographic -enable-kvm \
->>>>>      -drive if=pflash,format=raw,readonly=on,file=pflash0_bak.img \
->>>>>      -drive if=pflash,format=raw,file=pflash1_bak.img \
->>>>>      -drive file=./ubuntu-vm.qcow2,format=qcow2,if=virtio,cache=none,aio=native \
->>>>>      -nic user,model=virtio-net-pci,hostfwd=tcp::11234-:22 \
->>>>>      -serial mon:stdio
->>>>>
->>>>
->>>> Puzzling. If you are only running an L1 in VHE mode, there is no
->>>> shadow S2, and therefore nothing to unmap. For shadow S2s to be built
->>>> and affect the MMU notifiers, you need to run an L2.
->>>
->>> I was thinking the same at first, but realized even with L1 in VHE mode
->>> there is a small period of time where L1 runs in its EL1 during boot, so
->>> one nested MMU will become valid for each vCPU. That causes
->>> kvm_nested_s2_unmap() to iterate through the entire IPA space 8 times
->>> (-smp 8).
->>
->> It should be one nested MMU for the whole VM, not one per vcpu.
->> That's assuming they share the same VMID+VTCR.
->>
->>> What I am curious about is whether one single notifier unmap is enough
->>> to hang L1, or were there multiple notifier unmaps.
->>>
->>> QEMU with -machine virt uses 40 IPA bits only, unmapping that takes:
->>> 1024  (4KB pages,  unmapping 1GB per iteration)
->>> 32768 (16KB pages, unmapping 32MB per iteration)
->>> 2048  (64KB pages, unmapping 512MB per iteration)
->>> iterations for each page size. There aren't many mappings in each
->>> iteration too. Does this really take that long on real hardware (even if
->>> this must be done 8 times)?
->>
->> This should be close to being at zero cost, so something else is
->> amiss.
->>
-> 
-> Guess what? I am completely wrong once again.
-> 
-> The complete range of the nested mmus isn't about the value
-> supplied by KVM_VM_TYPE_ARM_IPA_SIZE. Instead it is the PARange exposed
-> to the guest. That's because the guest hypervisor is allowed to expose
-> whatever memory map it likes to its nested guests, as long as it is
-> within the guest's PARange. This is explained clearly in
-> init_nested_s2_mmu().
-> 
-> Now the PARange exposed to guests should be much larger than 40bits. On
-> the neoverse-n2 it should be 48bits (256TB), therefore the iterations
-> required for each unmapping would be 256x:
-> 
-> 262144  (4KB pages,  unmapping 1GB per iteration)
-> 8388608 (16KB pages, unmapping 32MB per iteration)
-> 524288  (64KB pages, unmapping 512MB per iteration)
-> 
-> I think these numbers match the hang time Shuai have shown.
-> 
-> Just to demonstrate the difference I have tried manually limiting
-> kvm_ipa_limit to 40, and tested with software emulation. Before the
-> manual change a kvm_nested_s2_unmap() finished after 42 seconds, after
-> limiting kvm_ipa_limit kvm_nested_s2_unmap() can finish in less than a
-> second.
-
-Hi Wei-Lin,
-
-Your PARange analysis is what this whole diagnosis rests on -- the
-48-bit/256x arithmetic is exactly right, and our ftrace data confirms
-it to the chunk: every full-IPA kvm_nested_s2_unmap() in our traces
-walks precisely 262,144 1GB chunks, the number from your table. The
-kvm_ipa_limit=40 experiment also pointed straight at the answer. I'd
-only push back on the last sentence:
-
-> 
-> With this, I think there aren't other underlying issues, it just is that
-> slow unfortunately..
-
-
-I don't think it is "just that slow" -- I think it is a specific
-regression, and your own data localizes it better than the conclusion
-suggests.
-
-The thing is, kvm_ipa_limit=40 cannot tell *what* each chunk spends
-its ~3.3us on, because the walk is also per-chunk: cutting the chunk
-count by 256x shrinks both terms together, whichever one dominates.
-The experiment that separates them is one where the chunk count does
-not change at all.
-
-We ran that experiment. Details are in my reply to Marc, but the
-short version:
-
-   - Before: 877ms per callback, 262,144 chunk calls, 262,144
-     broadcasts. Chunk count and broadcast count are exactly equal
-     (8,476,033 = 8,476,033 over the trace window) -- every chunk
-     ends in a broadcast, mapped or not. Per chunk, ~4.6us of the
-     ~5.1us is inside kvm_tlb_flush_vmid_range(); the walk of an
-     empty chunk is ~0.2us. In an uncontended numad episode, 87% of
-     the 1312ms is flush time and 8% is walk time.
-
-   - After conditioning the flush on the walk having actually cleared
-     a valid leaf (the candidate fix in my other mail): same 262,144
-     chunks, same walk, ~110ms instrumented. Nothing about the walk
-     changed -- ~3.1us of the per-chunk 3.3us was the broadcast.
-
-   - And the table really is empty, as Marc says: with the flush
-     count acting as a detector, the first full-IPA unmap of the boot
-     issues 2 flushes (the EL1-boot-period mappings, a few dozen
-     pages in two 1GB chunks); all 35 subsequent ones issue zero.
-
-The code history agrees. Before 7657ea920c54, the TLBI lived inside
-stage2_put_pte()'s 'if (kvm_pte_valid(ctx->old))' -- an empty walk
-issued zero invalidations, ever. v6.6 hoisted the invalidation out
-to the end of kvm_pgtable_stage2_unmap() to batch it into one range
-TLBI per call, but the condition got dropped on the way. So "since
-v6.6, the cost is proportional to the IPA range, not to the number
-of mappings" -- which is precisely why the empty table pays in full,
-and why I'd frame it as a fixable regression rather than an inherent
-cost.
-
-None of this subtracts from your PARange finding -- it depends on
-it. The 42s -> <1s result was the 256x chunk scaling; the remaining
-<1s is what the conditional flush removes.
-
-Thanks,
-Shuai
-
-
+Regards,
+Ahmad
