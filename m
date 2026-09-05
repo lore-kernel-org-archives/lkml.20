@@ -1,336 +1,212 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazolkn19013067.outbound.protection.outlook.com [52.103.20.67])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E2C7314A83;
-	Sat,  5 Sep 2026 20:05:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788638751; cv=none; b=UOxGoYhQowTb1l4P0QuqV27b2wfBE0C/qLdHpDSZ2wOfyZoSEhfswJoS3kIcNZcbIG5wMeqdTBbKS1n49jyZP7uEVFv+mJ7n9Lo5YShd55Qo6YLoOwlyQyoRU56xSga5QT/iMU9zH+ESRk6jsDsNptvq0ett5fK4IBZ2RL6LlL0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788638751; c=relaxed/simple;
-	bh=74GoPoepf9uUWrJ7zE98kdJZeLGan5Qu2KH16saz6Yw=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=A3NocLkPbEShWwiKRrqj6CBZIFQBVSeoTzI3hHv+u9gAl4pQLdbjoOoD/dvKXq7c3dufHQPXiZFR1LXMq074zoq9nIGkqicMyrrqk5oJHKUNX3V8UdisCnk2qQywAXWnYdIDsV+7VANJD5GhAOYpPODSGZtiSQ1A10YGBeenqnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fW4h7/ze; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 460FA374A06;
+	Sat,  5 Sep 2026 20:07:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.20.67
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788638857; cv=fail; b=LiIIeITuu+UcFhKFh96jxAY3sAc55WT8O1pC9vgh+JuOp8xy+pKhLNFmrjhMLQSscziHqszJPvauSPBo/g4NM2BPxVRpi1bYd9tYlFENJQqSH7aI4deepHhkSSbxcMlIwBVGqCgl5Hkxos9j1DXqrFyr96oNxLmSREVhbV73iQU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788638857; c=relaxed/simple;
+	bh=qknAqTsBzBMylaL/ZciZkcLJMoCBVB+hsE4u7wFpnD4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=UUr9rBr9upj8YB8bOBjX1PadQPxzVjX7GejayWng3u4Zceg5tUH1ANjfTGyxVn260RJSGrWU9C3PTNr5rVyA+emzdlBTKjN86WHOyBNRsi0Z0uERY2k6aOuIoVUOydnSLaEY/vq2u2Mn3h7+++BquWlFK27oTph5sujwQGqJ1Jk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=YsJnann5; arc=fail smtp.client-ip=52.103.20.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fW4h7/ze"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CEF31F00A3A;
-	Sat,  5 Sep 2026 20:05:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788638749;
-	bh=eG+joLFXyi1YFshmvc0VaePPUpkxB8Vc/bsrxdq3FbY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=fW4h7/zeLlh5qtkO70LNhTPEDtwursOHzD42/HYoQObX1/+eemUa+ubr9y9fxLGD9
-	 zuHMmyezoBPU9kZ/vc1BBfq5SC4wxRKXWdyKOU5ArvxAzk6y0bS0aLxp/C/G1uk0Ds
-	 ya0AZHtG61E9+7H21NNIH+4aPZJOKTPYfBasvh3B1iMFcTZ17MF8vrlb5n4/bSkf2B
-	 fULcQl5pKB8OeCTCyfGOjnKdwlltovHLsEenZiN9q0dM4vxDX8w+K2kGiD6E59Fn2E
-	 rJketOdHwGClQHUAcnRmYM0M/f/H/2+3yXunq3kUv0gERsisXI9KR1rndAEJMxxgCj
-	 4u3xFtDbsghZA==
-Subject: Re: [PATCH net-next v8] net: reduce RFS/ARFS flow updates by checking
- LLC affinity
-From: netdev-bot+sashiko@kernel.org
-To: nashuiliang@gmail.com
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, kuniyu@google.com, willemb@google.com,
- sdf.kernel@gmail.com, liuhangbin@gmail.com, skhawaja@google.com,
- ncardwell@google.com, martin.lau@kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Sat, 05 Sep 2026 20:05:48 +0000
-Message-ID: <178863874807.219967.3784447414481415437@kernel.org>
-In-Reply-To: <20260902025203.4741-1-nashuiliang@gmail.com>
-References: <20260902025203.4741-1-nashuiliang@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="YsJnann5"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kjUhQHSL42BZjIaay6nmM4SE5yDm/h0Vb4lhylEVvz2wtL63EnWqtCZMtN8I24/Rf7oejwM0odoyL2rTpgq1z38RU3I8mvEPxGfPXzx5pML8alYKhwL95gETYW8cJBYeh0gFLqFO5bVS3pQwZmVnIC6tn4mNaN011xYUfDqiKwLbYi5yy1r97fi28Mp2uUCDLMzLZmXqAVqWGYMuwD5qC4/C+X9IBFcRfXh85WXMdD8DCDMZC+8lhcY3lMYkEYvBbBtXuUVPLw4kJ5LvPIFEWi2v/hl5C68iM9bz8xqXLmpqzVQc9K5X9eXJ6eU6BKvP098US+ITe7FLkGl+VJxxEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=95WXlR4VGeAsi1ivYVerKOjxBxwQfhFhXfCyP8K96h4=;
+ b=f6kSaVQIsJcksyauIRqLoHtipHkuI0Vj+ztP7tA7GDnp/+qNSu16j3/Jv/5LFMrXqiCYFupw4oNXs6ICkihqsFgdSMFaDMZGKnbfW6Z+W1blUZUNohKFTkdryzM6fVXdtylyJxxahywkKrFdlZ66byIrw8Tflq38NKB0P+xtOTp5KsddIlGh1Opq0Mpqj5Gva0B+KM6A37wK6njPR4e0vIKwULFhr+93ec9V5lf3Vq6iQvwYr+qzdxV22lA6kaQ/m76ciB0bTVxwzlh1FGJWjntlX+KDo9TzsMUUzdkDanf5ws4KKDZAYgDRbP95R1Nb46GrSsuR2M8gLp3nwSWxbQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=95WXlR4VGeAsi1ivYVerKOjxBxwQfhFhXfCyP8K96h4=;
+ b=YsJnann5A4lpfTRC3wdDUDGNXB4Cn017HeUepeAFufaTwjEWa2d7xeEeGFUEtEnB61k56c8cUEX2vDbeJOKl7Y1amI+udTuTpbuspC/vX0CpphWgWHbI/UMWze1moGuot4Gj4grR1L1LHNC/XHWejWxA08XZuCranJHvMYjkLS0IscpaPtGNTJ69xWzlhZ3qK25H5xOkbrXz9EF3OnUlqaXMVdmN6YQQUbzp8zdWX+AS1gJlFspATU7vhCoWv8ldJz+oJW1nRBQYH39WQT+bQv8ZMNAnWcOISO5fB2qQkfWb4jx/oCRXFDXjJxxuFjGgjyWNTMI9LqiaagM7ro42uQ==
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
+ by CO6PR02MB7842.namprd02.prod.outlook.com (2603:10b6:303:ad::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Sat, 5 Sep
+ 2026 20:07:33 +0000
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::900:1ccf:2b1e:52b6]) by SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::900:1ccf:2b1e:52b6%3]) with mapi id 15.21.0382.012; Sat, 5 Sep 2026
+ 20:07:32 +0000
+From: Michael Kelley <mhklinux@outlook.com>
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>, Michael Kelley
+	<mhklinux@outlook.com>
+CC: Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy
+	<robin.murphy@arm.com>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Chanho Park <chanho61.park@samsung.com>, Bumyong Lee
+	<bumyong.lee@samsung.com>, "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH] swiotlb: use the adjusted address for the highmem page
+ lookup
+Thread-Topic: [PATCH] swiotlb: use the adjusted address for the highmem page
+ lookup
+Thread-Index: AQGeGvH8ZjIry23Y+a5bprIc/rGHIbc+YC5QgAA55oCAABRisA==
+Date: Sat, 5 Sep 2026 20:07:32 +0000
+Message-ID:
+ <SN6PR02MB415711D6825AE8C7B88F0FD4D4B42@SN6PR02MB4157.namprd02.prod.outlook.com>
+References: <20260905084210.148255-1-donggeunyoo.kernel@gmail.com>
+ <SN6PR02MB41579A137BC1D48AFE93E27FD4B42@SN6PR02MB4157.namprd02.prod.outlook.com>
+ <20260905185431.177766-1-donggeunyoo.kernel@gmail.com>
+In-Reply-To: <20260905185431.177766-1-donggeunyoo.kernel@gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|CO6PR02MB7842:EE_
+x-ms-office365-filtering-correlation-id: da3fb57f-9b05-463f-09ed-08df0b8951fb
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|25010399006|51005399006|15080799012|31061999003|41001999006|55001999006|24021099003|8060799015|8062599012|37011999003|19110799012|13091999003|440099028|3412199025|102099032|40105399003|2607281247196008|1710799026;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?phI2+vrEFbXftxWfXDVbtt/37EnyEI1O3F+orIoiNtLbaORrs0ks3TbiDMFp?=
+ =?us-ascii?Q?OiyFIXuzQTtdP3cj5YhJeaYbsMcCh7xTR8uQituGdfpW2LSV1ehQO9mcyfwk?=
+ =?us-ascii?Q?zDyXB2qxY8EYY3Yw/xTyy2NwRyhAWSl6BlFfzd+2y1tI/qAzyFuiyL8R/7dO?=
+ =?us-ascii?Q?psSNMY070PjuIAos5TETaYIPotEUZprUu+9rnxVjrp0WahSVFeXDxJpLOsMH?=
+ =?us-ascii?Q?8Eu5HC06nqjObva5ostjVNboHkoS6eVdraI8vpDrTD6YrzvlLVA22OMPQm9a?=
+ =?us-ascii?Q?7jufKYBo8ytf83fAkokuWmySzstLS/ubiDwkyUuWsR66Rjt9eIvHT5tbTi30?=
+ =?us-ascii?Q?SawL1glAWyu2pFJkhVygrIHKdD9Fv394Q3qN4Md/JCA3NzHpK/luZXRHMbzK?=
+ =?us-ascii?Q?DK/5VCvm4crq/x3eEu2tanlCx64CaGX2iA2lV22BTncNejeuFZlde/PJKhAi?=
+ =?us-ascii?Q?57cMgY0RjWGFTcrRvrAKqbfWrULQuGa7/9VN0lYdoDPDEF7cLUJd3aBMiZkJ?=
+ =?us-ascii?Q?1XELkuQLtrXIDz5x2kk7wEJXzTM/OJMPEaTyWSoMugdC2kN996YgyY3sGDgV?=
+ =?us-ascii?Q?zsmZbA15RkhlBR27hEkRz2xB2N5nUV0+IRweEAmkp+zEBvcTUq4hYp3qC/It?=
+ =?us-ascii?Q?Cxjt5mZjJx6WusZXy63uPBqF0WyP1/twjNeQHYvCltF0yHBEGfZ2rwhiLzBF?=
+ =?us-ascii?Q?BNOa64kiGVhNSryG+IU9WlkQ6OBina+IgbFUWCptxecXIyR/gI4bQEgInCAg?=
+ =?us-ascii?Q?gTNBh5CMLoeNO7MaG9LDu9En1UVOkYGfJ2Bh6MiQKavHw4WIolpRkUCPf7Yy?=
+ =?us-ascii?Q?xOS/X3/NCEFxgCt0hRwlezZOOPLibz2PzzHyGXLsKUXAI4A0KXjm0syQAGa7?=
+ =?us-ascii?Q?u/x8z5GKJGcD4qAHLlb9d/xGpbfmlAjjM48/HhUBQhAd3HE52GjpV6LrfJc9?=
+ =?us-ascii?Q?JcDt2wKxCbFuBh6WR+nP5MLuxYTBR7YrOY0aMJqo8e4Rc9tjff7P/m2xrF6T?=
+ =?us-ascii?Q?S7MthwMUfSsAi4g4rZa+SqsF9M/s/jbt1YmTUwh3ilqN81eKoXPtXFzVIPYS?=
+ =?us-ascii?Q?uB30fv5iLCP/qXOmyafDr1BrmEtf4PHS440y3rnpHAyvmJYRvE8=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?jBUSrw6ZiqJAK9MT4fXZqO1j1fp/jdI8knMCIBB3ewcL/G1j2LnnyG6+/rI6?=
+ =?us-ascii?Q?UIIBewwqB6b+wFADEIsISlvpFB0XnYguf0imEfNu+iisBWBPlFjfGKHhyAbQ?=
+ =?us-ascii?Q?3GS9Wd9zf2dylSA1VZw5xo+6xWuX8BaBNDDM7mdwZIfvwL3ybD1SwvQndT0u?=
+ =?us-ascii?Q?fsixB55NkbrgBiOMGWRernhQ4aMXnK0jVG2BG39JTXe7CfOQHON7YdfXPT7y?=
+ =?us-ascii?Q?PDM20UNClQ1RdbzagVAiMFR/Pd2RhRkBHfgkZKHZ6S2kwTMy15oxU3wHeMOV?=
+ =?us-ascii?Q?zihmVwz8WNb+248MI35Um2G6jsreT9iRH1IdHMmdlRaGQ+ubRiq1hM233JNr?=
+ =?us-ascii?Q?tVFezN5UZzYok3+5qEYgoehClIfGGWoIAOFue1r1fXWc9kpYKWVAEgR16mjC?=
+ =?us-ascii?Q?QndDlw41hxPBEiYmVvHSgV8sOH74hVZgN3hs7joopaxEbSzR7KZrmIPGG5GH?=
+ =?us-ascii?Q?aRSs+Eb8Bn7d73IPrZDtbLUQL0cDLG/OWGIjJqc0aB45+RBvhK52rFx2AxeW?=
+ =?us-ascii?Q?bv1wEcafD1tdjm90e5jTf2WKC/VJ7TwdCIUFD8QBJIfR0qEslocQgnhUTRmr?=
+ =?us-ascii?Q?ZuOX7+vqwjZWJ6k9CDrocWAkQNxmrW9ozd9uyqGlfoHINz4OaBoZhjJHwUQu?=
+ =?us-ascii?Q?mTnJPJ9SzqukWG9n1Qht1HOWsFpmnGOKSKNTMcP+5MQclgKANA+angu0Wfx1?=
+ =?us-ascii?Q?jhX1XIH95iL3CEjQzt0t23NH0VvbuRXqF8VWeS0u++FyFRFdRH6BDorbGQ3L?=
+ =?us-ascii?Q?IxY45NIj9kHBjssXbAxrhDKBLN5qbxchzz3CabVq2Tr287cx4nTjl7rwtuHy?=
+ =?us-ascii?Q?EqpK7RDoAkLhMXtOW0W7LgJeJ6YipfICLiiJEPNbDgYdvkc2e/KoLAO96noq?=
+ =?us-ascii?Q?s1dM7dezQzFn28SBbm/23OM/qTtbbcSxfyk1Z9fcV6zQupV293y2G7FVTyVO?=
+ =?us-ascii?Q?64EF/NJmwtbPZXB5zmCVYRMshgT97+BHlsEZV5p6xPAoYvf7ZGTc/PFPyJAl?=
+ =?us-ascii?Q?EkEwJpA10bzP71cVu+G3O1yMFaTGWqEEKeYn5kwCDsP24JjfiEYDd+6p6iUq?=
+ =?us-ascii?Q?qVOo20YNyvttWIBNZF1DoGu6hBPO60jnbZ9CdcJ7wPtN8Vks2q7Cx/Vf3zol?=
+ =?us-ascii?Q?YvUwvxbadd5pKdWowFumLl0+Emzo+1dblnMPh0B2K7q0A18+XF8sRR6lFCTl?=
+ =?us-ascii?Q?ik6VpYgtkCsBeKuTi0YuXVis2TrOHeO7b7LogH4msPHLEapq0MAuQM2NNbDM?=
+ =?us-ascii?Q?0/q+7ajLewFAHeRZWcTUyatgNReIFOiYBlUtEBYLpaT3mQXj6u5xdcxI2Ntp?=
+ =?us-ascii?Q?Kx2stFmb10w5MPJ10R1t1/7ZIIyWkdvsXv5QRt3iyg7KRbnkK6iWBeqoOa1C?=
+ =?us-ascii?Q?dw7/qgY=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: da3fb57f-9b05-463f-09ed-08df0b8951fb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Sep 2026 20:07:32.3149
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR02MB7842
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider:
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com> Sent: Saturday, September=
+ 5, 2026 11:55 AM
+>=20
+> On Sat, Sep 05, 2026 at 03:45:41PM +0000, Michael Kelley wrote:
+> > I don't understand this paragraph, but that may be because I'm not that
+> > familiar with highmem. Are all the slots making up a particular swiotlb
+> > mapping either highmem or lowmem? If a mixture is possible, then a
+> > partial sync could start somewhere in a lowmem page and cross over
+> > into a highmem page, which would break.
+>=20
+> The slots are always lowmem: the pool comes from memblock_alloc_low() and
+> swiotlb holds one kernel address for it in mem->vaddr. PageHighMem() here
+> asks about the pages behind orig_addr, so the question is whether one
+> mapping's original buffer can span both.=20
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 2
+Yes, that was exactly my question. I worded it poorly.
 
-- [High] rps_llc_check() (net/core/dev.c:5275) makes its keep-or-update
-  decision purely from the CPU field of the flow-table word, discarding…
-- [Medium] sock_rps_record_flow() and sock_rps_record_flow_hash() are
-  converted from static inlines in include/net/rps.h into out-of-line…
-- [Low] The patch adds a permanent user-visible sysctl
-  (net.core.rps_feat_llc_affinity, net/core/sysctl_net_core.c:558-564)…
-- [Low] The patch contains changes that are dead or unrelated to the
-  feature.
+> It can. ZONE_NORMAL ends at
+> max_low_pfn and ZONE_HIGHMEM starts there, and while the page allocator
+> will not hand out a run across that line, pages_are_mergeable() and
+> bvec_try_merge_page() merge on physical adjacency alone.
 
---
+So there's exactly one case, which is when a merged range crosses
+the boundary between lowmem and highmem.  And the range in
+that case always starts with lowmem and transitions to highmem.
+There's not a case where lowmem and highmem are intermixed
+in a range in arbitrary ways.  And there's no case that starts with
+highmem and transitions to lowmem (though that would just work
+with the current test).
 
-net: reduce RFS/ARFS flow updates by checking LLC affinity
+>=20
+> Your case is real, and this patch does not fix it. On a 32-bit ARM guest
+> (multi_v7_defconfig plus ARM_LPAE and HIGHMEM, 2G, swiotlb=3Dforce) with
+> lowmem ending at pfn 0x70000 and high_memory at f0000000:
+>=20
+>   orig=3D6ffffe00 len=3D1024 last=3D700001ff
+>     mainline    PageHighMem(pfn_to_page(PFN_DOWN(orig))) =3D 0
+>     this patch  PhysHighMem(orig)                        =3D 0
+>     phys_to_virt(last) =3D f00001ff, past high_memory
+>=20
+>   dma_map_page(pfn 0x6ffff, off 3584, len 1024, TO_DEVICE)
+>   Unable to handle kernel paging request at virtual address f0000000
+>   Internal error: Oops: 206 [#1] SMP ARM
+>   PC is at mmiocpy+0x4c/0x334
+>    dma_map_page_attrs from ...
+>=20
+> The same oops with and without this patch, and no partial sync is needed
+> for it: the bounce at map time does it.
 
-This adds a new sysctl, net.core.rps_feat_llc_affinity, which makes
-rps_record_sock_flow() skip the flow table update when the old and new
-CPUs share a last level cache, in order to reduce ndo_rx_flow_steer
-churn.  It also converts sock_rps_record_flow() and
-sock_rps_record_flow_hash() from static inlines into exported
-out-of-line functions.
+OK, yes.  That makes sense.
 
-A few questions below.
+>=20
+> is_highmem() is monotonic in the pfn, since ZONE_HIGHMEM and a
+> ZONE_MOVABLE carved out of it are the highest zones, so testing the last
+> byte alone covers your case and this one, at the cost of the single test
+> already there. On top of this patch:
+>=20
+> 	-	if (PhysHighMem(orig_addr)) {
+> 	+	if (PhysHighMem(orig_addr + size - 1)) {
+>=20
+> The loop copies through kmap_local_page(), which is fine for a lowmem
+> page, so entering it for a range that only ends in highmem is correct.
+> That guest survives the map above with it.
 
-> diff --git a/include/net/rps.h b/include/net/rps.h
-> index e33c6a2fa8bbc..6dacf0888a6c2 100644
-> --- a/include/net/rps.h
-> +++ b/include/net/rps.h
+Yep. I thought that would be the case. Using kmap_local_page()
+is slower, but the case where the range starts with lowmem and
+transition to highmem is a rarity. Please leave a comment in the
+code about the reasoning behind the strange-looking test.
 
-[ ... ]
+>=20
+> The second one predates 5f89468e2f06, so I will send it separately.
 
-> @@ -55,11 +56,14 @@ struct rps_sock_flow_table {
->  
->  #define RPS_NO_CPU 0xffff
->  
-> +bool rps_llc_check(u32 old_val, u32 new_val);
-> +
->  static inline void rps_record_sock_flow(rps_tag_ptr tag_ptr, u32 hash)
->  {
->  	unsigned int index = hash & rps_tag_to_mask(tag_ptr);
->  	u32 val = hash & ~net_hotdata.rps_cpu_mask;
->  	struct rps_sock_flow_table *table;
-> +	u32 old_val;
->  
->  	/* We only give a hint, preemption can change CPU under us */
->  	val |= raw_smp_processor_id();
-> @@ -68,7 +72,8 @@ static inline void rps_record_sock_flow(rps_tag_ptr tag_ptr, u32 hash)
->  	/* The following WRITE_ONCE() is paired with the READ_ONCE()
->  	 * here, and another one in get_rps_cpu().
->  	 */
-> -	if (READ_ONCE(table[index].ent) != val)
-> +	old_val = READ_ONCE(table[index].ent);
-> +	if (old_val != val && rps_llc_check(old_val, val))
->  		WRITE_ONCE(table[index].ent, val);
->  }
->  
-> @@ -136,25 +141,8 @@ static inline bool rfs_is_needed(void)
->  #endif
->  }
->  
-> -static inline void sock_rps_record_flow_hash(__u32 hash)
-> -{
-> -#ifdef CONFIG_RPS
-> -	if (!rfs_is_needed())
-> -		return;
-> -
-> -	_sock_rps_record_flow_hash(hash);
-> -#endif
-> -}
-> -
-> -static inline void sock_rps_record_flow(const struct sock *sk)
-> -{
-> -#ifdef CONFIG_RPS
-> -	if (!rfs_is_needed())
-> -		return;
-> -
-> -	_sock_rps_record_flow(sk);
-> -#endif
-> -}
-> +void sock_rps_record_flow_hash(__u32 hash);
-> +void sock_rps_record_flow(const struct sock *sk);
+Works for me. Thanks!
 
-[Severity: Medium]
-These two helpers were static inline, so the rfs_is_needed() static
-branch test was inlined into every caller: a patched-out jump label when
-RFS is off, and nothing at all for CONFIG_RPS=n because the whole body
-was inside #ifdef CONFIG_RPS.
-
-After this change every call site on the socket fast path
-(inet_send_prepare(), inet_recvmsg(), tcp_recvmsg(), af_inet6, mptcp,
-sctp, tun, io_uring zcrx) emits an out-of-line call before the static
-branch is evaluated, including CONFIG_RPS=n builds where the callee body
-is empty.
-
-The changelog says this "resolves a symbol visibility compilation error
-triggered by 'tun' using sock_rps_record_flow_hash()".  Isn't the actual
-undefined symbol the newly added rps_llc_check(), which is called from
-the still-inline rps_record_sock_flow()?  Would EXPORT_SYMBOL() on
-rps_llc_check(), or keeping the LLC test inline, be enough and leave
-these helpers inlined?
-
-Note also that rps_record_sock_flow() now calls rps_llc_check()
-unconditionally, so the rps_feat_llc_affinity static branch is only
-evaluated inside the callee, after the call overhead has been paid.
-
->  
->  static inline void sock_rps_delete_flow(const struct sock *sk)
->  {
-> diff --git a/net/core/dev.c b/net/core/dev.c
-> index 38336858c168f..b27839eb594d6 100644
-> --- a/net/core/dev.c
-> +++ b/net/core/dev.c
-> @@ -5052,6 +5052,8 @@ struct static_key_false rps_needed __read_mostly;
->  EXPORT_SYMBOL(rps_needed);
->  struct static_key_false rfs_needed __read_mostly;
->  EXPORT_SYMBOL(rfs_needed);
-> +struct static_key_false rps_feat_llc_affinity __read_mostly;
-> +EXPORT_SYMBOL(rps_feat_llc_affinity);
-
-[Severity: Low]
-Is this export needed?  A grep at this commit shows
-rps_feat_llc_affinity referenced only by the extern in include/net/rps.h,
-net/core/dev.c and net/core/sysctl_net_core.c, and since this patch moves
-sock_rps_record_flow*() out of line, the chain
-rps_record_sock_flow() -> rps_llc_check() is now reachable only from
-built-in code.
-
-Two small unrelated items in the same patch: the two multi-line comments
-added in rps_llc_check() below start their text on the line after the
-"/*", whereas the surrounding comments in net/core/dev.c (for example in
-rps_flow_is_active() and get_rps_cpu()) start on the "/*" line; and the
-hunk in net/core/sysctl_net_core.c adds a blank line before
-"#endif /* CONFIG_RPS */" which is whitespace only.
-
->  
->  static u32 rfs_slot(u32 hash, rps_tag_ptr tag_ptr)
->  {
-> @@ -5263,6 +5265,48 @@ static int get_rps_cpu(struct net_device *dev, struct sk_buff *skb,
->  	return cpu;
->  }
->  
-> +/**
-> + * rps_llc_check - determine if RPS flow table should be updated.
-> + * @old_val: previous flow record value.
-> + * @new_val: target flow record value.
-> + *
-> + * Return: true if the record needs an update, false otherwise.
-> + */
-> +bool rps_llc_check(u32 old_val, u32 new_val)
-> +{
-> +	u32 old_cpu = old_val & net_hotdata.rps_cpu_mask;
-> +	u32 new_cpu = new_val & net_hotdata.rps_cpu_mask;
-
-[Severity: High]
-Both operands are reduced to a CPU number here, and the flow identity
-bits of the table word are discarded.  Can this suppress the very first
-record for a flow?
-
-table[index].ent is a composite value, (hash & ~rps_cpu_mask) | cpu, and
-every entry starts out as the RPS_NO_CPU sentinel:
-
-net/core/sysctl_net_core.c:rps_sock_flow_sysctl()
-			net_hotdata.rps_cpu_mask =
-				roundup_pow_of_two(nr_cpu_ids) - 1;
-			...
-		for (i = 0; i < size; i++)
-			sock_table[i].ent = RPS_NO_CPU;
-
-With a power of two nr_cpu_ids (the 128*2 thread AMD host in the
-changelog gives mask = 255), RPS_NO_CPU & mask == nr_cpu_ids - 1, which
-is a valid and normally active CPU id, so the escape hatch below never
-fires for an entry that was never recorded.
-
-If the recording CPU happens to share an LLC with nr_cpu_ids - 1,
-rps_llc_check() returns false and rps_record_sock_flow() skips the
-WRITE_ONCE(), so this flow's hash tag is never published.  get_rps_cpu()
-then rejects the entry:
-
-		if ((ident ^ hash) & ~net_hotdata.rps_cpu_mask)
-			goto try_rps;
-
-Doesn't that turn RFS/aRFS off entirely for every flow whose consumer
-thread runs in the LLC containing the last CPU, rather than steering it
-at LLC granularity?  The same applies when the slot is currently held by
-a different flow that hashed to the same index, and it can recur at
-runtime since _sock_rps_delete_flow() writes RPS_NO_CPU back on socket
-teardown:
-
-include/net/rps.h:_sock_rps_delete_flow()
-		if (READ_ONCE(table[index].ent) != RPS_NO_CPU)
-			WRITE_ONCE(table[index].ent, RPS_NO_CPU);
-
-Would it be more accurate to apply the LLC heuristic only when the
-existing record already belongs to this flow, that is when
-((old_val ^ val) & ~net_hotdata.rps_cpu_mask) == 0, and always write when
-the hash portion differs?
-
-If so, does that also change the reported drop of mlx5e_rx_flow_steer
-from ~335,000 to ~23,000 counts/sec, since part of it would come from
-flows that lost steering rather than from flows steered per LLC?
-
-> +
-> +	/*
-> +	 * RPS LLC Affinity Feature:
-> +	 * Reduce RFS/ARFS flow updates by checking LLC affinity.
-> +	 *
-> +	 * Frequent flow table updates can trigger constant hardware steering
-> +	 * reconfigurations (e.g., ndo_rx_flow_steer), leading to significant
-> +	 * contention on driver internal locks (like mlx5's arfs_lock).
-> +	 *
-> +	 * This strategy only updates the flow record if it migrates across LLC
-> +	 * boundaries. This minimizes expensive hardware updates while preserving
-> +	 * cache locality for the application.
-> +	 */
-> +	if (static_branch_unlikely(&rps_feat_llc_affinity)) {
-> +		/* Force update if the recorded CPU is invalid or has gone offline */
-> +		if (old_cpu >= nr_cpu_ids || !cpu_active(old_cpu))
-> +			return true;
-> +
-> +		/*
-> +		 * If CPUs do not share a cache, allow the update to prevent
-> +		 * expensive remote memory accesses and cache misses.
-> +		 */
-> +		if (!cpus_share_cache(old_cpu, new_cpu))
-> +			return true;
-> +
-> +		return false;
-> +	}
-> +
-> +	return true;
-> +}
-> +
-
-[ ... ]
-
-> diff --git a/net/core/sysctl_net_core.c b/net/core/sysctl_net_core.c
-> index eb35da3556f4a..9b6702f5eab19 100644
-> --- a/net/core/sysctl_net_core.c
-> +++ b/net/core/sysctl_net_core.c
-
-[ ... ]
-
-> @@ -554,6 +555,13 @@ static struct ctl_table net_core_table[] = {
->  		.mode		= 0644,
->  		.proc_handler	= rps_sock_flow_sysctl
->  	},
-> +	{
-> +		.procname	= "rps_feat_llc_affinity",
-> +		.data		= &rps_feat_llc_affinity.key,
-> +		.maxlen		= sizeof(rps_feat_llc_affinity.key),
-> +		.mode		= 0644,
-> +		.proc_handler	= proc_do_static_key
-> +	},
-
-[Severity: Low]
-This adds a permanent user visible knob, but the patch touches no file
-under Documentation/, and a grep for rps_feat_llc_affinity finds hits only
-in include/net/rps.h, net/core/dev.c and net/core/sysctl_net_core.c.
-
-Documentation/networking/scaling.rst, which documents
-rps_sock_flow_entries and rps_flow_cnt, currently states:
-
-  rps_sock_flow_table is a global flow table that contains the *desired*
-  CPU for flows: the CPU that is currently processing the flow in
-  userspace.  Each table value is a CPU index that is updated during
-  calls to recvmsg and sendmsg
-
-When the new knob is enabled, rps_llc_check() deliberately keeps a
-different CPU in the entry as long as it shares an LLC, so that text no
-longer describes the behaviour.  Could scaling.rst be updated with the
-knob's default, accepted values and topology dependence?
-
-Also, the rps_feat_ infix differs from the existing rps_* and rfs_*
-sysctl names, and it cannot be changed once the ABI is exposed.  Was a
-name like rps_llc_affinity considered?
-
->  #endif
->  #ifdef CONFIG_NET_FLOW_LIMIT
->  	{
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260902025203.4741-1-nashuiliang%40gmail.com
+Michael
