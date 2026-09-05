@@ -1,169 +1,188 @@
-Received: from outbound.ms.icloud.com (ms-2003b-snip4-2.eps.apple.com [57.103.72.163])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3BEA22579E
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 19:49:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.72.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B0433A71B
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 19:50:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788637754; cv=none; b=u56GaVf4N4am48Hi+djxt5WtynnGsErEdqcTk67DkbS/AkWktAWah04h7sWLPIjhHGMTcLlmKkjkfM2ygF1XOR4J013aKJx0/Ih7Tq6pg2P2yKQoxZJK3i+VthCebAvw51ioLSryGYL+fBYcvtPi9XP1udgR81CO5eYS/h5P1xw=
+	t=1788637812; cv=none; b=CBXm8LfAnO4UHk5OJTpB6WRxm+r0IhhXZ0umQ3a2/TXYzEaMMQd0fuUs0lUJ96t48/5UM0QBfeJAruq7N3Q/sbSbAvSQ38LGdGlC2e0hIYVsfdr36Sb4coykXWF6xvr614PnS2EH4TDor51xA9uNRh1h898EiEAGiBze5dGEOCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788637754; c=relaxed/simple;
-	bh=yHtMGdEibt9/wPnLm72bkt/fBDmqS24Ax+Bi5yCGwWo=;
+	s=arc-20240116; t=1788637812; c=relaxed/simple;
+	bh=EvKavaJ5JoF2KCwfLEt/sTJ6yCZJxBHsL94HMxlrTqY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JR9Vl7W1TU9vgOR7wY1gGiETOTVrpPiQp3FBp/RxUNHxJrZE2aaR2KBMd6bQeRQ+A/2naAgcS86ogG8gm9mYspsH4cjU16lU285drObOKOHdgpyWbsBNTuSAlhbD37FgVVif+FAYMxnLI8/UDyzyeaR2oQLmoR0/yU2Ivht/gSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=PlL1aLc4; arc=none smtp.client-ip=57.103.72.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=UzidQzfeQB1yaIFgOHRO8fKiTI0vpF2tbMMuzY+kKzx4YL6WkVGn02R/n2nYPm4nSTamYj1xguvvHMyUUUi7qoWnFCXGHaQzUtRm2ndV0wgorWaSolbRu0gd9ZvvZkaI7kAd+fwelMoxR+g0qHdgXPabmEdzoi8glMkamaPWIhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fr2ApqLj; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="PlL1aLc4"
-Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-1 (Postfix) with ESMTPS id D572D18000B9;
-	Sat, 05 Sep 2026 19:49:09 +0000 (UTC)
-X-ICL-RepId: 01a0731e-222b-7a26-bab1-9d9516fb4bf8
-X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQtPHV4PRQBAC1YGVBcOVk1bHlQYWCtbE1UXRgkZCF0dGR5XUF4IXh9MHB0OWAYSAlpFAlQXA1ccVkVcGEMJXQVXHB0AREVbE1UXRgkZCF0dGQhHHwowA0IOVgNDB0UALRkcV1BeCF4fTBwdDlgGEh1QHA5RVhtKCXIPBjgAIAoGcSlFF3cpez5+PnIjcCxnPxQ1cF0JS0YJSR0OBFQHXQVd
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1788637752; x=1791229752; bh=NSqzY4DKPEYhVMjHXh3bB0AeqlXjegvLRaBRjDJ/2A0=; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=PlL1aLc4Lj5TJqea0XzRA4TYqIMemmIrh/Omi9jldmCChXsJAsfHDTbsq6ymr4ZMRFTOquJTL1sVbRRjI4rJrlMmME3pMPScY31KFnXziUB5gb6c6oiWNCmjBNpiPKi/QEL0MEh00gytgW86dVemjlGoOSEgQmau8rOfI4xqywVLG+aeJFTpf+CW3/tPVH0KLZYoi/uafuPSaJmZErvv4qHeVwPGqalYTkmEDzjbeinjBcCgNqm133w/JXvy5LNmd2MPNUx/T6VcRCS4rG49vABGpokXwOQlKprdwY5FiQRVchC84HSa2uCFd68HfC/E8TvHr/TPsyMMrwo7IAVDmg==
-mail-alias-created-date: 1772519804199
-Received: from BINGFANGGUO-MC0 (unknown [17.156.208.39])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-1 (Postfix) with ESMTPSA id 77D861800092;
-	Sat, 05 Sep 2026 19:49:04 +0000 (UTC)
-Date: Sun, 6 Sep 2026 03:48:59 +0800
-From: Bingfang Guo <bfguo@icloud.com>
-To: Muchun Song <muchun.song@linux.dev>
-Cc: bingfangguo@tencent.com, cgroups@vger.kernel.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
-	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>
-Subject: Re: [PATCH RFC v2 3/6] mm/memcg: pass the id itself instead of memcg
- for putting ID
-Message-ID: <apxyKw5U7K8vHQvz@BINGFANGGUO-MC0>
-References: <20260901-bingfangguo-memcgid-rework-v2-0-8edd7f7a7251@tencent.com>
- <20260901-bingfangguo-memcgid-rework-v2-3-8edd7f7a7251@tencent.com>
- <29c98946-cb26-4b1e-8a95-fbdc9c9671ad@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fr2ApqLj"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d91ff7d9acso18329855ad.3
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 12:50:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788637802; x=1789242602; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XhdZEMdOYP0/8741ysv480wUHo9A3YFdvZfxIu/Dtq4=;
+        b=Fr2ApqLjD0dVaS6DcpJdrOhNKvpp/gcl4gLQbVI+ZB8SKKSayLsy78VdeBRYOHGpf3
+         n8/Xk86rJkAhdlelD8XWBnqXK2fcWTc1a5RD7ofvAG+w1u4t6C6x1h1DCd14R3X6UvyC
+         ePis4n5azRnnK9eHevWNxLaE4vsr9NIU1BhSIar0EyezmDTnftt5e/+q08VCjeIe0cwm
+         YJc9K3I25TAOkEPtKgUtihqCFnKm1q+dIqXCxFukbXUGYGygastLZTlsN7pVyvDnchvF
+         PqzPWPyky5rpnNuMqhql5qJ7x57VfZQ5PIh7wWDtylcgu+/PgyyXM0W7WQqW4a1cGggG
+         vejg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788637802; x=1789242602;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=XhdZEMdOYP0/8741ysv480wUHo9A3YFdvZfxIu/Dtq4=;
+        b=paPUPzExOEp4b5uVjdL8uOtEUbQZFJvKex0Lzy9LrcDkkfFHuGQThM4y9KN6THZSbU
+         w9QUNroqFymEZHckYtxDxAQYT2h2B2QuYk3Uxcmp+H/MVIdfOpD2eSXgdtwsFsrAMaKl
+         A6Klk4u0lOsGDLJplMsMecmhcxBoD0QNCvrhjnYamxIrMtWjpJwsUz0DIrqaz1bza1yg
+         t/UCi+eA+uHkXieNThrasn7zTIZ4ELyLTvOtAI5PVGBklhCcrb7NekZuFtGy3Ggm5/L2
+         cdw960r0n7Kl3zzXC5DeVDhWyJNJAnwAvAszwmk3EmXZVYlyL+Zwm9YFeG7YlfHWGeI7
+         ld/w==
+X-Forwarded-Encrypted: i=1; AKwUvBxhappDr7la0gqvkPv6T7Rm94HD9VoaJCybux2xq5DG7q09XGtfoUJC/Orcgv6EHe3453CYW6iQ/KIBigo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZ2uMYe3UUtmMEiqzKcVyCLXgwpAOr5VYkeVwS2LVRcoP3kZgj
+	2+6z93czK9YTsjXRjUi8y5i5PlOuN3SA/OFPeAN4etzLgDxMgMNjwkcG
+X-Gm-Gg: AYBFou3vqP5wVWaB/RrzdHEg0dgwqeWenZT2RyK961iaUzyYLYUNmR7ax+f6xsU7Jq1
+	E8jJicRtQUNy1dmGD+auT/+4pElltb6iuJxhSpjZHGnmUO0cTMsw1ZBPuuTpc9ApwmevZ/+vLiF
+	QiYCbNy32qVjR0RvvwdMu2X9I7M61J5kLSRzgXhibeMng5E3s6P4JMZLcvhkIBriPQJLapknbv+
+	WsmMJtZbRdFIu9M3WAGO6nZrojPt7yXHXDVL2rXf8pgjfR/XCPb85BazIERylxxGbPazwIY6lV0
+	H/frCsJafYj2B8w43y70crox4lCQsrDTBFyyBAtw1+Bgb43rEdDurzxRN4wrB9HpESusH4DM9jw
+	8tjWFqkP1KawPypZuY4fhO9wEifle4LyeHLgATnxYiLCZ7814Cubio9el8FnIECUEU/zYh+L2qs
+	k+xebcpm6y81pKrr33OQbwMaCnTL3gRFTvNJQUMv0yZ+aG/URPomudURS1hw6UMtLZ7tUuMzKgb
+	ggE5yG5beAHog==
+X-Received: by 2002:a17:90b:534e:b0:398:ba0e:96f6 with SMTP id 98e67ed59e1d1-39b2624f0f4mr20535967a91.23.1788637802234;
+        Sat, 05 Sep 2026 12:50:02 -0700 (PDT)
+Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b51eb40e6sm1554691a91.16.2026.09.05.12.50.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 12:50:01 -0700 (PDT)
+Date: Sat, 5 Sep 2026 21:49:55 +0200
+From: =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
+To: Norbert Szetei <norbert@doyensec.com>
+Cc: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
+	=?iso-8859-1?Q?G=FCnther?= Noack <gnoack@google.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] landlock: Fix use-after-free of the source's parent
+ directory
+Message-ID: <20260905.2e30c1b0adfe@gnoack.org>
+References: <E9CDD9E6-E960-4DE2-B1AC-5667D52ABB3E@doyensec.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <29c98946-cb26-4b1e-8a95-fbdc9c9671ad@linux.dev>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA1MDIyMSBTYWx0ZWRfX+r8YXH+6kE2+
- LkMhQYJcn7RqdUGCjmgTxUyMDpiGHZ6p6hY6DcUXjjdBv99hwzamKg1KjW2+dsicPO+EMAErERB
- oCJCfTimHAhgRBbS9TDHcmvxX0o2vfmOvfYGstlvzZRK2OGzqw0Iq7TN4HsCmEpYhwxUmX++Z+c
- QJSWqpiTrxNATzjxQtQeaC+BtznlImOULA1DwZdKUz4qM4knaN42kpS6hEXyWxZR4WK6QtB+V81
- j8lwp41XX2/nRqhlRp5IeDAlgwLm8pF+U6gFOxd7GdqSt9w7yCHsKmfUnGWT/scR8RXRP3EUDht
- BEBogSbVa3963CfV/4RFJbqvg0uY0NlH72sslMYV+lBkRgDfLrmYsJ832O7f5I=
-X-Authority-Info-Out: v=2.4 cv=c5amgB9l c=1 sm=1 tr=0 ts=6a9c7237
- cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
- a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=8nJEP1OIZ-IA:10 a=VdqzKS8jKosA:10
- a=x7bEGLp0ZPQA:10 a=vu5NlEYW-o8A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=GvQkQWPkAAAA:8 a=a9KCvqYYD0B343YQoQUA:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
-X-Proofpoint-GUID: UAb-OiatKCEAumbAE3iT0thEjCIwt-H_
-X-Proofpoint-ORIG-GUID: UAb-OiatKCEAumbAE3iT0thEjCIwt-H_
-X-JNJ: AAAAAAABKSO1Yh2vZJFH/bxtvBq4L6Ui/bHz9sbiU40hpU2dt0rtaGXJaicnXSr8z2DbgpqhLhIPJHyREvs6sucghTGDi62CFEvM1ayJKF0IcbqGc97/pY2x8ft/LF/E+QFaUM4vf+2VRyz+5CQs4YxB8oteTP3eP9wrkE8g5c/CJPsU5aSc1JYeTmbP70p9vYcsmgVEjb/uCvudol8mYLdC5NOc+eKPY30vDQi0IyKL2l3PDVf8bnFOsa5B6OnMg8q3o0S4w2eVMTWCZty0VThfU9vrMwpkgeTVOi7WL8IHmAdhSfkF7WS08V66zAnWAcxvu8f6K3pG3NSGeGU5Zb6oZsL5urcXElMu86kjoAeLIpCXoFH45mRfALdifNaDSnWm88VKOrxAuRBt6joAeE4WiormWo/N5zz+si4RjUEzWvZRHZTAFS2gv5G3QAuwlgaOKt1mH9NblDXol7WfORUBDrmZZXmtgfEpmvRkc3vu82pFtn3X/v2W/R7TmMZxzjPk6QO4Gr9KJE2OgyI7GqK1CdrRFN2PipogWWaudqr1gnAdrfAPaH5M4tK+we/NLg4spo8D2zqQvgoJAs/1iRKR07IZLznhjJTy+8K4gqk2WQaIAf5BAq2Boz1mVWusQl6gSlvCZ18v1raTiaRuxNKQ9hMdjdM9hkOSG2WxlO/HkZB0h00kHZrk4TD+SNjJvqP1ndmfyX1yamnQnMxGSX1Q90ODtHkd1iMKwg6qZfhoA5MJGnsMCrMxQ8piOnfqxQToH342bwj988/NfObCCQSJeENHRje8fcMcTH+g5zMbZzOXf0h15kBQxD794IY/62zgvmIdEoOlMZLCvVgMNQOTzrMDw0Cms2VVgQYoFoN3YyLH8PPn7AyIopQP5GqJSTkSjPUIF4VSHZgtPIIelktl6035h/5jrK0gMlcR7ZezPWJjflzrAIVIjkW7O8AMaYiKjwTLIU7oqyCxIw62kJgAcuvtHGg
- wlU5gRKszLiRdtmSpJp/kE+FKj1MwUgwF7pwuPGU+BqM8aBpslkQ80Don+N1lsPyf/NWkP34TBvB+iniK4eai62ME6ppTGl+yqONf/1MUiIos6V3AvJ8M51Lz1xkkLvvDwJHoHVYTRBLt2xcdE4LqMC4xEFKQ6zMWjgVjB4+PPkiGCbXKM+4ewVTrlkzSTAPjBHKqWHaFvGIxXzIbylHNMva1linl5KY8DN5EffPMSqtAGbN951S/+nbmuF/UWr5ByG9MiQvlaaucKpKSLhvEMemawvIOHeCtA8pSaG9rPOyC0wtkbCiU5aAyhkNNiKefjQtnR+Se0MGsPxS3Q1tKuyQ7I//Qt2AU6BHx03u1QOGZl+y/uVsokGnEp6WMKAKuHO6rzzDTuPAlXU6c342x6RvBJiIUGnKf3y1VriNJ+pnEUgdjfuXNUmX2TodMOTGvk/xx63qWiYqPZCTvLm536or3JIWXfU83znCIfHOgR/OQNChT8Xq/YPvKyw==
+In-Reply-To: <E9CDD9E6-E960-4DE2-B1AC-5667D52ABB3E@doyensec.com>
 
-On Sat, Sep 05, 2026 at 06:01:44PM +0800, Muchun Song wrote:
+On Sat, Aug 22, 2026 at 02:29:00PM +0200, Norbert Szetei wrote:
+> current_check_refer_path() reads old_dentry->d_parent without holding a
+> reference nor a lock on it, and then dereferences it in
+> collect_domain_accesses() and in the audit record.
 > 
+> A reference on a child does not pin its parent: __d_move() reassigns
+> dentry->d_parent and drops the reference the child held on its former
+> parent.  hook_path_rename() is not affected because the rename path calls
+> lock_rename() before the hook, so the source cannot be reparented under
+> it.  hook_path_link() has no such protection: do_linkat() holds a
+> reference on the source dentry but neither locks nor references its
+> parent, so a concurrent rename(2) can reparent the source while
+> security_path_link() runs, and the former parent can then be removed and
+> freed while the hook walks it.
 > 
-> On 2026/9/1 16:58, Bingfang Guo via B4 Relay wrote:
-> > From: Bingfang Guo <bingfangguo@tencent.com>
-> > 
-> > Swap uncharge knows the memcg only by its private id, and the id can
-> > outlive the memcg it used to belong to after we rebind memcgid to
-> > objcgs.  Make mem_cgroup_private_id_put() take the id and resolve the
-> > memcg containing the refcount internally, and keep the underlying
-> > __mem_cgroup_private_id_put() for the offline path that still holds a
-> > memcg pointer.
-> > 
-> > In the uncharge path, the memcg pointer will have to be read from the
-> > xarray twice, but we'll fix that later by returning the memcg from the
-> > put path, so the uncharge path can obtain a reference in the same step.
-> > 
-> > Signed-off-by: Bingfang Guo <bingfangguo@tencent.com>
-> > ---
-> >   mm/memcontrol.c | 17 ++++++++++++++---
-> >   1 file changed, 14 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> > index ecb4fb07d7735..048c9bb0fad79 100644
-> > --- a/mm/memcontrol.c
-> > +++ b/mm/memcontrol.c
-> > @@ -4038,7 +4038,7 @@ static void mem_cgroup_private_id_remove(struct mem_cgroup *memcg)
-> >   	}
-> >   }
-> > -static inline void mem_cgroup_private_id_put(struct mem_cgroup *memcg, unsigned int n)
-> > +static void __mem_cgroup_private_id_put(struct mem_cgroup *memcg, unsigned int n)
-> >   {
-> >   	if (refcount_sub_and_test(n, &memcg->id.ref)) {
-> >   		mem_cgroup_private_id_remove(memcg);
-> > @@ -4048,9 +4048,19 @@ static inline void mem_cgroup_private_id_put(struct mem_cgroup *memcg, unsigned
-> >   	}
-> >   }
-> > +static void mem_cgroup_private_id_put(unsigned short id, unsigned int n)
-> > +{
-> > +	struct mem_cgroup *memcg;
-> > +
-> > +	rcu_read_lock();
-> > +	memcg = mem_cgroup_from_private_id(id);
-> > +	__mem_cgroup_private_id_put(memcg, n);
-> > +	rcu_read_unlock();
-> > +}
+> Any process able to sandbox itself with LANDLOCK_ACCESS_FS_REFER can
+> trigger this with a linkat(2) loop racing rename(2) and rmdir(2):
 > 
-> To me, the direction of this change makes sense. At the same
-> time, I would also suggest applying a similar change to the get
-> function, for example: change mem_cgroup_private_id_get_online
-> to:
+>   BUG: KASAN: slab-use-after-free in collect_domain_accesses+0x278/0x290
+>   Read of size 4 at addr ffff888160bd53f4 by task llrepro2/549
+>    collect_domain_accesses+0x278/0x290
+>    current_check_refer_path+0x952/0x1120
+>    security_path_link+0x1be/0x320
+>    filename_linkat+0x342/0x6d0
+>    __x64_sys_linkat+0xfa/0x150
+>   Freed by task 562:
+>    kmem_cache_free+0x139/0x4c0
+>    i_callback+0x4b/0x80
+>    rcu_core+0x7dc/0x10a0
 > 
->     unsigned short mem_cgroup_private_id_get(struct mem_cgroup *memcg,
->                                              unsigned int n);
+> Take a reference on the parent with dget_parent(), and release it once
+> the hierarchy walk and the audit record are done.
 > 
-> Have it return a private ID. That way, I think the two interfaces
-> look much more symmetrical overall.
+> Cc: stable@vger.kernel.org
+> Fixes: b91c3e4ea756 ("landlock: Add support for file reparenting with LANDLOCK_ACCESS_FS_REFER")
+> Signed-off-by: Norbert Szetei <norbert@doyensec.com>
+> ---
+>  security/landlock/fs.c | 18 ++++++++++++------
+>  1 file changed, 12 insertions(+), 6 deletions(-)
 > 
-> Based on this change, it should be easier to implement the
-> direction of my last suggestion in Patch 5.
+> diff --git a/security/landlock/fs.c b/security/landlock/fs.c
+> index 30aa6ce13590..200c83372bbe 100644
+> --- a/security/landlock/fs.c
+> +++ b/security/landlock/fs.c
+> @@ -1298,11 +1298,12 @@ static int current_check_refer_path(struct dentry *const old_dentry,
+>  	/*
+>  	 * old_dentry may be the root of the common mount point and
+>  	 * !IS_ROOT(old_dentry) at the same time (e.g. with open_tree() and
+> -	 * OPEN_TREE_CLONE).  We do not need to call dget(old_parent) because
+> -	 * we keep a reference to old_dentry.
+> +	 * OPEN_TREE_CLONE).  Pins the parent in both cases: a reference on
+> +	 * old_dentry does not pin its parent, which may then be freed after a
+> +	 * concurrent rename(2).
+>  	 */
+> -	old_parent = (old_dentry == mnt_dir.dentry) ? old_dentry :
+> -						      old_dentry->d_parent;
+> +	old_parent = (old_dentry == mnt_dir.dentry) ? dget(old_dentry) :
+> +						      dget_parent(old_dentry);
+>  
+>  	/* new_dir->dentry is equal to new_dentry->d_parent */
+>  	allow_parent1 = collect_domain_accesses(subject->domain, mnt_dir.dentry,
+> @@ -1311,8 +1312,10 @@ static int current_check_refer_path(struct dentry *const old_dentry,
+>  	allow_parent2 = collect_domain_accesses(subject->domain, mnt_dir.dentry,
+>  						new_dir->dentry,
+>  						&layer_masks_parent2);
+> -	if (allow_parent1 && allow_parent2)
+> +	if (allow_parent1 && allow_parent2) {
+> +		dput(old_parent);
+>  		return 0;
+> +	}
+>  
+>  	/*
+>  	 * To be able to compare source and destination domain access rights,
+> @@ -1324,8 +1327,10 @@ static int current_check_refer_path(struct dentry *const old_dentry,
+>  		    subject->domain, &mnt_dir, access_request_parent1,
+>  		    &layer_masks_parent1, &request1, old_dentry,
+>  		    access_request_parent2, &layer_masks_parent2, &request2,
+> -		    exchange ? new_dentry : NULL))
+> +		    exchange ? new_dentry : NULL)) {
+> +		dput(old_parent);
+>  		return 0;
+> +	}
+>  
+>  	if (request1.access) {
+>  		request1.audit.u.path.dentry = old_parent;
+> @@ -1335,6 +1340,7 @@ static int current_check_refer_path(struct dentry *const old_dentry,
+>  		request2.audit.u.path.dentry = new_dir->dentry;
+>  		landlock_log_denial(subject, &request2);
+>  	}
+> +	dput(old_parent);
+>  
+>  	/*
+>  	 * This prioritizes EACCES over EXDEV for all actions, including
+> -- 
+> 2.55.0
 
-Sure, I will take that.
+Reviewed-by: GÃ¼nther Noack <gnoack3000@gmail.com>
+Tested-by: GÃ¼nther Noack <gnoack3000@gmail.com>
 
-Again, thanks for your suggestions and reviews! It's very
-inspiring to me.
+Thank you for the bug report and patch, Norbert!  Excellent finding!
+I can validate the bug and that your patch fixes the problem.
 
-Regards,
-Bingfang
-
-> 
-> Muchun,
-> Thanks.
-> 
-> > +
-> >   static void mem_cgroup_private_id_kill(struct mem_cgroup *memcg)
-> >   {
-> > -	mem_cgroup_private_id_put(memcg, 1);
-> > +	__mem_cgroup_private_id_put(memcg, 1);
-> >   }
-> >   struct mem_cgroup *mem_cgroup_private_id_get_online(struct mem_cgroup *memcg, unsigned int n)
-> > @@ -5815,9 +5825,10 @@ void __mem_cgroup_uncharge_swap(unsigned short id, unsigned int nr_pages)
-> >   				page_counter_uncharge(&memcg->swap, nr_pages);
-> >   		}
-> >   		mod_memcg_state(memcg, MEMCG_SWAP, -nr_pages);
-> > -		mem_cgroup_private_id_put(memcg, nr_pages);
-> > +		mem_cgroup_private_id_put(id, nr_pages);
-> >   	}
-> >   	rcu_read_unlock();
-> > +
-> >   }
-> >   long mem_cgroup_get_nr_swap_pages(struct mem_cgroup *memcg)
-> > 
-> 
-
+â€“GÃ¼nther
