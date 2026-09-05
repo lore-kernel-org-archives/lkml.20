@@ -1,30 +1,33 @@
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D6B918DB2A;
-	Sat,  5 Sep 2026 08:16:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AD2E3B0594;
+	Sat,  5 Sep 2026 08:17:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788596172; cv=none; b=NElfBnU7Jc1+9DWUvlXhJMsy9O4Mneyb+jFun1VpQXNgmExnQ2VcfI4KrL2dcIkmx5jJShfFKDrcHrlLOd42SVfOI8lXHg8oOVokWQQ3kR4AWWqc4qFWHJ8Awnvm79clDJ6qNNbmtD8Rp6xxBxMaSziEwvzscpsoxu3gJCOycMo=
+	t=1788596240; cv=none; b=F9iH8GAksiWfpcD+0MYPY1fmZg+9UgzelN2I5vGLKnramAz6iuggIPNl3CByqWL26pMr7xB+DKawFFq9inwlHThkTTxDOYkYPi5Z73+41xKLPYKBcE4P+ZzFZZNb3c9pSZFl5n2q6KGkAWSlw2brCYeqIqh0UM6QgZJ0k/+Ow6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788596172; c=relaxed/simple;
-	bh=xL5zQubzqvBIINUPQX6ilEZyzsVDhnv1yyS6uLaRN2M=;
+	s=arc-20240116; t=1788596240; c=relaxed/simple;
+	bh=ykBBJ6rdR9yZi41HHI2hTPx+neF0v0vm8d7kFBR+08U=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Xlv6HEbyCUyWIdIy8Syqjzr3VLqA/z+uxSRGRPKd0k2xzZeXVA4aSUbe/CRUCOb96OymbPCOeYBxn/5Dclw9VZ6qByPbVzoa1V9EQ99p+F9GmDvfHhGQ4VsBj4Cm584nUL2XfdCHQqQUuIX9pEbrzO5b5s4Pim0T3X93eootkRM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.177])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hcR2q1hJtzKHMZ7;
-	Sat,  5 Sep 2026 16:14:59 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.128])
-	by mail.maildlp.com (Postfix) with ESMTP id D44784058D;
-	Sat,  5 Sep 2026 16:15:55 +0800 (CST)
-Received: from [10.67.110.68] (unknown [10.67.110.68])
-	by APP4 (Coremail) with UTF8SMTPA id gCh0CgAXeZa6z5tqr35UAw--.62946S2;
-	Sat, 05 Sep 2026 16:15:55 +0800 (CST)
-Message-ID: <f8b70ac8-62bb-47c9-8193-632b23a78d67@huaweicloud.com>
-Date: Sat, 5 Sep 2026 16:15:54 +0800
+	 In-Reply-To:Content-Type; b=JtjRZLEqr7/Qqu5FtQEba+pnyyget97DVyoFH34NLocfXheBY0muaukSgg/1brWYDTqRyvpirbSwEm8jfyx8KvAJ6zHrIGRzH4EJGMKeaJADNnxOf0RtMQbMwNV07Ap1OZN38GFA9QQYxLBaIviTZjWGJi7iQzkUrChu3Mpm54Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VoxV3wXo; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VoxV3wXo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B2421F00A3D;
+	Sat,  5 Sep 2026 08:17:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788596239;
+	bh=nLJgCK/i7KKM8Qt6Jp5xXHsiNpOpodH+suANyKbQKNU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=VoxV3wXoLAuRx9NK8llC5I0vnXUaegWJXpqBavZXGXulCjB7XsQs1OmEbBq8iALzd
+	 4w3R7+NVl4MjhZjrS9tjrGSYm9b6XQ+JU7j9Xc5HQ1IJNL2U7kCz+5rK1yJ6pFVBwJ
+	 IqbqnWqV+dJWBIbxCztuaDasFWNPgPs/aS/TpZgZkKPLpf0qnR5lDjftcmEgZ3GsgP
+	 Pp3LL84KB4SNrSFq+hdNzmS3PEyLy0mncp61J7583utLqhR3dSLiO5KDEL+ORgPgLE
+	 lN0Olqvgusu2X+fScH2LEghzP0FO+CAO1mEkdZrsBAtnazzxP04S7xytun4VkvUifj
+	 FMTRJg19oWMnw==
+Message-ID: <929d0143-91c5-4b47-8e38-30675b4ace5d@kernel.org>
+Date: Sat, 5 Sep 2026 10:17:12 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -32,179 +35,92 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v4 2/3] riscv, bpf: Add BPF stack arguments
- support for RV64 JIT
+Subject: Re: [PATCH 2/2] selftests/mm: restore hidden hugetlb reservation
+ scenarios
+To: Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>
+Cc: Song Hu <husong@kylinos.cn>, linux-mm@kvack.org, muchun.song@linux.dev,
+ osalvador@suse.de, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org,
+ surenb@google.com, mhocko@suse.com, shuah@kernel.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Mina Almasry <almasrymina@google.com>
+References: <20260714021630.1063823-1-husong@kylinos.cn>
+ <20260901173748.fb7a442941102894a0c42baa@linux-foundation.org>
+ <apqBn7tWDHQeMrzB@kernel.org>
+ <20260904104812.7ee79803a10ab355ad2cdf81@linux-foundation.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-To: bot+bpf-ci@kernel.org, bpf@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
- jiangfeng@kylinos.cn
-Cc: bjorn@kernel.org, ast@kernel.org, daniel@iogearbox.net,
- andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
- martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- puranjay@kernel.org, pjw@kernel.org, palmer@dabbelt.com, alex@ghiti.fr,
- pulehui@huawei.com, martin.lau@kernel.org, mason@kernel.org
-References: <20260905070409.4141522-3-pulehui@huaweicloud.com>
- <fc702295c9ff5bdad0622a0aebbeadb040a0fabc0b79c6e904c968a516de859b@mail.kernel.org>
-From: Pu Lehui <pulehui@huaweicloud.com>
-In-Reply-To: <fc702295c9ff5bdad0622a0aebbeadb040a0fabc0b79c6e904c968a516de859b@mail.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260904104812.7ee79803a10ab355ad2cdf81@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:gCh0CgAXeZa6z5tqr35UAw--.62946S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxtw4rGryDuw1ruw47Ww1rWFg_yoW7GrW7pF
-	WUGFs3CrWqqw48JFyDtF4UZr43KrsYgF12kF18Ka45JFnIvrW8G3W3Ka1akry5Cry8X3Wr
-	AFWqvrnxC3ykJ37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvFb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x
-	0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
-	6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
-	Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS
-	14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
-	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWr
-	XwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
-	0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v2
-	6r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvj
-	xUIbyZUUUUU
-X-CM-SenderInfo: psxovxtxl6x35dzhxuhorxvhhfrp/
 
-
-
-On 2026/9/5 16:00, bot+bpf-ci@kernel.org wrote:
->> diff --git a/arch/riscv/net/bpf_jit.h b/arch/riscv/net/bpf_jit.h
->> index 419b9d795f2a..039877f286fc 100644
->> --- a/arch/riscv/net/bpf_jit.h
->> +++ b/arch/riscv/net/bpf_jit.h
->> @@ -82,6 +82,7 @@ struct rv_jit_context {
->>   	unsigned long flags;
->>   	int stack_size;
->>   	int tcc_offset;
->> +	int stack_arg_sz;
->>   	u64 arena_vm_start;
->>   	u64 user_vm_start;
->>   };
->> diff --git a/arch/riscv/net/bpf_jit_comp64.c b/arch/riscv/net/bpf_jit_comp64.c
->> index aac128b9f0a4..cda99c1f9ffe 100644
->> --- a/arch/riscv/net/bpf_jit_comp64.c
->> +++ b/arch/riscv/net/bpf_jit_comp64.c
->> @@ -498,6 +498,18 @@ static void emit_ldx(u8 rd, s16 off, u8 rs, u8 size, bool sign_ext,
->>   	ctx->ex_jmp_off = ctx->ninsns;
->>   }
+On 9/4/26 19:48, Andrew Morton wrote:
+> On Fri, 4 Sep 2026 11:30:23 +0300 Mike Rapoport <rppt@kernel.org> wrote:
+> 
+>> On Tue, Sep 01, 2026 at 05:37:48PM -0700, Andrew Morton wrote:
+>>>
+>>>
+>>> OK.
+>>>
+>>>
+>>> That's reasonable.  This code was added by Mina six years ago.  But
+>>> he's still around so let's bug him with a cc ;)
 >>
->> +static void emit_stack_arg_ldx(u8 rd, s16 off, struct rv_jit_context *ctx)
->> +{
->> +	int idx = off / 8 - 1;
->> +
->> +	if (idx < 3) {
->> +		emit_mv(rd, RV_REG_A5 + idx, ctx);
->> +		return;
->> +	}
->> +
->> +	emit_ldx_insn(rd, (idx - 3) * 8, RV_REG_FP, BPF_DW, false, ctx);
->> +}
->> +
-> 
-> This isn't a bug, but the literal 3 appears seven times across this file
-> and bpf_jit_core.c (lines 505, 510, 535, 540, 563, 568, and bpf_jit_core.c
-> line 78). The value really represents RV_MAX_REG_ARGS - MAX_BPF_FUNC_REG_ARGS
-> (8 - 5). The file already defines RV_MAX_REG_ARGS symbolically and uses it in
-> the kfunc fix-up loop (if (idx < RV_MAX_REG_ARGS) / (idx - RV_MAX_REG_ARGS)),
-> but the stack argument helpers use the literal instead.
-> 
-> Would a named constant (e.g. NR_STACK_ARG_REGS = RV_MAX_REG_ARGS -
-> MAX_BPF_FUNC_REG_ARGS) placed in bpf_jit.h be worth it here, so the same
-> value in bpf_jit_core.c and the three emit helpers cannot drift apart? arm64
-> uses NR_STACK_ARG_REGS with an explicit stack_arg_reg[] table.
-
-ok
-
-> 
->>   static void emit_st(u8 rd, s16 off, s32 imm, u8 size, struct rv_jit_context *ctx)
->>   {
->>   	emit_imm(RV_REG_T1, imm, ctx);
->> @@ -515,6 +527,19 @@ static void emit_st(u8 rd, s16 off, s32 imm, u8 size, struct rv_jit_context *ctx
->>   	ctx->ex_jmp_off = ctx->ninsns;
->>   }
+>> And this code breaks our CI e.g:
 >>
->> +static void emit_stack_arg_st(s16 off, s32 imm, struct rv_jit_context *ctx)
->> +{
->> +	int idx = -off / 8 - 1;
->> +
->> +	emit_imm(RV_REG_T1, imm, ctx);
->> +	if (idx < 3) {
->> +		emit_mv(RV_REG_A5 + idx, RV_REG_T1, ctx);
->> +		return;
->> +	}
->> +
->> +	emit_stx_insn(RV_REG_SP, (idx - 3) * 8, RV_REG_T1, BPF_DW, ctx);
->> +}
->> +
+>> https://github.com/linux-mm/linux-mm/actions/runs/33040981840/job/98414290236
 > 
-> This isn't a bug, but for idx < 3 (the common case, covering BPF args 6-8),
-> could this be emit_imm(RV_REG_A5 + idx, imm, ctx) directly, avoiding the
-> RV_REG_T1 round trip and one instruction per store? The emit_imm then emit_mv
-> sequence is carried over from emit_st() where materialising into a scratch
-> register is unavoidable because the destination is memory. Here in the
-> register case the immediate could be materialised straight into the
-> destination. The two sibling helpers (emit_stack_arg_ldx, emit_stack_arg_stx)
-> have no scratch use at all, and arm64's emit_stack_arg_store() writes the
-> immediate path directly into the argument register.
+> What do we need to do to view the error output there?
 
-very nice
+I recall that one has to be logged in in github in order to view the output:
 
-> 
->> +static void emit_stx(u8 rd, s16 off, u8 rs, u8 size, struct rv_jit_context *ctx)
->> +{
->> +	if (is_12b_int(off)) {
->> @@ -531,6 +556,18 @@ static void emit_stx(u8 rd, s16 off, u8 rs, u8 size, struct rv_jit_context *ctx)
->>   	ctx->ex_jmp_off = ctx->ninsns;
->>   }
->>
->> +static void emit_stack_arg_stx(s16 off, u8 rs, struct rv_jit_context *ctx)
->> +{
->> +	int idx = -off / 8 - 1;
->> +
->> +	if (idx < 3) {
->> +		emit_mv(RV_REG_A5 + idx, rs, ctx);
->> +		return;
->> +	}
->> +
->> +	emit_stx_insn(RV_REG_SP, (idx - 3) * 8, rs, BPF_DW, ctx);
->> +}
->> +
-> 
-> [ ... ]
-> 
->> diff --git a/arch/riscv/net/bpf_jit_core.c b/arch/riscv/net/bpf_jit_core.c
->> index cbfcd287ea16..ed48005568c8 100644
->> --- a/arch/riscv/net/bpf_jit_core.c
->> +++ b/arch/riscv/net/bpf_jit_core.c
->> @@ -48,6 +48,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
->>   	int pass = 0, prev_ninsns = 0, i;
->>   	struct rv_jit_data *jit_data;
->>   	struct rv_jit_context *ctx;
->> +	u16 stack_arg_cnt;
->>
->>   	if (!prog->jit_requested)
->>   		return prog;
->> @@ -71,6 +72,11 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
->>
->>   	ctx->arena_vm_start = bpf_arena_get_kern_vm_start(prog->aux->arena);
->>   	ctx->user_vm_start = bpf_arena_get_user_vm_start(prog->aux->arena);
->> +
->> +	stack_arg_cnt = bpf_out_stack_arg_cnt(env, prog);
->> +	/* First 3 stack args in regs, rest on stack */
->> +	ctx->stack_arg_sz = stack_arg_cnt > 3 ? round_up((stack_arg_cnt - 3) * 8, STACK_ALIGN) : 0;
->> +
->>   	ctx->prog = prog;
->>   	ctx->offset = kvzalloc_objs(int, prog->len);
->>   	if (!ctx->offset)
-> 
-> 
-> ---
-> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-> 
-> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33952202002
+@Mike once sending automated CI failure mails, would it be possible to include
+the full output?
 
+-- 
+Cheers,
+
+David
