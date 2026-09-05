@@ -1,106 +1,165 @@
-Received: from relay.smtp-ext.broadcom.com (lpdvsmtp12.broadcom.com [192.19.144.207])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA63F2C0298;
-	Sat,  5 Sep 2026 01:34:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.144.207
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39C0F2D6E58;
+	Sat,  5 Sep 2026 01:35:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788572085; cv=none; b=WO220SM4Uox3cbFXlEJ/VMYiRmYtkpD/xn2Qw67POKMBv9Fx6PnJVwoOksmEn2o8DSo+tYeK0cjo2q6codJ38FG36fhH0ofp+ZHdhvNZSC5ZqEYl+I1++w+zPD0EqrsuqT4aOQtUeTEzgAf17ntJnIgrYiMflLKB8vfWLpb8dOw=
+	t=1788572145; cv=none; b=SDZIV2l3dVXxvmRlRGja6dTy1mHU3jRu7wCoOMZb568gC9Rdmu/vsykSeLoljOY7bXzS8LAkFsFtP1ptGWugpbYkZZwLv+TWwsAZTZOSYr0/o4XHeaODmOTq33u3SMTbRoU5FBQEugoKBjd6Q2wlrOpTZMv+k0XuOJTSXpuCeyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788572085; c=relaxed/simple;
-	bh=u6VVhAhlj3OULcbiNGFXTh2I1gvcsZC+g7Ec00v8w3k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aVqP1wQOnZgLeAWILTbfQ/XSuKN5vjudDFq+7sdCL/gm2zFWZjIzmi3x5lBwtipmiG8egDbcGxATs7CnCvLE2xGRDseb6ePxULOHYB+PSE/ES3DOcpQ4ula9h2HR/AUMnozpUl2J1Nsx+vVBaSuj76oFONv/yFgim0Av1zmQLMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=mrGsH/JP; arc=none smtp.client-ip=192.19.144.207
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1788572145; c=relaxed/simple;
+	bh=LUI+joIDxqVGyGedekzWR90BamOPuc6U/giAUO6Og2k=;
+	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=LsAtHiduXHrtH/tQEd9WWZT2RU4Di36tBgO+MKV8ir4cPolsc+la1z7fJS/ls+3PYbQukv7lAOLZIhur8G/2VFj/7eLRbkqYPYUD4nQ5TpwLgMu/n9HSB7jlBPbIFqrZyhKHcEDWNCUShZLIEyCVGdpG5AwNE7VwUYg2IdhUxOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=mirko.jechow@gmx.de header.b=ZuzeTShV; arc=none smtp.client-ip=212.227.17.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="mrGsH/JP"
-Received: from mail-lvn-it-01.broadcom.com (mail-lvn-it-01.lvn.broadcom.net [10.36.132.253])
-	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 69B13C0003D7;
-	Fri,  4 Sep 2026 18:34:42 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 69B13C0003D7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
-	s=dkimrelay; t=1788572082;
-	bh=u6VVhAhlj3OULcbiNGFXTh2I1gvcsZC+g7Ec00v8w3k=;
-	h=From:To:Cc:Subject:Date:From;
-	b=mrGsH/JPqe3t3qmf+0NFRbvwxEVLZFqPoLPi0Pr/gkienlAgS0r8Ju6+JzaeHMHGb
-	 nGW3a5lmYmOLn/JXomhJ4zAvArQmC7ubczuh6xrPTkg7kx+s4Ko0BlqAuSXhFoS9oA
-	 b03Ps3deSVgMUcvsR156y0KQq+Yvga8I6ORo4rOQ=
-Received: from bse-build-07.ric.broadcom.net (unknown [10.136.28.187])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id 96D04A9A;
-	Fri,  4 Sep 2026 18:34:41 -0700 (PDT)
-From: Danesh Petigara <danesh.petigara@broadcom.com>
-To: florian.fainelli@broadcom.com,
-	jonas.gorski@gmail.com,
-	andrew@lunn.ch,
-	olteanv@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: vivien.didelot@gmail.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Justin Chen <justin.chen@broadcom.com>,
-	Danesh Petigara <danesh.petigara@broadcom.com>
-Subject: [PATCH net] net: dsa: bcm_sf2_cfp: fix NULL deref when port_num is out of bounds
-Date: Fri,  4 Sep 2026 18:34:04 -0700
-Message-ID: <20260905013404.2712866-1-danesh.petigara@broadcom.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=mirko.jechow@gmx.de header.b="ZuzeTShV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1788572133; x=1789176933; i=mirko.jechow@gmx.de;
+	bh=LUI+joIDxqVGyGedekzWR90BamOPuc6U/giAUO6Og2k=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:From:
+	 Subject:Content-Type:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=ZuzeTShVei5a326jEMDs9HangkotmKbwKYr7zOPWYz7j7fZK82gIFduvs/TCmg3V
+	 P8QsxiawzkCd4lYA+P0rs+nVaLwfNNDt7nkUkzuNv9zTpjuNs+2d8BO8mxSE/H5Wi
+	 64MsIwN50laIUkkXFuEh5FLGEOfhaFo0OiT/Gf/lkwOO9GsihEgWry5Qn+N0Sph8f
+	 H6sG7uI9rqbmnZGBPVm9QTCMxgnLpqh0/RwnJUOWAeaT8v293y1TLrC8Xq1IXBNV0
+	 y9WCzNuKGj6PLYOQWyXB5VVPNbZ9RREZQHgbTn8ghiIwbAczqAv3gsaGefCdcYIpB
+	 7wxX/rEHnAWS4NBnMA==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MvbG2-1wlgtX2ANS-013lP5; Sat, 05
+ Sep 2026 03:35:33 +0200
+Message-ID: <6e81b0fa-de68-4a83-a152-fe26ea7cc359@gmx.de>
+Date: Sat, 5 Sep 2026 03:35:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US, de-DE
+To: linux@stevetech.au
+Cc: mathias.nyman@intel.com, gregkh@linuxfoundation.org,
+ Shyam-sundar.S-k@amd.com, hurryman2212@gmail.com, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+From: Mirko Jechow <mirko.jechow@gmx.de>
+Subject: Re: [PATCH v2] usb: xhci-pci: Add AMD 600 series to xhci-pci-prom21
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+X-Provags-ID: V03:K1:Jdp6Ic9BbppFLAIlA++PSsJ/6/AXJv+p6eNRCKMxv7CYIv75/O9
+ XwW1XhpuXatuFo4X15maNO4CRxAUNHAwzx1f+SrkFwV6plEw0kGl9DfbFDGe/pwF5Eyx06G
+ ruLdof0ISy6B3IpfcQzJAITIB5RqrD1x2dzKwWTt7AuzETHp5j1dXQldydOyC8He7sXRc5j
+ VNCWiIpyS7d2wdcxHTMEA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:v54obBWbH8k=;IVN2fHzaF/oMBXIasoWLVMuB2HF
+ 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
+ XKKJlHKihI2UZ6xthqR4HpK4LBOFAVs4diQ==
 
-From: Justin Chen <justin.chen@broadcom.com>
-
-bcm_sf2_cfp_rule_insert() validates port_num against
-priv->hw_params.num_ports, but the bounds check was placed after the
-calls to dsa_is_user_port() and dsa_is_cpu_port():
-
-    if (ring_cookie == RX_CLS_FLOW_DISC ||
-        !(dsa_is_user_port(ds, port_num) ||
-          dsa_is_cpu_port(ds, port_num)) ||
-        port_num >= priv->hw_params.num_ports)
-
-Both helpers call dsa_to_port(), which iterates the port list and
-returns NULL if no entry matches.  With a user-supplied ring_cookie
-large enough to produce an out-of-bounds port_num, dsa_to_port()
-returns NULL and the immediate ->type dereference faults.
-
-Move the bounds check first so dsa_is_user_port()/dsa_is_cpu_port()
-are never reached with an invalid port_num.
-
-Fixes: 4a5b85ffe2a0 ("net: dsa: use dsa_is_user_port everywhere")
-Signed-off-by: Justin Chen <justin.chen@broadcom.com>
-Assisted-by: Claude:claude-sonnet-4-6 vscode
-Signed-off-by: Danesh Petigara <danesh.petigara@broadcom.com>
----
- drivers/net/dsa/bcm_sf2_cfp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/dsa/bcm_sf2_cfp.c b/drivers/net/dsa/bcm_sf2_cfp.c
-index 84a086c3e99b..6ac5cf154f31 100644
---- a/drivers/net/dsa/bcm_sf2_cfp.c
-+++ b/drivers/net/dsa/bcm_sf2_cfp.c
-@@ -867,9 +867,9 @@ static int bcm_sf2_cfp_rule_insert(struct dsa_switch *ds, int port,
- 	port_num = ring_cookie / SF2_NUM_EGRESS_QUEUES;
- 
- 	if (ring_cookie == RX_CLS_FLOW_DISC ||
-+	    port_num >= priv->hw_params.num_ports ||
- 	    !(dsa_is_user_port(ds, port_num) ||
--	      dsa_is_cpu_port(ds, port_num)) ||
--	    port_num >= priv->hw_params.num_ports)
-+	      dsa_is_cpu_port(ds, port_num)))
- 		return -EINVAL;
- 
- 	/* If the rule is matching a particular VLAN, make sure that we honor
--- 
-2.54.0
-
+VGVzdGVkIG9uIGFuIE1TSSBNUEcgWDY3MEUgQ2FyYm9uIFdpRmkgKFJ5emVuIDkgNzk1MFgz
+RCkuIFRoZSBib2FyZCANCmV4cG9zZXMgdHdvIDYwMCBzZXJpZXMgY2hpcHNldCB4SENJIGZ1
+bmN0aW9ucywgMTAyMjo0M2Y3IGF0IDEzOjAwLjAgYW5kIA0KMTU6MDAuMCAtLSBYNjcwRSBp
+cyBidWlsdCBmcm9tIHR3byBQcm9tb250b3J5IDIxIGRpZXMuDQoNCldpdGhvdXQgdGhlIHBh
+dGNoIG5laXRoZXIgZnVuY3Rpb24gY3JlYXRlcyBhbiBhdXhpbGlhcnkgZGV2aWNlLCBzbyAN
+CnByb20yMS14aGNpIGhhcyBub3RoaW5nIHRvIGJpbmQgdG8gYW5kIHRoZSBzZW5zb3IgaXMg
+dW5hdmFpbGFibGUuIFdpdGggDQppdCBhcHBsaWVkIHRvIDcuMi4zLCBib3RoIGZ1bmN0aW9u
+cyBiaW5kIHhoY2ktcGNpLXByb20yMSwgYm90aCBhdXhpbGlhcnkgDQpkZXZpY2VzIGFwcGVh
+ciwgYW5kIGJvdGggZGllcyByZXBvcnQ6DQoNCiAgIHByb20yMV94aGNpLXBjaS0xMzAwICB0
+ZW1wMTogKzU3LjQgQw0KICAgcHJvbTIxX3hoY2ktcGNpLTE1MDAgIHRlbXAxOiArNjIuOCBD
+DQoNCmsxMHRlbXAgVGN0bCByZWFkICs1OC4wIEMgYXQgdGhlIHNhbWUgbW9tZW50LCBzbyB0
+aGUgY29udmVyc2lvbiBkZXJpdmVkIA0Kb24gODAwIHNlcmllcyBzaWxpY29uIGxvb2tzIHJp
+Z2h0IGhlcmUgdG9vLg0KDQpVU0IgaXMgdW5hZmZlY3RlZDogdGhlIGRldmljZXMgYmVoaW5k
+IGJvdGggY29udHJvbGxlcnMgZW51bWVyYXRlIA0Kbm9ybWFsbHkgYW5kIHRoZSBsb2cgc2hv
+d3Mgbm8gbmV3IHhIQ0kgZXJyb3JzIGFmdGVyIHRoZXkgbW92ZWQgdG8gdGhlIA0KZ2x1ZSBk
+cml2ZXIuDQoNClRlc3RlZC1ieTogTWlya28gSmVjaG93IDxtaXJrby5qZWNob3dAZ214LmRl
+Pg0K
