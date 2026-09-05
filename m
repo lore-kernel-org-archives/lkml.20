@@ -1,137 +1,139 @@
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9DD33644C4
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 23:43:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.50
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 20C4737AA9F
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 23:49:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788651815; cv=none; b=M+MJ4w/L3jFZLz8BqS5jZmycMgABo2DiQdE0fgAsHiUxFVJ4VhpvUnHlN9aY/IW37Nw/T63qKUVYu6csmo5hYkqcA9sQ8T2ehJHSAJnlw0Mt2E38+YTy4PlayneQOSE6NntJjaI3mqjkCk6DYDpl4pYpsKAus+qMSggb16yCFGI=
+	t=1788652150; cv=none; b=cj8HTiyS6vIISMcsUHdg8lz8WdGmYVWSaNJuU5SeOiUb2TLa+eEEnvu1fH8+ntnL2T1SOpjMRugkeOvL7DlgDnhtWEEsD+PMPI5CEKON7m7+GQewgX77qOLo2E/uG9gYePcmxwzxuY4E3r1RfkiS+OJe3o5IDPjeKg7VM/VHKz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788651815; c=relaxed/simple;
-	bh=zchHN9arP9ge/dPrqhBbh2MYBfzGH0SN9zBWIUnJFGU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HmtcvgQQHOkpSYE6ShKKBjt3KhjH9E9Faxo3tSNkppS461/eBqwmqTnBttFZvwj76ESDUywEwpLdiUwjf7mHb4tg8IfwPfmZC2EGevcrOLbKHUSXcfepfBG530Ib0KbSNEIkuIKQ7vAANBz39p6iZ1idr0Nx/ORwfBhKBEqmd5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NzN/efT/; arc=none smtp.client-ip=209.85.167.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788652150; c=relaxed/simple;
+	bh=78ZaUHpCCmF9Q0SRtDPZW3k16driAdZe8cBTHH9U4Ys=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ugNc9Lj4oKulQn/eAJSLcwdJE3OeSEUEUcd7xtchgV+LL/3fKXpZXltLUmjZVwbuQySrZ+GPIu3LDXiw+podvkSJV2HJkW0MoJ6YxqnR7gxNmwALe/ZNEpRTpzNZUgBy90G7PTaJHM9PXcoh1LHrf6CKOjrZj/LvPmhzk1qq+BY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=uWYZ/mVM; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NzN/efT/"
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b4a95ab94fso3336639e87.0
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 16:43:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788651812; x=1789256612; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UbNBfLErXJ0W7XLwHtZHjCp30XgpQStS2wuh13GP0sU=;
-        b=NzN/efT/7+3T4Wjfvbb9e1Z9J7p+ef5rEBXsR1udqIOJgtuYl044xo9RAHzk4V/EBr
-         CyiDkpvdg6QTNaI4EXcKXjnTG1E3gnOzAkKPEo/ai6YcHLT3HzwLWZMOQvJkeBGPe0A8
-         Z11zSSFlfxGUWM/aYGKQKYGLXFvWfwcFhXSZxGWb8yVZA6/TBhR6kEuocwuCCdBJJExd
-         EX5V5FuO3kM8JcJMDlDmDQ7G1UrGgKzJXX85lgAev69Pri9wpEC4Nt6c0K9aCvuRaTOm
-         dUzIsQ2saQlNMfLWgzexLT+HTffvWZv8QXSvi+Pfzwr/3hRU632ODLFr3IXvhIhTNiw1
-         eoyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788651812; x=1789256612;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UbNBfLErXJ0W7XLwHtZHjCp30XgpQStS2wuh13GP0sU=;
-        b=kMMsQv9b6LYb5DdF69WOZpZ2x0PdPx3kEZBWNDN4f0sZxZezfsmaNDKF57maPJabgF
-         8ilbLk6zZ/BFLcQPU6g7QhiXc3BEH2gWtb8FervcvHXdMcXI4P69zaLOUE7Gc1iivgSx
-         3qbWZUFIIca6pQDns4dX53IXSSZbvk0w+Hq5y6z1HbHummxMF3e4vL/3Xdl8drzcL4cx
-         RjtMbLYhswlbVIXmmgFSjh+lSK9a/NSTlBTzl2L6avc9GTfi7/JnTWHtM7nwZRljmHvP
-         iOQre/dQz49IYYNvodohATbp8xg6SUWbhD5CIjsRdV0VzdqlW3H67+wbkIu+vPW3um4+
-         ySsA==
-X-Forwarded-Encrypted: i=1; AKwUvByG+LhJ6H+hRz1kDGxZ7lnu6Mj1YKq/UMD55VPAr/NOSmYo+T3GXxSN6jRfxtHpSKQg6Ar08FDqnkpH2/4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nMjCAMvxxQ3WlU9IDL9cIDxfG1YQYEr1ztTdMa2y5QUbnnMLfi
-	iwsxK7PQPmDflsNTYhgjC5BspURAjNxDdNmU1sypAzpWcVaWHLAODCLq
-X-Gm-Gg: AYBFou0mhbTAvwLp2RLhzoZ5TbboeUAYZKH0ZrYYrOWXqN/B1qMSyGHoAasp1NScoAG
-	1po+bWjox7PZ0FCXtumvgTNGgoNtvluDN4dBDHdIoftS9UsaE7JWe5zaMD9PfjGS30bujbkAtlZ
-	LVVHOTVNuPj6OMP2mRFb/5ztKhAgzi7XIujHbv2SAWrYRBaad7CnkEXPKHOa9Sv3RP8NJ9RVrNi
-	uxaL/vfNR9inD1K2gpR/0SOT7AXaFgZ5fkUgwRyPKPJ6M33CrDTBfr2gFk65UVuY9PBuoeqFZiI
-	ovz7Wu74dckNw3yjygr3F0mPvMNO054J2kH+e6kGFXRi1gh7uhdRkzGG7tUDGJn6tXWuVBPYydd
-	XgEWHwmq7mbAun4nicSyC5y7PXCVm1VJeJzNOxzAFS+5hnqvIyY1hm2saZFnrZqDqmBWhfFGG7C
-	SzWl6btlhamr6mW88eWzMZhxZxmiTXL4nDRmtuaslV+ibJRS9tOExX5PRDbzmHWzQzUHmfdnBRO
-	KHyZrZv
-X-Received: by 2002:a05:6512:2206:b0:5ad:68aa:8a78 with SMTP id 2adb3069b0e04-5b60e6a5360mr3012076e87.5.1788651811350;
-        Sat, 05 Sep 2026 16:43:31 -0700 (PDT)
-Received: from localhost.localdomain ([80.66.92.203])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b616705bedsm1329357e87.67.2026.09.05.16.43.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 16:43:30 -0700 (PDT)
-From: Maxim Skokov <skokovmaksimevg@gmail.com>
-To: tristan@talencesecurity.com,
-	tristmd@gmail.com
-Cc: pkshih@realtek.com,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] wifi: rtw89: fix OOB read in __rtw89_wow_parse_akm()
-Date: Sun,  6 Sep 2026 02:43:03 +0300
-Message-ID: <20260905234309.6922-1-skokovmaksimevg@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260830143154.1751910-2-tristmd@gmail.com>
-References: <20260830143154.1751910-1-tristmd@gmail.com> <20260830143154.1751910-2-tristmd@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="uWYZ/mVM"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 285D31477;
+	Sat,  5 Sep 2026 16:48:56 -0700 (PDT)
+Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 810673F673;
+	Sat,  5 Sep 2026 16:48:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788652139; bh=78ZaUHpCCmF9Q0SRtDPZW3k16driAdZe8cBTHH9U4Ys=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=uWYZ/mVMj/RrfQNI2EgFHEj2UqFhaoPkrXi/X8bsDBUV203Qu3dn/kF8JwPQ6obOz
+	 88mI97vEqyEZkbdgT7uK1cMCgMc4ZgVs+OshFnQ4vyC4qsyMOqwP1tTxge9BJG7NnQ
+	 1pOtrQGvsC7KD/eOoAwm31GjAMc2V965Mwqt/TE8=
+Date: Sun, 6 Sep 2026 00:48:49 +0100
+From: Wei-Lin Chang <weilin.chang@arm.com>
+To: Shuai Xue <xueshuai@linux.alibaba.com>, Marc Zyngier <maz@kernel.org>
+Cc: Wang Han <wanghan@linux.alibaba.com>, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	oupton@kernel.org, tabba@google.com, joey.gouly@arm.com, seiden@linux.ibm.com, 
+	suzuki.poulose@arm.com, catalin.marinas@arm.com, will@kernel.org, ljs@kernel.org, 
+	itaru.kitayama@fujitsu.com
+Subject: Re: [PATCH v5 0/6] KVM: arm64: nv: Implement nested stage-2 reverse
+ map (new data structure)
+Message-ID: <rytvo6a7sulfb2no2fclvtpggk4ekqzs6n6xkqlffldbzua4lz@rnskx6qj2cxy>
+References: <20260810205038.118843-1-weilin.chang@arm.com>
+ <20260902163500.1841671-1-wanghan@linux.alibaba.com>
+ <877bl26aqg.wl-maz@kernel.org>
+ <wsnf276xrun3g4hjr3t6alprapctg5z4kpj422v3hujqdjnrsa@swq4blkqvvj5>
+ <875x0l5udh.wl-maz@kernel.org>
+ <eylfcgxs2xzu57czyuhkpmum45lpxyccyu2yh3mipr67aq3xo6@xinygxzavoja>
+ <2bde734c-eb86-4c7a-958d-b431e6d13671@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2bde734c-eb86-4c7a-958d-b431e6d13671@linux.alibaba.com>
 
-On Sun, Aug 30, 2026 at 02:31:53PM +0000, Tristan Madani wrote:
-> skb->len is the total frame length, not the length of the IE portion.
-> The IEs in an association request start at offset 28 (24-byte header +
-> 4-byte fixed fields), so the correct IE length is skb->len minus that
-> offset.  Passing the full frame length causes cfg80211_find_ie() to walk
-> up to 28 bytes past the end of the skb data buffer, triggering a
-> slab-out-of-bounds read.
+On Sat, Sep 05, 2026 at 11:49:32PM +0800, Shuai Xue wrote:
 
-The length passed to cfg80211_find_ie() is indeed wrong and the fix looks
-correct to me.  I did try to reproduce the reported slab-out-of-bounds
-though, and I don't think it is reachable.  If I'm wrong about this,
-I'd be glad to be corrected.
+[...]
 
-cfg80211_find_ie() walks the elements via for_each_element(), which is
-bounded by _data + _datalen and never dereferences past it.  With
-ies = skb->data + 28 and len = skb->len, the highest byte the walk can
-touch is skb->data + 28 + skb->len - 1, i.e. exactly 28 bytes past
-skb_tail_pointer(), as you describe.
+> 
+> Hi Wei-Lin,
+> 
+> Your PARange analysis is what this whole diagnosis rests on -- the
+> 48-bit/256x arithmetic is exactly right, and our ftrace data confirms
+> it to the chunk: every full-IPA kvm_nested_s2_unmap() in our traces
+> walks precisely 262,144 1GB chunks, the number from your table. The
+> kvm_ipa_limit=40 experiment also pointed straight at the answer. I'd
+> only push back on the last sentence:
+> 
+> > 
+> > With this, I think there aren't other underlying issues, it just is that
+> > slow unfortunately..
+> 
+> 
+> I don't think it is "just that slow" -- I think it is a specific
+> regression, and your own data localizes it better than the conclusion
+> suggests.
+> 
+> The thing is, kvm_ipa_limit=40 cannot tell *what* each chunk spends
+> its ~3.3us on, because the walk is also per-chunk: cutting the chunk
+> count by 256x shrinks both terms together, whichever one dominates.
+> The experiment that separates them is one where the chunk count does
+> not change at all.
+> 
+> We ran that experiment. Details are in my reply to Marc, but the
+> short version:
+> 
+>   - Before: 877ms per callback, 262,144 chunk calls, 262,144
+>     broadcasts. Chunk count and broadcast count are exactly equal
+>     (8,476,033 = 8,476,033 over the trace window) -- every chunk
+>     ends in a broadcast, mapped or not. Per chunk, ~4.6us of the
+>     ~5.1us is inside kvm_tlb_flush_vmid_range(); the walk of an
+>     empty chunk is ~0.2us. In an uncontended numad episode, 87% of
+>     the 1312ms is flush time and 8% is walk time.
+> 
+>   - After conditioning the flush on the walk having actually cleared
+>     a valid leaf (the candidate fix in my other mail): same 262,144
+>     chunks, same walk, ~110ms instrumented. Nothing about the walk
+>     changed -- ~3.1us of the per-chunk 3.3us was the broadcast.
+> 
+>   - And the table really is empty, as Marc says: with the flush
+>     count acting as a detector, the first full-IPA unmap of the boot
+>     issues 2 flushes (the EL1-boot-period mappings, a few dozen
+>     pages in two 1GB chunks); all 35 subsequent ones issue zero.
+> 
+> The code history agrees. Before 7657ea920c54, the TLBI lived inside
+> stage2_put_pte()'s 'if (kvm_pte_valid(ctx->old))' -- an empty walk
+> issued zero invalidations, ever. v6.6 hoisted the invalidation out
+> to the end of kvm_pgtable_stage2_unmap() to batch it into one range
+> TLBI per call, but the condition got dropped on the way. So "since
+> v6.6, the cost is proportional to the IPA range, not to the number
+> of mappings" -- which is precisely why the empty table pays in full,
+> and why I'd frame it as a fixable regression rather than an inherent
+> cost.
+> 
+> None of this subtracts from your PARange finding -- it depends on
+> it. The 42s -> <1s result was the 256x chunk scaling; the remaining
+> <1s is what the conditional flush removes.
 
-What follows skb_tail_pointer(), however, is the skb tailroom and then
-struct skb_shared_info, and both live inside the same allocation.
-sizeof(struct skb_shared_info) is 320 bytes on x86_64, so even with zero
-tailroom the 28-byte overread stays within the object and KASAN has
-nothing to report.
+Thanks for the analysis!
 
-Measured on RTL8851BE (rtw89_8851be) with a kprobe on
-__rtw89_wow_parse_akm(), on a real association request:
+I completely agree. My finding was only a small part of the full
+picture. I stopped at finding out the real iteration count and didn't
+realize 3-5us is a long time for a kvm_pgtable_stage2_unmap() on a empty
+table (thanks for the learning opportunity).
 
-    skb->len   tailroom   overread   slack to end of allocation
-    160        1552       28         1872
-
-So the defect is a read of uninitialised memory inside the skb rather
-than an out-of-bounds access -- KMSAN territory, not KASAN.  The
-practical consequence is that on a network with no RSN IE (an open BSS,
-where mac80211 emits no RSN element at all), the walk continues into the
-tailroom and may match a bogus element with id 48, after which
-rtw_wow->akm is set from garbage.
-
-That is still worth fixing, but it may be worth rewording the commit
-message, since the "slab-out-of-bounds" wording is what justifies the
-Cc: stable here.  The same reasoning applies to patch 1/2.
-
-One more thing in the same function, which this patch does not address:
-
-	rsn_ie = (struct rtw89_rsn_ie *)rsn;
-	rtw_wow->akm = rsn_ie->akm_cipher_suite.type;
-
-struct rtw89_rsn_ie is 20 bytes and akm_cipher_suite.type sits at offset
-19, but cfg80211_find_ie() only validates the element header.  A minimal
-RSN element with datalen = 2 (version only) makes that read land 15
-bytes past the end of the element, and with the length fix applied it can
-still reach past the end of the frame when the element sits at the tail.
-Checking rsn[1] before the cast would close that too.
+So, because there are no relevant tlb entries created in the first
+place, the per iteration TLBIs and barriers are mostly doing nothing
+useful and cause a 10x slowdown.
 
 Thanks,
-Maxim
+Wei-Lin Chang
+
+> 
+> Thanks,
+> Shuai
+> 
+> 
