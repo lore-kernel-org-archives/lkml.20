@@ -1,242 +1,100 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013038.outbound.protection.outlook.com [40.107.201.38])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 789063A48C5
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 02:45:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.38
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788576308; cv=fail; b=ovrdeKxzxTSsvFQffTzgEwUtYlZiK2IU1p8kkl7bD0ChgW11tWdbP/zNqAgATSHHdHXsUVoMJxMMDEPa8wOEA+JtKt4YAPSwnsYh03IeCPYO/E453Vol7dWU4a+qk46gA8g9nAEhCOW7SZX8KWKUakduJCxkmc5uhUot1hucBRE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788576308; c=relaxed/simple;
-	bh=vnCoi9ZCWbWYZxU+uz/CyEBj8ZoTJ0OdVP3wrIf66CE=;
-	h=Content-Type:Date:Message-Id:From:Subject:Cc:To:References:
-	 In-Reply-To:MIME-Version; b=UMo6PIGREkneDuL89tjUkdgyqTEKAVTuTj/e5cKwtrYBsXwzNFFTeyt7BquRAQpRsIREQ+y2bGEaFSeKyvuOlNMRap2fkMUJIR8yBfUoqL3jqWYxD740k06IGC/fx7OJXh5nQhBFiqt7JgfVM4eGNnTctl/Z+KGn2eUiwEa/vSI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=my10TE+8; arc=fail smtp.client-ip=40.107.201.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F62539E16C;
+	Sat,  5 Sep 2026 02:45:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788576336; cv=none; b=dfe7jwVrJjujaNowdg7zLoxEHax4uAjiU5u2BvzE5qlCH5koTlrAXoWkOju4/tFdB9TYapkAOl2TfTPuKufBpP6oiqLsgvDy4oWp3lBMM4jGX5Z39OHTDHjPheXQoWFyTCyUbIfUJTbCxkPQ0D051UtB/EQMEUoOMj0ya79ooz4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788576336; c=relaxed/simple;
+	bh=1q1lbuv/E5oQ7vafHBsHsaHKHwqb1DcXXqGrYYLTLJI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=afrpphqk529Uzh0KqWJifWM6ydutqcS204AA7Y0kvkeJtXAeJfTs4QeNj95uIXPuDCSmfmz4PWCNaXa3CIQxYGpTi2jyisoCQStDwRMMOasaXMOMQrwhbg154O/iYoIpfnQQeAv/BHZ3j6ocLo+SRpm9ImfYU4eJJoi//e5UD3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=W3z0JK+n; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="my10TE+8"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oCU4sinYV5IiOtGO6CZza341n+STzU8NM2+zvI6VoSvfHsub7z2ZBDp0SsZrQH+uaq50Wej/cTlazDyaJLbR+idBiBTLwLe2T6pHRA6afO+AjoZWMwUDRpzCz2cMhut4sasiZTkDEpZJbAZWDpTW7v20RSRfpRt6Nap2c1FfXdi8FLdccEXoxX38QiqKeF+2fKixf8N9yoqacCgmpgPTIxRcsMtBC39UgObKF41F7PZArFqgxIaZUNd4pJcAtnaDUxEyRSYNtTNoI34K8xaq0G7V//Wq7GH20xkpel1Um8rsTGuJF3YF57wBVO7o+2cZiHxoGe3fcRyrhGkN24q/Xg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2YdiYCDW0ds85cdHpCtFo6bH34eI4T8Bz1wBZJRlKbM=;
- b=pEkkQxULwRQwqXwgn5Cs7J1c+/PkkF7dbv/c5F9sSO0brnDN1DSAiD8dchUbXYn47EBPV7NkWgiVNOySuxdrH92/XHv0phPMP8OTEQgGu2s36j1x3e8foc86LpuYy7BY5Evub6jGVUwu/2kkRVD/m8nrhGbQkqHFO+olern4XPeLdKod7SldDjRBOy+Q8FAGOoUlKfOp2Kpz0w/BQGjpG1wrf4ProF747EVjfsGn7d6zS7SjX9YYEMEbNypWkSqbO3vrOid6No9qIGKWoEEPrmKQBMzIQTpUdxiYrjETt4ohlrbvaNgdYXZO1y4qnbIKsNqpQPrhr/9J9Ow63GPqHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2YdiYCDW0ds85cdHpCtFo6bH34eI4T8Bz1wBZJRlKbM=;
- b=my10TE+8eHvya81QJ8U1AhnKmNz5zSDIZKI6gTH/WaCRPlJpAKS7NDRrnwhbZwIVgUc6hBmAB4iJndZDx+Yc3WIR3IHiR1A16VMw3FfNpOVp/hYaxhJ0UwzZTNJ+JZy6m4q9FSFQsFX31/Mf3gfOe8R2sOcshjaV+aXjO0eW26TUgAwJRCEDaHJF2Ypvwp4i175SMony0NYdTy/IU/DtVCqU7Zojpx3DkBTGGEm5XiOAf2+tWAVNOY768Id7XmqN00S/XrXF3dYZ7m7hUQigHBHCKkbret3tGaSijZMYx7jFBHDuMA2Zbo/7zojqnmtVjG8E7RQOtP+h2KSzbzYkWw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by CH1PPFE5ACC0FD2.namprd12.prod.outlook.com (2603:10b6:61f:fc00::629) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Sat, 5 Sep
- 2026 02:45:00 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0360.008; Sat, 5 Sep 2026
- 02:45:00 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 04 Sep 2026 22:44:58 -0400
-Message-Id: <DL71DSES00K6.5JMVM0IJLPHP@nvidia.com>
-From: "Zi Yan" <ziy@nvidia.com>
-Subject: Re: [PATCH 05/12] mm/collapse: state what a collapse may do in the
- policy
-Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
- <kernel-team@meta.com>, "Baolin Wang" <baolin.wang@linux.alibaba.com>,
- "Liam R . Howlett" <liam@infradead.org>, "Nico Pache"
- <nico.pache@linux.dev>, "Ryan Roberts" <ryan.roberts@arm.com>, "Dev Jain"
- <dev.jain@arm.com>, "Barry Song" <baohua@kernel.org>, "Lance Yang"
- <lance.yang@linux.dev>, "Usama Arif" <usama.arif@linux.dev>, "Vlastimil
- Babka" <vbabka@kernel.org>, "Jann Horn" <jannh@google.com>, "Kiryl
- Shutsemau (Meta)" <kas@kernel.org>
-To: "Kiryl Shutsemau" <kirill@shutemov.name>, "Andrew Morton"
- <akpm@linux-foundation.org>, "David Hildenbrand" <david@kernel.org>,
- "Lorenzo Stoakes" <ljs@kernel.org>
-X-Mailer: aerc 0.22.0
-References: <cover.1788533997.git.kas@kernel.org>
- <b01681c3cc945a7f7c3c7ca1de502f7cc0e93fe8.1788533997.git.kas@kernel.org>
-In-Reply-To: <b01681c3cc945a7f7c3c7ca1de502f7cc0e93fe8.1788533997.git.kas@kernel.org>
-X-ClientProxiedBy: YQBPR0101CA0267.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:68::27) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="W3z0JK+n"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=bfTKRiuoUxnIvVqKGOdKuv9fLbVWUs1+16Z2ifSaOak=; b=W3z0JK+n9q59wWuFLfarXq4rXn
+	KmcBTyLeeGRRnpzm46zWv8KmykPrXvZxWtoM1WidP/R6NL5J2isje2lo4b8D2F6Py6jkP5cgcOVKw
+	DRcNRGp4BhSmfCDJllO7mqWCLriw2JWRZX8T+OkZ3pd8EmRWYaTj/fjrGoeAi4wIhhe8WldtKyxlz
+	D7v+5GV6RMBV8AfQMPc3trk2Ak2XeRDqbr/Z0LUxncpNmYNsYqUByhq7YGlRFQbNfuJYq0O4vqpfG
+	2oWUGsqsvk/48dqQO+Gk9QrbuZ/tb0ca58vu2KsEjAgeCA+5pdxpyO0qpFTeBkPrLiLUa3m+xCV9M
+	rWi8Q7bQ==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x2gPM-00000003c2J-1G1C;
+	Sat, 05 Sep 2026 02:45:32 +0000
+Message-ID: <08821c36-416f-4905-becf-cf463c3e707c@infradead.org>
+Date: Fri, 4 Sep 2026 19:45:31 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CH1PPFE5ACC0FD2:EE_
-X-MS-Office365-Filtering-Correlation-Id: fb90b19c-69af-4dec-faeb-08df0af7ae03
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|11063799006|10067099003|4143699003|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	1BIL/gSwww0dzMy6qQ4m/rCPwrO9q1JIiouon4v8KwbiL0qG2noa79nMmhhdQbqvXc5pdQJCfPzz5OPP9YD07MuwAqbiHxrNMeZrUXPDw97yZupSmwQqNY2ViOkeG4WWBYSymrGTEJugp8srv/HNZOCDdhnfYuyLuhslEWY0oAYUQEt61OLRVdCfIl055bHBl7a2Ye2cZ+CIg82A9faLCtsm2GooBA9gfKf4ze+CVf8WAB925nYquTglnZ78HWqy+BYwLaFfHRgPbfwEdPPXWTfYX9qxJO2VqkTxNhfbAamNLf2zhRUG5e3sIG2hzLzmwaF7cQ+2dYFIhBPBmBEley7n+dm0SaqxbEAxxV1X3K73u4q9fuvqRWHmSWnHAdRgryfMrN77jydupfr4cWo9xP6MAQiF2VGgynrAtBJaPA5zn6ZLnf2s4x5BB+7vSdGNWrib8aBwSwUdmNYnxGo+XTskqXWSNQJCmVxnYoG9NDxsxaXIK5TBbwfD9I92OsOy+aaWfsKsJTb28VnL977BnL3jEm7wp7QnbG0mxCqwB1GiCdmpHsCmRyCTURzReK+UST180gozsxENgF2Lj5xprJ1C2Qaz+lSyeXfZityCce49Pguxg4rgZFw9S1b13cDnOgyRu1xNk3/bksr6Y8dHKgrtn3bCWyRxnTrzbPZFlJs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(11063799006)(10067099003)(4143699003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NjhNYVpqaHA1RXFNcUgycWtKZlltTUlIUWxqK2g1cE9RTFpZSUVyWCtLcUwx?=
- =?utf-8?B?R084L3BRMzhHRjhtbXJnaEJvUkVLOWFJUTJGMnlFQ0NucXBqQnFIZUZyNzY4?=
- =?utf-8?B?TUhJc0xZQmVTTHVpa1ArQzRONkJQNkxGK29pZnZ1aG05bmk2RmpXbDF4SGdl?=
- =?utf-8?B?WnNQRVppeWgvaTQvb2xUbnBGWU5ZS1ZuNTcvblJSaWdrMUJ0SUcvaTRjY1FH?=
- =?utf-8?B?eVJvTzRmVWRTZUFiZmxpL09WQjJQaFNuQi9HZTJKbnU1U1dDOEdlOFRmQXRt?=
- =?utf-8?B?ekdab1NJMjZkelhudy9jdmJJbS9jZzRkcjBobUx5QUl2NmhmS2Q5T0xUS3Ur?=
- =?utf-8?B?UEFYOUZmV1JTTnZFRm1xOGV1Y0RJRGN2eG1XbE1kTEZxSTlNUjJUTlpCazJH?=
- =?utf-8?B?NHplcU5Qb2hGOEtWMEQ2ZHdkY3pTa1BkWjg3WnVuYlJjZVgrRG9SQ2tHY2wz?=
- =?utf-8?B?OFlXVFZUS2ErdG5taC9pMkY2U1l3OWpQODB1RFRsRXFsL2RQQ0EwaGtLdnFI?=
- =?utf-8?B?OGhvKzFEalhObTlhbW9IaUFTSitWbnJWUUhRZSsxQ1ZqL0U2Mk9YdjdEMmty?=
- =?utf-8?B?em5NMnZsWGYrM3ZwZklVcXpsRjNaUmRvbUhIVEpSZ3ZWdGpCMndNb28vQkUv?=
- =?utf-8?B?end6eVIyMktSSE5lek9xbzgwUHNQMkJiaElMRHF6OGtwSkJsN0Rrc3RiVzYy?=
- =?utf-8?B?VlR5cE5kQnM2T3B5bjJSbndJdWt2c2d0VVNuSDBjTFZIM3BmN2duNk1TZ2ov?=
- =?utf-8?B?N1MwOC9jTnZaTC9MTmJ2VklRSmttZDd6SUxIaGhjY2FvczhjNjBUbFd1ME1W?=
- =?utf-8?B?c00xZWFzbTd2ZlBSRzQrUzltRHVkUWFlUWU1VVFjaHRqdWFHRzhWY3VtTW5B?=
- =?utf-8?B?NXp0YUJ0bHd3UFZTY2JEQjBIbEY2YUxKM0MxUEVyU0E5Vi9JRTY3ckhCTXE3?=
- =?utf-8?B?bUZkcVlGRS9aU0V2RG1BRTUyNkNYZ1FBczVmMzE1Y1lxZUtUTVJpRU1DeDhM?=
- =?utf-8?B?WGF6TFl2aks1U01BZWpaWFVwSU1wVkJsSDBOVkdCbSs2YXc3MGN3M24rRFVM?=
- =?utf-8?B?Ukg5QXZla2JhK1VyeWtwWXNxZDQ1RllDYWFlUDdsZFdqWjBmUDRqaGRqSWxX?=
- =?utf-8?B?VGE2eC81VHJIR0orVVlhbzR5bmVKVWcwZWJkczBrNEJPdFIrSVhSNk1sYXdZ?=
- =?utf-8?B?bnZJZW4zU0VpVzJPVVFFa0FWazNHYnBvdTlTV2ZsUEVsa3AvY0R6S3E0SE00?=
- =?utf-8?B?cU44U1hMeUZCRUMxTG1iL0xDa21RMEwwendJNDRaNVZpLzRScUF6Z3BINlJm?=
- =?utf-8?B?ckIyenBnR3UwQ1V4Z25Ockx3ZnQ4aEhndjRJbjZlRWx3NVlYcS9uQ05NdjIx?=
- =?utf-8?B?d2RJUkRRVGFsc3YzSm95Q2xwQUdQR012RDRVQWxEQlVTMWpvR013TXl4c3dB?=
- =?utf-8?B?S3cwQkozd0pEczRtTko3VWdnVlFEc2VNM1JvNGpON2FsSHFvbXM0WXRHOGhu?=
- =?utf-8?B?a0x3Uyt6MzMwZlU1U255WG9BcG9oczhDS0g0VHFMdjlkL1k3cXBvdEJ5T0xq?=
- =?utf-8?B?TjZDOG5zRFhHOEhrWWplZ040cmxuQ2ZGeVJsZmhJTkwyd1d4ZXg0NVA2VDRu?=
- =?utf-8?B?RllzVVFYY0NUVDk0cC9GL1JjdUxnNW1JUGtZc2R1OWc1bllPR1RvbDUydnJJ?=
- =?utf-8?B?b1FNMUlaQWUvYkc5ZzNHVDMvOHM0MitwVXlrVEV6R1dad0U5NURGTk5lbmxa?=
- =?utf-8?B?UDFDeGxYTmxCdElVRzFtcm9iRkY5ODRKQ1k2S1BjMWxlUjkvWG1nTkZXd0tB?=
- =?utf-8?B?dTNmMlN2eHZMblI2VzRxbnlmRiticE90M1VNOWNMbXpGdVdJQTlGZ0hoRmlJ?=
- =?utf-8?B?ZlFEMHo1R2ZxRkFGRXFwb250enh0YkNPaUQyLzN1T3JiYnFaYUZtdEZkSkdW?=
- =?utf-8?B?YmhRSGJxSzdQeFI4cWNkb0p5dUs2SHhXQmI2OGEvemt3dC80djVhSVpkRHVK?=
- =?utf-8?B?a1JwZjdvdU5uaG9zbzdscG8yWXlXVkVWU0RwZjR6YjBXbUtZbEVTbjRJSFh5?=
- =?utf-8?B?UXhRQS9BNi9ZT2REYUU3NmljTFZWSVBlUGxPSFBUZTdhdXo0Q1cvRnB1QUlW?=
- =?utf-8?B?eG9xZDRqQTFkOXREUy9Hek5OelpmekNxSjI3aytBSG84ZGVmeUZYT2RWSTQ5?=
- =?utf-8?B?dUE1QllYZGdhVDUxbFYzQmV2QVpVVDlKZDV3TUMzbEhwNWJNdERTSExLb2tB?=
- =?utf-8?B?c0prZDE3N2FPbzBwYTVkSE1sQnRyVkJmTlFYdkliUWlLVGl2VElPYm9Jazk2?=
- =?utf-8?Q?IkRoKXNHVPsuQcl7La?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb90b19c-69af-4dec-faeb-08df0af7ae03
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 02:45:00.3296
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FjDu00++RhIEExT/39tMM9mLv5t32d/16LK4U9fCiKVvhDFMWl9ii+m54CWB3G75
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPFE5ACC0FD2
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] docs: sysctl: Remove obsolete sg-big-buff entry
+To: Karl Mehltretter <kmehltretter@gmail.com>,
+ Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>, Yang Erkun
+ <yangerkun@huawei.com>, Bart Van Assche <bvanassche@acm.org>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260905010952.57451-1-kmehltretter@gmail.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260905010952.57451-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri Sep 4, 2026 at 11:10 AM EDT, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
->
-> Tests scattered through the collapse path decide what a collapse is
-> allowed to do by asking whether khugepaged started it.  Between them they
-> settle:
->
->  - which VMAs are eligible, and how hard to try for a folio;
->  - how many empty, swapped-out or shared PTEs a window may contain, and
->    whether a sub-PMD window is held to a stricter rule than a PMD;
->  - whether a range has to look used, and whether a MADV_FREE'd page is
->    left alone;
->  - whether the PMD is mapped as part of the request, and whether dirty
->    pages are worth writing back and retrying.
->
-> None of those is a fact about khugepaged.  Each is something the caller
-> decided before asking, and the collapse code should not have to look up
-> who called to find out.
->
-> Add struct collapse_policy for the caller to fill: khugepaged from its
-> own settings, MADV_COLLAPSE from the fact that a user asked explicitly.
-> Every test becomes a read of a field, and cc->is_khugepaged goes, having
-> no reader left.
->
-> khugepaged fills the policy once per scan pass, MADV_COLLAPSE once per
-> call.  That is the one change in behaviour.  The max_ptes_* limits and th=
-e
-> defrag setting behind the allocation mask are sampled once per pass rathe=
-r
-> than on every table.  A table scanned early in a pass and one scanned lat=
-e
-> are then judged alike.
->
-> collapse_file() also drops a NULL check on the collapse_control.  It has
-> one call site, reached only from collapse_single_pmd(), which dereference=
-s
-> cc unconditionally, so the check was already dead.
->
-> Assisted-by: Claude-Code:claude-opus-5
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+
+
+On 9/4/26 6:09 PM, Karl Mehltretter wrote:
+> The sg-big-buff sysctl no longer exists. The documented SG_BIG_BUFF
+> macro is only a compatibility alias and changing it does not alter the
+> driver default.
+> 
+> Fixes: 50209dec14f8 ("scsi: sg: Remove deprecated sg-big-buff")
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+
+Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
+Thanks.
+
 > ---
->  mm/collapse.h   |  40 ++++++++++++++++-
->  mm/khugepaged.c | 114 ++++++++++++++++++++++++++----------------------
->  2 files changed, 102 insertions(+), 52 deletions(-)
->
-> diff --git a/mm/collapse.h b/mm/collapse.h
-> index 1c40229b9554..05282eed9a35 100644
-> --- a/mm/collapse.h
-> +++ b/mm/collapse.h
-> @@ -48,8 +48,46 @@ enum scan_result {
->  	SCAN_PAGE_DIRTY_OR_WRITEBACK,
->  };
-> =20
-> +/* What a collapse is allowed to do, decided by the caller that asks for=
- it */
-> +struct collapse_policy {
-> +	/* Limits, stated per PMD; HPAGE_PMD_NR means "no limit" */
-> +	unsigned int max_ptes_none;
-> +	unsigned int max_ptes_swap;
-> +	unsigned int max_ptes_shared;
-> +
-> +	/*
-> +	 * Hold a sub-PMD window to a stricter rule than a PMD: no swapped-out
-> +	 * and no shared PTEs at all, and max_ptes_none as
-> +	 * collapse_max_ptes_none() scales it.
-> +	 */
-> +	bool strict_sub_pmd;
-> +
-> +	/*
-> +	 * Collapse only where it looks worth doing: require some sign the
-> +	 * range is in use, and leave clean lazyfree folios for reclaim rather
-> +	 * than collapsing them into a folio that is not lazyfree.
-> +	 */
-> +	bool skip_lazyfree;
-> +	bool require_referenced;
-> +
-> +	/*
-> +	 * Finish the job rather than leaving it half done for a fault to pick
-> +	 * up: map the PMD over a file collapse before returning, and write
-> +	 * dirty pages back and retry once instead of refusing them.  Both cost
-> +	 * latency the caller has to be willing to pay.
-> +	 */
-> +	bool install_pmd;
-> +	bool writeback_dirty;
-> +
-> +	/* How hard to try for a destination folio */
-> +	gfp_t gfp;
-> +
-> +	/* Which VMAs are eligible, as thp_vma_allowable_orders() spells it */
-> +	enum tva_type tva_type;
-> +};
-> +
->  struct collapse_control {
-> -	bool is_khugepaged;
-> +	struct collapse_policy policy;
+>  Documentation/admin-guide/sysctl/kernel.rst | 13 -------------
+>  1 file changed, 13 deletions(-)
+> 
+> diff --git a/Documentation/admin-guide/sysctl/kernel.rst b/Documentation/admin-guide/sysctl/kernel.rst
+> index b6328cd0f43e9..d9e9b12136eb2 100644
+> --- a/Documentation/admin-guide/sysctl/kernel.rst
+> +++ b/Documentation/admin-guide/sysctl/kernel.rst
+> @@ -1334,19 +1334,6 @@ seccomp
+>  See Documentation/userspace-api/seccomp_filter.rst.
+>  
+>  
+> -sg-big-buff
+> -===========
+> -
+> -This file shows the size of the generic SCSI (sg) buffer.
+> -You can't tune it just yet, but you could change it on
+> -compile time by editing ``include/scsi/sg.h`` and changing
+> -the value of ``SG_BIG_BUFF``.
+> -
+> -There shouldn't be any reason to change this value. If
+> -you can come up with one, you probably know what you
+> -are doing anyway :)
+> -
+> -
+>  shmall
+>  ======
+>  
 
-Can it be made const since it seems to be read-only?
-
-
---=20
-Best Regards,
-Yan, Zi
-
+-- 
+~Randy
