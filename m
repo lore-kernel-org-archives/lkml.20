@@ -1,210 +1,217 @@
-Received: from mail-oo2-f0.google.com (mail-oo2-f0.google.com [74.125.231.128])
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38053383310
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 14:00:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.128
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788616848; cv=none; b=Qu4hcDAdrZLb82Sh1/Qv6O1ew8dxwXx/qYUKgOFtFnOROU8JxjdrpHk/kVM9fzOQckx0oUbKwGRErrRMUZsjC8Zi9hx+PQALm9r7ZIRGxSC7iD6JzXI7MftjaGL7OWTtqCoOW35LHjI458Tnnp5XOBpnKuTHE9MHUcm2uAigZVw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788616848; c=relaxed/simple;
-	bh=7NwBpm0C1FLF+kYXPASGbIf8/Uxzy6O/7cUeUmnNlQQ=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=NDtYaovUrGsri840rI2bEWbiiFyMOagISUt7Ew88UC0G0KoZV3GuEcHXPI8zbT/SJY9XHTfqJo55ZqnZioyt+mr4I9szbBy+BxDp+qr248GgqCf0Aef6dTOYJmKW9RzLJyQGhDdouiO5ULjGP4fzCtRU/OPrg3IZz58HRL19zu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f0.google.com with SMTP id 006d021491bc7-6a3900cb2b5so838736eaf.0
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 07:00:34 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497DE388E6E
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 14:01:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788616884; cv=pass; b=g3YpMMysNf284yuw1PjOGlEfcAh3DOXQZeuVTy4tHGkn3sObz4soQbQB7/Df6oosv6lAIIvXSPYYV6ti6XdliW7Mmqv2FVgmvrVf25fpQhGkHq2DtR02yNR70R6CtfLUSah5zxdEYkBkk3VAC2DX9XGCSHI/rv17R5lCIsfvt34=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788616884; c=relaxed/simple;
+	bh=M7fAdXtBDfEORDW145jXu6v4iUab4x+K54eSd0w9thQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ESqWGQjmxaThJieZCY0UkQmpV0HoId136pDz4cYOw7sIXLGS4x2g62UL9uPmR4UVFC2I3XrTChLHdIcjIm2gw8+Jz8ZwArU7FMT9nF5BBfxis1OtTqqqIaxVtb0BR21jurOlHgoP6UJ3vJhVQfl1gQs9YF02Ocq/m2l5dtZKcZI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IEXpHs7A; arc=pass smtp.client-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IEXpHs7A"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a7f27637d6so2162818a12.3
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 07:01:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788616870; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Bcjl3SgT8H3aENfkPITR7+JiEuFIeFRhbYYsvOGXHKUWIhwkWY5igxNepteXlsYp7x
+         fCIU5AbQpDgtUmGmF/T9E/E9VrTjrYwOYB1Ho+M6lReCbUu0Ahh8UZAE8f6T/zKrBrzj
+         rXLo8iAJRNQxz8fa2B2k8TaWdhkA/zUn5/I9/90CN0l2F/8fh451AHc4sgB5ZExIkUAD
+         /5yNRnv8nHtQ9bak5QQyOumSTGQSbXcKUc/psXV3hKzjpwawEmXY7/nFow9oKFHwifeo
+         AU+cALSYG3SalAhQAWh7jJwTbm9F9ounSEy/jCyM3rXqWOqbus94lFunp7I1hMXmBC/q
+         xkuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=I+I8QUj3WVciHxoRXxP9OcDrC3AowirtGwOcl3KlFtc=;
+        fh=MOuK29JE01WwnufiVKTjwivJYMvupozKUkNMvHi79ns=;
+        b=EvOJfUDL659DmBoo+MsSlqZT4e7UyfF4rxmcfmgr+qwcNCvyj27VtZOp0lPLyKI4k9
+         +ZTqqrxvr7+ZadLCt5oTxnp2OKve0MEa6hr8b9d3PfPopehDaktYzvErbdsSP0LHEbPN
+         ujObi2MldH1vo5Y2mUqQkS3oGEwVB+EgyE9HBdkU4YAUh4nSquDH3K3q0pkPO9aVl6WA
+         LWrIomxsTr6Zn+BaXQxT4ytTearPgftmF4hkqeCH1suZLa3lHMLntUT/B2bGrw+mPA/3
+         0RhvvhUrWwnxB9Oz+71TmZJFrB7Op6XiR1eLioX06RZxfnoQTtnm5VDK1qp2eLGbdwGT
+         cH2Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788616870; x=1789221670; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=I+I8QUj3WVciHxoRXxP9OcDrC3AowirtGwOcl3KlFtc=;
+        b=IEXpHs7AZQC+p/V7N+rI4lfrDYHccP7qJKR7h2RUSxx1BlzQqzqvOm01VndKlKraBx
+         ihEhA4VVCgtWG1VgSU7timB3t1XhuIJfi1dqIReAiVVtwa8H/U48iJl/DSXDdqyWAQtT
+         N/a9lYFJehhlhfR4gXC8kox3Gp+js9wD/P6G30USh8TBAhmKGZLPhk8HbamsehVbZdJc
+         An7hVEKJiTpH8uuFwJ2N10Pk1QDjzd6w361h38ATts9O4nJGgXEKmVCvt0vzvxEuznIa
+         oradz+5ceD88bhbGCfSlQkbvfCElTEmfcwa+uWYjZvykubzUqT/6b15BzHhgpgVRWMMc
+         YzpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788616831; x=1789221631;
-        h=content-type:to:from:subject:message-id:date:mime-version
+        d=1e100.net; s=20251104; t=1788616870; x=1789221670;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=focEC3DqDk0O4jsiJOz9zVQ7X7PAcbJMwH+HkhI9hZA=;
-        b=OIfqMNKl5oQIiU7mBTqKmUJ5eRL4C6tVpdC24y9soDNR2BE/KW1PsasN+atIhO0oWw
-         hJxPt5XKM6uEJ6mnaT67wYoFVwfroXNY7DV4twChVBoVgV5PXfeP7PQXbn7IWzJpttWu
-         LXmqVhZ4CzksOrwPBGmaHX9NOOFMtybau0d/26wGEL+kABi2KHHCuksKb3Jbj94L5ohs
-         xF/PXDG5nPgk8zPSBWfccHmCGdlGi4GI+Nz09+GprbmK/M6Lp+ZKYCG+x4NYENr08CLf
-         O0pcgN4JvI+0KyIwHfwmOgvlefqQUMyfgVA8ItrEy19sM4IW+fMiMBvhOeHVb67gqXFD
-         cjIw==
-X-Forwarded-Encrypted: i=1; AKwUvBwJdRZuKWuRApRpBqFwW7UuDscDHwgDaQnVVh3B/dPaJWa/LfM7GYGDssm3MtZV4A8nWnDbFXgiBrPTPG0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lxN0AsRIqZmeJmuI1Fnxz0PBkCT652BvCgLqBOHJtyqj9b5vcm
-	5GN+P8JDmXEbXbob2wf+cK00CemMwP1Ha8NOiB3BhPSnwP/RAqvWkHgrtFzqHATZ1ndxxew5dc2
-	xrW59vztukD1saMpMi5zDoHU4+yYUZITQ4+7+t/GufZf/np3PK8DCUsOFOy4=
+        bh=I+I8QUj3WVciHxoRXxP9OcDrC3AowirtGwOcl3KlFtc=;
+        b=sjH4hdebU/pdzm59TloPbk0dETTfxljo3nLdO9W2609xw1UQpG9J6dRHWhQUJFZ29G
+         12I+vg+EAUibMX96woyjXQQky/tODWRdnWbYxZ2UJiWe9UEhkmrYiMUiOeE+oUCY4mxA
+         y1jB/0RCY1bUAH53Eo83vhLWvlTOYzdnEPUm1WR9Sw+tJiuUDrSjFp6A0o73ick5XOiH
+         cxbt7js4uJI8Ky+3q1YE6XUvbThitiMMeRlqA6VFJXsAmyuhicHBTf/9nWxHVCRg9NB1
+         rhz0AIY2NZ+u14Iw/GkdJgnpjqdEixTxFR3uWvlzoRKgpK33BvjsqDcCrKX4+Dfd3mvB
+         WoWg==
+X-Forwarded-Encrypted: i=1; AKwUvBzqQVldSNZfNG2SleJmaf3FrKCHLTHhvKXnl1S3EVKY+i/3UCwrCFwPhwd3ytMfrxJ/Jfziv+B9LBgZj7c=@vger.kernel.org
+X-Gm-Message-State: AFuF++mZmUixS7wl+uFUsmUv4RzpPj0yYsTXGRo2PzzJXWrearJj0fWQ
+	+s/FCNoBu1vDpwCiF+s+9QMMY03Y1VsXyVz2aCpbNGMIZ6uKIrFGgHDT8eEbXwR+7GpWByr+bc5
+	b2AwbtNC4BS49z46eA54RlezHj5HRByo=
+X-Gm-Gg: AYBFou3UY0fh43nANzhOpXfuZBejlRCqSG06BeHIt4DF68eqN1F3Z715xq/NT3fAvIP
+	rfmM88gltPLHoIniDOLzdjIA3KihkCKejlMQeTtYfVFLiOY5sq126vQNqdAkSy5zRKYdMxqXJAa
+	qgI+KjwQPTtumUNaivXueE/fzgtXYSvCsZmfsdKg0iDLLeXMya+vgq9tqkkPOqPhgNMdlTOvDeW
+	hoofVKDKZTuPCyb7exmIEigCK2H1tVAzgG71xp4R/IfWlVFUzt0PQeBpcMz1MgI6KzPJQo73hZN
+	P3XBx+5qX+Yg9WZKBYXlXdXfDDnLVm2hbpecglui6ZDYQQ==
+X-Received: by 2002:a05:6402:3220:b0:6a6:3ee3:655a with SMTP id
+ 4fb4d7f45d1cf-6a7e8d368f2mr9247527a12.3.1788616869820; Sat, 05 Sep 2026
+ 07:01:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4b94:b0:6b1:a5c7:58ff with SMTP id
- 006d021491bc7-6b6fcdcfd63mr8053847eaf.26.1788616831189; Sat, 05 Sep 2026
- 07:00:31 -0700 (PDT)
-Date: Sat, 05 Sep 2026 07:00:31 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9c207f.a6639fcc.23b8b0.0002.GAE@google.com>
-Subject: [syzbot] [usb?] [nfc?] KASAN: use-after-free Read in pn533_acr122_is_rx_frame_valid
-From: syzbot <syzbot+1853daab1a47603d4678@syzkaller.appspotmail.com>
-To: david@ixit.cz, krzk@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-usb@vger.kernel.org, netdev@vger.kernel.org, 
-	oe-linux-nfc@lists.linux.dev, syzkaller-bugs@googlegroups.com
+References: <20260904103920.4471-1-luis@igalia.com> <20260904103920.4471-6-luis@igalia.com>
+In-Reply-To: <20260904103920.4471-6-luis@igalia.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Sat, 5 Sep 2026 16:00:58 +0200
+X-Gm-Features: AcwNN1XVifAlKbq_jupyMk4YvbgYjZtTaM8XtGl9N8tec_dpEk5CYKJCab76ZDY
+Message-ID: <CAOQ4uxjMvHdaZfwjkHK3tV6ChsapobpHE9mq8NJSvduOGruvMg@mail.gmail.com>
+Subject: Re: [RFC PATCH v3 5/8] selftests/fuse: use dynamically allocated
+ memory to store ACLs
+To: Luis Henriques <luis@igalia.com>
+Cc: Miklos Szeredi <miklos@szeredi.hu>, Chen Linxuan <me@black-desk.cn>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, fuse-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	Matt Harvey <mharvey@jumptrading.com>, kernel-dev@igalia.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Fri, Sep 4, 2026 at 12:38=E2=80=AFPM Luis Henriques <luis@igalia.com> wr=
+ote:
+>
+> Instead of directly using static arrays for the ACL value, allocate memor=
+y
+> for storing it.  This will make it easier to implement ACL tests that als=
+o
+> set the xattr dynamically.
+>
+> Signed-off-by: Luis Henriques <luis@igalia.com>
 
-syzbot found the following issue on:
-
-HEAD commit:    edc1518454f6 usb: typec: hd3ss3220: Add support for supply..
-git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
-console output: https://syzkaller.appspot.com/x/log.txt?x=14f27215580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=c451f9f64434b622
-dashboard link: https://syzkaller.appspot.com/bug?extid=1853daab1a47603d4678
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=15de68f9580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12c86b49580000
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/7b8a8fc7809a/disk-edc15184.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/6ff1ab9249a0/vmlinux-edc15184.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/249551c4918b/bzImage-edc15184.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+1853daab1a47603d4678@syzkaller.appspotmail.com
-
-==================================================================
-BUG: KASAN: use-after-free in pn533_acr122_is_rx_frame_valid drivers/nfc/pn533/usb.c:325 [inline]
-BUG: KASAN: use-after-free in pn533_acr122_is_rx_frame_valid+0x132/0x150 drivers/nfc/pn533/usb.c:315
-Read of size 1 at addr ffff88816b5da3ce by task swapper/0/0
-
-CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted syzkaller #0 PREEMPT(lazy) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Call Trace:
- <IRQ>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- pn533_acr122_is_rx_frame_valid drivers/nfc/pn533/usb.c:325 [inline]
- pn533_acr122_is_rx_frame_valid+0x132/0x150 drivers/nfc/pn533/usb.c:315
- pn533_recv_frame+0x1b7/0x6d0 drivers/nfc/pn533/pn533.c:2203
- __usb_hcd_giveback_urb+0x38e/0x610 drivers/usb/core/hcd.c:1657
- usb_hcd_giveback_urb+0x3ca/0x4a0 drivers/usb/core/hcd.c:1741
- dummy_timer+0xdb2/0x3700 drivers/usb/gadget/udc/dummy_hcd.c:2019
- __run_hrtimer kernel/time/hrtimer.c:2067 [inline]
- __hrtimer_run_queues+0x462/0x9c0 kernel/time/hrtimer.c:2124
- hrtimer_run_softirq+0x1ca/0x360 kernel/time/hrtimer.c:2141
- handle_softirqs+0x1d9/0x9b0 kernel/softirq.c:645
- __do_softirq kernel/softirq.c:679 [inline]
- invoke_softirq kernel/softirq.c:519 [inline]
- __irq_exit_rcu+0x192/0x210 kernel/softirq.c:767
- irq_exit_rcu+0x9/0x30 kernel/softirq.c:784
- instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
- sysvec_apic_timer_interrupt+0x8f/0xb0 arch/x86/kernel/apic/apic.c:1062
- </IRQ>
- <TASK>
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
-RIP: 0010:pv_native_safe_halt+0xf/0x20 arch/x86/kernel/paravirt.c:64
-Code: bf c3 01 e9 43 fa 02 00 0f 1f 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa 66 90 0f 00 2d e3 ff 1e 00 fb f4 <c3> cc cc cc cc 66 2e 0f 1f 84 00 00 00 00 00 66 90 90 90 90 90 90
-RSP: 0018:ffffffff89607d00 EFLAGS: 00000242
-RAX: 000000000009c36b RBX: ffffffff8962c940 RCX: ffffffff878789d5
-RDX: 0000000000000001 RSI: ffffffff89327d4e RDI: ffffffff87d2a600
-RBP: fffffbfff12c5928 R08: 0000000000000001 R09: ffffed103eac673d
-R10: ffff8881f56339eb R11: 0000000000000001 R12: 0000000000000000
-R13: 0000000000000000 R14: 1ffffffff12c0fa4 R15: dffffc0000000000
- arch_safe_halt arch/x86/include/asm/paravirt.h:62 [inline]
- default_idle+0x9/0x10 arch/x86/kernel/process.c:768
- default_idle_call+0x6c/0xb0 kernel/sched/idle.c:122
- cpuidle_idle_call kernel/sched/idle.c:199 [inline]
- do_idle+0x3ae/0x5b0 kernel/sched/idle.c:355
- cpu_startup_entry+0x4f/0x60 kernel/sched/idle.c:454
- rest_init+0x2d3/0x2e0 init/main.c:727
- start_kernel+0x489/0x490 init/main.c:1185
- x86_64_start_reservations+0x24/0x30 arch/x86/kernel/head64.c:310
- x86_64_start_kernel+0x12b/0x130 arch/x86/kernel/head64.c:291
- common_startup_64+0x13e/0x158
- </TASK>
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x16b5da
-flags: 0x200000000000000(node=0|zone=2)
-raw: 0200000000000000 ffffea0005ad7688 ffffea0005ad7688 0000000000000000
-raw: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner info is not present (never set?)
-
-Memory state around the buggy address:
- ffff88816b5da280: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
- ffff88816b5da300: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
->ffff88816b5da380: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
-                                              ^
- ffff88816b5da400: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
- ffff88816b5da480: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
-==================================================================
-----------------
-Code disassembly (best guess):
-   0:	bf c3 01 e9 43       	mov    $0x43e901c3,%edi
-   5:	fa                   	cli
-   6:	02 00                	add    (%rax),%al
-   8:	0f 1f 00             	nopl   (%rax)
-   b:	90                   	nop
-   c:	90                   	nop
-   d:	90                   	nop
-   e:	90                   	nop
-   f:	90                   	nop
-  10:	90                   	nop
-  11:	90                   	nop
-  12:	90                   	nop
-  13:	90                   	nop
-  14:	90                   	nop
-  15:	90                   	nop
-  16:	90                   	nop
-  17:	90                   	nop
-  18:	90                   	nop
-  19:	90                   	nop
-  1a:	90                   	nop
-  1b:	f3 0f 1e fa          	endbr64
-  1f:	66 90                	xchg   %ax,%ax
-  21:	0f 00 2d e3 ff 1e 00 	verw   0x1effe3(%rip)        # 0x1f000b
-  28:	fb                   	sti
-  29:	f4                   	hlt
-* 2a:	c3                   	ret <-- trapping instruction
-  2b:	cc                   	int3
-  2c:	cc                   	int3
-  2d:	cc                   	int3
-  2e:	cc                   	int3
-  2f:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
-  36:	00 00 00
-  39:	66 90                	xchg   %ax,%ax
-  3b:	90                   	nop
-  3c:	90                   	nop
-  3d:	90                   	nop
-  3e:	90                   	nop
-  3f:	90                   	nop
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+> ---
+>  .../filesystems/fuse/fuse_acl_cache_test.c    | 32 ++++++++++++++++---
+>  1 file changed, 27 insertions(+), 5 deletions(-)
+>
+> diff --git a/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test=
+.c b/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test.c
+> index 12cbf9753d03..c2d6658ff7de 100644
+> --- a/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test.c
+> +++ b/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test.c
+> @@ -80,7 +80,7 @@ static const uint8_t acl_b[] =3D {
+>
+>  struct daemon_state {
+>         pthread_mutex_t lock;
+> -       const uint8_t  *acl;
+> +       uint8_t        *acl;
+>         size_t          acl_size;
+>         int             getxattr_count;
+>  };
+> @@ -142,15 +142,26 @@ static void fs_getattr(fuse_req_t req, fuse_ino_t i=
+no,
+>  static void fs_getxattr(fuse_req_t req, fuse_ino_t ino, const char *name=
+,
+>                         size_t size)
+>  {
+> +       uint8_t *acl =3D NULL;
+> +       size_t acl_size;
+> +
+>         if (ino !=3D FILE_INO ||
+>             strcmp(name, "system.posix_acl_access") !=3D 0) {
+>                 fuse_reply_err(req, ENODATA);
+>                 return;
+>         }
+>
+> +       if (size) {
+> +               acl =3D malloc(size);
+> +               if (!acl) {
+> +                       fuse_reply_err(req, ENOMEM);
+> +                       return;
+> +               }
+> +       }
+>         pthread_mutex_lock(&g_ds.lock);
+> -       const uint8_t *acl      =3D g_ds.acl;
+> -       size_t         acl_size =3D g_ds.acl_size;
+> +       acl_size =3D g_ds.acl_size;
+> +       if (acl && (size >=3D acl_size))
+> +               memcpy(acl, g_ds.acl, acl_size);
+>         g_ds.getxattr_count++;
+>         pthread_mutex_unlock(&g_ds.lock);
+>
+> @@ -160,6 +171,8 @@ static void fs_getxattr(fuse_req_t req, fuse_ino_t in=
+o, const char *name,
+>                 fuse_reply_err(req, ERANGE);
+>         else
+>                 fuse_reply_buf(req, (const char *)acl, acl_size);
+> +
+> +       free(acl);
+>  }
+>
+>  static const struct fuse_lowlevel_ops fs_ops =3D {
+> @@ -181,8 +194,10 @@ FIXTURE_SETUP(acl_cache)
+>  {
+>         char err[MAX_ERR_MSG];
+>
+> -       g_ds.acl =3D acl_a;
+>         g_ds.acl_size =3D sizeof(acl_a);
+> +       g_ds.acl =3D malloc(g_ds.acl_size);
+> +       ASSERT_NE(g_ds.acl, NULL);
+> +       memcpy(g_ds.acl, acl_a, g_ds.acl_size);
+>         g_ds.getxattr_count =3D 0;
+>
+>         if (fs_setup(&self->se, self->mountpoint, &fs_ops, &self->thread,=
+ err))
+> @@ -195,6 +210,7 @@ FIXTURE_SETUP(acl_cache)
+>  FIXTURE_TEARDOWN(acl_cache)
+>  {
+>         fs_teardown(self->se, self->thread, self->mountpoint);
+> +       free(g_ds.acl);
+>  }
+>
+>  static int do_force_statx(const char *path)
+> @@ -210,6 +226,7 @@ TEST_F(acl_cache, stale_after_force_sync)
+>         char    buf[512];
+>         ssize_t sz;
+>         int     count;
+> +       uint8_t *acl;
+>
+>         /*
+>          * Step 1: two getxattr calls before any statx(FORCE_SYNC).
+> @@ -270,8 +287,13 @@ TEST_F(acl_cache, stale_after_force_sync)
+>          * !fc->posix_acl mounts (it skips forget_all_cached_acls in that=
+ case).
+>          * On a fixed kernel the ACL was never cached, so this is moot.
+>          */
+> +       acl =3D malloc(sizeof(acl_b));
+> +       ASSERT_NE(acl, NULL);
+> +       memcpy(acl, acl_b, sizeof(acl_b));
+> +
+>         pthread_mutex_lock(&g_ds.lock);
+> -       g_ds.acl      =3D acl_b;
+> +       free(g_ds.acl);
+> +       g_ds.acl      =3D acl;
+>         g_ds.acl_size =3D sizeof(acl_b);
+>         pthread_mutex_unlock(&g_ds.lock);
+>         TH_LOG("step 4: daemon switched to ACL_B (%zu bytes)", sizeof(acl=
+_b));
