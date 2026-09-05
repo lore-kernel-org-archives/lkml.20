@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0AC24F4733;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C285E4F4752;
 	Sat,  5 Sep 2026 18:13:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788632020; cv=none; b=jf1jgsQz0xiaMC49od4V48QAjzbQWLfWiyRJkz6wgLPbdvoKXoQuY9y4Z833ZW5YTq13ZJmi6AskNLeCAG7mD4YjWc6b8l3IhC6Qam0LMS9IWO/Fz8QHwG79vhvfo8EjaGcz2mQ9bB4P6QGoKvxNk3e5u7xxxYxktos4X47aRqE=
+	t=1788632020; cv=none; b=Er+gMFnkhfK39W+XpjTARDAZM5KKp3B2O/Gw2nUilxv/ZMUsE6oCTfPx6XMH1i1EXARTtxQnsr/tarCjmwETewGFHwKBuwZwCRsMTikTy/VpJf2eTtrwZg/xt7dly27oS8A48479Z/5Vii8qOBEw0Cn0OzQrIEzOUgY6dBaek0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788632020; c=relaxed/simple;
-	bh=/TSf4cfwRiWoLBn1QpiIpPf7eaHrbRpB7P6ajEP2eVw=;
+	bh=039hD2i/u3Xzim3T+Y+Npe87/xD0kbnHfCWs5owZRF8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=B7+/7Dfs8H7pQ40rIMh+RgMSBF5Zu+YgqHtF6fDK+2AHOkL6Xxn34EokEF4vXgDIjs1mu4dkMWvP1lXlJtocZKLHaQ5ey4xyRYWFrRE2+jogQ4sRx0ReNwhiyNP15ld96s0TfWd81FVd9L4tEU2IbmUPtbIbCu/lrrE2h28Z/F0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=p2pdoVI9; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=dGMZvRNa2hrxE/8t5RIMoZ85CBASfvfYtkkjjGMnk9c8hOImgrqK6xiDk8meJilHqG3Ew3zOZ25NIYF0v7OtFHKBegYj8QZpkfv0oC/qTNw8fxXoLmv/zbnR2H2bNskk/RII842UlpsHoSjnCr/jHcSWU3VPNEvF7tpM3t8uKOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dvRKTz6K; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="p2pdoVI9"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8FE52C2BCB3;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dvRKTz6K"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A2D16C2BCFC;
 	Sat,  5 Sep 2026 18:13:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788632020;
-	bh=/TSf4cfwRiWoLBn1QpiIpPf7eaHrbRpB7P6ajEP2eVw=;
+	bh=039hD2i/u3Xzim3T+Y+Npe87/xD0kbnHfCWs5owZRF8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=p2pdoVI9BE+AUU4CUWAdlLUgwnicGyLNI6jVvR9TVcchxhsFEd972ZAwMR+V485PP
-	 Caa8NuYqdPconJAdf/zbjOowOLllzyELfvNFIgcfV3UX1uQ0bDMrXWelChOKjvoBsq
-	 OR+dtbqkvgfiAeyTFvwhQIIFkDn8ExPzkxMknnWSIbU86db/4pOJF4HUL0W327WGi7
-	 Qi3I3h7cEYWvGWN2jkPypcrbe695KuSvd3TQugl8qvDTosfRYElL62whHXVjothg/4
-	 +UxOMX/RDr0vBf1DI2Dx3dlZYYQv7f3o0AT9Yshd3ZuEHAC6O+ypHIQLoQ4pgjhpKX
-	 IDcDU03oZuViA==
+	b=dvRKTz6KcudoJS/UYzhqgyNZwgeeEqbWYlV4nm5wgvGsaSSsXpFLiawmwgJY6z4vy
+	 A/oB5waY5QDDTz68lAu4Ht4J99VdfO0y1BHD4z0E/23UTx9nwBCXvkWH0B2elvqtSQ
+	 26NX7ROY0VeYni5X8iLTjqOZ3csVNDVa6GZ2D04w2YuwU+FutfIN9Xf86U6K7a8nlk
+	 myp3f/tvR7E393fjAdeK70e6X2NyVGdwNOBnmsYCAo/0uRE66HB6JolINPJ841tlDe
+	 REl7R2o5NxMWVoagn3cKw5K1Xfokm56RvGvVd5JXpZAM5qZzsade15TzUK0RjTkTMt
+	 QlL83TIX4kpDQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7E1BEC624D6;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8EB95C79F91;
 	Sat,  5 Sep 2026 18:13:40 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Sat, 05 Sep 2026 12:13:30 -0600
-Subject: [PATCH v8 16/43] dyndbg: reduce verbose/debug clutter
+Date: Sat, 05 Sep 2026 12:13:31 -0600
+Subject: [PATCH v8 17/43] lib/parser: add match_wildcard_hyphen() for
+ agnostic matching
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260905-dd-cmap-part2-clean-v8-16-a4cc0674f6fd@gmail.com>
+Message-Id: <20260905-dd-cmap-part2-clean-v8-17-a4cc0674f6fd@gmail.com>
 References: <20260905-dd-cmap-part2-clean-v8-0-a4cc0674f6fd@gmail.com>
 In-Reply-To: <20260905-dd-cmap-part2-clean-v8-0-a4cc0674f6fd@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -57,14 +58,13 @@ To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>,
 Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
  linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kbuild@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>
+ linux-kbuild@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788632017; l=5249;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788632017; l=4874;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=t37j4WX9rmGZnaxWZRllxKHD7tuZeHqRl4wVkmg6M8Q=;
- b=ye2bTc3Stss7Jjmq9Y6dE3edZ5bDFrOUZFaWMwdrDSd3KvVFBZSPn4LRMypoAa4x4govaZRTp
- HJhVQv7NTkDBvCXyZAVjm18fSxD2FKWmiynpAtkMbMEWbmjuMGI3Aw7
+ bh=ihDFqL0diDWV3lWPKWnxgngrFJlU5Ge2Bo6Sm1Qc/y4=;
+ b=ITFzTkTlOK8gnfGL2YM3ijp8DCaJowlDsEzlcxJv2oxk0MNM1acuBr0vVQn8ZzwJTs13b0kJ6
+ AmztAHB5R5HDw4V+U8rJiHVsLxRyvr75BSpqEgn4uTtTU/tvo7SEenB
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -74,156 +74,140 @@ Reply-To: jim.cromie@gmail.com
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-currently, for verbose=3, these are logged (blank lines for clarity):
+This commit introduces match_wildcard_hyphen() as a variant of the
+existing match_wildcard() function. It treats hyphens and underscores
+as identical characters during the matching process.
 
- dyndbg: query 0: "class DRM_UT_CORE +p" mod:*
- dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
+This is necessary for subsystems like dynamic_debug that need to match
+module names provided by users (who often use underscores) against
+names stored in the kernel (which may use hyphens, especially when
+using KBUILD_MODFILE for built-ins).
 
- dyndbg: op='+'
- dyndbg: flags=0x1
- dyndbg: *flagsp=0x1 *maskp=0xffffffff
-
- dyndbg: parsed: func="" file="" module="" format="" lineno=0-0 class=...
- dyndbg: no matches for query
- dyndbg: no-match: func="" file="" module="" format="" lineno=0-0 class=...
- dyndbg: processed 1 queries, with 0 matches, 0 errs
-
-That is excessive, so this patch:
- - shrinks 3 lines of 2nd stanza to single line
- - drops 1st 2 lines of 3rd stanza
-   3rd line is like 1st, with result, not procedure.
-   2nd line is just status, retold in 4th, with more info.
-
-New output:
-
- dyndbg: query 0: "class DRM_UT_CORE +p"
- dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
- dyndbg: op='+' flags=0x1 maskp=0xffffffff
- dyndbg: processed 1 queries, with 0 matches, 0 errs
-
-Also drop several verbose=3 messages in ddebug_add_module.  When
-modprobing a module, dyndbg currently logs/says "add-module", and then
-"skipping" if the module has no prdbgs.  Instead just check 1st and
-return quietly.
-
-Unmatched query diagnostics are intentionally restricted to verbose
-level 3 (v3pr_info_dq) to reduce dmesg output clutter on standard
-verbose levels (verbose=1 and verbose=2), aligning with the overall
-de-cluttering of dynamic debug logging.
+To avoid code duplication, the core logic is refactored into a private
+__match_wildcard() function marked as __always_inline. This allows the
+compiler to generate optimized versions for both the strict and agnostic
+callsites with zero runtime overhead.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
-v7: update fingerprints of grammar-errs changed here
-v4: rename vpr_dq_info to v3pr_dq_info to tell its active logging level
-    adjust some vX levels per doc'd intentions
-v2: RvB after SoB
-
-trivial change to verbose-debug output line to output the actual
-"module" keyword rather than "mod:", and do so only when the module is
-constrained by the callchain (ie as part of a modprobe).
-
- was:   query X: "(keyword value)* [+-=]flags" mod:*
- now:   query X: "(keyword value)* [+-=]flags"
-   or   query X: module FOO "keyword value)* [+-=]flags"
-
-IOW, adjust output to reflect the input grammar more closely.
+v5: move ahead of array-slice patch to silence sashiko complaint about it
+v4: initial version
 ---
- lib/dynamic_debug.c | 24 ++++++++++--------------
- 1 file changed, 10 insertions(+), 14 deletions(-)
+ include/linux/parser.h                             |  1 +
+ lib/parser.c                                       | 58 ++++++++++++++++------
+ .../selftests/dynamic_debug/dyndbg_selftest.sh     |  2 +-
+ 3 files changed, 45 insertions(+), 16 deletions(-)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 122c2c9a1254..b2892be2de36 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -128,7 +128,7 @@ do {								\
- #define v3pr_info(fmt, ...)	vnpr_info(3, fmt, ##__VA_ARGS__)
- #define v4pr_info(fmt, ...)	vnpr_info(4, fmt, ##__VA_ARGS__)
+diff --git a/include/linux/parser.h b/include/linux/parser.h
+index dd79f45a37b8..a3cc7bc5fb93 100644
+--- a/include/linux/parser.h
++++ b/include/linux/parser.h
+@@ -34,6 +34,7 @@ int match_u64(substring_t *, u64 *result);
+ int match_octal(substring_t *, int *result);
+ int match_hex(substring_t *, int *result);
+ bool match_wildcard(const char *pattern, const char *str);
++bool match_wildcard_hyphen(const char *pattern, const char *str);
+ size_t match_strlcpy(char *, const substring_t *, size_t);
+ char *match_strdup(const substring_t *);
  
--static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
-+static void v3pr_info_dq(const struct ddebug_query *query, const char *msg)
- {
- 	/* trim any trailing newlines */
- 	int fmtlen = 0;
-@@ -283,9 +283,6 @@ static int ddebug_change(const struct ddebug_query *query,
- 	}
- 	mutex_unlock(&ddebug_lock);
- 
--	if (!nfound && verbose)
--		pr_info("no matches for query\n");
--
- 	return nfound;
+diff --git a/lib/parser.c b/lib/parser.c
+index 62da0ac0d438..d5be01fa9adf 100644
+--- a/lib/parser.c
++++ b/lib/parser.c
+@@ -268,20 +268,13 @@ int match_hex(substring_t *s, int *result)
  }
+ EXPORT_SYMBOL(match_hex);
  
-@@ -494,7 +491,6 @@ static int ddebug_parse_query(char *words[], int nwords,
- 		 */
- 		query->module = modname;
- 
--	vpr_info_dq(query, "parsed");
- 	return 0;
- }
- 
-@@ -518,7 +514,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
- 		pr_err("bad flag-op %c, at start of %s\n", *str, str);
- 		return -EINVAL;
- 	}
--	v3pr_info("op='%c'\n", op);
- 
- 	for (; *str ; ++str) {
- 		for (i = ARRAY_SIZE(opt_array) - 1; i >= 0; i--) {
-@@ -532,7 +527,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
- 			return -EINVAL;
- 		}
- 	}
--	v3pr_info("flags=0x%x\n", modifiers->flags);
- 
- 	/* calculate final flags, mask based upon op */
- 	switch (op) {
-@@ -548,7 +542,7 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
- 		modifiers->flags = 0;
- 		break;
- 	}
--	v3pr_info("*flagsp=0x%x *maskp=0x%x\n", modifiers->flags, modifiers->mask);
-+	v3pr_info("op='%c' flags=0x%x maskp=0x%x\n", op, modifiers->flags, modifiers->mask);
- 
- 	return 0;
- }
-@@ -577,7 +571,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
- 	}
- 	/* actually go and implement the change */
- 	nfound = ddebug_change(&query, &modifiers);
--	vpr_info_dq(&query, nfound ? "applied" : "no-match");
-+	v3pr_info_dq(&query, nfound ? "applied" : "no-match");
- 
- 	return nfound;
- }
-@@ -600,7 +594,10 @@ static int ddebug_exec_queries(char *query, const char *modname)
- 		if (!query || !*query || *query == '#')
- 			continue;
- 
--		vpr_info("query %d: \"%s\" mod:%s\n", i, query, modname ?: "*");
-+		if (modname)
-+			v2pr_info("query %d: module %s \"%s\"\n", i, modname, query);
-+		else
-+			v2pr_info("query %d: \"%s\"\n", i, query);
- 
- 		rc = ddebug_exec_query(query, modname);
- 		if (rc < 0) {
-@@ -1167,11 +1164,10 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
- {
- 	struct ddebug_table *dt;
- 
--	v3pr_info("add-module: %s.%d sites\n", modname, di->num_descs);
--	if (!di->num_descs) {
--		v3pr_info(" skip %s\n", modname);
-+	if (!di->num_descs)
- 		return 0;
--	}
+-/**
+- * match_wildcard - parse if a string matches given wildcard pattern
+- * @pattern: wildcard pattern
+- * @str: the string to be parsed
+- *
+- * Description: Parse the string @str to check if matches wildcard
+- * pattern @pattern. The pattern may contain two types of wildcards:
+- *
+- * * '*' - matches zero or more characters
+- * * '?' - matches one character
+- *
+- * Return: If the @str matches the @pattern, return true, else return false.
+- */
+-bool match_wildcard(const char *pattern, const char *str)
++static inline char dash2underscore(char c)
++{
++	return (c == '-') ? '_' : c;
++}
 +
-+	v3pr_info("add-module: %s %d sites\n", modname, di->num_descs);
++static __always_inline bool __match_wildcard(const char *pattern, const char *str,
++					     bool hyphen_agnostic)
+ {
+ 	const char *s = str;
+ 	const char *p = pattern;
+@@ -301,7 +294,9 @@ bool match_wildcard(const char *pattern, const char *str)
+ 			pattern = p;
+ 			break;
+ 		default:
+-			if (*s == *p) {
++			if (hyphen_agnostic ?
++			    (dash2underscore(*s) == dash2underscore(*p)) :
++			    (*s == *p)) {
+ 				s++;
+ 				p++;
+ 			} else {
+@@ -319,8 +314,41 @@ bool match_wildcard(const char *pattern, const char *str)
+ 		++p;
+ 	return !*p;
+ }
++
++/**
++ * match_wildcard - parse if a string matches given wildcard pattern
++ * @pattern: wildcard pattern
++ * @str: the string to be parsed
++ *
++ * Description: Parse the string @str to check if matches wildcard
++ * pattern @pattern. The pattern may contain two types of wildcards:
++ *
++ * * '*' - matches zero or more characters
++ * * '?' - matches one character
++ *
++ * Return: If the @str matches the @pattern, return true, else return false.
++ */
++bool match_wildcard(const char *pattern, const char *str)
++{
++	return __match_wildcard(pattern, str, false);
++}
+ EXPORT_SYMBOL(match_wildcard);
  
- 	dt = kzalloc_obj(*dt);
- 	if (dt == NULL) {
++/**
++ * match_wildcard_hyphen - parse if a string matches given wildcard pattern
++ * @pattern: wildcard pattern
++ * @str: the string to be parsed
++ *
++ * Description: Same as match_wildcard, but treats '-' and '_' as identical.
++ *
++ * Return: If the @str matches the @pattern, return true, else return false.
++ */
++bool match_wildcard_hyphen(const char *pattern, const char *str)
++{
++	return __match_wildcard(pattern, str, true);
++}
++EXPORT_SYMBOL(match_wildcard_hyphen);
++
+ /**
+  * match_strlcpy - Copy the characters from a substring_t to a sized buffer
+  * @dest: where to copy to
+diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+index 67b568730acc..8e881b5c860c 100755
+--- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
++++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+@@ -593,7 +593,7 @@ builtin_tests=(
+     FT_grammar_errs
+     FT_basic_queries
+     #FT_path_module_queries
+-    #FT_hyphen_underscore
++    FT_hyphen_underscore
+ )
+ 
+ # Modular Feature Tests (Require CONFIG_MODULES=y and test_dynamic_debug*.ko available)
 
 -- 
 2.55.0
