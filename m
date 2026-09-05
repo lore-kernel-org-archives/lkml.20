@@ -1,222 +1,137 @@
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A067D2C237C
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 00:22:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5196A2116F4;
+	Sat,  5 Sep 2026 00:24:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788567739; cv=none; b=rY3tVlhz0l8bjhCz+d8H2Gw8F5q4GnkRqHKstepVa8NX6V0gy+b4k37x8MUB6OlBrB1KSkRXM6+TIdjSPZ2S0T7PNphgByI4cODCzi0weQcey5kRd+9Wk9VYFe0PECRFDcKZk0UpwtwdJ6xEuzzPM66HnVy7ya9iFdSvdMCQ980=
+	t=1788567869; cv=none; b=l5pew0cX+2MfW+MPv7W/re0aCRQWibsBOZ8TUVEsgoF7+/60Vw9wMZ3MMBnvxJZsbD4RgOaC5hc1DK42uay/xJL3tvkgcb1fCD4/NnvLzRRT9QFhTP2fKXH6pQIONBrhcqFNBwCXDxeyzRJwkZ1zmLvuMYW1vyTiIXQJDr/Hgnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788567739; c=relaxed/simple;
-	bh=rPtvF+oy++bWBsxAvnCpkzx8qpDyld6WLHwbjhnN0WE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=AtiX4jE1aRAC63nhh0uE6CTXUMcvfUCqoaqfvbkK1YiG1sysuWGGarP58TIChaeTcIMdz2Hi5EK4uXkvk9IXMQnq7MQR7sVsV+i86gEBDFhcZ7jRVqpiEQYGmfu13hpqrmLQ8Aoyc2dcQcJWI/q+zNFncQ04ySV7G+8ztELqius=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=Aqh/ROIe; arc=none smtp.client-ip=185.67.36.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="Aqh/ROIe"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id 95E84240101
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 02:22:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1788567733;
-	bh=kQ9wATxRdfmb8dy5zEGoqKhMK7g0F67e/+Nr8jovqQA=;
-	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
-	 MIME-Version:OpenPGP:From;
-	b=Aqh/ROIemX5w0HLLzgPQVCnPMQ1OqndRb/UCZwQ3wtbzRvsWZPk7Baojxq1RGj0Hd
-	 dFhw0UOrAKbzPbxXAtRYAlDMVGxtU//JMv+u39Q/gXdb4fdUyQpTLcO+ans/0VIxld
-	 3CYrcCLX6kUHFXpCQhGdAkypmY98TZCyzSd8UsqhL3PI62mcH5sDrIUvNGfkM5hFNY
-	 BSXn6pnog8h8qmsllSelt9rLgWObah4uGI8UBFs7qSKDG1gE1+eRL2H1ctmzStzr8r
-	 SR6457DrungLxTiTTNlcJ9kyrsLERdBQTi43GNEQaZCzVu1hJl8joobcqFR8adTCtc
-	 SJpzF6EllJtQw==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4hcDYH5tCpz6tsg;
-	Sat,  5 Sep 2026 02:22:11 +0200 (CEST)
-Message-ID: <1b247f730001ea39b6e4044f5673e1a01e187362.camel@posteo.de>
-Subject: Re: [PATCH] rust: serdev: Fix race condition on driver probe fail
-From: Markus Probst <markus.probst@posteo.de>
-To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
-	 <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida	 <daniel.almeida@collabora.com>, Tamir Duberstein
- <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>, Onur
- =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, Greg Kroah-Hartman	
- <gregkh@linuxfoundation.org>
-Cc: linux-serial@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Sashiko Bot <sashiko-bot@kernel.org>
-Date: Sat, 05 Sep 2026 00:22:12 +0000
-In-Reply-To: <20260905-rust_serdev_fix-v1-1-2ea92b154a6b@posteo.de>
-References: <20260905-rust_serdev_fix-v1-1-2ea92b154a6b@posteo.de>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-ba5r6Ds701NYq8n4AnLV"
+	s=arc-20240116; t=1788567869; c=relaxed/simple;
+	bh=iwNzIiHTJADI6zpjxWyjOrUKMVt6XIVPWWxV/zzsqgY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oVByzY+ajgt2w0ZWTr38YblXnd0sHHvA6x3IAh2t5l4AqBuv3jclcxelI+stXMj9LQZahZIQS0KptJ0tPnf3sYMKm5MoBWnIHW3xe2a0QdV68+c2+KKJAlFeNhv2JxnKDQb38GInK6fjojb400HZG4J/OOoQocFWbPooqL0rPwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.170])
+	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hcDZb6ZVZzKHMRG;
+	Sat,  5 Sep 2026 08:23:19 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.112])
+	by mail.maildlp.com (Postfix) with ESMTP id 0843D4056D;
+	Sat,  5 Sep 2026 08:24:16 +0800 (CST)
+Received: from [10.174.176.179] (unknown [10.174.176.179])
+	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgBHMAsuYZtqzgYjAw--.63215S3;
+	Sat, 05 Sep 2026 08:24:15 +0800 (CST)
+Message-ID: <1e6efb44-3b7d-4687-a1b8-25767ae1e1dd@huaweicloud.com>
+Date: Sat, 5 Sep 2026 08:24:13 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/5] xfs: remove leftover dead declarations in headers
+To: Carlos Maiolino <cem@kernel.org>, Zizhi Wo <wozizhi@huaweicloud.com>
+Cc: dgc@kernel.org, djwong@kernel.org, hch@lst.de, linux-xfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org, yangerkun@huawei.com, chengzhihao1@huawei.com
+References: <20260904060648.1966130-1-wozizhi@huaweicloud.com>
+ <aprh7OnJPCL-iIIK@andromeda.toxiclabs.cc>
+From: Zizhi Wo <wozizhi@huaweicloud.com>
+In-Reply-To: <aprh7OnJPCL-iIIK@andromeda.toxiclabs.cc>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:cCh0CgBHMAsuYZtqzgYjAw--.63215S3
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kr45ZF1xAr4UGw4fKw4DJwb_yoW5Jr1rp3
+	yrW3Wqka1DJry29Fn2q3Z7JFy2q3yxJrW7JFn5Zw1I9w1DArnFgryakFsY9F98GrZayw4Y
+	q3yjqF98u3WUZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkm14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
+	1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IY64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r1q
+	6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
+	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
+	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+	WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
+	IxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjfUonmRUUUUU
+X-CM-SenderInfo: pzr2x6tkl6x35dzhxuhorxvhhfrp/
 
 
---=-ba5r6Ds701NYq8n4AnLV
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2026-09-04 at 23:54 +0000, Markus Probst wrote:
-> If `Driver::probe` fails, the pointer to the driver data (`PrivateData`)
-> will first be set to NULL by `drvdata_obtain` and only after that the
-> serdev device will be closed by Drop. Thus there is a small window in
-> which the serdev device is still open, but the pointer to the driver data
-> is NULL. Therefore it is possible that `receive_buf_callback` might try t=
-o
-> access the `active` mutex on a null pointer.
-It seems, Sashiko found the same issue in a different unrelated place
-too (while reviewing this patch):
+在 2026/9/4 23:24, Carlos Maiolino 写道:
+> On Fri, Sep 04, 2026 at 02:06:43PM +0800, Zizhi Wo wrote:
+>> While reading the XFS log code I noticed that the implementation of
+>> xlog_assign_tail_lsn() had already been removed, but its declaration was
+>> left behind in the header. Such orphaned declarations (implementation gone,
+>> no callers) can simply be dropped.
+>>
+>> Suspecting more of these existed, I scanned the XFS headers (using GLM-5.2
+>> to help, then verified each by hand) and this series removes the leftover
+>> declarations I could confirm. Some of these have been stale for a long time
+>> -- the oldest dates back to 2006.
+>>
+>> Note that scrub still has a fair number of functions that do have
+>> implementations but no callers (e.g. xchk_process_rt_error). I'm not sure
+>> removing those is appropriate, since they may be intended for future use,
+>> so they are not touched here.
+>>
+>> Cleanup only, no functional change.
+>>
+>> Zizhi Wo (5):
+>>    xfs: remove unused xlog_assign_tail_lsn declarations
+>>    xfs: remove unused xfs_iext_realloc declaration
+>>    xfs: remove unused xfs_buf_iodone declaration
+>>    xfs: remove unused kmem_to_page helper
+>>    xfs: remove never-implemented scrub declarations
+> 
 
-https://sashiko.dev/#/patchset/20260905-rust_serdev_fix-v1-1-2ea92b154a6b%4=
-0posteo.de
+Hi Carlos,
 
-Unfortunately, I cannot fix this one so easily, because the serdev
-device needs to be open for the entire lifetime of the "real" driver
-data (Driver::Data).
+Thanks a lot for the review.
 
-Thanks
-- Markus Probst
+> Honestly this all could have been a single patch, I don't believe the
+> 'when the last user was gone' matters at least for me as I could find if
+> through a quick `git log` scan. Darrick was fine with it so I won't
+> enforce it to be a single cleanup patch.
+> 
 
->=20
-> Add a separate `ScopeGuard` that will close the device before the driver
-> data will be set to NULL on probe failure.
->=20
-> Fixes: 99f59aa82341 ("rust: add basic serial device bus abstractions")
-> Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/linux-serial/20260903222159.70A911F000E9@=
-smtp.kernel.org/
-> Signed-off-by: Markus Probst <markus.probst@posteo.de>
-> ---
-> Unfortunately, this also makes the code in probe even more convoluted
-> than it already is. I will submit a patch (for the next merge cycle)
-> soon, which will address this concern.
-> ---
->  rust/kernel/serdev.rs | 20 ++++++++++++++++----
->  1 file changed, 16 insertions(+), 4 deletions(-)
->=20
-> diff --git a/rust/kernel/serdev.rs b/rust/kernel/serdev.rs
-> index 17ca504b7f8d..4f57f4c45329 100644
-> --- a/rust/kernel/serdev.rs
-> +++ b/rust/kernel/serdev.rs
-> @@ -190,6 +190,16 @@ extern "C" fn probe_callback(sdev: *mut bindings::se=
-rdev_device) -> kernel::ffi:
->              // SAFETY: We have exclusive access to `private_data.open`.
->              unsafe { *private_data.open.get() =3D true };
-> =20
-> +            let open_guard =3D ScopeGuard::new(|| {
-> +                // SAFETY:
-> +                // - `private_data.sdev.as_raw()` is guaranteed to be a =
-pointer to a valid
-> +                //   `struct serdev_device`.
-> +                // - We just opened the device, thus it is guaranteed to=
- be open.
-> +                unsafe { bindings::serdev_device_close(private_data.sdev=
-.as_raw()) };
-> +                // SAFETY: We have exclusive access to `private_data.ope=
-n`.
-> +                unsafe { *private_data.open.get() =3D false };
-> +            });
-> +
->              let data =3D T::probe(sdev, info);
-> =20
->              // SAFETY: We have exclusive access to `private_data.driver`=
-.
-> @@ -203,10 +213,12 @@ extern "C" fn probe_callback(sdev: *mut bindings::s=
-erdev_device) -> kernel::ffi:
-> =20
->              drop(active);
-> =20
-> -            result.map(|()| {
-> -                private_data.dismiss();
-> -                0
-> -            })
-> +            result?;
-> +
-> +            open_guard.dismiss();
-> +            private_data.dismiss();
-> +
-> +            Ok(0)
->          })
->      }
-> =20
->=20
-> ---
-> base-commit: e5e04726cdd043e309677071ab1b65a4b18f422b
-> change-id: 20260904-rust_serdev_fix-be3ff9c8a5e8
+My original intent behind splitting was to keep each removal in its own
+commit, so that during review one could tell directly from the commit
+message why each symbol was left behind, without having to dig through
+the history separately -- even though every change is tiny.
 
---=-ba5r6Ds701NYq8n4AnLV
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+But I agree that a quick `git log` scan serves the same purpose, so I'll
+fold them into a single cleanup patch in v2.
 
------BEGIN PGP SIGNATURE-----
 
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmqbYLMbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSfgEP/i6+AVvUF3DqH4KPzANY
-lQxCfnQ6YihdUcZqxdMK6q7060z/70SLiAeo74SDBOmywI8lpZf7SjZr6y7FHLl7
-1FvGiHYtX2WoNzVJdDn0NfEq8z/MZlEvY22eRVnlF0EXLSBxcxpUVhl26A0EFsBz
-khMHRTRKaEj15m+Fuoxuy5TeEKLDE/H9zRvM1FfkGsTskuFUbCjdaelnX8O1ddHE
-Vg1p1dO7n93Rma7hM0a0IGVAJiaoNIO6aIofkMmrCsb3tH1JHwzMR0MhN1R6Nrhu
-lZ7KGy0NeVkIqynw907VxwB/8j3G2BuWnfP372OCTXWTQVdRL4+k+cc+dwcWoclm
-cTbeTCZIs+bX4LJ4lBuo1IV9+d/0ZroWGJHMMZwTD4iAWgTPCBy2tdr2IMah/3Uj
-YBg067irDbs04bvuEK006NAtZnZsSfc3ucblOndhTi9yMFL2cY4LkdVULOVQn/Qk
-DbDRz1LYf0rxTbnpVBuAvcQIGu97d7fUZMayxBfcpfGVDxWJdJWl3XU4qsqHRQfx
-XT58FmhwPIjYekUcAZ76spYDQPnjPLBvl3j2AnJTav4p6RY91rqNBOa7EPQiZEF2
-EBtM20N9sH6NBMsiKKv+2+b/L4nZHt77qpiXbkZULqNBAI7cX38S7n6O8FT3uqri
-zetB5vh5bJfhDNmdV1gEo9pP
-=hU1N
------END PGP SIGNATURE-----
+> At least get rid of the "Assisted-By: <model>" thing and send a new
+> version as we don't accept models discrimination anymore.
+> 
+> Carlos
+> 
 
---=-ba5r6Ds701NYq8n4AnLV--
+Sure, I'll drop the "Assisted-By:" tag as well.
+Will send v2 shortly.
+
+Thanks,
+Zizhi Wo
+
+>>
+>>   fs/xfs/scrub/common.h   |  1 -
+>>   fs/xfs/scrub/scrub.h    |  1 -
+>>   fs/xfs/scrub/tempfile.h |  4 ----
+>>   fs/xfs/xfs_buf_item.h   |  1 -
+>>   fs/xfs/xfs_inode.h      |  1 -
+>>   fs/xfs/xfs_log.h        |  2 --
+>>   fs/xfs/xfs_platform.h   | 11 -----------
+>>   7 files changed, 21 deletions(-)
+>>
+>> -- 
+>> 2.52.0
+>>
+>>
+
