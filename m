@@ -1,184 +1,280 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012044.outbound.protection.outlook.com [40.93.195.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F073725E469
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 02:28:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788575324; cv=fail; b=VT2YGM0Cex6FMn+9MauerjTOiZ1NW/Q+/EvigXDPNucMcqwWx0Wb+APP8L4BDvtQi8/m7soTwcjBRqEUJ3x69FEbh8F6Wqzc2fuNi6TTM9UxVUpvPL3OjJKHw9EByqXG6OEoEHvQTvgozp1f66vyH7FmfuqsjfbxFRMi+soqmLY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788575324; c=relaxed/simple;
-	bh=NAk6qvtv0ccQteAI+mNduP4bnpP6nWpy72cUA1CaF5k=;
-	h=Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
-	 In-Reply-To:MIME-Version; b=Hj2prefTEeRCf+7jlPVm/63DHWdalU6HJB0WWo1PsNLw/evBtEruYvYlQLE1vTg/k2zgHmvdpzKL/3FF3/h2jKzlrMjw4iADErRbf1CZx9YbqIkDJe7DIFLJj273Yv9rV519IowHBYVLeNbxj31K5GGlLFGIsJhRIfinD2W48Pg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=mXmbe+VW; arc=fail smtp.client-ip=40.93.195.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 880B41F1304
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 02:32:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788575543; cv=none; b=t8+IOH2qCsnvKZXe7FAkGB/20UVDK6cn3Tq7HDtV3LzOO8RgDxFeFYnVxpc/DYQu8pA7O5c4ZgD8RKi+Pe1fJ5BJiHrdfEjx3iHALy9b2onNN/Y+ZvEXGslJ3w8oOZwlJvdwlkj9pvPgSEruMNcJ8Oe7iu0AWXbbKjaqkrCBEAQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788575543; c=relaxed/simple;
+	bh=FHSwKWmr15F4+dbJiVQPWLYocXuRn8IsL1SPh0QyZd0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ow4EKrEmj2BUdzyARzIB4lwlvrw9u/7947EyhvZAixqtAol6b4YpeAaxu8RTud9IAzjx6uPZrMES7io8fFL6yLBZJwnwGmgl9vXljQ9sSIrWrr86N1QWkpDNCgu/D5x/aAaP7anbTIWVvU0RaMgajMEEVdbW6m4NC7iZL+1wLno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S+Gq+Wlo; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="mXmbe+VW"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=H+nMmB2MsuErG/QLEDVPu3R6d8+03dspQImLHc+NIq0GwOlHFBKW8I9PEFiVi5qMMd+eVqXzTVQ0TpRzJr9W/LkHC3opFvmBE21F/7xIfjB0SCknVDGji3zGJW7ZSs+KsPFK+kU9+cxAWgZ8OhcjElWVWpGAuniPV4cb0GkAjpihJznPmJdvqyYzG4Bm5LT8IMSUx5DfP0jUr/R2qNVPHbioacKkJRz1tdXIUAsWV3rRe3vZC1Hvq93mj5PtY3eARzBo2Bp+yp+W0BbpeH7bEcVgSROYQuEtHfe5mmL+Ky+DRAB/204vDAl1tVdWB9iw//D9OOadQYiynczRoaCUrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mk+QKKb31T4TVveFDXE/55gsuOxa7PWfzd4oowIl4Ac=;
- b=K433350TJ7NdIj2mfT+Bh8bTK/1CalP0m0eYuk6PNMnhsfcpjnOFkzJkSqVtHeTcTPpN45364Ia0WubqmV/E8ezwV2hJ1v1o4wShkJ5oaR0/o56EcpusrYaO/hsrfpbBgcjAyGrF3ZiYVGiKQgUmGgrBiKsbaUgzLW3hNrROgMRqVuh0AelfhAN72m4JvcEd1HVCOBGCe4/bB68HTF8ZkcPNseuGfR9eDJwjgVs1gttv0vMcyjsBCjAqgtKpUtQSe412i6x/Hy4vw9o5UJ9yrBPObrmogB+nEVdpfJteEDGSwrYvDM5U+eJY0vTVIAm0klpznvfmNx/EgOLmBY5glQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mk+QKKb31T4TVveFDXE/55gsuOxa7PWfzd4oowIl4Ac=;
- b=mXmbe+VWRFjkh0CwQUvnQCSvm1rii5OCBz92QsyDhSexDsAJJLIleK8SEjeFJKUE5etCTGfeCX4vBq30xoOL7W21jphWzZ1jFWg7CBqHwopuvknZqusvVLj6sae6B8YpjGQ+D7uCkUxyf/BUuwID9x4YIjcrfbYG+l3w+gIoxUH3Mo5p4tQXNQ5vxHbSVELEKqAWN87+J92BVNTNuSdohBSGKKbFzMz3pF/gggmbzPn7jERCcOmOrD/RdgXeuhJd1SGj+7kkkVcwuAG3MdMoXghAQtgS8fvSpv1Ah2yPrglCbjRINDNyqF5Hk633JAf6H8GacF383HWJEKD8cvTwJQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by CH3PR12MB9021.namprd12.prod.outlook.com (2603:10b6:610:173::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Sat, 5 Sep
- 2026 02:28:33 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0360.008; Sat, 5 Sep 2026
- 02:28:33 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 04 Sep 2026 22:28:32 -0400
-Message-Id: <DL7117KG9MH4.33JPGMA0J61IV@nvidia.com>
-Subject: Re: [PATCH 03/12] mm/khugepaged: rename mthp_present_ptes bitmap to
- eligible_ptes
-Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
- <kernel-team@meta.com>, "Baolin Wang" <baolin.wang@linux.alibaba.com>,
- "Liam R . Howlett" <liam@infradead.org>, "Nico Pache"
- <nico.pache@linux.dev>, "Ryan Roberts" <ryan.roberts@arm.com>, "Dev Jain"
- <dev.jain@arm.com>, "Barry Song" <baohua@kernel.org>, "Lance Yang"
- <lance.yang@linux.dev>, "Usama Arif" <usama.arif@linux.dev>, "Vlastimil
- Babka" <vbabka@kernel.org>, "Jann Horn" <jannh@google.com>, "Kiryl
- Shutsemau (Meta)" <kas@kernel.org>
-To: "Kiryl Shutsemau" <kirill@shutemov.name>, "Andrew Morton"
- <akpm@linux-foundation.org>, "David Hildenbrand" <david@kernel.org>,
- "Lorenzo Stoakes" <ljs@kernel.org>
-From: "Zi Yan" <ziy@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <cover.1788533997.git.kas@kernel.org>
- <aeed00c71bab856afb18c12c8e9b904f82185942.1788533997.git.kas@kernel.org>
-In-Reply-To: <aeed00c71bab856afb18c12c8e9b904f82185942.1788533997.git.kas@kernel.org>
-X-ClientProxiedBy: MN0P221CA0001.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:208:52a::7) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S+Gq+Wlo"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-47f96c5b722so1103929f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 19:32:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788575539; x=1789180339; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Xe0WRjqcJrv7t9DOf1oWH8cjhW47z0878LelzZd53P8=;
+        b=S+Gq+WloF359H/S3AWFuDe9ePOxb8pQ1DSWK0bkrJ6t4wWDPT5e9B8Os5IW1k1nr1+
+         VTLrkYUR2PhLx1dMS8492OtB+c9UTo++IywBCHDEqmNcCV7ojKifo/DjHAUg8A8Iusk9
+         dwjVve0R76fUrfZKIhe7WAm/9B9En5tYtlXgjJFZ0MKEwwMf0Fl4dqaS4Mw8FEHglklP
+         BHZ2aETo5W83ouyZfyTzBTqPkpVmYty0lA+Lcz/hEw/Ll0x2U3kOMsXWgxfRkah3xy0U
+         feVReTe5nEViAzk+uf/oSr8mzsd8PnsTGYLjhTnUj1qK+wXwiUbzqC+lNYZgpv4rV/hQ
+         Rglw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788575539; x=1789180339;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Xe0WRjqcJrv7t9DOf1oWH8cjhW47z0878LelzZd53P8=;
+        b=bE0j4zRkmyX0vvvnL/caxG529pxrsKla+uiSdWKhh2GL/TOPAxEgfutdaR7Q5ARYW3
+         ygBZPcrAKY+HF1lMaxOuqwei1XHzU4EzkPLF54+RdXlLLYPXIY8H4pcOD2IyeO+Mnj+M
+         rlUMjcYrrqd8GQ5FVIrOjmtOetee+BDpLv97BNuimwFFdTChAg6E/odyBSD39gg20YPm
+         0Wt44MoAs6inze4VjoslY+7SAt0jPUaRVlW54mT2Us9BiRTXPBKI68cTqTZQE5ZvIBP7
+         QKMamiEZxZMAscC704idq2Z5Sr4OW3Vff37YS0G3jVl70fI3e97LO4aMVTyYoupW0LQE
+         mpvw==
+X-Forwarded-Encrypted: i=1; AKwUvByuySFU9kWIM2X9WjqbXvdYtMWZyx0MFr8vQk9u4/p3QQ+BV+VZG4/TM47svFSpr3g8mW7Ccg0Os5jK3s0=@vger.kernel.org
+X-Gm-Message-State: AFuF++loc7u+qnSxuGJR9R+qii+SVhjIhfo9n5I0nl4wSKQPswRLY3lA
+	DO0OkeCwwyNpePH9/QLXcO+Pu600pO+CAL4N6THpC1g0qmLqDxYI0/3Y
+X-Gm-Gg: AYBFou0ic01dHTq4ovj4bj7FqmRR5BuZizSSByRtUs3MC+q5hUY0zZRDGWO9Dk2Pa7n
+	8QEV2p48mEDJWiFBhRoZ7bG1jP8lk49xX8GOjlKsMy1Quyj0SI3Ec6cXN5IeT+EMsVaS6Yhvb5u
+	uXxobgeBwxnmyile/r2wUhSm2YeavrNq4ChL6P1Uc/ZH6cEqpkvt2IlFLm29u1ZSOgCWRFSaHvq
+	56A/1K3pikSiuT5+gG7mdmjICy6pp4Gcs4ntHtuEi7CICql3RjwevtZDQVKU2lPa/LVy8cCnGe0
+	+SxchDb7UvrdT7dNbmvEjqGQihfh7pzTVLGARuldJyUJ4+INCW+VY3/nxaQNIMpy//+bLmOtMee
+	NfI9LIoCdtDaR+UudHVoNFcVMn79nIg6wP3TEX9zz5ID0dDKD0b0xC+DFgsUKXOSPt7ssa9SCNU
+	uNQnMlRLKt4TGgje48ECKpI+TP9Njcon2JZrnRVRuF8/7OErMFdo6NYBeA214v9qCn6ltuJrv+d
+	3hM/dz1gXASDImUe9D1MK1Q9IOVqT7y7gghH5TEfm3BV3noR8qA0HX6o0oIOxkPLi1jugejWiLD
+	sf7lEF/VXli4uK6Srd+uJHV1XqHSZ0biQxWfG4urjrOw4qp35TXkWkNUzNqO11BILcs=
+X-Received: by 2002:a05:6000:491d:b0:484:3785:210e with SMTP id ffacd0b85a97d-485872d4f0fmr11096202f8f.25.1788575538567;
+        Fri, 04 Sep 2026 19:32:18 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a4eb-3001-c06d-af27-9fa2-ea53.310.pool.telefonica.de. [2a02:3100:a4eb:3001:c06d:af27:9fa2:ea53])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883a9234sm10622504f8f.14.2026.09.04.19.32.17
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 04 Sep 2026 19:32:18 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Lyude Paul <lyude@redhat.com>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>,
+	linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev
+Subject: [PATCH v2] softirq: Preserve interrupt context during IRQ exit
+Date: Sat,  5 Sep 2026 04:32:10 +0200
+Message-Id: <20260905023210.82853-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CH3PR12MB9021:EE_
-X-MS-Office365-Filtering-Correlation-Id: f1be0775-88d1-4cdb-3f41-08df0af561f0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|18002099003|10067099003|56012099006|4143699003|11063799006|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	rH87nFTfo1iYnric0h6OUtITD1yhf7ac+XTsqHl8E53V8L18+KYwy6gfXVX7kc62+c4SOKZfsCuXCK77hW1RCD3TOU9Set+ZuEdgoAU+t7PwFcdrrTL1XQTsY5MnFbNRwTsXnqXXdl8DvT14Q3FwWI8/F1SGhU0HF9MsYI56KmjvkzNjADiWkoiZxujjdNX79x89KqcSQtvP0P5FaPgq2vbLiVkf9hdfUFBqIgbvyDzybWfaIjk/LXYK2N+yaI7kJnkIlbQ+NJtsHNKNCAI0QmjaewokLSWSzrBSYbiVkuOF/+dnfvYUuOMPtds4cuPwg524d6bakKLyN/UDmynEVN8SmtxAri7PhjkRF+1YL+DX+mbxv23sSUS5H9fKM6on6CylpP3tpOpDPC5T7zPVVdIlnnat189x+ApcqdBe2o3wxrfWHHlaUu9OzF2F2O/uvIZeXQKj55qAJPonHzMuEWZMkd2JyJmrA3cwL9mTWp/80zhD4rl1A7m1A5d11UkhYK+51SauMy5PC5Yo7JMnrYEkg8UOStWVPWQrkVu0lYqffP1v2xGFQ9ZHMNpwwYKnDBbXs3fw8FEJqIRk83tgupju1szRM9myQayWWPBgioS4z+Ju3kkswX2Rp+pwgK/g0On7HsBZZOQsQIOSYIaBr/qXTydlRbiV9dulfgV4X0A=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(18002099003)(10067099003)(56012099006)(4143699003)(11063799006)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZjNocUZQcUtpMUpPNGoya0xEa29GOVM2N29oNWVIRVRLa2ZVYkFIZk9PR1Qv?=
- =?utf-8?B?QVdOU09FTHpaL2pxSVJYSms3eGtrZmNKaEZKQlF5OW9mdUdmU3Jad2lYejFJ?=
- =?utf-8?B?RTBkMjNzVU01dWJMUEMyS3RaaFlCWlJSeDFGbXJJcjJZcjcrcjN6Q3ExeUQy?=
- =?utf-8?B?eHY2cm1uYjJMbmdHR2JDZHp5WmxENUJHVVd5OXE5ZE5uVXhoOS9ibUltNzVq?=
- =?utf-8?B?cithYTlGTUZxdHNLVS9tdDRkdHR2S1JnbS9qTStkSlZ5SGtMT1o3TElTc0s5?=
- =?utf-8?B?eTVseE5XOEtxVTVFNFVOSC9CUnlJSG5EZDJvTDB3R202TVdEeXkrTHZZTlZ0?=
- =?utf-8?B?L0RoRCtqS0ptOEZaQi96aWRzRWtTR3JsbzIzWi9ZSWs0enE5WHZxYi8zMCtX?=
- =?utf-8?B?U0F0OVFHZTBkNGgrOXRlRU94bnlPZmNRdTVlTFE3dXZMbC8vZHl3KzZsZkpq?=
- =?utf-8?B?cjBLOGs4OUl0Wk5oallJd0c2a2R1YnQ1WW5FTmJWYnRTeDN6SVBjSVg5MVpB?=
- =?utf-8?B?Nyt0Zit2SGN4TDYvWkNScll0cVR3M0QwSEcxN2Q5MGQ2N0ZnOUZ6UTVPNWFI?=
- =?utf-8?B?dkhwcHFUQWhjTUhUUXplcFkyS1BaT2F0OU1nSG5PZ0RNSGhUVzN0ckI0Mi9T?=
- =?utf-8?B?eWFPbExUQWZBTGJpdjUrQzFpb0t6Y2h0MkRiejRVWmtwc20wWnJONkx3MkZz?=
- =?utf-8?B?QVlYb21TR3BaSW5KL1VPYzVSSkw0Yk5YeVMrQWlzaHJHQkExd0xHbGI1YnJB?=
- =?utf-8?B?aWlRYlpxbzJ1RW9NbWx5NXE0ZXJOZXJnYVJKR0dWR0dJNHVwalNNT2Jhc3Rn?=
- =?utf-8?B?RFRwQWFWMWJqSi9hZy9Xd2haQkd0MXVEMmZCUDlnNkdEcEdPMWRyTDhmOTZH?=
- =?utf-8?B?Q1pjb0ZpWUh2blljU0FCUlAwaDFrMXBPcC9tSDR3T0xnSEFTdTJYTjZxTWVs?=
- =?utf-8?B?YnIrMkhYSGpMNzJPZDZTNzVPRDQrbGZEa1c1a2o2RmYvZXVOby9aWGk3Qnkr?=
- =?utf-8?B?eCtvT1haV00waU1aVG5EM1l0WElXRjNpYkFKWHJlc1pLOWNVdlR3aEJzUDM5?=
- =?utf-8?B?QVNxN0RaYlJVcWFVQnBiZVJ0dkJFKzZ2WVptV3NETTV5OGdvR1luc3J0aTdS?=
- =?utf-8?B?blp1QS91VGQ2a0tuZytwME5GT1U0MHN5c3FQWkpMZTZ4MHZNb0NEQlBrQWJs?=
- =?utf-8?B?di8reDVzSGh3RWhFcjlUaDhCeWFSZTFiMDhETWxYbVVEZklzbUlaT1JNQTQ1?=
- =?utf-8?B?QjZmbEcyWDBaMDdXVnFFWUZFcWZQeEZhOUJDRVNWY3pOcUNTMXpCaUlzbDZF?=
- =?utf-8?B?SVdtMEZsdnhRa0Z3YWJUaDdIOGg0ZkF1TXQ5dTZSK25IMU1LYVBlZm5EQy8r?=
- =?utf-8?B?aEhxcmdTZEZrR3d3WTNyNzJxb1plN0gvdHhESkZwWjJZKzJxNnowRXFMY0pv?=
- =?utf-8?B?TGlHSndBbTlGV3o0WHZ5enFwZUlEYU56d3ozcHUvQTNneWJDRHZzY2JhSDRx?=
- =?utf-8?B?V1lNVVpHTHZIRWJPQ1N4azdTSDU3U3VKeHp4M1NBWW5jKzZlZW4waWVrMzBr?=
- =?utf-8?B?QW81a0lCa284RVlXQmFuTjNISUY1ZmFtM3I2a3FEU2VqMEF4blpIQ2hiaDZK?=
- =?utf-8?B?SGhyNGg0VUZZLzlJK0w5bzBoOGtkLzdFb0RyeDRTK0sxUTRhT2ZNWE9oOFlu?=
- =?utf-8?B?TVljYjY2WTdiVHF0UWx5a01tNUlrVE1XUHF3VHdZT2IwWWR6Nml4cWRWQmtX?=
- =?utf-8?B?RjhaZ0twZ3g5bERZa2ZuV1dyaDAwNnpaYTFVMjZSNWJRWjNQcDB4ZTJmamZG?=
- =?utf-8?B?Y2NvaWpycmliSlJURFNWSWM0Tmt3emJadVo1TnVhZXRFYWRRaUI0b1JuQnND?=
- =?utf-8?B?Q0RqeTltMGxPUTVWVGJ2RDR1SXFTbmZndEtOYU9hTGlxMEZHVTlWTU1xT09E?=
- =?utf-8?B?ZkRUVTVhdW9DUjY2QVJ1bkpMZ283V28vZWVld3hId0lob1o1UU9BRGRTam5p?=
- =?utf-8?B?VXBUU3JoYzVBbmc2dTZOTXhiU2RNR2NGUGVaVEl0bERMd1Z2QVc3aFBZN1pM?=
- =?utf-8?B?Q240RjJmY2MrV0tJTi9TZkxUY2RrWjkvZFo3aXdiQStYQm5iOXVRZ0JVVHRZ?=
- =?utf-8?B?eHBuclVuNkhhVGljZHpiS3BwSnl3cHcxdm92a3BHZlF4SVQ0cXBnSjJGZTdz?=
- =?utf-8?B?Rzh0bGUzM2Q2UFIrVlMxRllpUjA1SDJ0NTJBRS9DSzNxMEZtaTZYMEFKZHZX?=
- =?utf-8?B?L25VM3NramZZSlRWeEVQTU9NT2JXQUNKb1J3cjltR044YTFDejNjUGF2ald5?=
- =?utf-8?Q?Gnaa9nvJ73o6PYgnE2?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f1be0775-88d1-4cdb-3f41-08df0af561f0
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 02:28:33.7225
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PMoU3rfQ41ZXKerLTvgCS/VJ4yBYQWQuXL7JOGOyU+ynjEOJeCQAn2y9a8XyQdwS
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9021
+Content-Transfer-Encoding: 8bit
 
-On Fri Sep 4, 2026 at 11:10 AM EDT, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
->
-> The name says less than the bit means.  A set bit means not only that the
-> PTE is present, but also that it passed the other checks: uffd,
-> lazyfree, anonymity, sharing.  The PTE can be considered a collapse
-> source.
->
-> mthp_collapse() then reads the bitmap starting at the PMD order, so the
-> bitmap is not specific to mTHP either.
->
-> Name it for what a set bit means, and update the comments that named it.
->
-> No functional change.
->
-> Assisted-by: Claude-Code:claude-opus-5
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> ---
->  mm/khugepaged.c | 18 +++++++++---------
->  1 file changed, 9 insertions(+), 9 deletions(-)
->
-<snip>
+__irq_exit_rcu() drops HARDIRQ_OFFSET before deferred hrtimer rearm,
+entry into softirq dispatch, and timersd wakeup. The rearm, wakeup, and
+softirq entry code before softirq_handle_begin() are still on the IRQ
+return path, but in_task() reports task context.
 
-> @@ -1514,12 +1514,12 @@ static enum scan_result mthp_collapse(struct mm_s=
-truct *mm,
->  			goto next_order;
-> =20
->  		max_ptes_none =3D collapse_max_ptes_none(cc, NULL, order);
-> -		nr_occupied_ptes =3D bitmap_weight_from(cc->mthp_present_ptes, offset,
-> +		nr_occupied_ptes =3D bitmap_weight_from(cc->eligible_ptes, offset,
->  						      offset + nr_ptes);
+Context-sensitive code called from this window therefore sees task
+context. ftrace records normal-context flags and selects its normal
+recursion slot. KCSAN attributes IRQ-exit accesses to the interrupted
+task, while KMSAN can select and modify that task's metadata.
 
-s/nr_occupied_ptes/nr_eligible_ptes too?
+Keep HARDIRQ_OFFSET across this IRQ-exit window. For direct softirq
+handling, replace it with SOFTIRQ_OFFSET and restore it afterwards. Other
+__do_softirq() call paths keep their existing accounting.
 
-Otherwise, LGTM.
+With hardirq context retained, ftrace records hardirq context, KCSAN uses
+interrupt attribution, and KMSAN no longer uses the interrupted task's
+state.
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+Test softirq eligibility before removing HARDIRQ_OFFSET with
+irq_count() == HARDIRQ_OFFSET. This preserves the old !in_interrupt()
+semantics, including PREEMPT_RT's task-local softirq-disable state. For
+timersd, require exactly one hardirq nesting level and no NMI, preserving
+the old predicate.
 
+Drop HARDIRQ_OFFSET before tick_irq_exit(), as before. Preempt-off tracing
+now covers the IRQ-exit work continuously instead of showing an artificial
+on/off transition.
 
+Suggested-by: Peter Zijlstra <peterz@infradead.org>
+Link: https://lore.kernel.org/r/20260813130826.GW687043@noisy.programming.kicks-ass.net
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Changes since v1:
+- Warn if the hardirq-to-softirq transition does not produce exactly one
+  SOFTIRQ_OFFSET, and update lockdep state unconditionally (Frederic).
+- Tighten the commit message around the affected IRQ-exit window, the
+  timersd predicate and preempt-off tracing.
+- Add exact-v2 QEMU, sanitizer, hardware and idle-latency results to the
+  review notes.
 
+v1: https://lore.kernel.org/r/20260903112737.49551-1-kmehltretter@gmail.com
 
---=20
-Best Regards,
-Yan, Zi
+The exact v2 source passed non-RT, threadirqs and PREEMPT_RT x86-64 QEMU
+boot/stress, including CPU hotplug, with panic_on_warn=1, lockdep and IRQ
+tracing. The same three modes passed a continuous context-invariant test;
+neither new warning fired.
+
+KCSAN attributed all 25 target reports to interrupt context. KMSAN selected
+or changed task state zero times in 24K IRQ-exit windows and passed all 28
+KUnit tests.
+
+vmlinux linked successfully for arm64, ARM, RISC-V and s390.
+
+The exact v2 TIP source passed config-identical A/B boot/stress on a Pi 400
+(Cortex-A72, arm64) with panic_on_warn=1: 2000/2000 ping, no boot splat and
+no new dmesg output. Focused ftrace, printk/fault-injection and continuous-
+invariant diagnostics also passed on the same source.
+
+A second A/B on the Pi 400 with threadirqs enabled also passed. Four
+ktimers threads were active on each side, 2000/2000 ping completed, and the
+dmesg buffer remained empty after the workload.
+
+A four-boot ABBA cyclictest run on the Pi found no idle timer-latency
+regression. Across 6M samples per side, p99 was 5 us on both kernels and
+p99.9 was 7 us on the baseline versus 5 us patched.
+
+For additional portability coverage, the mainline v2 adaptation passed
+config-identical A/B boot/stress on a SAM9X75 (ARM926EJ-S/ARMv5TEJ) with
+panic_on_warn=1, 1000/1000 ping, no boot splat and no new dmesg output.
+
+ kernel/softirq.c | 48 ++++++++++++++++++++++++++++++++++++------------
+ 1 file changed, 36 insertions(+), 12 deletions(-)
+
+diff --git a/kernel/softirq.c b/kernel/softirq.c
+index 5d02c36c40e3..7381b6b4d551 100644
+--- a/kernel/softirq.c
++++ b/kernel/softirq.c
+@@ -350,8 +350,8 @@ static inline void ksoftirqd_run_end(void)
+ 	local_irq_enable();
+ }
+ 
+-static inline void softirq_handle_begin(void) { }
+-static inline void softirq_handle_end(void) { }
++static inline bool softirq_handle_begin(void) { return false; }
++static inline void softirq_handle_end(bool from_hardirq) { }
+ 
+ static inline bool should_wake_ksoftirqd(void)
+ {
+@@ -481,15 +481,35 @@ void __local_bh_enable_ip(unsigned long ip, unsigned int cnt)
+ }
+ EXPORT_SYMBOL(__local_bh_enable_ip);
+ 
+-static inline void softirq_handle_begin(void)
++static inline bool softirq_handle_begin(void)
+ {
+-	__local_bh_disable_ip(_RET_IP_, SOFTIRQ_OFFSET);
++	bool from_hardirq = in_hardirq();
++
++	if (!from_hardirq) {
++		__local_bh_disable_ip(_RET_IP_, SOFTIRQ_OFFSET);
++		return false;
++	}
++
++	/* Replace the retained hardirq context with normal softirq context. */
++	__preempt_count_add((int)SOFTIRQ_OFFSET - (int)HARDIRQ_OFFSET);
++	WARN_ON_ONCE(softirq_count() != SOFTIRQ_OFFSET);
++	lockdep_softirqs_off(_RET_IP_);
++
++	return true;
+ }
+ 
+-static inline void softirq_handle_end(void)
++static inline void softirq_handle_end(bool from_hardirq)
+ {
+-	__local_bh_enable(SOFTIRQ_OFFSET);
+-	WARN_ON_ONCE(in_interrupt());
++	if (!from_hardirq) {
++		__local_bh_enable(SOFTIRQ_OFFSET);
++		WARN_ON_ONCE(in_interrupt());
++		return;
++	}
++
++	WARN_ON_ONCE(softirq_count() != SOFTIRQ_OFFSET);
++	lockdep_softirqs_on(_RET_IP_);
++	__preempt_count_sub((int)SOFTIRQ_OFFSET - (int)HARDIRQ_OFFSET);
++	WARN_ON_ONCE(!in_hardirq());
+ }
+ 
+ static inline void ksoftirqd_run_begin(void)
+@@ -605,6 +625,7 @@ static void handle_softirqs(bool ksirqd)
+ 	unsigned long old_flags = current->flags;
+ 	int max_restart = MAX_SOFTIRQ_RESTART;
+ 	struct softirq_action *h;
++	bool from_hardirq;
+ 	bool in_hardirq;
+ 	__u32 pending;
+ 	int softirq_bit;
+@@ -618,7 +639,7 @@ static void handle_softirqs(bool ksirqd)
+ 
+ 	pending = local_softirq_pending();
+ 
+-	softirq_handle_begin();
++	from_hardirq = softirq_handle_begin();
+ 	in_hardirq = lockdep_softirq_start();
+ 	account_softirq_enter(current);
+ 
+@@ -670,7 +691,7 @@ static void handle_softirqs(bool ksirqd)
+ 
+ 	account_softirq_exit(current);
+ 	lockdep_softirq_end(in_hardirq);
+-	softirq_handle_end();
++	softirq_handle_end(from_hardirq);
+ 	current_restore_flags(old_flags, PF_MEMALLOC);
+ }
+ 
+@@ -740,6 +761,8 @@ static inline void wake_timersd(void) { }
+ 
+ #endif
+ 
++#define IRQ_EXIT_TIMERS	(NMI_MASK | HARDIRQ_MASK)
++
+ static inline void __irq_exit_rcu(void)
+ {
+ #ifndef __ARCH_IRQ_EXIT_IRQS_DISABLED
+@@ -748,8 +771,7 @@ static inline void __irq_exit_rcu(void)
+ 	lockdep_assert_irqs_disabled();
+ #endif
+ 	account_hardirq_exit(current);
+-	preempt_count_sub(HARDIRQ_OFFSET);
+-	if (!in_interrupt() && local_softirq_pending()) {
++	if (irq_count() == HARDIRQ_OFFSET && local_softirq_pending()) {
+ 		/*
+ 		 * If we left hrtimers unarmed, make sure to arm them now,
+ 		 * before enabling interrupts to run softirq.
+@@ -759,9 +781,11 @@ static inline void __irq_exit_rcu(void)
+ 	}
+ 
+ 	if (IS_ENABLED(CONFIG_IRQ_FORCED_THREADING) && force_irqthreads() &&
+-	    local_timers_pending_force_th() && !(in_nmi() | in_hardirq()))
++	    local_timers_pending_force_th() &&
++	    (preempt_count() & IRQ_EXIT_TIMERS) == HARDIRQ_OFFSET)
+ 		wake_timersd();
+ 
++	preempt_count_sub(HARDIRQ_OFFSET);
+ 	tick_irq_exit();
+ }
+ 
+
+base-commit: 2af470916a208b576ac9975d221d9a378cf8ace9
+-- 
+2.53.0
 
