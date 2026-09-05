@@ -1,119 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com [209.85.160.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0484363083
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 06:22:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC2241A704B
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 06:29:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788589346; cv=none; b=K4UYKEkHTDSq0ulsse46UGxeK7hlx/H8aMCs/kXHJGLGbvZH3Zoar7hbOzeF1h0c2GGl2ptmqo/wu9mKzeEYN7VkP3yBqajioFGQhcFWlLTtBzB4RVtowu5at2N1axHrgG2kAD/cMvq2YcRK4j2GBfR4ZM5JHX7PIhj7cfzix0U=
+	t=1788589747; cv=none; b=TYGPhPFSVhUUxOZkBojiVS9nRYkNZPvw1WOgscUMpzA+YQQM5phdz5qLYyfzNdr18DHj7P6+g0STEJUeEXq/dfSnS6mtilteFrJaMWOvQt6OWRrLY+C6EcbRxUvtsIXm+9VAGAVfghT8vdW9BLDJULdErHmN+f1mBrXVIN0kg3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788589346; c=relaxed/simple;
-	bh=5A2DXfLvOuztE0W8xwBhWwJAwffc3mOvguOK2Ayp/kI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=X3ivQdoE2rWl5J02o/R4xvnSa8XQxizFPkWHTqPNpBR/istc9IO2s3PhezCNIkLNuYg+1Y22mRYuQbrTJLzKXnQJewzdrb1qn4t7CQS6U7WoFDGD1Ih63aX7Dgo15Cq6U6E9Ecsvbxsrkon6ZJfKzGzT5+6t3gxydEuYum2NDtg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H3Dw0Bhv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788589747; c=relaxed/simple;
+	bh=hdfmlvBCHG94nOK1kTFtZiYtegNR1ypidelCpy0e/cU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gbax/y4fybZiexGU483+HLWRTTuQAX3zQIciUgOqN0vn74qEhOAZ75dsp38GRnz8N9WwJQ6gg4vgl9BIqu5r5umJvyr/ScgJl7Qg9eRkH6prqo4xnpIFQz40eWflfTuFC3+uFb8bqjxN58EWDtt0a8W8vGzuj6KT5A6s3OpWPVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GSjVVmgE; arc=none smtp.client-ip=209.85.160.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H3Dw0Bhv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 971971F00A3D
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 06:22:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788589344;
-	bh=5A2DXfLvOuztE0W8xwBhWwJAwffc3mOvguOK2Ayp/kI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=H3Dw0BhvbgIDKrZ7WLMSQH8TkTOqZnCo7Xu79F7tLZHLeCti8E/CbnuZd6mPjAtuG
-	 rygHtNfF/Aj7PNLTdZ1h5RSror8m9lQOgx0kVbekRPCNpeFcq0BnVhLtovqHqopJIk
-	 7xc1NN3IoJ7slHk83Zyj2j+gSyosY/YHaRx+04bDIcBybNNmI8N92xy24b+ATU9eJv
-	 rfNmmO2RmM/KMu58iQAMevYHR7Oqammr6+cD/3zR0b9o753R2mdvkxT/tLD39KYomR
-	 ryvUfgOesgbGDUIgr1cCIGQeaC5wRcxJhuxqlIR4/rV6DMC1P9qJVvkQ+XnbSTFcCe
-	 atARB/r89/l9A==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5b4ab0e4da6so1713784e87.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 23:22:24 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzfBb5jTuatFwAWAcLs44JqHzIglSvlEPxUPnQbtDP5Vz9dPOwebTx8nmfuOjm4cnSvOPKt+K3ZXf5bjYk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kFH7h4P5IQN0FLItOegLzMGwyUj1YAzeAOm2BZaA1yqej0IBHY
-	Pgl1qSpNWX+i97Sw7VrjqQd1eeu1YbbhHKTZjLhnMQVBB6xbNNYFr1h3C4EvML3a4bwAyUsBn3E
-	8T1OeiBMVAADvt7Jhfdq4NfPblk2akCg=
-X-Received: by 2002:a05:6512:3b0d:b0:5b6:183c:5c94 with SMTP id
- 2adb3069b0e04-5b6183c5ecdmr1369894e87.50.1788589343322; Fri, 04 Sep 2026
- 23:22:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GSjVVmgE"
+Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-46add2afca9so1227894fac.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 23:29:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788589744; x=1789194544; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zmCI/5FNN55F8kGIHxPRLlIa26llF9VdD81iCD4sFhM=;
+        b=GSjVVmgE1BVH4vUnNiLSj/5j9Y01oZqE0GyeFfyNlCmx9DnnYOg1AUQuggxovoSSBQ
+         ZzYHWcRxoNXcvwCtAX/UyolQeDTp7Mk4S2BTHnGzsJJGEnjUhizuyEDaBxRDbCJ3haPb
+         93spp0kILp9sjem9gre88pIwUidctIoJTnkZDYe8vCtbWfbvPuxb06Rwgg5MoUxaFETc
+         QKL6rdvZ7oeJfJgc5NkgrTu5wsQ4IX7dKAnI1cERJOvIaVJ6Nt4HwIo3TPMXOjnYPeNs
+         8AbCcf23ErzCDayQpCy6bUHLZhjYIr7pnDUmwl9vKWSIavoVkRYoB9azpPxgPrcsGjYD
+         sGNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788589744; x=1789194544;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zmCI/5FNN55F8kGIHxPRLlIa26llF9VdD81iCD4sFhM=;
+        b=TpZlL1YlqI/1sZFtvUOWiNxnp8SMbhoVIAx9g/tKkQnVPl5fWfaFoKm0jBfaPW+CV5
+         bDetxgwSXFzlbh8S9StE2/1jyrkwiomAYguEP5U6TBB4sUYuGEouKjsDbmzRgGKhrZtP
+         kIDQCWrIfiVWyMbXKFY1ZfaUTb26HwfhRegF3Q3SDBHCh47BrmX5rKdT2oMHQIR3Pl0F
+         tejy9jnvVZYfqKRPJkBkCL7ZmPrEJHhWxHg2kI+Pr2XNUUWEJoiKmHiTOHBLBxSFiEnG
+         LnpW4CNXIqNGkoOcU/woMqBWd2Vu3R+ubOsOqmR1azxFOeaYevCAPqP5kfI40Gm+I06G
+         A8IQ==
+X-Forwarded-Encrypted: i=1; AKwUvByCBEQBppZLfeVV/Fg9z8yrqa1Er/L7GIager7ZkEwIkGFrU6aOyzXoRx2M8EKVXrke/zynxBuqvNo45Ls=@vger.kernel.org
+X-Gm-Message-State: AFuF++ndbBksOjXChRaP6VRW0dsFFHjDzRR49ODSRdBRED8ChxxmmLFY
+	1pzP3hhnUFqodo/+nKw1kqrvCKKlTjDdG472WILfSX4ZjS5Fj9vi18Lut4FyJw==
+X-Gm-Gg: AYBFou0WoLZS5MD5/W83+hEnNnWYcNXHoJj4suKQhzq7WYGFkAGbwB6AiFAQEkyUGVl
+	VBhO0uSRETsG/5BDZ09doFAvNy376V+vxbCSRFvLhfKtYfuzahcI3TFeusepJkbO8dGTZzXvb3x
+	HldJDEh/L9BfB9I8sC4SGZrSGT5FuxHnjBqrPqv93P/QYyClb9kB66mZZzjPDle2PO3FPebd3xj
+	ZHSCy5FVRb0WqpYMxmKaCj7kKyCkE7PnSQpcQWefGa522pXuqBWwxgRqsNUKOpusrmaVHtf6l02
+	9INg/AiVptRFhhFtm8Ub6L7gFIAeFVZbDNEuA3B4Q7Wz2o7ny9Mu08MvNl6JGgY+JtD63rUOcSr
+	iadmuMU0uW0V/Fr+JfR4oST9swT2f/HxwIIiZh490xphxf2w4Nw2c+966++ZcDDXM2UDwLuJBlk
+	g8HA4RWQTQnFuTkbOPGNP+c982UxFqlO3nb9ZseMAUiinR7QSncuz9iW/LT5UDn52yhpuP9E6aX
+	Q==
+X-Received: by 2002:a05:6871:213:b0:475:e066:7714 with SMTP id 586e51a60fabf-475e0669518mr4594311fac.27.1788589744512;
+        Fri, 04 Sep 2026 23:29:04 -0700 (PDT)
+Received: from cachyos-x8664 ([177.245.224.138])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-47554d7bde7sm3881145fac.16.2026.09.04.23.29.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 23:29:03 -0700 (PDT)
+From: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>,
+	Frank Li <Frank.Li@kernel.org>,
+	dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>,
+	stable@vger.kernel.org,
+	"Claude Opus 4.8" <noreply@anthropic.com>
+Subject: [PATCH] dmaengine: loongson2-apb-cmc: fix descriptor leak in prep_slave_sg()
+Date: Sat,  5 Sep 2026 00:28:33 -0600
+Message-ID: <20260905062833.272484-1-diegomancera.dev@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904-ksz9897-sgmii-port-v5-1-9bd4a0381aa8@vaisala.com>
-In-Reply-To: <20260904-ksz9897-sgmii-port-v5-1-9bd4a0381aa8@vaisala.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sat, 5 Sep 2026 08:22:11 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=2U-at=iDwkQ3yNfk97xQc1mGS3uSTRdheMYwT_7YGWw@mail.gmail.com>
-X-Gm-Features: AcwNN1Ur2s0ncXM5BZAkSfX08tc-OATaVAVH71F_Mih3jw8yqeqp5DWO2pNSju4
-Message-ID: <CAD++jL=2U-at=iDwkQ3yNfk97xQc1mGS3uSTRdheMYwT_7YGWw@mail.gmail.com>
-Subject: Re: [PATCH net-next v5] net: dsa: microchip: enable the SGMII port of
- the KSZ9897S
-To: Tapio Reijonen <tapio.reijonen@vaisala.com>
-Cc: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
-	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Tristram Ha <tristram.ha@microchip.com>, 
-	Nicolai Buchwitz <nb@tipi-net.de>, Jerry Ray <Jerry.Ray@microchip.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 4, 2026 at 8:03=E2=80=AFAM Tapio Reijonen
-<tapio.reijonen@vaisala.com> wrote:
+loongson2_cmc_dma_prep_slave_sg() allocates the descriptor with
+kzalloc_flex() before iterating over the scatterlist. If
+loongson2_cmc_dma_set_xfer_param() fails inside the loop, the function
+returns ERR_PTR(ret) without freeing the descriptor. At this point the
+descriptor has not been handed to vchan_tx_prep() yet, so nothing else
+will ever free it, leaking it on every failed ->device_prep_slave_sg()
+call (e.g. an unsupported transfer direction or bus width).
 
-> The KSZ9897 has an SGMII/1000BASE-X capable port 7, but its chip_info
-> entry never set .sgmii_port. ksz_has_sgmii_port() is therefore false,
-> ksz9477_pcs_create() is never called and ksz9477_phylink_mac_select_pcs()
-> returns NULL for port 7, so a phy-mode =3D "sgmii" or "1000base-x" link o=
-n
-> that port cannot come up.
->
-> Only the KSZ9897S has that port; the KSZ9897R has a second RGMII port
-> instead. Both report chip ID 0x00989700, so the port cannot be enabled
-> from the chip ID alone, and enabling it unconditionally breaks the
-> KSZ9897R badly: ksz9477_setup() propagates the failure of
-> xpcs_create_pcs_mdiodev() on a part without an XPCS, so the switch as a
-> whole stops probing.
->
-> The variants do differ in the read-only bit 7 of the port 7 XMII control
-> 0 register, which reads one on the KSZ9897S and zero on the KSZ9897R.
-> Compare the KSZ9897S data sheet DS00002394C section 5.2.4.1 with the
-> KSZ9897R data sheet DS00002330D section 5.2.3.1.
->
-> Read that bit in ksz_switch_register() and use it to select a KSZ9897S
-> chip_data entry, which is the KSZ9897 one plus .sgmii_port =3D 7, with
-> port 7 no longer marked as supporting MII, RMII and RGMII. On the
-> KSZ9897S that port is permanently an SGMII port and only its
-> differential pairs are brought out, so advertising the xMII modes on it
-> would let phylink accept a mode the driver never programs:
-> ksz_phylink_need_config() skips the XMII control registers for the SGMII
-> port. The KSZ9477, which also has SGMII on port 7, is described the same
-> way. See DS00002394C section 4.11.
->
-> KSZ9897S_CHIP_ID selects that chip_data entry and nothing else.
-> dev->chip_id keeps the KSZ9897 chip ID that both parts report, so no
-> other chip ID comparison has to know about the variant,
-> ksz_check_device_id() is unchanged, and a device tree naming the KSZ9897
-> keeps matching whichever part is fitted. No binding change is needed and
-> existing device trees keep working.
->
-> Tested on a KSZ9897S with a 1000BASE-LX fibre SFP on port 7: bit 7 of
-> the port 7 XMII control 0 register reads one, the switch is identified
-> as a KSZ9897S and the PCS is created. The port advertises
-> 1000baseX/Full, clause 37 in-band autonegotiation completes against the
-> link partner, and the link comes up at 1Gbps/full duplex and passes
-> traffic.
->
-> Suggested-by: Nicolai Buchwitz <nb@tipi-net.de>
-> Suggested-by: Jerry Ray <Jerry.Ray@microchip.com>
-> Suggested-by: Tristram Ha <Tristram.Ha@microchip.com>
-> Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
+The neighbouring error path for the num_items check already frees the
+descriptor before returning; do the same on the set_xfer_param() failure
+path.
 
-I think this approach looks good.
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Fixes: 1c0028e725f1 ("dmaengine: loongson: New driver for the Loongson Multi-Channel DMA controller")
+Link: https://lore.kernel.org/all/20260818094957.7D2221F000E9@smtp.kernel.org/
+Cc: stable@vger.kernel.org
+Signed-off-by: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
+Co-authored-by: Claude Opus 4.8 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_012bUV3WshMSfTq61n1cgh1i
+---
+ drivers/dma/loongson/loongson2-apb-cmc-dma.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Yours,
-Linus Walleij
+diff --git a/drivers/dma/loongson/loongson2-apb-cmc-dma.c b/drivers/dma/loongson/loongson2-apb-cmc-dma.c
+index 1c9a542edc85..60eb4d961610 100644
+--- a/drivers/dma/loongson/loongson2-apb-cmc-dma.c
++++ b/drivers/dma/loongson/loongson2-apb-cmc-dma.c
+@@ -404,8 +404,10 @@ loongson2_cmc_dma_prep_slave_sg(struct dma_chan *chan, struct scatterlist *sgl,
+ 
+ 	for_each_sg(sgl, sg, sg_len, i) {
+ 		ret = loongson2_cmc_dma_set_xfer_param(lchan, direction, &buswidth, sg_dma_len(sg));
+-		if (ret)
++		if (ret) {
++			kfree(desc);
+ 			return ERR_PTR(ret);
++		}
+ 
+ 		num_items = DIV_ROUND_UP(sg_dma_len(sg), buswidth);
+ 		if (num_items >= LOONSON2_CMCDMA_MAX_DATA_ITEMS) {
+-- 
+2.55.0
+
