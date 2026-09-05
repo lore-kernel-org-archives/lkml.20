@@ -1,136 +1,153 @@
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4764233943;
-	Sat,  5 Sep 2026 09:56:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 534A237189B
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 09:58:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788602181; cv=none; b=dmWtnDftWl/caAB1k7wh2UD91yY+T4GGCMsVcdtKDA7F1FI7I4+XYiNqpHkyAoL7U+oBOAiwB+osn8pV5VumlUqD0+eobaOzM/TXHx4lUJRvRBWuZ2KD7O6U258d2HcgB1ZsFtRuviQqRklzTjcI3vgeSeeagnvgKhwFCW3T6Fg=
+	t=1788602319; cv=none; b=EotqVJHv9Or3RCEmSF9HgAhWvHN2Twt56GCMusAWtpQLEyy4iTM8+itGZlks7ApqFGEcWpIbf0dj+m1iMsTXB8GmazmmeNp1G8CnLM3RrcwZb5749nk/oujx9EU8Bn9RnISwSH1ib+aSUJFKXIjJ05pQ/UxMhERIwXXwJKnlwMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788602181; c=relaxed/simple;
-	bh=EYq+3BqsZwv6V6HCmMwDpZAf5y76L3CWyi26KXiCX+E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EmyicBpZmFdBptvgevsBWYJ9X2YQ0hR0UH6p2ZL6W279iShsdhBoHEMjIbARFIMwITwqcbrFrHNvJtp/PSvrmEAoW2PLEDF0OUUbmFTVJDo44kXOwGNRQKknHwuKq2DPlG/s4lBQPl/vT7SpufJMrd4n00Y9YKhhlzTBHaOdyLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.198])
-	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hcTGm3pnYzYQtpl;
-	Sat,  5 Sep 2026 17:55:28 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.128])
-	by mail.maildlp.com (Postfix) with ESMTP id A359A40576;
-	Sat,  5 Sep 2026 17:56:14 +0800 (CST)
-Received: from [10.67.110.68] (unknown [10.67.110.68])
-	by APP4 (Coremail) with UTF8SMTPA id gCh0CgB3IpA955tqJERdAw--.352S2;
-	Sat, 05 Sep 2026 17:56:14 +0800 (CST)
-Message-ID: <5bbd9eda-96e9-4cc4-883d-9bda93bea2b3@huaweicloud.com>
-Date: Sat, 5 Sep 2026 17:56:13 +0800
+	s=arc-20240116; t=1788602319; c=relaxed/simple;
+	bh=TPh+2S4EjKCMHY3hnA1MkQOSVSa14YnYfoTQlZcQt2E=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=uWsjgUKYS9cTPHFCEIY7BtQbleoKqAB9wb1BrjjFy1Zd4fzs/THXiwJgwy+D01EjoxiyWqnCVTRpQz1dx1uB7hfg7IcIvMiVTRT8JH1yKYeAbTwtZHCUfoXn+7D7t0oyqu+t0Es2cdgLo9VUmPIf6YgMasFVBQDKU5hoWhpon2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MrInLqgZ; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MrInLqgZ"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso17350425e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 02:58:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788602316; x=1789207116; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LRvfrJeL7Y7uiXmrE76Xnc9F45gApWlV6DJkXBriHZU=;
+        b=MrInLqgZZ2G0DU323P7nuVaEaiSPB7ygZirYEOcWRj6wZ9IUJTHHak5z8WiD/8QnNI
+         V+WYl1caKgROyCWZlCJvDCgyy9fgRtMNQG185gHoWGmRWeoyIuLhYMhIJAltuIEufuZC
+         RBDeAgEAIQDNdAEnd1PIiW1GUFuXVLMw2OoV+qPLaFNdkEbOqOsZO7xW1H/ZBSK6gGSz
+         cPyD2Gz2bZCo7D/EtKkpleaPEyyjOUjnia/FBwik0WE1g65XRVA2DsScmI2FkSJEFptS
+         26FU3WS5miDLXGU3QGoUMGSiOFhRvp8mAOfXiYZqZOJTRkwhPH5C7CEbtncjFkt0mfur
+         wA5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788602316; x=1789207116;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LRvfrJeL7Y7uiXmrE76Xnc9F45gApWlV6DJkXBriHZU=;
+        b=UqWQWDTbquAiorrR7iYO8L3bxHWnKN2xbU3A2zhxLTzG1V3tO8v1pdG9RNbS4U6UHy
+         6JcAv9n3Cj7rH03FV0rQl6zpYe3wRNPWnQhFaB3lzCrFQafyRXu8174g4QIhCPFtq2so
+         p6bw6DezIkm5h0glUjARkIy1JlaK4TA1cG4OOMsfmeMzLCTredK1CmzN44dVoPWYyIsm
+         thnQwS0D+Q/NxK2hvDn5wUOsM6nugnalAtF7aWjWeQjylyHznH+amrhjqzd9K9sqwtEf
+         t2oOOLGTj7INmi/a5QTg28A4XWOcOh8p4ASloGxzK2739uy7G+fhM4fr5wIkIT4Diwm1
+         gJGg==
+X-Forwarded-Encrypted: i=1; AKwUvBy4sg1AK2oTwiDj0sxutKCRuybcCHl4o1mloWiU01vL1JJlLIhl39n6SQao/CndexqjJNj4xJhWw9cZvBk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mwQ7kWOwIojXvY9POH/fY3NxXx6HTg4ilWSY8KwxEJU4OSQpW2
+	NgpdgHAiEqGBs705oari03xrdXNmgB8BeWUfZ5HmYFoGfVD9aEO2oCIL
+X-Gm-Gg: AYBFou3uUw35c6Bl/ZYR+0MHFJdUp2EN2xrkmkztDzlQ+yKUpYWJZfXG8XTQ3pFCF08
+	w4ub/X9hItUktixifbgJBtxBfzoVE3xLWpJyanJ+0eHFHDaVgN/9+EfgpnnvmlZMl8+qj89J+JM
+	tdo8Ni6TkIbIv2sJUwartjK425xChlSQ4Qbo8rJ76Fam1xJXe22AloFk1DruDyZMQ1NtkcZiBBp
+	7Z5a5T0J70mK7vUR7x9DsERRKlbYo573QiJEXByf40O9u1WHXDlM7iRPtK5FywfBwDC/Z3fjp5I
+	wesyNQjBZosIQYnmZ6A4YSE5v1XMxqHffnLTlnCHQDUJuLXERHkC/8T+Z+h/AoAi45e7bm9oykL
+	jd+PWNKgePNvFIQDFNbCgB2G+jUFkSwx2YPoj9aVQRxwlAtcPVXIECWcYJ2+48yUWK78uWg6ku2
+	0OeDxw7VKAf/iqDTDB8SzCJ9arOS6xivgjK9MsKsvUtTcurCa1vtdIGpg3H+rEvdeLXY7tw2DXi
+	6AcB4rX4zdiTZaE1At8BmGxJ1c=
+X-Received: by 2002:a05:600c:8b6b:b0:49c:e1cd:536 with SMTP id 5b1f17b1804b1-49cf826be5bmr111021015e9.12.1788602316474;
+        Sat, 05 Sep 2026 02:58:36 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee6158e9sm220352435e9.12.2026.09.05.02.58.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 02:58:36 -0700 (PDT)
+Date: Sat, 5 Sep 2026 10:58:32 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, "Rafael J.
+ Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>
+Subject: Re: [PATCH v1 1/1] thermal: sysfs: switch to use scnprintf() to
+ suppress truncation warning
+Message-ID: <20260905105832.12192997@pumpkin>
+In-Reply-To: <20260817103324.1020212-1-andriy.shevchenko@linux.intel.com>
+References: <20260817103324.1020212-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v5 1/3] riscv, bpf: Remap BPF_REG_0 and
- RV_REG_TCC
-Content-Language: en-US
-To: bot+bpf-ci@kernel.org, bpf@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
- jiangfeng@kylinos.cn
-Cc: bjorn@kernel.org, ast@kernel.org, daniel@iogearbox.net,
- andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
- martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- puranjay@kernel.org, pjw@kernel.org, palmer@dabbelt.com, alex@ghiti.fr,
- pulehui@huawei.com, martin.lau@kernel.org, mason@kernel.org
-References: <20260905085857.14143-2-pulehui@huaweicloud.com>
- <f7ac0b75cec70f36753ef48c97ffdca950d7c92632a74aa24187b9c076b7f115@mail.kernel.org>
-From: Pu Lehui <pulehui@huaweicloud.com>
-In-Reply-To: <f7ac0b75cec70f36753ef48c97ffdca950d7c92632a74aa24187b9c076b7f115@mail.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:gCh0CgB3IpA955tqJERdAw--.352S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJF1kCw1fZw48Kr1DXw1xAFb_yoW5GrWDpw
-	47CrnxJrWvga1rCry8KF1kXa1Skw40g3ZrCrySkrW5Jr9Fgr95JanFqw4Yy3s5CrWF9r4F
-	yFn0v3ySva1DArUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I
-	0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
-	x7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
-	0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AF
-	wI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
-	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5
-	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
-	0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
-	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU0
-	bAw3UUUUU==
-X-CM-SenderInfo: psxovxtxl6x35dzhxuhorxvhhfrp/
 
+On Mon, 17 Aug 2026 12:33:24 +0200
+Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
 
-On 2026/9/5 17:42, bot+bpf-ci@kernel.org wrote:
->> diff --git a/arch/riscv/net/bpf_jit_comp64.c b/arch/riscv/net/bpf_jit_comp64.c
->> index e7378be171a9..fc1c8c5480b6 100644
->> --- a/arch/riscv/net/bpf_jit_comp64.c
->> +++ b/arch/riscv/net/bpf_jit_comp64.c
->> @@ -23,11 +23,11 @@
->>   /* fentry and TCC init insns will be skipped on tailcall */
->>   #define RV_TAILCALL_OFFSET ((RV_FENTRY_NINSNS + 1) * 4)
->>
->> -#define RV_REG_TCC RV_REG_A6
->> +#define RV_REG_TCC RV_REG_T5
->>   #define RV_REG_ARENA RV_REG_S7 /* For storing arena_vm_start */
->>
->>   static const int regmap[] = {
->> -	[BPF_REG_0] =	RV_REG_A5,
->> +	[BPF_REG_0] =	RV_REG_T6,
->>   	[BPF_REG_1] =	RV_REG_A0,
->>   	[BPF_REG_2] =	RV_REG_A1,
->>   	[BPF_REG_3] =	RV_REG_A2,
-> 
-> This isn't a bug, but does moving BPF_REG_0 to t6 affect code density?
-> arch/riscv/net/bpf_jit.h:is_creg() only accepts fp, s1, and a0-a5 for
-> RVC-compressible forms. With CONFIG_RISCV_ISA_C, every emitter that gates
-> on is_creg() now falls back to 4-byte instructions whenever BPF R0 is the
-> destination or base register. Since R0 holds return values and helper
-> results, could this measurably grow JIT image size for R0-heavy code?
+> Switch the sysfs code to use scnprintf() to avoid warnings about potential
+> truncation of the names of the sysfs attributes.
 
-This is expected. The bpf prog image size growth is expected to be 
-negligible, and it is a necessary trade-off to free up registers for the 
-calling convention.
+It has to be a 'bug' that 'format overflow' warnings are generated for
+snprintf() but not for scnprintf().
+They really shouldn't behave differently.
 
-> 
-> The changelog explains why a5 and a6 needed to be freed, but it doesn't
-> mention why t6 and t5 were chosen. Could a sentence be added about the
-> register selection rationale, particularly since t4 appears unused by
-> the JIT?
+I did some tests a while back and the warning goes away if you do
+'some things' with the result (like comparing against the buffer size),
+but even explicitly ignoring it with a (void) cast isn't enough.
 
-It's fine, let's mention here. We prefer caller-saved registers that are 
-unused both now and going forward.
+Using OPTIMIZER_HIDE_VAR() (or an _VAL variant) on the buffer size does
+stop the error, but I expect gcc to start checking sizeof(buf) as well.
+So both arguments might need hiding to get the warning ignored.
 
+David
+
+> We can't increase the buffer
+> size because the size is the part of an ABI for some reason. Note, with
+> the current size of buffer the affected attributes have a room for up to
+> 1000 names, which ought to be enough for all cases. There is no functional
+> change, as the same limitation was implied before.
 > 
->> @@ -47,13 +47,13 @@ static const int pt_regmap[] = {
->>   	[RV_REG_A2] = offsetof(struct pt_regs, a2),
->>   	[RV_REG_A3] = offsetof(struct pt_regs, a3),
->>   	[RV_REG_A4] = offsetof(struct pt_regs, a4),
->> -	[RV_REG_A5] = offsetof(struct pt_regs, a5),
->>   	[RV_REG_S1] = offsetof(struct pt_regs, s1),
->>   	[RV_REG_S2] = offsetof(struct pt_regs, s2),
->>   	[RV_REG_S3] = offsetof(struct pt_regs, s3),
->>   	[RV_REG_S4] = offsetof(struct pt_regs, s4),
->>   	[RV_REG_S5] = offsetof(struct pt_regs, s5),
->>   	[RV_REG_T0] = offsetof(struct pt_regs, t0),
->> +	[RV_REG_T6] = offsetof(struct pt_regs, t6),
->>   };
-> 
-> [ ... ]
-> 
-> 
+> Fixes: c56f5c0342df ("Thermal: Make Thermal trip points writeable")
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 > ---
-> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+>  drivers/thermal/thermal_sysfs.c | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
 > 
-> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33956847598
+> diff --git a/drivers/thermal/thermal_sysfs.c b/drivers/thermal/thermal_sysfs.c
+> index b44abfc997ed..44bd7c50e4ac 100644
+> --- a/drivers/thermal/thermal_sysfs.c
+> +++ b/drivers/thermal/thermal_sysfs.c
+> @@ -400,8 +400,8 @@ static int create_trip_attrs(struct thermal_zone_device *tz)
+>  		struct thermal_trip_attrs *trip_attrs = &td->trip_attrs;
+>  
+>  		/* create trip type attribute */
+> -		snprintf(trip_attrs->type.name, THERMAL_NAME_LENGTH,
+> -			 "trip_point_%d_type", i);
+> +		scnprintf(trip_attrs->type.name, sizeof(trip_attrs->type.name),
+> +			  "trip_point_%d_type", i);
+>  
+>  		sysfs_attr_init(&trip_attrs->type.attr.attr);
+>  		trip_attrs->type.attr.attr.name = trip_attrs->type.name;
+> @@ -410,8 +410,8 @@ static int create_trip_attrs(struct thermal_zone_device *tz)
+>  		attrs[i] = &trip_attrs->type.attr.attr;
+>  
+>  		/* create trip temp attribute */
+> -		snprintf(trip_attrs->temp.name, THERMAL_NAME_LENGTH,
+> -			 "trip_point_%d_temp", i);
+> +		scnprintf(trip_attrs->temp.name, sizeof(trip_attrs->temp.name),
+> +			  "trip_point_%d_temp", i);
+>  
+>  		sysfs_attr_init(&trip_attrs->temp.attr.attr);
+>  		trip_attrs->temp.attr.attr.name = trip_attrs->temp.name;
+> @@ -423,8 +423,8 @@ static int create_trip_attrs(struct thermal_zone_device *tz)
+>  		}
+>  		attrs[i + tz->num_trips] = &trip_attrs->temp.attr.attr;
+>  
+> -		snprintf(trip_attrs->hyst.name, THERMAL_NAME_LENGTH,
+> -			 "trip_point_%d_hyst", i);
+> +		scnprintf(trip_attrs->hyst.name, sizeof(trip_attrs->hyst.name),
+> +			  "trip_point_%d_hyst", i);
+>  
+>  		sysfs_attr_init(&trip_attrs->hyst.attr.attr);
+>  		trip_attrs->hyst.attr.attr.name = trip_attrs->hyst.name;
 
