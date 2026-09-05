@@ -1,151 +1,106 @@
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDFE53C5DC3
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 08:42:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D449C32D0EE
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 08:43:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788597738; cv=none; b=JGfrrm5iPVgM/YnTQaUKO7YNHKmLsvKJBd6mnwLWSab8/B9BKzKYLCAxO8u+qzkPYhwWerC1SaL27ZF7DF5dBcABYzXW8Hzzr9N0EYKKrzvv0IR3RJKusipJcINrrU+y2pbBpoB79e5P6aFV8yqLAsHATJZl1RmNDN6JmkkAVRg=
+	t=1788597819; cv=none; b=secw8q3LS3tdCF6srXmQNYQiwlXWmVwKTmUBJidBJ5/780S/ZqaVP7VzyOo9pzwViqtzhGo4DEGjdsoHMDpoLGu+/HmtbSSAw4b5cVKMMREmh3uT7vsMrYamSoae3i6or4C1BYwHCKdvCFo3G0nneo+guFLIdqRPLuCFaz/2aOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788597738; c=relaxed/simple;
-	bh=9j6NYG0hkRG6PdUmh1zEaxVWk06YE1JQZ514CGCZKkk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UMq+A8XItIF/yVgfOw8VshtDittGlgM5omEpKf2Bw2YL2GzGmdwwmtkK1D/uJRR9ud7umTLzSfb4wwrM+GOu68JRI6wgSR+PuUUnVc+UIf4vIJwl/sZTv+pMZ3yBybc1/r6hg3VFzsmjuCTeD+eappCUwn0YkmcFKr77qns4e5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kJnKMGXg; arc=none smtp.client-ip=209.85.215.177
+	s=arc-20240116; t=1788597819; c=relaxed/simple;
+	bh=C4QJnvpWviAcO8fJI1TvitJRhstNdkSkmmP/2zmlvss=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BuUshwJLd+dKoz+9/W82cBQyuNvrCKfg3mKnmMyyY2prIueZUGyMYzOxj022jruhH2nQKazi/wOJd/zauaTQPVrbIjoscL0td7jVAeDsKnKER/1kbY6MIq2UeNv9XbebYMfmfaxaSuaHe1HLBEoHF2joufmV5kvP7W85Z4KDNYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T80EanUU; arc=none smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kJnKMGXg"
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cbe6295f05bso2102833a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 01:42:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T80EanUU"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-499ae1c6471so16439485e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 01:43:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788597735; x=1789202535; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+VobeyYxIxVOojjPHLkwwdR8KDg6vnqQTELSH5lLU28=;
-        b=kJnKMGXgQXUk3UznzxtffWTr1ihEsZvnCJfKOpn0M7Nfa20sf4NkfsNBDMZr04QhR5
-         P4F8Dd8Q+s0EN0msLAWO0w9+XV1C1Ur+sPyVVohe2P6pNxX2Ou5XHikPy6n1B9mEe+3R
-         9fny0b70X2PeV2xMFOSIov0qKVinXnIedCfSpf4g6rs7Cq91K0+EWSlwTMZhXn/Zmmpy
-         Urxax1maoB+gzR8QBM5a4AqREzACx109kRmCspfvOU2ZM4skxiadO+j1ZGCbxK6aa+PZ
-         Bsz9rL8RvsD7VQhHd0Ha2Ex3ZOVoTmomA2h6PaSvh+5JmT0gnr/LTXE0lobisgzfNhEM
-         C80w==
+        d=gmail.com; s=20251104; t=1788597816; x=1789202616; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Akhb3CN3A6SrVcr0STO3cx8cdsASy5+A2+rjuvgdbv4=;
+        b=T80EanUUUIWZ4ugRBS7SdvTQenfAi0diUS5BsU/dzNqbHqybGlR80UYvTbma5xVrno
+         gjtz4GzeJXpJ00lZ4GywYs64gdJtVcBOMnMYiZ4SykQPk2fD3KIb3KoUhlDBmiYfG3uu
+         IMo9Pt33LIIDJertj7zQFmo+bSlePfrI9re3gwnZi599Eh/wDpkiibQFyiBv6p0YxVyF
+         n+oSPEkys3IK0NglAGUbXolf2PSUB8T5gpDcbDQnTNzLW22gKAjNjEM3fntoNF4L7nC+
+         XUFwOev9b4XyOF7X/rkw7BROtoNLrptEKO1U7GcmFhpaiapwgkvqI5cD7JKAFYU5ytK8
+         4y+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788597735; x=1789202535;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+VobeyYxIxVOojjPHLkwwdR8KDg6vnqQTELSH5lLU28=;
-        b=sw06ZwdAfn/TyyA5//nd1bNskllBy7SojcvqhR6dzTJyUFcbF1z98SRsYrxrQfhgs/
-         7iGgvo2i6DDdFuYs29VaptL+//56PyDG+3kofC4N31raLEEjdrspn0AgNvJeOCa0ljMs
-         YcZ4aDIN5e59+TtmwrJvazVRiBPaHdXn9OpZZuW4ZYcc77Clivyfo/o1LcUjFlB63SpI
-         K3FEVI80Mm9G7lX1fRFGflZGgBE/XbSZLGDwe/gBEzCnF24Bht9pEMoQGOsLqoRz1Ewj
-         qlfYEOlbcwiNQiIBFWoLh05Wfh3C3R2uqpi2+A2DeFooLI4zOS0WNL5GlJPuBx0a/o/L
-         5boQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxjMBUOwuPP9PoH+T5ZvLbW18cItFvv1BJeFYuKKdbn5tosNkV+goiIm3Da9i2NtwcIMj8qWHIMOoD+G0Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbOvhwN1U7DGCiYSADEAq9cCQeTY3np44dwyU+uTRlEX43DV2x
-	coNl6S/GnZ2xv5upwpOVu1xwD5peY/4/Ji+VFbb5ifOj3rEmmdObyYI=
-X-Gm-Gg: AYBFou0MV5wRPJvqHA604luY5WxYVbrL1jn0DdXf/VDdD3OfGAXvka3hB1YO2Trr4PO
-	/5XBysQGecJmzeYpZi0ELrXBmemQPXQIovGUMgKmj+5qFYZx3O9mzSdIkc5Wr8QJecytY/SIpuF
-	kpHza/clkFHUm4ayp+iG5z5LkIlm+UZU3R41oqVO3NATp1GViyyH6oWF+Ck4cZhV7DsBddcehsZ
-	KzdNKgJ+//vQo1K4Vw3RoK6mVAe24toDOs+TEHIIb5eizk9OU+lXSALFHjr0nGIIJTvsDWjm+bf
-	2iCzAV8XN7cozjDC12eVaf+UtQYeQZ0NYlzy8LOG0gmSE3WEm++QCyK9JPYLYhhp+LecA0y0mmx
-	vEJOuCmCMHxLadJ+ZGLIbYobuLNLg+UKZ/iUWerGU5xajNtSCR4ErI7/hsNTzU4tFlEXP164z1J
-	MejI/mxG/bIItuwW/gHdU3f74+0rJsadwqpMlrS3y0jZL+vXayyEERlsqWsOtTbD52hpRi6Hy96
-	Ol2tajysIoB+w==
-X-Received: by 2002:a17:90b:4d91:b0:398:c6e8:3fc2 with SMTP id 98e67ed59e1d1-39b27c42b89mr7855112a91.4.1788597735226;
-        Sat, 05 Sep 2026 01:42:15 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([211.230.25.193])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b25f8d2c5sm9079660a91.2.2026.09.05.01.42.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 01:42:14 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Robin Murphy <robin.murphy@arm.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Chanho Park <chanho61.park@samsung.com>,
-	Bumyong Lee <bumyong.lee@samsung.com>,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	donggeunyoo.kernel@gmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] swiotlb: use the adjusted address for the highmem page lookup
-Date: Sat,  5 Sep 2026 17:42:10 +0900
-Message-ID: <20260905084210.148255-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20251104; t=1788597816; x=1789202616;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Akhb3CN3A6SrVcr0STO3cx8cdsASy5+A2+rjuvgdbv4=;
+        b=Wh7Mm2jwvXG/vaUSAIeYAcDLrG9HPrpwj0XCvLIYWSjSZSHve7MINiH4nDMfel67M5
+         CLcsXq7mwsSAH8TSL7wMKW83Sv3DJUbstqEAEA54eFeHoe6+afy02N6eC6jkH5jOPVHx
+         bzwy1B+Mwcm5e4gkegbSHv0Ry/uc8IaxrujHbH3MN9b5045VXt+CziTTWrjMjC3gzs+W
+         Hcw49BiajXAFayEphtWlXVvsiojo8OYiiGshoIJhAoLpx5wLLH5Nn0TmB+X1WlN+gVQu
+         s5idt+rNN9E/ltCTjaiZ8x0mGPAURS/ebVbOxFfOjtXRxiKIGEIseB/vIq59LMi6FtMX
+         xOHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwTiwUlGE/tokh5eG7BeoYbKk53ONNENfSo/FEn1zf731D4L4qB3huIBrRvOQk+rpwvFQ1apg3IKSE4S5g=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKexoiqNeSaesCGaIIkpP/7H2Y01oQHJ/gZwOpXZjHhjKir1wN
+	W/DZn9yJow9fFPR+XEaOp2Jv/gfW87I7E4xwvF32MhBFoAX12AWfOD4n
+X-Gm-Gg: AYBFou0re/TNUBF3LebQjU1OtZOrlm6EgNIQIyyBXjuu7Y2EeYbn68od2woZdXVkDLk
+	ZVvVaPawnEz7xykj2gD8aejejKBWkPi1qNZDryQPR3+Wt/qWJsP7/wpHTF2ic0YEmULYMvLYuqZ
+	Dpmujxfg7FEdzA46xgWPm7yUzTO+cjAkzRIwDcSb62kAOlihRSnDSUq/whlt5Poc1oAsBqhqLcd
+	e8tCSN6pH4lAWq8Wv+/0TbZosp5VMqtCBeVzaYngmKhToI1gEzF3iW+olTvY96cVPuFP1v5ypfd
+	SYgeaPLDd73AxPHJF56SwJc5ScSn1F1aLOIEyUuVduVWrcqmziRDLYfYjWkTa5xX4wV1yyO7ksE
+	9hnMBsVWANodKBDr8RZ9++yWGktKMZC/bSKcymu826Bm0quQAsfRkXsptkYHiMazyKOqokXQ+kD
+	6GWTYrGGN/yWC0JPseGwlzIRf/IVUuARFGFxmcCzBf8m2ki7qLPikl2hZop4XirXedYxGuPw==
+X-Received: by 2002:a05:600c:3507:b0:499:a5c8:c6f3 with SMTP id 5b1f17b1804b1-49cf7fe6900mr192812715e9.3.1788597815955;
+        Sat, 05 Sep 2026 01:43:35 -0700 (PDT)
+Received: from foxbook (bfg95.neoplus.adsl.tpnet.pl. [83.28.44.95])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfd3f8192sm93253635e9.3.2026.09.05.01.43.34
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Sat, 05 Sep 2026 01:43:35 -0700 (PDT)
+Date: Sat, 5 Sep 2026 10:43:31 +0200
+From: Michal Pecio <michal.pecio@gmail.com>
+To: syzbot <syzbot+7300affe388249d66dfe@syzkaller.appspotmail.com>
+Cc: gregkh@linuxfoundation.org, i@zenithal.me, linux-kernel@vger.kernel.org,
+ linux-usb@vger.kernel.org, shuah@kernel.org,
+ syzkaller-bugs@googlegroups.com, valentina.manea.m@gmail.com,
+ syzkaller@googlegroups.com
+Subject: Re: [syzbot] [usb?] general protection fault in vhci_hcd_probe
+Message-ID: <20260905104331.6d4288df.michal.pecio@gmail.com>
+In-Reply-To: <6a9bceeb.a5e650b3.26d8a.0008.GAE@google.com>
+References: <6a88066b.ae6ddae5.3da009.002d.GAE@google.com>
+	<6a9bceeb.a5e650b3.26d8a.0008.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-swiotlb_bounce() reads the page frame number from the slot's recorded
-orig_addr, then advances orig_addr by tlb_offset to reach the address
-the caller asked about. The highmem branch mixes the two: the offset
-within the page comes from the adjusted address, the page from the value
-before it.
+On Sat, 05 Sep 2026 01:12:27 -0700, syzbot wrote:
+> syzbot has found a reproducer for the following issue on:
+> 
+> HEAD commit:    9d80aa4617b3 Add linux-next specific files for 20260903
+> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+> console output: https://syzkaller.appspot.com/x/log.txt?x=10adf4f9580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=bb4a32c282cc2ec7
+> dashboard link: https://syzkaller.appspot.com/bug?extid=7300affe388249d66dfe
+> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=121c7215580000
 
-Once the adjustment crosses a page boundary the pair no longer describes
-one location, and the whole copy lands one page below the intended one
-for a positive tlb_offset, one above for a negative one. DMA_FROM_DEVICE
-writes the device data over the wrong page and leaves the intended one
-stale, DMA_TO_DEVICE feeds the device from a page the mapping may not
-cover. Partial syncs through dma_sync_single_range_for_*() are what make
-tlb_offset non-zero.
+Who or what is coming up with these ideas and even commenting it?
 
-The branch test is picked the same way, so a slot recorded in lowmem can
-be adjusted into highmem and the lowmem path then hands a highmem
-address to phys_to_virt().
+    // Iterate platform devices
+    dir = opendir("/sys/bus/platform/devices/");
 
-Take both from orig_addr once it is final and keep pfn in the branch
-that uses it. PhysHighMem() asks the question straight from the address,
-as dma-debug already does.
+    while ((ent = readdir(dir)) != NULL) {
 
-Fixes: 5f89468e2f06 ("swiotlb: manipulate orig_addr when tlb_addr has offset")
-Cc: stable@vger.kernel.org
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
----
-Reproduced under QEMU (qemu-system-arm -M virt, 2G) with a 32-bit ARM
-kernel built from multi_v7_defconfig plus CONFIG_ARM_LPAE=y and
-CONFIG_HIGHMEM=y, which brings in CONFIG_SWIOTLB, booted with
-swiotlb=force. A test module maps two highmem pages at page offset 3840,
-writes a pattern into the bounce buffer 500 bytes in and calls
-dma_sync_single_range_for_cpu() over that range, so that 3840 + 500
-crosses into the second page:
+        // Set driver override
+        snprintf(path, sizeof(path), "/sys/bus/platform/devices/%s/driver_override", ent->d_name);
+        fd = open(path, O_WRONLY);
 
-  before: swbug: pages pfn=700d4 highmem=1
-          swbug: orig phys=700d4f00 (page off 3840)
-          swbug: RESULT page0_off=244 page1_off=-1
-  after:  swbug: RESULT page0_off=-1 page1_off=244
-
-The pattern lands one page below its intended location without the
-change and in the right place with it.
-
- kernel/dma/swiotlb.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-index ded7016a46a7..aa2f1c4588b9 100644
---- a/kernel/dma/swiotlb.c
-+++ b/kernel/dma/swiotlb.c
-@@ -1019,7 +1019,6 @@ static void swiotlb_bounce(struct device *dev, phys_addr_t tlb_addr, size_t size
- 	int index = (tlb_addr - mem->start) >> IO_TLB_SHIFT;
- 	phys_addr_t orig_addr = mem->slots[index].orig_addr;
- 	size_t alloc_size = mem->slots[index].alloc_size;
--	unsigned long pfn = PFN_DOWN(orig_addr);
- 	unsigned char *vaddr = mem->vaddr + tlb_addr - mem->start;
- 	int tlb_offset;
- 
-@@ -1052,7 +1051,8 @@ static void swiotlb_bounce(struct device *dev, phys_addr_t tlb_addr, size_t size
- 		size = alloc_size;
- 	}
- 
--	if (PageHighMem(pfn_to_page(pfn))) {
-+	if (PhysHighMem(orig_addr)) {
-+		unsigned long pfn = PFN_DOWN(orig_addr);
- 		unsigned int offset = orig_addr & ~PAGE_MASK;
- 		struct page *page;
- 		unsigned int sz = 0;
--- 
-2.53.0
-
+        // Bind to vhci_hcd
+        fd = open("/sys/bus/platform/drivers/vhci_hcd/bind", O_WRONLY);
