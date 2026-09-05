@@ -1,107 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4E143A63EF;
-	Sat,  5 Sep 2026 20:26:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A3C731D72E;
+	Sat,  5 Sep 2026 20:28:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788640007; cv=none; b=AOH7EXRnPpYOUir/D9VC7l/ibH9RwAo1N+RQWXtvRz/V+1VNyjqLFWrEzYCKBmPZ9meY8YXznXyDmLKfTjxvK12maw36urAkSYS88SVlt0ueA0UGAximYlRmtAGEqHjs0ZV2oPTKGYIM24mmnZfzXImUathcsXrbbdvsVHNqIzk=
+	t=1788640096; cv=none; b=U87xhTZvGFY61kqQQii7R4GR2zvkzOv7hV7cuivKhQPrzm0p8aP9fsk6aTbFodEYwLX6JjSFPSEbYec99e3UWIjTpIT5T6WvjzO4vupsLOwICm7fkmwkGudry78iDfgxPAItuMC26YD2qt43J1ZcIb8sp86OVqrlBgkl0GehPLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788640007; c=relaxed/simple;
-	bh=6XNabZx0rdT/us2xD8F3Yx1aNqF1vaFNgfnZgADOfSk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZTrY9dq2ke9VxUINVWiQxpSg9GjNxJalsEoey2XwD2O6SCFlV3FoIY6d8WMemPtxN8g/8rkP5jn2SdtC1/PxuG4CC8EJfyxEGDKx2GKBhc2pgRu4nx6wHBKrzxMHC0gAxPn94zipa9O+1BuB4kBiQyWr3Q9X9jfHL8okAivzq2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XELRf4FU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788640096; c=relaxed/simple;
+	bh=KMbu42rQIzGse5Dp2stwDECxLjDm4w6DAw+5ABPMD/Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QWEnrfpbDSIvV7GMGpedUQaHlPuvPQxNSn4O903lHSONbUHn/NVz/clre4LGriXaNGlcqAe+hQK3BGTYUHnKiO2dj7Lx/alT42s/AajGvfQ4JSGwDpkFFZik82bqPYfLrrArc5yuDG11KzvQPf49CF/5PVSW471Z7n8kDPyHEZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=lD27ZgUU; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XELRf4FU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96B591F00A3D;
-	Sat,  5 Sep 2026 20:26:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788640004;
-	bh=ljZqDnomsr/PzAJ3OgMACOqJ7QipPXHSesCap1Ut72A=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XELRf4FUAPre6yzEWl2c6/aeh5N/93qZx0vzARRXYRzgW4uThZBQHwN8ykfTwn/Ed
-	 6sf+5Walh50v4Ew0nnhwoRDh7bFlp+OeLpYtIl1nSGIYaRU5UFGNZs7sUntx12/BZG
-	 Iv8pO3SkeL/2XjeJQSa5/wnr34PKCbu/PMsJw8L0f4wmY0q4O2dJ0R6limZ2d4kgaj
-	 ksbdHFPI6PZkUHbWca4XE+QhhqMro5iuvLAMhlMNqhwlxUfzSte3XSh9uQ3280GYBz
-	 g6PLd5YDXIYeBxd0woGysm21P5Kz1vHxwO5LfYScELTGrCbjLVZQYMXx5dGQoHHzy9
-	 gF7uC82LlAv6w==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH 4/5] mm/damon/vaddr: extend apply_probes() for hugetlb
-Date: Sat,  5 Sep 2026 13:26:26 -0700
-Message-ID: <20260905202634.88102-5-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260905202634.88102-1-sj@kernel.org>
-References: <20260905202634.88102-1-sj@kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="lD27ZgUU"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hclJh4YWZzKv7h;
+	Sat, 05 Sep 2026 22:28:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788640084;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZGfVLFKEf+uMOs1gGVTaLNyzv1C6T+RdHBAN8sTXH34=;
+	b=lD27ZgUUGWzBQ2wbds2+A8HoneNsPkbNtjqt9RkLHlHrQ0fiEDlUYMKnt4tkpUKy6Hfhnn
+	aGoxySTJ3Q5xGSjbhUdkZ2QjhPIGUtxVZa2QlQfTiFUV3zyEDpR5Df7MttW7wbobuOsH7m
+	R/MBLWf8LI23MT67QCAtWy+C1WRyW1IPD1HErSd3BcxdzIIhRo6g+BEKjQZUwhr8Uhwk5V
+	NvY5lKeIdPIZWcjPAy76NMocRktl6sn6B0OmkNXJkL92YmdIW8p2RzZYTZXwZC2f08ePMc
+	UlmphHDkAOIFpbERzfIYgIzh30TDBdyscdvRtF7/pmNkH59ivft9tiprl8C/ZA==
+Date: Sat, 5 Sep 2026 22:27:57 +0200
+From: Benjamin Boortz <bennib@mailbox.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, akpm@linux-foundation.org, 
+	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org, 
+	lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com, 
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, 
+	broonie@kernel.org, achill@achill.org, sr@sladewatkins.com
+Subject: Re: [PATCH 7.2 000/713] 7.2.4-rc1 review
+Message-ID: <apx7I9IkyHKamLqA@bb-82jq>
+References: <20260904045803.810145556@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20260904045803.810145556@linuxfoundation.org>
+X-MBO-RS-META: 5q6aroc3uxhb4r3k1wqwqk7kg9pht563
+X-MBO-RS-ID: 65d00aa313a054d1f4f
 
-DAMON virtual address space operation set(vaddr) does not support
-hugetlb pages in apply_probes.  Extend it for hugetlb pages.
+On Fri, Sep 04, 2026 at 06:49:28AM +0200, Greg Kroah-Hartman wrote:
 
-Signed-off-by: SJ Park <sj@kernel.org>
----
- mm/damon/vaddr.c | 30 +++++++++++++++++++++++++++++-
- 1 file changed, 29 insertions(+), 1 deletion(-)
+>This is the start of the stable review cycle for the 7.2.4 release.
+>There are 713 patches in this series, all will be posted as a response
+>to this one.  If anyone has any issues with these being applied, please
+>let me know.
 
-diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
-index 7c548ec0cf6b5..45239f05e113b 100644
---- a/mm/damon/vaddr.c
-+++ b/mm/damon/vaddr.c
-@@ -598,6 +598,34 @@ static int damon_va_probe_pmd_entry(pmd_t *pmd, unsigned long addr,
- 	return 0;
- }
- 
-+#ifdef CONFIG_HUGETLB_PAGE
-+static int damon_va_probe_hugetlb_entry(pte_t *pte, unsigned long hmask,
-+		unsigned long addr, unsigned long end, struct mm_walk *walk)
-+{
-+	struct damon_va_probe_walk_private *priv = walk->private;
-+	struct hstate *h = hstate_vma(walk->vma);
-+	struct folio *folio;
-+	spinlock_t *ptl;
-+	pte_t entry;
-+
-+	ptl = huge_pte_lock(h, walk->mm, pte);
-+	entry = huge_ptep_get(walk->mm, addr, pte);
-+	if (!pte_present(entry))
-+		goto out;
-+
-+	folio = pfn_folio(pte_pfn(entry));
-+	folio_get(folio);
-+	damon_va_probe_folio(priv->ctx, priv->r, folio);
-+	folio_put(folio);
-+
-+out:
-+	spin_unlock(ptl);
-+	return 0;
-+}
-+#else
-+#define damon_va_probe_hugetlb_entry NULL
-+#endif /* CONFIG_HUGETLB_PAGE */
-+
- static void __damon_va_apply_probes(struct damon_ctx *ctx,
- 		struct mm_struct *mm,  struct damon_region *r)
- {
-@@ -607,7 +635,7 @@ static void __damon_va_apply_probes(struct damon_ctx *ctx,
- 	};
- 	struct mm_walk_ops damon_probe_walk_ops = {
- 		.pmd_entry = damon_va_probe_pmd_entry,
--		.hugetlb_entry = NULL,
-+		.hugetlb_entry = damon_va_probe_hugetlb_entry,
- 	};
- 	unsigned long addr = r->sampling_addr;
- 
--- 
-2.47.3
+Build and boot tested with QEMU for x86_64, i386, arm64, and riscv
+across multiple configurations, and boots on AMD Ryzen 7 5800H.
+No regressions observed.
+
+Tested-by: Benjamin Boortz <bennib@mailbox.org>
+
