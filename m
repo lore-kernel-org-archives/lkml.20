@@ -1,75 +1,81 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B83A17D6
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 19:50:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E73A17D6;
+	Sat,  5 Sep 2026 19:51:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788637842; cv=none; b=Rc+Od2jtvOXlIt6PysPlvwp5TgqPLW3RQMmIxk8CXkTEKcqpVyfLP0tN/+VAI0gHu57FPFjhSIPT6Ua8NJrb+0uVXyg7Efis5/ArWbxZ4SyQvh9D6GClYhpxEP+/rS4ItkliATuV8DUtS3+nQ1gVtUtRCwwJtvpxMOwUXtP7oAk=
+	t=1788637866; cv=none; b=JAAQdlYggvAszs2tTOUT68eadY1os1TyyIh3mfUKnJmcxySB32TUDE+WnxP7/EUkT2tjdy1AbQqhumENXe0bCiC7gcmlNX2hk79CqvKJdaoCFusKVgFok/KHt4wz2sVW6sCvJeU/iMlJgWm41puexOYJtR5pWcsE3gWcDULFKNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788637842; c=relaxed/simple;
-	bh=mpct9Qvb1fCG53fsw0VCEssvLZoAU9HUlwuDDTMDUuc=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=W4ee5ynqdZonVOsCgwtjMuKydaSD/hoqwbTR7o/8S+GG8BunUdsGpUGz1niylS0S+Af6qDiyvcRjnyOXKRvGYskBksmdxYka8+7/sWea5+ER93zHeY/o0sW9VuzxCz4jNRA6DgnkUqDBoL0oSi8i0CBOX8tVUdov393zGSUcaHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=R7xG5XVq; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1788637866; c=relaxed/simple;
+	bh=jqhSaI2cqKkziLLFSrSvU9GdnEejv/MdJuPpsTdcOUE=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=pBr/o7OnPBYZs+/RCoM7adjN0vmmfuDY01B/G3FiZ0Cmb2d8gdv1xckokaDRJDjZZ7674wwg3Jcd2/Ua7h2KZMfzfyGzGxaODGnDr9f5dMJp0NpFR3/gcYxJACy2j+MoFrN36ns3o7V5Z4rFpvrDtKzH4zfm909PJ4sGvydrgYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VoTTTBKF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="R7xG5XVq"
-Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id CE170882A6;
-	Sat, 05 Sep 2026 21:50:30 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id tYi0DLicLY7O; Sat,  5 Sep 2026 21:50:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1788637830; bh=mpct9Qvb1fCG53fsw0VCEssvLZoAU9HUlwuDDTMDUuc=;
-	h=From:To:Subject:Date;
-	b=R7xG5XVq4uRvDIyPUWFfg0XDbKLosZw7c5ZF1V7zYHLlVJoOHEh9thjY90x5Pmx02
-	 QuVAhwnr0sJSAkxpXfTrx5k9x57o4UxaLMRM2QxdScVip8tI4JL3QziUO5vp/7aUXf
-	 IZrljpnbe2lczqQpu8fmgmOg+IW5ToyXx4dX2MSsEek8vFJotR55XaEldBcbSAK1Cq
-	 VUnL+hAqvZxwL1Aq76SL6JMfwlHVI8eLRzRWhIzwKG8yjtQJxD/Ifb690AbZReGL6A
-	 cetJVqtFo1VRGHHRUOKY7oBxGNfCWeWy65/g2tkNKQMhi+rdfVE7svfdq6eKmueq8S
-	 VhgeHWJoZqmOQ==
-From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
-To: akpm@linux-foundation.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] =?UTF-8?q?mailmap:=20update=20email=20address=20for=20Ali?= =?UTF-8?q?=20Ahmet=20Memi=C5=9F?=
-Date: Sat,  5 Sep 2026 22:49:39 +0300
-Message-ID: <20260905195000.556185-1-aliamemis@disroot.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VoTTTBKF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 357DF1F00A3A;
+	Sat,  5 Sep 2026 19:51:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788637865;
+	bh=yzm1hvxHBVn+B3AEQ0kR8LeF9ZDDoIaccH3h83YuSh0=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=VoTTTBKFaXjfTlbtLpNmJRzpwp0sFna/+YUoKCNtfNEipXrDV7u0ze22UBfqkHOgV
+	 DcHSrLE/Z7YzHbYbtUogQTzbfhtVSJ779MvPrKbkm0YwuOWH7H1w5R9/rX0k/C7LKC
+	 kXDvz0zZrQ/9m7eQVKi9CGXXIBrR7IFbnDIREYq6G3itIJ+QoOmQdrrubFr+vXiWsH
+	 QOm3iD971ecBjon8tEfwKJqyzoy54q1kSGTeVOSg075KhSVfAMeNYLPkx8jImk27lm
+	 UhHLuAkE1Y6mZzcu+PF2ANIJygaS2W2KZLkZ2a5R6LNAUI0fpjFSIjo7tiTfqHzlXS
+	 IthN+7aSDAH/g==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 938693924FED;
+	Sat,  5 Sep 2026 19:50:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v2 0/1] net/sched: defer qdisc freeing after failed
+ creation
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178863780539.1335621.17808621390639346249.git-patchwork-notify@kernel.org>
+Date: Sat, 05 Sep 2026 19:50:05 +0000
+References: <20260902155231.2149915-1-bestswngs@gmail.com>
+In-Reply-To: <20260902155231.2149915-1-bestswngs@gmail.com>
+To: Weiming Shi <bestswngs@gmail.com>
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, jhs@mojatatu.com, jiri@resnulli.us,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, dsahern@gmail.com,
+ xmei5@asu.edu
 
-I'm switching to my disroot address for kernel contributions.  Map the
-address my earlier patches were sent from to it, so that
-get_maintainer.pl stops offering the old one as a recipient.
+Hello:
 
-Also switch to the proper spelling of my name with diacritics, which is
-what I use with the new address.
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
----
- .mailmap | 1 +
- 1 file changed, 1 insertion(+)
+On Wed,  2 Sep 2026 23:52:30 +0800 you wrote:
+> This is v2 of the qdisc failed-creation lifetime fix posted by Kyle Zeng
+> and David Lee [1].  The public reproducer is available in a follow-up
+> message [2].
+> 
+> When clsact binds a populated shared ingress block, ->init() can publish
+> an embedded mini_Qdisc before qdisc_create() completes.  A later invalid
+> TCA_RATE makes estimator setup fail.  The unwind removes the published
+> pointer but frees the containing qdisc synchronously while tc_run() can
+> still hold it.
+> 
+> [...]
 
-diff --git a/.mailmap b/.mailmap
-index 0e672a60afdc..0c901625fcc3 100644
---- a/.mailmap
-+++ b/.mailmap
-@@ -66,6 +66,7 @@ Alex Hung <alexhung@gmail.com> <alex.hung@canonical.com>
- Alex Shi <alexs@kernel.org> <alex.shi@intel.com>
- Alex Shi <alexs@kernel.org> <alex.shi@linaro.org>
- Alex Shi <alexs@kernel.org> <alex.shi@linux.alibaba.com>
-+Ali Ahmet Memiş <aliamemis@disroot.org> <ali@iusegentoo.com>
- Alice Mikityanska <alice.kernel@fastmail.im> <maxtram95@gmail.com>
- Alice Mikityanska <alice.kernel@fastmail.im> <maximmi@mellanox.com>
- Alice Mikityanska <alice.kernel@fastmail.im> <maximmi@nvidia.com>
+Here is the summary with links:
+  - [net,v2,1/1] net/sched: defer qdisc freeing after failed creation
+    https://git.kernel.org/netdev/net/c/e6662f2100f8
+
+You are awesome, thank you!
 -- 
-2.55.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
