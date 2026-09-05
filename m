@@ -1,142 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic.asd.mail.yahoo.com (sonic-euwe1-0017.asd.mail.yahoo.com [34.2.82.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1652B4E66A3;
-	Sat,  5 Sep 2026 17:12:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1842C33998
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 17:19:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.2.82.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788628364; cv=none; b=mCs3e2moi0uHIOiDNEYcj22WlsqtP/rKQoRtAyaPIcNpTuCEfADyAB4WM0vuk5bb4PQWvyxhec7Ln2JAa3vCl1y9/CjjUJutkePUKQqmwtyM2rUBD5x7HAxHeQYK3GYNy7EDE2VJgItP4fp0/3Eqp4n/jlMAFbP7PE2yvSJ60C8=
+	t=1788628768; cv=none; b=nM6XWyEsfDJy7zB252d6HIw3sbJdWrVxIipYciattTR7KTrVSsi/zhKdEO2u5O4nl5MVaz2VqzIPme0fo62wG65vqt/1SUal3fbIbGC+r1dU4WpRUcOxo+6iMlKPTieyXceaWDy557ArMzDX549a01MLdKZYK+oFUK7EVCkFbxA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788628364; c=relaxed/simple;
-	bh=0WlEQ9NTGdKsJKuEva5krlDpHGDjDnq6UoWcffek8f0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q7MNNDufF2d+Kd/3g5h4UNOZt6kaWobCC1ZBJXJwq5pGCSQr+LAUf35yVAM7mu61vszAWau+6/9Pmvdqb6t8PKdpOww/CdQRTPUH7SXrAIxxZFNDwTor6Hr0UX9MwmKc9VC36EtLF5tAfOXBxjHF8ZYKwngjaWGLO7Bx1wB6dHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vu5jVN6t; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788628768; c=relaxed/simple;
+	bh=L5X60tDzwdlPbgo2/TkEhKnyTPonOo4bDVkqRQ2shIM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc:
+	 References; b=tlJLlvi2iRWiX52KQ8l9mywMxbgFbhvvU2RGiRrS8lRu5g+PC4N30orUVfOs36A1Fuwmd05jKYJPuT6jNn5nhQBxTkZSokhcvC8VMrHJffpQyBI7Zb2bAYLRZeWyqggyTVqx8UPDo++32HtcrPo2+tSlvbnsmGK7PA0xucA6HvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl; spf=pass smtp.mailfrom=yahoo.pl; dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b=YTkrTgY2; arc=none smtp.client-ip=34.2.82.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vu5jVN6t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD0D31F00A3A;
-	Sat,  5 Sep 2026 17:12:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788628362;
-	bh=nGLgAQNoLfaFQJxAXDIrwWwGfi/EusKEG+W7YzFtytE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=vu5jVN6t+KEiza92TxzuY2GyQ5v5znR6Jd+89lg+bcwlBXTbHyicxN8ZgLsx8+BHw
-	 NjYX6BC0hSTjYnz9yCUp6CTmtPj7qgsOs1SLQf60rFVEXAM3RJJO7GrXLvnSZnaek7
-	 arfWIizLy9CZtYncZSyePjJ45ny4BaC6XhEfygZU=
-Date: Sat, 5 Sep 2026 19:10:56 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Bradley Morgan <brads@mainlining.org>
-Cc: Jakub Kicinski <kuba@kernel.org>, linux-kernel@vger.kernel.org,
-	Tejun Heo <tj@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Waiman Long <longman@redhat.com>,
-	Christian Brauner <brauner@kernel.org>, Kees Cook <kees@kernel.org>,
-	Andy Walls <awalls@md.metrocast.net>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>, linux-media@vger.kernel.org,
-	netdev@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-pm@vger.kernel.org, akpm@linux-foundation.org
-Subject: Re: [PATCH v2 0/5] kthread: convert remaining users to
- kthread_create_worker
-Message-ID: <2026090500-seventh-come-270c@gregkh>
-References: <cover.1788513591.git.brads@mainlining.org>
- <20260904085418.50d66b34@kernel.org>
- <84548BCE-377E-4900-A2EF-177B0CC1B0D0@mainlining.org>
- <20260904141032.34f7ed1b@kernel.org>
- <2AE8656F-326C-40B5-BA11-EB9CD72D2AF7@mainlining.org>
- <2026090514-smuggler-elixir-8888@gregkh>
- <6F579B00-7B91-49F4-99FF-5F31E844355C@mainlining.org>
+	dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b="YTkrTgY2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1788628765; bh=I8sDhOx8DNqEto8aArvO+O2Sfsozjh+/Wz3BZg/iW7w=; h=From:Subject:Date:To:Cc:References:From:Subject:Reply-To; b=YTkrTgY2PjFE8YZAnQrph3I9ahNG+R0nz4NS8ctBfTfMEPtKMTRJ+A3ksegnT3VPbAjJ/KthJqFIrbKfHQU/5NK/N9aXfYNLLCcWNcM7XtLOOx0Wv18USPpqyVYyedpwOfPG4QYlOXHN49ggks/auuH0z3dNBaD4sETTkfuXqxrgJa8LbpNBcHgsE8NC2ELNW4jxvfG/mmHe8jXpqIWe0BIN54yGeO81ft1lSs8CXOuQ42oQ2gvCwoSDfLuBxZQfm0MslFlseA+B5PWBzODOmA8+d9c32+Zbi6Toz/h3n+I8SxGqMY5gGOm7g+5PHQdrpO+pG4TlpYorsiMUODvUpA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1788628765; bh=rXdYKfLfe6k45q/yZA8/ciED1gdU8h3I+9r1v8Y/1wi=; h=X-Sonic-MF:From:Subject:Date:To:From:Subject; b=Nn0JRftzTL5t4it/XPm30NW2c0dKax/tBYbRjOgZbC/aO4zCg24MUruth837HR2JEJg81UubTxc21mAjM2d37XiAJVbQF/u6n3jHPH+nmYX1MCeKnQOysVpRhb7cPTv+rwse/N4EBvDHIbbXETws63sXPDP8ESFIP3YJ1QynyS22tf/GzCAV55XBni03qMAhaNZ5HR/MIlpmzy99sK5a+Kmv+DWQhsebh2JaESP1Ogr54GsHUrjKV3FHqLtMh4qlvhJEyP0zNP5QIa3TxFOiVp+bY3H8f7N8net+aTcm4jlrSzj7LSbhWjJZCIm2+nYAbhj3nj6Sv0IrYLPgVbVRBA==
+X-YMail-OSG: GkHuoDwVM1kBnv9s1wl8fzUlG67NW5AyxY1dkU.1XH12MfwK6_NNHIl.Q9fqIzs
+ tZT6h2Pa9ttWvWCa1swYVlhID_aLJUTAbdbv1CgrtXgBFQaYuAtOW79uooNY8Bq.7ha6xfbO8QLA
+ XBDM1yWBsEANxXytINSZczQthXKeZ0Xr_JIsBVn0MVDvJy78lFlHNACP9Hn0okLYwne1.WLrvGD3
+ RMlR_X1HUvNLlRvOO0hLFBE52W77k9aN8OdcdIvVZ1qE0YWWnnopBD5tniQF6yadzxoj4vdH1JUS
+ 8eNiv59tenVcA_X8bAfPi5QAFHEd59xEHxLg6jAte5JApW23vHgootXGj9XzAClRBGLv5EeKQnVi
+ uRpmBr_zwm60te7.WcdPe_HljbOte3lTrDn33Csp8xgUX35KxH28jo.LTrPwnopWea3FKo9NC1FP
+ QrU499Ig2fbZGmm1DCTOEGYFQ_2euF1mv08klCK66zqGG.SqbgQX8p3t3zpyrVWopRRTwXFQKrq5
+ nmzgctjJyLl_jEVoFOcuTorn5D0GD_MfDQCc8J0IU9I3JWC.EfjFa.1ZRflEAdSkdDDbsmBkG56f
+ hyRwPMVhTvATv01O9uQ1NiLhBY8wF6zDOI2FhIWVMtYHFinsUQOgOMU3qwh0_Yza0sWZnyPpHRCr
+ hj3MiMnf6bq7U_VjCQT1MqWMeMhpHjbNkfWtIIszApz_8g4A36_hnqaRkwS03wtEVm5i1JH1J33x
+ EX1JpJgU2Za8Lmwtslx8WyqExA5WvEj88wJ7Z.ul5iwn5bzgtTbFwz96Ec3N_JaaM5ekKIdA5Woa
+ sDCQSMQF5ptNHnuZjZa4nzoNWlM25IxNCQuxnQP5wAH0LqwL453WGXTH5sSfjSk7qO7S.82HuRGq
+ ivUXW98dot.8y_ocbaoGR1s1hXl_qH678P5bRJov6GWwDR6YJsCeRUOpbsmCBZZdDcLz_c8KmNk3
+ ZYbgOoy6sid1oD9Q_P2SeZQKLmlo._zT7WyRaONE7P6hCCUoy8narhJ2NakLiVXq4H6XKugzqi6K
+ T4f29KbbLShly0sGUxYMrX82Oyv7mqp28Xt7pf90ihNRRzWVDYl8kauojQMoN8R4wLqARyltjQeT
+ MRCQyJy4yP0yqXE3OI4xSrATWUOAHYvfP2Daj8PaoZQEeSfCQLzLg8w41SRC2WdkSXp_9GRAKkay
+ QqH26b6pLgqv.65jxhGZPpwA_VItNlImUs9Njhl1yWqhGpq5p59jJ8N3A2khjC8dmarbSWd4WYBs
+ Z3IdUGGDdS_YbcXuDE_OYTM7cN3jYYNB5Zz4c592yYX8s3v7nT4xuytj0AFOJJXRI.N71T8lwakG
+ PiaP0dXM9sm7Tb6d9Pu1K2u19csayY0IIgaRJ4lOYUjs3d6dZb_blJdTA5NiFxnElx0tdvIbqjZB
+ IkROIsfYN.5oyiX4jyi2ekUsQqhmBOeJvNGd_uy1wyx0s8PnY7vrF5FwCStCog3uQQjsfOIsSGFB
+ e9Ps2Dls6CnFXYGBoFts0dGj12i8bzk236iMJ0oSuhJZkKzE2o2VChelWxIPn4UxJMz7cgHM2KNZ
+ CygTamh_jK3HmA3SjTY6uuVSCyKIMLx1mVCTKGEB3s07Oz0jEjZ60D3BS6o54JJh6vQ9z5dTQluz
+ XumVEfOr6RKq1vSeZd7R4W4SQ3CE.B1aVZpTq9wBRxfhh7x_EH9zuIz0MXZpeROkdyBFBKWtFxWy
+ fmVp918UCa_Eir3gY4uXulN9k.Dln7Lrw4e6BrL0s9iimSv_ICNh93dT3nPr7mZ5C.30ZwTMA4es
+ DP8J7lE3SBHwDSGF9wvhzCnHSyGra7meRLOEB7CURU9XSWjWxKCOR0XDiyp99OkjqlASiZB5bBVe
+ sIjMWL8jbxJTGctATQZyj4QP1jYvcXRoyfni3gsXd0quimqn1TbMJBkEKVO7isjLMAYBIBi8Y_rk
+ _IJVZ5STXPW.J_o9.vPERiOAyND_IzexTbIS1bUrvynGM9fVeUEV0MB4XN6oYNVCO.KcGPqxXYHg
+ kW24JdWkPEVc__ompoekm7zU-
+X-Sonic-MF: <tomasz.unger@yahoo.pl>
+X-Sonic-ID: b7cc6fa9-e8f3-447c-85e4-719e755df6fe
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-euwe1-prod-sonicconsumer-svc-102 with HTTP; Sat, 5 Sep 2026 17:19:25 +0000
+Received: from dip195.lsn.ir2.yahoo.com ([87.248.99.204])
+          by hello (SMTP) with SMTP ID b05c3f01957e7b76b0689228583129d6;
+          Sat, 05 Sep 2026 17:19:21 +0000 (UTC)
+From: Tomasz Unger <tomasz.unger@yahoo.pl>
+Subject: [PATCH v2 0/2] staging: rtl8723bs: address Dan Carpenter's review
+ of comment fixes
+Date: Sat, 05 Sep 2026 19:19:19 +0200
+Message-Id: <20260905-rtl8723bs-cmd-xmit-dead-code-v2-v2-0-07d433523872@yahoo.pl>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6F579B00-7B91-49F4-99FF-5F31E844355C@mainlining.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNTQ6CQAxA4auQrm0yFHDUqxgX0FatkZ/MDISEc
+ HdHXX6b9zaIGkwjXIoNgi4WbRwy6FAAP9vhoWiSDeTo6M6uwZDeJ09VF5F7wbW3hKKtII+iuBD
+ 6unQV+aZUYsiVKejd1t/hevs7zt1LOX2zsO8fHJ4LHoMAAAA=
+X-Change-ID: 20260905-rtl8723bs-cmd-xmit-dead-code-v2-741032751e2c
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Tomasz Unger <tomasz.unger@yahoo.pl>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788628760; l=966;
+ i=tomasz.unger@yahoo.pl; s=20260311; h=from:subject:message-id;
+ bh=L5X60tDzwdlPbgo2/TkEhKnyTPonOo4bDVkqRQ2shIM=;
+ b=7nRijubw9uQN9Ps8BBuP1aZ1wgfpDm/vqCESdSTU4wjq6+kE7q4kTTLj8l10G2Lz2WECKKVlL
+ IqkgcrJ/+1gDTWod+ELL84yaMgrATOCJOPk3HSjXU+aIA60wBIkRb1H
+X-Developer-Key: i=tomasz.unger@yahoo.pl; a=ed25519;
+ pk=EPPsO91uz/0J2cTQ6ol+dgxYaieEc9dKSXWUb51n46c=
+References: <20260905-rtl8723bs-cmd-xmit-dead-code-v2-v2-0-07d433523872.ref@yahoo.pl>
 
-On Sat, Sep 05, 2026 at 01:55:35PM +0100, Bradley Morgan wrote:
-> On 5 September 2026 12:19:54 BST, Greg Kroah-Hartman
-> <gregkh@linuxfoundation.org> wrote:
-> >On Fri, Sep 04, 2026 at 10:13:32PM +0100, Bradley Morgan wrote:
-> >> On 4 September 2026 22:10:32 BST, Jakub Kicinski <kuba@kernel.org>
-> >wrote:
-> >> >On Fri, 04 Sep 2026 16:56:30 +0100 Bradley Morgan wrote:
-> >> >> On 4 September 2026 16:54:18 BST, Jakub Kicinski <kuba@kernel.org>
-> >> >wrote:
-> >> >> >On Fri,  4 Sep 2026 09:37:21 +0000 Bradley Morgan wrote:  
-> >> >> >>   media: ivtv: convert to kthread_run_worker
-> >> >> >>   net: encx24j600: convert to kthread_run_worker
-> >> >> >>   tty: sc16is7xx: convert to kthread_run_worker
-> >> >> >>   cpufreq: schedutil: convert to kthread_create_worker  
-> >> >> >
-> >> >> >Please send these 4 to appropriate subsystems
-> >> >> >  
-> >> >> >>   kthread: remove worker->task self assignment  
-> >> >> >
-> >> >> >Then after the next merge window when trees converge send this one
-> >out 
-> >> >> 
-> >> >> hi, I was hoping one person could merge it with acks from all
-> >subsystems
-> >> >
-> >> >Not how this works.
-> >> Ugh, I've seen it before happen.
-> >> 
-> >> Look, fine, I'll do a V3 soon, WITH ONLY the subsystem changes, all
-> >> separate, all sent over to their respective maintainers, then when all
-> >> thathas been merged and there's the next merge window, then whatever,
-> >I'll
-> >> send then the kthread removal
-> >> 
-> >> IMHO this is a massive annoyance though.. because what if one of the
-> >> driverfolks doesn't wanna respond to me!?!
-> >
-> >Then, after trying for the normal way, you can make the driver change at
-> >the same time.  But to circumvent the "normal way" thinking it might not
-> >work, is not the best thing to do.
-> >
-> 
-> Greg!
-> 
-> Right, okay, Ill tell you more.
-> 
-> For features being added, where many drivers from different subsystems get
-> covered at once, what they tend to do is:
-> 
-> A: send all patches, rely on all maintainers to merge their own crap, which is a mess
-> 
-> B: Have a designated merger, who merges all the changes at once, no chance of regression because it's all bundled up.
-> 
-> 
-> C: send drivers first, then send the feature. So then driver maintainers can merge their crap, then the main feature gets merged in merge window 
-> 
-> I prefer B, because it's easier that way, akpm is usually des merger hence
-> I CCed him.
-> 
-> Or tip tree?
-> 
-> Honestly, if I had to be honest, C is a very annoying way, because of what
-> I said above, if driver maintainer thinks I'm some newbie idiot or
-> something, then what will I do? He won't merge it!
+Dan Carpenter reviewed the previous "space before tab" comment fixes
+for rtl8723b_cmd.c and rtl8723b_xmit.h and suggested going further:
+deleting the dead commented-out mdelay(10) call outright instead of
+just reformatting it, and questioned whether the duplicated blank
+comment lines in the "Rate" banner add any value.
 
-To quote a longtime kernel developer years ago, "Kernel development is
-hard, let's go shopping."
+This v2 addresses both points directly.
 
-Sorry, but yes, it can be difficult to touch cross-subsystem stuff like
-this, always has been.  Just be patient.
+Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
+---
+Tomasz Unger (2):
+      staging: rtl8723bs: remove dead code in rtl8723b_download_BTCoex_AP_mode_rsvd_page
+      staging: rtl8723bs: fix Rate comment banner in rtl8723b_xmit.h
 
-good luck!
+ drivers/staging/rtl8723bs/hal/rtl8723b_cmd.c      | 1 -
+ drivers/staging/rtl8723bs/include/rtl8723b_xmit.h | 4 +---
+ 2 files changed, 1 insertion(+), 4 deletions(-)
+---
+base-commit: c6eb4dc5964fdf4086b73b7f0f5dc0d595fb5cf3
+change-id: 20260905-rtl8723bs-cmd-xmit-dead-code-v2-741032751e2c
 
-greg k-h
+Best regards,
+--  
+Tomasz Unger <tomasz.unger@yahoo.pl>
+
