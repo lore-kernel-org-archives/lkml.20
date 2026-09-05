@@ -1,247 +1,72 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0469E37BE98
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 21:22:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E9BC386C08
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 21:25:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788643350; cv=none; b=PWuS6xetuK2yZiyLMOm8cLIheXDAN7aA4waOc9Bdaukz+/PV+4Xw2Kqp1WjU7WpqoGfnCTQ7LVNk33QUzRFoyY4KtUNtr7gJ3nuDCisivMGT/w/x3ZaC4SZmGs/YBD+a0Za2biYZpn6PMGLoRibUg6vtoxD4SWpYAaQ1batozY4=
+	t=1788643510; cv=none; b=O3uY8yWLxyEJFVNGYIouz7h5Du3WxcZ8E3415qmvy4B1yxsMWNPW88KoK56W9Y+krJDYBr3xUId/vRT8IJ7duWOo/Tg7QNGpxEjxfX/zDtO2M60fSKA2QhhCdfa48PK0Gb5g8fjiwtFJFgIad3TwacrTRcUn0GiBBDxUdM6E/Zs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788643350; c=relaxed/simple;
-	bh=auCB5rNo6b+/K6OB2qyoTXEsixd2XWS1Ty0U4GrdKWk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=DbkV+gr+u/LryPSQhOvHojxAPXMf6Y7u5T+wrU7fp6vJI2HwbDZjDYscjVwpxluDzDbyj9Jhaf58P7QCcZaz8MWs+HEtRzxzMiKhaM0aSxyN6MZR9t0qzspH73H0iJLcdDQjME5aUi+/kXZyZpRv1pJp6BKnaGG4poa+fXK5hoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A4FubtNC; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788643510; c=relaxed/simple;
+	bh=KFl3QjXpv9nhIG/x1LKrR7qfShkCbnA79NvK9lgP9SI=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=qFxOHg3n1+qMK5p3dkg/fiBje1ln2bYBCxKRnkn/F4G0hycjTXFFQSSENpzvkSeTWbzY23LxO0CuUMmZ0BBWHG1aeYp1TciDcfjrDnJiEnvWSBXIJ1zGiyi8fUq5fWKcCWWlOiBksCpFSEbsBUyKUupY34n6yy0vRhXW7LeB+5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=rVVBS8pC; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=S/GNNVv3; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A4FubtNC"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39666bed442so410510a91.3
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 14:22:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788643348; x=1789248148; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=9WYq0M3dpGnTj4OQeONNxRvWLYluAMfzIb1PckYIv+s=;
-        b=A4FubtNC66zRyl5fLicU7lRMlkwx8nZ/+hCq5oRr+pMrk8z/lGFMIFZeM0PQwR4v2r
-         VE6Ego9UVp6rDXIASiRljZHPOxDdTVfhmscjUumHKZCZXdbTrwCuLezXK4jU3p44M7Vj
-         js9Q11WYEN9TISpxw4d03oSE/86g5GdufhQ76DxhtLipR9E8lgfYjdBG3RKZkJrRPuRw
-         LMk5K/2BiFKJlc5MlHgWQq41oCzZZhd/ZxaH6TRYOIUudqVfGMqJxdNQ8JUmKgIyO2vm
-         tV4P+GKheUzVHZ00WiqKI/GbG1InvrsDp4r4yTpwlSbnX0kmk+0pZrUS83R7+IGlZIWP
-         fbwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788643348; x=1789248148;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=9WYq0M3dpGnTj4OQeONNxRvWLYluAMfzIb1PckYIv+s=;
-        b=b1JIbmhjDvj5p9pww75yNlW1t9mld7nYA7P5t2+hPSUMzS0JmkVCUoB+HB5Ljt594/
-         rOu1Ymw2eTsBYjjtqxaWVx6QDNl0LpF7aeP3YI+bw82HB5R7Yotzh39ypNKwHu05H5yf
-         o/ql7KJm7pFnt1orFH+luFUakroWU45jD6h8EQFPf9Vo+dXvR1yhhNGZThra1MhzJXb5
-         /XVk7Dn3XY/b16oB8JDg+PJSqLVRRc65qwg5RedqyM6XuelNBSsAqNL5fVpPA1zkTAa5
-         EDLACQ8lHa+4UhMBdHUvhezd0oOBqM5hQQS902+58LIg3y3eAxqi8x1sRABxX6iT4PN8
-         4imQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwUEoQfZXIxvPSGKCBTKnPsVT+xf4EjKQlp4E4ioe7XdivX7n+SL6y2kQNdYX/BfObcaWFC0UiIGrhqVwg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMzFwnRiJfurBQ5JxVs6QOMcDyoF/1Ietv5ErejK2PE5448QIv
-	7cZ5Q3Coc/q5JjGrb6FRlAWDHt3M7BR+nkmzqs0my1Hst4L81Jip5+BV
-X-Gm-Gg: AYBFou0kr6XHE/WqP2MkH0iiMgWRRScpPw1qEE03ksnyvl1yXHJadIPmw6pXjzbQG3Y
-	DXzpC71kWcdXaTe/+35lsqvjLYASk7AEc/3yvNBDrIiF9ShXlAT2ntYn6/jMNNiYvvPjfMdPHdN
-	/1hgSEGeaQBH6IR/C/zMTX3za5PWgds0UGG9mX79iBjUkxobSNIPzjR1wEgjXtxkbL6emK9Gn2+
-	6+Ryg5azw+sfDarIl8FauDPoLkDnA3pqLMgpnlFqnG3rIrHKyxq9DMUfPiO6HlqzggpzpJralzA
-	4n/kUeSK3rldw33eSwe5CMZqKNpCIlagA/oShNuoZKEMRaKlAZg6wSUqWnb9YdCH3hoXUTnfOSD
-	ktKObeNLDkuuEzmdlE7zpq3iGYDWQO+YT1h9igaXjLy2UmzUwZb0Q8V+GcxQ+LnkM1t9WJL7K/C
-	elTDEoHoQjCjQqoQmRucLchURpYHiEsFzWFLNDGBoi72T/jfXngtb9XeV31bWAxzDoQrTGZ2SH
-X-Received: by 2002:a17:90a:d64f:b0:390:af7c:fe5e with SMTP id 98e67ed59e1d1-39b26741434mr14295061a91.2.1788643348186;
-        Sat, 05 Sep 2026 14:22:28 -0700 (PDT)
-Received: from [10.63.138.252] ([2409:40c2:5007:4aea:63cc:914c:1243:e03c])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14332405e92sm7783072c88.8.2026.09.05.14.22.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 14:22:27 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Sun, 06 Sep 2026 02:52:04 +0530
-Subject: [PATCH v3] dt-bindings: clock: ti,dm816-fapll-clock: Convert to DT
- schema
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="rVVBS8pC";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="S/GNNVv3"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788643484; bh=KFl3QjXpv9nhIG/x1LKrR7q
+	fShkCbnA79NvK9lgP9SI=; b=rVVBS8pCF5TgA/tIQI4tMoyw2lrSpHy9pfYUPtYPOICATgtV9l
+	KMAEPX3TvEY8vSail5LTpzyb0np4+VQ5c5OKg8Mwm6tqPd/0pf+AfVeQ1hstJzCiyBORyjpRF6Z
+	qxMVcgk2KaLrApk2JKH3TvMrQnYy5YprShZnJ9sHYrUlUiP6UfzWrmjLMzgow1wq3prCqMPlYpz
+	lFA2wykvzbOlzrBbSkgEpfgJibH60DQ0aTRjJkw8rLlBLDt5ATQqLrSZGwWglUQXDaBAIPy4nUp
+	9BQ9AVVhrmqWSu9OCye1xnqztTJf3WFTQ3tqyxh1PY46/CpcVi2rI3yFecOCY3XMlug==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788643484; bh=KFl3QjXpv9nhIG/x1LKrR7q
+	fShkCbnA79NvK9lgP9SI=; b=S/GNNVv3L/Mpw1YritDEgMZ7mmPQzD7OBmVoFH8rEduX1HLqyw
+	cgBAvQRdYjfwKIsFhIuz3HvHyqjNyXC0kgBA==;
+Date: Sat, 05 Sep 2026 22:24:42 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Thomas Gleixner <tglx@linutronix.de>, liushugao@xiaomi.com
+CC: daniel.lezcano@linaro.org, frederic@kernel.org, isaacmanjarres@google.com,
+ lingyue@xiaomi.com, linux-kernel@vger.kernel.org, weipengliang@xiaomi.com,
+ wengjinfei@xiaomi.com, xiongliang@xiaomi.com, zhangjiawei8@xiaomi.com,
+ zhukaiqian@xiaomi.com
+Subject: =?UTF-8?Q?Re=3A_=E5=9B=9E=E5=A4=8D=3A_=5BExternal_Ma?=
+ =?UTF-8?Q?il=5D=5BPATCH=5D_tick/broa?=
+ =?UTF-8?Q?dcast=3A_Plug_clockevents_replacement_race?=
+In-Reply-To: <87h5k34cob.ffs@fw13>
+References: <20361A3E-0D14-4CC5-946E-D75244CB4A45@mainlining.org> <87h5k34cob.ffs@fw13>
+Message-ID: <4FDB69E5-7DEE-43CE-A66A-23A2D8DC987C@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260906-ti-fapll-clock-v3-1-b0ded340c62b@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WMQQ6DIBQFr2JYlwa/gLar3qPpAhH1pygGDGljv
- HvRbkybt5qXzCwkGI8mkGu2EG8iBnRjguKUEd2rsTMUm8QEGEgm4UJnpK2arKXaOv2kolQMNEh
- uJCNJmrxp8bUH74/EPYbZ+ffej/n2flNlXv6mYk7TallxXYPgRX3rBoX2rN1AtlSEgw7wp0PSW
- SWY4Eq30Oijvq7rB31Gj1frAAAA
-X-Change-ID: 20260629-ti-fapll-clock-57a02c264e60
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Tony Lindgren <tony@atomide.com>, 
- Tero Kristo <kristo@kernel.org>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
- daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788643335; l=4915;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=auCB5rNo6b+/K6OB2qyoTXEsixd2XWS1Ty0U4GrdKWk=;
- b=uPVaYuFUkJGRyxOIdkbk5virGh8cp5eAvYi8Rc4w94CpIt/rh/IN7T6qUYJUT/kg6llPEW7xX
- JcXVRg8k8AYAS4Ruoe7jNOiFEP7jaR7Nvb/qg+Con6D1b6wnp5qajyE
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-Convert the Texas Instruments DM816 FAPLL clock binding from plain text
-to YAML DT schema.
+On 5 September 2026 22:21:24 BST, Thomas Gleixner <tglx@linutronix.de>
+wrote:
+>On Thu, Sep 03 2026 at 16:12, Bradley Morgan wrote:
+>> Hi, I have a pixel 7, if I could be asked to backport this, then I'll be
+>> happy to, for the fix, add:
+>>
+>> Reviewed-by: Bradley Morgan <brads@mainlining.org>
+>
+>It would be helpful to respond to the actual patch and not to some
+>arbitrary reply. That way you might avoid your tags to be overseen by
+>tools.
+>
+Sorry my mail client sometimes glitches,
 
-The text documented #clock-cells to be set as 0, while the example and
-existing dt and driver require it to be 1. The schema now strictly
-enforces #clock-cells = <1>.
++Remove anna-maria, she's on leave, and she sends OOO email.
 
-Properties clock-indices and clock-output-names are documented in the
-binding and added as required as driver strictly requires it and existing
-dt already use this property.
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Link: https://lore.kernel.org/r/20260717-ti-fapll-clock-v1-1-1b684cb2543b@gmail.com
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
-Changes in v3:
-- Rebase to latest mainline rc.
-- Collected tag.
-- Link to v2: https://lore.kernel.org/r/20260722-ti-fapll-clock-v2-1-085054acf2dc@gmail.com
-
-Changes in v2:
-- Cleaned up binding descriptions by dropping the redundant common clock
-  sentence and removing "phandle for" from the clock items
-- Link to v1: https://lore.kernel.org/r/20260717-ti-fapll-clock-v1-1-1b684cb2543b@gmail.com
----
- .../devicetree/bindings/clock/ti/fapll.txt         | 31 ----------
- .../bindings/clock/ti/ti,dm816-fapll-clock.yaml    | 71 ++++++++++++++++++++++
- 2 files changed, 71 insertions(+), 31 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/clock/ti/fapll.txt b/Documentation/devicetree/bindings/clock/ti/fapll.txt
-deleted file mode 100644
-index 88986ef39ddd..000000000000
---- a/Documentation/devicetree/bindings/clock/ti/fapll.txt
-+++ /dev/null
-@@ -1,31 +0,0 @@
--Binding for Texas Instruments FAPLL clock.
--
--This binding uses the common clock binding[1]. It assumes a
--register-mapped FAPLL with usually two selectable input clocks
--(reference clock and bypass clock), and one or more child
--syntesizers.
--
--[1] Documentation/devicetree/bindings/clock/clock-bindings.txt
--
--Required properties:
--- compatible : shall be "ti,dm816-fapll-clock"
--- #clock-cells : from common clock binding; shall be set to 0.
--- clocks : link phandles of parent clocks (clk-ref and clk-bypass)
--- reg : address and length of the register set for controlling the FAPLL.
--
--Examples:
--	main_fapll: main_fapll {
--		#clock-cells = <1>;
--		compatible = "ti,dm816-fapll-clock";
--		reg = <0x400 0x40>;
--		clocks = <&sys_clkin_ck &sys_clkin_ck>;
--		clock-indices = <1>, <2>, <3>, <4>, <5>,
--				<6>, <7>;
--		clock-output-names = "main_pll_clk1",
--				     "main_pll_clk2",
--				     "main_pll_clk3",
--				     "main_pll_clk4",
--				     "main_pll_clk5",
--				     "main_pll_clk6",
--				     "main_pll_clk7";
--	};
-diff --git a/Documentation/devicetree/bindings/clock/ti/ti,dm816-fapll-clock.yaml b/Documentation/devicetree/bindings/clock/ti/ti,dm816-fapll-clock.yaml
-new file mode 100644
-index 000000000000..423b7405e398
---- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/ti/ti,dm816-fapll-clock.yaml
-@@ -0,0 +1,71 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/ti/ti,dm816-fapll-clock.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments FAPLL clock
-+
-+maintainers:
-+  - Tony Lindgren <tony@atomide.com>
-+  - Tero Kristo <kristo@kernel.org>
-+
-+description:
-+  FAPLL is register-mapped with usually two selectable input clocks
-+  (reference clock and bypass clock), and one or more child synthesizers.
-+
-+properties:
-+  compatible:
-+    const: ti,dm816-fapll-clock
-+
-+  "#clock-cells":
-+    const: 1
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: parent clock clk-ref
-+      - description: parent clock clk-bypass
-+
-+  clock-indices:
-+    description:
-+      Maps child synthesizers to physical indices 1-7. Index 0 is physically
-+      reserved for the Master PLL.
-+    minItems: 1
-+    maxItems: 7
-+    items:
-+      minimum: 1
-+      maximum: 7
-+
-+  clock-output-names:
-+    description:
-+      Names of the child synthesizer outputs. The length of this array must
-+      match clock-indices.
-+    minItems: 1
-+    maxItems: 7
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - "#clock-cells"
-+  - clock-indices
-+  - clock-output-names
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    clock-controller@400 {
-+        #clock-cells = <1>;
-+        compatible = "ti,dm816-fapll-clock";
-+        reg = <0x400 0x40>;
-+        clocks = <&sys_clkin_ck &sys_clkin_ck>;
-+        clock-indices = <1>, <2>, <3>, <4>, <5>, <6>, <7>;
-+        clock-output-names = "main_pll_clk1", "main_pll_clk2", "main_pll_clk3",
-+                             "main_pll_clk4", "main_pll_clk5", "main_pll_clk6",
-+                             "main_pll_clk7";
-+
-+    };
-
----
-base-commit: 9f0346dcbea363787186c94ef94dd01aaa215afa
-change-id: 20260629-ti-fapll-clock-57a02c264e60
-
-Best regards,
---  
-Bhargav
-
+Thanks,
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
