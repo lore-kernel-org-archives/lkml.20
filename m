@@ -1,120 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDDAB32B10F;
-	Sat,  5 Sep 2026 03:00:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D3CD22A7F6
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 03:04:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788577217; cv=none; b=YrWiaRx4FsJS/VPQn4c87XaiwgOH5XEqRfcJ7HE5zIOkMf1tATXXFBeO42kz/3jtXKuwbYQqeDBT8ppAxbRPwVfZY2gxeN20b7L+fqBSCGI1jAbNy/c1TxMmb2J8EHzQbjGwoKrODZ5UY0B0VE9bZhRinPb3XDfHZ5kQSTnAZKY=
+	t=1788577498; cv=none; b=cU+sCC6M3YXl6ZKtWB6hHaw0TFVi0f3JO8wTM9o230qdR4vRm/CCQZu6qs24Ay8sTujTtcf8fFWTQkjH92EYQChAiGhn9ZgpL/jCFtctQlQkATwiWh2UDqj6xsSd6M1760TMqMI6Jg1Ub1cp+6cdXe4D/xawm65RLbSQYHu7uxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788577217; c=relaxed/simple;
-	bh=U5G8wqhdv6wNsgRU+y43xN9wON7WhKariG72lGJJ1V4=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=WRnM0/brTxRo4J47oio0TzgiS7KTxQSGvYR/7he36qg5oupp9FeaUZnJzRUazDAFWL71sqnUlSIEC12KrWLgwbpMszg+FKcF2qCa11Et0riv+gK+8hR3cUASsMY+D0Jr/CC8Bs6S6mNn9qlWEzYclQIxJH2tMvl2E2q+O2tlg18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n3235vnO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788577498; c=relaxed/simple;
+	bh=uJPPIj6KHCIR9rjchDUmz3N0qO2wD9Mw/wYTDNNQsj4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IJVGcTXsN0wj91kW3AI9QWJ38FwefEUiHRERGCFJXDBGQdCLK9QwaRF+heCqzPdT/FG7HRoTcr3vQQ1zHpt7hzPdmtALEyh6ran2VwMgsodzhn2Cga8GaGDKH44xpTDMmGzORpU+ETDbeM5uwefG1OQ+fVcKauJMiconDw7ZFwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QmcK4Sqj; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n3235vnO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 684D61F00A3D;
-	Sat,  5 Sep 2026 03:00:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788577215;
-	bh=VIOhOu/LgEMPFfoPkmWi2vYvFUhC/tav40+uRkNrpMM=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=n3235vnOhpnpmKCYNFh5rgg7TCC0HJO+Snz1jUqfnEKpIq7aPsg9S7LZBSqcy+Trm
-	 LG0khlIdXboBJn7CCRxM9M+zNGnVapadLzOht+KIRbhVJgt4ASmoABSqMa2nSow6Mh
-	 YeEAmuz74Fr28lrVTEDmNLDQgovD0PMgGbzumGm2p1H6EZGhNTgOnSLUm23WNJaGkl
-	 z/VLYY8ZwXbTflLeU88kLuEBq82mzUVo8zFo7GtU1CRgtQO5zCkpqWzdmtOmoZhJPF
-	 t4cskTUrhZAsej2I7V7h8tn2dP53a8pe3UKYhBw3nkbaYIPmTqiu/GJDp29bkZMtPj
-	 2GWOhqgdA1NFA==
-Content-Type: multipart/mixed; boundary="===============0188849458020851844=="
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QmcK4Sqj"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3966791a6eeso1901733a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 20:04:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788577497; x=1789182297; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KFqS6bUL031SXJAVQUoeuKgNEuuJ/tZOFfd1PDcVQXk=;
+        b=QmcK4Sqj4vHSjoMpmH96YJ/jDFvQXuWHDLBhqG/Ol1fQampZJ7FXcybap9y7ENE1Ap
+         +08S1q6pamj3alEzB4+c690InNGuv65h/W2nJRXZej0Ek9loNJyB3Q/1MsSMIgLO9/wJ
+         MkHF+9S63cb8A46MrCR1MRvGYrleit6gw91vjLnjzJbfvLGBYpTmC+AwdRZdskXgl01K
+         PUq+0NCWYHwuKsMiCrycNSEjMOSOhClEjxJas7mJYMsmGmRv9FkDiPpF+GbBhD28nlDN
+         UN8fCmVNzRbSEReXsREoHzg7ZaMcvv0HhtmwJkf2Nx2L2bBWx3P5HGx2WIqG0HIq6CiO
+         nfkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788577497; x=1789182297;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KFqS6bUL031SXJAVQUoeuKgNEuuJ/tZOFfd1PDcVQXk=;
+        b=B9UlnGhNMAI4bYcB0bKv3UIzZFJKj3WigTqgY5a4cgGXhiNUdy4sC2XfstNSyQYUl5
+         ODXxX9MeMa1nziE8tDJQNu4i50vfe/KKNThdsJc5+vicD2I9kKkjhM7llxsUa84XTbsF
+         npeAxY5rHJU/7idKgf8Qb98DlPYzrNMSedMlqhHFA7L9Bz2iiwMf3TGGguNzT7+rRVgG
+         rwgsMX0IgFRh34QDCfFCz3FbJRMuKxjMzaCNqBMohiCnPSAA8v2yTZDvSz26WTzw6eBZ
+         FLU0BUegtvlya7ojQ0RvbsRENHohCg9hcjLxOz2olG8bCh998zfa5zBzbuMcG0f8C6jH
+         8mOA==
+X-Forwarded-Encrypted: i=1; AKwUvBwvtzLQ5o53oHpi/KN1g4go7ogIAMqJZe8jTlnKEeXusAFF7fo7l+3XwpPM22FDJsX9OEEC3ds8OHwViH4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nO3tfHMkZ5TclHv2RtoAEmyDDSWRxxcMVcMpTaiAv+mkCRV7oK
+	FU60fRgAfTwubtG8X8k0D40blG67hxLq0Z0ZtWq+OZHCaZHz0CTsdGxhvac8T7kF9es=
+X-Gm-Gg: AYBFou3T72ba6VKV5sMlQvBN66erAGKfTp7Vp1bbZiicb21ZBGcMOgt+LRs6z5sWMNj
+	w1LBnOkMGB6jO2+xJ3HusmxjvsN7qfcCmB0QyvFfXdhLprNrTwl+rFc70aUoOG8yMSTI7d+/0p/
+	1GPKTmc97HOK9bDJcYvreD5MHru0f0o5+s2Wlw2PnJU1gmprFifIAoSImoYmQfpUQCWzGZOL1so
+	PSvCg3S7MN3IMUMT8Wro06ff9D5M44UyyGhfdWBkbieoKgc0jTbg8fX4LHo7Zl2IVCE5arMWYfN
+	5axnhJ1vaQ02slDNPeS8dqiTm1LihPFp+F6SppLtiQisCUu7GkbRQK1ftXjX8QEC9JnllFZ/uMm
+	K5qJb2nFJCFqEOqfqmCWpXP0I2fFWy0MMknKMKqrx3PJmlR70kn3rWVDKqrRpBsMGaesoDVNSkU
+	61q0BSHUU2A9rNdVM/92Od9DpIB7m791WTOjkGnnUtLbmT8QxOgcpznDDuTClZsUwE1Xywy77vs
+	yo7xXCxmzHe2PVRSop0QVCrLGbJkzAiS9xK
+X-Received: by 2002:a17:90b:3ccf:b0:399:ea1:5a82 with SMTP id 98e67ed59e1d1-39b26101277mr13184512a91.3.1788577496696;
+        Fri, 04 Sep 2026 20:04:56 -0700 (PDT)
+Received: from archsung (186-244-17-112.user3p.vtal.net.br. [186.244.17.112])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3356dc5c04dsm692182eec.8.2026.09.04.20.04.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 20:04:56 -0700 (PDT)
+From: Felipe Calliari <calliarifelipe@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bingbu Cao <bingbu.cao@intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Felipe Calliari <calliarifelipe@gmail.com>
+Subject: [PATCH] media: ipu-bridge: Add upside-down sensor DMI quirk for Samsung Galaxy Book3 Ultra
+Date: Sat,  5 Sep 2026 00:04:35 -0300
+Message-ID: <20260905030435.38105-1-calliarifelipe@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <6fb6eba20f7975410960a3603614f1873fe7212e4d4f77408dcc33726dc31fde@mail.kernel.org>
-In-Reply-To: <20260905021139.4116529-1-pulehui@huaweicloud.com>
-References: <20260905021139.4116529-1-pulehui@huaweicloud.com>
-Subject: Re: [PATCH bpf v4] bpf: Fix UAF due to concurrent consumption of ttrace lists in alloc_bulk
-From: bot+bpf-ci@kernel.org
-To: pulehui@huaweicloud.com,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,ast@kernel.org,houtao@huaweicloud.com,leon.hwang@linux.dev
-Cc: daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,yonghong.song@linux.dev,song@kernel.org,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,pulehui@huawei.com,pulehui@huaweicloud.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Sat,  5 Sep 2026 03:00:14 +0000 (UTC)
+Content-Transfer-Encoding: 8bit
 
---===============0188849458020851844==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On the Samsung Galaxy Book3 Ultra (960XFH) the OV02C10 sensor is mounted
+upside-down. The 180 degree rotation is not described in the sensor's
+ACPI data: both the SSDB and the _PLD report a rotation of 0 degrees, so
+ipu_bridge_parse_rotation() assigns a "rotation" property of 0 to the
+sensor fwnode and the image is rendered upside-down in userspace.
 
-> Syzkaller repeatedly triggered UAF splats related to nodes in
-> waiting_for_gp_ttrace within the bpf memalloc:
-> BUG: KASAN: slab-use-after-free in llist_del_first+0x85/0x110 lib/llist.c:61
-> Read of size 8 at addr ffff8881572cd080 by task syz.4.470/5112
->  ...
->  llist_del_first+0x85/0x110 lib/llist.c:61
->  alloc_bulk+0x193/0x460 kernel/bpf/memalloc.c:229
->  bpf_mem_refill+0x386/0x560 kernel/bpf/memalloc.c:436
-> Freed by task 14:
->  ...
->  __free_rcu kernel/bpf/memalloc.c:281 [inline]
->  __free_rcu_tasks_trace+0x48/0xd0 kernel/bpf/memalloc.c:291
->  rcu_tasks_invoke_cbs+0x1ec/0x3e0 kernel/rcu/tasks.h:571
->  rcu_tasks_one_gp+0x13d/0x220 kernel/rcu/tasks.h:621
->  rcu_tasks_kthread+0xf3/0x120 kernel/rcu/tasks.h:651
+Because the SSDB degree field holds the valid value 0, the flipped
+mounting goes unnoticed: the driver logs no warning and userspace (e.g.
+libcamera) has no way to correct the image.
 
-The file and line numbers in this stack trace refer to v6.6 (the v1
-posting included 'Not tainted 6.6.0+', which was dropped in later
-versions). Against the current tree, these line numbers point to different
-locations: alloc_bulk() line 229 is in a blank/'if (i >= cnt)' section
-(the waiting_for_gp_ttrace access is now at line 231), bpf_mem_refill()
-line 436 is the closing brace, and __free_rcu_tasks_trace() no longer
-exists at all (removed by commit 57b23c0f612d).
+Add a DMI quirk entry for this laptop so that the sensor fwnode gets a
+"rotation" property of 180 and userspace (e.g. libcamera) can
+compensate.
 
-Should the stack trace include the kernel version to prevent future
-readers from trying to map these line numbers onto the current tree?
+Tested on the Galaxy Book3 Ultra: with the sensor reporting
+V4L2_CID_CAMERA_SENSOR_ROTATION = 180 (verified with an equivalent
+local sensor-driver quirk), libcamera renders the image upright.
 
-> In addition, there is also a theoretical race condition on the
-> free_by_rcu_ttrace list. This race requires two preconditions: an
-> in-flight Tasks Trace GP keeping c->call_rcu_ttrace_in_progress == 1,
-> and concurrent cross-CPU frees repopulating c->free_by_rcu_ttrace with
-> new nodes. Under these conditions, the following scenario triggers UAF:
-> // CPU0
-> // irq work is still busy (on PREEMPT_RT)
-> alloc_bulk()
->   llist_del_first(&c->free_by_rcu_ttrace)
->     entry = smp_load_acquire(&head->first);
->     do {
->       if (entry == NULL)
->         return NULL;
->         // CPU1
->         bpf_mem_alloc_destroy()
->           WRITE_ONCE(c->draining, true)
->           // wait for CPU0
->           irq_work_sync()
->                 // CPU2
->                 do_call_rcu_ttrace(tgt(CPU0))
->                   if (c->draining) {
->                     llist_del_all(&c->free_by_rcu_ttrace)
->                     free_all()
->                   }
-> // CPU0 continue
->       next = READ_ONCE(entry->next); <-- trigger UAF
-
-The annotation suggests this race window exists only on PREEMPT_RT
-kernels. However, on non-PREEMPT_RT configurations, alloc_bulk() runs in
-hard IRQ context and irq_work_sync() from another CPU still has to wait
-for it, so the same race window exists there too. The earlier comment that
-commit d114dde245f9 removed also mentioned non-RT cases: 'arch_irq_work_
-has_interrupt() being false and irq work is invoked in timer interrupt.'
-
-Would '(e.g., on PREEMPT_RT)' be more accurate than '(on PREEMPT_RT)' to
-indicate this is an example rather than a precondition?
-
-
+Signed-off-by: Felipe Calliari <calliarifelipe@gmail.com>
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+ drivers/media/pci/intel/ipu-bridge.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33938697434
---===============0188849458020851844==--
+diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+index 1bb3a3e98..165f3c612 100644
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -192,6 +192,14 @@ static const struct dmi_system_id upside_down_sensor_dmi_ids[] = {
+ 		},
+ 		.driver_data = "OVTI02E1",
+ 	},
++	{
++		/* Samsung Galaxy Book3 Ultra */
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
++			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "960XFH"),
++		},
++		.driver_data = "OVTI02C1",
++	},
+ 	{} /* Terminating entry */
+ };
+ 
+-- 
+2.55.0
+
