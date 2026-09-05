@@ -1,200 +1,152 @@
-Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCCAC377AB2
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 13:29:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788614997; cv=pass; b=c0qgqBQ1f/7Ia7o3TpctZKEL8TEYzCZ4WADBRUD96inDux1arnb8hXOMLAvI7awlgobEiyLK14vmwS1FGcY1y2dc8BOau/ptfOkI9BSzy2emAHe7Y+pbHUYtfU7skhu5stJgV9JwUc7izTMr9/XsUpJXDeJ72hl+1sAWn8cbDc0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788614997; c=relaxed/simple;
-	bh=/qgxJ5U1XejGBgezHLiZSaJYn4KHKLTpzDVEiNZyO/M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=h69GaScQEBfZFBvaeLyzMjY9d58u3grsZ20rMcJRxTadoYOMbNGmNmqzESPaFYLDOykUwcB/uvHsgqydd2Cs8BJ7Sus0WivGQiZOzgjnNRvWX+6ZXink3dDyPYcS6p+dXLEQbOy66C9k36CHn2IjzbjuIlDCWRzBlWR6PK2uvds=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C9ua6VT7; arc=pass smtp.client-ip=209.85.161.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0EB0378D6B
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 13:30:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788615026; cv=none; b=TSo76rKpLg9fAm9kKRBlXLrUTQ86onGSH04tEAZHkDHemQvbcRjzB5bUX1X0hixgGtWBE76xlHiirmuKnK8L5RnQpNJpMf7iz7R1rHp4aWVfvqPmLZ9J5Kez0DkKeDg8NS4cF65kiydV0e2dj43zwDiySGbxteGE49duiGgHky8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788615026; c=relaxed/simple;
+	bh=/sHkrXd6mCsWP9i59t2eUZxlmi8BLvtU4brDKGMSKfY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=d/7fAxwiBEbyDkAvyKDGHHgvbYHgLNjHNFXAgkPWyY5W/QHglcIXrj1JAgtbKxS7bDHVjnIdjciTqDQ111/z4Bppe/mXPqxD879WYsDjx/RQi3RYhd9pm/oxwV5UOCZPtmW1FkzKJMR4srDmo+OlXSTVx0eUTuNTVDxI1MIE9KM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=QXlrqFr9; arc=none smtp.client-ip=185.67.36.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C9ua6VT7"
-Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6b92a58cb7eso78447eaf.2
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 06:29:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788614987; cv=none;
-        d=google.com; s=arc-20260327;
-        b=W3dvanenI8nHfYPOaggxw4RqnDqVkZwoO7JNsmknHL/sejSt/eAUp9l3UF5oOg4YoG
-         40NMNGDMElecoPh2xKTqhURUvChCIU8ObyOOSlS51hCAvzgyW5z/laz2ihDMLUOnaLX7
-         QlTXG6P8Vxtp20wQeu+acSWNRQ3TxqpkxQVmS5R1Q0LByIW/j3US0TgAtpzXAJDLtg6M
-         Qlu5TyQ6+X6cYVRryn0WJggNNy3ghuYFLiAcB5biPEFESGgIrZN7LeVh0EVkm8R2WMeE
-         /DpJOgi5RfcmfzkIb/+t9IjnqanLzG4mAdQcgUVZADtp8MaAoNZxwrMrdZyqpxWicDNt
-         OBAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=byHzJnHdE3Q5NcViqCmqSPyzgollLD9/A1kajaUXPp8=;
-        fh=FUAcBWaSqw/Q4gbLQmSsrdjfixKitnKj/xzRhi8F0Gw=;
-        b=p6QJGip16aiNMz5NRDBRfvByirrOM/OXBFdYwTd1ocOXVPqFN8Z4Ndo6hv3BUaLDWg
-         kE0BO5izjiiVomwAd2xfACas4jrq2SrEupMTrDcnvAHLT8KFMK/4hur8PrgEYGbo2WK1
-         aoGr6SFjZaKjb+xJILWdFVyGECns5N/H/fW+DFYRk9ufd+9NwP375uCJ+cRBTIGRwgib
-         tgBtoZ7JPDiLormRKdE6/lYaBeBwguB9n1rDQFgaO2Bt7wj1biFGFfkTKBJEVfO+ud0X
-         w8U+/lxT9Mrroh2QCJrY+femHsCL5HF7ENVREuJMcg/A4+7zlxO9GayMPM8sOXXKNvMQ
-         CtCg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788614987; x=1789219787; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=byHzJnHdE3Q5NcViqCmqSPyzgollLD9/A1kajaUXPp8=;
-        b=C9ua6VT7OeGDYijrihI8mmFOQX0vyzLOGeZID1wu04Z0VcDVdJ6N7OX025BZdvXBGZ
-         srIKUhxDumOUu2pGD4jfs90Gfc5IM0dRaXB4hNin+mFZnrs0G5VYBrVLnu5IjPqylHjU
-         oh7XhMfjc7ALR0Rgs6FC3fgAfd4pEH3cnVo/VG7xqRPr3HHn3bCLbV98L+hjdgi9bB35
-         yN2L+/TPRHpsrTRmGw5ho2dqJ2zoHIraL3894Vc15rnGfGh50fxgVR7aUk1fWfEa0aR/
-         iebhE9+IUsJkBrVoO1RZFrOCOpU6eaJor1W14KrThADgHSzJe0G73O8BXw7UNFTP88ss
-         JTaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788614987; x=1789219787;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=byHzJnHdE3Q5NcViqCmqSPyzgollLD9/A1kajaUXPp8=;
-        b=W02vwkE3BAI+0ZUuB87LbXVDKudUMQEO56pP9BmX7zYaGik55ZWmM6yvVyz0cf/6va
-         VzEloVFHEvKXQT385MqC7HlnHFJLewApt46I118Lekbt+KJHH1cFrF421omxgeS0qO/P
-         6oiluC+FXdQ1rCuPkffvvD8lcDF2C7HVtnM18sJ9gOqB2xoHhWR38llS55HraUjlq0kp
-         E5La9p3tjL00WoM0Hqf6xHwuQeVhl+mxsMUraHEXl7ZzVL2e+Yxf2YKIJMgfFw8kHmO1
-         E7QWm7h69wB7BQWwohPfr71FyTlwX4Sx0kpj8F4fVYMeorkNNzSh6P9NUvl0Aa3mAaVb
-         tNHA==
-X-Forwarded-Encrypted: i=1; AKwUvBwZzZz50c3eHgAJD09brY0xefhOWHBYrC3z93EmhpCIFoyjQ9E3mEouG5Ca2mI48hhR5vPm2tbDSc5sfF0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mgXlz6DblQyC9fV1SoqTLYLBRkwJuSdFAxfQ5BsQTp0+hEwbTv
-	ugtNRzSjc6DZ9qwvY5HBHTZGEPsSuZaFbIKd8g/fzF/MA4eC6N6hK/JqFp1nw+vbI4Pdz6I9rqj
-	pwD2jr+Rfj+TTTW/hmsVGajHYQqrZafs=
-X-Gm-Gg: AYBFou1aJFeXF2uSMU/dkV8Kve0T5pl4Ncp56tWuwXFH+0EfK4bXx0sKijClng3OVIZ
-	cO7ENVxQtk1t0inwz8mrGorjJ+C/yJrsIvgyC2/4ciZk1+4rJy40AqJ2UheSmFxYUt8fjbx48kv
-	ibSEXXYZYj+aXt33ByQ2unYuN4KTsZQN7pEntJLCD+qpDnVGxZ4X9OwW4NlVYTxhctPSxflXIIX
-	T0y3cRr40cSZCg3Ivfp637Emf+Q6kjktAJYEEeZ7RhMDVnkAZS+Z2T0t9EJ1wMjH1VmVlIB5vQK
-	znp3JNWdLveUVKzV1Pys5fXDplKnSbnegankCGXA0oxtEVBzYRkWxEo=
-X-Received: by 2002:a05:6820:c2ce:20b0:6b9:4557:2722 with SMTP id
- 006d021491bc7-6b945572d29mr452883eaf.3.1788614987087; Sat, 05 Sep 2026
- 06:29:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="QXlrqFr9"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout01.posteo.de (Postfix) with ESMTPS id AD3F9240027
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:30:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
+	s=1984.8680eb; t=1788615010;
+	bh=ssXWVRsdIn5Z3wp/OqRzUmICHe0zBBdsbTkhBd3pUl8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:To:Cc:Autocrypt:OpenPGP:From;
+	b=QXlrqFr9HuBpRI0YW8i5KXt/L47Iu6HjJYlnWgchtqgQvIrGsPFXDvJvPsNmWuD7c
+	 EHcxu+4JDl/MiWvGYD3Id+k5ii0FxBZ9U6eyenxouUV0QeTA1cmxUfmBbliK/VAMPw
+	 gmlqMDFSrlOGybJNUjR1WaAZUYyZOLXCZDmHFaySLW+lcqrKzrEov7AzWedp27To+n
+	 irLGmfDpWa9IhGfP6wWerssU2Fn5MJo0dzfmcAYl1uS9ZiwHkNNC3W0i1knBZ5WISB
+	 +ahYi/OBcxiAFtDfl9hdRp5PY4bNy6pmX10sMtCv1mPHaVagDeb2xAqlWwuKdxGsQD
+	 Y1AGQKca7SkaA==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4hcZ2R4dQVz9rxK;
+	Sat,  5 Sep 2026 15:30:07 +0200 (CEST)
+From: Markus Probst <markus.probst@posteo.de>
+Subject: [PATCH v2 0/2] rust: serdev: Mitigate race conditions
+Date: Sat, 05 Sep 2026 13:30:09 +0000
+Message-Id: <20260905-rust_serdev_fix-v2-0-35dfcd06ef2e@posteo.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAMnqnYxPHeXo6CsuKRGH=oixAsAa0z1_++266yzKW7qR6cqykw@mail.gmail.com>
- <apqWn2EoguCwX5po@wyuan.org>
-In-Reply-To: <apqWn2EoguCwX5po@wyuan.org>
-From: Jiaming Ouyang <jiamingouyang13@gmail.com>
-Date: Sat, 5 Sep 2026 15:29:36 +0200
-X-Gm-Features: AcwNN1XynqJWLvedk2B5geFbTmyxOx8KybE4He9IXxPP6qvqQ7Itf5Mp39uTORU
-Message-ID: <CAMnqnYwSKeTHi41iesHxJo1b_GGKWkFzfavJHWtEqxD0St3oBg@mail.gmail.com>
-Subject: Re: [PATCH] docs/zh_CN: add usb/ohci translation
-To: Weijie Yuan <wy@wyuan.org>
-Cc: linux-doc@vger.kernel.org, "corbet@lwn.net" <corbet@lwn.net>, alexs@kernel.org, 
-	si.yanteng@linux.dev, dzm91@hust.edu.cn, linux-kernel@vger.kernel.org
-Content-Type: multipart/mixed; boundary="000000000000f298db065abc6060"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WOyw6DIBBFf8XMuhjBR9VV/6MxBnCsNKlYQNLG+
+ O/Fx67LM7n3zlnAolFooY4WMOiVVXoMwC4RyIGPDySqCwwsYUVSJRkxs3VtKHXo2159iMC07yt
+ Z8hxLCK3JYDjvi/fmYDuLJ0q3zZwJg+85vHJHDAS3SKR+vZSrI3+NU2Ikha09KOu0+e56nu7h0
+ yT/M/GUUMKQV0zQPOOFuE3aOtRxh9Cs6/oD9V4ZKewAAAA=
+X-Change-ID: 20260904-rust_serdev_fix-be3ff9c8a5e8
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: linux-serial@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
+ Markus Probst <markus.probst@posteo.de>, 
+ Sashiko Bot <sashiko-bot@kernel.org>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=827;
+ i=markus.probst@posteo.de; h=from:subject:message-id;
+ bh=/sHkrXd6mCsWP9i59t2eUZxlmi8BLvtU4brDKGMSKfY=;
+ b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBqnBle/rNQ43bFeWvmH7iHmkj/W27WBDdPA0qVU
+ 5P/X1L+LwiJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCapwZXhsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9LuqRAAtqn3qkNC3+UTHyE8m0I9w6+MBP92p7q
+ NdJU/6JRKnYMBVMK1k9hLbGan9EPhVs5QhugjRFIabfR/eD9zEOAbZnV4q2M/H5M3n9EBzOy45R
+ Sekyzc4Ph+pOuyC8R+uePR1jJIxZJ8x3GMSQbovUWJ7l/SKdopO2CClJMXXbglGpNEXfUZc1jpI
+ Mx1tIyIf0GGeDELhIfT9ErSF64ZsA3doMc9QllgiYhVskThQujUKsRoiE1MiCWZ5VWigWk4mNMl
+ c8e2EjwPJs0WPa5i+gHSex1BBrhN5ldZEje41TEW30Ny5mMthnhPvrtkhx1b/mbiPq3UKIRs65H
+ j71Zuni1qxVtFvpms0MeTZ7vAY7/C65IsndwyUAeRADZ40fGoPRSjRPzZ1LEY8pcCv4Ploa9/xf
+ RzW9G0aLqUELAjRcY6ueI39XQObGi/1kMdy3LOCf0d1K2GNl5KkYqxC4pLcmnWumhL/qkWsDfiQ
+ gVnfjL6WG+wildevUU1RUcm8GN0/7u1JLwlnEsxKgN9Sup4vgYY3MQcZx8lbg94+WwXy+1fEMdk
+ QIbCQvpSpJopL2nNqerx1/KVqvEXhnFEZFwNhnx5nbHx7ypIJgVm439yah+l0UMrO2DXKMlqfFq
+ iP64S7/M9P0xIXCR+r4bkao0jatrrlmfKn81qHUiiT5NAi/aac+E=
+X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
+ fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+  keydata=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
+  aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
---000000000000f298db065abc6060
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+For details, see the commit messages.
 
-Hi,
+I will submit a patch (for the next merge cycle) soon, which will
+make the probe and unbind code less convoluted. This will make bugs like
+these more unlikely.
 
-I think this .patch in attachment will solve this problem, and the
-commit information has been modified according to your feedback.
+Signed-off-by: Markus Probst <markus.probst@posteo.de>
+---
+Changes in v2:
+- also fix race condition on unbind
+- Link to v1: https://patch.msgid.link/20260905-rust_serdev_fix-v1-1-2ea92b154a6b@posteo.de
 
-Thanks.
+---
+Markus Probst (2):
+      rust: serdev: Fix race condition on driver unbind
+      rust: serdev: Fix race condition on driver probe
 
-On Fri, Sep 4, 2026 at 12:00=E2=80=AFPM Weijie Yuan <wy@wyuan.org> wrote:
->
-> Hi,
->
-> On Sat, Aug 29, 2026 at 08:48:07PM +0200, Jiaming Ouyang wrote:
-> > From 395948212144549e20cfcdbd053817c4e068da35 Mon Sep 17 00:00:00 2001
-> > From: Jiaming Ouyang <jiamingouyang13@gmail.com>
-> > Date: Sat, 29 Aug 2026 20:35:37 +0200
-> > Subject: [PATCH] docs/zh_CN: add usb/ohci translation
-> >
-> > Signed-off-by: Jiaming Ouyang <jiamingouyang13@gmail.com>
->
-> 'git am' complains:
->
-> error: git diff header lacks filename information when removing 1
-> leading pathname component.
->
-> So I guess probably you don't need to include these email headers in the
-> changelog/commit message?  I'm not sure, but you can take a look at
-> relevant docs for this.
->
-> Also, instead, please write some meaningful info in the commit message,
-> see:
->
->   https://docs.kernel.org/translations/zh_CN/how-to.html#id13
->
-> Thanks.
+ rust/kernel/device.rs | 16 +++++++++-------
+ rust/kernel/driver.rs |  2 +-
+ rust/kernel/serdev.rs |  2 +-
+ 3 files changed, 11 insertions(+), 9 deletions(-)
+---
+base-commit: e5e04726cdd043e309677071ab1b65a4b18f422b
+change-id: 20260904-rust_serdev_fix-be3ff9c8a5e8
 
---000000000000f298db065abc6060
-Content-Type: text/x-patch; charset="UTF-8"; 
-	name="0001-docs-zh_CN-add-Chinese-translation-for-usb-ohci.rst_v2.patch"
-Content-Disposition: attachment; 
-	filename="0001-docs-zh_CN-add-Chinese-translation-for-usb-ohci.rst_v2.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mtof30jg0>
-X-Attachment-Id: f_mtof30jg0
-
-RnJvbSAyNjMxNmVlY2ViM2RiZTQyYmQ1OWNlZDk5YjhkYWMwMmZiODU2MTM4IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBKaWFtaW5nIE91eWFuZyA8amlhbWluZ291eWFuZzEzQGdtYWls
-LmNvbT4KRGF0ZTogU2F0LCAyOSBBdWcgMjAyNiAyMDozNTozNyArMDIwMApTdWJqZWN0OiBbUEFU
-Q0hdIGRvY3MvemhfQ046IGFkZCBDaGluZXNlIHRyYW5zbGF0aW9uIGZvciB1c2Ivb2hjaS5yc3QK
-ClRyYW5zbGF0ZSBEb2N1bWVudGF0aW9uL3VzYi9vaGNpLnJzdCBpbnRvIENoaW5lc2UgU2ltcGxp
-ZmllZC4KClRoZSB0cmFuc2xhdGlvbiBjb3ZlcnMgT0hDSSBkcml2ZXIgb3ZlcnZpZXcsIGhhcmR3
-YXJlIHByb3RvY29sCmRpZmZlcmVuY2VzIChPSENJIHZzIFVIQ0kpLCBpbXByb3ZlbWVudHMgc2lu
-Y2UgMi40IGtlcm5lbCwKcXVldWVhYmxlIGludGVycnVwdCB0cmFuc2ZlcnMsIGFuZCBub24tUENJ
-IHN1cHBvcnQuCgpTaWduZWQtb2ZmLWJ5OiBKaWFtaW5nIE91eWFuZyA8amlhbWluZ291eWFuZzEz
-QGdtYWlsLmNvbT4KLS0tCiAuLi4vdHJhbnNsYXRpb25zL3poX0NOL3VzYi9pbmRleC5yc3QgICAg
-ICAgICAgfCAgMiArLQogRG9jdW1lbnRhdGlvbi90cmFuc2xhdGlvbnMvemhfQ04vdXNiL29oY2ku
-cnN0IHwgMzcgKysrKysrKysrKysrKysrKysrKwogMiBmaWxlcyBjaGFuZ2VkLCAzOCBpbnNlcnRp
-b25zKCspLCAxIGRlbGV0aW9uKC0pCiBjcmVhdGUgbW9kZSAxMDA2NDQgRG9jdW1lbnRhdGlvbi90
-cmFuc2xhdGlvbnMvemhfQ04vdXNiL29oY2kucnN0CgpkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlv
-bi90cmFuc2xhdGlvbnMvemhfQ04vdXNiL2luZGV4LnJzdCBiL0RvY3VtZW50YXRpb24vdHJhbnNs
-YXRpb25zL3poX0NOL3VzYi9pbmRleC5yc3QKaW5kZXggZGY5OTgxNGM2NDk3Li5jOTZlYWNmMTNl
-MTEgMTAwNjQ0Ci0tLSBhL0RvY3VtZW50YXRpb24vdHJhbnNsYXRpb25zL3poX0NOL3VzYi9pbmRl
-eC5yc3QKKysrIGIvRG9jdW1lbnRhdGlvbi90cmFuc2xhdGlvbnMvemhfQ04vdXNiL2luZGV4LnJz
-dApAQCAtMzIsNiArMzIsNyBAQCBVU0Ig5pSv5oyBCiAgICAgY2hpcGlkZWEKICAgICBkd2MzCiAg
-ICAgZWhjaQorICAgIG9oY2kKICAgICB1c2Jtb24KIAog5b6F57+76K+R5paH5qGj77yaCkBAIC00
-OSw3ICs1MCw2IEBAIFVTQiDmlK/mjIEKICogbWFzcy1zdG9yYWdlCiAqIG1pc2NfdXNic2V2c2Vn
-CiAqIG10b3VjaHVzYgotKiBvaGNpCiAqIHJhdy1nYWRnZXQKICogdXNiaXBfcHJvdG9jb2wKICog
-dXNiLXNlcmlhbApkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi90cmFuc2xhdGlvbnMvemhfQ04v
-dXNiL29oY2kucnN0IGIvRG9jdW1lbnRhdGlvbi90cmFuc2xhdGlvbnMvemhfQ04vdXNiL29oY2ku
-cnN0Cm5ldyBmaWxlIG1vZGUgMTAwNjQ0CmluZGV4IDAwMDAwMDAwMDAwMC4uNDM4N2JiMjc0MDcx
-Ci0tLSAvZGV2L251bGwKKysrIGIvRG9jdW1lbnRhdGlvbi90cmFuc2xhdGlvbnMvemhfQ04vdXNi
-L29oY2kucnN0CkBAIC0wLDAgKzEsMzcgQEAKKy4uIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBH
-UEwtMi4wCisKKzpPcmlnaW5hbDogRG9jdW1lbnRhdGlvbi91c2Ivb2hjaS5yc3QKKworOue/u+iv
-kTog5qyn6Ziz5a626ZOtIEppYW1pbmcgT3V5YW5nIDxqaWFtaW5nb3V5YW5nMTNAZ21haWwuY29t
-PgorCis9PT09PT09PQorT0hDSempseWKqAorPT09PT09PT0KKworMjAyNuW5tDjmnIgyOeaXpQor
-CivigJxPSENJLWhjZOKAnempseWKqOeoi+W6j+aYr+S4gOS4qlVTQuS4u+acuuaOp+WItuWZqOmp
-seWKqOeoi+W6j++8iEhDRO+8ie+8jOWug+a6kOiHqjIuNOWGheaguOezu+WIl+S4reeahOKAnHVz
-Yi1vaGNp4oCdCivpqbHliqjnqIvluo/jgILigJx1c2Itb2hjaeKAneS7o+eggeS4u+imgeeUsSBS
-b21hbiBXZWlzc2dhZXJiZXIgPHdlaXNzZ0B2aWVubmEuYXQ+IOe8luWGme+8jOS9huS5n+iOt+W+
-l+S6hgor6K645aSa5YW25LuW5Lq655qE6LSh54yu77yI6K+36ZiF6K+75YW254mI5p2D77yJCivj
-gIIKKwor5a6D5pSv5oyB4oCc5byA5pS+5Li75py65o6n5Yi25Zmo5o6l5Y+j4oCd77yIT0hDSe+8
-ie+8jOivpeaOpeWPo+agh+WHhuWMluS6hueUqOS6juS4jlVTQiAxLjHkuLvmnLrmjqfliLblmajp
-gJrkv6HnmoTnoazku7blr4QKK+WtmOWZqOWNj+iuruOAguS4juiLseeJueWwlOaXqeacn+eahOKA
-nOmAmueUqOS4u+acuuaOp+WItuWZqOaOpeWPo+KAne+8iFVIQ0nvvInnm7jmr5TvvIzlroPlsIbm
-m7TlpJrlj6rog73lip/og73ms6jlhaXliLDnoazku7YKK+S4reOAgumZpOiLseeJueWwlOWSjOWo
-geebm+S5i+WklueahOWFtuS7luS+m+W6lOWVhueahFVTQjEuMeaOp+WItuWZqOmAmuW4uOS9v+eU
-qE9IQ0njgIIKKwor6IeqMi405YaF5qC45Lul5p2l55qE5pu05pS55YyF5ousCisKKwktIOaPkOmr
-mOS6huWBpeWjruaApzsg5L+u5aSN5LqG6ZSZ6K+vOyDlh4/lsJHkuoblvIDplIAKKwktIOaUr+aM
-geabtOaWsOWSjOeugOWMlueahHVzYmNvcmUgQVBJCisJLSDkuK3mlq3kvKDovpPlj6/ku6Xmm7Tl
-pKfvvIzlubbkuJTlj6/ku6XmjpLpmJ8KKwktIOmAmui/h+S9v+eUqOS4iuWxguKAnGhjZOKAneah
-huaetu+8jOWHj+WwkeS7o+eggemHjworCS0g5pSv5oyB5LiA5Lqb6Z2eUENJ55qET0hDSeWunueO
-sAorCS0gLi4uIOS7peWPiuabtOWkmgorCivigJxPSENJLWhjZOKAnempseWKqOeoi+W6j+WkhOeQ
-huaJgOaciVVTQiAxLjHkvKDovpPnsbvlnovjgILmiYDmnInnsbvlnovnmoTkvKDovpPpg73lj6/k
-u6XmjpLpmJ/jgILlnKjigJx1c2Itb2hjaeKAneS4reS5nwor5piv5aaC5q2k77yM5L2G5Lit5pat
-5Lyg6L6T6Zmk5aSW44CC5Lul5YmN77yM5L2/55So5LiA5bin55qE5ZGo5pyf5Lya5Zug5Li6SVJR
-5aSE55CG55qE5byA6ZSA6ICM5a+86Ie05pWw5o2u5Lii5aSx55qE6aOO6Zmp44CCCivlvZPkuK3m
-lq3kvKDovpPmjpLpmJ/ml7bvvIzlj6/ku6XpgJrov4fnoa7kv53noazku7blnKjmk43kvZzns7vn
-u5/lpITnkIbnm7jlhbNJUlHml7blp4vnu4jmnInkvKDovpPpnIDopoHlpITnkIbvvIzmnaXmnIDl
-pKfpmZAKK+W6pueahOmZjeS9jui/meS6m+mjjumZqQorCistIOasp+mYs+WutumTrSBKaWFtaW5n
-IE91eWFuZworICA8amlhbWluZ291eWFuZzEzQGdtYWlsLmNvbT4KLS0gCjIuNTMuMAoK
---000000000000f298db065abc6060--
