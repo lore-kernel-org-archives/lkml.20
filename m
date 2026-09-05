@@ -1,59 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0DE03112AB
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 20:43:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C609A314A83;
+	Sat,  5 Sep 2026 20:44:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788640994; cv=none; b=gpZxc6d8D2rvu92wemY70vPmdVD+s1VmE5efegHz6TRXUFHEXg3ze0t8q/9ikQR8vy98hMAOcy2d7Iv16DNZlC1TwfV1IzOyCxk1Iq9llRLKpjt/RnE96uHRE3rL5iZSdozW3KPoS8UC1jYcXwJxBRqjaBNFRTkk4cVkLlvZpn4=
+	t=1788641087; cv=none; b=XvqeMsJQAZ6TuE67IbLMhn9EjH56a0gvlgYeOUoSHXFiQMkCzFQF8iIerigJIeNOyc9IlHynPkokiyHLFKILfD50l2KHleqnuWYY2Wv4GRY+KjuYVHkB29CgINUsaRmxdeq/anBt66gFOra1Brqbby1Rj1wvKIZuMDneHBleOtg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788640994; c=relaxed/simple;
-	bh=dnYKMk6YjEmdL8gg9bm3PtY0jaS65mXugokEpHlbZDE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=BKe8SNp4KO1elu7zGnLiF8YOYkZx5P1D20lTJitXYwCW0PttWb0kwzj+Mt/W9JU0Ly5xXBoG0fbWG/nA2CG0sd4UXnW22iFIXPtisRwM/jRC5imOaT1RGRFQYgZAX3yPAlz3S0H3na0aiWLqCPeJ+N1R4t+bMqRgxLwoS3WfOUM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KSSLA6ca; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KSSLA6ca"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FDF91F00A3A;
-	Sat,  5 Sep 2026 20:43:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788640992;
-	bh=7raetGH3N/3LsAeqrleG0G72XbGZlhlKaXeKl002SMM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=KSSLA6cagBWsNFHqKbSxI3XKMJ7naUKHWSHgO5B/q5UblKVlJgWv4Q58/SKSUGGgS
-	 WL9GBgMEi0VNMZylYGRzg7IIJal/8tMgPG34iFUP8jtPWLDpmxqXYwVXZzenQbj9DP
-	 3XnHhywSud/wJ71iHofz2Wdj4X2HTz42YXpgdKIannNHo3AfMOS7wgRmcvyW1mGhPL
-	 hkF4zfcxJjn7BMhN9OofGk818logehL96IFivYCKUKyxVeZghIeCF0TGb4PQkIvjFz
-	 yNd48O6LMBym7SC3t6k16ON1uWyt8RlDyu4WFlSeV+c+LZf/AtualGqXXwSbFfgRfw
-	 sqfakdZMGXCvw==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>, thomas.weissschuh@linutronix.de
-Cc: luto@kernel.org, vincenzo.frascino@arm.com,
- david.laight.linux@gmail.com, zhanxusheng@xiaomi.com,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/4] vdso/math64: Use OPTIMIZER_HIDE_VAR() in
- __iter_div_u64_rem()
-In-Reply-To: <20260902033801.2912699-2-zhanxusheng@xiaomi.com>
-References: <20260902033801.2912699-1-zhanxusheng@xiaomi.com>
- <20260902033801.2912699-2-zhanxusheng@xiaomi.com>
-Date: Sat, 05 Sep 2026 22:43:09 +0200
-Message-ID: <87zexv4eg2.ffs@fw13>
+	s=arc-20240116; t=1788641087; c=relaxed/simple;
+	bh=4LzW8lLSjICOYUoYfH/qE6dLKDgYPb2vutHnFbOESbY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fEAc0VP75Icba708em+Wen020yMtny5KvAZaU7Qu7qLX9BIKl7Vz182o302xX43KJ4GznKP8eM1r5QihjJfwONB+agsxiYdKkLcDEd8mZoTaR632dcMlzL8uAinQrx3llaWFq0+zCN6RHXXS6eb1lI917jR5STMTzEerPhLuinw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
+	 (Exim 4.100)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1x2xFV-000000002Pj-2B02;
+	Sat, 05 Sep 2026 20:44:29 +0000
+Date: Sat, 5 Sep 2026 21:44:26 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: "hpp.iscas" <hppiscas@163.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Sam Shih <sam.shih@mediatek.com>
+Subject: Re: [PATCH] clk: mediatek: mt7988-apmixed: Publish the OF module
+ alias
+Message-ID: <apx_Ks4KqoJZgVHd@makrotopia.org>
+References: <20260905133417.64373-1-hppiscas@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260905133417.64373-1-hppiscas@163.com>
 
-On Wed, Sep 02 2026 at 11:37, Zhan Xusheng wrote:
-> The loop subtracts because the quotient is tiny at every caller, and the
+On Sat, Sep 05, 2026 at 09:34:17PM +0800, hpp.iscas wrote:
+> COMMON_CLK_MT7988 is tristate and builds apmixed as a separate object.
+> The apmixed platform driver has an OF match table but exports no OF
+> alias, so that table cannot be used to select the module on a device
+> event.
+> 
+> Publish the table. Keep the existing initialization entry point.
+> 
+> Fixes: 4b4719437d85 ("clk: mediatek: add drivers for MT7988 SoC")
+> Signed-off-by: hpp.iscas <hppiscas@163.com>
 
-Which loop?
+Not sure if this Signed-off-by:-line is ok like that, do I understand
+correctly that 163.com is a freemail provider?
 
-Care to read and follow:
+Other than that
 
-  https://docs.kernel.org/process/maintainer-tip.html#patch-submission-notes
+Reviewed-by: Daniel Golle <daniel@makrotopia.org>
 
-That's not optional.
-
+> ---
+>  drivers/clk/mediatek/clk-mt7988-apmixed.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/clk/mediatek/clk-mt7988-apmixed.c b/drivers/clk/mediatek/clk-mt7988-apmixed.c
+> index 416a4b8..24f4e7b 100644
+> --- a/drivers/clk/mediatek/clk-mt7988-apmixed.c
+> +++ b/drivers/clk/mediatek/clk-mt7988-apmixed.c
+> @@ -75,6 +75,7 @@ static const struct of_device_id of_match_clk_mt7988_apmixed[] = {
+>  	{ .compatible = "mediatek,mt7988-apmixedsys" },
+>  	{ /* sentinel */ }
+>  };
+> +MODULE_DEVICE_TABLE(of, of_match_clk_mt7988_apmixed);
+>  
+>  static int clk_mt7988_apmixed_probe(struct platform_device *pdev)
+>  {
+> 
+> 
