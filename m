@@ -1,101 +1,143 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE26D35B136
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 17:26:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788629216; cv=none; b=EdKa/Ega6FaTcqY8llEXt8IYtSOge0gSeUs4GsdVQbQ9jDJjzWjMwPMjpJ2BBZTe9eV9SyCMJJ1RtD3o/RMrNFIpNXHLRqmMGzbiD+cRtm6kHEEtycEWwULhTT5IrZP8zghqqDoO46zliHv3039bSgiiQvW78ugonIUrULlMjYQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788629216; c=relaxed/simple;
-	bh=gm2GAbU2aapkEro2/HB11RPcZtUVao5xZnpvqLMHfzg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MAIh2MgnkUdqwbE/w2SBDqkPiEXfyA/ZY1V4iWheYqJ4IDZ1glwUqFRcT+a/ZtKTXrqWQCcTsNxBKQVQymlvKb2sSzOZprSvlsoIXowy3MGLE6dMonQCg0ViVszSTneRyLGpgwwL8ePc9poCLeiTx6PftQC9W/NrfEoUoRztTbA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hdoISvfS; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B39AA2931E5
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 17:32:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788629523; cv=pass; b=FW//AwRJLds3WUOWxM5txRoXuW0n0A+3WS+iMlznm2tBSxnzqIUCAeHFUN+qgxuMfXDOetW5ug/RaAkVgnHq/1O0jVrUqPmsRIBv7HI8SW0+jlIy17bhCQMMqCb0lqSAkqT7yVhKujhFlsCBA2b0UocC2+m5Len5HQCVLlbBeiY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788629523; c=relaxed/simple;
+	bh=6SqWxQUNqkycziFg1GQ7wJboenSDKgNq2op/2w7iabM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=o55cOocOp1XLT6KZx5worTPbZRz8Oij4j34rR1IO6LI/T7eoJ8ekDEWh3wyCAiXU3hwYmViDWPRE0/1IlrkFg1sgjqTHbv2jg23FhmDeUzNc8fmXb44TF2qk1fR6w4ZcO1GrSsCR9AvVeOWoox1ApCw3c5Ve9rnqx6jJLKXr5e4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=drax72qJ; arc=pass smtp.client-ip=209.85.218.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hdoISvfS"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-853c07a76adso1996359b3a.0
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 10:26:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="drax72qJ"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c20e70a0962so262763066b.2
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 10:32:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788629520; cv=none;
+        d=google.com; s=arc-20260327;
+        b=D2GGEYC1B6p2kMydSr+bzLXdrROZZwjKKwiGXbCZcypP50yX8FB51jT98wWXokpigR
+         AVMAz2ioF2kbGDaFK4CdP51EenxnBADQPNa9PIAE4kyE4Tl/OY8O2T3QrzDuso1J2G2n
+         UOPNGMW+l6sR1nSo02BrAOuUoANqPhHkBQ+7NO6GUQ1sqYgZ/r9vlS9wQOqwuFaf0ZPo
+         /QrcLnezcm+bxNfFXIc+LCoASSWM7xxZsUsdNjuxA1+/abEAI7tPN+eikY5J2dSKZjuq
+         xk2jxuWen7bhJY/efkZvyXngxHGmdlipcfMk2b8Sdp0W7MTw59MJhFsvKQQrXeCMof/Z
+         yb/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=JOW8XuwLJiAY2FOtXpU6W0erUZewcmKtXhsLrPUNiVE=;
+        fh=Z7HvH3I2GjJi5DCz7UwXkTanVCB1tfwvx129Unk1f78=;
+        b=DRDy5k48eAVYLGwRcg4dK/qUYp+0trmJme20Zt7mf+rTtLLZ+pXTNxUPcOrRx73D8o
+         llENc6+yfT11Vuv3N3tO46gzm7gyNfzMIucnmw2hs8ubSz74YZAWLopoZRILMldhjPGV
+         DDb1pUX5ep28BRrwPH/URYhLGKFb7ycLc0eoQPOKsf076k98y8i66iVWtcQ833y/ugno
+         rAqpwf6/PbEWYSDBPzH+pv7Zdh1LJ9TpMT8TzmaHb7j0xnI3HWNvSKWk3doMIko1KE7B
+         eK1B+qRk8u6YNZvu94bZ3bA2v6cghc9yYXRwYdZDNELqgAwa4RePdG189RZY/c/kjn/3
+         3G+A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788629215; x=1789234015; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gm2GAbU2aapkEro2/HB11RPcZtUVao5xZnpvqLMHfzg=;
-        b=hdoISvfSCNk2wnnkpVJjNfWgUBGLkHJpTmTpaVZrlEmvbSYjqdscDyF65IlEjAuWta
-         XN1UyHxy+AWUAlxhqU0CcsfCXVq5+zL+FQqI3r+hJYl9OLjgwAyo/4/PBQE2W5NuuBhL
-         +i8LBOqt/uSFVpR25jA8GHuYl4gde946O9zg2OgAEqGcFAAmlJKOJgofDAT897Ct+Dwu
-         Wo8B47AhfHazmf1FdmkM8ImD3Ycc4G1Z5OmZmdI4dq4c+RM2A28FOM69/ZfpKCYqZP07
-         Zn2DwTH3CEh36TkvqXnn56RhMSOCN+x1CEAU8/FmcGvddTFuzNm2fldUbeZYMxJ8lHtg
-         LCbQ==
+        d=gmail.com; s=20251104; t=1788629520; x=1789234320; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JOW8XuwLJiAY2FOtXpU6W0erUZewcmKtXhsLrPUNiVE=;
+        b=drax72qJDld6goBKj+BAhYBiU++KNynPrfyhQH0fjgI+VHEaGX9fwmzK8cyG3xTsLJ
+         lWVUmEVg5I5N1tq7rWFmBAHP9tLHXO4n+pQCIV87/ASCr8xrEQDqvvRTVYkPBgnGuM2B
+         Rccdu/5lIIdipKPBH038dGgpqI44AVo4aTQ7gIOMoo9mNJyQJM4RC55f6oNlUYKr2Zkv
+         Yu9Kpzapct8mdb6IcWk/wNoPjMu8pAy1awe4Zuc41O52kI6zlItDlwIPZRdzazbB4dvT
+         I38cbuHVHHpCu4hWbIciTT2TUUyznFB1dXHJuuppt3vJg2LOjrf1EaxQ0FFHP3vnnG6y
+         hy6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788629215; x=1789234015;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gm2GAbU2aapkEro2/HB11RPcZtUVao5xZnpvqLMHfzg=;
-        b=WkuZDM5Njfyn7ytdzLmevZOMKH1s2kaSQMRj2YC+ZCP/tJ7wUUcKP06knK/VqWZlQn
-         867xh5uIx7ccPlBxMkB8nWYbd5fHUC9MQvxdHXoirqgZG5zTKMn1wX2AmTMhfP+nQSYm
-         c1BfjOy+/iR80HsMzgwdinIG4XY2eI4S0BnP0XN49vP57jjwRifEGWfxBFaAbrQHWDmP
-         lSUWhkfKyltIdh9EZ3TdCuZx4SSQX2CqZ8w1lDMKFXsmk790SCsL4fDLEz2/CfyVHbKU
-         mRy4K8VBllRMJr3slSumWAY9X9JLLEfsSevgenGUig63jSj1A+rB7+b16v3Mrk/pTCbi
-         SJ2A==
-X-Forwarded-Encrypted: i=1; AKwUvBz2jpntgCh0LxZvhYlOw3KY4KANJ/Ufy0/epqXzlK7gB918Lu+JSHuVtj6npmJxwixJs+BoVqw/1IGtRaA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nGQHjWPrQZAHg/iTlAfnYoRi/sZTQGw3G6l6wQLAerhBazJ7ZD
-	dxSKXgKl9TZ3oa/tnLT0/Rxpfcg2TTlHMlooLT+kY2MqhuVZZYIWpMg=
-X-Gm-Gg: AYBFou0vJyqmR7JCmxOk6vZjZ+eZRlotuIfae2FLm0SaMQwKkKyCH+ALbgI6w8i+aO5
-	tNwhaJqBRpHmfkQzJanJJqKoyAwD4GH4rDzUAKI5Hn2eXdg1hy6fWQ64+SlZIHiWhU35Ph+QC5z
-	mZ8BDXcJkZCi81XKDsNVa1m05oadVEUyyfZ/zzkVATrneXjwOspj1IgceBxkX1PHeVOXcS/61cV
-	XKuw63olkxHmyLdwyiPTFKJEt6oXIDT6DM9oyFSDjvSxsNVpaSzMg+yDBRZ3o49ALB7frBwnhDJ
-	GDYhI3NnjdeTU8WTpKrdUv5aUTYmp/R4qrIbNKzpRFfDGLIJAhV1hsU29cT2BBZDeq7KffzoO4a
-	cfteeMxRj7SllI7ywiu7zWmGb1GMlwac7ku+Rqpq+CBvBL/P2fQBAH6oDNE9+4FuT85AkqHB3WT
-	Kq53zLpD1lm1j1nv+MrjGOkELhWKE36T6KwcfbznIA6iCihwt/Wj9+o0O9JdBDxaR/4U83WQGYY
-	3p/QIyM4OUjJHE=
-X-Received: by 2002:a05:6a00:328f:b0:848:77b3:579a with SMTP id d2e1a72fcca58-86168b8a898mr19041449b3a.17.1788629214993;
-        Sat, 05 Sep 2026 10:26:54 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([211.230.25.193])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc465376831sm1061373a12.9.2026.09.05.10.26.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 10:26:54 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: Sean Anderson <sean.anderson@linux.dev>
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Subject: Re: [PATCH] dma-mapping: don't trace the DMA address when the allocation fails
-Date: Sun,  6 Sep 2026 02:26:50 +0900
-Message-ID: <20260905172650.158565-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <568a4f04-e0db-342a-13a8-886cf6b2a8ab@linux.dev>
-References: <20260905071919.30784-1-donggeunyoo.kernel@gmail.com> <568a4f04-e0db-342a-13a8-886cf6b2a8ab@linux.dev>
+        d=1e100.net; s=20251104; t=1788629520; x=1789234320;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=JOW8XuwLJiAY2FOtXpU6W0erUZewcmKtXhsLrPUNiVE=;
+        b=OaLL6n1aXRosMHY2QgBwMVe44IZy/AQllFgnSh7rthol93teuRFyuoAP0IcpmKIAI6
+         Ypt1YmIYg2Ao39lonGAoWlAuGP28RZDiadH0sYb37kB/BFyEb3fghugIwOXnFBurRsq9
+         1s+waDWBhPt2cqlIkchz8wEv4cW3YY+W2MvCc58sVRvrDRn0xn6BXNkw2cmfPoaQbWFk
+         QfFh8OhtYPai2EhOr5clyS+oM194i9P1Ic2nVaxDTNRFUkLZx5Smg65FzDKLiqPm0AKe
+         +LW2aUHrrKrpH2sG84HqPVyOX83emoOhrjdGGQl0pmmH43MV3rBz9TYSVlgPlzac7O9V
+         FEnw==
+X-Forwarded-Encrypted: i=1; AKwUvBxCfUhMfwbsYEjiPIIGI8zpJ3zL7QLXbAsWY0lANmSQQJd35ie/T7PnjX/gR1bwhU8/7sgTVP73uBm6D+Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++kcpxzz+5XrJYauzIkZ8go/AuzN8jOY3+E0QX1KWsOGBI/Oq0Vt
+	5D3b/Zlm4mdW4USYWPQOEjUeuPqw2TKfY1fJivZiBKEK51OPbUCmv3Vn44O9Do2+5JY5QY5m0+X
+	q361ja42xsSSjax8ItBKywsZA0vO0pu4=
+X-Gm-Gg: AYBFou3qyovtbnkINc/SwsRu7WTGbLoYqpFDQlCnl2ii1U26aJpmfJhSK5M43icjfiH
+	iqYij0UyWYK6tgnDEI2iczdySgQ8eHjsvmQ0Hwc5vyHsmqCbObhQcnB8HllJmTaULX/2/iDU14l
+	FB0UBZ8hsLVrcd19FK+/Oc1Nk6oB5eRwrwlZDeeLe2p764H8jPilfI3QRyh5BA19PBGq9/c9lx2
+	DsoCr8t6nu3YiZhvJ+0oSmeCgmQc/zTBaqenCrNWqljm3Akr1223NB/WEjjEHHF3MQWxYI2wlmu
+	UY7O/sDWeMpNgeTtb6vKec9DTKJDEQS/qDpPAJ+BFCBrUT1JZwP4BrDiE4YKe1rLvKMDoEjkUrS
+	PXUk=
+X-Received: by 2002:a17:907:c16:b0:c25:2d27:5652 with SMTP id
+ a640c23a62f3a-c260c9d1affmr910733066b.11.1788629519742; Sat, 05 Sep 2026
+ 10:31:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260906-mglru-flags-cleanup-v6-0-9aacbd77d4ca@tencent.com> <20260906-mglru-flags-cleanup-v6-2-9aacbd77d4ca@tencent.com>
+In-Reply-To: <20260906-mglru-flags-cleanup-v6-2-9aacbd77d4ca@tencent.com>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Sun, 6 Sep 2026 01:31:22 +0800
+X-Gm-Features: AcwNN1W6XiAA7KV5jUk181yU-Mg2q-AQY3I1lcI5rPzfroqnvUHhwkCK3HoP1Y0
+Message-ID: <CAMgjq7DTmBQU4D95J2ur2CUYPohx1ychRV=vKvLjR78tNFJwOg@mail.gmail.com>
+Subject: Re: [PATCH v6 2/6] mm/mglru: introduce helpers for manipulating gen
+ and refs flags
+To: kasong@tencent.com
+Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
+	Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Chris Li <chrisl@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Ridong Chen <ridong.chen@linux.dev>, Lian Wang <lianux.mm@gmail.com>, Yu Zhao <yuzhao@google.com>, 
+	Zi Yan <ziy@nvidia.com>, Qi Zheng <qi.zheng@linux.dev>, cgroups@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/5/26 08:57, Sean Anderson wrote:
-> I don't understand what you mean. We are literally in an if-statement
-> that checks whether the allocation succeeded.
+Sashiko reports (please ignore, false positive):
 
-That if checks whether the device has a coherent pool, not whether the
-allocation out of it worked. dma_alloc_from_dev_coherent():
+commit b3b2fc9d5285717c3d36754aee77477780b76245
+Author: Kairui Song <kasong@tencent.com>
 
- * Returns 0 if dma_alloc_coherent should continue with allocating from
- * generic memory areas, or !0 if dma_alloc_coherent should return @ret.
+mm/mglru: introduce helpers for manipulating gen and refs flags
 
-It returns 1 as soon as it finds a pool; __dma_alloc_from_coherent()
-stores NULL in @ret and leaves *dma_handle alone when the request is
-larger than the pool or the pool is full. The third paragraph of the
-commit message says this.
+This commit introduces helpers for adjusting a folio's refs and generation
+info instead of performing bit operations directly on folio flags. It
+splits some combined atomic operations into two without intended functional
+changes.
 
-The second hunk is under no condition at all: dma_direct_alloc(),
-iommu_dma_alloc() and ops->alloc() return NULL on failure, and the trace
-below the if/else chain runs either way.
+> diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
+> --- a/include/linux/mm_inline.h
+> +++ b/include/linux/mm_inline.h
+[ ... ]
+> @@ -270,7 +339,7 @@ static inline bool lru_gen_add_folio(struct lruvec *lruvec, struct folio *folio,
+>   gen = lru_gen_from_seq(seq);
+>   flags = (gen + 1UL) << LRU_GEN_PGOFF;
+>   /* see the comment on MIN_NR_GENS about PG_active */
+> - set_mask_bits(&folio->flags.f, LRU_GEN_MASK | BIT(PG_active), flags);
+> + set_mask_bits(folio_flags(folio, 0), LRU_GEN_MASK | BIT(PG_active), flags);
+
+This isn't a bug introduced by this patch, but does lru_gen_add_folio()
+fail to clear LRU_REFS_FLAGS when updating the LRU generation mask here?
+
+When an isolated folio is added back to the LRU using lru_gen_add_folio(),
+its generation is updated but the stale LRU_REFS_FLAGS are retained.
+Stale tier bits can inflate access counts and severely distort eviction
+decisions, defeating the purpose of the multi-gen LRU tier tracking.
+
+===
+
+As it said, it's not a bug introduced by this patch, and I don't think
+it is an existing bug either, lru_gen_add_folio isn't suppose to clear
+the refs flags, or we might under counted refs or workingset.
