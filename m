@@ -1,129 +1,128 @@
-Received: from gate2.alliedtelesis.co.nz (gate2.alliedtelesis.co.nz [202.36.163.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F613403F2
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 05:09:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.36.163.20
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788584951; cv=none; b=UNe1+quBod+9wDxebYMj8HUkIeCBkU/5bzKcyUlqBudcBnvYrzSfPMiXXbpFuHVgXv1Cb0944ggJaNNvE/hctHzjt5IokOX3VyKrBGyuMTZyNkFWQKuYUSt1zlc1KRi2gvmA18HagT+6dky+eKx8ZoK3I4ks4lwntdIFJUGEUPg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788584951; c=relaxed/simple;
-	bh=6rWlbDJFag2xG3H5cPnaDgqlUQ6IGyzfSlpMt65jL4w=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=B3hgRADypfXpoBmDWeXBVGlrn0gciZVxyBKPLOhBiAAmXgcFSXhDmBIkF+8E0NLChLMZzRrrwPuZ6BC0EZTf2GYPrmVaaneisDIWeSs5A+TRhSLzQmngg/X8z8UZT+S4AfMrTGjDmBCq59FWtVkztOiucbCk6Wxe/fWRZW+X2vo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz; spf=pass smtp.mailfrom=alliedtelesis.co.nz; dkim=pass (2048-bit key) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.b=W7FnTplK; arc=none smtp.client-ip=202.36.163.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alliedtelesis.co.nz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CBC635DA64
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 05:11:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788585070; cv=pass; b=LHfv4I4zqLAZxnjbtE/f3jBk9VjY4l1rlIl5lWLTmofz/tYPPQN9AMjRoUbHkP2hIjgrf1tu/Tp0QdVdKpB0EZpdmfopYiAiEuZpiOj8AxpL9iSlEk5UE0UZMSYHSsB3UOiIMkdylWn3vIzpoMfegOc+PWUKAUxJFcPzya3GQRI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788585070; c=relaxed/simple;
+	bh=fhG4nXFbkT+J9F0H9mpjkaytKCMY/uVxDVHhPpBelN4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fvV/PNOvbcWXBjSQo6zt+bv7gukpV59iTLy2m2vugAAY5GAqEhXClcGUsHfMmrKZmNvbAQPk0flWxCCC1Q/yLk3YTHaicUlNXSVOs6xzRlSd3oqjo55UamtJh2LtIRd5yMLIWolb0n5zC7Qhcz1zOziEcWYV7Y7k0q9bmr+z7z8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=RRiJ67W7; arc=pass smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.b="W7FnTplK"
-Received: from svr-chch-seg1.atlnz.lc (mmarshal3.atlnz.lc [10.32.18.43])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by gate2.alliedtelesis.co.nz (Postfix) with ESMTPS id 91DDB2C0362;
-	Sat,  5 Sep 2026 17:09:00 +1200 (NZST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alliedtelesis.co.nz;
-	s=mail181024; t=1788584940;
-	bh=6rWlbDJFag2xG3H5cPnaDgqlUQ6IGyzfSlpMt65jL4w=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:Reply-To:From;
-	b=W7FnTplKxwQjt/tjjT1quH7aknJVwLZLVJjJJU3NfqvusVavts5nTICH0802DIZWf
-	 ylOMU75XDZ5NCkKVIXtPkto+OcroVa9JFnkDPPjaMinYPn13158VoyXIybXEPXNgs6
-	 L5bF9ejqNG/TrzcRpL4b3g4t7mHSuovDk1Mg8gRBDW+Qcz+lWonT72S13pnhAzI6gC
-	 I8WIPjOKyUor4/K5w5QRhkDM40oZKjjvlZsgXchguwTH9k0qM1M8RI1xx6B6SeAu3Y
-	 rriXoyiELb41G4b31HDPoz/vD0v+Vqq1EzZXiVE0emSDlI/J7k/5jDgkF17xqvXsQw
-	 QzMraJyeH54JA==
-Received: from svr-chch-ex2.atlnz.lc (Not Verified[2001:df5:b000:bc8::76]) by svr-chch-seg1.atlnz.lc with Trustwave SEG (v8,2,6,11305)
-	id <B6a9ba3ec0001>; Sat, 05 Sep 2026 17:09:00 +1200
-Received: from svr-chch-ex2.atlnz.lc (2001:df5:b000:bc8:f753:6de:11c0:a008) by
- svr-chch-ex2.atlnz.lc (2001:df5:b000:bc8:f753:6de:11c0:a008) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.39; Sat, 5 Sep 2026 17:09:00 +1200
-Received: from svr-chch-ex2.atlnz.lc ([fe80::a9eb:c9b7:8b52:9567]) by
- svr-chch-ex2.atlnz.lc ([fe80::a9eb:c9b7:8b52:9567%15]) with mapi id
- 15.02.1748.039; Sat, 5 Sep 2026 17:09:00 +1200
-From: Aryan Srivastava <Aryan.Srivastava@alliedtelesis.co.nz>
-To: Guenter Roeck <linux@roeck-us.net>
-CC: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v0 1/2] hwmon: pmbus: Fix vout_mode parsing
-Thread-Topic: [PATCH v0 1/2] hwmon: pmbus: Fix vout_mode parsing
-Thread-Index: AQHdPAfdXeryQ3ldDEu0QhDXxTqLO7a9vCGAgADr9oA=
-Date: Sat, 5 Sep 2026 05:09:00 +0000
-Message-ID: <201ff34f-98b0-4f8a-a15b-0e6d82d1f19e@alliedtelesis.co.nz>
-References: <20260904005351.2136374-1-aryan.srivastava@alliedtelesis.co.nz>
- <20260904005351.2136374-2-aryan.srivastava@alliedtelesis.co.nz>
- <f52af5ef-2cf3-480e-9e71-735b7514b9c9@roeck-us.net>
-In-Reply-To: <f52af5ef-2cf3-480e-9e71-735b7514b9c9@roeck-us.net>
-Reply-To: "f52af5ef-2cf3-480e-9e71-735b7514b9c9@roeck-us.net"
-	<f52af5ef-2cf3-480e-9e71-735b7514b9c9@roeck-us.net>
-Accept-Language: en-US, en-NZ
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <AD3642C51399C74FBC1D74C3A4F79FC6@alliedtelesis.co.nz>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="RRiJ67W7"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc1cbb64a1fso1745402a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 22:11:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788585066; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bT3B1QST7rz1X/+3VUGXARjWWlLVVe/QdtJXVMtu/nd9EHkYt9/5pefFNV2jZOb2pS
+         GZGgkM6U8n1YzX9Jb3CB03rM5Br5FE+2o+N5XVPhQGs1YkH8TKoG8+sZb/7STNdK6KL5
+         /9xIxkyG8vzazd83gKLxkpjBtOceDLcPia3gdXJCGEM3MlezgQAm57GljNniWPf0tJHa
+         BVANG51rM4kbNBblWv0UAWiJdg9BYl7fWB0365FSHOWT9RFwSjEthdusUb7peJdsrH9a
+         eC2MG998+BqPTIKPkLUdiqWrkxfVN3sJmpwIkbh8UXB1+oNHFraY/pr7hgW1Ws/ClRf3
+         CF4w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=fhG4nXFbkT+J9F0H9mpjkaytKCMY/uVxDVHhPpBelN4=;
+        fh=yxNWnSdux0TwELYqfPWJ+Vm2nEkz100oDyyTqH+z0D8=;
+        b=nVjwg+VlHKET6DqysZLs3oWuIkavx8+s6g8ZrTBjHmaNLoHKskbOVmsDODvRWzfPDc
+         xNMtTFh6B0Elw0DtXnybhVCdswTZA9tA9PPUjRZo+u0aldYVZCeDI6w4LwTVHaBsKZAE
+         C/rAWc2BR6zFGEKVDEXXGyMGLrBPSNIPY5+hEb73hKSIeASiWEhG2shXrImXwyzUX4Bz
+         xYlqAPfs6R9ZWQqK6pcsFl4ksUOi5efxvzT+atSorKkxt87ik9unPXI79zk56fIi1Fz4
+         5RdY4MBmpl1dl7U157kGEWOVXWuYBIOzWjsPgG9gl353IxEhoNGy+PzSb1/QhnhiHvAu
+         djLg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788585066; x=1789189866; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fhG4nXFbkT+J9F0H9mpjkaytKCMY/uVxDVHhPpBelN4=;
+        b=RRiJ67W7REQTt//CZU78ne+RG9IbU0wh/ihLavLbVe2n7ZZ9DMcCY6gHSUn7ieWTZt
+         crmGmsCMnw1ZN46N+2QR395CQqQioyzJ4ZQxnkEyLME5DnnviR3YYn+CxZwHOcCLFlnD
+         9acK3IpPqEaj/uTJMTnD/tt2EAzfEmCOy1DCx5kb2dj0QAy/ClOZeFobhHLLB9lUEfqa
+         x9t46G97ptzUIWW4Ge6K02q+tw7NF7uqR6ArkE12FsKTLdUJUZIU61ukgFiuF/NI1tQn
+         yKvegQY8rz2pRnZ/M9PjAxYG+xlSMwBjbDjYcKeZpMK4kQcepNTaUGCY+qUkv3dotmrb
+         9lZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788585066; x=1789189866;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fhG4nXFbkT+J9F0H9mpjkaytKCMY/uVxDVHhPpBelN4=;
+        b=LtfD1shGHEMc0lWEtVjmjYRDFHamk/Yz1TfqF+IJdXYS57cE/QyNckzaq5ZVKmz27E
+         4nc0MlCKG8j+MySprlit/2w+K0Ocst602Z+MOcSK6ekYYguqlPgPK0MGdd7JhkVssWzJ
+         0VrEjro8e79UAH3x3u2ZSYMTuxAcew8WCuoVAglZPYUKNDXgvjRwKCddtexjvTKSNNe0
+         dIYOPD+ciBbFxQWabe2h2oTsckLV9SSFX2WqmXk5LP61CHmFnMU08+pD30N0Yyd+nfhM
+         dQEmklOIvsByaVl/jhYBswWynQP9BL6UodcgEOaXRHdPd1G+Mb6w5bffMqHhLl1i0VIM
+         7H7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwazB0puXbQWmL1i31tb2gdo4k+Yv16PV19B/3VFLh09yLijoyLGsmQg1HAKDUuYbz0M21ZI7G6K3aFM/k=@vger.kernel.org
+X-Gm-Message-State: AFuF++k4nw9Q3GDyAqFxPX/7I5abxdNNR1GRsPnAx8VUa+/gzlbcQIri
+	zOp9ifoJD29HfJOW9t1nAvfAnNGym8L9r/QkIpuSBi6uMLue15uBaF2mfxt13uXa6lxD4I51hJw
+	CmKFxMK7YRXH9Ftz61jzUXolMNmHKxAWnc9pvZ/Vo
+X-Gm-Gg: AYBFou2z174/4RA5kRioDDgUzgqoj9dp1P3ZvEsycDNtmYUEVoW1Fe03CNmHjLqvEo3
+	Itygq9tqMr39FSatUDt7n70PkNuGYasbiQ9bCw0sPXI0mWYWCvNERlBNZUEZURGPNR7+ZqhKAOL
+	xgsNnuZ94wDPm4TAoTrVnA5SqlGtoAZVdtfgGA/sS5mnWXM9NBZNMp3bpJogzadwQoWlVXRMdhR
+	Hpa7/DgamOyVBzjfP4fMSYvs0pv/GfZh26PiFatlr70Lhuarc6qQuVnLXiMB/HXxxmjrEpZxhrS
+	nU0Jfjn/DY2HDE4/ZaV2+spXT9SWwNLyhUDwASpL2rSevfgoQzDE0pdyS0sK+SZq3cZeliAqA0F
+	J6hRudyewIc80SpsGe7NX4d3GIciPm3B+RDBU0XZI3gX9N4xLuMCgPZQaTLQ2xrsGxjCV4SaHgH
+	yzLXqvDYENsyB/VMur/H5l5JQ=
+X-Received: by 2002:a17:90b:4c41:b0:398:9bd5:490e with SMTP id
+ 98e67ed59e1d1-39b2623ac0fmr14663530a91.21.1788585065754; Fri, 04 Sep 2026
+ 22:11:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SEG-SpamProfiler-Analysis: v=2.4 cv=CKmJXgrD c=1 sm=1 tr=0 ts=6a9ba3ec a=Xf/6aR1Nyvzi7BryhOrcLQ==:117 a=xqWC_Br6kY4A:10 a=oKJsc7D3gJEA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=62ntRvTiAAAA:8 a=VwQbUJbxAAAA:8 a=pjqE3aksAAAA:8 a=vy6WobZbp4477RDcuxoA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=pToNdpNmrtiFLRE6bQ9Z:22 a=JJ78nBxWC37LRl2_MMt9:22
-X-SEG-SpamProfiler-Score: 0
+References: <20260902073334.397685-1-ruanjinjie@huawei.com> <20260902073334.397685-3-ruanjinjie@huawei.com>
+In-Reply-To: <20260902073334.397685-3-ruanjinjie@huawei.com>
+From: Kuniyuki Iwashima <kuniyu@google.com>
+Date: Fri, 4 Sep 2026 22:10:54 -0700
+X-Gm-Features: AcwNN1U1mXJm-r99X5J4Z_vJiviQxDJYtqkupNfbLgXgGVTAVmVPzGaxcB3pd14
+Message-ID: <CAAVpQUA_75Gj_=EwGp4-ENU0wHLjBEn+OCPg6OEUqy2TTXBnPA@mail.gmail.com>
+Subject: Re: [PATCH net-next v3 2/2] 8021q: publish vlan_devices_arrays
+ entries with acquire/release
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
+	pabeni@redhat.com, horms@kernel.org, nb@tipi-net.de, sdf@fomichev.me, 
+	liuhangbin@gmail.com, da-x@monatomic.org, jeff@garzik.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-T24gMDUvMDkvMjAyNiAzOjA0IEFNLCBHdWVudGVyIFJvZWNrIHdyb3RlOg0KPiBPbiA5LzMvMjYg
-MTc6NTMsIEFyeWFuIFNyaXZhc3RhdmEgd3JvdGU6DQo+PiBDdXJyZW50bHkgdGhpcyBwYXJzaW5n
-IGFzc3VtZXMgdGhlIHRvcC1tb3N0IGJpdCBvZiB0aGUgcmVnaXN0ZXIgaXMNCj4+IHVuc2V0LCBh
-bGxvd2luZyBpdCB0byBtYXRjaCBhZ2FpbnN0IGFsbCAyYml0IG51bWJlcnMuIEluIHRoZSBjYXNl
-IHdoZXJlDQo+PiB0aGUgdG9wIGJpdCBpcyBzZXQsIHRoZSBwYXJzaW5nIGZhaWxzIGFzIHRoZSBl
-eHRyYWN0ZWQgdmFsdWUgaXMgYWx3YXlzIGENCj4+IDMgYml0IG51bWJlci4NCj4+DQo+PiBBTkQg
-dGhlIHJlYWQgdmFsdWUgYWZ0ZXIgdGhlIGJpdCBzaGlmdCB0byBlbnN1cmUgb25seSAyIGJpdHMg
-YXJlIGJlaW5nDQo+PiBwYXJzZWQgb3V0Lg0KPj4NCj4gDQo+IFRoaXMgaXNuJ3QgdGhhdCBlYXN5
-LiBCaXQgNyBpcyBmb3IgInJlbGF0aXZlIG1vZGUiIHN0YXJ0aW5nIHdpdGgNCj4gUE1CdXMgdjEu
-My4gUmVsYXRpdmUgbW9kZSBpcyBub3QgY3VycmVudGx5IHN1cHBvcnRlZCBieSB0aGUgZHJpdmVy
-LA0KPiBhbmQgaWdub3JpbmcgdGhlIGJpdCBjb3VsZCBwb3RlbnRpYWxseSBiZSBmYXRhbC4NCj4g
-DQo+IEEgcGF0Y2ggYWRkaW5nIHN1cHBvcnQgZm9yIGl0IHdhcyBzdWJtaXR0ZWQgYSB3aGlsZSBh
-Z28uDQo+IGh0dHBzOi8vc2Nhbm1haWwudHJ1c3R3YXZlLmNvbS8/Yz0yMDk4OCZkPWg5NmE2dGI3
-R3RNMmFGYThSOXRBZnZGM2l0Rk1ZSFF6Y0tMQjhaSzRrQSZ1PWh0dHBzJTNhJTJmJTJmcGF0Y2h3
-b3JrJTJla2VybmVsJTJlb3JnJTJmcHJvamVjdCUyZmxpbnV4LWh3bW9uJTJmcGF0Y2glMmYyMDI0
-MDMxNTE1MTg1NSUyZTM3NzYyNy0yLWxhcnMlMmVwZXR0ZXIlMmVtb3N0YWQlNDBhcHBlYXIlMmVu
-ZXQlMmYNCj4gVW5mb3J0dW5hdGVseSBJIG5ldmVyIGdvdCB0byB0ZXN0IGl0LiBUaGlzIG9yIHNv
-bWV0aGluZyBzaW1pbGFyIHdpbGwNCj4gYmUgbmVlZGVkLiBBZ2Fpbiwgd2UgY2FuIG5vdCBqdXN0
-IGlnbm9yZSB0aGUgInJlbGF0aXZlIG1vZGUiIGJpdC4NCj4gDQo+IFRoYW5rcywNCj4gR3VlbnRl
-cg0KDQpIaSBHdWVudGVyLA0KDQpUaGFuayB5b3UgZm9yIHlvdXIgcmVwbHkuIEkgYWdyZWUgc2lt
-cGx5IGlnbm9yaW5nIHRoZSB0b3AgYml0IGlzIG5vdCBhbiBvcHRpb24uDQpNeSBpbml0aWFsIHBh
-dGNoIHdhcyBzaG9ydC1zaWdodGVkLg0KDQpJIHdpbGwgdGVzdCB0aGUgYWJvdmUgcGF0Y2ggb24g
-bXkgSFcuIEkgYWxzbyBsb29rZWQgaW50byB0aGUgZHJpdmVyIGZvciB0aGUgDQp0cHM1NDZkMjQs
-IGJ1dCBvbiB0aGUgdHBzNTQ2ZTI1IChteSBIVykgdGhlIHJlbGF0aXZlIG1vZGUgYml0IGlzIHJl
-YWQgb25seS4NCg0KVGhhbmtzLA0KQXJ5YW4uDQo+PiBTaWduZWQtb2ZmLWJ5OiBBcnlhbiBTcml2
-YXN0YXZhIDxhcnlhbi5zcml2YXN0YXZhQGFsbGllZHRlbGVzaXMuY28ubno+DQo+PiAtLS0NCj4+
-IMKgIGRyaXZlcnMvaHdtb24vcG1idXMvcG1idXMuY8KgwqDCoMKgwqAgfCAyICstDQo+PiDCoCBk
-cml2ZXJzL2h3bW9uL3BtYnVzL3BtYnVzX2NvcmUuYyB8IDIgKy0NCj4+IMKgIDIgZmlsZXMgY2hh
-bmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQ0KPj4NCj4+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2h3bW9uL3BtYnVzL3BtYnVzLmMgYi9kcml2ZXJzL2h3bW9uL3BtYnVzL3BtYnVz
-LmMNCj4+IGluZGV4IDdhN2VhYzkwZDYyZS4uYjYyOWFjYmZmYmZiIDEwMDY0NA0KPj4gLS0tIGEv
-ZHJpdmVycy9od21vbi9wbWJ1cy9wbWJ1cy5jDQo+PiArKysgYi9kcml2ZXJzL2h3bW9uL3BtYnVz
-L3BtYnVzLmMNCj4+IEBAIC0xMjEsNyArMTIxLDcgQEAgc3RhdGljIGludCBwbWJ1c19pZGVudGlm
-eShzdHJ1Y3QgaTJjX2NsaWVudCAqY2xpZW50LA0KPj4gwqAgwqDCoMKgwqDCoMKgwqDCoMKgIHZv
-dXRfbW9kZSA9IHBtYnVzX3JlYWRfYnl0ZV9kYXRhKGNsaWVudCwgMCwgUE1CVVNfVk9VVF9NT0RF
-KTsNCj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAodm91dF9tb2RlID49IDAgJiYgdm91dF9tb2Rl
-ICE9IDB4ZmYpIHsNCj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN3aXRjaCAodm91dF9tb2Rl
-ID4+IDUpIHsNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN3aXRjaCAoKHZvdXRfbW9kZSA+
-PiA1KSAmIDB4Mykgew0KPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY2FzZSAwOg0KPj4g
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBicmVhazsNCj4+IMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIGNhc2UgMToNCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2h3bW9uL3Bt
-YnVzL3BtYnVzX2NvcmUuYyBiL2RyaXZlcnMvaHdtb24vcG1idXMvcG1idXNfY29yZS5jDQo+PiBp
-bmRleCA1ZjY5YzE0MjBiNGUuLjU1MzkxZGI1YjQxNCAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMv
-aHdtb24vcG1idXMvcG1idXNfY29yZS5jDQo+PiArKysgYi9kcml2ZXJzL2h3bW9uL3BtYnVzL3Bt
-YnVzX2NvcmUuYw0KPj4gQEAgLTI3NTMsNyArMjc1Myw3IEBAIHN0YXRpYyBpbnQgcG1idXNfaWRl
-bnRpZnlfY29tbW9uKHN0cnVjdCBpMmNfY2xpZW50ICpjbGllbnQsDQo+PiDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCAqIE5vdCBhbGwgY2hpcHMgc3VwcG9ydCB0aGUgVk9VVF9NT0RFIGNvbW1hbmQsDQo+
-PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCAqIHNvIGEgZmFpbHVyZSB0byByZWFkIGl0IGlzIG5vdCBh
-biBlcnJvci4NCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgICovDQo+PiAtwqDCoMKgwqDCoMKgwqAg
-c3dpdGNoICh2b3V0X21vZGUgPj4gNSkgew0KPj4gK8KgwqDCoMKgwqDCoMKgIHN3aXRjaCAoKHZv
-dXRfbW9kZSA+PiA1KSAmIDB4Mykgew0KPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGNhc2UgMDrCoMKg
-wqAgLyogbGluZWFyIG1vZGXCoMKgwqDCoMKgICovDQo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCBpZiAoZGF0YS0+aW5mby0+Zm9ybWF0W1BTQ19WT0xUQUdFX09VVF0gIT0gbGluZWFyKQ0K
-Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVOT0RFVjsNCj4g
-DQo=
+On Wed, Sep 2, 2026 at 12:32=E2=80=AFAM Jinjie Ruan <ruanjinjie@huawei.com>=
+ wrote:
+>
+> Replace the smp_wmb()/smp_rmb() barrier pair with
+> smp_store_release()/smp_load_acquire() on
+> vg->vlan_devices_arrays[pidx][vidx].
+>
+> vlan_group_prealloc_vid() publishes the array pointer via release;
+> __vlan_group_get_device() acquires it before accessing the array,
+> ensuring the allocated entries are visible.
+>
+> No functional change intended.
+>
+> Cc: "David S. Miller" <davem@davemloft.net>
+> Cc: Eric Dumazet <edumazet@google.com>
+> Cc: Jakub Kicinski <kuba@kernel.org>
+> Cc: Paolo Abeni <pabeni@redhat.com>
+> Cc: Simon Horman <horms@kernel.org>
+> Cc: Nicolai Buchwitz <nb@tipi-net.de>
+> Cc: Stanislav Fomichev <sdf@fomichev.me>
+> Cc: Hangbin Liu <liuhangbin@gmail.com>
+> Cc: Kuniyuki Iwashima <kuniyu@google.com>
+> Assisted-by: DeepSeek:DeepSeek-V3
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
