@@ -1,65 +1,65 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED7B848EBFC
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:21:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C90D389E1A
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:21:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788621685; cv=none; b=tuqWyCPhCr9xlNQP9uCpbZllkC1pF8tiSiJ6UvX052e6pMmsDwQQ+8FiuiYhVgYZO2Aa/FLOG+spwSYOnQS3UjjPAqPp4TqShLD3yUCig4uRPWOEv4GJa+XFaPnbWuqUQmofL4AvaGK3Db/dJWGj6fxeWy7H8fsolaNljV9NB64=
+	t=1788621687; cv=none; b=hWtin6N64ZX/7RoTgH22t5lEbB41iW1tGQYDhH2HNeqBAg4B656vFR9ElW8XJd2UjKv34Q6MR/4Fgk8DZZ8t2BqFUBeLhq3erDfh3NRC28pM8JULUA+H52NiKcV60ne+9mI9Kqrr3QtGiYimXe7E26Bv5x63MaqIlznfPPyvF6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788621685; c=relaxed/simple;
-	bh=o5w8meMgR85hvsqu/UmribMxya6NB2BOgGgde6W9CO0=;
+	s=arc-20240116; t=1788621687; c=relaxed/simple;
+	bh=jI2gGbzI+HUajhKyE8y1MbUEO4Zymfd1MC5nDoUrAZw=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=oUbF/iZ9xx6f1MJSJT8BEfEp3vBS+/QAPuJpXDObcqx13VmUrd/ilF3tlA3PeivUFN27ZlJz3LkeWzqv9QBQbQgEIAC3TJwXMx0BtFgqarIOWbNcT1jEzXlk4Lms3Fo7nkGzHqZELZv06l9EH2h4fgDtuGXW8LtMXyThSbIwLsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NbvhTyH7; arc=none smtp.client-ip=209.85.128.54
+	 MIME-Version; b=Gr3ZwjAiB5PRiHHEepVBJP+rU39Mt38BPdMiJ6q94H4scC+3diD2R+AgOg7SQkTOUxLJ4zntnewdvhyfuP1/Dt5hWXO/5TR69EBGIa2LuZNbWw1spfSquk/DX8HGmxosP7a/mT5lzKpdnPnVpaj02oPkj+x56oP1ES4HA3xrVME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qFXtyyGo; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NbvhTyH7"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49cd9add88aso14600485e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 08:21:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qFXtyyGo"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49b965570d7so23706935e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 08:21:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788621677; x=1789226477; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788621681; x=1789226481; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tpulPZddhuPwIKcjBWNAE6zpuXjOxSBLaTnXCz35ckk=;
-        b=NbvhTyH7qp1LqFtym4BpLZ6lCm0AN4zXFSMecOiTNDnWkmNZyNxgt+rx5TUMde4X/T
-         ZBxh28b48bjrbBKTfbWwxcw9Mtkww//VhWq4IJ5N+3fwFhdUEtkdnMYm1OjGJwbrAqnS
-         qqOMaKRsJdAYslhnqmMYUN1RIInA6xqpj5CZyvSTnS7B82xtYQoPfEQKEXB9I0uSMcWl
-         SMHJLxWUataM6blAR9dXtKAP1VQPzlw9rsg2o8vF9aQ/8v/muU06wsYN7yOVmKJBOcLb
-         7i6GqX3xcQ09G+dO+J8QGocTEN+DX3gbNV1NUL7gxyev1Sglc+J3bRp4ZTbJki733GL+
-         Eeew==
+        bh=Mqo0BMx1ifj9a2kCuZrCJMvmSnufIkatqKGeQLf7b/s=;
+        b=qFXtyyGoJs5rHpXjQFSVCdscc8B1IjaAIJKlgWg3Q/fFWuEVFc0/SgQUtx32CDtJ88
+         okSfUNnQg76FWheoT0eWdWNdN+wfuk1fRK4BZt2Uk4F1WDTFVRXKz5wyY/UHPlDVC5H8
+         CDfAstFm+wutQxh514nLe+IVZW91HvGrPlJcyg8myWGi5pa9DFnuQMiLgvh8fE40+M/8
+         eWqqhIZx6gXmPOXGQVFgXWxUsRp4fPHlYQHCuyGSWoXMSSSTPumeXx7sbT57dTRSt4Jt
+         U/gCaFRGcz2rI0inTgS1xAtxfXjv2D/CF/JXq6xvIb7Shd19bh/v0gnFtV5pAi1ss+F+
+         oS2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788621677; x=1789226477;
+        d=1e100.net; s=20251104; t=1788621681; x=1789226481;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tpulPZddhuPwIKcjBWNAE6zpuXjOxSBLaTnXCz35ckk=;
-        b=A1CJDwF4IgdnXoWvB/b4KD0D4g3L6yzfN00Pi+/RderA3G4c2JkykcKLzXGnoIxPDY
-         8eFnlTpWCTy/56xS98nhqBurSb4JCd3hCcAViJxU/6NNm3ItlLIQvkVOKnI1P8l9OG6p
-         b/LBQztlIH1q5I9ivnzwUEN3BomeZzfcM4aNjrpwEfqrVJv5f5JviyF6ugYXQQCPpjmb
-         AVTODe1ANVMEv6mNEiFEnqDbf8+An8GUypIb9XVSS2ZciKS4qbyHUp/IQ1/mF/7SVY7o
-         Ygr/3ZNI4KTpwkV4WSyMPRUDSFtlzzOzaq+NzDNkG3eNtG+Gv79SWxLtEKOGLiwr/G1v
-         qnnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwes+y4xxfmWd8TcTmJ4FLXsFpgCnlZrEEfKhUixSxyPIkY7yQTel+69XPIzONdx3I3uOam2Hf6xu8gPoQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++n9KtZPAFcyz1rc5hKnmF+E/bQJUc9M4j2c9guJYck5JgiWsQpo
-	PH8L1wnBhFOGI17xy+SQ6mvJbFHLpjx2W5iaNZ9/DNcEPKNXgtk2I1Yd
-X-Gm-Gg: AYBFou1aQhOPl0fKj9ilHui6jvg6h0HVqR0NiNdMOdmtdhCFL+Enmj+g2l84WUl6Mge
-	2MChnS1Yat4IUGtThhVESuuLqHf8whurBkU5MRPR77gYgmmrx/JbNIm0TYHfy3pGgL+9DKdnmxg
-	zZdubabRlP54QzmTqRZyfciEwx93TKRI9A5lFd7hu8HUBLvSP640Oo0E7U+OBMw1VfOHZq84Jg2
-	qwHBENK2JVws3MBmWuWWKIhfsU4YHBw2NgVU6EcIRRIhwX77Z3XYIBNoCZG8R3qwZHGR0iJHYsH
-	VSEA4HcUmhL5POhERdXIqZY/EJvR70BTqL2HIO2yF14pQT0l9GYBFU5yK03XSve8ZqBxrZurP8L
-	urChA8gnKjyxPX9SyaWgvXhKx3Dh6ygrTRUQnQgrxa0liPeMLgrwSDvIgZoMpi0p1uuQ4ewV1U5
-	yCB9MAu6hjC+8RrY/pKIwvJazAkDn6CBH/SQWRofWohRdDA4I/+vezRzhJ8CrM9nd4NYL6h42GY
-	qOBEeRh0hoLnZcWHkypYqwYIF1m6H/pBV1Zkc+K6JmBD2gcGTRLZYR60gAvBOmHfxFilovTZs7G
-	zGvtyhdK7o7QjNYShL70VItNOnhtbFHeXOGFiDXEPJwppZhgAh/eEoXHw9bcv1wCD40=
-X-Received: by 2002:a05:600c:6209:b0:49c:fed6:cd3f with SMTP id 5b1f17b1804b1-49cfed6cd4dmr81095545e9.23.1788621677280;
-        Sat, 05 Sep 2026 08:21:17 -0700 (PDT)
+        bh=Mqo0BMx1ifj9a2kCuZrCJMvmSnufIkatqKGeQLf7b/s=;
+        b=bYhLDo0pFAT4CaZJxlHb0pT08Ya7YSGZu5eCefll1+c0NkqBOTBDa8t6m3VZ+yzroq
+         sYEc8vKBdfnzGfssy2jauBvwk1vawouuWEGV2Ck/9KXtC+2sGR+CsAorCw0QWizphOdq
+         pU60pMPAvh1zynJQ+FnTozMrSHEVKcaZ5v1R40ZqimrVGMb2XieVOsBrwYDhIY6MlBa3
+         vJrH5jGTxMK4GYUt5/Kny90pRJ6JSariQmJwfjeNH0s4fep6UC+iOC6Th50JZrfAaQYa
+         ORVh/zBDKOiTDrDJ4Mh/wpy80kkFELdWqnCSEjCirIFLgjJKHr+tfr6UDVV2n/aBDQOB
+         nzdA==
+X-Forwarded-Encrypted: i=1; AKwUvByZjMh8OL72VZ/wZS/2DSws9R97ipcxNuPETEym0BZxqBVXMUsbjD+vsuZyqHT0w7HNhggWIwKjAbPchUo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lPGWAWF1o9GaNxlmC7LZQu9dczreboNPB1ODD624t9JgQxNFS2
+	TaTGPN+DvpwmiN3UwoOihS2KS0RxTtFXv+7AOnzW44OUoJ6GvXpmnHYP
+X-Gm-Gg: AYBFou10h3D94iA21KPRcASY/up+6QNnpoTVc93BRTdTvns0T3NDAwghFU94RWrVXlK
+	NXW9hFwHA+nvGXHGXKwG0bKtO/YEPscqXiupHaSeYOmKB3rVW9+YDdgAnIqE7uOFp/ziF5GFICI
+	WkGKJsiFyLvU1wVOHa90u7q87rJ92N2dkqFaPVpoRbQzBH7Tx39oOeb6XEkrk2lmK4MM9mw4DA8
+	IkwpKQFlaqQOitg2eQ4QDKdwfr8VeqvMiaqjTCGG5+vJAFQYN28piAsGoiiQHDSD6McX+dlUpgU
+	XK0b+FGuxtXewFJFF1QIpo5lu+99UHaaljtPubomaqUGH6xLngdaYNqdkLtNeHkINBn+U/kkNQ1
+	w/t+LKJXuvOC7YzXGbtQ0xf+D+Pghzu9PZxa3pl8wIwU9T2+b32j3aFwiTb7qffjgftT3nrRsB0
+	1RM2PHDbSw1bdRXZ9kl7OBwYdVfMVs0e9jHNv+5435uFFVTCUKqHkm7TBXLXhbXsQRADhVR1XNp
+	9gKBYTbcatwMtZFNuHPETU2hx2FdTUpLT6nSEM7p7qClVBOST6f6fKb+yT0aK2BauYZgxuJ+OAN
+	sAz99K1V7M7TlPRyWzWJZWh7JiqRilHdnMH/m35kAiqrGGd+FwKMETklkaePCfOFRk4=
+X-Received: by 2002:a05:600c:1d2a:b0:49b:12c2:104f with SMTP id 5b1f17b1804b1-49cf81e52e8mr117561445e9.1.1788621680621;
+        Sat, 05 Sep 2026 08:21:20 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a02-3100-a4eb-3001-c06d-af27-9fa2-ea53.310.pool.telefonica.de. [2a02:3100:a4eb:3001:c06d:af27:9fa2:ea53])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf75ce49esm267779515e9.1.2026.09.05.08.21.15
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf75ce49esm267779515e9.1.2026.09.05.08.21.19
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 05 Sep 2026 08:21:16 -0700 (PDT)
+        Sat, 05 Sep 2026 08:21:20 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: "Michael S . Tsirkin" <mst@redhat.com>,
 	Jason Wang <jasowangio@gmail.com>,
@@ -89,9 +89,9 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	platform-driver-x86@vger.kernel.org,
 	linux-remoteproc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/3] virtio: synchronize callbacks during device reset
-Date: Sat,  5 Sep 2026 17:20:57 +0200
-Message-Id: <20260905152059.89560-2-kmehltretter@gmail.com>
+Subject: [PATCH v2 3/3] virtio: implement synchronize_cbs for remaining transports
+Date: Sat,  5 Sep 2026 17:20:59 +0200
+Message-Id: <20260905152059.89560-4-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 In-Reply-To: <20260905152059.89560-1-kmehltretter@gmail.com>
 References: <20260905152059.89560-1-kmehltretter@gmail.com>
@@ -103,134 +103,284 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-virtio_reset_device() promises that vq callbacks have finished when it
-returns. virtio-pci waits in vp_reset(), but other transports can return
-with a callback still running.
+virtio_reset_device() now calls synchronize_cbs to wait for running
+callbacks. Its synchronize_rcu() fallback does not cover workqueue or
+sleepable callbacks.
 
-Call virtio_synchronize_cbs() after config->reset() and drop the duplicate
-waits from both PCI reset methods. Add the wait to virtio_device_shutdown()
-too, since it calls config->reset() directly. Keep the pre-reset call under
-CONFIG_VIRTIO_HARDEN_NOTIFICATION so callbacks see vq->broken.
+Add the missing hooks. UML waits for its shared IRQ; TmFIFO takes the
+existing per-direction locks held around vring_interrupt(). Virtio-vdpa
+uses a per-device rwlock around its callbacks, which must already be
+hard-IRQ safe.
 
-Always take irq_lock in the classic virtio-ccw interrupt handler so it
-pairs with synchronize_cbs even without notification hardening. Use
-is_thinint to choose the lock: airq_info can stay allocated after a
-fallback to classic interrupts.
+Remoteproc callbacks can run in hard-IRQ or process context, and rpmsg
+callbacks can sleep, so use one SRCU domain per rproc. Enter it before
+looking up the queue. Initialize it in rproc_alloc(), returning NULL if
+that fails, and clean it up at final release. cleanup_srcu_struct() can
+sleep, so document that rproc_put() and rproc_free() may sleep when
+dropping the last reference.
 
-The transport reset must still stop new callbacks before this wait.
+These hooks wait for callbacks already running. UML, TmFIFO and
+remoteproc still allow new callbacks after reset.
 
-Fixes: d9679d0013a6 ("virtio: wrap config->reset calls")
 Suggested-by: Michael S. Tsirkin <mst@redhat.com>
 Assisted-by: LLM
 Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- drivers/s390/virtio/virtio_ccw.c   | 6 +-----
- drivers/virtio/virtio.c            | 2 ++
- drivers/virtio/virtio_pci_legacy.c | 2 --
- drivers/virtio/virtio_pci_modern.c | 3 ---
- include/linux/virtio_config.h      | 6 +++---
- 5 files changed, 6 insertions(+), 13 deletions(-)
+ arch/um/drivers/virtio_uml.c             | 10 ++++++++++
+ drivers/platform/mellanox/mlxbf-tmfifo.c | 14 ++++++++++++++
+ drivers/remoteproc/remoteproc_core.c     | 10 ++++++++++
+ drivers/remoteproc/remoteproc_virtio.c   | 20 +++++++++++++++++---
+ drivers/virtio/virtio_vdpa.c             | 21 ++++++++++++++++++++-
+ include/linux/remoteproc.h               |  3 +++
+ 6 files changed, 74 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/s390/virtio/virtio_ccw.c b/drivers/s390/virtio/virtio_ccw.c
-index bab6cad3fd5c..552d77998012 100644
---- a/drivers/s390/virtio/virtio_ccw.c
-+++ b/drivers/s390/virtio/virtio_ccw.c
-@@ -1062,7 +1062,7 @@ static void virtio_ccw_synchronize_cbs(struct virtio_device *vdev)
- 	struct virtio_ccw_device *vcdev = to_vc_device(vdev);
- 	struct airq_info *info = vcdev->airq_info;
- 
--	if (info) {
-+	if (vcdev->is_thinint && info) {
- 		/*
- 		 * This device uses adapter interrupts: synchronize with
- 		 * vring_interrupt() called by virtio_airq_handler()
-@@ -1204,13 +1204,11 @@ static void virtio_ccw_int_handler(struct ccw_device *cdev,
- 			vcdev->err = -EIO;
- 	}
- 	virtio_ccw_check_activity(vcdev, activity);
--#ifdef CONFIG_VIRTIO_HARDEN_NOTIFICATION
- 	/*
- 	 * Paired with virtio_ccw_synchronize_cbs() and interrupts are
- 	 * disabled here.
- 	 */
- 	read_lock(&vcdev->irq_lock);
--#endif
- 	for_each_set_bit(i, indicators(vcdev),
- 			 sizeof(*indicators(vcdev)) * BITS_PER_BYTE) {
- 		/* The bit clear must happen before the vring kick. */
-@@ -1219,9 +1217,7 @@ static void virtio_ccw_int_handler(struct ccw_device *cdev,
- 		vq = virtio_ccw_vq_by_ind(vcdev, i);
- 		vring_interrupt(0, vq);
- 	}
--#ifdef CONFIG_VIRTIO_HARDEN_NOTIFICATION
- 	read_unlock(&vcdev->irq_lock);
--#endif
- 	if (test_bit(0, indicators2(vcdev))) {
- 		virtio_config_changed(&vcdev->vdev);
- 		clear_bit(0, indicators2(vcdev));
-diff --git a/drivers/virtio/virtio.c b/drivers/virtio/virtio.c
-index 75bb4ffe3b87..ad1c50b8a94e 100644
---- a/drivers/virtio/virtio.c
-+++ b/drivers/virtio/virtio.c
-@@ -264,6 +264,7 @@ void virtio_reset_device(struct virtio_device *dev)
- #endif
- 
- 	dev->config->reset(dev);
-+	virtio_synchronize_cbs(dev);
- }
- EXPORT_SYMBOL_GPL(virtio_reset_device);
- 
-@@ -424,6 +425,7 @@ void virtio_device_shutdown(struct virtio_device *dev)
- 	 * Some devices get wedged if this happens, so reset to make sure it does not.
- 	 */
- 	dev->config->reset(dev);
-+	virtio_synchronize_cbs(dev);
- }
- EXPORT_SYMBOL_GPL(virtio_device_shutdown);
- 
-diff --git a/drivers/virtio/virtio_pci_legacy.c b/drivers/virtio/virtio_pci_legacy.c
-index d9cbb02b35a1..8115aa39e01e 100644
---- a/drivers/virtio/virtio_pci_legacy.c
-+++ b/drivers/virtio/virtio_pci_legacy.c
-@@ -98,8 +98,6 @@ static void vp_reset(struct virtio_device *vdev)
- 	/* Flush out the status write, and flush in device writes,
- 	 * including MSi-X interrupts, if any. */
- 	vp_legacy_get_status(&vp_dev->ldev);
--	/* Flush pending VQ/configuration callbacks. */
--	vp_synchronize_vectors(vdev);
+diff --git a/arch/um/drivers/virtio_uml.c b/arch/um/drivers/virtio_uml.c
+index 7425a8548141..baca6b09e9ac 100644
+--- a/arch/um/drivers/virtio_uml.c
++++ b/arch/um/drivers/virtio_uml.c
+@@ -20,6 +20,7 @@
+  *
+  * Based on Virtio MMIO driver by Pawel Moll, copyright 2011-2014, ARM Ltd.
+  */
++#include <linux/interrupt.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
+@@ -869,6 +870,14 @@ static void vu_reset(struct virtio_device *vdev)
+ 	vu_dev->status = 0;
  }
  
- static u16 vp_config_vector(struct virtio_pci_device *vp_dev, u16 vector)
-diff --git a/drivers/virtio/virtio_pci_modern.c b/drivers/virtio/virtio_pci_modern.c
-index 6d8ae2a6a8ca..c9e21317c51a 100644
---- a/drivers/virtio/virtio_pci_modern.c
-+++ b/drivers/virtio/virtio_pci_modern.c
-@@ -559,9 +559,6 @@ static void vp_reset(struct virtio_device *vdev)
- 		msleep(1);
- 
- 	vp_modern_avq_cleanup(vdev);
--
--	/* Flush pending VQ/configuration callbacks. */
--	vp_synchronize_vectors(vdev);
++static void vu_synchronize_cbs(struct virtio_device *vdev)
++{
++	struct virtio_uml_device *vu_dev = to_virtio_uml_device(vdev);
++
++	if (vu_dev->irq >= 0)
++		synchronize_irq(vu_dev->irq);
++}
++
+ static void vu_del_vq(struct virtqueue *vq)
+ {
+ 	struct virtio_uml_vq_info *info = vq->priv;
+@@ -1121,6 +1130,7 @@ static const struct virtio_config_ops virtio_uml_config_ops = {
+ 	.reset = vu_reset,
+ 	.find_vqs = vu_find_vqs,
+ 	.del_vqs = vu_del_vqs,
++	.synchronize_cbs = vu_synchronize_cbs,
+ 	.get_features = vu_get_features,
+ 	.finalize_features = vu_finalize_features,
+ 	.bus_name = vu_bus_name,
+diff --git a/drivers/platform/mellanox/mlxbf-tmfifo.c b/drivers/platform/mellanox/mlxbf-tmfifo.c
+index 3c6408581373..c260e3a1544e 100644
+--- a/drivers/platform/mellanox/mlxbf-tmfifo.c
++++ b/drivers/platform/mellanox/mlxbf-tmfifo.c
+@@ -1135,6 +1135,19 @@ static void mlxbf_tmfifo_virtio_reset(struct virtio_device *vdev)
+ 	tm_vdev->status = 0;
  }
  
- static int vp_active_vq(struct virtqueue *vq, u16 msix_vec)
-diff --git a/include/linux/virtio_config.h b/include/linux/virtio_config.h
-index 69f84ea85d71..8684a1e268ee 100644
---- a/include/linux/virtio_config.h
-+++ b/include/linux/virtio_config.h
-@@ -71,9 +71,9 @@ struct virtqueue_info {
-  *	Returns 0 on success or error status
-  * @del_vqs: free virtqueues found by find_vqs().
-  * @synchronize_cbs: synchronize with the virtqueue callbacks (optional)
-- *      The function guarantees that all memory operations on the
-- *      queue before it are visible to the vring_interrupt() that is
-- *      called after it.
-+ *      Wait for running callbacks to complete. Memory operations on the
-+ *      queue before this call must be visible to vring_interrupt() calls
-+ *      that follow it.
-  *      vdev: the virtio_device
-  * @get_features: get the array of feature bits for this device.
-  *	vdev: the virtio_device
++static void mlxbf_tmfifo_virtio_synchronize_cbs(struct virtio_device *vdev)
++{
++	struct mlxbf_tmfifo_vdev *tm_vdev = mlxbf_vdev_to_tmfifo(vdev);
++	struct mlxbf_tmfifo *fifo = tm_vdev->vrings[0].fifo;
++	unsigned long flags;
++	int i;
++
++	for (i = 0; i < ARRAY_SIZE(fifo->spin_lock); i++) {
++		spin_lock_irqsave(&fifo->spin_lock[i], flags);
++		spin_unlock_irqrestore(&fifo->spin_lock[i], flags);
++	}
++}
++
+ /* Read the value of a configuration field. */
+ static void mlxbf_tmfifo_virtio_get(struct virtio_device *vdev,
+ 				    unsigned int offset,
+@@ -1179,6 +1192,7 @@ static const struct virtio_config_ops mlxbf_tmfifo_virtio_config_ops = {
+ 	.find_vqs = mlxbf_tmfifo_virtio_find_vqs,
+ 	.del_vqs = mlxbf_tmfifo_virtio_del_vqs,
+ 	.reset = mlxbf_tmfifo_virtio_reset,
++	.synchronize_cbs = mlxbf_tmfifo_virtio_synchronize_cbs,
+ 	.set_status = mlxbf_tmfifo_virtio_set_status,
+ 	.get_status = mlxbf_tmfifo_virtio_get_status,
+ 	.get = mlxbf_tmfifo_virtio_get,
+diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+index 1ed406714849..1b139d25ab2b 100644
+--- a/drivers/remoteproc/remoteproc_core.c
++++ b/drivers/remoteproc/remoteproc_core.c
+@@ -2410,6 +2410,7 @@ static void rproc_type_release(struct device *dev)
+ 
+ 	dev_info(&rproc->dev, "releasing %s\n", rproc->name);
+ 
++	cleanup_srcu_struct(&rproc->vq_srcu);
+ 	idr_destroy(&rproc->notifyids);
+ 
+ 	if (rproc->index >= 0)
+@@ -2507,6 +2508,11 @@ struct rproc *rproc_alloc(struct device *dev, const char *name,
+ 	if (!rproc)
+ 		return NULL;
+ 
++	if (init_srcu_struct(&rproc->vq_srcu)) {
++		kfree(rproc);
++		return NULL;
++	}
++
+ 	rproc->priv = &rproc[1];
+ 	rproc->auto_boot = true;
+ 	rproc->elf_class = ELFCLASSNONE;
+@@ -2571,6 +2577,8 @@ EXPORT_SYMBOL(rproc_alloc);
+  *
+  * If no one holds any reference to rproc anymore, then its refcount would
+  * now drop to zero, and it would be freed.
++ *
++ * Context: May sleep if this drops the last reference.
+  */
+ void rproc_free(struct rproc *rproc)
+ {
+@@ -2586,6 +2594,8 @@ EXPORT_SYMBOL(rproc_free);
+  *
+  * If no one holds any reference to rproc anymore, then its refcount would
+  * now drop to zero, and it would be freed.
++ *
++ * Context: May sleep if this drops the last reference.
+  */
+ void rproc_put(struct rproc *rproc)
+ {
+diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
+index d5e9ff045a28..ecc022e354db 100644
+--- a/drivers/remoteproc/remoteproc_virtio.c
++++ b/drivers/remoteproc/remoteproc_virtio.c
+@@ -23,6 +23,7 @@
+ #include <linux/err.h>
+ #include <linux/kref.h>
+ #include <linux/slab.h>
++#include <linux/srcu.h>
+ 
+ #include "remoteproc_internal.h"
+ 
+@@ -89,14 +90,19 @@ static bool rproc_virtio_notify(struct virtqueue *vq)
+ irqreturn_t rproc_vq_interrupt(struct rproc *rproc, int notifyid)
+ {
+ 	struct rproc_vring *rvring;
++	int srcu_idx;
++	irqreturn_t ret;
++
++	srcu_idx = srcu_read_lock(&rproc->vq_srcu);
+ 
+ 	dev_dbg(&rproc->dev, "vq index %d is interrupted\n", notifyid);
+ 
+ 	rvring = idr_find(&rproc->notifyids, notifyid);
+-	if (!rvring || !rvring->vq)
+-		return IRQ_NONE;
++	ret = rvring && rvring->vq ? vring_interrupt(0, rvring->vq) : IRQ_NONE;
++
++	srcu_read_unlock(&rproc->vq_srcu, srcu_idx);
+ 
+-	return vring_interrupt(0, rvring->vq);
++	return ret;
+ }
+ EXPORT_SYMBOL(rproc_vq_interrupt);
+ 
+@@ -242,6 +248,13 @@ static void rproc_virtio_reset(struct virtio_device *vdev)
+ 	dev_dbg(&vdev->dev, "reset !\n");
+ }
+ 
++static void rproc_virtio_synchronize_cbs(struct virtio_device *vdev)
++{
++	struct rproc *rproc = vdev_to_rproc(vdev);
++
++	synchronize_srcu(&rproc->vq_srcu);
++}
++
+ /* provide the vdev features as retrieved from the firmware */
+ static u64 rproc_virtio_get_features(struct virtio_device *vdev)
+ {
+@@ -330,6 +343,7 @@ static const struct virtio_config_ops rproc_virtio_config_ops = {
+ 	.find_vqs	= rproc_virtio_find_vqs,
+ 	.del_vqs	= rproc_virtio_del_vqs,
+ 	.reset		= rproc_virtio_reset,
++	.synchronize_cbs = rproc_virtio_synchronize_cbs,
+ 	.set_status	= rproc_virtio_set_status,
+ 	.get_status	= rproc_virtio_get_status,
+ 	.get		= rproc_virtio_get,
+diff --git a/drivers/virtio/virtio_vdpa.c b/drivers/virtio/virtio_vdpa.c
+index de2af696de6c..4f9e70c1332e 100644
+--- a/drivers/virtio/virtio_vdpa.c
++++ b/drivers/virtio/virtio_vdpa.c
+@@ -27,6 +27,7 @@
+ struct virtio_vdpa_device {
+ 	struct virtio_device vdev;
+ 	struct vdpa_device *vdpa;
++	rwlock_t callback_lock;
+ 	u64 features;
+ };
+ 
+@@ -123,8 +124,24 @@ static irqreturn_t virtio_vdpa_config_cb(void *private)
+ static irqreturn_t virtio_vdpa_virtqueue_cb(void *private)
+ {
+ 	struct virtqueue *vq = private;
++	struct virtio_vdpa_device *vd_dev;
++	unsigned long flags;
++	irqreturn_t ret;
+ 
+-	return vring_interrupt(0, vq);
++	vd_dev = to_virtio_vdpa_device(vq->vdev);
++	read_lock_irqsave(&vd_dev->callback_lock, flags);
++	ret = vring_interrupt(0, vq);
++	read_unlock_irqrestore(&vd_dev->callback_lock, flags);
++
++	return ret;
++}
++
++static void virtio_vdpa_synchronize_cbs(struct virtio_device *vdev)
++{
++	struct virtio_vdpa_device *vd_dev = to_virtio_vdpa_device(vdev);
++
++	write_lock_irq(&vd_dev->callback_lock);
++	write_unlock_irq(&vd_dev->callback_lock);
+ }
+ 
+ static struct virtqueue *
+@@ -439,6 +456,7 @@ static const struct virtio_config_ops virtio_vdpa_config_ops = {
+ 	.reset		= virtio_vdpa_reset,
+ 	.find_vqs	= virtio_vdpa_find_vqs,
+ 	.del_vqs	= virtio_vdpa_del_vqs,
++	.synchronize_cbs = virtio_vdpa_synchronize_cbs,
+ 	.get_features	= virtio_vdpa_get_features,
+ 	.finalize_features = virtio_vdpa_finalize_features,
+ 	.bus_name	= virtio_vdpa_bus_name,
+@@ -472,6 +490,7 @@ static int virtio_vdpa_probe(struct vdpa_device *vdpa)
+ 	vd_dev->vdev.config = &virtio_vdpa_config_ops;
+ 	vd_dev->vdev.map = vdpa->map;
+ 	vd_dev->vdpa = vdpa;
++	rwlock_init(&vd_dev->callback_lock);
+ 
+ 	vd_dev->vdev.id.device = ops->get_device_id(vdpa);
+ 	if (vd_dev->vdev.id.device == 0)
+diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
+index a44368737b39..ad6bccbdfabc 100644
+--- a/include/linux/remoteproc.h
++++ b/include/linux/remoteproc.h
+@@ -11,6 +11,7 @@
+ #include <linux/types.h>
+ #include <linux/mutex.h>
+ #include <linux/spinlock.h>
++#include <linux/srcu.h>
+ #include <linux/virtio.h>
+ #include <linux/cdev.h>
+ #include <linux/completion.h>
+@@ -230,6 +231,7 @@ enum rproc_features {
+  * @rvdevs: list of remote virtio devices
+  * @subdevs: list of subdevices, to following the running state
+  * @notifyids: idr for dynamically assigning rproc-wide unique notify ids
++ * @vq_srcu: SRCU domain for virtqueue callbacks
+  * @index: index of this rproc device
+  * @attach_work: workqueue for attaching rproc
+  * @crash_handler: workqueue for handling a crash
+@@ -276,6 +278,7 @@ struct rproc {
+ 	struct list_head rvdevs;
+ 	struct list_head subdevs;
+ 	struct idr notifyids;
++	struct srcu_struct vq_srcu;
+ 	int index;
+ 	struct work_struct attach_work;
+ 	struct work_struct crash_handler;
 -- 
 2.39.5 (Apple Git-154)
