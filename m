@@ -1,64 +1,64 @@
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 044574B2CAD
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 16:45:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17E864CB8A7
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 16:45:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788626715; cv=none; b=RnU/OV+k/6bU8KXP4nnebzep7LJjCH27DbwOWgNxJYjB3/O05iqma2RisTeYzfXzD8Vx8QRnDl2MkRfISMtaXranWRz2l29I2DUOCLFAKZPBXCJcdfPvt35lsmCaD5WUA2OCceyS/tU0n9uGmGCtsrdLmRP/5EZfgdgeeC6tBTw=
+	t=1788626723; cv=none; b=vB5NxxBZAa3ydyqf1VHoTh+QBhUE5qOVBSovNFRgZpAgGeCgaLIp5mnIhKgpNCUw5JwRH//BwXi+hLJZg1yx+Bh++wQ2zv+Hfcfk/vHf+mQ+EV6OfCBPr/Hg8r1UIoX/M+7Td+ZObx/uuP+k6hjFMKeXvUcz79fio9UA4k1wVfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788626715; c=relaxed/simple;
-	bh=zXRC/RdlmsiuexVeqwFjarsu6yZ7PSNCPNwsKWzg6EI=;
+	s=arc-20240116; t=1788626723; c=relaxed/simple;
+	bh=ifc7H3d8cophRdBVvhP/1sBwTZYA0mepFYMjpoBRgcY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XzYalsTw1qNgGs/TGnOpGM3cOFyzSaHLcJdrP41SQG0a/jFzwBZPyvS42dLZOI6RNAVD0fuLAH1acQbFgjAujhhWR1ArGwo7ALFJsu38YpcYj/oOu8eJNxaV46tIK8Pxdnt4xBJPO3gL3Q6K0KMPp+R7mPQ6JdP6nKaJju8y8x4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VV7CslGA; arc=none smtp.client-ip=209.85.219.49
+	 MIME-Version; b=ojtOB9qzNzXG+SPs2Eut5fIN2lhbkNgEQyk9zs0aeBWrAst73kxV2iYyGALyZhFhinjut4WGc9bRYpQu95KjJ8wMAtpXYb/ZzUrusyFyupmE31lggkwK9R4HCRLvipfDyEfj3mn9R0lVUDwNYM3AiHRJhgrpmUp0oY0avch72xY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q2veQxqu; arc=none smtp.client-ip=209.85.160.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VV7CslGA"
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-90e7c71f86eso14685436d6.1
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 09:45:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q2veQxqu"
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-52d7a3defe8so22105951cf.0
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 09:45:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788626706; x=1789231506; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788626713; x=1789231513; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Iebef4UkUnASKv8XcTx3vwRMvhVbFEWfZRLdXca6h64=;
-        b=VV7CslGAVnHj0gm8JK0n6CeO5ODOlecicnnkvks3hTB+JxVBe1fVZlpQaFnY6YnL5b
-         rBO0J4TR+BI8nfs9yAGodxNqmzezpUyKXHfFLDUyxLy6H5j2kFuBTa3vZDi9VQTLYTUm
-         dFbv/itBx/dpP6fWRtZ7GJM5yA7wKDAFqXHVz7UQOffB7X8VXv0QZD6bb0PS3jE4IPsi
-         2+pjaDDjAP8aX9jLBAMGSnp8qAtvnbRsK0xwpXvKs7RpXcwmp7n2uik0L1Vmk22kNjCI
-         ZV+PHKzxFxW8bmLE20cPmR1v3qdJbNj8Cx+xoCjJKnS4gF9XZKIetdjUOvnfy8a/vuHx
-         82MA==
+        bh=MGsQP05BVP7HKqk9s+jX5IUhEyQb2OXorpPQmD8qdnw=;
+        b=Q2veQxquBr3zYbatYaVLvr4AA+RntALkXyYoZab0Cu48VI4Ru3iCBuS8vuCfN08/ic
+         EBftGeAMGl1yQuTg7FjPggwRRiNAtyzfHju75/NEFmAmlWrYtng5wpuv7YXbX5tYZeVy
+         rKyLYy9YZTWoFDHt+heUW1jOTeTovjQVRb7UQr7twfrmyL+blcSRb79LwzvbuepBfHUc
+         yiZlIhuR6p365i9aPzRsXY2BtIdvjEJseoZ8RPsadAxroqfkxtpH2lorgim8HDQJQiB5
+         TZBbD3dXWrGEevCqoYREh37fu+0yvM/hfB/EcbFymWZvTdtuZJQxrfAowIdfqK69Vjso
+         OB0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788626706; x=1789231506;
+        d=1e100.net; s=20251104; t=1788626713; x=1789231513;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Iebef4UkUnASKv8XcTx3vwRMvhVbFEWfZRLdXca6h64=;
-        b=I8ak72JYBcGvoFpYGRGE/SK7TV413aYlI1EFiPEtbOOWZS3EfOVXcs4V+B4wiltLeA
-         ONb14q3HotO6+rxBINTV0I3IxrPzhM6+lzaFaVe0wmu9Efr5m/IruflelIviL37YPKdQ
-         +klCejR2E1TNWvHGXrfxJnT39vH0qhb+NnAWWPiHsDINsnHQ/4qL2Pcj8BZ+kJ8wV3q/
-         QZYHZCrRMivosCG7NSpB+TAqg5BlQS81Xmw0HVsgy27JkL5rj44MLZc1s3NQPa7Q4sjj
-         WvaheG47w8NCQZKHkHIlVr/z355n/vu52hdjEurv0LgIlxo1BwcitKYjMXhvabBRfndI
-         OcSA==
-X-Forwarded-Encrypted: i=1; AKwUvBwV/zviCdVuGwr+2EcTVy5dUZseEPuB8t7zB8GT89pTZyApfPCwj8e7ozWVjiD8r/kr+it9HpYdCt2cocQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++njFyj6P5mgweNyRfVMppxmGKDa+/G86EEvM3B1aabYhxY9+jEh
-	9LFrqJ+Q7XTfSkFnNycQPohuFnL5buWd7IR1DB8Izs/xaefBt8FOaXkJ
-X-Gm-Gg: AYBFou1k+k3bZW7L1xZpZt+P5PyZHtxrKBqqh8YI+USnhLO/48UwDOp5c7Ytt7yjt62
-	l3Y9r0eIf5izCjPgTHIS0kaNStszUuOk6WYj6j826+Sr00BTc9rU+HG4YOmpDGYMGOkoQaIIpx4
-	KcpaXRl4nrnHBwO4nE/tdqFxwn6GtaIJJUmt7sO6ZCC9u6cuDn+/SYRZstaKeIyPBygokwFxopA
-	HRqxDE+BdBKsFK6leuTuvzBQwkAlmkoQUAX+cUvb4KwjqvaJVjcU4+G6Dqk7k4NHS6/mvaEH6tI
-	r7dJ9bH67GwRvm5fQzU4x9DkntRoto/SuTrZgUSmNsz/f/RCvYxcDdgmyqN6fFtGIiPs2eKSx0T
-	OkZ9ED/s09ovLNoCVJWYYX/84oeDutLJXCqY1N9q0m/SQ6JInG7M18wVB/ku+yxxPMASM7i7/Xd
-	sG6GPvFLJs5bwnaEYfGL0v9GegTi3y+FZAdKKzN1z2KQ4SVZOLFmkzb67CwRqsTINdAXUYC95iE
-	ynZD8QC29u8kEUVkXHSEu7GUySAD5+xUgYW7g==
-X-Received: by 2002:a05:6214:4904:b0:8ef:91c5:8edb with SMTP id 6a1803df08f44-9103ef23c37mr177612896d6.10.1788626706129;
-        Sat, 05 Sep 2026 09:45:06 -0700 (PDT)
+        bh=MGsQP05BVP7HKqk9s+jX5IUhEyQb2OXorpPQmD8qdnw=;
+        b=pXhV8CIBMkKQNhtTUXuBOVQOcv8PZActqEbtpXsttDvUuP5gNCIHKE+vbNxWMJ2HFI
+         a8VwR/BeoilbXr7XfckCZXGTYxr8e57oismrfjx9lxl/TKSYcEiTQOQgDm61ENLEx/qk
+         0hJAW/msZ3nM4GTQMSQeDAoNTOH7wt3Z440JonU3E09WXKV3LmQ/hMT49dbkdcMvolGy
+         ESz4Am1x0PWbQDuXPBh+NUTvqt7yAXv8wbHKi1Yz7fcD3qosrnFV7AtEl9EPz6jGNV3o
+         d+q8D/3KGM3Z0OlcHG+qXGIM9aOxzilFV4pjS2fzSuVMiuotM4Ehr4v72ygFkLCphIsB
+         RGVg==
+X-Forwarded-Encrypted: i=1; AKwUvBzpo7WGgLee/K8bjSS2A9nBTpX1vvu3/1hy1VVlXrlkO9zF7MXjXvMHs2ZcnhdJBmabGwzyinEyFeuRfjI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nzQn8IY9pwlQ58aTH2xBTaxDRnLf7PK8POtI9MlKKsQpGYPhTT
+	dlFJFbw+/7osTbGO+nBGs5uftek4hjYk9AzUZzn3MZ/0n/lunFhquktc
+X-Gm-Gg: AYBFou3n8L8g43ks4BtFk5BZ2ab5wGqhZKWJBJ8/33EYmwc4y0OplgqnXhvCB+iFCHc
+	FDg2imVNAKsQRUJld5nt2Nlo4ZNwl+lqr4scyogXmNt5b7gCTJ8MzYn8bTD3H7Au9Zh8l/6Rw01
+	ypIswh15f+rCdzClSC48QFZFTI4qKniundnmgKjQEUW7G/dnI9+ZLLEoXer/CeKjZC/rQhoBm8O
+	wBxzWyPa4h0IIR5aPQ1q/+ucU9O63NLk8xJ93953hCpzfEIVLX8MOVzAVs8qhSDEZYsVB5WJ2uq
+	RDV9v8nYZNE6jOQ8mdyw3RHC4YYdhcsFZapLJjJsXlwxkIBVcj61XnXh0oZvoyEte3GNM5m2AUF
+	T6cq8rKUSK/HApN6sXj2d1RGBjh5dRntOj88GwdFXqnlGtFNwgeb70N5TUkHh2nyRpc9BYzYxe4
+	FtDDEogu8m5FhKAZ0lRGvbWIqzwhMjKSt45DuQcC6irX9WOIngmDoFhFN2qXH/jt24kH0NhoMnu
+	5Xnfexn1TrkvH2D38N+Mrn7vFQ=
+X-Received: by 2002:a05:622a:1493:b0:52e:12e6:6d7b with SMTP id d75a77b69052e-530549f8c81mr144088371cf.39.1788626711978;
+        Sat, 05 Sep 2026 09:45:11 -0700 (PDT)
 Received: from dave-desktop.lan (modemcable053.177-58-74.mc.videotron.ca. [74.58.177.53])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9104067ac52sm48984326d6.27.2026.09.05.09.45.05
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9104067ac52sm48984326d6.27.2026.09.05.09.45.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 09:45:05 -0700 (PDT)
+        Sat, 05 Sep 2026 09:45:11 -0700 (PDT)
 From: David Collin <davidcollin899@gmail.com>
 To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -66,12 +66,13 @@ Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	David Collin <davidcollin899@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 1/2] usb: dwc3: host: fix dangling xhci pointer on init failure
-Date: Sat,  5 Sep 2026 12:44:47 -0400
-Message-ID: <20260905164448.209348-1-davidcollin899@gmail.com>
+Subject: [PATCH v2 2/2] usb: dwc3: host: fix props[] overflow when all quirks are enabled
+Date: Sat,  5 Sep 2026 12:44:48 -0400
+Message-ID: <20260905164448.209348-2-davidcollin899@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <aptV-QHKGbMqw1uP@vbox>
+In-Reply-To: <20260905164448.209348-1-davidcollin899@gmail.com>
 References: <aptV-QHKGbMqw1uP@vbox>
+ <20260905164448.209348-1-davidcollin899@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,40 +81,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-dwc3_host_init()'s error path frees xhci via platform_device_put()
-but never clears dwc->xhci, leaving a dangling pointer that
-dwc3_host_exit() dereferences unconditionally on removal/shutdown.
-Clear dwc->xhci on the error path and return early from
-dwc3_host_exit() if NULL.
+props[] is sized for exactly the number of properties
+dwc3_host_init() can populate, leaving no slot for the NULL
+terminator property_entries_dup() requires when usb3_lpm_capable,
+usb2_lpm_disable, and the <=3.00a PED quirk are all true. Size
+props[] for one more slot.
 
-Fixes: d07e8819a03d ("usb: dwc3: add xHCI Host support")
+Fixes: 8da7644493b4 ("usb: dwc3: Specify maximum number of XHCI interrupters")
 Cc: stable@vger.kernel.org
 Signed-off-by: David Collin <davidcollin899@gmail.com>
 ---
- drivers/usb/dwc3/host.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/usb/dwc3/host.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/usb/dwc3/host.c b/drivers/usb/dwc3/host.c
-index c5674161b2b0..74117cbb2f42 100644
+index 74117cbb2f42..cd1e5204ac3a 100644
 --- a/drivers/usb/dwc3/host.c
 +++ b/drivers/usb/dwc3/host.c
-@@ -219,12 +219,16 @@ int dwc3_host_init(struct dwc3 *dwc)
- 	return 0;
- err:
- 	platform_device_put(xhci);
-+	dwc->xhci = NULL;
- 	return ret;
- }
- EXPORT_SYMBOL_GPL(dwc3_host_init);
+@@ -130,7 +130,7 @@ static int dwc3_host_get_irq(struct dwc3 *dwc)
  
- void dwc3_host_exit(struct dwc3 *dwc)
+ int dwc3_host_init(struct dwc3 *dwc)
  {
-+	if (!dwc->xhci)
-+		return;
-+
- 	if (dwc->sys_wakeup)
- 		device_init_wakeup(&dwc->xhci->dev, false);
- 
+-	struct property_entry	props[6];
++	struct property_entry	props[7];
+ 	struct platform_device	*xhci;
+ 	int			ret, irq;
+ 	int			prop_idx = 0;
 -- 
 2.55.0
 
