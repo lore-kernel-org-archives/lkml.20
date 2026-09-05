@@ -1,158 +1,246 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53F71231836;
-	Sat,  5 Sep 2026 15:46:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7ECA3542CF;
+	Sat,  5 Sep 2026 15:48:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788623209; cv=none; b=qqIQATRwzAwFmGyYu/71oWshIqkUMPyl/Msd4J25mXbrGHg/pcOehSQXqIyH1IBoK0CV9lkz/mRoBOB9VSg1QUS3pPCUO1jzYbBJ5lRMIYhPrNYrbflJFoNTHEtxGJNtSr8ax39ko8GVVgPzj9d8rx8CY+YPTzzpDz5B2eIazAU=
+	t=1788623296; cv=none; b=pEZdUPj0Tr+KosyiIPwkQ29MYKM6tdrCiRYI0P7rtRVLggIwGU4lzuYJz6D/Q9uUspfZOAx7dygFwj04wvajcxFm0p2v+NIgiTkKs6C7QSAh02ep/HYvtelYvQOcwQjBqJ23SDmGEDCirsLauvoyccmAijVKr3mC8xxswwO3gvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788623209; c=relaxed/simple;
-	bh=Wm4i3RlG+WiwpK0bIxp1LJWCbMunH4VFrRWPdQdxkJA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Vr1VXdtUq0Z8pIDXNdrA/usNC/cJhdoRzD5ymFUZwqd+IWdOJasu9h3BWo5sMe1yy0TTLxB9Gz7NZ9OxFxM9L1ZnP1VG1RtHpvjw/PC2dvVKdLkuMIn0q08bxJEef5QnhEr8l9VRCbYCSWLGXocFQbeY4sL612BfLFFaPsst5rA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c3nkgg5p; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788623296; c=relaxed/simple;
+	bh=r/R34al+nfmS5Pij5Ga2qHA0wCokhsBpLxosdXpOGgg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mBK8vb25rASalEAMBsklgwhP6WXiXg17iLGtXrGo78UF6okRivkxQiUrKg3nV1i7ubBc9TEtcYPQHNdk1LG+6iH6AZWFCKaq+RqxJTTwhV7YZyAYlGJSifpsILj9rZhuQdw0j+hPj1zI5FUO2LC4xK+BA91YKIlfu2YpsKANl+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Npi1FTRF; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c3nkgg5p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF2311F00A3A;
-	Sat,  5 Sep 2026 15:46:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788623207;
-	bh=EWrtaZFF+hPliejaz2Y2aRmbyfVI9skekhB6+RxymI8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=c3nkgg5pVOSd4645yCWRUJ41AGgqSvr0H2xZ6SXJWZVZZz8xcVu5glh2+fwe86Yuv
-	 Ke9cmlwKy2rFe/caIFOZZsH4jKMR8BoI7gBQnfWxwkGQKW4FKpTHiyDwLs2KIe5ccz
-	 rE9oJK1YLeJwTLEq7CxAm4BIt0df5LT/mkfVfNomynsL1J4Jb9qQu9RXM3hMvQ8LjE
-	 CDXJz1vpHlrLxcjHmGAdzl0VBdmx2VW/mfq00chqZpQd1X5tBl7ifHASmhSmJ27DA0
-	 mz8GJtIU9dkwFMM14ngAR5W/ISWCiaMQQtBHSN0NlvOsjdf98FeXIZd1N0TQlC/uEx
-	 YM2Qidx2s8FmQ==
-Date: Sat, 5 Sep 2026 17:46:36 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Damien Le Moal <dlemoal@kernel.org>
-Cc: Niklas Cassel <cassel@kernel.org>, alistair23@gmail.com, 
-	mst@redhat.com, eperezma@redhat.com, linux-kernel@vger.kernel.org, 
-	xuanzhuo@linux.alibaba.com, jasowangio@gmail.com, linux-scsi@vger.kernel.org, mkp@kernel.org, 
-	virtualization@lists.linux.dev, James.Bottomley@hansenpartnership.com, alistair@alistair23.me, 
-	Alistair Francis <alistair.francis@wdc.com>, linux-pci@vger.kernel.org, Shunsuke Mie <mie@igel.co.jp>, 
-	Frank Li <Frank.Li@kernel.org>, Koichiro Den <den@valinux.co.jp>, 
-	Kishon Vijay Abraham I <kishon@kernel.org>
-Subject: Re: [PATCH 0/2] scsi: Initial commit of VirtIO PCIe Endpoint Driver
-Message-ID: <iwgm2faqg2ame5wqaoajcgxxdbarjpczlwthkrgznybnc2xqmd@olscuoqftvdo>
-References: <20260901014650.2728658-1-alistair.francis@wdc.com>
- <apaOZeeDBIRlpB7b@ryzen>
- <akvzpivrbg3b3jra6ibga6j637pwqkwnnzs6q2ymcn5ixrdym6@wniqpspkcknt>
- <795ac93a-9377-4503-9dc4-58f21c815f71@kernel.org>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Npi1FTRF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=YD
+	DpwBogn8o6pQZ7QySkCWhHGi/gThTcBwx20NL7VvQ=; b=Npi1FTRFEQCNK/nAlw
+	BoUxQq00no77jA2w5gyY/GChiQgVq4Fcax9bU5kIPbLqwylxJI5+0rzS3IV5fIQY
+	up4b3j2fm+fhbJu1rQgNXp/lKUlrlgUrqb1eQmo2pO1aF+/Tl/lEWpqku6eUA3JU
+	XIQ+FlZPc87C7pc3qXv5Ydztc=
+Received: from 4CV529F122.company.local (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3t3BwOZxqmpCdAw--.21992S2;
+	Sat, 05 Sep 2026 23:47:08 +0800 (CST)
+From: Ding Hui <dinghui1111@163.com>
+To: andrew@lunn.ch,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	netdev@vger.kernel.org (open list:STMMAC ETHERNET DRIVER),
+	linux-stm32@st-md-mailman.stormreply.com (moderated list:ARM/STM32 ARCHITECTURE),
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/STM32 ARCHITECTURE),
+	linux-kernel@vger.kernel.org (open list)
+Cc: dinghui@lixiang.com,
+	xiasanbo@lixiang.com,
+	yangchen11@lixiang.com,
+	liuxuanjun@lixiang.com
+Subject: [PATCH net-next v2] net: stmmac: fix error path cleanup in DMA descriptor ring allocation
+Date: Sat,  5 Sep 2026 23:46:47 +0800
+Message-Id: <20260905154654.1725313-1-dinghui1111@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <795ac93a-9377-4503-9dc4-58f21c815f71@kernel.org>
+X-CM-TRANSID:_____wD3t3BwOZxqmpCdAw--.21992S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Gr1rXr1ktFW5uw17WryUJrb_yoWxGr4rpF
+	48Cw4qkryjqr13Ga1DJw48X3W5AayFyr4YgFWIgws7uFnIkryFgFyUAryj9rW8CrykuF1f
+	K398C3Z8AF1UJrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07bbrcfUUUUU=
+X-CM-SenderInfo: pglqwx1xlriiqr6rljoofrz/xtbC8xwvW2qcOXx5lQAA3E
 
-On Fri, Sep 04, 2026 at 09:12:11AM +0900, Damien Le Moal wrote:
-> On 9/3/26 20:51, Manivannan Sadhasivam wrote:
-> > On Tue, Sep 01, 2026 at 10:35:49AM +0200, Niklas Cassel wrote:
-> >> On Tue, Sep 01, 2026 at 11:46:48AM +1000, alistair23@gmail.com wrote:
-> >>> From: Alistair Francis <alistair.francis@wdc.com>
-> >>>
-> >>> This series adds a VirtIO SCSI endpoint built on top of the VirtIO PCIe
-> >>> endpoint. This is a similar approach to the NVMe PCIe Endpoint
-> >>> (drivers/nvme/target/pci-epf.c) but for SCSI.
-> >>>
-> >>> This does end up being somewhat similar to the pci-epf.c code, but
-> >>> re-written for SCSI.
-> >>>
-> >>> This approach allows a PCIe Endpoint device (tested on a
-> >>> radxa-rock5b) to setup what appears to be a SCSI device, using an
-> >>> existing SCSI backend (tested using scsi_debug).
-> >>>
-> >>> At this point a host can connect over PCIe, ensure virtio_pci and
-> >>> virtio_scsi is loaded and on PCIe rescan will see a scsi device.
-> >>>
-> >>> There are a few pain points with this approach though:
-> >>>  1. We have to use the Legacy SCSI VirtIO driver. This is because the
-> >>>     Raxda Rock5b (and AFAIK all PCIe Endpoint hardware) can't add
-> >>>     capabilities. So we can't advertise the VirtIO Common configuration
-> >>>     capability, which means we can't be a modern VirtIO SCSI device.
-> >>>
-> >>>     This is unfortunate, but there doesn't seem to be any way around
-> >>>     this, at least with the current hardware.
-> >>>
-> >>>  1.2. Legacy virtio devices only have 32 feature bits and therefore can't
-> >>>     set the VIRTIO_F_ACCESS_PLATFORM (bit 33) feature. This means the
-> >>>     vring_use_map_api() function will return false.
-> >>>
-> >>>     Currently Linux endpoint devices use the legacy virtio interface as
-> >>>     they aren't able to advertise the Common configuration capability.
-> >>>     As most PCI endpoint capable PCIe controllers do not allow modifying the
-> >>>     capability list, and thus are unable to advertise the Common configuration
-> >>>     capability. This means the device's inbound TLPs fault on the host
-> >>>     SMMU because the vring descriptors carry raw physical addresses.
-> >>>
-> >>>     This series adds a quirk that forces a subset of legacy virtio devices
-> >>>     to use the DMA Map API (vring_use_map_api() will return true),
-> >>>     which fixes this issue.
-> >>>
-> >>>     It's unideal that we have to hard code a quirk to basically just
-> >>>     advertise the VIRTIO_F_ACCESS_PLATFORM feature, but (see 1) as we
-> >>>     are stuck with legacy virtio devices there isn't much else we can do.
-> >>>
-> >>>  2. We have to pin scsit_pci_epf_poll_cfg_thread() on a CPU in order to
-> >>>     respond fast enough to the host. This means we effectivly burn a CPU
-> >>>     to read and write some values. But as there are no intterupts
-> >>>     generated on these events and we need to be very quick there isn't
-> >>>     another option.
-> >>>
-> > 
-> > Most of these pain points will go away if you use virtio-msg [1] transport
-> > instead of the virtio-pci transport. Using the virtio-pci transport on a real
-> > PCIe device without a way to trap and emulate the config space requests will
-> > always be racy.
-> 
-> There is nothing inherently racy about the config space. It is about the fact
-> that most PCI endpoint controllers:
-> 1) Do not raise an interrupt when PCI BARs or config space is written by the
-> host RC, and
-> 2) All PCI endpoint controllers that Linux supports do not allow drivers to
-> create extended capabilities in the config space that can then be emulated in
-> the endpoint driver (enabling that would require 1 to be supported, obviously).
-> 
-> (2) can be delt with quirks. Not great, but simple enough. And in this case, we
-> need it more because of the virtio-pci specs, which are not great to start with.
-> 
-> And for (1), the only real problem that causes is that an endpoint driver needs
-> to poll PCI BARs/submission queues to see if the host issued commands. Again not
-> great, but that works just fine. Alistair's point about burning a CPU doing that
-> is simply so that we can reduce command latency and get good enough performance.
-> 
-> We went through all of that already with the NVMe PCI endpoint. Works well
-> enough and does what is intended, which is the same here for the virtio-scsi
-> endpoint driver: create a platform where one can emulate a SCSI device to
-> experiment with new features etc. This is all intended as a development/test
-> tool, not for production use.
-> 
+From: Ding Hui <dinghui@lixiang.com>
 
-The race is inherently present in the way the virtqueue setup is done. Spec
-defines many registers with side-effects. Like device_feature_select,
-device_status, queue_select, queue_reset etc... Fabricating responses for these
-registers properly would require trap-and-emulate as the endpoint cannot
-reliably generate the response, once written. It may work sometimes, but not
-always.
+__alloc_dma_rx_desc_resources() and __alloc_dma_tx_desc_resources()
+allocate resources in multiple steps but return early on failure
+without cleaning up what they have already allocated. The outer
+error paths then call the free helpers on partially-initialized
+queues, which dereference pointers that were never allocated:
 
-> I do not know virtio-msg. First time I hear about it. And I am not sure if there
-> is a standard way of exposing a SCSI host through that.
-> 
+  - dma_free_rx_skbufs() and dma_free_rx_xskbufs() dereference
+    rx_q->buf_pool[i] via stmmac_free_rx_buffer(), but buf_pool
+    may be NULL if its kzalloc_objs() failed.
 
-virtio-msg is a message based transport, just like virtio-pci. It has no
-knowledge of the top level Virtio protocol. Using it will eliminate all the
-shortcomings of the virtio-pci transport as the config steps between the
-driver and device is message-response based.
+  - dma_free_tx_skbufs() dereferences tx_q->tx_skbuff_dma[i] via
+    stmmac_free_tx_buffer(), but tx_skbuff_dma may be NULL if its
+    kzalloc_objs() failed.
 
-- Mani
+  - stmmac_free_tx_buffer() dereferences tx_q->xdpf[i] and
+    tx_q->tx_skbuff[i] (aliased through a union), but tx_skbuff
+    may be NULL if its allocation failed while tx_skbuff_dma
+    succeeded.
 
+Fix this by making each allocation function responsible for undoing
+its own allocations on error, following the standard kernel error
+handling pattern of cleaning up in reverse order. Also add NULL
+checks in the free helpers as a defensive measure, since they may
+be called on partially-initialized queues.
+
+Signed-off-by: Ding Hui <dinghui@lixiang.com>
+
+---
+Changes in v2:
+  - Instead of only adding NULL checks in the free helpers, also fix
+    __alloc_dma_rx_desc_resources() and __alloc_dma_tx_desc_resources()
+    to clean up their own allocations on error, as suggested by Andrew.
+  - Update commit message.
+  - Link to v1:
+    https://lore.kernel.org/netdev/20260830040610.1156008-1-dinghui1111@163.com/
+---
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 59 ++++++++++++++++---
+ 1 file changed, 50 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index f2fc89176654..f0e06c011b8d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -1728,7 +1728,7 @@ static void stmmac_free_tx_buffer(struct stmmac_priv *priv,
+ 					 DMA_TO_DEVICE);
+ 	}
+ 
+-	if (tx_q->xdpf[i] &&
++	if (tx_q->xdpf && tx_q->xdpf[i] &&
+ 	    (tx_q->tx_skbuff_dma[i].buf_type == STMMAC_TXBUF_T_XDP_TX ||
+ 	     tx_q->tx_skbuff_dma[i].buf_type == STMMAC_TXBUF_T_XDP_NDO)) {
+ 		xdp_return_frame(tx_q->xdpf[i]);
+@@ -1738,7 +1738,7 @@ static void stmmac_free_tx_buffer(struct stmmac_priv *priv,
+ 	if (tx_q->tx_skbuff_dma[i].buf_type == STMMAC_TXBUF_T_XSK_TX)
+ 		tx_q->xsk_frames_done++;
+ 
+-	if (tx_q->tx_skbuff[i] &&
++	if (tx_q->tx_skbuff && tx_q->tx_skbuff[i] &&
+ 	    tx_q->tx_skbuff_dma[i].buf_type == STMMAC_TXBUF_T_SKB) {
+ 		dev_kfree_skb_any(tx_q->tx_skbuff[i]);
+ 		tx_q->tx_skbuff[i] = NULL;
+@@ -1761,6 +1761,10 @@ static void dma_free_rx_skbufs(struct stmmac_priv *priv,
+ 	struct stmmac_rx_queue *rx_q = &dma_conf->rx_queue[queue];
+ 	int i;
+ 
++	/* buf_pool may not be allocated if alloc failed early */
++	if (!rx_q->buf_pool)
++		return;
++
+ 	for (i = 0; i < dma_conf->dma_rx_size; i++)
+ 		stmmac_free_rx_buffer(priv, rx_q, i);
+ }
+@@ -1802,6 +1806,10 @@ static void dma_free_rx_xskbufs(struct stmmac_priv *priv,
+ 	struct stmmac_rx_queue *rx_q = &dma_conf->rx_queue[queue];
+ 	int i;
+ 
++	/* buf_pool may not be allocated if alloc failed early */
++	if (!rx_q->buf_pool)
++		return;
++
+ 	for (i = 0; i < dma_conf->dma_rx_size; i++) {
+ 		struct stmmac_rx_buffer *buf = &rx_q->buf_pool[i];
+ 
+@@ -2097,6 +2105,10 @@ static void dma_free_tx_skbufs(struct stmmac_priv *priv,
+ 	struct stmmac_tx_queue *tx_q = &dma_conf->tx_queue[queue];
+ 	int i;
+ 
++	/* tx_skbuff_dma may not be allocated if alloc failed early */
++	if (!tx_q->tx_skbuff_dma)
++		return;
++
+ 	tx_q->xsk_frames_done = 0;
+ 
+ 	for (i = 0; i < dma_conf->dma_tx_size; i++)
+@@ -2272,15 +2284,19 @@ static int __alloc_dma_rx_desc_resources(struct stmmac_priv *priv,
+ 	}
+ 
+ 	rx_q->buf_pool = kzalloc_objs(*rx_q->buf_pool, dma_conf->dma_rx_size);
+-	if (!rx_q->buf_pool)
+-		return -ENOMEM;
++	if (!rx_q->buf_pool) {
++		ret = -ENOMEM;
++		goto err_destroy_pool;
++	}
+ 
+ 	size = stmmac_get_rx_desc_size(priv) * dma_conf->dma_rx_size;
+ 
+ 	addr = dma_alloc_coherent(priv->device, size, &rx_q->dma_rx_phy,
+ 				  GFP_KERNEL);
+-	if (!addr)
+-		return -ENOMEM;
++	if (!addr) {
++		ret = -ENOMEM;
++		goto err_free_buf_pool;
++	}
+ 
+ 	if (priv->extend_desc)
+ 		rx_q->dma_erx = addr;
+@@ -2296,10 +2312,27 @@ static int __alloc_dma_rx_desc_resources(struct stmmac_priv *priv,
+ 	ret = xdp_rxq_info_reg(&rx_q->xdp_rxq, priv->dev, queue, napi_id);
+ 	if (ret) {
+ 		netdev_err(priv->dev, "Failed to register xdp rxq info\n");
+-		return -EINVAL;
++		goto err_free_dma;
+ 	}
+ 
+ 	return 0;
++
++err_free_dma:
++	if (priv->extend_desc)
++		dma_free_coherent(priv->device, size, rx_q->dma_erx,
++				  rx_q->dma_rx_phy);
++	else
++		dma_free_coherent(priv->device, size, rx_q->dma_rx,
++				  rx_q->dma_rx_phy);
++	rx_q->dma_erx = NULL;
++	rx_q->dma_rx = NULL;
++err_free_buf_pool:
++	kfree(rx_q->buf_pool);
++	rx_q->buf_pool = NULL;
++err_destroy_pool:
++	page_pool_destroy(rx_q->page_pool);
++	rx_q->page_pool = NULL;
++	return ret;
+ }
+ 
+ static int alloc_dma_rx_desc_resources(struct stmmac_priv *priv,
+@@ -2352,14 +2385,14 @@ static int __alloc_dma_tx_desc_resources(struct stmmac_priv *priv,
+ 
+ 	tx_q->tx_skbuff = kzalloc_objs(struct sk_buff *, dma_conf->dma_tx_size);
+ 	if (!tx_q->tx_skbuff)
+-		return -ENOMEM;
++		goto err_free_skbuff_dma;
+ 
+ 	size = stmmac_get_tx_desc_size(priv, tx_q) * dma_conf->dma_tx_size;
+ 
+ 	addr = dma_alloc_coherent(priv->device, size,
+ 				  &tx_q->dma_tx_phy, GFP_KERNEL);
+ 	if (!addr)
+-		return -ENOMEM;
++		goto err_free_skbuff;
+ 
+ 	if (priv->extend_desc)
+ 		tx_q->dma_etx = addr;
+@@ -2369,6 +2402,14 @@ static int __alloc_dma_tx_desc_resources(struct stmmac_priv *priv,
+ 		tx_q->dma_tx = addr;
+ 
+ 	return 0;
++
++err_free_skbuff:
++	kfree(tx_q->tx_skbuff);
++	tx_q->tx_skbuff = NULL;
++err_free_skbuff_dma:
++	kfree(tx_q->tx_skbuff_dma);
++	tx_q->tx_skbuff_dma = NULL;
++	return -ENOMEM;
+ }
+ 
+ static int alloc_dma_tx_desc_resources(struct stmmac_priv *priv,
 -- 
-மணிவண்ணன் சதாசிவம்
+2.34.1
+
