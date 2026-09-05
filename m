@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E99C3E3178;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E8913E3177;
 	Sat,  5 Sep 2026 09:29:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788600558; cv=none; b=cHa27PBnJsyDSab4ChnZk66u6QOCMto8W0MaGLgO/Qvn5sAkCbjRUuBFMtbOaPXmMWqN+Dr/9fcq6sBuYAEyGLQKZ2W1iTFNGW7ojHUG+fEZLEXf1MOzJkqP/6czS72Bb/oidB2BHHqWArL4Knaxj+he8+TTNf06xsoxiiiP2kg=
+	t=1788600558; cv=none; b=YyY8m+6XB7QRGWHZ2vlX7B7GZutu97zvJkcerWJgHgSS5c6fYCZldDTbhh6JK2aCZKF24J0FtfBigAHXudGWzNUEgOFiPbbtHRskYKEAiHYvCwlPoMIpwCeMVXXOMhOf5VefKzs8WGLsBLNTIWOntUPGAHD99+/Ap0Rz5VMY3vU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788600558; c=relaxed/simple;
-	bh=0Q3NMx4h8ekFF0U5EJMaT2ZMWe2pcv1R7lB2wLbM5d0=;
+	bh=+qytr/j630twvH1iyHjstSEfyt64Mm6Enh/EMMJrlhY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=subNOZO/Fbkr26na9+zNGS77D7nIQmnYOKj/AMbwGDmXCGDoaWV4XRy0u99O6LhCXSZIZ6pFh7EELmli8nGhQOXSSvOw985pE50woNOP+0ZAlEQtOHCmi708lM91RW3DKYLfFXSQmDV85Kpgmy/QgXKLMV2tyQyDWyP+/bz+8CQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=USqDLKsh; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=mpiJY31pa1BuM65JDYCzebeFvnqrlHdIgzko/zPjGJRibav67HDAp9njgbmmj3i2BrLh81QmJ/21T9UIW/d8s417/jqSxCTfzmOm4M0hnh9nSQiTWf80BJubhPeQzmPKkrAloneA92JAvsfs1oTDmyOOKniQr1WwxefoBkgC4HI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C13ck7rM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="USqDLKsh"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D64DAC4AF10;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C13ck7rM"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DFC7DC4AF1C;
 	Sat,  5 Sep 2026 09:29:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788600557;
-	bh=0Q3NMx4h8ekFF0U5EJMaT2ZMWe2pcv1R7lB2wLbM5d0=;
+	bh=+qytr/j630twvH1iyHjstSEfyt64Mm6Enh/EMMJrlhY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=USqDLKshZR+crxRQklNYmEZPNFFjJQgjMx/WLbnebP9EjZ6W640gKNkutltsuZpQ5
-	 WLaPdGTw3J6l7m7CmbkQ2IS2+ECLh9vjYBoirJrV6cseRnjdRurBnRaxG0Jdl4OYLC
-	 ezhaL2lfvmujWuD5LITFCmR2mSmF98X5ZW2KH89D3Fe7ODnq+RWY7yMOqnYj2MtXJu
-	 ieZckmde+enJ55n85UJTcfqNsYvKwBmlgdH9RjoFWjNpo9oGzSlJhaXoaI79d8H47e
-	 gERh7ibH61yDIRdH4iE9YnhYCPlSwiIr7HJgWYeReQkMHCpc2DYyl8EmBnl6SUIyd7
-	 jpN+ZdnOI5Gdg==
+	b=C13ck7rMDwYrj+bSXQ90vm5hnsfBS3ROKZrlN0IOMVVfHCFQTtZiBlnDqbI1XQiGx
+	 oe01P4Wb6iVcDqqi4c1aMHuknmMF0defZFGk/xQ7WvWY2hctJ8hadXqgY5OjFHYuzV
+	 Oy9pmDkKXR2pj8NG0MLG9EBKVhNoTBhxlkys/ZvNbUc1Hm6Et4NabxrcC67CMoytBr
+	 QmqIwEUrfpWgK7tfIHUdDII0lh/BnXEB/1zU6CbC5u3+qAD41tVKeHHvNof/j3u7iB
+	 B5llOWve0blYdmekFMK7G5FDJHfvpTYxw7BayOZQktQlvvh/GphaIcA1pbRgxA8xXl
+	 qEnhzbGmMtXFg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BAA83C79F91;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CD88CC624D3;
 	Sat,  5 Sep 2026 09:29:17 +0000 (UTC)
 From: Jens Glathe via B4 Relay <devnull+jens.glathe.oldschoolsolutions.biz@kernel.org>
-Date: Sat, 05 Sep 2026 11:29:00 +0200
-Subject: [PATCH 5/7] arm64: dts: qcom: ideacentre-mini: Fix the second M.2
- 3V3 rail
+Date: Sat, 05 Sep 2026 11:29:01 +0200
+Subject: [PATCH 6/7] arm64: dts: qcom: ideacentre-mini: Wire up DP sound
+ names and VA macro
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260905-x1-ideacentre-mini-prettify-v1-5-9a87882973bb@oldschoolsolutions.biz>
+Message-Id: <20260905-x1-ideacentre-mini-prettify-v1-6-9a87882973bb@oldschoolsolutions.biz>
 References: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
 In-Reply-To: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -52,12 +52,12 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, 
  Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788600555; l=2236;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788600555; l=1496;
  i=jens.glathe@oldschoolsolutions.biz; s=20240919;
  h=from:subject:message-id;
- bh=Mbc9hxbkPkS0pdjVkRDoJOizEKE/npezL/nBqRXTsNU=;
- b=+BL58zAwMzRiORd2z1LMluqU0QVNK0eSQQJ2sTt8ZyMBllVj1jm5Uios4gLhDLfVoWhbTAjde
- +DrIZIA6PvTA912pSPmYeZxl8pBJ8hoyL6GaQh3NelGBIw9KwJAAb8w
+ bh=q0Klq8CCwMTL3nScIUXlwBoWcQQvy4wXunu4Khr0rQQ=;
+ b=CeYlvvFJxoUQ8DkappLev9pCIMW7NeGVqZGEVMJNa9pd3Hw1dymUmif6pV12uoZx8y6CdSQtA
+ bsV/OJt0exGC/IaNpHVwOYepSsjz8tGrbQ5uNWcfo9k3/EgMYSgG2z1
 X-Developer-Key: i=jens.glathe@oldschoolsolutions.biz; a=ed25519;
  pk=JcRJqJc/y8LsxOlPakALD3juGfOKmFBWtO+GfELMJVg=
 X-Endpoint-Received: by B4 Relay for
@@ -67,74 +67,63 @@ Reply-To: jens.glathe@oldschoolsolutions.biz
 
 From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 
-TLMM18 only enables M.2-1 on pcie6a. The second slot (pcie3) is gated
-by PMC8380_3 GPIO5; both regulators previously pointed at the same
-TLMM pin, so the DT had no effect on that rail.
+mdss_dp0/1/2 had no sound-name-prefix, so the three DisplayPort
+backends were not distinct DAIs on the card. Add the prefixes.
 
-Switch vreg_nvme2_3p3 to the PMIC GPIO, add its pinctrl state, and
-keep a 2 s startup delay plus always-on. Without the delay the pcie3
-slot fails to probe; always-on is a stand-in until an M.2 power
-sequencer exists. Both slots work on Purwa with NVMe SSDs.
+Enable the LPASS VA macro with the 2.4 MHz rate. This chassis has no
+onboard DMICs; the node still provides the fsgen clock to tx_macro and
+rx_macro. Without it both codecs fail to probe (-ENOENT).
 
 Tested-on: IdeaCentre Mini 01Q8X10, Purwa (X1-26-100)
 
 Assisted-by: Grok 4.5 (xAI)
 Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 ---
- .../dts/qcom/x1-lenovo-ideacentre-mini-01q8x10.dtsi | 21 +++++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
+ .../arm64/boot/dts/qcom/x1-lenovo-ideacentre-mini-01q8x10.dtsi | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/x1-lenovo-ideacentre-mini-01q8x10.dtsi b/arch/arm64/boot/dts/qcom/x1-lenovo-ideacentre-mini-01q8x10.dtsi
-index 1af97c5f86fd3..76a9f745b279d 100644
+index 76a9f745b279d..5a2db91d5e587 100644
 --- a/arch/arm64/boot/dts/qcom/x1-lenovo-ideacentre-mini-01q8x10.dtsi
 +++ b/arch/arm64/boot/dts/qcom/x1-lenovo-ideacentre-mini-01q8x10.dtsi
-@@ -4,6 +4,7 @@
-  */
- 
- #include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- 
- #include "hamoa-pmics.dtsi"
-@@ -173,13 +174,16 @@ vreg_nvme2_3p3: regulator-nvme2-3p3 {
- 		regulator-min-microvolt = <3300000>;
- 		regulator-max-microvolt = <3300000>;
- 
--		gpio = <&tlmm 18 GPIO_ACTIVE_HIGH>;
-+		gpio = <&pmc8380_3_gpios 5 GPIO_ACTIVE_HIGH>;
- 		enable-active-high;
- 
--		pinctrl-0 = <&nvme_reg_en>;
-+		pinctrl-0 = <&nvme2_reg_en>;
- 		pinctrl-names = "default";
- 
-+		startup-delay-us = <2000000>;
-+
- 		regulator-boot-on;
-+		regulator-always-on;
+@@ -665,6 +665,10 @@ eusb6_repeater: redriver@4f {
  	};
- 
- 	vreg_v0p9: regulator-v0p9 {
-@@ -788,6 +792,19 @@ &pcie6a_port0 {
- 	wake-gpios = <&tlmm 154 GPIO_ACTIVE_LOW>;
  };
  
-+&pmc8380_3_gpios {
-+	nvme2_reg_en: nvme2-reg-en-state {
-+		pins = "gpio5";
-+		function = "normal";
-+		power-source = <0>;
-+		input-disable;
-+		output-enable;
-+		drive-push-pull;
-+		bias-disable;
-+		qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
-+	};
++&lpass_vamacro {
++	qcom,dmic-sample-rate = <2400000>;
 +};
 +
- &pmc8380_5_gpios {
- 	usb0_pwr_1p15_reg_en: usb0-pwr-1p15-reg-en-state {
- 		pins = "gpio8";
+ &gpu {
+ 	status = "okay";
+ };
+@@ -674,6 +678,8 @@ &mdss {
+ };
+ 
+ &mdss_dp0 {
++	sound-name-prefix = "DisplayPort0";
++
+ 	status = "okay";
+ };
+ 
+@@ -682,6 +688,8 @@ &mdss_dp0_out {
+ };
+ 
+ &mdss_dp1 {
++	sound-name-prefix = "DisplayPort1";
++
+ 	status = "okay";
+ };
+ 
+@@ -690,6 +698,8 @@ &mdss_dp1_out {
+ };
+ 
+ &mdss_dp2 {
++	sound-name-prefix = "DisplayPort2";
++
+ 	status = "okay";
+ };
+ 
 
 -- 
 2.53.0
