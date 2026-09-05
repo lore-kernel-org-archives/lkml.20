@@ -1,445 +1,163 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 962B938330A
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 14:11:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788617518; cv=pass; b=QfoCfJYEJKT7fxyoKFUp66Y1Jq9yb/F+MeXC4ZXF27IzHq7Iv6Eo/3SaHO/RJMzBv5aBsw3Wp1xFmRuVWiavlUhzevEAzpN5idWyBo90I7oVLXWRcMPSRlUVWNvN3qIjzEDOcdo0zmy5Clo5PzhIdA/zSwP118C8HLtPBrgtvDY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788617518; c=relaxed/simple;
-	bh=lvUK/fKlC/5odo3hYQRDDPopCyKykRxFDlQPs6Wbxvo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tvtmUepupN92eVDf27RSI0egAofJUh9IUqfv+OysvSzKNq4I1smxd4kaHoQ954KDlISvIwqsFKvhxi8Q7Rt8wQ6HkpbCbAq1aTMwl7spkclhrP81RVG3aNlTQiZEqqixICK0H+MjlGO8VbsIxm8266flmm3/FEmkgYHKDZQJ9mc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sdFi4gtn; arc=pass smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B59D2386555
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 14:12:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788617524; cv=none; b=WrI95nBIGADhunJ/qgw1fGhMXyFDkCEbXbHfxEwH1zT27S9miEeuUm/xlcpJl+jxJ/7Pk2iiZcwosjVXy3kFIeAKrjbBFGk7Ogq/L376LfbLW7Xu0Eb1IbYiDLVf/CbeCGGfWaEqVj3ofGPZlEO70AT6qU39t9AiUSzjZkB4lD8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788617524; c=relaxed/simple;
+	bh=CVZPkrxO4ZjxlZq4m/NTIsRuImoqLdCSbn0hsNp0bpo=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=amcv9e8p624jH6oJzBMwPVXGiToruvTlfS0XlI17Mq9NIRDFnKyoYqqj4ZRHOWQ3IebpnXmyFpbGUQ6GFXT6GJkvg+Fequ0uuMf9Y000aD07su8BSMK1gYbFzHjeIlgr3gcIeGASWkcAo1haWfAveZ18EL0NO+xK0tb9u27WR28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ryTZ53Vv; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sdFi4gtn"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49cd77e0f95so17814785e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 07:11:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788617515; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SDQEnXRDhLd4gjLhUScOYxUNy6WHTkc1YBq/M+9bpheHNkYq4797GX4h7sfz4a2dOe
-         1WVk+f0QXqaOCJK6U9EnBkB3L+RlMmqTyZDKUDrsXSQ4EvwIfZ6SWvyGhK2LLVuyfSia
-         9YOEeeocipOVg0P+dHzoLj0GuRo+q/pkDZLDQYVIpAPci9GSR4L7PauZCQVcsfNVOzMQ
-         67hQCmqeOFaGIW5Jz6xiX70ZoSTX/FSc+RH3Z78nvvAeOLd3/GKp09//vrrmw86dMZH/
-         NLi3Ug/trJ4byC2cGInsL/lFnrD0I81BuD0w/XH7PiKEE9lyIhkIgWtmmzSshJW3nohZ
-         u0rw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=8dOwFXHyy7nBbryAA1ywk4yLaVEXFLRRnv/TLBt1Mfg=;
-        fh=JdM7NOx9+zSRGP+QOo5s4etz5hX8WfzvPAWMC+GZkDk=;
-        b=QB/P9FSof0oztFLxKLB5b5519Bd6lvth+BBsXRqSuYZV73BeSUHYZx8jUnnC4nJc43
-         nyJBQsgdHhBt+3vV5YQK3f7fvH9FMRCeFC5lkwfbVO/2Xij7MN1swwWmvsgm9sQ1Q6P5
-         8qpu9uyyThkx89SNXnxxJ1da+sdc89JqyDKET4y2PLPjxQZZaU3pUoG4ec+KUBsNbf4W
-         kwSXgUj20gC9sg2Kg61kr6LIzBvzNoebOKOrHcQfAIZKOLxu2lV+YCdTTACxsR6dBuT5
-         QNIURYBwPnXR53Ibx5e1h6px7mGjO26KyjQangSeKCWa74gkRetIq9SoQj75Aw7jc65E
-         Cb+w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ryTZ53Vv"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49b0d78a801so18817685e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 07:12:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788617515; x=1789222315; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8dOwFXHyy7nBbryAA1ywk4yLaVEXFLRRnv/TLBt1Mfg=;
-        b=sdFi4gtnm3vqb2IMbbh1gg4iH20uWG/sFyQeqRlbvMFGd2lbS2HfadoTgdZTcMlifk
-         9hkH6Qv2W2tKX6Z5D4UVI/WcJHzez2rRaQ+ZR4HzFB1HPDb91N8kQC0kkp14PWAvw/lB
-         QLDB8T6bz0nrZoph/kRbOXfxTxCLTILAZOoEjGMu1uIi0kr/LaAzpXFHdMtWLjiN5Ltc
-         s3VKhjIgC8xBRCxlH3qppzkZyK7XuP9nA4qYxVyfKHVqG/mlBVF3SnJNcasXXoKTowct
-         KLNn5y2KShlObKU+VLBzDvSADBefVU0AX9GOR96Ffh51RWX2Qu9NAMAgnLBIJNnolR8N
-         Zvbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788617515; x=1789222315;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788617521; x=1789222321; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8dOwFXHyy7nBbryAA1ywk4yLaVEXFLRRnv/TLBt1Mfg=;
-        b=F85bRQrtMFEJODO+Rb1r78oILrNGDOx3jiEtodMbPwfoGWra7CKfLg8SpyX7GZ6QR/
-         iq+H6cQoN2wBhUg5gev/aD6SGbqUmeW0lU0cqeTfg/vp4Lg/27kWoCrI9sPqEINDdwsS
-         QAnQQdAp1MUAXYf2W6b+yEoOsijFvFLe0/CbEZcTdQrBvYREowxWTCJjKJhDnsFazcM+
-         CHA65bgtPh0sVuojWFvnbC26LWZy6XqCGo7mUK1aQP6x4GgJVfFpUpx1H5Z/NxLuD0MJ
-         CrWJ/IkmhMdMhR3c8IxNH9dL/SQYDhdexlVEddNF/djo4O/ir1juoYxaMrHGbkZPb207
-         Tq3w==
-X-Forwarded-Encrypted: i=1; AKwUvBxAYBGwe8AHAWgHcdGRPwP7ZRwHjHkNd8WUZtpSLEHOhwjG8VB/yujexpC9OA7tkkQJ/J5d3Hf0b6ZOtO0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nBRXCI1APB3Zxm2bIc2KvMEK6vJ/noiGk3xw0SlLwIEwm9sF9n
-	Ka7/RiMNZyWY2gOopbtCUZwgJIQFnFIVYHgJdu64NaQWAtRKFVZGiruJ8Fo6zzRQM/sUq8vL9tH
-	5BQK1igMNFIuBEMOBJSgZtyoBs7+oQYg=
-X-Gm-Gg: AYBFou2Oq2kcy2+Y7woKLHmBkaMMaV87zF+RnB1zqLgwIE0cQmK+0V50FcC/U9Vfe+k
-	3CnIHhcc/KnL53Gjiff8MFRsCFqyRWPAhrTKpJjmegV68DzYfbgimWaRZXAvGfw4OSFfydQz+sN
-	Wf6n6UtujiCHPEX9uBk+z2RF+2GQmRoNTmx4UrfUFoFlwVpZ859r4NJW6Ur1prBDH86Z4WRMBWA
-	99jJtZBr2taaIUAAZlgKD0NyE5yOnuYda7Qv6D570rO3jD122LoUEW4frTb253lgokavc7dk32N
-	jdP6S2YT2iQxKwuSalL3m3VZHAcR7nmzcI+PpnBeJe+zsw==
-X-Received: by 2002:a05:600c:1991:b0:49b:2796:be30 with SMTP id
- 5b1f17b1804b1-49cf824f7damr117762365e9.11.1788617514483; Sat, 05 Sep 2026
- 07:11:54 -0700 (PDT)
+        bh=Wmtijk9kXljBXbjb31VQhm6h6MUm1AT3Wt8mqzADjcM=;
+        b=ryTZ53VvNKbeybZRgLP9ECfQ+9bOGUl/DXVLXJxVHBk2EpvKSs3UAyV7dqz1WPN4JZ
+         LGbgf/Sqwg0mH0clAUm0hHg2rad28W4Qce9B/LyKNxhRUXGCzQY8pO+240tDEt7jiKbr
+         eFvf8MRZEuRifDTNkJyXU5Ji4HPiuleRJCjJWBpsIXRpLUIJMftDLs3wDv4fYEwl36lJ
+         x8uaxI6dr9NFR/49tY0qhjeIlwHJgF/tTZ0e2qUQVpKgrSFx5yNfvsUFYh7JjLlRsnIH
+         70CVwBQ1hUUDYBU21+6ewM3rqoS8kq7e9VOsMOikCWcg7DVy2x+xuGdKC8A8//Cj3N7I
+         ctYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788617521; x=1789222321;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Wmtijk9kXljBXbjb31VQhm6h6MUm1AT3Wt8mqzADjcM=;
+        b=bD94He505oMGtcgOcDm2ZXfZBMrSuIHbaaIIxmXtLEQ4PhDB+koRXTsNlK7u1yLRbK
+         wqG+wuxm9aXZP9V65NXcbs8Nq/IVVGl58C7+dv5ng+k6nSsFWVfBqcndw1H3KCqzktZk
+         R70WbD6OQ8lwfh54maxyMEDC26JWacalwWvWwzlIVJs+V9AjylXka7lvPX1tO3AXnFjN
+         /VV24wdHDSgeViXR8Fs0+fT/5zOdeOkemeO0Qa/TIaOWf3x8yCxIzB6tBbo4A6KUStrV
+         JwJv6tWpnKxnjO7r5SayQ4IqVraX1YQi6crSQebNEA8DNL6lrP1esk6wEzxmjVVteZ9h
+         GdnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwpfTvEF+4IBE3Fdv2v9rxYHU7Ih/3mlzfzNB+Wo9RywmgCHhUYg11UpdpoFpMRmIeBm6CR99kO/tZjMNY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mgM5+iTx3wLUq8e6SzrZ1PszI3+kRG+Qwni8U+7/lDhppiefAX
+	jYYdp99asjjrfN35GIs+rvUIhxalD9TByGe5GK1Vr/IVuykJacD2yXY2
+X-Gm-Gg: AYBFou0D12CltV7aDp+6CS/ROExGbcVOXj4A1Knu36wqTckboHZy7fdlsJFzn0xpCoX
+	uTiQYj/gcia3LGBviwJGtChrDCCotOLq+Ig06IdgJXJwQ8csHekGTw70tgbWfF8vUEcTf1Al56I
+	ckvbMDPMrEoKMJZuNwxJbgoYrNBMsBtbm9VIp+jnjCqvIR9fM3nykBFixpqIbiBLbM11CeJr2zi
+	Pwp5IgP8mZ3XvCDNNH4AFSpTeUWxM41MPoZ46yztTmUGcuLIwid/N0DC/3cpflVvOrx8ws33cWI
+	nK1o9AWvTDYxAcbPliF4OnGsWyeR0IYUPDtMNMk7F6IfGcoYc7AT9EWv4cEmI0t7Os6vtzC+CBq
+	6i9UpuJfppruTDBXLiL06Ep9j3T3vDNukbJQ8Al54VWnaGyGeEwBQVGEY/Me4rAUn3wVOQehJvW
+	c/VIEH+/6QvMROkk77W8/Vc7F6p+vKdI6NpF7Ck34sU2Twj1NsBjPP91lG+kuhjC1L4vJIPX7JY
+	06lDYNNTchHogAAYyWgc40s9Pn9i/Ddf23WCLD51inzGzjbJoPOvNWz
+X-Received: by 2002:a05:600c:6748:b0:49c:fc6c:bdfa with SMTP id 5b1f17b1804b1-49cfc6cbfa2mr97421215e9.17.1788617520610;
+        Sat, 05 Sep 2026 07:12:00 -0700 (PDT)
+Received: from [10.128.10.232] (195-23-151-163.net.novis.pt. [195.23.151.163])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf75ce49esm260757225e9.1.2026.09.05.07.11.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 05 Sep 2026 07:12:00 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+Message-ID: <5e66cd9d-845e-4f87-bf4e-d14eed4ef9c6@gmail.com>
+Date: Sat, 5 Sep 2026 15:11:59 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904103920.4471-1-luis@igalia.com> <20260904103920.4471-9-luis@igalia.com>
-In-Reply-To: <20260904103920.4471-9-luis@igalia.com>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Sat, 5 Sep 2026 16:11:43 +0200
-X-Gm-Features: AcwNN1UdXGZXZ6wH3FV9f5IAIXIptSPvwpDev9NoyEDWmtBTRnq0S2p7ZwVozxY
-Message-ID: <CAOQ4uxh+rKuR39ruJO6PxoUCCdP_U0M=ecn-dayv+7-jKgrDNg@mail.gmail.com>
-Subject: Re: [RFC PATCH v3 8/8] selftests/fuse: add fuse readdir caching test
-To: Luis Henriques <luis@igalia.com>
-Cc: Miklos Szeredi <miklos@szeredi.hu>, Chen Linxuan <me@black-desk.cn>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, fuse-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	Matt Harvey <mharvey@jumptrading.com>, kernel-dev@igalia.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: Julian Braha <julianbraha@gmail.com>
+Subject: Re: [PATCH 2/2] checkkconfigsymbols: resolve revisions before
+ resetting the tree
+To: Erkan Erdem <hexvalid@gmail.com>, Nathan Chancellor <nathan@kernel.org>,
+ Nicolas Schier <nsc@kernel.org>
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260905123237.40670-1-hexvalid@gmail.com>
+ <20260905123237.40670-2-hexvalid@gmail.com>
+Content-Language: en-US
+In-Reply-To: <20260905123237.40670-2-hexvalid@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 4, 2026 at 12:38=E2=80=AFPM Luis Henriques <luis@igalia.com> wr=
-ote:
->
-> This new test will check the caching behaviour using combinations of two
-> opendir flags: FOPEN_KEEP_CACHE and FOPEN_CACHE_DIR.
->
-> Signed-off-by: Luis Henriques <luis@igalia.com>
+On 9/5/26 13:32, Erkan Erdem wrote:
+> The commit comparison resets the current branch to commit_a before
+> resolving commit_b. If the second revision is HEAD or the current branch
+> name, it then resolves to the first revision. For example, --diff
+> HEAD^..HEAD compares the parent with itself and silently misses newly
+> undefined symbols. The same problem affects --commit with the current
+> branch name.
+> 
+> Resolve and verify both revisions as commits before the first reset.
+> This keeps their meaning stable throughout the comparison and rejects
+> invalid endpoints before changing the working tree.
+> 
+> Keep lookup diagnostics separate from the resolved hashes. Use the
+> resolved range for --find too, since resetting also updates ORIG_HEAD.
+> 
+> Fixes: b1a3f243485f ("checkkconfigsymbols.py: make it Git aware")
+> Link: https://lore.kernel.org/20210901145212.478066-1-arielmarcovitch@gmail.com/
+> Assisted-by: LLM
+> Signed-off-by: Erkan Erdem <hexvalid@gmail.com>
 > ---
->  .../selftests/filesystems/fuse/.gitignore     |   1 +
->  .../selftests/filesystems/fuse/Makefile       |   2 +
->  .../fuse/fuse_readdir_cache_test.c            | 274 ++++++++++++++++++
->  3 files changed, 277 insertions(+)
->  create mode 100644 tools/testing/selftests/filesystems/fuse/fuse_readdir=
-_cache_test.c
->
-> diff --git a/tools/testing/selftests/filesystems/fuse/.gitignore b/tools/=
-testing/selftests/filesystems/fuse/.gitignore
-> index ebfe7133d811..ffa356f23e8c 100644
-> --- a/tools/testing/selftests/filesystems/fuse/.gitignore
-> +++ b/tools/testing/selftests/filesystems/fuse/.gitignore
-> @@ -4,3 +4,4 @@ fusectl_test
->  write_extend_eof_test
->  fuse_acl_cache_test
->  fuse_symlink_cache_test
-> +fuse_readdir_cache_test
-> diff --git a/tools/testing/selftests/filesystems/fuse/Makefile b/tools/te=
-sting/selftests/filesystems/fuse/Makefile
-> index 3a5a557dde7a..570ced181168 100644
-> --- a/tools/testing/selftests/filesystems/fuse/Makefile
-> +++ b/tools/testing/selftests/filesystems/fuse/Makefile
-> @@ -6,6 +6,7 @@ TEST_GEN_PROGS :=3D fusectl_test
->  TEST_GEN_PROGS +=3D write_extend_eof_test
->  TEST_GEN_PROGS +=3D fuse_acl_cache_test
->  TEST_GEN_PROGS +=3D fuse_symlink_cache_test
-> +TEST_GEN_PROGS +=3D fuse_readdir_cache_test
->  TEST_GEN_FILES :=3D fuse_mnt
->
->  include ../../lib.mk
-> @@ -30,5 +31,6 @@ $(OUTPUT)/fuse_mnt: LDLIBS +=3D $(VAR_LDLIBS)
->
->  $(OUTPUT)/fuse_acl_cache_test: fuse_common.c fuse_acl_cache_test.c
->  $(OUTPUT)/fuse_symlink_cache_test: fuse_common.c fuse_symlink_cache_test=
-.c
-> +$(OUTPUT)/fuse_readdir_cache_test: fuse_common.c fuse_readdir_cache_test=
-.c
->
->  EXTRA_CLEAN :=3D fuse_common.o
-> diff --git a/tools/testing/selftests/filesystems/fuse/fuse_readdir_cache_=
-test.c b/tools/testing/selftests/filesystems/fuse/fuse_readdir_cache_test.c
-> new file mode 100644
-> index 000000000000..7c49cc6a23e3
-> --- /dev/null
-> +++ b/tools/testing/selftests/filesystems/fuse/fuse_readdir_cache_test.c
-> @@ -0,0 +1,274 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Simple filesystem to test FUSE readdir cache
-> + *
-> + * It will simply perform readdir operations on a directory checking how=
- many
-> + * times a request is sent to user-space using all the possible caching
-> + * combination setting (FOPEN_KEEP_CACHE and FOPEN_CACHE_DIR flags).
-> + */
+> 
+> An AI coding assistant found the issue, prepared the fix and changelog,
+> and ran the verification below after a request to find reproducible
+> functional bugs in Linux development tools.
+> 
+> Validation:
+> - Ran the actual CLI against disposable Git repositories, comparing the
+>   original script with the patched source. All 15 patched cases pass.
+> - Covered HEAD-relative ranges, branch names, hashes, tags, annotated
+>   tags, ambiguous branch/tag names, identical revisions, --commit,
+>   --find, ORIG_HEAD and invalid or non-commit endpoints.
+> - Checked HEAD, current branch, index and tracked file contents after
+>   every invocation. The patched cases preserve these values, including
+>   when the second revision is invalid.
+> 
+>  scripts/checkkconfigsymbols.py | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+> 
+> diff --git a/scripts/checkkconfigsymbols.py b/scripts/checkkconfigsymbols.py
+> index 36c920e7..e0a1a631 100755
+> --- a/scripts/checkkconfigsymbols.py
+> +++ b/scripts/checkkconfigsymbols.py
+> @@ -150,6 +150,13 @@ def print_undefined_symbols():
+>              undefined_a = {}
+>              undefined_b = {}
+>  
+> +        commit_a = execute(["git", "rev-parse", "--verify", commit_a + "^{commit}"],
+> +                           stderr=None).strip()
+> +        commit_b = execute(["git", "rev-parse", "--verify", commit_b + "^{commit}"],
+> +                           stderr=None).strip()
+> +        if args.diff:
+> +            args.diff = commit_a + ".." + commit_b
 > +
-> +#include <stdio.h>
-> +#include <limits.h>
-> +#include <dirent.h>
-> +
-> +#include "kselftest_harness.h"
-> +
-> +#include "fuse_common.h"
-> +
-> +#define DIRNAME "mydir"
-> +#define FILENAME "myfile"
-> +
-> +#define DIR_INO 42
-> +#define FILE_INO 43
-> +#define DOT_INO 40
-> +#define DOTDOT_INO 41
-> +
-> +#define TIMEOUT        86400.0f
-> +
-> +struct test_state {
-> +       pthread_mutex_t lock;
-> +       bool cache_readdir;
-> +       bool keep_cache;
-> +       int readdir_counter;
-> +} test_state =3D {
-> +       .lock =3D PTHREAD_MUTEX_INITIALIZER,
-> +};
-> +
-> +static void fs_lookup(fuse_req_t req, fuse_ino_t parent, const char *nam=
-e)
-> +{
-> +       struct fuse_entry_param e =3D {};
-> +
-> +       if (parent !=3D FUSE_ROOT_ID || strcmp(name, DIRNAME) !=3D 0)
-> +               fuse_reply_err(req, ENOENT);
+>          # get undefined items before the commit
+>          reset(commit_a)
+>          undefined_a, _ = check_symbols(args.ignore)
+> @@ -223,10 +230,10 @@ def red(string):
+>      return "\033[31m%s\033[0m" % string if COLOR else string
+>  
+>  
+> -def execute(cmd):
+> +def execute(cmd, stderr=subprocess.STDOUT):
+>      """Execute %cmd and return stdout.  Exit in case of error."""
+>      try:
+> -        stdout = subprocess.check_output(cmd, stderr=subprocess.STDOUT, shell=False)
+> +        stdout = subprocess.check_output(cmd, stderr=stderr, shell=False)
+>          stdout = stdout.decode(errors='replace')
+>      except subprocess.CalledProcessError as fail:
+>          exit(fail)
 
-Again: allergic to non matching {} and can just return here no need
-for all this nesting
+This patch is unrelated to your patch 1/2, so they should be sent
+separately.
 
-> +       else {
-> +               if (!strcmp(name, DIRNAME)) {
+Sets of patches are intended for changes that depend on each other, or
+at least are closely related.
 
-This condition is already guaranteed when we get here
-
-> +                       e.ino =3D DIR_INO;
-> +                       e.attr.st_mode =3D S_IFDIR | 0755;
-> +                       e.attr.st_nlink =3D 1;
-> +               } else {
-> +                       e.ino =3D FUSE_ROOT_ID;
-> +                       e.attr.st_mode =3D S_IFDIR | 0755;
-> +                       e.attr.st_nlink =3D 2;
-> +               }
-> +               e.attr.st_mtime =3D time(NULL);
-> +               e.attr_timeout =3D TIMEOUT;
-> +               e.entry_timeout =3D TIMEOUT;
-> +               fuse_reply_entry(req, &e);
-> +       }
-> +}
-> +
-> +static int fill_stat(fuse_ino_t ino, struct stat *st)
-> +{
-> +       int ret =3D 0;
-> +
-> +       st->st_ino =3D ino;
-> +       st->st_mtime =3D time(NULL);
-
-Doesn't this need to be a const value?
-to make sure that it does not change from here to lookup time?
-
-Thanks,
-Amir.
-
-> +
-> +       switch (ino) {
-> +       case FUSE_ROOT_ID:
-> +               st->st_mode =3D S_IFDIR | 0755;
-> +               st->st_nlink =3D 2;
-> +               break;
-> +       case DOT_INO:
-> +       case DOTDOT_INO:
-> +       case DIR_INO:
-> +               st->st_mode =3D S_IFDIR | 0755;
-> +               st->st_nlink =3D 1;
-> +               break;
-> +       case FILE_INO:
-> +               st->st_mode =3D S_IFREG | 0444;
-> +               st->st_nlink =3D 1;
-> +               break;
-> +       default:
-> +               ret =3D -1;
-> +               break;
-> +       }
-> +
-> +       return ret;
-> +}
-> +
-> +static void fs_getattr(fuse_req_t req, fuse_ino_t ino,
-> +                      struct fuse_file_info *fi)
-> +{
-> +       struct stat st =3D {};
-> +
-> +       if (fill_stat(ino, &st) < 0)
-> +               fuse_reply_err(req, ENOENT);
-> +       else
-> +               fuse_reply_attr(req, &st, TIMEOUT);
-> +}
-> +
-> +static void fs_opendir(fuse_req_t req, fuse_ino_t ino,
-> +                      struct fuse_file_info *fi)
-> +{
-> +       pthread_mutex_lock(&test_state.lock);
-> +       fi->keep_cache =3D test_state.keep_cache;
-> +       fi->cache_readdir =3D test_state.cache_readdir;
-> +       pthread_mutex_unlock(&test_state.lock);
-> +       fuse_reply_open(req, fi);
-> +}
-> +
-> +static void fs_readdir(fuse_req_t req, fuse_ino_t ino, size_t size,
-> +                      off_t offset, struct fuse_file_info *fi)
-> +{
-> +       struct stat st =3D {};
-> +       char buf[1024];
-> +       char *pbuf;
-> +       size_t rem =3D size;
-> +       size_t sz;
-> +       int nextoff =3D 0;
-> +
-> +       if (ino !=3D DIR_INO) {
-> +               fuse_reply_err(req, ENOTDIR);
-> +               return;
-> +       }
-> +       if (offset) {
-> +               fuse_reply_buf(req, NULL, 0);
-> +               return;
-> +       }
-> +       pbuf =3D buf;
-> +       fill_stat(DOT_INO, &st);
-> +       sz =3D fuse_add_direntry(req, pbuf, rem, ".", &st, nextoff++);
-> +       rem -=3D sz;
-> +       pbuf +=3D sz;
-> +       fill_stat(DOTDOT_INO, &st);
-> +       sz =3D fuse_add_direntry(req, pbuf, rem, "..", &st, nextoff++);
-> +       rem -=3D sz;
-> +       pbuf +=3D sz;
-> +       fill_stat(FILE_INO, &st);
-> +       sz =3D fuse_add_direntry(req, pbuf, rem, FILENAME, &st, nextoff++=
-);
-> +       rem -=3D sz;
-> +
-> +       fuse_reply_buf(req, buf, size - rem);
-> +
-> +       pthread_mutex_lock(&test_state.lock);
-> +       test_state.readdir_counter++;
-> +       pthread_mutex_unlock(&test_state.lock);
-> +}
-> +
-> +static const struct fuse_lowlevel_ops fs_ops =3D {
-> +       .lookup         =3D fs_lookup,
-> +       .getattr        =3D fs_getattr,
-> +       .opendir        =3D fs_opendir,
-> +       .readdir        =3D fs_readdir,
-> +};
-> +
-> +FIXTURE(readdir_cache)
-> +{
-> +       struct fuse_session *se;
-> +       char mountpoint[MOUNTPOINT_SZ];
-> +       pthread_t thread;
-> +};
-> +
-> +FIXTURE_VARIANT(readdir_cache)
-> +{
-> +       bool cache_readdir;
-> +       bool keep_cache;
-> +};
-> +FIXTURE_VARIANT_ADD(readdir_cache, nocache)
-> +{
-> +       .cache_readdir =3D false,
-> +       .keep_cache =3D false,
-> +};
-> +FIXTURE_VARIANT_ADD(readdir_cache, cache_readdir)
-> +{
-> +       .cache_readdir =3D true,
-> +       .keep_cache =3D false,
-> +};
-> +FIXTURE_VARIANT_ADD(readdir_cache, keep_cache)
-> +{
-> +       .cache_readdir =3D false,
-> +       .keep_cache =3D true,
-> +};
-> +FIXTURE_VARIANT_ADD(readdir_cache, cache)
-> +{
-> +       .cache_readdir =3D true,
-> +       .keep_cache =3D true,
-> +};
-> +
-> +FIXTURE_SETUP(readdir_cache)
-> +{
-> +       char err[MAX_ERR_MSG];
-> +
-> +       pthread_mutex_lock(&test_state.lock);
-> +       test_state.readdir_counter =3D 0;
-> +       test_state.cache_readdir =3D variant->cache_readdir;
-> +       test_state.keep_cache =3D variant->keep_cache;
-> +       pthread_mutex_unlock(&test_state.lock);
-> +
-> +       if (fs_setup(&self->se, self->mountpoint, &fs_ops, &self->thread,=
- err))
-> +               SKIP(return, err);
-> +}
-> +
-> +FIXTURE_TEARDOWN(readdir_cache)
-> +{
-> +       fs_teardown(self->se, self->thread, self->mountpoint);
-> +}
-> +
-> +TEST_F(readdir_cache, test_readdir_cache)
-> +{
-> +       struct dirent *dentry;
-> +       DIR *dir;
-> +       char pathname[PATH_MAX];
-> +       int total_counter, rewind_counter;
-> +       int dentrycount;
-> +
-> +       sprintf(pathname, "%s/%s", self->mountpoint, DIRNAME);
-> +
-> +       dir =3D opendir(pathname);
-> +       if (dir =3D=3D NULL)
-> +               TH_LOG("opendir(): %s", strerror(errno));
-> +       ASSERT_NE(dir, NULL);
-> +
-> +       errno =3D 0;
-> +       dentrycount =3D 0;
-> +       while ((dentry =3D readdir(dir)))
-> +               dentrycount++;
-> +       ASSERT_EQ(errno, 0);
-> +       ASSERT_EQ(dentrycount, 3);
-> +
-> +       rewinddir(dir);
-> +       errno =3D 0;
-> +       dentrycount =3D 0;
-> +       while ((dentry =3D readdir(dir)))
-> +               dentrycount++;
-> +       ASSERT_EQ(errno, 0);
-> +       ASSERT_EQ(dentrycount, 3);
-> +
-> +       ASSERT_EQ(closedir(dir), 0);
-> +
-> +       pthread_mutex_lock(&test_state.lock);
-> +       rewind_counter =3D test_state.readdir_counter;
-> +       pthread_mutex_unlock(&test_state.lock);
-> +
-> +       dir =3D opendir(pathname);
-> +       if (dir =3D=3D NULL)
-> +               TH_LOG("opendir(): %s", strerror(errno));
-> +       ASSERT_NE(dir, NULL);
-> +
-> +       errno =3D 0;
-> +       dentrycount =3D 0;
-> +       while ((dentry =3D readdir(dir)))
-> +               dentrycount++;
-> +       ASSERT_EQ(errno, 0);
-> +       ASSERT_EQ(dentrycount, 3);
-> +
-> +       ASSERT_EQ(closedir(dir), 0);
-> +
-> +       pthread_mutex_lock(&test_state.lock);
-> +       total_counter =3D test_state.readdir_counter;
-> +       pthread_mutex_unlock(&test_state.lock);
-> +
-> +       if (!variant->cache_readdir) {
-> +               ASSERT_EQ(rewind_counter, 2);
-> +               ASSERT_EQ(total_counter, 3);
-> +       } else if (!variant->keep_cache) {
-> +               ASSERT_EQ(rewind_counter, 1);
-> +               ASSERT_EQ(total_counter, 2);
-> +       } else {
-> +               ASSERT_EQ(rewind_counter, 1);
-> +               ASSERT_EQ(total_counter, 1);
-> +       }
-> +}
-> +
-> +TEST_HARNESS_MAIN
+- Julian Braha
