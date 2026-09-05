@@ -1,115 +1,83 @@
-Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-229.mta1.migadu.com [95.215.58.229])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EF1D4E8E17
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 18:33:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FF9E4446EA
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 18:37:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.229
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788633197; cv=none; b=MO9Tn2c6+3XURgKDz51yA8qHWHtbyuEnPXx7GxSAFysjR0AozwyX6imC2MV68ewu6seh0d+c9VM2eTNCeHFmigw2qNR35j3lBcG7KfLruuHo/gcQEUT4HY3acRKxFLbalbIqddPm0efB43zNI7U8nl9yaNGAjUMc1j+CCQRVIHs=
+	t=1788633441; cv=none; b=UMaJwmQjsvARHqzzSqfm+SQXV5u6FlGgoAS4jvKJ+PURBZJUB55QuR2gBKe3Mn1UkFcIGkGfg1REqzjlHvxrt5dfDMRrGuIR/2P1yt5ELoM7ZNOSQHvvyVp0b47D+A4Q0zjxnoVNQBAcZ74RU9X9vZGA1U9UXZQzCQwfGZbFZj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788633197; c=relaxed/simple;
-	bh=FKq1NryK1zRIAl5XiNjG29K9lMik2CrHrXoz1VuIAd4=;
+	s=arc-20240116; t=1788633441; c=relaxed/simple;
+	bh=I2hZAS3S7zBbw3qzs6V1oH6J1n9227ey8lD2DiKGnxs=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WRx9QidGnaWoSGmRm/ZFXezvq0Sc0rlw7bycStBdzwr3xrG7JdJ7+jpuXhUCqQmMQztUQ6q/wJ7ATZ3M+DJUybld1r+Dzzg3jexQ+opLYqWtBaEdIxFRSK+JoL1fASHTRr04xddK1mPAVh51jYYbfx39hCmAOBdmTnh0VUbZZTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=Ij952aks; arc=none smtp.client-ip=35.89.44.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	 In-Reply-To:Content-Type; b=XSWf6pIW4IXhZolHhPOQuujQvksyWhAQvbRh1vW2ZeTkFONUFAh/TJDeLWa9QceT2n+41qVDXaTRfyVzAzoLV/y+unXBiqtlLyshwefYhCvj2zQF9g3O7Sg8/Grbt09mLtfiF2QLfeIoUrCiJCs6EyAqh/A6esRrJTLbFxNPevE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Tgwr3fBy; arc=none smtp.client-ip=95.215.58.229
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="Ij952aks"
-Received: from eig-obgw-5007b.ext.cloudfilter.net ([10.0.29.167])
-	by cmsmtp with ESMTPS
-	id 2ugNxMXueusRS2vCOxFkoY; Sat, 05 Sep 2026 18:33:09 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id 2vCOxVrfObQ0n2vCOxexIE; Sat, 05 Sep 2026 18:33:08 +0000
-X-Authority-Analysis: v=2.4 cv=S4XZwJsP c=1 sm=1 tr=0 ts=6a9c6064
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=49j0FZ7RFL9ueZfULrUA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=gbyM5iepRbt2HiKDAY5QzxK794j5w0WSQTiLxK4/ce4=; b=Ij952aks8mVP0qWnn5Pd5yGF+5
-	QqmN/DMBmha3GdyFRbQBaMgaZAT9Wpxm6ZbNjVGFfWFE2zmzze9WVlXvz5q9eXaQpyoWi7gFJUR1v
-	NNeGNOKEY6wYSHbfTvpuQFH1a7tud/kx7rU6VVgT8afs0dX9TqhofOZZDVRn1A6RN1L8e1Lf61p9l
-	S/rtrVd9kF4dBMR/Rdkclkw387RL+t8ykkuhh99Lzi1eLaGN3VI26kl4da+7sEk1bTcMHOGUquril
-	8Y33bCVNwg4/zXSCdlRgqfqIeRag8oTVJ9n+JiLSsJ4wq/cLiSMOPIZPjP65jpMvVsFOYQTVfS1QH
-	swxpXk/A==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:38816 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.99.5)
-	(envelope-from <re@w6rz.net>)
-	id 1x2vCN-000000000ym-1zUU;
-	Sat, 05 Sep 2026 12:33:07 -0600
-Message-ID: <135238ce-d960-4e91-93b8-942ffcbe366c@w6rz.net>
-Date: Sat, 5 Sep 2026 11:33:05 -0700
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Tgwr3fBy"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=I2hZAS3S7zBbw3qzs6V1oH6J1n9227ey8lD2DiKGnxs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788633437; v=1; x=1789238237;
+ b=Tgwr3fByoRlxbTz+enl3FTypVoOTKxfx6DQ7FukQerkr5XKMsnMPIX5w1Tn8+Ov1WzT7FZAc
+ oUasCBoBFYaT1dnOlMTFql3NssmB1Uzy+8J6IGV/dEzurnxf9K/LLXe2pQ72dFd8Bfeg56JpAE5
+ 009OmVZjFZBT75GPWAyq4i5A=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ea0f1e74fddd1034;
+	Sat, 05 Sep 2026 18:37:07 +0000
+X-Mizu-Trace-ID: ea0f1e74fddd1034
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b36f40ac-cd77-a480-d558-139334334b16@linux.dev>
+Date: Sat, 5 Sep 2026 14:37:05 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 000/713] 7.2.4-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260904045803.810145556@linuxfoundation.org>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] dma-mapping: don't trace the DMA address when the
+ allocation fails
 Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260904045803.810145556@linuxfoundation.org>
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, Steven Rostedt <rostedt@goodmis.org>,
+ iommu@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260905071919.30784-1-donggeunyoo.kernel@gmail.com>
+ <568a4f04-e0db-342a-13a8-886cf6b2a8ab@linux.dev>
+ <20260905172650.158565-1-donggeunyoo.kernel@gmail.com>
+From: Sean Anderson <sean.anderson@linux.dev>
+In-Reply-To: <20260905172650.158565-1-donggeunyoo.kernel@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1x2vCN-000000000ym-1zUU
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:38816
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 17
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfC002Qjl3YkhH+Vk4wBbR3sqlHtrKPe06zoGj86ySTtyXxyAnqE/SADRN56qhuEgA8V8gp8vg6yKo7HZ4Kl+MmopPCGqo5Fzyv30o5A27H/3VelhurDN
- R7ApxDeonv7XIWmHjHvmA1Q8kIcU4St4dDznnJMy09qPuCEg3WAa5X3mOeXLRtESrJZiEb/WS+OzmfefuDI6sP3mAubya+L9Rgc=
 
-On 9/3/26 21:49, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.4 release.
-> There are 713 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Sun, 06 Sep 2026 04:56:59 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.4-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+On 9/5/26 13:26, Donggeun Yoo wrote:
+> On 9/5/26 08:57, Sean Anderson wrote:
+>> I don't understand what you mean. We are literally in an if-statement
+>> that checks whether the allocation succeeded.
+> 
+> That if checks whether the device has a coherent pool, not whether the
+> allocation out of it worked. dma_alloc_from_dev_coherent():
+> 
+>   * Returns 0 if dma_alloc_coherent should continue with allocating from
+>   * generic memory areas, or !0 if dma_alloc_coherent should return @ret.
+> 
+> It returns 1 as soon as it finds a pool; __dma_alloc_from_coherent()
+> stores NULL in @ret and leaves *dma_handle alone when the request is
+> larger than the pool or the pool is full. The third paragraph of the
+> commit message says this.
+> 
+> The second hunk is under no condition at all: dma_direct_alloc(),
+> iommu_dma_alloc() and ops->alloc() return NULL on failure, and the trace
+> below the if/else chain runs either way.
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+Ah, I see what you mean. TBH I would just do something like
 
-Tested-by: Ron Economos <re@w6rz.net>
+cpu_handle ? *dma_handle : NULL
 
+to make it clear what we're doing
+
+--Sean
