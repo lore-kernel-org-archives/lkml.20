@@ -1,106 +1,132 @@
-Received: from va-2-56.ptr.blmpb.com (va-2-56.ptr.blmpb.com [209.127.231.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0599230E82E
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 02:16:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E04EC2DB7BB;
+	Sat,  5 Sep 2026 02:17:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788574575; cv=none; b=QfbdLm4NvRUzZv9Zu1C1GoSu45TjzDhxgsj1pev4o9ulUVtnY0IImsLLjYkxHHz3hirX8eQBgsWLfo3y9Gu/baomrvgn5n5HPC/V+AXqUaG2bMunZ2Q34Kybf38wore+RXF6M9N+w4jJIJcxkQX/pMBXLdild/3tAXCgTQYE9Yg=
+	t=1788574678; cv=none; b=prbCfo131nYcPtRDq6YgZ1eQRbw8hYNk2242fazsnzYpLo0JOsx83QTlfV6o6OUrcBJpHJtAMsl7zsLO9T+PE1AOM8QvKL3nPV+T8OXdiXOrNSJDWXiFgxSpwkzqGZNCjjsuK2WiXRMHPWMAng5Ck3c+vWgV6/iWYq0sAl2MGl8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788574575; c=relaxed/simple;
-	bh=6JCf4Lb1Flv9C5xRWLiwPWrWMIcYGglg2IpRXunXdD0=;
-	h=Message-Id:Mime-Version:References:To:Content-Type:In-Reply-To:Cc:
-	 From:Subject:Date; b=Z8oIpWgXu1X/tJJCqD07HAGY+fOrBCfqNcAjEob5JpWO3nXYOPmJkK973HU4ZiaaWMay4VdwJLb36FTSLBiUiyncHBv14ffL2KoDkp2DNc5xD4Vqh/RPoaVkuu7O/TdmZjRFtVQtJLZ9T6Ed2ecKK+9l4ykSSZ7tVZvTWh62/+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=OeZ9MXP9; arc=none smtp.client-ip=209.127.231.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	s=arc-20240116; t=1788574678; c=relaxed/simple;
+	bh=pBfjF5beceQC3GK8orgII7IC2LW//67f1nHLeXHsB20=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=VkmZmEl/foB6ovx+J+QMCl1unRTqJFkKzMHlbRtj/vpbzOwP9ZVFLsiG50XTL2KwmF21Abq7GSZjzXwjRxxRlKpua7nHW83ciOBGW3v27ZbHdQrnXk5kqJokjV9VLHh7Nm20XoPHuB2T66FXL6k6Byf1KLr2mDZQ8PNdShH4Uco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PL+sVWRb; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="OeZ9MXP9"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1788574567;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=UBlu1yQq6VDuHpWmYNcsoa3rokaSLxbjInLsuZMMfME=;
- b=OeZ9MXP9jVGWTFieG8dA1ym3B+WlgMUz4RIwEQAM3+uDTmSP9yBFwwJzl9c9ChGDCDCWa/
- 3r9kAUYUg4RvEF2ByFO5V7gTiefUSlsxWKvLo99BpkTD9PkoSJE4WRpEETFJ9vvqobTRcD
- 7Q89pC17J/u9KSHR2IFPvjxJq3xECvo8dz7uIude8SdVV6nWkPxC18knIbx9WyAYD1jKtH
- CiDbUxkvnFGfgl0pP2pnsQnHZvV6CnfE1TsYdWtFCiOYuteLUHq9K2+iKybj7PSxAFI6m/
- aM0OJz4NqePqEV52MEONwTPTcYwt38WoaXsNrQwziOnLQbnbpJzA2gRpyuIojg==
-Message-Id: <195e0c6d-829a-4782-8ce3-3ffe10462bc4@fygo.io>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PL+sVWRb"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 560A8C2BCF5;
+	Sat,  5 Sep 2026 02:17:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788574677;
+	bh=pBfjF5beceQC3GK8orgII7IC2LW//67f1nHLeXHsB20=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=PL+sVWRb9TnwuxBDmNsHlt9HbCDfoaji3iLduI4ymeh/PNZBwGRZyS1nagfnrP5px
+	 nY/gVDINhLLHvE5JtG6iPrK6HGl29/kmAjxIxzMusHjRkfxjTz5g2IyQqIPXCBEcX6
+	 nYjE/pzVYJJTG08G8ZByhvrzny8bZym6uiWMRIga51TScfCmAGrDwCbGbrt+gt4H1o
+	 9a4rzzSpkm3W4V//4/uHJE2A2JhanNCw4F14XvPCy7wjyoGP5V0SBTCmDQ7+b3Lxx/
+	 0GQPLMHnkqNni4f59H4fBDExGWsYM4NpKRDS8Lpic2vu2xNWGg/rBIidkH3EmMSIW0
+	 DQDiVirKbaIlw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2DF84C79F89;
+	Sat,  5 Sep 2026 02:17:57 +0000 (UTC)
+From: Younes Akhouayri via B4 Relay <devnull+git.younes.io@kernel.org>
+Date: Sat, 05 Sep 2026 04:17:45 +0200
+Subject: [PATCH] rust: num: seal Integer
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Original-From: yu kuai <yukuai@fygo.io>
-Received: from [192.168.1.104] ([39.182.0.178]) by smtp.larksuite.com with ESMTPS; Sat, 05 Sep 2026 02:16:06 +0000
-References: <20260811101436.458181-1-chencheng@fnnas.com>
-To: "Chen Cheng" <chencheng@fnnas.com>, <linux-raid@vger.kernel.org>, 
-	"yu kuai" <yukuai@fygo.io>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260811101436.458181-1-chencheng@fnnas.com>
-Reply-To: yukuai@fygo.io
-Cc: <linux-kernel@vger.kernel.org>, 
-	<syzbot+de94ddbfff0c9e6fe030@syzkaller.appspotmail.com>
-From: "yu kuai" <yukuai@fygo.io>
-Subject: Re: [PATCH] md/raid5: fail invalid raid5_set_limits() geometry
-Date: Sat, 5 Sep 2026 10:16:02 +0800
-User-Agent: Mozilla Thunderbird
-X-Lms-Return-Path: <lba+26a9b7b66+7c7f93+vger.kernel.org+yukuai@fygo.io>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260905-feature-rust-num-seal-integer-v1-1-83096115ad64@younes.io>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0Q7CIAyF4VdZuLYRcSGZr2K8ANaxGmWmBWOy7
+ N2F7fJver5VCTKhqFu3KsYvCS2pxuXUqTC7FBForK2MNlYP+goTulwYgYtkSOUNgu4FlDJGZHC
+ 9sWacejMEq6rxYZzot/v3x9FS/BNDbmj78E4QPLsU5nZamCKl864fy237A9lWeQilAAAA
+X-Change-ID: 20260903-feature-rust-num-seal-integer-a4262df429c6
+To: Alexandre Courbot <acourbot@nvidia.com>, 
+ Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Younes Akhouayri <git@younes.io>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788574676; l=1759;
+ i=git@younes.io; s=20260712; h=from:subject:message-id;
+ bh=bVjKmsDC3xyhPHxsbELDrHtf25N1qLrwIDkcTJtI+Hw=;
+ b=tn6YSXWPvKIjGWNXFsc+QIj5PzBOLQzeokvmPUB666OHKjbnHLWLMM+YIRl87t9+YEYlqeFkH
+ UOZmavqYAaJCk/4Rs0Jf1qgDYBfLRIG6qyvjqPfVMPOiB4TA55gUurs
+X-Developer-Key: i=git@younes.io; a=ed25519;
+ pk=1DRfzPrQ04RQHHgGK28t+vjIAPv5oISPiAdLMU6J5dE=
+X-Endpoint-Received: by B4 Relay for git@younes.io/20260712 with
+ auth_id=866
+X-Original-From: Younes Akhouayri <git@younes.io>
+Reply-To: git@younes.io
 
-Hi,
+From: Younes Akhouayri <git@younes.io>
 
-=E5=9C=A8 2026/8/11 18:14, Chen Cheng =E5=86=99=E9=81=93:
-> From: Chen Cheng <chencheng@fnnas.com>
->
-> Prevent raid5_set_limits() from building a stripe size when the array
-> geometry reports no data disks.
->
-> Reported-by: syzbot+de94ddbfff0c9e6fe030@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3Dde94ddbfff0c9e6fe030
-> Fixes: f63f17350e537300312 ("md/raid5: use the atomic queue limit update =
-APIs")
+Bounded relies on Integer implementations to describe primitive integer
+semantics correctly. In particular, it uses Integer::BITS and Signedness
+to justify unchecked operations.
 
-The closes link is wrong, please use lore url. And the fix tag is wrong as =
-well,
-12-character SHA should be used.
+Integer is currently safe and externally implementable, so an
+implementation can violate those assumptions and make safe Bounded
+operations reach undefined behavior.
 
->
-> Signed-off-by: Chen Cheng <chencheng@fnnas.com>
-> ---
->   drivers/md/raid5.c | 2 ++
->   1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
-> index ffb5fcde54a9..c0adb73b1dd4 100644
-> --- a/drivers/md/raid5.c
-> +++ b/drivers/md/raid5.c
-> @@ -7825,10 +7825,12 @@ static int raid5_set_limits(struct mddev *mddev)
->   	/*
->   	 * The read-ahead size must cover two whole stripes, which is
->   	 * 2 * (datadisks) * chunksize where 'n' is the number of raid devices=
-.
->   	 */
->   	data_disks =3D conf->previous_raid_disks - conf->max_degraded;
-> +	if (data_disks <=3D 0)
-> +		return -EINVAL;
+Seal Integer so only the primitive implementations provided by the
+kernel crate can satisfy it.
 
-Looks like following is the correct fix:
+Fixes: 01e345e82ec3 ("rust: num: add Bounded integer wrapping type")
+Closes: https://lore.kernel.org/rust-for-linux/CANiq72mOfR33s4y+Ueivd5NrC5yre+Pcp57ZOBz0msw9A4AP1Q@mail.gmail.com/
+Cc: stable@vger.kernel.org
+Suggested-by: Miguel Ojeda <ojeda@kernel.org>
+Signed-off-by: Younes Akhouayri <git@younes.io>
+---
+ rust/kernel/num.rs | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-[syzbot] [raid?] UBSAN: shift-out-of-bounds in raid5_set_limits=20
-<https://lore.kernel.org/all/6a778c82.01d0871a.3a0d52.006a.GAE@google.com/T=
-/#m635e3614888a7ec9d9a1cc4fd15660d538dedfd0>
+diff --git a/rust/kernel/num.rs b/rust/kernel/num.rs
+index dbe848e30efe..de589792a77a 100644
+--- a/rust/kernel/num.rs
++++ b/rust/kernel/num.rs
+@@ -15,9 +15,14 @@ pub enum Unsigned {}
+ /// Designates signed primitive types.
+ pub enum Signed {}
+ 
++mod private {
++    pub trait Sealed {}
++}
++
+ /// Describes core properties of integer types.
+ pub trait Integer:
+-    Sized
++    private::Sealed
++    + Sized
+     + Copy
+     + Clone
+     + PartialEq
+@@ -56,6 +61,8 @@ pub trait Integer:
+ macro_rules! impl_integer {
+     ($($type:ty: $signedness:ty), *) => {
+         $(
++        impl private::Sealed for $type {}
++
+         impl Integer for $type {
+             type Signedness = $signedness;
+ 
 
-Just raid5 should contain at lease 3 disks.
+---
+base-commit: e510334fbaeaa016ac76d80b4c5f47611c5f7860
+change-id: 20260903-feature-rust-num-seal-integer-a4262df429c6
 
->  =20
->   	/*
->   	 * We can only discard a whole stripe. It doesn't make sense to
->   	 * discard data disk but write parity disk
->   	 */
+Best regards,
+--  
+Younes Akhouayri <git@younes.io>
 
---=20
-Thanks,
-Kuai
+
