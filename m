@@ -1,91 +1,41 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBA344483A9;
-	Sat,  5 Sep 2026 12:50:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788612607; cv=fail; b=VFtJP4ODHQlV0XSVwtqQP7u1Rhl1qAbwED5JSKFrW7lCc81hoebzfvkcwDPYWWMmD0jplTPXZX4VLoMI3CbajLbsQ5NGsdofdYUmZO2c+IY3krhjtGs0v/uNQOLF1G90oC12f7tjp28iy7m6eEMcJ7Rd5H72tsJBTTBuAWuXShE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788612607; c=relaxed/simple;
-	bh=u2Cf8Sb7lsj1eRqcIEPTy8+z8v8LnedsYzlunnrXTC4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=byfHq+6pxFMLVEojQ54RhJ+jH6sQenbT1magNDu8DQIJ/ju1M9Z0/J9lQQm1Tgn4oOomgtbSqaTVnDdkmgCdzhpMYX/V/CI4cytv31e6oAYZ9h7p3uxsAf14QG8Nq746zLVSe377wCxgBgi6OFWOUH+vju59m3mTfly5f+oNx90=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=DSqObyuc; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=qU8SYp9G; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DE5C381AEC;
+	Sat,  5 Sep 2026 12:51:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788612711; cv=none; b=X90w//2WipKo2TzOraBkF+ftOpDEg/9kVgAlkGSu5uXm0Kjs/BaTJdgI+2TVviiusH2ve+iF2YgAL8Wl0/wmtHSbA44fe24OGhIKPXGqiq3vkMQ4obKcUlBYD0GACPxu+UKGjlxGcEUs4OIaTT6iBs4h3KRRrxqpZcNMiqHhFXo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788612711; c=relaxed/simple;
+	bh=fZBEpl+ftD9+WzMn7LRR2H0PLpgb46A/hgP4wZjNN3U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RZTfPdb/FAmTvpx7gNl3e0HSHu1gh9Hv2QbR1yNysGkWDi5jSHsT8494M3AzIFx9lOT7pJEhFowxzFX0f/Noqs7XxL6/wKFv2ulnjdelXfL4jtLMcK/opdh2XsWQgmvnczm/d7RtZkFZaVotiq6NNJWUZwtOegAVhtdM6+ry22M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b=BKObiniE; arc=none smtp.client-ip=212.227.15.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="DSqObyuc";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="qU8SYp9G"
-Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 685BULhg1885438;
-	Sat, 5 Sep 2026 07:49:54 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=DtfAObULRIIxOluWx4C0+rkgymR02M84fVuL4a0OZ
-	So=; b=DSqObyucIrtBNJbByuC9Rc49ioGfmAIEfe2f/pDbTz21rpsUy5ucnv8Jf
-	rw79S7fGzHfSxR5V56DXXmxMvyafo/OyZKapXfzZMio53ICCAkTmINNd2XfucLrT
-	wnnxRPHmzTWQhjrgMd1wTbkrTzVq/IgW+/WL6a1KJsPkQYv6Dqdxzi7GYJTudJ46
-	FL4Rh/yCtCvL/mlCN+fol42o2DEHq7hPWIVv+soiQg9eSvRTE/b6gLiBkejjQfPi
-	7bzhSstJgzUUUjOS+80CJ08TThYI4Tphl5k1CxI+WcvLBCLVI1CMGmF8Nn5cUbku
-	OJBNJtQEgNXlsh0eL1ZISJBLjh/sA==
-Received: from ch5pr02cu005.outbound.protection.outlook.com (mail-northcentralusazon11012048.outbound.protection.outlook.com [40.107.200.48])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gfyyq5r28-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sat, 05 Sep 2026 07:49:53 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MeIPJ9lHwYUmy6TheC4hwc4QF9F87jRruqFO2GYnluJ2zRS9K6RQ1UOBGlvLjsADuMch79k8yXxpcfggsBDcUFMWPL4jTIzCwjXnn+1/0fMLY1IPiHHAkhbO6u1GioAJUlSlMjDRF4KP/YfsRQezwcpUPFC6YYoAetdmgiDuG45Bb6vJCg9jAgHtmhiIJPJnPM/toc4YYAlfjtolupiJ49qlvh/NfkIzVY0rHQmXJrU9oyi7baGNaULCKBolnUJl/zdU8SC3ByM+rAarqTFHm5w7L6neXRk2R8hFlrJFto3uwprZNxFj17quwgWeMVLkRJjDi+3H9HI3RjOLbzS65Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DtfAObULRIIxOluWx4C0+rkgymR02M84fVuL4a0OZSo=;
- b=O8ibgUYOiIQ5csUgK1m6b7FHhx5VC2YpoEZ7VEg0YST2CQtzEmbHkLfUa8mkKAkawzfSRH8gu9Nasoq7aChK6k0s60JpzKMehuLXt1sjgG7PfajTOM+TOVqnlYwoxlXjtAD9YnOcWU5pvz74uoRcbYGE2M51nmjC61g0DT38yKg9Rf2sg5Z8IgCvlO/CVGxwcgwqIdXDa5YJRQbC88DmM1oFAN+KQ/HNCJI3P3g2KhDed1KbdXXSfritOspilrvdVQRn2gzrhTDudUD3M7p2iEL614nwNHJqwceIwIZvgKrCKKtCDiyQfkHRdFq2pDMNqnHtTGkOZCPZ0cLR7POzvw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DtfAObULRIIxOluWx4C0+rkgymR02M84fVuL4a0OZSo=;
- b=qU8SYp9G2kwk/R2rbJdHiasEzWzuH2/ZmpdyNLjlJSTynnWBXzVXniXLnrZ5GLrU8RzMhQNevmQXeHQAPEZeBj7Y09XZ6JFJdqxOv6EN+JFc2AUKy+3IDtVixAwm9TCov3ZO+otHIeBTpvMi8dal492I+rigNTJUjCtMNvS4bag=
-Received: from BN9P221CA0006.NAMP221.PROD.OUTLOOK.COM (2603:10b6:408:10a::33)
- by CO1PR10MB4660.namprd10.prod.outlook.com (2603:10b6:303:6d::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Sat, 5 Sep
- 2026 12:49:51 +0000
-Received: from BN1PEPF0000468B.namprd05.prod.outlook.com
- (2603:10b6:408:10a:cafe::af) by BN9P221CA0006.outlook.office365.com
- (2603:10b6:408:10a::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Sat, 5
- Sep 2026 12:49:51 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- BN1PEPF0000468B.mail.protection.outlook.com (10.167.243.136) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Sat, 5 Sep 2026 12:49:50 +0000
-Received: from DFLE213.ent.ti.com (10.64.6.71) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sat, 5 Sep
- 2026 07:48:16 -0500
-Received: from DFLE210.ent.ti.com (10.64.6.68) by DFLE213.ent.ti.com
- (10.64.6.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sat, 5 Sep
- 2026 07:48:16 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE210.ent.ti.com
- (10.64.6.68) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Sat, 5 Sep 2026 07:48:16 -0500
-Received: from [10.249.135.178] ([10.249.135.178])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 685CmBSo2186145;
-	Sat, 5 Sep 2026 07:48:12 -0500
-Message-ID: <b5dc14b2-9b8b-4da5-b48c-274bdf6581a3@ti.com>
-Date: Sat, 5 Sep 2026 18:18:10 +0530
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b="BKObiniE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1788612702; x=1789217502; i=w_armin@gmx.de;
+	bh=SHV1P6ptG7R+u23V4Ysb03oU0BEe7hpEAnj8gGM0pKY=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=BKObiniEo5UitAMOSu3QaQsAx+3Kik/xrriU8w2g3COu/UO3pjWd7IiJdTCshJaE
+	 +NLvn01TtlabpcS9GV67xFFc/F0kMpaFRQWbYC+Mtlt0avlwvsDz2LE2U1wu7Cc9c
+	 YncobMeyPlaVIbFmy1hYAndzOPVF3SdycX8uDmdM3nO6C8RdB382IlKflO9tpMFIS
+	 UwuWNx6ZLAM89I6sO/I9GsvClKMX/eSr+v0+uYFthYErMIak/6QydFIZ9sKI66w+4
+	 JHFX2jUFudtQk6+w1X+3iFP1PXv66R4axHR8wWwg2pX8VNDjNmzKdNYG4D0somJeN
+	 7V08nNg3PeWXylhgXw==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MfYPi-1wNASE0ZKq-00dntV; Sat, 05
+ Sep 2026 14:51:42 +0200
+Message-ID: <aa9f7f23-f9b2-4b54-b287-5089caa5b0c9@gmx.de>
+Date: Sat, 5 Sep 2026 14:51:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -93,115 +43,238 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/6] arm64: dts: ti: k3-j784s4-j742s2-main-common:
- Assign SRAM to VPU nodes
-To: Brandon Brnich <b-brnich@ti.com>, <nm@ti.com>, <vigneshr@ti.com>,
-        <kristo@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-        <conor+dt@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: <afd@ti.com>, <u-kumar1@ti.com>
-References: <20260810205206.685971-1-b-brnich@ti.com>
- <20260810205206.685971-5-b-brnich@ti.com>
+Subject: Re: [PATCH v3 0/2] driver core: add TAINT_FORCED_BIND for when
+ userspace manually messes with devices and drivers
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Bradley Morgan <brads@mainlining.org>, Aleksandr Nogikh <nogikh@google.com>,
+ linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
+ driver-core@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
+ Johan Hovold <johan@kernel.org>
+References: <20260904-bind_taint-v3-0-30025465f38a@linuxfoundation.org>
+ <9ac44f3f-1c67-4c37-aa72-255cec1578d2@gmx.de>
+ <2026090546-skimming-bundle-0655@gregkh>
 Content-Language: en-US
-From: "Kumar, Udit" <u-kumar1@ti.com>
-In-Reply-To: <20260810205206.685971-5-b-brnich@ti.com>
-Content-Type: text/plain; charset="UTF-8"
+From: Armin Wolf <W_Armin@gmx.de>
+In-Reply-To: <2026090546-skimming-bundle-0655@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF0000468B:EE_|CO1PR10MB4660:EE_
-X-MS-Office365-Filtering-Correlation-Id: 452dfa32-f64c-42d7-63c4-08df0b4c2d06
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|1800799024|23010399003|82310400026|13003099007|921020|4143699003|56012099006|18002099003|22082099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	Xk5SCw7lmufioLfOR3hpAcaT9dc+C+7fowj710ATyjmtzP6HuYycdcTWHxa0UBw+DEHPeD4Tys8V4lLUsShbcvwOnSZKSGVAy8UvD7w3j4lK2RNC6A//8lomawcup4i2oMSUhctpye5HSZCsZpq+hhDC5pSe2/mZm4fEgpyYIZaKHqPNaWFgsiOJdSo6KocOve6T4WQJ0PWT088FgpQkrFvzCwP8sE7t4RFFwItXs7awrjZWDIdW0A3q9C2GHmUt2DGPteCa5lJPo7tU0WY1TeLOoVKVQ64BhxiSlon/lsymzY9pAECc0gaUa64QXX6QJUE6IKLtSK8Ddr15UnF1N51m60e+dSH8iJP+qCCT4PW5L8HqMPAytKI3fecjzJFmSVky1bR8wpzqINtwYF/1SoSjMdSnoFuP+M+DZvVAbfh55tsX6mTYU4kE6bQgI0MhwDhzifZQE4C1Z88UxR6pBKWtTimhhkjeNTpuhf/OT36DokgWTnRp9CwpPHyEfM67+Prx2crvF66+2FELrQDl2FC4ybbIxOpwO1CaRnNEZAQXWy1U2xFMmRob+jbrRLI6QrSirtzObCrXV/8sdpDEEc8mCYaTp7eaMbE2F0xEuVC3T1f4gEbt7L4Ez/cvx3gPfDudmYJ6chU6NMbFUCFKu2NgMcuK6wx0P04T69ZZ5HFeLg6Q+Hst0CRXwvnhi/1oP0vgnDv3qU06FWGdY/QphA==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(13003099007)(921020)(4143699003)(56012099006)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	x8jkhELA5XK4gDkzIG7A6k4d40dybJE02ROexvyVhS2S/L/9Hau7f29bGigt5sxQjEQOOT9VeP8jCK9hng7udHdm+/GBevK+C6kvK7AhEXkg4K5YofW6rT2ckzZ/4CGw9ycmRQ5rpng6qE2rd9mu15ce4UbIK5X6xN3BH89XzS7ZpVGnrRBnvsfnaietPCSio9zqjlkvgBSPf74Dxx7pnR2dEHo4eRkTcDhA81aJMsa+1z85b4YiKWOWu+Ci2M7XQTmud9Pnn1IRmO8PuRbfx/G0Ra5bLzZyRd9OA6K9ZX5O3ecxaWcrcCTrRXhYThtBpgSHhfuhGi8n5C1RGiimtL4Ie8FxiX6ePvC/MecYTVwBmTvr1LKuKchk3tofW/soObOfrjlU+udiiIUGwiQ1TDWUzLmSBa2h6ZsEB2PjoY7OTk62icu65E8eHz75gaPd
-X-Exchange-RoutingPolicyChecked:
-	xnu6CEez0RQzzeklSXmB/Z3D7ocvd+vzs4IzgV7uVOZYQqJVABuBYe82lOdVPj74l9eeUTdOLC0oywcKL0vH+cP0iaBJdlEgCzJT3X48RGGE6oywf270q/Jt9xjEQBBF8q3zuVqNFaIV8pmYcXr03l6I8i2mXTUuPEBZlzHAAttsPoSGsXPpg2qBFmWIT4TWnIUFx1TepEfT9KRJkYT2u96Ixy3H4zAB+FcpeJIg/MMoHQoVMlqMNierlJXMg3Qc5injBB1PHF5fhc559V6kN5V6LmCgM3ZQrJWmegBoTdmYrDu+J0ezldUYKVfVMtOTpZaPaPfqQ0fovdTQoZgMhg==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 12:49:50.9523
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 452dfa32-f64c-42d7-63c4-08df0b4c2d06
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF0000468B.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR10MB4660
-X-Authority-Analysis: v=2.4 cv=AfqB2XXG c=1 sm=1 tr=0 ts=6a9c0ff1 cx=c_pps
- a=JJStoDgKLvGmSPu1zToK9A==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=jwouBfj2j3NM8CExmVVE:22 a=P-IC7800AAAA:8 a=sozttTNsAAAA:8
- a=rdVYSk_NxjMM21v4qsgA:9 a=QEXdDO2ut3YA:10 a=d3PnA9EDa4IxuAV0gXij:22
-X-Proofpoint-ORIG-GUID: iT0RjTd-24WRSdl-ZpbenJ-T_SMTlwOb
-X-Proofpoint-GUID: iT0RjTd-24WRSdl-ZpbenJ-T_SMTlwOb
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA1MDE0MCBTYWx0ZWRfX+u9nxWW0JHXN
- ezStrZ6R5EcVhoTqA6fRwqEfSjLzuKeM6BZvSaXbguINPYSfz+NFPzftt+g6dWcxemgNUWhmuSC
- GIo4JsPTpZzCwMUkRFL+rTH1g3GIbpaOrJC46/oUxC0T6ZrwJtUI6Rh4U3gIf54NmWsQisqT3Xb
- slIucCc7nmkcmYVYgtNJk05WA56+QWKsBLeliiiso3RsqZj68TGqosbDzx8QAsc4TtyhXs1uFYe
- T8RchjJQK7ArLVDdj2+9dEMgrUlAUy0NSvHZkHjNzghhLRzgRnFpMt389x76F5m/fSFcf5m4kho
- 5JPzbofBWZYwg1TYYvk7OtxnivWOkpVPNtPXnAFpDFeXwGc+iYe2r4JD5MDW8Zn1u4OgziFhu7d
- EiO3feJFC8HAD4sbBllS3tf3UWErgQmP+U5bp7sVij9O/SIcZ7tz0SfaJ64+hEcB0CFFR2zkeEe
- YU2xJwvdbEZdSWAQd6A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA1MDE0MCBTYWx0ZWRfX6RKL3PzuM7Cf
- wXttiJEut78PNkhXuHHgiQjBdIzcaZrQC9m/u4+QiGA9wjxKvxtGHMx+oU0mdzhSrl2AKC0bthu
- 02gh1STtoCvZpMnTAthDpteChHOd7QM=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-05_04,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 malwarescore=0 clxscore=1015 adultscore=0
- spamscore=0 phishscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609050140
+X-Provags-ID: V03:K1:1NWvXrOnyY4yTMWSXL+19xs600GcA51qQobbj7K0JkW6LBBPYb9
+ 4u7awno/6zhMzp/1HZKbRNne5TbOBj1OpwIeZoHuxKbHNQTTSfY63fOfrjsmu0b4tJH9dqJ
+ XTkx71nSpA1z9rqlcXhgNGBZrPJ0Hypb74JlACvwG4kcgM95KJH7DjPAcxN/QVcGMGlbqMR
+ YNOlDAmC4DVNAbxj7PJuw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:dCtG4xomR7o=;P8RWS2bItmyPlVeLrQxkyu3EZQS
+ Z6ixokXZVClgc/2GvrcNMZOjk2sJ8CpYnhtGo2QtB156drrcwPZEuIg4gSRptLRifNjJv2xjV
+ /njFBiwdnIux7YQdF/zp2VPkTGpyRZMCNVGst+ZjIMaEvmHfijrHBAA53YMLdui2pT4EcVSPE
+ sB4l7qAmNCJ+B5M0lNir8t7/+hll549fAzMnpxojnoZTdu8Ec1GU34QoPgaRMe1qgYHDTQGQR
+ Gg7JSmo/SBGYrfjKD8QFQqJHPHmwpZ2PfcoKucuBbvfHidqP796co+cMQGPE8lNohqxdJPOyy
+ oV1cYPohEfaCEzGqoNzTaSkujy7Z8Y6vgqv5T/FG5G+Hzbple7d4BAtvqK2qTpli6LN6C+xFf
+ y/IyVP3loFVIuTdIeK5UfyUG958XG2rfDuY69kDOdxjGfGxe/aN+kgG2GpEpVZRRLVI9IQjKp
+ cRE84EBWdtWe8wgTwa1rJHXARa2y5QXhVuLkGO+C4pZGQLQS29frlMK2P2dTYujFa9wyPlLhD
+ fUhtwoyImHUfzT0c+OyyUnjCgZsjV4wB5VNO0b4EBu0mRWsyvmod2B4GhxRvZCKwh0YizDi21
+ SsM1JgljiG4FGVj2xuDTr0aaFiiJ4tAmClULlMqIfBtOn81pcNYbvgSZIf5hug5ZX1IVed/3s
+ Rvqln7O9uFDGfHAPkw7Jly4vEAznhpydqou8VdXYrqSpK1Ga9s0vU+Vabja7DU5p8T4NK7aAl
+ 4h0JjaP+KEnnBSzXbzxcyzmflcUzWnRttxiYi4MaeLKBdJXCzom90JK+DPlGzRuhYIgvytpVI
+ /tJ2Dawq8bGqDGnGKsNhOZ57UBkqHBxXaHoq0ldRPm1ef5BXFfzPl1pbwQtNm9Q/YBhQQgMch
+ AqSd2Ch1lkeFrv3PN1bQHyt5AbnInctp4kGWjjvZsKVL2lxeOJdi7WWL1fw/mq1lg2YZI/fTa
+ lsJ3dvNimk1x/wOB1DNwN+8uiNDbPTT5ohsxH8QXSoq7B9GHCKi1oLFVKcnXSVQ/P+8jUTWQW
+ cOa7sI8mnH/f7X0XTb2wdn8YTZCIhnUaEuupnh+WFr4LFHwN77rIPsHQclOpQBfJwlcyjbF9I
+ pSub35UEIF65qMupOslVJA0jv//kE2YSnbYXomvonLmHc1X/PujnCIWED5WEp3RzW0yCZRfvI
+ Z3JsNfiycUtBuXFWdAdZjkjdr2xiOrAB0SBvBfCiQVUhFs4V+ybxJvwL3TTyVeAiDIj9+FqHF
+ /h74h6w45vFyfmx+Ng12a1l58d+vFTXjoi1Fa/+Pg2OmKU8NkdhAE5su6+XxGU+0vR0aq/2Zk
+ qXU6J/Y+8EzUEbTS77YCAS2qMQDjPweFWVYaLIdd0wnSyCG2FIA7B1GcNvTBTCypcNc9xJzGn
+ Vmr7xWEeb2siW6d7SLMnBlkHwFcAWvU+gyEjxr+/VgzBw8DGAtg/H3o7Ac9DuAMpgsyVd2UWz
+ H3RlTu1TYkVaLpCC6qQbgDOd1NhfGXA5WoR9+tbcaHNdd6vapboAm/XsvDaS2ruSUfhxr19TN
+ dyooN8iRyga23b09u25QGOkcgFGXRdqE0N2KGbbo5hWd1r2WEFvh+FlRg2ll4y+US7RJ6jb9K
+ Bo8QhlYvw2K5vDf8+7j8B42WuzRT2eIwKfayFvQOLyyZfvdGw7DYZbp3jI9KmzIW8CavN0xD2
+ tzKq3jxmYHpVVggt+sytPy4pj9uFynyQYDTW89ctjrXi5pQNt2XRPAFK4kfKStnlm9U2fbgN5
+ rcr6f2Qpma3o4iUL4WAq6sEFFKnwWnRw5XeQFLuqS9q6jwsH3nEo+c1qbO3HYKXEHapaE0Y6z
+ SepTSwOW+hlrtozkvPeyaymtNOqVASydxkR9spXbMKtOnFp12GFqqe8IUE34FAfciZWSvrFj9
+ kAuD73GwqNwrgyF9P5gK0t+kCbsgGec5QGPpQlKFW2WnebAYviUooU6mfxu2XuCoDsyAmSc89
+ R0iUWo+fONHseBW/wQYJ3FNy8jCZLnNZrOsnXI+uBY9CmuK0Pciwm6Wbv8q9Tw9Cybj/0dJCW
+ k6FKuTaZS9kMSfCV2xrO/N/vECPSWhw/qN9AXSKWrMLdXIrYEkN7SE6rOC9GAMTHis6a7QP4G
+ WzRQYmVnKrgmQxDo/zTy8nBoWPy3eUdqRhPLorArgsa5PwqBEWep4s/mFOs2id8xUEJnPjGWv
+ VHce04C+VriRsneXmznFQGWh7rdX4K94WEZ168LuD3dEDA4VnLjanq2JHWVQiULejKV6YuFoJ
+ D0J/FzSxb6wkG7wee9rhGwOkdfCtvaj/UrgSMQezbgSqWaWkAYSil80LqEtN2c6C/fNid4p+n
+ koNeJ5u0VPyOOgEz1UzKUz2j0IDynyO5qwHMPhEZpO5Ktgds5OmAClBxddKYnYriOTVU5xtur
+ 41ssDc+cMMuZgEL7uSgJGh22Oij/nizUhFkwY7ZOGn1YmzqEhGTfvHbc1hlGhOJMmINlaWeQ7
+ PgLKgGZVoI+/UAqL2DbgpeiczG2Yi13tZ7t1KIaJ4/cg8h5oVil9R73gUYuagaZgl28/PFAcJ
+ dpoZ+0gOvZ9U6NNQjhuU5fuK0w4FS5Ahb9f9ibJUf/POkg4xpgmwMU1SpGDxJrbsKhETpONEf
+ 4hBy1AMvrHqCW9W4ndfbp4mPaLlKulkem4izvP5vgbwGH7HqTH74u79QurjOtXuWneZNSPNxm
+ hhHwjQ0PgQXbr2eZgi13Z3qH1cBzsVchtmG8naIq4mtWKSz4Wss+qAB96pfyVF7D0AXMffaYJ
+ BsYfVCPAiz2v37vRS6yko1Ju5IN17frBKIvwSn+9809vp+3wdxR+6ckPHTD6PVmiD5wMh9g4C
+ 2OgO84KMExOPQCgLpwL5FRwp1ADvkH90ER6GrqP/o/Fa+UYUoxk+uMKBv9m4ZIAyClcRObDPx
+ dyVzGJu7hXELUkrKPekdAVo1/xLpwOJzSNafctNH9gvxWlNl9HpNYrcdPr9AFFUmG1zEz60AO
+ ItHynjqKKiQWAme9hF5GQ32KBVf+67JGbzWGh2Nq3hU7Tm14EPPxgeIfTU/TKXRBYM0BHLFFi
+ huiX+L+XO3oGg/Gw0rO48LXgLPvlLKxgDZaTPPfA3KrXpyjF5rgsm81EzAfYrTPNTWhbLK5YP
+ lfq2J/JZU03YOz13u0BFjI0tuHWeD6NuOnVcDS36v6xC6UyOIn5OiKCj9RrPsB0nBkeAP2yjA
+ Y2Nwb/ft+t5OHn6Kymk36JEb5TAocvFcqC+kJ1WkYK/IyL8VhXCyrKBx800bm72q3BCqxyLpL
+ t35ZEPoWV+aO49vneZjp7XioVPsDS0MsBK+/maSxoB8Ts5fXwXqHgm1APSUWDoVHCOnEVuecO
+ mZau/6z1zHrn1MJczW1WJdAMTmOZCpb6TZsjlvGF2iIIqyxEvInDFhQm2Zx5a7xAY1KN0bcQO
+ 4Gk70BKDYo94WYVzqF88g1oXDCWjyKGriDkdsgpnk9GxZfnqpD7SNtbH3dH2fn3MGZ9UU1ToN
+ zcKzqTyV266nxPdqM3FUGlROifVcQS0Vdx1Kyarx8/ES3zPEBwUUJ7s+iGjm7/K8KOVWBozl9
+ sbdy6JdsouR0RsU/TRSV7SCMT4TIj3kcqLoRltLlAsi4rvOcLSIEFU/lh+mVgPQEU9SDP6Ypv
+ HN88q13m5lKF8QSPKLetIBVxS5MpYX3I+CEzw2sps1nU3EwQHJs7LaKIhBYst+rtfVOuQNNYn
+ 02KQlHANQJR18IIqmonofW89206dUUsTbKDHCs5CK7hwCyleuEkb5tb2WqHzPAHPt5XKWZTgc
+ kIghCX/kgbtm8gOj+3tQ2Wwh/9B5Kr8CGE56Z0rbRQSU2IMogPqXngaIW7+099b+v9qR/aDHD
+ koEjUvjzqwuuDsfWZtbnckZL2XfX4yEAV/uLujme4dxpVbrdbGJXSYwdgHQwW/HwqGkCGdduE
+ XUHvYsnlrVKDZNEu1r7wHZVwAkrkhtqO7lM09jZ/8rUYxNgj1fd4x2OYeWUkh4RnCP8JWoheU
+ nA5AhNx4hHlbFMSWOrw67le//wB2sfsK9RNQmokRZzsgWf/DgeUFsJ+Wbgys1/QgxndtZZEmm
+ j5sFn0gVLG3iWs8LxCWH6CfJF7kYVHgB1mzrdO0FO/XI4MrD9jRhRho9bKHd9XtiArgMneGaF
+ wuqi0dn8eDzLPCdg9+Sc5LEDbr5an+/AeYSmeBN/FoCdywp2Udb/S1j8nVu8RKenmh1728077
+ i2Bhj1hmbWi2Zhi+sdm7v1omOcGy0S2KfyCIHYwvLuFLztvqlF+d8VY0YisxZ3Sy4k3TY97KZ
+ zRYk/EeOvnTP9xKQwY91CYkqjFCc7z9oAx0cuAYvDeApWR09ESewHphpIft+vjYCYhDUdREkb
+ 8uyqElXmoh3jcaB2Ly1vrhE4Bxcdbg5IEoAWFr3oVPd2AjvcbaT92Zy1/todD3jw0LMiHWMxY
+ GUv+7gli6YTDLzXmkmTZFGF2dAw/kCz09UzIYtbH7LilyHcGsinKHS+0NpQ1floYFvp864MTg
+ HFQYR9zBqRFlustzsAp6Cs5Qr36qtAYt1LsffzqCa66p7Sp2qWLiPfNXNb9oFOyAXkuWA9vdz
+ daY04Lt+iQnqEVnRKl/6L887OWGQ1ZNOK0Vk1jJkjZDbSWKGrwczltHBMsIPUqLCqrsGn5v08
+ 7LUvLw99xaNx1rknqhNZ5p7NVc0OdrPw7QXapxdJzy6671QpU9T7rLA+6ixA82kdnvWRWAUsj
+ 1vb1wOZY38x+/rbu1HoR7kyz6cHEDfkPYM533jfm573LMKCXqy6u8zbSvOxiOJEkuZUF5m6Bk
+ 0lyXkrg9yArV39igCGpiQoKxOyvutFMPAIBissdDK81f9OxwtGdiI79GjBQBisqpsio6CSPHM
+ E8e0a4GsX9veSTV22S1YgyxFAIiyIZx376KUIBzBHz51oDL5DlWC5JDL5Ne8s3Up3tggCbhPl
+ PHBzgrTIiBnC67FotcBdEcX8IcpGPHoB3XDy7SecuwQBiugAafw3zm26Fsu41hTezrDlSyCB3
+ qaLzJekNTsz6Jh+5d07uCIqZNm9KCU16m/WWCx5/LN/u6gRt4avvlnKJt5KHsXg4QTw9x4Gte
+ uIBaG40e7Ik19EgUZiUVXKmkOS5+vyME9iodhXYnDt5d05AQOrTtZb9hiFdzDTK4NfbBJD4FQ
+ U5C0ykiMMpdMO162H8g/fVJwrDVlS/c3y2PK9NXrRdBH7pGGdubTh8CDuqOb8DwljyySARse2
+ BbLHjbLRN4sgMu4el7VGVU0KUbY+FF2nDyfCxB16kWm5040drj90bmLKUvNVaQZeipQk2Y+Co
+ 7Eu+lFcWrtVQndlqIdGuIWWHWIptbhw7SXqN6DO54rF0UfkpxygIFjKd5ffOrTlsTZASc6kuq
+ hsO3ctyKNUiOB+yxRD5WGIE0GqVhemDKKgkxE91IKf8rJDnOyqp5fKoEFNrbTrUcQ0yOJ5CJj
+ dxPlqaNv8JPs8rWOQaK2naaz2VAA8REgO7Pl1xvxmXau9lASYY1ctRc5PNAchxZXxxWmR2QO1
+ Zy1JE9qfiJrHMe4NYFwIy48/6epW48qqnJHUcBNh3VaQCSzqmN3QlANgFZ+6ArhHOW8cUvvWU
+ tVPVsEeKVzetdjzJvzWQUOoNsgnoRcSGHALqRSXuPosGg7Vs3hsEp3H2A3BlZlm17LX7G2n7A
+ 4vM+2N13+tM0FElhqSNBiBbiGsw3qxbMAsyfbr7t5zBZLiO+7GGt1cxNKB5rRh0C25Wx6Aabe
+ zK9Aic5/IovLUCu4+HBxfaIzsWTL8cqbBxkzRo+I9aeOA0x0h1NKH4G9PMy1J3VcsNnuW0BoV
+ xeQ8GcEZh8g6FkMM9PsquVX1Cxs4j5tNVH4KUhGO+sULUtkZ/coaEJIxthSlP8pwrBL1UKGU+
+ 2O86a3kSHwMgXB6tBbVHXd37VSJSHsrIXLYQh+ykGQSEcuwwsdVm3LatL3KdXJxLoT2rK45Ox
+ QqkAPXo0Hof+sxUqXRKo4uj8F5PGK1VtKFwoezox3ewLpTwEPzlv7oLcwg4G8IV4UL4TTdYOA
+ HUkK8FPwc5ZKyMwI3quOpoDGiwxXsnnazFk2+xybyg1x80EJQArtkzQAf25LHIUjr/zilrafr
+ jxK0l0i6/CPyCG/HWji+6YiqFaVU5drahQHPQsXKAhUuAghfqv5SXSeoBeNtJPH2pk5/tJAwZ
+ /UQ2OhbsboNT3QPPCJOxTq8l4TSGUcqc2OZjX19R/g0i+lVOoHhCHgqf6hDK3MH2HPQAp8bPB
+ 70h9VOlb9e98LWzajPexpTPuWnx+mTAw5/blHuLp55WTqmaBBQHrk9abEo/8LOR4x9CxGsMfP
+ jn7mm1L9tsa2xPtFFm3aGCdR00VmyrSbmG1OMi59CNuelb3MLieXZT9e6JYoU8YT0=
 
+Am 05.09.26 um 13:27 schrieb Greg Kroah-Hartman:
 
+> On Fri, Sep 04, 2026 at 09:46:59PM +0200, Armin Wolf wrote:
+>> Am 04.09.26 um 07:10 schrieb Greg Kroah-Hartman:
+>>> The ability to add and remove devices from a driver through the sysfs
+>>> "bind" and "unbind" files was created all those decades ago as a way
+>>> that kernel developers can iterate faster, and provide a debugging way
+>>> for users to attempt to add a new device to a driver without having to
+>>> rebuild their kernel.
+>>>
+>>> This api over the years has been abused and recently come under a major
+>>> fuzzing "attack" through tools like syzbot which decided that it would
+>>> attempt to just randomly bind any driver to any type of device, causing
+>>> loads of unneeded errors and pointless kernel patches to be generated by
+>>> unsuspecting new developers.
+>>>
+>>> Handle all of this by adding a new taint flag, TAINT_FORCED_BIND, which
+>>> will be set on the driver if the bind/unbind sysfs files are ever
+>>> written to.  This lets kernel developers "know" that a user is
+>>> attempting to do something that is not normal, and as such, if the
+>>> kernel breaks they get to keep the shiny pieces laying around on the
+>>> floor.
+>>>
+>>> The flag is 'Y' which was unused, and can remembered as the user is
+>>> "yeeting" the device being operated on here (thrown with force without
+>>> regard for the thing being thrown).
+>>>
+>>> Note, the taint flag gets set _BEFORE_ the bind/unbind callback happens,
+>>> as many times crashes/oops/warnings/failures happen within the callback,
+>>> and the taint flag needs to be there to show what was being attempted.
+>>> If it were to be set after the callback happens, the oops report would
+>>> not properly reflect what foolishness was being attempted.
+>>>
+>>> Fuzzing tools like syzbot, that doesn't have hand-crafted rules to keep
+>>> the tool from hitting bind/unbind, should be run with panic_on_taint
+>>> enabled so that they fall over and don't continue on, thinking that they
+>>> actually found a real issue.
+>>>
+>>> Userspace operations that rely on the bind/unbind files to work around
+>>> the lack of will to upgrade a kernel image to a newer version with
+>>> proper support for new devices, or the lack of will to submit valid
+>>> device ids to driver authors, will still work properly, but now the
+>>> kernel will be flagged in a way that will show that perhaps those users
+>>> should reconsider their behavior and work to have the drivers properly
+>>> support these devices in a "native" manner.
+>> What about users that use driver_override together with vfio-pci? AFAIK
+>> they still need to write to bind/unbind.
+> As I state above, that is an abuse of this api.
+>
+>> Also i always liked the fact that the bind/unbind attributes make it very
+>> easy in creating generic drivers. In fact, i am intending to use this feature
+>> in order to add netlink support to the ACPI-WMI subsystem in the future.
+>> I am planning to realize this thru a generic WMI driver that has to be manually
+>> bound to a given WMI device to make it available over netlink, so having
+>> users be able to write bind/unbind without potentially triggering a kernel panic
+>> would be very nice.
+> It's a taint flag being set, not a panic, showing developers that "hey,
+> the user just did something odd here, ask them about it when handling
+> this bug report."
+>> Additionally, writing into the bind attribute still checks if the driver and the
+>> device match:
+>>
+>> /*
+>>   * Manually attach a device to a driver.
+>>   * Note: the driver must want to bind to the device,
+>>   * it is not possible to override the driver's id table.
+>>   */
+>> static ssize_t bind_store(struct device_driver *drv, const char *buf, size_t count)
+>>
+>> Because of this i would suggest that the taint (if at all) be added to the
+>> driver_override attribute instead, because only with this attribute users can bind
+>> random drivers to truly random devices.
+> I had thought of that, but the force removal of drivers from devices
+> wouldn't show up this way, which is one of the things that we do want to
+> warn developers about.
 
-On 8/11/2026 2:22 AM, Brandon Brnich wrote:
-> The Wave5 VPU supports connecting to on-chip SRAM through its secondary
-> AXI interface. This allows temporal buffers to be stored on a per-stream
-> basis, reducing DDR memory traffic.
-> 
-> Signed-off-by: Brandon Brnich <b-brnich@ti.com>
-> Reviewed-by: Andrew Davis <afd@ti.com>
-> ---
->  arch/arm64/boot/dts/ti/k3-j784s4-j742s2-main-common.dtsi | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/ti/k3-j784s4-j742s2-main-common.dtsi b/arch/arm64/boot/dts/ti/k3-j784s4-j742s2-main-common.dtsi
-> index e836f0f42e30d..21ec9f207ff63 100644
-> --- a/arch/arm64/boot/dts/ti/k3-j784s4-j742s2-main-common.dtsi
-> +++ b/arch/arm64/boot/dts/ti/k3-j784s4-j742s2-main-common.dtsi
-> @@ -1002,6 +1002,7 @@ vpu0: video-codec@4210000 {
->  		interrupts = <GIC_SPI 182 IRQ_TYPE_LEVEL_HIGH>;
->  		clocks = <&k3_clks 241 2>;
->  		power-domains = <&k3_pds 241 TI_SCI_PD_EXCLUSIVE>;
-> +		sram = <&main_navss_sram>;
->  	};
->  
->  	vpu1: video-codec@4220000 {
-> @@ -1010,6 +1011,7 @@ vpu1: video-codec@4220000 {
->  		interrupts = <GIC_SPI 183 IRQ_TYPE_LEVEL_HIGH>;
->  		clocks = <&k3_clks 242 2>;
->  		power-domains = <&k3_pds 242 TI_SCI_PD_EXCLUSIVE>;
-> +		sram = <&main_navss_sram>;
->  	};
+IMHO drivers that do not support this should rather just set suppress_bind_attrs.
+And drivers for busses that do support hotplugging must support surprise removal
+anyway.
 
-Hello Brandon,
-Could you check, how two instances of hardware can share same sram ?
+Would it be possible to only taint the kernel if the underlying bus does not
+claim to be hotplugable?
 
-LTM, each block need 64KB of SRAM
-https://elixir.bootlin.com/linux/v7.2.2/source/drivers/media/platform/chips-media/wave5/wave5-vpu.c#L463
+> And, if we just did the driver_override taint, it would allow those
+> drivers who claim to be "generic" like you are referring to, to keep
+> "getting away with that" when it's obviously not true that they can
+> handle any device for that bus, otherwise it would have automatically
+> bound to it already (and no manual intervention would be needed.)
+>
+> By keeping the manual configuration of bind, you are forcing userspace
+> to manually do work, while still a possible thing to do, now at least a
+> developer who gets a bug report will _know_ it happened, which is why
+> the taint flag is there.
+>
+> Does that make a bit more sense?
 
+How are users supposed to select between multiple drivers for the same device
+if all those drivers claim to support said device? Assuming i have a generic driver
+and a more specialized driver that both claim support for the same device. How
+can i control which one is ultimately bound to the device without using bind/unbind?
+How to utilize driver_override when another driver is already bound to the device
+without using the unbind attribute?
 
->  
->  	main_sdhci0: mmc@4f80000 {
+Also drivers that claim to be generic while obviously not being able to handle all
+devices are themselves broken, not the surrounding mechanism that relies on the data
+being supplied by the broken drivers.
 
+Maybe we should instead fix those drivers to stop claiming to be generic? Do you know
+the names of some drivers that are affected by this?
+
+Thanks,
+Armin Wolf
+
+> thanks,
+>
+> greg k-h
