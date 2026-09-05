@@ -1,125 +1,143 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56DE394793
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 08:04:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76D8F1A680E;
+	Sat,  5 Sep 2026 08:05:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788595450; cv=none; b=jiRkwUGN8/hh3ZgiMqgEpREXZCrT+6ugUHJZ3Exd7z2UUPeRw2rD5zLjGd7rVPRD4pP2nb51KedFS/fDCINSO4cc9/EgzfFJmZDQg6xsjIu1UPVqyzzHK/dCQnOPA4txQTrcyNW02ex0dwMin8GW0RGbaAHPu1fSTVLbmVvKuqU=
+	t=1788595551; cv=none; b=UYXNVfSbIlD04KW0uN9Daghi0DmxpazEKszeWLkXej27ZiqGLquPmkVMf1GfCS16i9j5xqKrLt05nMBOQkRyJkk20VKosStPDdKRIQcNXHgzwoTXQsqdxX+KvXwwT6nLIQ9/Wq94EIw6Ql2J8m13+8kMb2voiM3ho61h/ObyRnE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788595450; c=relaxed/simple;
-	bh=4ekraZy/fgRJ8xIH3aZd8XUZWGZ1ch2LOkcS3hFNA/E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W4t19fEs+NdYb13suO2fBcAFWb+ajwL3ELLTmZDlB43bFWYsNPELNvXuEBLqfIFtm+7Yy6OOPau+EDF9gNRY9kd7kjlG86vpqRhlfKodZKBdAauP+qetyxBuBmqRtksZuNMwwUrFFs8ghqcmwP7M5RpevkAtcinVdRYp+iGcZwc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rNknC+46; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rNknC+46"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48441fa5c37so1269683f8f.3
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 01:04:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788595447; x=1789200247; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IRZkyYibSQw/TdoJWn+8ggoBMlqJpfdb7cVc+BMe9tc=;
-        b=rNknC+46zeL4xMwEPRnti6awsI701Zv3lYwZalIuADh3BDeUVky8h98MbWSTBP8z87
-         pTs+O9AFTQ26raXHvDO4E2QnGVG0HAEkX2E1DmSwmiyZmaW/YadsKRgfdfJJs0w4TI0P
-         YHO7PRz8OP1SzBbhnRhCKk+6u+E7gi+eSHPrAOfgc/CaKPmZnhTzFTT37j2TumZArEPD
-         L6ZNu8pooBagugkySZPFyWWc/0+890eXogAm4yMZlSQDcE8ZeXdeY7hpZI/nrU/GcdzX
-         Jj3wmX9cISeOzdnxX63C9lR189pPBYoEelOSR4GO46wFWdioo+2sM3JfeZJKSKN8O+3X
-         dglQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788595447; x=1789200247;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IRZkyYibSQw/TdoJWn+8ggoBMlqJpfdb7cVc+BMe9tc=;
-        b=DQdpbygLqjjj8QFcVcH5cyxKmzQc/spoEmqtW+voq63xfRIdj7FMmuZH4j+lfiRP0J
-         7IKDRiwZ1MskhtiueOZ8CrUOa1SXEkivOXLpOKFbjADbRaSOc8j06zbBB0g+FtHNxLTF
-         9Rs32uPYHzkFerPh6GyjiuOxsxEp50FgqO8TqywpfuwkC5mcVCpoHWXsOuBQ6jAHAcQL
-         dzgsIupCEZJraQAg3jUz02i1EOLODtyiUFMnS7tuUsCPrlQMRC8EAdOvkeW9Ryd0BpcY
-         ksXCPizsEmCRSzcp8WhNg90gsDYaYRP2usjtH+B17bEspaKNFNIAOU1HGdM5YTtUd+4z
-         pTqw==
-X-Forwarded-Encrypted: i=1; AKwUvBxqWI0jcd2f9Y+qClcxNTKM5aW7aoNfoh93v7l3HqedmXqqh2Kju+FB0vG6CsiK1S3ZfEeKoBdIWVhoVRc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kVZuTGtG4riYQ/v3wJEAS1uGxKBwOBqd0VNvVr12ShNcNGSI3o
-	O3dk7MbNGnYiyv0R/mK9SOI2nn+CYjQ+sx90sOOgNx40f385PyGRpmug
-X-Gm-Gg: AYBFou3DEXdAF1s4MbYQSGlbnkwNxmPrQYwGYgo6JtBn+oXrdTqHx7aL+8h/BNEQWOc
-	pHudojUnuP84vDFe5K04+8u9xM74IThUaRvyyxUvOEZWKBze/cl9uulqkmLqXU0VFvw+wI3JIsW
-	jvfbkc2BDkvbIZtNYMe5TmamApYeyIToFycFZcvY4iKRdPDwKo1dm8XE6Ae9L+Qy6P8v0RVbboG
-	bKu0RF42Xj0PtIIORntRaXiICU1dJTjpxumMxhKLWnRvlS8EtlQOco6BQPBmLyyf4pc7oUWRq7W
-	fgLqFg9SlamcxUgJQdywryW68AWq54HaL31uvefoQe4S0+l+mSMQRECyaLXqSgBnQ4/oNXVMDaG
-	zowki+qrgyDeukVFa3D8M96Smu7n8YfgxYY/1v/LWTadQjS7haieuDYwN8vCXV+QCvycB/BVQ0W
-	5wLQiNp4TmU+4tilXQmjK14BfvDh8nEdyrx1pdbKyFCIgEdcsoy9cZmKyZ61CqwjjIa8Af/f547
-	M0nPmt4ovBLifb5PUjVaQ+SjLUWiabTUzsGjLp78bKfPUjVGiw=
-X-Received: by 2002:a05:600d:8446:20b0:49c:fc7a:22d5 with SMTP id 5b1f17b1804b1-49cfc7a2342mr62413185e9.4.1788595446573;
-        Sat, 05 Sep 2026 01:04:06 -0700 (PDT)
-Received: from puma.museclub.art ([2a00:6020:b326:d300:d19:a765:d8d7:bedc])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5563c6csm206542315e9.4.2026.09.05.01.04.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 01:04:05 -0700 (PDT)
-From: Eugene Shalygin <eugene.shalygin@gmail.com>
-To: eugene.shalygin@gmail.com
-Cc: Mario Nuevo <marionuevo@gmail.com>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-hwmon@vger.kernel.org (open list:HARDWARE MONITORING),
-	linux-doc@vger.kernel.org (open list:DOCUMENTATION),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] hwmon: (asus-ec-sensors) add ROG STRIX Z490-A GAMING
-Date: Sat,  5 Sep 2026 10:03:36 +0200
-Message-ID: <20260905080346.1957380-1-eugene.shalygin@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1788595551; c=relaxed/simple;
+	bh=yZmh9BGaqd/iD97x8EJ1FTGDo5l9FfdqmyNjdC/jU/4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PvvSQlZs4rQHlZWHvljA/rX0YR7YnvoScN7QH0/0AzTeks4G4a/XnRk9CXGqRlPlGn2K33X8QJjevoBQeuVRuSz8fO8SSEwof95BnCb4mUDzxW9dXjfjNCc0KyP+wIgkO6IUAGANHWZe1UidNC7oMtWpDrpErP+3t2akW7u+lQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.198])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hcQqH22BKzYQv2s;
+	Sat,  5 Sep 2026 16:04:59 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id 453E14057E;
+	Sat,  5 Sep 2026 16:05:45 +0800 (CST)
+Received: from [10.67.110.68] (unknown [10.67.110.68])
+	by APP4 (Coremail) with UTF8SMTPA id gCh0CgDHKZdXzZtqAJxTAw--.64717S2;
+	Sat, 05 Sep 2026 16:05:44 +0800 (CST)
+Message-ID: <c379e0a9-191d-4d3c-9d92-837b58b29409@huaweicloud.com>
+Date: Sat, 5 Sep 2026 16:05:43 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next v4 3/3] selftests/bpf: Enable stack argument
+ tests for RV64
+Content-Language: en-US
+To: bot+bpf-ci@kernel.org, bpf@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+ jiangfeng@kylinos.cn
+Cc: bjorn@kernel.org, ast@kernel.org, daniel@iogearbox.net,
+ andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
+ martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
+ jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
+ puranjay@kernel.org, pjw@kernel.org, palmer@dabbelt.com, alex@ghiti.fr,
+ pulehui@huawei.com, martin.lau@kernel.org, mason@kernel.org
+References: <20260905070409.4141522-4-pulehui@huaweicloud.com>
+ <5e50a375b8cc6ff27c370db71783041b6ceebdf6a014a008bb2ecbfb2dca88ca@mail.kernel.org>
+From: Pu Lehui <pulehui@huaweicloud.com>
+In-Reply-To: <5e50a375b8cc6ff27c370db71783041b6ceebdf6a014a008bb2ecbfb2dca88ca@mail.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:gCh0CgDHKZdXzZtqAJxTAw--.64717S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxXFyUZF1kKrW8GrykuryUWrg_yoW5CF4Upa
+	1kCF1akrWvvw4jqry29rn0gr45Wan5JryUGr1DXw1rZFy5K3WkGr4fKay7Aa4DWry3ua4D
+	Zrs0vrnagw4kAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I
+	0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
+	x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
+	0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AF
+	wI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5
+	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
+	0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWU
+	JVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU0
+	s2-5UUUUU==
+X-CM-SenderInfo: psxovxtxl6x35dzhxuhorxvhhfrp/
 
-From: Mario Nuevo <marionuevo@gmail.com>
 
-The ROG STRIX Z490-A GAMING and Z490-F GAMING are essentially the same
-board apart from the F's onboard WiFi module, which isn't wired through
-the EC, so they share the same EC sensor layout. The Z490-A exposes the
-same EC sensor set as the Z490-F (chipset, CPU, motherboard, T_Sensor
-and VRM temperatures plus CPU_OPT and VRM HS fans) at the same EC
-registers, so reuse the Z490-F board_info for it.
+On 2026/9/5 15:45, bot+bpf-ci@kernel.org wrote:
+>> Enable the stack argument selftests for RV64. The riscv guard is
+>> restricted to __riscv_xlen == 64 since stack arguments are only
+>> supported by the RV64 JIT.
+>>
+>> Keep the __BPF_FEATURE_STACK_ARGUMENT gate, defined by clang with
+>> BPF stack argument support [1].
+>>
+>> [1] https://github.com/llvm/llvm-project/pull/189060
+>>
+>> Signed-off-by: Feng Jiang <jiangfeng@kylinos.cn>
+> 
+> The changelog says "Enable the stack argument selftests for RV64", but
+> one arch-gated stack-argument test remains on x86_64/arm64 only.
+> 
+> Exhaustive list of every arch-gated stack-argument test in
+> tools/testing/selftests/bpf:
+> 
+>    progs/btf__stack_arg_precision.c        updated by this patch
+>    progs/btf__verifier_stack_arg_order.c   updated by this patch
+>    progs/stack_arg.c                       updated by this patch
+>    progs/stack_arg_kfunc.c                 updated by this patch
+>    progs/stack_arg_precision.c             updated by this patch
+>    progs/verifier_stack_arg.c              updated by this patch
+>    progs/verifier_stack_arg_order.c        updated by this patch
+>    progs/stack_arg_fail.c                  no arch gate - already runs
+>    progs/exceptions.c:383                  intentionally left alone
+>    progs/arena_kfunc.c:219-230             not updated, not explained
+> 
+> progs/exceptions.c is correctly left alone: DENYLIST.riscv64 lists
+> 'exceptions' with the comment "JIT does not support exceptions", and
+> arch/riscv/net/ implements no bpf_jit_supports_exceptions().
+> 
+> progs/arena_kfunc.c is not explained. It gates its stack-argument test
+> with test_loader arch annotations rather than a preprocessor guard:
+> 
+>    #if defined(__BPF_FEATURE_ADDR_SPACE_CAST) && \
+>            defined(__BPF_FEATURE_STACK_ARGUMENT)
+>    SEC("syscall")
+>    __arch_x86_64
+>    __arch_arm64
+>    __failure __msg("arena pointer cannot be a stack argument")
+>    int arena_arg_stack(void *ctx)
+> 
+> test_loader.c skips any test whose arch mask does not contain the running
+> arch, so arena_arg_stack stays skipped on RV64 after this patch.
+> 
+> Does anything block it from running on RV64?  bpf_jit_supports_arena()
+> returns true on riscv64, DENYLIST.riscv64 contains only 'exceptions', and
+> arena_arg_stack is a __failure test so it only needs the verifier to reach
+> the "arena pointer cannot be a stack argument" check - which now happens
+> on RV64 because the preceding commit makes bpf_jit_supports_stack_args()
+> return true.
+> 
+> Should __arch_riscv64 be added to progs/arena_kfunc.c's arena_arg_stack
+> (and the #else dummy_test, which carries the same two annotations), or is
+> there a reason it should stay on x86_64/arm64 only?
 
-Signed-off-by: Mario Nuevo <marionuevo@gmail.com>
-Signed-off-by: Eugene Shalygin <eugene.shalygin@gmail.com>
----
- Documentation/hwmon/asus_ec_sensors.rst | 1 +
- drivers/hwmon/asus-ec-sensors.c         | 2 ++
- 2 files changed, 3 insertions(+)
+not yet support bpf_jit_supports_arena_args and Kumar have been worked 
+on this [0].
 
-diff --git a/Documentation/hwmon/asus_ec_sensors.rst b/Documentation/hwmon/asus_ec_sensors.rst
-index ebed9f8d2adb..7032c40731d9 100644
---- a/Documentation/hwmon/asus_ec_sensors.rst
-+++ b/Documentation/hwmon/asus_ec_sensors.rst
-@@ -55,6 +55,7 @@ Supported boards:
-  * ROG STRIX X870E-H GAMING WIFI7
-  * ROG STRIX Z390-E GAMING
-  * ROG STRIX Z390-F GAMING
-+ * ROG STRIX Z490-A GAMING
-  * ROG STRIX Z490-F GAMING
-  * ROG STRIX Z690-A GAMING WIFI D4
-  * ROG STRIX Z690-E GAMING WIFI
-diff --git a/drivers/hwmon/asus-ec-sensors.c b/drivers/hwmon/asus-ec-sensors.c
-index 7293c48c72b1..19f423e45ce5 100644
---- a/drivers/hwmon/asus-ec-sensors.c
-+++ b/drivers/hwmon/asus-ec-sensors.c
-@@ -982,6 +982,8 @@ static const struct dmi_system_id dmi_table[] = {
- 					&board_info_strix_z390_f_gaming),
- 	DMI_EXACT_MATCH_ASUS_BOARD_NAME("ROG STRIX Z390-F GAMING",
- 					&board_info_strix_z390_f_gaming),
-+	DMI_EXACT_MATCH_ASUS_BOARD_NAME("ROG STRIX Z490-A GAMING",
-+					&board_info_strix_z490_f_gaming),
- 	DMI_EXACT_MATCH_ASUS_BOARD_NAME("ROG STRIX Z490-F GAMING",
- 					&board_info_strix_z490_f_gaming),
- 	DMI_EXACT_MATCH_ASUS_BOARD_NAME("ROG STRIX Z690-A GAMING WIFI D4",
--- 
-2.55.0
+[0] https://lore.kernel.org/bpf/20260821233516.3426127-4-memxor@gmail.com/
+
+> 
+> 
+> ---
+> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+> 
+> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33952202002
 
