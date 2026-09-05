@@ -1,76 +1,176 @@
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FE1831A56D
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 14:26:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BA2D37EFF1
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 14:29:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788618386; cv=none; b=Zi4RZUq/W9LUUSQpa2ZEUd5Axp+q5HVREKtLLFUrprFwD34W158pY1yTm0JFRRZSaLpzFnuGouzi1amUTSmBjH/8sCG4/M2SaJfPUJCK/z4aqxa7du3bJG5bW0bV0mw3ZGSBQVNcsaP3863oJ+4XYPm7yOO0HD4Iqh59sgut2y8=
+	t=1788618550; cv=none; b=cwvlHH0BsKZkpI2EyUvNaiPZiwFNofb5tQR88hveDq7F0fr6Y9EAYumgooILczee4YNLG2kSXy7kSJHM82fqOkuXG3aorVNpQCCMgZofsi45xJwYjQj7S3O3Mb3dmpMuIJXaF5i9xI01s2OjaWraoGCpReQsYABCcuGHey4GbcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788618386; c=relaxed/simple;
-	bh=bLGZqFjwKWwJ6Tuf7d+9jt+f34PRzR2MJVMi8+7Glb0=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
-	 Content-Type; b=YwL3uXm5+X4etN61MZIkYEXuyORBlLUD6FGDMwV9DCJoxd0ccgYGeoCfslJur58f8Kzkf39ppX2573gTNYz/KZbrx0zAqEgfnjLMHxFFIhmhLNAT9D5Xzr+4m//vc5mdgVOQf9KRPCapy4QJWdwV3AYekh4bVe7ggNwFAHKO/Eg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7e9fc6dc091so2004548a34.2
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 07:26:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788618383; x=1789223183;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=1ETkXqycGRjohhEM+siMcRzRNo0ykM9QCfZj8kTd0Fk=;
-        b=DinlZQ1rE+3RF8ykaUM1MjmTesbGmxXO0+NShBaRdXI2H3aauDT1aLwGTFpys8zapt
-         Qytx5CXACKiR/NIeLkcD8TntxmiVe3jXepzJmCGJIfTt4ixCkwbhj66Rhpfdzk/BNRCR
-         WvN/iicwWDnMv1XgFsB2XdS4rwiEOBAzNs9os2bsU3X8o0qfsJl+jZadrokytyghjFsQ
-         Hl03Dy3vJXV/9uSoYwvnHpDc2E+AUrDGvo13FW0sq78WEBXKtWp0bbYWZnZyxroJ7ZtL
-         UrnGxGjNyNNAjW53C7C+6JLVS4CxMyxcsyfFWonIzFnXOYsBAL9MlmULbXJZ4V+mRyuE
-         HZBA==
-X-Forwarded-Encrypted: i=1; AKwUvBwamBgjWk+6gVTmwB/HJkRUsQxrsvyGDYJT1sr9txo6+zCjNnZRFwf2y3gSGfL7G+JoTU8gyKZ/+7oHdhI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kfazC1fgnD0I6jFdI4F3YI6WlDfH+YnVUGR+oHSSScme7U0/kt
-	9T8zoXoaeVYqXTRgiWfqzy8mT4Wkho4CdXDVOWPsiVnxeaIcsCn7Qm8n86wfs6FLUAIiqnuqOZY
-	PQL8OVkkORnhpBuLHc6sQeAIEENr5Xy3ciOaXRXm8+lAycbz0NZzSgAInZag=
+	s=arc-20240116; t=1788618550; c=relaxed/simple;
+	bh=NXyv4wuhQn6D03R7lwONpOIv43je5UBefDgSBoCGp7g=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=DHhFaslIz8EDYdbEdd+nys6AwQEq7/2WLPaEwawDUOWwsCTnq2V6vDsbhocHK9ZvzMNiyqsSwYMfIW6lScW4EHYDeynCKhHWljCPdgIEzs+OYa5EdA3O7ir1lYaxL36NWxcO07hc7fv+d5sr48Jn0RaKuyzJXMxm1wURKDCu2qM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=mYopcXCn; arc=none smtp.client-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="mYopcXCn"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id 3E44824010A
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 16:29:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
+	s=1984.8680eb; t=1788618546;
+	bh=NXyv4wuhQn6D03R7lwONpOIv43je5UBefDgSBoCGp7g=;
+	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
+	 MIME-Version:OpenPGP:From;
+	b=mYopcXCnQ40KMksywqeRb1wmr8OG2AnVKMYFs0mkLRU5invgngCqAqWzgM+IcvKPz
+	 lcQKHNcjWm4TjXVCbcYlt6iebqShqo23U4mW6gHWtgb4lPDroDKHjDgI4p39IoRNTr
+	 bl3tnXnH6ytkgPw0mbgyXCNZHcp1wbzelxXDFrkqjXyhvhxEyD3/AAHxuXtKMbbWSN
+	 l9PgCrl/SL95zwq0uVO5WhMTbhQysc3yYc8YypVQMoPHTzo2tD5+szcBl2j452GpUl
+	 U1yB3KBAEZTenfsf5Hga9rIPOdMFVHv3KUfjfXdv39ntTx1V0hBLJ5EKyfw8lcQ5Y+
+	 JGFUpa00KOFIA==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4hcbLS15P7z6tsb;
+	Sat,  5 Sep 2026 16:29:04 +0200 (CEST)
+Message-ID: <e14be38bf768bfc79e050e71e97dc15f45896698.camel@posteo.de>
+Subject: Re: [PATCH] rust: serdev: Fix race condition on driver probe fail
+From: Markus Probst <markus.probst@posteo.de>
+To: Gary Guo <gary@garyguo.net>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
+	 <boqun@kernel.org>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
+ Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida	 <daniel.almeida@collabora.com>, Tamir Duberstein
+ <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>, Onur
+ =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, Greg Kroah-Hartman	
+ <gregkh@linuxfoundation.org>
+Cc: linux-serial@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Sashiko Bot <sashiko-bot@kernel.org>
+Date: Sat, 05 Sep 2026 14:29:05 +0000
+In-Reply-To: <DL7G9BAEFESY.2LS09S43WOK9V@garyguo.net>
+References: <20260905-rust_serdev_fix-v1-1-2ea92b154a6b@posteo.de>
+	 <1b247f730001ea39b6e4044f5673e1a01e187362.camel@posteo.de>
+	 <DL7G9BAEFESY.2LS09S43WOK9V@garyguo.net>
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+ keydata=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
+ jfGillcaQOqFZ3WwVqyzG1BUfTow==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-8+VIV4AfOdiyP1j9CJqu"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:617:b0:6b3:506e:b484 with SMTP id
- 006d021491bc7-6b6fc9d0782mr8242414eaf.16.1788618383574; Sat, 05 Sep 2026
- 07:26:23 -0700 (PDT)
-Date: Sat, 05 Sep 2026 07:26:23 -0700
-In-Reply-To: <5fdd4d960a6b47ab7cfa6ef0f44fb575fc45d1ca.1788611415.git.qiwenjie@xiaomi.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9c268f.a6639fcc.23b8b0.0003.GAE@google.com>
-Subject: [syzbot ci] Re: f2fs: enable buffered RWF_DONTCACHE
-From: syzbot ci <syzbot+ci2f6618cc34ef3809@syzkaller.appspotmail.com>
-To: qwjhust@gmail.com, axboe@kernel.dk, baohua@kernel.org, chao@kernel.org, 
-	hch@lst.de, jack@suse.cz, jaegeuk@kernel.org, linux-block@vger.kernel.org, 
-	linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, qiwenjie@xiaomi.com, 
-	syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com, tz2294@columbia.edu
-Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+
+
+--=-8+VIV4AfOdiyP1j9CJqu
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-syzbot ci has tested the suggested fix patch on top of the following series:
+On Sat, 2026-09-05 at 15:24 +0100, Gary Guo wrote:
+> On Sat Sep 5, 2026 at 1:22 AM BST, Markus Probst wrote:
+> > On Fri, 2026-09-04 at 23:54 +0000, Markus Probst wrote:
+> > > If `Driver::probe` fails, the pointer to the driver data (`PrivateDat=
+a`)
+> > > will first be set to NULL by `drvdata_obtain` and only after that the
+> > > serdev device will be closed by Drop. Thus there is a small window in
+> > > which the serdev device is still open, but the pointer to the driver =
+data
+> > > is NULL. Therefore it is possible that `receive_buf_callback` might t=
+ry to
+> > > access the `active` mutex on a null pointer.
+> > It seems, Sashiko found the same issue in a different unrelated place
+> > too (while reviewing this patch):
+> >=20
+> > https://sashiko.dev/#/patchset/20260905-rust_serdev_fix-v1-1-2ea92b154a=
+6b%40posteo.de
+> >=20
+> > Unfortunately, I cannot fix this one so easily, because the serdev
+> > device needs to be open for the entire lifetime of the "real" driver
+> > data (Driver::Data).
+>=20
+> What would go wrong if the device is closed before destroying the driver =
+data?
+The driver would still have a handle to the Device and could call
+`Device::set_baudrate` for instance. This would be a use-after-free by
+itself.
 
-[v4] f2fs: enable buffered RWF_DONTCACHE
-https://lore.kernel.org/all/cover.1788438786.git.qiwenjie@xiaomi.com
+I am currently investigating, if I can only stop rx and leave the
+device for transmission open. There seems to be the `CREAD` c_cflag I
+can remove from the tty. But I am not sure yet if it guarantees that
+receive_buf isn't called anymore.
 
-Patch: https://ci.syzbot.org/jobs/279baf88-89a3-4cb8-93c2-4bd86aa5092e/patch
-Testing results:
-* [build 0] Build Patched: passed
-* [build 0] Boot test: Patched: passed
-* [build 0] Previous reproducers: passed
-  - general protection fault in f2fs_write_begin (patched) - passed
+Thanks
+- Markus Probst
 
-Full report is available here:
-https://ci.syzbot.org/session/7e05d54c-8b9e-4e22-a746-48153ea42a60
+>=20
+> Best,
+> Gary
 
----
-This report is generated by a bot. It may contain errors.
-syzbot ci engineers can be reached at syzkaller@googlegroups.com.
+--=-8+VIV4AfOdiyP1j9CJqu
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmqcJyobFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSblYQAIGEuLx5E+0K+FNfcAif
+ELlbd3+M9SA/5EnRDe4LLk0NueT6Gaac2IT3EtY+Y9i665CCoRrFKHl7gr1pZov9
+dySUUVk+B9BcvqEA9wDqORSorG9lN3tNt8RuYKGtB6sCNy5SM03nq4XkszQ5lFp9
+eVmc9TPJiJHBBeb8G0wfBAlSbpZRNVPJBPpqhQJcUfPMzbvXZrrJiWRmWUiXit5N
+LNeSExg99IF8NVkW6CN5Twf3OChuH7Al7mqq1aNbkYxWn2GZnslBQoQmcyZ6+T3V
+Dzr8UOt8LsURE89fpICyM/3T7p9QJpDYKTj0iKv+gh6tT8SAi+/QAOFwlVMRzFn9
+oVQnJe2RDY9LW8hKwMPrtKO8np4B0psuhNt7nzLA21KawMOJxFgiJNGbZpwNBqQA
+tpcfDrd7plYJsFoF0LZ+zhxaFnlhur7WI6Y26OgCkbfguEVvRLe6uiA4r8bx9iPk
+f/iQBeucfFVUQ6rJk/LfCur0fqX7n8F9hdGbUZkTv9+rJiut0jxiY+D0/DKRPS/j
+wh14RUkuoV8WbJPo/R2GJdoKlgKG15Qrj2qPmJn8fvAvSTIu5KvVuSyeERCIMBWM
+yRs+DpmHzte7aO9vLw3mP0OEewRMkCD8T3jx3vEFZ+SBYLWy1IAJaXYpDMue/UQU
+o/g7h/H0OiDO4XMKWmRFD601
+=zUl4
+-----END PGP SIGNATURE-----
+
+--=-8+VIV4AfOdiyP1j9CJqu--
