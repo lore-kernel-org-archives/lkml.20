@@ -1,118 +1,202 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B8B02EEE93
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 03:40:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB9B35E1AE;
+	Sat,  5 Sep 2026 03:44:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788579635; cv=none; b=uDFxTfLN5aipktkkzQ1tQ/qhHYb6ROqgrx6gNC5djTxxNXoyLIbbWzELwvCbmpKwhSXolJSgFf3+3MMry/BYWYLD5EDy4bMHKk+vVemKtbbC4xztcX1RSHm/fzY9aRkyrBsvBoNfl3avBw+y3FJ90Xw8/te/aPf712I0i3n5VaM=
+	t=1788579878; cv=none; b=Y2mXkEuLuCmpWyLrcG/YkORfr9JtwU39dd/YsbAxP6+AcxjuXibIO6g5huld82mc5La9WLcCZnVA3hLAy9VE9qbQvzdez70GbzH7Ibt9zrB4XUXKl7BU0VBSNKXo//zfFqz8yqFddSnejKLJg2S3SrWeQHIIGdkH54zY8JiGwZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788579635; c=relaxed/simple;
-	bh=h58rRfgQOT1BFyheD9hG5lpbczY7NlBk2zXRfllj/ew=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r9BvQs9cFlmabzqLYb51ZCPS22+0oF5i+kiYp8/SkmpKMsJt+z6DdIv7/hRAjT3k8u+tlWxjJ32zLmBY7gfN2zbUm51MrACCx4Rpue2CZ15B8YoCM6UJV/3+991ANiRNGdMsU7Tjx0V1FNyFoRwb3P3S6ixkdZUDMPCk043P/1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org; spf=pass smtp.mailfrom=quora.org; dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b=qifJ7q3F; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quora.org
+	s=arc-20240116; t=1788579878; c=relaxed/simple;
+	bh=gUqfJVUvVAp7wj+4z59uWgVlitAYeLg/P9Y4JcBFQ40=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=fCUYOWJ8LsjvsNzslEoAaiESK+e39T+6hc91JX9FTcVxRdEilaUAoy0/6DFMYnXuoPoGx5vbzQhZIgUyQzhKedn8duWsrRUaTUd6isD1+sILKD2llmUQ8BC0C8kzTOA3NZFJ3Y/ObdUumexnbUByuFLPW3K7IW4w25FOZ/arWgw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Ehcwnko2; arc=none smtp.client-ip=113.46.200.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b="qifJ7q3F"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so1340812a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 20:40:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=quora.org; s=google; t=1788579633; x=1789184433; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TEg9KwaHVCx+xXyU3Ht7Kg/Y6eHD9fATek7hVNpbXCg=;
-        b=qifJ7q3FemsdrK1TtoF1WrPgYMusWAqbgpKtOPEA3DiiOjCqEaxtxop3Owp1w9LrKJ
-         cjp0ulI91m15doPi+VzuvEtQM1jRQoLEwM8laG8M15VB3V0O94yaDNTUbIeQbujku9oW
-         s9lG6vRq8fTgrJRBr+jijS1vkfHfEJYvZd7YQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788579633; x=1789184433;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TEg9KwaHVCx+xXyU3Ht7Kg/Y6eHD9fATek7hVNpbXCg=;
-        b=AjO01f+i1Iyjnoc0ts9+kYX+DvivPGkm7gGhxHK4CYcWPtTtA+dDGMFjozTi7NXRuW
-         XxRPkhBehDpKkD8HuK5xfSan11j7tiCrq/5yY2ydlZZl3qE/QRqgWlCVlxkRBKz4lUVU
-         XhNNPyZvcDpuULw2NwNtADhuwpyxS6X26pJyfpLBOX4zkaCWA2auB29g1u0HE6v0aZyP
-         sZr9bsIhjPd90lvGmDG2x6dPW/OKVyB//s4dDf3HhhRZV6doU4POlEk01qOCqR4sG9HQ
-         v54GQJzPWKbsNMsICWEO9wiBmBqCO5hT+y93jal4De4fjEKSsm5OxNZQgsoTawRbjmCa
-         lUDg==
-X-Forwarded-Encrypted: i=1; AKwUvBzaBZzf63/07AvP1/omeq+hgo6L8tS4tgqSFS21qehHcwX37v+hba1/w2+mwbsectwA0WOkd0Xmn20DCE0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mcvekXXgNyJ4VgbzE0FbvrpYPDCSFwhrFJG2bFGXpqj8WZIic9
-	ew/EWY/3TKxXHz6Gjq8p0ajc4ZLwTsl0q7bCJBPoe3U8DWfe8gJUANWQTN9AeRH6G/o=
-X-Gm-Gg: AYBFou3fKGidm896heA36cCVMvtTaY7vtjqXSRcY98xGiCGdqyzIEC6xB7gAig/Plla
-	W8ZYaHi0/S6wPPg4toLSLStlizvSmkDKZwJgR0PBY7NdNzel6jzl860A81VjYjP3Wyc7n+eQQYw
-	2E5V0nHVxZuQVBRHA45KxUW5irM2g1lcYDF0F0yvTGma3l5OE6QdXdvfDFUBsvoH+rWvA6QV1TL
-	bzkNKYt+oIgh1bLjMx1hxv/DjhnHRgmGq9dBWxiAMjYR6ttbK2s2y1TiBU657DwNffDEAr2GHBD
-	RD0OzvxpONLqEtZ32Pxef77kqUOV1Wy8bXLsP7/VWirCdckg0FWTWpbl+lYJ49zj/tB4x0SouIg
-	rMGmSBICnXsbEY6Fxy3OkWE03DFBwilxfNMn9eIPAOkxAxjfeB00PiYUii5RPhushpeN5r6Ipwo
-	8bvKA2yDLY2KnYfyTiz+yqIlDmO9EmPv59S61UTh/4U13MsEUrXiNOaRNYdxkTYvG4Ulw6f/Ne1
-	xRVkyXpNU2KFufMQtVGTCLmv3N8Kp6Ya/Lk/SPWqgmzMYW4+/ePWxIPqGO+Me3gHL9ZSms2aWna
-	RcOIhd/MCQukL/XidU7EuyyeVFNANOD/axRLRRwrJ1w2j0PvEWuuqdiy7f55qkhWlfe4fnkpMh6
-	bNfmyEnbIjHdMWM9GpRBCk9hW1w==
-X-Received: by 2002:a17:90b:2c87:b0:398:990e:1587 with SMTP id 98e67ed59e1d1-39b26191cf2mr15056485a91.9.1788579633576;
-        Fri, 04 Sep 2026 20:40:33 -0700 (PDT)
-Received: from aegis ([2001:fd8:4d02:cd00:fe3b:5611:12cf:6ca5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b06cea473sm4210052a91.2.2026.09.04.20.40.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 20:40:33 -0700 (PDT)
-From: Daniel J Blueman <daniel@quora.org>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Daniel J Blueman <daniel@quora.org>
-Subject: [PATCH] firmware: qcom: tzmem: use sleepable variant of DO_ONCE()
-Date: Sat,  5 Sep 2026 11:04:41 +0800
-Message-ID: <20260905030450.34800-1-daniel@quora.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Ehcwnko2"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=Wp8B10J8KdXX1ICuZjCb5MGZd4JK6ZEKI5ReZhq+g4I=;
+	b=Ehcwnko2Vb9qOtg+1UmGVeyXzxq46q9jfDNH07nTQRZXRZSokJdIoiDr0+bjiVtdKFTWmSunl
+	vGPexvkmmBGBApKXAHoRiENF5Zbe2zAIJ4RNXBW5xhAIBQYLxa5NO247RXAEFsYt+XoZuAER5nr
+	YnbWasldB983YP6uFpE5n90=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4hcJnQ36SMzpSvB;
+	Sat,  5 Sep 2026 11:32:58 +0800 (CST)
+Received: from kwepemf100007.china.huawei.com (unknown [7.202.181.221])
+	by mail.maildlp.com (Postfix) with ESMTPS id 16D3A4056D;
+	Sat,  5 Sep 2026 11:44:24 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemf100007.china.huawei.com
+ (7.202.181.221) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sat, 5 Sep
+ 2026 11:44:23 +0800
+Message-ID: <7fbae9ac-44e4-4607-8aba-15db9779f80d@huawei.com>
+Date: Sat, 5 Sep 2026 11:44:22 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next] bpf, riscv: Register extable entries at probe
+ insn call sites
+Content-Language: en-US
+To: Chen Pei <cp0613@linux.alibaba.com>, <ast@kernel.org>,
+	<daniel@iogearbox.net>, <andrii@kernel.org>, <memxor@gmail.com>,
+	<bjorn@kernel.org>, <puranjay@kernel.org>
+CC: <ihor.solodrai@linux.dev>, <eddyz87@gmail.com>, <martin.lau@linux.dev>,
+	<song@kernel.org>, <yonghong.song@linux.dev>, <jolsa@kernel.org>,
+	<emil@etsalapatis.com>, <pjw@kernel.org>, <palmer@dabbelt.com>,
+	<shuah@kernel.org>, <guoren@kernel.org>, <bpf@vger.kernel.org>,
+	<linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20260901120013.16104-1-cp0613@linux.alibaba.com>
+From: Pu Lehui <pulehui@huawei.com>
+In-Reply-To: <20260901120013.16104-1-cp0613@linux.alibaba.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemf100007.china.huawei.com (7.202.181.221)
 
-qcom_tzmem_enable() runs qcom_tzmem_init() using DO_ONCE(), taking
-the once_lock spinlock. qcom_tzmem_init() subsequently takes the
-qcom_scm_lock mutex, potentially sleeping holding the spinlock,
-triggering:
 
-  BUG: sleeping function called from invalid context at drivers/firmware/qcom/qcom_scm.c:334
-  in_atomic(): 1, irqs_disabled(): 1, non_block: 0, pid: 112, name: kworker/u49:4
-  Call trace:
-   __might_resched+0x378/0x698
-   __might_sleep+0x9c/0x220
-   qcom_scm_call+0x3c/0xf0
-   __qcom_scm_is_call_available+0xec/0x198
-   qcom_scm_shm_bridge_enable+0xc4/0x158
-   qcom_tzmem_enable+0x178/0x218
-   qcom_scm_probe+0x4d4/0xcb8
+On 2026/9/1 20:00, Chen Pei wrote:
+> add_exception_handler() filters insns by matching BPF_MODE() against
+> the probe mode values. These values occupy unused opcode slots and
+> collide with legitimate encodings: BPF_PROBE_MEM32SX (0xc0) shares
+> its mode value with BPF_ATOMIC. Relying on the mode alone therefore
+> risks registering exception table entries for the wrong instructions,
+> as would happen for plain atomics without the LDX class check.
+> 
+> Make the decision explicit at the call sites instead: register an
+> entry only when emitting a probe load, a PROBE_MEM32 store, or a
+> PROBE_ATOMIC atomic, and drop the fragile mode gate from
+> add_exception_handler() along with the now unused insn argument. No
+> functional change intended.
+> 
+> Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
+> ---
+> base-commit: d761934c9483ecde93fe99d8705282f716dfee50
+> 
+>   arch/riscv/net/bpf_jit_comp64.c | 50 ++++++++++++++++++---------------
+>   1 file changed, 28 insertions(+), 22 deletions(-)
+> 
+> diff --git a/arch/riscv/net/bpf_jit_comp64.c b/arch/riscv/net/bpf_jit_comp64.c
+> index e7378be171a9..726c0169fc60 100644
+> --- a/arch/riscv/net/bpf_jit_comp64.c
+> +++ b/arch/riscv/net/bpf_jit_comp64.c
+> @@ -731,9 +731,8 @@ bool ex_handler_bpf(const struct exception_table_entry *ex,
+>   	return true;
+>   }
+>   
+> -/* For accesses to BTF pointers, add an entry to the exception table */
+> -static int add_exception_handler(const struct bpf_insn *insn, int dst_reg,
+> -				 struct rv_jit_context *ctx)
+> +/* Add an entry to the exception table for a faulting probe insn */
+> +static int add_exception_handler(int dst_reg, struct rv_jit_context *ctx)
+>   {
+>   	struct exception_table_entry *ex;
+>   	unsigned long pc;
+> @@ -744,14 +743,6 @@ static int add_exception_handler(const struct bpf_insn *insn, int dst_reg,
+>   	    ctx->ex_insn_off <= 0 || ctx->ex_jmp_off <= 0)
+>   		return 0;
+>   
+> -	if (BPF_MODE(insn->code) != BPF_PROBE_MEM &&
+> -	    BPF_MODE(insn->code) != BPF_PROBE_MEMSX &&
+> -	    BPF_MODE(insn->code) != BPF_PROBE_MEM32 &&
+> -	    !(BPF_MODE(insn->code) == BPF_PROBE_MEM32SX &&
+> -	      BPF_CLASS(insn->code) == BPF_LDX) &&
+> -	    BPF_MODE(insn->code) != BPF_PROBE_ATOMIC)
+> -		return 0;
 
-Fix this by using DO_ONCE_SLEEPABLE().
+Hi Pei,
 
-Fixes: 9941fe8a04f3 ("firmware: qcom: scm: Fix tzmem state on probe retry")
-Signed-off-by: Daniel J Blueman <daniel@quora.org>
----
- drivers/firmware/qcom/qcom_tzmem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This patch looks fine, but I still tend not to introduce these changes. 
+I think the function itself should handle its own defensive checks, and 
+we should also avoid "shotgun surgery".
 
-diff --git a/drivers/firmware/qcom/qcom_tzmem.c b/drivers/firmware/qcom/qcom_tzmem.c
-index 0fd9581275f1..ebcdee3c5975 100644
---- a/drivers/firmware/qcom/qcom_tzmem.c
-+++ b/drivers/firmware/qcom/qcom_tzmem.c
-@@ -518,7 +518,7 @@ int qcom_tzmem_enable(struct device *dev)
- 	static int result;
- 
- 	qcom_tzmem_dev = dev;
--	DO_ONCE(qcom_tzmem_do_init, &result);
-+	DO_ONCE_SLEEPABLE(qcom_tzmem_do_init, &result);
- 	return result;
- }
- EXPORT_SYMBOL_GPL(qcom_tzmem_enable);
--- 
-2.53.0
-
+> -
+>   	if (WARN_ON_ONCE(ctx->nexentries >= ctx->prog->aux->num_exentries))
+>   		return -EINVAL;
+>   
+> @@ -1360,6 +1351,15 @@ int arch_prepare_bpf_trampoline(struct bpf_tramp_image *im, void *ro_image,
+>   	return ret < 0 ? ret : size;
+>   }
+>   
+> +/* Probe loads fault on unmapped memory and need an exception table entry */
+> +static bool insn_is_probe_ldx(const struct bpf_insn *insn)
+> +{
+> +	return BPF_MODE(insn->code) == BPF_PROBE_MEM ||
+> +	       BPF_MODE(insn->code) == BPF_PROBE_MEMSX ||
+> +	       BPF_MODE(insn->code) == BPF_PROBE_MEM32 ||
+> +	       BPF_MODE(insn->code) == BPF_PROBE_MEM32SX;
+> +}
+> +
+>   int bpf_jit_emit_insn(const struct bpf_insn *insn, struct rv_jit_context *ctx,
+>   		      bool extra_pass)
+>   {
+> @@ -1929,9 +1929,11 @@ int bpf_jit_emit_insn(const struct bpf_insn *insn, struct rv_jit_context *ctx,
+>   
+>   		emit_ldx(rd, off, rs, BPF_SIZE(code), sign_ext, ctx);
+>   
+> -		ret = add_exception_handler(insn, rd, ctx);
+> -		if (ret)
+> -			return ret;
+> +		if (insn_is_probe_ldx(insn)) {
+> +			ret = add_exception_handler(rd, ctx);
+> +			if (ret)
+> +				return ret;
+> +		}
+>   
+>   		if (BPF_SIZE(code) != BPF_DW && insn_is_zext(&insn[1]))
+>   			return 1;
+> @@ -1959,9 +1961,11 @@ int bpf_jit_emit_insn(const struct bpf_insn *insn, struct rv_jit_context *ctx,
+>   
+>   		emit_st(rd, off, imm, BPF_SIZE(code), ctx);
+>   
+> -		ret = add_exception_handler(insn, REG_DONT_CLEAR_MARKER, ctx);
+> -		if (ret)
+> -			return ret;
+> +		if (BPF_MODE(insn->code) == BPF_PROBE_MEM32) {
+> +			ret = add_exception_handler(REG_DONT_CLEAR_MARKER, ctx);
+> +			if (ret)
+> +				return ret;
+> +		}
+>   		break;
+>   
+>   	/* STX: *(size *)(dst + off) = src */
+> @@ -1981,9 +1985,11 @@ int bpf_jit_emit_insn(const struct bpf_insn *insn, struct rv_jit_context *ctx,
+>   
+>   		emit_stx(rd, off, rs, BPF_SIZE(code), ctx);
+>   
+> -		ret = add_exception_handler(insn, REG_DONT_CLEAR_MARKER, ctx);
+> -		if (ret)
+> -			return ret;
+> +		if (BPF_MODE(insn->code) == BPF_PROBE_MEM32) {
+> +			ret = add_exception_handler(REG_DONT_CLEAR_MARKER, ctx);
+> +			if (ret)
+> +				return ret;
+> +		}
+>   		break;
+>   
+>   	/* Atomics */
+> @@ -2001,7 +2007,7 @@ int bpf_jit_emit_insn(const struct bpf_insn *insn, struct rv_jit_context *ctx,
+>   			ret = emit_atomic_rmw(rd, rs, insn, ctx);
+>   
+>   		/* ret can be 1 (skip-zext); extable entry still needs to be added */
+> -		if (ret >= 0) {
+> +		if (ret >= 0 && BPF_MODE(insn->code) == BPF_PROBE_ATOMIC) {
+>   			/*
+>   			 * A load-acquire reads into dst_reg, and a read-modify-write
+>   			 * carrying BPF_FETCH reads the old value into src_reg, or into
+> @@ -2010,7 +2016,7 @@ int bpf_jit_emit_insn(const struct bpf_insn *insn, struct rv_jit_context *ctx,
+>   			 */
+>   			int load_reg = bpf_atomic_load_reg(insn);
+>   
+> -			ret = add_exception_handler(insn, load_reg < 0 ?
+> +			ret = add_exception_handler(load_reg < 0 ?
+>   					REG_DONT_CLEAR_MARKER : regmap[load_reg],
+>   					ctx) ?: ret;
+>   		}
