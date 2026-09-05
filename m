@@ -1,194 +1,212 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 542072FE042
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 00:49:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BC78309EFC
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 00:50:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788569382; cv=none; b=NqMpI925mNLzfgb5P4k6DMDDWQUvtD0OUsjHTpJSdFPL4Z6Gl+bwiY4BvjDK/sscvCZJREtGb+hniHW70GkncQTLwkSFitIZ6JTrF3gTNMFX76dN+8w8eSbWlQx4Q1fKjaVh4cBhaN5jn30BHhUFwBdf0+UBPBaeO1vefFhOdwQ=
+	t=1788569426; cv=none; b=Ysijh6vkDatzBW76UJqfMHXhQyU3AqXI9Xt9N2MS4m3Htf4jUhIRYz70gHjANqoC+ChrktjSbfOnwjWKHB30AJAlOjhumb9TJz7F7XpLNQDUTm7kqgbzYLN6XWdOkuDTswQJL23E41iRQTtUz4gx+TwQtzfUe7sXIudjnJ76KLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788569382; c=relaxed/simple;
-	bh=kjWRhamImpHbxXD74A2C9YNqa1ANFrc2fJwOVhqxGEo=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=qEjr0FQvc7Y4acG4DgXcLCDN3FRLIxXw+/PoOhvCG9G4VYVAZlctjIlgL37IQ7EfqwJluGWaPVRK6OyFBbpQr0TMS79qHaew2oFIk/ezwLunU2CbN1SarFXmFTViCz89c2OfVLDUd+Lst+SvfwiQTiSOFenhMKA5FzZOMFiA3AM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mDi8fV6T; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788569426; c=relaxed/simple;
+	bh=/IOJt2nf7V0sd3dSVTFndx95aL9kJKMjt1TwjTpxOUU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KTHo+AoCkr740CoYBajEsa1QxxdVKq09g5JnZRsm96vnKdmWSGpVZ9MjsNNiyq71RLXECFvVp37McYq2ngiIad/xy5iFBfBABH9UBHhx/hyom+kkDyC61OvQa6X32uWNVkVRAVsmW7Dxo6e3Rh0r/OQGsDBiHFgvJOuPiHO1QJI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=RoiMAuAA; arc=none smtp.client-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mDi8fV6T"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788569380; x=1820105380;
-  h=date:from:to:cc:subject:message-id;
-  bh=kjWRhamImpHbxXD74A2C9YNqa1ANFrc2fJwOVhqxGEo=;
-  b=mDi8fV6TUZzOiddA26dU+KrRhcrFeRzvlXXMc6pld0bCRalL0Uyt0UTJ
-   /dILGHed65Zfj+Gu1YPNqn8ffcHaHdPvfADklUVHyEzsviE1uhfOOiU6d
-   jCy8jgcE7mi7VRDY/PvZDE0plmW1ypeuPmAZqWYvex2J6hzm4OwqaWdyA
-   WIyDiSF05+jGEkMssXBfPIMo0bxHDVQ+oHO9Eq8iItsi93/t+VIR1BQxh
-   Xcnrax0Wi8xpa6w0g0678jZvXxplNCBSMeI2jfLvwqSGwRSv851dqYXms
-   VExhFOi6fCF/paptqUnIPmLDMlDlmxnVfCIGucTWlvz/TdVPWfcGL6UxH
-   A==;
-X-CSE-ConnectionGUID: +3eJjxtSSfupeFLMgpqy4Q==
-X-CSE-MsgGUID: jtQfWjZBQ+Sg+0gnpjLYOA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11896"; a="100234661"
-X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
-   d="scan'208";a="100234661"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 17:49:39 -0700
-X-CSE-ConnectionGUID: YTzc1OniT5uhzJ58xFORcg==
-X-CSE-MsgGUID: v0jS/LjnRFywcpATuzhuKw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
-   d="scan'208";a="267607316"
-Received: from lkp-server01.sh.intel.com (HELO bfac249b2189) ([10.239.97.150])
-  by fmviesa008.fm.intel.com with ESMTP; 04 Sep 2026 17:49:36 -0700
-Received: from kbuild by bfac249b2189 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x2eb8-00000000AUg-17TJ;
-	Sat, 05 Sep 2026 00:49:34 +0000
-Date: Sat, 05 Sep 2026 08:49:13 +0800
-From: kernel test robot <lkp@intel.com>
-To: Alex Hung <alex.hung@amd.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>
-Subject: drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:391:41: sparse:
- sparse: incorrect type in argument 1 (different address spaces)
-Message-ID: <202609050833.rJ9c0SND-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="RoiMAuAA"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-84e27035206so1424902b3a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 17:50:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788569424; x=1789174224; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=twXI+3UtDxubE6k4loreSfwnlDBRjMJNiuXV8S8NXjs=;
+        b=RoiMAuAA9CC0u89zFlmfalKGX2fw3CLKLhdf/TXuOW1nUpQrjQuTjAjDugg1Fim1Ie
+         F49ZrF9HxyPYhD8P/BaP93z6c8GrihBoukQmQKyyefJJVNCt29K64uAM/h44ABJ0Y8s6
+         h/OBanIdcxRdwfWkScBi3qzASQ+IW91HMaVRBoYsjtiIXi6eqbTpjxnpekCyQRi32YNH
+         S2UcYTXpbgK7jWKgxQBjvCOHPZKCBxxj627XY1zs8DeCqHAuznPIMRIFH8uisWppyOvc
+         nk/92XEsUBE2K8WCwfMqN4/nAUaQlSYJ/sMgfJm42SfdvkrStbYhE3etyZMr6yLrY/54
+         qe6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788569424; x=1789174224;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=twXI+3UtDxubE6k4loreSfwnlDBRjMJNiuXV8S8NXjs=;
+        b=ONbmWV7l1NHoHjA+L4NOkWA0sp9Uj9K97dHn2Rezg99UxMD7A8oQEOb2RVNz0sc1y8
+         E4tM15HItWgn8K0s/Hn7Vs7X5MwIEkThANUS9GJv+/xAu8vRrRnXswq/93xObm7soVNJ
+         Y9tU2c2u3IB/VKyy8VrAoWbFRTAYprKK7BLarve0fIOd3uyMt7gMkvoFlW0harxs7rG0
+         12lp7BCI43ITR0IAVV4EhwL988S7Q7+Fz96YTGqNFQAG8R96HD9p3TZ47kCW61E8G1MZ
+         VPFgK/MsBlTi/aFDusXhxACyaUMe0dUpEhSJC2clVuV5QOBmmQZcMF9lHPPtFHFSyYlD
+         nhNg==
+X-Forwarded-Encrypted: i=1; AKwUvBzfrvGy53OkfWE9UiYiIpru8xxgbTJCIRNmDpG0859bYbYyiBFWD7lgNDHhWZ6QI/JsyJ1flng/yuLhVL4=@vger.kernel.org
+X-Gm-Message-State: AFuF++k0mKRhtJdvQ76IqRN4C0tb1wmBon3m9s6oYidcLR44JUzAYTRp
+	bObiP8fo6SkqJGNEMEdcuCV5G0b7ItQm/Myttd2cwJnVAyHT8nYdgD/y8bQwxppJEg==
+X-Gm-Gg: AYBFou3hPFizuoES0AssQJhpqMDtaQKTvXNZqL5E2HHg0tMdllS7XdNi9io2u22KqYA
+	GwsSt3Wbmog8v0KiLOnLI0d0yfj/15WYCLAphApjg3h6KU90vF96xK6X9tUuhbqWdYWlu57kE2H
+	v4cET7G5oAh/bsGfKpMVlA/amHmvlaUnG53la33UDgbLiN36EIKREeyXFoQiIGyFl8Gay3EtYyD
+	CnTwQWEHALAtDTpS0gPaHK/l/tzfAt3WIdwS7qsVFE8t2LCwQPoCNEiJxm6QVj6wMUlKy5jRiFL
+	GF9emEOWyezh/9X7VWBCY/qQ/xBg9/ddqRbQJNUnZm5Wgfxmu2HJFhs1c7AhAP3/MjtEMYO+sW5
+	aQlCCVHO8lOznncQXeSMS6IVhcCF5siXkV4rdIkqNuhU1DezYCeizDgj5Lcvj9hm7n/mhcX/3cM
+	V+hs77YkZmI68mtLkbhLioq+2ap2lPNnTQxjXN+o4B2aZN6az+jKJTZITHoYrR5t6MRy50v1qjq
+	egUlwGc4FfGEAJvZl/ZGw==
+X-Received: by 2002:a05:6a00:2e83:b0:84f:a82e:d32f with SMTP id d2e1a72fcca58-86167aa9923mr11929585b3a.3.1788569423494;
+        Fri, 04 Sep 2026 17:50:23 -0700 (PDT)
+Received: from google.com (51.86.127.34.bc.googleusercontent.com. [34.127.86.51])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86153728c37sm1734162b3a.46.2026.09.04.17.50.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 17:50:22 -0700 (PDT)
+Date: Sat, 5 Sep 2026 00:50:18 +0000
+From: Benson Leung <bleung@google.com>
+To: Jameson Thies <jthies@google.com>
+Cc: heikki.krogerus@linux.intel.com, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dmitry.baryshkov@oss.qualcomm.com,
+	bleung@chromium.org, gregkh@linuxfoundation.org,
+	akuchynski@chromium.org, abhishekpandit@chromium.org,
+	marco.crivellari@suse.com
+Subject: Re: [PATCH v2] usb: typec: ucsi: allow retries of ucsi_resume_work
+Message-ID: <aptnSl7OHTFl4qLb@google.com>
+References: <20260904234124.2336922-1-jthies@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rW/LfFfldWYEHjoO"
+Content-Disposition: inline
+In-Reply-To: <20260904234124.2336922-1-jthies@google.com>
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   654ae5d73c05bd2943d65636ce6cd0aa46e62f18
-commit: 1d8cfeb69daa863a70134b8ed6df8055c418a5b0 drm/amdgpu: Pack nested ucode_info struct
-date:   5 weeks ago
-config: i386-randconfig-063-20260904 (https://download.01.org/0day-ci/archive/20260905/202609050833.rJ9c0SND-lkp@intel.com/config)
-compiler: gcc-13 (Debian 13.3.0-16) 13.3.0
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260905/202609050833.rJ9c0SND-lkp@intel.com/reproduce)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 1d8cfeb69daa ("drm/amdgpu: Pack nested ucode_info struct")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609050833.rJ9c0SND-lkp@intel.com/
+--rW/LfFfldWYEHjoO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-sparse warnings: (new ones prefixed by >>)
->> drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:391:41: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void volatile [noderef] __iomem * @@     got void *mqd_ptr @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:391:41: sparse:     expected void volatile [noderef] __iomem *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:391:41: sparse:     got void *mqd_ptr
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:397:41: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void volatile [noderef] __iomem * @@     got void *mqd_ptr @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:397:41: sparse:     expected void volatile [noderef] __iomem *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:397:41: sparse:     got void *mqd_ptr
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1425:25: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1427:25: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1429:27: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1435:25: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1437:25: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1439:27: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1446:27: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1452:25: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1454:25: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1456:27: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1462:25: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1464:25: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1466:27: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1473:27: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1479:25: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1481:25: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1483:27: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1489:25: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1491:25: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1493:27: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1494:27: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1500:27: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1506:25: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1508:25: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1510:27: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1511:27: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1517:27: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1523:25: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1525:25: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1527:27: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:1536:27: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2430:38: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void volatile [noderef] __iomem * @@     got void *cleaner_shader_cpu_ptr @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2430:38: sparse:     expected void volatile [noderef] __iomem *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2430:38: sparse:     got void *cleaner_shader_cpu_ptr
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2783:25: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2783:25: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2783:25: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2784:25: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2784:25: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2784:25: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2786:25: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2786:25: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2786:25: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2787:25: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2787:25: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2787:25: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2788:25: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2788:25: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2788:25: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2812:49: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2812:49: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2812:49: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2813:49: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2813:49: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2813:49: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2816:57: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2816:57: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2816:57: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2832:25: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2832:25: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2832:25: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2833:25: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2833:25: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2833:25: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2835:25: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2835:25: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2835:25: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2836:25: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2836:25: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:2836:25: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:3015:25: sparse: sparse: cast to restricted __le32
+On Fri, Sep 04, 2026 at 11:41:23PM +0000, Jameson Thies wrote:
+> On resume, the UCSI driver will re-enable notifications by sending
+> SET_NOTIFICATION_ENABLE. The LPM/PPM may be busy during system
+> resume causing SET_NOTIFICATION_ENABLE to fail and preventing the UCSI
+> driver from receiving connection status changes.
+>=20
+> Change resume work to a delayed workqueue to allow retries on failed
+> SET_NOTIFICATION_ENABLED commands. Additionally, cancel resume work
+> on suspend to prevent pending resume commands from impacting suspend.
+>=20
+> Signed-off-by: Jameson Thies <jthies@google.com>
 
-vim +391 drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+Reviewed-by: Benson Leung <bleung@chromium.org>
 
-b9683c21f69b3d8 Alex Deucher 2017-06-07  380  
-b5ded0313519e7f Alex Deucher 2026-05-19  381  static void amdgpu_gfx_mqd_reset_restore(struct amdgpu_ring *ring)
-a3cc79650141670 Alex Deucher 2026-05-19  382  {
-a3cc79650141670 Alex Deucher 2026-05-19  383  	struct amdgpu_device *adev = ring->adev;
-a3cc79650141670 Alex Deucher 2026-05-19  384  	int mqd_idx, mqd_size;
-a3cc79650141670 Alex Deucher 2026-05-19  385  
-a3cc79650141670 Alex Deucher 2026-05-19  386  	/* restore mqd with the backup copy */
-a3cc79650141670 Alex Deucher 2026-05-19  387  	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) {
-a3cc79650141670 Alex Deucher 2026-05-19  388  		mqd_idx = ring - &adev->gfx.compute_ring[0];
-a3cc79650141670 Alex Deucher 2026-05-19  389  		mqd_size = adev->mqds[AMDGPU_HW_IP_COMPUTE].mqd_size;
-a3cc79650141670 Alex Deucher 2026-05-19  390  		if (adev->gfx.mec.mqd_backup[mqd_idx])
-a3cc79650141670 Alex Deucher 2026-05-19 @391  			memcpy_toio(ring->mqd_ptr, adev->gfx.mec.mqd_backup[mqd_idx], mqd_size);
-a3cc79650141670 Alex Deucher 2026-05-19  392  	} else if (ring->funcs->type == AMDGPU_RING_TYPE_GFX) {
-a3cc79650141670 Alex Deucher 2026-05-19  393  		mqd_size = adev->mqds[AMDGPU_HW_IP_GFX].mqd_size;
-a3cc79650141670 Alex Deucher 2026-05-19  394  		mqd_idx = ring - &adev->gfx.gfx_ring[0];
-a3cc79650141670 Alex Deucher 2026-05-19  395  
-a3cc79650141670 Alex Deucher 2026-05-19  396  		if (adev->gfx.me.mqd_backup[mqd_idx])
-a3cc79650141670 Alex Deucher 2026-05-19  397  			memcpy_toio(ring->mqd_ptr, adev->gfx.me.mqd_backup[mqd_idx], mqd_size);
-a3cc79650141670 Alex Deucher 2026-05-19  398  	}
-a3cc79650141670 Alex Deucher 2026-05-19  399  	/* reset the ring */
-a3cc79650141670 Alex Deucher 2026-05-19  400  	ring->wptr = 0;
-a3cc79650141670 Alex Deucher 2026-05-19  401  	atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0);
-a3cc79650141670 Alex Deucher 2026-05-19  402  	amdgpu_ring_clear_ring(ring);
-a3cc79650141670 Alex Deucher 2026-05-19  403  }
-a3cc79650141670 Alex Deucher 2026-05-19  404  
 
-:::::: The code at line 391 was first introduced by commit
-:::::: a3cc79650141670f6db74f90e2d6c173144ace0a drm/amdgpu/gfx: add a helper for MQD restore
+> ---
+> Changes in v2:
+>   - replaced system_long_wq with system_dfl_long_wq
+>=20
+>  drivers/usb/typec/ucsi/ucsi.c | 18 +++++++++++++-----
+>  drivers/usb/typec/ucsi/ucsi.h |  3 ++-
+>  2 files changed, 15 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
+> index bef3f9b71d71..459aab574b29 100644
+> --- a/drivers/usb/typec/ucsi/ucsi.c
+> +++ b/drivers/usb/typec/ucsi/ucsi.c
+> @@ -2158,7 +2158,7 @@ static int ucsi_init(struct ucsi *ucsi)
+> =20
+>  static void ucsi_resume_work(struct work_struct *work)
+>  {
+> -	struct ucsi *ucsi =3D container_of(work, struct ucsi, resume_work);
+> +	struct ucsi *ucsi =3D container_of(to_delayed_work(work), struct ucsi, =
+resume_work);
+>  	struct ucsi_connector *con;
+>  	u64 command;
+>  	int ret;
+> @@ -2167,6 +2167,11 @@ static void ucsi_resume_work(struct work_struct *w=
+ork)
+>  	command =3D UCSI_SET_NOTIFICATION_ENABLE | ucsi->ntfy;
+>  	ret =3D ucsi_send_command(ucsi, command, NULL, 0);
+>  	if (ret < 0) {
+> +		if (++ucsi->resume_retries < 5) {
+> +			queue_delayed_work(system_dfl_long_wq, &ucsi->resume_work,
+> +					   msecs_to_jiffies(500));
+> +			return;
+> +		}
+>  		dev_err(ucsi->dev, "failed to re-enable notifications (%d)\n", ret);
+>  		return;
+>  	}
+> @@ -2187,6 +2192,7 @@ int ucsi_suspend(struct ucsi *ucsi)
+>  	 * EC is stopped for suspend; state is re-read on resume.
+>  	 */
+>  	cancel_delayed_work_sync(&ucsi->work);
+> +	cancel_delayed_work_sync(&ucsi->resume_work);
+> =20
+>  	if (!ucsi->connector)
+>  		return 0;
+> @@ -2200,8 +2206,10 @@ EXPORT_SYMBOL_GPL(ucsi_suspend);
+> =20
+>  int ucsi_resume(struct ucsi *ucsi)
+>  {
+> -	if (ucsi->connector)
+> -		queue_work(system_long_wq, &ucsi->resume_work);
+> +	if (ucsi->connector) {
+> +		ucsi->resume_retries =3D 0;
+> +		queue_delayed_work(system_dfl_long_wq, &ucsi->resume_work, 0);
+> +	}
+>  	return 0;
+>  }
+>  EXPORT_SYMBOL_GPL(ucsi_resume);
+> @@ -2299,7 +2307,7 @@ struct ucsi *ucsi_create(struct device *dev, const =
+struct ucsi_operations *ops)
+>  	if (!ucsi)
+>  		return ERR_PTR(-ENOMEM);
+> =20
+> -	INIT_WORK(&ucsi->resume_work, ucsi_resume_work);
+> +	INIT_DELAYED_WORK(&ucsi->resume_work, ucsi_resume_work);
+>  	INIT_DELAYED_WORK(&ucsi->work, ucsi_init_work);
+>  	mutex_init(&ucsi->ppm_lock);
+>  	init_completion(&ucsi->complete);
+> @@ -2365,7 +2373,7 @@ void ucsi_unregister(struct ucsi *ucsi)
+> =20
+>  	/* Make sure that we are not in the middle of driver initialization */
+>  	cancel_delayed_work_sync(&ucsi->work);
+> -	cancel_work_sync(&ucsi->resume_work);
+> +	cancel_delayed_work_sync(&ucsi->resume_work);
+> =20
+>  	ucsi_debugfs_unregister(ucsi);
+> =20
+> diff --git a/drivers/usb/typec/ucsi/ucsi.h b/drivers/usb/typec/ucsi/ucsi.h
+> index dc594388dcd0..1996f04ed5e6 100644
+> --- a/drivers/usb/typec/ucsi/ucsi.h
+> +++ b/drivers/usb/typec/ucsi/ucsi.h
+> @@ -484,7 +484,8 @@ struct ucsi {
+>  	struct ucsi_connector *connector;
+>  	struct ucsi_debugfs_entry *debugfs;
+> =20
+> -	struct work_struct resume_work;
+> +	struct delayed_work resume_work;
+> +	int resume_retries;
+>  	struct delayed_work work;
+>  	int work_count;
+>  #define UCSI_ROLE_SWITCH_RETRY_PER_HZ	10
+>=20
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> --=20
+> 2.55.0.979.g7e5102b832-goog
+>=20
 
-:::::: TO: Alex Deucher <alexander.deucher@amd.com>
-:::::: CC: Alex Deucher <alexander.deucher@amd.com>
+--rW/LfFfldWYEHjoO
+Content-Type: application/pgp-signature; name=signature.asc
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQQCtZK6p/AktxXfkOlzbaomhzOwwgUCaptnSQAKCRBzbaomhzOw
+wlFMAP9OWQmQZ3idg3CmGcZAIPVsjhiaXSqxexPmUqTNuGLqXQD/f5J+EXoTaudL
+jUD6zo1yJlTwi28MUJnqVaG04CP72AM=
+=PyH2
+-----END PGP SIGNATURE-----
+
+--rW/LfFfldWYEHjoO--
