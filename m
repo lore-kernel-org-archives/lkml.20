@@ -1,110 +1,102 @@
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3D5A175A9D;
-	Sat,  5 Sep 2026 00:33:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=183.62.165.209
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39CFA2E7165
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 00:33:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788568413; cv=none; b=ncN+8QDQj2Iv/4AtyusTrr4DjqMyrPn5bB25QirGx7393mucRKT9wH4rgbewg+8/KtO5rWuJGwCMBIHl+F/otn+Nu3l6TOse0od2T/v3OmfY05KDjNoONGMSquJRQVXyFjj6z+ByWxWRwTAB+S9hxcqnbm80O9ZvMLzITQcNeTU=
+	t=1788568416; cv=none; b=tB7pz7eThCcpTavcZgUZEvTkfG7Idm2SfDQFbSxEK3XGkabdhakCPkhOtsyTjcspEiBXZDn0s64H2LBTlAStwlB3H8THWJCWbmCp9YhAh1eWpdY0jPL/mkZuYdNTbjNGhWYOe/KO/Wjt9/RZoaXO6PB6oYudHUkP3c9NRDxFNTk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788568413; c=relaxed/simple;
-	bh=NmyXnDbB2wZrHH6qXdu4y1K9w0bmVY+v6QbdEpm/Ygk=;
-	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type; b=szI0RP347GNK58jFqR7TMPigse5ij0BFwDAUzLlfQHLAVtEKfyLchsN5ZYB7HPdd4FCUiaePN/SGZEBzMmnF1cxYDVwl/Uib1xgYjMH5ZrtCIxkFBDA1euzhJeRVjx9Xg8wTQX+/OdpYcaYQmjY6617NzeWcEQMmgUNrxo7nG5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=183.62.165.209
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4hcDpG4B8Rz4x6B2;
-	Sat, 05 Sep 2026 08:33:26 +0800 (CST)
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
-	by mse-fl2.zte.com.cn with SMTP id 6850XP1u025056;
-	Sat, 5 Sep 2026 08:33:25 +0800 (+08)
-	(envelope-from wang.yaxin@zte.com.cn)
-Received: from mapi (xaxapp05[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Sat, 5 Sep 2026 08:33:25 +0800 (CST)
-X-Zmail-TransId: 2afc6a9b635567c-a5055
-X-Mailer: Zmail v1.0
-Message-ID: <20260905083325942Joui9AuK11_fy6cREJVPh@zte.com.cn>
-In-Reply-To: <20260829154319.5d5422b8da6a93eaa72a00bc@linux-foundation.org>
-References: 20260829171238191s9SIXoZPTlZSmA2Px30hn@zte.com.cn,20260829154319.5d5422b8da6a93eaa72a00bc@linux-foundation.org
-Date: Sat, 5 Sep 2026 08:33:25 +0800 (CST)
+	s=arc-20240116; t=1788568416; c=relaxed/simple;
+	bh=aY8EkClj5dKqGebwOc13go6zNk2CrWvWJ+ByCNaMPZQ=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=NfOaVMRZb8cjQCZ7fk5tmLqieuRPW/zGLq5D++qHXhhE/zcIkl1rJ6xpeG+zwfjZQlF9AC0slVY47GqLZa2RhxgS4RAXx0CpsWj2CY0YUPXu705s3j2fvQqmqcP/xCVZkYvTSAu2g8CkvklpF37Ef8M/FWOMNMjlzTLBnGJIIMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6a17dafd042so2001583eaf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 17:33:34 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788568414; x=1789173214;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=s/whN+tjfJnliicCQTQV3r6IPBrLRblnkzA8UXD/qMs=;
+        b=Y2UaiIi0+m3WDu8UIvKEF+kJp2UrKUQO7OQB5hE/Uo1mSGSoONik4xcfr9dUdRBSV0
+         PjRUp78iPAV6AlieBcPq9grNLAsXMFxuxOnFPg8WGFxofKHs8riIzV8pL5BljPMPkN8Y
+         4UN9yrUHAkLFedJDHTwUDuHkA4hd6OubBLnz9e8opqASOieZlqA1rwCOZul9r8HwnAJj
+         XvoNjeWgsoKwh/piUprp/UO71dXXD2+rHK6qUUPJ05bd0H+zyP8iUOkmSLuy/j72NdBR
+         DbMEXQRIWxEihw4uXEd/JOqq/PQFX3BctzrHLvBOYHs8FX5/i3upj4svWFf/2qLlAP+1
+         5I8Q==
+X-Gm-Message-State: AFuF++lsHF+772/hgOQxcJ+mX9g3LzVWJFZAkxIm8JJgcLYowE5h7enO
+	gRBkJMB72ePouziZvHkYL+OmHFYk2tZx2hlmHa/Hs1dQOob2QWj184YDDNmlBctOoKxIIPbvrdr
+	LPDBM3o40Qe5r7Pow1y4PmL72OutFzabIkmw+6tAAzZ5mJG/dLfBquoRcok4=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: <wang.yaxin@zte.com.cn>
-To: <akpm@linux-foundation.org>
-Cc: <fan.yu9@zte.com.cn>, <yang.yang29@zte.com.cn>,
-        <thomas.weissschuh@linutronix.de>, <corbet@lwn.net>,
-        <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-        <xu.xin16@zte.com.cn>
-Subject: =?UTF-8?B?UmU6IFtQQVRDSCB2NSAwLzRdIHRvb2xzL2FjY291bnRpbmc6IHJlZmFjdG9yIGRlbGF5IGZpZWxkcyBhbmQgc2hhcmUgZm9ybWF0X3RpbWVzcGVjKCk=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6850XP1u025056
-X-TLS: YES
-X-ENVELOPE-SENDER: wang.yaxin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Sat, 05 Sep 2026 08:33:26 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6A9B6356.000/4hcDpG4B8Rz4x6B2
+MIME-Version: 1.0
+X-Received: by 2002:a05:6820:2019:b0:6b1:7251:41d5 with SMTP id
+ 006d021491bc7-6b6fabe1b66mr9713895eaf.3.1788568414152; Fri, 04 Sep 2026
+ 17:33:34 -0700 (PDT)
+Date: Fri, 04 Sep 2026 17:33:34 -0700
+In-Reply-To: <6a9ad24c.b5d4176b.238c3e.0001.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9b635e.c31bd8f4.21fd18.0003.GAE@google.com>
+Subject: Forwarded: [PATCH] bpf: reject non-scalar R1 for bpf_loop() helper
+From: syzbot <syzbot+7b47f87674e9a1569110@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
->> - Convert per-field delay members in struct task_info to an array indexed
->>   by enum delay_type, eliminating offsetof() pointer arithmetic.
->> 
->> - Add __kernel_old_time_t typedef to tools/include/uapi/linux/time_types.h
->>   per Thomas's suggestion for backward compatibility with pre-v5.5
->>   UAPI headers.
->> 
->> - Factor out a common format_timespec() implementation shared by getdelays
->>   and delaytop, using strftime for cleaner timestamp formatting.
->> 
->> - Replace the complex sizeof/ULL/shift Y2038 guard with a direct narrowing
->>   truncation check ((long long)time_sec != ts->tv_sec).
->
->Thanks.  I can't figure out how to apply this, and neither can Sashiko:
->	https://sashiko.dev/#/patchset/20260829171238191s9SIXoZPTlZSmA2Px30hn@zte.com.cn
->
->Seems there's a dependency on your "delaytop: add delay max, timestamp
->and sorting for top latency analysis" series which didn't get applied
->for reasons which I don't recall.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Hi Andrew,
+***
 
-Thanks for your reply!
+Subject: [PATCH] bpf: reject non-scalar R1 for bpf_loop() helper
+Author: kartikey406@gmail.com
 
-You're right — this patch is part of a larger refactoring effort for
-delaytop, so it does depend on the precursor series "delaytop: add
-delay max, timestamp and sorting for top latency analysis".
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git master
 
-I have read the discussion at the link below to figure out why the
-precursor patch was reverted:
-https://lore.kernel.org/all/20260804031240.D97F81F00A3E@smtp.kernel.org/
+syzbot reported a verifier backtracking warning ("backtracking misuse")
+in bpf_mark_chain_precision() triggered by a crafted program that calls
+bpf_loop() with a non-scalar value in R1 (nr_loops).
 
-From that thread, I understand that commit [1] ("delaytop: fix a bunch
-of docs build problems") was reverted due to issues it introduced.
-Consequently, this patch [2] ("delaytop: sort by max delay to highlight
-top latency processes") was also reverted because it depended on the
-documentation changes from [1].
+bpf_loop()'s prototype declares arg1_type as ARG_ANYTHING, which accepts
+any initialized register, including pointers. However, check_helper_call()
+unconditionally calls mark_chain_precision() on R1, because the verifier
+relies on the nr_loops value to reason about loop termination. Precision
+tracking is only valid for SCALAR_VALUE registers, so passing a pointer in
+R1 reaches the SCALAR_VALUE assertion in the backtracking code and trips
+the warning instead of failing verification cleanly.
 
-If I resubmit patch [2] as-is, running make htmldocs will again
-produce warnings in Documentation/accounting/delay-accounting.rst.
-Those warnings (e.g., indentation and formatting issues in the rst
-table) were originally fixed by [1], but since [1] is gone, they would
-reappear.
+Reject the program with a proper error when R1 is not a scalar, before
+calling mark_chain_precision().
 
-My proposed solution is to update the next version of patch [2] to
-include the necessary rst formatting fixes directly in that same patch.
-This way, patch [2] no longer depends on [1] and can be applied
-independently. The documentation fix would be part of this patch
-rather than a separate precursor.
+Reported-by: syzbot+7b47f87674e9a1569110@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=7b47f87674e9a1569110
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+---
+ kernel/bpf/verifier.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Thanks
-Yaxin
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index e421ea2b80c3..d8df29ac7dac 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -10886,6 +10886,10 @@ static int check_helper_call(struct bpf_verifier_env *env, struct bpf_insn *insn
+ 		break;
+ 	case BPF_FUNC_loop:
+ 		update_loop_inline_state(env, meta.subprogno);
++		if (cur_regs(env)[BPF_REG_1].type != SCALAR_VALUE) {
++			verbose(env, "R1 must be a scalar for bpf_loop\n");
++			return -EINVAL;
++		}
+ 		/* Verifier relies on R1 value to determine if bpf_loop() iteration
+ 		 * is finished, thus mark it precise.
+ 		 */
+-- 
+2.34.1
+
