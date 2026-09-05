@@ -1,110 +1,358 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-26.mta0.migadu.com [91.218.175.26])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2199F3019BA;
-	Sat,  5 Sep 2026 08:44:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A3DC50276
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 08:46:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.26
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788597842; cv=none; b=tOwZzR3cQtkWEb8n6VeTklt6cpoOvYZ5nuB6orHquLI7wVc/CwZOWYlUkz33R3Cushj9u+464c+0kJhlbO1XXlMLMvxaBVNpjfqoLW++VFur5MXwp4Sih3QMPNYoGP8K0QETLvVpiyBy3AxZQianAk3MEczrrUrPOq8MDLnn/X0=
+	t=1788598008; cv=none; b=fuj3se+5y4/tDjj04iA67GHpG4vX3FLkHkXE8cU+MoX7MQSHvajeiRhBn+GQmvoXhTLbXANzHcqNPzTir77HFUFuKh4CDMGTaCpxwCXtzUsRErrKc7w2ABerxDlQynyFPN0tSlVZNKXBvjUYSs7Ox329SbFlAmYlZH50zin4lH4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788597842; c=relaxed/simple;
-	bh=HVNpsjgWPfTAAu+WJ2hwLLqU8d9wbqtfNZgvk7cmuFQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Iy+39JF0vwpbF8Ke6cOUn0ba0XPJIsPf3GwzdfWgSSgT+kbQJ1n8B9BcmtwSZpPS31XOETvPH9AYwiKtotSgW4IZ/EMOwav4AKhegP0JOYrtrEwJARl0CsFlVzLaBtumUdcHUbBQ8W/4QiGOqdGUx6tO3v+aOIX6vfsvsE9Ct9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n45UFJeb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788598008; c=relaxed/simple;
+	bh=zeyrdHqJCWTsOqdcmMsci0O53Z2feyw3NPZRLgK3Tv4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RMMj3QxpUIMTqQMm3DB+u4QbbourQCcv4dJ2eg5fvgeVbYKzGOOvWTqRF2kEBTa+wDt4r6FV3I4UFIdTNvd5y1pdAwt5MRibXg4mtAPnaDIxrwx2gmVqXDKA2oyBTT4BEFEARkpmNasJk94FcYhdooguHGcbes3+0Gz6otVxcbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JRok/Qpn; arc=none smtp.client-ip=91.218.175.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n45UFJeb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0590B1F00A3D;
-	Sat,  5 Sep 2026 08:43:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788597840;
-	bh=TqHxrurdJhNzBV3eFI/kHdibDuBoPuJBWEjFN7cWhls=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=n45UFJebFtAjpDIOQvQV6ILE4X7MHItuVnpyCO6mUMJT8AXVeHMpqd0snSOdXyDoC
-	 zzU9B/7atWIOLzsPiAei1sXp+RPDcxNsLQp3/HNA7p2/qia6Y7iAOodsD0tPVWfiFn
-	 Rd364Le1+++FmU/fQ5K1ezV1jAbMWMnpTPnLAIFuVLH2SAoOWE/202b4OzCkDDk03E
-	 vnhgebbCWxSLAMCbCL9agEzksRK33yvkS81CY5FaIqId45H6KHo2fh9gxSEmr1Byz9
-	 sGZd7nGrfZYKmt81BTe9QERcbQmkH/TJ6XI34/347HOhyPu9nWX7pcvFFd+CwQuqUL
-	 6PZlcWRna20YQ==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Philip Li <philip.li@intel.com>
-Cc: kernel test robot <lkp@intel.com>, oe-kbuild-all@lists.linux.dev,
- linux-kernel@vger.kernel.org, Jinjie Ruan <ruanjinjie@huawei.com>,
- linux-riscv@lists.infradead.org
-Subject: [PATCH] entry: Guard syscall_enter_audit() invocation with
- CONFIG_AUDITSYSCALL
-In-Reply-To: <875x0k7i9k.ffs@fw13>
-References: <202609031938.ZvZZaRQy-lkp@intel.com> <87wlt29k5v.ffs@fw13>
- <aprKt3OlFvdQN5w+@rli9-mobl> <875x0k7i9k.ffs@fw13>
-Date: Sat, 05 Sep 2026 10:43:57 +0200
-Message-ID: <87tso45bqq.ffs@fw13>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JRok/Qpn"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=zeyrdHqJCWTsOqdcmMsci0O53Z2feyw3NPZRLgK3Tv4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788598003; v=1; x=1789202803;
+ b=JRok/QpnQSATBs4n3iODN4TwvGBM3j81HxdqiPkqy73nw7EepMHbrUXQ/TmRvEp4o9HhfkOz
+ A6rgdN3rykJOPC6+9aGqzkL9ql8i0+eP+TZQH+ZiKUndCfsBfUajxfwJBLfXP/vGFVt3kyBLBne
+ QxU8JC+4P87ICP6YAv7kDNwk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id dcb893049c2a663d;
+	Sat, 05 Sep 2026 08:46:43 +0000
+X-Mizu-Trace-ID: dcb893049c2a663d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <bfbfbed6-2946-4e85-830b-7a2505f316db@linux.dev>
+Date: Sat, 5 Sep 2026 16:46:30 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v2 5/6] mm/memcg: move memcg private ID refcount to
+ objcg
+To: bingfangguo@tencent.com
+Cc: cgroups@vger.kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, Dave Chinner
+ <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Bingfang Guo <bfguo@icloud.com>
+References: <20260901-bingfangguo-memcgid-rework-v2-0-8edd7f7a7251@tencent.com>
+ <20260901-bingfangguo-memcgid-rework-v2-5-8edd7f7a7251@tencent.com>
+Content-Language: en-US
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20260901-bingfangguo-memcgid-rework-v2-5-8edd7f7a7251@tencent.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-A bunch of older cross compilers notably RISCV64 and S390 fail to eliminate
-the dead code when CONFIG_AUDITSYSCALL=n. The code in question is:
 
-     if (unlikely(audit_context())
-     	syscall_enter_audit(regs);
 
-and in case of CONFIG_AUDITSYSCALL=n:
+On 2026/9/1 16:58, Bingfang Guo via B4 Relay wrote:
+> From: Bingfang Guo <bingfangguo@tencent.com>
+>
+> The memcg private ID is used by objects that can't afford storing a
+> whole pointer and can outlive memcgs to track the memcg (notably swap
+> entries). The current design holds a refcount to the css, preventing the
+> memcg from being freed.  This patch unbinds the lifetime of memcgid from
+> the memcg so it can be freed.
+>
+> The idea is to move the refcount of memcgid to one of the memcg's objcg
+> and hold a pointer and a reference to the objcg in the global memcgid
+> xarray. No more css reference to the memcg so swapped out pages no
+> longer pin the dying memcg.
+>
+> When retrieving the online memcg from the id, the objcg is taken out of
+> the xarray, and resolves to the online parent memcg naturally, which is
+> exactly what is expected in normal swapin folio charging path.  For swap
+> uncharging, the objcg is used for putting the id refcount and getting
+> the online ancestor in one go.
+>
+> The exceptions are list_lru and workingset recent test, which require
+> exact the memcg the id points to. Those callers are fixed in the next
+> patch.
+>
+> Signed-off-by: Bingfang Guo <bingfangguo@tencent.com>
+> ---
+>   include/linux/memcontrol.h | 15 +++++-----
+>   mm/memcontrol.c            | 71 +++++++++++++++++++++++++++++++---------------
+>   2 files changed, 55 insertions(+), 31 deletions(-)
+>
+> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+> index f227348a3f24a..eafc817ff244c 100644
+> --- a/include/linux/memcontrol.h
+> +++ b/include/linux/memcontrol.h
+> @@ -66,11 +66,6 @@ struct mem_cgroup_reclaim_cookie {
+>   
+>   #define MEM_CGROUP_ID_SHIFT	16
+>   
+> -struct mem_cgroup_private_id {
+> -	int id;
+> -	refcount_t ref;
+> -};
+> -
+>   struct memcg_vmstats_percpu;
+>   struct memcg1_events_percpu;
+>   struct memcg_vmstats;
+> @@ -173,6 +168,7 @@ struct obj_cgroup {
+>   	struct percpu_ref refcnt;
+>   	struct mem_cgroup *memcg;
+>   	atomic_t nr_charged_bytes;
+> +	refcount_t memcgid_ref;
 
-  static inline struct audit_context *audit_context(void)
-  {
-        return NULL;
-  }
+Since all the interfaces now include the private field, the name I'd
+recommend here is private_id_refcnt.
 
-which should make the compiler eliminate the syscall_enter_audit()
-call. But a RISV64 GCC12 cross compiler translates that into:
+>   	union {
+>   		struct list_head list; /* protected by objcg_lock */
+>   		struct rcu_head rcu;
+> @@ -189,8 +185,8 @@ struct obj_cgroup {
+>   struct mem_cgroup {
+>   	struct cgroup_subsys_state css;
+>   
+> -	/* Private memcg ID. Used to ID objects that outlive the cgroup */
+> -	struct mem_cgroup_private_id id;
+> +	/* The objcg holding private memcg ID. */
+> +	struct obj_cgroup *id_objcg;
 
-        if (unlikely(audit_context()))
-    1c34:       00000097                auipc   ra,0x0
-    1c38:       000080e7                jalr    ra # 1c34 <.L785>
-    1c3c:       c511                    beqz    a0,1c48 <.L787>
-                syscall_enter_audit(regs);
-    1c3e:       8526                    mv      a0,s1
-    1c40:       00000097                auipc   ra,0x0
-    1c44:       000080e7                jalr    ra # 1c40 <.L785+0xc>
+By the same logic, rename it to private_id_objcg.
 
-and then claims in the failing link:
+>   
+>   	/* Accounted resources */
+>   	struct page_counter memory;		/* Both v1 & v2 */
+> @@ -255,6 +251,9 @@ struct mem_cgroup {
+>   #endif
+>   	int kmemcg_id;
+>   
+> +	/* Private memcg ID. Used to ID objects that outlive the cgroup */
+> +	int id;
 
-   include/asm-generic/preempt.h:54:(.noinstr.text+0x1a20):
-	undefined reference to 'syscall_enter_audit'
+Same, private_id. To better reflect the range that this private ID can
+express, I suggest defining it as an unsigned short.
 
-which is obviously hallucination.
+> +
+>   #ifdef CONFIG_CGROUP_WRITEBACK
+>   	struct list_head cgwb_list;
+>   #endif
+> @@ -810,7 +809,7 @@ static inline unsigned short mem_cgroup_private_id(struct mem_cgroup *memcg)
+>   	if (mem_cgroup_disabled())
+>   		return 0;
+>   
+> -	return memcg->id.id;
+> +	return memcg->id;
+>   }
+>   struct mem_cgroup *mem_cgroup_from_private_id(unsigned short id);
+>   
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index f0503a1e5492d..38d2b00657a7a 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -3773,7 +3773,7 @@ static void memcg_online_kmem(struct mem_cgroup *memcg)
+>   
+>   	static_branch_enable(&memcg_kmem_online_key);
+>   
+> -	memcg->kmemcg_id = memcg->id.id;
+> +	memcg->kmemcg_id = memcg->id;
+>   }
+>   
+>   static void memcg_offline_kmem(struct mem_cgroup *memcg)
+> @@ -4032,19 +4032,23 @@ static DEFINE_XARRAY_ALLOC1(mem_cgroup_private_ids);
+>   
+>   static void mem_cgroup_private_id_remove(struct mem_cgroup *memcg)
+>   {
+> -	if (memcg->id.id > 0) {
+> -		xa_erase(&mem_cgroup_private_ids, memcg->id.id);
+> -		memcg->id.id = 0;
+> +	if (memcg->id > 0) {
+> +		xa_erase(&mem_cgroup_private_ids, memcg->id);
+> +		memcg->id = 0;
+>   	}
+>   }
+>   
+> -static void __mem_cgroup_private_id_put(struct mem_cgroup *memcg, unsigned int n)
+> +static void __mem_cgroup_private_id_put(struct obj_cgroup *objcg,
+> +		unsigned short id, unsigned int n)
+>   {
+> -	if (refcount_sub_and_test(n, &memcg->id.ref)) {
+> -		mem_cgroup_private_id_remove(memcg);
+> +	struct obj_cgroup *objcg_free;
+>   
+> -		/* Memcg ID pins CSS */
+> -		css_put(&memcg->css);
+> +	if (refcount_sub_and_test(n, &objcg->memcgid_ref)) {
+> +		objcg_free = xa_erase(&mem_cgroup_private_ids, id);
+> +		VM_WARN_ON(objcg_free != objcg);
+> +
+> +		/* Memcg ID pins the objcg */
+> +		obj_cgroup_put(objcg);
+>   	}
+>   }
+>   
+> @@ -4055,18 +4059,20 @@ static void __mem_cgroup_private_id_put(struct mem_cgroup *memcg, unsigned int n
+>    */
+>   static struct mem_cgroup *mem_cgroup_private_id_put(unsigned short id, unsigned int n)
+>   {
+> -	struct mem_cgroup *memcg;
+> +	struct mem_cgroup *memcg = NULL;
+> +	struct obj_cgroup *objcg;
+>   
+>   	rcu_read_lock();
+> -	memcg = mem_cgroup_from_private_id(id);
+> -	if (!memcg)
+> +	objcg = xa_load(&mem_cgroup_private_ids, id);
+> +	if (unlikely(!objcg))
+>   		goto out;
+>   
+> -	__mem_cgroup_private_id_put(memcg, n);
+> -
+> +	memcg = obj_cgroup_memcg(objcg);
+>   	while (memcg_is_dying(memcg) || !mem_cgroup_tryget(memcg))
+>   		memcg = parent_mem_cgroup(memcg);
+>   
+> +	__mem_cgroup_private_id_put(objcg, id, n);
+> +
+>   out:
+>   	rcu_read_unlock();
+>   	return memcg;
+> @@ -4074,12 +4080,17 @@ static struct mem_cgroup *mem_cgroup_private_id_put(unsigned short id, unsigned
+>   
+>   static void mem_cgroup_private_id_kill(struct mem_cgroup *memcg)
+>   {
+> -	__mem_cgroup_private_id_put(memcg, 1);
+> +	__mem_cgroup_private_id_put(memcg->id_objcg, memcg->id, 1);
+>   }
+>   
+>   struct mem_cgroup *mem_cgroup_private_id_get_online(struct mem_cgroup *memcg, unsigned int n)
+>   {
+> -	while (!refcount_add_not_zero(n, &memcg->id.ref)) {
+> +	struct obj_cgroup *objcg;
+> +
+> +	rcu_read_lock();
 
-Add an explicit IS_ENABLED(CONFIG_AUDITSYSCALL) check into the condition to
-cure this compiler madness.
+I think we need to make it mandatory here for the caller to hold the RCU 
+lock.
+Otherwise, if we don't enforce that, we would have to require that the 
+passed
+memcg holds at least one reference count. But either way—whether it's 
+holding
+the RCU lock or holding a reference count—the RCU read lock you added 
+here is
+useless. I suggest changing it to:
 
-Fixes: 6f25517010dd ("entry: Rework syscall_audit_enter()")
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Cc: stable@vger.kernel.org
-Closes: https://lore.kernel.org/oe-kbuild-all/202609031938.ZvZZaRQy-lkp@intel.com/
----
- include/linux/entry-common.h |    9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+     lockdep_assert_once(rcu_read_lock_held());
 
---- a/include/linux/entry-common.h
-+++ b/include/linux/entry-common.h
-@@ -102,7 +102,14 @@ static __always_inline long syscall_trac
- 	if (unlikely(work & SYSCALL_WORK_SYSCALL_TRACEPOINT))
- 		trace_syscall_enter(regs);
- 
--	if (unlikely(audit_context()))
-+	/*
-+	 * The config check works around broken compilers which fail to
-+	 * eliminate the dead code in case of CONFIG_AUDITSYSCALL=n as they
-+	 * insist on creating a always false runtime condition based on
-+	 * audit_context() which returns NULL in that case. The explicit
-+	 * IS_ENABLED() check makes that madness go away.
-+	 */
-+	if (IS_ENABLED(CONFIG_AUDITSYSCALL) && unlikely(audit_context()))
- 		syscall_enter_audit(regs);
- 
- 	return true;
+Of course, I could be missing your point here, so please correct me if I'm
+wrong.
+
+> +	objcg = memcg->id_objcg;
+
+BTW, as long as the memcg isn't released, the objcg won't be released
+either, because the memcg holds a reference to the objcg.
+
+> +
+> +	while (!refcount_add_not_zero(n, &objcg->memcgid_ref)) {
+>   		/*
+>   		 * The root cgroup cannot be destroyed, so it's refcount must
+>   		 * always be >= 1.
+> @@ -4089,7 +4100,10 @@ struct mem_cgroup *mem_cgroup_private_id_get_online(struct mem_cgroup *memcg, un
+>   			break;
+>   		}
+>   		memcg = parent_mem_cgroup(memcg);
+> +		objcg = memcg->id_objcg;
+>   	}
+> +
+> +	rcu_read_unlock();
+>   	return memcg;
+>   }
+>   
+> @@ -4101,8 +4115,14 @@ struct mem_cgroup *mem_cgroup_private_id_get_online(struct mem_cgroup *memcg, un
+>    */
+>   struct mem_cgroup *mem_cgroup_from_private_id(unsigned short id)
+>   {
+> +	struct obj_cgroup *objcg;
+>   	WARN_ON_ONCE(!rcu_read_lock_held());
+> -	return xa_load(&mem_cgroup_private_ids, id);
+> +
+> +	objcg = xa_load(&mem_cgroup_private_ids, id);
+> +	if (!objcg)
+> +		return NULL;
+> +
+> +	return obj_cgroup_memcg(objcg);
+>   }
+>   
+>   struct mem_cgroup *mem_cgroup_get_from_id(u64 id)
+> @@ -4203,7 +4223,7 @@ static struct mem_cgroup *mem_cgroup_alloc(struct mem_cgroup *parent)
+>   	if (!memcg)
+>   		return ERR_PTR(-ENOMEM);
+>   
+> -	error = xa_alloc(&mem_cgroup_private_ids, &memcg->id.id, NULL,
+> +	error = xa_alloc(&mem_cgroup_private_ids, &memcg->id, NULL,
+>   			 XA_LIMIT(1, MEM_CGROUP_ID_MAX), GFP_KERNEL);
+>   	if (error)
+>   		goto fail;
+> @@ -4348,9 +4368,10 @@ static int mem_cgroup_css_online(struct cgroup_subsys_state *css)
+>   				   FLUSH_TIME);
+>   	lru_gen_online_memcg(memcg);
+>   
+> -	/* Online state pins memcg ID, memcg ID pins CSS */
+> -	refcount_set(&memcg->id.ref, 1);
+> -	css_get(css);
+> +	/* CSS pins memcg ID, memcg ID pins obj cgroup */
+> +	memcg->id_objcg = objcg;
+> +	refcount_set(&memcg->id_objcg->memcgid_ref, 1);
+> +	obj_cgroup_get(memcg->id_objcg);
+>   
+>   	/*
+>   	 * Ensure mem_cgroup_from_private_id() works once we're fully online.
+> @@ -4362,7 +4383,7 @@ static int mem_cgroup_css_online(struct cgroup_subsys_state *css)
+>   	 * publish it here at the end of onlining. This matches the
+>   	 * regular ID destruction during offlining.
+>   	 */
+> -	xa_store(&mem_cgroup_private_ids, memcg->id.id, memcg, GFP_KERNEL);
+> +	xa_store(&mem_cgroup_private_ids, memcg->id, memcg->id_objcg, GFP_KERNEL);
+>   
+>   	return 0;
+>   free_objcg:
+> @@ -5832,7 +5853,11 @@ void __mem_cgroup_uncharge_swap(unsigned short id, unsigned int nr_pages)
+>   	rcu_read_lock();
+>   	memcg = mem_cgroup_private_id_put(id, nr_pages);
+>   	if (memcg) {
+> -		if (!mem_cgroup_is_root(memcg)) {
+> +		/*
+> +		 * If the memcg was offline and reparented to root, swap needs
+> +		 * uncharging as well. We check this by comparing the memcgid.
+> +		 */
+> +		if (!mem_cgroup_is_root(memcg) || id != mem_cgroup_private_id(memcg)) {
+
+Swap accounting should be based on whether the associated objcg is a 
+root objcg,
+rather than whether its current memcg is the root memcg. Since an objcg 
+may be
+reparented while retaining its original root status, using 
+obj_cgroup_is_root()
+provides a stable criterion. Applying the same criterion in both the 
+charge and
+uncharge paths makes the accounting symmetric and avoids having to infer the
+original state through memcg ID comparisons.
+
+Muchun,
+Thanks.
+
+>   			if (do_memsw_account())
+>   				page_counter_uncharge(&memcg->memsw, nr_pages);
+>   			else
+>
+
