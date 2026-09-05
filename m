@@ -1,189 +1,144 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E85572F6586
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 13:25:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 178B53655D6
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 13:25:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788614722; cv=none; b=nEiTtuyTTNcAZRsA+E7VkHkECloHko9GqeFWTd5TuBmXmfsRnx/W2EjHGO0nd5+mEXj3rYMhlyvkWEl3zhznUnglRUOeMTtItdFpODpUlYV8GcFC+pc/Wt74ourJ+Io9zGKMMoLaLj7lfG6ld8hQzRyFsKmzXKWMmmgv1jMpbOk=
+	t=1788614723; cv=none; b=RubRA2PVQHd7dCSUJpWAZ0f46aCHKjlkqW9Nx1fE3k3/U/y9NmZcOElOiv0PRtW4Z7dGSKlinUJUkY2gVgCg7Xt04HqlDmOBmYMtU/Wa1Guek95D6qSaFA3HVqtbh1NY45euqGNc2KlCPwEyoXL6j+oGDzIqQy5lGTiN69OWPQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788614722; c=relaxed/simple;
-	bh=zwVZk6yADPSWAfQ0owoqV2RSMh6J55ZPFqsn5iAD2Lk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Bc5CYBTZh0K8PTY4v6HzYluiwbGrACiWSwy/QKG1LAbPhbZ5RMqqFCZxH+Q8SETORnS9m8ieady13HZqX/5R+EUGI0scw7wvFYPkNJAQuZUqtTm22+l1phiILPXS+IFtl+SjJqCGd8U6NbbqkOm8Hd1F7H1pEIuGG019ZQGGcm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=furiosa.ai; spf=none smtp.mailfrom=furiosa.ai; dkim=pass (1024-bit key) header.d=furiosa.ai header.i=@furiosa.ai header.b=jMybVybU; arc=none smtp.client-ip=209.85.210.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=furiosa.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=furiosa.ai
+	s=arc-20240116; t=1788614723; c=relaxed/simple;
+	bh=QWMEwIOcooRWk9BjRJruRUeNG+YYS3+Mj6K7qm+NBO4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=GzfmoAF7xb0lXWRMNJs+Md4qAr9APXmbsVVL0iUrOmPl5Hnn5bKG0+RfeLx8AUCUUGWSI4DLiMC/qRrkNQI+h1rCz7HLwFn1hORnr4dl88ENrNtGouaBYWMauRfDWYLfjWwXs35/xlpCycRVIJGDavriyXE0212o8PBqlH2/UGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nalBfOAz; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=furiosa.ai header.i=@furiosa.ai header.b="jMybVybU"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-855d2bfae95so3550451b3a.1
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 06:25:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nalBfOAz"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so2024092a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 06:25:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=furiosa.ai; s=google; t=1788614718; x=1789219518; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UCPQY2s7Li9KbXRAy98AdJWgLwoyUR6+yD7sEQfOnDg=;
-        b=jMybVybULhqNeGPNgWLhZ4vNSTYIJKNUPn+15yLTtSvNYVrq49nXpbPiw8JZR5Js9K
-         v4MzhfODNktfAxYz4yaqHbZ9hG4UM9Btd7uqh9dmOVwIs2XVvFdZMbPJPobEmfw5kZMJ
-         NH8yeQgHJsbqltgksXYCrfs6cH/F5MVUuyu1c=
+        d=gmail.com; s=20251104; t=1788614721; x=1789219521; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=j7J8yt/imrohgMlytkvN5MFJVOTIoeTWumRUjiqHbP0=;
+        b=nalBfOAzcxXSukBq4VWtPHxcRx+8as5w0R2J/TmaRu8enVw1kYk4L/YwSpnwtuJCvW
+         ORmFvlUf6gA4ZrDGrNeILHXKhV07jLJVNtNj+s8xnvbaPd1fxYeQli/5Y1aUv1Afqg1Q
+         XjLh+0sRECj+2C30qjqejM8nZtMRy04woKwaeHoz2lw+4NCad57ea9XGLJHxcpNxRk/n
+         Fh6I+Al1MQTzdxWNS7PdP3j4O42BHHnqERxKxAcb9ApKJpoW0ihveUUcMgcQ6X3oQokO
+         OBWi+D6hrH379l2yZ6nMwuIDNaOO4lg1Yxf1WdRuVUZCL/jqBh/28XivB/Yk8ptwtdq8
+         /KPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788614718; x=1789219518;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UCPQY2s7Li9KbXRAy98AdJWgLwoyUR6+yD7sEQfOnDg=;
-        b=h5839f031I+c3BIb+1/tjl5MQguQdkKOI4nNtrAFvnYaK082xnuhn/UxlGni1gjusQ
-         TTy61X3zkqE2e2lNlTo2ZrMRffWQBQjPoozoOvxuAP0pPHGnlgSLNrqF1oc7Hs/Gvgv9
-         /u4oXZElePn7WCBQqOW2/CSXbWV9YtztcjgneWZdezGXj7sU9To5fGdNypjK4G3SZX37
-         GNiIzejG4XEvayoeJhkBAtugafsg1U57p7KpRylBKP1ASN6Uo6N8OgT/9qfR9v5MhaQq
-         /vPMwTv0YG0/FUOHyE3lZ2C/Ix1GkmF7jhDfRF/O3dIbShGAPZKpncWjbeGJ+CYZMvsd
-         KdQw==
-X-Forwarded-Encrypted: i=1; AKwUvBzKPiGq1OTrn0jBwlVkdnq+G6UyjwH8Fs9mozpvEW8SKH926wDpmMMdiK7q6ZDjB6jF1ROm5zvJgFdXhew=@vger.kernel.org
-X-Gm-Message-State: AFuF++mmqzDJmuJebMVlmJJ7vKR6Fa2Akr6j6SBa6U1bsq3qiatGzv9d
-	yCFEj69WA3qu13jUSj2gSaI+4wLQdDkgwLMi02XG1LIDEoSI2KfV7zQhqJNWQviXtdo=
-X-Gm-Gg: AYBFou3zHYcuMm7xa+4PVBOmwwSRSTXDUIEA/IGD+0fPJpfOxIlTji2fxIO6SM4YkOy
-	AXWW3HuasyT1cg5Ck8+JMbY+lE9R/ztlG7AqacaTW1PigqLA37ijFO88mgfCSPdr1Od8Xsp/R9B
-	+Uz5dQH1UFP93tRLI1uDIwzmS8iLumYJLfxrRKqBQmy6osG36MLwXLAEUciG+nCR+V8IfyapEBx
-	p/CSlLJsy2YpV4CycDrMrzsO296ik6EbbTXMEfMM8uBQaB4/H9z0gSw3xewBt5jZhzJqcRmxRh9
-	gex6KfdMdfJMd3vFOiDhKmOaoN9foJcT0E2cEuYI4wFotovhqRXPdzYL2UrrDNdR+eIF6Vw6nMy
-	tqMTmfr2GN/OFP5vA/HnKel0XpumrgjTO/+BxXfylD2lGEJZJbNrKIvhnaP6Ln/Xe/zfkcnQwmg
-	7GckjYY0l35Odg0H+CAxliRipYAYL7PLTZRT/GSVAlqK/yDOpK+gnwtXLV9v2svZPT
-X-Received: by 2002:a05:6a21:a395:b0:3d3:aed2:6f28 with SMTP id adf61e73a8af0-3da2168b2c9mr18634503637.28.1788614718057;
-        Sat, 05 Sep 2026 06:25:18 -0700 (PDT)
-Received: from rock-5b-plus ([61.83.209.48])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc465376831sm903641a12.9.2026.09.05.06.25.15
+        d=1e100.net; s=20251104; t=1788614721; x=1789219521;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=j7J8yt/imrohgMlytkvN5MFJVOTIoeTWumRUjiqHbP0=;
+        b=sn7I66AOHpkarZ5cgHS+ejt0pgP2C03cNT4A3kGBjYc2J/lLArndQpMF9HHCtJu78z
+         ZAvRcQ6zZjWf6Fdc5Pi9mL17xNiN21jw7FgxtHtDhuCLZy+S01qqbmZAsIT9X255THZM
+         7lD9yq9+Cjsn0bBkuWGarC+NQ3W2ka25jeiLjFOy/BswmkoRHl13soQSCO5C2xnv/tlC
+         m0j+0yHu6zmVm+ByqpSZHzQjEkuCXNJZRhgkR/fwwsrEwYrE5YI70/7ar+BD5xnxOWC7
+         TiI6o4sFVtDgE9GRBZ6DxZRPXOy3AK1p9k0r7qE6gQZhsrRYUotpCRl3Ug7ExK1DR4GM
+         2BaA==
+X-Forwarded-Encrypted: i=1; AKwUvBxg008QSBA3g2dUScdNrm4D+cXmWOQXkMKi00O32FbhSbK508f+pX+8XWvvg5fuM4FXFzbvlaAfreyki7E=@vger.kernel.org
+X-Gm-Message-State: AFuF++nmn9KPe0wZN7U9Uv++5U1OLCtQpIOgXw//sEVh2LbuQqkw/d+q
+	VdNFkzWXjw00GqhSHSqx/11pztsg4g4nXp6qMIRm+MNC8CeflVcv0rUrZ63Xrg==
+X-Gm-Gg: AYBFou2NvuQhLmZ3uCpEwpYIz47/Dr75vEaLO89Q2Ezc2nX9ombE2JcBKMcBXoBGHFy
+	7zxyqhKfDTxB6TLXbtxfqrjp33fqZxiuHdBm7VbO5YQoLt1MbH/gU/9CKM+C6BTn8oo3FkzPVr3
+	dsJx7IqR70+ghiHID9hzkbB3grj22P2fhUMu9V4ekc6c6MTp4oo1jTXOJhH340StCVLmaYMtm88
+	O5wJXOo4xitQi4CormGaVsV6bXy8T9qv0m0CUxI0MDINs5sj6kh+0wlINKzm5yJgIaFV5QjUoCz
+	AbSSJxyySTdWRgRAzgLFUiav+gOMfIarA3+danhZC+e9GHIa92Jg8UuBg+fY+BeTAshcmra/9rx
+	Y9VC7v9DdrhisuWZN9BDic2+tIpUPU3OCTVWz9cJlVGu/7Z2NoCeRstfHRmoklbZ7EGyA7pIxdp
+	PtkkYfeQCbho3+NLGJkecA+90mueKrVR2/jIYN3Tj3nxBbQvlhnjqQpfN8x2z4Y2ChzUNFPZl8J
+	P9AfjnEUAf/SDlUpho/xCAiYuG1CcTIUKwMl4IHkjllfT016i7FxCWrOLlShahBL0g=
+X-Received: by 2002:a17:90b:3ccf:b0:399:ea1:5a82 with SMTP id 98e67ed59e1d1-39b26101277mr16779258a91.3.1788614721206;
+        Sat, 05 Sep 2026 06:25:21 -0700 (PDT)
+Received: from junjungu-PC.localdomain ([223.166.246.74])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08cacba5sm17171847a91.12.2026.09.05.06.25.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 06:25:17 -0700 (PDT)
-Date: Sat, 5 Sep 2026 22:25:02 +0900
-From: Sidong Yang <sidong.yang@furiosa.ai>
-To: Igor Paunovic <royalnet026@gmail.com>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Jiaxing Hu <gahing@gahingwoo.com>, 
-	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] accel/rocket: search every core slot when a core is
- removed
-Message-ID: <apwUewaRnoTNXHCt@rock-5b-plus>
-References: <20260904125936.26234-1-royalnet026@gmail.com>
+        Sat, 05 Sep 2026 06:25:20 -0700 (PDT)
+From: Felix Gu <ustc.gu@gmail.com>
+Date: Sat, 05 Sep 2026 21:25:15 +0800
+Subject: [PATCH] i2c: ljca: drop redundant explicit adapter deletion
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904125936.26234-1-royalnet026@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260905-ljca-v1-1-9109616ff1c6@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSwNT3Zys5ERdI2NjAyMTA3PTVAtjJaDSgqLUtMwKsDHRsRB+cWlSVmp
+ yCUivUm0tAIrpKCFoAAAA
+X-Change-ID: 20260905-ljca-233024075e83
+To: Lixu Zhang <lixu.zhang@intel.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Andi Shyti <andi.shyti@kernel.org>
+Cc: linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Felix Gu <ustc.gu@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788614718; l=1642;
+ i=ustc.gu@gmail.com; h=from:subject:message-id;
+ bh=QWMEwIOcooRWk9BjRJruRUeNG+YYS3+Mj6K7qm+NBO4=;
+ b=ow4Lq3WIn0W0SECO4+FYZlyW3O6Iff6mqZS2VExdtK069vdz3l6PrZk0Jeb8l6Lu3jPpQWYrR
+ aRIYqpXbv6eAdUq6TlV6YoMlUHmUQMDsKxhsXMlc7Iot5unwrk66DrS
+X-Developer-Key: i=ustc.gu@gmail.com; a=ed25519;
+ pk=fjUXwmjchVN7Ja6KGP55IXOzFeCl9edaHoQIEUA+/hw=
 
-On Fri, Sep 04, 2026 at 02:59:36PM +0200, Igor Paunovic wrote:
-> rocket_remove() decrements rdev->num_cores for each core it removes,
-> while find_core_for_dev() searches slots 0 to num_cores - 1. Unbinding
-> the cores in the order they were bound therefore loses the last one: by
-> the time it is removed the search range has already shrunk past its
-> slot, so find_core_for_dev() returns -1 and rocket_remove() gives up
-> without doing anything.
-> 
-> num_cores never reaches zero, rocket_device_fini() never runs, and the
-> file-scoped rdev keeps pointing at a device that is going away. Binding
-> the cores again starts from that stale count, because rocket_probe()
-> takes rdev->num_cores as the slot to fill. On an RK3588, which describes
-> three cores, the second round lands on slots 1, 2 and 3 while rdev->cores
-> was allocated with room for three:
-> 
->   rocket fdab0000.npu: Rockchip NPU core 1 version: 1179210309
->   rocket fdac0000.npu: Rockchip NPU core 2 version: 1179210309
->   rocket fdad0000.npu: Rockchip NPU core 3 version: 1179210309
-> 
-> The write to rdev->cores[3] is past the end of the array.
-> 
-> Nothing in tree reads the core array often enough to notice, so the
-> overrun is silent today. It turned up while testing a devfreq series on
-> top of this, where a worker walks every core a few times a second, and
-> UBSAN caught the first bool it read out of the overrun entry:
-> 
->   UBSAN: invalid-load in drivers/accel/rocket/rocket_devfreq.c:47:10
->   load of value 5 is not a valid value for type '_Bool'
->   Workqueue: devfreq_wq devfreq_monitor
-> 
-> Record how many slots were allocated and search all of them. Every core
-> is then found on removal, num_cores reaches zero, the device is torn down
-> and a later bind starts from a clean rdev.
-> 
-> This does not make unbinding a single core out of several work. probe
-> still takes num_cores as the slot to fill, so rebinding one core while
-> its siblings stay bound would write over a slot that is already in use,
-> and rocket_open() still reaches for cores[0] whether or not anything is
-> there. Both of those want more thought than a fix should carry.
-> 
-> Found by unbinding and rebinding all three cores on an Orange Pi 5 Plus.
-> With this applied, 25 unbind/rebind rounds and 5 module unload/reload
-> rounds run clean there: the cores land in slots 0, 1 and 2 every time,
-> whichever order they are bound in, and the shared supply goes back to a
-> single user after each round.
-> 
-> Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-> Assisted-by: LLM sparse checkpatch
-> ---
->  drivers/accel/rocket/rocket_device.c | 2 ++
->  drivers/accel/rocket/rocket_device.h | 1 +
->  drivers/accel/rocket/rocket_drv.c    | 2 +-
->  3 files changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/accel/rocket/rocket_device.c b/drivers/accel/rocket/rocket_device.c
-> index 46e6ee1e72c5f..efd004194c1af 100644
-> --- a/drivers/accel/rocket/rocket_device.c
-> +++ b/drivers/accel/rocket/rocket_device.c
-> @@ -31,6 +31,8 @@ struct rocket_device *rocket_device_init(struct platform_device *pdev,
->  		if (of_device_is_available(core_node))
->  			num_cores++;
->  
-> +	rdev->max_cores = num_cores;
-> +
->  	rdev->cores = devm_kcalloc(dev, num_cores, sizeof(*rdev->cores), GFP_KERNEL);
->  	if (!rdev->cores)
->  		return ERR_PTR(-ENOMEM);
-> diff --git a/drivers/accel/rocket/rocket_device.h b/drivers/accel/rocket/rocket_device.h
-> index ce662abc01d3d..c62d567010696 100644
-> --- a/drivers/accel/rocket/rocket_device.h
-> +++ b/drivers/accel/rocket/rocket_device.h
-> @@ -19,6 +19,7 @@ struct rocket_device {
->  
->  	struct rocket_core *cores;
->  	unsigned int num_cores;
-> +	unsigned int max_cores;
+This driver uses devm_i2c_add_adapter(), so manual i2c_del_adapter()
+in remove() is unnecessary.
 
-Hi Igor,
+Remove ljca_i2c_remove() along with the now unneeded
+auxiliary_setdrvdata().
 
-I've tested this patch in Radxa Rock 5 B+ and it works. The test is that unbinding all
-cores in sequence 0,1,2 and rebind all. It seems that there is other issue about num_core.
-For example, sched_to_core() finds core for sched with num_core and it could make same
-error like find_core_for_dev().
+Signed-off-by: Felix Gu <ustc.gu@gmail.com>
+---
+ drivers/i2c/busses/i2c-ljca.c | 9 ---------
+ 1 file changed, 9 deletions(-)
 
-Tested-by: Sidong Yang <sidong.yang@furiosa.ai> # RK3588, 3 cores
+diff --git a/drivers/i2c/busses/i2c-ljca.c b/drivers/i2c/busses/i2c-ljca.c
+index 93274f0c2d72..da3370968c8e 100644
+--- a/drivers/i2c/busses/i2c-ljca.c
++++ b/drivers/i2c/busses/i2c-ljca.c
+@@ -297,7 +297,6 @@ static int ljca_i2c_probe(struct auxiliary_device *auxdev,
+ 	device_set_node(&ljca_i2c->adap.dev, dev_fwnode(&auxdev->dev));
+ 
+ 	i2c_set_adapdata(&ljca_i2c->adap, ljca_i2c);
+-	auxiliary_set_drvdata(auxdev, ljca_i2c);
+ 
+ 	ret = ljca_i2c_init(ljca_i2c, ljca_i2c->i2c_info->id);
+ 	if (ret)
+@@ -315,13 +314,6 @@ static int ljca_i2c_probe(struct auxiliary_device *auxdev,
+ 	return 0;
+ }
+ 
+-static void ljca_i2c_remove(struct auxiliary_device *auxdev)
+-{
+-	struct ljca_i2c_dev *ljca_i2c = auxiliary_get_drvdata(auxdev);
+-
+-	i2c_del_adapter(&ljca_i2c->adap);
+-}
+-
+ static const struct auxiliary_device_id ljca_i2c_id_table[] = {
+ 	{ "usb_ljca.ljca-i2c", 0 },
+ 	{ /* sentinel */ }
+@@ -330,7 +322,6 @@ MODULE_DEVICE_TABLE(auxiliary, ljca_i2c_id_table);
+ 
+ static struct auxiliary_driver ljca_i2c_driver = {
+ 	.probe = ljca_i2c_probe,
+-	.remove = ljca_i2c_remove,
+ 	.id_table = ljca_i2c_id_table,
+ };
+ module_auxiliary_driver(ljca_i2c_driver);
 
-Thanks,
-Sidong
+---
+base-commit: 9d80aa4617b32f5054c5aa471d06b66704854935
+change-id: 20260905-ljca-233024075e83
 
->  };
->  
->  struct rocket_device *rocket_device_init(struct platform_device *pdev,
-> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/rocket_drv.c
-> index 8bbbce594883e..2bcfe4ab3c68f 100644
-> --- a/drivers/accel/rocket/rocket_drv.c
-> +++ b/drivers/accel/rocket/rocket_drv.c
-> @@ -223,7 +223,7 @@ static int find_core_for_dev(struct device *dev)
->  {
->  	struct rocket_device *rdev = dev_get_drvdata(dev);
->  
-> -	for (unsigned int core = 0; core < rdev->num_cores; core++) {
-> +	for (unsigned int core = 0; core < rdev->max_cores; core++) {
->  		if (dev == rdev->cores[core].dev)
->  			return core;
->  	}
-> -- 
-> 2.43.0
-> 
+Best regards,
+--  
+Felix Gu <ustc.gu@gmail.com>
+
