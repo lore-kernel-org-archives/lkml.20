@@ -1,132 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E04EC2DB7BB;
-	Sat,  5 Sep 2026 02:17:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 590E530596F
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 02:23:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788574678; cv=none; b=prbCfo131nYcPtRDq6YgZ1eQRbw8hYNk2242fazsnzYpLo0JOsx83QTlfV6o6OUrcBJpHJtAMsl7zsLO9T+PE1AOM8QvKL3nPV+T8OXdiXOrNSJDWXiFgxSpwkzqGZNCjjsuK2WiXRMHPWMAng5Ck3c+vWgV6/iWYq0sAl2MGl8=
+	t=1788575004; cv=none; b=jeAcCc2KfOOHYCidzfFJvqNjsjJjd2U3XBEm5Uf1hUKFa4Y1LPMaK+G/BoC6NjfHwU2gLx5d2b4zqcSZmHaMWw3JoCbgRcAQEeAgxL6lLPfgbYugi0A6PACtkCYPubKfmRenqfJjTHaT2P2V60AB3JxhovvMipjKUkJ7Uya+DeA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788574678; c=relaxed/simple;
-	bh=pBfjF5beceQC3GK8orgII7IC2LW//67f1nHLeXHsB20=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=VkmZmEl/foB6ovx+J+QMCl1unRTqJFkKzMHlbRtj/vpbzOwP9ZVFLsiG50XTL2KwmF21Abq7GSZjzXwjRxxRlKpua7nHW83ciOBGW3v27ZbHdQrnXk5kqJokjV9VLHh7Nm20XoPHuB2T66FXL6k6Byf1KLr2mDZQ8PNdShH4Uco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PL+sVWRb; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788575004; c=relaxed/simple;
+	bh=xyGZM56EkT54TGlWSx3gPzxQTJvAGCoe1g3KpghWzoo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=N+G+mXU+0IIkk3tR1Va6Vvgq8hthMqz5FKYeMFPHC4Nti5bLKBUOOwLiSB+1bLTiZvk9PdGS0kmzBxahjzj0Zf7FDlt5aAnydFOO/RrP8SVG+L5bKZ64eqh2AfuVOSZdKVymhNLhS0U6QJUEkZgxzJ5mGnN8u478ehu+311fj/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X91mZV1l; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PL+sVWRb"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 560A8C2BCF5;
-	Sat,  5 Sep 2026 02:17:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788574677;
-	bh=pBfjF5beceQC3GK8orgII7IC2LW//67f1nHLeXHsB20=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=PL+sVWRb9TnwuxBDmNsHlt9HbCDfoaji3iLduI4ymeh/PNZBwGRZyS1nagfnrP5px
-	 nY/gVDINhLLHvE5JtG6iPrK6HGl29/kmAjxIxzMusHjRkfxjTz5g2IyQqIPXCBEcX6
-	 nYjE/pzVYJJTG08G8ZByhvrzny8bZym6uiWMRIga51TScfCmAGrDwCbGbrt+gt4H1o
-	 9a4rzzSpkm3W4V//4/uHJE2A2JhanNCw4F14XvPCy7wjyoGP5V0SBTCmDQ7+b3Lxx/
-	 0GQPLMHnkqNni4f59H4fBDExGWsYM4NpKRDS8Lpic2vu2xNWGg/rBIidkH3EmMSIW0
-	 DQDiVirKbaIlw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2DF84C79F89;
-	Sat,  5 Sep 2026 02:17:57 +0000 (UTC)
-From: Younes Akhouayri via B4 Relay <devnull+git.younes.io@kernel.org>
-Date: Sat, 05 Sep 2026 04:17:45 +0200
-Subject: [PATCH] rust: num: seal Integer
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X91mZV1l"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-485850cf499so955976f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 19:23:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788575000; x=1789179800; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WbfEpisKez36CFmA1of7zehX26ip3wI6pp+HshpNatQ=;
+        b=X91mZV1lQkCK/Raq/UHmqE4StUfHMKW7I4Li7ESBy++2peIAcDycsNGvhQDnUUwQsE
+         p9fjI3btIaMesOdiD7vikEmuDSLA0HiWGQX6VmU3upXiOIV8tjbCFbntdHpzu/jLecDG
+         MilZuBYsF8NIqfPjDhT9CZ3UqvO8u/i2xksYHLWm8ReIfzQZPjLWcdIrAlRAuyEPljv8
+         Bqbp7xJc7WPooquuhN3ov4dsJ47K0rcyZAe+3s3lM85/EgnkHC+Tlr0EtrI3lQ+2AYJ6
+         VlNM/xCAMK5WkH2bUbWpWAm2i+SvKdKB4MUgLs7NKBNxbzN+s/CrR7Isk6Hrh9ITuhfZ
+         fG7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788575000; x=1789179800;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WbfEpisKez36CFmA1of7zehX26ip3wI6pp+HshpNatQ=;
+        b=EAAokz3TRrvuDQcdRf2NQ2UhZjNNNuDROMa2D7F4//AutadDpX4ieypPieKNL1zCrr
+         Kp3YzgUUxsfZt8z+LZgHKnUhuEG97y2gyumXVX+TDrau/12MYGwp7voMGY1/RJ/rvfoy
+         H0SMTh+nxTy7ukOcFSj8Ksgo6rRgYyRtjMLeXvgNp25wIusauGz/LTAb/DXfulONoZF3
+         YO1qu2mXYTcVp6QMgv+CPScm5gQKSUytmWRinEkUxY6O+kAOu5pMPvFa54klUisTZAxW
+         WtwGC0MiS9MKUBbCR4sz37qyL1x6pZYys6D5rTIb7j7492fTZKDDXbN+7RqSUcuJpEUE
+         8U7A==
+X-Forwarded-Encrypted: i=1; AKwUvBwiy2iTNAUOuqJb56O6d9pOYzhTv492qpfpk9f9IzHshM8Dj9R9eJL7TT8vb9q0aBY0OyKXKoNgOiq42Ns=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0l5cMzv6ehSsPtCpCZBirskYYIE5b5N9YZxLpJfOldM+45L63
+	1FDgtuuXyrU67Q43ZGSq1G9nZ59bsran5wDklr7M4/iFKmVKx4zCpD5C
+X-Gm-Gg: AYBFou1Ua/c9c6NjZuSCT7EHPa0JXu4vI+ubzc1jRB6LBI3xnTm82keMbNyxdiIW4rH
+	w485ixAQzpAHDNRbrH15uxH472ceIu8aZormWtr8cQg4uyFYJpi1DcdePggpEbujNheCO4L1WOf
+	2fKeSaGVomKG2hmXpuUvDrOE8IzFJ8xi5vWAeQ5EDDWtsIP7gtwhm5KlK7zg/O/YxYUzam/sQOL
+	VCNJY2a52guprcBMq0pnRQ4/h2JK7WSKNJiFCIzmmY7qmuWw19oCS1uDoUsWTbZ9K1MzhiL5xiL
+	JYpJ1/JWiuZJRgGORgO6tGHcuNRnqxlNEVO3u6Ujov7LkIAux3LKi+ApKN0xMmn/nCBxqT5INjw
+	LM5VH1cDibnR3QDYTgsHp2Lo470AI/5HZ4dwxrqSbLTmtpA0U6PuqFqCG+9Bmg4FdGcm6Fwp8oj
+	zM9y+4fUg1OgkLlLzMWMdAKfujiinxc/oGKNDaVnHMPeO2hZt6uy68Q95HnZjJgbNuGEDvj/7AQ
+	j5wEE95nZX1ElkN1cyEX/bTURkmET8BcVLK+mESkjnHFEkz5YMnDYw5hF565Ay+QwM90mYAUpUk
+	AYN5gvHuy7zXHBux7IUVYonbAwu/++atCFEZuQqKT1VtD4NOwBk5GGzHAwLGWX+3D0Po1EbLtyD
+	5/Q==
+X-Received: by 2002:a05:600c:5487:b0:49c:fc6c:bdfb with SMTP id 5b1f17b1804b1-49cffee2ee2mr35144485e9.18.1788575000385;
+        Fri, 04 Sep 2026 19:23:20 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a4eb-3001-c06d-af27-9fa2-ea53.310.pool.telefonica.de. [2a02:3100:a4eb:3001:c06d:af27:9fa2:ea53])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883c81c3sm9696996f8f.26.2026.09.04.19.23.18
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 04 Sep 2026 19:23:19 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Jonathan Corbet <corbet@lwn.net>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Pierre Ossman <drzeus@drzeus.cx>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] docs: core-api: Fix the ISA DMA example
+Date: Sat,  5 Sep 2026 04:23:10 +0200
+Message-Id: <20260905022310.82529-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260905-feature-rust-num-seal-integer-v1-1-83096115ad64@younes.io>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0Q7CIAyF4VdZuLYRcSGZr2K8ANaxGmWmBWOy7
- N2F7fJver5VCTKhqFu3KsYvCS2pxuXUqTC7FBForK2MNlYP+goTulwYgYtkSOUNgu4FlDJGZHC
- 9sWacejMEq6rxYZzot/v3x9FS/BNDbmj78E4QPLsU5nZamCKl864fy237A9lWeQilAAAA
-X-Change-ID: 20260903-feature-rust-num-seal-integer-a4262df429c6
-To: Alexandre Courbot <acourbot@nvidia.com>, 
- Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Younes Akhouayri <git@younes.io>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788574676; l=1759;
- i=git@younes.io; s=20260712; h=from:subject:message-id;
- bh=bVjKmsDC3xyhPHxsbELDrHtf25N1qLrwIDkcTJtI+Hw=;
- b=tn6YSXWPvKIjGWNXFsc+QIj5PzBOLQzeokvmPUB666OHKjbnHLWLMM+YIRl87t9+YEYlqeFkH
- UOZmavqYAaJCk/4Rs0Jf1qgDYBfLRIG6qyvjqPfVMPOiB4TA55gUurs
-X-Developer-Key: i=git@younes.io; a=ed25519;
- pk=1DRfzPrQ04RQHHgGK28t+vjIAPv5oISPiAdLMU6J5dE=
-X-Endpoint-Received: by B4 Relay for git@younes.io/20260712 with
- auth_id=866
-X-Original-From: Younes Akhouayri <git@younes.io>
-Reply-To: git@younes.io
+Content-Transfer-Encoding: 8bit
 
-From: Younes Akhouayri <git@younes.io>
+The example never matched the ISA DMA API: the functions are named
+enable_dma(), disable_dma() and get_dma_residue(), clear_dma_ff() takes
+the channel number, and claim_dma_lock() returns an unsigned long.
 
-Bounded relies on Integer implementations to describe primitive integer
-semantics correctly. In particular, it uses Integer::BITS and Signedness
-to justify unchecked operations.
-
-Integer is currently safe and externally implementable, so an
-implementation can violate those assumptions and make safe Bounded
-operations reach undefined behavior.
-
-Seal Integer so only the primitive implementations provided by the
-kernel crate can satisfy it.
-
-Fixes: 01e345e82ec3 ("rust: num: add Bounded integer wrapping type")
-Closes: https://lore.kernel.org/rust-for-linux/CANiq72mOfR33s4y+Ueivd5NrC5yre+Pcp57ZOBz0msw9A4AP1Q@mail.gmail.com/
-Cc: stable@vger.kernel.org
-Suggested-by: Miguel Ojeda <ojeda@kernel.org>
-Signed-off-by: Younes Akhouayri <git@younes.io>
+Fixes: ddb99f3d35b1 ("[PATCH] ISA DMA API documentation")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- rust/kernel/num.rs | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ Documentation/core-api/dma-isa-lpc.rst | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/rust/kernel/num.rs b/rust/kernel/num.rs
-index dbe848e30efe..de589792a77a 100644
---- a/rust/kernel/num.rs
-+++ b/rust/kernel/num.rs
-@@ -15,9 +15,14 @@ pub enum Unsigned {}
- /// Designates signed primitive types.
- pub enum Signed {}
+diff --git a/Documentation/core-api/dma-isa-lpc.rst b/Documentation/core-api/dma-isa-lpc.rst
+index 17b193603f0a..296838ff295a 100644
+--- a/Documentation/core-api/dma-isa-lpc.rst
++++ b/Documentation/core-api/dma-isa-lpc.rst
+@@ -115,17 +115,18 @@ sure that all data has been transferred.
  
-+mod private {
-+    pub trait Sealed {}
-+}
-+
- /// Describes core properties of integer types.
- pub trait Integer:
--    Sized
-+    private::Sealed
-+    + Sized
-     + Copy
-     + Clone
-     + PartialEq
-@@ -56,6 +61,8 @@ pub trait Integer:
- macro_rules! impl_integer {
-     ($($type:ty: $signedness:ty), *) => {
-         $(
-+        impl private::Sealed for $type {}
-+
-         impl Integer for $type {
-             type Signedness = $signedness;
+ Example::
  
-
----
-base-commit: e510334fbaeaa016ac76d80b4c5f47611c5f7860
-change-id: 20260903-feature-rust-num-seal-integer-a4262df429c6
-
-Best regards,
---  
-Younes Akhouayri <git@younes.io>
-
-
+-	int flags, residue;
++	unsigned long flags;
++	int residue;
+ 
+ 	flags = claim_dma_lock();
+ 
+-	clear_dma_ff();
++	clear_dma_ff(channel);
+ 
+ 	set_dma_mode(channel, DMA_MODE_WRITE);
+ 	set_dma_addr(channel, phys_addr);
+ 	set_dma_count(channel, num_bytes);
+ 
+-	dma_enable(channel);
++	enable_dma(channel);
+ 
+ 	release_dma_lock(flags);
+ 
+@@ -133,9 +134,9 @@ Example::
+ 
+ 	flags = claim_dma_lock();
+ 
+-	dma_disable(channel);
++	disable_dma(channel);
+ 
+-	residue = dma_get_residue(channel);
++	residue = get_dma_residue(channel);
+ 	if (residue != 0)
+ 		printk(KERN_ERR "driver: Incomplete DMA transfer!"
+ 			" %d bytes left!\n", residue);
+-- 
+2.53.0
