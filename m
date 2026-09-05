@@ -1,121 +1,139 @@
-Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com [209.85.160.51])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC2241A704B
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 06:29:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13B2D367B77
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 06:31:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788589747; cv=none; b=TYGPhPFSVhUUxOZkBojiVS9nRYkNZPvw1WOgscUMpzA+YQQM5phdz5qLYyfzNdr18DHj7P6+g0STEJUeEXq/dfSnS6mtilteFrJaMWOvQt6OWRrLY+C6EcbRxUvtsIXm+9VAGAVfghT8vdW9BLDJULdErHmN+f1mBrXVIN0kg3E=
+	t=1788589897; cv=none; b=hZ7R9gCtZJ+SiTCsjDRpPuIChDRsmVXoiSIViX0pIgsziMbjIhAqNj5OTRVyl3Qm/yoohxyioLv8BpPFON5tHRZfgmQn/xtz2yc9TNS/JhLQCwStoAn/ZBKUwGEnonNmJ4akmjxXWjHKKrNGwGkKzbtPIWOgY1VK03sx+4fb2HU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788589747; c=relaxed/simple;
-	bh=hdfmlvBCHG94nOK1kTFtZiYtegNR1ypidelCpy0e/cU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gbax/y4fybZiexGU483+HLWRTTuQAX3zQIciUgOqN0vn74qEhOAZ75dsp38GRnz8N9WwJQ6gg4vgl9BIqu5r5umJvyr/ScgJl7Qg9eRkH6prqo4xnpIFQz40eWflfTuFC3+uFb8bqjxN58EWDtt0a8W8vGzuj6KT5A6s3OpWPVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GSjVVmgE; arc=none smtp.client-ip=209.85.160.51
+	s=arc-20240116; t=1788589897; c=relaxed/simple;
+	bh=CSdPRELROkYKXy+2tVtR16UKWCgrtQnEIaCw5HxeGSY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=en6gV+HUIzOsTnIRSz3ESVNtCXREmeSVn2X3VJPmctxyTrESJkpT/1Kt+nkfBT7F8Ff22Op/IkUf9NN/+EcplhwIlEUPBTT9H7sMFe8/qZs1SViicYjzX9LBlRRhH30ZF8xe3+LJ7BPUC5E+7tzcliaGhQhrMz5HmoYlykMArLg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hFFi5FYk; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GSjVVmgE"
-Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-46add2afca9so1227894fac.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 23:29:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hFFi5FYk"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49b965570d7so20454675e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 23:31:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788589744; x=1789194544; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zmCI/5FNN55F8kGIHxPRLlIa26llF9VdD81iCD4sFhM=;
-        b=GSjVVmgE1BVH4vUnNiLSj/5j9Y01oZqE0GyeFfyNlCmx9DnnYOg1AUQuggxovoSSBQ
-         ZzYHWcRxoNXcvwCtAX/UyolQeDTp7Mk4S2BTHnGzsJJGEnjUhizuyEDaBxRDbCJ3haPb
-         93spp0kILp9sjem9gre88pIwUidctIoJTnkZDYe8vCtbWfbvPuxb06Rwgg5MoUxaFETc
-         QKL6rdvZ7oeJfJgc5NkgrTu5wsQ4IX7dKAnI1cERJOvIaVJ6Nt4HwIo3TPMXOjnYPeNs
-         8AbCcf23ErzCDayQpCy6bUHLZhjYIr7pnDUmwl9vKWSIavoVkRYoB9azpPxgPrcsGjYD
-         sGNA==
+        d=gmail.com; s=20251104; t=1788589894; x=1789194694; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=E0jfYxlquFYCTLGleo8vFGywQI0ODEMKtD2q20GPHRE=;
+        b=hFFi5FYkEeheJKxTd6NpdlYlW6XEAX2xWBQdisIdVI+P58B0fJZPDFEYTTNjs1xHsd
+         Fj869yNm/ZJQ1sDscqTmgdyrWCk9keGzKb7tDFnUlN5aytzo8FnRrc6vAib+ds0CXTUo
+         znk380OhJKNGdrorzvXkCnKk708LmG3mmsIJmlUl8s7lYCMSW3ugiUrJ20+lOmfBco0J
+         V5WX9Pv/jLFvowgYmxu/gj5NCKdiGSSJpZaOQu0dS7+f3pT3CXNwOU30PnLSNZil1wFk
+         y/35Q1THjmaxiTqtCEqzbIcSKNbWWmirQeGiKngG/lYyZrRxwsOFU4Hu0azfnt18u2HT
+         4CLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788589744; x=1789194544;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zmCI/5FNN55F8kGIHxPRLlIa26llF9VdD81iCD4sFhM=;
-        b=TpZlL1YlqI/1sZFtvUOWiNxnp8SMbhoVIAx9g/tKkQnVPl5fWfaFoKm0jBfaPW+CV5
-         bDetxgwSXFzlbh8S9StE2/1jyrkwiomAYguEP5U6TBB4sUYuGEouKjsDbmzRgGKhrZtP
-         kIDQCWrIfiVWyMbXKFY1ZfaUTb26HwfhRegF3Q3SDBHCh47BrmX5rKdT2oMHQIR3Pl0F
-         tejy9jnvVZYfqKRPJkBkCL7ZmPrEJHhWxHg2kI+Pr2XNUUWEJoiKmHiTOHBLBxSFiEnG
-         LnpW4CNXIqNGkoOcU/woMqBWd2Vu3R+ubOsOqmR1azxFOeaYevCAPqP5kfI40Gm+I06G
-         A8IQ==
-X-Forwarded-Encrypted: i=1; AKwUvByCBEQBppZLfeVV/Fg9z8yrqa1Er/L7GIager7ZkEwIkGFrU6aOyzXoRx2M8EKVXrke/zynxBuqvNo45Ls=@vger.kernel.org
-X-Gm-Message-State: AFuF++ndbBksOjXChRaP6VRW0dsFFHjDzRR49ODSRdBRED8ChxxmmLFY
-	1pzP3hhnUFqodo/+nKw1kqrvCKKlTjDdG472WILfSX4ZjS5Fj9vi18Lut4FyJw==
-X-Gm-Gg: AYBFou0WoLZS5MD5/W83+hEnNnWYcNXHoJj4suKQhzq7WYGFkAGbwB6AiFAQEkyUGVl
-	VBhO0uSRETsG/5BDZ09doFAvNy376V+vxbCSRFvLhfKtYfuzahcI3TFeusepJkbO8dGTZzXvb3x
-	HldJDEh/L9BfB9I8sC4SGZrSGT5FuxHnjBqrPqv93P/QYyClb9kB66mZZzjPDle2PO3FPebd3xj
-	ZHSCy5FVRb0WqpYMxmKaCj7kKyCkE7PnSQpcQWefGa522pXuqBWwxgRqsNUKOpusrmaVHtf6l02
-	9INg/AiVptRFhhFtm8Ub6L7gFIAeFVZbDNEuA3B4Q7Wz2o7ny9Mu08MvNl6JGgY+JtD63rUOcSr
-	iadmuMU0uW0V/Fr+JfR4oST9swT2f/HxwIIiZh490xphxf2w4Nw2c+966++ZcDDXM2UDwLuJBlk
-	g8HA4RWQTQnFuTkbOPGNP+c982UxFqlO3nb9ZseMAUiinR7QSncuz9iW/LT5UDn52yhpuP9E6aX
-	Q==
-X-Received: by 2002:a05:6871:213:b0:475:e066:7714 with SMTP id 586e51a60fabf-475e0669518mr4594311fac.27.1788589744512;
-        Fri, 04 Sep 2026 23:29:04 -0700 (PDT)
-Received: from cachyos-x8664 ([177.245.224.138])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-47554d7bde7sm3881145fac.16.2026.09.04.23.29.02
+        d=1e100.net; s=20251104; t=1788589894; x=1789194694;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E0jfYxlquFYCTLGleo8vFGywQI0ODEMKtD2q20GPHRE=;
+        b=MN47Ms2TFbYLCYX067gOemfQiwmSGSbjfpgNBmIGhfkQ93xDLpZBeroNvEmU15eHYG
+         25uv10cNHpCmVPixQOrof3np8pMWIbTMN0sL8JcEAGi5yICFwV5loFK745HcRgidjxDP
+         aATAZPdpDjgc2ZHtS5ATYs2Sd0bFXgViFqHOkOoziiHOytUKfVHd5YMtf28srYPiXxpI
+         ALdKTU5HI2Et08UqMij3fyzKo/9GCtoxCESF/lGQKixFsXJ/EKnkf6MT3DiP3DRoerFe
+         GlFUPmg3RGDkJnRAgwKO7ec0CYUsqavFiU2+Hd9MGYFkLRxQlN5Qy6SQu7cg7SuqJSP7
+         O6fg==
+X-Forwarded-Encrypted: i=1; AKwUvBzKLDn9KTuOII45eHEdJD2YwhisY2BLmpK73NJpsZLcgGZiAdbN+Ex4fK9e2KFPNzv38lT8ZLdCPKw+R3s=@vger.kernel.org
+X-Gm-Message-State: AFuF++kle/uqqGEzyBVwYJuulr5fj/PbRDqySow17mR9rQy/UMASUzOU
+	KCyGS8zZgAOG75LoLYH43wDI53I6EDPYJ6LgEiG+/j9WPZ+mgk3i/RJY
+X-Gm-Gg: AYBFou0LuaXcRFqcdtlUVSXEn5Uymser5IJrqtFntz259h2Q2AwPParquQtYL8h/jLp
+	sKBEEc1vlcWMBxlMDUqc3byLcUbwcw+3xSuBzxa9mQDckvOduay40B94lRMmR+qyDUUdI7aSnE2
+	OtfmXCgewxj+YQ4QX+XjnIhc3xLJpA6HoY2yfzxBbkSgMiC0Fvo+E+ahpU78GoP+nSQTbE9TbzK
+	/8B+zoM1+SY9KC89cFej/QKha52K5QYHf/3xzSaytKQSVYfKWKzdCJB6stdOfCs4c9dZ4epbESv
+	rezqZQJqO6pHf7qP0dVvfzOgRqsmFlm9gWEPcaprXL0KPMhwE1SavJNq4Lza59xnlbrjXo2uv+9
+	D9sATPkCMTO2jQyJi9y979jLr+FktgRWylRMxEjALB6VUWJF17BSLNCUessK35djo2XneZ9lCVc
+	9Fdw11h2EiumM/HsMkwAiLhKKsRA8M5LZ0jvSKH0FrxhgoGNon5Zu331/SqIqEVcV6vUWVBhGGH
+	eJt2u4pNVgrR2dqcnEwRqDgEzHwWFsJxtaQ+TxBLznsSWyX9SxaoAsoN9azePmf3PkBymijiENd
+	xMgV4FGCw/Lfj+YRCx2qiT05I/S1/7uo6kTvA0FyxrDGpcvIGTDwLnwMtssyIG/as0qPX+VdnZQ
+	=
+X-Received: by 2002:a05:600c:3b02:b0:49b:9202:6f80 with SMTP id 5b1f17b1804b1-49cf8220edemr113027825e9.6.1788589893900;
+        Fri, 04 Sep 2026 23:31:33 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-a4eb-3001-c06d-af27-9fa2-ea53.310.pool.telefonica.de. [2a02:3100:a4eb:3001:c06d:af27:9fa2:ea53])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7710aa5sm123259535e9.7.2026.09.04.23.31.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 23:29:03 -0700 (PDT)
-From: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>,
-	Frank Li <Frank.Li@kernel.org>,
-	dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>,
-	stable@vger.kernel.org,
-	"Claude Opus 4.8" <noreply@anthropic.com>
-Subject: [PATCH] dmaengine: loongson2-apb-cmc: fix descriptor leak in prep_slave_sg()
-Date: Sat,  5 Sep 2026 00:28:33 -0600
-Message-ID: <20260905062833.272484-1-diegomancera.dev@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Fri, 04 Sep 2026 23:31:33 -0700 (PDT)
+Date: Sat, 5 Sep 2026 08:31:32 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Paulo Alcantara <pc@manguebit.org>, linux-fsdevel@vger.kernel.org, linux-cifs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] super: make iterate_supers_type() deletion-safe
+Message-ID: <apu0mCbJ4S0TKIQM@gmail.com>
+References: <20260903013336.92081-1-kmehltretter@gmail.com>
+ <32afuwcqxfzvc2qwsvx6ecpyvbunr45wnvmezbbqzz25qtfn35@tvotjvtm3soe>
+ <20260904-astronaut-anpfiff-unbebaut-743381f4995a@brauner>
+ <20260904-rockkonzert-bergtour-dahin-23c9c5c87d0f@brauner>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904-rockkonzert-bergtour-dahin-23c9c5c87d0f@brauner>
 
-loongson2_cmc_dma_prep_slave_sg() allocates the descriptor with
-kzalloc_flex() before iterating over the scatterlist. If
-loongson2_cmc_dma_set_xfer_param() fails inside the loop, the function
-returns ERR_PTR(ret) without freeing the descriptor. At this point the
-descriptor has not been handed to vchan_tx_prep() yet, so nothing else
-will ever free it, leaking it on every failed ->device_prep_slave_sg()
-call (e.g. an unsupported transfer direction or bus width).
+On Fri, Sep 04, 2026 at 01:11:53PM +0100, Christian Brauner wrote:
+> 
+> Draft, feel free to grab, Jan or Karl.
+> 
+> ---
+>  fs/kernfs/mount.c |  4 ++--
+>  fs/super.c        | 39 +++++++++++++++++++--------------------
+>  2 files changed, 21 insertions(+), 22 deletions(-)
+> 
 
-The neighbouring error path for the num_items check already frees the
-descriptor before returning; do the same on the set_xfer_param() failure
-path.
+Thanks, I found no issues with your draft.
+All the tests I ran on my patch also pass with your draft.
 
-Fixes: 1c0028e725f1 ("dmaengine: loongson: New driver for the Loongson Multi-Channel DMA controller")
-Link: https://lore.kernel.org/all/20260818094957.7D2221F000E9@smtp.kernel.org/
+Below is my proposed changelog. If it looks good, I'll send v2 with you as
+author. Could you provide your Signed-off-by?
+
+super: make iterate_supers_type() deletion-safe
+
+iterate_supers_type() drops sb_lock while invoking the callback and keeps
+only a passive reference to the current superblock. That reference keeps
+the object allocated, but does not keep its s_instances node linked.
+
+After the iterator releases s_umount, final teardown can unlink the current
+s_instances node. The iterator then advances through a reinitialized node.
+With the current hlist it stops without visiting the remaining superblocks.
+The unlink moved from generic_shutdown_super() to kill_super_notify(), but
+the cursor lifetime has been unsafe since the helper was introduced.
+
+The CIFS DFS lookup can consequently miss a matching superblock and return
+-EINVAL.
+
+Move removal from fs_supers to put_super(), alongside removal from
+super_blocks, so a passive reference keeps both list nodes linked. Keep
+the filesystem module reference until then, since unlinking s_instances
+may touch type->fs_supers.
+
+Make sget_fc() skip SB_DEAD superblocks before invoking test(), and set
+SB_DEAD under sb_lock to serialize with those callbacks. This allows
+kernfs to free its private information after kill_anon_super() returns.
+Keep matching SB_DYING superblocks until SB_DEAD is set so concurrent
+mounts still wait for teardown before retrying.
+
+Fixes: 43e15cdbefea ("new helper: iterate_supers_type()")
+Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
+Suggested-by: Jan Kara <jack@suse.cz>
 Cc: stable@vger.kernel.org
-Signed-off-by: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
-Co-authored-by: Claude Opus 4.8 <noreply@anthropic.com>
-Claude-Session: https://claude.ai/code/session_012bUV3WshMSfTq61n1cgh1i
----
- drivers/dma/loongson/loongson2-apb-cmc-dma.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+<your Signed-off-by>
+Tested-by: Karl Mehltretter <kmehltretter@gmail.com>
+Assisted-by: LLM
+<my Signed-off-by>
 
-diff --git a/drivers/dma/loongson/loongson2-apb-cmc-dma.c b/drivers/dma/loongson/loongson2-apb-cmc-dma.c
-index 1c9a542edc85..60eb4d961610 100644
---- a/drivers/dma/loongson/loongson2-apb-cmc-dma.c
-+++ b/drivers/dma/loongson/loongson2-apb-cmc-dma.c
-@@ -404,8 +404,10 @@ loongson2_cmc_dma_prep_slave_sg(struct dma_chan *chan, struct scatterlist *sgl,
- 
- 	for_each_sg(sgl, sg, sg_len, i) {
- 		ret = loongson2_cmc_dma_set_xfer_param(lchan, direction, &buswidth, sg_dma_len(sg));
--		if (ret)
-+		if (ret) {
-+			kfree(desc);
- 			return ERR_PTR(ret);
-+		}
- 
- 		num_items = DIV_ROUND_UP(sg_dma_len(sg), buswidth);
- 		if (num_items >= LOONSON2_CMCDMA_MAX_DATA_ITEMS) {
--- 
-2.55.0
-
+Thanks,
+Karl
