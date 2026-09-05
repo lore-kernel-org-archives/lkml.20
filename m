@@ -1,77 +1,163 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 255693812FB;
-	Sat,  5 Sep 2026 13:45:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D1152874E6;
+	Sat,  5 Sep 2026 13:46:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788615920; cv=none; b=e6GfM34CsS/Cl36H348BRe9M8NO+ryRohgHqHpDRJG4JiI/IGvUybAtUqJIyLCy58+61f3REWn6l8obh5fCr5YFQy2+6PJqw5SAGmBCKAipBWPdf05EVeihw+/GhVwtNmliiucAJoiBYQk77mdCGOzKOPkzTMCA6htsBjhsUASA=
+	t=1788615978; cv=none; b=nXWpR+Ttt4pTtBicfyuC3ueUA0o6PSrtvem7Q7343wlAjsxUCN6x3Y4P8rIEimWq8uGClwF0yILzBzeyHe6cPl6YIkeKt1ltn6cLeLw7eED7PvbPV8W80kyzUWK2H7+vj7Ohy3b7tmZKHXPLCRlGm74zSLKjxd8Ul3RvCLs0nRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788615920; c=relaxed/simple;
-	bh=PRAWGIO1FNOf+KlF9pTX/3NHB0KG3781A4zBw0x3KmY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cEJLBpHXNrqCz7dFU0vxfcTlMp5umA8O4QEcXfn1+c7b15YqvbFZ1Ov76eGUxr5p1sBr23+NkV7cjzkwfcJHoAwRB3P4Wyqcs6pNb3ZKzcUlPH9yI7QgB2115pZUFoZxgP55dWWiOQDYntupNkTmbSJVSrjrTZfvUbf6UhJQHdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=HMJCRf5Z; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788615978; c=relaxed/simple;
+	bh=nw6fhZTnssNJ9AFFTMsK1RX9MQOx/jIgjT81SgsWk00=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Fo8Fx6OPkJkN2YY/slG9eTfXT3kF6jcWL0ln5zulheFjzUdvERUWnYhlC0Qlov/xORwa/pTZnmhArLwGJEaOsOQFPHvxOmG1hQQdRKpPu6Xe1R2IhNbpriLmmeCKk1oSIWk/0qbNyXVbhKVAYvF9xi/XsVI+KaZ3gcFdm3Of36Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KKYfrYUw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="HMJCRf5Z"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=0g
-	BxbcgNgF22Cgt1a8bFnERUP4ec+O9F4Z9b0aef2hs=; b=HMJCRf5ZKjsN1S4WBe
-	nCzTdDQMqNuaJcLsowDfixTZK4Zy2Y6axTZpduomrPbgBEAYD1EVzDpgh62cGr5Z
-	m/Lv1+1Zzr9dMGJpNwFMjlsSBMMPS5lxW+4Ag7qlXg4MJgtl0aUvFsSLM6yhGsy/
-	wLljy/XRnTexBXyAmdnpduTgw=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3R87eHJxqtoNqAw--.58162S2;
-	Sat, 05 Sep 2026 21:45:03 +0800 (CST)
-From: "hpp.iscas" <hppiscas@163.com>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: "hpp.iscas" <hppiscas@163.com>,
-	Sebastian Reichel <sre@kernel.org>,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] power: supply: mm8013: Publish the OF module alias
-Date: Sat,  5 Sep 2026 21:45:00 +0800
-Message-ID: <20260905134500.67832-1-hppiscas@163.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KKYfrYUw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41BBE1F00A3D;
+	Sat,  5 Sep 2026 13:46:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788615974;
+	bh=RqcAI7pAD1odDIdi2AWSF2YS3bFn9A/ym55+hvQNRWc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=KKYfrYUws700otlYQUHyLcpOJNhQo01jl4qSFhjAYAEg0mtiyIbMeU6W/VHtKikB/
+	 Y83twcaz62+2oPyG0hn8yLdncehFHY2Y0rH/rjcUXLEDxwTCcWpDYsNr9w6g/1/tuM
+	 HEK0uIISqdM2ObqPBnCTrduionIOZnyuHl677fkE+Gluy6BTyIk9B5L7yFT40XI5gV
+	 JaPCzUij6A2+MGbbGPrMbv5s0m+5Z7WaxkPgzfm5+XYYWdJr1m+VU8P8B9uf1lKZSw
+	 9T3aSjGkx0Ic8KqclXZ40gBj+Fzu20sO0oSHBcPAVDn6JFErGBNvNlVxDVJrnjwDUV
+	 or0reerjfpCAQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x2qih-00000005CjH-2Ap3;
+	Sat, 05 Sep 2026 13:46:11 +0000
+Date: Sat, 05 Sep 2026 14:48:41 +0100
+Message-ID: <87pkyr4xmu.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Wei-Lin Chang <weilin.chang@arm.com>
+Cc: Wang Han <wanghan@linux.alibaba.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	oupton@kernel.org,
+	tabba@google.com,
+	joey.gouly@arm.com,
+	seiden@linux.ibm.com,
+	suzuki.poulose@arm.com,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	ljs@kernel.org,
+	itaru.kitayama@fujitsu.com
+Subject: Re: [PATCH v5 0/6] KVM: arm64: nv: Implement nested stage-2 reverse map (new data structure)
+In-Reply-To: <eylfcgxs2xzu57czyuhkpmum45lpxyccyu2yh3mipr67aq3xo6@xinygxzavoja>
+References: <20260810205038.118843-1-weilin.chang@arm.com>
+	<20260902163500.1841671-1-wanghan@linux.alibaba.com>
+	<877bl26aqg.wl-maz@kernel.org>
+	<wsnf276xrun3g4hjr3t6alprapctg5z4kpj422v3hujqdjnrsa@swq4blkqvvj5>
+	<875x0l5udh.wl-maz@kernel.org>
+	<eylfcgxs2xzu57czyuhkpmum45lpxyccyu2yh3mipr67aq3xo6@xinygxzavoja>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-CM-TRANSID:_____wD3R87eHJxqtoNqAw--.58162S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrZw1rXr15WF4xKw4ktF43ZFb_yoWfCrg_C3
-	y8Zr9aqry5ur1jvryvkr1ruryIkFyxZrZ5Xa4vgry3CFWjgwnYvr1kWa4DXF18WryUCFn8
-	WF98XayrCF9xXjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUU3xhJUUUUU==
-X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbCxh8AyGqcHN81DwAA3e
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: weilin.chang@arm.com, wanghan@linux.alibaba.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, oupton@kernel.org, tabba@google.com, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, catalin.marinas@arm.com, will@kernel.org, ljs@kernel.org, itaru.kitayama@fujitsu.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-The MM8013 driver matches mitsumi,mm8013 Device Tree clients, but=0D
-exports only its legacy I2C ID table. The I2C core emits an OF modalias=0D
-for these clients rather than i2c:mm8013.=0D
-=0D
-Publish the existing OF match table without changing gauge operations.=0D
-=0D
-Fixes: c75f4bf6800b ("power: supply: Introduce MM8013 fuel gauge driver")=0D
-Signed-off-by: hpp.iscas <hppiscas@163.com>=0D
----=0D
- drivers/power/supply/mm8013.c | 1 +=0D
- 1 file changed, 1 insertion(+)=0D
-=0D
-diff --git a/drivers/power/supply/mm8013.c b/drivers/power/supply/mm8013.c=
-=0D
-index 819667a..c38f483 100644=0D
---- a/drivers/power/supply/mm8013.c=0D
-+++ b/drivers/power/supply/mm8013.c=0D
-@@ -293,6 +293,7 @@ static const struct of_device_id mm8013_match_table[] =
-=3D {=0D
- 	{ .compatible =3D "mitsumi,mm8013" },=0D
- 	{}=0D
- };=0D
-+MODULE_DEVICE_TABLE(of, mm8013_match_table);=0D
- =0D
- static struct i2c_driver mm8013_i2c_driver =3D {=0D
- 	.probe =3D mm8013_probe,=0D
+On Fri, 04 Sep 2026 23:42:15 +0100,
+Wei-Lin Chang <weilin.chang@arm.com> wrote:
+> 
+> On Fri, Sep 04, 2026 at 08:49:14AM +0100, Marc Zyngier wrote:
+> 
+> [...]
+> 
+> > > > >
+> > > > > The L1 was started with 8 vCPUs and 32 GiB of RAM using:
+> > > > > 
+> > > > >   qemu-system-aarch64 -smp 8 -m 32G \
+> > > > >     -machine virt,accel=kvm,gic-version=3,virtualization=on \
+> > > > >     -cpu host -nographic -enable-kvm \
+> > > > >     -drive if=pflash,format=raw,readonly=on,file=pflash0_bak.img \
+> > > > >     -drive if=pflash,format=raw,file=pflash1_bak.img \
+> > > > >     -drive file=./ubuntu-vm.qcow2,format=qcow2,if=virtio,cache=none,aio=native \
+> > > > >     -nic user,model=virtio-net-pci,hostfwd=tcp::11234-:22 \
+> > > > >     -serial mon:stdio
+> > > > > 
+> > > > 
+> > > > Puzzling. If you are only running an L1 in VHE mode, there is no
+> > > > shadow S2, and therefore nothing to unmap. For shadow S2s to be built
+> > > > and affect the MMU notifiers, you need to run an L2.
+> > > 
+> > > I was thinking the same at first, but realized even with L1 in VHE mode
+> > > there is a small period of time where L1 runs in its EL1 during boot, so
+> > > one nested MMU will become valid for each vCPU. That causes
+> > > kvm_nested_s2_unmap() to iterate through the entire IPA space 8 times
+> > > (-smp 8).
+> > 
+> > It should be one nested MMU for the whole VM, not one per vcpu.
+> > That's assuming they share the same VMID+VTCR.
+> > 
+> > > What I am curious about is whether one single notifier unmap is enough
+> > > to hang L1, or were there multiple notifier unmaps.
+> > > 
+> > > QEMU with -machine virt uses 40 IPA bits only, unmapping that takes:
+> > > 1024  (4KB pages,  unmapping 1GB per iteration)
+> > > 32768 (16KB pages, unmapping 32MB per iteration)
+> > > 2048  (64KB pages, unmapping 512MB per iteration)
+> > > iterations for each page size. There aren't many mappings in each
+> > > iteration too. Does this really take that long on real hardware (even if
+> > > this must be done 8 times)?
+> > 
+> > This should be close to being at zero cost, so something else is
+> > amiss.
+> > 
+> 
+> Guess what? I am completely wrong once again.
+> 
+> The complete range of the nested mmus isn't about the value
+> supplied by KVM_VM_TYPE_ARM_IPA_SIZE. Instead it is the PARange exposed
+> to the guest. That's because the guest hypervisor is allowed to expose
+> whatever memory map it likes to its nested guests, as long as it is
+> within the guest's PARange. This is explained clearly in
+> init_nested_s2_mmu().
+> 
+> Now the PARange exposed to guests should be much larger than 40bits. On
+> the neoverse-n2 it should be 48bits (256TB), therefore the iterations
+> required for each unmapping would be 256x:
+> 
+> 262144  (4KB pages,  unmapping 1GB per iteration)
+> 8388608 (16KB pages, unmapping 32MB per iteration)
+> 524288  (64KB pages, unmapping 512MB per iteration)
+> 
+> I think these numbers match the hang time Shuai have shown.
+>
+> Just to demonstrate the difference I have tried manually limiting
+> kvm_ipa_limit to 40, and tested with software emulation. Before the
+> manual change a kvm_nested_s2_unmap() finished after 42 seconds, after
+> limiting kvm_ipa_limit kvm_nested_s2_unmap() can finish in less than a
+> second.
+>
+> With this, I think there aren't other underlying issues, it just is that
+> slow unfortunately..
 
+I don't buy this. There should be very little mapped in the shadow S2,
+a few dozen pages at most. As you noticed, there is very little the
+kernel executes at EL1 before upgrading to EL2. Invalidating this
+should be cheap.  Furthermore, once invalidated after the last vcpu
+has booted, the cost should be exactly zero.
+
+It seems that these two assumptions are not holding up, and I wonder
+why.
+
+	M.
+
+-- 
+Jazz isn't dead. It just smells funny.
