@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04E2D3749EE;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04DA12D9797;
 	Sat,  5 Sep 2026 09:29:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788600558; cv=none; b=JwTLLCeQmzvHaEWzWyXQ3sJiAMzcnuOkJgTdNSnFjurp1xQ177Q//jeeWGQJDGQNkyD5gNtXWC3iv/b9u87vKnyf4qJ9XAp1CKOezRF8Z45mVmbJgjmjGxi2EMl9MaKnM9cbxiYAHAK7THjpfLw2VIcqswZ/aBEJqrMfUUR+l30=
+	t=1788600558; cv=none; b=cVogJ9n+hPcEnBYXRJ218IOuVEm6wGbb/5RZi61WiNyejjdL5xvJjNMZ/p0a1kY9Fpm4J2TmSIyiWtfQ2M1sPRaKkPsXCsCqkfcwhMxanW+jurteBT3j+HUveeKhNDruXBC2iPlEegUj+izU3UamAN2c9uFuBUM/QBiEyvaFDEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788600558; c=relaxed/simple;
-	bh=oYMSeKSSRPOwVNZyrMxChpon317pqUx6F+nG0pIu0Ws=;
+	bh=0mBiiHnZxdafP968u2EZeYqOw9HJexG73qrieg9fcLs=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=A28z3iWGjhd5mZdKqwy55OgVPTNh5jhrnGITQc2IGWEr0T2NnXxwtmL9ixGNx/fksByqco2L5qkYH9h9/u19E5PQ0U0hXHC42I2ZmKbB8VGLoSMSnnPccM5BU9XvEkUWX913lu6RJxEnU/d5nEl96ysBq5mS2uWGHx4AiTFW8YU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R/6WabJ1; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=XiS1C7fcJptUuGPgCq+IQ51TAw+muROtw9uJy72xYeObZH3i/GJwZM0wrQowTLyTpbhbHlCs4fQ+oEcrGdloniJYYS7ZE/9Hp5qaFS19mla1pY8y6hGwB6hwj/EmNsYaUlhNFGDA0a9qwDxQL76NgHw2vAPAV+XRK3dp5C5NjQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Eyhvhk+e; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R/6WabJ1"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 96348C2BCFA;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Eyhvhk+e"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B7E65C2BCFD;
 	Sat,  5 Sep 2026 09:29:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788600557;
-	bh=oYMSeKSSRPOwVNZyrMxChpon317pqUx6F+nG0pIu0Ws=;
+	bh=0mBiiHnZxdafP968u2EZeYqOw9HJexG73qrieg9fcLs=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=R/6WabJ14JM156cY4TWjPE3Bb7LI+kNGQj+j8V4lBTParwsMeVZejIZjax0Yd1y2T
-	 69JyAiui7xQoGYx+QIJQtIcMtZbkmCY7OTAS1CnTmBc/24A5AzHk0QeZKFSDvmOj24
-	 DRKXPs2jwetBpoQ85A/bK9BySdliRrWSLUlRpqlt7cMMfKRHp2JquuKLRkTkzhEex2
-	 SxDBrc0zcPU3aErlXe5Yw6Z+ZpgTJvx2igSjMEx5YbPIXv2TpewyMwuhrZKBJ+WTuR
-	 57oy2ds/g40B7sTYzMiEiaFzz81otUXAK7zFhsO1P9SA4Bt4sbRY8xH3hYStJNUasu
-	 O5E+LNFxbwJzg==
+	b=Eyhvhk+et8CdGncQD1DOZkWXdHcEauzuPjA96seQXtq+RJN3FMyQrpx2P5kh2n6Bw
+	 Ta2rRrhJS/5Grc3adpMb4iSsB8Y4LvK54XsLRv+EB++XbzXLqd8jojmYjc+mew8aB4
+	 cl587JmJ1JwyhV4eK+GhVA7SLue0CjFj42HQGgNeA+CySRdmxxS4QsU/mZlIx1o///
+	 qXaZkUCpc67gaqekGFhOdsvy+zthsF7YDSklRyLjtAQTaUeIR9cxQBzqACa5DbL0ty
+	 XJ/jXAoqNCfWYIlpmH1OfOhbhYaeGY3Eg/mXq/qTrUYJ44ropkIS4Qz3qtn9zlgF6C
+	 hTlfPi4prwVaA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 71B33C624D6;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 98E81C624DB;
 	Sat,  5 Sep 2026 09:29:17 +0000 (UTC)
 From: Jens Glathe via B4 Relay <devnull+jens.glathe.oldschoolsolutions.biz@kernel.org>
-Date: Sat, 05 Sep 2026 11:28:56 +0200
-Subject: [PATCH 1/7] dt-bindings: arm: qcom: Distinguish IdeaCentre Mini
- 01Q8X10 SKUs
+Date: Sat, 05 Sep 2026 11:28:58 +0200
+Subject: [PATCH 3/7] arm64: dts: qcom: Add Purwa IdeaCentre Mini 01Q8X10
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260905-x1-ideacentre-mini-prettify-v1-1-9a87882973bb@oldschoolsolutions.biz>
+Message-Id: <20260905-x1-ideacentre-mini-prettify-v1-3-9a87882973bb@oldschoolsolutions.biz>
 References: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
 In-Reply-To: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -52,12 +51,12 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, 
  Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788600555; l=1987;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788600555; l=2667;
  i=jens.glathe@oldschoolsolutions.biz; s=20240919;
  h=from:subject:message-id;
- bh=et/ZQ7VNffXkfxW74a3PzNDQBmP6roSPIOtf9Akxd2U=;
- b=i9RasyOfjLW5VQKkFUupfbfgBfqoDlYao0yl6JDn7ldeGqFEa4ttI1qO3wz+mnQ7s2eXejbaK
- B3yflsXLvZsDisRLDBJfF17MwSuaqGOmLD0eS+YJniM3QJfTKv7PePm
+ bh=xRPp6vTMGEB2dFChuAvE6BAHSXu1b2qzIsMaG+/+CO8=;
+ b=ehnQzhlDgvcTv3e5Y8hpS3o1+1K4nncUc0cu4+OKCbAgcMwN8aadSyeLRPCpuD4CW0bm+uA7K
+ 8SqERos7WoECAWYBFKIYEmasN1ZwCpOiswFuUe+ZuZCKwdI4sIypY2d
 X-Developer-Key: i=jens.glathe@oldschoolsolutions.biz; a=ed25519;
  pk=JcRJqJc/y8LsxOlPakALD3juGfOKmFBWtO+GfELMJVg=
 X-Endpoint-Received: by B4 Relay for
@@ -67,61 +66,80 @@ Reply-To: jens.glathe@oldschoolsolutions.biz
 
 From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 
-The Lenovo IdeaCentre Mini 01Q8X10 exists on both X1E80100 (Hamoa) and
-X1P42100 (Purwa). A single two-entry compatible cannot tell those
-device trees apart.
-
-Move the board out of the generic X1E80100 enum and document two
-three-entry lists:
-
-  lenovo,hamoa-ideacentre-mini-01q8x10, lenovo,ideacentre-mini-01q8x10,
-  qcom,x1e80100
-
-  lenovo,purwa-ideacentre-mini-01q8x10, lenovo,ideacentre-mini-01q8x10,
-  qcom,x1p42100
+Add the Purwa SKU of the Lenovo IdeaCentre Mini 01Q8X10. The chassis is
+the common x1-lenovo-ideacentre-mini-01q8x10DTSI; this file supplies the
+Purwa SoC include, firmware paths, and the PMC8380_6 nodes that are
+absent on this board.
 
 Assisted-by: Grok 4.5 (xAI)
 Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 ---
- Documentation/devicetree/bindings/arm/qcom.yaml | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/qcom/Makefile                  |  3 +-
+ .../qcom/purwa-lenovo-ideacentre-mini-01q8x10.dts  | 42 ++++++++++++++++++++++
+ 2 files changed, 44 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-index 5ccb571520d1d..4d6f561a8cac0 100644
---- a/Documentation/devicetree/bindings/arm/qcom.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-@@ -1180,6 +1180,11 @@ properties:
-           - const: qcom,x1e001de
-           - const: qcom,x1e80100
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 6c2ac11133ca7..e6105e5790954 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -167,7 +167,8 @@ dtb-$(CONFIG_ARCH_QCOM)	+= msm8998-sony-xperia-yoshino-poplar.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8998-xiaomi-sagit.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= purwa-iot-evk.dtb
  
-+      - items:
-+          - const: lenovo,hamoa-ideacentre-mini-01q8x10
-+          - const: lenovo,ideacentre-mini-01q8x10
-+          - const: qcom,x1e80100
-+
-       - items:
-           - enum:
-               - lenovo,thinkpad-t14s-lcd
-@@ -1211,7 +1216,6 @@ properties:
-               - honor,magicbook-art-14-snapdragon
-               - hp,elitebook-ultra-g1q
-               - hp,omnibook-x14
--              - lenovo,ideacentre-mini-01q8x10
-               - lenovo,yoga-slim7x
-               - microsoft,romulus13
-               - microsoft,romulus15
-@@ -1230,6 +1234,11 @@ properties:
-           - const: microsoft,denali
-           - const: qcom,x1e80100
+-purwa-iot-evk-el2-dtbs	:= purwa-iot-evk.dtb x1-el2.dtbo
++purwa-lenovo-ideacentre-mini-01q8x10-el2-dtbs := purwa-lenovo-ideacentre-mini-01q8x10.dtb x1-el2.dtbo
++dtb-$(CONFIG_ARCH_QCOM)	+= purwa-lenovo-ideacentre-mini-01q8x10.dtb purwa-lenovo-ideacentre-mini-01q8x10-el2.dtb
  
-+      - items:
-+          - const: lenovo,purwa-ideacentre-mini-01q8x10
-+          - const: lenovo,ideacentre-mini-01q8x10
-+          - const: qcom,x1p42100
+ dtb-$(CONFIG_ARCH_QCOM)	+= purwa-iot-evk-el2.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= qcm6490-fairphone-fp5.dtb
+diff --git a/arch/arm64/boot/dts/qcom/purwa-lenovo-ideacentre-mini-01q8x10.dts b/arch/arm64/boot/dts/qcom/purwa-lenovo-ideacentre-mini-01q8x10.dts
+new file mode 100644
+index 0000000000000..9813a570cf690
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/purwa-lenovo-ideacentre-mini-01q8x10.dts
+@@ -0,0 +1,42 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ * Copyright (c) Jens Glathe
++ */
 +
-       - items:
-           - const: microsoft,surface-pro-12in
-           - const: qcom,x1p42100
++/dts-v1/;
++
++#include "purwa.dtsi"
++#include "x1-lenovo-ideacentre-mini-01q8x10.dtsi"
++
++/delete-node/ &pmc8380_6;
++/delete-node/ &pmc8380_6_thermal;
++
++/ {
++	model = "Lenovo IdeaCentre Mini 01Q8X10 (Purwa)";
++	compatible = "lenovo,purwa-ideacentre-mini-01q8x10", "lenovo,ideacentre-mini-01q8x10", "qcom,x1p42100";
++};
++
++&iris {
++	firmware-name = "qcom/x1p42100/LENOVO/91B6/qcvss8380_pa.mbn";
++
++	status = "okay";
++};
++
++&gpu_zap_shader {
++	firmware-name = "qcom/x1p42100/LENOVO/91B6/qcdxkmsucpurwa.mbn";
++};
++
++&remoteproc_adsp {
++	firmware-name = "qcom/x1p42100/LENOVO/91B6/qcadsp8380.mbn",
++			"qcom/x1p42100/LENOVO/91B6/adsp_dtbs.elf";
++
++	status = "okay";
++};
++
++&remoteproc_cdsp {
++	firmware-name = "qcom/x1p42100/LENOVO/91B6/qccdsp8380.mbn",
++			"qcom/x1p42100/LENOVO/91B6/cdsp_dtbs.elf";
++
++	status = "okay";
++};
 
 -- 
 2.53.0
