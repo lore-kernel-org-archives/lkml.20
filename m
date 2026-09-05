@@ -1,105 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1C2E3F787E
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 07:25:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4714F40E8D3
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 07:27:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788593152; cv=none; b=tUrNd8FzmbPwSO2npHUbTxddr86ZVrUDu1fQvLV+5i0XP1IPH9HDaqMfdbtBduqppQfL5ITOYy9J6I08uD31FimmukHoUsNi9xrqPHgCXrJaiqxKd2SmC6hr5YHW6HEX6xS/FrFo+GkisPYL6R+fwzve1QF4yIO0qu4YM5vzTzM=
+	t=1788593258; cv=none; b=dznaqKlWf5fHlazB0XnCwS+rar+aeI852WABb3ryxtsTdm8GiwPO41V/ZnBMV0LqBr7CgKmZvdD4oe4fkGgDlHlpqqzHpjUfcz4EWg9rT/tP4f9VCwKofdSeuKHI/z/mnHHsjT+4b08JStfvgbzf5PSfZEnG1PpSbdndVYMTGh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788593152; c=relaxed/simple;
-	bh=NSI/eJ/ZckHcgEDfNpfeeAWrQ1+/t5M6WSuBvwwBRII=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=FDpD3eHJOsCd7KNqVB7kGMYXmLGOvBfchdoMSU++0XIFSC0q3tbjsJjfhmIUohxGJwsb/zSwVqmCAitBu6vsMFa/AW+WqtFKmOu+7GLQa/AdJCWdtRfcLPd2Hg3U6qvigfYnKdUjoBG2uBMQ6mroNDZ7GnKQzbnkE2HYHf81fmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KUoe86nu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788593258; c=relaxed/simple;
+	bh=rLJypAP5fMaZnmD/EDx1B3p7qEyMFoscrHho7TdU5+A=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=oNqd9FIdkyayJ+gqGGLRt8xwVzDrdo1gkTxA6kgbnWgMQNshFJImbjmXOHqsCs3uAr/VG774/Sp+9ELTVU26e+w+g7kDK2CravlnG6vCP5mjKQNSYj7RHuGxarue7pIoARW1BpBHl7M50Ol5XWpEe6NFijPfbhdnkrKIHZ1Dbhk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GPl2nY5l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KUoe86nu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9788F1F00A3D;
-	Sat,  5 Sep 2026 07:25:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GPl2nY5l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C21B1F00A3D;
+	Sat,  5 Sep 2026 07:27:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788593151;
-	bh=NSI/eJ/ZckHcgEDfNpfeeAWrQ1+/t5M6WSuBvwwBRII=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=KUoe86nu9axfzVam/sTqqp2sdfwUnpuGN6BJEBmDTLZQJuDARvDlGRB52Yc/COpIh
-	 S1G38sRFDTZEj/E5eIDowg6FeIkDcAcs7GNHGoflvXJkcyevjQKzF4zrXxJjYjuLtv
-	 uKVsv38zN8pUmZ/wpI/nQF3jtRaH0SfmQum05j9ArY7RtsUkLQH7NnVaKuw0zkk15h
-	 6y/hautrbpThxf+IKvxDVETtG01R6ius/OnSHbpzZfIF9Ez6VSIdvB5CTzHysJOFiz
-	 4QS8+JdEGmrMvrzv819BJObNmBFg268wLhBaFsdQTrKQHSTq0MghSHug+OAFHMsxaB
-	 0MpBmOTKu47tA==
-Message-ID: <c0d47fa1-1f6f-484d-93ce-7838e9aa9e52@kernel.org>
-Date: Sat, 5 Sep 2026 09:25:47 +0200
+	s=k20260515; t=1788593256;
+	bh=O06zzEhIbbk6DBYFrqErtT0v7PW5HwZKlZExpbJ4EGk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=GPl2nY5lUm/mmsLN13awTAF3Hx03gbJ4Gdn27eDTOHwLeKdbni6wkRJWen7jUYLJl
+	 Rk1sRrG4J8cFNUSOjAuDVvsxKq+Zo6gVdrDCxwgK6PeG68tGCSFn7dlmnTu+pzkWhN
+	 McGFDv2NJX/DsVjTzkmgEVXowlDs21UgK9SL9UcbW2fXGJZ3B7vzrzK4a5FFZn8p+F
+	 ohYXIqj+AYpd1CVdRxnvPUJZuSs7OYZq6vN3X16cZ0FSylykcYZsbVPC3wman6UlyQ
+	 cY3NgdeQN6kBbjfd7xXKprsHJG7X0qSYYx46ctXYKDH8tdII9x8kIq7JJyuQ7/jlzQ
+	 PhHtjF9WIhIjA==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Ye Liu <ye.liu@linux.dev>, "Peter Zijlstra (Intel)"
+ <peterz@infradead.org>, Marco Elver <elver@google.com>, Ye Liu
+ <liuye@kylinos.cn>, Yi Tao <escape@linux.alibaba.com>, Tejun Heo
+ <tj@kernel.org>, Bart Van Assche <bvanassche@acm.org>, Christian Brauner
+ <brauner@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/8] mm: introduce for_each_process_rcu and
+ for_each_thread_rcu
+In-Reply-To: <20260904190742.7231d56e@gandalf.local.home>
+References: <20260904083001.553587-1-ye.liu@linux.dev>
+ <20260904083001.553587-2-ye.liu@linux.dev>
+ <20260904122536.1079b279@gandalf.local.home> <87ecf87m31.ffs@fw13>
+ <20260904190742.7231d56e@gandalf.local.home>
+Date: Sat, 05 Sep 2026 09:27:33 +0200
+Message-ID: <8733vo6tui.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: defconfig: Enable Lontium LT9211 driver
-To: Vishnu Saini <vishnu.saini@oss.qualcomm.com>,
- linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com,
- Jessica Zhang <jesszhan0024@gmail.com>
-References: <20260904-for-next-lt9211-defconfig-v1-1-97221f0109d7@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260904-for-next-lt9211-defconfig-v1-1-97221f0109d7@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 04/09/2026 19:48, Vishnu Saini wrote:
-> Lontium LT9211 driver is extended to support LT9211C bridge
-> which is used on Qualcomm lemans/monaco/kodiak platforms.
+On Fri, Sep 04 2026 at 19:07, Steven Rostedt wrote:
+> On Fri, 04 Sep 2026 23:17:38 +0200
+> Thomas Gleixner <tglx@kernel.org> wrote:
+>
+>> No. Scopes can be left by any valid termination mechanism. 
+>> 
+>> The only problematic case of leaving a scoped_guard() with goto is when
+>> the goto is actually implemented as an ASM goto. See the comment above
+>> arch_unsafe_get_user() in linux/uaccess.h.
+>
+> Oh OK. I was under the impression that goto's could cause undefined
+> behavior with guards. Or is that just when a goto jumps over one? Or is
+> that OK too?
 
-Lemans, Monaco and Kodiak are SoCs and they do not have this chip.
+Jump where ever you want. The keyword is 'scope'.
 
+The normal visibility rules of variables in C scopes apply. So if the
+scope for which a variable is defined is left and the variable is
+defined with __attribute__((__cleanup__(cleanup_func))) then the compiler
+inserts a call to 'cleanup_func()'.
 
-You could have just look at history how this could be written.
+The problem with ASM GOTO is that the 'goto' is not visible to the C
+compiler because it is burried in the asm inline. Clang detects it at
+some later point and fails the build. GCC simply emits buggy code or at
+least used to. Haven't checked whether that's still the case.
 
-Or lore:
-https://lore.kernel.org/all/20260130-add-lt9211c-bridge-for-rb3gen2-industrial-mezzanine-v2-2-a98714fa1531@oss.qualcomm.com/
+So we worked around that by letting the ASM goto jump to a local label
+within the scope and use goto 'outofscope' from there. That makes it
+observe that the scope is left and the cleanup call is inserted at the
+right place. See 3eb6660f26d1 ("uaccess: Provide ASM GOTO safe wrappers
+for unsafe_*_user()")
 
-Best regards,
-Krzysztof
+Thanks,
+
+        tglx
+
