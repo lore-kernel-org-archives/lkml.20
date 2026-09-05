@@ -1,253 +1,135 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B91932B118
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 01:07:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788570431; cv=pass; b=I9wCeA8Vdnm43HK10W4MwJ1NhvSUSYW/C79fctNLnds4xVJm4rnZu51AdMf3c39lYWE1wv4jnc7FtBLvCuyM8yEFFmG5hksSRZ/bhd9nIHk56KW2tt29Qy750k7UNVRvnXxYH/KmuDWaObRZCNaOY4Xl/6W3/b6BUN2KXmrp+p8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788570431; c=relaxed/simple;
-	bh=l4lbMsjzHIBKAWcJH3OSXGknOIWY0eqTpDnrL5yI+6o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kA8XOzXlHF2MtQ82GfUwv9N47DRoSfWoGAypi2GkSHp3XACihccxDxBpVAqm0ySLiTRDffpRuzXmzpUhHZQCy2upZ5GpNk9Rr0kASYpYlPjy9FbsdpCkocVvwd3XXmPMcuX4cuiJBk2jQ2doH0H7NvFvKi8zY9RSenYb8xR++rI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com; spf=pass smtp.mailfrom=clyso.com; dkim=pass (2048-bit key) header.d=clyso.com header.i=@clyso.com header.b=I3SRZnCq; arc=pass smtp.client-ip=209.85.218.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=clyso.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F8BC379990
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 01:07:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788570440; cv=none; b=MDmpNvR4a7CAPq3N6lF5Cz+v2/8T/G6PjInk/QUFMLM3i/vojdEw3M1UyxC1QwgEwSIrhjnQhu5KAAkf7KyE9GUfPnx4hEsN5jez3NEIHsX6DDughu2W9cuqBvMe/0/J0QcLkwAFT6AeU2Dx4uugFiLW7SUktFb1TRCU7Y5ZKUA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788570440; c=relaxed/simple;
+	bh=EglbqXi5LkNp5XA0SdAdE1SDNtn/R/F03DiG2hMoAMc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HqsMWVBqdbxPQh/UploAg5GVJX9HiB6mP/yfHG3m4wl3pXGK07jJ1c93RBsLZmm6baNsBcbSdyAPwNUMPk+BjpEQD1qStU86Cg7EIpdcRrGwk/5guEriCAHw18GuZyA9O2iCz0vqrDGiLHDGJ+5Eq1wvyq16TqblqgV1zl+yma4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WRdmouKW; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=clyso.com header.i=@clyso.com header.b="I3SRZnCq"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c1c52d920b8so208079766b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 18:07:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788570426; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ULr9QqKPJyMBC2IUgdLpGWcy9mBphHRg0c7sxPmpiZrGGuT206cR8YlR9dsALe0+Go
-         DPgR8Vw0NcJPwVFsU+sPW+F23vUGQGYunwRLQhN69JTGBBvAnk8QgsHcZqA+B5QQURNN
-         2l52cK7pRzs5IVLGZf1ksRIP09NkyA4GeY6+0TArmQXkN4tI7xkr/zwl95tGqyhV0Tby
-         yuEXi39f6/kd8aY6SbHb5fSxCu8AjzRBRl9muzWad9b3Nt0ldNa2SQyo/IpTWANYTvI/
-         NgdQcWtAyfv8O2lYNtF4uCobX8DFwS+r3yfb+iJXWfEOJvTrn4k1kiP5CCk20o1p97FH
-         pg0Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ujZhsoHbAO3klq3jT6TYLR85CcPWbD1QdBubluWqS2k=;
-        fh=VYY8VVfES2+KPbSrASRkYkLyZAxQoKhg1Lw2iFDGcmE=;
-        b=hruh5SXYUTsfc2rF7iYH4Mx/Do7oBRCKh1ttj/4oA+ApDCbH1vwXZ7DonN7FBG8nW6
-         uQKbKZUpQe418dLbiisluO/21bvDShmPpYBwUzQCB1Dd4tNOFJyLurpemF850r+7mOo1
-         jTeMcAb/8bcTzgLJbtuL630HXic6HBctNo/tqkWeICEUTFdRDE2ptQdM9BNHcIEtOcf8
-         d8Uy8mCqDTIHJNSTB92OVLW8fkWiaL3D7bIt7sNkokz3SbARCc7aF5M7jfwb2fTwUZpm
-         z9XVIbWf93SgrxsEIBEcLEfYat0jUjHxYNK20moY7SYRb2ANRcFfLKGQMx+/hTMEh+gk
-         b0Iw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WRdmouKW"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49b8687630fso14871945e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 18:07:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=clyso.com; s=google; t=1788570426; x=1789175226; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ujZhsoHbAO3klq3jT6TYLR85CcPWbD1QdBubluWqS2k=;
-        b=I3SRZnCqj7a26Bkwzp6neRlL5ALP/ngHtU4QDSvu2XnTsb9SQSoDQ7IDiJcvjcjcj1
-         TrFheJrwWJstipHqQv+qWutaWFUBS1B8iSGm0X/ARyICFXnfcLQDmMyZu3SmN8EmhaR6
-         0FLNEaojSXX1cXMeSXf306ghyA05WOEdElHNi2MA/vHtEJCTMIE1Ye370iNgPo3wKLM4
-         T4pJIOQsbkOqGbNzN9FDr632ajUDBYlgcKs+2S5c/pwVPCbUYjrSdx+7DsHXVnbhOSnE
-         FTkUvF6jegjvHyLI+U+bgJBEF3y9ETQPHqstTnk4m8HwGrVpgdPlnCFuQVRD2fR9XLFc
-         OfQA==
+        d=gmail.com; s=20251104; t=1788570437; x=1789175237; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zr9fpDIO6FHp21CzkCP2RgEnzt+svRUnC4ckIWi1ofg=;
+        b=WRdmouKWyohjJTz2OkrmjAfof7MvG1MiMudP8rxj7YDvbvkYXI3RaOIJMDmph4+x8M
+         /yQuItbIWe0u3jmCbL9L5eSwvXuPyPtEQjTz95GJNHpFUKp4XKjlZvjSui3wLliC8+iE
+         HrkBfwN0MmE80ETdBRFAXF75wd07RJVq6KcQErNdWu8zP/IdSl/i72CB8NyAtNqCw058
+         Nx4xBoY2Eb9nJww34YlB/WNBk4tphDALAJDSeFYZFepZ4b1vRS8z27uLpFtbNPy3FFHi
+         Wjjy5VtbJOEPkC5q9Q8Hu7rf/vQPzjqROvzxp3wZMHBHPOtjpdSxONWG6M098umufEoh
+         PN/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788570426; x=1789175226;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ujZhsoHbAO3klq3jT6TYLR85CcPWbD1QdBubluWqS2k=;
-        b=IlBLdCRJO/l1RWZIRqUp0jcAKEDiiZlqYvLsGM7HNai07tyBqtFLxN/fBnVGzt7cUD
-         dOYXjATV3eD81h8P+u0th4aqaG2jZ1LkoezB6x2vyebRowY0JHwT2Hgj06lcItwD8vaJ
-         RkR0tIFwI7FESB38X0K5gjn284qvtEs0gkwNq1aa2Pz7Ep4M+XaafEYLWoyjG69uIX5U
-         xAm00xxI1baM5WtSij8Rdp/saYUfbA/VSvT9KZmOB+GRWCqrZKI9nm9IMINawpyKmgHT
-         ddBXlA6cLcyTyMFTiDXBMNoTqhknVEVyDclhvvTyr+tGr/TOOKlJQQz1L5TKcHqep0+u
-         Dijg==
-X-Forwarded-Encrypted: i=1; AKwUvBwbj/teDzqPAOYtYTbLne/4bGdQDA6B/azfvq8jgG7HDFASbLBOIJONcAig2VVy5CAXNHlP3Qz62qokQXM=@vger.kernel.org
-X-Gm-Message-State: AFuF++k0wwLOu+D3r6NazSZj5RRkFaTbV1cI/BJ3SdWrgX6RVprEZ7Zw
-	6r4Ul71SDYRfJWFmtFnxQuoX0ejB66haRKhk0djuAvJOta6U0Blv/gbLt+mPVFW+j4kgwyMZIEN
-	mTmkHyrS7RoVFeizyPXgsGixVJQ8mXkQGzm8rRgm0OQ==
-X-Gm-Gg: AYBFou0r81Csso910Egwq5zEV+Du2l1w56V9SCliTrUZ5RThSTIFQ461bj4mpt4GYCJ
-	o4ut8UmMJ1L1+O4ZkFFk/cnXOCmFPAlCHP39RumFJVHYvxxYA99ooWBlpz3jLJZWecPdz45qCqK
-	b7pQrcME8TNKstOM8VBXDp5v1iNMZg7bm8mX0hsniJykUvixOPqXi1wzzjuIyqa8/XtiUM4A3dE
-	pg1RS9KuSg3B4svOCvs8umgCpFHp9LOecp9Hzmh+N0zV3boBMVc3pmRBMLJ2hM2oslpdB8N5qHO
-	eVsrjlpMSqjpwN0fMfyHolD1sujgwqWL4Gc/WHG4YH30qw==
-X-Received: by 2002:a17:906:ba84:b0:c20:f871:1020 with SMTP id
- a640c23a62f3a-c260ca1a225mr418338466b.19.1788570426412; Fri, 04 Sep 2026
- 18:07:06 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788570437; x=1789175237;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zr9fpDIO6FHp21CzkCP2RgEnzt+svRUnC4ckIWi1ofg=;
+        b=SWlRcM9FL5U9jDawHRhFBwuUxMruAbrUdf0FK5pIjnbmuKxktXSQyx5xErkf90pCiP
+         HJuI9fjBlKjWTbzmO9dh04nFyGZf5MaFOD8tPd5ZrTxghb8ipWNvSuRbVxGKtFwFyDv+
+         RX+K4JECo7gX2z9NyfgjeWcTtS3QK3XTF2OK1F2Cmch7C5i4vw1kBZLRrdeY8r6zUy7i
+         r/TTLjW3Kl89vZ/b76GBdpYsUoSwWfNuipgfpXbCcpFmjRSSQieV4FTpAI/CSJtAIRF+
+         QyukLUnNhLG56uPKjzQESLM240AUP6khXV2tDZvR/sqVfVasClV79vJbT2cIIcemkAOQ
+         GCfA==
+X-Forwarded-Encrypted: i=1; AKwUvBzWAYFRRKfU8ngreFvOUcnhWUpecqkoWMSj48bS85mg70bX31+xkQR9pppI3TlLzgPDe793c3+gdbkU6qU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lfyWdTzPI9vVKlDXSkObHahX4xde+Tv4ppYbuWGXhM2rymSYMt
+	JeItLsGVMDFWYNAJWN+7S7bjRHb9WPX0keKxsvuAx7zeIgLKr9rkT2AY
+X-Gm-Gg: AYBFou1l9HROdNYcc8zyG2Ja3cwTuiHcS+Pfzu5mz1sRunZ0eY1txOpanNNWbr5U68D
+	2ulvcZjG7/eZLTnmN9s84FyF5i2y3q/ZTbrQ+WdHhCs9/2WQNB+jxp+y+g+eR3UBFDdxiW+qCDn
+	u+9kJabZKdB9XKwJgEJoKDd4+A1i+W+4Z30v1p/WI8GkfGT+SJeW1OzGWEM2HaD9nxMyoK4CY52
+	rZCwv6ttNloIl4hTEayzot94ZOC6RN2qlOrRu/cvmGXVV0hNCKk7Uke8WOSfyr5A/XLI4ig+piq
+	g0cD3CtvHyxOuAsqmUB2WeRxlRJTN3zTvdwW5HavsjFZVr9LrH8SLVH8ZWbUw4nbHnWJjJOXDyt
+	xbyDRZ3jnzDKxaCAY3m+6kBhb3GpH2D63QVWeYdp7r7c/cl82uR21kOWtDMVKXDGIYdEDSeK+Wk
+	31B1jKh/5R2LFJ0hK981GVihefgBySpNbb4GFaSk63BXApncTe17OGw4x5p2eoYJzHL4FPyAgQB
+	2RpFASNxOaU8RSrF5G7a7+Y2zbIXfUkPv/KPSMh82i783bqHKGddwdNuF1kKl7aR4/0ZnVOp/aB
+	PzY5NDcXWpFdGHktruFc/3akOVbZbF4RhymCfsBuEreJrTqpokZl4MEvYN2gIoI/XO0=
+X-Received: by 2002:a05:600c:628b:b0:49c:fa21:e742 with SMTP id 5b1f17b1804b1-49cfa21e956mr66582325e9.24.1788570436399;
+        Fri, 04 Sep 2026 18:07:16 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a4f2-6901-14a0-23ad-a35e-aa8c.310.pool.telefonica.de. [2a02:3100:a4f2:6901:14a0:23ad:a35e:aa8c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5f912esm195777265e9.4.2026.09.04.18.07.15
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 04 Sep 2026 18:07:16 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Jonathan Corbet <corbet@lwn.net>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Huang Rui <ray.huang@amd.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Perry Yuan <perry.yuan@amd.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	"Mario Limonciello (AMD)" <superm1@kernel.org>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: [PATCH] cpufreq/amd-pstate: Remove obsolete amd_dynamic_epp documentation
+Date: Sat,  5 Sep 2026 03:07:06 +0200
+Message-Id: <20260905010706.57380-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904105122.19938-1-max.kellermann@ionos.com>
-In-Reply-To: <20260904105122.19938-1-max.kellermann@ionos.com>
-From: Xiubo Li <xiubo.li@clyso.com>
-Date: Fri, 4 Sep 2026 18:06:54 -0700
-X-Gm-Features: AcwNN1WmSnQ67Mot0ciiOWGEftQEhKrd_OJ6L1dPrjt_nxXJMF9e7T3Gb23qprw
-Message-ID: <CAOJNxRKD73gsja26b3iidhBhAW=Buw3rHmttBVU3wzg0uyAhsw@mail.gmail.com>
-Subject: Re: [PATCH v2] ceph: acquire caps for read_folio without an rw context
-To: Max Kellermann <max.kellermann@ionos.com>
-Cc: idryomov@gmail.com, amarkuze@redhat.com, ceph-devel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-LGTM.
+The amd_dynamic_epp command-line parameter was removed. Dynamic EPP
+is now selected through the per-policy energy_performance_preference
+attribute, which is already documented.
 
-Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
+Fixes: 32692fcf61ed ("cpufreq/amd-pstate: Remove "amd_dynamic_epp" cmdline and "dynamic_epp" sysfs")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ Documentation/admin-guide/kernel-parameters.txt | 7 -------
+ Documentation/admin-guide/pm/amd-pstate.rst     | 6 ------
+ 2 files changed, 13 deletions(-)
 
-On Fri, 4 Sept 2026 at 03:51, Max Kellermann <max.kellermann@ionos.com> wrote:
->
-> This fixes a data corruption problem that leaked permanently into
-> fscache.  File-backed erofs reads metadata using
-> read_mapping_folio(), and the Ceph implementation of this call forgets
-> to acquire Ceph caps.  Therefore, mounting an erofs image file from a
-> Ceph mount that was just written (but not yet committed to the OSD)
-> would fail because the erofs code saw only zero-filled pages.  These
-> zero-filled pages were then copied to the fscache, making this data
-> corruption permanent (on this host).
->
-> Usually, Ceph checks/acquires caps at its own entry points and not in
-> the `address_space_operations`: ceph_read_iter() and
-> ceph_filemap_fault() acquire Fr/Fc before calling filemap_read() or
-> filemap_fault(), and ceph_write_iter() holds Fw/Fb around write_begin.
->
-> Only readahead, which the VM can invoke without passing through a Ceph
-> entry point, checks caps itself.  That check was added by
-> commit 2b1ac852eb67 ("ceph: try getting buffer capability for
-> readahead/fadvise") to the readpages path, converted to use the rw
-> context list by commit 5d988308283e ("ceph: track read contexts in
-> ceph_file_info"), and moved into ceph_init_request() for
-> NETFS_READAHEAD by commit a5c9dc445139 ("ceph: Make
-> ceph_init_request() check caps on readahead").
->
-> The single-folio read path never had such a check, neither in the old
-> ceph_readpage() nor in netfs_read_folio() via ceph_init_request().  It
-> assumes that the `read_folio` method is only ever reached from
-> filemap_read() or filemap_fault(), both of which Ceph wraps.
->
-> However, since Linux 6.12, erofs file-backed mounts
-> (commit ce63cb62d794 ("erofs: support unencoded inodes for fileio"))
-> read all metadata (including the superblock) by calling
-> read_mapping_folio() directly on the backing file's mapping.  On Ceph,
-> this issues an OSD read without holding any caps.
->
-> The result is silent data corruption.  Ceph clients do not write back
-> dirty pages on close(); a writer keeps Fb and its dirty data until the
-> MDS revokes the cap.  When another client opens the file, the MDS
-> initiates that revoke and replies to the open immediately.  A read()
-> would now block in ceph_get_caps() until the writer has flushed and
-> acked the cap-revoke, but the erofs superblock read goes to the OSD
-> without acquiring caps and thus races with the writeback.  If the
-> object does not exist yet, the OSD returns -ENOENT, which
-> finish_netfs_read() treats as "success, no data", and netfs zero-fills
-> the folio.  The folio is marked uptodate and, because it counts as
-> downloaded from the server, is also copied into fscache.  This never
-> recovers because Ceph invalidates the page cache and fscache only when
-> Fc is revoked, but gaining Fc later will not invalidate it.
->
-> Add a Ceph read_folio wrapper which acquires caps synchronously when no
-> rw context is present.  Cap acquisition can process a pending truncate,
-> so drop the folio lock before acquiring caps.  After relocking, verify
-> that the folio still belongs to the mapping and has not already become
-> uptodate before passing it to netfs_read_folio().  Leave reads with an
-> existing rw context and the legacy inline-data path unchanged.
->
-> Fixes: ce63cb62d794 ("erofs: support unencoded inodes for fileio")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-> ---
-> Note:
-> - commit e587a984d332 ("erofs: use dedicated meta inodes for
->   file-backed mounts") eliminates this trigger, so Linux 7.3-rc1 and
->   later are not affected.  The fix remains relevant to older stable
->   kernels and to future direct read_mapping_folio() callers.
-> v1 -> v2:
-> - Move cap acquisition from ceph_init_request() into a read_folio
->   wrapper, leaving the readahead path unchanged.
-> - Drop the folio lock around blocking cap acquisition, then relock and
->   revalidate the folio to avoid a truncate deadlock.
-> - Preserve the legacy inline-data path.
-> - Handle a NULL file argument without acquiring caps a second time.
-> - Require Fc before populating the page cache; CEPH_CAP_FILE_LAZYIO
->   cannot be added because the want mask is conjunctive
->
-> Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-> ---
->  fs/ceph/addr.c | 58 +++++++++++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 57 insertions(+), 1 deletion(-)
->
-> diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
-> index 657c2cb0f881..78b805ccc5d4 100644
-> --- a/fs/ceph/addr.c
-> +++ b/fs/ceph/addr.c
-> @@ -1959,8 +1959,64 @@ static int ceph_write_end(const struct kiocb *iocb,
->         return copied;
->  }
->
-> +static int ceph_read_folio(struct file *file, struct folio *folio)
-> +{
-> +       struct inode *inode = folio_inode(folio);
-> +       struct ceph_inode_info *ci = ceph_inode(inode);
-> +       struct ceph_file_info *fi = file ? file->private_data : NULL;
-> +       int got = 0;
-> +       int ret;
-> +
-> +       /*
-> +        * Existing Ceph read paths acquire caps before entering the page
-> +        * cache.  Keep the legacy inline-data path unchanged.
-> +        */
-> +       if (ceph_has_inline_data(ci) ||
-> +           (fi && ceph_find_rw_context(fi)))
-> +               return netfs_read_folio(file, folio);
-> +
-> +       /*
-> +        * Cap acquisition can process a pending truncate, which may lock and
-> +        * remove this folio.  It must therefore happen without the folio lock.
-> +        */
-> +       folio_unlock(folio);
-> +       ret = __ceph_get_caps(inode, fi, CEPH_CAP_FILE_RD,
-> +                             CEPH_CAP_FILE_CACHE, -1, &got);
-> +       if (ret < 0)
-> +               return ret;
-> +
-> +       if (!(got & CEPH_CAP_FILE_CACHE)) {
-> +               ret = -EACCES;
-> +               goto out;
-> +       }
-> +
-> +       folio_lock(folio);
-> +
-> +       /*
-> +        * After re-locking, check if the folio still belongs to the
-> +        * mapping...
-> +        */
-> +       if (folio->mapping != inode->i_mapping) {
-> +               folio_unlock(folio);
-> +               ret = AOP_TRUNCATED_PAGE;
-> +               goto out;
-> +       }
-> +
-> +       /* .. or has been filled already meanwhile */
-> +       if (folio_test_uptodate(folio)) {
-> +               folio_unlock(folio);
-> +               ret = 0;
-> +               goto out;
-> +       }
-> +
-> +       ret = netfs_read_folio(file, folio);
-> +out:
-> +       ceph_put_cap_refs(ci, got);
-> +       return ret;
-> +}
-> +
->  const struct address_space_operations ceph_aops = {
-> -       .read_folio = netfs_read_folio,
-> +       .read_folio = ceph_read_folio,
->         .readahead = netfs_readahead,
->         .writepages = ceph_writepages_start,
->         .write_begin = ceph_write_begin,
-> --
-> 2.47.3
->
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 4a12805a50ba5..1fa37bce5bb3a 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -499,13 +499,6 @@ Kernel parameters
+ 			disable
+ 			  Disable amd-pstate preferred core.
+ 
+-	amd_dynamic_epp=
+-			[X86]
+-			disable
+-			  Disable amd-pstate dynamic EPP.
+-			enable
+-			  Enable amd-pstate dynamic EPP.
+-
+ 	amijoy.map=	[HW,JOY] Amiga joystick support
+ 			Map of devices attached to JOY0DAT and JOY1DAT
+ 			Format: <a>,<b>
+diff --git a/Documentation/admin-guide/pm/amd-pstate.rst b/Documentation/admin-guide/pm/amd-pstate.rst
+index 6fd72ba52df20..4c5d3d8acf645 100644
+--- a/Documentation/admin-guide/pm/amd-pstate.rst
++++ b/Documentation/admin-guide/pm/amd-pstate.rst
+@@ -481,12 +481,6 @@ For systems that support ``amd-pstate`` preferred core, the core rankings will
+ always be advertised by the platform. But OS can choose to ignore that via the
+ kernel parameter ``amd_prefcore=disable``.
+ 
+-``amd_dynamic_epp``
+-
+-When AMD pstate is in auto mode, dynamic EPP will control whether the kernel
+-autonomously changes the EPP mode. The default is disabled. It can be enabled
+-with the kernel parameter ``amd_dynamic_epp=enable``.
+-
+ User Space Interface in ``sysfs`` - General
+ ===========================================
+ 
+-- 
+2.53.0
+
