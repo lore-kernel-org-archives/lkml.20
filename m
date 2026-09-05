@@ -1,128 +1,182 @@
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B34342D73A0
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 14:04:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B79127F72C
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 14:09:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788617071; cv=none; b=sdLz6LlRtS4l3ivGNeLXym3V0JoQeLBHW6FbbzwBBRh6xbBrP6pNk6TbfcPSjl1RMjo3uLGOOcQxIdgnEqKYIAV/K14PlL+J3yPOMzI4UeNU6GVsxSiud0+sg0EIZpPje8tKKoc6jq9GlnQ5UIbQMtA9X1LMMFXy7tHVquMyKS8=
+	t=1788617356; cv=none; b=fVm9epnHptHKcNEa7ima8IAeqkDDj7GFcfc2YyL5hn0AIK/0QV6GvVBlpDocklK+eMNihhBFsY/ZQUagdzCR2JT/gK5NuNXfUrVfyAgmdCBtUh2e5uSpMrpIDMeOCgtM4TzyVHc25oswRqCoylFvu+Sp5mAB4HlmJ3GAik/Pz+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788617071; c=relaxed/simple;
-	bh=2EF8hQX2715PddwJ9oCsxzncsn7a4W2DF/R/kkGyUeM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=R2eS7cPN4jz86RD9nfmDNXe9C5aI+G5qSO+/IWf31KjidO7NX/5Qs+SB9Anoah92bwaITDaa21pc3fj/VLJWRqK/0XtfhLW4Jg+wSfQ1rMrKwKryLjKRW5cRPz2ih0poof4b20t5ojxgJiMDP7Y+Gps/KYSziitlWKbCR/oNTi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-765c077b5c1so675652137.3
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 07:04:29 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788617068; x=1789221868;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=mmU5FMAneHXfUtApnTl4gKdMaEZfbVGE87dIbOYTEoc=;
-        b=aGqPx5+UXW52oGwgwZFe59D18KCifdEcsEgt5oy/vf+e5i3N3QBBrxgJp17nEMY72g
-         PiTWhU52hjyvI3Yl+XDvPZnMeZu5LwsAvvx7lQ5+ghFvcHcbDYxXPHN0w84Gn6u81u8Z
-         oj93YyTyN1jPzFpdXhjawSObcSQTJE7Zg5xwy842x1OeuLkmubouHXdMvhydCqDuvBQh
-         GXX3VVDpXabrnRQhGfeqeQMid7qUBFwbtyXv+gLwKrvrEZUDiUrbQHyR0v8NmcXB4UHz
-         UkY73p88RWtUN7kr8xoVj3wG/uQPKrirVXM84+axR/RMsQt6OGnfbBWweDpKC1xxhLRD
-         EaaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxpZx0+ep5EG2QACMSATCnTwYipGe51mWiG/B6Tr9wlyPFM8HOVWocK7uPQzUDJvYy0FRwPGvoXOmQpLPE=@vger.kernel.org
-X-Gm-Message-State: AFuF++m6IY6xYMzgqMFRJc2HMWeS3UHjjMmZLMKn9s9GljzzHuQe30Uv
-	eo6UNUosxy5lDSc1alKHH8EC4Wo76ITaAHAI9AHFAPpFU5chEpGild+54EUt/zbQ
-X-Gm-Gg: AYBFou3oYGQGQDgVEoBynRGR6Eb+lvSaJCJrwkexOcZP1rhejGrrD0WTS6/t+KKhubj
-	NyKdr8NIOXMV741dwB5wbspENYowco9KP6thkwag1YMuKMhxunHF4eyq/lfq/ByTJBQ1xAo4xwF
-	7NGVKCQNELwifaEHJkN9xUurrKt2jnPIn8aPu1S2EBzRnPhDy24+Wlxy+c5A7GiIbc95Wpqzwkl
-	2JDVtMzIlD1CECAnU9ZADqdH3NaxT2oG4wzKp+izWAXNSh1hGY2+S1DAFHqe76OZsUKRvlQBV9n
-	n+1pR1JJs6ie9EhmSUMgj0wFEVY78zrqkbPg+bM+DySs2HqYLrY1O9HHK7RGu8zCty+h86GOCUm
-	3BNCEZ9zsp4HtiBb0PukepWIyPYRR3BertPiZLSCBEa3XoEDO2VvhckIwF7DNl3APKInr3eXND8
-	FR92T7U3+qldXPivgyUTvbtL8V+D0TWskZdwZKieTZXHFgkpjYAHijaA2HvPasnx7mwtaH21iGP
-	JszrE0hz3hrbarckRn1k1kCLd47mK+DyeCs
-X-Received: by 2002:a05:6102:808d:b0:781:210d:2897 with SMTP id ada2fe7eead31-78a4aa07b1dmr3788597137.9.1788617065743;
-        Sat, 05 Sep 2026 07:04:25 -0700 (PDT)
-Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com. [209.85.222.46])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-78a47b32678sm3839116137.10.2026.09.05.07.04.21
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 05 Sep 2026 07:04:22 -0700 (PDT)
-Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-97e9fb0fc58so587662241.1
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 07:04:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByOX+jH55kq5H7BYqRQ6wTPrc93AgYEtq9V+k5i6DrXWO632oOjL3DZz6sgxg5bUMZyMf6PMh5OSw83KeQ=@vger.kernel.org
-X-Received: by 2002:a05:6102:6d6:b0:737:783d:1916 with SMTP id
- ada2fe7eead31-78a4aa56803mr4238100137.11.1788617060541; Sat, 05 Sep 2026
- 07:04:20 -0700 (PDT)
+	s=arc-20240116; t=1788617356; c=relaxed/simple;
+	bh=XFkaaKEWY64wtPrc5AzlfuAzqKxMuoThga6wWScNrjk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=V/3E/eKsLGQVdKhD50WqyxaEJDA4mcHU80pcEd8/KsWlrVDP8HwdYU9D52QCocNcXR4ql1WsSIdAjVg1KiXubsVGr383FseUCEacvylj3TMv0axrSynyJeYLVW5+L75r3z8B7OHug8vuaA/SuapUqPiqqaf5ylBTqU1v4aYZZ7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=basIqN/9; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="basIqN/9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=SPojwjLkaMA11kPJdNiZJMswWTdi4XubYxdhDNobZx8=;
+	b=basIqN/98SNEhXlYaqmMWAGO7yRqPkJnb+Nu+hFAuIm6gSpwiTA1Kj5t+0Vqah
+	ibNHPXeQMRNqPTPN9OgB0TjaFsf/sLzn6O78FyizZ+BpsRwVYS3i3BaXK1xR9yRh
+	ooKwQ6OTKJdP3deS+eyyMubRlD3YjjY1OqvjBt52Ymg8g=
+Received: from [IPV6:2409:8907:9f4b:3fe:b252:b6b3:7eed:98b6] (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3n41sIpxqpVCYAw--.59650S2;
+	Sat, 05 Sep 2026 22:08:45 +0800 (CST)
+Message-ID: <39a9c42b-7e47-4d3b-b3c2-6eb05af41ce0@163.com>
+Date: Sat, 5 Sep 2026 22:08:44 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <upsCxxaJjg2FJWhfCx6KjFXLlh8o4IhaHKJi@bugs.sh>
-In-Reply-To: <upsCxxaJjg2FJWhfCx6KjFXLlh8o4IhaHKJi@bugs.sh>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Sat, 5 Sep 2026 16:04:09 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVVqfqvueX-jk_XfM5tE9XScZPe1OLqGw1MUC=Kd2reBQ@mail.gmail.com>
-X-Gm-Features: AcwNN1Vfd3xEhZZ7PrZAi9kkNEISK6U0ldP6Y81De9Zfs-x-Bx4rSr-QXAnQulU
-Message-ID: <CAMuHMdVVqfqvueX-jk_XfM5tE9XScZPe1OLqGw1MUC=Kd2reBQ@mail.gmail.com>
-Subject: Re: [BUG] drivers/net: out-of-bounds in pcan_usb_decode_buf()
-To: co <co+5e2bcf11e7027510@bugs.sh>
-Cc: linux-can@vger.kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>, 
-	Vincent Mailhol <mailhol@kernel.org>, Petr Mladek <pmladek@suse.com>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, =?UTF-8?Q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>, 
-	Oleg Nesterov <oleg@redhat.com>, Biju Das <biju.das.jz@bp.renesas.com>, Song Liu <song@kernel.org>, 
-	linux-kernel@vger.kernel.org, cedalion@bugs.sh
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ntfs: fix $MFTMirr write offset for MFT record sizes
+ larger than PAGE_SIZE
+To: =?UTF-8?B?5pyxIOWkqea1qQ==?= <zhutianhao75@hotmail.com>,
+ "linkinjeon@kernel.org" <linkinjeon@kernel.org>,
+ "hyc.lee@gmail.com" <hyc.lee@gmail.com>
+Cc: "ntfs@lists.linux.dev" <ntfs@lists.linux.dev>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <SY0P300MB031263862D7FD47834F1E87FDEB42@SY0P300MB0312.AUSP300.PROD.OUTLOOK.COM>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <SY0P300MB031263862D7FD47834F1E87FDEB42@SY0P300MB0312.AUSP300.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3n41sIpxqpVCYAw--.59650S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZF15tw48Xw4UZFy5Jr1DWrg_yoW7Jw1kpF
+	9xK3s3Jr4ktr9rC39Fga1Iga48X393JFyUWFW7Gr1xCFsYq34kWF4Ut3yruFyFyr4Yywn7
+	X3WkGrnxWFyDAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U2zuZUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6g1lMGqcIm2jbwAA3H
 
-Hi Co,
 
-On Fri, 4 Sept 2026 at 23:17, co <co+5e2bcf11e7027510@bugs.sh> wrote:
-> We found a bug reachable in:
->
->     path    drivers/net/can/usb/peak_usb
->     crash   out-of-bounds in pcan_usb_decode_buf()
->     commit  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace")
->
-> Config, environment, the sanitizer report and a C reproducer follow.
->
-> == Notes ===============================================================
->     If you patch the bug based on our artifacts, a tag would be
->     appreciated:
->
-> Reported-by: co+5e2bcf11e7027510@bugs.sh
->
->     Everything in this mail is validated by the reproducer below.
->
->     We also hold an LLM-generated root-cause analysis and a candidate
->     patch. The patch passes an A/B test: the same reproducer panics the
->     unpatched kernel and runs clean on the patched one. Neither has had
->     human review, so both still require validation before you send or
->     apply them. Available on:
->
->         patch.diff  https://bugs.sh/b/5e2bcf11e7027510/patch.diff
->         report.md   https://bugs.sh/b/5e2bcf11e7027510/report.md
->
->     This is an open science project. The code and the full set of PoCs
->     are not public at this moment, as we intend to disclose our findings
->     in an ethical way.
->
->     Happy to test patches. Complaints and suggestions about our work
->     are welcome at:
->
->         cedalion@bugs.sh
 
-Please read Documentation/process/submitting-patches.rst, especially
-https://elixir.bootlin.com/linux/v7.2.2/source/Documentation/process/submitting-patches.rst#L928
+在 2026/9/5 20:35, 朱 天浩 写道:
+> When commit 115380f9a2f9 ("ntfs: update mft operations") refactored the
+> MFT code to use folios, it assumed $MFTMirr is allocated contiguously,
+> which is indeed what mkfs arranges.  However, the folio rewrite kept a
+> leftover from the old buffer-head/runlist based implementation:
+> vol->cluster_size_mask is still applied to the mirror write offset.
+> In fact it is no longer needed -- and in some configurations it is
+> actively wrong.
+> 
+> For example, on the built-in 4Kn SSD (Apple SSD AP0256J) of a
+> MacBookPro14,1 with 4096-byte MFT records, mirror record 3 is still
+> written to the location of record 0.  $MFTMirr therefore gets out of
+> sync with $MFT and the following warning is printed on remount:
+> 
+> 	ntfs: (device nvme0n1p3): check_mft_mirror(): $MFT and $MFTMirr
+> 	      record 0 do not match.  Run chkdsk.
+> 
+> Fix it by always adding the folio offset (folio->index << PAGE_SHIFT)
+> to the base LCN address instead of applying the cluster_size_mask
+> truncation.  This is the standard file-offset calculation and is
+> correct for every combination of cluster size, page size and MFT
+> record size, provided $MFTMirr data is contiguous from mftmirr_lcn
+> (which mkfs always arranges).
+> 
+> While here, verify that the folio returned by read_mapping_folio() is
+> large enough to hold the whole mirror record (folio_ofs +
+> mft_record_size <= folio_size(folio)), guarding against records that
+> straddle a folio boundary when mft_record_size exceeds PAGE_SIZE,
+> although this cannot happen in practice.
+> 
+> Tested on the volume above: before the change mirror records 1-3 are
+> all written to record 0's sector; after the change the write-back
+> probe reports:
+> 
+> 	ntfs: NTFSDBG pre mft_no=0x3 folio_idx=0x3 ofs=0x0 mftmirr_lcn=0x2540c5 clu_bits=12 rec_bits=12 PAGE_SHIFT=12 sect=0x12a0640
+> 	ntfs: NTFSDBG pre mft_no=0x0 folio_idx=0x0 ofs=0x0 mftmirr_lcn=0x2540c5 clu_bits=12 rec_bits=12 PAGE_SHIFT=12 sect=0x12a0628
+> 
+> which matches the expected sectors computed as:
+> 
+> 	(NTFS_CLU_TO_B(mftmirr_lcn) + (folio->index << PAGE_SHIFT)) >> SECTOR_SHIFT
+> 
+> 	record 0: (0x2540c5 << 12) + 0x0000 = 0x2540c5000 >> 9 = 0x12a0628
+> 	record 3: (0x2540c5 << 12) + 0x3000 = 0x2540c8000 >> 9 = 0x12a0640
+> 
+> A 13 MB file write succeeds on this volume and the file is byte-for-byte
+> identical after a umount/mount cycle.
+> 
+> Fixes: 115380f9a2f9 ("ntfs: update mft operations")
+> Assisted-by: UOS-AI
+> Assisted-by: CodeBuddy:Hy4 preview
+> Signed-off-by: Zhu Tianhao <zhutianhao75@hotmail.com>
+> ---
+>   fs/ntfs/mft.c | 26 ++++++++++++++++----------
+>   1 file changed, 16 insertions(+), 10 deletions(-)
+> 
+> diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
+> index 7e58c99f1728..a62b1d41697c 100644
+> --- a/fs/ntfs/mft.c
+> +++ b/fs/ntfs/mft.c
+> @@ -462,7 +462,7 @@ int ntfs_sync_mft_mirror(struct ntfs_volume *vol, const u64 mft_no,
+>   {
+>   	u8 *kmirr;
+>   	struct folio *folio;
+> -	unsigned int folio_ofs, lcn_folio_off = 0;
+> +	unsigned int folio_ofs;
+>   	int err = 0;
+>   	struct bio *bio;
+>   
+> @@ -482,25 +482,31 @@ int ntfs_sync_mft_mirror(struct ntfs_volume *vol, const u64 mft_no,
+>   		goto err_out;
+>   	}
+>   
+> +	/* Offset of the mft mirror record inside the folio. */
+> +	folio_ofs = NTFS_MFT_NR_TO_POFS(vol, mft_no);
+> +
+> +	/* The mirror record must fit entirely within this folio. */
+> +	if (folio_ofs + vol->mft_record_size > folio_size(folio)) {
+> +		ntfs_error(vol->sb, "Mft mirror record 0x%llx does not fit in folio.",
+> +			   mft_no);
+> +		folio_put(folio);
+> +		err = -EIO;
+> +		goto err_out;
+> +	}
+> +
+>   	folio_lock(folio);
+>   	folio_clear_uptodate(folio);
+> -	/* Offset of the mft mirror record inside the page. */
+> -	folio_ofs = NTFS_MFT_NR_TO_POFS(vol, mft_no);
+> -	/* The address in the page of the mirror copy of the mft record @m. */
+> +	/* The address in the folio of the mirror copy of the mft record @m. */
+>   	kmirr = kmap_local_folio(folio, 0) + folio_ofs;
+>   	/* Copy the mst protected mft record to the mirror. */
+>   	memcpy(kmirr, m, vol->mft_record_size);
+>   	kunmap_local(kmirr);
+>   
+> -	if (vol->cluster_size_bits > PAGE_SHIFT) {
+> -		lcn_folio_off = folio->index << PAGE_SHIFT;
+> -		lcn_folio_off &= vol->cluster_size_mask;
+> -	}
+> -
+>   	bio = bio_alloc(vol->sb->s_bdev, 1, REQ_OP_WRITE, GFP_NOIO);
+>   	bio->bi_iter.bi_sector =
+>   		ntfs_bytes_to_bio_sector(NTFS_CLU_TO_B(vol, vol->mftmirr_lcn) +
+> -					 lcn_folio_off + folio_ofs);
+> +					 ((u64)folio->index << PAGE_SHIFT) +
+> +					 folio_ofs);
+>   
+>   	if (bio_add_folio(bio, folio, vol->mft_record_size, folio_ofs))
+>   		err = submit_bio_wait(bio);
 
-Thanks a lot!
+Hi Tianhao,
+   Thanks for submitting this patch.
+   You identified a real issue where the write offset for $MFTMirr 
+records can be calculated incorrectly on some configurations, which may 
+leave $MFTMirr inconsistent with $MFT.
 
-Gr{oetje,eeting}s,
+   I have reviewed the patch carefully, and I believe the proposed fix 
+is  effective.
 
-                        Geert
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Thanks,
+Baolin.
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
