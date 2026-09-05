@@ -1,139 +1,66 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 20C4737AA9F
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 23:49:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B7D122CBE6;
+	Sat,  5 Sep 2026 23:49:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788652150; cv=none; b=cj8HTiyS6vIISMcsUHdg8lz8WdGmYVWSaNJuU5SeOiUb2TLa+eEEnvu1fH8+ntnL2T1SOpjMRugkeOvL7DlgDnhtWEEsD+PMPI5CEKON7m7+GQewgX77qOLo2E/uG9gYePcmxwzxuY4E3r1RfkiS+OJe3o5IDPjeKg7VM/VHKz0=
+	t=1788652189; cv=none; b=Uqg2j54xNPaVYUEQX2UCbSHuwM1DH9lhzxkQIFIPbFGePqG2phfAOxIh1xYWHbzU18bcCoJrXJo4oTNsdnRGAWRdl6Gos1zD45CGU3eBeMlK3xKrMjRLKVxUIangW/WNWzMKEK5VdwscYXQczuWnkqg40oFqepH+lpqnu9cRy6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788652150; c=relaxed/simple;
-	bh=78ZaUHpCCmF9Q0SRtDPZW3k16driAdZe8cBTHH9U4Ys=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ugNc9Lj4oKulQn/eAJSLcwdJE3OeSEUEUcd7xtchgV+LL/3fKXpZXltLUmjZVwbuQySrZ+GPIu3LDXiw+podvkSJV2HJkW0MoJ6YxqnR7gxNmwALe/ZNEpRTpzNZUgBy90G7PTaJHM9PXcoh1LHrf6CKOjrZj/LvPmhzk1qq+BY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=uWYZ/mVM; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788652189; c=relaxed/simple;
+	bh=d/2VaAqpPElytI46bHNxq0Hr75t6ZFPXI+1aOnFseGU=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=XQLfRdmKM+nK+iA2ehnzR+OCPYz3ikeBzQW/A97sRcSpENAyTdMneXy2RyBMmToucxSKuo0b7kF5xZwQLHFFoNmTEpJa0CgI6G3IddlS6QNUBdOdOqp9T5f2+nu5l/Z+QvywwOdVtUwz270U6Jbt5hXPXQ5wvBS1Zfbp1i16Zr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=W4Q8SsX0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="uWYZ/mVM"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 285D31477;
-	Sat,  5 Sep 2026 16:48:56 -0700 (PDT)
-Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 810673F673;
-	Sat,  5 Sep 2026 16:48:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788652139; bh=78ZaUHpCCmF9Q0SRtDPZW3k16driAdZe8cBTHH9U4Ys=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=uWYZ/mVMj/RrfQNI2EgFHEj2UqFhaoPkrXi/X8bsDBUV203Qu3dn/kF8JwPQ6obOz
-	 88mI97vEqyEZkbdgT7uK1cMCgMc4ZgVs+OshFnQ4vyC4qsyMOqwP1tTxge9BJG7NnQ
-	 1pOtrQGvsC7KD/eOoAwm31GjAMc2V965Mwqt/TE8=
-Date: Sun, 6 Sep 2026 00:48:49 +0100
-From: Wei-Lin Chang <weilin.chang@arm.com>
-To: Shuai Xue <xueshuai@linux.alibaba.com>, Marc Zyngier <maz@kernel.org>
-Cc: Wang Han <wanghan@linux.alibaba.com>, 
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	oupton@kernel.org, tabba@google.com, joey.gouly@arm.com, seiden@linux.ibm.com, 
-	suzuki.poulose@arm.com, catalin.marinas@arm.com, will@kernel.org, ljs@kernel.org, 
-	itaru.kitayama@fujitsu.com
-Subject: Re: [PATCH v5 0/6] KVM: arm64: nv: Implement nested stage-2 reverse
- map (new data structure)
-Message-ID: <rytvo6a7sulfb2no2fclvtpggk4ekqzs6n6xkqlffldbzua4lz@rnskx6qj2cxy>
-References: <20260810205038.118843-1-weilin.chang@arm.com>
- <20260902163500.1841671-1-wanghan@linux.alibaba.com>
- <877bl26aqg.wl-maz@kernel.org>
- <wsnf276xrun3g4hjr3t6alprapctg5z4kpj422v3hujqdjnrsa@swq4blkqvvj5>
- <875x0l5udh.wl-maz@kernel.org>
- <eylfcgxs2xzu57czyuhkpmum45lpxyccyu2yh3mipr67aq3xo6@xinygxzavoja>
- <2bde734c-eb86-4c7a-958d-b431e6d13671@linux.alibaba.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="W4Q8SsX0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0744E1F00A3A;
+	Sat,  5 Sep 2026 23:49:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788652187;
+	bh=p14q8RLb24PxaMUYcK7wccluqPq4Jq34o6+JYyS8wt0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=W4Q8SsX0rX3ZIF72rGvSAwiSKnpfIGVQQvms336X/+gNpc4Mp7DVvMswijn/SoNTW
+	 g8TmYkJzVCGpYbORmVgzL9oCzgB+fKi0WXJigxzSF+8rIcPXYcvcixX2TvW3yfI1IT
+	 mixVVFWqFWGf7wp8It8g5Q2fKu1lijAYbSbgESgI=
+Date: Sat, 5 Sep 2026 16:49:46 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: David Stevens <stevensd@google.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt
+ <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, Lorenzo
+ Stoakes <ljs@kernel.org>, cgroups@vger.kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Michal Hocko <mhocko@suse.com>
+Subject: Re: [PATCH v2] memcg: Don't call schedule_work when no spinning is
+ allowed
+Message-Id: <20260905164946.ff22c7cf24445057dadc89a6@linux-foundation.org>
+In-Reply-To: <20260904173145.2028377-1-stevensd@google.com>
+References: <20260904173145.2028377-1-stevensd@google.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2bde734c-eb86-4c7a-958d-b431e6d13671@linux.alibaba.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sat, Sep 05, 2026 at 11:49:32PM +0800, Shuai Xue wrote:
+On Fri,  4 Sep 2026 10:31:45 -0700 David Stevens <stevensd@google.com> wrote:
 
-[...]
+> Memcg charging can be done from any context, but calling schedule_work()
+> isn't safe from an NMI. If memory.high is breached from a context where
+> spinning isn't allowed, use irq_work to schedule the reclaim work.
+> 
+> Fixes: 3ac4638a734a ("memcg: make memcg_rstat_updated nmi safe")
 
-> 
-> Hi Wei-Lin,
-> 
-> Your PARange analysis is what this whole diagnosis rests on -- the
-> 48-bit/256x arithmetic is exactly right, and our ftrace data confirms
-> it to the chunk: every full-IPA kvm_nested_s2_unmap() in our traces
-> walks precisely 262,144 1GB chunks, the number from your table. The
-> kvm_ipa_limit=40 experiment also pointed straight at the answer. I'd
-> only push back on the last sentence:
-> 
-> > 
-> > With this, I think there aren't other underlying issues, it just is that
-> > slow unfortunately..
-> 
-> 
-> I don't think it is "just that slow" -- I think it is a specific
-> regression, and your own data localizes it better than the conclusion
-> suggests.
-> 
-> The thing is, kvm_ipa_limit=40 cannot tell *what* each chunk spends
-> its ~3.3us on, because the walk is also per-chunk: cutting the chunk
-> count by 256x shrinks both terms together, whichever one dominates.
-> The experiment that separates them is one where the chunk count does
-> not change at all.
-> 
-> We ran that experiment. Details are in my reply to Marc, but the
-> short version:
-> 
->   - Before: 877ms per callback, 262,144 chunk calls, 262,144
->     broadcasts. Chunk count and broadcast count are exactly equal
->     (8,476,033 = 8,476,033 over the trace window) -- every chunk
->     ends in a broadcast, mapped or not. Per chunk, ~4.6us of the
->     ~5.1us is inside kvm_tlb_flush_vmid_range(); the walk of an
->     empty chunk is ~0.2us. In an uncontended numad episode, 87% of
->     the 1312ms is flush time and 8% is walk time.
-> 
->   - After conditioning the flush on the walk having actually cleared
->     a valid leaf (the candidate fix in my other mail): same 262,144
->     chunks, same walk, ~110ms instrumented. Nothing about the walk
->     changed -- ~3.1us of the per-chunk 3.3us was the broadcast.
-> 
->   - And the table really is empty, as Marc says: with the flush
->     count acting as a detector, the first full-IPA unmap of the boot
->     issues 2 flushes (the EL1-boot-period mappings, a few dozen
->     pages in two 1GB chunks); all 35 subsequent ones issue zero.
-> 
-> The code history agrees. Before 7657ea920c54, the TLBI lived inside
-> stage2_put_pte()'s 'if (kvm_pte_valid(ctx->old))' -- an empty walk
-> issued zero invalidations, ever. v6.6 hoisted the invalidation out
-> to the end of kvm_pgtable_stage2_unmap() to batch it into one range
-> TLBI per call, but the condition got dropped on the way. So "since
-> v6.6, the cost is proportional to the IPA range, not to the number
-> of mappings" -- which is precisely why the empty table pays in full,
-> and why I'd frame it as a fixable regression rather than an inherent
-> cost.
-> 
-> None of this subtracts from your PARange finding -- it depends on
-> it. The 42s -> <1s result was the 256x chunk scaling; the remaining
-> <1s is what the conditional flush removes.
+Thanks.
 
-Thanks for the analysis!
+To fill in the desirable statement of user impact, I pasted this from
+the v1 thread:
 
-I completely agree. My finding was only a small part of the full
-picture. I stopped at finding out the real iteration count and didn't
-realize 3-5us is a long time for a kvm_pgtable_stage2_unmap() on a empty
-table (thanks for the learning opportunity).
+: Found this via code inspection.  I spent a little bit trying to trigger it
+: for real, but the only way I managed was by writing a hacky driver absuing
+: alloc_pages_nolock().
 
-So, because there are no relevant tlb entries created in the first
-place, the per iteration TLBIs and barriers are mostly doing nothing
-useful and cause a 10x slowdown.
 
-Thanks,
-Wei-Lin Chang
-
-> 
-> Thanks,
-> Shuai
-> 
-> 
