@@ -1,93 +1,104 @@
-Received: from mail.lysator.liu.se (mail.lysator.liu.se [130.236.254.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A21D61FCE;
-	Sat,  5 Sep 2026 05:46:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.236.254.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87A3761FCE;
+	Sat,  5 Sep 2026 05:49:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788587212; cv=none; b=H7rLl+rW2R0gM+i4v/fumvvQOTmdTFAr+P1/EM9HcS8c92sEL5oBCvB1NFQ0LQQy9o5zUWOVwnBcyLGmBdxului8qfWVV07o00oEGaLkvYTHqwhIc4KZQj0kRhirsOd6IbfsH6QtyxkaUTksscWSMmr/0NNdcpxmL/9Ti56pGjw=
+	t=1788587349; cv=none; b=WJs5StxZ5GsxcviMqilF14DtJgyyGaU3rbd7qoftK2UqMD37CDFWlGQ5hvosp0dWpkFWrvfAPyzvWQQxuFYGuIfG8E+4xdRT/oawwbSe3VsSXgCEWcS7RepeplcGBBJpaHI+OJKl3o1Z19hfo3GbcSbZJDKf0HTe6uapR0gWrdQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788587212; c=relaxed/simple;
-	bh=vzirXV3YRTUsE9Pet37gIC9ZEJyZc/pn+LekQDQJDGY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=f8PW2H55/UIiulf2al+KPPb2PhIAro8MdbHkkDjKWd+GzO2cVU6Cg0ZpL7DZcF2EMcPrA5IwWSOb6b9TxjgV4pcIF5XcTecG2Hql8XdJsc/b/lLlQbTiyUQY6dUW0s3WQfYiqXzZw0+J0PJpq7bFv4G4oC7SM/etixMtmCcGXwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se; spf=pass smtp.mailfrom=lysator.liu.se; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=uee/Ekt5; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=uee/Ekt5; arc=none smtp.client-ip=130.236.254.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lysator.liu.se
+	s=arc-20240116; t=1788587349; c=relaxed/simple;
+	bh=dLgyqMjJrt6QoHcIhrs2GwJlrjB833hjrC0NvbX6Bb8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=p1EuHa7xPdsR3xuGSpUMIj3cdCypXxtcXZeixwTkAQhxpaTzCPLF0IjZmaNYtM/uZZwdpIRg1UvaGhXK4wrhcnd9l7MkXYdN/9ncc1bdZPZDVdAXLqd0YQgAjj9aLJOkkBit2CRazqTKrNqoRQ68Ht0wq+RPUiGhBkl1FUZvLVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=RX8dqXbP; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="uee/Ekt5";
-	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="uee/Ekt5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
-	s=2026; t=1788587198;
-	bh=vzirXV3YRTUsE9Pet37gIC9ZEJyZc/pn+LekQDQJDGY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=uee/Ekt5am6ThNvkulDNjzTZ6dr5tEFuy2T0CaGKwanKxoid0Vo2HpguHyKcU8yy9
-	 Wr4QCAMKTT5bPKTHTKrM8w6BhLayipI4m/onE12HywF5s7D4DQ703Xc6VvSvv8AIY8
-	 mSSArDKG2LOW5yqlWweO3mfsswggxPbrtyKSBlCTw6eJ94bvqzwHl1zik3wYfuZg4M
-	 CmQ2DfqK1fqS09BRj+Z/H6Sr1B9NnW802wF8Pe39F1zLZkgr7kjzXhezjAMX66yWqo
-	 usiQymq2lHKYovasi+KBnIn0WotYbVwVdWUl4PaTaczllVT6Xzcxa3A1I1qs4ef7QK
-	 /qhfOCinj9ttw==
-Received: from mail.lysator.liu.se (localhost [127.0.0.1])
-	by mail.lysator.liu.se (Postfix) with ESMTP id A00523557;
-	Sat,  5 Sep 2026 07:46:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
-	s=2026; t=1788587198;
-	bh=vzirXV3YRTUsE9Pet37gIC9ZEJyZc/pn+LekQDQJDGY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=uee/Ekt5am6ThNvkulDNjzTZ6dr5tEFuy2T0CaGKwanKxoid0Vo2HpguHyKcU8yy9
-	 Wr4QCAMKTT5bPKTHTKrM8w6BhLayipI4m/onE12HywF5s7D4DQ703Xc6VvSvv8AIY8
-	 mSSArDKG2LOW5yqlWweO3mfsswggxPbrtyKSBlCTw6eJ94bvqzwHl1zik3wYfuZg4M
-	 CmQ2DfqK1fqS09BRj+Z/H6Sr1B9NnW802wF8Pe39F1zLZkgr7kjzXhezjAMX66yWqo
-	 usiQymq2lHKYovasi+KBnIn0WotYbVwVdWUl4PaTaczllVT6Xzcxa3A1I1qs4ef7QK
-	 /qhfOCinj9ttw==
-Received: from gryt (81-225-28-11-no2391.tbcn.telia.com [81.225.28.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by mail.lysator.liu.se (Postfix) with ESMTPSA id 585E835D8;
-	Sat,  5 Sep 2026 07:46:38 +0200 (CEST)
-Date: Sat, 5 Sep 2026 07:46:36 +0200
-From: Peter Rosin <peda@lysator.liu.se>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Ahmad Byagowi <ahmadexp@gmail.com>, Andi Shyti <andi.shyti@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 1/2] i2c: mux: Factor out channel node lookup
-Message-ID: <apusvKc2PnSShaoI@gryt>
-References: <cover.1788298883.git.ahmadexp@gmail.com>
- <89780f7db207c7fe7adbd45e1f38f0a041794c8f.1788298883.git.ahmadexp@gmail.com>
- <apnRfWVAiXj1fRXs@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="RX8dqXbP"
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 2F891883C9;
+	Sat, 05 Sep 2026 07:49:04 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id HN4AlLPN_2I6; Sat,  5 Sep 2026 07:49:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1788587343; bh=dLgyqMjJrt6QoHcIhrs2GwJlrjB833hjrC0NvbX6Bb8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RX8dqXbPZXUzXy91NZ7MRhX0CkfXZ18pgqtfmXqOY8DWqMe8wmLa8B0eSdi53aZJU
+	 MZmWm0CLbT4m8QTVBs4lRs6MaLjkYWDGdj8TYLF0NolXfal7Y3x7+1SCvRDVSsj9ZF
+	 gxGwQ9ohJNsZV7PKXKXbp0tSblmwNKa1uYF6kSbHt4x2xWM0Wq2PyZiMSyee8oWoGO
+	 BsiistNCCfOFLs2868tyLvUpjJEDpE1OcisdSCEqMv4g4/BSRUNRfwMuNNmOyfnOxm
+	 7cgKj6W8y33VSr1ITIC5kc0o3hVC4j9sg539Hbgo7YDLNcRwkq2RokqGY/0wWLybVQ
+	 jDE1UlUVBo4Sg==
+From: Marco Scardovi <scardracs@disroot.org>
+To: Devin Wittmayer <lucid_duck@justthetip.ca>
+Cc: Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>,
+ Ryder Lee <ryder.lee@mediatek.com>, Deren Wu <deren.wu@mediatek.com>,
+ Ming Yen Hsieh <mingyen.hsieh@mediatek.com>,
+ Klara Modin <klarasmodin@gmail.com>, David Gow <david@davidgow.net>,
+ linux-wireless@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH] wifi: mt76: mt792x: fix NULL pointer dereference in
+ mt792x_init_acpi_sar_power
+Date: Sat, 05 Sep 2026 07:48:50 +0200
+Message-ID: <oWkA8ZPAS2aI62u9I6EKqQ@disroot.org>
+In-Reply-To: <20260904234838.19342-1-lucid_duck@justthetip.ca>
+References:
+ <20260904161826.5638-1-scardracs@disroot.org>
+ <20260904234838.19342-1-lucid_duck@justthetip.ca>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apnRfWVAiXj1fRXs@ashevche-desk.local>
-X-Virus-Scanned: ClamAV using ClamSMTP
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Den Thu, Sep 03, 2026 at 10:58:53PM +0300, skrev Andy Shevchenko:
-> On Thu, Sep 03, 2026 at 12:40:55PM -0700, Ahmad Byagowi wrote:
-> > Move the existing Device Tree channel-node lookup into a helper in
-> > preparation for using generic firmware-node operations.
-> > 
-> > This is a pure refactoring with no functional change.
-> 
-> ...
-> 
-> > +static struct device_node *
-> > +i2c_mux_get_channel_node(struct i2c_mux_core *muxc, u32 chan_id)
-> > +{
-> > +	struct device_node *dev_node;
-> > +	struct device_node *mux_node, *child;
-> 
-> Now all three can be defined in a single line.
+In data sabato 5 settembre 2026 01:48:38 Ora legale dell=E2=80=99Europa cen=
+trale,=20
+Devin Wittmayer ha scritto:
+> On Fri, 4 Sep 2026 18:18:26 +0200, Marco Scardovi wrote:
+> > Fixes: f965333e491e ("mt76: mt7921: introduce ACPI SAR support")
+>=20
+> There is a patch for this from 25 August:
+>=20
+> =20
+> https://lore.kernel.org/linux-wireless/20260825181712.28548-1-lucid_duck@=
+ju
+> stthetip.ca/
+>=20
+> Klara Modin reported it, David Gow confirmed the fix on a Framework 13.
+>=20
+Hi Devin,
 
-They could, but three is a crowd. So, if you bother to send an update,
-please use one declaration per line instead to make future diffs
-clearer.
+sorry, I didn't notice that a thread was already opened so I supposed no
+one reported it at all.
+> One note on the Fixes tag. The crash needs a regulatory update to run
+> before registration, and that only started with these:
+>=20
+>   9b80bd9cab40  2026-06-09  mt7921 regulatory wiphy self manager
+>   e9f3f1cc133f  2026-06-09  mt7925 regulatory wiphy self manager
+>=20
+> Before those it just set flags, so the 2022 commit would reach stable
+> kernels that never had the bug.
+>=20
+You are right on that, I'll pay more attention next time
+> Your trace enters through the regulatory notifier, mine through
+> firmware init. I could not find mt7921_regd_notifier_work in mt76
+> here, so if you have a second trigger I would like to see it.
+>=20
+The whole patch is as you see it but: I didn't add anything more.
+Tbh I was working on a whole different sub but the OS refused to start
+because of this one so I came up with the absolute minimum patch to
+make it working
+> Thanks for taking this one on.
+>=20
+> Devin
+At this point you can count this patch as void. Thank you for your time,
+Marco
 
-Cheers,
-Peter
+
