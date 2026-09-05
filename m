@@ -1,32 +1,33 @@
-Received: from mta1.migadu.com (out-126.mta1.migadu.com [95.215.58.126])
+Received: from mta0.migadu.com (out-149.mta0.migadu.com [91.218.175.149])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 691AE26158B
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 03:05:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.126
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D2C328B71
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 03:05:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788577548; cv=none; b=jYmt2/Ed+SEC5JYOMp8r/RiaOHws/HYKzqKRW2eQAU7U6qXQ7vMMRKQ1TNEa3c9RNqlos+MzSbOtTgKTBwWSaAmZwPfwpx+ZE/02YtSMm1ZsXwUAOQ3mRwQB/8+TcX9EraUQkIxGw3vxStV1ZoYntDE1cyN7Saj3KGUtLEeGQyA=
+	t=1788577548; cv=none; b=b/2WZM6QNUCtg3aR8UbhdJQKGIvbtTlPgBeaXxlJT3jYD0UVkPIOZxfJ3OlRG1YWvJGiaA7Zwb4ebH7/PWx6zN2Q0+JGulN4svS57fuOZindFQrOtbMsMzk/oaSsO4oBw8SF1AGygJBmSZUMoCem9DRoB4uLAauAJ34QAeInepM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788577548; c=relaxed/simple;
-	bh=wLT7iFs3MczdphYR4AkXje9YdWj0uWa+VrRt5sOOktY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TphkNBMTTUXtid2zNt8NjtIxE/F/up5k90oYnfDhZ1mR/n/Bc6UtoZinpsO42gBsttinMTkpzpwECzuYbZjzhxdSvFtxjbZYr3+LqA1a+aWcyDXi6oZfsgnz0W1xKWrWzjTIoF1/Qm/Q/SUQMOpct4X3k6clczETALxGLphjQF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jjyS1sLK; arc=none smtp.client-ip=95.215.58.126
+	bh=DhoeiXFp7UyoSRxvvEzH1+kOUdYsRS2oS9Jn9zavQlk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hMoxbCg9Fx9DJ/yJFqrmz7unMk3+Oftg4v+PK3QG38UYBt5dQ7mLUwmN5GoohRxkWYyC9q64MPqh3r3fxNFbncMzDja6IPYWg8YIXcPE458ny3KAMIRoQSjH3iTLGWA43GCaxSitoaD1jM4147rWPwZHVxwrnOq4eqTPs91+JvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Yql80JcS; arc=none smtp.client-ip=91.218.175.149
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jjyS1sLK"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Yql80JcS"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=wLT7iFs3MczdphYR4AkXje9YdWj0uWa+VrRt5sOOktY=;
+DKIM-Signature: a=rsa-sha256; bh=DhoeiXFp7UyoSRxvvEzH1+kOUdYsRS2oS9Jn9zavQlk=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788577543; v=1; x=1789182343;
- b=jjyS1sLKPLphMwjUl3G1ZF2HBLcmNhPySNR4zxAcS88QvzF054XCtu14AWqqegKIG3s1pQvb
- b8QIDdHj9I8FHubHIlAzhTHgyPykidsgXl+mePQcPg81fhfob1uUDiQ62fF7DwOMfS3VFnWkKAh
- GjjNHCxS45UZAIsX4M90Q8T0=
+ t=1788577544; v=1; x=1789182344;
+ b=Yql80JcSu02o0RCt4JLOLCs8wE+G4nIh0vSz84qwOwMxZ34VFcmPmb3dTFVIdefKdWQl5TnG
+ RVj6URvSfwVQf7/hjowyk4xVaFC/aoAvO+JOiHFFjBuZ4T9xDtmt0qygmjUlWm9IOYmrXM0ecxH
+ YcoDIQqR1JopgQtbUDFn94d8=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 50c0c96e9f01a2e5;
-	Sat, 05 Sep 2026 03:05:33 +0000
-X-Mizu-Trace-ID: 50c0c96e9f01a2e5
+Received: by smtp.migadu.com with ESMTPS id 2febea93e74d4996;
+	Sat, 05 Sep 2026 03:05:44 +0000
+X-Mizu-Trace-ID: 2febea93e74d4996
 X-Migadu-Flow: FLOW_OUT
 From: Shakeel Butt <shakeel.butt@linux.dev>
 To: Andrew Morton <akpm@linux-foundation.org>
@@ -39,10 +40,12 @@ Cc: Johannes Weiner <hannes@cmpxchg.org>,
 	cgroups@vger.kernel.org,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/6] memcg: group struct fields by access pattern
-Date: Fri,  4 Sep 2026 20:05:16 -0700
-Message-ID: <20260905030522.1887837-1-shakeel.butt@linux.dev>
+Subject: [PATCH 4/6] memcg: group the cold fields of struct mem_cgroup
+Date: Fri,  4 Sep 2026 20:05:20 -0700
+Message-ID: <20260905030522.1887837-5-shakeel.butt@linux.dev>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260905030522.1887837-1-shakeel.butt@linux.dev>
+References: <20260905030522.1887837-1-shakeel.butt@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,68 +54,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Every so often we get a memcg performance regression caused by nothing
-more than a field moving. Someone adds a field, removes one, or puts a
-few behind a config option. The layout shifts, fields with different
-access patterns land on the same cache line, and a bot reports a
-regression.
+These fields are only touched by the cgroup control paths:
 
-Two examples. commit 98c9daf5ae6b ("mm: memcg: guard memcg1-specific
-members of struct mem_cgroup_per_node") moved lruvec next to
-lru_zone_size[] and needed commit f59adcf59332 ("mm: memcg: add
-cacheline padding after lruvec in mem_cgroup_per_node") to fix it.
-commit c1afbd5de131 ("mm/memcontrol: avoid false sharing between
-vmstats and events") had to add ____cacheline_aligned_in_smp for the
-same reason.
+  memory_peaks, swap_peaks, peaks_lock   memory.peak open/read/release
+  events_file, events_local_file,
+  swap_events_file                       cgroup_file_notify()
+  cgwb_list, cgwb_domain, cgwb_frn       writeback setup and the
+                                         foreign dirty slow path
+  mm_list                                MGLRU mm list
 
-Each fix was correct but nothing stops the next field addition
-from undoing it.
+They sit in the middle of the struct today. The three cgroup_file
+members alone are 192 bytes of notify state next to the vmstats
+pointer. Put them in one cache line group.
 
-This series makes the layout a contract the compiler checks, the same
-way struct net_device does it. Fields are sorted into named cache line
-groups by access pattern, and memcg_struct_check() verifies at build
-time that every field sits in its group. A field added in the wrong
-place now breaks the build instead of quietly costing a few percent.
+No functional change.
 
-struct mem_cgroup gets three groups:
+Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+---
+ include/linux/memcontrol.h | 49 ++++++++++++++++++++++----------------
+ mm/memcontrol.c            | 25 +++++++++++++++++++
+ 2 files changed, 53 insertions(+), 21 deletions(-)
 
-  memcg_write_hot     written on the charge, reclaim and socket paths
-  memcg_cold          only the cgroup control paths touch these
-  memcg_read_mostly   set when the memcg is created, then only read
-
-Testing
-=======
-
-The cgroup selftests give identical results with and without the series.
-
-For performance, two identical 30 core Xeon machines each ran both
-kernels, with the boot order swapped between them so that machine and
-order effects cancel. The useful tests run two workloads at once in one
-cgroup, because false sharing only shows up when one side reads a field
-that the other side writes.
-
-  slab allocs + page faults, slab side           +1.2%
-  page faults + memory.stat readers, fault side  +1.3%
-  page faults + memory.stat readers, reader side +0.8%
-  everything else                                no change
-
-No test regressed. The gains are small but the point of the series is
-the build time contract.
-
-Shakeel Butt (6):
-  memcg: move per-node objcg to the read-mostly fields
-  memcg: split mem_cgroup_private_id into two fields
-  memcg: group the write-hot fields of struct mem_cgroup
-  memcg: group the cold fields of struct mem_cgroup
-  memcg: group the read-mostly fields of struct mem_cgroup
-  memcg: group the fields of struct mem_cgroup_per_node
-
- include/linux/memcontrol.h | 169 ++++++++++++++++++++++---------------
- mm/memcontrol.c            | 122 ++++++++++++++++++++++++--
- 2 files changed, 213 insertions(+), 78 deletions(-)
-
-
-base-commit: 817d340204c513316223ba084615f5906ac49ddb
+diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+index 32b77ec5ba98..635929a1f13b 100644
+--- a/include/linux/memcontrol.h
++++ b/include/linux/memcontrol.h
+@@ -228,11 +228,37 @@ struct mem_cgroup {
+ 
+ 	__cacheline_group_end_aligned(memcg_write_hot);
+ 
++	/*
++	 * Off the charge and fault paths.  Not write free: cgwb_domain is
++	 * written on every writeout completion and mm_list on fork, exit and
++	 * MGLRU aging.  They are grouped here so those writes cannot land on
++	 * a line that the fast paths read.
++	 */
++	__cacheline_group_begin_aligned(memcg_cold);
+ 	/* registered local peak watchers */
+ 	struct list_head memory_peaks;
+ 	struct list_head swap_peaks;
+ 	spinlock_t	 peaks_lock;
+ 
++	/* memory.events and memory.events.local */
++	struct cgroup_file events_file;
++	struct cgroup_file events_local_file;
++
++	/* handle for "memory.swap.events" */
++	struct cgroup_file swap_events_file;
++
++#ifdef CONFIG_CGROUP_WRITEBACK
++	struct list_head cgwb_list;
++	struct wb_domain cgwb_domain;
++	struct memcg_cgwb_frn cgwb_frn[MEMCG_CGWB_FRN_CNT];
++#endif
++
++#ifdef CONFIG_LRU_GEN_WALKS_MMU
++	/* per-memcg mm_struct list */
++	struct lru_gen_mm_list mm_list;
++#endif
++	__cacheline_group_end_aligned(memcg_cold);
++
+ #ifdef CONFIG_ZSWAP
+ 	unsigned long zswap_max;
+ 
+@@ -248,37 +274,18 @@ struct mem_cgroup {
+ 	 */
+ 	bool oom_group;
+ 
+-	/* memory.events and memory.events.local */
+-	struct cgroup_file events_file;
+-	struct cgroup_file events_local_file;
+-
+-	/* handle for "memory.swap.events" */
+-	struct cgroup_file swap_events_file;
+-
+ 	/* memory.stat */
+ 	struct memcg_vmstats	*vmstats;
+ 
+ 	int kmemcg_id;
+ 
+-#ifdef CONFIG_CGROUP_WRITEBACK
+-	struct list_head cgwb_list;
+-#endif
+-
+ 	/* Keep the hot per-CPU stats pointer away from memory event counters. */
+ 	struct memcg_vmstats_percpu __percpu *vmstats_percpu
+ 		____cacheline_aligned_in_smp;
+ 
+-#ifdef CONFIG_CGROUP_WRITEBACK
+-	struct wb_domain cgwb_domain;
+-	struct memcg_cgwb_frn cgwb_frn[MEMCG_CGWB_FRN_CNT];
+-#endif
+-
+-#ifdef CONFIG_LRU_GEN_WALKS_MMU
+-	/* per-memcg mm_struct list */
+-	struct lru_gen_mm_list mm_list;
+-#endif
+-
+ #ifdef CONFIG_MEMCG_V1
++	/* v1 only. Not grouped: v1 is legacy, sorting it is not worth it. */
++
+ 	/* Legacy consumer-oriented counters */
+ 	struct page_counter kmem;		/* v1 only */
+ 	struct page_counter tcpmem;		/* v1 only */
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 2e209dedeb4f..b2cc82c936ed 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -5754,6 +5754,31 @@ static void __init memcg_struct_check(void)
+ 				      high_irq_work);
+ 	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_write_hot,
+ 				      high_work);
++
++	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_cold,
++				      memory_peaks);
++	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_cold,
++				      swap_peaks);
++	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_cold,
++				      peaks_lock);
++	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_cold,
++				      events_file);
++	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_cold,
++				      events_local_file);
++	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_cold,
++				      swap_events_file);
++#ifdef CONFIG_CGROUP_WRITEBACK
++	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_cold,
++				      cgwb_list);
++	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_cold,
++				      cgwb_domain);
++	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_cold,
++				      cgwb_frn);
++#endif
++#ifdef CONFIG_LRU_GEN_WALKS_MMU
++	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_cold,
++				      mm_list);
++#endif
+ }
+ 
+ int __init mem_cgroup_init(void)
 -- 
 2.53.0-Meta
 
