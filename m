@@ -1,78 +1,211 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F237E2459EA;
-	Sat,  5 Sep 2026 01:11:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70F8E37C0FD;
+	Sat,  5 Sep 2026 01:13:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788570675; cv=none; b=TqW9l+7xfy/0Jx8U1sh7t+0U6WGjIR7WPmQbiq3UmDsibnAIg+9/ojqmJyjVSB/7CdjulnoaYQDLNJp963iAlg9ZNc94YeCUVPJUig4M/plKQ7z9/iURLDbuTjmggryKNIEadaITxIh9162vl1RfdsWBDBoaEvRVzJmvxpAxEGY=
+	t=1788570817; cv=none; b=L0VHxBt4ZUzkqpSoyMFHIcPndDW1IhltmkGNOnlUq+ncli5RKyqRRIehE5S8m6+OEopki4HWbJ5WfyqmtSdONVJ+TzbkskGcV7XU57r7PJNujWoupgoAH+sDTBev6wZDDOPnXJt+Q0HsuKLDIwJWp9cBUGsoGxyer9btbL1xSqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788570675; c=relaxed/simple;
-	bh=DObh0bhxchINFzCdCch8hAytuM+fDC3O6uWJdtvn3p0=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=TIxisccbFRbHpmPWyuMhRKnuArDwqeuhAOHS1lc8imnPguXqOV3qLaeI9HHTuCRw1i6dKGkKpl47cm4UnlknOkHmsT3xal917aPRhLQXlkVLIVb0g+/7mnkmSEQb+x9XmxjL0GIGP311MgwP9Q9tbVxGiFoWhc8cXUzUgTMFJkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a7j+u8RI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788570817; c=relaxed/simple;
+	bh=dnDgREOsIu5gsLEIgA21mvtCTdYSfSaHQ2v1OoLdUEo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jhL5uZLHqgAY9LqoZte845H455wad5VjJ973xTUW8FgiAa9gaS7xhLuh+BxIf0a5A6aTs15BhBlMUmtVVi+BCYFFgNUUxvbQC3tb1Q974J8p0ZFdSPspN/mozpDmnFpvuJZRYPtCdCUDAz2dVdBTMhSaitzDCfjue/8y4nR6YO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f3/ccAQa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a7j+u8RI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85B481F00A3D;
-	Sat,  5 Sep 2026 01:11:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f3/ccAQa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CE281F00A3D;
+	Sat,  5 Sep 2026 01:13:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788570673;
-	bh=d7cfKCnUtikvVVDDboKxwvhfseWrrDeV4PaiCJ7rJ/0=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=a7j+u8RIR1CEP7BEWLeOFl/Y8hx1ElLgf74KGQdWaFxIx0D5M2ezqg+HKZh7Oix+p
-	 U/foVZ4p96KSGubJRBCVlTKSgs+AFhVyxQ+DZr81GK3Aj/UvWmi73OP0oTdQpX6xxx
-	 fC9pAFhCyFfbkQLKCIqP32EZwlMz7dbuu4ITpOJHr1YUfWXy7MEcJB8fJEoNrw1LSP
-	 xMJl2pkEEVdISgiB+rfqNRZojrAJsUEvCNzhV6+5/1IaYfPlP9pfRdNuBg0zyFoixm
-	 18dxc3ETgBGJIjCbBWpp9LrjIcC0wM0tLqhVYRmTOiMOw+KqoH+WXEncbKXmkjNS1c
-	 xd3Seen8UKKnw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 568EE3924FC0;
-	Sat,  5 Sep 2026 01:10:15 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1788570816;
+	bh=7ZOcGQ+was0TtjEfcbmEVy67dZ/1OlBNFQ+Jrh265c8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=f3/ccAQagFEY2UrWtyHgUKsXmMxvV8zE0CHX4KYG6LmF3a8zQ6bCmbjmTU+HcaN5p
+	 Xw9vMriIHme+p1GToXsF0/KFj9UZWPeyTuV6vnN/l35igQHS/HgtzbjcamBTk5O72V
+	 CRR2vDkZ+a+MoIHOWZrNwEWyFM9zwOpEFlAIRCQcU31CeJWe74AZRK8IHTbfW3Mcw+
+	 xRxJxkCxgUKSqUNt3tl0V1DqKaDBPx6rbymNTNVqsKht/eUZjlygrpyozVxC82GpQt
+	 ztBI7jFH5twVHAKq9/YVKxlVCC/ibBxxHw6yhZB7tU1WVars+BfmlcOdCgX5B3jAE3
+	 Nk/GJhJOWINqw==
+Date: Sat, 5 Sep 2026 02:13:30 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Wadim Mueller <wafgo01@gmail.com>
+Cc: Maxwell Doose <maxwell@maxwelld.cc>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Jonathan Cameron
+ <jonathan.cameron@oss.qualcomm.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Li Youhong <dayou5941@163.com>, Li Youhong
+ <liyouhong@kylinos.cn>, Brendan Higgins <brendan.higgins@linux.dev>, David
+ Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com
+Subject: Re: [PATCH 1/2] iio: flow: slf3s: keep the vdd supply balanced
+ across suspend/resume
+Message-ID: <20260905021330.2943f35e@jic23-huawei>
+In-Reply-To: <20260904-iio-slf3s-pm-regulator-kunit-v1-1-5ea61e6d6db2@gmail.com>
+References: <20260904-iio-slf3s-pm-regulator-kunit-v1-0-5ea61e6d6db2@gmail.com>
+	<20260904-iio-slf3s-pm-regulator-kunit-v1-1-5ea61e6d6db2@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next] octeontx2-af: Show DMAC filter drop count
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178857061389.1044635.8541013262312747792.git-patchwork-notify@kernel.org>
-Date: Sat, 05 Sep 2026 01:10:13 +0000
-References: <20260901042503.1182121-1-nshettyj@marvell.com>
-In-Reply-To: <20260901042503.1182121-1-nshettyj@marvell.com>
-To: Nitin Shetty J <nshettyj@marvell.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, hkelam@marvell.com,
- sgoutham@marvell.com, rkannoth@marvell.com, gakula@marvell.com,
- sbhatta@marvell.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- richardcochran@gmail.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello:
+On Fri, 04 Sep 2026 21:24:25 +0200
+Wadim Mueller <wafgo01@gmail.com> wrote:
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Tue, 1 Sep 2026 09:55:02 +0530 you wrote:
-> From: Hariprasad Kelam <hkelam@marvell.com>
+> slf3s_resume() enables vdd and then restarts the measurement.  When the
+> restart fails it returns an error with the supply still on, and
+> slf3s_suspend() bails out before regulator_disable() when the stop
+> command fails.  Both paths leave the driver's idea of the power state and
+> the regulator use count out of sync.
 > 
-> Show the number of packets dropped by DMAC filters in the CGX/RPM
-> debugfs mac_filter entry.
+> The PM core only runs the resume callback when the preceding suspend
+> callback returned 0 (device_suspend() sets power.is_suspended on success
+> only, and device_resume() bails out when it is clear), so the enable
+> count cannot climb above one.  The damage is different:
 > 
-> CGX uses RX_STAT4 for this counter, while RPM/RPM2 use RX_STAT2.
+>  - After a failed restart the sensor stays powered but idle.  Every
+>    following suspend then fails too, because the idle part NACKs the
+>    stop command and slf3s_suspend() returns early - the system can no
+>    longer suspend at all until the driver is rebound.
+
+That resume errors don't stop the state transition is rather annoying
+and leads to all this complexity being needed. Given how few
+drivers go to this level of complexity I suspect it is mostly luck
+if any recover from a failure in these callbacks.   All bets
+are pretty much off if your power supplies are returning errors
+so I guess that is kind of fair enough!
+
 > 
-> [...]
+>  - If regulator_enable() itself fails during resume, the next suspend is
+>    free to run.  Should the stop command succeed there, the driver calls
+>    regulator_disable() on a supply it never enabled, which trips
+>    "unbalanced disables" in the regulator core and aborts the system
+>    suspend with -EIO.  The devm cleanup has the same problem on unbind.
+> 
+> Track the supply state in the driver and drive regulator_enable() and
+> regulator_disable() from that state only.  A stop command that fails no
+> longer keeps the supply on: it is cut right afterwards anyway.
+> 
+> Reported-by: Li Youhong <liyouhong@kylinos.cn>
 
-Here is the summary with links:
-  - [net-next] octeontx2-af: Show DMAC filter drop count
-    https://git.kernel.org/netdev/net-next/c/5cce5d29273c
+Given Li Youhong has been proposing patches for this I'd definitely like
+their input on this one.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+> Closes: https://lore.kernel.org/linux-iio/20260901025010.356735-1-dayou5941@163.com/
+> Fixes: d240b0b8a1ce ("iio: flow: add Sensirion SLF3S liquid flow sensor driver")
+> Signed-off-by: Wadim Mueller <wafgo01@gmail.com>
+> ---
+>  drivers/iio/flow/slf3s.c | 35 +++++++++++++++++++++++++++++------
+>  1 file changed, 29 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/iio/flow/slf3s.c b/drivers/iio/flow/slf3s.c
+> index dfa7c1409045..37f40685e9d9 100644
+> --- a/drivers/iio/flow/slf3s.c
+> +++ b/drivers/iio/flow/slf3s.c
+> @@ -110,6 +110,7 @@ static const struct slf3s_variant slf3s_variants[] = {
+>   * @vdd:	supply regulator, disabled while suspended
+>   * @variant:	pointer into @slf3s_variants for the detected device
+>   * @medium:	currently active calibration medium
+> + * @vdd_on:	tracks whether @vdd is currently enabled by this driver
+>   * @lock:	serialises the multi-step command/response exchanges
+>   * @crc_table:	pre-computed CRC-8 lookup table for SLF3S_CRC8_POLY
+>   */
+> @@ -118,6 +119,7 @@ struct slf3s_data {
+>  	struct regulator *vdd;
+>  	const struct slf3s_variant *variant;
+>  	enum slf3s_medium medium;
+> +	bool vdd_on;
+>  	struct mutex lock;
+>  	u8 crc_table[CRC8_TABLE_SIZE];
+>  };
+> @@ -382,6 +384,12 @@ static void slf3s_disable_vdd(void *data)
+>  {
+>  	struct slf3s_data *sf = data;
+>  
+> +	guard(mutex)(&sf->lock);
+> +
+> +	if (!sf->vdd_on)
+> +		return;
+> +
+> +	sf->vdd_on = false;
+>  	regulator_disable(sf->vdd);
+>  }
+>  
+> @@ -416,6 +424,8 @@ static int slf3s_probe(struct i2c_client *client)
+>  	if (ret)
+>  		return dev_err_probe(dev, ret, "failed to enable vdd supply\n");
+>  
+> +	sf->vdd_on = true;
+> +
+>  	ret = devm_add_action_or_reset(dev, slf3s_disable_vdd, sf);
+>  	if (ret)
+>  		return ret;
+> @@ -453,10 +463,8 @@ static int slf3s_probe(struct i2c_client *client)
+>  }
+>  
+>  /*
+> - * The sensor has no low-power state of its own, so stop the measurement
+> - * and cut the supply while suspended.  Resume powers it back up, waits
+> - * out the power-up time and restarts with the medium that was active
+> - * before.
+> + * The sensor has no low-power state, so stop measuring and cut the supply.
+> + * Resume powers it up again and restarts the previous medium.
+>   */
+>  static int slf3s_suspend(struct device *dev)
+>  {
+> @@ -466,9 +474,16 @@ static int slf3s_suspend(struct device *dev)
+>  
+>  	guard(mutex)(&sf->lock);
+>  
+> +	/* A failed resume may have left the supply off, nothing to do then. */
+> +	if (!sf->vdd_on)
+> +		return 0;
+> +
+> +	/* The supply goes away below anyway, so a failed stop is not fatal. */
 
+Not true.  This consumer of the power supply says I don't need it any more
+so maybe if no one else is using it and the power supply even supports
+being controlled will the power turn off.  So this remains an error that
+should be reported.
+
+>  	ret = slf3s_send_cmd(sf->client, slf3s_cmd_stop_meas);
+>  	if (ret)
+> -		return ret;
+> +		dev_warn(dev, "failed to stop measurement: %d\n", ret);
+> +
+> +	sf->vdd_on = false;
+>  
+>  	return regulator_disable(sf->vdd);
+
+Sashiko calls out that we have no idea if this succeeds. So vdd_on
+may end up out of sync.
+
+>  }
+> @@ -485,9 +500,17 @@ static int slf3s_resume(struct device *dev)
+>  	if (ret)
+>  		return ret;
+>  
+> +	sf->vdd_on = true;
+> +
+>  	fsleep(SLF3S_POWER_UP_DELAY_US);
+>  
+> -	return slf3s_start_meas(sf, sf->medium);
+> +	ret = slf3s_start_meas(sf, sf->medium);
+> +	if (ret) {
+> +		sf->vdd_on = false;
+> +		regulator_disable(sf->vdd);
+
+This could also leave us out of sync if that disable fails.
+
+> +	}
+> +
+> +	return ret;
+>  }
+>  
+>  static DEFINE_SIMPLE_DEV_PM_OPS(slf3s_pm_ops, slf3s_suspend, slf3s_resume);
+> 
 
