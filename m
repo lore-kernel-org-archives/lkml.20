@@ -1,150 +1,253 @@
-Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com [209.85.160.48])
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A0673112B2
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 01:05:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788570343; cv=none; b=ItSciGCu5Djlt5PE+gwfzPrS0FwmRXXsJUDf6GmEQ9rMC/4AdYVL80ChYByGNrEMIcY5DGUZ/5R0bM3P51gJiKnqYIy5nPyQJOPJhPsh9IDHtvhdBb7CmgVbL/VqTP9oWO7B0v1w/OJcqETj9KAa7hTuapbgSGWgZOPXzIwu72k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788570343; c=relaxed/simple;
-	bh=AZeymz/HujPlsyjjrcRekc+HnX3LbuE7qM8Hmou01do=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=N8OdC/eg9udsZZvfZ033dfdrGG9soDpeY2gHR6+BcT6bj0/SDDLWsLgW2Io7PhdVMBhGsmm6LYqPjX9OJ1jMJD3LK8u/OGSnVdqgj+9A4ln7V8ICfQHuF7txgD1DnMAfPgL8wFLA4eJWsWXvje9AEvN8tlvZU/EpLqNqSGJY27Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DnwFkJNL; arc=none smtp.client-ip=209.85.160.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B91932B118
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 01:07:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788570431; cv=pass; b=I9wCeA8Vdnm43HK10W4MwJ1NhvSUSYW/C79fctNLnds4xVJm4rnZu51AdMf3c39lYWE1wv4jnc7FtBLvCuyM8yEFFmG5hksSRZ/bhd9nIHk56KW2tt29Qy750k7UNVRvnXxYH/KmuDWaObRZCNaOY4Xl/6W3/b6BUN2KXmrp+p8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788570431; c=relaxed/simple;
+	bh=l4lbMsjzHIBKAWcJH3OSXGknOIWY0eqTpDnrL5yI+6o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kA8XOzXlHF2MtQ82GfUwv9N47DRoSfWoGAypi2GkSHp3XACihccxDxBpVAqm0ySLiTRDffpRuzXmzpUhHZQCy2upZ5GpNk9Rr0kASYpYlPjy9FbsdpCkocVvwd3XXmPMcuX4cuiJBk2jQ2doH0H7NvFvKi8zY9RSenYb8xR++rI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com; spf=pass smtp.mailfrom=clyso.com; dkim=pass (2048-bit key) header.d=clyso.com header.i=@clyso.com header.b=I3SRZnCq; arc=pass smtp.client-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=clyso.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DnwFkJNL"
-Received: by mail-oa1-f48.google.com with SMTP id 586e51a60fabf-465cfc7e33dso994435fac.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 18:05:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=clyso.com header.i=@clyso.com header.b="I3SRZnCq"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c1c52d920b8so208079766b.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 18:07:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788570426; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ULr9QqKPJyMBC2IUgdLpGWcy9mBphHRg0c7sxPmpiZrGGuT206cR8YlR9dsALe0+Go
+         DPgR8Vw0NcJPwVFsU+sPW+F23vUGQGYunwRLQhN69JTGBBvAnk8QgsHcZqA+B5QQURNN
+         2l52cK7pRzs5IVLGZf1ksRIP09NkyA4GeY6+0TArmQXkN4tI7xkr/zwl95tGqyhV0Tby
+         yuEXi39f6/kd8aY6SbHb5fSxCu8AjzRBRl9muzWad9b3Nt0ldNa2SQyo/IpTWANYTvI/
+         NgdQcWtAyfv8O2lYNtF4uCobX8DFwS+r3yfb+iJXWfEOJvTrn4k1kiP5CCk20o1p97FH
+         pg0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=ujZhsoHbAO3klq3jT6TYLR85CcPWbD1QdBubluWqS2k=;
+        fh=VYY8VVfES2+KPbSrASRkYkLyZAxQoKhg1Lw2iFDGcmE=;
+        b=hruh5SXYUTsfc2rF7iYH4Mx/Do7oBRCKh1ttj/4oA+ApDCbH1vwXZ7DonN7FBG8nW6
+         uQKbKZUpQe418dLbiisluO/21bvDShmPpYBwUzQCB1Dd4tNOFJyLurpemF850r+7mOo1
+         jTeMcAb/8bcTzgLJbtuL630HXic6HBctNo/tqkWeICEUTFdRDE2ptQdM9BNHcIEtOcf8
+         d8Uy8mCqDTIHJNSTB92OVLW8fkWiaL3D7bIt7sNkokz3SbARCc7aF5M7jfwb2fTwUZpm
+         z9XVIbWf93SgrxsEIBEcLEfYat0jUjHxYNK20moY7SYRb2ANRcFfLKGQMx+/hTMEh+gk
+         b0Iw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788570339; x=1789175139; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=+trEjFtLc9/1KfuFoq6WFVPGEpoZWjiCbNYrmRmER54=;
-        b=DnwFkJNLAoxPjQPYO9ccjaYfYYjG46+DZ4DIpxHHJJBQOu3E7brleaVI3EUeWlMlCk
-         ytvb9mKnkWNXutCUwH1VuXVIDTk87zX7W/eplmT/DjpYftUbfpvokH8g2VMNCWFTPGq5
-         1OVJ9U9YHSVbbipX8FtgZJd8swapni5O2TgpfU7i8DJcjKT+h2fdFSNbEQ3BFLXVb63Z
-         PpddVI9w3GODJaZulyr9lp7cxP6EuaF/8ZMfx7qPyVsgtakXyGGizE6jweaJZwZGB+vv
-         aYADIoH7vSCO7xtle2AoOwSrPfxZ2wiKQw2kmOR4qPV/6PI8zl6wvdBtCoEMpMX2rYhI
-         7XNQ==
+        d=clyso.com; s=google; t=1788570426; x=1789175226; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ujZhsoHbAO3klq3jT6TYLR85CcPWbD1QdBubluWqS2k=;
+        b=I3SRZnCqj7a26Bkwzp6neRlL5ALP/ngHtU4QDSvu2XnTsb9SQSoDQ7IDiJcvjcjcj1
+         TrFheJrwWJstipHqQv+qWutaWFUBS1B8iSGm0X/ARyICFXnfcLQDmMyZu3SmN8EmhaR6
+         0FLNEaojSXX1cXMeSXf306ghyA05WOEdElHNi2MA/vHtEJCTMIE1Ye370iNgPo3wKLM4
+         T4pJIOQsbkOqGbNzN9FDr632ajUDBYlgcKs+2S5c/pwVPCbUYjrSdx+7DsHXVnbhOSnE
+         FTkUvF6jegjvHyLI+U+bgJBEF3y9ETQPHqstTnk4m8HwGrVpgdPlnCFuQVRD2fR9XLFc
+         OfQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788570339; x=1789175139;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=+trEjFtLc9/1KfuFoq6WFVPGEpoZWjiCbNYrmRmER54=;
-        b=NoK6c4zx7nMkfOla8/gGlZgaqJB340mpXdk/2Fllzyd5MfjPYY/edaIEkQLqfY1wzn
-         Sd9tMg/Ntmbd34jSGOz+93FlUlD5nhimoR/Q79XQRE3fb2w/UnPdXzKgxu+H5rqCFKGc
-         HhN9E8f7K2KG8PZxsD06LwVCQvG5YuckoixP6rgYtucqnpzBumYwwF72Yaes8u7+2ki/
-         +Rf2fFQ6U56Orr0fmT94tQpqzL2HPnnTo0hmkXciSen+I2Kwb4JnMfQgF1+MG7W0sVJw
-         0qLSrVfWtgnNPNupo+2y4jtnuXqrOzXtla/G5Pj5T8WQ28P8LfgjgfvknkIkQhANkhj3
-         f75A==
-X-Forwarded-Encrypted: i=1; AKwUvBxnr8SVGeW8scTl11ZaxWfzb65SDnJqKsukPr4E7UwvvXaaFgNBTgOn92eB/+i+naLSbjmbdiWo9pIyEAg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lzxb5hwiqGWYgGdbe959SMOvdiicz4XauKQquh21qRx6Ze9Yvc
-	QwoujsZPdgGLM2vagtSIeEch/x3WDiymSPcrvz2f6OG/rxPTlnmWivgo
-X-Gm-Gg: AYBFou14NwWN6Tizwn+lEUGRhvmwehivR6VtsYhlsLfrENd4oKCT3D+5A+kQ0153ipo
-	+OwajPQi8Xbg0zD5CbYldYxR9dwaxD6fuREsuJQkhTZtSxjzWjEoCpBxyevq8U8iFfeUawAkG9e
-	t3OUl5RYtADDSrS3l99pT//6mfv1IZyDpTHfY/Wxos8PfyqC0/tde704GeSRQXSpd60bt7ctKoZ
-	D7zUQTkRMXmON6gJPVQoPiE/MJDqlx8VAclOiLqFsDqBTzot6jwiX4XyAMfDwdZpXkeFdcFaGcf
-	oJUBjcvx2y5KSw0hOUdZmSTXC3tJDzyAonQsSPO2c2JAV0nbsJhWu54jhYw+KRYeVaEit3GV/Bd
-	bCmGEHWbOZQhdqaPQiRkHfGcUvlwUHqNV8vEa1N/kjSflgabvKd+DIEg7w1UCD332NnDZDvXJHp
-	heWBjZOEI49qV1mlGAIeZMHRztM+m5ZpLNKiGOiMfOybnYsYJastwh/QHa7dWTNqXN4tDnwWxrb
-	jUYlaif2QqHZOFfKDynGpCnJhKTUJEiQqGi8sZH8T7XNIcRNqT91swzWyM7PGqTweXa0ULAMeG6
-	9xu3NbhC48aIOBNzIhJPKqSvrV2fnZ7YQN7uEK8+NCMoyBdodcWX80acpDt5e+OHDRO1lo2tWI6
-	kyct0TdFYHJtGEqXGMd4=
-X-Received: by 2002:a05:6870:318c:b0:475:e235:8fe with SMTP id 586e51a60fabf-475e2350f4emr4299634fac.28.1788570339228;
-        Fri, 04 Sep 2026 18:05:39 -0700 (PDT)
-Received: from [127.0.1.1] (184-96-151-165.hlrn.qwest.net. [184.96.151.165])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-475544fc87asm3337849fac.10.2026.09.04.18.05.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 18:05:38 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 04 Sep 2026 19:05:37 -0600
-Subject: [PATCH v3] mtd: rawnand: sunxi: reject ECC maximization on small
- pages
+        d=1e100.net; s=20251104; t=1788570426; x=1789175226;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ujZhsoHbAO3klq3jT6TYLR85CcPWbD1QdBubluWqS2k=;
+        b=IlBLdCRJO/l1RWZIRqUp0jcAKEDiiZlqYvLsGM7HNai07tyBqtFLxN/fBnVGzt7cUD
+         dOYXjATV3eD81h8P+u0th4aqaG2jZ1LkoezB6x2vyebRowY0JHwT2Hgj06lcItwD8vaJ
+         RkR0tIFwI7FESB38X0K5gjn284qvtEs0gkwNq1aa2Pz7Ep4M+XaafEYLWoyjG69uIX5U
+         xAm00xxI1baM5WtSij8Rdp/saYUfbA/VSvT9KZmOB+GRWCqrZKI9nm9IMINawpyKmgHT
+         ddBXlA6cLcyTyMFTiDXBMNoTqhknVEVyDclhvvTyr+tGr/TOOKlJQQz1L5TKcHqep0+u
+         Dijg==
+X-Forwarded-Encrypted: i=1; AKwUvBwbj/teDzqPAOYtYTbLne/4bGdQDA6B/azfvq8jgG7HDFASbLBOIJONcAig2VVy5CAXNHlP3Qz62qokQXM=@vger.kernel.org
+X-Gm-Message-State: AFuF++k0wwLOu+D3r6NazSZj5RRkFaTbV1cI/BJ3SdWrgX6RVprEZ7Zw
+	6r4Ul71SDYRfJWFmtFnxQuoX0ejB66haRKhk0djuAvJOta6U0Blv/gbLt+mPVFW+j4kgwyMZIEN
+	mTmkHyrS7RoVFeizyPXgsGixVJQ8mXkQGzm8rRgm0OQ==
+X-Gm-Gg: AYBFou0r81Csso910Egwq5zEV+Du2l1w56V9SCliTrUZ5RThSTIFQ461bj4mpt4GYCJ
+	o4ut8UmMJ1L1+O4ZkFFk/cnXOCmFPAlCHP39RumFJVHYvxxYA99ooWBlpz3jLJZWecPdz45qCqK
+	b7pQrcME8TNKstOM8VBXDp5v1iNMZg7bm8mX0hsniJykUvixOPqXi1wzzjuIyqa8/XtiUM4A3dE
+	pg1RS9KuSg3B4svOCvs8umgCpFHp9LOecp9Hzmh+N0zV3boBMVc3pmRBMLJ2hM2oslpdB8N5qHO
+	eVsrjlpMSqjpwN0fMfyHolD1sujgwqWL4Gc/WHG4YH30qw==
+X-Received: by 2002:a17:906:ba84:b0:c20:f871:1020 with SMTP id
+ a640c23a62f3a-c260ca1a225mr418338466b.19.1788570426412; Fri, 04 Sep 2026
+ 18:07:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-submit-sunxi-nand-ecc-step-validation-v3-1-931cec317c10@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WOTQqDMBSEryJZ95UY/7vqPYqLGF/1FU0kSYNFv
- HujPUFXwwfDN7Mxh5bQsVuyMYuBHBkdIbskTI1SDwjUR2aCi5I3PAf37mbyMfRKoKXuAZUC53G
- BICfqpY8G4FhUKa/rrsCKRddi8UnrufNofxxFL1T+kB+NkZw39nMeCeLo/bsZBKRQYtbJUnDe5
- PV9mCVNV2Vm1u77/gWdcmsl7AAAAA==
-X-Change-ID: 20260904-submit-sunxi-nand-ecc-step-validation-0e571088b5e7
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Boris Brezillon <bbrezillon@kernel.org>
-Cc: linux-mtd@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+References: <20260904105122.19938-1-max.kellermann@ionos.com>
+In-Reply-To: <20260904105122.19938-1-max.kellermann@ionos.com>
+From: Xiubo Li <xiubo.li@clyso.com>
+Date: Fri, 4 Sep 2026 18:06:54 -0700
+X-Gm-Features: AcwNN1WmSnQ67Mot0ciiOWGEftQEhKrd_OJ6L1dPrjt_nxXJMF9e7T3Gb23qprw
+Message-ID: <CAOJNxRKD73gsja26b3iidhBhAW=Buw3rHmttBVU3wzg0uyAhsw@mail.gmail.com>
+Subject: Re: [PATCH v2] ceph: acquire caps for read_folio without an rw context
+To: Max Kellermann <max.kellermann@ionos.com>
+Cc: idryomov@gmail.com, amarkuze@redhat.com, ceph-devel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-When nand-ecc-maximize is set, the driver selects a 1024-byte ECC step
-and divides the available OOB bytes by the resulting number of steps. A
-NAND with a smaller page therefore produces zero steps and a division by
-zero.
+LGTM.
 
-The older controllers also provide a 512-byte ECC block mode, but the
-hardware documentation describes that as an ECC block size within NAND
-pages whose supported sizes start at 1024 bytes. It does not document a
-512-byte NAND page mode.
+Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
 
-Reject pages smaller than 1024 bytes before deriving the step count. This
-prevents the division by zero at the point where the incompatible
-maximized geometry is selected without changing explicitly configured
-512-byte ECC block handling.
-
-Fixes: 4796d8655915 ("mtd: nand: sunxi: Support ECC maximization")
-Cc: stable@vger.kernel.org
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
-Changes in v3:
-- reject ECC maximization on pages smaller than 1024 bytes instead of
-  selecting the 512-byte ECC block mode
-- leave explicitly configured 512-byte ECC block handling unchanged
-- clarify that the hardware documentation describes 512 bytes as an ECC
-  block size rather than a supported NAND page size
-- Link to v2: https://patch.msgid.link/20260904-submit-sunxi-nand-ecc-step-validation-v2-1-6e3ba6200948@gmail.com
-
-Changes in v2:
-- fix ECC maximization at its source by selecting a 512-byte step for
-  512-byte pages instead of validating the derived step count
-- retain 1024-byte steps for larger pages and the existing capability checks
-- rebase on the current MTD nand/next branch
-- Link to v1: https://patch.msgid.link/20260811060651.227431-1-james.hilliard1@gmail.com
----
- drivers/mtd/nand/raw/sunxi_nand.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sunxi_nand.c
-index 83666dd6cb2a..c84f304fb749 100644
---- a/drivers/mtd/nand/raw/sunxi_nand.c
-+++ b/drivers/mtd/nand/raw/sunxi_nand.c
-@@ -2084,6 +2084,9 @@ static int sunxi_nand_hw_ecc_ctrl_init(struct nand_chip *nand,
- 	if (nanddev->ecc.user_conf.flags & NAND_ECC_MAXIMIZE_STRENGTH) {
- 		int bytes = mtd->oobsize;
- 
-+		if (mtd->writesize < 1024)
-+			return -EINVAL;
-+
- 		ecc->size = 1024;
- 		nsectors = mtd->writesize / ecc->size;
- 
-
----
-base-commit: def559a215699aa2f2d8ef98f30156b9d562a154
-change-id: 20260904-submit-sunxi-nand-ecc-step-validation-0e571088b5e7
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
-
+On Fri, 4 Sept 2026 at 03:51, Max Kellermann <max.kellermann@ionos.com> wrote:
+>
+> This fixes a data corruption problem that leaked permanently into
+> fscache.  File-backed erofs reads metadata using
+> read_mapping_folio(), and the Ceph implementation of this call forgets
+> to acquire Ceph caps.  Therefore, mounting an erofs image file from a
+> Ceph mount that was just written (but not yet committed to the OSD)
+> would fail because the erofs code saw only zero-filled pages.  These
+> zero-filled pages were then copied to the fscache, making this data
+> corruption permanent (on this host).
+>
+> Usually, Ceph checks/acquires caps at its own entry points and not in
+> the `address_space_operations`: ceph_read_iter() and
+> ceph_filemap_fault() acquire Fr/Fc before calling filemap_read() or
+> filemap_fault(), and ceph_write_iter() holds Fw/Fb around write_begin.
+>
+> Only readahead, which the VM can invoke without passing through a Ceph
+> entry point, checks caps itself.  That check was added by
+> commit 2b1ac852eb67 ("ceph: try getting buffer capability for
+> readahead/fadvise") to the readpages path, converted to use the rw
+> context list by commit 5d988308283e ("ceph: track read contexts in
+> ceph_file_info"), and moved into ceph_init_request() for
+> NETFS_READAHEAD by commit a5c9dc445139 ("ceph: Make
+> ceph_init_request() check caps on readahead").
+>
+> The single-folio read path never had such a check, neither in the old
+> ceph_readpage() nor in netfs_read_folio() via ceph_init_request().  It
+> assumes that the `read_folio` method is only ever reached from
+> filemap_read() or filemap_fault(), both of which Ceph wraps.
+>
+> However, since Linux 6.12, erofs file-backed mounts
+> (commit ce63cb62d794 ("erofs: support unencoded inodes for fileio"))
+> read all metadata (including the superblock) by calling
+> read_mapping_folio() directly on the backing file's mapping.  On Ceph,
+> this issues an OSD read without holding any caps.
+>
+> The result is silent data corruption.  Ceph clients do not write back
+> dirty pages on close(); a writer keeps Fb and its dirty data until the
+> MDS revokes the cap.  When another client opens the file, the MDS
+> initiates that revoke and replies to the open immediately.  A read()
+> would now block in ceph_get_caps() until the writer has flushed and
+> acked the cap-revoke, but the erofs superblock read goes to the OSD
+> without acquiring caps and thus races with the writeback.  If the
+> object does not exist yet, the OSD returns -ENOENT, which
+> finish_netfs_read() treats as "success, no data", and netfs zero-fills
+> the folio.  The folio is marked uptodate and, because it counts as
+> downloaded from the server, is also copied into fscache.  This never
+> recovers because Ceph invalidates the page cache and fscache only when
+> Fc is revoked, but gaining Fc later will not invalidate it.
+>
+> Add a Ceph read_folio wrapper which acquires caps synchronously when no
+> rw context is present.  Cap acquisition can process a pending truncate,
+> so drop the folio lock before acquiring caps.  After relocking, verify
+> that the folio still belongs to the mapping and has not already become
+> uptodate before passing it to netfs_read_folio().  Leave reads with an
+> existing rw context and the legacy inline-data path unchanged.
+>
+> Fixes: ce63cb62d794 ("erofs: support unencoded inodes for fileio")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+> ---
+> Note:
+> - commit e587a984d332 ("erofs: use dedicated meta inodes for
+>   file-backed mounts") eliminates this trigger, so Linux 7.3-rc1 and
+>   later are not affected.  The fix remains relevant to older stable
+>   kernels and to future direct read_mapping_folio() callers.
+> v1 -> v2:
+> - Move cap acquisition from ceph_init_request() into a read_folio
+>   wrapper, leaving the readahead path unchanged.
+> - Drop the folio lock around blocking cap acquisition, then relock and
+>   revalidate the folio to avoid a truncate deadlock.
+> - Preserve the legacy inline-data path.
+> - Handle a NULL file argument without acquiring caps a second time.
+> - Require Fc before populating the page cache; CEPH_CAP_FILE_LAZYIO
+>   cannot be added because the want mask is conjunctive
+>
+> Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+> ---
+>  fs/ceph/addr.c | 58 +++++++++++++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 57 insertions(+), 1 deletion(-)
+>
+> diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
+> index 657c2cb0f881..78b805ccc5d4 100644
+> --- a/fs/ceph/addr.c
+> +++ b/fs/ceph/addr.c
+> @@ -1959,8 +1959,64 @@ static int ceph_write_end(const struct kiocb *iocb,
+>         return copied;
+>  }
+>
+> +static int ceph_read_folio(struct file *file, struct folio *folio)
+> +{
+> +       struct inode *inode = folio_inode(folio);
+> +       struct ceph_inode_info *ci = ceph_inode(inode);
+> +       struct ceph_file_info *fi = file ? file->private_data : NULL;
+> +       int got = 0;
+> +       int ret;
+> +
+> +       /*
+> +        * Existing Ceph read paths acquire caps before entering the page
+> +        * cache.  Keep the legacy inline-data path unchanged.
+> +        */
+> +       if (ceph_has_inline_data(ci) ||
+> +           (fi && ceph_find_rw_context(fi)))
+> +               return netfs_read_folio(file, folio);
+> +
+> +       /*
+> +        * Cap acquisition can process a pending truncate, which may lock and
+> +        * remove this folio.  It must therefore happen without the folio lock.
+> +        */
+> +       folio_unlock(folio);
+> +       ret = __ceph_get_caps(inode, fi, CEPH_CAP_FILE_RD,
+> +                             CEPH_CAP_FILE_CACHE, -1, &got);
+> +       if (ret < 0)
+> +               return ret;
+> +
+> +       if (!(got & CEPH_CAP_FILE_CACHE)) {
+> +               ret = -EACCES;
+> +               goto out;
+> +       }
+> +
+> +       folio_lock(folio);
+> +
+> +       /*
+> +        * After re-locking, check if the folio still belongs to the
+> +        * mapping...
+> +        */
+> +       if (folio->mapping != inode->i_mapping) {
+> +               folio_unlock(folio);
+> +               ret = AOP_TRUNCATED_PAGE;
+> +               goto out;
+> +       }
+> +
+> +       /* .. or has been filled already meanwhile */
+> +       if (folio_test_uptodate(folio)) {
+> +               folio_unlock(folio);
+> +               ret = 0;
+> +               goto out;
+> +       }
+> +
+> +       ret = netfs_read_folio(file, folio);
+> +out:
+> +       ceph_put_cap_refs(ci, got);
+> +       return ret;
+> +}
+> +
+>  const struct address_space_operations ceph_aops = {
+> -       .read_folio = netfs_read_folio,
+> +       .read_folio = ceph_read_folio,
+>         .readahead = netfs_readahead,
+>         .writepages = ceph_writepages_start,
+>         .write_begin = ceph_write_begin,
+> --
+> 2.47.3
+>
