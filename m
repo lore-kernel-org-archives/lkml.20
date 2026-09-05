@@ -1,161 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE61C22FDE6;
-	Sat,  5 Sep 2026 22:54:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E084A374E79
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 22:55:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788648880; cv=none; b=gfHtWFZ3oOZqhbkoWXCcybqn8mObM9fwHAME7twGPgoRf0ClMgUeLPMl6PUToLQXp+S8qjHab9/4s//BDiZk9/iv9FG7T8+8p3V28PkRyXXV2MvVEm2gXviTGTxY0Ph12/0naH8/0Cj7yJD5WPL6hRlPWOwa4sW7jg2wxqzILyg=
+	t=1788648928; cv=none; b=IUtV48rXGH+2d3q8oyuemGEbfWX8duWAdHHH0dyvISVTBKCQuBCvAgm8QYbfQOJwt5B9PJvnqXQFHg7g7facjhsHirw4tdpmyh8FicCoKkuCRdvbqf5aROym6ZQ03Y7w5DPrxRMoEN5i2GF587i1azu8QZJA5Z+uJ+SnMnM68WY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788648880; c=relaxed/simple;
-	bh=egRZqHZvNyhAjZ2hscK68d73YtqKBKGkOG0CdDJUSiQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZAo00czBLYiTCVsgSQ5Cn850XE9YSvQQJJEK4spFvlHE7CULUzwLRD0WPW7qHDmmEf2bNeYcNDvkpJyRNEzzhjafGDJ+vNQrEcB+VoSMreZvHDt2hgM+KEVlxBCfI6ChtXgvLu9hNQfOKHHfuznUFu5g7Z/vouaMhmEJc97B9eE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UhrIBh2R; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788648928; c=relaxed/simple;
+	bh=XS4XMdFUvg81E3l2j9Jg4koF20RK8SyqrHXd2TLOUXk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EI8ma3cmZfnWDmHukCtkZ8ny9CASrEMBzIsPUGQ3uCCacr8NXV1z6cAf0iAlafa/MAqU1xUTyDUC0nI8Qn8q6VtUQMuDyo89K3biILFNtaaDkMeG+e7LClTr4twCMxiRtbnUDMmUzWsUCwgzPff9yNBStGEDEy8E5FLACDEc6RQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OFrv4Axe; arc=none smtp.client-ip=209.85.128.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UhrIBh2R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 971771F00A3A;
-	Sat,  5 Sep 2026 22:54:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788648878;
-	bh=LoNzh95s9xKHbGG0VhnSLPAPC6nH1VAsI4kehRM2e2c=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=UhrIBh2ReDp+xw5SgKCGSxMsCWAFm24BYiS2L635hEtjsWNX7mHTxeQ8naJnpcmN+
-	 PtEMagV4gBfZtPDkoxLRCsoZyzbN6g4W+M/EkQ4h6kAKViiiwPnl1TgvlPRUYQj2q/
-	 JOKJ5Yf8Gtn8CKohHscJfZzXQD7n/5d3GvmZ0vyMCw5mawX9UdxDzq+NcYKCqh9NSb
-	 QYqbQsstFbf96VxshhZWyXYTZgSlty6f2VRgpf+G7xOZf2vL72rXtGbmnTYHe50+MA
-	 TiCOrS9pOnXrvpFbflGrt1MohCStuHQr90fjCGYszpFT55Vox3TQB4ulDiWd0f6i1w
-	 178qnxKtUNs+g==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 5D17ECE0AC0; Sat,  5 Sep 2026 15:54:38 -0700 (PDT)
-Date: Sat, 5 Sep 2026 15:54:38 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Bradley Morgan <brads@mainlining.org>
-Cc: boqun@kernel.org, frederic@kernel.org, include@grrlz.net,
-	jiangshanlai@gmail.com, joelagnelf@nvidia.com,
-	josh@joshtriplett.org, linux-kernel@vger.kernel.org,
-	mathieu.desnoyers@efficios.com, neeraj.upadhyay@kernel.org,
-	qiang.zhang@linux.dev, rcu@vger.kernel.org, rostedt@goodmis.org,
-	urezki@gmail.com
-Subject: Re: [PATCH] hazptrtorture: Fix inverted sleep condition in
- do_pending kthread
-Message-ID: <34021ed4-1a18-4cb6-8027-a8c919086ec0@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <ed125668-a77a-41b6-9d56-46ac93a5d69c@paulmck-laptop>
- <9D2DEA27-B3D1-4A8B-BA57-2F5EAC920C1D@mainlining.org>
- <b1abee12-5a3a-4750-be37-a3157c7e2217@paulmck-laptop>
- <AF26CA5B-6766-4682-A6A4-61F14F8B81F0@mainlining.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OFrv4Axe"
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-8588583a7c3so23560617b3.2
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 15:55:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788648925; x=1789253725; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/Ru3IwpQjHIwS9TbLkhRJiSsP3088o2a0Klb7snW/5g=;
+        b=OFrv4Axe6Gsk0Janv45eVWPvSa1Ns65EK7evbsP4UQwC9PcZxzsqU47N3szgVethBx
+         g/ql14NlxoHqcqGUbIYgjOXpz/XcisrtmTQ7wnhIiThNGwgAETKIFnRnXkj1MWL0sy+J
+         AFgb+E9Smv556wMOKLNwmEXh2sBeA1rQYjJo4p3639D4B9//YfP3HUqObBcEc14ffu1c
+         hLxemwCNHQb193mDkM1yHKLk3A7Sndn1GfMdAt7rGprtoiCr9UXdqz+DRHEUgxieor67
+         DM6+WuchRjlDzGQXb1RLhIMemn1+WZOcXonMn9cgvR1/MYMLupicC4ZE5wEc9NfUnlQH
+         TVEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788648925; x=1789253725;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/Ru3IwpQjHIwS9TbLkhRJiSsP3088o2a0Klb7snW/5g=;
+        b=NBaqTbKrLvAY5ktdYwtPeycZlrEh/e01clyu90xcmtUpniPMqRg7GhWRBX+ATeJLAK
+         g3f7bSVNoxJZFIUW7WcQuFXAbIJrr0q8QE3UUEbhBiDszqmKj9wFfVLLaROxr/phc8O4
+         1jddHaXKH4NFljabGzmDUzr94byO0TTWu4usz3Dsv3QvhhHkg1LtJQmMQTIiTgCZFs5v
+         0OPJ0S+GskG+G4cz9DJFIvj7JIaUcF5d52UtyFdvwrn4FdFHRYrIIjFXB5C7WQNgkzQ7
+         EYNtp4o5nZf22A8sn0XnVH6ZINEEwqSEhaPdmMAwTzkw7cqGIlwugPmIuPsuD0th+35V
+         /IBw==
+X-Gm-Message-State: AFuF++mfM4btQouuLquBnJUxyyaRvk7heDYH/eGda//emV8jQDJ6eScl
+	dhacaa5jRIwPBfiMiO881mfavdoafwRrDVqfQ+pOlXtLhcNE1AT8V1RrD2jZ
+X-Gm-Gg: AYBFou26BlFcpKjtmyafkCbRNRFccgbNhd9WkiTryZ5okxL7p3bEXBRogj0eZTrkyzE
+	59489tHgIlIfTaaVRiptb7VNtGS4YvwpTll7ISBNx2jwcg4Ct/KM4L1/JQ+fVA/kiPtq3grhf8R
+	MY3pcgFeG6UE+2d+upOhWfv8UC2LlOcNCpDDYikneDoD2NOvRR4qDU0NbWelOFaJyIAnlyRqGcH
+	RrfxtRoqzBw396w1xo41pfyLrikl27QoZ3CznFFNQK04mlrnoBleT5OJsRoLQlVWEfxqvTL4vtm
+	QOO/nERSn3pHDIBwcxgdp/OWFm76PJBrqu9aLuzGcmLWGwIxrdxF3gZhLuO5/6nDdsnx7ERgEWo
+	6kKf5VpMDiGv/KxS861X67Co1U2CnnxkMdgBkQYnm+nm95UXQqZjKbiHfSEujkMBsNsZNRDi6ru
+	z5J7ZhD/HrYjYOnTEDYBO9ymytt1LnowwcKUeVZRQk1WJN2Z5u47DO
+X-Received: by 2002:a05:690c:39b:b0:873:5bb2:6c07 with SMTP id 00721157ae682-8735bb26d1emr28823247b3.49.1788648924962;
+        Sat, 05 Sep 2026 15:55:24 -0700 (PDT)
+Received: from citadel.lan ([2600:6c4a:4df0:2c10::1dba])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8714af5581bsm45693917b3.36.2026.09.05.15.55.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 15:55:24 -0700 (PDT)
+From: Brian Gerst <brgerst@gmail.com>
+To: linux-kernel@vger.kernel.org,
+	x86@kernel.org
+Cc: Thomas Gleixner <tglx@linutronix.de>,
+	Borislav Petkov <bp@alien8.de>,
+	Ingo Molnar <mingo@kernel.org>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Brian Gerst <brgerst@gmail.com>
+Subject: [PATCH] x86/asm: Remove CR4 read fault handler
+Date: Sat,  5 Sep 2026 18:55:19 -0400
+Message-ID: <20260905225519.1002976-1-brgerst@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <AF26CA5B-6766-4682-A6A4-61F14F8B81F0@mainlining.org>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 05, 2026 at 10:08:30PM +0100, Bradley Morgan wrote:
-> On 5 September 2026 21:40:28 BST, "Paul E. McKenney" <paulmck@kernel.org>
-> wrote:
-> >On Fri, Sep 04, 2026 at 06:28:45PM +0100, Bradley Morgan wrote:
-> >> On 4 September 2026 17:00:22 BST, "Paul E. McKenney"
-> ><paulmck@kernel.org>
-> >> wrote:
-> >> >On Fri, Sep 04, 2026 at 09:01:05AM -0400, Mathieu Desnoyers wrote:
-> >> >> On 2026-08-03 20:03, Bradley Morgan wrote:
-> >> >> > The do_pending kthread never sleeps. Its supposed to.
-> >> >> > kthread_do_pending_ms sets the gap between cleanups, and the docs
-> >> >> > say so too. But the sleep sits behind torture_must_stop(), and
-> >thats
-> >> >> > false while the test runs. So the kthread never sleeps. It just
-> >loops.
-> >> >> > It drains the pending lists over and over, no pause, and burns a
-> >full
-> >> >> > CPU for the whole test.
-> >> >> 
-> >> >> Paul, I just found this patch in my junk email folder. Maybe relevant
-> >> >> for you ?
-> >> >
-> >> >We got it in my -rcu tree:
-> >> >
-> >> >15b9fca2f5ce ("hazptrtorture: Fix inverted sleep condition in
-> >do_pending
-> >> >kthread")
-> >> >
-> >> >But I do appreciate your checking for missed patches, thank you!
-> >> >
-> >> >							Thanx, Paul
-> >> >
-> >> >> Thanks,
-> >> >> 
-> >> >> Mathieu
-> >> >> 
-> >> >> > 
-> >> >> > Flip the check. With !torture_must_stop() it sleeps for
-> >> >> > kthread_do_pending_ms between passes. When the test stops it does
-> >one
-> >> >> > last cleanup and exits. Nothing left to do, so no sleep needed
-> >then.
-> >> >> > 
-> >> >> > Fixes: 94d2e93c222e ("hazptrtorture: Add kthread to release
-> >deferred
-> >> >hazard pointers")
-> >> >> > Signed-off-by: Bradley Morgan <include@grrlz.net>
-> >> >> > ---
-> >> >> >   kernel/rcu/hazptrtorture.c | 2 +-
-> >> >> >   1 file changed, 1 insertion(+), 1 deletion(-)
-> >> >> > 
-> >> >> > diff --git a/kernel/rcu/hazptrtorture.c
-> >b/kernel/rcu/hazptrtorture.c
-> >> >> > index 72aeb50668e9..7c8b5899fb01 100644
-> >> >> > --- a/kernel/rcu/hazptrtorture.c
-> >> >> > +++ b/kernel/rcu/hazptrtorture.c
-> >> >> > @@ -555,7 +555,7 @@ static int hazptr_torture_do_pending(void *arg)
-> >> >> >   			cpu = cpumask_next_wrap(cpu, cpu_possible_mask);
-> >> >> >   			hazptr_torture_do_one_pending(cpu, &rand);
-> >> >> >   		}
-> >> >> > -		if (torture_must_stop())
-> >> >> > +		if (!torture_must_stop())
-> >> >> >   			torture_hrtimeout_ms(kthread_do_pending_ms, USEC_PER_MSEC, &rand);
-> >> >> >   		// Omit stutter_wait() because this function needs to do cleanup.
-> >> >> >   	} while (!torture_must_stop());
-> >> >> 
-> >> >> 
-> >> >> -- 
-> >> >> Mathieu Desnoyers
-> >> >> EfficiOS Inc.
-> >> >> https://www.efficios.com
-> >> >
-> >> >
-> >> Hi, new email.
-> >> 
-> >> Could I ask where the heck hazptr is? Its not in next, would you like,
-> >> help???
-> >> 
-> >> --- Thanks!
-> >>
-> >https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
-> >
-> >It is still in my -rcu tree.
-> >
-> >I would not say "no" to a fix for this issue:
-> >
-> >https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
-> >
-> >Once that is in place, I would be happy to put this back into -next.
-> >
-> >At some point, we will need to get rid of the concept of wildcard hazard
-> >pointers, as those end up instead emulating RCU, but I don't see that
-> >as an immediate obstacle.
-> 
-> Well, okay, tell me more and I'll develop it.
+Remove the fault handler from native_read_cr4() since 486 support has
+been removed.
 
-I must confess that I have not looked much into that bug report, so I
-don't have much more to tell.
+Signed-off-by: Brian Gerst <brgerst@gmail.com>
+---
+ arch/x86/include/asm/special_insns.h | 13 -------------
+ 1 file changed, 13 deletions(-)
 
-						Thanx, Paul
+diff --git a/arch/x86/include/asm/special_insns.h b/arch/x86/include/asm/special_insns.h
+index 46aa2c9c1bda..6c80f69cf62b 100644
+--- a/arch/x86/include/asm/special_insns.h
++++ b/arch/x86/include/asm/special_insns.h
+@@ -46,20 +46,7 @@ static __always_inline void native_write_cr3(unsigned long val)
+ static inline unsigned long native_read_cr4(void)
+ {
+ 	unsigned long val;
+-#ifdef CONFIG_X86_32
+-	/*
+-	 * This could fault if CR4 does not exist.  Non-existent CR4
+-	 * is functionally equivalent to CR4 == 0.  Keep it simple and pretend
+-	 * that CR4 == 0 on CPUs that don't have CR4.
+-	 */
+-	asm volatile("1: mov %%cr4, %0\n"
+-		     "2:\n"
+-		     _ASM_EXTABLE(1b, 2b)
+-		     : "=r" (val) : "0" (0));
+-#else
+-	/* CR4 always exists on x86_64. */
+ 	asm volatile("mov %%cr4,%0" : "=r" (val));
+-#endif
+ 	return val;
+ }
+ 
 
-> --- Thanks!
-> https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
-> 
+base-commit: ea789738cbf82b72f5495cd1e2b231a917e0e6d5
+-- 
+2.55.0
+
