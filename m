@@ -1,58 +1,77 @@
-Received: from mta0.migadu.com (out-96.mta0.migadu.com [91.218.175.96])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E46B92DEA61
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 01:35:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.96
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9484D2FDC28
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 01:37:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788572160; cv=none; b=u8jjBx0LXfRfwaxaXcux2rnDRH7Of3WrERiaHlxNuhoi5uJank9BrVUVD0QCzsHqS4aAToi6XppbZ3VlSUNoVoIJHnRPPiCUB2RKUfH37ySReRFvUB4d+lbmPx60/VL1ec7HOegA0IjIjUnwpVjzGRU0KZds20FoMPUPjNI1Szs=
+	t=1788572226; cv=none; b=j6doF+jdv4VTxFvLFPJhtl3kHSsLfI1O+iT7PPrvTGzlsO9qwB43nTm5DMD1JOo//LRNua8G68pfLZDMsbeKXB99/DJRJR8bwo4oeSB+Hkywd0RY5o2c/Dof0iM1UVzUd6d78ZWbnpuArVUTadrpXLVLXuNc05YzOfC+DIUolvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788572160; c=relaxed/simple;
-	bh=lWVVfRMq0mtfxRPzste9WAisrmsNe8WSe9DWp+Wmrpc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O1I36RBTwq4aK6FnDLhwbKvW8cvil3pDXjWb8+ca4sqIdZ1ksqi3kNzbRVImm6NSpWsrJF/Oy2irJZyv2rsK7ppKbJtL9vRFz9OKO1DenbEa6DgdSwJEjGz0VPg3zDULFIkaJ7PaArYcY0snwzOiO/Jg67iKWg52+G2aGwFlYis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca; spf=pass smtp.mailfrom=justthetip.ca; dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b=hZkMwCy4; arc=none smtp.client-ip=91.218.175.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=justthetip.ca
+	s=arc-20240116; t=1788572226; c=relaxed/simple;
+	bh=2+R38dE/rYL18jObAqOL2LUQT4XT2rnhSc5Wn0ZdOug=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iSy/FFhWoOqSvwxrnLqIidxHoOQpDnKO8Hyd1//iTQwMySngV2IMe1d8FM8KdgaIE0NUTA7CZqxECb98GFtQLEbJNickSXWFlFGBUcs7ik6moMgLiMbn84MJ/vj3zQPo4Skf1k129/QkRZNuoKzdDicS1+XPSq8fZ+n0ahqiPu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lpyE5uLt; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b="hZkMwCy4"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lWVVfRMq0mtfxRPzste9WAisrmsNe8WSe9DWp+Wmrpc=;
- c=simple/simple; d=justthetip.ca;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788572155; v=1; x=1789176955;
- b=hZkMwCy4BlyRnaJdIYXczVmhwaXRKygm92SLpaC7znb0LWqInSKpzL46bARFy+Zw0XEreItW
- WxUIpNwCtMDa8kXmVWfhZnca6PjF7uNmffcMEq74qFZVvsPHDu+jHOP9QuCSlDxQZl6y+0dolFP
- cfe9P+5mIjjGkhFO6gmDt+pqg/0tMTp1pomHKszDSeyb8zWAbYCDGUSKSQRi3ScrPI6ccCT3CAX
- lQE7zPQsw6whGOvxpBTOoXs6FZLhjBcpBM+CtFOqaGaE3ldJ8LQAw542IOU735cFk5CJHUoExgP
- 0jCLxHtRpl4RbjceK6/vLWlNqMpzjiDY1ADoeI8AEb0Dw==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 394ef676eb4014bf;
-	Sat, 05 Sep 2026 01:35:55 +0000
-X-Mizu-Trace-ID: 394ef676eb4014bf
-X-Migadu-Flow: FLOW_OUT
-From: Devin Wittmayer <lucid_duck@justthetip.ca>
-To: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>
-Cc: Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Deren Wu <deren.wu@mediatek.com>,
-	Ming Yen Hsieh <mingyen.hsieh@mediatek.com>,
-	Quan Zhou <quan.zhou@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-wireless@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Sagun Kayastha <sgn.kayastha@gmail.com>
-Subject: [PATCH wireless v2] wifi: mt76: mt792x: pick the SAR table layout from the table itself
-Date: Fri,  4 Sep 2026 18:35:51 -0700
-Message-ID: <20260905013551.24635-1-lucid_duck@justthetip.ca>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260811232839.515463-1-lucid_duck@justthetip.ca>
-References: <20260811232839.515463-1-lucid_duck@justthetip.ca>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lpyE5uLt"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49cca4ffdcfso13367355e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 18:37:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788572223; x=1789177023; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5E9ZNXmH/bEcRkt+bIVyhckBwD8jjU50Tm6Jae4Vz+U=;
+        b=lpyE5uLtS4ohR0tXuo/C0TpO4DRtGfStF2HL83qdO5RVCwq/+q9a+JnRURK3CNCX99
+         h0Y+3VWH79pPKcX+S7LFTsWfjQEoZLz81ScgRoHHDqrh1mfDJPJbUW/6HgrF0SB8AusJ
+         yw2Hp4l57rRxSXWdmxedVozGRbXFiNp5fX0L7ASTM30xC4XLmecpYAlNfjr0BFksjMkq
+         hXBM5HG4gArq0fZi7bm5GPE04mXXtncbJdnDh1r9mOTMCBw+Gd0pVrpeBC0pnXXAwsCn
+         y8XDMkRcreHRpNL7E5n1AxzTr9ZPoLAgbK+4+8hXanyVI5heDp59Nulf8S3udn5CJGdw
+         HGxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788572223; x=1789177023;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5E9ZNXmH/bEcRkt+bIVyhckBwD8jjU50Tm6Jae4Vz+U=;
+        b=CcLlGDQ9Oz0MTqdocm51++jcny1HJNPv8BFGATmgkTllQ//XBD9a1hKCsXGGtaDenC
+         t2feBuosF7zpw9n2NVS621px/8+CvF1a9U1IpKm3x5nqEvfaQPngIs7XKAiHRi82JqQw
+         d/nX+92j3oCeUxY3XUeqsDMdQS44NlpP61T2tPgLo/JDHfeGTRHo6A4mYJz7ZFTEyqLV
+         tv2+swrG4cHFSi+58DRgdaly7P/fhESqmlDAGa88MVF2A8Wix8MXyR2fevVU4/o9OMVw
+         5htVEEGK0mRxKopSZvRB+FN20KpYed227V+3DWdCxluZnH6gYcfEf9658skPiAUdsZZF
+         m1MQ==
+X-Forwarded-Encrypted: i=1; AKwUvByb2MFnwfEM8rWEaFu9AywpHRXLpoiXOU9iVC3qNThDUhxc9T+GWtKMk1Mwz1Yf4nCan780rKo3DkkVTSw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kuN/46o4POfb2hfvL4AGCjFp/1DyY1t/ZX4kiRh3/dUGNHuWH3
+	9hhAbB62GxG4G7ZewnyVsSeRU6THo4g87osgmXODfHM4duzFZ15hRyklocPTRoBk
+X-Gm-Gg: AYBFou0zHV8DEk45gw2Kq0WiUSa3+7w2xFFvmCSAzhePx1U3XsEzlqgkOkeDgYCkwQx
+	W4qllfXkcFNUP7UgkFmjP1zLgTbPNkP8/km7OUIgy9yxbC846yAUwA6mv9uP3AAQXxHJgUbwhve
+	p9rKGTPVgTVtdGGa1YLRAH6OFU+yZu7Y9AkHYQQO70uuSyEApwyb7ObHITgmf6m1TlH4CiNZYB0
+	TufbCH6wRy9/UdNBwP5bP4AfFN1W7FQPa5OO9fG25aNee0CE/ckqV2RbBUM3KWt05rudQMaPZLq
+	CpI6raobEGdPABffvzP5COLzi5JpQqFRQQgF1p/OuCN42Bn73ExH9oaryieyEnC5kG7O4UlvgYO
+	m16BBxnX2mFvhzspMtP0OG1WaBrFP/eVt5EyUlkGQIh/H8jz/W3ioSmqMc8lqBA0t5xfYLjtuld
+	m84/p0NSh73RvR2NWdVlPDuVrDQsQ7MQGDB/CUwGXbdw0b0j4XsjARLaAVVr6RPxTFKQvhFapmU
+	OaoentQgvoFZA4p/VUi2S+3YspOXReeUNlslO8yHTU6kvnAr5WA2r7LTfaZjFdTk2fLK9bwxWYC
+	KfEr/absFG51GH6KbCSNhZFjgjMY+p9M8hLwokYQTvQJFn4+OgV/GrQdYE+NPZgGe7c=
+X-Received: by 2002:a05:600c:8b25:b0:49c:fc6e:a3da with SMTP id 5b1f17b1804b1-49cfc6ea704mr72161775e9.25.1788572222669;
+        Fri, 04 Sep 2026 18:37:02 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a4f2-6901-14a0-23ad-a35e-aa8c.310.pool.telefonica.de. [2a02:3100:a4f2:6901:14a0:23ad:a35e:aa8c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf75ce49esm185612945e9.1.2026.09.04.18.37.01
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 04 Sep 2026 18:37:02 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Kees Cook <kees@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	James Morris <jamorris@linux.microsoft.com>,
+	Ke Wu <mikewu@google.com>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] loadpin: Fix stale KEXEC_VERIFY_SIG reference in documentation
+Date: Sat,  5 Sep 2026 03:36:55 +0200
+Message-Id: <20260905013655.58665-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,240 +80,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The SAR power tables are parsed with a version byte from a different
-ACPI table, never their own.
+Commit 99d5cadfde2b ("kexec_file: split KEXEC_VERIFY_SIG into KEXEC_SIG
+and KEXEC_SIG_FORCE") removed CONFIG_KEXEC_VERIFY_SIG but left the
+LoadPin documentation pointing at it. Refer to CONFIG_KEXEC_SIG instead.
 
-Some firmware declares version 1 and ships version 2 tables. The
-entries then start a byte early, and the 6 GHz limits the table
-carries are dropped, because the older layout has no room for them.
+While at it, clean up the grammar of the sentence.
 
-  ASUS GA503RM, MTCL declares v1:
-  MTGS  28 bytes   v1: (28-6) % 5 = 2, no fit   v2: 3 tables
-  MTDS  19 bytes   v1: (19-6) % 6 = 1, no fit   v2: 1 table
-
-The layouts accept disjoint lengths, so take whichever one fits and
-keep it per table.
-
-Reported-by: Sagun Kayastha <sgn.kayastha@gmail.com>
-Closes: https://github.com/morrownr/mt76/issues/62
-Fixes: f965333e491e ("mt76: mt7921: introduce ACPI SAR support")
-Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+Fixes: 99d5cadfde2b ("kexec_file: split KEXEC_VERIFY_SIG into KEXEC_SIG and KEXEC_SIG_FORCE")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
-The first version rejected these tables. Going back through the
-bytes, they are version 2 tables that MTCL mislabels, so this reads
-them instead. Rejecting left the machine with no SAR limit at all.
+ Documentation/admin-guide/LSM/LoadPin.rst | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-The layouts accept disjoint lengths over the whole legal range:
-
-  MTDS  v1   12  18  24  30  36  42  48  54
-        v2   19  31  43  55  67  79  91 103
-  MTGS  v1   21  26  31  36  41  46
-        v2   28  35  42  49  56  63
-
-The declared count is checked against the length too.
-
-Fed the reporter's three tables to an MT7922 through an ACPI
-override. Patched, both come out v2 and every range is filled:
-
-  stock    frp: 60 60 60 60 60 127 127 127 127 127 127
-  patched  frp: 60 60 60 60 60  60  60  60  60  60  60
-
-That adapter is world-roaming, so both arms read the table's WW row.
-The FCC row is not reachable here. That is where the misread turns
-0x1D into 0x00, and where the reporter measured a flat clamp.
-
- .../wireless/mediatek/mt76/mt792x_acpi_sar.c  | 110 +++++++++++-------
- .../wireless/mediatek/mt76/mt792x_acpi_sar.h  |   2 +
- 2 files changed, 73 insertions(+), 39 deletions(-)
-
-diff --git a/drivers/net/wireless/mediatek/mt76/mt792x_acpi_sar.c b/drivers/net/wireless/mediatek/mt76/mt792x_acpi_sar.c
-index 946dd7956e4a..9f71cf7e2dfd 100644
---- a/drivers/net/wireless/mediatek/mt76/mt792x_acpi_sar.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt792x_acpi_sar.c
-@@ -108,68 +108,98 @@ mt792x_asar_acpi_read_mtcl(struct mt792x_dev *dev, u8 **table, u8 *version)
- 	return ret;
- }
- 
-+/* A table's layout is decided by the version byte in MTCL, but some firmware
-+ * labels a version 2 table as version 1.  Accept whichever layout the table
-+ * actually has: for every accepted entry count the two do not overlap, since
-+ * one is 6 + 5n bytes and the other 7 + 7n.
-+ */
-+static bool
-+mt792x_asar_fits(u8 *table, int len, int prelen, int sarlen, int nr_off,
-+		 int min, int max)
-+{
-+	int tblcnt;
-+
-+	if (len < prelen || (len - prelen) % sarlen)
-+		return false;
-+
-+	tblcnt = (len - prelen) / sarlen;
-+	if (tblcnt < min || tblcnt > max)
-+		return false;
-+
-+	return tblcnt == table[nr_off];
-+}
-+
- /* MTDS : Dynamic SAR Power Table */
- static int
--mt792x_asar_acpi_read_mtds(struct mt792x_dev *dev, u8 **table, u8 version)
-+mt792x_asar_acpi_read_mtds(struct mt792x_dev *dev, u8 **table, u8 version,
-+			   u8 *used)
- {
--	int len, ret, sarlen, prelen, tblcnt;
--	bool enable;
-+	int len, ret;
-+	u8 *t;
- 
- 	ret = mt792x_acpi_read(dev, MT792x_ACPI_MTDS, table, &len);
- 	if (ret)
- 		return ret;
- 
-+	t = *table;
-+
- 	/* Table content validation */
--	switch (version) {
--	case 1:
--		enable = ((struct mt792x_asar_dyn *)*table)->enable;
--		sarlen = sizeof(struct mt792x_asar_dyn_limit);
--		prelen = sizeof(struct mt792x_asar_dyn);
--		break;
--	case 2:
--		enable = ((struct mt792x_asar_dyn_v2 *)*table)->enable;
--		sarlen = sizeof(struct mt792x_asar_dyn_limit_v2);
--		prelen = sizeof(struct mt792x_asar_dyn_v2);
--		break;
--	default:
-+	if (mt792x_asar_fits(t, len, sizeof(struct mt792x_asar_dyn),
-+			     sizeof(struct mt792x_asar_dyn_limit),
-+			     offsetof(struct mt792x_asar_dyn, nr_tbl),
-+			     MT792x_ASAR_MIN_DYN, MT792x_ASAR_MAX_DYN))
-+		*used = 1;
-+	else if (mt792x_asar_fits(t, len, sizeof(struct mt792x_asar_dyn_v2),
-+				  sizeof(struct mt792x_asar_dyn_limit_v2),
-+				  offsetof(struct mt792x_asar_dyn_v2, nr_tbl),
-+				  MT792x_ASAR_MIN_DYN, MT792x_ASAR_MAX_DYN))
-+		*used = 2;
-+	else
- 		return -EINVAL;
--	}
- 
--	tblcnt = (len - prelen) / sarlen;
--	if (!enable ||
--	    tblcnt > MT792x_ASAR_MAX_DYN || tblcnt < MT792x_ASAR_MIN_DYN)
-+	if (!t[offsetof(struct mt792x_asar_dyn, enable)])
- 		return -EINVAL;
- 
-+	if (version && *used != version)
-+		dev_info(dev->mt76.dev,
-+			 "MTDS is v%u, MTCL says v%u; using v%u\n",
-+			 *used, version, *used);
-+
- 	return 0;
- }
- 
- /* MTGS : Geo SAR Power Table */
- static int
--mt792x_asar_acpi_read_mtgs(struct mt792x_dev *dev, u8 **table, u8 version)
-+mt792x_asar_acpi_read_mtgs(struct mt792x_dev *dev, u8 **table, u8 version,
-+			   u8 *used)
- {
--	int len, ret, sarlen, prelen, tblcnt;
-+	int len, ret;
-+	u8 *t;
- 
- 	ret = mt792x_acpi_read(dev, MT792x_ACPI_MTGS, table, &len);
- 	if (ret)
- 		return ret;
- 
-+	t = *table;
-+
- 	/* Table content validation */
--	switch (version) {
--	case 1:
--		sarlen = sizeof(struct mt792x_asar_geo_limit);
--		prelen = sizeof(struct mt792x_asar_geo);
--		break;
--	case 2:
--		sarlen = sizeof(struct mt792x_asar_geo_limit_v2);
--		prelen = sizeof(struct mt792x_asar_geo_v2);
--		break;
--	default:
-+	if (mt792x_asar_fits(t, len, sizeof(struct mt792x_asar_geo),
-+			     sizeof(struct mt792x_asar_geo_limit),
-+			     offsetof(struct mt792x_asar_geo, nr_tbl),
-+			     MT792x_ASAR_MIN_GEO, MT792x_ASAR_MAX_GEO))
-+		*used = 1;
-+	else if (mt792x_asar_fits(t, len, sizeof(struct mt792x_asar_geo_v2),
-+				  sizeof(struct mt792x_asar_geo_limit_v2),
-+				  offsetof(struct mt792x_asar_geo_v2, nr_tbl),
-+				  MT792x_ASAR_MIN_GEO, MT792x_ASAR_MAX_GEO))
-+		*used = 2;
-+	else
- 		return -EINVAL;
--	}
- 
--	tblcnt = (len - prelen) / sarlen;
--	if (tblcnt > MT792x_ASAR_MAX_GEO || tblcnt < MT792x_ASAR_MIN_GEO)
--		return -EINVAL;
-+	if (version && *used != version)
-+		dev_info(dev->mt76.dev,
-+			 "MTGS is v%u, MTCL says v%u; using v%u\n",
-+			 *used, version, *used);
- 
- 	return 0;
- }
-@@ -205,14 +235,16 @@ int mt792x_init_acpi_sar(struct mt792x_dev *dev)
- 		asar->countrylist = NULL;
- 	}
- 
--	ret = mt792x_asar_acpi_read_mtds(dev, (u8 **)&asar->dyn, asar->ver);
-+	ret = mt792x_asar_acpi_read_mtds(dev, (u8 **)&asar->dyn, asar->ver,
-+					 &asar->dyn_ver);
- 	if (ret) {
- 		devm_kfree(dev->mt76.dev, asar->dyn);
- 		asar->dyn = NULL;
- 	}
- 
- 	/* MTGS is optional */
--	ret = mt792x_asar_acpi_read_mtgs(dev, (u8 **)&asar->geo, asar->ver);
-+	ret = mt792x_asar_acpi_read_mtgs(dev, (u8 **)&asar->geo, asar->ver,
-+					 &asar->geo_ver);
- 	if (ret) {
- 		devm_kfree(dev->mt76.dev, asar->geo);
- 		asar->geo = NULL;
-@@ -254,7 +286,7 @@ mt792x_asar_get_geo_pwr(struct mt792x_phy *phy,
- 		break;
- 	}
- 
--	if (asar->ver == 1) {
-+	if (asar->geo_ver == 1) {
- 		band_pwr = &asar->geo->tbl[idx].band[0];
- 		max = ARRAY_SIZE(asar->geo->tbl[idx].band);
- 	} else {
-@@ -297,7 +329,7 @@ mt792x_asar_range_pwr(struct mt792x_phy *phy,
- 	if (!capa)
- 		return 127;
- 
--	if (asar->ver == 1) {
-+	if (asar->dyn_ver == 1) {
- 		limit = &asar->dyn->tbl[0].frp[0];
- 		max = ARRAY_SIZE(asar->dyn->tbl[0].frp);
- 	} else {
-diff --git a/drivers/net/wireless/mediatek/mt76/mt792x_acpi_sar.h b/drivers/net/wireless/mediatek/mt76/mt792x_acpi_sar.h
-index 474033073831..1d42f24b05f6 100644
---- a/drivers/net/wireless/mediatek/mt76/mt792x_acpi_sar.h
-+++ b/drivers/net/wireless/mediatek/mt76/mt792x_acpi_sar.h
-@@ -105,6 +105,8 @@ struct mt792x_asar_fg {
- 
- struct mt792x_acpi_sar {
- 	u8 ver;
-+	u8 dyn_ver;
-+	u8 geo_ver;
- 	union {
- 		struct mt792x_asar_dyn *dyn;
- 		struct mt792x_asar_dyn_v2 *dyn_v2;
+diff --git a/Documentation/admin-guide/LSM/LoadPin.rst b/Documentation/admin-guide/LSM/LoadPin.rst
+index dd3ca68b5df1..a90fd9dac960 100644
+--- a/Documentation/admin-guide/LSM/LoadPin.rst
++++ b/Documentation/admin-guide/LSM/LoadPin.rst
+@@ -23,9 +23,9 @@ sysctl allows for easy testing on systems with a mutable filesystem.)
+ It's also possible to exclude specific file types from LoadPin using kernel
+ command line option "``loadpin.exclude``". By default, all files are
+ included, but they can be excluded using kernel command line option such
+-as "``loadpin.exclude=kernel-module,kexec-image``". This allows to use
++as "``loadpin.exclude=kernel-module,kexec-image``". This allows using
+ different mechanisms such as ``CONFIG_MODULE_SIG`` and
+-``CONFIG_KEXEC_VERIFY_SIG`` to verify kernel module and kernel image while
+-still use LoadPin to protect the integrity of other files kernel loads. The
+-full list of valid file types can be found in ``kernel_read_file_str``
+-defined in ``include/linux/kernel_read_file.h``.
++``CONFIG_KEXEC_SIG`` to verify kernel modules and kernel images while
++still using LoadPin to protect the integrity of other files the kernel
++loads. The full list of valid file types can be found in
++``kernel_read_file_str`` defined in ``include/linux/kernel_read_file.h``.
 -- 
-2.55.0
-
+2.53.0
