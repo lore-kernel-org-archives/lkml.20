@@ -1,74 +1,74 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050F5352030
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 13:04:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C0D339872
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 13:06:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788613490; cv=none; b=pS049CtDfk1oV/Tp0TVuuncepCgxUbTvMSjruvK6iI3A8kCLopSwaUEZGPsbaPCiA9+DXgx+zU3gVFvy8dhB7Ye+PPzNjx5G6ZTY/mX4SyRAZvD8dbxaR0TKxzI9vCi0YadGDHYJ3wx/gcAqkCyeeh3GjIiV7hS8gZDmr5zj6qI=
+	t=1788613574; cv=none; b=no21b8tqX0OdLt8SzjFMRTOPIjM8D7TLHEejWuAS25ceI0VDBV7vXIDmA5d03N+vnl0NmwtmD/yIhbcJ9Vj1APRPH4WaapbnyLzk4bq9t4FCsnaUscJAzB//rdJ02MEiBHPTUZLjzDC5fP+ZcWSgmUKNda6DuV0XGePhVxUAAWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788613490; c=relaxed/simple;
-	bh=J+rRKtgAlEjfqxSZXZsYqEuQQycmsbgN57qptwdUxp0=;
+	s=arc-20240116; t=1788613574; c=relaxed/simple;
+	bh=qxiTBWSzHO3v/x+E1clkm6NeovGTfMM7UvjpnNUGkIc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m9j4ggHBjr4yCUc4rAcjtCWbHhTTw+DaeHz8YQrlXuEQEFBgmo1wS5KpoNzodvatrxTAvGK1CZqZQ/qkTZuIKE77d5YfOM3BPfJo0fpnqOGlO7zl/Vijja6GbMZcSM7VGK/6QeNM//h7OCUQFETetN86kg+QLuBddKIO/NChkyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ivtYRXoi; arc=none smtp.client-ip=209.85.221.53
+	 Content-Type:Content-Disposition:In-Reply-To; b=B0eHp0oPozJKXZnTLQlTrxtXJwtWD2Z1GF9FiRx8DoMrjBB0LAiFX9a/lfX0njoPNkih+uPQ2LHsq4F059T9NJq8GOMUXc7JF+3prcMiYVE7NB194SyqO6ntWy2utsNkFhwNHHT1nqWCPuLB/QJRYG5+OmUOYxKNsBH/ze6uyhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Llfl8Hxv; arc=none smtp.client-ip=209.85.221.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ivtYRXoi"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-484362f5c4aso2401215f8f.3
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 06:04:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Llfl8Hxv"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-4858595f997so1199338f8f.1
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 06:06:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788613487; x=1789218287; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788613571; x=1789218371; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=FKCYHYnz4LwrqJmGzipTMr7mOO6sdij85Eh/KU1PCWk=;
-        b=ivtYRXoiaYM7B9UTPrd+eVTrrCDQnDSLfmsSy+C3419e5vcI6OhLDd+syjsZ+oPqMZ
-         EUAyOcycB9SrD5B0Jzn1pfB0g4f/5JPp7SXFIeZT9pJkmZEWy2i81I//bPxlbdRFikyc
-         lpB9vjJLR0jexhk39dffFSC5g3ogpu4p8Spw58Uajnhu10ZOf0+T9BbIbcW2+XP7fMx6
-         0uvYqTgBnTMhfAXAWisIVox2lqcJ+NZW/4lNma9vAq7PT6nx9hqEbVoY+v1IiNlkQ4Xn
-         omKhZwQn0+1szquHSFwKlIGEuq3wACM7SjoBPSv6uGXRRDmG23UcRwc3bJ7nDUBBZ7eT
-         jbbg==
+        bh=p+wVHadqibFAXBtm0/DDhBcCJz1orb/mBgwxUhYUpPQ=;
+        b=Llfl8HxvdfacXSMfK7hnQMagsYf3YVqq19gb9rkz0pteDUl7QSxT+chIs3j6t7OB34
+         wpWv3CcNdG6cDrS60p/wfLIpFxktFzJtpksp0IegVMrDmOyGMCqRg3dcAKzQ7xIdC9D0
+         ESmCVWvp4vQj8jNFW21vlDNW3912fv7o7fkIHMJS8s179xQ4kfDHpz3cNoeVoOO7l2GQ
+         AtVP1wsVctmyQxRDnBvgMgVYO7ULaecc7rFMudTedHpLUUblqBs1rQ8UUEazleQiwcOg
+         5Q9Kj49eg4un0mlBtSafvLwjUr0bARiMzHo9c9IrN+CJYZOkD0NeSec6Pk7aB4klmgQe
+         GuJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788613487; x=1789218287;
+        d=1e100.net; s=20251104; t=1788613571; x=1789218371;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FKCYHYnz4LwrqJmGzipTMr7mOO6sdij85Eh/KU1PCWk=;
-        b=mWM8CaKJ3Atsze8IXV+9RkO8yo9yZsk1sfuJkBmXJb7wTFfWPmRMMfiWw01Sj3/gNx
-         tXVwoWSvRYgM0LPliimHZ4w3nXKUk6CsSf2Hvz+dudp1Zz+vaDGJVD0UUyKRgVM/Rp/s
-         zdGgxAPp3d7edaL2vHpJ970WkU9UU5GH2UVpBW8FosnoqTVZQZX9AjlPrU9TuIs/W8l6
-         esILbscOaGA9DplAjO+T3H8/dcnoGre/1qmMkpNASOjMN2XQ+dEXOW6Zq3ND4DAVqDzM
-         A91Ih7FEOilR4vVzo4vDJfHOWSToUuL+rcAwx97MVU+6BvdxDZXMe83NGzjNKRF44kZE
-         eBDA==
-X-Gm-Message-State: AFuF++maQDaRPf6hmDCMr4Qan4wta8n1naz5HIMwg5cWVUFH00cchXOR
-	YPZZiai+n8r1ZjyxNn2DtatsFQtXpdTI4BkbpYXPNlbSgos9MELpGr4pT3AP9dsEYQ==
-X-Gm-Gg: AYBFou1RcW1DqH8sp91V5E/cZarIMA1QSpj+pveHlszba4qSQh5AFTjhWD5ZxxCYkiD
-	AK1jZmgKuhUnBJshHaynO/y+k8Tu/Tb2dWiDXPELOgBmARQ9ktD4raUIqETvXRqHsoBgG1ALFyB
-	CvW6YeunI2mJoWo38e0+MnhMkugrYOU/qKS9gYfloLh5Gv/t+ep6dQtl/aZ1mGLMbPKxLv6rdpl
-	UoAdyWb8yef+nviUHeFz/wSRm2qANFMSxGLeqKtausDgkzurzfBjl/GMJF3UQ3AFEbY2X7f91ar
-	RQ0hWKyW/K1j7qA/iLOHhxTiyk6cQuIUcwWwWhWvm3mn/XUwwGMRhCbk8WDYH2e5mzbsDze1YW9
-	JpguWeEj+aZ+UV2XgZB1uh9C1btSDMur3IwE7RhQRdalN3NYJkc/GCdaurOvM05kpEijuyA6f/g
-	Ww7zUWXFDBVDefcSYW5Y4q2yo9UNYMX7XGRqC/MjfHgC9OJ/8qBlWfSvYqpoBaAhURUeiqNA4sZ
-	kMPXMqbl9hLwl4kFoapfAzc3a+RfVVo
-X-Received: by 2002:a05:6000:26d3:b0:485:8393:2176 with SMTP id ffacd0b85a97d-485870902eamr22317816f8f.21.1788613486296;
-        Sat, 05 Sep 2026 06:04:46 -0700 (PDT)
+        bh=p+wVHadqibFAXBtm0/DDhBcCJz1orb/mBgwxUhYUpPQ=;
+        b=cwrYUib6PT4Vz9awCAo7EjzORlZCEbAt6XSDfedOhY/0vCj+JQCz75WnASX6U2YmFx
+         ofLX+norSv816eHlv3CZ4ZGGyCDNlR5j/tqZF9aBZJu9e46FALEYxNXB34ChYgbxOjnr
+         0FXfzVSKvUN5GrPU8o115+6JlvuLBUSrSCObswLIt7OG93RHFMnJEH5s6t/zmonwllIe
+         BwIIPTUBzDBbmufHK1KQIbnNPgJV+wkA3CZ8dM9HrxhlUFWwcntRpHa6LJGaf7zAfVgY
+         7TctTDIoTdjw7+iHnymrHQdjo5pePeR1qWfvChDJZgom380sapj7L6oKXJLijBpBeOay
+         Usmw==
+X-Gm-Message-State: AFuF++lbbbBaI8dNCGT361ljWZaObgKyCRLrepjmHO9bVlXprxqAvm04
+	j8751gbEOqQORQwIu6g6p+2z/XfpH3mTw+8k7V9DHEh3k5h8/4s+DqudMrbhBU7lAA==
+X-Gm-Gg: AYBFou2Un+Zoe+PWQ+gPms5c9x1sZTXXhBmNqNoKLyTDyXU8kPSxaNEyDC2XFTmcOZs
+	BFS22aTwq1edQe4ZAXvOk0vexb+oadElTXmiXDAJH9kZJJLVCTwyFN5Y6CZMOrunztf88wtJoDc
+	ezzjlS155rlxFBE2bFz1mTvYIzGLAhDOh8XUSY5iGPZ2H/WkZDDzjY2fLz2DiF0AfXJN9YHMKRe
+	iu6F9/exsQKo2UxRSewYwx8Ypjfe5uJ6wQCtfaXNSouSG2tHOAiOMcYOtG6+2kjTuhui0VniCW0
+	0bnGGRFKQ9Mh12p1Cb/c4pMDDsJy5xqBEkXtBzqWBCv0HyB7UGiCNkbniLNWoVs9Hmx4bqxFzt0
+	spbEDz/OwuaRHkD0BE2Tm92iGDToQkfEUkNmNeqd7K8cnyWRoiRSyod93WCdGZ2PdisZRZyLeKY
+	4CJWmVsHvXHlpdlTOmft0wpM1uGhwgEGS70MI0OLtFHKjrQ4OLn4W92SX8aI9tjC+EfkNUmEWA7
+	kaWc27JI94DN4UxBoueSrZFW0S+N/34
+X-Received: by 2002:a05:6000:220a:b0:485:943c:886d with SMTP id ffacd0b85a97d-485943c8a37mr5001319f8f.7.1788613570173;
+        Sat, 05 Sep 2026 06:06:10 -0700 (PDT)
 Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883927a3sm10315802f8f.11.2026.09.05.06.04.45
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485881353e8sm14107016f8f.1.2026.09.05.06.06.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 06:04:45 -0700 (PDT)
-Date: Sat, 5 Sep 2026 14:04:42 +0100
+        Sat, 05 Sep 2026 06:06:09 -0700 (PDT)
+Date: Sat, 5 Sep 2026 14:06:06 +0100
 From: Vincent Donnefort <vdonnefort@google.com>
 To: Steven Rostedt <rostedt@goodmis.org>
 Cc: LKML <linux-kernel@vger.kernel.org>,
 	Linux Trace Kernel <linux-trace-kernel@vger.kernel.org>,
 	Masami Hiramatsu <mhiramat@kernel.org>,
 	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Subject: Re: [PATCH] tracing: Fix comment in tracing_buffers_splice_read()
-Message-ID: <apwTapbe4CHPA1h3@google.com>
-References: <20260904144902.506862a1@gandalf.local.home>
+Subject: Re: [PATCH] ring-buffer: Use a macro for static buffer bits
+Message-ID: <apwTvi6sC0xqRvwP@google.com>
+References: <20260904151641.17eae0aa@gandalf.local.home>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,52 +77,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260904144902.506862a1@gandalf.local.home>
+In-Reply-To: <20260904151641.17eae0aa@gandalf.local.home>
 
-On Fri, Sep 04, 2026 at 02:49:02PM -0400, Steven Rostedt wrote:
+On Fri, Sep 04, 2026 at 03:16:41PM -0400, Steven Rostedt wrote:
 > From: Steven Rostedt <rostedt@goodmis.org>
 > 
-> The comment about returning an error if the read fails on the first
-> iteration is slightly incorrect. It makes it sound like the only reason it
-> could fail on a later iteration is if the subbuf order changed. That is
-> incorrect, it could also fail if the length passed in was not a multiple
-> of the subbuf size. Fix the comment.
+> Instead of hard coding 30 for the number of bits used for the static
+> buffer ids in two places, create a macro. This way if it changes in the
+> future, it will change in all the locations that use it.
 > 
-> Link: https://lore.kernel.org/all/20260904143527.40e73d36@gandalf.local.home/
-> Fixes: TBD
 > Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 > ---
->  kernel/trace/trace.c | 12 +++++++-----
->  1 file changed, 7 insertions(+), 5 deletions(-)
+>  kernel/trace/ring_buffer.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
 > 
-> diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-> index b26c4c277ce5..8658cad53cb5 100644
-> --- a/kernel/trace/trace.c
-> +++ b/kernel/trace/trace.c
-> @@ -7296,11 +7296,13 @@ ssize_t tracing_buffers_splice_read(struct file *file, loff_t *ppos,
->  			r = ring_buffer_read_page(ref->buffer, ref->rpage, len, iter->cpu_file, 1);
->  		} else if (!i) {
->  			/*
-> -			 * We failed to read because the length is too small
-> -			 * or unaligned. If this is the first iteration, it's
-> -			 * an invalid userspace input. Otherwise, this is due
-> -			 * to a subbuf order change. Do not report an error
-> -			 * and just finish the read.
-> +			 * If this fails to read on the first iteration, it
-> +			 * means the length was too small and an error should
-> +			 * be returned to user space. Otherwise, at least
-> +			 * one sub-buffer was successfully read but this failed
-> +			 * due to either the length was unaligned or the
-> +			 * subbuf order changed. Either case, do not report
-> +			 * an error.
->  			 */
->  			ret = -EINVAL;
->  		}
+> diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+> index 220b8405adfc..b88c75b52e8f 100644
+> --- a/kernel/trace/ring_buffer.c
+> +++ b/kernel/trace/ring_buffer.c
+> @@ -335,6 +335,9 @@ static __always_inline unsigned int rb_read_page_capacity(struct buffer_data_rea
+>  	return (PAGE_SIZE << rpage->order) - BUF_PAGE_HDR_SIZE;
+>  }
+>  
+> +/* The number of bits for static buffer ids */
+> +#define RB_STATIC_BITS	30
+> +
+>  /*
+>   * Note, the buffer_page list must be first. The buffer pages
+>   * are allocated in cache lines, which means that each buffer
+> @@ -350,7 +353,7 @@ struct buffer_page {
+>  	local_t		 entries;	/* entries on this page */
+>  	unsigned long	 real_end;	/* real end of data */
+>  	unsigned	 order;		/* order of the page */
+> -	u32		 id:30;		/* ID for external mapping */
+> +	u32		 id:RB_STATIC_BITS; /* ID for external mapping */
+>  	u32		 range:1;	/* Mapped via a range */
+>  	struct buffer_data_page *page;	/* Actual data page */
+>  };
+> @@ -663,7 +666,7 @@ static unsigned long rb_static_max_pages(void)
+>  	 * Static ring buffers are using bpage::id and must account for the
+>  	 * reader page.
+>  	 */
+> -	return (1UL << 30) - 1;
+> +	return (1UL << RB_STATIC_BITS) - 1;
+>  }
+>  
+>  struct ring_buffer_iter {
 > -- 
 > 2.53.0
-> 
-
-Ha yes, I see the missing case you were refering to now.
+>
 
 Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
 
