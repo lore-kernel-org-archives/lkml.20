@@ -1,90 +1,53 @@
-Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0236B3009CB
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 08:53:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B23E63126C2;
+	Sat,  5 Sep 2026 08:53:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788598409; cv=none; b=qOqwtNNV7NvlLmLuASU9u/SSLu8WVFy/cO2lJsQK04z4Ql4hpKjKaJQJcnaEWzBc8qRxDE7+vTQcnWMsDG3PvRD/Kr4Q51Ex/87KAYPHa49kkgKP2sdLI58UX/1ol2wfdDs4CVVoDJ3O7Y3+mnVH87HESnODP+ZDsTLLrwNHFfI=
+	t=1788598436; cv=none; b=grAjgSobf/Ri4ojMXzVu0FhFucjqHC4ug/7245aJ3+2JkwwByQwoX3Dxrnzx/EgglcqkBSi80DBzJaD2G3kJWH5qo6nbeYR2gCW835UOZgsYfsjSGV88U7FTRYmvFmfCI1brqnI5YmlCL3kHrOX865XjVpyGMZWHcSP9OzXoAEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788598409; c=relaxed/simple;
-	bh=D7JaeCOjdBjWc38JeD5hIJbaNJss77DXuSprCXTCyT8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ovvyzp/s8YtOLfNUMVw3hvLOCiUKBFj7700j3RYnXe6zrGV8ti73sA16oa6jfTD+7fCtZNiWU4Yrv+JMPQYR/eL1AerXzmVc+C6ZuvnnsiAnsTmYXEzMi90IOEqqwNIGSnjPsekJlhT1ec91/CgrMkargFZ5trNAk22+90aYLds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=iQyfZ20c; arc=none smtp.client-ip=185.125.188.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="iQyfZ20c"
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 377393F1CC
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 08:53:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1788598404;
-	bh=bAyqUgf+I6QAh1/NXnB0FgN6nwCFM0fq8dEBHdP78N8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version;
-	b=iQyfZ20cHquVg2bhaAmAx7vhDm34iJttgaDAvpzKr9/63gdvVV7R0k7dwJuZUErgd
-	 9jHDSyR0bYj52YLLnG/LsZ+vaFnFaRyn/18qD5dNUumWIkYyOFy0vt6Anwj9z0e1Rc
-	 S1n55a4pA8IuQ/jQkUu7TSUJ1ViipVjAZ3ASTmwKa1Q+DNHvkBMsxx9e1Xw1PQvL1E
-	 yFLVQuDX9YLPBD0+XNkQEPWQjuDw0zo7zO9xsDlVjALMvFVfsAfg+ier9tlsopfKXh
-	 pLGS3FRZA9EMRRnN2sO9A5tkAESDv1vYK4MDGGfVEJLNu5omNOWQsO8XKgoricAjuZ
-	 lCyir01KNECfB23VQrMn52u5HFw1x6V/CUEMqyEUbNmt76uq1JPRGk7OMLuTZXeMYi
-	 HjZW9kesgPuebb1kpil2VZ7KCjE/sXgyhZdG7KNfh9SVj+wo4h+pojRfjV8XhmH04H
-	 UdpfEaG6YyEAZnCZPCqF0kXOmLtQPzLa/RhCH8UEILYovut9yjBi5SUsDjnH7M43Fd
-	 SqGS0DFTESCdPAEbHKz5Er/dHmtJeoqgye+xDyJ3xAYvCqKG8F3WjIMUcN/Iwaw2gV
-	 Xp4yC6PrPD6jkcon7kz31S+P9Zl1hOCd1LsOWCvE8xixsWUFCo51MB6Xw0IiqRx05v
-	 IJp8AxYWRK5jgS9lIS2LsgHE=
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-499a55ebe79so1277205e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 01:53:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788598404; x=1789203204;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bAyqUgf+I6QAh1/NXnB0FgN6nwCFM0fq8dEBHdP78N8=;
-        b=BLegVOnRrI4uv3lvWbpotAsNLKZATIIXmA8YiEDE1t6M5s756JcFOfU8A7gXEOglQn
-         umBgxpvd7sOiCHX7OkXJdP80RsRwR7Ll2cyqwRaDpEnOq9ihl0392ncbU8u3zisPBwBk
-         X2U0Svsdduao8TF+diuqs8TnNVIkXx0/hBn5jTNM+iGJ7WxFMV4J5cGEtro/S/NyF2BK
-         Jq6aU3X8lFKlkYTYE8bcOZHeA1i8rUZkN+PuKW4FFpnOmNwCpl/o4c+eKk78xFdC3ka9
-         ejl98LQZAvZavvBcjwrHoPSjYIe+cwOW2zTovOaFbQEdh8wqY6ZTtgKSrJhPwF/AbBDB
-         0r7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwfD38C7hldhimw6Atqh9R9f907vPBw5wffY6UCTJB6iTQawMzne57O7NydnhEM04ASujju/BJbhqwvF2Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++mPqemZ45VL7DGdUxoANY0rcj6fE87p9HPjX3wqIQsqSqvplmIm
-	HOLSgcj6pAd1sXImE75XH8uO7SMRrIjfmEmHMQbFh9QPnOqApRLTRMl6eydnWak8vQGG863iYDh
-	uFMyDATYysSP+m6sEGDttwMV1EKHLF+CJn9+mLrH4wVhf3qaeGfznoErLuWAjtQeRE+b1sq31Li
-	tH7qZ8Mg==
-X-Gm-Gg: AYBFou0y+UQgHNXJqrBcd2sBMGbGVKRdyr90iy0DavVpCLjalwiQDsEHuqtZLOfKlNO
-	SvicdM+5g/2aXw7KqzgUwH7UVaJtoce/JFupY3Q/+twcCFVkR0uRUxtlbBRePJ8edZrh6vkFYMq
-	oxe9BFJmbJsk3q+TxqK1jO9BiDXCm6jg7ArWE+s1dgo78JKEeYOp7MPwbMTMuIGPQnzZ/zYBH7r
-	PTZvmlLBs4A2EjpvHY6aCC21LHR2kin6/ezye0IGQgq/0G0JKEPh8CGlN+pn8gTx72olBW7nFTa
-	5D144nUUhXvbZdJFYawFNh+MaMzQBBRZEmIeT1yKcxiBkI6nr9x/3BKIiVktSCIlSQKJUFRBKpA
-	esdhc3JH21ona
-X-Received: by 2002:a05:6000:983:b0:484:3d59:5ed with SMTP id ffacd0b85a97d-4858ffa115fmr3139794f8f.0.1788598403744;
-        Sat, 05 Sep 2026 01:53:23 -0700 (PDT)
-X-Received: by 2002:a05:6000:983:b0:484:3d59:5ed with SMTP id ffacd0b85a97d-4858ffa115fmr3139774f8f.0.1788598403365;
-        Sat, 05 Sep 2026 01:53:23 -0700 (PDT)
-Received: from localhost ([2a02:1388:a28:ba0f:6fd4:24de:787b:7c01])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885bfdf6sm12692505f8f.34.2026.09.05.01.53.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 01:53:22 -0700 (PDT)
-From: Edoardo Canepa <edoardo.canepa@canonical.com>
-To: netdev@vger.kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Xu Du <xudu@redhat.com>,
-	Po-Hsu Lin <po-hsu.lin@canonical.com>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] selftests/net: run tun tests in a dedicated network namespace
-Date: Sat,  5 Sep 2026 11:53:02 +0300
-Message-ID: <20260905085318.3416670-1-edoardo.canepa@canonical.com>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1788598436; c=relaxed/simple;
+	bh=eXD/Hh8N36euYuM5b5IoBQhgaasQWDWMSXJVs84jXys=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=k9Bb6kmRepHjL01Gr+vTCwd2i4azlpVIABBDYj4FfoSAuENNFLuBJMDAtOr+PnSd+PJzmt+WkUSNlUqHFZUjkiwEtu2ATBFPLXfCg16sJjXWU1w4KeKFdoycuFPSHTmwOCumuRgbOML16sAV5OR1vncBXi+s3AnZ8cM7go5/PgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.198])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hcRtl6p0kzYQv19;
+	Sat,  5 Sep 2026 16:53:03 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.112])
+	by mail.maildlp.com (Postfix) with ESMTP id F06CB4057B;
+	Sat,  5 Sep 2026 16:53:49 +0800 (CST)
+Received: from ultra.huawei.com (unknown [10.90.53.71])
+	by APP1 (Coremail) with UTF8SMTPA id cCh0CgBnTwqc2JtqP8lOAw--.13006S2;
+	Sat, 05 Sep 2026 16:53:49 +0800 (CST)
+From: Pu Lehui <pulehui@huaweicloud.com>
+To: bpf@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Feng Jiang <jiangfeng@kylinos.cn>
+Cc: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Puranjay Mohan <puranjay@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Pu Lehui <pulehui@huawei.com>
+Subject: [PATCH bpf-next v5 0/3] Add bpf stack arguments support for RV64
+Date: Sat,  5 Sep 2026 08:58:54 +0000
+Message-Id: <20260905085857.14143-1-pulehui@huaweicloud.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -92,92 +55,81 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:cCh0CgBnTwqc2JtqP8lOAw--.13006S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7KF18Jw48CrWkWrWktF4UXFb_yoW8KF4rpa
+	4v9Fy3K34vya12qa1xCFWUWryrJrs5u343Wr4fZ3y5J3W8try8Wr13Ka1rJwn8JF97Z3W8
+	Zwna9FZxCa1kZ37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I
+	0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
+	x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
+	0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAa
+	w2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxV
+	Aqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a
+	6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6x
+	kF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AK
+	xVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa
+	7IU0s2-5UUUUU==
+X-CM-SenderInfo: psxovxtxl6x35dzhxuhorxvhhfrp/
 
-The tun_vnet_udptnl fixture creates a fresh tap device and installs an
-IPv6 outer neighbor entry as NUD_PERMANENT before sending packets.  On
-systems where systemd-udevd is running and a systemd .link file sets
+Implement bpf_jit_supports_stack_args() on RV64 JIT to allow bpf
+subprogs and kfuncs to pass and receive more than 5 arguments.
 
-    MACAddressPolicy=persistent
+Tested on riscv64 QEMU with LLVM main [1]; BPF-to-BPF and kfunc
+selftests pass.
 
-(the default shipped by systemd in 99-default.link, so this is what
-most systemd-based hosts inherit), systemd-udevd's net_setup_link
-builtin asynchronously sends an RTM_SETLINK to reassign the freshly
-created tap device's MAC to a machine-persistent value.  When that
-netlink message races the test's ip_neigh_add() call, the address
-change kicks the following path:
+[1] https://github.com/llvm/llvm-project/pull/189060
 
-    do_setlink
-    -> netif_set_mac_address
-       -> call_netdevice_notifiers_info
-          -> ndisc_netdev_event
-             -> neigh_changeaddr
-                -> neigh_flush_dev(tbl, dev, /* skip_perm = */ false)
-
-which flushes every neighbor entry on the interface, including the one
-the test just installed as NUD_PERMANENT.  The subsequent packet
-therefore hits __neigh_create(), triggers NDISC, and times out with:
-
-  tun.c:947:send_gso_packet:Expected ret (0) == variant->data_size (1423)
-  tun.c:948:send_gso_packet:Expected r_num_mss (0) == variant->r_num_mss (2)
-
-The failure is non-deterministic and can affect both directions.  Both
-recv_gso_packet and send_gso_packet variants can hit it; the failure
-reproduces on a plain systemd-based VM with no containers, and is
-triggered whenever the udev worker's RTM_SETLINK lands after the test
-has installed its neighbor entry.
-
-Fix by calling unshare(CLONE_NEWNET) once, from main(), before invoking
-the kselftest_harness.  All tap and geneve devices are then created in
-a namespace that systemd-udevd (running in the init netns) does not
-watch, so its RTM_SETLINK never fires against them.  This mirrors the
-approach used by selftests/net/ipsec.c, which also unshares from main()
-rather than per-fixture; it keeps the harness output ordering intact
-and avoids paying the netns-creation cost on every variant.
-
-Verified on a plain systemd-based VM running the affected kernel:
-1000 repeated invocations of
-tun_vnet_udptnl.4in6_nogsosz_1byte.recv_gso_packet produce 7 failures
-without the fix and zero failures with it.  A 20-iteration run of the
-full test binary produces 4 failed runs (across different variants,
-all send_gso_packet) without the fix and zero failed runs with it.
-
-Reported-by: Po-Hsu Lin <po-hsu.lin@canonical.com>
-Closes: https://bugs.launchpad.net/bugs/2158217
-Fixes: 24e59f26eef2 ("selftest: tun: Add helpers for GSO over UDP tunnel")
-Assisted-by: LLM
-Signed-off-by: Edoardo Canepa <edoardo.canepa@canonical.com>
 ---
- tools/testing/selftests/net/tun.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+Changes in v5:
+- Add RV_EXTRA_STK_ARGS macro to represent the exceeding stack args
+  passed in riscv arg regs. (BPF CI)
+- Optimize emit_stack_arg_st() by materializing immediates directly
+  into destination registers. (BPF CI)
+- Update stale comments. (BPF CI and sashiko)
 
-diff --git a/tools/testing/selftests/net/tun.c b/tools/testing/selftests/net/tun.c
-index abe488bac50b..7f118ba3ae0b 100644
---- a/tools/testing/selftests/net/tun.c
-+++ b/tools/testing/selftests/net/tun.c
-@@ -4,6 +4,7 @@
- 
- #include <errno.h>
- #include <fcntl.h>
-+#include <sched.h>
- #include <stdio.h>
- #include <stdlib.h>
- #include <string.h>
-@@ -985,4 +986,12 @@ XFAIL_ADD(tun_vnet_udptnl, 6in4_over_maxbytes, recv_gso_packet);
- XFAIL_ADD(tun_vnet_udptnl, 4in6_over_maxbytes, recv_gso_packet);
- XFAIL_ADD(tun_vnet_udptnl, 6in6_over_maxbytes, recv_gso_packet);
- 
--TEST_HARNESS_MAIN
-+int main(int argc, char **argv)
-+{
-+	if (unshare(CLONE_NEWNET) < 0) {
-+		perror("unshare(CLONE_NEWNET)");
-+		return 1;
-+	}
-+
-+	return test_harness_run(argc, argv);
-+}
+Changes in v4:
+- Remap BPF_REG_0 and RV_REG_TCC to align the calling convention of
+  bpf2bpf and kfunc calls with the riscv abi.
+- Adapt the bpf stack arguments implementation based on change 1.
 
-base-commit: 80dd7e754b3aa9637a0758ad93fa209f9650ec48
+Changes in v3:
+- Drop the exceptions.c guard change: the guarded programs use
+  bpf_throw(), unsupported by the RV64 JIT, so the test is denylisted
+  on riscv64 and the guard has no effect. (BPF CI)
+- Link to v2: https://lore.kernel.org/r/20260813-bpf-riscv-stack-args-v2-0-efea8f9b3fe1@kylinos.cn
+
+Changes in v2:
+- Sign-extend 32-bit kfunc arguments passed on the stack (args 9+),
+  matching the register path and the RISC-V psABI. (Sashiko)
+- Restrict the riscv selftest guard to __riscv_xlen == 64 so the
+  tests are not enabled on RV32. (Sashiko)
+- Link to v1: https://lore.kernel.org/r/20260812-bpf-riscv-stack-args-v1-0-67b246806e59@kylinos.cn
+
+Feng Jiang (2):
+  riscv, bpf: Add BPF stack arguments support for RV64 JIT
+  selftests/bpf: Enable stack argument tests for RV64
+
+Pu Lehui (1):
+  riscv, bpf: Remap BPF_REG_0 and RV_REG_TCC
+
+ arch/riscv/net/bpf_jit.h                      |  4 +
+ arch/riscv/net/bpf_jit_comp64.c               | 90 +++++++++++++++----
+ arch/riscv/net/bpf_jit_core.c                 |  7 ++
+ arch/riscv/net/bpf_timed_may_goto.S           |  8 +-
+ .../bpf/progs/btf__stack_arg_precision.c      |  3 +-
+ .../bpf/progs/btf__verifier_stack_arg_order.c |  3 +-
+ tools/testing/selftests/bpf/progs/stack_arg.c |  3 +-
+ .../selftests/bpf/progs/stack_arg_kfunc.c     |  3 +-
+ .../selftests/bpf/progs/stack_arg_precision.c |  3 +-
+ .../selftests/bpf/progs/verifier_jit_inline.c |  2 +-
+ .../selftests/bpf/progs/verifier_ldsx.c       |  6 +-
+ .../selftests/bpf/progs/verifier_stack_arg.c  |  3 +-
+ .../bpf/progs/verifier_stack_arg_order.c      |  3 +-
+ 13 files changed, 108 insertions(+), 30 deletions(-)
+
 -- 
-2.53.0
+2.34.1
 
