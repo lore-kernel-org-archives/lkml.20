@@ -1,90 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 412BA3783CC;
-	Sat,  5 Sep 2026 22:37:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56344357D08
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 22:46:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788647827; cv=none; b=Fwdt43EjRzerCohItsjDSUiR3ZVuu918tnKB/ZhL8BkZsL1+KQty+u2nJ7QAOL0TgH+qa2f6lXA5FYeoToTXaDndWp/ib8QUyt5Y7sJUcj3Gc7g6dbgMYYGmi/6LmwGc/cBPevwtcCyGCkHRMtv9naWV9eF1mI1joIX9YZWfqyU=
+	t=1788648377; cv=none; b=ukvq/idQqri+n1FEwjFX/vYuGHA6Ac4zr3ktQ120DSB6QEGubx/YNdX5STKO/RcGw4Vyo3Jd4xAsQcCJoct3K+9tRmXAPsg90tunM8/ZSbu0qBfAv2QHzrceEvYitvABY7tHObFsjxDLetftXp9+bLhzvK0oOvyhvYWxMktEZH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788647827; c=relaxed/simple;
-	bh=XtR0HkB2AntV2d8Pe+580CbDN2RYhqasWOfPY6+JOyc=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=MrqYho0B7FQGhexHzFbTg/b8YUiQtpp+i/IfCpWoI3qQGwCyRhe7M961wGR69FtUTNSZwF/zp4+Bo9dj5TtTT/6rtW0IQPQHSlv3lb2lE9VVhQylg7wXL3H8F8yHpZkb1WSoieCSqBHESOuNTxBEoAkK0My9+XRCZIAlhWQuoVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ONQUSt83; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788648377; c=relaxed/simple;
+	bh=kT9kzRdewywE20QTuvLmGN5Xdg6dqraQtlEcimWkFPQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lr1StTf4dWfUFIe/qexGOAdJ66ShrtN/hu4absgpgGYsfi2CsSo+eMWqduRrq5KfuBEynjcaIq+jnKt0EXoLBrwHARZAWKNo9vJL9DFMFhctUSzHJmVcw/vSITtTnZ5OAAm+eq8pF/A66Vj+EzTuw1CsUL4+QuizOqBgfwGAQbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DxFi9Ggw; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ONQUSt83"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 063021F00A3A;
-	Sat,  5 Sep 2026 22:37:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DxFi9Ggw"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49ccfae359fso19360185e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 15:46:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788647825;
-	bh=MtjQ1ODtoXbhHRqrZLCBQGlLhKxmPKi8roy0XKYbjzA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ONQUSt83ZZf7rEbmIESSsiSQY3xMN39a3j6xObv5wd/XdtB/jXcxKdMubi9fe5Yu1
-	 h8udRMs5vsU70vf9oSVc5EGY3fc750jeT7FoRPmc/08YkG1aXEj4IL9INAk2HtbgVc
-	 EQmH5KBU7pLDLRkQMyv5MGprvN0nAH+jY7ZC8M3k=
-Date: Sat, 5 Sep 2026 15:37:04 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "Uladzislau Rezki (Sony)" <urezki@gmail.com>
-Cc: linux-mm@kvack.org, Baoquan He <bhe@redhat.com>, LKML
- <linux-kernel@vger.kernel.org>, stable@vger.kernel.org, Dev Jain
- <dev.jain@arm.com>, Ye Liu <ye.liu@linux.dev>, lirongqing
- <lirongqing@baidu.com>
-Subject: Re: [PATCH RESEND] mm/vmalloc: Use dedicated unbound workqueues for
- vmap drain
-Message-Id: <20260905153704.e7fe650d0226c3e20c1c8449@linux-foundation.org>
-In-Reply-To: <20260905152717.11711-1-urezki@gmail.com>
-References: <20260905152717.11711-1-urezki@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=gmail.com; s=20251104; t=1788648374; x=1789253174; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zXyLFZp7E7THY6i1Yz79/ZXf1LASAsoTVkBr/TomcTQ=;
+        b=DxFi9Ggwl4srI+z9KemND0WzjuWiO7V3XHv4QxWC6uFP+bhoRY/9lzCcayoVtQjvk8
+         V/0NWTqCNCmLq9jVRB1zqescBS0dG7UqRHEL0fOz/rot14zhCd4726bde2/HRSTniBK9
+         ZvtYLrGyNJBEF8oO1B4WZfzWqunCnZRSmfeDIh8JQ1PjO2LjIVHwcTsOlxZFZDS9AJxN
+         qEUW/U6WD3ZUy+pTiwhoO5FZ9nuVURKUfr2+LVp68XKe/0MSZABPlGQ0vz31P9O+dJrm
+         sEcdewH7nXwr+vWpScMdonf3IIn7qQJPO/zk8b5gs7TAQcJqLYmJ4SCw28bxcavNldTe
+         540w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788648374; x=1789253174;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zXyLFZp7E7THY6i1Yz79/ZXf1LASAsoTVkBr/TomcTQ=;
+        b=M7vWsMaKhO2KCe+aLwA81oDMtt/VVZWVLmyKBK+/oOr9VsVtv8lOHMTEGw9vi0B50x
+         BNuDuPr86I+SZflSdH436c252YHMf3HMRa4dCdTtI4qE+QQqpmH+sF+XGveMSgOcWL4t
+         +wNDVcWZiwiPQkceFnw1epsSab5gVT6ZecmmKiEQ+XiUhyqpDyJrwQFrOtPZNWWXMNkn
+         SbZ231iTCJCbku4oxj1GdiGNB3TqadXDOsPSME/4z26Hxv7zjG8Tmf4JDBdj7fEE20FE
+         BrNnnt0Ti7Q71+a998CzsG1wuOoVb6CXHbkDG8WQre6tfTv7fpcT4sAUszYt401Ut208
+         CZCg==
+X-Forwarded-Encrypted: i=1; AKwUvBwWC6lSSEWZY3K3YsXVUzxwh/hZEv//nRhtSBJEiaYclCN0k8vD1Z0bwA15m+YjaPZ6ynHNzZeQUGK67bU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mtGsFOyQ06ENywvKgI5y7SAbWzcEYwljZ7p03pUQQvvAbyb/GS
+	iVKpGFVD1bHg57eqs5jv6Sz/qVo4YBjjTjS9kySgWmRp5Yn/UK1JwpXI
+X-Gm-Gg: AYBFou0GC7ivFYduJ/KkdV5OTa5HWsHiu/CJ4DwsZSuZNLvNj9POZznterjEeWuKqQ2
+	QmT9rkxySftIOcHj+PTpYhwyF+zKnkTmrDpB/TsXhpqQuN5XHwgE65NKfkTx4HUUHcivgfBPfD3
+	XaFW6e0oX+Iq7fgH4gP4rDKx8pQkaSk4D/QsKa1sFLsYlUazqSwDeo+BjVVOvOyfdi+osmpeTNF
+	xRBEutAEh05tPCpRlTRpba5ksSKq0RGMlhc/7JXwZopy32MvjuSxpACEXxikT9JIMILRfafTvBF
+	yOBwiRJZCKFbAvNKojzuz66Kdi5HiNtIzllF0lB1Q9kZsFXY6/+LQrlD035ql3DXc/+LqtffYH+
+	oVGFjKDp4yi39zuYaeAelKRXuKZpeHKjj0foLq9R5+PNMDsehgCQkT/AbcyyM47WQs1WYjtHjyl
+	R6F451rsvrRiWcEs+duGCVerV2ER+aNUupfYR+PhULihcMZgMR4ko/INdnqw==
+X-Received: by 2002:a05:600c:1c23:b0:49c:eb16:9fd with SMTP id 5b1f17b1804b1-49cf820a8e3mr161180375e9.3.1788648374221;
+        Sat, 05 Sep 2026 15:46:14 -0700 (PDT)
+Received: from metepc ([46.197.185.71])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee80eda4sm261438995e9.15.2026.09.05.15.46.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 15:46:12 -0700 (PDT)
+From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
+To: netdev@vger.kernel.org
+Cc: oneukum@suse.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>,
+	syzbot+04cd90bb99c6ef81a65d@syzkaller.appspotmail.com
+Subject: [PATCH net v2] usbnet: fix smp_processor_id() use in preemptible context
+Date: Sun,  6 Sep 2026 01:45:12 +0300
+Message-ID: <20260905224553.595766-1-omermetekaya0@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260903165456.498079-1-omermetekaya0@gmail.com>
+References: <20260903165456.498079-1-omermetekaya0@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat,  5 Sep 2026 17:27:17 +0200 "Uladzislau Rezki (Sony)" <urezki@gmail.com> wrote:
+usbnet_skb_return() and tx_complete() call this_cpu_ptr() before
+disabling IRQs, which triggers a BUG when running with PREEMPT_FULL:
 
-> drain_vmap_area_work() function can take >10ms to complete
-> when there are many accumulated vmap areas in a system with
-> high CPU count, causing workqueue watchdog warnings when run
-> via schedule_work():
-> 
->   workqueue: drain_vmap_area_work hogged CPU for >10000us
-> 
-> Move the top-level drain work to a dedicated WQ_UNBOUND
-> workqueue so the scheduler can run this background work
-> on any available CPU, improving responsiveness. Use the
-> WQ_MEM_RECLAIM to ensure forward progress under memory
-> pressure.
-> 
-> Move purge helpers to separate WQ_UNBOUND | WQ_MEM_RECLAIM
-> workqueue. This allows drain_vmap_work to wait for helpers
-> completion without creating dependency on the same rescuer
-> thread and avoid a potential parent/child deadlock.
-> 
-> Simplify purge helper scheduling by removing cpumask-based
-> iteration to iterating directly over vmap nodes checking
-> work_queued state.
+  BUG: using smp_processor_id() in preemptible code in tx_complete
 
-Thanks.
+Fix by saving IRQs first with local_irq_save(), then calling
+this_cpu_ptr() and using the non-irqsave variants of u64_stats
+update helpers, since IRQs are already disabled at that point.
 
-> Cc: stable@vger.kernel.org
-> Cc: Dev Jain <dev.jain@arm.com>
-> Cc: Ye Liu <ye.liu@linux.dev>
-> Cc: lirongqing <lirongqing@baidu.com>
-> Fixes: 72210662c5a2 ("mm: vmalloc: offload free_vmap_area_lock lock")
-> Link: https://lore.kernel.org/all/20260319074307.2325-1-lirongqing@baidu.com/
-> Reviewed-by: Baoquan He <bhe@redhat.com>
-> Signed-off-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
+Fixes: 43daa96b166c ("usbnet: Stop RX Q on MTU change")
+Reported-by: syzbot+04cd90bb99c6ef81a65d@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=04cd90bb99c6ef81a65d
+Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
+---
+v2: Added Fixes: tag, changed prefix to [PATCH net].
+ drivers/net/usb/usbnet.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
-I think what we wanted here was
-
-Reported-by: Li RongQing <lirongqing@baidu.com>
-Closes: https://lore.kernel.org/all/20260319074307.2325-1-lirongqing@baidu.com/
-
-so I made that change.
-
+diff --git a/drivers/net/usb/usbnet.c b/drivers/net/usb/usbnet.c
+index a19ecf718f36..6a48f38e105d 100644
+--- a/drivers/net/usb/usbnet.c
++++ b/drivers/net/usb/usbnet.c
+@@ -325,7 +325,7 @@ static void __usbnet_status_stop_force(struct usbnet *dev)
+  */
+ void usbnet_skb_return(struct usbnet *dev, struct sk_buff *skb)
+ {
+-	struct pcpu_sw_netstats *stats64 = this_cpu_ptr(dev->net->tstats);
++	struct pcpu_sw_netstats *stats64;
+ 	unsigned long flags;
+ 	int	status;
+ 
+@@ -338,10 +338,13 @@ void usbnet_skb_return(struct usbnet *dev, struct sk_buff *skb)
+ 	if (skb->protocol == 0)
+ 		skb->protocol = eth_type_trans(skb, dev->net);
+ 
+-	flags = u64_stats_update_begin_irqsave(&stats64->syncp);
++	local_irq_save(flags);
++	stats64 = this_cpu_ptr(dev->net->tstats);
++	u64_stats_update_begin(&stats64->syncp);
+ 	u64_stats_inc(&stats64->rx_packets);
+ 	u64_stats_add(&stats64->rx_bytes, skb->len);
+-	u64_stats_update_end_irqrestore(&stats64->syncp, flags);
++	u64_stats_update_end(&stats64->syncp);
++	local_irq_restore(flags);
+ 
+ 	netif_dbg(dev, rx_status, dev->net, "< rx, len %zu, type 0x%x\n",
+ 		  skb->len + sizeof(struct ethhdr), skb->protocol);
+@@ -1298,13 +1301,16 @@ static void tx_complete(struct urb *urb)
+ 	struct usbnet		*dev = entry->dev;
+ 
+ 	if (urb->status == 0) {
+-		struct pcpu_sw_netstats *stats64 = this_cpu_ptr(dev->net->tstats);
++		struct pcpu_sw_netstats *stats64;
+ 		unsigned long flags;
+ 
+-		flags = u64_stats_update_begin_irqsave(&stats64->syncp);
++		local_irq_save(flags);
++		stats64 = this_cpu_ptr(dev->net->tstats);
++		u64_stats_update_begin(&stats64->syncp);
+ 		u64_stats_add(&stats64->tx_packets, entry->packets);
+ 		u64_stats_add(&stats64->tx_bytes, entry->length);
+-		u64_stats_update_end_irqrestore(&stats64->syncp, flags);
++		u64_stats_update_end(&stats64->syncp);
++		local_irq_restore(flags);
+ 	} else {
+ 		dev->net->stats.tx_errors++;
+ 
+-- 
+2.55.0
 
