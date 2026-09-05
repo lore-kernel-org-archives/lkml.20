@@ -1,63 +1,63 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73583453A52
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 10:41:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF6E64503E6
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 10:41:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788604871; cv=none; b=EjK9LUm2K2pfuA3bFm2K4gqiLf9Us2LVZN4J2Io5MrV+toiGCuvYT8zNhXJwcYXl8L9ddrMU3Zyg6Yc+Y+J6ql6Lyk8c6Q/e9UMQvwRj2+vnC4Le9BzRdhYy5Q3vcElxv0BP/qRp/gHMIY6ObhgoGeCFgTh6F9fD4U5UE4Rdytc=
+	t=1788604875; cv=none; b=JjXW/TLhVBOoRXH7qyTaP4WdinP8Axa6FAg9NbHBOK3oy+Glq6qbrqB42Yv/Fob3hyayDjQ1xluMnCyneZGfYkE1xne43kbmq6xTJ51VDNei7wRhrCtknx4RXZCrodxu4VxuHBfo3k31+bNpMbD6LD8XoNAkUu7JAzoVA1neRdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788604871; c=relaxed/simple;
-	bh=IKBCGIe+0rfZdqLtsEcEzIIMnR9trXnVBRpIA16kR3U=;
+	s=arc-20240116; t=1788604875; c=relaxed/simple;
+	bh=3H7DWsjdB2t1XmW+qQclm6nGtSHSe5mjsU+kx9BBsDA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Tqnosr0NGXelNQbdfhx9zRYm8s+ghI27RKiN/E/wK8xZIfdWLHoos3zAqqK2vMdyUO/Ta9bVE+ovXpZ05wJEtBCehDbkNRjIqSB6FH/vj4XN3ynO6gJLIHR3/LnNuHrFfRgXA5qLp4k+RN6WPU7/HUmYeZB3AMicCdQjPn9/wdA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DQSdh/0H; arc=none smtp.client-ip=209.85.214.178
+	 MIME-Version; b=o8vWVO0rM3nNKBU560btUgPgtoTEWU4ArWN+c+KL/FUnpFUCcQ6NULLX8upLQPqW7eUkC3Uaqcs4Iloduy+BytZXeeMtFpMb0Jd+j7lTOA6GHd/ikyqArfUEH/QAloXbveFj6bpbWawr0YgZmojuYoB3lc3/oxgCQRQaMHUhK0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ox+SKv45; arc=none smtp.client-ip=209.85.215.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DQSdh/0H"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2caced6038eso19529015ad.0
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 03:40:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ox+SKv45"
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-c9aea40d799so1089929a12.0
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 03:41:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788604853; x=1789209653; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788604867; x=1789209667; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RVGO8QrL5Gygxi7WZN29yoHd/tJYxrEKp+l+Q17zcxs=;
-        b=DQSdh/0Huf6oixM0pPsoS9P17MFu1jEGuPqe93SiOXExfBOuSaIhO3+EM9ka25YZCY
-         oc1s551Px5kS4Fvqy3/h8kJ3rOsA9CkmfPfE+EK8vbz7AHyxS7mk/YofYzSumlfd0cUd
-         PXYIHqQgGIYAt6cZjF99OK65JpFY14SeeBXJN4nABHtUWd4mz10JVXewZc09yAivcbo0
-         3MgjCMcUA3yGjORGO90E+7Bo+XKZxGsiwc4Bd6szSeXoYUMScwZjGMWRcAA8aYGRGxtY
-         J/NWp+ejFM+qoi7mIUdT9xrlfeT8+L3wv2Yxs+LZHze8JZYcQ99qRI0O7tlrWxc6pEP+
-         yRFw==
+        bh=9d1us5ou1/R6dn+w5YFLXgBK3EMQL/jKg3S7fI7Edk4=;
+        b=Ox+SKv45BlaCEgLEb11cuz3fFHPGcjrNp5+W59jn0QCLx7ScN0xBi8gARYNmidb9iM
+         YSIfySIz3j8o9LU6RWKcKs3/YcIYecNaE4l0Cb09pykqNr92+mUEQOpUpZg5ynlQZuM2
+         lILrZbOqaiKyIUsyPx3OJ8Ynq9S8LcfwjQUrprSadJjI+m3nSNPEO7tHOAFTHYeLzuCI
+         t1aSYao4Md0PGLXYGXaVSN88rheZJDNtQh6PT1YhzKU2x3B3gxMoy9me7jmSskVquWn5
+         BRsvb1avRdwlV1RMXMbCsB34cv7F4ETuhDFVXeFSyRDGhclxkZAZn5/udKBzxEQb8/fc
+         WkMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788604853; x=1789209653;
+        d=1e100.net; s=20251104; t=1788604867; x=1789209667;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RVGO8QrL5Gygxi7WZN29yoHd/tJYxrEKp+l+Q17zcxs=;
-        b=OYek54DEqrgl+tM3uXgy8ZsDBS/GzwApmAnnXzYvGjtfB1YXzJSvPMtNCzoJvr9XgD
-         WiRXvu03ajQRyDwUk2NU4fVmrQiny/XRs8RiCX25hbJFMCbiRjmxi4Om1cborN1oZSbN
-         jvdlogB2JzqaPS/m8uAc+bWNQ/nt6keSRYK2vAzmIwwxhrVo+wn+FyW12KDtP+77pD8I
-         VqKm1RWaAaEFZHj/zH+4sWGeBHI5SuRyvPDAYkP4oktcPnx6U0uUXjCy7VgyZr33jGsl
-         9jdFNg1CQE5fyzvoxrjzhErsvI+eVdo8Xenh20utrO74CTCaIdq8y6OHOVMZ9nr/Xmuy
-         BZ9g==
-X-Forwarded-Encrypted: i=1; AKwUvBxeonuSFH+gWaEFZA1UwpD3w+MK000N7EKf5//h7dqAvEcF11q9A0ylfQ1gdDGVjU96DMNMOgrQ1tLpDUs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kiSwkwUIlnQ/U+4+tSc3U0n0cjh7WH5FB54tfExO51vc7NN99C
-	aH8oYOUn3AIW5A4S8C96YTcliN8q+KpcuFTPAMVeaAI5FxuX5uZxY8+m
-X-Gm-Gg: AYBFou0DWW4QzW1uzcAXXL06l0fZhiFmE/1M0lQKIEN+7YXxflQsCrsqNMwk18p2e12
-	id57njs+XT5VWAt34yC4FVvYzCrhM0bvqxOmZDk3xwPfGQBPnH/jW69gzaFUJAL+7yhL8kpfI91
-	FNk1gpk1I74nGMlZyxlS62Tkg/hLguS+pZsg6gGGeEKNubnp8kDDVhkNmxrEwNsdzfh7StXvYKK
-	dv8vQ6F0xzSJpcqfDa5mUgjJDLrkwGDjPUn8o71JyVMj4Wws+rcaxAmfXjsrdb7TWCMcDG3TRr2
-	3/8s9XpoDQSBBwW5O6mQgivS4fRBpGel9QwmIit7Vc3LEssYnalSRcu9ZPxRBC8j2M91jaugcnX
-	sV6X3EFPT9FI7uBb5AWfLIlDxF9u3T7OO/nuscvIgkqTDNJ2nr0YX+sRTPDgY580WfYsFXYnALe
-	GjNtI93Em5zp2LlRfUizEzv7Fe2NCVimNY5+Lf6tVt3jSQTrafaYcrsoo=
-X-Received: by 2002:a17:902:f707:b0:2cf:6e5d:23e9 with SMTP id d9443c01a7336-2dafb0b191cmr174136725ad.14.1788604853368;
-        Sat, 05 Sep 2026 03:40:53 -0700 (PDT)
+        bh=9d1us5ou1/R6dn+w5YFLXgBK3EMQL/jKg3S7fI7Edk4=;
+        b=kkkhX4coaPCfZjH31K4EulWRc9FJheTy5Dovk9AIUotsLeze/3PO/12hJ/kGZ7EVSb
+         6GOK9utJQxSE+yts9CrNy2V/nCFI2YlcS2zBMkjpFkJwTwhOg2Xj5mQ9QtV4zKIi8s/s
+         3DxLGrw6XM2Cu8HYilFcVanyWMnknZsdcpqfWP4J67gXTWMdQmy3uDHwG453NQl1Py38
+         vVHTVlTaLVRDm57FFV0zvdvdS/FrhKvIMigZwY2jacQN7FKcp6O7yhxU6ExPsu8L7uhZ
+         z4nW08BxCdkT9jTZFux/BSWTPLYT2Y7YdBd/HFytyLzW8rm44UKPYBPjbrV1Rt5ULXD3
+         ZILQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwJ6NlG3tMzP/0/Z2v1HgIZEjzZoCevEQKrVqnA1dKJpBWg9NyQide36bU7B85qB9Jvl7p9pqQnn1BB/e0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kp5sjNUhmhI8QdyQ50e4QfbbGu6Mfs8RKbBBwWpX1zC0UTZzAh
+	RmS5vf4nzFG5ivDqQ3uqmPOKTwIJ2BJkofuL6reT0ghdJp590u4Gg0E5
+X-Gm-Gg: AYBFou32VUX7wyM46NpSUPqWcXXC59KVjm1qUYhIf5GIdpAAgde5jwqoWLicsDCc0Mp
+	bhF/pidGZL3epZL0M9mWvc/za2LvdGvwufHN7k8X7dTSxekllVOIQMEhrgivmfe6Uv7gCTzUdtW
+	owvTP78s77LGK2S1YFXxWmt14q8N76jVeAP8JgTQpKJ2F+CXdudr/LyxpxjqA6mD5Hw8HJOq88P
+	U1Oh7oI3MOmZ1Drk1JoXGvdQm0MzqoYCIHXkV3V0zbuYISh6bUpnpLuehQBFdQQ2KByFxdlNGv3
+	+9iKlldK+j115ngn92MTWYIjhbxt41WWTMsgJppPb332QqOQmKjRrwjSHQdPjX4YwqoppIy4CgV
+	gwPapD5XFLiEN20qI06hYdXqiQ4KsUewKdLmTDwfRMI1ffzPyz7x9Wv9bmXJomoCVc4PwS4A3jt
+	zJEDHzegrNlo1MnV5HkN+GnbFubM5V3fZ/BYbC772BD1pvR8KzsVQzNQ==
+X-Received: by 2002:a17:90b:2b8b:b0:398:c0ad:711c with SMTP id 98e67ed59e1d1-39b26272f0fmr18850197a91.15.1788604866501;
+        Sat, 05 Sep 2026 03:41:06 -0700 (PDT)
 Received: from houminxi ([154.197.57.228])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b314cfcsm13559776eec.19.2026.09.05.03.40.46
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b314cfcsm13559776eec.19.2026.09.05.03.41.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 03:40:52 -0700 (PDT)
+        Sat, 05 Sep 2026 03:41:05 -0700 (PDT)
 From: Minxi Hou <houminxi@gmail.com>
 To: netdev@vger.kernel.org
 Cc: aconole@redhat.com,
@@ -73,9 +73,9 @@ Cc: aconole@redhat.com,
 	shuah@kernel.org,
 	horms@kernel.org,
 	Minxi Hou <houminxi@gmail.com>
-Subject: [PATCH 2/4] selftests: openvswitch: fix misc pylint warnings in ovs-dpctl.py
-Date: Sat,  5 Sep 2026 06:40:24 -0400
-Message-ID: <20260905104026.3776396-3-houminxi@gmail.com>
+Subject: [PATCH 4/4] selftests: openvswitch: suppress pylint complexity warnings
+Date: Sat,  5 Sep 2026 06:40:26 -0400
+Message-ID: <20260905104026.3776396-5-houminxi@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260905104026.3776396-1-houminxi@gmail.com>
 References: <20260905104026.3776396-1-houminxi@gmail.com>
@@ -87,201 +87,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix miscellaneous pylint warnings with no behavior change:
-  - W0611: remove unused import struct
-  - W0702: replace bare except with except Exception
-  - C0325: remove superfluous parentheses after return (3)
-  - R1705: remove unnecessary elif after return (3)
-  - W0108: replace unnecessary lambda with int
-  - R1714: merge comparisons with in operator
-  - W0719: replace raise Exception with raise ValueError
-  - C1802: use implicit boolean test instead of len()
-  - C0121: use is None instead of == None
-  - R1719: simplify if-expression to bool test
-  - R1703: simplify if/else to assignment expression
-  - W0612: remove unused variables (keybits, maskbits, lst)
-  - replace unused loop variable with underscore
+Add file-level pylint:disable comments for warnings caused by
+pyroute2 framework constraints that cannot be fixed without
+restructuring the netlink attribute hierarchy.
+
+After this patch, pylint reports 9.93/10 with 10 remaining
+C0301 line-too-long warnings (81-89 columns) on f-string
+constructions that match the surrounding style.
 
 Signed-off-by: Minxi Hou <houminxi@gmail.com>
 ---
 base-commit: 9eab111e765729e93087ff86a2ec9b2ae42d0fa5
- .../selftests/net/openvswitch/ovs-dpctl.py    | 44 ++++++++-----------
- 1 file changed, 19 insertions(+), 25 deletions(-)
+ tools/testing/selftests/net/openvswitch/ovs-dpctl.py | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/tools/testing/selftests/net/openvswitch/ovs-dpctl.py b/tools/testing/selftests/net/openvswitch/ovs-dpctl.py
-index 9cd0d8f0ab23..6a02810fe4ea 100644
+index 5b29aeb4b50e..5948471ffe63 100644
 --- a/tools/testing/selftests/net/openvswitch/ovs-dpctl.py
 +++ b/tools/testing/selftests/net/openvswitch/ovs-dpctl.py
-@@ -11,7 +11,6 @@ import logging
- import math
- import multiprocessing
- import re
--import struct
- import sys
- import time
- import types
-@@ -125,10 +124,7 @@ def parse_flags(flag_str, flag_vals):
-         maskResult = int(digits, 0)
+@@ -1,6 +1,14 @@
+ #!/usr/bin/env python3
+ # SPDX-License-Identifier: GPL-2.0
+ """OVS datapath control utility for kernel selftests."""
++# pylint: disable=invalid-name,too-many-lines
++# pylint: disable=too-many-ancestors,too-many-arguments
++# pylint: disable=too-many-positional-arguments,too-many-branches
++# pylint: disable=too-many-locals,too-many-statements
++# pylint: disable=too-many-return-statements,too-many-nested-blocks
++# pylint: disable=unused-argument,broad-exception-caught
++# pylint: disable=no-member,not-callable
++# pylint: disable=non-parent-init-called,super-init-not-called
  
-     while len(flag_str) > 0 and (flag_str[0] == "+" or flag_str[0] == "-"):
--        if flag_str[0] == "+":
--            setFlag = True
--        elif flag_str[0] == "-":
--            setFlag = False
-+        setFlag = flag_str[0] == "+"
- 
-         flag_str = flag_str[1:]
- 
-@@ -221,10 +217,9 @@ def convert_int(size):
- 
-         if not value:
-             return 0, 0
--        elif not mask:
-+        if not mask:
-             return int(value, 0), pow(2, size) - 1
--        else:
--            return int(value, 0), int(mask, 0)
-+        return int(value, 0), int(mask, 0)
- 
-     return convert_int_sized
- 
-@@ -705,11 +700,11 @@ class ovsactions(nla):
-                     parsed = True
-                 else:
-                     actstr = actstr[len("drop"): ]
--                    return (totallen - len(actstr))
-+                    return totallen - len(actstr)
- 
-             elif parse_starts_block(actstr, r"^(\d+)", False, True):
-                 actstr, output = parse_extract_field(
--                    actstr, None, r"(\d+)", lambda x: int(x), False, "0"
-+                    actstr, None, r"(\d+)", int, False, "0"
-                 )
-                 self["attrs"].append(["OVS_ACTION_ATTR_OUTPUT", output])
-                 parsed = True
-@@ -761,12 +756,12 @@ class ovsactions(nla):
-                         vid = int(v, 0)
-                         if vid < 0 or vid > 0xFFF:
-                             raise ValueError(
--                                f"push_vlan(): vid={int(vid)} out of range (0-4095)")
-+                                f"push_vlan(): vid={vid} out of range (0-4095)")
-                     elif k == "pcp":
-                         pcp = int(v, 0)
-                         if pcp < 0 or pcp > 7:
-                             raise ValueError(
--                                f"push_vlan(): pcp={int(pcp)} out of range (0-7)")
-+                                f"push_vlan(): pcp={pcp} out of range (0-7)")
-                     elif k == "tpid":
-                         tpid = int(v, 0)
-                         if tpid < 0 or tpid > 0xFFFF:
-@@ -804,7 +799,6 @@ class ovsactions(nla):
-                 subacts = ovsactions()
-                 actstr = actstr[len("clone("):]
-                 parsedLen = subacts.parse(actstr)
--                lst = []
-                 self["attrs"].append(("OVS_ACTION_ATTR_CLONE", subacts))
-                 actstr = actstr[parsedLen:]
-                 parsed = True
-@@ -960,14 +954,14 @@ class ovsactions(nla):
-                 actstr = actstr[1:]
- 
-             if len(actstr) and actstr[0] == ")":
--                return (totallen - len(actstr))
-+                return totallen - len(actstr)
- 
-             actstr = actstr[strspn(actstr, ", ") :]
- 
-             if not parsed:
-                 raise ValueError(f"Action str: '{actstr}' not supported")
- 
--        return (totallen - len(actstr))
-+        return totallen - len(actstr)
- 
- 
- # pyroute2 resolves nla_map types via getattr(self, name).
-@@ -1057,8 +1051,6 @@ class ovskey(nla):
-             if flowstr.startswith("("):
-                 flowstr = flowstr[1:]
- 
--            keybits = b""
--            maskbits = b""
-             for f in self.fields_map:
-                 if flowstr.startswith(f[1]):
-                     # the following assumes that the field looks
-@@ -1067,7 +1059,7 @@ class ovskey(nla):
-                     flowstr = flowstr[len(f[1]) + 1 :]
-                     splitchar = 0
-                     for c in flowstr:
--                        if c == "," or c == ")":
-+                        if c in (",", ")"):
-                             break
-                         splitchar += 1
-                     data = flowstr[:splitchar]
-@@ -1631,7 +1623,7 @@ class ovskey(nla):
-             for prefix, regex, typ, attr_name, mask_val, default_val, v46_flag in fields:
-                 flowstr, value = parse_extract_field(flowstr, prefix, regex, typ, False)
-                 if not attr_name:
--                    raise Exception("Bad list value in tunnel fields")
-+                    raise ValueError("Bad list value in tunnel fields")
- 
-                 if value is None and attr_name in forced_include:
-                     value = default_val
-@@ -1714,7 +1706,7 @@ class ovskey(nla):
-                 if not noprint:
-                     print_str += ","
- 
--            if len(flagsattrs):
-+            if flagsattrs:
-                 print_str += f"flags({'|'.join(flagsattrs)})"
-             print_str += ")"
-             return print_str
-@@ -2304,7 +2296,7 @@ class OvsDatapath(GenericNetlinkSocket):
- 
-             nproc = multiprocessing.cpu_count()
-             procarray = []
--            for i in range(1, nproc):
-+            for _ in range(1, nproc):
-                 procarray += [int(p.epid)]
-             msg["attrs"].append(["OVS_DP_ATTR_UPCALL_PID", procarray])
-         msg["attrs"].append(["OVS_DP_ATTR_USER_FEATURES", dpfeatures])
-@@ -2379,15 +2371,17 @@ class OvsVport(GenericNetlinkSocket):
-     def type_to_str(vport_type):
-         if vport_type == OvsVport.OVS_VPORT_TYPE_NETDEV:
-             return "netdev"
--        elif vport_type == OvsVport.OVS_VPORT_TYPE_INTERNAL:
-+        if vport_type == OvsVport.OVS_VPORT_TYPE_INTERNAL:
-             return "internal"
-+
-         raise ValueError(f"Unknown vport type:{int(vport_type)}")
- 
-     def str_to_type(vport_type):
-         if vport_type in ["netdev", "gre", "vxlan", "geneve"]:
-             return OvsVport.OVS_VPORT_TYPE_NETDEV
--        elif vport_type == "internal":
-+        if vport_type == "internal":
-             return OvsVport.OVS_VPORT_TYPE_INTERNAL
-+
-         raise ValueError(f"Unknown vport type: '{vport_type}'")
- 
-     def __init__(self, packet=OvsPacket()):
-@@ -2482,7 +2476,7 @@ class OvsVport(GenericNetlinkSocket):
-         msg["dpifindex"] = dpindex
-         msg["attrs"].append(["OVS_VPORT_ATTR_NAME", vport_ifname])
- 
--        if p == None:
-+        if p is None:
-             p = self.upcall_packet
-         else:
-             self.upcall_packet = p
-@@ -3068,7 +3062,7 @@ def main(argv):
-             return 1
-         rep = ovsflow.dump(rep["dpifindex"])
-         for flow in rep:
--            print(flow.dpstr(True if args.verbose > 0 else False))
-+            print(flow.dpstr(args.verbose > 0))
-     elif hasattr(args, "flbr"):
-         rep = ovsdp.info(args.flbr, 0)
-         if rep is None:
+ # Controls the openvswitch module.  Part of the kselftest suite, but
+ # can be used for some diagnostic purpose as well.
 -- 
 2.55.0
 
