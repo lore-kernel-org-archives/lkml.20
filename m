@@ -1,48 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ACA637DAD7;
-	Sat,  5 Sep 2026 20:02:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA0873A451B;
+	Sat,  5 Sep 2026 20:02:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788638548; cv=none; b=M5Axq4J2DgGpMEEmXzdnyQ54KTsS5qJ+AjGlbWY5jWYvx5W+QWJwFeaGz/YJ8OZbky1ArMslNHGtF1wDRB+S4voU6PcNG77x2jidh9KqxGnvBCeimIDWtovX64KdMSSKdyEiYcjxkoks4xDAEusaudxm3qqeqk1mm3NLSqblPhk=
+	t=1788638558; cv=none; b=jTKpWlCPBjA+z3omTnnnLzjopdifal+dhi6P0fTswDvBQ9MKqKYJmHW2YM1FCij4XoVxaIGB/3W2BsrxKs5MQ21fSyR41uQxC7Z4C2lRJiCkUH8hZCNGmh52IB8YAEyqtta14R4Kn5Wdf7zL6gkJW3BCRQ+9MjLVsQOPLMKX3Ok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788638548; c=relaxed/simple;
-	bh=vhXWLvacXwpyHQmgyaO/LuDzTK4oSFxW55k11HsC18s=;
+	s=arc-20240116; t=1788638558; c=relaxed/simple;
+	bh=srOjzTF81bGvA3JmZCnhghe0OOBAJGDm1Ei8sCwaQyw=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=KzOxIFWi9yJtKkIvOty4TfDa8EHDUdJqWfgABeyZ4oA3t1UHwbypwnIwtbZw55DdAfIEOdZBUp9a7Ey4LseGOlxs1leTazocvzh0h6BN4j488kHlydjZ/57rGZpVy9t99RFHuyMecfnVZkgmgC9+qRTm6VnbGp+74zftt0Sa81s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mxPdcT/Q; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=YSyd9ZP9MnncIotxbmprJvCaq0oq/Q0/v8at46R7hZ7AFadeYEUSwx0MkBToqwJNt6SCbuvfbXqzB/dqbIAIQD3FSe0GafMCvhUbgpiBN12QoUIIbUCQdhr74btwvFmUo2QCMKmMejnO1bkoIRNOnnhfNrArQ8WSGPL560BETJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UqAR5dEO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mxPdcT/Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB7AC1F00A3A;
-	Sat,  5 Sep 2026 20:02:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UqAR5dEO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0B0F1F00A3A;
+	Sat,  5 Sep 2026 20:02:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788638546;
-	bh=jrBxM1Xi/jaTWSDWTw3qxm+ACf9Q/ym6vaxSweyVH/Y=;
+	s=k20260515; t=1788638553;
+	bh=Anq5W3k6w5GBCn1kH3K4ZibK2Kah8XyXSoL6UmHBtMs=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=mxPdcT/QWgjrgNrZt/gNZVrzqI9WG/j1QB0o41h31LEIry/oHDDqRDbsRNWgnn5az
-	 JMAPDcTXTquu2e4O0pyD+vGS+tb4p0sqtVaRkvZE3jEiI5zWj3hJyAtACubUV/1h7c
-	 WLZawmPZswfbFe4gVEmanxOFCsmbfuMA63A9nIQovWUQ/97OK+9GqLj0TEpE6cmHFh
-	 tLExwL6chKnhONkvhCoInL41jT0MzcyxGnThQOYwUml47ZKwhxWZfD2fFDsdYJKXBW
-	 UxbX8Es2xwUZcqg/CySKuvoMEKbTcjNKr5oGQCPyAV92VM4E8YjdpeOjHbLQ9t1Bu1
-	 a2lxXpBENGXIA==
-Subject:
- Re: [PATCH net-next v4 3/4] net: mana: support concurrent HWC requests
+	b=UqAR5dEOtt3WKiLPxovKc39nfeXBq9wkE4Z8/MpwfY6OVP4z+dZJrKF2w4sCQjEYQ
+	 Uy+sCGw/azBDEz/5iy9WkTYZznqwp9L0Id9NCMb3yqy4/y7R0xH2hc3h8gXIwjQiGb
+	 0mLO+eiaaGZP0HsycA24/x494VwP8QPRs8n0wrtQXQkms/I05QwJmqQawR88vFU4ec
+	 Q6oqGz/Vg12B/q/eTQSHv66TlsZtz7FgTfaMKZyWu+VkuzsyxAHTWYcpcZYSBjgvJH
+	 kj7gb4EetX81e/96OP1NqN7RxBs48nhIG4JyuE1sbi5mRwKYZorVyW6n8aexb7xihv
+	 5X1n16ToibK4w==
+Subject: Re: [PATCH v6 net] octeontx2-af: switch qmem from coherent DMA alloc
+ to streaming DMA mapping
 From: netdev-bot+sashiko@kernel.org
-To: longli@microsoft.com
-Cc: kotaranov@microsoft.com, kuba@kernel.org, davem@davemloft.net,
- pabeni@redhat.com, edumazet@google.com, andrew+netdev@lunn.ch, jgg@ziepe.ca,
- leon@kernel.org, haiyangz@microsoft.com, kys@microsoft.com,
- wei.liu@kernel.org, decui@microsoft.com, shradhagupta@linux.microsoft.com,
- horms@kernel.org, ernis@linux.microsoft.com, stephen@networkplumber.org,
- shirazsaleem@microsoft.com, netdev@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-hyperv@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Sat, 05 Sep 2026 20:02:24 +0000
-Message-ID: <178863854444.219967.8113748215248370324@kernel.org>
-In-Reply-To: <20260901200018.3194525-4-longli@microsoft.com>
-References: <20260901200018.3194525-4-longli@microsoft.com>
-X-sashiko-severity: Medium
+To: rkannoth@marvell.com
+Cc: davem@davemloft.net, gakula@marvell.com, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, sgoutham@marvell.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, leon@kernel.org,
+ Qqingfang.deng@linux.dev
+Date: Sat, 05 Sep 2026 20:02:32 +0000
+Message-ID: <178863855246.219967.10510865726694393307@kernel.org>
+In-Reply-To: <20260902021023.2987908-1-rkannoth@marvell.com>
+References: <20260902021023.2987908-1-rkannoth@marvell.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -52,859 +48,402 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 12 potential
+Thank you for your contribution! Sashiko AI review found 6 potential
 issue(s) to consider:
 
-Critical: 0 · High: 0 (2) · Medium: 7 · Low: 5
+Critical: 0 · High: 2 · Medium: 3 (1) · Low: 1
 
-- [Medium] mana_hwc_send_request() no longer releases the message slot
-  when the wait budget is zero (the deleted `if (wait_ms == 0) goto…
-- [Medium] mana_hwc_destroy_channel() is silently reordered so that
-  mana_hwc_destroy_cq() runs before mana_hwc_destroy_wq(txq)/(rxq), and…
-- [Medium] The new gc->hwc_lock contract documented in
-  include/net/mana/gdma.h enumerates the readers of gc->hwc.driver_data…
-- [Medium] mana_hwc_get_msg_index() returns -ETIMEDOUT whenever
-  down_timeout() on hwc->sema expires, i.e. also for plain slot…
-- [Medium] mana_hwc_create_channel() publishes gc->hwc.driver_data (now
-  under gc->hwc_lock, with a comment claiming 'the lock orders the hwc…
-- [Medium] The new `cancelled` short-circuit in mana_hwc_send_request()
-  returns ctx->error directly via `goto out`, bypassing the…
-- [Medium] The patch newly reads/writes hwc->hwc_timeout under
-  gc->hwc_lock in mana_need_log() and mana_serv_reset(), implying the…
-- [Low] Commit message / code mismatch on two points.
-- [Low] The commit message presents late-response slot reuse as becoming
-  unsafe only once more than one slot is in use ('With more than one…
-- [Low] The patch fixes a user-visible defect — a timed-out HWC command
-  released its slot while the device could still answer, so a later…
-- [Low] The lifetime scheme for hw_channel_context is hand-rolled from
-  three cooperating pieces spread across two files and two structs:…
-- [Low] Three comments added by this patch contradict the code.
+- [High] New hard MAX_PAGE_ORDER ceiling in otx2_dma_alloc_coherent()
+  (drivers/net/ethernet/marvell/octeontx2/af/common.h:76-77) rejects…
+- [High] qmem regions are long-lived, bidirectionally shared hardware
+  structures (NIX/NPA context tables, AF admin-queue instruction/result…
+- [Medium] otx2_dma_phys_in_mask() (af/common.h:52-57) compares a raw CPU
+  physical address against dma_get_mask(dev).
+- [Medium] otx2_dma_alloc_coherent() maps up to 1<<MAX_PAGE_ORDER bytes'
+  worth of pages (4 MiB with 4 KiB pages) in a single…
+- [Medium] otx2_dma_alloc_coherent() unconditionally forces __GFP_RECLAIM
+  on all allocations, violating caller-provided GFP semantics.
+- [Low] The patch adds '#include <linux/dma-map-ops.h>' to
+  drivers/net/ethernet/marvell/octeontx2/af/common.h (line 11) solely to…
 
 Pre-existing issues:
-- [High] mana_hwc_destroy_cq() frees callback-reachable state before the
-  EQ that drives the callback is deregistered: it does…
-- [High] mana_hwc_destroy_channel() frees the HWC queue and message DMA
-  buffers even when DESTROY_HWC failed.
+- [Medium] qmem_alloc() computes 'qmem->alloc_sz = (qsize * entry_sz) +
+  OTX2_ALIGN' in signed int arithmetic (af/common.h:121,135) from values…
 
 --
 
-net: mana: support concurrent HWC requests
+octeontx2-af: switch qmem from coherent DMA alloc to streaming DMA mapping
 
-This patch prepares the MANA hardware channel for more than one in-flight
-request: a per-queue lock around WQE posting, a bounded wait for a message
-slot, a channel_up flag plus an active-sender count so teardown can drain
-senders before freeing the channel, and retention of a slot whose request
-timed out while the device may still answer.
+This replaces the dma_alloc_attrs(DMA_ATTR_FORCE_CONTIGUOUS) backing of
+qmem with buddy-allocated compound pages that are then mapped for the
+device with dma_map_page_attrs(DMA_BIDIRECTIONAL).  New helpers
+otx2_dma_alloc_coherent() and otx2_dma_free_coherent() gate on
+dev_is_dma_coherent() and retry with GFP_DMA32 when the physical range
+falls outside the device DMA mask.  A few questions below.
 
-Two notes on the changelog itself before the diff.
+> diff --git a/drivers/net/ethernet/marvell/octeontx2/af/common.h b/drivers/net/ethernet/marvell/octeontx2/af/common.h
+> index 779413a383b74..4ec20c3cfec03 100644
+> --- a/drivers/net/ethernet/marvell/octeontx2/af/common.h
+> +++ b/drivers/net/ethernet/marvell/octeontx2/af/common.h
+> @@ -7,6 +7,11 @@
+>  #ifndef COMMON_H
+>  #define COMMON_H
+>  
+> +#include <linux/dma-mapping.h>
+> +#include <linux/dma-map-ops.h>
 
 [Severity: Low]
+This isn't a bug, but is including linux/dma-map-ops.h from a driver
+header intended?  That header opens with:
 
-> With more than one slot in use, a timed-out command also stops being
-> harmless to retire.
+  /*
+   * This header is for implementations of dma_map_ops and related code.
+   * It should not be included in drivers just using the DMA API.
+   */
 
-Is this accurate at the current depth?  With HW_CHANNEL_VF_BOOTSTRAP_QUEUE_DEPTH
-every command uses slot 0, and before this patch a timed-out command released
-slot 0 while the device could still answer.
+common.h is included across af/ and nic/, so this pulls DMA
+implementation internals into the whole driver, apparently only to reach
+dev_is_dma_coherent().
 
-mana_hwc_handle_resp() correlates a response purely by msg_id:
+Related to that, on builds without ARCH_HAS_SYNC_DMA_FOR_DEVICE and
+ARCH_HAS_SYNC_DMA_FOR_CPU, the same header defines:
 
-	if (!test_bit(msg_id, hwc->inflight_msg_res.map)) { ... }
-	ctx = hwc->caller_ctx + msg_id;
-	...
-	memcpy(ctx->output_buf, resp_msg, resp_len);
+  static inline bool dev_is_dma_coherent(struct device *dev)
+  {
+	return true;
+  }
 
-So command A's late response could be copied into command B's buffer and
-complete B, already at depth 1.
+so the guard below is a compile-time constant rather than a runtime
+check on those configurations.  Is that the intent?
 
-Does the change that keeps the response-side reference (ctx->responded = true;
-abandoned = true; in mana_hwc_send_request()) therefore fix an already
-reachable wrong-command completion, rather than only a hazard created by the
-later depth increase?
-
-[Severity: Low]
-
-Related to the above: the retained response-side reference corrects a
-user-visible defect (a later command reusing a slot id could be completed with
-the previous command's payload and status), but the trailers carry no Fixes:
-tag.  Would
-
-  Fixes: ca9c54d2d6a5 ("net: mana: Add a driver for Microsoft Azure Network Adapter (MANA)")
-
-be appropriate here?
-
-> diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-> index a023d3e1a95de..9e7efce669ae0 100644
-> --- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
-> +++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-> @@ -162,6 +162,8 @@ static int mana_gd_init_registers(struct pci_dev *pdev)
->  bool mana_need_log(struct gdma_context *gc, int err)
->  {
->  	struct hw_channel_context *hwc;
-> +	bool need_log = true;
-> +	unsigned long flags;
->  
->  	if (err != -ETIMEDOUT)
->  		return true;
-> @@ -169,11 +171,13 @@ bool mana_need_log(struct gdma_context *gc, int err)
->  	if (!gc)
->  		return true;
->  
-> +	spin_lock_irqsave(&gc->hwc_lock, flags);
->  	hwc = gc->hwc.driver_data;
->  	if (hwc && hwc->hwc_timeout == 0)
-> -		return false;
-> +		need_log = false;
-> +	spin_unlock_irqrestore(&gc->hwc_lock, flags);
->  
-> -	return true;
-> +	return need_log;
->  }
-
-[ ... ]
-
-> @@ -393,9 +397,27 @@ static int mana_gd_detect_devices(struct pci_dev *pdev)
->  int mana_gd_send_request(struct gdma_context *gc, u32 req_len, const void *req,
->  			 u32 resp_len, void *resp)
->  {
-> -	struct hw_channel_context *hwc = gc->hwc.driver_data;
-> +	struct hw_channel_context *hwc;
-> +	unsigned long flags;
-> +	int err;
+> +#include <linux/gfp.h>
+> +#include <linux/mm.h>
 > +
-> +	spin_lock_irqsave(&gc->hwc_lock, flags);
-> +	hwc = gc->hwc.driver_data;
-> +	if (!hwc) {
-> +		spin_unlock_irqrestore(&gc->hwc_lock, flags);
-> +		return -ENODEV;
-> +	}
-> +	hwc->active_senders++;
-> +	spin_unlock_irqrestore(&gc->hwc_lock, flags);
+>  #include "rvu_struct.h"
+>  
+>  #define OTX2_ALIGN			128  /* Align to cacheline */
+> @@ -44,6 +49,74 @@ struct qmem {
+>  	u32		qsize;
+>  };
+>  
+> +static inline bool otx2_dma_phys_in_mask(struct device *dev, phys_addr_t paddr,
+> +					 size_t size)
+> +{
+> +	u64 mask = dma_get_mask(dev);
 > +
-> +	err = mana_hwc_send_request(hwc, req_len, req, resp_len, resp);
->  
-> -	return mana_hwc_send_request(hwc, req_len, req, resp_len, resp);
-> +	spin_lock_irqsave(&gc->hwc_lock, flags);
-> +	if (--hwc->active_senders == 0)
-> +		wake_up(&gc->hwc_drain_waitq);
-> +	spin_unlock_irqrestore(&gc->hwc_lock, flags);
-> +
-> +	return err;
->  }
->  EXPORT_SYMBOL_NS(mana_gd_send_request, "NET_MANA");
-
-[Severity: Low]
-
-This isn't a bug, but the hw_channel_context lifetime is now hand-rolled
-from three pieces spread over two files and two structs:
-
-  - gc->hwc_lock, initialised in mana_gd_probe()
-  - hwc->active_senders, a field of the hw_channel.c-owned object but
-    incremented and decremented here in gdma_main.c
-  - gc->hwc_drain_waitq, a gdma_context-lifetime field that
-    mana_hwc_create_channel() re-initialises on every channel creation
-
-Would a kref on the channel, or an rwsem/percpu_ref taken by senders and
-write-acquired by mana_hwc_destroy_channel(), express the same intent with one
-primitive and keep the accounting inside hw_channel.c?
-
-> @@ -716,6 +738,7 @@ static void mana_serv_reset(struct pci_dev *pdev)
->  {
->  	struct gdma_context *gc = pci_get_drvdata(pdev);
->  	struct hw_channel_context *hwc;
-> +	unsigned long flags;
->  	int ret;
->  
->  	if (!gc) {
-> @@ -725,14 +748,17 @@ static void mana_serv_reset(struct pci_dev *pdev)
->  		return;
->  	}
->  
-> +	spin_lock_irqsave(&gc->hwc_lock, flags);
->  	hwc = gc->hwc.driver_data;
->  	if (!hwc) {
-> +		spin_unlock_irqrestore(&gc->hwc_lock, flags);
->  		dev_err(&pdev->dev, "MANA service: no HWC\n");
->  		goto out;
->  	}
->  
->  	/* HWC is not responding in this case, so don't wait */
->  	hwc->hwc_timeout = 0;
-> +	spin_unlock_irqrestore(&gc->hwc_lock, flags);
+> +	return paddr + size - 1 <= mask;
+> +}
 
 [Severity: Medium]
+Is comparing a CPU physical address against dma_get_mask() the test that
+was wanted here?  The DMA mask constrains device (bus or IOVA)
+addresses, so the equivalent core-API check goes through phys_to_dma()
+and dma_capable(), which also account for dev->dma_range_map offsets and
+dev->bus_dma_limit.
 
-What does gc->hwc_lock protect for hwc->hwc_timeout here and in
-mana_need_log()?  Every other access to that field is unlocked:
+Two consequences follow:
 
-  mana_hwc_send_request()      if (hwc->hwc_timeout > 1)
-                                       hwc->hwc_timeout = 1;
-  mana_hwc_get_msg_index()     down_timeout(&hwc->sema,
-                                       msecs_to_jiffies(hwc->hwc_timeout))
-  mana_hwc_init_event_handler() case HWC_DATA_CFG_HWC_TIMEOUT:
-                                       hwc->hwc_timeout = val;
+- Behind an SMMU (the configuration the changelog relies on) the IOVA is
+  allocated inside the mask no matter where the page sits physically, so
+  freeing the pages and retrying with GFP_DMA32 is a constraint the
+  hardware does not have, and it can end in NULL when no high-order
+  ZONE_DMA32 block is available.
 
-The last one runs from hard IRQ.  So the lockset intersection over all
-accesses is empty.
+- With a non-zero dma-ranges offset or a bus_dma_limit below the mask, an
+  address that passes this check is still not addressable, and the real
+  verdict (bounce or DMA_MAPPING_ERROR) only comes later from
+  dma_map_page_attrs().
 
-Can this interleaving lose the zero sentinel?
+Also, every octeontx2 device sets DMA_BIT_MASK(48) (rvu_probe(), cgx
+probe, otx2_pf/otx2_vf/rep probe), so on shipping hardware the check
+always passes and the GFP_DMA32 retry body is unreachable.  Could the
+retry simply be dropped and the decision left to dma_map_page_attrs()?
 
-CPU A (sender, just timed out)        CPU B (mana_serv_reset)
-------------------------------        ------------------------------
-reads hwc->hwc_timeout (30000)
-                                      spin_lock_irqsave(&gc->hwc_lock)
-                                      hwc->hwc_timeout = 0;
-                                      spin_unlock_irqrestore(...)
-hwc->hwc_timeout = 1;
-
-Every following teardown command then waits 1 ms instead of 0 and
-mana_need_log() starts returning true again, which is the log spam the zero
-sentinel exists to suppress.  Should the writers take the same lock, or should
-the field simply use READ_ONCE()/WRITE_ONCE()?
-
-> @@ -1339,6 +1365,16 @@ static int mana_gd_create_dma_region(struct gdma_dev *gd,
->  	if (gmi->nr_pages == 0 && !MANA_PAGE_ALIGNED(gmi->virt_addr))
->  		return -EINVAL;
->  
-> +	/* No RCU needed: this runs only on the data-path queue-creation
-> +	 * path (mana_gd_create_mana_eq/mana_gd_create_mana_wq_cq, called
-> +	 * by mana_en under RTNL and by mana_ib RDMA verbs, or during
-> +	 * init).  Every teardown path — mana_gd_remove, mana_gd_suspend,
-> +	 * and the HWC reset/service path (which goes through
-> +	 * mana_gd_suspend) — drains those consumers via mana_rdma_remove()
-> +	 * + mana_remove() before mana_hwc_destroy_channel() clears
-> +	 * gc->hwc.driver_data, so no concurrent destroy can race with
-> +	 * this dereference.
-> +	 */
->  	hwc = gc->hwc.driver_data;
->  	req_msg_size = struct_size(req, page_addr_list, num_page);
->  	if (req_msg_size > hwc->max_req_msg_size)
-> @@ -1544,7 +1580,17 @@ int mana_gd_verify_vf_version(struct pci_dev *pdev)
->  	struct hw_channel_context *hwc;
->  	int err;
->  
-> +	/* No RCU needed: this runs only inside mana_gd_setup, on the
-> +	 * probe and resume paths.  The PCI/PM core holds device_lock
-> +	 * across .probe/.resume and .remove/.suspend, so setup cannot
-> +	 * overlap teardown of the same device.  The HWC reset/service
-> +	 * path is additionally serialized by GC_IN_SERVICE and runs
-> +	 * suspend (destroy) then resume (this) sequentially in one work
-> +	 * item.  driver_data was just set by mana_hwc_create_channel
-> +	 * earlier in this same setup call, so it is live here.
-> +	 */
->  	hwc = gc->hwc.driver_data;
 > +
-
-[Severity: Medium]
-
-The new contract on gc->hwc_lock in include/net/mana/gdma.h enumerates the
-readers of gc->hwc.driver_data as mana_gd_send_request(), mana_need_log() and
-mana_serv_reset().  Are there not three more readers that dereference the same
-pointer with neither the lock nor an active_senders reference, and with no NULL
-check?
-
-	mana_gd_create_dma_region()
-		hwc = gc->hwc.driver_data;
-		if (req_msg_size > hwc->max_req_msg_size)
-
-	mana_gd_verify_vf_version()
-		hwc = gc->hwc.driver_data;
-		err = mana_gd_query_hwc_timeout(pdev, &hwc->hwc_timeout);
-
-	mana_ib_gd_create_dma_region() in drivers/infiniband/hw/mana/main.c
-		hwc = gc->hwc.driver_data;
-		request_buf = kzalloc(hwc->max_req_msg_size, GFP_KERNEL);
-
-mana_hwc_destroy_channel() now also clears driver_data at the very start of
-teardown instead of after kfree(hwc), so for these readers the stale-pointer
-window becomes a NULL pointer for the whole teardown, including the
-mana_smc_teardown_hwc() polling.  The mana_ib reader is not mentioned in the
-new contract at all.
-
-Should the enumerated list be corrected, or the invariant actually enforced at
-these sites?  The driver's own comment in mana_hwc_destroy_queues() notes that
-the PM device_lock and the GC_IN_SERVICE service path "do not exclude each
-other", which makes the "no concurrent destroy can race with this
-dereference" claim above hard to verify.
-
-> diff --git a/drivers/net/ethernet/microsoft/mana/hw_channel.c b/drivers/net/ethernet/microsoft/mana/hw_channel.c
-> index 0056bdd8c53f5..91fcf7c092113 100644
-> --- a/drivers/net/ethernet/microsoft/mana/hw_channel.c
-> +++ b/drivers/net/ethernet/microsoft/mana/hw_channel.c
-> @@ -6,7 +6,11 @@
->  #include <net/mana/hw_channel.h>
->  #include <linux/vmalloc.h>
->  
-> -/* Acquire a free inflight message slot, waiting for one if all are in use. */
-> +/* Acquire a free message slot from the inflight bitmap, waiting for one if
-> + * all are in use.  Returns -ENODEV if the channel is being torn down, or
-> + * -ETIMEDOUT if a prior HWC command has timed out (preserving the error
-> + * code callers expect).
-> + */
->  static int mana_hwc_get_msg_index(struct hw_channel_context *hwc, u16 *msg_id)
->  {
->  	struct gdma_resource *r = &hwc->inflight_msg_res;
-> @@ -14,12 +18,32 @@ static int mana_hwc_get_msg_index(struct hw_channel_context *hwc, u16 *msg_id)
->  	unsigned long flags;
->  	u32 index;
->  
-> -	down(&hwc->sema);
-> +	/* Bounded wait for a slot.  A timed-out request keeps its slot until
-> +	 * the device answers for it, so the semaphore is never posted back
-> +	 * for that slot and a caller expires here rather than blocking on a
-> +	 * release that is not coming.  Teardown reclaims those slots, which
-> +	 * posts the semaphore and releases anyone waiting below.
-> +	 */
-> +	if (down_timeout(&hwc->sema, msecs_to_jiffies(hwc->hwc_timeout)))
-> +		return -ETIMEDOUT;
-
-[Severity: Medium]
-
-This returns -ETIMEDOUT for any expiry of the semaphore wait, including plain
-slot contention on a healthy channel.  The changelog says:
-
-> Slots held this way are counted, so a channel that is merely busy can be
-> told from one where nothing will ever free a slot again.
-
-Where is that counted?  struct hw_channel_context gains channel_up,
-active_senders and the per-slot resp_pending, and this function inspects no
-request state before choosing the errno, so busy and dead produce the same
-return value.
-
-In-tree consumers treat -ETIMEDOUT as a faulty device:
-
-	mana_gf_stats_work_handler()
-		if (err == -ETIMEDOUT) {
-			ac->hwc_timeout_occurred = true;
-			memset(&ac->hc_stats, 0, sizeof(ac->hc_stats));
-			...
-			mana_schedule_serv_work(gc, GDMA_EQE_HWC_RESET_REQUEST);
-
-	mana_gd_probe()
-		if (err == -ETIMEDOUT || err == -EPROTO) { ... schedule
-		    delayed recovery work ... }
-
-Can contention on a live channel therefore trigger a full reset cycle or a PCI
-rescan?  The changelog cites mlx5 as precedent, and mlx5 returns -EBUSY for
-this case rather than a timeout errno.
-
-[ ... ]
-
-> @@ -101,6 +126,7 @@ static void mana_hwc_handle_resp(struct hw_channel_context *hwc, u32 resp_len,
->  {
->  	const struct gdma_resp_hdr *resp_msg = rx_req->buf_va;
->  	struct hwc_caller_ctx *ctx;
-> +	bool release;
->  	int err;
->  
->  	if (!test_bit(msg_id, hwc->inflight_msg_res.map)) {
-> @@ -113,15 +139,32 @@ static void mana_hwc_handle_resp(struct hw_channel_context *hwc, u32 resp_len,
->  
->  	spin_lock(&ctx->lock);
->  
-> -	/* Honour a response only while the sender owns the slot (output_buf
-> -	 * published) and has not already been answered; otherwise drop it as
-> -	 * premature, stale or duplicate without touching the refcount.
-> +	/* The sender has not published its buffer yet, so nothing asked for
-> +	 * this response.  Keep the slot reserved and drop the message.
->  	 */
-> -	if (!ctx->output_buf || ctx->responded) {
-> +	if (!ctx->output_buf && !ctx->responded) {
->  		spin_unlock(&ctx->lock);
->  		mana_hwc_post_rx_wqe(hwc->rxq, rx_req);
->  		return;
->  	}
-
-[ ... ]
-
-> @@ -593,6 +637,7 @@ static int mana_hwc_create_wq(struct hw_channel_context *hwc,
->  	hwc_wq->gdma_wq = queue;
->  	hwc_wq->queue_depth = q_depth;
->  	hwc_wq->hwc_cq = hwc_cq;
-> +	spin_lock_init(&hwc_wq->lock);
->  
->  	err = mana_hwc_alloc_dma_buf(hwc, q_depth, max_msg_size,
->  				     &hwc_wq->msg_buf);
-> @@ -610,7 +655,7 @@ static int mana_hwc_create_wq(struct hw_channel_context *hwc,
->  	return err;
->  }
->  
-> -static int mana_hwc_post_tx_wqe(const struct hwc_wq *hwc_txq,
-> +static int mana_hwc_post_tx_wqe(struct hwc_wq *hwc_txq,
->  				struct hwc_work_request *req,
->  				u32 dest_virt_rq_id, u32 dest_virt_rcq_id,
->  				bool dest_pf)
-> @@ -649,7 +694,11 @@ static int mana_hwc_post_tx_wqe(const struct hwc_wq *hwc_txq,
->  	req->wqe_req.inline_oob_data = tx_oob;
->  	req->wqe_req.client_data_unit = 0;
->  
-> +	/* Serialize WQE posting — multiple senders may call concurrently. */
-> +	spin_lock(&hwc_txq->lock);
->  	err = mana_gd_post_and_ring(hwc_txq->gdma_wq, &req->wqe_req, NULL);
-> +	spin_unlock(&hwc_txq->lock);
+> +static inline void *otx2_dma_alloc_coherent(struct device *dev, size_t size,
+> +					    dma_addr_t *dma_handle, gfp_t gfp)
+> +{
+> +	dma_addr_t dma_addr;
+> +	unsigned int order;
+> +	gfp_t alloc_gfp;
+> +	void *vaddr;
 > +
->  	if (err)
->  		dev_err(dev, "Failed to post WQE on HWC SQ: %d\n", err);
->  	return err;
-
-[Severity: Low]
-
-The changelog says:
-
-> - Add a per-queue lock to hwc_wq; mana_gd_post_and_ring() is not safe
->   to call concurrently on the same queue.
-
-mana_hwc_create_wq() runs spin_lock_init(&hwc_wq->lock) for both the RQ and
-the SQ, but only mana_hwc_post_tx_wqe() takes it.  mana_hwc_post_rx_wqe()
-still takes a const struct hwc_wq * and posts unlocked:
-
-	static int mana_hwc_post_rx_wqe(const struct hwc_wq *hwc_rxq, ...)
-		err = mana_gd_post_and_ring(hwc_rxq->gdma_wq, &req->wqe_req, NULL);
-
-So hwc->rxq->lock is initialised and never used.  Is the RQ meant to be
-covered, or should the description say the SQ only?
-
-Also, the comment added on gdma_context::hwc_drain_waitq speaks of "the last
-sender's atomic_dec", but active_senders is a plain unsigned int updated under
-gc->hwc_lock (if (--hwc->active_senders == 0) wake_up(...)), and
-hw_channel.h documents the same field as "Protected by gc->hwc_lock".
-
-[ ... ]
-
-> @@ -817,6 +899,15 @@ int mana_hwc_create_channel(struct gdma_context *gc)
->  	gd->pdid = INVALID_PDID;
->  	gd->doorbell = INVALID_DOORBELL;
->  
-> +	/* Publish driver_data last, under hwc_lock: the lock orders the hwc
-> +	 * initialisation above before the pointer becomes visible and
-> +	 * serialises the publish against the control-plane readers in
-> +	 * mana_gd_send_request(), mana_need_log() and mana_serv_reset().
-> +	 */
-> +	spin_lock_irqsave(&gc->hwc_lock, flags);
-> +	gc->hwc.driver_data = hwc;
-> +	spin_unlock_irqrestore(&gc->hwc_lock, flags);
+> +	if (!dev || !dma_handle || !size)
+> +		return NULL;
 > +
->  	/* mana_hwc_init_queues() only creates the required data structures,
->  	 * and doesn't touch the HWC device.
->  	 */
-
-[Severity: Medium]
-
-Is "publish driver_data last" accurate here?  The state a sender touches first
-is initialised after this store:
-
-	spin_lock_irqsave(&gc->hwc_lock, flags);
-	gc->hwc.driver_data = hwc;		/* visible now */
-	spin_unlock_irqrestore(&gc->hwc_lock, flags);
-	...
-	err = mana_hwc_init_queues(hwc, HW_CHANNEL_VF_BOOTSTRAP_QUEUE_DEPTH, ...)
-		-> mana_hwc_init_inflight_msg()
-			sema_init(&hwc->sema, num_msg);
-			mana_gd_alloc_res_map(num_msg, &hwc->inflight_msg_res);
-
-hwc comes from kzalloc, so in that window hwc->sema has count 0 with
-wait_list = {NULL, NULL} and inflight_msg_res.{map,size,lock} are all zero.
-
-Can the new channel_up gate reject a sender in that window?  It is only
-evaluated after the blocking wait:
-
-	if (down_timeout(&hwc->sema, msecs_to_jiffies(hwc->hwc_timeout)))
-		return -ETIMEDOUT;
-
-	spin_lock_irqsave(&r->lock, flags);
-
-	if (!hwc->channel_up) {
-
-With count 0, down_timeout() enters ___down_common() and does
-list_add_tail(&waiter.list, &sem->wait_list) on a NULL-linked list head, and
-mana_gd_send_request() has already taken a sender reference on the strength of
-a non-NULL pointer alone.
-
-The publish-before-init predates the patch (the baseline had gd->driver_data =
-hwc at the top of the same function), so this is not newly introduced, but
-should the publish move after mana_hwc_init_queues(), given the comment now
-claims the ordering?
-
-> @@ -851,11 +942,120 @@ int mana_hwc_create_channel(struct gdma_context *gc)
->  
->  void mana_hwc_destroy_channel(struct gdma_context *gc)
->  {
-> +	/* This is the only destroy entry point.  driver_data is read
-> +	 * plainly here (teardown is serialised against other teardown);
-> +	 * it is cleared under hwc_lock below before hwc is freed.
-> +	 */
->  	struct hw_channel_context *hwc = gc->hwc.driver_data;
-> +	unsigned long flags;
->  
->  	if (!hwc)
->  		return;
->  
-> +	/* Prevent new requests from starting.  Clear channel_up under the
-> +	 * bitmap lock so get_msg_index() cannot acquire a slot and increment
-> +	 * active_senders after this point.  Senders already waiting on the
-> +	 * semaphore are released by the force-completion loop below, which
-> +	 * returns every in-flight slot -- including the ones a timed-out
-> +	 * request was holding; each released waiter sees the flag clear and
-> +	 * posts its permit straight back, so they drain in turn.
-> +	 *
-> +	 * Gate on the bitmap rather than on channel_up: reading the flag
-> +	 * unlocked and only then taking the lock would let a concurrent
-> +	 * setup publish it in between and leave the channel up.  A zero
-> +	 * num_inflight_msg means mana_gd_alloc_res_map() never ran, so the
-> +	 * lock is not initialised yet -- and no sender can exist either.
-> +	 */
-> +	if (hwc->num_inflight_msg) {
-> +		spin_lock_irqsave(&hwc->inflight_msg_res.lock, flags);
-> +		hwc->channel_up = false;
-> +		spin_unlock_irqrestore(&hwc->inflight_msg_res.lock, flags);
-> +	}
+> +	if (!dev_is_dma_coherent(dev))
+> +		return NULL;
 > +
-> +	/* Clear the pointer under hwc_lock so new callers in
-> +	 * mana_gd_send_request() see NULL and return -ENODEV.  The lock
-> +	 * makes the readers' "load driver_data + active_senders++"
-> +	 * atomic against this store, so once it returns no new sender can
-> +	 * take a reference; the active_senders drain below waits out those
-> +	 * that already did, before their hwc is freed.
-> +	 */
-> +	spin_lock_irqsave(&gc->hwc_lock, flags);
-> +	gc->hwc.driver_data = NULL;
-> +	spin_unlock_irqrestore(&gc->hwc_lock, flags);
-
-[ ... ]
-
-> @@ -871,14 +1071,36 @@ void mana_hwc_destroy_channel(struct gdma_context *gc)
->  	}
->  	gc->max_num_cqs = 0;
->  
-> +	/* Destroy the HWC CQ object before the TXQ and RQ.  The
-> +	 * active_senders drain above already guarantees no sender is
-> +	 * still reaching the CQ through txq->hwc_cq.
-> +	 */
-> +	if (hwc->cq)
-> +		mana_hwc_destroy_cq(hwc->gdma_dev->gdma_context, hwc->cq);
-> +
->  	if (hwc->txq)
->  		mana_hwc_destroy_wq(hwc, hwc->txq);
->  
->  	if (hwc->rxq)
->  		mana_hwc_destroy_wq(hwc, hwc->rxq);
->  
-> -	if (hwc->cq)
-> -		mana_hwc_destroy_cq(hwc->gdma_dev->gdma_context, hwc->cq);
-> +	/* Safety net: the force-complete loop above dropped the
-> +	 * response-side reference of every occupied slot and the sender
-> +	 * drain released the matching sender references, so nothing should
-> +	 * still be set here.  Release anything that is, rather than leak it.
-> +	 */
-> +	if (hwc->caller_ctx) {
-> +		struct hwc_caller_ctx *ctx;
-> +		int i;
-> +
-> +		for (i = 0; i < hwc->num_inflight_msg; i++) {
-> +			if (!test_bit(i, hwc->inflight_msg_res.map))
-> +				continue;
-> +
-> +			ctx = &hwc->caller_ctx[i];
-> +			hwc_ctx_put(hwc, ctx);
-> +		}
-> +	}
-
-[Severity: Medium]
-
-The CQ destruction is hoisted above the TXQ and RXQ destruction, and the
-changelog does not mention it.  Is this a fix for a pre-existing
-use-after-free?  Destroying the CQ is what deregisters the HWC EQ:
-
-  mana_hwc_destroy_cq() -> mana_gd_destroy_queue(eq) -> mana_gd_destroy_eq()
-    -> mana_gd_deregister_irq() -> list_del_rcu() + synchronize_rcu()
-
-In the old order a live interrupt could reach
-mana_hwc_handle_resp() -> mana_hwc_post_rx_wqe(hwc->rxq, ...) and dereference
-hwc->caller_ctx after both had been freed by mana_hwc_destroy_wq() and
-kfree(hwc->caller_ctx).  Should this carry its own patch and a Fixes: tag so
-it can be backported on its own?
-
-Separately, the appended "safety net" loop says by its own comment that
-nothing should still be set.  If a bit is still set there, the refcount model
-has been violated; would a WARN_ON be better than silently putting the
-reference?
+> +	size = PAGE_ALIGN(size);
+> +	order = get_order(size);
+> +	if (order > MAX_PAGE_ORDER)
+> +		return NULL;
 
 [Severity: High]
+Does this cap reject qmem allocations that the previous
+dma_alloc_attrs(DMA_ATTR_FORCE_CONTIGUOUS) path served from CMA?  With
+4 KiB pages and the arm64 default ARCH_FORCE_MAX_ORDER, the ceiling is
+4 MiB, while dma_alloc_contiguous() had no such limit:
 
-This isn't a bug introduced by this patch, but the helper called here frees
-callback-reachable state before the EQ that drives the callback is
-deregistered:
+  kernel/dma/contiguous.c:dma_alloc_contiguous() {
+	if (dev->cma_area)
+		return cma_alloc_aligned(dev->cma_area, size, gfp);
+	...
+	return cma_alloc_aligned(dma_contiguous_default_area, size, gfp);
+  }
 
-	static void mana_hwc_destroy_cq(struct gdma_context *gc, struct hwc_cq *hwc_cq)
-	{
-		kfree(hwc_cq->comp_buf);
+Call sites that appear to cross 4 MiB:
 
-		if (hwc_cq->gdma_cq)
-			mana_gd_destroy_queue(gc, hwc_cq->gdma_cq);
+  af/cn20k/mbox_init.c:rvu_alloc_mbox_memory()
+	err = qmem_alloc(rvu->dev, &mbox_addr, ndevs, mbox_size);
 
-		if (hwc_cq->gdma_eq)
-			mana_gd_destroy_queue(gc, hwc_cq->gdma_eq);
+  reached from cn20k_rvu_mbox_init(TYPE_AFPF, rvu->hw->total_pfs) with
+  mbox_size = MBOX_SIZE = SZ_64K, so total_pfs >= 64 gives order 11 and
+  AF probe fails.  The CN20K mailbox IRQ code already handles PF indices
+  up to 96.
 
-Only the last call reaches mana_gd_deregister_irq() with its list_del_rcu() +
-synchronize_rcu(), and the HWC IRQ is released later still, in
-mana_gd_remove_irqs() after mana_hwc_destroy_channel() returns.  Can a
-concurrent interrupt therefore use freed memory?
+  nic/otx2_pf.c:cn20k_pfvf_mbox_alloc()
+	err = qmem_alloc(&pf->pdev->dev, &mbox_addr, numvfs, MBOX_SIZE);
 
-CPU A (destroy)                       CPU B (mana_gd_intr)
-------------------------------        ------------------------------
-kfree(hwc_cq->comp_buf)
-mana_gd_destroy_queue(gdma_cq)
-  (frees DMA ring + struct)
-                                      mana_hwc_comp_event(ctx, q_self)
-                                        completions = hwc_cq->comp_buf;
-                                        mana_gd_poll_cq(q_self, completions,
-                                                        queue_depth);
-mana_gd_destroy_queue(gdma_eq)
-  synchronize_rcu()                     /* writes into freed comp_buf */
+  fails once numvfs >= 64, i.e. on enabling SR-IOV.
 
-The comment added above states the teardown deliberately tolerates a live
-interrupt still delivering a response, so does this ordering need fixing for
-that reasoning to hold?
+  nic/otx2_common.c:otx2_sq_init()
+	err = qmem_alloc(pfvf->dev, &sq->tso_hdrs, qset->sqe_cnt,
+			 TSO_HEADER_SIZE);
+
+  nic/otx2_common.c:otx2_cq_init()
+	err = qmem_alloc(pfvf->dev, &cq->cqe, cq->cqe_cnt, cq->cqe_size);
+
+  and otx2_set_ringparam() still accepts up to a million entries:
+
+	tx_count = clamp_t(u32, ring->tx_pending,
+			   Q_COUNT(Q_SIZE_4K), Q_COUNT(Q_SIZE_MAX));
+
+  so the TSO header area (sqe_cnt * 128), the SQE ring and the CQE ring
+  (cqe_cnt * 128 or 512) pass 4 MiB somewhere around 16384 to 32768
+  entries and now return -ENOMEM at interface bring-up.
+
+Should these call sites be audited or capped before the allocator gains
+a hard limit?
+
+On the same subject, the changelog says:
+
+  Allocations requiring more than MAX_PAGE_ORDER pages are still
+  rejected, since the buddy allocator cannot serve them without CMA.
+
+For CMA-enabled configurations that is a new restriction rather than
+existing behaviour, and MAX_PAGE_ORDER is an order, not a page count.
+Could that paragraph be reworded to describe the change?
+
+> +
+> +	alloc_gfp = (gfp & ~(__GFP_DMA | __GFP_DMA32 | __GFP_HIGHMEM)) |
+> +		__GFP_ZERO | __GFP_COMP | __GFP_RECLAIM;
+> +
+> +	vaddr = (void *)__get_free_pages(alloc_gfp, order);
+> +	while (vaddr &&
+> +	       !otx2_dma_phys_in_mask(dev, virt_to_phys(vaddr), size)) {
+> +		free_pages((unsigned long)vaddr, order);
+> +		if (alloc_gfp & GFP_DMA32)
+> +			return NULL;
+> +		alloc_gfp |= GFP_DMA32;
+> +		vaddr = (void *)__get_free_pages(alloc_gfp, order);
+> +	}
+> +	if (!vaddr)
+> +		return NULL;
+> +
+> +	dma_addr = dma_map_page_attrs(dev, virt_to_page(vaddr), 0, size,
+> +				      DMA_BIDIRECTIONAL, 0);
+
+[Severity: Medium]
+The helper accepts a gfp argument but then ORs in __GFP_RECLAIM
+unconditionally, so whatever the caller asked for, the allocation ends
+up able to block.  __GFP_RECLAIM is
+__GFP_DIRECT_RECLAIM | __GFP_KSWAPD_RECLAIM, so a caller passing
+GFP_ATOMIC or GFP_NOWAIT to otx2_dma_alloc_coherent() has
+__GFP_DIRECT_RECLAIM added behind its back and __get_free_pages() may
+sleep.  From an atomic or spinlock-held context that is a
+scheduling-while-atomic BUG rather than the allocation failure the
+caller was prepared for.
+
+Note this is different in kind from the __GFP_ZERO and __GFP_COMP bits
+added in the same expression: those describe how the pages are
+formatted, while __GFP_RECLAIM changes whether the call can sleep,
+which is the caller's decision and not the allocator wrapper's.
+Stripping __GFP_DMA, __GFP_DMA32 and __GFP_HIGHMEM is likewise fine,
+since the helper manages the zone itself.
+
+There is no bug in this tree today, because the only caller is
+qmem_alloc() and it passes GFP_KERNEL, which already contains
+__GFP_RECLAIM.  But the helper is written as a general
+dma_alloc_coherent() replacement, is placed in a header shared by af/
+and nic/, and its name invites reuse, so the override is a trap for the
+next caller.
+
+Could the OR of __GFP_RECLAIM simply be dropped and the caller's flags
+honoured, or, if the helper is only ever meant to serve the sleeping
+qmem_alloc() path, would it be clearer to drop the gfp parameter
+altogether and hardcode GFP_KERNEL inside the helper?
 
 [Severity: High]
+Can this mapping end up on a SWIOTLB bounce buffer, so that the device
+and the CPU stop looking at the same memory?
 
-This is also a pre-existing issue rather than something this patch
-introduces, but the queue and message DMA buffers are freed here even when
-DESTROY_HWC failed just above:
+qmem regions are long-lived structures that hardware and the driver
+touch concurrently for the lifetime of the mapping: NIX/NPA contexts, AF
+admin queue instruction and result rings, CQE rings, the NPA fc_addr
+writeback area, CN10K LMT lines, and the mailbox regions.  The mailbox
+case is documented in the driver itself:
 
-	if (hwc->setup_active) {
-		if (!mana_smc_teardown_hwc(&gc->shm_channel, false))
-			hwc->setup_active = false;
-		else
-			dev_err(hwc->dev, "Failed to tear down HWC\n");
+  af/cn20k/mbox_init.c:rvu_alloc_mbox_memory() {
+	/* Allocate contiguous memory for mailbox communication.
+	 * ...
+	 * AF will access mbox memory using direct physical addresses
+	 * and PFs will access the same shared memory from BAR2.
+  }
+
+With attrs = 0, dma_map_page_attrs() is allowed to substitute a bounce
+buffer:
+
+  kernel/dma/direct.c:dma_direct_map_phys() {
+	if (is_swiotlb_force_bounce(dev)) {
+		if (attrs & (DMA_ATTR_MMIO | DMA_ATTR_REQUIRE_COHERENT))
+			return DMA_MAPPING_ERROR;
+
+		return swiotlb_map(dev, phys, size, dir, attrs);
 	}
-	gc->max_num_cqs = 0;
+  }
 
-	if (hwc->cq)
-		mana_hwc_destroy_cq(...);
-	if (hwc->txq)
-		mana_hwc_destroy_wq(hwc, hwc->txq);
-	if (hwc->rxq)
-		mana_hwc_destroy_wq(hwc, hwc->rxq);
+  drivers/iommu/dma-iommu.c:dev_use_swiotlb() {
+	return IS_ENABLED(CONFIG_SWIOTLB) &&
+		(dev_is_untrusted(dev) ||
+		 dma_kmalloc_needs_bounce(dev, size, dir));
+  }
 
-mana_smc_teardown_hwc() explains why waiting matters:
+so swiotlb=force, restricted-DMA pools, confidential-computing guests,
+or a device marked untrusted behind the SMMU all bounce.  Regions at or
+below swiotlb_max_mapping_size() (fc_addr, AQ rings, qints contexts,
+small mailbox regions) would bounce successfully and silently.  In that
+case the AF programs NIX_AF_LFX_*_BASE, NPA_AF_LFX_LOC_AURAS_BASE or
+RVU_MBOX_AF_PFX_ADDR with the bounce address while the driver keeps
+using qmem->base, and there are no dma_sync_*() calls anywhere to
+reconcile the two.
 
-	/* Read shmem response (polling for VF possession) and validate.
-	 * For teardown, waiting for response is required to ensure hardware
-	 * invalidates MST entries before software frees memory.
-	 */
+The unmap in otx2_dma_free_coherent() then copies the device-side buffer
+back over the page the CPU has been writing:
 
-On failure setup_active is deliberately left set, meaning the PF may still be
-using the queues, yet the coherent EQ/CQ/SQ/RQ rings and message buffers go
-back to the DMA allocator.  Can the device keep DMAing into memory that has
-been reassigned?  Since this series is what introduced the setup_active
-bookkeeping, would it make sense to skip the frees (and leak) when that
-teardown fails?
+	dma_unmap_page_attrs(dev, dma_handle, size, DMA_BIDIRECTIONAL, 0);
+	free_pages((unsigned long)vaddr, order);
+
+dev_is_dma_coherent() only reports cache coherency; it does not promise
+that the mapping aliases the same physical memory, and the physical-range
+check above cannot rule bouncing out either since force-bounce ignores
+the address.  Would DMA_ATTR_REQUIRE_COHERENT be the attribute wanted
+here, given its documented contract:
+
+  /*
+   * DMA_ATTR_REQUIRE_COHERENT: Indicates that DMA coherency is required.
+   * All mappings that carry this attribute can't work with SWIOTLB and cache
+   * flushing.
+   */
+  #define DMA_ATTR_REQUIRE_COHERENT	(1UL << 12)
+
+[Severity: Medium]
+Separately, should the size passed here be clamped by
+dma_max_mapping_size(dev)?  Documentation/core-api/dma-api.rst says of
+that helper:
+
+  Returns the maximum size of a mapping for the device. The size parameter
+  of the mapping functions like dma_map_single(), dma_map_page() and
+  others should not be larger than the returned value.
+
+The only bound applied is the buddy order, so up to 4 MiB can be handed
+to a single dma_map_page_attrs() call, while
+
+  kernel/dma/direct.c:dma_direct_max_mapping_size() {
+	if (is_swiotlb_active(dev) &&
+	    (dma_addressing_limited(dev) || is_swiotlb_force_bounce(dev) ||
+	     force_dma_unencrypted(dev)))
+		return swiotlb_max_mapping_size(dev);
+  }
+
+can be roughly 256 KiB.  The failure then surfaces as a generic
+-ENOMEM from qmem_alloc() with no hint about the size limit.  The old
+dma_alloc_attrs() path had no per-mapping size limit.
+
+> +	if (dma_mapping_error(dev, dma_addr)) {
+> +		free_pages((unsigned long)vaddr, order);
+> +		return NULL;
+> +	}
+> +
+> +	*dma_handle = dma_addr;
+> +	return vaddr;
+> +}
+> +
 
 [ ... ]
 
-> @@ -955,7 +1178,25 @@ int mana_hwc_send_request(struct hw_channel_context *hwc, u32 req_len,
->  	/* The response-side reference (from get_msg_index) keeps the slot
->  	 * alive if hardware responds right after the doorbell.
->  	 */
-> -	err = mana_hwc_post_tx_wqe(txq, tx_wr, dest_vrq, dest_vrcq, false);
-> +	/* Submit under the slot lock, so mana_hwc_destroy_channel() cannot
-> +	 * cancel this request between the check and the doorbell: it takes
-> +	 * the same lock, so it either cancels before this runs -- and the
-> +	 * request is never handed to the device -- or after, when the
-> +	 * request is genuinely in flight.  Posting is a WQE write plus a
-> +	 * doorbell, so it does not sleep.
-> +	 */
-> +	spin_lock_irqsave(&ctx->lock, flags);
-> +	cancelled = ctx->responded;
-> +	if (cancelled)
-> +		err = ctx->error;
-> +	else
-> +		err = mana_hwc_post_tx_wqe(txq, tx_wr, dest_vrq, dest_vrcq,
-> +					   false);
-> +	spin_unlock_irqrestore(&ctx->lock, flags);
-> +
-> +	if (cancelled)
-> +		goto out;
-> +
->  	if (err) {
->  		dev_err(hwc->dev, "HWC: Failed to post send WQE: %d\n", err);
->  		goto out;
+>  static inline int qmem_alloc(struct device *dev, struct qmem **q,
+>  			     int qsize, int entry_sz)
+>  {
+> @@ -60,8 +133,8 @@ static inline int qmem_alloc(struct device *dev, struct qmem **q,
+>  
+>  	qmem->entry_sz = entry_sz;
+>  	qmem->alloc_sz = (qsize * entry_sz) + OTX2_ALIGN;
+> -	qmem->base = dma_alloc_attrs(dev, qmem->alloc_sz, &qmem->iova,
+> -				     GFP_KERNEL, DMA_ATTR_FORCE_CONTIGUOUS);
+> +	qmem->base = otx2_dma_alloc_coherent(dev, qmem->alloc_sz, &qmem->iova,
+> +					     GFP_KERNEL);
+>  	if (!qmem->base)
+>  		return -ENOMEM;
 
 [Severity: Medium]
+This isn't a bug introduced by this patch, but since the size
+computation is now the only thing bounding the new allocator, can
+alloc_sz wrap here?  The product is signed int arithmetic over values
+that come straight from mailbox requests:
 
-Can this path return success for a command that was never posted?
+  af/rvu_npa.c:rvu_mbox_handler_npa_lf_alloc()
+	err = qmem_alloc(rvu->dev, &pfvf->pool_ctx, req->nr_pools, hwctx_size);
 
-mana_hwc_handle_resp() accepts a response as soon as output_buf is published,
-which happens before the doorbell:
+req->nr_pools is u32 and only checked for being non-zero, so
+nr_pools = 2^25 with a 128-byte pool context wraps the product to zero
+and leaves alloc_sz = 128.  A single page is then allocated while
+pool_ctx->qsize keeps the huge requested count used by later bounds
+checks and hardware programming.
 
-	if (!ctx->output_buf && !ctx->responded) {
-		...drop...
+For the NIX RQ/SQ/CQ paths the same wrap is blocked before any register
+write, because the count-proportional allocation fails first:
+
+  af/rvu_nix.c:rvu_mbox_handler_nix_lf_alloc() {
+	pfvf->rq_bmap = kcalloc(req->rq_cnt, sizeof(long), GFP_KERNEL);
+	if (!pfvf->rq_bmap) {
+		rc = -ENOMEM;
+		goto free_mem;
 	}
-	...
-	ctx->responded = true;
-	...
-	ctx->status_code = resp_msg->status;
-	memcpy(ctx->output_buf, resp_msg, resp_len);
-	ctx->error = err;			/* 0 on a well-formed message */
 
-So a response arriving in that window (a device duplicate for a previously
-reused slot, or, in a confidential VM, a host-supplied hwc_msg_id the driver
-already treats as untrusted) leaves ctx->responded == true and
-ctx->error == 0.  The new block then takes cancelled = true, err = 0, skips
-mana_hwc_post_tx_wqe() and does goto out, which falls into done: return err.
+	rvu_write64(rvu, blkaddr, NIX_AF_LFX_RQS_BASE(nixlf),
+		    (u64)pfvf->rq_ctx->iova);
+  }
 
-The check_status: block is the only place the device status is validated:
+The NPA pool_ctx path has no such companion allocation, and device
+accesses past the mapping land on untranslated IOVA that the SMMU
+faults, so this is an inconsistent qmem object rather than memory
+corruption.  Would it make sense to add a size sanity check on
+qsize * entry_sz while this code is being touched?
 
-	check_status:
-		if (err)
-			goto done;
-
-		if (status && status != GDMA_STATUS_MORE_ENTRIES) { ... err = -EPROTO; }
-
-Before this patch the same injected response still reached check_status:.
-Should the cancelled path fall through to check_status:, or refuse to report
-success when the request was never handed to the device?
-
-The out: comment also states "Only reached before the request reached the
-hardware, so no response can ever arrive for it", which the cancelled path
-reaches after a response has already been applied.
-
-> @@ -972,9 +1213,23 @@ int mana_hwc_send_request(struct hw_channel_context *hwc, u32 req_len,
->  		ctx->output_buf = NULL;
->  		err = ctx->error;
->  		status = ctx->status_code;
-> +		if (err == -EINPROGRESS) {
-> +			/* Give up on this request in the same critical section
-> +			 * that clears output_buf, so a response can never
-> +			 * observe the slot as "sender has not published yet"
-> +			 * and be discarded as premature -- that would strand
-> +			 * the slot, because only a response frees it.
-> +			 *
-> +			 * Keep the response-side reference: the device may
-> +			 * still answer, so the slot stays taken until it does
-> +			 * and must not be handed to another request.
-> +			 */
-> +			ctx->responded = true;
-> +			abandoned = true;
-> +		}
->  		spin_unlock_irqrestore(&ctx->lock, flags);
+> @@ -80,10 +153,9 @@ static inline void qmem_free(struct device *dev, struct qmem *qmem)
+>  		return;
 >  
-> -		if (err != -EINPROGRESS) {
-> +		if (!abandoned) {
->  			/* A response raced in just after the timeout, so the
->  			 * hardware is alive: keep the channel and report what
->  			 * that response said rather than a timeout.  It may
-> @@ -986,29 +1241,25 @@ int mana_hwc_send_request(struct hw_channel_context *hwc, u32 req_len,
->  			goto check_status;
->  		}
->  
-> -		if (wait_ms != 0)
-> +		if (wait_ms != 0) {
->  			dev_err(hwc->dev, "Command 0x%x timed out: %u ms\n",
->  				command, wait_ms);
->  
-> -		err = -ETIMEDOUT;
-> -
-> -		/* No-wait teardown (hwc_timeout == 0) is expected to expire;
-> -		 * just release the slot so the next teardown command can reuse
-> -		 * it.
-> -		 */
-> -		if (wait_ms == 0)
-> -			goto out;
-> +			/* Genuine timeout: shorten later waits so subsequent
-> +			 * commands fail fast instead of each draining the
-> +			 * full timeout.
-> +			 */
-> +			if (hwc->hwc_timeout > 1)
-> +				hwc->hwc_timeout = 1;
-> +		}
->  
-> -		/* Genuine timeout: shorten later waits so subsequent commands
-> -		 * fail fast instead of each draining the full timeout.
-> -		 */
-> -		if (hwc->hwc_timeout > 1)
-> -			hwc->hwc_timeout = 1;
-> +		err = -ETIMEDOUT;
->  
-> -		/* Release the slot via out:; a late response no longer touches
-> -		 * it, so the sender must drop the reference here.
-> +		/* Drop only the sender's reference; the response-side one is
-> +		 * what keeps the slot reserved.
->  		 */
-> -		goto out;
-> +		hwc_ctx_put(hwc, ctx);
-> +		goto done;
->  	}
-
-[Severity: Medium]
-
-The wait_ms == 0 fast path that released the slot is dropped here.  Does that
-strand the channel on the no-wait teardown path?
-
-mana_serv_reset() sets hwc->hwc_timeout = 0 before the suspend sequence, so
-the first command expires immediately in
-wait_for_completion_timeout(&ctx->comp_event, 0), takes the abandoned branch,
-and keeps its bitmap bit and its semaphore permit for good.
-
-Every later command then fails before a WQE is built, because
-mana_hwc_get_msg_index() does:
-
-	if (down_timeout(&hwc->sema, msecs_to_jiffies(hwc->hwc_timeout)))
-		return -ETIMEDOUT;
-
-and ___down_common() has:
-
-	if (unlikely(timeout <= 0))
-		goto timed_out;
-
-At the bootstrap depth used by this patch that is exactly one teardown command
-reaching the device; the remaining ones (disable vport, destroy WQ/CQ objects,
-destroy DMA regions) are dropped, and mana_need_log() returns false while
-hwc_timeout == 0, so nothing is logged either.  The changelog only justifies
-retaining slots for requests that "reached the hardware" and does not discuss
-removing this deliberate no-wait release.
-
-> diff --git a/include/net/mana/gdma.h b/include/net/mana/gdma.h
-> index 308950f9b54b0..f97f63f8fee41 100644
-> --- a/include/net/mana/gdma.h
-> +++ b/include/net/mana/gdma.h
-> @@ -468,6 +468,21 @@ struct gdma_context {
->  	/* Hardware communication channel (HWC) */
->  	struct gdma_dev		hwc;
->  
-> +	/* destroy_channel() waits here for all HWC senders to exit.
-> +	 * Lives on gc (not hwc) so wake_up() after the last sender's
-> +	 * atomic_dec doesn't dereference freed hwc memory.
-> +	 */
-> +	wait_queue_head_t	hwc_drain_waitq;
-
-[Severity: Low]
-
-Three comments added by this patch look inconsistent with the code.
-
-There is no atomic_dec: active_senders is a plain unsigned int and
-mana_gd_send_request() does
-
-	if (--hwc->active_senders == 0)
-		wake_up(&gc->hwc_drain_waitq);
-
-under gc->hwc_lock, which is also what hw_channel.h documents.
-
-In mana_hwc_destroy_channel(), "A zero num_inflight_msg means
-mana_gd_alloc_res_map() never ran, so the lock is not initialised yet" reads
-inverted.  mana_hwc_init_queues() calls mana_hwc_init_inflight_msg() first,
-which runs sema_init() and mana_gd_alloc_res_map() (bitmap_zalloc() +
-spin_lock_init()), and only assigns hwc->num_inflight_msg = q_depth after the
-CQ and WQ creations succeed.  So a failure in mana_hwc_create_cq() or
-mana_hwc_create_wq() leaves num_inflight_msg == 0 with the lock initialised
-and the bitmap allocated.
-
-Finally, the new kerneldoc on mana_hwc_get_msg_index() lists only -ENODEV and
--ETIMEDOUT, while the WARN_ON_ONCE(index >= r->size) branch added in the same
-hunk returns -EIO.
-
-[ ... ]
+>  	if (qmem->base)
+> -		dma_free_attrs(dev, qmem->alloc_sz,
+> -			       qmem->base - qmem->align,
+> -			       qmem->iova - qmem->align,
+> -			       DMA_ATTR_FORCE_CONTIGUOUS);
+> +		otx2_dma_free_coherent(dev, qmem->alloc_sz,
+> +				       qmem->base - qmem->align,
+> +				       qmem->iova - qmem->align);
+>  	devm_kfree(dev, qmem);
+>  }
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260901200018.3194525-1-longli%40microsoft.com
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260902021023.2987908-1-rkannoth%40marvell.com
