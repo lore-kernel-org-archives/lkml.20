@@ -1,136 +1,93 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4753836DA1A
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:03:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF7E351C02
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:04:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788620639; cv=none; b=MPViH1G+6YIfJaM6UDNH+r+aCo+UgOlzOap7Ss76qjIC93JWgJoFY214WtEfGn7xmTWhWK29oLS1mPPUcVubdidGvjzHs4EKq/mOOoAQQp0ENrpxGGizNMJkKF0qp0jMAkO09AOXv933IPWUD+dZItyvnDVLqsDudyUTTrJlCxk=
+	t=1788620668; cv=none; b=IOW4RC3GGhVj3ELTnJHGs5Cp/OgOV0obevwdYTiTzRioAhUOX0gvNBxd3XIZpfMjSGN/I9EGshtHO+sWEhAprCxn+4n4/UcKwgQr1Z9am7rE+IxpS93PmZjxAzzrrLys4IOTip0VXhe9Pn8J9PcM5kJM790oJTGdtNWyl7zlmPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788620639; c=relaxed/simple;
-	bh=39cTLyJAo2+EsBBGUEPxOl2NuySOzeO7aPaDIjgaGXA=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=HWBg/yN2JtqwYviUlNibszEiwHygosBdl9+uyTSgCjCUHJS27n8Z9o7b0WLWQzVW3i2S5KaK1xyqWSamTQ9EC8UmkZ70/9wm18twXP/Ycf/4aThQ4PT42gJLVdH2GS/kTcxZNeEBxr4I7p454vzc6KVDNWSTLs095c+W3G0u2qQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QYuLEbML; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788620668; c=relaxed/simple;
+	bh=YFjMe/YXAaNVfN26W2QVra+xlGRT25CaKbLEhWwNiBE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=aZ7CceFw//4zql8UWT5YMDJ94HZNL1jlqypEP/rUzrokRgkvWAxfgy63Ijc2nmYOELqzQVUo67a4vg4MglsjJlk2W6P99n3q569261X6hgAH/FwTSFgzAMHyZYvJhyAXmWw8Q9fS13+IrXhk1VPfsvbn6iboD7FlUKTHdDym1Nw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L1hjjRpZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QYuLEbML"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788620638; x=1820156638;
-  h=date:from:to:cc:subject:message-id;
-  bh=39cTLyJAo2+EsBBGUEPxOl2NuySOzeO7aPaDIjgaGXA=;
-  b=QYuLEbML7prvsLC88ZPB41V4OxCzLcXXbRpiAq//BDmiWWmTYKIl/pGW
-   pcOvOftvRyhLQpWSyzzeUOA2/czCYr4cUb+yb5L+FzYzYQG9KviCawoza
-   6Lk9Ool2mzp68LHO5csyYFXftjY4i3pSX8QnP78leMqXOX13MZIQQ+fH8
-   27+wDkPlQWKGhFZQAJWFhL5Jt3JmnGrnLroa43dryKrTkJrCpCo0zXKSh
-   /W6cvAwk/wb0T83l/0sGPuf3j8O+voBWLSr+fJvSiK4MjG7K39QKJwz/a
-   A7jyfB0E9fckJ6SaD2fKfOhTaDJkYdOrCUjL4aXcrcQ2+Qb+CNBDlX//b
-   w==;
-X-CSE-ConnectionGUID: fsZHMNvAQkGgWMzYu07KPA==
-X-CSE-MsgGUID: x7jqr5ZCTPyGrGt4z27c5A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11897"; a="106463554"
-X-IronPort-AV: E=Sophos;i="6.25,264,1779174000"; 
-   d="scan'208";a="106463554"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Sep 2026 08:03:55 -0700
-X-CSE-ConnectionGUID: mGKkEgEaTwa91kqDJ2IdUA==
-X-CSE-MsgGUID: CVB2pHasTZ+ackCiqerWTw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,264,1779174000"; 
-   d="scan'208";a="274118424"
-Received: from lkp-server01.sh.intel.com (HELO 73f3364bc37e) ([10.239.97.150])
-  by orviesa004.jf.intel.com with ESMTP; 05 Sep 2026 08:03:54 -0700
-Received: from kbuild by 73f3364bc37e with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x2rvr-000000000dB-2zYT;
-	Sat, 05 Sep 2026 15:03:51 +0000
-Date: Sat, 05 Sep 2026 23:02:57 +0800
-From: kernel test robot <lkp@intel.com>
-To: "x86-ml" <x86@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [tip:x86:kdump] BUILD SUCCESS
- d949fa7b1ec54c626b656f873b95d76b8ab0d143
-Message-ID: <202609052355.NWuvBrGk-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L1hjjRpZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CF811F01559
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 15:04:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788620667;
+	bh=PW6mYD5+bS0RmtKdaFREbvrZ4q2PG40hRCj1QvW9YEE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=L1hjjRpZuMOwgvPbLmUJ1hn+o+w+IMOk7DbBMof0vBVixngEKXGuRCGdoNJhpggt2
+	 gw/dXQnTwVOlrbsCRXpVX16NEtC2hI6nQjd/0BFSVuQzAYSvbAZYj0vTBkB9rzUmzQ
+	 w0rXXw4u3Y8znfEhkyUpsqOA2q4EE01txJP7hVvEbiV4JtW1SlG4bOBzVlQIC2VEyO
+	 zGZnKxJu1qek5Vy9k57D9ctWj8hRZKMZO2Ucks1u6+U4i9OOMp+W1KqjwFlSOahsxZ
+	 B3UeMCu8HJYLDpy/HTFsoEpClvT0REk5kdzM9ceOv6O+743PxMXe3UibZ03o6hBMEK
+	 S/Gwf4kZ9eR4Q==
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6a18840e2abso3014485a12.0
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 08:04:27 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw5uRZwG0A4sp945/BZwLH9FWIHBV5CAZJyDLKzXy/tkwqkCGnSGv81pxYz2JQvl9rwZCuEusX9jIjaE9w=@vger.kernel.org
+X-Gm-Message-State: AFuF++nnC3kVvEWfhlhE3uY0AEh4iRJiiWZY7ZbwZyYZIoIav3kyPH2A
+	1v1qwJYujNU//I57T8om81UvH2muBu8uzB7b+wVURVngvqXgebfWRkp5heF2gb1SOW6TxRtT0bH
+	IAJkeGqUT4B+yyQQxpVtf2asQcsButBg=
+X-Received: by 2002:a05:6402:2087:b0:6a6:15a1:6c38 with SMTP id
+ 4fb4d7f45d1cf-6a7e8d544admr4135849a12.3.1788620666239; Sat, 05 Sep 2026
+ 08:04:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260904110807.19508-1-hemanth.selam@gmail.com>
+In-Reply-To: <20260904110807.19508-1-hemanth.selam@gmail.com>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Sat, 5 Sep 2026 23:04:14 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H620i36YF0L3+AAOGycSeeTZXh6e9efa-Vmg0G6QH+msg@mail.gmail.com>
+X-Gm-Features: AcwNN1XDBuU0rPFa6LBaMwf7chIXc_tV0ZgRrWb1yRXmUQdC0BLAptbDyySgT_A
+Message-ID: <CAAhV-H620i36YF0L3+AAOGycSeeTZXh6e9efa-Vmg0G6QH+msg@mail.gmail.com>
+Subject: Re: [PATCH] LoongArch: fix typo "avaliable" in comment
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: WANG Xuerui <kernel@xen0n.name>, linux-kernel@vger.kernel.org, 
+	loongarch@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git x86/kdump
-branch HEAD: d949fa7b1ec54c626b656f873b95d76b8ab0d143  crash: Update stale NR_CPUS_DEFAULT references in elfcorehdr sizing docs
+Applied, thanks.
 
-elapsed time: 3556m
 
-configs tested: 59
-configs skipped: 0
+Huacai
 
-The following configs have been built successfully.
-More configs may be tested in the coming days.
-
-tested configs:
-alpha         allnoconfig    gcc-16.1.0
-alpha        allyesconfig    gcc-16.1.0
-arc          allmodconfig    gcc-16.1.0
-arc           allnoconfig    gcc-16.1.0
-arc          allyesconfig    clang-24
-arm           allnoconfig    clang-17
-arm           allnoconfig    gcc-16.1.0
-arm          allyesconfig    gcc-16.1.0
-arm64        allmodconfig    clang-24
-arm64         allnoconfig    gcc-16.1.0
-csky         allmodconfig    gcc-16.1.0
-csky          allnoconfig    gcc-16.1.0
-hexagon      allmodconfig    gcc-16.1.0
-hexagon       allnoconfig    clang-24
-hexagon       allnoconfig    gcc-16.1.0
-i386         allmodconfig    clang-22
-i386          allnoconfig    gcc-14
-i386          allnoconfig    gcc-16.1.0
-i386         allyesconfig    clang-22
-loongarch    allmodconfig    clang-24
-loongarch     allnoconfig    clang-20
-loongarch     allnoconfig    gcc-16.1.0
-m68k         allmodconfig    gcc-16.1.0
-m68k          allnoconfig    gcc-16.1.0
-m68k         allyesconfig    gcc-16.1.0
-microblaze    allnoconfig    gcc-16.1.0
-microblaze   allyesconfig    gcc-16.1.0
-mips         allmodconfig    gcc-16.1.0
-mips          allnoconfig    gcc-16.1.0
-mips         allyesconfig    gcc-16.1.0
-nios2        allmodconfig    clang-20
-nios2         allnoconfig    clang-24
-openrisc     allmodconfig    clang-20
-openrisc      allnoconfig    clang-24
-parisc       allmodconfig    gcc-16.1.0
-parisc        allnoconfig    clang-24
-parisc       allyesconfig    gcc-16.1.0
-powerpc      allmodconfig    gcc-16.1.0
-powerpc       allnoconfig    clang-24
-riscv        allmodconfig    clang-24
-riscv         allnoconfig    clang-24
-riscv        allyesconfig    clang-24
-s390         allmodconfig    clang-24
-s390          allnoconfig    clang-24
-s390         allyesconfig    gcc-16.1.0
-sh           allmodconfig    gcc-16.1.0
-sh            allnoconfig    clang-24
-sh           allyesconfig    gcc-16.1.0
-sparc         allnoconfig    clang-24
-sparc64      allmodconfig    clang-20
-um           allmodconfig    clang-17
-um            allnoconfig    clang-24
-um           allyesconfig    gcc-16.1.0
-x86_64       allmodconfig    clang-22
-x86_64        allnoconfig    clang-24
-x86_64       allyesconfig    clang-22
-x86_64      rhel-9.4-rust    clang-22
-xtensa        allnoconfig    clang-24
-xtensa       allyesconfig    clang-20
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+On Fri, Sep 4, 2026 at 7:08=E2=80=AFPM Hemanth Selam <hemanth.selam@gmail.c=
+om> wrote:
+>
+> Correct "avaliable" to "available", reported by scripts/checkpatch.pl usi=
+ng
+> the misspelling list in scripts/spelling.txt.  Only touches comments, no
+> code changes.
+>
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+> ---
+>  arch/loongarch/kernel/vmlinux.lds.S | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/arch/loongarch/kernel/vmlinux.lds.S b/arch/loongarch/kernel/=
+vmlinux.lds.S
+> index 840d944c2f73..ce097e25881f 100644
+> --- a/arch/loongarch/kernel/vmlinux.lds.S
+> +++ b/arch/loongarch/kernel/vmlinux.lds.S
+> @@ -23,7 +23,7 @@
+>  #include "image-vars.h"
+>
+>  /*
+> - * Max avaliable Page Size is 64K, so we set SectionAlignment
+> + * Max available Page Size is 64K, so we set SectionAlignment
+>   * field of EFI application to 64K.
+>   */
+>  PECOFF_FILE_ALIGN =3D 0x200;
+> --
+> 2.48.1
+>
