@@ -1,64 +1,64 @@
-Received: from mail-wm2-f10.google.com (mail-wm2-f10.google.com [74.125.225.138])
+Received: from mail-wm2-f11.google.com (mail-wm2-f11.google.com [74.125.225.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76E5038B7D6
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 18:32:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 926A73B7A8
+	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 18:32:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788633126; cv=none; b=PN61VfIJS4ON+w+P5hyC9RgBea240oWxGzM5cqvoXkw+Vfj8S0C6vi9F7gHto54mweA7wbD9YsFT3fHyXy+FYkH05q3yyNXCgpOFWyG+4uTTzLOrwrjVQ8HG9vUdffgu/JFmHBmlbBzHF9qeqhOL2OqcQ0jOJtCFwPM9fqvAiiw=
+	t=1788633131; cv=none; b=AF3m5i2f1PeXEdhH71OxpC6EhSM8R4at9mKX5gspuQYIG8+Pm57+508+758Azv7ofOJkKUOijayWbFiaGfQYHvxiQtVZLAL568TrDTmWG4J2cnBJwEqMqiQcByVtYE7kWM90zH6jMQ6Mk2D5CEzn1FmJ95K0bPC0Ck3VTAXIqoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788633126; c=relaxed/simple;
-	bh=rqODe6l1Cm61+SL+PU9OzzcUcMPpjddwokYbvpjhEt8=;
+	s=arc-20240116; t=1788633131; c=relaxed/simple;
+	bh=k6HPUqzeSFwsPf41tPOFciWylz7Rq1ysSgyVS9Jknfc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O9OqK+Za+/QwuGhNs9AviSM2IpdZbGRv/iy7vj1WUhy313ue3EYH4dfoxdm7R01+OM81STfjhwql+sJjBqd7qg9vupEx0+gkW0Om4lf+A0BSK5YQG0n7CK+00nEge5qr/ePBDInu0rqxCiTk2p99wiyNiOAdYLNbT+Umzkvq77A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J18z1YOF; arc=none smtp.client-ip=74.125.225.138
+	 MIME-Version; b=Uyv+17ZX5k8itbTIZNtutqhpKflqrH4G3i20f69QEbeQdFEYNBl8HXOzbbZqsM/TyyQyzKvUFplOfjvhdjQFav8aAmnSWBGLzFt7dwCQpKKrvHa9DyMDDabiNTixV7/QCkwICXhhLKLkGecpqF2y3ve4bNBOwSc6e/x5fWldJHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sHC4/yaJ; arc=none smtp.client-ip=74.125.225.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J18z1YOF"
-Received: by mail-wm2-f10.google.com with SMTP id 5b1f17b1804b1-49b963f51f6so4029125e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 11:32:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sHC4/yaJ"
+Received: by mail-wm2-f11.google.com with SMTP id 5b1f17b1804b1-49cfcf2548aso7026375e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 11:32:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788633122; x=1789237922; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788633127; x=1789237927; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SnvH3YyzaVn11cnbchkUMzbKPWM/Jg4IVEMRRuXlOTI=;
-        b=J18z1YOFZGndH/3Ko2iE+LJ5X4IONdwUDbWN3JuTlagvB2qrrMQLv3Ik2Mib6I4rI5
-         tBaW+XspsNQyv0WlVAoJ6e3YVCJDszFtPXnAw0hZui6KhwU0fAYRluMvu18ltL6TtbHb
-         RLvKEitauKvVH2UrW9d/KpP1KK4TCQg5lZ5ncw8dAQfABYurS6LvSEGgGqA9FoBjH/oe
-         ob2HqDvVJsWo+EOW7SB65f0BAF2q57UdI+VL6yjNkdLciejt7F+v+vZ83Fqem9MuPQIb
-         U6LmRYTipjMkEBuj3GySATZJdbVEqXMF9FYRPe/qWfezpvrhycQKrBzXAmyIVPlkiJXK
-         NbHg==
+        bh=GQhtRiM/OzSt8Zhsf9bNwGzEPuThkXQQtWQPWxIhnCk=;
+        b=sHC4/yaJ8fWNyTH0tw1BVSdHEEsxIC9uqAjhcLL51E/OatvipLTfo7p8F87ZbyrTwb
+         LSq+pua9Pz7KRcUjX6aEBSYse84iO4vcLd0byOcmhb0AllGBjH7V1e852VmRgyMEfZtV
+         lskPdX02bvVnJHS4l0oTYFjai6/Tno3MWWeyw+1SJJ6iOahkG1m63qlFZZEauWQDUixk
+         d9ufwdFfExq/wTCUr5xC/9a8Aw/x45yKFO6CPq0DyfzYeSXhQXrGkWqACq+Qen6vhraE
+         USNqyh/cWRWmny2Nk9miWWS8+JWiOMjYAe6tg0lq6YJMAZltXbGkNVWZNPOCg9gl4Mbn
+         cyvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788633122; x=1789237922;
+        d=1e100.net; s=20251104; t=1788633127; x=1789237927;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SnvH3YyzaVn11cnbchkUMzbKPWM/Jg4IVEMRRuXlOTI=;
-        b=sribBzCQVFpadBKNA2PqYj3TcDwd41KN1eUB79kSDxtDW2Y52JVbMEjJCH9tvdm/zF
-         vZPNMHIItGrhy8/ttkKRl2NdBGP46wAw1EmxL3/OdZXgGBqO3KzSvq6qDDxxe0R0TNz8
-         3AuHi3T6EYXl4oDPjGKP1Dx8qZ9Zj+hhAoPnsSiQZLIOO3ttqSXeHWfdZREviZc9juJP
-         PkY5OXgAwEKJ3TmLddAd3Z9FB+f/JEmHGRGtF2cBtmXd9/qicp98/kMXs7FAUQF6/cEl
-         LsJbIgCiyR5EdaGHNLW+Er/UyJMThRlx1x9kRmA3hfBkFlBJHX7cV1HfIi51G7zaGlzP
-         wBgA==
-X-Forwarded-Encrypted: i=1; AKwUvBy8JlzpZPvudZ/wa1CGJoo93BXhRZHXGbSxHuxLDgs//Ms3wow/oF3/0vbu0TnKxxKobrBV+NQzTkVAwVQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++miJoC3WEJkViJgfGhOI/HpTorPJpoY+xlkpKbfc94StgiK6V96
-	BghELqziYIte+1CKiVVTE9u2N+7QFI2vHOCGIivomzMGqHP2GSAyPh9s
-X-Gm-Gg: AYBFou1feQ7883vcIATTwi6GnlcvZ+uKswTvL84v9x7h4txF420jDJqduuj0Y9zF+eG
-	1UZvZSyMtgiLaOE8BcS3Pzz3CfZwGBPJ6p2x3hRvGdKefgvHiwWOM/AV0uGQPrpdvjv6UMzgVA+
-	m4rQLDuTX5MDc6CtLX1irLupZTKgYj0PyqDIQpqrFgE+/8wrLuwrsDWeNVEk8op0j/zNRFSmcqI
-	5aRYt5oWSD71zw+M4HQbTHvC8JQ8oJyitH6ZB3oM4Vpmqfq8FmYB7BjAKYYDbNxcYksCXUL4Arz
-	AMF2+aqPQKo5j37jWzlrCHAkdQTQEgAaqFnQnmVAJLvAHaU3qz6sBQwhnlWUySAmAc2/LTl/JNG
-	/u8l64BUXRn5+BnM/YVSARwK1G+1RwJJKDRfvX+/yf/fhfDk7AEiMoVRJC0lilCl18amCeALcKA
-	W/AwxhHTQopIpZCuntGnGNQ0JsNfYevuLF1KPNz8SIidHVRVFIyFNkVlqfmD/rO/7RWJ30Vcpiu
-	3UHKUqRsws27KPHvCegIeJS5b3Iug==
-X-Received: by 2002:a05:600c:190b:b0:49c:fa21:e743 with SMTP id 5b1f17b1804b1-49cfa21e92amr116118745e9.25.1788633122311;
-        Sat, 05 Sep 2026 11:32:02 -0700 (PDT)
+        bh=GQhtRiM/OzSt8Zhsf9bNwGzEPuThkXQQtWQPWxIhnCk=;
+        b=aYfzVmnloDhF2yhc1dTEh85W4ZHSBGgYs+PGZm7Nk3RwxhVKHGVlp9qYQO7sozGDfP
+         z7Npxlti7aBzngWqVEjE+v36ZcUMMgkboii/xKA+RekvMJy5Ph9jAUU73Doqj5hZVDuw
+         He7ks+jMnkroKR7VlL8b3evi+EhqL9zdOj7Z6ejKIyBpu7VhksOnWFfl6b0feICsq2bY
+         77G8KA4FfieavVzJR1j73CJ7JkcGlEJxLGcQVwT9nIQDHhw7Z3DTYlTQ07TrTNas7psl
+         tS9K9LM30tx0kV/dAY3+MBxI5Yqvstgd4BtpVhEA9PWOS4H3BLBa9hjBPgi4Ytj5ZQRp
+         D4PA==
+X-Forwarded-Encrypted: i=1; AKwUvByXDZhztK7qg23Im5lty/ePmFfCgD6ALMUW/KjYyfA5Lbqq7/sydv/4/kmHcwqKu7E4jcSyYZeejG3i+Js=@vger.kernel.org
+X-Gm-Message-State: AFuF++kvpIf9tvffo0x9XS5FYMP8HAh1gKzJcdlCHWYBOBgUKK3sBKl2
+	hxq4+kLacslG9hJP7A1NM2edqhBytHSsYGLFzj3KY5P8MLoAoV3AWZ79
+X-Gm-Gg: AYBFou1nI4cUA+SHHO8ota7Ul/pCZC7KamRk2LpZYbBiRgf3pPgl5orbJBUs752+aWb
+	mJHFAKOi22gj69Ptw2BmXXdUVPj3bdiVka9VgFviYOG4rZbJ2nWMJAdg1GLWEsZ2PCbV6EpBCWm
+	iQibzAZ+zOW1bbeRycjyCg5NUEUNg1azdCNyKgFXJs1ID4534w0PIU+L4MLhxZTl21VHc4uGKhJ
+	jEwsnBk7c6GhvsEf5G1xAKrDyaS62hst6kumhTPYSrCuE7C9HPy7UaeLZv8G3fiUTlBumGGQF/n
+	iP0oqTuYSuUtTE9g9kYmvZnpww9esHP9hW/BP8hRqABD7xu96uMLzpprLvjme3lic2U8JCZl0rK
+	1cc8hBHdV9+QWQ9VOTJKRWlfuLadyBicsZ4hjpSG51TRvOXtiHOnrz0AOllT8FYm0W0jzeHykwy
+	7posZ5ToYjOlaqu/7v79B0+aKlYc9J7ts2wGx9zckVwJ51n+0qbhKgD61R/pcnPM0atxbnNxz0V
+	Ou7r1pT8QL0SNr+OdKp5GLIZoO2cg==
+X-Received: by 2002:a05:600c:3b02:b0:49c:fa21:1c7d with SMTP id 5b1f17b1804b1-49cfa211d76mr120992185e9.18.1788633127562;
+        Sat, 05 Sep 2026 11:32:07 -0700 (PDT)
 Received: from outlook.com ([2a02:587:6022:4b00:84ac:4417:9f37:a496])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858d2693e8sm13066670f8f.3.2026.09.05.11.31.59
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858d2693e8sm13066670f8f.3.2026.09.05.11.32.04
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 05 Sep 2026 11:32:01 -0700 (PDT)
+        Sat, 05 Sep 2026 11:32:06 -0700 (PDT)
 From: Christos Skarlos <christosskarlos.kernel@gmail.com>
 To: akpm@linux-foundation.org,
 	david@kernel.org,
@@ -89,9 +89,9 @@ Cc: ziy@nvidia.com,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
 	Christos Skarlos <christosskarlos.kernel@gmail.com>
-Subject: [PATCH v2 2/3] mm/vmscan: fix various coding style warnings and errors
-Date: Sat,  5 Sep 2026 21:31:34 +0300
-Message-ID: <20260905183135.20993-3-christosskarlos.kernel@gmail.com>
+Subject: [PATCH v2 3/3] mm/hugetlb: fix various coding style warnings.
+Date: Sat,  5 Sep 2026 21:31:35 +0300
+Message-ID: <20260905183135.20993-4-christosskarlos.kernel@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260905183135.20993-1-christosskarlos.kernel@gmail.com>
 References: <20260905183135.20993-1-christosskarlos.kernel@gmail.com>
@@ -103,68 +103,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Resolve coding style issues flagged by checkpatch.pl script. Specifically:
+Resolve coding style issues flagged by the checkpatch.pl script. Specifically:
+- Fix block comment formatting to keep trailing '*/' on a separate line.
 - Add missing blank lines after variable declarations.
-- Replace "unsigned" with "unsigned int".
-- Replace spaces with tabs where possible.
+- Remove unnecessary braces {} from single statement blocks.
 
 No functional changes are introduced.
 
 Signed-off-by: Christos Skarlos <christosskarlos.kernel@gmail.com>
 ---
- mm/vmscan.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ mm/hugetlb.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index f11491ee9ed5..e0df7268d989 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -535,7 +535,7 @@ void reclaim_throttle(pg_data_t *pgdat, enum vmscan_throttle_state reason)
- 	 * writeback to a slow device to excessive referenced folios at the tail
- 	 * of the inactive LRU.
- 	 */
--	switch(reason) {
-+	switch (reason) {
- 	case VMSCAN_THROTTLE_WRITEBACK:
- 		timeout = HZ/10;
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 4f6f58bf3db6..3b00e76332ac 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -145,7 +145,8 @@ static inline void unlock_or_release_subpool(struct hugepage_subpool *spool,
  
-@@ -1529,6 +1529,7 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
- 		VM_BUG_ON_FOLIO(folio_test_active(folio), folio);
- 		if (!folio_test_mlocked(folio)) {
- 			int type = folio_is_file_lru(folio);
+ 	/* If no pages are used, and no other handles to the subpool
+ 	 * remain, give up any reservations based on minimum size and
+-	 * free the subpool */
++	 * free the subpool
++	 */
+ 	spin_unlock_irqrestore(&spool->lock, irq_flags);
+ 
+ 	if (free_subpool) {
+@@ -3700,6 +3701,7 @@ static void try_to_free_low(struct hstate *h, unsigned long count,
+ 	for_each_node_mask(i, *nodes_allowed) {
+ 		struct folio *folio, *next;
+ 		struct list_head *freel = &h->hugepage_freelists[i];
 +
- 			folio_set_active(folio);
- 			stat->nr_activate[type] += nr_pages;
- 			count_memcg_folio_events(folio, PGACTIVATE, nr_pages);
-@@ -2073,8 +2074,8 @@ static void shrink_active_list(unsigned long nr_to_scan,
- 	LIST_HEAD(l_hold);	/* The folios which were snipped off */
- 	LIST_HEAD(l_active);
- 	LIST_HEAD(l_inactive);
--	unsigned nr_deactivate, nr_activate;
--	unsigned nr_rotated = 0;
-+	unsigned int nr_deactivate, nr_activate;
-+	unsigned int nr_rotated = 0;
- 	bool file = is_file_lru(lru);
- 	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
+ 		list_for_each_entry_safe(folio, next, freel, lru) {
+ 			if (count >= h->nr_huge_pages)
+ 				goto out;
+@@ -4188,9 +4190,9 @@ void __init hugetlb_add_hstate(unsigned int order)
+ 	struct hstate *h;
+ 	unsigned long i;
  
-@@ -2614,7 +2615,7 @@ static void get_scan_count(struct lruvec *lruvec, struct scan_control *sc,
- 	/*
- 	 * If there is enough inactive page cache, we do not reclaim
- 	 * anything from the anonymous working right now to make sure
--         * a streaming file access pattern doesn't cause swapping.
-+	 * a streaming file access pattern doesn't cause swapping.
- 	 */
- 	if (sc->cache_trim_mode) {
- 		scan_balance = SCAN_FILE;
-@@ -7748,7 +7749,7 @@ static int __init kswapd_init(void)
- 	int nid;
+-	if (size_to_hstate(PAGE_SIZE << order)) {
++	if (size_to_hstate(PAGE_SIZE << order))
+ 		return;
+-	}
++
+ 	BUG_ON(hugetlb_max_hstate >= HUGE_MAX_HSTATE);
+ 	BUG_ON(order < order_base_2(__NR_USED_SUBPAGE));
+ 	WARN_ON(order > MAX_FOLIO_ORDER);
+@@ -4832,11 +4834,11 @@ static pte_t make_huge_pte(struct vm_area_struct *vma, struct folio *folio,
+ 	pte_t entry = folio_mk_pte(folio, vma->vm_page_prot);
+ 	unsigned int shift = huge_page_shift(hstate_vma(vma));
  
- 	for_each_node_state(nid, N_MEMORY)
-- 		kswapd_run(nid);
-+		kswapd_run(nid);
- 	register_sysctl_init("vm", vmscan_sysctl_table);
- 	return 0;
- }
+-	if (try_mkwrite && (vma->vm_flags & VM_WRITE)) {
++	if (try_mkwrite && (vma->vm_flags & VM_WRITE))
+ 		entry = pte_mkwrite_novma(pte_mkdirty(entry));
+-	} else {
++	else
+ 		entry = pte_wrprotect(entry);
+-	}
++
+ 	entry = pte_mkyoung(entry);
+ 	entry = arch_make_huge_pte(entry, shift, vma->vm_flags);
+ 
+@@ -4919,6 +4921,7 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
+ 	last_addr_mask = hugetlb_mask_last_page(h);
+ 	for (addr = src_vma->vm_start; addr < src_vma->vm_end; addr += sz) {
+ 		spinlock_t *src_ptl, *dst_ptl;
++
+ 		src_pte = hugetlb_walk(src_vma, addr, sz);
+ 		if (!src_pte) {
+ 			addr |= last_addr_mask;
+@@ -6321,6 +6324,7 @@ int hugetlb_mfill_atomic_pte(pte_t *dst_pte,
+ 		folio = alloc_hugetlb_folio(dst_vma, dst_addr, false);
+ 		if (IS_ERR(folio)) {
+ 			pte_t *actual_pte = hugetlb_walk(dst_vma, dst_addr, PMD_SIZE);
++
+ 			if (actual_pte) {
+ 				ret = -EEXIST;
+ 				goto out;
 -- 
 2.55.0
 
