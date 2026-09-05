@@ -1,308 +1,193 @@
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 286B74A2E1C
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 12:59:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66718331EBD;
+	Sat,  5 Sep 2026 13:00:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788613166; cv=pass; b=Un18Qt4pl5TqGIpIPASr4obpY5wtPLhxPaH0qCybLAf2moIq150QamLoil0NM7DvTg4ew5SRb7Cqi2kZRiclN9RP0Y2lMmmUoo+L61GrnG5orjFPSyfd+TS17I7Wg7cwZN9pU42YJRdyEKrck5H0r8O2Wcub41Y6giK9kMqG5J0=
+	t=1788613239; cv=fail; b=shvDbsF9g7m1BxYs2Fgl+MEDdpghAPLD9W6mCxUZfOaRYBuHWyb47PEb8auRGwvHa8La0/Ba7/0BI6MWbWiw67yeIz4DWP/+bhSbgaDashDiaak9kjiHhdevmGn5wfFj/EPcFTuHeDw+ij7jPQZpZZzRzIuvd8gv1/Ql3B9vVBs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788613166; c=relaxed/simple;
-	bh=zbIynxtSjPkL2GHJWmM225F3hRK13eneGatkQjrpkgo=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=dPK/I4In+FnOuTHXj6AqvELFhc+fSKOZCVy8amm88C6pTqp1S3oMsAyB4XufdbTXm6/t95UUJAvpnjYBv2W12ajAZzPA/oEgFnKS2OTIBxGJxFNfi23/OKruUC69pDbCiIi+4sPZHbkxi4wsOjB1pbTI7nLiX3pWH4X3gTBuONk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rwhpDqj2; arc=pass smtp.client-ip=209.85.210.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788613239; c=relaxed/simple;
+	bh=0ygDNg5VcWHHnBQPxSofZ2jIDkBxl/wla0wqovBUXPA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=Fh3M4zi3YFIrcq82ea7pGjBLTuKxeA0l9NSSGno8SGjyT1WZhPMRGgI/qxWWr+13Pv38CgwhT/tiXI9N1BPFFISJ7aWqInRy7MS1cuAZBru8V8x3PtxjH2I7ppSTxLeKyF0s0PBsrB4ZCJyA2rBxCxN1RSG7Ay3IoVMZwQSzKgo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=ghmkpbl0; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=OXJxCCem; arc=fail smtp.client-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rwhpDqj2"
-Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7f4e6b5bd30so2396878a34.0
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 05:59:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788613164; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VkVMbClZSK0otHAZnPCmnQ4KIJ3KHi5rZ7gKm5evcWPM3M+dRW6jvoMpT93f45de+Q
-         vbL/RGEuxlWi47UVhSbeR0xBQcaahAr1OWcni2SpnBdqbMeHeiwwI8lPf2KEkivxYk63
-         Ihr8S5m2RjTc8nfc1+TNnz1aJTXIX5NVj9QkIgaggHj0qaGmeFCLxHfCvnyiff4F0+gh
-         fTDOorZ81XNMRwWOaCbfzjnua7/xQxC0v6gcCW0Ph33YmNKI5R9P6gxe7oUrPKb6LdbF
-         U/BQ7pRWvYp1xGfeSZKWvQnkTebnsj0740ZKWpNDbjbkE+wpdZCACyPi1zWaz72G8wrT
-         n/8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :mime-version:dkim-signature;
-        bh=niXvze0QrvqgbNLg9IvkY4c2pZiNeFe774xVlJIeGng=;
-        fh=3FsFgptQF8gTIstloC6ih3u3TRlD6+UEFUyR1R/S4qM=;
-        b=geI3cnJ04MXaKOxhvZ5IzYa9Gjr7iRwtotbPq+w99c1QTy2dDYxZAOpZl7b/BhKBcu
-         /IuiI/DDwFNay4z2+IWxNkuqVlKmIsLqF1UV+vh3EU73H4luEbhjHF5oG/AA+vouPMUd
-         0tu8aDctxYirEPUGEW4ORfZXCKbB3YUk6N7zHyqZne3pQzse4CF6Lf1LQRHN1Fu1UFUk
-         9SplpPQYDM7gAdJ1WxvbKBr1UH2tTQIpMKiirIZewdySfVrogKhE/HZrVZIBTB7i4TmN
-         QzlIqa8TC4rmXWnoBnDegjuAE97E4/V0CyhZbg1BJdXCBUNLF5aAywiWbm9+TcYvR6OM
-         zpZQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788613164; x=1789217964; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=niXvze0QrvqgbNLg9IvkY4c2pZiNeFe774xVlJIeGng=;
-        b=rwhpDqj23V1/1C9L1ZjO6yNaRLr5LL/Q9fXTHAO2ScKP90k06O6wrcaZf5QekExRDu
-         IEKGoZ6brLHX5Q1bXrLhqTPiEvbkPd863ga32f//RCKfRsX94egF8K114ZkPrsgvfrDQ
-         sk9xdc1nfcCgtNcsp6mqhaNpBS4GKQObmIzSda6faKgz1q1s+szMNVP/jBIhCV3xO9H2
-         kDry2TLih26qQQFxcErDlUJ4IZxCWFNcTN61w1wOjnO9swh+7k+yhp/3QhSISEkjY+K3
-         ZQELFTOsx0Yz/AWQwZzy0WeIG0fe1tvjt+zN0OVp+YUth8lJHpoO0cUJtConof5svvKT
-         ydhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788613164; x=1789217964;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=niXvze0QrvqgbNLg9IvkY4c2pZiNeFe774xVlJIeGng=;
-        b=pH1zHYKYl1Tv/NruiE1QHUH17sJuGGq5wWaOjT36p+tgB7yLzL192PyubqZa4Ru5mA
-         vjP0Pr7USxSkBBnZ7iKEf5dUyh3+0HxnnPWqJlTeoPfsExhJfHKOuo9J01hLOkrhdtLu
-         taj+fO6Qk6AZkqzfttAEvDiLuCHdPWqthHgOpfAJcmA5/ri7U52GtUBXWr0LOqPB+gAR
-         1BxYVQpGdlybCzF11OfEaSlEoKpTNuSLUliRuBlnbGZ7GpBt+5S3lXviRH+ZVuooWnDZ
-         Gl0y46U4KSRSSQwn8FnvE4AJi1s91aKs2CPlCfC2dQ7mhTlWXH/ONyseTRgW3UFBxNcE
-         gkgg==
-X-Forwarded-Encrypted: i=1; AKwUvBxSH4+MDsfdWg1aAtr7sLH1nn6B6FWfHcBMycCMvAXE70pSvhqJBg3afMyL/tO7Px9eahrF2ZZVR2cJZjc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nY05IlBSji2uOqFoocje1DhJTU+3XEkcyfdOZGjgeCwopOr34W
-	DKozOK6ah6mkdXlSRIyvsoux5bdQb8Tm9ebFiU2ZOq9zETfKPU5YJ8vs70mGecj7R9rQQwGuVW2
-	hJEFg5sxL4qoqkYcCYXmPYZvKieci3Go=
-X-Gm-Gg: AYBFou2CYrC7U8NF1RYAv5TK3ZxtNf+PdAHpsFhIsgpxPa3lQl6WOTMPm1WDuUySS0t
-	i6edv2eV9h3c0sQEMV/nooSJYvcWrOAbjHp3tOx2rcZPL8bv6CSt3iAZNxsUK6c3KIisqOESiG4
-	Q5k1c0pvWuRqGMxVXxgIZJPRCXlIPzn1QvZ29mlL+OtDIefcqb2+990ziMIswp7AjoGXlNOckGL
-	W997t5eLVudx0w2Q5rZpce6OEOS03QvzfDRsLEcBzFpLZQLZ2hk1loLnLseWbIxib8g+QD3a2kA
-	pvscKtKF93NNC8qErzVLo36FiasHGcTyJvCFU2qVP7kQaOs=
-X-Received: by 2002:a05:6820:151f:b0:6b5:ec2f:356f with SMTP id
- 006d021491bc7-6b5ec2f36b4mr6258270eaf.32.1788613163805; Sat, 05 Sep 2026
- 05:59:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="ghmkpbl0";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="OXJxCCem"
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 685BUdnT1885998;
+	Sat, 5 Sep 2026 08:00:23 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=wqo6bMrTQlQH9jrMeizdPnyRKuLc7Scvp+vg8edW8
+	/E=; b=ghmkpbl0Sh7XCL4CCvUEvzGxuBxod0rRXCcbjTaifXAhC5boOi1uuQYXy
+	O4aichPFm3UaILQBTdXpEQkt1VfnO+NcfGI7N0vmhWs+JukjnvFnOCvRUOlL+tY2
+	E3Gy4sxYAl9XyHM2s4HF5TW5bXBjueb0KAcyYhXFLcm3wP653p2knRZA82YFHZI+
+	utkhdxF9uIx8fqWjX6biyEzqY0b2fADYjwMROzy5cke8iLkElrJEjy6FXKSbBXEp
+	OEeTTkQ5iUjsuihGN3ZMeLfmNZXWjn7XXHlpZoiNqM4Wet2DHeitXcB/Aazov8FT
+	vBpL8nIGT82B2KAiG5+H1CrvoXNIA==
+Received: from co1pr03cu002.outbound.protection.outlook.com (mail-westus2azon11010006.outbound.protection.outlook.com [52.101.46.6])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gfyyq5rx0-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Sat, 05 Sep 2026 08:00:22 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XhKbo4MP/JQ5PnNwdxh+j028rC1KZJF421vTvRst6LtowzjD/4xsQs/kE/W0sxR0kZKmCyXiySKAi0fYTF+q3XEW7Dw20DK32+0Be5ReOHPD+iUT8fcPRzIhXRWVE0vxM39ZqtKr1Wtlw36KbmtG/9fHQNRP6H0QMclQqUvZDq8G7pek42zHHuEe9DWY8i5snAjoA5vVzNtKdpqyuyr62cM4vkMlNkYMoEkLg3lFzqfqZ5YYQ6qqAldI2uWtuNk2LZltfJOR+3T6G0rqGRTmGoYhqjAlz0+jJwZqFXMbnx6dLbSflIMGfjIl9hT08/oi8UYqXYH4tcGUPgLY6ssNzg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wqo6bMrTQlQH9jrMeizdPnyRKuLc7Scvp+vg8edW8/E=;
+ b=DBHY1q69eMbnCvyOZojSqoHp6dcF9AWTD2DhDI5GCPhZ0pXlqm/VixATTguexDmGoDvphA+kNPNnJe4tM9K1LkoDs7r4tIyvfq58I2C4tOQYw9vrMjlz1fqvRezTvBu69q2qx9CycN4c6fRxnXeqH80JGp0J+4Yyhcc9pV2s99fm6+S3o1EqGfoD8iE9TnmCbcA+aDxCN4AJgwZ7A7ET3ubiCy+MXMhQOhHkv/WWR/Zb7gkb01shJ4GftoRg6Jn+6yCUyvYnrhF9Hk0931ME8wWh1BcfT5H/uzOpFYa4j8Ke88fHOBd84UowV2Wfzdiat3VLlt5sQyYH6SjRvjfZ5A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wqo6bMrTQlQH9jrMeizdPnyRKuLc7Scvp+vg8edW8/E=;
+ b=OXJxCCemrbF4k7DeKUBhXvHPkvJ9Lk8N6OXxxke4ORUb9pZyWVKHGVu/CkUV0o4vgPXzEIkXtiXufAEfSlP/p0KeXHMX/0fSEQLza5ZB8Sc3e22q2O5xBZ0tYTiz1WduFFYR5pYpX1a+gA46M+NR+NN/3S8pf+qnKqLGPm6EnN4=
+Received: from MW4PR03CA0218.namprd03.prod.outlook.com (2603:10b6:303:b9::13)
+ by SA1PR10MB7756.namprd10.prod.outlook.com (2603:10b6:806:3a3::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.4; Sat, 5 Sep 2026
+ 13:00:18 +0000
+Received: from CO1PEPF000066E6.namprd05.prod.outlook.com
+ (2603:10b6:303:b9:cafe::78) by MW4PR03CA0218.outlook.office365.com
+ (2603:10b6:303:b9::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.14 via Frontend Transport; Sat, 5
+ Sep 2026 13:00:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ CO1PEPF000066E6.mail.protection.outlook.com (10.167.249.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Sat, 5 Sep 2026 13:00:16 +0000
+Received: from DFLE204.ent.ti.com (10.64.6.62) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sat, 5 Sep
+ 2026 07:59:45 -0500
+Received: from DFLE215.ent.ti.com (10.64.6.73) by DFLE204.ent.ti.com
+ (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sat, 5 Sep
+ 2026 07:59:45 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE215.ent.ti.com
+ (10.64.6.73) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Sat, 5 Sep 2026 07:59:45 -0500
+Received: from [10.249.135.178] ([10.249.135.178])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 685CxegH2197313;
+	Sat, 5 Sep 2026 07:59:41 -0500
+Message-ID: <bd2fe0c4-1657-4dfa-a34a-c8873a96f646@ti.com>
+Date: Sat, 5 Sep 2026 18:29:40 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Stefano Sasso <stesasso@gmail.com>
-Date: Sat, 5 Sep 2026 14:59:13 +0200
-X-Gm-Features: AcwNN1VeofIOL7o9wHomTA-WF0fasiZwcFrIl8Q8inatylGEOABj-dxxF7A5Aak
-Message-ID: <CALtE316UtL3x7LL6uxfXzx8rW6AbzYPeDOb478hqJCr_-dj=Wg@mail.gmail.com>
-Subject: [BUG] vrf: attaching a packet tap to a VRF device corrupts skb->csum
- for packets from L3 ingress devices (Udp6InCsumErrors, packets dropped)
-To: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	linux-kernel@vger.kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/6] arm64: dts: ti: k3-am62p-j722s-common-main: Assign
+ SRAM to VPU node
+To: Brandon Brnich <b-brnich@ti.com>, <nm@ti.com>, <vigneshr@ti.com>,
+        <kristo@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+        <conor+dt@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+CC: <afd@ti.com>, <u-kumar1@ti.com>
+References: <20260810205206.685971-1-b-brnich@ti.com>
+ <20260810205206.685971-7-b-brnich@ti.com>
+Content-Language: en-US
+From: "Kumar, Udit" <u-kumar1@ti.com>
+In-Reply-To: <20260810205206.685971-7-b-brnich@ti.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000066E6:EE_|SA1PR10MB7756:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d55d33a-f03d-4782-ad6f-08df0b4da20e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|376014|23010399003|921020|10067099003|4143699003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	2B0IgHpTaH64AjQk+lGhODmcdBOLgcuUnLIIjBNT9K6qjZsT7LHpBoiycYTnOcap94VdPOIQ85uM/dol5Ars/J214exftenZzIZq2Ll0J1AQfPk6Qb9wTY7dHuTl6YU1B9Rme+w16nffIWkd4oztjUHE3015UETZtE5onQ13Mo1sZkbgwRGgqZN2PI7jueR/DKyWHfhNHTP0joNc1NwpriceyFAmP7vghclbywqYCM6QgICU2v/bfM37t6mIEAp8Ak+80EaY52EZ5H64lyoN8Yu7L/Cf2g8CwyTMCcgA3xiWvIeghCejkpVx82NZYdWsNaJiumRIJAwVIt6wbXheIv5Ci2Rt8W3ERvJnsQEcdh89NwvZon34KIO54yoLxhEDe6WRsBIWzPawmO8f6vcKPbRIzTrKAeRzYh3+3gfzr37RkqJCYejdKZMe+wLZ1DLKMi1Ex2b1tbPTyz/Qfpl3CKuCOxswTz4AKw+RbLTCCRmyxBXYsKKaA89Y+KEuNcqnR/hx1II2DTsqJ0tXYIiY5q1UJuQFpY7oD3KKg5qGmwq9wvEkpBUccQLTzHSA+jaUw5DalO6XBBE64NS8vXxrM/Jdwr8D5gFwP0YBdjQZq3C2948nZgTq+ARoQulWZUQeWHMX5mSGs5Vj8lE908ovZKa3loiatPqjXf5ptLD/OQ0UUJS+CtZsO4s7y0z1moWRo3skqdrf8Faj4yOEqFK2JmiLpeQOu9psav+l6DxooM0Mhd9o3C1MPD2K1Di3eKzb
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(23010399003)(921020)(10067099003)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	lZ05QPdCcRetu2QthAk9mwSqKOseswGqt0KgUvykejcR5+8xpV/ga+RERhkqhH4ok69ASlU7tjl7Y5ix3+gfQgaZgn27sRpmfuUvDv585qrMgw+lj8jOtb1V+2XeE59lEIbz7vCAMbqqeFZu6QBotnASXU75dRb0o0ocrHeNxhrqbPckVt7rUOvnFK62dXzk/P1kR89/w6S//Ti97cXefj3MQitpEhHuRBueo6uwPa+l/2XuUwWHIHTaTiIW8LrpJOGa1HFeCvL91cHCpYAPs4sAzml62WMVr365eGHnuMq2g3Y/ZxWOh5lA6PKCboHfQYSC7LmQ5vIeerWy+x7/ihWm1APX9zp7xPT32lALSmsNSy1Mem+NaxDJi3fDVH/7577RuHs8wJehKnZTNUBv3XwUsdFWISNTB+W3CXXZ4dazx/m96fPAbbSnuMEP9yR6
+X-Exchange-RoutingPolicyChecked:
+	cESNKGPrB+FYtTTdTHT0gGTnRxxzV7dM7ubneykWW4I+HmCn2xMQtznPDc2obXzjqpN0h/ZzdUQhqT14kVr0Yczw1lfP548gOZf3lq9zVcvJasSmpr+n1WoQZmggYxNrMyehvE3pgv4evDSGecZ3VCcTYubV2aDPcdU3sFGNJe7H1Z0BU3RhFG9wR+mrVmoGuFuhXZpkM5zOSlFVD776j8cfdUAYPxDuSKpUEGXvnob0KR1dZOyfK6VCazQFO1WnaTrKntf4uOp+JP23cPYKBH781pocTiLJ+WGOuigDL7X8S/8wLhyWgLqtcoRMyV13F+O8zBnySNcMk5hgnKQtVw==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 13:00:16.7861
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d55d33a-f03d-4782-ad6f-08df0b4da20e
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF000066E6.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR10MB7756
+X-Authority-Analysis: v=2.4 cv=AfqB2XXG c=1 sm=1 tr=0 ts=6a9c1267 cx=c_pps
+ a=KOHnGYwbv2QpRqiwWHMRyQ==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=jwouBfj2j3NM8CExmVVE:22 a=sozttTNsAAAA:8 a=4bPgbMrSjmlkycFVCvgA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: 3HEfcm7kS1Dg8KXNrSxIuF0vY_wshscn
+X-Proofpoint-GUID: 3HEfcm7kS1Dg8KXNrSxIuF0vY_wshscn
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA1MDE0MiBTYWx0ZWRfX8N3J9+Qg45Cu
+ Hp4hrGHx5jt17OvodHtsmK9SmXwIbamODL9N2mDxkUKJh649KR6c0f9X/g2T1Z5cq3kCV4wm9rF
+ bBNA9RdothLdiEChXl0Hgo8dHzArGR9OMkGwcuGEkQB8rXCy6bkUEXJWCehVR/ulIlMmsFPKETc
+ dwwn0tXD0vdQ1b0UB0KDZhm/dzhNNT8dUHVJ1CRiY25mSBcd1K5ZHehHx8KOXBeN+A3YSLXOyXH
+ FabdKUnCdh3P39c5FToteMhe8NIhwS2MUq8PP9CZ5BeWxMKreRab3HiEWDO5VPRbAq3MWeKQIGV
+ n2iU2VHoHEg3kmcXDmfUVCa+MhHCBlXqV2bbs0LbcQ+uyPwRPyGdJZBnG3yztAIeENRG85rUFY2
+ XxYm5CsUFh6w44p+S+tWierGJFcSanxKUrq98x9muUzKhenpD6gGMCm3vrZk8cMKMmPbeNIvGhX
+ ZfQWfjBysmM4khNM6cA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA1MDE0MiBTYWx0ZWRfX8gti1Kwh4Qfe
+ U34Hkwb6W/UWlstq4kXpxIgbSbFWuPjg4Q636l1+xfDK0J0XalDsLY9IU0p/xr2d4sAfmonhbhv
+ oozUMpw+kX+Bpta6lHO4ppdFvkTFj78=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-05_04,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 suspectscore=0 malwarescore=0 clxscore=1015 adultscore=0
+ spamscore=0 phishscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609050142
 
-Hi all,
 
-Up front, so you know what you are dealing with: **I am not a kernel
-programmer =E2=80=94 I am a networking guy.** Please bear with me if I get =
-the
-terminology or the conventions wrong, and feel free to tell me bluntly if t=
-his
-is not the right place or the right format. I also used an AI assistant to =
-help
-me navigate the kernel sources and narrow this down, so please treat my sou=
-rce
-analysis below as a hypothesis rather than as an authoritative statement.
 
-What I do have is a **small, deterministic, self-contained reproducer** tha=
-t
-triggers the problem 100% of the time on a stock kernel, plus a control tes=
-t
-that isolates the trigger condition. Those parts I am confident about, beca=
-use I
-ran them.
+On 8/11/2026 2:22 AM, Brandon Brnich wrote:
+> The Wave5 VPU supports connecting to on-chip SRAM through its secondary
+> AXI interface. This allows temporal buffers to be stored on a per-stream
+> basis, reducing DDR memory traffic.
+> 
+> Signed-off-by: Brandon Brnich <b-brnich@ti.com>
+> ---
+>  arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi b/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
+> index f130c7cb998d7..61e3588bbfdc5 100644
+> --- a/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
+> +++ b/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
+> @@ -1117,6 +1117,7 @@ vpu: video-codec@30210000 {
+>  		interrupts = <GIC_SPI 225 IRQ_TYPE_LEVEL_HIGH>;
+>  		clocks = <&k3_clks 204 2>;
+>  		power-domains = <&k3_pds 204 TI_SCI_PD_EXCLUSIVE>;
+> +		sram = <&oc_sram>;
 
-## Summary
+Reviewed-by: Udit Kumar <u-kumar1@ti.com>
 
-Attaching a packet tap (tcpdump/dumpcap, i.e. anything that populates
-`vrf_dev->ptype_all`) to a VRF device causes incoming UDP datagrams to be
-dropped with `Udp6InCsumErrors`, when:
+>  	};
+>  
+>  	hsm: remoteproc@43c00000 {
 
-- the packet arrives on an ingress device with no `header_ops`
-  (ARPHRD_NONE: tun, ip6tnl, gre, wireguard...) that is enslaved to
-that VRF, and
-- the skb is in `CHECKSUM_COMPLETE` state by the time it reaches
-  `vrf_ip6_rcv()` (in my case because conntrack software-verified the check=
-sum
-  in PREROUTING).
-
-Stop the capture and the packets are delivered again. Start it and they are
-dropped again. Capturing on the enslaved ingress device instead of on the V=
-RF
-device is harmless.
-
-IPv4 should be affected identically, since `vrf_ip_rcv()` uses the same hel=
-per.
-I only tested IPv6.
-
-## Real-world impact
-
-I hit this in production: a SIP proxy bound into a VRF stopped receiving la=
-rge
-(fragmented) REGISTER messages over IPv6/UDP, but only while we were runnin=
-g a
-packet capture on the VRF device to debug an unrelated issue. The capture w=
-e
-took to diagnose the problem was the cause of the problem.
-
-In the capture, the reassembled datagram as seen on the VRF device has
-**source MAC =3D=3D destination MAC =3D=3D the VRF device MAC**, which is w=
-hat put me
-on the trail of `vrf_prepare_mac_header()`.
-
-## Suspected cause
-
-`drivers/net/vrf.c`, `vrf_prepare_mac_header()`:
-
-```c
-__skb_push(skb, ETH_HLEN);
-eth =3D (struct ethhdr *)skb->data;
-
-skb_reset_mac_header(skb);
-skb_reset_mac_len(skb);
-
-ether_addr_copy(eth->h_dest, vrf_dev->dev_addr);
-ether_addr_copy(eth->h_source, vrf_dev->dev_addr);
-eth->h_proto =3D htons(proto);
-
-skb->protocol =3D eth->h_proto;
-skb->pkt_type =3D PACKET_HOST;
-
-skb_postpush_rcsum(skb, skb->data, ETH_HLEN);
-
-skb_pull_inline(skb, ETH_HLEN);
-```
-
-The synthetic 14-byte Ethernet header is folded into `skb->csum` by
-`skb_postpush_rcsum()`, then removed from the packet by `skb_pull_inline()`=
- =E2=80=94
-but there is no matching `skb_postpull_rcsum()`. For a `CHECKSUM_COMPLETE` =
-skb,
-`skb->csum` is left permanently off by `csum_partial(fake_eth, ETH_HLEN)`, =
-and
-`udpv6_rcv()` subsequently rejects the datagram.
-
-This code is only reached from `vrf_ip6_rcv()` / `vrf_ip_rcv()` inside
-
-```c
-if (!list_empty(&vrf_dev->ptype_all)) {
-```
-
-which is exactly why the behaviour depends on whether a sniffer is attached=
-.
-
-`vrf_add_mac_header_if_unset()` short-circuits when the ingress device has =
-a
-real link layer (`dev_has_header(orig_dev)`), so a veth-enslaved port never
-shows the problem =E2=80=94 only L3 devices such as tun do.
-
-Naively, the fix looks like it should be to make the accounting symmetric:
-either drop the `skb_postpush_rcsum()` call, since the push/pull pair leave=
-s the
-packet unchanged, or add the matching `skb_postpull_rcsum()` before
-`skb_pull_inline()`. I do not feel qualified to say which is correct, or wh=
-ether
-there are other callers/paths that rely on the current behaviour, so I am n=
-ot
-sending a patch.
-
-## Why the packet is already reassembled when the VRF taps it
-
-`l3mdev_ip6_rcv()` is called from `ip6_rcv_finish()`, i.e. after
-`NF_INET_PRE_ROUTING`, so `nf_defrag_ipv6` (PREROUTING, prio -400) has alre=
-ady
-reassembled the fragments. That is why the ingress device shows two fragmen=
-ts
-while the VRF device shows one full datagram.
-
-## Why the skb is CHECKSUM_COMPLETE
-
-A tun device hands the stack a `CHECKSUM_NONE` skb, for which
-`skb_postpush_rcsum()` is a no-op. In my setup the promotion is done by
-conntrack: `nf_conntrack_udp_packet()` -> `nf_checksum()` -> `nf_ip6_checks=
-um()`
--> `__skb_checksum_complete()`, which sets `CHECKSUM_COMPLETE` and stores
-`skb->csum`. This also runs at PREROUTING, before the VRF rx handler, and o=
-nly
-when `net.netfilter.nf_conntrack_checksum=3D1` (the default).
-
-Test 4 of the reproducer sets `net.netfilter.nf_conntrack_checksum=3D0` and=
- the
-problem disappears while the capture stays attached =E2=80=94 which I belie=
-ve confirms
-that the corruption is in `skb->csum` and not in the packet data.
-
-## Reproducer
-
-Tested on `6.12.0-211.49.1.el10_2.x86_64` (Red Hat Enterprise Linux 10). It
-needs root, `iproute2`, `nftables`, `tcpdump` and python3. No external netw=
-ork,
-no second host =E2=80=94 everything happens in one network namespace.
-
-Topology:
-
-```
-[netns kbug]
-  vrf0                 (table 100)
-    =E2=94=94=E2=94=80=E2=94=80 tun0           IFF_TUN, ARPHRD_NONE, 2001:d=
-b8:2::1/64
-```
-
-`inject.py` opens `/dev/net/tun`, attaches to `tun0`, and writes two hand-b=
-uilt
-IPv6 fragments of a single 1640-byte UDP datagram (correct UDP checksum) in=
-to
-the fd. `receiver.py` is a UDP socket bound to `[2001:db8:2::1]:5060` with
-`SO_BINDTODEVICE=3Dvrf0`.
-
-An nftables `ct state` rule in PREROUTING activates `nf_defrag_ipv6` and
-conntrack:
-
-```
-add table inet ctstate
-add chain inet ctstate prerouting { type filter hook prerouting
-priority -150; policy accept; }
-add rule inet ctstate prerouting ct state new,established,related,invalid a=
-ccept
-```
-
-Results:
-
-```
-=3D=3D Test 1 =E2=80=94 no tap                                  PASS =E2=80=
-=94 delivered
-(Udp6InCsumErrors +0)
-=3D=3D Test 2 =E2=80=94 tcpdump on vrf0                         FAIL =E2=80=
-=94 dropped
-(Udp6InCsumErrors +1)
-=3D=3D Test 3 =E2=80=94 tcpdump on tun0 (ingress)               PASS =E2=80=
-=94 delivered
-(Udp6InCsumErrors +0)
-=3D=3D Test 4 =E2=80=94 tcpdump on vrf0, nf_conntrack_checksum=3D0 PASS =E2=
-=80=94 delivered
-(Udp6InCsumErrors +0)
-```
-
-The full set of scripts (`setup.sh`, `inject.py`, `receiver.py`,
-`reproduce.sh`, `teardown.sh`) is available here:
-
-  https://gist.github.com/ssasso/c089227b116b0fa6a954a18d85639d67
-
-They are short and have no dependencies beyond the above. I can inline them=
- in a
-follow-up mail if you prefer not to follow links.
-
-## Workarounds I am using meanwhile
-
-- Capture on the enslaved interface instead of on the VRF device.
-- `sysctl -w net.netfilter.nf_conntrack_checksum=3D0` in the affected netns=
-.
-
-Happy to run any test, apply any debug patch, or collect any additional dat=
-a you
-need =E2=80=94 just tell me exactly what to run.
-
-Thanks for your time,
-Stefano
