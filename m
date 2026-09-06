@@ -1,199 +1,387 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011010.outbound.protection.outlook.com [52.101.57.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8460C363C63;
-	Sun,  6 Sep 2026 18:19:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788718772; cv=fail; b=Fkts1BXnTY5IUTU1OR826CJY9QrSNisobYsfCDePWlx0wVXpgw/L+jPNLJuO+hQwqR2HmSafN1ancptUD9qdqheI/dp6X6Op8/EVpYWUv87u/PaR1tIWS+oO/xGD9K7PJLYojtjp0PCguLr+jxbFGgTcziJGxJ6Y4az3knA2JkU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788718772; c=relaxed/simple;
-	bh=FnXemtcSosMMsRobJ954dXcIegpOx0SIFs1vg5pUp5I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=QelwevBT7A2fCjPCnAP+tKraMBhe6i+B62DoPjhKGhS2nmLcDvGSks0fNqaeuuxhyWnKhDM+meEj4vjrGTD68lZ6kVWkAdeZn4WQR/vMJiYCIbqCF3PePOo6uzwA77R9yApYh8RlDYAsiGkKXADFqaqhjRRocvb3T2wRt8syTvk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=QWST2oug; arc=fail smtp.client-ip=52.101.57.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E5E21D7E5C
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 18:25:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788719140; cv=none; b=RPv/FOatRXGqs4iTpdCrQsODF2Vc7ah8hvSMazTXnLzeNCbQqa4czj1tzSRK2j4L9qb8TWrOa3O8pG56YnHfL7ZfklUgG9ju+UlDzsvtm1dCVrh/OVGQqU36b6ZrLnmfagffOsyUHIurkJx0Wkyh18YnJc1vkmZEcHRJ6xyK+Q8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788719140; c=relaxed/simple;
+	bh=qRDd5nMDfOstiR14Q1KrbXzbdSK5Suchl7DnrlwB7rA=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=RqvXOwrf9n2J9RIn5y4BHwdH7a/sELQPSpp0XcKv9KE23k9FIs5p8Tkp33ZYzPNYK0vP/l5nHGjVF6aEqAjhOv3axmfX/i8yzB3/mKhbPFF4Rszw6SGUSvklIX3yPJLFXgGZeuLwaEPkJt1LnQkVDal2rom2IF/GWXh19gE2/tU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=doyensec.com; spf=pass smtp.mailfrom=doyensec.com; dkim=pass (2048-bit key) header.d=doyensec.com header.i=@doyensec.com header.b=VaNUr0NV; arc=none smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=doyensec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=doyensec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="QWST2oug"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sGq/9fchFmTfj8c5lBo3vQdrbH4L2PkdivLNGLalwnUI66HIQ8ZHz/iiuBNu+2M2Sw+7RNsmhD7eVImD0QNT8NpfRWw9oKGZvXPAY3louFS6H3vQ8U06sE1cpJKohaxIq9lOcA9kEKb0z9C4q+6DlhqmzehW87wBlwQ/tM7MJ4UN4qZdGkuw6PEZCSZivliRBw1+G2yWVof9Jcta7FXEfZ31tr/YTt7CW3b5klJCbuUR/3rEWVyg6IlMP4+XGYN2t60Kc833bSPGm0pGBjXVCKN4yzgMXGGktTPsspLMq266ilUKxTRWDuaRwxOPaxQwoS4aZqgFimyrlt4E8PRfow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QQJEXf01y1p9b5wsVfxDHXXTZrgUE9dZ1sS4bRUyW7k=;
- b=VZrQRkhujrIjPmg4LLa++BL/lPpB3LByVnTvIrlud1ESS8vCtHAG1KFA66WlfvbokCA1GiJ3vWWKaW+2NwvsWJ4d8lhwW6LHHjNEIidTRt/cBAnRMZhAd3SPJ+pVwf0H25viMMKkQA/Zhq5SnYvbHDFozsw+xrgORLbWnFwOqNLB/70/dhKN6v2UdUfC+7QkzYRXc1Iyjdz1Th04gE5VBTTu9antZX5Fxcj0pMlgi6cUlhL9nkxJc5B81DcbjOgjTlwytCRFb15HwbJMGsuKPmG2kLbnQxhh4VIYcBcsZCKRow2YIvkLMjwjP6KtZ+j4MrLZdgZ/DkCyuQQu4VgPSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QQJEXf01y1p9b5wsVfxDHXXTZrgUE9dZ1sS4bRUyW7k=;
- b=QWST2ougz7+LWBY5wheNoBIxb4i6DSr2Sg7cegOsrX0zpaV0gFlvJMGrsHKxPja94Z7EQ1jLOZhZST8MZMvzZpRqMsbg2dEWd013badH0Bfd5ncPPAP5IVD6KCas37RT+T4eB7iier07oWi51ubplrlJ8itVQFek+vzcP8emx0/KXVLuX5ocu+QAR32vT7MSN38ol2QpaJMff5hA7BK4WzSvSPQYbzeKM3HflAJ0nkAwAs0iUHJiaa6cSDay+jfl6RmcU6b2bm4KkVfZUh4iK9E6Rrjnu6VoBxOJlIp7h6UGC7ypvquSLMxR95pEJen1TR/YytXkHSxY8nw5wdYlow==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
- by LV8PR12MB9405.namprd12.prod.outlook.com (2603:10b6:408:1fa::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.14; Sun, 6 Sep
- 2026 18:19:22 +0000
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0382.014; Sun, 6 Sep 2026
- 18:19:22 +0000
-Date: Sun, 6 Sep 2026 21:19:10 +0300
-From: Ido Schimmel <idosch@nvidia.com>
-To: Zihan Xi <zihanx@nebusec.ai>
-Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Patrick McHardy <kaber@trash.net>,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Vega <vega@nebusec.ai>
-Subject: Re: [PATCH net v2 1/1] ipv6: ip6mr: fix mr_table leak from MRT6_TABLE
-Message-ID: <20260906181910.GA455897@shredder>
-References: <cover.1788622674.git.zihanx@nebusec.ai>
- <5fc14a8ba754126b6897939e11154167281d4c5f.1788622674.git.zihanx@nebusec.ai>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5fc14a8ba754126b6897939e11154167281d4c5f.1788622674.git.zihanx@nebusec.ai>
-X-ClientProxiedBy: FR4P281CA0229.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e9::7) To PH0PR12MB7957.namprd12.prod.outlook.com
- (2603:10b6:510:281::22)
+	dkim=pass (2048-bit key) header.d=doyensec.com header.i=@doyensec.com header.b="VaNUr0NV"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c169ae1cb26so678291066b.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 11:25:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=doyensec.com; s=google; t=1788719136; x=1789323936; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=c00mRaBkEZkiSicA+frkQDnmrR5yS2WY+aX7Yj263kQ=;
+        b=VaNUr0NVTcej1YoKCl/GkxKy4Qh684OyseECG1CpS+jOLwTtFZLC0Z024Fofrigbmc
+         Or3hyomKqHtvWN9kz4r/emWMWqT4Nd6SuzkaL/we2K+0j3NEN4pLzEChe6Gx4XVGdVkg
+         CLRht7gorgCooWrqhhgBxKeK/fBvQqa0JTjPCFphk6cm/RfqC9cLS/3Zsq6rdi84A61r
+         7PBNzl69jzwfDhmR9tbHI0cKjGuWwg3JwLh5bCrNtvK3aVxqjpF/cSKv+4RKw80SRFIz
+         uQDGhO6WDappg5J7HkjyH5YvCVwYmHa71CKRtwRp6vulHhJ0A3B3vZD3l1MfKO8G4WmR
+         Ov7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788719136; x=1789323936;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c00mRaBkEZkiSicA+frkQDnmrR5yS2WY+aX7Yj263kQ=;
+        b=WCKcF+RNqunFDlZMT/VSrE7IBmPEIJaF87taSXyT1VPPxV7Yna0nYl0zeOzawNjM7n
+         /Vfo7S2QR0OlPX0EcqXcu4PDzJjCm/vaTgQMIDQoOsmQw5q5riAM7wjkgdiUjTu18zar
+         3Oa4HkmkpCMac6WounYKWNNH/ZgqkzWMEGfthcw/HjsmGHrMbDwGml+nddODswr/jpeM
+         TlJrgH5eqjEM9ZFsZ7bT7+9zmKp/GH6m8SoY6/8Mn2DFyKHV8rGb/U/dZtvnQkQciD6b
+         X2uyC1xcLDWPBnAjShtaJqP+ViJ4RtrIwgFqsxX1ZXd5+sXPguJFl3NJpU2TTec6GlXZ
+         4bPg==
+X-Forwarded-Encrypted: i=1; AKwUvBxaf9OU466kHxfx4R45MkbWQ9ubw+ZW9Tbr//oWwh1Ncs8yMD2VaX1vvIuyxgvG31qwvOLWXCXpvEwYXaw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mdDQcO5jCa4p1LWn0hPl6ZCviMGc83RwbeAB9ppKNbc43u80u6
+	TYc7PD388qHCcG8ufp+19FKPNMu7TpX4aFfz82IkXycKr0J5DPOwIuTwOGgoAaDL2K4=
+X-Gm-Gg: AYBFou3gwEnR9zOynkoqCZbD/JlJd7ehX1aj9cANpesHgfN+9bLuZI692Z84NcTEK+V
+	KolnVq2aD2iUFr+dxw497McTlfMFGweYRJYHF84r1FTB/q1gp/JkaJfzkMR8ITfq7VDXEVJA21p
+	KLflIaXE2tGjU80L9Vdy03EDLzJZy5eH7FwCPZaNPHOCrkFxxuBJXnv2GR12WCqbOVu2G20TTbp
+	tqESRSksGC79b3GSnlrLBKcv+8pibwBnRlo89CyfVmq0wDWVnwPmjN2PBZS+fuYrei/IQCtVM+T
+	dy3oiG9SAR61VuzGRRuS//QbTOIeb+h0ZGOD9fIDU7PCiHKhfYEZcd9C7kLjyWcExvKDAxTKUwm
+	CUT3BYPzhQDuY+DKQyoYs7Na6jCcR0FsCSSWWsTmOcXDuwuYxe+NoD/SuVe/63qkFHCWGjVvib8
+	lC/O0oNMOTJKuTioSuqsycY1DZe7aYPInDxTd6iBW+dWj99X+R6hTcSAWII+u5ygludB5UmVEaw
+	6iIyVMj6khFWBsa5Rkw77ZhRHOjIGdTEOoGd1S2LHRZ25F1
+X-Received: by 2002:a17:907:940f:b0:c25:f7dc:2d8 with SMTP id a640c23a62f3a-c25f7dc0935mr899006966b.25.1788719135562;
+        Sun, 06 Sep 2026 11:25:35 -0700 (PDT)
+Received: from smtpclient.apple (80.49.147.201.ipv4.supernova.orange.pl. [80.49.147.201])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d4aa0b9sm363969166b.11.2026.09.06.11.25.33
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 06 Sep 2026 11:25:34 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|LV8PR12MB9405:EE_
-X-MS-Office365-Filtering-Correlation-Id: 17d14c14-756e-4213-1852-08df0c435fbb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|366016|1800799024|376014|10067099003|22082099003|18002099003|11063799006|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	dYZAcnKpq/jCvCOKfaWuaprrIg9f6Wi1RROMjx2ukb2Z5B7Gk3VHamKpe/Zg8Zl0cbbiOkRSxfxlL1IOPvdcWajFQx5gzX9bsb06NG8OrROHoh5Mn1/df3tXJ+qRjWbMHQuYl0sD9q6UV30+cs+TUjMPA2cCG2ZN8ontnokzoshBfIOneTEatvC6ywNc5ALl0l9yul2dekvfWdEKZU7zzr1B1qzrmfgxpUMUMVKMLDJyVmBipd/ZwBBn6m9kfMErCLTOtkbUzq0NKUF97jBVoxJPb7Z7NMcGT1hDocoETqLa4amPyje7QR2drnOftjPPV14abkaLTEj8xMIKT9p3oM6bZ/vHsgh+rYF0XZHaKM9bfYUrYzGMz5KmQGIg6JSu17KM5VCTRQxnmH3B1hiWMT276yRKhiIXiqe0eWwbIolDTFu+PAO3YD+zAmFHfLcZ6WxYNhpdWfXwxQzdCMEDopKyAJ51VFYGM2cDkdmHLz3eL3ZBwp5H+sTTt769l8wdIlrKXEDEoqTg/2AqYGoWd3tm+FEqJqGlBu3wdmgBDQ2yMS2it/Z4BKxvelmuecI2ZKGzY1ueiBEmdq4SwjyrzHsdf4edxM1JOFe/hT+wZJFgUe1LabnvJNpJhzEQnss+snS/pfL/36rsoRqtwpYXu5+1zbmPs7+BUR5RqPowIW8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(1800799024)(376014)(10067099003)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?RNVajQ/casScwa1aN4n9J3053rGH+rz7f3yIN9cvguCWWQq9Lii+wLXJ7ZRh?=
- =?us-ascii?Q?tufTuupn8Y7Sbecho+DsVXiJwRY5DfhvChW+Ec2EaB/3IHUoRfqw6IF6yLTE?=
- =?us-ascii?Q?bhCLcO5wCuI61Y0+omHJX19KpzLZrZ2kr0ND/Xyex/UexWu6uRP3JLfEZa6f?=
- =?us-ascii?Q?mnWQ6QlqVr8Rh0uzXaFqTDAfdOfy/EXgW4LJ27M9PatpwDxW65AdxlzZNY6f?=
- =?us-ascii?Q?RQGOxPQoQqWA0Jz/GllbDC678lWJfr0vR1p0uK/Cq0tefSW/wSCD2JuCAGyO?=
- =?us-ascii?Q?Bv5dcwdHPbZhopsz/bIAnTZQ3863yfhXyssraGoVwkMIigJyIo0CY6yxbzaZ?=
- =?us-ascii?Q?07CQjmf9W7SkMvs419/ZBwpFaBZq+2OMiApYg9fU9tNWW9qsndrGBuIpgQqp?=
- =?us-ascii?Q?ifTFe5qV1Ej1bIczad4ZFHt6pt6SdmqpxxvWNgyM08C4varTkCohU4kd5McD?=
- =?us-ascii?Q?1+x69oYCazI8x5Naztjb13WTlcHOBWvBM0Peveam3KOcnJfSi3CLVz/C0yBg?=
- =?us-ascii?Q?xu3Iy38+lt4a/ophvdyQRCPrmvSirKNMtxQgN0UenZw2SJ7ULrPU87G9UPLP?=
- =?us-ascii?Q?ODwhSyFxRvwUijtatog2ZGTUB9wtXGPpZA0u5fyzMwOdWm0PFSvRmc46fKN9?=
- =?us-ascii?Q?XnZ2E5COnKpID5XvrvHJziJUux+aMT54j4gUR3tu64M3/z5w8U8BcmEhGz1N?=
- =?us-ascii?Q?I1KR3X9WXqBBaSXiElqhVTrq5qpH44WkIL+YYku6PUpbVRydzTQHVIRa0esj?=
- =?us-ascii?Q?r7FfqG/h3WjrnBsVrHFIZTrwOuexl4akqDYxupyWfMV5CKdUgEYogh/grsiR?=
- =?us-ascii?Q?xqkdW/DxmgLfjSptoOmNeJFlS1BOfFoslE5rA/NqpGpMyhfWN45iyITmGnMA?=
- =?us-ascii?Q?ZVFoK38mzRZe3SN4kDop7qPcs0IYv+6i1/i+llqB+0PjlIwlGWvVpDOa1OzM?=
- =?us-ascii?Q?7QnmXnB9XJGUK87PuSgoqGYfrqlyYESKGI5OZ3SRM/GYqLO3L9GTeqMkV4jd?=
- =?us-ascii?Q?0YfUlWXqlACRk7nwfp7QAo2eU2Ojdr+pa/FhTZWWxywysJtP4Ee22HA7DmUj?=
- =?us-ascii?Q?s5KZA7ssTt8Ge6cgTNQ5aDYkPq3oZZQcBcX2HoVMox9fqDG5NrE8MUsoNpVt?=
- =?us-ascii?Q?85jSJ/yyEosPweQm4GZxF3H6EAjJnCKVbJbCJzLX3YzXXwcHogaC1z6kBjOO?=
- =?us-ascii?Q?EG/zAauoUjt1i+cqk1dYjVJ3s4FQm7GlBK7eZwAXfy0Zu7B+ulFs2wfCMRMe?=
- =?us-ascii?Q?c8Xg9X6mkLvhutwvjD4R3Wmxavp5xevwaskLgUW6/Ev/CgLy1difBtYWchn1?=
- =?us-ascii?Q?aRoOkmz3Q1V+Jke23sw4roZgmi5guhAp+Vd1cvPYW5sQops9gs84S2qYUIsj?=
- =?us-ascii?Q?GHkGpzzFBOBvQezpNNC1p2vIpeBobKcJMcpAQYs/Nv1XsOjS4skEM+S/BDnw?=
- =?us-ascii?Q?mzz/Tp1FBcB0Br5L97susyexqEl6GA+OG3UgNtkRxXbGNoj+bGNJSBdF2kJk?=
- =?us-ascii?Q?nz3Be3Jv92B5KowjNKQDrlHLy6CrgD/UM3iUh7glgAmB0VhUF+61Usg/2Qgc?=
- =?us-ascii?Q?xCuY+x6Y3DUwosh185Vs98OIa3Nku9Y9HtFj0L4MGmZwJXDI3BnxfcVuRiUg?=
- =?us-ascii?Q?QR9n8WLD/HE0XIp0pd3Zlre8CgssRPbY1J7v/aGvBsFTiHvyJmG9+Luo+NSv?=
- =?us-ascii?Q?LQ+2uHdg/JazJc2Tjg2BsgOiUzAQd0HLum1BRIQPAj3NV0Z9?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 17d14c14-756e-4213-1852-08df0c435fbb
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2026 18:19:21.9322
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: niVHm0KWcmabzy6m7O70R4AOACxdZqciHiYZ8mF5ntyGWwGuFiVF968NVXZSpuJRhPmnqq41LnZHjes9lKXKJg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9405
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.4\))
+Subject: Re: [PATCH] nstree: check listing permission before taking a
+ namespace reference
+From: Norbert Szetei <norbert@doyensec.com>
+In-Reply-To: <F8EF9799-CDCE-435F-97E2-13B6CC92EC6D@mainlining.org>
+Date: Sun, 6 Sep 2026 20:25:22 +0200
+Cc: brauner@kernel.org,
+ linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ akpm@linux-foundation.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <A0ABE170-488A-49CD-8A6C-4D9EB94A18A8@doyensec.com>
+References: <F8EF9799-CDCE-435F-97E2-13B6CC92EC6D@mainlining.org>
+To: Bradley Morgan <brads@mainlining.org>
+X-Mailer: Apple Mail (2.3826.700.81.1.4)
 
-On Sat, Sep 05, 2026 at 04:30:07PM +0000, Zihan Xi wrote:
-> MRT6_TABLE is supposed to select a multicast routing table id, but
-> ip6_mroute_setsockopt() currently calls ip6mr_new_table() for every
-> unseen id. The new mr_table is linked into mr6_tables and is only
-> destroyed when the net namespace goes away.
-> 
-> A raw ICMPv6 socket with CAP_NET_ADMIN can therefore loop
-> MRT6_TABLE(fresh id) without MRT6_INIT, close the socket, and still
-> leave the tables allocated. Repeating this grows unreclaimable slab
-> until the machine OOMs.
+On Sep 6, 2026, at 13:52, Bradley Morgan <brads@mainlining.org> wrote:
+>=20
+> On 4 September 2026 15:28:05 BST, Norbert Szetei =
+<norbert@doyensec.com>
+> wrote:
+>> legitimize_ns() takes a reference on the candidate namespace before
+>> may_list_ns() has decided whether the caller may see it. The
+>> __free(ns_put) cleanup on the denied path can drop the last reference =
+to a
+>> mount namespace while we still hold the rcu read lock, and =
+put_mnt_ns()
+>> may sleep there. This is the same problem commit 2ec2aff3c8e2 ("ns: =
+make
+>> sure reference are dropped outside of rcu lock") fixed for the =
+put_user()
+>> path. Neither ns_requested() nor may_list_ns() needs a reference, =
+both
+>> only look at the namespace type and at the caller's own namespaces, =
+so do
+>> the checks first and take the reference last.
+>>=20
+>=20
+> Great catch!
+>=20
+>> Fixes: 76b6f5dfb3fd ("nstree: add listns()")
+>> Signed-off-by: Norbert Szetei <norbert@doyensec.com>
+>> ---
+>> A reproducer is available on request.
+>=20
+> Please? Or a splat, or anything?
 
-Isn't the established way to deal with this sort of issue to simply
-account for the memory and assume that the admin put some kind of a
-memory limit on the container?
+Sure, both reproducer and splat below.
 
-See for example commit 6126891c6d4f ("memcg: enable accounting for IP
-address and routing-related objects") and commit 5d26cff5bdbe ("net:
-account alternate interface name memory").
+The reproducer uses two thread pools, one repeatedly calls listns for
+CLONE_NEWNS, the other spins up short-lived mount namespaces via
+unshare(CLONE_NEWUSER | CLONE_NEWNS) and lets them die.
 
-This diff [1] accounts for the memory of both the multicast tables
-and the multicast routes.
+The tmpfs mount in the child is the part that makes it show up quickly.
 
-With your C reproducer and this diff I get:
+Run as an ordinary user, no capabilities, no root. I reproduced it on=20
+the latest mainline and also the latest ubuntu.
 
-# echo +memory > /sys/fs/cgroup/cgroup.subtree_control
-# mkdir /sys/fs/cgroup/mrtest
-# echo 64M > /sys/fs/cgroup/mrtest/memory.max
-# echo $$ > /sys/fs/cgroup/mrtest/cgroup.procs
-# unshare -Urn ./mrt_poc
-allocated=1 current_table=1 maxrss_kb=1788
-allocated=10001 current_table=10001 maxrss_kb=1788
-Killed                     bash
-# dmesg | tail -1
-[   63.360047] Memory cgroup out of memory: Killed process 297 (mrt_poc) total-vm:2424kB, anon-rss:92kB, file-rss:1448kB, shmem-rss:0kB, UID:0 pgtables:44kB oom_score_adj:0
+Reproducer:
 
-[1]
-diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-index e5f2b1c6150d..b9c544d48c45 100644
---- a/net/ipv4/ipmr.c
-+++ b/net/ipv4/ipmr.c
-@@ -3376,7 +3376,8 @@ int __init ip_mr_init(void)
- {
- 	int err;
- 
--	mrt_cachep = KMEM_CACHE(mfc_cache, SLAB_HWCACHE_ALIGN | SLAB_PANIC);
-+	mrt_cachep = KMEM_CACHE(mfc_cache,
-+				SLAB_HWCACHE_ALIGN | SLAB_PANIC | SLAB_ACCOUNT);
- 
- 	err = register_pernet_subsys(&ipmr_net_ops);
- 	if (err)
-diff --git a/net/ipv4/ipmr_base.c b/net/ipv4/ipmr_base.c
-index 867b24beded1..a0ec6d19a237 100644
---- a/net/ipv4/ipmr_base.c
-+++ b/net/ipv4/ipmr_base.c
-@@ -52,7 +52,7 @@ mr_table_alloc(struct net *net, u32 id,
- 	struct mr_table *mrt;
- 	int err;
- 
--	mrt = kzalloc_obj(*mrt);
-+	mrt = kzalloc_obj(*mrt, GFP_KERNEL_ACCOUNT);
- 	if (!mrt)
- 		return ERR_PTR(-ENOMEM);
- 	mrt->id = id;
-diff --git a/net/ipv6/ip6mr.c b/net/ipv6/ip6mr.c
-index 3f2ed9b77deb..9d8116b5edb1 100644
---- a/net/ipv6/ip6mr.c
-+++ b/net/ipv6/ip6mr.c
-@@ -1427,7 +1427,7 @@ int __init ip6_mr_init(void)
- {
- 	int err;
- 
--	mrt_cachep = KMEM_CACHE(mfc6_cache, SLAB_HWCACHE_ALIGN);
-+	mrt_cachep = KMEM_CACHE(mfc6_cache, SLAB_HWCACHE_ALIGN | SLAB_ACCOUNT);
- 	if (!mrt_cachep)
- 		return -ENOMEM;
+#define _GNU_SOURCE
+#include <errno.h>
+#include <pthread.h>
+#include <sched.h>
+#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/mount.h>
+#include <sys/syscall.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <linux/types.h>
+
+#ifndef __NR_listns
+#define __NR_listns 470
+#endif
+
+struct ns_id_req {
+	__u32 size;
+	__u32 spare;
+	__u64 ns_id;
+	__u32 ns_type;
+	__u32 spare2;
+	__u64 user_ns_id;
+};
+
+#define NR_IDS 4096
+
+static volatile int stop;
+static unsigned long nr_list, nr_churn;
+
+static void handler(int sig)
+{
+	(void)sig;
+	stop =3D 1;
+}
+
+static long listns(struct ns_id_req *req, __u64 *ids, size_t nr)
+{
+	return syscall(__NR_listns, req, ids, nr, 0);
+}
+
+static void *walker(void *unused)
+{
+	struct ns_id_req req =3D {
+		.size =3D sizeof(req),
+		.ns_type =3D CLONE_NEWNS,
+	};
+	__u64 ids[NR_IDS];
+
+	(void)unused;
+	while (!stop) {
+		listns(&req, ids, NR_IDS);
+		__atomic_fetch_add(&nr_list, 1, __ATOMIC_RELAXED);
+	}
+	return NULL;
+}
+
+static void child(void)
+{
+	if (unshare(CLONE_NEWUSER | CLONE_NEWNS))
+		_exit(1);
+	mount("none", "/", NULL, MS_REC | MS_PRIVATE, NULL);
+	mount("none", "/tmp", "tmpfs", 0, NULL);
+	_exit(0);
+}
+
+static void *churner(void *unused)
+{
+	(void)unused;
+	while (!stop) {
+		pid_t pid =3D fork();
+
+		if (pid =3D=3D 0)
+			child();
+		if (pid < 0) {
+			usleep(1000);
+			continue;
+		}
+		waitpid(pid, NULL, 0);
+		__atomic_fetch_add(&nr_churn, 1, __ATOMIC_RELAXED);
+	}
+	return NULL;
+}
+
+int main(int argc, char **argv)
+{
+	int secs =3D argc > 1 ? atoi(argv[1]) : 60;
+	int nr_walkers =3D argc > 2 ? atoi(argv[2]) : 6;
+	int nr_churners =3D argc > 3 ? atoi(argv[3]) : 6;
+	struct ns_id_req req =3D { .size =3D sizeof(req), .ns_type =3D =
+CLONE_NEWNS };
+	pthread_t th[64];
+	__u64 ids[NR_IDS];
+	int i, n =3D 0;
+	long ret;
+
+	if (nr_walkers + nr_churners > 64)
+		return 1;
+
+	ret =3D listns(&req, ids, NR_IDS);
+	if (ret < 0) {
+		perror("listns");
+		return 1;
+	}
+	printf("uid %d sees %ld mount namespaces\n", getuid(), ret);
+
+	signal(SIGALRM, handler);
+	alarm(secs);
+
+	for (i =3D 0; i < nr_walkers; i++)
+		pthread_create(&th[n++], NULL, walker, NULL);
+	for (i =3D 0; i < nr_churners; i++)
+		pthread_create(&th[n++], NULL, churner, NULL);
+
+	while (!stop)
+		sleep(1);
+
+	for (i =3D 0; i < n; i++)
+		pthread_join(th[i], NULL);
+
+	printf("listns=3D%lu unshare=3D%lu\n", nr_list, nr_churn);
+	return 0;
+}
+
+Splat, on Ubuntu 7.0.0-30-generic (PREEMPT_DYNAMIC, no KASAN, no debug =
+options):
+
+[   24.499428] RIP: 0010:rcu_note_context_switch+0x238/0x2a0
+[   24.499431] Code: 88 09 00 00 48 8d 93 88 09 00 00 48 39 d1 75 6a 48 =
+23 47 20 74 4d 4c 89 e6 e8 64 f3 ff ff e9 46 fe ff ff 48 8d 3d b8 fe 99 =
+02 <67> 48 0f b9 3a e9 02 fe ff ff 49 8b 7c 24 20 48 89 7d e0 e8 c0 1b
+[   24.499433] RSP: 0018:ffffcfa383867830 EFLAGS: 00010002
+[   24.499435] RAX: 0000000000000001 RBX: ffff8c33e1612ac0 RCX: =
+0000000000000000
+[   24.499436] RDX: 0000000000000000 RSI: ffffffffb6527c27 RDI: =
+ffffffffb7ce0450
+[   24.499437] RBP: ffffcfa383867850 R08: 0000000000000000 R09: =
+0000000000000000
+[   24.499438] R10: 0000000000000000 R11: 0000000000000000 R12: =
+ffff8c33fbb34580
+[   24.499439] R13: 0000000000000000 R14: 0000000000000000 R15: =
+ffffcfa383867910
+[   24.499441] FS:  00007eb8b11fa6c0(0000) GS:ffff8c34438ff000(0000) =
+knlGS:0000000000000000
+[   24.499442] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   24.499443] CR2: 00007eb8b11f1e48 CR3: 000000016656a001 CR4: =
+0000000000f72ef0
+[   24.499447] PKRU: 55555554
+[   24.499448] Call Trace:
+[   24.499450]  <TASK>
+[   24.499452]  __schedule+0xcf/0x650
+[   24.499456]  schedule+0x27/0x90
+[   24.499458]  schedule_preempt_disabled+0x15/0x30
+[   24.499460]  __mutex_lock.constprop.0+0x550/0xaf0
+[   24.499461]  ? irqentry_exit+0x2e/0x6f0
+[   24.499464]  ? irqentry_exit+0x2e/0x6f0
+[   24.499466]  __mutex_lock_slowpath+0x13/0x20
+[   24.499468]  mutex_lock+0x3b/0x50
+[   24.499470]  exp_funnel_lock+0xb2/0x260
+[   24.499472]  ? _raw_spin_unlock_irqrestore+0x11/0x60
+[   24.499474]  ? ida_free+0x14e/0x160
+[   24.499477]  synchronize_rcu_expedited+0xe7/0x220
+[   24.499480]  namespace_unlock+0x26a/0x320
+[   24.499484]  put_mnt_ns+0xd3/0x120
+[   24.499486]  mntns_put+0xe/0x20
+[   24.499488]  do_listns+0x13e/0x560
+[   24.499491]  ? __do_sys_listns+0x126/0x2d0
+[   24.499494]  __do_sys_listns+0x126/0x2d0
+[   24.499496]  __x64_sys_listns+0x20/0x30
+[   24.499498]  x64_sys_call+0x2366/0x2390
+[   24.499501]  do_syscall_64+0x105/0x5a0
+[   24.499503]  ? __audit_syscall_exit+0x36/0x120
+[   24.499506]  ? security_capable+0x70/0x1e0
+[   24.499510]  ? ns_capable_noaudit+0x34/0x60
+[   24.499513]  ? mntns_put+0xe/0x20
+[   24.499514]  ? do_listns+0x18a/0x560
+[   24.499517]  ? __do_sys_listns+0x126/0x2d0
+[   24.499520]  ? __audit_syscall_exit+0x36/0x120
+[   24.499521]  ? arch_exit_to_user_mode_prepare.isra.0+0xd/0xe0
+[   24.499524]  ? do_syscall_64+0x140/0x5a0
+[   24.499525]  ? ns_capable_noaudit+0x34/0x60
+[   24.499527]  ? mntns_put+0xe/0x20
+[   24.499529]  ? do_listns+0x18a/0x560
+[   24.499532]  ? __do_sys_listns+0x126/0x2d0
+[   24.499534]  ? __audit_syscall_exit+0x36/0x120
+[   24.499536]  ? arch_exit_to_user_mode_prepare.isra.0+0xd/0xe0
+[   24.499538]  ? do_syscall_64+0x140/0x5a0
+[   24.499540]  ? exc_page_fault+0x94/0x1e0
+[   24.499541]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+[   24.499543] RIP: 0033:0x7eb8b3b34c8d
+[   24.499545] Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa =
+48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f =
+05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 4b d1 0d 00 f7 d8 64 89 01 48
+[   24.499547] RSP: 002b:00007eb8b11f1e18 EFLAGS: 00000202 ORIG_RAX: =
+00000000000001d6
+[   24.499555] RAX: ffffffffffffffda RBX: 00007eb8b11fa6c0 RCX: =
+00007eb8b3b34c8d
+[   24.499556] RDX: 0000000000001000 RSI: 00007eb8b11f1e80 RDI: =
+00007eb8b11f1e60
+[   24.499558] RBP: 00007eb8b11f1e40 R08: 0000000000000000 R09: =
+0000000000000000
+[   24.499559] R10: 0000000000000000 R11: 0000000000000202 R12: =
+00007eb8b11fa6c0
+[   24.499560] R13: 00007ffd3d46d640 R14: 00007eb8b11face4 R15: =
+00007ffd3d46d747
+[   24.499562]  </TASK>
+[   24.499563] ---[ end trace 0000000000000000 ]---
+
+>>=20
+>> kernel/nstree.c | 10 ++--------
+>> 1 file changed, 2 insertions(+), 8 deletions(-)
+>>=20
+>> diff --git a/kernel/nstree.c b/kernel/nstree.c
+>> index 6d12e5900ac0..831f279d174a 100644
+>> --- a/kernel/nstree.c
+>> +++ b/kernel/nstree.c
+>> @@ -533,19 +533,13 @@ DEFINE_FREE(ns_put, struct ns_common *, if =
+(!IS_ERR_OR_NULL(_T)) ns_put(_T))
+>> static inline struct ns_common *__must_check legitimize_ns(const =
+struct
+>> klistns *kls,
+>>    struct ns_common *candidate)
+>> {
+>> - struct ns_common *ns __free(ns_put) =3D NULL;
+>> -
+>> if (!ns_requested(kls, candidate))
+>> return NULL;
+>>=20
+>> - ns =3D ns_get_unless_inactive(candidate);
+>> - if (!ns)
+>> - return NULL;
+>> -
+>> - if (!may_list_ns(kls, ns))
+>> + if (!may_list_ns(kls, candidate))
+>> return NULL;
+>>=20
+>> - return no_free_ptr(ns);
+>> + return ns_get_unless_inactive(candidate);
+>> }
+>=20
+> Fix LGTM,=20
+>=20
+> + CC akpm, he tends to look at fixes in kernel/, if brauner wants to =
+merge this then that's ok :)
+
+Thank you.
+
+>> static ssize_t do_listns_userns(struct klistns *kls)
+>>=20
+>=20
+> --- Thanks!
+> =
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net=
+/
+
+
