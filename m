@@ -1,340 +1,195 @@
-Received: from out-2uec-a117.jellyfish.systems (out-2uec-a117.jellyfish.systems [63.250.43.117])
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4024921770B
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 14:40:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=63.250.43.117
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D52530C177
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 14:40:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788705627; cv=none; b=t3jWa0890bEa8wsUNvy0hbsoESlIEhX/5RVwpEw3rs9btLBz54HLEDURyJFjvpsOi5Po37qgTp2StjQi3vvAUIMue/nYnSqwk53eTgB5n+GunRXOjiCfUB/cKkvoBSW76u6T4MsvYlGSFJl5E2VMvrvfAgADS3Tiz/IWYi55w2c=
+	t=1788705635; cv=none; b=kmLxI/yM8+PDMfP1xvUwpbnd/MoszP9fjc8mdhaYk6Lvst8B15bOfw4BLw7o/C9ShIcfVy/aRSWhEqmozjCUD4l3oPJjBeSKaNiTLtVqt/qDDuvn8HpDeO+QN5You8ISrPhSlVbg3fOhn78XK52bIcvcACSkv5KPRi4aq+QVVl4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788705627; c=relaxed/simple;
-	bh=AwCXbmbpt17i7YNmPyhPR8fCoHZw3YWqSpsb+wb8YD8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RA1Pgm4NQsV3GKwu0pvdBa04zErujpBflEWyQZHJhY8S421afbAhqNa+6LuM/AE6B4xopwRXqrgFyHd6d7u8VWIPGnawPyYIHv6l60E3LGEaP5s0zMQpEZqlc3wa39sYrYT8LhC67SgHGvm3ZGzMjNbTtKc3Xz9DI+ju+bHPqrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=nyXIjllM; arc=none smtp.client-ip=63.250.43.117
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
+	s=arc-20240116; t=1788705635; c=relaxed/simple;
+	bh=s1q8WzzGuo8hVRRm/KWVtatN8Kh6Mlwms8kGOAbFfn8=;
+	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References; b=muglKpqCmiQG0bnrCOfIRpFzkWH0S7FSeQYxwVV0AYhUe9RRIjrTsLaCq1sqtdTm2tvbbXWfuYkuFozIAtOmxTxKPW4qWh0RG+T9a5gpPe76PbjZeIjjkyt3y3ltKeHi7Lg9UMLXuo4V+yuAC8e+9YHVJ7O7KTu01AIBl0nygyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oD6ta1yM; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="nyXIjllM"
-Received: from fedora (unknown [69.5.53.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4hdCXj6R54z8sX3;
-	Sun, 06 Sep 2026 14:40:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
-	s=spacemail; t=1788705610;
-	bh=wHXpina7BeJ4lMtrwoh48Wls4cUx9IdFAqvnnPqY3NU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=nyXIjllMpUgI+Vh8KO5e6meeVYwhD5hZ7S6hwHgV86t1mqzzMoesVyfzwS+ehYtn9
-	 NrMTN7NPMrW1QolW/rAl+H2veK0qAZooAQg4Tbrzjb2d+Xyj66xigm+dZgfk6GGTQr
-	 kNK8+/v6+cmutHlM9MYAwEHmM5+pWe+zGz2mYVzQeibhCWwzggJd1xXRAx6FEeWr/V
-	 8yPsqKMs4hRfq8P5vfNbqVRN3gv1tggixUAUke+QC8XLQkaCeUxc+rdcR9715Nm6YG
-	 jf55hd4SYz8d02bzU648sBzC/+DCciyR94+G1IJBxts6kRBXFZRYvsnd9Y24KKsr3A
-	 w7sQ27F/VP+uQ==
-From: Tianyi Chen <hi@tychen.cc>
-To: qmo@kernel.org,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>
-Cc: Tianyi Chen <hi@tychen.cc>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Shuah Khan <shuah@kernel.org>,
-	bpf@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf-next 2/2] selftests/bpf: Cover recursive bpftool map dumps
-Date: Sun,  6 Sep 2026 22:39:50 +0800
-Message-ID: <20260906143950.848769-2-hi@tychen.cc>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260906143950.848769-1-hi@tychen.cc>
-References: <20260906143950.848769-1-hi@tychen.cc>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oD6ta1yM"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38e041ea211so1992851a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 07:40:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788705633; x=1789310433; darn=vger.kernel.org;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=9VYFtOUs9e8rShoNMIR91vWddUTxEe+7XBSxba8ZkAM=;
+        b=oD6ta1yMpeH4kXGEm15K9LL8FhKwXKk3NtbwpofrYfyTSVLw2rIrCcOUFlY3vJQRGb
+         JNZGtwGQXEQ6EqDPXxbN+KK8MtAYKlKXcZ9S+fnRmgpw0TWA6E6aPDmXjGe6m9MRmiQA
+         rFIQz5/WLpzO5xFp5xfvTMpKBL15gcQm9IW5UTjvRmMLoCNj3cI+JKC6jlGVvhjbMBPi
+         fbKyXu1Ktds+T5MyaDQjY3bPOc8UxQO613VvOD5PpFS5KOL5FRIuqbG3BsyzUbI7lgdG
+         F4kx5DprDOTKClA/egozbL/NnrlQqusUTdZAmGqZD9zvPU2ayV3csxgOT9FurehALWSr
+         qp9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788705633; x=1789310433;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9VYFtOUs9e8rShoNMIR91vWddUTxEe+7XBSxba8ZkAM=;
+        b=aG+32kdnr4n6O/ZEhCkBebJI4oVA/3CLjBjAALibhGtFBmoP/uLEr08fYRpiwKoh4j
+         3du8zoyBwytYwCMHMhrEGS+1vbljve+BnFvdXvCw4hl2suZohMydnJzAuAf0L4CI87Hw
+         foptM8LO+eNihf+4ag8raJ05yB3c1XywUENthOS2jIC5h/uB/BeiOHAkEwXWP3tIYj6f
+         a5SsBey4HJ9KAQQ7BM9LSn/5GLEK+nmq6ndAz/ij/orql7PPZH3P7CEy0I7n0RtAiiKq
+         X01ts7oaR5rjVZetKuOLuESXdZk2k1+VUyzr4tjl79AI8ZjQG+FeQMVnMMvXtwIRg1NL
+         Dk/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw/PNnEGQLutvTWbqDgDFkv8lr7rxV+ZzyOFOJ/KYCJPiduln3Flzkoth+DmDjgWtKeXC6xOCDfenvIopI=@vger.kernel.org
+X-Gm-Message-State: AFuF++n73yw9QYQLdLF2raKE0iUYz6MYylqdEPQcmhLkzc6bdN8vpq5Q
+	ApP/v6RttpTdDs6l3D7qNepXliKGpuQYSRMWDkXs/48irLQm2Q3Cxfht
+X-Gm-Gg: AYBFou1CJJkdFdH7CYGaK/PBBKXWqVqQdz1F/hKtfWPDQRw48BZD0uYeisP/cmDpYH0
+	30M+ZzKnJ/e7Tpp0hNdOLIwoOSSJStzUmYd0zCHZv8UmxlGl5ftOET7W4gEvnq5E6wy655diopo
+	Jum/pwew+NsUZSepa3X0bwkS8nSyyc5I+SxjSwZF6kw/WXyfxgHEgFORUPFqmuJocI5qJcolhZa
+	NlnwwAzWbiSFPN0Q0EAMbhQ54pm7URR71kOXFkf98XDO6Msvz+5rNCi4u1aa8e0oe4Ud6zNuuZb
+	PBCaJ7G+CBD9HOc8FZnPQ8BgX9a8uWPp9lHZqgEQl9rLIYulqwdGZNGV1tyw/upzPIyzTMcn2xe
+	jCJfnMTpoErOA+UsrMs8Se5WkUOe4h8Z7S7epQnxiR7sltZlquEUv31cmwdv1XOxTXiDbzCs1tg
+	XcacyHbCA2lzBC8ucRuz5PwVtOhrqGUEyKhsZk+bL3QjF25Q5xhAU8oEjURQEjHsHDjWhIo1dKT
+	+SnfzblPiPJkdUrAWbNxfqf1BZrxxXpiU/8rcYJv56K
+X-Received: by 2002:a17:90b:57cb:b0:398:9be6:f998 with SMTP id 98e67ed59e1d1-39b262e2139mr28656965a91.23.1788705632700;
+        Sun, 06 Sep 2026 07:40:32 -0700 (PDT)
+Received: from pve-server ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339ac24d7esm32567878eec.15.2026.09.06.07.40.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 07:40:31 -0700 (PDT)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: syzbot <syzbot+5a7a23af225c215902e7@syzkaller.appspotmail.com>
+Cc: jack@suse.com, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, linux-next@vger.kernel.org, sfr@canb.auug.org.au, syzkaller-bugs@googlegroups.com, tytso@mit.edu
+Subject: Re: [syzbot] [ext4?] linux-next test error: general protection fault in __bh_submit
+In-Reply-To: <6a9c44cc.0a3344eb.391530.000c.GAE@google.com>
+Date: Sun, 06 Sep 2026 19:58:26 +0530
+Message-ID: <mrtuxxmd.ritesh.list@gmail.com>
+References: <6a9c44cc.0a3344eb.391530.000c.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: hi@tychen.cc
 
-Exercise recursive map dumping for array-of-maps and hash-of-maps,
-including shared inner maps, empty outer and inner maps, BTF-formatted
-values and multiple selected roots.
+syzbot <syzbot+5a7a23af225c215902e7@syzkaller.appspotmail.com> writes:
 
-Check complete JSON documents against the existing nonrecursive entry
-representations, and check plain headers and typed values. Verify both
-short and long options, root ordering, deduplication and unchanged
-default output.
+> Hello,
+>
+> syzbot found the following issue on:
+>
+> HEAD commit:    32b6ef9a5d0e Add linux-next specific files for G20260902
+> git tree:       linux-next
+> console output: https://syzkaller.appspot.com/x/log.txt?x=14b44125580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=32ceed1c94c11059
+> dashboard link: https://syzkaller.appspot.com/bug?extid=5a7a23af225c215902e7
+> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+>
+> Downloadable assets:
+> disk image: https://storage.googleapis.com/syzbot-assets/9a1f38fb6f24/disk-32b6ef9a.raw.xz
+> vmlinux: https://storage.googleapis.com/syzbot-assets/f3152eed43a4/vmlinux-32b6ef9a.xz
+> kernel image: https://storage.googleapis.com/syzbot-assets/e7fbd36e1b12/bzImage-32b6ef9a.xz
+>
+> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> Reported-by: syzbot+5a7a23af225c215902e7@syzkaller.appspotmail.com
+>
+> Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN PTI
+> KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
+> CPU: 0 UID: 0 PID: 4945 Comm: jbd2/sda1-8 Not tainted syzkaller #0 PREEMPT(full) 
+> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+> RIP: 0010:const_folio_flags include/linux/page-flags.h:345 [inline]
+> RIP: 0010:folio_test_dropbehind include/linux/page-flags.h:600 [inline]
+> RIP: 0010:__bh_submit+0x22d/0x8d0 fs/buffer.c:1109
+> Code: c1 e8 03 48 89 44 24 18 42 80 3c 20 00 74 08 48 89 df e8 26 f6 d7 ff 48 89 5c 24 28 48 8b 1b 4c 8d 7b 08 4c 89 f8 48 c1 e8 03 <42> 80 3c 20 00 74 08 4c 89 ff e8 04 f6 d7 ff 4d 8b 3f 4c 89 fe 48
+> RSP: 0018:ffffc9001016f868 EFLAGS: 00010202
+> RAX: 0000000000000001 RBX: 0000000000000000 RCX: ffffffff84b96ff9
+> RDX: 0000000000000001 RSI: 0000000000000004 RDI: ffff888075a7a660
+> RBP: 0000000000009801 R08: ffff888075a7a6bf R09: 1ffff1100eb4f4d7
+> R10: dffffc0000000000 R11: ffffed100eb4f4d8 R12: dffffc0000000000
+> R13: ffff888075a7a640 R14: ffff8880123a17e0 R15: 0000000000000008
+> FS:  0000000000000000(0000) GS:ffff888124ccb000(0000) knlGS:0000000000000000
+> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: 00007fe1ee627da0 CR3: 0000000074fa8000 CR4: 00000000003526f0
+> Call Trace:
+>  <TASK>
+>  jbd2_journal_commit_transaction+0x22a9/0x5cd0 fs/jbd2/commit.c:751
+>  kjournald2+0x3bc/0x750 fs/jbd2/journal.c:200
+>  kthread+0x38b/0x480 kernel/kthread.c:436
+>  ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+>  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+>  </TASK>
+> Modules linked in:
+> ---[ end trace 0000000000000000 ]---
+> RIP: 0010:const_folio_flags include/linux/page-flags.h:345 [inline]
+> RIP: 0010:folio_test_dropbehind include/linux/page-flags.h:600 [inline]
+> RIP: 0010:__bh_submit+0x22d/0x8d0 fs/buffer.c:1109
+> Code: c1 e8 03 48 89 44 24 18 42 80 3c 20 00 74 08 48 89 df e8 26 f6 d7 ff 48 89 5c 24 28 48 8b 1b 4c 8d 7b 08 4c 89 f8 48 c1 e8 03 <42> 80 3c 20 00 74 08 4c 89 ff e8 04 f6 d7 ff 4d 8b 3f 4c 89 fe 48
+> RSP: 0018:ffffc9001016f868 EFLAGS: 00010202
+> RAX: 0000000000000001 RBX: 0000000000000000 RCX: ffffffff84b96ff9
+> RDX: 0000000000000001 RSI: 0000000000000004 RDI: ffff888075a7a660
+> RBP: 0000000000009801 R08: ffff888075a7a6bf R09: 1ffff1100eb4f4d7
+> R10: dffffc0000000000 R11: ffffed100eb4f4d8 R12: dffffc0000000000
+> R13: ffff888075a7a640 R14: ffff8880123a17e0 R15: 0000000000000008
+> FS:  0000000000000000(0000) GS:ffff888124dcb000(0000) knlGS:0000000000000000
+> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: 00007f87c696cf80 CR3: 000000000eb48000 CR4: 00000000003526f0
+> ----------------
+> Code disassembly (best guess):
+>    0:	c1 e8 03             	shr    $0x3,%eax
+>    3:	48 89 44 24 18       	mov    %rax,0x18(%rsp)
+>    8:	42 80 3c 20 00       	cmpb   $0x0,(%rax,%r12,1)
+>    d:	74 08                	je     0x17
+>    f:	48 89 df             	mov    %rbx,%rdi
+>   12:	e8 26 f6 d7 ff       	call   0xffd7f63d
+>   17:	48 89 5c 24 28       	mov    %rbx,0x28(%rsp)
+>   1c:	48 8b 1b             	mov    (%rbx),%rbx
+>   1f:	4c 8d 7b 08          	lea    0x8(%rbx),%r15
+>   23:	4c 89 f8             	mov    %r15,%rax
+>   26:	48 c1 e8 03          	shr    $0x3,%rax
+> * 2a:	42 80 3c 20 00       	cmpb   $0x0,(%rax,%r12,1) <-- trapping instruction
+>   2f:	74 08                	je     0x39
+>   31:	4c 89 ff             	mov    %r15,%rdi
+>   34:	e8 04 f6 d7 ff       	call   0xffd7f63d
+>   39:	4d 8b 3f             	mov    (%r15),%r15
+>   3c:	4c 89 fe             	mov    %r15,%rsi
+>   3f:	48                   	rex.W
+>
+>
+> ---
+> This report is generated by a bot. It may contain errors.
+> See https://goo.gl/tpsmEJ for more information about syzbot.
+> syzbot engineers can be reached at syzkaller@googlegroups.com.
+>
+> syzbot will keep track of this issue. See:
+> https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+>
+> If the report is already addressed, let syzbot know by replying with:
+> #syz fix: exact-commit-title
+>
+> If you want to overwrite report's subsystems, reply with:
+> #syz set subsystems: new-subsystem
+> (See the list of subsystem names on the web dashboard)
+>
+> If the report is a duplicate of another one, reply with:
+> #syz dup: exact-subject-of-another-report
+>
+> If you want to undo deduplication, reply with:
+> #syz undup
 
-All eight subtests pass in a matching-kernel VM.
 
-Assisted-by: LLM
-Signed-off-by: Tianyi Chen <hi@tychen.cc>
----
- .../bpf/prog_tests/bpftool_map_dump.c         | 252 ++++++++++++++++++
- 1 file changed, 252 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/prog_tests/bpftool_map_dump.c
+#syz test
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/bpftool_map_dump.c b/tools/testing/selftests/bpf/prog_tests/bpftool_map_dump.c
-new file mode 100644
-index 00000000000..3c425dbe2d9
---- /dev/null
-+++ b/tools/testing/selftests/bpf/prog_tests/bpftool_map_dump.c
-@@ -0,0 +1,252 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+#include <test_progs.h>
-+#include <bpftool_helpers.h>
-+#include <bpf/btf.h>
-+
-+#define OUTPUT_SIZE 8192
-+
-+static bool dump_map(__u32 id, const char *options, char *output)
-+{
-+	char command[MAX_BPFTOOL_CMD_LEN];
-+
-+	snprintf(command, sizeof(command), "%s map dump id %u", options, id);
-+	memset(output, 0, OUTPUT_SIZE);
-+	if (!ASSERT_OK(get_bpftool_command_output(command, output, OUTPUT_SIZE - 1),
-+		       "dump_map"))
-+		return false;
-+	/* The helper doesn't terminate or strip the output. */
-+	output[strcspn(output, "\n")] = '\0';
-+	return true;
-+}
-+
-+static __u32 map_id(int fd)
-+{
-+	struct bpf_map_info info = {};
-+	__u32 len = sizeof(info);
-+
-+	if (!ASSERT_OK(bpf_map_get_info_by_fd(fd, &info, &len), "map_info"))
-+		return 0;
-+	return info.id;
-+}
-+
-+static int count_token(const char *output, const char *token)
-+{
-+	int count = 0;
-+
-+	while ((output = strstr(output, token))) {
-+		count++;
-+		output += strlen(token);
-+	}
-+	return count;
-+}
-+
-+static void check_plain(__u32 root_id, __u32 inner_id, const char *type,
-+			int entries, bool typed)
-+{
-+	char command[MAX_BPFTOOL_CMD_LEN], header[128];
-+	char output[OUTPUT_SIZE] = {};
-+	const char *root, *inner;
-+
-+	snprintf(command, sizeof(command), "--recursive map dump id %u", root_id);
-+	if (!ASSERT_OK(get_bpftool_command_output(command, output, sizeof(output) - 1),
-+		       "plain_dump"))
-+		return;
-+	snprintf(header, sizeof(header), "%u: %s  name dump_outer  ", root_id, type);
-+	root = strstr(output, header);
-+	if (!ASSERT_OK_PTR(root, "plain_root_header"))
-+		return;
-+	ASSERT_EQ(root - output, 0, "plain_root_first");
-+	ASSERT_EQ(count_token(output, "inner_map_id:"), entries, "plain_references");
-+	if (entries) {
-+		snprintf(header, sizeof(header), "%u: hash  name dump_inner  ", inner_id);
-+		inner = strstr(output, header);
-+		if (ASSERT_OK_PTR(inner, "plain_inner_header"))
-+			ASSERT_GT(inner - root, 0, "plain_inner_after_root");
-+		ASSERT_EQ(count_token(output, header), 1, "plain_inner_once");
-+	}
-+	ASSERT_EQ(count_token(output, "Found "), entries && !typed ? 2 : 1,
-+		  "plain_map_count");
-+	if (typed) {
-+		ASSERT_HAS_SUBSTR(output, "\"key\": 0", "plain_btf_key");
-+		ASSERT_HAS_SUBSTR(output, "\"value\": 16843009", "plain_btf_value");
-+	}
-+}
-+
-+static void test_outer(enum bpf_map_type type, int entries, bool empty_inner,
-+		       bool typed)
-+{
-+	LIBBPF_OPTS(bpf_map_create_opts, opts);
-+	LIBBPF_OPTS(bpf_map_create_opts, inner_opts);
-+	struct btf *btf = NULL;
-+	char outer[OUTPUT_SIZE], inner[OUTPUT_SIZE], output[OUTPUT_SIZE];
-+	char expected[OUTPUT_SIZE * 3], reference[64];
-+	const char *type_name = libbpf_bpf_map_type_str(type);
-+	int inner_fd = -1, outer_fd = -1;
-+	__u32 root_id, inner_id, key, value = 0x01010101;
-+
-+	if (typed) {
-+		btf = btf__new_empty();
-+		if (!ASSERT_OK_PTR(btf, "create_btf") ||
-+		    !ASSERT_EQ(btf__add_int(btf, "unsigned int", 4, 0), 1, "btf_int") ||
-+		    !ASSERT_OK(btf__load_into_kernel(btf), "load_btf"))
-+			goto out;
-+		inner_opts.btf_fd = btf__fd(btf);
-+		inner_opts.btf_key_type_id = 1;
-+		inner_opts.btf_value_type_id = 1;
-+	}
-+	inner_fd = bpf_map_create(BPF_MAP_TYPE_HASH, "dump_inner", sizeof(key),
-+				  sizeof(value), 2, &inner_opts);
-+	if (!ASSERT_OK_FD(inner_fd, "create_inner"))
-+		goto out;
-+	key = 0;
-+	if (!empty_inner &&
-+	    !ASSERT_OK(bpf_map_update_elem(inner_fd, &key, &value, BPF_ANY),
-+		       "populate_inner"))
-+		goto out;
-+	opts.inner_map_fd = inner_fd;
-+	outer_fd = bpf_map_create(type, "dump_outer", sizeof(key), sizeof(__u32),
-+				 3, &opts);
-+	if (!ASSERT_OK_FD(outer_fd, "create_outer"))
-+		goto out;
-+	/* The unused third array slot also exercises failed lookups. */
-+	for (key = 0; key < entries; key++)
-+		if (!ASSERT_OK(bpf_map_update_elem(outer_fd, &key, &inner_fd, BPF_ANY),
-+			       "populate_outer"))
-+			goto out;
-+	root_id = map_id(outer_fd);
-+	inner_id = map_id(inner_fd);
-+	if (!root_id || !inner_id || !dump_map(root_id, "-j", outer) ||
-+	    !dump_map(inner_id, "-j", inner))
-+		goto out;
-+
-+	ASSERT_EQ(outer[0], '[', "default_array");
-+	ASSERT_EQ(count_token(outer, "\"elements\":"), 0, "default_no_wrapper");
-+	ASSERT_EQ(count_token(outer, "\"id\":"), 0, "default_no_header");
-+	snprintf(reference, sizeof(reference), "\"inner_map_id\":%u", inner_id);
-+	ASSERT_EQ(count_token(outer, reference), entries, "default_references");
-+	if (!entries)
-+		ASSERT_STREQ(outer, "[]", "empty_outer_default");
-+	if (empty_inner)
-+		ASSERT_STREQ(inner, "[]", "empty_inner_default");
-+	else if (typed)
-+		ASSERT_HAS_SUBSTR(inner, "\"formatted\":{\"key\":0,\"value\":16843009}",
-+				  "typed_inner");
-+	else
-+		ASSERT_STREQ(inner,
-+			     "[{\"key\":[\"0x00\",\"0x00\",\"0x00\",\"0x00\"],"
-+			     "\"value\":[\"0x01\",\"0x01\",\"0x01\",\"0x01\"]}]",
-+			     "ordinary_default");
-+
-+	/* Compare the complete JSON document: a flat array with the root first,
-+	 * one copy of the shared inner map, and unchanged entry representations.
-+	 */
-+	if (entries)
-+		snprintf(expected, sizeof(expected),
-+			 "[{\"id\":%u,\"type\":\"%s\",\"name\":\"dump_outer\","
-+			 "\"flags\":0,\"elements\":%s},{\"id\":%u,\"type\":\"hash\","
-+			 "\"name\":\"dump_inner\",\"flags\":0,\"elements\":%s}]",
-+			 root_id, type_name, outer, inner_id, inner);
-+	else
-+		snprintf(expected, sizeof(expected),
-+			 "[{\"id\":%u,\"type\":\"%s\",\"name\":\"dump_outer\","
-+			 "\"flags\":0,\"elements\":[]}]", root_id, type_name);
-+	if (dump_map(root_id, "-j -r", output))
-+		ASSERT_STREQ(output, expected, "recursive_json");
-+	if (dump_map(root_id, "--json --recursive", output))
-+		ASSERT_STREQ(output, expected, "recursive_long_options");
-+	check_plain(root_id, inner_id, type_name, entries, typed);
-+
-+	/* Recursion on an ordinary map still emits a single map object. */
-+	snprintf(expected, sizeof(expected),
-+		 "[{\"id\":%u,\"type\":\"hash\",\"name\":\"dump_inner\","
-+		 "\"flags\":0,\"elements\":%s}]", inner_id, inner);
-+	if (dump_map(inner_id, "-j -r", output))
-+		ASSERT_STREQ(output, expected, "ordinary_recursive");
-+out:
-+	if (outer_fd >= 0)
-+		close(outer_fd);
-+	if (inner_fd >= 0)
-+		close(inner_fd);
-+	btf__free(btf);
-+}
-+
-+static void test_multiple_roots(void)
-+{
-+	LIBBPF_OPTS(bpf_map_create_opts, opts);
-+	char command[MAX_BPFTOOL_CMD_LEN], name[BPF_OBJ_NAME_LEN];
-+	char output[OUTPUT_SIZE] = {}, expected[OUTPUT_SIZE * 4], elements[OUTPUT_SIZE];
-+	static const char * const types[] = { "hash", "array_of_maps", "hash_of_maps", "hash" };
-+	int fds[] = { -1, -1, -1, -1 };
-+	__u32 ids[4], key;
-+	int i, len = 0;
-+
-+	/* Select the first inner map and both outers as roots. The other inner
-+	 * map must be appended after all three roots, even though it is found
-+	 * while dumping the first outer. A process-specific name avoids other
-+	 * tests' maps joining the selection.
-+	 */
-+	snprintf(name, sizeof(name), "dump_%u", getpid());
-+	fds[0] = bpf_map_create(BPF_MAP_TYPE_HASH, name, 4, 4, 1, NULL);
-+	if (!ASSERT_OK_FD(fds[0], "create_selected_inner"))
-+		goto out;
-+	fds[3] = bpf_map_create(BPF_MAP_TYPE_HASH, "dump_discovered", 4, 4, 1, NULL);
-+	if (!ASSERT_OK_FD(fds[3], "create_discovered_inner"))
-+		goto out;
-+	opts.inner_map_fd = fds[0];
-+	fds[1] = bpf_map_create(BPF_MAP_TYPE_ARRAY_OF_MAPS, name, 4, 4, 2, &opts);
-+	if (!ASSERT_OK_FD(fds[1], "create_array_root"))
-+		goto out;
-+	fds[2] = bpf_map_create(BPF_MAP_TYPE_HASH_OF_MAPS, name, 4, 4, 2, &opts);
-+	if (!ASSERT_OK_FD(fds[2], "create_hash_root"))
-+		goto out;
-+	for (i = 1; i <= 2; i++) {
-+		key = 0;
-+		if (!ASSERT_OK(bpf_map_update_elem(fds[i], &key, &fds[0], BPF_ANY),
-+			       "reference_selected_inner"))
-+			goto out;
-+		key = 1;
-+		if (!ASSERT_OK(bpf_map_update_elem(fds[i], &key, &fds[3], BPF_ANY),
-+			       "reference_discovered_inner"))
-+			goto out;
-+	}
-+	for (i = 0; i < ARRAY_SIZE(fds); i++) {
-+		ids[i] = map_id(fds[i]);
-+		if (!ids[i] || !dump_map(ids[i], "-j", elements))
-+			goto out;
-+		len += snprintf(expected + len, sizeof(expected) - len,
-+				"%s{\"id\":%u,\"type\":\"%s\",\"name\":\"%s\","
-+				"\"flags\":0,\"elements\":%s}%s",
-+				i ? "," : "[", ids[i], types[i],
-+				i == 3 ? "dump_discovered" : name, elements, i == 3 ? "]" : "");
-+	}
-+	snprintf(command, sizeof(command), "-j -r map dump name %s", name);
-+	if (ASSERT_OK(get_bpftool_command_output(command, output, sizeof(output) - 1),
-+		      "dump_multiple_roots")) {
-+		output[strcspn(output, "\n")] = '\0';
-+		ASSERT_STREQ(output, expected, "roots_first_and_seed_dedup");
-+	}
-+out:
-+	for (i = 0; i < ARRAY_SIZE(fds); i++)
-+		if (fds[i] >= 0)
-+			close(fds[i]);
-+}
-+
-+void test_bpftool_map_dump(void)
-+{
-+	if (test__start_subtest("multiple_roots"))
-+		test_multiple_roots();
-+	if (test__start_subtest("array_of_maps"))
-+		test_outer(BPF_MAP_TYPE_ARRAY_OF_MAPS, 1, false, false);
-+	if (test__start_subtest("hash_of_maps"))
-+		test_outer(BPF_MAP_TYPE_HASH_OF_MAPS, 1, false, false);
-+	if (test__start_subtest("shared_inner"))
-+		test_outer(BPF_MAP_TYPE_ARRAY_OF_MAPS, 2, false, false);
-+	if (test__start_subtest("empty_array_of_maps"))
-+		test_outer(BPF_MAP_TYPE_ARRAY_OF_MAPS, 0, false, false);
-+	if (test__start_subtest("empty_hash_of_maps"))
-+		test_outer(BPF_MAP_TYPE_HASH_OF_MAPS, 0, false, false);
-+	if (test__start_subtest("btf_inner"))
-+		test_outer(BPF_MAP_TYPE_HASH_OF_MAPS, 1, false, true);
-+	if (test__start_subtest("empty_inner"))
-+		test_outer(BPF_MAP_TYPE_HASH_OF_MAPS, 1, true, false);
-+}
--- 
-2.55.0
+diff --git a/fs/buffer.c b/fs/buffer.c
+index 427d8a817cd5..f46fa6413032 100644
+--- a/fs/buffer.c
++++ b/fs/buffer.c
+@@ -1106,7 +1106,8 @@ static void __bh_submit(struct buffer_head *bh, blk_opf_t opf,
+ 
+ 	bio = bio_alloc(bh->b_bdev, 1, opf, GFP_NOIO);
+ 
+-	if (folio_test_dropbehind(bh->b_folio) && op_is_write(opf))
++	if (bh->b_folio && folio_test_dropbehind(bh->b_folio) &&
++	    op_is_write(opf))
+ 		bio_set_flag(bio, BIO_COMPLETE_IN_TASK);
+ 
+ 	if (IS_ENABLED(CONFIG_FS_ENCRYPTION))
 
