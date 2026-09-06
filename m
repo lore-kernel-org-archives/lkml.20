@@ -1,153 +1,152 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE8D37F732
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 07:47:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788680850; cv=none; b=FydSLRt2Co+bk3lvQ8dOptQwPTVLQv64MAD58iH0ZdZeQJUq/V4mXgIfv5l+vXun81zkpWM5Ml4SB/ar6nI63e6tHKBRE4qOjF5Fkme14KO4KENr2VxdGA/FjaMQ/zXIIxIMocVGEp/aoFtp1ZzYVn92VnGW6LsJBqn0XAlomM8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788680850; c=relaxed/simple;
-	bh=WwjbCGbpKx3pybwGrUA8/VZT5w49m4g/k61kb6kkG0c=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GQlRbvtM64Sj0OtBcY45WoxpMM+bPEWyPKGuXvCesgx900/1lRYSVpdZijqI8ADSX65w/RIoo1WqTE/r1JFwmzlvzFIjwFo9+nzWkGsRjUulIyPGdg0Fi7lgonhMTvGp/OevShDPlJC8GVswLiujQC9lyFyOh6xawfMTHg6DVbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bZezG3rF; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2089734750F
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 07:47:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788680854; cv=pass; b=CXVNp4Fdd6vy2mYCTbubD1euv5eaCs8MvFgcLUyWhfn2n4kesJVYb9+FOasxDUlbfBFht8S2yfxtM+WS/xueTMBzMpXfnCOfsGer7fM+BZ8vqckpq4+aA10vr2I/3yghxw1SU9e7Bp7TvH4LQnHj7xEm0QstFc0EDh0KxQhTxqk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788680854; c=relaxed/simple;
+	bh=QmosLt4Exr3yd3+DbuV4sKo0M0/L5NTz2CezfpDi4X4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jsSC+6H1k1VBnGu3MthozwEbVPdMfgsoXwIl1GBk6J6ZtoQDt3S9GvJFjOIkhPgLW60ahpmHCAVtueFeQCB1x0pCEq/cvKXv+qOK/R07ON3Dqboz8ffOXfSf/3lrJGBZNbAX91a8KnKPYO6OtKfPRxxLZ5CNe08GdRn3nWRtpUU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q7a8/nrW; arc=pass smtp.client-ip=209.85.218.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bZezG3rF"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d8fd3b729dso19949725ad.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 00:47:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q7a8/nrW"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c253425b253so341188966b.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 00:47:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788680851; cv=none;
+        d=google.com; s=arc-20260327;
+        b=J/kO9Pc9isFZYYbN7FLPH2F+nhsfltZJQr+R1aN7KrJFf8JcIoY5kLf+bP6UF+7bS2
+         rGiR5teF348WwOyi42pt1eXSIkevmOM7BoWesY4c+BtXkeP7VoBY6ohq7TGgLAmPZOCd
+         GxMUi0YQ3+qlb7/b3V1hzqsIKH5JWp0j2JtPE2GimHvtuPVE+IGFZClGqJ61KXXdSTOc
+         0It0V48tewtIfkrg3VWRx5kmeIIbGzEx6dsw3dcyvJaoohsSrl22RglcG6rzq7USgCcf
+         6MuzjG9t9eQp9Rr51uqYDXL1MI/F+1BANZ2k+KT+AzAWz+B8NRdj1lNcc49LrZbgJj65
+         juEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6JYM+LSAut5hPxwG+oopMKaaGaGA8Dp7pKYI7iVo/2Q=;
+        fh=qrUlhJVgELOfmSvZ35wG/9A7xb/cPprJeOLezLE/aaQ=;
+        b=dYyxHAjlyxDMDA58y7YtzsfSfsNxUUlGYrEDJWxsgdFhKz+qE3YBqpBlo0CvMfOvgs
+         yKexEG+HvzG4j2LYdfiQMwsT5sK6U75IZnDQrOE3z7UiYLm0pmrknwPNlhAOH8SbVpot
+         0mOZ6NW5rjh0cbbToliPEHe4u77osYOFaBYukiOGH4xNkqnYLG4sEnkljgz8HXABjeYM
+         0LBgOeNINcI3zhsQMk89JmGNBdvfL3YYeMvN0TV6RxkbJ8NqezzX/S2JQzL6Ax5LhJH3
+         1KOsOLZJ0zPgjVZNTE+1NPm5Pjy86bdAOGyZ1wBcvDXty/ihMaj7kFien1kJTNPFXISk
+         ovMA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788680849; x=1789285649; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cfzhdafKOPcmowjGTCbLXY0Cj8hfEc5olvSFaFljUsg=;
-        b=bZezG3rFWJSLTQ68REQzcEQhI38jA4iGFDjaRn00Y3BoMh8J/vCkZ4p8CyzznS0hAY
-         KszsESoKD6/PubbQW6F9dp/i5ImXAeFBOtsAzBbkZTC31Dfv2oz6l4MewdcIaUnZDXm4
-         P4wY2GPd9JpWkj7832idj0nhzZ4IxElilaFsogu/Aq9kNHY4W9R6Fje4gEfLsq0a4X/x
-         Tr4LVe88IrVz6WHPa9i/7uvk2Y1fU7lYpqnz2QzE+fgt2hZqW49OqGwz4rszSwA9qlYl
-         vDDGY6pFSvi3mVp4O+qTXGrNm0S8zxvr+NUbAazYORVXWbB3pcpNpzIHny7Y/g501kg1
-         2FDw==
+        d=gmail.com; s=20251104; t=1788680851; x=1789285651; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6JYM+LSAut5hPxwG+oopMKaaGaGA8Dp7pKYI7iVo/2Q=;
+        b=q7a8/nrW36aexVJmCqPdyS/bSc1UHO/soq5bIxxh+GY5BC+ZaJInexvOEnLY1FtMfn
+         54wlteELOVhjGTkvuqxVhOz9306jHFQSxrhH09hIBLbUHKmxdJVGYxcTaZ1hFRX7cVz5
+         +GCVb9YaZWO0O28nXCe9NA3NCXw0U6XGnmPpuz37LpmW5eshW6dfKBEq2BSLKRKUdiI+
+         1iYBZ3NuCazcg2BmBlCAvbMX6c880EFWjsG9+fiqFZSIOppr2JtSTAhTuYnHuB0CVnB7
+         zsQutyx0ED4MrSAee9JA3IoCDhyfpS3lHDawqQ8lcC3p0xDMeSbTYHMQbdq3aIIzbLyU
+         9LWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788680849; x=1789285649;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1788680851; x=1789285651;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=cfzhdafKOPcmowjGTCbLXY0Cj8hfEc5olvSFaFljUsg=;
-        b=ArPyBUpZ+4WNr1Mo8qrPgQCw2jV5C92HfPyb+1OEPBM4wrdSfXwL6dKZwbATWHAkkF
-         pzZYSD4zDV+kzWezTzwnMglgPKeDw7XTT/jqaacgEeQctsiZhZJGOszUQQhXyOrncCDy
-         T/ulaw5LNrxx/CXzz5mYJ9krXMSUDv5oZSNtgiTz2eCfBZ6rkOCFTGmwiQ9JtAgOLBVS
-         wjS8eX7sOFumiDP73DTJW1NaMO/rpvzsCKbkCw7/xNSFzIfQMjrWw1v57E+pPUlzj/10
-         CJF97visalIda6n7nx2c316Sc7AxARy/hFlqbqTSvkj/ChyvdfEKRRqd/bpU1/sN3EqZ
-         Kt1A==
-X-Forwarded-Encrypted: i=1; AKwUvBxnTpBz2Y61Ng5EqJkkI3m+00UZ7lWmf4X/H6w2mWMm0A3tAswxum2q8ORxs2Yf/ncg2lanJY3DPjw3o3s=@vger.kernel.org
-X-Gm-Message-State: AFuF++ku2dyW7BWjGvJYHcPyi5CWRbe1cyWv/MO/VZIV5HzF5zy/qpPl
-	KAHcnD3pyk3q3zNPuJf2SMkOM/OFsSdSM9Kp+piJ2JmqwopiwG6MXv3jXc25R11ufvA=
-X-Gm-Gg: AYBFou1hOMQtoU24bKCo02LaPv1w3ay+QpxVd/CNY8Q2Dw3bobS3nBDWdksaJ4DREEJ
-	SEoh4HfLq+LHtnJrCdlp1bG2pdCMqI978ImnMof2eQMK7b6chHPzuI5tdNCMy35dnPTrCL0APdg
-	EzotKZVNxyM4NAIBzgM4LivRD6IzvOqwK95NcGq12RdoORmFrwX4VWOq4YBvbZPuzvp8gvxBQEs
-	OoRoymAnNR6jZkUdJps3jKTZxpMOUVW3XVqY3pOLpA6dei9YgueHCIKweEfjFr1sLh0qt6TthCr
-	Ld6DkiAh5w+zhF1OU/61ydcmKvA0Av7fH3L27hQQ5KZT15eG99PWW06HiHhaL2oEyyer3KngbWj
-	AXP2aiRpW6+J8LOcYM0TA7KVPWEscTyHxoRTwviOPIhrA2ykCclWoBYA8nUq6syCpKuNnUJIeSk
-	Bs9kPLLob/R1KVCUQOw77/WtH1NYn5/ZSmtDWxCrM3x5GMMygFqXrC3Rj+T2oNQRz1t8QofAVqe
-	XWS1xXYhB0HuA6U2UwsCPmnseg9Btqs6AxPwrU=
-X-Received: by 2002:a17:90b:4fc5:b0:398:9be6:f996 with SMTP id 98e67ed59e1d1-39b262cee58mr28681622a91.21.1788680848803;
-        Sun, 06 Sep 2026 00:47:28 -0700 (PDT)
-Received: from NV-J4GCB44.localdomain ([103.74.125.162])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08d0d7e8sm21138905a91.16.2026.09.06.00.47.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 00:47:28 -0700 (PDT)
-From: Jianyue Wu <wujianyue000@gmail.com>
-Date: Sun, 06 Sep 2026 15:47:17 +0800
-Subject: [PATCH v6 1/3] mm/zswap: release retired pools via
- queue_rcu_work() instead of synchronize_rcu()
+        bh=6JYM+LSAut5hPxwG+oopMKaaGaGA8Dp7pKYI7iVo/2Q=;
+        b=bXDkSzyddK9eBQ1hIaFFI+2xNK7Enzt53KTQnYZUHdyfVVz/FyNcmKACGvNPQOaAX5
+         C/0Lc1/Ylltgnyoa1a3f9P72uUDbHeCz1RUqF8hm203xhzZnNDpLWxaBifViiKzRiNuz
+         qgOBQFtD3yyzHxD55T53DoH3seprCmDFtmsCLSdfJJx2su4mXFDeZpk2uCj6VO3xELhL
+         dT0IFvkTXdnOnfTb0N1mEPoEvfgzYHFx7cFsq4edkYxSfTB47laNDqO06WhV7uzFB1Ys
+         Yviap9QaG8hoFjYP0CgKKVOM87njkqAOPmK/pwaDzw9clR9ugL7Jt1g1jOuuyha42bxE
+         1yuA==
+X-Forwarded-Encrypted: i=1; AKwUvBx4ta67Xks90D60/hukUjXf8aQP8MAz3kwQM7vOYfIS4JkZuYhUjwd+TIoGcgoqKJL2OHLeLV7uUCnzx1U=@vger.kernel.org
+X-Gm-Message-State: AFuF++mm9LAz2NunRojNPVupE6O0brIOsYdYSI9k0Q8aH5qM3GV8mgy3
+	560l7wRihzt3xctrB6pliD1qo3mx0+BTrPKp7PxO4yMwL41KHNx5Nk+NMNQBjhaRRUuOZPlPIU7
+	NbPEHAQspjGS/fVn69qEUmD2HVV/8hUM=
+X-Gm-Gg: AYBFou1KyazqRzJGPzQhDhyt/MG8GhihycAWu4jhsW6zwKYg4ojqG/XgDelxLCj0XMG
+	jXPnVRorsH7WZfMaQQI3SirbXju/zG8dybu2rRUNIihTMOM5vTkPpZb1h8xkbD2oaxCaf0J5iOv
+	1VlSEHU3mp7tzGw5pubC3a8tpKl41McMZkOvkIKqDKn4CVgvhb+TaTNOs4+qPySKqyG67QexycM
+	v1xtEx+A6kRrT3aPM3OQWNWyd2HXzCTYw7wO0jvlPFuVktSggbGF/DRXptuJZ05go88/Mv4tLib
+	J060ptmHeUtLzKvTYsgD/CIpDSsiPw/OdZmLeMrkcwV1eKoE1EdYQLZotJCkTJmWx2bP6MoRA+K
+	7tw==
+X-Received: by 2002:a17:907:3d44:b0:c27:420b:7c90 with SMTP id
+ a640c23a62f3a-c27420ba0camr143467366b.48.1788680851220; Sun, 06 Sep 2026
+ 00:47:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260906-shrink_zswap_entry_v6-v6-1-ac4cf61565fb@gmail.com>
-References: <20260906-shrink_zswap_entry_v6-v6-0-ac4cf61565fb@gmail.com>
-In-Reply-To: <20260906-shrink_zswap_entry_v6-v6-0-ac4cf61565fb@gmail.com>
-To: Johannes Weiner <hannes@cmpxchg.org>, Yosry Ahmed <yosry@kernel.org>, 
- Nhat Pham <nphamcs@gmail.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Chris Li <chrisl@kernel.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, Jianyue Wu <wujianyue000@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openssh-sha256; t=1788680840; l=2137;
- i=wujianyue000@gmail.com; s=id_ed25519; h=from:subject:message-id;
- bh=WwjbCGbpKx3pybwGrUA8/VZT5w49m4g/k61kb6kkG0c=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgW51Zh3v9nG0Wlld2Ti8ylp1TnO7yB
- H+z9CbXty/WEAQAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QMYNV8pIDrz+M/tSuqNBmingl1zVngKIT7QYZIxy2wkQbA4+uO1BijhHckb3wo/z69o0S4pYyv9
- Nlj2JS8UmdAg=
-X-Developer-Key: i=wujianyue000@gmail.com; a=openssh;
- fpr=SHA256:gVWBPJbHGWlCIw+V8F63Ff0k21S7AB5+rZt8+huemvg
+References: <20260906034939.3746540-1-bestswngs@gmail.com> <apzpbMAdqSa_SkEx@strlen.de>
+In-Reply-To: <apzpbMAdqSa_SkEx@strlen.de>
+From: Weiming Shi <bestswngs@gmail.com>
+Date: Sun, 6 Sep 2026 15:46:54 +0800
+X-Gm-Features: AcwNN1UgO9RFEYZ29bttWZXxvvnUa5xtH-e-azRguJk4JvDmub9GiasshRFPr7o
+Message-ID: <CANgPUi13MqJ41Rt23zXARUp2UW6K20TJkSbmSEhj7dpmfCsGEA@mail.gmail.com>
+Subject: Re: [PATCH nf] netfilter: ip6t_rpfilter: handle routes without inet6_dev
+To: Florian Westphal <fw@strlen.de>
+Cc: Pablo Neira Ayuso <pablo@netfilter.org>, Phil Sutter <phil@nwl.cc>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	netfilter-devel@vger.kernel.org, coreteam@netfilter.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	co+459f67f4d8af8ce6@bugs.sh, Xiang Mei <xmei5@asu.edu>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-When a pool's last reference is dropped, __zswap_pool_empty() removes it
-from the pool list and schedules __zswap_pool_release(), which calls
-synchronize_rcu() to wait for readers before tearing the pool down.
+Florian Westphal <fw@strlen.de> =E4=BA=8E2026=E5=B9=B49=E6=9C=886=E6=97=A5=
+=E5=91=A8=E6=97=A5 12:18=E5=86=99=E9=81=93=EF=BC=9A
+>
+> Weiming Shi <bestswngs@gmail.com> wrote:
+> > ip6_route_lookup() can return an error-free route whose rt6i_idev is
+> > NULL.  For example, lowering an external nexthop device's MTU below
+> > IPV6_MIN_MTU tears down its inet6_dev while fib6_ifdown() leaves routes
+> > using nexthop objects in the FIB.
+> >
+> > rpfilter_lookup_reverse6() dereferences rt6i_idev before evaluating its
+> > loose-mode condition.  This lets an unprivileged user with a private us=
+er
+> > and network namespace trigger a NULL pointer dereference:
+> >
+> >   Oops: general protection fault, probably for non-canonical address
+> >   0xdffffc0000000000
+> >   KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007=
+]
+> >   RIP: rpfilter_mt
+> >   ip6t_do_table
+> >   nf_hook_slow
+> >   ipv6_rcv
+> >   process_backlog
+> >   net_rx_action
+> >   handle_softirqs
+> >
+> > Evaluate loose mode first because route existence is sufficient there.
+> > In strict mode, compare devices only when the route has an inet6_dev.
+>
+> I don't think we should treat rt->rt6i_idev =3D=3D NULL as an eligible
+> result, even in loose mode. Maybe this instead?
+>
+> diff --git a/net/ipv6/netfilter/ip6t_rpfilter.c b/net/ipv6/netfilter/ip6t=
+_rpfilter.c
+> --- a/net/ipv6/netfilter/ip6t_rpfilter.c
+> +++ b/net/ipv6/netfilter/ip6t_rpfilter.c
+> @@ -61,7 +61,7 @@ static bool rpfilter_lookup_reverse6(struct net *net, c=
+onst struct sk_buff *skb,
+>                 fl6.flowi6_oif =3D dev->ifindex;
+>
+>         rt =3D (void *)ip6_route_lookup(net, &fl6, skb, lookup_flags);
+> -       if (rt->dst.error)
+> +       if (rt->dst.error || !rt->rt6i_idev)
+>                 goto out;
+>
+>         if (rt->rt6i_flags & (RTF_REJECT|RTF_ANYCAST))
+>
+>
 
-synchronize_rcu() is a synchronous, potentially long wait.  Replace it
-with queue_rcu_work(): __zswap_pool_empty() hands the pool to
-queue_rcu_work(), which waits for a grace period asynchronously and then
-runs __zswap_pool_release() from a worker for the sleepable teardown
-(__zswap_pool_empty() can run in atomic context and must not block).
-The grace-period guarantee is unchanged; the retirement path just no
-longer blocks on it.
-
-Suggested-by: Yosry Ahmed <yosry@kernel.org>
-Signed-off-by: Jianyue Wu <wujianyue000@gmail.com>
-Acked-by: Yosry Ahmed <yosry@kernel.org>
----
- mm/zswap.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
-
-diff --git a/mm/zswap.c b/mm/zswap.c
-index f3ae3c81e48e..e456e5080531 100644
---- a/mm/zswap.c
-+++ b/mm/zswap.c
-@@ -155,7 +155,7 @@ struct zswap_pool {
- 	struct crypto_acomp_ctx __percpu *acomp_ctx;
- 	struct percpu_ref ref;
- 	struct list_head list;
--	struct work_struct release_work;
-+	struct rcu_work release_rwork;
- 	struct hlist_node node;
- 	char tfm_name[CRYPTO_MAX_ALG_NAME];
- };
-@@ -379,10 +379,8 @@ static void zswap_pool_destroy(struct zswap_pool *pool)
- 
- static void __zswap_pool_release(struct work_struct *work)
- {
--	struct zswap_pool *pool = container_of(work, typeof(*pool),
--						release_work);
--
--	synchronize_rcu();
-+	struct zswap_pool *pool = container_of(to_rcu_work(work),
-+					       typeof(*pool), release_rwork);
- 
- 	/* nobody should have been able to get a ref... */
- 	WARN_ON(!percpu_ref_is_zero(&pool->ref));
-@@ -406,8 +404,8 @@ static void __zswap_pool_empty(struct percpu_ref *ref)
- 
- 	list_del_rcu(&pool->list);
- 
--	INIT_WORK(&pool->release_work, __zswap_pool_release);
--	schedule_work(&pool->release_work);
-+	INIT_RCU_WORK(&pool->release_rwork, __zswap_pool_release);
-+	queue_rcu_work(system_percpu_wq, &pool->release_rwork);
- 
- 	spin_unlock_bh(&zswap_pools_lock);
- }
-
--- 
-2.43.0
-
+ Thanks, agreed. v2 will be sent.
