@@ -1,258 +1,176 @@
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
+Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F6E3BC680
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 17:15:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788714910; cv=pass; b=bS1K6eIqkQpJ3GZa9u4R1Q6Bp8n2T3ClzuZfLkKs/tfsz03oK/6s3qjwJADBrcKOvjFqktnc6jSxwHJdSLZLrgIY5GiWhPccPw2kipxoeJsAnH0PKT4ZocbAknQQ0AscWMGj6mHouREcEaLAcdGt3MVtAdsb5c/RFjlgHZuQHZ0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788714910; c=relaxed/simple;
-	bh=/NLEFD2U4DPqs+hPEKjeMU8yvviLwxMNcDiKHhsq30I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Content-Type; b=nc9VP6WBj2TJZ2zwTO//aQfGtx9RXlacdqv20p4Q92yZC+dGnxR3t5TULC1I1yzDTbP5hXdYaXeW1Mlh+bWCaK7nbkTSU8UhChvYrfo1KtdWqHEbUPu8gtUoFPmrfK2hzv0C1/v8eDdW/oKpyitPrebWxSgcUdpcr0ZpZfVMZxk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nOXMkTno; arc=pass smtp.client-ip=209.85.167.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8C13BB69A
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 17:18:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788715088; cv=none; b=CBZKGBNrakv8Pm/12lFyDK2A2pyCx5nCxXz4XFCU7gNXo3Vk8ezjQZdWMewaQHdykwlT48bJRZvwOSIAEGkHYQOo3n6A8ZtDGKmEaokpORgK9/Wz3FmDecCdJe73BjtuEIMRCTkRv5ksQ1qknBnu2QO42yoy1Iwa1yWUCkfiy9s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788715088; c=relaxed/simple;
+	bh=ozDii0ZAGC0yertNA+sp7mdYxRILfzkOWRFtuvaqkzs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=rvHKK65609duGkHFTEYYaThQs9OYheJbsJCZD8GkdyBGW3QSYF7Q2ZqpF8RXZc6coK2RMbxTIs6fg492Brw9L4wyYNmfZQN4HVq3hLeH8NbdpAw7wfSSSdPjAHrPk/AY9XEnJjpdEOuOcgI9S7p40fMlBi06LjhdV/XrVF9yWz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bo9N27cc; arc=none smtp.client-ip=74.125.224.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nOXMkTno"
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b6036e9c70so2099086e87.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 10:15:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788714906; cv=none;
-        d=google.com; s=arc-20260327;
-        b=s7w4T8znv6vFRdSDRkwqcH9Y7K/nslESpxgpxUJCQH1kxhXt6QMMr3sSyDzfQew6iP
-         MOZZcZpd7HdP8rCAR9j4ssCGH+2hXiGTW45xr5y7VdlbeC5tNbeljw/d7F+gCO05UL0L
-         zyt1d6TRKfuaeQDvbm3xPbIFWuqNrZW8id2cEPeVYr8mCiLnFBRbbp8rKbCAqAvunHiO
-         XH+BbmNiVhv96QSQVTPaOAK4B5fjjSTEclorWySGAT3cT04qGhpqRzvwyIqbxmwsM7Dz
-         OwuY4NVYPyeyvzjYD6xg9hPodpdGEyUF/0npG9Q17IPCWyp9ChSXBajEDo9o3pBp1e63
-         yn1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
-         :dkim-signature;
-        bh=ybo9oFe6iDvjjcDhnYminurOrpz0f2+5WnEtJ/QJDZA=;
-        fh=cqHALuw8OXy0PjQoRYoeXJL6p3A37Y+6mIWdh/o7Ghc=;
-        b=QDzcx2BibqV7HJim/z38Q6uAGYg9RNVaATMmTcefAW/SXOPhI1Q39L8Se06G2IFCUx
-         4h7gAfWBHHhGNTA27lLNZrSyAjaX1GTaxzvID/V6mLrl0ngbFlLNybJLkerZmG/oyD3x
-         LfcKO984L8m4o0VKHhngqgxO6bEm60YuOmfS/jEV1p0xMKUVfUxem6+aHxWzui+pYx2u
-         bRg2+RmSEkxRDRp40UeSekpUbNFN/ToUV8gmvsNitIKGmo64cPZQZGAzRVHhI+9rA+r2
-         KDtD4tfPxs0hB4h7p+LihYPUttQ4JKAns5ooYVDgHRRydb3g+akOTHXWRe8vbx6Xuz+C
-         weYQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bo9N27cc"
+Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-66fb8a78ad2so2849344d50.2
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 10:18:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788714906; x=1789319706; darn=vger.kernel.org;
-        h=content-type:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ybo9oFe6iDvjjcDhnYminurOrpz0f2+5WnEtJ/QJDZA=;
-        b=nOXMkTno0/vYyzSCbiUfuOFjaAj1B/mJRUUP03hc6jfUWd8dTGwTz0NLwEGi9Ya9nZ
-         2GrJDhJc3UfH+xT5TqlKPEtH8et5bLu6ENNmULb189RE/ZFf7ctrYe3U68rtbuyuUFO5
-         redwncvhy+RkqyfLywNvm5wSV/yzKRwM1kzPk29bwj3B4MTOpBUGx2tXc197Ay2gk6OI
-         s22hO9eWxdOtfVZtt0Nk1RPXLzZ00JVIl8iU8PMIupyezX36D1X9oH8mEXgvLU3gbP+Q
-         bSkuml5N7wv9c60CqSF1ul0BMQOwIpPr6W/9ri9F+RJX1+HanEl7E2itIiGh26Mk5zWB
-         QNBA==
+        d=gmail.com; s=20251104; t=1788715086; x=1789319886; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/ECa8FuQ7Uq8oYW8zJsXwLaJ422Dic/CtrDYCL3Er9M=;
+        b=Bo9N27ccKvrJFX1KdktnqrB0793Y0ruU1Ro/rS940pP7moCD3bSmf+pPUjGWzjJZyp
+         1Tln0wtzJWA4UTSD5RA9pNAH8ePrYy+CbhaMpe6XFXktfKlZjM0R/SzjKNKzIXw7Nh3M
+         UGZeZfifQdbSdUBhza/akro9v2vnauewVSMSAWIqfACa9I9bP5rUn1XanLOvv6CFXARF
+         +ahtZVf7tcfcikTg8uMJtoVeG1Hjt+vfNqlmvnLkAHWQcII42HErXORxYbga2NRmmpqI
+         wpOdbJ9rhHnfZrTQMUmEwgvjy44vfRDXorZcZW27xb5Stwkqdm3SvYu4HFBpgJqqirCB
+         8VPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788714906; x=1789319706;
-        h=content-type:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ybo9oFe6iDvjjcDhnYminurOrpz0f2+5WnEtJ/QJDZA=;
-        b=Hd2CRQyK5NwqNcmOWD1Xr/ALOVw+rnaPlafC+NEHHMFuedd+GUUMHTjglSI+NzxPOk
-         jhiJzyBYN0UYTf4IkVZBAeI3v0nYKbkfeWwmZ29mj7wAzMa833qxZp01dMoyVsPN6Z0p
-         9v9mLqpY6arb01WjPkhCqnZw7ckeQCLPWq8XUVyaW4D4u9GORgpReJ4ZcWKS/Wd9WqJt
-         bzz1okFvNAA9w8yZFUZucKiPwEwimPC1iPrWCFI9qLVOMGltua3c9QdAyMuIUypz44sE
-         CExwgwjBhu0iwMfngx06T97mRgoR4r623kyRmylGmnTBm4RtBy64NQ0dzMiateX8N3Tf
-         JUXA==
-X-Forwarded-Encrypted: i=1; AKwUvByb2TL1RzNJW2DfVKyRF0PSV89hJ0kTRowYzPeuFR+z8WB8wt+Jx8bWht3V3xw3+J0E8nu4BUj7qPX+jek=@vger.kernel.org
-X-Gm-Message-State: AFuF++nhxLWKO2W2t9CKWRcDFUkVdMDKmIEigXtiOj1PrCu6XciYaWZ2
-	alIZPbqimxn8rOkgDEpw1Rr/eiuS4BR8RK9sgqiyKF5dxl4L1iNlIaLHw99Fn8Pybpl/1TvZedY
-	r5MjOSku3ImSE1VmdUAdEHcqmahbicWY=
-X-Gm-Gg: AYBFou1YwLt+8XzuZKGACkY1PT/A3pwQ/goM78Ns48LgE0pYEhQZeeCv8x4NUm+AS5n
-	UUQGX8Nuk7LwVfYuUHAYqmblgkuQ/uyZYxaLjIvBtskr/WkqliO0hNp2HGVEvGVHnK1EDLUbnpj
-	ns/fGqmSCddLtDyex6GrYPmGO5RpmTL9xL1pA8ODHDHhWkto3VBYuf2H7tE00b70GJq8KjJj9B8
-	Xax5haJ3gnZ0A1wGYWxto1IzrPPvpAsptJsLgAyTzCgN665ZTpa6HgbXcz17pvy/KbifwB79UJZ
-	99FSRSTY8WsifQUt1rP0DC0fQbeGZtzCDA20baTLuf7/VCB8zmBGMAv2KSW5mLw3qzf8rzEy7GC
-	5BVwEzv8zbgD+urQP1guY
-X-Received: by 2002:a05:6512:234e:b0:5b6:1a7c:2c with SMTP id
- 2adb3069b0e04-5b61a7c0178mr2265389e87.47.1788714906014; Sun, 06 Sep 2026
- 10:15:06 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788715086; x=1789319886;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/ECa8FuQ7Uq8oYW8zJsXwLaJ422Dic/CtrDYCL3Er9M=;
+        b=ai04OG8Gb6QiHEIAZ2cRfUTRT9L0lieaJUyHQCOPTHghokC4W2xNuyfTumc5ojHSJA
+         /aGbXb4ONGImpQbtcNX/o4eHuAnZt9oIvtvrXQhkSQvGSHojZ3Ezb6/B3lpwr0kO5IwC
+         GKLGPD5+XJ+zgge8BaZ+TE+6e9vVZxrp4rtgOigu19dyHsc8QhhT38JSIEQRhVNfrqOU
+         sabSFQVOoCsvi6BgpmRFy+uo1BcppMD3VjiMmEN0ThaIdG0M0FwTl4mmkULECrpYEwUx
+         af94DpmsprZJqKdc/WbSH2A3xEknpvNRzkOghHkBKDaX7+uGhFgtx2TOrSv8vMrIf5YC
+         /gtQ==
+X-Gm-Message-State: AFuF++kSiLLjCx3XQTedVx1pU5yHx6lfN8wQ9aBB7avSWMyAFjQeaZz8
+	WjEMPu8FD9qiW1AAhkP1UceJFcMyA8ta0AB2LJBcdy0aDxpbdhw6iqfu
+X-Gm-Gg: AYBFou2YWqBWoPilrBI5/z0+mkMcHmIUFkwt//qekIJ4TwT6Tc4rRkFIa059LshMIbH
+	fqSdKrmTwvZVr14ndL8u2IK4TxTivUF9jppsx84DKggdIO3Cy2I7aZLAiQNehTz2Phnn91FZD9l
+	MuwJg/Qfe0sntwDDzAmZP9qX09pqH67TYeZebURCAK8WxetdRNcNF1K8Dbk7HXuel4IQ7ntRasj
+	5yt8g8Vwc0BSxapUvOZ3kZ1lwIZORMYor9CpbwD5fi0RnNBldnjLJyOPnjNxNHjyxo+WrzmxWs3
+	gH4lfVy1F2Hp97rIfeyzQ+NtufR9the9wkNlIlRrX/f31w9V4vFlUxt1F6Q9Ccsw5dx+mCpU+Yh
+	DvEw0W4gjPwxcaQSWDQYLJyZx8vW9ZSnqVMbzoC8lTJ3ZK2E06BDOs+GHyh2GKWOUDwS0uD7Yj3
+	+GSz8hIpD8BxRIpLT0BZDVdJu1bRoFAtW8ZIvt7s0i44S22k6t5cWfqSyaW/ctjIYojT/CnHw=
+X-Received: by 2002:a53:c410:0:b0:66f:c1bc:409f with SMTP id 956f58d0204a3-66fc1bc4824mr2287739d50.98.1788715085697;
+        Sun, 06 Sep 2026 10:18:05 -0700 (PDT)
+Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb497aec3sm6644839d50.20.2026.09.06.10.18.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 10:18:04 -0700 (PDT)
+From: Matt Turner <mattst88@gmail.com>
+Subject: [PATCH v4 0/3] perf tools: port UI from GTK2 to GTK4
+Date: Sun, 06 Sep 2026 13:18:03 -0400
+Message-Id: <20260906-perf-gtk2-v4-0-97e92ee07214@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAMnMt5YMA70FJwH+ddo24Ejd8HbpFSgUv73Ybu-fu+F-gcoesQ@mail.gmail.com>
- <CAMnMt5Y_fL0cHQ1CjU9+vn0rZVO5eitL6h0dTQ5Wg48c68-yYg@mail.gmail.com>
-In-Reply-To: <CAMnMt5Y_fL0cHQ1CjU9+vn0rZVO5eitL6h0dTQ5Wg48c68-yYg@mail.gmail.com>
-From: Herman Semenoff <germanaizek0@gmail.com>
-Date: Sun, 6 Sep 2026 20:14:58 +0300
-X-Gm-Features: AcwNN1UHmL_20l79vWgk-QmH6vtnCXOWhhgvyhzIIbOddRbEr7UlXb4KcCfeXp8
-Message-ID: <CAMnMt5Y5gKSYk3HjNhdBGZQCg3OwsZ714ZbROzuw_=KVaX0bHQ@mail.gmail.com>
-Subject: [PATCH] wifi: mt7601u: add vnd_reset parameter to fix probe failure
- on Tenda U2
-To: kuba@kernel.org, kvalo@kernel.org, linux-wireless@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: multipart/mixed; boundary="00000000000093f229065ad3a478"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XMTQ6CMBCG4auQrq2ZTn8EV97DuCilhUYF0pJGQ
+ 7i7hZUxsvwm87wziTZ4G8m5mEmwyUc/9HmIQ0FMp/vWUt/kTRBQQQWKjjY42k53pFJKo0HUtZJ
+ I8v8YrPOvrXW95d35OA3hvaUTW6//KolRoCepRO1KiVxXl/ap/eNohidZKwl3JWbJrTHOgeSmY
+ b+S70qepWUOoVTIhIZvuSzLB4q5lGgWAQAA
+X-Change-ID: 20260906-perf-gtk2-555ca04bb652
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>
+Cc: linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+ bpf@vger.kernel.org, Matt Turner <mattst88@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4092; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=ozDii0ZAGC0yertNA+sp7mdYxRILfzkOWRFtuvaqkzs=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLLmLvAWeXZqc2Et26rQWxU7Osy95WJfnQ6We59297zH1
+ IyJp15md3xkYRDjYpgppsgSt16RZVbbjqU+p6V/wcxhZQIZIi3SwAAELAx8uYl5pUY6Rnqm2oZ6
+ hkCGjlE8RE6PQSOzuLg0tUg3raDIIS+/JLEkMz+vWC+/IDWvIL1ALy0zrSQjI7+oOBVohF5eaom
+ pq6ObkaGBiaWjhZmThaOpibOzk6GTm6Ojs6uTkaW5iYGzpaOJq6U5AxenAMw1d/wYGZbbOtt7/l
+ 3rd3HHKkvu4tQJ01cKLmbTOCUxUefarUtyLbMZ/gfMUy5gD3BMv3c8sDvzrefkVVUGCyPut0txc
+ z5/1DdrJycA
+X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
+ fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
---00000000000093f229065ad3a478
-Content-Type: multipart/alternative; boundary="00000000000093f228065ad3a476"
+GTK2 is long dead upstream and increasingly hard to keep building on
+current distros. This series ports perf's GTK-based report browser to
+GTK4 and fixes it up so it's actually loadable at runtime after the
+port.
 
---00000000000093f228065ad3a476
-Content-Type: text/plain; charset="UTF-8"
+Patch 1 does the mechanical port (build system, widget API changes).
+Patch 2 fixes a runtime issue found after the port that prevented the
+browser from loading. Patch 3 fixes leftover GTK2 calls the port missed
+and a list-corruption race with the SIGINT/SIGTERM/etc. signal handler.
 
-On certain MT7601U adapters, such as Tenda U2 and
-other newer hardware revisions, driver initialization consistently fails
-during probe with vendor request timeouts (-110 / -ETIMEDOUT):
-  mt7601u 3-14:1.0: ASIC revision: 76010001 MAC revision: 76010500
-  mt7601u 3-14:1.0: Firmware Version: 0.1.00 Build: 7640 Build time:
-201302052146____
-  mt7601u 3-14:1.0: Vendor request req:07 off:09a8 failed:-110
-  mt7601u 3-14:1.0: Vendor request req:02 off:09a8 failed:-110
-  mt7601u 3-14:1.0: Vendor request req:07 off:0734 failed:-110
-  mt7601u 3-14:1.0: Vendor request req:42 off:0230 failed:-110
-  mt7601u 3-14:1.0: probe with driver mt7601u failed with error -110
+Signed-off-by: Matt Turner <mattst88@gmail.com>
+---
+Changes in v4:
+- Fix gtk_widget_show()/gtk_widget_hide() calls left over from the GTK2
+  port: both were removed in GTK 4. Replace with gtk_widget_set_visible(),
+  adding a small wrapper for the info-bar "response" signal callback
+- Block SIGSEGV/SIGFPE/SIGINT/SIGQUIT/SIGTERM around the
+  perf_gtk__error_loops list updates in perf_gtk__error(): the signal
+  handler (perf_gtk__signal() -> perf_gtk__exit() ->
+  perf_gtk__quit_error_dialog()) walks that same list and could fire
+  mid-update, corrupting it
+- Link to v3: https://lore.kernel.org/r/20260906-perf-gtk2-v3-0-e1f2086214a0@gmail.com
 
-The failure occurs because mt7601u_load_firmware() unconditionally calls
-mt7601u_vendor_reset() (MT_VEND_DEV_MODE_RESET) before uploading firmware
-chunks. On these devices, issuing this vendor reset leaves the internal
-MCU / FCE DMA engine in an unresponsive state after the first firmware
-URB is submitted. As a result, reading MT_TX_CPU_FROM_FCE_CPU_DESC_IDX
-(0x09a8) immediately times out.
-Introduce a boolean module parameter 'vnd_reset' (default: false) to
-make this vendor reset optional. When the vendor reset is skipped,
-firmware upload succeeds and the wireless interface initializes normally.
+Changes in v3:
+- Fix GMainLoop leak if perf_gtk__error() is called re-entrantly: track
+  active loops in a list instead of a single global pointer
+- Add explicit <stdarg.h>/<stdio.h> includes instead of relying on
+  transitive inclusion, which musl doesn't guarantee
+- Drop the gtk4-infobar feature check and HAVE_GTK_INFO_BAR_SUPPORT:
+  GtkInfoBar has been unconditionally available since well before GTK 4,
+  and the check was failing outright due to its deprecation warning
+- Link to v2: https://lore.kernel.org/r/20260906-perf-gtk2-v2-0-3eccff053cd1@gmail.com
 
-Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1716301
+Changes in v2:
+- Fix error dialog's nested GMainLoop hanging if the parent window
+  closes or a signal arrives while the dialog is open (quit from
+  "destroy", not just "response")
+- Fix build with GTK_INFO_BAR_SUPPORT: gtk_info_bar_get_content_area()
+  is gone in GTK 4, use gtk_info_bar_add_child() instead
+- Fix use-after-free in the progress dialog on manual close
+- Fix reuse of an exhausted va_list in the vasprintf() failure path
+- Link to v1: https://lore.kernel.org/r/20260906-perf-gtk2-v1-0-7564bf8523a9@gmail.com
 
-More issues with Tenda U2 and Linux:
-- https://www.opena.tv/viewtopic.php?t=63919
-- https://askubuntu.com/questions/1418850/the-problem-with-wi-fi-u2
-- https://bbs.archlinux.org/viewtopic.php?id=224859
--
-https://www.reddit.com/r/archlinux/comments/1d6dfv5/mt7601u_usb_wifi_not_working/
+---
+Matt Turner (3):
+      tools: port perf ui from GTK 2 to GTK 4
+      perf tools: make the GTK4 report browser actually loadable at runtime
+      perf tools: fix GTK4 leftover show/hide calls and error-loop list race
 
-Signed-off-by: Herman Semenoff <GermanAizek@aizekgroup.ru
-<GermanAizek@yandex.ru>>
-Signed-off-by: Herman Semenoff <GermanAizek@yandex.ru>
-Signed-off-by: Herman Semenoff <germanaizek0@gmail.com
-<GermanAizek@yandex.ru>>
+ tools/build/Makefile.feature                     |   4 +-
+ tools/build/feature/Makefile                     |  10 +-
+ tools/build/feature/test-gtk2-infobar.c          |  12 ---
+ tools/build/feature/{test-gtk2.c => test-gtk4.c} |   4 +-
+ tools/perf/Documentation/perf-report.txt         |   2 +-
+ tools/perf/Makefile                              |   2 +-
+ tools/perf/Makefile.config                       |  27 ++---
+ tools/perf/Makefile.perf                         |   6 +-
+ tools/perf/builtin-annotate.c                    |   8 +-
+ tools/perf/builtin-report.c                      |   8 +-
+ tools/perf/scripts/install-build-deps.sh         |   4 +-
+ tools/perf/tests/make                            |   4 +-
+ tools/perf/ui/gtk/annotate.c                     |  27 ++---
+ tools/perf/ui/gtk/browser.c                      |  66 +++++++++---
+ tools/perf/ui/gtk/gtk.h                          |  13 +--
+ tools/perf/ui/gtk/hists.c                        |  33 +++---
+ tools/perf/ui/gtk/progress.c                     |  40 +++++---
+ tools/perf/ui/gtk/setup.c                        |   5 +-
+ tools/perf/ui/gtk/util.c                         | 122 +++++++++++++++--------
+ tools/perf/ui/setup.c                            |   2 +-
+ tools/perf/util/annotate.c                       |  11 ++
+ tools/perf/util/annotate.h                       |  12 +--
+ 22 files changed, 242 insertions(+), 180 deletions(-)
+---
+base-commit: 9f0346dcbea363787186c94ef94dd01aaa215afa
+change-id: 20260906-perf-gtk2-555ca04bb652
 
---00000000000093f228065ad3a476
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Best regards,
+-- 
+Matt Turner <mattst88@gmail.com>
 
-<div dir=3D"ltr"><div>On certain MT7601U adapters, such as Tenda U2 and</di=
-v><div>other newer hardware revisions, driver initialization consistently f=
-ails</div><div>during probe with vendor request timeouts (-110 / -ETIMEDOUT=
-):</div><div>=C2=A0 mt7601u 3-14:1.0: ASIC revision: <span>76010001</span> =
-MAC revision: <span>76010500</span></div><div>=C2=A0 mt7601u 3-14:1.0: Firm=
-ware Version: 0.1.00 Build: 7640 Build time: <span>201302052146</span>____<=
-/div><div>=C2=A0 mt7601u 3-14:1.0: Vendor request req:07 off:09a8 failed:-1=
-10</div><div>=C2=A0 mt7601u 3-14:1.0: Vendor request req:02 off:09a8 failed=
-:-110</div><div>=C2=A0 mt7601u 3-14:1.0: Vendor request req:07 off:0734 fai=
-led:-110</div><div>=C2=A0 mt7601u 3-14:1.0: Vendor request req:42 off:0230 =
-failed:-110</div><div>=C2=A0 mt7601u 3-14:1.0: probe with driver mt7601u fa=
-iled with error -110</div><div>=C2=A0</div><div>The failure occurs because =
-mt7601u_load_firmware() unconditionally calls</div><div>mt7601u_vendor_rese=
-t() (MT_VEND_DEV_MODE_RESET) before uploading firmware</div><div>chunks. On=
- these devices, issuing this vendor reset leaves the internal</div><div>MCU=
- / FCE DMA engine in an unresponsive state after the first firmware</div><d=
-iv>URB is submitted. As a result, reading MT_TX_CPU_FROM_FCE_CPU_DESC_IDX</=
-div><div>(0x09a8) immediately times out.</div><div>Introduce a boolean modu=
-le parameter &#39;vnd_reset&#39; (default: false) to</div><div>make this ve=
-ndor reset optional. When the vendor reset is skipped,</div><div>firmware u=
-pload succeeds and the wireless interface initializes normally.</div><div>=
-=C2=A0</div><div>Link: <a href=3D"https://bugs.launchpad.net/ubuntu/+source=
-/linux/+bug/1716301" rel=3D"noopener noreferrer" target=3D"_blank">https://=
-bugs.launchpad.net/ubuntu/+source/linux/+bug/1716301</a></div><div>=C2=A0</=
-div><div>More issues with Tenda U2 and Linux:</div><div>- <a href=3D"https:=
-//www.opena.tv/viewtopic.php?t=3D63919" rel=3D"noopener noreferrer" target=
-=3D"_blank">https://www.opena.tv/viewtopic.php?t=3D63919</a></div><div>- <a=
- href=3D"https://askubuntu.com/questions/1418850/the-problem-with-wi-fi-u2"=
- rel=3D"noopener noreferrer" target=3D"_blank">https://askubuntu.com/questi=
-ons/1418850/the-problem-with-wi-fi-u2</a></div><div>- <a href=3D"https://bb=
-s.archlinux.org/viewtopic.php?id=3D224859" rel=3D"noopener noreferrer" targ=
-et=3D"_blank">https://bbs.archlinux.org/viewtopic.php?id=3D224859</a></div>=
-<div>- <a href=3D"https://www.reddit.com/r/archlinux/comments/1d6dfv5/mt760=
-1u_usb_wifi_not_working/" rel=3D"noopener noreferrer" target=3D"_blank">htt=
-ps://www.reddit.com/r/archlinux/comments/1d6dfv5/mt7601u_usb_wifi_not_worki=
-ng/</a></div><div><br>Signed-off-by: Herman Semenoff &lt;<a href=3D"mailto:=
-GermanAizek@yandex.ru" rel=3D"noopener noreferrer" target=3D"_blank">German=
-Aizek@aizekgroup.ru</a>&gt;</div><div>Signed-off-by: Herman Semenoff &lt;<a=
- href=3D"mailto:GermanAizek@yandex.ru" rel=3D"noopener noreferrer" target=
-=3D"_blank">GermanAizek@yandex.ru</a>&gt;<br>Signed-off-by: Herman Semenoff=
- &lt;<a href=3D"mailto:GermanAizek@yandex.ru" rel=3D"noopener noreferrer" t=
-arget=3D"_blank">germanaizek0@gmail.com</a>&gt;</div></div>
-
---00000000000093f228065ad3a476--
---00000000000093f229065ad3a478
-Content-Type: text/x-patch; charset="US-ASCII"; 
-	name="0001-PATCH-wifi-mt7601u-add-vnd_reset-parameter-to-fix-pr.diff"
-Content-Disposition: attachment; 
-	filename="0001-PATCH-wifi-mt7601u-add-vnd_reset-parameter-to-fix-pr.diff"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mtq2nndb0>
-X-Attachment-Id: f_mtq2nndb0
-
-RnJvbSBjMDNkNzNkMzdkZjQ0MGQwMDQ2ZDY4NDA2ZmRlMmFhMWY2MmZlMGQxIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBIZXJtYW4gU2VtZW5vZmYgPEdlcm1hbkFpemVrQGFpemVrZ3Jv
-dXAucnU+CkRhdGU6IFRodSwgMyBTZXAgMjAyNiAwNzoxNDozMiArMDMwMApTdWJqZWN0OiBbUEFU
-Q0hdIFtQQVRDSF0gd2lmaTogbXQ3NjAxdTogYWRkIHZuZF9yZXNldCBwYXJhbWV0ZXIgdG8gZml4
-IHByb2JlCiBmYWlsdXJlIG9uIFRlbmRhIFUyCgp3aWZpOiBtdDc2MDF1OiBhZGQgdm5kX3Jlc2V0
-IHBhcmFtZXRlciB0byBmaXggcHJvYmUgZmFpbHVyZSBvbiBUZW5kYSBVMgoKT24gY2VydGFpbiBN
-VDc2MDFVIGFkYXB0ZXJzLCBzdWNoIGFzIFRlbmRhIFUyIGFuZApvdGhlciBuZXdlciBoYXJkd2Fy
-ZSByZXZpc2lvbnMsIGRyaXZlciBpbml0aWFsaXphdGlvbiBjb25zaXN0ZW50bHkgZmFpbHMKZHVy
-aW5nIHByb2JlIHdpdGggdmVuZG9yIHJlcXVlc3QgdGltZW91dHMgKC0xMTAgLyAtRVRJTUVET1VU
-KToKICBtdDc2MDF1IDMtMTQ6MS4wOiBBU0lDIHJldmlzaW9uOiA3NjAxMDAwMSBNQUMgcmV2aXNp
-b246IDc2MDEwNTAwCiAgbXQ3NjAxdSAzLTE0OjEuMDogRmlybXdhcmUgVmVyc2lvbjogMC4xLjAw
-IEJ1aWxkOiA3NjQwIEJ1aWxkIHRpbWU6IDIwMTMwMjA1MjE0Nl9fX18KICBtdDc2MDF1IDMtMTQ6
-MS4wOiBWZW5kb3IgcmVxdWVzdCByZXE6MDcgb2ZmOjA5YTggZmFpbGVkOi0xMTAKICBtdDc2MDF1
-IDMtMTQ6MS4wOiBWZW5kb3IgcmVxdWVzdCByZXE6MDIgb2ZmOjA5YTggZmFpbGVkOi0xMTAKICBt
-dDc2MDF1IDMtMTQ6MS4wOiBWZW5kb3IgcmVxdWVzdCByZXE6MDcgb2ZmOjA3MzQgZmFpbGVkOi0x
-MTAKICBtdDc2MDF1IDMtMTQ6MS4wOiBWZW5kb3IgcmVxdWVzdCByZXE6NDIgb2ZmOjAyMzAgZmFp
-bGVkOi0xMTAKICBtdDc2MDF1IDMtMTQ6MS4wOiBwcm9iZSB3aXRoIGRyaXZlciBtdDc2MDF1IGZh
-aWxlZCB3aXRoIGVycm9yIC0xMTAKClRoZSBmYWlsdXJlIG9jY3VycyBiZWNhdXNlIG10NzYwMXVf
-bG9hZF9maXJtd2FyZSgpIHVuY29uZGl0aW9uYWxseSBjYWxscwptdDc2MDF1X3ZlbmRvcl9yZXNl
-dCgpIChNVF9WRU5EX0RFVl9NT0RFX1JFU0VUKSBiZWZvcmUgdXBsb2FkaW5nIGZpcm13YXJlCmNo
-dW5rcy4gT24gdGhlc2UgZGV2aWNlcywgaXNzdWluZyB0aGlzIHZlbmRvciByZXNldCBsZWF2ZXMg
-dGhlIGludGVybmFsCk1DVSAvIEZDRSBETUEgZW5naW5lIGluIGFuIHVucmVzcG9uc2l2ZSBzdGF0
-ZSBhZnRlciB0aGUgZmlyc3QgZmlybXdhcmUKVVJCIGlzIHN1Ym1pdHRlZC4gQXMgYSByZXN1bHQs
-IHJlYWRpbmcgTVRfVFhfQ1BVX0ZST01fRkNFX0NQVV9ERVNDX0lEWAooMHgwOWE4KSBpbW1lZGlh
-dGVseSB0aW1lcyBvdXQuCkludHJvZHVjZSBhIGJvb2xlYW4gbW9kdWxlIHBhcmFtZXRlciAndm5k
-X3Jlc2V0JyAoZGVmYXVsdDogZmFsc2UpIHRvCm1ha2UgdGhpcyB2ZW5kb3IgcmVzZXQgb3B0aW9u
-YWwuIFdoZW4gdGhlIHZlbmRvciByZXNldCBpcyBza2lwcGVkLApmaXJtd2FyZSB1cGxvYWQgc3Vj
-Y2VlZHMgYW5kIHRoZSB3aXJlbGVzcyBpbnRlcmZhY2UgaW5pdGlhbGl6ZXMgbm9ybWFsbHkuCgpM
-aW5rOiBodHRwczovL2J1Z3MubGF1bmNocGFkLm5ldC91YnVudHUvK3NvdXJjZS9saW51eC8rYnVn
-LzE3MTYzMDEKCk1vcmUgaXNzdWVzIHdpdGggVGVuZGEgVTIgYW5kIExpbnV4OgotIGh0dHBzOi8v
-d3d3Lm9wZW5hLnR2L3ZpZXd0b3BpYy5waHA/dD02MzkxOQotIGh0dHBzOi8vYXNrdWJ1bnR1LmNv
-bS9xdWVzdGlvbnMvMTQxODg1MC90aGUtcHJvYmxlbS13aXRoLXdpLWZpLXUyCi0gaHR0cHM6Ly9i
-YnMuYXJjaGxpbnV4Lm9yZy92aWV3dG9waWMucGhwP2lkPTIyNDg1OQotIGh0dHBzOi8vd3d3LnJl
-ZGRpdC5jb20vci9hcmNobGludXgvY29tbWVudHMvMWQ2ZGZ2NS9tdDc2MDF1X3VzYl93aWZpX25v
-dF93b3JraW5nLwoKU2lnbmVkLW9mZi1ieTogSGVybWFuIFNlbWVub2ZmIDxHZXJtYW5BaXpla0Bh
-aXpla2dyb3VwLnJ1PgotLS0KIGRyaXZlcnMvbmV0L3dpcmVsZXNzL21lZGlhdGVrL210NzYwMXUv
-bWN1LmMgfCAxNSArKysrKysrKysrKysrLS0KIDEgZmlsZSBjaGFuZ2VkLCAxMyBpbnNlcnRpb25z
-KCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L3dpcmVsZXNzL21l
-ZGlhdGVrL210NzYwMXUvbWN1LmMgYi9kcml2ZXJzL25ldC93aXJlbGVzcy9tZWRpYXRlay9tdDc2
-MDF1L21jdS5jCmluZGV4IGJhZDZjYTgyMS4uYWJmNDc2N2YxIDEwMDY0NAotLS0gYS9kcml2ZXJz
-L25ldC93aXJlbGVzcy9tZWRpYXRlay9tdDc2MDF1L21jdS5jCisrKyBiL2RyaXZlcnMvbmV0L3dp
-cmVsZXNzL21lZGlhdGVrL210NzYwMXUvbWN1LmMKQEAgLTEwLDYgKzEwLDcgQEAKICNpbmNsdWRl
-IDxsaW51eC9kZWxheS5oPgogI2luY2x1ZGUgPGxpbnV4L3VzYi5oPgogI2luY2x1ZGUgPGxpbnV4
-L3NrYnVmZi5oPgorI2luY2x1ZGUgPGxpbnV4L21vZHVsZXBhcmFtLmg+CiAKICNpbmNsdWRlICJt
-dDc2MDF1LmgiCiAjaW5jbHVkZSAiZG1hLmgiCkBAIC0yMSw2ICsyMiwxNCBAQAogI2RlZmluZSBN
-Q1VfRldfVVJCX1NJWkUJCQkoTUNVX0ZXX1VSQl9NQVhfUEFZTE9BRCArIDEyKQogI2RlZmluZSBN
-Q1VfUkVTUF9VUkJfU0laRQkJMTAyNAogCitzdGF0aWMgYm9vbCB2bmRfcmVzZXQ7Cittb2R1bGVf
-cGFyYW0odm5kX3Jlc2V0LCBib29sLCAwNjQ0KTsKK01PRFVMRV9QQVJNX0RFU0Modm5kX3Jlc2V0
-LCAiUGVyZm9ybSB2ZW5kb3IgcmVzZXQgZHVyaW5nIGZpcm13YXJlIHVwbG9hZCAoZGVmYXVsdDog
-ZmFsc2UpIik7CisKK3N0YXRpYyBib29sIGRpc2FibGVfdXNiX3NnOworbW9kdWxlX3BhcmFtKGRp
-c2FibGVfdXNiX3NnLCBib29sLCAwNjQ0KTsKK01PRFVMRV9QQVJNX0RFU0MoZGlzYWJsZV91c2Jf
-c2csICJVbnVzZWQgY29tcGF0aWJpbGl0eSBwYXJhbWV0ZXIiKTsKKwogc3RhdGljIGlubGluZSBp
-bnQgZmlybXdhcmVfcnVubmluZyhzdHJ1Y3QgbXQ3NjAxdV9kZXYgKmRldikKIHsKIAlyZXR1cm4g
-bXQ3NjAxdV9ycihkZXYsIE1UX01DVV9DT01fUkVHMCkgPT0gMTsKQEAgLTQ1OSw4ICs0NjgsMTAg
-QEAgc3RhdGljIGludCBtdDc2MDF1X2xvYWRfZmlybXdhcmUoc3RydWN0IG10NzYwMXVfZGV2ICpk
-ZXYpCiAJbXQ3NjAxdV93cihkZXYsIDB4OTRjLCAwKTsKIAltdDc2MDF1X3dyKGRldiwgTVRfRkNF
-X1BTRV9DVFJMLCAwKTsKIAotCW10NzYwMXVfdmVuZG9yX3Jlc2V0KGRldik7Ci0JbXNsZWVwKDUp
-OworCWlmICh2bmRfcmVzZXQpIHsKKwkJbXQ3NjAxdV92ZW5kb3JfcmVzZXQoZGV2KTsKKwkJbXNs
-ZWVwKDUpOworCX0KIAogCW10NzYwMXVfd3IoZGV2LCAweGE0NCwgMCk7CiAJbXQ3NjAxdV93cihk
-ZXYsIDB4MjMwLCAweDg0MjEwKTsKLS0gCjIuNTUuMAoK
---00000000000093f229065ad3a478--
