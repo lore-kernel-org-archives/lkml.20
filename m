@@ -1,129 +1,183 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68923612E0
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:20:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A30462576E;
+	Sun,  6 Sep 2026 11:21:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788693614; cv=none; b=unNhgx/HKgCvo+7PYRtEjU9AUDoXLh0ZTvq1RXImOf61BtDJ9Ln+8IEjILnhwPNaVEAxqv1mWynaJJf14+xsHz2Du/1ZS/ywr8WY4QH7XG8YblxNpqRdQm7MUIFSqDdodekv5XF1oNY7eL5MFDb4L+gaKaCNBATaSWwccZS138g=
+	t=1788693714; cv=none; b=qytibUgNDK4esDwbGT2seaJCzYYtoTIiJCwvq7bZnw9jjaMCEUZkKd/MwfKt3wKvC8Rj2NGVFt5TSU5m0yJjrifGerij9BP1pk7D80MT68F4IEcWVMAasO1ELO5LEWFxXs+hA1Durvod8QWfIqEn0E8UqnbAMPE08+a8nJHH3SM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788693614; c=relaxed/simple;
-	bh=jLuV+lLqQK8/EHcVuPKgeyCNnuLNb1rLsMWCYlCW1hI=;
-	h=Message-ID:MIME-Version:From:To:Cc:Date:Subject:Content-Type; b=HbbHKMaQTxDwBRpWd38aytDzIOKUAv+N7O+9Cm3HtnY8DJ5225Y7ZW8lfKKW/SJlGBNKpmDbiYBCcsz34hBbN+7cl3DhduovpDadbp2n/YFA7o4vw1trm/+1d3z3DeCJ5t3WiyG9SWhPlkCkY26+vJ+Aa09tP7fBVQXKTasCjhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QgZlloAv; arc=none smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788693714; c=relaxed/simple;
+	bh=64JzUqT0jBXtjS2UM/g4PJirm8Yphht5T0U3TxzkjWU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=Gqe6f/nHRyOQRdFkp7VDpqxPLICa8bXTORCz+1wC2OKHOX9PsOrPMGNNCNUcwMjWjr6m1XDFoDHwr6cGLjO8EEXs4r1oMIj0/tRxL2o5+QbxOKmDFTyw4vGFtqmhugWivSUFR3DaGl9B+Owx2WY/qbFD+RlVepAiDuJXXKFydC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=jGTIPV8W; arc=none smtp.client-ip=54.204.34.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QgZlloAv"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2d91ded8174so19365985ad.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 04:20:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788693612; x=1789298412; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:subject:date:cc:to:from
-         :mime-version:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PTH7GUXLcuozQUUFEaYKkQ5+81ENlZ2w0hwg8hOzpBI=;
-        b=QgZlloAv1MPMgIxHChc9lSkckWukcBGzaZM7oD2D6JtYuVrkfSuOJ0CvZ1D4ImHoF8
-         kN0ze6rYdGFESyrhLJQe+ddpD60CGt9HfcedYlJlFfxMC31eB39vyBQlhEIrpRM2hOMN
-         JcdAnvQW+RhweDLLAmIzJ7XtrFyfRHOh4iQmPmTHNUrdPt3e/0lOsdccGhsteZtHl2xy
-         LAwoz6PZmrXyTUoLomecYV10ha9Oa1sXQgPSQowfB14mceb81/Dr9NbFa8odcfXlt2Jo
-         I65WyiPcKXO/2tAAVOecmFfsW+LO5z15xbZvE12Z4mMX6K8OameKyFle987x1GVLIcRV
-         9ywg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788693612; x=1789298412;
-        h=content-transfer-encoding:content-type:subject:date:cc:to:from
-         :mime-version:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=PTH7GUXLcuozQUUFEaYKkQ5+81ENlZ2w0hwg8hOzpBI=;
-        b=hlsEdE7qRGWq1eZRxGHceI+Uj/9T6rAKdoFFo939fcHxd9QB2Ng8cQzx0C9curmCTO
-         0glEUltGMq2VrpfsEcjxVzoosBcqIav3TYkMtTpbB2DxHnpWCIBECKNPKLYqx7lrUnTL
-         YCrMEDGLsCbWrUYYujrFpmCQY0ruFEoZtJu5zqkZDyMdXIJKykSFvcZgSSHUIqzUO7Nv
-         YKsVbrdwz5F82DeQ4CsQo96+kShfdNHs6Jdj8+G3KkCOAy94DXGsoYcTRUV2gDe9QDvG
-         VC96MrNfRmpSJrRHcwhA6zoOId1NECztDLhOtd3S+QXBuSHnu8pNPVK6zup6jpn+jV/v
-         Etaw==
-X-Forwarded-Encrypted: i=1; AKwUvBzuQZbwJeWu5inpl/s3gnJ5Ki591nScryBTpEBTBJiAEjneoOuMIPaIfNBD5sMEvQOEK604IcKUa/H1tfE=@vger.kernel.org
-X-Gm-Message-State: AFuF++m5nFOIjJKMHAZMeIJp3ndH9brgim/IQz/58Eg9ydJKkGLEanm1
-	nrA0Fi3cVj+F1CAvKBHqKPcE0FRgE7lq99HZUBmU/yJpQDVSZfYP1hs6
-X-Gm-Gg: AYBFou0EUeVTXOUcFSD7uFF2SHKJu0cTShOutQ605QrIom1S4G8JsLBmsc1swUnum9M
-	lBsCBWLW6zkepwAZP7TXK+mayLjxdFU1+HFaxsbjbpYGRIcp8MbUaNwkC+U0lyOC+jdOws+J0Jf
-	kYyNQT8kWjV2JSJoSs+xisdrFHGRiny0Z8qYcf6CYOHz2zMCDmODmIhqiGf/XQVqwb8XIGPdpye
-	pqLq8gLAAdwkhU86ho/8/W5wFsJaRuCpGinUEuye39JFs9ZfWS9qRaC11q0j0nyxS05z5IUS5Qt
-	ttWJiDGigcOWm3dbcrz5Wz+/VUEEP8SWk+UekSR9utVlwxcT4ZLb2gH6GWMtRXZNPSef8qNvxbz
-	V21oCTWc8ldWIJ00EgFn9WXJQCucWklI4Up1uN3DvYY6TzdurXDv1uwKHaR4Hb3KOrmwmiR44xp
-	ixBgfVjMQqphqJKmTqyUaSYXIDEGF6D/XUav5LWldlVHpzuPXBOtM68XaT1JQB2Wv89uCUflO01
-	jM2269KyaD1i0X3e1MvJyqhfbwDna1F6FuKIVJNkCjEfItDVSOo4t0soA==
-X-Received: by 2002:a17:903:11c8:b0:2d8:d4de:fa80 with SMTP id d9443c01a7336-2db1235721dmr234116345ad.4.1788693611959;
-        Sun, 06 Sep 2026 04:20:11 -0700 (PDT)
-Received: from manush ([2406:7400:94:7a79:f149:be84:942d:9300])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa36b37sm19291515eec.14.2026.09.06.04.20.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 04:20:11 -0700 (PDT)
-Message-ID: <6a9d4c6b.79b5ea6e.147aa1.5883@mx.google.com>
-X-Mailer: git-send-email 2.46.2.windows.1
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="jGTIPV8W"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1788693647;
+	bh=hU5drRsukxKTZr6Wttsq4VqOiCpjnWKHL3L2R4CN/6o=;
+	h=Mime-Version:Date:Message-Id:From:To:Subject;
+	b=jGTIPV8WnA7IDUuELWPdtVK2O0eDDJojlQ13jKbgAuAI1eru93zjxltQE1QYq+btf
+	 ABVL9nZ1NJr8FSGRCTp9iA+/BxwUqFhMr4QSAeneZp/Aiw5IPLK/RwdqS1xmWcRWsZ
+	 +FXnEuxFtgiqmDIvkZBo1eCuqx04FktT+7dwzeas=
+X-QQ-mid: zesmtpsz9t1788693645td04f833d
+X-QQ-Originating-IP: DTpauE77uDk1X7buhFaDFSwHJ4/UV6jAd8hGgoHJ2L4=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Sun, 06 Sep 2026 19:20:43 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 6232298470301250172
+EX-QQ-RecipientCnt: 19
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-From: "Manush Prajwal" <manushprajwal555@gmail.com>
-To: ukleinek@kernel.org
-Cc: lee@kernel.org, linux-pwm@vger.kernel.org, mfd@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Date: 6 Sep 2026 16:50:10 +0530
-Subject: [PATCH] pwm: lp3943: validate DT output indices in
- lp3943_pwm_parse_dt()
-Content-Type: text/plain; charset=utf-8
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=536c7c79d9464b992ad1d7b5be05ae3641e4b875bba8fe2b43dc9e787550;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Sun, 06 Sep 2026 19:20:40 +0800
+Message-Id: <DL86Z6P8P2YI.160YXDVBSSC6I@linux.spacemit.com>
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Yixun Lan" <dlan@kernel.org>, "Troy Mitchell"
+ <troy.mitchell@linux.spacemit.com>
+Cc: "Aurelien Jarno" <aurelien@aurel32.net>, "Michael Turquette"
+ <mturquette@baylibre.com>, "Inochi Amaoto" <inochiama@outlook.com>, "Alex
+ Elder" <elder@riscstar.com>, "Haylen Chu" <heylenay@4d2.org>,
+ <stable@vger.kernel.org>, "Stephen Boyd" <sboyd@kernel.org>, "Brian Masney"
+ <bmasney+clk@redhat.com>, "Jerome Brunet" <jbrunet+clk@baylibre.com>, "Paul
+ Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
+ Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>,
+ <linux-clk@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4] clk: spacemit: k3: add CPU PLL rate tables
 Content-Transfer-Encoding: quoted-printable
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260903-k3-pll5-pll8-1800mhz-v4-1-afafd9cb47d9@linux.spacemit.com> <apmuG46sBg2rGzCD@aurel32.net> <DL67LEVCXFA5.39M5FO7JGKWZS@linux.spacemit.com> <20260905220746-GKC53903@kernel.org>
+In-Reply-To: <20260905220746-GKC53903@kernel.org>
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NGf6Juddf2av1Bk8NfLKPcxvsFIALwEmDxNU0SXF7DhV2BjuVFczEfwY
+	htGBs9UrUW2g01HBaf3PYHQEPBbEAFKJMkgPqfklaw14hJa146zEVYgNoVAu5pi1+y/vm0+
+	sknWUEKuL7RRn9vBURBozE/F8Ix80dIx73+UskZL6KdM9L/TlmXtpGNGVAr++cRKTi6DZxd
+	KYsfletsNI0co3Tr1Gsm7CDG6vZQlDr5Mib3V2io14GwwOHywbrg4Yv3Ajq2NxnQApc7cin
+	7frk8Zvem3GJ+tZ8vXTcw1W/AESr7tkxMys4mAhWl3NhsXjLMigz+ewR5wBPFqpuxRFT3bg
+	Wy1H08tbESosANSaIpplzCEsHQJiL9zugfvwimN1JuHPLg/VPiB8A5E1KmyRGwv4oL5gydy
+	+YyAqTBzB5fu4CaOAOGtcx5IQ983rxUHkUU+T7Cs4HYhpVCbFlDHNxmZB6kCuUfJNO/fp+i
+	NV6hnRxQ+nZqrOUOcc8ANvoKjFXCKnvaTKdP1CNc2WjfxttRC20WBjnVYBaSf/DGp3Zfw+F
+	M13LTFGeymqG+/Z/OfW3jP1V5VntKUK/uIY0xLZGvJ3gD8Enagj1RHVDUHBjsipfJVmKNee
+	ABv3lC/vlgW25+PDX2iZYbUqPw/2z2DsL8MGgWmgDyUBYCI0fN0e/JGxLAXQGKdwDD1/PYk
+	J2a6/WBgbjjIyIUBKmo0XUsR7E5mgnNebKiLjIDFlTSMzmTlcsr62UCZXzub3Cr76xb0vfb
+	aDDrZjhWd0bmjeouQscdj6img/k9w0+N9/hS8aNNNlSbo8GABhIjM3vQrblXolEnON+VXtJ
+	g4kdifuEVS9pYHuuwgHD0+q6BMU93Lj7uo4p16delEx4w0IHw5yWp1wVqayi26t1aP5sHXJ
+	BZa09ftphjJtRC882MTF3WVYlakJW6ONMaZNeqB5f8eiDfh2dis9w9cXfc/P7guY41IgmHO
+	B1uel3MGhme/iyz3Pjpbw4miiNktGwmFv8Lk3nfClmxI0QA8PsWrRmaUkXYZf9HJjwPRie9
+	L4ljc/liPlIbUPxxH93QDtULvq9p+2r1ctQI7/XIEFs/2BBOmeoXiQ9kEyWVKhpkBaUpIU9
+	Bt+hahoSmjCcEEMTEg+37UFzSRBjrz9mw8KSophvK7m2Moop6xGYrOmRoKYCEDvKg==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-The ti,pwm0/ti,pwm1 devicetree properties are raw u32 arrays nami=
-ng=0D=0Awhich of the 16 physical LP3943 outputs (0-15, per the do=
-cumented=0D=0Abinding and the 16-entry enum lp3943_pwm_output) ea=
-ch PWM channel=0D=0Adrives. lp3943_pwm_parse_dt() reads these val=
-ues straight from the=0D=0Adevicetree with of_property_read_u32_a=
-rray() and stores them in=0D=0Apwm_map->output[] without checking=
- they are actually in range.=0D=0A=0D=0ABoth consumers of pwm_map=
-->output[] then use an out-of-range value=0D=0Adirectly as an ind=
-ex/bit-offset with no bounds check of their own:=0D=0A=0D=0A - lp=
-3943_pwm_request_map() does=0D=0A       test_and_set_bit(offset, =
-&lp3943->pin_used)=0D=0A   with offset taken straight from output=
-[i], corrupting memory beyond=0D=0A   the single 'unsigned long p=
-in_used' field for offset >=3D BITS_PER_LONG.=0D=0A=0D=0A - lp394=
-3_pwm_set_mode() does=0D=0A       mux[index].reg / .mask / .shift=
-=0D=0A   with index taken straight from output[i], reading past t=
-he 16-entry=0D=0A   lp3943_mux_cfg[] array and then issuing a reg=
-map write built from=0D=0A   whatever garbage register/mask/shift=
- values were read out of bounds.=0D=0A=0D=0AA devicetree (malform=
-ed board file or a loaded overlay) with an=0D=0Aout-of-range ti,p=
-wm0/ti,pwm1 value is enough to reach either path;=0D=0Anothing up=
-stream of these two functions validates the value.=0D=0A=0D=0AAdd=
- a range check in lp3943_pwm_parse_dt() right after the values ar=
-e=0D=0Aread, rejecting the devicetree with -EINVAL before any out=
--of-range=0D=0Avalue can reach pwm_map->output[]. Add the LP3943_=
-NUM_OUTPUTS(16)=0D=0Aconstant next to the existing enum it bounds=
-, alongside the existing=0D=0ALP3943_NUM_PWMS(2) constant.=0D=0A=0D=0A=
-Signed-off-by: Manush Prajwal <manushprajwal555@gmail.com>=0D=0A-=
---=0D=0A drivers/pwm/pwm-lp3943.c   | 7 ++++++-=0D=0A include/lin=
-ux/mfd/lp3943.h | 2 ++=0D=0A 2 files changed, 8 insertions(+), 1 =
-deletion(-)=0D=0A=0D=0Adiff --git a/drivers/pwm/pwm-lp3943.c b/dr=
-ivers/pwm/pwm-lp3943.c=0D=0Aindex 10537e74b..1ce2a1bbc 100644=0D=0A=
---- a/drivers/pwm/pwm-lp3943.c=0D=0A+++ b/drivers/pwm/pwm-lp3943.=
-c=0D=0A@@ -218,7 +218,7 @@ static int lp3943_pwm_parse_dt(struct =
-device *dev,=0D=0A 	struct lp3943_platform_data *pdata;=0D=0A 	st=
-ruct lp3943_pwm_map *pwm_map;=0D=0A 	enum lp3943_pwm_output *outp=
-ut;=0D=0A-	int i, err, num_outputs, count =3D 0;=0D=0A+	int i, j,=
- err, num_outputs, count =3D 0;=0D=0A =0D=0A 	if (!node)=0D=0A 		=
-return -EINVAL;=0D=0A@@ -247,6 +247,11 @@ static int lp3943_pwm_p=
-arse_dt(struct device *dev,=0D=0A 		if (err)=0D=0A 			return err;=
-=0D=0A =0D=0A+		for (j =3D 0; j < num_outputs; j++) {=0D=0A+			if=
- (output[j] >=3D LP3943_NUM_OUTPUTS)=0D=0A+				return -EINVAL;=0D=0A=
-+		}=0D=0A+=0D=0A 		pwm_map =3D devm_kzalloc(dev, sizeof(*pwm_map=
-), GFP_KERNEL);=0D=0A 		if (!pwm_map)=0D=0A 			return -ENOMEM;=0D=0A=
-diff --git a/include/linux/mfd/lp3943.h b/include/linux/mfd/lp394=
-3.h=0D=0Aindex 5d2d172d3..844938ca7 100644=0D=0A--- a/include/lin=
-ux/mfd/lp3943.h=0D=0A+++ b/include/linux/mfd/lp3943.h=0D=0A@@ -53=
-,6 +53,8 @@ enum lp3943_pwm_output {=0D=0A 	LP3943_PWM_OUT15,=0D=0A=
- };=0D=0A =0D=0A+#define LP3943_NUM_OUTPUTS		16=0D=0A+=0D=0A /*=0D=0A=
-  * struct lp3943_pwm_map=0D=0A  * @output: Output pins which are=
- mapped to each PWM channel=0D=0A-- =0D=0A2.46.2.windows.1=0D=0A
+--536c7c79d9464b992ad1d7b5be05ae3641e4b875bba8fe2b43dc9e787550
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
+Hi Yixun, Aurelien
+
+On Sun Sep 6, 2026 at 6:07 AM +08, Yixun Lan wrote:
+> Hi Aurelien, Troy,
+>
+> On 11:24 Fri 04 Sep     , Troy Mitchell wrote:
+>> Hi Aurelien,
+>>=20
+>> On Fri Sep 4, 2026 at 1:27 AM +08, Aurelien Jarno wrote:
+>> > Hi Troy,
+>> >
+> ..
+>> >>  drivers/clk/spacemit/ccu-k3.c | 96 +++++++++++++++++++++++++++++++++=
+++++++++++
+>> >>  1 file changed, 96 insertions(+)
+>> >
+>> > Thanks for the patch, it makes sense to add all the values, to support=
+=20
+>> > future firmware changes. The values match the ones in the vendor kerne=
+l.
+>> I forgot that you had a similar patch as well..
+>>=20
+>> >
+>> >> diff --git a/drivers/clk/spacemit/ccu-k3.c b/drivers/clk/spacemit/ccu=
+-k3.c
+>> >> index 92b930d5ff30..950bf531c734 100644
+>> >> --- a/drivers/clk/spacemit/ccu-k3.c
+>> >> +++ b/drivers/clk/spacemit/ccu-k3.c
+>> >> @@ -29,15 +29,91 @@ static const struct ccu_pll_rate_tbl pll2_rate_tb=
+l[] =3D {
+>> >>  	CCU_PLLA_RATE(3000000000UL, 0x0b3e2000, 0x00000000, 0xa0558c8c),
+>> >>  };
+>> >> =20
+>> >> +/* Keep the firmware default as the first entry. */
+>> >>  static const struct ccu_pll_rate_tbl pll3_rate_tbl[] =3D {
+>> >> +	CCU_PLLA_RATE(2000000000UL, 0x0b292aaa, 0x0000ab00, 0xa0558686),
+>> >
+>> > Is it really necessary to put this entry first? I guess it's the curre=
+nt=20
+>> > default frequency, but we have seen it can evolve. From my tests, the=
+=20
+>> > driver seems to just keep the value configured by the firmware=20
+>> > independently from the table order, so I am not sure it's necessary.
+>
+> I agree with Aurelien here, the default frequency isn't a solid stable se=
+ttings,
+> which it may changes in the future
+>
+>> I think keeping it first is necessary. If the current register settings =
+do
+>> not match any entry in the table, ccu_plla_init() falls back to the firs=
+t
+>
+> Isn't it a bug if all frequencies added still couldn't cover all settings=
+?
+> I'd simply suggest to bail out and yell loudly if there is a mismatch
+>
+> I just don't like putting specific frequency at first one as default,
+> this logic is kind of fragile and tend to fail easily..
+I checked the Rockchip PLL driver. The RK3036, RK3066 and RK3399
+implementations calculate the current rate directly from the hardware
+register parameters. If that rate is absent from the rate table, their PLL
+init callbacks return without reprogramming the PLL. With
+ROCKCHIP_PLL_SYNC_RATE enabled, they only synchronize the parameters when
+the current rate matches a table entry but the register parameters differ
+from those in that entry.
+
+This approach seems preferable to me. Would it make sense to sort the rate
+tables by frequency in the next revision, and follow up with a separate
+series to calculate the current rate from the registers and preserve
+configurations whose rates are absent from the table, as Rockchip does?
+>
+>> entry:
+>>=20
+>>=20
+>> 	ccu_plla_update_param(pll, &pll->config.rate_tbl[0]);
+>>=20
+
+
+--=20
+Troy Mitchell
+
+
+--536c7c79d9464b992ad1d7b5be05ae3641e4b875bba8fe2b43dc9e787550
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCap1MiA0caUB0cm95LXku
+b3JnAAoJEJgJ74D5MzQv+TcBAKuYgm3NzSdu2AewDdZD9GRhXTKU8Kg7xc4yVrlo
+nVfcAQC2ZNkxsjsFJBZyiwSwQYWdYZq+bsxMX1yf4dEkWAOCAg==
+=J7rf
+-----END PGP SIGNATURE-----
+
+--536c7c79d9464b992ad1d7b5be05ae3641e4b875bba8fe2b43dc9e787550--
