@@ -1,121 +1,101 @@
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out28-146.mail.aliyun.com (out28-146.mail.aliyun.com [115.124.28.146])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45240175A8A
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 00:53:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 322D725D1E9;
+	Sun,  6 Sep 2026 00:57:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788656023; cv=none; b=etfMUBZInmz/cyXGRK6teeC1g55juIQlMfAvEad9A3u11g8OlasCTdF4XXTCbtRA70+s3aSNrqIMUlOAlD8dbKzJzAonzks32FjchdPGzMMJGCv/2EFAMhdk+lpigcNvAf8iZqOmIG5X+5Sh3P17bi8JUgWdavCtYr2vMZld3H4=
+	t=1788656248; cv=none; b=k9x7dWA+GBnrjjqpy4/l4P+f7znpirZ6Nzd/t5DeYmAty9AYa1RbeFSjgbz1XnVqgxmsPcMwlxyPQ4pAqBoQLGtHJnvNaM684UCjKEM8S0xYdLxODpsuh4t4o8ffAzNJq98GbzkEPa4748VCTUxTaMY13XfPhi7agbViJZz9TmI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788656023; c=relaxed/simple;
-	bh=rBXUUvvkerHNhThNqGS5MYoS9ksLclnjJVKvR2FDQT8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Vxm72XfKFUHhOxYRY1XZgL3TTbNM6u6ZX4RpUMJD0SaHAvHmL3aVlx2Vms8gpt1adAGZbWuGNKh17zVXN7z46uc+zWdyXBaZlOE90IAMJ9dlPKKun7JdSDRhRRd3EKA95jW2T435w+rotPsKcna1vJIplLr6oZzjnM6Veq0fW8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MYsnn8lO; arc=none smtp.client-ip=209.85.215.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MYsnn8lO"
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc1cf287ef8so2106025a12.3
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 17:53:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788656021; x=1789260821; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jPwTaXDwrhHArbsCgN4N1e0e3zBlfs7GCg68IUwyQLs=;
-        b=MYsnn8lO3HkRC3ZDCIE3r8uQO6S0n4j176zu4D1KwKeC+U3yPsndQzmCoRTMf2ZU7p
-         11wDJr6skOtAPv71gLnsnLxEFtVf8ser8R1H6jSqA15JRw7HP7IMN/u/R4NQelR7Y1b7
-         1YW73u6fq/X+8p/QCLnpV/Nr46rywlJDT3hVhN5VsSqHpzwvCT1MiHFatGrOnu7caCxX
-         WMsU5bio3USbVPEHx26e5o9cGa+JkJOLrGmEkMvq+NWZZAxa1kmO/6YM/DvkHrm76auE
-         gIIf92i+LOddFGsXsnmjU+Z+1qOGI3ObywO1pUr2mBJAbhp3SVP0ox0nwt7QJTr4HmKG
-         og1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788656021; x=1789260821;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jPwTaXDwrhHArbsCgN4N1e0e3zBlfs7GCg68IUwyQLs=;
-        b=YkSovV/a0Gr8wSkHAfcAGmafLPZAp+I0vLDQC1UMJmh2aNCn7BldhGjIU+AHZEerVG
-         Tvy6iH05LL5FhhuAESZ8AFniJuEH06HWSM12deg8psUjt1zHBXuyV0PA1f4+Zs0l54sO
-         TLFoHzCnBwMn/MldJj1KpbRK+8k1xArqrRxxUduJXOrcHQHncrO+x07KKqrJ8ovThWXh
-         SBuofSxYZxR5UmTc6Z7nuW9UX0+1n8n1M3XlliHGeERGina1cqWQlFHCiPbrCm8xAzqr
-         vMJMLTi84r4laEidYLWUcSGzLs2fxLrIdEJOro+GakqNC4ZhFLo+veJjkKKiibDvqU4L
-         rhZA==
-X-Forwarded-Encrypted: i=1; AKwUvBwFuFi2y5zJK9uo31+kh37XdIgrZzntAFZTClKqHJFCXaMyV36RxXAT1K2v2n37+OLqT50pZOJcQn4V4a4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mvajrM+k0T0ei6whDZxZE9PAImPn978lBqUtA8LHQ9RElXA9qN
-	6H3/9/mX/eKx9xJ+zDtxaP6FAabCWLW/565wJwBx9j0GeMtjMt7+AQvm/GPRg3uh
-X-Gm-Gg: AYBFou1GjUmZwV/mos8vLDORzeBJF4mlP8cKhP7BdTM/C+Tjd3uFcb4zrRl8NT5cPfL
-	q3EnsQzrH9jRKWwKKDtGvo4ivVBoAIAhCaPJIr7uT60u/smvfsBaQqfrmP8UGRAfrtGqlG8IPrL
-	uBUE0GXADWQNfMgp+BpRvdRlrpk/LRUZE1QKikbvmMgddGiKz8VVBarLtn7o/snpq2jYNfwWZPI
-	6IiWlWMH5C5RqIJo4qbUL0apwOVeUrJWMUlXmVLO/v5dMAXZR1f+DNRgyGqtvSFj4LlvQMPweHl
-	tk4oxOChWo35xUZbHo8zAzyAzVCUaFS2CySdXRnvNhylFVUV85DZAAM5bop1mFfV64BBbZsUFTY
-	h3cg2jujAeciwE7YpIRXSVzckOZDaGkh62MUnK38S9r/SR6TfuNX9PdecfBXApeFIMmR2FWFj7m
-	roV78o8eLnJtJGYuHCCM7qr/YkD9Aj5hD0ZCU/EqowuWZohuTNA2cdRE0o2qGQmMgx
-X-Received: by 2002:a05:6a21:138c:b0:3d3:afd9:6040 with SMTP id adf61e73a8af0-3da3a1f77f2mr23964308637.27.1788656021393;
-        Sat, 05 Sep 2026 17:53:41 -0700 (PDT)
-Received: from G15-5520 ([103.246.195.200])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14324410092sm15261476c88.14.2026.09.05.17.53.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 17:53:41 -0700 (PDT)
-From: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-To: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org (open list:STAGING - ATOMISP DRIVER),
-	linux-kernel@vger.kernel.org (open list:INTEL MID (Mobile Internet Device) PLATFORM),
-	linux-staging@lists.linux.dev (open list:STAGING SUBSYSTEM)
-Cc: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-Subject: [PATCH] staging: media: atomisp: Use C99 initializers for ACPI IDs
-Date: Sun,  6 Sep 2026 00:49:58 +0000
-Message-ID: <20260906004958.26041-1-lalitshankarch@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1788656248; c=relaxed/simple;
+	bh=LpkrOOoV/9gd8nAX6hvbIqWRO7Ing9NTDjQtexKO5go=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=io4VsdNTRvECgHl7cELpvPoKc3z9RIUiXwKlvJObH9+R6PsZ1arzR/r4602r4OOX42Tnn/UA1lmNkPdpXCZFPFIeZBKITKz5TuOw2Px/3Dfco2KB6zhGf4Nu8+RaMPLjD9+fe0TrWRDl58hXGJjKwNa4svIXnO6ZlV9j/G63OpM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net; spf=pass smtp.mailfrom=open-hieco.net; arc=none smtp.client-ip=115.124.28.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1487297|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.295341-0.000320889-0.704339;FP=16959285472497698039|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033040074035;MF=zhang_wei@open-hieco.net;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.j6cBMnL_1788656234;
+Received: from 192.168.1.4(mailfrom:zhang_wei@open-hieco.net fp:SMTPD_---.j6cBMnL_1788656234 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Sun, 06 Sep 2026 08:57:15 +0800
+Message-ID: <3c8921d1-df09-4bd7-9f66-4747ea331f3d@open-hieco.net>
+Date: Sun, 6 Sep 2026 08:57:13 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/8] KVM: x86: Add helper to provide intercept linear
+ addresses
+To: Jim Mattson <jmattson@google.com>
+Cc: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org,
+ Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>,
+ zhouyanjing@hygon.cn, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260824123954.315112-1-zhang_wei@open-hieco.net>
+ <20260824123954.315112-2-zhang_wei@open-hieco.net>
+ <CALMp9eQoMn5BxXfu9ut5EZVGipfiZzbQz32mpi3TCjA6fA7jCw@mail.gmail.com>
+Content-Language: en-US
+From: Tina Zhang <zhang_wei@open-hieco.net>
+In-Reply-To: <CALMp9eQoMn5BxXfu9ut5EZVGipfiZzbQz32mpi3TCjA6fA7jCw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Use designated initializers for the ACPI ID tables.
 
-Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
----
- drivers/staging/media/atomisp/i2c/atomisp-gc2235.c | 4 ++--
- drivers/staging/media/atomisp/i2c/atomisp-ov2722.c | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/staging/media/atomisp/i2c/atomisp-gc2235.c b/drivers/staging/media/atomisp/i2c/atomisp-gc2235.c
-index f9cc5f45fe00..588f2f90a884 100644
---- a/drivers/staging/media/atomisp/i2c/atomisp-gc2235.c
-+++ b/drivers/staging/media/atomisp/i2c/atomisp-gc2235.c
-@@ -857,8 +857,8 @@ static int gc2235_probe(struct i2c_client *client)
- }
- 
- static const struct acpi_device_id gc2235_acpi_match[] = {
--	{ "INT33F8" },
--	{},
-+	{ .id = "INT33F8" },
-+	{ },
- };
- MODULE_DEVICE_TABLE(acpi, gc2235_acpi_match);
- 
-diff --git a/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c b/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c
-index 2c41c496daa6..b02fe0c915ab 100644
---- a/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c
-+++ b/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c
-@@ -995,8 +995,8 @@ static int ov2722_probe(struct i2c_client *client)
- }
- 
- static const struct acpi_device_id ov2722_acpi_match[] = {
--	{ "INT33FB" },
--	{},
-+	{ .id = "INT33FB" },
-+	{ },
- };
- MODULE_DEVICE_TABLE(acpi, ov2722_acpi_match);
- 
--- 
-2.53.0
+On 9/5/2026 6:34 AM, Jim Mattson wrote:
+>> +static u64 get_intercept_linear_addr(struct x86_emulate_ctxt *ctxt,
+>> +                                    enum x86_intercept intercept)
+>> +{
+>> +       u64 la;
+>> +
+>> +       if (intercept != x86_intercept_invlpg)
+>> +               return 0;
+>> +
+>> +       la = seg_base(ctxt, ctxt->src.addr.mem.seg) + ctxt->src.addr.mem.ea;
+>> +       return ctxt->mode == X86EMUL_MODE_PROT64 ? la : (u32)la;
+>> +}
+> 
+> The linear address calculation here is replicated from __linearize().
+> Perhaps something like:
+> static u64 get_invlpg_linear_addr(struct x86_emulate_ctxt *ctxt)
+> {
+>          unsigned int max_size;
+>          ulong linear;
+> 
+>          if (intercept != x86_intercept_invlpg)
+>                  return 0;
+> 
+>          __linearize(ctxt, ctxt->src.addr.mem, &max_size, 1,
+> ctxt->mode, &linear, X86EMUL_F_INVLPG);
+>          return linear;
+> }
+
+I initially used the minimal calculation needed for EXITINFO1 because I 
+thought some of the additional processing in __linearize() was 
+unnecessary when reporting the linear address to L1.  However, reusing 
+__linearize() keeps the intercepted path consistent with em_invlpg().  I 
+will switch to __linearize() with X86EMUL_F_INVLPG.
+
+
+> 
+>>   static int emulator_check_intercept(struct x86_emulate_ctxt *ctxt,
+>>                                      enum x86_intercept intercept,
+>>                                      enum x86_intercept_stage stage)
+>> @@ -427,6 +447,7 @@ static int emulator_check_intercept(struct x86_emulate_ctxt *ctxt,
+>>                  .src_type   = ctxt->src.type,
+>>                  .dst_type   = ctxt->dst.type,
+>>                  .ad_bytes   = ctxt->ad_bytes,
+>> +               .intercept_linear_addr = get_intercept_linear_addr(ctxt, intercept),
+> 
+> Maybe:
+> +               .invlpg_linear_addr = get_invlpg_linear_addr(ctxt, intercept),
+
+Yes, this is clearer.
+
+
+Thanks,
+Tina
 
