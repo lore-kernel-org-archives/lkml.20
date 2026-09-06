@@ -1,94 +1,86 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD9533168EE
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:48:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A8E3B6C14;
+	Sun,  6 Sep 2026 11:49:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788695341; cv=none; b=iQaGo+rwXsDQ96agQo9lxqf6FkznVYNVbeJpYkuf3P632rJYvxAN4AzZ2SV2vIoQlb1m+dSP9vSsf3l660PjAja1OA106/pQ6BBR45jYDWsYO+vQRPnjOgAtDPlSAdCAe1EGhD/ba9J2vKzE60Sv+EQRVOAUn8HwCiQ5JDi8E+Q=
+	t=1788695384; cv=none; b=TxTTC1MXjEf6rVW+HdrnC9nTVX/eEh24lwX/KkNeaorSmBFghIFjl3iPg8kvrF4lF9h8eWc4S7KIiP+8qlSDFbDDFa0xrq4xuIuM19tb5BpgIfTo7DtNCwQbIn7jtHWJtQVMukMGI2V+ZOEvmGCo0NQMGWMj+y4IBEKK4YGWsEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788695341; c=relaxed/simple;
-	bh=K2il0CuebfjhnryGF+aHB56eES5sLu1xkmiT9gIEIN4=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=EYILSb3gSVz5ckrRbMbfFeSumu6FvUkQssUSb/ePQZ/Qx5ODMZcovDMjDxC9XWZqkGXjQ64cInJK48b4VWYJTcTSWk0wJkUgjvcwxIOI6OYPiJUahuD8l+TQNbNQkonzi+6SX4rDSJso4lQRZqFvMGR1zaIHzr1rTQ4VB2tuVvE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-49d4cb3ca23so3249161b6e.3
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 04:48:59 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788695338; x=1789300138;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=9zOiWFhTrDYVPNRGJXGgFV73G2VQZWvIz+SdJAnVCLc=;
-        b=VgxjkhHI/9CzTO7YmIAry+bCcPHxEXFIqc50nm4f7OAhmrriQyNU/C2q14jq+9FClt
-         GwsNiRwi53oWsPYYnrjg0JfYneO7VMg8V+yiw8oDktZ2jtYi79xfzXXxXgfBMwL12GRy
-         v8FQA2Qy4X3x78wdC+3Vm4uJoHuKNg8ckGZSVFkwR2pch270oeB5JFN7ve3hYyJAP8eD
-         5VYyIlgG9heBvcISTC6WFG2yD0dirOUI4jwH4zbbBw5MMZnO5zNLGL0MQFeIDAvz1N4G
-         0i2CvkKzX5ux83FKWkYVlcIXtDW6FsxHFXGK8C+vQWSmYxHy5zFz/Mqbpnr0EBdiv5sW
-         ByfA==
-X-Gm-Message-State: AFuF++kkuf17GtNazKTzy21VHJ5naVL8ENLbmR1qXpBca+he6/1kjy0V
-	DQ2NEmyqpDFRhvFBA23sLvys6iEXiMBgXKfoTrlKLKRUqmkhBPT33ltOb1pPHUiTgXCqhATjhUP
-	V9G2ZRC84wmtQyoFaAAQNKUeXoEmVa8nI5NqylYMWkp7609sZ5Njse1sNMdU=
+	s=arc-20240116; t=1788695384; c=relaxed/simple;
+	bh=pmOpvwKv/Su6P41qSkFiN79XyyZDPQstpg1hqKz4EaI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Nc/tOh++V+fxFiRyPyYQZW7wsqomh6ecNh8eYmITc0bQkRJRb28t4Gh8uGubq548b+PSuSLwlMZbnif81vUaT99KYVDcia412dO1JBQ/gp5/ZbMWOvlkn7HcVaMfvGP5KC+CHmVvpsi/7KqKr3ws9YJgw0i9MHePAjE9XvweN0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=T6MACGCe; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="T6MACGCe"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=XNdzB6j6US5wUuat8S8FJTGFFmsSf5Nta1dIyeRTbKU=;
+	t=1788695380; x=1789904980; b=T6MACGCe5mPfqny4jmy8m1R/GSffKtSXaBvivBRNlcHu/jD
+	JVsPd+lOGrCvdVvlkaH+UUyCtwVm+n85h4iVHp/zIhjrIswhlWKWfcY3CQuFUiTaY0Vk2wzf9MVSh
+	GLFT+X94mzX7MtH9te4S89VeWoh8onml0lH+d4LIh5qZ8RFojeATSUeVR3K0FZY9RRIwH7MuZ9Kel
+	J5ao9wMRHK0zw4k5wT7lJuL6YOKry/CnZXJhxUsnp9YWtdRKPDyQLerQhTRCQupDJwWvQBvHJysEl
+	zlmEGK9XhV/XHq6zLJuOJhKLtRE/f+veHM9QlSAatNq8FrPYO9CFxezVWxiA3V4Q==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1x3BNI-00000003Fmb-0qd9;
+	Sun, 06 Sep 2026 13:49:28 +0200
+Message-ID: <087d18429b448d5b63f922fd6779925f827134c7.camel@sipsolutions.net>
+Subject: Re: [PATCH] wifi: p54: fix incorrect frame length check in
+ p54_find_ie()
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Christian Lamparter <chunkeey@gmail.com>, Wang Yan <wangyan01@kylinos.cn>
+Cc: zilin@seu.edu.cn, linville@tuxdriver.com,
+ linux-wireless@vger.kernel.org, 	linux-kernel@vger.kernel.org
+Date: Sun, 06 Sep 2026 13:49:27 +0200
+In-Reply-To: <bdca394f-0371-45ad-bfee-b044444ad724@gmail.com>
+References: <20260903081200.267514-1-wangyan01@kylinos.cn>
+	 <bdca394f-0371-45ad-bfee-b044444ad724@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:821:b0:6b1:ab9c:3ef4 with SMTP id
- 006d021491bc7-6b6fd9c7a7bmr14787004eaf.27.1788695338727; Sun, 06 Sep 2026
- 04:48:58 -0700 (PDT)
-Date: Sun, 06 Sep 2026 04:48:58 -0700
-In-Reply-To: <6a9acfb3.d07ac993.c20e9.0000.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9d532a.4a487d73.3c8564.0019.GAE@google.com>
-Subject: Forwarded: [PATCH] xfs: take hm->lock in xfs_ioc_health_monitor()
- before insert
-From: syzbot <syzbot+ccdf3469f5f653bff7ac@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+X-malware-bazaar: not-scanned
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+On Sun, 2026-09-06 at 13:06 +0200, Christian Lamparter wrote:
+>=20
+> >        pos =3D (u8 *)mgmt->u.beacon.variable;
+> >        end =3D skb->data + skb->len;
+> >        while (pos < end) {
+> >                if (pos + 2 + pos[1] > end)
+> >                        return NULL;
+> >=20
+> >                if (pos[0] =3D=3D ie)
+> >                        return pos;
+> >=20
+> >                pos +=3D 2 + pos[1];
+> >        }
+> >        return NULL;
+>=20
+> The check in the while loop and the checks within the while loop make sur=
+e that
+> no "pos" is returned unless the IE is still within skb->len.
+>=20
+> But true, it should have been *mgmt and not mgmt.
 
-***
+FWIW, I dropped it because it really shouldn't have been there this way
+since 'mgmt' can be far bigger than needed since it contains the union
+for all kinds of action frames etc.
 
-Subject: [PATCH] xfs: take hm->lock in xfs_ioc_health_monitor() before insert
-Author: kartikey406@gmail.com
+I'm not even sure it's needed regardless of the next check since the
+beacon is built by mac80211.
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+Just blindly patching one mistake for another doesn't help anyone.
 
-__xfs_healthmon_insert() asserts that hm->lock is held
-(lockdep_assert_held), but xfs_ioc_health_monitor() called it right
-after allocating hm, before ever taking the lock, triggering a
-lockdep warning.
-
-Take hm->lock around the call.
-
-Reported-by: syzbot+ccdf3469f5f653bff7ac@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=ccdf3469f5f653bff7ac
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
----
- fs/xfs/xfs_healthmon.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/fs/xfs/xfs_healthmon.c b/fs/xfs/xfs_healthmon.c
-index 3ae5f4496ad1..2f762f90d329 100644
---- a/fs/xfs/xfs_healthmon.c
-+++ b/fs/xfs/xfs_healthmon.c
-@@ -1219,7 +1219,9 @@ xfs_ioc_health_monitor(
- 	}
- 	running_event->type = XFS_HEALTHMON_RUNNING;
- 	running_event->domain = XFS_HEALTHMON_MOUNT;
-+	mutex_lock(&hm->lock);
- 	__xfs_healthmon_insert(hm, running_event);
-+	mutex_unlock(&hm->lock);
- 
- 	/*
- 	 * Preallocate the unmount event so that we can't fail to notify the
--- 
-2.34.1
-
+johannes
