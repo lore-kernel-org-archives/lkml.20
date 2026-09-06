@@ -1,211 +1,170 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B493C8705
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 17:46:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788716811; cv=none; b=R0qHKE+3KllV37HcWye1eyV2fsvvV3XU8QyQoAwoqjJQLDdGj2L/lNpkYvymOoeY8lvgtuDPprdPjFiDCgRvCITozBgBo+Bx9oLsPyjdXTdZ1Q2a6eN7vTJ18ZMNHJqK38Bivdbn9ZTnJoiQs+gA0NMgTidAaOqp0GdwxnZ6Cvs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788716811; c=relaxed/simple;
-	bh=cm8GBzEWrQcM0UpW1qsqrZohbkUjZPrRWNZmMaMmxBY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ruAwUNPJvBUmRlTgUyIEFiBTr/DJ2so5OWkyDInfVriL5OY5nesa4gf3ssO5015uweV83HNR3jbzrq6SOTAHt9Bcm4LSm09xxdb6MvtSox2ALj5hbOyaL4a0TQvCNjV4abSXd6IuZy4YPQJmCBdxymq82VC+ixQIfkCWKvV3xpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=XHP7Jccm; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B48573C0A0E
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 17:47:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788716823; cv=pass; b=ZQ1oeXftOxg+qPesq+iu++SDgO6DzFwe2Nm+Ii86yGO4Xoosgu3FCRqex75/x1ZCnsh1mc6gRs1C8r28WSf7jTl3d+E1pI3W54CT4UKy+85xtF51cO0iVUhV0MDwbfw9Thdz4NQlxR7d892xN2RYob7t1WgfCTwUHN4z1Dh9pBk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788716823; c=relaxed/simple;
+	bh=RT1vKor16SWprNgN2I46rvkJPkB6+81CRIOtFBRT1sI=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=HzjABe6g5jKYd3jl9QQBQeVQdMY/JzNl688VQmShuM0/QpocoTV2E0YC3XdzT4ZgHp2KT62uJYE6b+/1zN70OIdRBzawgXJ13+2Oqgmlsb+zPC7JFoU9URV/yWccNiKRJzIx4blyYWei902fuhWy+kGjGM3dE9Tag9bq20rH7qU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AkkAiqjn; arc=pass smtp.client-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="XHP7Jccm"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-4843f205a5bso1524677f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 10:46:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AkkAiqjn"
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a18840e2abso3917662a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 10:47:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788716820; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mkPVNvzHozv9S/GFZod8SXP5uRWIsNNJxYqZJNDXz5ysSPXY4VG9VFY9hb7gAh7ccf
+         qIqFA/E0JtO3VYBAeRZlMGGLVz5C/L5oONLQjCK+6tgsyysVEFh85WO4wxN8wIQBzQCw
+         pMnwx1TPEXgck7RCprtQJTw9wfZBcvOVr6Uk7KUf12hqVlWTIkamdXWp7LWimeXNlURR
+         IR2BuIGlAIhzZsU4BPGywcFzNILkG++e98yvxbN6K0KhxmHE3PgqLsoGHhzliasOtTMz
+         hXdgniArHKXqzn7tz561h43rzvSmxMbc/O+UvUv0hidClEQ5kH5Yh7hXTeO+2LnSiEpf
+         pz7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=sOTHRTeo1uuAeRV8y8wQh1qPhCpdcDYGMX/pO45ku1s=;
+        fh=TInJWGEkSvj4K3eW/HjRUSKKQrKvzgGkt4fgItV4vVY=;
+        b=IS9KojtNBhh7cz0aeSYaXPDaRhFa/cDU+5rMSVAfivWrmiX7XrHh9GYRGxF7C2uc9i
+         tM8lBsq63VPARkRibZYUheKmXP67foVDZTorb7sf7vs2nqCNwFOLhMZKpK2+esmEtsAU
+         Uld4c0me/DRD1G5pb4BHb2H6SxyH55EW/cxtt66VYf+4XS4ElW5axX24OiYNFSFXJESn
+         krPMkLOZudz1XUfhkdOv38EcoLIzlwYXJTNQX2bULLgFDaz4iMQD1DeqJCRw7SHdlyed
+         G2+oMX9y5o3NwlJp3E/p5DfXR7kAEgfR5a4bqnRgzqs2z4dypsW/nWHh1pRq/CAThJ19
+         dUGg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1788716808; x=1789321608; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z0UTb9fdviQp4wmFCU+HNLXDp/77aN0mz1PV9u2Ao38=;
-        b=XHP7Jccmk/tpEWLfGFgeWNYl6c/ajWyhHzN8yhF8ipHiI3VteA+fEfy+eV0W1AuWA7
-         PfmWvb/+nSt9vwcCVfHSa1DTxPL/bivdEdJRxs/nayAJP4p4UnwNfOEXiFATucqYzywL
-         A1ZuShMba/vn72W6OpZOKxmHJFkE/I4X3YHMuACM93ef30D3oIBCn23XWwJsD6pVx3O1
-         yEwyhgYHmwWAnBzFbFrPzz4jI65MrigHXQdptQZIO+B6xQf4anZkDIC6LjDwNNNYRC0O
-         ZPUNSRLokprUcdXsnFz5QkpTtvXlOL8ve8/yBwy8rP6EotuIEQ/rKgjwSkd93lkItxWN
-         aDWg==
+        d=gmail.com; s=20251104; t=1788716820; x=1789321620; darn=vger.kernel.org;
+        h=content-type:to:subject:message-id:date:from:mime-version:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=sOTHRTeo1uuAeRV8y8wQh1qPhCpdcDYGMX/pO45ku1s=;
+        b=AkkAiqjnJDBr3k1IVibJ5mpMDYDXKPLC1KZuLD7ewrS/elhfK9Fy/iVVfNf2oiNQV1
+         n+rNuuU6YWQPJkJIAG7JmsgTz1suW3Z0Dl0lo73XgC2V8koGkgf6T7QivYGiAp+am+dZ
+         W5o09bdRzFAvndkDZCkLBDFrSqIIfEVFO65zhXu0Jdah1N/Pu1Oa9pFdMEmNFSiAQFKp
+         gQQDfIQPQgEqQpXYdVZbNmWwnxLGtmQvAe55qLj3MiJRpU1e5AZJ7+64kTaLXBz69sFB
+         LvguadoyQYj9r8N09KJskrXsd0VIe3Z0SYQooXyehpvUtkCwnOlckvY2zjajzznKnbmD
+         zjUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788716808; x=1789321608;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z0UTb9fdviQp4wmFCU+HNLXDp/77aN0mz1PV9u2Ao38=;
-        b=a4dRCWVzxwLI+wQCaGEFS1kPqBwRPDQBnu5fBKdDjGCejCN5A8jstta2JqDMnC7xT9
-         0VaJku0LLxRCrKHkb9pBL3DzTjKSzdz4T77SJlnh046z7C/HpM734S7XVeFftyG6remS
-         DNY3wcVc1vHB0b/zP/obtbfpRggXDTQXKWH0+ZpuArHaqHffiWGwX2X9G/C4cXHfZ1Xa
-         ZXK4bEpIWlZefULWnOSdZkKXVQCxDOo9Fn4VvijLIZW+VSoZE1y1qnxt7u6pkXxkRTM/
-         eEWY4dgz5XEAGBWalJUuMbEwRoscmdjPcdpTuJgwO+J69JIDq9wSUCGP41kyHYRhazqM
-         gIXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwwoQuQF1/9EUl+0i99x8AE4s/9hjQJ6epWdWi9zQHZb6kDXvM6OcAF9Hg2o5P97/HHuhPq0RMIXtF7kwI=@vger.kernel.org
-X-Gm-Message-State: AFuF++meyDyxiQ5TzV3lc/U7SVqVsm5OxNxw86OMEfGmCMcXI6mH7sMD
-	wMlDWH9l5CzHZwJgaVVVK2WlU31l8CLssyA2iyD5yiVlLSYLTygHKj42LsTgagrh7Ec=
-X-Gm-Gg: AYBFou2pkEwqZ2eEHu+6kGCIRuf36+MGCiS6o4sJrHxooBd2zf4LQt5b7/RFw4sI0pC
-	lseZHu3Cg1OoTnpgGgBGFEOJgmljWrey14MKHbuDoUXdGdEdn8GCDyYc+u8PTk5WBk98tuOvoUN
-	Q6uS/yPHQMcLkic1g7uG1XACt29bpDVtQFGCDePVqpxZeuaa19VKVdEooWF4zgH7fsMJDJ3B8Td
-	yK2HxvFLizkNeMPMXigWNMpFHBoQVqB8sXlwnpJrcg0O1FBepdSErfncUVfOEd/dlM/2dhY145B
-	tGKanOV9bRsscBUWpnbcDSQXF6Iv0pjDOBAp0mAZP/Uxi7+IPgPqWPzhl2Ot4LSnx56mH/36Y/F
-	O5OV5MDRl1+L0RvhkSMRwmv5XDHM5AH5dA9BzSICh9zAJX0Vmfpe0gX7QzxEmN9D1MIz187tjPA
-	myemu4FLwmxzTLoW67iyR9+DpwgeIEm3pJGCBrNKA=
-X-Received: by 2002:a05:600c:a44:b0:49c:dcec:bd27 with SMTP id 5b1f17b1804b1-49cf821e7a5mr173337895e9.8.1788716807805;
-        Sun, 06 Sep 2026 10:46:47 -0700 (PDT)
-Received: from remote-01 ([84.17.55.227])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee6158e9sm331552855e9.12.2026.09.06.10.46.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 10:46:47 -0700 (PDT)
-From: Aleksei Sviridkin <f@lex.la>
-To: andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk
-Cc: olteanv@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v5 2/2] net: phy: restore the interrupt phy_probe() replaced with PHY_POLL
-Date: Sun,  6 Sep 2026 17:46:43 +0000
-Message-ID: <20260906174643.4107607-3-f@lex.la>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260906174643.4107607-1-f@lex.la>
-References: <20260906174643.4107607-1-f@lex.la>
+        d=1e100.net; s=20251104; t=1788716820; x=1789321620;
+        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sOTHRTeo1uuAeRV8y8wQh1qPhCpdcDYGMX/pO45ku1s=;
+        b=ngpNWP09L9fB0a6KjftGelNZejmYLOTZGGLfOggWfnCUOoa1KkuIusEQXfkXBa0R/R
+         Xn7N4gCPjsWLsoUGmK0/JCvi20+Z3HJBJxsTD7pSQBDwX52Tnvr+XOsdTVteFWFd2paY
+         mpubsPULmubIJVJfpYQdaW5aj87XuA1vwWITFdd/u3qJPPPMlDc+GKc3/3jduVZo8XiD
+         O6nnKvDB5BxpQ/w12CCGSIwxmCK8G+SzC50PSfvLLM6QmuS/UcWMCRG6DYLXky3LN9Ix
+         hbtQxqzTtnjnFAaHy1MDDkK4NBCtTmErg1EBUNpsw0BRiurOJU0kl2oBmRhKLSOxNE0x
+         B9gQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwnlgxEh7gtwIzEZlxEVhI7FFbXND3VN6lcJ+xfL2VPKkk8ABK7m0zQ285nN1MrOiSBsbqQycWBgL/0cRg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mD5KbH/YwphdFi1/4/01VRR8lNm1/wZ65GZlCe9/A69Y7IkaOM
+	2KIgYzCyptivEpmgJ5HProdYB3djELoD5IXncZU6eL3Q766R8W0eUNjS12FV9+Z+U/1cPlD42Hi
+	1+zlGs4ZJhsDTN2OFBc9dj3zjLUmFiq8=
+X-Gm-Gg: AYBFou2+eFQjY1uDbPx+kx+jj71bAMOu99Xx7i7LaK57xrgLJAUss7nXBykz9fM1Ay4
+	578SvPF8ySLMhzau8b11dxrhc2cA5Ukc812EtlFcQM7roPEDoqU6BfW6kvx5s1Hh2WueH63p720
+	W6s/c9IKP4gSqVff1ARCsIkD/FSGtKXO4eflkbTrTVEKZmEirp+U26uFOwQeJhcIoHwJzfv0KG8
+	xTY98orVCMjFpCQcubL+GLwLc9nE81+edwsoAZFde7vFFz4fUok9s5pZ3iE5+4dk1ucbeGMa5vb
+	9FgyHQMmjEKDv1uqmdVFuUDNTz2MuIp7dMqWdmmVpp/D894qWmLNXrlnLnxyK8rE0P6eguNoKO2
+	TOPXZSppjRsmxTUh0Y6llOQ==
+X-Received: by 2002:a05:6402:2709:b0:6a1:b515:d2b9 with SMTP id
+ 4fb4d7f45d1cf-6a7e8e95b74mr869492a12.14.1788716819865; Sun, 06 Sep 2026
+ 10:46:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Herman Semenoff <germanaizek0@gmail.com>
+Date: Sun, 6 Sep 2026 20:46:53 +0300
+X-Gm-Features: AcwNN1VWBWqQMURRhY4OdGyiXXIbhwwC9IMfYsou_S9_mMyXq0_U8RCPF8GcX6A
+Message-ID: <CAMnMt5YqQBn08_f1diNrb5z7=Qh-a=8Ju+QvNc6bQcCf62m2yQ@mail.gmail.com>
+Subject: [PATCH] wifi: mt7601u: add vnd_reset parameter to fix probe failure
+ on Tenda U2
+To: kuba@kernel.org, kvalo@kernel.org, linux-wireless@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-phy_probe() sets phydev->irq to PHY_POLL when the driver it is binding
-has no interrupt callbacks, and nothing puts the number back. The
-driver that binds afterwards therefore starts polled, and unless its
-consumer installs the interrupt again the PHY stays that way for the
-rest of the uptime, with no trace beyond an informational irq=POLL
-beside that driver's name. A DSA switch that connects its user ports
-before the rootfs holding the PHY driver module is mounted hits this on
-every boot.
+On certain MT7601U adapters, such as Tenda U2 and
+other newer hardware revisions, driver initialization consistently fails
+during probe with vendor request timeouts (-110 / -ETIMEDOUT):
+  mt7601u 3-14:1.0: ASIC revision: 76010001 MAC revision: 76010500
+  mt7601u 3-14:1.0: Firmware Version: 0.1.00 Build: 7640 Build time:
+201302052146____
+  mt7601u 3-14:1.0: Vendor request req:07 off:09a8 failed:-110
+  mt7601u 3-14:1.0: Vendor request req:02 off:09a8 failed:-110
+  mt7601u 3-14:1.0: Vendor request req:07 off:0734 failed:-110
+  mt7601u 3-14:1.0: Vendor request req:42 off:0230 failed:-110
+  mt7601u 3-14:1.0: probe with driver mt7601u failed with error -110
 
-Save the number where it is taken away and put it back in phy_remove(),
-in phy_probe()'s own error path, which the driver core does not follow
-with a remove, and in phy_attach_direct()'s unwind of a generic bind
-that failed after its probe succeeded. Only a probe that took a number
-away arms the restore, and phy_link_change suppresses it when a
-consumer holds the PHY, since that consumer skipped requesting an
-interrupt on the value it saw. phy_detach() clears phy_link_change
-before it releases the driver, so the case above still restores.
+The failure occurs because mt7601u_load_firmware() unconditionally calls
+mt7601u_vendor_reset() (MT_VEND_DEV_MODE_RESET) before uploading firmware
+chunks. On these devices, issuing this vendor reset leaves the internal
+MCU / FCE DMA engine in an unresponsive state after the first firmware
+URB is submitted. As a result, reading MT_TX_CPU_FROM_FCE_CPU_DESC_IDX
+(0x09a8) immediately times out.
+Introduce a boolean module parameter 'vnd_reset' (default: false) to
+make this vendor reset optional. When the vendor reset is skipped,
+firmware upload succeeds and the wireless interface initializes normally.
 
-That last part arrived in commit e0d1c55501d3 ("net: phy: fix
-phy_uses_state_machine()"). Without it the mark is never cleared once a
-consumer has attached, so the restore this patch exists for never fires;
-a backport needs that commit first.
+Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1716301
 
-Fixes: 00db8189d984 ("This patch adds a PHY Abstraction Layer to the Linux Kernel, enabling ethernet drivers to remain as ignorant as is reasonable of the connected PHY's design and operation details.")
-Assisted-by: LLM
-Signed-off-by: Aleksei Sviridkin <f@lex.la>
+More issues with Tenda U2 and Linux:
+- https://www.opena.tv/viewtopic.php?t=63919
+- https://askubuntu.com/questions/1418850/the-problem-with-wi-fi-u2
+- https://bbs.archlinux.org/viewtopic.php?id=224859
+- https://www.reddit.com/r/archlinux/comments/1d6dfv5/mt7601u_usb_wifi_not_working/
+
+Signed-off-by: Herman Semenoff <GermanAizek@aizekgroup.ru>
 ---
- drivers/net/phy/phy_device.c | 23 ++++++++++++++++++++++-
- include/linux/phy.h          |  3 +++
- 2 files changed, 25 insertions(+), 1 deletion(-)
+ drivers/net/wireless/mediatek/mt7601u/mcu.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-index 94b2e85e00a3..ba117147721a 100644
---- a/drivers/net/phy/phy_device.c
-+++ b/drivers/net/phy/phy_device.c
-@@ -770,6 +770,7 @@ struct phy_device *phy_device_create(struct mii_bus *bus, int addr, u32 phy_id,
- 	mdiodev->device_remove = phy_mdio_device_remove;
- 	mdiodev->reset_state = -1;
- 
-+	dev->irq_saved = PHY_POLL;
- 	dev->speed = SPEED_UNKNOWN;
- 	dev->duplex = DUPLEX_UNKNOWN;
- 	dev->pause = false;
-@@ -1734,6 +1735,19 @@ static bool phy_drv_supports_irq(const struct phy_driver *phydrv)
- 	return phydrv->config_intr && phydrv->handle_interrupt;
- }
- 
-+/* Give back what phy_probe() took, but not while phy_link_change marks a
-+ * consumer: it skipped phy_request_interrupt() on the value it saw, so
-+ * phy_disconnect() would free an interrupt nobody requested.
-+ */
-+static void phy_restore_probe_irq(struct phy_device *phydev)
-+{
-+	if (phydev->phy_link_change || phydev->irq_saved == PHY_POLL)
-+		return;
+diff --git a/drivers/net/wireless/mediatek/mt7601u/mcu.c
+b/drivers/net/wireless/mediatek/mt7601u/mcu.c
+index bad6ca821..abf4767f1 100644
+--- a/drivers/net/wireless/mediatek/mt7601u/mcu.c
++++ b/drivers/net/wireless/mediatek/mt7601u/mcu.c
+@@ -10,6 +10,7 @@
+ #include <linux/delay.h>
+ #include <linux/usb.h>
+ #include <linux/skbuff.h>
++#include <linux/moduleparam.h>
+
+ #include "mt7601u.h"
+ #include "dma.h"
+@@ -21,6 +22,14 @@
+ #define MCU_FW_URB_SIZE (MCU_FW_URB_MAX_PAYLOAD + 12)
+ #define MCU_RESP_URB_SIZE 1024
+
++static bool vnd_reset;
++module_param(vnd_reset, bool, 0644);
++MODULE_PARM_DESC(vnd_reset, "Perform vendor reset during firmware
+upload (default: false)");
 +
-+	phydev->irq = phydev->irq_saved;
-+	phydev->irq_saved = PHY_POLL;
-+}
++static bool disable_usb_sg;
++module_param(disable_usb_sg, bool, 0644);
++MODULE_PARM_DESC(disable_usb_sg, "Unused compatibility parameter");
 +
- /**
-  * phy_attach_direct - attach a network device to a given PHY device pointer
-  * @dev: network device to attach
-@@ -1896,6 +1910,7 @@ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
- 
- error_module_put:
- 	module_put(d->driver->owner);
-+	phy_restore_probe_irq(phydev);
- 	phydev->is_genphy_driven = 0;
- 	d->driver = NULL;
- error_put_device:
-@@ -3694,8 +3709,10 @@ static int phy_probe(struct device *dev)
- 	/* Disable the interrupt if the PHY doesn't support it
- 	 * but the interrupt is still a valid one
- 	 */
--	if (!phy_drv_supports_irq(phydrv) && phy_interrupt_is_valid(phydev))
-+	if (!phy_drv_supports_irq(phydrv) && phy_interrupt_is_valid(phydev)) {
-+		phydev->irq_saved = phydev->irq;
- 		phydev->irq = PHY_POLL;
-+	}
- 
- 	if (phydrv->flags & PHY_IS_INTERNAL)
- 		phydev->is_internal = true;
-@@ -3820,6 +3837,8 @@ static int phy_probe(struct device *dev)
- 	if (!phydev->is_on_sfp_module)
- 		phy_led_triggers_unregister(phydev);
- 
-+	phy_restore_probe_irq(phydev);
-+
- 	/* Re-assert the reset signal on error */
- 	phy_device_reset(phydev, 1);
- 
-@@ -3848,6 +3867,8 @@ static int phy_remove(struct device *dev)
- 	if (phydev->drv && phydev->drv->remove)
- 		phydev->drv->remove(phydev);
- 
-+	phy_restore_probe_irq(phydev);
-+
- 	/* Assert the reset signal */
- 	phy_device_reset(phydev, 1);
- 
-diff --git a/include/linux/phy.h b/include/linux/phy.h
-index 5f8d65868e0f..d492417572a0 100644
---- a/include/linux/phy.h
-+++ b/include/linux/phy.h
-@@ -591,6 +591,8 @@ struct phy_oatc14_sqi_capability {
-  *      - Bits [31:24] are reserved for defining generic
-  *        PHY driver behavior.
-  * @irq: IRQ number of the PHY's interrupt (-1 if none)
-+ * @irq_saved: @irq as it was before phy_probe() replaced it with PHY_POLL,
-+ *             or PHY_POLL when there is nothing to restore
-  * @phylink: Pointer to phylink instance for this PHY
-  * @sfp_bus_attached: Flag indicating whether the SFP bus has been attached
-  * @sfp_bus: SFP bus attached to this PHY's fiber port
-@@ -761,6 +763,7 @@ struct phy_device {
- 	 * -1 means no interrupt
- 	 */
- 	int irq;
-+	int irq_saved;
- 
- 	/* private data pointer */
- 	/* For use by PHYs to maintain extra state */
+ static inline int firmware_running(struct mt7601u_dev *dev)
+ {
+  return mt7601u_rr(dev, MT_MCU_COM_REG0) == 1;
+@@ -459,8 +468,10 @@ static int mt7601u_load_firmware(struct mt7601u_dev *dev)
+  mt7601u_wr(dev, 0x94c, 0);
+  mt7601u_wr(dev, MT_FCE_PSE_CTRL, 0);
+
+- mt7601u_vendor_reset(dev);
+- msleep(5);
++ if (vnd_reset) {
++ mt7601u_vendor_reset(dev);
++ msleep(5);
++ }
+
+  mt7601u_wr(dev, 0xa44, 0);
+  mt7601u_wr(dev, 0x230, 0x84210);
 -- 
-2.53.0
-
+2.55.0
