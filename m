@@ -1,149 +1,147 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011028.outbound.protection.outlook.com [52.101.57.28])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FC7B286A4
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 06:03:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788674591; cv=none; b=Fyb4CCpk0B8HSAoVPOAMGVqYFocs2W+HHCzMqyOR0aChwt/WHlmXgn/mUTkR6zN4TprVnwLIz0pB3I6S8oMesUXqV872+Ceyz8lXhOmouwAMc8IruOc8FTvBZSD40Fu+3mm+dVPml+LzU8W1gBAbK2k0b2CMw68Cjxh0o/+V8D4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788674591; c=relaxed/simple;
-	bh=Q2OqRxF07h3GzHgoAkW+d8FdMTnttaOQ5y9/PQKMMNI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AeXyw0ql5ioi9Qh/+hTs+2izQi2vfkLq1RiBPNP5fa3OxBv/yRxeMw0U8pCO3b8pmSlyc/7Vf142au3VEOlG+6HpvNTOynKEC1LTreyj1BdsDX1LRUoXg5ZUeQ/CajXV+6PIb2zgnUI4blQyZ1+4HKQ3uQzHUcZ6O2f/S1cFqTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F8FnRJRc; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62A563546C2;
+	Sun,  6 Sep 2026 06:04:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788674666; cv=fail; b=AXp20ycBPJ1kyYKfTErb1QOp2Y8V8vyWfWK+4Ewmwae2X2XPt5PYktbTN9UNiBnhYSieB0SmE9eisLnh3BF2/WWyZeyx1L68/INVVvcdktPMU8k39RbE2GjCuzl0wTJRFveowepJIuHKOgldzuQ8wnmp7DK7orB7oMI6T4kgEDk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788674666; c=relaxed/simple;
+	bh=VhWrkoU0WgCRAOWbeYWWcc2PPUlyEMp0lDogUSIUT2A=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=o8RfRqVH+cFrbRNo9GupeyUxsCKm0i3Db8ZyWuI5vjD5FD5dedHGXPEqI2/r64y74q6iJjKnijz5Y/4qFcPY1U7KcDUF8UzvptZ69SuquYJsa+QwkiLRNJg71lcqYRgUwE50v8EVDnoU8uZtzfEWrghAok0KLcurJyrwk2cAVBE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=nSgBaGyy; arc=fail smtp.client-ip=52.101.57.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F8FnRJRc"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49b0eab380eso21315615e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 23:03:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788674588; x=1789279388; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NG+h0fEWkShkE2dq/JvgIwncxcSUVIaRrf1Kfa8GBLU=;
-        b=F8FnRJRcBSAZ0QO6Gx3J1dy8RUY4FbExNXGsiBsmz7K1eSayhjBNQH+0mTrqV8eiX1
-         1xTNIhs8gUwZzwy9+cheS6f3kiscxdTxGLXcuL3MEU3q5sVFWtpoAz0ZYJ+0C44X8slM
-         scLJ8ExlL8r049KOaAUvqRPH9aZ6y45TH/2MCUqGdQlMtrP4zlKYWDmCA6yPGQu0MTwg
-         V3Rww/QnAXOIfV+mgelQ7Sja15Gn/7h6jqhdB8X49Drqi7ZXFVal6bsBEeYvJIFP6Ees
-         nHgoibapdnks5pymHLh2e2oMFJGwcmPNw5LzLNzmPkDz9+IdtkJHq5tADHw45yXD1zar
-         MI7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788674588; x=1789279388;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NG+h0fEWkShkE2dq/JvgIwncxcSUVIaRrf1Kfa8GBLU=;
-        b=BiZFBTEtTbEByGhzjTe2bZEHxwAMzqXGQCMjrhq6hCgukkoz76NXbcFBYehkbKsxt9
-         TphPTHufIUYig21ZPyqHwPCKS6MUpnDFocSbAxbdnoWap6wyy6dyP6hrtlo2J7qEETfa
-         HzVxWDc259OQVz8LuP7PDcC1tS7gp7xTBu/yFIhtK+SFYo+9A2nN6TvizyNSVYfYJj6Q
-         ws0GXjKgFqDKkqxThueVIg6SUkm5NX02kDCbm9QWPoewkh81/Eg/Er+YMFTdNNgWOiy4
-         qiE36lWr36FDFridUSEcrXXGYkX7XpfK+qW0ndI7pLtDuNvBWmG7PpTR1HmYyW2M9/kp
-         +sJw==
-X-Forwarded-Encrypted: i=1; AKwUvBwP3GYEDNpFo5970IOqSjzL52BKWQMXM+9gP7j11NQN+tVyYNNznyVCDwIYPLndA+BH6tUPB96uly7Ze40=@vger.kernel.org
-X-Gm-Message-State: AFuF++lmC8NC8cAEmGQLX80TV5gZ2Mm37qByMUtXft31iAoOn11LtX35
-	R9OXmtZ1pjjOVLei3PsFcO48ojhCSiY4dm89+Kqm6g3uH7TJIwtlFEo=
-X-Gm-Gg: AYBFou0VYpTQdHmq9o5ytbOWx44SeS13azMkI668SvOoG8OZ4+rGlL+f65AKj6QEVY8
-	V8w8jtxpTlrpaiIf3Nn25KBSa8sE+YwzrwESklcFZNSNCuyWDyj+bkOE5gYcl6nlsA2ew9233md
-	0hv28pyObjPSiK97+8YEKX9OJPGeLIx++jKEbZKrIgvTzcnVIzvfcsSW6HONLsfglnIWpC3JkiP
-	DF6bD+QPgfrN88ZTAkLhTz0ix5xjh8BgDuQzGwHs0noL2ThVOdJXJwtU4AF0SKtGYOPA85++L15
-	+9/LX2CRGJ6UfJme2g9boz0Cs5005SXX+4hakhktO9FVE9ilViyEARIRojg+58R8wOCrBwrMC9X
-	xw9DrPQKurCGplqcYwFo/EOmXL7p0v7sqDqlgpj4tqq5IY8ILukJtgEcN/PCYYyiiIodhXIb6Qc
-	XMZ7fwRwRT09XIF3kbmScPn2GibhYHWoAXCgrMoaG0HbiqNIUp/Gg=
-X-Received: by 2002:a05:600c:1d07:b0:49c:f13e:e4d with SMTP id 5b1f17b1804b1-49cf86f4fe4mr138838165e9.10.1788674588092;
-        Sat, 05 Sep 2026 23:03:08 -0700 (PDT)
-Received: from fedora ([46.8.219.5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5f912esm298147805e9.4.2026.09.05.23.03.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 23:03:07 -0700 (PDT)
-From: Vitaliy Sochnev <sochnev.v.74@gmail.com>
-To: Lorenzo Bianconi <lorenzo@kernel.org>,
-	netdev@vger.kernel.org
-Cc: upstream@airoha.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Vitaliy Sochnev <sochnev.v.74@gmail.com>
-Subject: Re: net: airoha: RX rings below 32 descriptors let hw DMA past the ring
-Date: Sun,  6 Sep 2026 09:02:49 +0100
-Message-ID: <20260906080249.944732-1-sochnev.v.74@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260906063750.719445-1-sochnev.v.74@gmail.com>
-References: <cover.1788286284.git.sochnev.v.74@gmail.com> <20260906063750.719445-1-sochnev.v.74@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="nSgBaGyy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FGzSlJzEydYuc9M9bi+YEIaJx1vTRTzuwRWRSHB/0bdnF7bWRKShCo6ult+jqiyKKI7PBygfcEdGIJcmXGMRnYFpL3Jt+TT7TnKl/uqBkkFPcr+zW29UzvJmHJ+HKJwOMnAH0Cmh3MMHBUSa5TOitStHEItdUC+jNebjSOID2aSp3MRzeOrqs9rVH/DqvBNmozl8NF+UJ971KpDX5t3WvCUKSLKKtHBLLE6TSfm/85RWUT44SfZxFGmd6nkGQDz0eSyQI5G2YvoAiTuKjeesOXdmKKWrSiudoelmGrVLA+Y2UN9EOe040ZzR1vrTYvZFQ8U+5ZSREahjGspenyFbPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5iKkf1F6RCWopq5vaOaERef8DnfucqxIgEnbKd7Pv2A=;
+ b=sJMrdZNyAgxd5dcYAHbX2YGM8brUuL3TFI4UcaV569Hxi2QT9pIFfBbQohCK4fVSg846iMub5FJxT5z2NjC3v4j7EyuGyVx/wMsovaMRS848aez898FtRnDpW33ufzFF2IoJO/jstvSsczKUw0bn5ziWYNu5MNH4E7o/EElN/i/wi2Sh8m6kzo1/wssfoydeOd9oXcg3WO6S3im7KJ12Jy6lxHsi22AtSVDeLqM+Jo7a6R7CK+kHmZHT8U3lNxFgoLDGhL6+wdxkD0vyTUW+OqZAXsTNLRdBRa4sWRqmAN0UCypPDPgGDLVeD8uD9Fl3jUT1yQQwe32M5NqJ6ly9Gg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.233) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5iKkf1F6RCWopq5vaOaERef8DnfucqxIgEnbKd7Pv2A=;
+ b=nSgBaGyyN8OZEWhVeDR53FRSCMTMx/7TOgs/0tGP+zw+Dvb8lt3TDKSkEntFiDxNPFCXcqFVoPIFtdmI01e5kwY+u7bU8sHdgFcROExPmKKZeOSEPPxWP+TkJSZgYNAwmCZeF1yzYQnJPQlFLCASd2HkwRMns9t2M02izzIJu8wHYm5pIUeJ+NeZSGsz9WJyF3k9PU0FGx9Sh03tLOLEK7udkmE/hgOS8deeUsEvf/v0nQSINCGBor/+PfaB69oWYJ7hWnrW5z3BdgxxFfK1EOaIij7EiBQFRwDwPPpwo2HUEMKJlH3E4Qe79stitm+xV+hXTC9i9YFbPkOQrja1tw==
+Received: from SJ0PR03CA0027.namprd03.prod.outlook.com (2603:10b6:a03:33a::32)
+ by IA1PR12MB6626.namprd12.prod.outlook.com (2603:10b6:208:3a2::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Sun, 6 Sep
+ 2026 06:04:19 +0000
+Received: from BY1PEPF00026968.namprd05.prod.outlook.com
+ (2603:10b6:a03:33a:cafe::78) by SJ0PR03CA0027.outlook.office365.com
+ (2603:10b6:a03:33a::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Sun, 6
+ Sep 2026 06:04:19 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.233)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.233) by
+ BY1PEPF00026968.mail.protection.outlook.com (10.167.244.152) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Sun, 6 Sep 2026 06:04:19 +0000
+Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
+ (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Sat, 5 Sep
+ 2026 23:04:14 -0700
+Received: from drhqmail203.nvidia.com (10.126.190.182) by
+ drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Sat, 5 Sep 2026 23:04:14 -0700
+Received: from inno-dell.home (10.127.8.11) by mail.nvidia.com
+ (10.126.190.182) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Sat, 5 Sep 2026 23:04:06 -0700
+From: Zhi Wang <zhiw@nvidia.com>
+To: <rust-for-linux@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+CC: <dakr@kernel.org>, <aliceryhl@google.com>, <bhelgaas@google.com>,
+	<kwilczynski@kernel.org>, <ojeda@kernel.org>, <boqun@kernel.org>,
+	<gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+	<a.hindborg@kernel.org>, <tmgross@umich.edu>, <markus.probst@posteo.de>,
+	<cjia@nvidia.com>, <smitra@nvidia.com>, <ankita@nvidia.com>,
+	<aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
+	<kjaju@nvidia.com>, <alkumar@nvidia.com>, <acourbot@nvidia.com>,
+	<jhubbard@nvidia.com>, <zhiwang@kernel.org>, Zhi Wang <zhiw@nvidia.com>
+Subject: [PATCH v10 0/1] Rust PCI capability infrastructure and SR-IOV support
+Date: Sun, 6 Sep 2026 09:04:03 +0300
+Message-ID: <20260906060404.3336193-1-zhiw@nvidia.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF00026968:EE_|IA1PR12MB6626:EE_
+X-MS-Office365-Filtering-Correlation-Id: a90654a1-f30a-4720-01a5-08df0bdcb07f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|7416014|376014|23010399003|1800799024|82310400026|13003099007|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	ktzBSgDQq3DLYYUH6JECOcks3mDSxStdf6+FyXm6oXqaAdGtQWc6HvqEJoRpzPkHwNC9j9W3UyBpIrMUTJ31oOTofmru6t9I+G32Fq0q1bDPLONzAkDyxj0VhYCDd0NugQltXvxo3BEwK+Ro+tYQpqYQgI65MsgyiSY57Eel0UZvMy+tn3ZIXNcHmhECoxWjAtGt5An8iNriv2/4XoOB8AuKEEZVN2rP13W9ni3X/U6au2cSkvr2AYbux72D8gEPU5ksgyN54ao4UwgSJsAZbjeCp2GI70Yy29137tfZyQKa8aXiC9Wb1cpCscWDi8uvv7ErkPtmC5p5QIh91FM9Yy8+O+r+CshNdk1rPVfPAyesMMSoDXH1brGQtE9Jz0mJlYOCZzQJIbjYNqwXV4wUWfW5rjYijz+TM9qmY3u9gvzbslLOs4EiUcYDP7vigtKOuv9mH58VvGnCTMjcfwH9oSRFFXLXiWXL8Xau4wv+6fRqGmSlQwaAL1LMj2D/cN99Qi+5fNPpGceuo0j4u8VDnHFv2SuxsO41Ma6qwn0ze2mCGR9CjKrBHNge4MW9OWstewLLeha00tj2/sAidj754uHWxa8fDd2hUHJiCH84o1M24FbJu+PplwhEPhXLhkTm7UZ0L+JtJpxC7KvuGSn5aeOO1bIKgCvitAOcN//xIYJm/K542+Rw3+w63RDTZr+HI6837qiQESFN8NpbRREnJg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(376014)(23010399003)(1800799024)(82310400026)(13003099007)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ZXE9Vk1oE83SyRVlCKsbxjL5Ewc6ElpxeSHFrJmhLmZQiX6nSLyjG1BFAMlFik5qzxmtEjBFOFynadv/vd4SDpGXbeIAiYjagRGbhskDhAfx5VfApYuBsCzu9ZklVphTUoFdyXpxdFQ6+/s24XnGy7jRz9+oRd5ryjcvMNUKA959L6/7S73nB7Cax/TXQXs7s+FsNU1KkMlM2Tzwu51XijxtsEvdVoiJ6iwdbftZFuIu6OmdvwchE9SuLPWNkn69J3rxtoWZi3Vzt+bqg/cuaMVTMDOOC6iKyMpCddfU8opjdAKex4MvqUlYXw9ZPlmknxwDpNahZ7P140wJpbym943jB7rVoUXSJF8KMrUyiFoDhsPDZyIveykUyUTetG5IalGgn2iHwbbw90eHzvB2G7kApvmiJiM5DpBrLUH8zhijc7/5bfkA5v/5n5wYsmO/
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2026 06:04:19.1429
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a90654a1-f30a-4720-01a5-08df0bdcb07f
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BY1PEPF00026968.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6626
 
-Correction to the platform description, and a stronger dump.
+This is a follow-up to v9 [1].
 
-I wrote that the images "differ only in RX_DSCP_NUM(); no other patches".
-That was about the difference between my own images and is misleading as a
-description of the driver. The tree is OpenWrt's, and it carries an
-out-of-tree HW GRO patch that touches exactly the ring under test:
+The patch adds typed PCIe extended-capability lookup to the Rust PCI
+abstraction and an SR-IOV layout used by the nova-core vGPU boot work.
 
-  AIROHA_RXQ_LRO_EN_MASK = GENMASK(7, 0)   -> rings 0-7, including ring 4
+This series is based on v7.3-rc1. That base provides the existing
+num::casts helpers but not const_as!, so the const narrowing call uses the
+temporary turbofish form discussed during review. It can be converted as
+part of the subsequent const_as! migration before the old helper is
+removed.
 
-For an LRO ring that patch sets buf_size to 16 KiB instead of PAGE_SIZE/2
-and clears RX_RING_SG_EN_MASK, which mainline always sets. Both are
-plausibly relevant to a DMA overrun, so the result needed rechecking with
-that removed.
+Changes since v9:
+- Renamed the internal BAR encoding types to drop the VF-specific prefix
+  and added a TODO to move the common definitions into the PCI core
+  abstraction. (Ilpo, Alexandre)
+- Rebased onto v7.3-rc1.
 
-To be precise about the base: it is 6.18.44 with the airoha RX path
-backported from mainline, including 269389ba5398 ("Set REG_RX_CPU_IDX()
-once in airoha_qdma_fill_rx_queue()") and bbfb1983944f ("Reserve RX
-headroom to avoid skb reallocation"), both in net today. The GRO patch is
-the only out-of-tree piece touching this path.
+[1] https://lore.kernel.org/rust-for-linux/cover.1787830828.git.zhiw@nvidia.com/
 
-Rechecked with its LRO mask zeroed, which restores page order 0,
-buf_size = PAGE_SIZE/2 and RX_RING_SG_EN - confirmed on the board by the
-posted buffer length dropping from 0x3E80 to 0x680. Everything
-reproduces:
+Zhi Wang (1):
+  rust: pci: add extended capability and SR-IOV support
 
-  ring   LRO   panics                        overrun signature
-  16     on    3 (one with no load at all)   present, 560 words
-  16     off   2 (one with no load at all)   present, see below
-  32     on    none                          0 of 768
-  32     off   none, 268 018 frames          0 of 768
-  128    on    none                          0 of 1024
-  128    off   none, 273 921 frames          0 of 1024
+ rust/helpers/pci.c     |   5 +
+ rust/kernel/pci.rs     |   8 ++
+ rust/kernel/pci/cap.rs | 292 +++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 305 insertions(+)
+ create mode 100644 rust/kernel/pci/cap.rs
 
-The clean dump, ring 4 = 16, LRO off, taken while the ring was stalled.
-Descriptor 16 does not exist in a 16-entry ring:
 
-  desc 15 (last real)      desc 16 (past the end)
-  +4  ctrl 0x80000156      +4  ctrl 0xC0000000   DONE|DROP, len 0
-      DONE, len 342        +8  addr 0x00000000   no buffer posted
-  +20 msg1 0x2A5E0000      +16 msg0 0x00008000
-                           +20 msg1 0x2A5E0000
-                           +24 msg2 0x007F000E
-                           +28 msg3 0x0000FFFF
-
-msg0-msg3 are bit-identical to the dump taken with LRO on, so it is the
-same engine either way. addr = 0 explains DROP: hw ran past the posted
-descriptors, found no buffer in the next slot - a slot that is not part of
-the ring - and marked the completion dropped, but wrote the structure
-anyway.
-
-The panic in the ring 4 = 16, LRO off run landed in yet another place:
-
-  nf_conntrack_hash_check_insert+0x480 [nf_conntrack]
-  nf_conntrack_in / nf_hook_slow / __ip_local_out / udp_send_skb
-  Comm: ntpd
-
-Five panics so far, in four distinct places, none of them networking:
-cpufreq's deferred work (__queue_work), the scheduler's load balancer
-(sched_balance_rq), the scheduler's stack-end check (twice), and
-conntrack's hash insert.
-
-Nothing else in the original mail changes.
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.53.0
