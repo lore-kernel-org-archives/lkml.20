@@ -1,68 +1,68 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61B5E41D647
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618D53F20FA
 	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 14:20:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788704463; cv=none; b=XN4lw9AgEz6QLYBkHyBenz8qd6xXGZtKndqqLHneR1sjp9eesMAkoaWvWOi9gV6lRoiFkwbJc+YFgItSaeYRwgczHsfFrrR2sZ989WmmO8UQR5SRmo1p9x8zSmtahsa007oprhNuwNTcseqW8NJCnUaZ0Y8QINOOXMHM2YTMmkk=
+	t=1788704464; cv=none; b=GETD9DUoZ8AI66fCE70cXWd4ZdtxHA2s0amcOU3s+NS0f8V2/DtBRcEp+FMZZcuxMs/zum1I6srsr7GMC1sGdIaJN9jhUZQC2d6xZeCADcvXcOETEuzk26IComieDYy9chNdE8JpwIviwsisAqKbwDB2gwcAIjUZVEe8/cd+HUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788704463; c=relaxed/simple;
-	bh=lZbSOiq6PpWvGtztIT8irq1yq+3657nUu17HzUf8NSs=;
+	s=arc-20240116; t=1788704464; c=relaxed/simple;
+	bh=YIHQ8bdlgjCWtdVge+nC3WQMRQ7b+PI2QP9xU/aHDok=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rlaks5rCb7sMDuu0Gdvv3KRS3jynPbp+78j4z3xzzmErqYd313fbgM87K66E03i7uZXwipZ+hJRdZm09K0LIKMmk67WO0sFUs6HPHxZqK7jmxCKqn9G9k7hUl/egT99BNac2M9Rk+lMNcMmfLSvD0WGNAl7K6uLwcmr9+yXlL9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=MjQnovmr; arc=none smtp.client-ip=209.85.221.51
+	 In-Reply-To:To:Cc; b=HFkcyvmGSizAiYFRAU7PhTM1FIZnA+NHOGZVHRBX8AX6NvDWiRCrblTigjoQzcmWLHeNT6pFPcUpnfXcKQJAkbBJBq8F7Ol83ES4GuT+23jF/AiPHIKsUYLhSD4jMzh8cWrhdO4kn8enBQIY7GnUNzhUDoJ139BeQ7f87Y/IZLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=C0gb06Rd; arc=none smtp.client-ip=209.85.221.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="MjQnovmr"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-4843f205a5bso1449218f8f.1
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="C0gb06Rd"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-485843aeab8so2840434f8f.1
         for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 07:20:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788704456; x=1789309256; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1788704457; x=1789309257; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jFACwW3FzP5DW2PPT2LJDEH+gbA8r2g7VY7yrdZmoeQ=;
-        b=MjQnovmrp0G75fBW51H6iZwOZdXdTC3VA2bvbNY9OsjYH5uvYzb3ABE4P1oAhfpEAX
-         hMvcnuhrHfD08bvkg3+Jm1xeQ9vjo+MWrBcxGrYXBzGUcsN8pSof7dQv9/yjpamkZ00M
-         RVe511hIwV+eiTsLTjURwQomyrBULxMSEjrguM867HRJp4frO0QCSpatKeohrFqanWq3
-         ejpL8AE9Fx95r7tJwQ/w0C8VtBhrnqBza3ULYaGmrCjGJ5SJNcawuY5k4iiRGv6CSBI+
-         PMW2BXHZ0R7ldoDesIJm33H00IhWW1MmqNT9dweIfzvdPaZtLCVUCa22UycNjYN11F7E
-         4UAQ==
+        bh=ofKngm+I/M34aU+twd5ZTUQtVapU3M8PXngwPLd065A=;
+        b=C0gb06RdZhU0/WoACZyAiPQtIyLHZObpSO4sRSANAOB3G8wPlXIoKqZJDTfGWgeLb4
+         cc2sgmM2cLztlE6nElNjXGz115wkf7wZrGCyu/TTo5ABSjHJargc5Nf7IVgSCmYeEt+q
+         E1/5oYwGZlXqnzsXRRTpw5iEjl+RKqjEDcj0GRWz69/R6BvhLiDSiXJAt/Pcmh4hwqgq
+         FHlVYtVV8zGo7N24Q8EZWJhmJJNSLIR5KMGPgzBLVki0320X08MFW0e+ISJMsu+0Js31
+         W/WHJa4An48VM2g+snIUl8jMAvEZ1P92Ucxmurr3lccEAGnnGCQ6p/rqF+tlQ5OQyngm
+         lBwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788704456; x=1789309256;
+        d=1e100.net; s=20251104; t=1788704457; x=1789309257;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jFACwW3FzP5DW2PPT2LJDEH+gbA8r2g7VY7yrdZmoeQ=;
-        b=Z1nL9498tI11VF0JBpJDkqlEGVRmxMXnQRv5aolGcvqtSqEe9fIUz9utieiTxBhwk6
-         KjU8eEjNlcKeyxnFCrTM5RGUqCY7QCnoaXGpGaIP9NCrmnaQq3oITvnlXMNuCaYMBqsV
-         BTV4Vd/VGp84wjST+zGf+a68N8Ko8mUkPBUYswJXREWRWMvg0gunPDI7qkainoHcoGkr
-         BscWo4YXlEKChzAJwy4HhqRjq4WQvLFq2hKWR1dtEM+96FlNh4l5tHs4DB9kXZsN5eVX
-         1JTjWsscWtEiZJBJTkq7zHGsJG3zmztwakYLnOFvqr+WGvHaFAheqOp5KtktVCtLrpW8
-         0eJw==
-X-Forwarded-Encrypted: i=1; AKwUvBw2tbAj0JPE7TkrayACDbVENRfGPK3NWZ/0nDB1XEJaDYA9drfcOfRL4x2JerTynSpxONrHx/jsVPdMr5Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++lp8e7EB6RmY2MGCIV5kdueZ98NQMF7wfCUo+1NsqrjGFXtwKgF
-	S1btQXe7d0viy6O7WOzAOu+mM9Nwr66PATyQCRJdr4yE0QVpAHBPsAlxCWDnQc1UCh8=
-X-Gm-Gg: AYBFou11CbEfByEiEWkI5O/dFRXakn4/SwdkbfMussXx2oEJ7vGsLF5+m2uF1RAv057
-	Spmq6hqsIQHnSmv6edhhssJqcRbLKk/SVNEbMQiElcdNljOqye4lMAiDud9rmqOtdxF6U3fMK/E
-	TvYeS7av1j3vaP+YQDewfiWTIkXElRKwSZnv3dfnv3Qd73Pe6A8b3BytKBcx3LxBoWR/dr0FH6c
-	6yBJAEIjBwSZ3sKsAKdrFDq01jYgj19DPkuGhUgHJq0Plcm28/KQkD0z725QZa5+93HmcaP4qsn
-	ff/sP6v5TEemCDfTTWHK1pnRf+S7XivAjWLIUazuTedsgDaFfgHe2IoMWBc00COTuLnDVhLLX4V
-	0/4nh002OLl6/btZh++8WWj3u9uM/UMc28Vs0dw7gSqdKC83ojWaWgGop7Ly8cDcw0sGAsw5Ywl
-	b8mpWvjzwkZ3Im5pypcvxxZ0nytqy+Sv9uESzKaZlEddxnPO3qGro/fNsZ0CryZmPVS4hGxg7W
-X-Received: by 2002:a05:6000:608:b0:485:8e4b:3d34 with SMTP id ffacd0b85a97d-4858e4b3ed7mr13628030f8f.5.1788704456216;
-        Sun, 06 Sep 2026 07:20:56 -0700 (PDT)
+        bh=ofKngm+I/M34aU+twd5ZTUQtVapU3M8PXngwPLd065A=;
+        b=bxww2dVHVRUNM9yI7RMDkjKytzMyRPzvXb1l+EMmYEL0DtPtcrKWqBBocA+SUReEVj
+         7NfpBMv0g7XYap6+w5HvdY478OvzFaL1kYtH2eWYbzjiPyy1N76cMXJWVpONKrl85LUi
+         Evw9YRUPHPxQX/WGgeyMXqv4X5yrbCcju9/wmsZ9Q+HdnuKJseYfRFyQEI9FLkFCuyei
+         4SvXWKAyQjkv6lVDXxvm6MgUcRo+8ZugnsoZyqaWKaNWZOXZ/sla0F8KB1s9iJODs5ia
+         zGXcGijSpviapBZVPerITeK1EqesmMlfjb/qHeYfNxzfUB2mRoHVHpCa66UwylARpv+3
+         aFUw==
+X-Forwarded-Encrypted: i=1; AKwUvByeWqAsKoj2LghPwMjgfYJAroPrU4B/GBhMsSBq+Be74hjwp1NvZq5GDZafxMpM45FuwEKPXGGQa+E3VQ8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lbdaOU/Tvz9M4P4C2DmIDA2YS0oSgqUq++ks+/W5g2NghgzSFD
+	p/ChZsEPklYqtViklH1h/3O772m5f6GrL8fh6kyLNsUhvg4a7Bas1lbAVZjX1ejxHoU=
+X-Gm-Gg: AYBFou07LChM2tWppvdyI5h0mf78vdCitJTgFt3Y3le8MRO/Y3PR0i5MC9ZQDWwcUYy
+	t3SNOxkM6XdWSQmE8yim+EVXU90/ITTH88m0vvpStrhHsP+R5L8ZPujCTPt/oDVguwiILTJ7Aou
+	LdcfbIlQWzoc8bP52QuTdDORFd6MZMd9+DlqV8ppdfMK+PwK9yF/oE85hYGmg0GgLiXfYEeWXvx
+	x9TLZbGJob4p8S8L+SgAC8B9TJ0tdC26D7CKPVeboL/ujVUg3MHABzYLLnb5e6uBMYq4dsrfuLS
+	aTnFfZjWfy6/onUJq1bNgK4fGsGDrbqxuqfrizcG8ejwZKYtTekgoniWPZszSCuDNsGfKMnemBi
+	nLe1a4qjPn2Gj1ntCZlALL+vtaSvT/DHdisR8DW7ubGAff7hxhuAOCv0NMJpe1CffmDQ6KjXE1e
+	sRrjE5KOTJ6q+nnozFcXnEMUTWXkUp1L3t86gjCHwXq+T3+VzgIwWpRuCbAdQuMt2u33tgWviW
+X-Received: by 2002:a05:6000:4b11:b0:485:8313:9f47 with SMTP id ffacd0b85a97d-48587055d09mr38014108f8f.10.1788704457227;
+        Sun, 06 Sep 2026 07:20:57 -0700 (PDT)
 Received: from [192.168.0.35] ([109.76.250.151])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883953cfsm18065125f8f.13.2026.09.06.07.20.54
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883953cfsm18065125f8f.13.2026.09.06.07.20.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 07:20:55 -0700 (PDT)
+        Sun, 06 Sep 2026 07:20:56 -0700 (PDT)
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Date: Sun, 06 Sep 2026 15:20:46 +0100
-Subject: [PATCH v6 01/13] dt-bindings: media: qcom,x1e80100-camss: Describe
- iommu entries
+Date: Sun, 06 Sep 2026 15:20:47 +0100
+Subject: [PATCH v6 02/13] dt-bindings: media: qcom,x1e80100-camss: Make
+ vdd-csiphy supplies optional
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260906-x1e-camss-csi2-phy-dtsi-v6-1-067f2ecc4630@linaro.org>
+Message-Id: <20260906-x1e-camss-csi2-phy-dtsi-v6-2-067f2ecc4630@linaro.org>
 References: <20260906-x1e-camss-csi2-phy-dtsi-v6-0-067f2ecc4630@linaro.org>
 In-Reply-To: <20260906-x1e-camss-csi2-phy-dtsi-v6-0-067f2ecc4630@linaro.org>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -83,87 +83,49 @@ To: Bjorn Andersson <andersson@kernel.org>,
  Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- linux-media@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Daniel J Blueman <daniel@quora.org>
+ linux-media@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2799;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=941;
  i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
- bh=lZbSOiq6PpWvGtztIT8irq1yq+3657nUu17HzUf8NSs=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqnXa/wamZ1Jfho1H3YdsWqD5TFhQwQOgNph7Nj
- ikoZt5V0C+JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCap12vwAKCRAicTuzoY3I
- OlFYEACSsDSUl1fw7qhTLdddK4F2CfiwPiXfk10TY/oAR67bJ3HZHkoZWG4QQagnAkm8bilXU/n
- Bnj9OskDS/Em0dzcpLhfUq1J2GxyafTPJ5dnGlcCWtzOCO6ho8xrCMYrZe23XhA4ZIUju58jZLE
- +2Vnw/7MNzxCeoQlWbPUsIVmgVPx0210ABwQ94+6sr7RG0TCFYOeHEjnQb3r8e6JXNwUO/67yGu
- RJzKn2jgCirNh5oEYYjV9D2YV3g08N8xVk7gsHfaHdTISG3TXryokokwIRoVZ1dMprziYQ2K+xL
- +NL0W22TwpxkMC5XeaOzL+TPDYvOx6B2s0j9MXKTmmThVgd6j4eFjcF9NfgfmVoAG8GYl4MGz5o
- /LF2yhG0zs5bZCfLU4w8Ste3HQrWWnmMrczqQQ5J+8ZZY3iP/Oz2gETRKUgV0e0dt/5O40+SGlE
- 2a0bwzZzKDRIxlT4ny8+RjeJ0gX3HADgjS4auY676O1vJzzT+I0HlctABFY+48Jh80S+xgk8itX
- 6j31FpfMevJcRohQ2YTZPenUILhcAC0kmzpbpHXk/+YwWa23cL4T8vHkgMZ9o/6E9WXCzTCtroo
- ZBCcVRGDkN0t47DBpwy2WBekjT8h5wXLZA0D8HodzUReEIq2qQWqXP/r7OSUTTe29UwE+fafgyX
- K+Ej1ZsjkhR7Xyg==
+ bh=YIHQ8bdlgjCWtdVge+nC3WQMRQ7b+PI2QP9xU/aHDok=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqnXbAfxjrBoWUGTROeziaeSPkFbevesbQ2sXpW
+ FJ0+JYOQ5+JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCap12wAAKCRAicTuzoY3I
+ OhuBD/9nXeDi17lPcTvah/9ZsrQ3ZkP3QU54Q26BHxKThpQl67qQCcQzLqvKTbqPHx0ZZNurqym
+ mrC58Xp3zt4T2kcQPsU8nGv1wDkZS/ruXc+tdeyEflFOwF1T6xsAkkUQupTB4cXDJmQUjOBHlgT
+ DJ39P/fWhHqks0WZ4IQanVYYClTHCoL82TlQwupYdl/Ntjr0Pz82qcumxsKQ0UxMPzgBPaFPJ94
+ nrFPq6rodN0gL/0XXfXBHiy2MWOHIy5Gw8apD2AyhlA0jgycQl7Ijsms4h5HIJq51soD097byR7
+ dj2py/LtQTf/0H93qj4iOF0VDYa265q/phR1AdQS4pENHu/uL181/S9slkFbY6TGHdf1VghrSBi
+ lO5D/6dLaUWwUj3qWwl/VUmgQohzZmdMcfPmkt2e29oEoJw22XD211dG10tMQAai3LYLy1UKj5l
+ rwKtjubjefXrT1Py2Z2nIeARFL9MRTGBxsNyea082ig64Z17UnpBIwUHH3aXGpLx3FCtDIIROG7
+ +jJbW8vKiixo8GbwlImGovu2tIpglUF0AuSjGlQzD8uduh2V0XNj2PA+ui0iz/aGlm0hl39FEWC
+ rjgGSKxbasmJ4IokxtBJ6e9AxNaRhkhnfFqGY6pdz3iFWsai/yCLybTzx4HMZ8FH7brqpKRwyx7
+ 5UDYq3jK+xrINvg==
 X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-The original iommus list included entries for ICP and BPS/IPE S1
-contexts. Only the five S1 HLOS stream IDs are required by the CAMSS
-ISP hardware: IFE/IFE_LITE read and write, SFE read and write, and
-CDM IFE. The remaining entries serve other hardware blocks which will
-be described in their own nodes as support is added.
+The vdd-csiphy supplies power the CSIPHY blocks. CSIPHYs may be
+described as standalone phy nodes carrying their own supplies, in which
+case the CAMSS node has none. Make the supplies optional; existing DTS
+remain valid.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Tested-by: Daniel J Blueman <daniel@quora.org> # Lenovo Slim 7x X1E80100
 Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
- .../bindings/media/qcom,x1e80100-camss.yaml        | 26 ++++++++++++++++------
- 1 file changed, 19 insertions(+), 7 deletions(-)
+ Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml | 2 --
+ 1 file changed, 2 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml b/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
-index 2d1662ef522b7..126400772d028 100644
+index 126400772d028..57a838fe2d229 100644
 --- a/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
 +++ b/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
-@@ -104,7 +104,22 @@ properties:
-       - const: sf_icp_mnoc
+@@ -186,8 +186,6 @@ required:
+   - iommus
+   - power-domains
+   - power-domain-names
+-  - vdd-csiphy-0p8-supply
+-  - vdd-csiphy-1p2-supply
+   - ports
  
-   iommus:
--    maxItems: 8
-+    oneOf:
-+      - items:
-+          - description: S1 HLOS IFE and IFE_LITE non-protected read
-+          - description: S1 HLOS IFE and IFE_LITE non-protected write
-+          - description: S1 HLOS SFE non-protected read
-+          - description: S1 HLOS SFE non-protected write
-+          - description: S1 HLOS CDM IFE non-protected
-+          - description: Legacy slot 0 - do not use
-+          - description: Legacy slot 1 - do not use
-+          - description: Legacy slot 2 - do not use
-+      - items:
-+          - description: S1 HLOS IFE and IFE_LITE non-protected read
-+          - description: S1 HLOS IFE and IFE_LITE non-protected write
-+          - description: S1 HLOS SFE non-protected read
-+          - description: S1 HLOS SFE non-protected write
-+          - description: S1 HLOS CDM IFE non-protected
- 
-   power-domains:
-     items:
-@@ -332,13 +347,10 @@ examples:
-                                  "sf_icp_mnoc";
- 
-             iommus = <&apps_smmu 0x800 0x60>,
-+                     <&apps_smmu 0x820 0x60>,
-+                     <&apps_smmu 0x840 0x60>,
-                      <&apps_smmu 0x860 0x60>,
--                     <&apps_smmu 0x1800 0x60>,
--                     <&apps_smmu 0x1860 0x60>,
--                     <&apps_smmu 0x18e0 0x00>,
--                     <&apps_smmu 0x1980 0x20>,
--                     <&apps_smmu 0x1900 0x00>,
--                     <&apps_smmu 0x19a0 0x20>;
-+                     <&apps_smmu 0x18a0 0x0>;
- 
-             power-domains = <&camcc CAM_CC_IFE_0_GDSC>,
-                             <&camcc CAM_CC_IFE_1_GDSC>,
+ additionalProperties: false
 
 -- 
 2.55.0
