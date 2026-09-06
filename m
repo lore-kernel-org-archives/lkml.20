@@ -1,231 +1,332 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A19031960B
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 10:16:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CCE918DB2A
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 10:16:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788689787; cv=none; b=gIBMd+OsUumWWsdl8djOWQbV1fcwmPYhG+YBgT5SgytpXtt+WvUrhaKsKkPZTxlvrZmTcrm2adFwNcG87ucei03fjlyrfV9gHV65jLLHwx1UYTaUXqcsyY9gQAw5GvoHuo36FEziz0zPNqpuFw3+KfwwaF2qEAGqffOchxDaLKA=
+	t=1788689804; cv=none; b=UKj/VU7Ktf7xbY30e0NILELHdMB23b16f3P2yUlH2wbGarj280lKFrn/8cuDkXpdZacsEb3ntNIKYAN7PEmVVrLKMNdhoLCel2T84lUJPdk2OTOQlVG15UX3vF/M2Bko9yWJIO9GdvsZE5qpsTcBmG60hFTTfeCCpMDtoN1oihQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788689787; c=relaxed/simple;
-	bh=DSx8wyjJ2QOqaYJeHeVitsXt6StYVQcmczlAWA1NmQ8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=e4plG//u58+SN/BOQKoQZQxzbh80pe2QlYZcI0lIItnHRbzq+RcHW9ji/CfqXQyGwqpJ6C7FKV93ugo2T2O5ctk+KqZk6MnszBW///QjYRN3Mtf0mn0HRifvKh22puYuCO4BdqHtgLpoKMKegjRg6L8BnxeU4CMY0mC+ZVLo9G0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jw7nCM04; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788689804; c=relaxed/simple;
+	bh=An0f2FVXLAxnf7Z3EJYZ9Ctc6tXr8eBZ+t+GetBjUn4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bI8eKGaRPHuFQ7LfYIGtQaVObCW30NcAyJdNrOi/suVjxaW7/Ly7sXvLdz6uYWUWGKlRWoif2k+qoCZANCoSRZOtSvTRBbRvWM3oNtJucmlOOY/aXyQgnLG+h6059YSzhda8SDa5n4SjO74hfqOMjxpiHyabMm+TxkkCltSC4h4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KYH/Lv16; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GExQVpdM; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jw7nCM04"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-495590dde14so35185345e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 03:16:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KYH/Lv16";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GExQVpdM"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6865tJuB256330
+	for <linux-kernel@vger.kernel.org>; Sun, 6 Sep 2026 10:16:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=RAES5tpI2Om0LxX7UY7ndKBI
+	WV90CK/isHyIRSM50fQ=; b=KYH/Lv16SOyT1IcTpvV29LqYbunK9yIig9Smgia+
+	SUg7ZYuNtRG8t0eVEavLC27+D4EhX5NcXEFxe2SmJyxlzl5mPLPWT7GptRx1aRQq
+	za9+HpkWWW/jyKwRMCVm8s5UD+Rbd5MXxwUxN6vHC+cQNEMUXq1UKm4e61hJxUFv
+	p53Lwie5648DnYlU/qjG6jM3udzOpqMrw06fJhT9LA3j2gTHIAzyANgTv8a8PHaT
+	PMKz1+zed35eFz1IjuF8g9Xl3bDIkHZLGyiR7uAmDWRRaX64YlwWSZUZjsqNs/xw
+	Ingci2jlnKzWUOd7kU2v8uopF4mTs5gpop/ZyISxpXWfVg==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gg8eq3s2d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 10:16:41 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92ec3146553so641894785a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 03:16:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788689784; x=1789294584; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1788689801; x=1789294601; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Ojcatem/E1McFU2tn3fpwcM30WG5bWRqceZT/nBgCPQ=;
-        b=jw7nCM04vUlfyLZcmWVrcx3B1+3ihoRKhjS/rTEesM8u7cmggjj1+cimiLG24yxZ6w
-         qwtKXyHX64jE8MKYg6T+wSyw5pTtxRgGjDF1/8cT8O2S1YJhv4MOIqvSdpVYtuUBGic6
-         ex71GxWuQ67a5oGJJ/MhKJRspo9R2CxVJkUwgxUTmxTlPp9n/F/ve63NnxDzul3nBx5B
-         OJEfKeIvH0VAnaP2kUuN+VSoqd+v7aLyT3LDuu1LK7H4C9kYn2Y9upr2grAFzlGBHh/p
-         0/uaciRiE/s1du1AW8qt7k7kqNBZrL51pk0ZEwZ99eoTQf9ofT03jHq4xCVpxdwVFZRw
-         efCQ==
+        bh=RAES5tpI2Om0LxX7UY7ndKBIWV90CK/isHyIRSM50fQ=;
+        b=GExQVpdMMMbD+0kbhdZvOPlaHT71qFnL2ljDUPmmusZ5LHbC56VyC8ZhIclJvOxYFQ
+         vAjeQfSSxGls0eViTQC5XKPVk+VHchyBug1srL+cG9Xle75NynkjOM7TO4D7jQ0CqZTX
+         N+6QXc+AK5mNlSLv529Jkwx15Os6+1LoXDFR68R5rlwUZE+fjuAy4bjAwQjQfjsTHTLJ
+         uJcoaeRVi+dwXOsLO0pCwG0f5oMhYhnN9CZqeLgSwoTPhZD04aYF6g41yhgk4vZB1aUO
+         y0+Ef4UkcJv7TnkzvwPwY4wc2kjjPna3u/0JCd5DZmElk3allA87vhxRy8qNRWO8YlRW
+         gFJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788689784; x=1789294584;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788689801; x=1789294601;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ojcatem/E1McFU2tn3fpwcM30WG5bWRqceZT/nBgCPQ=;
-        b=h5fG4U2nAghzgQLs/XazKrDptP4xnw8F+bEgv5rCgobr9I/ZrtOAvMRvY/L02dDtGN
-         sFSN63NLLHZA2gqG351iAbq51QChFz70Hky33VJqXbpc6s8B4vZ5QC9yIIvB9nkQx9UM
-         PrJcQFn+sxca2Bs/NbusvdGXKowFMe7vvTFAfpASY/RKAp0rxcNh/Ig931ciMN275xl1
-         UaFurrnphbUspUVeUyUkuQBi/VtoAUNMpu7zu4Wi4MDARkWkX5pHFiwc3hajmD34Em4a
-         DuEROOSjG/iD4dbuBNBypZnCTdjyrR56PEyfHY5//+UWnltWI6vAucQ1LyytHtBwlRrd
-         UREw==
-X-Forwarded-Encrypted: i=1; AKwUvByjV4vYIcw4yq6UHhBmUTjIHEWhJd8FOR6Q8oyNrrnevLjFdu+TCjRudp4pCM30CT2s8b3M/cUa/347KLM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nU9ROdqc8imva1QhLbnFqJiycEF2veCKEvfuu1lFXVEf+JuDOu
-	aWzQlLbQnpc/6PZik69fX4xn09tpiYM630XaYoyBelOH+nphneXEmZRc
-X-Gm-Gg: AYBFou1JHf5urX3jpwKxfS50MdSdH3FuvbMdAFgYWFIh+cfwM+PKiRazIXi/2JtrE4t
-	YVntaUTHe69/xJSx4jDDPgGOI/xJ8+4kkaJ93tkZiUDKYAwawkJ8bgdkEU40DS3G1Pjgp1fLvrj
-	FEkTN4nTo//Q2wqaIWaN+MrV0sLzWxPq2qdW8SWGa/NcNV7/q2TC1eCHD7ODOdAuJpAdU6Eva5h
-	K3cwMozORqzslv8qHWLCsRVWtWdk4JYl5alrAih0jVhiRMs+Tg59IStmI+yQR/ylwAX0ZTVYhSq
-	ug1X9IrBmHX1YDnZjAb034+cPeKMugKZt4NCeGTv+e2r5oSIQJ4ZeQ0NWiFRNhUNqAm8tkFF3gu
-	0I/wpXZrH7K9AFVj3VSt6t0hIT6f8N0uIltoIdESA1K7Q4g0k822z0WXegm4CilBNyMjirOOFbY
-	Fkwjq6Mh+A/mP5hTp04SsgzH95OhqRF6DLxHed5DHYl4Js6VDkLIlamVSy+PvZHignFOnJlGC0T
-	TLozOWpBfwNhDgwwKHM6qJKXA==
-X-Received: by 2002:a05:600c:3b11:b0:49c:f7c4:dc54 with SMTP id 5b1f17b1804b1-49cf82512b9mr288796435e9.14.1788689784162;
-        Sun, 06 Sep 2026 03:16:24 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d03703f13sm57044775e9.0.2026.09.06.03.16.23
+        bh=RAES5tpI2Om0LxX7UY7ndKBIWV90CK/isHyIRSM50fQ=;
+        b=ipN30Zi98BGOB2pF53zE92YBJp0SaOKYuIBFB7Q1evXrF54y3KuZ+T/n84N3F7GM3o
+         6A/ZC9NOruw99fzvTS6Q8P3HK0+HFzrCtxM/QRWD5eOYbWlqDXw7lBw/3UhOfGro4blM
+         5HwVdeAoQDa+K0X7mJIBUIlk2RgXCpkUbOpjTCEFy3e+nE3D3/v8irXXEcZD0lonGVqt
+         xCYdQfcJq3+85iDy7aWOwGum7PAkUWiWyItLu1JnU7yFzmnVSSXpAk4y12lRqp/bDf2M
+         EHJOXCGPLlcR7utUeXeqzla+r+Ki/2jRASzHYRxRy2rRIRf8wY+b14Iwq07bbpnX9NFk
+         OGVg==
+X-Forwarded-Encrypted: i=1; AKwUvByKQAm+wkNuJqDDDLf9sBzYz9dTdeCREuTTB61eV7WhBGIobDC/zZhaatESQsZjCmLCfPPybj2ZO4X7kLM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mIjUJyYxKWV6nKQBs+9P3IwygA+gb9jWMBGOIzFuY8UOEqRsN4
+	xm1ArHk/ol9rdQjRdbybWXmAPxGfxb8dFEmXPWfthjokSFD3pNVFHIYibSZgn3vaU6PQ+K9MmBU
+	eLyS5SMoiFzVmuNFwMchrSzmUBTWmVHoTbvhHCROtr1pQvfB2MHzlKXBTomi+P/7O0lg=
+X-Gm-Gg: AYBFou1hdeDOAwgZne0TWSi/hrkovejzB3hld2E3fjx+SVuq7+Hwt3twbWEy3T43Gyq
+	ZgjbFtyE2HDAXqjKK7BpBk//2HgaGHEDI9XXViXoAFfFWUVUxRqlRI85RCdEqTg60N6qcKrmMqu
+	5v5Xf/GdT/xYG8sbb1c2pXUELnXdgSU+yKBP4x5rfYOsk5NQ7iMVXrvwKSIOmLvYJQsRDYQyv+W
+	6VBkOyNDjmxRzh8sOPmIPPFA6Z+hz1qPktGms+v1nI80G9/63eoZaas5T4ZgGRL2EiCjsNvwfEl
+	9k49/W/MVr02PUiQXgdgjADLOoToW5aDJ5K7PJ0KEkeG4DgbZ/8MSbhDPrOVD2IqSOHKR6xc0GM
+	p5YWKCPEOVao8IA==
+X-Received: by 2002:a05:620a:294c:b0:930:f723:35f5 with SMTP id af79cd13be357-939805f1809mr1625301185a.20.1788689801361;
+        Sun, 06 Sep 2026 03:16:41 -0700 (PDT)
+X-Received: by 2002:a05:620a:294c:b0:930:f723:35f5 with SMTP id af79cd13be357-939805f1809mr1625296685a.20.1788689800828;
+        Sun, 06 Sep 2026 03:16:40 -0700 (PDT)
+Received: from localhost ([188.216.77.92])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce58da3acsm673032615e9.0.2026.09.06.03.16.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 03:16:23 -0700 (PDT)
-Date: Sun, 6 Sep 2026 11:16:18 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Ridong Chen <ridong.chen@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt
- <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, Muchun
- Song <muchun.song@linux.dev>, Kairui Song <kasong@tencent.com>, Qi Zheng
- <qi.zheng@linux.dev>, Barry Song <baohua@kernel.org>, Axel Rasmussen
- <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu
- <weixugc@google.com>, David Hildenbrand <david@kernel.org>, Lorenzo Stoakes
- <ljs@kernel.org>, Chris Down <chris@chrisdown.name>, Tejun Heo
- <tj@kernel.org>, Yu Zhao <yuzhao@google.com>, "open list:CONTROL GROUP -
- MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, "open
- list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
- <linux-mm@kvack.org>, linux-kernel@vger.kernel.org, Ridong Chen
- <chenridong@xiaomi.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] mm/page_counter: avoid integer overflow in
- effective_protection()
-Message-ID: <20260906111618.644362b3@pumpkin>
-In-Reply-To: <f65d4985-5e21-4e29-b5f4-dcff0fa479ab@linux.dev>
-References: <20260903031952.1120321-1-ridong.chen@linux.dev>
-	<20260903031952.1120321-2-ridong.chen@linux.dev>
-	<20260904093743.23cde26b@pumpkin>
-	<f65d4985-5e21-4e29-b5f4-dcff0fa479ab@linux.dev>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        Sun, 06 Sep 2026 03:16:39 -0700 (PDT)
+Date: Sun, 6 Sep 2026 12:16:39 +0200
+From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+To: Ding Hui <dinghui1111@163.com>
+Cc: andrew@lunn.ch, Maxime Chevallier <maxime.chevallier@bootlin.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>,
+        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+        Alexandre Torgue <alexandre.torgue@foss.st.com>,
+        "open list:STMMAC ETHERNET DRIVER" <netdev@vger.kernel.org>,
+        "moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
+        "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
+        open list <linux-kernel@vger.kernel.org>, dinghui@lixiang.com,
+        xiasanbo@lixiang.com, yangchen11@lixiang.com, liuxuanjun@lixiang.com
+Subject: Re: [PATCH net-next v2] net: stmmac: fix error path cleanup in DMA
+ descriptor ring allocation
+Message-ID: <ap09hwoKJjqQWIrB@lore-desk>
+References: <20260905154654.1725313-1-dinghui1111@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xWjH8VhHG9dCfn2h"
+Content-Disposition: inline
+In-Reply-To: <20260905154654.1725313-1-dinghui1111@163.com>
+X-Authority-Analysis: v=2.4 cv=F61nsKhN c=1 sm=1 tr=0 ts=6a9d3d8a cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=WpTaRW6qxYHRGzLzQsVYzg==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=FvjeeQ-HAAAA:8
+ a=OGClekyxBy5Cn5ele3gA:9 a=CjuIK1q_8ugA:10 a=pK0oTnKYjgWuoMMSC_sA:9
+ a=bTQJ7kPSJx9SKPbeHEYW:22 a=Xg4jrX4_cAy-VDzvcMla:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA2MDExMiBTYWx0ZWRfX+VPiwYcIm+76
+ /buwUMD+K0u88BzlYNPSSjKISMJDYaQ0fZ1mqsPdBnY2Jucsn7y4SZk0IxtXJa1OJPY5UhUC5et
+ IxoE4/sIaiLKVumxJXBoiNtBGoEP0lw=
+X-Proofpoint-ORIG-GUID: skXtQqq40wgjRV0M1SoxH8M2idSS5ZCq
+X-Proofpoint-GUID: skXtQqq40wgjRV0M1SoxH8M2idSS5ZCq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA2MDExMiBTYWx0ZWRfXzOr9BjUP1VbX
+ dG+8fcc4RGbPYtPO3fVK6rcrEest6/qhT9uvAwFSBSIuEv7m2GM2FZ0GNMkghQb7CQq6ZwdayGl
+ WSwSt34YIW1MoonXEJNmMQMY53ecQ7u0ifRfEcQhsVH2zEJUYP8wTt7XdpYwb485Ph5jWAp2h23
+ bPaSZxqDLuR8u5+/5eLT2O/JG7fFKGC80P6Hf4KEm6fu3huhJPgVFA4ObyfEEb9E5kRS1kIE6IH
+ ac4Dtb5s3kVcB2PwQOuoM/Sg33KbYLZcQF7HUDkEEYWShxdCi6WikzNHp3AvAJG0Gm6eXLllvm2
+ M2I7e5uwKVlkDEvglBiVu9j/7xI1yaQcjqbqzAwHIoyKENPfHXP8VzzYzPa1s3MZu72di1XqA5T
+ Lj5yB+8lq4xLebysDNNuXtF/rfRwUdhbjp+g8nz+xAWERQsRd0TYnwA1mamIS+3ciAW+l/ETBLb
+ 1xYsiMGfGa6rRWrR+/A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-05_08,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 priorityscore=1501 phishscore=0
+ impostorscore=0 bulkscore=0 suspectscore=0 clxscore=1015 malwarescore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609060112
 
-On Sun, 6 Sep 2026 09:11:24 +0800
-Ridong Chen <ridong.chen@linux.dev> wrote:
+--xWjH8VhHG9dCfn2h
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> On 9/4/2026 4:37 PM, David Laight wrote:
-> > On Thu,  3 Sep 2026 11:19:51 +0800
-> > Ridong Chen <ridong.chen@linux.dev> wrote:
-> >   
-> >> From: Ridong Chen <chenridong@xiaomi.com>
-> >>
-> >> effective_protection() scales a parent's protection by a ratio of page
-> >> counts, e.g. for recursive protection:
-> >>
-> >> 	(parent_effective - siblings_protected) * (usage - protected)
-> >> 		/ (parent_usage - siblings_protected)
-> >>
-> >> The multiply is done at unsigned long width before dividing. On systems
-> >> with >= 16TB RAM the product can exceed 2^64 and wrap, giving a bogus
-> >> protection value and silently breaking memory.min/low enforcement.
-> >>
-> >> Use mul_u64_u64_div_u64() to multiply in a 128-bit intermediate. Because
-> >> usage and parent_usage are not read atomically (a child is charged
-> >> before its parent), usage - protected can briefly exceed the divisor,
-> >> making the quotient overflow 64 bits and trap (#DE on x86). Cap it so
-> >> the ratio stays <= 1.
-> >>
-> >> Reported by the sashiko review tool [1].
-> >>
-> >> [1] https://sashiko.dev/#/patchset/20260826133054.88529-1-ridong.chen@linux.dev?part=1
-> >>
-> >> Fixes: bc50bcc6e00b ("mm: memcontrol: clean up and document effective low/min calculations")
-> >> Fixes: 8a931f801340 ("mm: memcontrol: recursive memory.low protection")
-> >> Cc: stable@vger.kernel.org
-> >> Assisted-by: Claude:claude-opus-4-8
-> >> Reviewed-by: Barry Song <baohua@kernel.org>
-> >> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> >> ---
-> >>   mm/page_counter.c | 19 +++++++++++++------
-> >>   1 file changed, 13 insertions(+), 6 deletions(-)
-> >>
-> >> diff --git a/mm/page_counter.c b/mm/page_counter.c
-> >> index 661e0f2a5127..e8bd512069c5 100644
-> >> --- a/mm/page_counter.c
-> >> +++ b/mm/page_counter.c
-> >> @@ -8,6 +8,7 @@
-> >>   #include <linux/page_counter.h>
-> >>   #include <linux/atomic.h>
-> >>   #include <linux/kernel.h>
-> >> +#include <linux/math64.h>
-> >>   #include <linux/string.h>
-> >>   #include <linux/sched.h>
-> >>   #include <linux/bug.h>
-> >> @@ -356,7 +357,8 @@ static unsigned long effective_protection(unsigned long usage,
-> >>   	 * otherwise get a smaller chunk than what they claimed.
-> >>   	 */
-> >>   	if (siblings_protected > parent_effective)
-> >> -		return protected * parent_effective / siblings_protected;
-> >> +		return mul_u64_u64_div_u64(protected, parent_effective,
-> >> +					   siblings_protected);  
-> > 
-> > On 32bit it is only necessary to use a 64bit intermediary.
-> > mul_u64_u64_div_u64() will drop back to the (probably faster) 64 by 64
-> > divide (and then maybe to a 64 by 32 one).
-> > But there is a lot of extra code before that happens.
-> >   
-> 
-> Hi David,
-> 
-> Thank you for your review.
-> 
-> Do you want me to split this for 32-bit, or is keeping the single
-> mul_u64_u64_div_u64() call for readability fine with you?
+> From: Ding Hui <dinghui@lixiang.com>
 
-Maybe I'll look at wrapping mul_u64_add_u64_div_u64() with something that
-checks statically_true(((a) | (b) | (c) | (d)) < 1ull << 32).
+Hi Ding Hui,
 
-Probably neater than the conditional here.
+just a couple of nits inline.
 
-> 
-> >>   
-> >>   	/*
-> >>   	 * Ok, utilized protection of all children is within what the
-> >> @@ -397,13 +399,18 @@ static unsigned long effective_protection(unsigned long usage,
-> >>   	if (parent_effective > siblings_protected &&
-> >>   	    parent_usage > siblings_protected &&
-> >>   	    usage > protected) {
-> >> -		unsigned long unclaimed;
-> >> +		unsigned long unclaimed = parent_effective - siblings_protected;
-> >> +		unsigned long unprotected = usage - protected;
-> >> +		unsigned long parent_unprotected = parent_usage - siblings_protected;
-> >>   
-> >> -		unclaimed = parent_effective - siblings_protected;
-> >> -		unclaimed *= usage - protected;
-> >> -		unclaimed /= parent_usage - siblings_protected;
-> >> +		/*
-> >> +		 * The usages aren't read atomically, so a child can transiently
-> >> +		 * appear to use more than its parent, making the ratio exceed 1
-> >> +		 * and the quotient overflow 64 bits (#DE on x86).  Cap it.
-> >> +		 */
-> >> +		unprotected = min(unprotected, parent_unprotected);
-> >>   
-> >> -		ep += unclaimed;
-> >> +		ep += mul_u64_u64_div_u64(unclaimed, unprotected, parent_unprotected);  
-> > 
-> > If the ratio is forced to 1 there is no point doing the scaling.
-> > So maybe:
-> > 		if (likely(parent_unprotected > unprotected))
-> > 			unclaimed = mul_u64_u64_div_u64(unclaimed, unprotected,
-> > 							parent_unprotected);
-> > 		ep += unclaimed;
-> > OTOH if the min() generates a cmov rather than a conditional branch
-> > then you don't get a statically mispredicted branch in the normal case
-> > (which is very likely with the empty 'else' branch).
-> >   
-> 
-> I'd rather keep it as-is and avoid the extra branch. Does that work for you?
+Regards,
+Lorenzo
 
-I nearly came to that conclusion while writing the comment!
-Actually the same might go for the other three tests - generating a 0 or 1
-from a conditional move ought to be better than the possibly mispredicted
-very unlikely branch.
-(I am right in thinking that they should never fail?)
+[...]
 
-I also suspect the #UD is the least of the problems.
-You don't want the scaling to produce a bigger number at all.
+>  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 59 ++++++++++++++++---
+>  1 file changed, 50 insertions(+), 9 deletions(-)
+>=20
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/=
+net/ethernet/stmicro/stmmac/stmmac_main.c
+> index f2fc89176654..f0e06c011b8d 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -1728,7 +1728,7 @@ static void stmmac_free_tx_buffer(struct stmmac_pri=
+v *priv,
+>  					 DMA_TO_DEVICE);
+>  	}
+> =20
 
-David
+Is it more appropriate to move the tx_q->tx_skbuff_dma check here from
+dma_free_tx_skbufs()?
 
-> 
-> >   
-> >>   	}
-> >>   
-> >>   	return ep;  
-> >   
-> 
+> -	if (tx_q->xdpf[i] &&
+> +	if (tx_q->xdpf && tx_q->xdpf[i] &&
+>  	    (tx_q->tx_skbuff_dma[i].buf_type =3D=3D STMMAC_TXBUF_T_XDP_TX ||
+>  	     tx_q->tx_skbuff_dma[i].buf_type =3D=3D STMMAC_TXBUF_T_XDP_NDO)) {
+>  		xdp_return_frame(tx_q->xdpf[i]);
+> @@ -1738,7 +1738,7 @@ static void stmmac_free_tx_buffer(struct stmmac_pri=
+v *priv,
+>  	if (tx_q->tx_skbuff_dma[i].buf_type =3D=3D STMMAC_TXBUF_T_XSK_TX)
+>  		tx_q->xsk_frames_done++;
+> =20
+> -	if (tx_q->tx_skbuff[i] &&
+> +	if (tx_q->tx_skbuff && tx_q->tx_skbuff[i] &&
+>  	    tx_q->tx_skbuff_dma[i].buf_type =3D=3D STMMAC_TXBUF_T_SKB) {
+>  		dev_kfree_skb_any(tx_q->tx_skbuff[i]);
+>  		tx_q->tx_skbuff[i] =3D NULL;
+> @@ -1761,6 +1761,10 @@ static void dma_free_rx_skbufs(struct stmmac_priv =
+*priv,
+>  	struct stmmac_rx_queue *rx_q =3D &dma_conf->rx_queue[queue];
+>  	int i;
+> =20
+> +	/* buf_pool may not be allocated if alloc failed early */
+> +	if (!rx_q->buf_pool)
+> +		return;
+> +
+>  	for (i =3D 0; i < dma_conf->dma_rx_size; i++)
+>  		stmmac_free_rx_buffer(priv, rx_q, i);
+>  }
+> @@ -1802,6 +1806,10 @@ static void dma_free_rx_xskbufs(struct stmmac_priv=
+ *priv,
+>  	struct stmmac_rx_queue *rx_q =3D &dma_conf->rx_queue[queue];
+>  	int i;
+> =20
+> +	/* buf_pool may not be allocated if alloc failed early */
+> +	if (!rx_q->buf_pool)
+> +		return;
+> +
+>  	for (i =3D 0; i < dma_conf->dma_rx_size; i++) {
+>  		struct stmmac_rx_buffer *buf =3D &rx_q->buf_pool[i];
+> =20
+> @@ -2097,6 +2105,10 @@ static void dma_free_tx_skbufs(struct stmmac_priv =
+*priv,
+>  	struct stmmac_tx_queue *tx_q =3D &dma_conf->tx_queue[queue];
+>  	int i;
+> =20
+> +	/* tx_skbuff_dma may not be allocated if alloc failed early */
+> +	if (!tx_q->tx_skbuff_dma)
+> +		return;
+> +
+>  	tx_q->xsk_frames_done =3D 0;
+> =20
+>  	for (i =3D 0; i < dma_conf->dma_tx_size; i++)
+> @@ -2272,15 +2284,19 @@ static int __alloc_dma_rx_desc_resources(struct s=
+tmmac_priv *priv,
+>  	}
+> =20
+>  	rx_q->buf_pool =3D kzalloc_objs(*rx_q->buf_pool, dma_conf->dma_rx_size);
+> -	if (!rx_q->buf_pool)
+> -		return -ENOMEM;
+> +	if (!rx_q->buf_pool) {
+> +		ret =3D -ENOMEM;
+> +		goto err_destroy_pool;
+> +	}
+> =20
+>  	size =3D stmmac_get_rx_desc_size(priv) * dma_conf->dma_rx_size;
+> =20
+>  	addr =3D dma_alloc_coherent(priv->device, size, &rx_q->dma_rx_phy,
+>  				  GFP_KERNEL);
+> -	if (!addr)
+> -		return -ENOMEM;
+> +	if (!addr) {
+> +		ret =3D -ENOMEM;
+> +		goto err_free_buf_pool;
+> +	}
+> =20
+>  	if (priv->extend_desc)
+>  		rx_q->dma_erx =3D addr;
+> @@ -2296,10 +2312,27 @@ static int __alloc_dma_rx_desc_resources(struct s=
+tmmac_priv *priv,
+>  	ret =3D xdp_rxq_info_reg(&rx_q->xdp_rxq, priv->dev, queue, napi_id);
+>  	if (ret) {
+>  		netdev_err(priv->dev, "Failed to register xdp rxq info\n");
+> -		return -EINVAL;
+> +		goto err_free_dma;
+>  	}
+> =20
+>  	return 0;
+> +
+> +err_free_dma:
+> +	if (priv->extend_desc)
+> +		dma_free_coherent(priv->device, size, rx_q->dma_erx,
+> +				  rx_q->dma_rx_phy);
+> +	else
+> +		dma_free_coherent(priv->device, size, rx_q->dma_rx,
+> +				  rx_q->dma_rx_phy);
 
+I guess you can use addr here and remove the if/else block
+
+> +	rx_q->dma_erx =3D NULL;
+> +	rx_q->dma_rx =3D NULL;
+> +err_free_buf_pool:
+> +	kfree(rx_q->buf_pool);
+> +	rx_q->buf_pool =3D NULL;
+> +err_destroy_pool:
+> +	page_pool_destroy(rx_q->page_pool);
+> +	rx_q->page_pool =3D NULL;
+> +	return ret;
+>  }
+> =20
+>  static int alloc_dma_rx_desc_resources(struct stmmac_priv *priv,
+> @@ -2352,14 +2385,14 @@ static int __alloc_dma_tx_desc_resources(struct s=
+tmmac_priv *priv,
+> =20
+>  	tx_q->tx_skbuff =3D kzalloc_objs(struct sk_buff *, dma_conf->dma_tx_siz=
+e);
+>  	if (!tx_q->tx_skbuff)
+> -		return -ENOMEM;
+> +		goto err_free_skbuff_dma;
+> =20
+>  	size =3D stmmac_get_tx_desc_size(priv, tx_q) * dma_conf->dma_tx_size;
+> =20
+>  	addr =3D dma_alloc_coherent(priv->device, size,
+>  				  &tx_q->dma_tx_phy, GFP_KERNEL);
+>  	if (!addr)
+> -		return -ENOMEM;
+> +		goto err_free_skbuff;
+> =20
+>  	if (priv->extend_desc)
+>  		tx_q->dma_etx =3D addr;
+> @@ -2369,6 +2402,14 @@ static int __alloc_dma_tx_desc_resources(struct st=
+mmac_priv *priv,
+>  		tx_q->dma_tx =3D addr;
+> =20
+>  	return 0;
+> +
+> +err_free_skbuff:
+> +	kfree(tx_q->tx_skbuff);
+> +	tx_q->tx_skbuff =3D NULL;
+> +err_free_skbuff_dma:
+> +	kfree(tx_q->tx_skbuff_dma);
+> +	tx_q->tx_skbuff_dma =3D NULL;
+> +	return -ENOMEM;
+>  }
+> =20
+>  static int alloc_dma_tx_desc_resources(struct stmmac_priv *priv,
+> --=20
+> 2.34.1
+>=20
+>=20
+
+--xWjH8VhHG9dCfn2h
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCap09hwAKCRA6cBh0uS2t
+rFpLAP998k3ZRb2rMMqwIUOKvZsgOTIcD0qc6Q58kuCly+atjgEA5pEAnwMWgdJ1
+vQpssx8NIzwM3dXQbIr/iNqtu5ZGQgU=
+=XDBs
+-----END PGP SIGNATURE-----
+
+--xWjH8VhHG9dCfn2h--
