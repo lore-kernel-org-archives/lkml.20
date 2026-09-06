@@ -1,128 +1,238 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1929450F2;
-	Sun,  6 Sep 2026 16:45:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4248033A9CF;
+	Sun,  6 Sep 2026 16:46:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788713113; cv=none; b=qZCxvPThVU0QqQbGwbbf3MFLYIdC5dli/TY0JNCATjj98ogkAG5ZTmlZLTgLvspL115tEafJsQQvJLEh+pJvmgq9mDeQlLHgIfqeT75mqn9/+dJYtf59B0MdWv6QlZYnCDBLwtTC9+54rbFSgLlTVPx3kmKN3YSOEyK3XGvgUak=
+	t=1788713165; cv=none; b=UDP8kOeb4vFvlnN8RklTGIVpT3Od6OT3V6zmLfpF7Me4EBf4seEs7r00cz23bqABA2ulPTqV8YrwcQZrf5NiAWuDrLPIOLrkfo4Iq+JUarVp6/B5G1yvwg+N5sZWc4WoZzLszBWhyCpVi0b8HWGtuQO2gI7uxmv69maAxghLmpc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788713113; c=relaxed/simple;
-	bh=eN0ubARDOq7O1dumkQ6O8j0OFl0g5NmviOisoEMNOT4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SoQELyY97uZq/oVKTJr+AlNZhINp2B/vSdcIl40kQ2TvYIsNYf4R92cKR/4E9mv3Vi7Izk6Zj+YjmWHdJ0H9a6Qfw8AZD0DtY1XyrhqYUh2miH7DhSAAhOPe8rOa2ZmJFATjugSKdbvPU+zsnk3wrL78PPK+m8EBCkkUmnNuCI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=1BKSdZsf; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1788713165; c=relaxed/simple;
+	bh=Ihmr8oeQnM8FYh1NYQcgFGPk2IsSRVmBaFkBqvvUTuM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mibGPe/p3+wAlrMQbcA/u3MujovmINvlC/ejisVI8QHQoU7VsZPA+YK1UxgdZvqng2ntPl7zpsolRsDDob7DASBd4HA0ZJPRR4PmvvsFkHOJ+hbamwDT0LWiu3MABTL4Ja25JSlnf1JnEVDbnwT6dLC78y5vx3oFISHIMq3USE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=US/YOl85; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="1BKSdZsf"
-Received: from [10.0.0.152] (unknown [10.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id EB4DF53402E3;
-	Sun, 06 Sep 2026 18:45:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1788713109;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=bbtTwSSPjDHEFthpcY3sCGYaQJ0bclCPKmJn8+c4CPA=;
-	b=1BKSdZsfoyC3PjLmVnw0KBqCFB6sypIp2IGwXB3GMC04dLZ1xbS2CH6KlG4gcKCyGkpOZp
-	HG0FiZKLcIegE5eeVIs+W+QD9WluB8V8jIZSWKue0vTifR/gqScwUcLwnmXy3wC0a+4Bvs
-	xh1xFUHUcrLqv1OE5ut/YKdXTnr2ADY=
-Message-ID: <5071af17-ffcf-48f9-a662-6da03c4b483c@ixit.cz>
-Date: Sun, 6 Sep 2026 18:45:08 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="US/YOl85"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788713163; x=1820249163;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Ihmr8oeQnM8FYh1NYQcgFGPk2IsSRVmBaFkBqvvUTuM=;
+  b=US/YOl85J0mhrAhMNHzEsHt9zVVYo6gVtPrXlPKzOHp4U/PTx82DH8M8
+   Iey5ESq5QV1nEwiIepdFZxuHhRvv/280N1Dwpso9M0law1C4464WBhhAm
+   kSUvwZVbgqG2avI8i3SEXgTPhcKmQojPtotqEb/pfb/uVEB51BIZfBidQ
+   ZIF0tTn8I4ypTemTfdzR7uy+fB3zo/Yy5DahzqmFb3LLZ0DETx5VmOT2d
+   YsEwxbQ/cmRYIOnlLnwoCTnfNKmrJ1SwpGLZROQN+ncdS5Ra9NiBF7GfM
+   7LNihqSihB/cldHKLz3jJRFVkkh5iklDs1R/wkmpYDbeI+8YovhE+fWxg
+   g==;
+X-CSE-ConnectionGUID: Bq47t7KQRKqdWrh47fpvAw==
+X-CSE-MsgGUID: 0b5fe1BbRwKhP3/dscWItw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="114676041"
+X-IronPort-AV: E=Sophos;i="6.25,265,1779174000"; 
+   d="scan'208";a="114676041"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 09:46:02 -0700
+X-CSE-ConnectionGUID: PQbWxNL0TQCgZDGvaBFE3w==
+X-CSE-MsgGUID: YupSYtInT7aDAONy3HsGeA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,265,1779174000"; 
+   d="scan'208";a="264315586"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
+  by fmviesa009.fm.intel.com with ESMTP; 06 Sep 2026 09:45:59 -0700
+Date: Mon, 7 Sep 2026 00:45:59 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: Heiko Schocher <hs@nabladev.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-fpga@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Moritz Fischer <mdf@kernel.org>, Tom Rix <trix@redhat.com>,
+	Xu Yilun <yilun.xu@intel.com>, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v4] driver: fpga: xilinx-selectmap: add csi and rdwr
+ support
+Message-ID: <ap2Yx8oACWfBKOep@yilunxu-OptiPlex-7050>
+References: <20260810062105.299808-1-hs@nabladev.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 0/3] Input: support for STM FTS5
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Petr Hodina <petr.hodina@protonmail.com>, linux-input@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260906-stmfts5-v6-0-50fbf6af8718@ixit.cz>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260906-stmfts5-v6-0-50fbf6af8718@ixit.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260810062105.299808-1-hs@nabladev.com>
 
-On 06/09/2026 18:33, David Heidelberg via B4 Relay wrote:
-> Used on various phones. Minimal viable driver.
+On Mon, Aug 10, 2026 at 08:20:51AM +0200, Heiko Schocher wrote:
+> The current driver requests the optional CSI_B and RDWR_B GPIOs but
+> only configures their initial output state and never changes them
+> afterwards. As a result, CSI_B and RDWR_B remain inactive or active
+
+I got even confused, the old code explicitly set them GPIOD_OUT_HIGH,
+why "inactive or active"? And I also confused by your comments in v3,
+why "inactive or active" depends on DTS?
+
+Do you want to activate or inactivate the GPIOs in your code? You can't
+say don't know, go check the DTS, is it?
+
+> throughout the configuration process.
 > 
-> Includes device-tree enabling touchscreen on Pixel 3.
-> Also, tested on Xiaomi Mi 8 (device-tree is not yet inside the mainline).
+> This may work on systems with a single FPGA where these signals do not
+> need to be controlled by software, or where the signals are configured
+> to their active state.
+
+Could you just tell the actual problem, as you said in v3 "The gpios are
+never used in mainline".
+
+> But this does not not support systems with
+> multiple FPGAs sharing a SelectMAP interface.
 > 
-> What is missing:
->   - switching between AP and SLPI mode (to be able to wake up phone by touch)
->   - firmware loading
->   - anything above basic touch
+> On systems with multiple FPGAs sharing the same SelectMAP data bus,
+> the driver must deassert this signals in probe, and actively control
+> them during configuration.
 > 
-> Signed-off-by: David Heidelberg <david@ixit.cz>
+> CSI_B (Chip Select, active low) selects the target FPGA. It is asserted
+> before configuration data is transferred and deasserted afterwards so
+> that only the intended device responds to bus transactions.
+> 
+> RDWR_B (Read/Write, active low) controls the transfer direction on the
+> SelectMAP interface. A low level selects write cycles, while a high
+> level selects read cycles. During FPGA configuration the driver drives
+> RDWR_B low before transferring the bitstream and restores it to its
+> reading (high state) afterwards.
+> 
+> With that info from the datasheet the driver is now changed to:
+> 
+> - deassert the CSI_B and RDWR_B pin on probe and store the
+>   optional GPIO descriptors in private driver data.
+> 
+> - toggle both signals around the configuration data transfer
+> 
+> This allows multiple FPGAs to safely share a single SelectMAP interface.
+> 
+> Signed-off-by: Heiko Schocher <hs@nabladev.com>
 > ---
-Sorry for the noise, seems the wake up sequence isn't right yet, FTS5 on Mi 8 
-after some time off stops working - on Pixel 3 there is kept vdd-supply 
-always-on, so likely it ignores incorrect suspend.
+> 
+> Changes in v4:
+> - add comments from Xu Yulin
+>   replace wrong gpiod_set_raw_value() with gpiod_set_value()
+>   deassert CSI_B and RDWR_B in probe as in patch version 2
+>   rework commit message (correct the description what current
+>   driver do on probe), why this is not a problem with one
+>   FPGA, and why it needs a change if you have N FPGAs
+>   sharing the same selectmap Interface (clk and data pins).
+> 
+> Changes in v3:
+> - use 0 (deasserted state) and 1 (asserted state) in gpio_set_value()
+>   as commented from Micahl
+> - rewrite commit message as requested from Xu Yilun
+>   - describe what rdwr_b and csi_b do, and why this change is needed
+>     for more than one FPGA.
+> - add comment before asserting the signals, why they are asserted
+>   in this order.
+> 
+> Changes in v2:
+> - add comments from Michal
+>   - skip check if gpio descriptor variables csi_b/rdwr_b are valid,
+>     as validate_desc() checks this in gpiod_set_value() call.
+>   - initialize the gpio variables csi_b/rdwr_b immediately with
+>     the return value from devm_gpiod_get_optional(), so we can
+>     drop local gpio variable at all
+> 
+>  drivers/fpga/xilinx-selectmap.c | 36 ++++++++++++++++++++++++---------
+>  1 file changed, 27 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/fpga/xilinx-selectmap.c b/drivers/fpga/xilinx-selectmap.c
+> index d0cbb5fdfe3a..e9b1d15ca054 100644
+> --- a/drivers/fpga/xilinx-selectmap.c
+> +++ b/drivers/fpga/xilinx-selectmap.c
+> @@ -19,6 +19,8 @@
+>  struct xilinx_selectmap_conf {
+>  	struct xilinx_fpga_core core;
+>  	void __iomem *base;
+> +	struct gpio_desc *csi_b;
+> +	struct gpio_desc *rdwr_b;
+>  };
+>  
+>  #define to_xilinx_selectmap_conf(obj) \
+> @@ -30,16 +32,30 @@ static int xilinx_selectmap_write(struct xilinx_fpga_core *core,
+>  	struct xilinx_selectmap_conf *conf = to_xilinx_selectmap_conf(core);
+>  	size_t i;
+>  
+> +	/*
+> +	 * Assert CSI_B and select write mode.
+> +	 *
+> +	 * UG570 states in note 4 in Figure "Continuous x8 SelectMAP Data
+> +	 * Loading", RDWR_B should be asserted before CSI_B to avoid
+> +	 * causing an ABORT on the next CCLK.
+> +	 *
+> +	 * To be sure, set first RDWR_B pin before activate CSI_B
+> +	 */
+> +	gpiod_set_value(conf->rdwr_b, 1);
+> +	gpiod_set_value(conf->csi_b, 1);
+> +
+>  	for (i = 0; i < count; ++i)
+>  		writeb(buf[i], conf->base);
+>  
+> +	gpiod_set_value(conf->csi_b, 0);
+> +	gpiod_set_value(conf->rdwr_b, 0);
+> +
+>  	return 0;
+>  }
+>  
+>  static int xilinx_selectmap_probe(struct platform_device *pdev)
+>  {
+>  	struct xilinx_selectmap_conf *conf;
+> -	struct gpio_desc *gpio;
+>  	void __iomem *base;
+>  
+>  	conf = devm_kzalloc(&pdev->dev, sizeof(*conf), GFP_KERNEL);
+> @@ -55,16 +71,18 @@ static int xilinx_selectmap_probe(struct platform_device *pdev)
+>  				     "ioremap error\n");
+>  	conf->base = base;
+>  
+> -	/* CSI_B is active low */
+> -	gpio = devm_gpiod_get_optional(&pdev->dev, "csi", GPIOD_OUT_HIGH);
+> -	if (IS_ERR(gpio))
+> -		return dev_err_probe(&pdev->dev, PTR_ERR(gpio),
+> +	/* CSI_B is active low, deassert signal */
 
-I'll send v7 fixing the issue today.
+I'm not sure "active low" does any help here, it just makes more
+confusion.
 
-David
+At first glance, "active low" && "deassert" => "set it high", then you
+should use GPIOD_OUT_HIGH?? You are not reasoning your change.
+
+Please elaborate on how these flags work before you send v5, thanks.
+
+> +	conf->csi_b = devm_gpiod_get_optional(&pdev->dev, "csi",
+> +					      GPIOD_OUT_LOW);
+> +	if (IS_ERR(conf->csi_b))
+> +		return dev_err_probe(&pdev->dev, PTR_ERR(conf->csi_b),
+>  				     "Failed to get CSI_B gpio\n");
+>  
+> -	/* RDWR_B is active low */
+> -	gpio = devm_gpiod_get_optional(&pdev->dev, "rdwr", GPIOD_OUT_HIGH);
+> -	if (IS_ERR(gpio))
+> -		return dev_err_probe(&pdev->dev, PTR_ERR(gpio),
+> +	/* RDWR_B is active low, deassert signal */
+
+Same concern
+
+> +	conf->rdwr_b = devm_gpiod_get_optional(&pdev->dev, "rdwr",
+> +					       GPIOD_OUT_LOW);
+> +	if (IS_ERR(conf->rdwr_b))
+> +		return dev_err_probe(&pdev->dev, PTR_ERR(conf->rdwr_b),
+>  				     "Failed to get RDWR_B gpio\n");
+>  
+>  	return xilinx_core_probe(&conf->core);
+> ---
+> base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
+> 
+> -- 
+> 2.55.0
+> 
+> 
