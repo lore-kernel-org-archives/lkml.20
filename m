@@ -1,180 +1,284 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011051.outbound.protection.outlook.com [52.101.57.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EBBC36493A;
-	Sun,  6 Sep 2026 21:58:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788731914; cv=fail; b=J8t0TwaztkxyIwMpttwEyGNzesBqkusGj6Bjh3Jy4l6s+pX+bBuQBzxqXt3b06NIbW4ypCsfrcVXjLs1lNMM81WrmWoc36ICF1zclxUbIV/uaVzAuaaRreMHbuht481K6Z9U6xWOBXe2e0EU26t80ssRN591EWLByUEdIpb/VfA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788731914; c=relaxed/simple;
-	bh=rSkDXCHfVcIMt3NJ5mmtKaRguOaFWXCXGCgb92IOZkA=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=O3jeSzT3cej6Deq8R899d4jdAhxJntUFp2ZoNbjIYqHOehxLqX0QW7AKTny5AtEyQvt/4jeAc30MNBOSZH7azwZMmlLg3fn28HkSY6wF1QC7xEGMZfbiE3r1e+vChAg6LuyjGosC73joxgTWhReNQwBiKMdUBmsFrjUwZxDOlx8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Lg6rZ7qY; arc=fail smtp.client-ip=52.101.57.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 359882F8EA5
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 22:08:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788732481; cv=none; b=d6omPuhE/X5H6bi5ACIeZzmw23+JMLD/HNhEysws58o4EQ4ZhxQdgOgTaU8LtWqBVI0XclHhfC2pEPJAbzZriYvrWUqQ5kTel0dHHXHvLfrjICxmAo10okgTf+BHPwyUFP6nMZ5LDN8YbK4NVxTxgY7vf95wgP0cfo/f/GRRaN4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788732481; c=relaxed/simple;
+	bh=2ngG+icSZPnCr7zJZFv7sgQNG1VXwjlAUJMzFYuJd5o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=scYkYNsK8ZCC4EBxEip97Vi+AVFtOFFlFCUY0toFl1K7Afv/E9cfHdAtcBKvLRMna4ZYjSnDpb9KyioNOY6qftxqidZoUl91OV6WRM8+1Ty+luDs5zy49MoF/49w34goGJRcesMZz+0TQ6AZcRvxWL9/ftc/3pIuGAacMz0jmF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QKiaWySz; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Lg6rZ7qY"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XmMmXuODG80RVp5y/ZpyMMp9XYuQtG0MypmKCWK/AJt/cxNl4LmoBPuniUIHZgswwLRsPIBjj2uopQnf/d6kOkHTJUIE7Hy+zS+e7YT2uQM2uuZpVDpEXNex724ajN51OTzfJAxf35MAZrIwYM21JlxCU6xfFpHhdkFDrvqoFSgPblWdQrHY2LrBZ/YBnld7obtvJNyfFqSSYHSkKz5zKqkbM+/rv9fG7jMOuogveUXGqJJKR0KeVtjNSOkQDRENqdtc9dGd4efkFkaQJwiPW3LUDulb/Icu9pypLhGMJ6L3C3xnY1E+/GRsHQNxQM9RBv1uiZK/QW+KjxE2heQEMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1nCVSVhakTwqGOnv3lHf/Akbc6/c2v4z4Aae4QNgEUs=;
- b=peKLXn5a/juOgn9C+stpRcSIbqhadN8hkTetkpHpzwifh5WOsY/oDLKvcqxxFgxXXtgGy0LF7d5wkrDHt/gGS2FXnFri4GHxTDDnPVx0KoJhPJDwc2VhZJwPG4FnfoQA50Qx4b4r8SnciCWmG1zbWSsAuuMKMXk8UphfAVb+lHoe8hNHQVilVV3tMwzFO+gPUa9iF/vRwea8sSQNSyC9ltPTDtIiRlQtb1N+vZijIiQdum+7kT6Sl48dOkWP+OO9oxLGaYSCoy9NrGvij/VoPFGNIfJJkhlxKsdmX8dR/2nFmL+oIbv5u15077P0wS5TUBVn3La2OffKh/C4lWAr/w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1nCVSVhakTwqGOnv3lHf/Akbc6/c2v4z4Aae4QNgEUs=;
- b=Lg6rZ7qYonE6vZddrl1obb23nTNP7uciitiZBECMFEyca9mwyh1WOpWKXVWHZtyx3qXF5ajS578jz7clj3b6/tBp2cY4AsFZO/oGhjfqpStG4kfc4ebxPlwT1E3ydI+zbNzZSVDL70RIcQp12APoDXbgi9vQ8JzPqOGJZrH1Ha34i6e38hwsZgt7D0Rzx7gtjxWqufRR60Wv5PuslT1j/11nNP95eD9o2F7XWUjzGwLBP6e1lCTS6C7L+h7RoYPlgWwWgs9dexlFvrfceo6zA+hRu15Ja8rNxQpF3tdpRwJnByPWybs5ucRHv1I+sDx3olln0xAdzd8sRwP0V0h+cA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- MN0PR12MB5788.namprd12.prod.outlook.com (2603:10b6:208:377::5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.15; Sun, 6 Sep 2026 21:58:29 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0382.012; Sun, 6 Sep 2026
- 21:58:29 +0000
-From: John Hubbard <jhubbard@nvidia.com>
-To: Miguel Ojeda <ojeda@kernel.org>
-Cc: Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	rust-for-linux@vger.kernel.org,
-	LKML <linux-kernel@vger.kernel.org>,
-	John Hubbard <jhubbard@nvidia.com>
-Subject: [PATCH] rust: allow `clippy::as_underscore` in the generated bindings
-Date: Sun,  6 Sep 2026 14:58:22 -0700
-Message-ID: <20260906215822.1201022-1-jhubbard@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-X-NVConfidentiality: public
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BY5PR04CA0007.namprd04.prod.outlook.com
- (2603:10b6:a03:1d0::17) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QKiaWySz"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-39b35105ba4so2380525a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 15:08:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788732479; x=1789337279; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gu0vqn0CXg1wlwcKWyu83q3gWI+6kY5pHSTOMRQlpGM=;
+        b=QKiaWySz+TuhzRzcnqLkFK5oKn/2FnCdkb0e6BeuX9bCWvfkzk+0ifePzeyRWcEzOi
+         VNYCkprx6bRWfZh9de7a0Y9Pcso+wAf55X+KdbXO0u+R0WqYp3K2AvmdmhETjxwIhjGe
+         WYKB+2lh/Tnw0yz6NTodAHQJ82ManqMbz4tFcnkeGsYa6nD1Ccv+Ax8is4PopurOLJL0
+         hFZYTWtHXTT81ckR/UlGJr2IsGISIGXXGpqHtzZ1HNiLggCtfCYt5juNU492uln+/XX6
+         AyLE/N+bNNqYKzc7JolQ4SARa8lHb8CWx8SNK0f/21Bry3ncLebAwBOCE9Lz4kb/qEiT
+         4JpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788732479; x=1789337279;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gu0vqn0CXg1wlwcKWyu83q3gWI+6kY5pHSTOMRQlpGM=;
+        b=W2sQknMMnwTublCZa3L2uVwm71vYAc/nW6cOSRVvdnDwuAHPNja475W6hSZvx/WNE2
+         zgKLY9IzvohRM+iUAD/zW1Z9yQCAnIfwo64ROFcTsBy6X9wUiRXqcj4DCGDLaB+M08ww
+         K3LNQtmuUypucB2DrXqBnImyGCo4a6ORnJG5dat0UKQNCA+IpBTkC4PCb2U5a0E70dF/
+         uwU/Go6Z9aBBfcI+4dRk46s7zspyzOdQobq9MydkyRCGerdflJeEkd/nOaq90DeSxiQL
+         NX9yiYEkmbGFFDT7h4p9+giP8sX0zNn2lD6YT4H0y9A41MeKM0lY3tmhF8o6ObuehCgw
+         LlIw==
+X-Forwarded-Encrypted: i=1; AKwUvBwACCpEPhXwLBaoEOXtDGy96Cg/mfkPsAqpB2hQ/tUcT9w06j0HnXIkMgd1xkszJF8dZZjdfdpJtwwJm/A=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/8+sAywXoNwWhIFayxhhqOIFhjRW/s1veXVTQZeE7rEIHhJ9d
+	PhCnZiAJih+ygNR0wmuS9KzwoFdU618HbgYdnqyyGAQ/+UEZrHw+mNkrsvIZ5E6p
+X-Gm-Gg: AYBFou2L0coqSMGAbi/vd3OvHvxTxBxQB4HKi2c4EuSq8HRwVsyPxvhkNMEmL7xgJfh
+	nSzsrN5ltzy2jm+Fy/GjfS4Z9mQv9Tesl5VMl2W/Yx3SOk8L7Inyr+iv5AcOYbTK3Lmvj2cn04e
+	QjQOjPkUCjnuobWrlKW60DAdolAclJRo8TDLaGzwmw0tyQoMoxCWTU6+C4BV3j1i242fsDm87qg
+	YNfXmDYZvPSr60abSzcSmPHASjy+2pafhwbSsSzPhjVXiWlEJH0FYhz6syPafAzUnSENf0JwZPR
+	zhwqcrN3g4CNvo5CzRC/8okN05uz3rXrHsWKD5VbESm7m7cP6zRNLWz3Y4l30SA+dh019jyI7Zj
+	WqDediIglTzgkK5ROolaUUm2e7Wj6QlCeRozC48W4iB14DaF+NXJ2DLF5TqtaFCcrb7VI6Gc8pe
+	p4WMhZ0BCEmmzOtbdsi1Lqm41Fw7A6p0thAc1XCFVjq/yl/HNrJ5apQZ+qgxpX
+X-Received: by 2002:a17:90a:e18b:b0:398:ab03:95b2 with SMTP id 98e67ed59e1d1-39b26155274mr27499615a91.10.1788732479383;
+        Sun, 06 Sep 2026 15:07:59 -0700 (PDT)
+Received: from evangelion-g ([2a09:bac1:36c0:58c0::2a8:4f])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b4b72f62esm9762375a91.5.2026.09.06.15.07.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 15:07:58 -0700 (PDT)
+From: Ayush <ayush37735@gmail.com>
+To: syzbot+3bc656a9271e7c8a5c6b@syzkaller.appspotmail.com
+Cc: syzkaller-bugs@googlegroups.com,
+	linux-kernel@vger.kernel.org,
+	Ayush <ayush37735@gmail.com>
+Subject: [PATCH v2] USB: sisusbvga: avoid prolonged initialization on failure
+Date: Mon,  7 Sep 2026 03:37:32 +0530
+Message-ID: <20260906220732.103357-1-ayush37735@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|MN0PR12MB5788:EE_
-X-MS-Office365-Filtering-Correlation-Id: be25a43a-0bd6-4a76-92dc-08df0c61fc26
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|7416014|376014|1800799024|23010399003|366016|3023799007|11063799006|56012099006|6133799003|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	1OKl/SVUkOOH6GREwKZrfs+rIVzPi0Ozp/C9UPEbAL5DoKr1AqxROvYLsWRRP/ab8sUs1LKcUVI4ihFRdwtHbtOdsk0q0M6u4aOqRcvxPFSp+VYjMRAgTK8xQefEm/BA9UNTeknXKpr4XDAzGgfKGafAlwTkWAkGD5RUkpr6OJXbbUGNdeGmiLuHX0KrgDTUnTqCKIlwfxiAhoPmiBAdGFw4NmNzzOKu0/puT3r/7Mr02uNf42IVO/fkh+MpPB+7MZy0T9nvdACRr4OgZ+6vvYiKcj610WQ/ZFpJTsZRpA28ZIH/w4VW5CNmlWv9J1mBqca0lcG4dkylx6ZFbjHLO7jtgLTfbdAkE865LQLEWkLXohbkN1sJaDOEimjESWOMCQs93gJ2QbcQnBvIEKat8MM77d7HSPGWRMoLadAUe4V3QnYJw76Nc7QSP/uuTNvxoKLhHAYBQo27pk9aPSCChBtKX4WiGlM4/VeBTHD4gM/IK0Gc1oF6EwcCbzfcX7O8xEPpWZWdhN+G33mXnG3aXjwlwzBTTN0839gMF3ePj4Thod7DEhADB0VO3e4L9QYIgqO8N6Q4rASq1P3fkOxw1VGRoxCUuUq+UwcLjQI+FUDVZgqGh8S9lXwQn0nwFZnCvxGhvN2V5SUn55ppesTNm5hdLlm/KbrJaiAtYOeCKmM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(7416014)(376014)(1800799024)(23010399003)(366016)(3023799007)(11063799006)(56012099006)(6133799003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?BQ1//fRy7ITyzdXaq+6AzuHhSa+9xFKH4t2N2CfEqgT8CKDJcBsXATMKLiCc?=
- =?us-ascii?Q?essvpiNg0WGFQgKMQ8qHHAjjrDG7AePjOqnvFOytdAmSpNFKWX/FNyMGxfWm?=
- =?us-ascii?Q?3jdHeKW2CWUX++i6SExU2eB+GEIhkgcUkW0YhTIqTMHlTIsRlvNcjiztjKuv?=
- =?us-ascii?Q?5VhTCYBNStAQhgwNgGBZBdX1eajQkxo/gAWml2pqSxmJ3Pwyg793ZAGk/aXz?=
- =?us-ascii?Q?mtEkDkdLDSbnMEJqDx/ctScpH7/Vrtxkvd8p0gYHoX99L9oJl6Fx2bY7gyoz?=
- =?us-ascii?Q?Q4Qx95yPpcMQAdFaXQNyYzxBP4FW4toe7cRJTndla3Qtx6uE+qqC3PgN8dwX?=
- =?us-ascii?Q?lQ8F0/AH+CY4D6Gj+x1MXF1Jx0Hn8TNym4iYNX+nCJjN2/1EKSo0CS2RtacV?=
- =?us-ascii?Q?DE43a7yX/A1xYVwO9srUzXRyhjZqAI61mU+YrRdHE/Lb6lypCiX7W98pmgRf?=
- =?us-ascii?Q?LItczJ2ReE3BwDsQkwuplsqrOp8K5AE0jY5Fh8Rd6svxgSabJqb+DnGUeENV?=
- =?us-ascii?Q?wbvSdJjcq5AHHMmw7SOLdWB9LN777Dig9kvOYoyXnlfGc3qHvNQYuB27D0x+?=
- =?us-ascii?Q?nRO4crT/id/+CnDrwOpu9B59KEglHRkZq2nU/CwH85yqs/Bua0HNA9blfYjZ?=
- =?us-ascii?Q?p08i0yJREp6Aeominj0qsM+ULb52UOQC0W/nEdxUdu3uanJd2z2KFUbfb054?=
- =?us-ascii?Q?OCh+x/PAXMZgzZsA6ldz3i6uJ/u34h1j7hCow092yuHePudyB2hexrgPLVSx?=
- =?us-ascii?Q?KgXhzoESaXuRb0lsbbEpLad7a28A4XrokstSOWWfkOZZj/5Njd/SLBFe4VTR?=
- =?us-ascii?Q?kaqcf5lYaQ9uvOqDXTdbAay3akCkq8pi/S1//wsIU0nUdgHZZpzqOChpYmGX?=
- =?us-ascii?Q?wfCExQhc72SzlGGOWqv5eLf2Y3OjukS6rnsEI9HJTxtuxU17spd6sW97Ldh4?=
- =?us-ascii?Q?iNdi1gCvcLvVW7wWFjCB2D2xefqfMaSjhYA/LlDc/60xq2aNEPTWSRfebUYi?=
- =?us-ascii?Q?IkNlvmOvaPw25G9jntU6p/r0cNauvM5OdGWjnU047LXQyzNocoLq5l1iFJ89?=
- =?us-ascii?Q?wI6wkvWR74EMeggqQx0f+dMqQhlCbrlxxZH2rhkGmz/EomplT+xhKbB7ebFX?=
- =?us-ascii?Q?AKtM6Y7C12bhZGsBp7D9F36MzNtfOlwPNB/GBgnkjZ+4DpVBNUxLlyzhfpbP?=
- =?us-ascii?Q?+8dsJWA45fMH28HC75lhCYTulZIdAxSJPJyvuceI1E7kDpj9du6zpgxHZwNo?=
- =?us-ascii?Q?H8Fr6WDyl5rgP3yLNOkd/jTY6avWIgBRloq3moophiKaWBmdccFm4taCHdcE?=
- =?us-ascii?Q?PnBZpo2YdFZfIdRTmRE909EVnazbEx/L0pYkwyG5yZj0cEKHLRgtVb/QRMDX?=
- =?us-ascii?Q?FJANzoT+/rfzqWjPVQXMKWIEq6LoDXeqNtm7mPPsbh15VLrD187xgON6F8rx?=
- =?us-ascii?Q?9raRjUbQoNyfqMkt7vvL4Ja+e0drbZHrbXqUZCKq11d2I/dYPUoJobJttSn7?=
- =?us-ascii?Q?VC5p3tZ6gLenrnlvbMYy+j9A67pOAvOcPUCB0OJxQo3fvr5vJAV0qWDoZEqA?=
- =?us-ascii?Q?dIqJUeQQjc1wJGvyT848RJB13C2vdzTk79ee42H9Im015j5vXGaLIzGXK0L2?=
- =?us-ascii?Q?1vKaiwd7gekBjMl+mhPYWrwiFL5eVpVEuMUe8l5VfdzF/tsaT+q1ULWuM5uk?=
- =?us-ascii?Q?rBZR1yBSWEhAfTHm/pNSlmWyxyhsHtd4HRhOiWLHTkSBnGYmhszrn8sqQvAV?=
- =?us-ascii?Q?anp8IDMy5my1Kn7R7Jo5Yh6B3rNtRrs=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: be25a43a-0bd6-4a76-92dc-08df0c61fc26
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2026 21:58:29.3099
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BlfROeZYeUNvza04CdpH2sLK2YUdcT9FVCoo+F/BF0vJScyyhFd7hq+6u5U6V/5dtA3h3Sqgj2/kY0KWJswjWg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5788
+Content-Transfer-Encoding: 8bit
 
-A CLIPPY=1 build emitted about 15000 `as _` conversion warnings, all of
-them in bindgen's generated output and none in hand-written code.
+The USB core holds minor_rwsem while invoking a USB character
+device's open callback. Avoid retrying graphics-device initialization
+from open() and fail probe when early initialization fails.
 
-bindgen 0.73 returns each bitfield read through a trailing `as _`, and
-0.72 returns it through a transmute, which the lint ignores. The
-bindings and uapi crates allow `clippy::all` over the generated code.
-That group does not cover `clippy::as_underscore`, a restriction lint.
+Also stop sisusb_do_init_gfxdevice() after the first failed request.
+Continuing initialization after a failed USB request causes additional
+synchronous transfers and their retries against an unresponsive device.
 
-The minimum supported bindgen is 0.71.1, and 0.72 does not emit the
-cast, so upstream CI may not see these warnings yet.
-
-Allow `clippy::as_underscore` by name in the bindings and uapi crates.
-
-Assisted-by: LLM
-Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+Reported-by: syzbot+3bc656a9271e7c8a5c6b@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3bc656a9271e7c8a5c6b
+Signed-off-by: Ayush <ayush37735@gmail.com>
 ---
- rust/bindings/lib.rs | 1 +
- rust/uapi/lib.rs     | 1 +
- 2 files changed, 2 insertions(+)
+ drivers/usb/misc/sisusbvga/sisusbvga.c | 133 +++++++++++++++++--------
+ 1 file changed, 89 insertions(+), 44 deletions(-)
 
-diff --git a/rust/bindings/lib.rs b/rust/bindings/lib.rs
-index 812f8e5a08d5..ad24c920b919 100644
---- a/rust/bindings/lib.rs
-+++ b/rust/bindings/lib.rs
-@@ -22,6 +22,7 @@
- #![feature(cfi_encoding)]
+diff --git a/drivers/usb/misc/sisusbvga/sisusbvga.c b/drivers/usb/misc/sisusbvga/sisusbvga.c
+index 3e75a7c24828..e0b1111c1f53 100644
+--- a/drivers/usb/misc/sisusbvga/sisusbvga.c
++++ b/drivers/usb/misc/sisusbvga/sisusbvga.c
+@@ -2075,66 +2075,114 @@ static int sisusb_do_init_gfxdevice(struct sisusb_usb_data *sisusb)
+ 	packet.address = 0x00000324;
+ 	packet.data    = 0x00000004;
+ 	ret = sisusb_send_bridge_packet(sisusb, 10, &packet, 0);
++	if (ret)
++		return ret;
  
- #[allow(dead_code)]
-+#[allow(clippy::as_underscore)]
- #[allow(clippy::cast_lossless)]
- #[allow(clippy::ptr_as_ptr)]
- #[allow(clippy::ref_as_ptr)]
-diff --git a/rust/uapi/lib.rs b/rust/uapi/lib.rs
-index 797ead5b5626..2df0340e63d1 100644
---- a/rust/uapi/lib.rs
-+++ b/rust/uapi/lib.rs
-@@ -10,6 +10,7 @@
- #![no_std]
- #![allow(
-     clippy::all,
-+    clippy::as_underscore,
-     clippy::cast_lossless,
-     clippy::ptr_as_ptr,
-     clippy::ref_as_ptr,
-
-base-commit: 1676a4478e434d43f8cab79587becd16d3e86552
+ 	packet.header  = 0x001f;
+ 	packet.address = 0x00000364;
+ 	packet.data    = 0x00000004;
+-	ret |= sisusb_send_bridge_packet(sisusb, 10, &packet, 0);
++	ret = sisusb_send_bridge_packet(sisusb, 10, &packet, 0);
++	if (ret)
++		return ret;
+ 
+ 	packet.header  = 0x001f;
+ 	packet.address = 0x00000384;
+ 	packet.data    = 0x00000004;
+-	ret |= sisusb_send_bridge_packet(sisusb, 10, &packet, 0);
++	ret = sisusb_send_bridge_packet(sisusb, 10, &packet, 0);
++	if (ret)
++		return ret;
+ 
+ 	packet.header  = 0x001f;
+ 	packet.address = 0x00000100;
+ 	packet.data    = 0x00000700;
+-	ret |= sisusb_send_bridge_packet(sisusb, 10, &packet, 0);
++	ret = sisusb_send_bridge_packet(sisusb, 10, &packet, 0);
++	if (ret)
++		return ret;
+ 
+ 	packet.header  = 0x000f;
+ 	packet.address = 0x00000004;
+-	ret |= sisusb_send_bridge_packet(sisusb, 6, &packet, 0);
++	ret = sisusb_send_bridge_packet(sisusb, 6, &packet, 0);
++	if (ret)
++		return ret;
++
+ 	packet.data |= 0x17;
+-	ret |= sisusb_send_bridge_packet(sisusb, 10, &packet, 0);
++	ret = sisusb_send_bridge_packet(sisusb, 10, &packet, 0);
++	if (ret)
++		return ret;
+ 
+ 	/* Init BAR 0 (VRAM) */
+-	ret |= sisusb_read_pci_config(sisusb, 0x10, &tmp32);
+-	ret |= sisusb_write_pci_config(sisusb, 0x10, 0xfffffff0);
+-	ret |= sisusb_read_pci_config(sisusb, 0x10, &tmp32);
++	ret = sisusb_read_pci_config(sisusb, 0x10, &tmp32);
++	if (ret)
++		return ret;
++
++	ret = sisusb_write_pci_config(sisusb, 0x10, 0xfffffff0);
++	if (ret)
++		return ret;
++
++	ret = sisusb_read_pci_config(sisusb, 0x10, &tmp32);
++	if (ret)
++		return ret;
++
+ 	tmp32 &= 0x0f;
+ 	tmp32 |= SISUSB_PCI_MEMBASE;
+-	ret |= sisusb_write_pci_config(sisusb, 0x10, tmp32);
++	ret = sisusb_write_pci_config(sisusb, 0x10, tmp32);
++	if (ret)
++		return ret;
+ 
+ 	/* Init BAR 1 (MMIO) */
+-	ret |= sisusb_read_pci_config(sisusb, 0x14, &tmp32);
+-	ret |= sisusb_write_pci_config(sisusb, 0x14, 0xfffffff0);
+-	ret |= sisusb_read_pci_config(sisusb, 0x14, &tmp32);
++	ret = sisusb_read_pci_config(sisusb, 0x14, &tmp32);
++	if (ret)
++		return ret;
++
++	ret = sisusb_write_pci_config(sisusb, 0x14, 0xfffffff0);
++	if (ret)
++		return ret;
++
++	ret = sisusb_read_pci_config(sisusb, 0x14, &tmp32);
++	if (ret)
++		return ret;
++
+ 	tmp32 &= 0x0f;
+ 	tmp32 |= SISUSB_PCI_MMIOBASE;
+-	ret |= sisusb_write_pci_config(sisusb, 0x14, tmp32);
++	ret = sisusb_write_pci_config(sisusb, 0x14, tmp32);
++	if (ret)
++		return ret;
+ 
+ 	/* Init BAR 2 (i/o ports) */
+-	ret |= sisusb_read_pci_config(sisusb, 0x18, &tmp32);
+-	ret |= sisusb_write_pci_config(sisusb, 0x18, 0xfffffff0);
+-	ret |= sisusb_read_pci_config(sisusb, 0x18, &tmp32);
++	ret = sisusb_read_pci_config(sisusb, 0x18, &tmp32);
++	if (ret)
++		return ret;
++
++	ret = sisusb_write_pci_config(sisusb, 0x18, 0xfffffff0);
++	if (ret)
++		return ret;
++
++	ret = sisusb_read_pci_config(sisusb, 0x18, &tmp32);
++	if (ret)
++		return ret;
++
+ 	tmp32 &= 0x0f;
+ 	tmp32 |= SISUSB_PCI_IOPORTBASE;
+-	ret |= sisusb_write_pci_config(sisusb, 0x18, tmp32);
++	ret = sisusb_write_pci_config(sisusb, 0x18, tmp32);
++	if (ret)
++		return ret;
+ 
+ 	/* Enable memory and i/o access */
+-	ret |= sisusb_read_pci_config(sisusb, 0x04, &tmp32);
++	ret = sisusb_read_pci_config(sisusb, 0x04, &tmp32);
++	if (ret)
++		return ret;
++
+ 	tmp32 |= 0x3;
+-	ret |= sisusb_write_pci_config(sisusb, 0x04, tmp32);
+-
+-	if (ret == 0) {
+-		/* Some further magic */
+-		packet.header  = 0x001f;
+-		packet.address = 0x00000050;
+-		packet.data    = 0x000000ff;
+-		ret |= sisusb_send_bridge_packet(sisusb, 10, &packet, 0);
+-	}
++	ret = sisusb_write_pci_config(sisusb, 0x04, tmp32);
++	if (ret)
++		return ret;
+ 
+-	return ret;
++	/* Some further magic */
++	packet.header  = 0x001f;
++	packet.address = 0x00000050;
++	packet.data    = 0x000000ff;
++
++	return sisusb_send_bridge_packet(sisusb, 10, &packet, 0);
+ }
+ 
+ /* Initialize the graphics device (return 0 on success)
+@@ -2223,20 +2271,10 @@ static int sisusb_open(struct inode *inode, struct file *file)
+ 	}
+ 
+ 	if (!sisusb->devinit) {
+-		if (sisusb->sisusb_dev->speed == USB_SPEED_HIGH ||
+-				sisusb->sisusb_dev->speed >= USB_SPEED_SUPER) {
+-			if (sisusb_init_gfxdevice(sisusb, 0)) {
+-				mutex_unlock(&sisusb->lock);
+-				dev_err(&sisusb->sisusb_dev->dev,
+-						"Failed to initialize device\n");
+-				return -EIO;
+-			}
+-		} else {
+-			mutex_unlock(&sisusb->lock);
+-			dev_err(&sisusb->sisusb_dev->dev,
+-					"Device not attached to USB 2.0 hub\n");
+-			return -EIO;
+-		}
++		mutex_unlock(&sisusb->lock);
++		dev_err(&sisusb->sisusb_dev->dev,
++			"Device not initialized\n");
++		return -EIO;
+ 	}
+ 
+ 	/* Increment usage count for our sisusb */
+@@ -2880,9 +2918,16 @@ static int sisusb_probe(struct usb_interface *intf,
+ 
+ 	if (dev->speed == USB_SPEED_HIGH || dev->speed >= USB_SPEED_SUPER) {
+ 		int initscreen = 1;
+-		if (sisusb_init_gfxdevice(sisusb, initscreen))
++
++		if (sisusb_init_gfxdevice(sisusb, initscreen)) {
+ 			dev_err(&sisusb->sisusb_dev->dev,
+-					"Failed to early initialize device\n");
++				"Failed to early initialize device\n");
++			sisusb->present = 0;
++			usb_set_intfdata(intf, NULL);
++			usb_put_dev(sisusb->sisusb_dev);
++			retval = -EIO;
++			goto error_4;
++		}
+ 
+ 	} else
+ 		dev_info(&sisusb->sisusb_dev->dev,
 -- 
-2.55.0
+2.53.0
 
