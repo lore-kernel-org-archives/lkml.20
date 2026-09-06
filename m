@@ -1,168 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C1A363C48;
-	Sun,  6 Sep 2026 18:41:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D61363C48
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 18:44:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788720091; cv=none; b=b2kVv1vJPtoXAxbCTr6mf2kAfTqNRz3SKc/QNklSzN0XiDlN/bARovNOZeMQqCcPcdWDT0KepocmPgh7OCoNR2pec2TMftBM4Yig9aTtCx8tyEdlSlDvKa395fl3XXHr7/ATG+HsKUBcv/3PQ8bsF6Ct/2f0Qg8CncmHVH+FtgA=
+	t=1788720260; cv=none; b=WTkes087ZmPgC3xrUqmlbm41+1SU5mOZNrzn/ne6PAXSyBOOcTJMJqElIbkQHVpL+g2twU6reh0d/LzxaBXXf9WYUPBixlOUS5inwb+PMFE9BbW7w/lsCTrLRvrIn1K8wC1BQP63WuexqB9NF7RfNRjCDuoV97QNVFCP3NCIXCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788720091; c=relaxed/simple;
-	bh=bJma6qjMkBmkrsew8txUTwbVezkKEYszB8Or3uujyq8=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=InqLZqq6/bCzVoWyDfqjI7ADMGof5x1ax/lOrrNQBTcUrnl7VpblrTBFMvHMP+V4FvpyE0BEoM0sJUcco0OkxpCNtFicZon1Rdhz1fXRFvnwmhjTwht9cellKTrM553pIexSaRLl28W9DjeKNurU3c2SBN2BAMx4MWzdA5ZdcuU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SE+C2dzO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788720260; c=relaxed/simple;
+	bh=BaNpnanrjgbdSZKgIxI5TIOIZm3kDLtIvvcL+9R7TZA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cUeTYERRv7YAcmJhk7snE6NX3yvms3UDF8eCIoNw46mpHPZYckl2/vmFbF9fNRYw/he+epnKaYCP5+cIAMNljXhOovAXD6Vf9Hit25TYukbfEGoAuN/OVsZSI9nSAdKJ7a2JcO+jimw9SrjCEsxbJYeY5CwHixCx+VoXJgJFSOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m5gU8oRB; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SE+C2dzO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CFA51F00A3A;
-	Sun,  6 Sep 2026 18:41:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788720089;
-	bh=SNvUlsPgaM3N9GqrTTga5ripAMVFDQzMZNOl9a4uyRE=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=SE+C2dzOMUP2qyZyTgmTuaECGu0d5I5jjfRFVUp4mVCdarbD4zIr/veGMrRiVCY55
-	 xwRf4unPsmwuwKHYRtpZec0t0bguhbGWdaQ8yVvlen7P1SEHvZxt4HioA+9lz9TgNp
-	 SDB7DdfhWtchZLmLqhYaDABjFXYcUOs1F6UBDHdcvesthWDLc4QbrIJItHWIrkXujn
-	 8oP9Km15sPsX+igq6U5BbAnRNSVb/+bFN9Rhoj8XuVRHq3Fe5YjPwq0UPyRSEcILYl
-	 Ne3sgcTCgMiTtC/YZeiklgLA31jkEbTjXwOJ6AntVEynpQlHUiMWSk936irLcG8ATc
-	 jrvXeRLkps88A==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m5gU8oRB"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d9b60c652aso33900605ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 11:44:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788720258; x=1789325058; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fATElZat+q7upA4tOibt7iYKQOftj7DVW6WQFIGNTcg=;
+        b=m5gU8oRBAuN52eaGGCnQJX/9oA1fNKHojXWzmGMpOf17exQQdwsEFkdA8qWJ8877Kr
+         bk50gx/YvFvzxwosdjOwaAl5y0JN698F0OnFcsIGNOJXV5NfxkBz+hTsxpEmef6Vus8W
+         eGmnxynb5OOyGy7zgVTas8tRnK3H1WwIa0BEreicBcQqypwQcW7gn51nXFmbEmEmM1Yp
+         nVdN0V6oEU+Q3D+o9e0ofH/1yWY4CNsagVbqXLQApYcNDliYpl98dAjmO6NFjvlnzA7F
+         aFplzIHFDCBTziuYtx7oBTThcGggQMsWaiY2eH5SKmfNhStLQVnpLJ+6tCct1jeiFnZN
+         DfZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788720258; x=1789325058;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fATElZat+q7upA4tOibt7iYKQOftj7DVW6WQFIGNTcg=;
+        b=O+35NAPiUFm7bgHOUo4WuHxCcwZuoEU1INn49OHWmKWeYiB67ACIeHBAUASo/Nvr55
+         BragQXJBQLhuN8dsCc45p8tJt4B+lhmoOW8uR3VS4NxOEBCgXklZLXlcarLfxfgFWyZ6
+         DQ4kZjkVledLhXCeJunSkEHnuiCxhHBJcuqGNxpJYj8NEHAtyi5MUsGanCbg2Wj0RNEJ
+         TpHRdVgUKbPtV4MBkZJgWuMXoasgYLUVheZ7CAW7xN00TkmNuibJE5Q6GMRW1Hjla/2y
+         bY13vENamlzOyex8L2eMx6J4cJ8vcIE5KDbAMIRrmcc1hK/L/XzlFt+0SjjnP2mtbYc5
+         Mz1w==
+X-Forwarded-Encrypted: i=1; AKwUvBxSiLMSUfD1Cm2tQqkoDhe9v+CfcQe/+nIixZNprOz5kArjklto4ECoYIxcSzs86jbD9thpfZMsKqBntcY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nOUQoe0YBNgdmqiv5YRPKOMEIt7VvNHGlv0Q5L8RFeYgcSpWwg
+	VqeSIVIi2EG9bPCD7YyssyKgaSeYGIuB/P6+DY5CdsCtKe2wX66coF8VE0/0HuIM
+X-Gm-Gg: AYBFou1H0y11RZiYgWQkITtOEaiSZO6WSmdHX7ezjre61zn083Y4tGr1gYhmra4jOxq
+	/8Y1zB4M6tNl/R5bEX2lXmLqrIatFef4gJjz2LJHYs3GhavyqX130ej5QmKaOQrZ5YOWfWL/FJg
+	ETme92+1XmpQYz7z8JHM80JrUmXyPp/fEe62n+r+DapN4EM6zDnCuOwF9a7uySP8Pu80LpakGZh
+	sSVaHPGEr+KzqLU01Kxy3u7Sy9SfXVihbuwrrAonhK+yp4fv4mmyFKoUQXsvFeFnWE4Lj1eemke
+	ij2/txHOU0Re0rHy3ZMFjHbKImnWlVXun53jftk/Dmm2/rx7Sp7rKmJIvZsT0O8JWUcy/TcfUUZ
+	St3LAfNIF54AXPcpAh5t+Jwww6vVtpMBUZx4YHBtYfikh2g3dal2jMY4FeKKbb0/L5KddvrgxRW
+	Wz81vYVm6nr9HKRra+lIlSMhE1ZcuYJzeXwYX9+QAire0YH5nCA/aqEBd3deER6JNyqA2NMA==
+X-Received: by 2002:a17:90a:e7c2:b0:398:9be8:ea66 with SMTP id 98e67ed59e1d1-39b261da126mr27194570a91.19.1788720257917;
+        Sun, 06 Sep 2026 11:44:17 -0700 (PDT)
+Received: from TheRealOne ([2409:40e1:15:4732:db5a:76f6:6f7d:3814])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae8e0b117sm8219320a91.3.2026.09.06.11.44.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 11:44:17 -0700 (PDT)
+From: Chandradhar Kumar <chandradhar.2003@gmail.com>
+To: song@kernel.org,
+	yukuai@fygo.io,
+	linux-raid@vger.kernel.org
+Cc: magiclinan@didiglobal.com,
+	xiao@kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chandradhar Kumar <chandradhar.2003@gmail.com>,
+	syzbot+a32ff75e417c0f49a8e9@syzkaller.appspotmail.com
+Subject: [PATCH v2] md/raid0: validate device count before allocating devlist
+Date: Mon,  7 Sep 2026 00:14:06 +0530
+Message-ID: <20260906184406.2141-1-chandradhar.2003@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3 4/5] iio: light: vcnl4000: Add IRQ disable callback
- on cleanup
-From: Jonathan Cameron <jic23@kernel.org>
-To: Tsz Shan Chan <tsz.chan.dev@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Tsz Shan Chan <tchan@jacques.com.au>
-In-Reply-To: <20260903-vcnl4000-v3-4-5e69c2e715a8@jacques.com.au>
-References: <20260903-vcnl4000-v3-0-5e69c2e715a8@jacques.com.au>
- <20260903-vcnl4000-v3-4-5e69c2e715a8@jacques.com.au>
-Date: Sun, 06 Sep 2026 19:41:12 +0100
-Message-Id: <178872007271.3402141.14738588921320424322.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3513;
- i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
- bh=bJma6qjMkBmkrsew8txUTwbVezkKEYszB8Or3uujyq8=;
- b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqnbPLCQPiBFK+5VundJaRro2V7INHkyNpWLBfZ
- oXAiaXmiteJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCap2zyxEcamljMjNAa2Vy
- bmVsLm9yZwAKCRBUhTSZxPQWiF7jD/wK/owkWGZmoTuv7zlhWv7ziAmrTc4SK5/oBF2tuGKe5Og
- EyOIvnUeFpLN+zjNCdMTPstG3a8SwByyvb4KoC/EmerlAJPxBmWyLqskOHa9sOFappR6Ko/Byl1
- FsvlTVVaAQ4iaZMSdCBdlDKuEXg1c6YZ/Y/jlWeBIiT2w7uYJ/RVTgycOSe5RIcBAr7E5byoHhR
- v+v7bmNvOfV/Q/tiXLGPVSLHAtOp/RK8GuAcnA2EynYF60TOLNgfa/stlEvDe1nF00pXZe1RN9c
- KRvX3KqUdVEFYoOzhFtpC0b+h+oiJU/EeZzUYJ/bOBHbQP/VfTXkHsO0u34dZJ8SWO7pgyAflhy
- ynJpbMwu65It10FzhR8HGLeDfzNtvw+jt7am87kdhX4PGIpoNIZB73Tw4FxdreW2HPBfS0NFfek
- KPm3pvUCiz5yB6PRLV2hVcqY1XHptwfiXaUz1bOVox6GrikmvsbxnP586Nrteez4FnPQM2Ysmwu
- 3e2PynFsgFdoWi3aUWubgqNVWXjHIfRhWXpS6pbrsedZSw0OgwZScyhcBBM0RdEaELQfzXOktvO
- kRikz+emjxao1qgtNKNBfeTUjrS8btl7jdVAPeliiRHreO0USUd5yAtiFlOCwIacNoPcbuZkUhn
- dbVN60RQKv5Ia2SQnQJhG7mr6q/MHIe8UqHTpDA==
-X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
- fpr=6E2966B387840652912681B154853499C4F41688
+Content-Transfer-Encoding: 8bit
 
-> During driver unbind, devm cleans up resources in LIFO order. The IRQ
-> handler is freed before the device is powered down. This can lead to
-> unhandled interrupts.
+create_strip_zones() allocates conf->devlist based on mddev->raid_disks
+before verifying that enough devices are present. Validate the number of
+member devices before allocating devlist to reject invalid
+configurations early.
 
-Add more on which interrupts and whether they are race conditions
-like maybe happen for the buffer tear down, or this is actually
-disabling events (as the core can't do that).
+The existing validation later in the function already rejects this
+condition, but it occurs after the potentially excessive allocation.
 
+Reported-by: syzbot+a32ff75e417c0f49a8e9@syzkaller.appspotmail.com
+Closes: https://syzbot.org/bug?extid=a32ff75e417c0f49a8e9
+Signed-off-by: Chandradhar Kumar <chandradhar.2003@gmail.com>
 
-> 
-> Register a devm action to disable interrupt explicitly after
-> devm_request_threaded_irq(), so that the interrupt is disabled before
-> the IRQ handler is freed. This prevents any unhandled interrupts.
-> 
-> Add a disable_irq callback to chip info structure. This allows each chip
-> type to implement its own disable sequence.
-> 
-> Signed-off-by: Tsz Shan Chan <tchan@jacques.com.au>
+v2:
+- Reject non-positive raid-disks values, which can bypass the device
+  count validation and result in an oversized allocation.
+---
+ drivers/md/raid0.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
 
-There are various bits of this that look rather incorrect. Please
-take another close look at this one.
-
-Given we've had a lot of races around event disabling and device tear
-down recently it may be me need to look at adding a suitable hook
-in the core to turn them off.  Anyhow, that is a job for another day.
-
->
-> diff --git a/drivers/iio/light/vcnl4000.c b/drivers/iio/light/vcnl4000.c
-> index 9f5a9dc6f87e..82ce940d3bef 100644
-> --- a/drivers/iio/light/vcnl4000.c
-> +++ b/drivers/iio/light/vcnl4000.c
-> @@ -218,6 +218,7 @@ struct vcnl4000_chip_spec {
->  	int (*measure_light)(struct vcnl4000_data *data, int *val);
->  	int (*measure_proximity)(struct vcnl4000_data *data, int *val);
->  	int (*set_power_state)(struct vcnl4000_data *data, bool on);
-> +	int (*disable_irq)(struct vcnl4000_data *data);
->  	irqreturn_t (*irq_thread)(int irq, void *priv);
->  	irqreturn_t (*trig_buffer_func)(int irq, void *priv);
->  
-> @@ -1467,6 +1468,48 @@ static int vcnl4040_write_event_config(struct iio_dev *indio_dev,
->  	}
->  }
->  
-> +static int vcnl4010_disable_irq(struct vcnl4000_data *data)
-> +{
-> +	int ret;
-> +
-> +	guard(mutex)(&data->vcnl4000_lock);
-> +
-> +	ret = vcnl4010_stop(data);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret = i2c_smbus_read_byte_data(data->client, VCNL4010_ISR);
-
-Does this regsiter have anything to do with disabling the interrupt?
-I'd expect that to be somewhere in INT_CTRL.
-
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret &= VCNL4010_INT_THR | VCNL4010_INT_DRDY;
-
-This bothers me. Data ready should be turned off by the buffer disable
-that happens when the device unregiser occurs. Is that not happening
-for some reason.  The threshold is more interesting here but I'd
-generally prefer this code to be turning the event off (side effect
-being to disable that interrupt).  So
-vcln4010_config_threshold_disable() should be doing the job - possibly
-via vcl4010_config_threshold() (I haven't checked locking etc).
-
-> +	if (!ret)
-> +		return 0;
-> +
-> +	return i2c_smbus_write_byte_data(data->client, VCNL4010_ISR, ret);
-> +}
-> +
-> +static int vcnl4040_disable_irq(struct vcnl4000_data *data)
-> +{
-> +	int ret;
-> +
-> +	guard(mutex)(&data->vcnl4000_lock);
-> +
-> +	ret = vcnl4040_update_ps_int(data, VCNL4040_PS_CONF2_PS_INT, false);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret = vcnl4040_update_als_int(data, VCNL4040_ALS_CONF_INT_EN, false);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret = i2c_smbus_read_word_data(data->client, data->chip_spec->int_reg);
-
-What is this doing? Just to check, is this stuff LLM assisted? That
-read is random enough I'd not really expect to see it human generated
-code.
-
+diff --git a/drivers/md/raid0.c b/drivers/md/raid0.c
+index 35e103f0c2c3..8eaf078606d6 100644
+--- a/drivers/md/raid0.c
++++ b/drivers/md/raid0.c
+@@ -69,7 +69,7 @@ static int create_strip_zones(struct mddev *mddev, struct r0conf **private_conf)
+ 	sector_t curr_zone_end, sectors;
+ 	struct md_rdev *smallest, *rdev1, *rdev2, *rdev, **dev;
+ 	struct strip_zone *zone;
+-	int cnt;
++	int cnt, nr_devs;
+ 	struct r0conf *conf = kzalloc_obj(*conf);
+ 	unsigned int blksize = 512;
+ 
+@@ -79,7 +79,10 @@ static int create_strip_zones(struct mddev *mddev, struct r0conf **private_conf)
+ 	*private_conf = ERR_PTR(-ENOMEM);
+ 	if (!conf)
+ 		return -ENOMEM;
++
++	nr_devs = 0;
+ 	rdev_for_each(rdev1, mddev) {
++		nr_devs++;
+ 		pr_debug("md/raid0:%s: looking at %pg\n",
+ 			 mdname(mddev),
+ 			 rdev1->bdev);
+@@ -144,6 +147,21 @@ static int create_strip_zones(struct mddev *mddev, struct r0conf **private_conf)
+ 	}
+ 
+ 	err = -ENOMEM;
++
++	if (mddev->raid_disks <= 0) {
++		pr_warn("md/raid0:%s: invalid number of disks %d - aborting!\n",
++			mdname(mddev), mddev->raid_disks);
++		err = -EINVAL;
++		goto abort;
++	}
++
++	if (nr_devs < mddev->raid_disks) {
++		pr_warn("md/raid0:%s: too few disks (%d of %d) - aborting!\n",
++			mdname(mddev), nr_devs, mddev->raid_disks);
++		err = -EINVAL;
++		goto abort;
++	}
++
+ 	conf->strip_zone = kvzalloc_objs(struct strip_zone, conf->nr_strip_zones);
+ 	if (!conf->strip_zone)
+ 		goto abort;
 -- 
-Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+2.55.0
+
