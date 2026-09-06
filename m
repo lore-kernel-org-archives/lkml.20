@@ -1,169 +1,129 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 126B13FBB4D
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:19:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788693575; cv=pass; b=WWnCTBw9R4Txe2KDGgyqQ2OwRaxrfh426eITV5Nk+NveWSOkYJx/3E1J/4Fa6ndMC2K5gonkyBld4W1/78fkP2tBtsCnA16m3Vpir8flKu8lEW4L7xSkpdKt2+BPVAUm2NhPvcSYO+CY7P46GA+uBNKcpSTo/MwmzyWPwG+xmv0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788693575; c=relaxed/simple;
-	bh=Giupk0J1ZNfcLTZqdMpQz4eJAmUP1rE7vrmVirAraPY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nr3pNONobNaBntQzEZ4IGH+r+dJ/GJhnql9u3kWxS47w//nd49MmuxPRmN6PryBdrC5DKxpNCZloZ9hpxs4MyLUGHmwuxLgoQIhbScfO0HUftp7o9XoVIKKcF9oER/nRUsFwJDaxt8dVsuuRj6bqG1BB21AlGAdtBkL1+hsxTf0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=A1bL9ZKz; arc=pass smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68923612E0
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:20:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788693614; cv=none; b=unNhgx/HKgCvo+7PYRtEjU9AUDoXLh0ZTvq1RXImOf61BtDJ9Ln+8IEjILnhwPNaVEAxqv1mWynaJJf14+xsHz2Du/1ZS/ywr8WY4QH7XG8YblxNpqRdQm7MUIFSqDdodekv5XF1oNY7eL5MFDb4L+gaKaCNBATaSWwccZS138g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788693614; c=relaxed/simple;
+	bh=jLuV+lLqQK8/EHcVuPKgeyCNnuLNb1rLsMWCYlCW1hI=;
+	h=Message-ID:MIME-Version:From:To:Cc:Date:Subject:Content-Type; b=HbbHKMaQTxDwBRpWd38aytDzIOKUAv+N7O+9Cm3HtnY8DJ5225Y7ZW8lfKKW/SJlGBNKpmDbiYBCcsz34hBbN+7cl3DhduovpDadbp2n/YFA7o4vw1trm/+1d3z3DeCJ5t3WiyG9SWhPlkCkY26+vJ+Aa09tP7fBVQXKTasCjhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QgZlloAv; arc=none smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="A1bL9ZKz"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d9db539a54so20437165ad.0
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 04:19:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788693571; cv=none;
-        d=google.com; s=arc-20260327;
-        b=akKCEOpNZNJgwy+Retvz9YUxrB1bIo96QCxUE1+SXJAzrg+Ue95D9a4fUnqNuMb/mP
-         5V5WgKF+ApRVgz/xg8+83ToN+PosbRxBotAUBtnLjNd1M5cRUQ6WtEqdSv9+jd0XcOpE
-         VaYYJzAT1kD6ktbW/k5fDsoTZq2wkAKYiQ4wpT7Z5CncvcxglZ1Yb2cttPyLnFkSDtSt
-         DGtiwYM+Xxwcw17GTGmhEPXaGXM+8beVit1+XExDsMxz9N4VpPj0Llt2N7LK1IlRdxrY
-         +w9+YI0frFMV0wtDLJh6BgTnw3zgULhoIPuZfcvNX2HlV9/c8CpE8QYX9SREPYFZlx49
-         hkbA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XTgCA64EfXR/PGZNkFArmuKTqa5lqNd9HTFkrYCnwOg=;
-        fh=AXiwWcinuEZjFrSG2ratem7wbrowrHkW7zz+mogqelQ=;
-        b=WWdQnKi2rs0s7G6OPZROS18TTR/8lMvxtsLdohhTguE7Y5jJBlvWZ9b4uUv1IXKqsz
-         5hDBXeLYsEY6fQHVufAplSzxH9mXDnaDEKKP9K2hcAz7u25O/ouA1vm4T2MdsjFyTtii
-         yX/ZahP6vrOfwrjS6HSwxda/tMJ1YCdtvbBPA+wbu/30E3UZJDtVOIeaxtmpYWC/G+wr
-         /CGemZvdJ1/jubS5jT45PrYbwWfsjVfLMkHdXMeYx8rsSEmi7maghEQjwttRjUCpXHdh
-         +c7Ye13q+Q2nGZMdF8i/qnfyLVm1mfuQMTITa0aZbN6Vo4y0WZFQgmhxv7yEfp+agCxH
-         JRjA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QgZlloAv"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2d91ded8174so19365985ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 04:20:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1788693571; x=1789298371; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XTgCA64EfXR/PGZNkFArmuKTqa5lqNd9HTFkrYCnwOg=;
-        b=A1bL9ZKzb7548j3SG8IvKUw8uu5Cv8yStzLDV5IU2k3rYh5gqplkpxABa+PC2u5bSk
-         rtgZ0LDXKmL5xE8hw+fy/H48oTeUOTTuPCPbza/wZZmGKVLx33/v3R6Pd4Ht4cCrhJ1k
-         V/DSEqmfKGGP7P4mRGDWmOUegU9yHpPwi2SSjrhQCD8W8Nzn+GK6HjoaUPR/VBGmPQ2e
-         YmF8K6Y/N3NhQIDnqcs9CEBMp6DXM7MBtARGkR8LPm3AMUfKQwQ15xVFGkZorbaHqa0+
-         uiGIhqFv0ZCExOztgd1hZeYFa/5a7hr+DmpCnNvmg32i4TfUPwGJYG/oNQCYgT80OE+d
-         vQ8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788693571; x=1789298371;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788693612; x=1789298412; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:subject:date:cc:to:from
+         :mime-version:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XTgCA64EfXR/PGZNkFArmuKTqa5lqNd9HTFkrYCnwOg=;
-        b=iZ8D60VJchVzKwuAVA0C0XgI+wqRYBV4Dsl+Eh1zBPHdXrnhGprPrpQJFtKrL4PrY7
-         f9ypyZHxNrHWiLdjJwHuq+noX9oishPZWoyq5y+ig5Z4840aZ7JeOGmn3Y/5uTcLdEa7
-         6JCesIsAZUy/PTn1JrTze6nijQONKruFspVhPUQUmLmiXVL6YUocNMzJJkJjI5hJXxxm
-         ArW1IixPzoUAVpbOIkv1OLHyX6rVJ9jtSvJEqJyl0/axLaK0MH5XPvSdd18dMKAHI6V1
-         UisFHdy+22gSfN1iINQXShnzfz1KnkLDMtKJUiGnJivLUGZdL8tuGH6lHUcQCgjs7XXr
-         o8tQ==
-X-Forwarded-Encrypted: i=1; AKwUvByg2EPShtz+Qf/HhkR4bci73v2i2YSd6zuo7mHKSWA6m9X+OPin7OgvvP5q9Sk+MuN+b5IhR3zRXBy26iw=@vger.kernel.org
-X-Gm-Message-State: AFuF++n8B/cFyEi9sVsi53lsJAO8rns40Lf6UOo2uYCRwPtMbfzOs203
-	BiHHBDZgGRQt4cW09LnHGyhDjL2TVDIfbBXAmsk2vf+3PChgZhX2eNMkPZQDi4151MM26bRMB5e
-	iNjvyoeBlkIWxJfDKodNsAjJU2bl4KTXCjoRR0ybFcqQbLFKGspeUMyTK
-X-Gm-Gg: AYBFou2uO9K+HkCeILUFjJ2mFw3YCmUKipj6Z15Xuzmd+ZCDSF5+C/dcucA/2TSR8NF
-	aDa2WwsMU7+785go7I1wTcAbLJCTeklI+xhbTdNaxzICwkoc4DFuNiOrFBB0bn2vlGv2nBB+pGv
-	RIQnLcwinomu1ip380eEftp3ZEZ97FSQjDWVYdLaGNtFPxaZ0+c2LpEk4+mhKnNIECcFyVDczer
-	SJn+jFGvWW5EfFVkHj5fWoPCAqqbf91onhqhNXJs4HE/NoDH1fb20WT2p7rdA267XI/YYQzn/o6
-	sDWQDoJRxFhZcXcw8eyZ5GRBi+WXxg0x0bvcU27Zg1f6eh0L5LV0aks3EZY+hQXV++2pBHDTNnW
-	mZHTTEyWdADDY57CBPu10NxlJZQgWYUNC72Y=
-X-Received: by 2002:a17:902:f68b:b0:2cc:864b:539 with SMTP id
- d9443c01a7336-2db12495a80mr248860175ad.6.1788693571315; Sun, 06 Sep 2026
- 04:19:31 -0700 (PDT)
+        bh=PTH7GUXLcuozQUUFEaYKkQ5+81ENlZ2w0hwg8hOzpBI=;
+        b=QgZlloAv1MPMgIxHChc9lSkckWukcBGzaZM7oD2D6JtYuVrkfSuOJ0CvZ1D4ImHoF8
+         kN0ze6rYdGFESyrhLJQe+ddpD60CGt9HfcedYlJlFfxMC31eB39vyBQlhEIrpRM2hOMN
+         JcdAnvQW+RhweDLLAmIzJ7XtrFyfRHOh4iQmPmTHNUrdPt3e/0lOsdccGhsteZtHl2xy
+         LAwoz6PZmrXyTUoLomecYV10ha9Oa1sXQgPSQowfB14mceb81/Dr9NbFa8odcfXlt2Jo
+         I65WyiPcKXO/2tAAVOecmFfsW+LO5z15xbZvE12Z4mMX6K8OameKyFle987x1GVLIcRV
+         9ywg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788693612; x=1789298412;
+        h=content-transfer-encoding:content-type:subject:date:cc:to:from
+         :mime-version:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=PTH7GUXLcuozQUUFEaYKkQ5+81ENlZ2w0hwg8hOzpBI=;
+        b=hlsEdE7qRGWq1eZRxGHceI+Uj/9T6rAKdoFFo939fcHxd9QB2Ng8cQzx0C9curmCTO
+         0glEUltGMq2VrpfsEcjxVzoosBcqIav3TYkMtTpbB2DxHnpWCIBECKNPKLYqx7lrUnTL
+         YCrMEDGLsCbWrUYYujrFpmCQY0ruFEoZtJu5zqkZDyMdXIJKykSFvcZgSSHUIqzUO7Nv
+         YKsVbrdwz5F82DeQ4CsQo96+kShfdNHs6Jdj8+G3KkCOAy94DXGsoYcTRUV2gDe9QDvG
+         VC96MrNfRmpSJrRHcwhA6zoOId1NECztDLhOtd3S+QXBuSHnu8pNPVK6zup6jpn+jV/v
+         Etaw==
+X-Forwarded-Encrypted: i=1; AKwUvBzuQZbwJeWu5inpl/s3gnJ5Ki591nScryBTpEBTBJiAEjneoOuMIPaIfNBD5sMEvQOEK604IcKUa/H1tfE=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5nFOIjJKMHAZMeIJp3ndH9brgim/IQz/58Eg9ydJKkGLEanm1
+	nrA0Fi3cVj+F1CAvKBHqKPcE0FRgE7lq99HZUBmU/yJpQDVSZfYP1hs6
+X-Gm-Gg: AYBFou0EUeVTXOUcFSD7uFF2SHKJu0cTShOutQ605QrIom1S4G8JsLBmsc1swUnum9M
+	lBsCBWLW6zkepwAZP7TXK+mayLjxdFU1+HFaxsbjbpYGRIcp8MbUaNwkC+U0lyOC+jdOws+J0Jf
+	kYyNQT8kWjV2JSJoSs+xisdrFHGRiny0Z8qYcf6CYOHz2zMCDmODmIhqiGf/XQVqwb8XIGPdpye
+	pqLq8gLAAdwkhU86ho/8/W5wFsJaRuCpGinUEuye39JFs9ZfWS9qRaC11q0j0nyxS05z5IUS5Qt
+	ttWJiDGigcOWm3dbcrz5Wz+/VUEEP8SWk+UekSR9utVlwxcT4ZLb2gH6GWMtRXZNPSef8qNvxbz
+	V21oCTWc8ldWIJ00EgFn9WXJQCucWklI4Up1uN3DvYY6TzdurXDv1uwKHaR4Hb3KOrmwmiR44xp
+	ixBgfVjMQqphqJKmTqyUaSYXIDEGF6D/XUav5LWldlVHpzuPXBOtM68XaT1JQB2Wv89uCUflO01
+	jM2269KyaD1i0X3e1MvJyqhfbwDna1F6FuKIVJNkCjEfItDVSOo4t0soA==
+X-Received: by 2002:a17:903:11c8:b0:2d8:d4de:fa80 with SMTP id d9443c01a7336-2db1235721dmr234116345ad.4.1788693611959;
+        Sun, 06 Sep 2026 04:20:11 -0700 (PDT)
+Received: from manush ([2406:7400:94:7a79:f149:be84:942d:9300])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa36b37sm19291515eec.14.2026.09.06.04.20.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 04:20:11 -0700 (PDT)
+Message-ID: <6a9d4c6b.79b5ea6e.147aa1.5883@mx.google.com>
+X-Mailer: git-send-email 2.46.2.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <upsCxxaJjg2FJWhfCx6KjFXLlh8o4IhaHKJi@bugs.sh> <CAMuHMdVVqfqvueX-jk_XfM5tE9XScZPe1OLqGw1MUC=Kd2reBQ@mail.gmail.com>
-In-Reply-To: <CAMuHMdVVqfqvueX-jk_XfM5tE9XScZPe1OLqGw1MUC=Kd2reBQ@mail.gmail.com>
-From: Xiang Mei <xmei5@asu.edu>
-Date: Sun, 6 Sep 2026 04:19:20 -0700
-X-Gm-Features: AcwNN1VwRPW3yMBdTVYbJmlJsVs_CJngzLBHUrX4gAO4o_iesE3RGTS14IgLAxg
-Message-ID: <CAPpSM+R_EH-grYvEs3QFCsi-tej4yhUqrAib2XcDLh5TKKeh-Q@mail.gmail.com>
-Subject: Re: [BUG] drivers/net: out-of-bounds in pcan_usb_decode_buf()
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: co <co+5e2bcf11e7027510@bugs.sh>, linux-can@vger.kernel.org, 
-	Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol <mailhol@kernel.org>, Petr Mladek <pmladek@suse.com>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, =?UTF-8?Q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>, 
-	Oleg Nesterov <oleg@redhat.com>, Biju Das <biju.das.jz@bp.renesas.com>, Song Liu <song@kernel.org>, 
-	linux-kernel@vger.kernel.org, cedalion@bugs.sh
-Content-Type: text/plain; charset="UTF-8"
+From: "Manush Prajwal" <manushprajwal555@gmail.com>
+To: ukleinek@kernel.org
+Cc: lee@kernel.org, linux-pwm@vger.kernel.org, mfd@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Date: 6 Sep 2026 16:50:10 +0530
+Subject: [PATCH] pwm: lp3943: validate DT output indices in
+ lp3943_pwm_parse_dt()
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 5, 2026 at 7:04=E2=80=AFAM Geert Uytterhoeven <geert@linux-m68k=
-.org> wrote:
->
-> Hi Co,
->
-> On Fri, 4 Sept 2026 at 23:17, co <co+5e2bcf11e7027510@bugs.sh> wrote:
-> > We found a bug reachable in:
-> >
-> >     path    drivers/net/can/usb/peak_usb
-> >     crash   out-of-bounds in pcan_usb_decode_buf()
-> >     commit  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.kern=
-el.org/pub/scm/linux/kernel/git/trace/linux-trace")
-> >
-> > Config, environment, the sanitizer report and a C reproducer follow.
-> >
-> > =3D=3D Notes =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >     If you patch the bug based on our artifacts, a tag would be
-> >     appreciated:
-> >
-> > Reported-by: co+5e2bcf11e7027510@bugs.sh
-> >
-> >     Everything in this mail is validated by the reproducer below.
-> >
-> >     We also hold an LLM-generated root-cause analysis and a candidate
-> >     patch. The patch passes an A/B test: the same reproducer panics the
-> >     unpatched kernel and runs clean on the patched one. Neither has had
-> >     human review, so both still require validation before you send or
-> >     apply them. Available on:
-> >
-> >         patch.diff  https://bugs.sh/b/5e2bcf11e7027510/patch.diff
-> >         report.md   https://bugs.sh/b/5e2bcf11e7027510/report.md
-> >
-> >     This is an open science project. The code and the full set of PoCs
-> >     are not public at this moment, as we intend to disclose our finding=
-s
-> >     in an ethical way.
-> >
-> >     Happy to test patches. Complaints and suggestions about our work
-> >     are welcome at:
-> >
-> >         cedalion@bugs.sh
->
-> Please read Documentation/process/submitting-patches.rst, especially
-> https://elixir.bootlin.com/linux/v7.2.2/source/Documentation/process/subm=
-itting-patches.rst#L928
->
-> Thanks a lot!
->
-Hi Geert, thanks for the reminder.
-We'll learn the documents and make sure we follow the documents.
+The ti,pwm0/ti,pwm1 devicetree properties are raw u32 arrays nami=
+ng=0D=0Awhich of the 16 physical LP3943 outputs (0-15, per the do=
+cumented=0D=0Abinding and the 16-entry enum lp3943_pwm_output) ea=
+ch PWM channel=0D=0Adrives. lp3943_pwm_parse_dt() reads these val=
+ues straight from the=0D=0Adevicetree with of_property_read_u32_a=
+rray() and stores them in=0D=0Apwm_map->output[] without checking=
+ they are actually in range.=0D=0A=0D=0ABoth consumers of pwm_map=
+->output[] then use an out-of-range value=0D=0Adirectly as an ind=
+ex/bit-offset with no bounds check of their own:=0D=0A=0D=0A - lp=
+3943_pwm_request_map() does=0D=0A       test_and_set_bit(offset, =
+&lp3943->pin_used)=0D=0A   with offset taken straight from output=
+[i], corrupting memory beyond=0D=0A   the single 'unsigned long p=
+in_used' field for offset >=3D BITS_PER_LONG.=0D=0A=0D=0A - lp394=
+3_pwm_set_mode() does=0D=0A       mux[index].reg / .mask / .shift=
+=0D=0A   with index taken straight from output[i], reading past t=
+he 16-entry=0D=0A   lp3943_mux_cfg[] array and then issuing a reg=
+map write built from=0D=0A   whatever garbage register/mask/shift=
+ values were read out of bounds.=0D=0A=0D=0AA devicetree (malform=
+ed board file or a loaded overlay) with an=0D=0Aout-of-range ti,p=
+wm0/ti,pwm1 value is enough to reach either path;=0D=0Anothing up=
+stream of these two functions validates the value.=0D=0A=0D=0AAdd=
+ a range check in lp3943_pwm_parse_dt() right after the values ar=
+e=0D=0Aread, rejecting the devicetree with -EINVAL before any out=
+-of-range=0D=0Avalue can reach pwm_map->output[]. Add the LP3943_=
+NUM_OUTPUTS(16)=0D=0Aconstant next to the existing enum it bounds=
+, alongside the existing=0D=0ALP3943_NUM_PWMS(2) constant.=0D=0A=0D=0A=
+Signed-off-by: Manush Prajwal <manushprajwal555@gmail.com>=0D=0A-=
+--=0D=0A drivers/pwm/pwm-lp3943.c   | 7 ++++++-=0D=0A include/lin=
+ux/mfd/lp3943.h | 2 ++=0D=0A 2 files changed, 8 insertions(+), 1 =
+deletion(-)=0D=0A=0D=0Adiff --git a/drivers/pwm/pwm-lp3943.c b/dr=
+ivers/pwm/pwm-lp3943.c=0D=0Aindex 10537e74b..1ce2a1bbc 100644=0D=0A=
+--- a/drivers/pwm/pwm-lp3943.c=0D=0A+++ b/drivers/pwm/pwm-lp3943.=
+c=0D=0A@@ -218,7 +218,7 @@ static int lp3943_pwm_parse_dt(struct =
+device *dev,=0D=0A 	struct lp3943_platform_data *pdata;=0D=0A 	st=
+ruct lp3943_pwm_map *pwm_map;=0D=0A 	enum lp3943_pwm_output *outp=
+ut;=0D=0A-	int i, err, num_outputs, count =3D 0;=0D=0A+	int i, j,=
+ err, num_outputs, count =3D 0;=0D=0A =0D=0A 	if (!node)=0D=0A 		=
+return -EINVAL;=0D=0A@@ -247,6 +247,11 @@ static int lp3943_pwm_p=
+arse_dt(struct device *dev,=0D=0A 		if (err)=0D=0A 			return err;=
+=0D=0A =0D=0A+		for (j =3D 0; j < num_outputs; j++) {=0D=0A+			if=
+ (output[j] >=3D LP3943_NUM_OUTPUTS)=0D=0A+				return -EINVAL;=0D=0A=
++		}=0D=0A+=0D=0A 		pwm_map =3D devm_kzalloc(dev, sizeof(*pwm_map=
+), GFP_KERNEL);=0D=0A 		if (!pwm_map)=0D=0A 			return -ENOMEM;=0D=0A=
+diff --git a/include/linux/mfd/lp3943.h b/include/linux/mfd/lp394=
+3.h=0D=0Aindex 5d2d172d3..844938ca7 100644=0D=0A--- a/include/lin=
+ux/mfd/lp3943.h=0D=0A+++ b/include/linux/mfd/lp3943.h=0D=0A@@ -53=
+,6 +53,8 @@ enum lp3943_pwm_output {=0D=0A 	LP3943_PWM_OUT15,=0D=0A=
+ };=0D=0A =0D=0A+#define LP3943_NUM_OUTPUTS		16=0D=0A+=0D=0A /*=0D=0A=
+  * struct lp3943_pwm_map=0D=0A  * @output: Output pins which are=
+ mapped to each PWM channel=0D=0A-- =0D=0A2.46.2.windows.1=0D=0A
 
-Xiang
-> Gr{oetje,eeting}s,
->
->                         Geert
->
-> --
-> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m6=
-8k.org
->
-> In personal conversations with technical people, I call myself a hacker. =
-But
-> when I'm talking to journalists I just say "programmer" or something like=
- that.
->                                 -- Linus Torvalds
->
