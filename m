@@ -1,178 +1,292 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC54C2F8E99
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 22:19:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788733183; cv=pass; b=rr/XBSkz74OpsKZM78xWO94D0P7Ws9OtQVVs0Rd5ABlkUDL4LTqHEBps0AcZzvRrAxxm5kdn7A28i2ufneJYeT5q2Q8lSqXU59mdIPFMOX9yIlXRQC7oCcSVjcX1z9Odb1/TpwfV0jJ7wd5rEa/iUCrSFqpNY81KoR2Xpt3OT9g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788733183; c=relaxed/simple;
-	bh=TYQn8U4IyeaYeTAKZpJ29Jiy5z5Xq4OGVqWutqQzq/Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jNqgka1ajK/Q2uxrlVmIuNnmbQMTMZIOceBUF6Wgtml/pupyhbempMli44BnE8R5OKbQl+VoIrk1b81AMTe1Y7+6aRtHKsoHaIqILHxpg9g5rKsMAb05/NIbkL6Zxt7nrNXnLidwumr8KpXq5UNjGvofHgqPVjc74SwE+mTTJck=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=EGy5YOJS; arc=pass smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D532F8E99
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 22:20:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788733218; cv=none; b=ENcrnS4N2HT0aJx2GMVtOAgABX0hape/CKAxb6aHMmL6riIXVqcc0cH6N0ISoCDyBYHyxFl8VSwnVlJnTU0sANWCNeO+9lk7VnO5laQ3hmGns/44UBWD/lgpDuskqBS0kC9ImC5ORTNvak2FIahmLO9Fzs+4251i8sIpE+XGR6k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788733218; c=relaxed/simple;
+	bh=ckImEn7DqyVJSqZJ6PEvBDY2Lx6s5wXnqO5UO3q7wMI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=d4r21EwLV1hqCBejjPArOYsItZdyn8MlTQv1LoWtVTr2hNRvrix53KATIKNVaB/hSdJ8dDXta3F9wVKWI2YH5QrpdqLBMsESeFBeOoIzwWP9d5IS5TyJc0t7N5+f2nlzlNn7OM177lnzkAU90noZb1gk8n5AqYQkMLPzHnEz8rk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kn5eJUJT; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="EGy5YOJS"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d6fe26ef1cso28755025ad.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 15:19:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788733180; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Vk59KedSsyBqwq3R2rVbQQwFvfc1gvihYwzs2BZ62VoHzPnkhyDcg76BmBSg9MB2hl
-         k2X1DvUz/2AmPTZHnB44bvotkfR4Lcn0CG81bYr4uyPDi1inWl1coSEJ6LmlIbmSSWkO
-         92wPhWG3A3pYVGRCAvzFQF05H8TXRFm0QXSfg7dkPhdtHeYX4iz+KF4u52+yD9+NwCLB
-         ey578iEXhwWWOBDW6LwMszKDP51x8rBdDEnlYMuNvryW6cLjlfwI96Tr8Cjny76EITPk
-         G9bshHD4NTA4TQKlUB16E1M6dyKfgZrV/1iLsOF+Q2x8RSKr60+tAW5kPEtoOblv5dBF
-         1SkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=j5H7v1iDtpUxbbmGGJnlO1vSD1KFA2YvCAej4f/7MTs=;
-        fh=bw93R1ZS6ljRXTpQzc++Wu9fKR+J1siXB5kb08xGqgk=;
-        b=nHI8m4U3eSLm2DT7nZj+I64dRzUBGyj2l3usA8+LdYYCi8TYAVuNmVTfFbnVdEbFX6
-         6m9POitgNgBendEFpdJShjnpSLwRQIsnqIXQvJ2cDOW/voBkWtbmMwtuUzXvg55//d1P
-         LCUqHRlRYtVQMKb7WvDbc0d5coOKwC3S8HSaUabZq7+6x5AkSgm6ruGNhfBLLA41wALF
-         tr71ZZhxDuqFwUwq82EcRm8zeuFE6KaAgteO/nZOSlvQdY6cyufbdeTIbJwfMjfAxMVD
-         hECsY3iwWqVGlOe1md+sDOv9XmJzjIsJeMupjwmVTgM20svA8qQbRyyHj3NcLqrcExKY
-         6U1A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kn5eJUJT"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-484374f54d0so1621993f8f.3
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 15:20:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1788733180; x=1789337980; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=j5H7v1iDtpUxbbmGGJnlO1vSD1KFA2YvCAej4f/7MTs=;
-        b=EGy5YOJSvuFB8jyT6w92SG5LSKLR5woX2n8cO/0tAdxRYC9J2UivdFLyA+VN1ixp17
-         gq9XGar5jgGIvMJKjAmd8DISkg0nQDO6jyO0i6N63cWrQIVALSKmtp+BVeIDNrnKD9AY
-         2md+AoQxJOG9ghsP8+/FGwWBslsNkoj6hzVjT+QQEubtIGJL7xN1v1VBbIdVvRWjGR7q
-         rXBxftr/ArIUkx++E7LlIqOstoDt3DbbWVQmePtGgAJWeJh1DhABtDrzs225q2pBbsBP
-         DKY1QZ9/jXhQeCHI1Rk75L7x5v9mtgrfL1rqiDVgz8iTK3nI1moppHmclk46XCRRZNJM
-         DwnQ==
+        d=gmail.com; s=20251104; t=1788733214; x=1789338014; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0y/3Y+Meqv4n9defUV1o/zEilZlTljWXe0KE7nGDkdM=;
+        b=Kn5eJUJTGy73NvA2643VZxUVfwwJFh4G9cP++ZDOEzCqYZ2pjlsljKEov5MteUVn6k
+         4Wh4HMZSCpOUOiGWharyKxPimfzIGqlGY45B+7uJTGFGOGp/3EoYfR+SmoH2/Mwr6Bop
+         1ojQlJ/VnL1N4dAfgALNYIbgLZWWYUdaF2rGnHyH3+Xu40U6nMfBwJXjvxljWBEjRHPt
+         nLHrOtx3mHE8JvEEnfN+cigbzq+EYhD/haDD1wSRZ6jRtxTBFu9jacZnvwa+uN06eSOo
+         52i+JMI46IX36B8wd4SnWzmLPAiA7R/Ve/kn3yGoQRn9BP+xXMpaa9A6RhIsMWLjNahp
+         XtCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788733180; x=1789337980;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=j5H7v1iDtpUxbbmGGJnlO1vSD1KFA2YvCAej4f/7MTs=;
-        b=oWKcs1aGxOm4oMDOhj6U5x06nhYp1CEyETrbMlQh1QKJ3HiZY1ax4KnkBA4bUsQZSc
-         TT6hM0Ns9ktjUR20PYPADxsyJvkW9ptpINXSedSK7aalfkx5AdHoVThGCuvzqsD3fgyd
-         I5J9hqikiwgV+QPmm1I+L18j6REO129f5Zsxp0QBMNlxoarQSpUtmUOPUQ4BMcFij/X+
-         F91bNinJpHKTC2K2SKOy+zt4OQ/xgq0+9Hqqklp+StTTFyDI2gq4Fduag27xfLB62mKS
-         z/it5olvh9E/Qgut8BeHtsMHtvwrMmGaw9VQddA1lHAFmtYpTg633NQ9/Rfb+PjTai24
-         dANA==
-X-Forwarded-Encrypted: i=1; AKwUvBwqbNmQBSlOJx+38yh53wF2EGm4gP2PIEHTzVwMagLCFRloEkUTcNHwedr2KD+2JEZlDYDORoZhUgRHPvU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kqPX5HCoG1M06yodWyPnjFDhPddEkPtXrlh6f9iimt7Hplon7p
-	cDvcRBT2Ec9FnYZvAMRocwJOJ4oQx96XkxoNFjPMMslMj8eL6YeNLFHo+5hDQcqGeQCwfzT6ZHJ
-	y4ZgyuNU1jj4MOTmUuoKcrTaUZymE78OV0vxMTUiw
-X-Gm-Gg: AYBFou0JDk97d/2n9jLIwrxOy7X+Tr/9sYc1yDUE9KRARCs9CU+UtszEMiVRKxR/EK1
-	vkB8g7YpIfD347E0EinFFa4+LWs0CY6lLgoeew+CGmhvDKvjAlQnyvtwlTUj6IXVcOpaSTCaQY7
-	xO2fBCE8Bb6sH+2A/Ail5b+qvp43V9TaEH/b7x/R+GWi1fQ+F2qk35C45ac9S3k79TtLM0ZDzBr
-	HqehKOaaaL/bgp4rMrmnJRiO3Y0qjkgx7jXyWAEmEIW9JsNpEk8NzQiNKHWqRAVRQWRCb6XWTT0
-	5mhBIlQYwXQ96DuLxM4CzjlzCzaVaC9c8ymnPDylyjQjdCvNMGjcB9Nm6HQH8xUMwbrqHq7+PE0
-	=
-X-Received: by 2002:a17:902:930a:b0:2d6:e074:9cad with SMTP id
- d9443c01a7336-2db1236f4femr196043825ad.6.1788733179884; Sun, 06 Sep 2026
- 15:19:39 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788733214; x=1789338014;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0y/3Y+Meqv4n9defUV1o/zEilZlTljWXe0KE7nGDkdM=;
+        b=bagHWKwu9PbHWGUj2MPF+Y/nqdaCJ0lWZRQ/Qs1a/Y9rXnq4BxFZ+ZE7tKX0+/6HeK
+         +iEbYvdhtmWpcNz/Agy8tTKFDlBINDT0eLpUwmqKi8C5ICW9Rnp92q1NVoHADAVUbMuj
+         xTzv1Jn7PE61nVnmfZrcyD2xjW3wIfaDrC5dD3dTnmeP6+QHuIjO2+GIJoA039L6m5mm
+         jqfSsDBoLjYj/rv1E2nQWqmnO6d0Iqgo9AkdqHIAB6mYqUUs8ModDDf3bpKD17YOdsV+
+         f0lBbHxgeOoOMMow2iDJlGznRv+0zzx/G3F9WyNymRyHobmiAlZ/wo+cbqpR5gRBo6Hg
+         KUnw==
+X-Forwarded-Encrypted: i=1; AKwUvBw2bT2w03rxuoUAyBZvKMpVa4cbpDkDHT6/gt1tw6WA+SspC2n6ILQ+hPEwCMWK7iDMr9xbC2Yv8l9G8YI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kBlhRzA2I4QXbLpI4MR6uJukeQX65evzsgYBdnVCJvO1oAmJau
+	iZIHqFgudK4/4GDLpaws3LQQyBQZci4qm9dAnSo3gSpjRGNYKr2ahzXw
+X-Gm-Gg: AYBFou1JS1/sg8a6DS6syZDM6WbHHwYIi3QP7btWQqZEcVIe/zCjOCN57jSFbKugob/
+	l6Rh3CV8xw63c4Hc7UBTXt2bqnlqzhWX/e8x3LIrlHB8XPd+U8HIR/uptzSzdhXWUDKdXGz8AjQ
+	Q/qElD7nbhgx5Jef+JdHu75L713beEaX4/F8x371TrB0Bpy7Ywzk4A+TPWh9e32GT+5OsZihk6W
+	hbkSHv8vydSom+QB5SJ/zSNIvUwoQzVz+i4xEjzTojtwkHqQttN+2X1M82JuTc4NvRxSikymOR6
+	EHTUwbt3jKGE+1VEGrPliU7xytmHrhOH/5RPvJTaqggDo8+khNLLFoJI8IqG/qnzldQYoefc1FB
+	XBuuyvHBDfTNJ6UYx9T9wCY0fZDAI9Ua9miCkcf3svo9rwhjCZkss4cKei77yDSLmbLegxvu2HO
+	rA98ggxCNhuVPWf2xIy9Cz2o4u9VjqVXCdLTrOb999SQ5bJZGXUz2jfxcaMutgj/s2k8Gjcdb3a
+	BNN/V+JxYFY8efWA+LU+42yTA61AmmLrB5dGj17U+eDncuJPD6Gsy5ULJ1tMvpFb+aw2fsqUjWx
+	YbR9UYt8dTjlUM/iydNOYMBkXF3ppNNfqoKvNwomF5ppsnsd1UG1DsJNrIGJ0Auu+RA=
+X-Received: by 2002:a05:6000:4694:b0:484:3310:710c with SMTP id ffacd0b85a97d-48587290c78mr31955580f8f.24.1788733214009;
+        Sun, 06 Sep 2026 15:20:14 -0700 (PDT)
+Received: from localhost.localdomain (p2003010827046e6b7ce92663474df7af.dip0.t-ipconnect.de. [2003:108:2704:6e6b:7ce9:2663:474d:f7af])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858e239862sm18666508f8f.9.2026.09.06.15.20.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 15:20:13 -0700 (PDT)
+From: Bernard Ladenthin <bernard.ladenthin@gmail.com>
+To: pablo@netfilter.org
+Cc: akpm@linux-foundation.org,
+	linux-kernel@vger.kernel.org,
+	fw@strlen.de,
+	netfilter-devel@vger.kernel.org,
+	kunit-dev@googlegroups.com,
+	davem@davemloft.net,
+	Bernard Ladenthin <bernard.ladenthin@gmail.com>
+Subject: Re: [PATCH 1/4] lib/ts_bm: advance state->offset past the reported match
+Date: Mon,  7 Sep 2026 00:19:54 +0200
+Message-ID: <20260906221955.6311-1-bernard.ladenthin@gmail.com>
+X-Mailer: git-send-email 2.49.0.windows.1
+In-Reply-To: <aoIfn1SzxQKa5t8m@chamomile>
+References: <20260816170541.3384-2-bernard.ladenthin@gmail.com> <aoIfn1SzxQKa5t8m@chamomile>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <upsCxxaJjg2FJWhfCx6KjFXLlh8o4IhaHKJi@bugs.sh> <CAMuHMdVVqfqvueX-jk_XfM5tE9XScZPe1OLqGw1MUC=Kd2reBQ@mail.gmail.com>
-In-Reply-To: <CAMuHMdVVqfqvueX-jk_XfM5tE9XScZPe1OLqGw1MUC=Kd2reBQ@mail.gmail.com>
-From: Xiang Mei <xmei5@asu.edu>
-Date: Sun, 6 Sep 2026 15:19:28 -0700
-X-Gm-Features: AcwNN1Vz2MmGcMLkBJ7T2ybLOOTijDZznSrnrJaeR0QSfMiYaCeeiqBLLSIaztw
-Message-ID: <CAPpSM+TXw-BGgpdZtx-bH5GEQvzYHxj_wDkdPfUT3Tcn=mtmEw@mail.gmail.com>
-Subject: Re: [BUG] drivers/net: out-of-bounds in pcan_usb_decode_buf()
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: co <co+5e2bcf11e7027510@bugs.sh>, Vincent Mailhol <mailhol@kernel.org>, 
-	Petr Mladek <pmladek@suse.com>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	=?UTF-8?Q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>, 
-	Oleg Nesterov <oleg@redhat.com>, Biju Das <biju.das.jz@bp.renesas.com>, Song Liu <song@kernel.org>, 
-	linux-kernel@vger.kernel.org, cedalion@bugs.sh, linux-can@vger.kernel.org, 
-	Marc Kleine-Budde <mkl@pengutronix.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 5, 2026 at 7:04=E2=80=AFAM Geert Uytterhoeven <geert@linux-m68k=
-.org> wrote:
+On Sun, Aug 16, 2026 at 10:37:51PM +0200, Pablo Neira Ayuso wrote:
+> > A caller looping until UINT_MAX never terminates.
 >
-> Hi Co,
->
-> On Fri, 4 Sept 2026 at 23:17, co <co+5e2bcf11e7027510@bugs.sh> wrote:
-> > We found a bug reachable in:
-> >
-> >     path    drivers/net/can/usb/peak_usb
-> >     crash   out-of-bounds in pcan_usb_decode_buf()
-> >     commit  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.kern=
-el.org/pub/scm/linux/kernel/git/trace/linux-trace")
-> >
-> > Config, environment, the sanitizer report and a C reproducer follow.
-> >
-> > =3D=3D Notes =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >     If you patch the bug based on our artifacts, a tag would be
-> >     appreciated:
-> >
-> > Reported-by: co+5e2bcf11e7027510@bugs.sh
-> >
-> >     Everything in this mail is validated by the reproducer below.
-> >
-> >     We also hold an LLM-generated root-cause analysis and a candidate
-> >     patch. The patch passes an A/B test: the same reproducer panics the
-> >     unpatched kernel and runs clean on the patched one. Neither has had
-> >     human review, so both still require validation before you send or
-> >     apply them. Available on:
-> >
-> >         patch.diff  https://bugs.sh/b/5e2bcf11e7027510/patch.diff
-> >         report.md   https://bugs.sh/b/5e2bcf11e7027510/report.md
-> >
-> >     This is an open science project. The code and the full set of PoCs
-> >     are not public at this moment, as we intend to disclose our finding=
-s
-> >     in an ethical way.
-> >
-> >     Happy to test patches. Complaints and suggestions about our work
-> >     are welcome at:
-> >
-> >         cedalion@bugs.sh
->
-> Please read Documentation/process/submitting-patches.rst, especially
-> https://elixir.bootlin.com/linux/v7.2.2/source/Documentation/process/subm=
-itting-patches.rst#L928
->
-> Thanks a lot!
->
-Hi Geert,
+> Yes, for a good reason.
 
-I checked the document and the related files, and I apologize for our
-mistake. This email should not have been sent to you, as our system
-failed to identify the correct maintainers for this submodule.
+Thanks for the review. Let me start with the question I actually have.
 
-We have fixed the issue. Thank you for bringing it to our attention.
-If you meant other issues, please let us know.
+One interface, three implementations. The same test, unchanged, run
+against each of them. kmp passes it, bm fails it. I cannot find where
+that difference is written down, and that is what I would like to
+understand.
+
+Where I looked. include/linux/textsearch.h:20 describes the field as
+
+   * @offset: offset for next match
+
+and lib/textsearch.c:72 says
+
+ *   Subsequent occurrences can be found by calling textsearch_next()
+ *   regardless of the linearity of the data.
+
+Both are from 2005 and neither has changed. ts_bm.c does record one
+deviation from the other algorithms, in its file header, that a match
+spread over multiple blocks will be missed and that kmp should be used
+when that matters. It says nothing about repeating the same offset.
+
+If what you mean is that the algorithm as Boyer and Moore published it
+stops at the first match and therefore defines no shift after one, that
+is true, and it may well be how this came about. kmp_find() faces the
+same question and answers it in two lines, and patch 1 is those same two
+lines:
+
+  kmp:  state->offset = consumed + i + 1;
+        return state->offset - kmp->pattern_len;
+
+  bm:   state->offset = consumed + shift + 1;
+        return state->offset - bm->patlen;
+
+So the question is not really about Boyer-Moore. It is about why two
+backends of one interface answer the same question differently, with
+nothing saying which answer is the intended one.
+
+> With bm, it reports offset 6, because it looks from right to left,
+> this is how the original Boyer-Moore algorithm works.
+
+I put that into a test case. The diff at the end adds it,
+parameterised like the others, so it makes the same claim about kmp and
+about bm. Applying it turns the suite red on purpose.
+
+Patch 2 applies without patch 1 and does not touch lib/ts_bm.c, so this
+describes today's behaviour:
+
+  echo CONFIG_KUNIT=y > .kunitconfig
+  echo CONFIG_TEXTSEARCH_KUNIT_TEST=y >> .kunitconfig
+  ./tools/testing/kunit/kunit.py run --arch=um \
+      --kunitconfig=.kunitconfig "textsearch.*"
+
+In the output below I cut the "at lib/tests/..." suffix so the lines
+fit, nothing else is changed:
+
+  ============ ts_first_match_is_last_occurrence  ============
+  [FAILED] kmp
+      # ts_first_match_is_last_occurrence: EXPECTATION FAILED
+      Expected pos == 6, but
+          pos == 2 (0x2)
+
+  first match reported
+  [FAILED] bm
+      # ts_first_match_is_last_occurrence: EXPECTATION FAILED
+      Expected pos == 6, but
+          pos == 2 (0x2)
+
+  first match reported
+
+Both report 2, so the first match is the same for either algorithm. If
+that case asserts the wrong thing, please tell me what it should assert.
+The run also gives
+
+  # Totals: pass:17 fail:5 skip:0 total:22
+
+Two of the five are that case, red by design. The other three are bm, in
+ts_next_advances, ts_next_finds_all and ts_blocks_iteration_terminates.
+Every kmp case passes.
+
+> Why? What do you get by setting state->offset?
+>
+> What are you trying to fix?
+
+I should be plain about the scope. Nothing in the tree calls
+textsearch_next(), and as far as I can tell nothing ever has. I checked
+the whole history with git log -S over 1.46 million commits back to
+2.6.12-rc2, which covers the entire life of lib/textsearch.c. So this
+repairs no reported breakage, and I am not claiming otherwise.
+
+What led me here is that lib/ts_bm.c has needed five correctness fixes
+in twenty-one years. In 2008 a pattern at the very start of the text was
+never found, "abc" in "abcdefg" returned nothing, and that had been true
+since 2005. In 2023 an iptables rule with --algo bm silently stopped
+matching, reported through bugzilla.netfilter.org #1390 and fixed by
+6f67fbf8192d. Neither was caught by a test, because there were none.
+
+That is why patch 2 exists, and it is the patch I care about most.
+
+Which brings me to a basic question. Why has this code never had tests?
+I looked and found none, and git ls-tree agrees with me, but I may have
+missed them. If there are any, I would rather extend those than add a
+new file.
+
+I ask because the suite does find two of those old bugs when they are
+put back on a current tree:
+
+  the 2008 one, shift = bm->patlen instead of bm->patlen - 1
+      ts_find_at_start               red for bm, green for kmp
+
+  the 2023 one, revert 6f67fbf8192d
+      ts_blocks_match_within_block   red for bm, green for kmp
+
+Not all five, to be clear. The 2026 overflow it does not catch, because
+textsearch_prepare() rejects the zero length before the algorithm sees
+it. The two from 2006 I did not try to put back, the code around them
+has moved too far for that to mean anything.
+
+> > Which algorithm a caller selected should not decide whether that
+> > works.
+>
+> Why?
+
+Because the promise is made at the interface, not per algorithm.
+lib/textsearch.c and include/linux/textsearch.h describe
+textsearch_next() without naming one, while lib/ts_bm.c lists its own
+deviation in its own header. And xt_string.c:56 hands conf->algo
+straight from userspace to textsearch_prepare(), so the caller cannot
+know in advance which of the two behaviours it will get.
+
+> Yes, and people that use it rely on the current behaviour, so you have
+> to explain what you are aiming at fixing.
+
+Nothing observable changes for them. The returned value is the same
+expression:
+
+  before:  consumed + (shift - (bm->patlen - 1))
+  after:   state->offset - bm->patlen,
+           with state->offset = consumed + shift + 1
+
+Both are consumed + shift + 1 - bm->patlen. The patch only writes down
+the offset the return statement already implied. skb_find_text() keeps
+its ts_state on its own stack and uses only the return value, and
+xt_string reads only that return value, so no netfilter path can observe
+the write.
+
+> You are not specifying any tree for this patches.
+
+Sorry about that. get_maintainer.pl points at LIBRARY CODE for these
+files, so the series is aimed at Andrew Morton, and I should have said
+so in the subject. I will use a prefix on the next posting.
+
+So my request is not that patch 1 be applied. It is that the difference
+be explained or written down. If bm is meant to be single shot, I will
+send a patch saying so in the same place the multi-block limitation is
+already stated, and drop patch 1. And if the Fixes: tag looks wrong for
+something nothing can reach today, I am happy to drop that too and let
+patch 1 stand as a follow-on to the tests.
+
+The case below is not meant for merging. It is your sentence written
+as a test.
 
 Thanks,
-Xiang
+Bernard
 
-> Gr{oetje,eeting}s,
->
->                         Geert
->
-> --
-> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m6=
-8k.org
->
-> In personal conversations with technical people, I call myself a hacker. =
-But
-> when I'm talking to journalists I just say "programmer" or something like=
- that.
->                                 -- Linus Torvalds
->
+---
+--- a/lib/tests/textsearch_kunit.c
++++ b/lib/tests/textsearch_kunit.c
+@@ -302,6 +302,26 @@
+ 	KUNIT_EXPECT_EQ(test, PTR_ERR(conf), -EINVAL);
+ }
+ 
++/*
++ * Not part of the contract the other cases check, and not meant to be
++ * merged. It encodes the description that "bm" reports the last
++ * occurrence first, so that the claim can be run. It is parameterised
++ * like the rest, so it makes the same claim about kmp and about bm.
++ */
++static void ts_first_match_is_last_occurrence(struct kunit *test)
++{
++	static const char text[] = "xxABxxABxx";
++	static const char pattern[] = "AB";
++	struct ts_config *conf = ts_conf_get(test, pattern);
++	struct ts_state state;
++	unsigned int pos;
++
++	pos = textsearch_find_continuous(conf, &state, text, strlen(text));
++	KUNIT_EXPECT_EQ_MSG(test, pos, 6, "first match reported");
++
++	textsearch_destroy(conf);
++}
++
+ static struct kunit_case textsearch_test_cases[] = {
+ 	KUNIT_CASE_PARAM(ts_find_middle, ts_algo_gen_params),
+ 	KUNIT_CASE_PARAM(ts_find_at_start, ts_algo_gen_params),
+@@ -313,6 +333,7 @@
+ 	KUNIT_CASE_PARAM(ts_blocks_iteration_terminates, ts_algo_gen_params),
+ 	KUNIT_CASE_PARAM(ts_get_pattern, ts_algo_gen_params),
+ 	KUNIT_CASE_PARAM(ts_prepare_zero_len, ts_algo_gen_params),
++	KUNIT_CASE_PARAM(ts_first_match_is_last_occurrence, ts_algo_gen_params),
+ 	{}
+ };
+ 
