@@ -1,75 +1,70 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25A14382F0F
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 20:23:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3293738E5D7
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 20:25:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788726183; cv=none; b=BnxD+395vaEG2eMwE4b6wnvVnThq/DxKzIO0HUfW9rbvEMYKCRk2CYgl1HoYRSLjrl558nDETebus6d2Af62R8styUyVvGv0CmLBx+fHeqZqRdvolvdnLXQE7QrGggZARdWjCSZHLd83W/E+jEqxikJoVpG8B9bdifA6aBf/Lnw=
+	t=1788726334; cv=none; b=e79XVdQJ6jUtjrCpMAYNSTsXR/AisY0hD/4mivbErbYSmp8KP/Ayq+U5EdsWKdhPfviuxgv3lku+F7zOvoLb7CxQj+Iq/GHHMlG+sV7BWxAQbXhl1VlbieKe1fniFFNZ724AIH5dJq+RRBtNNhy2zyKwmCGQ2SysVwrRnVA8dhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788726183; c=relaxed/simple;
-	bh=5mxvOsv8nCII7gEdYfav7bjQqgxjWLiZKvu4xBlOaYE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cvsAw54Ttu8kzhpZxGBKpr3jk0c3R9skYXFtBlNp+i9hTOWo+vNhBPgQZ80fdac0gWY62SgjZkLtJQLOAviC8fvxtTeXAPva5xBOsZkF64keSeFYYj3L0LLPolqgLyQfX6dmtvzZQwd0v+hPv5AbvNYUTojkUleQHHOB7Hd7C8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BUs9T3VU; arc=none smtp.client-ip=209.85.214.178
+	s=arc-20240116; t=1788726334; c=relaxed/simple;
+	bh=P6JMux5cC6FV4GKzJ9f+9AH3aGnVkce5RlqRDkGoTYE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nafceOKSxC5GA47trO330v8z1mJSj1ZIhkmVospmIP9k15/nn0fSOvZ4asoEmlhac1x4gVk1s1LUmQT9NJCFr9dHXusv2/QwaYfvpzclRb98ENguu+k2MDCFADJUFPFwynAZT5PwvlOK5F23gHd/TsXPs0nqBkOBvd5PR4u465A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qb2rFs16; arc=none smtp.client-ip=209.85.216.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BUs9T3VU"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d9004f39d3so35079895ad.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 13:23:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qb2rFs16"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-398b3c37877so2588674a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 13:25:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788726181; x=1789330981; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788726332; x=1789331132; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p2SYgP+pKU8rLYSTxOYL/j57xs0a8PDs8sQOKP3s3I0=;
-        b=BUs9T3VUEB9RmW/eeZw9IzxEOC2Pa0sfcGBZdtHT6rLunm/uQhCTRbIEz8GSQeAj3r
-         dfF+bpth2QtM7H9s7nYcu+7NdAfHi01G22ipgIav56j8RqweOTdFKm5TDkfE1tlX8J1T
-         dGzUt9HEBgpcbsXEEP+IV74is3oiqXTB+/U28ymv5KqffgkOw3U5z2haSj4AubDJKQKF
-         1fz6vEf7ocxIJMA5wEkxT0eyepO/gZU8Di0oPQHQ5dDhcm2PimQk3Dc1dyS1aUVGiWNK
-         xCqC54aw6GalBoxDfVG1qDHfcWcxF3YYh36lvF79feZh8TyzHFpWFdEJeNL6bhmDGDhj
-         TSjw==
+        bh=Iz+jOMTRFswI96YUaCHrKXfF+E3aHFIXS8T0r+CTbmg=;
+        b=Qb2rFs16VMKSncljykAXVtDuW8NVtXGQ2bglatwuVkwjBkge+a2nNfCtpkS+xDH9ya
+         69rRMS+58BCqrGHv1yZTk0wkxd14+xgK5yuOD8cugGJOrXFJJYJzB5au72+H+rMh6q5v
+         3KHvKJySXA0aLSBGfTHWXv+1e9jLIwUxnajUAY3odIoxmRzX29NEqz5ZobohhPoT2hmr
+         x4YGEp59R0sThVC0CCoDrhlO/XhJ9aORRrTL02IeGKArX2kna2+iYmS4DkoioouG2Ia6
+         nRmqCwMi2fI4XyJ6OL+A/YFz6VhwYuIn1tW37lkG9fAgUQk1mnEgyEdR2RvSEBP8GcjC
+         1bnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788726181; x=1789330981;
+        d=1e100.net; s=20251104; t=1788726332; x=1789331132;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=p2SYgP+pKU8rLYSTxOYL/j57xs0a8PDs8sQOKP3s3I0=;
-        b=PQ/iOlbQ0bqfaT1Up+OwNiaz016Di+oIsKRcWH5qFvytb2etMyi2YGhddX+f0457Q/
-         Aef7wG93RI0Ar6Il0tjs4tzTml8uXo45YKsikTBzKijRA8IsralthA4EQojXFsYLR5Z7
-         F1oVBq5FoTaMSprknRE3FNG1kryYxREYQZJ9JnmH5Ob4PFP/H9Rl3RvHy3Nzng4+Djz4
-         l9sk0x+fgOeR77am6QueIEhDIvJmkd5iB0UGWuDXHTo4pHyxW9w8SrdaRBcJvaFVUB4i
-         mPNlut97i5orBVUIzr6GgTRvQqTWydiBktPkNFkcwRlP0wqIKsfHtGIc/C/BXWr9kQcS
-         SSGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwWsqLi8SlLj7lkj0z6d/KYm1gekBhj71fMkyz09p+WR8r1LrdeHrwKNF9zXA0PFWFvTT7EfCuPitxgcbE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lA7U26DHajfKfmnigAZ7UGsLrEFVGzoQuf6qDCUhW/EA2ZhyC6
-	3ekAP/kgig4K4hN7O7d9zhBI2CWW+mJoGn/nyoeNJheFueNVoev9biUl
-X-Gm-Gg: AYBFou0sUoFhTujcUXilg2m3+9LcHqw2rM0MGpXQezCtvsE83nh2dQ7Y8QElr6fMNhl
-	l3Xxa+5Vc3gSxWDJ2lVFXN7MzTB+Z/7s9SsccBCRyHBMSQkU/Y+cBV8ME36K1KnXTbs2dLvroLh
-	bErjpT8KaEJBuFTQfIhYWOjbBZrPmlte1+OYT8CwNIcxhPRIUqCM2zQY1BCz5Awae2OWP/vpeJf
-	9ukMLeDsKj8hzt6ydFDQJx7UfG+ehki+o0I0inFsH/U+gqRElL/4FH2Bl/XzbWlWIPNWABKnYoU
-	bD49Xb8CLS6EUUoEioCcYQDw4vAlb9w6r8olR4J1uh1R0JjpPgTEwljzTVJo+enhyAi/Em5tGs4
-	XT3QgE2PTfoBNmLoSTiGyMgdfJndRNfUHz+ZOxqiiJxAjYIxNQrPCJEqA/Ye7SotNIxr8x6uI7Y
-	NyQns8Jj2rqOdVOHdHKdKA/Yf+2uZf6qUWja4vMlXrO4vOdOFEPREz2g==
-X-Received: by 2002:a17:90b:1d45:b0:398:9bd4:d1a with SMTP id 98e67ed59e1d1-39b262995b8mr28336253a91.25.1788726181467;
-        Sun, 06 Sep 2026 13:23:01 -0700 (PDT)
-Received: from bloom.localdomain ([2604:3d09:178e:e100::3820])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b25c974cfsm16736906a91.0.2026.09.06.13.22.58
+        bh=Iz+jOMTRFswI96YUaCHrKXfF+E3aHFIXS8T0r+CTbmg=;
+        b=Eb6r2G0jJxDoa+iUP2qoC9WfG64R+urj9FVNoFIgFEZa0jvFTuRV09m8QK0aATCwRQ
+         a/sHNaN9IGFysDE57Jo/5RM8qN+YsbuXQYJTVHqaM6K/Cz+94h+cONh6G/csOVUrby75
+         uWYyA5+qOZuD34wX2DxQvr1AoDoPuxkXpw79HGqDTHf9NBIeQqoeILU0SqBTv06bh33A
+         qi63GeU5pLAYluNR67emQzFOZN12jOXV0f9tgYL5EQulyOpqwjqh7YKNnvUoPrRSsVrE
+         xVBrJORFv0K2fZENxMJ62i2Vlc37rGrw0ifN2ynyfLrW7DlQNTy9mUFXfuSV3QGYMhPb
+         6B8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxrG87jbQg8WZeXRWE51rc4ziUe27UQWaha3Jvn1GQ9WVja9rfLNRabvMM3tD6BL4MqSwBIv1OWRfFwI6k=@vger.kernel.org
+X-Gm-Message-State: AFuF++kfRmCuJsOKkiYg8gHfKhF86njFfQUGEzmzf6/aV9FOIiU3A6wR
+	St6IIFOtbCIsHVXFfMJtUII3UXEIcSlpbvoeyhXFi7LhD26s56xYD7NsbGx52PBv
+X-Gm-Gg: AYBFou3a6dEu4gILSZxrHa02T8DmYoru797HkjPSrlUL9u2ve8wWYn7buokR76mm2f4
+	Wkp0DAAXfI1OAr683JUW4dwiWivyzv4Mi2HzlvDKhcKVH8VzzqwPws38ucsldYxN6cJOCHGN2D7
+	M6k+Hpc1SGSwrufc4cH4bc5c8q80XPqdzQWAmsqJ6JBRUs7RVYleAtMptlgfSpaIMWpbR7dkyat
+	qTKNbt3Ln/nlsS1r0cLBrXSfMrk4wgM24LqQmBA8G4q2BqfBVub/rtQEvHP4EErJkj8WIZJO8/B
+	EeDPVHRDmcuZwsiYEX0shA1bm39ogXDbF7GIeOsxvzSYZgw9KoUgipz3CYN68RUudOX2yOQ+L64
+	Uk7XH4MbTPcHO5A7k5SV1F+2KNHhCoHx3YUXNgKjpcLh/u/UZRkK8vF6nFi5mzMwz3ZBBOYYlDE
+	LnaF3O1gz79Qk6yjElh34YOac8VPWfOB7xpOc7Ri1yqNdBf93z48XzQUsWGvz/nfFrU88RJYYAe
+	EQQc3eS+jJy/KCiyWCesVN9e34a2eNB4EtENFXnhvAyxG67dBPPnRyO+9BKhYHJng==
+X-Received: by 2002:a17:90b:4fd1:b0:398:bd37:6a49 with SMTP id 98e67ed59e1d1-39b261cfd8cmr28654971a91.12.1788726332444;
+        Sun, 06 Sep 2026 13:25:32 -0700 (PDT)
+Received: from moneychan.tail1efcdf.ts.net ([182.234.157.91])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b25c974cfsm16742142a91.0.2026.09.06.13.25.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 13:23:00 -0700 (PDT)
-From: Ivy Lopez <skunkolee@gmail.com>
-To: sathya.prakash@broadcom.com,
-	sreekanth.reddy@broadcom.com,
-	suganath-prabu.subramani@broadcom.com,
-	ranjan.kumar@broadcom.com,
-	James.Bottomley@HansenPartnership.com,
-	martin.petersen@oracle.com
-Cc: MPT-FusionLinux.pdl@broadcom.com,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ivy Lopez <skunkolee@gmail.com>
-Subject: [PATCH] scsi: mpt3sas: fix nr_msix underflow in _base_assign_reply_queues()
-Date: Sun,  6 Sep 2026 14:22:50 -0600
-Message-ID: <20260906202250.53653-1-skunkolee@gmail.com>
+        Sun, 06 Sep 2026 13:25:31 -0700 (PDT)
+From: Suzu <suzu1dev@gmail.com>
+To: tiwai@suse.com,
+	perex@perex.cz
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH] ALSA: hda/intel: Disable power saving on ASUS GU605CX
+Date: Mon,  7 Sep 2026 04:24:39 +0800
+Message-ID: <20260906202439.209462-1-suzu1dev@gmail.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -79,45 +74,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The fallback path incorrectly subtracts iopoll_q_count when computing
-nr_msix, when the intent is to reserve both high_iops_queues and
-iopoll_q_count reply queues from the round-robin pool. Since
-iopoll_q_count can be positive, the current subtraction inflates
-nr_msix instead of reducing it, leaving far more queues in the
-round-robin pool than actually available once high-iops and iopoll
-queues are accounted for.
+On the ASUS ROG Zephyrus G16 GU605CX, the ALC285 analog headphone
+output produces a loud pop about ten seconds after playback stops
+with power_save=10. This was reproduced with iLoud Micro Monitor
+powered speakers connected to the 3.5 mm jack. Setting power_save=0
+eliminated the idle pops in repeated pause/resume tests on
+7.2.3-arch1-2, with power_save_controller left enabled.
 
-Beyond producing an incorrect grouping of cpus onto msix vectors, the
-corrected formula can still drive nr_msix to zero or below under
-plausible queue configurations (verified arithmetically), which would
-either wrap to a large unsigned value and silently break affinity
-grouping, or hit a divide-by-zero in the following nr_cpus / nr_msix
-computation. Add an explicit check for nr_msix == 0 and also warn if the
-reply queue budget is exhausted.
+Extend the power-save denylist check to cover the tested Intel HDA
+controller (8086:7728, subsystem 1043:1034) on this board. Check the
+DMI board vendor and name as well, since GU605CW also uses subsystem
+1043:1034 and has not been tested for this issue. Keep the existing
+pm_blacklist override behavior.
 
-Fixes: 432bc7caef4e ("scsi: mpt3sas: Add io_uring iopoll support")
-Signed-off-by: Ivy Lopez <skunkolee@gmail.com>
+Disabling idle power saving can increase idle power consumption on
+the matched controller. A separate pop during shutdown was still
+observed with power_save=0; this change does not address it.
+
+Link: https://github.com/omacom/omarchy/pull/10498
+Assisted-by: LLM
+Signed-off-by: Suzu <suzu1dev@gmail.com>
 ---
- drivers/scsi/mpt3sas/mpt3sas_base.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Validation completed on the affected GU605CX:
+- Built and booted the complete patched 7.3-rc1 kernel; the native
+  kernel build log contains no warnings.
+- Verified that the loaded HDA module's srcversion matches the built
+  artifact for 7.3.0-rc1-audio-pop-test.
+- Confirmed power_save=10, power_save_controller=Y and pm_blacklist=-1,
+  with the expected 1043:1034 power-save denylist message.
+- In five samples spanning 40 seconds, the Intel analog PipeWire sink
+  was SUSPENDED while the ALC285 remained runtime-active with
+  power/control=on. This was sampled observation, not continuous tracing.
+- Intel and NVIDIA HDMI codecs were observed suspended with
+  power/control=auto; the NVIDIA HDA controller was also suspended.
+- After booting this kernel and receiving the pause/resume test
+  instructions, the user confirmed that the popping was no longer
+  audible. The exact number of cycles and pause durations were not
+  separately reported for this patched-kernel test.
+- The earlier power_save=0 workaround also passed human pause/resume
+  listening tests on 7.2.3-arch1-2, with controller power saving enabled.
 
-diff --git a/drivers/scsi/mpt3sas/mpt3sas_base.c b/drivers/scsi/mpt3sas/mpt3sas_base.c
-index ce5a5882acc8..31b80ed6ddec 100644
---- a/drivers/scsi/mpt3sas/mpt3sas_base.c
-+++ b/drivers/scsi/mpt3sas/mpt3sas_base.c
-@@ -3275,7 +3275,11 @@ _base_assign_reply_queues(struct MPT3SAS_ADAPTER *ioc)
+Headphone switching, internal speakers and suspend/resume checks have
+not been reported for this patched kernel. Boot-time popping remains
+unverified. A shutdown pop was previously observed with power_save=0;
+this change does not address that shutdown path. No reliable measurement
+of additional idle power consumption is available.
+
+Test-build context: an Arch-derived configuration with debug information
+and BTF disabled was used. NVIDIA 610.57.04 test modules required a
+separate local adaptation for the 7.3 dmem cgroup registration API.
+Those modules built and initialized; their objtool return warnings also
+occurred in the production-driver build. The NVIDIA adaptation is not
+part of this audio patch. Full graphics regression testing was not done.
+
+AI assistance: I asked OpenAI Codex to investigate the idle pops
+and prepare a GU605CX-specific fix. It assisted with the patch,
+changelog and build/runtime checks. I performed the listening
+tests; results are described above. I booted the patched kernel
+and confirmed that the idle pop was no longer audible.
+
+No introducing commit has been identified, so no Fixes tag is proposed.
+
+ sound/hda/controllers/intel.c | 22 +++++++++++++++++-----
+ 1 file changed, 17 insertions(+), 5 deletions(-)
+
+diff --git a/sound/hda/controllers/intel.c b/sound/hda/controllers/intel.c
+index 24015c73a..6da1d7ee5 100644
+--- a/sound/hda/controllers/intel.c
++++ b/sound/hda/controllers/intel.c
+@@ -2328,18 +2328,30 @@ static const struct snd_pci_quirk power_save_denylist[] = {
+ 	{}
+ };
  
- fall_back:
- 	cpu = cpumask_first(cpu_online_mask);
--	nr_msix -= (ioc->high_iops_queues - iopoll_q_count);
-+	nr_msix -= (ioc->high_iops_queues + iopoll_q_count);
-+	if (!nr_msix) {
-+		ioc_warn(ioc, "high_iops_queues and iopoll_q_count exceed available MSI-X vectors\n");
-+		return;
-+	}
- 	index = 0;
++static bool azx_is_power_save_denylisted(struct pci_dev *pci)
++{
++	if (snd_pci_quirk_lookup(pci, power_save_denylist))
++		return true;
++
++	/* GU605CW shares the subsystem ID; only GU605CX was tested. */
++	return pci->vendor == PCI_VENDOR_ID_INTEL &&
++	       pci->device == PCI_DEVICE_ID_INTEL_HDA_ARL &&
++	       pci->subsystem_vendor == 0x1043 &&
++	       pci->subsystem_device == 0x1034 &&
++	       dmi_match(DMI_BOARD_VENDOR, "ASUSTeK COMPUTER INC.") &&
++	       dmi_match(DMI_BOARD_NAME, "GU605CX");
++}
++
+ static void set_default_power_save(struct azx *chip)
+ {
+ 	struct hda_intel *hda = container_of(chip, struct hda_intel, chip);
+ 	int val = power_save;
  
- 	list_for_each_entry(reply_q, &ioc->reply_queue_list, list) {
+ 	if (pm_blacklist < 0) {
+-		const struct snd_pci_quirk *q;
+-
+-		q = snd_pci_quirk_lookup(chip->pci, power_save_denylist);
+-		if (q && val) {
++		if (val && azx_is_power_save_denylisted(chip->pci)) {
+ 			dev_info(chip->card->dev, "device %04x:%04x is on the power_save denylist, forcing power_save to 0\n",
+-				 q->subvendor, q->subdevice);
++				 chip->pci->subsystem_vendor,
++				 chip->pci->subsystem_device);
+ 			val = 0;
+ 			hda->runtime_pm_disabled = 1;
+ 		}
+
+base-commit: 45b5beb60bf7bd41c55ef17f6f2d28b351fad6c0
 -- 
 2.55.0
 
