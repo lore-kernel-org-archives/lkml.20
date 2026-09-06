@@ -1,122 +1,123 @@
-Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDEB23BB694
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 18:16:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AACE3BD63B;
+	Sun,  6 Sep 2026 18:16:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788718596; cv=none; b=lzIXFxHrastlwLS+VApU8CETl4cYwqqf5Ze+L7QVGQhZQisENO6DExepFHroRsQT8mnmiq26pvUoHNQhOhExt8iw3feA1Z3JDkVFfYuNG3zmTL4gGw8bl+em5PcwonfxLfJQKhsUPY/Q9Otnv9hgPxD3wQZOVltzGRDCGF1NVF4=
+	t=1788718608; cv=none; b=RDA5P5Dn2PMU2iYG33TA9sBK+eXCZtqSnoG9B7wXXC9mItZyDb/0WYXuSULokPb4PX5oPC85kRdsMdCH+jiLd+fAT5D+ydu9QeWHjGJHAO9UQnjSVTvyb+TmGTKFJ7Hq+h9GGVfShGLaHEF/f7Rp0fZXSf7SacGSNn984ooE4gQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788718596; c=relaxed/simple;
-	bh=Jx6MWhhVtWjN5DixKrnjC8JBwcj2KAV+RtPJOvkKc5Q=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=s2XeqQQHx1asNFJz+Z1lGt99PrZDPNOP2gLzRjcqpnfUQCDdA/3PkGxBiIxR8cbgCPZA0BWjvPDXH9inkA3f3nXp0nOar5anxx4rA+vMmJGY2eADhBZkDpwQbnyTSufsm443wtbtVDbu6hTz/vaV+GtawKKJb5Ng7xA+5xFqu+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com; spf=pass smtp.mailfrom=zytor.com; dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b=My5wT8OQ; arc=none smtp.client-ip=198.137.202.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
+	s=arc-20240116; t=1788718608; c=relaxed/simple;
+	bh=QkPEePJusca0XeNlKgfLyvPM4ZDLRJkEy8fbymwY3BQ=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=TYY3SUXoHApbEipX1p4O3M0GOAZtAtVGSGECpCMJH/9e6wg82bFn5jXajk2jT+K3GyoDXlYu08LwZOHvZKPadpguOwsrunqzzUYTSqnjF0UM5b8rd3n3zr7rYegHNvzl8cUE+ZbCVhVbNyi3JRVHKjiS5OYLQ2l+EHUNyhZr+t4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gf9dTEW3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b="My5wT8OQ"
-Received: from ehlo.thunderbird.net (c-76-133-66-138.hsd1.ca.comcast.net [76.133.66.138])
-	(authenticated bits=0)
-	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 686IFdJ2989969
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
-	Sun, 6 Sep 2026 11:15:39 -0700
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 686IFdJ2989969
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2026082801; t=1788718541;
-	bh=DhRKyzANNARtmaWAz4jDDix5ntjLK+kItZzluS+D+BQ=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=My5wT8OQBzVZyrqJR8KvHJV9I7W4IPlJ3k+N1opZm9C4RhQbBHPkMIsiGH4D2WXmq
-	 +CYlxhppw5y9EgKmYnWHx4hLBlthWwC0uFmTSvcXgviltv2uImyN1pue9kESh+J2QJ
-	 QbqRDmoUiTUb4BfVsk+UCS1z2gix8XSM0GJW/gZA+EArA5vCCzvzd0vq0af6CWn3Sp
-	 w1loWnM91xquRmfSrUfad02Cmv3ACRf4eUTCU+rZGvw6WSTpm0/2DdkFZmDVFVF40O
-	 44I7W65KC1lgkxbo8t7DhLUe0yBiwGrDdl0yrPQBj9eirxzUMqa6iEyjlEqYdB7b0k
-	 0gTCPh/269mAA==
-Date: Sun, 06 Sep 2026 11:15:33 -0700
-From: "H. Peter Anvin" <hpa@zytor.com>
-To: Borislav Petkov <bp@alien8.de>,
-        Mauricio Faria de Oliveira <mfo@igalia.com>
-CC: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-        Juergen Gross <jgross@suse.com>, Alexey Dobriyan <adobriyan@gmail.com>,
-        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-        Jan Beulich <jbeulich@suse.com>, Brian Gerst <brgerst@gmail.com>,
-        kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
-        xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v9 2/5] x86/asm, x86/boot: expose inline memcmp()
-User-Agent: K-9 Mail for Android
-In-Reply-To: <20260906170116.GRap2cXOY6ENSzAXUJ@fat_crate.local>
-References: <20260822-pvh-kasan-inline-v9-0-e70ef3b75b6a@igalia.com> <20260822-pvh-kasan-inline-v9-2-e70ef3b75b6a@igalia.com> <20260906170116.GRap2cXOY6ENSzAXUJ@fat_crate.local>
-Message-ID: <E4FDF95C-3FAB-41DB-8EA0-8A26B964B38D@zytor.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gf9dTEW3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B676E1F00A3A;
+	Sun,  6 Sep 2026 18:16:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788718606;
+	bh=dWLQQI7KGKAWx4f1QUZU9odnYCM3xY9yWNAy0Ll+zNk=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=Gf9dTEW3SrrK4UeiCohSA8td/ueDwYh6LiP6Jl+JSXOipf0G0s9vmFeUTRUS5hP4u
+	 TTVZWo8xlpEgKjEX+0m0xO/mfQlVbi9nffP5qWTEqmfexKRbSI/GbTJwUNmjEWEptI
+	 1Vmw0a+5IVy2M7FButZV8wafHjbodsnR0MtEK1d0kpzkJ7Td3MHDF6x7MnU1VqEP1M
+	 q4doAJZT/tqHoepnz6A624Kd92ukYJPrWxJocuCfCDRd+ZhzqjFFoyS4g5sg+xklnh
+	 XnHUzZHTMLVc4KNMsZQHur6fbZ9G5zHOm/CbDBGg9jNG43srxBpbjX20dx/c6OHfmR
+	 vyRPQbyV+1vRQ==
+Content-Type: multipart/mixed; boundary="===============5451443486569008885=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Message-Id: <4e6b09c913c4320ca7849be75acc2eb88b61564e7f3a75d768ef86c392b3786c@mail.kernel.org>
+In-Reply-To: <20260906170715.1212085-2-hi@tychen.cc>
+References: <20260906170715.1212085-2-hi@tychen.cc>
+Subject: Re: [PATCH bpf-next 1/2] bpftool: Accept symbolic map creation flags
+From: bot+bpf-ci@kernel.org
+To: hi@tychen.cc,bpf@vger.kernel.org
+Cc: hi@tychen.cc,qmo@kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,shuah@kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Sun,  6 Sep 2026 18:16:45 +0000 (UTC)
 
-On September 6, 2026 10:01:16 AM PDT, Borislav Petkov <bp@alien8=2Ede> wrot=
-e:
->On Sat, Aug 22, 2026 at 03:33:18PM -0300, Mauricio Faria de Oliveira wrot=
-e:
->> Move the inline memcmp function currently only available in 'boot/strin=
-g=2Ec'
->> into the shared string function header <asm/shared/string=2Eh> to be re=
-used=2E
->>=20
->> This is not done through <asm/string=2Eh> to avoid pulling unnecessary =
-code
->> in 'boot/string=2Ec' that causes build errors in 'boot/compressed/strin=
-g=2Ec'
->> and 'purgatory/purgatory=2Ero'=2E
->
->Please drop those '' quotes - it is perfectly clear that those are =2Ec f=
-iles=2E
->
->> No functional changes=2E
->>=20
->> Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia=2Ecom>
->>=20
->> ---
->>=20
->> Thanks to David Laight for noticing the return value difference between
->> inline and regular memcmp()=2E
->> ---
->>  arch/x86/boot/string=2Ec               | 13 ++-----------
->>  arch/x86/include/asm/shared/string=2Eh | 26 ++++++++++++++++++++++++++
->>  2 files changed, 28 insertions(+), 11 deletions(-)
->
->=2E=2E=2E
->
->> diff --git a/arch/x86/include/asm/shared/string=2Eh b/arch/x86/include/=
-asm/shared/string=2Eh
->> new file mode 100644
->> index 0000000000000000000000000000000000000000=2E=2E06c1d5e5013e4d59cfb=
-49866d10e164362d2c4cc
->> --- /dev/null
->> +++ b/arch/x86/include/asm/shared/string=2Eh
->> @@ -0,0 +1,26 @@
->> +/* SPDX-License-Identifier: GPL-2=2E0 */
->> +#ifndef _ASM_X86_SHARED_STRING_H
->> +#define _ASM_X86_SHARED_STRING_H
->> +
->> +/*
->> + * This inline memcmp() returns 0 (equal) or 1 (not equal)=2E
->> + * The regular memcmp() returns <0 (less than), 0 (equal), or >0 (grea=
-ter than)
->> + * to indicate ordering as well=2E
->
->No need to overdo it:
->
->	Returns:	0 (equal)
->			1 (not equal)
->
->In contrast, the regular memcmp() follows glibc return value semantics=2E
->
->
+--===============5451443486569008885==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Worth noting that memeq() and streq() are becoming used in other contexts,=
- e=2Eg=2E glibc=2E
+> diff --git a/tools/bpf/bpftool/bash-completion/bpftool b/tools/bpf/bpftool/bash-completion/bpftool
+> index 75cbcb512eba..95f16fff876e 100644
+> --- a/tools/bpf/bpftool/bash-completion/bpftool
+> +++ b/tools/bpf/bpftool/bash-completion/bpftool
+> @@ -718,6 +718,10 @@ _bpftool()
+>                      esac
+>                      ;;
+>                  create)
+> +                    # Keep a flags list together if readline splits at commas.
+> +                    if [[ $COMP_WORDBREAKS == *,* && ( $cur == , || $prev == , ) ]]; then
+> +                        _get_comp_words_by_ref -n , cur prev
+> +                    fi
+>                      case $prev in
+>                          $command)
+>                              _filedir
+> @@ -729,7 +733,26 @@ _bpftool()
+>                              COMPREPLY=( $( compgen -W "$BPFTOOL_MAP_CREATE_TYPES" -- "$cur" ) )
+>                              return 0
+>                              ;;
+> -                        key|value|flags|entries)
+> +                        flags)
+> +                            local flags='BPF_F_NO_PREALLOC BPF_F_NO_COMMON_LRU
+> +                                BPF_F_NUMA_NODE BPF_F_RDONLY BPF_F_WRONLY
+> +                                BPF_F_STACK_BUILD_ID BPF_F_ZERO_SEED
+> +                                BPF_F_RDONLY_PROG BPF_F_WRONLY_PROG BPF_F_CLONE
+> +                                BPF_F_MMAPABLE BPF_F_PRESERVE_ELEMS BPF_F_INNER_MAP
+> +                                BPF_F_LINK BPF_F_VTYPE_BTF_OBJ_FD BPF_F_TOKEN_FD
+> +                                BPF_F_SEGV_ON_FAULT BPF_F_NO_USER_CONV
+> +                                BPF_F_RB_OVERWRITE'
+> +                            local prefix= flag
+> +                            # Readline replaces only the suffix after a word break.
+> +                            if [[ $cur == *,* && $COMP_WORDBREAKS != *,* ]]; then
+> +                                prefix="${cur%,*},"
+> +                            fi
+> +                            for flag in $(compgen -W "$flags" -- "${cur##*,}"); do
+> +                                COMPREPLY+=( "${prefix}${flag}" )
+> +                            done
+> +                            return 0
+> +                            ;;
+> +                        key|value|entries)
+>                              return 0
+>                              ;;
+
+Can the comma-separated completion work as written? When bash completes a
+single match, it appends a trailing space, which splits the argument into
+two words. Example:
+
+  $ bpftool map create /sys/fs/bpf/m type hash key 4 value 4 \
+    entries 1 name m flags BPF_F_MM<TAB>
+
+completes to:
+
+  ... flags BPF_F_MMAPABLE ,BPF_F_RDONLY
+
+That becomes two argv words (the space before the comma). do_create() in
+map.c consumes "flags BPF_F_MMAPABLE" and re-enters its loop with only
+",BPF_F_RDONLY" left, so REQ_ARGS(2) fails with the message "'
+BPF_F_MMAPABLE' needs at least 2 arguments, 1 found". To build a multi-
+flag list the user has to delete the inserted space by hand, which defeats
+the prefix-preservation logic at lines 745-749.
+
+The usual fix is `compopt -o nospace` when emitting list elements (guarded
+for shells without compopt), or suppressing the space only when more than
+one flag remains plausible.
+
+[ ... ]
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34048916873
+--===============5451443486569008885==--
