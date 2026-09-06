@@ -1,84 +1,63 @@
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8589A3E49E4
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 10:07:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.54
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7A8E941F5F5;
+	Sun,  6 Sep 2026 10:07:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788689237; cv=none; b=p0MXrPlY9Xo4z7sYdVfvofqYQxn5BCnys9RvQzlZ041oFNmntBXuLhYLvUsh+vsslsznkX8KuR1DD4DtwzLaS80qvJ94BcWCUHUsYEkWZHwEhl4v6SXZbyTTNdGovDfXt+zO9lIjCrBGcCPUuklwL+Dl+RvqUtVlEG9VB7VmCpU=
+	t=1788689243; cv=none; b=SSJo+/W6UYhXSrW2ArzinbbfW4IBUylzSVGkHWdjiwn/7W4Enzggbjpfs0hUeDbs3bPJ9d5jZME+nxWmjs1b20yi0y/ohxaxo8jns2w8kQ4CKZHuEp/odR+OHIBNkHBYOoRXqqrNeYVcvubDZWdFlv+GNHehYHenCjxmN87h/jM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788689237; c=relaxed/simple;
-	bh=zdPwZrvfJK7MzyGkqu9cVdFV8gXhIeOCnL3vxgmUvv0=;
+	s=arc-20240116; t=1788689243; c=relaxed/simple;
+	bh=Z1zT/+qmdnYlo6v6PyvGTRruroGKs4FxS/7jYNNL1h8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MN2QQPEEkfdLWcYeXQo1741MtbAotQx7q9LGJ+W8itC8gBzDgniB4wmQRU0c4bxLN8eSANFyeIwy6NOonTdrCYIGnjumUOnCy+WndcMrdMuWoFL7DG/qj8TAPw6HGnspzWEyK1cqw0KnIzZjgiau4fUwSKNkfNdxRKdPJJNGDjY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lF3g+X7I; arc=none smtp.client-ip=209.85.167.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=P8JI+Ql4vVunlX8dwVK94d8ndibamEf07xZJzHSbk+r5dvg631hgA9dhyK+XbgcAi9l2fKdLS0OZmVB/+Md5skyPIdKJqJcXWofnCY5s4oqT5d2QhYBdnNhug59hnJsuplVnL+rVX9B7jMbOG0xfMw9Y5E0P58HXaykNutGkPOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=KyN0M5Vy; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lF3g+X7I"
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5b5f21afe8cso4473581e87.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 03:07:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788689233; x=1789294033; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+3ouU/PkVGCvjpETYDZTI0h0W7DBwEzUInQxKxjqn74=;
-        b=lF3g+X7I4MJQO3LpzEx4ezUBBEPff8jVBGvMBGuxW1/NGtZgfeI5enbPFouTUHw+Zb
-         7Gnki5fWEiQR9FG38y9A8sdltFQL3MvjZfr7IPyKUVLHW7Qye00B8Cv+s4OgMH1Fp7e1
-         rP04tVMpRoctJRQSdDIHhL7U1Jfakm43Tlhy5ELsya/LFhPfFlIq8mQUu1dCIN7jVcx5
-         jpQO27gya1uZoP7aC4lISdjNFEc1D3OZamhRwS4tVtD+KEzuLJ/HEXUzJZcEz0aoBuza
-         k7uHg715p3QcvgY4OFX98cj2mqboUE7r11s0pb9JKjUFKfj8Z2r16P3gnE9VoOuLbaww
-         jKwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788689233; x=1789294033;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+3ouU/PkVGCvjpETYDZTI0h0W7DBwEzUInQxKxjqn74=;
-        b=LTBKumpDYPSRDVQw1GdNqM3k36f3Ho6Y03rBy6opJKJ7nbAXkTxIDoCpEZuBTPIFoR
-         M/TkrY2RCnsP/f8N84N+Xv1FtzTaFD+mxGMHxIzSv1GnfIzveOaZhNwjUUoy9Kveb5tf
-         EgKot8T2e9PEvDi4jmEio267vxbpI2tdfUXkGxU4rdIrmlNskd6EL9yAeEBZJUCVWIvB
-         koMKIK5M/UuMVM3cGImXPgofo5hGYynMrPUpAK2pL0YUF3+Oj07dW8tlnynx9Db2upVU
-         EpJIy+ewgkPmu58vxcMr7rfkRFc+h7qqcUnS0Wti1zZNRksA4o2F7MLxdwkPgKdB8W/W
-         1ksw==
-X-Forwarded-Encrypted: i=1; AKwUvBzwqVVlZ59cjibUhUdrzKfnsZuI1ncJ+SkDlGIBW66abzMZq98YzzrC3Pabu0PJmlWt00peooGQpQzxICI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lXJNyhM8hCPeUGmLkgrGUZE37HPcVv4tDxdjb4EyrFmtZD0o87
-	UaxwSUX1+6agvcWRDjeDMVAxGj5wYDLIK4QQ3p98xsw4+57Q350xNr/v
-X-Gm-Gg: AYBFou0Q1Q6aftNaf6b5qvFBlpWi4AixFUpbKt9Yg+1V0IuJFGKQpMcevg9AlbtNVKD
-	2T5oODt5WWvDBG176N1PndHtanK5sQhfH1DlZa0ENaPzA2uxGw2xdvDeFruyBb3aPnkfFy3Dh4y
-	kEZriuxOoRoYzQ5EUJS+COjFETVK/HbbVWUJjkqQ/HwUZUeg4Yhen+zYSC2HSlD0FV+CP/qqWyC
-	x6w36LIGuTZLxz2gVT4rHMxX+JmQWRLtfGLW3wiOLZpgnJ7t1MlG4rsSxNB1g8zy/PI4dKdPMzp
-	8UsftFGnHCVoWz+EITjPd1PkBLMOYb9ySWJ9tyX6ml1yq4MNGF8LfyV0MDa8rYRzfus9Yf7yONz
-	MpB49nqkEkdm8yHABkgzFNgbukNpD4QV8aOJjDhrsAa/3ZvccybH/5Z7EM762RpyN6blRIPXoj6
-	AVN0HAHxbBVugDvecFsf9gt2F3b4DQjS9rApSLP2Abu2MMqiHi+/W0k06AbeiHXgoBQ0J0TcKf+
-	K/1YpCj/4x9FEs+/LazqFIlgG6Gl8e8RtuhZRh45vdq7EhVHT7gtJIJlWV6rJ4M0wyvjQ==
-X-Received: by 2002:a05:6512:3d02:b0:5b6:10bc:b863 with SMTP id 2adb3069b0e04-5b61768ca49mr2220492e87.17.1788689233221;
-        Sun, 06 Sep 2026 03:07:13 -0700 (PDT)
-Received: from yantra.. (dsl-trebng21-58c187-236.dhcp.inet.fi. [88.193.135.236])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b619820db9sm1486211e87.54.2026.09.06.03.07.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 03:07:11 -0700 (PDT)
-From: Rupesh Majhi <zoone.rupert@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Bill Wendling <morbo@google.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Eddie James <eajames@linux.ibm.com>,
-	Joel Stanley <joel@jms.id.au>,
-	Justin Stitt <justinstitt@google.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: Re: [PATCH v6 4/6] iio: pressure: dps310: add triggered buffer support
-Date: Sun,  6 Sep 2026 13:06:53 +0300
-Message-ID: <20260906100707.435298-1-zoone.rupert@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <ao1bBFkLXIIgNl49@ashevche-desk.local>
-References: <20260824201203.396651-5-zoone.rupert@gmail.com> <ao1bBFkLXIIgNl49@ashevche-desk.local>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="KyN0M5Vy"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1E1EE1713;
+	Sun,  6 Sep 2026 03:07:14 -0700 (PDT)
+Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8DD1A3FA21;
+	Sun,  6 Sep 2026 03:07:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788689237; bh=Z1zT/+qmdnYlo6v6PyvGTRruroGKs4FxS/7jYNNL1h8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=KyN0M5VywQJ+IsrLTyzz7ETU5ITGGJqzNK/ijn+6wBYVFeA6UT1UL4JY1Emd0HN7c
+	 3NYPs9O2k8bIujhmaCBm1PjeZR52tFUJaczNPv6AjyHHTINB3BOtqdZqOkXmI6kM+L
+	 0GV9hpu94GHhQmvDlGaKug30DNZNg3i5YYKSOIIo=
+From: Cristian Marussi <cristian.marussi@arm.com>
+To: linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	arm-scmi@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Cc: sudeep.holla@kernel.org,
+	james.quinlan@broadcom.com,
+	f.fainelli@gmail.com,
+	vincent.guittot@linaro.org,
+	etienne.carriere@st.com,
+	peng.fan@oss.nxp.com,
+	michal.simek@amd.com,
+	d-gole@ti.com,
+	jic23@kernel.org,
+	elif.topuz@arm.com,
+	lukasz.luba@arm.com,
+	philip.radford@arm.com,
+	david@kernel.org,
+	souvik.chakravarty@arm.com,
+	leitao@kernel.org,
+	kas@kernel.org,
+	puranjay@kernel.org,
+	usama.arif@linux.dev,
+	kernel-team@meta.com,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Subject: [PATCH v11 02/25] firmware: arm_scmi: Allow registration of unknown-size events/reports
+Date: Sun,  6 Sep 2026 11:06:00 +0100
+Message-ID: <20260906100623.3488327-3-cristian.marussi@arm.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260906100623.3488327-1-cristian.marussi@arm.com>
+References: <20260906100623.3488327-1-cristian.marussi@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,23 +66,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Tue, 25 Aug 2026 12:06:12 +0300
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+Allow protocols to register events with build-time unknown sizes: such
+events can be declared zero-sized and let the core SCMI stack perform the
+needed safe-net boundary checks based on the configured transport size.
 
-> Hmm... Is scoped_guard() too bad here?
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
+---
+v10 --> v11
+ - account for ktime_t field when checking boundary
+v2 --> v3
+ - split out of previous patch on protocol notifier
+ - use max() instead of max_t()
+---
+ drivers/firmware/arm_scmi/notify.c | 25 ++++++++++++++++++++-----
+ drivers/firmware/arm_scmi/notify.h |  8 ++++++--
+ 2 files changed, 26 insertions(+), 7 deletions(-)
 
-Jonathan asked for the plain form on this handler in the v5 review:
+diff --git a/drivers/firmware/arm_scmi/notify.c b/drivers/firmware/arm_scmi/notify.c
+index fb60fb07c0ed..3264e1062700 100644
+--- a/drivers/firmware/arm_scmi/notify.c
++++ b/drivers/firmware/arm_scmi/notify.c
+@@ -595,7 +595,13 @@ int scmi_notify(const struct scmi_handle *handle, u8 proto_id, u8 evt_id,
+ 	if (!r_evt)
+ 		return -EINVAL;
+ 
+-	if (len > r_evt->evt->max_payld_sz) {
++	/*
++	 * Events with a zero max_payld_sz are sized to be of the maximum
++	 * size allowed by the transport: no need to be size-checked here
++	 * since the transport layer would have already dropped such
++	 * over-sized messages.
++	 */
++	if (r_evt->evt->max_payld_sz && len > r_evt->evt->max_payld_sz) {
+ 		dev_err(handle->dev, "discard badly sized message\n");
+ 		return -EINVAL;
+ 	}
+@@ -752,7 +758,7 @@ int scmi_register_protocol_events(const struct scmi_handle *handle, u8 proto_id,
+ 				  const struct scmi_protocol_handle *ph,
+ 				  const struct scmi_protocol_events *ee)
+ {
+-	int i;
++	int i, max_msg_sz, max_report_sz;
+ 	unsigned int num_sources;
+ 	size_t payld_sz = 0;
+ 	struct scmi_registered_events_desc *pd;
+@@ -767,6 +773,9 @@ int scmi_register_protocol_events(const struct scmi_handle *handle, u8 proto_id,
+ 	if (!ni)
+ 		return -ENOMEM;
+ 
++	max_msg_sz = ph->hops->get_max_msg_size(ph);
++	max_report_sz = max_msg_sz + sizeof(ktime_t);
++
+ 	/* num_sources cannot be <= 0 */
+ 	if (ee->num_sources) {
+ 		num_sources = ee->num_sources;
+@@ -779,8 +788,13 @@ int scmi_register_protocol_events(const struct scmi_handle *handle, u8 proto_id,
+ 	}
+ 
+ 	evt = ee->evts;
+-	for (i = 0; i < ee->num_events; i++)
+-		payld_sz = max_t(size_t, payld_sz, evt[i].max_payld_sz);
++	for (i = 0; i < ee->num_events; i++) {
++		if (evt[i].max_payld_sz == 0) {
++			payld_sz = max_msg_sz;
++			break;
++		}
++		payld_sz = max(payld_sz, evt[i].max_payld_sz);
++	}
+ 	payld_sz += sizeof(struct scmi_event_header);
+ 
+ 	pd = scmi_allocate_registered_events_desc(ni, proto_id, ee->queue_sz,
+@@ -807,7 +821,8 @@ int scmi_register_protocol_events(const struct scmi_handle *handle, u8 proto_id,
+ 		mutex_init(&r_evt->sources_mtx);
+ 
+ 		r_evt->report = devm_kzalloc(ni->handle->dev,
+-					     evt->max_report_sz, GFP_KERNEL);
++					     evt->max_report_sz ?: max_report_sz,
++					     GFP_KERNEL);
+ 		if (!r_evt->report)
+ 			return -ENOMEM;
+ 
+diff --git a/drivers/firmware/arm_scmi/notify.h b/drivers/firmware/arm_scmi/notify.h
+index f18f98c5ab3b..c2eb4844c7db 100644
+--- a/drivers/firmware/arm_scmi/notify.h
++++ b/drivers/firmware/arm_scmi/notify.h
+@@ -18,8 +18,12 @@
+ /**
+  * struct scmi_event  - Describes an event to be supported
+  * @id: Event ID
+- * @max_payld_sz: Max possible size for the payload of a notification message
+- * @max_report_sz: Max possible size for the report of a notification message
++ * @max_payld_sz: Max possible size for the payload of a notification message.
++ *		  Set to zero to use the maximum payload size allowed by the
++ *		  transport.
++ * @max_report_sz: Max possible size for the report of a notification message.
++ *		   Set to zero to use the maximum payload size allowed by the
++ *		   transport plus the additional ktime_t timestamp.
+  *
+  * Each SCMI protocol, during its initialization phase, can describe the events
+  * it wishes to support in a few struct scmi_event and pass them to the core
+-- 
+2.54.0
 
-  It isn't necessary to use guard/scoped_guard() for all locks in a
-  driver if they actually hurt readability.  I think that is the case
-  here.
-
-So it stays as mutex_lock/unlock with the goto. guard() is kept where the
-lock runs to the end of the function.
-
-> Side note, at some point makes sense to move from 1000 to KILO.
-
-The site above it is pre-existing, so both should move together in the
-cleanup series rather than leaving one spelled each way here.
-
-Rupesh
