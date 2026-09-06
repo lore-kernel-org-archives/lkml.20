@@ -1,145 +1,124 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D5AE3563F6
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 20:55:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788728130; cv=none; b=tRqhecXjlZBAj5tBarP1ZHJImRbS10LzeRHrgJrwRmMzWGIAA7Q9bHN4ZsXbqqNvU7DaYeBpsuCvWZjUuyKtHGKU3ZhSTseSDC7u55mzy2W21oUKEaHazqhMYX56Mh5tSoMeWu3aSgfmKui6EqkkXUCmT0mj/5TCZh7IGblW8zw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788728130; c=relaxed/simple;
-	bh=UmTnoTVu0uHk5ty8IRYct/UGRDry/oe29M2HASDGF6g=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=foj95nKiF1nna6AJH+/XfOmQtSV/JfzvGvqtj/kiAnlyDWqelq6WwIgINQP2TOn6aJS4PJ6f70mqwfbBbWeUjx+O/cf4rd9FJq0vvbPu7MQsJ218dB1HiN+U+UR7b8BiyPI0MkhMvra34ISshehBYWpk0F/ccJQJPGZAtmGphwc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c0F1sp7d; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60B3137A494
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 20:59:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788728356; cv=pass; b=ZufgKVg8CEtahSu2zCjPjGUGwpBuC1rCKLmbDrpUvLNHEAakJ68IJvTTQrZGXWw5Q9Z3ohYofsHMKqyt/DfvxnAHGihD1dZT5pc6xn8gM7gSPLVZF6QdMZJe9y2AFGfq28cpjYbFk+35chHgNrYnRFo5GSumb3JRo6Eai0xQ4cE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788728356; c=relaxed/simple;
+	bh=GmWNxMpRYaYka4G7Ng6tm18FCMqF9Ep8MTVv4Hnc9OY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QC8LAYEk7PKW88fRl7csgM0N3q1/CjHxqSrrnH8ksc1VoV2MyUaVFjtm2/kFRkh7Qwmzc/w0S5au7FhCo6+9rk1cZKMYL/Q00xOHoDgHXweu9wzWGScy3rG/OCs6egfhqnW7nAdBZ+P4gypXMIVz3fjfnvPXjrltH5KGLg4RZTo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N1PZCMAo; arc=pass smtp.client-ip=209.85.214.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c0F1sp7d"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49b8687630fso23822975e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 13:55:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N1PZCMAo"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d53197d8b5so24723035ad.3
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 13:59:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788728354; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RYXzUVDsoEJw6xHuvDR6V7hzj1XJylO8IDP141N0oO5tDOdvwPnH/lcu3NXyNg36Ij
+         xC/XcLTvDGirh/p3Qrf4NOeev714+1TT9ColJvDzhcfoUzG7sgYojuTQ64VIvMw46Zbg
+         RL8MmBhFGMzT6csjSkAoM1JaJAjoC6ev0ejG5JQXnYok+xI22/MG9qpid2TLZdZqlOci
+         1cdDJt0gBBFciPSclz7BnrnaSDvAC9aJDrzrvWbV33Igxw2QzN7FxYLBEln1v5slTA3u
+         Zd48viwn5b7oUDT+I2FCbwZvZ5C6vyw9h1v6zcPgCkurIwDyd5e+tBEHK7npZKNJJEzX
+         0SbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GmWNxMpRYaYka4G7Ng6tm18FCMqF9Ep8MTVv4Hnc9OY=;
+        fh=NmoUkiBNUa6d9FDMQqPUAH8lPUFzIQunPNjkQcaygHw=;
+        b=Nhka5YHtqkdsivMan3T/T19zJ0WCJMXMfYaQAjRGBU5hEa1HASPcVc7fCplxzGtl3o
+         y16KslAVP7AwRavrxBXeUEi7z8/rnKgoHVSXydiMuHCQsnehCgA7bSnr2CL7+7JICpUw
+         D2caVl9xlBX+BjbhSrwaLC8UFTLvbeq02lQGv9ygIXXKmfh5k2ch54j95lwPpgZ2XTxO
+         CARHUS8e+Vje5KjGk2LzOBSbHemGzd0lBZzpViz1osh0uRAck6bxdTJlmeSF+37RpTR9
+         DMY97wmtmln4c/rrwUUSVcWpWPIx/cK7qTIdbpIfot05ScwAnW6fxkOu6frMX4d8TMxq
+         V0lg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788728127; x=1789332927; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788728354; x=1789333154; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=KApqmYJmHvPUcT9v/KGmQBynW1X598SQBtzRKCAwt84=;
-        b=c0F1sp7dnLqwtjm5XAFNbkHQ+bxKOx2LGyeHnWyw6qKh0mfiQ1jiiKgBpl3hRkXu+0
-         TOlSIP3XBmzokKZyBGMXk0sV/Nd8UWKLaGyNafmAlmI+IS+pSmTfaKdbHMu7Mg4gvtG9
-         Kc1E0+Sws+C22iWE4pBdu/Lkd1gdX4Yrw9KW3RP2kicXxSdccc9MeFEuJ6h84PZwgCJm
-         MULyZiTiG9cjtFNAxleZILfmwElVrO7e1GL+vHaEgvde7Qta9xx1Rtjk9hnjy26h1goD
-         +3s+pgok/TEAjsthzfzbFwTmswajL34c4iJ9aWYFRry49aHPRtvsbh/n3DqsPcZ29RG5
-         P1nw==
+        bh=GmWNxMpRYaYka4G7Ng6tm18FCMqF9Ep8MTVv4Hnc9OY=;
+        b=N1PZCMAoq6Rb9QffgHeGjEtFdwwKouQKwPNj1i2h0i0wJn/Z4n1/nJe+grImNNpbOc
+         2Snkh83IjCBfbiDYjmJgt3fBlfHyR5ImSV8OxctE1W8N22uVlDb5VFDIiRe+cNKj/zLe
+         AwFXfA8a0j2zSXnaFQz+BySrQeLtR2FnRMUQrpnCWWeyhnstEFa9ayge9uxElZy/zP38
+         Z5QbgbJ/jW0E0B+s2rpmd6fY8EWowGyNdre3qmAxnQBeqICi1t7YbtMfRDEBfgqYMYdf
+         Bme1NINbbQf/iM7leVTZsJNtpL1024amABE2zRChXG5mIqk2kNUGAbj20Yj5qSwZmf7Q
+         TXIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788728127; x=1789332927;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788728354; x=1789333154;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KApqmYJmHvPUcT9v/KGmQBynW1X598SQBtzRKCAwt84=;
-        b=sJ5hnjIc1TYMFKKdmCCnGPYC1xEJpsU/X/R1zGvgiHjaIe7zoJIEBQnR7iGqpbstAb
-         rhbq1nG/QOgwl/PuBvr7WDugyr4jXiz8AmwF8Vs1/RxVRIBG1YsI2bXe7BXVcqHyEaLo
-         +5RobGhVrnMkXp6dHqyDRONRiAXV5zoqsD4LjgMnZSDMOehvzAi7yVwkNX+ghWqLQ6lY
-         rlblU4SlNP3TD/0PrZLhKA/L7BGRzF9ywO4sNc9nZtdIn9FvMMwqPCeonC1y6BEXTAAx
-         amd97VYCUHr6XpTaJAotBUiy/6Fh+/aI9rCWgyQyEo+P9T7z+9cGKRSB9oa06sLSZFBt
-         /p0A==
-X-Forwarded-Encrypted: i=1; AKwUvBzS6JJNU7D0SEGxhT4bSRstorQdvpaoxqm0H7lPoowSC/CgVZWlymyQAbBoMFeALM6Ien7xxQQrfNiUZhU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mtCTqOr6zNltvAWzHA+6KcDuDF9stmz1bovCVMVvQ7Fkzh1SYN
-	1f79UMvIUEUjQVJs9HAMx+Pre36Ow/c+KfTxpT3Kg2gHndt2xiz61EVK5Pfttu/p
-X-Gm-Gg: AYBFou2aPBcdZ3lIkKqQ9/aPo8ijiruZXGVkpaBxC/ZZav10y3hBzqoxC4ygMA8aQWj
-	XM2KuCIglrqsIXLZhlZopMrpDNON6+zCm4T1Pls5E0/TpcP78/SMn0oTlEjs1ZbooDcbxsWSPNU
-	mYjEYdMWmXJU987wJ0IDRhgl3kgCZwq9fp3PvATJjnCBuPIT1/nahynijrEK3C9UErHEcZWq6wJ
-	l02fvAylLmFquUajphy51gfQXHZYcWmqABkRflpL6BEXjby11pdIFD4SVroi25Za+rId38iWJYU
-	bAM8Yms/YAvLUtlCNXYUEXAfgqBfLcOeIg6kQYNT1FqbJ436dIL4NyuIdFsHf5rRdq4NajiX8cY
-	iKfSG8e+4WYIFZY8+D50p1558yT/qbMTcDyq0AhW32KogcURZ7HQ4yIKE9jXynmOgS6pbgxTItn
-	Zu7BZ0tqNZ+nimv9qRmfiMf960g3R3C9ePFbYYpo9i4MoB+DEI8ko5Y27XoMtyaGOJ2jkhZe9c7
-	1KqU/3u01iJrMMsZlPNSNmaA3DOgTKq7MSshHKJ67S1BOMKm5sFh+7T4/fwlpDu2ea1lvznAtdB
-	sjdSXefq2Mc5YInIslBb7QmjFfgpdguiY5DKonYXlCeVeUK4ldrz0wqEkkv7tSWrUds9s9mZQFO
-	/xOsbjfXf5yTIUkRuLPHo
-X-Received: by 2002:a05:600c:1986:b0:49c:fa21:e744 with SMTP id 5b1f17b1804b1-49cfa21e906mr154347705e9.26.1788728127106;
-        Sun, 06 Sep 2026 13:55:27 -0700 (PDT)
-Received: from systembl0wer ([2a02:8308:4092:11f0::f9f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d0af538d0sm97914485e9.8.2026.09.06.13.55.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 13:55:27 -0700 (PDT)
-Date: Sun, 6 Sep 2026 22:55:25 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Cc: Viacheslav Dubeyko <slava@dubeyko.com>, linux-nilfs@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] nilfs2: remove '#if 0' code blocks
-Message-ID: <20260906225525.6d8b509e@systembl0wer>
-In-Reply-To: <CAKFNMo=4VdyB2OovP5hsQejFd-zf=5BMvvMMBTRjQCYPPtzdYA@mail.gmail.com>
-References: <20260905-nilfs2-dead-code-cleanup-v1-1-348ed97b2443@gmail.com>
-	<CAKFNMo=4VdyB2OovP5hsQejFd-zf=5BMvvMMBTRjQCYPPtzdYA@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+        bh=GmWNxMpRYaYka4G7Ng6tm18FCMqF9Ep8MTVv4Hnc9OY=;
+        b=CgVH3di81vlSdgSWWo9FVPXf1uoYjGoyPfmWMXOFD3Eb43tQsrkWzbTv5YnTCdMiti
+         f6BGNleG09WweZGVRkTC2ynHdw9PHVG+3eWQ1P80d/WeWKiYlAls5xM1Zmo8pN4Tkyfb
+         Y3g+KB0WKQXf2B3ONKIEAQuCYfxLg6HpLfncY9PNHsg0LBtvqUl2+SoqFR0HvSt3bh7O
+         T4r57eDho78yjNo9skcCVRUyKnC24w6plmZ5SID1dHYwq1Vv++0mmzC2y8YkWr6I2UY3
+         wX6rEkNWnvzOPu4goWTDdwS7ItNqsfGlMbxvmjSI4PDjJ/VMppG1SGkhHCc15XRUd9xJ
+         1suw==
+X-Forwarded-Encrypted: i=1; AKwUvBwcEcMXKsXD5dfZRPar0ZhFv69nBtwQHLv8KXvcg0GRVHFDq/S5MUXBHrCCO+ktEfiMcAGUdS5awxNZxKk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kZPrAVG8zDvAbHvXW+H8HLVAVyagoSX9cXJfNCuNrNTg1k8poZ
+	0UirVWTpHX8di97hzCaIwLpNj/b3DAoTB7n4nWAE9u45C83Up3dgNjw2GHXDu5C/O0hUjb3M296
+	DXQTkS2Yny/+a7L9gkGnwmcuPKJT60L4=
+X-Gm-Gg: AYBFou3LKH+7jz/vkqto0VHFjm1khfllt6E2IW3J8Ig1rfxDrV8+Y2wHfrcwkWGl8C+
+	j1W3j1DeARDOKO7Oo4aTd/cfAzZmrspkBpviQjaHWymaRvEK8FJ7nMlitGL2luOyPoAYcrImcXh
+	Cgf5a59zTfwwU0RWyO6hU0i3KMJeoaBTPUaZGeUFbs4fhJE101Nic25lY1IWZoS4Zkz7cvWy7fq
+	g2bYrbcAx0fdy2a3iWggzAgXc9WTJcDUPp0CwABlVWXpi8X4Eg7QLs3C6DP99eInfVr1iKc/eSR
+	L2nomhBOc52Bt73UcIbQlx4fdjqxLDtg+MPiFWNzPxBtstJAd6CeelQP4XyV0g+K03lxvMbVR2H
+	3v/H6NpdQexBJ8sgik7BHUkWsz77k
+X-Received: by 2002:a05:6a20:729e:b0:3d0:d1f1:6ec5 with SMTP id
+ adf61e73a8af0-3da39bb5957mr28017799637.4.1788728354236; Sun, 06 Sep 2026
+ 13:59:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+References: <20260906-perf-gtk2-v7-0-1ece839fbca0@gmail.com>
+In-Reply-To: <20260906-perf-gtk2-v7-0-1ece839fbca0@gmail.com>
+From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Date: Sun, 6 Sep 2026 13:59:02 -0700
+X-Gm-Features: AcwNN1W60lfgmZ5yuSBplCeQGrhxaU8sIs3bdr3CFsw0EYVrdti6riCJvMr2erE
+Message-ID: <CAADnVQLrga+tx0QCUkviGHqbk9Q6a7bmk3oAe51ZrLhQgRaw5Q@mail.gmail.com>
+Subject: Re: [PATCH v7 0/3] perf tools: port UI from GTK2 to GTK4
+To: Matt Turner <mattst88@gmail.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, LKML <linux-kernel@vger.kernel.org>, 
+	"linux-perf-use." <linux-perf-users@vger.kernel.org>, bpf <bpf@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, 7 Sep 2026 01:47:35 +0900
-Ryusuke Konishi <konishi.ryusuke@gmail.com> wrote:
+On Sun, Sep 6, 2026 at 1:13=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
+te:
+>
+> GTK2 is long dead upstream and increasingly hard to keep building on
+> current distros. This series ports perf's GTK-based report browser to
+> GTK4 and fixes it up so it's actually loadable at runtime after the
+> port.
+>
+> Patch 1 does the mechanical port (build system, widget API changes),
+> including the leftover-GTK2-call and signal-handling fixes that were a
+> separate patch 3 in v4. Patch 2 fixes a runtime issue found after the
+> port that prevented the browser from loading. Patch 3 fixes two stack
+> buffer overflows in the hierarchy view that predate the port.
+>
+> Signed-off-by: Matt Turner <mattst88@gmail.com>
+> ---
+> Changes in v7:
 
-> On Sat, Sep 5, 2026 at 1:49=E2=80=AFPM Joshua Crofts wrote:
-> >
-> > There are two instances of '#if 0' code blocks that are dead code.
-> > Remove these code blocks.
-> >
-> > Additionally, remove unnecessary brackets around a single-statement
-> > if per checkpatch rules.
-> >
-> > Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> > ---
-> > Stumbled upon these blocks when grepping the kernel for #if 0. Not sure
-> > if they are actually used for debugging; if so, I have no issues with
-> > the patch being dropped.
-> >
-> > Thanks! =20
->=20
-> Joshua Crofts, thank you for proposing this patch.
->=20
-> I agree that it is appropriate to remove the dead code in both locations.
->=20
-> These sections are not for debugging purposes; rather, they both
-> relate to features that were never implemented.
->=20
-> Regarding the ACL-related dead code, it can be properly implemented
-> when the feature is actually added; therefore, removing it is fine
-> (and indeed preferable, as it reduces the tree-wide maintenance burden
-> in the interim).
->=20
-> The dead code related to mount counts stems from a legacy feature
-> designed for periodic full checks upon mounting.
-> However, mandating a heavy, full-filesystem check simply because a
-> certain number of mounts has been reached is outdated; in an era where
-> large-capacity storage is the norm, such a process compromises
-> availability.
-> While fsck itself remains necessary, periodic health checks should be
-> handled via alternative online methods.
->=20
-> I have just one point regarding the ACL dead code removal: in
-> nilfs_new_inode() within "inode.c", there are lines that are merely
-> commented out rather than being enclosed in "#if 0" (shown below).
->=20
->         /* ii->i_file_acl =3D 0; */
->         /* ii->i_dir_acl =3D 0; */
->=20
-> Could you please revise your patch to remove these lines as well?
->=20
-> Once you have made these changes, I will accept the patch.
->=20
-
-Hi Ryusuke,
-
-Thanks for the explanation!=20
-
-I'll implement the change you proposed in v2.
-
---=20
-Kind regards,
-Joshua Crofts
+Matt, please stop the spam.
+Wait for humans to reply before respinning.
+7 revisions in one day is way too much.
