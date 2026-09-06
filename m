@@ -1,132 +1,168 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4759B3644C4
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 18:39:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C1A363C48;
+	Sun,  6 Sep 2026 18:41:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788719998; cv=none; b=BDGFycGigpKt8qavqlWZEonNd1+/+SdpMaW+LqsD7pEWoj0nE46B/ctVbzv4wfgnlFYPSrOeiTbTJrLz+Sc+bzErIEzIt4T79W1MAAWmpUDeYk90ili1+gDNFpvZHac/ekLrag7LvIr9IZyMQfLVBBdXa26DNXJc6zbnxbOEUVo=
+	t=1788720091; cv=none; b=b2kVv1vJPtoXAxbCTr6mf2kAfTqNRz3SKc/QNklSzN0XiDlN/bARovNOZeMQqCcPcdWDT0KepocmPgh7OCoNR2pec2TMftBM4Yig9aTtCx8tyEdlSlDvKa395fl3XXHr7/ATG+HsKUBcv/3PQ8bsF6Ct/2f0Qg8CncmHVH+FtgA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788719998; c=relaxed/simple;
-	bh=jEpIA7bvLTdzVcsHeIeLL/AF/RITcLl/fBmqh6A01Hg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y4GgWFWtez8Giz0tqhgBVMDFzyFFJtDf0ZSO17DJ7ai1mbJGdF3oaiGIbLSHlKFlrfPTMAtAATsTM4vx9WFCH0VKoyNib7T5/hIx1A6P0ROi+T20EgnwW1N2w7k/GPyBBv22YSvoCp7Lf1CdhyfwzWPIyDbQ8rDOTJ8P7w+ayd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YSy+/20N; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788720091; c=relaxed/simple;
+	bh=bJma6qjMkBmkrsew8txUTwbVezkKEYszB8Or3uujyq8=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=InqLZqq6/bCzVoWyDfqjI7ADMGof5x1ax/lOrrNQBTcUrnl7VpblrTBFMvHMP+V4FvpyE0BEoM0sJUcco0OkxpCNtFicZon1Rdhz1fXRFvnwmhjTwht9cellKTrM553pIexSaRLl28W9DjeKNurU3c2SBN2BAMx4MWzdA5ZdcuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SE+C2dzO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YSy+/20N"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49b8687630fso23225315e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 11:39:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788719995; x=1789324795; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pvfPoOEcmC8/94abbwrhnmtr6QM09GFHkRqzmkwOjDg=;
-        b=YSy+/20N9Imgg8W9BJeMrFvoUmElIdfKy/lQBCXDYU6ezsYYMAm59PDE8r6opqbmMw
-         uyqoVQJW1/0u0vBsCdIUFHZ3SP3N/aCZs8O6v98cYnNTKzf0W4R19GaTJdWq8suSpLm5
-         6P5a49ZaWZBsOymFt0GSx8LDO5AecqGhqu73OXu8lNJb7BDzFCMVw5KsHUwZ8bnwTiau
-         0rz8Y0KKte8fvn/oZZbOIEra/8o0V6QnhqHmQDN32ifOKSE+UFAXS95pHQRBoSlOIgvv
-         FSGKzwLEIJWk7LGCNUKcW/ZVw932VIyNqCIjjTXUMZTzRtqmioRbM/noRDw91oyS8NBh
-         fn4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788719995; x=1789324795;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pvfPoOEcmC8/94abbwrhnmtr6QM09GFHkRqzmkwOjDg=;
-        b=TZnzwO9ss+0bR5e3QTrDwAJ3WUNgSEly8hgApp5imA2GixHCR4WXDFGq+3hMnVnyvl
-         b8cbgjYgbHwQdL5fCzJI//UtKxWQ4bhyL7IffmrJae7fCYCUx2XThC9BesZpQymGHG1M
-         HWRtUaXgJkiVhEDgE/hbY1yqZrvtSzXDk2aTbNqmyzsM1RZDRHFZ9D83F9+UAUDu/lFQ
-         hwi7jZTcB1CWhECbH4E08M00IHQscDG9W67N+I7K3RCcu5yCihr5n/DVjyFtaYpu2YZ2
-         KUY4drvWaTDlXzSbAz0QjTsFqCw02Q3U2FcTcdKHDtRVt3D1TmpkQ7OigRuUW88oPPJu
-         EiLQ==
-X-Forwarded-Encrypted: i=1; AKwUvByKeAT26+vMdIZ2ClwgQOChkJgpMQnj9jZb3ncBlPOBRF3VDjjQgRU6Z4Z39/ylOPhHa/MqGGh+FamZ1Dk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mGid7awk9qUsxksRSBgHKmr7UlIj8Kj8ywZxqFtQftOFfIkibL
-	HAJCNYg5B5yRq1063NObszN2oN9TNnHhoGd9WIEsESt+w76qTtQAEVsPsKs7YszW
-X-Gm-Gg: AYBFou3qHYZ4wVjxV7nMDyj3YCjMyWyFrtAurGKqAwg/qjut/ZQmaUdib6ELiAl1xIB
-	mLBrqHuqjDl6XWHsOXKqgtMCqDfGdGNK/JphfK7y2KJRnUsEzzZGyAp6LcwGcD1Dwpj1ZUU3bR8
-	sfb9ih36GbX5MhH/aXj0j/uTYMecvpZ7ZAZ027BdwS0gzgcJSWixq+VDzOedQsMMkuiahNW3ej7
-	ik0wS/WkdxsPwQKsu5YE1s9Q5Fwh0guzejkXdK/QQZDCD1EWxnzVWk2sCjEmvuAZszzrjkibAiK
-	R4l0OKlGNl1vowyyUci5UY2+J6AEm/xxwomCY0VLiKEm/Pv7LrGxEDsG7prPHF2z6ZZdSFFQZcl
-	OJYG7KpgWduwAdKFWo1iSlCKiqQ3g1AHjhC/v7al8jgAEo/f45hByO07WSpuEK+v+9jXNxMVR15
-	ZJRuuCAt8Q2Oo21oHNxvp44x+c5ts1+qeEErgbn5fg9jmwT2LsiIs3puHP2IEE9F7dsfJaBogBQ
-	E5Sz9Z+Mgqx0JwegSWutj/5UaY77c9juDgka5PsXqgexScK+f/zLrEIU7yODEkkCKhzKk7U
-X-Received: by 2002:a05:600c:3b99:b0:499:bf0e:95c8 with SMTP id 5b1f17b1804b1-49cf81fb72amr200414655e9.1.1788719995087;
-        Sun, 06 Sep 2026 11:39:55 -0700 (PDT)
-Received: from fedora ([2a01:261:818:9401:46b1:9fe8:a5e3:32be])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf75ce49esm435571905e9.1.2026.09.06.11.39.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 11:39:54 -0700 (PDT)
-From: Uros Bizjak <ubizjak@gmail.com>
-To: x86@kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Uros Bizjak <ubizjak@gmail.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>
-Subject: [PATCH RESEND] x86/kexec: store segment registers directly to memory in crash_setup_regs()
-Date: Sun,  6 Sep 2026 20:39:20 +0200
-Message-ID: <20260906183942.103011-1-ubizjak@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SE+C2dzO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CFA51F00A3A;
+	Sun,  6 Sep 2026 18:41:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788720089;
+	bh=SNvUlsPgaM3N9GqrTTga5ripAMVFDQzMZNOl9a4uyRE=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=SE+C2dzOMUP2qyZyTgmTuaECGu0d5I5jjfRFVUp4mVCdarbD4zIr/veGMrRiVCY55
+	 xwRf4unPsmwuwKHYRtpZec0t0bguhbGWdaQ8yVvlen7P1SEHvZxt4HioA+9lz9TgNp
+	 SDB7DdfhWtchZLmLqhYaDABjFXYcUOs1F6UBDHdcvesthWDLc4QbrIJItHWIrkXujn
+	 8oP9Km15sPsX+igq6U5BbAnRNSVb/+bFN9Rhoj8XuVRHq3Fe5YjPwq0UPyRSEcILYl
+	 Ne3sgcTCgMiTtC/YZeiklgLA31jkEbTjXwOJ6AntVEynpQlHUiMWSk936irLcG8ATc
+	 jrvXeRLkps88A==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 4/5] iio: light: vcnl4000: Add IRQ disable callback
+ on cleanup
+From: Jonathan Cameron <jic23@kernel.org>
+To: Tsz Shan Chan <tsz.chan.dev@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Tsz Shan Chan <tchan@jacques.com.au>
+In-Reply-To: <20260903-vcnl4000-v3-4-5e69c2e715a8@jacques.com.au>
+References: <20260903-vcnl4000-v3-0-5e69c2e715a8@jacques.com.au>
+ <20260903-vcnl4000-v3-4-5e69c2e715a8@jacques.com.au>
+Date: Sun, 06 Sep 2026 19:41:12 +0100
+Message-Id: <178872007271.3402141.14738588921320424322.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3513;
+ i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
+ bh=bJma6qjMkBmkrsew8txUTwbVezkKEYszB8Or3uujyq8=;
+ b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqnbPLCQPiBFK+5VundJaRro2V7INHkyNpWLBfZ
+ oXAiaXmiteJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCap2zyxEcamljMjNAa2Vy
+ bmVsLm9yZwAKCRBUhTSZxPQWiF7jD/wK/owkWGZmoTuv7zlhWv7ziAmrTc4SK5/oBF2tuGKe5Og
+ EyOIvnUeFpLN+zjNCdMTPstG3a8SwByyvb4KoC/EmerlAJPxBmWyLqskOHa9sOFappR6Ko/Byl1
+ FsvlTVVaAQ4iaZMSdCBdlDKuEXg1c6YZ/Y/jlWeBIiT2w7uYJ/RVTgycOSe5RIcBAr7E5byoHhR
+ v+v7bmNvOfV/Q/tiXLGPVSLHAtOp/RK8GuAcnA2EynYF60TOLNgfa/stlEvDe1nF00pXZe1RN9c
+ KRvX3KqUdVEFYoOzhFtpC0b+h+oiJU/EeZzUYJ/bOBHbQP/VfTXkHsO0u34dZJ8SWO7pgyAflhy
+ ynJpbMwu65It10FzhR8HGLeDfzNtvw+jt7am87kdhX4PGIpoNIZB73Tw4FxdreW2HPBfS0NFfek
+ KPm3pvUCiz5yB6PRLV2hVcqY1XHptwfiXaUz1bOVox6GrikmvsbxnP586Nrteez4FnPQM2Ysmwu
+ 3e2PynFsgFdoWi3aUWubgqNVWXjHIfRhWXpS6pbrsedZSw0OgwZScyhcBBM0RdEaELQfzXOktvO
+ kRikz+emjxao1qgtNKNBfeTUjrS8btl7jdVAPeliiRHreO0USUd5yAtiFlOCwIacNoPcbuZkUhn
+ dbVN60RQKv5Ia2SQnQJhG7mr6q/MHIe8UqHTpDA==
+X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
+ fpr=6E2966B387840652912681B154853499C4F41688
 
-crash_setup_regs() currently moves segment registers (ss, cs, ds, es)
-into pt_regs via a general purpose register (%eax). Update the code to
-avoid the intermediate register and store segment registers directly
-to their destination fields. This reduces the generated code from:
+> During driver unbind, devm cleans up resources in LIFO order. The IRQ
+> handler is freed before the device is powered down. This can lead to
+> unhandled interrupts.
 
- 131:	8c d0                	mov    %ss,%eax
- 133:	66 89 84 24 a0 00 00 	mov    %ax,0xa0(%rsp)
- 13a:	00
- 13b:	8c c8                	mov    %cs,%eax
- 13d:	66 89 84 24 88 00 00 	mov    %ax,0x88(%rsp)
- 144:	00
+Add more on which interrupts and whether they are race conditions
+like maybe happen for the buffer tear down, or this is actually
+disabling events (as the core can't do that).
 
-to:
 
- 131:	8c 94 24 a0 00 00 00 	mov    %ss,0xa0(%rsp)
- 138:	8c 8c 24 88 00 00 00 	mov    %cs,0x88(%rsp)
+> 
+> Register a devm action to disable interrupt explicitly after
+> devm_request_threaded_irq(), so that the interrupt is disabled before
+> the IRQ handler is freed. This prevents any unhandled interrupts.
+> 
+> Add a disable_irq callback to chip info structure. This allows each chip
+> type to implement its own disable sequence.
+> 
+> Signed-off-by: Tsz Shan Chan <tchan@jacques.com.au>
 
-No functional change intended.
+There are various bits of this that look rather incorrect. Please
+take another close look at this one.
 
-Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
-Cc: Thomas Gleixner <tglx@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: "H. Peter Anvin" <hpa@zytor.com>
----
- arch/x86/include/asm/kexec.h | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Given we've had a lot of races around event disabling and device tear
+down recently it may be me need to look at adding a suitable hook
+in the core to turn them off.  Anyhow, that is a job for another day.
 
-diff --git a/arch/x86/include/asm/kexec.h b/arch/x86/include/asm/kexec.h
-index 5cfb27f26583..ad7ef567452b 100644
---- a/arch/x86/include/asm/kexec.h
-+++ b/arch/x86/include/asm/kexec.h
-@@ -106,11 +106,11 @@ static inline void crash_setup_regs(struct pt_regs *newregs,
- 		asm volatile("mov %%r14,%0" : "=m"(newregs->r14));
- 		asm volatile("mov %%r15,%0" : "=m"(newregs->r15));
- #endif
--		asm volatile("mov %%ss,%k0" : "=a"(newregs->ss));
--		asm volatile("mov %%cs,%k0" : "=a"(newregs->cs));
-+		asm volatile("mov %%ss,%0" : "=m"(newregs->ss));
-+		asm volatile("mov %%cs,%0" : "=m"(newregs->cs));
- #ifdef CONFIG_X86_32
--		asm volatile("mov %%ds,%k0" : "=a"(newregs->ds));
--		asm volatile("mov %%es,%k0" : "=a"(newregs->es));
-+		asm volatile("mov %%ds,%0" : "=m"(newregs->ds));
-+		asm volatile("mov %%es,%0" : "=m"(newregs->es));
- #endif
- 		asm volatile("pushf\n\t"
- 			     "pop %0" : "=m"(newregs->flags));
+>
+> diff --git a/drivers/iio/light/vcnl4000.c b/drivers/iio/light/vcnl4000.c
+> index 9f5a9dc6f87e..82ce940d3bef 100644
+> --- a/drivers/iio/light/vcnl4000.c
+> +++ b/drivers/iio/light/vcnl4000.c
+> @@ -218,6 +218,7 @@ struct vcnl4000_chip_spec {
+>  	int (*measure_light)(struct vcnl4000_data *data, int *val);
+>  	int (*measure_proximity)(struct vcnl4000_data *data, int *val);
+>  	int (*set_power_state)(struct vcnl4000_data *data, bool on);
+> +	int (*disable_irq)(struct vcnl4000_data *data);
+>  	irqreturn_t (*irq_thread)(int irq, void *priv);
+>  	irqreturn_t (*trig_buffer_func)(int irq, void *priv);
+>  
+> @@ -1467,6 +1468,48 @@ static int vcnl4040_write_event_config(struct iio_dev *indio_dev,
+>  	}
+>  }
+>  
+> +static int vcnl4010_disable_irq(struct vcnl4000_data *data)
+> +{
+> +	int ret;
+> +
+> +	guard(mutex)(&data->vcnl4000_lock);
+> +
+> +	ret = vcnl4010_stop(data);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret = i2c_smbus_read_byte_data(data->client, VCNL4010_ISR);
+
+Does this regsiter have anything to do with disabling the interrupt?
+I'd expect that to be somewhere in INT_CTRL.
+
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret &= VCNL4010_INT_THR | VCNL4010_INT_DRDY;
+
+This bothers me. Data ready should be turned off by the buffer disable
+that happens when the device unregiser occurs. Is that not happening
+for some reason.  The threshold is more interesting here but I'd
+generally prefer this code to be turning the event off (side effect
+being to disable that interrupt).  So
+vcln4010_config_threshold_disable() should be doing the job - possibly
+via vcl4010_config_threshold() (I haven't checked locking etc).
+
+> +	if (!ret)
+> +		return 0;
+> +
+> +	return i2c_smbus_write_byte_data(data->client, VCNL4010_ISR, ret);
+> +}
+> +
+> +static int vcnl4040_disable_irq(struct vcnl4000_data *data)
+> +{
+> +	int ret;
+> +
+> +	guard(mutex)(&data->vcnl4000_lock);
+> +
+> +	ret = vcnl4040_update_ps_int(data, VCNL4040_PS_CONF2_PS_INT, false);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret = vcnl4040_update_als_int(data, VCNL4040_ALS_CONF_INT_EN, false);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret = i2c_smbus_read_word_data(data->client, data->chip_spec->int_reg);
+
+What is this doing? Just to check, is this stuff LLM assisted? That
+read is random enough I'd not really expect to see it human generated
+code.
+
 -- 
-2.55.0
-
+Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
