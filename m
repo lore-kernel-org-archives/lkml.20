@@ -1,242 +1,133 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28EA22AE65
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 09:26:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788686802; cv=pass; b=ZJLwnRSASQdQ1AA7YDlxzlp1vQgSv8oifd5j9wK88Mp2reiijYXQCqZm2al3Tefy/S4YRFeXjKpkjBIojSQSluXl0OEz7sM3LTvyfqDYym6BIKaaLkkpjpkjp+/vgJ1y+mgL3sMsDz3ihWdtZq8YelbNsX4YpzuI0vhmY4skV6s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788686802; c=relaxed/simple;
-	bh=cEKrnTatrqgp9q6ansCE++YyyCJnnQqYEhHs1asB6fg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=didjTNUfcWDyKddwTONepmAGnOcCVZC6M8q+KdABdyANAnZ2a8rIA5JFyuhQoygR/9CFvwg15mWNVZGuBz3Ew6a5rVcYO4WZDfjCe1i9TSf5W4R9NOdNYcY7I3NYAC0HnBrYOW/67Qn9KGzg6pZiVp45IFRCSA3PYyFOU1ZFccA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=V0vs3tHC; arc=pass smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36A181A2C04;
+	Sun,  6 Sep 2026 09:30:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788687038; cv=none; b=tLsodyt/Ob+zNxCZLvZHGJpZw/YJvZGyhERh7enM3t0+y24v0YmZvOhDAJVu9+t/eyyYRqAAGqOS/u0aJQlnSKv/0+jt0IAu8z6ZakqMHJ3YFVCQLRWVgK08EVqb2S73B3Kw4hYqk80/t/S50m6SlQPo5OPajwrxYAXktqgzoVg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788687038; c=relaxed/simple;
+	bh=1aH/O/nXGmguu/sbyzKfjo4n+RaPBUSNb01FLutqxDY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jKAtdq3PKVkvQT7MEwuXg9k9ew1trS9c66Gyhk0ZLOAVeu2bjqghMo0AJlYkMFhC/TNKWKtvwtM3n3WtCFVy4FFsPnW3lfhqAx3SQ61pMQW7DHjMc69haCJBFGRIXG8DRQPHyEzKQPLW1Owx25E5VYL4WqVMOeOm++703De/HdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WCYjFxcZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="V0vs3tHC"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49cf4f81d86so18893235e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 02:26:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788686799; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rzYAUdpA3gyEN8bXby8g0yUUnOzRzttzAq6AbKEX7HXBd7Z9iWzafSqLAvLBIfmUOI
-         vUlE+tFIKzTZu6KYGK6mlZOe3M4ejvuem22QKlWoIIcUh6Db07S+hVsmYUxC0KUMHMqE
-         NfVeXmItrEVQTxCGF+qg2nYq04w/Lc2KtbHLAu1d8NRyxFoxhyrdukox7BS2EyhFltgc
-         0Dgfh16U4Dz7z0VeE7OWAI3jWnXQreLnkiPPAlqe3dzyTAk/QBvO+XY76SA1dxSs89yD
-         Z+VGZCT9Fal+I6TDL7Wva1Y/WVBNHklHlfwn37u1pJxRnVFnsrzfrpLJIxkzt97/f6D8
-         xlNg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=s3Z9m61R0Xcvfx1fOOb/3EA5UUxAFfOaOY/w1CnIwco=;
-        fh=H4i1TmtUcxiKhLORTiF/tsV2Lj9Idd5MN6yn39+E5mY=;
-        b=gHfVs9so/yylqzrTuMifVkNTYWt1lc+94iMkWM2jZvaXiMJCmUoyLLk3X3j8qTgD/9
-         1OWPEgI6RMALlxNe1TcSg1ZLJxB51s9fGjSF+/CmAduv9HhArJg+9xlx+lCCEeaSEWLb
-         kmvfMt6sDdwJ0NoFsJq7Yc0Wrz+1oW4AkxC5H8LO4Hv1b2r7lnqplOJeOZhuvA5E9frY
-         Y1FiOZEIZvGfZCqu+DUM41k2ksdw/zLg9WHyZR0zFUJUBjaBrNdkOSLWCAVnROFAVTLx
-         RcO09Uhbia1yXt720RPl23jc9S+Lm2WB2/Tf++3gfHB5KN6mK02dH4IhqluUPSIuZ27I
-         lScQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1788686799; x=1789291599; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=s3Z9m61R0Xcvfx1fOOb/3EA5UUxAFfOaOY/w1CnIwco=;
-        b=V0vs3tHCuoo/AWweZchEelS11jlPfykpbh+xhCr4izvHsQbi7Udr678LekfcFk7m4A
-         cfV6qb+omb45PPAymV8Y/FSMvHeMvPldpBx1dF9fergnkPe3yIjw+AU71QBUMp1wSZw9
-         PbguZyl/T0/GVyeybYvSrAzo9RU11Uhpd1sXMJ+UAofIg97CFlTmq15tc98GIOMV6F9N
-         h15FjxstDzlfxzagjeVRA4y2lu7yhpJj3y0B8+fFIaFQWcANH35fEz+AwhXQJdqrggWm
-         fBaIRcQcknUvAcEkSxc88kpnLULPBn7OmP8RjNzsFO6X678YMmd0NL6Xz1Qshkjhuo1a
-         Q8AQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788686799; x=1789291599;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s3Z9m61R0Xcvfx1fOOb/3EA5UUxAFfOaOY/w1CnIwco=;
-        b=o2ufIPRh7QmzUFXBTumpebm3Yu7obPER/nHBqXeB2mjdaiA9S8Brb7K+WSQpvWLRJ8
-         6zwJgE07I6B+rrtWh5Qw56k9gfs0pCRuSrCpzGcQL2aRg6ofdsnwqzSBUS6wmdZ55kxP
-         GGy9RpkwG4w17qkQFOJLU4Ytnv07NJF0414BeiEqvRQBB0M01xGGP3hO23wn5Yq3dJ6v
-         V2jIqO6qU0B4sjBdq0+/OuhSsZRarDmfB70p6FVrBCkxyKeRFD99GqL7xpBDb8uWuWXF
-         X45wA4HzrCh7MJMyLQN0di9BnT9YKz329bQdBW+47SnhtYPjVm0B6cecks6jSVVNCU+a
-         +rFQ==
-X-Forwarded-Encrypted: i=1; AKwUvByKUgakTXe7ja+zXoRvZGzVOBnU6A3ZiQZ29uXbYD4MPhUYIKXmYjs5WOpRm4gc+UxIlj9QUdB83DEBp88=@vger.kernel.org
-X-Gm-Message-State: AFuF++l05FK/KNnLGSYUOYzrt2/Cvv1JvltoAgJGakpOadnojZJEfNUF
-	QysL1mp9gOdUvv8G8y06THUkAgiWtiGkCpEUVPXQosBrv039x4OfWjmxqIfb6vAZfiDkolhDFHm
-	pOfPChZiIiT7mfWDtW+cdaS5joRA8/LIXHipUhMn/5w==
-X-Gm-Gg: AYBFou3yTYCa50MGHXHCFI1SgmLztKO+eKacFDXqaoyi7RRHEnSGBlVpVXgVyV2Qs6y
-	G8RDzUHOgz90Xz2JDfi3ybIWuJrGJgN1R0bz/D4Mf7u2Hj3yWst/xd89/oPbayy+f3/ck3PTk0Q
-	tVMOVipR7eE3UdQXc/+M4L0VIquOa8vVYwhEyBoIFDcK6nCD08L53tO7B2Pxz+XzlhYMKBYaejm
-	fRYmJP+/InyAQ7K0XhvyE4OhYHRXj8gj90377XtFSIyKRtFaqPsxjwUgvFfMAqKpXAm6HgF3p/W
-	RvIcOTKTgHeYFog4fuk8T72tVyeX7DqCb1Yk5lLIDlwa3CxL4itDplSPnj0Nr4jUwvjtUMa+Lxp
-	e7WU1QuS7t29tmDflCKhHumbZ2OxIfm/4NzZEgcMO8Ey9ayzjPuc043ksZOX3SxA=
-X-Received: by 2002:a05:600c:3f19:b0:49c:fc6c:be13 with SMTP id
- 5b1f17b1804b1-49cfc6cc0f4mr134459275e9.25.1788686798530; Sun, 06 Sep 2026
- 02:26:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WCYjFxcZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EBC51F00A3A;
+	Sun,  6 Sep 2026 09:30:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788687037;
+	bh=Nx2JQF+OxPCsyKg0a0cwCiG38AC7FzKH63fy02rceHk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WCYjFxcZZC8ovxw2hzzEqPqdVHKVt7/yMDVT5q/x3O4BwX59w/9CeVpqQWBX4y4L6
+	 rO9BM8FVs6FjesgtnpFYRGz+a/LXFzlXMuZb0ePHijEmqpPrAVjThC6G3eo6J4tOk2
+	 FfQO87tlKwXgye1oNhIfEQ9W/mEpFH0XNscMJ19mHogxNkztlJI5SMelpOp1OV4oif
+	 E8dbbuIeaA8wMQF0HReFH/xqG06fCiwAE0wsYQAJD0Qjaa5Zrw2UWi3vFO6zb4itgl
+	 SoxazbzlxSafW87vru+RvTPn+b8cOcta5uJ4Pt9UDvhi4TWirT727k70eoBGbRoEIA
+	 Lg8W8CUJi9rjQ==
+Date: Sun, 6 Sep 2026 12:30:30 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Serhat Kumral <serhatkumral1@gmail.com>
+Cc: Bart Van Assche <bvanassche@acm.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Sagi Grimberg <sagi@grimberg.me>, linux-rdma@vger.kernel.org,
+	target-devel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] RDMA/srpt: Clamp the CQ size request to max_cqe
+Message-ID: <20260906093030.GD13683@unreal>
+References: <20260904200240.48976-1-serhatkumral1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <caplitmus-rv.4f722288a2f1483090d75bcd991d5b90.imsic-cover@163.com>
- <caplitmus-rv.4882de641c0d41f9bef843fe41b3084f.imsic-zero@163.com>
-In-Reply-To: <caplitmus-rv.4882de641c0d41f9bef843fe41b3084f.imsic-zero@163.com>
-From: Anup Patel <anup@brainfault.org>
-Date: Sun, 6 Sep 2026 14:56:26 +0530
-X-Gm-Features: AcwNN1XPksXVzh3FfoA4HfbE_7dEgAQHtrNhUuQ_Fviya_2o7CNRojIaWVMEZmI
-Message-ID: <CAAhSdy1LPUy51RCc52kRv62Jdgi-DL=64J-p7RXd1Y11dvXXbA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] irqchip/riscv-imsic: Ignore unused group index shifts
-To: Pengpeng Hou <hppiscas@163.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Andrew Jones <andrew.jones@oss.qualcomm.com>, 
-	Bjorn Topel <bjorn@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904200240.48976-1-serhatkumral1@gmail.com>
 
-On Sun, Sep 6, 2026 at 1:38=E2=80=AFPM Pengpeng Hou <hppiscas@163.com> wrot=
-e:
->
-> The IMSIC parser validates and uses group_index_shift even when the
-> group index has zero width. The binding permits a zero-width group with
-> shift zero, but bits + shift - 1 underflows and rejects that layout.
-> APLIC MSI setup also validates HHXS although HHXW is zero.
->
-> Only validate and clear group-address bits when the group width is
-> nonzero. Use zero for APLIC HHXS when there is no group field. This also
-> avoids shifting an empty mask by an otherwise unused shift value.
->
-> The issue was found by our static-analysis tool and manually reviewed.
->
-> Fixes: 21a8f8a0eb35 ("irqchip: Add RISC-V incoming MSI controller early d=
-river")
-> Assisted-by: GPT-5
-> Signed-off-by: Pengpeng Hou <hppiscas@163.com>
+On Fri, Sep 04, 2026 at 11:02:40PM +0300, Serhat Kumral wrote:
+> srpt_create_ch_ib() asks ib_cq_pool_get() for ch->rq_size + sq_size
+> completion queue entries. rq_size is bounded by max_qp_wr, but sq_size
+> comes from the per-port srp_sq_size configfs attribute, which is only
+> validated against MAX_SRPT_SRQ_SIZE (65535) and never compared with
+> dev->attrs.max_cqe. The largest configuration srpt accepts therefore
+> asks for 128 + 65535 = 65663 entries, while rxe caps max_cqe at 32767
+> and cxgb4 and ionic are in the same range.
+> 
+> Such a request cannot be met, and ib_cq_pool_get() does not reject it.
+> It clamps every CQ it creates to max_cqe, so no CQ it adds to the pool
+> can ever fit the request, and it keeps allocating batches until the
+> allocation fails. A single SRP login against such a target exhausts
+> memory:
+> 
+>   Out of memory and no killable processes...
+>   Kernel panic - not syncing: System is deadlocked on memory
+>   Workqueue: ib_cm cm_work_handler
+>   Call Trace:
+>    __vmalloc_node_range_noprof
+>    vmalloc_user_noprof
+>    rxe_queue_init
+>    rxe_cq_from_init
+>    rxe_create_cq
+>    __ib_alloc_cq
+>    ib_cq_pool_get
+>    srpt_cm_req_recv.cold
+> 
+> Before commit c804af2c1d31 ("IB/srpt: use new shared CQ mechanism") the
+> same request went to ib_alloc_cq_any(), which rejected it with -EINVAL.
+> 
+> The existing backoff, which halves sq_size when queue pair creation
+> fails, only runs after ib_cq_pool_get() has returned, so shrink sq_size
+> before asking for the CQ. rq_size never exceeds MAX_SRPT_RQ_SIZE (128),
+> far below the max_cqe any device reports in practice, so the
+> subtraction does not underflow. With the clamp the same login proceeds
+> exactly like a correctly sized target.
+> 
+> Fixes: c804af2c1d31 ("IB/srpt: use new shared CQ mechanism")
+> Signed-off-by: Serhat Kumral <serhatkumral1@gmail.com>
 > ---
->
-> diff --git a/drivers/irqchip/irq-riscv-aplic-msi.c b/drivers/irqchip/irq-=
-riscv-aplic-msi.c
-> index fb8d1838..569b3ff4 100644
-> --- a/drivers/irqchip/irq-riscv-aplic-msi.c
-> +++ b/drivers/irqchip/irq-riscv-aplic-msi.c
-> @@ -223,17 +223,21 @@ int aplic_msi_setup(struct device *dev, void __iome=
-m *regs)
->                 return -EINVAL;
->         }
->
-> -       /* Find first bit position of group index (HHXS) */
-> -       mc->hhxs =3D imsic_global->group_index_shift;
-> -       if (mc->hhxs < (2 * APLIC_xMSICFGADDR_PPN_SHIFT)) {
-> -               dev_err(dev, "IMSIC group index shift should be >=3D %d\n=
-",
-> -                       (2 * APLIC_xMSICFGADDR_PPN_SHIFT));
-> -               return -EINVAL;
-> -       }
-> -       mc->hhxs -=3D (2 * APLIC_xMSICFGADDR_PPN_SHIFT);
-> -       if (APLIC_xMSICFGADDRH_HHXS_MASK < mc->hhxs) {
-> -               dev_err(dev, "IMSIC group index shift big for APLIC HHXS\=
-n");
-> -               return -EINVAL;
-> +       if (mc->hhxw) {
-> +               /* Find first bit position of group index (HHXS) */
-> +               mc->hhxs =3D imsic_global->group_index_shift;
-> +               if (mc->hhxs < (2 * APLIC_xMSICFGADDR_PPN_SHIFT)) {
-> +                       dev_err(dev, "IMSIC group index shift should be >=
-=3D %d\n",
-> +                               (2 * APLIC_xMSICFGADDR_PPN_SHIFT));
-> +                       return -EINVAL;
-> +               }
-> +               mc->hhxs -=3D (2 * APLIC_xMSICFGADDR_PPN_SHIFT);
-> +               if (APLIC_xMSICFGADDRH_HHXS_MASK < mc->hhxs) {
-> +                       dev_err(dev, "IMSIC group index shift big for APL=
-IC HHXS\n");
-> +                       return -EINVAL;
-> +               }
-> +       } else {
-> +               mc->hhxs =3D 0;
+> Changes since v1:
+> - Move the fix from the RDMA core to ib_srpt, as requested by Leon
+>   Romanovsky.
+> - Clamp sq_size before the CQ request instead of rejecting oversized
+>   requests in ib_cq_pool_get().
+> 
+> v1: https://lore.kernel.org/linux-rdma/20260831171354.72140-1-serhatkumral1@gmail.com/
+> 
+>  drivers/infiniband/ulp/srpt/ib_srpt.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/drivers/infiniband/ulp/srpt/ib_srpt.c b/drivers/infiniband/ulp/srpt/ib_srpt.c
+> index 7197d95f2216..58064a4c606b 100644
+> --- a/drivers/infiniband/ulp/srpt/ib_srpt.c
+> +++ b/drivers/infiniband/ulp/srpt/ib_srpt.c
+> @@ -1867,6 +1867,13 @@ static int srpt_create_ch_ib(struct srpt_rdma_ch *ch)
+>  	if (!qp_init)
+>  		goto out;
+>  
+> +	/* The send and receive queues share a single CQ. */
+> +	if (ch->rq_size + sq_size > attrs->max_cqe) {
+> +		sq_size = attrs->max_cqe - ch->rq_size;
 
-The IMSIC driver already ensures that group_index_shift is atleast 24
-irrespective to the value of group_index_bits so this change is not needed
-because in the "bits + shift - 1" the shift is always >=3D 24.
+I don't think that Sashiko concern is real
+https://sashiko.dev/#/patchset/20260904200240.48976-1-serhatkumral1@gmail.com
+but it is worth to write it in a way to avoid triggering this warning.
 
->         }
->
->         /* Compute PPN base */
-> diff --git a/drivers/irqchip/irq-riscv-imsic-state.c b/drivers/irqchip/ir=
-q-riscv-imsic-state.c
-> index 9505ddbd..44b9c34c 100644
-> --- a/drivers/irqchip/irq-riscv-imsic-state.c
-> +++ b/drivers/irqchip/irq-riscv-imsic-state.c
-> @@ -741,10 +741,12 @@ static int __init imsic_parse_fwnode(struct fwnode_=
-handle *fwnode,
->         }
->
->         /* Sanity check group index shift */
-> -       i =3D global->group_index_bits + global->group_index_shift - 1;
-> -       if (i >=3D BITS_PER_LONG) {
-> -               pr_err("%pfwP: group index shift too big\n", fwnode);
-> -               return -EINVAL;
-> +       if (global->group_index_bits) {
-> +               i =3D global->group_index_bits + global->group_index_shif=
-t - 1;
-> +               if (i >=3D BITS_PER_LONG) {
-> +                       pr_err("%pfwP: group index shift too big\n", fwno=
-de);
-> +                       return -EINVAL;
-> +               }
->         }
->
->         /* Sanity check number of interrupt identities */
-> @@ -773,8 +775,9 @@ static int __init imsic_parse_fwnode(struct fwnode_ha=
-ndle *fwnode,
->         global->base_addr &=3D ~GENMASK(global->guest_index_bits +
->                                        global->hart_index_bits +
->                                        IMSIC_MMIO_PAGE_SHIFT - 1, 0);
-> -       global->base_addr &=3D ~((BIT(global->group_index_bits) - 1) <<
-> -                              global->group_index_shift);
-> +       if (global->group_index_bits)
-> +               global->base_addr &=3D ~((BIT(global->group_index_bits) -=
- 1) <<
-> +                                      global->group_index_shift);
+For example
+/* Catch drivers that incorrectly set ch->rq_size */
+WARN_ON_ONCE(attrs->max_cqe < ch->rq_size)
 
-There is nothing to be fixed here.
+Thanks
 
-For group_index_bits =3D=3D 0, BIT(group_index_bits) - 1 will be zero
-and 0 << any_shift_value will be 0. In other words, global->base_addr
-won't change when group_index_bits =3D=3D 0.
-
->
->         /* Find number of MMIO register sets */
->         while (!imsic_get_mmio_resource(fwnode, *nr_mmios, &res))
-> @@ -854,8 +857,9 @@ int __init imsic_setup_state(struct fwnode_handle *fw=
-node, void *opaque)
->                 base_addr &=3D ~GENMASK(global->guest_index_bits +
->                                       global->hart_index_bits +
->                                       IMSIC_MMIO_PAGE_SHIFT - 1, 0);
-> -               base_addr &=3D ~((BIT(global->group_index_bits) - 1) <<
-> -                              global->group_index_shift);
-> +               if (global->group_index_bits)
-> +                       base_addr &=3D ~((BIT(global->group_index_bits) -=
- 1) <<
-> +                                      global->group_index_shift);
-
-Same comment as above.
-
->                 if (base_addr !=3D global->base_addr) {
->                         rc =3D -EINVAL;
->                         pr_err("%pfwP: address mismatch for regset %d\n",=
- fwnode, i);
->
-> base-commit: 13ca1c0b7d8a3ab1e59cb3e780c1dd7441e22515
->
-
-Overall, this patch fixes nothing.
-
-Regards,
-Anup
+> +		pr_debug("reduced sq_size to %u because max_cqe is %u\n",
+> +			 sq_size, attrs->max_cqe);
+> +	}
+> +
+>  retry:
+>  	ch->cq = ib_cq_pool_get(sdev->device, ch->rq_size + sq_size, -1,
+>  				 IB_POLL_WORKQUEUE);
+> 
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> -- 
+> 2.53.0
+> 
