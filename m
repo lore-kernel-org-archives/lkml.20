@@ -1,157 +1,143 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5F48246778
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 01:49:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788659365; cv=none; b=uSxSRRQot9vwtWoIeEPxXFVe2yypB1yO2hdyjG/8+IUleGzSz49dDrR82g7Jk2oYimRdzc21Rh86apizFmdetIwidDoXuuJmso+L92J820NUqWmMkgl4bVv3WgDAyPsdz5U7LOscFsDXkR6r5w586T7tapQssSLfJImiXmb5m6o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788659365; c=relaxed/simple;
-	bh=A3BWN2pQX6u909yRMUdmP0zxqeTmYPA47VdZHSAX85I=;
-	h=Subject:To:References:Cc:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=O8JGXyZf/pqVjCIPVq8JiTf0aUPNmfGGop3rms4wXcwVhMy++mTN1Fk2fPjU5Ehmp9ogWDrWbAj4mEPgJdu3FJWshesQ4rqfkDH7piwXYhyoXX5/6oSsu1IwQR0b0hZoPOU/+/0eFHLTpf4/lQexS6gsU2IIYS4r70c5HbbWOwA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EF91JWVL; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C763F1F4634
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 01:53:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788659597; cv=pass; b=uQR7Xx656BCnQwTW4RRW6/gzgYtfbko4fXFceGVXeKcV7bbzacvVmx1FeaDFmCY0th2f+RtDoSzCYfjILdtQRya5Sr1KdmlZok+zEoFtrOeqAjjBSjwpBj24m3+2ghT554BnajTF//hLgY5VgO8Z7pastCeSGSiqk7DjK7KmeP4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788659597; c=relaxed/simple;
+	bh=0fe91VGjdHtQeef0UNlWbF5tOmLMtidS4mJC79LOGpA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZlozNz3gQ2m5PN8M2uCKYIWahbDAeBBUyXwuNYS2zrIvgfTejsXHpNwOODBsjlZFP1ijEXPwMUzov6NVGpHrVkkoz7kbkPmZQehHz4qek7VHdYx0mE4sJf2eAwAQu9ZsCAmD5GyHMOMnF9RKiz7FvKGlv/Drcvyet6gMdCYgWto=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XBX6pOw5; arc=pass smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EF91JWVL"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d94c868ea5so24025435ad.3
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 18:49:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XBX6pOw5"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b1a806664so201935a91.3
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 18:53:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788659595; cv=none;
+        d=google.com; s=arc-20260327;
+        b=AP+U7WAge0Q+eyejqK8CAqhzj6p8PuSNrLAD/+m7hr2y85WPcr8v46urhmi+2CNBM/
+         35/fxP75/KShhTQ8l5r+WS0nxLO4JjcuqDv3P+yZioXLHgtfwgNOtj4ROXfdbc8XMYnH
+         xd0K5AxhRVEQhtxcqk4NyqtW3XqmZZrNxYzg8KyH9vibHwaj2ET8NjWws/c18QYTCJqu
+         5tfOZKuE+pgt+XaMB1DlQCsEoIdGPkqWQaHJvT9nuV+5mxn7fzSPEmh0oBA0sHfhMRgm
+         XIaTqbY5G/D4CL5WvD6RWtro0VFAW0ip7QGrXTybJI99oH2dVSwGubqEWA809twftFaa
+         +Qgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0fe91VGjdHtQeef0UNlWbF5tOmLMtidS4mJC79LOGpA=;
+        fh=Scf4H9NUGuLGa6+tngt0D6lYdlS/iUtfVM3I81BodjA=;
+        b=ma8hCcisNShfhJYmwrQSrmKwAuBGPTb4XpQ0hE7//1DP0teLR+ODyNBIQ0iXACnrpj
+         8fh4tgPamZljiIH6I4NsgdfihNM69FfU1hDqnk4AJQKWO7ZGKqEHki7bxySGmPmKWrmC
+         sojLv27nUFBVN3bI3GjcmebvqxtIv9MXpyjG67Tl3XKgqr9TdRCEjUlyvaUwZQOELEsA
+         Db7VyIDcUyz/12bs6RVc4eEpJ59pxYj4Q6yb3k+qTLmN39Cc+0SQbPF7+mJAeyxLMtQR
+         91zDqr67TR1OIU2J1mEbnJ62iEapcUa0N41uLpkT+DHTT+qopFAcOEMOPO4OIxAdHGu3
+         4S/w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788659363; x=1789264163; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:mime-version
-         :user-agent:date:message-id:from:cc:references:to:subject:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=S0KhFClpzBCgstI8o1AR/vkilR/o3vMPMYTkXSYpO4U=;
-        b=EF91JWVL37ekkQgPFYsZV/MfGjzcBF4Yrw4Eu8qOF/4MGx4JzCG0F3YzjQ/7l3hsxt
-         6uAXaPLTNK6kvFBk+wkZrdhkSRWorjUWRUhV8P3sQ7tVbzkLFw+dMlA9JpDeN/dNu9Bt
-         gIFR0zBXV8TMdaGFW3gqOkMPsyza+7wVt48h1icBi3nak6xzQIztgl5U41DPgSj7jIsC
-         UxjndWGLxBLPdIlU0GS26nj4q3a7ambCqqx2ZtMDnd6oaJbDumX7hlvcMjAOmiDxY40v
-         p+P0MgE06bfhO2D5mGv2YGZ5gD/Hn5HCk+f0NwHkmKNju7bqSNpOrZqJAEH2UyIvlxPg
-         q+UQ==
+        d=gmail.com; s=20251104; t=1788659595; x=1789264395; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0fe91VGjdHtQeef0UNlWbF5tOmLMtidS4mJC79LOGpA=;
+        b=XBX6pOw5nJcXyUo/ic4MJPrZMZgP/AkgdLY0GBolvVUXBQNFrhcaRBhOJjUAl88EGQ
+         RjWCaiuQXazsq0c8Wc9QIenVnOgk8ub/8LgvJoE0hVCxdR/wx2J3P0fjjGmLg/E+TObR
+         jcXPLesBuMbhu4l0+5kXAuUpu4w3mdT1nEfK3r9n+9cjJ8p8SCA2ScUJ/Acf8Ac5MR4d
+         4RTT9iyaGRO1XijFVxQRhh2kThVzMsBfmWc64eEZpFnNDtv/6sNGg6xnt8kO7W9llLc3
+         uIxto6wIFa2SuNB80oZHWsJcUSNuDmGh24+tg7YBfAK9yJ369sveccVDyunEpJtE5J/A
+         aaWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788659363; x=1789264163;
-        h=content-transfer-encoding:content-type:in-reply-to:mime-version
-         :user-agent:date:message-id:from:cc:references:to:subject:x-gm-gg
+        d=1e100.net; s=20251104; t=1788659595; x=1789264395;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=S0KhFClpzBCgstI8o1AR/vkilR/o3vMPMYTkXSYpO4U=;
-        b=nvdCJ1SF1olxDrLUAwAwP7J2DxyDWUMfKEE1BqaMhff7DGFPYz+kujCvCZNuOY673f
-         G7wvXcP0xSdGn/bNRP66wuO9PJxtl4jgzflW6+LAegTunJzv8Ax9FWINYxBzGC9W73Aa
-         bkLZFdtVZhnYJRu2nsaLcMmFplj9HyGUp66oOK18U/rBt7OT8VbFAe40+KeF6x4vhFMx
-         FY/ZcvgJU2OfVJJ7v/FK78yF6Iqi1M7W6/T/YntldQDBMrVgkXZ1TJgP56INLHPVXK5B
-         ZB8puTwODXl+XW5OlT95M/Xpw+uHmtmw9BuCUDyHeOFkFSD7vu5znK2AoVY3Te37Yw49
-         TwUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw1rElmjA/sjnMtUIxhv0sBYLoeTCKGtElcuEU4R84jAT6HgX75jr7ClQWnqvE8KwqUyeq+2XS78WMfDaA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kvvE/ZzZNOIDQJHvrUVc4DSM1u9LLpgSWgKDNIj+rGuwTJxaJw
-	vh9w9yZhGrwfE6ximNco74U8choLA+ivZd82hRqFJJ5V4qzaEcG0eNE0
-X-Gm-Gg: AYBFou0cLRTmobe5Zl8ozNSHM39fVRPbpRmHXEeTotonb4M9bYnNZMLgFdYY9w6CJEN
-	FakpYW3S7H3NcI1lyd30mL5MkVz2iIos06E/SCHs4IlrFpKFUqitEiuiHToYJ/T5t3wPUN2Ytfh
-	d8KUYk5PGUQf9wH7OpZWYMHHYoRpNPat8q4pCr6x6+MyQzYFxhWaFQ8Jq20hG+mdRmJEbFfMx2w
-	TJx+wUuEKs0k/y2cvqRIxHKKbmVEX4DVz9WEK1iR1lirv5AZjFqRFQnbtR+457CwcfsEY9eViX7
-	U3eYUVChD/4arqjL86VV8weH5DTBGHHaG69JTHclAWBhQF9AhcGK/4E+InLeH3SG7sE3+1sUgQD
-	Y+yr9/FQlFUIDeDsTQgO8MAuB+OvXc5pHJ41UewICd5rTyXtiSvBGji6f5fEx3+/R3vEFZP4Elm
-	np5W/kn9jCOepZ1C5OU3Xx+514+udW6MCVMXbEQgFOChRLXRbX94NSBVIgQ1zcfd55e1mc9gXwL
-	4OFYD8FHpeLiUkrnj0=
-X-Received: by 2002:a17:902:ebc3:b0:2db:20fa:9443 with SMTP id d9443c01a7336-2db20fa96d6mr161492935ad.13.1788659362933;
-        Sat, 05 Sep 2026 18:49:22 -0700 (PDT)
-Received: from [10.1.1.24] (122-59-250-182-adsl.sparkbb.co.nz. [122.59.250.182])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db149ccf2esm27008175ad.73.2026.09.05.18.49.17
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Sat, 05 Sep 2026 18:49:22 -0700 (PDT)
-Subject: Re: [PATCH] fbdev: atafb: Restrict SuperBlitter to supported formats
-To: Linmao Li <lilinmao@kylinos.cn>, deller@gmx.de,
- linux-fbdev@vger.kernel.org
-References: <20260827093948.2825531-1-lilinmao@kylinos.cn>
-Cc: miro.kropacek@gmail.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Geert Uytterhoeven <geert@linux-m68k.org>
-From: Michael Schmitz <schmitzmic@gmail.com>
-Message-ID: <e4a2ba2e-c533-04d8-0795-e3d43caf47b9@gmail.com>
-Date: Sun, 6 Sep 2026 13:49:14 +1200
-User-Agent: Mozilla/5.0 (X11; Linux ppc; rv:45.0) Gecko/20100101
- Icedove/45.4.0
+        bh=0fe91VGjdHtQeef0UNlWbF5tOmLMtidS4mJC79LOGpA=;
+        b=JEYAulfaky5ErO6wh9X2+lDOkkFItKpZkxHMqDdu1iPYkvTvpHyouUkv+MmIXViVUH
+         vNxRQlH0KpODNympyTSkcuDtM/GuP5mDTOVqtOikdXYhNuC1dmQUBfeDv5lseGtLB9Gh
+         fKeahSSCsr9OoMNZE8NIFhsHZ06Z+bofhFIwg7Cit33ZbfWczCDkffP+PcsdCDGzVYOR
+         Z/5BKX4TksgrCcPh9puiYFY//Ix+KgWcpk8r6zEZvGoX0Q8mUtMsPxUGwu7vfoHwgLcN
+         965a3Nx9Ame6iYZQVwNw1INgFgw6+xVk9EnDz0rbDOwmAxRizJLQvbiKLGeL8l78+KlG
+         J97Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzTyjWekuZU28/g/kZoT8IEKagfFyoXGpXghEg+rQ4HrOCeAvPQCwV4HtyUVahW03dCqttcQwQzvJ2MYdk=@vger.kernel.org
+X-Gm-Message-State: AFuF++keMKgmPMQAUaZlnxc4Rvit9Qw0bhtFAUMY0UC3+j5fBLDXwD93
+	Y85+ZQVbZL/iexlMfVTiGeMuUV9xLGeUESx7w3rw2P5eT6TXHnOPe32iufSoxh6uJKTxbxT2b8w
+	XafnzEMY6XDkAjVSPcFSD5xTPQpQot1IDCotb
+X-Gm-Gg: AYBFou1sbVGVDbsjhJBVq4tPtn0OZ6VHIKlrnoGfDcj1pjj8MddHobVH7oFRUPqzvx0
+	SgQsx9fRV8NshamG8gRrZNazDstVCRcYSNBmtRMrzF119Y5FjJC9hDNuwRVI1iRWSQZKKjXPQav
+	u4c493IUSc3V7Y6Lvrs0igJKhykANU3W53cOWkgOdBY/nozwjvT6V6rTSS7fY8vFCPYD7Mt3yhs
+	3wDGHwbF3so5L6UaIw28AkLBBw+N7CgPGFch4vMLo9TLawB9dQRgAFPYNs/mfBtUxFSmgCCSzwU
+	R86z1yfDbxANbQLmYa+iyJmDd0U4vdoR8Ce68Fkpek3GToVkEqqeTgvHEdiU5bM6HDbCMs1Ii6y
+	RT6JyjrUELhbiPVPGvSPwXNyr6oE4DRTRiC71qWVJfj74vlUOSs4WbCRqmNXxdw==
+X-Received: by 2002:a17:90b:574e:b0:38e:ab3f:2c99 with SMTP id
+ 98e67ed59e1d1-39b3d5dd778mr7610897a91.2.1788659595145; Sat, 05 Sep 2026
+ 18:53:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260827093948.2825531-1-lilinmao@kylinos.cn>
-Content-Type: text/plain; charset=iso-8859-15; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260905-feature-rust-num-seal-integer-v2-1-f1311ffbe6e7@younes.io>
+In-Reply-To: <20260905-feature-rust-num-seal-integer-v2-1-f1311ffbe6e7@younes.io>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sun, 6 Sep 2026 03:53:02 +0200
+X-Gm-Features: AcwNN1WEW51nBsJ3su_t8_hcLXLC7IQBuC52TmPA-qkeVxaLPbqIIJjxPe3cDsU
+Message-ID: <CANiq72m8kycbfQ1teyne-OtB5d5TsUcX_WW0FCkWB3Ayyg-qWw@mail.gmail.com>
+Subject: Re: [PATCH v2] rust: num: seal Integer
+To: git@younes.io
+Cc: Alexandre Courbot <acourbot@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Linmao,
-
-thanks for your patch!
-
-Am 27.08.2026 um 21:39 schrieb Linmao Li:
-> The SuperBlitter operations derive an integer byte count per pixel.  The
-> accelerated fill path handles only one-, two- and four-byte pixels.
-> However, the operations are currently installed for every external
-> framebuffer in SuperVidel RAM, including planar 1/2/4/8-bpp and 24-bpp
-> truecolor modes accepted by the external video parser.
+On Sat, Sep 5, 2026 at 5:17=E2=80=AFPM Younes Akhouayri via B4 Relay
+<devnull+git.younes.io@kernel.org> wrote:
 >
-> For 1/2/4-bpp modes, the byte count becomes zero, so accelerated copies do
-> nothing and fills fall through to 32-bit stores.  Planar 8-bpp uses an
-> incompatible memory layout.  For 24-bpp modes, fills also use 32-bit stores
-> despite advancing addresses by three bytes per pixel.  These cases can
-> corrupt the framebuffer beyond the requested rectangle.
-
-I believe 24 bpp mode can be rescued using something like this (entirely 
-untested):
-
---- a/drivers/video/fbdev/atafb.c
-+++ b/drivers/video/fbdev/atafb.c
-@@ -2463,6 +2463,11 @@ static void svblit_fillrect(struct fb_info *info,
-         case 2:
-                 memset16((u16 *)line, pix, rect->width);
-                 break;
-+       case 3:
-+               memset(line, pix, ((rect->width * bytespp) % 4));
-+               line += ((rect->width * bytespp) % 4);
-+               memset32((u32 *)line, pix, (rect->width * bytespp) / 4);
-+               break;
-         default:
-                 memset32((u32 *)line, pix, rect->width);
-                 break;
-
-Can't test this on hardware, and would need Miro to confirm it works as 
-intended.
-
+> From: Younes Akhouayri <git@younes.io>
 >
-> Enable the SuperBlitter operations only for the layouts they implement:
-> 8-bpp packed pixels and 16/32-bpp truecolor.  Keep the existing software
-> operations for all other external formats.
+> Bounded relies on Integer implementations to describe primitive integer
+> semantics correctly. In particular, it uses Integer::BITS and Signedness
+> to justify unchecked operations.
 >
-> Fixes: d463633d63e6 ("fbdev: atafb: Add support for SuperVidel's SuperBlitter")
-> Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
-> ---
->  drivers/video/fbdev/atafb.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+> Integer is currently safe and externally implementable, so an
+> implementation can violate those assumptions and make safe Bounded
+> operations reach undefined behavior.
 >
-> diff --git a/drivers/video/fbdev/atafb.c b/drivers/video/fbdev/atafb.c
-> index 5bca34c45cef3..c3011b61a94b9 100644
-> --- a/drivers/video/fbdev/atafb.c
-> +++ b/drivers/video/fbdev/atafb.c
-> @@ -3360,7 +3360,11 @@ static int __init atafb_probe(struct platform_device *pdev)
->  		memset (screen_base, 0, external_len);
+> For example, an Integer implementation for a u8 wrapper can report
+> BITS =3D 16. Safe code can then cast a Bounded<u16, 9> containing 256
+> to that wrapper. Its TryFrom<u16> implementation returns Err, and
+> Bounded::cast() calls unwrap_unchecked() on it, causing undefined
+> behavior.
 >
->  		/* framebuffer in SV RAM: enable the SuperBlitter */
-> -		if (external_addr >= 0xa0000000) {
-> +		if (external_addr >= 0xa0000000 &&
-> +		    ((external_pmode == FB_TYPE_PACKED_PIXELS &&
-> +		      external_depth == 8) ||
-> +		     (external_pmode == -1 &&
-> +		      (external_depth == 16 || external_depth == 32)))) {
->  			svblit_regs = ioremap(SVBLIT_REGS_PHYS, 0x100);
->  			if (svblit_regs) {
->  				svblit_fw = svblit_rd(SVBLIT_VERSION) & 0x1ff;
+> Seal Integer so only the primitive implementations provided by the
+> kernel crate can satisfy it.
 >
+> Fixes: 01e345e82ec3 ("rust: num: add Bounded integer wrapping type")
+> Reported-by: Miguel Ojeda <ojeda@kernel.org>
+> Closes: https://lore.kernel.org/rust-for-linux/CANiq72mOfR33s4y+Ueivd5NrC=
+5yre+Pcp57ZOBz0msw9A4AP1Q@mail.gmail.com/
+> Cc: stable@vger.kernel.org
+> Suggested-by: Miguel Ojeda <ojeda@kernel.org>
+> Signed-off-by: Younes Akhouayri <git@younes.io>
 
-Otherwise, LGTM.
+Applied to `rust-fixes` -- thanks everyone!
 
-@Geert: can you remember if pixel format or bit depth of an external 
-framebuffer can be changed at runtime using fbset??
+It would be nice to explain somewhere in the code why the trait is
+sealed, especially if we rely on it for safety, but that can be
+improved later.
 
-Reviewed-by: Michael Schmitz <schmitzmic@gmail.com>
+Cheers,
+Miguel
