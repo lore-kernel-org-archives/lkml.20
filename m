@@ -1,104 +1,115 @@
-Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
+Received: from out-utut-a192.jellyfish.systems (out-utut-a192.jellyfish.systems [198.177.127.192])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FBFA33C1AD
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 17:08:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DCEC3B3BE7
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 17:08:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.177.127.192
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788714516; cv=none; b=esj2u2aGzzDQnCJKHv+v6MEfEVye4xg+/6V6w/9jVk2qK1yN3bZqEx1bKANuYre7V2eRFP4Dbq9Ulf6+UFgAqgKvJpNSBJqfRCU9f5WcLGal9LHPFfPJiuTxJ0nokuCNbFHSQGDk8ZwDv2bgNf/iKjGfqtXI5Z4iEsnTt0aATIE=
+	t=1788714518; cv=none; b=nrmfeofOHVPDj5CkRQQcu2qF2fA6BQYhgAAFsybuLVtZiU2ya+rGVioimBkIO33msVqdXUpXYh+7jV5xfAeU+JGcKEAucqVmuiWQKqTnuLIzkk+/E+N1rReh+n+HBNtdBxM+8Ai36VJwTrHnvw7uEsUE0kfgM6IGoC6WR0nqrRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788714516; c=relaxed/simple;
-	bh=o8dhmQZK6NUEp7bIlN+A8R8OEGXpbaUT6LyILEBVyOI=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=qn7hK3sGPP07tQ3bIIibTJ82D8Y9k3jORDbsEgBtMY2Yy6byO/Vc/3YXaMe9J1bTddlh+jDnJBiz+bogq2LwQz00LnZYPfue/n6sb/4MR6TUOSW17ZG1PA97RZV/zuXIHUrtU8jBfpokDfFqKLzwtbzAWDCZIswa2QUcLoTbdfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZEv6t4aQ; arc=none smtp.client-ip=74.125.224.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788714518; c=relaxed/simple;
+	bh=2b23jT/1kjOqH8BRmk7CLrX6Chq+LJMj4GXIy1vRE80=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IV2y0TSvhJJQfq96zP83Fjq2/FeAk+Iaum7Ep2yd9kpGIN0ytwr8oeQ773+ay0962KHlv+v228D26JhgV5a7La2kBZ+MnGPOhY0NsXJu21y8uKKCvE+exxdtWeJJGE89qZ2EVODGCKwiNV3xuucKV/91r7pHORYlTdahQI2dCx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=ZKUXOXpy; arc=none smtp.client-ip=198.177.127.192
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZEv6t4aQ"
-Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-66c9995ca60so3663988d50.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 10:08:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788714514; x=1789319314; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=waPq+1f8MAQW2drA+fK4ok8lWk2s9MiqHdPG9dnO1bU=;
-        b=ZEv6t4aQcic+gy/hKOjAcSQTANeUesFAGoQ+uFLcxv/XSccm3lUeqw6OOGFqgwWIo8
-         ePfOTbmS1kKN7mAcxdrZJGPLFs7xeeWhPW2wJd/MJgG9MBWFZeiC44nvnN/zU+7dCJtA
-         VZZjCk56VEPEc35c1gq9pYB+uGRfM/kuVGyKpasfWlm/vCswwUwTTNfmRw/mx4FFJS0o
-         C0cpvXyntZxGXhturuUdWQTW7c9ZQkBfGGvmdnlvf3NwqBAlkzibXWigrucfbF425q5i
-         bM4p1D7GvO7UiJ8+vhx+097VQzY+5zSuPBTqX1wCD5ld05Ru7zSntkhhDVswFd8b0elp
-         d+8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788714514; x=1789319314;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=waPq+1f8MAQW2drA+fK4ok8lWk2s9MiqHdPG9dnO1bU=;
-        b=fWazPYcHmsjq3d+ZA9yBUyDLQZrdYWCmaHwTiypiF91JxizrAYf/rgmbAZyHwayKxx
-         qECaZLVzsWuUZ7LyvqvsWb5K921caYBaayi3MXpF4PZCF/KtqWveag6OubNmjNOyNjjW
-         x02llcd0+GUjNH0cqwUoaTVPxbVmgOme0/H7YKDlwqvjOrlL+/Wto3CSLkz1AviwXJ+l
-         rlxANhT7pkMr0XPFCrd0k17MePniZ/+ojWQzm35je6tBiCEmRO6esVsP3Oi3FQ5b0CAf
-         E8iTySPrKQDfwIF18EWu1ICI4w2Gi3NxOBFzYGuqj4sTcQsWpU05PZ9bRaYSnmpvJQy8
-         NOYg==
-X-Forwarded-Encrypted: i=1; AKwUvBwPkc2jCYw0B+sBZ2nshcU4NPyURqTv3sELs4+r4ZGORrz2PFjZOfa3bezzb7yqzFizGkJqkuIEYAJLNaM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nz83J7LdoJdi6TkuO6o4cNyTqk/vZys5Pe3fVMH6o6vdRuW/Fz
-	RXMkMqL7fBTmNPxI7fomzhJm3HNSNUB1vfR2LRpd8juz7uwePWV9dKHv
-X-Gm-Gg: AYBFou1rWkRuBVZfK/EAWFvqtgcA+zZa/BIB1kYDcFXR2UgYHpJA0fWcBFJytB2gZSD
-	lhvgD/rqt82rlaCYHnTvC7WUqrArS79kjeJZqwrWTEihlA+bxA770yunIgrADzF5gb8TFtGy+6K
-	HepP1lGsbo5F+B+MxmzP5arqTRyBWOpCowQBNWb7LERBcJSD/wNdcIzKHXC6pAWr8PtV4GfzHo/
-	wGzbKIAfLBWKTNrsCotZHLN4F/VAE9GzCCn2T+YbVRLUPMTlNMUo2Y3vloheZaWmEAk49gW+05q
-	SjR6P9asfrcQ9KrrMTyeVjY+aNHWildGG4GWOm4xmpPvQsx8WYnNKwQ+m38C0BM2IRzcINVjMbH
-	J1212kyopmSjklJKi1XDoP7RODq5FL58AVlbFfgtM9krMw0LwIfU1Exq9ZBDKjtlJFJ1oDEirkS
-	HXFyQcnoPeyXy+w1L6Avad9v7LhijJHIKp1DtFZYvI4HhltEJvWQS2N3GN7hoK+KNYCQONtDnk9
-	ShkrV2fg0+xNGhZV++cnRRt971oLw++VAwwKBuRPA==
-X-Received: by 2002:a05:690e:258f:b0:66f:c1bc:405e with SMTP id 956f58d0204a3-66fc1bc44d6mr1456669d50.38.1788714514524;
-        Sun, 06 Sep 2026 10:08:34 -0700 (PDT)
-Received: from gmail.com (234.207.85.34.bc.googleusercontent.com. [34.85.207.234])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-87149316347sm58780277b3.15.2026.09.06.10.08.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 10:08:33 -0700 (PDT)
-Date: Sun, 06 Sep 2026 13:08:33 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Daniel Zahka <daniel.zahka@gmail.com>, 
- Jakub Kicinski <kuba@kernel.org>, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, 
- Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, 
- Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Message-ID: <willemdebruijn.kernel.160e8de2976b3@gmail.com>
-In-Reply-To: <20260903-psp-prep-v1-1-d47e9c4c375d@gmail.com>
-References: <20260903-psp-prep-v1-0-d47e9c4c375d@gmail.com>
- <20260903-psp-prep-v1-1-d47e9c4c375d@gmail.com>
-Subject: Re: [PATCH net-next 1/4] psp: refactor psp_dev_tx_key_del()
+	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="ZKUXOXpy"
+Received: from fedora (unknown [69.5.53.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.spacemail.com (Postfix) with ESMTPSA id 4hdGqx5cD6z8sXM;
+	Sun, 06 Sep 2026 17:08:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
+	s=spacemail; t=1788714515;
+	bh=JQbjvBUDVP1ZyLhhvWolMUVo976ILHcfpW32yZGBx+c=;
+	h=From:To:Cc:Subject:Date:From;
+	b=ZKUXOXpyFTFs9dvSNajVxZZ/i/jSYpjHUwx6l+/ajiXdWRJ052wUEUijoVEMQ4S6X
+	 Yr5P0hoE+HwYneieqYrv9x19c8ckjOGEYQiPFMukqkt0W28TjRLgkm8QI4WkGQ9U6Z
+	 q+NbvP6sS/Y35L88q+slInBCyfA+vmO5M5FuDz522HbPrtLp6FXnpBucoNJQrQntzC
+	 EGeH4gRgSV9raZV8pmd3aGeA1FeR5074amciPBtMp5dIY9nQ6qiiqrAcAQ4JWJwdws
+	 0m+pMfcN8FySyPqod+EAqze8VpDtwcsxein5jduCncqN7p7THA3vCP4vCvd77JqQt2
+	 V7l6s9iWqwiAw==
+From: Tianyi Chen <hi@tychen.cc>
+To: bpf@vger.kernel.org
+Cc: Tianyi Chen <hi@tychen.cc>,
+	Quentin Monnet <qmo@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH bpf-next 0/2] bpftool: Batch bounded hash map dumps
+Date: Mon,  7 Sep 2026 01:08:17 +0800
+Message-ID: <20260906170819.1212661-1-hi@tychen.cc>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Envelope-From: hi@tychen.cc
 
-Daniel Zahka wrote:
-> No functional changes.
-> 
-> Lift the list deletion and tx spi validation code into
-> callers. Deferred key deletion code paths will need similar checks
-> that a tx key needs removal from the underlying device, but will
-> diverge when it comes to list handling and when to call
-> psp_dev_ops::tx_key_del().
-> 
-> Also, move the predicate for tx key deletion into a helper for
-> readability and reuse in later patches.
-> 
-> Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
+This series uses lookup batches for ordinary hash maps whose maximum
+key/value storage fits within a 4 MiB budget. It retains the existing
+formatting and falls back to individual lookups if the initial batch
+operation is unsupported. Other map types keep individual lookups.
 
-Reviewed-by: Willem de Bruijn <willemb@google.com>
+Hash batch lookups need room for a complete bucket, so ENOSPC grows the
+buffer without advancing the cursor. The memory eligibility check makes
+that growth bounded even after output has begun. Non-ENOENT errors do
+not expose untrusted counts or trigger a duplicate dump restart.
+
+Related request:
+https://github.com/libbpf/bpftool/issues/63
+
+The series is based on bpf-next and does not depend on my recursive
+map-dump series or the flags/ring-buffer series sent alongside it.
+
+Validation on x86-64, Linux 7.3.0-rc1 in KVM, LLVM 20:
+- Full bpftool build and focused BPF selftests build.
+- All 11 bpftool_map_batch subtests passed against a bpftool built with
+  only this series: complete unordered plain, JSON and pretty JSON
+  contents, batch boundaries, short keys, odd-sized values and BTF.
+- strace fault injection checked initial EINVAL/EOPNOTSUPP/ENOTSUPP
+  fallback; ENOSPC growth initially and after progress; fatal EFAULT,
+  ENOMEM and post-progress EIO/EINVAL; no duplicates and valid JSON.
+- A map exceeding the memory eligibility budget used individual lookups.
+- On the same static 100,000-entry hash map, BPF syscall counts dropped
+  from 200,004 to 395. Five untraced runs had median elapsed times of
+  0.774 s before and 0.734 s after; text formatting still dominates.
+
+Fault injection simulates error returns; it is not a real collision
+stress test. Only focused selftests were run. Strict checkpatch has no
+errors or checks; the new test file is covered by existing MAINTAINERS
+patterns.
+
+
+Integration check: these three independent series also applied and built
+together with my previously posted recursive map-dump v2 series. The
+combined 64 subtests passed with no skips or failures in the same guest.
+
+Tianyi Chen (2):
+  bpftool: Use batch lookups for bounded hash map dumps
+  selftests/bpf: Check bpftool batch map dump contents
+
+ tools/bpf/bpftool/map.c                       | 113 ++++++++++-
+ .../bpf/prog_tests/bpftool_map_batch.c        | 186 ++++++++++++++++++
+ 2 files changed, 291 insertions(+), 8 deletions(-)
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/bpftool_map_batch.c
+
+-- 
+2.55.0
+
