@@ -1,158 +1,91 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A0A8313552
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 09:31:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DFA2175A7F
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 09:33:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788687109; cv=none; b=C4jETL0y6Ldfsp/W1djDPkgJCYQz4H5gwJKx7GqrZr6kaAmdB8cac6jqp6Apbfkuk/jqtW1f+J/W2SEHHt4SyWRkSlP5KVGFD9hSpu/iE8fbaIhGlpv4GEjIRuBYe3z1gKlUXJTlEXZ0qX5Xsu9eys4AhnXt1QyYu5EwjNfCPs4=
+	t=1788687192; cv=none; b=dD43FYNWFXdP+RCSOMQajPAnHoZXPYLtgj1U56K2MjpG1j4psO+Bzi5aEX0+FoHl8Bc1P1Cmxko/xtMt/IYSAOR8p8g64feTT6M2+0AL/r6yFfkeKdD6C0GXBaIRTz/1eXx4dvGnLCFWlouzHuDYCBHnvu0ng33BKNweLLatzf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788687109; c=relaxed/simple;
-	bh=cT4XTZr2Zl4x9V5f6a8LNpWLZ0yDGRLsSaT2C79YTYI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rEKYWURxrLaByssBKrAotDoXB3a/G6Ybdsgy2rdElA/t9SEC8uYtW/m7zAyYhqEivNIzzaXle403ZnqSgscVwJdEj8QphXmd9G7miwGwnLZ+a/HsaI7/ewZkENehAHs5eOS6ex+E1KDCyx9xS1G99xNf9vBE7wB60cFBlyxNAjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SERjp8Q8; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788687192; c=relaxed/simple;
+	bh=QtJaQC53Xu+vdhNscJOrU+8pQpYtxNdNcVyiWjAO/Bo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pvyOTIEa0lIbhbvBcqd29An4jhDV45ruUROnyu8FCt8jqnUIjVA/tqb9izug4RBhDve6+66Ra5oywXThhfoRBuczr7tmtCQ/ybxRwOLdx+LKqyCgsuf7KB7OsHsQLxijNZv6xo420nvfpS2rb1t8qLBN7clJEPgjWKEEieA+hE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LSSS/VC1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SERjp8Q8"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so34354715e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 02:31:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788687106; x=1789291906; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PmkO3zaW5vPGMp4KXQ0+SoyDXDy+0wxf1IpxDkK3d3Y=;
-        b=SERjp8Q8isQwWDmiuFbsVKFph5TVmgb8fm7Cg7+HVESLkmPxKNk7HTT0twRPg45Tgq
-         NDdc1+vifUgYD1BMR6r0qszyU9X50NFz0OWQSuWdMqvYZgFVSxUpNle8znKYxo8FFUtC
-         Z2BlMRKpvNeyWRLr3bExMXklmJhyaiUuBjj9H03LivrbUseD2paukepMrsq3xI1q/UCy
-         woRLpFCH5FLXTBvHkzTfwNgCm/oBXIONH/4qvhcDGE2AZYP6LCHb1uWIEt+LyymYEHD5
-         i+hqWgGpW7Vou2RPCA7S4QQmItMn5B0/kWQzhFfXxUfDWQtTaRIHhTijSOYlbaLYnyBU
-         EmZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788687106; x=1789291906;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PmkO3zaW5vPGMp4KXQ0+SoyDXDy+0wxf1IpxDkK3d3Y=;
-        b=Uec1XO1BdSO2LtHL6tgtxV0+xqaDmDLjdOe/P3mZv0Jk8CzRM8DwyxXAw0192fJZRq
-         FhxsBWxKjFdfwaDlEqv98mVjad9qoE0V3otTo+5IWvlgGmdzJGg5sDJ27lSHuZzRACsl
-         4qfQehZS8WxrWvgmqCw8wl83zmBoBPPU0gtME0/rCHfjhhqtIKouJNN9YOg8VddkZRqD
-         /CF1h4OzRCSSEWRdgbJ5D79ug8fYuA7tT77p2N6fkjmIvuGaskXtIXuecU8bxWP3mVyU
-         cAPqDsA6Mq0rF3wnuEQkr0PRLT91vaXILM9zspIiMQBTOtyHrW1b06N6lm+CXxYLb2hV
-         9/5A==
-X-Forwarded-Encrypted: i=1; AKwUvBwKFolM/1DcEqjMIeCc/ekSQ7ZHmCdto3lE0WFNZZpQHVBBZUiIFo3yTlabvsbnYKktG969K3pVzgDSTcA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nTJKb9dVHHrvFaQ0dqtrZno42ZHFb0gr55DMOH4zB9//c/IxVj
-	sN7hf+6CP9jbYYS2CZtzlU7qqAAusMhz0wDCLGN5ztic8w9SHkxK4Szo
-X-Gm-Gg: AYBFou0v00AebGxoBx2ejQEObtVrWWEO3ZuDDD1x1Ko4Btr7JdDQypVpSRDm90kVhz5
-	INoU3gyA0hv++sk065Pgw+FLk5qpamNhJSIlmapX+jkdaFwv9+V9/zQXZtY3d0rG5h1jKQJMs8I
-	/kAw4Tsgpd7YdH036MKQhaHErttt/n3vTrNhRo6M2dpuVe0E3ffHKX1bPLVMhdbCxxNsYGlWV/E
-	nqhQB747wAXpgg1Mb6rACUSDaBdDsctFWh6E2BpLoxvyD/8jWXrDujG7ll0lLJA3eRVTsM2HQCw
-	Kvn0eXWOzNwLDDbVyIixBnnndehYHEodqNszt5QlNpUpB0KpZf5eycQb0qePTyffc7dEdcSKJH+
-	3vonRPm1zH8g2piBQ1iDv7f5EpbChACMGgi1YqDGu5l/45znXFmXfNrKcifc5lcSD3jHsZWIE2n
-	BSrT/YqQMOjj7I2MzfJjjMhLD9VmCAzVc7gbex70D8gVB7ju7Q/HnvN7Nvcg1dIW1lhnbh32GFN
-	QjC2HTb9fJi7qxfFCf2Jq4lODpzvt0Qw2ou6UWWQrkEqhRjeAzkvwQ0uT28suFiAek=
-X-Received: by 2002:a05:600c:358a:b0:49c:dada:30b7 with SMTP id 5b1f17b1804b1-49cf82070famr162424505e9.2.1788687106045;
-        Sun, 06 Sep 2026 02:31:46 -0700 (PDT)
-Received: from shift.daheim (p200300d5ff3cee0050f496fffe46beef.dip0.t-ipconnect.de. [2003:d5:ff3c:ee00:50f4:96ff:fe46:beef])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce58da3acsm667668245e9.0.2026.09.06.02.31.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 02:31:45 -0700 (PDT)
-Received: from localhost ([127.0.0.1])
-	by shift with esmtp (Exim 4.100)
-	(envelope-from <chunkeey@gmail.com>)
-	id 1x39E0-000000006OV-1Azc;
-	Sun, 06 Sep 2026 11:31:44 +0200
-Message-ID: <f3eb0dfe-3b9c-483b-b802-2207fe8b747b@gmail.com>
-Date: Sun, 6 Sep 2026 11:31:44 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LSSS/VC1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A6771F00ACA
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 09:33:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788687191;
+	bh=QtJaQC53Xu+vdhNscJOrU+8pQpYtxNdNcVyiWjAO/Bo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=LSSS/VC1pTisr0VvLky5uFqbyjoqWhb5z2K6GGrB2mCOJLkw2uGt0Uf0htxcPreoj
+	 oMRxxmX7TkODoDzd8gWkLySDh7SihtwmHxhP0aC4nvr1yK5ksm0SHwdrfIjmNUDBm8
+	 zl/rPq4WVz1T5fg9yKXrPeJaR34YTBhG23WUdO0Z5dwXfnj5P8Q6o0gXjJJN1x+x7Z
+	 q5KfOdDLSARI+R6vGi9Dt5Yap8c50/TR9b8rOuej3tFoW4gEPmUIna0dJggPXynoIN
+	 S5pwOymjPA2kGgko98rv4Mla7uyRT3Y0gPSDN1NTCS94CLXimxDpBWZf5c4WQsnu2T
+	 A2rJD2CIClVww==
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c20e70a0962so304607366b.2
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 02:33:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByqxCufnNYkPw/7/7bzcJGzEk3ISoQ3EOPpPGh1MGF3Bw1gbQIIJ09iAa5VAyzeOFLQG1TvSU4nlMzbAAM=@vger.kernel.org
+X-Gm-Message-State: AFuF++krsybgP2ib8XF5S3QzCiGMlN+BbBNMToPKbRTicq/9L+rzeG/V
+	6sH0eKslH6j8eecZrnmoQ8Pf36mqHkQ1kaj2jJWc4AuC1AdNK6M/pd0uDr16yMzkGwUvUUtACj5
+	8bg56zgf2VwNtkb8Z+AYBx6bho7FX3g0=
+X-Received: by 2002:a17:907:c017:b0:c25:6210:84e5 with SMTP id
+ a640c23a62f3a-c260c9dfc39mr1222379966b.14.1788687189891; Sun, 06 Sep 2026
+ 02:33:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] wifi: p54: validate curve data length in the
- calibration curve converters
-To: Shengzhuo Wei <me@cherr.cc>, "David S. Miller" <davem@davemloft.net>,
- "John W. Linville" <linville@tuxdriver.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260831-p54-pda-validation-v2-0-dae566b388c8@cherr.cc>
- <20260831-p54-pda-validation-v2-1-dae566b388c8@cherr.cc>
-Content-Language: de-DE
-From: Christian Lamparter <chunkeey@gmail.com>
-In-Reply-To: <20260831-p54-pda-validation-v2-1-dae566b388c8@cherr.cc>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260906-shrink_zswap_entry_v6-v6-0-ac4cf61565fb@gmail.com> <20260906-shrink_zswap_entry_v6-v6-2-ac4cf61565fb@gmail.com>
+In-Reply-To: <20260906-shrink_zswap_entry_v6-v6-2-ac4cf61565fb@gmail.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Sun, 6 Sep 2026 02:32:58 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zOm=7=1qE-7hq_L6SrdvX5uTNi-hr2VPaBWVaZyA7e57A@mail.gmail.com>
+X-Gm-Features: AcwNN1Wmy8sXB0gnqeV_vKVpovj5_3Y85XL9KiBOHP7UIyqos5p705VNMCEOgWk
+Message-ID: <CAO9r8zOm=7=1qE-7hq_L6SrdvX5uTNi-hr2VPaBWVaZyA7e57A@mail.gmail.com>
+Subject: Re: [PATCH v6 2/3] mm/zswap: replace the zswap_pools list with an
+ allocating xarray
+To: Jianyue Wu <wujianyue000@gmail.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Nhat Pham <nphamcs@gmail.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	Chris Li <chrisl@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Sun, Sep 6, 2026 at 12:47=E2=80=AFAM Jianyue Wu <wujianyue000@gmail.com>=
+ wrote:
+>
+> Originally zswap kept its pools on an RCU list whose head also served
+> as the current pool. Convert the pool table to an allocating xarray
+> keyed by a small integer id, and track the current pool with a separate
+> RCU-protected pointer.
+>
+> The xarray gives each pool a stable id for a later zswap_entry shrink.
+> XA_FLAGS_ALLOC1 starts ids at 1, so id 0 remains reserved. The id range
+> is bounded by ZSWAP_MAX_POOL_ID because the later entry field is a u8.
+>
+> Keep compressor switching close to the previous flow: look up an
+> existing pool with xa_for_each(), resurrect it if reused, or create a
+> new one. zswap_pool_create() allocates the pool's id and publishes it
+> into the xarray as its final step, so the create call either fully
+> publishes or fully unwinds on failure. Publishing makes the pool live,
+> so a caller that later fails (e.g. param_set_charp()) must still kill
+> the pool to erase it from the xarray.
+>
+> Compressor switches update zswap_current_pool with rcu_assign_pointer(),
+> serialized by the module parameter lock, so no xa_lock is needed for
+> that update. The pool walk above is lockless under RCU. xa_lock is taken
+> only to allocate (xa_alloc_bh()) and erase (xa_erase_bh()) xarray
+> entries.
+>
+> Suggested-by: Nhat Pham <nphamcs@gmail.com>
+> Suggested-by: Yosry Ahmed <yosry@kernel.org>
+> Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
+> Signed-off-by: Jianyue Wu <wujianyue000@gmail.com>
 
-On 8/30/26 8:42 PM, Shengzhuo Wei wrote:
-> p54_convert_rev0() and p54_convert_rev1() read calibration curve
-> data from the device-supplied EEPROM entry using channel and
-> points-per-channel counts taken verbatim from that same entry, so
-> an entry that declares more data than it carries drives an
-> out-of-bounds read past the EEPROM buffer (verified with a KASAN
-> reproducer of the conversion loop). The sibling converters
-> p54_convert_output_limits() and p54_convert_db() already validate
-> their counts against the entry length; this path was missed.
-> 
-> Reject the entry when the counts do not fit in the entry data.
-> 
-> Fixes: eff1a59c48e3 ("[P54]: add mac80211-based driver for prism54 softmac hardware")
-> Cc: stable@vger.kernel.org
-> Assisted-by: GLM:5.3
-> Signed-off-by: Shengzhuo Wei <me@cherr.cc>
-> ---
->   drivers/net/wireless/intersil/p54/eeprom.c | 19 +++++++++++++++----
->   1 file changed, 15 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/net/wireless/intersil/p54/eeprom.c b/drivers/net/wireless/intersil/p54/eeprom.c
-> index 95580921d933..0dc848d77c5e 100644
-> --- a/drivers/net/wireless/intersil/p54/eeprom.c
-> +++ b/drivers/net/wireless/intersil/p54/eeprom.c
-> @@ -414,17 +414,22 @@ static int p54_generate_channel_lists(struct ieee80211_hw *dev)
->   }
->   
->   static int p54_convert_rev0(struct ieee80211_hw *dev,
-> -			    struct pda_pa_curve_data *curve_data)
-> +			    struct pda_pa_curve_data *curve_data, size_t len)
->   {
->   	struct p54_common *priv = dev->priv;
->   	struct p54_pa_curve_data_sample *dst;
->   	struct pda_pa_curve_data_sample_rev0 *src;
-> +	size_t needed = curve_data->channels *
-> +		(sizeof(*src) * curve_data->points_per_channel + 2);
->   	size_t cd_len = sizeof(*curve_data) +
->   		(curve_data->points_per_channel*sizeof(*dst) + 2) *
->   		 curve_data->channels;
->   	unsigned int i, j;
->   	void *source, *target;
->   
-> +	if (len < sizeof(*curve_data) + needed)
-> +		return -EINVAL;
-> +
-
-Hmm, Puh. Interessting. Several things. But yeah, this should work.
-
-Acked-by: Christian Lamparter <chunkeey@gmail.com>
-
-Still I have some questions: Did you write/touch any of this yourself?
-Or is this patch straight from the model?
-
-It's because I can grok (heh) why "needed" ended up as a separate variable next to cd_len.
-But why was the sizeof(*curve_data) not included there too? It's only used once in the
-if check so and this sounds like the "needed" needed some extra? Maybe because it was
-already checked?
-
-Well, I'm positive there will be an update from someone else to make it look "neat".
-Probably they will complain that it looks like this functions use curve_data->points_per_channel
-and curve_data->channels without being checked... Only to find out that it was checked already
-because the code needs to know the revision before actually calling the functions and this all
-being part of the information struct.
-
-oh, well.
+Acked-by: Yosry Ahmed <yosry@kernel.org>
