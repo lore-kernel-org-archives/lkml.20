@@ -1,110 +1,82 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6CC3C063F
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 17:36:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F17B33C0A0E;
+	Sun,  6 Sep 2026 17:36:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788716174; cv=none; b=O2vuxOvniFKzHjmyG/JPrlEE9tXI9w9EGpEpImvKHOWizOFDUPvHNdb292BRc58dl2ReljMlB+kztjJdT71vRCEaaxvMN6HotnJrSOj0Y5O90HqItiXsmWw1zrJtY7zgNKbKC4tgLKObxMrOKpgEDoi8g+O/yk2V9wQQ3utB4lg=
+	t=1788716180; cv=none; b=PD1A0LAj1nprDYRD6CFYeZCN3KhTXwOHv4ncJVaeMMWhE8+I3krGVgV4lXjzNA3kKpuJtcIcq7N9QhUYod0vQ7ivKO8lrWJNkTOhF/KNdYCgrE05l/LHjiCJrysRHBNoCp6t7yn518clFPiXzHw3KCcQ/fdPUbNmy3h8sFVU3cs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788716174; c=relaxed/simple;
-	bh=3/zJNHWWWtK/uof2pKE8ZIxAIpYgy2Ej9DgxfoSv1Aw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q95eJ3GQPZ50dr7I4fEBE/ejjtAaUOlPmf65EvhFXbw+aBZnQHGPpC2tpp31Y55Xp4yPhi3sk631wziAajLKMYeKjIjA5jKJKVQIR9ncODSr7CLAE15IcGzu3ahzxaIZOsUfGPIiyKMTe+M2svLg/xzpd7l+h0Yj9bO7rbuVSys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hCLMB+C8; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788716180; c=relaxed/simple;
+	bh=Y9Giu1+OMfdJ3SzWiJCOrTtnmsAlSOxFRJvchxWtEAk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tnIw3n3QTBcqy1YnDVzA+ZrmO+e4O/0lDPxMX1uxxummBFZSHXY4iorM5w4zYQbYaUPAofcN6GjLh7SFH0YA5G4lpTz+tudeDavbkAopG26Zch/LUSaqInXQv9wjLNvwkGs6cFtOMq0v3P8IyxvpiHyxfC50A/nkJwNdXvgg1qs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=etnTAlcd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hCLMB+C8"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49954b88fffso19966695e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 10:36:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788716170; x=1789320970; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=j2ehGMYuyDOWYVENzei92wq0tc1bXeRoq6FhwwzkxNU=;
-        b=hCLMB+C8jpSFl3FQNMOEuK5QsqMofOEW8CW+QK3+1Oeqo7TpzbGpvjppKbunke8V30
-         PTXdTccGebnP0y6Ubr8bpWuxAXwcSqfsrembXSnR42JvySC6BWYz4eYufHxI1V1fyG3D
-         uYdyNJldoqur5kGUHTrccxSOT/uaY93K5IbDC22tw6YPVrI4Av/Oh4xeYLkWNu4Rjclm
-         F/ElFUstP2McpAKet2Thod7hkOIx2YLHK8AsbBUydOz3y64B2iATYf75GGMPcRoRPpQZ
-         K53hzipwReaeaxOMXfNi6yTGnAb/38iHJ19II8A80IderTQn671vPIHtS5zst+gsfbsY
-         LlCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788716170; x=1789320970;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=j2ehGMYuyDOWYVENzei92wq0tc1bXeRoq6FhwwzkxNU=;
-        b=odz/hoq4OJQfapVmD101FVAH2OKnjsJixtlVhmgIG5gW2JgZ8Rk//7eHBafDsq/TMe
-         R1/uY9YA0AfyW9O9DhCVJxdvEH3qy36E5HoRVCMneJKfwSaChGza6TbQX6ZARFDhbJCT
-         6YXMaYc3izBrSoNpHuhRTVdFfEvsZtWVyrYHUPfePG6xDBpKXPM2wcV+GSmwmpfLIvqY
-         chJnIWx8Cjv/4hdtaQg0005lwLwxW3Ut7JXA5q0yPm+YcXC/zO4RsulaYI3kkt5TuKWN
-         OD7NCr1zQ6rYPtwGMuNgE0jXSNqFWvvSJenqUk1LzcSjJS4SXbowZvQ3iNPGF5Ak6656
-         AAkw==
-X-Forwarded-Encrypted: i=1; AKwUvBxsAN1LAo2o5oU+Cz+QOA9Ng2zEM8pe/QuvroX0jIo4uVo9C46Q3+vAmJS9AWEe/z7rzBXbq3c9JkKJAt8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mKakBhJ7YBnMMk6Z3jjHI2biUfN+yKBlu72ZCaDeeP32a7eFFf
-	5GIKyfMiAaAzk/Gduo3ADKJxD/6ZuAc2UXq0vlOPG3spQF0qhi47+uQ=
-X-Gm-Gg: AYBFou1AC13IJwJa5iRYWfZrIwu1w3e3+kHj+2yGd0GUBEfEIZCwIzuW1GHmL5LQPQ1
-	Yo6x8WPrILKLdoZTeix1/8fx7OXe/0XerRQbnW6XQYncUV7GNSTtY4plWmJ2t40m7pZeB5mXerF
-	2/eBjzweZWu4SXzuVXQPiZ2/99QXeSlWsItC9VZnUSeR6y/MeHSqTdPoDhoyHqqBVs5ai/W+IRI
-	QF25ky+pB+k8PPabjZmMmGsHDcl7O4kx6lxUXQhJOAhlePV54GZxy9aY3AyNbt7J0UVv5mhKsW7
-	gAFxVbfZysYa4krUn/XZUC5OrPOu45OD3piJWgB0p3JgmYFjQdmQTgpSPtpdnrcTedK4VYdIjbY
-	ghcaFpyDZJpinsrbJjIa8dmFenlwAiKDLKpnT/V7ge37UIrbHKC5BKuM6iuouD+N/OEaQznaaPe
-	wXgKhMUssw/8xa6rnlPfyCEOrqPk/vxves3bu0x0lqPni/NQuGxHk=
-X-Received: by 2002:a05:600c:3e1a:b0:49c:fc6c:bdff with SMTP id 5b1f17b1804b1-49cfc6cc078mr141942975e9.22.1788716169788;
-        Sun, 06 Sep 2026 10:36:09 -0700 (PDT)
-Received: from fedora ([46.8.219.5])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883953cfsm18857331f8f.13.2026.09.06.10.36.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 10:36:09 -0700 (PDT)
-From: Vitaliy Sochnev <sochnev.v.74@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Vitaliy Sochnev <sochnev.v.74@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH net-next] net: phy: air_en8811h: simplify en8811h_probe() trailing return
-Date: Sun,  6 Sep 2026 20:35:57 +0100
-Message-ID: <20260906193557.35115-1-sochnev.v.74@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="etnTAlcd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8B081F00A3A;
+	Sun,  6 Sep 2026 17:36:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788716175;
+	bh=tQI50zAlpRNRl7CNe3z23eRiYtts28BaDCn5eRT3PKY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=etnTAlcdyW49WLTIO6+24BzpYy3B3zpdaEfduraFJDISbmru+pkZoNgxaBX3szNPl
+	 S9Vp2AwtgOLg/M1i4tRzMW/qqmy3VylqBPGnOooBoW/nRNzqbMhy1l/y2Vq8Dhlp5H
+	 iGryy/5ndmOD/U0Vus86WbLBfnYU5FqSTdIR+HDT1DXckxHPTo9EDdYWNnY1amB0lW
+	 ZOsRyt9IUNSMqlbRZiv5k9CiGKSMjTHCjkVc2zs5LvKeIW1s8zzLbzgv4HBvEztmwG
+	 zu0ChVCeWiYop5pVJ37ntLKuHytj51Xl3+mJPEAoqw7QQf4DNmuoNEauAcO74rMLhb
+	 EZn4YafavVTFw==
+Date: Sun, 6 Sep 2026 18:36:10 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Felix Gu <ustc.gu@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Chen-Yu Tsai
+ <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel
+ Holland <samuel@sholland.org>, Quentin Schulz
+ <quentin.schulz@free-electrons.com>, Maxime Ripard <mripard@kernel.org>,
+ linux-iio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] iio: adc: sun4i-gpadc-iio: two fixes
+Message-ID: <20260906183610.24d09404@jic23-huawei>
+In-Reply-To: <20260906-gpadc-v1-0-92d3dc8ef355@gmail.com>
+References: <20260906-gpadc-v1-0-92d3dc8ef355@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-en8811h_clk_provider_setup() is now the last statement in the
-function, so the intermediate "if (ret) return ret; return 0;" is
-redundant.
+On Sun, 06 Sep 2026 23:58:33 +0800
+Felix Gu <ustc.gu@gmail.com> wrote:
 
-Signed-off-by: Vitaliy Sochnev <sochnev.v.74@gmail.com>
----
- drivers/net/phy/air_en8811h.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+Some text here would be normal even if it doesn't add much!
 
-diff --git a/drivers/net/phy/air_en8811h.c b/drivers/net/phy/air_en8811h.c
-index ec7c44ca68e7..99221ee87977 100644
---- a/drivers/net/phy/air_en8811h.c
-+++ b/drivers/net/phy/air_en8811h.c
-@@ -1168,11 +1168,7 @@ static int en8811h_probe(struct phy_device *phydev)
- 
- 	priv->phydev = phydev;
- 	/* Co-Clock Output */
--	ret = en8811h_clk_provider_setup(&phydev->mdio.dev, &priv->hw);
--	if (ret)
--		return ret;
--
--	return 0;
-+	return en8811h_clk_provider_setup(&phydev->mdio.dev, &priv->hw);
- }
- 
- static int an8811hb_config_serdes_polarity(struct phy_device *phydev)
--- 
-2.55.0
+Anyhow, both fall in the obviously correct category so
+I've queued them up on the fixes-togreg branch of iio.git
+and marked them for stable.
+
+Thanks,
+
+Jonathan
+
+> Signed-off-by: Felix Gu <ustc.gu@gmail.com>
+> ---
+> Felix Gu (2):
+>       iio: adc: sun4i-gpadc-iio: drop underflowing pm_runtime_put() calls
+>       iio: adc: sun4i-gpadc-iio: clean up on thermal zone registration failure
+> 
+>  drivers/iio/adc/sun4i-gpadc-iio.c | 10 ++++------
+>  1 file changed, 4 insertions(+), 6 deletions(-)
+> ---
+> base-commit: 9d80aa4617b32f5054c5aa471d06b66704854935
+> change-id: 20260906-gpadc-d41b964d8f17
+> 
+> Best regards,
+> --  
+> Felix Gu <ustc.gu@gmail.com>
+> 
 
