@@ -1,169 +1,175 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E4B382F0F
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 10:44:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D2CA3C1D73;
+	Sun,  6 Sep 2026 10:45:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788691459; cv=none; b=p/+c57yFXNJrjDoHn/aFGf/hhVpBdKWIwj24yzAxDzwWDEfctgEDMsfs/aTmYMIiOn7dGL/2mKTsChp903uxl1xDkC8Bu/JZYN5BCVgeUANGcBY1k5Plmf/dYqJi/WMLDMl55NniXHo5sRyo8MUPlQqRdJ9SFACkfZjbQSCPxqw=
+	t=1788691522; cv=none; b=SfVUWXUGqJyIFtpkYeGEuuZSqBIpgfi7a0e7M12I9MuDNGewfmo41C1p+mK3WievKofaR6FH9BmMMFJIpEs1Z+lyb7U3usGXLCl/naIeGz0+y5LwJAHvGd2uN9MpMTmqHIklX674tCO/Zq5AeWFkWs1dscc9H7M/f1C7ie9M6xU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788691459; c=relaxed/simple;
-	bh=Zxbr/MyJJe9YJZaEM1Cq3zqovEChybWZAlK04d4Du2o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sQpslbJ4kRgJcMoyxt5aZRADHrKkIR+hfzurFirS2worabzeQfmhPVf6n9Q7FOj0VMcNVTon0s+yGewC5kLFTEKthRzlKQqysE9ufH43orwB9qpdTt0S8OSEVHA+dZzhgD9x2G8Z1coMaufrBv0aT6rNwfvQ7edEeCuAVs4+67U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=evFPVG3w; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788691522; c=relaxed/simple;
+	bh=v/noHguVJ77dc/ycrCbGgQ6qgmtGDRgf2gscj/IIKWU=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=J79uDTBqVktaxCFsfML8aRi2T6Db3zsjAN0Jg1rG4eKUP/efIMOT/2nvU7kmCblHYf1ULi43haXDKBqYCAQexYBLtKkR57REor+uHfrIx9Ht6iSIj/8DtzUWmcXFA2cpkhXGN8Tak2YzylpZExkPNDwIljbiRCPsiKDwuPjPs+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=b4W4fRQS; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=bpH/1oEV; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="evFPVG3w"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48436216a98so1602374f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 03:44:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788691454; x=1789296254; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x0/+wqBmIy7IfhisO1aQJ97wf2sAIX1/xLpRpUIc4gE=;
-        b=evFPVG3wQ+UFQ8w7g9579d+7c01ZdLhq53tSB/Gto78WGim0KF3pAxMUYyIVCVYvWO
-         rj+dWQbkRUl+CI591LjrDZNDPza5PLVyshElm+pui0SlZtHYYeVajF7R6AJwCeXJqduc
-         x34HiLN65nUuto1jqMuN91OlvyMhpHgoBV5jHuFtwF2WtOAihnAAHhrlJXwiyn3Vs8ps
-         P6BioTUdeKYhZudBvvpOGGpLYpVUUfiTy3suK60FyzKPw9CCn3H4vk/jCQyVMSxhWeqj
-         ToThq2bbQC59nS8/qVzhAgdGBBh2UXQi92Ke2GNU1GO+h4kSQgLnJsowFUHxQIZbhGHC
-         L+Ng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788691454; x=1789296254;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=x0/+wqBmIy7IfhisO1aQJ97wf2sAIX1/xLpRpUIc4gE=;
-        b=bn9WgB5AiLcxc5FDwPwchL95h/JR+qAXDDpHMYxVjl5G/N0iJL6VVBhwd3Z6gJBI6m
-         DliVszvotcHx8dOvfNa7paVlJ9J8WNH1BQnXO5w7U6Ds/NxeHnfDCQ7dS9YzAwPhJyij
-         YRpOs0RHJ+jbmpTqE5VJ9c+tnid07a4smXPV3qEWyQrvSE/97tUzBldMBQ/a3gZPmzq1
-         Tvh/lqYVbURwtLxy+ewpd66hzxjdai1HCmmAI0XVSoW/FQUdUwhEXgQ9DRd/QMM9SGGD
-         hFedVvvUW/s/nr4xpKjUWEh/S6U16KrTbfKCprzugi9/cfn2l31q15y7x3R9AbIwfVLP
-         95fw==
-X-Gm-Message-State: AFuF++kS77hLpM6f0xJyIl+Dx/wJkFU2NPQBTKvWOxaeG7oQoqEGpvXC
-	50Kl+BS32v0WzNElZfQhSCoSaK5p0v+ErG0Jo+L1YGzndVlMX0IzwQfj
-X-Gm-Gg: AYBFou2DBP9txhk5UHy8x6U6HlIwDryOBOX72Qs6tvPEneucmea3GiQuCqwGIyGz+mj
-	ui/4AqtlMx0Z530HH1WW/hoeLWn6dU7qnEjO1oc5xslgEInxKa0UUtXLq6zcIPcgrhmfRiXiJSO
-	TKSme5HrfeI7UzCmnSKC8oJKGxxAXxXV1vhAMPNy0gEaMZho5rEvqfUWbi8CShavURPRkoo9KoV
-	CAs7CU5xv34M4oSm/3a9O7vh8QWccot9VlMGOeLHBO8HlRSnn8B6ekl25OwaBxDWrnM6r9SNjfO
-	Lwpoog5SFKemwbPaINft5y9nwS71bR05rUrFNoAm7uG7BpIOKVhIs48AIkK3iUQ+FUSnLYW3tRr
-	ZyAiJhLXHrP95I5fXbD2VuU2BWoUHgbL0IccAJBvgstnOa3ehG4SoR+Bs5hES8tRHrb9hjDDBYn
-	FrfDpKNnL6TLCWD3AoM+vno0mTTGDiecD8CapBrePZr3jCgpgDNioJJyZYpBO/ukmE38wWCQ1wW
-	hjSDFDQd4Z022sGxWutdzx6qQ4gvExxKuylH0tXnl0q2lXteMdF/wTDPrbPcQx4x1M=
-X-Received: by 2002:a05:6000:2c0a:b0:482:d94e:f33b with SMTP id ffacd0b85a97d-48586e2ea8cmr18284958f8f.0.1788691454427;
-        Sun, 06 Sep 2026 03:44:14 -0700 (PDT)
-Received: from shift.daheim (p200300d5ff3cee0050f496fffe46beef.dip0.t-ipconnect.de. [2003:d5:ff3c:ee00:50f4:96ff:fe46:beef])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883be709sm21162225f8f.21.2026.09.06.03.44.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 03:44:13 -0700 (PDT)
-Received: from localhost ([127.0.0.1])
-	by shift with esmtp (Exim 4.100)
-	(envelope-from <chunkeey@gmail.com>)
-	id 1x3AM8-000000007UR-3W69;
-	Sun, 06 Sep 2026 12:44:12 +0200
-Message-ID: <d739eb56-b37d-4056-abf2-c3a4c9ba8662@gmail.com>
-Date: Sun, 6 Sep 2026 12:44:12 +0200
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="b4W4fRQS";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="bpH/1oEV"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788691490; bh=PMnH6FCBZHoFqvsVuGs8J2Z
+	WYfUE+eIkvUD0aBlIEgs=; b=b4W4fRQSkApp9S+BYtz7P9HQN5t0XLOXN0tkLJuX6ACwFdF7fo
+	nVp6ot+niKlYFw9W+bnYdqQ/bpIiF2it1VqZWx5RkYeyKt1PjpIKNU9+g9Um+qWpQkBJRH4/MWp
+	8R+GLGI+1LZGgJOZJRSFPUUXRn+WKrq3DWD/E26RXELxWGJRwXF/AJgksyKvC9hIDLOGphq03XF
+	jUtlsKF50s1J5hSVC46I/c4AD525lMrgQewpwn6mbK9Nzz3czBg48co6fz7bhjuaPo+z8hYIhSc
+	P7ZPDUsal9yDWua+HQaMBtiUAV7x/pXSrtykJa2iTpOFsx83zK2Fjjy5fxynic9uJoQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788691490; bh=PMnH6FCBZHoFqvsVuGs8J2Z
+	WYfUE+eIkvUD0aBlIEgs=; b=bpH/1oEV7J4I75wamMPY+iLcmbzX+xqR8LlhIXzY3eIwTAtsO/
+	VrDLIZmbJX6E5nc9IEl7waqV542NDxIMD0Bg==;
+Date: Sun, 06 Sep 2026 11:44:48 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: paulmck@kernel.org, "Paul E. McKenney" <paulmck@kernel.org>
+CC: boqun@kernel.org, frederic@kernel.org, include@grrlz.net,
+ jiangshanlai@gmail.com, joelagnelf@nvidia.com, josh@joshtriplett.org,
+ linux-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com,
+ neeraj.upadhyay@kernel.org, qiang.zhang@linux.dev, rcu@vger.kernel.org,
+ rostedt@goodmis.org, urezki@gmail.com
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_hazptrtorture=3A_Fix_inverte?=
+ =?US-ASCII?Q?d_sleep_condition_in_do=5Fpending_kthread?=
+In-Reply-To: <34021ed4-1a18-4cb6-8027-a8c919086ec0@paulmck-laptop>
+References: <ed125668-a77a-41b6-9d56-46ac93a5d69c@paulmck-laptop> <9D2DEA27-B3D1-4A8B-BA57-2F5EAC920C1D@mainlining.org> <b1abee12-5a3a-4750-be37-a3157c7e2217@paulmck-laptop> <AF26CA5B-6766-4682-A6A4-61F14F8B81F0@mainlining.org> <34021ed4-1a18-4cb6-8027-a8c919086ec0@paulmck-laptop>
+Message-ID: <09BD5394-BF9D-46AF-BED3-CF16B7667716@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] wifi: fix typos in comments
-To: Hemanth Selam <hemanth.selam@gmail.com>,
- Jeff Johnson <jjohnson@kernel.org>, Jiri Slaby <jirislaby@kernel.org>,
- Nick Kossifidis <mickflemm@gmail.com>, Luis Chamberlain <mcgrof@kernel.org>,
- Arend van Spriel <arend.vanspriel@broadcom.com>,
- Stanislav Yakovlev <stas.yakovlev@gmail.com>,
- Stanislaw Gruszka <stf_xl@wp.pl>, Michael Buesch <m@bues.ch>
-Cc: linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org,
- b43-dev@lists.infradead.org, brcm80211@lists.linux.dev,
- brcm80211-dev-list.pdl@broadcom.com, libertas-dev@lists.infradead.org
-References: <20260904124353.6183-1-hemanth.selam@gmail.com>
-Content-Language: de-DE
-From: Christian Lamparter <chunkeey@gmail.com>
-In-Reply-To: <20260904124353.6183-1-hemanth.selam@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On 9/4/26 2:43 PM, Hemanth Selam wrote:
-> Fix typos in comments, reported by scripts/checkpatch.pl using the
-> misspelling list in scripts/spelling.txt.  Only touches comments, no code
-> changes.
-> 
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
-Sure, for the p54 and carl9170 parts:
+On 5 September 2026 23:54:38 BST, "Paul E. McKenney" <paulmck@kernel.org>
+wrote:
+>On Sat, Sep 05, 2026 at 10:08:30PM +0100, Bradley Morgan wrote:
+>> On 5 September 2026 21:40:28 BST, "Paul E. McKenney"
+><paulmck@kernel.org>
+>> wrote:
+>> >On Fri, Sep 04, 2026 at 06:28:45PM +0100, Bradley Morgan wrote:
+>> >> On 4 September 2026 17:00:22 BST, "Paul E. McKenney"
+>> ><paulmck@kernel.org>
+>> >> wrote:
+>> >> >On Fri, Sep 04, 2026 at 09:01:05AM -0400, Mathieu Desnoyers wrote:
+>> >> >> On 2026-08-03 20:03, Bradley Morgan wrote:
+>> >> >> > The do_pending kthread never sleeps. Its supposed to.
+>> >> >> > kthread_do_pending_ms sets the gap between cleanups, and the
+>docs
+>> >> >> > say so too. But the sleep sits behind torture_must_stop(), and
+>> >thats
+>> >> >> > false while the test runs. So the kthread never sleeps. It just
+>> >loops.
+>> >> >> > It drains the pending lists over and over, no pause, and burns a
+>> >full
+>> >> >> > CPU for the whole test.
+>> >> >> 
+>> >> >> Paul, I just found this patch in my junk email folder. Maybe
+>relevant
+>> >> >> for you ?
+>> >> >
+>> >> >We got it in my -rcu tree:
+>> >> >
+>> >> >15b9fca2f5ce ("hazptrtorture: Fix inverted sleep condition in
+>> >do_pending
+>> >> >kthread")
+>> >> >
+>> >> >But I do appreciate your checking for missed patches, thank you!
+>> >> >
+>> >> >							Thanx, Paul
+>> >> >
+>> >> >> Thanks,
+>> >> >> 
+>> >> >> Mathieu
+>> >> >> 
+>> >> >> > 
+>> >> >> > Flip the check. With !torture_must_stop() it sleeps for
+>> >> >> > kthread_do_pending_ms between passes. When the test stops it
+>does
+>> >one
+>> >> >> > last cleanup and exits. Nothing left to do, so no sleep needed
+>> >then.
+>> >> >> > 
+>> >> >> > Fixes: 94d2e93c222e ("hazptrtorture: Add kthread to release
+>> >deferred
+>> >> >hazard pointers")
+>> >> >> > Signed-off-by: Bradley Morgan <include@grrlz.net>
+>> >> >> > ---
+>> >> >> >   kernel/rcu/hazptrtorture.c | 2 +-
+>> >> >> >   1 file changed, 1 insertion(+), 1 deletion(-)
+>> >> >> > 
+>> >> >> > diff --git a/kernel/rcu/hazptrtorture.c
+>> >b/kernel/rcu/hazptrtorture.c
+>> >> >> > index 72aeb50668e9..7c8b5899fb01 100644
+>> >> >> > --- a/kernel/rcu/hazptrtorture.c
+>> >> >> > +++ b/kernel/rcu/hazptrtorture.c
+>> >> >> > @@ -555,7 +555,7 @@ static int hazptr_torture_do_pending(void
+>*arg)
+>> >> >> >   			cpu = cpumask_next_wrap(cpu, cpu_possible_mask);
+>> >> >> >   			hazptr_torture_do_one_pending(cpu, &rand);
+>> >> >> >   		}
+>> >> >> > -		if (torture_must_stop())
+>> >> >> > +		if (!torture_must_stop())
+>> >> >> >   			torture_hrtimeout_ms(kthread_do_pending_ms, USEC_PER_MSEC, &rand);
+>> >> >> >   		// Omit stutter_wait() because this function needs to do cleanup.
+>> >> >> >   	} while (!torture_must_stop());
+>> >> >> 
+>> >> >> 
+>> >> >> -- 
+>> >> >> Mathieu Desnoyers
+>> >> >> EfficiOS Inc.
+>> >> >> https://www.efficios.com
+>> >> >
+>> >> >
+>> >> Hi, new email.
+>> >> 
+>> >> Could I ask where the heck hazptr is? Its not in next, would you
+>like,
+>> >> help???
+>> >> 
+>> >> --- Thanks!
+>> >>
+>>
+>>https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+>> >
+>> >It is still in my -rcu tree.
+>> >
+>> >I would not say "no" to a fix for this issue:
+>> >
+>>
+>>https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+>> >
+>> >Once that is in place, I would be happy to put this back into -next.
+>> >
+>> >At some point, we will need to get rid of the concept of wildcard
+>hazard
+>> >pointers, as those end up instead emulating RCU, but I don't see that
+>> >as an immediate obstacle.
+>> 
+>> Well, okay, tell me more and I'll develop it.
+>
+>I must confess that I have not looked much into that bug report, so I
+>don't have much more to tell.
 
-Acked-by: Christian Lamparter <chunkeey@gmail.com>
+No, like the getting rid of wildcard hazptrs?
 
-Does anyone know what ever happened to the trivial-patches?
-https://www.kernel.org/pub/linux/kernel/people//rusty/trivial/template-index.html
-Is this still going?
+>
+>						Thanx, Paul
+>
+>> --- Thanks!
+>>
+>https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+>> 
 
-> ---
->   drivers/net/wireless/ath/carl9170/fwcmd.h                 | 2 +-
->   drivers/net/wireless/ath/carl9170/main.c                  | 8 ++++----
->   drivers/net/wireless/broadcom/b43/b43.h                   | 8 ++++----
->   drivers/net/wireless/intersil/p54/p54pci.c                | 2 +-
-> 
-> diff --git a/drivers/net/wireless/ath/carl9170/fwcmd.h b/drivers/net/wireless/ath/carl9170/fwcmd.h
-> index e5bcc364f088..40554e4bd149 100644
-> --- a/drivers/net/wireless/ath/carl9170/fwcmd.h
-> +++ b/drivers/net/wireless/ath/carl9170/fwcmd.h
-> @@ -69,7 +69,7 @@ enum carl9170_cmd_oids {
->   	CARL9170_CMD_FREQ_START		= 0x23,
->   	CARL9170_CMD_PSM		= 0x24,
->   
-> -	/* Asychronous command flag */
-> +	/* Asynchronous command flag */
->   	CARL9170_CMD_ASYNC_FLAG		= 0x40,
->   	CARL9170_CMD_WREG_ASYNC		= (CARL9170_CMD_WREG |
->   					   CARL9170_CMD_ASYNC_FLAG),
-> diff --git a/drivers/net/wireless/ath/carl9170/main.c b/drivers/net/wireless/ath/carl9170/main.c
-> index 61c7a1288743..21d8798dedb5 100644
-> --- a/drivers/net/wireless/ath/carl9170/main.c
-> +++ b/drivers/net/wireless/ath/carl9170/main.c
-> @@ -575,7 +575,7 @@ static int carl9170_init_interface(struct ar9170 *ar,
->   	 * NOTE: If the previous main interface has already
->   	 * disabled hw crypto offload, we have to keep this
->   	 * previous disable_offload setting as it was.
-> -	 * Altough ideally, we should notify mac80211 and tell
-> +	 * Although ideally, we should notify mac80211 and tell
->   	 * it to forget about any HW crypto offload for now.
->   	 */
->   	ar->disable_offload |= ((vif->type != NL80211_IFTYPE_STATION) &&
-> @@ -677,12 +677,12 @@ static int carl9170_op_add_interface(struct ieee80211_hw *hw,
->   	if (old_main) {
->   		/* We end up in here, if the main interface is being replaced.
->   		 * Put the new main interface at the HEAD of the list and the
-> -		 * previous inteface will automatically become second in line.
-> +		 * previous interface will automatically become second in line.
->   		 */
->   		list_add_rcu(&vif_priv->list, &ar->vif_list);
->   	} else {
-> -		/* Add new inteface. If the list is empty, it will become the
-> -		 * main inteface, otherwise it will be slave.
-> +		/* Add new interface. If the list is empty, it will become the
-> +		 * main interface, otherwise it will be slave.
->   		 */
->   		list_add_tail_rcu(&vif_priv->list, &ar->vif_list);
->   	}
-> diff --git a/drivers/net/wireless/intersil/p54/p54pci.c b/drivers/net/wireless/intersil/p54/p54pci.c
-> index 6588f5477762..68e929fa213c 100644
-> --- a/drivers/net/wireless/intersil/p54/p54pci.c
-> +++ b/drivers/net/wireless/intersil/p54/p54pci.c
-> @@ -534,7 +534,7 @@ static void p54p_firmware_step2(const struct firmware *fw,
->   		/*
->   		 * This will indirectly result in a call to p54p_remove.
->   		 * Hence, we don't need to bother with freeing any
-> -		 * allocated ressources at all.
-> +		 * allocated resources at all.
->   		 */
->   		device_release_driver(&pdev->dev);
->   
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
