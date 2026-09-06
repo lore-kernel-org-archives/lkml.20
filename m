@@ -1,86 +1,88 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F9FE36F906;
-	Sun,  6 Sep 2026 11:55:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A73883BB699;
+	Sun,  6 Sep 2026 11:57:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788695710; cv=none; b=GdhTNYwObPgnks6t9upQPs+hGuev74fxQKS5YPYwWLPlYgFChsBU1b1wRF/LWhbpy+nVFGPzyBtrLhOhQTRaNkAXPAJpxn4qefH2u3VnHO6HOW3ajmPGmlr7M4a70dJNjnkwVeXko3gQ5JCQ7ZActzlg2p+UzxapLnWbACkSbik=
+	t=1788695875; cv=none; b=OHLW5DcKjStJRI7b3hGnc8IvOgNyTj2EVqJDunVup+ptxHzSFVvxUiWqt86S2ZtQkpzCcWJ0F0MRdcwoNkRpe0Cf3Je4RKtmxQCMPzKnYafzn9wyXrumXOYvZJhP/g1sKK8wMnSw+QZ9JSQQqbsUU2T0Gi3zLe7lBQ99UqSBkIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788695710; c=relaxed/simple;
-	bh=DXOXk918CrUxRyLGQC+wWSy1ynECjR58HLc/uA9ZQ6M=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=c4Huu3nOZ1BuzcBdm49fje4i35aokMwNiIF7eBZU9N2lcZg+JyYUKj6ikzpKcIY6v3iEXCqa8jVbCMWKOoGyw9J82kEDwHr8N4hy94IPK84LGdEUPJvJO3JK2X6tHQ6XTBFY74kERc9MDhCCRn/3nMqMtGS8MYok6vikouwKqoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=NhD2MJyh; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=9gehSagI; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1788695875; c=relaxed/simple;
+	bh=WFG2unOWr2rUL/ff46rpkVyeHhPFd2WZP7rmyHJw14k=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ZijuydQ75Y0RD8AKApJ4bMK6qO2LD6QgXwOKiMdDXlr/iJa5LhTvFLNZ8KZUpfDnhTfFQkp7rqWiySn3lr8JI7rl7erM4yRsH5B5qDrZsd6v/h5x416QuLFUGOKl3iZKw09/cwCQFFT9n6LHG9eHbREg2oJQhW062R7CVO5eWKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=bhjUt2Ln; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="NhD2MJyh";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="9gehSagI"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1788695702; bh=atp8Nzk+WejNGVW3ipviPf/
-	4pyVkDMiYmPEmhaV9hl0=; b=NhD2MJyhdd65kyO7v3QHaqTVX1rer0NoS8AFXjLHDqNJHAPynM
-	D2/0iwe/keAsqYb1HmuBhkrPX1WnJGF6reojJZgD48dvRK8RtfFUP9AS9lOS7y3LjcIzv2sDcpX
-	RiNpFrPaKYNQ0a4n8JXH0bL93RHtbiPZk2vTn9O+Z2AvXK7XIz6q6O8QjB/IVod/ij27lqCxAQZ
-	PvUAUKwtNW4e0PYmwZ6bbk3hckzTqCTTxyQsAfolqQIU0Ae2NKSXUCSJ3tG0kJH9hB/D6kN0JOb
-	g0BbdztBVtSGnN+ARsnOcfCh1iol7UM657ltXtWv4w3l6CQ/ZEGH47iCbfH8QxxpCEg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1788695702; bh=atp8Nzk+WejNGVW3ipviPf/
-	4pyVkDMiYmPEmhaV9hl0=; b=9gehSagI1rghRLNtpf3AWlMaOXEINjGnfKYiR1TWO0cPKCihUo
-	9G9M6kYX3IWJItaNpW34KlkuCPW3VsKzDDDg==;
-Date: Sun, 06 Sep 2026 12:55:01 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: hemanth.selam@gmail.com
-CC: daniel.m.jordan@oracle.com, linux-crypto@vger.kernel.org,
- linux-kernel@vger.kernel.org, steffen.klassert@secunet.com,
- akpm@linux-foundation.org
-Subject: Re: [PATCH] kernel: fix typo "dependend" in comment
-In-Reply-To: <20260904123821.40427-1-hemanth.selam@gmail.com>
-Message-ID: <F5808EE0-47EC-4C34-9B19-4C411C2C87A6@mainlining.org>
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="bhjUt2Ln"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=oNAKJHgibLFMG/kQIXTl01jK4ijxuqWnXbc1C7lQ+RE=;
+	t=1788695873; x=1789905473; b=bhjUt2LnzNKDD5judgtajJlxc6bJYHMuAowyx2CzoooYHIH
+	iQHL06Cr2/48+DfhvLd4gMqtm0E7o5RWrFQvFRNoYGPdeVpgtQwHlFcOcmwWSn7Hdb5Ju3qC5ozlO
+	qJjGM6NnN+MjQsj+2dd29/ErNY5WQEyGp9cHo+z4PdWMA8d7ptHD+5MmQjBVNW39E1eyitoRPR0CL
+	stqexcXvKL/o0TfUoePBo1Vnjf20MuBzaTtWSY+jduspdw42oJJjF9mtClrdBZXpVjI7X2kJZzp7z
+	vvbNoAlNuGx4Lilw6NVsNa/RPJARLZkZhiiwc49d+NUcypifJDDW8b9YOwSrQu9w==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1x3BVO-00000003G16-2bKU;
+	Sun, 06 Sep 2026 13:57:50 +0200
+Message-ID: <8e094e1bd016b04d3ab3bb02be2723aebaf9c9e4.camel@sipsolutions.net>
+Subject: Re: [PATCH] wifi: cfg80211: avoid holding rtnl_mutex across all
+ cfg80211_leave() calls
+From: Johannes Berg <johannes@sipsolutions.net>
+To: =?ISO-8859-1?Q?=D6mer?= Mete Kaya <omermetekaya0@gmail.com>, 
+	linux-wireless@vger.kernel.org
+Cc: kvalo@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	horms@kernel.org, syzbot+adeb8550754921fece20@syzkaller.appspotmail.com, 
+	syzbot+101224300649c3eb8af4@syzkaller.appspotmail.com, 
+	syzbot+8141dcbd23a8f857798a@syzkaller.appspotmail.com, 
+	syzbot+b0ae8f1abf7d891e0426@syzkaller.appspotmail.com, 
+	syzbot+d6bbe0f5705cb8a5aa2b@syzkaller.appspotmail.com
+Date: Sun, 06 Sep 2026 13:57:49 +0200
+In-Reply-To: <20260906002657.620076-2-omermetekaya0@gmail.com> (sfid-20260906_022719_558651_B6EAD15C)
+References: <20260903151542.486376-2-omermetekaya0@gmail.com>
+	 <20260906002657.620076-1-omermetekaya0@gmail.com>
+	 <20260906002657.620076-2-omermetekaya0@gmail.com>
+	 (sfid-20260906_022719_558651_B6EAD15C)
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+X-malware-bazaar: not-scanned
 
-On 4 September 2026 13:38:20 BST, Hemanth Selam <hemanth.selam@gmail.com>
-wrote:
->Correct "dependend" to "dependent", reported by scripts/checkpatch.pl
->using
->the misspelling list in scripts/spelling.txt.  Only touches comments, no
->code changes.
->
->Assisted-by: Cursor:claude-opus-5
->Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
->---
-> kernel/padata.c | 2 +-
-> 1 file changed, 1 insertion(+), 1 deletion(-)
->
->diff --git a/kernel/padata.c b/kernel/padata.c
->index 0d3ea1b68b1f..5a113c667d4c 100644
->--- a/kernel/padata.c
->+++ b/kernel/padata.c
->@@ -534,7 +534,7 @@ static void padata_init_reorder_list(struct parallel_data *pd)
-> 	}
-> }
-> 
->-/* Allocate and initialize the internal cpumask dependend resources. */
->+/* Allocate and initialize the internal cpumask dependent resources. */
-> static struct parallel_data *padata_alloc_pd(struct padata_shell *ps,
-> 					     int offlining_cpu)
-> {
->
+On Sun, 2026-09-06 at 03:25 +0300, =C3=96mer Mete Kaya wrote:
+>=20
+> +	/*
+> +	 * Snapshot rdev pointers under RCU with a device reference so they
+> +	 * cannot be freed between per-device rtnl acquisitions. Using a
+> +	 * per-device rtnl_lock() instead of holding it across all devices
+> +	 * avoids starving other rtnl waiters when cfg80211_leave() is slow.
+> +	 */
+> +	rcu_read_lock();
+> +	list_for_each_entry_rcu(rdev, &cfg80211_rdev_list, list)
+> +		n++;
+> +	rcu_read_unlock();
+> =20
+> -	rtnl_unlock();
+> +	if (!n)
+> +		return;
+> +
+> +	snap =3D kmalloc_array(n, sizeof(*snap), GFP_KERNEL);
+> +	if (!snap)
+> +		return;
 
+I really don't know _what_ you're doing here, or more realistically what
+exactly you're asking your LLM to do here, but it's pointless. Please
+just stop, you're not helping in any way.
 
-Whatever. 
-
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-
-Not worth merging but whateverr
-
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+johannes
