@@ -1,105 +1,94 @@
-Received: from sg-2-4.ptr.blmpb.com (sg-2-4.ptr.blmpb.com [71.18.227.4])
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9227417B425
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:43:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD9533168EE
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:48:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788695016; cv=none; b=BYA7zxc/ZCY1Jbor3r8f/on00lDrYe7jEMg2+WAuHXl9KV7A8QvQa9lF07uc25hA7368EM7UjvIm2EkUje5s+ePVaD+4DmYyCcPltXj/5mrE9KbKCJO3gCttf33BDIAzgXD3OdBycOQe/t/zeHA9lMhw52Qz+4FsGsG16mFAL8o=
+	t=1788695341; cv=none; b=iQaGo+rwXsDQ96agQo9lxqf6FkznVYNVbeJpYkuf3P632rJYvxAN4AzZ2SV2vIoQlb1m+dSP9vSsf3l660PjAja1OA106/pQ6BBR45jYDWsYO+vQRPnjOgAtDPlSAdCAe1EGhD/ba9J2vKzE60Sv+EQRVOAUn8HwCiQ5JDi8E+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788695016; c=relaxed/simple;
-	bh=4K1s1AQ/FgjCmH7yjjU/gqsqx+7f1Mdt5UNkaHrqoP0=;
-	h=To:From:Message-Id:Mime-Version:Content-Type:Cc:Date:
-	 Content-Disposition:References:Subject:In-Reply-To; b=j6PmysFrWZna4BpTPkneelDUIs1/WPoKA0/FTI7tzXYBLcrs0o2hFu9TRLnkoZG74lLu4nRM2C3a4O6VnkZ6Y7Xah49XmQFVNWMuSln/VHITnenHtHWe+iYzTety8kxXodXgRc2JBty2SO47noTI6sbkCAd9JSy57sfoSSpws6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=Si4/uHmN; arc=none smtp.client-ip=71.18.227.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="Si4/uHmN"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1788694999; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=kF4XOpxl2FOCXm+aoX2z5PQbLq1Swi8wrCG8/hWWD30=;
- b=Si4/uHmN6Mh4m9OlewWy/Rzsm0ZOlXSVeXWhsEdZVRzUb8k0xy61i6MbCVMpbRIIPn/Bne
- rxAZBicc6H9p/Yp+/wvI8VSnAuMRUpCofcUp3nnqWsmrvIS0u1+2u6+qbMrK4QNWpxd8/Y
- RLP28H0eDLH5xe3kge17+qSoRyftXn+k4JtHTPNQPxfn0xS5CNDNjbVSFqt9kdKm5i29+4
- 6LhBFyqZxvqYJngNwnwH2Ht9YEPyPnftNOffPvO0kbw6ur5asLfyXzOwV6C3GUczX7NY7V
- 7ha93/Mpu4PbUHMPhYcZDc5p2Rrq61dTjet/DSaGrWURMxeoN/BCxerF3sPIJg==
-To: "Christian Lamparter" <chunkeey@gmail.com>
-From: "Shengzhuo Wei" <me@cherr.cc>
-Message-Id: <ap1R0jU3UMVGI3ml@pve>
+	s=arc-20240116; t=1788695341; c=relaxed/simple;
+	bh=K2il0CuebfjhnryGF+aHB56eES5sLu1xkmiT9gIEIN4=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=EYILSb3gSVz5ckrRbMbfFeSumu6FvUkQssUSb/ePQZ/Qx5ODMZcovDMjDxC9XWZqkGXjQ64cInJK48b4VWYJTcTSWk0wJkUgjvcwxIOI6OYPiJUahuD8l+TQNbNQkonzi+6SX4rDSJso4lQRZqFvMGR1zaIHzr1rTQ4VB2tuVvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-49d4cb3ca23so3249161b6e.3
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 04:48:59 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788695338; x=1789300138;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=9zOiWFhTrDYVPNRGJXGgFV73G2VQZWvIz+SdJAnVCLc=;
+        b=VgxjkhHI/9CzTO7YmIAry+bCcPHxEXFIqc50nm4f7OAhmrriQyNU/C2q14jq+9FClt
+         GwsNiRwi53oWsPYYnrjg0JfYneO7VMg8V+yiw8oDktZ2jtYi79xfzXXxXgfBMwL12GRy
+         v8FQA2Qy4X3x78wdC+3Vm4uJoHuKNg8ckGZSVFkwR2pch270oeB5JFN7ve3hYyJAP8eD
+         5VYyIlgG9heBvcISTC6WFG2yD0dirOUI4jwH4zbbBw5MMZnO5zNLGL0MQFeIDAvz1N4G
+         0i2CvkKzX5ux83FKWkYVlcIXtDW6FsxHFXGK8C+vQWSmYxHy5zFz/Mqbpnr0EBdiv5sW
+         ByfA==
+X-Gm-Message-State: AFuF++kkuf17GtNazKTzy21VHJ5naVL8ENLbmR1qXpBca+he6/1kjy0V
+	DQ2NEmyqpDFRhvFBA23sLvys6iEXiMBgXKfoTrlKLKRUqmkhBPT33ltOb1pPHUiTgXCqhATjhUP
+	V9G2ZRC84wmtQyoFaAAQNKUeXoEmVa8nI5NqylYMWkp7609sZ5Njse1sNMdU=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: "Shengzhuo Wei" <me@cherr.cc>, "David S. Miller" <davem@davemloft.net>, 
-	"John W. Linville" <linville@tuxdriver.com>, 
-	<linux-wireless@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>
-Date: Sun, 6 Sep 2026 19:43:14 +0800
-Content-Disposition: inline
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-Received: from pve ([111.40.58.231]) by smtp.feishu.cn with ESMTPS; Sun, 06 Sep 2026 19:43:16 +0800
-References: <20260831-p54-pda-validation-v2-0-dae566b388c8@cherr.cc> <20260831-p54-pda-validation-v2-1-dae566b388c8@cherr.cc> <f3eb0dfe-3b9c-483b-b802-2207fe8b747b@gmail.com>
-Subject: Re: [PATCH v2 1/2] wifi: p54: validate curve data length in the calibration curve converters
-In-Reply-To: <f3eb0dfe-3b9c-483b-b802-2207fe8b747b@gmail.com>
-X-Lms-Return-Path: <lba+26a9d51d5+de2f2f+vger.kernel.org+me@cherr.cc>
+MIME-Version: 1.0
+X-Received: by 2002:a05:6820:821:b0:6b1:ab9c:3ef4 with SMTP id
+ 006d021491bc7-6b6fd9c7a7bmr14787004eaf.27.1788695338727; Sun, 06 Sep 2026
+ 04:48:58 -0700 (PDT)
+Date: Sun, 06 Sep 2026 04:48:58 -0700
+In-Reply-To: <6a9acfb3.d07ac993.c20e9.0000.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9d532a.4a487d73.3c8564.0019.GAE@google.com>
+Subject: Forwarded: [PATCH] xfs: take hm->lock in xfs_ioc_health_monitor()
+ before insert
+From: syzbot <syzbot+ccdf3469f5f653bff7ac@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 2026-09-06 11:31, Christian Lamparter wrote:
-> > diff --git a/drivers/net/wireless/intersil/p54/eeprom.c b/drivers/net/wireless/intersil/p54/eeprom.c
-> > index 95580921d933..0dc848d77c5e 100644
-> > --- a/drivers/net/wireless/intersil/p54/eeprom.c
-> > +++ b/drivers/net/wireless/intersil/p54/eeprom.c
-> > @@ -414,17 +414,22 @@ static int p54_generate_channel_lists(struct ieee80211_hw *dev)
-> >   }
-> >   static int p54_convert_rev0(struct ieee80211_hw *dev,
-> > -			    struct pda_pa_curve_data *curve_data)
-> > +			    struct pda_pa_curve_data *curve_data, size_t len)
-> >   {
-> >   	struct p54_common *priv = dev->priv;
-> >   	struct p54_pa_curve_data_sample *dst;
-> >   	struct pda_pa_curve_data_sample_rev0 *src;
-> > +	size_t needed = curve_data->channels *
-> > +		(sizeof(*src) * curve_data->points_per_channel + 2);
-> >   	size_t cd_len = sizeof(*curve_data) +
-> >   		(curve_data->points_per_channel*sizeof(*dst) + 2) *
-> >   		 curve_data->channels;
-> >   	unsigned int i, j;
-> >   	void *source, *target;
-> > +	if (len < sizeof(*curve_data) + needed)
-> > +		return -EINVAL;
-> > +
-> 
-> Hmm, Puh. Interessting. Several things. But yeah, this should work.
-> 
-> Acked-by: Christian Lamparter <chunkeey@gmail.com>
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Hi Christian,
+***
 
-Thanks for the review and the Ack.
+Subject: [PATCH] xfs: take hm->lock in xfs_ioc_health_monitor() before insert
+Author: kartikey406@gmail.com
 
-> Still I have some questions: Did you write/touch any of this yourself?
-> Or is this patch straight from the model?
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
 
-AI found the bug. I wrote the fix myself and used AI to review it
-afterwards.
+__xfs_healthmon_insert() asserts that hm->lock is held
+(lockdep_assert_held), but xfs_ioc_health_monitor() called it right
+after allocating hm, before ever taking the lock, triggering a
+lockdep warning.
+
+Take hm->lock around the call.
+
+Reported-by: syzbot+ccdf3469f5f653bff7ac@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=ccdf3469f5f653bff7ac
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+---
+ fs/xfs/xfs_healthmon.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/fs/xfs/xfs_healthmon.c b/fs/xfs/xfs_healthmon.c
+index 3ae5f4496ad1..2f762f90d329 100644
+--- a/fs/xfs/xfs_healthmon.c
++++ b/fs/xfs/xfs_healthmon.c
+@@ -1219,7 +1219,9 @@ xfs_ioc_health_monitor(
+ 	}
+ 	running_event->type = XFS_HEALTHMON_RUNNING;
+ 	running_event->domain = XFS_HEALTHMON_MOUNT;
++	mutex_lock(&hm->lock);
+ 	__xfs_healthmon_insert(hm, running_event);
++	mutex_unlock(&hm->lock);
  
-> It's because I can grok (heh) why "needed" ended up as a separate variable next to cd_len.
-> But why was the sizeof(*curve_data) not included there too? It's only used once in the
-> if check so and this sounds like the "needed" needed some extra? Maybe because it was
-> already checked?
+ 	/*
+ 	 * Preallocate the unmount event so that we can't fail to notify the
+-- 
+2.34.1
 
-I kept sizeof(*curve_data) separate because I was thinking of needed
-as the input data size without the header. But since it is only used
-in that check, adding the header there too would be simpler.
-
-Would you like me to send a v3 that makes just this change in both
-converters?
-
-Thanks,
-Shengzhuo
