@@ -1,277 +1,179 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAC6133C195
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 15:43:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1980E36A363;
+	Sun,  6 Sep 2026 15:44:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788709424; cv=none; b=rngvbCVEV4Qf8Z6umQhK+gZmK0b4Vf8PmFxij/B5RQSWbnDE2fwe2cWa0bCvH60BdSQZ+GZbq8l/IN4yxmp1Vn8KBpx0r8H36bBKcmZR49/Ef3MuHRNWu6QfBKSqJezBvocAc7mIqy7ycOr2WTqQNHJpqMiNLR+u84mQxz/gGYg=
+	t=1788709471; cv=none; b=k3WEIOQLQoRFrVakjARjiF6EBD3m0Q1O+SK90QAqp32H7XgjGPfjp0wC9PPQRAXeaMrqAJU8P6gQfFwylvcZI+vA8vuiReBMJHLg8BLvnuDHVgFk/HCXlt94Zd6I9ZUf5dMmR+zK271gwAemD0S/fIYJvaHcdsQzTuWakqn0hko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788709424; c=relaxed/simple;
-	bh=VIhohHcx0SkBUGBuyu+li/MstEWPK62/31/grkhVZe8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y+QYeqDedkwqiSV2lexMhrvQ0khi18OaBC0RjDL1cWRU81zGPLvLC45p9yKyaUcg5sgjdPxHys6ME1Yg86Q+yC7cRU/IdyVKHzp2AcKqPXSD1+Bvm3kKxtz/mjOdGCbN7DGvdh/8j2y2E9o56lL+nYbL6KLR6GnhK8OclIUDyGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PaYhfvml; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788709471; c=relaxed/simple;
+	bh=bUu/tmyXNBUf9ukmBoG7q6CTy7aQ9DGU/fBgJsrU9Dw=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=B7kvc+qQmPs8fuZQhSMP1/wDDfz7Hi1MglnJzEDfwWI3iBWfqdVGd9Blp0If5wUPgoaz8bU8WYAhfXIa533q6iynLQtx8HxjaDQa5qOqpxCvVNBAPZ4dt7JG3XhF+EO8oqLEgdhVgvFIojNc6x/kbroq19EMaMS/OYdhnsXj42o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OdcqP/vw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PaYhfvml"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-39b24d114d4so2729759a91.3
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 08:43:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788709422; x=1789314222; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DQ5Zk4J+hLvsdimx8KJiE0DP9iSw9BVVCAqpnMEf3Qc=;
-        b=PaYhfvmlLeHSSClcoPMnp4n2CwH3QSRCr8aNivW8WklY3lzlSOr48pqbI4fUjA0wyK
-         v1boSs51UZiwdelXM2MbQLfwVbBVvNWSuUtI5UQf0FfmBq1BvY6WJ/NYgZtfl4ZpDrHQ
-         gAil7ti9kaAfnnWUSkcI5ZtkpISohQwm4Egijkb6DgwAG+45cLMMxuOkiyPJszKyXimB
-         sERG9cCvM5X8YrRRE27gdD+6I81CiU6lAWTA19Kjycy1l1zyOkKmD16Ku3jjsgRxG5NZ
-         vidoAT0ZWEMF63qXK3WpZ5YeGmDfnqv30NYcLBcGc4OOp9I1kFGoKRMf7G+RlXnqppXy
-         9zFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788709422; x=1789314222;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DQ5Zk4J+hLvsdimx8KJiE0DP9iSw9BVVCAqpnMEf3Qc=;
-        b=sI16V892QtB9b+mbvk+wHuhL/10N1znokLc0Kojmqsv3oHpgTvbTVh8aQKhrWZSLPE
-         ckSp4VyW91pGU7JbMHzEF4S2Nd093gaAujoq5aOS4USfX+ifyvpJCDGILJGLhnhDVAqp
-         M++CGaQ2Y1Toabx77gPJnQ+8Scv4kCDVyL7GRgo+Yj6yqfZpBFwauNNbVfmz20u69mnl
-         8iQg3U0NW94/RpmIAiuj8weJ6Q/HAmj5FgGn8wE8sc32sREGbNbWMpH+1T6fAJ+ILSrv
-         dw7VVapATDslkFi9nTdTGFeODNKhndR9dRD2KZMPCxeQhk0ky6cdL04ewqIxfmk+2b3M
-         wkuw==
-X-Forwarded-Encrypted: i=1; AKwUvBxOox4CdfM82J7eC8ZcoSnFH12VhbksoiBl2TUU/yyWD/MRwg7x3PlH06wFSTWbtQTBCkBhcbBQ4QTJN/s=@vger.kernel.org
-X-Gm-Message-State: AFuF++mLQd6eWivry1p0Qbo6c52q9EQ3uXj5Pn6WskPzrvCdgVunMwnM
-	BNtaFZWk+IcEirj3rQ82ivtmhZbcOzG63gqGdoqRff7F1VmgQ4946cpI
-X-Gm-Gg: AYBFou3CRbnMcwBTahCk/xnDP+ZjfpClsXqQlTkVa83Y+rEYZj7h7TPYQSCrmAlsEnK
-	SMXGd9v7ODfONXYsPWLzi/ybERAeSEY5/YvulOz40KLBue29UL9qCh7zZjXEZBVSher/hoBNPmc
-	WNnb9g41ReaxnIgGAoTEs0YVaEhGARsTex2H9aZQyDc9Bvw6pksVFcjTJqLjVXuWlrRZxZaFrSI
-	9Eh7EU+cf3ZoX/oBOrkb36qrIDFeXkfQc+7PmnQqqIfcTcwf8dBVOwSr5dSqEtISKU+ZpnkIbZl
-	dltYajt5NreDlR1ae7MJmXAf4PdFwutHV7CTPzUFFVi9BguUBlSmSRDv4bHYSSEHKnLPhsgG2Bw
-	pfSpNT1sN530a8mHCgB0HrzKqQwUY8RFUdWr/1u9UUFrR/lD33l+1ffNscerf3jQJyx4hXxQYyV
-	YGlIMVsFLB1ztZ9Iluebe2a8lTEi9E/lIRjqBYfXV4ASxto2ummirHEP5MU0rpaA+CqG1rwqbJY
-	E/+nVLjhcKmTcrElEetfUTo2PuwSoU88Qjcoj5avLiI
-X-Received: by 2002:a17:90b:17c2:b0:38e:659b:f366 with SMTP id 98e67ed59e1d1-39b25f1c5bdmr25690589a91.0.1788709422195;
-        Sun, 06 Sep 2026 08:43:42 -0700 (PDT)
-Received: from localhost.localdomain ([198.176.50.208])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a62be87sm18930617eec.6.2026.09.06.08.43.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 08:43:41 -0700 (PDT)
-From: Weiming Shi <bestswngs@gmail.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Johan Hedberg <johan.hedberg@gmail.com>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: linux-bluetooth@vger.kernel.org,
-	netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OdcqP/vw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F03F51F00A3A;
+	Sun,  6 Sep 2026 15:44:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788709470;
+	bh=JihxV/V344AJDLHX61A3DZDDBIEXJEfRoj7Xx/kGeoA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=OdcqP/vwKiEzFm+QZyJJK4nD4Y59+eRxZF7uUQoqPxGWGMfhe9LA/4m4hvOnhcYWv
+	 ZKlLKuIg4ZfOCKjylrSMukWDLdwCBZ1BPg5D+GXWRfgj1cGTwL0EslCRaKkTLwD1yO
+	 91HGkZ5B6cilZFdwhlSa03qxcYSOuWglTIO7KmRkzxSP0ffhBYVC/AnS1LRvo29jnI
+	 UMeiVqJ13nr2mezhZLj3l5VPzmXCSCZJULI02myHUiaW/ArcHckOvfy68DSMyfPVhj
+	 wRa+c+gXxLteyWsPsr9oo2Jae7tZ+pN/3Yvo7vLrMwqgL6Vx5I2aukb8/fnTij8GwR
+	 PwKqtAFFB+2EQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x3F2h-00000005Quk-1bM5;
+	Sun, 06 Sep 2026 15:44:27 +0000
+Date: Sun, 06 Sep 2026 16:47:02 +0100
+Message-ID: <87mrtu4c21.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Wei-Lin Chang <weilin.chang@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>,
-	Manish Mandlik <mmandlik@google.com>,
-	syzbot+b170dbf55520ebf5969a@syzkaller.appspotmail.com,
-	Aby Sam Ross <abysamross@gmail.com>,
-	Tristan Madani <tristan@talencesecurity.com>,
-	Xiang Mei <xmei5@asu.edu>
-Subject: [PATCH v3 bluetooth] Bluetooth: coredump: Quiesce dump work on unregister
-Date: Sun,  6 Sep 2026 23:43:32 +0800
-Message-ID: <20260906154332.763402-1-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <tabba@google.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Itaru Kitayama <itaru.kitayama@fujitsu.com>
+Subject: Re: [PATCH v5 2/6] KVM: arm64: nv: Introduce guest stage-2 tracking structures
+In-Reply-To: <20260810205038.118843-3-weilin.chang@arm.com>
+References: <20260810205038.118843-1-weilin.chang@arm.com>
+	<20260810205038.118843-3-weilin.chang@arm.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: weilin.chang@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, oupton@kernel.org, tabba@google.com, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, ljs@kernel.org, itaru.kitayama@fujitsu.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-hci_devcd_handle_pkt_init() arms dump_timeout and coredump producers
-queue dump_rx without holding an hdev reference. Unregister leaves both
-works live, so disconnecting during an active dump lets them access hdev
-after hci_release_dev() frees it.
+On Mon, 10 Aug 2026 21:50:34 +0100,
+Wei-Lin Chang <weilin.chang@arm.com> wrote:
+> 
+> In order to avoid unmapping all shadow stage-2 mappings when KVM
+> receives a MMU notifier unmap call, we have to keep track of the
+> canonical IPA -> nested IPA relationship of the shadow mappings
+> created. This essentially means tracking the guest's stage-2.
+> 
+> To do this, represent each mapping by struct kvm_guest_s2_mapping. It
+> stores the mapping's canonical IPA range and the nested IPA range using
+> two interval tree nodes. Both nodes will be inserted into their
+> respective interval trees called guest_s2_mappings. The canonical IPA
+> ranges will be stored in the tree within the canonical MMU, and the
+> nested IPA ranges will be stored in the corresponding nested MMU's tree.
+> 
+> For example:
+> 
+> struct kvm_guest_s2_mapping mapping1, mapping2;
+> 
+>     ---------------------> mapping2.canonical
+>     |                      mapping1.canonical
+>     |                          ^   (both stored in canonical mmu's tree)
+>     |                          |
+> --*****-----------------------*****----------- CIPA
+>    \\\\\                      |||||                  mapping1.nested_mmu
+>     \\\\\                     \\\\\                            |
+>      \\\\\                     \\\\\                           v
+> ------\\\\\---------------------*****--------- NIPA #1 (nested mmu #1)
+>        \\\\\                      |
+>         \\\\\                     -> mapping1.nested
+>          \\\\\                       (stored in nested mmu #1's tree)
+>           \\\\\
+> -----------*****------------------------------ NIPA #2 (nested mmu #2)
+>              |                                                 ^
+>              -> mapping2.nested                                |
+>                 (stored in nested mmu #2's tree)   mapping2.nested_mmu
+> 
+> Using the trees we can look up nodes in either of the IPA spaces, and
+> for each node, find the corresponding range in the other IPA space from
+> the other node in the enclosing kvm_guest_s2_mapping.
+> 
+> Define kvm_guest_s2_mapping and the interval tree here. Guest stage-2
+> mapping tracking will come in subsequent patches.
+> 
+> Signed-off-by: Wei-Lin Chang <weilin.chang@arm.com>
+> ---
+>  arch/arm64/include/asm/kvm_host.h | 17 +++++++++++++++++
+>  arch/arm64/kvm/mmu.c              | 30 ++++++++++++++++++++++++++++++
+>  arch/arm64/kvm/nested.c           |  1 +
+>  3 files changed, 48 insertions(+)
+> 
+> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+> index bae2c4f92ef5..0695c4ef93f1 100644
+> --- a/arch/arm64/include/asm/kvm_host.h
+> +++ b/arch/arm64/include/asm/kvm_host.h
+> @@ -14,6 +14,7 @@
+>  #include <linux/arm-smccc.h>
+>  #include <linux/bitmap.h>
+>  #include <linux/types.h>
+> +#include <linux/interval_tree.h>
+>  #include <linux/jump_label.h>
+>  #include <linux/kvm_types.h>
+>  #include <linux/maple_tree.h>
+> @@ -150,6 +151,16 @@ struct kvm_vmid {
+>  	atomic64_t id;
+>  };
+>  
+> +/*
+> + * Record of a guest stage-2 mapping, storing canonical and nested IPA
+> + * ranges. Both ranges have the same size.
+> + */
+> +struct kvm_guest_s2_mapping {
+> +	struct interval_tree_node canonical;
+> +	struct interval_tree_node nested;
+> +	struct kvm_s2_mmu *nested_mmu;
+> +};
+> +
 
-Shut down coredump processing during unregister. Close the producer gate
-under dump_q.lock before disabling both works, then free the active buffer
-and queued packets under hci_dev_lock. Serializing the gate with enqueue
-prevents controller-specific workers from adding packets after the final
-purge.
+I'm trying hard to find a way to reduce the size of this structure,
+because this is IMO the only real problem with this approach.
 
-Fixes: 9695ef876fd1 ("Bluetooth: Add support for hci devcoredump")
-Reported-by: syzbot+b170dbf55520ebf5969a@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=b170dbf55520ebf5969a
-Reported-by: Aby Sam Ross <abysamross@gmail.com>
-Link: https://lore.kernel.org/r/20260322210849.68743-1-abysamross@gmail.com
-Suggested-by: Aby Sam Ross <abysamross@gmail.com>
-Reported-by: Tristan Madani <tristan@talencesecurity.com>
-Link: https://lore.kernel.org/r/20260814231248.3096377-1-tristmd@gmail.com
-Reported-by: Xiang Mei <xmei5@asu.edu>
-Assisted-by: OpenAI Codex:gpt-5
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
----
-Changes in v3:
-- Serialize coredump enqueue with the terminal shutdown gate.
-- Reject and free packets submitted after shutdown begins.
-- Disable dump_rx and dump_timeout, then free the buffered dump state.
-- Add links and credits for the two earlier attempts.
+Obviously, the only thing we could kill is this nested_mmu field, as
+everything else is used by the interval trees. I can see two ugly ways
+to do that:
 
- include/net/bluetooth/coredump.h |  2 +
- net/bluetooth/coredump.c         | 65 +++++++++++++++++++++-----------
- net/bluetooth/hci_core.c         |  1 +
- 3 files changed, 47 insertions(+), 21 deletions(-)
+- either we iterate over all shadow MMUs to find the corresponding
+  'nested' node: really costly if we have a lot of mappings and/or a
+  lot of shadow MMUs
 
-diff --git a/include/net/bluetooth/coredump.h b/include/net/bluetooth/coredump.h
-index 1f071ab554163..acc1849f66c0f 100644
---- a/include/net/bluetooth/coredump.h
-+++ b/include/net/bluetooth/coredump.h
-@@ -70,6 +70,7 @@ struct hci_devcoredump {
- const char *hci_devcd_state_name(enum devcoredump_state state);
- 
- void hci_devcd_reset(struct hci_dev *hdev);
-+void hci_devcd_shutdown(struct hci_dev *hdev);
- void hci_devcd_rx(struct work_struct *work);
- void hci_devcd_timeout(struct work_struct *work);
- 
-@@ -89,6 +90,7 @@ static inline const char *hci_devcd_state_name(enum devcoredump_state state)
- }
- 
- static inline void hci_devcd_reset(struct hci_dev *hdev) {}
-+static inline void hci_devcd_shutdown(struct hci_dev *hdev) {}
- static inline void hci_devcd_rx(struct work_struct *work) {}
- static inline void hci_devcd_timeout(struct work_struct *work) {}
- 
-diff --git a/net/bluetooth/coredump.c b/net/bluetooth/coredump.c
-index 5bee863bd6d2c..71fc8dab40047 100644
---- a/net/bluetooth/coredump.c
-+++ b/net/bluetooth/coredump.c
-@@ -104,6 +104,22 @@ static void hci_devcd_free(struct hci_dev *hdev)
- 	hci_devcd_reset(hdev);
- }
- 
-+void hci_devcd_shutdown(struct hci_dev *hdev)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&hdev->dump.dump_q.lock, flags);
-+	hdev->dump.supported = false;
-+	spin_unlock_irqrestore(&hdev->dump.dump_q.lock, flags);
-+
-+	disable_work_sync(&hdev->dump.dump_rx);
-+	disable_delayed_work_sync(&hdev->dump.dump_timeout);
-+
-+	hci_dev_lock(hdev);
-+	hci_devcd_free(hdev);
-+	hci_dev_unlock(hdev);
-+}
-+
- /* Call with hci_dev_lock only. */
- static int hci_devcd_alloc(struct hci_dev *hdev, u32 size)
- {
-@@ -442,7 +458,29 @@ EXPORT_SYMBOL(hci_devcd_register);
- 
- static inline bool hci_devcd_enabled(struct hci_dev *hdev)
- {
--	return hdev->dump.supported;
-+	return READ_ONCE(hdev->dump.supported);
-+}
-+
-+static int hci_devcd_queue(struct hci_dev *hdev, struct sk_buff *skb)
-+{
-+	unsigned long flags;
-+	int err = 0;
-+
-+	spin_lock_irqsave(&hdev->dump.dump_q.lock, flags);
-+	if (!hdev->dump.supported)
-+		err = -EOPNOTSUPP;
-+	else
-+		__skb_queue_tail(&hdev->dump.dump_q, skb);
-+	spin_unlock_irqrestore(&hdev->dump.dump_q.lock, flags);
-+
-+	if (err) {
-+		kfree_skb(skb);
-+		return err;
-+	}
-+
-+	queue_work(hdev->workqueue, &hdev->dump.dump_rx);
-+
-+	return 0;
- }
- 
- int hci_devcd_init(struct hci_dev *hdev, u32 dump_size)
-@@ -459,10 +497,7 @@ int hci_devcd_init(struct hci_dev *hdev, u32 dump_size)
- 	hci_dmp_cb(skb)->pkt_type = HCI_DEVCOREDUMP_PKT_INIT;
- 	put_unaligned_le32(dump_size, skb_put(skb, 4));
- 
--	skb_queue_tail(&hdev->dump.dump_q, skb);
--	queue_work(hdev->workqueue, &hdev->dump.dump_rx);
--
--	return 0;
-+	return hci_devcd_queue(hdev, skb);
- }
- EXPORT_SYMBOL(hci_devcd_init);
- 
-@@ -478,10 +513,7 @@ int hci_devcd_append(struct hci_dev *hdev, struct sk_buff *skb)
- 
- 	hci_dmp_cb(skb)->pkt_type = HCI_DEVCOREDUMP_PKT_SKB;
- 
--	skb_queue_tail(&hdev->dump.dump_q, skb);
--	queue_work(hdev->workqueue, &hdev->dump.dump_rx);
--
--	return 0;
-+	return hci_devcd_queue(hdev, skb);
- }
- EXPORT_SYMBOL(hci_devcd_append);
- 
-@@ -503,10 +535,7 @@ int hci_devcd_append_pattern(struct hci_dev *hdev, u8 pattern, u32 len)
- 	hci_dmp_cb(skb)->pkt_type = HCI_DEVCOREDUMP_PKT_PATTERN;
- 	skb_put_data(skb, &p, sizeof(p));
- 
--	skb_queue_tail(&hdev->dump.dump_q, skb);
--	queue_work(hdev->workqueue, &hdev->dump.dump_rx);
--
--	return 0;
-+	return hci_devcd_queue(hdev, skb);
- }
- EXPORT_SYMBOL(hci_devcd_append_pattern);
- 
-@@ -523,10 +552,7 @@ int hci_devcd_complete(struct hci_dev *hdev)
- 
- 	hci_dmp_cb(skb)->pkt_type = HCI_DEVCOREDUMP_PKT_COMPLETE;
- 
--	skb_queue_tail(&hdev->dump.dump_q, skb);
--	queue_work(hdev->workqueue, &hdev->dump.dump_rx);
--
--	return 0;
-+	return hci_devcd_queue(hdev, skb);
- }
- EXPORT_SYMBOL(hci_devcd_complete);
- 
-@@ -543,10 +569,7 @@ int hci_devcd_abort(struct hci_dev *hdev)
- 
- 	hci_dmp_cb(skb)->pkt_type = HCI_DEVCOREDUMP_PKT_ABORT;
- 
--	skb_queue_tail(&hdev->dump.dump_q, skb);
--	queue_work(hdev->workqueue, &hdev->dump.dump_rx);
--
--	return 0;
-+	return hci_devcd_queue(hdev, skb);
- }
- EXPORT_SYMBOL(hci_devcd_abort);
- 
-diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
-index d7355c73f93e8..a3338bc8a4ed7 100644
---- a/net/bluetooth/hci_core.c
-+++ b/net/bluetooth/hci_core.c
-@@ -2673,6 +2673,7 @@ void hci_unregister_dev(struct hci_dev *hdev)
- 	disable_work_sync(&hdev->error_reset);
- 	disable_delayed_work_sync(&hdev->cmd_timer);
- 	disable_delayed_work_sync(&hdev->ncmd_timer);
-+	hci_devcd_shutdown(hdev);
- 
- 	hci_cmd_sync_clear(hdev);
- 
+- or we steal bits from the interval_tree_node to encode extra
+  information. One realisation is that all addresses are PAGE_SIZE
+  aligned, meaning that we have at least 12 bits that are always 0. We
+  could, for example, encode an index in the bottom bits of the
+  nested.start field. Probably easy enough, but may require some
+  careful masking (and the addition of an index in the s2_mmu
+  structure).
 
-base-commit: 2deb76c21b81e42b3282224f7dd2046fe73fd1e0
+The result would be significant, as we could then use a 96 byte slab,
+which means the cost of a 1GB @4k granularity could fall to 24MB.
+
+I don't think this is an immediate blocker for this series, but I'd
+like to at least have a plan...
+
+Thoughts?
+
+	M.
+
 -- 
-2.55.0
+Jazz isn't dead. It just smells funny.
