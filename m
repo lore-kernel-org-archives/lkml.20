@@ -1,106 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C679376A0D;
-	Sun,  6 Sep 2026 03:59:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DA72255F2D
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 04:04:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788667176; cv=none; b=uETFo8VBdtyGd4S2A5qyTN3Nl7JD/Jh4xj39UfUzxXgncmoI1LfHl6lZItrQgBZbbFfuHTY6RINgyXcb48a+yijThorh2ZdNaulmwd1OyfQdvrxfBe4jaqFO7cfvGykA99OqDDtKhgHewbNERUnvfX8UAofHSebnXt6AHI3eqNI=
+	t=1788667445; cv=none; b=Zi2HfMSTyVCsw5YwAEEdbqxy0NzXFI21rDXAXIrFPd12GSGxk9lKEhe+A1WDO2Q/O3QvbwgwgeaxYPRrv2hflMGTSbAPU6SWsMBtN76qlzwjs80RW7ypKThiaT+0gBI9YPeo1e+F+MKSTZviD08/1Vo3E7JND6QahF4Uvw6xHy8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788667176; c=relaxed/simple;
-	bh=tpOBTkgwm34vmaOj6fGADkYGl1oS7L4L14EhHivTxNI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=u3Qa5NukjTqdUob+as9YXCReplMTp25G+33D8XCKksqoSOU24NMME4yOPyr6+b1UGPTLI44npptleRyqT04QkpEfSLSFFuI8iQA8tEw2Ew71MRUci9zNlPj8u4iYdAVEtSpbpWKifs+H1Z70VlnDda2WHmV4GPLvXgV1lrufs1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a0R9OhdC; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a0R9OhdC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A9381F00A3D;
-	Sun,  6 Sep 2026 03:59:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788667174;
-	bh=nlEbUCH2XBeyiQyt5in7cjrJTml4RuflNdbvr6PEe7o=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=a0R9OhdC9rOwpkBGD1JJFqDUYzFZ5NghcnNMqqdVjV+EJVT8ygv905Mc7ZYnfQE0g
-	 rSDZj4xxHxYfVIQDQrBvSBF/gQoD6aYcnbz0Tdv7KOAJuDT0QG+XgyHyTbLxpajJBZ
-	 jJgh8HkVOqK97YMezLCr+Pgw8pC8vmYTlmAcfVLomuU3cAvOIz3/5EHTy0+Olv8BcV
-	 T1Ai+hLtaHUytYrVgHXcI/7grl8gMF8cewjPbzmvCytF6B8UzKnJCYDkeXPgn7054o
-	 P4WNc7VrE5SHO/UuS9rc045XYZs1UyMklYUz/3MtmrddAIl7wiGxAd1qK7EaHJMWz4
-	 Y6WeGXIFiQp1g==
-Date: Sun, 6 Sep 2026 04:59:29 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Tsz Shan Chan <tsz.chan.dev@gmail.com>
-Cc: Subhajit Ghosh <subhajit.ghosh@tweaklogic.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, Andy Shevchenko
- <andriy.shevchenko@intel.com>, Tsz Shan Chan <tchan@jacques.com.au>
-Subject: Re: [PATCH v3] iio: light: apds9306: fix default sampling frequency
- definition
-Message-ID: <20260906045929.0a1c46fd@jic23-huawei>
-In-Reply-To: <20260904-apds9306-v3-1-4f668393c2ae@jacques.com.au>
-References: <20260904-apds9306-v3-1-4f668393c2ae@jacques.com.au>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1788667445; c=relaxed/simple;
+	bh=/BkRM+kd3UH6ADUy1SCmqHezpLUvPqidAL20WhD8qJY=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=sRhBDCY0sFrMI4dmeZHQ8rbB5JIhK4cbtVRSlxf2jlCcAgqFuzobsGk2Q8FtIOW2930mp0hB6WXwCyNZKrfLCYj+3g4iHH3EAjBadkKCArj0GI8fO3hfu46INLCZqvLcYiQlwYBDQj37sCetKGa689E974ix3aF3J9ZIacN4wVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-7e7624e584dso3304548a34.2
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 21:04:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788667443; x=1789272243;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=0JDADGVkVCAm4c1zBv1Yj2Z385AGCyEpyhQ3VS/GZzs=;
+        b=JqZ2EBul+MSaIxiyvHNA1zBHAgFou6apAitb4+gMfqRB6P8YVq7JFz5w8N29etNTtP
+         RRQ/Ou0AMSYUNVtD0jUGWOtKL/2HV7eG4tABn11p/rgFniFq/sON6OdRiKBnnoz1oMEI
+         9Hjow51sp3CWydb8kUzu/kf/eChhBwa6XVSz16Yuwq6qeWu3CPaiZpUavqBhDSF3VoYt
+         OoQvUjguTF2nFHkBFQCsmU0oxH8w15hiTZCvarzHSRtolhIZj6/4QqzLrBaoP61jXq8y
+         sIU95x6FpL3bhIpev/OCR2oNE5GjnrhsR4PEE6jPxO/BHmf2nns63REgRqjG/z5unxRR
+         +KqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzB+JFdVCymVYgb0aEpkxs7RNaCgze+X59FXysmS3S2QTwHkjxAOi7JArY5k984irYTp4PEjP31koWsDdE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kLowjPi6noCJVj8dLGVBwO8/NYCBh9g7evnbEZm2sxg9HCLoNP
+	TVrzh+lhut1oNzNSu0dDeKx8hdAOzOpVjc6Do2vx9wP3Y8W8oQQqe6ZAYAH09IdvTzMn1Soru9K
+	MGZyv0FQurdp0c6qtmpsA4WhdtWhxV1pDU4yHcPnewsZKs3QykUos62K0UBY=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6820:1501:b0:6b1:5c8b:c0b9 with SMTP id
+ 006d021491bc7-6b6fabe21b9mr10217761eaf.3.1788667443199; Sat, 05 Sep 2026
+ 21:04:03 -0700 (PDT)
+Date: Sat, 05 Sep 2026 21:04:03 -0700
+In-Reply-To: <20260906033822.19429-1-kartikey406@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9ce633.0a3344eb.391530.0017.GAE@google.com>
+Subject: Re: [syzbot] [usb?] [nfc?] KASAN: use-after-free Read in pn533_acr122_is_rx_frame_valid
+From: syzbot <syzbot+1853daab1a47603d4678@syzkaller.appspotmail.com>
+To: kartikey406@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, 04 Sep 2026 11:19:48 +1000
-Tsz Shan Chan <tsz.chan.dev@gmail.com> wrote:
+Hello,
 
-> APDS9306_SAMP_FREQ_10HZ is defined as 0.
-> 
-> According to the datasheet (Broadcom AV02-4755EN, page 11,
-> ALS_MEAS_RATE), bits[2:0] set the measurement rate:
-> - 000: 25ms  (40Hz)
-> - 001: 20ms  (20Hz)
-> - 010: 100ms (10Hz)
-> 
-> Change APDS9306_SAMP_FREQ_10HZ from 0 to 2 to write the correct value
-> for 10Hz.
-> 
-> Datasheet: https://docs.broadcom.com/doc/AV02-4755EN
-> Fixes: 620d1e6c7a3f ("iio: light: Add support for APDS9306 Light Sensor")
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> Signed-off-by: Tsz Shan Chan <tchan@jacques.com.au>
-Looks correct to me, but as driver is only a few years old, I'll leave 
-some time to see if Subhajit is still about to take a look.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Jonathan
-> ---
-> Changes in v3:
-> - Move datasheet URL to datasheet tag in the commit message
-> - Link to v2: https://lore.kernel.org/r/20260903-apds9306-v2-1-e8673986ae56@jacques.com.au
-> 
-> Changes in v2:
-> - Add datasheet link to commit message
-> - Remove blank line in the tag block
-> - Link to v1: https://lore.kernel.org/r/20260903-apds9306-v1-1-3f892aa4f156@jacques.com.au
-> ---
->  drivers/iio/light/apds9306.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/iio/light/apds9306.c b/drivers/iio/light/apds9306.c
-> index f681b02e4922..7dd41136734f 100644
-> --- a/drivers/iio/light/apds9306.c
-> +++ b/drivers/iio/light/apds9306.c
-> @@ -61,7 +61,7 @@
->  #define APDS9306_NUM_REPEAT_RATES	7
->  #define APDS9306_INT_SRC_CLEAR	0
->  #define APDS9306_INT_SRC_ALS	1
-> -#define APDS9306_SAMP_FREQ_10HZ	0
-> +#define APDS9306_SAMP_FREQ_10HZ	2
->  
->  /**
->   * struct part_id_gts_multiplier - Part no. and corresponding gts multiplier
-> 
-> ---
-> base-commit: 940de590b839f71d6dc846160534bf202401b8b7
-> change-id: 20260903-apds9306-bedba7b74e59
-> 
-> Best regards,
+Reported-by: syzbot+1853daab1a47603d4678@syzkaller.appspotmail.com
+Tested-by: syzbot+1853daab1a47603d4678@syzkaller.appspotmail.com
 
+Tested on:
+
+commit:         edc15184 usb: typec: hd3ss3220: Add support for supply..
+git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
+console output: https://syzkaller.appspot.com/x/log.txt?x=12e17cf9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=c451f9f64434b622
+dashboard link: https://syzkaller.appspot.com/bug?extid=1853daab1a47603d4678
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=179e7cf9580000
+
+Note: testing is done by a robot and is best-effort only.
