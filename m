@@ -1,46 +1,37 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1575338F226;
-	Sun,  6 Sep 2026 12:41:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE1682F1FF4;
+	Sun,  6 Sep 2026 12:43:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788698468; cv=none; b=EKNVS76sjvjRPyEjbDpA4eCyRPydc8iVurs22ucjzXjVCsTQKjHT/X+eEmzl9PdlDh1GCeoH2HZKOPWK69AwnF0dtiN4dcQl5iKTqyfw1s9RWNfgXR1dzeZNTAm3q7XB6P0adxGviKNU2tzALx/mNZiP9ahOuX47mVJs73CibpM=
+	t=1788698613; cv=none; b=ImiFg6LJGG/xv8QjWfhOQTmqr34Caxn1V+Qk6bDW7vOrnCeP0/CqTQcr1Cyx0VfEaTtw0JLP3to/AQPp7oZs0q+8NsBAa6uXUEYLI77wITr4QCy4LrWLQlle7h+6R0Ur3tBr6O6U4KiHkjgH/vHJQoO6m+d/HzQSRtrcrQh4fDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788698468; c=relaxed/simple;
-	bh=fNuM8yoVG9IS3kB+I9ATZiBsZEBz9edAYbcxO26Rcdg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=MXwZzuRrDP/Yy+oDz9dIXyqddys7IdBS/kRdnm8cgQ3drbB5XxLj66pJ8jFG71/Bgv4eJxagpwNRxKIDz0FV153kwow2NUct3fVMfS0J0V6hdqL21NEgJSYNum3Kyqro1hZgrlEBRx4v+Bke961XXaRaE4FpSpoSh+NdJN8f8Sw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dMZ0Axdf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788698613; c=relaxed/simple;
+	bh=F0fgm1i8HFGP9oMA1VAKRxErBO1BdcjfJnpab90e2YQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=jfi5ywggRV+8CzTUi1ow6JmVbKmXBK83Jtw4gtRKDZKqZKK5Uzz2aIfzdBukWXCBPf7m6wTJYXVcULjjG6D/LxlvglHosssuPXvfXMP24MLN9OoAt9y6leXt9vZlFlnHBap/Bx65CrQ6OgGX/bIq4g80cExbcI8Vk0zF2J3RAs4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NuHkG6Wf; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dMZ0Axdf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 918011F00A3A;
-	Sun,  6 Sep 2026 12:41:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788698464;
-	bh=U3JfcolKhWuGBZd+pPAMx4DP4zPhwZzJyNp/2+tGFjM=;
-	h=From:To:Cc:Subject:Date;
-	b=dMZ0AxdfxbfX8Qw/W+iVl5jpZfJh0lDCrVd9YIeeLAR/EKex0xTIIw9Ozz7tWe6AK
-	 Mfas/DjLnBGb5MD63ScSzkCeM98s8EA2vmcK2VhaPDAymDcjyW4omsX1tJhh2zKeZG
-	 5nRHGw0gCFbziweExGJKEcatTGoDn95az90obMWbb2s7+WWIOiXdYugcWtop/dTGLY
-	 X6WPbzBKLWQSs4jKGquOlOjsiAPgbJ8yRqYEikx9bW8qtMBMtSw8TwhtMNPJYKvOeG
-	 VIcJJMKZGk0ZVS7Xhp4NkNDPUNDMjVtFcyeMz4sqzvPrL9TVovVNeUrwlsCRR/wBxj
-	 37pXN5oDqo4SQ==
-From: Leon Romanovsky <leon@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>
-Cc: Logan Gunthorpe <logang@deltatee.com>,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jason Gunthorpe <jgg@ziepe.ca>
-Subject: [PATCH v2] dma-buf: Document how exporters and importers agree on mapping lifetime
-Date: Sun,  6 Sep 2026 15:40:54 +0300
-Message-ID: <20260906-document-dma-buf-v2-1-942710fe82c6@nvidia.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NuHkG6Wf"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6AE59C2BCB8;
+	Sun,  6 Sep 2026 12:43:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788698613;
+	bh=F0fgm1i8HFGP9oMA1VAKRxErBO1BdcjfJnpab90e2YQ=;
+	h=From:Date:Subject:To:Cc:From;
+	b=NuHkG6WfzmSeYW4FwnrVEAuDisNLBDjpDUVwJij7VBqRl+GGX1vO/oBuODOEr/d+N
+	 VWJ3QaTJRByvjd1I+HkKaYzfanSb5p4Lt20ocTm6NkMnSHkX8zLL7/nsLtgCrzVjbk
+	 3lYxfnv7xmZzkFB/z7fRf4qsY2Gp4oNsh9/dOvDZ/6dtm67N+qgPuHsscbslC77izq
+	 eMykNJ0YxQ9eRZRYRZ003tbqofVZsPKro8XUxtE4uZ1nkqb93DFpSQWj70zU3qXNyX
+	 V79yhGdX3LaTcvFCVUg+NC93DcPnp5M58M5UvmlxXmUlLV2nYRZz7pQ0AD6gdsd0rn
+	 eJkFtKnjDxsZA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 45748C79F85;
+	Sun,  6 Sep 2026 12:43:33 +0000 (UTC)
+From: Sven Peter <sven@kernel.org>
+Date: Sun, 06 Sep 2026 14:43:28 +0200
+Subject: [PATCH] usb: typec: tipd: Zero-initialize CD321x partner
+ descriptor
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,171 +39,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-X-Change-ID: 20260820-document-dma-buf-3f8b41e32f57
-X-Mailer: b4 0.15-dev-18f8f
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260906-b4-tipd-partner-desc-v1-1-073559f142ff@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMPQ7CMAxA4atUnrHkRNCqXAUx5MeAGUJkB4RU9
+ e5NYfyG9xYwVmGD87CA8kdMXqXDHQZIj1DujJK7wZMfaaYR4xGb1Iw1aCusmNkS0jS7U3B+ihS
+ gp1X5Jt/f9nL9297xyantL1jXDXtL0+54AAAA
+X-Change-ID: 20260906-b4-tipd-partner-desc-07915a127b0a
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: asahi@lists.linux.dev, linux-usb@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Sven Peter <sven@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1428; i=sven@kernel.org;
+ h=from:subject:message-id;
+ bh=F0fgm1i8HFGP9oMA1VAKRxErBO1BdcjfJnpab90e2YQ=;
+ b=owGbwMvMwCXmIlirolUq95LxtFoSQ9bc+E8/pjcv2yXwrrvGdsf2Ba8/Xj54wZLfxy5rzcdo7
+ 2n5bnzdHaUsDGJcDLJiiizb99ubPnn4RnDppkvvYeawMoEMYeDiFICJlHQyMmzhWywm9kzqh+if
+ dyG/J5hxFT7wWvQs8bSWFI/2qzcJb34y/NMLcxHTn3l/y89DSxS/buqbWWdfrcm+etXEn+umTdq
+ nNp0BAA==
+X-Developer-Key: i=sven@kernel.org; a=openpgp;
+ fpr=A1E3E34A2B3C820DBC4955E5993B08092F131F93
+X-Endpoint-Received: by B4 Relay for sven@kernel.org/default with
+ auth_id=407
 
-From: Leon Romanovsky <leonro@nvidia.com>=0D
-=0D
-Nothing in DMA-buf declares whether a mapping may be moved or taken away.=0D
-Nearly every callback on both sides is optional, so the answer follows=0D
-from which ones are implemented and from whether dma_buf_pin() succeeds.=0D
-Documentation/ says none of this, and the rules sit in the kdoc of=0D
-dma_buf_ops.pin, dma_buf_attach_ops.invalidate_mappings and=0D
-dma_buf_invalidate_mappings(), which a driver author has to know by name=0D
-before finding them.=0D
-=0D
-Describe the three flows an importer has to handle, the callbacks each=0D
-one asks of both sides, and dma_buf_pin() as the runtime negotiation.=0D
-=0D
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>=0D
----=0D
-Let's try this variant from importer POV.=0D
-=0D
-Thanks=0D
-=0D
-Changes in v2:=0D
-- Split pci p2p documentation patch to separate series=0D
-- Improved dma-buf documentation patch.=0D
-- Link to v1: https://patch.msgid.link/20260825-document-dma-buf-v1-0-5ecfb=
-3e1371c@nvidia.com=0D
----=0D
- Documentation/driver-api/dma-buf.rst |  6 ++++=0D
- drivers/dma-buf/dma-buf.c            | 69 ++++++++++++++++++++++++++++++++=
-+++-=0D
- 2 files changed, 74 insertions(+), 1 deletion(-)=0D
-=0D
-diff --git a/Documentation/driver-api/dma-buf.rst b/Documentation/driver-ap=
-i/dma-buf.rst=0D
-index 2f36c21d9948..39c201f38aa6 100644=0D
---- a/Documentation/driver-api/dma-buf.rst=0D
-+++ b/Documentation/driver-api/dma-buf.rst=0D
-@@ -113,6 +113,12 @@ Basic Operation and Device DMA Access=0D
- .. kernel-doc:: drivers/dma-buf/dma-buf.c=0D
-    :doc: dma buf device access=0D
- =0D
-+Mapping Lifetime Negotiation=0D
-+~~~~~~~~~~~~~~~~~~~~~~~~~~~~=0D
-+=0D
-+.. kernel-doc:: drivers/dma-buf/dma-buf.c=0D
-+   :doc: mapping lifetime negotiation=0D
-+=0D
- CPU Access to DMA Buffer Objects=0D
- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=0D
- =0D
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c=0D
-index d504c636dc29..aa47142cd9ed 100644=0D
---- a/drivers/dma-buf/dma-buf.c=0D
-+++ b/drivers/dma-buf/dma-buf.c=0D
-@@ -684,7 +684,74 @@ static struct file *dma_buf_getfile(size_t size, int f=
-lags)=0D
-  *    reference acquired with dma_buf_get() by calling dma_buf_put().=0D
-  *=0D
-  * For the detailed semantics exporters are expected to implement see=0D
-- * &dma_buf_ops.=0D
-+ * &dma_buf_ops. Whether the exporter may still move or take away the back=
-ing=0D
-+ * storage after step 3 depends on what both sides implement. See the mapp=
-ing=0D
-+ * lifetime negotiation section below.=0D
-+ */=0D
-+=0D
-+/**=0D
-+ * DOC: mapping lifetime negotiation=0D
-+ *=0D
-+ * Nearly everything in DMA-buf is optional. No flag or enum says whether =
-the=0D
-+ * exporter may move or take away the backing storage while an importer ho=
-lds=0D
-+ * a mapping. Each side simply implements the callbacks it can offer, and=
-=0D
-+ * dma_buf_pin() settles the result at runtime.=0D
-+ *=0D
-+ * Out of that optionality the importer sees three main flows. They are na=
-med=0D
-+ * from the importer's point of view, because each one demands a different=
-=0D
-+ * capability of its hardware:=0D
-+ *=0D
-+ * - Pinned: the memory is never taken away. The importer offers no way=0D
-+ *   to stop DMA.=0D
-+ * - Revoked: the storage never moves, but the exporter may take it away. =
-The=0D
-+ *   importer must be able to stop DMA, and may hit user visible errors wh=
-ile=0D
-+ *   doing so.=0D
-+ * - Movable: the exporter may relocate the storage at any time. The impor=
-ter=0D
-+ *   must be able to pause DMA, and must raise no error while the storage =
-is=0D
-+ *   moving.=0D
-+ *=0D
-+ * An importer reaches its flow like this:=0D
-+ *=0D
-+ * 1. Attach with dma_buf_dynamic_attach(). Leaving out the optional=0D
-+ *    &dma_buf_attach_ops.invalidate_mappings callback pins the buffer for=
- as=0D
-+ *    long as the attachment exists.=0D
-+ * 2. Call dma_buf_pin() under the reservation lock.=0D
-+ * 3. On failure, run the movable flow or give up.=0D
-+ * 4. On success, the flow is the revoked one if the optional=0D
-+ *    &dma_buf_attach_ops.invalidate_mappings is implemented, and the pinn=
-ed=0D
-+ *    one if it is not.=0D
-+ *=0D
-+ * Pinned flow:=0D
-+ *=0D
-+ * - Exporter: implement &dma_buf_ops.pin and &dma_buf_ops.unpin to hold t=
-he=0D
-+ *   storage still on request. An exporter whose storage never moves imple=
-ments=0D
-+ *   neither, and dma_buf_pin() then succeeds on its own. An exporter whic=
-h=0D
-+ *   refuses to be pinned implements &dma_buf_ops.pin and fails it.=0D
-+ * - Importer: nothing more. The mapping stays valid until the importer un=
-maps.=0D
-+ *=0D
-+ * Revoked flow:=0D
-+ *=0D
-+ * - Exporter: answer dma_buf_pin() as above. Call=0D
-+ *   dma_buf_invalidate_mappings() when the storage goes away and fail=0D
-+ *   &dma_buf_ops.map_dma_buf while it is gone. The two waits which comple=
-te a=0D
-+ *   revocation are described in dma_buf_invalidate_mappings().=0D
-+ * - Importer: &dma_buf_attach_ops.invalidate_mappings has to unmap within=
-=0D
-+ *   bounded time and drop the pin.=0D
-+ *=0D
-+ * Movable flow:=0D
-+ *=0D
-+ * - Exporter: call dma_buf_invalidate_mappings() before each move, then w=
-ait=0D
-+ *   for the &dma_buf.resv fences. &dma_buf_ops.pin and &dma_buf_ops.unpin=
- play=0D
-+ *   no part here.=0D
-+ * - Importer: hold no pin. &dma_buf_attach_ops.invalidate_mappings drops =
-the=0D
-+ *   cached mapping and has to lead to dma_buf_unmap_attachment() within=0D
-+ *   bounded time. It need not stop the hardware, because access runs unti=
-l the=0D
-+ *   importer's &dma_buf.resv fences retire. The importer maps again befor=
-e the=0D
-+ *   next DMA.=0D
-+ *=0D
-+ * &dma_buf_ops.attach is the best place for an exporter to turn an import=
-er=0D
-+ * away, because the importer can still fall back to another flow and atta=
-ch=0D
-+ * again.=0D
-  */=0D
- =0D
- /**=0D
-=0D
----=0D
-base-commit: 63367df6e7255067ad6a83abe0d2799dfa491876=0D
-change-id: 20260820-document-dma-buf-3f8b41e32f57=0D
-=0D
-Best regards,=0D
---  =0D
-Leon Romanovsky <leonro@nvidia.com>=0D
-=0D
+The typec_partner_desc struct isn't initialized and instead filled with
+whatever values happen to be on the stack. We especially don't overwrite
+the attach/detach callbacks. Just zero initialize it to make sure we don't
+run into weird issues in the future.
+
+Fixes: 82432bbfb9e8 ("usb: typec: tipd: Handle mode transitions for CD321x")
+Signed-off-by: Sven Peter <sven@kernel.org>
+---
+I deliberately didn't cc stable@ since we can't even reach the path
+that would try to run these callbacks on platforms where this is used.
+Just noticed this while working on the USB4/Thunderbolt series for Apple
+Silicon.
+---
+ drivers/usb/typec/tipd/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
+index 522f56742aa9..07d6d88e3a0e 100644
+--- a/drivers/usb/typec/tipd/core.c
++++ b/drivers/usb/typec/tipd/core.c
+@@ -841,7 +841,7 @@ static void cd321x_update_work(struct work_struct *work)
+ 
+ 	/* Set up partner if we were previously disconnected (or changed). */
+ 	if (!tps->partner) {
+-		struct typec_partner_desc desc;
++		struct typec_partner_desc desc = { };
+ 
+ 		desc.usb_pd = is_pd;
+ 		desc.accessory = TYPEC_ACCESSORY_NONE; /* XXX: handle accessories */
+
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260906-b4-tipd-partner-desc-07915a127b0a
+
+Best regards,
+--  
+Sven Peter <sven@kernel.org>
+
+
