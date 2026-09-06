@@ -1,207 +1,139 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C3253672A8
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 17:27:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA43E37204C
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 17:29:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.171
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788715654; cv=pass; b=UmV/jG7JqC6lIHDk+0xTfWrLlr8NHntl8w01VxNYETzTyuHonVyL3TeD5PKytEnHaUDDH/jVecCcTI4w4YO8ELePUNZtHgaS2p+4kOVdHYv4FnHHTurL1e/Qd4UMOkoZEN9chM1ibLuQlTouDHMxf8xdvhx+onfIVfgK9QMbiJI=
+	t=1788715752; cv=pass; b=JEBojwNYr5Wlk/atAsHrD0pWT+gF2vh2G7XGt91/OYI5t4DTiwbLFF7nEzrTqxeVZLzMjTtBYO2ZI/k57K3zb+nBxQfUrtGdy4GQ3+Il56+WoSWPQuReIFpWE3FBcsrf3dzIH8c9/oPcQyLny9TSPkJe/TekA1RMSgXp+Hpq/7s=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788715654; c=relaxed/simple;
-	bh=MraagOlUbpoH3oPLClVqeUHGrTt1DDjhELOYW/M7Pj8=;
+	s=arc-20240116; t=1788715752; c=relaxed/simple;
+	bh=5DEiI0XOfcZ/AmMcsore77sSwCupcFULPw2OZjhCwgo=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XAe/I0dpk6q0EIK78/vwDcTz3tfwAYnziyu/PidVMvBgz3/vkP1WuR9yO65tVGokNglVCKdx60SCZhmSCzRNc5m/NNpFdKB3nWFWVemV5T2w6OwcxgFR63w1vdnadiPP40nlG7Opd9iZ/vlMXXAikj7ipsbCYxhkvYEZTIiv0lo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tBRGmHtY; arc=pass smtp.client-ip=209.85.215.181
+	 To:Cc:Content-Type; b=KCFp7j5iuN3plHOjDh8A4zUuH7ay6P4G8LDgiKdLYPGj9T0PYICoIg9yn08t4ddyd1dXuDWW0kSIXvHKU09pg0+b9afr83y3pApqqn7VOs8UlMWZH+nHBKapVLvx1pr6RNUOW5gM/xKmzwhaTxIl2X/Ylcib6wASF1cEjqG0SRQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OF8j2/e9; arc=pass smtp.client-ip=209.85.214.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tBRGmHtY"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc1cf287ef8so2446483a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 10:27:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788715653; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OF8j2/e9"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d944747d41so29108805ad.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 10:29:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788715750; cv=none;
         d=google.com; s=arc-20260327;
-        b=BEHRNbvEhQJRI3hFkJpvHNtcruWEm02jnPsuoWTuWYoizzSZE7URGt0fZRueHVeIKt
-         tMDGBhlgOd1mZyWRz0v3x8iuyEp40Bwm44WFMDjMWOmN9mWTOo6u6Kak4s0yKBEHXWqE
-         SFn1dbQUOBfyrihtwH9KLOEmqUCm/JFhnDMz4ZQbybhbz0wLxNyJ4QKULqYgFFGXzujw
-         61G9uFW55pqDGxkJko+B615tIBOOTvogvwD0yyiAZwBInkVnA4drAd8+r31GcV2Yo7bu
-         wRuZFEtaKkhWaeGgi8MmJhffXZ7lvSvO0js6osX46ZvR6CvrWnBNF3XnAPHy58qHorJS
-         ng9w==
+        b=LEBYELXPTkoT/feXpbfSCbTJ6Lg7udp0g9RFVToXLQNmACNIZ6oQz4J270vJf01ta4
+         scWkSId88yTJ+ngfD96rRZf87mDp4HWDYCj/ZtEe2M32Sf+Zmu8kFMPBJ1NpGvt0kMr8
+         jFFkxZr9e1GHTH+34FHVy6WNBYq63/J1Agt9x3Rn9LzGAbje1IBQ6ipIcMdRFPCqIUYE
+         f3cpq1L1nMk1uqSkRivy6IMM6H8FTZb3p6r9p4jX6yMrNFkEX2cXkkaPuCvKwVivmd2X
+         VhTxlS2zJJ8/SoCXFduDJwnzVxlUz5GLH0zLFT/2w/FEDawo8FNOOsbAJgQfDf12WFZK
+         56uA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=HTHe80Xg7+ZeuYbrgbgsluol6fsDFnRR/at+m3TB9OE=;
-        fh=P6IGpApH+kkPOYWTy5Om3eq27C9V5xs0kw2MkPZxJ0U=;
-        b=MqiMrPpKN9FuUdDDX7ufwgU4iLRFt4BZUQfDRRS+f4HpV+j/HXUAVw45li5J7xM3wm
-         xjNbZA+o6rFm5N8qbFWy4UuOjALABY46i6ENPz2zRTuj+5mIzs2fr47j5XWu5T1BQoXD
-         ctPZcdi97S+jklU0tNb65n3T1+vWTC0oMpPFSLhP1yS0AK6ceAlF6IkKs26QmfS9glQB
-         McJtR/nzBsbkgw34tcvnLj393LfziEiSK/sv7OdKhNahWvTohKKIpEpts8ABNsnN9B1b
-         wI92e90XGNmd+VXYCWeZoyC1s4ywGOtJRk+IlVh/dfU2bmPNDj4SA9vKM4csa0EQXQ1C
-         gkgg==;
+        bh=5DEiI0XOfcZ/AmMcsore77sSwCupcFULPw2OZjhCwgo=;
+        fh=E6BPBi236xDM8XC6cbVPqXivD0++8vrXKxH3pC2uf8U=;
+        b=fUPoGPzO9C4Ut5cOfU3h3G0NvAWMJX7CjCrH3x31RoVRqg1Xwtfzwq1Ea4rj10hJeG
+         Xk8c7gZ49eM/783lRfocObkO5hatlCkCFjQYxHBmRoyGv0/SJyH0RbKKTwctLGlMRSG5
+         /KyMjSeZkp1V+/r+Oci9IKMtB4oAwpOk14gdrdjm8JB1eY5BEZo4LDEYGvqp2L8oqRqJ
+         Ilute+dXnntTCEDmjDKFJMzxtmu+jxDVum01iPQxfQZb3cJLxxKDxhLz2VvMamcjf/uZ
+         0cidyMr/cq3CrohTaP8efg9W6GeJ00OS4uZC0a85Cr3a2zUul6sZtFEvZkbH7Dg2LU4+
+         u3Xg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788715653; x=1789320453; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788715750; x=1789320550; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=HTHe80Xg7+ZeuYbrgbgsluol6fsDFnRR/at+m3TB9OE=;
-        b=tBRGmHtYOWv+ER41CDeEHk2vkJodO9MamNNG3ITftTNWohvwTqpT8hLHt6hnq2aN3W
-         /6jxpnx2bPtTiAQRhnrbeyCsqJjrHN9m6161Vq+0+jfNejLl1y3XIHDFwg+uZSev/7iz
-         Z9UtyeQah2Pvm9MxCIu9s0ZN7FAMH2GtRdhqzl5Wp4fYhhvD9k4MaBxAlHReovTS0yat
-         XudzQ77nwXHYDqaUtGMWirPVRPuTm4o+NMgBBo2m267H14dqYkXmLdJ0TtJfsOyZAaYr
-         ErAZLiCIaWiWC0dbZVopnN7y9z1bhJat2xLtxZyHuoWTl+rvC7hYDYsLYPb3XvsscaOl
-         jhZw==
+        bh=5DEiI0XOfcZ/AmMcsore77sSwCupcFULPw2OZjhCwgo=;
+        b=OF8j2/e9XaMRw5ga8VMjNKTjcE7mR8jmZcAz5h3CAi+h5rCxFnYnEfwtjWc3daAtRK
+         wWR3rt+PNnSrR1dFm+5ceUKKbPr4kqSvRyCTz/LEFdlh9sh8dDoqIPNAsqZystl9Cnav
+         h/mCpA3lAUX61QIRfNqgQASSNlTzGgBGgTW7NJkBEbG7kLNVL7WTiYZVgCutRYCZqfmg
+         fon2Fm5XPPuRiy6UXv9I2qR0SiNCt/QmbKjqeCqDDbm/ZwXZP15ige2qp3w9gsZ561Qi
+         bZ9IXQ9hJe0u3MpgmjeCLTpgaXSNYVxnC4DC2pc10S1zGMdMJ+4zTlsFdSmNuItXxe5+
+         Hjnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788715653; x=1789320453;
+        d=1e100.net; s=20251104; t=1788715750; x=1789320550;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=HTHe80Xg7+ZeuYbrgbgsluol6fsDFnRR/at+m3TB9OE=;
-        b=i7oodUMJ4mtLbO4jJhv6B4a1hYqU9wyyISskxGwI0meNdyOC6dCpfu5NCwqaVwAPzn
-         +9nSh0qEaigcvboKI3W3AThHLGq61MJQ5YEDE+o+C1d1wGOfYGAQF6R5NLmO/tpkdQXN
-         Zcb8WB9xfCM2DQO19ommbafL/bnPxIZoU7ZPuHFu6vNZ6e0heP/s0yOndhd+ICnCtMKG
-         TcpSWqoYym8WEkiYKofH7TfmhkDWCgzLq+xQ2cYwvQbU9XPPzQgU8YHoB+9Z4UGfhW0r
-         SHtLjz/uvXaqv03plV997SqnuxrsH7MtSeJr/Xj0E9oEgahHINNffJaYi9xv2EAPFmi6
-         jmkw==
-X-Forwarded-Encrypted: i=1; AKwUvBw9q3vhLBDfWX3GYxzVp0vcwRhgI3ue64cnp2d9vm7kVgmjjdF6Lkv7iMMB6E9LCaphvXHITcXTMJVNwKM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmloQ0h0gIF0xBJtwou/CN/4qcXkmQGYPmUD5nNJzvxb4+NjOu
-	atd2j2vuvru0ozTQ074B/sNhjp5E232egwfJQvV5h6xLVjZjRymcPfeqP9XcEDsbTqRgcT/u1cH
-	jOyzpRip2AH4TfA9yPdwfKaVh351J7C8=
-X-Gm-Gg: AYBFou2/X9uMytnVsBUtZATW1FUMvA3iKM64BrlDtQEQr4s6LJU2RIjAewX8H4d+/kn
-	L/ZSaRDbBLz0tnnFOGtS1r1y5b3rTbZF8syHACk9ZU1/D/2PxmNRBCUZ1tjENdWOK8Rxaeooaks
-	27Y0yavXXxG7wfoCXazx1O+BSDX/zVe5Ubigy9TVw6S3+Snb/kAXENjyyROZJ3lSCmez56iZNe1
-	VDGFGAFi4Ide1/DvwlnmbOfaQGmeumQg8iYci0nWTE58yU4m4ZdB+NyDFjL0Kj46heBDMjgv4Si
-	DGBPgDgu8JVyMWanfAwAaCaRaMoWtmetiLwiQYEA0y2mkStOtIyYqbqPSSr7YbbMbD8vcBb+mEf
-	WwQ==
-X-Received: by 2002:a05:6a20:9397:b0:3c3:a3f4:5485 with SMTP id
- adf61e73a8af0-3da39cff434mr30724224637.6.1788715652668; Sun, 06 Sep 2026
- 10:27:32 -0700 (PDT)
+        bh=5DEiI0XOfcZ/AmMcsore77sSwCupcFULPw2OZjhCwgo=;
+        b=Cs96j47Ka9unUmO3Ghp14YUlPxn6C4CE60PtZp9IDKhzjth6Ctcu7S3wTzErSbygKy
+         hNSVroU5c8mPFkFUc8rhutflJdZU/hjSNNrRC35gcg0t2zzx1Wt1dSG0pJsEzphVICDD
+         KuV2urqfXKQ7YTYI2sR07mvbS7kBad67PxKptNr6pGhyzCO0JkqC/govIQ1zxoGwwyHg
+         s9gh+NCfAHmTJrG8jzcmWp3JtPThcO9j335HXgQzVtUqpOA5jO0SyQIpQ3YRVAsTUMBU
+         qjgRFM5wAiOmxjPz7d7/8G65DILtjalyvFCcpPL/uULWDIGAoxCHwpZvkkQopOBFu3gS
+         jZUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxN1k06u1uQRPdotqVZ1zqj+qEVqVcPD9qK0gsjbxVNM7cEW+D+/ipOrF4B2IXk/wCD0l6AI9d66lKnUyQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nVm/6lXYjRAviED4nnWL+raF8FDMoDKWPz0v/kvG5RP2rE4BLo
+	IoxRsNcXFENeB7E9XOhzm55TpSQMvEMOXVxydhOZFp7f+4rZnyM71DSMrMieAtMRETAG8lcnWxN
+	olX/l8ByxljNGm5u5G1YL5eiHl/VdBBk=
+X-Gm-Gg: AYBFou14o/z3cEig3U+SANJBQbgInH3PVLAPfut19lgl2uNH0DKOhyB8+loU6QYKKVo
+	+3Z1VCGr8s7rvBv2QX9ghX9KF21NMKWMv1ilSGBJPVYbXWC+eYvHk2+4Iy+KAp0dnneOeaD3uqT
+	SrtNjpklh+OrU/Y6VZukRgE438w6cNfndIy6WpiFCuQaZKl02g24NqdDiUmcoY5dpZ83FdKoBGO
+	3V+/n+mOg86VmGvkarz2+qSEPOZZtdOSRgAlW5PwijehORuv1sCYaWB3Dnf2U6zz7eRBHSdeVmH
+	Fhub53d10v0gDAnRwGt5M8xGlacWkDV92eetAzMl7uGEOC1U2HO0nB2Vbf+AWHMR3xPZzgn6eMw
+	UpA==
+X-Received: by 2002:a17:902:8a8d:b0:2ca:e19c:97b with SMTP id
+ d9443c01a7336-2db122edd50mr199148445ad.5.1788715750074; Sun, 06 Sep 2026
+ 10:29:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260721095654.429346-1-clamor95@gmail.com> <CAPVz0n3u0D=0swsO4n6LROFurO=as1w-ZRwaje08BN9dY=JhXQ@mail.gmail.com>
- <20260827141457.GA2943942@google.com>
-In-Reply-To: <20260827141457.GA2943942@google.com>
+References: <20260617080031.99156-1-clamor95@gmail.com> <20260702161828.GB2108533@google.com>
+In-Reply-To: <20260702161828.GB2108533@google.com>
 From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Sun, 6 Sep 2026 20:27:20 +0300
-X-Gm-Features: AcwNN1US6VGLlyitJNPleGZ36XvgnLU1yQ7kLv1UGW2us5RAJXeSTeJhWP7qGxo
-Message-ID: <CAPVz0n1bTHph3nquDNzrp+kpRcbzHsBBddHGxY3qt9qiHf7zWw@mail.gmail.com>
-Subject: Re: [PATCH v7 0/6] mfd: cpcap: convert documentation to schema and
- add Mot board support
-To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org, 
-	Conor Dooley <conor+dt@kernel.org>, Pavel Machek <pavel@kernel.org>, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>
+Date: Sun, 6 Sep 2026 20:28:58 +0300
+X-Gm-Features: AcwNN1XWisbz2ascChHcLatRKYQPwdXAhH_U7ChBKnQiXROAqpt9L2vnmsacgR4
+Message-ID: <CAPVz0n2fRs=q-1dAEt2k1FJpQVK9+PMSY0BSMB7Rs3F2xDyFvw@mail.gmail.com>
+Subject: Re: [PATCH v5 00/14] mfd: lm3533: convert to OF bindings, improve support
+To: Lee Jones <lee@kernel.org>
+Cc: Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
+	Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>, Johan Hovold <johan@kernel.org>, 
+	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-=D1=87=D1=82, 27 =D1=81=D0=B5=D1=80=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 17:1=
-5 Lee Jones <lee@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+=D1=87=D1=82, 2 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 19:18 Lee J=
+ones <lee@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
 >
-> On Wed, 19 Aug 2026, Svyatoslav Ryhel wrote:
+> On Wed, 17 Jun 2026, Svyatoslav Ryhel wrote:
 >
-> > =D0=B2=D1=82, 21 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 12:57 =
-Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > The initial goal was only to add support for the CPCAP used in the Mo=
-t
-> > > Tegra20 board; however, since the documentation was already partially
-> > > converted, I decided to complete the conversion to schema too.
-> > >
-> > > The CPCAP regulator, leds, rtc, pwrbutton and core files were convert=
-ed
-> > > from TXT to YAML while preserving the original structure. Mot board
-> > > compatibility was added to the regulator and core schema. Since these
-> > > were one-line patches, they were not separated into dedicated commits=
-;
-> > > however, the commit message notes this for both cases.
-> > >
-> > > Finally, the CPCAP MFD was slightly refactored to improve support for
-> > > multiple subcell compositions.
-> > >
-> > > ---
-> > > Changes in v2:
-> > > - fixed code style
-> > > - rtc conversion was picked, so patch dropped
-> > > - added audio ports description into mfd schema
-> > > - splitted schema conversion and compatible addition
-> > > - minor style improvements and typo fixes
-> > >
-> > > Changes in v3:
-> > > - added regulator node names list into pattern
-> > > - filled spi_device_id with driver data
-> > > - ADC patches were picked, so changes dropped
-> > >
-> > > Changes in v4:
-> > > - dropped regulator patches (applied)
-> > >
-> > > Changes in v5:
-> > > - switched to MFD_CELL_* macros
-> > > - switched to use determinator of model
-> > > - switched to spi_get_device_match_data
-> > >
-> > > Changes in v6:
-> > > - removed address-cells and size-cells from main node
-> > > - changed macros formatting and OF matches
-> > > - factored out common devices and made device addition staged
-> > > - dropped cpcap->variant check for 0
-> > > - EINVAL > ENODEV in variant checking switch
-> > >
-> > > Changes in v7:
-> > > - adjusted spi_device_id entries (name/driver_data)
-> > > ---
-> > >
-> > > Svyatoslav Ryhel (6):
-> > >   dt-bindings: leds: leds-cpcap: convert to DT schema
-> > >   dt-bindings: input: cpcap-pwrbutton: convert to DT schema
-> > >   dt-bindings: mfd: motorola-cpcap: convert to DT schema
-> > >   dt-bindings: mfd: motorola-cpcap: document Mapphone and Mot CPCAP
-> > >   mfd: motorola-cpcap: diverge configuration per-board
-> > >   mfd: motorola-cpcap: add support for Mot CPCAP composition
-> > >
-> > >  .../bindings/input/cpcap-pwrbutton.txt        |  20 -
-> > >  .../input/motorola,cpcap-pwrbutton.yaml       |  32 ++
-> > >  .../devicetree/bindings/leds/leds-cpcap.txt   |  29 --
-> > >  .../bindings/leds/motorola,cpcap-leds.yaml    |  42 ++
-> > >  .../bindings/mfd/motorola,cpcap.yaml          | 408 ++++++++++++++++=
-++
-> > >  .../bindings/mfd/motorola-cpcap.txt           |  78 ----
-> > >  drivers/mfd/motorola-cpcap.c                  | 143 +++---
-> > >  include/linux/mfd/motorola-cpcap.h            |   7 +
-> > >  8 files changed, 571 insertions(+), 188 deletions(-)
-> > >  delete mode 100644 Documentation/devicetree/bindings/input/cpcap-pwr=
-button.txt
-> > >  create mode 100644 Documentation/devicetree/bindings/input/motorola,=
-cpcap-pwrbutton.yaml
-> > >  delete mode 100644 Documentation/devicetree/bindings/leds/leds-cpcap=
-.txt
-> > >  create mode 100644 Documentation/devicetree/bindings/leds/motorola,c=
-pcap-leds.yaml
-> > >  create mode 100644 Documentation/devicetree/bindings/mfd/motorola,cp=
-cap.yaml
-> > >  delete mode 100644 Documentation/devicetree/bindings/mfd/motorola-cp=
-cap.txt
-> > >
-> > > --
-> > > 2.53.0
-> > >
+> > Convert LM3533 to OF bindings, add missing VIN supply, add support for
+> > setting mapping mode and LED sources based on device tree.
 > >
-> > Hello Lee! May you please pick this patch set? I have included changes
-> > asked by Rob and Uwe. Thank you!
+> > ---
+> > Changes in v2:
+> >
+> > schema
+> > - maximum led sources for leds set to 4
+> > - anyOf > oneOf in ALS
+> > - improved ALS descriptions
+> > - adjusted example
+> > drivers
+> > - dropped devm convertion of irq and mfd helpers
+> > - all als configuration moved into lm3533_als_setup
+> > - added regulator/consumer.h
+> > - lm3533_bl_setup set before sysfs_create_group in backlight
+> > - added check if LVLED is valid
+> > - LM3533_REG_OUTPUT_CONF1 > LM3533_REG_OUTPUT_CONF2 for LVLED4 and LVLE=
+D5
 >
-> Nope! =3D:-)
+> This set looks good to me now.
 >
-> There are still a bunch of unanswered Sashiko reviews and one from Rob's =
-bot.
+> Let me know when you have all of the Acks and I'll merge it via MFD.
 >
 
-It seems that Rob may be quite busy. Which Sashiko Rob's bot reviews
-concern you? Maybe I can clarify those?
+Hello Lee! Is there any unresolved blockers for picking this patch set?
 
 > --
 > Lee Jones
