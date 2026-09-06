@@ -1,200 +1,190 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022128.outbound.protection.outlook.com [52.101.96.128])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 683DB3CCFB4
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 13:14:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788700490; cv=none; b=JU0PQF6XN2jwNZKGccsI9LkRZqg7ZBIVHkoHWazfYhmaUakn5yn6VrPEqP0QHw+TKD8lkCjc+HoaQXz4vI5jX1pmQ5gHTeyNWOOVZOKfxhxUdmrDOlgaiD+kAnYXaPAXmJ0E8e49eNB3uOPCiaj6KeHTp+NmhK6eM2voOV7q4R0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788700490; c=relaxed/simple;
-	bh=2uov7MjSgw7uaYly/JryV0QXvkNQbSYg+0flUoG78R4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=E8GTAYkFbLDshKu15/WhAC9m2WvmQ9V1qQYbCJr7lRq67xZjOwv6JPT/ozA5h4oFyd2x94Q5bAac88D330v6bf7FBtSUR1BoQu4C9DImlgQo2JEzplqTXkUWEVZlljp1jfdP0uH0YBwxUfw1H7jrCMjTke0IxzcL8zQOnN8mbVE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R5iZAn2r; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R5iZAn2r"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d6fe26ef1cso26168225ad.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 06:14:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788700488; x=1789305288; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=U+C0aiSr3C6LpsbjgLZ1pgIoaspgg1L4h/eAlXTaaGs=;
-        b=R5iZAn2r1KQXzFFkDU55C+3kKflCF+vPTBdU40QhxQ99ojwYBUgGnfEdeKleDAVP4S
-         nV3ZlDCMaowD/axuo6B8QMet/mZUJzcOItDkD0IWgcq5ROQDzUTli0tlg8f+eY4UiVgW
-         FYgsr6CsZgLG3N+4whFEoG8t7rc/fcpkLB64oi0+aB6RsgxT3FIA0Picra7SjByWQf6+
-         dyjnSYMWFZ2ZLhK2CzfWYZwsE1eJlcpqdlKKzzS8CkIMDK0M5T1ihDwQETBaBaOvtXUm
-         tyB9rrswb2Raq8l97PiOyX8vJXBwsVVTLCfh6LOjkV5CV+GS6m7SA9+OciYYYJlx2Q8f
-         vMkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788700488; x=1789305288;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U+C0aiSr3C6LpsbjgLZ1pgIoaspgg1L4h/eAlXTaaGs=;
-        b=K68XTInJw0JPviN6PD5q6luwJhqD5+MoxumnXOYN1wiaKjwmfUcORXIpwS3CoOc7UQ
-         CYX77/cIJRUM05oU5h+FZ1RtWQthN3JbYXV4+n4tZmAKsMJguKQleByc1bbaO1Zx8WFO
-         wqAnMGHvGvLos6djJLuhFAOVvsqMHVpd+oQyERdokJMM4YUrxw6YV43cfE48KVEU4JKc
-         phJqkewWDwE92q6kmy6XmhUgqvRn+BSob4zeoF4Qn1maFcTW0/PHWCjkuQcj80dAOTb7
-         ZAoSNifcCedv0eKP2TP+tU5vAo5Kc2rlUapiVcNnNeKfQjcvMUeD1te9rH+RWL1FSJ4z
-         g9oQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzjiM194AeD9/nXWLEL12NilKorGXvyEJSBfpEZniJvlsjk+fSqhEZ0b1Uk9LTsaiNtvdmSEXIveHomNBQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nRSR5ZwRg/Ryz1SFKCnKXNLU9+On22t7IiwVXYheQsQ2Pt9Dzw
-	/UR/F85qOg4MCvUvsTD5WPiA+0mExXjf7o4oiEk1HqWUEWeiQ7AW1H0H
-X-Gm-Gg: AYBFou208BHQexp5O8Tb69ktGFu+GMyAoJFhJG9LhEam/3PwGYqkr9yWtn6j8ED/KDs
-	vYn8wHdoFP48k0wINQQgG7ktzMt3Zvk4Zq0tNX5th+K6mgyzTrPDfz+L/WT4avwsQpgCNYzQ4UL
-	BoybGw3UTi753kWZZ7I/7MzTeTmbHwsOr60ou/+4PvZ0tzJUTuQfPfg67VB+OazWNT66IZF4Jv5
-	iIm/KjNTvaqeSkevCgHSQJbUvOOXJHuVVWv07+mn0heKaZOdvHr0fSlF16z4OQmKW1xQ8ZtFZY9
-	pW1ZZWddJZN2MH6jVzSDo6I37nit2E9OzajJvaPJD587h6JBrfyWEp0EO/p8lLM3ksy1vxhkU4P
-	O9gnt5twpuxnwBIkNolHe/agHwZZcTrgs+KvjmI2LpYgkgePOJLkM7zGg3rqYHwzXk6gYttqgS8
-	XxVBQ0HN4uT10uXYtGgwVNv0YX8Sntzj8WUbrqdOrOer3d8tGfBg9X1idn8Qm0SR+00aKkKeNF4
-	sKn/D4madLu0w==
-X-Received: by 2002:a17:902:e951:b0:2d8:d4ce:7e3b with SMTP id d9443c01a7336-2db126289bbmr244806075ad.16.1788700487761;
-        Sun, 06 Sep 2026 06:14:47 -0700 (PDT)
-Received: from d.home.yangfl.dn42 ([2a09:bac1:76a0:d30::4d0:7b])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1495b2f8sm32259965ad.21.2026.09.06.06.14.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 06:14:47 -0700 (PDT)
-From: David Yang <mmyangfl@gmail.com>
-To: netdev@vger.kernel.org
-Cc: David Yang <mmyangfl@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v3 6/6] net: dsa: motorcomm: Use safe 64-bit counter reader
-Date: Sun,  6 Sep 2026 21:14:11 +0800
-Message-ID: <20260906131414.2683362-7-mmyangfl@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260906131414.2683362-1-mmyangfl@gmail.com>
-References: <20260906131414.2683362-1-mmyangfl@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4F982DF138;
+	Sun,  6 Sep 2026 13:15:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.128
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788700529; cv=fail; b=O9fvO71essU2te1o32sEv9gp/Njr/attjOx9qOtOZgFsc+EoofCbpNq4tb2ebG4rR12viYCtRz5rvJYLfwTSxu99cAQgVJuE48Uh8kmWGwcYWnjwlti4VLr7P0y5wLG9LfPYW6cCdtlPvrMfMVQyzFengx/KedvjSrq15L6ZL5E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788700529; c=relaxed/simple;
+	bh=csYH0kKga7G3mHIh88FMdLuLmQ3r9T04Ue6xwKcKDWk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=EjKs5divDQ8yLGN3M90kqFgZ3iHLLaqOKfhKHhEvWEk2Ztjd8Z/R+3LG1xTGPKwXTIkIFV9sWDCJLrVynpgcss46VqOs32lVX3bNxxmuJxla4PsEEIeq+FS1pu6+p+zLcv/8boSJTz6w5JB7oOi8PCgLxy0sjJJYqapwjtTQbzw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.96.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ykkZcAFAqsQKUZ+ckrKWiHL11zAhaAwTnqLfhsoJstZFeV64xLkpZuyOcYVF/ZbFA43N/c4lUfg5rdXYqkXU4ibu7+Iwe1WdHsxPu7eEo6RbwLhUyZHDNJ8OThFF00x8i2pF8qJuPNyYaq/9lOkjbY8aCqbZTeJXsdvfFUvmCHxXeKj6gHsT4D8164IIzBQi2e3EysY9O3/G1/k7kPPqsg6U5LnEFwROQAm61aAuobz4VS2/J9sK6+hzG18zz7ylVID9QJ5RXMHEV4L170BohZvuzZCpAJ/9dzCEH9N45cpJqFBMeYjTOuVRxK/Q8gl3fxraqvOssXEFb5qOn5Y0rw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=Tb0B4aSEKBji3BjLZufaHjoAJZjag/rQ+oSrMYhGVxA=;
+ b=Wz8dA9TBqYytW/rOSrrOmzg3+T8TZewFL1XgCZ5F7IKU+1nC713PTMIs2A7atRs70SyPF9acgWyu7VlaqFlJpByWVpflSRUkF5POf2+HCHo5g5XkDAGi0ox7LiPIyNEml9zypXItJvXh7QrHXtjx841pUPLaU2cI+1rdGyRzxgfeNC6K4IYiHWoWI3fN9YsiUUNwm32yueVGyr1Rpn21eOVmFpvrehBc3l9vCPoRhpNWpvO+QG1ti+Adu9V7DWT95iZfWQrtCk7DF1eohNftKPwv+NJr2PdsUEx1Nv8EkDjsxbG2G7nyeuBlsvMWktzs1H5IxREly3htlc6FSmHetw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by LO0P123MB7829.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:429::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Sun, 6 Sep
+ 2026 13:15:24 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0382.014; Sun, 6 Sep 2026
+ 13:15:23 +0000
+Date: Sun, 6 Sep 2026 09:15:19 -0400
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: arnd@arndb.de, mcgrof@kernel.org, petr.pavlu@suse.com, 
+	da.gomez@kernel.org, samitolvanen@google.com, peterz@infradead.org, ojeda@kernel.org, 
+	mhiramat@kernel.org, boqun@kernel.org, neelx@suse.com, da.anzani@gmail.com, 
+	sean@ashe.io, chjohnst@mail.com, steve@abita.co, mproche@mail.com, 
+	nick.lane@mail.com, rishil1999@outlook.com, linux-arch@vger.kernel.org, 
+	linux-modules@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v10 0/2] module: Extend module_blacklist parameter to
+ built-in modules
+Message-ID: <yo5ga35f2uaefjbq4tpk45u5nn4pqcp2gpbthzzxxpim72wj3n@dahra4yg4tej>
+References: <20260903185557.183224-1-atomlin@atomlin.com>
+ <20260903132924.7a4d1b84791d30c706b394a1@linux-foundation.org>
+ <ultg4rym4phqwqrbuz3hqtlse2lgafxebx3un7s3tdht7rz5xy@3ckauomiwqsy>
+ <20260905172817.e367c940d750ca3e8484fef9@linux-foundation.org>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260905172817.e367c940d750ca3e8484fef9@linux-foundation.org>
+X-ClientProxiedBy: BN9PR03CA0970.namprd03.prod.outlook.com
+ (2603:10b6:408:109::15) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO0P123MB7829:EE_
+X-MS-Office365-Filtering-Correlation-Id: 15c10e85-6457-4a5f-9a72-08df0c18e8c3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|10067099003|4143699003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	HTVzBPJJI7kWBp9jAPHLx2Wu/7wVque6oMNXc5sxMEE+qCUQtPSZsjZkzPLJ3UjH5yRqGedD78e0gUVU6ZXKjayvg5hTem2/5jJKh1xdnR/da2blckGnURAKkFqyAGKzVkOewofgetJ8N4WXdVdVJOAQgOu5mjRV8C7dXNUsnZROTF0CekkJMnVhYu+9E4AI+6ezV2Q0VHqyzsMVxDCQEgqzOQF8Uo8C2gA4KduEmJtKwdRLAfxUGVlkPIpBVDf0RuuBtF9Gy84GYE264QW9SGLITN1PN7fLB3iOMSOfj2gTZOh0HhPmpKQxr8c7SeQebt0Uym5C1Kq0ng3pV7BUNhpe2X+9o3xKwfi/odLXrbLgbilsuuVV+VW67cxGrqKVkiHWHBvAfXGr2+c5p+aXWpUIk+Qz4PtoNZhlTlZrhdRoQcHPru/wsch416ax+nd/w7KNLN/dumQZe9xQPYwENuNi37sWXLwscJuiVMNsOFCB/RQdZA6tbDDK/j4uhmMi6xX3KSop/e9amxSpeoeI5XQXzFOSmct7HWNabBplyGmTNADGdgWWZkJTJq90kmRjPeW/yxFd0Ntg0PEMCr36FSBmCEDdC1TDfav1p1y6/CZSCwKifKZRbsg7rbKG6TUGScshKkONga/96S2vhTdmAcLCulQ24LV0bwzvLSOQ1QE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(10067099003)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?L0E5ZU0yM1h1ZzJ0c0RUVDZXTVNGZm1XM3YydHMxR0lpc1hPQkl0K0lxV0JU?=
+ =?utf-8?B?UWpYUGZNaHZQMFl5NE1tc0NzSTZ1SVV6eE5qTTJYWVR3SGFCdU8xVm1NcXZP?=
+ =?utf-8?B?ZlJQditma3hHY0NXdnR0THQxVElrYkRFcW5OcUdoMWt3alRGcThwTXNBUjVs?=
+ =?utf-8?B?QzBZMHU1WE1PQjdrYlkydE9lNzczTXlZanlpc1F3U2xHc3ZEODZkK1V0cVBH?=
+ =?utf-8?B?ekZNZFlHL0FQYW9oRU9wUElZdHVCc3hBV2RKdFlCMHJuRHorRDZscXkrMysz?=
+ =?utf-8?B?RUk5RG8vK0x2N0lCM3Q5K1laYi8wMzZBMGpjRVZYNmJLeXFPUWdlbHpsbXAz?=
+ =?utf-8?B?bTZjam1PNlJTTHkvSmtDZDBPSGpUaHRxZ1VpMDE5d2lOSitwd2JWaFh5cjR5?=
+ =?utf-8?B?V0hmcTU2dWNSZHIwcXFXQW1YWXFRTVdoTEVvZ2NZakpNb21FbHFlbmVpR1ZB?=
+ =?utf-8?B?V0MrRmlYdE9JR3phQXdJQ1BlRHpBVkEzbmxJZVhlOVRqVXBCeTRHTUJLL291?=
+ =?utf-8?B?d3JLNWZQNUQvekkvMzdJUlh6RzJWUGRZcWdmMjF6TmNobEJSaXBZdEQzdXBV?=
+ =?utf-8?B?Zmx4ZDA4NWFqNGdxcGU4Y3NqL0FvUjJ5NkFUWE9jd0dHeEhwajUzWkxySW9u?=
+ =?utf-8?B?Z05ORTN4UXZqdXhRRk5VaTBhWkdiSHlZcXkrZzIrS0NNT0l4K3RzL3RrbG9B?=
+ =?utf-8?B?YzRJUEJ5TWljaTVyYjUvbU4vVFFCMEZCT05OUkRsKzJjTnF6WnJKSUx1ZWFY?=
+ =?utf-8?B?cHdUZjFMZU9venFkZStiN2Jzc09rWW1yZ2VsbzFUczIyMEhPa3BoVjNPdmY4?=
+ =?utf-8?B?RHFSdlE1Q2pzdkdRZmV0TTFLTW8zTFJLblNtalBHZGp4dzNpaFhReXRvSWFX?=
+ =?utf-8?B?NWJVWVYwVkwxc01QMHhrYzlxdW9yNCtqTzYvenp0SHFENzlna1ZJWGYvekd1?=
+ =?utf-8?B?VHMvMWwwUFl1SUhzNHY0YnUrbm5YUktwN3VYNkNpN2wvMUM5aGV2WHBvb3ZE?=
+ =?utf-8?B?M0NOOCtRRFhnRjVTYmNhQUgvYk9aVXY5eEVLRlVsTHcrV1FoK3NCeHNvSzl2?=
+ =?utf-8?B?NUl6V0lhUVd5VUJkOTdOeG8wVVFEdDdVTnBPcHZzWlh2d3ZyK25TSkJRendK?=
+ =?utf-8?B?dGhCeit1NGVMcFpYbGdJeU1Ma3BvdHdYaTE5blorZ1RoR2xZd3RhZTJaZGQv?=
+ =?utf-8?B?N3owWTFPZ2tTK1JaNzJORlRzclZ4U3BOWmhGQjRHY3k1TlVyVVdveXF6c3ZW?=
+ =?utf-8?B?emdjN2Y5UnY4ZUZUaE5lc2JhOFR1d0pqdWJTZXJjY2ppdFo3STRBM3JtSnVJ?=
+ =?utf-8?B?NjVYN0huMEZZczRuUWtESkNVK1JyVGs2VE82K05ETDlzaDJLWkhIKzlhT2lN?=
+ =?utf-8?B?cEMrQ1JuSDVOakMxc0NMZHRkMGd5UzRhRkh2TTAzOFhSNDlpbEtmaGt1Z3Fx?=
+ =?utf-8?B?UUJ1Um01VitGMnJpWmZWL2VQQnhPUEZXUzBxQlFUNUFOMStIOFlaaktyRHll?=
+ =?utf-8?B?Wlc5VUk5a3IvY25WaU5SdGljZEcwTXFxRnYwUXowWnFPZEpmWk11VTNnSzRv?=
+ =?utf-8?B?K080NC90dFpSUE85UCsxN1AyQXoyOFpBU29taDN3TERHTDZydThOQWNCU1lQ?=
+ =?utf-8?B?QUxncFJwbW9pQ3hwTDFyNUJJOHRhRkgrcHh2SVlNVU9FdWZITThyN2gyNnFK?=
+ =?utf-8?B?WG9hN2Vyc0QxM3I4Z3lTMWJxRkY3NUwrL3VZUFBCYnVHaS9LUEllZ3l4eGpy?=
+ =?utf-8?B?MEJYbzVkc1RkbDBmTkdNYmFaZGlVMWF2ZkpxMmErTlJ4aHhDbXBKM1h2aUN0?=
+ =?utf-8?B?QWhHbXNoamUrU095bTdiTDYvZi9XaUJpTGM4d1NTQnU1eDJwVjZYMm9Ib2Yx?=
+ =?utf-8?B?eXh5RW1qMmhWVnR4VC9XaUVWQ1c4TnFqczlMQ1o4c0N1VjJOa2pQVUpNNm1G?=
+ =?utf-8?B?dElwQmV2VXVDdzJzb1lKNVdzRHRTdG9PKzB3RDRsUU81OW5CRGM4dERiR09L?=
+ =?utf-8?B?YndwN3FWRlN5NnE5dWVPT09FMFFxWThZZWpLUEZSNUh3RmR5WXdFUkJobkly?=
+ =?utf-8?B?TlRtbVovVHBkMkE2TDNNRFovZmd5aENKWExqU2EyVndtbGR4OUtBSjYzbVZB?=
+ =?utf-8?B?dmg0Z2tITDZnMk1lbERMQmowcnROSjlpQm4zY3lmTmF3SUhkSzNld1RQUlhQ?=
+ =?utf-8?B?Y3Y5cmdweHBsSGQyRkZLRkcrU1ZsYVU3ajh2NzdvS1MyRGZwN29LMStiNUFj?=
+ =?utf-8?B?OCtmdGhRclpaOXI3eEQrSGNhdEdBYnZ4NnIvZ25uS1A0MS90QjZkeUNmblBR?=
+ =?utf-8?B?Zm1qREpWWGk5OGppVEZRVlMwZVhDZXlFb0Z4MWFSTS9TdjFOK3ltdz09?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 15c10e85-6457-4a5f-9a72-08df0c18e8c3
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2026 13:15:23.5092
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OFJc5q6UqIFq3jlmIhOXZzdvVW272+bU3ZySRWMgKb3TMPk5R0vu7Qn9MdC9hMjg5H2FvJm80wAGF2SrVQHdXA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P123MB7829
 
-64-bit counter registers are read as two separate 32-bit transactions.
-If the low word wraps from about 0xffffffff to a small value while the
-high word increments between the two transactions, the recombined value
-becomes ((new_high << 32) | old_low), producing a spurious ~4 GiB jump.
+On Sat, Sep 05, 2026 at 05:28:17PM -0700, Andrew Morton wrote:
+> On Fri, 4 Sep 2026 10:59:38 -0400 Aaron Tomlin <atomlin@atomlin.com> wrote:
+> 
+> > On Thu, Sep 03, 2026 at 01:29:24PM -0700, Andrew Morton wrote:
+> > > On Thu,  3 Sep 2026 14:55:55 -0400 Aaron Tomlin <atomlin@atomlin.com> wrote:
+> > > 
+> > > > Currently, the "module_blacklist=" command-line parameter only applies to
+> > > > loadable modules. If a module is built-in, the parameter is silently
+> > > > ignored. This patch series extends the blacklisting functionality to
+> > > > built-in modules by intercepting their initialisation routines during early
+> > > > boot.
+> > > 
+> > > Why?  What are the use-cases and what is the value of this change
+> > > to our users?
+> > > 
+> > > Important, so please don't skimp on the details.
+> > 
+> > Hi Andrew,
+> > 
+> > Thanks for asking.
+> > 
+> > Here is the rationale, concrete use cases, and the value this hopefully
+> > brings to users and administrators.
+> >
+> > ...
+> >
+> > In summary, this patch brings parity between modular and built-in drivers,
+> > removes a pain point in boot-time disaster recovery, and provides users
+> > with a predictable, consistent interface.
+> 
+> Really helpful, thanks.  Please add this to the [0/N] and maintain it.
+> 
+> I don't really know who are the potential audience for this change, nor
+> how to attract their attention.  Greg might have some insights but he
+> wasn't cc'ed.
+> 
+> Let's leave it a week to see if there's feedback then resend with these
+> adjustments?
+> 
 
-Use a safe counter reader for this.
+Hi Andrew,
 
-Signed-off-by: David Yang <mmyangfl@gmail.com>
----
- drivers/net/dsa/motorcomm/mib.c | 21 +++++++++------------
- drivers/net/dsa/motorcomm/smi.c | 30 ++++++++++++++++++++++++++++++
- drivers/net/dsa/motorcomm/smi.h |  2 ++
- 3 files changed, 41 insertions(+), 12 deletions(-)
+Sounds like a great plan.
 
-diff --git a/drivers/net/dsa/motorcomm/mib.c b/drivers/net/dsa/motorcomm/mib.c
-index 8601d25fe988..cfae2977a77b 100644
---- a/drivers/net/dsa/motorcomm/mib.c
-+++ b/drivers/net/dsa/motorcomm/mib.c
-@@ -102,29 +102,26 @@ static int yt921x_mib_read(struct yt921x_priv *priv, int port)
- 	for (size_t i = 0; i < ARRAY_SIZE(yt921x_mib_descs); i++) {
- 		const struct yt921x_mib_desc *desc = &yt921x_mib_descs[i];
- 		u32 reg = YT921X_MIBn_DATA0(port) + desc->offset;
--		u32 val0;
--		u64 val;
--
--		res = yt921x_reg_read(priv, reg, &val0);
--		if (res)
--			break;
- 
- 		if (desc->size <= 1) {
- 			u64 old_val = buf[i];
-+			u32 val0;
-+			u64 val;
-+
-+			res = yt921x_reg_read(priv, reg, &val0);
-+			if (res)
-+				break;
- 
- 			val = (old_val & ~(u64)U32_MAX) | val0;
- 			if (val < old_val)
- 				val += 1ull << 32;
--		} else {
--			u32 val1;
- 
--			res = yt921x_reg_read(priv, reg + 4, &val1);
-+			buf[i] = val;
-+		} else {
-+			res = yt921x_counter_read(priv, reg, &buf[i]);
- 			if (res)
- 				break;
--			val = ((u64)val1 << 32) | val0;
- 		}
--
--		buf[i] = val;
- 	}
- 
- 	u64_stats_update_begin(&pm->syncp);
-diff --git a/drivers/net/dsa/motorcomm/smi.c b/drivers/net/dsa/motorcomm/smi.c
-index bf3adfd64165..27086602997b 100644
---- a/drivers/net/dsa/motorcomm/smi.c
-+++ b/drivers/net/dsa/motorcomm/smi.c
-@@ -63,6 +63,36 @@ int yt921x_reg_update_bits(struct yt921x_priv *priv, u32 reg, u32 mask, u32 val)
- 	return yt921x_reg_write(priv, reg, u);
- }
- 
-+/* Reliably read a 64bit counter */
-+int yt921x_counter_read(struct yt921x_priv *priv, u32 reg, u64 *valp)
-+{
-+	u32 old_lo;
-+	int res;
-+	u32 hi;
-+	u32 lo;
-+
-+	res = yt921x_reg_read(priv, reg, &old_lo);
-+	if (res)
-+		return res;
-+
-+	for (int i = 0; i < 16; i++) {
-+		res = yt921x_reg_read(priv, reg + 4, &hi);
-+		if (res)
-+			return res;
-+		res = yt921x_reg_read(priv, reg, &lo);
-+		if (res)
-+			return res;
-+
-+		if (lo >= old_lo) {
-+			*valp = ((u64)hi << 32) | lo;
-+			return 0;
-+		}
-+		old_lo = lo;
-+	}
-+
-+	return -ETIMEDOUT;
-+}
-+
- static int
- yt921x_regs_read(struct yt921x_priv *priv, u32 reg, u32 *vals,
- 		 unsigned int num_regs)
-diff --git a/drivers/net/dsa/motorcomm/smi.h b/drivers/net/dsa/motorcomm/smi.h
-index 212e20f71d80..d34240548af7 100644
---- a/drivers/net/dsa/motorcomm/smi.h
-+++ b/drivers/net/dsa/motorcomm/smi.h
-@@ -35,6 +35,8 @@ yt921x_reg_toggle_bits(struct yt921x_priv *priv, u32 reg, u32 mask, bool set)
- 	return yt921x_reg_update_bits(priv, reg, mask, !set ? 0 : mask);
- }
- 
-+int yt921x_counter_read(struct yt921x_priv *priv, u32 reg, u64 *valp);
-+
- /* Some multi-word registers, like VLANn_CTRL, should be treated as a single
-  * long register. More specifically, writes to parts of its words won't become
-  * visible, until the last word is written.
+I will incorporate the rationale, use cases, and value proposition into the
+cover letter and keep it maintained across future revisions.
+
+I will also make sure Greg Kroah-Hartman is CC'd on the next iteration.
+
+Waiting a week gives us good time to collect any further input.
+When resending, I will also incorporate a few other refinements raised
+during review i.e., a prerequisite fix to treat hyphens and underscores
+interchangeably via parameqn() and as well as a Rust specific issue and
+linker alignment cleanups [1]).
+
+Petr and Gary, when you have a moment, please let me know your thoughts on [1].
+
+[1]: https://lore.kernel.org/sashiko-reviews/xuj6okhlofl4cboopwjzqe3jyfmaxgvdpf5a3ek7bubew4vcbk@nkfqgoe53533/
+
+Kind regards,
 -- 
-2.53.0
-
+Aaron Tomlin
