@@ -1,157 +1,146 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60307376BF7
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 15:51:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE8F3783B5
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 15:53:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788709887; cv=none; b=QGh+N/KvmJtlOXYfeExD9bqFN82DNoBFiAqxnk2KNbg8puw7SJHqf1PSObGabU0AHV8m/6p8AR0Kpnsz0fm/Ag9B5WLnKKVHRcXQYWCb4eS3PWg5G3j2kmLuhSLyHN0kznMbQ7RnoU2TnXYsnJcgT+1qPNBKm3cag/xb1tPFgmw=
+	t=1788710027; cv=none; b=KJCxRanrH/IWsLmbH/XZDYA2YTKkL5nNhOxxNLS7aq8a9dF0+0W96t60kPa4YO7UUnpMg24hjQLgDogX7GXkfkRB6vwM5NA9YhnGuldNEKo9d46sKkJLzoP4l1cUpqXIgpUEDa8d7YcRz/1eiNTQQF8Q4njLnTVNktkFKKRzd9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788709887; c=relaxed/simple;
-	bh=aBvKHXJMUyfS8/ReEsoPVCIlZRhVrQR480IPSglyxog=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FPPJKYDQxtt+u7ZJDhohMuBSO6Ugp1ynoSvo/xG96fuIYCMOhvw91HXOmPmtLyVRNTPtJA39n59kr3dQir75AVS4hi9hfsC9KQ7QHpEiG//QkB2WfsxSmeXu17aI0cP3LN02ZtUfgmz0q6dKr/xckg/BuRXZl0Fwsas0PLu97zs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DLmEQD6I; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iaPB7chR; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788710027; c=relaxed/simple;
+	bh=iXeuXZinLwPRHtHoRD2Ox32yQacS6fb88foD+iwKC5I=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BfY8cyfOP/oBs0swGtdW0RGnULszRiJhN3elUzgAdsOHguYw76+NkGBh6SemvLSNkJvVZXbdbRZIFjZl5yTSqtgqL1ibWlHXiAgXEvNsQfaV4mz40jqw/N731MHUGLdkF+19ZS2wI1nXn5vBzsawIW49111tcpsgipXKRxHTo84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I0k1WdWs; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DLmEQD6I";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iaPB7chR"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 686EXNbO1615530
-	for <linux-kernel@vger.kernel.org>; Sun, 6 Sep 2026 15:51:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	WCNnlg4GyeLNFBgZB9Ozm8QTq3ZkWVLYSJhs0FHtgyo=; b=DLmEQD6Ii5g5CD3L
-	FCtBjZ9lXnkhOq/YfgNIJf6rThoNoOq8496Ys2s/zcgDEbMM+yVBpkOke5DwMaCH
-	RR07zWJd+EyUU5vW1b5yApfl3AuTr1B5Ylbj+jauQmBJMoe2vSLPf//JK1lQ2sLW
-	58HyWmyfFkhKNxrRqafZZyW1GNgXU6HAkMU2NqezcGJEoYvrWwPs3k/ui7PoRLaE
-	a9hGvrtLnLYVDnuMpNbgXDj5G0JWHWxkDVK48OTKhOOXYotCFKMNvoEkS8PMrfVA
-	8u5+iu7zJjM1BzHCCuLc6J7i0wT4VIUSp+hXF1FFSBdLldtRWupyBVrYultfYd+H
-	eyrtMA==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gga373te6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 15:51:25 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-398e1fafe17so4276009a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 08:51:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I0k1WdWs"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cf452def93so31630045ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 08:53:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788709884; x=1789314684; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WCNnlg4GyeLNFBgZB9Ozm8QTq3ZkWVLYSJhs0FHtgyo=;
-        b=iaPB7chRrUwVqrsYjyBlwkVRs6HJUO7X9qXMcSumcJ21v2FlE2dm5RabE5wjoWpQ5q
-         9fAYNi5bF+D++zq1EJcmoZD7DSHQyTKFOD+1g58CidbtBVStZPdODY4q+myMmD+WmpJH
-         26YpgRH8c4aoByizxviOh7rwSUHFCr10KkD2dRM9vnbT/GD4/pEWWIXyEz2JFR7lZ8ZJ
-         uoNdc/7ltOmVhEvO/OS0IEaqMmMmy6LTthH0a8/Tln7cDJlqDpF/gRKInGPECL8nRv3g
-         sgtrs6hLUC5ZD/Yr+eujXR71iEPvaqPYK6LtESybQooQ//toGOYVN1Wi7+7kb/h9Ctr7
-         0I8A==
+        d=gmail.com; s=20251104; t=1788710024; x=1789314824; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:subject:cc:to:from:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YZKG0N4Qd9s3jT0vFHcSeVc0433ACE4MO/8edec8Z6I=;
+        b=I0k1WdWsx9WNfUFzK3BCcm/BNEFTWwsSSN1wsCkjh/W3e03sW3FrKRgga6+nkV5OIa
+         GEqvcSuepfem0vtcK9eRFpdHfs0fsmMrFwXcXObxNZ0W/5MTQfFnnzXgCch1vdFT355o
+         AKlgGOiBw7NXbkXRQhWgRlnS73Soey6eW/4SWZOlLv/qlWWc4yF5Zc0UfmVCgbtRfA7p
+         Rab3z+XWQZPxKy0j9hBclzk5skPzkXj9IYYjj+lQUrExtfpo0tRP+TGkOLjAtcwVM+gS
+         0vg5gESMA1idbisUWf9LZEANhJ3vno7R5txyykz0JKQOhgbsYpBSQcA8B5+Q9QZbZR9W
+         4V+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788709884; x=1789314684;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788710024; x=1789314824;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:subject:cc:to:from:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WCNnlg4GyeLNFBgZB9Ozm8QTq3ZkWVLYSJhs0FHtgyo=;
-        b=AHisgP0RVSBZo/eGlKYCWTcRF/kudM8T5Ynte+YpzKrbg5fzREAmEMj/AxXonNXl47
-         RNmRYAPDQAvzyBOKX3XAiVhit+jLkPmVGDGLEqDprMD9GB71hH1UDBerBhqdqghzlPAA
-         RB6lwGFrkov9OPwB1XtA0j8jQqGUHtU8FKY42b6ATwVX6q4TwwIzVhTuDoqq2zKpxnOJ
-         3OWUc7ieEIPjXUeHVinDRZt3MofmI3z0LIvsCVwYxbcmwFOgIEHngmkRUQjt4hSKX2kU
-         sH2g4LZxOI4jpgsd8Hlj/8xlvcYuGSB4kDqzlBvbKVrcXQGyjut6tJ9QZAM64Yr5mXSm
-         XeUw==
-X-Forwarded-Encrypted: i=1; AKwUvBwp0OmQLffW6LMLwdquwgE1Aw7La4arc3MSHyomgvUHeyszjdmPNgaTwF3BkJG2pbrgwzVLM/S4SiecPbY=@vger.kernel.org
-X-Gm-Message-State: AFuF++l74n9K1wLGnFEbw+DMyMascSKQ8rkrKoMsCqgOxRNtdVSE4fg0
-	sbBdZvXy8RjYNd5mOzaTgie4hm3mYRUkqVLkXYRR32bf9HTuwy92aAJIGL7umhJtG7bQ8BJqdvw
-	beovaGIzHJFVmssprFIBGLYxmsNCmyO8Y97UZVLdGZ9QRgc2vrpTO88/dZvyyEQdbTRY=
-X-Gm-Gg: AYBFou3A94Aq6dsG1qq0PYovlNMm2R0T5WR+HskJdnLrTjl2dFsEyClE7ncaMmuC7FF
-	KIHDA4Fwqtt1lgDMv9bU8DMRRKNoRu0JRaRfUBi4r4h2mWzbcUgR1GpiMy2kPe1rk5tfEApHhYT
-	GnCGGFLb6y9VOIDnm61nCjD7SEhqiWKItlYKMQP10vpwcOFce9tfEpRK4BF0pGutNbHf154soXG
-	83HzTjgLvN4qQ0PZc6vC9iPsv+GPQFcYsILsRIs3RqjcOjMCK8rUFZngs8BsZpFad5sRe9wwV+C
-	Jw9TrBKQuHcDFN2deiUZ3ugKHVLNnwHLq8sb2kfyYsakiTlgDm5bUJqg71j1WojiOpppJdNh0sn
-	yMGarVRkRpQd3FFYFJ85D7zOuC/WV
-X-Received: by 2002:a17:90b:4fca:b0:38e:5b59:c2ff with SMTP id 98e67ed59e1d1-39b260dd278mr27450027a91.3.1788709884242;
-        Sun, 06 Sep 2026 08:51:24 -0700 (PDT)
-X-Received: by 2002:a17:90b:4fca:b0:38e:5b59:c2ff with SMTP id 98e67ed59e1d1-39b260dd278mr27449993a91.3.1788709883853;
-        Sun, 06 Sep 2026 08:51:23 -0700 (PDT)
-Received: from [192.168.1.11] ([103.211.19.41])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243bfbe3sm19755723c88.11.2026.09.06.08.51.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 06 Sep 2026 08:51:23 -0700 (PDT)
-Message-ID: <3a2f535c-7ccb-4b50-a6fc-f73ec02d4acf@oss.qualcomm.com>
-Date: Sun, 6 Sep 2026 21:21:17 +0530
+        bh=YZKG0N4Qd9s3jT0vFHcSeVc0433ACE4MO/8edec8Z6I=;
+        b=EVJcxPbpTvY36SRnaEq0nrqPMxehNwdRvZuvF5Yk02TVQpslo/2NRLe3vfekcW3tmq
+         Y0Uu8H33ZlWQpGWhukN3AyAtUYMXoVi1qdnHO6DwP6xZ1SrPU/Qr8ZgCFYIS68h366u8
+         +pu2tQ2pNqK4jtp8d49Ogxv/hMH6EAxyD+uIsNHk6Wszn/l1h/rrUTz0O864siOz2vQt
+         yaI6nJFoEFQw+Mw5WtxdLg7tWpMLSubVTKz1K5hNnphPBMYQakc232UfFD6d+3XqI+rC
+         MQewrQFPAY7SRL7RkBB8JkIG/oZivBBmGhHnT4VzZ/Ph2nrgD28l5bRx7jmwN7xXR7FJ
+         Tbkw==
+X-Forwarded-Encrypted: i=1; AKwUvBxODPgffQEUe/UqR7A0gmZxxfYqpnMpyi7D9pxzN8fQPNvBAwOTXaiT0Y5TAS3Hpt+0x1Gl4fOzNXHi0W8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lKIFcWaHtDoenbRCiDIdVGmoCY2ko6GGtBhUQBY3rNydxQEUOd
+	XuSDe63AehzQ0Zq1WCKHO2e6c6/LFl0uAvCTMKCCACUYjAi0WnuF0P3L
+X-Gm-Gg: AYBFou1ujmxAPOeY4/JTFUbMIZEv2iVFHvzIc9EcZ8x7Z+q64WmJ5Lxgrto0Br9z31y
+	AyE2JtDF3hxHXCCpxgTFVWImv2PNRAObDPymXYTUYVIGY6jihwoMM6pFm5ejV4/WR5kZ98YCWpN
+	Fh/TKFxahBhDB1OWXaBwInKF18pxQd6ZUFmnnVZ8SNrOMK7IiiAJIxjI58TE/3hlfMAuQTXF1GS
+	oJnIzeE72EKbo/PAdN38VoUw8C302cDoOuQDWBZd9pcJLfxAp5UX8pKnUJSV0o4gzJ+u+PPtQog
+	1ja44wiQWfGQ4D/dDNwJ4UI9VJfftBUHWBDFln6zVI34BvO9q24xzwa6M2J3zaa1YnAAgAoeeLf
+	jgfFWS0ac2H+nkZO+9KLERc56/JQhStg5j6qvpY80/7m33uM1vwYZ9fUpw68C84gaozgZ792Iiy
+	lYh1qGE1TkVKxbgs2ModkSXHYVoZvFauZL/jboWDaEGhoxU8JYtSriv6kVzoNpavUFBAczqq5uL
+	MltUNg6/PEGpuMNnEY=
+X-Received: by 2002:a17:90b:2ccd:b0:398:baa7:4c2f with SMTP id 98e67ed59e1d1-39b27c442f8mr14641110a91.5.1788710024292;
+        Sun, 06 Sep 2026 08:53:44 -0700 (PDT)
+Received: from localhost (madb688426.ap.nuro.jp. [219.104.132.38])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c3a526sm21561901a91.10.2026.09.06.08.53.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 08:53:43 -0700 (PDT)
+Message-ID: <6a9d8c87.7436a696.197962.124d@mx.google.com>
+X-Google-Original-Message-ID: <20260906155336.vppadsy6zpw3mlfa@DESKTOP-1P5QNTF.>
+Date: Mon, 7 Sep 2026 00:53:36 +0900
+From: Kohei Ito <koheiito.dev@gmail.com>
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
+	Gary Guo <gary@garyguo.net>
+Cc: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>,
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 1/3] rust: gpio: add GPIO module with common definitions
+References: <20260906-add-rust-gpio-consumer-v1-0-24d192f93760@gmail.com>
+ <20260906-add-rust-gpio-consumer-v1-1-24d192f93760@gmail.com>
+ <CANiq72m6YZhqzE7GWEakmsZ35QN5UF_HTcVBavKxbq8cV7yk6A@mail.gmail.com>
+ <DL89AIIO0EQF.3U7UGK7JIRZ72@garyguo.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 0/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vinod Koul <vkoul@kernel.org>,
-        Kishon Vijay Abraham I <kishon@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Suresh Vankadara <svankada@qti.qualcomm.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260903-x1e-csi2-phy-v17-0-26606fa9a039@linaro.org>
-Content-Language: en-US
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-In-Reply-To: <20260903-x1e-csi2-phy-v17-0-26606fa9a039@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: ooTysZEXWxld4BXkUvsWXmENssD93lgm
-X-Proofpoint-ORIG-GUID: ooTysZEXWxld4BXkUvsWXmENssD93lgm
-X-Authority-Analysis: v=2.4 cv=CbQ4Irrl c=1 sm=1 tr=0 ts=6a9d8bfd cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=HcLy/BXbbKFjgnJyaMb84Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=0VQvOID68a5ICqMF5fEA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA2MDE3NyBTYWx0ZWRfX6czCawkiGYIM
- Ya3B2t9BCh62QBX49iffDUWLJlR+TQpeHGtmG/RvomfXGAnCuPdPsWso0bbi5KJfDV0luNKi3Xp
- JbVYsdY81NgEVtnHSSbUAYulgtTnVL0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA2MDE3NyBTYWx0ZWRfXxccPGqWhKrPS
- hC7OcZOPRtPJb3johk435KP8Rq4aY/gV6GbhpWjcWmqQuLkunzNb8ljparQ54iRt9EDXkGJmQnd
- MkCgS4XSsyX6A80oY1TBrItbEyomoo+74diFS+hyBqxzmrc1wdjg0FvmXwCPEq6iycgHPdsnh6f
- /xMaoZXeq3bz0V1bLv2cbjN6IP0YiaYXYh3xTJzWUFXk+spWz69qFKnA7Om0cfnuvZ7t31CjofT
- AVM4WZxLasr5pj6/8awhvIJr/ftS27H+C2jgTI1F3KlpR19hoqWEW+wSfq2GU0uiGhMEETenjWm
- 7b6y3FhFDvPrjdiFp7R9RcwpLJv8TJhhXtGvGstNIXwgLH7hNpMZtdXAUDltoxNJiu0skWJtWUs
- mjSnuy7DK982OoF54wdWWgihIWRXUlFw9jqUlIJARCTosUtHAjttFcoXMmN7/Zs3sEDTS0fIj5B
- sSHDGmCjrHeigShi9vA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-06_01,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501
- phishscore=0 bulkscore=0 suspectscore=0 clxscore=1015 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609060177
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <DL89AIIO0EQF.3U7UGK7JIRZ72@garyguo.net>
 
+Hi, Miguel and Gary,
 
+On Sun, Sep 06, 2026 at 02:09:30PM +0100, Gary Guo wrote:
+> On Sun Sep 6, 2026 at 10:56 AM BST, Miguel Ojeda wrote:
+> > On Sun, Sep 6, 2026 at 10:46 AM Kohei Ito <koheiito.dev@gmail.com> wrote:
+> >>
+> >> Add the top-level GPIO module with minimal common definitions. This
+> >> module is the basis for future Rust GPIO extensions.
+> >
+> > Thanks & welcome!
+> >
+> > I see you Cc'd linux-gpio, which is good, but the GPIO maintainers
+> > should be Cc'd too, since they are the ones that will be deciding on
+> > this -- doing it for you in this one so that they are in the loop.
 
-On 04-09-2026 02:14, Bryan O'Donoghue wrote:
-> I've retained the callback indirections give us scope to add in another type of
-> future PHY including potentially adding in the 2PH later on.
+Thank you for adding the GPIO maintainers. I'll make sure to Cc them in
+future revisions.
+
+> > By the way, it is nice to see GPIO again :) Now that some years have
+> > passed, how does it compare to
+> >
+> >   https://lwn.net/Articles/863459/
+> >
+> > ?
 > 
-> This driver is tested and working on x1e/Hamoa and has been tested as not
-> breaking sc8280xp/Makena and sm8250/Kona.
-> 
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> This is possibily also a show case for all our I/O projection and register macro
+> work :)
 
-For the series:
-Tested-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com> # Glymur CRD
+Thank you for the pointer. I was not aware of the past GPIO abstractions
+[1].
 
----
-Regards,
-Nihal Kumar Gupta
+As I understand it, the past GPIO work focused on the GPIO driver APIs
+(`include/linux/gpio/driver.h`), i.e., for the drivers that provide GPIO
+functionality, mostly present in `drivers/gpio`.
+
+On the other hand, this series implements GPIO consumer APIs
+(`include/linux/gpio/consumer.h`), i.e., for the drivers that use GPIOs,
+such as `drivers/leds/leds-gpio.c` and `drivers/reset/reset-gpio.c`.
+
+I assume that the GPIO driver abstractions will be implemented later in
+`rust/kernel/gpio/driver.rs`.
+
+[1] https://github.com/Rust-for-Linux/linux/blob/rust/rust/kernel/gpio.rs
+    (Current hash: 18b7491480025420896e0c8b73c98475c3806c6f)
+
+Best regards,
+Kohei Ito
