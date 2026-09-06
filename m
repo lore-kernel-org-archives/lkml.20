@@ -1,174 +1,155 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26BB7357CFC
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 05:50:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788673814; cv=pass; b=IbZNWlRNXJoPxFITzRZ0Xhcx8iZQLR4v9xPxtQwKxIlyDFm6LeexogHs6b5XzWMX36s8K1lCbSvSrZ8Z/izF+T4srL1K3fBut9nK2uGLTCqqOTZyBbbB9rSQ4RFMZFkstTiPf0TEbQw/jNdaPAJ2ZbejjKiZTt/pQXz6qNLGA4U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788673814; c=relaxed/simple;
-	bh=QksvSwE46C4aLnRKBD5jKRd87c2ZI2evbemTEctD7D0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kQoY4Kot0H8MMh4Iqv//UE6zQBppRTKYW02eWNglp4x9mw8g1bGJJBxCnfjTwNra+9RZSMV3/fKSVMHPw93xOaBIA2ZJ+0AaPnjYtlHiZt86ViLi4PPD3V/zqIyWY4wP6pfYDtB/8EYD859sBsshzVSQfOaO8HO1cxOauoXGF3w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sqOJz/Ku; arc=pass smtp.client-ip=209.85.208.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEED735B136
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 05:50:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.136
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788673861; cv=none; b=Eyrob3dsBLys+RBAmY6YFu/m9HWdGikJWh5yIt2n/YSea9jsoHwhd2+JmvApU1J5twEsxg0ci9FFpzElnrgBWQY4R9BudU+x4x56XBzgQ4Pe1/uwMKW3kH8dCTJ/JTu77wHzkoxnq7mAH4PxNWxqTF3BMqpRxXK8WkClBh6KWg8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788673861; c=relaxed/simple;
+	bh=viWJnjrbhyky0K4g63DpQdEAEtLqeMnC3TLX78qmwLA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Yl7H4Ub3Q7Wjfyp7gi/GoVYplx94l28zE8bovE0pQK0cT1V0PBbfQWV8Lu/NkqrQA0IvVV/eIdql0ZpBPz90f9oHv/sJyMCCwuorDaidW3FmKZ9C/et8+ZlzG0dm0FVgnWpltlcSId5YqX9wKN401Sg6ANdS0SrWC6AGGDDKpb4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LdCSwfLb; arc=none smtp.client-ip=74.125.227.136
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sqOJz/Ku"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-69fab5a852cso3284669a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 22:50:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788673808; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Bd0eYyL1gA0t2ivR4qZk7lJnrXwYsAj4FylvrbdKD/STXTGWcNJir3Z590ND/2C6E3
-         K3P7SLBVUTWHGxfNqFtjFSiZzhnHSEoPsbX6QKZdUsZBcUxuE8KferZ64+qMZy6uX+ea
-         11H0uknreUCEWSknd44rzm82OFZ39Nilab5yqiO4ujuFwojLIZnXcxzbus4zXwsab7m8
-         R2KX+FUphjmBA0mypspDTDB7OcslGUGobMYsTmCo8yLF0NXACIlbxMzq3QzsIHmS1sFr
-         069IFONNyF4JinN5tk3nyw8JxWE+8a2vMlzdKCP+Zl6gNtlsMAeeLGC/AZfjbdRdmiPH
-         TE6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rlSLw0+YBIY2ITDImKVN6Gu2ov4yl998ZNhFCSCffxQ=;
-        fh=jR2xef5MWJuxXRHUxkWqPJAkSTCQ+jPNHNLBSwD5UOc=;
-        b=KkwcSvgKG6vzB7YC+vdiHXX8xlXyv64Wkk7e6O/Kk6gKu3drXfiMIOVpbKkqMsYjmA
-         XJNwWk/3NsbOVGGxhwvpDNHdFaM07ZHDsUzuud0sVvglRWCvPok1qN8u2N7ZkGFj4bDd
-         0tNi5hDv+5XMFvT+1nKheCy0b9PhVD7AEC2fNHpjOnko9CjPWlrID52TgzWBScH41a+F
-         jLXeBx+wfzDStNeWd7d/Q3FUGA0K7JzeJSYOZPOBINcTHz3gF1s9OMlSiugQVUde2X+J
-         d4SBnVdKHKsQo4fH2q2QyVo5sWzjKuQm+FC7DtwXzBvRxrdFVGyi3vuqbY8uxJhaZ935
-         7VoQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LdCSwfLb"
+Received: by mail-pj2-f8.google.com with SMTP id d9443c01a7336-2db33361b2fso4793965ad.1
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 22:50:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788673808; x=1789278608; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rlSLw0+YBIY2ITDImKVN6Gu2ov4yl998ZNhFCSCffxQ=;
-        b=sqOJz/KuxwlZwl+1ngO0ue7F7cjQaqnNcLdeZbBsSFoquKdvZqWL3LvdZLkNk73xCY
-         0cXRI3sO0X3jQHaGiD/9bZhWlXVo343aaCKtFTdbbA9sUEvQUwO3du3m/PKVC3kYvmC+
-         Mq/OKqx7YE2K+U+GQ6ooKtifyzQsOZLWxhZjkoewO2hPBUafhwUzNxolILEamP2N7TSI
-         hzXB4CWbXDEB40bzTNO2HZ/z8LRF5+Hj1rCzHkbXizs65dPTqmtsnmGYAoYwjG4N/Pwo
-         Wv69KDRjDKAQAwmGOKBc1hwg5dxahj8lKUrKi4n4itQoVePYEYWhMloxNvJ5EwekzHi8
-         VDWQ==
+        d=gmail.com; s=20251104; t=1788673859; x=1789278659; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uFG6XNGVyqJ8z6Dlrx8ujL8nDyq9SaEpffEn7E3UykE=;
+        b=LdCSwfLba9JKVGcSBkmiXnSngjzqAwDp031bVN/XJvK6Mi6oAk2BGbw0ZFynSOU27I
+         5bHaj9A5ecq6myaVdx9W/PCQtamhjV9tp+9AZlHfi2pLVQo5N07F4ouO/jgazB9rP7gm
+         j5++faPym8//sLqlytPm2u9R8bErb4aG5/KEdxYFFjNiMSYm8nMpyYylpHDG+8FgIDlp
+         cMAkOrvYZ6vluCxO2hIlvEAj8ktpY0hhnMzayKcRoV/Ph8+PnwVF91Oq+mkXOqJYouPF
+         9vUPpjgOkZMeZvnwyh1B51Tn5iwqzEXm7S35lTNNAm4EvuqCx4tkOwnRSqSb+plcYQM2
+         HyTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788673808; x=1789278608;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rlSLw0+YBIY2ITDImKVN6Gu2ov4yl998ZNhFCSCffxQ=;
-        b=bLz/HCRLK4F37RG0omJ6SzQ6OGUUwP4zF40Pcem3rsKoPILqH9itzTWr0bGKrTojTU
-         kcgaHcl3lPLTWKr+QduyiuFLssu+hLUjrcUEGUkXBnisjTzgThe0GVoBv+SmSNnn6J7b
-         ndlB6sg0EqTNrcwXydEdAW090tR7uIcHXOQC3I53VqUU76OyqKh4Vw7BYeEOK82vTryY
-         dDtGDsBUGvQ7DvLM/VUAwYKNX3AHF6x4z9ddyDZzrMNnB8lrTT2F5FSI52AknGQjpu+e
-         EBcUVZvFDDL7D3YWMYde11vTvS5Ym1Ss0z3hKYPSoWPrzdRlYf86+rQm4sn52fwQU5la
-         6PIA==
-X-Forwarded-Encrypted: i=1; AKwUvByP5WYJEn6D3AQNbuZD4776W3+P/VNsAgTQUNv3xyaIyyr5VlEPQ75inDsnY18v7APJYgDBEFtaKtFPnh0=@vger.kernel.org
-X-Gm-Message-State: AFuF++k2+jpQft9B+gWzMky94VwpNF6sd16uos0pxqA/C7LLiIgKJpUN
-	QEYfq8+XW2MvTr+2yzUvUmt6KCmPAYAKQOSmVrBjKlX+LGB701iwqEjQKu5ZJ/1MtXQm2j1GWVy
-	q+7o7W2e9r7tX6FRv+wvrLk0GsWeiyCK6fAIZfdmr1w==
-X-Gm-Gg: AYBFou2xM26HfMGlDI4K/F8Tbm6g4gco0ivRGVLIXfsbZf+JPcTeMp5KEC4tmlLDjzA
-	9sTaWWblBaawHpDArrcuS+NIvTFJpBEVG1QqbPG4spQbg1iguXPKzYMN6qr/+1E3YtKpI/LAzuP
-	N2AkW36foOFxfNpAHLswcn+E7yEWii4KRlXQdyzmocxYXsgRI+yDREvk20LUSvDfDbRF8SzyZIj
-	AXF04+KtoeRwu1Ihvp9zxWvnOn9wZ2NCIekqBfxf7jKe5si76WhZdUXT3lqpC51C4mOUipyaLMQ
-	1FVg4Py2xobSotMT8mR15WfeMFbTi0bJAM2Qk8IpBHejaXTFmPS/4q1kB0xLTeUgg4Opy4PiRWF
-	QAg==
-X-Received: by 2002:a17:907:970f:b0:c25:4b3e:ff24 with SMTP id
- a640c23a62f3a-c260c8d8077mr500163166b.10.1788673808156; Sat, 05 Sep 2026
- 22:50:08 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788673859; x=1789278659;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uFG6XNGVyqJ8z6Dlrx8ujL8nDyq9SaEpffEn7E3UykE=;
+        b=c21DBU1BpeGqkSFmHiUwr/22b/4lQxAQO5e7yW7ZupU9iLIzX1OOPIjobzt/QFkpCs
+         H/DXySXpq/XwEp+MqBYlfYOfset82RYaRud+ocUujINCBPQcJkCxWNGQKVomDpTGNxJn
+         hBp4wv6+WFZCnwO1ht4vBBQ+SIhHalqaNjexTsfwBp2KHrAV8CcMvsEUhLnc2HY2LTvH
+         slSNCQUqenH57UtX8HrGfGyhEewOmdTZEliWdd6TYtZs2+gyXd6wHtFIC8FhnqINdK00
+         qCoFIMQELO/YjdApjyucakOuOzI1iD/W69L8eFcqDRszavVfj3i6otIN/7hSddvlTX66
+         LvFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxG5TpvBu5SXOQQJ2yqHLAo0lDPnKKSiNFWPokKKZHg+EpNnB7r18wCQW2yB9vUCZ1obw2gPU+GU9PN8pE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nEEjfQ1KDxDDIdpOGdaSx743zWzYnZV8Z3xrO0njWvqk3dQFul
+	uP/c2CL314KO3pAJdnknfurAb7VCiq5ueE9ckrhN3NIh8jO72c8gEUQB
+X-Gm-Gg: AYBFou2iNeqtjE5VfADwZ9A/s/wUZN4JgpZTbHj+VGHCsEG7cej2gRgfFQckEt1Kg8S
+	AfXfrHD+3GAF+o7tznUVh9k3fTjV4F2qwd+cc3ZBnKVkDDT9sG31GROoXQFpxbzSHSRAnCUpt6X
+	OyNxu3oUgGexIKv8+xV8F+0wyxesPJRTB18LOAp1JQqfFyHsRt+P02AF+2tucEZHoEsASdOClnp
+	+6inJQfL9+93x9zl35aZpUExbC/jwsF1lFha1CPShSYNN+X1BW7CEtsQ9m9KqSvsuT99AEkRdT7
+	iqz2XrgwDNEwkxeVduRp2gj2VWBjrki+3lsOeILfFqa1RN4Y6jvuit9wwEpG9X1+HdvvG6EQOYw
+	hldgRjO6Kt4QUvEz6w7CUWt2K6qQUoegn0+buLu7JxTNEFy4Q0AlK8phV1e4mBQ2pOVKhGLvajx
+	lznqrZ/K0mG4xdziVhpfmsiuS2CrQar+eJQF247c6smfAJVAws6lClAgQWGRjQUjmF7FRQ/M1R
+X-Received: by 2002:a05:6a20:914f:b0:3b4:7e2d:a3c2 with SMTP id adf61e73a8af0-3da3a03e965mr23968702637.18.1788673858878;
+        Sat, 05 Sep 2026 22:50:58 -0700 (PDT)
+Received: from localhost.localdomain ([111.199.57.231])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc45e15604fsm2225263a12.0.2026.09.05.22.50.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 22:50:58 -0700 (PDT)
+From: Gong Shuai <gsh517025@gmail.com>
+To: joseph.qi@linux.alibaba.com
+Cc: Srikanth.Aithal@amd.com,
+	brauner@kernel.org,
+	jack@suse.cz,
+	linux-ext4@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	luca.weiss@fairphone.com,
+	ocfs2-devel@lists.linux.dev,
+	Gong Shuai <gsh517025@gmail.com>
+Subject: Re: [PATCH] buffer: fix NULL dereference of bh->b_folio in __bh_submit()
+Date: Sun,  6 Sep 2026 13:50:32 +0800
+Message-ID: <20260906055032.3005936-1-gsh517025@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260902013357.2815214-1-joseph.qi@linux.alibaba.com>
+References: <20260902013357.2815214-1-joseph.qi@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903040131.4016290-1-zhangbo56@xiaomi.com>
- <20260906011820.382381-1-zhangbo56@xiaomi.com> <CAGsJ_4wC78QDTrETC0WpnouN=8aF8ae6Yxgb+oKiOP3A76ATLg@mail.gmail.com>
-In-Reply-To: <CAGsJ_4wC78QDTrETC0WpnouN=8aF8ae6Yxgb+oKiOP3A76ATLg@mail.gmail.com>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Sun, 6 Sep 2026 13:49:30 +0800
-X-Gm-Features: AcwNN1W3d0Og_zgj_zuXYW_3ipFK3L8APnvEnnR3uGPVN-t0sokfY9kP47fq6Ys
-Message-ID: <CAMgjq7B==MqHXa6H=arrQ9a0bUXWpXG_a5EBxZGjLjYUuEf1gQ@mail.gmail.com>
-Subject: Re: [PATCH v2] mm: vmscan: avoid anon scanning for GFP_NOIO with low swapcache
-To: Barry Song <baohua@kernel.org>
-Cc: Bo Zhang <zhangbo0325@gmail.com>, akpm@linux-foundation.org, hannes@cmpxchg.org, 
-	qi.zheng@linux.dev, shakeel.butt@linux.dev, david@kernel.org, 
-	mhocko@kernel.org, ljs@kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Bo Zhang <zhangbo56@xiaomi.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 6, 2026 at 12:56=E2=80=AFPM Barry Song <baohua@kernel.org> wrot=
-e:
+> Commit a2c924c240e7 ("buffer: set BIO_COMPLETE_IN_TASK for dropbehind
+> writeback") added an unconditional folio_test_dropbehind(bh->b_folio) in
+> __bh_submit().  But jbd2 shadow buffers have a NULL b_folio since commit
+> 5febcba29792 ("jbd2: point the shadow buffer at the frozen data
+> directly") made them point b_data at the kmalloced frozen data rather
+> than a folio.  Submitting such a buffer during journal commit oopses:
 >
-> On Sun, Sep 6, 2026 at 9:18=E2=80=AFAM Bo Zhang <zhangbo0325@gmail.com> w=
-rote:
-> >
-> > We have observed some cases where memory is allocated with GFP_NOIO, so
-> > we cannot reclaim any anon folios unless they are in swapcache. We can
-> > end up spending more than 150 ms looping in `shrink_folio_list()` scann=
-ing
-> > non-swapcache folios without reclaiming a single folio. This is pure
-> > overhead.
-> >
-> > This is particularly true on systems using zRAM, where swapcache is
-> > relatively rare. So let's check whether anon reclaim is allowed by
-> > GFP_IO and whether there is enough swapcache to make it worthwhile. If
-> > the swapcache is extremely low, we're essentially searching for a
-> > needle in a haystack, so let's avoid scanning anon in the first place.
-> >
-> > On Android this is triggered by dm-verity hash-block reads through
-> > dm-bufio, which use GFP_NOIO:
-> >
-> >   verity_verify_io -> verity_hash_for_block -> verity_verify_level
-> >     -> dm_bufio_read_with_ioprio -> new_read -> __bufio_new
-> >       -> alloc_buffer
-> >          gfp: GFP_NOIO | __GFP_NORETRY | __GFP_NOMEMALLOC | __GFP_NOWAR=
-N
-> >
-> > Such a reclaimer can land on a memcg with a large, unswapped anon LRU a=
-nd
-> > a tiny file LRU (e.g. inactive_anon ~335 MB vs inactive_file ~4 MB, wit=
-h
-> > negligible swapcache). shrink_lruvec() then keeps feeding that huge ano=
-n
-> > list into shrink_folio_list() - ~2400 shrink_folio_list() calls, ~93,00=
-0
-> > anon folios scanned - where every folio is kept because it needs IO. Th=
-e
-> > 150+ ms above is one such single shrink_lruvec() pass (not accumulated
-> > across a reclaim cycle), and it reclaims nothing; the actual progress
-> > comes entirely from the file side.
-> >
-> > Aging anon alongside file does have some value for a later __GFP_IO
-> > reclaimer, so it is not strictly pure overhead. But that aging is only
-> > deferred, not lost: kswapd and other __GFP_IO reclaimers still walk and
-> > age anon. Spending ~168 ms aging memory that this context cannot reclai=
-m
-> > is not a worthwhile trade-off in a latency-sensitive path.
-> >
-> > To stay conservative, this only skips anon when the swapcache is really
-> > tiny - below 1/64 of the anon LRU - i.e. when essentially no anon on th=
-e
-> > list can be reclaimed without IO. Whenever there is a meaningful amount=
- of
-> > swapcached anon, the normal path is used and anon is scanned and aged a=
-s
-> > before.
+>   BUG: kernel NULL pointer dereference, address: 0000000000000000
+>   RIP: 0010:__bh_submit.constprop.0+0x87/0x120
+>   Call Trace:
+>    jbd2_journal_commit_transaction+0x932/0x1b10
+>    kjournald2+0xb2/0x250
 >
-> I notice this only fixes the active/inactive LRU case. To address the
-> MGLRU case, it seems we may need a more fundamental change.
+> Hit by the ocfs2-testsuite fill_verify_holes test running with
+> data=writeback.
+>
+> Dropbehind only applies to buffers backed by a folio, so skip the check
+> when b_folio is NULL.
+>
+> Fixes: 5febcba29792 ("jbd2: point the shadow buffer at the frozen data directly")
+> Tested-by: Srikanth Aithal <Srikanth.Aithal@amd.com>
+> Tested-by: Luca Weiss <luca.weiss@fairphone.com> # sm7225-fairphone-fp4
+> Reviewed-by: Jan Kara <jack@suse.cz>
+> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+> ---
 
-It won't be too hard if we just calculate the type and number to scan
-upfront, and I believe this is a similar issue due to the same root
-cause of the OOM and swappiness issue of MGLRU, which I mentiones
-before (see point 4, "force protection of the youngest two gens"):
-https://lore.kernel.org/linux-mm/CAMgjq7BoekNjg-Ra3C8M7=3D8=3D75su38w=3DHD7=
-82T5E_cxyeCeH_g@mail.gmail.com/
 
-Removing that force protection and calculate the number to scan
-upfront, then we can also make use of can_reclaim_anon_pages, shift
-all scan budget to file type. Aging won't be triggered at default
-priority, resulting in zero overhead. We can then either offload aging
-to a worker or defer it if aging isn't helpful for one reclaim cycle.
+Hi Joseph,
+
+Thanks for the fix.
+
+On the OrangePi RV2 single-board (SpacemiT K1, riscv64) I hit the NULL
+pointer dereference while testing other patches on top of linux-next
+(next-20260904).
+
+The jbd2/mmcblk1p3-N commit thread crashed in __bh_submit() when
+submitting a journal shadow buffer whose b_folio is NULL. On this
+board the crash reproduced reliably, roughly 3 minutes after boot,
+under normal filesystem activity on the ext4 rootfs (buildroot-based
+minimal userspace).
+
+After applying this fix, the same kernel/board combination has been
+running stably for several hours with no errors.
+
+Tested-by: Gong Shuai <gsh517025@gmail.com> # OrangePi-RV2
+
+Best regards,
+Shuai
+
+
+>  fs/buffer.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/fs/buffer.c b/fs/buffer.c
+> index 427d8a817cd5..f46fa6413032 100644
+> --- a/fs/buffer.c
+> +++ b/fs/buffer.c
+> @@ -1106,7 +1106,8 @@ static void __bh_submit(struct buffer_head *bh, blk_opf_t opf,
+>  
+>  	bio = bio_alloc(bh->b_bdev, 1, opf, GFP_NOIO);
+>  
+> -	if (folio_test_dropbehind(bh->b_folio) && op_is_write(opf))
+> +	if (bh->b_folio && folio_test_dropbehind(bh->b_folio) &&
+> +	    op_is_write(opf))
+>  		bio_set_flag(bio, BIO_COMPLETE_IN_TASK);
+>  
+>  	if (IS_ENABLED(CONFIG_FS_ENCRYPTION))
+> -- 
+> 2.39.3
+>
