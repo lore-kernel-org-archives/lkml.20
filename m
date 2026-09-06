@@ -1,241 +1,111 @@
-Received: from out-utut-a193.jellyfish.systems (out-utut-a193.jellyfish.systems [198.177.127.193])
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1237435A93C
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 17:08:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.177.127.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C582931F8
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 17:09:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788714540; cv=none; b=JVeoNB66KjuhPiBAMjBZIYojIqwJTURkRzilNxWRFQQ2HXsFvD5SPsQSQF7DO+V94CUuc+wOLVcMTM71LAPcQzXf3fMDEzI5HkZlpK0h9NOe32DuU+logKbZF1DYe1IuAraFaQiHMCOA5iosW68V4yh4xP0YX9lcRsqce+5xY4I=
+	t=1788714558; cv=none; b=VpvXHRmXe6XcLiONCirZ2w+qFAZyLNErbbP9Qmi7TEUiVeg56SJQH/ocwBjC/uM4VRqA5JTr/6YSr1VK0kYv3FMn3sgiu0kx45ezlFfZdaDtPktMZbEjMCmriE616lCCCl/LW2G0qn79rFmWY6by2Mgm/LasKfZZ9ByvWicC7Fg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788714540; c=relaxed/simple;
-	bh=dJy8K7QpTEAQGyMtp7rRVTUQldhttr9jIZVdtHql6D8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nBuqp91K0RNYSkgnVS0jyfGoA00nDr4TkjQPwE/hQDg9nyq3RO0u8yRPy8wAYrRk8p02VOxyh6N3/eECnO462VL0hFYrzW+VHBtMITEDMxiyr2BmcV/bgVicBZiDl5jSbdYY6E2R6BEsyWoaoNWVJYBxJZvQWQRIrZyupojlKTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=d3QRuOHM; arc=none smtp.client-ip=198.177.127.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
+	s=arc-20240116; t=1788714558; c=relaxed/simple;
+	bh=YuAissJBxd/oEcul73Oqcl2w4eCknoHW3mzGMcbV8V4=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=DCgZYVvFR+HZFqQJIn90CWxWpBX0oPwSUa4JD36tgD+1KBv+x4UA6SvoqffELqEc3JE3RMldiHqtXo8mVIQKNOE28p58bg9ZtFvvigtDEUsft0SDzjWnQihVD8sgutUPcQ8zeWrwnMX2WxmeeB9oxcWAf7WXTIhLjMAqsCmWLjg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IcuSwJGJ; arc=none smtp.client-ip=209.85.128.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="d3QRuOHM"
-Received: from fedora (unknown [69.5.53.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4hdGr41rpLz8sXJ;
-	Sun, 06 Sep 2026 17:08:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
-	s=spacemail; t=1788714523;
-	bh=pEaJ0IworLq94kzj0A5eN/+Ym81HOT70PvZyiKxaOOI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=d3QRuOHM0NXOvHlwAaAO95wMHLjxSgm0qPB5e2lxiCi7mN3VQl2Xk6rCWz6q2+967
-	 MKqR/1jQ7jo3nmkL+v2wvoko9roMg3eytXJBqHRl9+qVar4c/nAfSIl4/hf4GmJK5M
-	 XmQ7ET70TTMjVJ+HuwEdKdt+4xMBER7Sr8rixLga1LKk3NGHJefE2b6zerGRZZHUg9
-	 zCkH03HTRUHocKo5hBLGhtNFAWRqk8Og4jLT3Il6DGc04wvn9cwzAhBWPWCcnErL30
-	 ho2zFG1urzQz5LnfDujGOdjdWpuC8Sxp8iBwbC6SKOiFfsXcRj73tQP43Hg51YW2BS
-	 nO505y0Q1AW5Q==
-From: Tianyi Chen <hi@tychen.cc>
-To: bpf@vger.kernel.org
-Cc: Tianyi Chen <hi@tychen.cc>,
-	Quentin Monnet <qmo@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH bpf-next 1/2] bpftool: Use batch lookups for bounded hash map dumps
-Date: Mon,  7 Sep 2026 01:08:18 +0800
-Message-ID: <20260906170819.1212661-2-hi@tychen.cc>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260906170819.1212661-1-hi@tychen.cc>
-References: <20260906170819.1212661-1-hi@tychen.cc>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IcuSwJGJ"
+Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-867a943b149so42725857b3.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 10:09:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788714556; x=1789319356; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=yx2dnKqh0YARmk7SiDnWQoiCJSWS0Gox86DZ0zODi7Q=;
+        b=IcuSwJGJ2ZYbj3csiAyUkOaEpS4X+Pfzz6izHgYKhMY6oTKr4aU9E1f0kh6qGDvTc2
+         Pv/KDx8m8mLRAEC0vuR48m8BPN8U8xJMeFNYKQugnU5b/afEMtycVRPQyyd4d1lfduQ+
+         LHB1HDL3TfvfvZ1gcmYCpSj90P9/PWl3piUIuB9E38ZFZ+1rxvi6/nDKIMrU3ESvMGV6
+         ed3P6mJC+RKadejwRQ1VOxLhjYi+2ZiDbngbB3CFdn6yHiLWXGh9G7fGNJmLFMrzm9jj
+         aXT8fnCa5wwZCpKzcRq7PKfxbrwq2CO3MJHmRKIxA3L7UjZVvbJiPK5fEJy3qMOII+U7
+         5jyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788714556; x=1789319356;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yx2dnKqh0YARmk7SiDnWQoiCJSWS0Gox86DZ0zODi7Q=;
+        b=hbrrFUdqS4ZFniYARH7r9xNJ46gDlaLQSL1icw8INlVqRHz9i+VZhS1QarKcMCUKxo
+         jHqeEx0cHqCxp/Y6IGCiwPNNBIN1cZw+ppKcuhhanhhmQgL688g9crzJ32STwBpb8v+D
+         6ZIozMyA+Y8+w+AVGVSWJpXs7sNH95W2uBgIva3Rr7UldWm9LOGnjtzz1um6MeEqHj6B
+         Gnghq4JWyflPkhm6y6U9W/BIfmi/DkZ6DLsEyrkAdCc/Vc1cM05JxNzaC+PjOrbqumpv
+         OBhj57BFmq6KxvPhUCN//OwfVXJdCuxhOUNlfgKsnBiOe8q2XlANjlaNN9Vtct/wfvai
+         baCA==
+X-Forwarded-Encrypted: i=1; AKwUvByvwPXTU2agjrqVoTkfJOX4YMfoezJr4DWwl/6H5RtCg+rZ6xiVwGo44fC3Anh2I6AYl1WCA6035PsCVow=@vger.kernel.org
+X-Gm-Message-State: AFuF++luoYm7U9FuSKVpSZnfdI2g/NHAJFza2k1HKhGWlqwxrTtTDyuP
+	FFe6+R0B9o/986S40CTzJld9qDaIdO35WyAiv5BrXGEqr1GdK8ahOGAE
+X-Gm-Gg: AYBFou1L3iK8EAfBiZCe8NzgnIKqY3khD5zORJDK9Gr3sjOJ27wjYIJfKtDym0chprb
+	8S+HHCHH3CZIjh3XYhqU870RJS71FgPmzmzrnnHZ2RqvuFkS2izW+4XHHEMSSADVMKvmWUK296l
+	l8R58JgP08u4tuGgvFWWelgC8Um5W4V2wMZAHrpZeeykPJPmU/USbjYtfh7sc6q73AtiMLqrgGk
+	hNrANvtrKD6EyTuEe7akaTfQQj6dbDXKm0s9WTUOWfIrb8cYooWKo5yj2SbdoqcxJdJR35om/wH
+	Qfas2HANFVfqPLrLpGL+AUhUCVlue8Jq3Xv8ldAT54+G9qytYV0D28soyYvrgjC4kbD150iG8C0
+	2PqFjGk/bDoeOg5LZ/8k29J/yE4YHWt8AfDBW4ju59H/xOLGgSYDF2oOiRCN+WFfje8E6TFuUCp
+	ua0g6hF+cjOaeyTXvJ+UdJCeIXzAJnwNPRVQXjMB7j/REPNZdQetgMIWkUSBdFXKyOmOZlD3Yuc
+	Ggi2IpLfRjxdXIhUFrOEqayRPz60WZYCW1rEVUnxQ==
+X-Received: by 2002:a05:690c:d8e:b0:870:107b:6353 with SMTP id 00721157ae682-87126c9bc61mr65866247b3.23.1788714556284;
+        Sun, 06 Sep 2026 10:09:16 -0700 (PDT)
+Received: from gmail.com (234.207.85.34.bc.googleusercontent.com. [34.85.207.234])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-87149316361sm57718437b3.14.2026.09.06.10.09.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 10:09:15 -0700 (PDT)
+Date: Sun, 06 Sep 2026 13:09:15 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Daniel Zahka <daniel.zahka@gmail.com>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, 
+ Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Message-ID: <willemdebruijn.kernel.a00ab9d6c61@gmail.com>
+In-Reply-To: <20260903-psp-prep-v1-2-d47e9c4c375d@gmail.com>
+References: <20260903-psp-prep-v1-0-d47e9c4c375d@gmail.com>
+ <20260903-psp-prep-v1-2-d47e9c4c375d@gmail.com>
+Subject: Re: [PATCH net-next 2/4] psp: move code from psp_sock_assoc_set_tx()
+ into helper functions
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: hi@tychen.cc
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-Use BPF_MAP_LOOKUP_BATCH when dumping hash maps to reduce the number
-of BPF syscalls. Share element formatting with individual lookups to
-preserve plain, JSON and BTF output.
+Daniel Zahka wrote:
+> No functional changes.
+> 
+> Lift code that needs to be called from both initial tx establishment
+> and tx rekeying into functions that can be reused in both paths.
+> 
+> The plaintext in recv queue checks and mss adjustment only run on
+> initial tx keying. The dummy psp_assoc machinery will be used in both
+> paths.
+> 
+> psp_dev_tx_key_add() absorbs the dummy assoc machinery, as its main
+> purpose is to populate the device specific psp_assoc:drv_data.
+> 
+> psp_assoc_set_tx() exists so that a future change can allow
+> psp_dev_tx_key_add() to be skipped entirely for devices that don't use
+> an SADB, while copying of the tx spi and key into the assoc needs to
+> happen regardless of SADB vs. no SADB.
+> 
+> Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
 
-Start with up to 256 entries and grow on ENOSPC without advancing the
-input cursor. Restrict the optimization to maps whose maximum key and
-value storage fits in 4 MiB, so even a worst-case bucket can fit without
-restarting a partially printed dump. Preserve aligned element buffers
-for formatting keys and values with odd sizes.
-
-Fall back to individual lookups only if the initial batch operation is
-unsupported. Process the final partial batch on ENOENT, but never use
-count or output buffers after other errors. Report errors after batch
-traversal starts without restarting and duplicating output.
-
-Assisted-by: Codex:GPT-6
-Signed-off-by: Tianyi Chen <hi@tychen.cc>
----
- tools/bpf/bpftool/map.c | 113 +++++++++++++++++++++++++++++++++++++---
- 1 file changed, 105 insertions(+), 8 deletions(-)
-
-diff --git a/tools/bpf/bpftool/map.c b/tools/bpf/bpftool/map.c
-index 684a8fb7241..1eccdc0d1e9 100644
---- a/tools/bpf/bpftool/map.c
-+++ b/tools/bpf/bpftool/map.c
-@@ -740,15 +740,10 @@ static int do_show(int argc, char **argv)
- 	return errno == ENOENT ? 0 : -1;
- }
- 
--static int dump_map_elem(int fd, void *key, void *value,
--			 struct bpf_map_info *map_info, struct btf *btf,
--			 json_writer_t *btf_wtr)
-+static void print_map_elem(void *key, void *value,
-+			   struct bpf_map_info *map_info, struct btf *btf,
-+			   json_writer_t *btf_wtr)
- {
--	if (bpf_map_lookup_elem(fd, key, value)) {
--		print_entry_error(map_info, key, errno);
--		return -1;
--	}
--
- 	if (json_output) {
- 		print_entry_json(map_info, key, value, btf);
- 	} else if (btf) {
-@@ -762,10 +757,108 @@ static int dump_map_elem(int fd, void *key, void *value,
- 	} else {
- 		print_entry_plain(map_info, key, value);
- 	}
-+}
-+
-+static int dump_map_elem(int fd, void *key, void *value,
-+			 struct bpf_map_info *map_info, struct btf *btf,
-+			 json_writer_t *btf_wtr)
-+{
-+	if (bpf_map_lookup_elem(fd, key, value)) {
-+		print_entry_error(map_info, key, errno);
-+		return -1;
-+	}
- 
-+	print_map_elem(key, value, map_info, btf, btf_wtr);
- 	return 0;
- }
- 
-+#define MAP_DUMP_BATCH_SIZE 256U
-+#define MAP_DUMP_BATCH_MAX_BYTES (4 * 1024 * 1024)
-+
-+/* Return 1 to use individual lookups, but only before batch traversal starts. */
-+static int dump_map_batch(int fd, void *key, void *value,
-+			  struct bpf_map_info *info, struct btf *btf,
-+			  json_writer_t *wtr, unsigned int *num_elems)
-+{
-+	__u32 capacity, count, batch = 0, next_batch = 0, i;
-+	void *keys = NULL, *values = NULL, *buf;
-+	bool first = true, can_fallback = true;
-+	int err;
-+
-+	/* Hash lookup batches must accommodate a whole bucket. Restrict the
-+	 * optimization to maps whose worst-case bucket fits the memory budget,
-+	 * so a later ENOSPC never forces a restart after printing some entries.
-+	 * Division also bounds the allocation multiplications on 32-bit hosts.
-+	 */
-+	if (info->type != BPF_MAP_TYPE_HASH || !info->max_entries ||
-+	    (__u64)info->key_size + info->value_size >
-+	    MAP_DUMP_BATCH_MAX_BYTES / info->max_entries)
-+		return 1;
-+
-+	capacity = min(info->max_entries, MAP_DUMP_BATCH_SIZE);
-+resize:
-+	buf = realloc(keys, (size_t)capacity * info->key_size);
-+	if (!buf) {
-+		err = ENOMEM;
-+		goto error;
-+	}
-+	keys = buf;
-+	buf = realloc(values, (size_t)capacity * info->value_size);
-+	if (!buf) {
-+		err = ENOMEM;
-+		goto error;
-+	}
-+	values = buf;
-+
-+	while (true) {
-+		count = capacity;
-+		err = bpf_map_lookup_batch(fd, first ? NULL : &batch,
-+					   &next_batch, keys, values, &count, NULL);
-+		err = err ? errno : 0;
-+		/* Older kernels reject the command before updating count. Do not
-+		 * inspect the buffers on these errors, or fall back after progress.
-+		 */
-+		if (can_fallback && (err == EINVAL || err == EOPNOTSUPP ||
-+				     err == 524 /* ENOTSUPP */)) {
-+			err = 1;
-+			goto out;
-+		}
-+		can_fallback = false;
-+		if (err == ENOSPC) {
-+			if (capacity == info->max_entries)
-+				goto error;
-+			capacity += min(capacity, info->max_entries - capacity);
-+			/* Preserve the input cursor: the oversized bucket was not read. */
-+			goto resize;
-+		}
-+		/* In particular, EFAULT can leave count and the buffers invalid. */
-+		if (err && err != ENOENT)
-+			goto error;
-+		for (i = 0; i < count; i++) {
-+			/* Keep the alignment provided by individual lookups, including
-+			 * for BTF types whose map key/value size is not aligned.
-+			 */
-+			memcpy(key, keys + (size_t)i * info->key_size, info->key_size);
-+			memcpy(value, values + (size_t)i * info->value_size, info->value_size);
-+			print_map_elem(key, value, info, btf, wtr);
-+			(*num_elems)++;
-+		}
-+		if (err == ENOENT) {
-+			err = 0;
-+			goto out;
-+		}
-+		first = false;
-+		batch = next_batch;
-+	}
-+error:
-+	p_err("can't lookup map batch: %s", strerror(err));
-+	err = -1;
-+out:
-+	free(keys);
-+	free(values);
-+	return err;
-+}
-+
- static int maps_have_btf(int *fds, int nb_fds)
- {
- 	struct bpf_map_info info = {};
-@@ -869,6 +962,9 @@ map_dump(int fd, struct bpf_map_info *info, json_writer_t *wtr,
- 		p_info("Warning: cannot read values from %s map with value_size != 8",
- 		       map_type_str);
- 	}
-+	err = dump_map_batch(fd, key, value, info, btf, wtr, &num_elems);
-+	if (err != 1)
-+		goto end_dump;
- 	while (true) {
- 		err = bpf_map_get_next_key(fd, prev_key, key);
- 		if (err) {
-@@ -881,6 +977,7 @@ map_dump(int fd, struct bpf_map_info *info, json_writer_t *wtr,
- 		prev_key = key;
- 	}
- 
-+end_dump:
- 	if (wtr) {
- 		jsonw_end_array(wtr);	/* elements */
- 		if (show_header)
--- 
-2.55.0
-
+Reviewed-by: Willem de Bruijn <willemb@google.com>
