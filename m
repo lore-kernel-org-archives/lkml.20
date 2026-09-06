@@ -1,183 +1,127 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAE051E492D
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 13:31:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 338872C3757
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 13:31:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788701483; cv=none; b=Uvxwh3SiBw5OAQtkaFhA77tWWr+Ylpzko2V2imivoSoFYZMe9BWiGeJxaJXX5c1SPqoxTNy4Jn9AuL8p3eOgaq5CvGfCSGsAQE3dvApOt429j+s5/ROyf4quXvHg3oSo4Mq17Q35oIjnk/+KPfET2U/kWVreUB8wRUpjqCugubk=
+	t=1788701503; cv=none; b=pjcIZuGmUG+3JvBAosI76N27x6NErM8fVgDj9rkuZU9DzJK5kIdzy2cGYXDT+iHjHWWy+MdnCxqMuWz8Z+mmDj/+Xdrf9drqMuQrmi7FlkKbDGsoPScFAWHoINmkVxfDjwxjy8k1oL17c/jKLwIhvVe/x659Tx0z28oN96z/950=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788701483; c=relaxed/simple;
-	bh=w9uXm4NeZlNVLPlUVdwRM9srfwyMgHqMULfg8Dra+mw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jeSDORXpJ1y+bSYORMp46K3F33+7jxF5v89mcFM0nMv4o7JykRT+Hmb5MKaJXhYyPiqaZl28BJsN4m31Ac41AdRrFPM9tQF51gHxH6bs0jqcvZ5d4FF6/ElwvFn8Mdi1FfhfBGSdDmlRDJF+zyKN9okc32xFeWX3IIK9AoIYkh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oiQiz3Ph; arc=none smtp.client-ip=209.85.214.170
+	s=arc-20240116; t=1788701503; c=relaxed/simple;
+	bh=XV9/Gau1ScfFSIySp4WW7NMKBztrqxSBrSAXGTOY170=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gKS+nyFB9H6k52ijq73mnkxtNK0OrQXTn3sZn6ly6aHPUyBiC4dV3DfLEl7wNeMekNX7ToWgkvVOgm6GJumGCNQZo0jEgEo//jAjvulw+wzXJXhswD/ad1OzsJU0Jy+4owMrlH2TXb7+JHNgapoGgswG43kauGsWsU2oaic8BBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R3PtJWkX; arc=none smtp.client-ip=209.85.214.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oiQiz3Ph"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d6e954afbdso16245105ad.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 06:31:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R3PtJWkX"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d6fe26ef1cso26250535ad.2
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 06:31:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788701481; x=1789306281; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Tj4ItgvvBxbS1G7naSWp8Nbn7WWa6B30ZGxjseZ9BkI=;
-        b=oiQiz3PhPwldC4bnwr4BRrOIcxwAPQl0IbKZWW2PA9mbdoh1kCGAObMVlqA1hk/5qx
-         +ofkgCBxiZsiAwohvSzO8AoQsL0eLeNiIy2w9gmps3ZKW99o3BGw6kXAQX/KsRsiU5hj
-         CFUkSJ7+unTOaqqeTGYWXf2zwjNDdKG/6+tMAyBCTEy8FPAD/NzhzyH7PLaoYpOsFc2p
-         Hf4yQnBxf0O0N2s9SEhB3o/k5NNgpj5kOLCNqT1lRCom6BxP2eWXrXqySJfaR6XFOcfA
-         rtToG6/9YApMg3D3llzuoG36c6kUxRsFTQXWWeAP3KGJ3MPmuL7kfRDQBoIxsizvg6cy
-         wJZQ==
+        d=gmail.com; s=20251104; t=1788701501; x=1789306301; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=9tYnhpE7QdeEZNd+tgaIJOLzvVhdJ+mADYDf3k6L6f8=;
+        b=R3PtJWkXF0qqaFViDXgXamNPdK+mIP8L9zO3g5y5wXGIM/OxF27syKtLpnXRbrKl9Z
+         fFeFb0GCzOFRr0TyBPSk/DovwlKtuXQGkDdp3TTaJ4m7HpVaPCiGqjBJHXTfNovED4dQ
+         +1kVo3UOvCYaE56IGMQEr1aeatlQPN6Tosg2ONVEFNE8KW4sHo688HCDJetsYNqqU/AC
+         tBir/n1DrjPlF1Z6w5IQB0Wnm3HZPlMPUNppl7JV2QrUjGC5tP1tgC8i1fuA0RVl+qTf
+         Reb+B4y2eipZ9VmN+kxwm1In2AU8ulVlRonOsegoLo4d92VDR5syf3L+l/7pi6n9FqE4
+         YOYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788701481; x=1789306281;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Tj4ItgvvBxbS1G7naSWp8Nbn7WWa6B30ZGxjseZ9BkI=;
-        b=gthyXVdbXKVlRMhfJBY5+KFN2TRlOkoWHM/jPSuWwWe4z2Qm9izOBnHOfbRYxh19K2
-         229/x967LToYGQJeGcIxXvfiDe9Uy4wxmKFIjTFHetkfnz3vnN0KR9xYNjM3kEOUf/l9
-         YCAqiMY/N0Nh3gLFKCrKd7d3f1IgtxfK+/nFZxG4K0r99H+fXCCHcCHOtDsGKCAXuiE1
-         RriDC3Yq+rzmhVL79wp/yUfPn8jnSOUXSWeW6tw96tQIKabpSLie3BhmIZpL7P+oOuC/
-         05ZkEs+oisFdQUELXFFYSVVoIoPfUGiaSsGPVC9Cs/6RyP+PgH8zIH+dANzDFMHXDTs1
-         R7Jg==
-X-Forwarded-Encrypted: i=1; AKwUvBxoCKvsRGfi0acaUpwobRzc+NyW92cyqNmNKCfFsyvHyWgzD+FcOIPWIGizfQiZX3KbRY0h1B3Bp2UN/Xc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mNnzz/qxAdSCb7l882lLRvjBT1yAKqpUTEOSXpjvaf0S1VhKUz
-	cLjcX2KZiPvkqT/xGUJAr5zqecrDGvTZ6EVGlQHghx2WEfrtOPv0LQQzpJq5vw==
-X-Gm-Gg: AYBFou0YKyeNEdSaB81gOU2JMrVQSsrrHPsG6P7C00ru6mhFj+EUIWI8F31TIqB21I0
-	yg+EKpOAPyC9ORFLlmDUpqww2un/fiD2eFKfSkPl6I1TyXuzap/cnTrmmW7W/EWtsfWcD3h4gyd
-	ZX7PpgX3sXhvLHPHJp0I00+s/h3NJBj5VujzN7AAtaFtdPGM/VH1+lKwniNyYbILRL4oWDBXa3N
-	IwhWfKL8DvlH8pEp+HVj+9i9Qx8p7+bUf1GNdxq5kqmNMomxck/jlSW3icS8ivD7uWRhwVD0+4u
-	AW22rzDP9oAidWeKQ7O9XBgHChdt0RCBWXSiwYGWquNHjgkaacYvqKKEosI47pcWMv6h1PheiCj
-	wzIQX1QifRZyN/RRYNGI0Rzff2kE9YsW/Y00N8yKwIGTyHLaUZ5fMyNVFOC6XkzgaciX5Wcsxf6
-	mjGLLizhRSny6u167nP0wm8uAny5FwEz7pav6Y9jFvkODnMAirnxEuh76YsbKSeShtpM2LRenkT
-	AFwiGee
-X-Received: by 2002:a17:903:3848:b0:2d9:56dd:f804 with SMTP id d9443c01a7336-2db125f00c7mr262152175ad.13.1788701481084;
-        Sun, 06 Sep 2026 06:31:21 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:1d38:5c70:7bb9:b8bf:8aa8:fb0d])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1499d92dsm32422945ad.52.2026.09.06.06.31.16
+        d=1e100.net; s=20251104; t=1788701501; x=1789306301;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=9tYnhpE7QdeEZNd+tgaIJOLzvVhdJ+mADYDf3k6L6f8=;
+        b=bW2aZuJ18SoqWhNDnzGsvGuLTRLuCa2KDY62vAAT9htsTKhPZ1VComiaqhk3WFNedl
+         BGusnTBehsl3ZQZAhRk8eQOTmigBO6SYOclflvlKB0i3Yf5vcaLAH4/cSu1Z1RiqE7k6
+         XLuuAvgrS20kShKc/b1ZexGF4K7iNcjMeCLO8o5XhJhWSQQ4+cNdFWrJadk6A7Tr56PQ
+         9hNctViqo2R139x2a1aANIdUfJmgmjwordNIyiUfGYEDq0E2S/UEP7B5Z9n+amx3l2Zh
+         xO2zYpYXPwAeip7oP51nvgY1XR26MI8+JeGhde5rSdjZD/HYm4rT/VG0iEwEixHlxx7M
+         4EQw==
+X-Forwarded-Encrypted: i=1; AKwUvBxoy2Ws6Rp91mX+Vu6yU2ia+tcKfyJ8sOtSzFdfPUvFhUNVdaWPyhjuwk9B3/kwJvR7uhHpExWENIKsUVQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nXafPKmHrT5hKmrmQHIOE2ACTi/sQH5DEH3QE0JDxRZwZBUDvD
+	O+UraAAAr3b4RaPxngpSVwYWZWFVdy8+5baZQescp8iZgr4WJYAQT7bd
+X-Gm-Gg: AYBFou2FzeyCIV6boLNWB37G+ctucC66gVXAZPK457atPrVcS1QmtafIB29E10FbR09
+	2lGJ8L+zHUA92gv3se92q6EzW5HwzANMc5Q9Y2S6PLJxmhclqVLGBqCqoVPxHEd1pHXBtAX/Jfd
+	r4BxSh40LrZmWzHr8er1NeZ+2I8+KCPnO3/4su5M+FK4RwWE/S7DMq17Mis88jnyTNR7v9AayaT
+	lYCvqUSTm1RJrfvBpcFBc9ch05gq0kqp6UJFtYrMd4K4Vwq1zfiRAhMciFnW46HKEB4LDyU5UzS
+	k2E7Wum/gmGxqvGcXURRG07xOlQLldGo0Nt3gdPTLEkWvQLMtKJHV7aQ7VDfqODPY2/gAUYbu6X
+	iHuY0BTkmLLKzui55N+gPQOPrAwGVH5TeikTOgKwd7CtIx5ch2NAaauR6mU1ChcGqWn+GzCugtW
+	2e8hCLil9LhlDbhi6Jv+Cy7NwwfuVrL8kE8qF+VsHxXS7f2kEnzfNfJPXxy5gx+BZNuqj0cokNn
+	yTaIvAgaOwCR67vYFUpLkxaJxU2aufn5H1kmk+SZ4ZpCQuxxACfPbKk
+X-Received: by 2002:a17:90b:1d52:b0:398:dcef:c040 with SMTP id 98e67ed59e1d1-39b26242a20mr27559871a91.19.1788701501355;
+        Sun, 06 Sep 2026 06:31:41 -0700 (PDT)
+Received: from junjungu-PC.localdomain ([223.166.246.74])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b25f88475sm15084306a91.1.2026.09.06.06.31.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 06:31:19 -0700 (PDT)
-From: ThangNN99 <ngocthang2710.1999@gmail.com>
-To: Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Heming Zhao <heming.zhao@suse.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Su Yue <glass.su@suse.com>,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	ThangNN99 <ngocthang2710.1999@gmail.com>,
-	syzbot+73d1166b94ed9875af54@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] ocfs2: fix ABBA deadlock in suballocator reclaim
-Date: Sun,  6 Sep 2026 20:31:12 +0700
-Message-ID: <20260906133112.73343-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Sun, 06 Sep 2026 06:31:41 -0700 (PDT)
+From: Felix Gu <ustc.gu@gmail.com>
+Date: Sun, 06 Sep 2026 21:30:31 +0800
+Subject: [PATCH] phy: ingenic: fix unbalanced regulator disable in exit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260906-ingenic-v1-1-2311f3df8ddc@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ5AMBAE0F+RPWtSGo36FXHQWqxDSReRNP5dc
+ XyTmYnAGAgZmixCwJOYVp9Q5Bm4ufcTChqSoZSllkZqQSnz5ARWVa20MkbZEVJ7CzjS9T213W8
+ +7IJuf+dw3w8IF5PcawAAAA==
+X-Change-ID: 20260906-ingenic-e558363993bf
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ =?utf-8?q?=E5=91=A8=E7=90=B0=E6=9D=B0_=28Zhou_Yanjie=29?= <zhouyanjie@wanyeetech.com>, 
+ Paul Cercueil <paul@crapouillou.net>, 
+ =?utf-8?q?=E6=BC=86=E9=B9=8F=E6=8C=AF_=28Qi_Pengzhen=29?= <aric.pzqi@ingenic.com>
+Cc: linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Felix Gu <ustc.gu@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788701499; l=1089;
+ i=ustc.gu@gmail.com; h=from:subject:message-id;
+ bh=XV9/Gau1ScfFSIySp4WW7NMKBztrqxSBrSAXGTOY170=;
+ b=fKwMjYR6GxaoT1Tx9EEILzy4qERnxsMXe/8MWE+hh4JcIIFIYXcLmhhtn7WV3LRmWw4913Hro
+ jBaj1e6Z1WKCsbOxmt66L8I8/QBFQ4hxv19AxFx/C19EO43UR3YN3Ip
+X-Developer-Key: i=ustc.gu@gmail.com; a=ed25519;
+ pk=fjUXwmjchVN7Ja6KGP55IXOzFeCl9edaHoQIEUA+/hw=
 
-_ocfs2_reclaim_suballoc_to_main() runs inside an already-started
-transaction (j_trans_barrier held) and locks the global bitmap inode
-to return clusters to it. Every other allocation path takes that
-inode lock *before* starting a transaction, so this reverses the
-order and can deadlock:
+exit() and power_off() both disable vcc_supply, so the regulator
+gets disabled twice for every power cycle, causing an unbalanced
+disable WARN.
 
-  CPU0                          CPU1
-  rlock(j_trans_barrier)
-                                lock(sb_internal)
-                                lock(j_trans_barrier)
-  lock(GLOBAL_BITMAP inode)
+Drop the regulator_disable() call from the exit callback and leave
+the regulator to the power_on/power_off pair.
 
-Since reclaim is best-effort (its caller already ignores the return
-value), fix it by acquiring the global bitmap inode with trylock,
-before mutating anything, and bailing out to skip reclaim on a busy
-lock instead of blocking in the wrong order.
-
-Reproduced with the syzbot C repro under QEMU: the unpatched kernel
-hits the lockdep splat on the very first mount+mkdir+rmdir cycle
-(~10s in); the patched kernel ran the same cycle 169 times with zero
-splats, and instrumentation confirmed reclaim keeps running (trylock
-succeeds) rather than being silently skipped.
-
-Reported-by: syzbot+73d1166b94ed9875af54@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=73d1166b94ed9875af54
-Fixes: 4a54331616b3 ("ocfs2: give ocfs2 the ability to reclaim suballocator free bg")
-Cc: stable@vger.kernel.org
-Signed-off-by: ThangNN99 <ngocthang2710.1999@gmail.com>
+Fixes: 31de313dfdcf ("PHY: Ingenic: Add USB PHY driver using generic PHY framework.")
+Signed-off-by: Felix Gu <ustc.gu@gmail.com>
 ---
- fs/ocfs2/suballoc.c | 37 +++++++++++++++++++++++--------------
- 1 file changed, 23 insertions(+), 14 deletions(-)
+ drivers/phy/ingenic/phy-ingenic-usb.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/fs/ocfs2/suballoc.c b/fs/ocfs2/suballoc.c
-index 20c3aec6b987..085af9ba38ab 100644
---- a/fs/ocfs2/suballoc.c
-+++ b/fs/ocfs2/suballoc.c
-@@ -2716,18 +2716,39 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
- 	idx = le16_to_cpu(group->bg_chain);
- 	rec = &(cl->cl_recs[idx]);
+diff --git a/drivers/phy/ingenic/phy-ingenic-usb.c b/drivers/phy/ingenic/phy-ingenic-usb.c
+index 7e62d46850fd..d8e5ef302b74 100644
+--- a/drivers/phy/ingenic/phy-ingenic-usb.c
++++ b/drivers/phy/ingenic/phy-ingenic-usb.c
+@@ -124,7 +124,6 @@ static int ingenic_usb_phy_exit(struct phy *phy)
+ 	struct ingenic_usb_phy *priv = phy_get_drvdata(phy);
  
-+	/*
-+	 * We already hold j_trans_barrier, while everywhere else locks the
-+	 * allocator inode before starting a transaction. Trylock here, before
-+	 * mutating anything, so a busy lock skips this best-effort reclaim
-+	 * instead of inverting that order into an ABBA deadlock.
-+	 */
-+	main_bm_inode = ocfs2_get_system_file_inode(osb,
-+						    GLOBAL_BITMAP_SYSTEM_INODE,
-+						    OCFS2_INVALID_SLOT);
-+	if (!main_bm_inode)
-+		goto bail; /* ignore the error in reclaim path */
-+
-+	if (!inode_trylock(main_bm_inode)) {
-+		iput(main_bm_inode);
-+		goto bail; /* ignore the error in reclaim path */
-+	}
-+
-+	status = ocfs2_try_inode_lock(main_bm_inode, &main_bm_bh, 1);
-+	if (status < 0)
-+		goto free_bm_inode; /* ignore the error in reclaim path */
-+
- 	status = ocfs2_extend_trans(handle,
- 				ocfs2_calc_group_alloc_credits(osb->sb,
- 						 le16_to_cpu(cl->cl_cpg)));
- 	if (status) {
- 		mlog_errno(status);
--		goto bail;
-+		goto free_bm_bh;
- 	}
- 	status = ocfs2_journal_access_di(handle, INODE_CACHE(alloc_inode),
- 					 alloc_bh, OCFS2_JOURNAL_ACCESS_WRITE);
- 	if (status < 0) {
- 		mlog_errno(status);
--		goto bail;
-+		goto free_bm_bh;
- 	}
+ 	clk_disable_unprepare(priv->clk);
+-	regulator_disable(priv->vcc_supply);
  
- 	/*
-@@ -2795,18 +2816,6 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
- 	memset(group, 0, sizeof(struct ocfs2_group_desc));
- 
- 	/* prepare job for reclaim clusters */
--	main_bm_inode = ocfs2_get_system_file_inode(osb,
--						    GLOBAL_BITMAP_SYSTEM_INODE,
--						    OCFS2_INVALID_SLOT);
--	if (!main_bm_inode)
--		goto bail; /* ignore the error in reclaim path */
--
--	inode_lock(main_bm_inode);
--
--	status = ocfs2_inode_lock(main_bm_inode, &main_bm_bh, 1);
--	if (status < 0)
--		goto free_bm_inode; /* ignore the error in reclaim path */
--
- 	ocfs2_block_to_cluster_group(main_bm_inode, start_blk, &bg_blkno,
- 				     &start_bit);
- 	fe = (struct ocfs2_dinode *) main_bm_bh->b_data;
--- 
-2.43.0
+ 	return 0;
+ }
+
+---
+base-commit: 9d80aa4617b32f5054c5aa471d06b66704854935
+change-id: 20260906-ingenic-e558363993bf
+
+Best regards,
+--  
+Felix Gu <ustc.gu@gmail.com>
 
