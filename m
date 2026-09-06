@@ -1,80 +1,102 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from out-zbxj-a65.jellyfish.systems (out-zbxj-a65.jellyfish.systems [198.54.127.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C2FC347533;
-	Sun,  6 Sep 2026 14:44:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51AE1223DC6
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 14:45:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788705853; cv=none; b=fiUqlXa1vpykpjhjvnPZN4z9Agqgj8FPZsCONukEKkk8Wxmc0zZkidP9FpugFH+kmnHN7DGdnVJYUb3W3XewKftYf/1wHIYdRQQdXUR2fcthdMjYXq7jeGg4e6+QzEcPTn8Zf0zB1emN68bTqbp0DKBuVeunqH4/X+GJf6VtyXc=
+	t=1788705923; cv=none; b=FBULLp/ol0fi55urPRA7jV5o7D5bAIRdstDrm6CmSsLaK7p3FPS14eav/1ahAh7MSSjIj3FaksEpAffaWp9/6WMzDa+nAuTZSWaSeMlokir8C50WkaIlsR1dYq3yRHdXSP1iaRnvISBArUlQUTMjBXuXRkHTnGGri8F5HxgfqP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788705853; c=relaxed/simple;
-	bh=/+TbxWPvt8Y2/J5G2/EFNHjGi1axHxBhIBKzr+e2naw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=nMT1IReDV8QsTK1VniofheIZxZ9xJPEcc1myM7FI+xp01/dv8/1a0/7TDu+7kPWmQT5kklm6anduoWJ/t37pa4EWEPQFB44b8WAGYue9fBsoMBQT19YDySL+yxGq1SBVlMtbgu2k7jTwyuAL6FNgQN7YREIbPR0Q763TzL+FtmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=sSA3xEp4; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	s=arc-20240116; t=1788705923; c=relaxed/simple;
+	bh=ID6pU/SCipMAoR6bnnWttfaKW8Cz/CkOPUWe7BjzTR4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QXz9TeZTHNHhRQPu4pg1Vb7iasI9ly7BCo6Zx57DyHVbSpKSq3zRo9WEjJ5ZohhaxAYqJCShjzGtOavU9YENJPJNWJXZiCmxkyjae+J5sosxVouZYVmRZuUcbjExpNhU+NgWOHJWDaUfGqjldmdnbS0+mdh6++Uyy1Q6UjT1uOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=FzFwf7sF; arc=none smtp.client-ip=198.54.127.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="sSA3xEp4"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=/+TbxWPvt8Y2/J5G2/EFNHjGi1axHxBhIBKzr+e2naw=;
-	t=1788705850; x=1789915450; b=sSA3xEp4uUvosvADI+hqRE/rtUMv+9H9esARckd9Q49gE79
-	eWmj70DL9CJ3JXaHEhXQkSCU9jcCEms1ieyfYSWFWJpDf+modohdv2Yu3dk/7r38m0ER4QJKG49x/
-	DWpUvE0J8xInr4WOfoYEiYUFvHyafL+VY5m3l6jT28fEYBWr/dm1+mKwRhIqQEavR05kNNrCXujVn
-	Rh9mgmO23M+0kA96GTsRcTtQze4gVfw2zoVYb5mua7sxF+EJtZpJTzlGj4mY13eXOWPxuMDoNu5xn
-	rklLE8uqy2dHXqMX0/O2C1A/Ckee9oRQ/+8Zs7WQZnJasTCk28/ztVWkXtI5UAag==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1x3E6D-00000003Lf0-3WUD;
-	Sun, 06 Sep 2026 16:44:02 +0200
-Message-ID: <75869083607cf39b5a32616395b14663ecdf3615.camel@sipsolutions.net>
-Subject: Re: [PATCH] wifi: p54: fix incorrect frame length check in
- p54_find_ie()
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Christian Lamparter <chunkeey@gmail.com>, Wang Yan <wangyan01@kylinos.cn>
-Cc: zilin@seu.edu.cn, linville@tuxdriver.com,
- linux-wireless@vger.kernel.org, 	linux-kernel@vger.kernel.org
-Date: Sun, 06 Sep 2026 16:44:00 +0200
-In-Reply-To: <5a29065b-87ae-4c63-873d-fa22b0899199@gmail.com> (sfid-20260906_162442_218051_2470202B)
-References: <20260903081200.267514-1-wangyan01@kylinos.cn>
-	 <bdca394f-0371-45ad-bfee-b044444ad724@gmail.com>
-	 <087d18429b448d5b63f922fd6779925f827134c7.camel@sipsolutions.net>
-	 <5a29065b-87ae-4c63-873d-fa22b0899199@gmail.com>
-	 (sfid-20260906_162442_218051_2470202B)
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="FzFwf7sF"
+Received: from fedora (unknown [69.5.53.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.spacemail.com (Postfix) with ESMTPSA id 4hdCXK0lK1z8sWg;
+	Sun, 06 Sep 2026 14:39:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
+	s=spacemail; t=1788705589;
+	bh=18NIljhIBXGMPhC2bNVsXV9nKFTRbDl30rj7K0iSWS0=;
+	h=From:To:Cc:Subject:Date:From;
+	b=FzFwf7sF/gdufKxLTVuVYA5VCNtjND9bRMGjbLU+PzU68TRqq01DngEM99zlTwaIk
+	 ClGGwvSkSBehiYeHQdTKqAtZhbrktcXGgUnt+p6qH22xbx/wXEQUItwmrApwj0H/cC
+	 2MqWg2Ic+K9RfD1DeDkJkHH+cEF62TCZsUWX0gS8MMp1Iju+yyZnn/NPAdwuBSe+a/
+	 v0IDKnvjZp/HZwLDH1Ar9V9M7ZTDeFjCjkBnWgTxJHNPmPNxEm7PAY3LoYIQWsv9PX
+	 /T1fLYT5cFFn0HrdFC7cDTF6MNtSIwa8DM8mV0KyCnrszEtRFdQbHENwf/GpfLsBop
+	 /qu1v0905WQog==
+From: Tianyi Chen <hi@tychen.cc>
+To: andrii@kernel.org,
+	Eduard Zingerman <eddyz87@gmail.com>
+Cc: Tianyi Chen <hi@tychen.cc>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Shuah Khan <shuah@kernel.org>,
+	bpf@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	David Vernet <void@manifault.com>
+Subject: [PATCH bpf] selftests/bpf: Exercise double release in cpumask failure test
+Date: Sun,  6 Sep 2026 22:39:34 +0800
+Message-ID: <20260906143934.848632-1-hi@tychen.cc>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Content-Transfer-Encoding: 8bit
+X-Envelope-From: hi@tychen.cc
 
-On Sun, 2026-09-06 at 16:24 +0200, Christian Lamparter wrote:
-> >=20
-> > FWIW, I dropped it because it really shouldn't have been there this way
-> > since 'mgmt' can be far bigger than needed since it contains the union
-> > for all kinds of action frames etc.
-> >=20
-> > I'm not even sure it's needed regardless of the next check since the
-> > beacon is built by mac80211.
-> >=20
-> > Just blindly patching one mistake for another doesn't help anyone.
->=20
-> Ok, alright? I just looked in both:
-> https://git.kernel.org/pub/scm/linux/kernel/git/wireless/wireless-next.gi=
-t/
-> https://git.kernel.org/pub/scm/linux/kernel/git/wireless/wireless.git/
->=20
-> Was there a patch already? Or did I missread the first sentence that hint=
-ed this was "dropped"?
+create_cpumask() can return NULL, but test_alloc_double_release does
+not check its result before releasing it. The expected NULL-pointer
+diagnostic allows the test to pass when the first release is rejected,
+without checking the second release at all. Removing the second call
+still produces the same expected rejection.
 
-Oh, I didn't phrase that well - I dropped the patch from my queue.
+Return when creation fails and expect the release-ownership diagnostic.
+This makes the verifier accept the first release and reject the second
+use of the invalidated reference.
 
-johannes
+Verified that the guarded single-release control is accepted and the
+guarded double-release program is rejected at its second release. All
+36 cpumask subtests pass on the matching kernel.
+
+Fixes: 7b6abcfa15cd ("selftests/bpf: Add selftest suite for cpumask kfuncs")
+Assisted-by: LLM
+Signed-off-by: Tianyi Chen <hi@tychen.cc>
+---
+ tools/testing/selftests/bpf/progs/cpumask_failure.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/tools/testing/selftests/bpf/progs/cpumask_failure.c b/tools/testing/selftests/bpf/progs/cpumask_failure.c
+index 4628feb53d8..e98493bd575 100644
+--- a/tools/testing/selftests/bpf/progs/cpumask_failure.c
++++ b/tools/testing/selftests/bpf/progs/cpumask_failure.c
+@@ -45,12 +45,14 @@ int BPF_PROG(test_alloc_no_release, struct task_struct *task, u64 clone_flags)
+ }
+ 
+ SEC("tp_btf/task_newtask")
+-__failure __msg("NULL pointer passed to trusted R1")
++__failure __msg("release kfunc bpf_cpumask_release expects referenced PTR_TO_BTF_ID passed to R1")
+ int BPF_PROG(test_alloc_double_release, struct task_struct *task, u64 clone_flags)
+ {
+ 	struct bpf_cpumask *cpumask;
+ 
+ 	cpumask = create_cpumask();
++	if (!cpumask)
++		return 0;
+ 
+ 	/* cpumask is released twice. */
+ 	bpf_cpumask_release(cpumask);
+-- 
+2.55.0
+
