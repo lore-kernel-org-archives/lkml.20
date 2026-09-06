@@ -1,37 +1,91 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8EF140E5F;
-	Sun,  6 Sep 2026 05:13:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788671590; cv=none; b=TmYeiYJT7ugyw1U6Qn9EYDrQdddegQwrMm5hilUWDr39wWOB8wXBuZ7Hyb7fagPW1T0DQbsts9oVVAtV6K1CkRLoI2I3GmW4he5+0x6DrC4pUjW1AR9lId8GE09EqdAwztdhiqzSl/8UkVnqAUzsnfQxudNbowMtAhtC182HQI0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788671590; c=relaxed/simple;
-	bh=fQhKEDUQlnvdVuf41GV9U9bE+YzuOuU/Rv6HqZ/2hHQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JOw3usb4iWohbYFk7ym7WIVFN4LXBWjcWNQurARTR1IFP0jRWnu9clBMYzkI0a8cox5YQHfqQgGu2pVI4zHDoZKjZGngmck7QscbLZHkCYnOntPu97oqgDxVk30ckIzRp00iYPOHg897QjZ43+DuqGysJ0PRmwFzmRX5vzC+ESg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=kmUqBDJK; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FE8A2B9B7;
+	Sun,  6 Sep 2026 05:20:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788672023; cv=fail; b=pCu5dvmva1C/v5MXXOgWp/JJbzFwBcXElSeuJHc+jmgI96cXwybMwSH/vgKEurltY57hYNvtAUHKGLbcrj9TreAzgAHsMMcghnPMJ7K6CKQw0GJqnkYF5BEcTFhsCLyR9T60V6zxQW6aFOxy3G3vHkxTd+i2Qp5iOHcid0CV/l0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788672023; c=relaxed/simple;
+	bh=FyYznto2iSPEmvrpvWcP3IYgehFxDmsYt/5HbH8LPmQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=hgEswJl+nl83vu20SsdiZqjWfGHZCHciYoeWz9zXnU/rRuJunCibWPxoa46Mj0QFW9VmbQnFD9mtoc6Jrar8OvcP5VS9i+av3lHlkU29jA1/aREgUC1oaxQzCQbAMaQzqmkVFT9zpuWq6Ygy2GSf96h+DXIyrFK9VQVQ9cRZW9s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=WlzeVRVJ; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=uSgic9e1; arc=fail smtp.client-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="kmUqBDJK"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=v00C6G4+vUG94ot1BoePP2klSPMmGYmd1QrEFLUBzpQ=; b=kmUqBDJKSYhBP2v2DN8UqDQ3gd
-	BSaTTJY7HD21Nx4x4x0as0QZXYmlQxd7wvBF5bbNETGoEWasV3Sr5n+s015dnOgOpdKzVen5Rivi/
-	b1S1rzwSYg1OOQtMKrKB+qgLdt7qxlBO/KIu38r1GADGGJEzw8q0PhHJD+maJ/irMrTZYAY8DmaWk
-	qYeQdVPcdreXDAF6gRbU0OmbwAvroj5tspKCzSn6Q3MfJXSmeF+vQivhlMNbmqDRpqopR94u1FC3P
-	GhOlXrVzrfw/sVmwybrcj7sVBTVJskXiAFiHfvYF/jkmk60nqdPu0r+0+PX7d17tdAgTjqA9Uotag
-	VYoWXhMQ==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x35BM-00000004hpC-2mvt;
-	Sun, 06 Sep 2026 05:12:44 +0000
-Message-ID: <6168d40d-b781-4abb-9be8-ecb25b7688d5@infradead.org>
-Date: Sat, 5 Sep 2026 22:12:43 -0700
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="WlzeVRVJ";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="uSgic9e1"
+Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68600dvf3603369;
+	Sun, 6 Sep 2026 00:20:05 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=DSewu3KzgTyGXFvWV391XX6+ABqmnXbgaCeRnEjws
+	qQ=; b=WlzeVRVJsKzGX0qDuhebAM1PLCD9MXwIjxTTXumepTzBOkCi+M83+lRuf
+	YODl31bLIWmfySOpEFyWz2jqDKbaXTBL1Kv4UrVZZY1yjj0EmCbMw6TLXo0I2BDP
+	TF7R1T04HjsqsSVFLJJiMwvKe1VtrhUPyLW7E1h25779/XwbCwMKR7zoM4eqrEBm
+	1APUWzQlPUlpc+QVFO1BjC5t3oq8mQbzLCG1xoiANq36S7qcAHa/6Dc6+ZuAV+L4
+	jFx/u27J2DEsLlHl34l5eX71TNbaTZoS636yDDAENN7KFSHuVRnWBv20LLF2DHqA
+	Z5kFRXRLgrQiSMEtj6RDXgtVz1RNQ==
+Received: from dm1pr04cu001.outbound.protection.outlook.com (mail-centralusazon11010069.outbound.protection.outlook.com [52.101.61.69])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gfyyq8fh7-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Sun, 06 Sep 2026 00:20:04 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hNhbAf7Ll6WbYY2ZYaEAs2fCsVoBg/kqxl0c6yuNDcqqBaL6m5qZSpm/pgUFg3NPk6ZH3uMlnCDTEG/BKEpYdwbUOuMFRnalScsPU+5OnAzNWlLz7V59DXmbV7EBtfVvDavASUcwM6eLDhbvVGYlTqwR6GO6uewu6Nh0V+T8a/U46bdbgE7T3geCoaHrCN1ROvxep8TyjeR3Im31NKPgJYgzS9ELmC5bG41hM/pzufuxz2mQZDKD4d07ZTOKpj/F3njHYpieIJmUFP+bPB645CXcUXe+dv8+gQLkzeLvj01c06OXkPV6crjo34sPCbKznQ25wU1oPSpE5hRMw+vC4w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DSewu3KzgTyGXFvWV391XX6+ABqmnXbgaCeRnEjwsqQ=;
+ b=utuA3WgX5i03xVhNWtIWK3wOV/X4P/yZCYiu42K0bsOpP9zR053fmDVGl0txxeYk2dNHNI70/O475st95HUxiWnG+OmlALxJnRvZGgLg0h5mS46YPD1QW95VQtoQYJI0ukbtY1gv+bDPQQgGdR1nYyq+iBQHGHQ1C46LuFTB6gcPgUBsewyP8zpMC8OWIT2eiYQ6gxBEMB8E5Pr/A1AsFR2RlBPnBqtHNmEVUpD6pJtJUgnU+kUGIMikjiExSBoni0Z9gJDiTm0Eq88WulcZkX2v1uHMN6fE57OzgrWsXtYZimQNuTQ5p99+74BbDCHxeJYfk3OpGMQfEGmhNYB9kA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=toradex.com smtp.mailfrom=ti.com; dmarc=pass
+ (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DSewu3KzgTyGXFvWV391XX6+ABqmnXbgaCeRnEjwsqQ=;
+ b=uSgic9e1HI5BWEDabSdhBdZyYWkOgmmPM2QQoFASKi0od9yvsgzI0u6arNIJqfPair9EIv8oo3sJ8bFL0bNYbpBiNanKroksKGu1FcQBKHW1YWVJhWnyxy6xVcPthAPFolHuk4YAT9F9zjw7I7ABzr4ZQDSLDiiWkbgcv9X1Ubk=
+Received: from BN1PR10CA0012.namprd10.prod.outlook.com (2603:10b6:408:e0::17)
+ by DS4PPFF0E76365E.namprd10.prod.outlook.com (2603:10b6:f:fc00::d57) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.6; Sun, 6 Sep 2026
+ 05:19:59 +0000
+Received: from BN3PEPF00022BD5.namprd03.prod.outlook.com
+ (2603:10b6:408:e0:cafe::a0) by BN1PR10CA0012.outlook.office365.com
+ (2603:10b6:408:e0::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Sun, 6
+ Sep 2026 05:19:59 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ BN3PEPF00022BD5.mail.protection.outlook.com (10.167.248.100) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Sun, 6 Sep 2026 05:19:58 +0000
+Received: from DLEE214.ent.ti.com (157.170.170.117) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 6 Sep
+ 2026 00:19:57 -0500
+Received: from DLEE208.ent.ti.com (157.170.170.97) by DLEE214.ent.ti.com
+ (157.170.170.117) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 6 Sep
+ 2026 00:19:57 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE208.ent.ti.com
+ (157.170.170.97) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Sun, 6 Sep 2026 00:19:57 -0500
+Received: from [10.249.135.178] ([10.249.135.178])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6865JqhH3321921;
+	Sun, 6 Sep 2026 00:19:53 -0500
+Message-ID: <29aaa2ec-c1fe-4f60-a6d1-f8c797587986@ti.com>
+Date: Sun, 6 Sep 2026 10:49:52 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,194 +93,144 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] uart-routing: Add UART Routing driver for StarFive
- JHB100 SoC
-To: Changhuang Liang <changhuang.liang@starfivetech.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
- Chia-Wei Wang <chiawei_wang@aspeedtech.com>, Oskar Senft <osk@google.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Shuah Khan <skhan@linuxfoundation.org>,
- Jani Nikula <jani.nikula@intel.com>, Vitaly Lubart <lubvital@gmail.com>,
- Hanjun Guo <guohanjun@huawei.com>, Andrew Morton
- <akpm@linux-foundation.org>, Alexander Usyskin
- <alexander.usyskin@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Breno Leitao <leitao@debian.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- James Morse <james.morse@arm.com>, Paolo Abeni <pabeni@redhat.com>,
- Stephen Hemminger <stephen@networkplumber.org>,
- Dave Penkler <dpenkler@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Jonathan Cameron <jic23@kernel.org>, Dan Williams <djbw@kernel.org>,
- Mukesh Rathor <mrathor@linux.microsoft.com>,
- Vladimir Oltean <vladimir.oltean@nxp.com>,
- Alexandra Winter <wintera@linux.ibm.com>,
- Julian Braha <julianbraha@gmail.com>,
- Karthikeyan KS <karthiproffesional@gmail.com>,
- Pengpeng Hou <pengpeng@iscas.ac.cn>, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org
-References: <20260905102901.126035-1-changhuang.liang@starfivetech.com>
- <20260905102901.126035-5-changhuang.liang@starfivetech.com>
+Subject: Re: [PATCH 1/1] arm64: dts: ti: k3-am69-aquila: Add Toradex DSI to
+ LVDS adapter with the 10.1" V2 display
+To: Leonardo Costa <leoreis.costa@gmail.com>, <nm@ti.com>, <vigneshr@ti.com>,
+        <kristo@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+        <conor+dt@kernel.org>
+CC: <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>,
+        Leonardo Costa <leonardo.costa@toradex.com>, <u-kumar1@ti.com>
+References: <20260803173705.2268792-1-leoreis.costa@gmail.com>
+ <20260803173705.2268792-2-leoreis.costa@gmail.com>
 Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260905102901.126035-5-changhuang.liang@starfivetech.com>
-Content-Type: text/plain; charset=UTF-8
+From: "Kumar, Udit" <u-kumar1@ti.com>
+In-Reply-To: <20260803173705.2268792-2-leoreis.costa@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BD5:EE_|DS4PPFF0E76365E:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6313b9da-072b-496c-1126-08df0bd67ef4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|36860700016|1800799024|23010399003|13003099007|3023799007|10067099003|4143699003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	lVC0LKL3wkt/EnbtqIRzeWM5hE9qJ8amN6nKDswful8ZC3NbCHnhHupUAy6uupouucmb4PR8ZQKseMjZFHhkXyixZSYJyjQQhuARDdHHw86bmmR1AyAaOVwgR4Dq2SD9ehK3WassKew+fHw6HzfBV5ALyqUO8LRmJjvR3WGK9jLuewVllIlJEqSR6I4G03P6OGua9NgbMfMR/ZmzNd/8CtoX9woMpDKtEhIKVj8+afSYGUweazXQFjwFt2ltIOxYvU+1dj/bvYekzNJx8y6EbNf7x64WS8rbHqy43HlCqAOVVk11V0tXZW0Q/rxs/Ujx7gIMOIRTkZl7dX6lPQLfK2Z0ulTcjMEMGjwUHTGvHqq1ZfwsaLthZpWj86Ttx2CrKvjihoL4s33ENyDMLawpnhUfjKLBEcVY4Vw7IwSi00dL+nspJIITarkSrhgApU8XN0sxty54d4UZ7xCaJ/yByIlAYQZd0sLaCsegsI7nXdBrre9jPZdd3dEpaP6qbJqeF8YOtGqNwD2HGnDbbztfUytKQriFetdHNy7o4cbW+h0jX1KDmE43JBeaOp1keBnNLtyLsnYbdyfohaCSRplMAoROD5ykfdVU7koq2xONQkXUR8DsPe8ld2W2uv+r8UADDnx6ZlGSX8wVK5/uDgnw1Q==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(23010399003)(13003099007)(3023799007)(10067099003)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	scOXuXmcm8gOhKeBytybbOxTuHnaYRnLiFdDaijK4zK/BK25LTzzWjkTpxjphqBRi/fP4GsU7HEPg72KaE70YmIaoL+ejYilqx8rhIxwMjx1X8cyrRik/7goAjciykS/JQPdJAGXCbsu6qRO0fKOzmp6Oh/PtWqjr9HnDC9aGqchMZOc0xrtyGdOEiYGlwdwj2+zvs/0dOrwz2pWZnXW92byK1449yGx5lCcUy/oXyjBe/vIEQUyyV7K6l9xTvsjYszayWFINk9giH+Bk7ymKSvM4W4pfXHpcXqsqgM0RrWt0eGowdOUmqMq8ezgS4s9rwOOSS5qKy2QfQj0PoHqqiVcoYf0cudRFTh6hIa5xdqH252il5fNi+k0HA6/tzc/WCE4cYepcTZEyhobWDVnzKeGv8XnsisQJ9VfaUAdJ6P5nwfZ4a8VRuQdJRF01DMm
+X-Exchange-RoutingPolicyChecked:
+	sjMow1V/sVdTkbd+yPRRjTrSN/8IoVun1v0A5hlp+iQ4SDX4EgfXmix3zmitcF6tQ47nsO+OAbgoM+AKHXxqb8az+DvchhzQT+XPF6X2xNVY6+FQQv2GX9ezZg9au6/tjbd17YaBE+yQlzF3CStH3wVOKE8IFJGPF1SYMX4EzJj0VCfF/vIu0f0sTZL0gUtxW1zzoJKOInMGHWHEoGWZHqAECgHHyMgr80PhQ/jvenzcQq4RCwCE/69Kke0QS5Dv9RQJ6HGngifJzH3Sx7JxNF7cg+wfQh2eyztQbF4xXECug4MDERTikv2DDRd0Cv3UPdJjYZGvv8jP0C75nmQ6PQ==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2026 05:19:58.9573
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6313b9da-072b-496c-1126-08df0bd67ef4
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BD5.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PPFF0E76365E
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA2MDA1NSBTYWx0ZWRfX+/BShRNVfkMK
+ vXN4qbCgAQ2rFryJWpeHks+a9f4uym1KZlxQaiDGdWZakLZgMx9lRKSN3+JfXEDDiA+fBk582lW
+ hcxrcpncXojBThFdZLxbSNCdsbB132Q=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA2MDA1NSBTYWx0ZWRfX92XRtVcnDgo5
+ b4in9FNa8j3n7uxhnUp0O8yLGtMLdi9CWdwX0x1e5AH+sbBCtQa8xxusukyEHHKqtd6tWxuGCf2
+ hn8pA54ricSFjcqvfYT7wqyQlppPBHNjm9ijAmuU500egmQz2JR01G+8Rhre3CZtaVAxQWjO7jC
+ ywW7C1uhmmZnQbuGt1iHpBgy+SnTZku5Rhh8DWzEq+vDyZefm/O7uDwBcV/FPaW+U5hy8/zKw1v
+ vN+sFgJXMA2Ict7i4IaGNbjpzbzzspldrD1AV7v/PilP9cDff4tPjYn3XINGqv14rjvaAzAtt+k
+ RyXikcMMFXsH/sv2eweNf21WAinE3eWQ82x5kGTRyx6z5sy1hRBfDLsFhY8T56Na9s4QwGnFTnc
+ hloTGFoaTTK64AGcuxUBtMuqqMzWmHZNX+8ggYDon1FwePg7dvL2eOj+UBuTqbPZ10Us8A4uNv2
+ gz8+MRLWQBpsUEp8kew==
+X-Proofpoint-ORIG-GUID: BNuZ5Qt8oOgi0ahXC3ZszTkqWSDDl-pQ
+X-Proofpoint-GUID: BNuZ5Qt8oOgi0ahXC3ZszTkqWSDDl-pQ
+X-Authority-Analysis: v=2.4 cv=YqM/gYYX c=1 sm=1 tr=0 ts=6a9cf804 cx=c_pps
+ a=wsTBi80DslKxnI1CMYi+3A==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=fPAWb5peG099m5CrUpKH:22 a=m8ToADvmAAAA:8
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=-AEETTi9g6pZRztx2ssA:9 a=QEXdDO2ut3YA:10
+ a=kCrBFHLFDAq2jDEeoMj9:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-05_08,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
+ malwarescore=0 bulkscore=0 adultscore=0 clxscore=1011 spamscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609060055
 
-Hi,
+Hi Leonardo
 
-On 9/5/26 3:29 AM, Changhuang Liang wrote:
-> Add driver support for JHB100 UART Routing control, allowing runtime
-> configuration of RX muxes between UART controllers and I/O pins.
+On 8/3/2026 11:04 PM, Leonardo Costa wrote:
+> From: Leonardo Costa <leonardo.costa@toradex.com>
 > 
-> A sysfs interface is provided for easy checking and updating of routing
-> paths.
+> Add a device tree overlay for the Toradex DSI to LVDS Adapter with the
+> Toradex Capacitive Touch Display 10.1" LVDS V2. The adapter connects to the
+> Aquila DSI_1 interface. It is based on the Texas Instruments SN65DSI84
+> DSI-to-LVDS bridge and drives an Opto Logic SCX1001511GGC49 10.1" WXGA TFT
+> LCD LVDS panel. Touch input is provided by an ILITEK ILI251x capacitive
+> touch controller.
 > 
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> Link: https://developer.toradex.com/hardware/accessories/add-ons/dsi-lvds-adapter
+> Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
+> Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
 > ---
->  .../sysfs-driver-starfive-uart-routing        |  45 ++++
->  MAINTAINERS                                   |   8 +
->  drivers/uart-routing/Kconfig                  |  13 ++
->  drivers/uart-routing/Makefile                 |   1 +
->  drivers/uart-routing/starfive-uart-routing.c  | 192 ++++++++++++++++++
->  5 files changed, 259 insertions(+)
->  create mode 100644 Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
->  create mode 100644 drivers/uart-routing/starfive-uart-routing.c
+>  arch/arm64/boot/dts/ti/Makefile               |   5 +
+>  ...dsi-to-lvds-v2-panel-cap-touch-10inch.dtso | 153 ++++++++++++++++++
+>  2 files changed, 158 insertions(+)
+>  create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-lvds-v2-panel-cap-touch-10inch.dtso
 > 
-> diff --git a/Documentation/ABI/testing/sysfs-driver-starfive-uart-routing b/Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
-> new file mode 100644
-> index 000000000000..737afdf428bc
-> --- /dev/null
-> +++ b/Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
-> @@ -0,0 +1,45 @@
-> +What:		/sys/bus/platform/drivers/starfive-uart-routing/\*/uart\*
-> +Date:		August 2026
-> +Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
-> +Description:	Selects the RX source of the UARTx device.
+> diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
+> index f4d109ef6798a..8a59fc597aede 100644
+> --- a/arch/arm64/boot/dts/ti/Makefile
+> +++ b/arch/arm64/boot/dts/ti/Makefile
+> @@ -218,6 +218,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dev.dtb
+> [..]
 > +
-> +		When read, each file shows the list of available options with currently
-> +		selected option marked by brackets "[]". The list of available options
-> +		depends on the selected file.
-> +
-> +		e.g.
-> +		cat /sys/bus/platform/drivers/starfive-uart-routing/\*.uart-routing/uart1
-> +		io0 [io1] io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14 uart0 uart1
-> +		uart2 uart3 uart4 uart5 uart6 uart7 uart8 uart9 uart10 uart11 uart12 uart13 uart14
-> +
-> +		In this case, UART1 gets its input from IO1 (physical serial port 1).
-> +
-> +		To switch the RX source of UART1 to UART2, write the desired source to the file:
-> +		echo uart2 > /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/uart1
-> +
-> +		This indicates that UART1 now receives its input from UART2.
-> +
-> +Users:		OpenBMC.  Proposed changes should be mailed to
-> +		openbmc@lists.ozlabs.org
-> +
-> +What:		/sys/bus/platform/drivers/starfive-uart-routing/\*/io\*
-> +Date:		August 2026
-> +Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
-> +Description:	Selects the RX source of IOx serial port. The current selection
-> +		will be marked by brackets "[]". The list of available options
-> +		depends on the selected file.
-> +
-> +		e.g.
-> +		cat /sys/bus/platform/drivers/starfive-uart-routing/\*.uart-routing/io9
-> +		uart0 uart1 uart2 uart3 uart4 uart5 uart6 uart7 uart8 [uart9] uart10 uart11 uart12
-> +		uart13 uart14 io0 io1 io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14
-> +
-> +		In this case, IO9 (physical serial port 9) gets its input from UART9.
-> +
-> +		To switch the RX source of IO9 to UART10, write the desired source to the file:
-> +		echo uart10 > /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/io9
-> +
-> +		This indicates that IO9 now receives its input from UART10.
-> +
-> +Users:		OpenBMC.  Proposed changes should be mailed to
-> +		openbmc@lists.ozlabs.org
+> +	panel-lvds-bridge {
+> +		compatible = "optologic,scx1001511ggc49", "panel-lvds";
 
-Please consider the following changes to this ABI file documentation
-(or make your own).
+> +		backlight = <&backlight_pwm3>;
+> +		data-mapping = "vesa-24";
+> +		height-mm = <136>;
+> +		width-mm = <217>;
+> +
+> +		panel-timing {
+> +			clock-frequency = <70000000>;
 
----
-Avoid 'make htmldocs' warnings (from docutils) and
-make console input or output be presented more clearly and
-in a monospace font.
-
-Documentation/ABI/testing/sysfs-driver-starfive-uart-routing:25: WARNING: Inline emphasis start-string without end-string. [docutils]
-Documentation/ABI/testing/sysfs-driver-starfive-uart-routing:1: WARNING: Inline emphasis start-string without end-string. [docutils]
-
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
----
- Documentation/ABI/testing/sysfs-driver-starfive-uart-routing |   32 +++++-----
- 1 file changed, 18 insertions(+), 14 deletions(-)
-
---- linux-next-20260902.orig/Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
-+++ linux-next-20260902/Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
-@@ -1,4 +1,4 @@
--What:		/sys/bus/platform/drivers/starfive-uart-routing/\*/uart\*
-+What:		/sys/bus/platform/drivers/starfive-uart-routing/*/uart*
- Date:		August 2026
- Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
- Description:	Selects the RX source of the UARTx device.
-@@ -7,37 +7,41 @@ Description:	Selects the RX source of th
- 		selected option marked by brackets "[]". The list of available options
- 		depends on the selected file.
- 
--		e.g.
--		cat /sys/bus/platform/drivers/starfive-uart-routing/\*.uart-routing/uart1
--		io0 [io1] io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14 uart0 uart1
--		uart2 uart3 uart4 uart5 uart6 uart7 uart8 uart9 uart10 uart11 uart12 uart13 uart14
-+		E.g.::
-+
-+		  cat /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/uart1
-+		  io0 [io1] io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14 uart0 uart1
-+		  uart2 uart3 uart4 uart5 uart6 uart7 uart8 uart9 uart10 uart11 uart12 uart13 uart14
- 
- 		In this case, UART1 gets its input from IO1 (physical serial port 1).
- 
--		To switch the RX source of UART1 to UART2, write the desired source to the file:
--		echo uart2 > /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/uart1
-+		To switch the RX source of UART1 to UART2, write the desired source to the file::
-+
-+		  echo uart2 > /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/uart1
- 
- 		This indicates that UART1 now receives its input from UART2.
- 
- Users:		OpenBMC.  Proposed changes should be mailed to
- 		openbmc@lists.ozlabs.org
- 
--What:		/sys/bus/platform/drivers/starfive-uart-routing/\*/io\*
-+What:		/sys/bus/platform/drivers/starfive-uart-routing/*/io*
- Date:		August 2026
- Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
- Description:	Selects the RX source of IOx serial port. The current selection
- 		will be marked by brackets "[]". The list of available options
- 		depends on the selected file.
- 
--		e.g.
--		cat /sys/bus/platform/drivers/starfive-uart-routing/\*.uart-routing/io9
--		uart0 uart1 uart2 uart3 uart4 uart5 uart6 uart7 uart8 [uart9] uart10 uart11 uart12
--		uart13 uart14 io0 io1 io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14
-+		E.g.::
-+
-+		  cat /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/io9
-+		  uart0 uart1 uart2 uart3 uart4 uart5 uart6 uart7 uart8 [uart9] uart10 uart11 uart12
-+		  uart13 uart14 io0 io1 io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14
- 
- 		In this case, IO9 (physical serial port 9) gets its input from UART9.
- 
--		To switch the RX source of IO9 to UART10, write the desired source to the file:
--		echo uart10 > /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/io9
-+		To switch the RX source of IO9 to UART10, write the desired source to the file::
-+
-+		  echo uart10 > /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/io9
- 
- 		This indicates that IO9 now receives its input from UART10.
- 
+Looking at
+https://lore.kernel.org/linux-arm-kernel/20260623195741.495734-1-leoreis.costa@gmail.com/T/#mc4ed25e5253da6dc635fd3eddc317dac8f447f3e
 
 
--- 
-~Randy
+you are using three different clock-freq 69500000, 64500000 and
+70000000 here.
+Could add some comment here, why freq is adjusted.
 
+
+> +			hactive = <1280>;
+> +			hback-porch = <55>;
+> +			hfront-porch = <55>;
+> +			hsync-len = <45>;
+> +			vactive = <800>;
+> +			vback-porch = <5>;
+> +			vfront-porch = <5>;
+> +			vsync-len = <3>;
+> +			de-active = <1>;
+> +			hsync-active = <0>;
+> +			vsync-active = <0>;
+> +			pixelclk-active = <0>;
+> +		};
+> +
+> +		port {
+> +			panel_lvds_bridge_in: endpoint {
+> +				remote-endpoint = <&dsi_lvds_bridge_out>;
+> +			};
+> +		};
+[..]
