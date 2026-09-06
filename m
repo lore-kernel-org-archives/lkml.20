@@ -1,138 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 554CF1FD4;
-	Sun,  6 Sep 2026 13:17:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89EAD3CFF4C
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 13:18:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788700663; cv=none; b=UqkcvcJxqj8aaobXhVgKVnokl0G7eoPDAmh6puFKMULdURnL31zQZEE3MB2yILp/IGnbjO4QO0vGrzvNQXt5/djn/x3ezBPSh2ws+b2PUKZbudtilhEwkw3LQIRHMl0igHalb+dSrlu0KC3kWD2dV+eCf4UtX5O+zzFX4NDrDsQ=
+	t=1788700688; cv=none; b=Ff+foN4Ps0lBM1vo2V1UY+stvH5EV+xugpagI0+ceHpUpfUYwNJHLWqsk0aEMmP1Jj3ZOn1zhW47ibAxjXBVfs2j8ild+niiIbT8XZm7/HvrgE61Pbn5JMPG6nnm3hdzSrTmPpu7kf5bXp9dpwx5Q4Y26OiWe7vIqL2upoZ6A2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788700663; c=relaxed/simple;
-	bh=D+riJ0Sul8S6D6FpkS7ASrdGZkLZpDnzr86lSs63L3U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=o+PrOckAGYT3LNThh1WD2dJ3BUcMKZj9ADO9Nc7VqKsiQfn+cukYGTEFCtgcgRRsxl7XJWYi0VoTMTDxrvxk3FcFTNPCBWP7myRWGou26klhq5UNWCDsWuwOnFnNF2pY5WPqnxwGvxFOL59o1g3MyR0XdB91BUOHfm3q5Il+slY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lYGnlquv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788700688; c=relaxed/simple;
+	bh=1cXTyKrezTAFARLoZb9kc8FQy5G+fRHkjI/Bk80wyrI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gPBBz+ZFCpsiLXmkBSBws9HGu9vF3CMZrODP3Xc7thxhSTc+VOt6M5WmkLt8bYYFJUEp/t8ymsR4/fsUVmfh0S6pH0mgIOGuHKECdcLeLsZn3+ythO/BraSpRQ8U97kFMqwk9wzu3uuActR19NhUWcCpPrx7f1ogIylM/6M2Rv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FXCYJn8h; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lYGnlquv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 568F91F00A3A;
-	Sun,  6 Sep 2026 13:17:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788700661;
-	bh=WCE/9VZM99B8W32LfhgpdIXVvOZKjQFo9AGkwQcHIa4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lYGnlquv6nQ08OFYgWH62Gul+FzC0S4nEKoXH3HYYrdIE6pd7tM+lCPwXO7aldLAN
-	 Q4COUhQ62ye5l2wAPwxlmrYseQGW0pgj9/UYLoXbUVyXfmaKeMEbygwyEOMIFS5YTH
-	 Z/b16mYpf+Irm/QqiCWkqbZ3bmbNc1pGVQnoH4D9/pocPMhbVh85VkWk8S9kXu2Mt0
-	 Qo6GthoFrapafQq/aHn7shtUGOOtaJl01+KRhfdtu2P7EzARYGQza4SN6SNQuXyKK3
-	 d5snKW14kE+FFBNbO7s3hTmC7/VdtCTdYZOfMF1YQIR8pburFUeDI2Tml4kaETUdTD
-	 8GrmVhheX0ISg==
-From: Simon Horman <horms@kernel.org>
-To: phucduc.bui@gmail.com
-Cc: Simon Horman <horms@kernel.org>,
-	wei.fang@nxp.com,
-	frank.li@nxp.com,
-	shenwei.wang@nxp.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	richardcochran@gmail.com,
-	swboyd@chromium.org,
-	imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: Re: [PATCH net v3] net: fec: Propagate PTP initialization errors
-Date: Sun,  6 Sep 2026 14:17:11 +0100
-Message-ID: <20260906131711.247708-1-horms@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260904105542.70540-1-phucduc.bui@gmail.com>
-References: <20260904105542.70540-1-phucduc.bui@gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FXCYJn8h"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788700686;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+TD92eCESGEn8DzPNc3JWo4V4tBuaFy4JtD+w3RW1fw=;
+	b=FXCYJn8h9g3zr0qTZvmsyy8i0GwEkV7pL9O0NKEvfUp97OCXh3jy0KnZh5vDmqH3djrSlu
+	d/KabZ+KITc54BNq7cFKm0KGCap6PXv627VzBDNPZ35PhLvqAzwaOKb3alKmjuzm2940VK
+	Qj8IcU1r/pYeLzAb00p9oH3W4O8zRIM=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-201-7Ix9_Wu9NZqFOPeL_yDHTA-1; Sun,
+ 06 Sep 2026 09:18:03 -0400
+X-MC-Unique: 7Ix9_Wu9NZqFOPeL_yDHTA-1
+X-Mimecast-MFC-AGG-ID: 7Ix9_Wu9NZqFOPeL_yDHTA_1788700681
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E76411955E97;
+	Sun,  6 Sep 2026 13:18:00 +0000 (UTC)
+Received: from fedora (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 9CAE4423;
+	Sun,  6 Sep 2026 13:17:56 +0000 (UTC)
+Received: by fedora (nbSMTP-1.00) for uid 1000
+	oleg@redhat.com; Sun,  6 Sep 2026 15:18:00 +0200 (CEST)
+Date: Sun, 6 Sep 2026 15:17:55 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+Message-ID: <ap1oA1MDAHnBz0N4@redhat.com>
+References: <20260905181551.738186850@kernel.org>
+ <20260905185839.667208455@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260905185839.667208455@kernel.org>
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://sashiko.dev/#/patchset/20260904105542.70540-1-phucduc.bui@gmail.com?part=1
----
-net: fec: Propagate PTP initialization errors
+On 09/05, Thomas Gleixner wrote:
+>
+> +/*
+> + * Find the target task for the POSIX timer signal and prevent that a
+> + * PIDTYPE_PID signal is queued on a task which has PF_EXITING set.
+> + */
+> +static inline struct task_struct *posixtimer_get_unignore_target(struct k_itimer *tmr)
+> +{
+> +	struct task_struct *t = posixtimer_get_target(tmr);
+> +
+> +	if (t && task_can_queue_signal(t, tmr->it_pid_type))
+> +		return t;
+> +
+> +	return NULL;
+> +}
+...
+> @@ -2136,7 +2183,7 @@ static void posixtimer_sig_unignore(stru
+>  		 * has exited by now, drop the reference count.
+>  		 */
+>  		guard(rcu)();
+> -		target = posixtimer_get_target(tmr);
+> +		target = posixtimer_get_unignore_target(tmr);
+>  		if (target)
+>  			posixtimer_queue_sigqueue(&tmr->sigq, target, tmr->it_pid_type);
 
-Change fec_ptp_init() to return an error code instead of silently
-ignoring failures during PTP initialization.
+Not sure posixtimer_get_unignore_target() makes a lot of sence...
+It has a single caller, and posixtimer_sig_unignore() can do
 
-Link: https://lore.kernel.org/all/20260903092430.354186-1-phucduc.bui@gmail.com/
+		target = posixtimer_get_target(tmr);
+		if (target && task_can_queue_signal(target, tmr->it_pid_type))
+			posixtimer_queue_sigqueue(&tmr->sigq, target, tmr->it_pid_type);
 
-> diff --git a/drivers/net/ethernet/freescale/fec_main.c b/drivers/net/ethernet/freescale/fec_main.c
-> index 794ec427b0ee6..a9a458703547d 100644
-> --- a/drivers/net/ethernet/freescale/fec_main.c
-> +++ b/drivers/net/ethernet/freescale/fec_main.c
-[ ... ]
-> @@ -5394,7 +5397,9 @@ fec_probe(struct platform_device *pdev)
->  	for (i = 0; i < irq_cnt; i++) {
->  		snprintf(irq_name, sizeof(irq_name), "int%d", i);
->  		irq = platform_get_irq_byname_optional(pdev, irq_name);
-> -		if (irq < 0)
-> +		if (irq < 0 && irq != -ENXIO)
-> +			return irq;
+But this is cosmetic and subjective. I believe the patch is correct.
 
-[Severity: High]
-Does this direct return bypass the error handling cleanup at the end of
-fec_probe()?
+Reviewed-by: Oleg Nesterov <oleg@redhat.com>
 
-By returning directly instead of jumping to the failed_irq label, the driver
-bypasses fec_ptp_stop(). This leaves the fep->time_keep delayed work
-(scheduled earlier in fec_ptp_init()) active.
-
-It also bypasses free_netdev(ndev), which leaks the net_device structure.
-
-When the driver core cleans up devres allocations on probe failure, it unmaps
-fep->hwp. If the un-canceled delayed work subsequently fires, will it attempt
-to access the unmapped memory at fep->hwp and cause a kernel panic?
-
-[ ... ]
-> diff --git a/drivers/net/ethernet/freescale/fec_ptp.c b/drivers/net/ethernet/freescale/fec_ptp.c
-> index 56801c2009d59..557a76797ebaa 100644
-> --- a/drivers/net/ethernet/freescale/fec_ptp.c
-> +++ b/drivers/net/ethernet/freescale/fec_ptp.c
-[ ... ]
-> @@ -779,26 +779,32 @@ void fec_ptp_init(struct platform_device *pdev, int irq_idx)
->  		      HRTIMER_MODE_REL);
->  
->  	irq = platform_get_irq_byname_optional(pdev, "pps");
-[ ... ]
-> +	if (irq > 0) {
->  		ret = devm_request_irq(&pdev->dev, irq, fec_pps_interrupt,
->  				       0, pdev->name, ndev);
->  		if (ret < 0)
-> -			dev_warn(&pdev->dev, "request for pps irq failed(%d)\n",
-> -				 ret);
-> +			return ret;
->  	}
->  
->  	fep->ptp_clock = ptp_clock_register(&fep->ptp_caps, &pdev->dev);
->  	if (IS_ERR(fep->ptp_clock)) {
-> +		ret = PTR_ERR(fep->ptp_clock);
->  		fep->ptp_clock = NULL;
->  		dev_err(&pdev->dev, "ptp_clock_register failed\n");
-> +		return ret;
-
-[Severity: High]
-Does this error return leave the devm-managed IRQ active while propagating an
-error back to the probe function?
-
-If ptp_clock_register() fails, fec_ptp_init() returns an error which
-propagates to fec_probe(), causing it to jump to failed_reset.
-
-The error path in fec_probe() manually frees ndev via free_netdev(ndev).
-
-However, the PPS interrupt was registered just prior using devm_request_irq(),
-so it remains active until fec_probe() returns and devres tears it down.
-
-If the PPS interrupt fires between the manual free of ndev and the devres
-cleanup, will fec_pps_interrupt() cast dev_id to ndev and attempt to
-dereference the already-freed ndev structure, causing a use-after-free crash?
