@@ -1,49 +1,73 @@
-Received: from out-zbxj-a65.jellyfish.systems (out-zbxj-a65.jellyfish.systems [198.54.127.65])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4D32BEFFD
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 14:46:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843262FE56A
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 14:46:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788705967; cv=none; b=J+8hrODB1JlJ276zSYw04diDLswvu5NmcQHasmjOnDVtd6TBckQgnOgWtnGO2zV/qI2YFjbpYTKwPdCzmqPvKDejjD0AXFRUtxBBKwwhZ3MN5By11AnRPihONoW+dfArnBmsbDeEHpXrjzbBDErjG8dFfChHWFlLW3NtvqHUl6I=
+	t=1788706004; cv=none; b=ZaX97PGuOV/Qa9MtSV0KbUEMtA0WxnNt3wfNwOpiKQDT1iwW0zQ26xm/4b48fd12yILKLnHYJHMuTdHAzOzTZ/Ftw/6BGFY3pCzgCmap94rm92KRVAnG/38y/HB18aV9X8xrRFLERzEr/5jo5OkYfofBDilAFZyfo+E2C7UDDfo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788705967; c=relaxed/simple;
-	bh=otcqdcNcNDzUsafHJpnFwCvatUD10JRIDznned2HgVM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=V7SmwmJp2LR9EV0wYOb4gP5fugg8oQdbHu31Nb0mrhlftD0jshAQIe2h/V/KXtEUhVVWnIK9j3gnsVlYA44jmkNUTyinrODoX7G3tT21gldd9sBew+jJz7st6OhKW7uGhvBHe7aP/vrS8NgPD8RIPlQW2ssHTumilODawDDHKyA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=QIAPUXvE; arc=none smtp.client-ip=198.54.127.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
+	s=arc-20240116; t=1788706004; c=relaxed/simple;
+	bh=AkmsPhY2nykw/qElY1cGWx8CQD8WQMtwPEwX3DiduLA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=V0SUvy3WJ7mCzbrtUMznWaIROePbjaGQhLsDNQjNtGJHmRzVs5zhuqtIkMQk1U6KpoRFIO5kyCqDHNos3qgZYfhP9al1S99kDCPyup+TcUmfd3kIIx1T6gqurzmAiBjKXAwryG3f9a4kx6wuf8uJ+wRs7w3tUlZ1+8Ds4LtaQv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=soUMJy+/; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="QIAPUXvE"
-Received: from fedora (unknown [69.5.53.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4hdCY46zn3z2x9q;
-	Sun, 06 Sep 2026 14:40:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
-	s=spacemail; t=1788705628;
-	bh=feTpTi+00SUdprpbkdceqwjpT54OJK30w6C0vNUQ/sU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=QIAPUXvEXNd5HF+wi/dWJcbUXtHtbzSYsEkho5viyjFWCDh9U6BtogiOq180GJ0t3
-	 vo5GN9OB6m3mbpA2+o7QTrzcpxeR1oovVhlYOS+B28sflt7EcxqBDf+8M0CAaxDMRF
-	 X6FbZJxZ7RhTpkQqwIldSJoR6Us7ir2WXLUHNB/T9+//N0kyY7RS/H6QLHhg/UvfX+
-	 Naeivx3lTxhlmT2jkXFZ9CjxYSDef9dykRO5X8rZHJrizooDXh8gwUYGO45UaboRiY
-	 Pz1CX1E6aigp8s9bhvvfMa9sjaaAScyXFH8CuhKR8kfZgvOleRajX/Yflk6bJnn+1u
-	 DdLoK6m203jTw==
-From: Tianyi Chen <hi@tychen.cc>
-To: rppt@kernel.org
-Cc: Tianyi Chen <hi@tychen.cc>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] memblock tests: cover allocations below the low address limit
-Date: Sun,  6 Sep 2026 22:40:11 +0800
-Message-ID: <20260906144011.848898-2-hi@tychen.cc>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260906144011.848898-1-hi@tychen.cc>
-References: <20260906144011.848898-1-hi@tychen.cc>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="soUMJy+/"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d01663d816so18064545ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 07:46:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788706003; x=1789310803; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=I/NA40pHs0mAdUAHdhoal9SiaLl11w46qTtr/hZ4eJU=;
+        b=soUMJy+/Bmn503vigVXy7VIsxAQIsXViLhuRIIXzsR5ZEHFp28hVtPq2eg/Dw9LQhg
+         hRW3g41vncs14wY8iGd6ErP+NWQT0px+wm/p0U7w3XUcgym97jlKu3DtPk/3GIvFOsJz
+         /e3x/jAtn1SP4zL1xprkBzdDebotthlN9IXCpZvpVFr1NvNrCf3KFmE8Fsa6I9cxDiA/
+         e/CTs+fA2ISbOkETMX99bc4uV84pkMvXbS1GHfMutG3xODKO3axc4kV/WkGR1ZkPivae
+         UJVmBwr0jgNPn1r4pOALNKWOe4sF2dNom/1pw2HNLwPqBkluDxR1obRZ/MJbDD0ZnUR+
+         p7Kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788706003; x=1789310803;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=I/NA40pHs0mAdUAHdhoal9SiaLl11w46qTtr/hZ4eJU=;
+        b=jzedtpUsv5ijSx9sFnFsj36o7RCr8+LJV9m2s2b/WyyrJ0cJQfmOPVWmjaojL49bij
+         koicf58QRuoaDV1PE8xkWMm4ruHDhy7sbWMIWGp0Y56owWDvbm3We3uycSxeBuYkr/pa
+         Ctwy+U3st+pPacdTzbTE7pl2MyGkkqa5NXwSC7MUXua58m7EBf+zyn6iyWyKo/Xn7bA4
+         oLxlMbZV9XaEyBrhiPvAb2CRCXwc1/WAfUMt940pkns5d8nEhZR6cLc9zP73ZeHOEgqM
+         yTsqqwosZOOHnfJMjQE8o1nFVJerYbPosZF1ZvQJssJZhupWd9VsPZBFJ0FHpfDfFsqh
+         zzqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz9v9c7FNeMvS4pVRNIwRleLfS2pNN+btq5zec84ubhzeb6qAHFWmeARNA77Q62YVe/wkmoScYFw2ipX5M=@vger.kernel.org
+X-Gm-Message-State: AFuF++l8DmPQAlb0opvM8f9b3jHdyV30yvVIdz6ss4OMmD+Zzu5QojUr
+	GqY3H0I01kJZSXaNQ5ag2aTqp8IR+PrSWfHlGQA+tuxrUyzcS4fp0UJd
+X-Gm-Gg: AYBFou1NEpV9VVT/uQvL31VrOS5NNchC3GiT0DHKyK2I+NLptpqlrtuap3c80BOJ+hP
+	23V6Z2vLR7C3RTAUFZohNG7TE7qB7gBBvnl5YQCcHOaTaY8OrGZYhbfzOfCb4Zdn2S1zWRtewcy
+	+eAAoji1+ohSgOoQvTlVHr+duZMbC+qmxAdqI8DhUzBSOQFD39PcFHMXyaARcgcobbYNBlJ3sw2
+	0c9rrnK/VrWH/zlToxeM4Vs2oFxsFfJcxPSfvp2BbFvMiBhetIPLCGWkmPz3MBlisv14q6nHNFS
+	G/QMbSYtuk8mXaDDTjN+z+GuVGfkfwxMDONFk5o3qHpIFJ921HhvIaY3GEq1C4Ue0YuW3O+OL4V
+	+KmoBs8HIbplYGZAo+8/jY3HkdfDX1bdK6NusnQVWc0VVaCYZna+3zwCbcWvkzChM28nAsT1Rpr
+	cLjSUugW7p3WebSABJnYBDwWUjmkG0oI6I6PuCNWqYfdpxx9G0dtP/LRYtvmZtMumwsTfiGzyZL
+	/epoWQSFZGxgdznXNghIKxNK6RDMtsQO1Sp
+X-Received: by 2002:a17:90b:560e:b0:38e:2e86:ed02 with SMTP id 98e67ed59e1d1-39b261e7931mr27948816a91.14.1788706002833;
+        Sun, 06 Sep 2026 07:46:42 -0700 (PDT)
+Received: from deepanshu.. ([2405:201:682f:383f:111b:b40c:2146:f791])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08d0d7e8sm22758239a91.16.2026.09.06.07.46.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 07:46:41 -0700 (PDT)
+From: Deepanshu Kartikey <kartikey406@gmail.com>
+To: cem@kernel.org,
+	djwong@kernel.org
+Cc: linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Deepanshu Kartikey <kartikey406@gmail.com>,
+	syzbot+ccdf3469f5f653bff7ac@syzkaller.appspotmail.com
+Subject: [PATCH] xfs: take hm->lock in xfs_ioc_health_monitor() before insert
+Date: Sun,  6 Sep 2026 20:16:29 +0530
+Message-Id: <20260906144629.17009-1-kartikey406@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,287 +75,36 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Envelope-From: hi@tychen.cc
 
-Add memblock_alloc_low() coverage using the simulator's low address
-limit. Exercise aligned allocation, an allocation ending exactly at
-the limit, an alignment constraint that prevents fitting below it,
-and fully reserved low memory with high memory still available.
+__xfs_healthmon_insert() asserts that hm->lock is held
+(lockdep_assert_held), but xfs_ioc_health_monitor() called it right
+after allocating hm, before ever taking the lock, triggering a
+lockdep warning.
 
-Run each case with bottom-up and top-down allocation. Check zeroing
-and reserved-region accounting as well as returned addresses. Verify
-that an unrestricted allocation can use the free high memory after
-the low allocation fails.
+Take hm->lock around the call.
 
-Document the simulated limit and remove the completed TODO. The full
-suite passes with ASan and UBSan in default, NUMA, 32-bit physical
-address and debug configurations, with movable-node mode both enabled
-and disabled.
-
-Assisted-by: LLM
-Signed-off-by: Tianyi Chen <hi@tychen.cc>
+Fixes: b3a289a2a9397 ("xfs: create event queuing, formatting, and discovery infrastructure")
+Reported-by: syzbot+ccdf3469f5f653bff7ac@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=ccdf3469f5f653bff7ac
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
 ---
- tools/testing/memblock/Makefile              |   3 +-
- tools/testing/memblock/README                |  13 +-
- tools/testing/memblock/TODO                  |   5 -
- tools/testing/memblock/main.c                |   2 +
- tools/testing/memblock/tests/alloc_low_api.c | 147 +++++++++++++++++++
- tools/testing/memblock/tests/alloc_low_api.h |   9 ++
- 6 files changed, 166 insertions(+), 13 deletions(-)
- delete mode 100644 tools/testing/memblock/TODO
- create mode 100644 tools/testing/memblock/tests/alloc_low_api.c
- create mode 100644 tools/testing/memblock/tests/alloc_low_api.h
+ fs/xfs/xfs_healthmon.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/tools/testing/memblock/Makefile b/tools/testing/memblock/Makefile
-index d80982ccdc2..20524fcbe3c 100644
---- a/tools/testing/memblock/Makefile
-+++ b/tools/testing/memblock/Makefile
-@@ -7,7 +7,8 @@ CFLAGS += -I. -I../../include -Wall -O2 -fsanitize=address \
- LDFLAGS += -fsanitize=address -fsanitize=undefined
- TARGETS = main
- TEST_OFILES = tests/alloc_nid_api.o tests/alloc_helpers_api.o tests/alloc_api.o \
--		  tests/basic_api.o tests/common.o tests/alloc_exact_nid_api.o
-+		  tests/basic_api.o tests/common.o tests/alloc_exact_nid_api.o \
-+		  tests/alloc_low_api.o
- DEP_OFILES = memblock.o lib/slab.o mmzone.o slab.o cmdline.o
- OFILES = main.o $(DEP_OFILES) $(TEST_OFILES)
- EXTR_SRC = ../../../mm/memblock.c
-diff --git a/tools/testing/memblock/README b/tools/testing/memblock/README
-index b435f48d8a7..e4fb5f23fb2 100644
---- a/tools/testing/memblock/README
-+++ b/tools/testing/memblock/README
-@@ -67,13 +67,13 @@ memblock
- |-- tests
- |    |-- alloc_api.(c|h)         -- memblock_alloc tests
- |    |-- alloc_helpers_api.(c|h) -- memblock_alloc_from tests
-+|    |-- alloc_low_api.(c|h)     -- memblock_alloc_low tests
- |    |-- alloc_nid_api.(c|h)     -- memblock_alloc_try_nid tests
- |    |-- basic_api.(c|h)         -- memblock_add/memblock_reserve/... tests
- |    |-- common.(c|h)            -- helper functions for resetting memblock;
- |-- main.c        --------------.   dummy physical memory definition
- |-- Makefile                     `- test runner
- |-- README
--|-- TODO
- |-- .gitignore
+diff --git a/fs/xfs/xfs_healthmon.c b/fs/xfs/xfs_healthmon.c
+index 3ae5f4496ad1..2f762f90d329 100644
+--- a/fs/xfs/xfs_healthmon.c
++++ b/fs/xfs/xfs_healthmon.c
+@@ -1219,7 +1219,9 @@ xfs_ioc_health_monitor(
+ 	}
+ 	running_event->type = XFS_HEALTHMON_RUNNING;
+ 	running_event->domain = XFS_HEALTHMON_MOUNT;
++	mutex_lock(&hm->lock);
+ 	__xfs_healthmon_insert(hm, running_event);
++	mutex_unlock(&hm->lock);
  
- Simulating physical memory
-@@ -101,12 +101,11 @@ There's no need to explicitly free the dummy memory from memblock via
- memblock_free() call. The entry will be erased by reset_memblock_regions(),
- called at the beginning of each test.
- 
--Known issues
--============
--
--1. Tests for memblock_alloc_low() can't be easily implemented. The function uses
--   ARCH_LOW_ADDRESS_LIMIT marco, which can't be changed to point at the low
--   memory of the memory_block.
-+The simulator defines ARCH_LOW_ADDRESS_LIMIT in asm/dma.h using the midpoint
-+of the MEM_SIZE range beginning at the dummy physical memory base. This keeps
-+the low-address limit within the allocated buffer even when malloc() returns
-+an address above the kernel's default limit. The limit is an exclusive upper
-+bound, as in the memblock allocation API.
- 
- References
- ==========
-diff --git a/tools/testing/memblock/TODO b/tools/testing/memblock/TODO
-deleted file mode 100644
-index c13ad0dae77..00000000000
---- a/tools/testing/memblock/TODO
-+++ /dev/null
-@@ -1,5 +0,0 @@
--TODO
--=====
--
--1. Add tests for memblock_alloc_low() once the simulator can model
--   ARCH_LOW_ADDRESS_LIMIT against the low memory in memory_block
-diff --git a/tools/testing/memblock/main.c b/tools/testing/memblock/main.c
-index 278f9dec500..9a96e178551 100644
---- a/tools/testing/memblock/main.c
-+++ b/tools/testing/memblock/main.c
-@@ -4,6 +4,7 @@
- #include "tests/alloc_helpers_api.h"
- #include "tests/alloc_nid_api.h"
- #include "tests/alloc_exact_nid_api.h"
-+#include "tests/alloc_low_api.h"
- #include "tests/common.h"
- 
- int main(int argc, char **argv)
-@@ -12,6 +13,7 @@ int main(int argc, char **argv)
- 	memblock_basic_checks();
- 	memblock_alloc_checks();
- 	memblock_alloc_helpers_checks();
-+	memblock_alloc_low_checks();
- 	memblock_alloc_nid_checks();
- 	memblock_alloc_exact_nid_checks();
- 
-diff --git a/tools/testing/memblock/tests/alloc_low_api.c b/tools/testing/memblock/tests/alloc_low_api.c
-new file mode 100644
-index 00000000000..a0fae975a26
---- /dev/null
-+++ b/tools/testing/memblock/tests/alloc_low_api.c
-@@ -0,0 +1,147 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+#include "alloc_low_api.h"
-+#include <linux/align.h>
-+
-+/* Allocate at the first or last aligned address below the low limit. */
-+static int alloc_low_simple_check(void)
-+{
-+	struct memblock_region *rgn = &memblock.reserved.regions[0];
-+	phys_addr_t size = SZ_64;
-+	phys_addr_t expected;
-+	void *allocated_ptr;
-+
-+	PREFIX_PUSH();
-+	setup_memblock();
-+
-+	if (memblock_bottom_up())
-+		expected = ALIGN(memblock_start_of_DRAM(), SMP_CACHE_BYTES);
-+	else
-+		expected = ALIGN_DOWN(ARCH_LOW_ADDRESS_LIMIT - size,
-+				      SMP_CACHE_BYTES);
-+
-+	allocated_ptr = memblock_alloc_low(size, SMP_CACHE_BYTES);
-+
-+	ASSERT_NE(allocated_ptr, NULL);
-+	ASSERT_EQ((phys_addr_t)(uintptr_t)allocated_ptr, expected);
-+	ASSERT_MEM_EQ(allocated_ptr, 0, size);
-+	ASSERT_EQ(rgn->base, expected);
-+	ASSERT_EQ(rgn->size, size);
-+	ASSERT_LE(region_end(rgn), ARCH_LOW_ADDRESS_LIMIT);
-+	ASSERT_EQ(memblock.reserved.cnt, 1);
-+	ASSERT_EQ(memblock.reserved.total_size, size);
-+
-+	test_pass_pop();
-+	return 0;
-+}
-+
-+/* The only low memory available ends exactly at the exclusive limit. */
-+static int alloc_low_exact_limit_check(void)
-+{
-+	phys_addr_t limit = ARCH_LOW_ADDRESS_LIMIT;
-+	phys_addr_t base = ALIGN_DOWN(limit - SZ_64, SMP_CACHE_BYTES);
-+	phys_addr_t size = limit - base;
-+	void *allocated_ptr;
-+
-+	PREFIX_PUSH();
-+	setup_memblock();
-+	ASSERT_EQ(memblock_remove(memblock_start_of_DRAM(),
-+				  base - memblock_start_of_DRAM()), 0);
-+
-+	allocated_ptr = memblock_alloc_low(size, SMP_CACHE_BYTES);
-+
-+	ASSERT_NE(allocated_ptr, NULL);
-+	ASSERT_EQ((phys_addr_t)(uintptr_t)allocated_ptr, base);
-+	ASSERT_MEM_EQ(allocated_ptr, 0, size);
-+	ASSERT_EQ(memblock.reserved.regions[0].base, base);
-+	ASSERT_EQ(region_end(&memblock.reserved.regions[0]), limit);
-+	ASSERT_EQ(memblock.reserved.cnt, 1);
-+	ASSERT_EQ(memblock.reserved.total_size, size);
-+
-+	test_pass_pop();
-+	return 0;
-+}
-+
-+/*
-+ * There are size bytes below the limit, but aligning the start makes the
-+ * allocation cross it. Memory above the limit must not satisfy the request.
-+ */
-+static int alloc_low_alignment_crosses_limit_check(void)
-+{
-+	phys_addr_t limit = ARCH_LOW_ADDRESS_LIMIT;
-+	phys_addr_t base = ALIGN_DOWN(limit, SMP_CACHE_BYTES) - 1;
-+	phys_addr_t size = limit - base;
-+	void *allocated_ptr;
-+
-+	PREFIX_PUSH();
-+	setup_memblock();
-+	ASSERT_EQ(memblock_remove(memblock_start_of_DRAM(),
-+				  base - memblock_start_of_DRAM()), 0);
-+
-+	allocated_ptr = memblock_alloc_low(size, SMP_CACHE_BYTES);
-+
-+	ASSERT_EQ(allocated_ptr, NULL);
-+	ASSERT_EQ(memblock.reserved.cnt, 0);
-+	ASSERT_EQ(memblock.reserved.total_size, 0);
-+	ASSERT_MEM_EQ((void *)(uintptr_t)base, 1, memblock_end_of_DRAM() - base);
-+
-+	test_pass_pop();
-+	return 0;
-+}
-+
-+/* Reserving all low memory must fail even though high memory remains free. */
-+static int alloc_low_reserved_check(void)
-+{
-+	phys_addr_t limit = ARCH_LOW_ADDRESS_LIMIT;
-+	phys_addr_t base = dummy_physical_memory_base();
-+	phys_addr_t size = SZ_64;
-+	void *allocated_ptr;
-+
-+	PREFIX_PUSH();
-+	setup_memblock();
-+	ASSERT_EQ(memblock_reserve(base, limit - base), 0);
-+
-+	allocated_ptr = memblock_alloc_low(size, SMP_CACHE_BYTES);
-+
-+	ASSERT_EQ(allocated_ptr, NULL);
-+	ASSERT_EQ(memblock.reserved.cnt, 1);
-+	ASSERT_EQ(memblock.reserved.regions[0].base, base);
-+	ASSERT_EQ(memblock.reserved.regions[0].size, limit - base);
-+	ASSERT_EQ(memblock.reserved.total_size, limit - base);
-+	ASSERT_MEM_EQ((void *)(uintptr_t)base, 1, MEM_SIZE);
-+
-+	allocated_ptr = memblock_alloc(size, SMP_CACHE_BYTES);
-+	ASSERT_NE(allocated_ptr, NULL);
-+	ASSERT_LE(limit, (phys_addr_t)(uintptr_t)allocated_ptr);
-+	ASSERT_MEM_EQ(allocated_ptr, 0, size);
-+
-+	test_pass_pop();
-+	return 0;
-+}
-+
-+static int alloc_low_checks(void)
-+{
-+	alloc_low_simple_check();
-+	alloc_low_exact_limit_check();
-+	alloc_low_alignment_crosses_limit_check();
-+	alloc_low_reserved_check();
-+
-+	return 0;
-+}
-+
-+int memblock_alloc_low_checks(void)
-+{
-+	prefix_reset();
-+	prefix_push("memblock_alloc_low");
-+	test_print("Running memblock_alloc_low tests...\n");
-+
-+	reset_memblock_attributes();
-+	dummy_physical_memory_init();
-+
-+	run_top_down(alloc_low_checks);
-+	run_bottom_up(alloc_low_checks);
-+
-+	dummy_physical_memory_cleanup();
-+	prefix_pop();
-+
-+	return 0;
-+}
-diff --git a/tools/testing/memblock/tests/alloc_low_api.h b/tools/testing/memblock/tests/alloc_low_api.h
-new file mode 100644
-index 00000000000..2e3cbe336f5
---- /dev/null
-+++ b/tools/testing/memblock/tests/alloc_low_api.h
-@@ -0,0 +1,9 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+#ifndef _MEMBLOCK_ALLOC_LOW_H
-+#define _MEMBLOCK_ALLOC_LOW_H
-+
-+#include "common.h"
-+
-+int memblock_alloc_low_checks(void);
-+
-+#endif
+ 	/*
+ 	 * Preallocate the unmount event so that we can't fail to notify the
 -- 
-2.55.0
+2.34.1
 
