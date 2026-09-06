@@ -1,119 +1,148 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [194.59.206.189])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC20436C5AE
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 12:14:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.59.206.189
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A10AC420E7C
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 12:14:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788696848; cv=none; b=Rf9qsFyV0yUx7Duu9ifdj+ZvimS509d9FxXjTpUU/a41D00A3oTcAardHeFns+M3xggHDbfEI8lowcOpyfOTX+9A38P4Rt/BYeTHQypRWFyvxD2L00wD970KOsKj1Azhk604suQuo5JF78MY/4vKsvaLc5ZI5YYvwA990dNPEj8=
+	t=1788696868; cv=none; b=AaFyThOhkut1MgU5MXPL1/PIVt3nmmqyxTTyj2vnGSGu5ZAiV7u04eKUXsAwIP5oZlC4HIkhWicfx14YGDpzsCtNNVmsvX7JW+ZbjXduvCvM+cShVg9+ado94pC7xXbNkk2as8TdH8JcPWeoLpZct8Uen3+h3nzx4Q6E0fEXLPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788696848; c=relaxed/simple;
-	bh=ApJ7FiTZ+55nHKLNw62JGDF3PcDvJlXu5LlkmE/BWW0=;
-	h=Message-ID:Date:MIME-Version:From:To:Cc:Subject:Content-Type; b=o8cPpEkXxCmrJG1ss6dyM49gakVauMKbeaweZYz5u+50opOS+qcvZtPGB7IqEGX4a5jk8AZ5c/rQ2KMEnKEpWwq7OopwEpkl66NjMLcCSYFmHpMx80gYh6fZpoVxC7IUn698tYrLhaTNTEVbQQelZPbgmR1I5Kiq6pPYwZo/ROM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=fWIIl5PJ; arc=none smtp.client-ip=194.59.206.189
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1788696868; c=relaxed/simple;
+	bh=xiM5pdelIr3CgyoWOb5sGWF8noprLxF9pgrehbKU2oU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fy6mn7lx3rjaj+0/DUyQRaPI+ig1B/vgaWF11Ptjjb5R5v06Q8+h6gVxpFK5KEzgN3vyFlJf3zX/ivAjRRE+S9v/NiVuGFX0xSKCARMGTCrIlMq0ECugLeT95iVA99CXcDOqFf2pQ+Zml9wuR+ToXnznS58se433w7IehiMuW/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kzHJAqrL; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="fWIIl5PJ"
-Received: from relay02-mors.netcup.net (localhost [127.0.0.1])
-	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4hd8J46VWsz4L36;
-	Sun,  6 Sep 2026 14:13:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1788696836;
-	bh=ApJ7FiTZ+55nHKLNw62JGDF3PcDvJlXu5LlkmE/BWW0=;
-	h=Date:From:To:Cc:Subject:From;
-	b=fWIIl5PJfNYbO7lnFOnE+YOxOGUFWjyezWB0BeZ9mxgQ7NOgoGGRAGcLYydrrmJsj
-	 NfGpt2gQBt7pS0tSjye8vCxpOmsyL79+Rls/VzZq/YrVj8ZGervsVEyqnvhq0Vnyoz
-	 zweDFBETD8adSBLmQ+M5XHvtKomZ9ctbIuG/XN/5RZKqJwpe2vmZ/ux5qjgluDc0Yw
-	 3Vq0PvxiVKAwLafQzD3P1OkbWe7VeoDAV4eq1SfoPAp9PY1rvJJWCm1a6+8oRIu+Je
-	 BpRIS/VUdVwBN/6iI98swAXnrLyADWrGw3Kl0kLPk1aECnz/6Oo9luZ6KX+rz+YJx4
-	 K/LxRopOXzj3Q==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4hd8Hp4HD6z7y6p;
-	Sun,  6 Sep 2026 14:13:42 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hd8Hp1HNjz8svJ;
-	Sun,  6 Sep 2026 14:13:42 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 758E55FA8D;
-	Sun,  6 Sep 2026 14:13:37 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <a66fe07c-3977-4734-9991-d0d9d78484c6@leemhuis.info>
-Date: Sun, 6 Sep 2026 14:13:35 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kzHJAqrL"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso23920575e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 05:14:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788696864; x=1789301664; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=p90yRqRNkEpbXqQjLiETs/gtDf1cDQsPml2IReoU9ZE=;
+        b=kzHJAqrLY1uA8QHBl5LWb3fGpZ9SllS8aEYgHCBm7g0V8tQqKZ9L3KWexnMqTTpq3L
+         kfrkN3VEbOSsF1be9RmEifbytnE3EKoesxydBCaM8WRjdoCjYtvu/UL9GPZxDFn5Zbqj
+         Zj4w5VobopYu3F/goh2tMgeNbhvzrIszgTRw0PYY18PDb8SU5TmtcCFSvbgpvp0r9jzE
+         ZBKBkthURe0/10DsogNdkz99VbeHVTINqzb+WbncJJCRLNUAJ3+GbH67py6v31nxFhjN
+         EAQ9H0wMG18gDlluYPsNhoedZ8MhHn+B19136zOjWnzKBmVG1F0orr8nlH/1xU+mUw1x
+         b9dQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788696864; x=1789301664;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=p90yRqRNkEpbXqQjLiETs/gtDf1cDQsPml2IReoU9ZE=;
+        b=L7xhWuY+ePmloDjG6RPo+blfc5GnYl8ApBJUIRBIp/9HfjjBC2GrkAANSQMb9U99rb
+         Kbbyu99/0uDKXuP45HbI0snOcCgaP7mouGTiHpCRfJ9RHd+SRbK1jPhn/Nz2AOnlXj7P
+         tGrA5mapsvFC0ae9vhUH7sco8P2TxN0VBkSRO3SGJPQIcdGbLdML/Sj02JwhrCJWVx5R
+         nIaHUDKagODP/VzTHG0PTgeEgDYeH6EEcecMzw+XwKmtDXvB6dAoYjjnNg57tNTLAloh
+         gSS86QlruzKDnN0aJTKMxJxBNrh+yMgSg3pjV6wlP5m05g3UnMlnQZOfusgqrbM2dgYW
+         z71g==
+X-Forwarded-Encrypted: i=1; AKwUvBxCV+dHY1KALEFqPfLSrXS0+0v4WtHswW7hJoZa6637I4IQj7sxeMug0jJ9wSjuOwMn0QuWKqVCoPlTbj4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mepS8V7sPpW/qfYcKEN6gOFxBeaUM9mEW7g2iH4ipAGmnO/upC
+	MbLB+BJBIh9Ne+6y/EoZ/8QXxlYj5qB6u0qloDvNkE/KuXuYr/IN69VN
+X-Gm-Gg: AYBFou19uedu8XqHxKcsr7mN33BuREQeDHDTgZ7gWWivK8LQnHi1xQx1FBt60Hrheia
+	y8fMRsaT1Qlck9UgCNp0LB+G5RcxfU2LLQuaE0z+w4mBHihZ+yNjdbmnFdkSPr/CTQj+oCIDjI2
+	R/VrHe1iOUj5RG2OiVYWBL7hLYINbyq7vorNxCrYIFlPeMOdszD/vc9symz+06Vml+EOCzb4VTl
+	iXpnevlcT+7AH9sHfO0xa050nioqNL4JWfHNAMYIKqCzbsI2vcxBRxTScdNuiP1fcEueVhzfhfB
+	5p0YQ3Jpbjr0XPKRKSUt1Wp9SHukGcueQdOGRSbMAFy60yEQAYL1R9R0K+rcleczHBh9DX3Iord
+	+Ci7g3yYT7XjcDO9yIseJMyAS2fjLDNoq8AxRXk2MJG7QZBohQVB3r88Ml2GJDoMojE4u0Zs8a4
+	dCRyi8SWFrFEMdfYdEtNZClU1N5oqVw0kDYZOrM6AKWG80Y4GR4uD8VtZCpWozTTdReNprh+x9H
+	meS+xb8CJC/VXb6HAz56OqTTlBGJ2G4rmNiBdfzR0F/qTn8dUIAwgThmcM=
+X-Received: by 2002:a05:600c:474c:b0:493:c47f:3c55 with SMTP id 5b1f17b1804b1-49cf8227619mr155692535e9.5.1788696864253;
+        Sun, 06 Sep 2026 05:14:24 -0700 (PDT)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d03543064sm137917565e9.13.2026.09.06.05.14.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 05:14:23 -0700 (PDT)
+From: David Carlier <devnexen@gmail.com>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+	Shameer Kolothum <skolothumtho@nvidia.com>,
+	Sascha Bischoff <sascha.bischoff@arm.com>,
+	Khushit Shah <khushit.shah@nutanix.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	David Carlier <devnexen@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] arm64: errata: match the target implementation CPU's own MIDR
+Date: Sun,  6 Sep 2026 13:14:16 +0100
+Message-ID: <20260906121421.60575-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Linux kernel regressions list <regressions@lists.linux.dev>,
- LKML <linux-kernel@vger.kernel.org>
-Subject: Quick regression status pre 7.3-rc2
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <178869681771.2508981.6611539481111890384@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: 758E55FA8D
-X-NC-CID: NS4apBZSEWfJw6RvJR742LoZuvvJUvnk8tDOLloXSl+TTI0LsQc=
+Content-Transfer-Encoding: 8bit
 
-Hi Linus! Here is a quick report about two unresolved regressions from
-this cycle that seem to bother multiple people and thus might be good to
-get fixed sooner rather than later; fixes are available for both of
-them, but are just sitting on the list afaics:
+__is_affected_midr_range() is handed the MIDR and REVIDR of one target
+implementation CPU, but tests the erratum's range with is_midr_in_range(),
+which re-scans all of target_impl_cpus[] and ignores the @midr argument.
+The range test is thus constant across the per-CPU loop in
+is_affected_midr_range() and only answers "is any target CPU in range".
 
-* 9417c5818a0146 ("wifi: mt76: mt7921: validate CLC firmware records")
-[v7.3-rc1] causes probe failures for some widely used mediatek wifi chips:
+Since just the fixed_revs REVIDR check uses the iteration's own registers,
+an out-of-range target CPU can decide whether a MIDR_FIXED() exemption
+applies. A VM then enables a workaround whose only in-range CPU is fixed
+silicon, e.g. erratum 2658417 on a Cortex-A510 r1p1 with REVIDR_EL1[25]
+set.
 
-  - Mikhail Gavrilov reported this on 2026-08-16 (e.g. right before the
-merge window opened):
-https://lore.kernel.org/lkml/20260816132325.23007-1-mikhail.v.gavrilov@gmail.com/
-  - Junjie Cao reported this on 2026-09-01 with another fix (withdrawn
-meanwhile):
-https://lore.kernel.org/stable/20260901011840.416787-1-junjie.cao@intel.com/
+Factor the range test into __is_midr_in_range(), which takes an explicit
+MIDR, and use it in __is_affected_midr_range().
 
+Fixes: 86edf6bdcf05 ("smccc/kvm_guest: Enable errata based on implementation CPUs")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: David Carlier <devnexen@gmail.com>
+---
+ arch/arm64/kernel/cpu_errata.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
-  The culprit's author within hours of the first report provided a fix
-that got "Tested-by" from the two aforementioned reporters:
-https://lore.kernel.org/linux-wireless/20260816174841.1918-1-acharyalaxman8848@
-7.2 final/-rc8gmail.com/
+diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
+index b33dccfafaf8..8ec47d89b45b 100644
+--- a/arch/arm64/kernel/cpu_errata.c
++++ b/arch/arm64/kernel/cpu_errata.c
+@@ -28,18 +28,21 @@ bool cpu_errata_set_target_impl(u64 num, void *impl_cpus)
+ 	return true;
+ }
+ 
++static inline bool __is_midr_in_range(u32 midr, struct midr_range const *range)
++{
++	return midr_is_cpu_model_range(midr, range->model,
++				       range->rv_min, range->rv_max);
++}
++
+ static inline bool is_midr_in_range(struct midr_range const *range)
+ {
+ 	int i;
+ 
+ 	if (!target_impl_cpu_num)
+-		return midr_is_cpu_model_range(read_cpuid_id(), range->model,
+-					       range->rv_min, range->rv_max);
++		return __is_midr_in_range(read_cpuid_id(), range);
+ 
+ 	for (i = 0; i < target_impl_cpu_num; i++) {
+-		if (midr_is_cpu_model_range(target_impl_cpus[i].midr,
+-					    range->model,
+-					    range->rv_min, range->rv_max))
++		if (__is_midr_in_range(target_impl_cpus[i].midr, range))
+ 			return true;
+ 	}
+ 	return false;
+@@ -59,7 +62,7 @@ __is_affected_midr_range(const struct arm64_cpu_capabilities *entry,
+ 			 u32 midr, u32 revidr)
+ {
+ 	const struct arm64_midr_revidr *fix;
+-	if (!is_midr_in_range(&entry->midr_range))
++	if (!__is_midr_in_range(midr, &entry->midr_range))
+ 		return false;
+ 
+ 	midr &= MIDR_REVISION_MASK | MIDR_VARIANT_MASK;
+-- 
+2.55.0
 
-  The maintainers afaics never reacted to the fix and it three weeks
-later still marked as "new" in patchwork:
-https://patchwork.kernel.org/project/linux-wireless/patch/20260816174841.1918-1-acharyalaxman8848@gmail.com/
-
-
-* 9b80bd9cab40c4 ("wifi: mt76: mt7921: add regulatory wiphy self manager
-support") [v7.3-rc1] and e9f3f1cc133fc2 ("wifi: mt76: mt7925: add
-regulatory wiphy self manager support") [v7.3-rc1] also causes probe
-failures for some widely used mediatek wifi chips; the problem is in a
-similar area and affects similar chips, but from my limited
-understanding seems to be different.
-
- - Klara Modin reported the regression on 2026-08-24:
-https://lore.kernel.org/linux-wireless/aoyxqHYvSuaBeubf@soda.int.kasm.eu/
- - Devin Wittmayer within a day reproduced the problem and provided a
-fix that got a Tested-by from Klara:
-https://lore.kernel.org/lkml/20260825181712.28548-1-lucid_duck@justthetip.ca/
- - David Gow recently ran into the same problem and provided a Tested-by
-for the fix, too:
-https://lore.kernel.org/lkml/bcf1ee9b-97e5-43f9-81eb-67ac6a0a98dc@davidgow.net/
-
-  The maintainers never reacted to that afaics and that patch is still
-marked as "new" in patchwork:
-https://patchwork.kernel.org/project/linux-wireless/patch/20260825181712.28548-1-lucid_duck@justthetip.ca/
-
-
-FWIW, there were two other regressions that bothered multiple people and
-would nearly have been mentioned in this report, but Greg send PRs with
-those an ~two hours ago to you.
-
-HTH, Ciao, Thorsten
