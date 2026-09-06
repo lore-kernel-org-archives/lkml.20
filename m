@@ -1,43 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CD181DF248;
-	Sun,  6 Sep 2026 00:36:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8911F282F1C
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 00:39:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788655012; cv=none; b=anyreE4ZovyYK0ublIT0jTBn4RcpAlm8y6YnNHtVO33bAMjAm/IojAkpRl6sAdfxB/JH5QudMmgnhQunTZRox8kXhqwPyqW7a0MGaythn2vDf0bQiMXkKbjAvOXDRedO37nMSULgWciV8TY2m+ZIpUuEpZfcYq+nQ+lABW0GU+0=
+	t=1788655175; cv=none; b=e0+wQfwVIVptIH0kJMFfO7o20Q8J4hjQDOIi5Dkowo9qVvlqUJvWQYZpx+wc2LUQBCU8CJC3tZ7NC93FuFQmYVYX9cfvlB9xRwNdGDmnXTQvAYLc6aBSFZTzrKcmjCAWTSRU7Ww/MBX2cHwgd4DuF8JoF7571L7mbqc+phZ5Ghs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788655012; c=relaxed/simple;
-	bh=RaLxNpybnbMkQfXQATVTdJJU15X6lJrhbRnTxKgXKbI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YPLE4+eWaB5ww8YHgfFqy3F1O84KW6Qk5SjnymcyNz53mSglpbVBTwTgBeDwyGNJoCZp6T9DGrTZq1dZAl5Bv9V6xiNV5EiVt2G9ticquZei7IMQOfUE4mD+qoXKoygpeEMU5aPUD3z42luKY/RMJvrCFKXqIVsV0WURQJN0OG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hX2tTg4u; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788655175; c=relaxed/simple;
+	bh=X/xRmr4GqSFunc+sX8Q9MZBpCDeItpD08dRwHxnF2ng=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VWM3eT2DV00eA+wYWgMIx+RCadyZGctJvf4jpUiHQIHFE9a5/qqX9qhTX359ZFgJPNDs8lKTckLLMJO4lQu/gvYfH1RvjzLaI+3EmnidWBgFVWeV7F4tz0Nd/PqQqwwCmRxaClZj3e5c95nLzGiwUYSDnnt5egbhYJCZucaeSuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NJiSjcih; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hX2tTg4u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 742EF1F00A3A;
-	Sun,  6 Sep 2026 00:36:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788655010;
-	bh=b0LljruB38lpsTELuDbt8u+1fE4q0VDd8gdamx+9qVA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=hX2tTg4uigmpv9pmQjY2XJheavbCM+gWwqr4+zu3zEnhAfiT3FZWCL5Ixnyqpz/4V
-	 NUR3C4I2x4qybwm9E1rLkGBIRJYO4xZQmoB7moFfa1Tj2kidhiGk8l6m6NxHQ2hwWU
-	 CYejYFTRRxlx3UwTVmdkY987hAuCP75kO8ZKT/doSilsS7rHOCLcGpmDfeNFui8yiy
-	 swEtDZMHRc1dZHsCrbDbAIlpBvi3tLOOB9HVZU+k3AHbNdSOpML6xdmsmpTPjP9CbL
-	 aOqG/ECJQ+GzXxJDRzsPQ3dNxqcn3hxov7oysmnx5b22gwElWaiTcQ478aq/smY/SH
-	 a2gjX3Q68m1Ug==
-Date: Sun, 6 Sep 2026 01:36:45 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: "David Lechner (TI)" <dlechner@baylibre.com>
-Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, Chris Hall <c-hall@ti.com>, Patrick Edwards
- <pedwards@ti.com>, Kurt Borja <kuurtb@gmail.com>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 00/10] iio: adc: ti-ads112c14: add filter support
-Message-ID: <20260906013645.2ed1704c@jic23-huawei>
-In-Reply-To: <20260904-iio-adc-ti-ads112c14-filter-support-v2-0-f86592360658@baylibre.com>
-References: <20260904-iio-adc-ti-ads112c14-filter-support-v2-0-f86592360658@baylibre.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NJiSjcih"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-484392e3d33so1479048f8f.2
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 17:39:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788655172; x=1789259972; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pcaDcOTwZKz9h65XJ4Y1vvTbk/7+OUqBRO3ySthF/ls=;
+        b=NJiSjcihjURX2UzkgQzSq0Pdbs8S80fLRnciuDLxT737lprj4ZgGjIZa7bzMwGQ82F
+         06zXPQHhwqKGM0NDJx38lNh66UdxcY5r4vGsrY+ogiLSGJmiRkTtSyV+RYRocHYa+Le1
+         ZNVqtgVHjuQ1egvl82b25mhwztHmyyE+sf093KG1lKc/wNi02ZMOoA1Adp+xsbM6CKbu
+         RGL6ex+R+AotwU6FoewlBSAAXglfxLpzK4pAOrFE0fUTXd4EjAK8r00nPxBJFxmVgXMo
+         4VS/L007rRBlhV+0elvufupfp7EA85gOeb8wRGv4qW20U7Z2IVHD4wz+OckoXWEq6xsK
+         +aVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788655172; x=1789259972;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pcaDcOTwZKz9h65XJ4Y1vvTbk/7+OUqBRO3ySthF/ls=;
+        b=hf2aA7I3i2YtR+DxDqSipO1lcpQNy8ahzoT6LDSsykew5ZZiFU8ZHXPiT5o0O/N+UH
+         ycNSrDaFWFnKKOPWCxEwC8+EkiPgwiB37bKkjUBRr3pjLU+SWGbz/feKy2Hhg4tKDZx+
+         xiZsoDTD/tk0G+Ri0cjJXtV0OMgIFRRrG0r5v7KZ580RFvVOT5er3YYnl5b0r0CWGY2a
+         km6IL+mEN2w5sWeLonZNr90coUMlJwe848B/36u46oeqCThp7GwPhW/8f4D7Qt1WNC2j
+         uSyjNHX6q8XvwR6xUIg0KLQ7L+1o/oIvQmq+Ks9f0lGJeD7FJHon1CO2by2mgupEv51g
+         jKhA==
+X-Forwarded-Encrypted: i=1; AKwUvBwYoJcej8i3QDAQyhkTR+sVjuyOU+gdtqaqVUk+LdvCMxDecZV6lb6+lrVNsA1CUq5b/iGVOIWuSoR7g+A=@vger.kernel.org
+X-Gm-Message-State: AFuF++n3d0Mri3CT2vISpraXKGjfr0ftRPRI1wFUqj0tFOf2ly8+Odfp
+	Xq30BxfShz3TfbrCE2Sd7d6WwvWUvdf2USxGMB81TiMuNIF69blNjXs7
+X-Gm-Gg: AYBFou2+BBpXToix8GL0NioipD0IV26gkl1nRviw883FOXCgr0VzjYo221UQOSPYcgg
+	UxQY2ZxKTcgYLupk3ac3q3jbjvztketl/V1C1HmM8rZ3Vp22U0o7tgxNu9x+Tzl4FTexBRGS2/m
+	t4W9oWH1jwjzef1TPe4AH9/Zr1NxUqH2Aqktdl+CBhqvZPFcwnuqNFsoPyavxKsVQtJfNmvom6n
+	JtiG0WJGj89fI08BRboNQ376c0Kd3Opx02muNOum/yhvBhTzQVlFrF9To6qnL5Phpo7/O4Mhx6/
+	7YTGEDHnYhLJw7wRCnmwn5djtMPLPEcEcGIgydakoljebay6xYfLYW+gx+qp/Je3gKNJ8773+Xv
+	oiBPF2CtdyRoWmFtSPNubhuYCokui5zW24K9Rl8XxYOoxvDKr9qfM7ECSlGzkglNIvTJDMIVk/7
+	+4lqIeaasJEbWDmgLuU+tv3A2a5MkfABvflvPO+mO87ytPIaH6mCmF7rG7xw==
+X-Received: by 2002:a05:6000:18a8:b0:485:8c17:975e with SMTP id ffacd0b85a97d-4858c179915mr11914158f8f.32.1788655171649;
+        Sat, 05 Sep 2026 17:39:31 -0700 (PDT)
+Received: from metepc ([46.197.185.71])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885b1320sm17088363f8f.27.2026.09.05.17.39.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 17:39:31 -0700 (PDT)
+From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
+To: netdev@vger.kernel.org
+Cc: david@ixit.cz,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	oe-linux-nfc@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>,
+	syzbot+1e3df0852e82c21ca418@syzkaller.appspotmail.com
+Subject: [PATCH net v3] nfc: llcp: fix slab-out-of-bounds reads when logging service names
+Date: Sun,  6 Sep 2026 03:38:08 +0300
+Message-ID: <20260906003917.627282-1-omermetekaya0@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260905225211.596366-1-omermetekaya0@gmail.com>
+References: <20260905225211.596366-1-omermetekaya0@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,208 +84,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, 04 Sep 2026 17:09:45 -0500
-"David Lechner (TI)" <dlechner@baylibre.com> wrote:
+nfc_llcp_wks_sap() and nfc_llcp_build_sdreq_tlv() pass non-null-
+terminated strings to pr_debug() using the %s format specifier.
+The buffers are allocated via kmemdup() or come from netlink
+attributes and are not guaranteed to be null-terminated, causing
+__dynamic_pr_debug() to read beyond the allocated region:
 
-> I was hoping to avoid this, but until [0] lands, sashiko doesn't know
-> how to handle patch series with dependencies. So I have combined my
-> three outstanding ti-ads112c14 series into a single one. It's really
-> too much all at once, but this seems the best way to speed up the review
-> process at the moment.
->=20
-> [0]: https://github.com/sashiko-dev/sashiko/pull/389
+  KASAN: slab-out-of-bounds Read in __dynamic_pr_debug
 
-Nice. I hope that lands.  Not being in a sensible position to cherry-pick
-off the start of a series is leading to a lot more patches outstanding
-on list than I like.  I was drawing up a list of asks but seems folk
-are already on top of them!
+Fix both call sites by using %.*s with the explicit length to limit
+the output to the actual length of the string.
 
-As a temporary solution this is fine.
+Reported-by: syzbot+1e3df0852e82c21ca418@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=1e3df0852e82c21ca418
+Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
+---
+v3: Also fix identical issue in nfc_llcp_build_sdreq_tlv() as
+    suggested by Sashiko review.
+ net/nfc/llcp_commands.c | 2 +-
+ net/nfc/llcp_core.c     | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Given my goldfish brain I can't remember if I reviewed much of this
-recently so I'll just start at the top again!
-
-Thanks
-
-Jonathan
-
-
->=20
-> So we now have:
->=20
-> * patches 1-3: "iio: adc: ti-ads112c14: continuous mode support", last
->   posted as v5 [1]
-> * patches 4-5: "iio: adc: ti-ads112c14: add burnout current support",
->   last posted as v2 [2]
-> * patches 6-10: "iio: adc: ti-ads112c14: add filter support", last
->   posted as v1 [3]
->=20
-> Apart from the changes listed below, the patches are the same as in
-> those postings.
->=20
-> [1]: https://patch.msgid.link/20260831-iio-adc-ti-ads112c14-continuous-mo=
-de-v5-0-76f80a04b94f@baylibre.com
-> [2]: https://patch.msgid.link/20260827-iio-adc-ti-ads112c14-burnout-v2-0-=
-00a1fab9e2d1@baylibre.com
-> [3]: https://patch.msgid.link/20260807-iio-adc-ti-ads112c14-filter-suppor=
-t-v1-0-4d3ba00caf18@baylibre.com
->=20
-> The rest of this cover letter describes the filter support portion.
->=20
-> TI ADS112C14 has several features related to filtering that are all
-> interconnected. And to make things more interesting, not of the register
-> fields map directly to IIO attributes. So this is one of those cases
-> where we need to bend the rules a bit and just document it (we've
-> already discussed this a bit in the previous series for this driver and
-> came to this conclusion).
->=20
-> Here is the high-level overview:
->=20
-> We are adding sampling_frequency, oversampling_ratio, filter_type, and
-> a (new to IIO) settlingtime attribute.
->=20
-> Since register fields have different meanings depending on filter type
-> we have a quirky rule that if the filter type is sinc4 or sinc4+sinc1,
-> then you need to set the oversampling ratio first in order to see the
-> expected available values for the sampling frequency. For sinc4+sinc1+pf1
-> it is the other way around, you have to set sampling frequency first
-> in order to see the expected available oversampling ratios.
->=20
-> In other drivers, we've opted to store the requested values for dependant
-> attributes like this and pick the closest available one when actually
-> starting sampling. I opted not to do that here as there is not much
-> overlap between settings. And as we will see below, there are other
-> reasons for being picky about sampling frequency.
->=20
-> We also discussed in another series about a proposed settlingtime
-> attribute. The conclusion was that it should be the total settling time
-> delay (in seconds) before a chip takes the first sample (after any
-> settings have changed). In this chip there is a DELAY field in a
-> register that programs some extra delay in addition to an always present
-> fixed delay. So the way the attribute will work for this chip is that
-> the settlingtime_available attribute will list the range including a
-> minimum value. This happens to be the always present fixed delay. So the
-> difference between that and the current value of the settlingtime
-> attribute will be programed as the DELAY value. It also seems that the
-> fixed latency period includes the conversion time. We've just glossed
-> over that for now and not subtracted that from the settlingtime
->  attribute.
->=20
-> Now, here is where things really get interesting/complicated. There are
-> even more settings that affect the settling time. We defined the
-> settling time as just a delay before the first sample. However, there
-> are a couple of things that trigger the "first" sample. On this chip,
-> the first sample only counts in continuous sampling mode. So only works
-> as described when using the DRDY trigger in this driver. When using
-> a generic trigger, e.g. a hrtimer trigger, single-shot sampling mode
-> is used, so every sample is a "first" sample and has the settling delay
-> added. This is mostly a non-issue other than it could throw people off
-> that they cannot set the hrtimer frequency close to the sampling
-> frequency attribute and actually get that sampling rate.
->=20
-> And there a few other idiosyncrasies we haven't accounted for. To keep
-> things simple, we've implemented settlingtime as tDELAY + tLATENCY
-> (datasheet values). But this actually include the conversion time as
-> well. Also, tLATENCY is longer if you are coming out of standby mode
-> (this doesn't matter at this point since we didn't implement power
-> management, but we wouldn't want to change it and break userspace
-> later).
->=20
-> Then there is also input chopping where the positive and negative input
-> channels are swapped in the mux in the ADC on each sample. In these
-> cases, every conversion requires the settling time because the mux is
-> switched after every conversion. And the actual first sample has
-> additional delay (presumably does two conversions). So the first sample
-> takes tGC_LATENCY =3D 2 =C3=97 (tDELAY + tLATENCY) =E2=80=93 12 tMOD and =
-every sample
-> after that takes tGC_DATA =3D tDELAY + tLATENCY =E2=80=93 12 tMOD. For th=
-is one,
-> I have valued simplicity over accuracy in the implementation, so it is
-> the same where settlingtime =3D tDELAY + tLATENCY and not worried about
-> the 12 tMOD difference. I think it makes sense to keep settlingtime
-> as a single tDELAY + tLATENCY in this case since the when the mux
-> changes after each sample, the next sample is now the first sample after
-> settings have changed.
->=20
-> This sort of breaks the definition of sampling frequency though since
-> in IIO, the 1 / sampling frequency is the time between each sample
-> being sent over the bus. I don't really want to change how sampling
-> frequency is implemented here though because the current values match
-> the datasheet which can be used to infer information like where the
-> notches in the filter are. The actual observed sampling rate will be
-> 1 / tGC_DATA.
->=20
-> Having written all of this out now though, I'm tempted to go back and
-> change the settlingtime attribute implementation to be more accurate.
-> In any case, tDELAY will always be easy to infer because it is the
-> current value minus the minimum value (from the _available attribute).
-> Then when using input chopping one could get a reasonably accurate
-> sample period by taking 1 / sampling_frequency + settlingtime.
->=20
-> We will follow this up later with a documentation patch that explains
-> all of this too.
->=20
-> Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
-> ---
-> Changes in v2:
-> - Combined the continuous mode support and burnout current support
->   series into this series (see above).
-> - Rebased on the current iio/testing.
-> - Bumped KernelVersion to 7.4 in the settlingtime ABI documentation so
->   that it matches the rest of the new ABI in this series.
-> - Patches 1-3 (continuous mode): no changes since v5 [1].
->    - FWIW, I didn't think sashiko's comments on the IRQ were realistic.
->      This could never be used with a level interrupt. And we haven't
->      typically tried to handle spurious interrupts in the past either.
->      Everything it suggested could only happen with broken hardware or
->      excessive noise (which I suppose counts as broken hardware).
-> - Patches 4-5 (burnout), changes since v2 [2]:
->   - Pass an integer rather than a boolean to FIELD_PREP() for the global
->     chop enable bit.
->   - Drop the blank line after looking up the measurement.
->   - Return the conversion error in preference to the error from turning
->     the burnout current back off.
->   - Use a local variable for the "burn-out-current-nanoamp" property
->     name.
->   - Compare against ADS112C14_DEVICE_CFG_BOCS_DISABLED explicitly
->     instead of testing for non-zero.
->   - Fix KernelVersion in the ABI docs.
-> - Patches 6-10 (filter support), changes since v1 [3]:
->   - Move the driver code that was accidentally squashed into the
->     "iio: ABI: add sinc4+sinc1+pf1 filter_type" patch back to the
->     "iio: adc: ti-ads112c14: add filter support" patch where it belongs.
->   - Fixed typos in the external clock patch commit message.
->   - Added a note to the settlingtime ABI documentation that the settling
->     time can apply to more than just the first conversion.
-> - Link to v1: https://patch.msgid.link/20260807-iio-adc-ti-ads112c14-filt=
-er-support-v1-0-4d3ba00caf18@baylibre.com
->=20
-> ---
-> David Lechner (TI) (10):
->       iio: adc: ti-ads112c14: add DRDY interrupt support
->       iio: adc: ti-ads112c14: create data read helper functions
->       iio: adc: ti-ads112c14: add continuous mode support
->       iio: adc: ti-ads112c14: add burnout current support
->       iio: ABI: add sysfs attribute for _burnoutraw
->       iio: adc: ti-ads112c14: support external clock
->       iio: adc: ti-ads112c14: add filter support
->       iio: ABI: add sinc4+sinc1+pf1 filter_type
->       iio: adc: ti-ads112c14: add settlingtime attribute
->       iio: ABI: add settlingtime attributes
->=20
->  Documentation/ABI/testing/sysfs-bus-iio     |   27 +
->  Documentation/ABI/testing/sysfs-bus-iio-adc |    9 +
->  drivers/iio/adc/ti-ads112c14.c              | 1286 +++++++++++++++++++++=
-++++--
->  3 files changed, 1263 insertions(+), 59 deletions(-)
-> ---
-> base-commit: e7c1d459e542bc4a9c57f558e8ca1b14df7a7eef
-> change-id: 20260807-iio-adc-ti-ads112c14-filter-support-8a56850f590f
->=20
-> Best regards,
-> -- =20
-> David Lechner (TI) <dlechner@baylibre.com>
->=20
+diff --git a/net/nfc/llcp_commands.c b/net/nfc/llcp_commands.c
+index ca89fe967d6a..1213946ce91f 100644
+--- a/net/nfc/llcp_commands.c
++++ b/net/nfc/llcp_commands.c
+@@ -135,7 +135,7 @@ struct nfc_llcp_sdp_tlv *nfc_llcp_build_sdreq_tlv(u8 tid, const char *uri,
+ {
+ 	struct nfc_llcp_sdp_tlv *sdreq;
+ 
+-	pr_debug("uri: %s, len: %zu\n", uri, uri_len);
++	pr_debug("uri: %.*s, len: %zu\n", (int)uri_len, uri);
+ 
+ 	/* sdreq->tlv_len is u8, takes uri_len, + 3 for header, + 1 for NULL */
+ 	if (WARN_ON_ONCE(uri_len > U8_MAX - 4))
+diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
+index cac1b5487064..fda236e4d9fd 100644
+--- a/net/nfc/llcp_core.c
++++ b/net/nfc/llcp_core.c
+@@ -341,7 +341,7 @@ static int nfc_llcp_wks_sap(const char *service_name, size_t service_name_len)
+ {
+ 	int sap, num_wks;
+ 
+-	pr_debug("%s\n", service_name);
++	pr_debug("%.*s\n", (int)service_name_len, service_name);
+ 
+ 	if (service_name == NULL)
+ 		return -EINVAL;
+-- 
+2.55.0
 
