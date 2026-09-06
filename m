@@ -1,127 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f7.google.com (mail-oo2-f7.google.com [74.125.231.135])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B12B8165F1A;
-	Sun,  6 Sep 2026 02:00:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8408630BF6B
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 02:07:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.135
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788660033; cv=none; b=HjL7mxXnnuwyUkXAMu+eB2ycOJLDlqNFq7cBTNtaKK1fAMgG8zvIwNylHC3ZryLGVDrepkpFkNYk2MtSeY+yCZE8tcMUvCqeLfjf9MdmOh9b41ywDjlHqejyt2gnvN3EWoPFyAkhI/PWv2wwkZiBQlHvwnEMu+N0u4kVK9d3tuA=
+	t=1788660455; cv=none; b=nZZ+e9x/E9hKLWIR/lxVxVPNQwBVeBKGSSvlEVWndI5o/Mwgtld60oMCvdpsvk0sr2OkNmElihtXge3KavEDjTCoedc/P+w761j+C5AJteg6xtpMF8gAVza43CUrW7fji0uo0V/oWgxdrs+CNW6lhjDeW+TYicJ2JEbIBTEUpss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788660033; c=relaxed/simple;
-	bh=4OCA7cZQxsiy+4IQEWSullQEGcLugcqxv9G1On3+2dI=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=YlqYghYX1hsuR1cjTIkn+ey5Kfcn1v6Wv3i4kmwpeUTloo0WviWVVFLb/DXycmQh0ooWeWTeypmhkpx/CiISfRf0u2pKCaaPYFJorwMdVQmd2oVWtiKA4w2JykncZgo6vaDmFZYD6d2N+FcVybVdJ//9/Z+uRm/HjKbgfmjsaN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=onvqGLmc; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="onvqGLmc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 131AD1F00A3A;
-	Sun,  6 Sep 2026 02:00:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788660032;
-	bh=ohXcpCjF3E8Su2iGbnUTFcKH4Q5PX6bz9vn2jqgCP+c=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=onvqGLmcP1GLOxpEKfzU67JdQE7IDZGMsPO64h/0NSOK+RvFXdBCqD8+ofD1WBq2g
-	 i6cYyIHzjygejYh8PKFLzFY7Ac5zL8dW6mlFYoHExtDtLuDxudvpRUkwCZVnaHxKoG
-	 FWNotUDCuJBgzmpoHcxnORH4VODmerRMAERbMW3I=
-Date: Sat, 5 Sep 2026 19:00:30 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Cc: Adrian =?UTF-8?Q?Barna=C5=9B?= <abarnas@google.com>, Albert Ou
- <aou@eecs.berkeley.edu>, Alexander Gordeev <agordeev@linux.ibm.com>,
- Alexandre Ghiti <alex@ghiti.fr>, Andy Lutomirski <luto@kernel.org>,
- Borislav Petkov <bp@alien8.de>, Brendan Jackman
- <brendan.jackman@linux.dev>, Catalin Marinas <catalin.marinas@arm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>, Dave Hansen
- <dave.hansen@linux.intel.com>, David Hildenbrand <david@kernel.org>, Gerald
- Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens
- <hca@linux.ibm.com>, Huacai Chen <chenhuacai@kernel.org>, Ingo Molnar
- <mingo@redhat.com>, Len Brown <lenb@kernel.org>, Palmer Dabbelt
- <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>, Pavel Machek
- <pavel@kernel.org>, Peter Zijlstra <peterz@infradead.org>, "H. Peter Anvin"
- <hpa@zytor.com>, "Rafael J. Wysocki" <rafael@kernel.org>, Ryan Roberts
- <ryan.roberts@arm.com>, Sven Schnelle <svens@linux.ibm.com>, Thomas
- Gleixner <tglx@kernel.org>, Uladzislau Rezki <urezki@gmail.com>, Vasily
- Gorbik <gor@linux.ibm.com>, WANG Xuerui <kernel@xen0n.name>, Will Deacon
- <will@kernel.org>, x86@kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-pm@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
- loongarch@lists.linux.dev
-Subject: Re: [PATCH v3 0/6] arch, mm/execmem: resolve confusion about
- set_direct_map_valid_noflush()
-Message-Id: <20260905190030.adf2740822e211ddc028a24a@linux-foundation.org>
-In-Reply-To: <20260903-execmem-set-vm-perms-v0-2-v3-0-949b64a9f755@kernel.org>
-References: <20260903-execmem-set-vm-perms-v0-2-v3-0-949b64a9f755@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1788660455; c=relaxed/simple;
+	bh=gztWfCq/vgHwaRddjXmXRhV5bycCMcFDGUBN8zECPXI=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=To47Ij6TCKknHnfRevQMQEkhzZbbenTcL1hv/+hbCaLr4wYKeU6yDdzyl/L5E41bC77E87VfBByQiXxE7oqsKAtFpeNbQpiNOKNlXpb44eTSQVapJ8Tu+Uu0itm2M74ZAoc4xGffLVrrh1Oviih2AsiQB3lEZGCBaQSDOBNrx44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f7.google.com with SMTP id 006d021491bc7-6b137c364c5so666647eaf.1
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 19:07:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788660452; x=1789265252;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=srPOfqJi5oSn7adtwegC18uxRYHW7fCgQ8V5uhp5GPk=;
+        b=MweL3MzhuvUeYGHFmK3qQcL1/f2wl9GtDwp1DM/d9fNmPpR1fqg5kEX0zX1qIHAnyi
+         oeYhTP8jgOT2Jl7/oM8a0IhebIhZtwiB+XlesLCfMfLolzpz6qW0wMd3DrAYUbDwlxpi
+         a9oGhh67sQrcyHSWRMwh0odvcVKRgkR5VwSIM4y8G/di7X3RECu5H+HfgCmDbrOrAPk1
+         Xw6nDQ+M/OS5hNh6CzpBPrbE55tN4SqBoKYBjpFm3yBYbs7pz2BJ27+E3y6JRLYP7GPJ
+         9t/vbDsQBlZmPTyrifbBKdTBcDEIjQzrLTh9hZc+ms14CuHU8PYdXnDFygE8C+yv9T9p
+         /2YQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwNMr99X9k7NXQ4an8//5IBS2SEBi5V+Xid6YMKzCvdySUkw8g0nHk5LUytvjz7ug64xW1cazqME1+h0O4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lxxXYRSOqfi8pY5H+gRGjk7WWHIxSQ4bM+VLfZogO17f0HxLqI
+	is7jjx2z/2a2AuFPicQ4PstrbYuShM01wM3CUU5rjJI/sxnlf9Juaqye6JOe+FW1xf12xLKFmsi
+	xbWyHDvEs4f0j8eTzT/UXNwAG6DuSDcRzcH671Tj94rBHor9maLcW+TYMdYk=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+X-Received: by 2002:a05:6820:c2c1:10b0:6b7:46fc:1e4 with SMTP id
+ 006d021491bc7-6b746fc0349mr6003032eaf.67.1788660452543; Sat, 05 Sep 2026
+ 19:07:32 -0700 (PDT)
+Date: Sat, 05 Sep 2026 19:07:32 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9ccae4.37659fcc.e790.0006.GAE@google.com>
+Subject: [syzbot] [input?] INFO: trying to register non-static key in roccat_open
+From: syzbot <syzbot+9f7405999979761b6cfc@syzkaller.appspotmail.com>
+To: bentiss@kernel.org, erazor_de@users.sourceforge.net, jikos@kernel.org, 
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 03 Sep 2026 12:28:26 +0300 "Mike Rapoport (Microsoft)" <rppt@kernel.org> wrote:
+Hello,
 
-> Recent discussion about implementation of execmem's ROX caches on arm64
-> revealed a confusion about how set_direct_map_valid_noflush()
-> implemented on different architectures.
-> 
-> ...
-> 
-> Implement these adjustments, make execmem always use VM_FLUSH_RESET_PERMS
-> and revert set_direct_map_valid_noflush() changes.
-> 
+syzbot found the following issue on:
 
-Thanks, I updated mm-unstable to this version.
+HEAD commit:    bc35965f6940 Merge tag 'mm-hotfixes-stable-2026-09-03-17-4..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1066ab49580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b454dc6b1b7acd30
+dashboard link: https://syzkaller.appspot.com/bug?extid=9f7405999979761b6cfc
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 
-> 
-> v3 changes:
-> * set VM_FLUSH_RESET_PERMS to allocated area just before flipping the
->   permissions rather than at allocation time
-> 
+Unfortunately, I don't have any reproducer for this issue yet.
 
-Here's how v3 altered mm.git:
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/8cbf7acceedb/disk-bc35965f.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/203c0c282c1c/vmlinux-bc35965f.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/de1170205619/bzImage-bc35965f.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+9f7405999979761b6cfc@syzkaller.appspotmail.com
+
+INFO: trying to register non-static key.
+The code is fine but needs lockdep annotation, or maybe
+you didn't initialize this object before use?
+turning off the locking correctness validator.
+CPU: 1 UID: 0 PID: 7946 Comm: syz.4.562 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ assign_lock_key+0x133/0x150 kernel/locking/lockdep.c:1000
+ register_lock_class+0xcc/0x2e0 kernel/locking/lockdep.c:1315
+ __lock_acquire+0xaf/0x2e40 kernel/locking/lockdep.c:5128
+ lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5908
+ __mutex_lock_common kernel/locking/rtmutex_api.c:559 [inline]
+ mutex_lock_nested+0x5a/0x1d0 kernel/locking/rtmutex_api.c:578
+ roccat_open+0xf6/0x5d0 drivers/hid/hid-roccat.c:178
+ chrdev_open+0x4dc/0x600 fs/char_dev.c:411
+ do_dentry_open+0x849/0x1420 fs/open.c:996
+ vfs_open+0x3b/0x350 fs/open.c:1101
+ do_open fs/namei.c:4837 [inline]
+ path_openat+0x1448/0x1d60 fs/namei.c:5000
+ do_file_open+0x23e/0x4a0 fs/namei.c:5029
+ do_sys_openat2+0x115/0x200 fs/open.c:1417
+ do_sys_open fs/open.c:1423 [inline]
+ __do_sys_openat fs/open.c:1439 [inline]
+ __se_sys_openat fs/open.c:1434 [inline]
+ __x64_sys_openat+0x138/0x170 fs/open.c:1434
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fde12ede159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fde11136028 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
+RAX: ffffffffffffffda RBX: 00007fde13165fa0 RCX: 00007fde12ede159
+RDX: 0000000000000002 RSI: 0000200000000100 RDI: ffffffffffffff9c
+RBP: 00007fde12f75024 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fde13166038 R14: 00007fde13165fa0 R15: 00007ffe150b2898
+ </TASK>
 
 
- mm/execmem.c |    6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
---- a/mm/execmem.c~b
-+++ a/mm/execmem.c
-@@ -36,7 +36,6 @@ static void *execmem_vmalloc(struct exec
- 	unsigned long end = range->end;
- 	void *p;
- 
--	vm_flags |= VM_FLUSH_RESET_PERMS;
- 	if (kasan)
- 		vm_flags |= VM_DEFER_KMEMLEAK;
- 
-@@ -277,6 +276,8 @@ static void *execmem_cache_populate_allo
- 	/* fill memory with instructions that will trap */
- 	execmem_fill_trapping_insns(p, alloc_size);
- 
-+	set_vm_flush_reset_perms(p);
-+
- 	err = set_memory_rox((unsigned long)p, vm->nr_pages);
- 	if (err)
- 		goto err_free_mem;
-@@ -439,6 +440,7 @@ void *execmem_alloc(enum execmem_type ty
- {
- 	struct execmem_range *range = &execmem_info->ranges[type];
- 	bool use_cache = range->flags & EXECMEM_ROX_CACHE;
-+	unsigned long vm_flags = VM_FLUSH_RESET_PERMS;
- 	pgprot_t pgprot = range->pgprot;
- 	void *p = NULL;
- 
-@@ -447,7 +449,7 @@ void *execmem_alloc(enum execmem_type ty
- 	if (use_cache)
- 		p = execmem_cache_alloc(range, size);
- 	else
--		p = execmem_vmalloc(range, size, pgprot, 0);
-+		p = execmem_vmalloc(range, size, pgprot, vm_flags);
- 
- 	return kasan_reset_tag(p);
- }
-_
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
