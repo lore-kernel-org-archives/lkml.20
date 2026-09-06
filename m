@@ -1,97 +1,104 @@
-Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8BD346784
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 03:38:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 009C037DEA8;
+	Sun,  6 Sep 2026 03:38:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788665926; cv=none; b=gkqsCfkL1hAVBWZjvWc5kdFrJ3cjFysj3r5X/tFWGUqVwUt1PEotlkKRD43VGcYCGeTlOh3eeCEYWA6gbxEvpwHsK+rtk9IuJSoDEhd9DjjMG1qRo+0tRv62/rBV3L1LhYJKRkYGXwJ8mbhranOUcvoU0zRitHhLSWj8TiIN6aU=
+	t=1788665928; cv=none; b=ZziZqVJPZIRWHlKq89MO2rhY03g4JGrZDH6oRVNnczsi47sNUfOo46bQIZUaPQM6LPpaZ7TEfIa896LVv0eVLE87qFkmEwlkqgTmtlgQ2EdMKagO9JYDCDCgDRg7CXP0tQjk9e9G+PxTWX7mlVyhKJDUwbSSDsY3qnconVUtEfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788665926; c=relaxed/simple;
-	bh=DP5EChUjvMElWBr6Hoc5QOkR/xA9psAm0mayBR7tG1I=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=ZF7ssTHWXvg+0GPcXXT5nXIlqGJQQCDwPtL88ZNhootrbFwBEB4/0dVVSTftZYzbdtyrnfjLqifbw6BWFjPWPJSZ6E9Bsnz4o8OYMD14CPWygzHpu2t7dUCDGD7lOO1JZncUQUc5XyJx2W+p2vKYRiNqRUb+uPwy2DPRSdfsZ9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6b1bf511988so3303961eaf.2
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 20:38:44 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788665924; x=1789270724;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=d1ZkAdZeWNX/3IzDnpvZHGKPk2z5qI+LcROY5/hQLU8=;
-        b=YhkNnyMhCWg7yG/Py0q6wL7Z3nWLPc+PiMxCAMp0XrUukUSfzST1am4cyxo/lPJahk
-         jaLCFUasZr2+EMo1HVnLO2VfXVzoqeup9FTpALDz9g5HwNL07GiH+nDG10kzjVMPYPAV
-         pcTVY2/f/ymbr2nZ6uFFESZygHOgbMCdBNqNmxN09IjgV5hDaahtja2T3GMMDDFDxde0
-         4EvztYfM9tJY2nPSaZ30I2bCSl7C/l/OGgjdZ5p5wVOshcrIl4V4VNfARFpYcoZPoGmy
-         nxVmhmkk/WNKip6YhBiVb/AuLKNpRASMEXEGWfpu9oP/IkB1Bv689FLkBDU8mcj/65pF
-         xLkA==
-X-Gm-Message-State: AFuF++lwVkbMtMMs0WXZ5XjLVfHrgddqEvCdRVPT5IEZjoBCBczq6kXQ
-	Wks/l2+B+Go2eUGr/6KV+3CcEmAOUJwn3cIV8xBkAi3UFhBYvBf2lvg50oeuf19g/pegrzkO/4I
-	M6kyr2E4WwBNlCMFtVeY4znI7c/WuzTGHG6Lv3/THiIkQ/HmkAQ/jZoG8nRI=
+	s=arc-20240116; t=1788665928; c=relaxed/simple;
+	bh=kcfGz+D/RqtJqDOXx88LoPOrMhM4P5mZj435dno+u1Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EGkA9r2ZWYiLqlsOVO5xBp+Yrk1keueL+W9aKRTKVcAZG7kueoi2PjMpbJ4PtuzBqXz0uq3Md66sZ61Wgso1+mucrM0XkO/NdMu2WJn0My1ruXoOEPMH4GlqbPxgp5eibTRTA2405Ll8HzBVIsk9SunnnD9q0GKThp3HOUiqSgM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=igWyWEeG; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="igWyWEeG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Bn
+	7FZwwf19c3h9u4aABxH+CJMemOfFxO0YWc91hO9HA=; b=igWyWEeG3ZP1kr3m3c
+	HBFlmj5kRfWW8+D43PbIkRWsXc+8yFyi5I4GNSAMb2I0vqpZ6DgpYH9owzRWgqL/
+	FWASWjIGYbV24glq9IqasWm60fSYoVIY3+MdDR8pnC8DaJ1NEtmt/gt8Q0JJcGmI
+	+84xv2O1uMYbF33glmYlMLnQE=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3T5Yg4Jxql1DaAw--.30101S2;
+	Sun, 06 Sep 2026 11:38:09 +0800 (CST)
+From: Pengpeng Hou <hppiscas@163.com>
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: Pengpeng Hou <hppiscas@163.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	"A.s. Dong" <aisheng.dong@nxp.com>,
+	linux-pm@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] pmdomain: imx: Propagate SCU provider registration failures
+Date: Sun,  6 Sep 2026 11:38:06 +0800
+Message-ID: <20260906033806.84671-1-hppiscas@163.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:8108:b0:6b1:b771:bc43 with SMTP id
- 006d021491bc7-6b6fc5ce9b6mr9896973eaf.23.1788665923573; Sat, 05 Sep 2026
- 20:38:43 -0700 (PDT)
-Date: Sat, 05 Sep 2026 20:38:43 -0700
-In-Reply-To: <6a9c207f.a6639fcc.23b8b0.0002.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9ce043.a6639fcc.23b8b0.0005.GAE@google.com>
-Subject: Forwarded: [PATCH] nfc: pn533: fix OOB read in pn533_acr122_is_rx_frame_valid()
-From: syzbot <syzbot+1853daab1a47603d4678@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3T5Yg4Jxql1DaAw--.30101S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7WryftF4rKF47Kr4kuFy8Krg_yoW8XF45pF
+	Wktayavrs7Jr4fG3WUGF1DZryay34Fyry7Kay5Ga4xZF45JFnxWa4Fqa4jkFnFyry8tF42
+	yr429FW5CF1FyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRNeOZUUUUU=
+X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7QECymqc4CGhRwAA31
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+imx_scu_init_pm_domains() ignores of_genpd_add_provider_onecell() and
+returns success even when none of the initialized domains are published to
+DT consumers.
 
-***
+Return the provider error and remove the initialized domains in reverse
+order before devm releases their backing storage on probe failure.
 
-Subject: [PATCH] nfc: pn533: fix OOB read in pn533_acr122_is_rx_frame_valid()
-Author: kartikey406@gmail.com
+The issue was found by our static-analysis tool and manually reviewed.
 
-#syz test: https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
-
-frame->ccid.datalen is read directly from the USB response frame
-and used, unchecked, as an index into frame->data[]. A malicious or
-malfunctioning device can set this field to an arbitrary value,
-causing the driver to read far outside the received buffer.
-
-Bound ccid.datalen against the maximum possible ACR122 frame size
-before using it, and reject values less than 2 to avoid the
-"datalen - 2" underflowing.
-
-Reported-by: syzbot+1853daab1a47603d4678@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=1853daab1a47603d4678
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+Fixes: c800cd7824bd ("firmware: imx: add SCU power domain driver")
+Assisted-by: gpt 5
+Signed-off-by: Pengpeng Hou <hppiscas@163.com>
 ---
- drivers/nfc/pn533/usb.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/pmdomain/imx/scu-pd.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/nfc/pn533/usb.c b/drivers/nfc/pn533/usb.c
-index efb07f944fce..d08d3b0df988 100644
---- a/drivers/nfc/pn533/usb.c
-+++ b/drivers/nfc/pn533/usb.c
-@@ -322,6 +322,11 @@ static bool pn533_acr122_is_rx_frame_valid(void *_frame, struct pn533 *dev)
- 	if (!frame->ccid.datalen)
- 		return false;
+diff --git a/drivers/pmdomain/imx/scu-pd.c b/drivers/pmdomain/imx/scu-pd.c
+index e3f9e741daf7..05d4364f34be 100644
+--- a/drivers/pmdomain/imx/scu-pd.c
++++ b/drivers/pmdomain/imx/scu-pd.c
+@@ -474,7 +474,7 @@ static int imx_scu_init_pm_domains(struct device *dev,
+ 	struct genpd_onecell_data *pd_data;
+ 	struct imx_sc_pm_domain *sc_pd;
+ 	u32 count = 0;
+-	int i, j;
++	int i, j, ret;
  
-+	if (frame->ccid.datalen < 2 ||
-+            frame->ccid.datalen > PN533_ACR122_FRAME_MAX_PAYLOAD_LEN +
-+            PN533_ACR122_RX_FRAME_TAIL_LEN)
-+		return false;
+ 	for (i = 0; i < pd_soc->num_ranges; i++)
+ 		count += pd_ranges[i].num;
+@@ -503,7 +503,13 @@ static int imx_scu_init_pm_domains(struct device *dev,
+ 	pd_data->num_domains = count;
+ 	pd_data->xlate = imx_scu_pd_xlate;
+ 
+-	of_genpd_add_provider_onecell(dev->of_node, pd_data);
++	ret = of_genpd_add_provider_onecell(dev->of_node, pd_data);
++	if (ret) {
++		while (count)
++			pm_genpd_remove(domains[--count]);
 +
- 	if (frame->data[frame->ccid.datalen - 2] == 0x63)
- 		return false;
++		return ret;
++	}
  
+ 	return 0;
+ }
 -- 
-2.43.0
+2.50.1 (Apple Git-155)
 
