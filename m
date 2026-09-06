@@ -1,245 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 015A634CFC5;
-	Sun,  6 Sep 2026 15:00:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A060D33A6E2
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 15:03:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788706830; cv=none; b=G8mnAbB7j/ZByM6ufiAa1rKl4X8yWIOZS1Bbo4V6MPMK6+qMc4VP+ESeMNmfi3PNYaJHLZUm5j193qJMa26pSzzr15ZTROYnZrFKVnWmxu6XM+MmCeqsuiX+Sm0n/ktmcMRh6dX0wqa4fkkd5phcp+z1+f0wtw3QmXT7jM5O/0I=
+	t=1788707001; cv=none; b=vA4yy3gWJWF4WI88ovCHp8LU3KdtRybrSGxLhej0XoRYDalWJj/FEA0Ti7LxRXa8AYP1jE+l4ypinQE506lztL6yn8mtbmg8yK1veOWmK+SwetxS9qYp5b1Mjd3sI2oaE0dafQd/KL33sCWHpWv+343nPgWjagpVVxKeAXXA9B4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788706830; c=relaxed/simple;
-	bh=lXdLylgUppWXqndGD5M043CnO4y8gC0ombHPHU+I8kM=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=EVqRqhsoir0wmib8plD09f0t1sNw2Q7hOZJ+BQCmPlZtOr1zH3d4aa1R2REjWZZ/ncoJesJhUMOg8xixM/c4NehdlDOIPsYUVmLJe46SMK8BuNwnpU4DCEEy8cfAOvksLgQl+AenwiiyJFXmbB+jJQ8D1lgha4s62St2WyDpjtA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fn4gIv7I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788707001; c=relaxed/simple;
+	bh=yXoY/9Jdn2Bh1wjZWv3vhwPgti2rTbW9TXtgpdFB4+w=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Z16EiuFIxTgvSTw2+VnO2PTtu9fTC7zDjoa6kMi5E8F7/3IrhFtjPKFlxMnS5MB317KPQI2jJu5e1gBcWGFVBrKzYoOSYNUNjQab5cmBv1OgGYVEps6m7PgEgr8VypEO+IgHbn7fcU1vr3yX1mNs90S1u/zpI7TtIQy3oj06pOE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ls8Q3m2T; arc=none smtp.client-ip=74.125.224.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fn4gIv7I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 912AE1F00A3D;
-	Sun,  6 Sep 2026 15:00:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788706820;
-	bh=L9WQPmk3lG1YhB+ecDgtcWY/E3QHxA5qdfMZgqUKad8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Fn4gIv7IMZK0fua0FBAzRUHjI2uOupN8IBCjKks/y8bhF2hJzBP0yre8lYM2b+D4J
-	 +9olHCuAzAUHuMle9lwj9edkWqTHW5Y0Z8NBylSdH38lm9wFHoNGSZNXakqHP3f6kc
-	 +PPRJV6yFXELNBST+JndkvDyUupJQOZnbDVp6cGYskp2cmwWzWNIyy00MOBaNuwjZc
-	 /IpRjDU/lIjb+/GUyb2PJuiU9xhoMw09Qsi8t/4f7dnUGBle1qENitSuZh0tlnlg8T
-	 pxdM3O1OMh/6XmMuQeAoUvp2/z/RezlOy1fHw7jRfijd/EGiX9VbpQvPnW1UOcBKr0
-	 4Kx+onmx/+lVA==
-Subject: Re: [PATCH net-next v2 1/2] tools: ynl: Allow cross-compiling ynl and
- associated tools
-From: netdev-bot+sashiko@kernel.org
-To: maxime.chevallier@bootlin.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, donald.hunter@gmail.com, horms@kernel.org,
- shuah@kernel.org, matttbe@kernel.org, sdf@fomichev.me, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, thomas.petazzoni@bootlin.com,
- linux-kselftest@vger.kernel.org
-Date: Sun, 06 Sep 2026 15:00:19 +0000
-Message-ID: <178870681916.219967.14635919564673520317@kernel.org>
-In-Reply-To: <20260903155524.2241065-2-maxime.chevallier@bootlin.com>
-References: <20260903155524.2241065-2-maxime.chevallier@bootlin.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ls8Q3m2T"
+Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-66d9f9d8384so672209d50.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 08:03:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788706998; x=1789311798; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=azMvLN7G+K5QCBJaIvwSGsEL+rjx+SGnVYrqi+oBp1U=;
+        b=Ls8Q3m2TG08JHds55ULEnAcLsEVTXM9Edq8WS2aAWCV08OKJTTs8oLvFA7W1B6PuZT
+         G3Lo0iliglZ5QTLOmq3qZyIyNz8EYqwvenO100U/m3rRLUEMokx/ZfbRA4u8rXaE87uo
+         okjeX8T03VxMYQOmKv9Y0KDW2icetEwccyOXCEe4j+6H8eFlD4sd4nDrlT+BLX6qodVm
+         96NrXsBFlvLSbutq7jPzS+kcHOvGs8+fY5Hnh9cBhmXM/Fi0n9zxu922SEDNbNGRjyNx
+         6NaXOxqYUuKvJ+vfdO+pjCdBJRaj6d19r7Y+hzQQcdXIIR1FTfgyoaFxtLMhYd2DUAWa
+         Hgpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788706998; x=1789311798;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=azMvLN7G+K5QCBJaIvwSGsEL+rjx+SGnVYrqi+oBp1U=;
+        b=dQshGwrczCz3T1xN1o+OZXieu/iKH72vquWHNJQ0+E8MaAtMoinjVThIGd1VX5qIwo
+         qG7bq/fEPCxt1NMEDdmAX3659+W9xtnWU5t3XGOJkXcLryGevKnRSV8U/UO3pC4ttznm
+         oCJAVYcjkh86PRjh/Cy5ZNgu/d2GGfn/0jWSKNSjl4CaLsksZ5bi/HVyRPs/hyN8Iacg
+         Z+Tydaf2Bzc9x5B4xDkDeGOiQ4WCwZs/Az7mIt6nIwkeR7GbyjTb7qdPrrctrdfIZhYR
+         Ejad4YCKfyxhMuQZUdtOhpu2KkOjlL3GHFX/OTpKUGYMbY3fqj6y7aUfI09OdAGD83xX
+         nbsg==
+X-Gm-Message-State: AFuF++mStGvwxQ5sae5u1bHrYYsArrWsGp2pivfzhXCmtNR5mgpUDQru
+	QT5swVfWvMWyw9IJhnMsFt+wuOOywgO5XX0gOLc8sdawUvYM2fjYw5bTwXUrQ9JdhQA=
+X-Gm-Gg: AYBFou0YzQ3+a0MWEyG4NSykvnA/uSc+pOPPriFsBG8zPS2Jj3mIe2Ok/1bXPd5wGrR
+	W8V5RVmu86KROtKMqgN5voPvKvWnMTaREv5LGcc6zyl/yL+8nDA1eJpL3bEVULkkIrVjzNTbgkq
+	LdU8LOSZUxpE6xH/KQYeWFn/cTMOy2/0x0GaEr/27vCmtdWmywURequJO365w6Zecd/zpvUZU5H
+	/6VbshtyjdTZ5vKLm8UKVcbGm+BRCQCVMc12rxX9bNJy38eLLKfcHTda91RH2+h5DuSvGIRyzJ0
+	GJxIh00gQUTV48gYyjDHCQRfkCdvgtix0KbEttndRcK0jKCM/AXoaOsCJkclB4PYJu+jE0LFbGh
+	MqPHTiKvS/u6rOXDe4+Wn1v0D8ycZBv+rOzb3O2DoCPWRBRV6vnFj3WJOTKwVfw4vPAOzMbkS2K
+	LhqHVhpaHV6THkRuI4BMZl78qsDKMG2zt2T1KNMcFxhV3ExqpXLcGpzFpl3Dshcw==
+X-Received: by 2002:a05:690e:191b:b0:66f:dcfd:5530 with SMTP id 956f58d0204a3-66fdcfd55b7mr143035d50.86.1788706998442;
+        Sun, 06 Sep 2026 08:03:18 -0700 (PDT)
+Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb48f1646sm6520289d50.9.2026.09.06.08.03.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 08:03:16 -0700 (PDT)
+From: Matt Turner <mattst88@gmail.com>
+Subject: [PATCH v2 0/2] perf tools: port UI from GTK2 to GTK4
+Date: Sun, 06 Sep 2026 11:03:14 -0400
+Message-Id: <20260906-perf-gtk2-v2-0-3eccff053cd1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23MQQ7CIBCF4as0sxZDsYPWlfcwXQACnWhLAw3RN
+ Nxd7Nrl//LybZBsJJvg2mwQbaZEYa4hDg2YUc3eMnrUBsGF5D2XbLHRMb8+BUNEo3intUQB9b9
+ E6+i9W/eh9khpDfGz07n9rf+U3DLOzig77S4oTqq/+UnR62jCBEMp5QssWtO6ogAAAA==
+X-Change-ID: 20260906-perf-gtk2-555ca04bb652
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>
+Cc: linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+ bpf@vger.kernel.org, Matt Turner <mattst88@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2777; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=yXoY/9Jdn2Bh1wjZWv3vhwPgti2rTbW9TXtgpdFB4+w=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLLmNmz+mNEd17pMwkA7br6Qf9lbSSvJ7Okrb1iYzehgb
+ L52uLKr4yMLgxgXw0wxRZa49Yoss9p2LPU5Lf0LZg4rE8gQaZEGBiBgYeDLTcwrNdIx0jPVNtQz
+ BDJ0jOIhcnoMGpnFxaWpRbppBUUOefkliSWZ+XnFevkFqXkF6QV6aZlpJRkZ+UXFqUAj9PJSS0x
+ dHd2MDA1MLB0tzJwsHE1NnJ2dDJ3cHB2dXZ2MLM1NDJwtHU1cLc0ZuDgFYK5Zx83IMM9p+6GFLw
+ QX6C080eotWndmrfDpFzOXvmItneD/x0so/S7DP20dJbY214WbFWbuzuZ1N3WN3jP/SpXIzyYDL
+ /cTN04GMgMA
+X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
+ fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider:
+GTK2 is long dead upstream and increasingly hard to keep building on
+current distros. This series ports perf's GTK-based report browser to
+GTK4 and fixes it up so it's actually loadable at runtime after the
+port.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 1
+Patch 1 does the mechanical port (build system, widget API changes).
+Patch 2 fixes a runtime issue found after the port that prevented the
+browser from loading.
 
-- [Medium] Incomplete LLVM cross-compilation support: the commit claims
-  to "account for the cross-compiling options such as CROSS_COMPILE or…
-- [Medium] Include ordering bug in tools/net/ynl/Makefile: `include
-  ../../scripts/Makefile.include` is added on line 4, i.e. *after*…
-- [Low] Verbosity-control mismatch in tools/net/ynl/ynltool/Makefile: the
-  patch adds `include ../../../scripts/Makefile.include` (line 4), which…
+Signed-off-by: Matt Turner <mattst88@gmail.com>
+---
+Changes in v2:
+- Fix error dialog's nested GMainLoop hanging if the parent window
+  closes or a signal arrives while the dialog is open (quit from
+  "destroy", not just "response")
+- Fix build with GTK_INFO_BAR_SUPPORT: gtk_info_bar_get_content_area()
+  is gone in GTK 4, use gtk_info_bar_add_child() instead
+- Fix use-after-free in the progress dialog on manual close
+- Fix reuse of an exhausted va_list in the vasprintf() failure path
+- Link to v1: https://lore.kernel.org/r/20260906-perf-gtk2-v1-0-7564bf8523a9@gmail.com
 
---
+---
+Matt Turner (2):
+      tools: port perf ui from GTK 2 to GTK 4
+      perf tools: make the GTK4 report browser actually loadable at runtime
 
-tools: ynl: Allow cross-compiling ynl and associated tools
+ tools/build/Makefile.feature                       |  5 +-
+ tools/build/feature/Makefile                       | 12 ++---
+ .../{test-gtk2-infobar.c => test-gtk4-infobar.c}   |  4 +-
+ tools/build/feature/{test-gtk2.c => test-gtk4.c}   |  4 +-
+ tools/perf/Documentation/perf-report.txt           |  2 +-
+ tools/perf/Makefile                                |  2 +-
+ tools/perf/Makefile.config                         | 27 ++++++-----
+ tools/perf/Makefile.perf                           |  6 +--
+ tools/perf/builtin-annotate.c                      |  8 ++--
+ tools/perf/builtin-report.c                        |  8 ++--
+ tools/perf/scripts/install-build-deps.sh           |  4 +-
+ tools/perf/tests/make                              |  4 +-
+ tools/perf/ui/gtk/annotate.c                       | 28 +++++------
+ tools/perf/ui/gtk/browser.c                        | 54 +++++++++++++++++-----
+ tools/perf/ui/gtk/gtk.h                            |  3 ++
+ tools/perf/ui/gtk/hists.c                          | 32 +++++--------
+ tools/perf/ui/gtk/progress.c                       | 39 +++++++++++-----
+ tools/perf/ui/gtk/setup.c                          |  5 +-
+ tools/perf/ui/gtk/util.c                           | 52 +++++++++++++++++++--
+ tools/perf/ui/setup.c                              |  2 +-
+ tools/perf/util/annotate.c                         | 11 +++++
+ tools/perf/util/annotate.h                         | 12 +----
+ 22 files changed, 206 insertions(+), 118 deletions(-)
+---
+base-commit: 9f0346dcbea363787186c94ef94dd01aaa215afa
+change-id: 20260906-perf-gtk2-555ca04bb652
 
-The ynl Makefiles stop hardcoding CC=gcc and instead include
-tools/scripts/Makefile.include so that CC/AR are resolved from
-CROSS_COMPILE and the LLVM variables, and the ynltool CFLAGS assignment is
-switched from := to += so it no longer clobbers the flags coming from
-Makefile.include.
-
-> diff --git a/tools/net/ynl/Makefile b/tools/net/ynl/Makefile
-> index 3cefe4ed96cb..8bf72c063e86 100644
-> --- a/tools/net/ynl/Makefile
-> +++ b/tools/net/ynl/Makefile
-> @@ -1,6 +1,7 @@
->  # SPDX-License-Identifier: GPL-2.0
->  
->  include ../../scripts/Makefile.arch
-> +include ../../scripts/Makefile.include
->  
->  INSTALL	?= install
->  prefix  ?= /usr
-
-[Severity: Medium]
-Should the new include come before Makefile.arch rather than after it?
-
-Makefile.arch probes the compiler with a simply-expanded assignment, so
-${CC} and ${CFLAGS} are expanded at include time:
-
-tools/scripts/Makefile.arch:
-  LP64 := $(shell if command -v $(firstword ${CC}) >/dev/null 2>&1; then echo __LP64__ | ${CC} ${CFLAGS} -E -x c -; fi | tail -n 1)
-
-At that point CC is still make's builtin cc and CFLAGS is empty, because
-the allow-override of CC from CROSS_COMPILE and the CFLAGS += $(CLANG_CROSS_FLAGS)
-in Makefile.include only run on the following line.
-
-LP64 then feeds libdir_relative and libdir in this same Makefile:
-
-  ifeq ($(LP64), 1)
-    libdir_relative = lib64
-  else
-    libdir_relative = lib
-  endif
-  libdir  ?= $(prefix)/$(libdir_relative)
-
-and libdir is used by the install target:
-
-  @$(INSTALL) -d $(DESTDIR)$(libdir)
-  @$(INSTALL) -m 0644 libynl.a $(DESTDIR)$(libdir)/libynl.a
-
-So does make CROSS_COMPILE=arm-linux-gnueabihf- install on an x86_64 host
-end up installing the 32-bit libynl.a under $(prefix)/lib64, with the
-reverse happening on a 32-bit host cross-building for aarch64?
-
-Other in-tree users of the same LP64/libdir_relative pattern include
-Makefile.include first, for example tools/lib/perf/Makefile:
-
-  include $(srctree)/tools/scripts/Makefile.include
-  include $(srctree)/tools/scripts/Makefile.arch
-
-Would simply swapping the two includes here be enough?
-
-> diff --git a/tools/net/ynl/generated/Makefile b/tools/net/ynl/generated/Makefile
-> index ea4128f612d6..5a186349b5a8 100644
-> --- a/tools/net/ynl/generated/Makefile
-> +++ b/tools/net/ynl/generated/Makefile
-> @@ -1,6 +1,7 @@
->  # SPDX-License-Identifier: GPL-2.0
->  
-> -CC=gcc
-> +include ../../../scripts/Makefile.include
-> +
->  CFLAGS += -std=gnu11 -O2 -W -Wall -Wextra -Wno-unused-parameter -Wshadow \
->  	-I../lib/ -idirafter $(UAPI_PATH)
->  ifeq ("$(DEBUG)","1")
-> diff --git a/tools/net/ynl/lib/Makefile b/tools/net/ynl/lib/Makefile
-> index 9b98c0599600..7b3eae89982f 100644
-> --- a/tools/net/ynl/lib/Makefile
-> +++ b/tools/net/ynl/lib/Makefile
-> @@ -1,6 +1,7 @@
->  # SPDX-License-Identifier: GPL-2.0
->  
-> -CC=gcc
-> +include ../../../scripts/Makefile.include
-> +
->  CFLAGS += -std=gnu11 -O2 -W -Wall -Wextra -Wno-unused-parameter -Wshadow
->  ifeq ("$(DEBUG)","1")
->    CFLAGS += -g -fsanitize=address -fsanitize=leak -static-libasan
-> @@ -8,7 +9,6 @@ endif
-
-[Severity: Medium]
-The commit message says the change accounts for "the cross-compiling options
-such as CROSS_COMPILE or the LLVM-specific variables". Does this also cover
-the documented LLVM form described in Documentation/kbuild/llvm.rst, that is
-make LLVM=1 ARCH=<arch> with no CROSS_COMPILE?
-
-In tools/scripts/Makefile.include, the target triple is only appended inside
-the CROSS_COMPILE branch:
-
-  else ifneq ($(CROSS_COMPILE),)
-  ifeq ($(CLANG_CROSS_FLAGS),)
-  CLANG_TARGET := $(notdir $(CROSS_COMPILE:%-=%))
-  ...
-  CFLAGS += $(CLANG_CROSS_FLAGS)
-
-With LLVM=1 and an empty CROSS_COMPILE, CC resolves to plain clang with no
---target, so lib/ynl.o and generated/*-user.o would be built for the host.
-
-For the selftests path, tools/testing/selftests/lib.mk computes a
-target-aware compiler from ARCH:
-
-  CC := $(CLANG) $(CLANG_FLAGS) -fintegrated-as
-
-but tools/testing/selftests/net/ynl.mk only forwards GENS and RSTS to the
-sub-make:
-
-  $(Q)$(MAKE) -C $(top_srcdir)/tools/net/ynl \
-  	GENS="$(YNL_GENS)" RSTS="" libynl.a
-
-Since ynl.mk forces the YNL_GEN_FILES targets (ncdevmem, toeplitz in
-tools/testing/selftests/drivers/net/hw/Makefile) to link $(OUTPUT)/libynl.a,
-does make LLVM=1 ARCH=arm64 -C tools/testing/selftests/drivers/net/hw fail at
-link time with host objects in libynl.a against aarch64 objects?
-
-If that configuration is out of scope for now, could the commit message say
-so? The later patch "selftests: drv-net: Use cross-compilation environment
-for the io_uring check" states the limitation explicitly ("this doesn't cover
-the LLVM cross-compiling case though"), while this one reads as if the LLVM
-case is handled.
-
-[ ... ]
-
-> diff --git a/tools/net/ynl/ynltool/Makefile b/tools/net/ynl/ynltool/Makefile
-> index 48b0f32050f0..85cc0840b403 100644
-> --- a/tools/net/ynl/ynltool/Makefile
-> +++ b/tools/net/ynl/ynltool/Makefile
-> @@ -1,12 +1,12 @@
->  # SPDX-License-Identifier: GPL-2.0-only
->  
->  include ../Makefile.deps
-> +include ../../../scripts/Makefile.include
->  
->  INSTALL	?= install
->  prefix  ?= /usr
->  
-> -CC := gcc
-> -CFLAGS := -Wall -Wextra -Werror -O2
-> +CFLAGS += -Wall -Wextra -Werror -O2
->  ifeq ("$(DEBUG)","1")
->    CFLAGS += -g -fsanitize=address -fsanitize=leak -static-libasan
->  endif
-
-[Severity: Low]
-This isn't a bug, but now that Makefile.include is pulled in here, the
-existing Q assignment later in this same file disagrees with it:
-
-tools/scripts/Makefile.include:
-  ifeq ($(V),1)
-    quiet =
-    Q =
-  else
-    quiet = quiet_
-    Q = @
-  endif
-  ...
-  export quiet Q
-
-tools/net/ynl/ynltool/Makefile, after the include:
-  Q = @
-
-  $(YNLTOOL): ../libynl.a $(OBJS)
-  	$(Q)echo -e "\tLINK $@"
-  	$(Q)$(CC) $(CFLAGS) -o $@ $(OBJS) ../libynl.a -lm
-
-Since the local assignment comes after the include, does make V=1 -C
-tools/net/ynl/ynltool still hide the CC and LINK command lines, which is
-what one would want to look at when debugging a cross build? The same
-overridden Q is also exported into the $(MAKE) -C ../ recursion for
-../libynl.a. Could the local Q = @ line be dropped now?
-
+Best regards,
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260903155524.2241065-1-maxime.chevallier%40bootlin.com
+Matt Turner <mattst88@gmail.com>
+
