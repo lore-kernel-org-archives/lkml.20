@@ -1,301 +1,193 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 390B73C98BF
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 04:07:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788667637; cv=none; b=GNq3Pqv7j7GzUZ7ViLZC0tcnjTdFAGjcPH6yfUtrIymAy3yb7Vu3oeDzC5hXpor7N4n7cfYZksxGfQSJwdvAE4p0l02ac7IyUlELXwHc0DezrjAlZgNx7h/WA0pU1jAJx/3+CFBpGLN5Jeqjyrd3W6/9jrKIB4Xx62C8NURopaU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788667637; c=relaxed/simple;
-	bh=urZRa0Lfe+xl3SjCEj+L3fJXmoqIEoagmk55A23lm9E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H3Sv+iOR+1dH2ofXTQsS63LTiaqeBwVkTpsEBegj/jptS4UW6gXrh1njWj2WwHM98ASr5DTdhjsV+xG7GgncNpKW6Jjpbrmqc16OQx5SoE8JGMhTeB/MGUL/itleam4/RTFicjqY5K68GtSapbdHHwponuhUYG9QAQDiJQEIgFg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=c6vDARq0; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=nA7J2VOD; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFD653CEB8D
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 04:08:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788667728; cv=pass; b=MmJ8INum/6dev9GjrjHmBwRJGNCaWFUEodBfjq5YaBHzBACNdCTuGd7BcMv2vjYOR9tGKyy1q8TF0km5GttKQydO8ATEHS52A3S5/t16MRAL3bLZK+/SDZgqxEtKu5v841Xo33i/0l5LWyl7Cjd5igxcGEx12uIAP1ZOajPgSTU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788667728; c=relaxed/simple;
+	bh=eROzLL0q0ouiSUPHBo2yP9ODMUaFLLh+pXzP/8kVr4E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XI1QHrSIMjS0pc6UP/d337/Emd/x24T/tGWDZEFZVCKF/sGS5Ge4a3q4Ba35iJ7hq4B7oMgJGA6sKO5EmyKFcHvvp37ZamAs6pij0XeApKJwh8fx8RMrsc6pFDxA+DOCPzldTcjke631RJN7wtXclSn5XQI8MVlUgd7bYQqoGa0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=aUxEkIEf; arc=pass smtp.client-ip=209.85.208.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="c6vDARq0";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="nA7J2VOD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788667635;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ByaWx9fs3FmH7s/refQwfhbkWp4eQ2bqZDqw/zD/lsU=;
-	b=c6vDARq0BOCWqholW9Z2N9O7PLNBmcxllXXLqvnVF6H79IMuph7nrRqlcyejr+2krgDogm
-	ti+lZV7eup51Oc0lHhn4QPFYSUCLZGWC06LW9Zzf7pj3rHYgj8V10j3bpNpaMiIVR0zNPE
-	2QDUyNbcyuy+GjpPO2z/GsSt7r5W7Iw=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-632-RLp-Ie8ZMmOAX88bSbJ9VA-1; Sun, 06 Sep 2026 00:07:12 -0400
-X-MC-Unique: RLp-Ie8ZMmOAX88bSbJ9VA-1
-X-Mimecast-MFC-AGG-ID: RLp-Ie8ZMmOAX88bSbJ9VA_1788667630
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4994d67d0e3so16031685e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 21:07:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="aUxEkIEf"
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-39c95395230so22444051fa.2
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 21:08:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788667723; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GC8DHAk2ID8/LpO7vCIk1HqPwSCOycuk2fA5u+slkwpr71S24VqMZxAb6wQyis5pXu
+         NRj7Sg9kSXMoJodP3TLRAlnm5WOvQtfUZVNqZ8/8LV0Lc79o2GchhZJixvGcE7FdGkL4
+         y3BnBb/J9BK0VilGaS+ytJx54ULa3LkuBUL7hYq8D0FjiJJIUqV+azlihfOPihFlrDg9
+         ohn0QVdjSJ6pKZE7SSs6fNDYT9z2NJOyO9U29PNDpGNOsybSzziPLv+ASZLwP8tU80g0
+         6tzeP8Ahut6qT6asJ6gvf/GPQ/DOBWefjLKCg6+IxsrYeQAikB0EL7SF8YW80iyRe7Gf
+         qH7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/qnRZ1b/ThxLCDKg+XNGDfO9T1I8FVJXyvQjT9BlGzM=;
+        fh=a6S+WDE+onCgLahmPWzakuhRfy5I7Z6TUFLoP5XQyUo=;
+        b=c3o0qc0MWu5f+Hr+NKAFvru4SU4lJXSJXCcDcnqQ1+c/20fvUvDxtK/UgkIanacd07
+         nABPV3XHpNO+t4XqN4jlG3xmiduW39fvfJx8R20NCNJZx7qflsqH6P8h2IizLoezPAld
+         e6wOCeTVn3GTwhpMVMTDE/+qwkYGKVa6piQRTQjIY3Bq2KzDOEumtU6RV2USWtHlpF6b
+         ohPSpzvOxBK5HHak+1eh3P3MN04GATNaO3JWMGzqOvQ2R9W7I7dztBNVgoIqxu/cQCyR
+         /3mGUfHGwGZcVmxcu9mqkXnQdS9fEeStH7RIJwjAOc/2RgM1Kizok2TvZb+qgQLKWGs8
+         FmnA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788667630; x=1789272430; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ByaWx9fs3FmH7s/refQwfhbkWp4eQ2bqZDqw/zD/lsU=;
-        b=nA7J2VODqTbAlTYv8IG0oKKJ81YVQpSzhKbRwGr+vClba96Pt7EMgJdx4cv6DcJBvP
-         PRzON8AZGtad51CAU+0DI0DgVYHKFom2iDo/xa7yLFocoWxqfNtMwDSX0rArxGSPAsGq
-         520mLuJfBArEhHkfC5svrCyVbYR38h41oDA/k92ycUw29WzSpOkbvzmobeK0abAS+css
-         aoJ5EipFwYpn7IAd2sR+97wvfMDXYHQ3sMOC4XXLSThdzdNbHVVKmNYchub/wJ/h8SqS
-         rmfrsP6Jvvi/QxuHzJF78B8+PvswcdIUp+jO2b2VJ5cDlkXOEG4a473prD/0tY7OmG+7
-         X0iQ==
+        d=nebusec.ai; s=google; t=1788667723; x=1789272523; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/qnRZ1b/ThxLCDKg+XNGDfO9T1I8FVJXyvQjT9BlGzM=;
+        b=aUxEkIEfst2969ukf+XsHqcWqNmx8Qv/9mKsnIk5iz65Kpsa/DOkmQ+0ItwstA9oJg
+         W94mH/IExfM0KQIuvOmi7e6nG2IixkGIfC+d+kl82pN8sCrXGgvre09ea0jut1cwMFP9
+         bVQUn4fUgCgzZz99FnXiqyocLr/CPoinfFZ9Z2SrGuM+6UaXvSH3+eTKenqILIkQq6YQ
+         5+aW04f1+zYSl/MMnaAVoECL6P1OoN59Od99t/2sgVdttt/vlFd9S9ZLF08uPZFrEFNf
+         Eku/EJTL0qQf7E24aMqXpcDiESceKYZDIjCfDmpwam5uZLUmOVcnxVCM3ZxzdH2+cIG2
+         IuUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788667630; x=1789272430;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ByaWx9fs3FmH7s/refQwfhbkWp4eQ2bqZDqw/zD/lsU=;
-        b=G6HSiGv+nWBK8Co7Wqj43l1g715K6RRagS7Hh4uyJk0lLadtpoNJR9RZ875V8iLA+M
-         l5U3gdbXq382rJeNBQdxss5Myjl5xg7DEsy2C/5F1C5vnIRBr1wwHdtll6tLFyxPYqGi
-         7ZwENhqCGsuiAvSdThKgjNAEN30izbnss81rR8P/xzLY/N4mn5QVnVjrYIi28ZnWNSOH
-         X2XgfGT4ag85CYTkfJqBg7aFuW7MgYaXOEvWQglc0v5GaQ+TRwA36EAEjDm7/VZ8N/st
-         PIqYB0EIO0fBSkfmuEtSdW43qX0k32X7JOvFBjBeOASx9eVFp74vHvkHHY8rKZvBh86l
-         lKGA==
-X-Forwarded-Encrypted: i=1; AKwUvBxMv3jAqijICZCDSox+TeBIivzV/+CzO03H31KIiUzPCR4GWAtQE1DJDMVW7MYNsMbwQa9lhjYB00XOfas=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9HSQ6mBsi+BJrCW5rZQV6oDtOFTXUK1J9AxljOsfYv7kiDGcm
-	zrhHPmEyzcHxt5FK4M5bDyzst5e5XEOLCIAFHVn0LKXXuGUFVqgleAaQ5jGMSmcBLzqhaqCwXDF
-	OnoF1p4u2gPw10Kizk5dZj8Ol2qFZcoe9DBconGMTcCp01fYthqymWRepxVQn4DKrQw==
-X-Gm-Gg: AYBFou1m+MuG2lARQoD3rq5qL3BaM2yrX6AL2HF9VDS7ZavL2M3TL5GegU3Tqik2gMq
-	w2pjRZzWFrf723bw6L3pt4nMJnXVCJqpMdsA+kDZUxqda3XbwtpOWVGpY2QBOMy7Y5NUsmuvI87
-	hAm+jng/QhURqDOE3heceChVDH0RKdytV6ceP/qPGRX+GHsw54uM7zIEgp8Cqyh1zY8C9ztFhVL
-	uWL1u7GcwJ5uMVp7uIpwUo4nreRPaSQ0v+/6D0z/J6eR8WI19SZWSFzQnTwT8VM4MSK+QyN/GNy
-	n7lhMtjXhSKPXTG3hLe9IMgvbesd5EWUE4HgjhQLc3TAgZPFCGMRitijYHrcz385MqMjN7SeUIt
-	8ac5MPifz52eTJrCz1s+Hg+E=
-X-Received: by 2002:a05:600c:3b9e:b0:49c:fc6c:be1a with SMTP id 5b1f17b1804b1-49cfc6cc121mr110344635e9.32.1788667629713;
-        Sat, 05 Sep 2026 21:07:09 -0700 (PDT)
-X-Received: by 2002:a05:600c:3b9e:b0:49c:fc6c:be1a with SMTP id 5b1f17b1804b1-49cfc6cc121mr110344405e9.32.1788667629232;
-        Sat, 05 Sep 2026 21:07:09 -0700 (PDT)
-Received: from redhat.com (IGLD-80-230-79-236.inter.net.il. [80.230.79.236])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5533ffbsm244482565e9.3.2026.09.05.21.07.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 21:07:08 -0700 (PDT)
-Date: Sun, 6 Sep 2026 00:07:05 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Jia Jia <physicalmtea@gmail.com>
-Cc: sgarzare@redhat.com, stefanha@redhat.com, jasowang@redhat.com,
-	eperezma@redhat.com, kvm@vger.kernel.org,
-	virtualization@lists.linux.dev, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] vhost/vsock: batch RX used-ring updates
-Message-ID: <20260905234007-mutt-send-email-mst@kernel.org>
-References: <20260906013659.517889-1-physicalmtea@gmail.com>
+        d=1e100.net; s=20251104; t=1788667723; x=1789272523;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/qnRZ1b/ThxLCDKg+XNGDfO9T1I8FVJXyvQjT9BlGzM=;
+        b=PDzeJQQzTWaHFU9RGkVJduqBQ0unTesmxeD/7CAnSffJUfroMKIji8R7wRDdodnZE4
+         AKSWTxaosffNTpaoX42Gt7RNZdfy+OZkzlXRqSxI60MlDnylV/7IYby++KtMci+LyLnM
+         1KakXB3qSsj0Dm1C6wNwZ+VjynQRbCeWm5J8rqH3oQm6w8AAj8w0yo80rGLh+hVoeUdg
+         LtG4+n9/JJRdvvKdDMDYU6WEugpgys9N3ysULQuEYr4wtSlrlwRNUK5w0Y9ty6STQOuI
+         LCALbts0hG5AsFzTbmDQZiB15pkrsTpm1/bg4B1X5HIYEfB3IrnEry57FFYRFgxntY3w
+         HP7w==
+X-Forwarded-Encrypted: i=1; AKwUvBx4XU5ux2PznPcrcR5AcLMjv8KBuM29msUJpUd17B31axThUBwV0iJUAQS6GiA6XZb9TsYmi89QgKWJ9po=@vger.kernel.org
+X-Gm-Message-State: AFuF++mt3BgxksihK33voNZAKe78Uh3CIsm7NGR32pYcgKyJBUqqggXB
+	C4nbUq/D8MzLLBzm3LQpsOEcM+FN838DwPEi1dlIgriSt7xf4Z/kQSs6kuZ7nGktuP01WHdwDys
+	9QkkHwM0sQ4nwHehHJaUrOGtsjbwFMNc5hcBzfX8F+AA=
+X-Gm-Gg: AYBFou3JPzmhluHYfPl9M8w+x2mGiQziI1SYyyqoyFQWhQuv4rTkxjnMG/FZlBhGkzi
+	HsONISpYBvM+c3uG5SmLKebOXaNI0I7aNDHvDgLW9MB8IeQeJg5VlkNiujuLmhoisfizYACHmhd
+	vfRCwzsQiul24HKkhEfW/On0R1K7Kjn+KpKYzOI0+NV/GDZl7RjlYDLYen8pLf/Q8DUKkiFavPn
+	iH4t6MhxJln35iSC0465mmEmM/HtfkEUR0N0l6MrxmOBb8zJ1IeCw3b59mJ/jv73i/CyQY/tk2I
+	7jPNLpo8PTdNFsFE1XE4Iy27l5UapZkRd5F922uqpwrF157TqdMR30qdhcUSL8eMBqgqVhpvz3A
+	=
+X-Received: by 2002:a05:651c:2205:b0:3a1:4b92:76b0 with SMTP id
+ 38308e7fff4ca-3a371b5a644mr16405391fa.5.1788667722643; Sat, 05 Sep 2026
+ 21:08:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260906013659.517889-1-physicalmtea@gmail.com>
+References: <133b6aee9e2c908c9da37d5585b3d2cd016906cd.1788187473.git.zihanx@nebusec.ai>
+ <20260905151227.75099-1-horms@kernel.org> <CAANe3eRpVGnYpygfiQTsXd2VmBO43P-P1RfREkdDypgXBZB9Uw@mail.gmail.com>
+ <20260905190217.GE40544@horms.kernel.org>
+In-Reply-To: <20260905190217.GE40544@horms.kernel.org>
+From: zihan xi <zihanx@nebusec.ai>
+Date: Sun, 6 Sep 2026 12:08:30 +0800
+X-Gm-Features: AcwNN1VTRejeC3BkfntBUh_MIrPvKzSvYUZPlMcVAjoUU_1YeMmnOwv8v11Td5o
+Message-ID: <CAANe3eQ-N3fse+6hTJfEjHQT+y=xkZA6eYVeD--+k+fdhZC5Xw@mail.gmail.com>
+Subject: Re: [PATCH net 1/1] udp: diag: bound bucket lock hold time
+To: Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, xemul@parallels.com, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, vega@nebusec.ai
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 06, 2026 at 09:36:59AM +0800, Jia Jia wrote:
-> vhost_transport_do_send_pkt() calls vhost_add_used() for every Guest RX
-> buffer even though it delays the Guest signal until the worker finishes.
-> Each call publishes one used entry and updates the used index separately.
-> 
-> Collect the completed buffer heads in the arrays already allocated for the
-> virtqueue and publish them with vhost_add_used_n().  Bound the batch by the
-> ring size and array capacity.  Flush when the batch reaches its limit or
-> before leaving the worker.
-> 
-> Each used entry describes one completed RX buffer and keeps its actual used
-> length, so set nheads to 1 for every entry.  This patch does not change
-> negotiated features or compress multiple buffers into one used entry.
-> 
-> This patch is limited to the current skb-based vhost-vsock RX path.
-> 
-> Performance:
-> 
-> The test used vsock_perf with a fresh Guest for each state and 20 paired
-> runs. The Guest receiver used:
-> 
->   vsock_perf --port PORT --buf-size 64M --vsk-size 64M --rcvlowat 1
-> 
-> The Host sender used:
-> 
->   vsock_perf --sender 3 --port PORT --bytes 1G \
->       --buf-size SEND_BUF --vsk-size 64M
-> 
-> The table reports geometric mean Guest RX throughput.
-> 
->   SEND_BUF   baseline RX   batching RX   change
->              (Gbit/s)       (Gbit/s)
->   256 B      0.0795724      0.0831509      +4.497%
->   512 B      0.1194885      0.1210297      +1.290%
->   4 KiB      0.7208273      0.7242053      +0.469%
->   64 KiB     2.1712797      2.1951941      +1.101%
+On Sun, Sep 6, 2026 at 3:02=E2=80=AFAM Simon Horman <horms@kernel.org> wrot=
+e:
+>
+> On Sat, Sep 05, 2026 at 11:49:05PM +0800, zihan xi wrote:
+> > On Sat, Sep 5, 2026 at 11:12=E2=80=AFPM Simon Horman <horms@kernel.org>=
+ wrote:
+> > >
+> > > This is an AI-generated review of your patch. The human sending this
+> > > email has considered the AI review valid, or at least plausible.
+> > > Full review at: https://sashiko.dev/#/patchset/133b6aee9e2c908c9da37d=
+5585b3d2cd016906cd.1788187473.git.zihanx@nebusec.ai?part=3D1
+> > > ---
+> > > udp: diag: bound bucket lock hold time
+> > >
+> > > This patch limits the time the UDP hash bucket spinlock is held durin=
+g
+> > > netlink socket dumps by collecting a bounded batch of matching socket=
+s.
+> > > It takes a reference to each socket, releases the lock, processes the
+> > > batch, and resumes from a preserved cursor.
+> > >
+> > > > diff --git a/net/ipv4/udp_diag.c b/net/ipv4/udp_diag.c
+> > > > index f4b24e628cf8d..18cfe0df654dd 100644
+> > > > --- a/net/ipv4/udp_diag.c
+> > > > +++ b/net/ipv4/udp_diag.c
+> > > [ ... ]
+> > > > +static void udp_diag_dump_done(struct netlink_callback *cb)
+> > > > +{
+> > > > +     struct inet_diag_dump_data *cb_data =3D cb->data;
+> > > > +     struct sock *sk =3D (struct sock *)cb->args[2];
+> > > > +
+> > > > +     if (sk) {
+> > > > +             cb->args[2] =3D 0;
+> > > > +             sock_put(sk);
+> > > > +     }
+> > > > +     cb_data->dump_done =3D NULL;
+> > > > +     module_put(THIS_MODULE);
+> > > > +}
+> > >
+> > > [Severity: High]
+> > > Does this module_put() introduce a race condition with module unloadi=
+ng?
+> > >
+> > > When an active netlink dump for UDP sockets finishes, inet_diag_dump_=
+done()
+> > > invokes udp_diag_dump_done(). This function drops its module referenc=
+e using
+> > > module_put(THIS_MODULE) as its final step.
+> > >
+> > > If this was the last reference, a concurrent rmmod udp_diag operation=
+ can
+> > > proceed and unmap the module's text segment before the thread executi=
+ng
+> > > udp_diag_dump_done() executes its return instruction to return to ine=
+t_diag.
+> > >
+> > > Could this result in a kernel panic due to the CPU attempting to exec=
+ute
+> > > unmapped memory?
+> >
+> > Yes.  If that module_put() drops the last reference, rmmod can unmap
+> > udp_diag while dump_done() is still returning to inet_diag.
+> >
+> > I will keep the extra module_get() in udp_diag_dump(), and move the
+> > matching module_put() into inet_diag_dump_done() so it runs after the
+> > callback has returned.
+>
+> I think that the fundamental problem here is that managing module lifecyc=
+le
+> from within the module itself tends to be unsafe. I'm not sure your
+> proposal addresses that problem.
+>
+You are right.  Keeping __module_get() in udp_diag and only moving the
+put into inet_diag_dump_done() still lets the module pin itself.
 
+> I think one possible solution is to move the module_put into delayed work=
+.
+> And another, is to move module lifecycle handling into the core.
+>
+> Possibly the first option is cleaner as I think that only udp_diag
+> has the need for this.
+>
+The extra pin exists only because the dump kept a socket cursor after
+inet_diag had already dropped the handler.  I will drop that cursor
+instead of adding delayed work or extra core lifecycle state.
 
-I will be frank I don't find the numbers compelling enough
-to bother with this trickery.
+v2 will bound the bucket lock the way tcp_diag already batches, and
+leave module get/put in inet_diag_lock_handler() /
+inet_diag_unlock_handler().
 
-vsock wasn't optimized all that much for small packets -
-first of all, it is doing most of its work in a work item
-so we are already at the mercy of the scheduler.
-
-That's more work but you will see a much bigger win for bw and
-latency by just handling small packets directly in the cb
-if you can.
-
-Looking at batching: wakeup per packet in rx_work, lock_sock per packet,
-sk->sk_write_space per rx packet are all high overhead things we are
-doing in the data path that are likely easier to handle
-and will give you more bang for the buck.
-
-
-
-
-
-> 
-> As supplementary data, perf stat measured the vhost worker cycles and
-> instructions per GiB in 10 paired runs. The patched implementation
-> reduced cycles by 3.846%, 2.162%, and 4.109%, and instructions by
-> 2.548%, 2.084%, and 4.637% for 256 B, 4 KiB, and 64 KiB, respectively.
-> 
-> An AF_VSOCK request-response latency test with 10 AB/BA pairs showed no
-> consistent RTT change: -0.102% for 256-byte messages (4/10 pairs lower) and
-> +3.281% for 4-KiB messages (5/10 pairs lower), using arithmetic mean RTTs.
-> 
-> Signed-off-by: Jia Jia <physicalmtea@gmail.com>
-> Acked-by: Eugenio Pérez <eperezma@redhat.com>
-> ---
-> Changes in v4:
-> - Simplify the performance description.
-> - Add a brief AF_VSOCK RTT measurement.
-> - Keep the batch limit within the used ring and scratch arrays, without
->   duplicating the worker weight limit.
-> - Flush after adding a used entry when the batch reaches the limit, and
->   remove the redundant flush in the empty-queue path.
-> ---
->  drivers/vhost/vsock.c | 47 +++++++++++++++++++++++++++++++++++++++++++++--
->  1 file changed, 45 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/vhost/vsock.c b/drivers/vhost/vsock.c
-> index 9aaab6bb8061..7a13abe73345 100644
-> --- a/drivers/vhost/vsock.c
-> +++ b/drivers/vhost/vsock.c
-> @@ -103,12 +103,35 @@ static bool vhost_transport_has_remote_cid(struct vsock_sock *vsk, u32 cid)
->  	return found;
->  }
->  
-> +static bool vhost_vsock_flush_used(struct vhost_virtqueue *vq,
-> +				   unsigned int used_count)
-> +{
-> +	if (!used_count)
-> +		return false;
-> +
-> +	vhost_add_used_n(vq, vq->heads, vq->nheads, used_count);
-> +	return true;
-> +}
-> +
-> +static void vhost_vsock_add_used(struct vhost_virtqueue *vq,
-> +				 unsigned int used_count,
-> +				 unsigned int head, unsigned int len)
-> +{
-> +	struct vring_used_elem *used = &vq->heads[used_count];
-> +
-> +	used->id = cpu_to_vhost32(vq, head);
-> +	used->len = cpu_to_vhost32(vq, len);
-> +	vq->nheads[used_count] = 1;
-> +}
-> +
-
-
-flush where? add where? return what? these apis don't make it
-easier to read code.
-
->  static void
->  vhost_transport_do_send_pkt(struct vhost_vsock *vsock,
->  			    struct vhost_virtqueue *vq)
->  {
->  	struct vhost_virtqueue *tx_vq = &vsock->vqs[VSOCK_VQ_TX];
->  	int pkts = 0, total_len = 0;
-> +	unsigned int used_count = 0;
-> +	unsigned int used_limit;
->  	bool added = false;
->  	bool restart_tx = false;
->  
-> @@ -120,6 +143,11 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vsock,
->  	if (!vq_meta_prefetch(vq))
->  		goto out;
->  
-> +	/* Keep the batch within the used ring and the scratch arrays. */
-
-what "the batch"? this is the 1st time code mentions any batch.
-
-> +	used_limit = min_t(unsigned int, vq->num, vq->dev->iov_limit);
-> +	if (unlikely(!used_limit))
-> +		goto out;
-> +
->  	/* Avoid further vmexits, we're already processing the virtqueue */
->  	vhost_disable_notify(&vsock->dev, vq);
->  
-> @@ -150,9 +178,16 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vsock,
->  
->  		if (head == vq->num) {
->  			virtio_vsock_skb_queue_head(&vsock->send_pkt_queue, skb);
-> +
-> +			/* Flush completed buffers before re-enabling notifications. */
-
-
-redundant - i can see this is what it does but why? and what does flush mean here?
-
-> +			if (vhost_vsock_flush_used(vq, used_count)) {
-> +				added = true;
-> +				used_count = 0;
-> +			}
-> +
->  			/* We cannot finish yet if more buffers snuck in while
->  			 * re-enabling notify.
->  			 */
->  			if (unlikely(vhost_enable_notify(&vsock->dev, vq))) {
->  				vhost_disable_notify(&vsock->dev, vq);
->  				continue;
-> @@ -230,8 +265,13 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vsock,
->  		 */
->  		virtio_transport_deliver_tap_pkt(skb);
->  
-> -		vhost_add_used(vq, head, sizeof(*hdr) + payload_len);
-> -		added = true;
-> +		vhost_vsock_add_used(vq, used_count, head,
-> +				     sizeof(*hdr) + payload_len);
-> +		used_count++;
-> +		if (used_count == used_limit) {
-> +			added |= vhost_vsock_flush_used(vq, used_count);
-
-
-bitwise or on a boolean likely not what was intended.
-
-> +			used_count = 0;
-> +		}
->  
->  		VIRTIO_VSOCK_SKB_CB(skb)->offset += payload_len;
->  		total_len += payload_len;
-> @@ -264,6 +304,9 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vsock,
->  			virtio_transport_consume_skb_sent(skb, true);
->  		}
->  	} while(likely(!vhost_exceeds_weight(vq, ++pkts, total_len)));
-> +
-> +	added |= vhost_vsock_flush_used(vq, used_count);
-> +
-
-
-and here.
-
->  	if (added)
->  		vhost_signal(&vsock->dev, vq);
-> 
-> -- 
-> 2.34.1
-
+Thanks,
+Zihan
