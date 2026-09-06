@@ -1,151 +1,169 @@
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+Received: from sg-3-45.ptr.tlmpb.com (sg-3-45.ptr.tlmpb.com [101.45.255.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E2892248BE
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:40:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D1D1421A15
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:40:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788694825; cv=none; b=rMFKGnonKjvQgPARG6uvIVURXwUQi2U9NPRZgYGIj9mbOiRU4CUPYC5MkF/YAvJ+FhAD911IEl5PZs9uogMpFzzSWJm08U7JruTx41kyXR7BHHAacGv2CwfQOfg3vlL2AMuM4nJ0W58VonM81vnUEvPLlZoEAdoxrpm0j0DMFXs=
+	t=1788694857; cv=none; b=aVbihJ0wQ/mFWewSs7hGArmeI7JuKAZQL7xkeq3Im4z9oogKd+PL+lF9ur1AgDAqAYaJnPQb3l6fKlkR84sObhfgHUJr+vW4SuTrAPVVApEQpSqd1ToPFvh6mnqMxMbB5FO3GBat89HmI66a565ZXHVyA4Wdo8WLAlVWnWu/QkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788694825; c=relaxed/simple;
-	bh=30Yz9Elei6VI66bk5i4Y7ZNktd4r3jSz3yxXPEN1eDM=;
-	h=Message-ID:MIME-Version:From:To:Cc:Date:Subject:Content-Type; b=GF5I3N/H6XZjoHRBl0Lpw8q0hyNC/vLrCDEQ4v6a0lwPupSMMLoDBmw8uQ3DcLQiiZsi8aHMzkKU6DhPfQga4iWjrPuZ0ooSjL3h4j3elDvSbucczkZeOuwhOQQsFVAoyDrsXpS4sEW/J9rJU3Ikm6qM7mXUtsNFsmu9vsyKWl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pCFUyyPH; arc=none smtp.client-ip=209.85.215.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788694857; c=relaxed/simple;
+	bh=eEktsWXso/ZQaq8+Orw8lH87J9Mavxs+DZ2u0i4gb6U=;
+	h=Message-Id:Mime-Version:Content-Type:In-Reply-To:From:To:Date:
+	 Subject:References:Cc; b=lWxsSgd9vhtaNLopG3z+PDmeNuPlEcUYG+Sfk/3odtTES2RVy/UYZk/eE+7WXc6zYVwjqsBeAwzMqI3gu17gNXVMq7qcJdf0oSfCevMErUxdqQ4l1k8szm/erZIB+4XwlMSP25wNfRWLh+Z3Z5khgCozxHCB82pj9wz2umqtldo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=bFgMvn7H; arc=none smtp.client-ip=101.45.255.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pCFUyyPH"
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc439aa0078so2086711a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 04:40:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788694809; x=1789299609; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:subject:date:cc:to:from
-         :mime-version:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zq5M3OTpr2g6eiAg252Kka23Tri2IujEhHRTMO6gelw=;
-        b=pCFUyyPHQuZXN3nTdBKWgoNeZFE6TbnSxY2t6xxT2euZ17F5yP+5GZG4DsU0Kio7bV
-         1lk8Fq+SHhaButOWAybMbq8m8te9gkFHIFDwd3vPbJtbnlomdBU9mFGAbBaTSJa7ZTvf
-         TnU5qnvSedR6dv7O37omvCVLUxdL4BUkdxX1vFRB8zPhITnG8B0xe45b5NjvhmmHP+Cc
-         Kx4XVxKo6265bevfpLWzdA/zhdyZkUveWp7y8FOsXGoMF78Pig/uyWWiLudvQSOFD/7v
-         BZYI+37/Myd+LPQLT/MZOt2EgSC7E0yrWNbMXka32W4ibIhGXuA06v3uip7J0w70By2Y
-         xXMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788694809; x=1789299609;
-        h=content-transfer-encoding:content-type:subject:date:cc:to:from
-         :mime-version:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=zq5M3OTpr2g6eiAg252Kka23Tri2IujEhHRTMO6gelw=;
-        b=RLgvqkCg/kYSuFaDic98azux8LuYddWztynQ77vOhWieEoVJMIBcRu3Ez0nBGEMM6M
-         yBJx/dTUXASRT9vo2j95XIf6J4JhVdmJ7KHh5GLp562ncyMRWgOU3qJFRWWYFNE2VkMf
-         6L+0PpC8J5eizHoo/e465nAKRchI/ZxAizFvPdE8J4ZZHAB/DH2Iqu2tkFJSutEYI+Xf
-         Ix3ddXw78OgZw/Gi2UgXRDmKGaWfcR8o3A0cmV+Uxab3Ok192OTOLm0HV6Btie//AYih
-         Y//5f9k7ytLmWjNfZMHQMbTCKBz+qMVv9AJYtmtyV2G6BeTknA/yAJMFM2dq625G2T3G
-         HqNw==
-X-Forwarded-Encrypted: i=1; AKwUvBysFFI41l1f6InHsvogMO3pM1SQ413FqUEIb3dvbJQwlRYEyQFm4pZmquBAxdXPDWQ8A2vqhRmtIkuNaTM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kVVHBt3fqszkbEgd1E9wKWL8Y97HqKdFvhnp1oULKKupEtLJ/X
-	wEv3jq+30VcZPVXKi4CPj0N4zRaUwksgv/u452OyL523QVv0zW/WrXUX
-X-Gm-Gg: AYBFou1wz7lAVzrtLAI0A0AVtKYI2abM0469iueuQezorvvO3/NPIdvxclTqDBH3hdI
-	mINBRfXgkKxyWERsVWm5O/zpnK9PKkl7nEdWAsuyMY9T3n5XfAf1CatGVFW8WS+ketYVALHmtak
-	aUPgNRQ0+hDcRgcuqMw0Vh7u1+gXYm70RKO7kYk9JhFOHBXZcYheYJLX+etynGhm/WkYoi3MtbH
-	YU7S27V17N2T2mRSUJIfzsyRgr0P821uSoGpuGj++29c4hXnYpVILRnMdQwV7rIwJEZgFELI1CO
-	pd0UWIGTB98UuMm61wxlxk6L4AwBb8HDQ2wmYV6Acy2gBHAWJonaKgx+9ewC8uPS61X9sNhiOtt
-	R3pzLsP9RaWqWC3d8Mn+E74YjaKyR9J5uy2DJY2zumiVtZklJ4bSdvpa9mLxW+M+msX5j1AP8l2
-	s7fNkf24Q+72Nkq2rKfpybsyVMydJmMHS2hIe3UBhPo123bJ0PY/+cbw8j2O0moBoOIJC9larFK
-	6/31Gfp3US055tcx/F8gbG4ZITKSZxJOgjI53oX+oVUiEOuEG8d6DViZg==
-X-Received: by 2002:a17:90b:5807:b0:398:9be9:ab8c with SMTP id 98e67ed59e1d1-39b26229bd7mr27188589a91.17.1788694809187;
-        Sun, 06 Sep 2026 04:40:09 -0700 (PDT)
-Received: from manush ([2406:7400:94:7a79:f149:be84:942d:9300])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885d29esm22094892eec.2.2026.09.06.04.40.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 04:40:08 -0700 (PDT)
-Message-ID: <6a9d5118.a865c849.172a3c.4f1f@mx.google.com>
-X-Mailer: git-send-email 2.46.2.windows.1
+	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="bFgMvn7H"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1788694802;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=eEktsWXso/ZQaq8+Orw8lH87J9Mavxs+DZ2u0i4gb6U=;
+ b=bFgMvn7HS/3GeTGxiu9DPfrVkogWI7kPIhbufXYYGS6NBHIrnSJTG4n6eNN4C1yVb0LuT4
+ yd5MtxWDrOpyMjGcUJ2lX6vEbuG77nt84WuK1duy/hb1t7+vmZf9XZT1g42DJnmbZ2KT7s
+ yKnuBI9p0DEvyRIfrvPTt9FjM0K3ZzpnPU12G/6SP7kdOpt4dTpXLSjKvco8JwCWTEIbIk
+ rD5Wk+hCsLA0wJo2yhYjf1Wi6FeRntdtDwQ0skqEqsSCLsbJLygfige3pa8vHyQimz9nat
+ XIQTJ+LF0pW75DLAqf+IAEZB3QbC1Vnec6RuIPmNBpoJWx2gCzkVeGGE2nwmgQ==
+Message-Id: <befbc177-f7f5-4c44-b02e-20a99fc64c0c@fygo.io>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-From: "Manush Prajwal" <manushprajwal555@gmail.com>
-To: ukleinek@kernel.org
-Cc: lee@kernel.org, linux-pwm@vger.kernel.org, mfd@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Date: 6 Sep 2026 17:10:07 +0530
-Subject: [PATCH v2] pwm: lp3943: validate DT output indices in
- lp3943_pwm_parse_dt()
-Content-Type: text/plain; charset=utf-8
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
+X-Lms-Return-Path: <lba+26a9d5111+2934c6+vger.kernel.org+yukuai@fygo.io>
+In-Reply-To: <49d724b8-57c6-48fc-8099-69cd1b072351@linux.ibm.com>
+From: "yu kuai" <yukuai@fygo.io>
+To: "Nilay Shroff" <nilay@linux.ibm.com>, "Yu Kuai" <yukuai@kernel.org>, 
+	"Jens Axboe" <axboe@kernel.dk>, "Tejun Heo" <tj@kernel.org>, 
+	"Josef Bacik" <josef@toxicpanda.com>, 
+	"Johannes Weiner" <hannes@cmpxchg.org>, 
+	=?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
+Date: Sun, 6 Sep 2026 19:39:52 +0800
+Reply-To: yukuai@fygo.io
+Subject: Re: [PATCH 2/3] blk-cgroup: store blkcg in bio instead of blkg
+References: <20260823133045.970199-1-yukuai@kernel.org> <20260823133045.970199-3-yukuai@kernel.org> <49d724b8-57c6-48fc-8099-69cd1b072351@linux.ibm.com>
+User-Agent: Mozilla Thunderbird
+X-Original-From: yu kuai <yukuai@fygo.io>
+Cc: "Christoph Hellwig" <hch@lst.de>, "Tao Cui" <cui.tao@linux.dev>, 
+	"Jan Kara" <jack@suse.cz>, "Jonathan Corbet" <corbet@lwn.net>, 
+	"Shuah Khan" <skhan@linuxfoundation.org>, "Coly Li" <colyli@fygo.io>, 
+	"Kent Overstreet" <kent.overstreet@linux.dev>, 
+	"Alasdair Kergon" <agk@redhat.com>, "Mike Snitzer" <snitzer@kernel.org>, 
+	"Mikulas Patocka" <mpatocka@redhat.com>, 
+	"Benjamin Marzinski" <bmarzins@redhat.com>, "Song Liu" <song@kernel.org>, 
+	"Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
+	"Pankaj Gupta" <pankaj.gupta.linux@gmail.com>, 
+	"Dan Williams" <djbw@kernel.org>, 
+	"Vishal Verma" <vishal.l.verma@intel.com>, 
+	"Dave Jiang" <dave.jiang@intel.com>, 
+	"Alison Schofield" <alison.schofield@intel.com>, 
+	"Ira Weiny" <iweiny@kernel.org>, 
+	"Andreas Gruenbacher" <agruenba@redhat.com>, 
+	"Matthew Wilcox" <willy@infradead.org>, 
+	"Andrew Morton" <akpm@linux-foundation.org>, 
+	"Chris Li" <chrisl@kernel.org>, "Kairui Song" <kasong@tencent.com>, 
+	"Kemeng Shi" <shikemeng@huaweicloud.com>, 
+	"Nhat Pham" <nphamcs@gmail.com>, "Baoquan He" <baoquan.he@linux.dev>, 
+	"Barry Song" <baohua@kernel.org>, 
+	"Youngjun Park" <youngjun.park@lge.com>, <cgroups@vger.kernel.org>, 
+	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<linux-block@vger.kernel.org>, <linux-bcache@vger.kernel.org>, 
+	<dm-devel@lists.linux.dev>, <linux-raid@vger.kernel.org>, 
+	<nvdimm@lists.linux.dev>, <virtualization@lists.linux.dev>, 
+	<gfs2@lists.linux.dev>, <linux-fsdevel@vger.kernel.org>, 
+	<linux-mm@kvack.org>
+Received: from [192.168.1.104] ([39.182.0.178]) by smtp.larksuite.com with ESMTPS; Sun, 06 Sep 2026 11:40:00 +0000
 
-The ti,pwm0/ti,pwm1 devicetree properties are raw u32 arrays nami=
-ng=0D=0Awhich of the 16 physical LP3943 outputs (0-15, per the do=
-cumented=0D=0Abinding and the 16-entry enum lp3943_pwm_output) ea=
-ch PWM channel=0D=0Adrives. lp3943_pwm_parse_dt() reads these val=
-ues straight from the=0D=0Adevicetree with of_property_read_u32_a=
-rray() and stores them in=0D=0Apwm_map->output[] without checking=
- they are actually in range.=0D=0A=0D=0ABoth consumers of pwm_map=
-->output[] then use an out-of-range value=0D=0Adirectly as an ind=
-ex/bit-offset with no bounds check of their own:=0D=0A=0D=0A - lp=
-3943_pwm_request_map() does=0D=0A       test_and_set_bit(offset, =
-&lp3943->pin_used)=0D=0A   with offset taken straight from output=
-[i], corrupting memory beyond=0D=0A   the single 'unsigned long p=
-in_used' field for offset >=3D BITS_PER_LONG.=0D=0A=0D=0A - lp394=
-3_pwm_set_mode() does=0D=0A       mux[index].reg / .mask / .shift=
-=0D=0A   with index taken straight from output[i], reading past t=
-he 16-entry=0D=0A   lp3943_mux_cfg[] array and then issuing a reg=
-map write built from=0D=0A   whatever garbage register/mask/shift=
- values were read out of bounds.=0D=0A=0D=0AA devicetree (malform=
-ed board file or a loaded overlay) with an=0D=0Aout-of-range ti,p=
-wm0/ti,pwm1 value is enough to reach either path;=0D=0Anothing up=
-stream of these two functions validates the value.=0D=0A=0D=0AAdd=
- a range check in lp3943_pwm_parse_dt() right after the values ar=
-e=0D=0Aread, rejecting the devicetree with -EINVAL before any out=
--of-range=0D=0Avalue can reach pwm_map->output[]. Check explicitl=
-y for negative=0D=0Avalues in addition to the upper bound: enum l=
-p3943_pwm_output's=0D=0Aunderlying integer representation is impl=
-ementation-defined per the C=0D=0Astandard, so do not rely on the=
- compiler having chosen an unsigned=0D=0Atype for it even though =
-it always does in practice for GCC (verified=0D=0Aempirically, wi=
-th and without -fshort-enums, since none of the=0D=0Aenumerators =
-are negative). Add the LP3943_NUM_OUTPUTS(16) constant=0D=0Anext =
-to the existing enum it bounds, alongside the existing=0D=0ALP394=
-3_NUM_PWMS(2) constant.=0D=0A=0D=0ASigned-off-by: Manush Prajwal =
-<manushprajwal555@gmail.com>=0D=0A---=0D=0AChanges since v1:=0D=0A=
- - Sashiko AI review flagged that the bounds check could theoreti=
-cally=0D=0A   be bypassed by a devicetree value with the MSB set,=
- if the compiler=0D=0A   chose a signed underlying type for enum =
-lp3943_pwm_output. I checked=0D=0A   this empirically with gcc 13=
-.2.0, both with and without=0D=0A   -fshort-enums: since none of =
-the enum's values are negative, gcc=0D=0A   always picks an unsig=
-ned underlying type, so output[j] >=3D 16 already=0D=0A   rejects=
- such values today. Added the explicit "< 0" check anyway,=0D=0A =
-  since the C standard leaves the enum's underlying type=0D=0A   =
-implementation-defined and the check costs nothing.=0D=0A - The s=
-ame review also flagged a missing NULL check on=0D=0A   pdata->pw=
-ms[hwpwm] in lp3943_pwm_request_map() as a pre-existing,=0D=0A   =
-separate bug (not introduced by this patch, confirmed by=0D=0A   =
-inspection) - sending that as its own follow-up patch rather than=
-=0D=0A   folding an unrelated fix in here.=0D=0A=0D=0A drivers/pw=
-m/pwm-lp3943.c   | 7 ++++++-=0D=0A include/linux/mfd/lp3943.h | 2=
- ++=0D=0A 2 files changed, 8 insertions(+), 1 deletion(-)=0D=0A=0D=0A=
-diff --git a/drivers/pwm/pwm-lp3943.c b/drivers/pwm/pwm-lp3943.c=0D=0A=
-index 10537e74b..e8bb8dbb9 100644=0D=0A--- a/drivers/pwm/pwm-lp39=
-43.c=0D=0A+++ b/drivers/pwm/pwm-lp3943.c=0D=0A@@ -218,7 +218,7 @@=
- static int lp3943_pwm_parse_dt(struct device *dev,=0D=0A 	struct=
- lp3943_platform_data *pdata;=0D=0A 	struct lp3943_pwm_map *pwm_m=
-ap;=0D=0A 	enum lp3943_pwm_output *output;=0D=0A-	int i, err, num=
-_outputs, count =3D 0;=0D=0A+	int i, j, err, num_outputs, count =3D=
- 0;=0D=0A =0D=0A 	if (!node)=0D=0A 		return -EINVAL;=0D=0A@@ -247=
-,6 +247,11 @@ static int lp3943_pwm_parse_dt(struct device *dev,=0D=0A=
- 		if (err)=0D=0A 			return err;=0D=0A =0D=0A+		for (j =3D 0; j <=
- num_outputs; j++) {=0D=0A+			if (output[j] < 0 || output[j] >=3D=
- LP3943_NUM_OUTPUTS)=0D=0A+				return -EINVAL;=0D=0A+		}=0D=0A+=0D=0A=
- 		pwm_map =3D devm_kzalloc(dev, sizeof(*pwm_map), GFP_KERNEL);=0D=0A=
- 		if (!pwm_map)=0D=0A 			return -ENOMEM;=0D=0Adiff --git a/inclu=
-de/linux/mfd/lp3943.h b/include/linux/mfd/lp3943.h=0D=0Aindex 5d2=
-d172d3..844938ca7 100644=0D=0A--- a/include/linux/mfd/lp3943.h=0D=0A=
-+++ b/include/linux/mfd/lp3943.h=0D=0A@@ -53,6 +53,8 @@ enum lp39=
-43_pwm_output {=0D=0A 	LP3943_PWM_OUT15,=0D=0A };=0D=0A =0D=0A+#d=
-efine LP3943_NUM_OUTPUTS		16=0D=0A+=0D=0A /*=0D=0A  * struct lp39=
-43_pwm_map=0D=0A  * @output: Output pins which are mapped to each=
- PWM channel=0D=0A-- =0D=0A2.46.2.windows.1=0D=0A
+Hi,
 
+=E5=9C=A8 2026/9/6 18:56, Nilay Shroff =E5=86=99=E9=81=93:
+> On 8/23/26 7:00 PM, Yu Kuai wrote:
+>> @@ -257,20 +262,21 @@ static inline bool=20
+>> bio_issue_as_root_blkg(struct bio *bio)
+>> =C2=A0=C2=A0 * @blkcg: blkcg of interest
+>> =C2=A0=C2=A0 * @q: request_queue of interest
+>> =C2=A0=C2=A0 *
+>> =C2=A0=C2=A0 * Lookup a blkg for the @blkcg - @q pair, whether it is onl=
+ine or=20
+>> dying.
+>> =C2=A0=C2=A0 *
+>> - * Must be called in a RCU critical section.
+>> + * Must be called with either RCU read lock or queue_lock held.
+>> =C2=A0=C2=A0 *
+>> =C2=A0=C2=A0 * This does not acquire a reference.=C2=A0 The caller must =
+already hold=20
+>> one, or
+>> =C2=A0=C2=A0 * have the blkg pinned by I/O.
+>> =C2=A0=C2=A0 */
+>> =C2=A0 static inline struct blkcg_gq *blkg_lookup_any(struct blkcg *blkc=
+g,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 struct request_queue *q)
+>> =C2=A0 {
+>> -=C2=A0=C2=A0=C2=A0 RCU_LOCKDEP_WARN(!rcu_read_lock_held(),
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 "blkg_lookup_any() requires an RCU read lock");
+>> +=C2=A0=C2=A0=C2=A0 RCU_LOCKDEP_WARN(!rcu_read_lock_held() &&
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 !lockdep_is_held(&q->queue_lock),
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 "blkg_lookup_any() requires an RCU read lock or=20
+>> queue_lock");
+>> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return rhashtable_lookup(&q->blkg_=
+hash, &blkcg->css.id,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 blkg_hash_params);
+>> =C2=A0 }
+>
+> The changes look good to me. However, rhashtable_lookup() is annotated
+> with __must_hold_shared(RCU). Since we now officially support Clang
+> context annotations in the block layer, compiling with the latest
+> Clang/LLVM generates a number of context warnings, for example:
+>
+> block/blk-cgroup.h:277:9: warning: calling function 'rhashtable_lookup'
+> requires holding __ctx_lock_RCU 'RCU' [-Wthread-safety-analysis]
+> =C2=A0 277 |=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return rhash=
+table_lookup(&q->blkg_hash, &blkcg->css.id,
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ^
+>
+> The same warning is reported from several other block layer source
+> files that include blk-cgroup.h.
+>
+> This indicates that rhashtable_lookup() requires the RCU read lock
+> from Clang's context-analysis perspective. Looking at the call paths of
+> blkg_lookup_any(), it appears that not all callers hold
+> rcu_read_lock() when invoking it.
+
+I was not aware of the above clang warning, this should not be a real probl=
+em
+because queue_lock should have the same protection as rcu, and I was trying
+not to make this patch too complex.
+
+I add the rcu_read_lock() in the following patch to covert queue_lock to bl=
+kcg_mutex:
+
+[RFC PATCH v3 3/6] blk-cgroup: protect blkgs with blkcg_mutex - Yu Kuai <ht=
+tps://lore.kernel.org/all/20260823152926.1043863-4-yukuai@kernel.org/>
+
+Since this is related to compile warning, I'll move the rcu protection to t=
+his
+patch.
+
+>
+> I think we should fix those call paths to acquire rcu reader lock
+> before calling blkg_lookup_any(), rather than weakening or bypassing
+> the context annotation in blkg_lookup_any().
+>
+> Thanks,
+> --Nilay
+
+--=20
+Thanks,
+Kuai
