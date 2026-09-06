@@ -1,85 +1,90 @@
-Received: from out-2uec-a106.jellyfish.systems (out-2uec-a106.jellyfish.systems [63.250.43.106])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C2E320CAD
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 15:37:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=63.250.43.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34D0119CC0F;
+	Sun,  6 Sep 2026 15:38:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788709064; cv=none; b=DigiBWCIqSONdMyq8pgEoy/39WVmOY2vtMc6BBVp0IIiHB2CawA6zOMLplV9l13a5JDkm47unrncj9An8voMbiSWv4aXQzxnRXEneupEWbgzo6+34mV8yATmaWOG0GXWTNV3f4LuXf0enBMFozg5MpbcLH1RrirwO3lfB9KKzRc=
+	t=1788709081; cv=none; b=P8vXXwkfPlvSMNJ0q+/6rS3XjeQHeDfgXEF+rvQu9CfUL6bzXe8KFc54n+DpZAVpYFoatsMwOnNWXqVzvFuFVQaxZIEyJ6Bj7bv80uOxDTGMdY9kCjvuujP1hD79wHYWM8ppoCxGk834iy6nIptj0eyR0gR7GAwFzu/HTjFaNm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788709064; c=relaxed/simple;
-	bh=EPwb4lvpzFORzEvulaUWm0I8S6c4Cqls7fGBF6osNFM=;
+	s=arc-20240116; t=1788709081; c=relaxed/simple;
+	bh=0JSTTZwHiMDFTFAwfh9HFbnQ1oS4DMHDDR4AMKP56Qw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=KeW3l18rqkdxso9dGiXKQ++ysmwSp3vtzumLe5JSEQYnbBiA3cZwBZtxn284igwuektFt92Xq69dz90oOoaj4DYchswByH+I4bh/3fn2IFV6RLidVX9D+cxoRYV+xYO6+682D4XmEqCj3moTZKax/WA1kXvDjiOKP0MIhAO/jRk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=AN/xif6q; arc=none smtp.client-ip=63.250.43.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
+	 MIME-Version:Content-Type; b=id72hGFHTNko4/I3PrdVt1tu4QARN7LOkoNuF4IXX0qexM94EsMMldXnVUHprxM0YHhiQ0Squeq0njG+ATzMJ5Pms7Plp0qv/w1uqhPZpVnIHVp4h6Us2YC0Z8bnSqyMFtr0OrlChG9y56w3k3lpcFm2NMApmgOD25bqDAb7RZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dzrt7sQu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="AN/xif6q"
-Received: from fedora (unknown [69.5.53.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4hdDq35c0jz8sWg;
-	Sun, 06 Sep 2026 15:37:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
-	s=spacemail; t=1788709061;
-	bh=EPwb4lvpzFORzEvulaUWm0I8S6c4Cqls7fGBF6osNFM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=AN/xif6qk3+FbLRxItH+jMlY1oaHj9aMYatkf4OosDFDwqhKvx9W5QkjsRn3HWag7
-	 G+UHui6kuWakzn25CZE7J/kg4ssHdXQbh6vh5E+zpyKFoj2+wgvNSL7Wl3focSH995
-	 cX+q12hF20/b4PAhGkVMeEptPqjb89tG+Uww29Lqxkvu7eT2cvezVhlqjQj6RfdCFJ
-	 dk0/tCYUvx9sKPHJZmRqoC4NalmjH6bDW8EWyYrBCDGgneErLi7WCaHVuvDF7wFWh4
-	 dNFuAi2W/AzmAIKYLjjWp9wGlgt4wyZY7rJ062S/aKu9wvnL9upOqqgNlY0IQSLgJe
-	 39mhCtLWX9zdQ==
-From: Tianyi Chen <hi@tychen.cc>
-To: bot+bpf-ci@kernel.org,
-	andrii@kernel.org,
-	eddyz87@gmail.com
-Cc: Tianyi Chen <hi@tychen.cc>,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	memxor@gmail.com,
-	shuah@kernel.org,
-	bpf@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dzrt7sQu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47A361F00A3A;
+	Sun,  6 Sep 2026 15:37:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788709079;
+	bh=qujTTAenY66iMBvpfF/wGhfpHa/+EVc6m2bRgKRS1Vk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dzrt7sQuiawS1ShvEX7c3FSn2ooe75+eWPwy2HBqP4pkoMwnUcqAbEhguTMz0VZCm
+	 11TRp8LSMajjJGz4m+PS8eA0lSrDQs7Z6qjh4GU3jCixw5wswRil7VE7/Ex4cWIpqi
+	 KYwy2xzIwWQZ+166H2lou0b3nohO/FnzVztmIDXMNyBz5cHNl/kl8FClCdO7p+2NcG
+	 CxBZh8ZmyldiV/5CpoJ44aJswJA4CIlF3qCI2ss4jcLmCr2JaQ0hCJ9+5gMOQW3wu2
+	 KUS7qv0TSg4jdkBURv3acDeF9SX65q02/gUMJDPqwMWlUbqd+o+W+iYoB29zHiTp9F
+	 Cy0wFSwtEImlA==
+From: Danilo Krummrich <dakr@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: abdiel.janulgue@gmail.com,
+	daniel.almeida@collabora.com,
+	robin.murphy@arm.com,
+	a.hindborg@kernel.org,
+	gregkh@linuxfoundation.org,
+	rafael@kernel.org,
+	aliceryhl@google.com,
+	acourbot@nvidia.com,
+	ojeda@kernel.org,
+	boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	tmgross@umich.edu,
+	tamird@kernel.org,
+	work@onurozkan.dev,
+	mmaurer@google.com,
+	driver-core@lists.linux.dev,
+	nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	yonghong.song@linux.dev,
-	brianvv@google.com,
-	martin.lau@kernel.org,
-	mason@kernel.org,
-	ihor.solodrai@linux.dev
-Subject: Re: [PATCH bpf] selftests/bpf: Check returned keys in map batch validators
-Date: Sun,  6 Sep 2026 23:37:25 +0800
-Message-ID: <178870889324.880246.1788108850056515683.reply-bpf-ci@tychen.cc>
+	rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH 0/4] rust: dma: tie DMA allocations to the device's bound lifetime
+Date: Sun,  6 Sep 2026 17:37:53 +0200
+Message-ID: <20260906153753.3207797-1-dakr@kernel.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <d1b61b90e780040376c607497d15cdeb9367bd49ad76635c7bbfac24531064a6@mail.kernel.org>
-References: <20260906143918.848536-1-hi@tychen.cc> <d1b61b90e780040376c607497d15cdeb9367bd49ad76635c7bbfac24531064a6@mail.kernel.org>
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <20260830193824.471089-1-dakr@kernel.org>
+References: <20260830193824.471089-1-dakr@kernel.org>
+X-Patch-Reply: applied
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Envelope-From: hi@tychen.cc
 
-Thanks for pointing out the third validator.
+On Sun, 30 Aug 2026 21:37:12 +0200, Danilo Krummrich wrote:
+> [PATCH 0/4] rust: dma: tie DMA allocations to the device's bound lifetime
 
-I have included the LPM trie case in v2. The struct key is not a reason
-to leave it out: the updated check validates the /32 prefix and complete
-192.168.1.x address, then checks the host octet against the inserted key
-range before using it to index visited.
+Applied, thanks!
 
-I also moved the validation notes below the --- separator, leaving the
-commit message focused on the problem and the fix.
+  Branch: topic/rust-dma
+  Tree:   git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git
 
-The revised full test_maps suite passes with no skips on the matching
-kernel, including array, per-CPU array, hash, per-CPU hash and LPM batch
-tests. The revised patch is here:
+[1/4] rust: debugfs: drop 'static bound from ScopedDir file creation methods
+      commit: 9dc6cedcd971
 
-https://lore.kernel.org/bpf/178870889323.880246.16480713814270899611.bpf-batch-v2@tychen.cc/
+      [ Remove unrelated change from Self to T. - Danilo ]
 
-Thanks,
-Tianyi
+[2/4] rust: dma: tie CoherentHandle to the device's bound lifetime
+      commit: f6b56da8e1b8
+[3/4] samples: rust_dma: separate driver type from driver data
+      commit: c3d4fd0e9d27
+[4/4] rust: dma: tie Coherent and CoherentBox to the device's bound lifetime
+      commit: bed87375f90f
+
+The patches are in the topic/rust-dma topic branch and will be merged into the
+corresponding target branch soon.
