@@ -1,60 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-124.freemail.mail.aliyun.com (out30-124.freemail.mail.aliyun.com [115.124.30.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18BDD233956;
-	Sun,  6 Sep 2026 07:52:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9E4F3F327C
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 07:55:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788681176; cv=none; b=UwCr8QIyMU+piVLBHk0oRdAVZn80mPKvne34c2n6u41k8thje37MJlx3HGeJUN/x9oSod8pVCg7AcrJJvjtfR3BeBEuhqhiiL8j6zS11wSqz0hMzxme5P3iNDFiXkZnnNOI0HGsMuikqVS4j585OP5dSi9L8dsre8tAJpE3+5V8=
+	t=1788681317; cv=none; b=IsnokVAbVfLe1vwsSGf5VWfNu8YlZyqfBBVfgg9VibfzGu/qsWArp1SSh1DtZHzB4wtKnpkuaRIDAElBWu2Fk70UVu6JbGDXG+p9Alm916QNIIIzFXR/voB1wZgEiPDhDUjqVhDpnN/DJEdi4cguTsf4BigUvsl8Na+wjEKGl1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788681176; c=relaxed/simple;
-	bh=P3qjsHRey6k6CAd1A45tqlzYNNUdQHRA64ZVUxyG6aw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=gs9DeM45C7s/jtZy+in5yaVgGGbZ25Xbl9A3P4bUKVm7MOZFbkDjVYWpF7xRaKqZrUWzt2M6+6WAhxmjXLYmDRUSqbZdYQXvkkUOlRILPLuJ1bUhW8gQBD0T0DsxZ+HfeFGHtmKQ9TvpPRAp/PiBfULrqGBUAgMmn/DkJdwwxV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1259D1F00A3A;
-	Sun,  6 Sep 2026 07:52:53 +0000 (UTC)
-From: Leon Romanovsky <leonro@nvidia.com>
-To: Tatyana Nikolova <tatyana.e.nikolova@intel.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Mustafa Ismail <mustafa.ismail@intel.com>, 
- Shiraz Saleem <shiraz.saleem@intel.com>, Leon Romanovsky <leon@kernel.org>
-Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260903-64-bit-iova-is-silently-truncated-to-v1-0-96e878ea6873@nvidia.com>
-References: <20260903-64-bit-iova-is-silently-truncated-to-v1-0-96e878ea6873@nvidia.com>
-Subject: Re: [PATCH rdma-next 0/2] RDMA/irdma: Preserve fast-registration
- IOVAs and simplify SQ posting
-Message-Id: <178868117171.3930746.2340527924980038360.b4-ty@nvidia.com>
-Date: Sun, 06 Sep 2026 03:52:51 -0400
+	s=arc-20240116; t=1788681317; c=relaxed/simple;
+	bh=6hRhD9s1Eb7w8aUoYQgcahtjpsTZZhQSlbsiHuBcnpc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=S3D8LO4QVRVbuxSTEmqwoOeMJSf3HDZCgh+HAP4mQ/xUdbxztE2p5F2tsc4XweF4NBgklNJu0HE1Q3SR5ZqFtEiqG6yrFxg9NwrVqpTuo6/T8SNbyMe7HAtphZPuov40LOFlR5UhveVS+b1lqoxBLME2piOKYzW1KIr0yGXurMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=WP5eKxvl; arc=none smtp.client-ip=115.124.30.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="WP5eKxvl"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788681303; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=e7lUb3+CThFsrKCAjFzK0nWH7mvvwMgeJ0ZmcJZES8Q=;
+	b=WP5eKxvlbFWRZkJLQIJK6pAg/NA1zY5r52ysr/hi+wXVYHGvc+Od/mqDsF+yI20sDm45hpdm5ob1eDtVEpRedtamdLz8yuLjoIjmACVVYVUp/1a4q0lnbSdwmPssPxRjkd0mN9gg3AH/2ukgYBGpvrjrHA+osW34b1RsYvoxP7o=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XAMeP8u_1788681302;
+Received: from 30.134.112.244(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XAMeP8u_1788681302 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Sun, 06 Sep 2026 15:55:02 +0800
+Message-ID: <d9e68cce-14b0-4065-8973-3d1c5f5c5c97@linux.alibaba.com>
+Date: Sun, 6 Sep 2026 15:55:01 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-18f8f
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] ocfs2: validate dl_blkno and dl_fs_generation of
+ dir index leaf blocks
+To: Heming Zhao <heming.zhao@suse.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Mark Fasheh <mark@fasheh.com>,
+ Joel Becker <jlbec@evilplan.org>, ocfs2-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260905142144.2869105-1-joseph.qi@linux.alibaba.com>
+ <20260905142144.2869105-2-joseph.qi@linux.alibaba.com> <apwp-6JMpJckN3If@p15>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <apwp-6JMpJckN3If@p15>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 
-On Thu, 03 Sep 2026 14:38:58 +0300, Leon Romanovsky wrote:
-> Fast-registration IOVAs are u64 hardware values, but irdma passes them
-> through pointer-sized types. This truncates the upper bits on 32-bit
-> kernels and can program the wrong WQE base address.
+
+On 9/5/26 10:45 PM, Heming Zhao wrote:
+> On Sat, Sep 05, 2026 at 10:21:44PM +0800, Joseph Qi wrote:
+>> ocfs2_validate_dx_leaf() checks the checksum, the signature and the
+>> entry list counts, but it never checks dl_blkno or dl_fs_generation.
+>> The inode, extent block, xattr block, refcount block and dir index root
+>> validators all check the on-disk block number against bh->b_blocknr and
+>> the generation against the superblock, and both dir index leaf fields
+>> are documented as "Must match super block".
+>>
+>> Without the checks, a stale dir index leaf block left on the device from
+>> a previously formatted filesystem at the same physical block number can
+>> pass validation as long as its signature, entry counts and checksum
+>> match.  Its index entries would then be used in the new filesystem
+>> context.
+>>
+>> Both fields are written unconditionally when a leaf block is formatted
+>> in ocfs2_dx_dir_format_cluster(), from the live superblock generation
+>> and the real block number, so a correctly formatted filesystem cannot
+>> trip the new checks.  The leaf block number read back here comes from
+>> on-disk dir index root extent records.
+>>
+>> Reject dir index leaf blocks whose dl_blkno or dl_fs_generation does not
+>> match, like the dir index root validator does.
+>>
+>> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+>> ---
+>>  fs/ocfs2/dir.c | 12 ++++++++++++
+>>  1 file changed, 12 insertions(+)
+>>
+>> diff --git a/fs/ocfs2/dir.c b/fs/ocfs2/dir.c
+>> index 329680b46227..55c4a305a282 100644
+>> --- a/fs/ocfs2/dir.c
+>> +++ b/fs/ocfs2/dir.c
+>> @@ -733,6 +733,18 @@ static int ocfs2_validate_dx_leaf(struct super_block *sb,
+>>  		return ocfs2_error(sb, "Dir Index Leaf has bad signature %.*s\n",
+>>  				   7, dx_leaf->dl_signature);
+>>  
+>> +	if (le64_to_cpu(dx_leaf->dl_blkno) != bh->b_blocknr)
+>> +		return ocfs2_error(sb,
+>> +				   "Dir Index Leaf # %llu has an invalid dl_blkno of %llu\n",
+>> +				   (unsigned long long)bh->b_blocknr,
+>> +				   (unsigned long long)le64_to_cpu(dx_leaf->dl_blkno));
 > 
-> Preserve the full IOVA throughout fast registration. Also remove post_sq
-> controls from QP flush and fast registration because every current call
-> path requests the corresponding send queue to be posted.
+> The patch looks fine to me.
+> Reviewed-by: Heming Zhao <heming.zhao@suse.com>
 > 
-> [...]
+> Only question: Do we add the same check for dl_blkno in ocfs2_validate_dx_root()?
+> 
 
-Applied, thanks!
+Yes，it's already added by:
+a08f83559463c ocfs2: validate suballoc slot and bit of xattr and dir index blocks
 
-[1/2] RDMA/irdma: Preserve fast-registration IOVA on 32-bit
-      https://git.kernel.org/rdma/rdma/c/c470050f2a7a77
-[2/2] RDMA/irdma: Remove unused post_sq arguments
-      https://git.kernel.org/rdma/rdma/c/4a93466061d38f
-
-Best regards,
--- 
-Leon Romanovsky <leonro@nvidia.com>
-
+Thanks,
+Joseph
