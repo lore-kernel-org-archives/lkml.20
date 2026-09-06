@@ -1,189 +1,110 @@
-Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B9A221A42D
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 12:23:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04B553033EB;
+	Sun,  6 Sep 2026 12:24:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788697442; cv=none; b=hE1AdlZoB4k+L1OBCeHkSKqMvpV0mu2JBq6gIThDoyxjIFg0umnp2k+J25jMN+GuiicZIzI8Apo9L9qriBCNUCZpCPJTs+o3ixuXk4GOIprJzzbO5AyZhjTBGwjHLC0mKaO77mqieSGIJB1X/QyZa3TO7UzS2k9LptIPBL/lq6Q=
+	t=1788697446; cv=none; b=qjROs+6cnVGhxlOhmmRRI2vr1fo6I1kdcMacUuzfto6HB8fugGOcbPfDtEx8rL3mbxum2RFbO09LIjIqjoitS5vJqfQK77vGtyQh4ibNUgOCt3hh2fCc3dibN4ZzHyXqAOk2eoDzFwXtv2ni9SOExeDWpO7Cj7Sfh/87wj2TAd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788697442; c=relaxed/simple;
-	bh=i7T5MsATCuxq4jFi1F2opIb+g/TNVwOa5J8EBT+1tg0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dQY+KRQEMzDnjAraNgMcfDtza2OMLowMeBnRCTPbqXncB7L2TleJvgBNXfsoo1gJXE+lMl9bS23oGiQIEw7WLR/fgJiPL7S9xpNg0UlLhgW31mKGJsaqgwC662Kz/bmBcXcnaNIIeMJehw6hdtsFMDdByBwIiYvvLaY0FZpBCsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IxlBoVs2; arc=none smtp.client-ip=74.125.227.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788697446; c=relaxed/simple;
+	bh=PPCoiTnejb2A7HeZJrPTsLj/TNjrcnpr7ZZdHjJJ0t8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=HjmxkAsSnkpIrwH79gO8Pdqnax4HiosBtoELQacgDfNa+n4JXJLWFvgmgHc1eZ2yZN0oGW2uLJ+ZPwJf+f18e4XjYgI0+ot55mIEkXmv8jIcgrU3U1qJmsQ7B24JrUx9n/lQoWZ6dO2UnqgXCCvjaPMtgRTyLN/ArX3G6qmym6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NgaPn1zD; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IxlBoVs2"
-Received: by mail-pj2-f1.google.com with SMTP id 98e67ed59e1d1-399213ef56cso1334021a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 05:23:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788697439; x=1789302239; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xaszmDPaAaT8VIgwEr8D3B1YhHgs6kESvSxQ+esjaWY=;
-        b=IxlBoVs2Kp6Dt4Ma56OwYqWQ24XZ0nH7hrbzoiSZgyMRWdNWrPXd3Yoedt0N/Gr9cZ
-         p6OTMS2bMeyM11mH9qtMIaBRGnJIPE5dhYBe0PNJ4gnCVkGyAKxAXXjF6y3Fu5O7aEKm
-         ph+fI+VOnzS3igqV7ng3wPUibG6l/6THrgEzKUc6eSRZdN4XeMKZn9ugVlDyDnRqQHq6
-         nk9zzG8JZYrWzS+KFeQGdqNpd+mTMiaENhHYzt21z3KHihdk17Yszh6U2ypJZPWPfEaY
-         0e4YGh8XzVZ56/M52foFJ/WbRGXvKtnUY07Kje78UTK9zi04Ed9L2OPYm5fajBasUM5i
-         6WzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788697439; x=1789302239;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xaszmDPaAaT8VIgwEr8D3B1YhHgs6kESvSxQ+esjaWY=;
-        b=bqtm0AObzbMVL8MWDCn9WI/vTDyKOWWMrmfLfldfFGF8gTuwRuph6EqBMA7jnay9Zn
-         Affn9AaCBqECXwV1v2YJspaFj9B/IwawhnMf4X4uqMfAIynk20Nd3RJz6a2bqDyS0b7K
-         8vU3kQu2nQBJzGonl8BOU4wemfY+WMoEnAhV3GfI1k2bnIP84zYbae5vufHBnuBrwNHE
-         N0RyAb/enL7UtpU+TaN99sUieeaj+l3nk418pW9MiBJqkLVo3TFTwKzkKsiA4xCf/xmG
-         9dl4bzQyIQ2WA8dUzouhg/D6eSdN5ZrqZupChVvwQq0z8uBHxKQCsvRiMITXEomOEf/t
-         W8Xw==
-X-Forwarded-Encrypted: i=1; AKwUvBxrvKkM5uIspLDzi/ZIve57h46KLBKpghUDdxgWuLw4F5iWCXUgbgqcvQx0Phait5YkQhluXUG6xDsSWyg=@vger.kernel.org
-X-Gm-Message-State: AFuF++ldxaXVfEyTOmCV9Uk6s/WPO9+CYAjV3E8E1/MH2iaNVyj1TxhV
-	kjko55c8IUpobLeCNDily+ez07fEuZte2jUhvZhL8ri7L44Qh9epvXFC
-X-Gm-Gg: AYBFou1KqDJzHKQ1kXj5COrde6s1UePmfzilvj75MrrKdJJs0vx2kQCetwvOaqu9dak
-	hwQLxmhvgtOp5EI4U65Cd14O9Hvh7tUdiwL03Kpeq9tzNaLpTgfAF9GgTpLwjSj2Vo2SuclfR5Z
-	/hFfmy7WenCTzWKqncObS44gZ41x9CJ/B1E/mzCXOP8wUckHj90V8rHqDxAWTZ06lX4uzbRC4iG
-	067d3GfcUxEN/GJ+W1L3OtvP8vXRbpgL2NXwvyFp3pVNarodNNblyvQ28kWEoTLEA1zh1JfuRv2
-	CKurLBj1GLpyXmQ3ZsCXFNsfSuNZtJQij+lFWTeCDYRjofdGzyEKoEeTXRbgwnbx+HblrAmuH2V
-	sETqOvW6xy7o2js28hjQQypXnU+lJuAXMICcMQ4FQNTJCSkuMUFsYsRhbTDLwXnn6DIsvrHcZtL
-	x24XWgQA5YR9MwRNFzabfC95C29rEqJyejC3vT7fMmPlaj7yHB1ga6D34d
-X-Received: by 2002:a17:90b:5346:b0:395:f0e8:9e13 with SMTP id 98e67ed59e1d1-39b26190fd9mr27161779a91.7.1788697438844;
-        Sun, 06 Sep 2026 05:23:58 -0700 (PDT)
-Received: from nixos ([122.231.174.193])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08bcd243sm21782207a91.5.2026.09.06.05.23.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 05:23:58 -0700 (PDT)
-From: Thaumy Cheng <thaumy.love@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>
-Cc: linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Thaumy Cheng <thaumy.love@gmail.com>
-Subject: [PATCH] perf/core: Strengthen userpage update ordering
-Date: Sun,  6 Sep 2026 20:23:50 +0800
-Message-ID: <20260906122350.24305-1-thaumy.love@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NgaPn1zD"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 05D1AC2BCFD;
+	Sun,  6 Sep 2026 12:24:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788697445;
+	bh=PPCoiTnejb2A7HeZJrPTsLj/TNjrcnpr7ZZdHjJJ0t8=;
+	h=From:Date:Subject:To:Cc:From;
+	b=NgaPn1zDgE5UdQl6JCJeBbgxcZrZJ+aEflhpNPNigLrQukmS+ILnuRqRv58v04XE8
+	 sNqWI+xuyA5VcnBqytUEb0Kg2gAZjflJ/UJK2DFpIL0x22hrw4eBSS8q40K0pAVqJ1
+	 0JzZT+GSvvKNhJ8qMMdECF6883uKCYSO9HnuiJEh/8ImExXSwhSEyd8CH61GdizDoQ
+	 b2hK1DgPuK7/vteyj6sXb6WsxSNeLocVhLlTZ1WMRsH8k/GSEq8Vw/al+3oZkrvpLD
+	 AzAzkrku6wkQpEzrGx940thr97IG04U8wJLAykaO2s00yLznFU9/6ikodj6lEzQU5Q
+	 PtSJExpvun5eg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E4014C79F99;
+	Sun,  6 Sep 2026 12:24:04 +0000 (UTC)
+From: Sven Peter <sven@kernel.org>
+Date: Sun, 06 Sep 2026 14:24:00 +0200
+Subject: [PATCH] usb: typec: tipd: Disable mode control for CD321x
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260906-b4-tipd-mode-ctrl-v1-1-71032eaaa452@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw5FMBCA4VeRWZuk6nLwKmJBO5wRt7QlEvHui
+ uW3+P8TLBkmC2VwgqGdLS+zRxQGoP7N3BOy9gYpZCYKkWGboONV47RoQuXMiLnI41QXFHc/Cb5
+ bDXV8vM+q/my3diDlnhFc1w1X7lvzdQAAAA==
+X-Change-ID: 20260906-b4-tipd-mode-ctrl-80835d9e3f72
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: asahi@lists.linux.dev, linux-usb@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Sven Peter <sven@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1660; i=sven@kernel.org;
+ h=from:subject:message-id;
+ bh=PPCoiTnejb2A7HeZJrPTsLj/TNjrcnpr7ZZdHjJJ0t8=;
+ b=owGbwMvMwCXmIlirolUq95LxtFoSQ9bc6ERf2TU/jQwrPzo/PDlT5tjjLxdKjH/tDDLLvaXss
+ bd3/4YnHaUsDGJcDLJiiizb99ubPnn4RnDppkvvYeawMoEMYeDiFICJrHrIyPBsnqVjSmCM/VTx
+ 458qpoh86/3ya1V8Y8yFRRfnbDr3+d5BRobGZSuSvFxYdmRa3BKLejqJaeVeoZqnjHzXlwXfsA2
+ 6/YAPAA==
+X-Developer-Key: i=sven@kernel.org; a=openpgp;
+ fpr=A1E3E34A2B3C820DBC4955E5993B08092F131F93
+X-Endpoint-Received: by B4 Relay for sven@kernel.org/default with
+ auth_id=407
 
-The perf event mmap userpage uses a sequence counter to let userspace
-obtain a consistent snapshot of its data. The existing compiler
-barriers reflect the original self-monitoring use case, where the
-counter was updated and consumed on the same CPU.
+Apple's CD321X firmware controls which alternate mode is entered and
+cannot be influenced from Linux. Set the no_mode_control capability to
+accurately reflect this to the typec subsystem.
 
-Some consumers also use the userpage only for time conversion and may
-read it from a CPU other than the one updating the event. For example,
-perf_read_tsc_conversion() reads the time conversion fields
-without constraining the caller to the event's CPU.
-
-Make the publication ordering explicit for such readers by replacing the
-compiler barriers around the userpage payload update with smp_wmb().
-Document that cross-CPU readers of the time conversion fields must use
-read memory barriers and reject odd or changed sequence values.
-
-This does not change the UAPI layout or the values exposed to
-userspace. It strengthens the ordering guarantee for cross-CPU readers
-on weakly ordered architectures.
-
-Signed-off-by: Thaumy Cheng <thaumy.love@gmail.com>
+Signed-off-by: Sven Peter <sven@kernel.org>
 ---
- include/uapi/linux/perf_event.h       | 6 ++++--
- kernel/events/core.c                  | 6 ++++--
- tools/include/uapi/linux/perf_event.h | 6 ++++--
- tools/perf/design.txt                 | 6 ++++--
- 4 files changed, 16 insertions(+), 8 deletions(-)
+ drivers/usb/typec/tipd/core.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/include/uapi/linux/perf_event.h b/include/uapi/linux/perf_event.h
-index fd10aa8d697f..a7db00b9b455 100644
---- a/include/uapi/linux/perf_event.h
-+++ b/include/uapi/linux/perf_event.h
-@@ -629,8 +629,10 @@ struct perf_event_mmap_page {
- 	 *     barrier();
- 	 *   } while (pc->lock != seq);
- 	 *
--	 * NOTE: for obvious reason this only works on self-monitoring
--	 *       processes.
-+	 * NOTE: Reading the hardware counter as shown above only works for
-+	 *       self-monitoring processes. A reader on another CPU may snapshot
-+	 *       the time conversion fields, but must use rmb() around the field
-+	 *       reads and retry if lock is odd or changes.
- 	 */
- 	__u32	lock;			/* seqlock for synchronization */
- 	__u32	index;			/* hardware event identifier */
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 89b40e439717..72605776273f 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -6852,7 +6852,8 @@ void perf_event_update_userpage(struct perf_event *event)
- 	userpg = rb->user_page;
+diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
+index 522f56742aa9..8fdb37e288b4 100644
+--- a/drivers/usb/typec/tipd/core.c
++++ b/drivers/usb/typec/tipd/core.c
+@@ -151,6 +151,7 @@ struct tipd_data {
+ 	irq_handler_t irq_handler;
+ 	u64 irq_mask1;
+ 	size_t tps_struct_size;
++	bool no_mode_control;
+ 	void (*remove)(struct tps6598x *tps);
+ 	int (*register_port)(struct tps6598x *tps, struct fwnode_handle *node);
+ 	void (*unregister_port)(struct tps6598x *tps);
+@@ -1242,6 +1243,7 @@ tps6598x_register_port(struct tps6598x *tps, struct fwnode_handle *fwnode)
+ 	typec_cap.driver_data = tps;
+ 	typec_cap.ops = &tps6598x_ops;
+ 	typec_cap.fwnode = fwnode;
++	typec_cap.no_mode_control = tps->data->no_mode_control;
  
- 	++userpg->lock;
--	barrier();
-+	/* Publish the odd lock value before updating the payload. */
-+	smp_wmb();
- 	userpg->index = perf_event_index(event);
- 	userpg->offset = perf_event_count(event, false);
- 	if (userpg->index)
-@@ -6866,7 +6867,8 @@ void perf_event_update_userpage(struct perf_event *event)
- 
- 	arch_perf_update_userpage(event, userpg, now);
- 
--	barrier();
-+	/* Publish the payload before the final lock update. */
-+	smp_wmb();
- 	++userpg->lock;
- 	preempt_enable();
- unlock:
-diff --git a/tools/include/uapi/linux/perf_event.h b/tools/include/uapi/linux/perf_event.h
-index fd10aa8d697f..a7db00b9b455 100644
---- a/tools/include/uapi/linux/perf_event.h
-+++ b/tools/include/uapi/linux/perf_event.h
-@@ -629,8 +629,10 @@ struct perf_event_mmap_page {
- 	 *     barrier();
- 	 *   } while (pc->lock != seq);
- 	 *
--	 * NOTE: for obvious reason this only works on self-monitoring
--	 *       processes.
-+	 * NOTE: Reading the hardware counter as shown above only works for
-+	 *       self-monitoring processes. A reader on another CPU may snapshot
-+	 *       the time conversion fields, but must use rmb() around the field
-+	 *       reads and retry if lock is odd or changes.
- 	 */
- 	__u32	lock;			/* seqlock for synchronization */
- 	__u32	index;			/* hardware event identifier */
-diff --git a/tools/perf/design.txt b/tools/perf/design.txt
-index aa8cfeabb743..111afc90c442 100644
---- a/tools/perf/design.txt
-+++ b/tools/perf/design.txt
-@@ -316,8 +316,10 @@ struct perf_event_mmap_page {
-          *     barrier();
-          *   } while (pc->lock != seq);
-          *
--         * NOTE: for obvious reason this only works on self-monitoring
--         *       processes.
-+         * NOTE: Reading the hardware counter as shown above only works for
-+         *       self-monitoring processes. A reader on another CPU may snapshot
-+         *       the time conversion fields, but must use rmb() around the field
-+         *       reads and retry if lock is odd or changes.
-          */
-         __u32   lock;                   /* seqlock for synchronization */
-         __u32   index;                  /* hardware counter identifier */
--- 
-2.55.0
+ 	switch (TPS_SYSCONF_PORTINFO(conf)) {
+ 	case TPS_PORTINFO_SINK_ACCESSORY:
+@@ -2015,6 +2017,7 @@ static const struct tipd_data cd321x_data = {
+ 		     APPLE_CD_REG_INT_DATA_STATUS_UPDATE |
+ 		     APPLE_CD_REG_INT_PLUG_EVENT,
+ 	.tps_struct_size = sizeof(struct cd321x),
++	.no_mode_control = true,
+ 	.remove = cd321x_remove,
+ 	.register_port = cd321x_register_port,
+ 	.unregister_port = cd321x_unregister_port,
+
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260906-b4-tipd-mode-ctrl-80835d9e3f72
+
+Best regards,
+--  
+Sven Peter <sven@kernel.org>
+
 
