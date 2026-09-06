@@ -1,225 +1,386 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-83.mta0.migadu.com [91.218.175.83])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F9C4242925;
-	Sun,  6 Sep 2026 13:45:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788702326; cv=fail; b=EWoZ4+/8Uu1v5vzt/Nk5qBfSBrJqY6VDCbc52+Yc1Ey/DQX4JzK0x4+WW7CHdMR8RR7BH6WhnmWaSsIaoSrsOPaptCnuUGbrKllpHOwAZ4cv43RxhDfbJTlhi2RlNpEkSMjT/LLPmMePIsYgwqx7mdGsOzrBgk+DPhz+F33zccQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788702326; c=relaxed/simple;
-	bh=nkxQ6hiKMVTHW/P4U+F6VtEkt3uHh8S4qIUKCg7RxYU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=BiooevLxFoNDFP1ZWPS6oPKJsbLqsrhxpRLIBPEdTFINYjsgYT9VL80GY8domCVATvr69RBq7AgmvcVqYIrNuJWhGQU9OOOHKN48eU/Ye6mrPHaoXg5qgd/Bn7SITcwD3PnEy+McuPDtznx5pNoPK4tZMCid3fy93ArH6FUuA/M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=Xkb7Vuk6; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=t2gdqmPb; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EF38283CAF
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 13:48:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.83
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788702526; cv=none; b=S5l8+tWnWQvGZmt9OXL9TWck6eVcip948vkq/WamFIznvPxAqqrrhSU/ykaxUpZlZG4MdtdR1QWlp3sNmGViUapdxJVw64a2i3YnGOufN6o5j3P6XIuHI2bP0JbKyO2lECjxXwx+qmElEbmMaYeDeSVVVt+sJ4PLIIm4UOsJBiw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788702526; c=relaxed/simple;
+	bh=dszWNMBU5rQtz0YUtQK/kWHLj8eO9pkjxtC91NVFcTk=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version; b=FsEL580DFkC4oeMlysC2MD7nZUWZpsSPhty+i+vfraYegFbbeRAohtEVemsxWEmUvXc753pTybdeLOkg3bHV8rEKujW8xYNM+50SerTcwyfpvADPPDecgvrRjR8V20O4lNxfsPLMZ1KvM0ErETGsEdhaV784gEHzPn4bsQA2+vc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dnu9VNVh; arc=none smtp.client-ip=91.218.175.83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="Xkb7Vuk6";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="t2gdqmPb"
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 6868psGn2695459;
-	Sun, 6 Sep 2026 08:45:14 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=f0SFsYBEtW0qVe0BTlv3ulRT2RhJEO8tRB+SIHvmG
-	R0=; b=Xkb7Vuk6GLC7yjj/7BuTImbytOpl77fayVsLqMbRQ9P4Yq8n7lB61Jvwp
-	fhh/893Fng0lNDjNjeWVQhDdDhRavebXRbBY0EPjSjXIE/Sp0evBWE4wqb9ECIvv
-	uMECwnuPu9r8tV0qbX1nIgaYrNgAjaS9Y9i+m29R7TDE/w0nSrpxbMzsmavq1DlV
-	U01eAOC75ZYNIJHf0QUyvNWu6AZbHQ6v4djaS4nNZ1aaQxqYBeLOEOE2SaQpKILw
-	VYIOTx9iPE1qSRzDv6EYh2Rm49BP06VHx+4MoxytEDpOuzjo/o0/rEoLeNufaRvy
-	bCsKoiaIxhL2lvHBtfQKIy/JKMACw==
-Received: from ch5pr02cu005.outbound.protection.outlook.com (mail-northcentralusazon11012054.outbound.protection.outlook.com [40.107.200.54])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4gh51ngpcy-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sun, 06 Sep 2026 08:45:14 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OZ0yyCSAqu4WFOUE/zd/WvZG+Q5jea996Nzcrwdt+9wDR9arEQuzwv3Nrn5ZptERTwnM0v1LrHv+WeELXEnK8+DVP3AtqR/cuO3tKa5ZzHHXhbZKLrQiS+gN3jexJDYElNaMA6pRG1QVFAYnJYBNDrLl4Tjc8XR+YTzo6DN7/jPOxOO9TWOvWJFZnwEp/qrjjnvtYoUGUY5Xj4Gw47WBgJlCF1RfLXk4EKFcfACrKBHQ+j3djE5qEzkW0Xr8zxa9/UdRE7wXJmPorWNOPsA+VdUrbPZV5vlNfEaeudVH2w6ogR6AVkTYeu+EF4RDLxEo/rDhSrlhq6nlT8vSb7DPtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f0SFsYBEtW0qVe0BTlv3ulRT2RhJEO8tRB+SIHvmGR0=;
- b=qBVE0Ls+92lD6FEFj4979wL8tThlJXRBYxPsFIzB5pJMCzGZ+1MUQooSW8o1jXqfCeVAcId+I5c/a3wusbs584hShOHCP6cxoo8bSdC+1m9sBiu7aN5AiFvk4l9P4VxTrF7oHcjomkcImM0vQKb/Svgek3tMi/cWS+zGENZbWyaLI935Gq3PQ7inCFt2QQdzTcos8RxHkhKOpuO3qnT5EVjTt5jjIHqED9GnodiGSGBYuYBHBiIPCWL5az/yvdWrPRG7uOR+IQa4gZIlW4DasKzTMxOHaJk3AVaXe1rJXdWmKii1yX6r7C4vv8TLN6Ck18dneZqpdI1QY7po0u5IUA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f0SFsYBEtW0qVe0BTlv3ulRT2RhJEO8tRB+SIHvmGR0=;
- b=t2gdqmPb3ClKnyUaYEarB5a9LF0dZ3sZ+/nERy5JeUMyry1PbpWqpNLAS4D9ePcZE4j5M/Qh84Ms41RX/bSLgWUsWsJ6wTzatKOtw+tanuQaYSwyu4oTlO16iv9a7WIetJJHvIbUILXSU00CBY9NLYEvOu1FEerLDBS7D1HlxWo=
-Received: from SA9PR13CA0133.namprd13.prod.outlook.com (2603:10b6:806:27::18)
- by CH0PR10MB7409.namprd10.prod.outlook.com (2603:10b6:610:183::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.4; Sun, 6 Sep 2026
- 13:45:10 +0000
-Received: from SN1PEPF000252A0.namprd05.prod.outlook.com
- (2603:10b6:806:27:cafe::73) by SA9PR13CA0133.outlook.office365.com
- (2603:10b6:806:27::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.5 via Frontend Transport; Sun, 6
- Sep 2026 13:45:10 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- SN1PEPF000252A0.mail.protection.outlook.com (10.167.242.7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Sun, 6 Sep 2026 13:45:09 +0000
-Received: from DFLE213.ent.ti.com (10.64.6.71) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 6 Sep
- 2026 08:44:40 -0500
-Received: from DFLE201.ent.ti.com (10.64.6.59) by DFLE213.ent.ti.com
- (10.64.6.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 6 Sep
- 2026 08:44:40 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE201.ent.ti.com
- (10.64.6.59) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Sun, 6 Sep 2026 08:44:40 -0500
-Received: from [10.249.135.178] ([10.249.135.178])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 686DiZ5Q2928010;
-	Sun, 6 Sep 2026 08:44:36 -0500
-Message-ID: <d2c7a82f-0121-4f30-abad-dd8032fc5106@ti.com>
-Date: Sun, 6 Sep 2026 19:14:34 +0530
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dnu9VNVh"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=dszWNMBU5rQtz0YUtQK/kWHLj8eO9pkjxtC91NVFcTk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788702520; v=1; x=1789307320;
+ b=dnu9VNVhqAO0RdeXw00vXUSOBP3Vr4UOXnKoWNRqBKgrTXLW5YvhfE9G+S4u57vYnPcg6JKJ
+ rkGrS4XN/O1n4JkMXGlnlr72+YFPkTsIPU+t3xFmnr7Q43eoGdB+5GSZzj48lKBDW5vK+DD9jem
+ Ij+sSp1qj8H1yVI+y6jAdUMs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1013b9d087372bd1;
+	Sun, 06 Sep 2026 13:48:40 +0000
+X-Mizu-Trace-ID: 1013b9d087372bd1
+X-Migadu-Flow: FLOW_OUT
+From: Qingfang Deng <qingfang.deng@linux.dev>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Mitchell Blank Jr <mitch@sfgoth.com>,
+	Chas Williams <3chas3@gmail.com>,
+	Simon Horman <horms@kernel.org>,
+	James Chapman <jchapman@katalix.com>,
+	"Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Breno Leitao <leitao@debian.org>,
+	Asim Viladi Oglu Manizada <manizada@pm.me>,
+	Eric Woudstra <ericwouds@gmail.com>,
+	Felix Fietkau <nbd@nbd.name>,
+	linux-ppp@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net
+Subject: [PATCH net-next v2] ppp: pass private data to channel callbacks
+Date: Sun,  6 Sep 2026 21:47:36 +0800
+Message-Id: <20260906134830.992-1-qingfang.deng@linux.dev>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] arm64: dts: ti: k3-am62l3-evm: Add HDMI support
-To: Swamil Jain <s-jain1@ti.com>, <nm@ti.com>, <vigneshr@ti.com>,
-        <kristo@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-        <conor+dt@kernel.org>, <tomi.valkeinen@ideasonboard.com>
-CC: <devarsht@ti.com>, <praneeth@ti.com>,
-        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <u-kumar1@ti.com>
-References: <20260811130822.2324438-1-s-jain1@ti.com>
- <20260811130822.2324438-3-s-jain1@ti.com>
-Content-Language: en-US
-From: "Kumar, Udit" <u-kumar1@ti.com>
-In-Reply-To: <20260811130822.2324438-3-s-jain1@ti.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000252A0:EE_|CH0PR10MB7409:EE_
-X-MS-Office365-Filtering-Correlation-Id: e2474137-9cf7-4928-852d-08df0c1d1126
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|23010399003|1800799024|82310400026|10067099003|6133799003|3023799007|4143699003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	38HHbsUtqwSRq24uLo3LW9RGwQEhrt2Ka/nV/IHHgZa6cKwIMbkj0VumJuNfNkZdIJa+m9rvH7huKKclIxtR5jxQmN6DstpnUeUZhyLIidVjvSeAtLMYBIsHxQ4p4yPfrnXO7QbRSsCatRUmDrjJ8siIbuyR8aOy9ryzs4pwUPPUdSgpaXZY9Y4JJNmKsUEfF1jz4RsSMH3AnqjO5CFgXevf5s+hLUPDjVzXLQvuCzoKqZamLYmYtp02SjQcrPKpaThMX7liXAGp0WFm/XIkIY3lShANbv9azesLngBNfvOJ1QBqxMGwCVJZQGIOrwNnSfwXcuut2kznSAA9Dr+NWMl4c2229AdkDXSyj+rjvPlvInn6SvlSqvQFiJSgKkmBu0EskyiNkmLNibJOvbqk6fiPCqyzEGMtHoO92vyICSZvosuXsnrlwjObnfApVtOuYLooPwF8QKhVKnypppRlylNKMAmhrue7NYVGJ25iqtEcbC8wlLSEdIQwf75QPfFH5HVmcCqu7Jcn5inKV6foIeTnUrASn7aqgx+y2RLDQNhtksLWGUkGvVaNreGxGVvyT6F+9Unq+hB6NmRJFi2f0ANhDzjFsE275eCiw3gsIs70VRRGn3lcmaM2gaD/8TcVQvOuMlFYdeQsgMJbgZN77A==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(36860700016)(23010399003)(1800799024)(82310400026)(10067099003)(6133799003)(3023799007)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	zr0Babx8ShwLqihW3b5D6/pjkoI+0IlDZ+AAOtoepowKJOxMsHRzFyQlhV2n5w36qs1JYilJIdC1A2bd+xi8jbecdm7RDHPNoPUMTvxvgWqDdcwywB/xEfIkXp9Lpj0tXQib82c/2/up1e9TfwqfulynzKZ1Gu51nlDVGTSo3Re+wpngyq31wb8BPae25bbMaNEcQHaKubiWj3kiuuoDmfKmTWj2EKwiK6elgb1X0qjNRclXp/7G/ZBts6cMHEYHzvUHuwEZZcvPDsLPIs3OAQ6x0asg4+MOijiK8QtzbmaBbGQM+nz4tsE7igUKBP/qsMNSjvZIFwn8M1IVYqlB233r0/vr4zB2NKyITaQU0zUEi0rHlB9Rs+O/cihpErD8aTIqJ/wsb/+TCkTFLwxsNet8TpP8AOE/MIZ/a/FWQhvdo/8Mpv4Xj3YSnG8qnRFQ
-X-Exchange-RoutingPolicyChecked:
-	vKqD242GS8SyQdVjQ9qOGwfR93HD+JWJBPL+pkxP4eNSqXvEDkguhocEoMlCOjoemDeXPvbXEpErV4wfH8qWoQHNQvWd0cCPNvdRmT9BP+OM+o0fvVR8+IiMUl/fMdXsHGJ/YmcDYSem3soC85VbKAws+ElLcFKWV6RTqT5+ppBBv/vvHD34rZAYixZ11Ib3im9zwBD2ZacIXjdN998i6jjp8I1ZsHYwhPPG6mFNGr/lGwst9eg/afuc0FXZVpJwvV5za8W0b+03OMy9wMIoGrzTrqU31a1V9dqQP0Stb+Oq8HPohhDPVWvSrZd6BTj6BTk0VyXJO3EazCuW0FJDsw==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2026 13:45:09.0596
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e2474137-9cf7-4928-852d-08df0c1d1126
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF000252A0.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR10MB7409
-X-Authority-Analysis: v=2.4 cv=J8GaKgnS c=1 sm=1 tr=0 ts=6a9d6e6a cx=c_pps
- a=tYoGMRiLV1KbapjTPXDBcg==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=taLDd7a_hP9WKsMzeGRc:22 a=P-IC7800AAAA:8 a=sozttTNsAAAA:8
- a=SO9gwbbG0jSecTGtxaYA:9 a=QEXdDO2ut3YA:10 a=d3PnA9EDa4IxuAV0gXij:22
-X-Proofpoint-ORIG-GUID: uifmJUZuOhqHUh3qhZe4v855lp_GmItA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA2MDE1MyBTYWx0ZWRfX9HRdnjdwyj4B
- FJ71Tv2SoZRlnnLhGjucRn1joESp1DFubGroyRr1OWqmxWiZtBYbUv1uZap/KzCaTkzQDQzMv17
- 0z+SRwtRTWH2EV81R65oipFRgZQkk0JOuhoB2ipqGMkD74EhyIfg1Z/Cu6o2S/leAjyWxGj6RNj
- pf66kvl1vptPf7BgPd2J/v1AiydZCT2qRF+gQAtqiToOhr7u21OhQG841eAl7Zvj6KSkhqw/o/O
- fKcmtsmcOr6vSZduVfdlbNr3TSpQlmFG2dhL4G6d6U1cItB1sj+X9O9nCxzg/c0sYBxATlZxE59
- merhsPphQi4AilnyXaPL8tCcRIFuQ94YBUKAsDR9M1j1QymyjbhlyK3z6e3x3WFeN16x8F7J/5W
- LxH5OkDmrrHI0r7g4ebQNKKglBm5+Wt/N7Uf00f6yoGYXMkri4OTx1IZUPkHYyA5UhRxNcAZbTS
- CMN7Mj8+8hYj7w9BAqA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA2MDE1MyBTYWx0ZWRfX6CpCfrTywNGe
- K4LpXWSyWjzT973zK/C/Iky0kFVP5m95BoFVjEQiCfTf3R8Hfkb96jQaepncBhNhL2UBCl79gxQ
- BpsDVKazN7oQOiZeRdcr+RpkxS8IoPw=
-X-Proofpoint-GUID: uifmJUZuOhqHUh3qhZe4v855lp_GmItA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-05_08,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 lowpriorityscore=0 malwarescore=0 spamscore=0
- impostorscore=0 clxscore=1015 bulkscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609060153
+Content-Transfer-Encoding: 8bit
 
+PPP channel callbacks receive struct ppp_channel only to retrieve the
+driver's private pointer. Pass that pointer directly instead.
 
+This decouples channel callbacks from the public channel representation
+and prepares for making struct ppp_channel opaque, with allocation and
+lifetime managed by the generic PPP layer.
 
-On 8/11/2026 6:38 PM, Swamil Jain wrote:
-> From: Devarsh Thakkar <devarsht@ti.com>
-> 
-> Add the SII9022 HDMI bridge and HDMI connector nodes, along with the
-> DPI pinmux configuration connecting VOUT0 to the bridge. Enable the DSS
-> and hook up its DPI output port to the SII9022 bridge input, and the
-> bridge output to the HDMI connector.
-> 
-> Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
-> Signed-off-by: Swamil Jain <s-jain1@ti.com>
-> ---
->  arch/arm64/boot/dts/ti/k3-am62l3-evm.dts | 95 ++++++++++++++++++++++++
->  1 file changed, 95 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts b/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
-> index 84a0cfaaf196..477de9de07e8 100644
-> --- a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
-> +++ b/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
-> @@ -44,6 +44,18 @@ usr: button-usr {
->  		};
->  	};
->  
-> +	hdmi0: connector-hdmi {
-> +		compatible = "hdmi-connector";
-> +		label = "hdmi";
-> +		type = "a";
-> +
-> +		port {
-> +			hdmi_connector_in: endpoint {
-> +				remote-endpoint = <&sii9022_out>;
-> +			};
-> +		};
-> +	};
-> +
->  	leds {
->  		compatible = "gpio-leds";
->  		pinctrl-names = "default";
-> @@ -192,6 +204,38 @@ exp2: gpio@23 {
->  		bootph-all;
->  	};
->  
-> +	sii9022: bridge-hdmi@3b {
-> +		compatible = "sil,sii9022";
-> +		reg = <0x3b>;
-> +		interrupt-parent = <&exp1>;
-> +		interrupts = <20 IRQ_TYPE_EDGE_FALLING>;
-> +		#sound-dai-cells = <0>;
-> +		sil,i2s-data-lanes = < 0 >;
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&dpi_pins_default>;
+Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
+---
+v2: add the reason to the commit message and use reverse xmas tree
 
-I think, dss is right place for pin mux, similar to
-https://elixir.bootlin.com/linux/v7.2.2/source/arch/arm64/boot/dts/ti/k3-j721e-common-proc-board-infotainment.dtso#L153
+v1: https://lore.kernel.org/netdev/20260904031153.30304-1-qingfang.deng@linux.dev/
+---
+ drivers/net/ppp/ppp_async.c   | 13 ++++++-------
+ drivers/net/ppp/ppp_generic.c | 12 ++++++------
+ drivers/net/ppp/ppp_synctty.c | 13 ++++++-------
+ drivers/net/ppp/pppoe.c       |  8 ++++----
+ drivers/net/ppp/pptp.c        |  9 ++++-----
+ include/linux/ppp_channel.h   |  6 +++---
+ net/atm/pppoatm.c             | 21 ++++++++-------------
+ net/l2tp/l2tp_ppp.c           |  6 +++---
+ 8 files changed, 40 insertions(+), 48 deletions(-)
 
+diff --git a/drivers/net/ppp/ppp_async.c b/drivers/net/ppp/ppp_async.c
+index ea7fe9608ffd..e0ba448f297c 100644
+--- a/drivers/net/ppp/ppp_async.c
++++ b/drivers/net/ppp/ppp_async.c
+@@ -91,13 +91,12 @@ MODULE_ALIAS_LDISC(N_PPP);
+  * Prototypes.
+  */
+ static int ppp_async_encode(struct asyncppp *ap);
+-static int ppp_async_send(struct ppp_channel *chan, struct sk_buff *skb);
++static int ppp_async_send(void *private, struct sk_buff *skb);
+ static int ppp_async_push(struct asyncppp *ap);
+ static void ppp_async_flush_output(struct asyncppp *ap);
+ static void ppp_async_input(struct asyncppp *ap, const unsigned char *buf,
+ 			    const u8 *flags, int count);
+-static int ppp_async_ioctl(struct ppp_channel *chan, unsigned int cmd,
+-			   unsigned long arg);
++static int ppp_async_ioctl(void *private, unsigned int cmd, unsigned long arg);
+ static void ppp_async_process(struct tasklet_struct *t);
+ 
+ static void async_lcp_peek(struct asyncppp *ap, unsigned char *data,
+@@ -321,10 +320,10 @@ ppp_async_init(void)
+  * The following routines provide the PPP channel interface.
+  */
+ static int
+-ppp_async_ioctl(struct ppp_channel *chan, unsigned int cmd, unsigned long arg)
++ppp_async_ioctl(void *private, unsigned int cmd, unsigned long arg)
+ {
+-	struct asyncppp *ap = chan->private;
+ 	void __user *argp = (void __user *)arg;
++	struct asyncppp *ap = private;
+ 	int __user *p = argp;
+ 	int err, val;
+ 	u32 accm[8];
+@@ -550,9 +549,9 @@ ppp_async_encode(struct asyncppp *ap)
+  * at some later time.
+  */
+ static int
+-ppp_async_send(struct ppp_channel *chan, struct sk_buff *skb)
++ppp_async_send(void *private, struct sk_buff *skb)
+ {
+-	struct asyncppp *ap = chan->private;
++	struct asyncppp *ap = private;
+ 
+ 	ppp_async_push(ap);
+ 
+diff --git a/drivers/net/ppp/ppp_generic.c b/drivers/net/ppp/ppp_generic.c
+index 1a610a18893b..3b83ff8cf589 100644
+--- a/drivers/net/ppp/ppp_generic.c
++++ b/drivers/net/ppp/ppp_generic.c
+@@ -790,7 +790,7 @@ static long ppp_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ 			chan = pch->chan;
+ 			err = -ENOTTY;
+ 			if (chan && chan->ops->ioctl)
+-				err = chan->ops->ioctl(chan, cmd, arg);
++				err = chan->ops->ioctl(chan->private, cmd, arg);
+ 			mutex_unlock(&pch->chan_sem);
+ 		}
+ 		goto out;
+@@ -1603,7 +1603,7 @@ static int ppp_fill_forward_path(struct net_device_path_ctx *ctx,
+ 	if (!chan->ops->fill_forward_path)
+ 		return -EOPNOTSUPP;
+ 
+-	return chan->ops->fill_forward_path(ctx, path, chan);
++	return chan->ops->fill_forward_path(ctx, path, chan->private);
+ }
+ 
+ static const struct net_device_ops ppp_netdev_ops = {
+@@ -1932,7 +1932,7 @@ ppp_push(struct ppp *ppp, struct sk_buff *skb)
+ 			goto out;
+ 		}
+ 
+-		ret = chan->ops->start_xmit(chan, skb);
++		ret = chan->ops->start_xmit(chan->private, skb);
+ 
+ out:
+ 		spin_unlock(&pch->downl);
+@@ -2142,7 +2142,7 @@ static int ppp_mp_explode(struct ppp *ppp, struct sk_buff *skb)
+ 		/* try to send it down the channel */
+ 		chan = pch->chan;
+ 		if (!skb_queue_empty(&pch->file.xq) ||
+-			!chan->ops->start_xmit(chan, frag))
++			!chan->ops->start_xmit(chan->private, frag))
+ 			skb_queue_tail(&pch->file.xq, frag);
+ 		pch->had_frag = 1;
+ 		p += flen;
+@@ -2175,7 +2175,7 @@ static void __ppp_channel_push(struct channel *pch, struct ppp *ppp)
+ 	if (pch->chan) {
+ 		while (!skb_queue_empty(&pch->file.xq)) {
+ 			skb = skb_dequeue(&pch->file.xq);
+-			if (!pch->chan->ops->start_xmit(pch->chan, skb)) {
++			if (!pch->chan->ops->start_xmit(pch->chan->private, skb)) {
+ 				/* put the packet back and try again later */
+ 				skb_queue_head(&pch->file.xq, skb);
+ 				break;
+@@ -2300,7 +2300,7 @@ static bool ppp_channel_bridge_input(struct channel *pch, struct sk_buff *skb)
+ 	}
+ 
+ 	skb_scrub_packet(skb, !net_eq(pch->chan_net, pchb->chan_net));
+-	if (!pchb->chan->ops->start_xmit(pchb->chan, skb))
++	if (!pchb->chan->ops->start_xmit(pchb->chan->private, skb))
+ 		kfree_skb(skb);
+ 
+ outl:
+diff --git a/drivers/net/ppp/ppp_synctty.c b/drivers/net/ppp/ppp_synctty.c
+index f87d43faeeab..54d8402e18c4 100644
+--- a/drivers/net/ppp/ppp_synctty.c
++++ b/drivers/net/ppp/ppp_synctty.c
+@@ -81,9 +81,8 @@ struct syncppp {
+  * Prototypes.
+  */
+ static struct sk_buff* ppp_sync_txmunge(struct syncppp *ap, struct sk_buff *);
+-static int ppp_sync_send(struct ppp_channel *chan, struct sk_buff *skb);
+-static int ppp_sync_ioctl(struct ppp_channel *chan, unsigned int cmd,
+-			  unsigned long arg);
++static int ppp_sync_send(void *private, struct sk_buff *skb);
++static int ppp_sync_ioctl(void *private, unsigned int cmd, unsigned long arg);
+ static void ppp_sync_process(struct tasklet_struct *t);
+ static int ppp_sync_push(struct syncppp *ap);
+ static void ppp_sync_flush_output(struct syncppp *ap);
+@@ -312,9 +311,9 @@ ppp_sync_init(void)
+  * The following routines provide the PPP channel interface.
+  */
+ static int
+-ppp_sync_ioctl(struct ppp_channel *chan, unsigned int cmd, unsigned long arg)
++ppp_sync_ioctl(void *private, unsigned int cmd, unsigned long arg)
+ {
+-	struct syncppp *ap = chan->private;
++	struct syncppp *ap = private;
+ 	int err, val;
+ 	u32 accm[8];
+ 	void __user *argp = (void __user *)arg;
+@@ -491,9 +490,9 @@ ppp_sync_txmunge(struct syncppp *ap, struct sk_buff *skb)
+  * at some later time.
+  */
+ static int
+-ppp_sync_send(struct ppp_channel *chan, struct sk_buff *skb)
++ppp_sync_send(void *private, struct sk_buff *skb)
+ {
+-	struct syncppp *ap = chan->private;
++	struct syncppp *ap = private;
+ 
+ 	ppp_sync_push(ap);
+ 
+diff --git a/drivers/net/ppp/pppoe.c b/drivers/net/ppp/pppoe.c
+index bf7414b46a26..758453503525 100644
+--- a/drivers/net/ppp/pppoe.c
++++ b/drivers/net/ppp/pppoe.c
+@@ -841,9 +841,9 @@ static int pppoe_sendmsg(struct socket *sock, struct msghdr *m,
+  * sends PPP frame over PPPoE socket
+  *
+  ***********************************************************************/
+-static int pppoe_xmit(struct ppp_channel *chan, struct sk_buff *skb)
++static int pppoe_xmit(void *private, struct sk_buff *skb)
+ {
+-	struct sock *sk = chan->private;
++	struct sock *sk = private;
+ 	struct pppox_sock *po = pppox_sk(sk);
+ 	struct net_device *dev = po->pppoe_dev;
+ 	struct pppoe_hdr *ph;
+@@ -895,9 +895,9 @@ static int pppoe_xmit(struct ppp_channel *chan, struct sk_buff *skb)
+ 
+ static int pppoe_fill_forward_path(struct net_device_path_ctx *ctx,
+ 				   struct net_device_path *path,
+-				   const struct ppp_channel *chan)
++				   void *private)
+ {
+-	struct sock *sk = chan->private;
++	struct sock *sk = private;
+ 	struct pppox_sock *po = pppox_sk(sk);
+ 	struct net_device *dev = po->pppoe_dev;
+ 
+diff --git a/drivers/net/ppp/pptp.c b/drivers/net/ppp/pptp.c
+index a797a0606f6b..8f7190d7067e 100644
+--- a/drivers/net/ppp/pptp.c
++++ b/drivers/net/ppp/pptp.c
+@@ -146,9 +146,9 @@ static struct rtable *pptp_route_output(const struct pppox_sock *po,
+ 	return ip_route_output_flow(net, fl4, sk);
+ }
+ 
+-static int pptp_xmit(struct ppp_channel *chan, struct sk_buff *skb)
++static int pptp_xmit(void *private, struct sk_buff *skb)
+ {
+-	struct sock *sk = chan->private;
++	struct sock *sk = private;
+ 	struct pppox_sock *po = pppox_sk(sk);
+ 	struct net *net = sock_net(sk);
+ 	struct pptp_opt *opt = &po->proto.pptp;
+@@ -573,10 +573,9 @@ static int pptp_create(struct net *net, struct socket *sock, int kern)
+ 	return error;
+ }
+ 
+-static int pptp_ppp_ioctl(struct ppp_channel *chan, unsigned int cmd,
+-	unsigned long arg)
++static int pptp_ppp_ioctl(void *private, unsigned int cmd, unsigned long arg)
+ {
+-	struct sock *sk = chan->private;
++	struct sock *sk = private;
+ 	struct pppox_sock *po = pppox_sk(sk);
+ 	struct pptp_opt *opt = &po->proto.pptp;
+ 	void __user *argp = (void __user *)arg;
+diff --git a/include/linux/ppp_channel.h b/include/linux/ppp_channel.h
+index 2f63e9a6cc88..d9cfb8ef0ffa 100644
+--- a/include/linux/ppp_channel.h
++++ b/include/linux/ppp_channel.h
+@@ -27,12 +27,12 @@ struct ppp_channel;
+ struct ppp_channel_ops {
+ 	/* Send a packet (or multilink fragment) on this channel.
+ 	   Returns 1 if it was accepted, 0 if not. */
+-	int	(*start_xmit)(struct ppp_channel *, struct sk_buff *);
++	int	(*start_xmit)(void *, struct sk_buff *);
+ 	/* Handle an ioctl call that has come in via /dev/ppp. */
+-	int	(*ioctl)(struct ppp_channel *, unsigned int, unsigned long);
++	int	(*ioctl)(void *, unsigned int, unsigned long);
+ 	int	(*fill_forward_path)(struct net_device_path_ctx *,
+ 				     struct net_device_path *,
+-				     const struct ppp_channel *);
++				     void *);
+ };
+ 
+ struct ppp_channel {
+diff --git a/net/atm/pppoatm.c b/net/atm/pppoatm.c
+index 6da52d12df68..913324f9685f 100644
+--- a/net/atm/pppoatm.c
++++ b/net/atm/pppoatm.c
+@@ -91,11 +91,6 @@ static inline struct pppoatm_vcc *atmvcc_to_pvcc(const struct atm_vcc *atmvcc)
+ 	return (struct pppoatm_vcc *) (atmvcc->user_back);
+ }
+ 
+-static inline struct pppoatm_vcc *chan_to_pvcc(const struct ppp_channel *chan)
+-{
+-	return (struct pppoatm_vcc *) (chan->private);
+-}
+-
+ /*
+  * We can't do this directly from our _pop handler, since the ppp code
+  * doesn't want to be called in interrupt context, so we do it from
+@@ -286,9 +281,9 @@ static int pppoatm_may_send(struct pppoatm_vcc *pvcc, int size)
+  * as success, just to be clear what we're really doing.
+  */
+ #define DROP_PACKET 1
+-static int pppoatm_send(struct ppp_channel *chan, struct sk_buff *skb)
++static int pppoatm_send(void *private, struct sk_buff *skb)
+ {
+-	struct pppoatm_vcc *pvcc = chan_to_pvcc(chan);
++	struct pppoatm_vcc *pvcc = private;
+ 	struct atm_vcc *vcc;
+ 	int ret;
+ 
+@@ -366,16 +361,16 @@ static int pppoatm_send(struct ppp_channel *chan, struct sk_buff *skb)
+ }
+ 
+ /* This handles ioctls sent to the /dev/ppp interface */
+-static int pppoatm_devppp_ioctl(struct ppp_channel *chan, unsigned int cmd,
+-	unsigned long arg)
++static int pppoatm_devppp_ioctl(void *private, unsigned int cmd,
++				unsigned long arg)
+ {
++	struct pppoatm_vcc *pvcc = private;
++
+ 	switch (cmd) {
+ 	case PPPIOCGFLAGS:
+-		return put_user(chan_to_pvcc(chan)->flags, (int __user *) arg)
+-		    ? -EFAULT : 0;
++		return put_user(pvcc->flags, (int __user *)arg) ? -EFAULT : 0;
+ 	case PPPIOCSFLAGS:
+-		return get_user(chan_to_pvcc(chan)->flags, (int __user *) arg)
+-		    ? -EFAULT : 0;
++		return get_user(pvcc->flags, (int __user *)arg) ? -EFAULT : 0;
+ 	}
+ 	return -ENOTTY;
+ }
+diff --git a/net/l2tp/l2tp_ppp.c b/net/l2tp/l2tp_ppp.c
+index ef8fdfaf051d..9e932fdda387 100644
+--- a/net/l2tp/l2tp_ppp.c
++++ b/net/l2tp/l2tp_ppp.c
+@@ -122,7 +122,7 @@ struct pppol2tp_session {
+ 	struct sock		*__sk;		/* Copy of .sk, for cleanup */
+ };
+ 
+-static int pppol2tp_xmit(struct ppp_channel *chan, struct sk_buff *skb);
++static int pppol2tp_xmit(void *private, struct sk_buff *skb);
+ 
+ static const struct ppp_channel_ops pppol2tp_chan_ops = {
+ 	.start_xmit =  pppol2tp_xmit,
+@@ -327,11 +327,11 @@ static int pppol2tp_sendmsg(struct socket *sock, struct msghdr *m,
+  * the skb it supplied, not our cloned skb. So we take care to always
+  * leave the original skb unfreed if we return an error.
+  */
+-static int pppol2tp_xmit(struct ppp_channel *chan, struct sk_buff *skb)
++static int pppol2tp_xmit(void *private, struct sk_buff *skb)
+ {
+-	struct sock *sk = (struct sock *)chan->private;
+ 	struct l2tp_session *session;
+ 	struct l2tp_tunnel *tunnel;
++	struct sock *sk = private;
+ 	int uhlen, headroom;
+ 
+ 	if (sock_flag(sk, SOCK_DEAD) || !(sk->sk_state & PPPOX_CONNECTED))
+-- 
+2.34.1
 
-> +		bootph-all;
-> +
-[..]
