@@ -1,110 +1,169 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB8543126C0
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:14:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788693252; cv=none; b=Dqd3NX8OFVyN85DZ5r29RQD01H2F2rUukUd41n48Yj+GKld5hfh58I2qqhL6zxx6jtROvP07USwvuIx/BIWktB/ZQCRE3Y+KvZG1UG4wE1HjWEugyF7ZIDb5dQia0pDxqgmIEl519lQN+nW4G2I9l44QsO3BNX8qKXbLsDwa+wk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788693252; c=relaxed/simple;
-	bh=cZDn3i2B41dm1+0cuLWMhxtjt5xxBl4YjwKFgKQKXYM=;
-	h=Message-ID:MIME-Version:From:To:Cc:Date:Subject:Content-Type; b=qxU/nnbMPMKVZY4YGDfpBvBYcgbZXqiRcar70CfW0i6T6uJqN4PPOeXvSFvwP7d6rLZ4KvSLG4mp7fvSShXH/Z/2DtTBpGuIbfa5WX8L7EfgWcpwWWAQwAzxWya6R4yMDloqLsTjEwPlH/SspQ6or1ow42rZRrqJO8+UWrfXY50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TqBjZC5P; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 126B13FBB4D
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:19:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788693575; cv=pass; b=WWnCTBw9R4Txe2KDGgyqQ2OwRaxrfh426eITV5Nk+NveWSOkYJx/3E1J/4Fa6ndMC2K5gonkyBld4W1/78fkP2tBtsCnA16m3Vpir8flKu8lEW4L7xSkpdKt2+BPVAUm2NhPvcSYO+CY7P46GA+uBNKcpSTo/MwmzyWPwG+xmv0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788693575; c=relaxed/simple;
+	bh=Giupk0J1ZNfcLTZqdMpQz4eJAmUP1rE7vrmVirAraPY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nr3pNONobNaBntQzEZ4IGH+r+dJ/GJhnql9u3kWxS47w//nd49MmuxPRmN6PryBdrC5DKxpNCZloZ9hpxs4MyLUGHmwuxLgoQIhbScfO0HUftp7o9XoVIKKcF9oER/nRUsFwJDaxt8dVsuuRj6bqG1BB21AlGAdtBkL1+hsxTf0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=A1bL9ZKz; arc=pass smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TqBjZC5P"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d9db539a54so20425015ad.0
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 04:14:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="A1bL9ZKz"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d9db539a54so20437165ad.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 04:19:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788693571; cv=none;
+        d=google.com; s=arc-20260327;
+        b=akKCEOpNZNJgwy+Retvz9YUxrB1bIo96QCxUE1+SXJAzrg+Ue95D9a4fUnqNuMb/mP
+         5V5WgKF+ApRVgz/xg8+83ToN+PosbRxBotAUBtnLjNd1M5cRUQ6WtEqdSv9+jd0XcOpE
+         VaYYJzAT1kD6ktbW/k5fDsoTZq2wkAKYiQ4wpT7Z5CncvcxglZ1Yb2cttPyLnFkSDtSt
+         DGtiwYM+Xxwcw17GTGmhEPXaGXM+8beVit1+XExDsMxz9N4VpPj0Llt2N7LK1IlRdxrY
+         +w9+YI0frFMV0wtDLJh6BgTnw3zgULhoIPuZfcvNX2HlV9/c8CpE8QYX9SREPYFZlx49
+         hkbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=XTgCA64EfXR/PGZNkFArmuKTqa5lqNd9HTFkrYCnwOg=;
+        fh=AXiwWcinuEZjFrSG2ratem7wbrowrHkW7zz+mogqelQ=;
+        b=WWdQnKi2rs0s7G6OPZROS18TTR/8lMvxtsLdohhTguE7Y5jJBlvWZ9b4uUv1IXKqsz
+         5hDBXeLYsEY6fQHVufAplSzxH9mXDnaDEKKP9K2hcAz7u25O/ouA1vm4T2MdsjFyTtii
+         yX/ZahP6vrOfwrjS6HSwxda/tMJ1YCdtvbBPA+wbu/30E3UZJDtVOIeaxtmpYWC/G+wr
+         /CGemZvdJ1/jubS5jT45PrYbwWfsjVfLMkHdXMeYx8rsSEmi7maghEQjwttRjUCpXHdh
+         +c7Ye13q+Q2nGZMdF8i/qnfyLVm1mfuQMTITa0aZbN6Vo4y0WZFQgmhxv7yEfp+agCxH
+         JRjA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788693251; x=1789298051; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:subject:date:cc:to:from
-         :mime-version:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5DEdh5HmNzXfseZwOB17l9FeOx8g8N1pY3V9IexD1Wc=;
-        b=TqBjZC5PzL0K4rzu7wNDpeJKiXobRXG/cm8jhJRAu8dvqzBlKkR5yjYxbP2X+1dmOZ
-         unak1gRMndeLKtXbV8BPtJgb10uBW7hsdlSRfGQwXI4L4rp0xwJzKHKj/8U1ufxzosml
-         7+A9/UiJ6V5ibhXiddO5Q00pR/lNuZIzcw7E9TtdH3IwVVy0NfcoRQ3SXkhq1iSqj0dN
-         qF6OFeiIdDLIQA1GuNGSIgV8+mLP5kfo/YZO7yjuxDzVLeOrPaY//Rk/mmjLxyly2BWK
-         ZiPX750lIyWWpeUmvFDhGnx26OEOwsdDGO0hhLhxVYZZF8Iuwb58v72nl5ztbygD12qN
-         GGOw==
+        d=asu.edu; s=google; t=1788693571; x=1789298371; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XTgCA64EfXR/PGZNkFArmuKTqa5lqNd9HTFkrYCnwOg=;
+        b=A1bL9ZKzb7548j3SG8IvKUw8uu5Cv8yStzLDV5IU2k3rYh5gqplkpxABa+PC2u5bSk
+         rtgZ0LDXKmL5xE8hw+fy/H48oTeUOTTuPCPbza/wZZmGKVLx33/v3R6Pd4Ht4cCrhJ1k
+         V/DSEqmfKGGP7P4mRGDWmOUegU9yHpPwi2SSjrhQCD8W8Nzn+GK6HjoaUPR/VBGmPQ2e
+         YmF8K6Y/N3NhQIDnqcs9CEBMp6DXM7MBtARGkR8LPm3AMUfKQwQ15xVFGkZorbaHqa0+
+         uiGIhqFv0ZCExOztgd1hZeYFa/5a7hr+DmpCnNvmg32i4TfUPwGJYG/oNQCYgT80OE+d
+         vQ8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788693251; x=1789298051;
-        h=content-transfer-encoding:content-type:subject:date:cc:to:from
-         :mime-version:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=5DEdh5HmNzXfseZwOB17l9FeOx8g8N1pY3V9IexD1Wc=;
-        b=QyRxkJU+utZxnl7qFX4YOZX/S4npT50XoYybd1wUgTwG1o+YuT2cXGeSB3D1L71Yre
-         c/kYGn5xQCd0McOE7rDyVwrNdXgTdX6pYS0vprIBGvO2ayiGLB0k91k9rSbKPJc0ul0J
-         jbHUW6g9r/ZrOj5u03HYEuH0KrXwZ4FbU7fjh6SIQgN/hTmKKJuHa64w4yANzBLXMt3R
-         ycmWatZPagesquCfCN4GOQb6N17jYd5luVErtK3ZXWeXzn63azdkXEZ4OZ04yslqDttV
-         18sOwgDUNxPenipzvnQKkFfXFppF2tHTNQBVnJ4/8WSye+x+s77l35y65DcDIw58frRT
-         HjFw==
-X-Forwarded-Encrypted: i=1; AKwUvBw66vWwrWJbXofRlz2pDfVJRWO+/vMZsHU+DpMowcENpXgcV9pv7E0OzUfvIdiwbkJTtF+hMigT/ZCTe5k=@vger.kernel.org
-X-Gm-Message-State: AFuF++l4pjq3MZAiKtfxUiR/VCHglSu9FWr5IBeufcpJnZth3mgSc2P7
-	Sbot9xeEKolWi/CtBCodlbmvVhEfFzgr6lNgIG3/gaAtdxH2kDa07frg
-X-Gm-Gg: AYBFou1I7isMd9P29GDesf4J9j5ufKH5tbgE4J5WHCxuKvGFMdatXeK8Tq4hmieBsat
-	wKnKfh1x/xnZR5vetYsYpkDBRKEjR/dwoFeaeuboByFQAxLtvNW2SQslRSrhmZVRxxRkUc1Oq6+
-	MmY9rmDaS2Qzj8Fn71lQcxnZ5cNH4LqS+EZktTx2Gb+0aepac8PJbAamdwXzgUgIsC87eG2ClPo
-	ZMzg6N524zS7G3JGY431+AliP1uKV1KJM6KwNNq5zaBCQUf9uc6AU1KjEDVf1NYCaVavd+eZcBH
-	gZqRKNDuOvNwXMFAc88l7N/pP1VEeTuIYaB9L1x29ptsYkHJz+N3C48m8/agVrqDi0CMt2cWiY7
-	6P761Uig5XTWQxkmQdwcawRVXM77l/T5fJYk9si2J2JdKcKNRo6iV4K77MxrM6SxarY74Llt+2I
-	oVd4e5VlNsHx+KICvxYXG5X2Ph8BpI4K1HSqzutIILR9VeKlYhmPZM4UFCbJOHTjfyDZynDWhSB
-	b5C31WJjCaHAvSwZpipqJurK8kcYS25q/oJYQppCSAkM+J+r7UdrKqT+cgLSRyfzVPP
-X-Received: by 2002:a17:90b:17cd:b0:38f:aab1:5148 with SMTP id 98e67ed59e1d1-39b26272b4dmr25093820a91.13.1788693250979;
-        Sun, 06 Sep 2026 04:14:10 -0700 (PDT)
-Received: from manush ([2406:7400:94:7a79:f149:be84:942d:9300])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33517b57ac8sm10400667eec.28.2026.09.06.04.14.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 04:14:10 -0700 (PDT)
-Message-ID: <6a9d4b02.7d74b517.206c4c.75f8@mx.google.com>
-X-Mailer: git-send-email 2.46.2.windows.1
+        d=1e100.net; s=20251104; t=1788693571; x=1789298371;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XTgCA64EfXR/PGZNkFArmuKTqa5lqNd9HTFkrYCnwOg=;
+        b=iZ8D60VJchVzKwuAVA0C0XgI+wqRYBV4Dsl+Eh1zBPHdXrnhGprPrpQJFtKrL4PrY7
+         f9ypyZHxNrHWiLdjJwHuq+noX9oishPZWoyq5y+ig5Z4840aZ7JeOGmn3Y/5uTcLdEa7
+         6JCesIsAZUy/PTn1JrTze6nijQONKruFspVhPUQUmLmiXVL6YUocNMzJJkJjI5hJXxxm
+         ArW1IixPzoUAVpbOIkv1OLHyX6rVJ9jtSvJEqJyl0/axLaK0MH5XPvSdd18dMKAHI6V1
+         UisFHdy+22gSfN1iINQXShnzfz1KnkLDMtKJUiGnJivLUGZdL8tuGH6lHUcQCgjs7XXr
+         o8tQ==
+X-Forwarded-Encrypted: i=1; AKwUvByg2EPShtz+Qf/HhkR4bci73v2i2YSd6zuo7mHKSWA6m9X+OPin7OgvvP5q9Sk+MuN+b5IhR3zRXBy26iw=@vger.kernel.org
+X-Gm-Message-State: AFuF++n8B/cFyEi9sVsi53lsJAO8rns40Lf6UOo2uYCRwPtMbfzOs203
+	BiHHBDZgGRQt4cW09LnHGyhDjL2TVDIfbBXAmsk2vf+3PChgZhX2eNMkPZQDi4151MM26bRMB5e
+	iNjvyoeBlkIWxJfDKodNsAjJU2bl4KTXCjoRR0ybFcqQbLFKGspeUMyTK
+X-Gm-Gg: AYBFou2uO9K+HkCeILUFjJ2mFw3YCmUKipj6Z15Xuzmd+ZCDSF5+C/dcucA/2TSR8NF
+	aDa2WwsMU7+785go7I1wTcAbLJCTeklI+xhbTdNaxzICwkoc4DFuNiOrFBB0bn2vlGv2nBB+pGv
+	RIQnLcwinomu1ip380eEftp3ZEZ97FSQjDWVYdLaGNtFPxaZ0+c2LpEk4+mhKnNIECcFyVDczer
+	SJn+jFGvWW5EfFVkHj5fWoPCAqqbf91onhqhNXJs4HE/NoDH1fb20WT2p7rdA267XI/YYQzn/o6
+	sDWQDoJRxFhZcXcw8eyZ5GRBi+WXxg0x0bvcU27Zg1f6eh0L5LV0aks3EZY+hQXV++2pBHDTNnW
+	mZHTTEyWdADDY57CBPu10NxlJZQgWYUNC72Y=
+X-Received: by 2002:a17:902:f68b:b0:2cc:864b:539 with SMTP id
+ d9443c01a7336-2db12495a80mr248860175ad.6.1788693571315; Sun, 06 Sep 2026
+ 04:19:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Manush Prajwal" <manushprajwal555@gmail.com>
-To: conor.dooley@microchip.com, daire.mcnamara@microchip.com,
- alexandre.belloni@bootlin.com
-Cc: linux-rtc@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Date: 6 Sep 2026 16:44:09 +0530
-Subject: [PATCH] rtc: mpfs: fix unchecked devm_clk_get() error pointer in
- probe()
-Content-Type: text/plain; charset=utf-8
+References: <upsCxxaJjg2FJWhfCx6KjFXLlh8o4IhaHKJi@bugs.sh> <CAMuHMdVVqfqvueX-jk_XfM5tE9XScZPe1OLqGw1MUC=Kd2reBQ@mail.gmail.com>
+In-Reply-To: <CAMuHMdVVqfqvueX-jk_XfM5tE9XScZPe1OLqGw1MUC=Kd2reBQ@mail.gmail.com>
+From: Xiang Mei <xmei5@asu.edu>
+Date: Sun, 6 Sep 2026 04:19:20 -0700
+X-Gm-Features: AcwNN1VwRPW3yMBdTVYbJmlJsVs_CJngzLBHUrX4gAO4o_iesE3RGTS14IgLAxg
+Message-ID: <CAPpSM+R_EH-grYvEs3QFCsi-tej4yhUqrAib2XcDLh5TKKeh-Q@mail.gmail.com>
+Subject: Re: [BUG] drivers/net: out-of-bounds in pcan_usb_decode_buf()
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: co <co+5e2bcf11e7027510@bugs.sh>, linux-can@vger.kernel.org, 
+	Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol <mailhol@kernel.org>, Petr Mladek <pmladek@suse.com>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, =?UTF-8?Q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>, 
+	Oleg Nesterov <oleg@redhat.com>, Biju Das <biju.das.jz@bp.renesas.com>, Song Liu <song@kernel.org>, 
+	linux-kernel@vger.kernel.org, cedalion@bugs.sh
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-devm_clk_get(&pdev->dev, "rtcref")'s return value was passed stra=
-ight=0D=0Ainto clk_get_rate() without checking it for an error fi=
-rst, unlike the=0D=0A"rtc" clock a few lines above which is corre=
-ctly checked with=0D=0AIS_ERR(). clk_get_rate() only guards again=
-st a NULL clk, not an error=0D=0Apointer:=0D=0A=0D=0A	if (!clk)=0D=0A=
-		return 0;=0D=0A	...=0D=0A	rate =3D clk_core_get_rate_recalc(clk=
-->core);=0D=0A=0D=0Aso if devm_clk_get() ever returns an error po=
-inter here (for example=0D=0AERR_PTR(-EPROBE_DEFER), which is the=
- normal, expected outcome if the=0D=0Aclkcfg clock-provider this =
-RTC depends on has not registered its=0D=0Aclocks yet by the time=
- this driver probes), clk_get_rate() dereferences=0D=0Athat error=
- pointer instead of returning 0, crashing instead of letting=0D=0A=
-probe defer.=0D=0A=0D=0ACapture the clock in the existing 'clk' l=
-ocal and check it with=0D=0AIS_ERR() before calling clk_get_rate(=
-), matching the handling already=0D=0Aused for the "rtc" clock in=
- this same function.=0D=0A=0D=0ASigned-off-by: Manush Prajwal <ma=
-nushprajwal555@gmail.com>=0D=0A---=0D=0A drivers/rtc/rtc-mpfs.c |=
- 6 +++++-=0D=0A 1 file changed, 5 insertions(+), 1 deletion(-)=0D=0A=
-=0D=0Adiff --git a/drivers/rtc/rtc-mpfs.c b/drivers/rtc/rtc-mpfs.=
-c=0D=0Aindex ece6de4a6..60596b0ea 100644=0D=0A--- a/drivers/rtc/r=
-tc-mpfs.c=0D=0A+++ b/drivers/rtc/rtc-mpfs.c=0D=0A@@ -256,8 +256,1=
-2 @@ static int mpfs_rtc_probe(struct platform_device *pdev)=0D=0A=
- 		return ret;=0D=0A 	}=0D=0A =0D=0A+	clk =3D devm_clk_get(&pdev-=
->dev, "rtcref");=0D=0A+	if (IS_ERR(clk))=0D=0A+		return PTR_ERR(c=
-lk);=0D=0A+=0D=0A 	/* prescaler hardware adds 1 to reg value */=0D=0A=
--	prescaler =3D clk_get_rate(devm_clk_get(&pdev->dev, "rtcref")) =
-- 1;=0D=0A+	prescaler =3D clk_get_rate(clk) - 1;=0D=0A 	if (presc=
-aler > MAX_PRESCALER_COUNT) {=0D=0A 		dev_dbg(&pdev->dev, "invali=
-d prescaler %lu\n", prescaler);=0D=0A 		return -EINVAL;=0D=0A-- =0D=0A=
-2.46.2.windows.1=0D=0A
+On Sat, Sep 5, 2026 at 7:04=E2=80=AFAM Geert Uytterhoeven <geert@linux-m68k=
+.org> wrote:
+>
+> Hi Co,
+>
+> On Fri, 4 Sept 2026 at 23:17, co <co+5e2bcf11e7027510@bugs.sh> wrote:
+> > We found a bug reachable in:
+> >
+> >     path    drivers/net/can/usb/peak_usb
+> >     crash   out-of-bounds in pcan_usb_decode_buf()
+> >     commit  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.kern=
+el.org/pub/scm/linux/kernel/git/trace/linux-trace")
+> >
+> > Config, environment, the sanitizer report and a C reproducer follow.
+> >
+> > =3D=3D Notes =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >     If you patch the bug based on our artifacts, a tag would be
+> >     appreciated:
+> >
+> > Reported-by: co+5e2bcf11e7027510@bugs.sh
+> >
+> >     Everything in this mail is validated by the reproducer below.
+> >
+> >     We also hold an LLM-generated root-cause analysis and a candidate
+> >     patch. The patch passes an A/B test: the same reproducer panics the
+> >     unpatched kernel and runs clean on the patched one. Neither has had
+> >     human review, so both still require validation before you send or
+> >     apply them. Available on:
+> >
+> >         patch.diff  https://bugs.sh/b/5e2bcf11e7027510/patch.diff
+> >         report.md   https://bugs.sh/b/5e2bcf11e7027510/report.md
+> >
+> >     This is an open science project. The code and the full set of PoCs
+> >     are not public at this moment, as we intend to disclose our finding=
+s
+> >     in an ethical way.
+> >
+> >     Happy to test patches. Complaints and suggestions about our work
+> >     are welcome at:
+> >
+> >         cedalion@bugs.sh
+>
+> Please read Documentation/process/submitting-patches.rst, especially
+> https://elixir.bootlin.com/linux/v7.2.2/source/Documentation/process/subm=
+itting-patches.rst#L928
+>
+> Thanks a lot!
+>
+Hi Geert, thanks for the reminder.
+We'll learn the documents and make sure we follow the documents.
 
+Xiang
+> Gr{oetje,eeting}s,
+>
+>                         Geert
+>
+> --
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m6=
+8k.org
+>
+> In personal conversations with technical people, I call myself a hacker. =
+But
+> when I'm talking to journalists I just say "programmer" or something like=
+ that.
+>                                 -- Linus Torvalds
+>
