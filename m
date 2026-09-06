@@ -1,250 +1,72 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out28-3.mail.aliyun.com (out28-3.mail.aliyun.com [115.124.28.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D753793CC
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 02:10:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3307225B095;
+	Sun,  6 Sep 2026 02:12:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788660652; cv=none; b=MWXfjdsXHlWbTk1mzJU7KHwjNWPrG3Cfn76wjZxZjBojDOhn5cdBXwA+tvnsef8T9/twR3aLmRUkPqEdCoQnvAtVewFjrRT8JU7IiV1Go3XbDytD7KrDQvxNLbDzXi3/u71KLZVe6b51rnxWGDAR4IVRiRxLTftzJYzcfLHzho4=
+	t=1788660778; cv=none; b=oGDTWfpD0uMBwluoPht55Fyz1ewi9v9xLx10aDmaIZh4BRPXGvKMnwB5S0j1lw9DipHfJQ6y1P03EcX3OdAOV8AxQVpO2BNFlo/2UpZlT5WI13pDmSUIbudyYy/XBCDTK82DgUqwymixuGH4mQJyzdgWDv9KgbKGtkAybiVByg8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788660652; c=relaxed/simple;
-	bh=PI3OpK0RbeDTaOGVweNbV/yb5fjSgRXGRABwZhR4i7c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=O7Ep1kP4PQr09RTLmsJZX5FupxegurVyZzwBOy1u2YuMJbGNvusFGpJywtq5hfcdRmpHVELyQt+GZOkjMCpb2bkkSgcz6Edl/BDV4F+fKvMSIsY1ljul6NkaMu+NKKYyImiH/xNPBYFgLImC2WaOzDujYd35bSVpks2KPs/rSv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QgfNDy9D; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QgfNDy9D"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48431648f33so2438722f8f.0
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 19:10:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788660646; x=1789265446; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=T7TlQz0vy4rkWHXqAoTVymcGJs73BqlZ2JynxSui4AI=;
-        b=QgfNDy9DmuA/i2ZJunXG4EC18c6geR0jgzvE0kEzUHSsxAaPAWPaby4yPteknTeD3P
-         qh/i0fbeaKj8FzujFQ93Wq31zlYkF83Rg9yclI9jrXzOpylArODr9vxgsWy8UKoJMQN6
-         dOVDuDXzpXaT5fUbFR19jG7nGlr/KaeeEgzmuqimWHZh4lFkD8OGsnBWRnuqboxOcfqk
-         9oHXav6yYZPdrB634yfE1zAu9cLDdMlQd/cvEBWJYH8Ks2Z8X5Z6JtLAch0ONVP1HRuf
-         vrXn3RbQNLBUK8jf8+DiBBUQbvjiypii4GICyxWvnC6+2OIIAGt7dOrjj0pu4N5NDYgh
-         Wg+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788660646; x=1789265446;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=T7TlQz0vy4rkWHXqAoTVymcGJs73BqlZ2JynxSui4AI=;
-        b=NvAM4zYjNRmG63d0iYyUqwBWg49qNimrchWGGXNfLDbCgCdARwV8Ff48pq/xQUAkkr
-         q5Ck/KC4JQxlF6kmCGmE1vvGeqtyrfgqpLhCc334V8Qugb6D6E61/8rr+jRJa/r41czo
-         4MKbsdrqDmc6D2JfUkvDXeuD6d8BXryspgpOXHFTEhXkL3pDYLHW9MR7UxB/dQVIPZfN
-         a8G52/rMn2ysZJgDaR1eMlDiAhOd3xinIBOwkYzd9KxM1yK0Na5QtWUeN7TjeMVnsPEB
-         MzFGspz3aZuWJ85c4wjHXBggwmnU/j41RuKRPr67AWXJvW2HqcM3e/6H/oKEjl461O8D
-         evaA==
-X-Forwarded-Encrypted: i=1; AKwUvBxENbx23VSTrwVxhT7UrIm3ICTYJPG9SRj7FecLGtyQEKMQX3GOakLTvRU9WqfBbEVqlmy2ZURoR+P0UqA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mjIffdx79g3aPr9YHts66f2TALL78wXirHL8p+C+i6qpe8gzXl
-	szj/2QJ+6MKLTdKUAo20UgpF/GttYIMIOdNaPwxH2l8sBr8uuCqBv+mv
-X-Gm-Gg: AYBFou37Elh1tVeGzwpFzuI9Mmv2//fINNTaTHlRYoFdewXCZgFEpHg6+slY3A1WU06
-	6kGftF0OYf04imY1+dpzxsrn3ad6sl3WMbFz+tF+n0afDWVR7ChpPylZEQZlCU6qEpO6gDkuva+
-	7DEMtciAcbPQsiI1yIQYUg5Po4mHkUMvL1Qu5cOYEpHFrHiuxz3ZkTO3JfGz9eswbwuUd7KiOEh
-	+8i5MpS3Y4dcxNZvlg9RgaIZ663hzARLWn7XWb2mcRQZ5fB4tZOiS+jH27o2ViQb57j+xCm7T5U
-	XLfTl9HDgVfJwbhWU/kUVJLg7c3VeQYgW/GhAygEaxwFpUfvgR7rI61BBmDcFV0p6puJjsYJOgp
-	iqJ2gA5QqZHtVqEXAWll/PTYb/35fZSsC8enCYr2sOgdqegdkKLocfu8/XYVq7sun1eWZzJuwtO
-	qOj3BLWBj2RPwk74DJZpsXrwa5fFojZYfG/nIUL+BXbVKDTtI+aoChTnzybxSWtyI3PbfR7iTF1
-	du8AQoTNUmapvyh1hrINrnF5Z4MAyZjgPJZF+QrTHQDeHSE
-X-Received: by 2002:a05:600c:1d07:b0:49c:f13e:e4d with SMTP id 5b1f17b1804b1-49cf86f4fe4mr131951315e9.10.1788660646406;
-        Sat, 05 Sep 2026 19:10:46 -0700 (PDT)
-Received: from sergio-82n7.fritz.box (host27-7-217-213.cgnat.broadband.ehiweb.it. [213.217.7.27])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d04fe7f9dsm90386105e9.0.2026.09.05.19.10.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 19:10:45 -0700 (PDT)
-From: Sergio Melas <sergiomelas@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sergio Melas <sergiomelas@gmail.com>
-Subject: [PATCH] hwmon: (yogafan) Add support for new Lenovo models
-Date: Sun,  6 Sep 2026 04:10:23 +0200
-Message-ID: <20260906021023.766992-1-sergiomelas@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1788660778; c=relaxed/simple;
+	bh=HMEMZ+/2Fyu/66jgPOkhprZAPhYEruCrguyK5LTFmNQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=POFvSj3Y7Evqkl5lfN1aTecICH/8+ZAi+53NihABkepV9/TjtSN0I6yDaoam06xEHaW0MXC7vs4aFGUfoqcCnDtT5xAYTILOSU/Qq92GepFVx4PCkdKVOLR/huemIK7CIG079FiiwpbDjbQ/8zpviFXhWZUCIsGf0Cy51V87GRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1314614|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0195983-0.000558861-0.979843;FP=2410299725729429457|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037017159;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=16;RT=16;SR=0;TI=SMTPD_---.j6fU0gn_1788660771;
+Received: from 10.10.26.192(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.j6fU0gn_1788660771 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Sun, 06 Sep 2026 10:12:52 +0800
+Message-ID: <eec3e8ca-f24c-4614-b9c1-0f3475dc5b67@motor-comm.com>
+Date: Sun, 6 Sep 2026 10:12:50 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v5 3/6] net: dsa: motorcomm: relocate MIB polling
+ initialization to dsa_setup()
+To: David Yang <mmyangfl@gmail.com>
+Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ linux@armlinux.org.uk, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
+ jianmin.wang@motor-comm.com, wei.zhang@gl-inet.com, sijia.huang@gl-inet.com
+References: <20260904095416.1692962-1-kyle.switch@motor-comm.com>
+ <20260904095416.1692962-3-kyle.switch@motor-comm.com>
+ <CAAXyoMNLk4ApuaxxznrPReftf0TNaQEBVF0n4gmuryJxLYdvTw@mail.gmail.com>
+Content-Language: en-US
+From: Kyle Switch <kyle.switch@motor-comm.com>
+In-Reply-To: <CAAXyoMNLk4ApuaxxznrPReftf0TNaQEBVF0n4gmuryJxLYdvTw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Add DMI quirk entries and map correct ACPI paths and configurations for
-additional Lenovo laptop models: Yoga 14cACN 2021, IdeaPad 3 15ALC6 Ub
-and Yoga 740-15IML.
 
-DMI product family matching is finally preferred over product name to
-reliably distinguish identical model numbers with different internal
-fan layouts:
-MODEL (DMI PN) | FAMILY / SERIES    | FULL ACPI OBJECT PATH
-82KU           | IdeaPad 3 15ALC6   | \_SB.PCI0.LPC0.EC0.FAN0
-82KU           | IdeaPad 3 15ALC6 ub| \_SB.PCI0.LPC0.EC0.FANS/FA2S
+On 9/5/26 01:13, David Yang wrote:
+> On Fri, Sep 4, 2026 at 5:54 PM Kyle Switch <kyle.switch@motor-comm.com> wrote:
+>> Move MIB polling start from probe() to dsa_setup() so that it can
+>> be conditionally enabled based on the actual switch family support,
+>> avoiding attempts to enable it on unsupported switch families.
+>>
+>> Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
+>> ---
+>>   drivers/net/dsa/motorcomm/chip.c | 15 ++++++++-------
+>>   1 file changed, 8 insertions(+), 7 deletions(-)
+> I didn't see this patch being used afterwards (and patch 6 seems missing).
+>
+> I'm not against the patch, but if you don't use it, please post it in
+> another series.
 
-Signed-off-by: Sergio Melas <sergiomelas@gmail.com>
----
- Documentation/hwmon/yogafan.rst | 40 +++++++++++------------
- drivers/hwmon/yogafan.c         | 58 +++++++++++++++++++++------------
- 2 files changed, 57 insertions(+), 41 deletions(-)
+Ans: yes, as you can see from x/6, there should be 6 patches in this
 
-diff --git a/Documentation/hwmon/yogafan.rst b/Documentation/hwmon/yogafan.rst
-index 9ff5db5dc..a7e628bc3 100644
---- a/Documentation/hwmon/yogafan.rst
-+++ b/Documentation/hwmon/yogafan.rst
-@@ -85,27 +85,26 @@ immediately to ensure the user knows the fan has stopped.
- 
- ::
- 
-- MODEL (DMI PN) | FAMILY / SERIES  | EC OFFSET | FULL ACPI OBJECT PATH          | WIDTH  | MULTiplier
-+ MODEL (DMI PN) | FAMILY / SERIES    | EC OFFSET | FULL ACPI OBJECT PATH          | WIDTH  | MULTiplier
-  ----------------------------------------------------------------------------------------------------
-- 82N7           | Yoga 14cACN      | 0x06      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
-- 80V2 / 81C3    | Yoga 710/720     | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
-- 83E2           | Yoga Pro 7       | 0xFE      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
-- 83DN           | Yoga Pro 9 16IMH9 | 0x06/0xFE | \_SB.PC00.LPCB.EC0.FANS/FA2S  |  8-bit | 100
-- 82A2 / 82A3    | Yoga Slim 7      | 0x06      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
-- 81YM / 82FG    | IdeaPad 5        | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
-- 82JW / 82JU    | Legion 5 (AMD)   | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FANS (Fan1) | 16-bit | 1
-- 82JW / 82JU    | Legion 5 (AMD)   | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FA2S (Fan2) | 16-bit | 1
-- 82WQ           | Legion 7i (Int)  | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FANS (Fan1) | 16-bit | 1
-- 82WQ           | Legion 7i (Int)  | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FA2S (Fan2) | 16-bit | 1
-- 82XV / 83DV    | LOQ 15/16        | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FANS /FA2S  | 16-bit | 1
-- 83AK           | ThinkBook G6     | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
-- 81X1           | Flex 5           | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
-- 83KF           | XiaoXinPro 13ARE | 0x06/0xFE | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
-- 82KU           | IdeaPad 3 15ALC6 | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
-- 83RU           | Legion Pro 7 16  | 0x03/0x06 | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
-- 83KF           | Yoga Pro 7 14IAH | 0x06      | \_SB.PC00.LPCB.EC0.FANS        |  8-bit | 100
-- 83BS           | Yoga 7 16ARP8    | 0x03/0x06 | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
-- *Legacy*       | Pre-2020 Models  | 0x06      | \_SB.PCI0.LPC.EC.FAN0          |  8-bit | 100
-+ 82N7           | Yoga 14cACN        | 0x06      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
-+ 80V2 / 81C3    | Yoga 710/720       | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
-+ 83E2 / 83DN    | Yoga Pro 7/9       | 0xFE      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
-+ 82A2 / 82A3    | Yoga Slim 7        | 0x06      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
-+ 81YM / 82FG    | IdeaPad 5          | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
-+ 82JW / 82JU    | Legion 5 (AMD)     | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FANS/FA2S   | 16-bit | 1
-+ 82WQ           | Legion 7i (Int)    | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FANS/FA2S   | 16-bit | 1
-+ 82XV / 83DV    | LOQ 15/16          | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FANS/FA2S   | 16-bit | 1
-+ 83AK           | ThinkBook G6       | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
-+ 81TD           | Yoga 740-15IML     | 0x06      | \_SB.PCI0.LPCB.EC0.FANS        |  8-bit | 100
-+ 81X1           | Flex 5             | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
-+ 83KF           | XiaoXinPro 13ARE   | 0x06/0xFE | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
-+ 82KU           | IdeaPad 3 15ALC6   | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
-+ 82KU           | IdeaPad 3 15ALC6 ub| 0x06      | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
-+ 83RU           | Legion Pro 7 16    | 0x03/0x06 | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
-+ 83KF           | Yoga Pro 7 14IAH   | 0x06      | \_SB.PC00.LPCB.EC0.FANS        |  8-bit | 100
-+ 83BS           | Yoga 7 16ARP8      | 0x03/0x06 | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
-+ *Legacy*       | Pre-2020 Models    | 0x06      | \_SB.PCI0.LPC.EC.FAN0          |  8-bit | 100
-  ----------------------------------------------------------------------------------------------------
- 
- METHODOLOGY & IDENTIFICATION:
-@@ -159,6 +158,7 @@ Contributors & DSDT Providers:
- - **Sarbajit Sarkar** (Lenovo LOQ 15IAX9)
- - **HinataKato** (XiaoXin Pro 13ARE 2020 - 83KF)
- - **PenPenIsGod** (IdeaPad 3 15ALC6 - 82KU & Legion Pro 7 16AFR10H - 83RU)
-+- **wizard-28** (IdeaPad 3 15ALC6 Ub - 82KU)
- - **unlockxiaom** (Legion Pro 7 16AFR10H - 83RU, Yoga Pro 7 14IAH10 - 83KF, ThinkCentre M80q)
- - **Phani Pavan K** (Yoga Pro 7 14IAH10 - 83KF)
- - **Splarkszter** (Yoga 7 16ARP8 - 83BS)
-diff --git a/drivers/hwmon/yogafan.c b/drivers/hwmon/yogafan.c
-index 413ddc721..2ce358c74 100644
---- a/drivers/hwmon/yogafan.c
-+++ b/drivers/hwmon/yogafan.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
--/*
-- * yoga_fan.c - Lenovo Yoga/Legion Fan Hardware Monitoring Driver
-+/**
-+ * yogafan.c - Lenovo Yoga/Legion Fan Hardware Monitoring Driver
-  *
-  * Provides fan speed monitoring for Lenovo Yoga, Legion, and IdeaPad
-  * laptops by interfacing with the Embedded Controller (EC) via ACPI.
-@@ -53,6 +53,17 @@ struct yoga_fan_data {
- };
- 
- /* Specific configurations mapped via DMI */
-+static const struct yogafan_config yoga_740_15iml_cfg = {
-+	.multiplier = 100,
-+	.fan_count = 1,
-+	.paths = { "\\_SB.PCI0.LPCB.EC0.FANS", NULL }
-+};
-+
-+static const struct yogafan_config ideapad_3_15alc6_82ku_cfg = {
-+	.multiplier = 100,
-+	.fan_count = 2,
-+	.paths = { "\\_SB.PCI0.LPC0.EC0.FANS", "\\_SB.PCI0.LPC0.EC0.FA2S" },
-+};
- 
- static const struct yogafan_config yoga_8bit_fans_cfg = {
- 	.multiplier = 100,
-@@ -90,17 +101,6 @@ static const struct yogafan_config yoga_pro_7_14iah10_cfg = {
- 	.paths = { "\\_SB.PC00.LPCB.EC0.FANS", NULL }
- };
- 
--/*
-- * Lenovo Yoga Pro 9 16IMH9 (83DN) uses the PC00 namespace and has two
-- * 8-bit fan tachometer fields.
-- */
--static const struct yogafan_config yoga_pro_83dn_cfg = {
--	.multiplier = 100,
--	.fan_count = 2,
--	.paths = { "\\_SB.PC00.LPCB.EC0.FANS",
--		   "\\_SB.PC00.LPCB.EC0.FA2S" }
--};
--
- static void apply_rllag_filter(struct yoga_fan_data *data, int idx, long raw_rpm)
- {
- 	ktime_t now = ktime_get_boottime();
-@@ -200,6 +200,30 @@ static const struct hwmon_chip_info yoga_fan_chip_info = {
- };
- 
- static const struct dmi_system_id yogafan_quirks[] = {
-+	{
-+		.ident = "Lenovo Yoga 740-15IML",
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_FAMILY, "Yoga 740-15IML"),
-+		},
-+		.driver_data = (void *)&yoga_740_15iml_cfg,
-+	},
-+	{
-+		.ident = "Lenovo IdeaPad 3 15ALC6 Ub",
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_FAMILY, "IdeaPad 3 15ALC6 Ub"),
-+		},
-+		.driver_data = (void *)&ideapad_3_15alc6_82ku_cfg,
-+	},
-+	{
-+		.ident = "Yoga 14cACN 2021",
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_FAMILY, "Yoga 14cACN 2021"),
-+		},
-+		.driver_data = (void *)&yoga_8bit_fans_cfg,
-+	},
- 	{
- 		.ident = "Lenovo LOQ 15IAX9",
- 		.matches = {
-@@ -248,14 +272,6 @@ static const struct dmi_system_id yogafan_quirks[] = {
- 		},
- 		.driver_data = (void *)&xiaoxin_8bit_dual_cfg,
- 	},
--	{
--		.ident = "Lenovo Yoga Pro 9 16IMH9 (83DN)",
--		.matches = {
--			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
--			DMI_MATCH(DMI_PRODUCT_NAME, "83DN"),
--		},
--		.driver_data = (void *)&yoga_pro_83dn_cfg,
--	},
- 	{
- 		.ident = "Lenovo Yoga",
- 		.matches = {
--- 
-2.55.0
+series. The 6th patch was not sent successfully due to an email 
+configuration
+
+issue. in the future submissions, we will try our best to ensure the 
+integrity of
+
+the patches. thanks.
 
