@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D253CC327;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48D823CEB8D;
 	Sun,  6 Sep 2026 18:37:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788719828; cv=none; b=S1Ma/tP34NiNIP0giv7mCEneqTol+lwgdBl1mQ5p0V78L+XgPGGKvFGw9p508b7/HFLBF53zA4iWOzslXT651c8ByobNuWTEcW6zYYeWKdS8ejXCyl21X2p9hIezm2J/FBUjf6NoGP7zysRDsS1IpWdhcx07ANJkEDQZVrEU9hM=
+	t=1788719828; cv=none; b=eu9QKgVNKJadnSkmjSHCKmW9WLFAU8ZTNy1GvZp4/ogPo9d1i6mLDixcOh5KP2NWDOlmjNQWCpUblGagKwc4WZyIGTRWwgZGDweFfxMBA6MFg96HwHj+P7BGQC+jjyPffjnRw1H4jnVPirMUePW3lrKqOK8zo4V7go8PQ0VBaYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788719828; c=relaxed/simple;
-	bh=JhMORvwjpL+vSOXSZRgQ34FsUDioPUDXHqRnLjyFxTw=;
+	bh=HJ+d/OZeUWUlC39b4Bp/Qj2ekR0RdTWk6ov7g7kvJNs=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VtDlHlRtMA2qMUpOLT3vL63F3d1TxhmqZlT9ZlIao+MguUjH2NLXHStL7XEtNn9lne88YsldOF9W+xj3ZB/VnrW0YbnpSzzTXiDUoqSbgJzDTOUBDFSJr6Azk3vU8uYBMqIjeeaOLBKWBKGsIhtQU1vfaaPNsoOeMlqh0FxZIBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kJLhjAbN; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=a3bdAzPKwTn5TtqDfusAV0t/T46GerojOqNgL9kNShh6xbA9724aSsSty9Gz0PkpjwzxyYzhxrIldyZypSVT2Ooxtn4xQor2riI7pKGPk02nfpQIUUEJO4vAAWmr/BMg3mSPhlLBusLdNOKevlMi4gCWjMeBtxUMwjgKSmpTsTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cIXU3rHZ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kJLhjAbN"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 0911EC4AF12;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cIXU3rHZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 234F5C2BD00;
 	Sun,  6 Sep 2026 18:37:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788719828;
-	bh=JhMORvwjpL+vSOXSZRgQ34FsUDioPUDXHqRnLjyFxTw=;
+	bh=HJ+d/OZeUWUlC39b4Bp/Qj2ekR0RdTWk6ov7g7kvJNs=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=kJLhjAbN/lnM+vW/3yBm2RV0TQrIrWFYS3Ky61E7RBYMCQKuBKbH+9dIXoKzkQ3tV
-	 0Krbvw84Xk+ursQiufPbX0JY+YkcMbX90oooSQRGOJ6FmZyfEQUbMiIDNkRLRIyHz4
-	 gqmWGDIHndsRjA04xwY+SsVuXZaOuQKDQf1qa2v7aIFiLvQOdi95iJ+pl/52dj1Y1M
-	 1JRad26ejpYWP/xuQ6qxZu44Jmm2ojB+I1Gj74WUzUtC3nOSfDKB8iybuEXxnXgQQO
-	 9tXYISd+Jfa+82/uL2DhmJuaKKK6/wtpwuXBYPHODKMpIIGQOjGwphy97iDcOnKpWA
-	 W0pcFOp2jvvFQ==
+	b=cIXU3rHZp2xx7rD79RNZNBPC5BNwRYpKev1jnGOuylEsbV7Wrg3KlANao+VAWHR56
+	 MB+oHhWDvO5B+7Zpu4xiHPX/SCUQdq+Zsxef5+PGpMrafTQJR1qjYbW2b8PDtlkUHA
+	 akreFeag6ykUHW6XD8UtzmTTgdCR8VWQuVJFtTnr799vDgmcqLReC/OR77xmgLtb62
+	 aOhT1lWozBAcPZ3c2DwotcvUWzJeVfveg3H59mwdrXY04FPl3pr0eo3sBhQs0d9VW5
+	 qif4d4FRkUAgNY2iGPAtmwqRgW9H80DmT59P/s9BQCV1F/UlVG7TIr0HlIe22P7GSt
+	 oLLnXoVZVMj1A==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E37E3C79FA0;
-	Sun,  6 Sep 2026 18:37:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0EC01C79F8C;
+	Sun,  6 Sep 2026 18:37:08 +0000 (UTC)
 From: Sven Peter <sven@kernel.org>
-Date: Sun, 06 Sep 2026 20:36:35 +0200
-Subject: [PATCH v2 12/22] thunderbolt: Add ring_interrupt_active to
+Date: Sun, 06 Sep 2026 20:36:37 +0200
+Subject: [PATCH v2 14/22] thunderbolt: Add ring_interrupt_mask to
  tb_nhi_ops
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260906-b4-apple-soc-tbt-v2-12-1f80085f93fb@kernel.org>
+Message-Id: <20260906-b4-apple-soc-tbt-v2-14-1f80085f93fb@kernel.org>
 References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
 In-Reply-To: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
 To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
@@ -57,21 +57,21 @@ Cc: Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
  asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  Sven Peter <sven@kernel.org>, Joshua Peisach <jpeisach@ubuntu.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2844; i=sven@kernel.org;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2895; i=sven@kernel.org;
  h=from:subject:message-id;
- bh=JhMORvwjpL+vSOXSZRgQ34FsUDioPUDXHqRnLjyFxTw=;
- b=owGbwMvMwCXmIlirolUq95LxtFoSQ9bcTYc6Di2y31B1ZZp04ac3vlqF31cFbWjLvyTSuHTNR
- K+Q0MX7O0pZGMS4GGTFFFm277c3ffLwjeDSTZfew8xhZQIZwsDFKQATiXnP8N/tw420F0kTZkwz
- lN60Q1c4PUqiMHxZd5H/pf0LFZeLJ/YyMnxbcCzvxK4Fr8zj1Bf9Mrvz0iNIor9vaWNt78YfL56
- 98eIAAA==
+ bh=HJ+d/OZeUWUlC39b4Bp/Qj2ekR0RdTWk6ov7g7kvJNs=;
+ b=owGbwMvMwCXmIlirolUq95LxtFoSQ9bcTYc7mz+onjuQkXho1qyMPy25X0QY17553XrW4NOmW
+ 70CO84v6ChlYRDjYpAVU2TZvt/e9MnDN4JLN116DzOHlQlkCAMXpwBMRKSBkaH7/IFlj6xPnTkq
+ 9pwn18Lc5k7o5uW+35YfzHt9btpbwbClDP+rI3I2f2J+0noriu2N1umZYt0911bwxjzx01GJ/eV
+ 6RpcHAA==
 X-Developer-Key: i=sven@kernel.org; a=openpgp;
  fpr=A1E3E34A2B3C820DBC4955E5993B08092F131F93
 X-Endpoint-Received: by B4 Relay for sven@kernel.org/default with
  auth_id=407
 
-The Apple NHI enables and disables ring interrupts differently. Add an
-optional tb_nhi_ops hook to override ring_interrupt_active which falls
-back to the standard USB4 method when it is not set.
+Masking ring interrupts works differently on the Apple NHI as well. Add
+an optional tb_nhi_ops hook for it which falls back to the standard
+USB4 NHI method when it is not set.
 
 Signed-off-by: Sven Peter <sven@kernel.org>
 Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
@@ -81,61 +81,61 @@ Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
  2 files changed, 14 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/thunderbolt/nhi.c b/drivers/thunderbolt/nhi.c
-index 6a97dcd57deb..fc54ff7edfb9 100644
+index 1b1e4a12c744..4ef86e7c0285 100644
 --- a/drivers/thunderbolt/nhi.c
 +++ b/drivers/thunderbolt/nhi.c
-@@ -149,6 +149,14 @@ static void ring_interrupt_active(struct tb_ring *ring, bool active)
- 		nhi_mask_interrupt(ring->nhi, mask, index);
+@@ -427,6 +427,14 @@ static void __ring_interrupt_mask(struct tb_ring *ring, bool mask)
+ 	iowrite32(val, ring->nhi->iobase + reg);
  }
  
-+static void nhi_ring_interrupt_active(struct tb_ring *ring, bool active)
++static void nhi_ring_interrupt_mask(struct tb_ring *ring, bool mask)
 +{
-+	if (ring->nhi->ops->ring_interrupt_active)
-+		ring->nhi->ops->ring_interrupt_active(ring, active);
++	if (ring->nhi->ops->ring_interrupt_mask)
++		ring->nhi->ops->ring_interrupt_mask(ring, mask);
 +	else
-+		ring_interrupt_active(ring, active);
++		__ring_interrupt_mask(ring, mask);
 +}
 +
- /*
-  * nhi_disable_interrupts() - disable interrupts for all rings
-  *
-@@ -724,7 +732,7 @@ void tb_ring_start(struct tb_ring *ring)
- 	}
+ /* Both @nhi->lock and @ring->lock should be held */
+ static void __ring_interrupt(struct tb_ring *ring)
+ {
+@@ -434,7 +442,7 @@ static void __ring_interrupt(struct tb_ring *ring)
+ 		return;
  
- 	if (!(ring->flags & RING_FLAG_NO_INTERRUPT))
--		ring_interrupt_active(ring, true);
-+		nhi_ring_interrupt_active(ring, true);
- 	ring->running = true;
- err:
+ 	if (ring->start_poll) {
+-		__ring_interrupt_mask(ring, true);
++		nhi_ring_interrupt_mask(ring, true);
+ 		ring->start_poll(ring->poll_data);
+ 	} else {
+ 		schedule_work(&ring->work);
+@@ -455,7 +463,7 @@ void tb_ring_poll_complete(struct tb_ring *ring)
+ 	spin_lock_irqsave(&ring->nhi->lock, flags);
+ 	spin_lock(&ring->lock);
+ 	if (ring->start_poll)
+-		__ring_interrupt_mask(ring, false);
++		nhi_ring_interrupt_mask(ring, false);
  	spin_unlock(&ring->lock);
-@@ -785,7 +793,7 @@ void tb_ring_stop(struct tb_ring *ring)
- 		goto err;
- 	}
- 	if (!(ring->flags & RING_FLAG_NO_INTERRUPT))
--		ring_interrupt_active(ring, false);
-+		nhi_ring_interrupt_active(ring, false);
- 
- 	ring_iowrite32options(ring, 0, 0);
- 	ring_iowrite64desc(ring, 0, 0);
+ 	spin_unlock_irqrestore(&ring->nhi->lock, flags);
+ }
 diff --git a/drivers/thunderbolt/nhi.h b/drivers/thunderbolt/nhi.h
-index f72d6b274501..4884c3f5a2b2 100644
+index 3a963b0b5b46..ca3eddf862e0 100644
 --- a/drivers/thunderbolt/nhi.h
 +++ b/drivers/thunderbolt/nhi.h
-@@ -52,6 +52,9 @@ extern const struct dev_pm_ops nhi_pm_ops;
-  * @post_nvm_auth: hook to run after Thunderbolt 3 NVM authentication
-  * @request_ring_irq: NHI specific interrupt retrieval hook
-  * @release_ring_irq: NHI specific interrupt release hook
-+ * @ring_interrupt_active: NHI specific hook to activate/deactivate the
-+ *			   interrupt of a single ring. If not set the
-+ *			   standard USB4 NHI registers are used.
+@@ -59,6 +59,9 @@ extern const struct dev_pm_ops nhi_pm_ops;
+  * @ring_interrupt_active: NHI specific hook to activate/deactivate the
+  *			   interrupt of a single ring. If not set the
+  *			   standard USB4 NHI registers are used.
++ * @ring_interrupt_mask: NHI specific hook to mask/unmask the interrupt of a
++ *			 single ring. If not set the standard USB4 NHI
++ *			 registers are used.
   * @is_present: Whether the device is currently present on the parent bus
   * @init_interrupts: NHI specific interrupt initialization hook
   * @reset_interface: Resets the host interface
-@@ -67,6 +70,7 @@ struct tb_nhi_ops {
- 	void (*post_nvm_auth)(struct tb_nhi *nhi);
- 	int (*request_ring_irq)(struct tb_ring *ring, bool no_suspend);
- 	void (*release_ring_irq)(struct tb_ring *ring);
-+	void (*ring_interrupt_active)(struct tb_ring *ring, bool active);
+@@ -77,6 +80,7 @@ struct tb_nhi_ops {
+ 	void __iomem *(*ring_desc_base)(struct tb_ring *ring);
+ 	void __iomem *(*ring_options_base)(struct tb_ring *ring);
+ 	void (*ring_interrupt_active)(struct tb_ring *ring, bool active);
++	void (*ring_interrupt_mask)(struct tb_ring *ring, bool mask);
  	bool (*is_present)(struct tb_nhi *nhi);
  	int (*init_interrupts)(struct tb_nhi *nhi);
  	void (*reset_interface)(struct tb_nhi *nhi);
