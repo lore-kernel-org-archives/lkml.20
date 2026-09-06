@@ -1,49 +1,73 @@
-Received: from out-utut-a221.jellyfish.systems (out-utut-a221.jellyfish.systems [198.177.127.221])
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8743F29993F
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 14:40:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.177.127.221
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6970629993F
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 14:41:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788705647; cv=none; b=N8gBe7ccIxMrEbMPejJbbw3ZMmnjBgygs1g4SzqYAhJZEKZt9V+jn9VJYPILir6BRM7cyfp+9ue7m5fzCsbjlRdK+D85B4+nixRrl/6+MyManF4EaxZeGPJ1Fk2ueg6YyneGmXQUXQhwAhNiASqc2exIvVDNiM5ltZidZ4QQhpQ=
+	t=1788705661; cv=none; b=XyhXqvFSgTNQC5mWPBNXgZVmyj1wLLOTeW+u0r6HLfZ5rnGtcY/4IJscDOowRqbIFFVkDS2dsUdeRIDdlEP8kZkAIi3jm1fRNqxJbUkokz7dpW0Lxw/Le8m6/0/mYE09emikP4mzTpoyb/LoqB1TRo1lLiqmAxFPwFThHgnpTMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788705647; c=relaxed/simple;
-	bh=1h/QQ6duO528OlThOs542J/mhgQmH9J87s2umK0mSko=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XyWjINLp1DUdUEjrXN35WzduhzDaTBusNfD3/OhA6tJ7vqizdPZJqFskcBZk4eqNuNyXdKK+wVeyc5AUUppDIcZn4SIPeKm0BTFyaUYfPUvb31X4qY8vY43sMeJVy3zJze74IDi+pTb2TjxRskgQ+xS0UzPtwo4Yk8PPR2geY0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=Q1GAzMbn; arc=none smtp.client-ip=198.177.127.221
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
+	s=arc-20240116; t=1788705661; c=relaxed/simple;
+	bh=qSkze1wnDFxPe2Qp8CSDQ7kKZ1F5vdgOvkv/4UTabOQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jIrsSXfdGQfcvkkSrU0p5aw7SEZv7ai4PZGSk5N7Zg/BumJcM3qagOPh7zFVvmLKOTJAkJ6ztNeFzSlhD+XJQSui6UObInJBnMWjLMGKPqxc4TG0oyXT5eeOvygS7a9KwFDkBfJoO24x6uwp7l9e6xklFAnw3T3gGjP4b3Zn8kk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sOTY7hYB; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="Q1GAzMbn"
-Received: from fedora (unknown [69.5.53.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4hdCYM6yjLz8sY8;
-	Sun, 06 Sep 2026 14:40:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
-	s=spacemail; t=1788705644;
-	bh=PVCy054hdtEsDkZ1qYlyURG4QQmkYxTjJnPPeIByJ9Y=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Q1GAzMbn0tzJwSvzVzb8i32sTN0hgnG5bZc1dARMG2pCCwSHz6vOtRP6pIXJmXfco
-	 9yLHOSB9J4M3YpSlKxTd2wsBBf7bkNPyU08PX7Va3nt3PI770RXtQH2nYqtyT4D7n9
-	 27pI8d+Jt6TJOvT1InF7mN+4Bsbd0k41v7QPZ3gRdIqgDnhUYBEqMfsRCxV//2N1Rx
-	 wZr9ESRgm49mftQyXMJphCpzhAskNfGdxnh0opoTUkvnZKaOPC067HFvNF5SJCs5iG
-	 2LeYSPRC1tWEmqlwu6hDgPI45RKqgGhb0VgUU0K35PJ9jPiA9JUmE9crq46aMm54OW
-	 Gnbx2lwVnkKJg==
-From: Tianyi Chen <hi@tychen.cc>
-To: tj@kernel.org,
-	David Vernet <void@manifault.com>
-Cc: Tianyi Chen <hi@tychen.cc>,
-	Andrea Righi <arighi@nvidia.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	Shuah Khan <shuah@kernel.org>,
-	sched-ext@lists.linux.dev,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] selftests/sched_ext: Validate select_cpu_and mask constraints
-Date: Sun,  6 Sep 2026 22:40:29 +0800
-Message-ID: <20260906144029.848978-1-hi@tychen.cc>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sOTY7hYB"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-398b3c37877so2442151a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 07:41:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788705660; x=1789310460; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Y29ZXwt6eztTyx4fKyFoN65StSazZKPoWVgHCLODAmY=;
+        b=sOTY7hYBDrrd+DpLGnmOg6hPtxP8PM1ibQyQJdFtIy44RFnbhHCE4yx2TItdKte3JV
+         4zuzQTIAe0UxE1XTKc3ZZyXlBrnBrxepwPPR1tTD4kJDL9cz6oD97KBqhe/VrkbshUiw
+         eqc/j7FSGOpVqAGYva3yBOF2vf+D+UE2kM3dJCHSDSdL4EoSNbMwfCGs5MNxtQX1aUuT
+         2FrvoaGNRXT7h3puf4faaocePja7PfxEYPTegkgB1QBKFZ06ocLny1yhGJso4PVesyOm
+         uBy/kY0tzsNTKu9HHbaVoP5km7GH9UoNOmE6PiivqJwE5DCDWE6znbo512sS6gNtKs0c
+         ii6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788705660; x=1789310460;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Y29ZXwt6eztTyx4fKyFoN65StSazZKPoWVgHCLODAmY=;
+        b=f6m7/DhfIfJZbpMalPZStm/l96CVcCjNvY/bkFMybO/wYsWrAaQ476LpKBo5tg4pSL
+         sovf+c7t8k1nZFsT34YVHnc816LjiulijSvpFiNg9RMvehv9hsPEObnDUGE1ONptwl0s
+         lPX55nKif75SzSdW0Zhpu69mAfchGnxQgK432BcrUHMlxuDq1+mqhTM6plOID8TlI4WM
+         7zFvcLSxw9eYNvzL5WuJY4uTW7ihkgse1UQlRW2oO3cbbF3XwRNAS49AcKCVhRenvs8h
+         jf5ZmymybeqLdjIxlLYQlWB350XS4dsrmtHSSrDeTTaatmvKQ8BQKRgc9kCoSceWo72Y
+         UJWw==
+X-Forwarded-Encrypted: i=1; AKwUvByxZweJW6KjtWeSQuISmd4hdpxRq9/6rP9tq87SXHjGFphOeXm/lnnzTEf98Vrda5pyuPqSDcXj8+XiN14=@vger.kernel.org
+X-Gm-Message-State: AFuF++k8lMUaUnvcu3RttrTUgcF8Cq8s/ZHzkXA2Nud6Jy7+m+RoBnd6
+	imWtyj02mQ/vyeFJabfEymvkcyF+wPNSryS8i7JvzpJnlgM1liGJ8OV4
+X-Gm-Gg: AYBFou0VwaWLgh2NSflIcbnC7JgDDCMlK5uk+SLAL6Zup/XDNU2QqBfKJiCHaZ71uQv
+	1RpVzXnGMcsntfHfA27wN4LHczrwD4A6aCmy9CJTkSIz81uxR36GwWh8Cg0KH9kM1uU4A0lRju3
+	4de2HYJQUuNOmtXNbNefx031QJ+O66JFmz2uEMm2MlK56dbqUiZ9qestb/DHioE6iGny0HFwHtH
+	0vVQUSAot+x1mPSl598zh/Y8YhpJCs9O1jBzF3hvRYyipC3IDa8UWywmPKXeH21/gCJlhgTCNoZ
+	kChJ4Rh1SSHaIR01pON+Auo3/+BiecHn2Nc4RIPYx1DyMPYT6pSWZh3/5cRKegr1T+pQC6DiEQM
+	8zFpz1k5OTjfaniOsMXjndOOvlapBlG+bKCyGqrGF4jb33y4EBlJBvo0YVNfcM6pYiD9CREAtAR
+	QJ6pIImSlDQaGeuMp6utyRuHUcgz/yhc/XqFyf5huGJtTKzx2fzGA0U9KQS6HBJCCCnpRSqCZL
+X-Received: by 2002:a17:90a:d2c6:b0:395:4de4:92c7 with SMTP id 98e67ed59e1d1-39b260d2f07mr27672809a91.3.1788705659725;
+        Sun, 06 Sep 2026 07:40:59 -0700 (PDT)
+Received: from TheRealOne ([152.58.138.157])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260fdc1dsm15583678a91.7.2026.09.06.07.40.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 07:40:59 -0700 (PDT)
+From: Chandradhar Kumar <chandradhar.2003@gmail.com>
+To: Song Liu <song@kernel.org>,
+	Yu Kuai <yukuai@fygo.io>,
+	linux-raid@vger.kernel.org
+Cc: Li Nan <magiclinan@didiglobal.com>,
+	Xiao Ni <xiao@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Chandradhar Kumar <chandradhar.2003@gmail.com>,
+	syzbot+a32ff75e417c0f49a8e9@syzkaller.appspotmail.com
+Subject: [PATCH] md/raid0: validate device count before allocating devlist
+Date: Sun,  6 Sep 2026 20:09:28 +0530
+Message-ID: <20260906143928.105165-1-chandradhar.2003@gmail.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -52,204 +76,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Envelope-From: hi@tychen.cc
 
-The syscall test checks whether BPF_PROG_TEST_RUN succeeds, but only
-prints the CPU selection result returned by the BPF program.
+create_strip_zones() allocates conf->devlist based on mddev->raid_disks
+before verifying that enough devices are present. Validate the number of
+member devices before allocating devlist to reject invalid
+configurations early.
 
-Exercise empty and affinity-disjoint custom masks and require -EBUSY.
-Also exercise a legal singleton mask, allowing its CPU to be busy.
-Interpret retval as signed and reject unexpected errors or selection
-outside the custom mask or the task's affinity.
+The existing validation later in the function already rejects this
+condition, but it occurs after the potentially excessive allocation.
 
-Choose CPUs from the runner's affinity, restore it after the disjoint
-case, and skip only that case when fewer than two CPUs are available.
-
-The test passes in a two-CPU VM with full and single-CPU affinity.
-Forcing selection of CPU 0 against an empty mask makes it fail with
--ERANGE; the restored test passes again.
-
-Assisted-by: LLM
-Signed-off-by: Tianyi Chen <hi@tychen.cc>
+Reported-by: syzbot+a32ff75e417c0f49a8e9@syzkaller.appspotmail.com
+Closes: https://syzbot.org/bug?extid=a32ff75e417c0f49a8e9
+Signed-off-by: Chandradhar Kumar <chandradhar.2003@gmail.com>
 ---
- .../selftests/sched_ext/allowed_cpus.bpf.c    | 24 +++++-
- .../selftests/sched_ext/allowed_cpus.c        | 77 ++++++++++++++++---
- 2 files changed, 86 insertions(+), 15 deletions(-)
+ drivers/md/raid0.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/sched_ext/allowed_cpus.bpf.c b/tools/testing/selftests/sched_ext/allowed_cpus.bpf.c
-index 9dd72d0da29..08c2fe0e1c3 100644
---- a/tools/testing/selftests/sched_ext/allowed_cpus.bpf.c
-+++ b/tools/testing/selftests/sched_ext/allowed_cpus.bpf.c
-@@ -147,23 +147,41 @@ void BPF_STRUCT_OPS(allowed_cpus_exit, struct scx_exit_info *ei)
- }
+diff --git a/drivers/md/raid0.c b/drivers/md/raid0.c
+index 35e103f0c2c3..586e3411f24c 100644
+--- a/drivers/md/raid0.c
++++ b/drivers/md/raid0.c
+@@ -69,7 +69,7 @@ static int create_strip_zones(struct mddev *mddev, struct r0conf **private_conf)
+ 	sector_t curr_zone_end, sectors;
+ 	struct md_rdev *smallest, *rdev1, *rdev2, *rdev, **dev;
+ 	struct strip_zone *zone;
+-	int cnt;
++	int cnt, nr_devs;
+ 	struct r0conf *conf = kzalloc_obj(*conf);
+ 	unsigned int blksize = 512;
  
- struct task_cpu_arg {
--	pid_t pid;
-+	u64 pid;
-+	s64 custom_cpu;
- };
- 
- SEC("syscall")
- int select_cpu_from_user(struct task_cpu_arg *input)
- {
- 	struct task_struct *p;
--	int cpu;
-+	struct bpf_cpumask *mask;
-+	s32 cpu;
- 
- 	p = bpf_task_from_pid(input->pid);
- 	if (!p)
- 		return -EINVAL;
- 
-+	mask = bpf_cpumask_create();
-+	if (!mask) {
-+		bpf_task_release(p);
-+		return -ENOMEM;
+@@ -79,7 +79,10 @@ static int create_strip_zones(struct mddev *mddev, struct r0conf **private_conf)
+ 	*private_conf = ERR_PTR(-ENOMEM);
+ 	if (!conf)
+ 		return -ENOMEM;
++
++	nr_devs = 0;
+ 	rdev_for_each(rdev1, mddev) {
++		nr_devs++;
+ 		pr_debug("md/raid0:%s: looking at %pg\n",
+ 			 mdname(mddev),
+ 			 rdev1->bdev);
+@@ -147,6 +150,14 @@ static int create_strip_zones(struct mddev *mddev, struct r0conf **private_conf)
+ 	conf->strip_zone = kvzalloc_objs(struct strip_zone, conf->nr_strip_zones);
+ 	if (!conf->strip_zone)
+ 		goto abort;
++
++	if (nr_devs < mddev->raid_disks) {
++		pr_warn("md/raid0:%s: too few disks (%d of %d) - aborting!\n",
++			mdname(mddev), nr_devs, mddev->raid_disks);
++		err = -EINVAL;
++		goto abort;
 +	}
 +
-+	/* A negative custom_cpu leaves the custom mask empty. */
-+	if (input->custom_cpu >= 0)
-+		bpf_cpumask_set_cpu(input->custom_cpu, mask);
-+
- 	bpf_rcu_read_lock();
--	cpu = scx_bpf_select_cpu_and(p, bpf_get_smp_processor_id(), 0, p->cpus_ptr, 0);
-+	cpu = scx_bpf_select_cpu_and(p, bpf_get_smp_processor_id(), 0,
-+				     cast_mask(mask), 0);
-+	if (cpu >= 0 &&
-+	    (!bpf_cpumask_test_cpu(cpu, cast_mask(mask)) ||
-+	     !bpf_cpumask_test_cpu(cpu, p->cpus_ptr)))
-+		cpu = -ERANGE;
- 	bpf_rcu_read_unlock();
- 
-+	bpf_cpumask_release(mask);
- 	bpf_task_release(p);
- 
- 	return cpu;
-diff --git a/tools/testing/selftests/sched_ext/allowed_cpus.c b/tools/testing/selftests/sched_ext/allowed_cpus.c
-index 093f285ab4b..cc08c42ad95 100644
---- a/tools/testing/selftests/sched_ext/allowed_cpus.c
-+++ b/tools/testing/selftests/sched_ext/allowed_cpus.c
-@@ -2,7 +2,9 @@
- /*
-  * Copyright (c) 2025 Andrea Righi <arighi@nvidia.com>
-  */
-+#define _GNU_SOURCE
- #include <bpf/bpf.h>
-+#include <sched.h>
- #include <scx/common.h>
- #include <sys/wait.h>
- #include <unistd.h>
-@@ -23,17 +25,19 @@ static enum scx_test_status setup(void **ctx)
- 	return SCX_TEST_PASS;
- }
- 
--static int test_select_cpu_from_user(const struct allowed_cpus *skel)
-+static int test_select_cpu_from_user(const struct allowed_cpus *skel,
-+				     const char *name, int custom_cpu,
-+				     bool expect_busy)
- {
- 	int fd, ret;
--	__u64 args[1];
-+	__s32 cpu;
-+	__u64 args[] = { getpid(), (__u64)(__s64)custom_cpu };
- 
- 	LIBBPF_OPTS(bpf_test_run_opts, attr,
- 		.ctx_in = args,
- 		.ctx_size_in = sizeof(args),
- 	);
- 
--	args[0] = getpid();
- 	fd = bpf_program__fd(skel->progs.select_cpu_from_user);
- 	if (fd < 0)
- 		return fd;
-@@ -42,7 +46,13 @@ static int test_select_cpu_from_user(const struct allowed_cpus *skel)
- 	if (ret < 0)
- 		return ret;
- 
--	fprintf(stderr, "%s: CPU %d\n", __func__, attr.retval);
-+	/* test_run returns the signed BPF result through an unsigned field. */
-+	cpu = (__s32)attr.retval;
-+	if ((expect_busy && cpu != -EBUSY) ||
-+	    (!expect_busy && cpu != -EBUSY && cpu != custom_cpu)) {
-+		SCX_ERR("%s: unexpected CPU selection result %d", name, cpu);
-+		return -EINVAL;
-+	}
- 
- 	return 0;
- }
-@@ -50,21 +60,64 @@ static int test_select_cpu_from_user(const struct allowed_cpus *skel)
- static enum scx_test_status run(void *ctx)
- {
- 	struct allowed_cpus *skel = ctx;
-+	enum scx_test_status status = SCX_TEST_FAIL;
-+	cpu_set_t original, pinned;
-+	int first = -1, second = -1, cpu;
- 	struct bpf_link *link;
- 
-+	SCX_FAIL_IF(sched_getaffinity(0, sizeof(original), &original),
-+		    "Failed to get affinity (%d)", errno);
-+	for (cpu = 0; cpu < CPU_SETSIZE; cpu++) {
-+		if (!CPU_ISSET(cpu, &original))
-+			continue;
-+		if (first < 0)
-+			first = cpu;
-+		else {
-+			second = cpu;
-+			break;
-+		}
-+	}
-+	SCX_FAIL_IF(first < 0, "No CPU in affinity mask");
-+
- 	link = bpf_map__attach_struct_ops(skel->maps.allowed_cpus_ops);
- 	SCX_FAIL_IF(!link, "Failed to attach scheduler");
- 
--	/* Pick an idle CPU from user-space */
--	SCX_FAIL_IF(test_select_cpu_from_user(skel), "Failed to pick idle CPU");
--
--	/* Just sleeping is fine, plenty of scheduling events happening */
-+	if (test_select_cpu_from_user(skel, "empty mask", -1, true))
-+		goto out;
-+
-+	/* A legal candidate may be busy; selection need not succeed. */
-+	if (test_select_cpu_from_user(skel, "legal candidate", first, false))
-+		goto out;
-+
-+	if (second >= 0) {
-+		CPU_ZERO(&pinned);
-+		CPU_SET(first, &pinned);
-+		if (sched_setaffinity(0, sizeof(pinned), &pinned)) {
-+			SCX_ERR("Failed to pin task (%d)", errno);
-+			goto out;
-+		}
-+		if (test_select_cpu_from_user(skel, "disjoint masks", second, true))
-+			goto restore;
-+	} else {
-+		fprintf(stderr, "Skipping disjoint masks: need two allowed CPUs\n");
-+	}
-+
-+	/* Just sleeping is fine, plenty of scheduling events happening. */
- 	sleep(1);
--
--	SCX_EQ(skel->data->uei.kind, EXIT_KIND(SCX_EXIT_NONE));
-+	if (skel->data->uei.kind != EXIT_KIND(SCX_EXIT_NONE)) {
-+		SCX_ERR("Scheduler exited unexpectedly");
-+		goto restore;
-+	}
-+	status = SCX_TEST_PASS;
-+
-+restore:
-+	if (second >= 0 && sched_setaffinity(0, sizeof(original), &original)) {
-+		SCX_ERR("Failed to restore affinity (%d)", errno);
-+		status = SCX_TEST_FAIL;
-+	}
-+out:
- 	bpf_link__destroy(link);
--
--	return SCX_TEST_PASS;
-+	return status;
- }
- 
- static void cleanup(void *ctx)
+ 	conf->devlist = kvzalloc(array3_size(sizeof(struct md_rdev *),
+ 					     conf->nr_strip_zones,
+ 					     mddev->raid_disks),
 -- 
 2.55.0
 
