@@ -1,76 +1,77 @@
-Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com [209.85.222.51])
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3A7327AC57
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 20:17:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3695D363C63
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 20:17:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788725830; cv=none; b=THgJiDwwjC7K+hgYbTk5DRfyxZAZH+AC/yPJK81cufrEoXRfO5unXhmi68N3rZkqMjRUX/YqVlkofLatQ0GiGey4/3XF6XCmDNyGt7KekOfIBhAgBfnUhf9lx0st2lfDDat9UCixX47RCiRFiTyY9y6fH+av+eEFz5zn2IcwKts=
+	t=1788725840; cv=none; b=ElZcPTIZqcFJ6xXAhSLgb93OYT+mKWb2tYQIeEdJ81hNCMPKYytPX53qV6Iu/tfHuwI6DWQFKXvK5FnObu+NzhmoReh6iq8YUxyP/f3grrWR1J2qMf4l0UzCCwVfIrsg5sxPJePlXJEYmzuVaYYlcoWTksIy5InQsDSiMGb4DL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788725830; c=relaxed/simple;
-	bh=ykDPNgeE6ALCDtG9dIbJeisPavXCkocBpXkJWK5BPFc=;
+	s=arc-20240116; t=1788725840; c=relaxed/simple;
+	bh=TUt4IgCxtrSPH172R2/R8p3roroqSOduOa+0501w83A=;
 	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:Mime-Version:
-	 References:In-Reply-To; b=KYtbGaEzT3ZUEgIFAtRhKR8FkK+StldmH7cuIV7f79sRTC5OOqZt1GllaoOd+SFMnbbvqLcU+FmZ1Uv7z9wHUZzTok1SOvE32AVzubmz66p4ZxB/imsOxbJl7iDqkHYSg5Jk0drjbGvb2XaV8WqrRRaYNDPqzvyfjxGnFjH3axM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d0lW3qV8; arc=none smtp.client-ip=209.85.222.51
+	 References:In-Reply-To; b=q1MUMrF4JL16IMngqVCRTrqv7/avb8R2w+CjQENSJgEcj0ynYJGhX6db1y475TTFVMaY2LJXdizYdYsemoAIgs6+QMa5GM37Ev454XCohef7RsjacElBKxvhpI9z+KYO/qsj+CIMRf8oOVFHkAr0043rQvLsZDotcAJ32zkI3hw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rNBTDmmn; arc=none smtp.client-ip=209.85.217.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d0lW3qV8"
-Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-980c4258105so174498241.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 13:17:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rNBTDmmn"
+Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-783047c8464so2148308137.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 13:17:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788725827; x=1789330627; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788725838; x=1789330638; darn=vger.kernel.org;
         h=in-reply-to:references:content-transfer-encoding:mime-version:to
          :from:subject:cc:message-id:date:content-type:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=G71y+UDrFIT1z0z2AwWCoqvpruo2h+SQeZ7yG6rfDDQ=;
-        b=d0lW3qV8vMIQtpRJeOctIwZxiPL2OxRw1xN07JnLut9Vo2HpQXUX55E8Fjjg9QZo2g
-         tyWZ1ELwuiSNuFlQiF2Zv7MjYBkTrQMEcXv3UdHrfz2z7MfkcvMcfZG7LVAsafZFrIGx
-         icKTK9qz31pjtB4M09VVN1le5eGejZ/umhDVAtQiEKSdYjDzHgPLmv4yOuDTjF7oqD9u
-         m2UwNuGhKwSA+8oS7YtLnKY0Nh7L8J/v0SRihhZ2wdTkRX1meKX3LowDkjGlF07udSaw
-         K9eDe6yFpFuuI8x3yJlwy2mb1VO1D8HJO4koVHnSicGP4RX1xr7tRBHsZ/R4aQWbF7GE
-         qlMQ==
+        bh=FPcJdKOhEGIyKqoQExd+dXzrnHFFn879UVtG9q8zpck=;
+        b=rNBTDmmn0gWyg8hXGmA9c0qKadTeXlz46B+np9BjS9WYNX8nWz448l9OYnxkyKR7FW
+         lsRI3lAvE7IYSwCw6lrscRaDjg5HIhP18uOZBhC9ue6s7xN70HxkY96RDrhuf9ItrTdn
+         g4XshRZIsltf0vNKng4e58VHY2wCZloQ7IqH3Ig3mREQSgGdEcMp2YnqRlCZg8G3K41g
+         StVHCV1+04JKbt+EmtRM30iwoxMKShJyucXEHr9zo1HRY0CtfyoubdDzg82SegZxR3PZ
+         6QM8wWZvM2vm2La28fQXATLQORw1ODcO+X07FE5dKs5vCwUJQ4oliP2G2kZbUL/wIrOh
+         LzmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788725827; x=1789330627;
+        d=1e100.net; s=20251104; t=1788725838; x=1789330638;
         h=in-reply-to:references:content-transfer-encoding:mime-version:to
          :from:subject:cc:message-id:date:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=G71y+UDrFIT1z0z2AwWCoqvpruo2h+SQeZ7yG6rfDDQ=;
-        b=rWneELe/vTYzxGX71NxmDYtf7yUGJHOS1hxm0DN5eCOk72Dc/k/7JAi+SyAd4qFDpD
-         8TPSQPyGj0OGcSLYxvVgMoxORRUK4UgdKkhWfjJt6Unhz+YHOsn9DrSCGf9BD8UYi4RL
-         RJQ6XckfmxCBiTcm1I8wVxoKzMvXtRJ8k/tcRy78FSoY6JN38nCZ26Te+/ksuKEslFKc
-         5xKueB/EnrUGt2qZoqNi57tIODkez29RL8xmjQp2d6LNpv0g30K3U9v49GAJ/d86a3sg
-         P/STKDatHNzyJLn8aYiIytTC6WZgk6xUUUbbnyE4vfM50sCGHkU9xpFo6s6Oq1eU39eY
-         Y/rw==
-X-Forwarded-Encrypted: i=1; AKwUvBw2N9jKzjsyLH4hKxIRl+Y2XM+s26F+eGU+DMkTBMcPDLkoHwyuVdUjz/pPQShcidOt/3n5gzbLQO6wIho=@vger.kernel.org
-X-Gm-Message-State: AFuF++kTwrUNjtu7sBzN/fdNY/tEfby7WwzOdRgA8Edc5PFy7le3HV9i
-	fJ22fnCD06MOijkcjOpeL2Sokfmef9vvBWE17jPvvpSOdqm8q0fn4uz/
-X-Gm-Gg: AYBFou1U81laADscldadcrkAtfq//CunEO8o2YLHVHnSJkmAi/SHUjKUZ2MfvTBfXwf
-	18usyK77Cbk9W/ct/gW9vwLAXXdz0Fu4fQsU8EILNoLRbHf6uyWeC0lBsJbFFYqA1Q3AuP2cdWZ
-	anav0tKgGRkBMiEDUZpUPLY5R4EW88xP9EYjghvAIlenW8+Am0y1o9i2yZadFkRwigFesJ30ORu
-	zyxOO1GbySsGA/Yf1/k9lY0fGvrOnnNbsdMLPpySxy9W2pCjqZWh3jHOZfpMqIyjlK1tk9GZkbw
-	B1mJvDH4UrbS3J9KpWxzWmdOChydQH0y4j/X2xTl6PAhDnJQZ330zenNjwn6gRreawD74uL3nIF
-	2YOd1Bbg156jcxn1sK5qbeNgAmQGARUFBjodIPygfI8P1ENRAX9M+CKAMlkqcraRJWp7sgJTW1r
-	/aJdX3TViIIRVod14tnplFUr/ls1A/FRGDzt1mLy3NYQQj//d0SA==
-X-Received: by 2002:a05:6102:5e91:b0:784:b882:9567 with SMTP id ada2fe7eead31-78a4a9d9306mr7941864137.6.1788725826886;
-        Sun, 06 Sep 2026 13:17:06 -0700 (PDT)
+        bh=FPcJdKOhEGIyKqoQExd+dXzrnHFFn879UVtG9q8zpck=;
+        b=sM7DUb89qS50lR09mxpA19FEVW4P/d4MeHQraSh5GBXXIvN8bZTtUncHOMn5g484tX
+         TNXlKyoljKUdL/zvTqyPnS6bpzbSbgkFFNoTlFKWchbqZ3gIPsmFzs4VWumy7VVgl2bv
+         mLvwsk7sB/4hTbT//x3yn0wmjpR1BiR+IMYBdI2lU/qVYmMc7yPiVw3Si9mYzr70jJHH
+         97TfRd4AGkbrMfK/h+0CneDy4UBPXa7p33NAWHhk9yadt9AItZ9F1m98nWDJtloyi3tG
+         AIiJN+bjAdPujMbdVJ227Amln/m0qQ04eYJOIaSAhLnHQa0osYYzn19/PCYTRm0FyRWJ
+         msag==
+X-Forwarded-Encrypted: i=1; AKwUvByjOWpoc9nztVRleMO6ejFYvmoBBlkmyRpyrl4WDDWM5umXrzXr1rR5sMP5AnDwgYtXwaUzdVWxLPXuOPE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kB2FUydZT9jnmIzIcGrYeORzCGj4XnQJ83zLFaCknEf6NnVvHS
+	uF9yTeysDUQOR79See+XVAZzjKQVvta/ulxqdWw10FmOyITmRBDmSmy1
+X-Gm-Gg: AYBFou3PUkuBIGcGHJDgvKBvTGqU2aWVah3lMmGzwDIHpwYXH7XORS/YjnlhzRrqN6N
+	uctdg3Z7qGct+xNsQhHkfI+tkA/BshA48WioSf9p8krKEoU6HKT8XuVej49IZq6L/n4HIV+mmev
+	coz5B0OG8BuZc1K5quBKd1+pbtAJ/Y9LjBk3gvAT9PWafTM6QhWG6GkMc4izrqSuGCG7oKCulF+
+	Y1ukTtQVdfjvFLDdA3OH6lEumcPHq+oqrdyYAtUhUFsCYmgYtU1WxvGrPtazcCuwiQRwZ6+Uxg7
+	uZhhCKy6aW3lnbZ7rOh4yn5lP4ZhfwI3ZKwpg0m+SD0mrL9BTOYcSCX+WbViI+ceKslCR/AyFz6
+	w9Qg4jglF5Jmnn2jEcrWmSQ+byEryYOfA9MFxuRplvt4a58a5PsUGXWZYVyi7wwqFAzGRfx0Fpe
+	ZWFCsjmbWnHgYJW3IZpjpnQzhb8K2TWglRxLaUmtHcGg5gNEkBWQ==
+X-Received: by 2002:a05:6102:f8a:b0:786:c86c:8fe4 with SMTP id ada2fe7eead31-78a4ab73095mr7872878137.13.1788725838086;
+        Sun, 06 Sep 2026 13:17:18 -0700 (PDT)
 Received: from localhost ([2800:40:44:f1f5:f400:4c49:91c1:9905])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-78a478bb21esm5787085137.1.2026.09.06.13.17.03
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-78a47a76512sm5832057137.4.2026.09.06.13.17.15
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 06 Sep 2026 13:17:06 -0700 (PDT)
+        Sun, 06 Sep 2026 13:17:17 -0700 (PDT)
 Content-Type: text/plain; charset=UTF-8
-Date: Sun, 06 Sep 2026 17:17:02 -0300
-Message-Id: <DL8IDULL3UOW.1ASCQ859X5KV9@gmail.com>
-Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "David Lechner"
- <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- "Andy Shevchenko" <andy@kernel.org>, <linux-iio@vger.kernel.org>,
+Date: Sun, 06 Sep 2026 17:17:13 -0300
+Message-Id: <DL8IDZLLS2KT.31M9BO759E5H0@gmail.com>
+Cc: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy Shevchenko"
+ <andy@kernel.org>, <linux-iio@vger.kernel.org>,
  <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v4 04/10] iio: adc: ti-ads1262: support per-channel
- sampling frequency
+Subject: Re: [PATCH v4 02/10] dt-bindings: iio: adc: support the TI ADS126x
+ ADC family
 From: "Kurt Borja" <kuurtb@gmail.com>
-To: "Jonathan Cameron" <jic23@kernel.org>, "Kurt Borja" <kuurtb@gmail.com>
+To: "David Lechner" <dlechner@baylibre.com>, "Kurt Borja"
+ <kuurtb@gmail.com>, "Jonathan Cameron" <jic23@kernel.org>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,38 +81,92 @@ Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 X-Mailer: aerc 0.21.0-0-g5549850facc2
 References: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
- <20260828-ads126x-v4-4-1dc27e9c0260@gmail.com>
- <20260830032237.6c143d59@jic23-huawei>
-In-Reply-To: <20260830032237.6c143d59@jic23-huawei>
+ <20260828-ads126x-v4-2-1dc27e9c0260@gmail.com>
+ <aae42329-f531-41fc-80df-2cb5e445f1db@baylibre.com>
+In-Reply-To: <aae42329-f531-41fc-80df-2cb5e445f1db@baylibre.com>
 
-On Sat Aug 29, 2026 at 11:22 PM -03, Jonathan Cameron wrote:
-> On Fri, 28 Aug 2026 01:38:19 -0500
-> Kurt Borja <kuurtb@gmail.com> wrote:
->
->> Add per-channel sampling frequency support. The "available" attribute is
->> assigned per-channel too, in order to eventually support per-filter
->> availability.
+On Mon Aug 31, 2026 at 4:44 PM -03, David Lechner wrote:
+> On 8/28/26 1:38 AM, Kurt Borja wrote:
+>> The ADS1262 and ADS1263 are 32-bit, 38.4-kSPS delta-sigma ADCs with an
+>> integrated PGA, internal reference, excitation and burn-out current
+>> sources for sensor biasing and diagnostics. The ADS1263 is compatible
+>> with ADS1262, but includes a second auxiliary ADC (ADC2) to perform main
+>> channel (ADC1) cross-checking measurements, system background
+>> measurements, or temperature compensation of the primary sensor.
 >>=20
->> Signed-off-by: Kurt Borja <kuurtb@gmail.com>
 >
->>  struct ads1262 {
->>  	struct spi_device *spi;
->>  	struct regmap *regmap;
->>  	struct gpio_desc *start_gpiod;
->> +	size_t num_channels;
->> +	struct ads1262_channel *channels;
+> ...
 >
-> __counted_by_ptr() usable here?
+>> +  '#io-channel-cells':
+>> +    minimum: 1
+>> +    maximum: 2
+>> +    description: |
+>> +      The first cell selects the channel by its reg. The second cell se=
+lects
+>> +      between the main ADC (ADC1) and the auxiliary ADC (ADC2) as follo=
+ws:
+>> +        0: ADC1
+>> +        1: ADC2
+>> +
+>
+> I like the suggestion to make this always 2 cells. Makes it simpler. And
+> to put ADC first.
+>
+> And maybe make the first cell take 1, 2 so we don't have to make the
+> translation?
 
-I didn't know about that tag :o I'll use it.
+Sure!
 
 >
->>  	/* protects concurrent SPI transfers */
->>  	struct mutex xfer_lock;
->>  	/* protects channel state */
->> @@ -185,6 +195,8 @@ struct ads1262 {
+>
+>
+>> +  "^channel@[0-9a-f]+$":
+>> +    $ref: /schemas/iio/adc/adc.yaml#
+>> +    unevaluatedProperties: false
+>> +
+>
+> ...
+>
+>> +allOf:
+>> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            const: ti,ads1263
+>> +    then:
+>> +      properties:
+>> +        '#io-channel-cells':
+>> +          minimum: 1
+>> +          maximum: 2
+>> +      patternProperties:
+>> +        "^channel@[0-9]+$":
+>
+> These don't match the pattern above (missing a-f).
+>
+>> +          properties:
+>> +            reference-sources:
+>> +              minItems: 3
+>> +              maxItems: 3
+>> +              default: [internal-p, internal-n, internal]
+>> +    else:
+>> +      properties:
+>> +        '#io-channel-cells':
+>> +          const: 1
+>> +      patternProperties:
+>> +        "^channel@[0-9]+$":
+>> +          properties:
+>> +            reference-sources:
+>> +              minItems: 2
+>> +              maxItems: 2
+>> +              default: [internal-p, internal-n]
+>> +
+> With those fixed...
+>
+> Reviewed-by: David Lechner <dlechner@baylibre.com>
+
+Thanks David!
 
 --=20
 Thanks,
  ~ Kurt
-
