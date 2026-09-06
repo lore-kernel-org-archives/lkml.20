@@ -1,139 +1,106 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89DEA368941
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 03:56:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C679376A0D;
+	Sun,  6 Sep 2026 03:59:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788666996; cv=none; b=ExmHSM5uIJ6X7FdTVnNztWS1ow2G5oGCcUOcBFJ+LM4m5JCsTm2BUEmXZ+H7eMzmesQZAGe41TAqBqaeVcM8bUSNLWCTDjjsDumHVyVV2/p5y53z/LSrE/WM3es0v0I+Yn5fZ6UxVx4e5x6N5B+sAKOXRDiLTviapiHDPIJ70bw=
+	t=1788667176; cv=none; b=uETFo8VBdtyGd4S2A5qyTN3Nl7JD/Jh4xj39UfUzxXgncmoI1LfHl6lZItrQgBZbbFfuHTY6RINgyXcb48a+yijThorh2ZdNaulmwd1OyfQdvrxfBe4jaqFO7cfvGykA99OqDDtKhgHewbNERUnvfX8UAofHSebnXt6AHI3eqNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788666996; c=relaxed/simple;
-	bh=LndMqLWFndpBATKF4p0N6KzAWh+u0BMEBf9KkfFIjZ0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=B0v4CnY5DlSzNxYQfIA/mdZuoXa5k9RHV8apW5A6ZrdfKNHqwXbGupLpC9hSfd2GXs/yo2M/8WlmaoIrMvBIKzLbgldwleZ9yQ/ZubxRJIAcKASXL1QMOObD10yZOY5Uuu7Bl92o4YO9rxgDAOgfXgYzDvj/sVJ4tqj8gz5JQZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MZjEttDM; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788667176; c=relaxed/simple;
+	bh=tpOBTkgwm34vmaOj6fGADkYGl1oS7L4L14EhHivTxNI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=u3Qa5NukjTqdUob+as9YXCReplMTp25G+33D8XCKksqoSOU24NMME4yOPyr6+b1UGPTLI44npptleRyqT04QkpEfSLSFFuI8iQA8tEw2Ew71MRUci9zNlPj8u4iYdAVEtSpbpWKifs+H1Z70VlnDda2WHmV4GPLvXgV1lrufs1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a0R9OhdC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MZjEttDM"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2d9520b9155so20372105ad.3
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 20:56:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788666995; x=1789271795; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BFIuZ6zIqPPlmMH3AGzmZi9cqGjx6Zhr5KeBymliPYQ=;
-        b=MZjEttDMy7Dvw8zOi2tx0dQNIE4pNH0685um2XrQ6fxQ669UkC/bbSIfuExUYtEINS
-         XeZQJ3IIuq1XyXaEh15V0xLBWRrQoFEPXKqGSto8eBUDH++YNVbGZ2jcGtGbDU56zRee
-         ZI9n6gZ7gvkvuYZ1pdUGDxaHdG81oSQa+Y4Gp2W2I//wz6Tn4plm3C+PRvSHZmcRV9o8
-         5GFvD2drcqqlyplTKOPsNKnIzueKnszfFZWk2UHNYVIHw6OuTzIEP0687OZfFSgwNeB6
-         vaXvaNIv1s1966/EwAQkiMJXSBU+Kz6DCV+U26nWRv8VHyTebKZ6PIMPez8fshuV/4Vt
-         8/qA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788666995; x=1789271795;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BFIuZ6zIqPPlmMH3AGzmZi9cqGjx6Zhr5KeBymliPYQ=;
-        b=cms9dO8MaOUzkXFSuqxnPelk85dHPUpN6sRlCmINH0A4YQUtf3ZDlo7aDzYjP3Aukn
-         GrnRY8IjdzJeDy/mnK7jIwwAWnhWLhx7jVxNT4Z5Uglk07W1SvEVsZ+y49SnnFH47xhg
-         OrV2fg/7GeV01jrdG862S97xVUnuNoPDJN5BX2BCtaoeHAtPs0nIBzlyOMlMkc3EB/TX
-         ah5UH6Dk06w7/ddrDufGOphu2+yIDoOgRhIZwd2Gikx8mLcAdv/y1XVgjDz26fO4NF2q
-         1cuiUkSJaJXemJaB6ybDZO6zDPrOM7fZu0ec5Z4W1wRy4t4V8UP5M7oqBRFEHPE1JHv0
-         qg+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy6fSN20H/BIdxLBTjqM8Vr++83uYQfZX5qSbJswj9FPtZzH6M2x2kvxr50Q78iKj58QENO5ZkxHHB0hTs=@vger.kernel.org
-X-Gm-Message-State: AFuF++ngUmFDk5sLt1+dD2YfjvGFDTVc9NJla6U9/94sDMK60S8hNO+e
-	/TkFpuWz4FnXZNmPaqk+pnyb2H/b04uFFhFqXDLyOCrWOornb/rkoNc5
-X-Gm-Gg: AYBFou04W7iCrIBcpYQQzJCH1Wd5piqIbYSZLGenpK+OUcbncIupUma9RJtOYgCuOnX
-	EuQrTPOrq1fPcgx5DStLbYJvl0DsOlZFV3aHHd99GRqYf3nHKLt3peMfGOAWF5Rn8tDMBKOKDGS
-	PP0v0BeDTAhJLTq1s9vxVtcNboC2rmdMO3bAWBm6WkwUXy1zsia73fZaOxuq3kD+YgZoIXLjx7u
-	ceN6qa3VKAwd6+4LFHf9PC1VM8QHVz1NEEFR7Vt18wn2NxLXfreSpgO9+4N582Ms+4hhmaWC/Iu
-	coJedJ/1zf+/cNWfLEzNIoQi4FLEabYYGSgUlJBWCoI3/ycQUkZ05D1omcXzOLNBy6WeM2WpwE0
-	CY2ZoJ2wKiEunyrcaDyeX2k7QjCB2YqeF+7c1dU5hmm3vaWisTZVfbMdczhnah8ZaYNuNFbZ1Qw
-	ABywhhI+OAsYCD9Pv6zTIX67avYZbkH0oxkeUq5+YOiRVgmiJzvajXHGqwntyPcqtQIb5VPXoge
-	XWGVtG/gX25VjLX
-X-Received: by 2002:a17:903:2302:b0:2d9:3365:7f48 with SMTP id d9443c01a7336-2db127c0b2bmr222747835ad.14.1788666994824;
-        Sat, 05 Sep 2026 20:56:34 -0700 (PDT)
-Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db149c2850sm28176825ad.62.2026.09.05.20.56.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 20:56:34 -0700 (PDT)
-From: Bo Zhang <zhangbo0325@gmail.com>
-X-Google-Original-From: Bo Zhang <zhangbo56@xiaomi.com>
-To: akpm@linux-foundation.org
-Cc: hannes@cmpxchg.org,
-	baohua@kernel.org,
-	kasong@tencent.com,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	david@kernel.org,
-	mhocko@kernel.org,
-	ljs@kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] mm: vmscan: avoid anon scanning for GFP_NOIO with low swapcache
-Date: Sun,  6 Sep 2026 11:56:03 +0800
-Message-Id: <20260906035603.399231-1-zhangbo56@xiaomi.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260905194602.b88f549b9462033e40336db6@linux-foundation.org>
-References: <20260905194602.b88f549b9462033e40336db6@linux-foundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a0R9OhdC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A9381F00A3D;
+	Sun,  6 Sep 2026 03:59:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788667174;
+	bh=nlEbUCH2XBeyiQyt5in7cjrJTml4RuflNdbvr6PEe7o=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=a0R9OhdC9rOwpkBGD1JJFqDUYzFZ5NghcnNMqqdVjV+EJVT8ygv905Mc7ZYnfQE0g
+	 rSDZj4xxHxYfVIQDQrBvSBF/gQoD6aYcnbz0Tdv7KOAJuDT0QG+XgyHyTbLxpajJBZ
+	 jJgh8HkVOqK97YMezLCr+Pgw8pC8vmYTlmAcfVLomuU3cAvOIz3/5EHTy0+Olv8BcV
+	 T1Ai+hLtaHUytYrVgHXcI/7grl8gMF8cewjPbzmvCytF6B8UzKnJCYDkeXPgn7054o
+	 P4WNc7VrE5SHO/UuS9rc045XYZs1UyMklYUz/3MtmrddAIl7wiGxAd1qK7EaHJMWz4
+	 Y6WeGXIFiQp1g==
+Date: Sun, 6 Sep 2026 04:59:29 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Tsz Shan Chan <tsz.chan.dev@gmail.com>
+Cc: Subhajit Ghosh <subhajit.ghosh@tweaklogic.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Andy Shevchenko
+ <andriy.shevchenko@intel.com>, Tsz Shan Chan <tchan@jacques.com.au>
+Subject: Re: [PATCH v3] iio: light: apds9306: fix default sampling frequency
+ definition
+Message-ID: <20260906045929.0a1c46fd@jic23-huawei>
+In-Reply-To: <20260904-apds9306-v3-1-4f668393c2ae@jacques.com.au>
+References: <20260904-apds9306-v3-1-4f668393c2ae@jacques.com.au>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thanks a lot for the review, Andrew - much appreciated.
+On Fri, 04 Sep 2026 11:19:48 +1000
+Tsz Shan Chan <tsz.chan.dev@gmail.com> wrote:
 
-On Sat, 5 Sep 2026 19:46:02 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
-> > To stay conservative, this only skips anon when the swapcache is really
-> > tiny - below 1/64 of the anon LRU - i.e. when essentially no anon on the
-> > list can be reclaimed without IO. Whenever there is a meaningful amount of
-> > swapcached anon, the normal path is used and anon is scanned and aged as
-> > before.
->
-> Argh.  The thing about magic numbers is that they're always suboptimal
-> for everyone.  But I understand that a full-on dynamic tuning setup is
-> a big project and hopefully not worthwhile.  And yet another /proc knob
-> would require quite some justification.
+> APDS9306_SAMP_FREQ_10HZ is defined as 0.
+> 
+> According to the datasheet (Broadcom AV02-4755EN, page 11,
+> ALS_MEAS_RATE), bits[2:0] set the measurement rate:
+> - 000: 25ms  (40Hz)
+> - 001: 20ms  (20Hz)
+> - 010: 100ms (10Hz)
+> 
+> Change APDS9306_SAMP_FREQ_10HZ from 0 to 2 to write the correct value
+> for 10Hz.
+> 
+> Datasheet: https://docs.broadcom.com/doc/AV02-4755EN
+> Fixes: 620d1e6c7a3f ("iio: light: Add support for APDS9306 Light Sensor")
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> Signed-off-by: Tsz Shan Chan <tchan@jacques.com.au>
+Looks correct to me, but as driver is only a few years old, I'll leave 
+some time to see if Subhajit is still about to take a look.
 
-Agreed - a full dynamic tuning setup would be complex, and I'd rather not
-add a knob for this either. For now this uses a conservative threshold to
-catch only the case where anon is effectively unreclaimable; the reasoning
-is explained in the function comment (below).
+Jonathan
+> ---
+> Changes in v3:
+> - Move datasheet URL to datasheet tag in the commit message
+> - Link to v2: https://lore.kernel.org/r/20260903-apds9306-v2-1-e8673986ae56@jacques.com.au
+> 
+> Changes in v2:
+> - Add datasheet link to commit message
+> - Remove blank line in the tag block
+> - Link to v1: https://lore.kernel.org/r/20260903-apds9306-v1-1-3f892aa4f156@jacques.com.au
+> ---
+>  drivers/iio/light/apds9306.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/iio/light/apds9306.c b/drivers/iio/light/apds9306.c
+> index f681b02e4922..7dd41136734f 100644
+> --- a/drivers/iio/light/apds9306.c
+> +++ b/drivers/iio/light/apds9306.c
+> @@ -61,7 +61,7 @@
+>  #define APDS9306_NUM_REPEAT_RATES	7
+>  #define APDS9306_INT_SRC_CLEAR	0
+>  #define APDS9306_INT_SRC_ALS	1
+> -#define APDS9306_SAMP_FREQ_10HZ	0
+> +#define APDS9306_SAMP_FREQ_10HZ	2
+>  
+>  /**
+>   * struct part_id_gts_multiplier - Part no. and corresponding gts multiplier
+> 
+> ---
+> base-commit: 940de590b839f71d6dc846160534bf202401b8b7
+> change-id: 20260903-apds9306-bedba7b74e59
+> 
+> Best regards,
 
-> I think this function deserves a comment.  One which explains why isn't
-> doing what it does rather than what it does.  That comment would
-> highlight the heuristic and explain the thinking behind it.
-
-Done in v3. The comment now explains the "why": a !__GFP_IO reclaimer can
-only reclaim anon already in the swapcache, so when swapcache is far below
-the anon LRU, scanning anon reclaims nothing and only burns CPU - and the
-aging it would have done is merely deferred to later __GFP_IO reclaimers.
-It also notes that 1/64 is a conservative "negligible swapcache" threshold.
-
-> Also, AI review asks "does reclaimable_anon_is_low() incorrectly use
-> root memcg statistics instead of node-wide statistics during global
-> memory reclaim?".
-
-Good catch - it did, and I've fixed it in v3.
-
-For memcg reclaim, can_reclaim_anon_pages() is called per-memcg (memcg is
-the concrete cgroup being scanned), so using its lruvec stats is correct.
-But for global reclaim it is also called with memcg == NULL - e.g. from
-set_initial_priority() - and there mem_cgroup_lruvec(NULL) resolves to the
-root memcg, whose stats exclude the child cgroups where most anon lives.
-That could make the check fire on the root's tiny stats even when the node
-has plenty of anon and swapcache elsewhere.
-
-v3 splits the two cases: use the memcg's lruvec stats when memcg is set,
-and node_page_state() when memcg == NULL, matching the node-wide view its
-global callers already use for the file side.
-
-I'll send v3 with these changes.
-
-Thanks,
-Bo
