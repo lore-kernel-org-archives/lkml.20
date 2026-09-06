@@ -1,133 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36A181A2C04;
-	Sun,  6 Sep 2026 09:30:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A0A8313552
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 09:31:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788687038; cv=none; b=tLsodyt/Ob+zNxCZLvZHGJpZw/YJvZGyhERh7enM3t0+y24v0YmZvOhDAJVu9+t/eyyYRqAAGqOS/u0aJQlnSKv/0+jt0IAu8z6ZakqMHJ3YFVCQLRWVgK08EVqb2S73B3Kw4hYqk80/t/S50m6SlQPo5OPajwrxYAXktqgzoVg=
+	t=1788687109; cv=none; b=C4jETL0y6Ldfsp/W1djDPkgJCYQz4H5gwJKx7GqrZr6kaAmdB8cac6jqp6Apbfkuk/jqtW1f+J/W2SEHHt4SyWRkSlP5KVGFD9hSpu/iE8fbaIhGlpv4GEjIRuBYe3z1gKlUXJTlEXZ0qX5Xsu9eys4AhnXt1QyYu5EwjNfCPs4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788687038; c=relaxed/simple;
-	bh=1aH/O/nXGmguu/sbyzKfjo4n+RaPBUSNb01FLutqxDY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jKAtdq3PKVkvQT7MEwuXg9k9ew1trS9c66Gyhk0ZLOAVeu2bjqghMo0AJlYkMFhC/TNKWKtvwtM3n3WtCFVy4FFsPnW3lfhqAx3SQ61pMQW7DHjMc69haCJBFGRIXG8DRQPHyEzKQPLW1Owx25E5VYL4WqVMOeOm++703De/HdU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WCYjFxcZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788687109; c=relaxed/simple;
+	bh=cT4XTZr2Zl4x9V5f6a8LNpWLZ0yDGRLsSaT2C79YTYI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rEKYWURxrLaByssBKrAotDoXB3a/G6Ybdsgy2rdElA/t9SEC8uYtW/m7zAyYhqEivNIzzaXle403ZnqSgscVwJdEj8QphXmd9G7miwGwnLZ+a/HsaI7/ewZkENehAHs5eOS6ex+E1KDCyx9xS1G99xNf9vBE7wB60cFBlyxNAjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SERjp8Q8; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WCYjFxcZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EBC51F00A3A;
-	Sun,  6 Sep 2026 09:30:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788687037;
-	bh=Nx2JQF+OxPCsyKg0a0cwCiG38AC7FzKH63fy02rceHk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WCYjFxcZZC8ovxw2hzzEqPqdVHKVt7/yMDVT5q/x3O4BwX59w/9CeVpqQWBX4y4L6
-	 rO9BM8FVs6FjesgtnpFYRGz+a/LXFzlXMuZb0ePHijEmqpPrAVjThC6G3eo6J4tOk2
-	 FfQO87tlKwXgye1oNhIfEQ9W/mEpFH0XNscMJ19mHogxNkztlJI5SMelpOp1OV4oif
-	 E8dbbuIeaA8wMQF0HReFH/xqG06fCiwAE0wsYQAJD0Qjaa5Zrw2UWi3vFO6zb4itgl
-	 SoxazbzlxSafW87vru+RvTPn+b8cOcta5uJ4Pt9UDvhi4TWirT727k70eoBGbRoEIA
-	 Lg8W8CUJi9rjQ==
-Date: Sun, 6 Sep 2026 12:30:30 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Serhat Kumral <serhatkumral1@gmail.com>
-Cc: Bart Van Assche <bvanassche@acm.org>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Sagi Grimberg <sagi@grimberg.me>, linux-rdma@vger.kernel.org,
-	target-devel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] RDMA/srpt: Clamp the CQ size request to max_cqe
-Message-ID: <20260906093030.GD13683@unreal>
-References: <20260904200240.48976-1-serhatkumral1@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SERjp8Q8"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so34354715e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 02:31:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788687106; x=1789291906; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PmkO3zaW5vPGMp4KXQ0+SoyDXDy+0wxf1IpxDkK3d3Y=;
+        b=SERjp8Q8isQwWDmiuFbsVKFph5TVmgb8fm7Cg7+HVESLkmPxKNk7HTT0twRPg45Tgq
+         NDdc1+vifUgYD1BMR6r0qszyU9X50NFz0OWQSuWdMqvYZgFVSxUpNle8znKYxo8FFUtC
+         Z2BlMRKpvNeyWRLr3bExMXklmJhyaiUuBjj9H03LivrbUseD2paukepMrsq3xI1q/UCy
+         woRLpFCH5FLXTBvHkzTfwNgCm/oBXIONH/4qvhcDGE2AZYP6LCHb1uWIEt+LyymYEHD5
+         i+hqWgGpW7Vou2RPCA7S4QQmItMn5B0/kWQzhFfXxUfDWQtTaRIHhTijSOYlbaLYnyBU
+         EmZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788687106; x=1789291906;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PmkO3zaW5vPGMp4KXQ0+SoyDXDy+0wxf1IpxDkK3d3Y=;
+        b=Uec1XO1BdSO2LtHL6tgtxV0+xqaDmDLjdOe/P3mZv0Jk8CzRM8DwyxXAw0192fJZRq
+         FhxsBWxKjFdfwaDlEqv98mVjad9qoE0V3otTo+5IWvlgGmdzJGg5sDJ27lSHuZzRACsl
+         4qfQehZS8WxrWvgmqCw8wl83zmBoBPPU0gtME0/rCHfjhhqtIKouJNN9YOg8VddkZRqD
+         /CF1h4OzRCSSEWRdgbJ5D79ug8fYuA7tT77p2N6fkjmIvuGaskXtIXuecU8bxWP3mVyU
+         cAPqDsA6Mq0rF3wnuEQkr0PRLT91vaXILM9zspIiMQBTOtyHrW1b06N6lm+CXxYLb2hV
+         9/5A==
+X-Forwarded-Encrypted: i=1; AKwUvBwKFolM/1DcEqjMIeCc/ekSQ7ZHmCdto3lE0WFNZZpQHVBBZUiIFo3yTlabvsbnYKktG969K3pVzgDSTcA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nTJKb9dVHHrvFaQ0dqtrZno42ZHFb0gr55DMOH4zB9//c/IxVj
+	sN7hf+6CP9jbYYS2CZtzlU7qqAAusMhz0wDCLGN5ztic8w9SHkxK4Szo
+X-Gm-Gg: AYBFou0v00AebGxoBx2ejQEObtVrWWEO3ZuDDD1x1Ko4Btr7JdDQypVpSRDm90kVhz5
+	INoU3gyA0hv++sk065Pgw+FLk5qpamNhJSIlmapX+jkdaFwv9+V9/zQXZtY3d0rG5h1jKQJMs8I
+	/kAw4Tsgpd7YdH036MKQhaHErttt/n3vTrNhRo6M2dpuVe0E3ffHKX1bPLVMhdbCxxNsYGlWV/E
+	nqhQB747wAXpgg1Mb6rACUSDaBdDsctFWh6E2BpLoxvyD/8jWXrDujG7ll0lLJA3eRVTsM2HQCw
+	Kvn0eXWOzNwLDDbVyIixBnnndehYHEodqNszt5QlNpUpB0KpZf5eycQb0qePTyffc7dEdcSKJH+
+	3vonRPm1zH8g2piBQ1iDv7f5EpbChACMGgi1YqDGu5l/45znXFmXfNrKcifc5lcSD3jHsZWIE2n
+	BSrT/YqQMOjj7I2MzfJjjMhLD9VmCAzVc7gbex70D8gVB7ju7Q/HnvN7Nvcg1dIW1lhnbh32GFN
+	QjC2HTb9fJi7qxfFCf2Jq4lODpzvt0Qw2ou6UWWQrkEqhRjeAzkvwQ0uT28suFiAek=
+X-Received: by 2002:a05:600c:358a:b0:49c:dada:30b7 with SMTP id 5b1f17b1804b1-49cf82070famr162424505e9.2.1788687106045;
+        Sun, 06 Sep 2026 02:31:46 -0700 (PDT)
+Received: from shift.daheim (p200300d5ff3cee0050f496fffe46beef.dip0.t-ipconnect.de. [2003:d5:ff3c:ee00:50f4:96ff:fe46:beef])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce58da3acsm667668245e9.0.2026.09.06.02.31.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 02:31:45 -0700 (PDT)
+Received: from localhost ([127.0.0.1])
+	by shift with esmtp (Exim 4.100)
+	(envelope-from <chunkeey@gmail.com>)
+	id 1x39E0-000000006OV-1Azc;
+	Sun, 06 Sep 2026 11:31:44 +0200
+Message-ID: <f3eb0dfe-3b9c-483b-b802-2207fe8b747b@gmail.com>
+Date: Sun, 6 Sep 2026 11:31:44 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904200240.48976-1-serhatkumral1@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] wifi: p54: validate curve data length in the
+ calibration curve converters
+To: Shengzhuo Wei <me@cherr.cc>, "David S. Miller" <davem@davemloft.net>,
+ "John W. Linville" <linville@tuxdriver.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260831-p54-pda-validation-v2-0-dae566b388c8@cherr.cc>
+ <20260831-p54-pda-validation-v2-1-dae566b388c8@cherr.cc>
+Content-Language: de-DE
+From: Christian Lamparter <chunkeey@gmail.com>
+In-Reply-To: <20260831-p54-pda-validation-v2-1-dae566b388c8@cherr.cc>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 04, 2026 at 11:02:40PM +0300, Serhat Kumral wrote:
-> srpt_create_ch_ib() asks ib_cq_pool_get() for ch->rq_size + sq_size
-> completion queue entries. rq_size is bounded by max_qp_wr, but sq_size
-> comes from the per-port srp_sq_size configfs attribute, which is only
-> validated against MAX_SRPT_SRQ_SIZE (65535) and never compared with
-> dev->attrs.max_cqe. The largest configuration srpt accepts therefore
-> asks for 128 + 65535 = 65663 entries, while rxe caps max_cqe at 32767
-> and cxgb4 and ionic are in the same range.
+Hi,
+
+On 8/30/26 8:42 PM, Shengzhuo Wei wrote:
+> p54_convert_rev0() and p54_convert_rev1() read calibration curve
+> data from the device-supplied EEPROM entry using channel and
+> points-per-channel counts taken verbatim from that same entry, so
+> an entry that declares more data than it carries drives an
+> out-of-bounds read past the EEPROM buffer (verified with a KASAN
+> reproducer of the conversion loop). The sibling converters
+> p54_convert_output_limits() and p54_convert_db() already validate
+> their counts against the entry length; this path was missed.
 > 
-> Such a request cannot be met, and ib_cq_pool_get() does not reject it.
-> It clamps every CQ it creates to max_cqe, so no CQ it adds to the pool
-> can ever fit the request, and it keeps allocating batches until the
-> allocation fails. A single SRP login against such a target exhausts
-> memory:
+> Reject the entry when the counts do not fit in the entry data.
 > 
->   Out of memory and no killable processes...
->   Kernel panic - not syncing: System is deadlocked on memory
->   Workqueue: ib_cm cm_work_handler
->   Call Trace:
->    __vmalloc_node_range_noprof
->    vmalloc_user_noprof
->    rxe_queue_init
->    rxe_cq_from_init
->    rxe_create_cq
->    __ib_alloc_cq
->    ib_cq_pool_get
->    srpt_cm_req_recv.cold
-> 
-> Before commit c804af2c1d31 ("IB/srpt: use new shared CQ mechanism") the
-> same request went to ib_alloc_cq_any(), which rejected it with -EINVAL.
-> 
-> The existing backoff, which halves sq_size when queue pair creation
-> fails, only runs after ib_cq_pool_get() has returned, so shrink sq_size
-> before asking for the CQ. rq_size never exceeds MAX_SRPT_RQ_SIZE (128),
-> far below the max_cqe any device reports in practice, so the
-> subtraction does not underflow. With the clamp the same login proceeds
-> exactly like a correctly sized target.
-> 
-> Fixes: c804af2c1d31 ("IB/srpt: use new shared CQ mechanism")
-> Signed-off-by: Serhat Kumral <serhatkumral1@gmail.com>
+> Fixes: eff1a59c48e3 ("[P54]: add mac80211-based driver for prism54 softmac hardware")
+> Cc: stable@vger.kernel.org
+> Assisted-by: GLM:5.3
+> Signed-off-by: Shengzhuo Wei <me@cherr.cc>
 > ---
-> Changes since v1:
-> - Move the fix from the RDMA core to ib_srpt, as requested by Leon
->   Romanovsky.
-> - Clamp sq_size before the CQ request instead of rejecting oversized
->   requests in ib_cq_pool_get().
+>   drivers/net/wireless/intersil/p54/eeprom.c | 19 +++++++++++++++----
+>   1 file changed, 15 insertions(+), 4 deletions(-)
 > 
-> v1: https://lore.kernel.org/linux-rdma/20260831171354.72140-1-serhatkumral1@gmail.com/
-> 
->  drivers/infiniband/ulp/srpt/ib_srpt.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/infiniband/ulp/srpt/ib_srpt.c b/drivers/infiniband/ulp/srpt/ib_srpt.c
-> index 7197d95f2216..58064a4c606b 100644
-> --- a/drivers/infiniband/ulp/srpt/ib_srpt.c
-> +++ b/drivers/infiniband/ulp/srpt/ib_srpt.c
-> @@ -1867,6 +1867,13 @@ static int srpt_create_ch_ib(struct srpt_rdma_ch *ch)
->  	if (!qp_init)
->  		goto out;
->  
-> +	/* The send and receive queues share a single CQ. */
-> +	if (ch->rq_size + sq_size > attrs->max_cqe) {
-> +		sq_size = attrs->max_cqe - ch->rq_size;
-
-I don't think that Sashiko concern is real
-https://sashiko.dev/#/patchset/20260904200240.48976-1-serhatkumral1@gmail.com
-but it is worth to write it in a way to avoid triggering this warning.
-
-For example
-/* Catch drivers that incorrectly set ch->rq_size */
-WARN_ON_ONCE(attrs->max_cqe < ch->rq_size)
-
-Thanks
-
-> +		pr_debug("reduced sq_size to %u because max_cqe is %u\n",
-> +			 sq_size, attrs->max_cqe);
-> +	}
+> diff --git a/drivers/net/wireless/intersil/p54/eeprom.c b/drivers/net/wireless/intersil/p54/eeprom.c
+> index 95580921d933..0dc848d77c5e 100644
+> --- a/drivers/net/wireless/intersil/p54/eeprom.c
+> +++ b/drivers/net/wireless/intersil/p54/eeprom.c
+> @@ -414,17 +414,22 @@ static int p54_generate_channel_lists(struct ieee80211_hw *dev)
+>   }
+>   
+>   static int p54_convert_rev0(struct ieee80211_hw *dev,
+> -			    struct pda_pa_curve_data *curve_data)
+> +			    struct pda_pa_curve_data *curve_data, size_t len)
+>   {
+>   	struct p54_common *priv = dev->priv;
+>   	struct p54_pa_curve_data_sample *dst;
+>   	struct pda_pa_curve_data_sample_rev0 *src;
+> +	size_t needed = curve_data->channels *
+> +		(sizeof(*src) * curve_data->points_per_channel + 2);
+>   	size_t cd_len = sizeof(*curve_data) +
+>   		(curve_data->points_per_channel*sizeof(*dst) + 2) *
+>   		 curve_data->channels;
+>   	unsigned int i, j;
+>   	void *source, *target;
+>   
+> +	if (len < sizeof(*curve_data) + needed)
+> +		return -EINVAL;
 > +
->  retry:
->  	ch->cq = ib_cq_pool_get(sdev->device, ch->rq_size + sq_size, -1,
->  				 IB_POLL_WORKQUEUE);
-> 
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> -- 
-> 2.53.0
-> 
+
+Hmm, Puh. Interessting. Several things. But yeah, this should work.
+
+Acked-by: Christian Lamparter <chunkeey@gmail.com>
+
+Still I have some questions: Did you write/touch any of this yourself?
+Or is this patch straight from the model?
+
+It's because I can grok (heh) why "needed" ended up as a separate variable next to cd_len.
+But why was the sizeof(*curve_data) not included there too? It's only used once in the
+if check so and this sounds like the "needed" needed some extra? Maybe because it was
+already checked?
+
+Well, I'm positive there will be an update from someone else to make it look "neat".
+Probably they will complain that it looks like this functions use curve_data->points_per_channel
+and curve_data->channels without being checked... Only to find out that it was checked already
+because the code needs to know the revision before actually calling the functions and this all
+being part of the information struct.
+
+oh, well.
