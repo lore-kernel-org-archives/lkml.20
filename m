@@ -1,72 +1,301 @@
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DA72255F2D
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 04:04:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 390B73C98BF
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 04:07:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788667445; cv=none; b=Zi2HfMSTyVCsw5YwAEEdbqxy0NzXFI21rDXAXIrFPd12GSGxk9lKEhe+A1WDO2Q/O3QvbwgwgeaxYPRrv2hflMGTSbAPU6SWsMBtN76qlzwjs80RW7ypKThiaT+0gBI9YPeo1e+F+MKSTZviD08/1Vo3E7JND6QahF4Uvw6xHy8=
+	t=1788667637; cv=none; b=GNq3Pqv7j7GzUZ7ViLZC0tcnjTdFAGjcPH6yfUtrIymAy3yb7Vu3oeDzC5hXpor7N4n7cfYZksxGfQSJwdvAE4p0l02ac7IyUlELXwHc0DezrjAlZgNx7h/WA0pU1jAJx/3+CFBpGLN5Jeqjyrd3W6/9jrKIB4Xx62C8NURopaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788667445; c=relaxed/simple;
-	bh=/BkRM+kd3UH6ADUy1SCmqHezpLUvPqidAL20WhD8qJY=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=sRhBDCY0sFrMI4dmeZHQ8rbB5JIhK4cbtVRSlxf2jlCcAgqFuzobsGk2Q8FtIOW2930mp0hB6WXwCyNZKrfLCYj+3g4iHH3EAjBadkKCArj0GI8fO3hfu46INLCZqvLcYiQlwYBDQj37sCetKGa689E974ix3aF3J9ZIacN4wVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-7e7624e584dso3304548a34.2
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 21:04:03 -0700 (PDT)
+	s=arc-20240116; t=1788667637; c=relaxed/simple;
+	bh=urZRa0Lfe+xl3SjCEj+L3fJXmoqIEoagmk55A23lm9E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H3Sv+iOR+1dH2ofXTQsS63LTiaqeBwVkTpsEBegj/jptS4UW6gXrh1njWj2WwHM98ASr5DTdhjsV+xG7GgncNpKW6Jjpbrmqc16OQx5SoE8JGMhTeB/MGUL/itleam4/RTFicjqY5K68GtSapbdHHwponuhUYG9QAQDiJQEIgFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=c6vDARq0; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=nA7J2VOD; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="c6vDARq0";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="nA7J2VOD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788667635;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ByaWx9fs3FmH7s/refQwfhbkWp4eQ2bqZDqw/zD/lsU=;
+	b=c6vDARq0BOCWqholW9Z2N9O7PLNBmcxllXXLqvnVF6H79IMuph7nrRqlcyejr+2krgDogm
+	ti+lZV7eup51Oc0lHhn4QPFYSUCLZGWC06LW9Zzf7pj3rHYgj8V10j3bpNpaMiIVR0zNPE
+	2QDUyNbcyuy+GjpPO2z/GsSt7r5W7Iw=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-632-RLp-Ie8ZMmOAX88bSbJ9VA-1; Sun, 06 Sep 2026 00:07:12 -0400
+X-MC-Unique: RLp-Ie8ZMmOAX88bSbJ9VA-1
+X-Mimecast-MFC-AGG-ID: RLp-Ie8ZMmOAX88bSbJ9VA_1788667630
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4994d67d0e3so16031685e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 21:07:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788667630; x=1789272430; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ByaWx9fs3FmH7s/refQwfhbkWp4eQ2bqZDqw/zD/lsU=;
+        b=nA7J2VODqTbAlTYv8IG0oKKJ81YVQpSzhKbRwGr+vClba96Pt7EMgJdx4cv6DcJBvP
+         PRzON8AZGtad51CAU+0DI0DgVYHKFom2iDo/xa7yLFocoWxqfNtMwDSX0rArxGSPAsGq
+         520mLuJfBArEhHkfC5svrCyVbYR38h41oDA/k92ycUw29WzSpOkbvzmobeK0abAS+css
+         aoJ5EipFwYpn7IAd2sR+97wvfMDXYHQ3sMOC4XXLSThdzdNbHVVKmNYchub/wJ/h8SqS
+         rmfrsP6Jvvi/QxuHzJF78B8+PvswcdIUp+jO2b2VJ5cDlkXOEG4a473prD/0tY7OmG+7
+         X0iQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788667443; x=1789272243;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20251104; t=1788667630; x=1789272430;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=0JDADGVkVCAm4c1zBv1Yj2Z385AGCyEpyhQ3VS/GZzs=;
-        b=JqZ2EBul+MSaIxiyvHNA1zBHAgFou6apAitb4+gMfqRB6P8YVq7JFz5w8N29etNTtP
-         RRQ/Ou0AMSYUNVtD0jUGWOtKL/2HV7eG4tABn11p/rgFniFq/sON6OdRiKBnnoz1oMEI
-         9Hjow51sp3CWydb8kUzu/kf/eChhBwa6XVSz16Yuwq6qeWu3CPaiZpUavqBhDSF3VoYt
-         OoQvUjguTF2nFHkBFQCsmU0oxH8w15hiTZCvarzHSRtolhIZj6/4QqzLrBaoP61jXq8y
-         sIU95x6FpL3bhIpev/OCR2oNE5GjnrhsR4PEE6jPxO/BHmf2nns63REgRqjG/z5unxRR
-         +KqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzB+JFdVCymVYgb0aEpkxs7RNaCgze+X59FXysmS3S2QTwHkjxAOi7JArY5k984irYTp4PEjP31koWsDdE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kLowjPi6noCJVj8dLGVBwO8/NYCBh9g7evnbEZm2sxg9HCLoNP
-	TVrzh+lhut1oNzNSu0dDeKx8hdAOzOpVjc6Do2vx9wP3Y8W8oQQqe6ZAYAH09IdvTzMn1Soru9K
-	MGZyv0FQurdp0c6qtmpsA4WhdtWhxV1pDU4yHcPnewsZKs3QykUos62K0UBY=
+        bh=ByaWx9fs3FmH7s/refQwfhbkWp4eQ2bqZDqw/zD/lsU=;
+        b=G6HSiGv+nWBK8Co7Wqj43l1g715K6RRagS7Hh4uyJk0lLadtpoNJR9RZ875V8iLA+M
+         l5U3gdbXq382rJeNBQdxss5Myjl5xg7DEsy2C/5F1C5vnIRBr1wwHdtll6tLFyxPYqGi
+         7ZwENhqCGsuiAvSdThKgjNAEN30izbnss81rR8P/xzLY/N4mn5QVnVjrYIi28ZnWNSOH
+         X2XgfGT4ag85CYTkfJqBg7aFuW7MgYaXOEvWQglc0v5GaQ+TRwA36EAEjDm7/VZ8N/st
+         PIqYB0EIO0fBSkfmuEtSdW43qX0k32X7JOvFBjBeOASx9eVFp74vHvkHHY8rKZvBh86l
+         lKGA==
+X-Forwarded-Encrypted: i=1; AKwUvBxMv3jAqijICZCDSox+TeBIivzV/+CzO03H31KIiUzPCR4GWAtQE1DJDMVW7MYNsMbwQa9lhjYB00XOfas=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9HSQ6mBsi+BJrCW5rZQV6oDtOFTXUK1J9AxljOsfYv7kiDGcm
+	zrhHPmEyzcHxt5FK4M5bDyzst5e5XEOLCIAFHVn0LKXXuGUFVqgleAaQ5jGMSmcBLzqhaqCwXDF
+	OnoF1p4u2gPw10Kizk5dZj8Ol2qFZcoe9DBconGMTcCp01fYthqymWRepxVQn4DKrQw==
+X-Gm-Gg: AYBFou1m+MuG2lARQoD3rq5qL3BaM2yrX6AL2HF9VDS7ZavL2M3TL5GegU3Tqik2gMq
+	w2pjRZzWFrf723bw6L3pt4nMJnXVCJqpMdsA+kDZUxqda3XbwtpOWVGpY2QBOMy7Y5NUsmuvI87
+	hAm+jng/QhURqDOE3heceChVDH0RKdytV6ceP/qPGRX+GHsw54uM7zIEgp8Cqyh1zY8C9ztFhVL
+	uWL1u7GcwJ5uMVp7uIpwUo4nreRPaSQ0v+/6D0z/J6eR8WI19SZWSFzQnTwT8VM4MSK+QyN/GNy
+	n7lhMtjXhSKPXTG3hLe9IMgvbesd5EWUE4HgjhQLc3TAgZPFCGMRitijYHrcz385MqMjN7SeUIt
+	8ac5MPifz52eTJrCz1s+Hg+E=
+X-Received: by 2002:a05:600c:3b9e:b0:49c:fc6c:be1a with SMTP id 5b1f17b1804b1-49cfc6cc121mr110344635e9.32.1788667629713;
+        Sat, 05 Sep 2026 21:07:09 -0700 (PDT)
+X-Received: by 2002:a05:600c:3b9e:b0:49c:fc6c:be1a with SMTP id 5b1f17b1804b1-49cfc6cc121mr110344405e9.32.1788667629232;
+        Sat, 05 Sep 2026 21:07:09 -0700 (PDT)
+Received: from redhat.com (IGLD-80-230-79-236.inter.net.il. [80.230.79.236])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5533ffbsm244482565e9.3.2026.09.05.21.07.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 21:07:08 -0700 (PDT)
+Date: Sun, 6 Sep 2026 00:07:05 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Jia Jia <physicalmtea@gmail.com>
+Cc: sgarzare@redhat.com, stefanha@redhat.com, jasowang@redhat.com,
+	eperezma@redhat.com, kvm@vger.kernel.org,
+	virtualization@lists.linux.dev, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] vhost/vsock: batch RX used-ring updates
+Message-ID: <20260905234007-mutt-send-email-mst@kernel.org>
+References: <20260906013659.517889-1-physicalmtea@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1501:b0:6b1:5c8b:c0b9 with SMTP id
- 006d021491bc7-6b6fabe21b9mr10217761eaf.3.1788667443199; Sat, 05 Sep 2026
- 21:04:03 -0700 (PDT)
-Date: Sat, 05 Sep 2026 21:04:03 -0700
-In-Reply-To: <20260906033822.19429-1-kartikey406@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9ce633.0a3344eb.391530.0017.GAE@google.com>
-Subject: Re: [syzbot] [usb?] [nfc?] KASAN: use-after-free Read in pn533_acr122_is_rx_frame_valid
-From: syzbot <syzbot+1853daab1a47603d4678@syzkaller.appspotmail.com>
-To: kartikey406@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260906013659.517889-1-physicalmtea@gmail.com>
 
-Hello,
+On Sun, Sep 06, 2026 at 09:36:59AM +0800, Jia Jia wrote:
+> vhost_transport_do_send_pkt() calls vhost_add_used() for every Guest RX
+> buffer even though it delays the Guest signal until the worker finishes.
+> Each call publishes one used entry and updates the used index separately.
+> 
+> Collect the completed buffer heads in the arrays already allocated for the
+> virtqueue and publish them with vhost_add_used_n().  Bound the batch by the
+> ring size and array capacity.  Flush when the batch reaches its limit or
+> before leaving the worker.
+> 
+> Each used entry describes one completed RX buffer and keeps its actual used
+> length, so set nheads to 1 for every entry.  This patch does not change
+> negotiated features or compress multiple buffers into one used entry.
+> 
+> This patch is limited to the current skb-based vhost-vsock RX path.
+> 
+> Performance:
+> 
+> The test used vsock_perf with a fresh Guest for each state and 20 paired
+> runs. The Guest receiver used:
+> 
+>   vsock_perf --port PORT --buf-size 64M --vsk-size 64M --rcvlowat 1
+> 
+> The Host sender used:
+> 
+>   vsock_perf --sender 3 --port PORT --bytes 1G \
+>       --buf-size SEND_BUF --vsk-size 64M
+> 
+> The table reports geometric mean Guest RX throughput.
+> 
+>   SEND_BUF   baseline RX   batching RX   change
+>              (Gbit/s)       (Gbit/s)
+>   256 B      0.0795724      0.0831509      +4.497%
+>   512 B      0.1194885      0.1210297      +1.290%
+>   4 KiB      0.7208273      0.7242053      +0.469%
+>   64 KiB     2.1712797      2.1951941      +1.101%
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Reported-by: syzbot+1853daab1a47603d4678@syzkaller.appspotmail.com
-Tested-by: syzbot+1853daab1a47603d4678@syzkaller.appspotmail.com
+I will be frank I don't find the numbers compelling enough
+to bother with this trickery.
 
-Tested on:
+vsock wasn't optimized all that much for small packets -
+first of all, it is doing most of its work in a work item
+so we are already at the mercy of the scheduler.
 
-commit:         edc15184 usb: typec: hd3ss3220: Add support for supply..
-git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
-console output: https://syzkaller.appspot.com/x/log.txt?x=12e17cf9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=c451f9f64434b622
-dashboard link: https://syzkaller.appspot.com/bug?extid=1853daab1a47603d4678
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=179e7cf9580000
+That's more work but you will see a much bigger win for bw and
+latency by just handling small packets directly in the cb
+if you can.
 
-Note: testing is done by a robot and is best-effort only.
+Looking at batching: wakeup per packet in rx_work, lock_sock per packet,
+sk->sk_write_space per rx packet are all high overhead things we are
+doing in the data path that are likely easier to handle
+and will give you more bang for the buck.
+
+
+
+
+
+> 
+> As supplementary data, perf stat measured the vhost worker cycles and
+> instructions per GiB in 10 paired runs. The patched implementation
+> reduced cycles by 3.846%, 2.162%, and 4.109%, and instructions by
+> 2.548%, 2.084%, and 4.637% for 256 B, 4 KiB, and 64 KiB, respectively.
+> 
+> An AF_VSOCK request-response latency test with 10 AB/BA pairs showed no
+> consistent RTT change: -0.102% for 256-byte messages (4/10 pairs lower) and
+> +3.281% for 4-KiB messages (5/10 pairs lower), using arithmetic mean RTTs.
+> 
+> Signed-off-by: Jia Jia <physicalmtea@gmail.com>
+> Acked-by: Eugenio Pérez <eperezma@redhat.com>
+> ---
+> Changes in v4:
+> - Simplify the performance description.
+> - Add a brief AF_VSOCK RTT measurement.
+> - Keep the batch limit within the used ring and scratch arrays, without
+>   duplicating the worker weight limit.
+> - Flush after adding a used entry when the batch reaches the limit, and
+>   remove the redundant flush in the empty-queue path.
+> ---
+>  drivers/vhost/vsock.c | 47 +++++++++++++++++++++++++++++++++++++++++++++--
+>  1 file changed, 45 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/vhost/vsock.c b/drivers/vhost/vsock.c
+> index 9aaab6bb8061..7a13abe73345 100644
+> --- a/drivers/vhost/vsock.c
+> +++ b/drivers/vhost/vsock.c
+> @@ -103,12 +103,35 @@ static bool vhost_transport_has_remote_cid(struct vsock_sock *vsk, u32 cid)
+>  	return found;
+>  }
+>  
+> +static bool vhost_vsock_flush_used(struct vhost_virtqueue *vq,
+> +				   unsigned int used_count)
+> +{
+> +	if (!used_count)
+> +		return false;
+> +
+> +	vhost_add_used_n(vq, vq->heads, vq->nheads, used_count);
+> +	return true;
+> +}
+> +
+> +static void vhost_vsock_add_used(struct vhost_virtqueue *vq,
+> +				 unsigned int used_count,
+> +				 unsigned int head, unsigned int len)
+> +{
+> +	struct vring_used_elem *used = &vq->heads[used_count];
+> +
+> +	used->id = cpu_to_vhost32(vq, head);
+> +	used->len = cpu_to_vhost32(vq, len);
+> +	vq->nheads[used_count] = 1;
+> +}
+> +
+
+
+flush where? add where? return what? these apis don't make it
+easier to read code.
+
+>  static void
+>  vhost_transport_do_send_pkt(struct vhost_vsock *vsock,
+>  			    struct vhost_virtqueue *vq)
+>  {
+>  	struct vhost_virtqueue *tx_vq = &vsock->vqs[VSOCK_VQ_TX];
+>  	int pkts = 0, total_len = 0;
+> +	unsigned int used_count = 0;
+> +	unsigned int used_limit;
+>  	bool added = false;
+>  	bool restart_tx = false;
+>  
+> @@ -120,6 +143,11 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vsock,
+>  	if (!vq_meta_prefetch(vq))
+>  		goto out;
+>  
+> +	/* Keep the batch within the used ring and the scratch arrays. */
+
+what "the batch"? this is the 1st time code mentions any batch.
+
+> +	used_limit = min_t(unsigned int, vq->num, vq->dev->iov_limit);
+> +	if (unlikely(!used_limit))
+> +		goto out;
+> +
+>  	/* Avoid further vmexits, we're already processing the virtqueue */
+>  	vhost_disable_notify(&vsock->dev, vq);
+>  
+> @@ -150,9 +178,16 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vsock,
+>  
+>  		if (head == vq->num) {
+>  			virtio_vsock_skb_queue_head(&vsock->send_pkt_queue, skb);
+> +
+> +			/* Flush completed buffers before re-enabling notifications. */
+
+
+redundant - i can see this is what it does but why? and what does flush mean here?
+
+> +			if (vhost_vsock_flush_used(vq, used_count)) {
+> +				added = true;
+> +				used_count = 0;
+> +			}
+> +
+>  			/* We cannot finish yet if more buffers snuck in while
+>  			 * re-enabling notify.
+>  			 */
+>  			if (unlikely(vhost_enable_notify(&vsock->dev, vq))) {
+>  				vhost_disable_notify(&vsock->dev, vq);
+>  				continue;
+> @@ -230,8 +265,13 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vsock,
+>  		 */
+>  		virtio_transport_deliver_tap_pkt(skb);
+>  
+> -		vhost_add_used(vq, head, sizeof(*hdr) + payload_len);
+> -		added = true;
+> +		vhost_vsock_add_used(vq, used_count, head,
+> +				     sizeof(*hdr) + payload_len);
+> +		used_count++;
+> +		if (used_count == used_limit) {
+> +			added |= vhost_vsock_flush_used(vq, used_count);
+
+
+bitwise or on a boolean likely not what was intended.
+
+> +			used_count = 0;
+> +		}
+>  
+>  		VIRTIO_VSOCK_SKB_CB(skb)->offset += payload_len;
+>  		total_len += payload_len;
+> @@ -264,6 +304,9 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vsock,
+>  			virtio_transport_consume_skb_sent(skb, true);
+>  		}
+>  	} while(likely(!vhost_exceeds_weight(vq, ++pkts, total_len)));
+> +
+> +	added |= vhost_vsock_flush_used(vq, used_count);
+> +
+
+
+and here.
+
+>  	if (added)
+>  		vhost_signal(&vsock->dev, vq);
+> 
+> -- 
+> 2.34.1
+
