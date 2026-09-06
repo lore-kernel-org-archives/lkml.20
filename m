@@ -1,100 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5B8F3AA1A1;
-	Sun,  6 Sep 2026 02:22:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA96E3B2FE9;
+	Sun,  6 Sep 2026 02:22:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788661367; cv=none; b=KeqYc53aDSenqfXrpQ8fp3vHzmcgFlkNBzEhismBbKLITYR8djkSNonf7dEcvF+vtqrtuDK9sMYeXXpAt/eKbgrFKbtlijZ7xHdRZr1fIWlHH8Me2/Kw00KUCIgJ2Tqj7xcfPFhTwHOKJi/ck8pumGnSGYH86jI+36IojRV8zTg=
+	t=1788661371; cv=none; b=SXtPWAzfat2ntFER+xBlfSdcI0joeV+FU2cYad+6YWIRqyJha8fi1sYhGLYmVohYNMrQ8ds/eymtjZs25qnMlHlnxkj3KTmqE/Hhdt5Z4YF0pMuz9PCsBomKmokZ3EmNHwzncW1F/EXYmInhi9taDYvGIKNAoWSlhMA+QjI7I/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788661367; c=relaxed/simple;
-	bh=yA99m+ioFZL+/EQRz4C00yL1Xoh2Iur0JizJeH0uA9A=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=KuChgOtTbb3ZDnLMMjwsIS9EnQiXI3E1+Omu8/DlmKH8FDHyVVA8gpLGinFRn1J8tec8RrxFnBoXjLqkN+ESSy/K3mSFCdxKI1kvHHJMsUHRrFqevDXGyo9j7/06qHTezzSyqu7GdDLw9ckegM+A4f88xRTbbWET2OmH08JeEgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PK7EOywy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788661371; c=relaxed/simple;
+	bh=q7OnOI531hnFUN325dgZAIm3qIPZs3GBQAzC93nLN2o=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=e8Eh3cx8S/fH6nJxASeTLr15b9QMlxq2eNcRqqxxmhxjgre3dgRYLCB45UmHpeL1Bdo4/Z9SzAnzP2UIAF9De5OfJEL4e0/NwWHflM0zxfDYUdcf+kEMYa/Ob9y6CrcueZx8p6DFSfNw7N92pDvLbMxl23mYbAj2qkVisUkLS9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=MjfWl9t5; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PK7EOywy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CD7F1F00A3A;
-	Sun,  6 Sep 2026 02:22:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788661366;
-	bh=AO9jKIPl7jEJ4O1JIazaUT9SzGKHtmAv5n3R3KZwskw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=PK7EOywytyV0lXiuJPdG4mn6FG5ro4HVM4ev3A+9iIFJW7n8iy7JKikTAUNICTV+g
-	 mQ0kzTtpPOo4RmnvJ5SYfidj9Y9gCdgflM6+Vnp7DZwr3fQtC913UiYWFQavVkzGq8
-	 2HcL/lo4dE+rvj2I7G1jwYoGYObcE/wMd9itqGA6fAfkhOvABIE7NQITVdim/j1tyq
-	 mcg+cUdznrzN3zd6bh+zBaqtmCpZxvfmwuF+SnGJz9hvTiY5aLi6amzz+ZqjdbqSyP
-	 Uw5iB3qszjFc1HXGpHUS4HQqYJQGzs2mRwcI9kfofRjk1pqJxJdvhGFd+MlY11kZzf
-	 bFwEMt6cOgrqA==
-Date: Sun, 6 Sep 2026 11:22:42 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>, Mark Rutland
- <mark.rutland@arm.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] fgraph: Remove unused FGRAPH_MAX_INDEX
-Message-Id: <20260906112242.421681769499f9f590d8c61d@kernel.org>
-In-Reply-To: <20260905211922.1196366-1-donggeunyoo.kernel@gmail.com>
-References: <20260905211922.1196366-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="MjfWl9t5"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6862Mfy261577868, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1788661361; bh=qxA1SUIIGkwQOzjsQpSVuAs8T9ZHqUxPh1gwWXAn+G4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=MjfWl9t5jyMZN7yLwcWhaDx7cLF5CL1mN0mX5neK1iXv926JUHCzBNeBkY9vsSauQ
+	 tnndwrdX8hyJGv7WoV9Psx0/R2jI+OsHLtAhIs9vI2RwmPq4rmKxHxQDOrzMf4vHir
+	 wLkD/mQDddNQLnJcbHikfeHJUiQK0oFSh39PD69U0YJgc8lGH2evEVFqzGY8fgsW0G
+	 OZlj3l4kSnUdTuk2KNOXIfGeLptPwRd03dMcGtUQwdTvNze0agdCTQanEzar7xY+8e
+	 K1ZgLzB/HCaQxodhLg1Ohe4fx/8Xe+LwoflLpJEZkw5Zky/igg8LRWuhiQH3smRdDn
+	 tXvHmKL7EQhDA==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6862Mfy261577868
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Sun, 6 Sep 2026 10:22:41 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Sun, 6 Sep 2026 10:22:41 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Sun, 6 Sep 2026 10:22:41 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::126f:59ad:658:674d%10]) with mapi id
+ 15.02.2562.043; Sun, 6 Sep 2026 10:22:41 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: "luka.gejak@linux.dev" <luka.gejak@linux.dev>,
+	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
+ Straube" <straube.linux@gmail.com>, Bitterblue Smith
+	<rtl8821cerfe2@gmail.com>, Peter Robinson <pbrobinson@gmail.com>, "Hans de
+ Goede" <johannes.goede@oss.qualcomm.com>
+Subject: RE: [PATCH v9 4/6] wifi: rtw88: sdio: track free TX pages and OQT
+ credits for RTL8723BS
+Thread-Topic: [PATCH v9 4/6] wifi: rtw88: sdio: track free TX pages and OQT
+ credits for RTL8723BS
+Thread-Index: AQHdOQ+tujcloACDt0ancBmQ7iNVjbbA0nqA
+Date: Sun, 6 Sep 2026 02:22:40 +0000
+Message-ID: <d4a8b1203ee0402483269a31ad4d6dd2@realtek.com>
+References: <20260831061144.18631-1-luka.gejak@linux.dev>
+ <20260831061144.18631-5-luka.gejak@linux.dev>
+In-Reply-To: <20260831061144.18631-5-luka.gejak@linux.dev>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
 
-On Sun,  6 Sep 2026 06:19:22 +0900
-Donggeun Yoo <donggeunyoo.kernel@gmail.com> wrote:
+luka.gejak@linux.dev <luka.gejak@linux.dev> wrote:
 
-> FGRAPH_MAX_INDEX has no user, and it expands to FGRAPH_INDEX_SIZE and
-> FGRAPH_RET_INDEX, neither of which is defined anywhere in the tree. It
-> was added in that form by commit 91c46b0aa917 ("function_graph:
-> Implement fgraph_reserve_data() and fgraph_retrieve_data()"), which
-> introduced the current data word layout under new names, so anything
-> referencing it would have failed to build ever since.
-> 
-> Remove it.
->
+>=20
+> Transfers also have to be padded up to the SDIO block size for this
+> chip rather than using the generic alignment, so size the write
+> separately from the frame and zero the padding with __skb_pad(), which
+> also reallocates a cloned skb instead of writing into a buffer a clone
+> still shares.
 
-Looks good to me.
+If the __skb_padd() is necessary for original (generic) part, please
+add another patch to fix it. (see below comment)
 
-Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+[...]
 
-Thanks!
- 
-> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-> ---
-> Found while reading the shadow stack word layout. The macro is dead in
-> both senses: nothing references it, and it could not be used as it is.
-> 
-> Compile-tested only, with CONFIG_FUNCTION_GRAPH_TRACER=y and
-> CONFIG_DYNAMIC_FTRACE=y. Removing an unreferenced macro cannot change
-> generated code, so there is nothing to test at run time.
-> 
->  kernel/trace/fgraph.c | 3 ---
->  1 file changed, 3 deletions(-)
-> 
-> diff --git a/kernel/trace/fgraph.c b/kernel/trace/fgraph.c
-> index 40d373d65f9b..ed455b53513b 100644
-> --- a/kernel/trace/fgraph.c
-> +++ b/kernel/trace/fgraph.c
-> @@ -143,9 +143,6 @@ enum {
->  #define FGRAPH_DATA_INDEX_MASK	GENMASK(FGRAPH_DATA_INDEX_BITS - 1, 0)
->  #define FGRAPH_DATA_INDEX_SHIFT	(FGRAPH_DATA_SHIFT + FGRAPH_DATA_BITS)
->  
-> -#define FGRAPH_MAX_INDEX	\
-> -	((FGRAPH_INDEX_SIZE << FGRAPH_DATA_BITS) + FGRAPH_RET_INDEX)
-> -
->  #define FGRAPH_ARRAY_SIZE	FGRAPH_INDEX_BITS
->  
->  /*
-> -- 
-> 2.53.0
-> 
+> +/*
+> + * The free page check, the output queue wait and the accounting after t=
+he
+> + * transfer have to be one unit, or two writers can both pass the checks=
+ and
+> + * claim the same pages and output queue entry.
+> + */
+
+In this patchset, you add many comments. Please review them across whole
+patchset to see if they actually need. Like this one, do you think the code
+can't explain itself?
+
+> +static int rtw_sdio_write_port_8723bs(struct rtw_dev *rtwdev,
+> +                                     struct sk_buff *skb,
+> +                                     enum rtw_tx_queue_type queue)
+> +{
+> +       struct rtw_sdio *rtwsdio =3D (struct rtw_sdio *)rtwdev->priv;
+> +       unsigned int pages;
+> +       size_t write_size;
+> +       size_t txsize;
+> +       u32 txaddr;
+> +       int ret;
+> +
+> +       txaddr =3D rtw_sdio_get_tx_addr(rtwdev, skb->len, queue);
+> +       if (!txaddr)
+> +               return -EINVAL;
+> +
+> +       txsize =3D round_up(skb->len, 4);
+> +       write_size =3D txsize > RTW_SDIO_BLOCK_SIZE ?
+> +                    round_up(txsize, RTW_SDIO_BLOCK_SIZE) : txsize;
+
+As we have sdio_set_block_size(sdio_func, RTW_SDIO_BLOCK_SIZE),
+can here use sdio_align_size() to get the writ_size?
+
+> +
+> +       if (write_size > skb->len) {
+> +               size_t pad_size =3D write_size - skb->len;
+
+I think write_size must be large or equal to skb->len, right?
+Therefore, declare size_t pad_size at top of function, and then
+
+    write_size =3D ...
+    pad_size =3D write_size - skb->len;
+
+    if (pad_size > 0) {
+         ...
+         __skb_pad( ... pad_size ...);
+    }
+
+I think this is easier to read.
+
+> +
+> +               /*
+> +                * __skb_pad() must not free the skb on failure: both cal=
+lers
+> +                * still own it, one requeues it and the other frees it.
+> +                */
+> +               ret =3D __skb_pad(skb, pad_size, false);
+
+Why doesn't rtw_sdio_write_port_generic() need __skb_pad() as well?
+Is there an existing problem by original?
+
+> +               if (ret)
+> +                       return ret;
+> +       }
+> +
+> +       guard(mutex)(&rtwsdio->tx_credit_lock);
+> +
+> +       ret =3D rtw_sdio_check_free_txpg(rtwdev, queue, txsize);
+> +       if (ret)
+> +               return ret;
+> +
+> +       ret =3D rtw_sdio_8723bs_wait_tx_oqt(rtwdev);
+> +       if (ret)
+> +               return ret;
+> +
+> +       ret =3D rtw_sdio_write_to_port(rtwdev, skb, queue, txaddr, write_=
+size);
+> +       if (ret) {
+> +               /* nothing was queued, so hand the output queue entry bac=
+k */
+> +               atomic_inc(&rtwsdio->tx_oqt_free);
+> +               return ret;
+> +       }
+> +
+> +       pages =3D DIV_ROUND_UP(txsize, rtwdev->chip->page_size);
+> +       rtw_sdio_8723bs_consume_txpg(rtwdev, queue, pages);
+> +
+> +       return 0;
+> +}
+> +
 
 
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
