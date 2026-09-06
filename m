@@ -1,255 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4659A32B10F;
-	Sun,  6 Sep 2026 10:39:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 264C8360ED6
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 10:40:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788691178; cv=none; b=Twc13uu8m65eRUIZpYTKIs+7rYMv+fwK17erLcJsPMWxP5AKoDX4BHoV1WcwXbtjBw6hX8sZ55WAVMUH2ZkkmzZeJIvhFnSvxzq7il2dNecavVRqr6vJd3H9d+j2fE8+PQ1OOzXtby1d1uiN3VXfoNy2xIAOSuyJ4T6t5FcklU8=
+	t=1788691229; cv=none; b=KoedBZZeTcHCjryMxxAaU3D7Sg2jXYIdIPceYDMVznbpY4aI1dm4f8mO7rQfDuTNxAV32UE+iykN3eZfDYk6Nb2qLWoS97U54lK1dHJyGJJcWGrel8OzeDn+gv25VcOuGGeW+hKAw6bKxTVNIfFqevqdOIjXHyFAfXZdJyK83+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788691178; c=relaxed/simple;
-	bh=v6ozttNqgsTWx2HRJ8tsa8ALRMsNPc2Z1N2tDUBnuNM=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QCZXWYSdEY397ltPx/zeIoIPXgTjsy9UZo/gnQbu+PvvIPDUpBmn/ToI5pdMf0H0i6arv6rTr4hrcA7ld/EujeCw6I4ILTcc/B5sFP+ngt5iJU6TDE1ao2zV25u2SOVPoLJffX6fZceoEXs4Ud9GNEjdHFhfHbenf7h7B6IXvlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ab3JilaT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788691229; c=relaxed/simple;
+	bh=Rk/sBuv+0+faRbBGjnRZy+cZVoPVw6YSNswMxs7QOow=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=Mpbt5G++scNfWGIt+XFJn+Wu6fBRF7rlufRjlgxwuFFdXzPJwYndaEnhP7QIt1eeufTwji84uoY22JzDmXYdBrbz25dyx5+/X0007EFDMbJr1ZgXPUV780scgmtTa3vm10Wo2fayG/+OabNjWGJT7CR6NswccWaHj8DAgEhm1hk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=GtuZ2nB4; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=FOTphNSj; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ab3JilaT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A79BB1F00A3A;
-	Sun,  6 Sep 2026 10:39:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788691176;
-	bh=OxZ+7J7RcHfxj4BJowNDu3kn/mniDmEyOVm3o0nqITc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ab3JilaTIX5Wyh0ADurJ8C4Tqhs3MVFg3dsoCs3Ece/XbxlhgfcqlDplQur1wqUmw
-	 f35vDNtUU+vnAYkep2RF+sUl/bOPDNeYdE0X5Y5SMgeL/28lZzNzES84CsOC6BWvMX
-	 TjEM/Du+uEEIyPRtNOD2g1Ee5eyC9dYqo0pUeZWFoj7iz3KXJdK5bB2S3CTVEqs4x5
-	 eQoe1L6E8FRpHRiC5caSNOP+88mjSSW9k8zI+YRM3HI7lLbuyTGKNQwOMRpsY6CZn6
-	 Oxzkow4rRU7M43SQHTWWw56E+dU5G09g5rOC9oBdN8YSHq0T/qazsdBESKBSpsFdwv
-	 nzVDb4EKijxIg==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x3AHe-00000005Nkm-0cn5;
-	Sun, 06 Sep 2026 10:39:34 +0000
-Date: Sun, 06 Sep 2026 11:42:08 +0100
-Message-ID: <87o6ea4q67.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Shuai Xue <xueshuai@linux.alibaba.com>
-Cc: Wei-Lin Chang <weilin.chang@arm.com>,
-	Wang Han
- <wanghan@linux.alibaba.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	oupton@kernel.org,
-	tabba@google.com,
-	joey.gouly@arm.com,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	ljs@kernel.org,
-	itaru.kitayama@fujitsu.com
-Subject: Re: [PATCH v5 0/6] KVM: arm64: nv: Implement nested stage-2 reverse map (new data structure)
-In-Reply-To: <f2357ad9-ece1-4331-844d-5911baaf571f@linux.alibaba.com>
-References: <20260810205038.118843-1-weilin.chang@arm.com>
-	<20260902163500.1841671-1-wanghan@linux.alibaba.com>
-	<877bl26aqg.wl-maz@kernel.org>
-	<wsnf276xrun3g4hjr3t6alprapctg5z4kpj422v3hujqdjnrsa@swq4blkqvvj5>
-	<46342b48-550e-42c1-9d9f-e800c72269c2@linux.alibaba.com>
-	<874ig55u5h.wl-maz@kernel.org>
-	<f2357ad9-ece1-4331-844d-5911baaf571f@linux.alibaba.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="GtuZ2nB4";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="FOTphNSj"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788691217; bh=M/Re7kwgmEbnkuoA6Aagg6L
+	0d3A9QNtAbvKVTy4BiaM=; b=GtuZ2nB4KtLa647ZadMmqoRJCy8ZpOGv68BUX4WnQBWTtWKdiy
+	xiuqP/v+n+1dkGKjCCiwjDrWeF0ayav6UK87BwS8WndXyUtq4pgSDgyh+wnAXnmCFdD8Psyzkoo
+	gVQY/OMWbwABLmX4x8GawCqfBoJoDb43k0KSP2mFVBS5hYR97USUXVmSrVwo6Z3a37s+mU5esda
+	Rio5E+5b8qn2KiI+KOQxks0VFlp9KJkZYrP3XfW9IRivM3VEXnqF7XAMlz1RnMdGIn7XToX4lOh
+	O2nK1SEu31reMjTzFgsHOTxe3W6P5Z2274EsiVrRzIifF95LbQBpMlNivzNrGTP1DYw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788691217; bh=M/Re7kwgmEbnkuoA6Aagg6L
+	0d3A9QNtAbvKVTy4BiaM=; b=FOTphNSjnxRyW++w64Li194Dv4tBhfgPOvfRwC80i5Ji2wFey5
+	y5RjVb7MrLa/+y5/43mT8EOXYu9du2B2t5Ag==;
+Date: Sun, 06 Sep 2026 11:40:15 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Thomas Gleixner <tglx@linutronix.de>, liushugao@xiaomi.com
+CC: frederic@kernel.org, isaacmanjarres@google.com, lingyue@xiaomi.com,
+ linux-kernel@vger.kernel.org, weipengliang@xiaomi.com, wengjinfei@xiaomi.com,
+ xiongliang@xiaomi.com, zhangjiawei8@xiaomi.com, zhukaiqian@xiaomi.com,
+ Daniel Lezcano <daniel.lezcano@kernel.org>
+Subject: =?UTF-8?Q?Re=3A_=E5=9B=9E=E5=A4=8D=3A_=5BExternal_Ma?=
+ =?UTF-8?Q?il=5D=5BPATCH=5D_tick/broa?=
+ =?UTF-8?Q?dcast=3A_Plug_clockevents_replacement_race?=
+In-Reply-To: <8733vn47e7.ffs@fw13>
+References: <20361A3E-0D14-4CC5-946E-D75244CB4A45@mainlining.org> <87h5k34cob.ffs@fw13> <4FDB69E5-7DEE-43CE-A66A-23A2D8DC987C@mainlining.org> <87bjab4avu.ffs@fw13> <347CE2FE-3675-44AA-80D4-1CF8632C8C9D@mainlining.org> <8733vn47e7.ffs@fw13>
+Message-ID: <EB2462B9-BCAD-4B00-927D-BB89B04E4C7F@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: xueshuai@linux.alibaba.com, weilin.chang@arm.com, wanghan@linux.alibaba.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, oupton@kernel.org, tabba@google.com, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, catalin.marinas@arm.com, will@kernel.org, ljs@kernel.org, itaru.kitayama@fujitsu.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, 05 Sep 2026 16:35:01 +0100,
-Shuai Xue <xueshuai@linux.alibaba.com> wrote:
-> 
-> 
-> 
-> On 9/4/26 3:54 PM, Marc Zyngier wrote:
-> > On Fri, 04 Sep 2026 08:01:24 +0100,
-> > Shuai Xue <xueshuai@linux.alibaba.com> wrote:
-> >> 
-> >> 
-> >> 
-> >> On 9/3/26 9:28 PM, Wei-Lin Chang wrote:
-> >>> On Thu, Sep 03, 2026 at 08:43:35AM +0100, Marc Zyngier wrote:
-> >>>> On Wed, 02 Sep 2026 17:35:00 +0100,
-> >>>> Wang Han <wanghan@linux.alibaba.com> wrote:
-> >>>>> 
-> >>>>> Hi Wei-Lin,
-> >>>>> 
-> >>>>> I tested this series on a Yitian 710 system with an ARM Neoverse-N2 CPU
-> >>>>> (128 CPUs, 2 NUMA nodes).
-> >>>>> 
-> >>>>> Test environment
-> >>>>> ----------------
-> >>>>> 
-> >>>>>     L0 kernel: Linux v7.2-rc6
-> >>>>>     L1 guest: Ubuntu 26.04 LTS, kernel 7.0.0-27-generic (aarch64)
-> >>>>>     QEMU: 10.2.3
-> >>>>> 
-> >>>>> L0 NUMA balancing was enabled (`/proc/sys/kernel/numa_balancing=1`).
-> >>>>> The host was booted with `kvm_arm.mode=nested`.
-> >>>>> 
-> >>>>> This series fixes a functional hang that is exposed when NUMA balancing is
-> >>>>> enabled.  The previous nested stage-2 unmap path is too slow for this
-> >>>>> workload, making the performance problem user-visible: NUMA balancing can
-> >>>>> leave the L1 guest unable to make progress and eventually hang during boot.
-> >>>>> 
-> >>>>> The L1 was started with 8 vCPUs and 32 GiB of RAM using:
-> >>>>> 
-> >>>>>     qemu-system-aarch64 -smp 8 -m 32G \
-> >>>>>       -machine virt,accel=kvm,gic-version=3,virtualization=on \
-> >>>>>       -cpu host -nographic -enable-kvm \
-> >>>>>       -drive if=pflash,format=raw,readonly=on,file=pflash0_bak.img \
-> >>>>>       -drive if=pflash,format=raw,file=pflash1_bak.img \
-> >>>>>       -drive file=./ubuntu-vm.qcow2,format=qcow2,if=virtio,cache=none,aio=native \
-> >>>>>       -nic user,model=virtio-net-pci,hostfwd=tcp::11234-:22 \
-> >>>>>       -serial mon:stdio
-> >>>>> 
-> >>>> 
-> >>>> Puzzling. If you are only running an L1 in VHE mode, there is no
-> >>>> shadow S2, and therefore nothing to unmap. For shadow S2s to be built
-> >>>> and affect the MMU notifiers, you need to run an L2.
-> >>> 
-> >>> I was thinking the same at first, but realized even with L1 in VHE mode
-> >>> there is a small period of time where L1 runs in its EL1 during boot, so
-> >>> one nested MMU will become valid for each vCPU. That causes
-> >>> kvm_nested_s2_unmap() to iterate through the entire IPA space 8 times
-> >>> (-smp 8).
-> >>> 
-> >>> What I am curious about is whether one single notifier unmap is enough
-> >>> to hang L1, or were there multiple notifier unmaps.
-> >>> 
-> >>> QEMU with -machine virt uses 40 IPA bits only, unmapping that takes:
-> >>> 1024  (4KB pages,  unmapping 1GB per iteration)
-> >>> 32768 (16KB pages, unmapping 32MB per iteration)
-> >>> 2048  (64KB pages, unmapping 512MB per iteration)
-> >>> iterations for each page size. There aren't many mappings in each
-> >>> iteration too. Does this really take that long on real hardware (even if
-> >>> this must be done 8 times)?
-> >>> 
-> >>> Thanks,
-> >>> Wei-Lin Chang
-> >>> 
-> >>>> 
-> >>>> So what are your actual test conditions?
-> >>>> 
-> >>>> 	M.
-> >>>> 
-> >> 
-> >> Hi, Wei-Lin and Marc,
-> >> 
-> >> I was able to reproduce this issue and capture ftrace evidence that confirms
-> >> the root cause. Below is the analysis, trace log, and timing data.
-> > 
-> > [...]
-> > 
-> >> Each set_migration_pte line is a single-page NUMA migration. Yet each
-> >> migration triggers one full kvm_nested_s2_unmap() that takes 877 ms.
-> > 
-> > And why is it taking so long? It should be *empty* after the first
-> > iteration.
-> 
-> Good question.
-> 
-> After dive into the details trace, let to try to answer the question.
-> 
-> Yes, it is empty -- and that is exactly the point: the 877ms is paid *for*
-> an empty table.
-> 
-> The cost is not in the walk and not in clearing PTEs;
-> **it is 262,144 broadcast TLB invalidations**, one at the end of every
-> 1GB chunk, each ~3.3us. Since v6.6 the cost of an unmap is
-> proportional to the size of the IPA range, not to the number of
-> mappings; an empty table pays in full.
-> 
-> > 
-> > [...]
-> > 
-> >> ## Conclusion
-> >> 
-> >> The root cause is confirmed: kvm_nested_s2_unmap() performs a full IPA space
-> >> unmap in the MMU notifier path instead of unmapping only the affected
-> >> GPA/CPAI range. The interval-tree-based precise range unmap approach is the
-> >> right fix.
-> > 
-> > No. This just indicates that this is papering over a bigger problem,
-> > and your AI is jumping to conclusions.
-> 
-> Sorry for the jumping up.
-> 
-> The culprit is 7657ea920c54 ("KVM: arm64: Use TLBI range-based
-> instructions for unmap", v6.6). kvm_pgtable_stage2_unmap() ends
-> *every* call with an unconditional kvm_tlb_flush_vmid_range(), whether
-> or not the walk cleared a single PTE:
-> 
->         ret = kvm_pgtable_walk(pgt, addr, size, &walker);
->         if (stage2_unmap_defer_tlb_flush(pgt))
->                 /* Perform the deferred TLB invalidations */
->                 kvm_tlb_flush_vmid_range(pgt->mmu, addr, size);
-> 
-> stage2_apply_range() calls it once per 1GB chunk, and the nested MMU
-> covers the guest PARange -- 48 bits here, so 262,144 calls per
-> kvm_nested_s2_unmap(). Each broadcast is one IPAS2E1IS (range) plus one VMALLE1IS
-> plus two DSB(ish), ~3.2-3.4us without ftrace:
-> 
->         877ms / 262,144 chunks = 3.35us per chunk
-> 
-> which is exactly the per-broadcast cost.
+On 6 September 2026 00:15:28 BST, Thomas Gleixner <tglx@linutronix.de>
+wrote:
+>On Sat, Sep 05 2026 at 23:06, Bradley Morgan wrote:
+>> On 5 September 2026 23:00:05 BST, Thomas Gleixner <tglx@linutronix.de>
+>> wrote:
+>>>On Sat, Sep 05 2026 at 22:24, Bradley Morgan wrote:
+>>>> On 5 September 2026 22:21:24 BST, Thomas Gleixner <tglx@linutronix.de>
+>>>wrote:
+>>>>>On Thu, Sep 03 2026 at 16:12, Bradley Morgan wrote:
+>>>>>> Hi, I have a pixel 7, if I could be asked to backport this, then
+>I'll
+>>>be
+>>>>>> happy to, for the fix, add:
+>>>>>>
+>>>>>> Reviewed-by: Bradley Morgan <brads@mainlining.org>
+>>>>>
+>>>>>It would be helpful to respond to the actual patch and not to some
+>>>>>arbitrary reply. That way you might avoid your tags to be overseen by
+>>>>>tools.
+>>>>>
+>>>> Sorry my mail client sometimes glitches,
+>>>
+>>>I fail to see how your mail client is responsible for you to hit reply
+>>>on the wrong mail.
+>>>
+>>>But what do I know about all these new fangled mail clients who decide
+>>>on their own what to do. When this happens to me I'm 100% confident that
+>>>_I_ got it wrong and not my mail client. Maybe I'm just too old-school.
+>>>
+>> Remove Daniel too. Bounces.
+>
+>Sorry no. That's not how this works
+>
+> #1 An OOO response is purely informational and does not justify to
+>    remove the recipient from the CC list just because
+>
+> #2 A bouncing email address is of course a valid reason to remove
+>    someone from CC, but it is a matter of courtesy in the context of
+>    the Linux kernel lists to lookup whether the person vansished from
+>    the planet or just changed the mail address. That's what the
+>    MAINTAINERS file is for.
+>
+>    The thread you responded to was from TWO years ago...
+>
+>Aside of that you did not respond to my actual complaint about
+>responding to a random reply instead of responding to the actual patch.
+>
+>If you fail to review what the AI agent of your choice hallucinates
+>then so be it, but don't be surprised that I'm going to put you on my
+>ignore list as a consequence and recommend to all other maintainers to
+>do so as well.
+>
+>   Thomas
+>
+>
+>
+oh crap, I see it now. I thought it was a recent thread cause of my lore
+search!
 
-Right. That's pretty compelling, thanks for digging into this. Your
-proposed approach (counting the invalidated regions) is interesting,
-but I don't think it is the correct one.
 
-The real issue here is that we treat a full S2 unmap as if it was a
-set of ranges. This is what needs fixing, because we can invalidate
-the whole thing with exactly *ONE* TLBI.
+Probably:
 
-This is even more important once you run an L2, as L1 will also
-perform its own TLB invalidation, and we want to avoid having trapping
-pointlessly. This also propagates in the way we handle TLB emulation.
-
-[...]
-
-> The candidate fix is below. Table entries
-> (KVM_PGTABLE_WALK_TABLE_POST) are unaffected: stage2_unmap_put_pte()
-> keeps issuing the immediate __kvm_tlb_flush_vmid_ipa() for them, and
-> their child leaves are counted as leaves within the same walk, so any
-> call that clears something still flushes a superset of what it
-> cleared. This restores the pre-v6.6 semantics -- cost proportional to
-> what is mapped. With it, an empty nested unmap costs ~110ms
-> instrumented (the pure walk); getting to "exactly zero" would
-> additionally require kvm_nested_s2_unmap() to skip nested MMUs that
-> are valid but empty.
-
-That's an interesting remark. I guess we could add some extra tracking
-for that, but let's see what we can do about the above first.
-
-I've hacked something together and pushed the result at [1]
-(compile-tested only). I'd appreciate it if you could put it to the
-test with your setup.
-
-Thanks,
-
-	M.
-
-[1] https://web.git.kernel.org/pub/scm/linux/kernel/git/maz/arm-platforms.git/log/?h=kvm-arm64/unmap-vmall
-
--- 
-Jazz isn't dead. It just smells funny.
+https://lore.kernel.org/all/87qzj74dxi.ffs@fw13/ ?
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
