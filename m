@@ -1,90 +1,191 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 299DA23D7DC;
-	Sun,  6 Sep 2026 00:28:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B611FD4;
+	Sun,  6 Sep 2026 00:31:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788654500; cv=none; b=DEURmnuR5ZzXT9eEfx+wsMi6mdKrr4G455jrfyh7G1tq7m+aVLsE3r3xtByPIjB0psY5Rxc0793jAqcum2YS/DBtYkFA4Htzg+hU9aKX1xZJA4FyXEhjhRyoHS5Z7PfD3Ry0J1gpTm3GNjekT99KXyEdbY5+2PZs9jjv2KlZzeA=
+	t=1788654670; cv=none; b=RqNeUthWbNteS8z8b7Z2kIPmf4FuliJrUjGAo9PAf/ty8bn8LpABG9EjrRD/Vw7Xe1t1+DKpHurlSmTmGRf3ej+ARwfvVlj3NG57whhpGrLeyUzjerqoNyXkKZdotpvpJ/MrtGYlMTo5AKWykTMc9oLZ4SG4hx03NukhCpng0Fo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788654500; c=relaxed/simple;
-	bh=ELRPOdat/A9yAN4dJvU5OOVGkHDWZDdYiCShAdbADyo=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=FkQMREYtU3yaq4ZLSgwIldPpgxPDjDzLuOAr6HPbNaeFhmj1qQlHkP34t7B8I4v4b3A/CT9Hq8rCXROr3A5aA+VadUnIKcwMJDo+vGgQYzK8oHu4Os/g9EpKAdtemEdofPGwwWIUJB6W/zrVrp6adXYPBZ+1UdzXaXpotrXXMp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=1dVLNfBT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788654670; c=relaxed/simple;
+	bh=LuFQ85a+/EolmqBJuS6QJ7dcOHgDNs1oh4OI9pP/lnQ=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=gwckjewnHfIwAaIyZqPPQ+raA5koxDcDo9PtJoIsvW/93sloV7FZZFygKRf6lFaVgXDZrsYwn0fGiFsPytNmJIqt/dJPOpBTt0POGRwVSyoLoAv9Cpj5wHqstDk6GWWVZtgEU+sP76fZ9YGNwsx8oO5lr5swVfFTZyAzw2VNLWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OCT6QBkI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="1dVLNfBT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04A3A1F00A3A;
-	Sun,  6 Sep 2026 00:28:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788654498;
-	bh=z9A4Dxzfg1oo/Is64gEjEJpedBNhIepfiTCWGidRRgQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=1dVLNfBTnQpu0MZul4OKc3anMkAgfQjsjH9sax576+bpVej6aaA1OxSDEfYdtxg8j
-	 +9LhopCycuLGQ/uIuanMv7Av74aCof5rxBjud1yTdF81PkSvfYRmiwPeZriDv5GAI0
-	 e7UpJoqkIpf9uUaDyul33pjZdHAiQx+/l0QEjirs=
-Date: Sat, 5 Sep 2026 17:28:17 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Aaron Tomlin <atomlin@atomlin.com>
-Cc: arnd@arndb.de, mcgrof@kernel.org, petr.pavlu@suse.com,
- da.gomez@kernel.org, samitolvanen@google.com, peterz@infradead.org,
- ojeda@kernel.org, mhiramat@kernel.org, boqun@kernel.org, neelx@suse.com,
- da.anzani@gmail.com, sean@ashe.io, chjohnst@mail.com, steve@abita.co,
- mproche@mail.com, nick.lane@mail.com, rishil1999@outlook.com,
- linux-arch@vger.kernel.org, linux-modules@vger.kernel.org,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v10 0/2] module: Extend module_blacklist parameter to
- built-in modules
-Message-Id: <20260905172817.e367c940d750ca3e8484fef9@linux-foundation.org>
-In-Reply-To: <ultg4rym4phqwqrbuz3hqtlse2lgafxebx3un7s3tdht7rz5xy@3ckauomiwqsy>
-References: <20260903185557.183224-1-atomlin@atomlin.com>
-	<20260903132924.7a4d1b84791d30c706b394a1@linux-foundation.org>
-	<ultg4rym4phqwqrbuz3hqtlse2lgafxebx3un7s3tdht7rz5xy@3ckauomiwqsy>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OCT6QBkI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A8691F00A3A;
+	Sun,  6 Sep 2026 00:31:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788654668;
+	bh=vhGyBI64iII+6zmiH7P+DrwMdk2PJyY+9/uzYQ46ak0=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=OCT6QBkIkvn7TA6w6IE5PEq5NyPRC4aAxopJnEMppxvAu8cPInqwQaxGqHXptQzbT
+	 MWFng39Df7sM/IqqG2xz6IPd1971UQ7gmctcAxkPvaUsLg0HCrGz8SFe8pCmp4kQik
+	 UoexsF6o7oVybF/hBBmDlmTwkq3wbbGWsxWbZAkttdcsqthID7diejuofCdmTL6+it
+	 PHz36QgIauj3Qaq62QXEYy2jE+Vu65XGcO9aGK1BCGyd/tFgIupA7xQWgUGQ6aVVZa
+	 mUPGKvBr+HEEx/+cwQ6VgIxE4Adva7+RDTaeMfKd61MBj2d5fA1h0IxTqSxTwKzG3v
+	 9lMKIxOg/CnQA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 1/2] dt-bindings: iio: light: add as7343
+From: Jonathan Cameron <jic23@kernel.org>
+To: Chang Yu <marcus.yu.56@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, linux-iio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <a516f5bdfaf9a2cee9e22b80c17fb42f860afdf2.1788586814.git.marcus.yu.56@gmail.com>
+References: <cover.1788586814.git.marcus.yu.56@gmail.com>
+ <a516f5bdfaf9a2cee9e22b80c17fb42f860afdf2.1788586814.git.marcus.yu.56@gmail.com>
+Date: Sun, 06 Sep 2026 01:30:39 +0100
+Message-Id: <178865463956.3402141.1659264154526882946.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4043;
+ i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
+ bh=LuFQ85a+/EolmqBJuS6QJ7dcOHgDNs1oh4OI9pP/lnQ=;
+ b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqnLQyOB2fxC/u5RXZb4Rds7TN+2QavMssLKPlX
+ z3OR/QIAsuJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCapy0MhEcamljMjNAa2Vy
+ bmVsLm9yZwAKCRBUhTSZxPQWiGmZD/0YUrfoHomHH6UxEm5tMtFPQzAjFGaHkpxyKjc+VLzDRWG
+ OTHhgU3humrWhdfMzb1R121EDp7l0HwLwjpY8/3Uo1vy7I4fGbr1ExMcYR/+U2gAZPraoZwJXnU
+ R10St2UzbEX8qQ1MmvNDVlOIqjdSYCKsRGeFJ9/CC+U6gNQ3D24Cv3sD6cRWV9Oqn2yd0immEzL
+ 3ObhydJFVjtoVBN6slcpcX+VGMFTcOEPr47svwfTKoonqbAtgkvciK/3GKCFhouVFAaB6rlUHPe
+ JjVOPrOoQWUc64adLTvyi8fC2RDJwC+7PjSciks6nqt3oicuKZzlSuj5Pv9CQbrPuU5AmkC5zv9
+ QGgWN3hEwEVTSX1fso0QVR/1xXLTtGDwyrOQXjjjIi+vExvRCeU6g7lUXv9iAIfFokE4/J2Fzjs
+ 6Z2mGsLDPDursc4Le0yh1psgI5MjscexbAWzWXhwANc4jLh1evJ2ZBsi1qKb3LdFbUT8Pw7Gott
+ IS6h9ZkXxFkX6gZK91ss7QsBm+BUuZaGZseokQrS/5aHwrnBODw3AVw38GYLAQTXwgIxhcDZMec
+ tgU5N9PTtTnUFxWQfoHIdWHAIdlyQkfuJkU9xH83xQBLtUx93ZTtB76XKAROK8Kwb4LVJw1bCYw
+ +TsVz5lD4rZyAy0JgMupaK9oKLLUGMpmkzs3wcQ==
+X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
+ fpr=6E2966B387840652912681B154853499C4F41688
 
-On Fri, 4 Sep 2026 10:59:38 -0400 Aaron Tomlin <atomlin@atomlin.com> wrote:
+> Add binding for AMS AS7343 which is a 14-channel multi-spectral sensor
+> with i2c address of 0x39.
+> 
+> Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
 
-> On Thu, Sep 03, 2026 at 01:29:24PM -0700, Andrew Morton wrote:
-> > On Thu,  3 Sep 2026 14:55:55 -0400 Aaron Tomlin <atomlin@atomlin.com> wrote:
-> > 
-> > > Currently, the "module_blacklist=" command-line parameter only applies to
-> > > loadable modules. If a module is built-in, the parameter is silently
-> > > ignored. This patch series extends the blacklisting functionality to
-> > > built-in modules by intercepting their initialisation routines during early
-> > > boot.
-> > 
-> > Why?  What are the use-cases and what is the value of this change
-> > to our users?
-> > 
-> > Important, so please don't skimp on the details.
-> 
-> Hi Andrew,
-> 
-> Thanks for asking.
-> 
-> Here is the rationale, concrete use cases, and the value this hopefully
-> brings to users and administrators.
+Given you need to send again to include right folk for testing and
+review here are a few initial things to fix up and make it a proper
+v2
+
 >
-> ...
->
-> In summary, this patch brings parity between modular and built-in drivers,
-> removes a pain point in boot-time disaster recovery, and provides users
-> with a predictable, consistent interface.
+> diff --git a/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+> new file mode 100644
+> index 000000000000..fb996160cf8d
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+> @@ -0,0 +1,46 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/light/ams,as7343.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: AMS AS7343 14-Channel Multi-Spectral Sensor
+> +
+> +maintainers:
+> +  - Chang Yu <marcus.yu.56@gmail.com>
+> +
+> +description: |
+> +  The AMS AS7343 is a 14-channel multi-spectral sensor with i2c address of 0x39.
+> +  https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - ams,as7343
+> +
+> +  reg:
+> +    description:
+> +      I2C address of the device (0x39).
+> +    maxItems: 1
+> +
+> +  vdd-supply: true
 
-Really helpful, thanks.  Please add this to the [0/N] and maintain it.
+Power supplies that are needed in practice for a device to function
+are always added to the required list (there are some historical
+quirks in some bindings).  We do that even though the Linux regulator
+framework will hand you a fake supply if you don't provide one via
+the dt on basis the power is presumably always turned on.  The reason
+for this is otherwise we can't see when we have a truely optional
+power supply (common for references where there may be a number of
+alternative sources such as internal voltage references).
 
-I don't really know who are the potential audience for this change, nor
-how to attract their attention.  Greg might have some insights but he
-wasn't cc'ed.
+I'd expect some binding info about whether LDR is connected to
+anything or not. (LED Driver - who picked a common term like LDR
+which is normally Light Dependent Resistor?!!)  We need the driver
+to be able to decide to turn that on or off + set the drive
+current.  Look at proximity sensors for examples of ways this might
+be done.
 
-Let's leave it a week to see if there's feedback then resend with these
-adjustments?
+There is also an interrupt pin that definitely wants to
+be documented.  Bindings should be as full as possible.  The only
+time we leave stuff out is when we have no idea how to write
+the binding - that happens for sufficiently unusual corners that
+aren't true for this.
 
+The gpio is more interesting but at lest one option is to use
+it as just that, so I'd expect to see binding for that.  The
+sync stuff is perhaps an area where the binding design may be
+less obvious and postponing that (mention it in the patch description)
+might be the best path forwards.
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+
+Sashiko:
+[Severity: Low]
+Is it necessary to include irq.h here? The example does not appear to
+define or use any interrupts.
+-
+
+Seems like a valid thing to clean up!
+> +
+> +    i2c {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        as73211@74 {
+
+Should be a generic name not the part number.  If there isn't a
+suitable one in the dt specification or in general use, make up
+a new one.  Maybe multispectral is suitable here - I haven't really
+thought about it much!
+
+> +            compatible = "ams,as7343";
+> +            reg = <0x39>;
+
+Sashiko:
+[Severity: Low]
+Does the unit address (@74) mismatch the first address in the reg property
+(<0x39>)? This might trigger a unit_address_vs_reg warning during
+dt_binding_check and dtc compilation.
+
+Also, should the node name use a generic functional name (such as
+sensor@39) instead of referring to a different device (as73211)?
+-
+
+
+> +        };
+> +    };
+
+Thanks,
+
+Jonathan
+
+-- 
+Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
