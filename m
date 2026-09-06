@@ -1,84 +1,161 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10E9B2E7367
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 09:34:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C56D22B2D7;
+	Sun,  6 Sep 2026 09:38:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788687245; cv=none; b=hkAMjwnYNwef0Bm4sAPCC5KpLwWElFlBp3ZmI88GUHkHtpb2YdLhvO1FaycHVwZ3zdrDIrMnBrgSF1bKvdiJY4qgWvDO6WXV4xhsMoBOwrOt9bR4kYSwtAAUCC2bNCTgQssLMYWXQg+788sA5vbYh93YJTZ4MAxuzdETOiGR8bE=
+	t=1788687487; cv=none; b=Te56pd90YJxI2Qf9fNM6CPthg8+4WsKkG0yJ+64yeaXQBBO3uzMqKjVfC0FRiCbjspqRRDfjsOF6JseLRJu9mSGUFCU0FprrmHGfHW1cyBzcYjEKDW+dT8VPj7wCah2ZRN1Lw6P9eLp5xBcKkKWMCAmVtrgGB+XrqpXgdO9ZEpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788687245; c=relaxed/simple;
-	bh=hilEVd8ul6m3JKTfhkSHsr0Cslnn0G4vY5ntF4Ef4P8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JLo9lb6fyqX9Pvob4H9VP/69PUBohXNExzgFrCiYIrATU7WRyC6eWg6ibSyEC2kAWDzGpfURN2kRzMsFHneZAjix/NKD5K5I3oi5n8ba+I0cbuZsnZPjbJ3V8M53eV+FpQq8/4ratxEJ3ssn/TO8Y99fjiHNxdSZa5oHFLWoX9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fMH7SPKY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788687487; c=relaxed/simple;
+	bh=ryXs22bCuOO0xykjJhIarS5b61/GHzylL3wifg4LIps=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=iT04D/LgfgBcF/JcFooTX8fUkbk3cTyT5SBYhUG9EOGkfY8l6La8SaymNp7xK5Cjzp5klU733OlW0hBz5ZceX/uet9XeQhVRUbyyFHImYYFZ6zKjIEXrU+vw8COaLlqjXQx5T1cH6zVuTWs7SKgxAJrXs7966EHyBePuYoPjbDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vHok224r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fMH7SPKY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E27191F00ACA
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 09:34:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788687243;
-	bh=hilEVd8ul6m3JKTfhkSHsr0Cslnn0G4vY5ntF4Ef4P8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=fMH7SPKYwBbIw4fWGtP+dXxlmm7+p//YylAJyVBmuo2l1kNhsz0xv3/I13zTdSSbN
-	 I6pNq9ZH5b6pISBFpmJdcyXeGF/GdBjQF2Q8Xl7VIAcWkFCV/ZA6SuQjcppCVqSzRi
-	 ccP9W0Ttd3oM6AvhwBub1DkK1TehpvnoyGrFyTS4vGKfXSdbxCY3x2Qe3lYrrhFl0M
-	 UIguKPpzQs9NVoYbPsZsWP6my7va9Igv8Z+FDZPS2B/SbJVEh9Ch208gsCytnTlz/r
-	 gbV1K9OHsY7O96edpzB9+nLBhc8X4aCALP/p4U76LJssF1z6PG+NIwkCvrC77xLND7
-	 OORsBAVQRzuiQ==
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c255c58156bso474529866b.3
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 02:34:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxoF1Rdh0+lCstwWxC5wH2iueyufe1oumDJt3osRLMSlhzenxBKVgG/W1y+Z4xb4ToYHCSQTEXvKFGcmKE=@vger.kernel.org
-X-Gm-Message-State: AFuF++l3STuf1w/F0Qoy8u/Lg2qfWrfHguIBe+rWUWH7tlOzk4LzQQ8d
-	HmRrJAInFN0dyAtAlrDhe38ETDJ5O4mejrud0x5vO5qlR+iBL+6Ip2VseFp+W41BGu1PZUM+DN3
-	pnRyXrPspi67QNClucS9SIox0Ygb28LY=
-X-Received: by 2002:a17:907:1c90:b0:c26:19de:9ad3 with SMTP id
- a640c23a62f3a-c2619dea762mr534286466b.43.1788687242859; Sun, 06 Sep 2026
- 02:34:02 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vHok224r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C07711F00A3A;
+	Sun,  6 Sep 2026 09:38:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788687485;
+	bh=0rCN0mHo53LZhkeVw8/aHpz528gp0eJjZLOnJQVFYRE=;
+	h=Date:From:To:Cc:Subject;
+	b=vHok224rwfLbYZlqFZ+o3gVsVa5ya5/ZrAGIqFHkOewrRu6hNSwhjO10IT0/+p0Nq
+	 i3dKY/8Ulkh3kMNKgz+ik9Ok0+xvTUfsi31LRAyEhXgE6jbpZcBHH0AsEZVLPwH9TA
+	 iaRg4jNfzhMPnxmtbY0oktJKcCR/casL5PBbGgXk=
+Date: Sun, 6 Sep 2026 11:36:20 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org
+Subject: [GIT PULL] USB driver fixes for 7.3-rc2
+Message-ID: <ap00FN1hfHYkcyhq@kroah.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260906-shrink_zswap_entry_v6-v6-0-ac4cf61565fb@gmail.com> <20260906-shrink_zswap_entry_v6-v6-3-ac4cf61565fb@gmail.com>
-In-Reply-To: <20260906-shrink_zswap_entry_v6-v6-3-ac4cf61565fb@gmail.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Sun, 6 Sep 2026 02:33:50 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zMBYv=_Rd_vSRHnZn1KqnxU9eNfhuA-aWfiDOGfxtkwaw@mail.gmail.com>
-X-Gm-Features: AcwNN1VqoyNkZSh0Ex_D1Od1IyHBhtySEWsBIkwlfXBjpxaGQw_R0ENTuud7GJc
-Message-ID: <CAO9r8zMBYv=_Rd_vSRHnZn1KqnxU9eNfhuA-aWfiDOGfxtkwaw@mail.gmail.com>
-Subject: Re: [PATCH v6 3/3] mm/zswap: reference the pool by id to shrink
- struct zswap_entry
-To: Jianyue Wu <wujianyue000@gmail.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Nhat Pham <nphamcs@gmail.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Chris Li <chrisl@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Sun, Sep 6, 2026 at 12:47=E2=80=AFAM Jianyue Wu <wujianyue000@gmail.com>=
- wrote:
->
-> struct zswap_entry is one allocation per stored page, so its size is
-> pure overhead. It currently embeds an 8-byte pool pointer, even though
-> the live pools now sit in an allocating xarray keyed by a small integer
-> id that fits in a u8.
->
-> Replace the per-entry pool pointer with that u8 id and resolve it
-> through the xarray with xa_load(). xa_load() does its own RCU-protected
-> lookup, so the caller needs no rcu_read_lock() section of its own. The
-> resolved pool stays valid because a live entry pins it via percpu_ref
-> (taken in zswap_store_page()), so its id cannot be reused. A live entry
-> never uses the reserved id 0, so a zeroed id resolves to NULL and trips
-> a WARN rather than aliasing a live pool.
->
-> The u8 fits in the padding after the bool referenced field, shrinking
-> the entry from 56 to 48 bytes on 64-bit. This raises objs_per_slab from
-> 73 to 85 and saves about 2MiB of metadata per 1GiB of data held in
-> zswap.
->
-> Suggested-by: Chris Li <chrisl@kernel.org>
-> Signed-off-by: Jianyue Wu <wujianyue000@gmail.com>
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
-Acked-by: Yosry Ahmed <yosry@kernel.org>
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git tags/usb-7.3-rc2
+
+for you to fetch changes up to c9273c83885835dbd1e8835d5665dfb8503d65e0:
+
+  usb: typec: qcom-pmic-typec: drain cc_debounce_dwork if port_start() fails (2026-09-01 16:50:25 +0200)
+
+----------------------------------------------------------------
+USB fixes for 7.3-rc2
+
+Here are some small USB driver fixes for reported problems and
+regressions.  Include in here are:
+  - xhci driver fixes
+  - cdns3 driver fixes
+  - usb gadget driver fixes for syzbot found problems
+  - typec driver fixes for broken hardware and other bugs found
+  - kernel data leaks in mdc800 driver
+  - usb storage driver fixes
+  - other small USB driver fixes
+
+All of these have been in linux-next this week with no reported issues.
+
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+----------------------------------------------------------------
+Aleksandr Nogikh (1):
+      usb: gadget: midi2: Fix null-pointer dereference in f_midi2_free_ep_reqs
+
+Amit Sunil Dhamne (1):
+      usb: typec: tcpm: constrain TCPM_SOURCING_VBUS event handling
+
+Andy Shevchenko (1):
+      usb: f_mass_storage: Bump local buffer size in fsg_common_create_luns()
+
+Arthur Gautier (1):
+      xhci: fix lost bounce buffers on TDs spanning several ring segments
+
+Chang Wu (1):
+      usb: typec: hd3ss3220: track VBUS enable state per consumer
+
+Chen-Yu Tsai (1):
+      usb: xhci: Fix HCS_ERST_MAX conversion
+
+Elson Serrao (1):
+      usb: dwc3: clear forceRM when issuing EndTransfer
+
+Fan Wu (3):
+      usb: typec: qcom-pmic: cancel reset_work on stop
+      usb: typec: qcom-pmic-typec: disable cc_debounce_dwork on stop
+      usb: typec: qcom-pmic-typec: drain cc_debounce_dwork if port_start() fails
+
+Griffin Kroah-Hartman (1):
+      usb: image: mdc800: change kmalloc() to kzalloc()
+
+Ivy Lopez (1):
+      usb: gadget: f_midi2: fix use-after-free in string attribute show path
+
+Jameson Thies (1):
+      usb: typec: ucsi: displayport: Fix OOB altmode array index
+
+Jeffin Philip (3):
+      usb: gadget: f_midi: initialize work in f_midi_alloc()
+      usb: gadget: f_mass_storage: fix null pointer dereference in fsg_common_set_num_buffers()
+      usb: gadget: fix null pointer dereference in usb_put_function_instance()
+
+Liu Qi (1):
+      usb-storage: ene_ub6250: fix race between scan work and probe
+
+Lovekesh Solanki (1):
+      USB: gadget: fix NULL pointer dereference in gadget_dev_ioctl()
+
+Marek Vasut (2):
+      usb: typec: mux: Fix typec_switch_match()
+      usb: typec: mux: avoid duplicated mux switches
+
+Michal Pecio (1):
+      usb: xhci: Fix isochronous scheduling regression
+
+Myeonghun Pak (1):
+      usb: storage: realtek_cr: fix use-after-free on disconnect
+
+Pawel Laszczak (1):
+      usb: cdnsp: fix wakeup from S3 after controller context loss
+
+Radhey Shyam Pandey (1):
+      usb: dwc3: google: Initialise probe properties with DWC3_DEFAULT_PROPERTIES
+
+Sven Peter (1):
+      usb: typec: tipd: Fix Thunderbolt altmode VDOs for cd321x
+
+ drivers/usb/cdns3/cdnsp-gadget.c                   | 111 ++++++++++++++++++++-
+ drivers/usb/cdns3/cdnsp-gadget.h                   |   1 +
+ drivers/usb/cdns3/cdnsp-mem.c                      |  98 +++++++-----------
+ drivers/usb/dwc3/dwc3-google.c                     |   1 +
+ drivers/usb/dwc3/ep0.c                             |   2 +-
+ drivers/usb/dwc3/gadget.c                          |  21 ++--
+ drivers/usb/gadget/function/f_mass_storage.c       |   5 +-
+ drivers/usb/gadget/function/f_midi.c               |   2 +-
+ drivers/usb/gadget/function/f_midi2.c              |  17 ++--
+ drivers/usb/gadget/functions.c                     |   2 +-
+ drivers/usb/gadget/legacy/inode.c                  |   3 +-
+ drivers/usb/host/xhci-mem.c                        |   2 +-
+ drivers/usb/host/xhci-ring.c                       |  43 ++++++--
+ drivers/usb/image/mdc800.c                         |   4 +-
+ drivers/usb/storage/ene_ub6250.c                   |   2 +
+ drivers/usb/storage/realtek_cr.c                   |   9 +-
+ drivers/usb/typec/hd3ss3220.c                      |   9 +-
+ drivers/usb/typec/mux.c                            |  21 +++-
+ .../usb/typec/tcpm/qcom/qcom_pmic_typec_pdphy.c    |   2 +
+ drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c |   5 +
+ drivers/usb/typec/tcpm/tcpm.c                      |  28 ++++--
+ drivers/usb/typec/tipd/core.c                      |  17 +++-
+ drivers/usb/typec/tipd/tps6598x.h                  |   4 +-
+ drivers/usb/typec/ucsi/displayport.c               |   2 +-
+ 24 files changed, 284 insertions(+), 127 deletions(-)
