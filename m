@@ -1,160 +1,242 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0EF439E164
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 09:24:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788686677; cv=none; b=ZBuFJ3i3QPc+vFd7EOlI0+kY7z/iOqVq+idpayLtOUFCIomntxU41rP3kQenTuHZHMnNwWwjvI4v3Cu8VG/1RFH5ej6QCz0eCl1W7BN9OPYV8gUODlrhwdzOzG/1B7PqJSC0Fu+MtS9SqhjJmRJnqH7Cmmyq15g9hBOzE1enzew=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788686677; c=relaxed/simple;
-	bh=R0d2I2oFbcaISY9HYkvAh+fEqUo/dGsfYd8ObVhTkvs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KutgOa789qfQl8tDhNgB5kE6wULQG+zhVF1hcptOIBgxB3JO/KRlEr85e6tI64UL+eQJZC+Mt+OL/yeHN6+4S61Er+wN3SsxoOHCWPdz0+o6BVCmzxouG/IAk4TwJXmsFYYNWxKrC7A/sih/zl4IquRlGMG2cn//P2yM0keD6Sc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jnQSFFXk; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28EA22AE65
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 09:26:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788686802; cv=pass; b=ZJLwnRSASQdQ1AA7YDlxzlp1vQgSv8oifd5j9wK88Mp2reiijYXQCqZm2al3Tefy/S4YRFeXjKpkjBIojSQSluXl0OEz7sM3LTvyfqDYym6BIKaaLkkpjpkjp+/vgJ1y+mgL3sMsDz3ihWdtZq8YelbNsX4YpzuI0vhmY4skV6s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788686802; c=relaxed/simple;
+	bh=cEKrnTatrqgp9q6ansCE++YyyCJnnQqYEhHs1asB6fg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=didjTNUfcWDyKddwTONepmAGnOcCVZC6M8q+KdABdyANAnZ2a8rIA5JFyuhQoygR/9CFvwg15mWNVZGuBz3Ew6a5rVcYO4WZDfjCe1i9TSf5W4R9NOdNYcY7I3NYAC0HnBrYOW/67Qn9KGzg6pZiVp45IFRCSA3PYyFOU1ZFccA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=V0vs3tHC; arc=pass smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jnQSFFXk"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49b96837ca3so18562945e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 02:24:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="V0vs3tHC"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49cf4f81d86so18893235e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 02:26:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788686799; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rzYAUdpA3gyEN8bXby8g0yUUnOzRzttzAq6AbKEX7HXBd7Z9iWzafSqLAvLBIfmUOI
+         vUlE+tFIKzTZu6KYGK6mlZOe3M4ejvuem22QKlWoIIcUh6Db07S+hVsmYUxC0KUMHMqE
+         NfVeXmItrEVQTxCGF+qg2nYq04w/Lc2KtbHLAu1d8NRyxFoxhyrdukox7BS2EyhFltgc
+         0Dgfh16U4Dz7z0VeE7OWAI3jWnXQreLnkiPPAlqe3dzyTAk/QBvO+XY76SA1dxSs89yD
+         Z+VGZCT9Fal+I6TDL7Wva1Y/WVBNHklHlfwn37u1pJxRnVFnsrzfrpLJIxkzt97/f6D8
+         xlNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=s3Z9m61R0Xcvfx1fOOb/3EA5UUxAFfOaOY/w1CnIwco=;
+        fh=H4i1TmtUcxiKhLORTiF/tsV2Lj9Idd5MN6yn39+E5mY=;
+        b=gHfVs9so/yylqzrTuMifVkNTYWt1lc+94iMkWM2jZvaXiMJCmUoyLLk3X3j8qTgD/9
+         1OWPEgI6RMALlxNe1TcSg1ZLJxB51s9fGjSF+/CmAduv9HhArJg+9xlx+lCCEeaSEWLb
+         kmvfMt6sDdwJ0NoFsJq7Yc0Wrz+1oW4AkxC5H8LO4Hv1b2r7lnqplOJeOZhuvA5E9frY
+         Y1FiOZEIZvGfZCqu+DUM41k2ksdw/zLg9WHyZR0zFUJUBjaBrNdkOSLWCAVnROFAVTLx
+         RcO09Uhbia1yXt720RPl23jc9S+Lm2WB2/Tf++3gfHB5KN6mK02dH4IhqluUPSIuZ27I
+         lScQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788686674; x=1789291474; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ey8A+s9kaQEFouzsUcbahf9veFscS+cZ76Rl/QxLJxk=;
-        b=jnQSFFXkR/0qcrK3lHgwdPUq2hNZM1k/7SFaLadUSy71AQkijIARUM2Y3k2H7+VkOf
-         /W0oaWRb6OjC7zvJoaeSCSQfsD+oz51UIHcpohSGuzheP5BHQIpy0/9BeCU1shlZk39e
-         RooxDPi6JwbJm9K7cD2ehwXKKx+pB3K1kjkLin+6KC1h8qT+ECs95Jy+PysMc6Wi3+5C
-         RM/YWbggagJXvk4qmHTeD5n1CcNEpG/9xT3SPvfUrvwNzInFMy8E96bdwEhIUZjRmt+P
-         pO20M5p3uruJt/+l9vVEWuVdZ8Xa7MHFVpis/CDTpuR0nDXrjusffyLjVD8q5b/pQGNs
-         7aXg==
+        d=brainfault.org; s=google; t=1788686799; x=1789291599; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=s3Z9m61R0Xcvfx1fOOb/3EA5UUxAFfOaOY/w1CnIwco=;
+        b=V0vs3tHCuoo/AWweZchEelS11jlPfykpbh+xhCr4izvHsQbi7Udr678LekfcFk7m4A
+         cfV6qb+omb45PPAymV8Y/FSMvHeMvPldpBx1dF9fergnkPe3yIjw+AU71QBUMp1wSZw9
+         PbguZyl/T0/GVyeybYvSrAzo9RU11Uhpd1sXMJ+UAofIg97CFlTmq15tc98GIOMV6F9N
+         h15FjxstDzlfxzagjeVRA4y2lu7yhpJj3y0B8+fFIaFQWcANH35fEz+AwhXQJdqrggWm
+         fBaIRcQcknUvAcEkSxc88kpnLULPBn7OmP8RjNzsFO6X678YMmd0NL6Xz1Qshkjhuo1a
+         Q8AQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788686674; x=1789291474;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ey8A+s9kaQEFouzsUcbahf9veFscS+cZ76Rl/QxLJxk=;
-        b=LXTeIR+lpRx1puM6ALfHy6V83ZZzeWfWw6aQcDLYK7A96g8xlR9aUwYa2uMK+Dp/th
-         HliT7neNwgMemOa8cYix3kFXv4Zj9cOYvBtViXsvTRCUy8t7Q+KzISxVq0hYX3Amh9Md
-         9K95jq9ynW2zug1myvHH3wiFZwdVN6l0l8/8nASm7II+gabK/OZn0/5dL95tFZEPENbz
-         wDS7U8GRHIMp9kxxJRuCbOXOYKl/llOjnCGsUic9dfjN2dimCS8IldZ4wE0S2/RLD1AB
-         mKF2Ac8dLBcdByQkABuz7VlEM/PTowNCGyVer342/O99FJONVfCiFFbs0UavVHSyUE/j
-         oeXQ==
-X-Forwarded-Encrypted: i=1; AKwUvByoFKF0N2O1aufzfYUbzu+h6zS2KAFQD/uz+F9/0W+lQUTvH9k3pjwGnhO6pRt7kR/bRxsWzXVs2ToyfCU=@vger.kernel.org
-X-Gm-Message-State: AFuF++n8bsAkRGe0mYweeRDodUswO3PN+pZWWZwsz8SMfpdS+9xsoCMh
-	0WPPlOma9LHUDQJd4dIUxrpepmsN3p455lK4Co0bAp8dgALkrjjt2lYW9+QKrw==
-X-Gm-Gg: AYBFou3SgoqBWU1CQTajnsG4No/hf3nXINs2YBTXUH3iaslm9klwp6chFhwl84V4NCd
-	oVXV5jHGeQzQhbRIlUhlpWkwE92hW3HbVu9jEE4SCm1R3McAMS/f/lV1F+ZvjyBv6HmCpYBHeOB
-	7UAz2LREVAQ5cIZbhLQMimvycYV3Gr82VSixkFJlXYPYAT/Ords82hgFRpMRBcZbZagw216LgY1
-	1O5CgkRKU1C0mCFlJMGITqi0QgkmBbHR3gJ7oyhfgkC/N4DQEQ+EdsL6Tm3aU118+FKkKpvX0ze
-	uesAxRHwtg1YEneEKM7VVzVF2ZIsEIPIPpAuqAaG1KlBuM6GqMG51EECVnGjk3kki1s/nyO0ZQM
-	X41ROK8sEhcf/l/3qTORVf163mmVLgCM4RiXlR5POY8M7kD9UZATcbXFW5045xuL4SRf39B0lv/
-	tgdGOVui7aBxVu5OQAvq4it8lo5cYP5xjy5lMTq8eROyIvwdM0+2iG9EQ8e0tPTy710LxtE8H1/
-	MMivqXrHHoGEwYrZN44AgRUnHb+IP1lO8hNDPxOekrcasdD
-X-Received: by 2002:a05:600c:37cc:b0:499:ad2e:f7bc with SMTP id 5b1f17b1804b1-49cf823f107mr175775965e9.10.1788686673822;
-        Sun, 06 Sep 2026 02:24:33 -0700 (PDT)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf755c22esm216768265e9.0.2026.09.06.02.24.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 02:24:33 -0700 (PDT)
-From: David Carlier <devnexen@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: dan.scally@ideasonboard.com,
-	jacopo.mondi@ideasonboard.com,
-	mchehab@kernel.org,
-	nayden.kanchev@arm.com,
-	hverkuil+cisco@kernel.org,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>
-Subject: [PATCH 2/2] media: mali-c55: Check the statistics buffer address before filling
-Date: Sun,  6 Sep 2026 10:24:25 +0100
-Message-ID: <20260906092429.50046-2-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260906092429.50046-1-devnexen@gmail.com>
-References: <20260906092429.50046-1-devnexen@gmail.com>
+        d=1e100.net; s=20251104; t=1788686799; x=1789291599;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=s3Z9m61R0Xcvfx1fOOb/3EA5UUxAFfOaOY/w1CnIwco=;
+        b=o2ufIPRh7QmzUFXBTumpebm3Yu7obPER/nHBqXeB2mjdaiA9S8Brb7K+WSQpvWLRJ8
+         6zwJgE07I6B+rrtWh5Qw56k9gfs0pCRuSrCpzGcQL2aRg6ofdsnwqzSBUS6wmdZ55kxP
+         GGy9RpkwG4w17qkQFOJLU4Ytnv07NJF0414BeiEqvRQBB0M01xGGP3hO23wn5Yq3dJ6v
+         V2jIqO6qU0B4sjBdq0+/OuhSsZRarDmfB70p6FVrBCkxyKeRFD99GqL7xpBDb8uWuWXF
+         X45wA4HzrCh7MJMyLQN0di9BnT9YKz329bQdBW+47SnhtYPjVm0B6cecks6jSVVNCU+a
+         +rFQ==
+X-Forwarded-Encrypted: i=1; AKwUvByKUgakTXe7ja+zXoRvZGzVOBnU6A3ZiQZ29uXbYD4MPhUYIKXmYjs5WOpRm4gc+UxIlj9QUdB83DEBp88=@vger.kernel.org
+X-Gm-Message-State: AFuF++l05FK/KNnLGSYUOYzrt2/Cvv1JvltoAgJGakpOadnojZJEfNUF
+	QysL1mp9gOdUvv8G8y06THUkAgiWtiGkCpEUVPXQosBrv039x4OfWjmxqIfb6vAZfiDkolhDFHm
+	pOfPChZiIiT7mfWDtW+cdaS5joRA8/LIXHipUhMn/5w==
+X-Gm-Gg: AYBFou3yTYCa50MGHXHCFI1SgmLztKO+eKacFDXqaoyi7RRHEnSGBlVpVXgVyV2Qs6y
+	G8RDzUHOgz90Xz2JDfi3ybIWuJrGJgN1R0bz/D4Mf7u2Hj3yWst/xd89/oPbayy+f3/ck3PTk0Q
+	tVMOVipR7eE3UdQXc/+M4L0VIquOa8vVYwhEyBoIFDcK6nCD08L53tO7B2Pxz+XzlhYMKBYaejm
+	fRYmJP+/InyAQ7K0XhvyE4OhYHRXj8gj90377XtFSIyKRtFaqPsxjwUgvFfMAqKpXAm6HgF3p/W
+	RvIcOTKTgHeYFog4fuk8T72tVyeX7DqCb1Yk5lLIDlwa3CxL4itDplSPnj0Nr4jUwvjtUMa+Lxp
+	e7WU1QuS7t29tmDflCKhHumbZ2OxIfm/4NzZEgcMO8Ey9ayzjPuc043ksZOX3SxA=
+X-Received: by 2002:a05:600c:3f19:b0:49c:fc6c:be13 with SMTP id
+ 5b1f17b1804b1-49cfc6cc0f4mr134459275e9.25.1788686798530; Sun, 06 Sep 2026
+ 02:26:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <caplitmus-rv.4f722288a2f1483090d75bcd991d5b90.imsic-cover@163.com>
+ <caplitmus-rv.4882de641c0d41f9bef843fe41b3084f.imsic-zero@163.com>
+In-Reply-To: <caplitmus-rv.4882de641c0d41f9bef843fe41b3084f.imsic-zero@163.com>
+From: Anup Patel <anup@brainfault.org>
+Date: Sun, 6 Sep 2026 14:56:26 +0530
+X-Gm-Features: AcwNN1XPksXVzh3FfoA4HfbE_7dEgAQHtrNhUuQ_Fviya_2o7CNRojIaWVMEZmI
+Message-ID: <CAAhSdy1LPUy51RCc52kRv62Jdgi-DL=64J-p7RXd1Y11dvXXbA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] irqchip/riscv-imsic: Ignore unused group index shifts
+To: Pengpeng Hou <hppiscas@163.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Andrew Jones <andrew.jones@oss.qualcomm.com>, 
+	Bjorn Topel <bjorn@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-mali_c55_stats_cpu_read() copies the metering registers into the buffer
-returned by vb2_plane_vaddr() without checking it. As for the parameters
-queue, a DMABUF whose exporter cannot be vmapped yields NULL, and the
-memcpy_fromio() then dereferences it from the threaded interrupt
-handler.
+On Sun, Sep 6, 2026 at 1:38=E2=80=AFPM Pengpeng Hou <hppiscas@163.com> wrot=
+e:
+>
+> The IMSIC parser validates and uses group_index_shift even when the
+> group index has zero width. The binding permits a zero-width group with
+> shift zero, but bits + shift - 1 underflows and rejects that layout.
+> APLIC MSI setup also validates HHXS although HHXW is zero.
+>
+> Only validate and clear group-address bits when the group width is
+> nonzero. Use zero for APLIC HHXS when there is no group field. This also
+> avoids shifting an empty mask by an otherwise unused shift value.
+>
+> The issue was found by our static-analysis tool and manually reviewed.
+>
+> Fixes: 21a8f8a0eb35 ("irqchip: Add RISC-V incoming MSI controller early d=
+river")
+> Assisted-by: GPT-5
+> Signed-off-by: Pengpeng Hou <hppiscas@163.com>
+> ---
+>
+> diff --git a/drivers/irqchip/irq-riscv-aplic-msi.c b/drivers/irqchip/irq-=
+riscv-aplic-msi.c
+> index fb8d1838..569b3ff4 100644
+> --- a/drivers/irqchip/irq-riscv-aplic-msi.c
+> +++ b/drivers/irqchip/irq-riscv-aplic-msi.c
+> @@ -223,17 +223,21 @@ int aplic_msi_setup(struct device *dev, void __iome=
+m *regs)
+>                 return -EINVAL;
+>         }
+>
+> -       /* Find first bit position of group index (HHXS) */
+> -       mc->hhxs =3D imsic_global->group_index_shift;
+> -       if (mc->hhxs < (2 * APLIC_xMSICFGADDR_PPN_SHIFT)) {
+> -               dev_err(dev, "IMSIC group index shift should be >=3D %d\n=
+",
+> -                       (2 * APLIC_xMSICFGADDR_PPN_SHIFT));
+> -               return -EINVAL;
+> -       }
+> -       mc->hhxs -=3D (2 * APLIC_xMSICFGADDR_PPN_SHIFT);
+> -       if (APLIC_xMSICFGADDRH_HHXS_MASK < mc->hhxs) {
+> -               dev_err(dev, "IMSIC group index shift big for APLIC HHXS\=
+n");
+> -               return -EINVAL;
+> +       if (mc->hhxw) {
+> +               /* Find first bit position of group index (HHXS) */
+> +               mc->hhxs =3D imsic_global->group_index_shift;
+> +               if (mc->hhxs < (2 * APLIC_xMSICFGADDR_PPN_SHIFT)) {
+> +                       dev_err(dev, "IMSIC group index shift should be >=
+=3D %d\n",
+> +                               (2 * APLIC_xMSICFGADDR_PPN_SHIFT));
+> +                       return -EINVAL;
+> +               }
+> +               mc->hhxs -=3D (2 * APLIC_xMSICFGADDR_PPN_SHIFT);
+> +               if (APLIC_xMSICFGADDRH_HHXS_MASK < mc->hhxs) {
+> +                       dev_err(dev, "IMSIC group index shift big for APL=
+IC HHXS\n");
+> +                       return -EINVAL;
+> +               }
+> +       } else {
+> +               mc->hhxs =3D 0;
 
-Report the failure to mali_c55_stats_fill_buffer() and complete the
-buffer with VB2_BUF_STATE_ERROR.
+The IMSIC driver already ensures that group_index_shift is atleast 24
+irrespective to the value of group_index_bits so this change is not needed
+because in the "bits + shift - 1" the shift is always >=3D 24.
 
-Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Carlier <devnexen@gmail.com>
----
- .../platform/arm/mali-c55/mali-c55-stats.c     | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+>         }
+>
+>         /* Compute PPN base */
+> diff --git a/drivers/irqchip/irq-riscv-imsic-state.c b/drivers/irqchip/ir=
+q-riscv-imsic-state.c
+> index 9505ddbd..44b9c34c 100644
+> --- a/drivers/irqchip/irq-riscv-imsic-state.c
+> +++ b/drivers/irqchip/irq-riscv-imsic-state.c
+> @@ -741,10 +741,12 @@ static int __init imsic_parse_fwnode(struct fwnode_=
+handle *fwnode,
+>         }
+>
+>         /* Sanity check group index shift */
+> -       i =3D global->group_index_bits + global->group_index_shift - 1;
+> -       if (i >=3D BITS_PER_LONG) {
+> -               pr_err("%pfwP: group index shift too big\n", fwnode);
+> -               return -EINVAL;
+> +       if (global->group_index_bits) {
+> +               i =3D global->group_index_bits + global->group_index_shif=
+t - 1;
+> +               if (i >=3D BITS_PER_LONG) {
+> +                       pr_err("%pfwP: group index shift too big\n", fwno=
+de);
+> +                       return -EINVAL;
+> +               }
+>         }
+>
+>         /* Sanity check number of interrupt identities */
+> @@ -773,8 +775,9 @@ static int __init imsic_parse_fwnode(struct fwnode_ha=
+ndle *fwnode,
+>         global->base_addr &=3D ~GENMASK(global->guest_index_bits +
+>                                        global->hart_index_bits +
+>                                        IMSIC_MMIO_PAGE_SHIFT - 1, 0);
+> -       global->base_addr &=3D ~((BIT(global->group_index_bits) - 1) <<
+> -                              global->group_index_shift);
+> +       if (global->group_index_bits)
+> +               global->base_addr &=3D ~((BIT(global->group_index_bits) -=
+ 1) <<
+> +                                      global->group_index_shift);
 
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-stats.c b/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
-index 655e52a5f288..a9c28b090b2a 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
-@@ -200,9 +200,9 @@ static const struct vb2_ops mali_c55_stats_vb2_ops = {
- 	.stop_streaming = mali_c55_stats_stop_streaming,
- };
- 
--static void mali_c55_stats_cpu_read(struct mali_c55_stats *stats,
--				    struct mali_c55_stats_buf *buf,
--				    enum mali_c55_config_spaces cfg_space)
-+static int mali_c55_stats_cpu_read(struct mali_c55_stats *stats,
-+				   struct mali_c55_stats_buf *buf,
-+				   enum mali_c55_config_spaces cfg_space)
- {
- 	struct mali_c55 *mali_c55 = stats->mali_c55;
- 	const void __iomem *src;
-@@ -211,12 +211,18 @@ static void mali_c55_stats_cpu_read(struct mali_c55_stats *stats,
- 
- 	src = mali_c55->base + MALI_C55_REG_1024BIN_HIST;
- 	dst = vb2_plane_vaddr(&buf->vb.vb2_buf, 0);
-+
-+	if (!dst)
-+		return -EFAULT;
-+
- 	memcpy_fromio(dst, src, MALI_C55_1024BIN_HIST_SIZE);
- 
- 	src = mali_c55->base + metering_space_addrs[cfg_space];
- 	dst += MALI_C55_1024BIN_HIST_SIZE;
- 	length = sizeof(struct mali_c55_stats_buffer) - MALI_C55_1024BIN_HIST_SIZE;
- 	memcpy_fromio(dst, src, length);
-+
-+	return 0;
- }
- 
- void mali_c55_stats_fill_buffer(struct mali_c55 *mali_c55,
-@@ -224,6 +230,7 @@ void mali_c55_stats_fill_buffer(struct mali_c55 *mali_c55,
- {
- 	struct mali_c55_stats *stats = &mali_c55->stats;
- 	struct mali_c55_stats_buf *buf = NULL;
-+	int ret;
- 
- 	spin_lock(&stats->buffers.lock);
- 	if (!list_empty(&stats->buffers.queue)) {
-@@ -239,8 +246,9 @@ void mali_c55_stats_fill_buffer(struct mali_c55 *mali_c55,
- 	buf->vb.sequence = mali_c55->isp.frame_sequence;
- 	buf->vb.vb2_buf.timestamp = ktime_get_boottime_ns();
- 
--	mali_c55_stats_cpu_read(stats, buf, cfg_space);
--	vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
-+	ret = mali_c55_stats_cpu_read(stats, buf, cfg_space);
-+	vb2_buffer_done(&buf->vb.vb2_buf,
-+			ret ? VB2_BUF_STATE_ERROR : VB2_BUF_STATE_DONE);
- }
- 
- void mali_c55_unregister_stats(struct mali_c55 *mali_c55)
--- 
-2.55.0
+There is nothing to be fixed here.
 
+For group_index_bits =3D=3D 0, BIT(group_index_bits) - 1 will be zero
+and 0 << any_shift_value will be 0. In other words, global->base_addr
+won't change when group_index_bits =3D=3D 0.
+
+>
+>         /* Find number of MMIO register sets */
+>         while (!imsic_get_mmio_resource(fwnode, *nr_mmios, &res))
+> @@ -854,8 +857,9 @@ int __init imsic_setup_state(struct fwnode_handle *fw=
+node, void *opaque)
+>                 base_addr &=3D ~GENMASK(global->guest_index_bits +
+>                                       global->hart_index_bits +
+>                                       IMSIC_MMIO_PAGE_SHIFT - 1, 0);
+> -               base_addr &=3D ~((BIT(global->group_index_bits) - 1) <<
+> -                              global->group_index_shift);
+> +               if (global->group_index_bits)
+> +                       base_addr &=3D ~((BIT(global->group_index_bits) -=
+ 1) <<
+> +                                      global->group_index_shift);
+
+Same comment as above.
+
+>                 if (base_addr !=3D global->base_addr) {
+>                         rc =3D -EINVAL;
+>                         pr_err("%pfwP: address mismatch for regset %d\n",=
+ fwnode, i);
+>
+> base-commit: 13ca1c0b7d8a3ab1e59cb3e780c1dd7441e22515
+>
+
+Overall, this patch fixes nothing.
+
+Regards,
+Anup
