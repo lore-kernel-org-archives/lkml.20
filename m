@@ -1,188 +1,185 @@
-Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022108.outbound.protection.outlook.com [52.101.101.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-142.mta1.migadu.com [95.215.58.142])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0DE61A6814;
-	Sun,  6 Sep 2026 01:11:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.108
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788657102; cv=fail; b=LdLiKjic2IFTynKUKWktvIts+5VaEkkjjCx2cBLB2vMuqhVShXDsIvpw0E8oizDCJIK5dBwOLCFYS/h1m7e6QsPXlDCNN5wmrP0cWvsoesra8SEjRfwMaLoqlcv2u62qu6wlF4sX6GIx36eKqwU83bysjgnV/zs73j+j/rcrqho=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788657102; c=relaxed/simple;
-	bh=qmTc7WXexs1TTx85utU47n/owBC0D9cSdKfbvDYGE+s=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=fZPvJIbtavlhjFuxWDnUNYzU6RvdQZB1FVj6HnZnYuZYIZHq4hgz9166MrNuLyjder/ZJg24oKiIkMk5ZYaIc3z6G6nHLP78xajgkJOQInmQwmuVJGBOsLfMMnV+5AGROK+QlP0MQimYPfFCIVeR6U62eRLedCBJ3W7ZZ/DBy9I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.101.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S/v7F2VvOlAuucV4ENaLaV8KbEuRF9ZaNFyIGNqOJPq9MxiPJFeOE9YBF/tA+P8QVS5IpaKx78pRdA4ruymIysftj7VnlHk3yH4UvVPk/GB68w61LyjaRIgAo09xUD6LPZErWT1teK3LhEMgerf/zEdSYCWkMsZmtlvLNnMrM90mAl/3LanUihS8aFpzFYVPuW1haKukDhrMosXyyVrGm8xe6jkHBmZp1KwrlSIeS2G3LdUqm3GMVPTQHOm85w3Xh+kW02Bvm2wj4LLsjlWSd4/AikBlqfDRaT+QkcQdNtCOEpBfq8Y8OCeizhWLHakNh77fsOfKCFO6KqNuwANPvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=2TUyh2oW1XwKwAEoRdCE/Ho3LCcLIHSHr300hEib+pE=;
- b=K6T+bz2tmSruthYzJAz75fnYI6zMqlJpPYEFkjdilLZx+C0VA/BhWRytDYH/KCBbyi+9c8JCkoW6OLRK9VbXXsN2WDWPlQ/+JWy2Nofbw8fdhCDFBUSYGYVD1PVpRV92isz5n/bqWjMR5lIcggG1S6Twc5ZhY/cGtbecRMb+K2m93Qb3ig3DwDIGp0NTtmnrhoqr9KkHEYbqsv20JU+pKi6EYQVhJvN8bdu59kLAWErYAjsOOwVgJv79Sjwvz2ECJFNftAC5yIcL0Vl4vCY0sp7Rng95AUSlWfCew6DQDkw2Hsg4+R5PZQ7ojK1wpHzszYgAo2nkKn7ck9z1QjjWJQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by CW1P123MB8065.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:24b::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Sun, 6 Sep
- 2026 01:11:36 +0000
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0382.014; Sun, 6 Sep 2026
- 01:11:35 +0000
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: peterz@infradead.org,
-	mingo@redhat.com,
-	acme@kernel.org,
-	namhyung@kernel.org
-Cc: mark.rutland@arm.com,
-	alexander.shishkin@linux.intel.com,
-	jolsa@kernel.org,
-	irogers@google.com,
-	adrian.hunter@intel.com,
-	james.clark@linaro.org,
-	howardchu95@gmail.com,
-	atomlin@atomlin.com,
-	neelx@suse.com,
-	chjohnst@mail.com,
-	sean@ashe.io,
-	steve@abita.co,
-	rishil1999@outlook.com,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH perf-tools-next] perf trace: Add upper bound checks for augmented BTF struct printing
-Date: Sat,  5 Sep 2026 21:11:32 -0400
-Message-ID: <20260906011132.279321-1-atomlin@atomlin.com>
-X-Mailer: git-send-email 2.55.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BN0PR08CA0023.namprd08.prod.outlook.com
- (2603:10b6:408:142::17) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:183::5)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 973D3306498
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 01:11:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.142
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788657107; cv=none; b=gcvHsD5E7TsSIxLV40V8FjBmG1LOj/0qYrfFNfPDEiRQX3HmOgXnCVtxcQAz3vwNiEYiQ0XR5xsjpoYQjowkZd21c+MNDVY6mMi8bOZsLynUQ7yTkO/LNKI+IHHkDv1fmkeluI/4YQW+PrbuwDDa014kF3LN2vPGg80BEInWIzE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788657107; c=relaxed/simple;
+	bh=zW7QNqiwYguh6Fh5GCujAnJ8mRwsK4X04rOZ+SnCXzU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OSjpvzvDU6vicqKgFd36kfSX22NdwYVfiLfe+OsR5Zn+bydCwW4oKCmctHasNktOvXzXLLgNVXvYITu2/nQ8nnmLKOt9ziViAFOP/UbopHDZe/NxtN12RXKlGlD78Vt//ThOPsleJarLSu6v2PE/s5MbkkJu4WqT56AEMKlTMfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TIs/2n7U; arc=none smtp.client-ip=95.215.58.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TIs/2n7U"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=zW7QNqiwYguh6Fh5GCujAnJ8mRwsK4X04rOZ+SnCXzU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788657102; v=1; x=1789261902;
+ b=TIs/2n7UPrFFtv67oCWx/Km/lwRhljfKn3fPIRoN9oGPoYy/DjooFk1oMYppJxjBtW8V8SX2
+ zfGxbVPfTtAQetOA+9sohO8ihXzBWoB5SLzHfyXRRpIiJ5ls64s9pv8CFxS3uDctIkPOqpH183S
+ iwoKZWvHi/K/BhI5S23Q/+D8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d50bff216045863e;
+	Sun, 06 Sep 2026 01:11:32 +0000
+X-Mizu-Trace-ID: d50bff216045863e
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <f65d4985-5e21-4e29-b5f4-dcff0fa479ab@linux.dev>
+Date: Sun, 6 Sep 2026 09:11:24 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|CW1P123MB8065:EE_
-X-MS-Office365-Filtering-Correlation-Id: 37eb1e3f-6778-463d-1591-08df0bb3cbdf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|7416014|6133799003|56012099006|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	mcYZ2BTbumY5gzjEIUvi6Yn45x9WuMVKthG43aNFmqg03F8nihOXCu54OYFJiqoenfcQvJ7fr/I9j5niJ7eij2DwQOGO9ioID1a82DT3wz/2NdIIdNRCLUYqpBMe+Rs4zT0wDZnr3HAhlTlnHKNZvPZErZlcuS5505SL2RRmyx7XmfyDBWxPiq/5eK/w3yoYHp741SGQuUXtT4jEli9aqcJb+HIrrVAI1y0KUfRltMcsB+qY8U2jmnIpZQY1trDGKbEjbQTU3zlHbu6pW4AWUvLI+3ZphvWe7FQRH7K+m0BFqTL+ouL78H/2oKR1fvMwMeF68G//KlX1X5RdAiDGdlVdAnEvQO+mlCx2Q9sNTamEovSvBOd43GeyiG24+640LZA02fhra7uftKIvaZpyeFX6LOCLG9NpaCN+RoVDDjL8pdH+7YAaHIv3OHqZyzCWb+Q3n5chNFCkjjDiPkhVUauzu3dBqQxoBr5WmBM1kRoaFxxlaPiEAZm19qUhhEmNUcCBqDsdcwQPZmUM/q55rTxF7KW+A7MysV5LBBfeWVG0fGorGBlO77tMSizrq5SNOU/IVtVnmOD1SSWdRZ98hY3T4W/qMohZKsKHu6pH6U99KYBBo0pJns5K5tdSnLoU8D8zlAbVKV/kzIZ/45FqyrhVbMInP1mUscp8gj9+2h0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(7416014)(6133799003)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?PqbhCEkRZ8H5vabIZw4oijeKrnMZEkL86g+YzL9VLV3TO6iIRqA14kvxmiZ/?=
- =?us-ascii?Q?YfbVKVnPL8GmBPFEoe49Ik/ao4mdLTegoIvEksEnSnUuKiO3jjwd5uGJ7yjz?=
- =?us-ascii?Q?3t9TvUHSJraSYOpOUpLsqy8cbHBGnp/YmcSR08HqOtdaq6c0VgXj//nTYjUp?=
- =?us-ascii?Q?tjK1EHn0UhOnETvtU9y9357R+XGmNRa9JD2VxxWbgdjqeBeLKfNWzoqu+3Bo?=
- =?us-ascii?Q?lkglSc0QXrrRojI1dQYzSv9LoS4RHG0qUUtt+1U0vhavv/n8cSHz/hzy596r?=
- =?us-ascii?Q?cNUlYMyo78thTU2gvLJERiN2L4h/807wMUAzjrsQJHTOFbHahRuSg9xysZTq?=
- =?us-ascii?Q?HMA/BBsB1kueHjIS02ZG1ij1cdYsQ3T+8crISVzhBt0ilWcK7fYV/X6udbLF?=
- =?us-ascii?Q?y1wAeRylgovpT10S8fATjXeK5tJXZpu8uRVGPfZVEYbwUQx2KhULY/M6J42U?=
- =?us-ascii?Q?uUZQ9+SIPNWmeH0ktozVERDg3KoWlYLIsDLHeyVpnh+r1CPlzxzQ3CISPLxj?=
- =?us-ascii?Q?LN4A0DK07igpMyhwF2pABtjrcZ7L9YAMKBpMYkwCRiWfzsJrt8p02hmZflPA?=
- =?us-ascii?Q?TVupUVdx/B2IpBnw/UP64dKhMVn1F+Ct2AtPJOnAW6IsLiWxIkMeG9nw/AF2?=
- =?us-ascii?Q?UDeuimlRAPF13sgNv7GVSMF+GZFR3kXAIM+ztomY4zBzeC7l/AtqjRdfL8q1?=
- =?us-ascii?Q?pnzilV46s34iBKMoNfJ2sNHqLMBqD4Vx1z60RjfTXjODVXCZEjR1hN6Oe5mL?=
- =?us-ascii?Q?mZp0me7lVTVE7isSwDhARXg491NXj/ot1MBYFgq6hfFHJnJIBA4Z9pMRCYM3?=
- =?us-ascii?Q?PKWt3O92HtUJWg6UCVOovBm8GettGgMCqUObJqAFIOZNJ0KEQxFdHMydUsXo?=
- =?us-ascii?Q?+HKNuscN0djnSHry8jzfsQ3CYBfR79WVskUr21mS0ZBuoAOscfDbcntUXleQ?=
- =?us-ascii?Q?BTghd1VGgI/289aoxdWrTOdSCi02pRNwsyzgakhi2R/C1W0K5uO2kdR3lBbE?=
- =?us-ascii?Q?29Yvy4MBrAXArXWOILDQHJ4w3TefdSZiMxJcoNgzYLKSJnkWNZzjdEBsYinY?=
- =?us-ascii?Q?o5TvKrua8H43Lj8pYXh521xtbkIRpWievp8NmKNkOeY20jyJ8xcHMdKQJxMn?=
- =?us-ascii?Q?rd0QJNvsWjgbLuh1Ap+BruMYwh2BxCdkW+ygLHgqn3G5rjFm373Hxg0U0Ju6?=
- =?us-ascii?Q?nWVxFQ7YRCCcBa63CCq7zHWHbAP6mbgziLirX4UBrS5KsVUfdzIj46USkq8A?=
- =?us-ascii?Q?7gY6HZJUKw4D9BpjFkyX32uOB7nwOUqM7bwKqHBHbQkN0BCUV/CcOuUJuSRC?=
- =?us-ascii?Q?JB2Vq9eQSXOqlYqt7dtjWTnd1yAF22aFLdkTp+WBeSRxLgssSsqxbRbY+PBV?=
- =?us-ascii?Q?Y+e8XniUwN7chPTWmDQE2QBa1mOu05VUmeE4JeMjFx4tCl5OcuCZHRLYtg5W?=
- =?us-ascii?Q?g+0cKOs9maddiFC9M0VOIQUswueIyTuyNwd8uIKxW31Yc2q56chdWH57I4mn?=
- =?us-ascii?Q?kVZ5OCoqlrWjiXcrfQoEe6RYj+SJCjlWzgAsPJWB9WwK3UUOaPCS3/jjR+O/?=
- =?us-ascii?Q?0q0QHccTuKsv+AF4cqIRIo+NNKe0uYXMKeKDDCQ8s3VBrGIlYgA5j68ii56t?=
- =?us-ascii?Q?Rbm3sTW3vzVoVPrMogxhBexl5XLAurbTUq3Gp7eEM/ebzHkg3J4LgHXCzfN2?=
- =?us-ascii?Q?iOOXJ+Igf7rNXO2qiulYjCEtZ7L2Zs46DKkRq95B4/5PliSFs/rzaqew+4C2?=
- =?us-ascii?Q?qrqdzkMwPA=3D=3D?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 37eb1e3f-6778-463d-1591-08df0bb3cbdf
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2026 01:11:35.8605
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lNx0dI5gINWjFDQzgDVSflFZV+A/JFcM6Gfid/KbRRNvn83G8Uw+K6RGiX543p19X/hGEbBkU3gVBSXwohJpDA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P123MB8065
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] mm/page_counter: avoid integer overflow in
+ effective_protection()
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Muchun Song <muchun.song@linux.dev>, Kairui Song <kasong@tencent.com>,
+ Qi Zheng <qi.zheng@linux.dev>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Chris Down <chris@chrisdown.name>,
+ Tejun Heo <tj@kernel.org>, Yu Zhao <yuzhao@google.com>,
+ "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <cgroups@vger.kernel.org>,
+ "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <linux-mm@kvack.org>, linux-kernel@vger.kernel.org,
+ Ridong Chen <chenridong@xiaomi.com>, stable@vger.kernel.org
+References: <20260903031952.1120321-1-ridong.chen@linux.dev>
+ <20260903031952.1120321-2-ridong.chen@linux.dev>
+ <20260904093743.23cde26b@pumpkin>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <20260904093743.23cde26b@pumpkin>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-When pretty-printing augmented struct payloads using BTF via
-btf_struct_scnprintf(), augmented_arg->size is currently only validated
-against values <= 0.
 
-However, several edge cases can result in size mismatches or buffer
-over-reads:
-    1.  If arg->augmented.size is smaller than sizeof(*augmented_arg),
-        dereferencing augmented_arg->size reads past the available
-        buffer.
 
-    2.  If augmented_arg->size exceeds arg->augmented.size -
-        sizeof(*augmented_arg), calculating consumed =
-        sizeof(*augmented_arg) + augmented_arg->size can overflow signed
-        integer limits (e.g., with crafted INT_MAX values in an
-        untrusted perf.data file) or cause arg->augmented.size to
-        underflow. This advances arg->augmented.args out of bounds,
-        corrupting the parsing state for subsequent arguments in
-        multi-argument syscalls.
+On 9/4/2026 4:37 PM, David Laight wrote:
+> On Thu,  3 Sep 2026 11:19:51 +0800
+> Ridong Chen <ridong.chen@linux.dev> wrote:
+> 
+>> From: Ridong Chen <chenridong@xiaomi.com>
+>>
+>> effective_protection() scales a parent's protection by a ratio of page
+>> counts, e.g. for recursive protection:
+>>
+>> 	(parent_effective - siblings_protected) * (usage - protected)
+>> 		/ (parent_usage - siblings_protected)
+>>
+>> The multiply is done at unsigned long width before dividing. On systems
+>> with >= 16TB RAM the product can exceed 2^64 and wrap, giving a bogus
+>> protection value and silently breaking memory.min/low enforcement.
+>>
+>> Use mul_u64_u64_div_u64() to multiply in a 128-bit intermediate. Because
+>> usage and parent_usage are not read atomically (a child is charged
+>> before its parent), usage - protected can briefly exceed the divisor,
+>> making the quotient overflow 64 bits and trap (#DE on x86). Cap it so
+>> the ratio stays <= 1.
+>>
+>> Reported by the sashiko review tool [1].
+>>
+>> [1] https://sashiko.dev/#/patchset/20260826133054.88529-1-ridong.chen@linux.dev?part=1
+>>
+>> Fixes: bc50bcc6e00b ("mm: memcontrol: clean up and document effective low/min calculations")
+>> Fixes: 8a931f801340 ("mm: memcontrol: recursive memory.low protection")
+>> Cc: stable@vger.kernel.org
+>> Assisted-by: Claude:claude-opus-4-8
+>> Reviewed-by: Barry Song <baohua@kernel.org>
+>> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+>> ---
+>>   mm/page_counter.c | 19 +++++++++++++------
+>>   1 file changed, 13 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/mm/page_counter.c b/mm/page_counter.c
+>> index 661e0f2a5127..e8bd512069c5 100644
+>> --- a/mm/page_counter.c
+>> +++ b/mm/page_counter.c
+>> @@ -8,6 +8,7 @@
+>>   #include <linux/page_counter.h>
+>>   #include <linux/atomic.h>
+>>   #include <linux/kernel.h>
+>> +#include <linux/math64.h>
+>>   #include <linux/string.h>
+>>   #include <linux/sched.h>
+>>   #include <linux/bug.h>
+>> @@ -356,7 +357,8 @@ static unsigned long effective_protection(unsigned long usage,
+>>   	 * otherwise get a smaller chunk than what they claimed.
+>>   	 */
+>>   	if (siblings_protected > parent_effective)
+>> -		return protected * parent_effective / siblings_protected;
+>> +		return mul_u64_u64_div_u64(protected, parent_effective,
+>> +					   siblings_protected);
+> 
+> On 32bit it is only necessary to use a 64bit intermediary.
+> mul_u64_u64_div_u64() will drop back to the (probably faster) 64 by 64
+> divide (and then maybe to a 64 by 32 one).
+> But there is a lot of extra code before that happens.
+> 
 
-    3.  If the captured payload is truncated (e.g., short reads in BPF,
-        or during cross-architecture analysis such as replaying a 32-bit
-        perf.data on a 64-bit host where host BTF type->size exceeds the
-        32-bit target payload), passing type->size to
-        btf_dump__dump_type_data() causes libbpf to read past the end of
-        the payload buffer.
+Hi David,
 
-Enforce an upper bound on augmented_arg->size against the remaining
-buffer (arg->augmented.size - sizeof(*augmented_arg)) and verify that the
-captured payload contains at least type->size bytes before passing it to
-btf_dump__dump_type_data().
+Thank you for your review.
 
-Fixes: cb32035214b9 ("perf trace: Pretty print struct data")
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
----
- tools/perf/builtin-trace.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Do you want me to split this for 32-bit, or is keeping the single
+mul_u64_u64_div_u64() call for readability fine with you?
 
-diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
-index be19d70eba09..20fffc24507b 100644
---- a/tools/perf/builtin-trace.c
-+++ b/tools/perf/builtin-trace.c
-@@ -1133,12 +1133,13 @@ static size_t btf_struct_scnprintf(const struct btf_type *type, struct btf *btf,
- 	LIBBPF_OPTS(btf_dump_opts, dump_opts);
- 	LIBBPF_OPTS(btf_dump_type_data_opts, dump_data_opts);
- 
--	if (arg == NULL || arg->augmented.args == NULL || arg->augmented.size <= 0 ||
-+	if (arg == NULL || arg->augmented.args == NULL || arg->augmented.size < (int)sizeof(*augmented_arg) ||
- 	    arg->fmt == NULL || !arg->fmt->from_user)
- 		return 0;
- 
- 	augmented_arg = arg->augmented.args;
--	if (augmented_arg->size <= 0)
-+	if (augmented_arg->size <= 0 || augmented_arg->size > arg->augmented.size - (int)sizeof(*augmented_arg) ||
-+	    (size_t)augmented_arg->size < type->size)
- 		return 0;
- 
- 	dump_data_opts.compact	  = true;
+>>   
+>>   	/*
+>>   	 * Ok, utilized protection of all children is within what the
+>> @@ -397,13 +399,18 @@ static unsigned long effective_protection(unsigned long usage,
+>>   	if (parent_effective > siblings_protected &&
+>>   	    parent_usage > siblings_protected &&
+>>   	    usage > protected) {
+>> -		unsigned long unclaimed;
+>> +		unsigned long unclaimed = parent_effective - siblings_protected;
+>> +		unsigned long unprotected = usage - protected;
+>> +		unsigned long parent_unprotected = parent_usage - siblings_protected;
+>>   
+>> -		unclaimed = parent_effective - siblings_protected;
+>> -		unclaimed *= usage - protected;
+>> -		unclaimed /= parent_usage - siblings_protected;
+>> +		/*
+>> +		 * The usages aren't read atomically, so a child can transiently
+>> +		 * appear to use more than its parent, making the ratio exceed 1
+>> +		 * and the quotient overflow 64 bits (#DE on x86).  Cap it.
+>> +		 */
+>> +		unprotected = min(unprotected, parent_unprotected);
+>>   
+>> -		ep += unclaimed;
+>> +		ep += mul_u64_u64_div_u64(unclaimed, unprotected, parent_unprotected);
+> 
+> If the ratio is forced to 1 there is no point doing the scaling.
+> So maybe:
+> 		if (likely(parent_unprotected > unprotected))
+> 			unclaimed = mul_u64_u64_div_u64(unclaimed, unprotected,
+> 							parent_unprotected);
+> 		ep += unclaimed;
+> OTOH if the min() generates a cmov rather than a conditional branch
+> then you don't get a statically mispredicted branch in the normal case
+> (which is very likely with the empty 'else' branch).
+> 
 
-base-commit: 02f6847e1822714a4201b87e42f92b0d43e8549d
+I'd rather keep it as-is and avoid the extra branch. Does that work for you?
+
+> 
+>>   	}
+>>   
+>>   	return ep;
+> 
+
 -- 
-2.55.0
+Best regards
+Ridong
 
