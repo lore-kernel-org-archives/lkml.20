@@ -1,146 +1,81 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE8F3783B5
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 15:53:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC2B0364E88;
+	Sun,  6 Sep 2026 15:54:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788710027; cv=none; b=KJCxRanrH/IWsLmbH/XZDYA2YTKkL5nNhOxxNLS7aq8a9dF0+0W96t60kPa4YO7UUnpMg24hjQLgDogX7GXkfkRB6vwM5NA9YhnGuldNEKo9d46sKkJLzoP4l1cUpqXIgpUEDa8d7YcRz/1eiNTQQF8Q4njLnTVNktkFKKRzd9I=
+	t=1788710066; cv=none; b=avatw8NN+i+0mofG4FISe7pfyrmAWDuLec480rjpy44yaMolwtBwbNOWY+i7PTJLPFTwmJYB1XGG3CO+P7yMJsESoIXNE486HWigbk0uYj7fYNbJUUJFegVX37GcKxw+TvvMLov5YA4f6GlscYm1F74IXMMVFvi70hnDtqsp+sM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788710027; c=relaxed/simple;
-	bh=iXeuXZinLwPRHtHoRD2Ox32yQacS6fb88foD+iwKC5I=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BfY8cyfOP/oBs0swGtdW0RGnULszRiJhN3elUzgAdsOHguYw76+NkGBh6SemvLSNkJvVZXbdbRZIFjZl5yTSqtgqL1ibWlHXiAgXEvNsQfaV4mz40jqw/N731MHUGLdkF+19ZS2wI1nXn5vBzsawIW49111tcpsgipXKRxHTo84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I0k1WdWs; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788710066; c=relaxed/simple;
+	bh=4oXydQgkdknmkuXel/43Bm07DSo53HIsj3Ju6q7fPqk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=aAxMH8vu6qvR7pE9tbnBZI3EvFf7VD2iEhK7w9yYn2cMz9Mh8PPSKZV5w3QfUN2tqY9x605jIODYdlWsZ5fo+Q5i4TpwpFkwnEaXYBt2wReXn0qg7TAwO743sgkxEPu7Le6jAPUOGiCMUiVWjv73sSiOOSZ9bp/p5fmHXif0u8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y+B5/8PM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I0k1WdWs"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cf452def93so31630045ad.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 08:53:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788710024; x=1789314824; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:subject:cc:to:from:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YZKG0N4Qd9s3jT0vFHcSeVc0433ACE4MO/8edec8Z6I=;
-        b=I0k1WdWsx9WNfUFzK3BCcm/BNEFTWwsSSN1wsCkjh/W3e03sW3FrKRgga6+nkV5OIa
-         GEqvcSuepfem0vtcK9eRFpdHfs0fsmMrFwXcXObxNZ0W/5MTQfFnnzXgCch1vdFT355o
-         AKlgGOiBw7NXbkXRQhWgRlnS73Soey6eW/4SWZOlLv/qlWWc4yF5Zc0UfmVCgbtRfA7p
-         Rab3z+XWQZPxKy0j9hBclzk5skPzkXj9IYYjj+lQUrExtfpo0tRP+TGkOLjAtcwVM+gS
-         0vg5gESMA1idbisUWf9LZEANhJ3vno7R5txyykz0JKQOhgbsYpBSQcA8B5+Q9QZbZR9W
-         4V+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788710024; x=1789314824;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:subject:cc:to:from:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YZKG0N4Qd9s3jT0vFHcSeVc0433ACE4MO/8edec8Z6I=;
-        b=EVJcxPbpTvY36SRnaEq0nrqPMxehNwdRvZuvF5Yk02TVQpslo/2NRLe3vfekcW3tmq
-         Y0Uu8H33ZlWQpGWhukN3AyAtUYMXoVi1qdnHO6DwP6xZ1SrPU/Qr8ZgCFYIS68h366u8
-         +pu2tQ2pNqK4jtp8d49Ogxv/hMH6EAxyD+uIsNHk6Wszn/l1h/rrUTz0O864siOz2vQt
-         yaI6nJFoEFQw+Mw5WtxdLg7tWpMLSubVTKz1K5hNnphPBMYQakc232UfFD6d+3XqI+rC
-         MQewrQFPAY7SRL7RkBB8JkIG/oZivBBmGhHnT4VzZ/Ph2nrgD28l5bRx7jmwN7xXR7FJ
-         Tbkw==
-X-Forwarded-Encrypted: i=1; AKwUvBxODPgffQEUe/UqR7A0gmZxxfYqpnMpyi7D9pxzN8fQPNvBAwOTXaiT0Y5TAS3Hpt+0x1Gl4fOzNXHi0W8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKIFcWaHtDoenbRCiDIdVGmoCY2ko6GGtBhUQBY3rNydxQEUOd
-	XuSDe63AehzQ0Zq1WCKHO2e6c6/LFl0uAvCTMKCCACUYjAi0WnuF0P3L
-X-Gm-Gg: AYBFou1ujmxAPOeY4/JTFUbMIZEv2iVFHvzIc9EcZ8x7Z+q64WmJ5Lxgrto0Br9z31y
-	AyE2JtDF3hxHXCCpxgTFVWImv2PNRAObDPymXYTUYVIGY6jihwoMM6pFm5ejV4/WR5kZ98YCWpN
-	Fh/TKFxahBhDB1OWXaBwInKF18pxQd6ZUFmnnVZ8SNrOMK7IiiAJIxjI58TE/3hlfMAuQTXF1GS
-	oJnIzeE72EKbo/PAdN38VoUw8C302cDoOuQDWBZd9pcJLfxAp5UX8pKnUJSV0o4gzJ+u+PPtQog
-	1ja44wiQWfGQ4D/dDNwJ4UI9VJfftBUHWBDFln6zVI34BvO9q24xzwa6M2J3zaa1YnAAgAoeeLf
-	jgfFWS0ac2H+nkZO+9KLERc56/JQhStg5j6qvpY80/7m33uM1vwYZ9fUpw68C84gaozgZ792Iiy
-	lYh1qGE1TkVKxbgs2ModkSXHYVoZvFauZL/jboWDaEGhoxU8JYtSriv6kVzoNpavUFBAczqq5uL
-	MltUNg6/PEGpuMNnEY=
-X-Received: by 2002:a17:90b:2ccd:b0:398:baa7:4c2f with SMTP id 98e67ed59e1d1-39b27c442f8mr14641110a91.5.1788710024292;
-        Sun, 06 Sep 2026 08:53:44 -0700 (PDT)
-Received: from localhost (madb688426.ap.nuro.jp. [219.104.132.38])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c3a526sm21561901a91.10.2026.09.06.08.53.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 08:53:43 -0700 (PDT)
-Message-ID: <6a9d8c87.7436a696.197962.124d@mx.google.com>
-X-Google-Original-Message-ID: <20260906155336.vppadsy6zpw3mlfa@DESKTOP-1P5QNTF.>
-Date: Mon, 7 Sep 2026 00:53:36 +0900
-From: Kohei Ito <koheiito.dev@gmail.com>
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
-	Gary Guo <gary@garyguo.net>
-Cc: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>,
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 1/3] rust: gpio: add GPIO module with common definitions
-References: <20260906-add-rust-gpio-consumer-v1-0-24d192f93760@gmail.com>
- <20260906-add-rust-gpio-consumer-v1-1-24d192f93760@gmail.com>
- <CANiq72m6YZhqzE7GWEakmsZ35QN5UF_HTcVBavKxbq8cV7yk6A@mail.gmail.com>
- <DL89AIIO0EQF.3U7UGK7JIRZ72@garyguo.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y+B5/8PM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9AC21F00A3A;
+	Sun,  6 Sep 2026 15:54:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788710064;
+	bh=+dnSmZP5gM7Wc9+j+xl/n1XvEpY9FEbsLvJt/N9fxt4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Y+B5/8PM9rDm4VGGKHZJxki+w76ElkSQilGOPQkxeSqdxjsTmw1Ptb6W58jWy6lUh
+	 mZ7A6LpDwhwFz3TdfLzqrD1nFrc6XPaTSsj79M5qtFQ71vSzFzatBqx3v22jzoTcrt
+	 XvZZ3WB4NWj8VU5FhZ9QjD8dzPzL1crYlE6y7bMkhQahknL2gOAbyxImjq28FyKd+m
+	 yNuGSXF2xYCQrB6GlJIxrzdqUFWIbB/WAKFmHKZYdYHk2Ee9D01yu3rStuUgYckL3Z
+	 YtcwyQTg+MRvoM2qXILF1HxLD2Dcqlbc/3e+WTt0K2ABWxzwOHIHDdIKs+oZaD1VM3
+	 Sp6ClVcz9yFbQ==
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+To: Linux ACPI <linux-acpi@vger.kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject:
+ [PATCH v4 2/2] ACPI: glue: Rework the success message in acpi_device_notify()
+Date: Sun, 06 Sep 2026 17:54:10 +0200
+Message-ID: <2448150.ElGaqSPkdT@rafael.j.wysocki>
+Organization: Linux Kernel Development - Intel
+In-Reply-To: <12989369.O9o76ZdvQC@rafael.j.wysocki>
+References: <12989369.O9o76ZdvQC@rafael.j.wysocki>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <DL89AIIO0EQF.3U7UGK7JIRZ72@garyguo.net>
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="UTF-8"
 
-Hi, Miguel and Gary,
+From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 
-On Sun, Sep 06, 2026 at 02:09:30PM +0100, Gary Guo wrote:
-> On Sun Sep 6, 2026 at 10:56 AM BST, Miguel Ojeda wrote:
-> > On Sun, Sep 6, 2026 at 10:46 AM Kohei Ito <koheiito.dev@gmail.com> wrote:
-> >>
-> >> Add the top-level GPIO module with minimal common definitions. This
-> >> module is the basis for future Rust GPIO extensions.
-> >
-> > Thanks & welcome!
-> >
-> > I see you Cc'd linux-gpio, which is good, but the GPIO maintainers
-> > should be Cc'd too, since they are the ones that will be deciding on
-> > this -- doing it for you in this one so that they are in the loop.
+Using an ACPI handle in the acpi_device_notify() success message is
+somewhat misleading because the "physical" device is not bound to an
+ACPI namespace object in that function, but to an ACPI device object
+attached to it.  Moreover, the message is outright confusing for the
+"physical" devices bound to ACPI devices without ACPI namespace
+objects (for example, fixed event buttons).
 
-Thank you for adding the GPIO maintainers. I'll make sure to Cc them in
-future revisions.
+Address this by turning that message into a dev_dbg() one printed for
+the "physical" device and mentioning the name of the ACPI companion.
 
-> > By the way, it is nice to see GPIO again :) Now that some years have
-> > passed, how does it compare to
-> >
-> >   https://lwn.net/Articles/863459/
-> >
-> > ?
-> 
-> This is possibily also a show case for all our I/O projection and register macro
-> work :)
+Fixes: ab06eb920401 ("ACPI: scan: Register platform devices for fixed event buttons")
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+---
+ drivers/acpi/glue.c |    3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Thank you for the pointer. I was not aware of the past GPIO abstractions
-[1].
+--- a/drivers/acpi/glue.c
++++ b/drivers/acpi/glue.c
+@@ -394,8 +394,7 @@ void acpi_device_notify(struct device *d
+ 		adev->handler->bind(dev);
+ 
+ done:
+-	acpi_handle_debug(ACPI_HANDLE(dev), "Bound to device %s\n",
+-			  dev_name(dev));
++	dev_dbg(dev, "Bound to ACPI device %s\n", acpi_dev_name(adev));
+ }
+ 
+ void acpi_device_notify_remove(struct device *dev)
 
-As I understand it, the past GPIO work focused on the GPIO driver APIs
-(`include/linux/gpio/driver.h`), i.e., for the drivers that provide GPIO
-functionality, mostly present in `drivers/gpio`.
 
-On the other hand, this series implements GPIO consumer APIs
-(`include/linux/gpio/consumer.h`), i.e., for the drivers that use GPIOs,
-such as `drivers/leds/leds-gpio.c` and `drivers/reset/reset-gpio.c`.
 
-I assume that the GPIO driver abstractions will be implemented later in
-`rust/kernel/gpio/driver.rs`.
-
-[1] https://github.com/Rust-for-Linux/linux/blob/rust/rust/kernel/gpio.rs
-    (Current hash: 18b7491480025420896e0c8b73c98475c3806c6f)
-
-Best regards,
-Kohei Ito
