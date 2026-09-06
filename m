@@ -1,134 +1,155 @@
-Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com [209.85.208.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazolkn19010023.outbound.protection.outlook.com [52.103.32.23])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE64923A99F
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 14:31:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.178
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788705105; cv=none; b=HtLiewY7CBeUtEWDgWt6WYUAbGSLAfOl/Sc/PCyxLlaSRf6HUpurCmA+/zkPby/3/qPgonH141YVl3wv+kMww8ivj90C/OORDPa3fKhmfbIaaE7OzGhZsbX7fO1hp9+1cR/nYxPCYHNu04Yxz/FU/jAAFBvCUaquC34fGOEhX+w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788705105; c=relaxed/simple;
-	bh=FEJ6ksSgxvTdOy0xYTkGUfK8SZkcZ599E5hHSPIxE+8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IWzvHu74j7YGoRb6fwHDokqCYRMYxcebCqGi4jYhMuVqo+ph2D+WHqCWKSeBzDD5ZJDa+jfGXIuG/GDZD0MHTomS6X0xORQJbNFALVOnSqjPjl+DCja12il+GgxS4Ufa4g+IJwrl02oPsXGS4I7CCn1CUGLilnwawLZeuQVpZrw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=azeron.eu; spf=pass smtp.mailfrom=azeron.eu; dkim=pass (2048-bit key) header.d=azeron.eu header.i=@azeron.eu header.b=S5GpCxef; arc=none smtp.client-ip=209.85.208.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=azeron.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=azeron.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 834D01FB1
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 14:39:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.32.23
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788705561; cv=fail; b=otYApz0rJObbNwGtS4ZoP+R39gy0m0V2vh+f5d+IqaKVUfUkd2oJO5pN5IwP9QI+Cen/0KVV2+zwKZW20TNzG9WD2VllUWgI3Mp4ZAGitvEMIY1+HluI5CRLrQHzXDRP90LRS6haGxxAhg3happts8z3p4mFC1NjPoZrdLWAyl0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788705561; c=relaxed/simple;
+	bh=FzI1LZ1mIgzQwxc643uFKHNs0UVgxvCwY4LtOBXAtJY=;
+	h=Message-ID:Date:To:Cc:References:Subject:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=bAomU/Uw59THkT0GycucepqBQXQV5oEwRjKPSn4SA+22wZ4DYZ2BUKTeCvSZmBnlStXgClfPN4NRezGk8jD8lSY1Ok9chICt91misAEsupD7yQMLWXEnxO/CYXU7Ta9wDd0ymOtT+vWuq31iC3y0vNJqi9ZPEJ70DWoMp4jawsE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=WmQcaXOZ; arc=fail smtp.client-ip=52.103.32.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=azeron.eu header.i=@azeron.eu header.b="S5GpCxef"
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3a2015bbfceso30085631fa.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 07:31:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=azeron.eu; s=google; t=1788705102; x=1789309902; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hXosXQh/qCQRDJ2kIL7AYaEw1+cwVQMlFTVGAul04ok=;
-        b=S5GpCxef4YdF2/QnLbqSpKMWH1chNqxUpr6IHtod534PKIdYtKc9Saz9Q1lQl1K/dZ
-         5ACq1rVTE3bZsGqcYsRszGvC65DxYdrm6jSh9EquLgHqlPw2CeDwluB0QkREZtVPSyPp
-         oxAsez6uwXyu+fiWHmOcok1wolpFkiC+onI/obxlvXoU3/yOYyXBqD6roEw8BBBvvxs3
-         wecw78drSEkgZqeO2tgVtqNzmFKPlQqF//7SPSg3I49o9gXJNMzcgNYl+JpgalYyViF6
-         LZ9XthtxzZGmR8ZYQJ/6fu1V/Lk/GOfPtef06aEZPHJl9G+VEoWxttj3uhsdvSmLvGt4
-         Y+cQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788705102; x=1789309902;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hXosXQh/qCQRDJ2kIL7AYaEw1+cwVQMlFTVGAul04ok=;
-        b=AAypqyj/Uvu4/x+mP33IOs5k8iahjOpsuMopVj9zEe/uZB9Fu2Tguhj9whm/vVPd4K
-         VaTV0W6Hnvyc371XD6TcQo3YwsoKjmDBb9rFh/LeJZPB0teKUN90O5aJZ+xK6PHgYiVf
-         3tW6pAehsuCLqFH5LDNYCYx5EdVENPmHf0GxP+2KtjsJTrr0qqabk24rYwcme1Em1xtk
-         qbcFfcepomoDCN3imnKxZMTLNayBIquWrbX0Up1YykmnoorFtTniGSpSfd2f4PVg7uuY
-         bj2dDi4S7EIDYYLtZedp/L0mpIINw9wADdHYEuqVDJNrIwhYx6IxM10UCCO+Q4gqAlPw
-         XM3A==
-X-Forwarded-Encrypted: i=1; AKwUvBxAkTtw0cO1oKcbai+CnMSviYwoGdPd9guxkKHa1tLZyRTHHn3QpSTmfxwcXJ+hzhcXjOBzrbyt4/vk8Tw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nplnZAQbaf9swhCKSTDgjb1JNrnf4xHqEZves0Cr5iEvtlpFkR
-	bwVFoiFbPaRGCoVZS5H4mxTnUoRlSxjDSa7M6pSSt+HPGy8CBE/o9jpLnEZJluJVhjs=
-X-Gm-Gg: AYBFou29k9Zqnv3SX+4BPWEAhl3jsu5yesg8aLRF+SsfSOeSF6ZV7V5JUM/haXAJOdj
-	Bl4wpFdnBdMiKFrI9mvQBjks0MJ3crm2KC1fNA1xCkpAsPP2XmBlxyKQ+5S2RkION3KgKoAa2WS
-	0nPpEsGogWO0JbFJqPXMoZhQJMdfErK9FSRFLTV4SKp0bdooRVjF6/FhVUHxiKCjoQ21Yl/asRG
-	NMhq0zDM1UNI6tO1iJtd7InZEu54kKbHgIR+jfua1sC4XvEV8lIhpM/QDaZQJHUZ2I8IY66aTzU
-	Dv1AQe39DzRW1P0mo0QXelVaOB4D7ehPrh5IfmtEBNaXhFQvTVrI8zBOyCrznG0nJM1izpZjxve
-	ugQ2NseMv+aArWMZr1Ax5VWWpZBJTQ3sm1WR75YSJlm5XC7oAHGtGs0PVLVSGGnKCB232kGdP8B
-	SAlXzA7xvALQnec2kyjz++GDVCjf3BfpwVR2Mdl0u+i58+YmoAIYoT8riRYV5Z7Z/msbP0PNoRh
-	dm9ouCVSxgP
-X-Received: by 2002:a2e:b88f:0:b0:3a3:3fa3:25a6 with SMTP id 38308e7fff4ca-3a35b4ebaa7mr26182601fa.3.1788705101458;
-        Sun, 06 Sep 2026 07:31:41 -0700 (PDT)
-Received: from nixos.apollo.lv ([78.84.112.193])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a3705ed75dsm21560641fa.40.2026.09.06.07.31.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 07:31:40 -0700 (PDT)
-From: Roberts Kursitis <roberts.kursitis@azeron.eu>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Roberts Kursitis <roberts.kursitis@azeron.eu>
-Subject: [PATCH v5] Input: xpad - add support for Azeron devices
-Date: Sun,  6 Sep 2026 17:30:40 +0300
-Message-ID: <20260906143040.162418-1-roberts.kursitis@azeron.eu>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="WmQcaXOZ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xzqMLool3Q0vdh4RQXgP4Q9MCppU1I4pMlUSvEdlFjvhbURd0gLBeZ2uyDOWR7Eayh1V68TS49HzlIhv8X8h8YS3lzXiNXyzQePp4qU9X1IRt++CaRkFit2m9NogAORTd/w5zyAsuAkv1neV1N3RJU6WzkqVGNlcy5xaxM5gJARWT3Tlq+CqdQh/5v++Z6vJY3XN141/swcbH0xegkbucS488S+eqbc9pZi4HOYXREYSCmuTj1/U/Qg0YayUsim4GLrd0TA2Go2Pi4ZP4hHu6oMK4Hm9x9RBB6S343ml+MswIomRwVh34b4tK30UFGh1FciOYAuY1Or/jUzangGblA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FzI1LZ1mIgzQwxc643uFKHNs0UVgxvCwY4LtOBXAtJY=;
+ b=CpWDkokogLX4Z0PxRlMnRdXWQ6X7lOdcCvjmlDd5bQAwUorJx1C5c57n3P0WNuV6MXuHoStwsJRdOeB1H1evtxLH/pX3gfsgibJMhiHCacWCXa6pHeHhpBM1fUT+Q3B93phjh3LYGgaGy8sUYqy32VlgUEo9irDlCqOjbWssELus3Sbs9OpWzjdiMxkd/v9aeoGoTDGfCJDFEYoZ/Gt/K5CCPG/J1ptWXoFzhm0ylr1Xa1KyNbD64a7HpRL1nU6hCBf2NQ14cdrrOXDSifvy6feVQCcrWQIhPy3bTtPsdgVUY5NmGUWh54PMa6kvTku+XkcyZ6Uwi0dAGSNDhJi0Nw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FzI1LZ1mIgzQwxc643uFKHNs0UVgxvCwY4LtOBXAtJY=;
+ b=WmQcaXOZun3zOCEpWoz1pREAqFr/VgQYhq7vF5op38sPsJ7nV+BtujpMZDtPxPiOe5k7VSLHZMAr2MyBgIAcVkQzDvoeldk0JtS8Fa6GXLTeZMjlQwHz/KWc7uLDmGgCvOSUoD+NB2D1VUO/v+2uhNyaihDPJfD36G+17KSI2dSnRrecB5daivOHTaCefmwOtvsJt5K20DYCZ7ElcIa2wmdm2ukEI9EKHxz523LEPCBPvySEI421jUDBvZlkOj92YoXFOE2hED5Bdxm2/kSVWTGfNyOyIMlQ6hMFFcPNcKLzcO4t5gulSw1UMfWfsEPI5nPgLIpJugYCN956Te1RPA==
+Received: from VI0P189MB3687.EURP189.PROD.OUTLOOK.COM (2603:10a6:800:2dc::14)
+ by VE1P189MB1006.EURP189.PROD.OUTLOOK.COM (2603:10a6:800:169::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Sun, 6 Sep
+ 2026 14:39:17 +0000
+Received: from VI0P189MB3687.EURP189.PROD.OUTLOOK.COM
+ ([fe80::5271:c467:5d5f:ede6]) by VI0P189MB3687.EURP189.PROD.OUTLOOK.COM
+ ([fe80::5271:c467:5d5f:ede6%3]) with mapi id 15.21.0382.014; Sun, 6 Sep 2026
+ 14:39:17 +0000
+Message-ID:
+ <VI0P189MB36875750152960821EAFA52FE3B32@VI0P189MB3687.EURP189.PROD.OUTLOOK.COM>
+Date: Sun, 6 Sep 2026 16:39:16 +0200
+User-Agent: Mozilla Thunderbird
+To: detlev.casanova@collabora.com
+Cc: Laurent.pinchart@ideasonboard.com, airlied@gmail.com,
+ andrzej.hajda@intel.com, dri-devel@lists.freedesktop.org,
+ jernej.skrabec@gmail.com, jonas@kwiboo.se, kernel@collabora.com,
+ linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, neil.armstrong@linaro.org, rfoss@kernel.org,
+ simona@ffwll.ch, tzimmermann@suse.de
+References: <20260519-fix-hdmi-audio-warnings-v1-1-9608966c993f@collabora.com>
+Subject: Re: [PATCH] drm/bridge: dw-hdmi-qp: Return -EOPNOTSUPP in HDMI audio
+ functions
+Content-Language: en-US
+From: Maud Spierings <maud_spierings@hotmail.com>
+In-Reply-To: <20260519-fix-hdmi-audio-warnings-v1-1-9608966c993f@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS4P195CA0039.EURP195.PROD.OUTLOOK.COM
+ (2603:10a6:20b:65a::15) To VI0P189MB3687.EURP189.PROD.OUTLOOK.COM
+ (2603:10a6:800:2dc::14)
+X-Microsoft-Original-Message-ID:
+ <d378ea74-7a48-4536-ae31-f0899f3ded35@hotmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VI0P189MB3687:EE_|VE1P189MB1006:EE_
+X-MS-Office365-Filtering-Correlation-Id: cae2f151-3bf4-47ee-3724-08df0c24a123
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|23021999003|15080799012|8060799015|19110799012|51005399006|24021099003|25010399006|5072599009|4140399003|6090799003|40105399003|2607281247196008|260806224601699006|3412199025|440099028;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?SzlseldpMDZrbXpaMzF0SGFCV1d4OCtvWW96cG1xTzl1UVo4dzNVTkFvR2Ns?=
+ =?utf-8?B?eE9oM3NLeEg3T3JsMkdvREpaRHJKY3I3ZE1sNjg0dDJEbDB6SWZwdmFBMXJY?=
+ =?utf-8?B?WUVUOUczUnZodFFGTnVKNWREdmVReXZsOE5hZ3UvamRJQXpPVGt4M2VhMGpV?=
+ =?utf-8?B?Tmp4RHM3UU84S1dISlo3K0tkYWtDQ3lIQWNUSU9lS0dnWWhKWTl2Y0ZVb3Jn?=
+ =?utf-8?B?MEJDY1ZOVlNsdVM4VGdXemxxZ3ZuenVuMURvb3U1aUMrajdHMk9lMXYvYmhG?=
+ =?utf-8?B?elJOaTFoQ0pBN1RDOFNzRGVFL1dKSVNWbnI0U2dQcGpsU2QwUkNyMzVHbzlK?=
+ =?utf-8?B?eGk2amhzOWxCZHhra01jWUtmWk5qcFQwTFR0Z0l6U3Y3ZENVdk9KYU50dGR2?=
+ =?utf-8?B?V0dZVThmWGIyNFV3angzMEJXNXB0eXdQZ0dwaENZWWxNYkx5K1Y4eWN2OHFo?=
+ =?utf-8?B?eXA1dmhXbmQwWjdKQk5jMFRuakVDbnZWNlRoSnBHRzFDVU9WYnY1Z042RkNC?=
+ =?utf-8?B?R1NCYUd3Znd2S3RzaWNPd1VIcmVBeURDTk90TGhjRDNYOG9XbkRzTWFITzRJ?=
+ =?utf-8?B?MGd3YzVjM0pHRjNEQ3QxckJDa0dTY1lzYVgreFZOYnlLYWVEYzY3N1F2ZThy?=
+ =?utf-8?B?eDRFN0g1N1V2N1BIb3FQc1VYQnlSKy95TE8wbTYwQnJkUTcydTF2YlhXTVNU?=
+ =?utf-8?B?S3NMUnFOb3RKUHVja1VvcVNnT25SbDIzdXkyUVR6WXBFZHgzSTRhU3NIWEF2?=
+ =?utf-8?B?TFo4bVI1eU1nVXc1SXdYbXZrcEZmYzEyNTRFVGZRNG9iWHZUd285d3BoZGF2?=
+ =?utf-8?B?ZXVUaXcwNTBmZElUQlJnanVncW9TbVAyOU5pa095Z3VlSnkvbG95ajlaQ2xG?=
+ =?utf-8?B?dnZmVkpHaVA2MldLcCs3M2FMODBUcDQ2VEVZRFgydnRHbzBXUzNzYStGd1ZE?=
+ =?utf-8?B?d0RJcm9IdFlsSXFRS0ZkcnhnUjBuNjhLM3dpNmgxdXQzQ1JJTWl2ZTFzRGtV?=
+ =?utf-8?B?ampJOG9aMmpYS1VRY3VoOThHMUdMQzUrdXBVbnRoTmNKV0wzZ0pyemh6Y0Vo?=
+ =?utf-8?B?dFBmeVd6a2FJS1RxeFVLQ29iNkNjTTBKbThvakNVR2V4d3A5d0Zjdkgzdk1i?=
+ =?utf-8?B?OXZYMG4xNm1ITUk2Vjd0clB2Tk1qWjZGb1FjdU8zSm1VdEV0NXZZdkp3ZVo0?=
+ =?utf-8?B?T0hLMEkyYVYva3NsVll2NXF4TjFJMkFOWU9kQTJFVy9nelJ6NDhWRXZEYjdN?=
+ =?utf-8?B?TVlaakVVVGFxNjVTNmNraUMrTzdsd3V6elU1YkpoeHdvcWJaYlFwakRnSVJv?=
+ =?utf-8?B?dDhJUGV1ZEZsN1cxU2txcW9BQVQ1Qkl4aE5DcStDQ0lPNGx2SCtSVXU2OU9o?=
+ =?utf-8?B?ZWhoNG9NVi9nbUE9PQ==?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?R0d3djdlWnh3ZTBUdEJNTytSR1ZIVDRnR1ZNQjNLekpmd1llVGdFeEtrSTEv?=
+ =?utf-8?B?YkJGQXNzTWVsNDUrbmhIRVRJdVkzVER4cHN4cE54TUJ3VXNSZkFwR0NwK3M5?=
+ =?utf-8?B?dVdwN3RrdTZPRGtzb2Z0c0d3eHhEb0xyaXoxbGwwYkpYNnZPUXFyOHA4ZWVU?=
+ =?utf-8?B?L2JabmR2Z3RvLy8yVHFSTE1WQWZ1OHkxRGpvTDdLWUY3b29DVEhVOXFFbVdI?=
+ =?utf-8?B?a3Zoc2tBTTFLZGk1eUFSSzVIY0NzVXVhdXhOV2pJakxVT1FJZVlBb3JQYkhR?=
+ =?utf-8?B?anhrUlN2bnl6ZEZQeFJQaWtzRmtYTlNtaWx0OHJGckdtMllycVZXRzNQenhK?=
+ =?utf-8?B?SnBvbWI0a0ZacU55eUFuREcxb3laQ2MwTzJML1dBb2phSmEwc3J4Sm1SSVF4?=
+ =?utf-8?B?WjgrWVZTZ3BkV1VwR3FJRmhHV0hBRGplRWpHbm9ReGZWdUJmQTg1LzJVamJt?=
+ =?utf-8?B?aW5tMHdPY0I2NGNKK2NtWlFDZENLTDhVMVJQQ041RXE5QmNDbTdyQlJ0VVZZ?=
+ =?utf-8?B?V05jZ2crdWxENXRUczIycTdBSzkzNDE0MGwvWFZ1Wkx0cklUaTZsWXpsV21p?=
+ =?utf-8?B?a1BhQmxPbW80RWVVbWNyRjhtcXZmNTBSUmlvWXZ4cDVmR0VSNjNXTGpJYlI5?=
+ =?utf-8?B?dDhseUQvbXkwcGFJZGVFczUzTk9CWVNWeDdMRkhhSzE2SncxZWxoOTRWdWdm?=
+ =?utf-8?B?ZytJeW0wSEpTUFJidTFvaW9ORlp1eTUwb0NVZURwdGM5anJqSHZuaVhLRnpB?=
+ =?utf-8?B?TDc1dmE0dXRwRkJQc0VRQnc4MUxjQW9CdktuTUI5ZE5WdllTdnZTdEd1VFJE?=
+ =?utf-8?B?R3lGcUJHajNURmdmVXJBTjVCRThPck9rUkt2V0ZOSWtYeWliN1J5WjAxSXVM?=
+ =?utf-8?B?dHNjNkVZMzNseEIxbzVBdndDV0VTL0N6YWlaVkpFZjAxM2xudHFUbDYvaGxp?=
+ =?utf-8?B?YkhtWFJpbzNrZmdTUERsWTJUWkRKVWhFdGYxdzdZaHZ4U25rdkJiRUNoOUZr?=
+ =?utf-8?B?RXhzeTUzKzVEMmFta2pOSUtIV3hkenNzKzZNcGt5MWRhNVJBWHFSU3pqK2lE?=
+ =?utf-8?B?T21RdVl4NnhGU3hjNzJ1ZjQxNWRiM2U4N1NHY21jUDBrcTc5MTRVZ1BjQi9H?=
+ =?utf-8?B?ZDc2UExjelRTdmpUc1hqOEltK0RUdjdjTlJQT3RuWXh1STh0LzI4RGR0eWNo?=
+ =?utf-8?B?emJPQUhWWEhwQThhRm9zcWZKUEpXMjkxTTBaYzBTUGluMUlZZlBTUTJXWERV?=
+ =?utf-8?B?TExUQXp6M1gwVGgySG1YMFNCZHhlQ2s3MnY5clhrdkl3VjR2ams4M0tZTGFE?=
+ =?utf-8?B?TEk5NHBtd081K0VBM0tXeHk0NzhJRXo3RzFRUVdyUngxODNPcjNaM21yZ1Zt?=
+ =?utf-8?B?cmxVZSt1N04xUFIwaHNEUU91dVVBRm1CWkFPQ1RQUmR5cityVGVyeW9rME1o?=
+ =?utf-8?B?aWRNU1pseVV1MTIrSTYvZlc1dS9GaHZmTmpZaFo3TStjakZMb0o4SUpubGZJ?=
+ =?utf-8?B?dHZGZGQ0UDZPMlBhTll3OXZLdXViVnRoYmJENU1jaCtQNzZ0ZUlMK2l5cTJt?=
+ =?utf-8?B?UXdhbVJKQkgvMjJONVN4ZzdkblJ1SFZDekpWeDBSZ2pqQTVkWU9vcE1VY0pz?=
+ =?utf-8?B?TWNsMWNRWHk3cDJ0MG8vT3pzKzlrdmR2UjVnNG50MnRENzY1WThuTmVMZEp6?=
+ =?utf-8?B?QzZXY2JTbUF2cDBXQUJGQzJnRnZMSXZSTEd3cCt2MFgxVVN3UDBFS3BtTk0v?=
+ =?utf-8?B?Rm15TzBlRWF2NU52clFaY1UyNE5wdjhDOTlwZ085NUo0WmFudENnY2kxMHIv?=
+ =?utf-8?B?V0w4V29IazdtQXQ4bm12cmpLcTNsQUtkcjlnWlp3NkxIN2NVQXZlK3hic0Jv?=
+ =?utf-8?Q?uB0Jmx2lmgLSm?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-b25a6.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: cae2f151-3bf4-47ee-3724-08df0c24a123
+X-MS-Exchange-CrossTenant-AuthSource: VI0P189MB3687.EURP189.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2026 14:39:17.5507
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1P189MB1006
 
-Azeron controllers (Cyro, Cyborg, Classic/Compact, Cyro Lefty,
-Cyborg II and Keyzen) present a standard Xbox 360 controller
-interface, so they work with the existing xpad driver once their
-USB IDs are added.
+Hi everyone,
 
-The 0x16d0 vendor ID is a shared block, but this is safe because
-xpad only binds interfaces that match the Xbox 360 signature.
+Another month, another reminder.
+Or is there some reason why this isn't getting picked up?
 
-Tested with an Azeron Keyzen.
-
-Signed-off-by: Roberts Kursitis <roberts.kursitis@azeron.eu>
-Cc: stable@vger.kernel.org
----
-v4 -> v5:
- - Rebased on current dtor/input next. No functional changes; resending
-   as the v4 posting was not picked up during the 7.3 merge window.
-
-v3 -> v4:
- - Dropped the FLAG_NO_LED / FLAG_NO_RUMBLE quirk. Testing an Azeron
-   Keyzen showed it accepts the LED and rumble packets without the
-   -EPIPE stall assumed in v3, so the quirk is not needed. The patch
-   is now just the device-ID additions.
-
-v2 -> v3:
- - Moved the 0x16d0 entries after 0x1689 to keep both tables sorted
-   by vendor ID.
-
- drivers/input/joystick/xpad.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/input/joystick/xpad.c b/drivers/input/joystick/xpad.c
-index feb8f368f834..ed6ae7bf0d3a 100644
---- a/drivers/input/joystick/xpad.c
-+++ b/drivers/input/joystick/xpad.c
-@@ -292,6 +292,12 @@ static const struct xpad_device {
- 	{ 0x1689, 0xfd00, "Razer Onza Tournament Edition", 0, XTYPE_XBOX360 },
- 	{ 0x1689, 0xfd01, "Razer Onza Classic Edition", 0, XTYPE_XBOX360 },
- 	{ 0x1689, 0xfe00, "Razer Sabertooth", 0, XTYPE_XBOX360 },
-+	{ 0x16d0, 0x1103, "Azeron Cyro", 0, XTYPE_XBOX360 },
-+	{ 0x16d0, 0x113c, "Azeron Cyborg", 0, XTYPE_XBOX360 },
-+	{ 0x16d0, 0x1192, "Azeron Classic/Compact", 0, XTYPE_XBOX360 },
-+	{ 0x16d0, 0x1212, "Azeron Cyro Lefty", 0, XTYPE_XBOX360 },
-+	{ 0x16d0, 0x12f7, "Azeron Cyborg II", 0, XTYPE_XBOX360 },
-+	{ 0x16d0, 0x13ea, "Azeron Keyzen", 0, XTYPE_XBOX360 },
- 	{ 0x17ef, 0x6182, "Lenovo Legion Controller for Windows", 0, XTYPE_XBOX360 },
- 	{ 0x1949, 0x041a, "Amazon Game Controller", 0, XTYPE_XBOX360 },
- 	{ 0x1a86, 0xe310, "Legion Go S", 0, XTYPE_XBOX360 },
-@@ -533,6 +539,7 @@ static const struct usb_device_id xpad_table[] = {
- 	XPAD_XBOX360_VENDOR(0x15e4),		/* Numark Xbox 360 controllers */
- 	XPAD_XBOX360_VENDOR(0x162e),		/* Joytech Xbox 360 controllers */
- 	XPAD_XBOX360_VENDOR(0x1689),		/* Razer Onza */
-+	XPAD_XBOX360_VENDOR(0x16d0),		/* Azeron controllers */
- 	XPAD_XBOX360_VENDOR(0x17ef),		/* Lenovo */
- 	XPAD_XBOX360_VENDOR(0x1949),		/* Amazon controllers */
- 	XPAD_XBOX360_VENDOR(0x1a86),		/* Nanjing Qinheng Microelectronics (WCH) */
--- 
-2.55.0
-
+kind regards,
+Maud
