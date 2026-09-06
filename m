@@ -1,195 +1,255 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+Received: from out-utut-a221.jellyfish.systems (out-utut-a221.jellyfish.systems [198.177.127.221])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D52530C177
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 14:40:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8743F29993F
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 14:40:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.177.127.221
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788705635; cv=none; b=kmLxI/yM8+PDMfP1xvUwpbnd/MoszP9fjc8mdhaYk6Lvst8B15bOfw4BLw7o/C9ShIcfVy/aRSWhEqmozjCUD4l3oPJjBeSKaNiTLtVqt/qDDuvn8HpDeO+QN5You8ISrPhSlVbg3fOhn78XK52bIcvcACSkv5KPRi4aq+QVVl4=
+	t=1788705647; cv=none; b=N8gBe7ccIxMrEbMPejJbbw3ZMmnjBgygs1g4SzqYAhJZEKZt9V+jn9VJYPILir6BRM7cyfp+9ue7m5fzCsbjlRdK+D85B4+nixRrl/6+MyManF4EaxZeGPJ1Fk2ueg6YyneGmXQUXQhwAhNiASqc2exIvVDNiM5ltZidZ4QQhpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788705635; c=relaxed/simple;
-	bh=s1q8WzzGuo8hVRRm/KWVtatN8Kh6Mlwms8kGOAbFfn8=;
-	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References; b=muglKpqCmiQG0bnrCOfIRpFzkWH0S7FSeQYxwVV0AYhUe9RRIjrTsLaCq1sqtdTm2tvbbXWfuYkuFozIAtOmxTxKPW4qWh0RG+T9a5gpPe76PbjZeIjjkyt3y3ltKeHi7Lg9UMLXuo4V+yuAC8e+9YHVJ7O7KTu01AIBl0nygyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oD6ta1yM; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788705647; c=relaxed/simple;
+	bh=1h/QQ6duO528OlThOs542J/mhgQmH9J87s2umK0mSko=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XyWjINLp1DUdUEjrXN35WzduhzDaTBusNfD3/OhA6tJ7vqizdPZJqFskcBZk4eqNuNyXdKK+wVeyc5AUUppDIcZn4SIPeKm0BTFyaUYfPUvb31X4qY8vY43sMeJVy3zJze74IDi+pTb2TjxRskgQ+xS0UzPtwo4Yk8PPR2geY0A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=Q1GAzMbn; arc=none smtp.client-ip=198.177.127.221
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oD6ta1yM"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38e041ea211so1992851a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 07:40:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788705633; x=1789310433; darn=vger.kernel.org;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=9VYFtOUs9e8rShoNMIR91vWddUTxEe+7XBSxba8ZkAM=;
-        b=oD6ta1yMpeH4kXGEm15K9LL8FhKwXKk3NtbwpofrYfyTSVLw2rIrCcOUFlY3vJQRGb
-         JNZGtwGQXEQ6EqDPXxbN+KK8MtAYKlKXcZ9S+fnRmgpw0TWA6E6aPDmXjGe6m9MRmiQA
-         rFIQz5/WLpzO5xFp5xfvTMpKBL15gcQm9IW5UTjvRmMLoCNj3cI+JKC6jlGVvhjbMBPi
-         fbKyXu1Ktds+T5MyaDQjY3bPOc8UxQO613VvOD5PpFS5KOL5FRIuqbG3BsyzUbI7lgdG
-         F4kx5DprDOTKClA/egozbL/NnrlQqusUTdZAmGqZD9zvPU2ayV3csxgOT9FurehALWSr
-         qp9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788705633; x=1789310433;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9VYFtOUs9e8rShoNMIR91vWddUTxEe+7XBSxba8ZkAM=;
-        b=aG+32kdnr4n6O/ZEhCkBebJI4oVA/3CLjBjAALibhGtFBmoP/uLEr08fYRpiwKoh4j
-         3du8zoyBwytYwCMHMhrEGS+1vbljve+BnFvdXvCw4hl2suZohMydnJzAuAf0L4CI87Hw
-         foptM8LO+eNihf+4ag8raJ05yB3c1XywUENthOS2jIC5h/uB/BeiOHAkEwXWP3tIYj6f
-         a5SsBey4HJ9KAQQ7BM9LSn/5GLEK+nmq6ndAz/ij/orql7PPZH3P7CEy0I7n0RtAiiKq
-         X01ts7oaR5rjVZetKuOLuESXdZk2k1+VUyzr4tjl79AI8ZjQG+FeQMVnMMvXtwIRg1NL
-         Dk/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw/PNnEGQLutvTWbqDgDFkv8lr7rxV+ZzyOFOJ/KYCJPiduln3Flzkoth+DmDjgWtKeXC6xOCDfenvIopI=@vger.kernel.org
-X-Gm-Message-State: AFuF++n73yw9QYQLdLF2raKE0iUYz6MYylqdEPQcmhLkzc6bdN8vpq5Q
-	ApP/v6RttpTdDs6l3D7qNepXliKGpuQYSRMWDkXs/48irLQm2Q3Cxfht
-X-Gm-Gg: AYBFou1CJJkdFdH7CYGaK/PBBKXWqVqQdz1F/hKtfWPDQRw48BZD0uYeisP/cmDpYH0
-	30M+ZzKnJ/e7Tpp0hNdOLIwoOSSJStzUmYd0zCHZv8UmxlGl5ftOET7W4gEvnq5E6wy655diopo
-	Jum/pwew+NsUZSepa3X0bwkS8nSyyc5I+SxjSwZF6kw/WXyfxgHEgFORUPFqmuJocI5qJcolhZa
-	NlnwwAzWbiSFPN0Q0EAMbhQ54pm7URR71kOXFkf98XDO6Msvz+5rNCi4u1aa8e0oe4Ud6zNuuZb
-	PBCaJ7G+CBD9HOc8FZnPQ8BgX9a8uWPp9lHZqgEQl9rLIYulqwdGZNGV1tyw/upzPIyzTMcn2xe
-	jCJfnMTpoErOA+UsrMs8Se5WkUOe4h8Z7S7epQnxiR7sltZlquEUv31cmwdv1XOxTXiDbzCs1tg
-	XcacyHbCA2lzBC8ucRuz5PwVtOhrqGUEyKhsZk+bL3QjF25Q5xhAU8oEjURQEjHsHDjWhIo1dKT
-	+SnfzblPiPJkdUrAWbNxfqf1BZrxxXpiU/8rcYJv56K
-X-Received: by 2002:a17:90b:57cb:b0:398:9be6:f998 with SMTP id 98e67ed59e1d1-39b262e2139mr28656965a91.23.1788705632700;
-        Sun, 06 Sep 2026 07:40:32 -0700 (PDT)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339ac24d7esm32567878eec.15.2026.09.06.07.40.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 07:40:31 -0700 (PDT)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: syzbot <syzbot+5a7a23af225c215902e7@syzkaller.appspotmail.com>
-Cc: jack@suse.com, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, linux-next@vger.kernel.org, sfr@canb.auug.org.au, syzkaller-bugs@googlegroups.com, tytso@mit.edu
-Subject: Re: [syzbot] [ext4?] linux-next test error: general protection fault in __bh_submit
-In-Reply-To: <6a9c44cc.0a3344eb.391530.000c.GAE@google.com>
-Date: Sun, 06 Sep 2026 19:58:26 +0530
-Message-ID: <mrtuxxmd.ritesh.list@gmail.com>
-References: <6a9c44cc.0a3344eb.391530.000c.GAE@google.com>
+	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="Q1GAzMbn"
+Received: from fedora (unknown [69.5.53.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.spacemail.com (Postfix) with ESMTPSA id 4hdCYM6yjLz8sY8;
+	Sun, 06 Sep 2026 14:40:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
+	s=spacemail; t=1788705644;
+	bh=PVCy054hdtEsDkZ1qYlyURG4QQmkYxTjJnPPeIByJ9Y=;
+	h=From:To:Cc:Subject:Date:From;
+	b=Q1GAzMbn0tzJwSvzVzb8i32sTN0hgnG5bZc1dARMG2pCCwSHz6vOtRP6pIXJmXfco
+	 9yLHOSB9J4M3YpSlKxTd2wsBBf7bkNPyU08PX7Va3nt3PI770RXtQH2nYqtyT4D7n9
+	 27pI8d+Jt6TJOvT1InF7mN+4Bsbd0k41v7QPZ3gRdIqgDnhUYBEqMfsRCxV//2N1Rx
+	 wZr9ESRgm49mftQyXMJphCpzhAskNfGdxnh0opoTUkvnZKaOPC067HFvNF5SJCs5iG
+	 2LeYSPRC1tWEmqlwu6hDgPI45RKqgGhb0VgUU0K35PJ9jPiA9JUmE9crq46aMm54OW
+	 Gnbx2lwVnkKJg==
+From: Tianyi Chen <hi@tychen.cc>
+To: tj@kernel.org,
+	David Vernet <void@manifault.com>
+Cc: Tianyi Chen <hi@tychen.cc>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Shuah Khan <shuah@kernel.org>,
+	sched-ext@lists.linux.dev,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] selftests/sched_ext: Validate select_cpu_and mask constraints
+Date: Sun,  6 Sep 2026 22:40:29 +0800
+Message-ID: <20260906144029.848978-1-hi@tychen.cc>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Envelope-From: hi@tychen.cc
 
-syzbot <syzbot+5a7a23af225c215902e7@syzkaller.appspotmail.com> writes:
+The syscall test checks whether BPF_PROG_TEST_RUN succeeds, but only
+prints the CPU selection result returned by the BPF program.
 
-> Hello,
->
-> syzbot found the following issue on:
->
-> HEAD commit:    32b6ef9a5d0e Add linux-next specific files for G20260902
-> git tree:       linux-next
-> console output: https://syzkaller.appspot.com/x/log.txt?x=14b44125580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=32ceed1c94c11059
-> dashboard link: https://syzkaller.appspot.com/bug?extid=5a7a23af225c215902e7
-> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
->
-> Downloadable assets:
-> disk image: https://storage.googleapis.com/syzbot-assets/9a1f38fb6f24/disk-32b6ef9a.raw.xz
-> vmlinux: https://storage.googleapis.com/syzbot-assets/f3152eed43a4/vmlinux-32b6ef9a.xz
-> kernel image: https://storage.googleapis.com/syzbot-assets/e7fbd36e1b12/bzImage-32b6ef9a.xz
->
-> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> Reported-by: syzbot+5a7a23af225c215902e7@syzkaller.appspotmail.com
->
-> Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN PTI
-> KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
-> CPU: 0 UID: 0 PID: 4945 Comm: jbd2/sda1-8 Not tainted syzkaller #0 PREEMPT(full) 
-> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-> RIP: 0010:const_folio_flags include/linux/page-flags.h:345 [inline]
-> RIP: 0010:folio_test_dropbehind include/linux/page-flags.h:600 [inline]
-> RIP: 0010:__bh_submit+0x22d/0x8d0 fs/buffer.c:1109
-> Code: c1 e8 03 48 89 44 24 18 42 80 3c 20 00 74 08 48 89 df e8 26 f6 d7 ff 48 89 5c 24 28 48 8b 1b 4c 8d 7b 08 4c 89 f8 48 c1 e8 03 <42> 80 3c 20 00 74 08 4c 89 ff e8 04 f6 d7 ff 4d 8b 3f 4c 89 fe 48
-> RSP: 0018:ffffc9001016f868 EFLAGS: 00010202
-> RAX: 0000000000000001 RBX: 0000000000000000 RCX: ffffffff84b96ff9
-> RDX: 0000000000000001 RSI: 0000000000000004 RDI: ffff888075a7a660
-> RBP: 0000000000009801 R08: ffff888075a7a6bf R09: 1ffff1100eb4f4d7
-> R10: dffffc0000000000 R11: ffffed100eb4f4d8 R12: dffffc0000000000
-> R13: ffff888075a7a640 R14: ffff8880123a17e0 R15: 0000000000000008
-> FS:  0000000000000000(0000) GS:ffff888124ccb000(0000) knlGS:0000000000000000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 00007fe1ee627da0 CR3: 0000000074fa8000 CR4: 00000000003526f0
-> Call Trace:
->  <TASK>
->  jbd2_journal_commit_transaction+0x22a9/0x5cd0 fs/jbd2/commit.c:751
->  kjournald2+0x3bc/0x750 fs/jbd2/journal.c:200
->  kthread+0x38b/0x480 kernel/kthread.c:436
->  ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
->  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
->  </TASK>
-> Modules linked in:
-> ---[ end trace 0000000000000000 ]---
-> RIP: 0010:const_folio_flags include/linux/page-flags.h:345 [inline]
-> RIP: 0010:folio_test_dropbehind include/linux/page-flags.h:600 [inline]
-> RIP: 0010:__bh_submit+0x22d/0x8d0 fs/buffer.c:1109
-> Code: c1 e8 03 48 89 44 24 18 42 80 3c 20 00 74 08 48 89 df e8 26 f6 d7 ff 48 89 5c 24 28 48 8b 1b 4c 8d 7b 08 4c 89 f8 48 c1 e8 03 <42> 80 3c 20 00 74 08 4c 89 ff e8 04 f6 d7 ff 4d 8b 3f 4c 89 fe 48
-> RSP: 0018:ffffc9001016f868 EFLAGS: 00010202
-> RAX: 0000000000000001 RBX: 0000000000000000 RCX: ffffffff84b96ff9
-> RDX: 0000000000000001 RSI: 0000000000000004 RDI: ffff888075a7a660
-> RBP: 0000000000009801 R08: ffff888075a7a6bf R09: 1ffff1100eb4f4d7
-> R10: dffffc0000000000 R11: ffffed100eb4f4d8 R12: dffffc0000000000
-> R13: ffff888075a7a640 R14: ffff8880123a17e0 R15: 0000000000000008
-> FS:  0000000000000000(0000) GS:ffff888124dcb000(0000) knlGS:0000000000000000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 00007f87c696cf80 CR3: 000000000eb48000 CR4: 00000000003526f0
-> ----------------
-> Code disassembly (best guess):
->    0:	c1 e8 03             	shr    $0x3,%eax
->    3:	48 89 44 24 18       	mov    %rax,0x18(%rsp)
->    8:	42 80 3c 20 00       	cmpb   $0x0,(%rax,%r12,1)
->    d:	74 08                	je     0x17
->    f:	48 89 df             	mov    %rbx,%rdi
->   12:	e8 26 f6 d7 ff       	call   0xffd7f63d
->   17:	48 89 5c 24 28       	mov    %rbx,0x28(%rsp)
->   1c:	48 8b 1b             	mov    (%rbx),%rbx
->   1f:	4c 8d 7b 08          	lea    0x8(%rbx),%r15
->   23:	4c 89 f8             	mov    %r15,%rax
->   26:	48 c1 e8 03          	shr    $0x3,%rax
-> * 2a:	42 80 3c 20 00       	cmpb   $0x0,(%rax,%r12,1) <-- trapping instruction
->   2f:	74 08                	je     0x39
->   31:	4c 89 ff             	mov    %r15,%rdi
->   34:	e8 04 f6 d7 ff       	call   0xffd7f63d
->   39:	4d 8b 3f             	mov    (%r15),%r15
->   3c:	4c 89 fe             	mov    %r15,%rsi
->   3f:	48                   	rex.W
->
->
-> ---
-> This report is generated by a bot. It may contain errors.
-> See https://goo.gl/tpsmEJ for more information about syzbot.
-> syzbot engineers can be reached at syzkaller@googlegroups.com.
->
-> syzbot will keep track of this issue. See:
-> https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
->
-> If the report is already addressed, let syzbot know by replying with:
-> #syz fix: exact-commit-title
->
-> If you want to overwrite report's subsystems, reply with:
-> #syz set subsystems: new-subsystem
-> (See the list of subsystem names on the web dashboard)
->
-> If the report is a duplicate of another one, reply with:
-> #syz dup: exact-subject-of-another-report
->
-> If you want to undo deduplication, reply with:
-> #syz undup
+Exercise empty and affinity-disjoint custom masks and require -EBUSY.
+Also exercise a legal singleton mask, allowing its CPU to be busy.
+Interpret retval as signed and reject unexpected errors or selection
+outside the custom mask or the task's affinity.
 
+Choose CPUs from the runner's affinity, restore it after the disjoint
+case, and skip only that case when fewer than two CPUs are available.
 
-#syz test
+The test passes in a two-CPU VM with full and single-CPU affinity.
+Forcing selection of CPU 0 against an empty mask makes it fail with
+-ERANGE; the restored test passes again.
 
-diff --git a/fs/buffer.c b/fs/buffer.c
-index 427d8a817cd5..f46fa6413032 100644
---- a/fs/buffer.c
-+++ b/fs/buffer.c
-@@ -1106,7 +1106,8 @@ static void __bh_submit(struct buffer_head *bh, blk_opf_t opf,
+Assisted-by: LLM
+Signed-off-by: Tianyi Chen <hi@tychen.cc>
+---
+ .../selftests/sched_ext/allowed_cpus.bpf.c    | 24 +++++-
+ .../selftests/sched_ext/allowed_cpus.c        | 77 ++++++++++++++++---
+ 2 files changed, 86 insertions(+), 15 deletions(-)
+
+diff --git a/tools/testing/selftests/sched_ext/allowed_cpus.bpf.c b/tools/testing/selftests/sched_ext/allowed_cpus.bpf.c
+index 9dd72d0da29..08c2fe0e1c3 100644
+--- a/tools/testing/selftests/sched_ext/allowed_cpus.bpf.c
++++ b/tools/testing/selftests/sched_ext/allowed_cpus.bpf.c
+@@ -147,23 +147,41 @@ void BPF_STRUCT_OPS(allowed_cpus_exit, struct scx_exit_info *ei)
+ }
  
- 	bio = bio_alloc(bh->b_bdev, 1, opf, GFP_NOIO);
+ struct task_cpu_arg {
+-	pid_t pid;
++	u64 pid;
++	s64 custom_cpu;
+ };
  
--	if (folio_test_dropbehind(bh->b_folio) && op_is_write(opf))
-+	if (bh->b_folio && folio_test_dropbehind(bh->b_folio) &&
-+	    op_is_write(opf))
- 		bio_set_flag(bio, BIO_COMPLETE_IN_TASK);
+ SEC("syscall")
+ int select_cpu_from_user(struct task_cpu_arg *input)
+ {
+ 	struct task_struct *p;
+-	int cpu;
++	struct bpf_cpumask *mask;
++	s32 cpu;
  
- 	if (IS_ENABLED(CONFIG_FS_ENCRYPTION))
+ 	p = bpf_task_from_pid(input->pid);
+ 	if (!p)
+ 		return -EINVAL;
+ 
++	mask = bpf_cpumask_create();
++	if (!mask) {
++		bpf_task_release(p);
++		return -ENOMEM;
++	}
++
++	/* A negative custom_cpu leaves the custom mask empty. */
++	if (input->custom_cpu >= 0)
++		bpf_cpumask_set_cpu(input->custom_cpu, mask);
++
+ 	bpf_rcu_read_lock();
+-	cpu = scx_bpf_select_cpu_and(p, bpf_get_smp_processor_id(), 0, p->cpus_ptr, 0);
++	cpu = scx_bpf_select_cpu_and(p, bpf_get_smp_processor_id(), 0,
++				     cast_mask(mask), 0);
++	if (cpu >= 0 &&
++	    (!bpf_cpumask_test_cpu(cpu, cast_mask(mask)) ||
++	     !bpf_cpumask_test_cpu(cpu, p->cpus_ptr)))
++		cpu = -ERANGE;
+ 	bpf_rcu_read_unlock();
+ 
++	bpf_cpumask_release(mask);
+ 	bpf_task_release(p);
+ 
+ 	return cpu;
+diff --git a/tools/testing/selftests/sched_ext/allowed_cpus.c b/tools/testing/selftests/sched_ext/allowed_cpus.c
+index 093f285ab4b..cc08c42ad95 100644
+--- a/tools/testing/selftests/sched_ext/allowed_cpus.c
++++ b/tools/testing/selftests/sched_ext/allowed_cpus.c
+@@ -2,7 +2,9 @@
+ /*
+  * Copyright (c) 2025 Andrea Righi <arighi@nvidia.com>
+  */
++#define _GNU_SOURCE
+ #include <bpf/bpf.h>
++#include <sched.h>
+ #include <scx/common.h>
+ #include <sys/wait.h>
+ #include <unistd.h>
+@@ -23,17 +25,19 @@ static enum scx_test_status setup(void **ctx)
+ 	return SCX_TEST_PASS;
+ }
+ 
+-static int test_select_cpu_from_user(const struct allowed_cpus *skel)
++static int test_select_cpu_from_user(const struct allowed_cpus *skel,
++				     const char *name, int custom_cpu,
++				     bool expect_busy)
+ {
+ 	int fd, ret;
+-	__u64 args[1];
++	__s32 cpu;
++	__u64 args[] = { getpid(), (__u64)(__s64)custom_cpu };
+ 
+ 	LIBBPF_OPTS(bpf_test_run_opts, attr,
+ 		.ctx_in = args,
+ 		.ctx_size_in = sizeof(args),
+ 	);
+ 
+-	args[0] = getpid();
+ 	fd = bpf_program__fd(skel->progs.select_cpu_from_user);
+ 	if (fd < 0)
+ 		return fd;
+@@ -42,7 +46,13 @@ static int test_select_cpu_from_user(const struct allowed_cpus *skel)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	fprintf(stderr, "%s: CPU %d\n", __func__, attr.retval);
++	/* test_run returns the signed BPF result through an unsigned field. */
++	cpu = (__s32)attr.retval;
++	if ((expect_busy && cpu != -EBUSY) ||
++	    (!expect_busy && cpu != -EBUSY && cpu != custom_cpu)) {
++		SCX_ERR("%s: unexpected CPU selection result %d", name, cpu);
++		return -EINVAL;
++	}
+ 
+ 	return 0;
+ }
+@@ -50,21 +60,64 @@ static int test_select_cpu_from_user(const struct allowed_cpus *skel)
+ static enum scx_test_status run(void *ctx)
+ {
+ 	struct allowed_cpus *skel = ctx;
++	enum scx_test_status status = SCX_TEST_FAIL;
++	cpu_set_t original, pinned;
++	int first = -1, second = -1, cpu;
+ 	struct bpf_link *link;
+ 
++	SCX_FAIL_IF(sched_getaffinity(0, sizeof(original), &original),
++		    "Failed to get affinity (%d)", errno);
++	for (cpu = 0; cpu < CPU_SETSIZE; cpu++) {
++		if (!CPU_ISSET(cpu, &original))
++			continue;
++		if (first < 0)
++			first = cpu;
++		else {
++			second = cpu;
++			break;
++		}
++	}
++	SCX_FAIL_IF(first < 0, "No CPU in affinity mask");
++
+ 	link = bpf_map__attach_struct_ops(skel->maps.allowed_cpus_ops);
+ 	SCX_FAIL_IF(!link, "Failed to attach scheduler");
+ 
+-	/* Pick an idle CPU from user-space */
+-	SCX_FAIL_IF(test_select_cpu_from_user(skel), "Failed to pick idle CPU");
+-
+-	/* Just sleeping is fine, plenty of scheduling events happening */
++	if (test_select_cpu_from_user(skel, "empty mask", -1, true))
++		goto out;
++
++	/* A legal candidate may be busy; selection need not succeed. */
++	if (test_select_cpu_from_user(skel, "legal candidate", first, false))
++		goto out;
++
++	if (second >= 0) {
++		CPU_ZERO(&pinned);
++		CPU_SET(first, &pinned);
++		if (sched_setaffinity(0, sizeof(pinned), &pinned)) {
++			SCX_ERR("Failed to pin task (%d)", errno);
++			goto out;
++		}
++		if (test_select_cpu_from_user(skel, "disjoint masks", second, true))
++			goto restore;
++	} else {
++		fprintf(stderr, "Skipping disjoint masks: need two allowed CPUs\n");
++	}
++
++	/* Just sleeping is fine, plenty of scheduling events happening. */
+ 	sleep(1);
+-
+-	SCX_EQ(skel->data->uei.kind, EXIT_KIND(SCX_EXIT_NONE));
++	if (skel->data->uei.kind != EXIT_KIND(SCX_EXIT_NONE)) {
++		SCX_ERR("Scheduler exited unexpectedly");
++		goto restore;
++	}
++	status = SCX_TEST_PASS;
++
++restore:
++	if (second >= 0 && sched_setaffinity(0, sizeof(original), &original)) {
++		SCX_ERR("Failed to restore affinity (%d)", errno);
++		status = SCX_TEST_FAIL;
++	}
++out:
+ 	bpf_link__destroy(link);
+-
+-	return SCX_TEST_PASS;
++	return status;
+ }
+ 
+ static void cleanup(void *ctx)
+-- 
+2.55.0
 
