@@ -1,76 +1,90 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9FDE378D8C
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 10:15:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A19031960B
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 10:16:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788689711; cv=none; b=q8xg0LSmIt5P4Ro4ZkOL8jAflm/lDn3DpMMcinJr+LXOkK6wR2Yp9ms7kogxcMEEi4Wa8B41HdNYJD/WBUntLV4N/ON11KrCWTHU266cE4Q81hFWB0g4tSRUbgEUkZJgOqnUlkyiCFXNwwPe+dxv1TGI/UQ/c3t6o8ZKA5kvQTw=
+	t=1788689787; cv=none; b=gIBMd+OsUumWWsdl8djOWQbV1fcwmPYhG+YBgT5SgytpXtt+WvUrhaKsKkPZTxlvrZmTcrm2adFwNcG87ucei03fjlyrfV9gHV65jLLHwx1UYTaUXqcsyY9gQAw5GvoHuo36FEziz0zPNqpuFw3+KfwwaF2qEAGqffOchxDaLKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788689711; c=relaxed/simple;
-	bh=YwZyzA43y60MiHs/1uqV+qIGlmb3nFRWbJ/1ea3FYh4=;
+	s=arc-20240116; t=1788689787; c=relaxed/simple;
+	bh=DSx8wyjJ2QOqaYJeHeVitsXt6StYVQcmczlAWA1NmQ8=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PURMN/814cJKtl1WNWPjzEC0yUA2PQUzft75HIi2oq5x9MhfIV8IrdPqVxBrJOGUJdu13InqaE/7HVi5etQsZBGH/ikPmBOPiTUXHzokbXvzwuLWFdkDMwNE7DVSgf1d+690gTOUjO0k37ekkA9+kgImNqqkf/aor44/xhjYZhQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nzsxnlnf; arc=none smtp.client-ip=209.85.128.54
+	 MIME-Version:Content-Type; b=e4plG//u58+SN/BOQKoQZQxzbh80pe2QlYZcI0lIItnHRbzq+RcHW9ji/CfqXQyGwqpJ6C7FKV93ugo2T2O5ctk+KqZk6MnszBW///QjYRN3Mtf0mn0HRifvKh22puYuCO4BdqHtgLpoKMKegjRg6L8BnxeU4CMY0mC+ZVLo9G0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jw7nCM04; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nzsxnlnf"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49ccfae359fso21599325e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 03:15:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jw7nCM04"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-495590dde14so35185345e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 03:16:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788689706; x=1789294506; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788689784; x=1789294584; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=kpR705y++NqAAC8FpbrrQI4IIcfOR7g2O8Oo19MdzTQ=;
-        b=NzsxnlnfJ/xRYOoBBQyypjOQW3+7qXIDrRfwUvNHgMDYX5AlcwLlVAT10CocMQs01E
-         rAAIG1mAxk7ulLOADsQEBubHvc0WQjGmwq4VH6O5J0mhruFFPOV2ArBKPzJiGMwtOT/s
-         Boi7Os/3V0PWCDssDpzqTDwbbz6axcMKwDPybRceICzMokLt9AsWU5zCjxGY0r6ai+gQ
-         hBjTreFA+x66RrF+vU5iIHPRag7Cdgob1w7Rsny7msw10mKkAdFdExZQkYKGHEmWenEf
-         vjNfMPAtblIOEYgLWzP26T5/P/noACjksvxMOh9Uu3czaFIbpILl2HdWTSKhNj1qAfYR
-         EEkw==
+        bh=Ojcatem/E1McFU2tn3fpwcM30WG5bWRqceZT/nBgCPQ=;
+        b=jw7nCM04vUlfyLZcmWVrcx3B1+3ihoRKhjS/rTEesM8u7cmggjj1+cimiLG24yxZ6w
+         qwtKXyHX64jE8MKYg6T+wSyw5pTtxRgGjDF1/8cT8O2S1YJhv4MOIqvSdpVYtuUBGic6
+         ex71GxWuQ67a5oGJJ/MhKJRspo9R2CxVJkUwgxUTmxTlPp9n/F/ve63NnxDzul3nBx5B
+         OJEfKeIvH0VAnaP2kUuN+VSoqd+v7aLyT3LDuu1LK7H4C9kYn2Y9upr2grAFzlGBHh/p
+         0/uaciRiE/s1du1AW8qt7k7kqNBZrL51pk0ZEwZ99eoTQf9ofT03jHq4xCVpxdwVFZRw
+         efCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788689706; x=1789294506;
+        d=1e100.net; s=20251104; t=1788689784; x=1789294584;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kpR705y++NqAAC8FpbrrQI4IIcfOR7g2O8Oo19MdzTQ=;
-        b=K5L7i2PSUVAXWp/pbD0M0KO9KuhPqdhh+xXCHimkQkb5VJZqQHKMtx5X661SdHb4z3
-         eu3tyyZbAWL0L2L0/sZp97zhv5byrVDWlwXTqKHfidNoXPgIcnaD5ZIhghEWrpwOU22g
-         NNxOM67cGcoax8xGwuBtd1ckfcSoSl1rUNNIARXuTtexg63HCWDPu+zHhid0e9Gw/RCF
-         FyVfcjrgBYo5PVd8wipCrcJIpixAQWJ/aGQ2L5V28ypwXgJGYag/atGOlX8hYNkOdKL1
-         sFY2N167/4wM0B2U/waN1EKWcNb6fP0Q/xm2nyO1TZ2/0+J6z3ktUcVZJf4f3YKdRrdt
-         d81g==
-X-Forwarded-Encrypted: i=1; AKwUvBzOkZ5xAlXPtYzOutLmqoJsfnmEg4ILyIv6gbGYC+7Y/FGQpV52eVYNxtI3GL0pe7THJbh4kz8hdPy8iZ4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lu+dGK4u8F2KOjiRg/f5vgjdpIZUvUATM7BMS6GFX7VY1TJs0e
-	dyoN5u7UPmrhlJollpW2AZ9FcWiUyBohQyxCr2TGP2qaVdWxxBk8CACh
-X-Gm-Gg: AYBFou2k6CH0NHcmV/kzbISP+qTev6y/gqrepjU+9Qh62L+QMsdtd9+yu06/GlS2xmt
-	e/EKvHqOlaFqGwkQi7xK89r0j2MoM1d4layxNOuk8lA+yOjgUYh1ljjNf7+R2M8OPyP2HJh3ZeT
-	edgL26ezIXm9TOB95D6+ss+nbsPRiT9GcsOzAThXItNZZu+yqnX0AyPAmf1/mHx45GtQapGgDKe
-	LUkAwuABUn8zPBnkfawoD36ngI2Ydq+oBlIFkgMsfMIRmkUdO72KZ8M6FpgVRHjuYlmIL54BOmn
-	vs2MGn1TIATo3oSgRpqN1619pcqld5RtIG1sHcmkI5Kk6b1AzyFwGLThmztTpw5RFvvGYA93uX7
-	8wSTjEWafIWIElcF7oVJIn91MgJQA70PtaIQOsuQi+QxwMSb03hDqHKsXTRgyzHhgNlFnEIDfte
-	8vKA4XojulAaTIQgHZW0lky3WmIqdvDuSAn2suKiJH8GM+9juE10NeeDqFZ23O2a3A3oFsOQ==
-X-Received: by 2002:a05:600c:6088:b0:49c:fc6c:be15 with SMTP id 5b1f17b1804b1-49cfc6cc100mr137734235e9.27.1788689706065;
-        Sun, 06 Sep 2026 03:15:06 -0700 (PDT)
-Received: from foxbook (bfg95.neoplus.adsl.tpnet.pl. [83.28.44.95])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfbdacc45sm191695735e9.11.2026.09.06.03.15.05
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Sun, 06 Sep 2026 03:15:05 -0700 (PDT)
-Date: Sun, 6 Sep 2026 12:15:00 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: wakasio <scarabeeta@gmail.com>
-Cc: Mathias Nyman <mathias.nyman@intel.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: xhci_hcd / ASMedia ASM4242: Bulk-OUT -EPROTO with Logitec
- 0789:0308 during DVD+RW recording
-Message-ID: <20260906121500.04f06d2a.michal.pecio@gmail.com>
-In-Reply-To: <20260906021345.10436-1-scarabeeta@gmail.com>
-References: <20260905234752.1f0c9c83.michal.pecio@gmail.com>
-	<20260906021345.10436-1-scarabeeta@gmail.com>
+        bh=Ojcatem/E1McFU2tn3fpwcM30WG5bWRqceZT/nBgCPQ=;
+        b=h5fG4U2nAghzgQLs/XazKrDptP4xnw8F+bEgv5rCgobr9I/ZrtOAvMRvY/L02dDtGN
+         sFSN63NLLHZA2gqG351iAbq51QChFz70Hky33VJqXbpc6s8B4vZ5QC9yIIvB9nkQx9UM
+         PrJcQFn+sxca2Bs/NbusvdGXKowFMe7vvTFAfpASY/RKAp0rxcNh/Ig931ciMN275xl1
+         UaFurrnphbUspUVeUyUkuQBi/VtoAUNMpu7zu4Wi4MDARkWkX5pHFiwc3hajmD34Em4a
+         DuEROOSjG/iD4dbuBNBypZnCTdjyrR56PEyfHY5//+UWnltWI6vAucQ1LyytHtBwlRrd
+         UREw==
+X-Forwarded-Encrypted: i=1; AKwUvByjV4vYIcw4yq6UHhBmUTjIHEWhJd8FOR6Q8oyNrrnevLjFdu+TCjRudp4pCM30CT2s8b3M/cUa/347KLM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nU9ROdqc8imva1QhLbnFqJiycEF2veCKEvfuu1lFXVEf+JuDOu
+	aWzQlLbQnpc/6PZik69fX4xn09tpiYM630XaYoyBelOH+nphneXEmZRc
+X-Gm-Gg: AYBFou1JHf5urX3jpwKxfS50MdSdH3FuvbMdAFgYWFIh+cfwM+PKiRazIXi/2JtrE4t
+	YVntaUTHe69/xJSx4jDDPgGOI/xJ8+4kkaJ93tkZiUDKYAwawkJ8bgdkEU40DS3G1Pjgp1fLvrj
+	FEkTN4nTo//Q2wqaIWaN+MrV0sLzWxPq2qdW8SWGa/NcNV7/q2TC1eCHD7ODOdAuJpAdU6Eva5h
+	K3cwMozORqzslv8qHWLCsRVWtWdk4JYl5alrAih0jVhiRMs+Tg59IStmI+yQR/ylwAX0ZTVYhSq
+	ug1X9IrBmHX1YDnZjAb034+cPeKMugKZt4NCeGTv+e2r5oSIQJ4ZeQ0NWiFRNhUNqAm8tkFF3gu
+	0I/wpXZrH7K9AFVj3VSt6t0hIT6f8N0uIltoIdESA1K7Q4g0k822z0WXegm4CilBNyMjirOOFbY
+	Fkwjq6Mh+A/mP5hTp04SsgzH95OhqRF6DLxHed5DHYl4Js6VDkLIlamVSy+PvZHignFOnJlGC0T
+	TLozOWpBfwNhDgwwKHM6qJKXA==
+X-Received: by 2002:a05:600c:3b11:b0:49c:f7c4:dc54 with SMTP id 5b1f17b1804b1-49cf82512b9mr288796435e9.14.1788689784162;
+        Sun, 06 Sep 2026 03:16:24 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d03703f13sm57044775e9.0.2026.09.06.03.16.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 03:16:23 -0700 (PDT)
+Date: Sun, 6 Sep 2026 11:16:18 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Ridong Chen <ridong.chen@linux.dev>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt
+ <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, Muchun
+ Song <muchun.song@linux.dev>, Kairui Song <kasong@tencent.com>, Qi Zheng
+ <qi.zheng@linux.dev>, Barry Song <baohua@kernel.org>, Axel Rasmussen
+ <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu
+ <weixugc@google.com>, David Hildenbrand <david@kernel.org>, Lorenzo Stoakes
+ <ljs@kernel.org>, Chris Down <chris@chrisdown.name>, Tejun Heo
+ <tj@kernel.org>, Yu Zhao <yuzhao@google.com>, "open list:CONTROL GROUP -
+ MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, "open
+ list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <linux-mm@kvack.org>, linux-kernel@vger.kernel.org, Ridong Chen
+ <chenridong@xiaomi.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] mm/page_counter: avoid integer overflow in
+ effective_protection()
+Message-ID: <20260906111618.644362b3@pumpkin>
+In-Reply-To: <f65d4985-5e21-4e29-b5f4-dcff0fa479ab@linux.dev>
+References: <20260903031952.1120321-1-ridong.chen@linux.dev>
+	<20260903031952.1120321-2-ridong.chen@linux.dev>
+	<20260904093743.23cde26b@pumpkin>
+	<f65d4985-5e21-4e29-b5f4-dcff0fa479ab@linux.dev>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,95 +94,138 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Sun,  6 Sep 2026 11:13:45 +0900, wakasio wrote:
-> Hi Michal,
-> 
-> I applied the second patch on top of the first one and reproduced the
-> failure again with the same three debug functions enabled.
-> 
-> Cluster 1 (ep 2, start of write, unrelated): same as before, 4
-> Stall/Hard-reset pairs within about 177 ms.
-> 
-> Cluster 2 (ep 3, the real failure):
-> 
->   11:07:56.930732 Transfer error, ep 3, at ffffccbbc21f1540, resid 23552
->   11:07:56.931126 Soft-reset ep 3
->   11:07:56.939018 Transfer error, ep 3, at ffffccbbc21f1540, resid 23552
->   11:07:56.939183 Soft-reset ep 3
->   11:07:56.947399 Transfer error, ep 3, at ffffccbbc21f1540, resid 23552
->   11:07:56.947686 Soft-reset ep 3
->   11:07:56.955772 Transfer error, ep 3, at ffffccbbc21f1540, resid 23552
->   11:07:56.955939 Soft-reset ep 3
->   11:07:56.964233 Transfer error, ep 3, at ffffccbbc21f1540, resid 23552
->   11:07:56.964395 Soft-reset ep 3
->   11:07:56.972881 Transfer error, ep 3, at ffffccbbc21f1540, resid 23552
->   11:07:56.973060 Soft-reset ep 3
->   11:07:56.981806 Transfer error, ep 3, at ffffccbbc21f1540, resid 23552
->   11:07:56.981975 Soft-reset ep 3
->   11:07:56.991162 Transfer error, ep 3, at ffffccbbc21f1540, resid 23552
->   11:07:56.991324 Soft-reset ep 3
->   11:07:57.002050 Transfer error, ep 3, at ffffccbbc21f1540, resid 23552
->   11:07:57.002211 Soft-reset ep 3
->   11:07:57.015466 Transfer error, ep 3, at ffffccbbc21f1540, resid 23552
->   11:07:57.015576 Soft-reset ep 3
->   11:07:57.034026 Transfer error, ep 3, at ffffccbbc21f1540, resid 23552
->   11:07:57.034195 Soft-reset ep 3
->   11:07:57.041915 Transfer error, ep 3, at ffffccbbc21f1540, resid 23552
->   11:07:57.042019 Hard-reset ep 3
->   11:07:57.162742 usb 6-1: reset SuperSpeed USB device number 2
->   11:07:57.176799 Stopped on No-op or Link TRB, slot 1 ep 2
->   11:07:57.679888 clear err_count at ffffccbbc21e9000
-> 
-> Same pattern as before. 11 soft-resets, all at the same TRB address
-> and the same resid, then a hard-reset on the 12th. A different TRB
-> address cleared err_count about 0.5 seconds after the port reset.
-> 
-> The second patch did not change the pattern. This run failed at about
-> 187 MB into the write, the furthest one so far, but I do not know if
-> that means anything given how much the failure point already varies
-> between runs (0.35 MB to 103 MB before this).
+On Sun, 6 Sep 2026 09:11:24 +0800
+Ridong Chen <ridong.chen@linux.dev> wrote:
 
-Seems quite random indeed, but apparently things consistently go wrong
-after sending the 9th packet out of 32 (IIRC) in a random(?) URB.
+> On 9/4/2026 4:37 PM, David Laight wrote:
+> > On Thu,  3 Sep 2026 11:19:51 +0800
+> > Ridong Chen <ridong.chen@linux.dev> wrote:
+> >   
+> >> From: Ridong Chen <chenridong@xiaomi.com>
+> >>
+> >> effective_protection() scales a parent's protection by a ratio of page
+> >> counts, e.g. for recursive protection:
+> >>
+> >> 	(parent_effective - siblings_protected) * (usage - protected)
+> >> 		/ (parent_usage - siblings_protected)
+> >>
+> >> The multiply is done at unsigned long width before dividing. On systems
+> >> with >= 16TB RAM the product can exceed 2^64 and wrap, giving a bogus
+> >> protection value and silently breaking memory.min/low enforcement.
+> >>
+> >> Use mul_u64_u64_div_u64() to multiply in a 128-bit intermediate. Because
+> >> usage and parent_usage are not read atomically (a child is charged
+> >> before its parent), usage - protected can briefly exceed the divisor,
+> >> making the quotient overflow 64 bits and trap (#DE on x86). Cap it so
+> >> the ratio stays <= 1.
+> >>
+> >> Reported by the sashiko review tool [1].
+> >>
+> >> [1] https://sashiko.dev/#/patchset/20260826133054.88529-1-ridong.chen@linux.dev?part=1
+> >>
+> >> Fixes: bc50bcc6e00b ("mm: memcontrol: clean up and document effective low/min calculations")
+> >> Fixes: 8a931f801340 ("mm: memcontrol: recursive memory.low protection")
+> >> Cc: stable@vger.kernel.org
+> >> Assisted-by: Claude:claude-opus-4-8
+> >> Reviewed-by: Barry Song <baohua@kernel.org>
+> >> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+> >> ---
+> >>   mm/page_counter.c | 19 +++++++++++++------
+> >>   1 file changed, 13 insertions(+), 6 deletions(-)
+> >>
+> >> diff --git a/mm/page_counter.c b/mm/page_counter.c
+> >> index 661e0f2a5127..e8bd512069c5 100644
+> >> --- a/mm/page_counter.c
+> >> +++ b/mm/page_counter.c
+> >> @@ -8,6 +8,7 @@
+> >>   #include <linux/page_counter.h>
+> >>   #include <linux/atomic.h>
+> >>   #include <linux/kernel.h>
+> >> +#include <linux/math64.h>
+> >>   #include <linux/string.h>
+> >>   #include <linux/sched.h>
+> >>   #include <linux/bug.h>
+> >> @@ -356,7 +357,8 @@ static unsigned long effective_protection(unsigned long usage,
+> >>   	 * otherwise get a smaller chunk than what they claimed.
+> >>   	 */
+> >>   	if (siblings_protected > parent_effective)
+> >> -		return protected * parent_effective / siblings_protected;
+> >> +		return mul_u64_u64_div_u64(protected, parent_effective,
+> >> +					   siblings_protected);  
+> > 
+> > On 32bit it is only necessary to use a 64bit intermediary.
+> > mul_u64_u64_div_u64() will drop back to the (probably faster) 64 by 64
+> > divide (and then maybe to a 64 by 32 one).
+> > But there is a lot of extra code before that happens.
+> >   
+> 
+> Hi David,
+> 
+> Thank you for your review.
+> 
+> Do you want me to split this for 32-bit, or is keeping the single
+> mul_u64_u64_div_u64() call for readability fine with you?
 
-I have no idea, let's try one more patch (applies on top of the prior
-ones) to dump those transfer TRBs and see if they are correct.
+Maybe I'll look at wrapping mul_u64_add_u64_div_u64() with something that
+checks statically_true(((a) | (b) | (c) | (d)) < 1ull << 32).
 
---- a/drivers/usb/host/xhci-ring.c
-+++ b/drivers/usb/host/xhci-ring.c
-@@ -2622,6 +2622,22 @@ static struct xhci_td *find_td_by_dma(struct xhci_ring *ep_ring, dma_addr_t dma)
- 	return NULL;
- }
- 
-+static void dump_ring(struct xhci_hcd *xhci, struct xhci_ring *ring)
-+{
-+	struct xhci_segment *seg;
-+
-+	xhci_for_each_ring_seg(ring->deq_seg->next, seg) {
-+		union xhci_trb *trb;
-+
-+		for (trb = seg->trbs; trb < seg->trbs + TRBS_PER_SEGMENT; trb++) {
-+			char msg[256];
-+			xhci_decode_trb(msg, 256, trb->generic.field[0], trb->generic.field[1],
-+					trb->generic.field[2], trb->generic.field[3]);
-+			xhci_info(xhci, "%llx0: %s\n", (u64)seg->dma + (trb - seg->trbs), msg);
-+		}
-+	}
-+}
-+
- /*
-  * If this function returns an error condition, it means it got a Transfer
-  * event with a corrupted Slot ID, Endpoint ID, or TRB DMA address.
-@@ -2713,6 +2729,12 @@ static int handle_tx_event(struct xhci_hcd *xhci,
- 	case COMP_USB_TRANSACTION_ERROR:
- 		xhci_dbg(xhci, "Transfer error for slot %u ep %u on endpoint at %px resid %u\n",
- 			 slot_id, ep_index, ep_trb, EVENT_TRB_LEN(le32_to_cpu(event->transfer_len)));
-+		if (ep->err_count > 10) {
-+			xhci_info(xhci, "event ring:\n");
-+			dump_ring(xhci, xhci->interrupters[0]->event_ring);
-+			xhci_info(xhci, "endpoint ring:\n");
-+			dump_ring(xhci, ep_ring);
-+		}
- 		status = -EPROTO;
- 		break;
- 	case COMP_BABBLE_DETECTED_ERROR:
+Probably neater than the conditional here.
+
+> 
+> >>   
+> >>   	/*
+> >>   	 * Ok, utilized protection of all children is within what the
+> >> @@ -397,13 +399,18 @@ static unsigned long effective_protection(unsigned long usage,
+> >>   	if (parent_effective > siblings_protected &&
+> >>   	    parent_usage > siblings_protected &&
+> >>   	    usage > protected) {
+> >> -		unsigned long unclaimed;
+> >> +		unsigned long unclaimed = parent_effective - siblings_protected;
+> >> +		unsigned long unprotected = usage - protected;
+> >> +		unsigned long parent_unprotected = parent_usage - siblings_protected;
+> >>   
+> >> -		unclaimed = parent_effective - siblings_protected;
+> >> -		unclaimed *= usage - protected;
+> >> -		unclaimed /= parent_usage - siblings_protected;
+> >> +		/*
+> >> +		 * The usages aren't read atomically, so a child can transiently
+> >> +		 * appear to use more than its parent, making the ratio exceed 1
+> >> +		 * and the quotient overflow 64 bits (#DE on x86).  Cap it.
+> >> +		 */
+> >> +		unprotected = min(unprotected, parent_unprotected);
+> >>   
+> >> -		ep += unclaimed;
+> >> +		ep += mul_u64_u64_div_u64(unclaimed, unprotected, parent_unprotected);  
+> > 
+> > If the ratio is forced to 1 there is no point doing the scaling.
+> > So maybe:
+> > 		if (likely(parent_unprotected > unprotected))
+> > 			unclaimed = mul_u64_u64_div_u64(unclaimed, unprotected,
+> > 							parent_unprotected);
+> > 		ep += unclaimed;
+> > OTOH if the min() generates a cmov rather than a conditional branch
+> > then you don't get a statically mispredicted branch in the normal case
+> > (which is very likely with the empty 'else' branch).
+> >   
+> 
+> I'd rather keep it as-is and avoid the extra branch. Does that work for you?
+
+I nearly came to that conclusion while writing the comment!
+Actually the same might go for the other three tests - generating a 0 or 1
+from a conditional move ought to be better than the possibly mispredicted
+very unlikely branch.
+(I am right in thinking that they should never fail?)
+
+I also suspect the #UD is the least of the problems.
+You don't want the scaling to produce a bigger number at all.
+
+David
+
+> 
+> >   
+> >>   	}
+> >>   
+> >>   	return ep;  
+> >   
+> 
+
