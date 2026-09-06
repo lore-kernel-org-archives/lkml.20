@@ -1,78 +1,99 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12EBB19E992
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 13:21:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD68220FA81;
+	Sun,  6 Sep 2026 13:21:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788700877; cv=none; b=FuqCdT76A8mUpeP+O2lqhLWHiRwGc6gun/XxJuXBIXZRRNnzMlW9f7wUZpAkDXirwzgof1QX+xaHqzHqpGZNNdMnDQvImlm3ugf7Uq1ZZDAUYdNuAkYaoUeCANx5moDt4FkX3eN6TLSmTy9LJcMdLMWD3BvC7wnrvoSe1pqH5tw=
+	t=1788700890; cv=none; b=MC7IqRUg+1qdmTUGUFzxaZ4xa9UE+jBX1FaraTVXjk36gqVjXspMQuufSoaXc1j0OoHsWLMUUgVRgzPjRa2Z+MLkF0zCWuyhqx89DCxEVop8bviwPi2oiEaJKGD79tkFt5lx73aItm54sNaVMDBsuSMP+tv0G7R3RmjXS1dH0WY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788700877; c=relaxed/simple;
-	bh=alPKOn5jAxNKbM1bj3uVT9M8gY6+O/RJ1mvuAo8YnZ4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fi+Z3qJsFtsLLBSYiBbMpQif9tqN3Q7TIsWCcVPNVaX0rRLuQs4RtluvGsaW0knFDj+QVEMQBrII3KpGwCN5La60eGvBaTAzGyJrudQn67MqlBa/9V+gAKj8lDDAOH+dwn3c7a24bsaYO1j57hhy4Lby21HGcLnxJ9xYkopEoQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=aY7Mpr57; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788700890; c=relaxed/simple;
+	bh=JevZghghqJ9C0ONXEcRGG4k3wydfwyqkbIi3V+w9f0s=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=QqxUp3kSdyzYJOw+i61mvH8day0KI4i1olew5YpmXPpQaBNXLOsqf3EdNKp9SkyaMjkIhh7IIwZEWEwFQQ98HyFwHTr1BhNbdot4fNJlMu1Ne9n06zLh9NkybDY4jcEf8dVqNCLw54OeHzmvh9qU5UTYanMTeY27HQDwDi+T87Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=ednsLN/p; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=ekTA9FZM; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="aY7Mpr57"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788700874;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=alPKOn5jAxNKbM1bj3uVT9M8gY6+O/RJ1mvuAo8YnZ4=;
-	b=aY7Mpr57TFtmK4KozlXn2KNSAqMvuREzCu6daRrb7MMvQPsMhYZ8pbTyAQNTdgz8uv0Xmb
-	ULx3hRkoMuo3ZRj5k+AhytuVHTp/5G0ZyJBJc2du0HACmRUG9oYjUqOw641rTQwZAEjcJR
-	ZQUl1BwVQJIuigvxBd4eQjrHEsklPLE=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-158-Xz_C8Gk5OZ-LrqpUjLBUOg-1; Sun,
- 06 Sep 2026 09:21:11 -0400
-X-MC-Unique: Xz_C8Gk5OZ-LrqpUjLBUOg-1
-X-Mimecast-MFC-AGG-ID: Xz_C8Gk5OZ-LrqpUjLBUOg_1788700869
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 809BB1955F21;
-	Sun,  6 Sep 2026 13:21:08 +0000 (UTC)
-Received: from fedora (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 2442A1955F05;
-	Sun,  6 Sep 2026 13:21:04 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Sun,  6 Sep 2026 15:21:08 +0200 (CEST)
-Date: Sun, 6 Sep 2026 15:21:03 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>,
-	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
-Subject: Re: [patch V2 2/8] exec: Cleanup POSIX timers right after de_thread()
-Message-ID: <ap1ov3-KS_y9NVcc@redhat.com>
-References: <20260905181551.738186850@kernel.org>
- <20260905185839.716693014@kernel.org>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="ednsLN/p";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="ekTA9FZM"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788700861; bh=S4ON8vR5rw7HOQO+TbO3ECb
+	jF4LZR4BOOYyGBljsVK4=; b=ednsLN/pi7PrwTmr2tkDlSiUffh0uNoTC3C+usVWcqvkkq5U2M
+	xY7xgtDAKIb3tLHZHOC2psWEoHG5ZS8Nf6A28bwWfEX8a5aU7KUdOhuRifRa83lMjSTWXsWI01T
+	wDkFyxqEZhs/cPO87YUd7i4XYpmN8O5wrCsDj/81UcQ8qfowg/yg4HKGieaYTv5e8l/dH3Ey7V2
+	RzEVvBPvI7Gzmno0314WafKCi8zpDPD+O04hPo2qtS/5kGqyW5AywImXNapboteCybHbROps6Ra
+	UzJv5urQJF7rvhr+REj09B2wqO1kNeylriV9pk1br4uYQH7fmcSfETnclE3d9Y5H4EA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788700861; bh=S4ON8vR5rw7HOQO+TbO3ECb
+	jF4LZR4BOOYyGBljsVK4=; b=ekTA9FZMR7eTknsp78hcHSVneZnnK67rgVFD1GPU5bHvGoXqmL
+	1SpNdhn2//u4xw2wM+h+nIu9OG3Dz3wCW1Cw==;
+Date: Sun, 06 Sep 2026 14:20:59 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, paulmck@kernel.org
+CC: boqun@kernel.org, frederic@kernel.org, include@grrlz.net,
+ jiangshanlai@gmail.com, joelagnelf@nvidia.com, josh@joshtriplett.org,
+ linux-kernel@vger.kernel.org, neeraj.upadhyay@kernel.org,
+ qiang.zhang@linux.dev, rcu@vger.kernel.org, rostedt@goodmis.org,
+ urezki@gmail.com
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_hazptrtorture=3A_Fix_inverte?=
+ =?US-ASCII?Q?d_sleep_condition_in_do=5Fpending_kthread?=
+In-Reply-To: <28838ba4-8618-45d0-9994-3efee251bce2@efficios.com>
+References: <ed125668-a77a-41b6-9d56-46ac93a5d69c@paulmck-laptop> <9D2DEA27-B3D1-4A8B-BA57-2F5EAC920C1D@mainlining.org> <b1abee12-5a3a-4750-be37-a3157c7e2217@paulmck-laptop> <28838ba4-8618-45d0-9994-3efee251bce2@efficios.com>
+Message-ID: <7F7990FA-258E-488B-B291-31570C4F70C7@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260905185839.716693014@kernel.org>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On 09/05, Thomas Gleixner wrote:
+On 6 September 2026 14:09:53 BST, Mathieu Desnoyers
+<mathieu.desnoyers@efficios.com> wrote:
+>On 2026-09-05 16:40, Paul E. McKenney wrote:
+>> On Fri, Sep 04, 2026 at 06:28:45PM +0100, Bradley Morgan wrote:
+>[...]
+>> I would not say "no" to a fix for this issue:
+>> 
+>>
+>https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
 >
-> Move the POSIX timer cleanup right after de_thread() before any of the
-> later failure conditions brings the task into do_exit().
+>I'm not sure this URL actually points to a relevant issue ?
+>
 
-Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+No, that URL is my signature, just in case people
 
+1: add my old email to R-Bs, or SOBs.
+
+2: makes people aware this is me.
+
+>> 
+>> Once that is in place, I would be happy to put this back into -next.
+>> 
+>> At some point, we will need to get rid of the concept of wildcard hazard
+>> pointers, as those end up instead emulating RCU, but I don't see that
+>> as an immediate obstacle.
+>
+>I already have the implementation which eliminates the wildcard if we
+>care about this. It was part of a previous hazptr series version.
+>
+>Do you want me to resurrect it on top of the current series ?
+>This depends on:
+>
+>- ptr_eq(),
+>- then use ptr_eq() to compare the loaded pointer (pre mb)
+>  with the re-loaded pointer (post-mb).
+>
+>See: https://lore.kernel.org/all/20251218014531.3793471-1-mathieu.desnoyers@efficios.com/
+>
+>Thanks,
+>
+>Mathieu
+>
+>
+
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
