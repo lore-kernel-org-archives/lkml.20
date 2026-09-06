@@ -1,224 +1,203 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazolkn19013080.outbound.protection.outlook.com [52.103.51.80])
+Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 668953CF694;
-	Sun,  6 Sep 2026 23:38:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.51.80
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788737933; cv=fail; b=VSGaUb+eBIjlNnBjXZqHoIK4q2jRGwacLIvVdfE7MjxwTU1wQkFrMhLD2k4aK/6k9QVNGqPty71eFC/qXuwUapIg9h/D3QGCh8xE+2oQ2elaMLJTZe8MOt9t7y3TOb72M+Vnmy2Ri8G2F4KJlreN5H1Ryccywi+JAjLDa1Ejgos=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788737933; c=relaxed/simple;
-	bh=RqtZ3O9LiiEhVxYTj/uEB5p4+7YiOCy6cfTrHtT3QKY=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=qvJfG8iks1qAygIOBUHgDESScL6kXJvwmAwu+fzLk95txD+WYZIM9AdHwsRTa2KX3N4P4zzZTwm3BQG17Gg4QmTvdQO5iWbojubc+MmwdCuNQJwlpFR/szMis2D/RAHvPlYKzSkS/IPvfw8wSKvFPUlvR/14wVHyh20O3W9/0/s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=GrHRPrSC; arc=fail smtp.client-ip=52.103.51.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1F6427B343
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 23:45:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.139.74
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788738357; cv=none; b=R9F5K8akbM0dTnpNYTQSmIKSu2wY1ZIMhX+y9H3O1eFnrDwv0GACT7bf/CRCxGRq3zGYnhC2SMTZVJqn/l3gK/4b1iXfUoJa/W4oVJboGF3l70G/MQVggk0j9cITIT4tjX2ij8w5YIiPvix4zkI3Fet+Xvn4kfdGrrGAUaj+FEA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788738357; c=relaxed/simple;
+	bh=YUiuq5HeQFR23XYm7BLXCGUfVjFSKte5pFD1VHdooz0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=o0tAxQgCi/SRmW9SIkG31W08XxqOSeFD5qw4xCNKZRZIdiS8KDaBB7NYaV5d6qeOlzuUPqAS+FwIczK2L/P/RsasrQ44y7VnA7McsXTgzejWQEQ/yhdNNq1uZ2QRW/cdWye27nifOeXvIKFGh644QqRGw900k/0FdnBixc68JTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=cBn30TGD; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=YePP35VO; arc=none smtp.client-ip=148.163.139.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="GrHRPrSC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qDAphgVwB6/Rz5dfnCecnbAczqTaHp55ct7x4ziY1/XwByaHHjYfB2YuN2mjBrTkjwK65DHnogtyMgOWR7LSHrwSiMNgOe41CMHAHaP0zlN/3SGkAWMWdyZf16C5g4zsueNNEQNG81S3SFh9HCA1avTUe22WYTgHXEYMHhBhTC0/fvEptd/GHlp00p2cBxYk1yGnTe0AIPp5Gms3/OeS7SCpGfCRntvGFN+1RSV9UCT+JtAu6JG7GkDqY1c688NRCgY3iwKBH/EBh28PaJWqjREXdchgPdjxL40ZN+Uq5skqJ0aow3QsSdobqGoV4PTv6kSs8r28KWan8yr91HQ9lw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZDRXZ0qTcRDNEF8ObAvtDimPi8hFsMb+j/qYlWg8n7w=;
- b=nv3M7o5idlcbUCSzYWXBNnoSqV78YdawY7Ns+IYBEejkBn8MJiioORVRU4B6HFSFQ54vKU2U1xe7MwWQmMjgufG+0H8O5j6Q9xoSQq7KYdvxIgsUbMSh2fycaVnXvk3/+wiJbfj2mpNierv/MqAiZYdd3iCx1mSVbEyWeNQnYkWJ5mJtCR29h7I4ZfR7Da516rAUaYebCsYjt9hoLvvrEvq5blp0Lby01xuZlLMwm/rih3mNbYMEXm3gsdAJBF6EzAeaW2Hb1DP9Go0qs81eJbNtjbXZ1RMIie1KPVddJVE20pUkWSbifZ4fcEAEtfCL+NHiPv4nM6AOAYQ5en/bdA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZDRXZ0qTcRDNEF8ObAvtDimPi8hFsMb+j/qYlWg8n7w=;
- b=GrHRPrSCm3VEE5VS5UlYhUyQsLhyXZtRRRu7HahobFKG7hl8uAEjZZoP610lXCvOWrR4yq5rnOaRFSwGQvMkH8WREnN1RWV3ERV7MdDkar0i5Z2SG3tAx6YfwhGoeKqdKSZIWs6nLI9b0IiiW2mbxrFKJHu8v4I3idbNKvTDPf13rb6aY1sq93UN/iVnW0XN0yXxfzyUATSHG5h8yjqS+104ckhrTxRhsaiPhdaBx5Z1p+iPAOoG5wmf7xpDVY+k3nztbNhlbMbma3EZa8JsyGyletCjmjBH7Mf4L6k1ZgGtZ453XEGgYtFi9FK7NZb7URpeJCTgeiDY++VfvqyJ2g==
-Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
- by PAXP251MB0113.EURP251.PROD.OUTLOOK.COM (2603:10a6:102:200::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Sun, 6 Sep
- 2026 23:38:50 +0000
-Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- ([fe80::2952:d4d0:4ba:8352%6]) with mapi id 15.21.0382.014; Sun, 6 Sep 2026
- 23:38:49 +0000
-From: Aamir Ahmed <elb12345@hotmail.co.uk>
-To: Namjae Jeon <linkinjeon@kernel.org>,
-	Steve French <sfrench@samba.org>
-Cc: linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] ksmbd: deny access for an empty DACL instead of granting the request
-Date: Mon,  7 Sep 2026 00:38:45 +0100
-Message-ID:
- <AS8P251MB000152D9BF4B8E0601640661C8B32@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-X-Mailer: git-send-email 2.53.0.windows.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: LO4P123CA0126.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:192::23) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:344::22)
-X-Microsoft-Original-Message-ID:
- <20260906233845.87826-1-elb12345@hotmail.co.uk>
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="cBn30TGD";
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="YePP35VO"
+Received: from pps.filterd (m0167073.ppops.net [127.0.0.1])
+	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 686MYhdb678121
+	for <linux-kernel@vger.kernel.org>; Sun, 6 Sep 2026 19:45:48 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pps01; bh=/yb4ZkUCpaFSOuZxeTi0yQTuX8
+	MdzkWN0yCAF5xi2yw=; b=cBn30TGDABdCA6aqJdXTGmmni2RYUYCvuqY3haebvp
+	8yW9p3sZwkhByVbuw4q4HEj7sW9iq6fNnAhFYnHzriKUZiB4kQYusDuPJgU8VPDn
+	FG1B7SyiaiDmNmJgJhvT2WauCWZiFy68cCrAUXl0dcI88HAVtUC/saUcmiWhKCEt
+	Ebf9NYI2v1UzpGcZ3GogitunKKiPJTk0Hf5GVam+1/VRWRjEJlHq4TDDUW0mof5c
+	qER/49ZOvLXOU7n7Uh39/LCt+cmreJlcXZP1F5pfvMLSXDPfoU9Pd6JXO1Ai6taa
+	a8x9fmr/JCiahaTeQ7MaNmKbiFBZDEzf6BMbxPMktWow==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4ghfawrjp9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 19:45:48 -0400 (EDT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-52fbe82672eso52387921cf.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 16:45:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1788738348; x=1789343148; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/yb4ZkUCpaFSOuZxeTi0yQTuX8MdzkWN0yCAF5xi2yw=;
+        b=YePP35VOqsNCxKLYktI9XSPVuU57MVpWBU9rvJ28GH0fH8Pq8bBI/RGS5xvZJoCLq6
+         ALi+G+5T+3NDAoBkRFMg7uqh8WkTNH+ipUlVZCZdNa9DXJ6h+VIAP7puH4QjWbnMhxKw
+         fkv1roK9S2xiXIHfH7lDOdx7SOVCFBKczSvC2bYV4aAiY18HK3JRB1/q2NHecI+yGIVe
+         nMxRqs19TZ16QcBcRZn/juVI5GzC/hpXIyNoGCu4eAUEt7cinvRLlJukcn1MlLdG40J6
+         l/DjkXu3yPm3mnJ/LIPYUWb37sxk9G5cglyA43MgrN4+SCRSJpMmqUNipdmYW8k1KNzx
+         Lr/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788738348; x=1789343148;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=/yb4ZkUCpaFSOuZxeTi0yQTuX8MdzkWN0yCAF5xi2yw=;
+        b=AP12YJa64rfrtttFCTYDPcy2OpF73wlKbrqt/9Vub9ICto8iv1crlkgG7wMiuGW12G
+         C5vQ8Xdn0napgafcGuOLndrav5V+sV7kOvo4+6HJTKmLYBH5WbnZsKceFU1Qg30UIGPT
+         6rArwaVTkuUQZqQK1R6L744VUbtni12mCFedG7HBKnPyktts77UXvBM2lrY/6X8M7mEg
+         I3HFdXMKupSBv0dJm4oGaHm95JyMlmrVFne1aKDIwNJC48rCyISMsFLINjsTIyBvATLp
+         Ko56KTueDSgRzZT+mZt4+YBQaW9Uoq+onURl+LsKbK3tyyYeOkT5Ow2uihosGzG6TGPd
+         mDbg==
+X-Forwarded-Encrypted: i=1; AKwUvBxFzjiqlROzJSEOfIlGrMF8OyYKntXCHn6iMcFepX3TLUz0pFtnrO+gbRE8voMJyt2EGHUsaZSb6PBcH+s=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6oCkO2yFenaqqg8tdy1U3edwBxcaofWFoIgFN9I8UUgXPZ6sL
+	qIDGdRwIupPD1u0apZ+iXOnqiy1jMkbLIQTio4mam8JAQ71E9zZRvb7I/10CdvV+/4Ioc/9ZMEb
+	UcRH2tWZE/7lj1ayO6QXdRndiLsNzoNdlo0vpRgH//SKnPvjnKQmV4yWs69s0Yg==
+X-Gm-Gg: AYBFou3fwYY2AN452ZONsx/9O6lTjlGNoOdJUKVPW0oYXoG0D7g5ZubPwutpJsL39UP
+	h6erFVcmbqQFAJdR/aUyu04TfE4Lrcj57m7fvx27KhPb82drKTQK2T6mpMYiIBVhLglkMexvCZx
+	xDCr/XwmMdudvtr74y0xnC51GTP8YHdfNnuqdKvhnZgpUAUartnLDBCc2qZ8o2rjgJmju+DxFKU
+	8UNuTmnircC5mrrF6KAzmAjX3/tRXVlmt4X9oE7EIKplyuKJ+p3VDZrIpPsAifsNGImZ9RAGj9x
+	WK5i1/S5yO7ykdIIAUJLLugH4j6eVteF6HjLm1hGlXiFKel0iVsR+qa1QWrqX7llk80jkbwabX/
+	2yuTWzxXLexW/xstVQZxBeHEYxe83G7vuA5Ldg8X36lHWdraK
+X-Received: by 2002:a05:622a:244d:b0:52f:ae28:6aef with SMTP id d75a77b69052e-530549ef56bmr206701851cf.36.1788738347739;
+        Sun, 06 Sep 2026 16:45:47 -0700 (PDT)
+X-Received: by 2002:a05:622a:244d:b0:52f:ae28:6aef with SMTP id d75a77b69052e-530549ef56bmr206701691cf.36.1788738347261;
+        Sun, 06 Sep 2026 16:45:47 -0700 (PDT)
+Received: from [127.0.1.1] (nat-128-59-176-104.net.columbia.edu. [128.59.176.104])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530541ba2d2sm75705561cf.22.2026.09.06.16.45.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 16:45:46 -0700 (PDT)
+From: Tal Zussman <tz2294@columbia.edu>
+Date: Sun, 06 Sep 2026 19:45:33 -0400
+Subject: [PATCH] cramfs: convert cramfs_blkdev_read() to use folios
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|PAXP251MB0113:EE_
-X-MS-Office365-Filtering-Correlation-Id: a022481b-188c-439e-9225-08df0c70005d
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|24021099003|55001999006|16051099003|5062599005|5072599009|15080799012|25010399006|51005399006|23021999003|25031999004|37011999003|19110799012|8060799015|41001999006|12121999013|440099028|3412199025|26104999009|40105399003|2607281247196008;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?zB1Y41Zwtb20amQJj32Zt1Sxwln7QJwI04Ws0QCbtQqkxylvUfCXSrh7uqsv?=
- =?us-ascii?Q?DjuZ0lYhsFZJPGPL7asoxlxBWmydJqt50i8k/zkhF9eWOcRlEzCSN9V56pt3?=
- =?us-ascii?Q?hMkYvyTsKO1I+zZ2Oh1nn4q5bmftXxg8Q8qoHKCLuAkWmCbxsN2kT1bS7gdw?=
- =?us-ascii?Q?BbLEB+wkkPxlLk2TEbbIf8VSS/j6nazt2GEc+gUbxcOjRf9Cp8+QWZdx9bg8?=
- =?us-ascii?Q?bntwwDuFaJ9XEr34RHRGsmIQTeouFGZE0E3dYwkk5OU/jFlMM2c+wjyLgAdm?=
- =?us-ascii?Q?cTzg9PfGCSCJrsz7YEQHDEAJpQ9LBUX16rODGnazE0tJk0UztqFdq9LolyXk?=
- =?us-ascii?Q?DcxzSdgjxUbyhVnaIm9QEw0Dkaruw0zgn3L5b1nqDDbCwyPVw8/CV1mpTy37?=
- =?us-ascii?Q?CMPvFTDHb3TWY/0OI4PjSsFwkCN2PMs9ZA8+g42aBPy+6rCFzAspI3FY2D2d?=
- =?us-ascii?Q?8WJn+0p7r6hpmwMYl+5M19ZEqrMRB7jr2eexhLlUNvrEB7ljQSEizdloxaxz?=
- =?us-ascii?Q?LCgjEfBA/jiA9eAr1G/mF1a/FXWaNJvMhD0EY4F6o7OLKvCmQoPEmx5Gm/tx?=
- =?us-ascii?Q?UtfJQugremUBckvuATjKaSfFkOXYhCX08qYPWJSO+IUUIHiKnYh7Zxtp6M7G?=
- =?us-ascii?Q?V78O/AdEJsbfDZrDZ2hcSVSLFMbZmoPtT0BY+rCsjMH3sVLAD+ATwBTYsUet?=
- =?us-ascii?Q?5g55f5l4aCsDw7RlrhrkEMWSLQqWxgwG/ESSDRjfPGySQwpIwgtRbMcta+fD?=
- =?us-ascii?Q?g71TVx+tn+eQ7NuOzIcmFcVJi8b6AjC1bvYVf3l1/4iEDYsoTWXTLTN9Wq8Y?=
- =?us-ascii?Q?rceB8LZtW+ABdBxFQAgfUcVCcxsL9FB+0bOX4A7Qe+H0v4fSWAVMJNIHubDU?=
- =?us-ascii?Q?PwvU9l+FGZdLZSpS4eKuZ+jrz/AYKs9Q72dWL5RDf8EqwqBBVW3wfDhXo2CC?=
- =?us-ascii?Q?3T4KPhRgHL4mX1vFbhmJ3b3vnvPVsEYax6S30rdAkZrnTnteVFdAwAfr3XKv?=
- =?us-ascii?Q?Ja+/vA29PzGouzUM2Cb6Q17UkIGqXrVoFph3R8RY8AoAnpuH2etNlIPkHMe7?=
- =?us-ascii?Q?YaW8yhvCTSQdoxzAe6koGYfIe9U0n8kd8dfgChwl5arjUVu0NOxS0tzOzhDl?=
- =?us-ascii?Q?f/9UNarBU8mJhWFHNpCfJ4FRp7ffPAMSFZsvPr4rwDHwpCzpSDKwk1A=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?O//L9Mge6+YT3iLl/OEwFyPgr1dGBIi4jeJHZAWbsmEa5dGJEgh8lZP042Qt?=
- =?us-ascii?Q?+VlWzpbegvoCZC6USoDLOavdFQUB1TUKcqDzWMjUFy/CPQ2Dmk0zzINqxeBY?=
- =?us-ascii?Q?io8qutEPS/1NwqV1r4g7n9RdZtdEOQeS0ye437YKAX+2ngnNjk58kxzYYqsO?=
- =?us-ascii?Q?GsdchqyPS3kNBm+kA8WIlbv2uRUoB24zAVW30i8zvR1rEC17qX1CLrLPbrov?=
- =?us-ascii?Q?05dssfzD0f8RSyFQJ3WSA9kkTJL6lrS48XLlXcdQ+nZn1VyjudZ6y9dmb7TC?=
- =?us-ascii?Q?H0fWZRqiDer2xJ4sdRzg6SxZ9koByxFZdx6Kz5Q3UqpF+PW2BSrebzuEtuNs?=
- =?us-ascii?Q?1KWcNi/dkJPH9U/qMuAXxthPg1HT5Gj51rJ+yrtsznqESaAZCyZTaGBzsSPd?=
- =?us-ascii?Q?/kNueWjZ22U0/WMgAjKlJlf5p5wlH55M1/lRGkFlqdz+2LA+RzU7fPwgFd0Q?=
- =?us-ascii?Q?tXzQ3JoV3FnubV4vRCH4JLX6Imxq7RIKhyW3wwBSg+xMLGp9iM6mwXhqYxRt?=
- =?us-ascii?Q?csiSccjm0tGwwiZI1gQx+DjoH+/TGaROgtVkWHmoyrhxdEBTb83cRDRAr8LN?=
- =?us-ascii?Q?tJZvU8haBWFkgo0GS4m0LZw+ts0gn+SehHtf72ugq3SGqWwklzThD+jeJ6Jt?=
- =?us-ascii?Q?irAvRk4xUOOd0gPiv/b38UA3Yis/dOYOBKyY37kVKZyDqWnyyOMuJsmCUrQ5?=
- =?us-ascii?Q?SCZRcKbYEOpD52qDDpXE1KLmIVgNuyAaLWQykNhnWXPqyQXthYtXZ16a69ut?=
- =?us-ascii?Q?mpE1i/mIiM2VRseTERINhQgK6AjYB6qGsYKvhEKmOWwCsI89LuK70lZ6GZm5?=
- =?us-ascii?Q?FCO8oH2hd67J3sYUCSTZMi9qKZF9AnEzYXt45VunSnlPoeDFKnwx+8q0ZMF6?=
- =?us-ascii?Q?sGn545X40LkeP464MaIZ6LQn1Q8xDY45Tg6Z9w7r7p0j5xNOr8UBsK+RqtzK?=
- =?us-ascii?Q?qgF6sutXAc66iA2pQjwpDiHPz8GygsLHW9IDQwxRWuCPy0Pj1x0lmmZ6FVYg?=
- =?us-ascii?Q?kehogSGOpbtA3a/IKwyRYCy9BRatPp1KeaiHoO8LI0VwAx/JQfTI/K1g1HyJ?=
- =?us-ascii?Q?x42a4AC3eyTSOUl9N8PjIMevZ/qcJNcTTfl+TJsNDYfe034nyUSGN0EdogjO?=
- =?us-ascii?Q?F4gHpjRfV/gGiy7bXEFotGGlcGK7cvs6yOskA7goyxkRFhzYxBbGjq3pwnC6?=
- =?us-ascii?Q?FDoFOdrFy+XVoF2q036jF/3z9ReEXa/XBhEfyqrFKqZ4GI5fny+V0LUiksXc?=
- =?us-ascii?Q?IWDroMKIzaMWqPJ1ic+JKoYrU+uNCT7ylcncrQtGlGQJ1eoTIHIxpV/Qvr1q?=
- =?us-ascii?Q?XB+yE6KUGfYiNsRWCa8Awl/JGYcHY1/cPYa7eCFnWiNUw7/YlfeHZrhmz9Ce?=
- =?us-ascii?Q?inSDn7m+XZE8yCWx3mkXsLoH6msef1QeTUJQGLqmo7loZZ1VOpF+eOvMdFj+?=
- =?us-ascii?Q?+NxiY+MY0VY2XB6tr/3cY7VhTGcBmM4/?=
-X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: a022481b-188c-439e-9225-08df0c70005d
-X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2026 23:38:49.4152
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXP251MB0113
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260906-cramfs-blkdev-read-folio-v1-1-1be99a82be55@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIABz7nWoC/yXMQQ6CQAxA0auQrm0ysJiAVzEuhk6LVWRMq8SEc
+ HdHXb7F/xs4m7LDsdnAeFXXslS0hwbokpaJUXM1dKGLYQgRydJdHMf5lnlF45RRyqwF2yhMEof
+ QJ4KaP4xF37/16fy3v8Yr0/P7g33/AN0bOq18AAAA
+X-Change-ID: 20260906-cramfs-blkdev-read-folio-16fecf6908ac
+To: Nicolas Pitre <nico@fluxnic.net>
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+        Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Tal Zussman <tz2294@columbia.edu>
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788738346; l=2174;
+ i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
+ bh=YUiuq5HeQFR23XYm7BLXCGUfVjFSKte5pFD1VHdooz0=;
+ b=7RQVLj+g4dR1Ms5MKg10azl/ZEQxqrZ+FrRbgv+OZXEbwjS/gh1ZsOCHA04qZAWcLuFRYMf2v
+ uWXO2T/4bvGC0UrS30MOFyxP1o2OhYjSXUPIpZ41FdgLl8ue/IRIhgr
+X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
+ pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
+X-Proofpoint-GUID: EfBT52u3jp45PsinsmKlgPa6vGirrBvC
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA2MDI2NyBTYWx0ZWRfX6x5t2cVeBsFY
+ XiefVZ7XaYoj+y+HHLJf3H0GEFUlSszqvMNrDJstyr+uQmx3km8CaKQr9wIN7Dggk35hFiHXmti
+ JPyyxcZok1R6FautwvpHix50OshmQEWtSQ3IdIRDUeNoO2jxm+Ok
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA2MDI2NyBTYWx0ZWRfX0EWYPTZYHSEF
+ d6FCjEERpFIzMRbjZ5w1LtdlLBiUBpd6fDXhWLFWHKapiimifIk9xhkjy56rgv6owhWzy3VjzGp
+ jWWKTzzdseITkM0kKvxiC5iwixTRKwu4uTawDRbYGp6AoL5LdF07HtN+yUyeqfiyHA0wXJgD4j5
+ P2eMeSas8Pk8HGCCWckCjXPrLmtYoekEsbGncg2/aGCw/+32OXSEJ7F6kalPWTV0kJOMaV0ORJH
+ p1vgtK3NTwaOct7Fr0eVrSId1asUz7Ue4l5E0xonaKXcg5iQvP6Je0d8T83kWGmcixk3PajcVIQ
+ GOGlGjvaMGh/h8K57sXKSMNHd/YaMB8W3tGzZS27W2ZRtex6UicQytDDuh8PAlwQ13zP+I8hMh5
+ TmZ9U81LIWHPVmZrmrxGkOA27WjQa7acrjni1/qxLyCUd89INy/+kPzxu/yyMR9HDHPIwdRmSKT
+ hefAbU7G8AlaPDQrmyw==
+X-Proofpoint-ORIG-GUID: EfBT52u3jp45PsinsmKlgPa6vGirrBvC
+X-Authority-Analysis: v=2.4 cv=bvd8wkai c=1 sm=1 tr=0 ts=6a9dfb2c cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=aNLBvxxoObQFLnBXsbaGlA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=jHxIr1HyPKZ_Q5_91PL3:22
+ a=QBf-Z-tBp1IkNLPPPQEA:9 a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11898
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=10 malwarescore=0 clxscore=1015 priorityscore=1501
+ suspectscore=0 impostorscore=10 phishscore=0 spamscore=0 adultscore=0
+ bulkscore=10 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609060267
 
-smb_check_perm_dacl() returns the access mask it computes to the SMB2
-CREATE handler, which uses it as the granted access for the open. For a
-security descriptor whose DACL is present but contains no ACEs, the
-function is supposed to deny access: an empty (non-NULL) DACL grants no
-access to anyone except the object owner's implicit READ_CONTROL and
-WRITE_DAC (MS-DTYP 2.4.5).
+Read the block device pages through read_mapping_folio() and copy with
+memcpy_from_folio() instead of going through a page.
 
-The empty-DACL branch only denies when both
-
-  - the DACL has no trailing bytes (pdacl_size == sizeof(struct smb_acl)),
-    and
-  - the request contains bits beyond READ_CONTROL / WRITE_DAC.
-
-In every other case it takes the shared "goto err_out" with rc still 0,
-which returns success without modifying *pdaccess, so the caller grants
-the full requested access. Three problems follow:
-
-  - The READ_CONTROL / WRITE_DAC carve-out models the owner's implicit
-    rights, but the check runs before is_owner is computed, so those
-    rights are handed to *every* caller, not just the owner. For
-    READ_CONTROL the SMB2 CREATE path does not fall back to
-    inode_permission(), so any user can read the security descriptor of
-    an object whose empty DACL is meant to deny them.
-
-  - A request of exactly READ_CONTROL and/or WRITE_DAC is granted to any
-    caller. WRITE_DAC lets the handle rewrite the DACL.
-
-  - A DACL that declares zero ACEs but carries trailing bytes
-    (pdacl_size > sizeof(struct smb_acl)) skips the deny entirely and is
-    granted whatever was requested.
-
-On shares where the NT ACL is the authoritative access control -- e.g.
-"force user" shares, where every client maps to one POSIX identity so
-POSIX cannot distinguish users -- this is an access-control bypass.
-
-Compute is_owner before the empty-DACL branch and deny access from an
-empty DACL unless the caller is the owner requesting no more than
-READ_CONTROL / WRITE_DAC.
-
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
+Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 ---
-Found with AI assistance (Claude Code). The bug was located by auditing
-smb_check_perm_dacl() for paths that return success (rc == 0) while
-leaving *pdaccess unmodified -- the same class as commit 08f41323f549
-("ksmbd: fix maximal access leak when object has no NT ACL"), which fixed
-one such path for the maximal-access caller. The empty-DACL and
-malformed-descriptor paths were not covered. The fix was compiled
-(CC fs/smb/server/smbacl.o) and checkpatch --strict clean; the decision
-change was cross-checked with a small semantic model of the branch for
-owner/non-owner x requested-bits x trailing-bytes.
+ fs/cramfs/inode.c | 23 +++++++++++++----------
+ 1 file changed, 13 insertions(+), 10 deletions(-)
 
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index 1fad6ccf3a72a..ae55813790bd2 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -1490,21 +1490,27 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 	if (pdacl_size > acl_size || pdacl_size < sizeof(struct smb_acl))
- 		goto err_out;
+diff --git a/fs/cramfs/inode.c b/fs/cramfs/inode.c
+index d4cd03f4f60d..b55eb3bd29c1 100644
+--- a/fs/cramfs/inode.c
++++ b/fs/cramfs/inode.c
+@@ -194,7 +194,7 @@ static void *cramfs_blkdev_read(struct super_block *sb, unsigned int offset,
+ {
+ 	struct address_space *mapping = sb->s_bdev->bd_mapping;
+ 	struct file_ra_state ra = {};
+-	struct page *pages[BLKS_PER_BUF];
++	struct folio *folios[BLKS_PER_BUF];
+ 	unsigned i, blocknr, buffer;
+ 	unsigned long devsize;
+ 	char *data;
+@@ -227,15 +227,15 @@ static void *cramfs_blkdev_read(struct super_block *sb, unsigned int offset,
+ 	page_cache_sync_readahead(mapping, &ra, NULL, blocknr, BLKS_PER_BUF);
  
--	if (!pdacl->num_aces) {
--		if (!(pdacl_size - sizeof(struct smb_acl)) &&
--		    *pdaccess & ~(FILE_READ_CONTROL_LE | FILE_WRITE_DAC_LE)) {
--			rc = -EACCES;
--			goto err_out;
--		}
--		goto err_out;
--	}
--
- 	if (!uid)
- 		sid_type = SIDUNIX_USER;
- 	id_to_sid(uid, sid_type, &sid);
- 	vfsuid = i_uid_into_vfsuid(idmap, d_inode(path->dentry));
- 	is_owner = uid == from_kuid(&init_user_ns, vfsuid_into_kuid(vfsuid));
+ 	for (i = 0; i < BLKS_PER_BUF; i++) {
+-		struct page *page = NULL;
++		struct folio *folio = NULL;
  
-+	if (!pdacl->num_aces) {
-+		/*
-+		 * An empty (present, zero-ACE) DACL grants no access to
-+		 * anyone except the object owner's implicit READ_CONTROL
-+		 * and WRITE_DAC (MS-DTYP 2.4.5). Deny every other caller,
-+		 * deny the owner any access beyond those two bits, and do
-+		 * not let trailing bytes after a zero-ACE DACL become an
-+		 * implicit grant.
-+		 */
-+		if (!is_owner ||
-+		    (*pdaccess & ~(FILE_READ_CONTROL_LE | FILE_WRITE_DAC_LE)))
-+			rc = -EACCES;
-+		goto err_out;
-+	}
+ 		if (blocknr + i < devsize) {
+-			page = read_mapping_page(mapping, blocknr + i, NULL);
++			folio = read_mapping_folio(mapping, blocknr + i, NULL);
+ 			/* synchronous error? */
+-			if (IS_ERR(page))
+-				page = NULL;
++			if (IS_ERR(folio))
++				folio = NULL;
+ 		}
+-		pages[i] = page;
++		folios[i] = folio;
+ 	}
+ 
+ 	buffer = next_buffer;
+@@ -245,11 +245,14 @@ static void *cramfs_blkdev_read(struct super_block *sb, unsigned int offset,
+ 
+ 	data = read_buffers[buffer];
+ 	for (i = 0; i < BLKS_PER_BUF; i++) {
+-		struct page *page = pages[i];
++		struct folio *folio = folios[i];
+ 
+-		if (page) {
+-			memcpy_from_page(data, page, 0, PAGE_SIZE);
+-			put_page(page);
++		if (folio) {
++			size_t offset = offset_in_folio(folio,
++					(loff_t)(blocknr + i) << PAGE_SHIFT);
 +
- 	if (*pdaccess & FILE_MAXIMAL_ACCESS_LE) {
- 		ace = (struct smb_ace *)((char *)pdacl + sizeof(struct smb_acl));
- 		aces_size = pdacl_size - sizeof(struct smb_acl);
++			memcpy_from_folio(data, folio, offset, PAGE_SIZE);
++			folio_put(folio);
+ 		} else
+ 			memset(data, 0, PAGE_SIZE);
+ 		data += PAGE_SIZE;
+
+---
+base-commit: df2908090cda368b01ff43709f51890076c56157
+change-id: 20260906-cramfs-blkdev-read-folio-16fecf6908ac
+
+Best regards,
+--  
+Tal Zussman <tz2294@columbia.edu>
+
