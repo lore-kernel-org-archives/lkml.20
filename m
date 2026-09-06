@@ -1,173 +1,258 @@
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1131B3AAF4D;
-	Sun,  6 Sep 2026 17:13:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F6E3BC680
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 17:15:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.41
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788714807; cv=pass; b=ll4kNks3pecGcinHjxFd/fAVnvqKfxRn0161/ciYVuXRh1/wGVRMWZjiwj6lmRKaxuuPOxOLiY6ZYhyvF0pALK8/OpfO0KkZp7iutJ0+FUjSkD7YsFiaanJ9EIINYcz6TG50lcsucRsq7eMzDnoEMFN76z0S1/25yx6rLb6NsyI=
+	t=1788714910; cv=pass; b=bS1K6eIqkQpJ3GZa9u4R1Q6Bp8n2T3ClzuZfLkKs/tfsz03oK/6s3qjwJADBrcKOvjFqktnc6jSxwHJdSLZLrgIY5GiWhPccPw2kipxoeJsAnH0PKT4ZocbAknQQ0AscWMGj6mHouREcEaLAcdGt3MVtAdsb5c/RFjlgHZuQHZ0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788714807; c=relaxed/simple;
-	bh=M0+2cKlBrvyN4r8LQbOKNSSRKwmEoldTCtgoUR4fRZk=;
-	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=vD3xNvXPxJei2ZC0xrEo71QGe3K8lsYMnrscr8U7oOwJ/HB/QMOo+yD6S7UHiccIBOwUvlzqRw1YPRwdEyYNpzyevDnU0GRsml2bjsoZvbl0sLThw+oo5Ho5ouuT8gmEAeX0Tk1rXGjK47x8n2lbgVW1YF8y+MCrhutjKHF9+Vo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=i41ZjDYi; arc=pass smtp.client-ip=136.143.188.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	s=arc-20240116; t=1788714910; c=relaxed/simple;
+	bh=/NLEFD2U4DPqs+hPEKjeMU8yvviLwxMNcDiKHhsq30I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Content-Type; b=nc9VP6WBj2TJZ2zwTO//aQfGtx9RXlacdqv20p4Q92yZC+dGnxR3t5TULC1I1yzDTbP5hXdYaXeW1Mlh+bWCaK7nbkTSU8UhChvYrfo1KtdWqHEbUPu8gtUoFPmrfK2hzv0C1/v8eDdW/oKpyitPrebWxSgcUdpcr0ZpZfVMZxk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nOXMkTno; arc=pass smtp.client-ip=209.85.167.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="i41ZjDYi"
-ARC-Seal: i=1; a=rsa-sha256; t=1788714762; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=e0E9Q5AQB4LMiCVr6rMZBQ7xhFEYisM+fS1+OfowPt90xDfPogzo+vp3763IQvLLP+Bl5Rk8DvSpWAw4oN7b50cXpVCLPJj17lLbMMJRxNE89CFEGUDTw91D42KbgR/jsuFRVrbnYDIlU+L8+ksK+Dj+mKanvWk85uE+bGxZeNM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1788714762; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=M0+2cKlBrvyN4r8LQbOKNSSRKwmEoldTCtgoUR4fRZk=; 
-	b=SdkdbWxz+Esa48fTVY/zyAQcJwsm770EkFw02kfy/58CvGPRKN9PhwvqdPdEwPmeAz/spbZDpwsB602oCem8/c8xlU7VioESsICngIN1Z/m8QhInN7zc9+Y10zS7bGCvjv8Cluw+J2iwI4S1Pve8xrjnXeQxWYs7qxftG6ybHI0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788714762;
-	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Date:Date:MIME-Version:Message-Id:Reply-To;
-	bh=M0+2cKlBrvyN4r8LQbOKNSSRKwmEoldTCtgoUR4fRZk=;
-	b=i41ZjDYiSML73FvvOavEevNv+0YvVyOQBbTlcpkOTeSwGM2no7k3rB+Pko64ocQ4
-	YUIzOgEbZFp7XSY9BmBolV7Voe1uaEOqxXfqQJ0F3xnz4ADHUilW0JDwNtEaW8KaMLn
-	c4Pc/HOvx/1doIN146LUbTdyYfmpeN4GckQlMbqjI+zBgRpxLCp67ZaO4TzZfpgyoZb
-	bm8kO7z89QTKL1DacCtr69PQ1zJdSwT2P5l7AO7vAlNdShiT+fC6iFdGubgwZT2JHHM
-	97Vqp15n8YN8gZA9CUOpdQ4l1NDl4/V1qhBlcijGCsIzVGyXDNK36stwnM+mpermDxr
-	j7IsxGgkBA==
-Received: by mx.zohomail.com with SMTPS id 1788714758784682.0243427451376;
-	Sun, 6 Sep 2026 10:12:38 -0700 (PDT)
-Message-ID: <f66d7e55bb388c550e70fc425f1b911e40e0d578.camel@rong.moe>
-Subject: Re: [PATCH v3] PCI: rcar-gen4: Limit Max_Read_Request_Size and
- Max_Payload_Size to 256 Bytes
-From: Rong Zhang <i@rong.moe>
-To: Marek Vasut <marek.vasut@mailbox.org>, Bjorn Helgaas
- <helgaas@kernel.org>
-Cc: Jiaxun Yang <jiaxun.yang@flygoat.com>, linux-pci@vger.kernel.org, 
-	stable@vger.kernel.org, Krzysztof =?gb2312?Q?Wilczy=A8=BDski?=	
- <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Geert
- Uytterhoeven <geert+renesas@glider.be>, Koichiro Den <den@valinux.co.jp>,
- Lorenzo Pieralisi	 <lpieralisi@kernel.org>, Magnus Damm
- <magnus.damm@gmail.com>, Manivannan Sadhasivam <mani@kernel.org>, Rob
- Herring <robh@kernel.org>, Yoshihiro Shimoda	
- <yoshihiro.shimoda.uh@renesas.com>, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, Ziyao Li <liziyao@uniontech.com>, Huacai
- Chen	 <chenhuacai@loongson.cn>, Richard Zhu <hongxing.zhu@nxp.com>
-In-Reply-To: <9f0d8887-9332-4919-bee9-c165361e2ea3@mailbox.org>
-References: <20260903202706.GA2234456@bhelgaas>
-	 <41f323cbed2da4fa3913dfd62b5595bc3d5228da.camel@rong.moe>
-	 <9f0d8887-9332-4919-bee9-c165361e2ea3@mailbox.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 01:07:21 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nOXMkTno"
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b6036e9c70so2099086e87.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 10:15:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788714906; cv=none;
+        d=google.com; s=arc-20260327;
+        b=s7w4T8znv6vFRdSDRkwqcH9Y7K/nslESpxgpxUJCQH1kxhXt6QMMr3sSyDzfQew6iP
+         MOZZcZpd7HdP8rCAR9j4ssCGH+2hXiGTW45xr5y7VdlbeC5tNbeljw/d7F+gCO05UL0L
+         zyt1d6TRKfuaeQDvbm3xPbIFWuqNrZW8id2cEPeVYr8mCiLnFBRbbp8rKbCAqAvunHiO
+         XH+BbmNiVhv96QSQVTPaOAK4B5fjjSTEclorWySGAT3cT04qGhpqRzvwyIqbxmwsM7Dz
+         OwuY4NVYPyeyvzjYD6xg9hPodpdGEyUF/0npG9Q17IPCWyp9ChSXBajEDo9o3pBp1e63
+         yn1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :dkim-signature;
+        bh=ybo9oFe6iDvjjcDhnYminurOrpz0f2+5WnEtJ/QJDZA=;
+        fh=cqHALuw8OXy0PjQoRYoeXJL6p3A37Y+6mIWdh/o7Ghc=;
+        b=QDzcx2BibqV7HJim/z38Q6uAGYg9RNVaATMmTcefAW/SXOPhI1Q39L8Se06G2IFCUx
+         4h7gAfWBHHhGNTA27lLNZrSyAjaX1GTaxzvID/V6mLrl0ngbFlLNybJLkerZmG/oyD3x
+         LfcKO984L8m4o0VKHhngqgxO6bEm60YuOmfS/jEV1p0xMKUVfUxem6+aHxWzui+pYx2u
+         bRg2+RmSEkxRDRp40UeSekpUbNFN/ToUV8gmvsNitIKGmo64cPZQZGAzRVHhI+9rA+r2
+         KDtD4tfPxs0hB4h7p+LihYPUttQ4JKAns5ooYVDgHRRydb3g+akOTHXWRe8vbx6Xuz+C
+         weYQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788714906; x=1789319706; darn=vger.kernel.org;
+        h=content-type:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ybo9oFe6iDvjjcDhnYminurOrpz0f2+5WnEtJ/QJDZA=;
+        b=nOXMkTno0/vYyzSCbiUfuOFjaAj1B/mJRUUP03hc6jfUWd8dTGwTz0NLwEGi9Ya9nZ
+         2GrJDhJc3UfH+xT5TqlKPEtH8et5bLu6ENNmULb189RE/ZFf7ctrYe3U68rtbuyuUFO5
+         redwncvhy+RkqyfLywNvm5wSV/yzKRwM1kzPk29bwj3B4MTOpBUGx2tXc197Ay2gk6OI
+         s22hO9eWxdOtfVZtt0Nk1RPXLzZ00JVIl8iU8PMIupyezX36D1X9oH8mEXgvLU3gbP+Q
+         bSkuml5N7wv9c60CqSF1ul0BMQOwIpPr6W/9ri9F+RJX1+HanEl7E2itIiGh26Mk5zWB
+         QNBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788714906; x=1789319706;
+        h=content-type:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ybo9oFe6iDvjjcDhnYminurOrpz0f2+5WnEtJ/QJDZA=;
+        b=Hd2CRQyK5NwqNcmOWD1Xr/ALOVw+rnaPlafC+NEHHMFuedd+GUUMHTjglSI+NzxPOk
+         jhiJzyBYN0UYTf4IkVZBAeI3v0nYKbkfeWwmZ29mj7wAzMa833qxZp01dMoyVsPN6Z0p
+         9v9mLqpY6arb01WjPkhCqnZw7ckeQCLPWq8XUVyaW4D4u9GORgpReJ4ZcWKS/Wd9WqJt
+         bzz1okFvNAA9w8yZFUZucKiPwEwimPC1iPrWCFI9qLVOMGltua3c9QdAyMuIUypz44sE
+         CExwgwjBhu0iwMfngx06T97mRgoR4r623kyRmylGmnTBm4RtBy64NQ0dzMiateX8N3Tf
+         JUXA==
+X-Forwarded-Encrypted: i=1; AKwUvByb2TL1RzNJW2DfVKyRF0PSV89hJ0kTRowYzPeuFR+z8WB8wt+Jx8bWht3V3xw3+J0E8nu4BUj7qPX+jek=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhxLWKO2W2t9CKWRcDFUkVdMDKmIEigXtiOj1PrCu6XciYaWZ2
+	alIZPbqimxn8rOkgDEpw1Rr/eiuS4BR8RK9sgqiyKF5dxl4L1iNlIaLHw99Fn8Pybpl/1TvZedY
+	r5MjOSku3ImSE1VmdUAdEHcqmahbicWY=
+X-Gm-Gg: AYBFou1YwLt+8XzuZKGACkY1PT/A3pwQ/goM78Ns48LgE0pYEhQZeeCv8x4NUm+AS5n
+	UUQGX8Nuk7LwVfYuUHAYqmblgkuQ/uyZYxaLjIvBtskr/WkqliO0hNp2HGVEvGVHnK1EDLUbnpj
+	ns/fGqmSCddLtDyex6GrYPmGO5RpmTL9xL1pA8ODHDHhWkto3VBYuf2H7tE00b70GJq8KjJj9B8
+	Xax5haJ3gnZ0A1wGYWxto1IzrPPvpAsptJsLgAyTzCgN665ZTpa6HgbXcz17pvy/KbifwB79UJZ
+	99FSRSTY8WsifQUt1rP0DC0fQbeGZtzCDA20baTLuf7/VCB8zmBGMAv2KSW5mLw3qzf8rzEy7GC
+	5BVwEzv8zbgD+urQP1guY
+X-Received: by 2002:a05:6512:234e:b0:5b6:1a7c:2c with SMTP id
+ 2adb3069b0e04-5b61a7c0178mr2265389e87.47.1788714906014; Sun, 06 Sep 2026
+ 10:15:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Evolution 3.56.2-10+b1 
-X-ZohoMailClient: External
+References: <CAMnMt5YMA70FJwH+ddo24Ejd8HbpFSgUv73Ybu-fu+F-gcoesQ@mail.gmail.com>
+ <CAMnMt5Y_fL0cHQ1CjU9+vn0rZVO5eitL6h0dTQ5Wg48c68-yYg@mail.gmail.com>
+In-Reply-To: <CAMnMt5Y_fL0cHQ1CjU9+vn0rZVO5eitL6h0dTQ5Wg48c68-yYg@mail.gmail.com>
+From: Herman Semenoff <germanaizek0@gmail.com>
+Date: Sun, 6 Sep 2026 20:14:58 +0300
+X-Gm-Features: AcwNN1UHmL_20l79vWgk-QmH6vtnCXOWhhgvyhzIIbOddRbEr7UlXb4KcCfeXp8
+Message-ID: <CAMnMt5Y5gKSYk3HjNhdBGZQCg3OwsZ714ZbROzuw_=KVaX0bHQ@mail.gmail.com>
+Subject: [PATCH] wifi: mt7601u: add vnd_reset parameter to fix probe failure
+ on Tenda U2
+To: kuba@kernel.org, kvalo@kernel.org, linux-wireless@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: multipart/mixed; boundary="00000000000093f229065ad3a478"
 
-Hi Marek,
+--00000000000093f229065ad3a478
+Content-Type: multipart/alternative; boundary="00000000000093f228065ad3a476"
 
-On Fri, 2026-09-04 at 23:53 +0200, Marek Vasut wrote:
-> On 9/4/26 7:42 PM, Rong Zhang wrote:
->=20
-> Hello everyone,
->=20
-> > > > In light of the last paragraph above, that the MRRS has to be limit=
-ed also
-> > > > on all devices downstream of this particular controller, I would li=
-ke to ask
-> > > > -- does the Loongson controller have the same limitation or not ? I=
-f not,
-> > > > then I would argue this quirk should be isolated to this controller=
- variant
-> > > > ; else, I am happy to start on the core patches.
-> >=20
-> > ACK. I agreed that it should make our life easier.
-> >=20
-> > >=20
-> > > I don't know if we'll get a real answer for Loongson (there's no
-> > > maintainer listed for it, hint hint :)),
-> > >=20
-> >=20
-> > (+CC Jiaxun)
-> >=20
-> > The driver was introduced by Jiaxun without updating MAINTAINERS. I gue=
-ss
-> > he'd be willing to be listed as a maintainer.
-> >=20
-> > I don't work for Loongson, but I do maintain several MIPS-based Loongso=
-n
-> > devices for the Golang community with my colleagues and personally own =
-a
-> > MIPS-based Loongson-LS3A4000-7A1000-NUC-SE mini PC. I do some PCIe
-> > experiments on it from time to time for fun. So I am OK if someone want=
-s
-> > to list me as a maintainer or reviewer :)
-> >=20
-> > > but my guess is that it does
-> > > apply to all devices downstream of the Loongson controller.
-> >=20
-> > I believe this is the case. Maybe Jiaxun can shed a light on it too.
-> >=20
-> > Just checked the kmsg log from April, the firmware seemed to only clamp
-> > MRRS for devices directly connected to the root ports. IOW, it seemed t=
-o
-> > only clamp MRRS for the upstream port of a PCIe switch, so
-> > loongson_set_min_mrrs_quirk() had to fix up downstream ports.
-> >=20
-> > If you need more information I can do some more experiments with the PC=
-Ie
-> > switch card.
->=20
-> Please look at the commit message [1] , that lists the exact test and=20
-> the PCIe NVMe SSD which triggers the data corruption (let me know if=20
-> something is unclear). I think any PCIe NVMe SSD which is non-HMB with=
-=20
-> MRRS on the SSD size that is > MRRS on the controller side will trigger=
-=20
-> this issue too.=C2=A0
->=20
+--00000000000093f228065ad3a476
+Content-Type: text/plain; charset="UTF-8"
 
-Unfortunately I don't have any non-HMB NVMe SSD, and it's unlikely I'll
-get one anytime soon due to the crazy price. Before the AI supply chain
-crisis, I bought several NVMe SSDs, but I chose HMB ones as they generate
-less heat and consume less electricity.
+On certain MT7601U adapters, such as Tenda U2 and
+other newer hardware revisions, driver initialization consistently fails
+during probe with vendor request timeouts (-110 / -ETIMEDOUT):
+  mt7601u 3-14:1.0: ASIC revision: 76010001 MAC revision: 76010500
+  mt7601u 3-14:1.0: Firmware Version: 0.1.00 Build: 7640 Build time:
+201302052146____
+  mt7601u 3-14:1.0: Vendor request req:07 off:09a8 failed:-110
+  mt7601u 3-14:1.0: Vendor request req:02 off:09a8 failed:-110
+  mt7601u 3-14:1.0: Vendor request req:07 off:0734 failed:-110
+  mt7601u 3-14:1.0: Vendor request req:42 off:0230 failed:-110
+  mt7601u 3-14:1.0: probe with driver mt7601u failed with error -110
 
-> If you could reproduce it on the Loongson, then yes, it=20
-> is affected. You might have to disable the current MRRS workaround in=20
-> the Loongson PCIe driver though as it might hide the issue.
+The failure occurs because mt7601u_load_firmware() unconditionally calls
+mt7601u_vendor_reset() (MT_VEND_DEV_MODE_RESET) before uploading firmware
+chunks. On these devices, issuing this vendor reset leaves the internal
+MCU / FCE DMA engine in an unresponsive state after the first firmware
+URB is submitted. As a result, reading MT_TX_CPU_FROM_FCE_CPU_DESC_IDX
+(0x09a8) immediately times out.
+Introduce a boolean module parameter 'vnd_reset' (default: false) to
+make this vendor reset optional. When the vendor reset is skipped,
+firmware upload succeeds and the wireless interface initializes normally.
 
-Due to the lack of non-HMB NVMe SSDs, I can't reproduce the exact same
-issue. Theoretically I may try to mess around with the AHCI controller
-(see the mentioned commit below) by manually overriding MRRS, as my
-device's firmware already clamps it. We will see...
+Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1716301
 
-The firmware of many Loongson devices (except for some MIPS-based ones,
-see the commit message of commit ef61a0405742 ("PCI: loongson: Limit MRRS
-to 256")) already clamps MRRS for most PCIe devices, which has proven
-that the 7A1000/7A2000 chipset does need the MRRS quirk. Therefore, you
-can just go ahead with preparing the core patches without the need of
-waiting for my test result. It seems that your approach is not going to
-change the current fixup effects in a significant way, so it should be
-fine.
+More issues with Tenda U2 and Linux:
+- https://www.opena.tv/viewtopic.php?t=63919
+- https://askubuntu.com/questions/1418850/the-problem-with-wi-fi-u2
+- https://bbs.archlinux.org/viewtopic.php?id=224859
+-
+https://www.reddit.com/r/archlinux/comments/1d6dfv5/mt7601u_usb_wifi_not_working/
 
->=20
-> Thank you for your help !
->=20
+Signed-off-by: Herman Semenoff <GermanAizek@aizekgroup.ru
+<GermanAizek@yandex.ru>>
+Signed-off-by: Herman Semenoff <GermanAizek@yandex.ru>
+Signed-off-by: Herman Semenoff <germanaizek0@gmail.com
+<GermanAizek@yandex.ru>>
 
-Thanks,
-Rong
+--00000000000093f228065ad3a476
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> +CC NXP, because they have similar controller on MX95 (and others, but=
-=20
-> the MX95 is closest to this I think)
->=20
-> [1]=20
-> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commi=
-t/?id=3D37ca1997d2eeec86ad065008d6387fd15d18934c
+<div dir=3D"ltr"><div>On certain MT7601U adapters, such as Tenda U2 and</di=
+v><div>other newer hardware revisions, driver initialization consistently f=
+ails</div><div>during probe with vendor request timeouts (-110 / -ETIMEDOUT=
+):</div><div>=C2=A0 mt7601u 3-14:1.0: ASIC revision: <span>76010001</span> =
+MAC revision: <span>76010500</span></div><div>=C2=A0 mt7601u 3-14:1.0: Firm=
+ware Version: 0.1.00 Build: 7640 Build time: <span>201302052146</span>____<=
+/div><div>=C2=A0 mt7601u 3-14:1.0: Vendor request req:07 off:09a8 failed:-1=
+10</div><div>=C2=A0 mt7601u 3-14:1.0: Vendor request req:02 off:09a8 failed=
+:-110</div><div>=C2=A0 mt7601u 3-14:1.0: Vendor request req:07 off:0734 fai=
+led:-110</div><div>=C2=A0 mt7601u 3-14:1.0: Vendor request req:42 off:0230 =
+failed:-110</div><div>=C2=A0 mt7601u 3-14:1.0: probe with driver mt7601u fa=
+iled with error -110</div><div>=C2=A0</div><div>The failure occurs because =
+mt7601u_load_firmware() unconditionally calls</div><div>mt7601u_vendor_rese=
+t() (MT_VEND_DEV_MODE_RESET) before uploading firmware</div><div>chunks. On=
+ these devices, issuing this vendor reset leaves the internal</div><div>MCU=
+ / FCE DMA engine in an unresponsive state after the first firmware</div><d=
+iv>URB is submitted. As a result, reading MT_TX_CPU_FROM_FCE_CPU_DESC_IDX</=
+div><div>(0x09a8) immediately times out.</div><div>Introduce a boolean modu=
+le parameter &#39;vnd_reset&#39; (default: false) to</div><div>make this ve=
+ndor reset optional. When the vendor reset is skipped,</div><div>firmware u=
+pload succeeds and the wireless interface initializes normally.</div><div>=
+=C2=A0</div><div>Link: <a href=3D"https://bugs.launchpad.net/ubuntu/+source=
+/linux/+bug/1716301" rel=3D"noopener noreferrer" target=3D"_blank">https://=
+bugs.launchpad.net/ubuntu/+source/linux/+bug/1716301</a></div><div>=C2=A0</=
+div><div>More issues with Tenda U2 and Linux:</div><div>- <a href=3D"https:=
+//www.opena.tv/viewtopic.php?t=3D63919" rel=3D"noopener noreferrer" target=
+=3D"_blank">https://www.opena.tv/viewtopic.php?t=3D63919</a></div><div>- <a=
+ href=3D"https://askubuntu.com/questions/1418850/the-problem-with-wi-fi-u2"=
+ rel=3D"noopener noreferrer" target=3D"_blank">https://askubuntu.com/questi=
+ons/1418850/the-problem-with-wi-fi-u2</a></div><div>- <a href=3D"https://bb=
+s.archlinux.org/viewtopic.php?id=3D224859" rel=3D"noopener noreferrer" targ=
+et=3D"_blank">https://bbs.archlinux.org/viewtopic.php?id=3D224859</a></div>=
+<div>- <a href=3D"https://www.reddit.com/r/archlinux/comments/1d6dfv5/mt760=
+1u_usb_wifi_not_working/" rel=3D"noopener noreferrer" target=3D"_blank">htt=
+ps://www.reddit.com/r/archlinux/comments/1d6dfv5/mt7601u_usb_wifi_not_worki=
+ng/</a></div><div><br>Signed-off-by: Herman Semenoff &lt;<a href=3D"mailto:=
+GermanAizek@yandex.ru" rel=3D"noopener noreferrer" target=3D"_blank">German=
+Aizek@aizekgroup.ru</a>&gt;</div><div>Signed-off-by: Herman Semenoff &lt;<a=
+ href=3D"mailto:GermanAizek@yandex.ru" rel=3D"noopener noreferrer" target=
+=3D"_blank">GermanAizek@yandex.ru</a>&gt;<br>Signed-off-by: Herman Semenoff=
+ &lt;<a href=3D"mailto:GermanAizek@yandex.ru" rel=3D"noopener noreferrer" t=
+arget=3D"_blank">germanaizek0@gmail.com</a>&gt;</div></div>
+
+--00000000000093f228065ad3a476--
+--00000000000093f229065ad3a478
+Content-Type: text/x-patch; charset="US-ASCII"; 
+	name="0001-PATCH-wifi-mt7601u-add-vnd_reset-parameter-to-fix-pr.diff"
+Content-Disposition: attachment; 
+	filename="0001-PATCH-wifi-mt7601u-add-vnd_reset-parameter-to-fix-pr.diff"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mtq2nndb0>
+X-Attachment-Id: f_mtq2nndb0
+
+RnJvbSBjMDNkNzNkMzdkZjQ0MGQwMDQ2ZDY4NDA2ZmRlMmFhMWY2MmZlMGQxIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBIZXJtYW4gU2VtZW5vZmYgPEdlcm1hbkFpemVrQGFpemVrZ3Jv
+dXAucnU+CkRhdGU6IFRodSwgMyBTZXAgMjAyNiAwNzoxNDozMiArMDMwMApTdWJqZWN0OiBbUEFU
+Q0hdIFtQQVRDSF0gd2lmaTogbXQ3NjAxdTogYWRkIHZuZF9yZXNldCBwYXJhbWV0ZXIgdG8gZml4
+IHByb2JlCiBmYWlsdXJlIG9uIFRlbmRhIFUyCgp3aWZpOiBtdDc2MDF1OiBhZGQgdm5kX3Jlc2V0
+IHBhcmFtZXRlciB0byBmaXggcHJvYmUgZmFpbHVyZSBvbiBUZW5kYSBVMgoKT24gY2VydGFpbiBN
+VDc2MDFVIGFkYXB0ZXJzLCBzdWNoIGFzIFRlbmRhIFUyIGFuZApvdGhlciBuZXdlciBoYXJkd2Fy
+ZSByZXZpc2lvbnMsIGRyaXZlciBpbml0aWFsaXphdGlvbiBjb25zaXN0ZW50bHkgZmFpbHMKZHVy
+aW5nIHByb2JlIHdpdGggdmVuZG9yIHJlcXVlc3QgdGltZW91dHMgKC0xMTAgLyAtRVRJTUVET1VU
+KToKICBtdDc2MDF1IDMtMTQ6MS4wOiBBU0lDIHJldmlzaW9uOiA3NjAxMDAwMSBNQUMgcmV2aXNp
+b246IDc2MDEwNTAwCiAgbXQ3NjAxdSAzLTE0OjEuMDogRmlybXdhcmUgVmVyc2lvbjogMC4xLjAw
+IEJ1aWxkOiA3NjQwIEJ1aWxkIHRpbWU6IDIwMTMwMjA1MjE0Nl9fX18KICBtdDc2MDF1IDMtMTQ6
+MS4wOiBWZW5kb3IgcmVxdWVzdCByZXE6MDcgb2ZmOjA5YTggZmFpbGVkOi0xMTAKICBtdDc2MDF1
+IDMtMTQ6MS4wOiBWZW5kb3IgcmVxdWVzdCByZXE6MDIgb2ZmOjA5YTggZmFpbGVkOi0xMTAKICBt
+dDc2MDF1IDMtMTQ6MS4wOiBWZW5kb3IgcmVxdWVzdCByZXE6MDcgb2ZmOjA3MzQgZmFpbGVkOi0x
+MTAKICBtdDc2MDF1IDMtMTQ6MS4wOiBWZW5kb3IgcmVxdWVzdCByZXE6NDIgb2ZmOjAyMzAgZmFp
+bGVkOi0xMTAKICBtdDc2MDF1IDMtMTQ6MS4wOiBwcm9iZSB3aXRoIGRyaXZlciBtdDc2MDF1IGZh
+aWxlZCB3aXRoIGVycm9yIC0xMTAKClRoZSBmYWlsdXJlIG9jY3VycyBiZWNhdXNlIG10NzYwMXVf
+bG9hZF9maXJtd2FyZSgpIHVuY29uZGl0aW9uYWxseSBjYWxscwptdDc2MDF1X3ZlbmRvcl9yZXNl
+dCgpIChNVF9WRU5EX0RFVl9NT0RFX1JFU0VUKSBiZWZvcmUgdXBsb2FkaW5nIGZpcm13YXJlCmNo
+dW5rcy4gT24gdGhlc2UgZGV2aWNlcywgaXNzdWluZyB0aGlzIHZlbmRvciByZXNldCBsZWF2ZXMg
+dGhlIGludGVybmFsCk1DVSAvIEZDRSBETUEgZW5naW5lIGluIGFuIHVucmVzcG9uc2l2ZSBzdGF0
+ZSBhZnRlciB0aGUgZmlyc3QgZmlybXdhcmUKVVJCIGlzIHN1Ym1pdHRlZC4gQXMgYSByZXN1bHQs
+IHJlYWRpbmcgTVRfVFhfQ1BVX0ZST01fRkNFX0NQVV9ERVNDX0lEWAooMHgwOWE4KSBpbW1lZGlh
+dGVseSB0aW1lcyBvdXQuCkludHJvZHVjZSBhIGJvb2xlYW4gbW9kdWxlIHBhcmFtZXRlciAndm5k
+X3Jlc2V0JyAoZGVmYXVsdDogZmFsc2UpIHRvCm1ha2UgdGhpcyB2ZW5kb3IgcmVzZXQgb3B0aW9u
+YWwuIFdoZW4gdGhlIHZlbmRvciByZXNldCBpcyBza2lwcGVkLApmaXJtd2FyZSB1cGxvYWQgc3Vj
+Y2VlZHMgYW5kIHRoZSB3aXJlbGVzcyBpbnRlcmZhY2UgaW5pdGlhbGl6ZXMgbm9ybWFsbHkuCgpM
+aW5rOiBodHRwczovL2J1Z3MubGF1bmNocGFkLm5ldC91YnVudHUvK3NvdXJjZS9saW51eC8rYnVn
+LzE3MTYzMDEKCk1vcmUgaXNzdWVzIHdpdGggVGVuZGEgVTIgYW5kIExpbnV4OgotIGh0dHBzOi8v
+d3d3Lm9wZW5hLnR2L3ZpZXd0b3BpYy5waHA/dD02MzkxOQotIGh0dHBzOi8vYXNrdWJ1bnR1LmNv
+bS9xdWVzdGlvbnMvMTQxODg1MC90aGUtcHJvYmxlbS13aXRoLXdpLWZpLXUyCi0gaHR0cHM6Ly9i
+YnMuYXJjaGxpbnV4Lm9yZy92aWV3dG9waWMucGhwP2lkPTIyNDg1OQotIGh0dHBzOi8vd3d3LnJl
+ZGRpdC5jb20vci9hcmNobGludXgvY29tbWVudHMvMWQ2ZGZ2NS9tdDc2MDF1X3VzYl93aWZpX25v
+dF93b3JraW5nLwoKU2lnbmVkLW9mZi1ieTogSGVybWFuIFNlbWVub2ZmIDxHZXJtYW5BaXpla0Bh
+aXpla2dyb3VwLnJ1PgotLS0KIGRyaXZlcnMvbmV0L3dpcmVsZXNzL21lZGlhdGVrL210NzYwMXUv
+bWN1LmMgfCAxNSArKysrKysrKysrKysrLS0KIDEgZmlsZSBjaGFuZ2VkLCAxMyBpbnNlcnRpb25z
+KCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L3dpcmVsZXNzL21l
+ZGlhdGVrL210NzYwMXUvbWN1LmMgYi9kcml2ZXJzL25ldC93aXJlbGVzcy9tZWRpYXRlay9tdDc2
+MDF1L21jdS5jCmluZGV4IGJhZDZjYTgyMS4uYWJmNDc2N2YxIDEwMDY0NAotLS0gYS9kcml2ZXJz
+L25ldC93aXJlbGVzcy9tZWRpYXRlay9tdDc2MDF1L21jdS5jCisrKyBiL2RyaXZlcnMvbmV0L3dp
+cmVsZXNzL21lZGlhdGVrL210NzYwMXUvbWN1LmMKQEAgLTEwLDYgKzEwLDcgQEAKICNpbmNsdWRl
+IDxsaW51eC9kZWxheS5oPgogI2luY2x1ZGUgPGxpbnV4L3VzYi5oPgogI2luY2x1ZGUgPGxpbnV4
+L3NrYnVmZi5oPgorI2luY2x1ZGUgPGxpbnV4L21vZHVsZXBhcmFtLmg+CiAKICNpbmNsdWRlICJt
+dDc2MDF1LmgiCiAjaW5jbHVkZSAiZG1hLmgiCkBAIC0yMSw2ICsyMiwxNCBAQAogI2RlZmluZSBN
+Q1VfRldfVVJCX1NJWkUJCQkoTUNVX0ZXX1VSQl9NQVhfUEFZTE9BRCArIDEyKQogI2RlZmluZSBN
+Q1VfUkVTUF9VUkJfU0laRQkJMTAyNAogCitzdGF0aWMgYm9vbCB2bmRfcmVzZXQ7Cittb2R1bGVf
+cGFyYW0odm5kX3Jlc2V0LCBib29sLCAwNjQ0KTsKK01PRFVMRV9QQVJNX0RFU0Modm5kX3Jlc2V0
+LCAiUGVyZm9ybSB2ZW5kb3IgcmVzZXQgZHVyaW5nIGZpcm13YXJlIHVwbG9hZCAoZGVmYXVsdDog
+ZmFsc2UpIik7CisKK3N0YXRpYyBib29sIGRpc2FibGVfdXNiX3NnOworbW9kdWxlX3BhcmFtKGRp
+c2FibGVfdXNiX3NnLCBib29sLCAwNjQ0KTsKK01PRFVMRV9QQVJNX0RFU0MoZGlzYWJsZV91c2Jf
+c2csICJVbnVzZWQgY29tcGF0aWJpbGl0eSBwYXJhbWV0ZXIiKTsKKwogc3RhdGljIGlubGluZSBp
+bnQgZmlybXdhcmVfcnVubmluZyhzdHJ1Y3QgbXQ3NjAxdV9kZXYgKmRldikKIHsKIAlyZXR1cm4g
+bXQ3NjAxdV9ycihkZXYsIE1UX01DVV9DT01fUkVHMCkgPT0gMTsKQEAgLTQ1OSw4ICs0NjgsMTAg
+QEAgc3RhdGljIGludCBtdDc2MDF1X2xvYWRfZmlybXdhcmUoc3RydWN0IG10NzYwMXVfZGV2ICpk
+ZXYpCiAJbXQ3NjAxdV93cihkZXYsIDB4OTRjLCAwKTsKIAltdDc2MDF1X3dyKGRldiwgTVRfRkNF
+X1BTRV9DVFJMLCAwKTsKIAotCW10NzYwMXVfdmVuZG9yX3Jlc2V0KGRldik7Ci0JbXNsZWVwKDUp
+OworCWlmICh2bmRfcmVzZXQpIHsKKwkJbXQ3NjAxdV92ZW5kb3JfcmVzZXQoZGV2KTsKKwkJbXNs
+ZWVwKDUpOworCX0KIAogCW10NzYwMXVfd3IoZGV2LCAweGE0NCwgMCk7CiAJbXQ3NjAxdV93cihk
+ZXYsIDB4MjMwLCAweDg0MjEwKTsKLS0gCjIuNTUuMAoK
+--00000000000093f229065ad3a478--
