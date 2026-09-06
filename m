@@ -1,66 +1,67 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 914B1370AF6
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 08:46:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B81442255C
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 08:46:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788684380; cv=none; b=OO6tVVZ6lLfGxhuKxDFeQ5HROW8iJOx3PqEP2WIKbgLiadRrzchp/aCpg5zKEDAv1y8Qn46Fx7NC9mWW+TVJV6mLQQoDAeWmNuqm1lPhgLcoM/4rmZHQ6sSqQH9bpqfHZL4Hx4IMsT0eSGDTq1/yjOeuEYmuRcOEHmCNsOqK6j4=
+	t=1788684383; cv=none; b=Ts5xPBtW2F+OevsK0BbMf+lf/Fd+/YoF4hjb+ccLI0g7nLp7UhbmGlWsgKR4sdxqAwKYdFttT6vaC59wNryFENmcxboRsoaoOGSIS/sakddQW5VXRSUxZihrmPKp7g1QAHRwWIv+obFPHw18c3F0gbX2X7YS4HJAFqSvV8LYU54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788684380; c=relaxed/simple;
-	bh=IdlUNGokVn7UUx2Hf4dkFaFQZxZHWUcsZhhOiubKWGQ=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=synx6lUUjOQk3CPpdHBSQbAl1g41w5joJh2KrghioLw1IL6lrqBTpHWFbl0nkOznFpHCp2r1d1MrHh3Df35ZNJhoygicq+0DLswIDGZd8eStITrx4wLueedccuesfJKx9lalawAGyjLCoMsNmCXBbqYu4N1a7BPQFeKARornv/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TdV1mNen; arc=none smtp.client-ip=209.85.215.181
+	s=arc-20240116; t=1788684383; c=relaxed/simple;
+	bh=UFA5fI8C+4EiuKIzvPGp1iegNLyohGUY8/0+ZYqGEXA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=PgtiPbRkKZ+/JNrOBFfAXtdoklNM95Q4U1J8RnUeFdvT1ZVbC4I0hLEmePJ1rSFWL2JlH+BRR2qcva7upm1pXvdEgcXEa67e5mjwCBEDGvh71QKhJ29bQgElZex8w3+C1f8U/a4nnYiVnFodyLBAFSfbouCv8fpaGF5UzwUNNtc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j0j/fD/L; arc=none smtp.client-ip=209.85.210.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TdV1mNen"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc1c8d4a959so1663931a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 01:46:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j0j/fD/L"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-84e04df8c46so2840628b3a.2
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 01:46:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788684379; x=1789289179; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=9nIbS0NJ71vyvrSJ2KtRLrKXbssxt03ighnJw6FO84w=;
-        b=TdV1mNenUSdYXO4tAb07Crmnl0luqdSwP8ICEDVxCPjvq8hzK+TXs3NjCGo5v3dqAA
-         yRy7JRNnA2birEcHtkUSGWThS7Z6CniGos2zfFNMbo0r51q57Vpzab+HPNqlbLiMaGqU
-         /R3BFuDlqTSIl/LkiN+mAUi9M4XTe93SVsaueAzuSk0OQz5/D1v9/yg6JY8pxbv2atdi
-         8PQL637w1/55LGHGilThpQ8NmsaLtF3KA8sMCkcQ+IFC5GFSw/+l1giwPA1K3AMFoKJW
-         e4AH8owQ4skapFPn2pU7vpJKWV59Xsp4Pdgu4Rj8lyYAvni3wUeCelJMS4lPKSPZSrOh
-         RZkA==
+        d=gmail.com; s=20251104; t=1788684381; x=1789289181; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/gkzIc2mrM4Qdq/WyMfgp/R6p5u/2x3xKFYvN0yjh84=;
+        b=j0j/fD/LrMDYgCiVOcsLBVWp7yp4OKf/wP9yCmjM3LwC1xlKJxSyos6fMKVNGC09DV
+         v7DniNZbWTKezAljB9rkcENQwJcw0jDXDDAkOlIbVYjw87LzDMuxJOdo0tr1XpbscNjJ
+         AB27Ya6EqEv3bYT0ROSD/ZChbHh7/w1aoHi+WMYVITzk+u84gMMmmB8EW5S/hHIv7rwh
+         o8uiHmTjMvAuMnAPtPvodmE4VSTvGjQAV8/hCVStt3ZrO0s39Ls/GWbGQIwUcI+5nzp6
+         2Qfc60dn5PHCPujww5uF9QFUT5a+noyshVBpMKHqgHE82JNKPxQmWeGwg76ysuwe9Ccv
+         nBeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788684379; x=1789289179;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=9nIbS0NJ71vyvrSJ2KtRLrKXbssxt03ighnJw6FO84w=;
-        b=SWu3q0UFEnUqlRrEaW6ibhfb7FgkOobp42ZWR7gN9HSCLCwKiBbKdV3nDlLWFzhX8d
-         zQCmWsKCsyrgduSvW9x+pWkhNLWubo12MAnWs6PkyM4kF6UwVi6CDDRc1GmQuvG/CvMH
-         OMNx5ghFWmf848SbY71ZvDByI2PSwN327UmFbPakUZQgzB2dZvp6pEuiF3uyW0H5WKYS
-         uivDJ9ck+ukT22rCbl+8jK7NXCKh3Drf4lCkSm/wFk142KFdnzMLeXehg+09SSIBMS4y
-         9URXUHUoejyRFjJfU2P/sZ4jj+jvJo75tJEwPVE2X+KcUZzAqYezcDwdIrG4DuwZF1K2
-         l0JA==
-X-Gm-Message-State: AFuF++lXC/FwWEUkwscTWKytZbckUoxEMFFxedcZYVSqQ8Y8SRjMpbA9
-	6MJwsPKT4ZBEiN+KP8rithLuHnUoVTZMNM3FP5KyvnfnWdPqV7nwg1ot
-X-Gm-Gg: AYBFou0/wcNtIl8Z2LJdr+pozGZ0LkbZnRwlc+mTe/8W3GzLhJ6nzaXjLMnooghnIrx
-	FThogwkmUS7XLnHASK959UV5oifkK2MF3BKji3jThrqFjysfV9GT9pwNv0Ytp/I8tXoI0iqQrcb
-	mm/s99dLCN67tF+YhWvWp9XkD2wSSe301s8Jqkp4xEVfiNf+CV3dMHordjP8+8coGAXTHU31on2
-	7FY0zFAYBBegigyvNeUFfy6qhEpAR4cRawFe9P1SOo+PaPFsQ4DWYy48FIbm2RWQ0dYhhxlqsvd
-	M1ovgwpdte/2U5qaP3QnpH+t9jOjrBfhZSSf9SxqRGqYIJKaYmfzVBGrA4tZrV0fb86WHfYMJas
-	Wo2SiTc/FJsH1fj+Gh5NupDqSQs8QYFNvi07kIPuOMAIYKYUk5XDsbTvFVNi2ZEH1gSoMFc3otj
-	3AtlwaiU58pnEwz07NjclrZKEI4c9YOJijml4/bkWQXb3FQzOjEkHLFCc3Eu6SIQ/WZ5WBjpcrO
-	qhbOqtR
-X-Received: by 2002:a17:90b:2c87:b0:398:990e:1587 with SMTP id 98e67ed59e1d1-39b26191cf2mr25113978a91.9.1788684378775;
-        Sun, 06 Sep 2026 01:46:18 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788684381; x=1789289181;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/gkzIc2mrM4Qdq/WyMfgp/R6p5u/2x3xKFYvN0yjh84=;
+        b=D+wKFTyzmeHtsIL4b/IO3iZBHTtX2E2QLLkWW3Gp+3N53z0a+Qtn0mFhI0n5JjoMna
+         9CpMWiwTyJxH+4DNUcUmjli2WS36kDAxxTMyNUl9HUduCN09c1DPCm+ABOReLb6MNUQA
+         Hsnl6YrBLJCi/m60tLFxn2mDQVS5vCW44KVP3C4TE/mIeAwEh7Fc0V8cjqtQtJCEDBHL
+         S3ymMVXS7+Kz1as45UsKefwJFrddbw9Sba0D8IrZoL6dBCq7L42kLA4IHsbWMXL7UjHL
+         iqE9akicKyOUS9IFNcPBdz7p0ThhsyxSpImqi7g+GnpPKynKZSkvKVUKYxr9KvNi9aHT
+         ICsg==
+X-Gm-Message-State: AFuF++luUY5dVd/uGZx8speu9YHeTPpcEmIQvXpFEt6ILZnjsOQrg+vQ
+	bvbRZ8MC8a6YetxaCqBVKdjF4dVH9+jzOWjZT0FFFSAUjqTvSen8exeU
+X-Gm-Gg: AYBFou1GpZ9DmW/AUY4AbJfef+ykjgGnIAhi8Gnokinslny1WFNDM77R4Ht8GCTqiIb
+	OwscEpswQ/W1e7uXU+XSsq4v06ypMelkUqDLl+P5/h1xuszUkjETUlLdoT8KwLkRe5d5tYaoptz
+	sY+JwjtGJzLRtnvNuaDZsUzCPRu69T9LDUrVKYeAh3IwurS3TSAwndlVCi9rI5hIKc4rLmWIWJE
+	7XibZgjIOIPxOYo3tzXCd8i16uFgquGikKlCWiZ/bLSTN8ArR6k1CfAcaR2oNg6QTpbkB1O/UXk
+	N+hYHtpDYmAnG9HpIrkp6/JrJx1Py/8lLpRkClAQTjyFdufRackN7gKlmPcsxSO5C+3glJmPHW0
+	GTkHN+RlyqvxOZsLrMtIvpo+I+fz32FhKmox/Ar9AKPtwD4p5JeWNQIVZ7ZJTQYyWycXE6SbOlM
+	s0EK3XZlYvfU+3CxtNe7JZ+AbNAj7BQhqltWMo8Y+07XcfkNJNMCu+pnt230BdNwEJ3kYhEE07O
+	HzGmdQ6
+X-Received: by 2002:aa7:88c3:0:b0:848:4424:2b8e with SMTP id d2e1a72fcca58-861696788b3mr22513081b3a.3.1788684380945;
+        Sun, 06 Sep 2026 01:46:20 -0700 (PDT)
 Received: from localhost (madb688426.ap.nuro.jp. [219.104.132.38])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c39227sm20589811a91.9.2026.09.06.01.46.17
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4554770f6sm2697918a12.24.2026.09.06.01.46.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 01:46:18 -0700 (PDT)
+        Sun, 06 Sep 2026 01:46:20 -0700 (PDT)
 From: Kohei Ito <koheiito.dev@gmail.com>
-Subject: [PATCH 0/3] rust: Add basic GPIO consumer abstractions
-Date: Sun, 06 Sep 2026 17:45:48 +0900
-Message-Id: <20260906-add-rust-gpio-consumer-v1-0-24d192f93760@gmail.com>
+Date: Sun, 06 Sep 2026 17:45:49 +0900
+Subject: [PATCH 1/3] rust: gpio: add GPIO module with common definitions
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,10 +70,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAD0onWoC/yXMQQqDMBBA0avIrDuQCrXGq5QuTDKxU2giM0YE8
- e6N7fIt/t9BSZgUhmYHoZWVc6q4XhrwrzFNhByqoTVtZ6y54RgCStEFp5kz+py0fEiwv1sb+84
- 5FwPUeBaKvP3Gj+ffWtyb/HLe4Di+sg+QnnoAAAA=
-X-Change-ID: 20260905-add-rust-gpio-consumer-8799f86bbbfd
+Message-Id: <20260906-add-rust-gpio-consumer-v1-1-24d192f93760@gmail.com>
+References: <20260906-add-rust-gpio-consumer-v1-0-24d192f93760@gmail.com>
+In-Reply-To: <20260906-add-rust-gpio-consumer-v1-0-24d192f93760@gmail.com>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
  Gary Guo <gary@garyguo.net>, 
  =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
@@ -87,34 +87,200 @@ Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
  linux-gpio@vger.kernel.org, Kohei Ito <koheiito.dev@gmail.com>
 X-Mailer: b4 0.15.2
 
-This series introduces basic GPIO consumer abstractions for Rust.
-
-- Patch 1 adds the top-level GPIO module with minimal common
-  definitions.
-- Patch 2 adds the initial GPIO consumer (gpio_desc) abstraction.
-- Patch 3 adds a sample driver to demonstrate the use of the Rust GPIO
-  APIs.
+Add the top-level GPIO module with minimal common definitions. This
+module is the basis for future Rust GPIO extensions.
 
 Signed-off-by: Kohei Ito <koheiito.dev@gmail.com>
 ---
-Kohei Ito (3):
-      rust: gpio: add GPIO module with common definitions
-      rust: gpio: Add basic consumer abstractions
-      sample: rust: Add GPIO consumer sample driver
+ rust/bindings/bindings_helper.h |   1 +
+ rust/kernel/gpio.rs             | 152 ++++++++++++++++++++++++++++++++++++++++
+ rust/kernel/lib.rs              |   2 +
+ 3 files changed, 155 insertions(+)
 
- rust/bindings/bindings_helper.h    |   2 +
- rust/kernel/gpio.rs                | 154 +++++++++++++
- rust/kernel/gpio/consumer.rs       | 437 +++++++++++++++++++++++++++++++++++++
- rust/kernel/lib.rs                 |   2 +
- samples/rust/Kconfig               |  11 +
- samples/rust/Makefile              |   1 +
- samples/rust/rust_gpio_consumer.rs | 156 +++++++++++++
- 7 files changed, 763 insertions(+)
----
-base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
-change-id: 20260905-add-rust-gpio-consumer-8799f86bbbfd
+diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
+index 1124785e210b..98b048b36771 100644
+--- a/rust/bindings/bindings_helper.h
++++ b/rust/bindings/bindings_helper.h
+@@ -61,6 +61,7 @@
+ #include <linux/file.h>
+ #include <linux/firmware.h>
+ #include <linux/fs.h>
++#include <linux/gpio/defs.h>
+ #include <linux/i2c.h>
+ #include <linux/interrupt.h>
+ #include <linux/io-pgtable.h>
+diff --git a/rust/kernel/gpio.rs b/rust/kernel/gpio.rs
+new file mode 100644
+index 000000000000..819efc8a0c05
+--- /dev/null
++++ b/rust/kernel/gpio.rs
+@@ -0,0 +1,152 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! GPIO abstractions.
++
++use crate::{
++    error::{
++        Error,
++        Result, //
++    },
++    fmt,
++    prelude::*, //
++};
++
++/// Describes GPIO direction.
++#[derive(Clone, Copy, PartialEq, Eq)]
++#[repr(u32)]
++pub enum LineDirection {
++    /// Represent the output direction.
++    Out = bindings::GPIO_LINE_DIRECTION_OUT,
++
++    /// Represent the input direction.
++    In = bindings::GPIO_LINE_DIRECTION_IN,
++}
++
++impl core::ops::Not for LineDirection {
++    type Output = Self;
++    fn not(self) -> Self::Output {
++        match self {
++            Self::Out => Self::In,
++            Self::In => Self::Out,
++        }
++    }
++}
++
++impl TryFrom<c_int> for LineDirection {
++    type Error = Error;
++    fn try_from(value: c_int) -> Result<Self> {
++        match value {
++            v if v == Self::Out as c_int => Ok(Self::Out),
++            v if v == Self::In as c_int => Ok(Self::In),
++            _ => Err(EINVAL),
++        }
++    }
++}
++
++impl fmt::Display for LineDirection {
++    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
++        match self {
++            Self::In => f.pad("In"),
++            Self::Out => f.pad("Out"),
++        }
++    }
++}
++
++/// Describes the logical GPIO level, i.e. taking the ACTIVE_LOW status into account.
++#[derive(Clone, Copy, PartialEq, Eq)]
++pub enum LogicalLineLevel {
++    /// Represent the logical inactive level.
++    Inactive,
++
++    /// Represent the logical active level.
++    Active,
++}
++
++impl core::ops::Not for LogicalLineLevel {
++    type Output = Self;
++    fn not(self) -> Self::Output {
++        match self {
++            Self::Inactive => Self::Active,
++            Self::Active => Self::Inactive,
++        }
++    }
++}
++
++impl LogicalLineLevel {
++    fn as_c_int(&self) -> c_int {
++        match self {
++            Self::Inactive => 0,
++            Self::Active => 1,
++        }
++    }
++}
++
++impl TryFrom<c_int> for LogicalLineLevel {
++    type Error = Error;
++    fn try_from(value: c_int) -> Result<Self> {
++        match value {
++            0 => Ok(Self::Inactive),
++            1 => Ok(Self::Active),
++            _ => Err(EINVAL),
++        }
++    }
++}
++
++impl fmt::Display for LogicalLineLevel {
++    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
++        match self {
++            Self::Inactive => f.pad("Inactive"),
++            Self::Active => f.pad("Active"),
++        }
++    }
++}
++
++/// Describes the raw GPIO level, i.e. the value of its physical line without regard for its
++/// ACTIVE_LOW status.
++#[derive(Clone, Copy, PartialEq, Eq)]
++pub enum PhysicalLineLevel {
++    /// Represent the physical LOW level.
++    Low,
++
++    /// Represent the physical HIGH level.
++    High,
++}
++
++impl core::ops::Not for PhysicalLineLevel {
++    type Output = Self;
++    fn not(self) -> Self::Output {
++        match self {
++            Self::Low => Self::High,
++            Self::High => Self::Low,
++        }
++    }
++}
++
++impl PhysicalLineLevel {
++    fn as_c_int(&self) -> c_int {
++        match self {
++            Self::Low => 0,
++            Self::High => 1,
++        }
++    }
++}
++
++impl TryFrom<c_int> for PhysicalLineLevel {
++    type Error = Error;
++    fn try_from(value: c_int) -> Result<Self> {
++        match value {
++            0 => Ok(Self::Low),
++            1 => Ok(Self::High),
++            _ => Err(EINVAL),
++        }
++    }
++}
++
++impl fmt::Display for PhysicalLineLevel {
++    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
++        match self {
++            Self::Low => f.pad("Low"),
++            Self::High => f.pad("High"),
++        }
++    }
++}
+diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+index 9512af7156df..6c96c1269249 100644
+--- a/rust/kernel/lib.rs
++++ b/rust/kernel/lib.rs
+@@ -73,6 +73,8 @@
+ pub mod firmware;
+ pub mod fmt;
+ pub mod fs;
++#[cfg(CONFIG_GPIOLIB)]
++pub mod gpio;
+ #[cfg(CONFIG_GPU_BUDDY = "y")]
+ pub mod gpu;
+ #[cfg(CONFIG_I2C = "y")]
 
-Best regards,
---  
-Kohei Ito <koheiito.dev@gmail.com>
+-- 
+2.50.1
 
