@@ -1,80 +1,82 @@
-Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEED735B136
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 05:50:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FC7B286A4
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 06:03:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788673861; cv=none; b=Eyrob3dsBLys+RBAmY6YFu/m9HWdGikJWh5yIt2n/YSea9jsoHwhd2+JmvApU1J5twEsxg0ci9FFpzElnrgBWQY4R9BudU+x4x56XBzgQ4Pe1/uwMKW3kH8dCTJ/JTu77wHzkoxnq7mAH4PxNWxqTF3BMqpRxXK8WkClBh6KWg8=
+	t=1788674591; cv=none; b=Fyb4CCpk0B8HSAoVPOAMGVqYFocs2W+HHCzMqyOR0aChwt/WHlmXgn/mUTkR6zN4TprVnwLIz0pB3I6S8oMesUXqV872+Ceyz8lXhOmouwAMc8IruOc8FTvBZSD40Fu+3mm+dVPml+LzU8W1gBAbK2k0b2CMw68Cjxh0o/+V8D4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788673861; c=relaxed/simple;
-	bh=viWJnjrbhyky0K4g63DpQdEAEtLqeMnC3TLX78qmwLA=;
+	s=arc-20240116; t=1788674591; c=relaxed/simple;
+	bh=Q2OqRxF07h3GzHgoAkW+d8FdMTnttaOQ5y9/PQKMMNI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Yl7H4Ub3Q7Wjfyp7gi/GoVYplx94l28zE8bovE0pQK0cT1V0PBbfQWV8Lu/NkqrQA0IvVV/eIdql0ZpBPz90f9oHv/sJyMCCwuorDaidW3FmKZ9C/et8+ZlzG0dm0FVgnWpltlcSId5YqX9wKN401Sg6ANdS0SrWC6AGGDDKpb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LdCSwfLb; arc=none smtp.client-ip=74.125.227.136
+	 MIME-Version; b=AeXyw0ql5ioi9Qh/+hTs+2izQi2vfkLq1RiBPNP5fa3OxBv/yRxeMw0U8pCO3b8pmSlyc/7Vf142au3VEOlG+6HpvNTOynKEC1LTreyj1BdsDX1LRUoXg5ZUeQ/CajXV+6PIb2zgnUI4blQyZ1+4HKQ3uQzHUcZ6O2f/S1cFqTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F8FnRJRc; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LdCSwfLb"
-Received: by mail-pj2-f8.google.com with SMTP id d9443c01a7336-2db33361b2fso4793965ad.1
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 22:50:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F8FnRJRc"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49b0eab380eso21315615e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 23:03:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788673859; x=1789278659; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788674588; x=1789279388; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=uFG6XNGVyqJ8z6Dlrx8ujL8nDyq9SaEpffEn7E3UykE=;
-        b=LdCSwfLba9JKVGcSBkmiXnSngjzqAwDp031bVN/XJvK6Mi6oAk2BGbw0ZFynSOU27I
-         5bHaj9A5ecq6myaVdx9W/PCQtamhjV9tp+9AZlHfi2pLVQo5N07F4ouO/jgazB9rP7gm
-         j5++faPym8//sLqlytPm2u9R8bErb4aG5/KEdxYFFjNiMSYm8nMpyYylpHDG+8FgIDlp
-         cMAkOrvYZ6vluCxO2hIlvEAj8ktpY0hhnMzayKcRoV/Ph8+PnwVF91Oq+mkXOqJYouPF
-         9vUPpjgOkZMeZvnwyh1B51Tn5iwqzEXm7S35lTNNAm4EvuqCx4tkOwnRSqSb+plcYQM2
-         HyTA==
+        bh=NG+h0fEWkShkE2dq/JvgIwncxcSUVIaRrf1Kfa8GBLU=;
+        b=F8FnRJRcBSAZ0QO6Gx3J1dy8RUY4FbExNXGsiBsmz7K1eSayhjBNQH+0mTrqV8eiX1
+         1xTNIhs8gUwZzwy9+cheS6f3kiscxdTxGLXcuL3MEU3q5sVFWtpoAz0ZYJ+0C44X8slM
+         scLJ8ExlL8r049KOaAUvqRPH9aZ6y45TH/2MCUqGdQlMtrP4zlKYWDmCA6yPGQu0MTwg
+         V3Rww/QnAXOIfV+mgelQ7Sja15Gn/7h6jqhdB8X49Drqi7ZXFVal6bsBEeYvJIFP6Ees
+         nHgoibapdnks5pymHLh2e2oMFJGwcmPNw5LzLNzmPkDz9+IdtkJHq5tADHw45yXD1zar
+         MI7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788673859; x=1789278659;
+        d=1e100.net; s=20251104; t=1788674588; x=1789279388;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uFG6XNGVyqJ8z6Dlrx8ujL8nDyq9SaEpffEn7E3UykE=;
-        b=c21DBU1BpeGqkSFmHiUwr/22b/4lQxAQO5e7yW7ZupU9iLIzX1OOPIjobzt/QFkpCs
-         H/DXySXpq/XwEp+MqBYlfYOfset82RYaRud+ocUujINCBPQcJkCxWNGQKVomDpTGNxJn
-         hBp4wv6+WFZCnwO1ht4vBBQ+SIhHalqaNjexTsfwBp2KHrAV8CcMvsEUhLnc2HY2LTvH
-         slSNCQUqenH57UtX8HrGfGyhEewOmdTZEliWdd6TYtZs2+gyXd6wHtFIC8FhnqINdK00
-         qCoFIMQELO/YjdApjyucakOuOzI1iD/W69L8eFcqDRszavVfj3i6otIN/7hSddvlTX66
-         LvFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxG5TpvBu5SXOQQJ2yqHLAo0lDPnKKSiNFWPokKKZHg+EpNnB7r18wCQW2yB9vUCZ1obw2gPU+GU9PN8pE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nEEjfQ1KDxDDIdpOGdaSx743zWzYnZV8Z3xrO0njWvqk3dQFul
-	uP/c2CL314KO3pAJdnknfurAb7VCiq5ueE9ckrhN3NIh8jO72c8gEUQB
-X-Gm-Gg: AYBFou2iNeqtjE5VfADwZ9A/s/wUZN4JgpZTbHj+VGHCsEG7cej2gRgfFQckEt1Kg8S
-	AfXfrHD+3GAF+o7tznUVh9k3fTjV4F2qwd+cc3ZBnKVkDDT9sG31GROoXQFpxbzSHSRAnCUpt6X
-	OyNxu3oUgGexIKv8+xV8F+0wyxesPJRTB18LOAp1JQqfFyHsRt+P02AF+2tucEZHoEsASdOClnp
-	+6inJQfL9+93x9zl35aZpUExbC/jwsF1lFha1CPShSYNN+X1BW7CEtsQ9m9KqSvsuT99AEkRdT7
-	iqz2XrgwDNEwkxeVduRp2gj2VWBjrki+3lsOeILfFqa1RN4Y6jvuit9wwEpG9X1+HdvvG6EQOYw
-	hldgRjO6Kt4QUvEz6w7CUWt2K6qQUoegn0+buLu7JxTNEFy4Q0AlK8phV1e4mBQ2pOVKhGLvajx
-	lznqrZ/K0mG4xdziVhpfmsiuS2CrQar+eJQF247c6smfAJVAws6lClAgQWGRjQUjmF7FRQ/M1R
-X-Received: by 2002:a05:6a20:914f:b0:3b4:7e2d:a3c2 with SMTP id adf61e73a8af0-3da3a03e965mr23968702637.18.1788673858878;
-        Sat, 05 Sep 2026 22:50:58 -0700 (PDT)
-Received: from localhost.localdomain ([111.199.57.231])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc45e15604fsm2225263a12.0.2026.09.05.22.50.55
+        bh=NG+h0fEWkShkE2dq/JvgIwncxcSUVIaRrf1Kfa8GBLU=;
+        b=BiZFBTEtTbEByGhzjTe2bZEHxwAMzqXGQCMjrhq6hCgukkoz76NXbcFBYehkbKsxt9
+         TphPTHufIUYig21ZPyqHwPCKS6MUpnDFocSbAxbdnoWap6wyy6dyP6hrtlo2J7qEETfa
+         HzVxWDc259OQVz8LuP7PDcC1tS7gp7xTBu/yFIhtK+SFYo+9A2nN6TvizyNSVYfYJj6Q
+         ws0GXjKgFqDKkqxThueVIg6SUkm5NX02kDCbm9QWPoewkh81/Eg/Er+YMFTdNNgWOiy4
+         qiE36lWr36FDFridUSEcrXXGYkX7XpfK+qW0ndI7pLtDuNvBWmG7PpTR1HmYyW2M9/kp
+         +sJw==
+X-Forwarded-Encrypted: i=1; AKwUvBwP3GYEDNpFo5970IOqSjzL52BKWQMXM+9gP7j11NQN+tVyYNNznyVCDwIYPLndA+BH6tUPB96uly7Ze40=@vger.kernel.org
+X-Gm-Message-State: AFuF++lmC8NC8cAEmGQLX80TV5gZ2Mm37qByMUtXft31iAoOn11LtX35
+	R9OXmtZ1pjjOVLei3PsFcO48ojhCSiY4dm89+Kqm6g3uH7TJIwtlFEo=
+X-Gm-Gg: AYBFou0VYpTQdHmq9o5ytbOWx44SeS13azMkI668SvOoG8OZ4+rGlL+f65AKj6QEVY8
+	V8w8jtxpTlrpaiIf3Nn25KBSa8sE+YwzrwESklcFZNSNCuyWDyj+bkOE5gYcl6nlsA2ew9233md
+	0hv28pyObjPSiK97+8YEKX9OJPGeLIx++jKEbZKrIgvTzcnVIzvfcsSW6HONLsfglnIWpC3JkiP
+	DF6bD+QPgfrN88ZTAkLhTz0ix5xjh8BgDuQzGwHs0noL2ThVOdJXJwtU4AF0SKtGYOPA85++L15
+	+9/LX2CRGJ6UfJme2g9boz0Cs5005SXX+4hakhktO9FVE9ilViyEARIRojg+58R8wOCrBwrMC9X
+	xw9DrPQKurCGplqcYwFo/EOmXL7p0v7sqDqlgpj4tqq5IY8ILukJtgEcN/PCYYyiiIodhXIb6Qc
+	XMZ7fwRwRT09XIF3kbmScPn2GibhYHWoAXCgrMoaG0HbiqNIUp/Gg=
+X-Received: by 2002:a05:600c:1d07:b0:49c:f13e:e4d with SMTP id 5b1f17b1804b1-49cf86f4fe4mr138838165e9.10.1788674588092;
+        Sat, 05 Sep 2026 23:03:08 -0700 (PDT)
+Received: from fedora ([46.8.219.5])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5f912esm298147805e9.4.2026.09.05.23.03.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 22:50:58 -0700 (PDT)
-From: Gong Shuai <gsh517025@gmail.com>
-To: joseph.qi@linux.alibaba.com
-Cc: Srikanth.Aithal@amd.com,
-	brauner@kernel.org,
-	jack@suse.cz,
-	linux-ext4@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
+        Sat, 05 Sep 2026 23:03:07 -0700 (PDT)
+From: Vitaliy Sochnev <sochnev.v.74@gmail.com>
+To: Lorenzo Bianconi <lorenzo@kernel.org>,
+	netdev@vger.kernel.org
+Cc: upstream@airoha.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	luca.weiss@fairphone.com,
-	ocfs2-devel@lists.linux.dev,
-	Gong Shuai <gsh517025@gmail.com>
-Subject: Re: [PATCH] buffer: fix NULL dereference of bh->b_folio in __bh_submit()
-Date: Sun,  6 Sep 2026 13:50:32 +0800
-Message-ID: <20260906055032.3005936-1-gsh517025@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260902013357.2815214-1-joseph.qi@linux.alibaba.com>
-References: <20260902013357.2815214-1-joseph.qi@linux.alibaba.com>
+	Vitaliy Sochnev <sochnev.v.74@gmail.com>
+Subject: Re: net: airoha: RX rings below 32 descriptors let hw DMA past the ring
+Date: Sun,  6 Sep 2026 09:02:49 +0100
+Message-ID: <20260906080249.944732-1-sochnev.v.74@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260906063750.719445-1-sochnev.v.74@gmail.com>
+References: <cover.1788286284.git.sochnev.v.74@gmail.com> <20260906063750.719445-1-sochnev.v.74@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,73 +85,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Commit a2c924c240e7 ("buffer: set BIO_COMPLETE_IN_TASK for dropbehind
-> writeback") added an unconditional folio_test_dropbehind(bh->b_folio) in
-> __bh_submit().  But jbd2 shadow buffers have a NULL b_folio since commit
-> 5febcba29792 ("jbd2: point the shadow buffer at the frozen data
-> directly") made them point b_data at the kmalloced frozen data rather
-> than a folio.  Submitting such a buffer during journal commit oopses:
->
->   BUG: kernel NULL pointer dereference, address: 0000000000000000
->   RIP: 0010:__bh_submit.constprop.0+0x87/0x120
->   Call Trace:
->    jbd2_journal_commit_transaction+0x932/0x1b10
->    kjournald2+0xb2/0x250
->
-> Hit by the ocfs2-testsuite fill_verify_holes test running with
-> data=writeback.
->
-> Dropbehind only applies to buffers backed by a folio, so skip the check
-> when b_folio is NULL.
->
-> Fixes: 5febcba29792 ("jbd2: point the shadow buffer at the frozen data directly")
-> Tested-by: Srikanth Aithal <Srikanth.Aithal@amd.com>
-> Tested-by: Luca Weiss <luca.weiss@fairphone.com> # sm7225-fairphone-fp4
-> Reviewed-by: Jan Kara <jack@suse.cz>
-> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-> ---
+Correction to the platform description, and a stronger dump.
 
+I wrote that the images "differ only in RX_DSCP_NUM(); no other patches".
+That was about the difference between my own images and is misleading as a
+description of the driver. The tree is OpenWrt's, and it carries an
+out-of-tree HW GRO patch that touches exactly the ring under test:
 
-Hi Joseph,
+  AIROHA_RXQ_LRO_EN_MASK = GENMASK(7, 0)   -> rings 0-7, including ring 4
 
-Thanks for the fix.
+For an LRO ring that patch sets buf_size to 16 KiB instead of PAGE_SIZE/2
+and clears RX_RING_SG_EN_MASK, which mainline always sets. Both are
+plausibly relevant to a DMA overrun, so the result needed rechecking with
+that removed.
 
-On the OrangePi RV2 single-board (SpacemiT K1, riscv64) I hit the NULL
-pointer dereference while testing other patches on top of linux-next
-(next-20260904).
+To be precise about the base: it is 6.18.44 with the airoha RX path
+backported from mainline, including 269389ba5398 ("Set REG_RX_CPU_IDX()
+once in airoha_qdma_fill_rx_queue()") and bbfb1983944f ("Reserve RX
+headroom to avoid skb reallocation"), both in net today. The GRO patch is
+the only out-of-tree piece touching this path.
 
-The jbd2/mmcblk1p3-N commit thread crashed in __bh_submit() when
-submitting a journal shadow buffer whose b_folio is NULL. On this
-board the crash reproduced reliably, roughly 3 minutes after boot,
-under normal filesystem activity on the ext4 rootfs (buildroot-based
-minimal userspace).
+Rechecked with its LRO mask zeroed, which restores page order 0,
+buf_size = PAGE_SIZE/2 and RX_RING_SG_EN - confirmed on the board by the
+posted buffer length dropping from 0x3E80 to 0x680. Everything
+reproduces:
 
-After applying this fix, the same kernel/board combination has been
-running stably for several hours with no errors.
+  ring   LRO   panics                        overrun signature
+  16     on    3 (one with no load at all)   present, 560 words
+  16     off   2 (one with no load at all)   present, see below
+  32     on    none                          0 of 768
+  32     off   none, 268 018 frames          0 of 768
+  128    on    none                          0 of 1024
+  128    off   none, 273 921 frames          0 of 1024
 
-Tested-by: Gong Shuai <gsh517025@gmail.com> # OrangePi-RV2
+The clean dump, ring 4 = 16, LRO off, taken while the ring was stalled.
+Descriptor 16 does not exist in a 16-entry ring:
 
-Best regards,
-Shuai
+  desc 15 (last real)      desc 16 (past the end)
+  +4  ctrl 0x80000156      +4  ctrl 0xC0000000   DONE|DROP, len 0
+      DONE, len 342        +8  addr 0x00000000   no buffer posted
+  +20 msg1 0x2A5E0000      +16 msg0 0x00008000
+                           +20 msg1 0x2A5E0000
+                           +24 msg2 0x007F000E
+                           +28 msg3 0x0000FFFF
 
+msg0-msg3 are bit-identical to the dump taken with LRO on, so it is the
+same engine either way. addr = 0 explains DROP: hw ran past the posted
+descriptors, found no buffer in the next slot - a slot that is not part of
+the ring - and marked the completion dropped, but wrote the structure
+anyway.
 
->  fs/buffer.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/fs/buffer.c b/fs/buffer.c
-> index 427d8a817cd5..f46fa6413032 100644
-> --- a/fs/buffer.c
-> +++ b/fs/buffer.c
-> @@ -1106,7 +1106,8 @@ static void __bh_submit(struct buffer_head *bh, blk_opf_t opf,
->  
->  	bio = bio_alloc(bh->b_bdev, 1, opf, GFP_NOIO);
->  
-> -	if (folio_test_dropbehind(bh->b_folio) && op_is_write(opf))
-> +	if (bh->b_folio && folio_test_dropbehind(bh->b_folio) &&
-> +	    op_is_write(opf))
->  		bio_set_flag(bio, BIO_COMPLETE_IN_TASK);
->  
->  	if (IS_ENABLED(CONFIG_FS_ENCRYPTION))
-> -- 
-> 2.39.3
->
+The panic in the ring 4 = 16, LRO off run landed in yet another place:
+
+  nf_conntrack_hash_check_insert+0x480 [nf_conntrack]
+  nf_conntrack_in / nf_hook_slow / __ip_local_out / udp_send_skb
+  Comm: ntpd
+
+Five panics so far, in four distinct places, none of them networking:
+cpufreq's deferred work (__queue_work), the scheduler's load balancer
+(sched_balance_rq), the scheduler's stack-end check (twice), and
+conntrack's hash insert.
+
+Nothing else in the original mail changes.
