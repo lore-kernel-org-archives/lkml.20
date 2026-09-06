@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D70E35CB6E;
-	Sun,  6 Sep 2026 09:38:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4240435CB6E;
+	Sun,  6 Sep 2026 09:39:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788687513; cv=none; b=PUA3eeUXfmECk9ckZ4v/yWF73WzmD7zJJ2iTb/uGoFjec+9OoCKwMpZ8vnZEsaCJ/Tww4ttNseXx09+4fX1hQyMLKiefE01kKMzMMfkj9a9i18Hiaes1q9Ptzo6YfL390/vPQdKt1JLWyaWJceUusdeex2IPoIlJxLP9c8EGqWc=
+	t=1788687563; cv=none; b=k2UqSkq5WuUbeWHWWjr53dHQVkusqcBtfF43BQFZg4145P0NyGBHcpFlfS1odPkX/NwKeUVZguvEev0OIMS3WqNU1PBeTz6Qb5lvKUTNpppHiqdPJQxQeZTIYL0Hjwx8HpsaREBEKIR+k6545j3kFf2Wa6YvonZ7TXud5fYHS88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788687513; c=relaxed/simple;
-	bh=GuCw/pjJoi5WUWUOQOlsk7qXi9NSbraV7IHpDIwT/oY=;
+	s=arc-20240116; t=1788687563; c=relaxed/simple;
+	bh=sW7qcHQ8oEr7WJbnUKR6tDgXqbJfhQunuajmspbzicY=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=h8GmhXwsJxFFejJk//kfgYvzo59yyrERfYeS92ilJ3oXp1KwtSeAA++vXYFBbY+Avg/jB3dCx7lCBWkc1DN08GMg1vTVoRr3HhvoJxlIJTGpFwXWlrnatH41npBtkNaWf258GbqGqmNvQVWnzYrsvV2WlU72yypohHyQmeDdums=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=J2YN2keU; arc=none smtp.client-ip=100.103.45.18
+	 Content-Disposition; b=VP3Cuq0X6OllB4ZGVpAF3OF8TYItyvlGj4Ev2jMKZr5uyAhKL7J41JNP/yblripxhvHidcGGdNZTjXlHhtNQPO1UDXdwKT/Vr0qF2nvlSoeXTDqDq7MNg5LYbYlEaq7t+/WG9DcyTgWKjcvLvlrklqRIyiIlBzGpkj2g1cLmlqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ymVB7EZ0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="J2YN2keU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 108FA1F00A3A;
-	Sun,  6 Sep 2026 09:38:30 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ymVB7EZ0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D12AD1F00A3A;
+	Sun,  6 Sep 2026 09:39:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788687511;
-	bh=kCvmHyEEmDorRmWKZ/3auxd+4A8Kxjp09oXX3sfi474=;
+	s=korg; t=1788687561;
+	bh=04o8bsrmhveeOkO8JrfzXrhYZVIXuRINZLJmt9QYR0Q=;
 	h=Date:From:To:Cc:Subject;
-	b=J2YN2keUkGeMAg2Uy73ujEt/mUZf5dpov0xxaGKqdVqn8xpLg9WFIjhpn1A8kEG01
-	 f5Zl2cZUZxrfqr6R/P36nDKhhvfd0OriwCrPQQMCAzblb95Mxy0Kqr6gUBaTppdXBp
-	 Gm1WmwFtrX5ltU9gBi/ywAeIz1xRcYCbqhGfVURU=
-Date: Sun, 6 Sep 2026 11:36:46 +0200
+	b=ymVB7EZ0d3U9cabOrS4R/pNh8sNDCEd9kXO/m7RryOcYzMLD0L0u3lXkN+j/0p6EJ
+	 4IqCx0W035Ox2CLU5IGWTWhBJno3YWMCpYhjZPnEaBTY5gntYupr+fIouBH+UfVIQA
+	 SHfVFjTP0Zg76QVeJcMrg0junyqoP91V+FvPrQMY=
+Date: Sun, 6 Sep 2026 11:37:36 +0200
 From: Greg KH <gregkh@linuxfoundation.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev
-Subject: [GIT PULL] Staging driver fixes for 7.3-rc1
-Message-ID: <ap00LoKqBVR5QmvM@kroah.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Jiri Slaby <jslaby@suse.cz>, Andrew Morton <akpm@linux-foundation.org>,
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
+Subject: [GIT PULL] virtio driver fix for 7.3-rc2
+Message-ID: <ap00YPFzE_T6B5Dh@kroah.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,42 +45,25 @@ The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
 are available in the Git repository at:
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging.git tags/staging-7.3-rc2
+  git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/tty.git tags/tty-7.3-rc2
 
-for you to fetch changes up to cc7cd2a9228175c975f62ad56ed7c767701cb4fa:
+for you to fetch changes up to b144dc5a24149ba9a0cb2197001973a74b8c93b2:
 
-  staging: sm750fb: fix mono image source stride mismatch in lynxfb_ops_imageblit() (2026-09-01 15:51:53 +0200)
+  virtio_console: allocate the port_buffer with the caller's gfp (2026-09-05 19:28:39 +0200)
 
 ----------------------------------------------------------------
-Staging driver fixes for 7.3-rc2
+virtio console fix for 7.3-rc2
 
-Here are some small staging driver fixes to resolve some reported bugs
-that have been found, and tested, in a few staging drivers in 7.3-rc1.
-Included in here are:
-  - OOB read problem fixes in the rtl8723bs driver
-  - fbtft driver fix
-  - sm750fb driver fix
-
-All of these have been in linux-next this week with no reported
-problems.
+Here is a single virtio console fix for 7.3-rc2 to fix a much reported
+regression in 7.3-rc1, sorry about that.  It's not been in linux-next,
+but it has been sent by many different developers to resolve the issue
+and is "obviously" correct.
 
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 ----------------------------------------------------------------
-Hui Su (1):
-      staging: fbtft: make dirty_lock IRQ-safe
+Breno Leitao (1):
+      virtio_console: allocate the port_buffer with the caller's gfp
 
-Muhammad Bilal (4):
-      staging: rtl8723bs: fix OOB read / stack overflow in rtw_get_wps_attr()
-      staging: rtl8723bs: fix OOB read in rtw_action_frame_parse()
-      staging: rtl8723bs: fix OOB read in rtw_restruct_wmm_ie()
-      staging: sm750fb: fix mono image source stride mismatch in lynxfb_ops_imageblit()
-
- drivers/staging/fbtft/fbtft-core.c             | 9 +++++----
- drivers/staging/rtl8723bs/core/rtw_ieee80211.c | 7 +++++++
- drivers/staging/rtl8723bs/core/rtw_mlme.c      | 3 +++
- drivers/staging/sm750fb/sm750.c                | 2 +-
- drivers/staging/sm750fb/sm750.h                | 2 +-
- drivers/staging/sm750fb/sm750_accel.c          | 6 ++----
- drivers/staging/sm750fb/sm750_accel.h          | 4 +---
- 7 files changed, 20 insertions(+), 13 deletions(-)
+ drivers/char/virtio_console.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
