@@ -1,154 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077D43E0234
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 10:25:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC0473321DC
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 10:27:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788690335; cv=none; b=lrNEIi10vHKHNgTGUZHuSJXg/1CHGj66Enw4nJ2moaKNP3Xr5WE1zDmphQ3xXlCGQm3C4MfSbJuiisQP0sexIH74jTkvaCfWqy4LgOvbUlm2cIjR6024gG8rXCu+tG1WbWuBPZFteUAawu0gIsVOZJ9qcUm3MfzKwvionVrT0wU=
+	t=1788690478; cv=none; b=AW6VR8RjteVzY/Hqx3s/T5IPjEf3ITGaP0daIQaNO0BeGZYlvnkQm0pI8iGEzGc4XC2hC38Ueljtt3qLv8TFB5EavMEAc1PlRONcmCgMTyfQMrZ/uyLheKMGqM19y/WoUTatlkivPrJHbPE+K8f+sqYeg7gB80BT6jLXnHRK6mI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788690335; c=relaxed/simple;
-	bh=f/K93XfnCe4oB5F0XkA4i4OrBScfOrs8uaKROs6hPOI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lZ9ukHwjnv+vH8GBI7Qd1f1nkQEDSW0hUYyj0QV1aDQNSVOjJJz5+phcsnquFQb/x1CNc2/0miOxzJxR0mIv6DRbV02pWTo17pzxCddp+zzQwlJnwUID9epgtUGevARCmBt0ooHjkhxpl7s7RleP6stBMw+TnCbuJactKUggsY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aT+A71hJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788690478; c=relaxed/simple;
+	bh=UCHO0H7rTTCwRQcolz6xVcpIfDIxE83aFzIdSYE1QZg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=l9W7W+VlsdD6YQMzQmN3FBY+zCcAarbdWSuFOA7O6fVufOkuhKPvdy906RkOz9ag64oL0+akEA5h2yB2ofvVtba5yJlT1mgvg0QJ54f/QX3qu2VIsADKvkHci9PW6jex8ZfuD7BZ6sH+TEd8+mk+cytZaRj5DJniozR3Li68VdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pdko1F/D; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aT+A71hJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C4E71F00A3A;
-	Sun,  6 Sep 2026 10:25:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788690332;
-	bh=2XPq6jBsWxzSGkLN5JMNAqBj9VumCx6phCWWl2LqB4Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aT+A71hJ8NCIRzwZvUAlmCF2acDHq2xysOzGVgGT3iPsEhswJ4mdi3jeaJj0iN+1f
-	 HJ8Wr8RRz4il12phVpTJYqK7TZm6HBoFHc23BkPlzoVI5sOLzIcKxRJuafbti3zxqq
-	 bBXfVWqy+KEdv6XsvE4Qy0digyusQeELvEYWRpU8teA74oWoYP3Zt0fHRT4wrmKt5g
-	 0m94g72F2kB5Tbe47F6EGnNZHQc88m1JsxF1TNvzE9iMJY45iWStpPyPTxmO6fgjcY
-	 wZ3IdvyxptArEnj1FQAsXDPHZTNWBFUPdAkGExdGbWnfmejDhiw5BQZPl6GBlhefSg
-	 0tHqpXaRiaZLg==
-Date: Sun, 6 Sep 2026 13:25:25 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Tarun Sahu <tarunsahu@google.com>
-Cc: dmatlack@google.com, Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Pratyush Yadav <pratyush@kernel.org>, linux-kernel@vger.kernel.org,
-	kexec@lists.infradead.org, linux-mm@kvack.org
-Subject: Re: [PATCH] memblock: use binary search to locate candidate regions
-Message-ID: <ap0_lSVF43FP3PPb@kernel.org>
-References: <20260903155907.1065681-1-tarunsahu@google.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pdko1F/D"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-4859245e493so702715f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 03:27:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788690475; x=1789295275; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uXSjGNTYq9LVAly//Rv9vgBCfh1ZX5gWNKe2cgVzOHk=;
+        b=Pdko1F/DCQTNT7FJIawPOyncai2T3guLKLjSd4unFwptBK0IAUvVIijAqDcecojlwo
+         BADfnoqZ1kv2KJIta84MHDZz8aY3LgIDO1FkCiujE3EsVUxPp2Av3uUZvbpaK+1jBRKs
+         PhlOidI1I+DAao7mr/vUQwZAZ8N1RXY//nF3BNaVorVktS3W7upcwL+EyqYBn1yI4HvQ
+         Pw+iPirGZNJ12VndFV0yzPaz8Gle3CxOVGM54dDu+oA5e0GZ5h9gAfUW069R5s6vb7r6
+         rXBXdEh/epTcORGulkby9XTJvWumfplTMAOWavV3uxd5M46nG712M2kfBx8pUBWu5uq1
+         4ilw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788690475; x=1789295275;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uXSjGNTYq9LVAly//Rv9vgBCfh1ZX5gWNKe2cgVzOHk=;
+        b=l8NlPSj31Onw+m2Gwpt2bKP6V7qjLC8C2kz9+kC/a9joEABb5hRE1y+s4C5i8QoRop
+         P0YG4KeCCpqYnRlVV2loyBhvzfXubZZVFCXgJeZAGvi33T1WGOYVsXV1vnhpjejyqcJr
+         8dqVjgA7R8lz45c6l9XmKgMSY8jhG515I5b8aOjn9uVDz3yooBBphpTm3PwJY0xvuzRM
+         J9ZmGxop3uC8IwJOZMhGOd+FUIyHTkmH0DoMMhbKVQBSp9u+TddULC7QCRBUMS2BEAIl
+         XFdsIvIPWmcy/VsG8brXG32/hax8mb+W8YCIst5m+7FOKD/PehPrey0dDJgXynVNmJuG
+         MJTw==
+X-Forwarded-Encrypted: i=1; AKwUvBw4N0Wko0nfLnMRkJM6/ISueQ0ffRcqm/AYgkLyJAe2iVtvuG4Gpwxm+15SweCi97OjclNgcrvByPXg37o=@vger.kernel.org
+X-Gm-Message-State: AFuF++kaXD0E2UdMLH1vO0ZGbHzvn7CO4Z7g1z83AaVU3Dd0vz70rV1W
+	J2F577ire5VockALzO3DF+twl4XDyMNalwhL4AUl01nymp2wtuQqHlJ1
+X-Gm-Gg: AYBFou00DdaktbL7zWp5M/JU665yjVgzcdjpoNS6KjYygr5i7DP6dxaCYLwz2GC6OGI
+	7faZ3k0AGLI6zkmE7HFFGUaj4ToikPuNY97FO+b6wXrTkSYCqH6+NANx5GUydZsO1n0DU6Iqz02
+	jbPXIfIiSQwUqiGOCxW+l7RiIlfPpH6BkL+0IJA7NXceWAkhydLVicUuw62UGakaQS1MXEN32Ae
+	penJmxi9VL6J2bnh/Fi0bi6TE5y/hVTmGOb8vYC92RV6nhu4XjFmPaUdUc331SkN1k+x8c4Um9C
+	iFFVGwnUNfn+cdZf88oDSi+D992lJsgqfIJCI2Fxo+XMYN6+/48VbaKQj+6Slyx7hMf4WBgKDPx
+	udviir6EcV13imnnLkETZXmx7N/IAzX4T5TI7pyn9Zx7LICGEv+R6yEMS1hgLoUptI2gFyKvjWK
+	pYrR3lKp5uDTSs3Cc2WHHC6kcN41FjRo7t3EDZVgV8On7vl+tAfWoWh61fQiAWVoDdgrmRPA==
+X-Received: by 2002:a05:600c:1986:b0:49c:fa21:e744 with SMTP id 5b1f17b1804b1-49cfa21e906mr133178685e9.26.1788690474695;
+        Sun, 06 Sep 2026 03:27:54 -0700 (PDT)
+Received: from foxbook (bfg95.neoplus.adsl.tpnet.pl. [83.28.44.95])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7740d44sm500305275e9.15.2026.09.06.03.27.53
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Sun, 06 Sep 2026 03:27:54 -0700 (PDT)
+Date: Sun, 6 Sep 2026 12:27:50 +0200
+From: Michal Pecio <michal.pecio@gmail.com>
+To: wakasio <scarabeeta@gmail.com>
+Cc: Mathias Nyman <mathias.nyman@intel.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: xhci_hcd / ASMedia ASM4242: Bulk-OUT -EPROTO with Logitec
+ 0789:0308 during DVD+RW recording
+Message-ID: <20260906122750.1c71f176.michal.pecio@gmail.com>
+In-Reply-To: <20260906021345.10436-1-scarabeeta@gmail.com>
+References: <20260905234752.1f0c9c83.michal.pecio@gmail.com>
+	<20260906021345.10436-1-scarabeeta@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903155907.1065681-1-tarunsahu@google.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Tarun,
-
-On Thu, Sep 03, 2026 at 03:59:06PM +0000, Tarun Sahu wrote:
-> Use binary search (memblock_bsearch_start) in memblock_add_range() and
-> memblock_isolate_range() to locate candidate regions instead of linearly
-> scanning from index 0.
+On Sun,  6 Sep 2026 11:13:45 +0900, wakasio wrote:
+> One more thing, separate from this test. On this kernel, about a
+> minute after boot, the ASM4242 controller itself hit this:
 > 
-> Under heavy memory fragmentation (such as KHO page preservation registering
-> hundreds of thousands of disjoint folios), scanning from index 0 on every
-> insertion and isolation results in O(N^2) complexity, causing boot-time
-> memory retrieval to take several minutes (~268s for 393k pages).
+>   xhci_hcd 0000:77:00.0: Clearing Run/Stop bit failed -110
+>   xhci_hcd 0000:77:00.0: PM: suspend_common(): xhci_pci_suspend returns -110
+>   xhci_hcd 0000:77:00.0: can't suspend (hcd_pci_runtime_suspend returned -110)
 > 
-> Using binary search reduces the worst-case complexity to O(N log N)
-> (and O(N) for sequential appends), cutting KHO memory retrieval time
-> from ~268s to ~50ms.
-> 
-> Signed-off-by: Tarun Sahu <tarunsahu@google.com>
-> ---
->  mm/memblock.c | 38 ++++++++++++++++++++++++++++++++++++--
->  1 file changed, 36 insertions(+), 2 deletions(-)
-> 
-> diff --git a/mm/memblock.c b/mm/memblock.c
-> index 9ce86349a29f..88940474b020 100644
-> --- a/mm/memblock.c
-> +++ b/mm/memblock.c
-> @@ -160,6 +160,11 @@ static __refdata struct memblock_type *memblock_memory = &memblock.memory;
->  	     i < memblock_type->cnt;					\
->  	     i++, rgn = &memblock_type->regions[i])
->  
-> +#define for_each_memblock_type_from(i, memblock_type, rgn, start)	\
-> +	for (i = (start), rgn = &memblock_type->regions[i];		\
-> +	     i < memblock_type->cnt;					\
-> +	     i++, rgn = &memblock_type->regions[i])
-> +
->  #define memblock_dbg(fmt, ...)						\
->  	do {								\
->  		if (memblock_debug)					\
-> @@ -591,6 +596,33 @@ static void __init_memblock memblock_insert_region(struct memblock_type *type,
->  	type->total_size += size;
->  }
->  
-> +/**
-> + * memblock_bsearch_start - Find the first region index where rend > base
-> + * @type: memblock type to search
-> + * @base: base physical address of the candidate range
-> + *
-> + * Returns the first region index that could potentially overlap @base.
-> + */
-> +static int __init_memblock memblock_bsearch_start(struct memblock_type *type,
-> +						  phys_addr_t base)
-> +{
+> This happened once, during runtime PM autosuspend, before I started
+> the burn test. After that the whole controller stopped responding
+> until I rebooted. I do not know if it is related to the DVD+RW issue
+> or a separate ASM4242 problem. I am mentioning it in case it is
+> useful. I have not tried to reproduce it on purpose yet.
 
-We already have memblock_search() ;-)
+That seems to be a thing with those chips.
+https://bugzilla.kernel.org/show_bug.cgi?id=220936
 
-> +	int mid, low = 0;
-> +	int high = type->cnt;
-> +
-> +	if (type->cnt && base >= type->regions[type->cnt - 1].base +
-> +				 type->regions[type->cnt - 1].size)
-> +		return type->cnt;
-> +
-> +	while (low < high) {
-> +		mid = (low + high) / 2;
-> +		if (type->regions[mid].base + type->regions[mid].size <= base)
-> +			low = mid + 1;
-> +		else
-> +			high = mid;
-> +	}
-> +	return low;
-> +}
-> +
->  /**
->   * memblock_add_range - add new memblock region
->   * @type: memblock type to add new region into
-> @@ -651,7 +683,8 @@ static int __init_memblock memblock_add_range(struct memblock_type *type,
->  	base = obase;
->  	nr_new = 0;
->  
-> -	for_each_memblock_type(idx, type, rgn) {
-> +	for_each_memblock_type_from(idx, type, rgn,
-> +				    memblock_bsearch_start(type, base)) {
+Do you remember (or can look up in logs) if any devices were connected
+when it happened and what they were?
 
-I think we can just kill for_each_memblock_type() and open code all loops
-that use it and make memblock_add_range() and memblock_isolate_range() use
-binary search.
-
->  		phys_addr_t rbase = rgn->base;
->  		phys_addr_t rend = rbase + rgn->size;
->  
-> @@ -827,7 +860,8 @@ static int __init_memblock memblock_isolate_range(struct memblock_type *type,
->  		if (memblock_double_array(type, base, size) < 0)
->  			return -ENOMEM;
->  
-> -	for_each_memblock_type(idx, type, rgn) {
-> +	for_each_memblock_type_from(idx, type, rgn,
-> +				    memblock_bsearch_start(type, base)) {
->  		phys_addr_t rbase = rgn->base;
->  		phys_addr_t rend = rbase + rgn->size;
->  
-> -- 
-> 2.55.0.970.g62bdec98f9-goog
-> 
-
--- 
-Sincerely yours,
-Mike.
+Regard,
+Michal
