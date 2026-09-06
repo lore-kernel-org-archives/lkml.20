@@ -1,107 +1,65 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89EAD3CFF4C
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 13:18:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CB8B1FD4;
+	Sun,  6 Sep 2026 13:18:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788700688; cv=none; b=Ff+foN4Ps0lBM1vo2V1UY+stvH5EV+xugpagI0+ceHpUpfUYwNJHLWqsk0aEMmP1Jj3ZOn1zhW47ibAxjXBVfs2j8ild+niiIbT8XZm7/HvrgE61Pbn5JMPG6nnm3hdzSrTmPpu7kf5bXp9dpwx5Q4Y26OiWe7vIqL2upoZ6A2E=
+	t=1788700739; cv=none; b=JuqNbU5zlQ+7KSR/3tji3U8jNkuvmopLXGA6FkqXwcbNS+io6RaRMu1f2diNMFYfhDO7LMmQk4HrlF+RZmz1z4wAU7g4TG0NnES3+mTYLwa2bEPgC4ymkJ8Tkz+Piel6r3nnEkmiwz5IqPGsA3vCvT/Xxyeo8hyM3DzznukDJ/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788700688; c=relaxed/simple;
-	bh=1cXTyKrezTAFARLoZb9kc8FQy5G+fRHkjI/Bk80wyrI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gPBBz+ZFCpsiLXmkBSBws9HGu9vF3CMZrODP3Xc7thxhSTc+VOt6M5WmkLt8bYYFJUEp/t8ymsR4/fsUVmfh0S6pH0mgIOGuHKECdcLeLsZn3+ythO/BraSpRQ8U97kFMqwk9wzu3uuActR19NhUWcCpPrx7f1ogIylM/6M2Rv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FXCYJn8h; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788700739; c=relaxed/simple;
+	bh=lWPvpfMXPlnWiQN7mEAn4MklTWgtGgN38qTBOTGjkvQ=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=B+v0HlIVH7SPDAcCU/GiF6g1iBGB5TCHqwYjZVelV7O+AALfmuKB9rS2+FeGdt92Pa6AsRP+b36Kj9PWKidCc+fsDpZ4l9aQgoDUyX2l8oxfBQamEc3KZ2dCAXbwtmvYIEp7ZfsgAamTqpR+0OzwPJuN9cET1O4cd5q1elVG9hs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YW1SB1Jl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FXCYJn8h"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788700686;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+TD92eCESGEn8DzPNc3JWo4V4tBuaFy4JtD+w3RW1fw=;
-	b=FXCYJn8h9g3zr0qTZvmsyy8i0GwEkV7pL9O0NKEvfUp97OCXh3jy0KnZh5vDmqH3djrSlu
-	d/KabZ+KITc54BNq7cFKm0KGCap6PXv627VzBDNPZ35PhLvqAzwaOKb3alKmjuzm2940VK
-	Qj8IcU1r/pYeLzAb00p9oH3W4O8zRIM=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-201-7Ix9_Wu9NZqFOPeL_yDHTA-1; Sun,
- 06 Sep 2026 09:18:03 -0400
-X-MC-Unique: 7Ix9_Wu9NZqFOPeL_yDHTA-1
-X-Mimecast-MFC-AGG-ID: 7Ix9_Wu9NZqFOPeL_yDHTA_1788700681
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E76411955E97;
-	Sun,  6 Sep 2026 13:18:00 +0000 (UTC)
-Received: from fedora (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 9CAE4423;
-	Sun,  6 Sep 2026 13:17:56 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Sun,  6 Sep 2026 15:18:00 +0200 (CEST)
-Date: Sun, 6 Sep 2026 15:17:55 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>,
-	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
-Subject: Re: [patch V2 1/8] signal: Prevent exec() race
-Message-ID: <ap1oA1MDAHnBz0N4@redhat.com>
-References: <20260905181551.738186850@kernel.org>
- <20260905185839.667208455@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YW1SB1Jl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C5931F00A3A;
+	Sun,  6 Sep 2026 13:18:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788700737;
+	bh=lWPvpfMXPlnWiQN7mEAn4MklTWgtGgN38qTBOTGjkvQ=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=YW1SB1JllKEEzyM0SlwESPqi4536t1MUL33b3RoJOjeMXf6fI3Kpt3q6XmLAic2wu
+	 qITPAlU0cplNNnOgFolC5uXIAmx8RLY3fh7fmJVpR6EGJ72LmT8FB5lUD+bwAqMAqg
+	 qu64u+mKk6+kBDSjFMVH3vnkXbHc4rcIPLuj6PwPgUqOB/uXWMs94DTvCk8ijJvkds
+	 beSbMP8iV6gYHcz/tV81WZlC6V9ViYZMQ9ghdWUOEa6nDkupg4QKQZHIN1DK/6guZQ
+	 RUeRnvgBeh2bAwCTEVAiGQJW8lqUDVDJaFftYH1ZkpXXiRfbXS6jCLRT/5iXFK1+Qz
+	 Hz+teHfDBo+mg==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260905185839.667208455@kernel.org>
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 06 Sep 2026 15:18:51 +0200
+Message-Id: <DL89HO2ZTM44.1UR1ISN11D32I@kernel.org>
+Subject: Re: [PATCH v4 00/16] rust: io: support register projections and
+ remove relative registers
+Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ "Gary Guo" <gary@garyguo.net>, "Alice Ryhl" <aliceryhl@google.com>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Tamir Duberstein" <tamird@kernel.org>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "Bjorn Helgaas" <bhelgaas@google.com>,
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-pci@vger.kernel.org>
+To: "Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
+ <20260903192248.2248560-1-dakr@kernel.org>
+ <DL5XG1N71CVV.TOAF6XQY0SW5@kernel.org>
+ <CANiq72m1ZxFtQjm4fUAt6Y1MFE=ww6jx+dEg3F4Bqbki=ndO=g@mail.gmail.com>
+In-Reply-To: <CANiq72m1ZxFtQjm4fUAt6Y1MFE=ww6jx+dEg3F4Bqbki=ndO=g@mail.gmail.com>
 
-On 09/05, Thomas Gleixner wrote:
->
-> +/*
-> + * Find the target task for the POSIX timer signal and prevent that a
-> + * PIDTYPE_PID signal is queued on a task which has PF_EXITING set.
-> + */
-> +static inline struct task_struct *posixtimer_get_unignore_target(struct k_itimer *tmr)
-> +{
-> +	struct task_struct *t = posixtimer_get_target(tmr);
-> +
-> +	if (t && task_can_queue_signal(t, tmr->it_pid_type))
-> +		return t;
-> +
-> +	return NULL;
-> +}
-...
-> @@ -2136,7 +2183,7 @@ static void posixtimer_sig_unignore(stru
->  		 * has exited by now, drop the reference count.
->  		 */
->  		guard(rcu)();
-> -		target = posixtimer_get_target(tmr);
-> +		target = posixtimer_get_unignore_target(tmr);
->  		if (target)
->  			posixtimer_queue_sigqueue(&tmr->sigq, target, tmr->it_pid_type);
+On Sat Sep 5, 2026 at 9:24 PM CEST, Miguel Ojeda wrote:
+> I see you fixed a few nits -- I pointed a few others in a couple replies.
 
-Not sure posixtimer_get_unignore_target() makes a lot of sence...
-It has a single caller, and posixtimer_sig_unignore() can do
-
-		target = posixtimer_get_target(tmr);
-		if (target && task_can_queue_signal(target, tmr->it_pid_type))
-			posixtimer_queue_sigqueue(&tmr->sigq, target, tmr->it_pid_type);
-
-But this is cosmetic and subjective. I believe the patch is correct.
-
-Reviewed-by: Oleg Nesterov <oleg@redhat.com>
-
+All fixed up, thanks!
