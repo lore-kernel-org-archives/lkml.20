@@ -1,167 +1,138 @@
-Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C62A36897F
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 20:03:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B0D1A6836;
+	Sun,  6 Sep 2026 20:07:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788725008; cv=none; b=WTWqfC+S91o0KxdXBBWLmVfL/u2vmrXEvXBBaXsNxijeUPMMZucgmhB4MTDDrsdm2z259mbyVo/RP7XPyKYA3aGlPI81JNeZ1/8YQPFIqQtkEuMVjA6UGZvdlSm28sQqYToGTQtne8HILv3vvzsEZO7e6Eufi4kRia7JJoWXQow=
+	t=1788725279; cv=none; b=KLjc8GtGYqUXAVZaumW2yu+ZcBpqfibD0/lkz0pz4eiNEpl8blx+T8+CP+iVDVznsii7ZJg6UD79uTJ9+qcMubtboJPUVuy+Cl1bXj1GkW/jV3CT87hEuIfPOZQKEzfh1MxvHCd4UHLfnrIwW+u5C7x9rDwJAma+oOOTf1+Aphs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788725008; c=relaxed/simple;
-	bh=2z64D2KiuSqbhCo4ZIWrUQ5UBiqsRnDHsLh7eJj6YYw=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=LeTngc6EmlxaR3kWXk1pRilgfOwjuAIDqnkEeVtLb+fdmHRf5ega3nJUYChzrTq1I3tfv4qst+4CCxYGdMaqBMmybeis2sJbzBo7f+VyDd+c0AQMj73BCocyg6pmE7Kz6r7zW9tUXQTgvRZXlvkqgKC35x5VMMjkepF4NvuOGPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=PXuUNCX7; arc=none smtp.client-ip=216.40.44.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788725279; c=relaxed/simple;
+	bh=vsENwLhouOb64M0cWD/36iHJxZV/i8dC8fcvurpdylA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FGtgNr4xtvZ/VG3n2OJBSfi4beJw4Q7LuqiRZ3azCa0yX47uDcsCtQAjjF1TGvAmb9uC7NXeJmWc9Dl5vitkP9lU741/tg0quUIt5W1tOSoiRUapCPojQ+3WieMnAdCmlocEhbL8/d1faAQIPvmO6bHXSSEa5LOYkKiytWAQD+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RqoOuRgR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="PXuUNCX7"
-Received: from omf17.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay06.hostedemail.com (Postfix) with ESMTP id 43DE9A4A63;
-	Sun,  6 Sep 2026 20:03:19 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf17.hostedemail.com (Postfix) with ESMTPA id 798B519;
-	Sun,  6 Sep 2026 20:03:17 +0000 (UTC)
-Date: Sun, 6 Sep 2026 16:03:16 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Vincent Donnefort <vdonnefort@google.com>, Andrew Morton
- <akpm@linux-foundation.org>
-Subject: [GIT PULL] tracing: Fixes for 7.3
-Message-ID: <20260906160316.5aed43e3@robin>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RqoOuRgR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96AFA1F00A3A;
+	Sun,  6 Sep 2026 20:07:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788725277;
+	bh=6dLtZ4diiABDwf70eKATggUD/DCfK2UIavuZ29uFn94=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RqoOuRgRG1enfRI1D9SjcgS9tKVhnFREjkX+IlSFfMW3MsqNns+AWPlyPdeEKBY7e
+	 uG2BwFv3LXCAunkIOcVcViIXknbGSpB/bAjMbYO+mF2ZGpYOTTsSbcswzh6Fk7Bspk
+	 xoRdD8yV3EJZtO7zX2zPJxTGqrjmO5vXSbfXu6LB+CQU0sfi3Y3uUHxZppAMqYvAoR
+	 5eXN/m+EszZdq0meyMub1OCprX5zkG3e4PePLPkwZ7ydRDpkCPRWlF/F33DUyD2oX9
+	 OdIfAzYrAWfx2F44BxBIa/LZtftjfA4FnjPC4YITR6DlSoZQynoO34dyoQrkzp6mLU
+	 e9LTmn9kZa7gA==
+Date: Sun, 6 Sep 2026 23:07:49 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: George Guo <dongtai.guo@linux.dev>
+Cc: pasha.tatashin@soleen.com, pratyush@kernel.org, graf@amazon.com,
+	changyuanl@google.com, akpm@linux-foundation.org,
+	chenhuacai@kernel.org, liukexin@kylinos.cn, guodongtai@kylinos.cn,
+	kexec@lists.infradead.org, linux-mm@kvack.org,
+	loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/1] liveupdate: kho: calculate per-node scratch sizes
+ before allocation
+Message-ID: <ap3IFd2FVvfKkHkV@kernel.org>
+References: <20260904025101.9959-1-dongtai.guo@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout01
-X-Rspamd-Queue-Id: 798B519
-X-Stat-Signature: i4jnc5zf8gic8wfk71uiiyytnrr3ucbf
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19nOGzUn/neA/3HHR3h16XjNVhCqgYPxMs=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=p1Ja/VnRhfFubaS0vKdpsbJxyzObH2G9umIA9ks4vNc=; b=PXuUNCX7vftKkB8VpB/MEFt8gU5kYUEC5XnzRWCZ7MRI++fR8kQWduIoQv5RFHvWlo3pYXt4AkUSmpd+4ITz0zgSUwq+Cc9qPD0iWHtGnGQ44o6xDRqh1rMUF1X5anvWC9S6NhVJTFUzNbyu6k4LK/4cz+hionVpD/O/gW0kKJs=
-X-HE-Tag: 1788724997-24595
-X-HE-Meta: U2FsdGVkX1+7H1dAtS5LTbRZCpcRdFBivXU+2dV2BXDCamQ4iiwS4PIUQP/hv//ISX5G+JPyH0rR09+Iu7BHuc0u18k19xIRaldKiF5ToOIXJ1noBnDdYKZGSupF+GZ8RzPR/abOwn/pcrjfJvjaWahTU3sU9PLSU8fCGXNamgYGbe25IyN7fFkzw3Qjp2rzvUDmCmu2IK94R8NKh2M6QjyApw9A8NQkPpkL/+INkmo9P+VJdUBEVruz/HG5XH5ojKQYSWdadQdJIy3HO6vUpwVDch1K3htZJSTkIfARpfFfWqcqlmlvlZrWSeQUoUWa9GTES+vNXPbOOJ/IwDm3ruE/hyvjNBQX
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904025101.9959-1-dongtai.guo@linux.dev>
 
+Hi George,
 
-Linus,
+On Fri, Sep 04, 2026 at 10:51:01AM +0800, George Guo wrote:
+> From: George Guo <guodongtai@kylinos.cn>
+> 
+> The default percentage-based policy sizes scratch areas from the current
+> kernel's MEMBLOCK_RSRV_KERN footprint. This is a reasonable heuristic for
+> predicting the early memory demand of the next kernel.
+> 
+> scratch_size_update() calculates the lowmem and global sizes before either
+> area is allocated. However, kho_reserve_scratch() calculates each per-node
+> size only after allocating the lowmem and global areas. Since memblock
+> allocations are marked MEMBLOCK_RSRV_KERN, the per-node calculation
+> includes those newly allocated scratch areas and scales them again.
+> 
+> This feedback substantially inflates the per-node request. On a 1 GiB
+> LoongArch QEMU guest, the relevant reservation baseline is about
+> 98.45 MiB. With the default 200% scale and 32 MiB alignment, the old
+> ordering allocates 224 MiB of lowmem scratch, then requests 672 MiB for
+> node 0, for a total of 896 MiB. The node allocation fails and KHO is
+> disabled. The same incorrect calculation is hidden on the tested 1 GiB
+> x86 guest because its baseline is smaller and its memory map can satisfy
+> the inflated request.
+> 
+> Calculate and save all per-node sizes in the scratch descriptors before
+> reserving any scratch areas, then use the saved sizes during allocation.
+> This keeps the percentage heuristic while preventing scratch memory from
+> becoming input to the sizing of more scratch memory. On the LoongArch
+> guest, the aligned total is reduced from 896 MiB to 448 MiB.
+> 
+> The KHO vmtest passes on 1 GiB LoongArch and x86 QEMU guests with this
+> change.
 
-tracing fixes for v7.3:
+This reads as LLM-generated text. Please add LLM attribution as per 
 
-- Fix several tracefs files that did not take the trace_array reference
+https://docs.kernel.org/process/coding-assistants.html#attribution
+ 
+> Fixes: 3dc92c311498 ("kexec: add Kexec HandOver (KHO) generation helpers")
+> Reported-by: Kexin Liu <liukexin@kylinos.cn>
+> Co-developed-by: Kexin Liu <liukexin@kylinos.cn>
+> Signed-off-by: Kexin Liu <liukexin@kylinos.cn>
+> Signed-off-by: George Guo <guodongtai@kylinos.cn>
+> ---
+>  kernel/liveupdate/kexec_handover.c | 13 ++++++++++++-
+>  1 file changed, 12 insertions(+), 1 deletion(-)
+> 
+> diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
+> index 7c4d86daf86d..39f489a258d9 100644
+> --- a/kernel/liveupdate/kexec_handover.c
+> +++ b/kernel/liveupdate/kexec_handover.c
+> @@ -847,6 +847,17 @@ static void __init kho_reserve_scratch(void)
+>  		goto err_disable_kho;
+>  	}
+>  
+> +	/*
+> +	 * Calculate the per-node sizes before reserving any scratch areas.
+> +	 * memblock allocations are marked MEMBLOCK_RSRV_KERN, so calculating
+> +	 * them later would count the lowmem and global scratch areas as kernel
+> +	 * allocations and scale them again.
+> +	 */
+> +	i = 2;
+> +	for_each_node_state(nid, N_MEMORY)
+> +		kho_scratch[i++].size = scratch_size_node(nid);
+> +	i = 0;
 
-  A trace instance can be created and destroyed in the tracefs "instances"
-  directory via mkdir and rmdir respectively. The instance is represented by
-  a trace_array descriptor. Most tracefs files pass the trace_array as the
-  private data of the inode to the open/read/write functions. Since there is
-  no locking between the time a task opens a file and the deletion of the
-  instance (and the freeing of the trace_array), each open needs to get a
-  reference to the trace_array and each close must remove it. A instance
-  can't be removed if there's any reference taken on its trace_array. The
-  open function uses trace_array_get() that takes a lock (preventing removal
-  of instances) and iterates the list of all existing trace_arrays and if it
-  finds a match, it takes the reference and releases the lock. If it doesn't
-  find a match, it causes the open to return -ENODEV.
+Ugh, this really does not look nice.
+Can't we just calculated all the sizes first and than do the allocations?
 
-  There were some added files that did not take the trace_array reference
-  on open that needed to be fixed. Sashiko also correctly pointed out that
-  there were some files that took an address of an field or element of the
-  trace_array which had a pointer back to the trace_array to take its
-  reference on open. But this leaves a slight race between referencing this
-  element to get the trace_array as the element itself could be freed. To
-  solve this, some helper functions were created to look for trace_arrays
-  with this field or element in the search so that the element did not have
-  to be dereferenced before the trace_array's reference was taken.
+> +
+>  	/*
+>  	 * reserve scratch area in low memory for lowmem allocations in the
+>  	 * next kernel
+> @@ -880,7 +891,7 @@ static void __init kho_reserve_scratch(void)
+>  	 * memoryless nodes, as we can not allocate scratch areas there.
+>  	 */
+>  	for_each_node_state(nid, N_MEMORY) {
+> -		size = scratch_size_node(nid);
+> +		size = kho_scratch[i].size;
+>  		addr = memblock_alloc_range_nid(size, SCRATCH_ALIGNMENT_BYTES,
+>  						0, MEMBLOCK_ALLOC_ACCESSIBLE,
+>  						nid, true);
+> -- 
+> 2.53.0
+> 
 
-- Add a lock around ftrace_ops initialization
-
-  When a ftrace_ops is first used by ftrace, some internal initialization is
-  performed on the ops. But if multiple tasks were calling functions that
-  did this initialization, it could race and perform doing the
-  initialization more than once, corrupting the internal data. Add a lock in
-  the initialization code to prevent this from happening.
-
-- Fix splice reads on mmapped buffers
-
-  The logic in the ring buffer splice code for mmapped buffers is supposed
-  to do a copy of the memory as the mapped buffers can't be given to splice.
-  But there was an if statement within the copy code that would return a -1
-  if a request for a full page was done and it wasn't a partial read. This
-  is because this logic was written before mmapped buffers existed and this
-  case didn't make sense at the time. For mmapped buffers it makes perfect
-  sense and by returning early can drop a lot of pages unnecessarily.
-
-- Have the persistent ring buffer validation check nr_subbufs
-
-  Sashiko reported that the validation code was relying on the saved
-  nr_subbufs to match the calculated nr_pages + 1 and if they were off, that
-  the code could cause corruption. Sashiko is correct, and the saved
-  nr_subbufs should be validated before assuming it is correct.
-
-- Do not allow more than one instance with the same name on cmdline
-
-  If an admin were to add more than one trace instances with the same name
-  they all would be created, but only the first one would be accessible via
-  tracefs. This used to not be allowed but some restructuring of code has
-  since made it possible.
-
-- Fix the race between subbuf resize and trace_pipe_raw readers
-
-  If a task was reading trace_pipe_raw while another task was changing the
-  ring buffer subbuf size, it could crash the reader. The trace_pipe_raw
-  readers do get their own copy of the page from the buffer, but the code
-  needs some restructuring to not have the resize of the subbuffers cause
-  issues.
-
-- Cap the size of the mapped (static) ring buffer nr_pages
-
-  The meta data used for ring buffer mapped buffers is 32 bit in size. A
-  normal ring buffer could (in theory) have more than 4 billion pages.
-  But this is not allowed by mapped buffers, so enforce it.
-
-
-Please pull the latest trace-v7.3-rc1 tree, which can be found at:
-
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
-trace-v7.3-rc1
-
-Tag SHA1: d878c05d090306c6cfb75b77ed73aad53677d59e
-Head SHA1: d80e12156f1fd490adf29a8d28489725a3ac817a
-
-
-Masami Hiramatsu (Google) (1):
-      tracing: Fix to avoid creating trace instances with duplicate names
-
-Steven Rostedt (7):
-      tracing: Have show_event_filters/triggers files take trace array ref
-      ftrace: Take trace_array reference before accessing its ftrace_ops
-      ftrace: Synchronize the initialization of ftrace_ops
-      tracing: Take trace_array reference when opening options file
-      ring-buffer: Add checking nr_subbufs to persistent ring buffer validation
-      tracing: Fix comment in tracing_buffers_splice_read()
-      ring-buffer: Use a macro for static buffer bits
-
-Vincent Donnefort (4):
-      ring-buffer: Allow splice reads on static buffers
-      tracing: Fix subbuf resize races with trace_pipe_raw readers
-      ring-buffer: Cap static ring buffer nr_pages
-      ring-buffer: Prevent truncation of nr_pages / nr_subbufs
-
-----
- include/linux/ftrace.h               |   5 +-
- include/linux/ring_buffer.h          |   5 +-
- kernel/trace/ftrace.c                |  70 ++++++----
- kernel/trace/ring_buffer.c           | 239 +++++++++++++++++++++++------------
- kernel/trace/ring_buffer_benchmark.c |   6 +-
- kernel/trace/trace.c                 | 171 ++++++++++++++++---------
- kernel/trace/trace.h                 |  14 +-
- kernel/trace/trace_events.c          |  28 +++-
- kernel/trace/trace_functions.c       |   2 +-
- kernel/trace/trace_stack.c           |   2 +-
- 10 files changed, 357 insertions(+), 185 deletions(-)
----------------------------
+-- 
+Sincerely yours,
+Mike.
