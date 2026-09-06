@@ -1,114 +1,183 @@
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6DD8155C97
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 13:30:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAE051E492D
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 13:31:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788701431; cv=none; b=ryXZZc6rbRl5gGL36oU0SgySxvH4tIMBObBlgWAj82VmVnL+GewVE+IkHsKT9tZFo9AavrasTxs/RhOxLAHpPMtwzKUkUa8jOU3HH7qjGR8d9ZDQNo0QHI3WKB0LwHfXcaeilBbSIqniz9MeLGCMEK3iGO1ngk9lcCtFrC03cLg=
+	t=1788701483; cv=none; b=Uvxwh3SiBw5OAQtkaFhA77tWWr+Ylpzko2V2imivoSoFYZMe9BWiGeJxaJXX5c1SPqoxTNy4Jn9AuL8p3eOgaq5CvGfCSGsAQE3dvApOt429j+s5/ROyf4quXvHg3oSo4Mq17Q35oIjnk/+KPfET2U/kWVreUB8wRUpjqCugubk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788701431; c=relaxed/simple;
-	bh=q8NPgh2AongVC5ji9dIdBTKB59XNafcA6arnzRGWaXg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=H6PGlVyuS+utvCwXckYl8sbi+dQStpgJqLTaj1hTjCvBbrClQx36AfPBOtmNAQmzzD5UZqHGyADNq2Al3cSEsowgDzL4olMTa6eAhfnMEuksVnQxhGrAmDqkNXvH6Q602pDTHoZhHMmyah6zVUYjMYxw1p+GBV9aqc0KT3rJ/c4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=JuVP7VMQ; arc=none smtp.client-ip=54.206.16.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1788701483; c=relaxed/simple;
+	bh=w9uXm4NeZlNVLPlUVdwRM9srfwyMgHqMULfg8Dra+mw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jeSDORXpJ1y+bSYORMp46K3F33+7jxF5v89mcFM0nMv4o7JykRT+Hmb5MKaJXhYyPiqaZl28BJsN4m31Ac41AdRrFPM9tQF51gHxH6bs0jqcvZ5d4FF6/ElwvFn8Mdi1FfhfBGSdDmlRDJF+zyKN9okc32xFeWX3IIK9AoIYkh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oiQiz3Ph; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="JuVP7VMQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1788701356;
-	bh=+S8ttCoCMy97kRUS5c0xmIv9QQhnjS7Q0Eixl0YMrw8=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=JuVP7VMQxBuw1B0UsbbfbJEtw8fbz5qahd3zNK1hZyWIUzeXNvaG+Jw2TJVqWkxg2
-	 nNTSmlVY4CPHdIfZy97u2df0kDU+tbtJVEjEWAih0fv6RyZT/8yMH5HJOru4PRhJAk
-	 IZ6Z9n3AmVjKSJpkZhoLvED+ZY/vmQrZO254ArVc=
-X-QQ-mid: esmtpgz14t1788701352t8e9fda0f
-X-QQ-Originating-IP: 8l7GrQphbZsRqienUxFziZMX9t2dpfGiPcUVVuTjKJY=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Sun, 06 Sep 2026 21:29:10 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 5099097618670319179
-EX-QQ-RecipientCnt: 5
-From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Date: Sun, 06 Sep 2026 21:29:08 +0800
-Subject: [PATCH] MAINTAINERS: Add Troy Mitchell as a SpacemiT SoC reviewer
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oiQiz3Ph"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d6e954afbdso16245105ad.2
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 06:31:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788701481; x=1789306281; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Tj4ItgvvBxbS1G7naSWp8Nbn7WWa6B30ZGxjseZ9BkI=;
+        b=oiQiz3PhPwldC4bnwr4BRrOIcxwAPQl0IbKZWW2PA9mbdoh1kCGAObMVlqA1hk/5qx
+         +ofkgCBxiZsiAwohvSzO8AoQsL0eLeNiIy2w9gmps3ZKW99o3BGw6kXAQX/KsRsiU5hj
+         CFUkSJ7+unTOaqqeTGYWXf2zwjNDdKG/6+tMAyBCTEy8FPAD/NzhzyH7PLaoYpOsFc2p
+         Hf4yQnBxf0O0N2s9SEhB3o/k5NNgpj5kOLCNqT1lRCom6BxP2eWXrXqySJfaR6XFOcfA
+         rtToG6/9YApMg3D3llzuoG36c6kUxRsFTQXWWeAP3KGJ3MPmuL7kfRDQBoIxsizvg6cy
+         wJZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788701481; x=1789306281;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Tj4ItgvvBxbS1G7naSWp8Nbn7WWa6B30ZGxjseZ9BkI=;
+        b=gthyXVdbXKVlRMhfJBY5+KFN2TRlOkoWHM/jPSuWwWe4z2Qm9izOBnHOfbRYxh19K2
+         229/x967LToYGQJeGcIxXvfiDe9Uy4wxmKFIjTFHetkfnz3vnN0KR9xYNjM3kEOUf/l9
+         YCAqiMY/N0Nh3gLFKCrKd7d3f1IgtxfK+/nFZxG4K0r99H+fXCCHcCHOtDsGKCAXuiE1
+         RriDC3Yq+rzmhVL79wp/yUfPn8jnSOUXSWeW6tw96tQIKabpSLie3BhmIZpL7P+oOuC/
+         05ZkEs+oisFdQUELXFFYSVVoIoPfUGiaSsGPVC9Cs/6RyP+PgH8zIH+dANzDFMHXDTs1
+         R7Jg==
+X-Forwarded-Encrypted: i=1; AKwUvBxoCKvsRGfi0acaUpwobRzc+NyW92cyqNmNKCfFsyvHyWgzD+FcOIPWIGizfQiZX3KbRY0h1B3Bp2UN/Xc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mNnzz/qxAdSCb7l882lLRvjBT1yAKqpUTEOSXpjvaf0S1VhKUz
+	cLjcX2KZiPvkqT/xGUJAr5zqecrDGvTZ6EVGlQHghx2WEfrtOPv0LQQzpJq5vw==
+X-Gm-Gg: AYBFou0YKyeNEdSaB81gOU2JMrVQSsrrHPsG6P7C00ru6mhFj+EUIWI8F31TIqB21I0
+	yg+EKpOAPyC9ORFLlmDUpqww2un/fiD2eFKfSkPl6I1TyXuzap/cnTrmmW7W/EWtsfWcD3h4gyd
+	ZX7PpgX3sXhvLHPHJp0I00+s/h3NJBj5VujzN7AAtaFtdPGM/VH1+lKwniNyYbILRL4oWDBXa3N
+	IwhWfKL8DvlH8pEp+HVj+9i9Qx8p7+bUf1GNdxq5kqmNMomxck/jlSW3icS8ivD7uWRhwVD0+4u
+	AW22rzDP9oAidWeKQ7O9XBgHChdt0RCBWXSiwYGWquNHjgkaacYvqKKEosI47pcWMv6h1PheiCj
+	wzIQX1QifRZyN/RRYNGI0Rzff2kE9YsW/Y00N8yKwIGTyHLaUZ5fMyNVFOC6XkzgaciX5Wcsxf6
+	mjGLLizhRSny6u167nP0wm8uAny5FwEz7pav6Y9jFvkODnMAirnxEuh76YsbKSeShtpM2LRenkT
+	AFwiGee
+X-Received: by 2002:a17:903:3848:b0:2d9:56dd:f804 with SMTP id d9443c01a7336-2db125f00c7mr262152175ad.13.1788701481084;
+        Sun, 06 Sep 2026 06:31:21 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d38:5c70:7bb9:b8bf:8aa8:fb0d])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1499d92dsm32422945ad.52.2026.09.06.06.31.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 06:31:19 -0700 (PDT)
+From: ThangNN99 <ngocthang2710.1999@gmail.com>
+To: Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Heming Zhao <heming.zhao@suse.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Su Yue <glass.su@suse.com>,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	ThangNN99 <ngocthang2710.1999@gmail.com>,
+	syzbot+73d1166b94ed9875af54@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] ocfs2: fix ABBA deadlock in suballocator reclaim
+Date: Sun,  6 Sep 2026 20:31:12 +0700
+Message-ID: <20260906133112.73343-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260906-spacemit-add-reviewer-v1-1-b2ebba238ec5@linux.spacemit.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBG4auQWTvJQEKtXsW4KO2PjolIOqAkh
- LtbdPkt3lvJkBVG52qljLeavoaC+lBRvIfhBtZUTI00Tk7i2MYQ8dSJQ0q8F/gg87GrnRPvpW8
- 9lXbM6HX5fS/Xv23uHojTPqNt+wJwmDj1eQAAAA==
-X-Change-ID: 20260906-spacemit-add-reviewer-7b1660880f58
-To: Yixun Lan <dlan@kernel.org>, 
- Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Cc: linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=794;
- i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
- bh=q8NPgh2AongVC5ji9dIdBTKB59XNafcA6arnzRGWaXg=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFlzs5YYX9U8uvNIYBnvk23ez92vzj2aNeVUUSf/PbH7R
- QlBxezZHaUsDGJcDLJiiizdD3i2FfhE2RYIFPrCzGFlAhnCwMUpABOZ48HIcLEm4qTUQucToicm
- pK8+Od3toh77/Bu7jyYZ3lvw7fKshB5GhtMtzbyfi7Y1HDPyk5wZvnKX0aV82aTC+Mg86bCFz4s
- P8AEA
-X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NM/Va/AgX/pNu5n61BjJ6zN9zwGi6/60hEcObO8TLskYdYwjaxZYV2Np
-	A5ZDLKrV7vFX+wDg/4x3rUj93IRNdoocJuWUvjTU68H4GMJF/8yVvYzGbJ6nJmPXkk24a3a
-	OwZJUIDzTRpEy/aIJzcJeycudMU1roqyqy+1CzJCOPuzFRmKnV/4luPPtmu+qStohRQkSWR
-	g4qdFZ9P/WSicMzhYGWpAAIZ9xjbbtD67j4aCkRB3IV+72cpx9ZXpadTqNGCQCc67dp75f/
-	539ldu8wC+G034+TULQWn/0wJ/otgKCVyU/K4XEL53m238/lhdNTxGDKpFlmo34iXH/Ax0c
-	dCIvjlLpGBYQM6Ufsuce3YzlTB5B4OD/WE3UfNeiz6IvQa5tINXk8aDtx2yR6BQXVgjootM
-	JTL+u8VP+fM7i4bGmZOoecsEPxAV7sUlG3IDmtY0f7NMVM/xW8bnbcAoDxWU5c5YMcp2aWy
-	hL23+LerIfswvMOM/a+CqJwmTvi0M40w8kTAayYHGu1zwtA+2v9fSC4PcaZ3zAcBT3QeTIZ
-	+NQNxSoqGLN0wRmsGj0e7y5/N7vPosE3uKfWb0Rhe7DDEhTXef6loC9yUfkKdK93aIrciXT
-	dv8yn3+Udk1DFuYO9qvP7tyQBNXnSUIalm5sUE3R0nQpOFCUCjJPmoDZ1Wly1YU/hhNPZ8X
-	kaTSAoT+D0E+JmRNROsGd1eNjsMsOXBfchKMo7wTUcYskDahjd44a5IjsytRQZkSG1L7y4G
-	z4RTX0MyruVWs4Yp1Pp6KYwueOZAhUvVJvEcZBzTIYmGO9QuKWNSQdn8RpND3g0zExL1z9M
-	DRggxIH0QzqqsDkymA57lw/rzjigYG6xlW3OYBMewQ6fFZjSRX+CsADOiJM2wlvOfM4rQLu
-	0jpd8zbNhJDk7R1k81IJcf8QctEeavwZgQujJnXiNyZCAQxRZeq5lXKLtY5QV5500jCeOjO
-	5ShzS3oHqnkHJVUwbpWAGIeMnZn6oSuiFQH8Q0RpFcyW0uZMr6x/s2YlpLbUf0UGZZvR/hQ
-	IzmXLR0aF+51kUZox4K3iGqaiVdBzhQSQhaqc/IhwOhA+t+0rAUypIlRLKPkuND47nerNih
-	C1cLDcLdGXWpAShXsYXHX5oKvjIw+Gf0VutKhSMQzRq
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-QQ-RECHKSPAM: 0
+Content-Transfer-Encoding: 8bit
 
-Add myself as a reviewer to help review patches for SpacemiT RISC-V SoC
-support.
+_ocfs2_reclaim_suballoc_to_main() runs inside an already-started
+transaction (j_trans_barrier held) and locks the global bitmap inode
+to return clusters to it. Every other allocation path takes that
+inode lock *before* starting a transaction, so this reverses the
+order and can deadlock:
 
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+  CPU0                          CPU1
+  rlock(j_trans_barrier)
+                                lock(sb_internal)
+                                lock(j_trans_barrier)
+  lock(GLOBAL_BITMAP inode)
+
+Since reclaim is best-effort (its caller already ignores the return
+value), fix it by acquiring the global bitmap inode with trylock,
+before mutating anything, and bailing out to skip reclaim on a busy
+lock instead of blocking in the wrong order.
+
+Reproduced with the syzbot C repro under QEMU: the unpatched kernel
+hits the lockdep splat on the very first mount+mkdir+rmdir cycle
+(~10s in); the patched kernel ran the same cycle 169 times with zero
+splats, and instrumentation confirmed reclaim keeps running (trylock
+succeeds) rather than being silently skipped.
+
+Reported-by: syzbot+73d1166b94ed9875af54@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=73d1166b94ed9875af54
+Fixes: 4a54331616b3 ("ocfs2: give ocfs2 the ability to reclaim suballocator free bg")
+Cc: stable@vger.kernel.org
+Signed-off-by: ThangNN99 <ngocthang2710.1999@gmail.com>
 ---
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
+ fs/ocfs2/suballoc.c | 37 +++++++++++++++++++++++--------------
+ 1 file changed, 23 insertions(+), 14 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3a19da74d00c..97ca10e2b7b7 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23589,6 +23589,7 @@ F:	include/linux/mailbox/riscv-rpmi-message.h
+diff --git a/fs/ocfs2/suballoc.c b/fs/ocfs2/suballoc.c
+index 20c3aec6b987..085af9ba38ab 100644
+--- a/fs/ocfs2/suballoc.c
++++ b/fs/ocfs2/suballoc.c
+@@ -2716,18 +2716,39 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
+ 	idx = le16_to_cpu(group->bg_chain);
+ 	rec = &(cl->cl_recs[idx]);
  
- RISC-V SPACEMIT SoC Support
- M:	Yixun Lan <dlan@kernel.org>
-+R:	Troy Mitchell <troy.mitchell@linux.spacemit.com>
- L:	linux-riscv@lists.infradead.org
- L:	spacemit@lists.linux.dev
- S:	Maintained
-
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260906-spacemit-add-reviewer-7b1660880f58
-
-Best regards,
---  
-Troy Mitchell <troy.mitchell@linux.spacemit.com>
++	/*
++	 * We already hold j_trans_barrier, while everywhere else locks the
++	 * allocator inode before starting a transaction. Trylock here, before
++	 * mutating anything, so a busy lock skips this best-effort reclaim
++	 * instead of inverting that order into an ABBA deadlock.
++	 */
++	main_bm_inode = ocfs2_get_system_file_inode(osb,
++						    GLOBAL_BITMAP_SYSTEM_INODE,
++						    OCFS2_INVALID_SLOT);
++	if (!main_bm_inode)
++		goto bail; /* ignore the error in reclaim path */
++
++	if (!inode_trylock(main_bm_inode)) {
++		iput(main_bm_inode);
++		goto bail; /* ignore the error in reclaim path */
++	}
++
++	status = ocfs2_try_inode_lock(main_bm_inode, &main_bm_bh, 1);
++	if (status < 0)
++		goto free_bm_inode; /* ignore the error in reclaim path */
++
+ 	status = ocfs2_extend_trans(handle,
+ 				ocfs2_calc_group_alloc_credits(osb->sb,
+ 						 le16_to_cpu(cl->cl_cpg)));
+ 	if (status) {
+ 		mlog_errno(status);
+-		goto bail;
++		goto free_bm_bh;
+ 	}
+ 	status = ocfs2_journal_access_di(handle, INODE_CACHE(alloc_inode),
+ 					 alloc_bh, OCFS2_JOURNAL_ACCESS_WRITE);
+ 	if (status < 0) {
+ 		mlog_errno(status);
+-		goto bail;
++		goto free_bm_bh;
+ 	}
+ 
+ 	/*
+@@ -2795,18 +2816,6 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
+ 	memset(group, 0, sizeof(struct ocfs2_group_desc));
+ 
+ 	/* prepare job for reclaim clusters */
+-	main_bm_inode = ocfs2_get_system_file_inode(osb,
+-						    GLOBAL_BITMAP_SYSTEM_INODE,
+-						    OCFS2_INVALID_SLOT);
+-	if (!main_bm_inode)
+-		goto bail; /* ignore the error in reclaim path */
+-
+-	inode_lock(main_bm_inode);
+-
+-	status = ocfs2_inode_lock(main_bm_inode, &main_bm_bh, 1);
+-	if (status < 0)
+-		goto free_bm_inode; /* ignore the error in reclaim path */
+-
+ 	ocfs2_block_to_cluster_group(main_bm_inode, start_blk, &bg_blkno,
+ 				     &start_bit);
+ 	fe = (struct ocfs2_dinode *) main_bm_bh->b_data;
+-- 
+2.43.0
 
