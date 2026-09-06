@@ -1,120 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E5335E94F;
-	Sun,  6 Sep 2026 18:46:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1710F1DB356;
+	Sun,  6 Sep 2026 18:50:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788720412; cv=none; b=VoWrvVd3xlwOD4EOr+cTgeXuyJ3k170TLB4MDSTRPh5FRi9tSRuMEAA3xH+QyxxYhqr1ZjVoWXpTr8R2ksBCN90bHxB6smefEFLNABPedh7RuC9p0MHPycqRP+LxIdTrW82XzNDzQ7J9IIUcGTm6YbpJfDmgP6nfr7/+VWwJgI0=
+	t=1788720652; cv=none; b=ACJbjR4pvy20ogy42RlDfUj4v8mjo2eVQeAtAXIuV1jf2FGTdEoR1GOJoSOlBeOvN0jnuHo0AtAo2aNiED+/RvzU1VrIR23gfGB3yLm3i6ShQSDdmhBot046IjxEINz4e7QppZIzZVPtL+v42lQoJ005GayN8NNrrDNeCisdPew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788720412; c=relaxed/simple;
-	bh=/uybhKdog+sT+G+K76Mu/1ObK+N5OscwmkiO0SEjvYM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m0AnsFVUdiUL6dwK//aoLO2kTeHLzNOZNFXY4Cj1p7fU46MtpKBlXQODkf0P+GD9rcbSWIZmyGU7lvrg3BpklttfIJK9BfFlWRC8LSr07hUEc3Sr9+B8UUWdcpf4J7gY7Ti1aTQ8wVwJZE+eF8XrwozI5vwyWm87pzVudTy2pBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ak8Z7xB8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788720652; c=relaxed/simple;
+	bh=fkuL9lk57Fu4jgGFnpUqsspdUnoVuz7bcyAX/OlGo4Y=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=WvBMy0tgkYM6aGDJ2ZkJNZ+u0vAG4nDe5ADnw5daZw1Sjctw5v6mgmj0DNjrqSOUSSpapWFeLJfj8QtjpZLZdOJQCa2CdcB8c/f5zChMlP72faSy3+tj7X/oP1oqWEEA079xX2zsDb/Xb2cEyC7ZNSuuNS4Mfi6qFZwvlahGc2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kKAh8Tqk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ak8Z7xB8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 956491F00A3A;
-	Sun,  6 Sep 2026 18:46:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kKAh8Tqk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 246541F00A3A;
+	Sun,  6 Sep 2026 18:50:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788720410;
-	bh=SDogltP7UdUfSqq8GDhVYpUxqSB3y5eMEnNCW+YSSf8=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=ak8Z7xB8MAiaNescTuff4inXHr1XjD1o+SXNPllKg+MF2tfiPNnHQlS2upBqezHCa
-	 2OfcZaMuEX/75OEXGNxIFYtVcizdonwvTalkumoAczVzYTWW6O+3bFjLI7NNLKRPmp
-	 T9nEPAx1zNV0SNCPCxt2SkFf010zLc9lVpRC5AKYo8kjDP8aiPv3UcRDP5bU7NrqAU
-	 kFHXfAWtrmqNaGfoudewiYyOzfXNkvPEIkrYztbYZLI5gd4vzoOtL/LOifA4mY5VLI
-	 cqnGT0PZf3mkzs0VnZra1RKfH4hwAAW3EwZ35tXKDp6dXlSGBt9xaauqD66qtaSZX6
-	 JOVAUcEVZXS+w==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 5B313CE09E8; Sun,  6 Sep 2026 11:46:50 -0700 (PDT)
-Date: Sun, 6 Sep 2026 11:46:50 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Bradley Morgan <brads@mainlining.org>, boqun@kernel.org,
-	frederic@kernel.org, include@grrlz.net, jiangshanlai@gmail.com,
-	joelagnelf@nvidia.com, josh@joshtriplett.org,
-	linux-kernel@vger.kernel.org, neeraj.upadhyay@kernel.org,
-	qiang.zhang@linux.dev, rcu@vger.kernel.org, rostedt@goodmis.org,
-	urezki@gmail.com
-Subject: Re: [PATCH] hazptrtorture: Fix inverted sleep condition in
- do_pending kthread
-Message-ID: <748b12b2-f1a3-4ed8-8c9b-86fa8d9a5926@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <ed125668-a77a-41b6-9d56-46ac93a5d69c@paulmck-laptop>
- <9D2DEA27-B3D1-4A8B-BA57-2F5EAC920C1D@mainlining.org>
- <b1abee12-5a3a-4750-be37-a3157c7e2217@paulmck-laptop>
- <28838ba4-8618-45d0-9994-3efee251bce2@efficios.com>
+	s=k20260515; t=1788720650;
+	bh=7HHAXfwc9wO/Zue/pcde5vt97DrbGS+ON9z+VUxfPtc=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=kKAh8TqkgTri8jBuGG+KdbvGncxJeyRRiS33InVOwFNoIslt2UGzFS+W2RjrZOjql
+	 jxN6TsrE/qs67KBF2ASCLmzTYh7N1luN58eQq5CmkU/V0RoGLS4JN85p0ILX4G8QZ9
+	 23lJHARcgxs9ND28iX0cmcgBjuhaYWYnPMeEth7qzcg5i0HEKwygSdrjYDc/TOk2xB
+	 f23ryVyxKYoKmqeAE0W/QvIB1Fv7TLR6CKYFIVu5wXODyFult5riy21Q2QIzWSiBJk
+	 bbJ3uepvc7BqkY7wrt8vYdj63hkzukap5DG3jvK514QXXAWtAcXSraIQqFP771pCjJ
+	 HoDYrH4dQvB6w==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <28838ba4-8618-45d0-9994-3efee251bce2@efficios.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v1 04/13] iio: adc: ad4134: Serialize single-read
+ operations
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux@analog.com, 
+ jic23@kernel.org, nuno.sa@analog.com, dlechner@baylibre.com, 
+ andy@kernel.org, Michael.Hennerich@analog.com, robh@kernel.org, 
+ krzk+dt@kernel.org, conor+dt@kernel.org, corbet@lwn.net, 
+ skhan@linuxfoundation.org, marcelo.schmitt1@gmail.com
+In-Reply-To: <apkTRwJp50WCaipq@ashevche-desk.local>
+References: <cover.1788368334.git.marcelo.schmitt@analog.com>
+ <4e136d116b2eda46fc36f3a3ded3990972c012c4.1788368334.git.marcelo.schmitt@analog.com>
+ <apkTRwJp50WCaipq@ashevche-desk.local>
+Date: Sun, 06 Sep 2026 19:50:47 +0100
+Message-Id: <178872064714.3402141.14394353863875745387.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=817;
+ i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
+ bh=fkuL9lk57Fu4jgGFnpUqsspdUnoVuz7bcyAX/OlGo4Y=;
+ b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqnbYHtNgi3u3s4ACskKtGF+oYrh6PMkz2vF/gs
+ f922DTVSrSJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCap22BxEcamljMjNAa2Vy
+ bmVsLm9yZwAKCRBUhTSZxPQWiEYVD/0Ulh/zCzlioqsoQHp+RLoFbF6YNKDA2m9SybKgfFxQb4o
+ UeiRhkDf6T8vz3lc29t0MLW7uT0JBrZloRtoVOqxnYQcPBpMAnAGHy9UWKobEjcFBMMzJWD7pjY
+ 0oZ1YKL5oRqThpTJW8P5QV373s9Ppq5/ughguoqhAi2bDlnh4/LyFQGMu3NVcpMDHvRx39zmKHw
+ ufHMYU+X4lqyAZte622PWT5oSpNTk/soTf+f6EZDzC7WkB4tR++H4Ju1DsI5S/wgxfLO1xuT4JT
+ gEOms4hfLRCoMUemupJgv2bFADXM70y9B64L6H/eoKrPOrBYeRxrqTqhc5Qn9W1ulHqFtuAmRkN
+ 8Z3v8hwQFXvZmlTA1tFiIuhdIlW/dWJTStKeqKSGPIEdm0qhNjSrqSCovQqW3bnsLqNMaHcRZYn
+ 5QXjKKV1ORGDnTkxC45XNKTdUuAp7NnvIq6Xa5G5ljzwXPDttt10+D/AQi1mUUTdHwNH+6ZTXM2
+ eBuEEA5La1fCXPwMw1JlNiIvpFTbihvFixD8p8GNtbI9TdDQsbDEbttP9fuZ8sOvVPKHSEw70Js
+ KiYhcAgAzJmXd8wG/blS6T7qh6Pt8wkUbmViJqxhiDjaOX71b3TRirLqbj+iP5VF0ADsPK3Zv3J
+ S42DKvuz8sEfVVB7fUPzOPyS5UMs1zFauObZ5/Q==
+X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
+ fpr=6E2966B387840652912681B154853499C4F41688
 
-On Sun, Sep 06, 2026 at 09:09:53AM -0400, Mathieu Desnoyers wrote:
-> On 2026-09-05 16:40, Paul E. McKenney wrote:
-> > On Fri, Sep 04, 2026 at 06:28:45PM +0100, Bradley Morgan wrote:
-> [...]
-> > I would not say "no" to a fix for this issue:
-> > 
-> > https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+On 2026-09-03 09:27:19+03:00, Andy Shevchenko wrote:
+> On Wed, Sep 02, 2026 at 02:22:41PM -0300, Marcelo Schmitt wrote:
 > 
-> I'm not sure this URL actually points to a relevant issue ?
-
-Indeed, it does not, apologies!  Here you go:
-
-https://lore.kernel.org/all/202608130915.62b53936-lkp@intel.com/
-
-> > Once that is in place, I would be happy to put this back into -next.
-> > 
-> > At some point, we will need to get rid of the concept of wildcard hazard
-> > pointers, as those end up instead emulating RCU, but I don't see that
-> > as an immediate obstacle.
+> > Protect single-sample read operations from going wrong if two or more of
+> > them run concurrently. Serialize the data read operation so to avoid
+> > single-sample read requests disrupting each other.
 > 
-> I already have the implementation which eliminates the wildcard if we
-> care about this. It was part of a previous hazptr series version.
+> ...
 > 
-> Do you want me to resurrect it on top of the current series ?
-> This depends on:
+> >  	case IIO_CHAN_INFO_RAW:
+
+Define the scope.
+	case IIO_CHAN_INFO_RAW: {
+Scope has a funny definition in switch statements and that can lead
+to 'entertaining' results.   Some compilers will also moan about this.
+
+> > +		guard(mutex)(&st->lock);
 > 
-> - ptr_eq(),
-> - then use ptr_eq() to compare the loaded pointer (pre mb)
->   with the re-loaded pointer (post-mb).
+> Always delimit guard()() with a blank line.
 > 
-> See: https://lore.kernel.org/all/20251218014531.3793471-1-mathieu.desnoyers@efficios.com/
+> >  		gpiod_set_value_cansleep(st->odr_gpio, 1);
+> 
+> ...
+> 
+> With blank line added
+> 
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-The main objection was over the content and style of the kernel-doc
-header comment, right?  I am guessing that it should be possible to
-resolve this to roughly equal disgust of all concerned.  ;-)
 
-We did make some progress on this sort of pointer issue in C++29
-this past June:
-
-https://people.kernel.org/paulmck/c-pointer-zap-and-oota-progress
-
-But the piece you need is this guy, which is still in process:
-
-https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2025/p3790r1.pdf
-
-Plus it will be some time before this reaches all the compilers used
-to build the Linux kernel, and probably even more time to reach the
-C language.  I do have pen-on-paper notes that will lead to a draft
-of the corresponding C-language working paper, but these things do not
-move quickly.
-
-So, yes, we will need something like ptr_eq() for some years to come.
-
-Back to your original question, given the fix for the above bug and
-given the current use case, I believe we can get the current series into
-mainline.  Give or take Linus's thoughts on the matter.  But either way,
-we will need a version that allows the user to avoid all wildcard use
-sooner rather than later.
-
-So having a series on top of the current one for a later merge window
-would be a very good thing!
-
-							Thanx, Paul
