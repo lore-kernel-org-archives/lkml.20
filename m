@@ -1,148 +1,125 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9441367B90
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 16:57:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788713823; cv=pass; b=W/l2QwwZjFgS4req/UJ/Q2hx1av4Eea8wJt95O1M7HnU/H5VXXs7dA01FdjSfgzFT6H2MnHCMK7TtfAA4ZH/wQxk77BWCp1cYFqo6BWUS6tw5vZFcivsChZRZFTld0Ohrw7VNfdWZTSscuV5LHdYBau6Hwpw56fTCsZ213UgpK8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788713823; c=relaxed/simple;
-	bh=jLbNWAYKOjUjCxKPAnKQtbCBXntzd3CfPr6hFf0UbZI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Jpc0LCwIZDKd3XbsZESIYyhtYWCyiJTkw/d7h2RUr/9Bm0M/NUIBKu8AbnVmVIjHuNSkwE6KjSJV0HY/Vx29GMo141/qs5ce+Q2ZurVVNS5TRSCZJNja7WW4BSTJVFtD/HOWjNd84sNNbkYeTC4Yk7QTz3/BLCfPB3FybvwSSOY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UjHPtZQt; arc=pass smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103D1145B3F
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 17:01:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788714112; cv=none; b=o1yGJ8hBgjEf87TysqV89KabiqDRHrncEPt2nMtIO3NzNjInM5fDDFFnJslVZi82yLQTekug/WgWRAhE/FFDOTe0k9Z+epgaG5wKws2fGixjSpgahvSr/NgrWdo2JnCSkPs9yRjryKPqmD21P1ErnQ/of5uI+GE8PAMjbRnnE4U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788714112; c=relaxed/simple;
+	bh=gEYHy2RciNuG30BOGL/7iwz8lOIzP80wq6ylIanymTA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aJtg28KyCCAlCQRdFsQGkZEJGAUqxB+iaaOZ0lQCpuizpi+0QYzduWhgUZAtj/mMZ3lP1mbci2mwJ3lx62BQnT4rnKCDZe6hVkmecLwtUpoXqThQz9PGlAlb3vi9NErp9Or8us6gx2oeIbz7AmxxW3UVhs7ai0HSWxBHXMiIFQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=S0nd3Ts6; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UjHPtZQt"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39931869b4aso172526a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 09:57:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788713821; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sWWrKafDr+kJ63Ns6yR35fJBjZthxS3diDndyRfQPiwRSZmZACluX8XHCw6IsBnDmK
-         tEupwMhWhNeiBqegz5tT+OoBkUxw4VAXB46A1eLbDDJbGVkrN/Vs/shXiEjCNeMAs1+n
-         CzRcDW5O76Sx80joPqUww/dnPxBLQi6rDKU7eU7kSvIrMspY5JyTFAZTirgdsMDcC3vK
-         /gw+WSDJFiEcRAC2w8cMn8lVkjvCZhvQWCo/nd7mIWiV+YJnKWTGZdzGFIO+DYr9Lnn/
-         yGrUICIaqCwh7v9L6Zaw2xMRDjtTRXbs4hhCqMcgJ5JIkOdQs9SCrlc0+RDAzsch+31I
-         hcVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=jLbNWAYKOjUjCxKPAnKQtbCBXntzd3CfPr6hFf0UbZI=;
-        fh=+dWK3PRmJiTvOASPlCENjL9T0K/CTkznbdAKvgEodNQ=;
-        b=T4lhhl6ra8xC1yInsc+J7kYtkAaBbiXzvIkwZquprAHHiOrtSEHoCaZQhReIS4QNNn
-         Cj4AuPiVJyBeITzryqUbjSey/4jvrO0o17DkxDSkmlmU0zTom9Kg++ESt9vBvXenHM9z
-         XGn6JSj85FFSaIqhouNR9o9FvgF3y4jFb1nsB+NkiiL0vYe6Ci+0b+P7JWrovgRU/ZjF
-         BCSuhntcuI0UavUnxz8zriG+a16K1U2Uzvb7hagXg7nPUFedPvX+pCgAt8mWvwKK4OnK
-         GYjB0fRKNU55P3lzuPhYXYPFEB7a1zmQJJ0AjUbdMIwdsLAfreilJa26/2yyr8VjBOsj
-         mTeA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788713821; x=1789318621; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jLbNWAYKOjUjCxKPAnKQtbCBXntzd3CfPr6hFf0UbZI=;
-        b=UjHPtZQtZlfn+jMBdsesbKV9hhN0VxB45TUW8NF6jsIj/u6sMjuVZl/S6vNiEMAdHB
-         Te+UXjaLTopyZrVKblQ6F2RdO17BiDzp8YSjJWd1LjGv8/lpVMX/mJq6tjMcQBGE+lh3
-         gkbl212FSvMq4hzn08kjNsXAWfz8CFVxj8DwBvGDcA2V9pboEq4SigdRgrpS5P3lbPAR
-         WaeQlpczdSbYO4EXZkRcm/d2DFhfIccQOCyUcacVGnAtc0aqHvm4nD/lvAQStGw+ys2S
-         nEMr3QPCYz3NCaB4lrh+lVRBv1NLXl63CMfDijyK5BqBSV6Pp1fy8GFAFtzsiR1Bm/Qi
-         cjSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788713821; x=1789318621;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jLbNWAYKOjUjCxKPAnKQtbCBXntzd3CfPr6hFf0UbZI=;
-        b=rrkVDg0c75aKMS4sAronKjZIgoPSJOcyHLGTZ07/q5CD3xt1hgV2ngtHF9h2QYUJkO
-         gIYp/OGbXr8rdtjzHAmf3TVk7/Djh9AN0rP+Igoeid4mxHjomEN3OU8IHnSfKrqcki0s
-         vsUmsnlf5xNoCTGwp/1/1ARXXdli0KfW5SEfPLnYYrO0xuOBFHZnyiQNYcJAjSxqsCa9
-         2hKKx/BIrkfrHSpVlZJgxmUkJaLAsrLng0H3R4sX5Mer9U66u/iRrEFWd8qko95Qu7NU
-         jz4Y2tSyGVRsh19J7RjvKVWxVeqcCQ+sK/TNuOIWZyDQ3r3qQmI2FRGySQP48rbACwO3
-         c2sg==
-X-Forwarded-Encrypted: i=1; AKwUvBwwIo2HhRE1Vn+5Lh8ZAWm3ubW1X4Ysp4Q9X2NLyRVi530A0oBXvD5FKg5ryF8a0Z9kcH+LM4kZULayons=@vger.kernel.org
-X-Gm-Message-State: AFuF++mW9MSnVaDjzVtW8bEtQb9QGBa45lTRLVxvyAsQOgERUz0rgM/b
-	yM7739tMlcIrE+rMlCDdqkMygY5/1ERX3pPTpeYrW+lE0R/gkovtk8oHPBxKTFi3vxvR0dGo3Ya
-	MviqM327MuPeu0iumwRqH5oI+dAxuePM=
-X-Gm-Gg: AYBFou3i5GtH47M/VOdNRDlJXk6udgdlr9bH5MSWiCgbJUbGItxhMe2eeqwfhSfCorf
-	tDVXrOJvIEEbGwB/4eJr7KpoFPcRPSOyJQamTEYkfGtZ/DuLJ+Qvky+PZAnsFWMaIpq/BqzQJXM
-	wcAzf6EGyDBkgGNWOPyaZ5A1XglrAN/1DuEhk77WSHOVWsgTNCN8UJnUfyL9ncCuWdiWCYRv/BB
-	SKRTWoDqop0N64T7Yrf52PnX4DYNmwDyl9hWDwMcwtI09KEMSTx4m2horLrGel06IkqONocnNcJ
-	KYPKZKbmbTyRWfNjoLa8CtRY5ENEV9vNHVFKqlpOQTpuQqOATFlg74PmLvJcM5qsCJ3g6Mdw3sB
-	rrYXLQj5Matp1zJHBGl7sZ6cX3hZF31/hI8MgQ2m+t5IRLa084Neu6Lgv0XZmCGSwZHmwHQLO
-X-Received: by 2002:a17:90b:384d:b0:398:bac0:238e with SMTP id
- 98e67ed59e1d1-39b3d8377camr12050791a91.6.1788713821151; Sun, 06 Sep 2026
- 09:57:01 -0700 (PDT)
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="S0nd3Ts6"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 0FFDD40E01E1;
+	Sun,  6 Sep 2026 17:01:46 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id OAwfk7M4z7hs; Sun,  6 Sep 2026 17:01:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1788714094; bh=51b2uIj3sChLBhb35/VVuLepNdtIGJ1sMqXdDiS37Is=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=S0nd3Ts689qj7P6JKRDKgJwW5mYJkSTZowCBIaltEgk3wibuedZir76K0Tnqhms+s
+	 8In1rBmBQ3Z68uuT7c9k8u1jWTtS3cfSMXjf+UAgLJ9l6uoqVgXgJMaV6u/Sd60/Kf
+	 Ow4SW6rWyNymNIrO4OfEbsWTTw3APvpEYqBCUJ9Mn8oqarh91Rlqy7RP1tVLqp4PeP
+	 ubRSeyzmvJh6KerZNcYVdtrJd6SuhoP/1knyHPfNpCAB7jkyAI0v6yIy6tiEFiZ7cw
+	 BXCm0kKXXZLj4U1zZ22gmeU0+Xr5yHLYEpLYpXUHsPredmfxvTIPM20m+wyH0r8pUW
+	 ZuKsdJHDV2yG0TcCwBAw8bhyzpzmr70pVSn2dq4zIQHq6DzA90wiWuO49rjAwVjl+J
+	 Uy5a+meD0joxhmnmogwcQXedt3MEMpD7FtKjMzcOgwfzusZr5W0ok+lduv5JAuHGs2
+	 lmsNpbGSxBPn0Ki9rTILAXDI8quIosiyRx9OuFU1v8uVtZPoPANcxzZKXjntO/U+m8
+	 UQxYYV4t2duz7Ds02CJqeV8OJqTnwJ+aCcGjdI9yrjvrZ7z9uTEzS/A4+XUhXztiAq
+	 bTQSP2p3w8S6e3Fbl6aZXAxtkZHuvUQSbOx8KuLCZU56KqdT/H4Z1l4u+FY6mfcVxR
+	 pIHMHXtkpn4zUNH1CtrlT41A=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::d])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 1FD6A40E00B9;
+	Sun,  6 Sep 2026 17:01:19 +0000 (UTC)
+Date: Sun, 6 Sep 2026 10:01:16 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Mauricio Faria de Oliveira <mfo@igalia.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Juergen Gross <jgross@suse.com>,
+	Alexey Dobriyan <adobriyan@gmail.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Jan Beulich <jbeulich@suse.com>, Brian Gerst <brgerst@gmail.com>,
+	kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v9 2/5] x86/asm, x86/boot: expose inline memcmp()
+Message-ID: <20260906170116.GRap2cXOY6ENSzAXUJ@fat_crate.local>
+References: <20260822-pvh-kasan-inline-v9-0-e70ef3b75b6a@igalia.com>
+ <20260822-pvh-kasan-inline-v9-2-e70ef3b75b6a@igalia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904-b4-arm64-callops-kcfi-v1-0-ce6687739b0c@linux.dev> <20260904-b4-arm64-callops-kcfi-v1-8-ce6687739b0c@linux.dev>
-In-Reply-To: <20260904-b4-arm64-callops-kcfi-v1-8-ce6687739b0c@linux.dev>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sun, 6 Sep 2026 18:56:47 +0200
-X-Gm-Features: AcwNN1Vz7OHfpHx7W0dFC3jg8glvxcm1hmRiClFLpwy0F6DpBbL1JHHuwRxDDvo
-Message-ID: <CANiq72=xOrSXBBdmrKYfX1=qgF37LRAMzMJd4GJkXaYHMVe9yQ@mail.gmail.com>
-Subject: Re: [PATCH RFC 8/8] arm64: ftrace: Allow CALL_OPS on kCFI kernels
- built with Rust
-To: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
-Cc: Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Puranjay Mohan <puranjay@kernel.org>, 
-	Xu Kuohai <xukuohai@huaweicloud.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Miguel Ojeda <ojeda@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Sami Tolvanen <samitolvanen@google.com>, Kees Cook <kees@kernel.org>, 
-	Leon Hwang <leon.hwang@linux.dev>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
-	Josh Poimboeuf <jpoimboe@kernel.org>, live-patching@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org, 
-	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	Ben Cressey <ben@cressey.dev>, "Florent Revest (Anthropic)" <florent.revest@linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260822-pvh-kasan-inline-v9-2-e70ef3b75b6a@igalia.com>
 
-On Fri, Sep 4, 2026 at 3:20=E2=80=AFAM Jose Fernandez (Anthropic)
-<jose.fernandez@linux.dev> wrote:
->
-> +# bindgen generates no code, and its libclang may predate the section
-> +# argument of -fpatchable-function-entry that a kCFI kernel with CALL_OP=
-S
-> +# passes on arm64.
-> +bindgen_c_flags =3D $(filter-out -fpatchable-function-entry=3D%,$(c_flag=
-s))
+On Sat, Aug 22, 2026 at 03:33:18PM -0300, Mauricio Faria de Oliveira wrote:
+> Move the inline memcmp function currently only available in 'boot/string.c'
+> into the shared string function header <asm/shared/string.h> to be reused.
+> 
+> This is not done through <asm/string.h> to avoid pulling unnecessary code
+> in 'boot/string.c' that causes build errors in 'boot/compressed/string.c'
+> and 'purgatory/purgatory.ro'.
 
-In general, one should be using the same version (we warn otherwise
-early in the build), but yeah, it is just a warning for now and it is
-nice to try to remain a bit flexible.
+Please drop those '' quotes - it is perfectly clear that those are .c files.
 
-Now, if we are going to filter this out for Clang, should we just
-filter it out for GCC too? i.e. outside the `ifdef`?
+> No functional changes.
+> 
+> Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia.com>
+> 
+> ---
+> 
+> Thanks to David Laight for noticing the return value difference between
+> inline and regular memcmp().
+> ---
+>  arch/x86/boot/string.c               | 13 ++-----------
+>  arch/x86/include/asm/shared/string.h | 26 ++++++++++++++++++++++++++
+>  2 files changed, 28 insertions(+), 11 deletions(-)
 
-By the way, "generates no code" sounds a bit strange, since `bindgen`
-generates source code...
+...
 
-Thanks!
+> diff --git a/arch/x86/include/asm/shared/string.h b/arch/x86/include/asm/shared/string.h
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..06c1d5e5013e4d59cfb49866d10e164362d2c4cc
+> --- /dev/null
+> +++ b/arch/x86/include/asm/shared/string.h
+> @@ -0,0 +1,26 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +#ifndef _ASM_X86_SHARED_STRING_H
+> +#define _ASM_X86_SHARED_STRING_H
+> +
+> +/*
+> + * This inline memcmp() returns 0 (equal) or 1 (not equal).
+> + * The regular memcmp() returns <0 (less than), 0 (equal), or >0 (greater than)
+> + * to indicate ordering as well.
 
-Cheers,
-Miguel
+No need to overdo it:
+
+	Returns:	0 (equal)
+			1 (not equal)
+
+In contrast, the regular memcmp() follows glibc return value semantics.
+
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
