@@ -1,68 +1,68 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CF443D9534
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 14:17:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 861C03D9048
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 14:17:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788704244; cv=none; b=Jyt7w4NNP5HTAmQ7Q5tN8DjtlgPxdEeIixjSxG6zekPtnWILV76dzq1XjcCdodSqMWtR5V0JUgXoyXhN5AJUd7L50YrecrJcJC0eHY0IgVjLP2QWTm3Hgim8P+VFORbQIIG1Us3uRDklS17D+CqIuzMMvJ0nNoE6JnO1Iufc0aw=
+	t=1788704251; cv=none; b=HHToFxgXxmhUQBgPM3gVdvp2oDrc5iHD8p9Dik7rDJXDoQnNakt+shZ9LHxr1mJx70dowMOlhQh8SUSBZgJlfbyUn8M7ab9nRGPlh6oigv4QY+D4NtuCDw1LbIv0TS1a0DpnD6JiY8ziJRcrN9+UVgEd9gX/Y2DBGc11QOQwHm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788704244; c=relaxed/simple;
-	bh=ov6l6XYXYWQFGwdR6skU1nY1vxsBWDotX7Kg0ih6rxA=;
+	s=arc-20240116; t=1788704251; c=relaxed/simple;
+	bh=4JOk2Hi8g7gu1SpQ/dGzbw1/zf+MVi4St5Xw4UG5IUU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ixgkMwfEI3PUqNn6jNdXF7geXk/bDkFWB3I1Af78hIt4waTaVDGrHHF+jUUC3kBxPSQDAzvbj4JY673MQeYIMchJEhQCGEfy30Wok0eDw5DvurwwqDl4ONj/GoRfSsYrbGY45NMptUfaOT5Ui0dUtCU+SkkWhICxEWHEpobaKdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=d/y6WZcI; arc=none smtp.client-ip=209.85.221.47
+	 In-Reply-To:To:Cc; b=dEdowl95Fmq72wrEj4P/QugoIflKv+So7Vqn//m0Ff+DvAyg6R5OafzooR//Goq3z1RCXhhThqhIO+lyzSLxwjVmI97nITAkzn4Jb+CMNgngiF91H9DZ62YomjKiJXzP7aaEHf55Eitv1C5DrY3rPS5gKPlCwwHHKldPXA2hdG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=rHV+qfzM; arc=none smtp.client-ip=209.85.221.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="d/y6WZcI"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-482f2ee53e7so1822597f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 07:17:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="rHV+qfzM"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48444ec4fe2so1476404f8f.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 07:17:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788704239; x=1789309039; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1788704243; x=1789309043; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+LoCl+EbBl/1yupzEbeoWPgLAsEGydOXRIOMMFAJTXk=;
-        b=d/y6WZcIZR7usfqSr27rbLLfe/LRprr1YhIZbvC3gEDrRV16wyqieeiOMUFC0tTB6t
-         wyVIWl4QtgvHQSTv5dBwOcYubflL9IY5uQ+H7rBh+F/DmfWbIR7tzlhcK7126hRMiV6s
-         b7QxnEA9wrGu/lXLpZLAI+9/FL3mJn2xS228XtychbRJAa9pO1FFoMUwVD+C6au7bcFZ
-         RMcQVPmEWfI3CKdLhfIc8kkvVObGUXkkxKfbzfTRO5eA0ltXwDPVI5XO3W7ia7onguk/
-         c7u0vX2Q8XBSy0qTuEHh0vXLcH4msO5rTAm/7oVowzqMQpUL8mN0pyXHcuCEaaPvINvA
-         2XoA==
+        bh=3oY2AlOIEvJzDvrLKGXM3wmsBcdbDubrfZ+V9KSGxD4=;
+        b=rHV+qfzM6Ex5+/1YtzNlXy84KOhH83kAxwgYicso5cwsacUJ2CJIpbGVKjSQ+sGakE
+         3jEuEKeGSyUP2nlxg0xzrN0nW2kp+1aqADj5vPN52MmRinSOUn8Eu5QDpyoaJ5K/7qTE
+         rcdwg1j+rXJ+OEnK/ZnNjQpqjQo+yk6+zaKZSwtsFhdgAWWz04nuS0C8E8Fv6u/Zkhhw
+         1jKtivWHGR36eLkmn7PnvxvsmLdmT3yjpVOpSHo+FrB9UmvzQ1yCDELVDYjQb3+k/xkW
+         JqG8+suf0zzF3UUCONpiFrW3wLqT10sNNI8NeNzOM8opwbMYhKpPA4Gw9eKpoFWcY8uB
+         Wzgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788704239; x=1789309039;
+        d=1e100.net; s=20251104; t=1788704243; x=1789309043;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+LoCl+EbBl/1yupzEbeoWPgLAsEGydOXRIOMMFAJTXk=;
-        b=phIa87dDN4+/qPuZgDZNMk4eBHWcSmSvSEm2mUOhLyrIGOh5vTHfHhD4kUXii008Cr
-         26DbBNX3Ztf41sUYcBCwZkD6woFDPef5Dv7CCKoy9MrbGMTu2TUQfAARb0jV8Weat7GE
-         8bUvnKMAtOifFgQF3fccio7VRG/7yDlH/5AWrxoo5PftqRBuM3f59R2SLXsc4/pHm9iP
-         Jj+nrz/pJkgJSNz4DiL82RiH1f5VWl3LEPpVu8LbOEc6xhYDs/r7GdR87nzgZS0JPjcl
-         nN2yCGV+2dQZ1YVDoo8qdf8X/Fdz0ObDHxsVgqEXCceRzZ8t6LavK7htsDkh4H+dKq1e
-         pIEA==
-X-Forwarded-Encrypted: i=1; AKwUvBzgyOWJt82HW3GObhFw0xs81A8LqGDyukOWGfJNwMhp4WCpAV3FoyWsMLJDVZYJYsNtciTwqdAk61mwiXg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kRR+TiUItebbV1nDIyu1H22enbaYMjVgdocM6xjW/+Vrto0G6i
-	KfaDhDUA7iZmK7KutA0t9LdPyZ/RT8YJhQ4eQ0TjBu9/CdbbkFGtrqdwf3YxFza8/MI=
-X-Gm-Gg: AYBFou3DoVyjoLWeb/2Ut7PGDq9QSaJSq2JPgJkzUv3GG41hP4XcTYLw5/wabB1/Gnd
-	pwNhft3cB6QzdDUgsjqY8cA502Hb2noxx8GL8Pusm4vic439znl274hgJo50/zCFBo5EAFnUCBG
-	z55i5wEV0a++lgyNsTUTij+J56MxwSo/l9IyMnxqtjKdpf7gsRYxc0cv187uiyq5oZw4m+q5DYv
-	MrkngY/TkgQYPlCW3e8Hr4VfubCQafuKFC733j7cImSry3C9/TAbttk8isQnNh5xj8IfxOWrMFz
-	0JloGoT3iw8OMHI3dj0nDW38lklRTrnFoCRpMGNDaSOlxei9Y/GL64E/wgmnT4xuJdheDj6aOwb
-	xdLMatj9xw3BeiCF88EiFekjTDV5cr5DzDImaU4HWdF/3yBqF8KfWkNSniHKS3ZZr6/ayg/RfYV
-	7PQdjwIrShS4bCD0omPZ7L1yupYfvepMDIE/GxTsd6Ab7AuaFu+0GxOcQuvzayrEgY0Fam3hBRN
-	Il/BAHIzxc=
-X-Received: by 2002:a05:6000:4694:b0:47f:80d1:be0a with SMTP id ffacd0b85a97d-485872a0086mr16514274f8f.14.1788704239558;
-        Sun, 06 Sep 2026 07:17:19 -0700 (PDT)
+        bh=3oY2AlOIEvJzDvrLKGXM3wmsBcdbDubrfZ+V9KSGxD4=;
+        b=osPHfV9T/ZExSqrPPtYfidetPp74gajDUEpuVN7AvAicx98TsFNW4fHW91Tm1khtl9
+         vW1oQJLzyrV663my9q6DdQfTXhR977N0gkYNraIP2YxVtXbQOJO5NW0udFJsc0grPCAJ
+         If2/4Ldcy6NLDDoyjyjxtg2OiCeX0duOI0H/witUSTtTTvsgRmekZKZXo3QiY5EWKPm2
+         6ACRrrr3m1ioe/DjeHsWSvELPM5o+0UGUkdRUoe0OPFC00X6/D5N3/4jRsRVLjJmfNJ8
+         KmVgQTtXFkWmBzDwtewZ0VRi/zbl4wIBJhakfQjyRn0GdOMEtwUZn+NaFE+11jKTZ7ct
+         Sy9g==
+X-Forwarded-Encrypted: i=1; AKwUvBzVKe1m5hB1lSE09gl//nCMV7OB+Ww/B8Qnht250pHS3NbB2hBBwgXwbLNF98SW7TIp1aDYJ+iFqW/UzDw=@vger.kernel.org
+X-Gm-Message-State: AFuF++m583BmtdSpjr/X5BlHNjUBT2Atuj2Sy2n8O7Mygz6k3Bdz03Ep
+	aCFmuQTxHNo5HCuOWs0OElie7wYBRfMl0RK9Ple5EwFi2mwEuXgUK0LKWb0c1ks/zNg=
+X-Gm-Gg: AYBFou2V3blFgdsWCL9kmyb26kj6ekyaKL0SUzyGIExdWIXzMZIvftoitONlhUFSb77
+	Pv9aMZuIyHReBdSI+M0EK+2UAC6egJfFSWjKz0kFZgpQm68Hc8TVH1Ot3jaPks4tG71MXqaNIEI
+	y6sASzN41h3cKVDLUlaqvDfa6HP0ad7e9Tpt2qc9QjlD04lUBLjfSBQ9sZ/xbcIuFbQGJ7MLBIS
+	NXIzhLSVWrG9vfGg83MWeTh1wUOVc17zM/1RCrreG1AFNZ/zQ5+k2ccFp6LIEhq4VUN8+uwXoXK
+	DKZq4Xw0w1DkEU6LrFWervIw+UexD4J1A2yIliE4VP76EAcTWjnzzKRo6Eo/mfWJwy6VLl1unnu
+	friQmECmWQoVG9d4oRAV+DKYi9qHXXh7t6WrfNVR4yb3v75xPxJ6I5TZjQNtle/KFmsBTcFej3J
+	Q5Aj4NbTJqGW2HE5MFl857awJDO+C10e4nBpBWLoqiACAV4hj+tawuh3I4fFLy7FqyYuFcLK7h
+X-Received: by 2002:a5d:5f89:0:b0:485:892b:bdad with SMTP id ffacd0b85a97d-485892bbf0bmr30611491f8f.12.1788704242631;
+        Sun, 06 Sep 2026 07:17:22 -0700 (PDT)
 Received: from [192.168.0.35] ([109.76.250.151])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48588390e30sm21669763f8f.7.2026.09.06.07.17.18
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48588390e30sm21669763f8f.7.2026.09.06.07.17.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 07:17:19 -0700 (PDT)
+        Sun, 06 Sep 2026 07:17:22 -0700 (PDT)
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Date: Sun, 06 Sep 2026 15:17:07 +0100
-Subject: [PATCH v17 3/5] phy: core: Add devm_phy_get_by_of_node()
+Date: Sun, 06 Sep 2026 15:17:09 +0100
+Subject: [PATCH v17 5/5] media: qcom: camss: Use data-lanes starting at 1
+ for new CSIPHY mode
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-3-e2197a3e2551@linaro.org>
+Message-Id: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-5-e2197a3e2551@linaro.org>
 References: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-0-e2197a3e2551@linaro.org>
 In-Reply-To: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-0-e2197a3e2551@linaro.org>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -94,104 +94,90 @@ Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
  Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
  Krzysztof Kozlowski <krzk@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2684;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2510;
  i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
- bh=ov6l6XYXYWQFGwdR6skU1nY1vxsBWDotX7Kg0ih6rxA=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqnXXottT+aCtr6MjD/BRcmrfiSRLV+IZIlfnKt
- eM/LwhIIQ6JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCap116AAKCRAicTuzoY3I
- OqjlD/9FVmT5Cto23JuMUI5C5HJFt91vUFg9Zlu/nuBlbEVbwyeOchh9fygRZ63v8J1w+phrKNZ
- U1vrhEqqV95TfHiXhYW6bTSjx4JmQSzoGI/GY/tl3Eabvj/cjuhVOhE7eKTqwAYGjr3m/gmGXVK
- Dy7Nb0X9mUU0DkA1rknz8ZVgegHUCMfTFFJ0h7vRNm3qJk/Cx32Hi7B4ZOWHK0SG3WQ5ct76vaH
- kZP6dva1Wy3zHWhK9/gXgoS/xcghdXMsgo1OvKbBVP3k1kZqm5kRBaq8CGbeh4LJ5zIlzPiR6Ij
- LPcW29TiYYd5V4zhG49+JFaEGBMhidSCqTnrMijltFqT1zC5OX8I7hTCgijaQNSIqHTa8S46CaA
- zAvmk/Nvrb9Gv2ZKqL/kyMpchLuYc3H8HUKZQNq+Yl/xqqVIZmNrzFx2YnMBIW+M/ggpEdue+4t
- vLHQDhuGrh1XLpj3Yp+6jdYx4VIBbrzcR9HZi1aXWR1WAlfMm+hMLtuiSOxqHJLk7tVGSMWkWE+
- ddEMRnZ9ER1ulWtGeQOdzPjou1oWIvlesIN/1SoY/LzApIKsMFi7da9zizDieSeU7tUMQAtYT9r
- Zg8lkd487QQq994MfGnw/W9S85JPTWXYok6UjI/tHyxjc6lDbQE0kdn2JNEyWD9/pcYb8aC8xQr
- vYhRQI8R5DApCdA==
+ bh=4JOk2Hi8g7gu1SpQ/dGzbw1/zf+MVi4St5Xw4UG5IUU=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqnXXoH9VPldgdu7R1ntY6a2BIdl8cjC5uvSJAI
+ TLXjIFNoaiJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCap116AAKCRAicTuzoY3I
+ Otm0EAChJV802lFTATmtLqqDUMwtkzn6JIwJNVtgDDOK6aREDhOVcmip3ZYh8bAF5d1WuSfSHbe
+ Dsrg4ph3lA4WWiMTOAaoo/MImXhCT6Uyd993lwMpk8nyupZexMkgACQgmoc1iNebBfnahDQp5zf
+ AGhQpMY4ogelQd4ixACVio6KgYDPCiJdClpzJrMnEpN84s5+30REkkctniPbn4M9aNV4MLq3gNF
+ hFVgL93xKjNLo3x6yt+D8/ipcjfVDq0SkNkmLoapn7qSb1pLABmaIh/vcTVyEqOIY1/+evNIYpe
+ uXeZjoJ1n1UWRHLC1CchbcSkAMZV4donLKx99QudDtM6StHoKruvQWr9cD7VbJiIvhSIKwAzQXD
+ OhTEAIR36NZG2baw1cFdu5GoxNek+gxs/qI24KtrUfOxw3JL93WDXoUtThv8orngxZnIL7Stpbg
+ YrLqt+FE56bj7rhj/PaXY+h0uSDq0XzJEben2E6imV1xwlUsyAMXEpiq+aTCDlXkg8KKURrRANA
+ aHm/p8AoSU73O+yeDgVrlOHTwzwSjr4Y5JRE7aJobvo/sv7inVbqdhuECuIlTCx8XA2zjVXtJS/
+ k+4SRthkoflOkR6zobNdiKLhIGC1de4brCoLaSPKYrQtkkQ9iK4MBTOsYHOI2kfDS7TD0CmyalK
+ DVgZujw13DcEUlQ==
 X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Add a devm variant of phy_get_by_of_node() to allow for the familiar
-pattern of having devres automatically release resources on the driver's
-exit path.
+Introducing a dedicated CSIPHY driver community feedback was both to move
+to data-lanes starting at index 1 on the PHY side and also to match that
+indexing scheme in the CSI decoder - CSID.
+
+CSID consumes the data-lanes property to determine which CSID lanes to
+switch on. For indexes starting at 1 we need to amend the logic somewhere.
+The PHY side code normalises the input data to register level meanings so,
+replicate that logic on the CSID side.
+
+Introduce a simple flag to differentiate between legacy indexing @ 0 and
+new indexing @ 1.
+
+Existing bindings are not affected.
 
 Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
- drivers/phy/phy-core.c  | 34 ++++++++++++++++++++++++++++++++++
- include/linux/phy/phy.h |  7 +++++++
- 2 files changed, 41 insertions(+)
+ drivers/media/platform/qcom/camss/camss.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
-index 490a7cde6d40a..2e3581ecb42ee 100644
---- a/drivers/phy/phy-core.c
-+++ b/drivers/phy/phy-core.c
-@@ -1050,6 +1050,40 @@ struct phy *phy_get_by_of_node(struct device_node *np)
- }
- EXPORT_SYMBOL_GPL(phy_get_by_of_node);
- 
-+/**
-+ * devm_phy_get_by_of_node() - devm managed lookup and obtain phy reference by device node
-+ * @dev: device requesting the PHY
-+ * @np: device_node of the PHY provider
-+ *
-+ * Returns phy associated with the device_node or ERR_PTR. devres manages
-+ * releasing resources.
-+ */
-+struct phy *devm_phy_get_by_of_node(struct device *dev, struct device_node *np)
-+{
-+	struct phy **ptr, *phy;
-+	struct device_link *link;
-+
-+	ptr = devres_alloc(devm_phy_release, sizeof(*ptr), GFP_KERNEL);
-+	if (!ptr)
-+		return ERR_PTR(-ENOMEM);
-+
-+	phy = phy_get_by_of_node(np);
-+	if (IS_ERR(phy)) {
-+		devres_free(ptr);
-+		return phy;
-+	}
-+
-+	*ptr = phy;
-+	devres_add(dev, ptr);
-+	link = device_link_add(dev, &phy->dev, DL_FLAG_STATELESS);
-+	if (!link)
-+		dev_dbg(dev, "failed to create device link to %s\n",
-+			dev_name(phy->dev.parent));
-+
-+	return phy;
-+}
-+EXPORT_SYMBOL_GPL(devm_phy_get_by_of_node);
-+
- /**
-  * phy_create() - create a new phy
-  * @dev: device that is creating the new phy
-diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
-index 71c2e16397130..14b924a88411f 100644
---- a/include/linux/phy/phy.h
-+++ b/include/linux/phy/phy.h
-@@ -285,6 +285,7 @@ struct phy *devm_of_phy_optional_get(struct device *dev, struct device_node *np,
- struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
- 				     int index);
- struct phy *phy_get_by_of_node(struct device_node *np);
-+struct phy *devm_phy_get_by_of_node(struct device *dev, struct device_node *np);
- void of_phy_put(struct phy *phy);
- void phy_put(struct device *dev, struct phy *phy);
- void devm_phy_put(struct device *dev, struct phy *phy);
-@@ -499,6 +500,12 @@ static inline struct phy *phy_get_by_of_node(struct device_node *np)
- 	return ERR_PTR(-ENOSYS);
- }
- 
-+static inline struct phy *devm_phy_get_by_of_node(struct device *dev,
-+						  struct device_node *np)
-+{
-+	return ERR_PTR(-ENOSYS);
-+}
-+
- static inline void of_phy_put(struct phy *phy)
+diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+index 84097d82d99c9..07b3cddca5840 100644
+--- a/drivers/media/platform/qcom/camss/camss.c
++++ b/drivers/media/platform/qcom/camss/camss.c
+@@ -4742,7 +4742,8 @@ static const struct parent_dev_ops vfe_parent_dev_ops = {
+  */
+ static int camss_parse_endpoint_node(struct device *dev,
+ 				     struct fwnode_handle *ep,
+-				     struct camss_async_subdev *csd)
++				     struct camss_async_subdev *csd,
++				     u8 lane_base)
  {
- }
+ 	struct csiphy_lanes_cfg *lncfg = &csd->interface.csi2.lane_cfg;
+ 	struct v4l2_mbus_config_mipi_csi2 *mipi_csi2;
+@@ -4777,7 +4778,14 @@ static int camss_parse_endpoint_node(struct device *dev,
+ 		return -ENOMEM;
+ 
+ 	for (i = 0; i < lncfg->num_data; i++) {
+-		lncfg->data[i].pos = mipi_csi2->data_lanes[i];
++		u8 lane = mipi_csi2->data_lanes[i];
++
++		if (lane < lane_base || lane - lane_base >= lncfg->num_data) {
++			dev_err(dev, "invalid data-lane %u\n", lane);
++			return -EINVAL;
++		}
++
++		lncfg->data[i].pos = mipi_csi2->data_lanes[i] - lane_base;
+ 		lncfg->data[i].pol = mipi_csi2->lane_polarities[i + 1];
+ 	}
+ 
+@@ -4794,6 +4802,7 @@ static int camss_parse_ports(struct camss *camss)
+ {
+ 	struct device *dev = camss->dev;
+ 	struct fwnode_handle *fwnode = dev_fwnode(dev), *ep;
++	u8 lane_base = camss->legacy_phy ? 0 : 1;
+ 	int ret;
+ 
+ 	fwnode_graph_for_each_endpoint(fwnode, ep) {
+@@ -4841,7 +4850,7 @@ static int camss_parse_ports(struct camss *camss)
+ 			goto err_cleanup;
+ 		}
+ 
+-		ret = camss_parse_endpoint_node(dev, ep, csd);
++		ret = camss_parse_endpoint_node(dev, ep, csd, lane_base);
+ 		if (ret < 0)
+ 			goto err_cleanup;
+ 	}
 
 -- 
 2.55.0
