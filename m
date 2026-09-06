@@ -1,64 +1,64 @@
 Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A103026FA60
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 13:14:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 683DB3CCFB4
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 13:14:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788700487; cv=none; b=EeT+B/1w7Tx3GhCKnMMhth77UGpt5CCpZa6FiMi3C+e0lsbuDFhS0WAyFP9uehJ3gde17AKsLfwDMU8HOVflDQdjTLPWm28PYK3BMxTV2Ejpp1AtIPy7gkcTICaND9qSiLEjyKZbvuEH4L5puq/RzFu87WeCo1LB9EayFKwvc64=
+	t=1788700490; cv=none; b=JU0PQF6XN2jwNZKGccsI9LkRZqg7ZBIVHkoHWazfYhmaUakn5yn6VrPEqP0QHw+TKD8lkCjc+HoaQXz4vI5jX1pmQ5gHTeyNWOOVZOKfxhxUdmrDOlgaiD+kAnYXaPAXmJ0E8e49eNB3uOPCiaj6KeHTp+NmhK6eM2voOV7q4R0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788700487; c=relaxed/simple;
-	bh=9Jb8n7vDY4dJwr6pHHqajfSV1mPdB7IBVsl7iVfr27s=;
+	s=arc-20240116; t=1788700490; c=relaxed/simple;
+	bh=2uov7MjSgw7uaYly/JryV0QXvkNQbSYg+0flUoG78R4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=u6+8IxoXK7oS3R57FcIXkXscGSGr3w7ZeRy3j8R4hoOsk54handBGQlhkozDSg+Hx5jBds2GTF4ZaQX+7Yz9hYca2j2ttwAYnz73IUa0DINvUu05tEsra6gLxwO+r+WB893Kp5PWg9iPqvp2H7tnfcGr6G5TKWiBAm3pALntVXM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oO5Yogiw; arc=none smtp.client-ip=209.85.214.174
+	 MIME-Version; b=E8GTAYkFbLDshKu15/WhAC9m2WvmQ9V1qQYbCJr7lRq67xZjOwv6JPT/ozA5h4oFyd2x94Q5bAac88D330v6bf7FBtSUR1BoQu4C9DImlgQo2JEzplqTXkUWEVZlljp1jfdP0uH0YBwxUfw1H7jrCMjTke0IxzcL8zQOnN8mbVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R5iZAn2r; arc=none smtp.client-ip=209.85.214.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oO5Yogiw"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2cfbbdfa60bso23086095ad.3
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 06:14:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R5iZAn2r"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d6fe26ef1cso26168225ad.2
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 06:14:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788700485; x=1789305285; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788700488; x=1789305288; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=i6gElCsnArSbZd6G/RahklGwF6i5infvyLxA5U9uKzQ=;
-        b=oO5YogiwPvMS8Og8MSaeJnz3qg9fkujmRYOSp0WoyKGaopvWhaoPMGU+yxTvPNKLED
-         CBIEwEjXLQQdkjInwQOm5DoBai9V33R1NFUkknM/8S6Gi81+zDAhsT1BcMKAz3b5LmFo
-         XIB9XHO3NV1YVomwqX+qudQUjGcOGEM4D8O+8YmThh+b81TJNU3qBdaZJKBUXfYCMwFB
-         i4LRNeuGrRBPI/4hfOfPP39itwmlNEZHUOKHRkzQ0XZQ3P+DQ2FZMmnSA8t1qQz7u7H0
-         1Z49rLrHM7yUyk2Ml8oKr+UaFWy/IG7njSmXGjvOcBsBxYA6sXByyL2/g90QzppAA5aU
-         kNVw==
+        bh=U+C0aiSr3C6LpsbjgLZ1pgIoaspgg1L4h/eAlXTaaGs=;
+        b=R5iZAn2r1KQXzFFkDU55C+3kKflCF+vPTBdU40QhxQ99ojwYBUgGnfEdeKleDAVP4S
+         nV3ZlDCMaowD/axuo6B8QMet/mZUJzcOItDkD0IWgcq5ROQDzUTli0tlg8f+eY4UiVgW
+         FYgsr6CsZgLG3N+4whFEoG8t7rc/fcpkLB64oi0+aB6RsgxT3FIA0Picra7SjByWQf6+
+         dyjnSYMWFZ2ZLhK2CzfWYZwsE1eJlcpqdlKKzzS8CkIMDK0M5T1ihDwQETBaBaOvtXUm
+         tyB9rrswb2Raq8l97PiOyX8vJXBwsVVTLCfh6LOjkV5CV+GS6m7SA9+OciYYYJlx2Q8f
+         vMkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788700485; x=1789305285;
+        d=1e100.net; s=20251104; t=1788700488; x=1789305288;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i6gElCsnArSbZd6G/RahklGwF6i5infvyLxA5U9uKzQ=;
-        b=WkvwsimxYflNnf0osuJrEkdbue4avkK4I9B2NZ3qAKuVzO53jhpSkD8htie+gaUkC9
-         ICIvYiIP8jx9AEFZ/5VU0GF6iIb7m0x1a9SqAfQmEJflvEAaaXfZ0Gq8EJay5Jf2gLZn
-         N568QBGUKljLvatHGmZffHdJfpg/n1fOeUl4XbC20X/6HZ+pNjTX5PXi6pk6SKoXz69H
-         1iyuPSe/KYNRhjCHTurS6+SKucf2Ce4p3c01k93CvQEoHArJAzUCrVygaZMKdaiiYJid
-         wORert9eOpslf5BdFH48MX4SEIFEZ4+jBtGH+fO52PFmCDvrN/4JxPxospLcU0euQWJ9
-         K7UQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxtPRImiBwI9excvzNm08t221k8CiIjI/TRJTca6cPjK9ztoBz9FZDHChVHWS0zrmphmi02W7Gqc/05opQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lvE1W1vzUnbiPyNfaLREJkdVZ0T0le7Hvx0THrLmVLodkVrQP6
-	0BJojLatDsgjiWQhPkCW/qvnYwqUZZs4OUsVtgVwaG2s0JkNRHgzLtIO
-X-Gm-Gg: AYBFou0nyjQa68l4KvpAfkDKIoZSrkzcVjlcEt8Wm05HzNiclLrg9RIoZ4TFvreAjVQ
-	vZRzM82I95bqlvIcThfg6s1x/mqQlty9nzEQIkjTcYAZvaQb27dOvMfpHSdopkvbgj8NGv43smp
-	5A/6ZkaiuFkG7fDgYI78+DC2BZjQTGlm2QAFpvgdliBh/3TadFzFXRn1JeO2cUZ1h7CrBgy73/r
-	qidmGqux801qg2WbmB8HJ6GvGlV4IZ7mKc9Ry1byB1Jo8Sl4LeohtyaindP0OMq9lDjMsm1AD1T
-	80xoPd5YZ+6DAq47/VrEl3nV8/vjODpB8Ubq+SfJq6glBmJqc6QN5ZFDk/MmKGK2IUHHy2eoouy
-	GC+Pi9odr0pqQWhbHr/Q6VM/W7+7/mlLKR4DX7ytArjXf5I4pY0ZsTvcQqOEju2JoBpbqyZhaHx
-	H+S3GHN2RyYNHINMTJg9ezMxV9evOnUfK1+6NI4z3FImkdqp23lZnQ/eNSmZpDv09U0lCiGDn5Z
-	ZJkrKWizvdk2w==
-X-Received: by 2002:a17:902:d586:b0:2cf:b68a:340 with SMTP id d9443c01a7336-2db125f0cf2mr252283275ad.10.1788700484824;
-        Sun, 06 Sep 2026 06:14:44 -0700 (PDT)
+        bh=U+C0aiSr3C6LpsbjgLZ1pgIoaspgg1L4h/eAlXTaaGs=;
+        b=K68XTInJw0JPviN6PD5q6luwJhqD5+MoxumnXOYN1wiaKjwmfUcORXIpwS3CoOc7UQ
+         CYX77/cIJRUM05oU5h+FZ1RtWQthN3JbYXV4+n4tZmAKsMJguKQleByc1bbaO1Zx8WFO
+         wqAnMGHvGvLos6djJLuhFAOVvsqMHVpd+oQyERdokJMM4YUrxw6YV43cfE48KVEU4JKc
+         phJqkewWDwE92q6kmy6XmhUgqvRn+BSob4zeoF4Qn1maFcTW0/PHWCjkuQcj80dAOTb7
+         ZAoSNifcCedv0eKP2TP+tU5vAo5Kc2rlUapiVcNnNeKfQjcvMUeD1te9rH+RWL1FSJ4z
+         g9oQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzjiM194AeD9/nXWLEL12NilKorGXvyEJSBfpEZniJvlsjk+fSqhEZ0b1Uk9LTsaiNtvdmSEXIveHomNBQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nRSR5ZwRg/Ryz1SFKCnKXNLU9+On22t7IiwVXYheQsQ2Pt9Dzw
+	/UR/F85qOg4MCvUvsTD5WPiA+0mExXjf7o4oiEk1HqWUEWeiQ7AW1H0H
+X-Gm-Gg: AYBFou208BHQexp5O8Tb69ktGFu+GMyAoJFhJG9LhEam/3PwGYqkr9yWtn6j8ED/KDs
+	vYn8wHdoFP48k0wINQQgG7ktzMt3Zvk4Zq0tNX5th+K6mgyzTrPDfz+L/WT4avwsQpgCNYzQ4UL
+	BoybGw3UTi753kWZZ7I/7MzTeTmbHwsOr60ou/+4PvZ0tzJUTuQfPfg67VB+OazWNT66IZF4Jv5
+	iIm/KjNTvaqeSkevCgHSQJbUvOOXJHuVVWv07+mn0heKaZOdvHr0fSlF16z4OQmKW1xQ8ZtFZY9
+	pW1ZZWddJZN2MH6jVzSDo6I37nit2E9OzajJvaPJD587h6JBrfyWEp0EO/p8lLM3ksy1vxhkU4P
+	O9gnt5twpuxnwBIkNolHe/agHwZZcTrgs+KvjmI2LpYgkgePOJLkM7zGg3rqYHwzXk6gYttqgS8
+	XxVBQ0HN4uT10uXYtGgwVNv0YX8Sntzj8WUbrqdOrOer3d8tGfBg9X1idn8Qm0SR+00aKkKeNF4
+	sKn/D4madLu0w==
+X-Received: by 2002:a17:902:e951:b0:2d8:d4ce:7e3b with SMTP id d9443c01a7336-2db126289bbmr244806075ad.16.1788700487761;
+        Sun, 06 Sep 2026 06:14:47 -0700 (PDT)
 Received: from d.home.yangfl.dn42 ([2a09:bac1:76a0:d30::4d0:7b])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1495b2f8sm32259965ad.21.2026.09.06.06.14.40
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1495b2f8sm32259965ad.21.2026.09.06.06.14.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 06:14:44 -0700 (PDT)
+        Sun, 06 Sep 2026 06:14:47 -0700 (PDT)
 From: David Yang <mmyangfl@gmail.com>
 To: netdev@vger.kernel.org
 Cc: David Yang <mmyangfl@gmail.com>,
@@ -70,9 +70,9 @@ Cc: David Yang <mmyangfl@gmail.com>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Russell King <linux@armlinux.org.uk>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v3 5/6] net: dsa: motorcomm: Fix MIB synchronization
-Date: Sun,  6 Sep 2026 21:14:10 +0800
-Message-ID: <20260906131414.2683362-6-mmyangfl@gmail.com>
+Subject: [PATCH net-next v3 6/6] net: dsa: motorcomm: Use safe 64-bit counter reader
+Date: Sun,  6 Sep 2026 21:14:11 +0800
+Message-ID: <20260906131414.2683362-7-mmyangfl@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260906131414.2683362-1-mmyangfl@gmail.com>
 References: <20260906131414.2683362-1-mmyangfl@gmail.com>
@@ -84,288 +84,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The previous MIB sync was based on the false assumption that 64-bit
-variables are always atomic. To fix that:
+64-bit counter registers are read as two separate 32-bit transactions.
+If the low word wraps from about 0xffffffff to a small value while the
+high word increments between the two transactions, the recombined value
+becomes ((new_high << 32) | old_low), producing a spurious ~4 GiB jump.
 
-  * .get_stats64() uses u64_stats_sync, together with u64_stats_t;
-  * others take the free mutex lock if possible.
-
-To minimize time of the write side of u64_stats_sync, a per-port buffer
-is used so that all the stat can be written back altogether after IO
-operations.
+Use a safe counter reader for this.
 
 Signed-off-by: David Yang <mmyangfl@gmail.com>
 ---
- drivers/net/dsa/motorcomm/chip.c |  2 +
- drivers/net/dsa/motorcomm/mib.c  | 90 +++++++++++++++++++-------------
- drivers/net/dsa/motorcomm/mib.h  |  6 +++
- 3 files changed, 63 insertions(+), 35 deletions(-)
+ drivers/net/dsa/motorcomm/mib.c | 21 +++++++++------------
+ drivers/net/dsa/motorcomm/smi.c | 30 ++++++++++++++++++++++++++++++
+ drivers/net/dsa/motorcomm/smi.h |  2 ++
+ 3 files changed, 41 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-index e9730b9f8c62..392bf44d409e 100644
---- a/drivers/net/dsa/motorcomm/chip.c
-+++ b/drivers/net/dsa/motorcomm/chip.c
-@@ -19,6 +19,7 @@
- #include <linux/of_mdio.h>
- #include <linux/of_net.h>
- #include <linux/sort.h>
-+#include <linux/u64_stats_sync.h>
- 
- #include <net/dsa.h>
- #include <net/dscp.h>
-@@ -3778,6 +3779,7 @@ static int yt921x_dsa_port_setup(struct dsa_switch *ds, int port)
- 		pp->mib = pm;
- 
- 		pm->port = pp;
-+		u64_stats_init(&pm->syncp);
- 		INIT_DELAYED_WORK(&pm->work, yt921x_mib_poll);
- 	}
- 
 diff --git a/drivers/net/dsa/motorcomm/mib.c b/drivers/net/dsa/motorcomm/mib.c
-index f5d39d22215d..8601d25fe988 100644
+index 8601d25fe988..cfae2977a77b 100644
 --- a/drivers/net/dsa/motorcomm/mib.c
 +++ b/drivers/net/dsa/motorcomm/mib.c
-@@ -92,6 +92,7 @@ static int yt921x_mib_read(struct yt921x_priv *priv, int port)
- 	struct device *dev = to_device(priv);
- 	struct yt921x_mib *pm = pp->mib;
- 	struct yt921x_mib_stats *mib;
-+	u64 *buf = pm->data;
- 	u64 rx_frames;
- 	u64 tx_frames;
- 	int res = 0;
-@@ -101,7 +102,6 @@ static int yt921x_mib_read(struct yt921x_priv *priv, int port)
+@@ -102,29 +102,26 @@ static int yt921x_mib_read(struct yt921x_priv *priv, int port)
  	for (size_t i = 0; i < ARRAY_SIZE(yt921x_mib_descs); i++) {
  		const struct yt921x_mib_desc *desc = &yt921x_mib_descs[i];
  		u32 reg = YT921X_MIBn_DATA0(port) + desc->offset;
--		u64_stats_t *valp = &((u64_stats_t *)mib)[i];
- 		u32 val0;
- 		u64 val;
- 
-@@ -110,7 +110,7 @@ static int yt921x_mib_read(struct yt921x_priv *priv, int port)
- 			break;
+-		u32 val0;
+-		u64 val;
+-
+-		res = yt921x_reg_read(priv, reg, &val0);
+-		if (res)
+-			break;
  
  		if (desc->size <= 1) {
--			u64 old_val = u64_stats_read(valp);
-+			u64 old_val = buf[i];
+ 			u64 old_val = buf[i];
++			u32 val0;
++			u64 val;
++
++			res = yt921x_reg_read(priv, reg, &val0);
++			if (res)
++				break;
  
  			val = (old_val & ~(u64)U32_MAX) | val0;
  			if (val < old_val)
-@@ -124,9 +124,12 @@ static int yt921x_mib_read(struct yt921x_priv *priv, int port)
- 			val = ((u64)val1 << 32) | val0;
+ 				val += 1ull << 32;
+-		} else {
+-			u32 val1;
+ 
+-			res = yt921x_reg_read(priv, reg + 4, &val1);
++			buf[i] = val;
++		} else {
++			res = yt921x_counter_read(priv, reg, &buf[i]);
+ 			if (res)
+ 				break;
+-			val = ((u64)val1 << 32) | val0;
  		}
- 
--		u64_stats_set(valp, val);
-+		buf[i] = val;
+-
+-		buf[i] = val;
  	}
  
-+	u64_stats_update_begin(&pm->syncp);
-+	for (size_t i = 0; i < ARRAY_SIZE(yt921x_mib_descs); i++)
-+		u64_stats_set(&((u64_stats_t *)mib)[i], buf[i]);
- 	rx_frames = u64_stats_read(&mib->rx_64byte) +
- 		    u64_stats_read(&mib->rx_65_127byte) +
- 		    u64_stats_read(&mib->rx_128_255byte) +
-@@ -143,6 +146,7 @@ static int yt921x_mib_read(struct yt921x_priv *priv, int port)
- 		    u64_stats_read(&mib->tx_jumbo);
- 	u64_stats_set(&pm->rx_frames, rx_frames);
- 	u64_stats_set(&pm->tx_frames, tx_frames);
-+	u64_stats_update_end(&pm->syncp);
- 
- 	if (res)
- 		dev_err(dev, "Failed to %s port %d: %i\n", "read stats for",
-@@ -191,16 +195,16 @@ yt921x_dsa_get_ethtool_stats(struct dsa_switch *ds, int port, uint64_t *data)
- 	struct yt921x_priv *priv = to_yt921x_priv(ds);
- 	struct yt921x_port *pp = &priv->ports[port];
- 	struct yt921x_mib *pm = pp->mib;
--	struct yt921x_mib_stats *mib;
-+	u64 *buf;
- 	size_t j;
- 
- 	if (!pm)
- 		return;
--	mib = &pm->stats;
-+	buf = pm->data;
- 
- 	mutex_lock(&priv->reg_lock);
-+
- 	yt921x_mib_read(priv, port);
--	mutex_unlock(&priv->reg_lock);
- 
- 	j = 0;
- 	for (size_t i = 0; i < ARRAY_SIZE(yt921x_mib_descs); i++) {
-@@ -209,9 +213,11 @@ yt921x_dsa_get_ethtool_stats(struct dsa_switch *ds, int port, uint64_t *data)
- 		if (!desc->name)
- 			continue;
- 
--		data[j] = u64_stats_read(&((u64_stats_t *)mib)[i]);
-+		data[j] = buf[i];
- 		j++;
- 	}
-+
-+	mutex_unlock(&priv->reg_lock);
+ 	u64_stats_update_begin(&pm->syncp);
+diff --git a/drivers/net/dsa/motorcomm/smi.c b/drivers/net/dsa/motorcomm/smi.c
+index bf3adfd64165..27086602997b 100644
+--- a/drivers/net/dsa/motorcomm/smi.c
++++ b/drivers/net/dsa/motorcomm/smi.c
+@@ -63,6 +63,36 @@ int yt921x_reg_update_bits(struct yt921x_priv *priv, u32 reg, u32 mask, u32 val)
+ 	return yt921x_reg_write(priv, reg, u);
  }
  
- int yt921x_dsa_get_sset_count(struct dsa_switch *ds, int port, int sset)
-@@ -245,8 +251,8 @@ yt921x_dsa_get_eth_mac_stats(struct dsa_switch *ds, int port,
- 	mib = &pm->stats;
- 
- 	mutex_lock(&priv->reg_lock);
++/* Reliably read a 64bit counter */
++int yt921x_counter_read(struct yt921x_priv *priv, u32 reg, u64 *valp)
++{
++	u32 old_lo;
++	int res;
++	u32 hi;
++	u32 lo;
 +
- 	yt921x_mib_read(priv, port);
--	mutex_unlock(&priv->reg_lock);
- 
- 	mac_stats->FramesTransmittedOK = u64_stats_read(&pm->tx_frames);
- 	mac_stats->SingleCollisionFrames = u64_stats_read(&mib->tx_single_collisions);
-@@ -270,6 +276,8 @@ yt921x_dsa_get_eth_mac_stats(struct dsa_switch *ds, int port,
- 	/* mac_stats->InRangeLengthErrors */
- 	/* mac_stats->OutOfRangeLengthField */
- 	mac_stats->FrameTooLongErrors = u64_stats_read(&mib->rx_oversize_errors);
++	res = yt921x_reg_read(priv, reg, &old_lo);
++	if (res)
++		return res;
 +
-+	mutex_unlock(&priv->reg_lock);
++	for (int i = 0; i < 16; i++) {
++		res = yt921x_reg_read(priv, reg + 4, &hi);
++		if (res)
++			return res;
++		res = yt921x_reg_read(priv, reg, &lo);
++		if (res)
++			return res;
++
++		if (lo >= old_lo) {
++			*valp = ((u64)hi << 32) | lo;
++			return 0;
++		}
++		old_lo = lo;
++	}
++
++	return -ETIMEDOUT;
++}
++
+ static int
+ yt921x_regs_read(struct yt921x_priv *priv, u32 reg, u32 *vals,
+ 		 unsigned int num_regs)
+diff --git a/drivers/net/dsa/motorcomm/smi.h b/drivers/net/dsa/motorcomm/smi.h
+index 212e20f71d80..d34240548af7 100644
+--- a/drivers/net/dsa/motorcomm/smi.h
++++ b/drivers/net/dsa/motorcomm/smi.h
+@@ -35,6 +35,8 @@ yt921x_reg_toggle_bits(struct yt921x_priv *priv, u32 reg, u32 mask, bool set)
+ 	return yt921x_reg_update_bits(priv, reg, mask, !set ? 0 : mask);
  }
  
- void
-@@ -286,12 +294,14 @@ yt921x_dsa_get_eth_ctrl_stats(struct dsa_switch *ds, int port,
- 	mib = &pm->stats;
- 
- 	mutex_lock(&priv->reg_lock);
++int yt921x_counter_read(struct yt921x_priv *priv, u32 reg, u64 *valp);
 +
- 	yt921x_mib_read(priv, port);
--	mutex_unlock(&priv->reg_lock);
- 
- 	ctrl_stats->MACControlFramesTransmitted = u64_stats_read(&mib->tx_pause);
- 	ctrl_stats->MACControlFramesReceived = u64_stats_read(&mib->rx_pause);
- 	/* ctrl_stats->UnsupportedOpcodesReceived */
-+
-+	mutex_unlock(&priv->reg_lock);
- }
- 
- static const struct ethtool_rmon_hist_range yt921x_rmon_ranges[] = {
-@@ -320,8 +330,8 @@ yt921x_dsa_get_rmon_stats(struct dsa_switch *ds, int port,
- 	mib = &pm->stats;
- 
- 	mutex_lock(&priv->reg_lock);
-+
- 	yt921x_mib_read(priv, port);
--	mutex_unlock(&priv->reg_lock);
- 
- 	*ranges = yt921x_rmon_ranges;
- 
-@@ -345,6 +355,8 @@ yt921x_dsa_get_rmon_stats(struct dsa_switch *ds, int port,
- 	rmon_stats->hist_tx[4] = u64_stats_read(&mib->tx_512_1023byte);
- 	rmon_stats->hist_tx[5] = u64_stats_read(&mib->tx_1024_1518byte);
- 	rmon_stats->hist_tx[6] = u64_stats_read(&mib->tx_jumbo);
-+
-+	mutex_unlock(&priv->reg_lock);
- }
- 
- void
-@@ -355,39 +367,45 @@ yt921x_dsa_get_stats64(struct dsa_switch *ds, int port,
- 	struct yt921x_port *pp = &priv->ports[port];
- 	struct yt921x_mib *pm = pp->mib;
- 	struct yt921x_mib_stats *mib;
-+	unsigned int start;
- 
- 	if (!pm)
- 		return;
- 	mib = &pm->stats;
- 
--	stats->rx_length_errors = u64_stats_read(&mib->rx_undersize_errors) +
--				  u64_stats_read(&mib->rx_fragment_errors);
--	stats->rx_over_errors = u64_stats_read(&mib->rx_oversize_errors);
--	stats->rx_crc_errors = u64_stats_read(&mib->rx_crc_errors);
--	stats->rx_frame_errors = u64_stats_read(&mib->rx_alignment_errors);
--	/* stats->rx_fifo_errors */
--	/* stats->rx_missed_errors */
--
--	stats->tx_aborted_errors = u64_stats_read(&mib->tx_aborted_errors);
--	/* stats->tx_carrier_errors */
--	stats->tx_fifo_errors = u64_stats_read(&mib->tx_undersize_errors);
--	/* stats->tx_heartbeat_errors */
--	stats->tx_window_errors = u64_stats_read(&mib->tx_late_collisions);
--
--	stats->rx_packets = u64_stats_read(&pm->rx_frames);
--	stats->tx_packets = u64_stats_read(&pm->tx_frames);
--	stats->rx_bytes = u64_stats_read(&mib->rx_good_bytes) -
--			  ETH_FCS_LEN * stats->rx_packets;
--	stats->tx_bytes = u64_stats_read(&mib->tx_good_bytes) -
--			  ETH_FCS_LEN * stats->tx_packets;
-+	do {
-+		start = u64_stats_fetch_begin(&pm->syncp);
-+
-+		stats->rx_length_errors = u64_stats_read(&mib->rx_undersize_errors) +
-+					  u64_stats_read(&mib->rx_fragment_errors);
-+		stats->rx_over_errors = u64_stats_read(&mib->rx_oversize_errors);
-+		stats->rx_crc_errors = u64_stats_read(&mib->rx_crc_errors);
-+		stats->rx_frame_errors = u64_stats_read(&mib->rx_alignment_errors);
-+		/* stats->rx_fifo_errors */
-+		/* stats->rx_missed_errors */
-+
-+		stats->tx_aborted_errors = u64_stats_read(&mib->tx_aborted_errors);
-+		/* stats->tx_carrier_errors */
-+		stats->tx_fifo_errors = u64_stats_read(&mib->tx_undersize_errors);
-+		/* stats->tx_heartbeat_errors */
-+		stats->tx_window_errors = u64_stats_read(&mib->tx_late_collisions);
-+
-+		stats->rx_packets = u64_stats_read(&pm->rx_frames);
-+		stats->tx_packets = u64_stats_read(&pm->tx_frames);
-+		stats->rx_bytes = u64_stats_read(&mib->rx_good_bytes) -
-+				  ETH_FCS_LEN * stats->rx_packets;
-+		stats->tx_bytes = u64_stats_read(&mib->tx_good_bytes) -
-+				  ETH_FCS_LEN * stats->tx_packets;
-+		stats->rx_dropped = u64_stats_read(&mib->rx_dropped);
-+		/* stats->tx_dropped */
-+		stats->multicast = u64_stats_read(&mib->rx_multicast);
-+		stats->collisions = u64_stats_read(&mib->tx_collisions);
-+	} while (u64_stats_fetch_retry(&pm->syncp, start));
-+
- 	stats->rx_errors = stats->rx_length_errors + stats->rx_over_errors +
- 			   stats->rx_crc_errors + stats->rx_frame_errors;
- 	stats->tx_errors = stats->tx_aborted_errors + stats->tx_fifo_errors +
- 			   stats->tx_window_errors;
--	stats->rx_dropped = u64_stats_read(&mib->rx_dropped);
--	/* stats->tx_dropped */
--	stats->multicast = u64_stats_read(&mib->rx_multicast);
--	stats->collisions = u64_stats_read(&mib->tx_collisions);
- }
- 
- void
-@@ -404,9 +422,11 @@ yt921x_dsa_get_pause_stats(struct dsa_switch *ds, int port,
- 	mib = &pm->stats;
- 
- 	mutex_lock(&priv->reg_lock);
-+
- 	yt921x_mib_read(priv, port);
--	mutex_unlock(&priv->reg_lock);
- 
- 	pause_stats->tx_pause_frames = u64_stats_read(&mib->tx_pause);
- 	pause_stats->rx_pause_frames = u64_stats_read(&mib->rx_pause);
-+
-+	mutex_unlock(&priv->reg_lock);
- }
-diff --git a/drivers/net/dsa/motorcomm/mib.h b/drivers/net/dsa/motorcomm/mib.h
-index d84ae2f449ac..33992a5f9bdc 100644
---- a/drivers/net/dsa/motorcomm/mib.h
-+++ b/drivers/net/dsa/motorcomm/mib.h
-@@ -125,13 +125,19 @@ struct yt921x_mib_stats {
- 	u64_stats_t tx_oam;
- };
- 
-+#define YT921X_MIB_NUM	(sizeof(struct yt921x_mib_stats) / sizeof(u64_stats_t))
-+
- struct yt921x_mib {
- 	struct yt921x_port *port;
- 
- 	struct delayed_work work;
-+	struct u64_stats_sync syncp;
-+	/* protected by syncp OR priv->reg_lock */
- 	struct yt921x_mib_stats stats;
- 	u64_stats_t rx_frames;
- 	u64_stats_t tx_frames;
-+	/* protected by priv->reg_lock */
-+	u64 data[YT921X_MIB_NUM];
- };
- 
- void yt921x_mib_poll(struct work_struct *work);
+ /* Some multi-word registers, like VLANn_CTRL, should be treated as a single
+  * long register. More specifically, writes to parts of its words won't become
+  * visible, until the last word is written.
 -- 
 2.53.0
 
