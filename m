@@ -1,165 +1,194 @@
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F406923D297
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 01:16:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C985242925
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 01:18:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788657408; cv=none; b=UewL+SU3UENZDJ3qX889ZevBsfJosO/c+F+m4dDb8140zq8wmB7u3DLeiU+MUu23haKGRDe9FH3TSTjEyXXz9xckJnjE9Mysl0eZ9Rdd8vFQvqJg7x8IpKbYvKJMHu1+8vuQ/3QhdFWFPZbYSU3H4O31ZX/kRESUsyKWZn4obNU=
+	t=1788657527; cv=none; b=um2j4T/eKc+HnsyY2oAY3EGYqMyk2eHywnVEYS3dKZyN6ijfKSxjpSSWBKnJnymz7LoP3EyjxqwyB/yj8SKpLwB9WyE1ro9lJuYn7/PCtWCUG8G8qbUrwTzFI7whYGExY6djaa4gGpQ9m0GvzIIPGOn2q67ykSIYtboyVNJ6GFI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788657408; c=relaxed/simple;
-	bh=fpGd9kqFDbWIRRWIYboTyimcRpAKdqXIX4dnQIRcF5E=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=n69yJfr7GBHb2hbQXqka5H1gXwovdXzEbAI7VntClY9+DzKtEhFKsjxabYoSIUTNo5yasYqoQNTJ460cjZPlBnvNRdy5BPAnUazlvR9vtnOwb6LrIExUHxDXY1u05Lkri8ZLpzCb5YhGSglVl+DGmIj8GDe35TmqZ/p7WhpRE08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=KQdVdkXo; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=3CpiPCsT; arc=none smtp.client-ip=148.163.135.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	s=arc-20240116; t=1788657527; c=relaxed/simple;
+	bh=+vQ3C0AKhkdy7A8I7Q6xZYvm7oOwojkJjsP0fx+Fhdg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=nmLxp3bKmmhqnXGeBhvoTrA0L8wC670wxJ+FIAqJ3v+dZMEyJ4x4CJbY4Mk2L5pF2NFqrBKx3PW7fW2PIsFcQ1WEDIb5kQOU205cptdSpaMN94PRR44Es5xv/YAe6kq6x4GCrkAyNKbXMrAbBm59CgapE52+7jLCf7Xv98EvlZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Eeev8K58; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="KQdVdkXo";
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="3CpiPCsT"
-Received: from pps.filterd (m0167071.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6861APBv3393075
-	for <linux-kernel@vger.kernel.org>; Sat, 5 Sep 2026 21:16:46 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=pa0O
-	qXhl/BvyBCkwtgKhBKSdWO22N2FxDof/l5rwFP0=; b=KQdVdkXoQnDKSAWHSVQB
-	zqaBM1Q2IrkfBjbcCw+aJoKk8bXrliF/45KMrqAxyJtNagjk+DCfp6yzKwvn0k4U
-	84XnJOBW8cWNX2orq2sLd3o7gdjSyoZZPDpmElaBxRcEraesw8z7lTVJF4MoJ28x
-	HHQQfJTTwVe5SgZzU17X2VjMP9KW+9kIPpFcMMuw74LuVJ8se+W7sLQ60gGJMiKm
-	PGN4VqLv8UbUEn9gwxATxHDH/W9C37Thz2GQr3tzEC2w8Z5Ssix7YkR92uYc+KLS
-	+2ALMqdPFGCgZvvtoe44jhIMBrICXC22I0RFFvtaEnojPbcjxIrFLi8mCjMob3N5
-	TQ==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4ggg1jkjf9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 21:16:45 -0400 (EDT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91043af01d9so32049886d6.2
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 18:16:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Eeev8K58"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d71ae3455aso30995875ad.1
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 18:18:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1788657405; x=1789262205; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=pa0OqXhl/BvyBCkwtgKhBKSdWO22N2FxDof/l5rwFP0=;
-        b=3CpiPCsTzNQnhET7lYrrUPJSWrmBbdb725EBirXEH0Qrv5Epty+7+FFZU/OeM/mk00
-         r3y4nr7YL+ol+zHhwJJVhuuily6OyLUqg7mKOqJMFGyTJpbmyc04G/eNXTRYljkCp1TQ
-         cIKlc/uP/Y2DvzJ27eNfHnhlxXK6bA2l6iGLt0vZkvL/torFYKTBwoy/CbTPkpuHo+fB
-         zlopvxeKjS2uyUNaeS0DUqMey9UbAL8QCxIckbjgl4CVUO8onpAAO+kAGi6hnum0D9M7
-         RXDVIvZq7h2DmjVNQ3xhLK2h/N9qCQr4Reuzc+/AQnN7UFz02Ah/iLiT2W04QWkvfQ4C
-         U95g==
+        d=gmail.com; s=20251104; t=1788657525; x=1789262325; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ywe2sHtINpj8rB0jtyYuL7DLOlKzJ3vQHaEJq2LOGaw=;
+        b=Eeev8K58pEBrV1wTeMObhA0nvpptUFUcFBpC5Ng1tKp3mcxdI+Bg0BKd1SR4TxImdX
+         0nuEZn2XZG6JersxlWGFyCJLY5w0E7PEUCCflBBNUVv8vOJdFhLTDONX+ANYm9hTarMS
+         jiTWiEadM0KgK8zAQsHNiA+ATcwblDC4HYnpxuNViDWMiZuyjwhH96CGOUHjo2d0f3pr
+         g0LOC7MktEzJguaFG9k7sYc0m6l9WGIWW3DpJ6iEmMzdw3MXzFntzTTW5ulgPoaaCi94
+         zBZgsbcoG72UibkC0e9ablYtfac92jfIpDqGfTbUXc6VF03M3jRNt72G8uqTgMruMe3D
+         2rKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788657405; x=1789262205;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pa0OqXhl/BvyBCkwtgKhBKSdWO22N2FxDof/l5rwFP0=;
-        b=riAtTU18qmLQs6PCKA1+bvF2aTo6o6rYhihMVhTWOfDEZVJuPmCxfF6FxbDBVt4SvF
-         KtrvQYrYuaGpHsKzL6MCJ9lL1iWcWsYstRJElVhCD611ofqfzxocjON/VZC9GTx1sa/J
-         U5WFVIWsXuT4NJgKBs5tlt9is6drQIkzRfFL+c+oJut4GiFYawTLScS0AIFzfo7YifEP
-         34wO3zKm5ubuYjFm1cSbhwDg4/ZbgusLWiLldSj9Byvo2tu8AqpSyg+cl48fIdZZ0aiI
-         AgKlNooae2Y2ryF353FqI1djH502JBUEwpJpibTHP3y1tvTlenNiASm55UOv4xTQfBVn
-         ANAA==
-X-Forwarded-Encrypted: i=1; AKwUvBzAj019RL8+/O/yP/Zt2b8L5aLSkzLLmAXpZBJmBwW29o19P48tuPz7Q0o7fMU+Jvx4L0rzCQkxG+Dyfac=@vger.kernel.org
-X-Gm-Message-State: AFuF++nUDbNBu+ISel5KS2CL9+zU/je+GWPf8F8Stp5SJrDJVgYfMBfu
-	jkamAgQckTA3VjpnMPa+3joPtDj6TFLZomVFfztwYuKExr73dYodBwWcYgFfRYbDXctKArmfUZ8
-	vhQshSGKKK6BqqV8Gsth+cgkwZxEhCHRlkVTqWCTVBt9xfeQMh6cchWI/wMy/NtAAACIxPQeL
-X-Gm-Gg: AYBFou3RwN0XGG/jun3TKhtsIbzHlSuDDMTJyAL/sEooyWpbcbQs8Zv2NBYZM9mT7Em
-	UAB/YeNC9sRO9F263CnNDdG36FxiwJ3yheAl7/BdP1NdcMPdYZPn8xZjcUzQ6nngHIPfL4IsEqB
-	icH+WLXvQFbg048J9WzLpt7p+7of3Vfvj+lgsuHhzRsmBuUxkT4EQ9azUB/PTuWnRO0IdU8QViX
-	GUV53OuIuKYe8SvxG/ZO+qd6oEuTQK0TVHO26iv1Q6+5Ps1Nb+hLRR6EjODcL3oD1nBgq//B9Fz
-	6ZQsIUMJF9y3WoYoyHtWj/tPjzF+386ZWDyV1u18KhRb0riymhVj0+oXpkpU8pXllVgipIlIFDq
-	zi3xPy34DGOZlvsQQXsY4o+j9DHOHZmCIPPevmxKlmwwlAw==
-X-Received: by 2002:a05:6214:d04:b0:910:39f5:3747 with SMTP id 6a1803df08f44-9103efc87f8mr165538576d6.2.1788657404998;
-        Sat, 05 Sep 2026 18:16:44 -0700 (PDT)
-X-Received: by 2002:a05:6214:d04:b0:910:39f5:3747 with SMTP id 6a1803df08f44-9103efc87f8mr165538356d6.2.1788657404625;
-        Sat, 05 Sep 2026 18:16:44 -0700 (PDT)
-Received: from [127.0.1.1] (dyn-160-39-33-242.dyn.columbia.edu. [160.39.33.242])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9104067b125sm57108466d6.29.2026.09.05.18.16.43
+        d=1e100.net; s=20251104; t=1788657525; x=1789262325;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ywe2sHtINpj8rB0jtyYuL7DLOlKzJ3vQHaEJq2LOGaw=;
+        b=I6fJvqons3mrQQsbSBmlir/l2b5VJfQC+fJvk7ibFa/SC2CBQDD8BcuefrNOUbdqPS
+         gDUCrLRL4H9NE8p6//i1JgQZupxyTRVYSKdOcS2qKaE+jCmG8j7iU9pmo5hyT6+8LFxe
+         q88QUoTdQYuUV8ltPsSxCZXUIQn3sjqXR51TiqwCXyu2s7zjqklj9qRK6iCF+SrvaGtU
+         MxNJof21cf5x5phIHf4Zn2d9gZaxl24UzUiA+lFRRILFN62p/2toE6xxQyT56sbNqwfO
+         yEajbmaWBiRkO43tgZXH8W7pp0HcfzlyiTeIRrVzPuDGNPAWD19NeSeMOrY9RiBqfjBs
+         pBHg==
+X-Forwarded-Encrypted: i=1; AKwUvByUlnKM6kT9+1UoFwTm2sINShocKP8uc2cweuT9UaHGv1V+oFsRbD0WfaUEzXhRMp1ZsH6y7anPhfDkceg=@vger.kernel.org
+X-Gm-Message-State: AFuF++m70uLtvd7KN+NR1ix8+oLidh7eTyLJvsypx7pakkNszOAZ+M2G
+	Qz2FqEptqvL50fMapUApFHHwOqmgUAPMlbtiEJ0kqeR/rClDOQVOORzb
+X-Gm-Gg: AYBFou1Uest2xGW2bnc8RIg2t7UuGJlPeBwCvdUHM9v2JVxTYCbvDDTQEfUysvLG0T2
+	qoj8dCtcjmUVWScRozHz13mg7eNuo3mQ3c/4jzj6oqTXGmIoBPYRGbi9OyEDmuYrrdc16S22ni+
+	4oTKCkXLHXlfxb9mPh9M3qwVOvestjFhURqMiWz87Y2vHjclQEo13HmWMnd8R1nY2nJv8Ve6NaD
+	Z+3Jz6tbltSPl5Q2CBAIrBylM8M0gXY69Yz7k/DdBgktHHoxZUrBF7aj6zjwZlfK5O6dEo2H8p4
+	1OofuHvw+UyUP0CRdUvyZyHWpnK76qMf94htBKVcVRgabuqBtxdWD2JAUXgb0trf/Qmq9Xrk/s0
+	uwtMB5cDmkwTN6ooEtV3TTWgAjFwJPYMkXGrf4uweC3THX3dxbjkbncMSP63SeElH7sps3deL7A
+	Msol73OJnx3EfKWCstg9eBqqTJtdiwGWB8SCHxIk6DnWgxh6gsI+2tUt7S6/NDj/88gt2hBFtXD
+	DWKGEEwcIVrB7og
+X-Received: by 2002:a17:903:2b0d:b0:2d9:1dee:43db with SMTP id d9443c01a7336-2db1284b6dfmr222969445ad.15.1788657525544;
+        Sat, 05 Sep 2026 18:18:45 -0700 (PDT)
+Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db149c3b80sm26905965ad.63.2026.09.05.18.18.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 18:16:44 -0700 (PDT)
+        Sat, 05 Sep 2026 18:18:45 -0700 (PDT)
+From: Bo Zhang <zhangbo0325@gmail.com>
+X-Google-Original-From: Bo Zhang <zhangbo56@xiaomi.com>
+To: akpm@linux-foundation.org,
+	hannes@cmpxchg.org
+Cc: baohua@kernel.org,
+	kasong@tencent.com,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	david@kernel.org,
+	mhocko@kernel.org,
+	ljs@kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Bo Zhang <zhangbo56@xiaomi.com>
+Subject: [PATCH v2] mm: vmscan: avoid anon scanning for GFP_NOIO with low swapcache
+Date: Sun,  6 Sep 2026 09:18:20 +0800
+Message-Id: <20260906011820.382381-1-zhangbo56@xiaomi.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260903040131.4016290-1-zhangbo56@xiaomi.com>
+References: <20260903040131.4016290-1-zhangbo56@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] mm/zswap: convert zswap_store_page() and
- zswap_compress() to take a folio
-From: Tal Zussman <tz2294@columbia.edu>
-To: Wilson Felipe Pereira <wfelipe@google.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Yosry Ahmed <yosry@kernel.org>,
-        Nhat Pham <nphamcs@gmail.com>,
-        Chengming Zhou <chengming.zhou@linux.dev>,
-        Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
-        linux-kernel@vger.kernel.org
-In-Reply-To: <20260904232108.3034333-1-wfelipe@google.com>
-References: <20260904232108.3034333-1-wfelipe@google.com>
-Date: Sat, 05 Sep 2026 21:16:39 -0400
-Message-Id: <178865739998.1122157.4086614121955790016.b4-review@b4>
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788657403; l=1078;
- i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=fpGd9kqFDbWIRRWIYboTyimcRpAKdqXIX4dnQIRcF5E=;
- b=2xrv39QBDJyGK+wzlMOINud1WKQlgdmab+FTuxAgx/YJSdZYGJUOJiT0X9m3c0by1jx6fuf0r
- URymY0U8MRtDZ2WR8vB99NsJsMyn6/mjglxvyMXvLj9epduY/Jqn8m4
-X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
- pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Proofpoint-GUID: FkwEvhlVgftuH7DMP-tasgYbRYh2r9Vk
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA2MDAxMCBTYWx0ZWRfX2mc7YwPwSrw5
- UudPpZPs6bkphjUap8cy6tEd8lmow+p/fRBi1LtoJfYtqax9g48M481IkiRmQO5MTpnBRMkByCG
- G34hNUypuZJg0KlisDma4Cu/g+UTYPL+hm4fCvEu4ZtLZbkX6vMU
-X-Authority-Analysis: v=2.4 cv=IJkyzAvG c=1 sm=1 tr=0 ts=6a9cbefd cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=GaPK54s0Se3oFqK5NkZy0g==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=79PYxaXUQd1wl-QFWJnA:22
- a=VwQbUJbxAAAA:8 a=1XWaLZrsAAAA:8 a=umyeRmfRCjY_sZYBsYkA:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-ORIG-GUID: FkwEvhlVgftuH7DMP-tasgYbRYh2r9Vk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA2MDAxMCBTYWx0ZWRfX7hzd9MolCD/y
- ygmTyeJ6HK8OXDCd2VOwG452EJHtmpiJnKQCEGKjObFEk/ULUGo8u44qSN+TCR7ZEY8yk9swf+w
- +/IfAdCFJZ/lNPZfvHEGS9zt/TTRe1dgf/0jB9Ln713heCd1iCsdLtPXwiNKOM58s/x47gX8FvZ
- bHJLYuLhrm9BxwYlGwOA22sz8vDwke1EntFUTbgF2uy0PI8uQOETNiraIz7rxKYqtzdyYhGDMqg
- TcGlAslh6byEtxi3I89xeZsGZpRq5TNqux+akmBG3CKQPUE57kir+PDtZf2WnjMWhLHNQl196qj
- +DnfSB8Vdyhg9zyHJEFKfNfZZOcjV2jfmZ9GO32WXJ3dQzxoYiYjO80d+BwU+23Ms2IhYJdj2PP
- /wsx8EEnmusX4kYBXOoEKlhl/s2x+2mHijuE79df93L9bMQ5OK6gylW4PNLjFV/9ucEUlx8FAhZ
- tk0OfPRnl3yzhLXnwmQ==
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11897
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=10 phishscore=0 adultscore=0 clxscore=1015 suspectscore=0
- priorityscore=1501 impostorscore=10 malwarescore=0 bulkscore=10 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609060010
+Content-Transfer-Encoding: 8bit
 
-> Currently, zswap_store() iterates through a folio and extracts individual
-> struct page pointers using folio_page() to pass into zswap_store_page()
-> and zswap_compress().
-> 
-> Pass the folio and the page index directly into these functions instead.
-> This eliminates the need to materialize struct page pointers inside the
-> zswap_store() loop and replaces legacy page-based accessors with their
-> folio equivalents:
-> 
-> - sg_set_page() -> sg_set_folio()
-> - kmap_local_page() -> kmap_local_folio()
-> - page_to_nid() -> folio_nid()
-> - page_swap_entry() -> calculated via folio->swap and index
-> 
-> Signed-off-by: Wilson Felipe Pereira <wfelipe@google.com>
->
+We have observed some cases where memory is allocated with GFP_NOIO, so
+we cannot reclaim any anon folios unless they are in swapcache. We can
+end up spending more than 150 ms looping in `shrink_folio_list()` scanning
+non-swapcache folios without reclaiming a single folio. This is pure
+overhead.
 
-I have a very similar patch as part of a larger series here [1].
-It looks like we mostly aligned apart from a helper the series
-introduces, so I can easily rebase on top of this if this is applied,
-so:
+This is particularly true on systems using zRAM, where swapcache is
+relatively rare. So let's check whether anon reclaim is allowed by
+GFP_IO and whether there is enough swapcache to make it worthwhile. If
+the swapcache is extremely low, we're essentially searching for a
+needle in a haystack, so let's avoid scanning anon in the first place.
 
-Reviewed-by: Tal Zussman <tz2294@columbia.edu>
+On Android this is triggered by dm-verity hash-block reads through
+dm-bufio, which use GFP_NOIO:
 
-[1]: https://lore.kernel.org/linux-mm/20260830-folio_swap_entry-v1-4-7786b52acbc8@columbia.edu/
+  verity_verify_io -> verity_hash_for_block -> verity_verify_level
+    -> dm_bufio_read_with_ioprio -> new_read -> __bufio_new
+      -> alloc_buffer
+         gfp: GFP_NOIO | __GFP_NORETRY | __GFP_NOMEMALLOC | __GFP_NOWARN
 
+Such a reclaimer can land on a memcg with a large, unswapped anon LRU and
+a tiny file LRU (e.g. inactive_anon ~335 MB vs inactive_file ~4 MB, with
+negligible swapcache). shrink_lruvec() then keeps feeding that huge anon
+list into shrink_folio_list() - ~2400 shrink_folio_list() calls, ~93,000
+anon folios scanned - where every folio is kept because it needs IO. The
+150+ ms above is one such single shrink_lruvec() pass (not accumulated
+across a reclaim cycle), and it reclaims nothing; the actual progress
+comes entirely from the file side.
+
+Aging anon alongside file does have some value for a later __GFP_IO
+reclaimer, so it is not strictly pure overhead. But that aging is only
+deferred, not lost: kswapd and other __GFP_IO reclaimers still walk and
+age anon. Spending ~168 ms aging memory that this context cannot reclaim
+is not a worthwhile trade-off in a latency-sensitive path.
+
+To stay conservative, this only skips anon when the swapcache is really
+tiny - below 1/64 of the anon LRU - i.e. when essentially no anon on the
+list can be reclaimed without IO. Whenever there is a meaningful amount of
+swapcached anon, the normal path is used and anon is scanned and aged as
+before.
+
+Signed-off-by: Bo Zhang <zhangbo56@xiaomi.com>
+---
+v1 -> v2:
+ - Use mem_cgroup_lruvec() instead of get_lruvec(), which returns the raw
+   node lruvec for a NULL memcg and would be misinterpreted by
+   lruvec_page_state()'s container_of() during global reclaim. This also
+   drops the get_lruvec() move. (reported by the sashiko bot, suggested
+   by Barry Song)
+ - Drop the SWAP_CLUSTER_MAX cap on the threshold; the check is purely
+   proportional now (swapcache below 1/64 of the anon LRU).
+ - Expand the changelog with the workload, the dm-verity/dm-bufio NOIO
+   stack, the ~168 ms single shrink_lruvec() breakdown, and the aging
+   trade-off discussed with Johannes Weiner.
+
+ mm/vmscan.c | 23 +++++++++++++++++++++--
+ 1 file changed, 21 insertions(+), 2 deletions(-)
+
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 245f68c75b28..e20ac2cb4dd5 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -362,6 +362,23 @@ static bool can_demote(int nid, struct scan_control *sc,
+ 	return !nodes_empty(allowed_mask);
+ }
+ 
++static inline bool reclaimable_anon_is_low(struct mem_cgroup *memcg,
++		int nid, struct scan_control *sc)
++{
++	struct lruvec *lruvec;
++	unsigned long anon_pages, swapcache;
++
++	if (!sc || (sc->gfp_mask & __GFP_IO))
++		return false;
++
++	lruvec = mem_cgroup_lruvec(memcg, NODE_DATA(nid));
++	anon_pages = lruvec_page_state(lruvec, NR_INACTIVE_ANON) +
++		     lruvec_page_state(lruvec, NR_ACTIVE_ANON);
++	swapcache = lruvec_page_state(lruvec, NR_SWAPCACHE);
++
++	return swapcache < (anon_pages >> 6);
++}
++
+ static inline bool can_reclaim_anon_pages(struct mem_cgroup *memcg,
+ 					  int nid,
+ 					  struct scan_control *sc)
+@@ -371,11 +388,13 @@ static inline bool can_reclaim_anon_pages(struct mem_cgroup *memcg,
+ 		 * For non-memcg reclaim, is there
+ 		 * space in any swap device?
+ 		 */
+-		if (get_nr_swap_pages() > 0)
++		if (get_nr_swap_pages() > 0 &&
++		    !reclaimable_anon_is_low(memcg, nid, sc))
+ 			return true;
+ 	} else {
+ 		/* Is the memcg below its swap limit? */
+-		if (mem_cgroup_get_nr_swap_pages(memcg) > 0)
++		if (mem_cgroup_get_nr_swap_pages(memcg) > 0 &&
++		    !reclaimable_anon_is_low(memcg, nid, sc))
+ 			return true;
+ 	}
+ 
 -- 
-Tal Zussman <tz2294@columbia.edu>
+2.34.1
+
