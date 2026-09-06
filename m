@@ -1,126 +1,188 @@
-Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com [209.85.161.54])
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6542836A01A
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 18:31:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E89272F6577
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 18:31:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.174
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788719473; cv=pass; b=lkwp5L6Tw8G/8e3hW46kHUKknZwkhVnF6rNj47c+7tuha+a06JxExC4e2tnDAwoSLlN993TBkHU7A8eRfhlXoFbAZYNvFQpCYsciMpnvAbScvPe9Gz+OBi2qyTc8CM+DHTM6m45viCuodBONg6IOn21g6JU7shBzXYF+uQCGJto=
+	t=1788719511; cv=pass; b=HxS+rKJGLxQew8dVD8+tNGfLKsi8OH/pKh8CmrSKdsHQV5ctpzVryfVRwJ/3ApK0ukfVaMkX+ZhgMDY9V+KG36Tl5XzvToIVHGALzz33dteiJtp6HNVp6xKwluUzwlzGaHAi69ZgX/vdGMzC6UFR6IhwnQ1QdIArgFKMe7NFzBE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788719473; c=relaxed/simple;
-	bh=z2zRx5xIYzBTRZFTx4rfNkA/ccYpqsaQrW2/mbf7wNw=;
+	s=arc-20240116; t=1788719511; c=relaxed/simple;
+	bh=pvvJqd7Euafnh/j2/YsbTiW/PcrYqSgdLGzLkgxVrCg=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ndUkmxoe9ZJ9g6k53pp4nx1D7GrU9uHFIArRQ7CsT33A2xQgQ/ueX1mmxFYVvT1j1WiGK3/jiwPJoEd6zfqbj/NAnWenqbzGLecqTaUJhXITjQb5oQMyv5/9LhMhq3kobehSkytoh25XYwPdNYPbUCTxOfcutwyDAtoFfbGkno4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hgC3fKf9; arc=pass smtp.client-ip=209.85.161.54
+	 To:Cc:Content-Type; b=edlaATZfoywp0MxO7EdGyO8lrqYbR9WIUciEvYtiHhZCQniyw1ZZaF9okTqZ5D/lJN6G4NbziCC9Ak58fKbp5DIaxV3HeWd2xdwEQU//2z+5n+IgXOytDkIgiyNrW8Q+snifm863wCctWQMJijZcncHlNeiHWjLZTKW76R79NUs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Evd1MPP2; arc=pass smtp.client-ip=209.85.128.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hgC3fKf9"
-Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-6b1a0d75a4fso1622908eaf.0
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 11:31:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788719469; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Evd1MPP2"
+Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-85b293528a9so33927527b3.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 11:31:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788719509; cv=none;
         d=google.com; s=arc-20260327;
-        b=cs9ZSElOIEiSIiWf7KT8e7mHxyOynamW+a/H51z9DeX4P2HqccPO1sghD1p0xGEx3e
-         webrMw5QMJVjAldMOTUBapivaV0uHL90XhydyCINxcXf81W5hyiy/Qmj8dLEA7RjjDwo
-         anvyFguEgPjjoFZhc4eWRwVkka9Tcuih9QAMmY5wkTR6jveTvwLaD5ob6RtWTLGTc7IN
-         nNHbKlLUxMtgo0GKkgaZ8m9ZRgv77cwKYm97OI649yFvPakNrsS5b3r/Gs9Nnw4OV9Gh
-         zdFAaKl8eimd8xfkAnlSGmKrN9QVCdUlJr7F2Swjbd60NQmp+5h4NsT1zU2ndQZv1GIW
-         Q5TA==
+        b=Wb8otEzP2DYevI+LxhhvYctv+6vUYhpr7jcs+EDRa+6yA8eTYXaRl+8zy21A7jJvuY
+         ApwUzZjSSsGncAPbNUV9evZLoQ09YJMzC4xNupWgkmkuaqYSD5plsJjUfTkOCohHx7tX
+         Hrf1bngR8VsAM32ouLU+Cv1z6wBAOZsH0WJV46T4I6Cy3DrNqxN8XbqPhAqmox6ApfKy
+         SQrRXK0j/3YHJWtXFUDHb/RxyrQbNtF5xAdXP1F+AF3GWXn4l3xxiBElWD3zaogd7hy5
+         QK2pSl1ARd7W+EesZxkqnu/ykOTU3AEnYLbu5j9gtBCDAZR6Oq1wXc9g0gSAxdUSvfvY
+         0s+A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=gVW2rYt7tF88/8e8E+2HUuoezaWujAL+SsxCklpr1lc=;
-        fh=vL9YnDOjrYAGvwfSsO85tlt1wwh+W4ITkLDvBnwFM8I=;
-        b=mRcW1Ty9TDVZ/pua+dg1TDZSAEV7hz/g6oozzOWjldDI7bsVYuM7hevv7mi28PUQ7s
-         qH7hUC1hpYDXKwMltQn+43XDT3OZylfwyjkMKxsCZIBZRuEWGOC+hmXqavb318+0UnHk
-         o4t1nUfQhZuv/3hSThy/hwEpOqsBIkc9aBVk/LRkEgH0eIT0jaNzQmLuWY1B+efgbOXa
-         fGTI7nuprqHXghsH7y+eTKHJZR+KWTg/GG2DA36wOAm9CLASUZ0p18EjZ7714q3eO5oj
-         Zk+AgYZqchsfRJ+f4vySkmQFbfK0xSJi5LOok1nlE3OH6OOkBnxMLWOqIyizTIZT+Fme
-         0kiQ==;
+        bh=TQkeSwtedLp1iDq5m8KD8XHS3VYT5RaCWuCgQNld12s=;
+        fh=/gLxyoDN9X37uTm4O7vHvO5/SHC1iFl7oqB8IIymvdQ=;
+        b=hGFB6zqKHX45yXvtk4ctkCy0meQCWmE9FjfVBjLAaQLOEqpPQqu4dXAsncciCC5kEb
+         /oZHGJqnDGJWb0EZAbpsXKMcIdpoSjmUPjU/+YR0UpCFCLOQu6/SJAzn+uIqOQ5Dat8j
+         lv/U8DcMjjr0GNFI3wesSV9gCBVG8X+WyPGzexWezKgjKD3t5aYPOXUEB40QK/p7CT7s
+         r6FngYjSyRKVFHCY19wOyR8zhQuW31Ti5nVk+fyKw+LpJKUfsl0VIymGJRzZdT6JOJJJ
+         hZDDUxoedbaQR8lr8ZwrNUqfcF6yDJzVzib720GlbpiO5K6Nq313For9xlOr8A8OoQjj
+         qgxg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788719469; x=1789324269; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788719509; x=1789324309; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=gVW2rYt7tF88/8e8E+2HUuoezaWujAL+SsxCklpr1lc=;
-        b=hgC3fKf9Q2lD71dMzFLPJ2/cVucXzJPmtzHUhRL7M0XxxAroZrsx/He6YEVtvKze1O
-         ImeM8Go+plvjQUojcP7oT9PduoWF7krinnlvKgBVzWsMQp6/SV0V41QNH4uj0TuNV/6v
-         /BmwAU7RCeBCN2XVzU1nrOIZBE5ErNrSSajDEU3zQ2lqANuPS2dvAp2mneXlnnSq0DEy
-         FzI+pWyFpXsoTKrgFQwq2oD5HuU6g22qfWYho+N8u5FF5w9U2GLB0daAppaXjYhGz9bi
-         skeb+PDQ09f7Fn/CUTCWKE9W3mUxYbGb5PfFhpfSrRYsCuUUEipcIOSb1meTmC27ANdw
-         bLuw==
+        bh=TQkeSwtedLp1iDq5m8KD8XHS3VYT5RaCWuCgQNld12s=;
+        b=Evd1MPP2ae9RI8xQA/e4mGF7AG0IOTfrpmqWKNKTPZCFpMP1iagR2rLpyDykWRpdL1
+         0BXcOJRac/vAIRNq4hYL95a/jACbSDRyza/flWGaM0PjaCpXOSTBjBZKQxDihp2TabKn
+         9pTMrKSFHnuiYFB21Z7jC9HpHkVjKSrkc9pyGLNb2y7Q3emyER7+gY/AbNB5jo2OeCzT
+         9JZK1xhUryo2gELVDELa+x9KwW4SDD1wcA9Nej2R9kNMG2h5bzFJp1AUpnDnTF7mM7Ma
+         x4zbMLCa7qADhqMxxMLXeKSUyYfcfWpLlEucO2lfmwN8KS3GVxugpLZPYBYgOAg63TjR
+         rQtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788719469; x=1789324269;
+        d=1e100.net; s=20251104; t=1788719509; x=1789324309;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gVW2rYt7tF88/8e8E+2HUuoezaWujAL+SsxCklpr1lc=;
-        b=BMW+LpigK2Xayjaf38AD3ZdvtZE+FY2tVTUOL+XDBYPh1Z+ElJc0m/JtLZNKaigx2F
-         gKaCE6jF9BcWeuoRquaxDEHOxrfdKSSH01Oo7rYqcTznCQcplAkCdTzVaaXyfJmQkbwY
-         fHd2rpGH3WQZQkjo4PVbWfP0G1wQWiebY0/9A/pHJuslEO8WFC3J/fQXVdRiv6zYJskU
-         uu619eW6QivZUzSx5vQmm2MCKxN7g9ndTr6ZhMWswvYqElGUnwypGvokVM6y8oBAtxo2
-         P/0mrPmJkevE6tZ5bNVobdUjftKy2uZHijn5Vkj3aiatOuxqEiQwdtAF5QeYcVQlTfg8
-         gB/w==
-X-Forwarded-Encrypted: i=1; AKwUvBy0QhnNPOqj/tLrsSBQs1umP8Fda2G5zWR6Y+IwlOprJmJa3Yfsm6J5Nx6Mqik0iYyB6AkdFlVX6UB9eRw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwklTLv/1vVXzoEMYXHYpvswuw83c38eB+ktST/LLmbWuILfFN
-	o2oEBx1LKZOQ7o403ncvTkuhQxwM5JHPE41kpvYzqswPcpAzyoBfu1ap1la0pVxoJIj3zy/gpJ4
-	ILYJDgUKqL1HhVjf9OsvKOfyvi3dQV3c=
-X-Gm-Gg: AYBFou29TviDUu1WE/MpWdSJpR47eDqLP7nT+NHDLJF06yrgBLJm+UII4ic79q+Nbhw
-	zbQu9norL/HFd7gefgTQm/nItfwzM/iGmGK2h+hfZ6ZaCxgkLenZLcn24cKopzragdKjHffqrtU
-	zULrrLI+JJGu0kCn6yzeSkTOdK5cLidOjvg4BTYybbasxepEfZbPXxU51jZjxBObdfLwl2zCNOi
-	Ln1uSOREgegJg3owUlwZV219GE2IP18Pmj5NOFuz8VHev6t7kMQumn++n+OFYhH9/OhmED4Pxzz
-	LwtbeJdiFXHzqcmbbjefQZMpwhrx/vsXm3i6rSc9l6/IReibBtcXd000TpcxnQ/YLQfmJsTGgwm
-	GS/E=
-X-Received: by 2002:a05:6820:1987:b0:6b7:46fa:16a2 with SMTP id
- 006d021491bc7-6b746fa1a6bmr9651192eaf.55.1788719469386; Sun, 06 Sep 2026
- 11:31:09 -0700 (PDT)
+        bh=TQkeSwtedLp1iDq5m8KD8XHS3VYT5RaCWuCgQNld12s=;
+        b=bnD0eX7Q/Hun6C06P3GT9IqbvzNeycvtunAgIUpudzWZkrME0Waki8ayAwyry108ka
+         lYJn1VEamen/bUnInZk6TslUapI74saeZ2vU+iReHhZU9EPMvZdouPK93haSTVTW8Ljl
+         BKa3rnSwrYc1SIzFM12BdfpU5PVqJFg9bLPz4eXz+y2mhNs22vcrCAF0dfGOrigXdgP6
+         aJhETHZSbypqir8ROpZaGhaf/SUULRHW4IXdb27BpBpg+9IapNAxJBGMiPHzWgybjIff
+         MxHcrBNw7Ol7P881PJlPdOqb4fMDzl8bCWJS4aFyTwTGBmxpEiXugDnYv/qRnMHMuoqW
+         NXpg==
+X-Forwarded-Encrypted: i=1; AKwUvBwDI9hUm5qpLo+oB9pPxHfhWA2dEs4Ug68u4ney6t+YgkIkomr3xii6O06Jw+n0ysU1iNEbsv98U5bB5J0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mpR7LFnFi1sahYckOq542PgIm6DqmIeG+IgFrxvyahtk5IkLNW
+	uE9VJ1EtHHbRHI+q679hsMi3m5n+jgms3yr4p0MLD2CA7NxXx9sdYezXsVDDKtIiJfTJpbZ9H9V
+	XlK/XtrnSJsamBf8vzw2r4RD3JiRQ6AA=
+X-Gm-Gg: AYBFou34vrlJWUtaUPIziwfSXVOnz/Gu2RmTndYzX/Py+e2P0v190LhPQzcQCsi0ciR
+	pnac56ay0HJ/TisiORHN5XRsAS5m706LC0/PuNhSJWja+HCgb6rrXlTrMztCeVYskEOhqbwOx6W
+	ZylRooJ5v43yp0hepkODyw+8uu/m6Y5iBkmMcmq/uRwv/PvPwPjBY3/wW5vtijJBlCi+ZPEeF82
+	2zQA9O4ajtcvu6/xJplB+ZVz7u3SYGo3PioeQt/d9MW5uBrmVv7mJ9DQ0yuJL1XMj1aRf4TcesW
+	rAmzGG9KyI0ddPhaqiX2dylsQqwnCSsNz6fUSTwimWd14Y0SMJKo4ns0h/CSdyYjD6O6DlY/a7U
+	owyc=
+X-Received: by 2002:a05:690e:43cd:b0:66f:c1bc:403a with SMTP id
+ 956f58d0204a3-66fc1bc490emr1136508d50.27.1788719508881; Sun, 06 Sep 2026
+ 11:31:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904095416.1692962-1-kyle.switch@motor-comm.com>
- <CAAXyoMN-RX1aY_isyajES5LgiDMp7_YTbM=jiS6d-8o2kKQXqg@mail.gmail.com> <27a16f29-14a9-40d0-941b-f07d5b63ec4a@motor-comm.com>
-In-Reply-To: <27a16f29-14a9-40d0-941b-f07d5b63ec4a@motor-comm.com>
-From: David Yang <mmyangfl@gmail.com>
-Date: Mon, 7 Sep 2026 02:31:00 +0800
-X-Gm-Features: AcwNN1UZ-8BrSMDGVBN5KLRtkn4qqRe-CbA17Xg-DeFLgJqOf9TG7E-yF7aBSzc
-Message-ID: <CAAXyoMO0MpXdvRLHow8wfe3vBj=VgQMz8ZFExnQshB8uVNH43A@mail.gmail.com>
-Subject: Re: [PATCH net-next v5 1/6] net: dsa: motorcomm: refactor
- registration path for upcoming switch families
-To: Kyle Switch <kyle.switch@motor-comm.com>
-Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net, 
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	linux@armlinux.org.uk, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com, 
-	jianmin.wang@motor-comm.com, wei.zhang@gl-inet.com, sijia.huang@gl-inet.com
+References: <12955564.O9o76ZdvQC@rafael.j.wysocki> <CAJOGg3x4nMtSJeiLa2nsBFFuG4GRyvj7MbErcdOgxyuXCkr_og@mail.gmail.com>
+ <apbPV_tsyYVzvEVt@kernel.org>
+In-Reply-To: <apbPV_tsyYVzvEVt@kernel.org>
+From: Julien <julien82453@gmail.com>
+Date: Sun, 6 Sep 2026 20:31:38 +0200
+X-Gm-Features: AcwNN1XY9sFlhyINrgcYqoQq92RQCKR2qxwUOv8SXLhPuRgwGnTe1uxZUxAdUfE
+Message-ID: <CAJOGg3z22-G_+izney69i3AhesqwX-u0Coj74zXSjb-RzSCdvw@mail.gmail.com>
+Subject: Re: [PATCH v2] ACPI: scan: Do not combine resources that overlap completely
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Linux ACPI <linux-acpi@vger.kernel.org>, 
+	LKML <linux-kernel@vger.kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Mika Westerberg <mika.westerberg@linux.intel.com>, linux-integrity@vger.kernel.org, 
+	Nathan Chancellor <nathan@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 6, 2026 at 10:08=E2=80=AFAM Kyle Switch <kyle.switch@motor-comm=
-.com> wrote:
-> >>   static const struct of_device_id yt921x_of_match[] =3D {
-> >> -       { .compatible =3D "motorcomm,yt9215" },
-> >> -       {}
-> >> +       {
-> >> +               .compatible =3D "motorcomm,yt9215",
-> >> +               .data =3D &yt92xx_series_info_table[YT921X],
-> > Redundant if you use both runtime identification and the match data.
-> > Also I'm concerned with early IO operations, although I didn't see any
-> > incorrectness here.
+On Tue, Sep 1, 2026 at 3:12=E2=80=AFPM Jarkko Sakkinen <jarkko@kernel.org> =
+wrote:
 >
-> Ans: we have considered this issue before. in the next version, we
+> On Sat, Aug 29, 2026 at 12:43:30AM +0200, Julien wrote:
+> > On Thu, Aug 20, 2026 at 9:11=E2=80=AFPM Rafael J. Wysocki <rafael@kerne=
+l.org> wrote:
+> > >
+> > > From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+> > >
+> > > Commit f234fdaae1ca ("ACPI: scan: Avoid registering platform devices
+> > > with resource overlaps") attempted to avoid platform device registrat=
+ion
+> > > errors due to overlaps of resources of the same type returned by the
+> > > same _CRS object in the ACPI tables.  It did that by combining two or
+> > > more overlapping resources into one, but it went too far and also
+> > > caused resources that overlap completely to be combined which broke
+> > > the arm-cmn driver that expects two MMIO resources to be present for
+> > > each device it binds to and it expects those two resources to overlap
+> > > completely.
+> > >
+> > > Address this issue by adding checks for completely overlapping
+> > > resources to acpi_platform_adjust_resources() and add a comment
+> > > explaining what is done there.
+> > >
+> > > Fixes: f234fdaae1ca ("ACPI: scan: Avoid registering platform devices =
+with resource overlaps")
+> > > Reported-by: Nathan Chancellor <nathan@kernel.org>
+> > > Tested-by: Nathan Chancellor <nathan@kernel.org>
+> > > Closes: https://lore.kernel.org/linux-acpi/20260819003752.GA3063251@a=
+x162/
+> > > Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+> > > ---
+> > >
+> > > v1 -> v2:
+> > >    * It is better to check for complete overlaps both ways as suggest=
+ed
+> > >      by Sashiko.
+> > >
+> > > @Julien: I would appreciate testing this on the machine that needed
+> > > commit f234fdaae1ca.
+> > >
+> > > ---
+> > >  drivers/acpi/acpi_platform.c |    8 +++++++-
+> > >  1 file changed, 7 insertions(+), 1 deletion(-)
+> > >
+> > > --- a/drivers/acpi/acpi_platform.c
+> > > +++ b/drivers/acpi/acpi_platform.c
+> > > @@ -85,7 +85,13 @@ static unsigned int acpi_platform_adjust
+> > >         for (i =3D 0; i < count; ) {
+> > >                 struct resource *res =3D &resources[i];
+> > >
+> > > -               if (resource_type(new_res) !=3D resource_type(res) ||
+> > > +               /*
+> > > +                * Look for overlaps of resources of the same type th=
+at would
+> > > +                * cause resource insertion to fail down the road.
+> > > +                */
+> > > +               if (__resource_contains_unbound(res, new_res) ||
+> > > +                   __resource_contains_unbound(new_res, res) ||
+> > > +                   resource_type(new_res) !=3D resource_type(res) ||
+> > >                     !resource_union(new_res, res, new_res)) {
+> > >                         i++;
+> > >                         continue;
+> > >
+> > >
+> > >
+> >
+> > I have tested this on commit 1b78070aaef6. It seems the patch is
+> > already included in it.
+> >
+> > TPM device still works. Here are the logs.
+> > acpi MSFT0101:00: [mem 0xfed40000-0xfed4103f] expanded due to overlap
+> > tpm_crb_acpi MSFT0101:00: [Firmware Bug]: Bad ACPI memory layout
+> >
+> > If in the future if I need to make tests again, should I do them on
+> > the Linus Torvalds' branch?
 >
-> will consider whether to do it via chip_detect() or using indexed
+> What was the hardware where this happens?
 >
-> assignment. From your suggestion, what are the side effects of each
+> Sorry, if I've ignored it (if it was mentioned previously).
 >
-> approach and which of the two approaches do you recommend?
+> BR, Jarkko
 
-We didn't use compat info since we can do all the probing after the
-reset, but I think the compat info here is "just enough". You can
-still change your mind in any series later.
+It is the Acer Aspire ES1-572. I reported it here
+https://lore.kernel.org/linux-integrity/CAJOGg3z6LJPDsdPNBxajgy8_wQxfhYBRxe=
+4EiurZf3kPU5A5Bw@mail.gmail.com/.
