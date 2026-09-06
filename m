@@ -1,1128 +1,207 @@
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CWXP265CU008.outbound.protection.outlook.com (mail-ukwestazon11020118.outbound.protection.outlook.com [52.101.195.118])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 462023C0A12
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 20:13:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788725595; cv=none; b=HI0Q9bQ9TAN92dumpOXkqsJhfVWMj84hHdZZRpxcY/DvoAN2IWtr4wvwDadhVAGdlJM/3mkO0WXG/iqFxOvhdAGrzL3cD6uh47STyaoK3ck9fYWTqAgjT7JthGULRJvhNLjelhgwNywn95+cZ8OwMML309K58uzrpkqJg/2Xv0A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788725595; c=relaxed/simple;
-	bh=UiI5a1w69pq486YFF3CYIk0RqR4PZnnB6GRz2MyTcxA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=UiQQyKRPB1JTCekPuYGEiaVCqBRGqjR/i+SCug56lrSNbLtwhziC/RqO6lbvR/SSk/haBDYv67mCckXDKxNK0WqS7SPT6oasc3aq3X/enYGq/aLRPCWnslKPe2CBTUvvwSEJnYMK9HrheohCo2FWa6XCumq9NNNJB3BbOl2Y2ag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mc4AysJX; arc=none smtp.client-ip=74.125.224.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5462239A04C;
+	Sun,  6 Sep 2026 20:13:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.195.118
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788725602; cv=fail; b=RH7xcy0yaqsBJWXfNlOAT0kW3wpgd/n8BNe1j0PS5c2gsizFXmKwA8GlJqE6ZrfoioRaviXCqtj1kWEOhppcyGQkCvqDrbXXTlvD/wI7re6uiJ8rQouKq7rg7VWxHoJGg2LVg8ppeecbM85EL5+/X+JCoJzCvWbwypV9uRrxoQ0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788725602; c=relaxed/simple;
+	bh=GGeWFJXsHmKEdTinfRzA7jghKiwthK5rYypXiqbWVQc=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=eb8CzBfCMkl5Gcw7xTDApcEsDLQgXlmAxOtHqSTSAIRlr/O160hWkQLAAkby20H2v8RrNklAMuX7iMq7FqC5odOEN+Py9wRAga7D2oC2vANiLxJ425VI1uUZ57j+i6iDl5nzix1Ys7p9PLmxR73FspQ1hVMeVCRdI/IfiX7ih0w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=ZXINFztP; arc=fail smtp.client-ip=52.101.195.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mc4AysJX"
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-66c7127a73dso3524353d50.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 13:13:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788725591; x=1789330391; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nM4nO09OqQzGUxmO54c6Y6FRbsn4VH2OOYaXU9vXtRg=;
-        b=mc4AysJXjMZyXT/DFdPt7GG0UHsvVtCERTFV2WbQjOVLShnOUpGWhrbx58ZBnu0bQ2
-         9mugamcbd/vhD5YJUaD6+YlV58vjlpwmUUE4EiNd0xiS+5GachrL10e0mhezdR5EhhrZ
-         RCBW2lTvJ5P4JRypHJ0lopNwJY6VggmBsmSoocEQdV7jI64zU18p5lcNjVoeS75I5UhC
-         4qOlk+CzAW4h4D7WMTn7YeixYJt/Bo3KaQjCh3XQ7xjpHZukMnBOqMB6UgV0X2MxzK1e
-         zWG9hX/W3wLFAHMs88a1jFuq1SKcKFeqDYpRehVAny2sBq8U49kMaYRTUBFJvTpkyXSk
-         Fx2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788725591; x=1789330391;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nM4nO09OqQzGUxmO54c6Y6FRbsn4VH2OOYaXU9vXtRg=;
-        b=jgq1hoWK8DcinxBV1/RF37JbK2lolDtPZSVn7a8lfFmoDr/Yu2rw0FHrpA2h5xbGwS
-         7haSJoGU5JDKRkts1sZsHFSIijAXov1Q+toRZxo1VGBKPz90hc6w0Yzz9oW+Do/6jUAC
-         BuRG4AofUKz3YjpfzdDTj4mOvVpXqQTr3btMMSYolb41QJWVETaQcrM6iHrqFGYW/XNa
-         eCwghqQ6Lm2xGwYK03+XP9J0KUwQUnX7e/jbT0AzWpzqV7NxgVw+Qv5zvHpmInyMIHTr
-         t/QweGVwYbvMcDqKg0xosUUPrBE15A+T0ZfXBdh3J8kYdxPz090NtymRwseYhnkPkGyU
-         1ZfA==
-X-Gm-Message-State: AFuF++nDqWEbemaVO+CHUpkSITnvkkPNKW9DIEkbDZD8w9V9TT3LTxHl
-	NRYj1Lp2xXqlXDLdd4FNlTTLdYBSNS9MANsameIiES/aGxe1gz46Y87R
-X-Gm-Gg: AYBFou2O8gx8v8IMtCsdQsboiUqhzrJBzHLkrLwBw5qS25Fj1txvYJY4TFOGJsXqzSv
-	m9kz7JzW2lQYc8Ho50I1gWUofwWjDhlWUm+0Y7rjaY9ijiHCitt3E2nSofdbt7B/pTF1F+27N8g
-	/39zEN/Iv1IlnQqPfJ//tNrm1BU0QKIU34lsi/aYbRb5UKb9OMsIhUeKrV6fiRTmxAY114KDfcY
-	hhQ1nA4n1sxvsI4TE0Km/ClCRqKfFMV7/jLJJ6ZRsBNe9aeDzhBKuIgArBCoensZVWcIprYv3DM
-	AXaGDkQ1KetmjCJuvavZTkJFJo1nNoyWVLP/FeawEBHirIb8Eqt+WzqBXm9UlZtn21c4vwo3rXj
-	cp5LvFblSKocO0SLF5kCpgZ0b7Rqn7xK/nVEPhtBVFu1500iCIBb4ktnVF+qgbHGaJawfhiJ7q0
-	ChlpS/yvnVCA37i2ENX4Nox58aBomxO6lcAWXxzcCvfz8INB9EvMcGGHx4p+de
-X-Received: by 2002:a05:690c:4005:b0:873:5c0f:295 with SMTP id 00721157ae682-8735c0f0490mr34134257b3.63.1788725590844;
-        Sun, 06 Sep 2026 13:13:10 -0700 (PDT)
-Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8714b7255fbsm60379557b3.42.2026.09.06.13.13.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 13:13:10 -0700 (PDT)
-From: Matt Turner <mattst88@gmail.com>
-Date: Sun, 06 Sep 2026 16:13:06 -0400
-Subject: [PATCH v7 1/3] tools: port perf ui from GTK 2 to GTK 4
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="ZXINFztP"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mzP7ySPjEE0hJ+lyqz8KOiuLybyZqZvurPf8jg+7PmrAi08p994NaiFQM4rekWnkbWWA2aO3GPKvAodd53X6moQMQD4EC3uqFjkheMcj4DtkzdWJyAmrzfqtS5KAxvrUwaT1YeVKZ5LVmyOcvtmf7PByEjUbk+QKArPsSTM9pv+9i7/dGWp18TOi6A9E10o721L+FKNSsJrrZgm7fu25nkbktgypctFmB6HRh6Cg5yH+K8D8J9k/FufZHeeu1YhziCR1gft9CB7zO6YMV1CBY/Y6cB9fNDnZpTG3iPKoOeD4Y7U+v50z2wRAHERXSAHi/rIKAepNrmipguZuz+JiPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sENCGh/9LNGCV1kNjp2RB5KbqwWBzyBwsNZKY7ySLDg=;
+ b=krVWzoAkWMJ9D7nAsJxrAr17pTJf5mBryvh6pPoxzKmMJpUhPeVvbGSCvkAqTXixMFCTI7xIPIq3qGKjur2EnX5StLERlwssl78sxTTd5PtSkROoAFsXwvpf9r7N3sP4haG+hMIfE8jiz/61nLF20IXUXwDXX6qI22j2iscjKR8oGvOoO1ujUN8L4giuAOmZrqcc5qUQ0ujnilymFRqtELUA5ctsacz1CzGr1/4tNCfs70HTf1sGO6yx005UIOURNCCGD7e4DNOjhJfomC7FCaa6aV2MTrSJD2m83O+fLCcWGVYkUkjFfY2f49JC91/HDJzwcVOvW4grH4p2wyWecQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sENCGh/9LNGCV1kNjp2RB5KbqwWBzyBwsNZKY7ySLDg=;
+ b=ZXINFztPj5CiWyVlwJVaYPHhZ18iyyT2z2Hg69l5f/1nuA/56qLTqlSBUm0t5jJtIaykkLIN7UsZMTfQGmsO2dKlKkedbXuNWPHRztIDN0mKPhJtj8QYvEvPKeC7kdaYnLsEl9wnUJ4uRPe0opI8IxcLVz/NPUgXvFaMCRd9zQA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by CWYP265MB9355.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:28a::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Sun, 6 Sep
+ 2026 20:13:16 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0382.014; Sun, 6 Sep 2026
+ 20:13:16 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 06 Sep 2026 21:13:15 +0100
+Message-Id: <DL8IAYDEO7VG.1HPQR4U9S7H2Q@garyguo.net>
+Cc: "Ayush Singh" <ayush@beagleboard.org>, "Johan Hovold"
+ <johan@kernel.org>, "Alex Elder" <elder@kernel.org>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
+ Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Eric Biggers"
+ <ebiggers@kernel.org>, "Ard Biesheuvel" <ardb@kernel.org>, "Lorenzo
+ Stoakes" <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R.
+ Howlett" <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Jiri
+ Slaby" <jirislaby@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ <greybus-dev@lists.linaro.org>, <linux-serial@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <driver-core@lists.linux.dev>
+Subject: Re: [PATCH 5/5] rust: serdev: Pause receive callback before calling
+ unbind
+From: "Gary Guo" <gary@garyguo.net>
+To: "Danilo Krummrich" <dakr@kernel.org>, "Markus Probst"
+ <markus.probst@posteo.de>
+X-Mailer: aerc 0.22.0
+References: <20260906-rust_serdev_probe_refactor-v1-0-69cdae0074ec@posteo.de> <20260906-rust_serdev_probe_refactor-v1-5-69cdae0074ec@posteo.de> <DL8DCNMSENDS.3T14U5W1Y32IX@kernel.org>
+In-Reply-To: <DL8DCNMSENDS.3T14U5W1Y32IX@kernel.org>
+X-ClientProxiedBy: LO4P123CA0617.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:314::18) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260906-perf-gtk2-v7-1-1ece839fbca0@gmail.com>
-References: <20260906-perf-gtk2-v7-0-1ece839fbca0@gmail.com>
-In-Reply-To: <20260906-perf-gtk2-v7-0-1ece839fbca0@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>
-Cc: linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
- bpf@vger.kernel.org, Matt Turner <mattst88@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=35384; i=mattst88@gmail.com;
- h=from:subject:message-id; bh=UiI5a1w69pq486YFF3CYIk0RqR4PZnnB6GRz2MyTcxA=;
- b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLLmngyM1dZaGcZ0bl/B85MLN1pNjSwzXSG250HTo7jrr
- hffbj2v1/GRhUGMi2GmmCJL3HpFllltO5b6nJb+BTOHlQlkiLRIAwMQsDDw5SbmlRrpGOmZahvq
- GQIZOkbxEDk9Bo3M4uLS1CLdtIIih7z8ksSSzPy8Yr38gtS8gvQCvbTMtJKMjPyi4lSgEXp5qSW
- mro5uRoYGJpaOFmZOFo6mJs7OToZObo6Ozq5ORpbmJgbOlo4mrpbmDFycAjDXTPFn+Cv4pPXEv7
- r6GEfu3m6fX5VPz/3SXWs6Zddq2/8nGbJXr9VhZFg8b+mRzUFfnY/UNTeUPhZKM/NvmdFvwOJS2
- fNMVzQxlQ8A
-X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
- fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWYP265MB9355:EE_
+X-MS-Office365-Filtering-Correlation-Id: 18cf3252-cfb0-4f53-fb56-08df0c534940
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|10070799003|6133799003|10067099003|4143699003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	hcKaBGAvGXRaPMHLmoyOFdXwPmmbwFwbGi8jxli/VADhQ1qmgPzjHq9kzInkR6yMbcMgFENeXNCxNUUdMDDz6TUuZ1ic0u4eEbAsanMIHiQwGgINJfCiVFUPwf6MIcbgoK6zyg00amRU/kvNkRG2XkenWg7blOKGkB4FXJLxJheY8Jji/vPMRY0Ss/WbdkhiX87edPs3F8KWj4aaKcy7Jy/+E8N78iN0eQORoaIIzmw7f7fc8GBmKC4UoHaWT7JMZjoQGr67aqEMiPDHgLdt1n0WqNF/F/0SX/o8x1DvGuiwjWcFy5LTr20pbVgvH/tnW83WUC5mHY3ma8KEPga60yoQtZKMB4F3syRBTICD4QBWOE+NVnOpIiWwld6JceXU0pSImMBlXKUAGj6lclXew9ATpNS9XU0l0ja/+hEw9WtHJltSX1UcR1BezFqRiir+ieERG9a8KM5yW2SOWJJkkmzow9TlzaQHWiaVC1SYANgu0tSEwp1VHcuMURqM+JDkEaCiLkXv8OFr5pjzAGuNXgyZrWtIyLm4ZBwFQse9zK0nxW00z9acoRlXjG0YlXhFfmjqclXMtdCCaerQ2ZUt4rRZN//3U3RMJzEaHvuDnsJhFNnyvd+uwFzwcb1SKENiFIbJ/szVDIwnzQTUVSlRezL/rEvrs1Xiv+TfLB2/C2k=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(10070799003)(6133799003)(10067099003)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SlJrSzJ4ZXhUcHNCNVNBZ3lZQjk4UDUzRytkcVFnWm13RWpYMUNOZmNsMEJx?=
+ =?utf-8?B?WXRRUkJCZkVMMEJibm52aThEUUR4MmRHZXFVYXlEYnB4alRSLzhKUkI3NDJu?=
+ =?utf-8?B?Z2pLY3diQ0VxQVJwYk9ScTJxK1UvR3BZQXNvYkJ3RVdDZ3czbW1TeXB1amZI?=
+ =?utf-8?B?Q09Leko1Rjc3TUJudThES3MzRWtqSUpURWNuU0l2c2lTQTM5SS8xNGdLWng5?=
+ =?utf-8?B?Vm0wWFBWOVhEOXhkTmtZTEdkOVI2NzZaM1doU0RMbi84dG15U29iWitQQjhV?=
+ =?utf-8?B?M3dPNmgzNjRWUklPSVlVVEpFSjRVTUJDK1hLVmk0SzZ3NklDNmVCQ3pLNFlS?=
+ =?utf-8?B?SUdsRmlmRUQ5TUx3VUhJUkZXU0JKaGY2L1doUGsrVTNnQ1hJVVdqdjk3L3Q1?=
+ =?utf-8?B?ZnhNYndENjVBc1NWSmNIa1dDTWJRR3Bhb0VrSEkxZFVlZlRFOFA5b3BxaWlv?=
+ =?utf-8?B?ZE9FclpnM3JvU2hOcEdGaE9weGZxbXl0WDRiY3Ivc1J5UHYyM1hYNm1IV3Ny?=
+ =?utf-8?B?djhUY3hjdXlGUTVISXBvdWh3S0VmVXJ5ZDRoL2Nwdlo4ZkozUjAySVQ5dDNN?=
+ =?utf-8?B?ZzhUQ2FUWXY0TDRKYUN1UUJjZlJDVzU3bWZiSmxWeVJQTW5BMW5KNVRkZlVp?=
+ =?utf-8?B?T3I3L0RJdlkxK2VjYWc1bmdQalYvM0pWcEdycTFOL2lpM0JRdUtyNW1pUVVI?=
+ =?utf-8?B?MnVZa1RvbTVNajRtKzMrNk9lZ1B2c3cyTHlqemR2SHo5b0hwaXl6WGp6bUlM?=
+ =?utf-8?B?OTIxUUJMN1U3ZDN4L2F0UDhoK1IwRVNsWHcvaFhFMmVySFFsWVNCeHowTGJt?=
+ =?utf-8?B?WEpBelQwbVFiL2VwS1JneUlQSEdLSy9JZ3JzTlRHb2hQbWJCd0VvdFROR2VM?=
+ =?utf-8?B?dVV2VVJnTzBiM3A5Ky9lV3pUN3pvNTFWVENiNm9oMzJGMXpRVmlTYTNFUHRP?=
+ =?utf-8?B?VzFqS01KSFNvWVE2bEc0STI4OWZ0YzVoN0ZBN0NkdjNsbFdQTXZCUEZuVFJB?=
+ =?utf-8?B?dVVzWENQK2M4YW5UUnU0bHhaM1EwRlhPOUQ3LzVZdEhIemtaSlVHQUEvK3My?=
+ =?utf-8?B?dC9xWklXRmlEMlJML2xwcWZqRDhOa0cxV0ZQRThsc0dkRWdJQkpJc1NDeThE?=
+ =?utf-8?B?N3FTaTdkZFg2aXM1aStmaUs2UDBzcEM2bjNwRTBPWHNVY0VvS0Ftd2puTzM0?=
+ =?utf-8?B?N1lDRlNTQlo1WVlodjA0d3dqKzUxNC83YzV6VURyLzJZZjBlelBMaVVxdGxn?=
+ =?utf-8?B?NWY0cDdlMUNyVEFvWWlLNHhFbmVpT2MwTUh2ZnloVUpSY3JsN1RmaUZQb3pM?=
+ =?utf-8?B?NWVVZm9WeldHS3pNcThrUWdic1pXckRGT0I4aTdoSUFaQlhoRFpQUFRQNHB2?=
+ =?utf-8?B?WnRmZktqaTZZbFpVb1RDYTNQaFNUazQ5VEJQRVFWemtQbnp5aTBPalJ5VHBy?=
+ =?utf-8?B?ZGhBb3B4dkZkKzFkcHdFQlFIN2xYbFlNNy95YWRIMVZhcFlOajdtUHMwSFEw?=
+ =?utf-8?B?RjN6V2VNQmIvdTY3UnAvbzdIMmp6N2FTRVFQMk1ZcmxSd3ByUEZqdlFoWU40?=
+ =?utf-8?B?STNrWEdlYjhnL3NIQndqa3ZkUkZSTGJxNXIxVDUvSndtY1NmZmlQU3RlOUtR?=
+ =?utf-8?B?WU9yUUl4ZDhGb25XK2FsTll5RGkrcTVkdWFyUzFSZFo3bzBtSUtJc2VnRjVs?=
+ =?utf-8?B?YWpFcTZTK3JSZkR3ZmVLYUxTRmZIUHE3cU1KR1p6RXpYaXNBLzNsc1RyY2Jq?=
+ =?utf-8?B?dVVlQWxwQU5xQ2VseGllNm9ZT1J0ajc3R2ZFbzVVWFVCUldpMjlCd1dlYTFx?=
+ =?utf-8?B?Ylc0dytZMDlGSjFwTTgxaVdhOElDT3dHZWRGZWhxMUlmeXZodVpDd1FPMUty?=
+ =?utf-8?B?dHdNakVDYUtIWFJzRklxcUY0NCtHbGw0RzEvai8wVGlPai9EZExTOUdxd2Fn?=
+ =?utf-8?B?ZG1zbmFpTDN5VGgrN1IrM1IxaXhkVFFVS0RoVnp4M1dOaGIzbkg3K2hrVDN5?=
+ =?utf-8?B?K3JhWnRIbGFBZWw2VFBaWWhsQ2pQQkR0TFlKL1lTRWw5R1grNXRDSWJSZUdT?=
+ =?utf-8?B?WWpBcktkczI2UlMybnRaME5VNTNWUkJLY0JqZFlxbER1UnY2MDE3a0tFdGU3?=
+ =?utf-8?B?RVZtRmhiMUZFbVNmUmJWSlk2WUYvbERkVjZVc1kwVTlhcVhGYzYxQUlxSHRF?=
+ =?utf-8?B?WUZ0eFlKOGhZeDQvbHdiMUhraEpvMlF3TWpybzkrcGtRTlNpeXcxZEV5aFBL?=
+ =?utf-8?B?YWFhRDB5VDBEeGNaSnBRK2V1Unh3TjZyR2Y1Z29WcW1WY3Y1V2JvZGxhL2Jy?=
+ =?utf-8?B?U0VUOXdqaTNOWGh1YnArWnlsWkxWb3Boc01XdFF1L1dzekhDdWFIUT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 18cf3252-cfb0-4f53-fb56-08df0c534940
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2026 20:13:16.1565
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: M4tcOVlX0QXrkjS214mXjUDbenF9/QkyZTXuoWqQH1McpAHgIx5iXM149Hv1AFrVqPi9s1SMpGZLWqEeA6u2Zg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWYP265MB9355
 
-Port straight to GTK 4 rather than GTK 3, since GTK 4 is where new
-development happens and GTK 3 is old itself now.
+On Sun Sep 6, 2026 at 5:20 PM BST, Danilo Krummrich wrote:
+> On Sun Sep 6, 2026 at 5:55 PM CEST, Markus Probst wrote:
+>> @@ -200,10 +203,14 @@ extern "C" fn receive_buf_callback(
+>>          // INVARIANT: `sdev` is valid for the duration of `receive_buf_=
+callback()`.
+>>          let sdev =3D unsafe { &*sdev.cast::<Device<device::BoundInterna=
+l>>() };
+>> =20
+>> -        // SAFETY: `receive_buf_callback` is only ever called after a s=
+uccessful call to
+>> -        // `probe_callback`, hence it's guaranteed that `Device::set_dr=
+vdata()` has been called
+>> -        // and stored a `Pin<KBox<PrivateData<'_, T>>>`.
+>> -        let private_data =3D unsafe { sdev.as_ref().drvdata_borrow::<Pr=
+ivateData<'_, T>>() };
+>> +        // SAFETY:
+>> +        // - `receive_buf_callback` is only ever called after a success=
+ful call to `probe_callback`,
+>> +        //   hence it's guaranteed that `Device::set_drvdata()` has bee=
+n called and stored a
+>> +        //   `Pin<KBox<PrivateData<'_, T>>>`.
+>> +        // - `unbind_callback` calls `serdev_device_pause_rx` before ac=
+cessing the driver data,
+>> +        //   which guarantees that this function will not overlap with =
+it. Thus we have exclusive
+>> +        //   access.
+>> +        let private_data =3D unsafe { sdev.as_ref().drvdata_borrow_mut:=
+:<PrivateData<'_, T>>() };
+>
+> This would break the driver core's lifetime design. Any kind of registrat=
+ion
+> (such as class device, auxiliary, IRQ, etc.) may borrow fields from the b=
+us
+> device private data. The whole design is based on the guarantee that we n=
+ever
+> construct a mutable reference of the bus device private data.
 
-GTK 4 drops GtkContainer, GdkScreen, and the gtk_main()/
-gtk_dialog_run() family perf's GTK UI relied on. Containers get
-per-widget setters (gtk_box_append() and friends), monitor geometry
-comes from GdkMonitor instead of GdkScreen, and the main and
-error-dialog loops become explicit GMainLoops quit from the
-"close-request" and "response" signals. Widgets are visible by default
-now, so gtk_widget_show_all()/set_no_show_all() go away, and the
-remaining gtk_widget_show()/gtk_widget_hide() calls become
-gtk_widget_set_visible() (with a small wrapper where "response" needs
-to pass gtk_widget_hide() as a callback, since it no longer exists as
-a plain function).
+Mutable references should be fine (of course, provided that the bus actuall=
+y
+serialize callbacks).
 
-gtk_ui_progress__finish() skips destroying a progress dialog that was
-never created, since gtk_window_destroy() asserts on NULL where the old
-widget destroy tolerated it. Two spots the GTK 2 to GTK 3 port had
-missed (builtin-annotate.c, ui/gtk/setup.c still using
-HAVE_GTK2_SUPPORT and gtk_main_quit()) are fixed to match.
+It's only problematic now because in absence of pin-init self-reference, th=
+e
+immutable borrow is the only mechanism that prevent user from having multip=
+le
+mutable borrow of the data fields.
 
-Runtime fallout from the new signal-driven loops: the error dialog's
-nested loop hung if the parent window closed
-(GTK_DIALOG_DESTROY_WITH_PARENT destroys without emitting "response");
-gtk_info_bar_get_content_area() is gone, breaking GTK_INFO_BAR_SUPPORT;
-the progress dialog's static widget pointers dangled after a manual
-close; perf_gtk__error() and the warning functions reused an exhausted
-va_list when vasprintf() failed.
+Say this code:
 
-The error loop is tracked in a list instead of a single pointer, since
-perf_gtk__error() can be called re-entrantly (the dialog isn't modal)
-and a lone global leaked the outer loop when that happened. The list
-is only ever touched from the main thread: perf_gtk__error() updates
-it while handling a dialog, and SIGINT/SIGQUIT/SIGTERM are deferred to
-a GLib source via g_unix_signal_add() rather than calling
-perf_gtk__exit() straight out of a real signal handler, so quitting on
-those signals is serialized with the list update instead of racing it
-from signal-handler context. SIGSEGV/SIGFPE keep a real handler, since
-they're synchronous faults with no "later" to defer to, but it's pared
-down to reporting and reraising the default disposition
-(perf_gtk__fatal_signal()): there's no safe way to run GTK/GLib code
-from the faulting context. stdarg.h, stdio.h, and string.h are now
-included explicitly where used (util.c, hists.c, annotate.c) rather
-than relying on transitive includes, which musl doesn't guarantee.
+    struct MyDeviceData<'a> {
+        foo: Resource<'a>,
+        bar: Resource<'foo>,
+        baz: Resource<'bar>,
+    }
 
-The gtk4-infobar feature check is dropped: GtkInfoBar has existed
-unconditionally since GTK 3.10, so the check can only ever pass, and it
-was failing outright here anyway since gtk_info_bar_new() is deprecated
-and the check treats deprecation warnings as errors.
-HAVE_GTK_INFO_BAR_SUPPORT and its statusbar-only fallback go away; the
-info bar is now built unconditionally.
+pin-init would make `foo` and `bar` be only visible immutably in the projec=
+tion,
+even from `Pin<&mut MyDeviceData<'_>>`, so the design is still sound.
 
-Signed-off-by: Matt Turner <mattst88@gmail.com>
----
- tools/build/Makefile.feature                     |  4 +-
- tools/build/feature/Makefile                     | 10 +--
- tools/build/feature/test-gtk2-infobar.c          | 12 ---
- tools/build/feature/{test-gtk2.c => test-gtk4.c} |  4 +-
- tools/perf/Documentation/perf-report.txt         |  2 +-
- tools/perf/Makefile                              |  2 +-
- tools/perf/Makefile.config                       | 22 +++---
- tools/perf/Makefile.perf                         |  6 +-
- tools/perf/builtin-annotate.c                    |  8 +-
- tools/perf/builtin-report.c                      |  8 +-
- tools/perf/scripts/install-build-deps.sh         |  4 +-
- tools/perf/tests/make                            |  4 +-
- tools/perf/ui/gtk/annotate.c                     | 36 ++++-----
- tools/perf/ui/gtk/browser.c                      | 96 ++++++++++++++++++-----
- tools/perf/ui/gtk/gtk.h                          | 16 ++--
- tools/perf/ui/gtk/hists.c                        | 43 +++++------
- tools/perf/ui/gtk/progress.c                     | 40 +++++++---
- tools/perf/ui/gtk/setup.c                        |  5 +-
- tools/perf/ui/gtk/util.c                         | 97 ++++++++++++++----------
- tools/perf/ui/setup.c                            |  2 +-
- 20 files changed, 239 insertions(+), 182 deletions(-)
-
-diff --git a/tools/build/Makefile.feature b/tools/build/Makefile.feature
-index 99eb0ea09537..4ec95c35a5c1 100644
---- a/tools/build/Makefile.feature
-+++ b/tools/build/Makefile.feature
-@@ -113,8 +113,7 @@ FEATURE_TESTS_EXTRA :=                  \
-          compile-x32                    \
-          cplus-demangle                 \
-          cxa-demangle                   \
--         gtk2                           \
--         gtk2-infobar                   \
-+         gtk4                           \
-          hello                          \
-          babeltrace2-ctf-writer         \
-          libcapstone                    \
-@@ -143,6 +142,7 @@ endif
- FEATURE_DISPLAY ?=              \
-          libdw                  \
-          glibc                  \
-+         gtk4                   \
-          libelf                 \
-          libnuma                \
-          numa_num_possible_cpus \
-diff --git a/tools/build/feature/Makefile b/tools/build/feature/Makefile
-index 7d165018116a..01c48e6ef021 100644
---- a/tools/build/feature/Makefile
-+++ b/tools/build/feature/Makefile
-@@ -11,8 +11,7 @@ FILES=                                          \
-          test-eventfd.bin                       \
-          test-fortify-source.bin                \
-          test-glibc.bin                         \
--         test-gtk2.bin                          \
--         test-gtk2-infobar.bin                  \
-+         test-gtk4.bin                          \
-          test-hello.bin                         \
-          test-libbfd.bin                        \
- 	 test-libbfd-threadsafe.bin      	\
-@@ -240,11 +239,8 @@ $(OUTPUT)test-libcpupower.bin:
- $(OUTPUT)test-libtracefs.bin:
- 	 $(BUILD) $(shell $(PKG_CONFIG) --cflags libtracefs 2>/dev/null) -ltracefs
- 
--$(OUTPUT)test-gtk2.bin:
--	$(BUILD) $(shell $(PKG_CONFIG) --libs --cflags gtk+-2.0 2>/dev/null) -Wno-deprecated-declarations
--
--$(OUTPUT)test-gtk2-infobar.bin:
--	$(BUILD) $(shell $(PKG_CONFIG) --libs --cflags gtk+-2.0 2>/dev/null)
-+$(OUTPUT)test-gtk4.bin:
-+	$(BUILD) $(shell $(PKG_CONFIG) --libs --cflags gtk4 2>/dev/null)
- 
- grep-libs  = $(filter -l%,$(1))
- strip-libs = $(filter-out -l%,$(1))
-diff --git a/tools/build/feature/test-gtk2-infobar.c b/tools/build/feature/test-gtk2-infobar.c
-deleted file mode 100644
-index b1b716dd5733..000000000000
---- a/tools/build/feature/test-gtk2-infobar.c
-+++ /dev/null
-@@ -1,12 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
--#pragma GCC diagnostic ignored "-Wstrict-prototypes"
--#include <gtk/gtk.h>
--#pragma GCC diagnostic error "-Wstrict-prototypes"
--
--int main(int argc, char *argv[])
--{
--	gtk_init(&argc, &argv);
--	gtk_info_bar_new();
--
--	return 0;
--}
-diff --git a/tools/build/feature/test-gtk2.c b/tools/build/feature/test-gtk4.c
-similarity index 76%
-rename from tools/build/feature/test-gtk2.c
-rename to tools/build/feature/test-gtk4.c
-index 2aaf4bfc2055..b9520e7408b9 100644
---- a/tools/build/feature/test-gtk2.c
-+++ b/tools/build/feature/test-gtk4.c
-@@ -3,9 +3,9 @@
- #include <gtk/gtk.h>
- #pragma GCC diagnostic error "-Wstrict-prototypes"
- 
--int main(int argc, char *argv[])
-+int main(void)
- {
--	gtk_init(&argc, &argv);
-+	gtk_init();
- 
-         return 0;
- }
-diff --git a/tools/perf/Documentation/perf-report.txt b/tools/perf/Documentation/perf-report.txt
-index 22f87eaa3279..7af9b3f81c06 100644
---- a/tools/perf/Documentation/perf-report.txt
-+++ b/tools/perf/Documentation/perf-report.txt
-@@ -351,7 +351,7 @@ OPTIONS
- 	requires a tty, if one is not present, as when piping to other
- 	commands, the stdio interface is used.
- 
----gtk:: Use the GTK2 interface.
-+--gtk:: Use the GTK4 interface.
- 
- -k::
- --vmlinux=<file>::
-diff --git a/tools/perf/Makefile b/tools/perf/Makefile
-index 5b713837eede..56014106479a 100644
---- a/tools/perf/Makefile
-+++ b/tools/perf/Makefile
-@@ -106,7 +106,7 @@ clean:
- # make -C tools/perf -f tests/make
- #
- build-test:
--	@$(MAKE) SHUF=1 -f tests/make REUSE_FEATURES_DUMP=1 MK=Makefile SET_PARALLEL=1 --no-print-directory tarpkg make_static make_with_gtk2 out
-+	@$(MAKE) SHUF=1 -f tests/make REUSE_FEATURES_DUMP=1 MK=Makefile SET_PARALLEL=1 --no-print-directory tarpkg make_static make_with_gtk4 out
- 
- build-test-tarball:
- 	@$(MAKE) -f tests/make REUSE_FEATURES_DUMP=1 MK=Makefile SET_PARALLEL=1 --no-print-directory out
-diff --git a/tools/perf/Makefile.config b/tools/perf/Makefile.config
-index 4d5993da9f94..3e59e2b7eaec 100644
---- a/tools/perf/Makefile.config
-+++ b/tools/perf/Makefile.config
-@@ -774,20 +774,16 @@ ifndef NO_SLANG
-   endif
- endif
- 
--ifdef GTK2
--  FLAGS_GTK2=$(CFLAGS) $(LDFLAGS) $(EXTLIBS) $(shell $(PKG_CONFIG) --libs --cflags gtk+-2.0 2>/dev/null)
--  $(call feature_check,gtk2)
--  ifneq ($(feature-gtk2), 1)
--    $(warning GTK2 not found, disables GTK2 support. Please install gtk2-devel or libgtk2.0-dev)
--    NO_GTK2 := 1
-+ifdef GTK4
-+  FLAGS_GTK4=$(CFLAGS) $(LDFLAGS) $(EXTLIBS) $(shell $(PKG_CONFIG) --libs --cflags gtk4 2>/dev/null)
-+  $(call feature_check,gtk4)
-+  ifneq ($(feature-gtk4), 1)
-+    $(warning GTK4 not found, disables GTK4 support. Please install gtk4-devel or libgtk-4-dev)
-+    NO_GTK4 := 1
-   else
--    $(call feature_check,gtk2-infobar)
--    ifeq ($(feature-gtk2-infobar), 1)
--      GTK_CFLAGS := -DHAVE_GTK_INFO_BAR_SUPPORT
--    endif
--    CFLAGS += -DHAVE_GTK2_SUPPORT
--    GTK_CFLAGS += $(shell $(PKG_CONFIG) --cflags gtk+-2.0 2>/dev/null)
--    GTK_LIBS := $(shell $(PKG_CONFIG) --libs gtk+-2.0 2>/dev/null)
-+    CFLAGS += -DHAVE_GTK4_SUPPORT
-+    GTK_CFLAGS += $(shell $(PKG_CONFIG) --cflags gtk4 2>/dev/null)
-+    GTK_LIBS := $(shell $(PKG_CONFIG) --libs gtk4 2>/dev/null)
-     EXTLIBS += -ldl
-   endif
- endif
-diff --git a/tools/perf/Makefile.perf b/tools/perf/Makefile.perf
-index 29cfd44c427f..2438b40eaaec 100644
---- a/tools/perf/Makefile.perf
-+++ b/tools/perf/Makefile.perf
-@@ -49,7 +49,7 @@ include ../scripts/utilities.mak
- #
- # Define NO_SLANG if you do not want TUI support.
- #
--# Define GTK2 if you want GTK+ GUI support.
-+# Define GTK4 if you want GTK+ GUI support.
- #
- # Define NO_DEMANGLE if you do not want C++ symbol demangling.
- #
-@@ -473,7 +473,7 @@ ifneq ($(OUTPUT),)
-   CFLAGS += -I$(OUTPUT)
- endif
- 
--ifdef GTK2
-+ifdef GTK4
-   ALL_PROGRAMS += $(OUTPUT)libperf-gtk.so
-   GTK_IN := $(OUTPUT)gtk-in.o
- endif
-@@ -811,7 +811,7 @@ check: prepare
- 
- ### Installation rules
- 
--ifdef GTK2
-+ifdef GTK4
- install-gtk: $(OUTPUT)libperf-gtk.so
- 	$(call QUIET_INSTALL, 'GTK UI') \
- 		$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(libdir_SQ)'; \
-diff --git a/tools/perf/builtin-annotate.c b/tools/perf/builtin-annotate.c
-index 69cb72b2082a..15163e081a8c 100644
---- a/tools/perf/builtin-annotate.c
-+++ b/tools/perf/builtin-annotate.c
-@@ -52,7 +52,7 @@ struct perf_annotate {
- 	bool	   use_tui;
- #endif
- 	bool	   use_stdio, use_stdio2;
--#ifdef HAVE_GTK2_SUPPORT
-+#ifdef HAVE_GTK4_SUPPORT
- 	bool	   use_gtk;
- #endif
- 	bool	   skip_missing;
-@@ -712,7 +712,7 @@ int cmd_annotate(int argc, const char **argv)
- 	OPT_BOOLEAN('q', "quiet", &quiet, "do now show any warnings or messages"),
- 	OPT_BOOLEAN('D', "dump-raw-trace", &dump_trace,
- 		    "dump raw trace in ASCII"),
--#ifdef HAVE_GTK2_SUPPORT
-+#ifdef HAVE_GTK4_SUPPORT
- 	OPT_BOOLEAN(0, "gtk", &annotate.use_gtk, "Use the GTK interface"),
- #endif
- #ifdef HAVE_SLANG_SUPPORT
-@@ -828,7 +828,7 @@ int cmd_annotate(int argc, const char **argv)
- 	if (annotate_check_args() < 0)
- 		return -EINVAL;
- 
--#ifdef HAVE_GTK2_SUPPORT
-+#ifdef HAVE_GTK4_SUPPORT
- 	if (symbol_conf.show_nr_samples && annotate.use_gtk) {
- 		pr_err("--show-nr-samples is not available in --gtk mode at this time\n");
- 		return ret;
-@@ -898,7 +898,7 @@ int cmd_annotate(int argc, const char **argv)
- 	else if (annotate.use_tui)
- 		use_browser = 1;
- #endif
--#ifdef HAVE_GTK2_SUPPORT
-+#ifdef HAVE_GTK4_SUPPORT
- 	else if (annotate.use_gtk)
- 		use_browser = 2;
- #endif
-diff --git a/tools/perf/builtin-report.c b/tools/perf/builtin-report.c
-index 60d1f166629e..d14384c58466 100644
---- a/tools/perf/builtin-report.c
-+++ b/tools/perf/builtin-report.c
-@@ -82,7 +82,7 @@ struct report {
- #ifdef HAVE_SLANG_SUPPORT
- 	bool			use_tui;
- #endif
--#ifdef HAVE_GTK2_SUPPORT
-+#ifdef HAVE_GTK4_SUPPORT
- 	bool			use_gtk;
- #endif
- 	bool			use_stdio;
-@@ -1359,8 +1359,8 @@ int cmd_report(int argc, const char **argv)
- #ifdef HAVE_SLANG_SUPPORT
- 	OPT_BOOLEAN(0, "tui", &report.use_tui, "Use the TUI interface"),
- #endif
--#ifdef HAVE_GTK2_SUPPORT
--	OPT_BOOLEAN(0, "gtk", &report.use_gtk, "Use the GTK2 interface"),
-+#ifdef HAVE_GTK4_SUPPORT
-+	OPT_BOOLEAN(0, "gtk", &report.use_gtk, "Use the GTK4 interface"),
- #endif
- 	OPT_BOOLEAN(0, "stdio", &report.use_stdio,
- 		    "Use the stdio interface"),
-@@ -1710,7 +1710,7 @@ int cmd_report(int argc, const char **argv)
- 	else if (report.use_tui)
- 		use_browser = 1;
- #endif
--#ifdef HAVE_GTK2_SUPPORT
-+#ifdef HAVE_GTK4_SUPPORT
- 	else if (report.use_gtk)
- 		use_browser = 2;
- #endif
-diff --git a/tools/perf/scripts/install-build-deps.sh b/tools/perf/scripts/install-build-deps.sh
-index d003e7fab2be..a601a5260c17 100755
---- a/tools/perf/scripts/install-build-deps.sh
-+++ b/tools/perf/scripts/install-build-deps.sh
-@@ -199,8 +199,8 @@ fedora_pkg_for() {
- 	# opt-in features, which a default build does not enable: the libbfd
- 	# disassembler family (libbfd, libbfd-threadsafe, libbfd-liberty,
- 	# disassembler-*, cplus-demangle), only linked on BUILD_NONDISTRO
--	# builds and deprecated in favor of capstone, GTK2, LIBPERL and
--	# LIBUNWIND support (ifdef GTK2 / ifdef LIBPERL / LIBUNWIND=1),
-+	# builds and deprecated in favor of capstone, GTK4, LIBPERL and
-+	# LIBUNWIND support (ifdef GTK4 / ifdef LIBPERL / LIBUNWIND=1),
- 	# and CoreSight (ifdef CORESIGHT), are deliberately not mapped.
- 	# libaio is not mapped either: its
- 	# test uses the POSIX AIO API (aio.h, aio_*, -lrt), provided by
-diff --git a/tools/perf/tests/make b/tools/perf/tests/make
-index d2c2f526e1db..202ab5501916 100644
---- a/tools/perf/tests/make
-+++ b/tools/perf/tests/make
-@@ -95,7 +95,7 @@ make_no_babeltrace2 := NO_BABELTRACE2=1
- make_with_coresight := CORESIGHT=1
- make_no_sdt	    := NO_SDT=1
- make_no_libpfm4     := NO_LIBPFM4=1
--make_with_gtk2      := GTK2=1
-+make_with_gtk4      := GTK4=1
- make_refcnt_check   := EXTRA_CFLAGS="-DREFCNT_CHECKING=1"
- make_tags           := tags
- make_cscope         := cscope
-@@ -318,7 +318,7 @@ $(run):
- 	$(call test,$@) && \
- 	rm -rf $@ $$TMP_DEST || (cat $@ ; false)
- 
--make_with_gtk2:
-+make_with_gtk4:
- 	$(call clean)
- 	@TMP_DEST=$$(mktemp -d); \
- 	cmd="cd $(PERF) && $(MAKE_F) $($@) $(PARALLEL_OPT) $(O_OPT) DESTDIR=$$TMP_DEST"; \
-diff --git a/tools/perf/ui/gtk/annotate.c b/tools/perf/ui/gtk/annotate.c
-index 8920e298420a..094dfa045b77 100644
---- a/tools/perf/ui/gtk/annotate.c
-+++ b/tools/perf/ui/gtk/annotate.c
-@@ -11,6 +11,7 @@
- #include "ui/helpline.h"
- #include <inttypes.h>
- #include <signal.h>
-+#include <string.h>
- 
- enum {
- 	ANN_COL__PERCENT,
-@@ -161,7 +162,7 @@ static int perf_gtk__annotate_symbol(GtkWidget *window, struct map_symbol *ms,
- 			gtk_list_store_set(store, &iter, ANN_COL__LINE, s, -1);
- 	}
- 
--	gtk_container_add(GTK_CONTAINER(window), view);
-+	gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(window), view);
- 
- 	list_for_each_entry_safe(pos, n, &notes->src->source, al.node) {
- 		list_del_init(&pos->al.node);
-@@ -205,40 +206,34 @@ static int symbol__gtk_annotate(struct map_symbol *ms, struct evsel *evsel,
- 		GtkWidget *infobar;
- 		GtkWidget *statbar;
- 
--		signal(SIGSEGV, perf_gtk__signal);
--		signal(SIGFPE,  perf_gtk__signal);
--		signal(SIGINT,  perf_gtk__signal);
--		signal(SIGQUIT, perf_gtk__signal);
--		signal(SIGTERM, perf_gtk__signal);
-+		signal(SIGSEGV, perf_gtk__fatal_signal);
-+		signal(SIGFPE,  perf_gtk__fatal_signal);
-+		perf_gtk__install_quit_signals();
- 
--		window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-+		window = gtk_window_new();
- 		gtk_window_set_title(GTK_WINDOW(window), "perf annotate");
- 
--		g_signal_connect(window, "delete_event", gtk_main_quit, NULL);
--
- 		pgctx = perf_gtk__activate_context(window);
- 		if (!pgctx)
- 			return -1;
- 
--		vbox = gtk_vbox_new(FALSE, 0);
-+		vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
- 		notebook = gtk_notebook_new();
- 		pgctx->notebook = notebook;
- 
--		gtk_box_pack_start(GTK_BOX(vbox), notebook, TRUE, TRUE, 0);
-+		gtk_widget_set_vexpand(notebook, TRUE);
-+		gtk_box_append(GTK_BOX(vbox), notebook);
- 
- 		infobar = perf_gtk__setup_info_bar();
--		if (infobar) {
--			gtk_box_pack_start(GTK_BOX(vbox), infobar,
--					   FALSE, FALSE, 0);
--		}
-+		gtk_box_append(GTK_BOX(vbox), infobar);
- 
- 		statbar = perf_gtk__setup_statusbar();
--		gtk_box_pack_start(GTK_BOX(vbox), statbar, FALSE, FALSE, 0);
-+		gtk_box_append(GTK_BOX(vbox), statbar);
- 
--		gtk_container_add(GTK_CONTAINER(window), vbox);
-+		gtk_window_set_child(GTK_WINDOW(window), vbox);
- 	}
- 
--	scrolled_window = gtk_scrolled_window_new(NULL, NULL);
-+	scrolled_window = gtk_scrolled_window_new();
- 	tab_label = gtk_label_new(sym->name);
- 
- 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolled_window),
-@@ -267,12 +262,11 @@ void perf_gtk__show_annotations(void)
- 		return;
- 
- 	window = pgctx->main_window;
--	gtk_widget_show_all(window);
- 
- 	perf_gtk__resize_window(window);
--	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-+	gtk_widget_set_visible(window, TRUE);
- 
--	gtk_main();
-+	perf_gtk__run_main_loop(window);
- 
- 	perf_gtk__deactivate_context(&pgctx);
- }
-diff --git a/tools/perf/ui/gtk/browser.c b/tools/perf/ui/gtk/browser.c
-index d2dadf3873fb..98f1d6bfcb24 100644
---- a/tools/perf/ui/gtk/browser.c
-+++ b/tools/perf/ui/gtk/browser.c
-@@ -5,32 +5,92 @@
- #include "../hist.h"
- #include "../helpline.h"
- 
-+#include <glib-unix.h>
- #include <signal.h>
- 
--void perf_gtk__signal(int sig)
-+/*
-+ * SIGINT/SIGQUIT/SIGTERM are asynchronous: deferring the actual exit to a
-+ * GLib source dispatched from the main loop means it always runs on the
-+ * main thread, serialized with everything else the main loop does
-+ * (including perf_gtk__error()'s updates to perf_gtk__error_loops), instead
-+ * of racing them from arbitrary signal-handler context.
-+ */
-+static gboolean perf_gtk__quit_signal(gpointer data __maybe_unused)
- {
- 	perf_gtk__exit(false);
-+	return G_SOURCE_REMOVE;
-+}
-+
-+void perf_gtk__install_quit_signals(void)
-+{
-+	g_unix_signal_add(SIGINT,  perf_gtk__quit_signal, NULL);
-+	g_unix_signal_add(SIGQUIT, perf_gtk__quit_signal, NULL);
-+	g_unix_signal_add(SIGTERM, perf_gtk__quit_signal, NULL);
-+}
-+
-+/*
-+ * SIGSEGV/SIGFPE are synchronous faults: there's no "later" to defer to,
-+ * and no safe way to run GTK/GLib code (or anything else non-async-signal-
-+ * safe) from the faulting context. Report and let the default disposition
-+ * (core dump) happen instead of trying to tear down GTK state here.
-+ */
-+void perf_gtk__fatal_signal(int sig)
-+{
- 	psignal(sig, "perf");
-+	signal(sig, SIG_DFL);
-+	raise(sig);
- }
- 
- void perf_gtk__resize_window(GtkWidget *window)
- {
- 	GdkRectangle rect;
--	GdkScreen *screen;
--	int monitor;
-+	GdkMonitor *monitor;
-+	GdkDisplay *display;
-+	GListModel *monitors;
- 	int height;
- 	int width;
- 
--	screen = gtk_widget_get_screen(window);
-+	display = gtk_widget_get_display(window);
-+	monitors = gdk_display_get_monitors(display);
-+	monitor = g_list_model_get_item(monitors, 0);
-+	if (!monitor) {
-+		gtk_window_set_default_size(GTK_WINDOW(window), 800, 600);
-+		return;
-+	}
- 
--	monitor = gdk_screen_get_monitor_at_window(screen, window->window);
--
--	gdk_screen_get_monitor_geometry(screen, monitor, &rect);
-+	gdk_monitor_get_geometry(monitor, &rect);
-+	g_object_unref(monitor);
- 
- 	width	= rect.width * 3 / 4;
- 	height	= rect.height * 3 / 4;
- 
--	gtk_window_resize(GTK_WINDOW(window), width, height);
-+	gtk_window_set_default_size(GTK_WINDOW(window), width, height);
-+}
-+
-+static GMainLoop *perf_gtk__main_loop;
-+
-+void perf_gtk__quit_main_loop(void)
-+{
-+	if (perf_gtk__main_loop)
-+		g_main_loop_quit(perf_gtk__main_loop);
-+}
-+
-+static gboolean perf_gtk__close_request(GtkWidget *widget __maybe_unused,
-+					gpointer data __maybe_unused)
-+{
-+	perf_gtk__quit_main_loop();
-+
-+	return FALSE;
-+}
-+
-+void perf_gtk__run_main_loop(GtkWidget *window)
-+{
-+	g_signal_connect(window, "close-request",
-+			 G_CALLBACK(perf_gtk__close_request), NULL);
-+
-+	perf_gtk__main_loop = g_main_loop_new(NULL, FALSE);
-+	g_main_loop_run(perf_gtk__main_loop);
-+	g_clear_pointer(&perf_gtk__main_loop, g_main_loop_unref);
- }
- 
- const char *perf_gtk__get_percent_color(double percent)
-@@ -42,33 +102,35 @@ const char *perf_gtk__get_percent_color(double percent)
- 	return NULL;
- }
- 
--#ifdef HAVE_GTK_INFO_BAR_SUPPORT
-+static void perf_gtk__hide_widget(GtkWidget *widget, gint response_id __maybe_unused,
-+				   gpointer data __maybe_unused)
-+{
-+	gtk_widget_set_visible(widget, FALSE);
-+}
-+
- GtkWidget *perf_gtk__setup_info_bar(void)
- {
- 	GtkWidget *info_bar;
- 	GtkWidget *label;
--	GtkWidget *content_area;
- 
- 	info_bar = gtk_info_bar_new();
--	gtk_widget_set_no_show_all(info_bar, TRUE);
-+	gtk_widget_set_visible(info_bar, FALSE);
- 
- 	label = gtk_label_new("");
--	gtk_widget_show(label);
-+	gtk_widget_set_visible(label, TRUE);
- 
--	content_area = gtk_info_bar_get_content_area(GTK_INFO_BAR(info_bar));
--	gtk_container_add(GTK_CONTAINER(content_area), label);
-+	gtk_info_bar_add_child(GTK_INFO_BAR(info_bar), label);
- 
--	gtk_info_bar_add_button(GTK_INFO_BAR(info_bar), GTK_STOCK_OK,
-+	gtk_info_bar_add_button(GTK_INFO_BAR(info_bar), "_OK",
- 				GTK_RESPONSE_OK);
- 	g_signal_connect(info_bar, "response",
--			 G_CALLBACK(gtk_widget_hide), NULL);
-+			 G_CALLBACK(perf_gtk__hide_widget), NULL);
- 
- 	pgctx->info_bar = info_bar;
- 	pgctx->message_label = label;
- 
- 	return info_bar;
- }
--#endif
- 
- GtkWidget *perf_gtk__setup_statusbar(void)
- {
-diff --git a/tools/perf/ui/gtk/gtk.h b/tools/perf/ui/gtk/gtk.h
-index a2b497f03fd6..6b37fd9943c9 100644
---- a/tools/perf/ui/gtk/gtk.h
-+++ b/tools/perf/ui/gtk/gtk.h
-@@ -13,10 +13,8 @@ struct perf_gtk_context {
- 	GtkWidget *main_window;
- 	GtkWidget *notebook;
- 
--#ifdef HAVE_GTK_INFO_BAR_SUPPORT
- 	GtkWidget *info_bar;
- 	GtkWidget *message_label;
--#endif
- 	GtkWidget *statbar;
- 	guint statbar_ctx_id;
- };
-@@ -38,19 +36,15 @@ void perf_gtk__init_helpline(void);
- void gtk_ui_progress__init(void);
- void perf_gtk__init_hpp(void);
- 
--void perf_gtk__signal(int sig);
-+void perf_gtk__install_quit_signals(void);
-+void perf_gtk__fatal_signal(int sig);
- void perf_gtk__resize_window(GtkWidget *window);
-+void perf_gtk__run_main_loop(GtkWidget *window);
-+void perf_gtk__quit_main_loop(void);
-+void perf_gtk__quit_error_dialog(void);
- const char *perf_gtk__get_percent_color(double percent);
- GtkWidget *perf_gtk__setup_statusbar(void);
--
--#ifdef HAVE_GTK_INFO_BAR_SUPPORT
- GtkWidget *perf_gtk__setup_info_bar(void);
--#else
--static inline GtkWidget *perf_gtk__setup_info_bar(void)
--{
--	return NULL;
--}
--#endif
- 
- struct evsel;
- struct evlist;
-diff --git a/tools/perf/ui/gtk/hists.c b/tools/perf/ui/gtk/hists.c
-index bae21f336ae6..716dcf02bd0e 100644
---- a/tools/perf/ui/gtk/hists.c
-+++ b/tools/perf/ui/gtk/hists.c
-@@ -8,6 +8,8 @@
- #include "../helpline.h"
- #include "../string2.h"
- #include <signal.h>
-+#include <stdarg.h>
-+#include <stdio.h>
- #include <stdlib.h>
- #include <linux/string.h>
- 
-@@ -395,11 +397,9 @@ static void perf_gtk__show_hists(GtkWidget *window, struct hists *hists,
- 		}
- 	}
- 
--	gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(view), TRUE);
--
- 	g_signal_connect(view, "row-activated",
- 			 G_CALLBACK(on_row_activated), NULL);
--	gtk_container_add(GTK_CONTAINER(window), view);
-+	gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(window), view);
- }
- 
- static void perf_gtk__add_hierarchy_entries(struct hists *hists,
-@@ -583,11 +583,9 @@ static void perf_gtk__show_hierarchy(GtkWidget *window, struct hists *hists,
- 	perf_gtk__add_hierarchy_entries(hists, &hists->entries, store,
- 					NULL, &hpp, min_pcnt);
- 
--	gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(view), TRUE);
--
- 	g_signal_connect(view, "row-activated",
- 			 G_CALLBACK(on_row_activated), NULL);
--	gtk_container_add(GTK_CONTAINER(window), view);
-+	gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(window), view);
- }
- 
- int evlist__gtk_browse_hists(struct evlist *evlist, const char *help,
-@@ -600,36 +598,32 @@ int evlist__gtk_browse_hists(struct evlist *evlist, const char *help,
- 	GtkWidget *statbar;
- 	GtkWidget *window;
- 
--	signal(SIGSEGV, perf_gtk__signal);
--	signal(SIGFPE,  perf_gtk__signal);
--	signal(SIGINT,  perf_gtk__signal);
--	signal(SIGQUIT, perf_gtk__signal);
--	signal(SIGTERM, perf_gtk__signal);
-+	signal(SIGSEGV, perf_gtk__fatal_signal);
-+	signal(SIGFPE,  perf_gtk__fatal_signal);
-+	perf_gtk__install_quit_signals();
- 
--	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-+	window = gtk_window_new();
- 
- 	gtk_window_set_title(GTK_WINDOW(window), "perf report");
- 
--	g_signal_connect(window, "delete_event", gtk_main_quit, NULL);
--
- 	pgctx = perf_gtk__activate_context(window);
- 	if (!pgctx)
- 		return -1;
- 
--	vbox = gtk_vbox_new(FALSE, 0);
-+	vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
- 
- 	notebook = gtk_notebook_new();
- 
--	gtk_box_pack_start(GTK_BOX(vbox), notebook, TRUE, TRUE, 0);
-+	gtk_widget_set_vexpand(notebook, TRUE);
-+	gtk_box_append(GTK_BOX(vbox), notebook);
- 
- 	info_bar = perf_gtk__setup_info_bar();
--	if (info_bar)
--		gtk_box_pack_start(GTK_BOX(vbox), info_bar, FALSE, FALSE, 0);
-+	gtk_box_append(GTK_BOX(vbox), info_bar);
- 
- 	statbar = perf_gtk__setup_statusbar();
--	gtk_box_pack_start(GTK_BOX(vbox), statbar, FALSE, FALSE, 0);
-+	gtk_box_append(GTK_BOX(vbox), statbar);
- 
--	gtk_container_add(GTK_CONTAINER(window), vbox);
-+	gtk_window_set_child(GTK_WINDOW(window), vbox);
- 
- 	evlist__for_each_entry(evlist, pos) {
- 		struct hists *hists = evsel__hists(pos);
-@@ -649,7 +643,7 @@ int evlist__gtk_browse_hists(struct evlist *evlist, const char *help,
- 			}
- 		}
- 
--		scrolled_window = gtk_scrolled_window_new(NULL, NULL);
-+		scrolled_window = gtk_scrolled_window_new();
- 
- 		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolled_window),
- 							GTK_POLICY_AUTOMATIC,
-@@ -665,15 +659,12 @@ int evlist__gtk_browse_hists(struct evlist *evlist, const char *help,
- 		gtk_notebook_append_page(GTK_NOTEBOOK(notebook), scrolled_window, tab_label);
- 	}
- 
--	gtk_widget_show_all(window);
--
- 	perf_gtk__resize_window(window);
--
--	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-+	gtk_widget_set_visible(window, TRUE);
- 
- 	ui_helpline__push(help);
- 
--	gtk_main();
-+	perf_gtk__run_main_loop(window);
- 
- 	perf_gtk__deactivate_context(&pgctx);
- 
-diff --git a/tools/perf/ui/gtk/progress.c b/tools/perf/ui/gtk/progress.c
-index eea6fcde518a..770f9251b54b 100644
---- a/tools/perf/ui/gtk/progress.c
-+++ b/tools/perf/ui/gtk/progress.c
-@@ -1,49 +1,65 @@
- // SPDX-License-Identifier: GPL-2.0
- #include <inttypes.h>
-+#include <stdio.h>
- 
- #include "gtk.h"
- #include "../progress.h"
-+#include <linux/compiler.h>
- 
- static GtkWidget *dialog;
- static GtkWidget *progress;
- 
-+static void gtk_ui_progress__destroyed(GtkWidget *widget __maybe_unused,
-+					gpointer data __maybe_unused)
-+{
-+	dialog = NULL;
-+	progress = NULL;
-+}
-+
- static void gtk_ui_progress__update(struct ui_progress *p)
- {
- 	double fraction = p->total ? 1.0 * p->curr / p->total : 0.0;
- 	char buf[1024];
- 
- 	if (dialog == NULL) {
--		GtkWidget *vbox = gtk_vbox_new(TRUE, 5);
-+		GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
- 		GtkWidget *label = gtk_label_new(p->title);
- 
--		dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-+		dialog = gtk_window_new();
- 		progress = gtk_progress_bar_new();
- 
--		gtk_box_pack_start(GTK_BOX(vbox), label, TRUE, FALSE, 3);
--		gtk_box_pack_start(GTK_BOX(vbox), progress, TRUE, TRUE, 3);
-+		gtk_widget_set_vexpand(label, TRUE);
-+		gtk_box_append(GTK_BOX(vbox), label);
-+		gtk_widget_set_vexpand(progress, TRUE);
-+		gtk_box_append(GTK_BOX(vbox), progress);
- 
--		gtk_container_add(GTK_CONTAINER(dialog), vbox);
-+		gtk_window_set_child(GTK_WINDOW(dialog), vbox);
-+
-+		g_signal_connect(dialog, "destroy",
-+				 G_CALLBACK(gtk_ui_progress__destroyed), NULL);
- 
- 		gtk_window_set_title(GTK_WINDOW(dialog), "perf");
--		gtk_window_resize(GTK_WINDOW(dialog), 300, 80);
--		gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
-+		gtk_window_set_default_size(GTK_WINDOW(dialog), 300, 80);
- 
--		gtk_widget_show_all(dialog);
-+		gtk_widget_set_visible(dialog, TRUE);
- 	}
- 
- 	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress), fraction);
- 	snprintf(buf, sizeof(buf), "%"PRIu64" / %"PRIu64, p->curr, p->total);
- 	gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progress), buf);
- 
--	/* we didn't call gtk_main yet, so do it manually */
--	while (gtk_events_pending())
--		gtk_main_iteration();
-+	/* we didn't start a main loop yet, so pump events manually */
-+	while (g_main_context_pending(NULL))
-+		g_main_context_iteration(NULL, FALSE);
- }
- 
- static void gtk_ui_progress__finish(void)
- {
-+	if (dialog == NULL)
-+		return;
-+
- 	/* this will also destroy all of its children */
--	gtk_widget_destroy(dialog);
-+	gtk_window_destroy(GTK_WINDOW(dialog));
- 
- 	dialog = NULL;
- }
-diff --git a/tools/perf/ui/gtk/setup.c b/tools/perf/ui/gtk/setup.c
-index f5eee4d66873..9b44f3719747 100644
---- a/tools/perf/ui/gtk/setup.c
-+++ b/tools/perf/ui/gtk/setup.c
-@@ -12,7 +12,7 @@ int perf_gtk__init(void)
- 	gtk_ui_progress__init();
- 	perf_gtk__init_hpp();
- 
--	return gtk_init_check(NULL, NULL) ? 0 : -1;
-+	return gtk_init_check() ? 0 : -1;
- }
- 
- void perf_gtk__exit(bool wait_for_ok __maybe_unused)
-@@ -20,5 +20,6 @@ void perf_gtk__exit(bool wait_for_ok __maybe_unused)
- 	if (!perf_gtk__is_active_context(pgctx))
- 		return;
- 	perf_error__unregister(&perf_gtk_eops);
--	gtk_main_quit();
-+	perf_gtk__quit_error_dialog();
-+	perf_gtk__quit_main_loop();
- }
-diff --git a/tools/perf/ui/gtk/util.c b/tools/perf/ui/gtk/util.c
-index c47f5c387838..5823ff0d7c2a 100644
---- a/tools/perf/ui/gtk/util.c
-+++ b/tools/perf/ui/gtk/util.c
-@@ -2,8 +2,10 @@
- #include "../util.h"
- #include "gtk.h"
- 
-+#include <stdarg.h>
-+#include <stdio.h>
- #include <stdlib.h>
--#include <string.h>
-+#include <linux/compiler.h>
- #include <linux/zalloc.h>
- 
- struct perf_gtk_context *pgctx;
-@@ -28,86 +30,103 @@ int perf_gtk__deactivate_context(struct perf_gtk_context **ctx)
- 	return 0;
- }
- 
-+/*
-+ * perf_gtk__error() can be called re-entrantly, since the dialog isn't
-+ * modal and its nested loop still pumps events for the main window.
-+ * Track every currently running loop instead of a single pointer, so a
-+ * nested call can't clobber an outer call's loop and leak it.
-+ */
-+static GSList *perf_gtk__error_loops;
-+
-+static void perf_gtk__quit_loop(gpointer data, gpointer user_data __maybe_unused)
-+{
-+	g_main_loop_quit(data);
-+}
-+
-+void perf_gtk__quit_error_dialog(void)
-+{
-+	g_slist_foreach(perf_gtk__error_loops, perf_gtk__quit_loop, NULL);
-+}
-+
-+static void perf_gtk__dialog_response(GtkDialog *dialog,
-+				      gint response_id __maybe_unused,
-+				      gpointer data __maybe_unused)
-+{
-+	gtk_window_destroy(GTK_WINDOW(dialog));
-+}
-+
- static int perf_gtk__error(const char *format, va_list args)
- {
- 	char *msg;
- 	GtkWidget *dialog;
-+	GMainLoop *loop;
-+	va_list args_copy;
- 
-+	va_copy(args_copy, args);
- 	if (!perf_gtk__is_active_context(pgctx) ||
--	    vasprintf(&msg, format, args) < 0) {
-+	    vasprintf(&msg, format, args_copy) < 0) {
-+		va_end(args_copy);
- 		fprintf(stderr, "Error:\n");
- 		vfprintf(stderr, format, args);
- 		fprintf(stderr, "\n");
- 		return -1;
- 	}
-+	va_end(args_copy);
- 
- 	dialog = gtk_message_dialog_new_with_markup(GTK_WINDOW(pgctx->main_window),
- 					GTK_DIALOG_DESTROY_WITH_PARENT,
- 					GTK_MESSAGE_ERROR,
- 					GTK_BUTTONS_CLOSE,
- 					"<b>Error</b>\n\n%s", msg);
--	gtk_dialog_run(GTK_DIALOG(dialog));
- 
--	gtk_widget_destroy(dialog);
-+	/*
-+	 * "response" only fires when a button is clicked; DESTROY_WITH_PARENT
-+	 * destroys the dialog directly without it. Quit from "destroy"
-+	 * instead, which fires either way, so the nested loop below can't
-+	 * outlive the dialog and hang.
-+	 */
-+	loop = g_main_loop_new(NULL, FALSE);
-+	perf_gtk__error_loops = g_slist_prepend(perf_gtk__error_loops, loop);
-+	g_signal_connect(dialog, "response",
-+			 G_CALLBACK(perf_gtk__dialog_response), NULL);
-+	g_signal_connect_swapped(dialog, "destroy",
-+				 G_CALLBACK(g_main_loop_quit), loop);
-+
-+	gtk_widget_set_visible(dialog, TRUE);
-+	g_main_loop_run(loop);
-+	perf_gtk__error_loops = g_slist_remove(perf_gtk__error_loops, loop);
-+	g_main_loop_unref(loop);
-+
- 	free(msg);
- 	return 0;
- }
- 
--#ifdef HAVE_GTK_INFO_BAR_SUPPORT
- static int perf_gtk__warning_info_bar(const char *format, va_list args)
- {
- 	char *msg;
-+	va_list args_copy;
- 
-+	va_copy(args_copy, args);
- 	if (!perf_gtk__is_active_context(pgctx) ||
--	    vasprintf(&msg, format, args) < 0) {
-+	    vasprintf(&msg, format, args_copy) < 0) {
-+		va_end(args_copy);
- 		fprintf(stderr, "Warning:\n");
- 		vfprintf(stderr, format, args);
- 		fprintf(stderr, "\n");
- 		return -1;
- 	}
-+	va_end(args_copy);
- 
- 	gtk_label_set_text(GTK_LABEL(pgctx->message_label), msg);
- 	gtk_info_bar_set_message_type(GTK_INFO_BAR(pgctx->info_bar),
- 				      GTK_MESSAGE_WARNING);
--	gtk_widget_show(pgctx->info_bar);
-+	gtk_widget_set_visible(pgctx->info_bar, TRUE);
- 
- 	free(msg);
- 	return 0;
- }
--#else
--static int perf_gtk__warning_statusbar(const char *format, va_list args)
--{
--	char *msg, *p;
--
--	if (!perf_gtk__is_active_context(pgctx) ||
--	    vasprintf(&msg, format, args) < 0) {
--		fprintf(stderr, "Warning:\n");
--		vfprintf(stderr, format, args);
--		fprintf(stderr, "\n");
--		return -1;
--	}
--
--	gtk_statusbar_pop(GTK_STATUSBAR(pgctx->statbar),
--			  pgctx->statbar_ctx_id);
--
--	/* Only first line can be displayed */
--	p = strchr(msg, '\n');
--	if (p)
--		*p = '\0';
--
--	gtk_statusbar_push(GTK_STATUSBAR(pgctx->statbar),
--			   pgctx->statbar_ctx_id, msg);
--
--	free(msg);
--	return 0;
--}
--#endif
- 
- struct perf_error_ops perf_gtk_eops = {
- 	.error		= perf_gtk__error,
--#ifdef HAVE_GTK_INFO_BAR_SUPPORT
- 	.warning	= perf_gtk__warning_info_bar,
--#else
--	.warning	= perf_gtk__warning_statusbar,
--#endif
- };
-diff --git a/tools/perf/ui/setup.c b/tools/perf/ui/setup.c
-index ff800047e697..d887346c7a63 100644
---- a/tools/perf/ui/setup.c
-+++ b/tools/perf/ui/setup.c
-@@ -14,7 +14,7 @@ int use_browser = -1;
- 
- #define PERF_GTK_DSO "libperf-gtk.so"
- 
--#ifdef HAVE_GTK2_SUPPORT
-+#ifdef HAVE_GTK4_SUPPORT
- 
- static int setup_gtk_browser(void)
- {
-
--- 
-2.54.0
-
+Best,
+Gary
