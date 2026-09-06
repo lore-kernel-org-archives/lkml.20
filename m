@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 851343D0C1D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AE9A3CF1F4;
 	Sun,  6 Sep 2026 18:37:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788719828; cv=none; b=BB+gL7mxieeD5sbdO4odNM4IVkyTFBBD3o9K6mLUCPGl4c1JIUU6z69+ESv5qAc2X8Ilv1bTGbUOpIxQnSjTq65YpsIOBiFD+NY6+6DTHgfuAxmi/J9VdmbqybkEfJyQKpL6ebjZ+9JLO6LOsFoBO2993dnUkR8DHgbq2JbDI00=
+	t=1788719828; cv=none; b=bNPWSb7uZCx6CHb/LiO0WNDlIhDOCXpVVat/thRO2RG04KfHOVGuZPqWYdGgL+/kGCJZwQssYj+jsDuQGSeR3f6Xkc6U9J7k8QlZRdGN1j+Xez8gVNt9P1AIiMDfY4krps/Y+cBnwoWTYlHpnNqr8A3JJ1M/d99y66idSKXyhCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788719828; c=relaxed/simple;
-	bh=McNohOokOZvCOPztdqrD6IMpQ2o/cc6SdtnvvgnHzSA=;
+	bh=WVMy1qg0prw15BOC/1aO59pKjAwSsJirT8ivotx4wRA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DSNTJFazwgKIFthF70s9kyAExxR/WHugVGKClCOjPGgysyOd8p9ZaJofErLo0IyJwtrbiXKhjVQquyDrjY74DurKTBf8KA1ZbRFBz9HD+3qrwrNpA9yRyrGgf2am3ScmObDjaU8szTZMPzuijvoBtmL2V/mA53JT7asL/JTJu0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q/UnS1vr; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=I02yT3NaGjffDXg87nw2x52r0loUqpuuwExl7m10rXRvQyE6lLeaN4/pBdSUO2Crzyf7iu/qo3LKBVQCBrtmeq6RcDsaSn8GKG7ZAir2Cn6Th9w4VCoan5UlOmxZxnyYVIp3Wz7NdgTqYKkPHYmaP+Hz32DuvN/OjWu9DB9uwdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mwkuQW73; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q/UnS1vr"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 649D6C2BCF5;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mwkuQW73"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 30F7DC2BCFD;
 	Sun,  6 Sep 2026 18:37:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788719828;
-	bh=McNohOokOZvCOPztdqrD6IMpQ2o/cc6SdtnvvgnHzSA=;
+	bh=WVMy1qg0prw15BOC/1aO59pKjAwSsJirT8ivotx4wRA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Q/UnS1vr+6JQD2oEo34N1k8+dCAMqvk6igMeNbpF9zEoBKo57y2ahC98zkgUxLrou
-	 FV63WgWHm+hw4qXeXxylUaLUND2TzSset5FPZLZSKXegwnVs4XkpxR3k9wSDGSOmN+
-	 Gisv7w9BAcsFermdN66ptpK+oPsLn0/BrdgYOF1LdPObqO0/Sz4j+4wNC94I93X+Py
-	 i12qPLap1f3GSqso+jlXncRLgP2bVua3MWFagrECETr5vSawMWyDjtzc1MeRMDX588
-	 RrNqkMv3pZy4kA5A7xLTKOzAI2nT9zEay3HNlDyQZGUcrEnFZYJnFu8fIJTvIM24+z
-	 mfS/4sSczpu6g==
+	b=mwkuQW73Fy8sG3hVWSMxPGoAB18W7BBGfwpG/GRL+AXkQxVUeHYKEvGScNZs/91qT
+	 Pp+N9ul8f0GF7lf+pthV2UmHLzR4UfFLGVaZXi/9uAsM1V5GQQHsdlkteJxHDU2Xmx
+	 lMVtmSH/JnhuSSA5jM4VD4p5SGL/OmyOmtGeqXLSJRUKMUWV9Nt3M0/dQkbEbvhqWY
+	 d8HHhtDih3W5NiN5NH9YpD8S2NnPDT/Y954oWv4n/saqPJ44jXBhensaMiW6qULDdU
+	 gCK2oJiK9EXXxqmgH3q0j2coQRlTyhoWCr8GIvFimNJcFoS1zeCE8qWphK+rAh3jDu
+	 O9Ht2JKFw4uzw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4EA71C79FA1;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1E747C79F85;
 	Sun,  6 Sep 2026 18:37:08 +0000 (UTC)
 From: Sven Peter <sven@kernel.org>
-Date: Sun, 06 Sep 2026 20:36:41 +0200
-Subject: [PATCH v2 18/22] thunderbolt: Export symbols required by the Apple
- Silicon driver
+Date: Sun, 06 Sep 2026 20:36:38 +0200
+Subject: [PATCH v2 15/22] thunderbolt: Add ring_configure to tb_nhi_ops
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260906-b4-apple-soc-tbt-v2-18-1f80085f93fb@kernel.org>
+Message-Id: <20260906-b4-apple-soc-tbt-v2-15-1f80085f93fb@kernel.org>
 References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
 In-Reply-To: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
 To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
@@ -55,92 +54,143 @@ To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
 Cc: Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- Sven Peter <sven@kernel.org>, Joshua Peisach <jpeisach@ubuntu.com>
+ Sven Peter <sven@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2413; i=sven@kernel.org;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4518; i=sven@kernel.org;
  h=from:subject:message-id;
- bh=McNohOokOZvCOPztdqrD6IMpQ2o/cc6SdtnvvgnHzSA=;
- b=owGbwMvMwCXmIlirolUq95LxtFoSQ9bcTSdZK8S/HbugNl+Wt8oy+XhEgu36p59+sgc2Luk42
- n5kQUxGRykLgxgXg6yYIsv2/famTx6+EVy66dJ7mDmsTCBDGLg4BWAieyMZ/ie2ml3ZlrJ4+v4H
- pqWaHcd0vlcsSLD9xbDnAvsfm3StyXIM/5PSy6yEY2/IPpeY/aXQR9B4fnjydL0gYzct5a+6O4K
- 7mAE=
+ bh=WVMy1qg0prw15BOC/1aO59pKjAwSsJirT8ivotx4wRA=;
+ b=owGbwMvMwCXmIlirolUq95LxtFoSQ9bcTUel/SJz/2/Un5uyeW9eiMTBq65LT0XWhi1IT3r2t
+ GLf3CbZjlIWBjEuBlkxRZbt++1Nnzx8I7h006X3MHNYmUCGMHBxCsBEtk1l+Ct+wfOL91PHi7H+
+ Zp9rZM/+a/WqbTqTtink5/MfFWx5eiUM/3Rjo2bNNFP4dvP0m6jyAq6sKstc5hNvGZWWHtSWTU1
+ p4gEA
 X-Developer-Key: i=sven@kernel.org; a=openpgp;
  fpr=A1E3E34A2B3C820DBC4955E5993B08092F131F93
 X-Endpoint-Received: by B4 Relay for sven@kernel.org/default with
  auth_id=407
 
-The driver for the ACIO host router complex on Apple Silicon SoCs can
-be built as a module and needs tb_probe() and the domain functions to
-register its NHI with the software connection manager as well as
-tb_cfg_write() to configure the cable details for its co-processor.
-Restrict these exports to the thunderbolt_apple module to keep them
-internal to the Thunderbolt subsystem.
+The Apple NHI also uses a separate register range for the receive ring
+PDF masks. Add an optional tb_nhi_ops hook for it which falls back to
+the standard USB4 NHI method when it is not set.
+
+For the standard method also just write E2E flow control at the same
+time the rest of the configuration is written.
 
 Signed-off-by: Sven Peter <sven@kernel.org>
-Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
 ---
- drivers/thunderbolt/ctl.c    | 2 ++
- drivers/thunderbolt/domain.c | 2 ++
- drivers/thunderbolt/tb.c     | 2 ++
- 3 files changed, 6 insertions(+)
+ drivers/thunderbolt/nhi.c | 48 +++++++++++++++++++++++++++--------------------
+ drivers/thunderbolt/nhi.h |  4 ++++
+ 2 files changed, 32 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/thunderbolt/ctl.c b/drivers/thunderbolt/ctl.c
-index cd47b627f97b..b2a6b300e934 100644
---- a/drivers/thunderbolt/ctl.c
-+++ b/drivers/thunderbolt/ctl.c
-@@ -8,6 +8,7 @@
- 
- #include <linux/crc32.h>
- #include <linux/delay.h>
-+#include <linux/export.h>
- #include <linux/slab.h>
- #include <linux/pci.h>
- #include <linux/dmapool.h>
-@@ -1159,6 +1160,7 @@ int tb_cfg_write(struct tb_ctl *ctl, const void *buffer, u64 route, u32 port,
- 	}
- 	return res.err;
+diff --git a/drivers/thunderbolt/nhi.c b/drivers/thunderbolt/nhi.c
+index 4ef86e7c0285..2d622b365c4f 100644
+--- a/drivers/thunderbolt/nhi.c
++++ b/drivers/thunderbolt/nhi.c
+@@ -244,6 +244,24 @@ static void ring_iowrite32options(struct tb_ring *ring, u32 value, u32 offset)
+ 	iowrite32(value, nhi_ring_options_base(ring) + offset);
  }
-+EXPORT_SYMBOL_FOR_MODULES(tb_cfg_write, "thunderbolt_apple");
  
- /**
-  * tb_cfg_get_upstream_port() - get upstream port number of switch at route
-diff --git a/drivers/thunderbolt/domain.c b/drivers/thunderbolt/domain.c
-index 12c88509a54f..477a64258b87 100644
---- a/drivers/thunderbolt/domain.c
-+++ b/drivers/thunderbolt/domain.c
-@@ -490,6 +490,7 @@ int tb_domain_add(struct tb *tb, bool reset)
- 
- 	return ret;
- }
-+EXPORT_SYMBOL_FOR_MODULES(tb_domain_add, "thunderbolt_apple");
- 
- /**
-  * tb_domain_remove() - Removes and releases a domain
-@@ -514,6 +515,7 @@ void tb_domain_remove(struct tb *tb)
- 
- 	device_unregister(&tb->dev);
- }
-+EXPORT_SYMBOL_FOR_MODULES(tb_domain_remove, "thunderbolt_apple");
- 
- /**
-  * tb_domain_suspend_noirq() - Suspend a domain
-diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
-index 72418a07166e..98bf67360cc4 100644
---- a/drivers/thunderbolt/tb.c
-+++ b/drivers/thunderbolt/tb.c
-@@ -6,6 +6,7 @@
-  * Copyright (C) 2019, Intel Corporation
++static void ring_configure(struct tb_ring *ring, u32 flags, u32 e2e_flags)
++{
++	if (ring->is_tx)
++		ring_iowrite32options(ring, 0, 4);
++	else
++		ring_iowrite32options(ring, ring->sof_mask << 16 | ring->eof_mask, 4);
++
++	ring_iowrite32options(ring, flags | e2e_flags, 0);
++}
++
++static void nhi_ring_configure(struct tb_ring *ring, u32 flags, u32 e2e_flags)
++{
++	if (ring->nhi->ops->ring_configure)
++		ring->nhi->ops->ring_configure(ring, flags, e2e_flags);
++	else
++		ring_configure(ring, flags, e2e_flags);
++}
++
+ static bool ring_full(struct tb_ring *ring)
+ {
+ 	return ((ring->head + 1) % ring->size) == ring->tail;
+@@ -699,6 +717,7 @@ EXPORT_SYMBOL_GPL(tb_ring_alloc_rx);
   */
+ void tb_ring_start(struct tb_ring *ring)
+ {
++	u32 e2e_flags = 0;
+ 	u16 frame_size;
+ 	u32 flags;
  
-+#include <linux/export.h>
- #include <linux/slab.h>
- #include <linux/errno.h>
- #include <linux/delay.h>
-@@ -3440,3 +3441,4 @@ struct tb *tb_probe(struct tb_nhi *nhi)
+@@ -722,30 +741,13 @@ void tb_ring_start(struct tb_ring *ring)
+ 		flags = RING_FLAG_ENABLE | RING_FLAG_RAW;
+ 	}
  
- 	return tb;
- }
-+EXPORT_SYMBOL_FOR_MODULES(tb_probe, "thunderbolt_apple");
+-	ring_iowrite64desc(ring, ring->descriptors_dma, 0);
+-	if (ring->is_tx) {
+-		ring_iowrite32desc(ring, ring->size, 12);
+-		ring_iowrite32options(ring, 0, 4);
+-		ring_iowrite32options(ring, flags, 0);
+-	} else {
+-		u32 sof_eof_mask = ring->sof_mask << 16 | ring->eof_mask;
+-
+-		ring_iowrite32desc(ring, (frame_size << 16) | ring->size, 12);
+-		ring_iowrite32options(ring, sof_eof_mask, 4);
+-		ring_iowrite32options(ring, flags, 0);
+-	}
+-
+-	/*
+-	 * Now that the ring valid bit is set we can configure E2E if
+-	 * enabled for the ring.
+-	 */
+ 	if (ring->flags & RING_FLAG_E2E) {
+ 		if (!ring->is_tx) {
+ 			u32 hop;
+ 
+ 			hop = ring->e2e_tx_hop << REG_RX_OPTIONS_E2E_HOP_SHIFT;
+ 			hop &= REG_RX_OPTIONS_E2E_HOP_MASK;
+-			flags |= hop;
++			e2e_flags |= hop;
+ 
+ 			dev_dbg(ring->nhi->dev,
+ 				"enabling E2E for %s %d with TX HopID %d\n",
+@@ -755,10 +757,16 @@ void tb_ring_start(struct tb_ring *ring)
+ 				RING_TYPE(ring), ring->hop);
+ 		}
+ 
+-		flags |= RING_FLAG_E2E_FLOW_CONTROL;
+-		ring_iowrite32options(ring, flags, 0);
++		e2e_flags |= RING_FLAG_E2E_FLOW_CONTROL;
+ 	}
+ 
++	ring_iowrite64desc(ring, ring->descriptors_dma, 0);
++	if (ring->is_tx)
++		ring_iowrite32desc(ring, ring->size, 12);
++	else
++		ring_iowrite32desc(ring, (frame_size << 16) | ring->size, 12);
++	nhi_ring_configure(ring, flags, e2e_flags);
++
+ 	if (!(ring->flags & RING_FLAG_NO_INTERRUPT))
+ 		nhi_ring_interrupt_active(ring, true);
+ 	ring->running = true;
+diff --git a/drivers/thunderbolt/nhi.h b/drivers/thunderbolt/nhi.h
+index ca3eddf862e0..e4964772a442 100644
+--- a/drivers/thunderbolt/nhi.h
++++ b/drivers/thunderbolt/nhi.h
+@@ -62,6 +62,9 @@ extern const struct dev_pm_ops nhi_pm_ops;
+  * @ring_interrupt_mask: NHI specific hook to mask/unmask the interrupt of a
+  *			 single ring. If not set the standard USB4 NHI
+  *			 registers are used.
++ * @ring_configure: NHI specific hook to program the ring options registers
++ *		    and enable the ring with the given flags. If not set
++ *		    the standard USB4 NHI registers are used.
+  * @is_present: Whether the device is currently present on the parent bus
+  * @init_interrupts: NHI specific interrupt initialization hook
+  * @reset_interface: Resets the host interface
+@@ -81,6 +84,7 @@ struct tb_nhi_ops {
+ 	void __iomem *(*ring_options_base)(struct tb_ring *ring);
+ 	void (*ring_interrupt_active)(struct tb_ring *ring, bool active);
+ 	void (*ring_interrupt_mask)(struct tb_ring *ring, bool mask);
++	void (*ring_configure)(struct tb_ring *ring, u32 flags, u32 e2e_flags);
+ 	bool (*is_present)(struct tb_nhi *nhi);
+ 	int (*init_interrupts)(struct tb_nhi *nhi);
+ 	void (*reset_interface)(struct tb_nhi *nhi);
 
 -- 
 2.55.0
