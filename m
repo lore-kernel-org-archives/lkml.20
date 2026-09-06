@@ -1,27 +1,27 @@
 Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9880237C91E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 984F1305E1F
 	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 03:12:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788664368; cv=none; b=QYGYuBBMXNFYAMKORDIH42ZXo1mQB3R9bXs9fS4rS7saf/EL57hmgE9rO1rTPBNo2SGH1u9mTQIqRNk1Tr+/+MzTbeGduRgR3uI/68A45HCKIEhfSkxFJUvuIfvZg/ii0zxUhIARES1Ktt62hJeleVeMH03yseUsMQm0ot9crb4=
+	t=1788664368; cv=none; b=kT5PW1S/rCDj5/Pf+VFYE3KzLuGTTeHBf4FUY9ZYqlDZ8irQfxVfybSDUaWx9cy3B9FDoBisN/0WOI9akcn4/m82HCwM+FMVTd27iGh01OhoVSSbC7SqKwrJBetaXoDC2EOywQVxQqHw0kemBIP0TFVpt0+kkpwkBoF5GnBUXGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788664368; c=relaxed/simple;
-	bh=+zeYXutgmwm2Am71pplb9PeZRp+bqoDl0FySunjeoTo=;
+	bh=es2SAREtlwpipJhOBild8lxyo8UddtY/8yaG6OMAt9s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cfkbvfr/dVb2Y5eRwUCFmCm3MMUwd0GWuHj/y9dLayCIVX1yaZnfFS8Yfyvlfmt75zDVn8ORhxx2Nesx1udAJyZs9PILzTuIh2BZaAw/EYu5b9UHDc0KyGc64fKLrWj9lvuV5C3xsfW1RmNcRpEvtabGBowhQ4CSWSUABN0KiGE=
+	 MIME-Version; b=PxKJSwWOoZV19kEUsN5nexIFxXnP9bJFDCq9fxr/3msBYqhhTYagcIBAlXEPROHuviUFjYOVh/1KwwKOPYgDr2N4YFWN68XUwE1weNWi1AVxxtagULGI1qt7pEUrW/VtMaLSp+W4e5sk4jiMPl4wyzoLaHGM3KWhj1p0fwUr9ys=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
 Received: from mail.maildlp.com (unknown [172.19.163.170])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hcwGL0h5xzKHMSB
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:11:38 +0800 (CST)
+	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hcwGK72xczKHMS6
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:11:37 +0800 (CST)
 Received: from mail02.huawei.com (unknown [10.116.40.112])
-	by mail.maildlp.com (Postfix) with ESMTP id 090194056B
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:12:36 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTP id E1FB44056B
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:12:35 +0800 (CST)
 Received: from huaweicloud.com (unknown [10.50.85.155])
-	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgBnUAsW2pxqmzytAw--.18069S9;
+	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgBnUAsW2pxqmzytAw--.18069S8;
 	Sun, 06 Sep 2026 11:12:35 +0800 (CST)
 From: Zhou Minqiang <zhouminqiang2@huawei.com>
 To: linux@armlinux.org.uk,
@@ -38,9 +38,9 @@ Cc: linux-arm-kernel@lists.infradead.org,
 	yangerkun@huawei.com,
 	yi.zhang@huawei.com,
 	zhouminqiang <zhouminqiang2@huawei.com>
-Subject: [PATCH v4 5/8] jffs2: add write verification to direct page writes in flash_writev
-Date: Sun,  6 Sep 2026 11:03:41 +0800
-Message-ID: <20260906030344.2448622-6-zhouminqiang2@huawei.com>
+Subject: [PATCH v4 4/8] jffs2: write verify: add byte-by-byte comparison on mismatch
+Date: Sun,  6 Sep 2026 11:03:40 +0800
+Message-ID: <20260906030344.2448622-5-zhouminqiang2@huawei.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260906030344.2448622-1-zhouminqiang2@huawei.com>
 References: <20260906030344.2448622-1-zhouminqiang2@huawei.com>
@@ -51,14 +51,14 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:cCh0CgBnUAsW2pxqmzytAw--.18069S9
-X-Coremail-Antispam: 1UD129KBjvJXoWxCrWfKry8WryfWr48Cr4rZrb_yoWrtFW5pr
-	ZIkr15Ar4fKryfGFsayFs8Z343Kay8Gr1Igr43C348Xa1Fvr17KayYgFy8ArWrArZ7Xw40
-	krsak345Jr1Yq3DanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:cCh0CgBnUAsW2pxqmzytAw--.18069S8
+X-Coremail-Antispam: 1UD129KBjvJXoWxXFyxtF18ZFykZF4xXF1fWFg_yoW5Cw1kpr
+	say34ayF48Jry7WrsIkFs5C3W3J3y8Gr4xKrW3A34fZa18Z34IgayFqF17ArWFyFZ7X3Wj
+	9FZ0kr1rGFn8tFDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDU0xBIdaVrnRJUUUQ0b4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
 	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAV
 	Cq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0
-	rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267
+	rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267
 	AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7Cj
 	xVAFwI0_Cr1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F4
 	0Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC
@@ -74,134 +74,100 @@ X-CM-SenderInfo: 52kr3z5lqtxttqj6x35dzhxuhorxvhhfrp/
 
 From: zhouminqiang <zhouminqiang2@huawei.com>
 
-jffs2_flash_writev() performs writes in three phases: phase 1 fills
-the write buffer and flushes it when full, phase 2 writes full pages
-directly via mtd_write() bypassing the buffer, and phase 3 fills the
-remaining data into the write buffer.
+jffs2_verify_write() uses memcmp() to compare the write buffer
+against data read back from flash. On mismatch, the current code
+dumps the entire source and read-back data, which will become
+impractical once the verify path is extended to NOR flash where
+a single write can span PAGE_SIZE.
 
-Phases 1 and 3 both invoke __jffs2_flush_wbuf() when the buffer is
-full, which includes write-back verification when
-CONFIG_JFFS2_FS_WBUF_VERIFY is enabled. However phase 2, which
-handles the bulk of the write data, calls mtd_write() directly
-without any verification.
-
-Phase 2 direct writes may span multiple wbuf_pagesize pages. Extend
-jffs2_verify_write() with a len parameter to specify the data length
-to verify, and add the verification call after the phase 2
-mtd_write() to cover this gap. Also add __GFP_NOWARN to the kmalloc
-in jffs2_verify_write() to suppress high-order allocation warnings
-when verifying summary writes on large-erasesize NAND.
+Add a byte-by-byte comparison after the memcmp() mismatch path
+to locate the exact mismatch offset, reporting the first
+differing offset and dumping up to 128 bytes of both the source
+and read-back data. memcmp() remains on the hotpath for
+successful writes, and the byte-by-byte loop only runs when an
+error is actually detected.
 
 Signed-off-by: zhouminqiang <zhouminqiang2@huawei.com>
 ---
- fs/jffs2/wbuf.c | 35 +++++++++++++++++++++--------------
- 1 file changed, 21 insertions(+), 14 deletions(-)
+ fs/jffs2/wbuf.c | 46 ++++++++++++++++++++++++++++------------------
+ 1 file changed, 28 insertions(+), 18 deletions(-)
 
 diff --git a/fs/jffs2/wbuf.c b/fs/jffs2/wbuf.c
-index b2ce642e9bc5..c146ece15660 100644
+index 7e52241de457..b2ce642e9bc5 100644
 --- a/fs/jffs2/wbuf.c
 +++ b/fs/jffs2/wbuf.c
-@@ -228,38 +228,38 @@ static struct jffs2_raw_node_ref **jffs2_incore_replace_raw(struct jffs2_sb_info
- 
- #ifdef CONFIG_JFFS2_FS_WBUF_VERIFY
- static int jffs2_verify_write(struct jffs2_sb_info *c, unsigned char *buf,
--			      uint32_t ofs)
-+			      uint32_t ofs, size_t len)
+@@ -231,7 +231,7 @@ static int jffs2_verify_write(struct jffs2_sb_info *c, unsigned char *buf,
+ 			      uint32_t ofs)
  {
  	int ret;
- 	size_t retlen, i;
+-	size_t retlen;
++	size_t retlen, i;
  	char *eccstr;
  	void *verify_buf;
  
--	verify_buf = kmalloc(c->wbuf_pagesize, GFP_NOFS);
-+	verify_buf = kmalloc(len, GFP_NOFS | __GFP_NOWARN);
- 	if (!verify_buf) {
- 		pr_warn("%s(): verify buffer allocation failed, skipping verification\n",
- 			__func__);
- 		return 0;
- 	}
- 
--	ret = mtd_read(c->mtd, ofs, c->wbuf_pagesize, &retlen, verify_buf);
-+	ret = mtd_read(c->mtd, ofs, len, &retlen, verify_buf);
+@@ -246,10 +246,10 @@ static int jffs2_verify_write(struct jffs2_sb_info *c, unsigned char *buf,
  
  	if (ret && ret != -EUCLEAN && ret != -EBADMSG) {
  		pr_warn("%s(): Read back of page at %08x failed: %d\n",
- 			__func__, ofs, ret);
+-			__func__, c->wbuf_ofs, ret);
++			__func__, ofs, ret);
  		goto out_free;
--	} else if (retlen != c->wbuf_pagesize) {
--		pr_warn("%s(): Read back of page at %08x gave short read: %zu not %d\n",
--			__func__, ofs, retlen, c->wbuf_pagesize);
-+	} else if (retlen != len) {
-+		pr_warn("%s(): Read back of page at %08x gave short read: %zu not %zu\n",
-+			__func__, ofs, retlen, len);
+ 	} else if (retlen != c->wbuf_pagesize) {
+-		pr_warn("%s(): Read back of page at %08x gave short read: %zd not %d\n",
++		pr_warn("%s(): Read back of page at %08x gave short read: %zu not %d\n",
+ 			__func__, ofs, retlen, c->wbuf_pagesize);
  		ret = -EIO;
  		goto out_free;
- 	}
--	if (!memcmp(buf, verify_buf, c->wbuf_pagesize)) {
-+	if (!memcmp(buf, verify_buf, len)) {
- 		ret = 0;
+@@ -259,24 +259,34 @@ static int jffs2_verify_write(struct jffs2_sb_info *c, unsigned char *buf,
  		goto out_free;
  	}
  
--	for (i = 0; i < c->wbuf_pagesize; i++) {
-+	for (i = 0; i < len; i++) {
- 		uint8_t c1 = ((uint8_t *)buf)[i];
- 		uint8_t c2 = ((uint8_t *)verify_buf)[i];
- 		int dump_len;
-@@ -274,9 +274,9 @@ static int jffs2_verify_write(struct jffs2_sb_info *c, unsigned char *buf,
- 		else
- 			eccstr = "OK or unused";
+-	if (ret == -EUCLEAN)
+-		eccstr = "corrected";
+-	else if (ret == -EBADMSG)
+-		eccstr = "correction failed";
+-	else
+-		eccstr = "OK or unused";
++	for (i = 0; i < c->wbuf_pagesize; i++) {
++		uint8_t c1 = ((uint8_t *)buf)[i];
++		uint8_t c2 = ((uint8_t *)verify_buf)[i];
++		int dump_len;
  
--		dump_len = min_t(int, 128, c->wbuf_pagesize - i);
--		pr_warn("Write verify error (ECC %s) at %08x (+%zu/%d). Wrote:\n",
--			eccstr, ofs, i, c->wbuf_pagesize);
-+		dump_len = min_t(int, 128, len - i);
-+		pr_warn("Write verify error (ECC %s) at %08x (+%zu/%zu). Wrote:\n",
-+			eccstr, ofs, i, len);
- 		print_hex_dump(KERN_WARNING, "", DUMP_PREFIX_OFFSET, 16, 1,
- 			       buf + i, dump_len, 0);
+-	pr_warn("Write verify error (ECC %s) at %08x. Wrote:\n",
+-		eccstr, c->wbuf_ofs);
+-	print_hex_dump(KERN_WARNING, "", DUMP_PREFIX_OFFSET, 16, 1,
+-		       c->wbuf, c->wbuf_pagesize, 0);
++		if (c1 == c2)
++			continue;
  
-@@ -293,7 +293,7 @@ static int jffs2_verify_write(struct jffs2_sb_info *c, unsigned char *buf,
- 	return ret;
- }
- #else
--#define jffs2_verify_write(c,b,o) (0)
-+#define jffs2_verify_write(c,b,o,l) (0)
- #endif
+-	pr_warn("Read back:\n");
+-	print_hex_dump(KERN_WARNING, "", DUMP_PREFIX_OFFSET, 16, 1,
+-		       verify_buf, c->wbuf_pagesize, 0);
++		if (ret == -EUCLEAN)
++			eccstr = "corrected";
++		else if (ret == -EBADMSG)
++			eccstr = "correction failed";
++		else
++			eccstr = "OK or unused";
  
- /* Recover from failure to write wbuf. Recover the nodes up to the
-@@ -458,7 +458,7 @@ static void jffs2_wbuf_recover(struct jffs2_sb_info *c)
- 			ret = mtd_write(c->mtd, ofs, towrite, &retlen,
- 					rewrite_buf);
- 
--		if (ret || retlen != towrite || jffs2_verify_write(c, rewrite_buf, ofs)) {
-+		if (ret || retlen != towrite || jffs2_verify_write(c, rewrite_buf, ofs, towrite)) {
- 			/* Argh. We tried. Really we did. */
- 			pr_crit("Recovery of wbuf failed due to a second write error. Data loss ensues.\n");
- 			kfree(buf);
-@@ -676,7 +676,10 @@ static int __jffs2_flush_wbuf(struct jffs2_sb_info *c, int pad)
- 			retlen, c->wbuf_pagesize);
- 		ret = -EIO;
- 		goto wfail;
--	} else if ((ret = jffs2_verify_write(c, c->wbuf, c->wbuf_ofs))) {
+-	kfree(verify_buf);
+-	return -EIO;
++		dump_len = min_t(int, 128, c->wbuf_pagesize - i);
++		pr_warn("Write verify error (ECC %s) at %08x (+%zu/%d). Wrote:\n",
++			eccstr, ofs, i, c->wbuf_pagesize);
++		print_hex_dump(KERN_WARNING, "", DUMP_PREFIX_OFFSET, 16, 1,
++			       buf + i, dump_len, 0);
++
++		pr_warn("Read back:\n");
++		print_hex_dump(KERN_WARNING, "", DUMP_PREFIX_OFFSET, 16, 1,
++			       verify_buf + i, dump_len, 0);
++
++		ret = -EIO;
++		goto out_free;
 +	}
-+
-+	ret = jffs2_verify_write(c, c->wbuf, c->wbuf_ofs, c->wbuf_pagesize);
-+	if (ret) {
- 	wfail:
- 		jffs2_wbuf_recover(c);
  
-@@ -908,6 +911,10 @@ int jffs2_flash_writev(struct jffs2_sb_info *c, const struct kvec *invecs,
- 			if (ret < 0 || wbuf_retlen != PAGE_DIV(vlen))
- 				goto outfile;
- 
-+			ret = jffs2_verify_write(c, v, outvec_to, PAGE_DIV(vlen));
-+			if (ret)
-+				goto outfile;
-+
- 			vlen -= wbuf_retlen;
- 			outvec_to += wbuf_retlen;
- 			c->wbuf_ofs = outvec_to;
+ out_free:
+ 	kfree(verify_buf);
 -- 
 2.52.0
 
