@@ -1,155 +1,130 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazolkn19010023.outbound.protection.outlook.com [52.103.32.23])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from out-2z4y-a134.jellyfish.systems (out-2z4y-a134.jellyfish.systems [198.54.127.134])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 834D01FB1
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 14:39:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.32.23
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788705561; cv=fail; b=otYApz0rJObbNwGtS4ZoP+R39gy0m0V2vh+f5d+IqaKVUfUkd2oJO5pN5IwP9QI+Cen/0KVV2+zwKZW20TNzG9WD2VllUWgI3Mp4ZAGitvEMIY1+HluI5CRLrQHzXDRP90LRS6haGxxAhg3happts8z3p4mFC1NjPoZrdLWAyl0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788705561; c=relaxed/simple;
-	bh=FzI1LZ1mIgzQwxc643uFKHNs0UVgxvCwY4LtOBXAtJY=;
-	h=Message-ID:Date:To:Cc:References:Subject:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=bAomU/Uw59THkT0GycucepqBQXQV5oEwRjKPSn4SA+22wZ4DYZ2BUKTeCvSZmBnlStXgClfPN4NRezGk8jD8lSY1Ok9chICt91misAEsupD7yQMLWXEnxO/CYXU7Ta9wDd0ymOtT+vWuq31iC3y0vNJqi9ZPEJ70DWoMp4jawsE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=WmQcaXOZ; arc=fail smtp.client-ip=52.103.32.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76AF933CEA7
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 14:39:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.134
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788705595; cv=none; b=D3p13GE01es4o5TDG3wRythnyLYRAfUjzQndeN94T70wY/2MxcRSTTIH2VPlIiPlY2kEOzE42lPiz+EgzbJDB7SO2fu0gG08dp+BblU1iPZC1Uv0Sg2h0Gu9L1kUtk+8XdJ4qZQc42xyqFxsqGpfqfB2amLIigOSuRvSvNhNixc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788705595; c=relaxed/simple;
+	bh=HjX43IXUVj0c1iU7YYoc2MlHHzj53Q0lGrYgc3kbfwM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jtJI/uDZqmA5IyFqsYlwQWhLbmqFt4DdvNk3b3n8JbjPhfIyzzT0mKq5j+otPOUP4nDcDf6chhp6691ShKjht1+daoQRbfEwhRZngTfvpw3AlM6V2TMl5KsgPkVwecCPCGMBhMX19oFmbdjwS1ZdCLV5x+LR9ViEIwpU6EW0a54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=NJQ6bb1n; arc=none smtp.client-ip=198.54.127.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="WmQcaXOZ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xzqMLool3Q0vdh4RQXgP4Q9MCppU1I4pMlUSvEdlFjvhbURd0gLBeZ2uyDOWR7Eayh1V68TS49HzlIhv8X8h8YS3lzXiNXyzQePp4qU9X1IRt++CaRkFit2m9NogAORTd/w5zyAsuAkv1neV1N3RJU6WzkqVGNlcy5xaxM5gJARWT3Tlq+CqdQh/5v++Z6vJY3XN141/swcbH0xegkbucS488S+eqbc9pZi4HOYXREYSCmuTj1/U/Qg0YayUsim4GLrd0TA2Go2Pi4ZP4hHu6oMK4Hm9x9RBB6S343ml+MswIomRwVh34b4tK30UFGh1FciOYAuY1Or/jUzangGblA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FzI1LZ1mIgzQwxc643uFKHNs0UVgxvCwY4LtOBXAtJY=;
- b=CpWDkokogLX4Z0PxRlMnRdXWQ6X7lOdcCvjmlDd5bQAwUorJx1C5c57n3P0WNuV6MXuHoStwsJRdOeB1H1evtxLH/pX3gfsgibJMhiHCacWCXa6pHeHhpBM1fUT+Q3B93phjh3LYGgaGy8sUYqy32VlgUEo9irDlCqOjbWssELus3Sbs9OpWzjdiMxkd/v9aeoGoTDGfCJDFEYoZ/Gt/K5CCPG/J1ptWXoFzhm0ylr1Xa1KyNbD64a7HpRL1nU6hCBf2NQ14cdrrOXDSifvy6feVQCcrWQIhPy3bTtPsdgVUY5NmGUWh54PMa6kvTku+XkcyZ6Uwi0dAGSNDhJi0Nw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FzI1LZ1mIgzQwxc643uFKHNs0UVgxvCwY4LtOBXAtJY=;
- b=WmQcaXOZun3zOCEpWoz1pREAqFr/VgQYhq7vF5op38sPsJ7nV+BtujpMZDtPxPiOe5k7VSLHZMAr2MyBgIAcVkQzDvoeldk0JtS8Fa6GXLTeZMjlQwHz/KWc7uLDmGgCvOSUoD+NB2D1VUO/v+2uhNyaihDPJfD36G+17KSI2dSnRrecB5daivOHTaCefmwOtvsJt5K20DYCZ7ElcIa2wmdm2ukEI9EKHxz523LEPCBPvySEI421jUDBvZlkOj92YoXFOE2hED5Bdxm2/kSVWTGfNyOyIMlQ6hMFFcPNcKLzcO4t5gulSw1UMfWfsEPI5nPgLIpJugYCN956Te1RPA==
-Received: from VI0P189MB3687.EURP189.PROD.OUTLOOK.COM (2603:10a6:800:2dc::14)
- by VE1P189MB1006.EURP189.PROD.OUTLOOK.COM (2603:10a6:800:169::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Sun, 6 Sep
- 2026 14:39:17 +0000
-Received: from VI0P189MB3687.EURP189.PROD.OUTLOOK.COM
- ([fe80::5271:c467:5d5f:ede6]) by VI0P189MB3687.EURP189.PROD.OUTLOOK.COM
- ([fe80::5271:c467:5d5f:ede6%3]) with mapi id 15.21.0382.014; Sun, 6 Sep 2026
- 14:39:17 +0000
-Message-ID:
- <VI0P189MB36875750152960821EAFA52FE3B32@VI0P189MB3687.EURP189.PROD.OUTLOOK.COM>
-Date: Sun, 6 Sep 2026 16:39:16 +0200
-User-Agent: Mozilla Thunderbird
-To: detlev.casanova@collabora.com
-Cc: Laurent.pinchart@ideasonboard.com, airlied@gmail.com,
- andrzej.hajda@intel.com, dri-devel@lists.freedesktop.org,
- jernej.skrabec@gmail.com, jonas@kwiboo.se, kernel@collabora.com,
- linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, neil.armstrong@linaro.org, rfoss@kernel.org,
- simona@ffwll.ch, tzimmermann@suse.de
-References: <20260519-fix-hdmi-audio-warnings-v1-1-9608966c993f@collabora.com>
-Subject: Re: [PATCH] drm/bridge: dw-hdmi-qp: Return -EOPNOTSUPP in HDMI audio
- functions
-Content-Language: en-US
-From: Maud Spierings <maud_spierings@hotmail.com>
-In-Reply-To: <20260519-fix-hdmi-audio-warnings-v1-1-9608966c993f@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS4P195CA0039.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:20b:65a::15) To VI0P189MB3687.EURP189.PROD.OUTLOOK.COM
- (2603:10a6:800:2dc::14)
-X-Microsoft-Original-Message-ID:
- <d378ea74-7a48-4536-ae31-f0899f3ded35@hotmail.com>
+	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="NJQ6bb1n"
+Received: from fedora (unknown [69.5.53.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.spacemail.com (Postfix) with ESMTPSA id 4hdCX13skmz2x9X;
+	Sun, 06 Sep 2026 14:39:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
+	s=spacemail; t=1788705573;
+	bh=6ySDbc6oyC0qahabQIu62xCvVoIVq3NcjYGnbezvhBY=;
+	h=From:To:Cc:Subject:Date:From;
+	b=NJQ6bb1nnQLbupaenLLkab6hsY7dJKt2xSHDBjcC/tLtqADesOKMiMz6gXXhI87yB
+	 DH//mdmjX9HDRQyDzIaZ+vvhl59VYC5V+6R0SAONXZoueIBCvbTTJwEwSzgAiFBAXh
+	 V1fmgRM1iXYV+vDeIqXNnQlHSZLQJNLckuEJmoF5y39Lh1XtlyS+BCdZAwqQRnLsuk
+	 91BYYyPJdEq1owE2LuA6rKN/bBZerOGWm0fSizE/nbY30RGzjaGiZT7kkYkBDeUs8t
+	 9lWvnyWYCm0kxHv0mY+/ZfsJs/8eBZm+q3NKTiTNrWXYwoXTHvFiHijz05udLuIwb9
+	 yeBU+LODqV95A==
+From: Tianyi Chen <hi@tychen.cc>
+To: andrii@kernel.org,
+	Eduard Zingerman <eddyz87@gmail.com>
+Cc: Tianyi Chen <hi@tychen.cc>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Shuah Khan <shuah@kernel.org>,
+	bpf@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Brian Vazquez <brianvv@google.com>
+Subject: [PATCH bpf] selftests/bpf: Check returned keys in map batch validators
+Date: Sun,  6 Sep 2026 22:39:18 +0800
+Message-ID: <20260906143918.848536-1-hi@tychen.cc>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VI0P189MB3687:EE_|VE1P189MB1006:EE_
-X-MS-Office365-Filtering-Correlation-Id: cae2f151-3bf4-47ee-3724-08df0c24a123
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|23021999003|15080799012|8060799015|19110799012|51005399006|24021099003|25010399006|5072599009|4140399003|6090799003|40105399003|2607281247196008|260806224601699006|3412199025|440099028;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?SzlseldpMDZrbXpaMzF0SGFCV1d4OCtvWW96cG1xTzl1UVo4dzNVTkFvR2Ns?=
- =?utf-8?B?eE9oM3NLeEg3T3JsMkdvREpaRHJKY3I3ZE1sNjg0dDJEbDB6SWZwdmFBMXJY?=
- =?utf-8?B?WUVUOUczUnZodFFGTnVKNWREdmVReXZsOE5hZ3UvamRJQXpPVGt4M2VhMGpV?=
- =?utf-8?B?Tmp4RHM3UU84S1dISlo3K0tkYWtDQ3lIQWNUSU9lS0dnWWhKWTl2Y0ZVb3Jn?=
- =?utf-8?B?MEJDY1ZOVlNsdVM4VGdXemxxZ3ZuenVuMURvb3U1aUMrajdHMk9lMXYvYmhG?=
- =?utf-8?B?elJOaTFoQ0pBN1RDOFNzRGVFL1dKSVNWbnI0U2dQcGpsU2QwUkNyMzVHbzlK?=
- =?utf-8?B?eGk2amhzOWxCZHhra01jWUtmWk5qcFQwTFR0Z0l6U3Y3ZENVdk9KYU50dGR2?=
- =?utf-8?B?V0dZVThmWGIyNFV3angzMEJXNXB0eXdQZ0dwaENZWWxNYkx5K1Y4eWN2OHFo?=
- =?utf-8?B?eXA1dmhXbmQwWjdKQk5jMFRuakVDbnZWNlRoSnBHRzFDVU9WYnY1Z042RkNC?=
- =?utf-8?B?R1NCYUd3Znd2S3RzaWNPd1VIcmVBeURDTk90TGhjRDNYOG9XbkRzTWFITzRJ?=
- =?utf-8?B?MGd3YzVjM0pHRjNEQ3QxckJDa0dTY1lzYVgreFZOYnlLYWVEYzY3N1F2ZThy?=
- =?utf-8?B?eDRFN0g1N1V2N1BIb3FQc1VYQnlSKy95TE8wbTYwQnJkUTcydTF2YlhXTVNU?=
- =?utf-8?B?S3NMUnFOb3RKUHVja1VvcVNnT25SbDIzdXkyUVR6WXBFZHgzSTRhU3NIWEF2?=
- =?utf-8?B?TFo4bVI1eU1nVXc1SXdYbXZrcEZmYzEyNTRFVGZRNG9iWHZUd285d3BoZGF2?=
- =?utf-8?B?ZXVUaXcwNTBmZElUQlJnanVncW9TbVAyOU5pa095Z3VlSnkvbG95ajlaQ2xG?=
- =?utf-8?B?dnZmVkpHaVA2MldLcCs3M2FMODBUcDQ2VEVZRFgydnRHbzBXUzNzYStGd1ZE?=
- =?utf-8?B?d0RJcm9IdFlsSXFRS0ZkcnhnUjBuNjhLM3dpNmgxdXQzQ1JJTWl2ZTFzRGtV?=
- =?utf-8?B?ampJOG9aMmpYS1VRY3VoOThHMUdMQzUrdXBVbnRoTmNKV0wzZ0pyemh6Y0Vo?=
- =?utf-8?B?dFBmeVd6a2FJS1RxeFVLQ29iNkNjTTBKbThvakNVR2V4d3A5d0Zjdkgzdk1i?=
- =?utf-8?B?OXZYMG4xNm1ITUk2Vjd0clB2Tk1qWjZGb1FjdU8zSm1VdEV0NXZZdkp3ZVo0?=
- =?utf-8?B?T0hLMEkyYVYva3NsVll2NXF4TjFJMkFOWU9kQTJFVy9nelJ6NDhWRXZEYjdN?=
- =?utf-8?B?TVlaakVVVGFxNjVTNmNraUMrTzdsd3V6elU1YkpoeHdvcWJaYlFwakRnSVJv?=
- =?utf-8?B?dDhJUGV1ZEZsN1cxU2txcW9BQVQ1Qkl4aE5DcStDQ0lPNGx2SCtSVXU2OU9o?=
- =?utf-8?B?ZWhoNG9NVi9nbUE9PQ==?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?R0d3djdlWnh3ZTBUdEJNTytSR1ZIVDRnR1ZNQjNLekpmd1llVGdFeEtrSTEv?=
- =?utf-8?B?YkJGQXNzTWVsNDUrbmhIRVRJdVkzVER4cHN4cE54TUJ3VXNSZkFwR0NwK3M5?=
- =?utf-8?B?dVdwN3RrdTZPRGtzb2Z0c0d3eHhEb0xyaXoxbGwwYkpYNnZPUXFyOHA4ZWVU?=
- =?utf-8?B?L2JabmR2Z3RvLy8yVHFSTE1WQWZ1OHkxRGpvTDdLWUY3b29DVEhVOXFFbVdI?=
- =?utf-8?B?a3Zoc2tBTTFLZGk1eUFSSzVIY0NzVXVhdXhOV2pJakxVT1FJZVlBb3JQYkhR?=
- =?utf-8?B?anhrUlN2bnl6ZEZQeFJQaWtzRmtYTlNtaWx0OHJGckdtMllycVZXRzNQenhK?=
- =?utf-8?B?SnBvbWI0a0ZacU55eUFuREcxb3laQ2MwTzJML1dBb2phSmEwc3J4Sm1SSVF4?=
- =?utf-8?B?WjgrWVZTZ3BkV1VwR3FJRmhHV0hBRGplRWpHbm9ReGZWdUJmQTg1LzJVamJt?=
- =?utf-8?B?aW5tMHdPY0I2NGNKK2NtWlFDZENLTDhVMVJQQ041RXE5QmNDbTdyQlJ0VVZZ?=
- =?utf-8?B?V05jZ2crdWxENXRUczIycTdBSzkzNDE0MGwvWFZ1Wkx0cklUaTZsWXpsV21p?=
- =?utf-8?B?a1BhQmxPbW80RWVVbWNyRjhtcXZmNTBSUmlvWXZ4cDVmR0VSNjNXTGpJYlI5?=
- =?utf-8?B?dDhseUQvbXkwcGFJZGVFczUzTk9CWVNWeDdMRkhhSzE2SncxZWxoOTRWdWdm?=
- =?utf-8?B?ZytJeW0wSEpTUFJidTFvaW9ORlp1eTUwb0NVZURwdGM5anJqSHZuaVhLRnpB?=
- =?utf-8?B?TDc1dmE0dXRwRkJQc0VRQnc4MUxjQW9CdktuTUI5ZE5WdllTdnZTdEd1VFJE?=
- =?utf-8?B?R3lGcUJHajNURmdmVXJBTjVCRThPck9rUkt2V0ZOSWtYeWliN1J5WjAxSXVM?=
- =?utf-8?B?dHNjNkVZMzNseEIxbzVBdndDV0VTL0N6YWlaVkpFZjAxM2xudHFUbDYvaGxp?=
- =?utf-8?B?YkhtWFJpbzNrZmdTUERsWTJUWkRKVWhFdGYxdzdZaHZ4U25rdkJiRUNoOUZr?=
- =?utf-8?B?RXhzeTUzKzVEMmFta2pOSUtIV3hkenNzKzZNcGt5MWRhNVJBWHFSU3pqK2lE?=
- =?utf-8?B?T21RdVl4NnhGU3hjNzJ1ZjQxNWRiM2U4N1NHY21jUDBrcTc5MTRVZ1BjQi9H?=
- =?utf-8?B?ZDc2UExjelRTdmpUc1hqOEltK0RUdjdjTlJQT3RuWXh1STh0LzI4RGR0eWNo?=
- =?utf-8?B?emJPQUhWWEhwQThhRm9zcWZKUEpXMjkxTTBaYzBTUGluMUlZZlBTUTJXWERV?=
- =?utf-8?B?TExUQXp6M1gwVGgySG1YMFNCZHhlQ2s3MnY5clhrdkl3VjR2ams4M0tZTGFE?=
- =?utf-8?B?TEk5NHBtd081K0VBM0tXeHk0NzhJRXo3RzFRUVdyUngxODNPcjNaM21yZ1Zt?=
- =?utf-8?B?cmxVZSt1N04xUFIwaHNEUU91dVVBRm1CWkFPQ1RQUmR5cityVGVyeW9rME1o?=
- =?utf-8?B?aWRNU1pseVV1MTIrSTYvZlc1dS9GaHZmTmpZaFo3TStjakZMb0o4SUpubGZJ?=
- =?utf-8?B?dHZGZGQ0UDZPMlBhTll3OXZLdXViVnRoYmJENU1jaCtQNzZ0ZUlMK2l5cTJt?=
- =?utf-8?B?UXdhbVJKQkgvMjJONVN4ZzdkblJ1SFZDekpWeDBSZ2pqQTVkWU9vcE1VY0pz?=
- =?utf-8?B?TWNsMWNRWHk3cDJ0MG8vT3pzKzlrdmR2UjVnNG50MnRENzY1WThuTmVMZEp6?=
- =?utf-8?B?QzZXY2JTbUF2cDBXQUJGQzJnRnZMSXZSTEd3cCt2MFgxVVN3UDBFS3BtTk0v?=
- =?utf-8?B?Rm15TzBlRWF2NU52clFaY1UyNE5wdjhDOTlwZ085NUo0WmFudENnY2kxMHIv?=
- =?utf-8?B?V0w4V29IazdtQXQ4bm12cmpLcTNsQUtkcjlnWlp3NkxIN2NVQXZlK3hic0Jv?=
- =?utf-8?Q?uB0Jmx2lmgLSm?=
-X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-b25a6.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: cae2f151-3bf4-47ee-3724-08df0c24a123
-X-MS-Exchange-CrossTenant-AuthSource: VI0P189MB3687.EURP189.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2026 14:39:17.5507
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1P189MB1006
+Content-Transfer-Encoding: 8bit
+X-Envelope-From: hi@tychen.cc
 
-Hi everyone,
+The hash and array batch validators mark visited entries by output
+position, making the subsequent completeness checks always succeed.
+Duplicate keys with matching values can therefore hide missing entries.
 
-Another month, another reminder.
-Or is there some reason why this isn't getting picked up?
+Check that returned keys fall within the populated range and index
+the visited array by key. This detects missing entries while preserving
+unordered results and existing per-CPU value validation.
 
-kind regards,
-Maud
+Controlled inputs confirm that the old validators accept duplicates
+and out-of-range keys with matching values, while the updated checks
+reject them. Ordered, reversed and shuffled valid keys still pass,
+and scalar and per-CPU value corruption is still rejected. The full
+test_maps suite passes with no skips on the matching kernel.
+
+Fixes: 30ff3c59137d ("selftests/bpf: Add batch ops testing for htab and htab_percpu map")
+Fixes: f0fac2cec286 ("selftests/bpf: Add batch ops testing to array bpf map")
+Assisted-by: LLM
+Signed-off-by: Tianyi Chen <hi@tychen.cc>
+---
+ tools/testing/selftests/bpf/map_tests/array_map_batch_ops.c | 5 ++++-
+ tools/testing/selftests/bpf/map_tests/htab_map_batch_ops.c  | 4 +++-
+ 2 files changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/tools/testing/selftests/bpf/map_tests/array_map_batch_ops.c b/tools/testing/selftests/bpf/map_tests/array_map_batch_ops.c
+index b595556315b..76d3800a82a 100644
+--- a/tools/testing/selftests/bpf/map_tests/array_map_batch_ops.c
++++ b/tools/testing/selftests/bpf/map_tests/array_map_batch_ops.c
+@@ -45,6 +45,9 @@ static void map_batch_verify(int *visited, __u32 max_entries, int *keys,
+ 
+ 	memset(visited, 0, max_entries * sizeof(*visited));
+ 	for (i = 0; i < max_entries; i++) {
++		CHECK(keys[i] < 0 || keys[i] >= max_entries, "key checking",
++		      "error: i %d key %d out of range\n", i, keys[i]);
++
+ 		if (is_pcpu) {
+ 			cpu_offset = i * nr_cpus;
+ 			for (j = 0; j < nr_cpus; j++) {
+@@ -59,7 +62,7 @@ static void map_batch_verify(int *visited, __u32 max_entries, int *keys,
+ 			      "error: i %d key %d value %lld\n", i, keys[i],
+ 			      values[i]);
+ 		}
+-		visited[i] = 1;
++		visited[keys[i]] = 1;
+ 	}
+ 	for (i = 0; i < max_entries; i++) {
+ 		CHECK(visited[i] != 1, "visited checking",
+diff --git a/tools/testing/selftests/bpf/map_tests/htab_map_batch_ops.c b/tools/testing/selftests/bpf/map_tests/htab_map_batch_ops.c
+index 5da493b94ae..430949f9691 100644
+--- a/tools/testing/selftests/bpf/map_tests/htab_map_batch_ops.c
++++ b/tools/testing/selftests/bpf/map_tests/htab_map_batch_ops.c
+@@ -50,6 +50,8 @@ static void map_batch_verify(int *visited, __u32 max_entries,
+ 
+ 	memset(visited, 0, max_entries * sizeof(*visited));
+ 	for (i = 0; i < max_entries; i++) {
++		CHECK(keys[i] < 1 || keys[i] > max_entries, "key checking",
++		      "error: i %d key %d out of range\n", i, keys[i]);
+ 
+ 		if (is_pcpu) {
+ 			for (j = 0; j < bpf_num_possible_cpus(); j++) {
+@@ -65,7 +67,7 @@ static void map_batch_verify(int *visited, __u32 max_entries,
+ 			      ((int *)values)[i]);
+ 		}
+ 
+-		visited[i] = 1;
++		visited[keys[i] - 1] = 1;
+ 
+ 	}
+ 	for (i = 0; i < max_entries; i++) {
+-- 
+2.55.0
+
