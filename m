@@ -1,156 +1,190 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from out-zbxj-a74.jellyfish.systems (out-zbxj-a74.jellyfish.systems [198.54.127.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7FB432B118
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 13:55:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C89193C872B
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 13:56:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788702940; cv=none; b=H5gX9QKV27lpi37NSF/GkXC8ZZjPsTmzpSfb21cFDXhJ6Wb4+HqDcy0uNnzfebaENgOc+jSeqYcEHSwSZEhrI2w5unfmFft32ooTixo4e4Lm3tKx6jSXa9OUwpGbnDeBnU9Lto1ewlnRLi3WegK6yVlMHABQzF3isL4+KPJmHIc=
+	t=1788702962; cv=none; b=BQ1OwH9cEAWCrNIPKdjroyctmGhf0AlKv2D7rL486UdQ+CZ8d6J9MrOC5c7O9tidE/qXggIPXfMZ1cFDS8OYVFw3Jp1/wqH+EK11y3ug130MvZfCEjPRRG7A0s6HsLJOEpVbrVccicRoyvv1KddJaL1xk/ZHG07ItywDOAB1WEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788702940; c=relaxed/simple;
-	bh=9AbHtUnyJdSad1+pPE4S5Q1Qe0SJtnb1F3HJ+4VOdHg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rTf/TdOJNtCNl2ZL9Mc6cgXuD6qqWyBj6CmNzuBw3zLT8CWpSWCJAwPcZlGiVfI87eRtHOkPbpkLLd+Pp0t0/LGB5UX6/Rxjc29oQ2MODEtqIZsiM6QcEmP2TCT4O+MrmtmuDyKcxo7sUQDlXrU565VdbgZkCP6Sty0bwb5x5yw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DgXjUoWc; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788702962; c=relaxed/simple;
+	bh=COd+kAaQDyip65PPi7omYsrkf1H/LFJxKJENx1+pDr4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZPuAL8jO1D4Hjl9uIMEHZ4voXWC2L+dm4KEJ6juw+ELRtD1moy/+ONZPwuuac5UIHaUDBPlHvVAL0X6G5q0JWVoEIbJosUJPX+PB4HERJWI9GMOk0BiAb7/WjrixRvc9HBgLIhgXIx3XQCOgQYyxXGNQvisojVDBb/t2fmaoAF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=YK25Gdu2; arc=none smtp.client-ip=198.54.127.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DgXjUoWc"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49d036e0e99so5930635e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 06:55:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788702937; x=1789307737; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AAkt+WsD2x5mubq2SLqxrx2zGJJKOZ40UAK2ergnfnc=;
-        b=DgXjUoWcxBUxd79f+URJCQ1Sj6f5u5bxv1RjUbBWyCzCg4klDK2vnn9IDxWc2+Ywo8
-         MFi3bduJYfjs1Dw3vBDJ122wcnS3YeU1Uh6bnbh8j1n3f+tUz1lqMrrhFw8nPMM5QmJ6
-         bcrBwb5J5y+UZ23Y0upefkVYRkWqxG7HDGl9DDTXG9dq4f3bCwEKwXrL2FJ4ZO65JPld
-         kiKw5Nd5bgNUPN/Efrpyy6Yc67Q+bnS8/60HijATD/Uyie28vaNl0GaMVIRe8K/Zc9I2
-         sWh9yA3sRdMCrMqPewlZ6Bh+8Oz6tHWd3ROYKTaqdrlKafUc7DBpbfvXL69fxYWgg6i0
-         Bddw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788702937; x=1789307737;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AAkt+WsD2x5mubq2SLqxrx2zGJJKOZ40UAK2ergnfnc=;
-        b=pQQBPwXRWMj6LDo2Pb24vJEUGc+qijuJ4tqiIeFZiq4+FJ2HtclBrLPlu4hMWbcax/
-         fSIiKXOFcbjWbQKIXwVjVWn3lH6ljqR32AGvu6Vn+bgjd0fOqWbh9i5xqLk07N50Z7Ht
-         JKKAbik8rQnwiwzBtnbL3THLy6jkhq9rbRJAnZeT4CEbnLIbWC9X0yN0AqRdaP5bODJq
-         jcX3LErSYb1UFjsrdEYj3XDbxOtWwC/YPsnvacD8+dI5vlin7qEK5tL9fYVxOqFniRM2
-         ysRgqgQRbQG/F9J6s1C2mwskZ3+wygHoEcvb6Zp9rfo9d3kTV2JxLJ9G9v2fqgH+O73+
-         zzkA==
-X-Forwarded-Encrypted: i=1; AKwUvBxjgG41VUahECkPGT/V4q/JYqKcaSOr4hC7YQcmaSqW0MQ5Db9drlQdaL5BzSDqMnJHS3rBNKKZc514gwQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++n8K7cUC6w2mfx031rPO0vE2X2OWxwfWnRPjcy95Kquf+dEXOnr
-	9kBTATjBJLQMECcyNbM7OLqtIHwpI+V+f4t3OAYxBdkUoSChlQBtSS9/v2xma2Lx
-X-Gm-Gg: AYBFou0edXRR9t4LMot0/Xu0lDEn5D5CLKKzeVD4vvvwahv56LqH8hH6fXZEVxxeVwH
-	r1XSuvZ13a3th8JpTNKjQFVV3y+CDz4px/3FKQWKCNjogX3reMoE6kLehufUNw9wLaHHDLzoERL
-	+M0OoYOoDEySUGNXDeM1vQN0X5oMXVTh2q9tk9B9BhQi/vUgmOKlWq31fHtZzkgd2MnAn565Vnb
-	Wic2C4S/JttkcEDM+Cig5e6q7+Cgm25Vnqh6yi5uPt/UuNCLKKRzxlkRNijQ5rC8TIwvwo5Jy7D
-	VWOGlf00U638m6+JvVvgXDofr8OZD3FAgSViDulTagetumQhNoT/fpFnhCQMsBDDcchv3bCNQzv
-	O4Hy3DAslNxgmtLPmB0/hoS4UkE3DNBT/1OaqhFz68DDjM0o5zR6A7AXTf9H/Gy+B3uqZfLsxKo
-	pMCqML2NTY14nwfI5eoUYeLQnmZKczrCPd3/FFvhMphvOFW28vDDot+z71Qucjym3fIyqsawOij
-	1A9AtQWJe+o5+gZhx9uo/MZSwhYdqJdEMXEyabqvomkRQfy1+SxNeAKQxssZMaL14o+C4IgFZXx
-	dg3mKT9nWkKI0O5Sxuofa28ucmXq6m/2QGfsBg11nFT/1ERFIi2zLyLmCR9cUmaUEkwP+6p8yHI
-	rIfqDbkLsXqMqEC22OsoRSKCZAVLlNLRh5iu+ljgnm7NhSTEfCDYde9mgIF2znJKhu+9atTHM37
-	qclgk=
-X-Received: by 2002:a05:600c:3550:b0:49d:7fc:5dc5 with SMTP id 5b1f17b1804b1-49d07fc61bdmr62766225e9.1.1788702936623;
-        Sun, 06 Sep 2026 06:55:36 -0700 (PDT)
-Received: from systembl0wer (78-80-112-223.customers.tmcz.cz. [78.80.112.223])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d07b371afsm123925615e9.9.2026.09.06.06.55.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 06:55:36 -0700 (PDT)
-Date: Sun, 6 Sep 2026 15:55:32 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Fabio Cesari <fabio.cesari@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Brian Masney <bmasney@redhat.com>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: light: isl29028: fix runtime PM reference leak on
- error paths
-Message-ID: <20260906155532.35326455@systembl0wer>
-In-Reply-To: <20260906131203.125407-1-fabio.cesari@gmail.com>
-References: <20260906131203.125407-1-fabio.cesari@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="YK25Gdu2"
+Received: from fedora (unknown [69.5.53.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.spacemail.com (Postfix) with ESMTPSA id 4hdBYX6thCz6tkS;
+	Sun, 06 Sep 2026 13:55:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
+	s=spacemail; t=1788702948;
+	bh=K7IcHZi0LnYase/ANW87JayKjKxLyrrOICqxy87P0M0=;
+	h=From:To:Cc:Subject:Date:From;
+	b=YK25Gdu2+VNR7fEho2p9K8qZaOoLWNWO8gL81XUWHwwcwnUg6MmIQdpRtwO7tdcQg
+	 Wtpb2D7yhFdGj0QTKMnivdXGcHGIqdqccC1E2PbQ8MPhVoYmL/c4jt/I0NcqyIde9U
+	 ljLHVISniMKzCezV7hmRQpoaJ3GxHPN/SPLOy8G0d2gv6d9rKfFE+LPDNrtCACuh/W
+	 wRekGrgEd/8CmUy6pOyUHwZM2G/yFieOQlRzdiykzpQyGoRbqpuy7AUZIPt3e9ZcQQ
+	 PFkDG4lK4VhHegPQmKa85/CI8yYSZdAsSlnXDoNi5zpoNyVio8oPNc2/O0JCstKCC7
+	 Z+fpVDqdkCsrQ==
+From: Tianyi Chen <hi@tychen.cc>
+To: Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>
+Cc: Tianyi Chen <hi@tychen.cc>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Shuah Khan <shuah@kernel.org>,
+	sched-ext@lists.linux.dev,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] selftests/sched_ext: Handle CPU hotplug write failures
+Date: Sun,  6 Sep 2026 21:55:22 +0800
+Message-ID: <20260906135534.749534-1-hi@tychen.cc>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Envelope-From: hi@tychen.cc
 
-Hi Fabio,
+toggle_online_status() logs failed CPU state changes but discards the
+write result. The hotplug tests can consequently wait indefinitely for
+a scheduler exit that the failed operation never triggered.
 
-On Sun,  6 Sep 2026 15:11:40 +0200
-Fabio Cesari <fabio.cesari@gmail.com> wrote:
+Return the write result and stop both hotplug tests when a required
+CPU state change fails. Release the acquired scheduler resources on
+these paths and let the existing cleanup callback retry restoring
+CPU1. Also fail the test when its normal CPU restoration fails.
 
-...
+Tested in a two-vCPU VM running a kernel built from the same source
+as the selftests. Injecting EIO with strace into each of the ten CPU
+state writes makes the fixed test return 1, with CPU1 online and
+sched_ext disabled after cleanup. The original test does not finish
+within three seconds when either of the first two writes fails.
+Normal hotplug tests pass before and after the change. Making the
+online file read-only also produces a failure without hanging.
 
-> Found by auditing IIO drivers for runtime PM acquire/release imbalances
-> with a Coccinelle semantic patch that models pm_runtime_resume_and_get()
-> and pm_runtime_put_autosuspend() along the control flow graph, flagging
-> functions that take a reference and then reach a return without dropping
-> it.
+Fixes: a5db7817af78 ("sched_ext: Add selftests")
+Assisted-by: LLM
+Signed-off-by: Tianyi Chen <hi@tychen.cc>
+---
+ tools/testing/selftests/sched_ext/hotplug.c | 34 ++++++++++++++-------
+ 1 file changed, 23 insertions(+), 11 deletions(-)
 
-I'd put this paragraph under the --- as the Assisted-by tag already mentions
-coccinelle.
-
-> Fixes: 2db5054ac28d ("staging: iio: isl29028: add runtime power management support")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5 coccinelle
-
-The standard is to use "Assisted-by: LLM coccinelle" to prevent free
-advertising of models.
-
-> Signed-off-by: Fabio Cesari <fabio.cesari@gmail.com>
-> ---
-> 
-> Compile-tested only: arm64 (native) and x86_64 (cross), defconfig plus
-> CONFIG_SENSORS_ISL29028=m, with gcc 15.2.0, W=1 and sparse v0.6.5-rc1:
-> no warnings. I have no isl29028 hardware, so this is untested at
-> runtime.
-> 
-> I also have a version that takes the runtime PM reference only where it
-> is needed: isl29028_write_raw() validates its arguments first, and
-> isl29028_read_raw() acquires it only for the reads that reach the
-> hardware, the sampling frequency and lux scale being cached. It also
-> stops propagating the pm_runtime_put_autosuspend() return value to
-> userspace, which fixes a second problem: with CONFIG_PM=n that call
-> returns -ENOSYS, so every read and write fails today even when the
-> access itself succeeded.
-
-I had a whole paragraph about the functions returning -ENOSYS if PM is
-disabled, only then noticing that you already mentioned this... I should
-pay more attention :)
-
-...
-
-> @@ -392,12 +392,11 @@ static int isl29028_write_raw(struct iio_dev *indio_dev,
->  
->  	mutex_unlock(&chip->lock);
->  
-> +	pm_ret = pm_runtime_put_autosuspend(dev);
->  	if (ret < 0)
->  		return ret;
-> -
-> -	ret = pm_runtime_put_autosuspend(dev);
-> -	if (ret < 0)
-> -		return ret;
-> +	if (pm_ret < 0)
-> +		return pm_ret;
-
-I'd suggest rewriting the driver to use the 
-PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND macro, as it automatically
-increments the refcount on use and decrements the refcount on scope exit,
-eliminating the need for multiple _put_autosuspend() calls and manual
-checking of the return value of these calls.
-
+diff --git a/tools/testing/selftests/sched_ext/hotplug.c b/tools/testing/selftests/sched_ext/hotplug.c
+index 0cfbb111a2d..10b8d42bd89 100644
+--- a/tools/testing/selftests/sched_ext/hotplug.c
++++ b/tools/testing/selftests/sched_ext/hotplug.c
+@@ -21,15 +21,17 @@ static bool is_cpu_online(void)
+ 	return file_read_long(online_path) > 0;
+ }
+ 
+-static void toggle_online_status(bool online)
++static int toggle_online_status(bool online)
+ {
+ 	long val = online ? 1 : 0;
+ 	int ret;
+ 
+ 	ret = file_write_long(online_path, val);
+ 	if (ret != 0)
+-		fprintf(stderr, "Failed to bring CPU %s (%s)",
++		fprintf(stderr, "Failed to bring CPU %s (%s)\n",
+ 			online ? "online" : "offline", strerror(errno));
++
++	return ret;
+ }
+ 
+ static enum scx_test_status setup(void **ctx)
+@@ -44,6 +46,7 @@ static enum scx_test_status test_hotplug(bool onlining, bool cbs_defined)
+ {
+ 	struct hotplug *skel;
+ 	struct bpf_link *link;
++	enum scx_test_status status = SCX_TEST_FAIL;
+ 	long kind, code;
+ 
+ 	SCX_ASSERT(is_cpu_online());
+@@ -54,8 +57,8 @@ static enum scx_test_status test_hotplug(bool onlining, bool cbs_defined)
+ 	SCX_FAIL_IF(hotplug__load(skel), "Failed to load skel");
+ 
+ 	/* Testing the offline -> online path, so go offline before starting */
+-	if (onlining)
+-		toggle_online_status(0);
++	if (onlining && toggle_online_status(0))
++		goto out_destroy_skel;
+ 
+ 	if (cbs_defined) {
+ 		kind = SCX_KIND_VAL(SCX_EXIT_UNREG_BPF);
+@@ -79,7 +82,8 @@ static enum scx_test_status test_hotplug(bool onlining, bool cbs_defined)
+ 		return SCX_TEST_FAIL;
+ 	}
+ 
+-	toggle_online_status(onlining ? 1 : 0);
++	if (toggle_online_status(onlining ? 1 : 0))
++		goto out_destroy_link;
+ 
+ 	while (!UEI_EXITED(skel, uei))
+ 		sched_yield();
+@@ -87,20 +91,23 @@ static enum scx_test_status test_hotplug(bool onlining, bool cbs_defined)
+ 	SCX_EQ(skel->data->uei.kind, kind);
+ 	SCX_EQ(UEI_REPORT(skel, uei), code);
+ 
+-	if (!onlining)
+-		toggle_online_status(1);
++	if (!onlining && toggle_online_status(1))
++		goto out_destroy_link;
+ 
++	status = SCX_TEST_PASS;
++out_destroy_link:
+ 	bpf_link__destroy(link);
++out_destroy_skel:
+ 	hotplug__destroy(skel);
+ 
+-	return SCX_TEST_PASS;
++	return status;
+ }
+ 
+ static enum scx_test_status test_hotplug_attach(void)
+ {
+ 	struct hotplug *skel;
+ 	struct bpf_link *link;
+-	enum scx_test_status status = SCX_TEST_PASS;
++	enum scx_test_status status = SCX_TEST_FAIL;
+ 	long kind, code;
+ 
+ 	SCX_ASSERT(is_cpu_online());
+@@ -115,10 +122,12 @@ static enum scx_test_status test_hotplug_attach(void)
+ 	 * Take the CPU offline to increment the global hotplug seq, which
+ 	 * should cause attach to fail due to us setting the hotplug seq above
+ 	 */
+-	toggle_online_status(0);
++	if (toggle_online_status(0))
++		goto out_destroy_skel;
+ 	link = bpf_map__attach_struct_ops(skel->maps.hotplug_nocb_ops);
+ 
+-	toggle_online_status(1);
++	if (toggle_online_status(1))
++		goto out_destroy_link;
+ 
+ 	SCX_ASSERT(link);
+ 	while (!UEI_EXITED(skel, uei))
+@@ -130,7 +139,10 @@ static enum scx_test_status test_hotplug_attach(void)
+ 	SCX_EQ(skel->data->uei.kind, kind);
+ 	SCX_EQ(UEI_REPORT(skel, uei), code);
+ 
++	status = SCX_TEST_PASS;
++out_destroy_link:
+ 	bpf_link__destroy(link);
++out_destroy_skel:
+ 	hotplug__destroy(skel);
+ 
+ 	return status;
 -- 
-Kind regards,
-Joshua Crofts
+2.55.0
+
