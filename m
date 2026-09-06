@@ -1,147 +1,238 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A92AD310784;
-	Sun,  6 Sep 2026 03:07:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2A77305E1F
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 03:12:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788664049; cv=none; b=Ap2r6hSYR181rkY5022FnJ8thQ4vQ/zjncq/97W6qbrrh4Ny83+BgeAJ/OQEfNyqKt6n0ihNyiEVFU697b/HVMBKUa+BOceCLHGIAWAqDkPWMU+qsU/k8WLPmYETlTxHKMHhFWvqVdyS1coAcQuN6EoLXFsqUK9vMjJrLwTvSok=
+	t=1788664361; cv=none; b=DWocpWfRB1vIaz811e4Idy+KM9BB61lchn330UF8KliUeFn5yFb9ZkVrGOCYXpeROY1Cr6wRNJKJhn9MmW/2JkqLCbFgbAFcoJo32bbSagXysjuUn75DY0peGbu21IaU9eppq10Bj/SO6XxKh+vOgtuLdGZzU2K7wP7cyM1HOTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788664049; c=relaxed/simple;
-	bh=s0kqTMAn+RuT8RtrzujibazkTEJeZK6Yu5sX3Ozfops=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=I/OeDXm2e8ZdCE7NFU+qrV4n0kQrwgacg75U+EoRHI6RmPdcEUvwFXdgRB3AeSwRMZzO+qod1EptbAVMdU5P/gPt0SFzGiXNTz6XXUdYQxjf+rKKjvZ3Nx8+CIfWgCGqA8Pyqy4zK6MbfRWU8f1Qn33WxR+u/0Eq/vJ8F3AyWm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=Pn1HjCUq; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="Pn1HjCUq"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68637JnnC1599463, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1788664039; bh=AwALmqCFQoGfbpaeExzkavyaY388OD4xrWSxkXSl1Cs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=Pn1HjCUqf36xNB4QqtDQr4NQ3E/zLy9bTNr+Kd3540g5cpG4cP5p4SMpFofjbeWx6
-	 hqW5rAVAEA5sPmcuSsDO2CqwslhWpjwMlh5m4a+JqQ4NM/6yVFUn/kCyKWWzgvzPr7
-	 7HQcBkN4xqOizoKnzIbjLrMFFp5HeRvKifwHh2Q1hKbAF8iBaAhBbplnNTdQ7pYYAr
-	 pS4fevhWqJJQTvXotIS2V27pTsPSgsVgeVtnpZPUUourQg6Eo64m4GvdQRRN4Z61xr
-	 HscXW5uXhxSIrUeZSxWEi8RKvJxiV3/1Lw865cpZh0rlxnaisJBTzJbX+AdTo8cj+P
-	 mfGnrqdzuAxIg==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68637JnnC1599463
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Sun, 6 Sep 2026 11:07:19 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Sun, 6 Sep 2026 11:07:19 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::126f:59ad:658:674d%10]) with mapi id
- 15.02.2562.043; Sun, 6 Sep 2026 11:07:19 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Mehmet Fide <mehmet.fide@gmail.com>
-CC: Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Mehmet Fide
-	<mehmet.fide@screeningeagle.com>
-Subject: RE: [PATCH rtw-next v3] wifi: rtw88: usb: route bmc frames via the
- high queue only for DTIM delivery
-Thread-Topic: [PATCH rtw-next v3] wifi: rtw88: usb: route bmc frames via the
- high queue only for DTIM delivery
-Thread-Index: AQHdK66WOfaBclcfS0e15NhvFyIcILazZGiAgAXJeAD//9pbAIAH9LaQ
-Date: Sun, 6 Sep 2026 03:07:19 +0000
-Message-ID: <070f9724ca4a42a0b64bbf63724d8cdc@realtek.com>
-References: <9209280c3f044363afd884687ae3cb6b@realtek.com>
- <20260901091830.2506562-1-mehmet.fide@gmail.com>
-In-Reply-To: <20260901091830.2506562-1-mehmet.fide@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	s=arc-20240116; t=1788664361; c=relaxed/simple;
+	bh=/KxzRM0SUSyBhBLAvdxlLLzFbeAWmoVTd6ZZkeL/5mM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZtWwiRa/LTl7KBCGl6XXAUPBKc+IRb52pBF4K9/Jpg5ITuJKLPSdMIFiNgLm8SZJnW07wJNa/Y+KIX0l2rnevKVH/7KvtjE8lim9/4+Vz23o6rsZOQsC5AmiXEfArqKATUJNh+zzFkpygtpIvnNCf3sjVI1AXy/29uYJA6RkcbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.198])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hcwGX3DybzYQtqc
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:11:48 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.112])
+	by mail.maildlp.com (Postfix) with ESMTP id CAD3240574
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:12:35 +0800 (CST)
+Received: from huaweicloud.com (unknown [10.50.85.155])
+	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgBnUAsW2pxqmzytAw--.18069S7;
+	Sun, 06 Sep 2026 11:12:35 +0800 (CST)
+From: Zhou Minqiang <zhouminqiang2@huawei.com>
+To: linux@armlinux.org.uk,
+	vz@mleia.com,
+	piotr.wojtaszczyk@timesys.com,
+	maddy@linux.ibm.com,
+	dwmw2@infradead.org,
+	richard@nod.at
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-mtd@lists.infradead.org,
+	chengzhihao1@huawei.com,
+	yangerkun@huawei.com,
+	yi.zhang@huawei.com,
+	zhouminqiang <zhouminqiang2@huawei.com>
+Subject: [PATCH v4 3/8] jffs2: replace per-superblock verify buffer with per-write buffer
+Date: Sun,  6 Sep 2026 11:03:39 +0800
+Message-ID: <20260906030344.2448622-4-zhouminqiang2@huawei.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260906030344.2448622-1-zhouminqiang2@huawei.com>
+References: <20260906030344.2448622-1-zhouminqiang2@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:cCh0CgBnUAsW2pxqmzytAw--.18069S7
+X-Coremail-Antispam: 1UD129KBjvJXoWxCr4UKry8KFyrGr45tr13Arb_yoWrtw45pF
+	sayF13Ar48JryxWrs5tFn5Cw15KrW8Gr1Igr47C348Xa18tr1Iqa4rtFy8ZrWrArZ7Wr1S
+	ka9Ikw1rXF1UX37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmGb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUWw
+	A2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	W8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAF
+	wI0_Cr1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7
+	xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Y
+	z7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2
+	AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l42xK82IY64kExVAvwVAq07x20xyl4I8I3I0E
+	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
+	WUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
+	Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IUbdMaUUUUUU==
+Sender: zhouminqiang@huaweicloud.com
+X-CM-SenderInfo: 52kr3z5lqtxttqj6x35dzhxuhorxvhhfrp/
 
-Mehmet Fide <mehmet.fide@gmail.com> wrote:
-> > The HIQ packets only send out right after beacon within ATIM
-> > window controlled by REG_ATIMWND (0x055A). Can you try to
-> > enlarge the size to see if it will be different?
->=20
-> It makes a dramatic difference. Same storm, only REG_ATIMWND changed:
->=20
->   0x02 (default)  pool 1803 -> 16 in ~105 s, pinned  (reproduced twice)
->   0x04            pool never leaves 1803 over 180 s
->   0x08            same, never drops
->   0x10            same, never drops  (reproduced twice)
+From: zhouminqiang <zhouminqiang2@huawei.com>
 
-FYI. I checked vendor driver. Normally REG_ATIMWND sets 0xa or 0xc in AP mo=
-de
-for chips.
+Subsequent patches will extend write verification to additional write
+paths that may execute concurrently. A shared per-superblock buffer
+would require a coarse lock to serialize all verification, hurting
+concurrency.
 
->=20
-> > Is it possible to declare IEEE80211_HW_HOST_BROADCAST_PS_BUFFERING and
-> > call ieee80211_get_buffered_bc() to get the BC packets to send?
->=20
-> I looked at how the existing users time the release. ath9k_htc can do
-> it on USB only because its firmware sends an SWBA event at beacon time
-> (WMI_SWBA_EVENTID) and the driver pulls the buffered frames from that
-> handler; rt2500usb has no such event and explicitly refuses to set the
-> flag for that reason (see the comment in rt2500usb_probe_hw_mode).
->=20
-> Interestingly, the firmware seems to already have the needed event: the
-> vendor driver enables a beacon-early C2H report through a bit in the
-> SET_PWR_MODE H2C (SET_H2CCMD_PWRMODE_PARM_BCN_EARLY_C2H_RPT, C2H id
-> 0x1E), though it only uses it for TDLS channel switching, i.e. in a
-> station power-save context. Do you know whether that report also works
-> in AP mode on the USB chips, and fires early enough to pace
-> ieee80211_get_buffered_bc()? If it does, this becomes the clean
-> long-term solution and I would be happy to prototype it.
+To avoid this contention, remove the wbuf_verify field from
+jffs2_sb_info, along with the scattered kmalloc/kfree of wbuf_verify
+in jffs2_nand_flash_setup, jffs2_dataflash_setup,
+jffs2_nor_wbuf_flash_setup and their corresponding cleanup functions.
 
-As you saw it is for TDLS channel switching (timeslot sharing), I
-don't think it can work in AP mode...
+Instead, allocate a temporary buffer inside jffs2_verify_write(),
+giving each invocation its own buffer and eliminating the shared state.
 
-I will ask USB experts internally to see if there is an interrupt
-to notify driver about TBTT (or beacon early).=20
+Signed-off-by: zhouminqiang <zhouminqiang2@huawei.com>
+---
+ fs/jffs2/jffs2_fs_sb.h |  3 ---
+ fs/jffs2/wbuf.c        | 61 ++++++++++++++++--------------------------
+ 2 files changed, 23 insertions(+), 41 deletions(-)
 
->=20
-> For what it is worth, the vendor driver does not use any beacon event
-> for bmc delivery on USB either: it parks at most one filtered burst in
-> the high queue, lets the hardware pace it out after the DTIM beacon,
-> and refills only when the queue reads back empty - in other words, its
-> real protection is a hard bound on high queue occupancy, which is what
-> patch 1/2 below brings to rtw88.
->=20
-> > Maybe, check bound first, and then filter ?
->=20
-> Agreed. Here is how I would combine the four knobs:
->=20
->   - bound (patch 1/2): hard cap on how many bmc frames may sit on the
->     high queue (token bucket refilled at what the default window
->     drains, overflow goes out on the AC queues awake-style). This is
->     the guarantee: the pool stays healthy under any storm, including
->     the ARP/DHCP bursts the filter admits.
->   - filter (patch 2/2): admit only ARP, EAPOL and DHCP to the high
->     queue, matching the vendor driver's default. Ordinary chatter never
->     reaches the beacon-paced path, so the bound rarely engages.
->   - ATIM window: given the measurements, a moderate raise (0x04
->     already drains this storm, 0x10 gives headroom) would add drain
->     capacity as a complement. I left it out of the series for now
->     because the queue stays unbounded either way and a wider window
->     costs every PS station awake time after each DTIM - I assume that
->     is why the vendor driver keeps it small and filters instead. If
->     the firmware is fine with a larger window on these chips I can add
->     it as a third patch; is 0x055A safe to raise across the USB chips?
-
-I think yes. The in AP mode, the value is 0xa or 0xc no matter which
-HCI type is.
-
->   - mac80211 BC buffering: the long-term correct PS delivery, gated on
->     a beacon-time event as above; follow-up work, not part of this
->     series.
-
-I will check internally to see if USB has an interrupt for TBTT.=20
-
+diff --git a/fs/jffs2/jffs2_fs_sb.h b/fs/jffs2/jffs2_fs_sb.h
+index 5a7091746f68..8a75870d3fc8 100644
+--- a/fs/jffs2/jffs2_fs_sb.h
++++ b/fs/jffs2/jffs2_fs_sb.h
+@@ -124,9 +124,6 @@ struct jffs2_sb_info {
+ 
+ 	uint32_t wbuf_pagesize; /* 0 for NOR and other flashes with no wbuf */
+ 
+-#ifdef CONFIG_JFFS2_FS_WBUF_VERIFY
+-	unsigned char *wbuf_verify; /* read-back buffer for verification */
+-#endif
+ #ifdef CONFIG_JFFS2_FS_WRITEBUFFER
+ 	unsigned char *wbuf; /* Write-behind buffer for NAND flash */
+ 	uint32_t wbuf_ofs;
+diff --git a/fs/jffs2/wbuf.c b/fs/jffs2/wbuf.c
+index ab247117ec77..7e52241de457 100644
+--- a/fs/jffs2/wbuf.c
++++ b/fs/jffs2/wbuf.c
+@@ -233,19 +233,31 @@ static int jffs2_verify_write(struct jffs2_sb_info *c, unsigned char *buf,
+ 	int ret;
+ 	size_t retlen;
+ 	char *eccstr;
++	void *verify_buf;
++
++	verify_buf = kmalloc(c->wbuf_pagesize, GFP_NOFS);
++	if (!verify_buf) {
++		pr_warn("%s(): verify buffer allocation failed, skipping verification\n",
++			__func__);
++		return 0;
++	}
++
++	ret = mtd_read(c->mtd, ofs, c->wbuf_pagesize, &retlen, verify_buf);
+ 
+-	ret = mtd_read(c->mtd, ofs, c->wbuf_pagesize, &retlen, c->wbuf_verify);
+ 	if (ret && ret != -EUCLEAN && ret != -EBADMSG) {
+ 		pr_warn("%s(): Read back of page at %08x failed: %d\n",
+ 			__func__, c->wbuf_ofs, ret);
+-		return ret;
++		goto out_free;
+ 	} else if (retlen != c->wbuf_pagesize) {
+ 		pr_warn("%s(): Read back of page at %08x gave short read: %zd not %d\n",
+ 			__func__, ofs, retlen, c->wbuf_pagesize);
+-		return -EIO;
++		ret = -EIO;
++		goto out_free;
++	}
++	if (!memcmp(buf, verify_buf, c->wbuf_pagesize)) {
++		ret = 0;
++		goto out_free;
+ 	}
+-	if (!memcmp(buf, c->wbuf_verify, c->wbuf_pagesize))
+-		return 0;
+ 
+ 	if (ret == -EUCLEAN)
+ 		eccstr = "corrected";
+@@ -261,9 +273,14 @@ static int jffs2_verify_write(struct jffs2_sb_info *c, unsigned char *buf,
+ 
+ 	pr_warn("Read back:\n");
+ 	print_hex_dump(KERN_WARNING, "", DUMP_PREFIX_OFFSET, 16, 1,
+-		       c->wbuf_verify, c->wbuf_pagesize, 0);
++		       verify_buf, c->wbuf_pagesize, 0);
+ 
++	kfree(verify_buf);
+ 	return -EIO;
++
++out_free:
++	kfree(verify_buf);
++	return ret;
+ }
+ #else
+ #define jffs2_verify_write(c,b,o) (0)
+@@ -1217,22 +1234,11 @@ int jffs2_nand_flash_setup(struct jffs2_sb_info *c)
+ 		return -ENOMEM;
+ 	}
+ 
+-#ifdef CONFIG_JFFS2_FS_WBUF_VERIFY
+-	c->wbuf_verify = kmalloc(c->wbuf_pagesize, GFP_KERNEL);
+-	if (!c->wbuf_verify) {
+-		kfree(c->oobbuf);
+-		kfree(c->wbuf);
+-		return -ENOMEM;
+-	}
+-#endif
+ 	return 0;
+ }
+ 
+ void jffs2_nand_flash_cleanup(struct jffs2_sb_info *c)
+ {
+-#ifdef CONFIG_JFFS2_FS_WBUF_VERIFY
+-	kfree(c->wbuf_verify);
+-#endif
+ 	kfree(c->wbuf);
+ 	kfree(c->oobbuf);
+ }
+@@ -1272,14 +1278,6 @@ int jffs2_dataflash_setup(struct jffs2_sb_info *c) {
+ 	if (!c->wbuf)
+ 		return -ENOMEM;
+ 
+-#ifdef CONFIG_JFFS2_FS_WBUF_VERIFY
+-	c->wbuf_verify = kmalloc(c->wbuf_pagesize, GFP_KERNEL);
+-	if (!c->wbuf_verify) {
+-		kfree(c->wbuf);
+-		return -ENOMEM;
+-	}
+-#endif
+-
+ 	pr_info("write-buffering enabled buffer (%d) erasesize (%d)\n",
+ 		c->wbuf_pagesize, c->sector_size);
+ 
+@@ -1287,9 +1285,6 @@ int jffs2_dataflash_setup(struct jffs2_sb_info *c) {
+ }
+ 
+ void jffs2_dataflash_cleanup(struct jffs2_sb_info *c) {
+-#ifdef CONFIG_JFFS2_FS_WBUF_VERIFY
+-	kfree(c->wbuf_verify);
+-#endif
+ 	kfree(c->wbuf);
+ }
+ 
+@@ -1309,20 +1304,10 @@ int jffs2_nor_wbuf_flash_setup(struct jffs2_sb_info *c) {
+ 	if (!c->wbuf)
+ 		return -ENOMEM;
+ 
+-#ifdef CONFIG_JFFS2_FS_WBUF_VERIFY
+-	c->wbuf_verify = kmalloc(c->wbuf_pagesize, GFP_KERNEL);
+-	if (!c->wbuf_verify) {
+-		kfree(c->wbuf);
+-		return -ENOMEM;
+-	}
+-#endif
+ 	return 0;
+ }
+ 
+ void jffs2_nor_wbuf_flash_cleanup(struct jffs2_sb_info *c) {
+-#ifdef CONFIG_JFFS2_FS_WBUF_VERIFY
+-	kfree(c->wbuf_verify);
+-#endif
+ 	kfree(c->wbuf);
+ }
+ 
+-- 
+2.52.0
 
