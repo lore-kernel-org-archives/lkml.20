@@ -1,146 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F753A63FB;
-	Sun,  6 Sep 2026 06:45:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7B343438B5
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 06:46:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788677129; cv=none; b=GnNT+7srJ4oNDA6AjlmmHX6Bxja4Tty6vjfCd9vE3sWeSLea/QJujPCkdoo034KjAaVQpTWUv4zjQz/EdkR2dIvWRyCQ9FIKjD2QrVgTl0FiGU1MDqvRHzlCL4LERo2hzBwhKw9+ZgTiyPCKokf2NppJ3OcGMQgDqfFAeLzHJI0=
+	t=1788677170; cv=none; b=VQ0JSfE8zJJF5m3KQtMjaCEYyXa4Udhskrsc0Lt3715zbxi3g01/r1lkwfVq+u3mn4pDKAWf2mRgAZvhLS4C9QFrwiuCF0G86BIca00ak3/isPbjKTgghkGVyVXvxxDrUDFdXJsM0RfTB6/yXhY0l11f0U/Ejk4lkSnxLl44Y7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788677129; c=relaxed/simple;
-	bh=z2oOz37GmJ3zKovvpUl/fcF7GSq0v34WJSVr17tbts8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EEfEKJKEZna4xvKiBzfrWn4JaYPpFcffRxZHPio6A7uGZvLnaag8veJuYDRaTsAMESGSuyBahkwZNr3uTKjClYuf4AegspSTTJdr/U7WlKRQWkBcLqfOwO8XnLSB4/MetCGkATv3vSa0d3Q9st82cjC6h5KjWLH8zYHaAj+DJmI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aJv37LIk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788677170; c=relaxed/simple;
+	bh=sIlOoPDk5igeV9GNzkGYTdKPuLFWWhg7AMG8ajh5Tn8=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=KMOiW1H+0AT6YqeKeObnGFDnqhLQCX0d+ohCTSFxNDiNCTJM54q3gQFl+9qHfAdLPTf0KIJ3ZwqJnmiXPcjSWw5FhJR8VMtywafbcnlwYw3OFjY/Y6FPTP106iQnn/3rJ6ivykquqvO99AIXR1D5EzWoWwTTHbZoXgr5Bv8to+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m8TRf9j1; arc=none smtp.client-ip=209.85.222.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aJv37LIk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FDD41F00A3A;
-	Sun,  6 Sep 2026 06:45:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788677127;
-	bh=VuPvo+h6QX1slm6eVL0VdfPkLv4Csp05nKAR7+8MZ3k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=aJv37LIk1nsQTrQL16AHIYsjtv5ajLCUecL2DGeLnr4NG8GgZ5s+cJ6HllOV3rJaV
-	 R0H4+IqbaNVTXtizTtaIB2W4Lemsg63BNyPL0Fhq5sWQ5fju6sbxYwU1z31WA6fFLr
-	 f7bvU7hANH+3XMF8KK5WoxnNlxuL9XxLAymfNmz06zJRkyayM/BEp7p8VJTJeqCHPV
-	 UcdOgaZSuBZvbNhUl3t6OvIKUM6A0YL/k1dC4AYJGPTUSXY+Lw7SdQix8lJWj5ZMno
-	 5tMGwjcD9v1CglDlsr9N286ILo+af9WwF8lyYD4xUWDo6b8TrwKXE+HWZwgd5eR3YH
-	 jR+XhwdLTyVoA==
-Message-ID: <f76cef66-1283-440e-9530-6eb7168c6e58@kernel.org>
-Date: Sun, 6 Sep 2026 08:45:19 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m8TRf9j1"
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-9399e925e0aso47215885a.0
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 23:46:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788677168; x=1789281968; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3SKBAIjm/G1mUF16pDnpb3A8NBOTGrYWEeA499nT6IA=;
+        b=m8TRf9j17pvqWR+aEZVK7ZqJIcI9Mv0MDSMaw65MSbYx2IEd2KIvF2k7JP8kEP5pdS
+         gmakLGmQEd4VMZI3SKxKNmt7BzFd373dy/jwWzbNu1da9xIaGvamCnXYkvq+v3nucNHG
+         YaJvoEBR80L7dINgLgBvKN/rk1aosqsdrwng2Qt3bG/PeVGxZd4cHB7v6ZGAel/Q3cEz
+         rd+q7DIKB8DeET0Lbg9Saqc5UbGGzaczbK4gkT0onySO9Xd79xi2Qz4Iv3/9m44XT0FP
+         H0bIW+BtwJ5drCwrDsEecWiEFiBBr6VN9hk9rbe8fsWUsPcNq4Pc7A8TmYhlcTCLLuc6
+         nIhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788677168; x=1789281968;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3SKBAIjm/G1mUF16pDnpb3A8NBOTGrYWEeA499nT6IA=;
+        b=j5SoVDzDGwh0dYiiTwG4P2bANmYbUwEPdZNnGTinnACvqwt8NGAC/egE7s9NJAkckt
+         JuTpzX3w0svp23V/kBb4H2QJYXme1iBDiiSlPfiFT/B7VdFc2MKDSMnB5P/8WK9SLsHd
+         Bkvdj4M/nj8b0H900cH8Xl1VIAFfI5Q7TORpbVtqZe0sBcLdiDuD8K3HgMQ6SFgoNRTh
+         kofAxePkCHpxmF9G/8f3ILXLRhj+zR1UTH3i/Ib6fQlL12r3X1EwITq5C6r+H1yIn49R
+         DNE137uiGbGC+zH6i9PQ15ezBN0dbHmZ7tKIJsZWQuEJZIRHYLzWBONeRlDMCI2DtdRa
+         YRxA==
+X-Forwarded-Encrypted: i=1; AKwUvBxsOMzwPYWcGSmvOLcgZpz8wL4kpuEtiqXHq1+EAk8pTpKLnjtNk3DKTvxe4FDj+BflqRfzOFuR3AkPZ3Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++nQ6KgM9eDZsmUuaGHYveo/NKW6dXjTvvXF48HRpfu/MbVZuKgZ
+	jN81NACLhw+sRr/4/xiubPMUSZKboYkgleVEmglLNA+mb9U/zkM2vc/5
+X-Gm-Gg: AYBFou1syibpS1zYCyojj6uSGCP52+ueUikoSFv7lqePthpuCOiKYah34v5IP4bPZh9
+	8j4B8HQ+rEhTVfeHX5yqVBVap2Htq3OLuP59hhnhyjnKs1DXWA/14+DkpqrwWo4vePrmhWGNKxt
+	3I70hVXi6GQlVBLi4WuEK0uoKzxkPJcuTpeQGs90qyLJzgrVHgA8wpjk6bOkiZi5Q8SXfWXVfQW
+	+SRMQ+2Fdp1fTa/Hyo5T+XymbIkYufAI7VgsbJk68RoVCEr3PckWaGQ+oJJskKOnOlq2KaCRBbm
+	4bbYYlxUHRrl8P99ZZyNWMlYzBj9zQA9r2FqNYv2WHvbRdcuNRog7JOQ1K7liRHLS4Y/407IMpc
+	AKZ3joeMnVYKaoPtvNELbIFIcP993M44QdI47iUUKj0t94g2KhQrsBZPW/a0PYe/W5ilXZe6iQ2
+	HxKWNfq4Z1u9WovgrcOKNKHEvU+xI1gF1e1rdEqSLJzQLdC9p6ETzALY8JCmJ5xuL0uF+TlTv9n
+	a9YbrzAf0c=
+X-Received: by 2002:a05:620a:4450:b0:939:4a44:5f99 with SMTP id af79cd13be357-93980324b44mr1510113985a.10.1788677167677;
+        Sat, 05 Sep 2026 23:46:07 -0700 (PDT)
+Received: from smtpclient.apple ([2601:152:4d00:6110:4590:6205:75b9:b340])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9399cf10c7dsm174331885a.15.2026.09.05.23.46.06
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sat, 05 Sep 2026 23:46:07 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/4] dt-bindings: usb: Add CIX Sky1 USBSSP RCSU system
- controller
-To: Hongliang Yang <hongliang.yang@cixtech.com>, peter.chen@kernel.org,
- gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: p.zabel@pengutronix.de, vkoul@kernel.org, neil.armstrong@linaro.org,
- pawell@cadence.com, rogerq@kernel.org
-References: <20260906032440.470788-1-hongliang.yang@cixtech.com>
- <20260906032440.470788-2-hongliang.yang@cixtech.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260906032440.470788-2-hongliang.yang@cixtech.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Mac OS X Mail 14.0 \(3654.120.0.1.15\))
+Subject: Re: [PATCH] m68k: coldfire: fix typo "reseting" in comment
+From: Josh Juran <jjuran@gmail.com>
+In-Reply-To: <e038c283a0ee7a3932f3e3bfaed188280ff7188f.camel@physik.fu-berlin.de>
+Date: Sun, 6 Sep 2026 02:46:04 -0400
+Cc: Hemanth Selam <hemanth.selam@gmail.com>,
+ Greg Ungerer <gerg@linux-m68k.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ linux-kernel@vger.kernel.org,
+ linux-m68k@lists.linux-m68k.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <C901AA86-8D21-4E1E-A2E5-A6D99CDBD705@gmail.com>
+References: <20260904112336.38497-1-hemanth.selam@gmail.com>
+ <9051ED9E-9257-41E8-B979-DB7716F516CC@gmail.com>
+ <e038c283a0ee7a3932f3e3bfaed188280ff7188f.camel@physik.fu-berlin.de>
+To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+X-Mailer: Apple Mail (2.3654.120.0.1.15)
 
-On 06/09/2026 05:24, Hongliang Yang wrote:
-> Add device tree binding for the per-controller RCSU register regions
-> of the CIX Sky1 USBSSP controllers. The regions are exposed as syscon
-> nodes; USBSSP glue nodes reference their per-controller registers
-> through the cix,usb-rcsu phandle with register offsets.
-> 
-> The per-controller RCSU control and status registers live in a shared
-> RCSU region described by the cix,sky1-usbss-rcsu binding and are
-> referenced through the cix,usb-rcsu phandle.
-> Signed-off-by: Hongliang Yang <hongliang.yang@cixtech.com>
-> ---
->  .../bindings/usb/cix,sky1-usbss-rcsu.yaml     | 46 +++++++++++++++++++
->  MAINTAINERS                                   |  1 +
->  2 files changed, 47 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/usb/cix,sky1-usbss-rcsu.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/usb/cix,sky1-usbss-rcsu.yaml b/Documentation/devicetree/bindings/usb/cix,sky1-usbss-rcsu.yaml
-> new file mode 100644
-> index 000000000000..d0c54fd2cd5f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/usb/cix,sky1-usbss-rcsu.yaml
-> @@ -0,0 +1,46 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/usb/cix,sky1-usbss-rcsu.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: CIX Sky1 USBSSP RCSU system controller
-> +
-> +maintainers:
-> +  - Hongliang Yang <hongliang.yang@cixtech.com>
-> +
-> +description:
-> +  The CIX Sky1 USBSSP controllers integrate their per-instance glue
-> +  registers (AXI bus attribute configuration and controller status)
-> +  inside a shared RCSU register region in the SoC system control
-> +  aperture. This binding describes that region as a syscon, so USBSSP
+On Sep 6, 2026, at 2:43 AM, John Paul Adrian Glaubitz =
+<glaubitz@physik.fu-berlin.de> wrote:
 
-In the description you describe hardware, not binding.
+> On Sun, 2026-09-06 at 02:40 -0400, Josh Juran wrote:
+>> On Sep 4, 2026, at 7:23 AM, Hemanth Selam <hemanth.selam@gmail.com> =
+wrote:
+>>=20
+>>> Correct "reseting" to "resetting", reported by scripts/checkpatch.pl =
+using
+>>> the misspelling list in scripts/spelling.txt.  Only touches =
+comments, no
+>>> code changes.
+>>>=20
+>>> Assisted-by: Cursor:claude-opus-5
+>>> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+>>>=20
+>>> - *	There are 2 common methods amongst the ColdFure parts for =
+reseting
+>>> + *	There are 2 common methods amongst the ColdFure parts for =
+resetting
+>>=20
+>> Is there a reason to leave =E2=80=9CColdFure=E2=80=9D as is?
+>=20
+> The AI assistant probably never heard about ColdFire, so it assumed =
+the spelling
+> is correct ;-).
 
-> +  glue nodes can reference their register offsets through the
-> +  cix,usb-rcsu phandle (see cix,sky1-usbssp.yaml).
+What about the human reviewing its output?  Or am I misunderstanding the =
+meaning of "Signed-off-by=E2=80=9D?
 
-Syscon is not a USB device. This is not supposed to be in USB.
+Josh
 
-
-Best regards,
-Krzysztof
