@@ -1,247 +1,250 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194253612EC
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 02:09:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D753793CC
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 02:10:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788660579; cv=none; b=ST7cL+fZzscqfKZgWpbfTt4frCBbKUTBQtFaiXKK6XvSmcNEeHqB7otgKso7U+P74p5gkoG32KXofhuELwM1qgk6yetv+ToRY9eGLSjwdDgqCdGSBZSP9RUKEq8KWatMbaUNkjDYSza7C849E56uOHjCV8XuihPFSb27hGYzzck=
+	t=1788660652; cv=none; b=MWXfjdsXHlWbTk1mzJU7KHwjNWPrG3Cfn76wjZxZjBojDOhn5cdBXwA+tvnsef8T9/twR3aLmRUkPqEdCoQnvAtVewFjrRT8JU7IiV1Go3XbDytD7KrDQvxNLbDzXi3/u71KLZVe6b51rnxWGDAR4IVRiRxLTftzJYzcfLHzho4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788660579; c=relaxed/simple;
-	bh=Qjt53BiJqN41+QuomciLfWh6yiPNplDOA+RNwGkav34=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p6QJoVIiC5brJUA+8z+TdNmLT9YeNtjq5lVVcq50DCtTNa8w/VqZUga/i6UmbahzW28XKPenmN0lFkDrol0v9XBewnsBvojJfEehEPqVkU/HY4cOPxDu/vPbAItEN8iWrIqZW2y4bqy0aepWG7XWpkIn823xz3uO8kvA7ucr6nk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=VRo1li6P; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1788660652; c=relaxed/simple;
+	bh=PI3OpK0RbeDTaOGVweNbV/yb5fjSgRXGRABwZhR4i7c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=O7Ep1kP4PQr09RTLmsJZX5FupxegurVyZzwBOy1u2YuMJbGNvusFGpJywtq5hfcdRmpHVELyQt+GZOkjMCpb2bkkSgcz6Edl/BDV4F+fKvMSIsY1ljul6NkaMu+NKKYyImiH/xNPBYFgLImC2WaOzDujYd35bSVpks2KPs/rSv0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QgfNDy9D; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="VRo1li6P"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 087EC40E01E1;
-	Sun,  6 Sep 2026 02:09:24 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id i2Cz-Tj7GnY5; Sun,  6 Sep 2026 02:09:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1788660552; bh=W4GoELtfjrvHP5rF5v/+9TKAWWTKDgk9r5AVZf0vqxQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VRo1li6PRGhGFWld7dLLkHqrgzbihA3N/WBJgIbMmsv1j77AtjkZ99mXJ7xvPc6oT
-	 Jr8O61dh1REWFLG5i7olQzqBvHcBLOOEvSfr7htnXOwqJH0YOlm2Yfy8W7QeLPqzuk
-	 /b4YhGyqSKgqZCiV8X25GcY3CtwA6hpH4+WLB2Y3Cr3UC9BKXX+f+3G6V8RjQ/dPfI
-	 k0ZF0kgPHeK1U4DZoI8kVhrLXrBdefdN0RD7PoctftWBL9lmLANJ6u+a9ciSEhI+LI
-	 j6COLXplGuok/otvATDwHGIO8CYVExz/RHhkoe0D8qyp5iMU3FRZy1TJLuzfLMeDsO
-	 IptndHMvCoKne//9XkG87y7kjyl+ko30KP+9ZIXJvMB54Hsnz92p9UPOqVWLO7wHzK
-	 Iu21zFu/YNjBe4QoOTxWv5lK+HoYoNWZLgCKHEJWPg6H5fxxDWmvevrD0+bfS7UbtC
-	 4K+sllqdIAYRLbxOvfkw/XRtvR5y/yi5HQM169JYvC4w0i40groEWSSutd4wEXakWW
-	 2YIGXSQt/M9YoTU3EwLBgOe/eTppIUtf2f0pkzzMP0AugGRf6Eb3PDGlpH72LQmslb
-	 AipSu3/FA2RHOAb0HrzZOuKlxw884VxExRXQxqL8OaYH4md4aUgjpZ0A2MuX7tqks4
-	 1fJhSTLLuQubuKnX4qrDw220=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::1f])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id AB01740E00B8;
-	Sun,  6 Sep 2026 02:09:07 +0000 (UTC)
-Date: Sat, 5 Sep 2026 19:09:02 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Melody Wang <huibo.wang@amd.com>
-Cc: x86@kernel.org, LKML <linux-kernel@vger.kernel.org>,
-	Tom Lendacky <thomas.lendacky@amd.com>
-Subject: Re: [PATCH v1 3/8] x86/apic: Add an SVSM APIC driver
-Message-ID: <20260906020902.GQapzLPjlOKjErkvIW@fat_crate.local>
-References: <cover.1787973545.git.huibo.wang@amd.com>
- <778462470199fb3c71c17989e6650037e6d97bbe.1787973545.git.huibo.wang@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QgfNDy9D"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48431648f33so2438722f8f.0
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 19:10:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788660646; x=1789265446; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=T7TlQz0vy4rkWHXqAoTVymcGJs73BqlZ2JynxSui4AI=;
+        b=QgfNDy9DmuA/i2ZJunXG4EC18c6geR0jgzvE0kEzUHSsxAaPAWPaby4yPteknTeD3P
+         qh/i0fbeaKj8FzujFQ93Wq31zlYkF83Rg9yclI9jrXzOpylArODr9vxgsWy8UKoJMQN6
+         dOVDuDXzpXaT5fUbFR19jG7nGlr/KaeeEgzmuqimWHZh4lFkD8OGsnBWRnuqboxOcfqk
+         9oHXav6yYZPdrB634yfE1zAu9cLDdMlQd/cvEBWJYH8Ks2Z8X5Z6JtLAch0ONVP1HRuf
+         vrXn3RbQNLBUK8jf8+DiBBUQbvjiypii4GICyxWvnC6+2OIIAGt7dOrjj0pu4N5NDYgh
+         Wg+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788660646; x=1789265446;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=T7TlQz0vy4rkWHXqAoTVymcGJs73BqlZ2JynxSui4AI=;
+        b=NvAM4zYjNRmG63d0iYyUqwBWg49qNimrchWGGXNfLDbCgCdARwV8Ff48pq/xQUAkkr
+         q5Ck/KC4JQxlF6kmCGmE1vvGeqtyrfgqpLhCc334V8Qugb6D6E61/8rr+jRJa/r41czo
+         4MKbsdrqDmc6D2JfUkvDXeuD6d8BXryspgpOXHFTEhXkL3pDYLHW9MR7UxB/dQVIPZfN
+         a8G52/rMn2ysZJgDaR1eMlDiAhOd3xinIBOwkYzd9KxM1yK0Na5QtWUeN7TjeMVnsPEB
+         MzFGspz3aZuWJ85c4wjHXBggwmnU/j41RuKRPr67AWXJvW2HqcM3e/6H/oKEjl461O8D
+         evaA==
+X-Forwarded-Encrypted: i=1; AKwUvBxENbx23VSTrwVxhT7UrIm3ICTYJPG9SRj7FecLGtyQEKMQX3GOakLTvRU9WqfBbEVqlmy2ZURoR+P0UqA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mjIffdx79g3aPr9YHts66f2TALL78wXirHL8p+C+i6qpe8gzXl
+	szj/2QJ+6MKLTdKUAo20UgpF/GttYIMIOdNaPwxH2l8sBr8uuCqBv+mv
+X-Gm-Gg: AYBFou37Elh1tVeGzwpFzuI9Mmv2//fINNTaTHlRYoFdewXCZgFEpHg6+slY3A1WU06
+	6kGftF0OYf04imY1+dpzxsrn3ad6sl3WMbFz+tF+n0afDWVR7ChpPylZEQZlCU6qEpO6gDkuva+
+	7DEMtciAcbPQsiI1yIQYUg5Po4mHkUMvL1Qu5cOYEpHFrHiuxz3ZkTO3JfGz9eswbwuUd7KiOEh
+	+8i5MpS3Y4dcxNZvlg9RgaIZ663hzARLWn7XWb2mcRQZ5fB4tZOiS+jH27o2ViQb57j+xCm7T5U
+	XLfTl9HDgVfJwbhWU/kUVJLg7c3VeQYgW/GhAygEaxwFpUfvgR7rI61BBmDcFV0p6puJjsYJOgp
+	iqJ2gA5QqZHtVqEXAWll/PTYb/35fZSsC8enCYr2sOgdqegdkKLocfu8/XYVq7sun1eWZzJuwtO
+	qOj3BLWBj2RPwk74DJZpsXrwa5fFojZYfG/nIUL+BXbVKDTtI+aoChTnzybxSWtyI3PbfR7iTF1
+	du8AQoTNUmapvyh1hrINrnF5Z4MAyZjgPJZF+QrTHQDeHSE
+X-Received: by 2002:a05:600c:1d07:b0:49c:f13e:e4d with SMTP id 5b1f17b1804b1-49cf86f4fe4mr131951315e9.10.1788660646406;
+        Sat, 05 Sep 2026 19:10:46 -0700 (PDT)
+Received: from sergio-82n7.fritz.box (host27-7-217-213.cgnat.broadband.ehiweb.it. [213.217.7.27])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d04fe7f9dsm90386105e9.0.2026.09.05.19.10.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 19:10:45 -0700 (PDT)
+From: Sergio Melas <sergiomelas@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sergio Melas <sergiomelas@gmail.com>
+Subject: [PATCH] hwmon: (yogafan) Add support for new Lenovo models
+Date: Sun,  6 Sep 2026 04:10:23 +0200
+Message-ID: <20260906021023.766992-1-sergiomelas@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <778462470199fb3c71c17989e6650037e6d97bbe.1787973545.git.huibo.wang@amd.com>
+Content-Transfer-Encoding: 8bit
 
-In addition to the Sashiko review comments, some minor things below:
+Add DMI quirk entries and map correct ACPI paths and configurations for
+additional Lenovo laptop models: Yoga 14cACN 2021, IdeaPad 3 15ALC6 Ub
+and Yoga 740-15IML.
 
-On Sat, Aug 29, 2026 at 03:39:41AM +0000, Melody Wang wrote:
-> Alternate Injection replaces hypervisor-based interrupt queuing and
-> event injection, requiring guest-controlled queuing and injection. In
-> order to perform this guest-controlled queuing and injectiion, an SVSM
+DMI product family matching is finally preferred over product name to
+reliably distinguish identical model numbers with different internal
+fan layouts:
+MODEL (DMI PN) | FAMILY / SERIES    | FULL ACPI OBJECT PATH
+82KU           | IdeaPad 3 15ALC6   | \_SB.PCI0.LPC0.EC0.FAN0
+82KU           | IdeaPad 3 15ALC6 ub| \_SB.PCI0.LPC0.EC0.FANS/FA2S
 
-"injection"
+Signed-off-by: Sergio Melas <sergiomelas@gmail.com>
+---
+ Documentation/hwmon/yogafan.rst | 40 +++++++++++------------
+ drivers/hwmon/yogafan.c         | 58 +++++++++++++++++++++------------
+ 2 files changed, 57 insertions(+), 41 deletions(-)
 
-Please use a spellchecker when writing commit messages.
-
-> is used to update the guest VMSA to perform the required actions.
-> 
-> The guest uses the SVSM APIC protocol to communicate with the SVSM to
-> perform selected APIC related operations instead of using standard APIC
-> MSR access.
-> 
-> Add such a SVSM APIC driver (which implements a subset of an X2APIC),
-> for the APIC emulation supported by the SVSM.
-> 
-> Signed-off-by: Melody Wang <huibo.wang@amd.com>
-> ---
-
-...
-
-> diff --git a/arch/x86/kernel/apic/Makefile b/arch/x86/kernel/apic/Makefile
-> index 581db89477f9..23d83f1293e3 100644
-> --- a/arch/x86/kernel/apic/Makefile
-> +++ b/arch/x86/kernel/apic/Makefile
-> @@ -17,6 +17,7 @@ obj-$(CONFIG_SMP)		+= ipi.o
->  ifeq ($(CONFIG_X86_64),y)
->  # APIC probe will depend on the listing order here
->  obj-$(CONFIG_X86_NUMACHIP)	+= apic_numachip.o
-> +obj-$(CONFIG_AMD_ALTERNATE_INJ)	+= x2apic_svsm.o
-
-This should probably be after secure AVIC so that secure AVIC gets preferred
-on machines that support it.
-
->  obj-$(CONFIG_X86_UV)		+= x2apic_uv_x.o
->  obj-$(CONFIG_AMD_SECURE_AVIC)	+= x2apic_savic.o
->  obj-$(CONFIG_X86_X2APIC)	+= x2apic_phys.o
-
-...
-
-> +static int svsm_apic_probe(void)
-> +{
-> +	if (cc_platform_has(CC_ATTR_SNP_ALTERNATE_INJECTION) && !snp_vmpl) {
-> +		pr_err("Alternate Injection in VMPL0 impossible. Terminating.\n");
-> +		sev_es_terminate(SEV_TERM_SET_LINUX, GHCB_TERM_ALT_INJ_FAIL);
-> +	}
-> +
-> +	if (!cc_platform_has(CC_ATTR_SNP_ALTERNATE_INJECTION))
-> +		return 0;
-
-This check should come first, ofc. IOW,
-
-	if (!cc...) {
-		...
-	} else {
-		...
-	}
-
-IOW, something like this:
-
-static int svsm_apic_probe(void)
-{
-        if (!cc_platform_has(CC_ATTR_SNP_ALTERNATE_INJECTION)) {
-                return 0;
-        } else {               
-                if (!snp_vmpl) {
-                        pr_err("Alternate Injection in VMPL0 impossible. Terminating.\n");
-                        goto terminate;
-                }       
-        }
-        
-        if (!x2apic_mode) {
-                pr_err("Alternate Injection in non x2APIC mode impossible. Terminating.\n");
-                goto terminate;
-        }
-        
-        pr_info("Alternate Injection SVSM APIC enabled\n");
-        return 1;
-        
-terminate:
-        sev_es_terminate(SEV_TERM_SET_LINUX, GHCB_TERM_ALT_INJ_FAIL);
-        return -EINVAL;
-}
-
-...
-
-> +static inline u64 svsm_apic_icr_read(void)
-> +{
-> +	struct svsm_call call = {};
-> +	u32 reg;
-> +	int ret;
-> +
-> +	reg = APIC_ICR;
-> +
-> +	call.rax = SVSM_APIC_CALL(SVSM_APIC_READ_REGISTER);
-> +	call.rcx = APIC_BASE_MSR + (reg >> 4);
-> +
-> +	ret = svsm_perform_call_protocol(&call);
-> +	if (ret) {
-> +		pr_err("svsm_apic_icr_read error: %d\n", ret);
-
-Make that
-
-		pr_err("%s: error: %d\n", __func__, ret);
-
-> +		sev_es_terminate(SEV_TERM_SET_LINUX, GHCB_TERM_ALT_INJ_FAIL);
-> +	}
-> +
-> +	return call.rdx_out;
-> +}
-> +
-> +static void svsm_apic_icr_write(u32 low, u32 id)
-> +{
-> +	struct svsm_call call = {};
-> +	u64 icr_data;
-> +	u32 reg;
-> +	int ret;
-> +
-> +	reg = APIC_ICR;
-> +	icr_data = ((u64)id) << 32 | low;
-> +
-> +	call.rax = SVSM_APIC_CALL(SVSM_APIC_WRITE_REGISTER);
-> +	call.rcx = APIC_BASE_MSR + (reg >> 4);
-> +	call.rdx = icr_data;
-
-You can do
-
-	call.rdx = ((u64)id) << 32 | low;
-
-and get rid of icr_data.
-
-> +	ret = svsm_perform_call_protocol(&call);
-> +	if (ret) {
-> +		pr_err("svsm_apic_icr_write error: %d\n", ret);
-
-Same as above:
-
-		pr_err("%s: error: %d\n", __func__, ret);
-	
-> +		sev_es_terminate(SEV_TERM_SET_LINUX, GHCB_TERM_ALT_INJ_FAIL);
-> +	}
-> +}
-> +
-> +static void svsm_apic_send_IPI(int cpu, int vector)
-> +{
-> +	u32 dest = per_cpu(x86_cpu_to_apicid, cpu);
-> +
-> +	svsm_apic_icr_write(__prepare_ICR(0, vector, APIC_DEST_PHYSICAL), dest);
-> +}
-> +
-> +static void __svsm_apic_send_IPI_mask(const struct cpumask *mask, int vector, int apic_dest)
-> +{
-> +	unsigned long query_cpu;
-> +	unsigned long this_cpu;
-
-One line:
-
-	unsigned long query_cpu, this_cpu;
-
-> +
-> +	guard(irqsave)();
-> +
-> +	this_cpu = smp_processor_id();
-> +	for_each_cpu(query_cpu, mask) {
-> +		if (apic_dest == APIC_DEST_ALLBUT && this_cpu == query_cpu)
-> +			continue;
-> +
-> +		svsm_apic_send_IPI(query_cpu, vector);
-> +	}
-> +}
+diff --git a/Documentation/hwmon/yogafan.rst b/Documentation/hwmon/yogafan.rst
+index 9ff5db5dc..a7e628bc3 100644
+--- a/Documentation/hwmon/yogafan.rst
++++ b/Documentation/hwmon/yogafan.rst
+@@ -85,27 +85,26 @@ immediately to ensure the user knows the fan has stopped.
  
-
+ ::
+ 
+- MODEL (DMI PN) | FAMILY / SERIES  | EC OFFSET | FULL ACPI OBJECT PATH          | WIDTH  | MULTiplier
++ MODEL (DMI PN) | FAMILY / SERIES    | EC OFFSET | FULL ACPI OBJECT PATH          | WIDTH  | MULTiplier
+  ----------------------------------------------------------------------------------------------------
+- 82N7           | Yoga 14cACN      | 0x06      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
+- 80V2 / 81C3    | Yoga 710/720     | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
+- 83E2           | Yoga Pro 7       | 0xFE      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
+- 83DN           | Yoga Pro 9 16IMH9 | 0x06/0xFE | \_SB.PC00.LPCB.EC0.FANS/FA2S  |  8-bit | 100
+- 82A2 / 82A3    | Yoga Slim 7      | 0x06      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
+- 81YM / 82FG    | IdeaPad 5        | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
+- 82JW / 82JU    | Legion 5 (AMD)   | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FANS (Fan1) | 16-bit | 1
+- 82JW / 82JU    | Legion 5 (AMD)   | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FA2S (Fan2) | 16-bit | 1
+- 82WQ           | Legion 7i (Int)  | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FANS (Fan1) | 16-bit | 1
+- 82WQ           | Legion 7i (Int)  | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FA2S (Fan2) | 16-bit | 1
+- 82XV / 83DV    | LOQ 15/16        | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FANS /FA2S  | 16-bit | 1
+- 83AK           | ThinkBook G6     | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
+- 81X1           | Flex 5           | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
+- 83KF           | XiaoXinPro 13ARE | 0x06/0xFE | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
+- 82KU           | IdeaPad 3 15ALC6 | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
+- 83RU           | Legion Pro 7 16  | 0x03/0x06 | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
+- 83KF           | Yoga Pro 7 14IAH | 0x06      | \_SB.PC00.LPCB.EC0.FANS        |  8-bit | 100
+- 83BS           | Yoga 7 16ARP8    | 0x03/0x06 | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
+- *Legacy*       | Pre-2020 Models  | 0x06      | \_SB.PCI0.LPC.EC.FAN0          |  8-bit | 100
++ 82N7           | Yoga 14cACN        | 0x06      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
++ 80V2 / 81C3    | Yoga 710/720       | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
++ 83E2 / 83DN    | Yoga Pro 7/9       | 0xFE      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
++ 82A2 / 82A3    | Yoga Slim 7        | 0x06      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
++ 81YM / 82FG    | IdeaPad 5          | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
++ 82JW / 82JU    | Legion 5 (AMD)     | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FANS/FA2S   | 16-bit | 1
++ 82WQ           | Legion 7i (Int)    | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FANS/FA2S   | 16-bit | 1
++ 82XV / 83DV    | LOQ 15/16          | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FANS/FA2S   | 16-bit | 1
++ 83AK           | ThinkBook G6       | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
++ 81TD           | Yoga 740-15IML     | 0x06      | \_SB.PCI0.LPCB.EC0.FANS        |  8-bit | 100
++ 81X1           | Flex 5             | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
++ 83KF           | XiaoXinPro 13ARE   | 0x06/0xFE | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
++ 82KU           | IdeaPad 3 15ALC6   | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
++ 82KU           | IdeaPad 3 15ALC6 ub| 0x06      | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
++ 83RU           | Legion Pro 7 16    | 0x03/0x06 | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
++ 83KF           | Yoga Pro 7 14IAH   | 0x06      | \_SB.PC00.LPCB.EC0.FANS        |  8-bit | 100
++ 83BS           | Yoga 7 16ARP8      | 0x03/0x06 | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
++ *Legacy*       | Pre-2020 Models    | 0x06      | \_SB.PCI0.LPC.EC.FAN0          |  8-bit | 100
+  ----------------------------------------------------------------------------------------------------
+ 
+ METHODOLOGY & IDENTIFICATION:
+@@ -159,6 +158,7 @@ Contributors & DSDT Providers:
+ - **Sarbajit Sarkar** (Lenovo LOQ 15IAX9)
+ - **HinataKato** (XiaoXin Pro 13ARE 2020 - 83KF)
+ - **PenPenIsGod** (IdeaPad 3 15ALC6 - 82KU & Legion Pro 7 16AFR10H - 83RU)
++- **wizard-28** (IdeaPad 3 15ALC6 Ub - 82KU)
+ - **unlockxiaom** (Legion Pro 7 16AFR10H - 83RU, Yoga Pro 7 14IAH10 - 83KF, ThinkCentre M80q)
+ - **Phani Pavan K** (Yoga Pro 7 14IAH10 - 83KF)
+ - **Splarkszter** (Yoga 7 16ARP8 - 83BS)
+diff --git a/drivers/hwmon/yogafan.c b/drivers/hwmon/yogafan.c
+index 413ddc721..2ce358c74 100644
+--- a/drivers/hwmon/yogafan.c
++++ b/drivers/hwmon/yogafan.c
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+-/*
+- * yoga_fan.c - Lenovo Yoga/Legion Fan Hardware Monitoring Driver
++/**
++ * yogafan.c - Lenovo Yoga/Legion Fan Hardware Monitoring Driver
+  *
+  * Provides fan speed monitoring for Lenovo Yoga, Legion, and IdeaPad
+  * laptops by interfacing with the Embedded Controller (EC) via ACPI.
+@@ -53,6 +53,17 @@ struct yoga_fan_data {
+ };
+ 
+ /* Specific configurations mapped via DMI */
++static const struct yogafan_config yoga_740_15iml_cfg = {
++	.multiplier = 100,
++	.fan_count = 1,
++	.paths = { "\\_SB.PCI0.LPCB.EC0.FANS", NULL }
++};
++
++static const struct yogafan_config ideapad_3_15alc6_82ku_cfg = {
++	.multiplier = 100,
++	.fan_count = 2,
++	.paths = { "\\_SB.PCI0.LPC0.EC0.FANS", "\\_SB.PCI0.LPC0.EC0.FA2S" },
++};
+ 
+ static const struct yogafan_config yoga_8bit_fans_cfg = {
+ 	.multiplier = 100,
+@@ -90,17 +101,6 @@ static const struct yogafan_config yoga_pro_7_14iah10_cfg = {
+ 	.paths = { "\\_SB.PC00.LPCB.EC0.FANS", NULL }
+ };
+ 
+-/*
+- * Lenovo Yoga Pro 9 16IMH9 (83DN) uses the PC00 namespace and has two
+- * 8-bit fan tachometer fields.
+- */
+-static const struct yogafan_config yoga_pro_83dn_cfg = {
+-	.multiplier = 100,
+-	.fan_count = 2,
+-	.paths = { "\\_SB.PC00.LPCB.EC0.FANS",
+-		   "\\_SB.PC00.LPCB.EC0.FA2S" }
+-};
+-
+ static void apply_rllag_filter(struct yoga_fan_data *data, int idx, long raw_rpm)
+ {
+ 	ktime_t now = ktime_get_boottime();
+@@ -200,6 +200,30 @@ static const struct hwmon_chip_info yoga_fan_chip_info = {
+ };
+ 
+ static const struct dmi_system_id yogafan_quirks[] = {
++	{
++		.ident = "Lenovo Yoga 740-15IML",
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_FAMILY, "Yoga 740-15IML"),
++		},
++		.driver_data = (void *)&yoga_740_15iml_cfg,
++	},
++	{
++		.ident = "Lenovo IdeaPad 3 15ALC6 Ub",
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_FAMILY, "IdeaPad 3 15ALC6 Ub"),
++		},
++		.driver_data = (void *)&ideapad_3_15alc6_82ku_cfg,
++	},
++	{
++		.ident = "Yoga 14cACN 2021",
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_FAMILY, "Yoga 14cACN 2021"),
++		},
++		.driver_data = (void *)&yoga_8bit_fans_cfg,
++	},
+ 	{
+ 		.ident = "Lenovo LOQ 15IAX9",
+ 		.matches = {
+@@ -248,14 +272,6 @@ static const struct dmi_system_id yogafan_quirks[] = {
+ 		},
+ 		.driver_data = (void *)&xiaoxin_8bit_dual_cfg,
+ 	},
+-	{
+-		.ident = "Lenovo Yoga Pro 9 16IMH9 (83DN)",
+-		.matches = {
+-			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "83DN"),
+-		},
+-		.driver_data = (void *)&yoga_pro_83dn_cfg,
+-	},
+ 	{
+ 		.ident = "Lenovo Yoga",
+ 		.matches = {
 -- 
-Regards/Gruss,
-    Boris.
+2.55.0
 
-https://people.kernel.org/tglx/notes-about-netiquette
