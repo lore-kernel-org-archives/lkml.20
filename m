@@ -1,109 +1,218 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EDE42E736A;
-	Sun,  6 Sep 2026 22:35:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9042F2F6577
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 22:37:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788734117; cv=none; b=mIJYJGe4I+eaxmSb+J7pfRs7TKHaVIMwRvlmHoQCOLGsXAhzn7pxTqVFLSXLmXIXtkrSP8ujaEFX90PihwilvXdBgpBvVhKRI60SEeV5D0/S3ENM8MzkV2Mp98tS1oyEaaAALaQymgJ02cOVxVHoPZ9tz1aiC8e2J+LHVNu2UFE=
+	t=1788734265; cv=none; b=P+oW17HhpqtawpsrG9rOuHUF2w2qraBTKubifJ/4EH+pMnzxKEjtE05i8wlBkULEA9avbb/y3ZtR43Ji0UEpfv3PiBD8LverUV0HzoJO0SS14rOAH/jO482bA2wLSqpE6ywZQmLy7PlstT2mdlpkfgG6BI3mk0Dj/oKw34gAeVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788734117; c=relaxed/simple;
-	bh=2b66tyf40CPjDrRMx0MKDWRR25VJTr1dquIvtg/bz5M=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=X6V7N50PgwydIEN3OTYDb72/85miuGf1Q8aEYTYaZ3z7MabENyLSzYKk7Crkr1w3Pafurrz2GNONvEGeQKxAPdBMk0dSvpRJOYZ4wNQR3TorQkxFyDuRr8agw9PWoUKfne41W8tA/W62WIbOTKg2memDTy7cAmmbVXQbgfcSPAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dP6m3O1M; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788734265; c=relaxed/simple;
+	bh=1nyGnRR7H0bApTzHX7MBbxqgr1IQhdKxtm5fS0KuE9A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MazOra3tA2MKDqPpNnkslSuKkaGhZFFeP5Ku1ZY152+2EazXcF2nfB7BlO0DCsuBo/fyftWBnrUCQ8IDbJvyo+zyaKuQiZtH5ENakpgawHNXpCs1fszstiX6UbQJgcwKiSkGywewsFBmhIqfZctnn1TlWbnv7hUyhKEaF9mHzSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b6AL1OPi; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dP6m3O1M"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 44CB0C2BCB8;
-	Sun,  6 Sep 2026 22:35:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788734116;
-	bh=2b66tyf40CPjDrRMx0MKDWRR25VJTr1dquIvtg/bz5M=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=dP6m3O1MgZEBRGYEoya33pWG8Tyt9eWOq8TpddMlHFMNStDkY36De4EXk2cdFXG6G
-	 1qdlZMRB8o0CLZ9JKwtr37qB2R/NObjlDswlhruw0cLR+HQdvjvniMvWYUu0SYGx6r
-	 w8Yj3Yevl4mT7Kvlfcul18DIPkE0XMJbrc4r1hujsv2BCAaXfliJLLBNe4CflLDCns
-	 WbCiUXnqRoazgPf+qX3yuQR0f7OpJuSeZkfSZq0A+F6U7TXLMri8RMz5Z1nnhVcs10
-	 PZkeYNb1hMQ2mILOzdOiZ/rF7TMy0f3u0wAt+9SDuA8A112HwmH33EbVF2GyAfIE1p
-	 3LXfsGElq8A/Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2244DC79F9E;
-	Sun,  6 Sep 2026 22:35:16 +0000 (UTC)
-From: Massinissa Ghoul via B4 Relay <devnull+massigh680.gmail.com@kernel.org>
-Date: Mon, 07 Sep 2026 00:35:02 +0200
-Subject: [PATCH] hwmon: (hih6130) Replace sprintf() with sysfs_emit()
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b6AL1OPi"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso30442515e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 15:37:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788734262; x=1789339062; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WAPzz0F7ZYpxewku3mWPEkL5SYF6ac62winU6eKHPNw=;
+        b=b6AL1OPiZkxwD4ZFJq9SxmsH6pR/3o5gYs94qiNe8WqAdKMZcXdjkmhDMmq/jntbG6
+         uORmP3OuqQ3P1WIrN8AXYMWwRDkK+kqxWmxEMl5N1QQo7wfnIN78rKZu3y8ALZ4G0Y9Y
+         Ls1d/7RAFEhTsEot+IkNnuMgFhy8+NXRRwz71MLrC6TrSyvuf9KWoNQpcuukowzHDOKh
+         mKcRBRgKyCvX9Zllb9716hFN11mf6dOhYOZmvEjc3mTFx5avXLgGbbo48pCjfRuy6mhX
+         pkO4lobCz8osi6DoNxVHJSBf6f1Y84WGoi/p26wh8bqEfdTkKS+p1lIBv8xoJIjRSZwC
+         WuQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788734262; x=1789339062;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WAPzz0F7ZYpxewku3mWPEkL5SYF6ac62winU6eKHPNw=;
+        b=iPeQz3H7Duodo9UrRSz1NZYFZp5uVXedjfYtjF+p7RUZUd/aRMqSu0dCSTrirTnPeL
+         a41N25/2FrTos6W1nREyvoNVbZS+XXCTI56N4414BmXUYw1H/kBDk91Xs+0xjnGhYDzm
+         GUJbJMSeJm+9Ir5fBxlnAMIzIbAD3jKzXN0BHEsQNMliHMti4vSjN2DkPgYZQj6fFmnY
+         GMzg8o4UFC14+ScWIgfjRC6gruskVw4nGsGLeRMgQMVM1puhOQTSmWK/iCifmV1A7cJ2
+         VeDS3y7xHUiG1UlHMmOmPJrR1V/rBTDw09aSKTOh094lu7w1o0EdnZN5c+BRBuMWXaZa
+         AAqA==
+X-Forwarded-Encrypted: i=1; AKwUvBx9apD9zgO6/9Ue56Jubxn+PL2wqqhr9yxR2J6khho0QtC/m0r5R3wx9lugGe+Fux8NvFOhM7MCqKnj7Nk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nYR/RkETn/9zB62924ODjHTA9uQWdHI2jnR3st8F8c45/zb6n9
+	jtNLPC1WJ7kXetqL0aeXSO8p/eGDhrfVeMHL+YDKvDnpZdlbTjIizwkf
+X-Gm-Gg: AYBFou0YTsgZplGKyDvkRrnrxFNYtFojooqxzQ6JkTxniaHn8ncjBBgQZ64Ok0NsL4S
+	1AKdTSnSi13dVirG7gZ/YTiCU+PdoS6M5nOV4h9JOQQoz5JscgcxzKfvmsZRVE0jp/6M9VIEjLY
+	tYXb4ArYxJfZSURkZHD6OP90hygjC7BWA7PVFqQD5s50SWb3DuvXvLN1I9TdIgqW0w7Wv0E/4Eb
+	e53WFEA+QeD9Iac8//wUu8AOaDI3pNdZWKKchEDLiKpMgn9CSj0Vbwtzp2t4cjPK9lrmYEZLH2j
+	AuNiIJlCs+luLQLli5hIXscNEVmaIxW7eIpS82ZMWKOWEeI+ZHcf4AmrMKgw1YhWshUuZ6hY7r1
+	v3BpU1txZJfq76Vf99Ed7XQkgPlWLagNO0Zc7XxhBQPwINNCUoi4UKYuuyTvG2wEhOgjaHWNvty
+	2aUUSs4gDG+l6TXzZtfu46nGcbNGbFkzV77iQAzwFm8ib2cRwZwdFG0L5p4ichQCpE3F/ibMOcu
+	ta7qL9oBg9SHcS7FYqRVYMczX8fsbE7wC3nsac6YQRdQo6tnKV0uFJ/joujibYao39GrNl6FnmF
+	t7A/GulWKw==
+X-Received: by 2002:a05:600c:4f89:b0:49c:f617:7cf with SMTP id 5b1f17b1804b1-49cf7f32d0amr303208485e9.0.1788734261704;
+        Sun, 06 Sep 2026 15:37:41 -0700 (PDT)
+Received: from kdev ([81.56.8.150])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf75ce49esm457882755e9.1.2026.09.06.15.37.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 15:37:41 -0700 (PDT)
+From: Fabio Cesari <fabio.cesari@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] iio: light: isl29028: fix runtime PM reference leak on error paths
+Date: Mon,  7 Sep 2026 00:37:30 +0200
+Message-ID: <20260906223737.206730-1-fabio.cesari@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260906131203.125407-1-fabio.cesari@gmail.com>
+References: <20260906131203.125407-1-fabio.cesari@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-hwmon-hih6130-sysfs-emit-v1-1-a1adb5245d0f@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw6CMBBA0V8hs3aSaQlt4FeMCx6DHROK6fDQE
- P7dqsuzuPcA5SSs0BQHJN5EZY4Z5lJAH9p4Z5QhGyxZRzV5DPs0RwwSnCkJ9a2jIk+yIPnKGGd
- tSd5Dzp+JR3n91tfb37p2D+6X7w/O8wPa9ngofAAAAA==
-X-Change-ID: 20260907-hwmon-hih6130-sysfs-emit-075116223077
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Massinissa Ghoul <massigh680@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788734115; l=1351;
- i=massigh680@gmail.com; s=20260906; h=from:subject:message-id;
- bh=MHrNwwTYchzU6LrretLfcd95AXrW/h9RfnDFCAgZNm0=;
- b=unx4Z7I7LuzIi4htsnORzaqD09Y9jKfD2Qo05QcVbmBMf4/DmsUC/HgmJOUS79pQDS9tvVlQx
- fXDHIFG33fJD7ZwoJMqIPXwD5m9utQG/rPwvt28MvN0+yoyCSX8axKR
-X-Developer-Key: i=massigh680@gmail.com; a=ed25519;
- pk=0sdDIn8rwwQcfQLT4kpMuP9iTaPw8YMcqI9B3U/GS1k=
-X-Endpoint-Received: by B4 Relay for massigh680@gmail.com/20260906 with
- auth_id=1012
-X-Original-From: Massinissa Ghoul <massigh680@gmail.com>
-Reply-To: massigh680@gmail.com
+Content-Transfer-Encoding: 8bit
 
-From: Massinissa Ghoul <massigh680@gmail.com>
+Both isl29028_read_raw() and isl29028_write_raw() take a runtime PM
+reference with pm_runtime_resume_and_get() and are supposed to drop it
+again with pm_runtime_put_autosuspend() before returning. On their error
+paths they return directly instead, leaking the reference.
 
-Use sysfs_emit() instead of sprintf() in the sysfs show functions
-hih6130_temperature_show() and hih6130_humidity_show() to use the
-preferred kernel interface for writing to sysfs buffers.
+The usage count is then never balanced, so the device stops entering
+autosuspend for the rest of its lifetime. The effect accumulates: every
+failed access leaks another reference.
 
-No functional change intended.
+In isl29028_write_raw() this is reachable from userspace with a single
+rejected sysfs write, for example
 
-Note: Not runtime tested due to lack of hardware.
+  echo 200 > in_proximity_sampling_frequency
 
-Signed-off-by: Massinissa Ghoul <massigh680@gmail.com>
+which is outside the accepted [1:100] range. It returns -EINVAL with the
+reference still held. In isl29028_read_raw() the leak is reached when
+the underlying regmap access fails.
+
+Take the reference with PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND()
+instead. It is then released when the function returns, on every path
+and without an explicit call, so no error path added later can leak it
+again.
+
+This also stops the result of pm_runtime_put_autosuspend() from reaching
+userspace, which fixes a second problem: that value reports whether the
+device could be suspended right away, so -EAGAIN or -EBUSY turned a
+successful access into a failure. With CONFIG_PM=n it is a stub
+returning -ENOSYS, so every read and write fails today.
+
+PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND() is v6.19 and later, so this
+does not apply as-is to older trees. The adjustment there is to keep
+pm_runtime_resume_and_get() and drop the reference on the way out with
+an unchecked pm_runtime_put_autosuspend(), which fixes both the leak and
+the return value.
+
+Fixes: 2db5054ac28d ("staging: iio: isl29028: add runtime power management support")
+Suggested-by: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: <stable@vger.kernel.org> # see patch description, needs adjustments for < 6.19
+Assisted-by: LLM coccinelle
+Signed-off-by: Fabio Cesari <fabio.cesari@gmail.com>
 ---
- drivers/hwmon/hih6130.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/hwmon/hih6130.c b/drivers/hwmon/hih6130.c
-index 7984be1e706d..6a79aab5d128 100644
---- a/drivers/hwmon/hih6130.c
-+++ b/drivers/hwmon/hih6130.c
-@@ -168,7 +168,7 @@ static ssize_t hih6130_temperature_show(struct device *dev,
- 	ret = hih6130_update_measurements(dev);
- 	if (ret < 0)
+Changes in v2, from the review of v1:
+  - take the reference with PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND()
+    instead of balancing pm_runtime_put_autosuspend() by hand, so that its
+    return value no longer reaches userspace either
+  - use the Assisted-by form documented in coding-assistants.rst
+  - move the note on how the bug was found below the ---
+
+v1: https://lore.kernel.org/linux-iio/20260906131203.125407-1-fabio.cesari@gmail.com/
+
+Found by auditing IIO drivers with a Coccinelle semantic patch for
+runtime PM acquire/release imbalances.
+
+Compile-tested only: arm64 (native) and x86_64 (cross), defconfig plus
+CONFIG_SENSORS_ISL29028=m, plus an arm64 CONFIG_PM=n build to cover the
+stubs, with gcc 15.2.0, W=1 and sparse v0.6.5-rc1: no warnings. I have no
+isl29028 hardware, so this is untested at runtime.
+
+ drivers/iio/light/isl29028.c | 33 ++++++++-------------------------
+ 1 file changed, 8 insertions(+), 25 deletions(-)
+
+diff --git a/drivers/iio/light/isl29028.c b/drivers/iio/light/isl29028.c
+index 33deb1726689..03ad48930231 100644
+--- a/drivers/iio/light/isl29028.c
++++ b/drivers/iio/light/isl29028.c
+@@ -342,8 +342,9 @@ static int isl29028_write_raw(struct iio_dev *indio_dev,
+ 	struct device *dev = regmap_get_device(chip->regmap);
+ 	int ret;
+ 
+-	ret = pm_runtime_resume_and_get(dev);
+-	if (ret < 0)
++	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev, pm);
++	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
++	if (ret)
  		return ret;
--	return sprintf(buf, "%d\n", hih6130->temperature);
-+	return sysfs_emit(buf, "%d\n", hih6130->temperature);
+ 
+ 	mutex_lock(&chip->lock);
+@@ -392,14 +393,7 @@ static int isl29028_write_raw(struct iio_dev *indio_dev,
+ 
+ 	mutex_unlock(&chip->lock);
+ 
+-	if (ret < 0)
+-		return ret;
+-
+-	ret = pm_runtime_put_autosuspend(dev);
+-	if (ret < 0)
+-		return ret;
+-
+-	return 0;
++	return ret;
  }
  
- /**
-@@ -189,7 +189,7 @@ static ssize_t hih6130_humidity_show(struct device *dev,
- 	ret = hih6130_update_measurements(dev);
- 	if (ret < 0)
+ static int isl29028_read_raw(struct iio_dev *indio_dev,
+@@ -408,10 +402,11 @@ static int isl29028_read_raw(struct iio_dev *indio_dev,
+ {
+ 	struct isl29028_chip *chip = iio_priv(indio_dev);
+ 	struct device *dev = regmap_get_device(chip->regmap);
+-	int ret, pm_ret;
++	int ret;
+ 
+-	ret = pm_runtime_resume_and_get(dev);
+-	if (ret < 0)
++	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev, pm);
++	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
++	if (ret)
  		return ret;
--	return sprintf(buf, "%d\n", hih6130->humidity);
-+	return sysfs_emit(buf, "%d\n", hih6130->humidity);
+ 
+ 	mutex_lock(&chip->lock);
+@@ -461,18 +456,6 @@ static int isl29028_read_raw(struct iio_dev *indio_dev,
+ 
+ 	mutex_unlock(&chip->lock);
+ 
+-	if (ret < 0)
+-		return ret;
+-
+-	/**
+-	 * Preserve the ret variable if the call to
+-	 * pm_runtime_put_autosuspend() is successful so the reading
+-	 * (if applicable) is returned to user space.
+-	 */
+-	pm_ret = pm_runtime_put_autosuspend(dev);
+-	if (pm_ret < 0)
+-		return pm_ret;
+-
+ 	return ret;
  }
  
- /* sysfs attributes */
 
----
-base-commit: ba08432bda66a7889d8f3d1581dabf10f59b25eb
-change-id: 20260907-hwmon-hih6130-sysfs-emit-075116223077
-
-Best regards,
---  
-Massinissa Ghoul <massigh680@gmail.com>
-
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.53.0
 
