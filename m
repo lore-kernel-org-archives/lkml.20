@@ -1,95 +1,277 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CBA721CA03;
-	Sun,  6 Sep 2026 15:41:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAC6133C195
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 15:43:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788709298; cv=none; b=WQXkIcg6vh1f3dI8Uh4jkSWTeg/vKoREIM/U8j9UhlhqNu64MKYtK04ndIPOhBFga6AmK9MnpXyKKpD7j2Z9Kwl0yw1QmvMOoVYnpX8GMt/jYTymHmrPpteIj+R2Abe733SLFiKVzg73VerEeoviUXtpPdGCQ69mVJVKXdttQqg=
+	t=1788709424; cv=none; b=rngvbCVEV4Qf8Z6umQhK+gZmK0b4Vf8PmFxij/B5RQSWbnDE2fwe2cWa0bCvH60BdSQZ+GZbq8l/IN4yxmp1Vn8KBpx0r8H36bBKcmZR49/Ef3MuHRNWu6QfBKSqJezBvocAc7mIqy7ycOr2WTqQNHJpqMiNLR+u84mQxz/gGYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788709298; c=relaxed/simple;
-	bh=cJwXGpezGuktasyLX67ghytsMF5jbSeh8SXFTrfB3Gc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oUN47jVcilHAVhxWrWTmXE61rOlFC/sBVr9eR3+CCQJ7Zv+3sDukD7Js6Pcplq3IbbuZQribc/my3XtZIHHheAFbBt9V7KL4O7nC+ByM2JlJ9vpWmr+J9UhK+CxyVSTjDK0mubCwZB6QeQ9+dUoMxdJ53PsfGfx6KHR1fRvqO00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=M+i1+6L1; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788709424; c=relaxed/simple;
+	bh=VIhohHcx0SkBUGBuyu+li/MstEWPK62/31/grkhVZe8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y+QYeqDedkwqiSV2lexMhrvQ0khi18OaBC0RjDL1cWRU81zGPLvLC45p9yKyaUcg5sgjdPxHys6ME1Yg86Q+yC7cRU/IdyVKHzp2AcKqPXSD1+Bvm3kKxtz/mjOdGCbN7DGvdh/8j2y2E9o56lL+nYbL6KLR6GnhK8OclIUDyGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PaYhfvml; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="M+i1+6L1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788709296; x=1820245296;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=cJwXGpezGuktasyLX67ghytsMF5jbSeh8SXFTrfB3Gc=;
-  b=M+i1+6L1jsG0gwyPJoGRGxDgo7iMoD8bfC/84ao3k/L4wBAXWiXBRs0F
-   7DZmdho2kFLD7PdRuPFVuv45EgmJ57oO9VouLoqHvBjatX4nfrzpmVinh
-   EfeTYGW00NiyGkVBWSYwG+GpBbspCmBBKIXyvZj47kLr2fChTxCUM10PF
-   V7xq1WkeNrNUDoRA9xadGD05AnobVr1ghDkB4CZrhoFttdQXLngUI2L5g
-   QsuebyxxlCbSgMQwDoiZqSlWyOVyTlYln7mX2cWChkSQewg3Yt+IpxdeA
-   B02Lk+ILwDsb6gYnNWIDXTsgbsaa04Bo0EX2nm4su/33JBLvqzhcGnnfV
-   w==;
-X-CSE-ConnectionGUID: CeADNT1aSoyb4z8r/t/dOQ==
-X-CSE-MsgGUID: pE87na6uSjycL+8Hmp8YwA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="111907154"
-X-IronPort-AV: E=Sophos;i="6.25,265,1779174000"; 
-   d="scan'208";a="111907154"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 08:41:35 -0700
-X-CSE-ConnectionGUID: ErJtXON2TmSOojpeA6YL/Q==
-X-CSE-MsgGUID: pUzdu9oHTRy+XvZDeTGtHg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,265,1779174000"; 
-   d="scan'208";a="266814093"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by fmviesa010.fm.intel.com with ESMTP; 06 Sep 2026 08:41:32 -0700
-Date: Sun, 6 Sep 2026 23:41:31 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: Moritz Fischer <mdf@kernel.org>, Xu Yilun <yilun.xu@intel.com>,
-	Tom Rix <trix@redhat.com>, linux-kernel@vger.kernel.org,
-	linux-fpga@vger.kernel.org
-Subject: Re: [PATCH] fpga: fix repeated word 'if' in comment
-Message-ID: <ap2Jq537MhIpI5OW@yilunxu-OptiPlex-7050>
-References: <20260904112153.35820-1-hemanth.selam@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PaYhfvml"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-39b24d114d4so2729759a91.3
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 08:43:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788709422; x=1789314222; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DQ5Zk4J+hLvsdimx8KJiE0DP9iSw9BVVCAqpnMEf3Qc=;
+        b=PaYhfvmlLeHSSClcoPMnp4n2CwH3QSRCr8aNivW8WklY3lzlSOr48pqbI4fUjA0wyK
+         v1boSs51UZiwdelXM2MbQLfwVbBVvNWSuUtI5UQf0FfmBq1BvY6WJ/NYgZtfl4ZpDrHQ
+         gAil7ti9kaAfnnWUSkcI5ZtkpISohQwm4Egijkb6DgwAG+45cLMMxuOkiyPJszKyXimB
+         sERG9cCvM5X8YrRRE27gdD+6I81CiU6lAWTA19Kjycy1l1zyOkKmD16Ku3jjsgRxG5NZ
+         vidoAT0ZWEMF63qXK3WpZ5YeGmDfnqv30NYcLBcGc4OOp9I1kFGoKRMf7G+RlXnqppXy
+         9zFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788709422; x=1789314222;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DQ5Zk4J+hLvsdimx8KJiE0DP9iSw9BVVCAqpnMEf3Qc=;
+        b=sI16V892QtB9b+mbvk+wHuhL/10N1znokLc0Kojmqsv3oHpgTvbTVh8aQKhrWZSLPE
+         ckSp4VyW91pGU7JbMHzEF4S2Nd093gaAujoq5aOS4USfX+ifyvpJCDGILJGLhnhDVAqp
+         M++CGaQ2Y1Toabx77gPJnQ+8Scv4kCDVyL7GRgo+Yj6yqfZpBFwauNNbVfmz20u69mnl
+         8iQg3U0NW94/RpmIAiuj8weJ6Q/HAmj5FgGn8wE8sc32sREGbNbWMpH+1T6fAJ+ILSrv
+         dw7VVapATDslkFi9nTdTGFeODNKhndR9dRD2KZMPCxeQhk0ky6cdL04ewqIxfmk+2b3M
+         wkuw==
+X-Forwarded-Encrypted: i=1; AKwUvBxOox4CdfM82J7eC8ZcoSnFH12VhbksoiBl2TUU/yyWD/MRwg7x3PlH06wFSTWbtQTBCkBhcbBQ4QTJN/s=@vger.kernel.org
+X-Gm-Message-State: AFuF++mLQd6eWivry1p0Qbo6c52q9EQ3uXj5Pn6WskPzrvCdgVunMwnM
+	BNtaFZWk+IcEirj3rQ82ivtmhZbcOzG63gqGdoqRff7F1VmgQ4946cpI
+X-Gm-Gg: AYBFou3CRbnMcwBTahCk/xnDP+ZjfpClsXqQlTkVa83Y+rEYZj7h7TPYQSCrmAlsEnK
+	SMXGd9v7ODfONXYsPWLzi/ybERAeSEY5/YvulOz40KLBue29UL9qCh7zZjXEZBVSher/hoBNPmc
+	WNnb9g41ReaxnIgGAoTEs0YVaEhGARsTex2H9aZQyDc9Bvw6pksVFcjTJqLjVXuWlrRZxZaFrSI
+	9Eh7EU+cf3ZoX/oBOrkb36qrIDFeXkfQc+7PmnQqqIfcTcwf8dBVOwSr5dSqEtISKU+ZpnkIbZl
+	dltYajt5NreDlR1ae7MJmXAf4PdFwutHV7CTPzUFFVi9BguUBlSmSRDv4bHYSSEHKnLPhsgG2Bw
+	pfSpNT1sN530a8mHCgB0HrzKqQwUY8RFUdWr/1u9UUFrR/lD33l+1ffNscerf3jQJyx4hXxQYyV
+	YGlIMVsFLB1ztZ9Iluebe2a8lTEi9E/lIRjqBYfXV4ASxto2ummirHEP5MU0rpaA+CqG1rwqbJY
+	E/+nVLjhcKmTcrElEetfUTo2PuwSoU88Qjcoj5avLiI
+X-Received: by 2002:a17:90b:17c2:b0:38e:659b:f366 with SMTP id 98e67ed59e1d1-39b25f1c5bdmr25690589a91.0.1788709422195;
+        Sun, 06 Sep 2026 08:43:42 -0700 (PDT)
+Received: from localhost.localdomain ([198.176.50.208])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a62be87sm18930617eec.6.2026.09.06.08.43.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 08:43:41 -0700 (PDT)
+From: Weiming Shi <bestswngs@gmail.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Johan Hedberg <johan.hedberg@gmail.com>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Cc: linux-bluetooth@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>,
+	Manish Mandlik <mmandlik@google.com>,
+	syzbot+b170dbf55520ebf5969a@syzkaller.appspotmail.com,
+	Aby Sam Ross <abysamross@gmail.com>,
+	Tristan Madani <tristan@talencesecurity.com>,
+	Xiang Mei <xmei5@asu.edu>
+Subject: [PATCH v3 bluetooth] Bluetooth: coredump: Quiesce dump work on unregister
+Date: Sun,  6 Sep 2026 23:43:32 +0800
+Message-ID: <20260906154332.763402-1-bestswngs@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260904112153.35820-1-hemanth.selam@gmail.com>
 
-On Fri, Sep 04, 2026 at 04:51:52PM +0530, Hemanth Selam wrote:
-> Drop the second 'if', reported by checkpatch.pl as a possible repeated
-> word.  Only touches a comment, no code changes.
-> 
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
-> ---
->  drivers/fpga/stratix10-soc.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/fpga/stratix10-soc.c b/drivers/fpga/stratix10-soc.c
-> index b8ec2e6f615f..c08d60e3c85f 100644
-> --- a/drivers/fpga/stratix10-soc.c
-> +++ b/drivers/fpga/stratix10-soc.c
-> @@ -286,7 +286,7 @@ static int s10_ops_write(struct fpga_manager *mgr, const char *buf,
->  
->  	/*
->  	 * Loop waiting for buffers to be returned.  When a buffer is returned,
-> -	 * reuse it to send more data or free if if all data has been sent.
-> +	 * reuse it to send more data or free if all data has been sent.
+hci_devcd_handle_pkt_init() arms dump_timeout and coredump producers
+queue dump_rx without holding an hdev reference. Unregister leaves both
+works live, so disconnecting during an active dump lets them access hdev
+after hci_release_dev() frees it.
 
-The actual fix should probably be "free it if ...“, right?
+Shut down coredump processing during unregister. Close the producer gate
+under dump_q.lock before disabling both works, then free the active buffer
+and queued packets under hci_dev_lock. Serializing the gate with enqueue
+prevents controller-specific workers from adding packets after the final
+purge.
 
->  	 */
->  	while (count > 0 || s10_free_buffer_count(mgr) != NUM_SVC_BUFS) {
->  		reinit_completion(&priv->status_return_completion);
-> -- 
-> 2.48.1
-> 
-> 
+Fixes: 9695ef876fd1 ("Bluetooth: Add support for hci devcoredump")
+Reported-by: syzbot+b170dbf55520ebf5969a@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=b170dbf55520ebf5969a
+Reported-by: Aby Sam Ross <abysamross@gmail.com>
+Link: https://lore.kernel.org/r/20260322210849.68743-1-abysamross@gmail.com
+Suggested-by: Aby Sam Ross <abysamross@gmail.com>
+Reported-by: Tristan Madani <tristan@talencesecurity.com>
+Link: https://lore.kernel.org/r/20260814231248.3096377-1-tristmd@gmail.com
+Reported-by: Xiang Mei <xmei5@asu.edu>
+Assisted-by: OpenAI Codex:gpt-5
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+---
+Changes in v3:
+- Serialize coredump enqueue with the terminal shutdown gate.
+- Reject and free packets submitted after shutdown begins.
+- Disable dump_rx and dump_timeout, then free the buffered dump state.
+- Add links and credits for the two earlier attempts.
+
+ include/net/bluetooth/coredump.h |  2 +
+ net/bluetooth/coredump.c         | 65 +++++++++++++++++++++-----------
+ net/bluetooth/hci_core.c         |  1 +
+ 3 files changed, 47 insertions(+), 21 deletions(-)
+
+diff --git a/include/net/bluetooth/coredump.h b/include/net/bluetooth/coredump.h
+index 1f071ab554163..acc1849f66c0f 100644
+--- a/include/net/bluetooth/coredump.h
++++ b/include/net/bluetooth/coredump.h
+@@ -70,6 +70,7 @@ struct hci_devcoredump {
+ const char *hci_devcd_state_name(enum devcoredump_state state);
+ 
+ void hci_devcd_reset(struct hci_dev *hdev);
++void hci_devcd_shutdown(struct hci_dev *hdev);
+ void hci_devcd_rx(struct work_struct *work);
+ void hci_devcd_timeout(struct work_struct *work);
+ 
+@@ -89,6 +90,7 @@ static inline const char *hci_devcd_state_name(enum devcoredump_state state)
+ }
+ 
+ static inline void hci_devcd_reset(struct hci_dev *hdev) {}
++static inline void hci_devcd_shutdown(struct hci_dev *hdev) {}
+ static inline void hci_devcd_rx(struct work_struct *work) {}
+ static inline void hci_devcd_timeout(struct work_struct *work) {}
+ 
+diff --git a/net/bluetooth/coredump.c b/net/bluetooth/coredump.c
+index 5bee863bd6d2c..71fc8dab40047 100644
+--- a/net/bluetooth/coredump.c
++++ b/net/bluetooth/coredump.c
+@@ -104,6 +104,22 @@ static void hci_devcd_free(struct hci_dev *hdev)
+ 	hci_devcd_reset(hdev);
+ }
+ 
++void hci_devcd_shutdown(struct hci_dev *hdev)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&hdev->dump.dump_q.lock, flags);
++	hdev->dump.supported = false;
++	spin_unlock_irqrestore(&hdev->dump.dump_q.lock, flags);
++
++	disable_work_sync(&hdev->dump.dump_rx);
++	disable_delayed_work_sync(&hdev->dump.dump_timeout);
++
++	hci_dev_lock(hdev);
++	hci_devcd_free(hdev);
++	hci_dev_unlock(hdev);
++}
++
+ /* Call with hci_dev_lock only. */
+ static int hci_devcd_alloc(struct hci_dev *hdev, u32 size)
+ {
+@@ -442,7 +458,29 @@ EXPORT_SYMBOL(hci_devcd_register);
+ 
+ static inline bool hci_devcd_enabled(struct hci_dev *hdev)
+ {
+-	return hdev->dump.supported;
++	return READ_ONCE(hdev->dump.supported);
++}
++
++static int hci_devcd_queue(struct hci_dev *hdev, struct sk_buff *skb)
++{
++	unsigned long flags;
++	int err = 0;
++
++	spin_lock_irqsave(&hdev->dump.dump_q.lock, flags);
++	if (!hdev->dump.supported)
++		err = -EOPNOTSUPP;
++	else
++		__skb_queue_tail(&hdev->dump.dump_q, skb);
++	spin_unlock_irqrestore(&hdev->dump.dump_q.lock, flags);
++
++	if (err) {
++		kfree_skb(skb);
++		return err;
++	}
++
++	queue_work(hdev->workqueue, &hdev->dump.dump_rx);
++
++	return 0;
+ }
+ 
+ int hci_devcd_init(struct hci_dev *hdev, u32 dump_size)
+@@ -459,10 +497,7 @@ int hci_devcd_init(struct hci_dev *hdev, u32 dump_size)
+ 	hci_dmp_cb(skb)->pkt_type = HCI_DEVCOREDUMP_PKT_INIT;
+ 	put_unaligned_le32(dump_size, skb_put(skb, 4));
+ 
+-	skb_queue_tail(&hdev->dump.dump_q, skb);
+-	queue_work(hdev->workqueue, &hdev->dump.dump_rx);
+-
+-	return 0;
++	return hci_devcd_queue(hdev, skb);
+ }
+ EXPORT_SYMBOL(hci_devcd_init);
+ 
+@@ -478,10 +513,7 @@ int hci_devcd_append(struct hci_dev *hdev, struct sk_buff *skb)
+ 
+ 	hci_dmp_cb(skb)->pkt_type = HCI_DEVCOREDUMP_PKT_SKB;
+ 
+-	skb_queue_tail(&hdev->dump.dump_q, skb);
+-	queue_work(hdev->workqueue, &hdev->dump.dump_rx);
+-
+-	return 0;
++	return hci_devcd_queue(hdev, skb);
+ }
+ EXPORT_SYMBOL(hci_devcd_append);
+ 
+@@ -503,10 +535,7 @@ int hci_devcd_append_pattern(struct hci_dev *hdev, u8 pattern, u32 len)
+ 	hci_dmp_cb(skb)->pkt_type = HCI_DEVCOREDUMP_PKT_PATTERN;
+ 	skb_put_data(skb, &p, sizeof(p));
+ 
+-	skb_queue_tail(&hdev->dump.dump_q, skb);
+-	queue_work(hdev->workqueue, &hdev->dump.dump_rx);
+-
+-	return 0;
++	return hci_devcd_queue(hdev, skb);
+ }
+ EXPORT_SYMBOL(hci_devcd_append_pattern);
+ 
+@@ -523,10 +552,7 @@ int hci_devcd_complete(struct hci_dev *hdev)
+ 
+ 	hci_dmp_cb(skb)->pkt_type = HCI_DEVCOREDUMP_PKT_COMPLETE;
+ 
+-	skb_queue_tail(&hdev->dump.dump_q, skb);
+-	queue_work(hdev->workqueue, &hdev->dump.dump_rx);
+-
+-	return 0;
++	return hci_devcd_queue(hdev, skb);
+ }
+ EXPORT_SYMBOL(hci_devcd_complete);
+ 
+@@ -543,10 +569,7 @@ int hci_devcd_abort(struct hci_dev *hdev)
+ 
+ 	hci_dmp_cb(skb)->pkt_type = HCI_DEVCOREDUMP_PKT_ABORT;
+ 
+-	skb_queue_tail(&hdev->dump.dump_q, skb);
+-	queue_work(hdev->workqueue, &hdev->dump.dump_rx);
+-
+-	return 0;
++	return hci_devcd_queue(hdev, skb);
+ }
+ EXPORT_SYMBOL(hci_devcd_abort);
+ 
+diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
+index d7355c73f93e8..a3338bc8a4ed7 100644
+--- a/net/bluetooth/hci_core.c
++++ b/net/bluetooth/hci_core.c
+@@ -2673,6 +2673,7 @@ void hci_unregister_dev(struct hci_dev *hdev)
+ 	disable_work_sync(&hdev->error_reset);
+ 	disable_delayed_work_sync(&hdev->cmd_timer);
+ 	disable_delayed_work_sync(&hdev->ncmd_timer);
++	hci_devcd_shutdown(hdev);
+ 
+ 	hci_cmd_sync_clear(hdev);
+ 
+
+base-commit: 2deb76c21b81e42b3282224f7dd2046fe73fd1e0
+-- 
+2.55.0
