@@ -1,119 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 601ED286D70
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 19:43:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F62832E13B
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 19:44:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788723830; cv=none; b=IJX5JkBjh+33IvYhebC/aIZegmL0wSMvrVXDZbnIwNIdZZtW9Ph1yMU6BH7YMzZJ4g38LHAS6WyKtmVCxzXQVm3QOKhXLsZpqPw7hFxupszT4FbS3eMMEMLJW63k4byfI74u5dIK3uBB0wt9BBYCoq+iUOrS9YPXf9h/peSHIgE=
+	t=1788723867; cv=none; b=Vc4MIdO+//PZa3WWxMYnf1TZ9B86cr84Vgq28untM0upCcTTTgWGrFA9grJhvA3VhYrfxWi7caMrh1OrWQNY9w+CUDzYhmtDDGZaldQXFmLo5fYnfO8eSeawUf0H39okj5bNE1QFPOoYotDCWiX1T2w4CuwyMHERHKxJLLzkSmE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788723830; c=relaxed/simple;
-	bh=0Z9VlpA0raG6r7XokDnQP1FPgmzr6zyFAP4bptvzFbc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=VwWmkGZ+q0VPc7ihm6nmZchgWoKgLq7aOac/4kFQWT8NX0bNLK5ox26nCl4A4a64Wa5TOfgJO43MbleClqhhmf8mZ5Hio8WgKuLync4QWR/0/MEag/CzVRh9poG5VC2q+jgo8Ph8tRpUlfxCKuQiAry24xurcG+rYFub1eCkcpg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FXgathLC; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788723867; c=relaxed/simple;
+	bh=Z/QLbGZLB99eUtuXmocBvEQikv5QC/t9YyuXuQ0XXOs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tBZd2wOjKNX5VtSqNLzrvpVl1JHGrzO6yXKecHfA70HwgBU23ZlQ6gH4lvIik8exRck6ZZd3jWpxvPsPrc9xKeTC3yOOzBCvX9oA9CiKi7/Q0ndIee+UTb2QB8fu4byXNuXf7Xy9Wvu0Kdnu7yMNtxkLhGIFDQduRd4Fjx3qjCQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nJDTvZvT; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FXgathLC"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1C8ABC2BCB8;
-	Sun,  6 Sep 2026 19:43:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788723830;
-	bh=0Z9VlpA0raG6r7XokDnQP1FPgmzr6zyFAP4bptvzFbc=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=FXgathLCtZ92nmpHgh1MgOPol30uGB1g34FojDDPo0uKFAGEp7U9lvJ2NaI6X7j+p
-	 lCH1zcv17uN6R6K4aE/UsiNIWFz9rA56TI57H7Qn5XHT1qR92dW27FpygEiZwIwc9S
-	 x8Dwn0NET3Mrik+dUAScxc/BeC6Nn5ceMYUT7erGYS2q02/4oW98CMU3mt9USm+3mC
-	 2ydKlTkvSvTTQJ40682kaw1NEKbxRXKYTpKLYCT3BgZSciPErPLBGbeyI69TrrVPXF
-	 uUVaL775VlZwB10T3nFS4CB7inmhO54DWkgDjErV5zD0dxDayiA5JPyGDGSNtHLtSZ
-	 28n8rbyNX8tCA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EC505C79FA0;
-	Sun,  6 Sep 2026 19:43:49 +0000 (UTC)
-From: Miles Krause via B4 Relay <devnull+mileskrause5200.gmail.com@kernel.org>
-Date: Sun, 06 Sep 2026 15:43:48 -0400
-Subject: [PATCH] drm/meson: fix device_node leak in
- meson_encoder_dsi_probe()
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nJDTvZvT"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso26285495e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 12:44:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788723862; x=1789328662; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=y1git0WZ96wbt+gAecFgsUj5GK1DOjSXBKImfrfl2XU=;
+        b=nJDTvZvT1bCMBXJXlHTu6CIhUZx5BNJ7cxRi/5qKbe7/hbDNNpIrHr6Mg8jXTQlCNn
+         JWFg+4GuuwJ5ISdt1e7zP9PYR2QrSOvLftSk5f26rL2hzy0Zd4NLvvlpkW/DyD58/L0L
+         t6Y6cB+uvrChDyZ+WiXCSbm0gBdhvGFJm/Yi0GJiCztw8vUfhVkPQHc7QFRyTYc90BS0
+         Ykko0UtXO9OkYBSaukbhJebU54Ap1hMOZHLnfDGe939PRWwxFxtCIkNs8ecRGeCLk/Ar
+         I/o2WU2r57WvEp6xv8L1rD2F/+/e4DIi+9+9MHR7Qqwl6YGlk8Jnw65yRY96CeMEJvGg
+         ixVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788723862; x=1789328662;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=y1git0WZ96wbt+gAecFgsUj5GK1DOjSXBKImfrfl2XU=;
+        b=jAkxXXPg9vXUeK2eUGCUWYNWN32aBdpzXufPVx1fSeTilMBOOjkTDV/c446euXOPmC
+         padsFIOfkJyZ5akB8VUUEf2L5j8PgNNrnqf1C2IV41ir61JYz8xuaPdwMpSACpB3iYH7
+         wUkRMgXqToyG2mnaqdDXPKVLYmkLf5jXlv1bK+eMIPTzj3ZnPAP35wHtdFlN3O9nvr75
+         idyE6vgLJAdRwSdvAxQ0Ok1Ny3Rj++IZcqQg9MX7mhWJPq/rE3+qxuWHfYEwrsppDLlO
+         ZtzlJZp0EYnL9Bl1Y9JOpld5i/53pAjuvspI/XnmD0HwQEffnqddncYEjquMsDYSmV31
+         c7lA==
+X-Forwarded-Encrypted: i=1; AKwUvBwQAlHM0eX4BG9UeOQsMKbb79nCJi/eCytuvg1hEOTd/1tn+v4VuTpGtvf0C7PfjYWzT6StFzSCD9gbozA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mO51slm8v6tsjyO07iZ/3QydF+R/ys47BFjtY+9hUyotUN5l5Y
+	mB+hLVhj0YeklS7L1z1eYo4ZNnO2wkobh8vULPadMgNuI7QPJ/d4EG51
+X-Gm-Gg: AYBFou11R6QWVUdx6YlgUm5guy9M0pDvhC1J6C7FS3FWyS6fd6kaRqq19j6zsBRW6+Y
+	wOe2TE2s3+KBgu7tm1DJ9m+xRvycT7sKmEoBk076w7Y3NNp71GGnpJg+Hc7LpizLzjVG8wQIGO8
+	K++Vr5Ek+0WqlmXBOyEWK9WHS9iCuCfoHJ0d9WNB7U4Aoea66sn9oLRNLJG6e3EtREf6VqBunnU
+	swLrh63NpsZnsU11713WOSa4CpfZkffzunE7Zfxu9z2hQXpbjseq2SKgH7kQH3RUCAQsOQzmQ6A
+	EA8jjRQez5vuPSvJpZMeY/CTtKwiTY8iKb1Cnthr2xzAz4YW5DSUdXdOwFl/SFCr+Beup5zmWTY
+	p/Lxq5myNc91oclZvYgTXJd96APDnNNc88OxM9p9XqYn2IY8nWHGFhCOkA0cpQrLKIFuyFyEumz
+	BDUtFt9f5q5cSrz8UfolpwENuN8vaXtMfSkIJzRliSgdmiggTDY3fpg3ztEnln57D3hNT20a3JQ
+	oAOZXQO4TqVTlVJ2B45mQOdLskvGaszRtzPvGvbivm0iTYZvWXlxSg6lwRHCL9bklGY1Di6G4rc
+	3rxSoORCZlvV9EJmGrGD5Z5qndCa/UDV6P+QqU0YwO5MtNucDtiGBHiKcHFQZ7npdf0NXFHzj13
+	VraLQx26cyEE1Ns30bOrvmQ==
+X-Received: by 2002:a05:600d:113:b0:49c:d618:e341 with SMTP id 5b1f17b1804b1-49cf827b19cmr106524155e9.14.1788723862396;
+        Sun, 06 Sep 2026 12:44:22 -0700 (PDT)
+Received: from systembl0wer ([2a02:8308:4092:11f0::f9f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7740d44sm567978165e9.15.2026.09.06.12.44.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 12:44:22 -0700 (PDT)
+Date: Sun, 6 Sep 2026 21:44:20 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Tuna =?UTF-8?B?S8SxbMSxw6c=?= <tuna@tunakilic.com>, Andy Shevchenko
+ <andy@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>
+Subject: Re: [PATCH] iio: dac: mcp47a1: Allow full-scale output
+Message-ID: <20260906214420.580dec27@systembl0wer>
+In-Reply-To: <20260906185942.595251a5@jic23-huawei>
+References: <20260906045428.4f03494b@jic23-huawei>
+	<20260906090802.1282585-1-tuna@tunakilic.com>
+	<20260906185942.595251a5@jic23-huawei>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260906-meson-dsi-of-node-leak-v1-1-9d183560279d@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAHPCnWoC/x3MTQqAIBBA4avErBswsR+7SrSQnGqoNByIILp70
- vJbvPeAUGIS6IsHEl0sHENGVRYwrS4shOyzQSvdKKsaPEhiQC+MccYQPeFObsPWmM5a7+q20pD
- jM9HM9z8exvf9AD146hxoAAAA
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Nicolas Belin <nbelin@baylibre.com>, 
- Jagan Teki <jagan@amarulasolutions.com>
-Cc: dri-devel@lists.freedesktop.org, linux-amlogic@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Miles Krause <mileskrause5200@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788723828; l=1903;
- i=mileskrause5200@gmail.com; s=20260906; h=from:subject:message-id;
- bh=MzPOZoQJIZouNhopaY53pEz59ebt1korUstt2TswX5s=;
- b=n7TDRXCuDuGLEEk4/VPeuku3N6NRmryW5wydClhaAsHiByeSusM+Nz8hYgNrxmDeRC7QSYUTm
- N24E5yCU0OhCuzbiwy8lCyAhHI/GXTrgxQ923wq10hBuHkzwXY3Jr/P
-X-Developer-Key: i=mileskrause5200@gmail.com; a=ed25519;
- pk=zcIfq4TGtPwMRJUW6WsbE2zLHvOMwk6ZyT/CGd6XzyI=
-X-Endpoint-Received: by B4 Relay for mileskrause5200@gmail.com/20260906
- with auth_id=1010
-X-Original-From: Miles Krause <mileskrause5200@gmail.com>
-Reply-To: mileskrause5200@gmail.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Miles Krause <mileskrause5200@gmail.com>
+On Sun, 6 Sep 2026 18:59:42 +0100
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-meson_encoder_dsi_probe() looks up the DSI transceiver's device node
-with of_graph_get_remote_node() and hands it to
-of_drm_find_and_get_bridge(), but never drops the reference that the
-lookup returned.
+> On Sun,  6 Sep 2026 09:08:06 +0000 (UTC)
+> Tuna K=C4=B1l=C4=B1=C3=A7 <tuna@tunakilic.com> wrote:
+>=20
+> > > If AI had anything much to do with generating the patch then
+> > > a tag for Assisted-by: LLM is appropriate.   =20
+> >=20
+> > AI was only used afterwards as a sanity check for the datasheet,
+> > in_range() semantics, and the final patch. The bug and fix came from
+> > manual review. =20
+> Ah fair enough then to not add a tag.
+>=20
+> Thanks,
+>=20
+> Jonathan
+>=20
+> >=20
+> > Thanks,
+> > Tuna =20
+>=20
 
-of_graph_get_remote_node() returns the node with its refcount
-incremented, and of_drm_find_and_get_bridge() takes its own reference
-on the bridge it finds, so 'remote' is leaked on every path once the
-lookup succeeds: on the -EPROBE_DEFER return taken when no bridge is
-found, and on a fully successful probe alike.
+Hi all,
 
-The two sibling encoders in this driver already handle this correctly.
-meson_encoder_cvbs_probe() calls of_node_put(remote) immediately after
-of_drm_find_and_get_bridge(), and meson_encoder_hdmi_probe() releases
-the node both on its error path and after of_find_device_by_node().
+sorry for the testing delay, did some light travelling this weekend
+and didn't have the hardware with me.
 
-Release the reference in the same place meson_encoder_cvbs_probe()
-does, which covers both the error and the success path.
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+Tested-by: Joshua Crofts <joshua.crofts1@gmail.com>
 
-Fixes: 42dcf15f901c ("drm/meson: add DSI encoder")
-Signed-off-by: Miles Krause <mileskrause5200@gmail.com>
----
- drivers/gpu/drm/meson/meson_encoder_dsi.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/meson/meson_encoder_dsi.c b/drivers/gpu/drm/meson/meson_encoder_dsi.c
-index 3e422b612f74..3fe604496294 100644
---- a/drivers/gpu/drm/meson/meson_encoder_dsi.c
-+++ b/drivers/gpu/drm/meson/meson_encoder_dsi.c
-@@ -120,6 +120,7 @@ int meson_encoder_dsi_probe(struct meson_drm *priv)
- 	}
- 
- 	meson_encoder_dsi->bridge.next_bridge = of_drm_find_and_get_bridge(remote);
-+	of_node_put(remote);
- 	if (!meson_encoder_dsi->bridge.next_bridge)
- 		return dev_err_probe(priv->dev, -EPROBE_DEFER,
- 				     "Failed to find DSI transceiver bridge\n");
-
----
-base-commit: 88405f0ad1d5c680afe3ea0ce9345fa9e1deaac8
-change-id: 20260906-meson-dsi-of-node-leak-744899da5712
-
-Best regards,
--- 
-Miles Krause <mileskrause5200@gmail.com>
-
-
+--=20
+Kind regards,
+Joshua Crofts
