@@ -1,169 +1,227 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011058.outbound.protection.outlook.com [52.101.57.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07DC91A6806
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 02:28:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788661691; cv=none; b=Ce95qF9+v016t9G63j4CwSPybPpRQEfdg7handzoWDUIYYfIatw6sbQSFz0e/PkTpYmM21hENkuk4uKw35IdzZ7ntKswvOPMmJFCW6upIYJJLC09ZEJo8UmAEXe9YLt5j3HrijWE5cKN+aeoFN24BSYo1YsWYsv5A/aHLIZ58Ag=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788661691; c=relaxed/simple;
-	bh=KIX+FMSc4EqvFxwWqDIPCmwQTsKl7G0c2A+48ntvwkM=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=CFl87tGf3dBmEp2HEJ9ehrSFpRotR9ybh6Vl5MBzqLePa8HJF8ksytEz1sFxW+88FVB74H1FWP2udeH/sChAt2AMDrd4NxLuLfloMQ7wMIFMkyns21x56H1ssFQTtRY3qTY3I4tAxsLE5Cr8U+V6K8LCiC+s//9PRRuqHSg0u3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Rag7Hfd8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HVwM6G89; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C22377A92
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 02:30:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.58
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788661826; cv=fail; b=V4ieE5+E94xDgFHWNpxd/iEOSLjaOIBVkowyMwLAEY2ru2NUn4tXFsKLaNFSBjEGIC4aaEgquE5onu9M7I2HyelReMtuYDE+AMvkgB+qbYlGoPNkM7/cjWeJKKuK69sMMMj01nvKK6xfkzPDg5SyUWaTQQbOjdu4+JuUbghx5B4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788661826; c=relaxed/simple;
+	bh=lxuwFdNSXm8tBYIXTH167A+llKPsi75r3t7lkTiiL/A=;
+	h=Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
+	 In-Reply-To:MIME-Version; b=EXPzEyfyaIaxzdG2ZKe5E7hb2PJV1Bd5FUFNXaqgfi/3wJzHoXgtr4+EYfBCGO9xg/q3j7Y3X0ivk2ImlnO08K8EzrRRYVMQK+c3NvNlNz9cVUHJKduZP3+Xd/P7F87+AHrWmBqs8oVsjCAl3AsvvMiw8Iqzy8kkqoIzLiY48UA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=G7JJE+SL; arc=fail smtp.client-ip=52.101.57.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Rag7Hfd8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HVwM6G89"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6861W6BB3839093
-	for <linux-kernel@vger.kernel.org>; Sun, 6 Sep 2026 02:28:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PdGT+/Nqgl235u435n+YuE6aHP9Ali5eDPJS19M1ESo=; b=Rag7Hfd86A7S1P8m
-	KotqfwR94B0OkU1JswONS6MajnFw1fiI+rFWdzB50a2AsHCmZtLDZ7rTnjbrYrhl
-	fQTNlUmUE3+VopFnhE7YoLloXwqxNym66qA3DzgYcWlZrX/BeWz+nV9Qkto7Fmqj
-	KvSouYC01qTJxqj1MbUHLdwS68NIn0021OiVvvx76d1t9qOrMApP3WiMWFQBomc3
-	R5yIgbziVJJ2PbBCPohRXcSbyBOD10FZlkvV3nO2/BLSmtqdrcWmQX23WtimkAIs
-	MrEfH2LU0MXxKurnpwd0pndHNRVaIjJ7hHkT79dGAVt+kTn48exuPQ6+FubRShk7
-	7v/usg==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ggadhjnrg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 02:28:08 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cbee162355fso373820a12.3
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 19:28:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788661688; x=1789266488; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PdGT+/Nqgl235u435n+YuE6aHP9Ali5eDPJS19M1ESo=;
-        b=HVwM6G89eklwL7o3o+kRW9GHvT+rTMLYglclQPU/Hp+PIYY/YkNXVRghR4Z+OXJw2v
-         2yM7Fikc1fsXIBdZM5iBUY9gKx5GOoMNYrX7j7YCfSx73Je8OQi0L1T76yE3K7PlOXUM
-         HudxL9o+0sWzsl3m50CNLlt+9ytJQzOg76pLVgmmipNGKxmP5Mzzj0aBWz3Jbzvg1WV+
-         oxvOX84xryIELLBFWytZw3mg1KWzWFIYCwOiNtucNqRKEJTBVtzIOOCfQbHMAufUkcmy
-         mr4fjMlw2hGxf8DEQoauDfyY+hGpoAdssxMXR0xFA4qN1KGYST+UZU3o56GLePGvvDZ1
-         0W9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788661688; x=1789266488;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PdGT+/Nqgl235u435n+YuE6aHP9Ali5eDPJS19M1ESo=;
-        b=eCBtp6jvpavTyX+vl08w8ajjcMW8Vg/hwlCbiucCqOGfKPOEm/j6dezKeIf5o8m0fL
-         iS5btRClXb8xHVRVR9JSzxUaFeBIw9gEfFCvbeWuMKV0sHA8SFwqOSOm0kfthX8DVKya
-         V9t9rAQI9LeEVJk9OQ4nlCdLO8okjIkhILLORmZzT5EBK/cMK7SYur5+1IB6LOXA70c5
-         CNFdL8HbPpi05Sl6rNKlqhTUmGATuCd86iVPlgj3mFmnVb6LGBuZZ9cC/KFwldWRgpT7
-         qM3r92bFR5oojY3IMiFNzamZ39TWFYr41ljEudJqMxkANN4rG6Yy/wWqPRAXkZD+0AEV
-         a6mw==
-X-Forwarded-Encrypted: i=1; AKwUvBwIpOoLBBBB5aESzl0UsfpMsoEiRBweohlbkQsAPa98UP5wZsSeUhPvdIXa4jb1XYpqEIr48u1cT2oAGOQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbJb8izIz6eQSV0sKioJZKLbGD+2REeeVfGG3VKJW4PprfBjbi
-	p3qO3zlh6hkJ97jHrIeMvJyUdra33qTbvnSIqgeGXVEUOedUev3Bu6QZmbI+khSFTONv3P+hPSg
-	WPHRuleV1Anne6CFeoIPJG/8yZQ4OJUu1JBW21sQ1iWGNEOZbp27poMi+43tEfRhCRpo=
-X-Gm-Gg: AYBFou0uFU+0FqyRKcPe3f9H9880Sk1bahn/oKea/drd0ZKiQyYaTh0Hm3HqnzCQsCl
-	bcRLost8FLIezVIYWNY44h4Uf01/QkZXgWAHCl2ZSMQrDOn74QtKm1MAYXVTQvDY5trqwUg/1TQ
-	XoIvdQL5zcAFi6Xj9LMpVUNnzTFdveshaPpXQmy4w4bbSH15h/cJK2phUQF9jO6KGT0kG5IOmfC
-	ZQzSdF62ZEA2vHFyAkTwlkqiyvnEu0/yU4hWoifoZthr4ybwfrYT7P2OzYGOxmXUi2Fi2o1uD4b
-	AUVUu5OQW3BU6syEGMpyRej8uRIAit4H962HNvH3KnwS/yZWWQKJ584K2MI9DFAoQAKU2w09VSE
-	Yk70fCbhVL7Zk29Nx5iqzBxwMgKqDC6fdo997M7ENQNQYrzjdCWMrq6it0cqcsrVbySg=
-X-Received: by 2002:a17:902:d4c9:b0:2d8:d29b:c1e5 with SMTP id d9443c01a7336-2db273b0f96mr75963245ad.0.1788661687634;
-        Sat, 05 Sep 2026 19:28:07 -0700 (PDT)
-X-Received: by 2002:a17:902:d4c9:b0:2d8:d29b:c1e5 with SMTP id d9443c01a7336-2db273b0f96mr75962955ad.0.1788661687153;
-        Sat, 05 Sep 2026 19:28:07 -0700 (PDT)
-Received: from [10.249.22.190] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db148451fbsm26773485ad.7.2026.09.05.19.28.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 05 Sep 2026 19:28:06 -0700 (PDT)
-Message-ID: <4df53cf8-b173-423b-bfba-4c5fc539e528@oss.qualcomm.com>
-Date: Sun, 6 Sep 2026 10:27:37 +0800
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="G7JJE+SL"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vXkWqbIJoXV/qgnHRLFG1p6vVwS+yD5eEc8wPlHk92UOtKpvYcs2dtYzPuTpEFziI4DQhrIWW9AwZyRXKOlSjntNr90e8Kxx1ZibtwMi37aAPk1kc8JNitEE8pXIaID8u7tpnfldy11IDB1LWbhnK6ZBe+WsvbFisPPj073MsJ5bGmuRsVrnC/B/VLz6etSUoYtSt0n9kRy00Wws6K/rawiTUyb0lnXI28K4USaD8ibWFP8n8d9+1ofvqP1NCxXdiyG/S3C+lJpYBaO9YwylHxcVs3AlukJQOHC5RsT/qchPUzcYoCkuJ7XCnfnUoLAUr/RWaeSoOW1w1QS9jHCOQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2j2rWZUHpwqZ3nOIZOLTN8lkTfKf83rvOt8GfOE9g1w=;
+ b=blmJvqfYiYAi34RajiF9M/1QRm0e30WCrmlS0hBKanYbpFZyU3+Csg/aqXK/u6ZJYp+ZDgnfW6MScY6EnTkdROVRGvl+A3WmpSMv2WzYjP2JMa6ERZeSkBETkwFDXOec90Y9Ruzd39Zw8JLYIAZ9pTG6j/hSgFnEwTrrN0gDwi1TOm1fs67H8IL2whceqQxYXLcGHQ0OCv4/TWN7orfQKOrzsSwftADSiyufKzoPUNWRqxXTZHWsdRTxh2QnURmiCMvqTPzZdd2pRX650A0xfAOVNvmzZK4wjVwjwBpSoKyJsD6z0tz2iTUDmYh/IvAYwWoOMsCYpScabf2QcxiBIA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2j2rWZUHpwqZ3nOIZOLTN8lkTfKf83rvOt8GfOE9g1w=;
+ b=G7JJE+SLohJCFCqdrxm5RWsNX/e1C1RB1qv/Jym4Pgxf7ewXat1yOwKh9qa2aGfQzsB52+4tCL81a6Dqc7pe5e/B0KyDi0ey1w7qOE5F7ujWbh77wH3tbzPrr1A/WD5+Ec/7jrUAbSOCUMdWxI/aCWb6I1AFJ6Vdz9TrVHgy8KJeAWBstZRRi4qgr+4PupduWuvC580K0FqpIz39rFC4WC4B7VHgAqKFwaHn4zt0dIoSHXdixLpCkU++Lu0OhzlwTQQvW5Z6Dtshey0QkYa37tphaZRZ9+mgD8xegkhsaBzOyanN6BV+QMoOkj9ZwNPQXP71ktg45KqrUlgf+YY1BQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by DS0PR12MB7536.namprd12.prod.outlook.com (2603:10b6:8:11c::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.14; Sun, 6 Sep
+ 2026 02:30:18 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0382.012; Sun, 6 Sep 2026
+ 02:30:18 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 05 Sep 2026 22:30:16 -0400
+Message-Id: <DL7VP2ZBCB4J.9NUOEM7GWXR6@nvidia.com>
+Subject: Re: [PATCH 08/12] mm/collapse: separate scanning a PTE table from
+ collapsing it
+Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
+ <kernel-team@meta.com>, "Baolin Wang" <baolin.wang@linux.alibaba.com>,
+ "Liam R . Howlett" <liam@infradead.org>, "Nico Pache"
+ <nico.pache@linux.dev>, "Ryan Roberts" <ryan.roberts@arm.com>, "Dev Jain"
+ <dev.jain@arm.com>, "Barry Song" <baohua@kernel.org>, "Lance Yang"
+ <lance.yang@linux.dev>, "Usama Arif" <usama.arif@linux.dev>, "Vlastimil
+ Babka" <vbabka@kernel.org>, "Jann Horn" <jannh@google.com>, "Kiryl
+ Shutsemau (Meta)" <kas@kernel.org>
+To: "Kiryl Shutsemau" <kirill@shutemov.name>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "David Hildenbrand" <david@kernel.org>,
+ "Lorenzo Stoakes" <ljs@kernel.org>
+From: "Zi Yan" <ziy@nvidia.com>
+X-Mailer: aerc 0.22.0
+References: <cover.1788533997.git.kas@kernel.org>
+ <1a1bc537850bd7ef73bed5ac4985634bb8dd95e1.1788533997.git.kas@kernel.org>
+In-Reply-To: <1a1bc537850bd7ef73bed5ac4985634bb8dd95e1.1788533997.git.kas@kernel.org>
+X-ClientProxiedBy: MN2PR20CA0037.namprd20.prod.outlook.com
+ (2603:10b6:208:235::6) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Zijun Hu <zijun.hu@oss.qualcomm.com>
-Subject: Re: [PATCH BlueZ v3 3/4] doc/hci-protocol: Add BT_RECV_VENDOR_PKT
- socket option for HCI_CHANNEL_USER
-To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>, Zijun Hu <zijun_hu@icloud.com>,
-        linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260903-vendor_hci-v3-0-015d62a57c91@oss.qualcomm.com>
- <20260903-vendor_hci-v3-3-015d62a57c91@oss.qualcomm.com>
- <CABBYNZ+1PqFXSqAPNC3krSaTccv4VT7ERNRWkO-pCg3k+qCH9A@mail.gmail.com>
- <985c44eb-38a2-48f9-96e8-292b0a39e29a@oss.qualcomm.com>
- <CABBYNZLddwpM42-jpbGbi+wpiJgqwU6UB4TKc1KjC9pR=aM95Q@mail.gmail.com>
-Content-Language: en-US
-In-Reply-To: <CABBYNZLddwpM42-jpbGbi+wpiJgqwU6UB4TKc1KjC9pR=aM95Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: M4622EPAEzic-3clormyvSlVW4jqUbBC
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA2MDAyMyBTYWx0ZWRfX5ub1O7xqBPts
- DUAQ3/X8GRP2tcYOwUMdySYCwv144iQMDza7wdRYn0v9ufEQoqWwPDebH83V7HktbZMcFmOO4pK
- 7eQUr+XFazmtlLgrqoE4xomxeU/0/WiBCJZa90G673wwhm/zuw3bGnocN/DbQPICuU/ICU1DUj4
- 5x31DBri5h71Y2fmL0a7r7MaqWRCBaezCDLmTnckrRX05ZrBaDcNcukcCfjk1fF+yV1guO1BEMF
- gAQuaanyDZBxooqrH3V68p9FV5XzpycSIFY+GQfOJt0K7a9JMn4g/SBB+mnuGAd2fLgxFP1nvPX
- pER/IQn/coqyWXs0NgWAvh/rwMkr9pf/QOA4rHOMcttyzUgLc+LEcs/8PA8Br57iSxK1HS3AKKm
- e+Lc0gjD7pTEfIA9jA/G6WrAxV/BoPEnUna1Y6wtrrE8XaFVCGBtVJbcrJH7oAxd883+kuGBmVv
- J1gdMAC/Ht2TAYZ2nIg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA2MDAyMyBTYWx0ZWRfXwi9tsIadHFly
- zvSwbs/KdAA/qMTAXEq6rQbN2oTwDbv5A86Bxy1pg+w4B4PolVFKraKZ1h3PNOWypvvlyX/sUu1
- jATy7DFNX0VOq0Gy7ihfi67kIZKWTMg=
-X-Authority-Analysis: v=2.4 cv=OceoyBTY c=1 sm=1 tr=0 ts=6a9ccfb8 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=XTxmbAkqevqQ1xLVaKQA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-GUID: M4622EPAEzic-3clormyvSlVW4jqUbBC
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-05_08,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 priorityscore=1501 suspectscore=0 phishscore=0
- malwarescore=0 impostorscore=0 adultscore=0 spamscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609060023
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DS0PR12MB7536:EE_
+X-MS-Office365-Filtering-Correlation-Id: 91f6d1e9-68c0-4e60-9754-08df0bbeca68
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|6133799003|10067099003|56012099006|4143699003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	9lZarknxa50zgLfK9m/GgFpp8LDnHvB4JDubKLb20FcHeTo72nq0DrXB8E64w9lz2Du/m3ZllDd68W6FgMsiNbLnqRtQiIeJuC9W+AFdsZyNwYqs6By0ggH87yiOfoc1kSRlQIFwHqc4qx6tBe05wNyKQ6qsY+qxrXvwrQMKWslZQNsjqM7ydOuYOxQGGsBmmgUhg0x4+geb77MgctCXrm/ZoYVqt/ZEK24o86l8AM9QNwapFqGE8XQ+klsQ9tO0cNmLpewwbY9N97/tR/WO9jLyu/XOwWrKV6Cm3uoD6bsjZbBIoktGYiJcMkCeIVAEo+aUW77y8g7oAqV2QczofzHzh0mnfAe8FZLdQt0lghRsqH/rbyZDy0juOzbsbVhcYlEBIyQwGAsXWCt1+Bx6XwWhalGTcfR1pujybybfl4W9FFeY8YVVVOmH0WvAhdhyrLqVoX7vD42CKxw6zggrjq30MOVKFsgswjqmhCTaenc8S8G9HlbGxgyW7lhWm5nMe3h39VOLwq+8EnPg/ZiAP+MVSLAkYT36XDlRM3Hra91ROEHkWROhQ1y9RqGJ1fih8zwk4DTEY760MyMEZLTAhU/ga4ynEXZPXjdeCj81znb3PS136vW4YWR/T6J8gKgJCOhU3boYsvTBYkANpNxMhp1eIuTuNnVlCYtHiCpSuO8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(6133799003)(10067099003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?b0w1empEb0x3M3BUcmNsak4ydkFMWU1VQ3JHd2tBZVp1UW5EZTcwWjkvS1M0?=
+ =?utf-8?B?NldXSXk5VnRWUXUyNlhWajFDcUFTWHJKNDNoWXhxNjVzYVpLald2TXVXV0JJ?=
+ =?utf-8?B?WFdScGpJaGZscFpHV0JGZXhaRXNTQUJPWWtCRUxTbHRwU0MwRnp3NG9oYnRL?=
+ =?utf-8?B?Y3FyeUZremhTQVUzM2JPaFhxcTNYUjhLdkxoUEVwZDUrcWk0SFdrQlZGZUZI?=
+ =?utf-8?B?QW50YmdOcWd5NXJvT0JkWHUwLy96Z2NhVzB0RFR1L0tjTGtTWjdvNm0xMDhl?=
+ =?utf-8?B?MnMrYW8zMHNvbVhyRG9NS3ZmMTIyV2Z1RXNKVFhyWGFHYWNPcmtFb0hIQUhw?=
+ =?utf-8?B?cEtnVUNSeEV3TjErK3RRY3VENXhLNWsrS3B5VVRoVC9xd1crd1QwaVo0NnVC?=
+ =?utf-8?B?WktkUTc2THgvanRRNEZneERmMjUrVVFzZVJzUnFKd3VuVVgyUkkzZURuTStk?=
+ =?utf-8?B?ZDBWa2VlZ1hUc2tMbnJsWDVvaiszSkdVVnI4Q1BnVEdMbzZCekxSMC9lTzB4?=
+ =?utf-8?B?ZG9jcS9qL2thb3V5QzE4S0NvaEhqNklDWXphL1pYWUJRZXF5WWI3ZFpMUWF3?=
+ =?utf-8?B?d0xlVmtYdHZXWjdVNUlaSGcvZzdJY0JIaUt5MjU1RFVNOEY5WEk1dDZXcC9i?=
+ =?utf-8?B?UXhhWnRMT0RjQ3dDc0ZhTUN1ekp6b0hHUHZldG83cUpIcW91N1IrTW5oOTRl?=
+ =?utf-8?B?eFNyNENITEJKcHdqcDVIRi9sZzZXVTVTT3d0R1NOU1V1SzdJemlBYjdRemFM?=
+ =?utf-8?B?R2YwZWljMEt2VmpRSWNOQTZBck02Y0ppRmN3VHBOZ3Voa3hBZUdXSG8vVmdh?=
+ =?utf-8?B?dHFUVEFwNFhkQlJldS9xZ2dNUjBBZFptS2N5OG1EcW96NWtZSnE3R0FJdUNZ?=
+ =?utf-8?B?Vk81WS9qK3FrTnBqU1diWmtGV0dvQWJOMUJ5VERkQXI5clZPSmthYUc4aUF2?=
+ =?utf-8?B?NUtZVW5xUmF2ZE9zMXlrTjZwaHFCKzR1bmF5bTA0VDZieDNPY3NpTnZHTU9p?=
+ =?utf-8?B?NVU1WHV2QWZMcmxsSFNrL3VaanUvQ0ZVc0VEcXIvbzhmSHVJdVNJcU1saFk4?=
+ =?utf-8?B?UlBDakNZVHdqME8zVjNvRThjUjBwbkxHelhhcXZyWDF1YmtFOFh4NHU3cWdm?=
+ =?utf-8?B?Y1ZuTmJpSXRmVnVxQWc1RDNqcXdsOVNSc2UwbmFFd254SXFxeXpzY0VGMDdW?=
+ =?utf-8?B?ZG12SU1TS1JoUjRSOTcyYmxlQURxd09rL2Y5K2Z1U0NiUGZVUXUveEE2dDN5?=
+ =?utf-8?B?TmpQRXBPbFczMVJldXc0Y3loNys0bDFHRE9wUXk3cGtGcmNTSnE0YWY5VXRu?=
+ =?utf-8?B?U3pOejNXelVWcVNTZS94VEVjVDZHeldXWWdFRUt3aXRiY2kxRmRmeHhza1Nk?=
+ =?utf-8?B?S0dxb25jSnQyN0ZRUHh0Yko5TCtLYVhWQ2dnMXQ3SStrNmF6OGZoTDN3Yk1s?=
+ =?utf-8?B?YWdiSXBXVi9kSGtxbXZaQnpQTG9iVjlvbklyRXNMNTJXQm80a2w1Y3Brb1kw?=
+ =?utf-8?B?amJqK1V0azhyRXE0aHMrSGFBcThPS2liTnBXYU83NXhPREZFa1JWdzkxYW9V?=
+ =?utf-8?B?MlkxK0Mydk5TaTIrNiswUEhsVmxzQ0NEN0s5dWZ2ZisyQW9OcmRRTVFNUFZK?=
+ =?utf-8?B?Ukt4Q2hvS1pGbFo5NWFUcVJUK2pHS1lQbVNtWWR5U1JGdUtHOUFYYlljQjhP?=
+ =?utf-8?B?ZTdRV0VpYXRRNUljcWUrcEorWllsK0ZWZmRIdVR1ckx6bXVoS2Z2Q05sV3Q5?=
+ =?utf-8?B?akhhRmFOZ2pJbmNIckF6YzB4UEc1UUFVOVErdlUwd2hLK2MwWlpUc2dyWitz?=
+ =?utf-8?B?RFZHY1NpMis1MGt4NlA4QUdQeTBNeGZqM0dVdFIyTCtHU291OTNDdy9QNzNn?=
+ =?utf-8?B?ZlkwSFRNZmVLeSsvZEd4bURuQ2Rua1JBSjVJTktaUDQ0OUFGdHdlVUF5enlo?=
+ =?utf-8?B?U2VWdWViUTI1bDN5Z0Y3azJMMXJ0ZS91YVlaUkJZVXZXWFJMM0Z3QWNxaUZo?=
+ =?utf-8?B?cndBWmxKa0IrL2ZoVTV5WERLR3pmZ3ZzeDJMK2t3cHplM0pTaUNFOVRCTUJa?=
+ =?utf-8?B?RjhXS0lhd1J6TjdwOW9KaHAzTXNFdDdrWFloT1RmUHB5ckd6R2x3ODNLTWhw?=
+ =?utf-8?B?NkpIcUNkcE9GZmt2VmJmdXBXZzVQaDRiZm5HbTY1SS91elcrYm9rTmh4bU1M?=
+ =?utf-8?B?TjdUNjZTZ1dxNWpBVjRTZkgzWUppUlJhYi9Nc0lXZXZNaXgrQ1R4ekI2SmVu?=
+ =?utf-8?B?VExNNGFEcFRuUzM0dFZpb2JhbFQvZHlwWTVaaDVybGJEVUN5SXVXUkN0WmJC?=
+ =?utf-8?Q?xExpTrI+XkbbrDlV9E?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 91f6d1e9-68c0-4e60-9754-08df0bbeca68
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2026 02:30:17.8828
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZEWO5DBGKHFtvCwBBDZHKFjRG8/go29G0fziToX0eNXH6ISVLj4LO+NbUy2f/dCi
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7536
 
-On 9/4/2026 10:31 PM, Luiz Augusto von Dentz wrote:
->> Hi Luiz,
->>
->> Good catch — that socket option is introduced by the below kernel patch, which is still under review:
->> https://lore.kernel.org/all/20260830-btusb_qcc2072-v2-2-5c0e0c9dd98b@oss.qualcomm.com
->> I'll drop this userspace patch in v4 temporarily to avoid confusion.
->>
->>> e.g., HCI_CHANNEL_VENDOR which can then allow packet type rather than
->>> just the known ones.
->> For this new proposal:
->>
->> 1) Is my below understanding correct?
->> - H/W wire: BT and vendor packets are serialized together.
->> - Kernel: splits BT and vendor packets to their own channels.
->> - Userspace: merges both channels on RX, sends to the corresponding channel on TX.
-> I guess that is up to us to define, HCI_CHANNEL_VENDOR could just
-> serialize everything, so it supersed HCI_CHANNEL_USER which only took
-> care of known packet types. That said I don't think it would be an API
-> break if we decide HCI_CHANNEL_USER carry everything, but since you
-> are trying to introduce BT_RECV_VENDOR_PKT there maybe a reason not to
-> enable everything to be send over HCI_CHANNEL_USER.
-> 
->> 2) How would a HCI_CHANNEL_USER user, e.g. Chromebook, send and receive vendor packets?
-> Would have to switch to use HCI_CHANNEL_VENDOR, just as it would have
-> to use BT_RECV_VENDOR_PKT, but then again Id rather do it on
-> HCI_CHANNEL_USER if we don't consider it an API breakage.
+On Fri Sep 4, 2026 at 11:10 AM EDT, Kiryl Shutsemau wrote:
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+>
+> A collapse is two jobs.  One reads a PTE table under mmap_lock and decide=
+s
+> whether the range is worth collapsing.  The other allocates, isolates,
+> copies and flushes, and wants the lock given up first.
+>
+> collapse_single_pmd() did both, so the boundary between them was somewher=
+e
+> in the middle of a function.
+>
+> Give each half its own function:
+>
+>   - collapse_scan_pmd() scans one table and only reads.  The anonymous
+>     scan that used to carry that name keeps its body as
+>     collapse_scan_anon_pmd(), and collapse_scan_pmd() is now the entry
+>     that picks the anonymous or the file side.
+>
+>   - collapse_run_pmd() does the collapse the scan asked for.
+>     SCAN_SUCCEED from the scan means there is something to run; anything
+>     else is why there is not.
+>
+> collapse_single_pmd() is now the two of them with the mmap_lock drop in
+> between, so its callers see what they saw before.
+>
+> Scan results (beyond SCAN_SUCCEED) communicated via collapse_control
+> structure: the orders, the referenced and swapped-out counts, and for a
+> file the file itself and the offset in it.
+>
+> A file collapse works on the page cache and never sees a VMA.  The scan
+> takes the file reference while it still has VMA and the run unpins it
+> when it is done.
+>
+> Tracing changes with it.  mm_khugepaged_scan_pmd now fires before
+> mm_collapse_huge_page instead of after it.  Its status field already read=
+s
+> SCAN_SUCCEED for an accepted table, so what the collapse then made of tha=
+t
+> table is mm_collapse_huge_page's to report, per order.
+>
+> The two calls to that tracepoint become one.  They differed in what the
+> collapse between them changed; with the collapse no longer here, both
+> carry the same arguments.  failed_pfn is set only where a PTE was refused=
+,
+> so it is -1 exactly when the result is SCAN_SUCCEED.
+>
+> Assisted-by: Claude-Code:claude-opus-5
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> ---
+>  mm/collapse.h   |  14 ++++++
+>  mm/khugepaged.c | 121 ++++++++++++++++++++++++++++++++++--------------
+>  2 files changed, 100 insertions(+), 35 deletions(-)
+>
 
-Good point — I'll drop BT_RECV_VENDOR_PKT from both the kernel and userspace patches and let vendor packets flow over HCI_CHANNEL_USER
-unconditionally.
+<snip>
 
-Since HCI_CHANNEL_USER owns the controller exclusively, it should see every packet the controller sends.
-There's also precedent for this: HCI_DRV_PKT was introduced over HCI_CHANNEL_USER with no equivalent opt-in gate.
+> =20
+> -	mmap_read_unlock(mm);
+> -	*lock_dropped =3D true;
+> +static enum scan_result collapse_run_pmd(struct mm_struct *mm,
+> +		unsigned long addr, struct collapse_control *cc)
+> +{
+> +	struct file *file =3D cc->scan_file;
+> +	bool triggered_wb =3D false;
+> +	enum scan_result result;
+> +	pgoff_t pgoff;
+> +
+> +	if (!file)
+> +		return mthp_collapse(mm, addr, cc->scan_referenced,
+> +				     cc->scan_unmapped, cc, cc->scan_orders);
+> +
+> +	cc->scan_file =3D NULL;
+> +	pgoff =3D cc->scan_pgoff;
+>  retry:
+>  	result =3D collapse_scan_file(mm, addr, file, pgoff, cc);
 
-The regression BT_RECV_VENDOR_PKT guarded against is mostly hypothetical anyway — it was added defensively in case some proprietary HCI_CHANNEL_USER
-application doesn't handle unknown packet types robustly, not because of any regression we've actually observed. If such an application does break on
-vendor packets, it should be fixed to tolerate them, rather than have the packet type gated on its behalf.
+In the commit message, collapse_run_pmd() is said to do the collapse
+work, but collapse_scan_file() is scanning, right?
+
+It seems that the code only separate anonymous scan and collapse.
+Why cannot pagecache code be separated in a similar way?
+
+
+--=20
+Best Regards,
+Yan, Zi
+
