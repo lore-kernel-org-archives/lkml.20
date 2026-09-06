@@ -1,176 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [194.59.206.189])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A01DB36C5AE;
-	Sun,  6 Sep 2026 12:13:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC20436C5AE
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 12:14:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.59.206.189
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788696809; cv=none; b=QFHSSONT0vaTqpLZvHcgLac+UBJTzoVlXHU0C4mINJxwZilkNmVwH0XcdZOUPjqSRVT5YzaCv15izrssqfuWUf9q6UB9m6yV5bB74vb8h9EkSRTmnc8XB77EF3rVF5j5laFR8GLy2Yq5teuOqAsvWecy9PNVilYdCsZaEWJkyC8=
+	t=1788696848; cv=none; b=Rf9qsFyV0yUx7Duu9ifdj+ZvimS509d9FxXjTpUU/a41D00A3oTcAardHeFns+M3xggHDbfEI8lowcOpyfOTX+9A38P4Rt/BYeTHQypRWFyvxD2L00wD970KOsKj1Azhk604suQuo5JF78MY/4vKsvaLc5ZI5YYvwA990dNPEj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788696809; c=relaxed/simple;
-	bh=JoX+4qSFFMN+L4xHTJtPsdvCJAw9oVa5W8xkDhz6TVk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ae5dJZg9gwJ5Y/NagcTx/cNFHZ6aX4ExuEpwT1r9Qhc/C2ZM0HyKssAWrlO0QGfWmVLOm16JZmjAJImihPLUr34ao2xhcN+MyFwojiMncX9QgQ/znocDJNlfdxqPUXpBzhzdWxmltzwGp7UwnmZq6ehnAVoSXUn2K8PkcXYhVQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A3f8DTWG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788696848; c=relaxed/simple;
+	bh=ApJ7FiTZ+55nHKLNw62JGDF3PcDvJlXu5LlkmE/BWW0=;
+	h=Message-ID:Date:MIME-Version:From:To:Cc:Subject:Content-Type; b=o8cPpEkXxCmrJG1ss6dyM49gakVauMKbeaweZYz5u+50opOS+qcvZtPGB7IqEGX4a5jk8AZ5c/rQ2KMEnKEpWwq7OopwEpkl66NjMLcCSYFmHpMx80gYh6fZpoVxC7IUn698tYrLhaTNTEVbQQelZPbgmR1I5Kiq6pPYwZo/ROM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=fWIIl5PJ; arc=none smtp.client-ip=194.59.206.189
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A3f8DTWG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6E191F00A3A;
-	Sun,  6 Sep 2026 12:13:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788696808;
-	bh=a1tOY4MZQE507M9gRXR1BfxSF3zDt0wgYos6fdygY4E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A3f8DTWGiM6k3CWQMROCBVAVm4eKmgo0Codp9squ0pf7yHZrAw+DL0bxmcCWQrDCP
-	 MzzHkQ1ZEV8k59pqEUPDe1+UfxYCPZ/eBSrzg12d73IGcVZC2L0zDFnaIvt4kWnce5
-	 fvAwWj6S5UOY4TlySSkQWeDXjpu00coZH/40BdJJs9QMbKHVCzme9NRC1fGygWJQFW
-	 3Kcze35RlRhqieTOyEZuXZX9/Npmx1YWOO9f/JuruqnJVoChy3vI4Uc78kX6n6ANRu
-	 bt+/gB49NWyEOSMoONPDVRcU7DSpANF27W1qUZtWnXM4LZHXDiLccuNm/2/Eh4dvGH
-	 2fSE9tD9BEx5A==
-Date: Sun, 6 Sep 2026 12:13:25 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Cc: Aurelien Jarno <aurelien@aurel32.net>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Inochi Amaoto <inochiama@outlook.com>,
-	Alex Elder <elder@riscstar.com>, Haylen Chu <heylenay@4d2.org>,
-	stable@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-clk@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] clk: spacemit: k3: add CPU PLL rate tables
-Message-ID: <20260906121325-GKA2346@kernel.org>
-References: <20260903-k3-pll5-pll8-1800mhz-v4-1-afafd9cb47d9@linux.spacemit.com>
- <apmuG46sBg2rGzCD@aurel32.net>
- <DL67LEVCXFA5.39M5FO7JGKWZS@linux.spacemit.com>
- <20260905220746-GKC53903@kernel.org>
- <DL86Z6P8P2YI.160YXDVBSSC6I@linux.spacemit.com>
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="fWIIl5PJ"
+Received: from relay02-mors.netcup.net (localhost [127.0.0.1])
+	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4hd8J46VWsz4L36;
+	Sun,  6 Sep 2026 14:13:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1788696836;
+	bh=ApJ7FiTZ+55nHKLNw62JGDF3PcDvJlXu5LlkmE/BWW0=;
+	h=Date:From:To:Cc:Subject:From;
+	b=fWIIl5PJfNYbO7lnFOnE+YOxOGUFWjyezWB0BeZ9mxgQ7NOgoGGRAGcLYydrrmJsj
+	 NfGpt2gQBt7pS0tSjye8vCxpOmsyL79+Rls/VzZq/YrVj8ZGervsVEyqnvhq0Vnyoz
+	 zweDFBETD8adSBLmQ+M5XHvtKomZ9ctbIuG/XN/5RZKqJwpe2vmZ/ux5qjgluDc0Yw
+	 3Vq0PvxiVKAwLafQzD3P1OkbWe7VeoDAV4eq1SfoPAp9PY1rvJJWCm1a6+8oRIu+Je
+	 BpRIS/VUdVwBN/6iI98swAXnrLyADWrGw3Kl0kLPk1aECnz/6Oo9luZ6KX+rz+YJx4
+	 K/LxRopOXzj3Q==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4hd8Hp4HD6z7y6p;
+	Sun,  6 Sep 2026 14:13:42 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hd8Hp1HNjz8svJ;
+	Sun,  6 Sep 2026 14:13:42 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 758E55FA8D;
+	Sun,  6 Sep 2026 14:13:37 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <a66fe07c-3977-4734-9991-d0d9d78484c6@leemhuis.info>
+Date: Sun, 6 Sep 2026 14:13:35 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="F2FCGouVpjxJtywV"
-Content-Disposition: inline
-In-Reply-To: <DL86Z6P8P2YI.160YXDVBSSC6I@linux.spacemit.com>
+User-Agent: Mozilla Thunderbird
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Linux kernel regressions list <regressions@lists.linux.dev>,
+ LKML <linux-kernel@vger.kernel.org>
+Subject: Quick regression status pre 7.3-rc2
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <178869681771.2508981.6611539481111890384@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: 758E55FA8D
+X-NC-CID: NS4apBZSEWfJw6RvJR742LoZuvvJUvnk8tDOLloXSl+TTI0LsQc=
+
+Hi Linus! Here is a quick report about two unresolved regressions from
+this cycle that seem to bother multiple people and thus might be good to
+get fixed sooner rather than later; fixes are available for both of
+them, but are just sitting on the list afaics:
+
+* 9417c5818a0146 ("wifi: mt76: mt7921: validate CLC firmware records")
+[v7.3-rc1] causes probe failures for some widely used mediatek wifi chips:
+
+  - Mikhail Gavrilov reported this on 2026-08-16 (e.g. right before the
+merge window opened):
+https://lore.kernel.org/lkml/20260816132325.23007-1-mikhail.v.gavrilov@gmail.com/
+  - Junjie Cao reported this on 2026-09-01 with another fix (withdrawn
+meanwhile):
+https://lore.kernel.org/stable/20260901011840.416787-1-junjie.cao@intel.com/
 
 
---F2FCGouVpjxJtywV
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+  The culprit's author within hours of the first report provided a fix
+that got "Tested-by" from the two aforementioned reporters:
+https://lore.kernel.org/linux-wireless/20260816174841.1918-1-acharyalaxman8848@
+7.2 final/-rc8gmail.com/
+
+  The maintainers afaics never reacted to the fix and it three weeks
+later still marked as "new" in patchwork:
+https://patchwork.kernel.org/project/linux-wireless/patch/20260816174841.1918-1-acharyalaxman8848@gmail.com/
 
 
-Hi Troy,
+* 9b80bd9cab40c4 ("wifi: mt76: mt7921: add regulatory wiphy self manager
+support") [v7.3-rc1] and e9f3f1cc133fc2 ("wifi: mt76: mt7925: add
+regulatory wiphy self manager support") [v7.3-rc1] also causes probe
+failures for some widely used mediatek wifi chips; the problem is in a
+similar area and affects similar chips, but from my limited
+understanding seems to be different.
 
-On 19:20 Sun 06 Sep     , Troy Mitchell wrote:
-> Hi Yixun, Aurelien
->=20
-> On Sun Sep 6, 2026 at 6:07 AM +08, Yixun Lan wrote:
-> > Hi Aurelien, Troy,
-> >
-> > On 11:24 Fri 04 Sep     , Troy Mitchell wrote:
-> >> Hi Aurelien,
-> >>=20
-> >> On Fri Sep 4, 2026 at 1:27 AM +08, Aurelien Jarno wrote:
-> >> > Hi Troy,
-> >> >
-> > ..
-> >> >>  drivers/clk/spacemit/ccu-k3.c | 96 +++++++++++++++++++++++++++++++=
-++++++++++++
-> >> >>  1 file changed, 96 insertions(+)
-> >> >
-> >> > Thanks for the patch, it makes sense to add all the values, to suppo=
-rt=20
-> >> > future firmware changes. The values match the ones in the vendor ker=
-nel.
-> >> I forgot that you had a similar patch as well..
-> >>=20
-> >> >
-> >> >> diff --git a/drivers/clk/spacemit/ccu-k3.c b/drivers/clk/spacemit/c=
-cu-k3.c
-> >> >> index 92b930d5ff30..950bf531c734 100644
-> >> >> --- a/drivers/clk/spacemit/ccu-k3.c
-> >> >> +++ b/drivers/clk/spacemit/ccu-k3.c
-> >> >> @@ -29,15 +29,91 @@ static const struct ccu_pll_rate_tbl pll2_rate_=
-tbl[] =3D {
-> >> >>  	CCU_PLLA_RATE(3000000000UL, 0x0b3e2000, 0x00000000, 0xa0558c8c),
-> >> >>  };
-> >> >> =20
-> >> >> +/* Keep the firmware default as the first entry. */
-> >> >>  static const struct ccu_pll_rate_tbl pll3_rate_tbl[] =3D {
-> >> >> +	CCU_PLLA_RATE(2000000000UL, 0x0b292aaa, 0x0000ab00, 0xa0558686),
-> >> >
-> >> > Is it really necessary to put this entry first? I guess it's the cur=
-rent=20
-> >> > default frequency, but we have seen it can evolve. From my tests, th=
-e=20
-> >> > driver seems to just keep the value configured by the firmware=20
-> >> > independently from the table order, so I am not sure it's necessary.
-> >
-> > I agree with Aurelien here, the default frequency isn't a solid stable =
-settings,
-> > which it may changes in the future
-> >
-> >> I think keeping it first is necessary. If the current register setting=
-s do
-> >> not match any entry in the table, ccu_plla_init() falls back to the fi=
-rst
-> >
-> > Isn't it a bug if all frequencies added still couldn't cover all settin=
-gs?
-> > I'd simply suggest to bail out and yell loudly if there is a mismatch
-> >
-> > I just don't like putting specific frequency at first one as default,
-> > this logic is kind of fragile and tend to fail easily..
-> I checked the Rockchip PLL driver. The RK3036, RK3066 and RK3399
-> implementations calculate the current rate directly from the hardware
-> register parameters. If that rate is absent from the rate table, their PLL
-> init callbacks return without reprogramming the PLL. With
-> ROCKCHIP_PLL_SYNC_RATE enabled, they only synchronize the parameters when
-> the current rate matches a table entry but the register parameters differ
-> from those in that entry.
->=20
-=2E.
-> This approach seems preferable to me. Would it make sense to sort the rate
-> tables by frequency in the next revision, and follow up with a separate
-> series to calculate the current rate from the registers and preserve
-> configurations whose rates are absent from the table, as Rockchip does?
+ - Klara Modin reported the regression on 2026-08-24:
+https://lore.kernel.org/linux-wireless/aoyxqHYvSuaBeubf@soda.int.kasm.eu/
+ - Devin Wittmayer within a day reproduced the problem and provided a
+fix that got a Tested-by from Klara:
+https://lore.kernel.org/lkml/20260825181712.28548-1-lucid_duck@justthetip.ca/
+ - David Gow recently ran into the same problem and provided a Tested-by
+for the fix, too:
+https://lore.kernel.org/lkml/bcf1ee9b-97e5-43f9-81eb-67ac6a0a98dc@davidgow.net/
 
-Yes, I generally agree with this approach, so let's push current patch firs=
-t=20
-ith sorted frequencies, then improve further later in another series.. than=
-ks
+  The maintainers never reacted to that afaics and that patch is still
+marked as "new" in patchwork:
+https://patchwork.kernel.org/project/linux-wireless/patch/20260825181712.28548-1-lucid_duck@justthetip.ca/
 
---=20
-Yixun Lan (dlan)
 
---F2FCGouVpjxJtywV
-Content-Type: application/pgp-signature; name=signature.asc
+FWIW, there were two other regressions that bothered multiple people and
+would nearly have been mentioned in this report, but Greg send PRs with
+those an ~two hours ago to you.
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQKvBAABCgCZFiEEtbq4ycMbcRVnAiPcMarqR1lNu+0FAmqdWOEbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMywyXxSAAAAAAC4AKGlzc3Vlci1mcHJAbm90YXRpb25z
-Lm9wZW5wZ3AuZmlmdGhob3JzZW1hbi5uZXRCNUJBQjhDOUMzMUI3MTE1NjcwMjIz
-REMzMUFBRUE0NzU5NERCQkVEAAoJEDGq6kdZTbvtmWIP/iCrHq2W26Wfvg8tEN7m
-n2hSpjT3d1mMqJKafoClEXJiAAh+rPE2it5vXye3FHlfTXjxp6DdsQKClkAgU7Uo
-7RrFXdsU4c2dXfXJV+eqNCtos2unPhgIMelxu+rLRp9ZvqiI7qJ7ud8mnCyYHDf5
-8JzrzdfdkE2nZ5J1NeK/AntbfrIFBn07lceNKpZJDELwwomO4vkoBfcuf2/+knGb
-xiYSE12MD0F5JUbZSlFmaiMkpDA2gckLQqa0bZPsfGEfVN5sWDYwVfDKSA7HH+3U
-/M+mGzUJQgXcxKTGPH3UI74EEzp6t6OUK7JEL9YLmusO8wXGfOfJMhww/FpwcoIH
-EBx+HhsvL5U/ZbEksoT4/O236JcGpE228krSUFGcolJ+TLkluqFqWT48vARwLjOs
-GmdDDOAM56MDHgi5oh9nus2FoAgpdjRbHtmHOIIb2IWZP/ky7Q5lLzM3qD+wIymG
-GhPH98S8NxRP3Ns1OqfG78GNpSe1Wfc2FMkZIhtJw2C7Z2vSRvs51jJE+qxT1l8U
-LSz5CjyHHZq3FHWViq7Sn7aa0iU/mE5EmGQdxvNWej11F6takNQBlakCeygBzuIL
-TXElUH+s8VjZIDq5pahgpvHpPy6KgcOtUZSsFIUnVPHfx2H7IALFgcm2+9uZ2sze
-0m/lt5UaqJzeZPxisPZgdTK8
-=QtQN
------END PGP SIGNATURE-----
-
---F2FCGouVpjxJtywV--
+HTH, Ciao, Thorsten
