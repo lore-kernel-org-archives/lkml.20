@@ -1,91 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D603101B6;
-	Sun,  6 Sep 2026 17:50:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A6053A961B;
+	Sun,  6 Sep 2026 17:50:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788717020; cv=none; b=d+F2yOI785De01iFpb+kiKbM9uttj3Wx4t/mFfVqfVXFR5jcCvHUz8t/JWGetwac7e8ztSrK9nTYaYqnU0CEYdO2b5jAmxJVfY6ixwt0+RytwjsDuo+otT6H40p4Xhrpf2K0g0trTeDmp0JaOimMmg1UXH3Pd8ktKTzEba6SAVE=
+	t=1788717033; cv=none; b=ExIdjswXUTzKZqcp8aCHTt/nhQARN27f7+kEUPWxKD7XMmLCwT8qKlVkBa4uYIUtvPIVd4TMpUaL3/Ta9aqjn2IV1I7XWN+0j7oePY+ChyEXjbkopC1ugf+X/Ct8E8LG4u5U2K1beNacWDYAYWOCL6TSmq1G1ZZmejqIt6/dzGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788717020; c=relaxed/simple;
-	bh=yCxGfqVWzlMnnWV88b3PWYG2+zaRYg5Y3mxtSqQe6og=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=B6jMRXcrDyv66seANpmB6Us1pzdEuJsPxzIgb4ktqSIKB8efzbJKlc2+8mL/UEogL8HOBi/1Al0yXrpKY6nTMwEGUYaxP8ZQL/0xHO7Htr3xX+Ox5hRiR9jJ+gZ0arMPve0xXd0Vq0aPkq9qIV/yEgyVZOQVaQbQmCySvRzSsso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NJvljSHw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788717033; c=relaxed/simple;
+	bh=D+ALIOf68gIb+9RpZGrlaTMyhMf99Y5J+9c3KdaZthE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=D4t832cPxu3Dtoy4mQApSfdDBYDHIm+NrRvkFQfd5kYPf/pelUL9BpmEfhskiVCqJF6RaxUsHCHkXs9pb6PyDzPfxQWiovomGoJh6m7jIBvMw0BOpKNrSAWcGV0RaGvGZQSjA/W3PG40En6OdcY367hxXQtd2eqNCH+2BhL461c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ibs9lysz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NJvljSHw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EED81F00A3F;
-	Sun,  6 Sep 2026 17:50:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ibs9lysz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F192B1F00A3A;
+	Sun,  6 Sep 2026 17:50:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788717018;
-	bh=nO6vnuxi6J2KrNlifTLU/7q+ZvNIHG45rulFRzj97d4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NJvljSHw8101nwn1KyGpg27PWjkZXnR/Yeb7FxtPCgJ88B1jNoX4zs34vr1eGu53/
-	 bjhkjc+JDQuHyKScBjQoQ4RnmMxlaGsrASnJ+HNwsU4qF/5p2H2H8B5k+R2qM9EqzD
-	 9Qc6n58PH935cd9jISrtcW6kGCLt3VYrNq8nbbQc6OBsRnAquOFb5nSGDmNNvseP7U
-	 r2XXsL6a9IelMAo5QvrBkcQeJ1/ubw1DmSpQNNwF7tSrFHvthCA6FXdgdIVHObRhs/
-	 xkXBjOylJSdkBtSKWLYxjO9KJevPobziew6UR6WxYfXFajnHC0MA2i7gSLFCLJtTzF
-	 3h2Vym9oFP5MA==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	damon@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH 5/5] Docs/mm/damon/design: update for pgidle_set probe filter
-Date: Sun,  6 Sep 2026 10:50:07 -0700
-Message-ID: <20260906175009.93471-6-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260906175009.93471-1-sj@kernel.org>
-References: <20260906175009.93471-1-sj@kernel.org>
+	s=k20260515; t=1788717032;
+	bh=WbiCHobLkVZWRdBZ9HFaK8lfkf40zDYLRYyf/HrF29E=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ibs9lyszkgcbZb9bJW+dKuuo3tfQH2RLnLSzXl7qME9Mdnz++EMdRNlHNF1JciCIe
+	 y5uaaRyNiwXE+sjsESaKo+UUhD7wg2in/2tmNPulSEANxIlYntPKmgcGpZ1yoWuzCp
+	 wclPcqpjF9E3SqJBl5HAvBqCYCn7hYZBjrsSbHvT5Iuj7mCNJuWVOPVEx8iWTO5ka6
+	 kw89X3p+Zdqnma9SQLQLjld1HusEc3zkySVmZPMdgS6DL0k+ZETey/o+1e7SQpkej0
+	 aSv/Zm4bAZPoYeLkgrXrpz+aaB7NE7Bz6j9pV3bR6k9T1ft5Hu2JIxjwH6rcr9V8Ui
+	 oP6PE/QnA1ewQ==
+Date: Sun, 6 Sep 2026 18:50:25 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Cc: gregkh@linuxfoundation.org, nuno.sa@analog.com,
+ Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org,
+ linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] staging: iio: adc: ad7816: Use DMA-safe buffer
+ for SPI read
+Message-ID: <20260906185025.6a0d1240@jic23-huawei>
+In-Reply-To: <20260906114049.32912-3-abdelnasserhussein11@gmail.com>
+References: <20260906114049.32912-1-abdelnasserhussein11@gmail.com>
+	<20260906114049.32912-3-abdelnasserhussein11@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Update DAMON design document for the newly added pgidle_set probe filter
-type.
+On Sun,  6 Sep 2026 14:40:49 +0300
+Abdelnasser Hussein <abdelnasserhussein11@gmail.com> wrote:
 
-Signed-off-by: SJ Park <sj@kernel.org>
----
- Documentation/mm/damon/design.rst | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+> Stack buffers are not guaranteed to be cache-coherent and must not
+> be used with SPI reads, which can trigger issues with VMAP_STACK.
 
-diff --git a/Documentation/mm/damon/design.rst b/Documentation/mm/damon/design.rst
-index aac84de261aa8..22b785cd11dfe 100644
---- a/Documentation/mm/damon/design.rst
-+++ b/Documentation/mm/damon/design.rst
-@@ -299,6 +299,7 @@ filter types.  Currently below filter types are supported.
- - ``memcg``: Same to that for DAMOS filters.
- - ``pgidle_unset``: Matches if the page for the memory is marked as not
-   access-idle.
-+- ``pgidle_set``: Matches if the page for the memory is marked as access-idle.
- 
- If such probes are registered, DAMON executes the probes for each region's
- sampling memory when it does the access :ref:`sampling
-@@ -314,7 +315,7 @@ actions are registered, DAMON applies the actions to each region's sampling
- memory before starting the next sampling interval.  Currently only one action,
- ``set_pgidle`` is supported.  The action marks the page for the probing target
- memory as access-idle.  This can be useful to be used together with
--``pgidle_unset`` probe filter.
-+``pgidle_unset`` or ``pgidle_set`` probe filter.
- 
- This is a sampling based mechanism.  Hence, it is lightweight but the output
- may include some measurement errors.  The output should be used with good
--- 
-2.47.3
+This needs a rewrite and to show more understanding of what is going
+on.  What it says write now implies that some how buffers on the heap
+are magically cache coherent and ones on the stack are not
+
+I'd suggest watching the talk Wolfram Sang gave at ELCE a few years
+back on this topic as a starting point.
+
+> Fix this by using a dedicated DMA-safe rx_buf aligned with
+> IIO_DMA_MINALIGN. Also, correct the sizeof() argument from *data
+> to chip->rx_buf to match the buffer size.
+
+They are the same size.  I'm not saying the fix is wrong but calling
+it correct is misleading.
+
+> 
+> Fixes: 7024425db64a ("staging: iio: adc: new driver for AD7816 devices")
+> Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+> ---
+>  drivers/staging/iio/adc/ad7816.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/staging/iio/adc/ad7816.c b/drivers/staging/iio/adc/ad7816.c
+> index ab80b3a889bb..e14ae805f076 100644
+> --- a/drivers/staging/iio/adc/ad7816.c
+> +++ b/drivers/staging/iio/adc/ad7816.c
+> @@ -52,6 +52,8 @@ struct ad7816_chip_info {
+>  	u8  oti_data[AD7816_CS_MAX + 1];
+>  	u8  channel_id;	/* 0 always be temperature */
+>  	u8  mode;
+> +	struct mutex lock; /* protect device state during SPI transfers */
+> +	__be16 rx_buf __aligned(IIO_DMA_MINALIGN);
+>  };
+>  
+>  enum ad7816_type {
+> @@ -94,13 +96,13 @@ static int ad7816_spi_read(struct ad7816_chip_info *chip, u16 *data)
+>  
+>  	gpiod_set_value(chip->rdwr_pin, 0);
+>  	gpiod_set_value(chip->rdwr_pin, 1);
+> -	ret = spi_read(spi_dev, &buf, sizeof(*data));
+> +	ret = spi_read(spi_dev, &chip->rx_buf, sizeof(chip->rx_buf));
+>  	if (ret < 0) {
+>  		dev_err(&spi_dev->dev, "SPI data read error\n");
+>  		return ret;
+>  	}
+>  
+> -	*data = be16_to_cpu(buf);
+> +	*data = be16_to_cpu(chip->rx_buf);
+>  
+>  	return ret;
+>  }
+
