@@ -1,147 +1,185 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91D523BD65D
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 20:44:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD5E83859EE
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 20:44:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.182
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788727492; cv=pass; b=mdSbKhBZsOS35OaSfCMkDoCiOI+ldIhnrfTrSuzUb3a3R3kQhupZCX2I17eFj9W8o1kTgShXDq/ylAsR90t+xQ9fGuFxUGg3EQ92ezArs+YG3OPVWpszzBJuZi/fNWiuIJ4pYEwF0dO5T5NkDP6seaZ6JkOWKF31oF6evm9xkuY=
+	t=1788727500; cv=pass; b=PirP34+7LbBwRRxEVhtU51stjs1bNlAKMLVvSSQjBfJh7gacJfP1jPjwrMpGp0gBkKNw8Mkz5SI0HEqTNS0tHcy/dnUtZCNlT1E9G6oTeYh87bkHTNWNsaDulRNPN5b46OYsSHGtO5Lo4ZsqvMaMnt5RYZZk/xUhNqNJBflm6Mg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788727492; c=relaxed/simple;
-	bh=qfahVnAkOq9Dy0GM7LrueFYNNe+ttAyxCGh+kKGHkNM=;
+	s=arc-20240116; t=1788727500; c=relaxed/simple;
+	bh=VkpLU0Af33XlX/RemVpxumH//iSjNJJhhPiNOFhY/1k=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IJu/MWGUfyd+JQG9l++AnbLng+dgRhFLgPCw9d6KU+USNr8Qc2MR7YCeniYSl0CxBRaZ5v4K80cB/ttZIjpiqjRLbbjvY0jS52CixCb6tRoi1sgW1JN5waQSFMJTCtZvmNPL+QTxYztAw9m1270cDjOyM2MZDlvbuGkGltmh2PM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZvuJLxq7; arc=pass smtp.client-ip=209.85.218.53
+	 To:Cc:Content-Type; b=Wap5KEmLTUKirTF1ayZTEf6dnbJpHTUp7+zfvrxwTPpbvX8B9AJ+3HQjPrFaPNJWUfpiIFun4EvT8V/LlwiKA2C4CBY11drvZ5eY5CzN9qC1PxlUG8ID6yJIJ6S3guly1CliSyZaEsacvwBrCAimOv8hhqrTFGJJcEajaQk+L5Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eXE9Sf97; arc=pass smtp.client-ip=209.85.208.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZvuJLxq7"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c28eef361f0so51667066b.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 13:44:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788727489; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eXE9Sf97"
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-39c86945164so31096941fa.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 13:44:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788727497; cv=none;
         d=google.com; s=arc-20260327;
-        b=JgpaP4RVLrTYz362ltAHuivBbaT9iqA2tBZBOMqAw4xNgFMEplDCywbT6q0kc0Y/rJ
-         12wsrNlV/Hx5hdKLbvXFwJM9USTgc17EsCyJhNf5kaulHkuEbr3D2piOmBLGiVDUS+F/
-         LHtMplXl/QlU4DT5Qo4Bp+EtIyutgq9jMWM040EYvwQPrke8nF5YWaUflGLGW7d1zhqx
-         2kBAzkIrj5OPmGYQ39hJSceoqfCN+fM+Abyr+WaHc/xA8VzGNa2qCSh1AOt/tigkADpZ
-         Q2aVfELy+BGNCK538+plRMPi05ARKOEFhFvMZl51N9JX3VMed782HFf9KTV/agoIAXOq
-         Onlw==
+        b=SzACosWnE1rNN+KwQS/xyc/fc5v9gID2XYuqWh/hOB6JJTc9/qQuOvLjMaqh6Jf7x4
+         HP5GIH5K2xu/l8f/Zrm+P6RxzmUSNI+nwThjLiG6BxQgas/0UWxpTXFJWxLU3YHhnsux
+         D3wziOL/pt0rq/NqCHweC2KPz7W6ApdC1ed+j7ziWTj4NprgbWjDoJmtBsXutSdBAs0J
+         l8jcsaQzBr0CxVakEoH2uGGbJC/I5QNBEhZ8z9gY78R3CRXyhqNdvQ14KfKNmPIYWhCx
+         VZktHSHFxu8E053sCeQ9CFStF9JdmwODeV9fHxPoeVuYC+TCzK+OIoa8u+1tS424fv2O
+         c5mg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=qfahVnAkOq9Dy0GM7LrueFYNNe+ttAyxCGh+kKGHkNM=;
-        fh=Fpm4KPJRNE1+WInxNH7fCYpDXXh5GJuWpsv1q5kUpOo=;
-        b=R89coboC8VH5WXMv0I+JnJSwa2Z+iCSD1QPYDK3RFnRfpYCzIbloBA6ZgjvUAlBEij
-         a8f+0F6bDJbTU/N8X9Js84erTO6KCrg4zXey3XBvZaOhHL3EXEETZSkkyFonOnY2nPeB
-         tbAXvus4IfksQOx0p+zgtg9UwOEz4qsirajtU/rc7aZm/pTkt+IyVgcf7sw7pCgOCa5+
-         FquWBEdvMIMjNI88l8nGd+HnLGic1ERGrk+Scknzgqy53bg+rw2uFauicAGtRv1y7h07
-         +s4qnnv4/Cb0WfbSNKgcLRnyIVZEiKbhs2hN9Ruaob4kciU2olwgFCrIKG7grE8jTrSp
-         xTIA==;
+        bh=dzYQvjZ8ZhWU00AbJw1XeqFa9/GR9OzYSJ21bWTSmb8=;
+        fh=lQjV8a3Wp95ki96KQoqGQJ2v/fTUYoDnJkYwpmnkEjk=;
+        b=MiRnV6F+TaEU353kQprvVvVd/HpVNeCO8bNQ3Mf/zBuoqEhWR8tVSEZWoImMx/7rp4
+         laPloSyyaclmG1QB45JDWJWXWzXqxGl7fFG30ZA00Rn8A4b/e1jnjNywKxCJtiiJovCv
+         oWg2uQd4KHjT4u/8oiGtF8Nzrs65OcFma/+pFdwlvIMhUgeYUvbrXAvNWAv/HKEt58LE
+         mxexLJ/WZjZsUZBaN5aAQKZZwIhrfgv9qR8fhhPELEoFQjorpqB9HJRYS5vAJ10fXlJa
+         pLy7wAinjqAY2A8GbAuwEkdOSOQT11rPa5GEnXZCOLzCStA4Pl0mUs9kNkmnJB6HqdHC
+         Fxvw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788727489; x=1789332289; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788727497; x=1789332297; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=qfahVnAkOq9Dy0GM7LrueFYNNe+ttAyxCGh+kKGHkNM=;
-        b=ZvuJLxq7UnGxQy3/tdKxGRBTo/vvPeoBfQ0i0xekofZOIeMf2wV2W+VDhf44hQ8Z69
-         jcux6HyQMsL88AyR0/n+TjFMuX2rbmqgrEPLF8Xf51KCFvHuVT4yEBhCuYvXAylFx1Ot
-         wzZC3RBgQ+Y9PG6O/qb1fSUtnfAOkx48gyOjQyO2EV5NXSyL2FDmEXFmyKvnnqmh7EXE
-         V67vh06NnSQTYiJ8XeMIBt27Ow4JKaXoiFPZ6UC0URp1kP67uZTJFd4wbR9PpTyKlwff
-         c/ddNP+A50ar1QYW6iFhpbLPZZmh2tHuLQcy1exGq4XP/SwBPsdbXOBtHnAAVejojsrZ
-         GWjg==
+        bh=dzYQvjZ8ZhWU00AbJw1XeqFa9/GR9OzYSJ21bWTSmb8=;
+        b=eXE9Sf97uDPTk5XbmWZbwzESaVv5Sc+icXh/GwPgScKs4kUibFOa7QRJUoolJbtFcc
+         c7qPDuXyPsl/vfijToc1TZBG65d5LYkjGDkA3pq65NMNV+37hKA9y6MHuCy/4sTNurKg
+         5GmNUkhFyOoohh4c2uffnoHj1Pk06zYB7FWzmJTu8nWeKzQHjECbAhD+xHBVSzA7mYh6
+         3L3FQt2yZPd6lbWNzPGHWrAl1Had67l4hed0QYRv/FWCtz+v1CvKZcl+wLzjwkfYEnSM
+         WWNlFPRCEt5DgP9OOhne9ZcGeZT9w/8jNe0HXzn/sdGEJGy4geaUrtdwTxd0FoIA5OWf
+         4BxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788727489; x=1789332289;
+        d=1e100.net; s=20251104; t=1788727497; x=1789332297;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=qfahVnAkOq9Dy0GM7LrueFYNNe+ttAyxCGh+kKGHkNM=;
-        b=EnaO8gKcFBrs0OzgWCxfn7wfNQ9Fc/HUrQzgKxyGp5JaK94t6jBSPBuwI94aR+vY7l
-         D/0O7DhDhdZnbMl7AAAMBdMpfToHBQXobZLu9IqhL8AEXSCvJdqrX/2L/BV1h4l9rpMO
-         GMl3vc3TPG1CXH5LMlJ4tDQlsGluICs7iAJ5Ci5uL3Vxd1KlChVzTvxEuTVQjmYFmSxw
-         x1qgli0Ql/8ND7tSt39ZDjUAZipzd7J53fNtq9oanjolR/dQHw8smFRkw5eKS0Y4AVWI
-         INYItIl0D/FcGhTcrOA+BPcqfwo+xlXU04D4vQjdrxG0kLK2T7MGfhwwW2NvB//ujTWR
-         4QLw==
-X-Forwarded-Encrypted: i=1; AKwUvBzsxQRkWHm6zbl280LGDvKRAJiypzjX2tZ5CgO2Yuez7ZyKdrmw0zXpUZmYMLS6O4cd3MVpmZ3ifw6cN50=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmTzCwtQBSQjn9OKQ2juS18BDpq1RfQw4STe8Co8rue+Tp+R5F
-	NRdFd4TYj03oYBhLhH/xWAwUj7m7uhGUR6BMZ3qDZAn2H5H51WhWdV1rJrYwlkDaFcF5rdU1TQZ
-	+6KTzCNJOpX+snvdsTsi0CR/FPdmX5+o=
-X-Gm-Gg: AYBFou0LYhhdhfVgpW4hB3TPw/58Mw430opLFl5ImGaGwinUBmztEukduHQUfHUgBoS
-	IalKtg6OKKteVI0Om6xph+LzkZ4hfjI4qAdHhtGqBAJ/LFAYEVlTYZX6OYjQNjg3iTnaR/Nuc6d
-	p+gHpT8TLpoYfVE8oscCI9nnFaopuJvVZgsv2aiK4yofCfHpIzUEmSW6jWZlJs4J17fLLgrFVDu
-	+PmZ10pxPgktbYjoyogGyJIKdY/2BwP7l14wLZC8gJwg5uzh6ZPJJ3bgQgZpDAL010toGU5mxfi
-	9NL/bFs4nPlSKAXxX4kaMZlYMofU/JHy3JE9L6rn5sTBgETn/3hYmgNa2eIhbubGiAIAYNBiqhz
-	iFvO1p7iJvLnMJCTffNhzbz9/Rz1pLQ==
-X-Received: by 2002:a17:907:72d5:b0:c26:1691:b361 with SMTP id
- a640c23a62f3a-c261691b94dmr574303066b.26.1788727488511; Sun, 06 Sep 2026
- 13:44:48 -0700 (PDT)
+        bh=dzYQvjZ8ZhWU00AbJw1XeqFa9/GR9OzYSJ21bWTSmb8=;
+        b=iYWKUQsWg4nFhELTYeZUYSUIH/hlZHfq4f1Bf602OZGwuc48e+tIKFcgZvBe8l6vr0
+         XTK5j9y0/U1N3gKxMXHvPX0rRFot0UmrLC+859gD55CkuQeHBs6rFQNvJr9+VRw0JZFE
+         jpaVZHTsmFcodgeZfzObkgo88np/i8RwW11Uh6h1UAH2wKTOpk72drHuHpx8MKF8kIl8
+         0bjfiscIatbtA1C/PHvW6JxXsvBRd+L9J7L0OUtrNg0UOavctMp7j7MKcocNk3Th0dvI
+         b9eskrmqNd+x9xyoU4JlW6Cq0zzZOQvYdudEdKwM5MqTqQ5hGTggxOApgcka40ImdDIi
+         7QrQ==
+X-Forwarded-Encrypted: i=1; AKwUvByEBX92d1y/VfU2WXFVDfbE1p7ycoBqgndIDwAQhNKBQf1yLgK9P1c3B1pDTYQBZgy55n1l3RV4UqGRUnE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nuvQrqAptprmu+oX10iAgiTfb5TIaPlhnxt3aoVtgeA4211h6Z
+	MlbopehkFdZdkmssMpUaabt7lQr3CsS9TAQkXyU0YJ5Sjg1DMGjVqDuDNyY76cyFukRMZ/wEL8z
+	05vzwAB2QHY1/YF2DcTTT1FdHCk8BeiI=
+X-Gm-Gg: AYBFou0oL733+GmX4mrjzvpkTA33YMWsl1mVmf6fpc9Y6s9TCobL9g/+iRaJQdRM9zN
+	lqPg16nBSdXBv7S7LcLokuhepY8O1MM4RITDKKjnYv0duiBkURkSOFShKd2AUPq7d5h+g98WtIf
+	MAovUxnnPns6GzGC9/lpN9PfUnMGxsuvX+talG6yRxLQc4UiuMEyWBeaFkKD3f9gbKe6/i95RJY
+	RNpyg2W9DzuhKPdOc7pcnhuYh7JKMyyleZNIF2NUZcw8RFeGGE3BwEoNiJbKc8ed1gu7abwt2Z3
+	2iNDU8XBbL8TqHf1Lx1Z5ZCjZlulnZkt+g/6boVBg5TPU4hVJXsSpvRLoDMHM3QuQZH9cTDjbUW
+	fdoG78eOXFF8In4E+7ZhEzkXQs604wK9ne1e2flfJ+3B56BYfxwj6OrC3RVUqtobDQToSpyDKK3
+	qDqBW47WwqA28LDjTmaeKC1VyKJmzV
+X-Received: by 2002:a2e:bc81:0:b0:39d:b5b9:f0f4 with SMTP id
+ 38308e7fff4ca-3a371bd2f78mr21937581fa.10.1788727496379; Sun, 06 Sep 2026
+ 13:44:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260905-arch-kconfig-options-v2-v2-0-83e8245761a2@gmail.com> <20260905-arch-kconfig-options-v2-v2-21-83e8245761a2@gmail.com>
-In-Reply-To: <20260905-arch-kconfig-options-v2-v2-21-83e8245761a2@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Sun, 6 Sep 2026 22:44:36 +0200
-X-Gm-Features: AcwNN1We0AsiI87C6m3-nOVPbE0KRdcX5bT97xhlIc8oCAONBoZx_sgPyrzwY90
-Message-ID: <CA+=Fv5SC4qL76Fe_wk50p=8a069mKJ8ZAyUHMrP82DgvoHAsFg@mail.gmail.com>
-Subject: Re: [PATCH v2 21/22] alpha: add HAVE_PERF_REGS and
- HAVE_PERF_USER_STACK_DUMP support
-To: Matt Turner <mattst88@gmail.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>, Kees Cook <kees@kernel.org>, 
-	Marco Elver <elver@google.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	kasan-dev@googlegroups.com, linux-hardening@vger.kernel.org, 
-	linux-doc@vger.kernel.org
+References: <20260904082741.578048-1-ubizjak@gmail.com> <20260904082741.578048-2-ubizjak@gmail.com>
+ <D7BA2D11-A6C7-4B1D-AD59-BAF85AC7BB58@zytor.com>
+In-Reply-To: <D7BA2D11-A6C7-4B1D-AD59-BAF85AC7BB58@zytor.com>
+From: Uros Bizjak <ubizjak@gmail.com>
+Date: Sun, 6 Sep 2026 22:44:44 +0200
+X-Gm-Features: AcwNN1Utir2AiMYOBOogexBmVVVaZJ7V8LCzsitaQHdXbNr_A2yYRDKwRpY2i8U
+Message-ID: <CAFULd4aAL1zrtagDftpDSY3JrShdXtDxMjZht0OqsmFnhHyViA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] x86/boot: Disable GCC min-pagesize assumption in
+ boot code
+To: "H. Peter Anvin" <hpa@zytor.com>
+Cc: x86@kernel.org, linux-kernel@vger.kernel.org, 
+	Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@kernel.org>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Matt,
-
-On Sat, Sep 5, 2026 at 9:30=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
-te:
+On Fri, Sep 4, 2026 at 3:18=E2=80=AFPM H. Peter Anvin <hpa@zytor.com> wrote=
+:
 >
-> Implement the perf register sampling interface for Alpha. This enables
-> perf to capture register state and user stack dumps with samples,
-> supporting --call-graph dwarf.
+> On September 4, 2026 1:25:22 AM PDT, Uros Bizjak <ubizjak@gmail.com> wrot=
+e:
+> >GCC treats absolute addresses smaller than the min-pagesize param
+> >(which defaults to 4kB) in the generic address space as presumed
+> >results of pointer arithmetics from NULL. For example, the following
+> >code, when compiled with -O2 -Warray-bounds (included in -Wall):
+> >
+> >  int foo (void) { return *(int *)0x123; }
+> >
+> >will emit a rather cryptic warning:
+> >
+> >warning: array subscript 0 is outside array bounds of =E2=80=98int[0]=E2=
+=80=99 [-Warray-bounds=3D]
+> >    1 | int foo (void) { return *(int *)0x123; }
+> >      |                         ^~~~~~~~~~~~~
+> >cc1: note: source object is likely at address zero
+> >
+> >Currently, the warning is supressed by the GCC specific RELOC_HIDE()
+> >macro that obfuscates arithmetic on a variable address so that GCC
+> >doesn't recognize the original var, and make assumptions about it.
+> >
+> >The GCC specific RELOC_HIDE() macro was introduced to work around
+> >certain ppc64 specific compiler bug in pre-4.1 GCC. This bug was
+> >fixed long ago, and replacing GCC specific macro with a generic one
+> >triggers the above warning in boot and realmode source code.
+> >
+> >The early boot environment does not guarantee any minimum page size,
+> >so explicitly setting the minimum page size to zero by adding
+> >--param=3Dmin-pagesize=3D0 to the compiler flags when building x86 boot
+> >and realmode code with GCC inhibits warnings for addresses below 4kB.
+> >
+> >The option is guarded by CONFIG_CC_IS_GCC since it is GCC-specific.
+> >
+> >Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
+> >Cc: Thomas Gleixner <tglx@linutronix.de>
+> >Cc: Ingo Molnar <mingo@kernel.org>
+> >Cc: Borislav Petkov <bp@alien8.de>
+> >Cc: Dave Hansen <dave.hansen@linux.intel.com>
+> >Cc: "H. Peter Anvin" <hpa@zytor.com>
+> >---
+> > arch/x86/boot/Makefile        | 3 +++
+> > arch/x86/realmode/rm/Makefile | 3 +++
+> > 2 files changed, 6 insertions(+)
+> >
+> >diff --git a/arch/x86/boot/Makefile b/arch/x86/boot/Makefile
+> >index 3f9fb3698d66..372e67d2a855 100644
+> >--- a/arch/x86/boot/Makefile
+> >+++ b/arch/x86/boot/Makefile
+> >@@ -55,6 +55,9 @@ KBUILD_CFLAGS        :=3D $(REALMODE_CFLAGS) -D_SETUP
+> > KBUILD_AFLAGS :=3D $(KBUILD_CFLAGS) -D__ASSEMBLY__
+> > KBUILD_CFLAGS +=3D -fno-asynchronous-unwind-tables
+> > KBUILD_CFLAGS +=3D $(CONFIG_CC_IMPLICIT_FALLTHROUGH)
+> >+ifdef CONFIG_CC_IS_GCC
+> >+KBUILD_CFLAGS +=3D $(call cc-option,--param=3Dmin-pagesize=3D0)
+> >+endif
+> >
+> > $(obj)/bzImage: asflags-y  :=3D $(SVGA_MODE)
+> >
+> >diff --git a/arch/x86/realmode/rm/Makefile b/arch/x86/realmode/rm/Makefi=
+le
+> >index a0fb39abc5c8..75058f4dd7c1 100644
+> >--- a/arch/x86/realmode/rm/Makefile
+> >+++ b/arch/x86/realmode/rm/Makefile
+> >@@ -67,3 +67,6 @@ KBUILD_CFLAGS        :=3D $(REALMODE_CFLAGS) -D_SETUP =
+-D_WAKEUP \
+> >                  -I$(srctree)/arch/x86/boot
+> > KBUILD_AFLAGS :=3D $(KBUILD_CFLAGS) -D__ASSEMBLY__
+> > KBUILD_CFLAGS +=3D -fno-asynchronous-unwind-tables
+> >+ifdef CONFIG_CC_IS_GCC
+> >+KBUILD_CFLAGS +=3D $(call cc-option,--param=3Dmin-pagesize=3D0)
+> >+endif
 >
-> The perf_regs enum exposes the registers available in pt_regs: r0-r8,
-> r16-r28, gp, pc, and ps. Registers r9-r15 are callee-saved and live
-> in switch_stack, not pt_regs, so they are not included.
+> That seems like a much better answer than that horrible hack.
 >
-> A switch statement maps perf register indices to pt_regs fields since
-> Alpha's pt_regs layout is non-contiguous (unlike architectures where
-> direct array indexing works).
->
-> Assisted-by: Claude:claude-opus-4-6
-> Signed-off-by: Matt Turner <mattst88@gmail.com>
+> Acked-by: H. Peter Anvin <hpa@zytor.com>
 
-I think this patch still needs kernel-side work in addition to the
-matching tools/perf support.
+I have retracted the 2/2 patch, so there is no need for the new --param any=
+more.
 
-HAVE_PERF_USER_STACK_DUMP makes the generic perf code obtain the user
-stack pointer through user_stack_pointer(regs), which on Alpha returns
-regs->usp. However, the interrupt SAVE_ALL path does not initialize
-that field, and do_entInt() does not snapshot USP. A profiling
-interrupt taken from user mode may therefore attempt to copy the stack
-from a stale or uninitialized address.
-
-The proposed perf register ABI also does not include SP. A DWARF
-unwinder needs both the sampled stack contents and the corresponding
-stack pointer, so this cannot be completed solely by a later
-tools/perf patch.
-
-Would it make sense to drop this patch from the current series and
-submit the perf support separately, including USP capture on interrupt
-entry, SP in the kernel perf register ABI, and the matching tools/perf
-support? That would allow the rest of this series to proceed without
-waiting for the perf interface to be completed.
-
-Regards,
-Magnus
+Uros.
