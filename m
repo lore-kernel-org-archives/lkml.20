@@ -1,80 +1,78 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D532F8E99
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 22:20:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22038365A14
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 22:26:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788733218; cv=none; b=ENcrnS4N2HT0aJx2GMVtOAgABX0hape/CKAxb6aHMmL6riIXVqcc0cH6N0ISoCDyBYHyxFl8VSwnVlJnTU0sANWCNeO+9lk7VnO5laQ3hmGns/44UBWD/lgpDuskqBS0kC9ImC5ORTNvak2FIahmLO9Fzs+4251i8sIpE+XGR6k=
+	t=1788733585; cv=none; b=bwXalv6vy3GsbJ5qPPDc/g6dojuzyoi5nHyrydnv6jEJZ0qFtQ8B9Nkj2cjJ+WuHaZABg/t4+MGxj/sqDKzgFBr4LUAjO5kzg0t6cHjkdP4GSddWDKWhedm0xJTawRjJk5AwiTDpbv45IbGb5EdwtI5CfDmwfDliRf5wmoZimsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788733218; c=relaxed/simple;
-	bh=ckImEn7DqyVJSqZJ6PEvBDY2Lx6s5wXnqO5UO3q7wMI=;
+	s=arc-20240116; t=1788733585; c=relaxed/simple;
+	bh=ESGoqGmMu10/z0U2P8gBm5vkYhM+UfjKWUsR+Iji2b0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=d4r21EwLV1hqCBejjPArOYsItZdyn8MlTQv1LoWtVTr2hNRvrix53KATIKNVaB/hSdJ8dDXta3F9wVKWI2YH5QrpdqLBMsESeFBeOoIzwWP9d5IS5TyJc0t7N5+f2nlzlNn7OM177lnzkAU90noZb1gk8n5AqYQkMLPzHnEz8rk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kn5eJUJT; arc=none smtp.client-ip=209.85.221.49
+	 MIME-Version; b=EFzTuPAAvCJpZGpogfchchXoNWKVmrRDHifE14vkSNB3r0O24c1UDRLnFYMhFIvr/tvRGMOG3k4Z3lLZtFPjFidYtWGVLNHHy/LsRmewZ69UuX7aq/I+LCEsB2kuf1rBx1AgFf5Sn4Yq6sTQUv2ukIteiZYV0rSGRziYYviUleQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mDsiYCL0; arc=none smtp.client-ip=209.85.216.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kn5eJUJT"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-484374f54d0so1621993f8f.3
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 15:20:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mDsiYCL0"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-398a5aad413so2069917a91.3
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 15:26:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788733214; x=1789338014; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788733583; x=1789338383; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0y/3Y+Meqv4n9defUV1o/zEilZlTljWXe0KE7nGDkdM=;
-        b=Kn5eJUJTGy73NvA2643VZxUVfwwJFh4G9cP++ZDOEzCqYZ2pjlsljKEov5MteUVn6k
-         4Wh4HMZSCpOUOiGWharyKxPimfzIGqlGY45B+7uJTGFGOGp/3EoYfR+SmoH2/Mwr6Bop
-         1ojQlJ/VnL1N4dAfgALNYIbgLZWWYUdaF2rGnHyH3+Xu40U6nMfBwJXjvxljWBEjRHPt
-         nLHrOtx3mHE8JvEEnfN+cigbzq+EYhD/haDD1wSRZ6jRtxTBFu9jacZnvwa+uN06eSOo
-         52i+JMI46IX36B8wd4SnWzmLPAiA7R/Ve/kn3yGoQRn9BP+xXMpaa9A6RhIsMWLjNahp
-         XtCA==
+        bh=7BQEMgxoBllO/xAi8qxIuWvSKZOLcvy0DblUANoSGaY=;
+        b=mDsiYCL0mSqfhUFYiAnpdUjcpcMWQtYdJsZz3PundnILz9cu0IusKJUfAsEoC7zXS0
+         sPKn3G1cVVYXu/fPge4n61gjYgQR7dCWOh1h3yyJozc0Fiah/Mk5FYxw/hXWRS3tkYJ4
+         ugydrmrM6r9rLkVngWyEB2PY8QMiH6+jE1xYyp3wmtP1LqyPPtSW47JwM/j9XbdP1u5e
+         Ld3bmGhgkI16d4mwsIC1y4N8Osy4mAJe47Jp3vX8ApRbSQP+0ihxAxTuiJvGcGMILmdp
+         U4c+f11xmrthVTOCDC8htnmSYXkIk69Kc6j0lQ0CKe17ffa1xJjK53vPqX4YK790I4cZ
+         ukag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788733214; x=1789338014;
+        d=1e100.net; s=20251104; t=1788733583; x=1789338383;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0y/3Y+Meqv4n9defUV1o/zEilZlTljWXe0KE7nGDkdM=;
-        b=bagHWKwu9PbHWGUj2MPF+Y/nqdaCJ0lWZRQ/Qs1a/Y9rXnq4BxFZ+ZE7tKX0+/6HeK
-         +iEbYvdhtmWpcNz/Agy8tTKFDlBINDT0eLpUwmqKi8C5ICW9Rnp92q1NVoHADAVUbMuj
-         xTzv1Jn7PE61nVnmfZrcyD2xjW3wIfaDrC5dD3dTnmeP6+QHuIjO2+GIJoA039L6m5mm
-         jqfSsDBoLjYj/rv1E2nQWqmnO6d0Iqgo9AkdqHIAB6mYqUUs8ModDDf3bpKD17YOdsV+
-         f0lBbHxgeOoOMMow2iDJlGznRv+0zzx/G3F9WyNymRyHobmiAlZ/wo+cbqpR5gRBo6Hg
-         KUnw==
-X-Forwarded-Encrypted: i=1; AKwUvBw2bT2w03rxuoUAyBZvKMpVa4cbpDkDHT6/gt1tw6WA+SspC2n6ILQ+hPEwCMWK7iDMr9xbC2Yv8l9G8YI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kBlhRzA2I4QXbLpI4MR6uJukeQX65evzsgYBdnVCJvO1oAmJau
-	iZIHqFgudK4/4GDLpaws3LQQyBQZci4qm9dAnSo3gSpjRGNYKr2ahzXw
-X-Gm-Gg: AYBFou1JS1/sg8a6DS6syZDM6WbHHwYIi3QP7btWQqZEcVIe/zCjOCN57jSFbKugob/
-	l6Rh3CV8xw63c4Hc7UBTXt2bqnlqzhWX/e8x3LIrlHB8XPd+U8HIR/uptzSzdhXWUDKdXGz8AjQ
-	Q/qElD7nbhgx5Jef+JdHu75L713beEaX4/F8x371TrB0Bpy7Ywzk4A+TPWh9e32GT+5OsZihk6W
-	hbkSHv8vydSom+QB5SJ/zSNIvUwoQzVz+i4xEjzTojtwkHqQttN+2X1M82JuTc4NvRxSikymOR6
-	EHTUwbt3jKGE+1VEGrPliU7xytmHrhOH/5RPvJTaqggDo8+khNLLFoJI8IqG/qnzldQYoefc1FB
-	XBuuyvHBDfTNJ6UYx9T9wCY0fZDAI9Ua9miCkcf3svo9rwhjCZkss4cKei77yDSLmbLegxvu2HO
-	rA98ggxCNhuVPWf2xIy9Cz2o4u9VjqVXCdLTrOb999SQ5bJZGXUz2jfxcaMutgj/s2k8Gjcdb3a
-	BNN/V+JxYFY8efWA+LU+42yTA61AmmLrB5dGj17U+eDncuJPD6Gsy5ULJ1tMvpFb+aw2fsqUjWx
-	YbR9UYt8dTjlUM/iydNOYMBkXF3ppNNfqoKvNwomF5ppsnsd1UG1DsJNrIGJ0Auu+RA=
-X-Received: by 2002:a05:6000:4694:b0:484:3310:710c with SMTP id ffacd0b85a97d-48587290c78mr31955580f8f.24.1788733214009;
-        Sun, 06 Sep 2026 15:20:14 -0700 (PDT)
-Received: from localhost.localdomain (p2003010827046e6b7ce92663474df7af.dip0.t-ipconnect.de. [2003:108:2704:6e6b:7ce9:2663:474d:f7af])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858e239862sm18666508f8f.9.2026.09.06.15.20.12
+        bh=7BQEMgxoBllO/xAi8qxIuWvSKZOLcvy0DblUANoSGaY=;
+        b=ADl7JGLd0pCBOuLB3pDBnurqdBp0yjqZc92GTkyMZnnO7YzJgVR21Fc/JemjS2uzqL
+         NVaUfAv9HD0k8Dd2FQy/V++FCGGwochSW5tUJtb28dn/XSpk2KFTcDTpGAkXcNCx/kS3
+         0q95wlQNJRQcHHdigFoFVBVsp3AaZ+943lcihcjti5O3wIu1Z9BlOMp2eKcBaEe8IQBT
+         iN2YYJxVc0MRGNFAwrjZwcwAvU82JfRCCFIwrsjOmLvkrZ8EE3SHheRQyGtkt84lqZFt
+         dHt/RJeq7efM1SPuH8GvsnfcbmCmF5vLdZP6JCf42gO+RsBpHeI6l4myQFNT9L/GurgB
+         0ipg==
+X-Forwarded-Encrypted: i=1; AKwUvByenHnxagCLtBW/NCESqYGL9O+j2qZs1vUnPyaVqaGC/V0CU4JrB3Dm0yccAGJ/GMc0VZd+cAZOnc5GqzE=@vger.kernel.org
+X-Gm-Message-State: AFuF++ljRpJF8D4cy6GVh+MeYdLuUR5IH/zTd/nNzxWvOVjjOZNmx2QV
+	CFvgFc0Yl03F3GnV7RGOD5mKjqy2sWkPMlHpzo47zX+XGy1LgDARPexZytSGiQ==
+X-Gm-Gg: AYBFou2vLXrehRiTTQmBC79Q+XPsWNh4NNAl3f1LHzYimuQcJ8foTsw2cWt3EotcATe
+	xIL1WMvpRbZn+yEmLtfXk4xtLjwPjguGv9FskzIMZ9NKEXbqLf21mP/yQt/eK1rDP44n1yP63rx
+	R35G2OYd7d9Y4ODFwGBfqk8h0qAR/FMQyFg5aDRUiwkYfDLzJZhRyACGXuJGJR/a45D4e8fIDyS
+	f/ROb2RpULVHYIze2+gXLtxGYK9xX55RltWBzw51H/4Jgyry0eQrXc5ExaR3bF5ko+rwV3gG2Ko
+	SsyGAVR+gbEAAdobRIXqj+5+XEccXui7gjwdwiC03824/F5XUqKeugJKwOv/dGwZecR/dNIhAdQ
+	uzMM86aIlXTDO8RiQ8RnXGL0kN2yPWila5VrZJDWxVGaxNXSEV5dJbN/GRFEBIKJiXUD0x6BVT9
+	M+AEiQQTEPeAV+6wPZSzMtVOGFMeIY+AYR5QNuamZEuS0h27/rSKrqoTHAh9xDn5328eyb9XQ68
+	wtIyd80qprLbhmq
+X-Received: by 2002:a17:90b:3d92:b0:398:bf7e:b267 with SMTP id 98e67ed59e1d1-39b2614df9dmr30677023a91.2.1788733583339;
+        Sun, 06 Sep 2026 15:26:23 -0700 (PDT)
+Received: from celestia.taila51cc2.ts.net ([2402:1980:9c5:2de5:8b4e:3f3c:b637:4ca5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae8e0b117sm8413777a91.3.2026.09.06.15.26.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 15:20:13 -0700 (PDT)
-From: Bernard Ladenthin <bernard.ladenthin@gmail.com>
-To: pablo@netfilter.org
-Cc: akpm@linux-foundation.org,
+        Sun, 06 Sep 2026 15:26:22 -0700 (PDT)
+From: Liew Rui Yan <aethernet65535@gmail.com>
+To: sj@kernel.org
+Cc: aethernet65535@gmail.com,
+	akpm@linux-foundation.org,
+	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	fw@strlen.de,
-	netfilter-devel@vger.kernel.org,
-	kunit-dev@googlegroups.com,
-	davem@davemloft.net,
-	Bernard Ladenthin <bernard.ladenthin@gmail.com>
-Subject: Re: [PATCH 1/4] lib/ts_bm: advance state->offset past the reported match
-Date: Mon,  7 Sep 2026 00:19:54 +0200
-Message-ID: <20260906221955.6311-1-bernard.ladenthin@gmail.com>
-X-Mailer: git-send-email 2.49.0.windows.1
-In-Reply-To: <aoIfn1SzxQKa5t8m@chamomile>
-References: <20260816170541.3384-2-bernard.ladenthin@gmail.com> <aoIfn1SzxQKa5t8m@chamomile>
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2.1] mm/damon/core: fix false positive in damos_quota_is_full() when esz is zero
+Date: Mon,  7 Sep 2026 06:25:28 +0800
+Message-ID: <20260906222633.4227-1-aethernet65535@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260905161233.81892-1-sj@kernel.org>
+References: <20260905161233.81892-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,210 +81,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Sun, Aug 16, 2026 at 10:37:51PM +0200, Pablo Neira Ayuso wrote:
-> > A caller looping until UINT_MAX never terminates.
->
-> Yes, for a good reason.
+On Sat, 05 Sep 2026 09:12:33 -0700 SJ Park <sj@kernel.org> wrote:
 
-Thanks for the review. Let me start with the question I actually have.
+> On Sat,  5 Sep 2026 18:36:58 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+> 
+> > On Fri, 04 Sep 2026 17:25:34 -0700 SJ Park <sj@kernel.org> wrote:
+> > 
+> > > On Fri,  4 Sep 2026 23:35:38 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+> > > 
+> > > > That said, it's not important for me to add explanations to the
+> > > > document, but may I know why commit [2] changed the behavior which
+> > > > introduced by commit [1]?
+> > > > 
+> > > > Commit [1] Behavior:
+> > > > 
+> > > >     if (quota->esz && quota->changed_sz >= quota->esz)
+> > > >         s->stat.qt_exceeds++;
+> > > > 
+> > > > Commit [2] Behavior:
+> > > > 
+> > > >     if (damos_quota_is_full(quota, c->min_region_sz))
+> > > >         s->stat.qt_exceeds++;
+> > > > 
+> > > > Before commit [2], qt_exceeds will only increase when quota->esz is not
+> > > > zero, but after commit [2], qt_exceeds also increase even when
+> > > > quota->esz is zero.  I'd love to understand the rationale behind this
+> > > > change to better grasp the design evolution.
+> > > > 
+> > > > [1] 6268eac34ca30 ("mm/damon/schemes: account how many times quota limit has exceeded")
+> > > >     (Fri Jan 14 14:10:20 2022 -0800)
+> > > > [2] c7ec7d5f6b3d1 ("mm/damon/core: handle <min_region_sz remaining quota as empty")
+> > > >     (Mon Apr 27 18:33:50 2026 -0700)
+> > > 
+> > > Seems commit c7ec7d5f6b3d1 didn't make a behavior change that you are
+> > > describing.
+> > 
+> > I actually wanted to point out the behavior difference between commit [1]
+> > and [2], but I've understood and agreed with your point.
+> > 
+> > > 
+> > > '''
+> > > $ git show c7ec7d5f6b3d1
+> > > [...]
+> > > @@ -2601,8 +2613,7 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
+> > >         if (!time_in_range_open(jiffies, quota->charged_from,
+> > >                                 quota->charged_from +
+> > >                                 msecs_to_jiffies(quota->reset_interval))) {
+> > > -               if (damos_quota_is_set(quota) &&
+> > > -                               quota->charged_sz >= quota->esz)
+> > > +               if (damos_quota_is_full(quota, c->min_region_sz))
+> > >                         s->stat.qt_exceeds++;
+> > >                 quota->total_charged_sz += quota->charged_sz;
+> > >                 quota->charged_from = jiffies;
+> > > '''
+> > > 
+> > > And I don't think there was a behavior change.  Hopefully commit 54419bbd0ee3
+> > > ("mm/damon/core: allow quota goals set zero effective size quota") will give
+> > > you some clues.
+> > 
+> > Thank you very much for your clarifying :>
+> > 
+> > Now I completely understand why there is different behavior
+> 
+> I told you I don't think there was a behavior change.  I still think so.
+> 
+> > between
+> > commit [1] and [2].  Because in commit [1], esz==0 only means quota is
+> > unlimited.
+> 
+> No.  Commit 54419bbd0ee3 says "DAMON core assumes zero effective quota means
+> the user has set no quota."
+> 
+> 
+> > After commit 54419bbd0ee3, esz==0 also can means do not have
+> > quota at all.
+> 
+> That's what the commit is describing the before-commit status...
+> 
+> > But the qt_exceeds should just not increase when quota is
+> > unlimited, that's why the current implementation is completely correct.
+> 
+> There is no unlimited quota.  Hence I don't understand what you are saying
+> here.  Please carefully read the commit message again.
 
-One interface, three implementations. The same test, unchanged, run
-against each of them. kmp passes it, bm fails it. I cannot find where
-that difference is written down, and that is what I would like to
-understand.
+Thank you for the detailed explanation, and sorry for my confusing
+wording.  Let me confirm my corrected understanding:
 
-Where I looked. include/linux/textsearch.h:20 describes the field as
+Before commit 54419bbd0ee3, esz == 0 appeared only when the quota was
+unset, i.e., the user has set no quota.  DAMON core therefore assumed
+zero effective quota means the user has set no quota, and the code
+checked quota->esz to tell whether a quota is set.  Commit 54419bbd0ee3
+decoupled "quota is set" from "esz != 0" by introducing
+damos_quota_is_set().  After that, the temporal goal tuner
+(af738a6a00c1f) made it possible for a set quota to have esz == 0 as
+well, for example once its goal is over-achieved.  In that case the
+scheme is intentionally deactivated, and counting qt_exceeds is intended,
+not a bug.
 
-   * @offset: offset for next match
+Commit c7ec7d5f6b3d1 did not change the behavior I asked about; it only
+refactored the check into damos_quota_is_full().
 
-and lib/textsearch.c:72 says
+I will send a documentation patch in the near future.  Thank you again
+for your patience.
 
- *   Subsequent occurrences can be found by calling textsearch_next()
- *   regardless of the linearity of the data.
-
-Both are from 2005 and neither has changed. ts_bm.c does record one
-deviation from the other algorithms, in its file header, that a match
-spread over multiple blocks will be missed and that kmp should be used
-when that matters. It says nothing about repeating the same offset.
-
-If what you mean is that the algorithm as Boyer and Moore published it
-stops at the first match and therefore defines no shift after one, that
-is true, and it may well be how this came about. kmp_find() faces the
-same question and answers it in two lines, and patch 1 is those same two
-lines:
-
-  kmp:  state->offset = consumed + i + 1;
-        return state->offset - kmp->pattern_len;
-
-  bm:   state->offset = consumed + shift + 1;
-        return state->offset - bm->patlen;
-
-So the question is not really about Boyer-Moore. It is about why two
-backends of one interface answer the same question differently, with
-nothing saying which answer is the intended one.
-
-> With bm, it reports offset 6, because it looks from right to left,
-> this is how the original Boyer-Moore algorithm works.
-
-I put that into a test case. The diff at the end adds it,
-parameterised like the others, so it makes the same claim about kmp and
-about bm. Applying it turns the suite red on purpose.
-
-Patch 2 applies without patch 1 and does not touch lib/ts_bm.c, so this
-describes today's behaviour:
-
-  echo CONFIG_KUNIT=y > .kunitconfig
-  echo CONFIG_TEXTSEARCH_KUNIT_TEST=y >> .kunitconfig
-  ./tools/testing/kunit/kunit.py run --arch=um \
-      --kunitconfig=.kunitconfig "textsearch.*"
-
-In the output below I cut the "at lib/tests/..." suffix so the lines
-fit, nothing else is changed:
-
-  ============ ts_first_match_is_last_occurrence  ============
-  [FAILED] kmp
-      # ts_first_match_is_last_occurrence: EXPECTATION FAILED
-      Expected pos == 6, but
-          pos == 2 (0x2)
-
-  first match reported
-  [FAILED] bm
-      # ts_first_match_is_last_occurrence: EXPECTATION FAILED
-      Expected pos == 6, but
-          pos == 2 (0x2)
-
-  first match reported
-
-Both report 2, so the first match is the same for either algorithm. If
-that case asserts the wrong thing, please tell me what it should assert.
-The run also gives
-
-  # Totals: pass:17 fail:5 skip:0 total:22
-
-Two of the five are that case, red by design. The other three are bm, in
-ts_next_advances, ts_next_finds_all and ts_blocks_iteration_terminates.
-Every kmp case passes.
-
-> Why? What do you get by setting state->offset?
->
-> What are you trying to fix?
-
-I should be plain about the scope. Nothing in the tree calls
-textsearch_next(), and as far as I can tell nothing ever has. I checked
-the whole history with git log -S over 1.46 million commits back to
-2.6.12-rc2, which covers the entire life of lib/textsearch.c. So this
-repairs no reported breakage, and I am not claiming otherwise.
-
-What led me here is that lib/ts_bm.c has needed five correctness fixes
-in twenty-one years. In 2008 a pattern at the very start of the text was
-never found, "abc" in "abcdefg" returned nothing, and that had been true
-since 2005. In 2023 an iptables rule with --algo bm silently stopped
-matching, reported through bugzilla.netfilter.org #1390 and fixed by
-6f67fbf8192d. Neither was caught by a test, because there were none.
-
-That is why patch 2 exists, and it is the patch I care about most.
-
-Which brings me to a basic question. Why has this code never had tests?
-I looked and found none, and git ls-tree agrees with me, but I may have
-missed them. If there are any, I would rather extend those than add a
-new file.
-
-I ask because the suite does find two of those old bugs when they are
-put back on a current tree:
-
-  the 2008 one, shift = bm->patlen instead of bm->patlen - 1
-      ts_find_at_start               red for bm, green for kmp
-
-  the 2023 one, revert 6f67fbf8192d
-      ts_blocks_match_within_block   red for bm, green for kmp
-
-Not all five, to be clear. The 2026 overflow it does not catch, because
-textsearch_prepare() rejects the zero length before the algorithm sees
-it. The two from 2006 I did not try to put back, the code around them
-has moved too far for that to mean anything.
-
-> > Which algorithm a caller selected should not decide whether that
-> > works.
->
-> Why?
-
-Because the promise is made at the interface, not per algorithm.
-lib/textsearch.c and include/linux/textsearch.h describe
-textsearch_next() without naming one, while lib/ts_bm.c lists its own
-deviation in its own header. And xt_string.c:56 hands conf->algo
-straight from userspace to textsearch_prepare(), so the caller cannot
-know in advance which of the two behaviours it will get.
-
-> Yes, and people that use it rely on the current behaviour, so you have
-> to explain what you are aiming at fixing.
-
-Nothing observable changes for them. The returned value is the same
-expression:
-
-  before:  consumed + (shift - (bm->patlen - 1))
-  after:   state->offset - bm->patlen,
-           with state->offset = consumed + shift + 1
-
-Both are consumed + shift + 1 - bm->patlen. The patch only writes down
-the offset the return statement already implied. skb_find_text() keeps
-its ts_state on its own stack and uses only the return value, and
-xt_string reads only that return value, so no netfilter path can observe
-the write.
-
-> You are not specifying any tree for this patches.
-
-Sorry about that. get_maintainer.pl points at LIBRARY CODE for these
-files, so the series is aimed at Andrew Morton, and I should have said
-so in the subject. I will use a prefix on the next posting.
-
-So my request is not that patch 1 be applied. It is that the difference
-be explained or written down. If bm is meant to be single shot, I will
-send a patch saying so in the same place the multi-block limitation is
-already stated, and drop patch 1. And if the Fixes: tag looks wrong for
-something nothing can reach today, I am happy to drop that too and let
-patch 1 stand as a follow-on to the tests.
-
-The case below is not meant for merging. It is your sentence written
-as a test.
-
-Thanks,
-Bernard
-
----
---- a/lib/tests/textsearch_kunit.c
-+++ b/lib/tests/textsearch_kunit.c
-@@ -302,6 +302,26 @@
- 	KUNIT_EXPECT_EQ(test, PTR_ERR(conf), -EINVAL);
- }
- 
-+/*
-+ * Not part of the contract the other cases check, and not meant to be
-+ * merged. It encodes the description that "bm" reports the last
-+ * occurrence first, so that the claim can be run. It is parameterised
-+ * like the rest, so it makes the same claim about kmp and about bm.
-+ */
-+static void ts_first_match_is_last_occurrence(struct kunit *test)
-+{
-+	static const char text[] = "xxABxxABxx";
-+	static const char pattern[] = "AB";
-+	struct ts_config *conf = ts_conf_get(test, pattern);
-+	struct ts_state state;
-+	unsigned int pos;
-+
-+	pos = textsearch_find_continuous(conf, &state, text, strlen(text));
-+	KUNIT_EXPECT_EQ_MSG(test, pos, 6, "first match reported");
-+
-+	textsearch_destroy(conf);
-+}
-+
- static struct kunit_case textsearch_test_cases[] = {
- 	KUNIT_CASE_PARAM(ts_find_middle, ts_algo_gen_params),
- 	KUNIT_CASE_PARAM(ts_find_at_start, ts_algo_gen_params),
-@@ -313,6 +333,7 @@
- 	KUNIT_CASE_PARAM(ts_blocks_iteration_terminates, ts_algo_gen_params),
- 	KUNIT_CASE_PARAM(ts_get_pattern, ts_algo_gen_params),
- 	KUNIT_CASE_PARAM(ts_prepare_zero_len, ts_algo_gen_params),
-+	KUNIT_CASE_PARAM(ts_first_match_is_last_occurrence, ts_algo_gen_params),
- 	{}
- };
- 
+Best regards,
+Rui Yan
