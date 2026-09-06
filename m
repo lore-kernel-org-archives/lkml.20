@@ -1,67 +1,33 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A95943E0C7B
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 06:54:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC908372EE2;
+	Sun,  6 Sep 2026 06:55:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788677697; cv=none; b=o5QJExSXTXkdMTMzWGAVDzX4mOGqfNImawriA0bcUpj6YjGgYYlhkhLaJD/DmlPwkb9q9jLbbAp+PKhpOB9A8xZNizSdqTEgdTiJLVjUGRXMJNwneH67/DtQVq1MtPwgMtIqBtYObrUxHhucHyS25ciqwC0nhFFtWX5Gt0zv1D4=
+	t=1788677754; cv=none; b=Bq4OflKaIwnibQLV8eQevs/nMtXe3vE2XkxqJ8oSCQS6XaJZqlu0iVlxZu+I7FIVvdX4U0DiAAPAWnG/KtwLVWpDtYLMYL/aDgXAQX/jvxNM06aAJcGZtXvM/pCIUYfdqS0dwu5Qr37bWkDXYREOgeqCMMBeOldpT7c48VpPSiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788677697; c=relaxed/simple;
-	bh=ihV5OQaoP6INSs81OrTckxcfcEXn8Vp2Yb3BUC0Q+Ao=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=IjXT9uk8FlkkuZVTsInS3Bka3jNRUNx1Qh2Vcqp32K1TT2Sz4/YSMJfyh/puKPsNcv2qgrjyokQ5jjxQArGhr4mCwsLuBfIbx2az+Sc4Y3ddSWnWaxrVJK40fU+TAptoSmIEWOdiwFX5gmm9D9N1exhrpUiv75h/hG0VPKk6ZoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KHK5b4vX; arc=none smtp.client-ip=209.85.216.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788677754; c=relaxed/simple;
+	bh=rV5UIVLOB4ePmHB9fU26CprNmBXcEac3rrqMjYF1pGk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Rge8D4J6rUQ7Gwz/ZFA2VlWpwfA5TXfsmpMItmfA1UG563yAp0avaVa4j3a9OJGo8hbscwCX02znhh/8/nv3eJdm9sd5gqVjD50d6gUAxbxNdg8hId/m06sqwdT7/fMmfPksMV2ve4jP0G/QBtX5FxK2iuy8IDixDSA3tVJpxbI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DRihK53R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KHK5b4vX"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so1988498a91.0
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 23:54:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788677694; x=1789282494; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:references:cc:to
-         :subject:from:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=C3R8tPe9lOjKH7p6qWRmtf7FvkJ+tCfMXgIaxL2nfTQ=;
-        b=KHK5b4vXZPLdKdm82/aABRkIgKSIsefrvhCfViOHR2LuWjQ3KLV9b7HjMK1v9PqL5D
-         VIriafVMFI0+XTo/xdhSbqYjY+0m0jK1bA33aLCIc0RgzNlCtbAenOkFDldj/5XGXimZ
-         d2RSEotZsuK6/dNkMwe7UYcFTrSyHt48vOPy+cPojKIniCBqzDhJQAbsyr5PjIuWughH
-         j9Oq4N1ZNAejzResRWo/2B9prPZ9N6Uui/6j6LeqqNiUBeRHG7DUkOOV0qtFlofFw33a
-         bdCxWWnRqXs0Kf7kwK0ywbFOuwnDvxU/tGbLW7mCA7sNsEJONjwtJkBRfdzL/Iinw4lG
-         yfkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788677694; x=1789282494;
-        h=content-transfer-encoding:content-type:in-reply-to:references:cc:to
-         :subject:from:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=C3R8tPe9lOjKH7p6qWRmtf7FvkJ+tCfMXgIaxL2nfTQ=;
-        b=dRtFsQn584pMgrUQhPMzp9lZrDLz9jvsvgtLqm2Vtgmq3EDUhgUNRomiP8PwFdc9d1
-         rESYUX2RpyKZA1Hba4l537C8lzcdX9lgIZp2S6Tlgf3FMCXr/YamUNt06PVPhiAd0wMI
-         M+/CLRWS70Uc5w3SoAmMnUm3zClHAg8qb0NqYEfYWieA65eyDWkdR11fRY1JMGN+znt7
-         Te5WBzfji0kRE8nvSHLBxlOi0gqLRu1TDxH6kW90myAXITJ6GF4JSAn3CRZ/eADnGzg6
-         xZwGZjiNIHY9jiugf8jfCwZr3qY9XbZwh3RWA9K0VXPOk/+qp3qEIE8z5ZmnxUs59+NB
-         4NiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxt0sr00wSeVvH4TJMEHH1M5ALoc5PC848bkqK8P0UYLoBZd00+yXz8HVz1ZzWKpIMKI6m7GOPL5S6DD40=@vger.kernel.org
-X-Gm-Message-State: AFuF++mveynwTKKxPo7IBFbxBLADg0I0Dwcp6VO/LK5oMgzvMW1WBkBD
-	euzhh9sBg3tb9S4vdqkHkH3yg6FHYsxHx/LVDwFu3PyaH27PT2GXQ6pe
-X-Gm-Gg: AYBFou1x69FSe98tZ56BsF6Flb5jtt55sG92bje4ti5YAY2X9zwhmHd0WwNgr9Hy5j/
-	Cp5ZWiNJY/XSRTsimokhUb47uvsIPqAMvMEQJf8uuOtyvU67yW5mUjfJah1unOfh1L7cTwOSkMQ
-	LC4a/X8qDkCY0IrfNQPXGJoZEDiSj1vyBjqxHL3KEZCCeHXAnaoecY9iQ+HlNnhL86pfqPdaAag
-	fUM89UIYWV4eKQa3PBcVRkf/pOpv96Gydq+J8EZzwpCnf1rtho5dgGpDf+m3GBqnXbYLR3r1JLu
-	Bfjzj/FunBaqFtB0lFByv2qi41AcaIOjII2MWU1J0yyj14PONxo8slRUZ9p85nlPX0fNSN34ZtW
-	UjwLCfCWUk0ZZIeRPMvWweH+DhaAqC+bfBhO8P25lSF1YwIcNj2+EQAzjzu4+0Cgvt+bKbZ8K8T
-	Xn3ZRu1EI6Y3OJseH8skyFts9CC5LOa3PzgNp1qAurjIhNQYnxtrWdhU4tsLeFKi0Q+1QGbftSt
-	cUTYQmGvlD5vw==
-X-Received: by 2002:a17:90b:4984:b0:381:25ce:bcc2 with SMTP id 98e67ed59e1d1-39b26104798mr22897521a91.6.1788677694175;
-        Sat, 05 Sep 2026 23:54:54 -0700 (PDT)
-Received: from [172.29.66.128] ([120.236.174.182])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08bcc060sm22686761a91.3.2026.09.05.23.54.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 05 Sep 2026 23:54:53 -0700 (PDT)
-Message-ID: <4d101d62-9ccb-4e3c-a7a7-8d0c273f0d69@gmail.com>
-Date: Sun, 6 Sep 2026 14:54:52 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DRihK53R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABA451F00A3A;
+	Sun,  6 Sep 2026 06:55:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788677752;
+	bh=TWa86xSo2EM7HfD7rT76RWRGqKAuqqO2x3EPFvEsdAw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=DRihK53RuGMSiH8chL7jimw4KeXWs8fm/rKej946fBVmDRRFPZ1bSR4xp1s7AH6Cz
+	 +b6DSYwoYr/HJUqg4FzaodhtKLkzm8GEeIc1pRm2QLaNSS0AUCOkCvsGzGNOobLCzf
+	 1Tj9vlb/sEvsk+I573kMrUc8RTPmO77wFDYDOeCwwUb2nnMwMmXAOSpyRofvh0+uKL
+	 MfgvD5Ra+3Anrxhd//323lEIhCG2DODpF8/kYF/QTXLzFgQ0sR44FAGMQhiT5BtLk6
+	 aAJVRV49OQHxpKYal+jhzRGKNQ1ELb+OQdiKs71Xgn6FNIkUm2uIsuqAn7mmXX9MD0
+	 rm7vID3/K65yw==
+Message-ID: <7c52bcf5-8b58-4c15-bf1a-ba7a0bb04db1@kernel.org>
+Date: Sun, 6 Sep 2026 08:55:44 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,37 +35,242 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Zhian Liang <liangzhan5dev@gmail.com>
-Subject: Re: [PATCH 1/2] Input: tca8418_keypad - Add devm cleanup to disable
- interrupts on unload
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260903192942.21906-1-liangzhan5dev@gmail.com>
- <apvip-xz2GFH96uU@google.com>
-In-Reply-To: <apvip-xz2GFH96uU@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v4 2/4] dt-bindings: usb: Add CIX Sky1 USBSSP controller
+To: Hongliang Yang <hongliang.yang@cixtech.com>, peter.chen@kernel.org,
+ gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: p.zabel@pengutronix.de, vkoul@kernel.org, neil.armstrong@linaro.org,
+ pawell@cadence.com, rogerq@kernel.org
+References: <20260906032440.470788-1-hongliang.yang@cixtech.com>
+ <20260906032440.470788-3-hongliang.yang@cixtech.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260906032440.470788-3-hongliang.yang@cixtech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Dmitry,
+On 06/09/2026 05:24, Hongliang Yang wrote:
+> Add device tree binding for the CIX Sky1 Cadence USBSSP controller
+> glue layer. The integration adds glue registers and mode strap
+> controls in the Sky1 S5 system controller. The CIX glue node wraps
+> a Cadence USBSSP core as a child node.
+> 
+> The per-controller RCSU control and status registers live in a shared
+> RCSU region described by the cix,sky1-usbss-rcsu binding and are
+> referenced through the cix,usb-rcsu phandle.
+> 
+> The per-controller RCSU registers are accessed through a syscon regmap
+> referenced by the cix,usb-rcsu phandle.
+> Signed-off-by: Hongliang Yang <hongliang.yang@cixtech.com>
+> ---
+>  .../bindings/usb/cix,sky1-usbssp.yaml         | 144 ++++++++++++++++++
+>  MAINTAINERS                                   |   3 +
+>  2 files changed, 147 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml b/Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml
+> new file mode 100644
+> index 000000000000..8e66dea50fa7
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml
+> @@ -0,0 +1,144 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/usb/cix,sky1-usbssp.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: CIX Sky1 Cadence USBSSP Controller
+> +
+> +maintainers:
+> +  - Hongliang Yang <hongliang.yang@cixtech.com>
+> +
+> +description:
+> +  The CIX Sky1 USBSSP controller is based on the Cadence USBSSP DRD
+> +  controller. The integration adds glue registers and mode strap controls
+> +  in the Sky1 S5 system controller. The CIX glue node wraps a Cadence
+> +  USBSSP core as a child node. The per-controller RCSU control/status
+> +  registers live in a shared RCSU region and are accessed through the
+> +  cix,usb-rcsu phandle.
+> +
+> +properties:
+> +  compatible:
+> +    const: cix,sky1-usbssp
+> +
 
-The INT output is "active-low interrupt output, open drain structure" (Datasheet §5, pin
-table). With the handler gone but hardware still enabled, a key press pulls INT low with nobody to service it.
-And the driver requests the IRQ with IRQF_SHARED,
+No MMIO here?
 
-	error = devm_request_threaded_irq(dev, client->irq,
-					  NULL, tca8418_irq_handler,
-					  IRQF_SHARED | IRQF_ONESHOT,
-					  client->name, keypad_data);
-	if (error) {
-		dev_err(dev, "Unable to claim irq %d; error %d\n",
-			client->irq, error);
-		return error;
-	}
+> +  cix,usb-rcsu:
 
-this stuck interrupt is seen by every other device sharing the line, and may trigger "nobody cared" IRQ storms or, in the worst case, cause the kernel to disable the shared IRQ line entirely, breaking unrelated devices.
+Then this is your device.
 
-The same leak happens on driver unbind (I think it's a rare case though).
+Last time you claimed you have TWO registers. ONLY. Now you claim you
+have entire address space, but somewhere else.
 
--- 
-Zhian
+If you do not have here MMIO, then this glue layer is not a separate
+device node and you should have one node only, just like we did for DWC.
+One node for glue layer and CDNS USB.
+
+If you have here MMIO for some glue over IP block, then it is unlikely
+to be a syscon.
+
+
+
+> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> +    description: |
+> +      A phandle to the USBSSP RCSU system controller region (see
+> +      cix,sky1-usbss-rcsu.yaml) followed by two cells: the offset of
+> +      the AXI property configuration register and the offset of the
+> +      controller status register, both relative to the RCSU region.
+> +    items:
+> +      items:
+> +        - description: phandle to the USBSSP RCSU syscon node
+> +        - description: offset of the AXI property configuration register
+> +        - description: offset of the controller status register
+> +
+> +  clocks:
+> +    items:
+> +      - description: Start-of-frame clock
+> +      - description: AXI bus clock
+> +      - description: Low-power mode clock
+> +      - description: APB register interface clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: sof
+> +      - const: axi
+> +      - const: lpm
+> +      - const: apb
+> +
+> +  resets:
+> +    items:
+> +      - description: APB register reset
+> +      - description: Controller reset
+> +
+> +  reset-names:
+> +    items:
+> +      - const: apb
+> +      - const: core
+> +
+> +  cix,usb-syscon:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description:
+> +      Phandle to the Sky1 S5 system controller used to program USB mode
+> +      strap controls.
+
+One more syscon?
+
+> +
+> +  "#address-cells":
+> +    const: 2
+> +
+> +  "#size-cells":
+> +    const: 2
+> +
+> +  ranges: true
+> +
+> +patternProperties:
+> +  "^usb@[0-9a-f]+$":
+> +    $ref: cdns,usb3.yaml#
+> +
+> +required:
+> +  - compatible
+> +  - cix,usb-rcsu
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - reset-names
+> +  - cix,usb-syscon
+> +  - "#address-cells"
+> +  - "#size-cells"
+> +  - ranges
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/cix,sky1.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/reset/cix,sky1-s5-system-control.h>
+> +
+> +    soc {
+> +        #address-cells = <2>;
+> +        #size-cells = <2>;
+> +
+> +        rcsu: syscon@91c0300 {
+> +            compatible = "cix,sky1-usbss-rcsu", "syscon";
+> +            reg = <0x00 0x091c0300 0x00 0x200>;
+> +        };
+
+Drop node irrelevant.
+
+
+> +
+> +        usb-4 {
+
+This is just "usb". Not usb-foo.
+
+> +            compatible = "cix,sky1-usbssp";
+> +            ranges;
+> +            #address-cells = <2>;
+> +
+> +            clocks = <&scmi_clk CLK_TREE_USB3A_H0_CLK_SOF>,
+> +                     <&scmi_clk CLK_TREE_USB3A_0_AXI_GATE>,
+> +                     <&scmi_clk CLK_TREE_USB3A_H0_CLK_LPM>,
+> +                     <&scmi_clk CLK_TREE_USB3A_0_APB_GATE>;
+> +            clock-names = "sof", "axi", "lpm", "apb";
+> +            resets = <&src SKY1_USBC_SS2_PRST_N>,
+> +                     <&src SKY1_USBC_SS2_RST_N>;
+> +            reset-names = "apb", "core";
+> +            #size-cells = <2>;
+
+size-cells follows address-cells.
+
+
+Best regards,
+Krzysztof
