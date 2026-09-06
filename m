@@ -1,69 +1,69 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21B9E3E0245
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 07:47:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71AFA3E51E8
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 07:47:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788680854; cv=none; b=t+rZhoYZXAF/bnOVlIaRdQBU94QvOygJrUR6eGyWvAX7Eu1hyj/2X7nAQCbz6WUme7f1ujOtIdSgXM8nS2gT9oXYJ043bp7HtLIWobR2jP0xDnfj9FwZ9hUOBqYnC6mrSGcqheiF8Keof911D5DFFRbFkVNYIS8eQ5o5ImvFFUU=
+	t=1788680857; cv=none; b=loweYsnrYugKDyoMHGr+Yvq09WNa4WACGo58SrdfwF62MMsgXEyIt+9j8OY8sujUcOKjf+MJCPK5FQ25FO8ucPYoXUhT/q/eW8DtHf2WY0iFh7AbxxdMMln0EK4SNPDJEeHfvcZt4j4FiUVWGN2mzqx6Z0mulcrcApdPPO8/jBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788680854; c=relaxed/simple;
-	bh=oQTcMqmcb2ykFzgNObCXJvjBT9oiNdBbL6CkFLTxCy4=;
+	s=arc-20240116; t=1788680857; c=relaxed/simple;
+	bh=aySURi7Iu1LgXwQtkFbM8kcAXTbBl9vxZBkFnJ9ZVdk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BDFNKu6JfRtvo8l5CwUYapn0QjQbbnjjkTD5VSo+MtBSgoJA4924SEVt7j6kBgxFRHTfubiyPjz0yXIEZQfqr9uy2Re/t5kYLO6E9DiU1MQpb9KA/VC8QiyUcm/MEBqX9mXakg6rAIIJJY7y+J8Dhq1j6SS4z9FiZEO1jnbE5aI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Si1EKv6S; arc=none smtp.client-ip=209.85.214.179
+	 In-Reply-To:To:Cc; b=f56x4jF/hRQlifuXd9c5Ned7E1XUaFRVHrUayTAnBSOA/a2iCyNwyD1RmIFQHfD87x927SPQ+uBF9agi/4wsJ9p5GEVzItQvblhkXdmEHgGwb2v/WEtDGicwUE9ilxZTF6BSPtxrg+A3iapet2jpLThWT2U01gMKbHA/bBKxDa4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hzyqfiyR; arc=none smtp.client-ip=209.85.216.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Si1EKv6S"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2cc891373e0so25592095ad.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 00:47:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hzyqfiyR"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38511175ad3so2151019a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 00:47:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788680852; x=1789285652; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788680856; x=1789285656; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=MSsjcm7x9xAs+BmsWITo2dM5yWR0ym8L3hhdvVcy4pM=;
-        b=Si1EKv6SHOhFJUKkbOdvayFX355eMPULCffDWeG8FBBsM8AVwKnotNhv+EarODUzOF
-         2rxIIRpGtUQwypvCe3SUfkNKqn2fMPjSDjAYMlZgu8E09WO3/24Ht8TQKD3wMkk8h07c
-         ixVI3Q2szDkoWlLNHUjwe9ue8Q+Hs2QD2XwbK0akODjY2jbH3rnD4IbV3brRBUvuyVsO
-         ieQMA0axKVssNXWcM0UafC672vyCCvvakfT299T4XSfp/WFlck0D41up/VckiCQYq0Hh
-         /HNGql0V8wpj1pU9AP3xZLY+xKouADnBuxzyRFDkFtsHcrvUe1Vp3FkxYu/UGlQERX1q
-         gJWg==
+        bh=xoId2o2x9KdlacVuk+UZ2/vbMr0aP2lUNDh5bJfaWLA=;
+        b=hzyqfiyREnZ0mnhTRDryfpyVhuk7HS5+CepTfar/d8f33GbXEWGkupVysTaAiPF3SP
+         f4TIXR69x7jjXJuJcsOvEAeY9U/pyMa6CCzErDUQBS/gIEIqv95p1Jr0LYa7ap0m1tPx
+         1PZzrhrjHyzBX4JVWfeFfqaXCdYREizUolerAdJxvhFsz4koQSb6yFxr1UihdHS4J2Io
+         gUWHSLQF1cQSyy0h1pjWEWm+EPtzO9C2aLLZ4Oj/Oout5SaDoPl2h/eTDJM47a8sBop0
+         Uz2wjY8W8pTYXJ0X9r64YF7KDkESDPpOquZ9wJoKVUrhTlsRzn8u+JHSLrMEucK+8UxS
+         TaAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788680852; x=1789285652;
+        d=1e100.net; s=20251104; t=1788680856; x=1789285656;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=MSsjcm7x9xAs+BmsWITo2dM5yWR0ym8L3hhdvVcy4pM=;
-        b=VZjk8rpUTBS+LVhe8QvRfLiKUG0s3wOBzU9Q98okBpDFUpsyAYWv4Qm0tfedadTXH1
-         ja4qVmbJucA4uDtuy3hxxpw2gA/TFC8S54uTt9YoDjRVqx4zu9OdOhaujrDcr0z3uEkf
-         yTRsAvAGr7rTgqR8U2sBEuhP+M2NK2yH/pvwkIPxcicHFrM3i9x81hLDDRpjT3G6CvD8
-         oBvXGxDQ3iViuitxGKfgQaPsGanhzwoEnlFXLHptBRwv5Ei3I0Txfc8jSQvdXF7joN1o
-         6qEv0gcV+m9ZITPs3zJI+A8tEjh8Jw0EmIslboZrnW7QAU2Ya33RZJQySdAUmie1KA7L
-         PCjg==
-X-Forwarded-Encrypted: i=1; AKwUvBwtTflEDAdeR/m6lYxNLasF84CTt4ctJYOpG+PX8E1WOulxMIGfUk2/MW9XjDHMqAOD45jXJSxezpWJz24=@vger.kernel.org
-X-Gm-Message-State: AFuF++kYNRrBFLXOs4XZgoLc1701T4kxXFbpka8VpVfG/O4hBlNwZ35o
-	D4yWop4V9vG55om0WCHqm7HA9ZyPzIC2suqTcRnUHmMLpv97VopKM0Wh
-X-Gm-Gg: AYBFou0EaOEHTCBHz3XAoQ5F+Sc+wbZvSm+ehcV69JSiuAxv+NnPkyAbwFP4slNQuqs
-	Hb0kZXWduP/htFnntLz3O/mF/5fkc6H6nE1U8KKVevZ2cWM1oOHwUF1lGh0EUd3Cuw/F/X7X1BL
-	yPEk2QHddQ8XYWNDlC5a+A3eZmeGDcLn04h12akTtlERyBTckLo8JYPWEKOYZsOLHnMo+RlWrIV
-	a6soxYcKZ9hqEPFqWFNQLDGPAElCNq4GSA3mOevPzBxriHzP9S1DdemvOylk0z4qD4WMipsfMXb
-	T4L/rmdn8gcyrfbLAtvbxz+aVlpACwiifRwrZdeAokkblbnzdEvdww3TQcr/zfNMSQeARezuWFn
-	laOfho+o6uf/M7kfkYfu7EEUAVnC5bKHKzahc+U18zq1cT3Og8mu6tqMUM+yAeDHGhLVadEn1Ng
-	fQxt9EtGKzXses+0qQw2Cj7wLQUVFPemzHasvPWlgM1fWXb0EppWvwVe7zIHm/yBQhsnsz97aMo
-	bNLQTAZWsug7LEuDr9SSpdhyUzDFCUhesLhTNHXaFkevLFR0w==
-X-Received: by 2002:a17:90b:258d:b0:396:4c63:7193 with SMTP id 98e67ed59e1d1-39b261323e0mr26485339a91.11.1788680852316;
-        Sun, 06 Sep 2026 00:47:32 -0700 (PDT)
+        bh=xoId2o2x9KdlacVuk+UZ2/vbMr0aP2lUNDh5bJfaWLA=;
+        b=lK7syabg6k4F9944mhhSc8gZgDaFKgNt89bjmOwRMyV2NG5BA1pasUSbacPA8vZcC2
+         YU6K1Tr5ZGWcc6M6jbUTM7UBT+83V1JmQLRWZTo2nqu/rJsZJHmhmzg20qoEoIQuJZVM
+         lCAkomvr8tJ8j1Ox27SkcbCkRZBZTxIwWbtKmihG7R0bQddbb+OLJVdT88gESuDN0F7d
+         Xih2RtSKvzmdILgutHkm5rUqPQmvSrSJNtNrfUUbIWpcrOnNgUuyh1UsPzpneLyeIQmZ
+         evFOxx8CQ5yIUomKJ8sywG63D1v3Dz8+BPz28qbUQTr2RTsch+PzbZob7nByYfh4ofDn
+         HTKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz2i3WmYHL5W+E8zOgfMGli08nt0ZYThY9YcrK6fJvASqdqBl33r6A+yNSTwoyMz/8kOHXvjDtqJLsKmXM=@vger.kernel.org
+X-Gm-Message-State: AFuF++k9XVvGuk8S4BoGR3qkY34BZYRV+eAQ8mJXgp5ItGD0q2L9sA3v
+	CAFAPaR4jwSq7WyTJZ5Yte1SifXUx7QPRyqFcNlEh6autTqTtszjZ4XP
+X-Gm-Gg: AYBFou3hxJRXMMEmKyBn5qtg++MpRuelGhq9IOrOhgSk6mdnsdm+f3g5j58hlYyzr6C
+	RoKX2t8qg747lt0BpFWJrSsKk5eQzIT4HU4nAANIgbRe+urZT1jfsEXq7+rolCg/wulS1KIpK9p
+	hh+TTBcbRhKzVYw6u2cK3xDGjKlQHGDVNoGa31BOunLDs+Lj0MFTjh0hWGJlv+q44cj5wBCkMQE
+	wdAMz9RwDY2Ltv3xhFvzjI5S7GxwG6nxDt5T7qiGwmMBMOhQaFqpQXwmqTXaYCLu6nYWEc0SW/9
+	r2g81QL68t7n4k+sezrvT1yTjrWmQnpKcSawZAeGV9b4soQeAcvGmofTsoKk/EpBhMSZc/NFkdJ
+	YZn5WzE69Kg+JuFHrvIoqKRgA68c09Ep6F2b+1+8E5KEOfqDd4fI6lEFpN+ARsQEVlU9MtywuRD
+	JdPr+6eEd3Sxc6CDMfiEPk8UobynOASpEN3P/2uwDqlodqho/m2PiawU7Vs/NQRYLwC6j5bl2xk
+	m3hp5vvQ7+irC8O7UkDg7Ii+kHfa1BvnQQpWpk=
+X-Received: by 2002:a17:90b:3b8c:b0:398:9bd4:d13 with SMTP id 98e67ed59e1d1-39b26242a75mr22448300a91.18.1788680855786;
+        Sun, 06 Sep 2026 00:47:35 -0700 (PDT)
 Received: from NV-J4GCB44.localdomain ([103.74.125.162])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08d0d7e8sm21138905a91.16.2026.09.06.00.47.29
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08d0d7e8sm21138905a91.16.2026.09.06.00.47.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 00:47:31 -0700 (PDT)
+        Sun, 06 Sep 2026 00:47:35 -0700 (PDT)
 From: Jianyue Wu <wujianyue000@gmail.com>
-Date: Sun, 06 Sep 2026 15:47:18 +0800
-Subject: [PATCH v6 2/3] mm/zswap: replace the zswap_pools list with an
- allocating xarray
+Date: Sun, 06 Sep 2026 15:47:19 +0800
+Subject: [PATCH v6 3/3] mm/zswap: reference the pool by id to shrink struct
+ zswap_entry
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260906-shrink_zswap_entry_v6-v6-2-ac4cf61565fb@gmail.com>
+Message-Id: <20260906-shrink_zswap_entry_v6-v6-3-ac4cf61565fb@gmail.com>
 References: <20260906-shrink_zswap_entry_v6-v6-0-ac4cf61565fb@gmail.com>
 In-Reply-To: <20260906-shrink_zswap_entry_v6-v6-0-ac4cf61565fb@gmail.com>
 To: Johannes Weiner <hannes@cmpxchg.org>, Yosry Ahmed <yosry@kernel.org>, 
@@ -81,306 +81,141 @@ To: Johannes Weiner <hannes@cmpxchg.org>, Yosry Ahmed <yosry@kernel.org>,
 Cc: Chris Li <chrisl@kernel.org>, linux-mm@kvack.org, 
  linux-kernel@vger.kernel.org, Jianyue Wu <wujianyue000@gmail.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openssh-sha256; t=1788680840; l=9534;
+X-Developer-Signature: v=1; a=openssh-sha256; t=1788680840; l=4916;
  i=wujianyue000@gmail.com; s=id_ed25519; h=from:subject:message-id;
- bh=oQTcMqmcb2ykFzgNObCXJvjBT9oiNdBbL6CkFLTxCy4=;
+ bh=aySURi7Iu1LgXwQtkFbM8kcAXTbBl9vxZBkFnJ9ZVdk=;
  b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgW51Zh3v9nG0Wlld2Ti8ylp1TnO7yB
  H+z9CbXty/WEAQAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QKM3EjzeMxLVbtS5O6J8JsvkhCt4itR5BM71w/fYDp6FCcf8nTgvx/WAI9XZAZDDZi450SCQKHM
- J1JIWeuEL9gY=
+ QPpwHMd9/QdHAzFgAbtJaK6isCG2rxSbIwPWQYshJrQ5IblpffIxNYW2Cc8NvsfLkXjSqcFV+5/
+ /JAf50ZMmygY=
 X-Developer-Key: i=wujianyue000@gmail.com; a=openssh;
  fpr=SHA256:gVWBPJbHGWlCIw+V8F63Ff0k21S7AB5+rZt8+huemvg
 
-Originally zswap kept its pools on an RCU list whose head also served
-as the current pool. Convert the pool table to an allocating xarray
-keyed by a small integer id, and track the current pool with a separate
-RCU-protected pointer.
+struct zswap_entry is one allocation per stored page, so its size is
+pure overhead. It currently embeds an 8-byte pool pointer, even though
+the live pools now sit in an allocating xarray keyed by a small integer
+id that fits in a u8.
 
-The xarray gives each pool a stable id for a later zswap_entry shrink.
-XA_FLAGS_ALLOC1 starts ids at 1, so id 0 remains reserved. The id range
-is bounded by ZSWAP_MAX_POOL_ID because the later entry field is a u8.
+Replace the per-entry pool pointer with that u8 id and resolve it
+through the xarray with xa_load(). xa_load() does its own RCU-protected
+lookup, so the caller needs no rcu_read_lock() section of its own. The
+resolved pool stays valid because a live entry pins it via percpu_ref
+(taken in zswap_store_page()), so its id cannot be reused. A live entry
+never uses the reserved id 0, so a zeroed id resolves to NULL and trips
+a WARN rather than aliasing a live pool.
 
-Keep compressor switching close to the previous flow: look up an
-existing pool with xa_for_each(), resurrect it if reused, or create a
-new one. zswap_pool_create() allocates the pool's id and publishes it
-into the xarray as its final step, so the create call either fully
-publishes or fully unwinds on failure. Publishing makes the pool live,
-so a caller that later fails (e.g. param_set_charp()) must still kill
-the pool to erase it from the xarray.
+The u8 fits in the padding after the bool referenced field, shrinking
+the entry from 56 to 48 bytes on 64-bit. This raises objs_per_slab from
+73 to 85 and saves about 2MiB of metadata per 1GiB of data held in
+zswap.
 
-Compressor switches update zswap_current_pool with rcu_assign_pointer(),
-serialized by the module parameter lock, so no xa_lock is needed for
-that update. The pool walk above is lockless under RCU. xa_lock is taken
-only to allocate (xa_alloc_bh()) and erase (xa_erase_bh()) xarray
-entries.
-
-Suggested-by: Nhat Pham <nphamcs@gmail.com>
-Suggested-by: Yosry Ahmed <yosry@kernel.org>
-Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
+Suggested-by: Chris Li <chrisl@kernel.org>
 Signed-off-by: Jianyue Wu <wujianyue000@gmail.com>
 ---
- mm/zswap.c | 122 +++++++++++++++++++++++++++++++++----------------------------
- 1 file changed, 66 insertions(+), 56 deletions(-)
+ mm/zswap.c | 37 ++++++++++++++++++++++++++++++-------
+ 1 file changed, 30 insertions(+), 7 deletions(-)
 
 diff --git a/mm/zswap.c b/mm/zswap.c
-index e456e5080531..86db023d63ed 100644
+index 86db023d63ed..253eebb971b9 100644
 --- a/mm/zswap.c
 +++ b/mm/zswap.c
-@@ -34,6 +34,7 @@
- #include <linux/writeback.h>
- #include <linux/pagemap.h>
- #include <linux/workqueue.h>
-+#include <linux/xarray.h>
- #include <linux/list_lru.h>
- #include <linux/zsmalloc.h>
- 
-@@ -154,12 +155,23 @@ struct zswap_pool {
- 	struct zs_pool *zs_pool;
- 	struct crypto_acomp_ctx __percpu *acomp_ctx;
- 	struct percpu_ref ref;
--	struct list_head list;
- 	struct rcu_work release_rwork;
- 	struct hlist_node node;
-+	u8 idx;
- 	char tfm_name[CRYPTO_MAX_ALG_NAME];
+@@ -194,7 +194,7 @@ static struct shrinker *zswap_shrinker;
+  *              writeback logic. The entry is only reclaimed by the writeback
+  *              logic if referenced is unset. See comments in the shrinker
+  *              section for context.
+- * pool - the zswap_pool the entry's data is in
++ * pool_idx - id of the zswap_pool that the entry's data is in.
+  * handle - zsmalloc allocation handle that stores the compressed page data
+  * objcg - the obj_cgroup that the compressed memory is charged to
+  * lru - handle to the pool's lru used to evict pages.
+@@ -203,12 +203,22 @@ struct zswap_entry {
+ 	swp_entry_t swpentry;
+ 	unsigned int length;
+ 	bool referenced;
+-	struct zswap_pool *pool;
++	u8 pool_idx;
+ 	unsigned long handle;
+ 	struct obj_cgroup *objcg;
+ 	struct list_head lru;
  };
  
 +/*
-+ * Live pools keyed by id (1..ZSWAP_MAX_POOL_ID).  XA_FLAGS_ALLOC1 keeps id 0
-+ * reserved so it is never handed to a live pool.  XA_FLAGS_LOCK_BH makes the
-+ * xa_lock softirq-safe: it is taken from __zswap_pool_empty(), which runs from
-+ * a percpu_ref release callback in softirq context.
++ * No RCU section is needed around the returned pointer: a stored entry pins
++ * its pool via percpu_ref (taken in zswap_store_page()), so the id cannot be
++ * reused under us.  Callers WARN and handle a NULL from a corrupt pool_idx.
 + */
-+#define ZSWAP_FIRST_POOL_ID 1
-+#define ZSWAP_MAX_POOL_ID U8_MAX
-+static DEFINE_XARRAY_FLAGS(zswap_pools, XA_FLAGS_ALLOC1 | XA_FLAGS_LOCK_BH);
-+static struct zswap_pool __rcu *zswap_current_pool;
++static struct zswap_pool *zswap_entry_pool(struct zswap_entry *entry)
++{
++	return xa_load(&zswap_pools, entry->pool_idx);
++}
 +
- /* Global LRU lists shared by all zswap pools. */
- static struct list_lru zswap_list_lru;
- 
-@@ -200,10 +212,6 @@ struct zswap_entry {
  static struct xarray *zswap_trees[MAX_SWAPFILES];
  static unsigned int nr_zswap_trees[MAX_SWAPFILES];
  
--/* RCU-protected iteration */
--static LIST_HEAD(zswap_pools);
--/* protects zswap_pools list modification */
--static DEFINE_SPINLOCK(zswap_pools_lock);
- /* pool counter to provide unique names to zsmalloc */
- static atomic_t zswap_pools_count = ATOMIC_INIT(0);
- 
-@@ -275,6 +283,7 @@ static struct zswap_pool *zswap_pool_create(char *compressor)
- 	struct zswap_pool *pool;
- 	char name[38]; /* 'zswap' + 32 char (max) num + \0 */
- 	int ret, cpu;
-+	u32 id;
- 
- 	if (!zswap_has_pool && !strcmp(compressor, ZSWAP_PARAM_UNSET))
- 		return NULL;
-@@ -320,12 +329,29 @@ static struct zswap_pool *zswap_pool_create(char *compressor)
- 			      PERCPU_REF_ALLOW_REINIT, GFP_KERNEL);
- 	if (ret)
- 		goto ref_fail;
--	INIT_LIST_HEAD(&pool->list);
+@@ -759,9 +769,13 @@ static void zswap_entry_cache_free(struct zswap_entry *entry)
+  */
+ static void zswap_entry_free(struct zswap_entry *entry)
+ {
++	struct zswap_pool *pool = zswap_entry_pool(entry);
 +
-+	/*
-+	 * Publish only after the pool is fully built, so lockless walkers
-+	 * never see a half-initialized pool.  The _bh variant pairs with the
-+	 * softirq-context xa_lock taken in __zswap_pool_empty().
-+	 */
-+	ret = xa_alloc_bh(&zswap_pools, &id, pool,
-+			  XA_LIMIT(ZSWAP_FIRST_POOL_ID, ZSWAP_MAX_POOL_ID),
-+			  GFP_KERNEL);
-+	if (ret) {
-+		if (ret == -EBUSY)
-+			pr_err("cannot allocate pool id (max %d live pools)\n",
-+			       ZSWAP_MAX_POOL_ID - ZSWAP_FIRST_POOL_ID + 1);
-+		goto xa_fail;
+ 	zswap_lru_del(entry);
+-	zs_free(entry->pool->zs_pool, entry->handle);
+-	zswap_pool_put(entry->pool);
++	if (!WARN_ON_ONCE(!pool)) {
++		zs_free(pool->zs_pool, entry->handle);
++		zswap_pool_put(pool);
 +	}
-+	pool->idx = id;
+ 	if (entry->objcg) {
+ 		obj_cgroup_uncharge_zswap(entry->objcg, entry->length);
+ 		obj_cgroup_put(entry->objcg);
+@@ -918,12 +932,15 @@ static bool zswap_compress(struct page *page, struct zswap_entry *entry,
  
- 	zswap_pool_debug("created", pool);
- 
- 	return pool;
- 
-+xa_fail:
-+	percpu_ref_exit(&pool->ref);
- ref_fail:
- 	cpuhp_state_remove_instance(CPUHP_MM_ZSWP_POOL_PREPARE, &pool->node);
- 
-@@ -386,28 +412,22 @@ static void __zswap_pool_release(struct work_struct *work)
- 	WARN_ON(!percpu_ref_is_zero(&pool->ref));
- 	percpu_ref_exit(&pool->ref);
- 
--	/* pool is now off zswap_pools list and has no references. */
-+	/* The pool is no longer in zswap_pools and has no references. */
- 	zswap_pool_destroy(pool);
- }
- 
--static struct zswap_pool *zswap_pool_current(void);
--
- static void __zswap_pool_empty(struct percpu_ref *ref)
+ static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
  {
- 	struct zswap_pool *pool;
+-	struct zswap_pool *pool = entry->pool;
++	struct zswap_pool *pool = zswap_entry_pool(entry);
+ 	struct scatterlist input[2]; /* zsmalloc returns an SG list 1-2 entries */
+ 	struct scatterlist output;
+ 	struct crypto_acomp_ctx *acomp_ctx;
+ 	int ret = 0, dlen;
  
- 	pool = container_of(ref, typeof(*pool), ref);
- 
--	spin_lock_bh(&zswap_pools_lock);
--
--	WARN_ON(pool == zswap_pool_current());
-+	WARN_ON(pool == rcu_access_pointer(zswap_current_pool));
- 
--	list_del_rcu(&pool->list);
-+	xa_erase_bh(&zswap_pools, pool->idx);
- 
- 	INIT_RCU_WORK(&pool->release_rwork, __zswap_pool_release);
- 	queue_rcu_work(system_percpu_wq, &pool->release_rwork);
--
--	spin_unlock_bh(&zswap_pools_lock);
++	if (WARN_ON_ONCE(!pool))
++		return false;
++
+ 	acomp_ctx = raw_cpu_ptr(pool->acomp_ctx);
+ 	mutex_lock(&acomp_ctx->mutex);
+ 	zs_obj_read_sg_begin(pool->zs_pool, entry->handle, input, entry->length);
+@@ -959,7 +976,7 @@ static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
+ 	pr_alert_ratelimited("Decompression error from zswap (%d:%lu %s %u->%d)\n",
+ 						swp_type(entry->swpentry),
+ 						swp_offset(entry->swpentry),
+-						entry->pool->tfm_name,
++						pool->tfm_name,
+ 						entry->length, dlen);
+ 	return false;
  }
- 
- static int __must_check zswap_pool_tryget(struct zswap_pool *pool)
-@@ -433,20 +453,13 @@ static struct zswap_pool *__zswap_pool_current(void)
- {
- 	struct zswap_pool *pool;
- 
--	pool = list_first_or_null_rcu(&zswap_pools, typeof(*pool), list);
-+	pool = rcu_dereference(zswap_current_pool);
- 	WARN_ONCE(!pool && zswap_has_pool,
- 		  "%s: no page storage pool!\n", __func__);
- 
- 	return pool;
- }
- 
--static struct zswap_pool *zswap_pool_current(void)
--{
--	assert_spin_locked(&zswap_pools_lock);
--
--	return __zswap_pool_current();
--}
--
- static struct zswap_pool *zswap_pool_current_get(void)
- {
- 	struct zswap_pool *pool;
-@@ -462,23 +475,28 @@ static struct zswap_pool *zswap_pool_current_get(void)
- 	return pool;
- }
- 
--/* type and compressor must be null-terminated */
-+/* compressor must be null-terminated */
- static struct zswap_pool *zswap_pool_find_get(char *compressor)
- {
- 	struct zswap_pool *pool;
-+	unsigned long id;
- 
--	assert_spin_locked(&zswap_pools_lock);
--
--	list_for_each_entry_rcu(pool, &zswap_pools, list) {
-+	/*
-+	 * __zswap_pool_empty() can erase from zswap_pools in softirq while we
-+	 * walk.  rcu_read_lock() keeps the walk consistent and each pool alive
-+	 * across tryget().  xa_for_each()'s own RCU does not span the loop body.
-+	 */
-+	rcu_read_lock();
-+	xa_for_each(&zswap_pools, id, pool) {
- 		if (strcmp(pool->tfm_name, compressor))
- 			continue;
- 		/* if we can't get it, it's about to be destroyed */
--		if (!zswap_pool_tryget(pool))
--			continue;
--		return pool;
-+		if (zswap_pool_tryget(pool))
-+			break;
- 	}
-+	rcu_read_unlock();
- 
--	return NULL;
-+	return pool;
- }
- 
- static unsigned long zswap_max_pages(void)
-@@ -495,9 +513,14 @@ unsigned long zswap_total_pages(void)
- {
- 	struct zswap_pool *pool;
- 	unsigned long total = 0;
-+	unsigned long id;
+@@ -1417,6 +1434,13 @@ static bool zswap_store_page(struct page *page,
+ 	if (!zswap_compress(page, entry, pool))
+ 		goto compress_failed;
  
 +	/*
-+	 * rcu_read_lock() keeps each pool alive across zs_get_total_pages().
-+	 * xa_for_each()'s own RCU does not span the loop body.
++	 * Set pool_idx before the xa_store() below publishes the entry, or a
++	 * concurrent reader could resolve a stale pool_idx left by slab reuse
++	 * to an unrelated live pool.
 +	 */
- 	rcu_read_lock();
--	list_for_each_entry_rcu(pool, &zswap_pools, list)
-+	xa_for_each(&zswap_pools, id, pool)
- 		total += zs_get_total_pages(pool->zs_pool);
- 	rcu_read_unlock();
- 
-@@ -554,20 +577,13 @@ static int zswap_compressor_param_set(const char *val, const struct kernel_param
- 		return -ENOENT;
- 	}
- 
--	spin_lock_bh(&zswap_pools_lock);
--
- 	pool = zswap_pool_find_get(s);
--	if (pool) {
-+	if (!pool) {
-+		pool = zswap_pool_create(s);
-+	} else {
- 		zswap_pool_debug("using existing", pool);
--		WARN_ON(pool == zswap_pool_current());
--		list_del_rcu(&pool->list);
--	}
--
--	spin_unlock_bh(&zswap_pools_lock);
-+		WARN_ON(pool == rcu_access_pointer(zswap_current_pool));
- 
--	if (!pool)
--		pool = zswap_pool_create(s);
--	else {
- 		/*
- 		 * Restore the initial ref dropped by percpu_ref_kill()
- 		 * when the pool was decommissioned and switch it again
-@@ -584,24 +600,18 @@ static int zswap_compressor_param_set(const char *val, const struct kernel_param
- 	else
- 		ret = -EINVAL;
- 
--	spin_lock_bh(&zswap_pools_lock);
--
-+	/*
-+	 * Compressor switches are serialized by the kernel param lock, so this
-+	 * is the only writer of zswap_current_pool: no xa_lock needed.
-+	 */
- 	if (!ret) {
--		put_pool = zswap_pool_current();
--		list_add_rcu(&pool->list, &zswap_pools);
-+		put_pool = rcu_access_pointer(zswap_current_pool);
-+		rcu_assign_pointer(zswap_current_pool, pool);
- 		zswap_has_pool = true;
- 	} else if (pool) {
--		/*
--		 * Add the possibly pre-existing pool to the end of the pools
--		 * list; if it's new (and empty) then it'll be removed and
--		 * destroyed by the put after we drop the lock
--		 */
--		list_add_tail_rcu(&pool->list, &zswap_pools);
- 		put_pool = pool;
- 	}
- 
--	spin_unlock_bh(&zswap_pools_lock);
--
- 	/*
- 	 * Drop the ref from either the old current pool,
- 	 * or the new pool we failed to add
-@@ -1788,7 +1798,7 @@ static int zswap_setup(void)
- 	pool = __zswap_pool_create_fallback();
- 	if (pool) {
- 		pr_info("loaded using pool %s\n", pool->tfm_name);
--		list_add(&pool->list, &zswap_pools);
-+		rcu_assign_pointer(zswap_current_pool, pool);
- 		zswap_has_pool = true;
- 		static_branch_enable(&zswap_ever_enabled);
- 	} else {
++	entry->pool_idx = pool->idx;
++
+ 	old = xa_store(swap_zswap_tree(page_swpentry),
+ 		       swp_offset(page_swpentry),
+ 		       entry, GFP_KERNEL);
+@@ -1462,7 +1486,6 @@ static bool zswap_store_page(struct page *page,
+ 	 *    The publishing order matters to prevent writeback from seeing
+ 	 *    an incoherent entry.
+ 	 */
+-	entry->pool = pool;
+ 	entry->swpentry = page_swpentry;
+ 	entry->objcg = objcg;
+ 	entry->referenced = true;
 
 -- 
 2.43.0
