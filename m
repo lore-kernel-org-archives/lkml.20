@@ -1,111 +1,91 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from lan.nucleusys.com (lan.nucleusys.com [92.247.61.126])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C6641F345;
-	Sun,  6 Sep 2026 08:08:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D3FD41DE05;
+	Sun,  6 Sep 2026 08:08:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.247.61.126
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788682108; cv=none; b=EUx6o5qTWhuQutADO3oRKItbqnD5XS+yZijOgnFgtMeNA04zXXUh15oXHt2BajciycOsLUlys216yfhLDRx3A6MInQYbwqW/tv+8GTMMsAsLyklalr1bJGMw/cGUKHkDl78muypE6M5XNGwssoz5DT9Cw/pulNmhadODBVpMxFQ=
+	t=1788682114; cv=none; b=mKaG5s8NkrF1YxFvudA9P7C/s9FS2XAT+Zk8bIie/yGfHYpZfg/eI+FhV6H52RyGOndEJaCerzZPIlejvhxSgpZjsQpn+1vBV/EtnFNDCkywBG6Eu39TdHksaSJ+hk6DRXIQ0jpJM3GtdAVlGOfkih9Kec02H4rQa6WzlM9HQ8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788682108; c=relaxed/simple;
-	bh=/SsplEHuMFog8UAJ1kZ8XL2L15XWlrnO8ZzeE6VureA=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=KyWmDHVuXdxxEmP/fvTzSAfzAASrkiWmyW2zcvc/X/r8RRCiHW4llpk4itHJ5vQufMAzl2+eWsX7k4MZ8hbEkZ7obxB/RI7jW2rJ1flsVJs85ou8sWNomNQyc/TA7tqmdy0oApAdDsobehWmyy/sP6kFFXq7Ww9FOlcl5IG1UfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=lA/dXTTF; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788682114; c=relaxed/simple;
+	bh=HMKw1qkRvIkC0UDtECn9DQ58auZHhqG8gtPrf4sQSjU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AZP1m6fEa3WM/zQ/xtWKuotfRbDjEzcktPjTQ9cFqSNMh/qhKZ7SLYyub6T+tukQlXz1phbUsq3y263iNl5naHmAxEULOrKUW8LzDsRJRp5fBrsZbTRERxXtTQUexoLtTMQ3m3w9rVvI5QXA1DOC+Ju1xVTfz6wxRdIMApU93Pk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nucleusys.com; spf=pass smtp.mailfrom=nucleusys.com; dkim=pass (2048-bit key) header.d=nucleusys.com header.i=@nucleusys.com header.b=FkZg3Af+; arc=none smtp.client-ip=92.247.61.126
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nucleusys.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nucleusys.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="lA/dXTTF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:Content-Type:
-	MIME-Version; bh=H//yKEWH7uGYDzEIgQa88pwd64vRhIeJuk+RkZvLUtI=;
-	b=lA/dXTTFCjPe65etT7koqz9kRmupLUgpvW6BXTuY/YxmF+W8aFViggbL/4KEQ2
-	mmecpRDNAhbObe4NvO4FmbqC+EFd1mI8suFdthRK176zJ66DcEU7UdA6L9h8UBKF
-	RDJAxV/dtg60JJTHfu50BDvTnVaROnRbsvFRN3/cTvCQA=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wDn7zMxH51qMxYMBA--.25025S2;
-	Sun, 06 Sep 2026 16:07:14 +0800 (CST)
-From: Pengpeng Hou <hppiscas@163.com>
-To: Anup Patel <anup@brainfault.org>,
-	Atish Patra <atish.patra@linux.dev>
-Cc: Pengpeng Hou <hppiscas@163.com>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	kvm@vger.kernel.org,
-	kvm-riscv@lists.infradead.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Andrew Jones <andrew.jones@oss.qualcomm.com>
-Subject: [PATCH] RISC-V: KVM: Publish NACL HFENCE configuration last
-Date: Sun,  6 Sep 2026 16:07:11 +0800
-Message-ID: <caplitmus-rv.c91c005b844342d9a9f60949b04c520d.d65@163.com>
-X-Mailer: git-send-email 2.50.1
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=nucleusys.com header.i=@nucleusys.com header.b="FkZg3Af+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nucleusys.com; s=xyz;
+	t=1788682099; bh=HMKw1qkRvIkC0UDtECn9DQ58auZHhqG8gtPrf4sQSjU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=FkZg3Af+k2UAmshiuHnONZBaJ4Spi79eS4zh0eNqc1gXa4yJsTMG/R92oZGNfPhT5
+	 miP1DvxznRRioWyEIhHNm8vL9ENzYRfl0uWMlwtvD39IZeDO47Hob9QgjfVj2XEom7
+	 Bulrdaxai12QjJQPVSYKrQljnPbpYi8H1H74xcdesaDUW9OZ+uys2ilWT++fDHd1hp
+	 E3wVYzaGuseKpKWs9JKe7UQVbK605QwpOnMGl528bJo7/N1jClLIyOPfyH+fqVCs1a
+	 /RvqTgwsFpPB9i6VCdDlq4lY+fnkXd/C3qc9f/CxKrUR3vCNGFCaeaQPMM1JzmN5JG
+	 hhTDLTEmOSN6A==
+Received: from carbon.k.g (unknown [85.187.61.220])
+	by lan.nucleusys.com (Postfix) with ESMTPSA id 16F1F3FD2D;
+	Sun, 06 Sep 2026 11:08:19 +0300 (EEST)
+Date: Sun, 6 Sep 2026 11:08:18 +0300
+From: Petko Manolov <petkan@nucleusys.com>
+To: Alan Stern <stern@rowland.harvard.edu>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Oliver Neukum <oneukum@suse.com>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Michal Hocko <mhocko@suse.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	linux-usb@vger.kernel.org
+Subject: Re: [PATCH v3 net-next 5/6] net: usb: pegasus: Move long delayed
+ work on system_dfl_long_wq
+Message-ID: <20260906080818.GC6356@carbon.k.g>
+References: <20260720100902.155605-1-marco.crivellari@suse.com>
+ <20260720100902.155605-6-marco.crivellari@suse.com>
+ <f972b514-87ef-45bc-8258-db199a4cc0b8@suse.com>
+ <20260825151812.4aJyFUgE@linutronix.de>
+ <31b46916-dd89-4ae9-89b9-9d39e29e8e69@rowland.harvard.edu>
+ <20260828094318.bOajNBno@linutronix.de>
+ <b6cf44a1-d2b1-443d-8efe-c596ef89cc2a@rowland.harvard.edu>
+ <20260905150450.2hrac_GV@linutronix.de>
+ <b6e6e8d0-0888-4bbc-85b8-ca3bdac88398@rowland.harvard.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDn7zMxH51qMxYMBA--.25025S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tF1xXw13uw15urW8KFyDJrb_yoW8AFWxpF
-	ZakrWrKr1akr1fK3s0v393uryrWan5uFW7J39xuayjvwnxZ3WrX34vqrWUZa45GF4kZa1I
-	9ryY9FWjkFy5JwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRdhLbUUUUU=
-X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbCxhLVnmqdHzIH7QAA3v
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b6e6e8d0-0888-4bbc-85b8-ca3bdac88398@rowland.harvard.edu>
 
-The SBI NACL interface requires software to write Page_Number and
-Page_Count before publishing an HFENCE entry with Config.Pending set.
-__kvm_riscv_nacl_hfence() currently stores the pending configuration first.
+On 26-09-05 12:33:07, Alan Stern wrote:
+> On Sat, Sep 05, 2026 at 05:04:50PM +0200, Sebastian Andrzej Siewior wrote:
+> > 
+> > Still the wrong thing to do? The driver should do either flush_work() or
+> > cancel_work_sync() (not flush_workqueue()).
+> 
+> I think we're in agreement.  If the driver relies on calling
+> flush_workqueue(), it should not use a general-purpose workqueue.  However,
+> flush_work() or cancel_work_sync() is okay on an unordered general-purpose
+> workqueue.
 
-Write the payload first and order those stores before publishing the
-configuration word with WRITE_ONCE(). Use a write barrier that also
-applies to UP kernels, since the consumer is outside the Linux SMP
-domain.
+The driver is actually using queue_delayed_work()/cancel_delayed_work_sync() so
+the above is of no concern.
 
-Keep nacl_hfence_mkconfig() unchanged: setting Pending in a local value
-does not publish the entry. The shared-memory store is the publication
-point.
+Due to HW limitations the carrier state should be checked on a regular interval
+and reported to the upper network layers.  This worker relies only on generic
+USB transfers, to and from the usb-to-eth adapter, and as such does not depend
+on other I/O.
 
-The issue was found by our static-analysis tool and manually reviewed.
+Failure to acquire correct carrier check does not seem to affect the device's
+functionality.  Overall i don't think the proposed workqueue change is
+disruptive.
 
-Fixes: d466c19cead5 ("RISC-V: KVM: Add common nested acceleration support")
-Assisted-by: GPT-5
-Signed-off-by: Pengpeng Hou <hppiscas@163.com>
----
 
-diff --git a/arch/riscv/kvm/nacl.c b/arch/riscv/kvm/nacl.c
-index 9aff03c4..c5c4907a 100644
---- a/arch/riscv/kvm/nacl.c
-+++ b/arch/riscv/kvm/nacl.c
-@@ -5,6 +5,7 @@
- 
- #include <linux/kvm_host.h>
- #include <linux/vmalloc.h>
-+#include <asm/barrier.h>
- #include <asm/kvm_nacl.h>
- 
- DEFINE_STATIC_KEY_FALSE(kvm_riscv_nacl_available);
-@@ -42,12 +43,15 @@ again:
- 		}
- 	}
- 
--	entp = shmem + SBI_NACL_SHMEM_HFENCE_ENTRY_CONFIG(i);
--	*entp = cpu_to_lelong(control);
- 	entp = shmem + SBI_NACL_SHMEM_HFENCE_ENTRY_PNUM(i);
- 	*entp = cpu_to_lelong(page_num);
- 	entp = shmem + SBI_NACL_SHMEM_HFENCE_ENTRY_PCOUNT(i);
- 	*entp = cpu_to_lelong(page_count);
-+
-+	/* Publish the payload before setting Config.Pending. */
-+	wmb();
-+	entp = shmem + SBI_NACL_SHMEM_HFENCE_ENTRY_CONFIG(i);
-+	WRITE_ONCE(*entp, cpu_to_lelong(control));
- }
- 
- int kvm_riscv_nacl_enable(void)
-
-base-commit: 4d7d9486c04d917265f64c55bd23b2cc4fe7749c
-
+		Petko
