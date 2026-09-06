@@ -1,98 +1,126 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B83817C211;
-	Sun,  6 Sep 2026 01:38:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB8430C618;
+	Sun,  6 Sep 2026 01:41:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788658720; cv=none; b=OhZLHBgPlWNR77vl2bRdrf/f/1zEjHRy7RORQyYNQc+BPLVT6fib3c1rOuuUumSrb1HgLk7W4McOOiGF2gDPqaHz16DU+6shdIdIZU39CaJqTYTa6yEnqpxUtMbTxefKKFfidEr4ShOlOojzxMyEIV44uiVJZoSRBzNkgQdFe44=
+	t=1788658886; cv=none; b=jlWZw5oO66vYis9Z3fpt4EDio+5u/7iPaWdnMO65I7z4gKId95nM9NEURHUOpa51Sl7CJxf2COB9ufKfLDkcg3/IqPnXhmrH1sZ/wSsL67gP/o2T0IQBSviFY8MjwiFAQ3ekHPgeaBYX7MDvHL/T5CaRjj3Fyeu+RVzDntmkrcU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788658720; c=relaxed/simple;
-	bh=pkVHo6XfekYcbVFSVTGQ5S8EN/iE3gGIxcoeJVVprpE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Qqb6FwrensnNPiMHijwyscsP814R2a1aly96Jcrl9rHtzBpmMdGzcwBi6Nu+xBfuRoMvGSvwN0pQS36QkZWDw285Xot1N1SpsqHiMxQBNwBhVNkqOIu1DjJJxVCYxTfupgoOPXbWf3QtClDwJjvNogZ3R3P+12w9VmKmuzN0Dfk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=wX45L/Nk; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1788658886; c=relaxed/simple;
+	bh=wBn+RPBD66DE4XtSVWIYB4Hg1YYjMjcP2taQPKPYJM0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Y0vWxd/NuiO/0wYLsFfTxN138qf1XJaoSTnmx+ZnalSS4Mz6bNPWtKiJi6RYBFJtQZG45XUfmRikHUsa1u+TIy4N06s9Hb7egIGxqDrNMOAOll/NvugQySFQg6nLsQkNFo+BxzVL0G1YUgCOEwFQfZ37gpb4SOsb4GXT9isrJhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fMg5kz1+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="wX45L/Nk"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6861bkn871544854, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1788658666; bh=pkVHo6XfekYcbVFSVTGQ5S8EN/iE3gGIxcoeJVVprpE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=wX45L/NkZqE++ONL0HvCa9YrVqxWApKVI2GJViBkJghmiXOzVZYJYjpzemxXwOoC5
-	 fXIjxVLJem9waHQ8Qa57ESkjoORWZChXRPMHG8tRHydSGF/vvkTwlUO71SghrvDRof
-	 anFZrnRPdXiPFPKrlPkHhkst72HaMcYuvqyWeLPNcUdAcnHUmd8OcuVdpYaBVBgNTl
-	 cfltK+GOTv14dkOOhY++maM1lYggxePzPMj1rD3RuWPePk5yrl4M7EJ3Kk4B7G6wUa
-	 te58RRaZQ4XhznKd7W7Tr9ADSq3lBEY6tzR1XsUoHKm4ARqkyuxjOWJeKDIAWEIY02
-	 isdGiNCA8iUBg==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6861bkn871544854
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Sun, 6 Sep 2026 09:37:46 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Sun, 6 Sep 2026 09:37:46 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::126f:59ad:658:674d%10]) with mapi id
- 15.02.2562.043; Sun, 6 Sep 2026 09:37:46 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Luka Gejak <luka.gejak@linux.dev>, "linux-wireless@vger.kernel.org"
-	<linux-wireless@vger.kernel.org>
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
- Straube" <straube.linux@gmail.com>, Bitterblue Smith
-	<rtl8821cerfe2@gmail.com>, Peter Robinson <pbrobinson@gmail.com>, "Hans de
- Goede" <johannes.goede@oss.qualcomm.com>
-Subject: RE: [PATCH v8 0/6] wifi: rtw88: preparations for RTL8723B/RTL8723BS
-Thread-Topic: [PATCH v8 0/6] wifi: rtw88: preparations for RTL8723B/RTL8723BS
-Thread-Index: AQHdNK98EWXiqeD5uE6QFc7swG8a87awGBYAgAdVyYCAAdP9gIAHklPg
-Date: Sun, 6 Sep 2026 01:37:46 +0000
-Message-ID: <f3e7701d6eb045faa31c1b914eae6228@realtek.com>
-References: <20260825163314.1590-1-luka.gejak@linux.dev>
- <4866D935-FCC8-4F24-9C05-8678DCB22533@linux.dev>
- <f1454e9c2add47b2b01a0adb8233455f@realtek.com>
- <B2A0C047-C517-4AB4-BD6E-3EC6E9DA23EB@linux.dev>
-In-Reply-To: <B2A0C047-C517-4AB4-BD6E-3EC6E9DA23EB@linux.dev>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fMg5kz1+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A20C61F00A3A;
+	Sun,  6 Sep 2026 01:41:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788658885;
+	bh=Vvw4uC3ADqP3m1Y2DpiU1raTJp1h8zMJUxu2QyRZaY0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=fMg5kz1+3TaXgxIDdpa/JsssJ+pwMttUldcyTKeqQKYECw32U91gqt2wkGAiQLe7z
+	 fA+fi6iO3DkWX0Sgwg/zmW278Ewp8hH7MM976SFzAY6R4mCDWRYzj9/qEtWzOQgcoF
+	 mYaibh17deVlHC7mcZaHoZEzqye83a5xEHZyEpNgHDGXmambvn8vIbcQ1Ml0Nj5mFb
+	 uq9ieS4+ikI/JYuAUrldtJL5IJObJDJdMOUleqWS0oQGpJ1ZynQQwA00WmDXyqVUbF
+	 T8VZViYZGksb+fOao9prvXfgvzW6FWCQXvLtEUdevhQC07dWELns1+56iBYKy0IXsh
+	 Df49eIKt7BRXQ==
+Date: Sun, 6 Sep 2026 02:41:22 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: "David Lechner (TI)" <dlechner@baylibre.com>
+Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, Chris Hall <c-hall@ti.com>, Patrick Edwards
+ <pedwards@ti.com>, Kurt Borja <kuurtb@gmail.com>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 10/10] iio: ABI: add settlingtime attributes
+Message-ID: <20260906024122.5c434b32@jic23-huawei>
+In-Reply-To: <20260904-iio-adc-ti-ads112c14-filter-support-v2-10-f86592360658@baylibre.com>
+References: <20260904-iio-adc-ti-ads112c14-filter-support-v2-0-f86592360658@baylibre.com>
+	<20260904-iio-adc-ti-ads112c14-filter-support-v2-10-f86592360658@baylibre.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-THVrYSBHZWphayA8bHVrYS5nZWpha0BsaW51eC5kZXY+IHdyb3RlOg0KPiBIaSBQaW5nLUtlLA0K
-PiBPbiBBdWd1c3QgMzEsIDIwMjYgNDoyMzo0OCBBTSBHTVQrMDI6MDAsIFBpbmctS2UgU2hpaCA8
-cGtzaGloQHJlYWx0ZWsuY29tPiB3cm90ZToNCj4gDQo+IFRoZSBwcm9iZV93YWl0X21zIHRlc3Qg
-eW91IHN1Z2dlc3RlZCBoYXMgcnVuLCBuaW5lIGhvdXJzIGluIHRoZSB0ZXN0ZXIncw0KPiBwb29y
-IHNpZ25hbCBlbnZpcm9ubWVudC4gQXQgMjAwMCBtcyBoZSBzYXcgb25lICJGYWlsZWQgdG8gc2Vu
-ZCBudWxsZnVuYw0KPiAuLi4gZGlzY29ubmVjdGluZyIuIEF0IDUwMCBtcyBpdCB3YXMgb25lIGV2
-ZXJ5IHR3ZW50eSB0byBmb3J0eSBzZWNvbmRzLg0KPiBTYW1lIGVudmlyb25tZW50LCBzYW1lIGRy
-aXZlci4NCg0KV2l0aG91dCBwcm9wZXIgcXVvdGEgbWVzc2FnZSwgSSBuZWVkIGNvbWluZyBiYWNr
-IHRvIHByZXZpb3VzIG1haWwgYW5kIGZpbmRpbmcNCm91dCB0aGUgc3R1ZmYgeW91IHdhbnQgdG8g
-ZGlzY3Vzcy4uLg0KDQpJIGRvbid0IGtub3cgaG93IGJhZCB0aGUgcG9vciBzaWduYWwgZW52aXJv
-bm1lbnQgd2FzLiBCdXQgMjAwMG1zIGxvb2tzIHZlcnkNCnN0cmFuZ2UgdG8gbWUsIGl0IGlzIHRv
-byBsYXJnZS4gSGF2ZSB5b3UgY2FwdHVyZWQgYWlyIHNuaWZmZXIgdG8gc2VlIHdoYXQNCmhhcHBl
-bmVkPyANCg0KSSB0aGluayB3ZSBjYW4gY2hlY2sgdGhyZWUgcG9pbnRzDQoxKSBJZiB0aGUgcHJv
-YmUgdXNlcyBsb3cgcmF0ZSAoZS5nLiA2TSkNCjIpIHNpZ25hbCBzdHJlbmd0aCAgDQozKSBzaWdu
-YWwgcXVhbGl0eSANCiAgIFdpdGhvdXQgaGFyZHdhcmUgZXF1aXBtZW50LCB0aGlzIGlzIGhhcmQg
-dG8gdXMuIEkgdGhpbmsgd2UgY2FuIGNvbXBhcmUNCiAgIHRoZSBsaW5rIHJhdGUgd2l0aCBvdGhl
-ciBXaUZpIGNhcmQgYXQgdGhlIHNhbWUgZGlzdGFuY2UgZmFyIGZyb20gQVAuDQoNCg0KPiANCj4g
-PiBCdXQgSSBmZWVsIHRoaXMgY2FzZSwgdXNpbmcgaWVlZTgwMjExX3B1cmdlX3R4X3F1ZXVlKCkg
-aXMgZXF1aXZhbGVudD8NCj4gDQo+IE5vdCBlcXVpdmFsZW50LiBpZWVlODAyMTFfcHVyZ2VfdHhf
-cXVldWUoKSBjYWxscyBpZWVlODAyMTFfZnJlZV90eHNrYigpLA0KPiB3aGljaCBjYWxscyBpZWVl
-ODAyMTFfcmVwb3J0X3VzZWRfc2tiKCkgd2l0aCBkcm9wcGVkID0gdHJ1ZTogdGhhdA0KPiBzZXR0
-bGVzIHRoZSBhaXJ0aW1lIGFjY291bnRpbmcgYW5kIGZyZWVzIHRoZSBza2IgcHJvcGVybHksIGJ1
-dCBuZXZlcg0KPiByZWFjaGVzIGllZWU4MDIxMV9zdGFfdHhfbm90aWZ5KCkuIE9ubHkgaWVlZTgw
-MjExX3R4X3N0YXR1c18qKCkgZG9lcy4gSXQNCj4gZml4ZXMgdGhlIG93bmVyc2hpcCBidWcgYW5k
-IHRlbGxzIHRoZSBjb25uZWN0aW9uIHBvbGwgbm90aGluZywgd2hpY2gNCj4gZ2l2ZW4gdGhlIGFi
-b3ZlIGRvZXMgbm90IG1hdHRlci4NCg0KVGhlIGllZWU4MDIxMV9wdXJnZV90eF9xdWV1ZSgpIEkg
-bWVudGlvbmVkIGlzIHRvIHJlZmVyZW5jZSB0byB0aGUgcG9pbnQ6DQoNCj4gPiAgIHJ0d190eF9y
-ZXBvcnRfcHVyZ2VfdGltZXIoKSAtPiBza2JfcXVldWVfcHVyZ2UoKQ0KPiBJIHRoaW5rIGl0IHNo
-b3VsZCB1c2UgaWVlZTgwMjExX3B1cmdlX3R4X3F1ZXVlKCkgaW5zdGVhZCBvZiBza2JfcXVldWVf
-cHVyZ2UoKS4NCg0KDQo=
+On Fri, 04 Sep 2026 17:09:55 -0500
+"David Lechner (TI)" <dlechner@baylibre.com> wrote:
+
+> Add new generic attributes for input settling time introduced in the
+> ti-ads122c14 driver.
+> 
+> Usually, in IIO the output data rate is 1 / sampling_frequency. There
+> are known devices (generally ones with filtering and oversampling) where
+> the first conversion takes longer than 1 / sampling_frequency to allow
+> the input to settle in order to have a valid conversion result. Then,
+> any subsequent conversions in a continuous sampling mode would be done
+> at the regular interval defined by 1 / sampling_frequency.
+> 
+> This attribute is intended to allow controlling that settling time
+> duration.
+> 
+> A device that has input chopping enabled would see this settling time on
+> every conversion since the device setting (i.e. the input mux) changes
+> on every conversion.
+> 
+> Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
+One query inline. I'd like a bit in the commit description on that
+mostly because I'm failing to remember the answer and there isn't
+an obvious right answer.
+
+Jonathan
+
+> ---
+>  Documentation/ABI/testing/sysfs-bus-iio | 26 ++++++++++++++++++++++++++
+>  1 file changed, 26 insertions(+)
+> 
+> diff --git a/Documentation/ABI/testing/sysfs-bus-iio b/Documentation/ABI/testing/sysfs-bus-iio
+> index a8e1cb8e7490..045589058655 100644
+> --- a/Documentation/ABI/testing/sysfs-bus-iio
+> +++ b/Documentation/ABI/testing/sysfs-bus-iio
+> @@ -2402,6 +2402,32 @@ Description:
+>  		Specifies which filter type apply to the channel. The possible
+>  		values are given by the filter_type_available attribute.
+>  
+> +What:		/sys/bus/iio/devices/iio:deviceX/in_resistanceY_settlingtime
+> +What:		/sys/bus/iio/devices/iio:deviceX/in_tempY_settlingtime
+> +What:		/sys/bus/iio/devices/iio:deviceX/in_voltageY_settlingtime
+> +What:		/sys/bus/iio/devices/iio:deviceX/in_voltageY-voltageZ_settlingtime
+> +KernelVersion:	7.4
+> +Contact:	linux-iio@vger.kernel.org
+> +Description:
+> +		Set/read total settling time in seconds for a device to settle
+> +		after starting the first conversion after any settings have
+> +		changed. The data for the conversion is outputted at the end of
+> +		this time.
+
+This probably came up in earlier discussions and I've forgotten it but why
+is this not the difference between the time needed for first sample and
+that needed for subsequent. That's the only bit that is settling related rather
+than acquisition time.
+
+> +
+> +		Depending on the device and how it is used, this settling time
+> +		may apply to more than just the first conversion, e.g. to every
+> +		conversion in a single-shot conversion mode or when a device
+> +		setting changes after each conversion (input chopping).
+> +
+> +What:		/sys/bus/iio/devices/iio:deviceX/in_resistanceY_settlingtime_available
+> +What:		/sys/bus/iio/devices/iio:deviceX/in_tempY_settlingtime_available
+> +What:		/sys/bus/iio/devices/iio:deviceX/in_voltageY_settlingtime_available
+> +What:		/sys/bus/iio/devices/iio:deviceX/in_voltageY-voltageZ_settlingtime_available
+> +KernelVersion:	7.4
+> +Contact:	linux-iio@vger.kernel.org
+> +Description:
+> +		Available settlingtime values in IIO range or list format.
+> +
+>  What:		/sys/.../events/in_proximity_thresh_either_runningperiod
+>  KernelVersion:	6.6
+>  Contact:	linux-iio@vger.kernel.org
+> 
+
