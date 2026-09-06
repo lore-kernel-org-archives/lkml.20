@@ -1,44 +1,42 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC173AF677;
-	Sun,  6 Sep 2026 03:41:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97AD03B27DC;
+	Sun,  6 Sep 2026 03:41:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788666075; cv=none; b=S1E/DfYSIh9vKqP8rpQTk3dhnNFMmkMExHh2jvl+wrqfwS+27zDR50YxELZGUER+gNkYp6B+zH5dAJPJ+kMvYCEgUPSkZ6sbKyisevuhDeW6k4iAnsZbr5jImR4q1ekb2VNhnojL8gV3fsFlx09oOCi9fV4mo0dP1sVUwAx/mPA=
+	t=1788666104; cv=none; b=Uzu0mySnbI+pEnqE1hJLXxUuOb7IgoOeD7rAiyoGpNLxuaiTj+ZV/UKWK9EO9A5UgPsaLyKkDnx4s6ZxjltT24X6e9s1shHJ/QotTcfDyakMAvUtFPU2+ABFxv08tH1eX+7M1nXGdv9cIGTl0zcxeIAUHGLZgCXqPowaa4aEZV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788666075; c=relaxed/simple;
-	bh=h0j5stD46d957APBucFRqb6CrKZZBxEvPkSafupSmCY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BqUhZx7i2wRkOjs2mZ5yIwGS207EOik5AJ2kRGD7cFzwFJ+84x93Zc3SORUDUA1ZXg8Jva+SBy/rDqqRRpd5i7noVNFOoKjWDRWbVesNQeiFFqIBTHuj8iVUbgMl23VaUBxX/W1hnD7dfqqWkzn7x243Owg8NPMe7BVC79ZPFrQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=cSAuZc6H; arc=none smtp.client-ip=117.135.210.3
+	s=arc-20240116; t=1788666104; c=relaxed/simple;
+	bh=fmw52iuCxdGkNnLgJ6ANUEmY0geyqWUgqDr7sVjha0o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oIOSdtRISC0u8W520ZnNd6JYCEtZlfM2z0tHdMZoGncDZjEKcZ8rOjBfdYr8TDuCMz0CPlAlPx3swfa5IJP3WPOdTcgaoqhkZWFKoRbq8iATU/oFaawvWBdOmWCHztT4Q6NORSzFDwSrInqC4/JIV5EI+xnZ122hcyzGZp5Vz0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=eQYtbNfn; arc=none smtp.client-ip=220.197.31.3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="cSAuZc6H"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="eQYtbNfn"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=YN
-	opptATUu6tkEGXcgMAKMvS7a6eNXNKQGXv4gfsEdA=; b=cSAuZc6HfNkuS5G+1R
-	pPSq9pX7ayFbhxLzg9kZoJY2TOlCNqXm6X2O6RkM6bvTVlVRhz4zRd006SA4LZzs
-	ItgaTlv6actVkxXIEBe34y01tjLEVPV0yQ7nCvTI7WQUziHc7BxqVFisIn+fTGOH
-	MBZ7afz7gTc9zCbq6CaPAdUF8=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=QD
+	ZTqb1CH8PuDCI64iNeCo8U7mbrJcdP7sXzmfmEBQA=; b=eQYtbNfnEUZdQmr8SJ
+	7Sq7J88s1XT+FmgPrI2uTV6q0ydcfKHxSmHcoxJ1kNt0d5wiMd/clp5dPJ1D8tkT
+	x120vpaXvG8sIzu42yxd0+f2cTS4Zyx7oqYs43ZrWwo5jejBjZnmcR7+ss/WKolR
+	ClHw+BE7OE29Hdm5BwbawvQZc=
 Received: from localhost.localdomain (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgCXOSWx4Jxqg+X7QA--.59154S2;
-	Sun, 06 Sep 2026 11:40:34 +0800 (CST)
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wBXIM7c4Jxqr17VAw--.6409S2;
+	Sun, 06 Sep 2026 11:41:17 +0800 (CST)
 From: Pengpeng Hou <hppiscas@163.com>
-To: Alan Stern <stern@rowland.harvard.edu>,
+To: Mathias Nyman <mathias.nyman@intel.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Pengpeng Hou <hppiscas@163.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Jingoo Han <jg1.han@samsung.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	JC Kuo <jckuo@nvidia.com>,
 	linux-usb@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] usb: host: ohci-exynos: Propagate clock errors from resume
-Date: Sun,  6 Sep 2026 11:40:31 +0800
-Message-ID: <20260906034031.85248-1-hppiscas@163.com>
+Subject: [PATCH] usb: host: xhci-tegra: Handle PHY failures while exiting ELPG
+Date: Sun,  6 Sep 2026 11:41:14 +0800
+Message-ID: <20260906034114.85417-1-hppiscas@163.com>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -47,43 +45,66 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgCXOSWx4Jxqg+X7QA--.59154S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWruFW3Zr1DJry8JF1rCF1rJFb_yoWkGFX_Ca
-	48GrW7Xrs0grZ09r1DGa4UAFZ7KF1xXF1YgFWIqw13GFnrtF1vqrsrury0ywn8Jw47tr9x
-	Cw4jvrn3XryagjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUb1rW7UUUUU==
-X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbCxhIm7mqc4LLKIAAA3S
+X-CM-TRANSID:_____wBXIM7c4Jxqr17VAw--.6409S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Aw4xXF48WF18Ar18tw48tFb_yoW8Ar4kpF
+	Zag34jgr17JFy3KFnxt3W3ZF1rCws3KrW7Ga4Sk398XrsxW34jgr48KFyrJa9xCr9rtFsx
+	tr10yFyUGr4UXrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRK0PDUUUUU=
+X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7R0x+Wqc4N2sNwAA3o
 
-exynos_ohci_resume() ignores clk_prepare_enable() and proceeds to PHY
-and OHCI restoration.
+tegra_xusb_exit_elpg() ignores phy_init() and phy_power_on() failures
+and continues to restore firmware and xHCI state.
 
-Return a clock failure before enabling the PHY. The existing PHY failure
-path continues to undo a successfully enabled clock.
+Stop at the first failed PHY, undo a successful init for that PHY when
+power-on fails, and unwind only the previously enabled PHYs in reverse
+order before using the existing partition and clock cleanup.
 
 The issue was found by our static-analysis tool and manually reviewed.
 
-Fixes: e864abed546f ("USB: ohci-exynos: add clock gating to suspend/resume")
+Fixes: 971ee247060d ("usb: xhci: tegra: Enable ELPG for runtime/system PM")
 Assisted-by: gpt 5
 Signed-off-by: Pengpeng Hou <hppiscas@163.com>
 ---
- drivers/usb/host/ohci-exynos.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/usb/host/xhci-tegra.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/usb/host/ohci-exynos.c b/drivers/usb/host/ohci-exynos.c
-index cc5cb0900988..aa4eb9f9d69b 100644
---- a/drivers/usb/host/ohci-exynos.c
-+++ b/drivers/usb/host/ohci-exynos.c
-@@ -231,7 +231,9 @@ static int exynos_ohci_resume(struct device *dev)
- 	struct exynos_ohci_hcd *exynos_ohci	= to_exynos_ohci(hcd);
- 	int ret;
+diff --git a/drivers/usb/host/xhci-tegra.c b/drivers/usb/host/xhci-tegra.c
+index 6f235d1e117e..7b7cf22a577d 100644
+--- a/drivers/usb/host/xhci-tegra.c
++++ b/drivers/usb/host/xhci-tegra.c
+@@ -2328,10 +2328,18 @@ static int tegra_xusb_exit_elpg(struct tegra_xusb *tegra, bool is_auto_resume)
+ 		if (!tegra->phys[i])
+ 			continue;
  
--	clk_prepare_enable(exynos_ohci->clk);
-+	ret = clk_prepare_enable(exynos_ohci->clk);
-+	if (ret)
-+		return ret;
+-		if (!wakeup)
+-			phy_init(tegra->phys[i]);
++		if (!wakeup) {
++			err = phy_init(tegra->phys[i]);
++			if (err)
++				goto disable_enabled_phys;
++		}
  
- 	ret = exynos_ohci_phy_enable(dev);
- 	if (ret) {
+-		phy_power_on(tegra->phys[i]);
++		err = phy_power_on(tegra->phys[i]);
++		if (err) {
++			if (!wakeup)
++				phy_exit(tegra->phys[i]);
++			goto disable_enabled_phys;
++		}
+ 	}
+ 	if (tegra->suspended)
+ 		tegra_xhci_program_utmi_power_lp0_exit(tegra);
+@@ -2367,7 +2375,9 @@ static int tegra_xusb_exit_elpg(struct tegra_xusb *tegra, bool is_auto_resume)
+ 	goto out;
+ 
+ disable_phy:
+-	for (i = 0; i < tegra->num_phys; i++) {
++	i = tegra->num_phys;
++disable_enabled_phys:
++	while (i--) {
+ 		if (!tegra->phys[i])
+ 			continue;
+ 
 -- 
 2.50.1 (Apple Git-155)
 
