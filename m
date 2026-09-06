@@ -1,131 +1,105 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from sg-2-4.ptr.blmpb.com (sg-2-4.ptr.blmpb.com [71.18.227.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D0538236E
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:43:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9227417B425
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:43:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788694997; cv=none; b=eV8DVAmS5zvm51ZwjMPWlJZw0efntAQe7c/v3LxCeLLDAiHROSMCmVcdZhqz43YsYdIMGnC63IdhMxhGUvb931LBBcxtTod6Ax3YgrqvBi7cNkErcAdZ25lLn9fnFOcXNs1CHYQobcw0LcOMslFwADenhnSiu27LvFxjJqPL1EY=
+	t=1788695016; cv=none; b=BYA7zxc/ZCY1Jbor3r8f/on00lDrYe7jEMg2+WAuHXl9KV7A8QvQa9lF07uc25hA7368EM7UjvIm2EkUje5s+ePVaD+4DmYyCcPltXj/5mrE9KbKCJO3gCttf33BDIAzgXD3OdBycOQe/t/zeHA9lMhw52Qz+4FsGsG16mFAL8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788694997; c=relaxed/simple;
-	bh=Tgs81imXHXxl5PUz46cTacwZvL65MXU8w2OLv0AdJH4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SQls/mzXZMXU4cKOTQxeKTVW6LF0SXZBtcM4jMbxn6/AxSccsRKo5GoP0gs6LkNLeRBJvwoqTMgqU98lHnLQiBUQqhcASkqiOAzCFp1Y9+dj8iKbM6jeTSF+bfZ4FhIuVxtfBwFPzjZtiYWeyQvaZ+JQsQZvcXo+Ie/s6Sa2Nmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W5oJ9LOG; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788695016; c=relaxed/simple;
+	bh=4K1s1AQ/FgjCmH7yjjU/gqsqx+7f1Mdt5UNkaHrqoP0=;
+	h=To:From:Message-Id:Mime-Version:Content-Type:Cc:Date:
+	 Content-Disposition:References:Subject:In-Reply-To; b=j6PmysFrWZna4BpTPkneelDUIs1/WPoKA0/FTI7tzXYBLcrs0o2hFu9TRLnkoZG74lLu4nRM2C3a4O6VnkZ6Y7Xah49XmQFVNWMuSln/VHITnenHtHWe+iYzTety8kxXodXgRc2JBty2SO47noTI6sbkCAd9JSy57sfoSSpws6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=Si4/uHmN; arc=none smtp.client-ip=71.18.227.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W5oJ9LOG"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49557167508so30753815e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 04:43:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788694994; x=1789299794; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0kt+nixPnxV+vJED7IjIV2XXQGlXwwe0QJtiMVPgU48=;
-        b=W5oJ9LOGDiQeEod7fUdyToNv9hRSbM1NlUGq2bWQZtOwZ2LENjSnybCJjQ6tZ1znhM
-         eqNlNNP9n1uN32okJ+NvB2N74f5/Xn0cmCQgB6mMPTdPu93aM057xILVd9GFPb9X56sj
-         wEP+FLPPQ3wWNcQYde8265lFEi4yYVDiNoFlrt4DZeqtcYHIQxuRy55zm1i4U3hCjKss
-         RZdMNNvT66NXmo5gEouTqi2KYJOKS/IfQVUky3IWeBfv2EQtQ2vdZtMgOkF9pZBk/2Rj
-         O6h9FY01J3TQlOfZovq+ixqJbhIr/0P+xryEzLs7AEnt6Rf713jJd5oWv/iP91vJwzAh
-         iBtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788694994; x=1789299794;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0kt+nixPnxV+vJED7IjIV2XXQGlXwwe0QJtiMVPgU48=;
-        b=NfVIkVGF13G9Ubr998TDHnx3dwvpWl9cTn43NEiKSpH8+8qyGZ4lw/mTHkh4+sNgRs
-         nxEU75XynbZGYlG6xbCnsGXqHHIWhxWB7Gmenwp8iN7XccCTYBE9I+5ToNDUZgQn4Zt5
-         lelCfB4OWiQlev//QH9uY5mjFjP5segngUxtpmvoOeM3+TwqT4gM7uBbUP64ZWf5TkLw
-         PZqyqPzRpkAZXmaVLCF9ib4wxHh5ycpkW3gqHvyrshbNRCg+JMG89g/AB3h1p243ZZWa
-         VYrJLB+o25xLiMr7cZckQYjzhOu3zkWBG9x5AzOs2cMSMFd77wLkmLNa4SYbXvzBfIvy
-         3K5w==
-X-Forwarded-Encrypted: i=1; AKwUvByyS3UAybMrSUXrpg8/r04AtiT16pZ3waWPjtCFS9hSeR94F+QNcxJSfjrG1ceuVmV5FB7bdy8gBfzRU8c=@vger.kernel.org
-X-Gm-Message-State: AFuF++ntxUc/ZvP5vFp3mWBdbDUpaaVO8R8uC2SE4Ip34mbONwdfRTyE
-	wo+KydBGzOpFohcDz01FdEyPSRIjnnJXtX4pofr0JiG3FtH37giav6p6
-X-Gm-Gg: AYBFou3HcU0qCS7FxdX2w1L36YRDCp3dK00UbGOl7hCm/indcsAfp5uiZDDXeQJjROy
-	otNEIeUK2EvgBET8F1Db1YTJ3YlgXsRDl66fM2fe9pi8hiHuiMThSFvgqhgiyjLvwIfY4u0l12I
-	T+R3ymPFONd4z/0dfHpiCVLKNP38tTXWMbBdv9sgUH952/YbxkSGrGdPn4QMxqn7r4YORNQIAo5
-	VJ7YC1Srp9ZyXzxl357QQTgqq4ubypPFKNkdkutjxjSiF+8h28jpwII/aT6Yy2mQeiZ5zWsmh1F
-	lxdeDqemgX9qoeW6b0xL5v3YcmtsEEGJAgqzrBe01LVQNpZwpEsrzQ8SaszbPjavgEbfLTmjv04
-	M1YRfDgfaKkSHFzhIkMMwH0PH9k8Ombyq+j82efLToDvKGVKOsKMmis1CV3BQzrO+a+URH3yEgJ
-	FwFKaV6hv2CgB7eYGE+HoPD4/vOpzvq0nBBGasAPOV8kSNP9R+nqoiUruNOLBrNaSlAnvEjyGsV
-	GvPqM0T8exK0h+am3U=
-X-Received: by 2002:a05:600c:6383:b0:49c:e88b:b7ce with SMTP id 5b1f17b1804b1-49cf823f147mr327098175e9.11.1788694993614;
-        Sun, 06 Sep 2026 04:43:13 -0700 (PDT)
-Received: from fedora ([154.182.82.204])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858ab73c2bsm19356223f8f.22.2026.09.06.04.43.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 04:43:13 -0700 (PDT)
-From: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-To: gregkh@linuxfoundation.org,
-	jic23@kernel.org,
-	nuno.sa@analog.com,
-	Michael.Hennerich@analog.com
-Cc: dlechner@baylibre.com,
-	andy@kernel.org,
-	linux@analog.com,
-	linux-iio@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-Subject: [PATCH v4 2/2] staging: iio: adc: ad7816: Use DMA-safe buffer for SPI read
-Date: Sun,  6 Sep 2026 14:40:49 +0300
-Message-ID: <20260906114049.32912-3-abdelnasserhussein11@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260906114049.32912-1-abdelnasserhussein11@gmail.com>
-References: <20260906114049.32912-1-abdelnasserhussein11@gmail.com>
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="Si4/uHmN"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1788694999; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=kF4XOpxl2FOCXm+aoX2z5PQbLq1Swi8wrCG8/hWWD30=;
+ b=Si4/uHmN6Mh4m9OlewWy/Rzsm0ZOlXSVeXWhsEdZVRzUb8k0xy61i6MbCVMpbRIIPn/Bne
+ rxAZBicc6H9p/Yp+/wvI8VSnAuMRUpCofcUp3nnqWsmrvIS0u1+2u6+qbMrK4QNWpxd8/Y
+ RLP28H0eDLH5xe3kge17+qSoRyftXn+k4JtHTPNQPxfn0xS5CNDNjbVSFqt9kdKm5i29+4
+ 6LhBFyqZxvqYJngNwnwH2Ht9YEPyPnftNOffPvO0kbw6ur5asLfyXzOwV6C3GUczX7NY7V
+ 7ha93/Mpu4PbUHMPhYcZDc5p2Rrq61dTjet/DSaGrWURMxeoN/BCxerF3sPIJg==
+To: "Christian Lamparter" <chunkeey@gmail.com>
+From: "Shengzhuo Wei" <me@cherr.cc>
+Message-Id: <ap1R0jU3UMVGI3ml@pve>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: "Shengzhuo Wei" <me@cherr.cc>, "David S. Miller" <davem@davemloft.net>, 
+	"John W. Linville" <linville@tuxdriver.com>, 
+	<linux-wireless@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>
+Date: Sun, 6 Sep 2026 19:43:14 +0800
+Content-Disposition: inline
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+Received: from pve ([111.40.58.231]) by smtp.feishu.cn with ESMTPS; Sun, 06 Sep 2026 19:43:16 +0800
+References: <20260831-p54-pda-validation-v2-0-dae566b388c8@cherr.cc> <20260831-p54-pda-validation-v2-1-dae566b388c8@cherr.cc> <f3eb0dfe-3b9c-483b-b802-2207fe8b747b@gmail.com>
+Subject: Re: [PATCH v2 1/2] wifi: p54: validate curve data length in the calibration curve converters
+In-Reply-To: <f3eb0dfe-3b9c-483b-b802-2207fe8b747b@gmail.com>
+X-Lms-Return-Path: <lba+26a9d51d5+de2f2f+vger.kernel.org+me@cherr.cc>
 
-Stack buffers are not guaranteed to be cache-coherent and must not
-be used with SPI reads, which can trigger issues with VMAP_STACK.
-Fix this by using a dedicated DMA-safe rx_buf aligned with
-IIO_DMA_MINALIGN. Also, correct the sizeof() argument from *data
-to chip->rx_buf to match the buffer size.
+On 2026-09-06 11:31, Christian Lamparter wrote:
+> > diff --git a/drivers/net/wireless/intersil/p54/eeprom.c b/drivers/net/wireless/intersil/p54/eeprom.c
+> > index 95580921d933..0dc848d77c5e 100644
+> > --- a/drivers/net/wireless/intersil/p54/eeprom.c
+> > +++ b/drivers/net/wireless/intersil/p54/eeprom.c
+> > @@ -414,17 +414,22 @@ static int p54_generate_channel_lists(struct ieee80211_hw *dev)
+> >   }
+> >   static int p54_convert_rev0(struct ieee80211_hw *dev,
+> > -			    struct pda_pa_curve_data *curve_data)
+> > +			    struct pda_pa_curve_data *curve_data, size_t len)
+> >   {
+> >   	struct p54_common *priv = dev->priv;
+> >   	struct p54_pa_curve_data_sample *dst;
+> >   	struct pda_pa_curve_data_sample_rev0 *src;
+> > +	size_t needed = curve_data->channels *
+> > +		(sizeof(*src) * curve_data->points_per_channel + 2);
+> >   	size_t cd_len = sizeof(*curve_data) +
+> >   		(curve_data->points_per_channel*sizeof(*dst) + 2) *
+> >   		 curve_data->channels;
+> >   	unsigned int i, j;
+> >   	void *source, *target;
+> > +	if (len < sizeof(*curve_data) + needed)
+> > +		return -EINVAL;
+> > +
+> 
+> Hmm, Puh. Interessting. Several things. But yeah, this should work.
+> 
+> Acked-by: Christian Lamparter <chunkeey@gmail.com>
 
-Fixes: 7024425db64a ("staging: iio: adc: new driver for AD7816 devices")
-Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
----
- drivers/staging/iio/adc/ad7816.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Hi Christian,
 
-diff --git a/drivers/staging/iio/adc/ad7816.c b/drivers/staging/iio/adc/ad7816.c
-index ab80b3a889bb..e14ae805f076 100644
---- a/drivers/staging/iio/adc/ad7816.c
-+++ b/drivers/staging/iio/adc/ad7816.c
-@@ -52,6 +52,8 @@ struct ad7816_chip_info {
- 	u8  oti_data[AD7816_CS_MAX + 1];
- 	u8  channel_id;	/* 0 always be temperature */
- 	u8  mode;
-+	struct mutex lock; /* protect device state during SPI transfers */
-+	__be16 rx_buf __aligned(IIO_DMA_MINALIGN);
- };
- 
- enum ad7816_type {
-@@ -94,13 +96,13 @@ static int ad7816_spi_read(struct ad7816_chip_info *chip, u16 *data)
- 
- 	gpiod_set_value(chip->rdwr_pin, 0);
- 	gpiod_set_value(chip->rdwr_pin, 1);
--	ret = spi_read(spi_dev, &buf, sizeof(*data));
-+	ret = spi_read(spi_dev, &chip->rx_buf, sizeof(chip->rx_buf));
- 	if (ret < 0) {
- 		dev_err(&spi_dev->dev, "SPI data read error\n");
- 		return ret;
- 	}
- 
--	*data = be16_to_cpu(buf);
-+	*data = be16_to_cpu(chip->rx_buf);
- 
- 	return ret;
- }
--- 
-2.54.0
+Thanks for the review and the Ack.
 
+> Still I have some questions: Did you write/touch any of this yourself?
+> Or is this patch straight from the model?
+
+AI found the bug. I wrote the fix myself and used AI to review it
+afterwards.
+ 
+> It's because I can grok (heh) why "needed" ended up as a separate variable next to cd_len.
+> But why was the sizeof(*curve_data) not included there too? It's only used once in the
+> if check so and this sounds like the "needed" needed some extra? Maybe because it was
+> already checked?
+
+I kept sizeof(*curve_data) separate because I was thinking of needed
+as the input data size without the header. But since it is only used
+in that check, adding the header there too would be simpler.
+
+Would you like me to send a v3 that makes just this change in both
+converters?
+
+Thanks,
+Shengzhuo
