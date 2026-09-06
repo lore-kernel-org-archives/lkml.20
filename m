@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9718363C63;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7ADE35DA7B;
 	Sun,  6 Sep 2026 18:37:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788719827; cv=none; b=fWE+2LfQ3nD1Jn9dNggro/FyLsHx7o4///SPsHs++6UIFmWn5l2fCNas75INtZ8gWdpnD7BsYlHIxhBXAHJ1cgEgaHhfrF0xf5kVCIolpFlcTPJ/9KHR6mIG/ZzAA6vcxZMZM3YS+Z6AKw7k/Ey/WgJnpn5V8aBxeyO0C9vXhHc=
+	t=1788719827; cv=none; b=AVP87GBY6AC3KQwQInjVj1xkx+4p8o5wx7+qU5AYerLgBc26HaD1LYeRVNwxOWlX2UF2puXrsZcXyf+zXdxlT1+aBpG4jYmmCzhAwJJAxsiiQWtVyn0kaJYTI4lSofy1hXJfYRJptPbfoWOVckA1f0VrHkYjls0Jv5TSFTfQPus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788719827; c=relaxed/simple;
-	bh=B634TnNykRGoLyUS0h7xbpVjfO6WrqvJEEZ0/eEafiM=;
+	bh=B/qrsmu6dNMa0mdZN1vjAuTnmbaVMn70eJ9KkkRXhqY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TjM6ECKy7O8eDMUvzaZhZuQT3iZflOcTjFNsD7phN0N/D0QUL7baIhu3rMUnW66U6PhXgdnheBXAmEKo/XTBAWEmv8bP0iFN4k8SBR8PhdujqpSHsF0UU8C2QuPVc91M0+Pwrqo77xm6X+sbLTEa6yUQeIeXahLHkXVYWYCtDbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JX2SobR0; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=HMOqE00tAfEmDOOPZWM9rSbwuu0vR9j1wNJMgjY3W62smvdHeeR1DIF3h9z3MvrzWG03nEiyrlcOpfAcpOpEucJc4kfs/FUrU7l+bbDDli/W726afUxI+bYLascJd/XAPkKVE8/9CGtE1xZaCFH+M2EaLCHIrUEqnSXk2Ch6p0A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BuV0AhVf; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JX2SobR0"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 73BC6C2BD01;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BuV0AhVf"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5651FC2BCFB;
 	Sun,  6 Sep 2026 18:37:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788719827;
-	bh=B634TnNykRGoLyUS0h7xbpVjfO6WrqvJEEZ0/eEafiM=;
+	bh=B/qrsmu6dNMa0mdZN1vjAuTnmbaVMn70eJ9KkkRXhqY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=JX2SobR0UyxYTtL/4Tru+EoJ5ES2JmqKmrObml57fGSrtWpgeerdNqdrJJ/hWgqrG
-	 e8wt0iknJx0XKKgT4S8TBG1qkJBF+XWvfbn+0r+9wZ0mVswkR27PcmzT8bfXdurUiw
-	 JDviAArnSKM3tcgc7OIQ/js7g0UaUAiIUG17T2v2rgqDoDIIdJQFEYK9K0nx+rjGeD
-	 Ikx1UlqeLw0y9uybjLPxxo9weQFlCYacs0K6V1czKjz4VGgutfHk0S35eI9VbLcmXD
-	 R+ysreJs0dpnphNLukGtAKOy1Obcp1VcFnCfiX1HjON8TkUWNzK+t93IWnF5tMqH7t
-	 CCxv+B/unSwJA==
+	b=BuV0AhVfxDCqgMEjIL1+hXZt+q4BdGDzcfw0MQcZ6PVoP8pfjr1ZEq8TCDQNBjcwX
+	 qNXswGQugH7WLW5VbxtwLFGpFOs8ECoCpIFj8qI1Ga7oG7vUwd/qrA3STf80j4vtG2
+	 6pomQGcXsTMFQ6/D8Fs4xky9OAt+Dhs4LruvmpOTZ1H/AKuSdKOM6tKRStOCkemkAy
+	 KY82nOTtZ/sqy1o+pmflsBwzyWqaPq/9MNW0N/RCY8UMg1H3CBM1Qy2Z4IEgnVEJvm
+	 wPPXbg7ATT3itIYOwa+vs+sCAjtHnh91pPt1ZgJgqGhBnshCMrFEVwBMo4gwdj+PMp
+	 WG52o0gvRT/xQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D532C79FA3;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 39558C79FA1;
 	Sun,  6 Sep 2026 18:37:07 +0000 (UTC)
 From: Sven Peter <sven@kernel.org>
-Date: Sun, 06 Sep 2026 20:36:27 +0200
-Subject: [PATCH v2 04/22] usb: typec: tipd: Publish CD321x partner
- alternate modes
+Date: Sun, 06 Sep 2026 20:36:25 +0200
+Subject: [PATCH v2 02/22] usb: typec: Represent USB4 on the Type-C bus
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260906-b4-apple-soc-tbt-v2-4-1f80085f93fb@kernel.org>
+Message-Id: <20260906-b4-apple-soc-tbt-v2-2-1f80085f93fb@kernel.org>
 References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
 In-Reply-To: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
 To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
@@ -57,356 +56,569 @@ Cc: Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
  asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  Sven Peter <sven@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=12306; i=sven@kernel.org;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=19872; i=sven@kernel.org;
  h=from:subject:message-id;
- bh=B634TnNykRGoLyUS0h7xbpVjfO6WrqvJEEZ0/eEafiM=;
- b=owGbwMvMwCXmIlirolUq95LxtFoSQ9bcTXviH/5qfx0zcX1//lzFxWr8/ee1bqd/7Cw8u9xue
- cHz5e6rOkpZGMS4GGTFFFm277c3ffLwjeDSTZfew8xhZQIZwsDFKQATCXjByPD34s3TlyuOxh1k
- knoff/z71SPmhckX95qnf5bN8H1btmcuw/+090+zcvaayKq8WeSncnVq4tb7ixhOHfTgmMPwtIn
- 7PiM7AA==
+ bh=B/qrsmu6dNMa0mdZN1vjAuTnmbaVMn70eJ9KkkRXhqY=;
+ b=owGbwMvMwCXmIlirolUq95LxtFoSQ9bcTbvqZtzc8CWfma/2wAUH49yL0Uc2Xl68UCuft8Nim
+ tEb11TNjlIWBjEuBlkxRZbt++1Nnzx8I7h006X3MHNYmUCGMHBxCsBEFroy/BUXePGzeeevB5nL
+ 1AQ0OkP2Hn1w4A/fkzfiuVuimFbl33vLyLA5kp1hLj/DWrWt82r2StaZBvy5vlrw5GGGEuYoack
+ mDm4A
 X-Developer-Key: i=sven@kernel.org; a=openpgp;
  fpr=A1E3E34A2B3C820DBC4955E5993B08092F131F93
 X-Endpoint-Received: by B4 Relay for sven@kernel.org/default with
  auth_id=407
 
-Register Thunderbolt partner and cable modes once their VDOs are
-available and USB4 as a partner mode once firmware has negotiated it,
-with the EUDO stored in its eudo field. The CD321X firmware still controls
-mode selection and entry itself. This just makes the negotiated modes
-available to consumers on the Type-C bus.
+USB4 technically isn't alternate mode and entered using the EUDO and has
+no SVID or Discover Modes Response. We can still represent it like an
+altmode on the Type-C bus though by adding a mode kind. Exclude the USB4
+modes from any SVID-specific operations and driver binding, but allow
+consumers to observe their state through notifications.
 
-Mark them active after the Type-C mux has been configured and deactivate
-them before the mux is switched back to its safe state to make sure any
-consuming driver is initialized and shut down in the correct order.
+Like for other altmodes, expose the USB4 mode to sysfs: Add a mode_kind
+to be able to differentiate and then expose the EUDO, make the USB4
+active state read-only since we only represent firmware-negotiated USB4
+modes and omit anything that only applies to SVID-specific altmodes.
 
 Signed-off-by: Sven Peter <sven@kernel.org>
 ---
- drivers/usb/typec/tipd/core.c | 224 +++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 209 insertions(+), 15 deletions(-)
+Hope it's fine to add you as the contact for the sysfs documentation,
+happy to add myself otherwise though.
+---
+ Documentation/ABI/testing/sysfs-bus-typec | 36 ++++++++++++++
+ drivers/usb/typec/bus.c                   | 67 ++++++++++++++++++++-----
+ drivers/usb/typec/class.c                 | 83 +++++++++++++++++++++++++++----
+ drivers/usb/typec/mode_selection.c        |  6 ++-
+ include/linux/usb/typec.h                 | 20 +++++++-
+ include/linux/usb/typec_altmode.h         | 10 +++-
+ 6 files changed, 193 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
-index 8c7f93d4270e..218b52b07b5a 100644
---- a/drivers/usb/typec/tipd/core.c
-+++ b/drivers/usb/typec/tipd/core.c
-@@ -213,6 +213,12 @@ struct cd321x {
- 	struct typec_altmode *port_altmode_tbt;
- 	struct typec_altmode *port_altmode_usb4;
+diff --git a/Documentation/ABI/testing/sysfs-bus-typec b/Documentation/ABI/testing/sysfs-bus-typec
+index 205d9c91e2e1..524bbcbadf64 100644
+--- a/Documentation/ABI/testing/sysfs-bus-typec
++++ b/Documentation/ABI/testing/sysfs-bus-typec
+@@ -12,6 +12,35 @@ Description:
  
-+	struct typec_cable *cable;
-+	struct typec_plug *plug;
-+	struct typec_altmode *plug_altmode_tbt;
-+	struct typec_altmode *partner_altmode_tbt;
-+	struct typec_altmode *partner_altmode_usb4;
-+
- 	struct typec_mux *mux;
- 	struct typec_mux_state state;
+ 		Valid values are boolean.
  
-@@ -674,13 +680,156 @@ static void tps6598x_handle_plug_event(struct tps6598x *tps, u32 status)
- 	}
- }
++		For USB4 mode devices this attribute is read-only. On a port it
++		indicates whether USB4 support is enabled; on a partner it reports
++		whether USB4 is active. USB4 entry and exit are controlled by the
++		port controller. Partner state changes notify this attribute and
++		generate KOBJ_CHANGE uevents.
++
++What:		/sys/bus/typec/devices/.../mode_kind
++Date:		September 2026
++Contact:	Heikki Krogerus <heikki.krogerus@linux.intel.com>
++Description:
++		Read-only protocol kind represented by this mode device:
++		"altmode" for an SVID-specific alternate mode, or "usb4" for
++		USB4 negotiated using Enter_USB.
++
++		USB4 devices do not expose svid, mode, vdo, or priority
++		attributes, or the legacy modeN attribute group. USB4 partner
++		uevents contain MODE_KIND=usb4 instead of SVID, MODE, and
++		MODALIAS variables.
++
++What:		/sys/bus/typec/devices/.../eudo
++Date:		September 2026
++Contact:	Heikki Krogerus <heikki.krogerus@linux.intel.com>
++Description:
++		Read-only Enter_USB Data Object (EUDO), formatted as
++		0x followed by eight hexadecimal digits. Present only on USB4
++		partner mode devices, not on ports or SVID-specific alternate
++		modes. USB4 cable information is encoded in the EUDO; there are
++		no USB4 cable plug mode devices.
++
+ What:		/sys/bus/typec/devices/.../description
+ Date:		July 2018
+ Contact:	Heikki Krogerus <heikki.krogerus@linux.intel.com>
+@@ -36,6 +65,8 @@ Description:
+ 		the mode index is not assigned, identifying the alternate mode
+ 		must be done with either mode VDO or the description.
  
-+static void cd321x_unregister_tbt_altmodes(struct cd321x *cd321x)
-+{
-+	if (cd321x->partner_altmode_tbt && cd321x->partner_altmode_tbt->active)
-+		typec_altmode_update_active(cd321x->partner_altmode_tbt, false);
-+	if (cd321x->plug_altmode_tbt && cd321x->plug_altmode_tbt->active)
-+		typec_altmode_update_active(cd321x->plug_altmode_tbt, false);
++		This attribute is not present on USB4 mode devices.
 +
-+	typec_unregister_altmode(cd321x->partner_altmode_tbt);
-+	cd321x->partner_altmode_tbt = NULL;
-+	typec_unregister_altmode(cd321x->plug_altmode_tbt);
-+	cd321x->plug_altmode_tbt = NULL;
-+	typec_unregister_plug(cd321x->plug);
-+	cd321x->plug = NULL;
-+	typec_unregister_cable(cd321x->cable);
-+	cd321x->cable = NULL;
-+}
+ What:		/sys/bus/typec/devices/.../svid
+ Date:		July 2018
+ Contact:	Heikki Krogerus <heikki.krogerus@linux.intel.com>
+@@ -43,9 +74,14 @@ Description:
+ 		The Standard or Vendor ID (SVID) assigned by USB-IF for this
+ 		alternate mode.
+ 
++		This attribute is not present on USB4 mode devices.
 +
-+static void cd321x_unregister_usb4_altmode(struct cd321x *cd321x)
-+{
-+	if (cd321x->partner_altmode_usb4 && cd321x->partner_altmode_usb4->active)
-+		typec_altmode_update_active(cd321x->partner_altmode_usb4, false);
+ What:		/sys/bus/typec/devices/.../vdo
+ Date:		July 2018
+ Contact:	Heikki Krogerus <heikki.krogerus@linux.intel.com>
+ Description:
+ 		Shows the VDO in hexadecimal returned by Discover Modes command
+ 		for this mode.
 +
-+	typec_unregister_altmode(cd321x->partner_altmode_usb4);
-+	cd321x->partner_altmode_usb4 = NULL;
-+}
-+
-+static void cd321x_unregister_partner_altmodes(struct cd321x *cd321x)
-+{
-+	cd321x_unregister_tbt_altmodes(cd321x);
-+	cd321x_unregister_usb4_altmode(cd321x);
-+}
-+
-+static void cd321x_deactivate_altmodes(struct cd321x *cd321x)
-+{
-+	if (cd321x->partner_altmode_tbt && cd321x->partner_altmode_tbt->active)
-+		typec_altmode_update_active(cd321x->partner_altmode_tbt, false);
-+	if (cd321x->plug_altmode_tbt && cd321x->plug_altmode_tbt->active)
-+		typec_altmode_update_active(cd321x->plug_altmode_tbt, false);
-+	if (cd321x->partner_altmode_usb4 && cd321x->partner_altmode_usb4->active)
-+		typec_altmode_update_active(cd321x->partner_altmode_usb4, false);
-+}
-+
-+static int cd321x_register_tbt_altmodes(struct cd321x *cd321x,
-+					struct typec_thunderbolt_data *tbt_data,
-+					u32 data_status)
-+{
-+	struct typec_cable_desc cable_desc = {
-+		.type = USB_PLUG_TYPE_C,
-+		.active = !!(data_status & TPS_DATA_STATUS_ACTIVE_CABLE),
-+	};
-+	struct typec_plug_desc plug_desc = {
-+		.index = TYPEC_PLUG_SOP_P,
-+	};
-+	struct typec_altmode_desc desc = {
-+		.svid = USB_TYPEC_TBT_SID,
-+		.mode = TYPEC_ANY_MODE,
-+		.mode_selection = true,
-+	};
-+	int ret;
-+
-+	if (cd321x->partner_altmode_tbt && cd321x->plug_altmode_tbt &&
-+	    cd321x->partner_altmode_tbt->vdo == tbt_data->device_mode &&
-+	    cd321x->plug_altmode_tbt->vdo == tbt_data->cable_mode)
++		This attribute is not present on USB4 mode devices. USB4 partner
++		mode devices expose the EUDO in the eudo attribute.
+diff --git a/drivers/usb/typec/bus.c b/drivers/usb/typec/bus.c
+index e84b134a3381..8e6d7769fac3 100644
+--- a/drivers/usb/typec/bus.c
++++ b/drivers/usb/typec/bus.c
+@@ -93,6 +93,8 @@ int typec_altmode_notify(struct typec_altmode *adev,
+ 
+ 	if (!adev)
+ 		return 0;
++	if (adev->mode_kind != TYPEC_MODE_KIND_ALTMODE)
++		return -EOPNOTSUPP;
+ 
+ 	altmode = to_altmode(adev);
+ 
+@@ -125,12 +127,19 @@ EXPORT_SYMBOL_GPL(typec_altmode_notify);
+  */
+ int typec_altmode_enter(struct typec_altmode *adev, u32 *vdo)
+ {
+-	struct altmode *partner = to_altmode(adev)->partner;
+-	struct typec_altmode *pdev = &partner->adev;
++	struct typec_altmode *pdev;
++	struct altmode *partner;
+ 	int ret;
+ 
+-	if (!adev || adev->active)
++	if (!adev)
+ 		return 0;
++	if (adev->mode_kind != TYPEC_MODE_KIND_ALTMODE)
++		return -EOPNOTSUPP;
++	if (adev->active)
 +		return 0;
 +
-+	cd321x_unregister_tbt_altmodes(cd321x);
-+
-+	cd321x->cable = typec_register_cable(cd321x->tps.port, &cable_desc);
-+	if (IS_ERR(cd321x->cable)) {
-+		ret = PTR_ERR(cd321x->cable);
-+		cd321x->cable = NULL;
-+		return ret;
-+	}
-+
-+	cd321x->plug = typec_register_plug(cd321x->cable, &plug_desc);
-+	if (IS_ERR(cd321x->plug)) {
-+		ret = PTR_ERR(cd321x->plug);
-+		cd321x->plug = NULL;
-+		goto err_unregister;
-+	}
-+
-+	desc.vdo = tbt_data->cable_mode;
-+	cd321x->plug_altmode_tbt = typec_plug_register_altmode(cd321x->plug, &desc);
-+	if (IS_ERR(cd321x->plug_altmode_tbt)) {
-+		ret = PTR_ERR(cd321x->plug_altmode_tbt);
-+		cd321x->plug_altmode_tbt = NULL;
-+		goto err_unregister;
-+	}
-+
-+	desc.vdo = tbt_data->device_mode;
-+	cd321x->partner_altmode_tbt =
-+		typec_partner_register_altmode(cd321x->tps.partner, &desc);
-+	if (IS_ERR(cd321x->partner_altmode_tbt)) {
-+		ret = PTR_ERR(cd321x->partner_altmode_tbt);
-+		cd321x->partner_altmode_tbt = NULL;
-+		goto err_unregister;
-+	}
-+
-+	return 0;
-+
-+err_unregister:
-+	cd321x_unregister_tbt_altmodes(cd321x);
-+	return ret;
-+}
-+
-+static int cd321x_register_usb4_altmode(struct cd321x *cd321x, u32 eudo)
-+{
-+	struct typec_altmode_desc desc = {
-+		.mode_kind = TYPEC_MODE_KIND_USB4,
-+		.eudo = eudo,
-+		.mode_selection = true,
-+	};
-+	int ret;
-+
-+	if (cd321x->partner_altmode_usb4 &&
-+	    cd321x->partner_altmode_usb4->eudo == eudo)
++	partner = to_altmode(adev)->partner;
++	pdev = &partner->adev;
+ 
+ 	if (!pdev->ops || !pdev->ops->enter)
+ 		return -EOPNOTSUPP;
+@@ -156,12 +165,19 @@ EXPORT_SYMBOL_GPL(typec_altmode_enter);
+  */
+ int typec_altmode_exit(struct typec_altmode *adev)
+ {
+-	struct altmode *partner = to_altmode(adev)->partner;
+-	struct typec_altmode *pdev = &partner->adev;
++	struct typec_altmode *pdev;
++	struct altmode *partner;
+ 	int ret;
+ 
+-	if (!adev || !adev->active)
++	if (!adev)
+ 		return 0;
++	if (adev->mode_kind != TYPEC_MODE_KIND_ALTMODE)
++		return -EOPNOTSUPP;
++	if (!adev->active)
 +		return 0;
 +
-+	cd321x_unregister_usb4_altmode(cd321x);
-+	cd321x->partner_altmode_usb4 =
-+		typec_partner_register_altmode(cd321x->tps.partner, &desc);
-+	if (IS_ERR(cd321x->partner_altmode_usb4)) {
-+		ret = PTR_ERR(cd321x->partner_altmode_usb4);
-+		cd321x->partner_altmode_usb4 = NULL;
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
- static void cd321x_typec_update_mode(struct tps6598x *tps, struct cd321x_status *st)
++	partner = to_altmode(adev)->partner;
++	pdev = &partner->adev;
+ 
+ 	if (!pdev->ops || !pdev->ops->exit)
+ 		return -EOPNOTSUPP;
+@@ -185,8 +201,13 @@ EXPORT_SYMBOL_GPL(typec_altmode_exit);
+  */
+ int typec_altmode_attention(struct typec_altmode *adev, u32 vdo)
  {
- 	struct cd321x *cd321x = container_of(tps, struct cd321x, tps);
-+	int ret;
+-	struct altmode *partner = to_altmode(adev)->partner;
+ 	struct typec_altmode *pdev;
++	struct altmode *partner;
 +
-+	if ((st->data_status & TPS_DATA_STATUS_DATA_CONNECTION) &&
-+	    !(st->data_status & CD321X_DATA_STATUS_USB4_CONNECTION)) {
-+		if (st->data_status & TPS_DATA_STATUS_USB3_CONNECTION)
-+			typec_partner_set_usb_mode(tps->partner, USB_MODE_USB3);
-+		else if (st->data_status & TPS_DATA_STATUS_USB2_CONNECTION)
-+			typec_partner_set_usb_mode(tps->partner, USB_MODE_USB2);
-+	}
- 
- 	if (!(st->data_status & TPS_DATA_STATUS_DATA_CONNECTION)) {
--		if (cd321x->state.mode == TYPEC_STATE_SAFE)
-+		if (cd321x->state.mode == TYPEC_STATE_SAFE &&
-+		    (!cd321x->partner_altmode_tbt || !cd321x->partner_altmode_tbt->active) &&
-+		    (!cd321x->partner_altmode_usb4 || !cd321x->partner_altmode_usb4->active))
- 			return;
++	if (adev->mode_kind != TYPEC_MODE_KIND_ALTMODE)
++		return -EOPNOTSUPP;
 +
-+		cd321x_deactivate_altmodes(cd321x);
- 		cd321x->state.alt = NULL;
- 		cd321x->state.mode = TYPEC_STATE_SAFE;
- 		cd321x->state.data = NULL;
-@@ -718,6 +867,7 @@ static void cd321x_typec_update_mode(struct tps6598x *tps, struct cd321x_status
- 			return;
- 		}
++	partner = to_altmode(adev)->partner;
  
-+		cd321x_deactivate_altmodes(cd321x);
- 		dp_data.status = le32_to_cpu(st->dp_sid_status.status_rx);
- 		dp_data.conf = le32_to_cpu(st->dp_sid_status.configure);
- 		cd321x->state.alt = cd321x->port_altmode_dp;
-@@ -728,7 +878,8 @@ static void cd321x_typec_update_mode(struct tps6598x *tps, struct cd321x_status
- 		struct typec_thunderbolt_data tbt_data;
+ 	if (!partner)
+ 		return -ENODEV;
+@@ -219,6 +240,8 @@ int typec_altmode_vdm(struct typec_altmode *adev,
  
- 		if (cd321x->state.alt == cd321x->port_altmode_tbt &&
--		   cd321x->state.mode == TYPEC_TBT_MODE)
-+		    cd321x->state.mode == TYPEC_TBT_MODE &&
-+		    cd321x->partner_altmode_tbt && cd321x->partner_altmode_tbt->active)
- 			return;
+ 	if (!adev)
+ 		return 0;
++	if (adev->mode_kind != TYPEC_MODE_KIND_ALTMODE)
++		return -EOPNOTSUPP;
  
- 		tbt_data.cable_mode = TBT_MODE |
-@@ -744,27 +895,54 @@ static void cd321x_typec_update_mode(struct tps6598x *tps, struct cd321x_status
- 			(u32)le16_to_cpu(st->intel_vid_status.device_mode) << 16;
- 		tbt_data.enter_vdo =
- 			(u32)le16_to_cpu(st->intel_vid_status.enter_vdo) << 16;
-+
-+		ret = cd321x_register_tbt_altmodes(cd321x, &tbt_data, st->data_status);
-+		if (ret) {
-+			dev_err(tps->dev, "failed to register Thunderbolt altmodes: %d\n", ret);
-+			return;
-+		}
-+
-+		cd321x_deactivate_altmodes(cd321x);
- 		cd321x->state.alt = cd321x->port_altmode_tbt;
- 		cd321x->state.mode = TYPEC_TBT_MODE;
- 		cd321x->state.data = &tbt_data;
--		typec_mux_set(cd321x->mux, &cd321x->state);
-+		ret = typec_mux_set(cd321x->mux, &cd321x->state);
-+		if (!ret) {
-+			typec_altmode_update_active(cd321x->plug_altmode_tbt, true);
-+			typec_altmode_update_active(cd321x->partner_altmode_tbt, true);
-+		}
- 	} else if (st->data_status & CD321X_DATA_STATUS_USB4_CONNECTION) {
- 		struct enter_usb_data eusb_data;
+ 	altmode = to_altmode(adev);
  
--		if (cd321x->state.alt == NULL && cd321x->state.mode == TYPEC_MODE_USB4)
-+		if (!cd321x->state.alt &&
-+		    cd321x->state.mode == TYPEC_MODE_USB4 &&
-+		    cd321x->partner_altmode_usb4 && cd321x->partner_altmode_usb4->active)
- 			return;
+@@ -258,12 +281,17 @@ EXPORT_SYMBOL_GPL(typec_altmode_get_partner);
+  */
+ int typec_cable_altmode_enter(struct typec_altmode *adev, enum typec_plug_index sop, u32 *vdo)
+ {
+-	struct altmode *partner = to_altmode(adev)->partner;
+ 	struct typec_altmode *pdev;
++	struct altmode *partner;
  
- 		eusb_data.eudo = le32_to_cpu(st->usb4_status.eudo);
- 		eusb_data.active_link_training =
- 			!!(st->data_status & TPS_DATA_STATUS_ACTIVE_LINK_TRAIN);
+-	if (!adev || adev->active)
++	if (!adev)
++		return 0;
++	if (adev->mode_kind != TYPEC_MODE_KIND_ALTMODE)
++		return -EOPNOTSUPP;
++	if (adev->active)
+ 		return 0;
  
-+		ret = cd321x_register_usb4_altmode(cd321x, eusb_data.eudo);
-+		if (ret) {
-+			dev_err(tps->dev, "failed to register USB4 altmode: %d\n", ret);
-+			return;
-+		}
-+
-+		cd321x_deactivate_altmodes(cd321x);
- 		cd321x->state.alt = NULL;
- 		cd321x->state.data = &eusb_data;
- 		cd321x->state.mode = TYPEC_MODE_USB4;
--		typec_mux_set(cd321x->mux, &cd321x->state);
-+		ret = typec_mux_set(cd321x->mux, &cd321x->state);
-+		if (!ret) {
-+			typec_partner_set_usb_mode(tps->partner, USB_MODE_USB4);
-+			typec_altmode_update_active(cd321x->partner_altmode_usb4, true);
-+		}
- 	} else {
- 		if (cd321x->state.alt == NULL && cd321x->state.mode == TYPEC_STATE_USB)
- 			return;
-+
-+		cd321x_deactivate_altmodes(cd321x);
- 		cd321x->state.alt = NULL;
- 		cd321x->state.mode = TYPEC_STATE_USB;
- 		cd321x->state.data = NULL;
-@@ -819,24 +997,30 @@ static void cd321x_update_work(struct work_struct *work)
- 				  &cd321x->cur_partner_identity, sizeof(struct usb_pd_identity))));
++	partner = to_altmode(adev)->partner;
+ 	if (!partner)
+ 		return -ENODEV;
  
- 	/* If we are switching from an active role, transition to USB_ROLE_NONE first */
--	if (old_role != USB_ROLE_NONE && (new_role != old_role || was_disconnected))
-+	if (old_role != USB_ROLE_NONE &&
-+	    (new_role != old_role || partner_changed || was_disconnected))
- 		usb_role_switch_set_role(tps->role_sw, USB_ROLE_NONE);
+@@ -288,12 +316,17 @@ EXPORT_SYMBOL_GPL(typec_cable_altmode_enter);
+  */
+ int typec_cable_altmode_exit(struct typec_altmode *adev, enum typec_plug_index sop)
+ {
+-	struct altmode *partner = to_altmode(adev)->partner;
+ 	struct typec_altmode *pdev;
++	struct altmode *partner;
  
--	/* Process partner disconnection or change */
--	if (!new_connected || partner_changed) {
--		if (!IS_ERR(tps->partner))
--			typec_unregister_partner(tps->partner);
--		tps->partner = NULL;
--	}
--
--	/* If there was a disconnection, set PHY to off */
--	if (!new_connected || was_disconnected) {
-+	/*
-+	 * Also deactivate any altmodes and switch to SAFE_STATE if there was an
-+	 * active connection.
-+	 */
-+	if (!new_connected || partner_changed || was_disconnected) {
-+		cd321x_deactivate_altmodes(cd321x);
- 		cd321x->state.alt = NULL;
- 		cd321x->state.mode = TYPEC_STATE_SAFE;
- 		cd321x->state.data = NULL;
- 		typec_set_mode(tps->port, TYPEC_STATE_SAFE);
+-	if (!adev || !adev->active)
++	if (!adev)
++		return 0;
++	if (adev->mode_kind != TYPEC_MODE_KIND_ALTMODE)
++		return -EOPNOTSUPP;
++	if (!adev->active)
+ 		return 0;
+ 
++	partner = to_altmode(adev)->partner;
+ 	if (!partner)
+ 		return -ENODEV;
+ 
+@@ -326,6 +359,8 @@ int typec_cable_altmode_vdm(struct typec_altmode *adev, enum typec_plug_index so
+ 
+ 	if (!adev)
+ 		return 0;
++	if (adev->mode_kind != TYPEC_MODE_KIND_ALTMODE)
++		return -EOPNOTSUPP;
+ 
+ 	altmode = to_altmode(adev);
+ 
+@@ -422,7 +457,8 @@ struct typec_altmode *typec_match_altmode(struct typec_altmode **altmodes,
+ 	for (i = 0; i < n; i++) {
+ 		if (!altmodes[i])
+ 			break;
+-		if (altmodes[i]->svid == svid && altmodes[i]->mode == mode)
++		if (altmodes[i]->mode_kind == TYPEC_MODE_KIND_ALTMODE &&
++		    altmodes[i]->svid == svid && altmodes[i]->mode == mode)
+ 			return altmodes[i];
  	}
  
-+	/* Process partner disconnection or change after all child modes exited. */
-+	if (!new_connected || partner_changed) {
-+		cd321x_unregister_partner_altmodes(cd321x);
-+		if (!IS_ERR(tps->partner))
-+			typec_unregister_partner(tps->partner);
-+		tps->partner = NULL;
-+	}
-+
- 	/* Update Type-C properties */
- 	typec_set_pwr_opmode(tps->port, pwr_opmode);
- 	typec_set_pwr_role(tps->port, TPS_STATUS_TO_TYPEC_PORTROLE(st.status));
-@@ -863,6 +1047,7 @@ static void cd321x_update_work(struct work_struct *work)
- 		tps->partner = typec_register_partner(tps->port, &desc);
- 		if (IS_ERR(tps->partner)) {
- 			dev_warn(tps->dev, "%s: failed to register partner\n", __func__);
-+			tps->partner = NULL;
- 			return;
- 		}
+@@ -472,6 +508,10 @@ static int typec_match(struct device *dev, const struct device_driver *driver)
+ 	if (!is_typec_partner_altmode(dev))
+ 		return 0;
  
-@@ -1380,6 +1565,7 @@ cd321x_unregister_port(struct tps6598x *tps)
++	/* USB4 mode devices report firmware state through notifiers only. */
++	if (altmode->mode_kind != TYPEC_MODE_KIND_ALTMODE)
++		return 0;
++
+ 	for (id = drv->id_table; id->svid; id++)
+ 		if (id->svid == altmode->svid)
+ 			return 1;
+@@ -485,6 +525,9 @@ static int typec_uevent(const struct device *dev, struct kobj_uevent_env *env)
+ 	if (!is_typec_partner_altmode(dev))
+ 		return 0;
+ 
++	if (altmode->mode_kind == TYPEC_MODE_KIND_USB4)
++		return add_uevent_var(env, "MODE_KIND=usb4");
++
+ 	if (add_uevent_var(env, "SVID=%04X", altmode->svid))
+ 		return -ENOMEM;
+ 
+diff --git a/drivers/usb/typec/class.c b/drivers/usb/typec/class.c
+index 5808a3ef0d6c..869d6857c0dc 100644
+--- a/drivers/usb/typec/class.c
++++ b/drivers/usb/typec/class.c
+@@ -233,23 +233,24 @@ static const char * const usb_modes[] = {
+ static int altmode_match(struct device *dev, const void *data)
  {
- 	struct cd321x *cd321x = container_of(tps, struct cd321x, tps);
+ 	struct typec_altmode *adev = to_typec_altmode(dev);
+-	const struct typec_device_id *id = data;
++	const struct typec_altmode *match = data;
  
-+	cd321x_unregister_partner_altmodes(cd321x);
- 	typec_mux_put(cd321x->mux);
- 	cd321x->mux = NULL;
- 	typec_unregister_altmode(cd321x->port_altmode_dp);
-@@ -1802,6 +1988,14 @@ static void cd321x_remove(struct tps6598x *tps)
- 	struct cd321x *cd321x = container_of(tps, struct cd321x, tps);
+ 	if (!is_typec_port_altmode(dev))
+ 		return 0;
  
- 	cancel_delayed_work_sync(&cd321x->update_work);
-+
-+	guard(mutex)(&tps->lock);
-+	cd321x_deactivate_altmodes(cd321x);
-+	cd321x->state.alt = NULL;
-+	cd321x->state.mode = TYPEC_STATE_SAFE;
-+	cd321x->state.data = NULL;
-+	typec_set_mode(tps->port, TYPEC_STATE_SAFE);
-+	cd321x_unregister_partner_altmodes(cd321x);
+-	return (adev->svid == id->svid);
++	if (adev->mode_kind != match->mode_kind)
++		return 0;
++	return adev->mode_kind == TYPEC_MODE_KIND_USB4 || adev->svid == match->svid;
  }
  
- static int tps6598x_probe(struct i2c_client *client)
+ static void typec_altmode_set_partner(struct altmode *altmode)
+ {
+ 	struct typec_altmode *adev = &altmode->adev;
+-	struct typec_device_id id = { adev->svid };
+ 	struct typec_port *port = typec_altmode2port(adev);
+ 	struct altmode *partner;
+ 	struct device *dev;
+ 
+-	dev = device_find_child(&port->dev, &id, altmode_match);
++	dev = device_find_child(&port->dev, adev, altmode_match);
+ 	if (!dev)
+ 		return;
+ 
+@@ -296,6 +297,8 @@ static void typec_altmode_put_partner(struct altmode *altmode)
+  *
+  * If a partner or cable plug executes Enter/Exit Mode command successfully, the
+  * drivers use this routine to report the updated state of the mode.
++ * For USB4 partner modes, drivers use this routine to report entry through
++ * Enter_USB and exit from USB4.
+  */
+ void typec_altmode_update_active(struct typec_altmode *adev, bool active)
+ {
+@@ -319,8 +322,10 @@ void typec_altmode_update_active(struct typec_altmode *adev, bool active)
+ 				     active ? TYPEC_ALTMODE_ENTERED :
+ 					      TYPEC_ALTMODE_EXITED,
+ 				     adev);
+-	snprintf(dir, sizeof(dir), "mode%d", adev->mode);
+-	sysfs_notify(&adev->dev.kobj, dir, "active");
++	if (adev->mode_kind == TYPEC_MODE_KIND_ALTMODE) {
++		snprintf(dir, sizeof(dir), "mode%d", adev->mode);
++		sysfs_notify(&adev->dev.kobj, dir, "active");
++	}
+ 	sysfs_notify(&adev->dev.kobj, NULL, "active");
+ 	kobject_uevent(&adev->dev.kobj, KOBJ_CHANGE);
+ }
+@@ -502,13 +507,30 @@ svid_show(struct device *dev, struct device_attribute *attr, char *buf)
+ }
+ static DEVICE_ATTR_RO(svid);
+ 
++static ssize_t mode_kind_show(struct device *dev, struct device_attribute *attr,
++			      char *buf)
++{
++	struct typec_altmode *adev = to_typec_altmode(dev);
++
++	return sysfs_emit(buf, "%s\n",
++			 adev->mode_kind == TYPEC_MODE_KIND_USB4 ? "usb4" : "altmode");
++}
++static DEVICE_ATTR_RO(mode_kind);
++
++static ssize_t eudo_show(struct device *dev, struct device_attribute *attr, char *buf)
++{
++	return sysfs_emit(buf, "0x%08x\n", to_typec_altmode(dev)->eudo);
++}
++static DEVICE_ATTR_RO(eudo);
++
+ static int increment_duplicated_priority(struct device *dev, void *data)
+ {
+ 	if (is_typec_port_altmode(dev)) {
+ 		struct typec_altmode **alt_target = (struct typec_altmode **)data;
+ 		struct typec_altmode *alt = to_typec_altmode(dev);
+ 
+-		if (alt != *alt_target && alt->priority == (*alt_target)->priority) {
++		if (alt->mode_kind == TYPEC_MODE_KIND_ALTMODE &&
++		    alt != *alt_target && alt->priority == (*alt_target)->priority) {
+ 			alt->priority++;
+ 			*alt_target = alt;
+ 			return 1;
+@@ -523,7 +545,8 @@ static int find_duplicated_priority(struct device *dev, void *data)
+ 		struct typec_altmode **alt_target = (struct typec_altmode **)data;
+ 		struct typec_altmode *alt = to_typec_altmode(dev);
+ 
+-		if (alt != *alt_target && alt->priority == (*alt_target)->priority)
++		if (alt->mode_kind == TYPEC_MODE_KIND_ALTMODE &&
++		    alt != *alt_target && alt->priority == (*alt_target)->priority)
+ 			return 1;
+ 	}
+ 	return 0;
+@@ -579,6 +602,8 @@ static ssize_t priority_show(struct device *dev,
+ static DEVICE_ATTR_RW(priority);
+ 
+ static struct attribute *typec_altmode_attrs[] = {
++	&dev_attr_mode_kind.attr,
++	&dev_attr_eudo.attr,
+ 	&dev_attr_active.attr,
+ 	&dev_attr_mode.attr,
+ 	&dev_attr_svid.attr,
+@@ -593,6 +618,18 @@ static umode_t typec_altmode_attr_is_visible(struct kobject *kobj,
+ 	struct typec_altmode *adev = to_typec_altmode(kobj_to_dev(kobj));
+ 	struct typec_port *port = typec_altmode2port(adev);
+ 
++	if (adev->mode_kind == TYPEC_MODE_KIND_USB4) {
++		if (attr == &dev_attr_svid.attr || attr == &dev_attr_mode.attr ||
++		    attr == &dev_attr_vdo.attr || attr == &dev_attr_priority.attr)
++			return 0;
++		if (attr == &dev_attr_eudo.attr && !is_typec_partner(adev->dev.parent))
++			return 0;
++		if (attr == &dev_attr_active.attr)
++			return 0444;
++	} else if (attr == &dev_attr_eudo.attr) {
++		return 0;
++	}
++
+ 	if (attr == &dev_attr_active.attr) {
+ 		if (!is_typec_port(adev->dev.parent)) {
+ 			if (!port->mode_control || !adev->ops || !adev->ops->activate)
+@@ -698,20 +735,33 @@ typec_register_altmode(struct device *parent,
+ 		       const struct typec_altmode_desc *desc,
+ 		       const struct device_type *type)
+ {
+-	unsigned int id = altmode_id_get(parent);
+ 	bool is_port = is_typec_port(parent);
+ 	struct altmode *alt;
++	unsigned int id;
+ 	int ret;
+ 
++	if (desc->mode_kind != TYPEC_MODE_KIND_ALTMODE &&
++	    desc->mode_kind != TYPEC_MODE_KIND_USB4)
++		return ERR_PTR(-EINVAL);
++	if (desc->mode_kind == TYPEC_MODE_KIND_USB4 &&
++	    (desc->svid || desc->mode || is_typec_plug(parent)))
++		return ERR_PTR(-EINVAL);
++
++	id = altmode_id_get(parent);
++
+ 	alt = kzalloc_obj(*alt);
+ 	if (!alt) {
+ 		altmode_id_remove(parent, id);
+ 		return ERR_PTR(-ENOMEM);
+ 	}
+ 
++	alt->adev.mode_kind = desc->mode_kind;
+ 	alt->adev.svid = desc->svid;
+ 	alt->adev.mode = desc->mode;
+-	alt->adev.vdo = desc->vdo;
++	if (desc->mode_kind == TYPEC_MODE_KIND_USB4)
++		alt->adev.eudo = desc->eudo;
++	else
++		alt->adev.vdo = desc->vdo;
+ 	alt->adev.mode_selection = desc->mode_selection;
+ 	alt->roles = desc->roles;
+ 	alt->id = id;
+@@ -730,7 +780,8 @@ typec_register_altmode(struct device *parent,
+ 	sprintf(alt->group_name, "mode%d", desc->mode);
+ 	alt->group.name = alt->group_name;
+ 	alt->group.attrs = alt->attrs;
+-	alt->groups[0] = &alt->group;
++	if (desc->mode_kind == TYPEC_MODE_KIND_ALTMODE)
++		alt->groups[0] = &alt->group;
+ 
+ 	alt->adev.dev.parent = parent;
+ 	alt->adev.dev.groups = alt->groups;
+@@ -1110,6 +1161,10 @@ EXPORT_SYMBOL_GPL(typec_partner_set_num_altmodes);
+  * SVID listed in response to Discover Modes command need to be listed in an
+  * array in @desc.
+  *
++ * For USB4, set @desc->mode_kind to %TYPEC_MODE_KIND_USB4 and @desc->eudo to the
++ * EUDO and leave SVID and mode zero. USB4 devices expose firmware state
++ * through notifications and do not bind alternate-mode drivers.
++ *
+  * Returns handle to the alternate mode on success or ERR_PTR on failure.
+  */
+ struct typec_altmode *
+@@ -2698,6 +2753,9 @@ EXPORT_SYMBOL_GPL(typec_get_fw_cap);
+  * This routine is used to register an alternate mode that @port is capable of
+  * supporting.
+  *
++ * For USB4, set @desc->mode_kind to %TYPEC_MODE_KIND_USB4 and leave SVID and
++ * mode zero. Register it before the USB4 partner mode, which carries the EUDO.
++ *
+  * Returns handle to the alternate mode on success or ERR_PTR on failure.
+  */
+ struct typec_altmode *
+@@ -2727,6 +2785,9 @@ typec_port_register_altmode(struct typec_port *port,
+ 		to_altmode(adev)->mux = mux;
+ 		to_altmode(adev)->retimer = retimer;
+ 
++		if (adev->mode_kind == TYPEC_MODE_KIND_USB4)
++			return adev;
++
+ 		ret = typec_mode_set_priority(adev, 0);
+ 		if (ret) {
+ 			typec_unregister_altmode(adev);
+diff --git a/drivers/usb/typec/mode_selection.c b/drivers/usb/typec/mode_selection.c
+index cd376f67e445..5e378deed5c2 100644
+--- a/drivers/usb/typec/mode_selection.c
++++ b/drivers/usb/typec/mode_selection.c
+@@ -66,7 +66,8 @@ static int activate_altmode(struct device *dev, void *data)
+ 		struct typec_altmode *alt = to_typec_altmode(dev);
+ 		struct mode_order *order = (struct mode_order *)data;
+ 
+-		if (order->svid == alt->svid) {
++		if (alt->mode_kind == TYPEC_MODE_KIND_ALTMODE &&
++		    order->svid == alt->svid) {
+ 			if (alt->ops && alt->ops->activate)
+ 				order->result = alt->ops->activate(alt, order->enter);
+ 			else
+@@ -215,7 +216,8 @@ static int altmode_add_to_list(struct device *dev, void *data)
+ 		const struct typec_altmode *pdev = typec_altmode_get_partner(altmode);
+ 		struct mode_state *ms;
+ 
+-		if (pdev && altmode->ops && altmode->ops->activate) {
++		if (altmode->mode_kind == TYPEC_MODE_KIND_ALTMODE &&
++		    pdev && altmode->ops && altmode->ops->activate) {
+ 			ms = kzalloc_obj(*ms);
+ 			if (!ms)
+ 				return -ENOMEM;
+diff --git a/include/linux/usb/typec.h b/include/linux/usb/typec.h
+index 914a6f0844c5..add2c1368774 100644
+--- a/include/linux/usb/typec.h
++++ b/include/linux/usb/typec.h
+@@ -138,11 +138,23 @@ struct usb_pd_identity {
+ int typec_partner_set_identity(struct typec_partner *partner);
+ int typec_cable_set_identity(struct typec_cable *cable);
+ 
++/**
++ * enum typec_mode_kind - Protocol represented by a Type-C mode device
++ * @TYPEC_MODE_KIND_ALTMODE: SVID-specific alternate mode (the default)
++ * @TYPEC_MODE_KIND_USB4: USB4, negotiated using Enter_USB
++ */
++enum typec_mode_kind {
++	TYPEC_MODE_KIND_ALTMODE,
++	TYPEC_MODE_KIND_USB4,
++};
++
+ /*
+  * struct typec_altmode_desc - USB Type-C Alternate Mode Descriptor
+  * @svid: Standard or Vendor ID
+  * @mode: Index of the Mode
+- * @vdo: VDO returned by Discover Modes USB PD command
++ * @vdo: Discover Modes VDO for SVID-specific alternate modes
++ * @eudo: Enter_USB Data Object for USB4 partner modes
++ * @mode_kind: Protocol kind; SVID and mode are unused for USB4
+  * @roles: Only for ports. DRP if the mode is available in both roles
+  * @inactive: Only for ports. Make this port inactive (default is active).
+  *
+@@ -152,11 +164,15 @@ int typec_cable_set_identity(struct typec_cable *cable);
+ struct typec_altmode_desc {
+ 	u16			svid;
+ 	u8			mode;
+-	u32			vdo;
++	union {
++		u32		vdo;
++		u32		eudo;
++	};
+ 	/* Only used with ports */
+ 	enum typec_port_data	roles;
+ 	bool			inactive;
+ 	bool			mode_selection;
++	enum typec_mode_kind	mode_kind;
+ };
+ 
+ void typec_partner_set_pd_revision(struct typec_partner *partner, u16 pd_revision);
+diff --git a/include/linux/usb/typec_altmode.h b/include/linux/usb/typec_altmode.h
+index ef21ead551be..8d31e35e9320 100644
+--- a/include/linux/usb/typec_altmode.h
++++ b/include/linux/usb/typec_altmode.h
+@@ -24,7 +24,9 @@ struct typec_altmode_ops;
+  * @dev: Driver model's view of this device
+  * @svid: Standard or Vendor ID (SVID) of the alternate mode
+  * @mode: Index of the Mode
+- * @vdo: VDO returned by Discover Modes USB PD command
++ * @vdo: Discover Modes VDO for SVID-specific alternate modes
++ * @eudo: Enter_USB Data Object for USB4 partner modes
++ * @mode_kind: Protocol kind; SVID and mode are unused for USB4
+  * @active: Tells has the mode been entered or not
+  * @priority: Priority used by the automatic alternate mode selection process
+  * @mode_selection: Whether entry to this alternate mode is managed by the
+@@ -37,7 +39,11 @@ struct typec_altmode {
+ 	struct device			dev;
+ 	u16				svid;
+ 	int				mode;
+-	u32				vdo;
++	union {
++		u32			vdo;
++		u32			eudo;
++	};
++	enum typec_mode_kind		mode_kind;
+ 	unsigned int			active:1;
+ 	u8				priority;
+ 	bool			mode_selection;
 
 -- 
 2.55.0
