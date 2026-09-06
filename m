@@ -1,136 +1,201 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7734A126C02
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 19:28:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F37004964F;
+	Sun,  6 Sep 2026 19:33:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788722923; cv=none; b=sOVdVOh77kCIqPfd4GTq0nRXr0VDjo5GTUjs8Zr8avQdKLXVNY5CpTuLa+0NsQQaHcLdPZPpqrJyTj7MdXvApAJOJNbxnkoHBOewQp2l0FKrCunILZLNRySfO9sAZNse7PgXDOolNQJsUkvRwU4aHLSk+wjpHRaWOtp9k+MtFTk=
+	t=1788723202; cv=none; b=TFmsKUVbJG02VO09W4K+RCqKKe5Y32GKMgDUeLSOwNM6aHMvP+CyEsbK7A5jDPbnJUlEc6JdbPz86cUKIfGyHo3j9i+fPomQaehzeyH7fQwyUptNaYKDW0Bu0eVJbUCP8wx0JnxNUjr7mgbpqiawb+5LM3XmuHpN0g6UoBcCkMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788722923; c=relaxed/simple;
-	bh=zLxniDw8WZZddK1JTbNLn8SqeVMkjztGsau6u84UeIs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ro1Umar6tuM3VlzQdkDRbapdmg5hjvKLqKHuvHS8+fIGAprYOTOHsm9tm3AqKKUw2wfwzDwYSy0baXtrc3TdIhnqD+L1gZJNjgLP8RzMWsjQgL9atFwH3NOFi3hVgT/c7ZoVmt05k3dTtmGWCNBydMaxXwuHNRyyh+sySyU0mdc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Fxke51h3; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788723202; c=relaxed/simple;
+	bh=Do2CEdD6a5aUwLTxegZNZ7rZH9H8xfi1JGY3Uv4qcvI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SJ4jj+ZLw9E5BP8B+bqf4SxBxJJ5P4s6AZGN3g6jmn2aDw8GjQaIW2EvCMbaeZuiGABE8lX4ql9uG3avd8rHsFtJTBvxUl1Sy1pcfKBzTdF92F/bn0osUYjaYIGiXJwRwDpRTrjQoiaZ9fp5K8aCv2lmEEYhZkPKYU2YiWycm9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UOQ+l3C3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Fxke51h3"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 686I1S0q3769311;
-	Sun, 6 Sep 2026 19:28:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=KjdkTI
-	NiXX8wT4cx3Ked97C19pwQrTb4XL91r+AfNUs=; b=Fxke51h3CfvfatwYTswk5K
-	CduAzzjDD+5UpiHIYFdinUQ/8qlzlKX/aMb/NQO0QfT9CMCHxzVXXre4rXmQizln
-	1An5/altgXgomtYR/XL/hWsRuptG8+Y+pWMm80AfA2NaUIQDpPEYiwAPtKcmyadh
-	RU8EfCdnQKJLvRDGyToQcMwTWlWStNxumBoTKv7qbQ0PniyhVR+qFKYQNxeIe7kY
-	8pzSAbfw+FHKLzVxO8jPuytveFmYh0LmxciFq97tkYFAS9O3wP0vBIOZ2IIusILd
-	uML/74WynmR67jZ58iZ/an12HwvDxvsp/dTOqlDaTUV9nXUo29iZRnD82aFcjg9Q
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbf3n3ub-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 06 Sep 2026 19:28:28 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 686JQYeu021382;
-	Sun, 6 Sep 2026 19:28:27 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gh03y24xk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 06 Sep 2026 19:28:27 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 686JSP3C50397656
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sun, 6 Sep 2026 19:28:25 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 52F5A20049;
-	Sun,  6 Sep 2026 19:28:25 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1DDF920040;
-	Sun,  6 Sep 2026 19:28:25 +0000 (GMT)
-Received: from [9.111.65.132] (unknown [9.111.65.132])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Sun,  6 Sep 2026 19:28:24 +0000 (GMT)
-Message-ID: <2eaa56ab-7013-4fc1-99f0-db9c7e4b5c5f@linux.ibm.com>
-Date: Sun, 6 Sep 2026 21:28:24 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UOQ+l3C3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB2B71F00A3A;
+	Sun,  6 Sep 2026 19:33:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788723200;
+	bh=0kNqOTPkZp3J7RemsYmMnYNi7t0didLL0edZoqZbuyw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UOQ+l3C3lLujBRXFNmIZbndVsdbScZNJL6O1tqSdqMjmQrjL6ZYziJuWgml1fG0Sf
+	 YZjhOpebC9esQLeWBd/jXa9dy1aBOGM9VUfFMdkM1pq8Z2PBJM6ySVz5xzTC6IWHcr
+	 hUPG4TiNf0iGjXu2vtdIdxNSmSj85hQyuGO+G/8KJIYORUlSuKuQuG/X9RChqR/x9Y
+	 DsHFniEg6Ij/QnQKTcdYooZxqdcI9V1/aRc3LxVfuVuJOyhGvQIWOkfgrAxuFPAZe2
+	 vs5e1PdKfZ70Pm/jfgXnCkSDYJMr9D6/FyFbnT3DbR7iuUbU7GjmYCz5kkL2F0VMoz
+	 puMLclabJJmcQ==
+Date: Sun, 6 Sep 2026 22:33:11 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, akpm@linux-foundation.org,
+	sudeep.holla@kernel.org, jenswi@kernel.org, robh@kernel.org,
+	mark.rutland@arm.com, sumit.garg@kernel.org, ardb@kernel.org,
+	thierry.reding@kernel.org, david@kernel.org, danielmentz@google.com,
+	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
+	op-tee@lists.trustedfirmware.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v9 01/10] memblock: Introduce MEMBLOCK_LLMAP
+Message-ID: <ap2_926WXr7uAYVX@kernel.org>
+References: <20260902104712.2399797-1-vdonnefort@google.com>
+ <20260902104712.2399797-2-vdonnefort@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] sched: dynamic: Fix preemption model strings
-To: Mark Rutland <mark.rutland@arm.com>, linux-kernel@vger.kernel.org,
-        Peter Zijlstra <peterz@infradead.org>
-Cc: ruanjinjie@huawei.com, sshegde@linux.ibm.com
-References: <20260902101637.232129-1-mark.rutland@arm.com>
-Content-Language: en-US
-From: Mete Durlu <meted@linux.ibm.com>
-In-Reply-To: <20260902101637.232129-1-mark.rutland@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: -AomI9pWDuMHFao9XcY2pR2XxF2aU9MQ
-X-Proofpoint-GUID: -AomI9pWDuMHFao9XcY2pR2XxF2aU9MQ
-X-Authority-Analysis: v=2.4 cv=DbEnbPtW c=1 sm=1 tr=0 ts=6a9dbedc cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=i0EeH86SAAAA:8
- a=7CQSdrXTAAAA:8 a=VnNF1IyMAAAA:8 a=uK1rU7i6nPk0lVewyPQA:9 a=QEXdDO2ut3YA:10
- a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA2MDIxMiBTYWx0ZWRfXxaFcQHyO4xpI
- +qO83EJySwGkBBhu2d4wdrVAoZdK9YrNDGZRY7uAmO3pyYZa4g7jW53IZ8oKb81GI9aytzCmaaz
- w1Byn6t/DVIF6mAil3LqMA2tNzeU9yGw4Z1pWkO2IOVndKSi2XnYCLz8OBx1sjij88S5El5AdiF
- ke5Dk0MTBOpRb0+b8QIAAYHfRBVG62IyI6thJBQaJJPPoxh348ky1b2kHovRPc2yNigLN5iTSnx
- gyvHJIMvswFH5sLrWrqGg/xIjGoy5qTaqzUBGbvQPFVCvApPYiYjbu018kkhVtenKAqxe76BuMy
- GHdYXPmDRG2YYaDTjEtXcJezxWtA+TgUX/Vm+GCM0lVnaO8WlQ4Q0My9zgK/LzIcA+5c43gVA+l
- fju4uEEIS7f8WCKYUWr6uBVe9I8EO3H30+CCaLMLS9VU08mPHrQX+kzCW5W4LWlEYbEG3maa0C9
- PUgnZL819VkRwsDTG+w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA2MDIxMiBTYWx0ZWRfX2ejBJlP5m+lH
- +OPQCeHgEhfJAteCOn5FGZtJSMgRSZqaMmFDdUiIKTN/ncgbGKjcPEFQGtvz/IndLNFGm5O5liL
- BntxZKaS5dkOfk/dC3nLc0RhDwOQx+A=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-06_02,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 impostorscore=0 adultscore=0 spamscore=0
- clxscore=1015 suspectscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609060212
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902104712.2399797-2-vdonnefort@google.com>
 
-On 02/09/2026 12:16, Mark Rutland wrote:
-> We recently removed the enum values 'preempt_dynamic_none' and
-> 'preempt_dynamic_voluntary', but forgot to update preempt_modes[]
-> accordingly. Due to this, preempt_model_str() and sched_dynamic_show()
-> produce incorrect output, with the wrong preemption model string in
-> backtraces, and empty output for /sys/kernel/debug/sched/preempt.
+On Wed, Sep 02, 2026 at 11:47:03AM +0100, Vincent Donnefort wrote:
+> Keeping last-level mappings is interesting on some architectures as it
+> allows mapping/unmapping pages from the kernel direct map without the
+> risk of splitting blocks which, under the break-before-make rule, may
+> trigger page-faults the kernel can't handle.
 > 
-> Update preempt_modes[] to account for the removed enum values. Given
-> that CONFIG_PREEMPT_DYNAMIC now depends on CONFIG_ARCH_HAS_PREEMPT_LAZY,
-> and given that only 'preempt_dynamic_full' and 'preempt_dynamic_lazy'
-> remain, sched_dynamic_show() no longer needs to skip any model strings.
+> However, mapping the entire direct map at PTE-level is costly. So
+> instead, create a new memblock flag MEMBLOCK_LLMAP to enable the system
+
+I believe MEMBLOCK_PTE_MAP sounds more descriptive.
+
+> to decide which region must be covered by mappings up to the last-level.
 > 
-> Reported-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> Fixes: 9650ce11f2e3 ("sched: dynamic: Simplify preempt model accessors")
-> Signed-off-by: Mark Rutland <mark.rutland@arm.com>
-Hi,
+> Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+> 
+> diff --git a/include/linux/memblock.h b/include/linux/memblock.h
+> index d62db9e776cf..d40a5ded188d 100644
+> --- a/include/linux/memblock.h
+> +++ b/include/linux/memblock.h
+> @@ -52,6 +52,7 @@ extern unsigned long long max_possible_pfn;
+>   * kernel that we know is good to use. It is the only memory that
+>   * allocations may happen from in this phase.
+>   * @MEMBLOCK_RSRV_HUGETLB: memory is reserved for hugetlb pages
+> + * @MEMBLOCK_LLMAP: memory region to be mapped using last-level mapping
+>   */
+>  enum memblock_flags {
+>  	MEMBLOCK_NONE		= 0x0,	/* No special request */
+> @@ -63,6 +64,7 @@ enum memblock_flags {
+>  	MEMBLOCK_RSRV_KERN	= 0x20,	/* memory reserved for kernel use */
+>  	MEMBLOCK_KHO_SCRATCH	= 0x40,	/* scratch memory for kexec handover */
+>  	MEMBLOCK_RSRV_HUGETLB	= 0x80, /* memory reserved for hugetlb pages */
+> +	MEMBLOCK_LLMAP		= 0x100,/* last-level mapping */
+>  };
+>  
+>  /**
+> @@ -160,6 +162,8 @@ int memblock_reserved_mark_noinit(phys_addr_t base, phys_addr_t size);
+>  int memblock_reserved_mark_kern(phys_addr_t base, phys_addr_t size);
+>  int memblock_mark_kho_scratch(phys_addr_t base, phys_addr_t size);
+>  int memblock_clear_kho_scratch(phys_addr_t base, phys_addr_t size);
+> +int memblock_mark_llmap(phys_addr_t base, phys_addr_t size);
+> +int memblock_clear_llmap(phys_addr_t base, phys_addr_t size);
+>  
+>  void memblock_free(void *ptr, size_t size);
+>  void reset_all_zones_managed_pages(void);
+> @@ -306,6 +310,11 @@ static inline bool memblock_is_kho_scratch(struct memblock_region *m)
+>  	return m->flags & MEMBLOCK_KHO_SCRATCH;
+>  }
+>  
+> +static inline bool memblock_is_llmap(struct memblock_region *m)
+> +{
+> +	return m->flags & MEMBLOCK_LLMAP;
+> +}
+> +
+>  int memblock_search_pfn_nid(unsigned long pfn, unsigned long *start_pfn,
+>  			    unsigned long  *end_pfn);
+>  void __next_mem_pfn_range(int *idx, int nid, unsigned long *out_start_pfn,
+> diff --git a/mm/memblock.c b/mm/memblock.c
+> index 9ce86349a29f..1591b50503ed 100644
+> --- a/mm/memblock.c
+> +++ b/mm/memblock.c
+> @@ -1119,6 +1119,16 @@ int __init_memblock memblock_mark_mirror(phys_addr_t base, phys_addr_t size)
+>   */
+>  int __init_memblock memblock_mark_nomap(phys_addr_t base, phys_addr_t size)
+>  {
+> +	struct memblock_region *r;
+> +
+> +	memblock_cap_size(base, &size);
+> +
+> +	for_each_mem_region(r) {
+> +		if (memblock_is_llmap(r) &&
+> +		    memblock_addrs_overlap(base, size, r->base, r->size))
+> +			return -EINVAL;
+> +	}
 
-I did a quick test on s390.
+I'm not very fond of implicit skips here. memblock has no idea what's the
+caller intention, maybe it actually wants to change the memory from nomap
+to pte-mapped.
 
-$ echo full > preempt
-$ cat preempt
-(full) lazy
+I'd rather warn in memblock_is_nomap() and memblock_is_llmap() if they both
+are set and let the caller deal with making sure they are not.
 
-$ echo lazy > preempt
-$ cat preempt
-full (lazy)
+> +
+>  	return memblock_setclr_flag(&memblock.memory, base, size, 1, MEMBLOCK_NOMAP);
+>  }
+>  
+> @@ -1204,6 +1214,45 @@ __init int memblock_clear_kho_scratch(phys_addr_t base, phys_addr_t size)
+>  				    MEMBLOCK_KHO_SCRATCH);
+>  }
+>  
+> +/**
+> + * memblock_mark_llmap - Mark a memory region with flag MEMBLOCK_LLMAP.
+> + * @base: the base phys addr of the region
+> + * @size: the size of the region
+> + *
+> + * If supported by the architecture, such region is mapped at the last-level in
+> + * the kernel direct map.
+> + *
+> + * Return: 0 on success, -errno on failure.
+> + */
+> +int __init_memblock memblock_mark_llmap(phys_addr_t base, phys_addr_t size)
+> +{
+> +	struct memblock_region *r;
+> +
+> +	memblock_cap_size(base, &size);
+> +
+> +	for_each_mem_region(r) {
+> +		if (memblock_is_nomap(r) &&
+> +		    memblock_addrs_overlap(base, size, r->base, r->size))
+> +			return -EINVAL;
+> +	}
 
-The sched_dynamic_show() output looks correct now, and the
-code looks much nicer without those conditional indices.
-Feel free to put my tested by.
+same here
 
-Tested-by: Mete Durlu <meted@linux.ibm.com>
+> +
+> +	return memblock_setclr_flag(&memblock.memory, base, size, 1,
+> +				    MEMBLOCK_LLMAP);
+> +}
+> +
+> +/**
+> + * memblock_clear_llmap - Clear flag MEMBLOCK_LLMAP for a specified region.
+> + * @base: the base phys addr of the region
+> + * @size: the size of the region
+> + *
+> + * Return: 0 on success, -errno on failure.
+> + */
+> +int __init_memblock memblock_clear_llmap(phys_addr_t base, phys_addr_t size)
+> +{
+> +	return memblock_setclr_flag(&memblock.memory, base, size, 0,
+> +				    MEMBLOCK_LLMAP);
+> +}
+> +
+>  static bool should_skip_region(struct memblock_type *type,
+>  			       struct memblock_region *m,
+>  			       int nid, int flags)
+> @@ -2886,6 +2935,7 @@ static const char * const flagname[] = {
+>  	[ilog2(MEMBLOCK_RSRV_NOINIT)] = "RSV_NIT",
+>  	[ilog2(MEMBLOCK_RSRV_KERN)] = "RSV_KERN",
+>  	[ilog2(MEMBLOCK_KHO_SCRATCH)] = "KHO_SCRATCH",
+> +	[ilog2(MEMBLOCK_LLMAP)] = "LLMAP",
+>  };
+>  
+>  static int memblock_debug_show(struct seq_file *m, void *private)
+> -- 
+> 2.55.0.970.g62bdec98f9-goog
+> 
 
+-- 
+Sincerely yours,
+Mike.
