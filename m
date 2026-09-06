@@ -1,179 +1,147 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C5A34A3A5
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 20:44:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788727454; cv=none; b=SIc6icKtvwhOZZGmOnuSJc+e7VZOiQH6v24uf8kuRSzN6KSlRisW8cwIpKrxAyGCqnYk7WxbZUYzkPd9HH/dGzTVO1ZjmJeOsoQzVy4bOx3usEQh3vu/b4f8Ph/hiuk2UTTztRbjE3reAnpMnVvrIlc0xmGr1NCSOdJ8Lk6cm9w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788727454; c=relaxed/simple;
-	bh=gX4QggEryg1cIxN5EI0dbWpi4QT15DyTubvIPqUvmf8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=t+m8IxgTun3VgUFq6uO9MM8+TR7uDcUh25fPA6DbFXVUfHrGnjluKyLNltdgqwj51ewIYz/h/LW3BLrPTyD0sQV02BC6FTRtGHJ5ud1e71IqUwi+Wyl0bG/LgLKkm//VxDJwWQlxQFzXJcSTdR9Og0/btrkWPIpxGWRFS5xhgCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q0I6V7F9; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91D523BD65D
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 20:44:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788727492; cv=pass; b=mdSbKhBZsOS35OaSfCMkDoCiOI+ldIhnrfTrSuzUb3a3R3kQhupZCX2I17eFj9W8o1kTgShXDq/ylAsR90t+xQ9fGuFxUGg3EQ92ezArs+YG3OPVWpszzBJuZi/fNWiuIJ4pYEwF0dO5T5NkDP6seaZ6JkOWKF31oF6evm9xkuY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788727492; c=relaxed/simple;
+	bh=qfahVnAkOq9Dy0GM7LrueFYNNe+ttAyxCGh+kKGHkNM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IJu/MWGUfyd+JQG9l++AnbLng+dgRhFLgPCw9d6KU+USNr8Qc2MR7YCeniYSl0CxBRaZ5v4K80cB/ttZIjpiqjRLbbjvY0jS52CixCb6tRoi1sgW1JN5waQSFMJTCtZvmNPL+QTxYztAw9m1270cDjOyM2MZDlvbuGkGltmh2PM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZvuJLxq7; arc=pass smtp.client-ip=209.85.218.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q0I6V7F9"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49b9320423cso31432875e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 13:44:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZvuJLxq7"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c28eef361f0so51667066b.2
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 13:44:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788727489; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JgpaP4RVLrTYz362ltAHuivBbaT9iqA2tBZBOMqAw4xNgFMEplDCywbT6q0kc0Y/rJ
+         12wsrNlV/Hx5hdKLbvXFwJM9USTgc17EsCyJhNf5kaulHkuEbr3D2piOmBLGiVDUS+F/
+         LHtMplXl/QlU4DT5Qo4Bp+EtIyutgq9jMWM040EYvwQPrke8nF5YWaUflGLGW7d1zhqx
+         2kBAzkIrj5OPmGYQ39hJSceoqfCN+fM+Abyr+WaHc/xA8VzGNa2qCSh1AOt/tigkADpZ
+         Q2aVfELy+BGNCK538+plRMPi05ARKOEFhFvMZl51N9JX3VMed782HFf9KTV/agoIAXOq
+         Onlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qfahVnAkOq9Dy0GM7LrueFYNNe+ttAyxCGh+kKGHkNM=;
+        fh=Fpm4KPJRNE1+WInxNH7fCYpDXXh5GJuWpsv1q5kUpOo=;
+        b=R89coboC8VH5WXMv0I+JnJSwa2Z+iCSD1QPYDK3RFnRfpYCzIbloBA6ZgjvUAlBEij
+         a8f+0F6bDJbTU/N8X9Js84erTO6KCrg4zXey3XBvZaOhHL3EXEETZSkkyFonOnY2nPeB
+         tbAXvus4IfksQOx0p+zgtg9UwOEz4qsirajtU/rc7aZm/pTkt+IyVgcf7sw7pCgOCa5+
+         FquWBEdvMIMjNI88l8nGd+HnLGic1ERGrk+Scknzgqy53bg+rw2uFauicAGtRv1y7h07
+         +s4qnnv4/Cb0WfbSNKgcLRnyIVZEiKbhs2hN9Ruaob4kciU2olwgFCrIKG7grE8jTrSp
+         xTIA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788727451; x=1789332251; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YPj6QUYKEgOwyCjwO8AZVvBEPqAex2m6goITgNkt8RU=;
-        b=Q0I6V7F9nAT6FJqJdAKgm8E62j4nMrb21k0CBa9DHYp1USA1h3CsHNJ0yKjky7SFtT
-         eumovkGZHCYEWcu3GAoKB9kfXJGBOx2jV7FkaM8Uh1thyaq3hEBC9YityJeJ2duGzW0X
-         vVl4nPVt3D1fGk1PDfNJipZ4cjiP/6bA1ulLrbCKfaQj+xN/y0wZdpSUSTJUQEQ+kRn+
-         lrakLWs97PCBnKHCNVZc2QWRZXgcn46xqm+E57waOLo2YCzKDhI1GAjS3YF0n/noY6Eu
-         8ml4yZ5AP3Evjt3QSlPLAVO9YjJvBf5/c6rBT6E1JcKIV+UwUDngorkhVbWT7ZtqpLJz
-         FaYg==
+        d=gmail.com; s=20251104; t=1788727489; x=1789332289; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qfahVnAkOq9Dy0GM7LrueFYNNe+ttAyxCGh+kKGHkNM=;
+        b=ZvuJLxq7UnGxQy3/tdKxGRBTo/vvPeoBfQ0i0xekofZOIeMf2wV2W+VDhf44hQ8Z69
+         jcux6HyQMsL88AyR0/n+TjFMuX2rbmqgrEPLF8Xf51KCFvHuVT4yEBhCuYvXAylFx1Ot
+         wzZC3RBgQ+Y9PG6O/qb1fSUtnfAOkx48gyOjQyO2EV5NXSyL2FDmEXFmyKvnnqmh7EXE
+         V67vh06NnSQTYiJ8XeMIBt27Ow4JKaXoiFPZ6UC0URp1kP67uZTJFd4wbR9PpTyKlwff
+         c/ddNP+A50ar1QYW6iFhpbLPZZmh2tHuLQcy1exGq4XP/SwBPsdbXOBtHnAAVejojsrZ
+         GWjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788727451; x=1789332251;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YPj6QUYKEgOwyCjwO8AZVvBEPqAex2m6goITgNkt8RU=;
-        b=qXibnzNdr93jseUzOmrV/+tmz9Ey+fPXXCxI7X9SP+UcOOjfFYD1z6md6E0Sudrfww
-         ZtNkUa8Y+vue6g574XsPi9mQT8LMd2/fxvXD1FjOQFFeo2EfxQALgN7hQvQW2zDU2PuJ
-         9bnGt7XugR4QoN2xBwpK3YLqri61iV/osE4A0xHqJZZq6USPJ13z7bt7sWxScVqkqduj
-         xbLpjM6/rk/+jnkmcFux/mBd1QaFqgobzwfGWHzu2EjLd95XWS/3TutrfSalf+oDtFDN
-         ix3Abe7TduzOAm6Uc44zQUSxUJkbrqzv2koda7jPntciMFlI0l4VcDSVIx7pPUOId4kz
-         KQAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwCxbctu7QDfj45TSZMDh7sooOR/thv/kEpP5phA24rnWPxKozUwVKq60ebgzqq7MfCe1DAZ9cvv27qlCA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lYJ8ld+EsTVdLIr14gfm3rk9kuaj/kEpSRZ+8Lm5TZ2sMSCc3N
-	/YQ7tAMMj5szuGC+ZRMQsynjBKOID60vXUswr14n8Go9C/at4Roa5vPF
-X-Gm-Gg: AYBFou2vk5ALDwfBYxhIY8W1Cwtc7aZzm1fS4IO8OVQos4BCn1TQCesHV9alqhlMyZ3
-	j6OeW2XzvrcuPRt5UaMhcLNzS1VcXjUF08WUvsvGoycvQX8Yjc1lndMd3yQv8ebn0V6hLi5Jy95
-	3t7XOhShRe/smbmpjko5//3QvlmVLDAwBwDyE1rjvvQI1NPnZOvVa9tGdOiIO2boKOQ5DERJdEy
-	5UNV1zPwd2bKObK8SwnKr7ZtobiMq/ygneFuMCHYv9DVd16K+AwLcaAwPKNgzWYJo82O+Yjg+PU
-	xbhVP99lARESRLgW1zZrRSIw67lVCPPDPL4RiSCD6auZxJ1ghCjQU+Z/61h1Xj8xKjp0YWsy90G
-	GoYjrLwmfVkSxaqC4F5+MxpvCIsMzjHJtuf2d967w1eLnMdRSCAtK0o3kOQLxWLWYTb5f547nay
-	w14JzjSA97HNaM8AZ7NBAUjIy1/Gk2qV0oLnnPCDZsIFXE+08TYhv6hQl4v/RrIbloQQ==
-X-Received: by 2002:a05:600c:6087:b0:49c:d52e:d0ea with SMTP id 5b1f17b1804b1-49cf81e3454mr397273975e9.4.1788727451075;
-        Sun, 06 Sep 2026 13:44:11 -0700 (PDT)
-Received: from [192.168.1.50] ([81.196.40.70])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf75cd8d0sm238044635e9.2.2026.09.06.13.44.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 06 Sep 2026 13:44:10 -0700 (PDT)
-Message-ID: <e864365d-c9c5-4609-94b7-4ec4e3754136@gmail.com>
-Date: Sun, 6 Sep 2026 23:44:08 +0300
+        d=1e100.net; s=20251104; t=1788727489; x=1789332289;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qfahVnAkOq9Dy0GM7LrueFYNNe+ttAyxCGh+kKGHkNM=;
+        b=EnaO8gKcFBrs0OzgWCxfn7wfNQ9Fc/HUrQzgKxyGp5JaK94t6jBSPBuwI94aR+vY7l
+         D/0O7DhDhdZnbMl7AAAMBdMpfToHBQXobZLu9IqhL8AEXSCvJdqrX/2L/BV1h4l9rpMO
+         GMl3vc3TPG1CXH5LMlJ4tDQlsGluICs7iAJ5Ci5uL3Vxd1KlChVzTvxEuTVQjmYFmSxw
+         x1qgli0Ql/8ND7tSt39ZDjUAZipzd7J53fNtq9oanjolR/dQHw8smFRkw5eKS0Y4AVWI
+         INYItIl0D/FcGhTcrOA+BPcqfwo+xlXU04D4vQjdrxG0kLK2T7MGfhwwW2NvB//ujTWR
+         4QLw==
+X-Forwarded-Encrypted: i=1; AKwUvBzsxQRkWHm6zbl280LGDvKRAJiypzjX2tZ5CgO2Yuez7ZyKdrmw0zXpUZmYMLS6O4cd3MVpmZ3ifw6cN50=@vger.kernel.org
+X-Gm-Message-State: AFuF++kmTzCwtQBSQjn9OKQ2juS18BDpq1RfQw4STe8Co8rue+Tp+R5F
+	NRdFd4TYj03oYBhLhH/xWAwUj7m7uhGUR6BMZ3qDZAn2H5H51WhWdV1rJrYwlkDaFcF5rdU1TQZ
+	+6KTzCNJOpX+snvdsTsi0CR/FPdmX5+o=
+X-Gm-Gg: AYBFou0LYhhdhfVgpW4hB3TPw/58Mw430opLFl5ImGaGwinUBmztEukduHQUfHUgBoS
+	IalKtg6OKKteVI0Om6xph+LzkZ4hfjI4qAdHhtGqBAJ/LFAYEVlTYZX6OYjQNjg3iTnaR/Nuc6d
+	p+gHpT8TLpoYfVE8oscCI9nnFaopuJvVZgsv2aiK4yofCfHpIzUEmSW6jWZlJs4J17fLLgrFVDu
+	+PmZ10pxPgktbYjoyogGyJIKdY/2BwP7l14wLZC8gJwg5uzh6ZPJJ3bgQgZpDAL010toGU5mxfi
+	9NL/bFs4nPlSKAXxX4kaMZlYMofU/JHy3JE9L6rn5sTBgETn/3hYmgNa2eIhbubGiAIAYNBiqhz
+	iFvO1p7iJvLnMJCTffNhzbz9/Rz1pLQ==
+X-Received: by 2002:a17:907:72d5:b0:c26:1691:b361 with SMTP id
+ a640c23a62f3a-c261691b94dmr574303066b.26.1788727488511; Sun, 06 Sep 2026
+ 13:44:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH wireless-next] wifi: mt7601u: add vnd_reset parameter to
- fix probe failure on Tenda U2
-To: Herman Semenoff <germanaizek0@gmail.com>, kuba@kernel.org,
- kvalo@kernel.org, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <CAMnMt5aJwVXEVKyBR7MvVBd=qCn7fNijMC+O_cZn82zGuNPc3A@mail.gmail.com>
-Content-Language: en-US
-From: Bitterblue Smith <rtl8821cerfe2@gmail.com>
-In-Reply-To: <CAMnMt5aJwVXEVKyBR7MvVBd=qCn7fNijMC+O_cZn82zGuNPc3A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260905-arch-kconfig-options-v2-v2-0-83e8245761a2@gmail.com> <20260905-arch-kconfig-options-v2-v2-21-83e8245761a2@gmail.com>
+In-Reply-To: <20260905-arch-kconfig-options-v2-v2-21-83e8245761a2@gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Sun, 6 Sep 2026 22:44:36 +0200
+X-Gm-Features: AcwNN1We0AsiI87C6m3-nOVPbE0KRdcX5bT97xhlIc8oCAONBoZx_sgPyrzwY90
+Message-ID: <CA+=Fv5SC4qL76Fe_wk50p=8a069mKJ8ZAyUHMrP82DgvoHAsFg@mail.gmail.com>
+Subject: Re: [PATCH v2 21/22] alpha: add HAVE_PERF_REGS and
+ HAVE_PERF_USER_STACK_DUMP support
+To: Matt Turner <mattst88@gmail.com>
+Cc: Richard Henderson <richard.henderson@linaro.org>, Kees Cook <kees@kernel.org>, 
+	Marco Elver <elver@google.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	kasan-dev@googlegroups.com, linux-hardening@vger.kernel.org, 
+	linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 06/09/2026 23:20, Herman Semenoff wrote:
-> From c03d73d37df440d0046d68406fde2aa1f62fe0d1 Mon Sep 17 00:00:00 2001
-> From: Herman Semenoff <GermanAizek@aizekgroup.ru>
-> Date: Thu, 3 Sep 2026 07:14:32 +0300
-> Subject: [PATCH wireless-next] wifi: mt7601u: add vnd_reset parameter
-> to fix probe failure on Tenda U2
-> 
-> On certain MT7601U adapters, such as Tenda U2 and other newer hardware
-> revisions, driver initialization consistently fails during probe with
-> vendor request timeouts (-110 / -ETIMEDOUT):
-> 
->     mt7601u 3-14:1.0: ASIC revision: 76010001 MAC revision: 76010500
->     mt7601u 3-14:1.0: Firmware Version: 0.1.00 Build: 7640
->     mt7601u 3-14:1.0: Vendor request req:07 off:09a8 failed:-110
->     mt7601u 3-14:1.0: Vendor request req:02 off:09a8 failed:-110
->     mt7601u 3-14:1.0: Vendor request req:07 off:0734 failed:-110
->     mt7601u 3-14:1.0: Vendor request req:42 off:0230 failed:-110
->     mt7601u 3-14:1.0: probe with driver mt7601u failed with error -110
-> 
-> The failure occurs because mt7601u_load_firmware() unconditionally calls
-> mt7601u_vendor_reset() (MT_VEND_DEV_MODE_RESET) before uploading firmware
-> chunks. On these devices, issuing this vendor reset leaves the internal
-> MCU / FCE DMA engine in an unresponsive state after the first firmware
-> URB is submitted. As a result, reading MT_TX_CPU_FROM_FCE_CPU_DESC_IDX
-> (0x09a8) immediately times out.
-> 
-> Introduce a boolean module parameter 'vnd_reset' (default: false) to
-> make this vendor reset optional. When the vendor reset is skipped,
-> firmware upload succeeds and the wireless interface initializes normally.
-> 
+Hi Matt,
 
-Hi,
+On Sat, Sep 5, 2026 at 9:30=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
+te:
+>
+> Implement the perf register sampling interface for Alpha. This enables
+> perf to capture register state and user stack dumps with samples,
+> supporting --call-graph dwarf.
+>
+> The perf_regs enum exposes the registers available in pt_regs: r0-r8,
+> r16-r28, gp, pc, and ps. Registers r9-r15 are callee-saved and live
+> in switch_stack, not pt_regs, so they are not included.
+>
+> A switch statement maps perf register indices to pt_regs fields since
+> Alpha's pt_regs layout is non-contiguous (unlike architectures where
+> direct array indexing works).
+>
+> Assisted-by: Claude:claude-opus-4-6
+> Signed-off-by: Matt Turner <mattst88@gmail.com>
 
-I don't think a new module parameter will be accepted.
+I think this patch still needs kernel-side work in addition to the
+matching tools/perf support.
 
-You could just delete the vendor reset. The devices which currently work
-with the vendor reset will probably still work without it:
+HAVE_PERF_USER_STACK_DUMP makes the generic perf code obtain the user
+stack pointer through user_stack_pointer(regs), which on Alpha returns
+regs->usp. However, the interrupt SAVE_ALL path does not initialize
+that field, and do_entInt() does not snapshot USP. A profiling
+interrupt taken from user mode may therefore attempt to copy the stack
+from a stale or uninitialized address.
 
-https://lore.kernel.org/linux-wireless/62826d1d-9cef-4eff-b6c5-5ed11405a482@gmail.com/
+The proposed perf register ABI also does not include SP. A DWARF
+unwinder needs both the sampled stack contents and the corresponding
+stack pointer, so this cannot be completed solely by a later
+tools/perf patch.
 
-> Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1716301
-> Link: https://www.opena.tv/viewtopic.php?t=63919
-> Link: https://askubuntu.com/questions/1418850/the-problem-with-wi-fi-u2
-> Link: https://bbs.archlinux.org/viewtopic.php?id=224859
-> Link: https://reddit.com/r/archlinux/comments/1d6dfv5/mt7601u_usb_wifi_not_working/
-> Signed-off-by: Herman Semenoff <GermanAizek@aizekgroup.ru>
-> ---
-> This patch is based on linux-next (tag: next-20260904, commit af5f12805e5c)
-> and targets the wireless-next tree.
-> 
-> Note: Alternatively, if maintainers prefer to avoid adding a module
-> parameter and can confirm that mt7601u_vendor_reset() is not required
-> on any supported hardware, the vendor reset call could instead be dropped
-> entirely.
-> 
->  drivers/net/wireless/mediatek/mt7601u/mcu.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/wireless/mediatek/mt7601u/mcu.c
-> b/drivers/net/wireless/mediatek/mt7601u/mcu.c
-> index bad6ca821400..c7c5bd9bb9df 100644
-> --- a/drivers/net/wireless/mediatek/mt7601u/mcu.c
-> +++ b/drivers/net/wireless/mediatek/mt7601u/mcu.c
-> @@ -10,6 +10,7 @@
->  #include <linux/delay.h>
->  #include <linux/usb.h>
->  #include <linux/skbuff.h>
-> +#include <linux/moduleparam.h>
-> 
->  #include "mt7601u.h"
->  #include "dma.h"
-> @@ -21,6 +22,10 @@
->  #define MCU_FW_URB_SIZE (MCU_FW_URB_MAX_PAYLOAD + 12)
->  #define MCU_RESP_URB_SIZE 1024
-> 
-> +static bool vnd_reset;
-> +module_param(vnd_reset, bool, 0644);
-> +MODULE_PARM_DESC(vnd_reset, "Perform vendor reset during firmware
-> upload (default: false)");
-> +
->  static inline int firmware_running(struct mt7601u_dev *dev)
->  {
->   return mt7601u_rr(dev, MT_MCU_COM_REG0) == 1;
-> @@ -459,8 +464,10 @@ static int mt7601u_load_firmware(struct mt7601u_dev *dev)
->   mt7601u_wr(dev, 0x94c, 0);
->   mt7601u_wr(dev, MT_FCE_PSE_CTRL, 0);
-> 
-> - mt7601u_vendor_reset(dev);
-> - msleep(5);
-> + if (vnd_reset) {
-> + mt7601u_vendor_reset(dev);
-> + usleep_range(5000, 10000);
-> + }
-> 
->   mt7601u_wr(dev, 0xa44, 0);
->   mt7601u_wr(dev, 0x230, 0x84210);
+Would it make sense to drop this patch from the current series and
+submit the perf support separately, including USP capture on interrupt
+entry, SP in the kernel perf register ABI, and the matching tools/perf
+support? That would allow the rest of this series to proceed without
+waiting for the perf interface to be completed.
 
+Regards,
+Magnus
