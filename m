@@ -1,55 +1,50 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 990EC3CC9E9;
-	Sun,  6 Sep 2026 21:05:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C14563D0927;
+	Sun,  6 Sep 2026 21:05:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.117.225.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788728725; cv=none; b=PpvlfjNWkcvISvKQibbgtOW+3PGgp6bUzDtsE9rBTVyKc5pEODPnXX+OSe1q0bAYFY+WklR+Hc8ImYRZrTgi5tupIOFbVCp7dMUDzBA1JBHRjl/kuTFrKr20mpjFdmsLcfT0bsJSBrv5XvIIhZtAyg7qefU41xGl4tavMimZlaI=
+	t=1788728727; cv=none; b=mxbOBwNn+Cf+yyYyuq0MzB0fRKJJacJN4+K+eUd2rKke9PYd9O66DZAaPMAWnMDkm3HFe7TLmTeYKpwZihoINu12ivAZBKA8hQUizMuiWVtH8edSBAGYHacuD6ikewPRXMUli6am8UPbtc7ynqAB5MpI8TuS19fTNt8RUXhaBk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788728725; c=relaxed/simple;
-	bh=mVf9wc6j2RBh8UGDkyG+fy24tCnZhupeyl66dUumXGM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OYJIshQJwfHVF+x10V1nL6cOWghb96gm3PQx1uYaaKuWBzm1zIOZndgPr1LydRvi4lfGpqsbuAHglFU/9UwtwF5QXbSXLLVU0xHeWlb3pQHalDFNk2nwRnMaHHTxTBz4mzCn7/yAA7/CpKjWqdNHY+i5aDH5nF6xsmny9E48Sbo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TgRqBFwg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788728727; c=relaxed/simple;
+	bh=FSidv/qNTf55M88IvPpS0rThvRv7ry/b6RfaUm3+67g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fPHNBBLP90ejEll72msH8Yz5Y+/j3eDrRqVJJ9cgXSePMYR6x8uP4LmkzQ5Fy2jCctqAVwkKvK2cRDYe8NoOQkajgzOTpKR4MwL+nBLyTmZmfkhCVUvv34qC9U809yhTD/igICKvWnRJpNCkuGu3+nWQFIZ3faiXZo3Mhita9lI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=WWj/8cxJ; arc=none smtp.client-ip=130.117.225.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TgRqBFwg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 000641F00A3A;
-	Sun,  6 Sep 2026 21:05:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788728724;
-	bh=0/q3LnB7iB4S2lxLwjnJON3GEVnAZWX6/MrZWM0ze7E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TgRqBFwgOPf3NMLYWOjMTAvyvYfHyN86wytu557lkYoCpLgMwBUT9VyLlJQBFZeqg
-	 fd95Nzz+4Y2fzuEeI4rHRwzQshf8HTMpxIDhTLtEPGlwBNFH3NLYIA2H/pX0jzRj5J
-	 c/06X0wsiGIIg1aZ7rJIoBv4QZRMX3hIFN2JPc408xfZqWzGGYdIfJWG1kX8VJQOOR
-	 crLO3lqhAL5zX7CaEAf0I7dgrGwnPRISeDqgmz/9rLRKcDCEYFT9szlftqcP0hckw5
-	 JIuep0JKqu0qMUuDiNKSlRBFHTS0k1hn3Fm79ZARebJPk3x+UiC0z77YyKETOptULP
-	 AeFVYTNn9OsUA==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
+	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="WWj/8cxJ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=virtuozzo.com; s=relay; h=MIME-Version:Message-ID:Date:Subject:From:
+	Content-Type; bh=7ZRDUXUsGwRN+ne0AawD7gejvXQP/E6c8+m2m5pqP/k=; b=WWj/8cxJJ6gg
+	zT8Sua57Iv8xcjGv1dLDbgktgfP1aZLlEyIqnAyYL6mEpirC0uWnSGtTRT0ypEM7SRg0ZgmXSP/Qw
+	oH0UPR4T9BXr/hCkPpueyOPQpsOlFaCLlJ62FntB1Ez+wz5xf1youiRhFgVv8nXQ+Q97No8spph+a
+	BDpvxP59tVKRgGEd6SIm0cHdOB6O40k4O1986I8p6OyLbsJPlefZMLBF8o1Z8TjGLdPrn4QTOnio3
+	XHa0tGIU+RdhpCoucfRZRp26Wps/QM0ODxbbbdWFP1JEUxw2qObVCYkIItXsoFpKAho2pdsqpHhsW
+	44CmP303GIyK7330u/R/Rw==;
+Received: from ch-vpn.virtuozzo.com ([130.117.225.6] helo=LekKit-T14)
+	by relay.virtuozzo.com with esmtp (Exim 4.96)
+	(envelope-from <eva.kurchatova@virtuozzo.com>)
+	id 1x3Jlk-00G6jo-18;
+	Sun, 06 Sep 2026 22:49:44 +0200
+From: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+To: Josh Poimboeuf <jpoimboe@kernel.org>,
+	Jiri Kosina <jikos@kernel.org>,
+	Miroslav Benes <mbenes@suse.cz>,
+	Petr Mladek <pmladek@suse.com>,
+	Joe Lawrence <joe.lawrence@redhat.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Marcos Paulo de Souza <mpdesouza@suse.com>
+Cc: linux-kernel@vger.kernel.org,
+	Eva Kurchatova <eva.kurchatova@virtuozzo.com>,
 	Shuah Khan <skhan@linuxfoundation.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	damon@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH 6/6] Docs/admin-guide/mm/damon/usage: update for probe_hits_wsum DAMOS filter
-Date: Sun,  6 Sep 2026 14:05:12 -0700
-Message-ID: <20260906210513.106895-7-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260906210513.106895-1-sj@kernel.org>
-References: <20260906210513.106895-1-sj@kernel.org>
+	live-patching@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH] selftests: livepatch: do not require a kernel build tree to run
+Date: Sun,  6 Sep 2026 23:49:28 +0300
+Message-ID: <20260906204932.2343013-1-eva.kurchatova@virtuozzo.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,28 +53,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Update DAMON usage document for the newly added probe hits weighted sum
-based DAMOS core filter type.
+setup_config() calls has_kdir(), which skips every livepatch test when
+/lib/modules/$(uname -r)/build is missing. The tests do not compile
+anything though, they insmod the pre-built modules from test_modules/,
+so the check tests a proxy rather than the thing it cares about.
 
-Signed-off-by: SJ Park <sj@kernel.org>
+That proxy holds only for a source tree or a machine with kernel-devel
+installed. A packaged testsuite ships the modules pre-built and runs on
+machines with no kernel build tree at all, and there every single test
+reports "ok ... # SKIP". A harness that looks for "not ok" then reports
+the suite as passed, so the whole suite silently tests nothing.
+
+Test for the modules instead. Missing modules still skip rather than
+fail, which is what the KDIR check was there for, and the tests now run
+wherever the modules are.
+
+Fixes: 54ee3526796f ("selftests: livepatch: Avoid running the tests if kernel-devel is missing")
+Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
 ---
- Documentation/admin-guide/mm/damon/usage.rst | 4 ++++
- 1 file changed, 4 insertions(+)
+ tools/testing/selftests/livepatch/functions.sh | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
 
-diff --git a/Documentation/admin-guide/mm/damon/usage.rst b/Documentation/admin-guide/mm/damon/usage.rst
-index 023c6334024f8..d3e37400367bd 100644
---- a/Documentation/admin-guide/mm/damon/usage.rst
-+++ b/Documentation/admin-guide/mm/damon/usage.rst
-@@ -551,6 +551,10 @@ and ``damon_target_idx``.  To ``type`` file, you can write the type of the
- filter.  Refer to :ref:`the design doc <damon_design_damos_filters>` for
- available type names, their meaning and on what layer those are handled.
+diff --git a/tools/testing/selftests/livepatch/functions.sh b/tools/testing/selftests/livepatch/functions.sh
+index a65b7b1ac8ad..492955ca2fa0 100644
+--- a/tools/testing/selftests/livepatch/functions.sh
++++ b/tools/testing/selftests/livepatch/functions.sh
+@@ -44,14 +44,12 @@ function is_root() {
+ 	fi
+ }
  
-+For ``probe_hits_wsum`` type, you can specify the minimum and maximum probe
-+hits weighted sum value for the filter to ``min`` and ``max`` files,
-+respectively.
-+
- For ``memcg`` type, you can specify the memory cgroup of the interest by
- writing the path of the memory cgroup from the cgroups mount point to
- ``memcg_path`` file.  For ``addr`` type, you can specify the start and end
+-# Check if we can compile the modules before loading them
+-function has_kdir() {
+-	if [ -z "$KDIR" ]; then
+-		KDIR="/lib/modules/$(uname -r)/build"
+-	fi
++# Check that the test modules are there before loading them
++function has_test_modules() {
++	local mods=(test_modules/*.ko)
+ 
+-	if [ ! -d "$KDIR" ]; then
+-		echo "skip all tests: KDIR ($KDIR) not available to compile modules."
++	if [ ! -e "${mods[0]}" ]; then
++		echo "skip all tests: test modules are not built, run make first" >&2
+ 		exit $ksft_skip
+ 	fi
+ }
+@@ -150,7 +148,7 @@ function cleanup() {
+ #		 the ftrace_enabled sysctl.
+ function setup_config() {
+ 	is_root
+-	has_kdir
++	has_test_modules
+ 	push_config
+ 	set_dynamic_debug
+ 	set_ftrace_enabled 1
 -- 
-2.47.3
+2.55.0
+
