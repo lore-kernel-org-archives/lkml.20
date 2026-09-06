@@ -1,132 +1,178 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B553314C4
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 18:56:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7C183314C4;
+	Sun,  6 Sep 2026 18:56:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788720991; cv=none; b=gG4d2YzVYiP4l58uNaI5DVjpruC2uh+dshXyvbmuWaZ5ZYI6fXbmpxLY9UdanUfU2E190mhT667UdpzxUOvNXHxRIK8GtnCaZYEMPWUqwGjF5L8mXiVmX1AIvs7uX2rm0vLG2HZ4fTmG9AFDKx+oLMn9vT8Bw5Lj8yWOEilhDxs=
+	t=1788721012; cv=none; b=eMXHbCbqhgkPGsE/ZiMQ1FyVpxxQyrLxiYplfyYXqGVqkPfmleTfT6VzpHd//YYHB77Ojq21F2Y62aeWPtbixXxvq0Mq6MIySVyWlakhUSC+35KDFqgMn2mFyYgvla/zC+zs+ytzpzFVzhIFMXqPVIG1Ob3zy5piQbnva9Jf/Hk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788720991; c=relaxed/simple;
-	bh=6a+HZ1EYXYHu9PlV9ZIMitFPuM02tFoBs0QnqvSqpU0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ShwDS8XqLdPmgJ+5i8Vs7aA69UgieAU4yIajAyuLXXRR0mIV59nQU0PEUSHIEX9y1jhX82pLxknjlsU2b7ubK1etwnG5ljFNdlzWP7EkKPCLR37Ggz6wtA3Q+ULtgoo5vgQ1F2b08DSNwO1wdhcRRG06exYzxEG2jP19e+PlwhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NTs0Dq6I; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=qAY1gG4+; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788721012; c=relaxed/simple;
+	bh=GzwTYTPNB+3ZgaSGbOJhfN4xcVHixesBzXXyYH87uhM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XdbaXFvBatSfP4ER0t94gDEytjHjNnLxunzvE47By/all3SLIu4m3NEQ3ZbQn4y03k4LZDOL38HjOBIxYH1fAdkY1lHFFDxO8Jdy71+5tFqiUB1cx8nwgYJZGL2dPJjkrL5xizGWZDXVgCczku9QhoBJ6icGyH1VDU8uwvWJXt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=Np64Orrn; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=IEdo3RZl; arc=none smtp.client-ip=23.88.97.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NTs0Dq6I";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="qAY1gG4+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788720988;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UoPs+GJMD19+2K8VaVNyBFab1idZZJbQk2Q9rWXgiCY=;
-	b=NTs0Dq6ID7Utpl8vuq/dAPjs+dNnBvQiCCVqu4/+kh6I37jUoOBjwPz+gARVGZT7DEbGMY
-	SeNCqj1pqObM7Q1xUl1k9ljmeR2btIP7aYpQL8y6KywPZyAPTubAiu68zYQ1JztrFXM6IV
-	QJm4fZkYeTTB0rh3JWFtUOt617gmMBY=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-277-nD6T3ZhlM0G-VEAZkE8UJg-1; Sun, 06 Sep 2026 14:56:27 -0400
-X-MC-Unique: nD6T3ZhlM0G-VEAZkE8UJg-1
-X-Mimecast-MFC-AGG-ID: nD6T3ZhlM0G-VEAZkE8UJg_1788720986
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48437090e74so1662334f8f.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 11:56:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788720986; x=1789325786; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UoPs+GJMD19+2K8VaVNyBFab1idZZJbQk2Q9rWXgiCY=;
-        b=qAY1gG4+yO5TNsgyDVxBEQ5IKAY697kE9ikocMWvlK39MGKHQ6VVqwtH1opDhpqerj
-         SYhnChjpqlLxmgLslYvfLosbJcXzXRUcSJYNejP0HWSuGmFhFy8lDmWCO2wzlNJovqj2
-         ZdhcTFbnbJMDFdFLq6/NRgGysqGYK3qIQnR/N5zs70tSsxVeRYfy/NlNO/MspDvJJk1z
-         P3F9Bm3ETQhMpZ6N7NIHWNGzgaxh7SCbVsyGCMs+KNv8qg263ou4AZ+nBJdIw8A1nUj0
-         OkmQItCtMTumqP3K3LDmziqqebMSUfDR0Gnp1HTEBQzgtrxUFRCMLkakHe39aSJxyvWG
-         Aqaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788720986; x=1789325786;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UoPs+GJMD19+2K8VaVNyBFab1idZZJbQk2Q9rWXgiCY=;
-        b=cFE+jZCjj0ZGOVlUpUo2LK/ABGkYeEUf8q+YYGtDs03P0Hg6RguIMxPtxFFBg5myly
-         VrpIGDryhvcYHyhoFqQKmRImnTjs3PZGq/EcZeAlpEgjvo7+hsyjz2Klw5xK74rLINN0
-         5SQhX6/rB1rS9P5RDFrUjVkV5lFpOb4dQjZXWpJOOJYIl06MDwOL/5YSUrpI5hXaG/JH
-         jAU5IT+hkgUtAQqIrG9o6Nhqk70nii2pJzoRTfDCTCIymGJr4LRVGc4c17WasSI7DogX
-         aUr8Bo8onwte2TsyVC+Vlp+0sg0pd8B2JX+ynBfPXdfEvMuwtFq5A4SEA0GAH7tBEThK
-         tW3A==
-X-Forwarded-Encrypted: i=1; AKwUvBxfsA+VOj6lEUgawCmjwwQXD6g7lvyrxV6qZd8J5ArBZ6gkkI721k/2C+C9kMBz7fL+076bl/9WCKkMSj0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kLjQ1Gt5N2MYGl1mvvFq0IjNFmtNISUPiyw78V9De0F/l6GO8r
-	CiYRFDyr9TQsNc+PFmdsyGiVqr7eXLJxiKuZFek4qJSE9l1SCo8NLcK7jDWObHHi+5vo753CW+e
-	96Pa+89UhXZyMXUCMtMXqcph2FqOQZR7rGYj+7RTvNUskAHelVUofPGXPbh2Ecr9BFA==
-X-Gm-Gg: AYBFou2Ci9EtQM8NdddTjNUQNrS4K0NdTjNxjS/dZi4MNGY8EZ0VP6aeYAaRV/ElxRS
-	UhLiIX5C5Td4xB4WjwmRGd8QUEG8UWPa2YkIdhYl8AaziAeKomtQFkd8G7xCLHCYf77ysdUu2nc
-	x+qBJzczhVGZNawXHNeQGw7DuR3WgI544YJJ2PYoRTS902obTyOVU6v6yiXjqMGm5Cmwlli1wdX
-	7YCF6FvIDE+Hu22HQ881iP8Wcj0TJ6lSXQptUjLuB5/KhcuiCECssGDW/QYTJ00aZUw7MPvkMbn
-	qEsju6v3BNUnnhiDlqwT6OG0l1Y27wROOQegTayTf6yD19PtNRe4kHpDHp1LUnIqHGbNpALiUY9
-	wvGYpZPSE8YH68Ci6tD7Q0DA=
-X-Received: by 2002:a05:600c:8b29:b0:49c:ee22:364c with SMTP id 5b1f17b1804b1-49cf824743cmr196985075e9.9.1788720985716;
-        Sun, 06 Sep 2026 11:56:25 -0700 (PDT)
-X-Received: by 2002:a05:600c:8b29:b0:49c:ee22:364c with SMTP id 5b1f17b1804b1-49cf824743cmr196984675e9.9.1788720985146;
-        Sun, 06 Sep 2026 11:56:25 -0700 (PDT)
-Received: from redhat.com (IGLD-80-230-79-236.inter.net.il. [80.230.79.236])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d084d62b0sm80311485e9.2.2026.09.06.11.56.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 11:56:24 -0700 (PDT)
-Date: Sun, 6 Sep 2026 14:56:20 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Jason Wang <jasowangio@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Rusty Russell <rusty@rustcorp.com.au>,
-	Pawel Moll <pawel.moll@arm.com>, Cornelia Huck <cohuck@redhat.com>,
-	Halil Pasic <pasic@linux.ibm.com>,
-	Eric Farman <farman@linux.ibm.com>,
-	Richard Weinberger <richard@nod.at>,
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Vadim Pasternak <vadimp@nvidia.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	virtualization@lists.linux.dev, linux-input@vger.kernel.org,
-	linux-s390@vger.kernel.org, kvm@vger.kernel.org,
-	linux-um@lists.infradead.org, platform-driver-x86@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] virtio: synchronize callbacks during device reset
-Message-ID: <20260906145605-mutt-send-email-mst@kernel.org>
-References: <20260905152059.89560-1-kmehltretter@gmail.com>
- <20260906025249-mutt-send-email-mst@kernel.org>
- <ap2VJkoIsBbsqcNm@gmail.com>
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="Np64Orrn";
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="IEdo3RZl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1788721003;
+	bh=GzwTYTPNB+3ZgaSGbOJhfN4xcVHixesBzXXyYH87uhM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Np64OrrnAiDjkzGw7b+8Sxetw8JEGWE9wGXt5gJMS0F24JZE37lL5FfV3oNgpMmRi
+	 xvzCBNl6OjtpfIZV3JLajfWqssO20HL9k4fAExJTUNclCNQYHlldOvL8IavbHocjIk
+	 BV93WsDVdO/Vcy0Dg27x2YPXeruiT+ItsjjeJWtJBy05AKTzysXMcG3E1rc7zQNi9C
+	 OWz5Evi+L2X9TC2YRWIkmSUpr37lGKy59rIQ4spcPODfBofymIy4xylowcqeZE78a1
+	 bxGh3jPF1Bg45QpSpT6aupTm8hZtKL1WOtb1L61iUNZwCJd9rlRWVPB2VbDVOxw3A8
+	 XcmmMtub2tKGA==
+Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
+	id 0CBB13F1ED; Sun,  6 Sep 2026 18:56:43 +0000 (UTC)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1788721001;
+	bh=GzwTYTPNB+3ZgaSGbOJhfN4xcVHixesBzXXyYH87uhM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=IEdo3RZlgB8mBSaLjlE9yh03j0w1KvEPb6W2ens0JqphMz3PVC5in6vEhdZWLtVFB
+	 xUf3LbaBNUxZ/cCqrl3VvANwFTEi+78oZXg0wugvr6Lv8sMr8SrThl63p6SOi9m/Mg
+	 TPRiyirt92X/miVHl8yopnap0YJaqAfo4kNF7kY4R5EF3p/m/1ZsZkpfuFB0KeXZCt
+	 wYKy5R3svxh7ligpmNR66MNb3n3co7R9wkFN/Bs9vCw+Dx/jUXMhmhg8x+iIEo05J1
+	 XiO6Fmdc0ChwtZE8Dm93KiuA2Ds1q7Eaw/9h8J0zmKLoV6GmIxjWG09yEc6Yl+uAtZ
+	 4Qa9yc/fJ03gg==
+Received: from [IPV6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb] (unknown [IPv6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb])
+	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 89F823F1B9;
+	Sun,  6 Sep 2026 18:56:41 +0000 (UTC)
+Message-ID: <f56aa06f-fad7-4714-9c54-846397bf2438@birger-koblitz.de>
+Date: Sun, 6 Sep 2026 20:56:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ap2VJkoIsBbsqcNm@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v10 00/15] ax88179_178a: Add support for
+ AX88179A-based chips
+To: Jianhui Xu <neuromoments@gmail.com>
+Cc: andrew+netdev@lunn.ch, andrew@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, hkallweit1@gmail.com, kuba@kernel.org,
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux@armlinux.org.uk, netdev@vger.kernel.org, pabeni@redhat.com
+References: <20260904-ax88179a-v10-0-b5e60eca7690@birger-koblitz.de>
+ <20260906104031.78051-1-neuromoments@gmail.com>
+From: Birger Koblitz <mail@birger-koblitz.de>
+Content-Language: en-US
+In-Reply-To: <20260906104031.78051-1-neuromoments@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, Sep 06, 2026 at 06:32:40PM +0200, Karl Mehltretter wrote:
-> On Sun, Sep 06, 2026 at 02:53:05AM +0100, Michael S. Tsirkin wrote:
-> > You didn't send patch 3.
-> > 
+Hi Jianhui,
+
+On 06/09/2026 12:40 pm, Jianhui Xu wrote:
+> Hi Birger,
 > 
-> I resent it to just you now. Mail must have gotton lost somewhere.
-
-got it now, thanks!
-
-> If all else fails, it's on lore:
-> https://lore.kernel.org/r/20260905152059.89560-4-kmehltretter@gmail.com/
+> I tested v9 on the same ASIX AX88179B adapter. By the time you read this,
+> v10 has already been posted. Given the relatively small differences between
+> v9 and v10, I expect the issue I found in v9 to apply to v10 as well.
 > 
-> Thanks,
-> Karl
+> First, as you already noticed, `data` is undeclared.
+> 
+> For QEMU runtime testing I also had to apply Chen-Yu Tsai's unrelated
+> `usb: xhci: Fix HCS_ERST_MAX conversion` patch. Without it, this base kernel
+> fails to initialize QEMU's xHCI controller before the network driver is
+> reached.
+> 
+> All three fresh functional starts completed cold DHCP at 1000baseT/Full
+> without reloading the driver and passed the normal 1000/100/10/1000 Mbit/s
+> matrix, EEE disable/restore, pause enable/restore, and EEPROM read.
+> 
+> During repeated speed transitions, I observed one intermittent carrier-loss
+> failure. Of 19 normally initiated restores from 100/full to the default
+> 1000/full advertisement, 18 passed and one failed to regain carrier. After
+> that failure, ethtool reported unknown speed and no link, and further
+> advertisement changes did not recover it. Dmesg showed the preceding
+> 100-Mbit Link Up followed by Link Down, with no subsequent Link Up before
+> the device was reattached.
+> 
+> I could not reproduce the failure in two later fresh starts or in a further
+> 90 unmodified-v9 stress cycles. Counting the normal matrix and stress
+> points, all 22 tested 100/full points passed, so I also did not reproduce
+> the earlier 100-Mbit carrier-without-RX failure.
+> 
+I tried to reproduce the issue myself. I am running the v10 USB and PHY 
+driver modules directly on a PC with otherwise Kernel
+Linux version 7.1.8+deb13-amd64
+
+I am using the following script to change between 100MBit and 1GBit
+1000 times with an AX88179A 1GBit dongle, each time testing a ping and 
+printing out the negotiated speed:
+!/bin/bash
+i=0
+speed=100
+while [ $i -lt 1000 ]
+do
+         ((i++))
+         echo "Run $i"
+         success="BAD"
+         success=$(ping -c 1 -q 192.168.10.247 >1 2>&1 && echo "OK")
+         echo "Success: $success"
+
+         if [ "$success" != "OK" ]; then
+                 echo "Failed: $success $i"
+         fi
+
+         ethtool -s enx9c69d380ffff autoneg on speed $speed
+         if [ "$speed" != "100" ]; then
+                 speed=100
+         else
+                 speed=1000
+         fi
+         sleep 6
+         echo `ethtool enx9c69d380ffff | grep Speed:`
+done
+
+This runs through without issues 1000 times:
+[...]
+Success: OK
+Speed: 1000Mb/s
+Run 999
+Success: OK
+Speed: 100Mb/s
+Run 1000
+Success: OK
+Speed: 1000Mb/s
+
+ethtool changes the speed, then reliably reads the correct speed while 
+ping works and the device continues to respond normally through the 
+entire test. All of this 1000 times.
+
+So, either what you observed is extremely rare, or it could also be 
+influenced by the different test setup, including the fact my test is on 
+bare metal, but also by the link partner (an RTL8372-switch in my case).
+
+The other point is that in principle what we are testing is not 
+something users do regularly: you plug the dongle in, it autonegotiates, 
+and that's it. And if you change the speed, there is a 50% chance you 
+will do it from the other side of the link, which seems to be much less 
+problematic as I noticed previously when we had the race condition due 
+to PHY polling, because the dongle does not try to optimize the link: it 
+accepts what is being offered.
+
+I did not test your code, but I am wondering whether it is not simply 
+enough to do:
++	if (link)
++		phylink_mac_interrupt(data->phylink);
+without reading the bit whether the MAC link is up. Speed changes come
+with a link-down, so I would think this is enough to do it like that. Or 
+maybe I am missing something?
+
+Given that we do not really know whether there is actually an issue, 
+what it is and whether it is really relevant, otherwise your tests all 
+succeed, and also because I have a feeling that Andrew may not like it 
+if we try to be smarter than phylink, I would suggest we leave it like 
+this for the moment. I would really like to see this being finally 
+reviewed to the point where it can be merged.
+
+Birger
 
