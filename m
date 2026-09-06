@@ -1,121 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60FFE8472;
-	Sun,  6 Sep 2026 17:02:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A706636197A
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 17:03:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788714176; cv=none; b=Peds55qqRtBIGC8R6YazliWTiN+FwJxaKj3iIJQK7mRomJ38pfhB2NtnLNXNmXwdCFdhIOxV1ztQdXlzk493bto3CAaKj4PdPlehPNq9piptCY7uHZ6BIyUrXvBob5XYwLKWKCuu7TaRzx8czcntV68rI/bI4xTo6burlkvcwjc=
+	t=1788714211; cv=none; b=H2ig5RACo2wFJzItpXqKsmpFr/CttM2AGlkaarcdLlMJ4aDOUBiachfayDT47BCf/FoWE9Hqmy91fpnFjxZX1r4GhkUlyU4xF2My4lt8/jdBPPXcmIBLDGgcOUJda+kYnuRUx8tD4JLnJqKEah35MneeuTVBlUEAFYnzaucJWqg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788714176; c=relaxed/simple;
-	bh=QyHdNnmyM6dLVHkg0+sJ89DOljku6meMJb3tIDrUVLA=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=kL4Ljymxn6RPJwvFWIyRLYSFa5xEZX4aeDHhVogElsh/vO5EAzGjC1gUfQgHbS69/pKh3xNVufKDEv1slbnjkTc7ATGwDi4BAQrjuUQa6UQCXZ9Gp6IgDmYRAHm7TyCZvJeYT349eysJa1pxKpH9kNUzP4Ov7G5i26kYL/WTCVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ci5FUCgy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788714211; c=relaxed/simple;
+	bh=3nQdtxw/p3KehznPyVdjNN8kTVqQcOVVInmE6Fspmvs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ubZQ3AtFSX8hd/R15WtnRihFNEDy9EAfbhfo2bnxcwNJSnqdiQl5EK6ACXMeD7Uw7Fx7opw8JE07GaQDl+lYkNwdWuLZZm/751P+x+jbyrdIVm/+zqmxMJug7h67eV/4RAWZ0ouK1GA2K2zt8SGrHzj0NkhmImBqnR2FR7XLjCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=islALXcM; arc=none smtp.client-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ci5FUCgy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09F781F00A3A;
-	Sun,  6 Sep 2026 17:02:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788714175;
-	bh=TBeFAIFQ4spFa6+WzZT7KG9TSEJ5lXH3S3WUVWuoYo8=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=ci5FUCgyC/QInhQXTJ05mtFV29CfPr6LvOcjDgJ1xEKZAtM7HR3K7gN5fL8ABYtZU
-	 EOceTC8fe4q+YQxL8MdhtadIasJmCyFAnN7rsIbZ4wqjQY07i0zr1umYkJ/6Ii7hPJ
-	 vqOtQQdJQgUIpNvlHWFgT3x3VlLHYLsrzgOQUfiyIRd1hAw+zo2FI9JkMC/L0IcJ8A
-	 qx0rU7ckA0c7ONVJFZsOH3bUddbd6u4mKEzkstQslcLKZ4sivFem6/T8tEIpIzwyVR
-	 zDqCoYu8fmvp3KUIAzzcnLN6FibR65BmM/QhwDngt9Ico5yFFIpnCF/FEWrH7xi62A
-	 B0PGnEeVsNQUw==
-Content-Type: multipart/mixed; boundary="===============8862146096104192090=="
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="islALXcM"
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-ca97d139d5fso2547919a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 10:03:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788714210; x=1789319010; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=WbyKgxmi/08EG4pWqu0vnWSWMfKp3Bgy++/kX1RtY/8=;
+        b=islALXcMkeE19kDYnyctCkZOazjAyEgafus2D+wqdD2hFX4Cet8ObCIBUIQwTdHc7K
+         frBUckQTayhunRYMV8xFGbZj3h0yFFqo3K0OIKeVMt6ikKqi4R9ZF9N0MfZC5rM7JBSz
+         c4STraOypxKYcH66L6XHWhw97FWfeHG1K7aUs2+9MHPOGXZfNWM4XwAfSi+5f8JJ6o39
+         FFsLRAYMX0SPz47WkTJrYmL5uN/1yntMWFaaxXo79EdEw9u7UCMEuHboT7127AG3PqmQ
+         K3zmFM4xwanJgEbEZVKZ1WjNGx9+73RbCixIGeg+wUcs1DzSkQnBsam9gvNzKSHtdkPU
+         xP1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788714210; x=1789319010;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WbyKgxmi/08EG4pWqu0vnWSWMfKp3Bgy++/kX1RtY/8=;
+        b=RPQ0ldGvroaBnElZNxQ/iXQtZlYd4JwiSXyM5FYlHZDEn0LzpyspBNDdaAFSa6W5rV
+         DnSmDUMAjbtZRkfSViTAXUFdQJsb//t2TEDFznMycbLH5mQ+xGpONXq3mGr6CjdAnXEe
+         y2HsnQwSRE1mybHOI4rvYxTm7Vuj2LbAtrhqD6mXMpMPolOi+RMJEzMPVK0wAGkno2TW
+         p41vlAJuqnmpmhTLnL8hTU4eay4TgalJRkHfZlZ/hlZy61RI5PhWZDqd86FW31B/bl+r
+         QhuR6McUtOBUbpddz3m0r7CfxHoCz1c3WqtBDtMcnI+2CWvMsZA4Xs495fRHwHbYHvvk
+         Blig==
+X-Forwarded-Encrypted: i=1; AKwUvBzd/YFKJLUu02iODWqWCA2XbLq5fJ0Z6eeYXN3UJ+WBYCuejEdYWwJW/7IYzof0kPmTC4ouQqVr4Lcrzr4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lpPi1M/0k1dz7zEJ0jdVhv5eEwxG72Vo7S4D81LCRmHxirnGWF
+	9VA3IfUb80QoocSDfOh8G9Pr0hnUUNfxj7BR8n5JCGlT6oiUNDLV4ch/
+X-Gm-Gg: AYBFou2+Po2BzimW1Zc4h732Uq6WJSp9ZWdbm0ZVMW6+qPwIQPUV3WOGvwoMt4/mJcm
+	a9kL+qgJUCtIIA7tHDAqdYXgBhq0pLydpIxZnM+dUW4DVPkH6YcIGJGnOgoIwUYmf/DtJt8kPxo
+	FsEdB32GUj/UrvCsljNB4es7sg9NrZV9i2soGoZ0Jw6cp7ll5LDdgzMHkS9/ef8TN2obpSumyyX
+	Ub4PuDdGYehizGjEipzFSm+si2W5em34TpaydTK5hcU+f592PBT5uzX0RS3qA2q5JkLQrTOJK/y
+	0vxAuTNEmhi4246Y7KxqSqRyw1RfDdHnq1dj9ND2FgYkopIgC1mJyG+KcjJMcv/wCLyIGI3yPmR
+	q7CX3mj+Ijb3UyNWUReFZxhGW1/mzxNJvJty3GqrZjwHM5MF8uzUCKHWFYpKGrpRALaouHzCW8i
+	8FVW/2q1qywlHFWYguI0qZ4/1dS4LcZasl8xNqY8ZgaLqkw3o+hz+QxNXwpjbjfyDbJ7MYuttEj
+	ag=
+X-Received: by 2002:a17:90a:da8f:b0:398:b71e:60c1 with SMTP id 98e67ed59e1d1-39b26208e7amr26267464a91.12.1788714209868;
+        Sun, 06 Sep 2026 10:03:29 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae60891b2sm9330813a91.0.2026.09.06.10.03.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 10:03:28 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Sun, 6 Sep 2026 10:03:27 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Eugene Shalygin <eugene.shalygin@gmail.com>
+Cc: Mario Nuevo <marionuevo@gmail.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"open list:HARDWARE MONITORING" <linux-hwmon@vger.kernel.org>,
+	"open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] hwmon: (asus-ec-sensors) add ROG STRIX Z490-A GAMING
+Message-ID: <ec1e36dd-3128-42e0-be0b-dcb7c7aff303@roeck-us.net>
+References: <20260905080346.1957380-1-eugene.shalygin@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <36471b9e2d7f9a324b5563343e6f76b70ad344c3bfd527cac9749734cd2377b5@mail.kernel.org>
-In-Reply-To: <178870998583.979169.16526173782819097354@tychen.cc>
-References: <178870998583.979169.16526173782819097354@tychen.cc>
-Subject: Re: [PATCH bpf-next v2 1/2] bpftool: Add recursive map dumping
-From: bot+bpf-ci@kernel.org
-To: hi@tychen.cc,qmo@kernel.org,andrii@kernel.org,eddyz87@gmail.com
-Cc: hi@tychen.cc,ast@kernel.org,daniel@iogearbox.net,memxor@gmail.com,shuah@kernel.org,bpf@vger.kernel.org,linux-kselftest@vger.kernel.org,linux-kernel@vger.kernel.org,martin.lau@kernel.org,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Sun,  6 Sep 2026 17:02:54 +0000 (UTC)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260905080346.1957380-1-eugene.shalygin@gmail.com>
 
---===============8862146096104192090==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Sat, Sep 05, 2026 at 10:03:36AM +0200, Eugene Shalygin wrote:
+> From: Mario Nuevo <marionuevo@gmail.com>
+> 
+> The ROG STRIX Z490-A GAMING and Z490-F GAMING are essentially the same
+> board apart from the F's onboard WiFi module, which isn't wired through
+> the EC, so they share the same EC sensor layout. The Z490-A exposes the
+> same EC sensor set as the Z490-F (chipset, CPU, motherboard, T_Sensor
+> and VRM temperatures plus CPU_OPT and VRM HS fans) at the same EC
+> registers, so reuse the Z490-F board_info for it.
+> 
+> Signed-off-by: Mario Nuevo <marionuevo@gmail.com>
+> Signed-off-by: Eugene Shalygin <eugene.shalygin@gmail.com>
 
-> diff --git a/tools/bpf/bpftool/Documentation/bpftool-map.rst b/tools/bpf/bpftool/Documentation/bpftool-map.rst
-> index 5daf3de5c744..38d1f542bf5a 100644
-> --- a/tools/bpf/bpftool/Documentation/bpftool-map.rst
-> +++ b/tools/bpf/bpftool/Documentation/bpftool-map.rst
+Applied.
 
-[ ... ]
-
-> @@ -170,6 +170,25 @@ OPTIONS
->      Do not automatically attempt to mount any virtual file system (such as
->      tracefs or BPF virtual file system) when necessary.
->
-> +-r, --recursive
-> +    Also dump the inner maps referenced by **array_of_maps** and **hash_of_maps**
-> +    entries when running **map dump**. Each map ID is visited once, even if
-> +    several entries refer to it. Selected maps are followed by their inner maps.
-> +
-> +    Plain output includes a header identifying each map. On success, JSON output
-> +    is always an array of map objects, each containing an **id** and an
-> +    **elements** array, including when only one map is dumped. Outer map entries
-> +    retain their **inner_map_id** field, which identifies the corresponding inner
-> +    map object.
-> +
-> +    Inner map IDs are resolved when the maps are visited. The dump is not an
-> +    atomic snapshot: concurrent updates can change map contents or remove a
-> +    referenced inner map before it is visited. Failure to open a referenced
-> +    inner map stops the dump and returns a nonzero exit status. Output may
-> +    contain maps or entries printed before the error.
-> +    In JSON mode, an error during traversal is included in the output and the
-> +    enclosing arrays and objects are closed.
-
-This isn't a bug, but would it be worth reflowing this option block
-to 80 columns? Two lines run to 81 columns (the "Also dump the inner
-maps referenced by" line and the "retain their **inner_map_id** field"
-line), making them the only prose lines over 80 columns in the file.
-
-Also, should there be a blank line before "In JSON mode, ..." if it's
-meant to be its own paragraph? It currently starts on a fresh line
-after a short 53-column line, so it renders as a continuation of the
-same paragraph rather than separated like the other paragraphs in this
-block.
-
-[ ... ]
-
-> diff --git a/tools/bpf/bpftool/main.c b/tools/bpf/bpftool/main.c
-> index 5ababd8f7d0a..33f4c7172583 100644
-> --- a/tools/bpf/bpftool/main.c
-> +++ b/tools/bpf/bpftool/main.c
-> @@ -26,6 +26,7 @@ static int (*last_do_help)(int argc, char **argv);
->  json_writer_t *json_wtr;
->  bool pretty_output;
->  bool json_output;
-> +bool recursive;
->  bool show_pinned;
->  bool block_mount;
->  bool verifier_logs;
-
-This isn't a bug, but would a name like recursive_dump or dump_recursive
-read better here? It's a program-wide global exported in main.h, and the
-neighbouring flags all carry a qualifier that says what they apply to:
-json_output, pretty_output, show_pinned, relaxed_maps, verifier_logs.
-Note that --json and --pretty didn't become json or pretty for the same
-reason.
-
-[ ... ]
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34044964295
---===============8862146096104192090==--
+Thanks,
+Guenter
