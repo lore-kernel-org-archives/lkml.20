@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C6C53D0905;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4FA93D2FF4;
 	Sun,  6 Sep 2026 18:37:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788719828; cv=none; b=OcTzez1VskF5ZWKU6+CNOy9jmkFFOcRz/+9m1d3bXWTvmFLgFAzKcdHOxslcE9IWkOmsK/fqaC6vgdL5CChz35+UItkdYKxTLtc0sM/tFSg0KtgqYydqwOvnWyOphINQfg5ojjPUQ9TQJlffjku8IzMlmF8m4LnY/ITWriylTdI=
+	t=1788719828; cv=none; b=r7nHg/hAlaGkZjtcuuwAyfk703sd9cECl9ZXU9ybM6SAIJJct4Gvq4Y4W0WwfX2/tmY8xncaOlhe2Z/pEcvfMHRgK6HMT9ZAgLl3grqnlcyZvRpMaID2O6SOz8IkeLKHoawPsGqATdLKu/aYqLMmzZriMv0TCWA1oA+DGEbigVM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788719828; c=relaxed/simple;
-	bh=fDGXcEDT3HqF7GbnuemiQmkxSZ1c6I8Yl9AH275YygI=;
+	bh=+AIT3rGrnA1dnHtXc4jyApvNKaFqdKHWbR5KbldVPvw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZU6hXx6pMrQYRcxqG3GnoV+xwZ5BoyKK6KMHozqfonE1Fo+PIXP1swqQcPdZ3MKcS52uIkOmgXAEaWjHcTsbGGRvm41bOGOtpySGXqg8qGEVVK9zA3X5YQt7EjfucZ91gwSplklVFqdDqcbPIC3vWsBEEfCZyE5JdR2RD7XCHB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NPWSSUl6; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=aWueHQRfwcfaJP+11s8C292VsfJAIUtWshH74+UK+SRFvRPPvrpoIw1MOJuwgOuMOhtKk/eGJ08PSgU7mTTBQgPQXkKzmpuSb1Gqp3t82IEWx4oyj+b4fRuLNnH8yqWtzxbJ4uTUGgK4FZ2rGrcfxkuDpvxAVqapvcZfS2WNGu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GJvO9ssV; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NPWSSUl6"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4F83CC2BCFB;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GJvO9ssV"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 879A1C2BD01;
 	Sun,  6 Sep 2026 18:37:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788719828;
-	bh=fDGXcEDT3HqF7GbnuemiQmkxSZ1c6I8Yl9AH275YygI=;
+	bh=+AIT3rGrnA1dnHtXc4jyApvNKaFqdKHWbR5KbldVPvw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=NPWSSUl63IvbiOxVy/1rr2KtoUGQ4IBzU6SEayuDmAopAZua4hXc+wOja6OMXtHqr
-	 jlWzJrTTE84ehhZD8eGqW6Ia8pQbNy8Qlrfg6wd67DawuciCxF8kvKwcg5aXzrAzxh
-	 Cj+m4Rfb7VFJxQDUNsDw8Xf0upUo4+T9U4O0vh6N8xSKXtK3xgLjmy8jkgDC5RmR0n
-	 i1AWUz0pxF4trTPQwU3UFxDUqOlS7yU12+EBy7vC5JMebym/Zrz8KSrzaGtmx+3e+9
-	 /8ldgAULkLCLumcbAqbK8z3SBYgoK3nx2KkYrqDnPUyYmxFyEkDvbnpi5civo/A3Ff
-	 SEytJfBU6ee2Q==
+	b=GJvO9ssV520DGnB1ITeCB/an1UtojxE7k/TVyCOECPzwBSeUh0Iueo51EdysMuik3
+	 Paf1mhUAJ85i+An5bQwNapcr3kGbdLyvfuhgqN+DRF+bh9MRnXbDh3gae5diaGkTPH
+	 kp9h2TMKuF71pvH1xeOsZrIYiq3mj2Q5KOs15Me9/Ifm3vBYYFqGhUsvwKASCg4iev
+	 6DCA2FkHTntO3WrPOOJ1/CGX+tZ5+BARi+8FKdkl/j5RINUPAWDmJQb59QdLwRW3Eh
+	 ICNjBxPahsQpbMHU09FodYtPi1Bsdq48TZUrScQHUEqstNE9/eX5wDMjIM2giG5WaH
+	 d21YMsdh1aXjQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3DB8CC79FA3;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 76A24C79FA0;
 	Sun,  6 Sep 2026 18:37:08 +0000 (UTC)
 From: Sven Peter <sven@kernel.org>
-Date: Sun, 06 Sep 2026 20:36:40 +0200
-Subject: [PATCH v2 17/22] thunderbolt: Add QUIRK_NO_USB3_BW_ALLOC
+Date: Sun, 06 Sep 2026 20:36:43 +0200
+Subject: [PATCH v2 20/22] arm64: dts: apple: t8103: Add USB4 ACIO and NHI
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260906-b4-apple-soc-tbt-v2-17-1f80085f93fb@kernel.org>
+Message-Id: <20260906-b4-apple-soc-tbt-v2-20-1f80085f93fb@kernel.org>
 References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
 In-Reply-To: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
 To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
@@ -56,164 +56,385 @@ Cc: Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
  asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  Sven Peter <sven@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5725; i=sven@kernel.org;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10392; i=sven@kernel.org;
  h=from:subject:message-id;
- bh=fDGXcEDT3HqF7GbnuemiQmkxSZ1c6I8Yl9AH275YygI=;
- b=owGbwMvMwCXmIlirolUq95LxtFoSQ9bcTSd6n359+r+wNKPT5rnF9h+s6ufjKyWNd51k8AxeN
- evYxzSPjlIWBjEuBlkxRZbt++1Nnzx8I7h006X3MHNYmUCGMHBxCsBEHv1n+F/0wOPYya1eL+Yt
- V/nH03jl63zesxHza0MsZ+57ZCIZ67mF4Q+H7uuzvVqnIw7ZmE3axb927nLJsBgjo5VeXP9btb8
- ml7EDAA==
+ bh=+AIT3rGrnA1dnHtXc4jyApvNKaFqdKHWbR5KbldVPvw=;
+ b=owGbwMvMwCXmIlirolUq95LxtFoSQ9bcTWfm/ZV93LNvs0HqFM71LNvyntR8NjNWbJb7ukGuc
+ WHnuxVSHaUsDGJcDLJiiizb99ubPnn4RnDppkvvYeawMoEMYeDiFICJvFjPyHBq37QzaWve6jzT
+ +rIt5MECSfvG5LiSCy/P3S22qBdjiuliZJgvvFw6ulL3dNkbjehWBk3+UqZN4RPUok8yrL77rZz
+ lHB8A
 X-Developer-Key: i=sven@kernel.org; a=openpgp;
  fpr=A1E3E34A2B3C820DBC4955E5993B08092F131F93
 X-Endpoint-Received: by B4 Relay for sven@kernel.org/default with
  auth_id=407
 
-The host routers on Apple Silicon do not implement USB3 bandwidth
-allocation registers: the CMR bit set in ADP_USB3_CS_2 by
-usb4_usb3_port_cm_request() is never acknowledged and every USB3 tunnel
-bringup fails there after the timeout:
-
-  [   49.259325] thunderbolt-apple-nhi 501f00000.nhi: 1:16: available bandwidth for new USB3 tunnel 18000/18000 Mb/s
-  [   49.265869] thunderbolt-apple-nhi 501f00000.nhi: 1:16: maximum required bandwidth for USB3 tunnel 9000 Mb/s
-  [   49.267894] thunderbolt-apple-nhi 501f00000.nhi: 0:4 <-> 1:16 (USB3): activating
-  [   49.269410] thunderbolt-apple-nhi 501f00000.nhi: 0:4 <-> 1:16 (USB3): allocating initial bandwidth 9000/9000 Mb/s
-  [   50.771764] thunderbolt-apple-nhi 501f00000.nhi: 1:16: USB3 tunnel activation failed, aborting
-
-Add a quirk to skip bandwidth allocation entirely but keep tracking
-the initial allocation in software for the consumed bandwidth
-calculation. For completeness, discovered tunnels book 90% of the
-maximum link rate in software, matching tb_tunnel_alloc_usb3(), although
-Apple Silicon cannot have any pre-existing tunnels.
+Add the ACIO host router, NHI, DART and M3 mailbox nodes for both Type-C
+ports on t8103 and connect the host routers to the Type-C connectors.
+Also describe the USB3 path from each host router to its DWC3 controller
+so the NHI driver can create the required device link.
 
 Signed-off-by: Sven Peter <sven@kernel.org>
 ---
- drivers/thunderbolt/quirks.c |  9 +++++++
- drivers/thunderbolt/tb.h     |  2 ++
- drivers/thunderbolt/tunnel.c | 60 +++++++++++++++++++++++++++++---------------
- 3 files changed, 51 insertions(+), 20 deletions(-)
+ arch/arm64/boot/dts/apple/t8103-jxxx.dtsi |  95 ++++++++++++++-
+ arch/arm64/boot/dts/apple/t8103.dtsi      | 184 ++++++++++++++++++++++++++++++
+ 2 files changed, 277 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/thunderbolt/quirks.c b/drivers/thunderbolt/quirks.c
-index 9f7914ac2f48..2ac1bfa01c15 100644
---- a/drivers/thunderbolt/quirks.c
-+++ b/drivers/thunderbolt/quirks.c
-@@ -46,6 +46,12 @@ static void quirk_usb3_maximum_bandwidth(struct tb_switch *sw)
- 	}
- }
+diff --git a/arch/arm64/boot/dts/apple/t8103-jxxx.dtsi b/arch/arm64/boot/dts/apple/t8103-jxxx.dtsi
+index 686fb1dd215d..01c942b0a75b 100644
+--- a/arch/arm64/boot/dts/apple/t8103-jxxx.dtsi
++++ b/arch/arm64/boot/dts/apple/t8103-jxxx.dtsi
+@@ -17,6 +17,10 @@ aliases {
+ 		wifi0 = &wifi0;
+ 		atcphy0 = &atcphy0;
+ 		atcphy1 = &atcphy1;
++		usb4-0-acio = &usb4_0_acio;
++		usb4-0-nhi = &usb4_0_nhi;
++		usb4-1-acio = &usb4_1_acio;
++		usb4-1-nhi = &usb4_1_nhi;
+ 	};
  
-+static void quirk_no_usb3_bw_alloc(struct tb_switch *sw)
-+{
-+	sw->quirks |= QUIRK_NO_USB3_BW_ALLOC;
-+	tb_sw_dbg(sw, "disabling USB3 bandwidth allocation\n");
-+}
+ 	chosen {
+@@ -76,6 +80,13 @@ typec0_connector_ss: endpoint {
+ 						remote-endpoint = <&atcphy0_typec_lanes>;
+ 					};
+ 				};
 +
- static void quirk_block_rpm_in_redrive(struct tb_switch *sw)
- {
- 	sw->quirks |= QUIRK_KEEP_POWER_IN_DP_REDRIVE;
-@@ -61,6 +67,9 @@ struct tb_quirk {
++				port@2 {
++					reg = <2>;
++					typec0_con_tbt: endpoint {
++						remote-endpoint = <&usb4_0_acio_tbt>;
++					};
++				};
+ 			};
+ 		};
+ 	};
+@@ -107,6 +118,13 @@ typec1_connector_ss: endpoint {
+ 						remote-endpoint = <&atcphy1_typec_lanes>;
+ 					};
+ 				};
++
++				port@2 {
++					reg = <2>;
++					typec1_con_tbt: endpoint {
++						remote-endpoint = <&usb4_1_acio_tbt>;
++					};
++				};
+ 			};
+ 		};
+ 	};
+@@ -126,10 +144,19 @@ dwc3_0_hs: endpoint {
+ 		};
+ 
+ 		port@1 {
++			#address-cells = <1>;
++			#size-cells = <0>;
+ 			reg = <1>;
+-			dwc3_0_ss: endpoint {
++
++			dwc3_0_ss: endpoint@0 {
++				reg = <0>;
+ 				remote-endpoint = <&atcphy0_usb3>;
+ 			};
++
++			dwc3_0_usb4: endpoint@1 {
++				reg = <1>;
++				remote-endpoint = <&usb4_0_acio_usb3>;
++			};
+ 		};
+ 	};
+ };
+@@ -147,10 +174,19 @@ dwc3_1_hs: endpoint {
+ 		};
+ 
+ 		port@1 {
++			#address-cells = <1>;
++			#size-cells = <0>;
+ 			reg = <1>;
+-			dwc3_1_ss: endpoint {
++
++			dwc3_1_ss: endpoint@0 {
++				reg = <0>;
+ 				remote-endpoint = <&atcphy1_usb3>;
+ 			};
++
++			dwc3_1_usb4: endpoint@1 {
++				reg = <1>;
++				remote-endpoint = <&usb4_1_acio_usb3>;
++			};
+ 		};
+ 	};
+ };
+@@ -198,6 +234,61 @@ atcphy1_usb3: endpoint {
+ 	};
  };
  
- static const struct tb_quirk tb_quirks[] = {
-+	/* Apple Silicon host routers do not support USB3 bandwidth allocation */
-+	{ 0x05ac, 0x2000, 0x0000, 0x0000, quirk_no_usb3_bw_alloc },
++/* USB4 */
++&usb4_0_acio {
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
 +
- 	/* Dell WD19TB supports self-authentication on unplug */
- 	{ 0x0000, 0x0000, 0x00d4, 0xb070, quirk_force_power_link },
- 	{ 0x0000, 0x0000, 0x00d4, 0xb071, quirk_force_power_link },
-diff --git a/drivers/thunderbolt/tb.h b/drivers/thunderbolt/tb.h
-index fbd1a0a9927a..7c2fcf20e49f 100644
---- a/drivers/thunderbolt/tb.h
-+++ b/drivers/thunderbolt/tb.h
-@@ -26,6 +26,8 @@
- #define QUIRK_NO_CLX					BIT(1)
- /* Need to keep power on while USB4 port is in redrive mode */
- #define QUIRK_KEEP_POWER_IN_DP_REDRIVE			BIT(2)
-+/* Does not support USB3 bandwidth allocation */
-+#define QUIRK_NO_USB3_BW_ALLOC				BIT(3)
- 
- /**
-  * struct tb_nvm - Structure holding NVM information
-diff --git a/drivers/thunderbolt/tunnel.c b/drivers/thunderbolt/tunnel.c
-index 7e8284575dff..0893ec19d606 100644
---- a/drivers/thunderbolt/tunnel.c
-+++ b/drivers/thunderbolt/tunnel.c
-@@ -2268,24 +2268,41 @@ struct tb_tunnel *tb_tunnel_discover_usb3(struct tb *tb, struct tb_port *down,
- 	if (!tb_route(down->sw)) {
- 		int ret;
- 
--		/*
--		 * Read the initial bandwidth allocation for the first
--		 * hop tunnel.
--		 */
--		ret = usb4_usb3_port_allocated_bandwidth(down,
--			&tunnel->allocated_up, &tunnel->allocated_down);
--		if (ret)
--			goto err_deactivate;
-+		tunnel->consumed_bandwidth = tb_usb3_consumed_bandwidth;
++		/* 1: USB4 port */
++		port@1 {
++			reg = <1>;
++			usb4_0_acio_tbt: endpoint {
++				remote-endpoint = <&typec0_con_tbt>;
++			};
++		};
 +
-+		if (down->sw->quirks & QUIRK_NO_USB3_BW_ALLOC) {
-+			/*
-+			 * The host router does not implement the bandwidth
-+			 * allocation registers and nothing can be read back
-+			 * here. Book 90% of the maximum link rate in software
-+			 * instead.
-+			 */
-+			ret = tb_usb3_max_link_rate(tunnel->dst_port, down);
-+			if (ret < 0)
-+				goto err_deactivate;
++		/* 2: USB4 lane 1 adapter */
++		/* 3: PCIe */
++		port@4 {
++			reg = <4>;
++			usb4_0_acio_usb3: endpoint {
++				remote-endpoint = <&dwc3_0_usb4>;
++			};
++		};
 +
-+			tunnel->allocated_up = ret * 90 / 100;
-+			tunnel->allocated_down = tunnel->allocated_up;
-+		} else {
-+			/*
-+			 * Read the initial bandwidth allocation for the first
-+			 * hop tunnel.
-+			 */
-+			ret = usb4_usb3_port_allocated_bandwidth(down,
-+								 &tunnel->allocated_up,
-+								 &tunnel->allocated_down);
-+			if (ret)
-+				goto err_deactivate;
++		/* 5: DP0 */
++		/* 6: DP1 */
++	};
++};
 +
-+			tunnel->pre_activate = tb_usb3_pre_activate;
-+			tunnel->release_unused_bandwidth =
-+				tb_usb3_release_unused_bandwidth;
-+			tunnel->reclaim_available_bandwidth =
-+				tb_usb3_reclaim_available_bandwidth;
-+		}
- 
- 		tb_tunnel_dbg(tunnel, "currently allocated bandwidth %d/%d Mb/s\n",
- 			      tunnel->allocated_up, tunnel->allocated_down);
--
--		tunnel->pre_activate = tb_usb3_pre_activate;
--		tunnel->consumed_bandwidth = tb_usb3_consumed_bandwidth;
--		tunnel->release_unused_bandwidth =
--			tb_usb3_release_unused_bandwidth;
--		tunnel->reclaim_available_bandwidth =
--			tb_usb3_reclaim_available_bandwidth;
- 	}
- 
- 	tb_tunnel_dbg(tunnel, "discovered\n");
-@@ -2365,12 +2382,15 @@ struct tb_tunnel *tb_tunnel_alloc_usb3(struct tb *tb, struct tb_port *up,
- 		tunnel->allocated_up = min(max_rate, max_up);
- 		tunnel->allocated_down = min(max_rate, max_down);
- 
--		tunnel->pre_activate = tb_usb3_pre_activate;
- 		tunnel->consumed_bandwidth = tb_usb3_consumed_bandwidth;
--		tunnel->release_unused_bandwidth =
--			tb_usb3_release_unused_bandwidth;
--		tunnel->reclaim_available_bandwidth =
--			tb_usb3_reclaim_available_bandwidth;
++&usb4_1_acio {
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
 +
-+		if (!(down->sw->quirks & QUIRK_NO_USB3_BW_ALLOC)) {
-+			tunnel->pre_activate = tb_usb3_pre_activate;
-+			tunnel->release_unused_bandwidth =
-+				tb_usb3_release_unused_bandwidth;
-+			tunnel->reclaim_available_bandwidth =
-+				tb_usb3_reclaim_available_bandwidth;
-+		}
- 	}
++		/* 1: USB4 port */
++		port@1 {
++			reg = <1>;
++			usb4_1_acio_tbt: endpoint {
++				remote-endpoint = <&typec1_con_tbt>;
++			};
++		};
++
++		/* 2: USB4 lane 1 adapter */
++		/* 3: PCIe */
++		port@4 {
++			reg = <4>;
++			usb4_1_acio_usb3: endpoint {
++				remote-endpoint = <&dwc3_1_usb4>;
++			};
++		};
++
++		/* 5: DP0 */
++		/* 6: DP1 */
++	};
++};
++
+ /*
+  * Force the bus number assignments so that we can declare some of the
+  * on-board devices and properties that are populated by the bootloader
+diff --git a/arch/arm64/boot/dts/apple/t8103.dtsi b/arch/arm64/boot/dts/apple/t8103.dtsi
+index 985dbd8e68ca..735591c72fde 100644
+--- a/arch/arm64/boot/dts/apple/t8103.dtsi
++++ b/arch/arm64/boot/dts/apple/t8103.dtsi
+@@ -988,6 +988,14 @@ pinctrl_aop: pinctrl@24a820000 {
+ 				     <AIC_IRQ 272 IRQ_TYPE_LEVEL_HIGH>,
+ 				     <AIC_IRQ 273 IRQ_TYPE_LEVEL_HIGH>,
+ 				     <AIC_IRQ 274 IRQ_TYPE_LEVEL_HIGH>;
++
++			acio0_pins: acio0-pins {
++				pinmux = <APPLE_PINMUX(39, 1)>;
++			};
++
++			acio1_pins: acio1-pins {
++				pinmux = <APPLE_PINMUX(41, 1)>;
++			};
+ 		};
  
- 	return tunnel;
+ 		ans_mbox: mbox@277408000 {
+@@ -1024,6 +1032,94 @@ nvme@27bcc0000 {
+ 			resets = <&ps_ans2>;
+ 		};
+ 
++		usb4_0_mbox: mailbox@381100000 {
++			compatible = "apple,t8103-m3-mailbox",
++				"apple,m3-mailbox-v2";
++			reg = <0x3 0x81100000 0x0 0x4000>;
++			interrupt-parent = <&aic>;
++			interrupts = <AIC_IRQ 812 IRQ_TYPE_LEVEL_HIGH>,
++				<AIC_IRQ 813 IRQ_TYPE_LEVEL_HIGH>,
++				<AIC_IRQ 814 IRQ_TYPE_LEVEL_HIGH>,
++				<AIC_IRQ 815 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "send-empty", "send-not-empty",
++				"recv-empty", "recv-not-empty";
++			#mbox-cells = <0>;
++		};
++
++		usb4_0_acio: cio@381ac0000 {
++			compatible = "apple,t8103-usb4-acio";
++			reg = <0x3 0x81ac0000 0x0 0xc000>,
++				<0x3 0x81080000 0x0 0x20000>;
++			reg-names = "rc", "sram";
++
++			mboxes = <&usb4_0_mbox>;
++			resets = <&cio_reset 0>;
++
++			power-domains = <&ps_atc0_cio>,
++					<&ps_atc0_cio_pcie>,
++					<&ps_atc0_cio_usb>;
++
++			pinctrl-0 = <&acio0_pins>;
++			pinctrl-names = "default";
++
++			#address-cells = <1>;
++			#size-cells = <1>;
++			ranges = <0x0 0x3 0x81000000 0x1000000>;
++			nonposted-mmio;
++
++			usb4_0_dart: iommu@a80000 {
++				compatible = "apple,t8103-dart";
++				reg = <0xa80000 0x4000>;
++				interrupt-parent = <&aic>;
++				interrupts = <AIC_IRQ 810 IRQ_TYPE_LEVEL_HIGH>;
++				#iommu-cells = <1>;
++			};
++
++			usb4_0_nhi: nhi@f00000 {
++				reg = <0xf00000 0x100000>,
++					<0xdb0000 0x30004>;
++				reg-names = "nhi", "pdf";
++				compatible = "apple,t8103-usb4-nhi";
++				interrupt-parent = <&aic>;
++				interrupts = <AIC_IRQ 783 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 784 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 785 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 786 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 787 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 788 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 789 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 790 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 791 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 792 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 793 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 794 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 795 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 796 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 797 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 798 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 799 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 800 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 801 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 802 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 803 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 804 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 805 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 806 IRQ_TYPE_LEVEL_HIGH>;
++				interrupt-names =
++					"txring0", "txring1", "txring2",
++					"txring3", "txring4", "txring5",
++					"txring6", "txring7", "txring8",
++					"txring9", "txring10", "txring11",
++					"rxring0", "rxring1", "rxring2",
++					"rxring3", "rxring4", "rxring5",
++					"rxring6", "rxring7", "rxring8",
++					"rxring9", "rxring10", "rxring11";
++				iommus = <&usb4_0_dart 1>;
++				/* To be filled by the loader */
++				apple,thunderbolt-drom = [00];
++			};
++		};
++
+ 		dwc3_0: usb@382280000 {
+ 			compatible = "apple,t8103-dwc3";
+ 			reg = <0x3 0x82280000 0x0 0xcd00>, <0x3 0x8228cd00 0x0 0x3200>;
+@@ -1076,6 +1172,94 @@ atcphy0: phy@383000000 {
+ 			power-domains = <&ps_atc0_usb>;
+ 		};
+ 
++		usb4_1_mbox: mailbox@501100000 {
++			compatible = "apple,t8103-m3-mailbox",
++				"apple,m3-mailbox-v2";
++			reg = <0x5 0x01100000 0x0 0x4000>;
++			interrupt-parent = <&aic>;
++			interrupts = <AIC_IRQ 892 IRQ_TYPE_LEVEL_HIGH>,
++				<AIC_IRQ 893 IRQ_TYPE_LEVEL_HIGH>,
++				<AIC_IRQ 894 IRQ_TYPE_LEVEL_HIGH>,
++				<AIC_IRQ 895 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "send-empty", "send-not-empty",
++				"recv-empty", "recv-not-empty";
++			#mbox-cells = <0>;
++		};
++
++		usb4_1_acio: cio@501ac0000 {
++			compatible = "apple,t8103-usb4-acio";
++			reg = <0x5 0x01ac0000 0x0 0xc000>,
++				<0x5 0x01080000 0x0 0x20000>;
++			reg-names = "rc", "sram";
++
++			mboxes = <&usb4_1_mbox>;
++			resets = <&cio_reset 1>;
++
++			power-domains = <&ps_atc1_cio>,
++					<&ps_atc1_cio_pcie>,
++					<&ps_atc1_cio_usb>;
++
++			pinctrl-0 = <&acio1_pins>;
++			pinctrl-names = "default";
++
++			#address-cells = <1>;
++			#size-cells = <1>;
++			ranges = <0x0 0x5 0x01000000 0x1000000>;
++			nonposted-mmio;
++
++			usb4_1_dart: iommu@a80000 {
++				compatible = "apple,t8103-dart";
++				reg = <0xa80000 0x4000>;
++				interrupt-parent = <&aic>;
++				interrupts = <AIC_IRQ 890 IRQ_TYPE_LEVEL_HIGH>;
++				#iommu-cells = <1>;
++			};
++
++			usb4_1_nhi: nhi@f00000 {
++				reg = <0xf00000 0x100000>,
++					<0xdb0000 0x30004>;
++				reg-names = "nhi", "pdf";
++				compatible = "apple,t8103-usb4-nhi";
++				interrupt-parent = <&aic>;
++				interrupts = <AIC_IRQ 863 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 864 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 865 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 866 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 867 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 868 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 869 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 870 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 871 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 872 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 873 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 874 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 875 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 876 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 877 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 878 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 879 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 880 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 881 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 882 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 883 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 884 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 885 IRQ_TYPE_LEVEL_HIGH>,
++					<AIC_IRQ 886 IRQ_TYPE_LEVEL_HIGH>;
++				interrupt-names =
++					"txring0", "txring1", "txring2",
++					"txring3", "txring4", "txring5",
++					"txring6", "txring7", "txring8",
++					"txring9", "txring10", "txring11",
++					"rxring0", "rxring1", "rxring2",
++					"rxring3", "rxring4", "rxring5",
++					"rxring6", "rxring7", "rxring8",
++					"rxring9", "rxring10", "rxring11";
++				iommus = <&usb4_1_dart 1>;
++				/* To be filled by the loader */
++				apple,thunderbolt-drom = [00];
++			};
++		};
++
+ 		dwc3_1: usb@502280000 {
+ 			compatible = "apple,t8103-dwc3";
+ 			reg = <0x5 0x02280000 0x0 0xcd00>, <0x5 0x0228cd00 0x0 0x3200>;
 
 -- 
 2.55.0
