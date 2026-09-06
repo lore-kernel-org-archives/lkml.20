@@ -1,91 +1,79 @@
-Received: from lan.nucleusys.com (lan.nucleusys.com [92.247.61.126])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D3FD41DE05;
-	Sun,  6 Sep 2026 08:08:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.247.61.126
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 073213E49C0
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 08:08:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788682114; cv=none; b=mKaG5s8NkrF1YxFvudA9P7C/s9FS2XAT+Zk8bIie/yGfHYpZfg/eI+FhV6H52RyGOndEJaCerzZPIlejvhxSgpZjsQpn+1vBV/EtnFNDCkywBG6Eu39TdHksaSJ+hk6DRXIQ0jpJM3GtdAVlGOfkih9Kec02H4rQa6WzlM9HQ8o=
+	t=1788682137; cv=none; b=atW2T2mgvOrdcw5aqGBIG11LHC/exl2zZ7PA4V1qjc24De8F20gZ/dxqhND2rANuFc3fnDp3gBhFzJZC8E5Xn7Pgq5AMNCcH4Ztboe9gwstcps2hQd2wIicr0BBmlFlit7j04LvBeuF4NesYzQZfTgZy93DncavRSz9lEc2RDYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788682114; c=relaxed/simple;
-	bh=HMKw1qkRvIkC0UDtECn9DQ58auZHhqG8gtPrf4sQSjU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AZP1m6fEa3WM/zQ/xtWKuotfRbDjEzcktPjTQ9cFqSNMh/qhKZ7SLYyub6T+tukQlXz1phbUsq3y263iNl5naHmAxEULOrKUW8LzDsRJRp5fBrsZbTRERxXtTQUexoLtTMQ3m3w9rVvI5QXA1DOC+Ju1xVTfz6wxRdIMApU93Pk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nucleusys.com; spf=pass smtp.mailfrom=nucleusys.com; dkim=pass (2048-bit key) header.d=nucleusys.com header.i=@nucleusys.com header.b=FkZg3Af+; arc=none smtp.client-ip=92.247.61.126
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nucleusys.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nucleusys.com
+	s=arc-20240116; t=1788682137; c=relaxed/simple;
+	bh=O8XZeeW3rZMl/wrWsPbPY3qelV4ueQOSNrge8q3zmW0=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=IVUXb646nWkf4XcT7DDqPHYZEP9cm9kjngd6Cc85cCoT/UNGm1+pNWdHQMDs0Yn8QC+Rk1+g0nbqp6v2ZmRDqmgG8cda4BO8jy01/7qgexvWgAKrz4WbjpL5+Y2b1439qvKBYnQnU0odzyRP8+V2D8UklK9yOXpHU2/2ATTtmPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=J4lRhI8X; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nucleusys.com header.i=@nucleusys.com header.b="FkZg3Af+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nucleusys.com; s=xyz;
-	t=1788682099; bh=HMKw1qkRvIkC0UDtECn9DQ58auZHhqG8gtPrf4sQSjU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FkZg3Af+k2UAmshiuHnONZBaJ4Spi79eS4zh0eNqc1gXa4yJsTMG/R92oZGNfPhT5
-	 miP1DvxznRRioWyEIhHNm8vL9ENzYRfl0uWMlwtvD39IZeDO47Hob9QgjfVj2XEom7
-	 Bulrdaxai12QjJQPVSYKrQljnPbpYi8H1H74xcdesaDUW9OZ+uys2ilWT++fDHd1hp
-	 E3wVYzaGuseKpKWs9JKe7UQVbK605QwpOnMGl528bJo7/N1jClLIyOPfyH+fqVCs1a
-	 /RvqTgwsFpPB9i6VCdDlq4lY+fnkXd/C3qc9f/CxKrUR3vCNGFCaeaQPMM1JzmN5JG
-	 hhTDLTEmOSN6A==
-Received: from carbon.k.g (unknown [85.187.61.220])
-	by lan.nucleusys.com (Postfix) with ESMTPSA id 16F1F3FD2D;
-	Sun, 06 Sep 2026 11:08:19 +0300 (EEST)
-Date: Sun, 6 Sep 2026 11:08:18 +0300
-From: Petko Manolov <petkan@nucleusys.com>
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Oliver Neukum <oneukum@suse.com>,
-	Marco Crivellari <marco.crivellari@suse.com>,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Michal Hocko <mhocko@suse.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	linux-usb@vger.kernel.org
-Subject: Re: [PATCH v3 net-next 5/6] net: usb: pegasus: Move long delayed
- work on system_dfl_long_wq
-Message-ID: <20260906080818.GC6356@carbon.k.g>
-References: <20260720100902.155605-1-marco.crivellari@suse.com>
- <20260720100902.155605-6-marco.crivellari@suse.com>
- <f972b514-87ef-45bc-8258-db199a4cc0b8@suse.com>
- <20260825151812.4aJyFUgE@linutronix.de>
- <31b46916-dd89-4ae9-89b9-9d39e29e8e69@rowland.harvard.edu>
- <20260828094318.bOajNBno@linutronix.de>
- <b6cf44a1-d2b1-443d-8efe-c596ef89cc2a@rowland.harvard.edu>
- <20260905150450.2hrac_GV@linutronix.de>
- <b6e6e8d0-0888-4bbc-85b8-ca3bdac88398@rowland.harvard.edu>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="J4lRhI8X"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:Content-Type:
+	MIME-Version; bh=xKDSKizHZCSh/GwioNCRk11NIWuQanvzrZUh4Jc1YQI=;
+	b=J4lRhI8X9o2TPUgNwf52MVFNgLyW4EnCq1v/DKKzfzAvodaHGRHvJ8Q9q8Rliy
+	c0cT4IvX8yAZ0qRUNpMDxs0szBksD+1//HaQLJ44K74MqPECXfy0zmJ5HSpKWq7p
+	OwEy4+NralQg9ymjG6UhHi4n59v3chkVz9njhGiR1KjP8=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgAnfypSH51qW34ZQQ--.4333S2;
+	Sun, 06 Sep 2026 16:07:47 +0800 (CST)
+From: Pengpeng Hou <hppiscas@163.com>
+To: Anup Patel <anup@brainfault.org>,
+	Thomas Gleixner <tglx@kernel.org>
+Cc: Pengpeng Hou <hppiscas@163.com>,
+	Radu Rendec <radu@rendec.net>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Andrew Jones <andrew.jones@oss.qualcomm.com>,
+	Bjorn Topel <bjorn@kernel.org>
+Subject: [PATCH 0/2] irqchip/riscv-imsic: Validate group index geometry
+Date: Sun,  6 Sep 2026 16:07:44 +0800
+Message-ID: <caplitmus-rv.4f722288a2f1483090d75bcd991d5b90.imsic-cover@163.com>
+X-Mailer: git-send-email 2.50.1
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b6e6e8d0-0888-4bbc-85b8-ca3bdac88398@rowland.harvard.edu>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PygvCgAnfypSH51qW34ZQQ--.4333S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrtFyfJr45Wr1kKF4rXw45trb_yoW3twc_ua
+	4v9r98JFWxtr1DKrW7Jws0vFWktrWS9F1vvr1rX3Z5ZasYqa1xua4vqr4Yqr18AFWkZrs3
+	KFWfX343Gw1IkjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUjvzutUUUUU==
+X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7hPdpmqdH1Pk7wAA32
 
-On 26-09-05 12:33:07, Alan Stern wrote:
-> On Sat, Sep 05, 2026 at 05:04:50PM +0200, Sebastian Andrzej Siewior wrote:
-> > 
-> > Still the wrong thing to do? The driver should do either flush_work() or
-> > cancel_work_sync() (not flush_workqueue()).
-> 
-> I think we're in agreement.  If the driver relies on calling
-> flush_workqueue(), it should not use a general-purpose workqueue.  However,
-> flush_work() or cancel_work_sync() is okay on an unordered general-purpose
-> workqueue.
+This series handles absent and overlapping IMSIC group fields.
 
-The driver is actually using queue_delayed_work()/cancel_delayed_work_sync() so
-the above is of no concern.
+Patch 1 skips group-shift validation and masking when the group width is
+zero, including the APLIC consumer. Patch 2 rejects nonzero fields that
+overlap the lower address fields and makes the upper-bound check safe.
 
-Due to HW limitations the carrier state should be checked on a regular interval
-and reported to the upper network layers.  This worker relies only on generic
-USB transfers, to and from the usb-to-eth adapter, and as such does not depend
-on other I/O.
+The series is based on tip/irq/drivers, which already contains
+bd7d57a03c4b ("irqchip/riscv-imsic: Use GENMASK for base address masks").
+That prerequisite is not included again.
 
-Failure to acquire correct carrier check does not seem to affect the device's
-functionality.  Overall i don't think the proposed workqueue change is
-disruptive.
+The two patches have not previously been submitted. The earlier local
+draft versions do not constitute public revisions.
 
+The issues were found by our static-analysis tool and manually reviewed.
 
-		Petko
+Assisted-by: GPT-5
+
+Pengpeng Hou (2):
+  irqchip/riscv-imsic: Ignore unused group index shifts
+  irqchip/riscv-imsic: Reject overlapping group index fields
+
