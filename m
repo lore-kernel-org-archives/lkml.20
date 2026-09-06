@@ -1,149 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F10A3B7A8;
-	Sun,  6 Sep 2026 23:16:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788736617; cv=none; b=NDrZrbC5qfxUGD35w2J998PD9GIWvHFJmbcrdM3juOaWTxkk5yjzTgmTZBtlSDfQCrAUXVyzGNnNvgaK0aap/dO3Fg0YPHNiwFYHPh7zdNsa519Sywz1epTxjkH1XLDBZt3/+X9yRn2okupwmS+UycW1tpX93a7sXZO3rgVG6xg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788736617; c=relaxed/simple;
-	bh=HAMgDjq8wGLUKYwe0FZjLi4AlFEGUlhB+0h/SpK/7WM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dXfiopS69R7tNqOnCy/cABL95Cvzs9mLUe9Ry9eImcKSwohJSr3eOLrc0K25pDbsqLveIbgcGQ24NSnnu9jM902+qCoFj/elq6yO0jqqskU+2uctqwiSEjmxHXti77LReJoPSx+hRyjSidgeKXj94oDn8mNTbeil1G2jOmMQi6A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jQuQBki9; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEBFE36195A
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 23:18:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788736726; cv=pass; b=P/QueRi+DWtx3DK7mvEpf3O8XrCwc5piZ0Rhk52jeTStH0tSu2XBHzsfiaW+XXJJMeHS56UM1kvmW9hRtFyQzNCVONuU792ZzksdMNMytCXJ6EIc4grwjI4HCVMyCCuJTUI/qqfyA4enzFjPI4LzmgL633flV9IKgKbVijsSMQ8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788736726; c=relaxed/simple;
+	bh=724XBBM18e/5/TAVSEA0cDWj19CNMiPpyAaDTnCZGLo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TN7J2gaTrgHfqg8rlPNyuGyd/XZ7eajlckdM6HOi05fLlr0YhzqAYmNbtd5lSoOzn0Z32PSttrBKdfeFabf7k0FgyRLd7kZ5Ti+SElEmAzdXxcl40BEnCi+h2YFRqlgDvQ/jlhisXEQJY2sIrXCcK3ApRWapkJMZExi+m1iTKRE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U0SQSRcQ; arc=pass smtp.client-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jQuQBki9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CBB41F00A3A;
-	Sun,  6 Sep 2026 23:16:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788736615;
-	bh=AIg0LhimhcTdRShjHukt/+U5xj0nCpPgMz1QuwH6YFo=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=jQuQBki9s5oaVFbXWeq+Sv30AE+Tv9FYZDpv95J7V9GJZ6dQJHJW59KQAEt6AEwET
-	 UOAXUc/lrrirSS5Po7YtuHjkoQfok4o9577E7+eVMHyGn32A4rdjrMVAoZBobcMMfz
-	 Rvz5zhiq4zGnikNXHdgg+z2A4goTdkk3e9S1ZKostdnQcz0vmlIjDA3KFg9+AEbFv5
-	 myR779w8COdgbehNZGU60qrUB9GT9tRnd8ZWYrRSHi54mfhsDV5K5Fpkko94ZQLreX
-	 o10ijUcIP+6eR8hwutlu5kqsTdF2uB8+XkfzRPq1HaBiUBnaPRiSKNiu9hsGsDB80E
-	 lowsaOz+TL2XA==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 6357FCE09E8; Sun,  6 Sep 2026 16:16:55 -0700 (PDT)
-Date: Sun, 6 Sep 2026 16:16:55 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Bradley Morgan <brads@mainlining.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, boqun@kernel.org,
-	frederic@kernel.org, include@grrlz.net, jiangshanlai@gmail.com,
-	joelagnelf@nvidia.com, josh@joshtriplett.org,
-	linux-kernel@vger.kernel.org, neeraj.upadhyay@kernel.org,
-	qiang.zhang@linux.dev, rcu@vger.kernel.org, rostedt@goodmis.org,
-	urezki@gmail.com
-Subject: Re: [PATCH] hazptrtorture: Fix inverted sleep condition in
- do_pending kthread
-Message-ID: <bbab8067-9bb4-46d0-bbbd-da7b836b04f5@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <ed125668-a77a-41b6-9d56-46ac93a5d69c@paulmck-laptop>
- <9D2DEA27-B3D1-4A8B-BA57-2F5EAC920C1D@mainlining.org>
- <b1abee12-5a3a-4750-be37-a3157c7e2217@paulmck-laptop>
- <28838ba4-8618-45d0-9994-3efee251bce2@efficios.com>
- <748b12b2-f1a3-4ed8-8c9b-86fa8d9a5926@paulmck-laptop>
- <179E0ECA-C65D-4480-9E4E-CFA960D55665@mainlining.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U0SQSRcQ"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-862815e2683so1459560b3a.2
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 16:18:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788736725; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XTxpMIiSoyr/n3hU/bwyZ/HIw9SlirC6IrPoS+eI0NdUCLAg5XchscRBkhKgzMVotj
+         EyLBg/duJ1/xz9onudOQY0BblwFOcENxxJuFv0ORH2hTP2t82q6AAqHJsK8/a0OYipr6
+         U/+ed4c/LYlIhM8c9Y3OKJf7JQ5Zzqz3BNUH1OrUxeivYzncrEe6QCmqT9YI4zTlMK5Y
+         yOI9fserSVsIyoD+YPR8ELFBHLqkN3mgeBxgm/lcZtPSgvWEiY/tZ2Z02UtcH5PMQt0x
+         bWp22s+Yjvi0WGCWppDm6hWkGFOCDJERJ5O2VufkhgfWhNJ3+5CivTAnGBlp57TNYIKp
+         4KTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/lolE45Uhyd+sThQbwL8EFg5+bmDGsCrRM5xzs+E9ks=;
+        fh=S5wWteorrITqSOSUDsdXrLUeBElVtWFDB4cKBnm0fzM=;
+        b=YWHjut+WrM2glYGFBASJ87utQBh8R71EmV1urn6zmDZTFTTvY713cTzKK+msyYXSvg
+         9+c27cQE7yqLNq+3aEliSiV7hm+8SK76IcduLz4jJzYb2Zke1roF+17A6YtTRnEJd/4x
+         ped7rTVQhLmv2ZTybbF4xH3gyPy/2tSADYh0pKR7CQmS4jqLUz23nkBihmccX9uxXxn0
+         C3lKBqu7nFkENDm2vhL0em5d3AZrYb/Hgx7WK0cJNTKqOmlIWOln2h9LZ+6B2LVtKGJf
+         VLo/cGSb5yOQe6c7ygT+usSp1JYRQffpec0bZUdKY3mn32kwHS6wUpFsvfEENmT4hYg4
+         ph5A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788736725; x=1789341525; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/lolE45Uhyd+sThQbwL8EFg5+bmDGsCrRM5xzs+E9ks=;
+        b=U0SQSRcQpQGzr9UR8MK+L9br7STH2Yj3Gw/0QQtpr2LsD7ahUiJPVL6Hd5qyU9tIIK
+         LYn9bdXjdL64w/Vt62iOZr+0E6AtPvOvgSMO3Lpo4cyMfumMjOPfrIPqqz+aP/SPxtp6
+         PKT78kyRXTaqAnSnkIJEk3RYEVUHwla2xZ4VZKe8qbIfh6mr9kfeMJ/VKro0SxcMWyoF
+         X8cS15YfGT6ccabKtuGTcw02h4s0rbfgMU8RbQOL5A5L3KuIVTjjfip0nMIjHVcjmEtt
+         M4lQdXCKLE14sGYggseBHXhbq71cm0Ao0+Jqs8JT2t47o3mlf2z3XxfcRwATtyvFSEZV
+         aAQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788736725; x=1789341525;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/lolE45Uhyd+sThQbwL8EFg5+bmDGsCrRM5xzs+E9ks=;
+        b=dwWUQkeXvSYF+Qe1h8xYibCxlvA0xXtdCgfUqMKifF1QbSBwH6Ll/kuRNZGCLFRO6X
+         W9lMOcXJ57vE3JVQScvWGi5Lebo5j4LUm3xfbkFOTNaArf8Nhwu/hswg7DwH7+3aEwAU
+         koBKHpmAYnVi8cJhpecpCCecP0mD+bDTdScKDjAUIRQry2r97JCDG7FjGiheDxosjqeu
+         TL68d4cP0XziaLb8dt+Vih287QBhiG9OR0g+9pj4j8A1paxb5rywJ5IlTWXN2uAjuskL
+         anI/udez4BSGmrABgXlKxTokfAUlo4iAXR4KoHb2tSAcq1a272QQdy3xD2QQJtQcYjm7
+         H9Pw==
+X-Forwarded-Encrypted: i=1; AKwUvBx43KRy9T6DkB7Jg7SPThaw+ddtul6co0bNvJ8Ynp9S7d+2H5R677cWMc9KJio26RN2CoX8HvrWYLBhyp8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nB7R6Lv+4YGnxGbb9MoF/O3Kl9lTbLIdXT6IXFE4qjL+uALy8c
+	HNT4b8tmJi4+i5N/WloNnGeMWpfgdAh907hJyokuOWSe8MdKVuFBNKpwiXIOW8bTgHkOSkhucBh
+	CUPqs/u7rlVs259wQAXQ78WhtNhGsKzs=
+X-Gm-Gg: AYBFou0WxCkQK0wapFgWL+Z4BfkK+GmqFOmp4FA1CadYA5jFuAJwJP0P034NfIVyRjb
+	wSbfPdPMoX5W4oY/3lLPml6COGL/Wjja7zRL1Nx5MuQS3XQQFTvPVFXzaM3/8VY+yw3ByDdf9UN
+	W32QebKCd8C7evdKjubm7CK/e6I/ZiF24VgcxqGSIj/KgZSo6h72r7CV5r18g6XjMYrunbzYdaZ
+	mQXif9vxvUGMul9ZeI9neQcgRkiPVqb23DePPhcVR5Gd/OP+ruroPkVbdU6hlH2LwfnL8Kmh5RT
+	ZmrThZWYK9KH3YSp66vVhUlPAJa21h72wSVhU98GnG4EwBFwtZl5OKrm9lY1Lyez0g/HDzM+U/T
+	5uS4zTB4ZaTJytoE0hY+BHV6lLVRqvpZLWxb7g+M=
+X-Received: by 2002:a05:6a00:13aa:b0:84c:5b65:ef86 with SMTP id
+ d2e1a72fcca58-86168e88261mr23644101b3a.17.1788736724956; Sun, 06 Sep 2026
+ 16:18:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179E0ECA-C65D-4480-9E4E-CFA960D55665@mainlining.org>
+References: <apl_5AVsAYLjVX5C@sirena.org.uk>
+In-Reply-To: <apl_5AVsAYLjVX5C@sirena.org.uk>
+From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Date: Sun, 6 Sep 2026 16:18:33 -0700
+X-Gm-Features: AcwNN1WQk-B2sF_oTeT_a5F-7sgNbJL45Qm1_BHeZkWfObnP1i9S5tuc4ycX_W8
+Message-ID: <CAADnVQJuAGh0P0sw3wWWPAmq1OmAX27KNiCYn6__rZkGs0hPrw@mail.gmail.com>
+Subject: Re: linux-next: manual merge of the bpf-next tree with the bpf tree
+To: Mark Brown <broonie@kernel.org>
+Cc: Daniel Borkmann <daniel@iogearbox.net>, Alexei Starovoitov <ast@kernel.org>, 
+	Andrii Nakryiko <andrii@kernel.org>, bpf <bpf@vger.kernel.org>, 
+	Networking <netdev@vger.kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+	Linux Next Mailing List <linux-next@vger.kernel.org>, Yonghong Song <yonghong.song@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 06, 2026 at 07:56:29PM +0100, Bradley Morgan wrote:
-> On 6 September 2026 19:46:50 BST, "Paul E. McKenney" <paulmck@kernel.org>
-> wrote:
-> >On Sun, Sep 06, 2026 at 09:09:53AM -0400, Mathieu Desnoyers wrote:
-> >> On 2026-09-05 16:40, Paul E. McKenney wrote:
-> >> > On Fri, Sep 04, 2026 at 06:28:45PM +0100, Bradley Morgan wrote:
-> >> [...]
-> >> > I would not say "no" to a fix for this issue:
-> >> > 
-> >> >
-> >https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
-> >> 
-> >> I'm not sure this URL actually points to a relevant issue ?
-> >
-> >Indeed, it does not, apologies!  Here you go:
-> >
-> >https://lore.kernel.org/all/202608130915.62b53936-lkp@intel.com/
-> >
-> >> > Once that is in place, I would be happy to put this back into -next.
-> >> > 
-> >> > At some point, we will need to get rid of the concept of wildcard
-> >hazard
-> >> > pointers, as those end up instead emulating RCU, but I don't see that
-> >> > as an immediate obstacle.
-> >> 
-> >> I already have the implementation which eliminates the wildcard if we
-> >> care about this. It was part of a previous hazptr series version.
-> >> 
-> >> Do you want me to resurrect it on top of the current series ?
-> >> This depends on:
-> >> 
-> >> - ptr_eq(),
-> >> - then use ptr_eq() to compare the loaded pointer (pre mb)
-> >>   with the re-loaded pointer (post-mb).
-> >> 
-> >> See:
-> >https://lore.kernel.org/all/20251218014531.3793471-1-mathieu.desnoyers@efficios.com/
-> >
-> >The main objection was over the content and style of the kernel-doc
-> >header comment, right?  I am guessing that it should be possible to
-> >resolve this to roughly equal disgust of all concerned.  ;-)
-> >
-> >We did make some progress on this sort of pointer issue in C++29
-> >this past June:
-> >
-> >https://people.kernel.org/paulmck/c-pointer-zap-and-oota-progress
-> >
-> >But the piece you need is this guy, which is still in process:
-> >
-> >https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2025/p3790r1.pdf
-> >
-> >Plus it will be some time before this reaches all the compilers used
-> >to build the Linux kernel, and probably even more time to reach the
-> >C language.  I do have pen-on-paper notes that will lead to a draft
-> >of the corresponding C-language working paper, but these things do not
-> >move quickly.
-> >
-> >So, yes, we will need something like ptr_eq() for some years to come.
-> >
-> >Back to your original question, given the fix for the above bug and
-> >given the current use case, I believe we can get the current series into
-> >mainline.  Give or take Linus's thoughts on the matter.  But either way,
-> >we will need a version that allows the user to avoid all wildcard use
-> >sooner rather than later.
-> >
-> >So having a series on top of the current one for a later merge window
-> >would be a very good thing!
-> >
-> Can I participate in this? :)
+On Thu, Sep 3, 2026 at 7:10=E2=80=AFAM Mark Brown <broonie@kernel.org> wrot=
+e:
+>
+> Hi all,
+>
+> Today's linux-next merge of the bpf-next tree got a conflict in:
+>
+>   kernel/bpf/backtrack.c
+>
+> between commit:
+>
+>   e3e4f66cc4b72 ("bpf: backtracking shouldn't clear outer frame R1-R5 for=
+ callbacks")
+>
+> from the bpf tree and commit:
+>
+>   5bbb242c08590 ("bpf: Handle R2 as a return register in precision backtr=
+acking")
+>
+> from the bpf-next tree.
+>
+> I fixed it up (see below) and can carry the fix as necessary. This
+> is now fixed as far as linux-next is concerned, but any non trivial
+> conflicts should be mentioned to your upstream maintainer when your tree
+> is submitted for merging.  You may also want to consider cooperating
+> with the maintainer of the conflicting tree to minimise any particularly
+> complex conflicts.
+>
+> I'm not entirely happy with this resolution but I think it's OK?
+>
+> diff --cc kernel/bpf/backtrack.c
+> index 47282ffeeaf94,653db80bcc47b..0000000000000
+> --- a/kernel/bpf/backtrack.c
+> +++ b/kernel/bpf/backtrack.c
+> @@@ -533,8 -538,12 +537,12 @@@ static int backtrack_insn(struct bpf_ve
+>                         from_subprog_call =3D subseq_idx - 1 >=3D 0 &&
+>                                             bpf_pseudo_call(&env->prog->i=
+nsnsi[subseq_idx - 1]);
+>
+>  -                      /* Sample the return registers before the callbac=
+k
+>  -                       * handling below clears R1-R5.
+>  -                       */
+>                         r0_precise =3D from_subprog_call && bt_is_reg_set=
+(bt, BPF_REG_0);
+> +                       r2_precise =3D from_subprog_call && bt_is_reg_set=
+(bt, BPF_REG_2);
+> +
+> ++                      bt_clear_reg(bt, BPF_REG_0);
+> ++                      bt_clear_reg(bt, BPF_REG_2);
+>  +
 
-If Mathieu is OK with it, feel free to look at the patch stack that
-Mathieu sent the URL for earlier in this thread.  Either way, please
-feel free to look at the stack in my -rcu tree based on v7.3-rc1 and
-headed by this commit:
-
-4398b7c192d ("hazptr: Implement two-phase wildcard scan")
-
-Perhaps you can find the bug that kernel test robot located.  ;-)
-
-My -rcu tree is here:
-
-git://git.kernel.org/pub/scm/linux/kernel/git/paulmck/linux-rcu.git
-
-Just so you know, in all cases, your taking on a task does not preclude
-others from also taking that same task on.
-
-							Thanx, Paul
-
-> --- Thanks!
-> https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+It was more involved than that,
+but now the conflict is resolved.
