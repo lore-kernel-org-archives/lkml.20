@@ -1,135 +1,232 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3451F2931D2
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 05:04:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8EF140E5F;
+	Sun,  6 Sep 2026 05:13:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788671076; cv=none; b=Wo6+ALjRl6/9e+fRRf4nKGrsw1S1A7FIiOknCYOLwSiKjK3dM4+rsp+gruUCViG6bEtmOKknQqUQugIPEaDS6tauP7JNVi9cQ0LXZgSjuOIOEzqPsTqyrnY48vyuGZVh0sF0amRE6ueIyxbtS1X+skUQJhIkAMAOgN88cBYUX2Y=
+	t=1788671590; cv=none; b=TmYeiYJT7ugyw1U6Qn9EYDrQdddegQwrMm5hilUWDr39wWOB8wXBuZ7Hyb7fagPW1T0DQbsts9oVVAtV6K1CkRLoI2I3GmW4he5+0x6DrC4pUjW1AR9lId8GE09EqdAwztdhiqzSl/8UkVnqAUzsnfQxudNbowMtAhtC182HQI0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788671076; c=relaxed/simple;
-	bh=pdpuAcQCT2azLLZEbEAiga6mgNjTVCAcrguE+8vSzyU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Y/dyVJHKBtNSjBbb15GVYgjY4+zzwXKBjMXROApsKcOJkH+JN/KFD9YK3bs3odij8b70LqAnhD7Y+rqbbQYmwym0JObXaCPA+Hr6DLp0yOSAXZ73BLgNoIoAVUPk3IN1HtqI0cU3qiwqcAazrrKYxmydSQx23Iutlgsz3/pMF9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=riC8QrVV; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788671590; c=relaxed/simple;
+	bh=fQhKEDUQlnvdVuf41GV9U9bE+YzuOuU/Rv6HqZ/2hHQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JOw3usb4iWohbYFk7ym7WIVFN4LXBWjcWNQurARTR1IFP0jRWnu9clBMYzkI0a8cox5YQHfqQgGu2pVI4zHDoZKjZGngmck7QscbLZHkCYnOntPu97oqgDxVk30ckIzRp00iYPOHg897QjZ43+DuqGysJ0PRmwFzmRX5vzC+ESg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=kmUqBDJK; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="riC8QrVV"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2d715f4a587so34632935ad.2
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 22:04:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788671074; x=1789275874; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SozSqp/P84pK5ttbmbx/yerpxYYU16syxX8QCf2wgzM=;
-        b=riC8QrVVunq8lIzonPhML1Hx+jLtP12isyEISJNYtPWl4TDfK/D09RoEKyCZox4nRx
-         14EMzvdnoqZSsadfZ+F5C53RRAI7AIGId6aakfJM3YDc4SNHIsKdyELFnnp0IDrBwI+1
-         7fhtvzUwad/8YtrskWgWbd97uHG6x87loMnl+3CqBbIebnvXiKDMabyIghERj3kA/rgY
-         Z5aYAGwbpHraQbm+R2OZ49KtM53vAz73LzfaIetxkgT3bNL9GpSl0DMbzE/PLmTeOuUW
-         3xej4ZkRqvhJAJ3IZruUAQTs8BbG74jybHD25fIj3VWTnxFJQ01B8eEVRO8vqDcaaXFB
-         WX1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788671074; x=1789275874;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SozSqp/P84pK5ttbmbx/yerpxYYU16syxX8QCf2wgzM=;
-        b=jzc6JIk8gHX22bYZ5Ld+LpAsMs3lydWfvq5ca0fBECJDSbu82Uvngt3tyvvCKEi2s4
-         SCz13Ca+Pwf0oaWBpDVWHsyQTpea/NHUcD9OFRuHmMRLHpeQK/GfpyGZqqixoSIKdYQ6
-         I+DdRsC5OmGvI7f3QX2t9EUWkbIC0ZNxY/YkuJpKhs1sArkleIVh+DLmS2Y9f+kFqJbY
-         Sb3wBqAQnkLViK7TvRAbEgar/lc+bQI9W2dMVixhAKG6jJEYZPM9grLbaY9v4obKIV11
-         t8apLOUQDlWczaS4gdkmdqW21HVHCbm8kAnOzpi3Jk4+PM1CFuzXGcNDR9VVM6uc/r4z
-         2BZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzHGI9cWz+70SB9/cHQxJdZVJsAWO1325s19FCTDRE2hLmI36lOPtoCrvgdCQvvKW8PvNcgJMyffQpn9CM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lWEbXr2hyzJDStbrJewmOPQVn3pkXOiJZ5EucO8DN3oxWuNOAX
-	TRIkimlA8W34bOWNNNJWotWwmGWQZcelMNk1zMuQWTngkW7gR4Ykmof3
-X-Gm-Gg: AYBFou3rR37swAduxQ8hDnX+GdP94z7/Iw/Unvj1YPGcOj4Mjj4obN9J4YZSD4S3rJW
-	5TBfdNvJqcj05mGKc3/GS9nXxhmHLdgj9u7NjdjguYNQ9ZoZ3W4GFIOp/HsMzhHEaibBzNKAzN6
-	6Awq0Hxw0NepS4tBTw6Uh/gKUtljA9sh3P/6i4o1J2/aUnZ5DaPLEB3mrZ2VeIzmC2/qgEy77XA
-	MfNEdFELmGWoTuA8y/Pr9n32CZDPQAiywQ5yRNaPrvN589Dt2eY4jtAZnmtOsv23dE76ewe5U/6
-	93xjPK9bpvP4tZdqvpzS2hJ6QzYKP3Q8PvBok9PpzqLZNSr+uqu5G3phdLrwd5ttBwbFKAVd8OI
-	aMrB45caIJIQvzHozesgdfllzEpTkN0GqhjOb6J/2R4lCd2qLCYoh9owLKs87Xkz39cHh/HIcmr
-	ekmXdm/wXeO3OXynSAxrNBY83/CNO1JSChDHtNl4jsorYn3x429Usj6o/xhAtLOK01WBT2ek8t6
-	/aKlQ==
-X-Received: by 2002:a17:903:124e:b0:2d9:4baf:f1a7 with SMTP id d9443c01a7336-2db1287a543mr210656715ad.19.1788671074409;
-        Sat, 05 Sep 2026 22:04:34 -0700 (PDT)
-Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1483de0asm28106155ad.11.2026.09.05.22.04.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 22:04:33 -0700 (PDT)
-From: Bo Zhang <zhangbo0325@gmail.com>
-X-Google-Original-From: Bo Zhang <zhangbo56@xiaomi.com>
-To: baohua@kernel.org
-Cc: akpm@linux-foundation.org,
-	hannes@cmpxchg.org,
-	kasong@tencent.com,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	david@kernel.org,
-	mhocko@kernel.org,
-	ljs@kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] mm: vmscan: avoid anon scanning for GFP_NOIO with low swapcache
-Date: Sun,  6 Sep 2026 13:04:11 +0800
-Message-Id: <20260906050411.405850-1-zhangbo56@xiaomi.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <CAGsJ_4wC78QDTrETC0WpnouN=8aF8ae6Yxgb+oKiOP3A76ATLg@mail.gmail.com>
-References: <CAGsJ_4wC78QDTrETC0WpnouN=8aF8ae6Yxgb+oKiOP3A76ATLg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="kmUqBDJK"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=v00C6G4+vUG94ot1BoePP2klSPMmGYmd1QrEFLUBzpQ=; b=kmUqBDJKSYhBP2v2DN8UqDQ3gd
+	BSaTTJY7HD21Nx4x4x0as0QZXYmlQxd7wvBF5bbNETGoEWasV3Sr5n+s015dnOgOpdKzVen5Rivi/
+	b1S1rzwSYg1OOQtMKrKB+qgLdt7qxlBO/KIu38r1GADGGJEzw8q0PhHJD+maJ/irMrTZYAY8DmaWk
+	qYeQdVPcdreXDAF6gRbU0OmbwAvroj5tspKCzSn6Q3MfJXSmeF+vQivhlMNbmqDRpqopR94u1FC3P
+	GhOlXrVzrfw/sVmwybrcj7sVBTVJskXiAFiHfvYF/jkmk60nqdPu0r+0+PX7d17tdAgTjqA9Uotag
+	VYoWXhMQ==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x35BM-00000004hpC-2mvt;
+	Sun, 06 Sep 2026 05:12:44 +0000
+Message-ID: <6168d40d-b781-4abb-9be8-ecb25b7688d5@infradead.org>
+Date: Sat, 5 Sep 2026 22:12:43 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/4] uart-routing: Add UART Routing driver for StarFive
+ JHB100 SoC
+To: Changhuang Liang <changhuang.liang@starfivetech.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Chia-Wei Wang <chiawei_wang@aspeedtech.com>, Oskar Senft <osk@google.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Shuah Khan <skhan@linuxfoundation.org>,
+ Jani Nikula <jani.nikula@intel.com>, Vitaly Lubart <lubvital@gmail.com>,
+ Hanjun Guo <guohanjun@huawei.com>, Andrew Morton
+ <akpm@linux-foundation.org>, Alexander Usyskin
+ <alexander.usyskin@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Breno Leitao <leitao@debian.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ James Morse <james.morse@arm.com>, Paolo Abeni <pabeni@redhat.com>,
+ Stephen Hemminger <stephen@networkplumber.org>,
+ Dave Penkler <dpenkler@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Jonathan Cameron <jic23@kernel.org>, Dan Williams <djbw@kernel.org>,
+ Mukesh Rathor <mrathor@linux.microsoft.com>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Alexandra Winter <wintera@linux.ibm.com>,
+ Julian Braha <julianbraha@gmail.com>,
+ Karthikeyan KS <karthiproffesional@gmail.com>,
+ Pengpeng Hou <pengpeng@iscas.ac.cn>, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org
+References: <20260905102901.126035-1-changhuang.liang@starfivetech.com>
+ <20260905102901.126035-5-changhuang.liang@starfivetech.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260905102901.126035-5-changhuang.liang@starfivetech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thanks Barry.
+Hi,
 
-On Sun, Sep 6, 2026 at 12:53 PM Barry Song <baohua@kernel.org> wrote:
->
-> I notice this only fixes the active/inactive LRU case. To address the
-> MGLRU case, it seems we may need a more fundamental change.
->
-> I'm fine with starting by fixing the active/inactive LRU case first.
-> However, could we mention in the changelog that this patch only
-> addresses the active/inactive LRU case, and that fixing the MGLRU case
-> is on the TODO list?
+On 9/5/26 3:29 AM, Changhuang Liang wrote:
+> Add driver support for JHB100 UART Routing control, allowing runtime
+> configuration of RX muxes between UART controllers and I/O pins.
+> 
+> A sysfs interface is provided for easy checking and updating of routing
+> paths.
+> 
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> ---
+>  .../sysfs-driver-starfive-uart-routing        |  45 ++++
+>  MAINTAINERS                                   |   8 +
+>  drivers/uart-routing/Kconfig                  |  13 ++
+>  drivers/uart-routing/Makefile                 |   1 +
+>  drivers/uart-routing/starfive-uart-routing.c  | 192 ++++++++++++++++++
+>  5 files changed, 259 insertions(+)
+>  create mode 100644 Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
+>  create mode 100644 drivers/uart-routing/starfive-uart-routing.c
+> 
+> diff --git a/Documentation/ABI/testing/sysfs-driver-starfive-uart-routing b/Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
+> new file mode 100644
+> index 000000000000..737afdf428bc
+> --- /dev/null
+> +++ b/Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
+> @@ -0,0 +1,45 @@
+> +What:		/sys/bus/platform/drivers/starfive-uart-routing/\*/uart\*
+> +Date:		August 2026
+> +Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
+> +Description:	Selects the RX source of the UARTx device.
+> +
+> +		When read, each file shows the list of available options with currently
+> +		selected option marked by brackets "[]". The list of available options
+> +		depends on the selected file.
+> +
+> +		e.g.
+> +		cat /sys/bus/platform/drivers/starfive-uart-routing/\*.uart-routing/uart1
+> +		io0 [io1] io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14 uart0 uart1
+> +		uart2 uart3 uart4 uart5 uart6 uart7 uart8 uart9 uart10 uart11 uart12 uart13 uart14
+> +
+> +		In this case, UART1 gets its input from IO1 (physical serial port 1).
+> +
+> +		To switch the RX source of UART1 to UART2, write the desired source to the file:
+> +		echo uart2 > /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/uart1
+> +
+> +		This indicates that UART1 now receives its input from UART2.
+> +
+> +Users:		OpenBMC.  Proposed changes should be mailed to
+> +		openbmc@lists.ozlabs.org
+> +
+> +What:		/sys/bus/platform/drivers/starfive-uart-routing/\*/io\*
+> +Date:		August 2026
+> +Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
+> +Description:	Selects the RX source of IOx serial port. The current selection
+> +		will be marked by brackets "[]". The list of available options
+> +		depends on the selected file.
+> +
+> +		e.g.
+> +		cat /sys/bus/platform/drivers/starfive-uart-routing/\*.uart-routing/io9
+> +		uart0 uart1 uart2 uart3 uart4 uart5 uart6 uart7 uart8 [uart9] uart10 uart11 uart12
+> +		uart13 uart14 io0 io1 io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14
+> +
+> +		In this case, IO9 (physical serial port 9) gets its input from UART9.
+> +
+> +		To switch the RX source of IO9 to UART10, write the desired source to the file:
+> +		echo uart10 > /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/io9
+> +
+> +		This indicates that IO9 now receives its input from UART10.
+> +
+> +Users:		OpenBMC.  Proposed changes should be mailed to
+> +		openbmc@lists.ozlabs.org
 
-You're right - MGLRU decides anon vs file scanning in its own path
-(get_type_to_scan()/isolate_folios()) and does not go through this
-can_reclaim_anon_pages() check for normal reclaim, so it is not covered
-here. I'll note in the changelog that this patch only addresses the
-active/inactive LRU case and that the MGLRU case is left as a TODO.
+Please consider the following changes to this ABI file documentation
+(or make your own).
 
-> > -               if (get_nr_swap_pages() > 0)
-> > +               if (get_nr_swap_pages() > 0 &&
-> > +                   !reclaimable_anon_is_low(memcg, nid, sc))
->
-> Can we also update the comment above accordingly?
->
-> /*
->  * For non-memcg reclaim, do we have space on any swap device?
->  * For GFP_NOIO, do we also have sufficient swapcache anon folios
->  * to reclaim?
->  */
+---
+Avoid 'make htmldocs' warnings (from docutils) and
+make console input or output be presented more clearly and
+in a monospace font.
 
-Will do in v3.
+Documentation/ABI/testing/sysfs-driver-starfive-uart-routing:25: WARNING: Inline emphasis start-string without end-string. [docutils]
+Documentation/ABI/testing/sysfs-driver-starfive-uart-routing:1: WARNING: Inline emphasis start-string without end-string. [docutils]
 
-> > -               if (mem_cgroup_get_nr_swap_pages(memcg) > 0)
-> > +               if (mem_cgroup_get_nr_swap_pages(memcg) > 0 &&
-> > +                   !reclaimable_anon_is_low(memcg, nid, sc))
->
-> Do we also need to update the comment?
->
-> /*
->  * Is the memcg above its swap limit, and does it have enough
->  * swapcache anon folios to reclaim for GFP_NOIO?
->  */
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+---
+ Documentation/ABI/testing/sysfs-driver-starfive-uart-routing |   32 +++++-----
+ 1 file changed, 18 insertions(+), 14 deletions(-)
 
-Yes, updated both comments in v3.
+--- linux-next-20260902.orig/Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
++++ linux-next-20260902/Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
+@@ -1,4 +1,4 @@
+-What:		/sys/bus/platform/drivers/starfive-uart-routing/\*/uart\*
++What:		/sys/bus/platform/drivers/starfive-uart-routing/*/uart*
+ Date:		August 2026
+ Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
+ Description:	Selects the RX source of the UARTx device.
+@@ -7,37 +7,41 @@ Description:	Selects the RX source of th
+ 		selected option marked by brackets "[]". The list of available options
+ 		depends on the selected file.
+ 
+-		e.g.
+-		cat /sys/bus/platform/drivers/starfive-uart-routing/\*.uart-routing/uart1
+-		io0 [io1] io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14 uart0 uart1
+-		uart2 uart3 uart4 uart5 uart6 uart7 uart8 uart9 uart10 uart11 uart12 uart13 uart14
++		E.g.::
++
++		  cat /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/uart1
++		  io0 [io1] io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14 uart0 uart1
++		  uart2 uart3 uart4 uart5 uart6 uart7 uart8 uart9 uart10 uart11 uart12 uart13 uart14
+ 
+ 		In this case, UART1 gets its input from IO1 (physical serial port 1).
+ 
+-		To switch the RX source of UART1 to UART2, write the desired source to the file:
+-		echo uart2 > /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/uart1
++		To switch the RX source of UART1 to UART2, write the desired source to the file::
++
++		  echo uart2 > /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/uart1
+ 
+ 		This indicates that UART1 now receives its input from UART2.
+ 
+ Users:		OpenBMC.  Proposed changes should be mailed to
+ 		openbmc@lists.ozlabs.org
+ 
+-What:		/sys/bus/platform/drivers/starfive-uart-routing/\*/io\*
++What:		/sys/bus/platform/drivers/starfive-uart-routing/*/io*
+ Date:		August 2026
+ Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
+ Description:	Selects the RX source of IOx serial port. The current selection
+ 		will be marked by brackets "[]". The list of available options
+ 		depends on the selected file.
+ 
+-		e.g.
+-		cat /sys/bus/platform/drivers/starfive-uart-routing/\*.uart-routing/io9
+-		uart0 uart1 uart2 uart3 uart4 uart5 uart6 uart7 uart8 [uart9] uart10 uart11 uart12
+-		uart13 uart14 io0 io1 io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14
++		E.g.::
++
++		  cat /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/io9
++		  uart0 uart1 uart2 uart3 uart4 uart5 uart6 uart7 uart8 [uart9] uart10 uart11 uart12
++		  uart13 uart14 io0 io1 io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14
+ 
+ 		In this case, IO9 (physical serial port 9) gets its input from UART9.
+ 
+-		To switch the RX source of IO9 to UART10, write the desired source to the file:
+-		echo uart10 > /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/io9
++		To switch the RX source of IO9 to UART10, write the desired source to the file::
++
++		  echo uart10 > /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/io9
+ 
+ 		This indicates that IO9 now receives its input from UART10.
+ 
 
-Thanks,
-Bo
+
+-- 
+~Randy
+
