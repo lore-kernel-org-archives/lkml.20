@@ -1,186 +1,152 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DFE5369D5C;
-	Sun,  6 Sep 2026 10:58:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 282B11F78E6
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:02:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788692315; cv=none; b=lzl2R3zs1XIk85Rp+ZtTucl4ykvILvkMtXth53jrBlIMsf+70U2H56+eJXiJ4svXGuyjAITgFwBAkO9lrxMmOlTg1wHBfqnOqRdzTH/uk1q+C+aBfQx1UQ7xQEE8RvLi7S9VMy9yQ9OO9mWqC3ewEbnjuSTlCOVc+n6WrZki9uY=
+	t=1788692536; cv=none; b=cUg/G6sI5GJMQ3sIhjzqlXt5k+K7JzA6aPkNyUDibQ342UDeYGg34MMGCQ9qh73Y4ZYKeTMDOu7N+0c4zoVUE7zRf/Ilu6DreOeRIyGDZxCS9E1y/hRmFvtJFO5IXVsvRIpBXvCTuxs7LbVKBYBT/P7dfDg8YAlQjiHn7Uv0o0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788692315; c=relaxed/simple;
-	bh=0sPJ2ft3SlDeiaCh+SHknVtFAqPO3k/VezhFQIhCmRw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ivy42FId2rRQnL0sHetjAgMviF/t6+5TcpMiw125cCTCycvfz2R7zCaCjPWNnzTlpJh6I3xDY4Zqrn4554djnT54OKgHq/HLrJ2IBeTyJBF/+rjwx8rQ+3+CUyDiTl1UCY+W/aGLMxGXOo5hzaV+z2oFEwTW7cYYLcy3KY/gpPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=S7rYxxY6; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788692536; c=relaxed/simple;
+	bh=xjHNZdArQMCZb650b76E3RrOioBC8s4U6npUhtP28jk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Tqh7L9xhQ+V8O3UBd3ICEctIe2xEJsU2Vm0W9IexMf8rvpmSiLDc3OGO2klSzOKdsd9BqREk0lBaW7ojM0A8LQveLUpuKAu/6RMb0CizjrKD/LE4I5I1F/eR1f0GxC1eSdtXNL8ETxW6E/6ZoCfa1LvxzTTzepGv1yWTBHPp2hA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Iv1ANG1w; arc=none smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="S7rYxxY6"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 686020Vg1726960;
-	Sun, 6 Sep 2026 10:57:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=CJO3x7
-	/ku4GwOfAHK1yvS6a4nMjaD6JvRAuX0wDLQ8c=; b=S7rYxxY6zcM8nbVMOWgdTF
-	L8STcgd3CrahGJAaNzeN85LFgAx4i+cFmGpuaY7VPvKvSk+8oLkN8xQrsStdoDxW
-	3ttpzWz2tsVceDcm7JmiDxrKl5LpUwfU0glVgegZgPxS2sMeXR4lPsFpLClYYmIf
-	Yltjiq+LJlsxp2vEMwMIjrZQ85C3b3kuvQf+aIhc42I9OxlEdecc7/hQJpUCDBCh
-	D0mpYXHMjP0JbIUSS2AwbH1NqiMOjjgzGn4pj2TBNFKp3Erh+AcsCk/PSCjyeyPL
-	VYqtG34u7zhxUJL36MRb+OU7UeYYdJNm+wkQ5sFqOUXY+fsFwWmlVmcFbLQ++INA
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbhkc16y-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 06 Sep 2026 10:57:15 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 686AubWd003155;
-	Sun, 6 Sep 2026 10:57:14 GMT
-Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ggxwgs4m4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 06 Sep 2026 10:57:14 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
-	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 686AvDaR63242526
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sun, 6 Sep 2026 10:57:14 GMT
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id AA76C58052;
-	Sun,  6 Sep 2026 10:57:13 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CC6575805D;
-	Sun,  6 Sep 2026 10:56:51 +0000 (GMT)
-Received: from [9.61.37.159] (unknown [9.61.37.159])
-	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Sun,  6 Sep 2026 10:56:51 +0000 (GMT)
-Message-ID: <49d724b8-57c6-48fc-8099-69cd1b072351@linux.ibm.com>
-Date: Sun, 6 Sep 2026 16:26:49 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Iv1ANG1w"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8534d507f59so2756662b3a.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 04:02:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788692534; x=1789297334; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zsoQ3WWbLMeracKBU+KB0eYOl3CW7WFSrJU6E+v+qnU=;
+        b=Iv1ANG1wWZgpAPCr+lLGmw7SZUiypQkhxDVAFoyVJYNPZ7s3jNzNjngIfpsSRu3clH
+         K0Om1YZ/e4ByFUr1kGpIpmAQcyx5WDeMunAhSQxFfaYZC7b8m6Yy6QouOaL7wiyM7Qxu
+         TuQsHXq6q1qaf1vPXDyRp8Er3Y8WIgejlqsLohTVg4Bp9zoqhcJnbKq0z8dKuTo0EN7i
+         hHdwLK3xSdKCcDdaBQDaLrABywg/f5wx2SuePusByIJDgHEVYLsb7FVvNxaMceCirH+a
+         5dQDosqouGlEpIhTMdnq0PbpKGGX4JN4QO0qkmujDLOEzk1xqOHqilCxrFYFqcx2Xz28
+         /VDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788692534; x=1789297334;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zsoQ3WWbLMeracKBU+KB0eYOl3CW7WFSrJU6E+v+qnU=;
+        b=U28kk8uwVqzeEdiKol63rXrvQWWOUysi4JSbqdFcynixGM1Ld0aWbYRVEasT1H6WjO
+         cqa4UaNWZilBgvH3KGZxiOuM6qs/JsMLuv7inPWTOMtDLg4X7Pe3WPho4IkPkzrHIE4k
+         Zyqe9s3dHD73u2cRZ+OmpE/BH1YAgw6CDMN8vcMeDI+RvuXRqvcAUMUUY+x7nJVAWHa8
+         7osGQbYGPGcAHYjWOPLaMiFvXXCN/002X9QJ1cOskwL4BeEARwOR7lcb8SftIq53hXI5
+         9bojMAqgslTbk3aIXliDn3ROxX4fPkpE/fza6j490SHcZLFlYS+XRW5XRyfse35O5VJ4
+         YMsA==
+X-Forwarded-Encrypted: i=1; AKwUvByIm7CH+V4dW8Sv5I69nbkR2MEtr+1l4X1Ek4xJceZcpE5bmcPY02f9SBtAcKzqiyWxyYweBn+f6c+4aLA=@vger.kernel.org
+X-Gm-Message-State: AFuF++n22An0sA4s3dA82fby5COOICSdHiDGmjbxP0HLWj7wti6K9WOZ
+	160pUW6+d2qVr60Z4sZ0MABpW1Iwsqp+6RpK0N7fHdn7jUkmypfyeEbB
+X-Gm-Gg: AYBFou0OW93A/oLnlvx3ho3S3P9FcHQAVM6QgfKeiFYEF0Zeasgt/dEYJRK4REtXxS8
+	DzJ/MR/9KuR57XJB7+2vngyEN2D+U+2K3qD7foA5Gq6e4m8328Wzvfz8OBNJKyYt5bR8N+Qcdrx
+	wR6zeqY6b6KR8y3ornDVmsuNmW1nHmKFkc8KXHokmXqoz0c2UwZLvvJ4xHs7sN9MKHWoRFZDj0P
+	RCrhNoIUUnljssAnPmORqkWk3pG3pL8iYHNIXpy7s+/h1r9pSetpKo/gPFFu90F5q/Mt+mhnPM8
+	Tlu/a2rSpFTMMIvHH4g/bo64lGUMIw30NJfECgnwWZauLHRacxWUBOiYFOKjDzK6Xdm1jjc/7iV
+	o2BWuyPl7pXQCaGo2sy0wceaoEpa/j6dCZL9yrOOh+8CqxhjOuzc/FE84iVYRti7Y2ROBH+6ht7
+	8jwO3Q3vx/62t9BNkbOrynl2At9SudywbdR8oIcgyIwQckYKnbk+ddA7oASVnyAfvsSd7IPhKuR
+	KD8IAqyjbtGuuOOWIeG
+X-Received: by 2002:a05:6a00:349a:b0:848:56ff:6ced with SMTP id d2e1a72fcca58-8616819d66fmr24558258b3a.8.1788692533606;
+        Sun, 06 Sep 2026 04:02:13 -0700 (PDT)
+Received: from 192.168.50.3 ([183.193.115.0])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-862810e0cf7sm2015708b3a.48.2026.09.06.04.02.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 04:02:12 -0700 (PDT)
+From: Weiming Shi <bestswngs@gmail.com>
+To: David Howells <dhowells@redhat.com>,
+	Lukas Wunner <lukas@wunner.de>,
+	Ignat Korchagin <ignat@linux.win>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S . Miller" <davem@davemloft.net>
+Cc: keyrings@vger.kernel.org,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Marcel Holtmann <marcel@holtmann.org>,
+	James Morris <james.morris@microsoft.com>,
+	Denis Kenzior <denkenz@gmail.com>,
+	Xiang Mei <xmei5@asu.edu>,
+	Weiming Shi <bestswngs@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] asymmetric_keys: reject trust keys without IDs
+Date: Sun,  6 Sep 2026 19:01:53 +0800
+Message-ID: <20260906110152.240426-2-bestswngs@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260502163328.696098-2-bestswngs@gmail.com>
+References: <20260502163328.696098-2-bestswngs@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] blk-cgroup: store blkcg in bio instead of blkg
-To: Yu Kuai <yukuai@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-        Tejun Heo <tj@kernel.org>, Josef Bacik <josef@toxicpanda.com>,
-        Johannes Weiner <hannes@cmpxchg.org>,
-        =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>
-Cc: Yu Kuai <yukuai@fygo.io>, Christoph Hellwig <hch@lst.de>,
-        Tao Cui <cui.tao@linux.dev>, Jan Kara <jack@suse.cz>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>, Coly Li <colyli@fygo.io>,
-        Kent Overstreet <kent.overstreet@linux.dev>,
-        Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
-        Mikulas Patocka <mpatocka@redhat.com>,
-        Benjamin Marzinski <bmarzins@redhat.com>, Song Liu <song@kernel.org>,
-        Li Nan <magiclinan@didiglobal.com>, Xiao Ni <xiao@kernel.org>,
-        Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
-        Dan Williams <djbw@kernel.org>,
-        Vishal Verma <vishal.l.verma@intel.com>,
-        Dave Jiang <dave.jiang@intel.com>,
-        Alison Schofield <alison.schofield@intel.com>,
-        Ira Weiny
- <iweiny@kernel.org>,
-        Andreas Gruenbacher <agruenba@redhat.com>,
-        Matthew Wilcox <willy@infradead.org>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
-        Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
-        Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
-        Youngjun Park <youngjun.park@lge.com>, cgroups@vger.kernel.org,
-        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
-        dm-devel@lists.linux.dev, linux-raid@vger.kernel.org,
-        nvdimm@lists.linux.dev, virtualization@lists.linux.dev,
-        gfs2@lists.linux.dev, linux-fsdevel@vger.kernel.org,
-        linux-mm@kvack.org
-References: <20260823133045.970199-1-yukuai@kernel.org>
- <20260823133045.970199-3-yukuai@kernel.org>
-Content-Language: en-US
-From: Nilay Shroff <nilay@linux.ibm.com>
-In-Reply-To: <20260823133045.970199-3-yukuai@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA2MDExNSBTYWx0ZWRfX8nPzv8kos0rY
- gaRnUKKcGNALxzB3/vHAzbEqdW0xDiZOYAx4ILGILucwdKgIFk887ytDoFJHjdLNIIoU0U28wkg
- 99kGWRVx/84hhz99DvHnFHlPkgq8t4g=
-X-Proofpoint-ORIG-GUID: QO9cXpi63Ac-WgxFKSeRW1G3065a91Z0
-X-Authority-Analysis: v=2.4 cv=NMDlPU6g c=1 sm=1 tr=0 ts=6a9d470c cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VFI7-riRab948bACfH8A:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA2MDExNSBTYWx0ZWRfX5kApbW8gd3Qz
- DMpvom0X+zhm7irsaQJ6mAVaI4c7fFZb6OCUL4FN1VsE8gIKoml2VgwWSS3Ht89m4Kx903rFHzm
- +w8Ln4HvNUOX8KbjCmz7cWCUEoP5shl5WP1KULzpnJ6bhD+uNxh5FpCYTK63tI8/lnkZlAV1XYR
- dOdi2asLwGkdvxgVpbTW1/4TlQJy3DAkd7C77yuCK+gyFTK8uV6i7LGBTHBM/f/to9s60Mrpf3T
- 5g1JIEWFPtKNi+fT7YYNNyR0xx0UffonzsL4DAJLRuH2FVubnlofbGit1v+6LN0JH69tf9rZtiC
- 4GaqdYZlLu0dcpN2b4oXW0lr2G0Sl6qaCz1W8ovkl7z9izgXVNPEoOKIijRQ4AKbnW2OsSXnfLY
- EVf0FPSp1XJfKu+lkUJhQ29RGLuLbqT0l6tYVJvTIABWcBejSLG1RWLoxLvxHhHdEZrbvp2nA67
- eT0+svYbY1yfB0y+dTA==
-X-Proofpoint-GUID: 4Azach-Fc91njV1xry32_utpY9oMYi9C
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-05_08,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0 lowpriorityscore=0 clxscore=1011 adultscore=0
- impostorscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609060115
+Content-Transfer-Encoding: 8bit
 
-On 8/23/26 7:00 PM, Yu Kuai wrote:
-> @@ -257,20 +262,21 @@ static inline bool bio_issue_as_root_blkg(struct bio *bio)
->    * @blkcg: blkcg of interest
->    * @q: request_queue of interest
->    *
->    * Lookup a blkg for the @blkcg - @q pair, whether it is online or dying.
->    *
-> - * Must be called in a RCU critical section.
-> + * Must be called with either RCU read lock or queue_lock held.
->    *
->    * This does not acquire a reference.  The caller must already hold one, or
->    * have the blkg pinned by I/O.
->    */
->   static inline struct blkcg_gq *blkg_lookup_any(struct blkcg *blkcg,
->   					       struct request_queue *q)
->   {
-> -	RCU_LOCKDEP_WARN(!rcu_read_lock_held(),
-> -			 "blkg_lookup_any() requires an RCU read lock");
-> +	RCU_LOCKDEP_WARN(!rcu_read_lock_held() &&
-> +			 !lockdep_is_held(&q->queue_lock),
-> +			 "blkg_lookup_any() requires an RCU read lock or queue_lock");
->   
->   	return rhashtable_lookup(&q->blkg_hash, &blkcg->css.id,
->   				 blkg_hash_params);
->   }
+The PKCS#8 parser deliberately leaves the asym_key_ids payload slot
+empty. key_or_keyring_common() unconditionally dereferences that slot
+when a PKCS#8 key is supplied to a key_or_keyring restriction. Both the
+plain and :chain forms reach this branch, allowing an unprivileged caller
+to trigger a NULL pointer dereference through KEYCTL_RESTRICT_KEYRING
+followed by add_key().
 
-The changes look good to me. However, rhashtable_lookup() is annotated
-with __must_hold_shared(RCU). Since we now officially support Clang
-context annotations in the block layer, compiling with the latest
-Clang/LLVM generates a number of context warnings, for example:
+ Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000
+ KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+ RIP: 0010:key_or_keyring_common (crypto/asymmetric_keys/restrict.c:205 crypto/asymmetric_keys/restrict.c:279)
+ Call Trace:
+  <TASK>
+  __key_create_or_update (security/keys/key.c:884)
+  key_create_or_update (security/keys/key.c:1021)
+  __do_sys_add_key (security/keys/keyctl.c:134)
+  do_syscall_64 (arch/x86/entry/common.c:52 arch/x86/entry/common.c:83)
+  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:130)
+  </TASK>
+ Kernel panic - not syncing: Fatal exception
 
-block/blk-cgroup.h:277:9: warning: calling function 'rhashtable_lookup'
-requires holding __ctx_lock_RCU 'RCU' [-Wthread-safety-analysis]
-   277 |         return rhashtable_lookup(&q->blkg_hash, &blkcg->css.id,
-       |                ^
+Reject an asymmetric restriction key without key IDs. A PKCS#8 private
+key cannot identify the signer of a candidate certificate and is not a
+valid trust anchor.
 
-The same warning is reported from several other block layer source
-files that include blk-cgroup.h.
+Fixes: 3c58b2362ba8 ("KEYS: Implement PKCS#8 RSA Private Key parser [ver #2]")
+Cc: stable@vger.kernel.org
+Reported-by: Xiang Mei <xmei5@asu.edu>
+Link: https://lore.kernel.org/r/20260429181629.110802-2-bestswngs@gmail.com
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+---
+Changes in v3:
+- Drop the unnecessary find_asymmetric_key() check.
+- Reject a trust key without IDs instead of continuing the chain lookup.
+- Use the PKCS#8 parser commit as the Fixes target.
 
-This indicates that rhashtable_lookup() requires the RCU read lock
-from Clang's context-analysis perspective. Looking at the call paths of
-blkg_lookup_any(), it appears that not all callers hold
-rcu_read_lock() when invoking it.
+ crypto/asymmetric_keys/restrict.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-I think we should fix those call paths to acquire rcu reader lock
-before calling blkg_lookup_any(), rather than weakening or bypassing
-the context annotation in blkg_lookup_any().
-
-Thanks,
---Nilay
-
+diff --git a/crypto/asymmetric_keys/restrict.c b/crypto/asymmetric_keys/restrict.c
+index 86292965f..0e4783ff7 100644
+--- a/crypto/asymmetric_keys/restrict.c
++++ b/crypto/asymmetric_keys/restrict.c
+@@ -243,10 +243,14 @@ static int key_or_keyring_common(struct key *dest_keyring,
+ 			if (IS_ERR(key))
+ 				key = NULL;
+ 		} else if (trusted->type == &key_type_asymmetric) {
++			const struct asymmetric_key_ids *kids;
+ 			const struct asymmetric_key_id **signer_ids;
+ 
+-			signer_ids = (const struct asymmetric_key_id **)
+-				asymmetric_key_ids(trusted)->id;
++			kids = asymmetric_key_ids(trusted);
++			if (!kids)
++				return -ENOKEY;
++
++			signer_ids = (const struct asymmetric_key_id **)kids->id;
+ 
+ 			/*
+ 			 * The auth_ids come from the candidate key (the
+-- 
+2.55.0
