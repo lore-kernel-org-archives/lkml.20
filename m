@@ -1,76 +1,77 @@
-Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
+Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB833355819
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 20:16:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DAC237A857
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 20:16:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788725789; cv=none; b=tEdtJbIeevUYzdkZTWLSkE0yGMG6T3TMPBmG+2wfdc8Sx0sO6h6m5q93ah/2CgX5wSctmMG2p7dBNVfRyL5OFXje5YdmSPTcIgM5qDYugFxBVcTbOnQ2VqO3Kcy7H0oOto/Bcc9nFThcj7OVqyhqDYMv0ILjYa1z0pAZMscrcPM=
+	t=1788725805; cv=none; b=da3Es+hidlBZrHXvku9OnFWu2/gH1URl2KGnSzwUHU8q31boUbkc2zIHNZFQDqox4TXcLhsywHbb84bootXi8Xz/rQ/rZzWiwuSCgG4vwTCjMvJNRrgWv8AnNJMx/tKzmLO/O//WSwHpGzeMCvPmZKcYN5UJPp4ONMPC4/Urunw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788725789; c=relaxed/simple;
-	bh=/wj5OkijtfWbGuEcdD1xNBw5S+WlnsfIp4v0woF6s4g=;
+	s=arc-20240116; t=1788725805; c=relaxed/simple;
+	bh=gqUGNJDAb1yI8v9pL6RTCkYxnBV64avTbwEfdCG0eBM=;
 	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:Mime-Version:
-	 References:In-Reply-To; b=FtZPYK7+Nk/ahBiQzBiTYX08XnXCoXw2Oxw9AuXCYPBVkdjWp2STlr4LUgd9TQFZFPSYk/C+COAn17JGIUIKrk883WQzWrblYYCnea/MfitPnuVRtuDb+QlbAAUwS5LARPRCv0LRnCESE9+WeO5jiwTI+SVYK30hfLNuXkw0434=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=clpDbweS; arc=none smtp.client-ip=209.85.221.173
+	 References:In-Reply-To; b=gF3CKLxHVShgspnkA2JiBZZ2+tYGorOKYpPKCHiaQsiUedyEpkRcDS4LQIWQMNt9h5hYQeeRfqzIWWNg7NxF05s0LRF6Ww3hhiv7qHw4nPhgba8XG8MGATpHfGfA5A/NAMpshU8dKuKzd9uxQXS6yXF7PhuyK299Xg4w1wQrBqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ky0/VdzK; arc=none smtp.client-ip=209.85.221.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="clpDbweS"
-Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5c7d1512dbfso2370634e0c.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 13:16:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ky0/VdzK"
+Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5c7d4c663e9so2250205e0c.3
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 13:16:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788725787; x=1789330587; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788725802; x=1789330602; darn=vger.kernel.org;
         h=in-reply-to:references:content-transfer-encoding:mime-version:to
          :from:subject:cc:message-id:date:content-type:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=/3YAKshQBMHkaUZVm8z/vkmvM1MdD+QwhYNoLme4eGQ=;
-        b=clpDbweSp+vGyYZd2Ly/yrl4ThmJUnzr+q/smAezSp6spBQi2Taj/wT6N6XHxsySVD
-         nGXe7ON/ERR7+1zCFV5nr5FRdTInBNQnznYMnUDLLHziMoAJJ6AloZTWz4gsN27sLyOG
-         zrKbUBoir7WUPskar34wnNhQfz5jJY0VR2O1Sx8EF4ipphWSfCc4fH6coIgavNGJeXm0
-         sR4dF4VLauFM819c0fxRmulcqxsrMOvgwkQbnI87pe9zu5QUshhp8PF/M4m/5UyiJNCK
-         +1oHLLToReHzi5CucHHR98TkeCcez9XNVMPmH8GKnqmiBXohnvbjQg+b3dq5lv/h9fc8
-         ZdmA==
+        bh=ad616E7Mfeiy4C3sRfgAcvBobdI1RZYsaLcBMh2jcP0=;
+        b=ky0/VdzKFVPwwVm14Qx6hJZtE2km7es3Km8p8wGW2B3loEhpbryE5Wllf+Bo/QojBn
+         8Rd4duZyzXS6s0mlJIc6eYCkxzh9b+xDM1zafMQ4xr22XHlx+7VPIOR0fM42mHKPhG6P
+         X6BqcKWmzCufHTpb5rRCBor1g3ntoZPdQ/nD49Zb9d65GS6ClBFSgRksdr2+RLZvtx49
+         bAlNuD1ZE/3Lgiam8WsI8Fe3krAUn1+P66eE6Sgk4aZAkI2U20HTE8hWsGDC/Y1+BCmj
+         ftpFK+uXVDB5icXsP1eNPOu4OoijnG85vR5/63Z09Rjl9CAkaZWoi9MFyI89rBpqyRvx
+         I2cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788725787; x=1789330587;
+        d=1e100.net; s=20251104; t=1788725802; x=1789330602;
         h=in-reply-to:references:content-transfer-encoding:mime-version:to
          :from:subject:cc:message-id:date:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/3YAKshQBMHkaUZVm8z/vkmvM1MdD+QwhYNoLme4eGQ=;
-        b=U8Jr4Jb30tADxBg6Et6LpvQywNVRFGypkM95r9RScu+NPUEzW0+LneDVTKgHgGqQJL
-         9AQrLF7c/V5JoObPMxlk2nNV5sEK5LQrNHGyudX5TyGRt4et+nxa29Ts8GEPmZiXxlHE
-         9fP/JbV7tWjIC2N20urSp2/7OIA3MzaIeiw5GDgG3TYPjQ5Hg4ZvfWLTdglTXHP8x9fP
-         g8X8nNqyh8O9zdn5NbSAvOR39ZdDkOVtbZyPr3hYMXNlJvvDSnhKkvv9Op3a85AwAOxe
-         uiDp22l1ueX8GG9WdivH/RSoz3/apsFOs8NdJOW6Ei3BlD955VPfs8hEz+PRhuxQh/97
-         tvTw==
-X-Forwarded-Encrypted: i=1; AKwUvBykHX5RMA/mIsMzbv7cY3be4YZVAxnoldDqrnA0Hzo0EODkQFcVk34xmRc1/f8Q+ybaoY/MAeF2uvyP0sc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kNTGuFXxQT0477589U1JCuj0KvUUsacwsESVkvQvYB25haQBAH
-	CxyT5NxGf8GdFbi/LuIpgZuleiyE6mT0qHdX703PXbbF8Qw7PbX6hwtz
-X-Gm-Gg: AYBFou0ZTJEn3WHU2za3ZRpivNGdyu2etuVMYNJHA17mfCWhJyEC3vG2mnAcNKvY1qu
-	+hdiOW3O/w3u2KkdcISPIERN+2k1lI3UNLaZ4V5E5LlrS4M1fO7gwO8zVkrRJygfq46yJGPjMGo
-	gGvWqbKAyW6xdt7UO1ycEswT3edFsGvAvBqBizwsrOcIl2ikx16oeLsQgCSIMXVraUOMtOFEgqK
-	ESYswLOcwp5xti4n1WgJtYE7TGdXuCCo6gyGcOaPkrK98XEuYbObKFWCP9ZKrNgZdQUzVJ27mQM
-	DUlXiwswV/M7Mu6MqJUfBrWPqml33SMw2sdcBECllMrbsNdagoI45LQx0Mlt4CmEe/Xhxu1sO1i
-	XhsCMnRz4XXhxGXEQgZpKk7Wzn3X9Z6jHZhwdlMhe7qfQUl/hZM1bMALLEMmBvpwwz5HuNE0SOH
-	KTxb9VNUQhXTLwWhpHHiUDCzptzHfMJlzV/6VpSF7SOTPyqaJAOqmmh7RMg35E
-X-Received: by 2002:a05:6122:881:b0:5c5:db2b:5baa with SMTP id 71dfb90a1353d-5c7ed7cba16mr8892978e0c.6.1788725786754;
-        Sun, 06 Sep 2026 13:16:26 -0700 (PDT)
+        bh=ad616E7Mfeiy4C3sRfgAcvBobdI1RZYsaLcBMh2jcP0=;
+        b=i5V4XLtOc7GNMzVilnvoo9RH+L2MSaHHpaV0KAJ9fwvCP3hPFb0WHJcjo7wvIuffNA
+         3tkcrjnU8HQiaaDCnJJsx0XNfcYghi/GWqIdDqlauJE4LCc2n07YMbP2MXGhGVhHR6rc
+         /OEnxVHx7WRLBTy/UoNyUiFb5z/fPlweSXFXkbiVxw5vzIGcLKcjUzKwof8WFP8iR2We
+         YH6qbcg75k0PILVfuIo8nxhMFO1SMb0vKAk+Bq0Qt5lu09U2DbpN+ALeVCqW8Pk2zIBH
+         hvSzYbR1bT4Xwdc/J6GaQgtQpZ05cRg4uaxKOZb/APJAFkiD1+jzYeGd1dwRJVe8pu+e
+         5m0w==
+X-Forwarded-Encrypted: i=1; AKwUvBxJR9F00cl/OCYEWWZZtzm1my2xvk4dVxrTR7bS8O41qiOLRV3Kb2b7Qsz24WCLqlpsLyB8Po0TldwRxnk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mRKVQNg6E5ucbZ0OZehPOKq1ncg4Gz3b4kYbk9dQUhOqhLuvVQ
+	WMI63Y5y7hgnP+5USMfnW7aRG4/FqSsa4TmHyMb9PN08p02dv5QWe/Jx
+X-Gm-Gg: AYBFou1B5QIAVXL0Ayi6lf+faQ17AEp3hNYRX0C93atp0BKYYsNy40HCIFsdYeIn6Lz
+	ehtj/NwO9vH9ulle0u2/wkxKGRTPxgX61dfcPfc1Y/Aeju/ikY+mVI91yAEq5BS8/TaahaUu0O3
+	ujuch1mN1fhc+rBYcabH1Vay/CGrwSWMN7Mv2yfpX2AfXNHDrrIbx8kXm110+ri40xItxlA9Uew
+	SONpL61q9EZpoTWhPmtNH5FuTb4kuocwNWNdy2YdhMlzyAemzGFqqu7xTOHvwVjagxXVTGDHgIo
+	ynQeY0pnY5830NnCXYLh29S8z80my4esXdJmXVbG0JyTibmvfGPSS1NCs1kYrRzQjr6mXLB/Dna
+	ChwPaeJelYA6YH0qc0B713BiUg6+3+LxxsN1jNIRUxLdbxiuuHvXy5YBnHzojRX2ZJjTjOo1jOk
+	Lu5OK41rs9t1uj3seuwlb29CYPomoyP2V4YYbEZglmT0Y2QTHjUQ==
+X-Received: by 2002:a05:6122:8f8b:b0:5c2:b01f:e503 with SMTP id 71dfb90a1353d-5c7ed81a4femr9514678e0c.7.1788725802270;
+        Sun, 06 Sep 2026 13:16:42 -0700 (PDT)
 Received: from localhost ([2800:40:44:f1f5:f400:4c49:91c1:9905])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9809e56231fsm4799735241.2.2026.09.06.13.16.23
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ec24254fsm6363883e0c.10.2026.09.06.13.16.39
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 06 Sep 2026 13:16:26 -0700 (PDT)
+        Sun, 06 Sep 2026 13:16:41 -0700 (PDT)
 Content-Type: text/plain; charset=UTF-8
-Date: Sun, 06 Sep 2026 17:16:21 -0300
-Message-Id: <DL8IDBUQK5RV.1A9NGJ2K3X7FZ@gmail.com>
-Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "David Lechner"
- <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- "Andy Shevchenko" <andy@kernel.org>, <linux-iio@vger.kernel.org>,
+Date: Sun, 06 Sep 2026 17:16:37 -0300
+Message-Id: <DL8IDJ54V16N.QE5U3SI9J87Y@gmail.com>
+Cc: "Jonathan Cameron" <jic23@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "David Lechner" <dlechner@baylibre.com>,
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy Shevchenko"
+ <andy@kernel.org>, <linux-iio@vger.kernel.org>,
  <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
 Subject: Re: [PATCH v4 02/10] dt-bindings: iio: adc: support the TI ADS126x
  ADC family
 From: "Kurt Borja" <kuurtb@gmail.com>
-To: "Jonathan Cameron" <jic23@kernel.org>, "Kurt Borja" <kuurtb@gmail.com>
+To: "Conor Dooley" <conor@kernel.org>, "Kurt Borja" <kuurtb@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,13 +82,11 @@ Content-Transfer-Encoding: quoted-printable
 X-Mailer: aerc 0.21.0-0-g5549850facc2
 References: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
  <20260828-ads126x-v4-2-1dc27e9c0260@gmail.com>
- <20260830025349.04ddbd1f@jic23-huawei>
-In-Reply-To: <20260830025349.04ddbd1f@jic23-huawei>
+ <20260828-cartel-willow-9592e4e8b912@spud>
+In-Reply-To: <20260828-cartel-willow-9592e4e8b912@spud>
 
-On Sat Aug 29, 2026 at 10:53 PM -03, Jonathan Cameron wrote:
-> On Fri, 28 Aug 2026 01:38:17 -0500
-> Kurt Borja <kuurtb@gmail.com> wrote:
->
+On Fri Aug 28, 2026 at 1:39 PM -03, Conor Dooley wrote:
+> On Fri, Aug 28, 2026 at 01:38:17AM -0500, Kurt Borja wrote:
 >> The ADS1262 and ADS1263 are 32-bit, 38.4-kSPS delta-sigma ADCs with an
 >> integrated PGA, internal reference, excitation and burn-out current
 >> sources for sensor biasing and diagnostics. The ADS1263 is compatible
@@ -101,10 +100,6 @@ On Sat Aug 29, 2026 at 10:53 PM -03, Jonathan Cameron wrote:
 >> ratiometrically measure RTDs and other resistive sensors.
 >>=20
 >> Signed-off-by: Kurt Borja <kuurtb@gmail.com>
-> A few queries in here from me.
->
-> Jonathan
->
 >> ---
 >>  .../devicetree/bindings/iio/adc/ti,ads1262.yaml    | 376 ++++++++++++++=
 +++++++
@@ -117,175 +112,122 @@ On Sat Aug 29, 2026 at 10:53 PM -03, Jonathan Cameron wrote:
 >> index 000000000000..7e26572388e4
 >> --- /dev/null
 >> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads1262.yaml
+>> @@ -0,0 +1,376 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/iio/adc/ti,ads1262.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: TI ADS1262/ADS1263 analog to digital converter
+>> +
+>> +maintainers:
+>> +  - Kurt Borja <kuurtb@gmail.com>
+>> +
+>> +description: |
+>> +  The ADS1262 and ADS1263 are 38.4-kSPS, delta-sigma (=CE=94=CE=A3) ADC=
+s with an
+>> +  integrated PGA, reference, and internal fault monitors. The ADS1263 i=
+ntegrates
+>> +  an auxiliary, 24-bit, =CE=94=CE=A3 ADC intended for background measur=
+ements.
+>> +
+>> +  Datasheets:
+>> +    - ADS126x: https://www.ti.com/lit/ds/symlink/ads1262.pdf
+>> +
+>> +properties:
+>> +  compatible:
+>> +    oneOf:
+>> +      - const: ti,ads1262
+>> +      - items:
+>> +          - const: ti,ads1263
+>> +          - const: ti,ads1262
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  '#address-cells':
+>> +    const: 1
+>> +
+>> +  '#size-cells':
+>> +    const: 0
+>> +
+>> +  spi-max-frequency:
+>> +    maximum: 8000000
+>> +
+>> +  spi-cpha: true
+>> +
+>> +  interrupts:
+>> +    minItems: 1
+>> +    maxItems: 2
+>> +    description: Data ready (DRDY) interrupt lines.
+>> +
+>> +  interrupt-names:
+>> +    description:
+>> +      The data ready (DRDY) signal has two independent interrupt lines.=
+ A
+>> +      dedicated DRDY pin and a pin shared with the serial interface MIS=
+O pin,
+>> +      which is called DOUT/DRDY.
+>> +    minItems: 1
+>> +    maxItems: 2
+>> +    items:
+>> +      enum: [drdy, doutdrdy]
+>> +
+>> +  start-gpios:
+>> +    description: Start conversion control.
+>> +    maxItems: 1
+>> +
+>> +  reset-gpios:
+>> +    maxItems: 1
+>> +
+>> +  dvdd-supply:
+>> +    description: Digital power supply.
+>> +
+>> +  avdd-supply:
+>> +    description:
+>> +      Analog power supply. In bipolar supply configurations, the report=
+ed
+>> +      voltage should be in reference to DGND.
+>> +
+>> +  avss-supply:
+>> +    description:
+>> +      Negative analog power supply for bipolar configurations. AVSS can=
+ only be
+>> +      at or below the ground reference (DGND). If not described, AVSS i=
+s assumed
+>> +      to be connected to ground (0V).
+>> +
+>> +  clocks:
+>> +    maxItems: 1
 >
+> clock doesn't appear mandatory, what does it do?
+
+Its not mandatory because the chip has an internal clock too. If an
+external clock is wired, the chip also has an autodetection mechanism
+so we just describe it here so we can enable it.
+
+>
+>> +
 >> +  '#io-channel-cells':
 >> +    minimum: 1
 >> +    maximum: 2
->> +    description: |
->> +      The first cell selects the channel by its reg. The second cell se=
-lects
->> +      between the main ADC (ADC1) and the auxiliary ADC (ADC2) as follo=
-ws:
->> +        0: ADC1
->> +        1: ADC2
 >
-> This one is odd enough I wonder if we just say it is always 2 and that
-> for the parts with out an ADC2 the value of the selector cell can only be
-> 0. Also, does this ordering make sense?  Maybe pick the ADC with first
-> parameter is more natural?
+> What's the use case for actually setting this as a single cell? Kinda
+> confused by it.
 
-I agree. I think its simpler to just 'const: 2' and validate its value.
+As Jonathan said this is part dependent but we can also just make it
+'const: 2' and validate the second cell's value.
 
 >
->> +
->> +  '#gpio-cells':
->> +    const: 2
+> Otherwise, quite frankly, the binding is too complicated for me! I'll
+> have to leave it up to the IIO folks to cover whether what's being done
+> is sane.
 >
->> +patternProperties:
->
-> ...
->
->> +      reference-sources:
->> +        minItems: 2
->> +        description:
->> +          Indicates the reference sources for this channel. The first a=
-nd second
->> +          items are the positive (REFP) and negative (REFN) sources of =
-the main
->> +          ADC (ADC1). The third item is the reference source of the sec=
-ondary
->> +          ADC (ADC2) and must always have a positive differential volta=
-ge.
->
-> I think it would be good to illustrate the 2 only case in the first examp=
-le.
->
->> +        items:
->> +          - enum: [internal-p, refp1, refp2, refp3, avdd]
->> +          - enum: [internal-n, refn1, refn2, refn3, avss]
->> +          - enum: [internal, refp1-refn1, refp2-refn2, refp3-refn3, avd=
-d-avss]
->> +
->> +      ti,reference-reversal:
->> +        $ref: /schemas/types.yaml#/definitions/flag
->> +        description:
->> +          Indicates that the ADC1 (this has no effect on ADC2) referenc=
-e voltage
->> +          for this channel has negative polarity and thus should be int=
-ernally
->> +          reversed.
->> +
->> +      excitation-channels:
->> +        minItems: 1
->> +        maxItems: 2
->> +        description:
->> +          Selects the pins for the IDAC sources from 0 (AIN0) to 10 (AI=
-NCOM).
->> +          The first value corresponds to IDAC1 and the second to IDAC2.
->> +        items:
->> +          minimum: 0
->> +          maximum: 10
->
-> Why do we allow configurations with just IADC1 (minItems: 1) but not thos=
-e
-> with just IADC2?
+> Cheers,
+> Conor.
 
-Hmm I think we can get way with this for simplicity. Both IDACs are
-electrically equivalent so if only one is provided there shouldn't be a
-problem? I'll try to think about potential issues with this reasoning
-before v5.
-
->
->> +
->> +      excitation-current-nanoamp:
->> +        minItems: 1
->> +        maxItems: 2
->> +        description:
->> +          The first value corresponds to IDAC1 and the second to IDAC2.
->> +        items:
->> +          enum: [50000, 100000, 250000, 500000, 750000, 1000000, 150000=
-0,
->> +                 2000000, 2500000, 3000000]
->> +
->> +      excitation-current-chopping: true
->
->> +allOf:
->> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: ti,ads1263
->> +    then:
->> +      properties:
->> +        '#io-channel-cells':
->> +          minimum: 1
->> +          maximum: 2
->> +      patternProperties:
->> +        "^channel@[0-9]+$":
->> +          properties:
->> +            reference-sources:
->> +              minItems: 3
->> +              maxItems: 3
->> +              default: [internal-p, internal-n, internal]
->> +    else:
->> +      properties:
->> +        '#io-channel-cells':
->> +          const: 1
->> +      patternProperties:
->> +        "^channel@[0-9]+$":
->> +          properties:
->> +            reference-sources:
->> +              minItems: 2
->> +              maxItems: 2
->> +              default: [internal-p, internal-n]
->> +
->> +unevaluatedProperties: false
->> +
->> +examples:
->> +  - |
->> +    #include <dt-bindings/gpio/gpio.h>
->> +    #include <dt-bindings/interrupt-controller/irq.h>
->> +
->> +    spi {
->> +        #address-cells =3D <1>;
->> +        #size-cells =3D <0>;
->> +
->> +        adc@0 {
->> +            compatible =3D "ti,ads1262";
->> +            reg =3D <0>;
->> +            spi-max-frequency =3D <8000000>;
->> +            spi-cpha;
->> +            avdd-supply =3D <&avdd>;
->> +            dvdd-supply =3D <&dvdd>;
->> +            #address-cells =3D <1>;
->> +            #size-cells =3D <0>;
->> +
->> +            interrupts-extended =3D <&gpio 0 IRQ_TYPE_EDGE_FALLING>;
->> +            interrupt-names =3D "drdy";
->> +
->> +            /* Typical common mode voltage configuration */
->> +            aincom-supply =3D <&ads1262_vbias>;
->> +
->> +            regulators {
->> +                ads1262_vbias: vbias { };
->> +            };
->> +
->> +            channel@0 {
->> +                reg =3D <0>;
->> +                single-channel =3D <0>;
->> +                /* The VBIAS is enabled on pin 10 (AINCOM) */
->> +                common-mode-channel =3D <10>;
->
-> As above, I'd like a dual reference source example usage on
-> a channel here.
-
-Sure!
-
->
->> +            };
->> +        };
->> +    };
+...
 
 --=20
 Thanks,
