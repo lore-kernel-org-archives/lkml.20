@@ -1,169 +1,101 @@
-Received: from sg-3-45.ptr.tlmpb.com (sg-3-45.ptr.tlmpb.com [101.45.255.45])
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D1D1421A15
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:40:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C8133E024D
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:41:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788694857; cv=none; b=aVbihJ0wQ/mFWewSs7hGArmeI7JuKAZQL7xkeq3Im4z9oogKd+PL+lF9ur1AgDAqAYaJnPQb3l6fKlkR84sObhfgHUJr+vW4SuTrAPVVApEQpSqd1ToPFvh6mnqMxMbB5FO3GBat89HmI66a565ZXHVyA4Wdo8WLAlVWnWu/QkU=
+	t=1788694877; cv=none; b=ocKYSgUzJ85w/A+dJZQ+oCu/MNuFNVJRKyA+fIrAtKl13BkHwPXTE0su+7nfPkd/Wbt7eWLBXmSlhAxSBJBuNC1HxwgBIYHuTcy0tXsb/1y8ZHp7tK9nKXBCicFv4GZuTqVAQQj/am8oXmUfT4Ym8oVmgEtGSmnktNs878E7b+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788694857; c=relaxed/simple;
-	bh=eEktsWXso/ZQaq8+Orw8lH87J9Mavxs+DZ2u0i4gb6U=;
-	h=Message-Id:Mime-Version:Content-Type:In-Reply-To:From:To:Date:
-	 Subject:References:Cc; b=lWxsSgd9vhtaNLopG3z+PDmeNuPlEcUYG+Sfk/3odtTES2RVy/UYZk/eE+7WXc6zYVwjqsBeAwzMqI3gu17gNXVMq7qcJdf0oSfCevMErUxdqQ4l1k8szm/erZIB+4XwlMSP25wNfRWLh+Z3Z5khgCozxHCB82pj9wz2umqtldo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=bFgMvn7H; arc=none smtp.client-ip=101.45.255.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	s=arc-20240116; t=1788694877; c=relaxed/simple;
+	bh=L7WuRDtKownGDfemfPtuBDAiWjwoIi+XSLXQ2oaKJoA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QIwaI6qYlCHON3aml/WFQ1Rp5TLxwjp+pPfwjvE2CLqmm+cs1aNtY+dXGkzy2g/YZmvvsLXlz5hps32+cyrhjeSp2OrbooFabenZ9Dc640BFB/wEegEcIcGlqIqm2ODQ0fACHe5MCBoZeu7mwVmkYSaHFnl7r4036RQI0FdG5Ik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h+maQ081; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="bFgMvn7H"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1788694802;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=eEktsWXso/ZQaq8+Orw8lH87J9Mavxs+DZ2u0i4gb6U=;
- b=bFgMvn7HS/3GeTGxiu9DPfrVkogWI7kPIhbufXYYGS6NBHIrnSJTG4n6eNN4C1yVb0LuT4
- yd5MtxWDrOpyMjGcUJ2lX6vEbuG77nt84WuK1duy/hb1t7+vmZf9XZT1g42DJnmbZ2KT7s
- yKnuBI9p0DEvyRIfrvPTt9FjM0K3ZzpnPU12G/6SP7kdOpt4dTpXLSjKvco8JwCWTEIbIk
- rD5Wk+hCsLA0wJo2yhYjf1Wi6FeRntdtDwQ0skqEqsSCLsbJLygfige3pa8vHyQimz9nat
- XIQTJ+LF0pW75DLAqf+IAEZB3QbC1Vnec6RuIPmNBpoJWx2gCzkVeGGE2nwmgQ==
-Message-Id: <befbc177-f7f5-4c44-b02e-20a99fc64c0c@fygo.io>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h+maQ081"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48431648f33so2596924f8f.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 04:41:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788694870; x=1789299670; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ARf7a0QuDmnTVS4e664PeRczUd5kEyLkns5J9FozqNA=;
+        b=h+maQ081zONsj7qZ6XiHcb7KdCz/Qgk4ncAZamxVeHudJLjN0RxTiT28NoI6SVFYIn
+         ZOLqAKRwNIAFrJ6Np+JyjlHi0BU/onEE9KDcoIoqakEYcMkXHHDXCJhsgZWvSQES3uTY
+         32Ny6wEPua+SxBmpdUANzHgU35/qbjlZTorqkgnGow8fTkpBUaH57TH1yYQJCkQfYFPU
+         J+1wR8nHItqcxzZfDJauPAXKq9ToWl8HZBTV8+MnnBFuL7SekNo++Wey5sYxSKq5GgiF
+         0V5o4kkk0mDNbrctN+nCKlcKYwi95G9OY4TNzHl/BY1nJdEsml+hIgSMfGq/G61/5eRn
+         /uCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788694870; x=1789299670;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ARf7a0QuDmnTVS4e664PeRczUd5kEyLkns5J9FozqNA=;
+        b=entdb7S6a27deXKKw/XKXB08M2Bd56HMlpmfzd7kx7ERRV03t0kIWBLPMhjm320OmH
+         nkNbviGHakuBEe1LUG0odEzhZBPlyFDB6MXeqx5msDDJHrl7nOzlMtrU9Rz2Y/7cATLZ
+         iX7Qyk3kfMYf8WoCvtCobrTzTZYLJZCzMvZyrDPTVHl0lc0PKmS1+tkX/G2AnpO52GvY
+         ajLR2GyVTV4SQbjiOBaidJVVwVjPmE3C49Ho6KLrtXNF6TYBNeOo4J9drnR8Z8NAu1lh
+         CYefvyi20FlWjsBzrF1FYZqu8w05InOcxeO4MKrHbYs9pJR9yadycaK0DlMYWk+58RTr
+         LmMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz1FSC8P1SjzLFSKghnQ64Ynvyzo/fyF2eWhtd/v366KpOvUkHrCfcgahQG2TD52ieI6oYZd1E5oEo65wE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nVOQjI+DVsH+5MTROhPhDzRsRDDR8WkZLR/jSF0x3XycYrDpgg
+	NGBoVtqrpVPh7OyoMrYt2O48UMXW0++JuxVS/1/+qJjoOrX6yDiCJOu8
+X-Gm-Gg: AYBFou3bJq7v6zeEgzh2WCHV+BGMZ7cBBuLqdK6MZ0SlM07iOHnoUEF3i4/xhxFP6vH
+	SFWA61CcIYJwV+L7QjJWyM0Hf0nvmaD8roT2+PvWJ2hHQ3sr3KFjY6RQssLD8awMzkGonk1Gwt0
+	w4p6ROnAb5XfszypgzHjlYWXecOJ1qHZbZ11fLw7Co3qnlLdaar168Xp7eGQKEd9EueXi0QnlW3
+	3PA4hhQ1naxcFli++MT5HYy552bJZjAIvGRSdzXxqqTfrvKPGEjM5gyskgGLgfCLXpzq45NhdUi
+	nIqb4RRxk1N6+jpdSZj6TKfaBvFrNkcCrLgZCAb4Jpr+EnjD2Z4DFkVPHICntbOYnVf0iTfl13i
+	WkQ7WwPpMVA8eiwuGkZwn0/xdKSy3wT8tmUXwJSw0I6gMGMCIXYCcBor6GELus2Bi++10PNDcNY
+	uGR8g5268h8r71y0PIV9/yw7mJrnvTDfR4Mk9TwY8BmU5yqwGmfp4GY3dS53AZk32a1NX4jgOo+
+	LkXFW96
+X-Received: by 2002:a05:600c:322a:b0:49c:f13d:ffef with SMTP id 5b1f17b1804b1-49d0089db4fmr67572685e9.19.1788694869655;
+        Sun, 06 Sep 2026 04:41:09 -0700 (PDT)
+Received: from fedora ([154.182.82.204])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858ab73c2bsm19356223f8f.22.2026.09.06.04.41.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 04:41:09 -0700 (PDT)
+From: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+To: gregkh@linuxfoundation.org,
+	jic23@kernel.org,
+	nuno.sa@analog.com,
+	Michael.Hennerich@analog.com
+Cc: dlechner@baylibre.com,
+	andy@kernel.org,
+	linux@analog.com,
+	linux-iio@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Subject: [PATCH v4 0/2] staging: iio: adc: ad7816: Fix SPI read operations and VMAP_STACK issue
+Date: Sun,  6 Sep 2026 14:40:47 +0300
+Message-ID: <20260906114049.32912-1-abdelnasserhussein11@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Lms-Return-Path: <lba+26a9d5111+2934c6+vger.kernel.org+yukuai@fygo.io>
-In-Reply-To: <49d724b8-57c6-48fc-8099-69cd1b072351@linux.ibm.com>
-From: "yu kuai" <yukuai@fygo.io>
-To: "Nilay Shroff" <nilay@linux.ibm.com>, "Yu Kuai" <yukuai@kernel.org>, 
-	"Jens Axboe" <axboe@kernel.dk>, "Tejun Heo" <tj@kernel.org>, 
-	"Josef Bacik" <josef@toxicpanda.com>, 
-	"Johannes Weiner" <hannes@cmpxchg.org>, 
-	=?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
-Date: Sun, 6 Sep 2026 19:39:52 +0800
-Reply-To: yukuai@fygo.io
-Subject: Re: [PATCH 2/3] blk-cgroup: store blkcg in bio instead of blkg
-References: <20260823133045.970199-1-yukuai@kernel.org> <20260823133045.970199-3-yukuai@kernel.org> <49d724b8-57c6-48fc-8099-69cd1b072351@linux.ibm.com>
-User-Agent: Mozilla Thunderbird
-X-Original-From: yu kuai <yukuai@fygo.io>
-Cc: "Christoph Hellwig" <hch@lst.de>, "Tao Cui" <cui.tao@linux.dev>, 
-	"Jan Kara" <jack@suse.cz>, "Jonathan Corbet" <corbet@lwn.net>, 
-	"Shuah Khan" <skhan@linuxfoundation.org>, "Coly Li" <colyli@fygo.io>, 
-	"Kent Overstreet" <kent.overstreet@linux.dev>, 
-	"Alasdair Kergon" <agk@redhat.com>, "Mike Snitzer" <snitzer@kernel.org>, 
-	"Mikulas Patocka" <mpatocka@redhat.com>, 
-	"Benjamin Marzinski" <bmarzins@redhat.com>, "Song Liu" <song@kernel.org>, 
-	"Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
-	"Pankaj Gupta" <pankaj.gupta.linux@gmail.com>, 
-	"Dan Williams" <djbw@kernel.org>, 
-	"Vishal Verma" <vishal.l.verma@intel.com>, 
-	"Dave Jiang" <dave.jiang@intel.com>, 
-	"Alison Schofield" <alison.schofield@intel.com>, 
-	"Ira Weiny" <iweiny@kernel.org>, 
-	"Andreas Gruenbacher" <agruenba@redhat.com>, 
-	"Matthew Wilcox" <willy@infradead.org>, 
-	"Andrew Morton" <akpm@linux-foundation.org>, 
-	"Chris Li" <chrisl@kernel.org>, "Kairui Song" <kasong@tencent.com>, 
-	"Kemeng Shi" <shikemeng@huaweicloud.com>, 
-	"Nhat Pham" <nphamcs@gmail.com>, "Baoquan He" <baoquan.he@linux.dev>, 
-	"Barry Song" <baohua@kernel.org>, 
-	"Youngjun Park" <youngjun.park@lge.com>, <cgroups@vger.kernel.org>, 
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<linux-block@vger.kernel.org>, <linux-bcache@vger.kernel.org>, 
-	<dm-devel@lists.linux.dev>, <linux-raid@vger.kernel.org>, 
-	<nvdimm@lists.linux.dev>, <virtualization@lists.linux.dev>, 
-	<gfs2@lists.linux.dev>, <linux-fsdevel@vger.kernel.org>, 
-	<linux-mm@kvack.org>
-Received: from [192.168.1.104] ([39.182.0.178]) by smtp.larksuite.com with ESMTPS; Sun, 06 Sep 2026 11:40:00 +0000
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Changes in v4:
+- Separated changes into two logical patches.
+- Patch 1: Used guard(mutex) and devm_mutex_init() instead of manual lock/unlock and mutex_init().
+- Patch 2: Used __aligned(IIO_DMA_MINALIGN) instead of ____cacheline_aligned.
+- Patch 2: Fixed the sizeof() argument in spi_read().
 
-=E5=9C=A8 2026/9/6 18:56, Nilay Shroff =E5=86=99=E9=81=93:
-> On 8/23/26 7:00 PM, Yu Kuai wrote:
->> @@ -257,20 +262,21 @@ static inline bool=20
->> bio_issue_as_root_blkg(struct bio *bio)
->> =C2=A0=C2=A0 * @blkcg: blkcg of interest
->> =C2=A0=C2=A0 * @q: request_queue of interest
->> =C2=A0=C2=A0 *
->> =C2=A0=C2=A0 * Lookup a blkg for the @blkcg - @q pair, whether it is onl=
-ine or=20
->> dying.
->> =C2=A0=C2=A0 *
->> - * Must be called in a RCU critical section.
->> + * Must be called with either RCU read lock or queue_lock held.
->> =C2=A0=C2=A0 *
->> =C2=A0=C2=A0 * This does not acquire a reference.=C2=A0 The caller must =
-already hold=20
->> one, or
->> =C2=A0=C2=A0 * have the blkg pinned by I/O.
->> =C2=A0=C2=A0 */
->> =C2=A0 static inline struct blkcg_gq *blkg_lookup_any(struct blkcg *blkc=
-g,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 struct request_queue *q)
->> =C2=A0 {
->> -=C2=A0=C2=A0=C2=A0 RCU_LOCKDEP_WARN(!rcu_read_lock_held(),
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 "blkg_lookup_any() requires an RCU read lock");
->> +=C2=A0=C2=A0=C2=A0 RCU_LOCKDEP_WARN(!rcu_read_lock_held() &&
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 !lockdep_is_held(&q->queue_lock),
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 "blkg_lookup_any() requires an RCU read lock or=20
->> queue_lock");
->> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return rhashtable_lookup(&q->blkg_=
-hash, &blkcg->css.id,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 blkg_hash_params);
->> =C2=A0 }
->
-> The changes look good to me. However, rhashtable_lookup() is annotated
-> with __must_hold_shared(RCU). Since we now officially support Clang
-> context annotations in the block layer, compiling with the latest
-> Clang/LLVM generates a number of context warnings, for example:
->
-> block/blk-cgroup.h:277:9: warning: calling function 'rhashtable_lookup'
-> requires holding __ctx_lock_RCU 'RCU' [-Wthread-safety-analysis]
-> =C2=A0 277 |=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return rhash=
-table_lookup(&q->blkg_hash, &blkcg->css.id,
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ^
->
-> The same warning is reported from several other block layer source
-> files that include blk-cgroup.h.
->
-> This indicates that rhashtable_lookup() requires the RCU read lock
-> from Clang's context-analysis perspective. Looking at the call paths of
-> blkg_lookup_any(), it appears that not all callers hold
-> rcu_read_lock() when invoking it.
+Abdelnasser Hussein (2):
+  staging: iio: adc: ad7816: Serialize SPI read operations
+  staging: iio: adc: ad7816: Use DMA-safe buffer for SPI read
 
-I was not aware of the above clang warning, this should not be a real probl=
-em
-because queue_lock should have the same protection as rcu, and I was trying
-not to make this patch too complex.
+ drivers/staging/iio/adc/ad7816.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-I add the rcu_read_lock() in the following patch to covert queue_lock to bl=
-kcg_mutex:
 
-[RFC PATCH v3 3/6] blk-cgroup: protect blkgs with blkcg_mutex - Yu Kuai <ht=
-tps://lore.kernel.org/all/20260823152926.1043863-4-yukuai@kernel.org/>
+base-commit: 3d6d817622b0a9721e3cc404df3469171582be13
+-- 
+2.54.0
 
-Since this is related to compile warning, I'll move the rcu protection to t=
-his
-patch.
-
->
-> I think we should fix those call paths to acquire rcu reader lock
-> before calling blkg_lookup_any(), rather than weakening or bypassing
-> the context annotation in blkg_lookup_any().
->
-> Thanks,
-> --Nilay
-
---=20
-Thanks,
-Kuai
