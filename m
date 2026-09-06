@@ -1,187 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 811791B3957
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 10:00:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 105B63644A4
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 10:02:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788688839; cv=none; b=Iw09ztXGRH6Wl2jUD1UV+zI3ivqQFdoK4zWl8/igVcuvRJ6b9sRevyytfWThy2d2e7mqByf1GhAMpFstf4IXRzumsgzSB/AV0TbajYzdzyuN38DCa3VjheuKS2rQtnR3Kitrmck9JKtk09005w1urAmncUPsC89/Geuuv9b5eHs=
+	t=1788688979; cv=none; b=Cn5wUrF32W8agId38AcUK66EY5R/hbfH0q8n/VJONqdBWqyK3mJFFzCrCInIkQIIKUgas0ucL86984fBeTy56FS3lixjzJJeHGxA6wAwMnJ/wL2z7+7opriws6diJeDUbY0mGUsx9WActBG/8fouiiQV4p06tjSvHB/0fnNqRRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788688839; c=relaxed/simple;
-	bh=dZDHRec9kjkOyP8R/QoJS4CLH+zOFYsCvhaT45NW6Tw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bn1tupsJdZtO3zolr7iiCAlyvTK2F7HEgB/ue58hgwDIxz4c24MKdWemZAB/nfUPYmZ+zCddVJWQVsWj72VBpR+09+gEq8ih2K2I4RaoiyB5CriVuquPl01rp30wzmffaxUZsUlo0XZljiNxRVz85qtWLMh2vVaKT6UswrdI1nU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Akn72PWI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788688979; c=relaxed/simple;
+	bh=IC1uCXmtgjcrdcBjucQzryI874h8wBozNrYWy3lJKGY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OmBp+rHoYitZXOoqCeyfx/Levljj+YDDRVX+r7ayGm8FTuymY2Cv8BCamRakU7igAS8ULoylDaX/Dm6dS8GL7TgaTvq5pZHPx5YIpTw3DdrjXFPekK0dGZ9r80ELpy0R1YYHDAp3i9HyDkCJQEV/Ty3XgtGpUlY80gBqs3uRLsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ha71Tm7b; arc=none smtp.client-ip=209.85.167.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Akn72PWI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E7151F00A3A;
-	Sun,  6 Sep 2026 10:00:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788688838;
-	bh=snH3EbBb/iu4/hpnhb7Q5dASnycbjTC3AQM0O003+3M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Akn72PWIRJjwB6g+ptMXNhnydqgYB8YJdpJbWNP83TRqfLEPm6hacZqV9dTqOwkiN
-	 HOC863VLgNfr8uXx/bu+2eqqCfm8crNSNg8eS2E4dk8oFFSQX/z2ECjQ+FHOvIs5Cr
-	 Dn0Ws1XP98TBSlQJHHebBauNHrwOLGAoGYr/5E8RRZg7itrF4eSjIEnQ0jC0av8TvL
-	 8ZeOHsokWT65OKsh8d7cTYP+aoeLFFE8FbNYwjZsIoD3/dUC3f8XKU/PlvEG4RLQSp
-	 wVfhX0EnU1daZTI3X6ha/cPMtcae2UoCguWVUAJTPE9bVs1js6l0PjejQP82bmHtlS
-	 OfRV0zoMv61iA==
-Date: Sun, 6 Sep 2026 13:00:25 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Xueyuan Chen <xueyuan.chen21@gmail.com>
-Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
-	usama.arif@linux.dev, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
-	liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com,
-	dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev,
-	kas@kernel.org, catalin.marinas@arm.com, will@kernel.org,
-	mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org,
-	tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
-	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
-	luto@kernel.org, peterz@infradead.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 1/3] mm: make persistent huge zero folio read-only
-Message-ID: <ap05ue1pq3TgHOS6@kernel.org>
-References: <20260901151818.3191443-1-xueyuan.chen21@gmail.com>
- <20260901151818.3191443-2-xueyuan.chen21@gmail.com>
- <apk8ZRr6do_YAlzf@kernel.org>
- <CA+qSx6wqd5VSR=9yarFFmyN1SyvLJqEHpA7BwmzuxNQTHbS=Xg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ha71Tm7b"
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5b01910b499so2251857e87.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 03:02:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788688976; x=1789293776; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OiR9dFdTiyluo58cBb+DtMhNZ/Aaatk8gf6hWN59PoI=;
+        b=Ha71Tm7bjnwpIzeUJZEVlTdekh4E41/dKZDdyapR1wtad1OOl4747RePRQJRQaly8z
+         0rn8Ja/2tVoaxRmG3TEY4yjM/2Pon2GBAWG/GYky26k2pDEfyDdlmtW2Obz9zNxG3JDn
+         /TL2fXFE2rCBNXEqW70HsHchHTcmm7HpOrOWAWp0X1yyXwYtdLIWStPl70NmBigKxPOG
+         DV0a0Dn34ivkpZb6CNog/zSUq11IX/tzy88aSqRyNx6vrG2vyicMFNTXvyvFZlNeD5D/
+         wRblDpEdWfvtcO5TMx8ag00bmogKMy1PeZNUxPsHwoiBykaxetln10ixL5D4YFsrGprh
+         tvEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788688976; x=1789293776;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OiR9dFdTiyluo58cBb+DtMhNZ/Aaatk8gf6hWN59PoI=;
+        b=ilcDGmgUMICGm+RAUK0gsIwpi/x8wyPEf5m48BuY4XLI0Cm1Q0NTmgOtzndEFAK1Em
+         TFO5Z1gd35mVAW7IzjqY1yI7zfA9cJNPg8dAyy+lG9O6Ws/6iECFk2plw4ALpXSm38db
+         wa6NA6HgGjSg6s5QZQvuW1yvg3w0NsAmiL9yjUDp1F5ZpAAiKFpaxLrBD+obcnYqmu1O
+         op2o3Dg9Mv2J03dK23tcEkX0zvJKM5qRTtQlZTTDEMtDN8DdkDIjyUhu6PxnB/h2/rld
+         lAv5yJ9lep2Ce/f0H97yOC4bFBkXJMwHaUIfER4KsEd2sAVeE0Kx8Ho8qhMWvQXvj031
+         rb9A==
+X-Forwarded-Encrypted: i=1; AKwUvByTa9wKnoMpn2yt9OFJmTLDxin5loHwHG5x8zRewxin1JV6aft+KB1LDNS78iRYez8kGXJXLKaY2LwOee8=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9Lf8PoOzX70e3e9tCk6/R2h9U5LpVYNMikw2jrlvm0WqxgGfm
+	2vQnrMaXOg1leYLtI8AaiY8e827z3K75+m42jjf7Y6uQv0hzL5iyU3sW
+X-Gm-Gg: AYBFou2MRCSYo3aOhxjxzc/1DWk82+MSGtWGnH66ebQZ1GagqmvgzNkkw2dSEMkoIMn
+	ldKbztyTSt8N3gbuEZ+FEuRvJ1dvmmDODi8QRJXv3GXrk1xPC+BoAXOCfSJyAbNxMtrJhjm7huI
+	QdQfCcDQNynG/uwaPfLMWJqp8thVPaod9WbX4I55UEUprLX149y6Td6b92NTPCDBiueJGhsLOUC
+	NAJzFGQns9+8tC8+bqe1Gau202qP/X33DaRVUJlvfF91cQe9LenfumVhiCXQGYa9EyaBHDwdgOI
+	b/r2qJtRmnMDlYlu325bOl1AFhOWW9x5HeXdflhhPyBe2Z6YOAIoS23CKy3AVor82OHT0Ex7/Au
+	YD8MFznePKH0Lbg48kZZsTY1oSxPlSk03eD+r/VgvbtNYrpiI4nbNeblfRZ2Rq2L7sgPJLge+Cw
+	BwqQIFeZ79F0933L64dGXwvzOeD6rSpMPezKvjY7OpbRfaI5U/TteURMlA70ogk69guDJ7lu46Z
+	EYwzAS8FKL+iyAXlmmK0pcMrR2FELMIXZaa0c0htkGm6hHwy/25+5ANtUI=
+X-Received: by 2002:a05:6512:104f:b0:5b4:a798:2630 with SMTP id 2adb3069b0e04-5b60e6a536bmr3218881e87.3.1788688975659;
+        Sun, 06 Sep 2026 03:02:55 -0700 (PDT)
+Received: from yantra.. (dsl-trebng21-58c187-236.dhcp.inet.fi. [88.193.135.236])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b616700006sm1548665e87.57.2026.09.06.03.02.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 03:02:54 -0700 (PDT)
+From: Rupesh Majhi <zoone.rupert@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Andy Shevchenko <andy@kernel.org>,
+	Bill Wendling <morbo@google.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	Joel Stanley <joel@jms.id.au>,
+	Justin Stitt <justinstitt@google.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: Re: [PATCH v6 5/6] iio: pressure: dps310: add hardware FIFO support
+Date: Sun,  6 Sep 2026 12:45:04 +0300
+Message-ID: <20260906094622.433243-1-zoone.rupert@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <178813888151.2788519.16547013180884814648.b4-review@b4>
+References: <20260824201203.396651-6-zoone.rupert@gmail.com> <178813888151.2788519.16547013180884814648.b4-review@b4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CA+qSx6wqd5VSR=9yarFFmyN1SyvLJqEHpA7BwmzuxNQTHbS=Xg@mail.gmail.com>
 
-On Thu, Sep 03, 2026 at 08:49:52PM +0800, Xueyuan Chen wrote:
-> On Thu, Sep 3, 2026 at 5:22 PM Mike Rapoport <rppt@kernel.org> wrote:
-> >
-> > On Tue, Sep 01, 2026 at 11:18:16PM +0800, Xueyuan Chen wrote:
-> > > The persistent huge zero folio is shared globally and should stay zero
-> > > after initialization. As Jann Horn pointed out [1], kernel bugs have
-> > > ended up writing to pages that were meant to be read-only, including in
-> > > security-sensitive cases. Making the folio read-only in the direct map
-> > > turns such writes into faults instead of silent zero-page corruption.
-> > >
-> > > Add a page-based helper consistent with the existing direct-map interfaces.
-> > > Handle TLB invalidation in the architecture implementation; unsupported
-> > > architectures retain their current behavior.
-> > >
-> > > Protect the folio after initialization. Skip highmem folios, which have no
-> > > permanent direct-map mapping.
-> > >
-> > > Inspired by Jann Horn's read-only zero page work [1] and follow-up
-> > > discussion [3] with Yang Shi.
-> > >
-> > > Link: https://lore.kernel.org/r/20260508-ro-zeropage-v1-1-9808abc20b49@google.com [1]
-> > > Link: https://lore.kernel.org/r/0e5b23a6-4895-454a-9dfa-6dc21adc2991@kernel.org [2]
-> > > Link: https://lore.kernel.org/r/CAHbLzkrXXe7r3n3jXgDKtwZhRqj=jDx9E6dLOULohnhBguvi9A@mail.gmail.com [3]
-> > >
-> > > Suggested-by: David Hildenbrand <david@kernel.org>
-> > > Suggested-by: Usama Arif <usama.arif@linux.dev>
-> > > Co-developed-by: Lance Yang <lance.yang@linux.dev>
-> > > Signed-off-by: Lance Yang <lance.yang@linux.dev>
-> > > Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
-> > > ---
-> > >  include/linux/set_memory.h | 17 +++++++++++++++++
-> > >  mm/huge_memory.c           | 13 ++++++++++---
-> > >  2 files changed, 27 insertions(+), 3 deletions(-)
-> > >
-> > > diff --git a/include/linux/set_memory.h b/include/linux/set_memory.h
-> > > index 3fe293cfed8c..ed9ce04b18a1 100644
-> > > --- a/include/linux/set_memory.h
-> > > +++ b/include/linux/set_memory.h
-> > > @@ -54,6 +54,23 @@ static inline bool can_set_direct_map(void)
-> > >  #endif
-> > >  #endif /* CONFIG_ARCH_HAS_SET_DIRECT_MAP */
-> > >
-> > > +#ifndef set_direct_map_ro
-> > > +/**
-> > > + * set_direct_map_ro - make a direct-map range read-only
-> > > + * @page: first page in the direct-map range
-> > > + * @nr: number of pages in the range
-> > > + *
-> > > + * Make the direct-map range starting at @page read-only and invalidate stale
-> > > + * writable translations before returning.
-> > > + *
-> > > + * Return: 0 on success, or a negative error code on failure.
-> > > + */
-> > > +static inline int set_direct_map_ro(struct page *page, unsigned int nr)
-> > > +{
-> > > +     return 0;
-> > > +}
-> > > +#endif
-> > > +
-> > >  #ifdef CONFIG_X86_64
-> > >  int set_mce_nospec(unsigned long pfn);
-> > >  int clear_mce_nospec(unsigned long pfn);
-> > > diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> > > index 54494c3fa983..742283b36d74 100644
-> > > --- a/mm/huge_memory.c
-> > > +++ b/mm/huge_memory.c
-> > > @@ -42,6 +42,7 @@
-> > >  #include <linux/pgalloc_tag.h>
-> > >  #include <linux/pagewalk.h>
-> > >  #include <linux/cleanup.h>
-> > > +#include <linux/set_memory.h>
-> > >
-> > >  #include <asm/tlb.h>
-> > >  #include "internal.h"
-> > > @@ -291,10 +292,16 @@ static int __init huge_zero_init(void)
-> > >       huge_zero_folio = alloc_huge_zero_folio();
-> > >       if (!huge_zero_folio) {
-> > >               pr_warn("Allocating persistent huge zero folio failed\n");
-> > > -     } else {
-> > > -             huge_zero_pfn = folio_pfn(huge_zero_folio);
-> > > -             count_vm_event(THP_ZERO_PAGE_ALLOC);
-> > > +             return 0;
-> > >       }
-> > > +
-> > > +     huge_zero_pfn = folio_pfn(huge_zero_folio);
-> > > +     count_vm_event(THP_ZERO_PAGE_ALLOC);
-> > > +
-> > > +     /* Highmem folios have no permanent direct-map mapping to protect. */
-> > > +     if (!folio_test_highmem(huge_zero_folio))
-> > > +             set_direct_map_ro(folio_page(huge_zero_folio, 0), HPAGE_PMD_NR);
-> >
-> > Sorry, I don't remember if it was discussed previously, but why can't we
-> > use the existing set_memory_ro() here?
-> 
-> Hi Mike,
-> 
-> We want to change the linear map here, but arm64 set_memory_ro() only
-> works on vmalloc addresses.
+On Mon, 31 Aug 2026 02:14:41 +0100
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-I believe this is an historical artifact. change_memory_common() already
-updates the linear map when a vmalloc mapping switches to RO and the system
-supports it.
+> Dropping data rather defeats the point of the fifo.  Can we avoid it
+> by holding them locally until we will definitely have seen a useable
+> temperature?
 
-I believe arm64::set_memory_ro() can change the linear map in the general
-case as well as long as can_set_direct_map() is true.
+The temperature is dropped too. dps310_fifo_drain() sets fifo_temp_valid
+only in its second pass but returns at "if (!scans)" first, and FIFO reads
+are destructive, so a batch that pushes nothing loses the temperature it
+read. With pressure enabled, only a batch holding one ahead of a pressure
+entry gets through.
 
-> So a new helper is needed on arm64, and x86 implements the same
-> helper to keep the two architectures consistent. On x86 it is
-> basically set_memory_ro() minus the alias check.
-> 
-> Thanks,
-> Xueyuan
-> 
-> >
-> > > +
-> > >       return 0;
-> > >  }
-> > >
-> > > --
-> > > 2.47.3
-> > >
-> >
-> > --
-> > Sincerely yours,
-> > Mike.
+DPS310 on a BeagleBone Black, pressure only, 32 Hz and 1 Hz, 3 s per trial:
 
--- 
-Sincerely yours,
-Mike.
+  watermark 1  (31 ms drain):   4 of 6 enables produced nothing
+  watermark 32 (484 ms drain):  0 of 6
+
+Other runs gave 3 of 8 and 3 of 6. Silent, nothing in dmesg.
+
+Seeding instead of holding, one temperature read in postenable, fixes it:
+0 of 16. But TMP_RDY is cleared on read, so after a sysfs read the seed
+waits for the next conversion. Buffer enable took:
+
+  temp 1 Hz:   661, 781, 802 ms
+  temp 32 Hz:  148, 151, 151 ms   (period is 31 ms, so this is the floor)
+
+Timeout is 1000000/rate, and on timeout dps310_ready() reinits, putting
+PRS_CFG and TMP_CFG back to defaults. Not something I want in a buffer
+enable.
+
+Hold across batches as you suggested, since a 31 ms batch usually has no
+temperature in it at all, or a non-blocking dps310_refresh_temp_locked()
+seed plus a validity flag?
+
+> For initial patch just reject starting the buffer if timestamps are
+> set to be captured.
+
+No sanctioned way that I can find. buffer->scan_timestamp is private and
+kept out of the scan mask: active_scan_mask reads 2 with in_timestamp_en
+set, and validate_scan_mask() sees the same. indio_dev->scan_timestamp is
+reachable and iio_enable_buffers() sets it before postenable:
+
+	if (ACCESS_PRIVATE(iio, scan_timestamp))
+		return -EINVAL;
+
+but it is __private, used only there and in
+iio_push_to_buffers_with_timestamp(). That, a helper, or drop the soft
+timestamp channel for now? Triggered-path timestamps are real, so I would
+rather keep those.
+
+Rupesh
