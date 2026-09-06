@@ -1,113 +1,128 @@
-Received: from mta0.migadu.com (out-107.mta0.migadu.com [91.218.175.107])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail2.ecloud.global (mail2.ecloud.global [135.181.6.248])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7464131F9BD
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 14:58:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.107
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788706708; cv=none; b=lf0Z/dKC+rK0UHai8cvs4LwXE+ctTqyOEkJyDVuSA9hiOMc3QUxjTbP4Xglcbm9muwmmq2MYL40RIbkznueaetgdx2HkFzPjyp9pgbqxXYTPXRt+/uZa4ZX7xwGk9zOkUhrpLbk2GGaA4W5qDO6O6NqquBqjgPRR1mdSsPyxxsQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788706708; c=relaxed/simple;
-	bh=X1X1XJOiaGMcgLUV9Phz5J441oQ5Q9jynA6K9H0r+Es=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=Lvauf5BWfxRvhEf/SOx0AuHyn/dW3op4/zasToECTkJe86nzoq1TqPKACOu4oWg1Yz7a6wLYD8YGfNYgz7OpiuM3gOjeUaFeOU/jh30fJRxSleyT6Pntc4+qnvCHsW8xalJhkc+iY79RnQQksDCzdbLCnjavE90GuSxO614gRjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=bu3gVz73; arc=none smtp.client-ip=91.218.175.107
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DFEB2F9C37;
+	Sun,  6 Sep 2026 14:59:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=135.181.6.248
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788706781; cv=pass; b=j+x8Buu53RBEe+yHRJVkdJDK/4OTwLWx60oFY9N5QUUNLRplF7zw0WEINBfvIRleMk4bRJHFe2LCDPK23oN5Jkv/Vplwqu7qaSO4YMHWaQIEGhK+YvuohhEE2MkRd4ZuQL70f6/MXTxRW1Aa9lQRWJhm6AUW+hg2uAlqNxhhjm4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788706781; c=relaxed/simple;
+	bh=trUhg+DZ4DJN2v5PDlwdx+2pEBTd0PIFaRmDesDqEfU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=B5gc64S6z6xJ68JVw2KSqTDrFI775dnffWb+1kTOmGlFaf3Zcq8Y4xbWCWXwHWkw9RfUW0rbRlHe7KL+ivYbLdweiAK72ju7HEn19sF42ZMdNjNM9WMAnmM278OMvisoVI6tw3O4P3AdBNBV+EUqCtTTzsvH5M5UFQeVgyuE2fw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=murena.io; spf=pass smtp.mailfrom=murena.io; dkim=pass (1024-bit key) header.d=murena.io header.i=@murena.io header.b=a0Splrg6; arc=pass smtp.client-ip=135.181.6.248
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=murena.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=murena.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="bu3gVz73"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=X1X1XJOiaGMcgLUV9Phz5J441oQ5Q9jynA6K9H0r+Es=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788706694; v=1; x=1789311494;
- b=bu3gVz73cGw4PR1scv3B9oa13Sno26KOGnPLcC/d59pANtAQqL1B92Xgy3cQ/qU3oPy2s4MV
- 4oKG09qdQvZUTlOAoUrMkvnt6oyc8VGg+nwklIAFsQeMovMgCqjbzq481cwDh/VvMzS9PhYl2vF
- SWC2Lp221HJTdeBWYbOy1a+M=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7c99fd45abf91139;
-	Sun, 06 Sep 2026 14:58:14 +0000
-X-Mizu-Trace-ID: 7c99fd45abf91139
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (1024-bit key) header.d=murena.io header.i=@murena.io header.b="a0Splrg6"
+Received: from authenticated-user (mail2.ecloud.global [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail2.ecloud.global (Postfix) with ESMTPSA id E594C72128A;
+	Sun,  6 Sep 2026 14:59:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io; s=mail2;
+	t=1788706771;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zVMGfeFZrB58Lk7o3G3a6wdkQDsZOBW4TUrkVV5ZwgQ=;
+	b=a0Splrg6zB00oeVpK4FriY8N+4GX17As20bPsA8Vx68XwCxzPSyZuXZgKfTgxovlJtlesN
+	bxEs+wzrGffdT8Ih5QE30TKCExhKjyzbY4otFGSd4YbqpIKaQ+RA4/s7K6HAQBMS8FtR1X
+	CSWgY5ki1wIZLfpJGmpXWo8D0uBPuhw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io;
+	s=mail2; t=1788706771;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zVMGfeFZrB58Lk7o3G3a6wdkQDsZOBW4TUrkVV5ZwgQ=;
+	b=THJSY92/A/bjlj/pBTmUxyu7CCDs80zoyeYMIggATaIpL8vqJFlBrJhaPBJPGEI6RyIMtR
+	NAU+Lsj5+v0YaaS4T+naMaa4I6xDz4kCMWURKf1LKkssivQ9G1gjaQ/S0TqUwpXElYkKGN
+	iejrNvcdKwjMq5n3hnEPRs5vl0+GPmY=
+ARC-Authentication-Results: i=1;
+	mail2.ecloud.global;
+	auth=pass smtp.mailfrom=maud_spierings@murena.io
+ARC-Seal: i=1; s=mail2; d=murena.io; t=1788706771; a=rsa-sha256; cv=none;
+	b=AyIWxjPgvVFrVvAxTXlq0c74VZgXwUKhdAsaAo7owEu5lfVisTLR+RN6ywUsHXhiMJkRFL
+	dLC4XUaP3ekFGA1Jjk/HdAWNPCsR/hNMIYi7EFT4SXTQoHtELqbI3vmzjEzvEMPKBN16Z4
+	TzdFhlnMtX3Oyh73K4IEa6RNY6VrHLU=
+Message-ID: <cb0884b3-c9be-4cfd-ba43-27add3821ddd@murena.io>
+Date: Sun, 6 Sep 2026 16:59:28 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 06 Sep 2026 16:58:08 +0200
-Message-Id: <DL8BLOM85V8C.2LYATK4FQ9CNG@linux.dev>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
- Straube" <straube.linux@gmail.com>, "Bitterblue Smith"
- <rtl8821cerfe2@gmail.com>, "Peter Robinson" <pbrobinson@gmail.com>, "Hans
- de Goede" <johannes.goede@oss.qualcomm.com>
-Subject: Re: [PATCH v8 0/6] wifi: rtw88: preparations for RTL8723B/RTL8723BS
-From: "Luka Gejak" <luka.gejak@linux.dev>
-To: "Ping-Ke Shih" <pkshih@realtek.com>, "Luka Gejak"
- <luka.gejak@linux.dev>, "linux-wireless@vger.kernel.org"
- <linux-wireless@vger.kernel.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260825163314.1590-1-luka.gejak@linux.dev>
- <4866D935-FCC8-4F24-9C05-8678DCB22533@linux.dev>
- <f1454e9c2add47b2b01a0adb8233455f@realtek.com>
- <B2A0C047-C517-4AB4-BD6E-3EC6E9DA23EB@linux.dev>
- <f3e7701d6eb045faa31c1b914eae6228@realtek.com>
-In-Reply-To: <f3e7701d6eb045faa31c1b914eae6228@realtek.com>
+MIME-Version: 1.0
+Subject: Re: [PATCH v2 13/15] phy: starfive: Add jh7110-inno-hdmi-phy driver
+To: Dominique Belhachemi <domibel@debian.org>
+Cc: m.wilczynski@samsung.com, Laurent.pinchart@ideasonboard.com,
+ airlied@gmail.com, alex@ghiti.fr, andrzej.hajda@intel.com,
+ andy.yan@rock-chips.com, andyshrk@163.com, aou@eecs.berkeley.edu,
+ bmasney@redhat.com, conor+dt@kernel.org, conor@kernel.org,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ hal.feng@starfivetech.com, heiko@sntech.de, hello@big-grey.co.uk,
+ jernej.skrabec@gmail.com, jonas@kwiboo.se, kernel@esmil.dk,
+ krzk+dt@kernel.org, lee@kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, luca.ceresoli@bootlin.com,
+ m.szyprowski@samsung.com, maarten.lankhorst@linux.intel.com,
+ maudspierings@gocontroll.com, mfd@lists.linux.dev, mripard@kernel.org,
+ mturquette@baylibre.com, neil.armstrong@linaro.org, p.zabel@pengutronix.de,
+ palmer@dabbelt.com, pjw@kernel.org, rfoss@kernel.org, robh@kernel.org,
+ sboyd@kernel.org, simona@ffwll.ch, tzimmermann@suse.de, uwu@icenowy.me,
+ vkoul@kernel.org
+References: <20260828-jh7110-clean-send-v2-13-331680c8b9d1@samsung.com>
+ <0ccb4168-ff88-459c-972d-3c091c155db2@murena.io>
+ <e780ecb8-918f-4816-99c8-b69b10b25a18@murena.io>
+ <CAAvaLCwvVUddS14MPx0FHdnp+QeZ99+ox17pXt2hSWPTCFcHtw@mail.gmail.com>
+Content-Language: en-US
+From: Maud Spierings <maud_spierings@murena.io>
+In-Reply-To: <CAAvaLCwvVUddS14MPx0FHdnp+QeZ99+ox17pXt2hSWPTCFcHtw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Ping-Ke Shih <pkshih@realtek.com> wrote:
-> Without proper quota message, I need coming back to previous mail and fin=
-ding
-> out the stuff you want to discuss...
+On 9/6/26 07:39, Dominique Belhachemi wrote:
+> On Sun, Aug 30, 2026 at 10:17 AM Maud Spierings 
+> <maud_spierings@murena.io <mailto:maud_spierings@murena.io>> wrote:
+> 
+>     I was still having some glitching happening on the display, but I've
+>     found the way to fix that, the question is what is actually
+>     happening here.
+> 
+>         0x29590020 <- 0x00000005
+>     This one I have no idea, it is 0x00000009 with this patch series but
+>     with the vendor kernel I get the value above. When I hook up my
+>     external
+>     display (regular 1440p) this becomes 0x0000000D on the vendor kernel.
+> 
+>     But I can't find this register being written to anywhere there?
+> 
+> 
+> Maybe this needs to be swapped?
+> 
+> drivers/gpu/drm/bridge/inno-hdmi.c
+>    -#define v_HSYNC_POLARITY(n)          ((n) << 3)
+>    -#define v_VSYNC_POLARITY(n)          ((n) << 2)
+>    +#define v_HSYNC_POLARITY(n)          ((n) << 2)
+>    +#define v_VSYNC_POLARITY(n)          ((n) << 3)
+> 
 
-Sorry, my last reply dropped your text. Quoting properly from here.
+Those seem to only be relevant the 0x08 register:
+ > #define HDMI_VIDEO_TIMING_CTL		0x08
 
-> I don't know how bad the poor signal environment was. But 2000ms looks ve=
-ry
-> strange to me, it is too large. Have you captured air sniffer to see what
-> happened?
->
-> I think we can check three points
-> 1) If the probe uses low rate (e.g. 6M)
-> 2) signal strength
-> 3) signal quality
+also in the code:
 
-Agreed that 2000 ms is not a sane number, and I am not proposing it as
-one. I raised it only because it separates a late report from a missing
-one, and it did.
-
-No air capture: that is the tester's board and environment, not mine, so
-I cannot sniff it. I will ask him for the three points above.
-
-The one measurement I do have that speaks to all three is a comparison
-within the same link and the same window. Nullfunc reports come back in
-400 to 1000 ms, worst case 1460 ms (appeared only once), while management
-frames on that same link come back in 0 to 20 ms. A 6M probe rate or a weak
-signal would slow both, so whatever is happening is specific to the nullfun=
-c
-path rather than to the air, and it looks like firmware retry time.
-
-So I am not asking for anything here and there is no patch attached to
-it. If his three answers say otherwise I will come back with them.
-
-> The ieee80211_purge_tx_queue() I mentioned is to reference to the point:
->
->>>   rtw_tx_report_purge_timer() -> skb_queue_purge()
->> I think it should use ieee80211_purge_tx_queue() instead of skb_queue_pu=
-rge().
-
-Understood, and that is what I have. I answered a question you had not
-asked last time.
-
-  wifi: rtw88: tx: hand timed out TX report frames back to mac80211
-
-No chip condition. It is the same pattern rtw_txq_push_skb() already
-uses in rtw-next, which hands the skb back with ieee80211_free_txskb()
-when the HCI write fails, applied to the report timeout instead.
-
-I will send it together with the SDIO padding fix once the preparation
-series is applied, to keep them out of the way while that is in review.
-
-Best regards,
-Luka Gejak
+ > /* Set detail external video timing polarity and interlace mode */
+ > value = v_EXTERANL_VIDEO(1);
+ > value |= mode->flags & DRM_MODE_FLAG_PHSYNC ?
+ > 	 v_HSYNC_POLARITY(1) : v_HSYNC_POLARITY(0);
+ > value |= mode->flags & DRM_MODE_FLAG_PVSYNC ?
+ > 	 v_VSYNC_POLARITY(1) : v_VSYNC_POLARITY(0);
+ > value |= mode->flags & DRM_MODE_FLAG_INTERLACE ?
+ > 	 v_INETLACE(1) : v_INETLACE(0);
+ > hdmi_writeb(hdmi, HDMI_VIDEO_TIMING_CTL, value);
