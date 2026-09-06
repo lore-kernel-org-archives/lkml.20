@@ -1,118 +1,117 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78F7238236E
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 09:49:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788688181; cv=pass; b=tVkl7cKrVyk+fd3r7mgglvjDNZewWOl277iDUmdm6P3eobJyg78neVIiiQYLK/sStQ/n+qfzQOudUdVx2MJyeXOuFgTuRyWkGkM18iit4nrc+wpg+bX+jIk4SJDX5mFO7mT1U0muXFp2+vAlWngG0YE5H/PiBsiZ03pcHr4L+tU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788688181; c=relaxed/simple;
-	bh=uFo1S3usMCbLdEWy9LjKCdoBjHBFRVmushfAGQzmLtQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PUMD3PZc3Up6aZ27EC8zzwqcXgbIeM87nsStykjsFo28pYwsiM6ozUzq1slFACicJb08ikV2DMwKTNfvZIFpWxhcNO/MaRqEG5JMw+mcbd5pCpHpgQYw7PpXW2uQshS7Bz60U/PfeKGh71W2QFItxl+cWA17ceaxUFgpWIgnrA0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p7u/dEdE; arc=pass smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 571D230EF8F;
+	Sun,  6 Sep 2026 09:55:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788688550; cv=none; b=WcLA/OYoA1/JAbor7cUJyYsqKhtx0NqaOIl8vS1Nk1+I/2ag6y8NbbJK//gjT9ylhP4DAhRLYORF09evHPVy8LUorMniceIirMxe4OXqFB4gNHuD8xn3nEICHMAzZds7ON8G0OTcdoUsn2wTqOW4xUvY3PWrtw5MezngnvFd/ps=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788688550; c=relaxed/simple;
+	bh=PdHtFQrEZxRfQaRuGUkHWy8lBIJMWWh/R5WreXfjkjs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=idevH/3yj1KMTMa4s4hcbD2wWfVyp1IGI9iWl3Q6UYuxbayPxyKxhumzM9ZydydJDu4GcdKKXYTJYn/5XbSbxF0fDEcYwVl5s2cbdU8e5+VzL88Hsn6YrOWts++33kck1nqupIcDxB6WNsMW7WvU4KGLT777prwV+0EJ6fawhM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=G6AmEr6R; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=N1UXkGmk; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p7u/dEdE"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39666e7c9efso122432a91.3
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 02:49:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788688179; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nPrWyirI1SX+9RAbRbz3Eg4QuP996WmlnUb7IXqPhhzAcQicmsFPkz5PphrYzx9hT8
-         mWw3bPRImOJlm5hCeAxWcJnRyKtv1MM/+Ng7oZ9CJQQvxuu2vFxAAo0+K1vf/9Ocm/vx
-         Z4Foqkm0bkuBLPXOx2GiE1hwvcnRyPF7M1n6FYCW6HEyvQHbh4j6K6fGw2Q7phsJXL2f
-         Ur1O/88gSyEonFY2785fIM4fuJxGkLayq+lvtc+y6eRILAck856YN9B+W1dFKLp7XTgH
-         IebFfxu4f/AMxh1gFbYU6d8PtK6mF32J844bKZKCtaU0pRszGOQvUk+7hDinhB3YyDRh
-         rvxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=uFo1S3usMCbLdEWy9LjKCdoBjHBFRVmushfAGQzmLtQ=;
-        fh=qzL61BLT9QpnRaZL1eqRK3Sl+E5gbtf80Ej0WGCJthc=;
-        b=fSR/Tqsdma+saHXWzCaIBf+V1ACou245gl4jXaJGiUib03iQ006soAw7xuprlkoDXx
-         JWHFnp+MP02cnj11Z5EJ1R332OgldvD3VqKV6NlQ/q2H7e2aJ/YLzMGpqHlB7MXJM+HU
-         f++C9to44k1zzjqzQXwb+xgmmgO0dEtvKivtMkonTq4iPKxfrIA9BjmO47y0u6sarsZJ
-         +yw8qgIrHI+cdey+S607C+sJ0r4u66QZGofr5m3TdIb3ImFdSG3L7T3anZ/iA87QyTIZ
-         Od/AN/Kuk29/bxsoBVaCyzYsmL3oR0Ids9FTO4EshEXEBJp6KKSBl2c4Gry9etdCYeO/
-         +Zcw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788688179; x=1789292979; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uFo1S3usMCbLdEWy9LjKCdoBjHBFRVmushfAGQzmLtQ=;
-        b=p7u/dEdEUWtYxwBHACDb0DUPEiPf6Ws3Nae4hmhP/OwHgLd94oQKd4soQaRc3avfhz
-         BHP0ilsivwepnwbrcFHwHVN6BxR7XJBqw79A/Fmlrf1k7gsk+dKiNuCrRqZnwSTRSUTX
-         Z9u8aYpymZCACxrpSY/8QQZ31fUwiuSYiGLArjB1PwPcNDx2gFunNqnmkohnALi9RTgu
-         +sGGZOru/AtNAjNc7VWrcLrqYNBUMrNMYTSXEFx24Q1vAl8r/zuEaF6hTVAHGpIKyjvE
-         wGR4F2jL8fNx3ElMJ6KeKH4uNvVyZJF3FeC5Xb62Y/wNtECnwrKw/5yxpbyTdaBn2A6L
-         Gpaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788688179; x=1789292979;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uFo1S3usMCbLdEWy9LjKCdoBjHBFRVmushfAGQzmLtQ=;
-        b=lzxb7ltGXl2XVeex5eq9ZF0ZpXOivcrDMu8DzsMGjhqkZAplvb+53nNsa5ruPFzkgh
-         q5Oh/g1QfDUcWVV0ECFvQozIW7d2pbXqtGfgS4ThAoxsvT89mFEM5T2y5MvZ1H/ZofdV
-         z0kCOKQ7MT23xh5hYmy+b0ZuMjCy0kOBYWj2LI8rXn6ntnFmpeUqPYYQm2cLs+AfPoC5
-         HnnoaDOqgTmgEjt8hiTqP2Fad9PWDl4LPtUdm5lWTXCIDq1yNVVdU1gtBiVSlW8VOICU
-         3QPCQ2mvQiiQZCi7NkXqlsHRDcfSfZl4qxzHLptSS9jk8sn7YCHgVXEobSQWFtf/MRAV
-         Uvuw==
-X-Forwarded-Encrypted: i=1; AKwUvBxYE2tPaCVGVlJTzQQWTifYo8KLNXxWSrBqLX4RVeQ+oDBEhSU6i4fuNnytaFGq35ZQIn5OcF2U45Yxob4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lt8odzYv+42l6NBpsz5TKR6Mw6NpzUOQzLlH4NW7VjfW/0IBdr
-	OZDrSJVzceSoBJeBO3QRa81PlaCwq4fLpEegfenvWTuSIj+i/BGLpUkWwEiEX+9cltUBiR5jdIe
-	55Ee2VMFSXdOlrFWAjHd7lV2JLqxY0ak=
-X-Gm-Gg: AYBFou1hK4V2+WeWIUj44gjGdQC9upaDZoh0QsQQRkaagPBuqL726rkI7dNu/EPRpJA
-	u/HpznkWEtH0yNndtKBe6pzzNPyVxawsxKHrzrxYmPF5h+oIsuzyK2XSMV6YdGZGKQOZDKEoLrX
-	ODwpoVsoh2cHDjqKuOm3rJz2jCeFActrHDJLZwdEXqOw+s9UPdHGyxw0IL/pphwhyA3t0aUn/jd
-	Rskhsn9c+gwK1Ue2w4yTaF3gMXO2LyIk6k6BRo1u3AE0QXg5BKfZ6yyX6YW9t5ugi1Z0NJxI7kK
-	YuVsm4jPdJCbqU0zeZVEB9wCQH9WPWTfLwf9aA6qMsJKb2DeVAlYeEKwEBMxX663fWtTbZxgxuT
-	BxqErzWdZU0AiU0S+Bl7P3RI27zAafPkYMeAJp8CYYejeEm9gxH9Ns8Mh4NZ3ukL7B+2ZIa0=
-X-Received: by 2002:a17:90b:578b:b0:39b:3510:4af7 with SMTP id
- 98e67ed59e1d1-39b3d5ccb8fmr10221355a91.1.1788688178890; Sun, 06 Sep 2026
- 02:49:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="G6AmEr6R";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="N1UXkGmk"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hd5Dd008HzKpkK;
+	Sun, 06 Sep 2026 11:55:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788688545;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=oPXfaCRDk1r/LjHJS3QxVcLwQH8nVFZEFREmgckGdOk=;
+	b=G6AmEr6RaopjbGSxBwMiK8t1vyFIFYWGHzGlL+3arXcB1O15URIGmPA7sTZCE114BVPeA2
+	aGoZkEaVat4xF1yQO9dAOlHrkbO2a4Rpa7Ghrtk/nPmTqsYIykh9huCZu+77AFGMdNXz8D
+	DzK1Tw7h7ku8kTsCqnHBMU/+zXKEykIFAVna1YdNWxZmlY54nMCHo6a72xv6CnfoHNDUo1
+	F+wxCQsgpiU+avHQ1Wm0ZKYE7LnbaphYFxcCTkhCUD0k0AnmyuA4TQQDvaSZt9vvZnul4N
+	wRhw7/OUK47W/pvv49h0i+57vY4sgpzFJik83ctSmI0P6/fYxE7mm6lFmG40eg==
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788688542;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=oPXfaCRDk1r/LjHJS3QxVcLwQH8nVFZEFREmgckGdOk=;
+	b=N1UXkGmkM2ryxKWzH9GT4IQgi9FbZE92gnEcG87GCFBT/ydlnnYNpcIMWL/oE/svTHuDB9
+	olFLqg1CbxyokVqjtpsS1iwmvlrOizzQx5z7NDSpoEbHyGio8ABG9uYlvwdrHZAz5iJ9El
+	Hn5ji7vXO/8k2wtoGMnQ5i6UF58pNa76DWstDaoBAwuPP1SycX6sVRJgW6QJAtisTTGt2k
+	RleaBsthkV22OJXTEetmwJ/GJ2wLSzGBaEM7WDz/r7qJ6kGyyBl4F9l9rW4GoKT4KdqTcw
+	zqShrBCFmtY0dUupFReY4dzeU5+jSbvXKqUVeLaUJGldMYme87ZR7+L8DKxpsQ==
+To: Henk Vergonet <Henk.Vergonet@gmail.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-input@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] Input: yealink.rst: Fix typos and wording
+Date: Sun,  6 Sep 2026 11:55:02 +0200
+Message-ID: <20260906095502.1116994-2-manuelebnerli@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260906071635.160615-1-sagartaunk@proton.me> <20260906071635.160615-2-sagartaunk@proton.me>
-In-Reply-To: <20260906071635.160615-2-sagartaunk@proton.me>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sun, 6 Sep 2026 11:49:25 +0200
-X-Gm-Features: AcwNN1VXiJDpw7Yx5y7AHks6u9YshI7REEbxh0m-sHpFxLllVsN403pcWq9oNiw
-Message-ID: <CANiq72kUVbdGGbMnWTQp6kAoq8pbddRVUOPzT=0RjWFf5dtQ4w@mail.gmail.com>
-Subject: Re: [PATCH 1/3] rust: net: netlink: Migrate to zerocopy's `IntoBytes`
-To: Sagar Taunk <sagartaunk@proton.me>
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, netdev@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: dgeho1ku1ge6gj44tqtkhfm8g9na5b19
+X-MBO-RS-ID: 74edc56615892b4233d
 
-On Sun, Sep 6, 2026 at 9:17=E2=80=AFAM Sagar Taunk <sagartaunk@proton.me> w=
-rote:
->
-> Signed-Off-By : Sagar Taunk <sagartaunk@proton.me>
-> Signed-off-by: Sagar Taunk <sagartaunk@proton.me>
+Improve readability.
 
-It seems you wrote the first one by hand? There are two typos there.
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+CC: Randy Dunlap <rdunlap@infradead.org>
+---
+[v3]
+ fix wording
+ droped white-space fixes
 
-Thanks!
+[v2]
+ add ']' instead of remove '[' as randy suggested
+ fix a couple more issues in the file
 
-Cheers,
-Miguel
+[v1]
+ https://lore.kernel.org/all/20260904121026.759218-3-manuelebnerli@mailbox.org/
+---
+ Documentation/input/devices/yealink.rst | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/Documentation/input/devices/yealink.rst b/Documentation/input/devices/yealink.rst
+index bb5a1aafe..de1460b6b 100644
+--- a/Documentation/input/devices/yealink.rst
++++ b/Documentation/input/devices/yealink.rst
+@@ -120,9 +120,10 @@ Reading /sys/../lineX will return the format string with its current value.
+ Writing to /sys/../lineX will set the corresponding LCD line.
+ 
+  - Excess characters are ignored.
+- - If less characters are written than allowed, the remaining digits are
++ - If fewer characters than allowed are written, the remaining digits are
+    unchanged.
+- - The tab '\t'and '\n' char does not overwrite the original content.
++ - The tab '\t' and newline '\n' characters do not overwrite the original
++   content.
+  - Writing a space to an icon will always hide its content.
+ 
+   Example::
+@@ -205,7 +206,7 @@ Troubleshooting
+ :Q: Module yealink compiled and installed without any problem but phone
+     is not initialized and does not react to any actions.
+ :A: If you see something like:
+-    hiddev0: USB HID v1.00 Device [Yealink Network Technology Ltd. VOIP USB Phone
++    hiddev0: USB HID v1.00 Device [Yealink Network Technology Ltd. VOIP USB Phone]
+     in dmesg, it means that the hid driver has grabbed the device first. Try to
+     load module yealink before any other usb hid driver. Please see the
+     instructions provided by your distribution on module configuration.
+-- 
+2.54.0
+
