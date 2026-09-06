@@ -1,136 +1,112 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9E78395AEA
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 15:57:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C173A16B8
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 15:58:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788710244; cv=none; b=bP2OndVStVE3WXVYGWwZYKamwH1ElLQjSQBXB7yPDjvUUTYfwSSOwgWESloQXSnqb4Ak/0WWKA/lcOY8aYsSNdAIbv3fx4xMOA2zCTr2vrBrkpFojee/Mqdm16iofTZvRtDu4Dq52tko/ko5WWfshG61v3wBeuMCGK8Sd1GSJpg=
+	t=1788710326; cv=none; b=MTRNlywyKng/5O7ZxPwHVKpAo2XiEF2V5k3Y1GpjWYr+cK0TQKffoxlMMrQP3Q+ARi4aPK+rLiIsjT34do4VRRTaONJekR+dSC57LOzXG+K/FTiNJJl1Rw8qnu6H3yXt8v/KQXu0pxfBzbqBoY8XermppFYuvwrHQH70ZAK8UzY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788710244; c=relaxed/simple;
-	bh=R+OWhEGuC0AXGIp00EKjH9kKnhBwUsVuPJbJI3JH3kY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y+P7Vw/CpNonOPaSH1uv1EZM8ST81d6o1R4oXbDVTxfwe6MXtMadFQ/BbWmuTJ7QlTQZjXGG+PWKfNwb2jO7ET2eU3LT5LzSzBWnR+8t2WQ7JgK7Dh+JZgxgL4eJ9f0DbkvXysmSahenbRiq6djhx1SK0FMpJAfXbv1Gda7INrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YkKRsAzE; arc=none smtp.client-ip=209.85.216.44
+	s=arc-20240116; t=1788710326; c=relaxed/simple;
+	bh=K8U4gG3AQblf7ICtp1xRLfTb5Hvus1HZE7hzEe6OtnU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Ey5tSsu6pxAvfUvNa6N0gog65mYs58gG+2PfuZXs4XcFYIAF+5m5kArdq6Bzh9eJh0YSEeimtJ1axpyZ+icM9GVYUNmuA/XSydfPRsVoCMtctwsrtgk+j77WzIcSaQbTDx32Qv0q5o4UZIibES54lfG/0rFtlPARRz3xAr3xee8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E/5mrscp; arc=none smtp.client-ip=209.85.216.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YkKRsAzE"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-398a5aad413so1941137a91.3
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 08:57:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E/5mrscp"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-39b2ad862bdso2815533a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 08:58:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788710239; x=1789315039; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=apIkgapLuCgEcMXQm6sW1tAj0MdsQkxgudPXQSkaM5k=;
-        b=YkKRsAzEC6mYD2jv4yGn+fUGdX43NWj86K6wWZQVmj2mPqkrXopJwg1ZRsIhXKxtSO
-         Zb4nu15iNqJw7DCBNdIJ+ABxVoz5tNdDqEOvNsYNGF7Z4IuFABNb+S/2PDtObfebGJWd
-         IXHH3/34yJU4zfJ4WEf+sL1luL7/FVRTynSLgSizEvUdvr4WzJVWY5r7NnO1VdTUaKXC
-         l8FdFXaVllrXbPVaku/5QeMmMrLLvau7v0M28ub3+ANnOnKYCtZj6hxMivaMGrPRuAc5
-         Wra62khdnhfhvohlxqKFUfYUbTsE7aXBmuu/C20voq5Lb72X1xaNT22/S6u26iRYCVLe
-         jFMQ==
+        d=gmail.com; s=20251104; t=1788710321; x=1789315121; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/dbxaiPStg/QuX6EVqwVigaoYbaqasF56BIGaXeKFQo=;
+        b=E/5mrscpWeXAtn4F8L1jTftEr7PkPzCNYA4x0LVYiT5kYhtXaPaZ+UMTZMyw7Jnabq
+         /iepuBEtZjw6eIhflgSbtpGMFC/I6ZkHT0VtU8CEqDG6reo/z/gH0EozDF7JR8jIpiXz
+         YfWLiAqqU7EExCla1GNy58dUb+DaU1I31USzZRMOBLyO1w90mqP+YN1fpUnAMChdGwfV
+         GSqpWKdgx+pdB2PPfM9e72D9UkYiTUzdJQ1czP+N7EIRXrJPVK2nF7EZIyVmsDVDHxGx
+         817kmKTrNuSm5A3HANzJJ8XRAJV8vL6CQ1pSOyFUn5VYZKUd6qw9jLr/zJ0CcZfkmpEc
+         0B1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788710239; x=1789315039;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=apIkgapLuCgEcMXQm6sW1tAj0MdsQkxgudPXQSkaM5k=;
-        b=PGjlgZFSO5GGmKeJdta6RhPmOSvL6YUbIkYRFiNurxeSKZrpprmF/ib5+fW7KFl/ix
-         fQGdlt0ifxkW6DY+1ZmokLrc8+3Kz631WDuBgFJ8qeH6uvdRr+mplV/R6D40mAqI5Htp
-         5Sg7nho1Fin4McaP+wJtWZq4oFehpy9Gjalk7LLUmL5YFVt+wNFdb5MprzyPheev5oY6
-         MXN+tObzCZPjHvcI9QoAiS9li85y8A7LA17qO86HpvPV+TNgmAIJYU7kZd955RZNam5M
-         ARwqMOqAng2lz0WyWEi6v5Ghi6u12LK7AnGmgwJ/HlbpRHs/dAquNLHDkXtMHlgKU0B+
-         AdVA==
-X-Forwarded-Encrypted: i=1; AKwUvBxMfuebR9p+abE2SwSdmy8AZp4FGhLG8eUsml3B9uLH6rRFoOCKmYpIa+vaLrc8cyl6jg/O96DTTpDQNlw=@vger.kernel.org
-X-Gm-Message-State: AFuF++n7nwCSseoNkB6tuGNTu/9pkcr9dtdN+zlrn6uEW5bQQ7OWWBVc
-	9VwhTSWJFTIYgCzZwt+qhGb5OCk0baOZoR9+sn9HVrWI5bTpOfG3Wmik
-X-Gm-Gg: AYBFou3kB+lrZcmd3s/EVlfKxtG4MKMSSl1YZdo80wFNi5MtAWJG+g/iEfaeA4k27ns
-	bLvHnptrGJle2hsrWGynqXApXl+ZqGKzhEdaDPO+dpG9o+2eEzEr5GJVqKupo/O+ScRSxLGfeSM
-	zxhFzMxjFPXDYVfzbSTSnufpwieOjtNIgnIKo413goKh6I3gD6skn/uvEwMe1uT7Dv8rc7YBocY
-	a3pDfhW2p8U7d5y9nEBB43lq04wFhgvMfJYNfTW5zqKHnfOsPA7PB9Odiu4tqzpNpg7mCNNo77Q
-	PS6wRWS7Ny04FHdWcCp8jSMywX4BxIe6B5yKHmaCKdYDTFprRTp9wAhzjX7ywjUHUpz0vBTzKGU
-	gBa5rNEm59ebLLIUxxo1aiUgA2i8kYdjd8ju6z2TMkTwBDE43hVwpoV+gHGeJLZ/P+qKu7SJ0cu
-	ZXYPt3q9VVbXNUotcxS/BYH1gyNk5zhZf5M+9zG+JvCv6Cg4UEr1s0ptI0jVchF3zCO56EFAGGU
-	QpglO89WFxE/wKbpQ==
-X-Received: by 2002:a17:90b:5243:b0:38e:c232:9d3f with SMTP id 98e67ed59e1d1-39b2614df1emr28808066a91.5.1788710239188;
-        Sun, 06 Sep 2026 08:57:19 -0700 (PDT)
-Received: from acer-nitro-anv15-41.entro.com ([118.34.230.2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b07b197a9sm21756544a91.0.2026.09.06.08.57.16
+        d=1e100.net; s=20251104; t=1788710321; x=1789315121;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/dbxaiPStg/QuX6EVqwVigaoYbaqasF56BIGaXeKFQo=;
+        b=ga73LzFgErq/HAyP6KqE9rtHj92qaOSbapni4i+N/YWgE4QsAXxfez8stzYR8Px27S
+         ELXfDA4jjHd0L7NDPUfHCVSdNEx5qExmZhgL//JHTPBfMATafsWnKi7Gk5mGJWwjjHDP
+         eLeJ7hHa3uBGxqSGpyRMa6dvz9L9mL4/yki0yvIZOj89MjqTA4Y7O7h+dLyibcFdLfNo
+         otRy9VIBgUy6De5MRDYDacYb56XCynmLHCRzOi19xu1e27uBxq+n/gYzwSDfkqt5L9bO
+         dNPeFOmt5IpE3TYakusXJwOzMUl1upWzVsJaQcxoK0MTgn5zdyDoTXE7w18A4Uo2OUrg
+         9QnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx49QP0JF3VfllLzOUvefF/4iC6Nwz4aW8CDERIHHqUEheNiNfIuxwsJokTxghOL68iIaOHC+/8Fp/OIyA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lrI14etJf1n4mwoTr5QF/XIK0/KMMamTq5jAVN+tcED767DbHM
+	64ysqLRZ1FzLo1qi3kXhNJ0K3Cr424n9Knv7y4jCVcv6Q3eITVaVxg8B
+X-Gm-Gg: AYBFou0UT6E/s5KVISJ603idGcF2nqlB6WcNN1cMOklbYFI1bblRnW9QOAeXSsA2Eq6
+	Ca7FcPMPH5Nh5C46b++2YNIXZxJWZcz8igwQFSaMooIJ/OizX+uFBaQS2N63k0F16UbK53I2nDv
+	BELJr2WREsHUXG1nnqBawpBnxIqhrsz+0qGu0Yh6GyOxSwwu60RzanaBBdsS9y0rYfGtLcJ4JQz
+	Hlmirs5QF5TLcybT7+OI9C66bdvJaLooOhr4nB9C38MCImLe7d0Ga9tt4VVW20VAeapMcyIiuiw
+	5I+cmD2Jnz4nr0TaQDdRrzPKoos+02zLWd8jLBJ7oLIt5UaAm7p9uF/djl0kRFkEnygWCCSmmCD
+	sO7M+y/uPnq0/55wot57GuOGmGJXGrRF62p14rxqxHOLJN0ucwjZmvcvuwBtd9NPoiEAervNL21
+	1byHlO88cHbMpm/j2KjIzikDXQ+Mv5lk4i1MjOrFjVWcgc7gRJG5swg/TQeJysz3AqF7vvAlfrv
+	rudHd7q/J11GnwSBMWxY99mRF8oOp7/xgNvFC455vtOA4xIdcR8XCVFMU4Lp0aJqyI=
+X-Received: by 2002:a17:90b:57d0:b0:395:4de0:b78f with SMTP id 98e67ed59e1d1-39b260d28eamr26240194a91.1.1788710321449;
+        Sun, 06 Sep 2026 08:58:41 -0700 (PDT)
+Received: from junjungu-PC.localdomain ([223.166.246.74])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260f64ecsm15941401a91.8.2026.09.06.08.58.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 08:57:18 -0700 (PDT)
-From: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
-To: Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dan Williams <djbw@kernel.org>,
-	Ira Weiny <iweiny@kernel.org>,
-	Li Ming <ming.li@zohomail.com>
-Cc: linux-cxl@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] cxl/events: Return IRQ_NONE when no event is pending
-Date: Sun,  6 Sep 2026 21:27:05 +0530
-Message-ID: <20260906155705.13252-1-shaikhkamal2012@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Sun, 06 Sep 2026 08:58:41 -0700 (PDT)
+From: Felix Gu <ustc.gu@gmail.com>
+Subject: [PATCH 0/2] iio: adc: sun4i-gpadc-iio: two fixes
+Date: Sun, 06 Sep 2026 23:58:33 +0800
+Message-Id: <20260906-gpadc-v1-0-92d3dc8ef355@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSwMz3fSCxJRk3RQTwyRLM5MUizRDcyWg2oKi1LTMCrA50bEQfnFpUlZ
+ qcglIs1JtLQDWtQlxaQAAAA==
+X-Change-ID: 20260906-gpadc-d41b964d8f17
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, 
+ Quentin Schulz <quentin.schulz@free-electrons.com>, 
+ Maxime Ripard <mripard@kernel.org>
+Cc: linux-iio@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Felix Gu <ustc.gu@gmail.com>, Jonathan Cameron <jic23@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788710316; l=477;
+ i=ustc.gu@gmail.com; h=from:subject:message-id;
+ bh=K8U4gG3AQblf7ICtp1xRLfTb5Hvus1HZE7hzEe6OtnU=;
+ b=KKdnvVHGc9z66Nr5HNx4ntRPqRtsqEijnBCzDHcZaEUJXlQxGGQqVwgyS6ym5BVtkrrzwfg//
+ vFo8QEpNRFWCBfN3nxQpm1Vo5vSvRI+QU5qCcDHZdotA0ms+izqTQNT
+X-Developer-Key: i=ustc.gu@gmail.com; a=ed25519;
+ pk=fjUXwmjchVN7Ja6KGP55IXOzFeCl9edaHoQIEUA+/hw=
 
-CXL event interrupts may share an MSI/MSI-X vector with other event
-logs or device features. Consequently, cxl_event_thread() is registered
-with IRQF_SHARED and must determine whether an interrupt belongs to the
-event-log facility.
-
-The handler masks the Device Event Status register to the event logs
-supported by the driver. However, when no supported status bit is set,
-it exits the processing loop and still returns IRQ_HANDLED.
-
-Track whether at least one supported event status bit was observed.
-Return IRQ_NONE when there was no event to service, while continuing to
-return IRQ_HANDLED after processing one or more event logs.
-
-Fixes: a49aa8141b65 ("cxl/mem: Wire up event interrupts")
-
-Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+Signed-off-by: Felix Gu <ustc.gu@gmail.com>
 ---
- drivers/cxl/pci.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Felix Gu (2):
+      iio: adc: sun4i-gpadc-iio: drop underflowing pm_runtime_put() calls
+      iio: adc: sun4i-gpadc-iio: clean up on thermal zone registration failure
 
-diff --git a/drivers/cxl/pci.c b/drivers/cxl/pci.c
-index c7c91e8dc51d..8b560cae91f2 100644
---- a/drivers/cxl/pci.c
-+++ b/drivers/cxl/pci.c
-@@ -515,6 +515,7 @@ static irqreturn_t cxl_event_thread(int irq, void *id)
- 	struct cxl_dev_id *dev_id = id;
- 	struct cxl_dev_state *cxlds = dev_id->cxlds;
- 	struct cxl_memdev_state *mds = to_cxl_memdev_state(cxlds);
-+	bool handled = false;
- 	u32 status;
- 
- 	do {
-@@ -527,11 +528,13 @@ static irqreturn_t cxl_event_thread(int irq, void *id)
- 		status &= CXLDEV_EVENT_STATUS_ALL;
- 		if (!status)
- 			break;
-+
-+		handled = true;
- 		cxl_mem_get_event_records(mds, status);
- 		cond_resched();
- 	} while (status);
- 
--	return IRQ_HANDLED;
-+	return handled ? IRQ_HANDLED : IRQ_NONE;
- }
- 
- static int cxl_event_req_irq(struct cxl_dev_state *cxlds, u8 setting)
+ drivers/iio/adc/sun4i-gpadc-iio.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
+---
+base-commit: 9d80aa4617b32f5054c5aa471d06b66704854935
+change-id: 20260906-gpadc-d41b964d8f17
 
-base-commit: 7098e9cd98a05c0c5de2fae0c2465f9d966fdd07
-prerequisite-patch-id: 92e40cd60a697020faac475dcc77ba63b33434ea
-prerequisite-patch-id: 10027ad5d9aed85806047f807b3a76273b6c4a77
--- 
-2.43.0
+Best regards,
+--  
+Felix Gu <ustc.gu@gmail.com>
 
