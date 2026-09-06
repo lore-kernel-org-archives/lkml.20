@@ -1,154 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54CBC262FC1
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 10:47:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C05262FC1
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 10:48:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788691655; cv=none; b=aYXHmuI3ldhb7ZUVnFNTn8GkjjbAGpV8p4YL73IobTUK0fzBDRHy5NElpODowQE9LQwIIPfCuJDon36f+znJnMTsi0rMJWc2U1v7jAcxts0+jhb0HR3pyAUSY4iTCZZVFsMgGXRtQW0a/oA4upMxSGoVVFiY1nC8W6RJK6+zHkM=
+	t=1788691730; cv=none; b=BKsHtxvn3qVvNSNfCW6YCmEUmP/9KrH7kphQjaA/5WoeKlhcGGMovCxObp8QBcKVp7bSwdXnLNq69hMaQz76BDUaoVcl16zxAyjJBedwdFp9yYlOrJ2iQVcWWS+pcyZ61BHguJHN6BJc7taC2dDfCR5IGbSo8E2fqmL/6exw3Lc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788691655; c=relaxed/simple;
-	bh=Z1V158ciQBWUMoo4Ct/raAOGmMi4iqfFDLfEv9luAN0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qgynig3tOXvIqbt/PYm6V2iH6OpV4J04Cp0xdooo1PatK+tOcsaW6h1rwYQIgXZZkTaA3b1U/Y93lswwJOjGWFGXqk5imMf/HGqpxGXQH1wajbTzoKWh6VXP/XYpBYaMzB2uiCwDIxQYHFpfDfCYTpAQLGS4wXnjusFmoCvaAJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kPTf9X6D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788691730; c=relaxed/simple;
+	bh=RmUqCgZ9L6DO7/W5h5AILnii8iFAuwgpG2ZXNyAa6vg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YrE/Qmmp/ERfNubCPzpo7A6bOfXTI4FcBdFSrRJ2ZsHlx+KavyOpBwuEzPVO5bQXhAlYJCEA2Qcwn0nlDL0LAXJo/cLxtR6NWR1ioYA2M6/82qLC3W7RJuu8W+H4cJpskdZBhfulgKcCigbCdL5go38Q97SKyiNPZrE7vcORLGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q/IZW05T; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kPTf9X6D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E62E81F00A3A;
-	Sun,  6 Sep 2026 10:47:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788691653;
-	bh=W6DNGqDYfT3d8o6uHJqWVZo4/oRgPdSR1cxwF3mU6L4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kPTf9X6DCXVGxujdL6WGrcgDganHIgiyQ9VBs+LBDov8fdt4oMm5QEcC94AO24BYc
-	 TkkmPvx8FbDlhKTM6cspMGdzaoKTbNDizMXQFr2Ou+agCaepmZ498pKLqlNoto3itn
-	 quYCQ6taSHLzKo3HO4C30x8EOugzHLGsst1sBQBoecwdIe6WN7ivDDl+TfjUhlVxxN
-	 y1tR2o0H7eQnDNUnFFgerBVzhIzOm92pIl3LFErLMVMRM1LjWpCFmUOwYTk0sgiYYt
-	 0/uqFL4lj269UqdlzS9uR2f9+KxXdifPrgtFTgHRtEyjQg3ZdZnZ+uCbWT4hVa+u5J
-	 zZG0AXACyM3pA==
-Date: Sun, 6 Sep 2026 13:47:24 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Pratyush Yadav <pratyush@kernel.org>
-Cc: Sourabh Jain <sourabhjain@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
-	Aditya Gupta <adityag@linux.ibm.com>,
-	Alexander Graf <graf@amazon.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Baoquan He <baoquan.he@linux.dev>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Hari Bathini <hbathini@linux.ibm.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Mahesh Salgaonkar <mahesh@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shivang Upadhyay <shivangu@linux.ibm.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>, kexec@lists.infradead.org,
-	linux-kernel@vger.kernel.org, Tarun Sahu <tarunsahu@google.com>
-Subject: Re: [RFC PATCH 2/3] powerpc: add support for Kexec HandOver (KHO)
-Message-ID: <ap1EvH00nKze9Kj4@kernel.org>
-References: <20260821105609.983622-1-sourabhjain@linux.ibm.com>
- <20260821105609.983622-3-sourabhjain@linux.ibm.com>
- <2vxza4qfznyo.fsf@kernel.org>
- <7bb84b8a-c394-4895-9e22-632dc506cbb6@linux.ibm.com>
- <2vxz5x0ox7p9.fsf@kernel.org>
- <8fa790a7-f387-48f6-ac76-11cf71ef5589@linux.ibm.com>
- <2vxzwlt1vvet.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q/IZW05T"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2ce98cb8165so25893005ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 03:48:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788691728; x=1789296528; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Wv1cfZwLKzZeWrvuS+xOzOTfsWHJrJaMBO0fO2QG8Mw=;
+        b=q/IZW05Tz9CUSIYeTJEZP0nFGFV2iXet95I/jD/wTGcPPovWHXgysQfLq9wMlW8892
+         7cYlEEjsDDwKrngwKH7wz90tSD4rn/NFib6IqPcarT30dlX7m4qpWhnbU813Zl+3/ESf
+         L0V0la7P03NUJVAU6p1ZrPj6DdPuYHkH/FIK5Ig8k985Qv6nIbpImyayPnIFgQQ7Jh+k
+         4GsxP+3vOaCgyn9aaAv/Y9s2cx1cIldfq+g1GzWNNMbb4+EX8M69FxZs2TJ6m5lnQ/N+
+         RgOn0uCu+0Y10sKsQpm/qqiVmQVPgnCrgf5tIwhqq9VelUcONZsRxHapq0Xe5vPCfZVX
+         Y9zQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788691728; x=1789296528;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Wv1cfZwLKzZeWrvuS+xOzOTfsWHJrJaMBO0fO2QG8Mw=;
+        b=cYHNkNleXy7MAFapv69nSxWXs3j0zwcu5Hwu9HFD+/nqonmdrkv/GC7k6ed++H0Bh7
+         lLvi4D2btGk7+mKY+WJMpQ4gqh37ByvrpR4+ejsNxEvxa6bJmrNqQQaQkJ3md63bbQly
+         Cc9UGdbeB212vNDjobqzxZP2cHNO/SaDN5SsnLSogVuR9Z3R/G1MFxig/VURH//QFOno
+         GFLGHQWYdPpmleEXTUMW0ZH5yYG9uhxcvjptGuy4o4Sky3lceKcV5JfGO03Bz5X+o2rH
+         MTxg3/+Y9cbP7HV3kexDmk6SNl9zXVXdJRc11yuHUulO03kvwvYdy78/jYFrA2fxJU6H
+         bO5w==
+X-Forwarded-Encrypted: i=1; AKwUvBwQEBQ7HuwArdEyjSq/JnUpyP21DkH8z6HA2ELucXioXHZITovuTa8TLZdIpXrLWddgVN1UZ3tL5GSlj48=@vger.kernel.org
+X-Gm-Message-State: AFuF++ndfgamaFgTLTqzWOVaUvRKHdEDZ66yA+GL5lt2KGDCmx85x9LR
+	tKtVEF5MT86Ch6p5iIu97epwy2eqo01amw1uWvSUDU14FDY7FqKusnDV
+X-Gm-Gg: AYBFou3K5NYXTxpHJuyMScxiVh8cfLoFzERE/rUT9VM5ah2yI0E1eMxePXImUxMIup+
+	W27lmw/bHZ+nMtJSuzyuRbvjpr8GcqisYu7pbx/+P6TDJi7nRQkbxo7Tj4z2AkJc9NHz2kCroew
+	yEIQwEuJ/bpnW0M7zUbDuFWF9ShhJg33t4MTYgjBAf+Q9UPyIMii/p4My5pSHBnWmmB0F1mzDio
+	pX7F3p+W/QINEiimq5jbwehiC335rgEc5DVjOqdC/rWs9iihDYCqt+XOLZ0bOkMACv1p96HQTA9
+	aioY3/RAqAsEe/8wvhOa+NCM41xYGAHtDUFYL9LWijwMo82TO2sMik6tGiRljGesDDLRHdcytmC
+	mKLKxEzyXN1Uo5UOyrrfhj6k3Xyr34r5bMZOJqHgQC80mhrGAU5GNmGRua/AA2BrxVUe0kERqVy
+	E0ZNdbZ+9r6aIz+b2B/rhxR609hQnRwXbcC5PQMDtchOv6zLmD9yvaPzWGZjfbAfZrYNciZi9T/
+	ksGsXy2
+X-Received: by 2002:a17:903:1247:b0:2d8:d4d2:d137 with SMTP id d9443c01a7336-2dafb136bd7mr198929335ad.19.1788691728133;
+        Sun, 06 Sep 2026 03:48:48 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d38:5c70:7bb9:b8bf:8aa8:fb0d])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14aeaf74sm31452185ad.81.2026.09.06.03.48.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 03:48:47 -0700 (PDT)
+From: ThangNN99 <ngocthang2710.1999@gmail.com>
+To: tytso@mit.edu
+Cc: adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	ThangNN99 <ngocthang2710.1999@gmail.com>,
+	syzbot+03afbb29537f0336b7ad@syzkaller.appspotmail.com,
+	Claude Sonnet 5 <noreply@anthropic.com>
+Subject: [PATCH] ext4: avoid buffer/folio lock inversion in __ext4_get_inode_loc()
+Date: Sun,  6 Sep 2026 17:48:41 +0700
+Message-ID: <20260906104841.56075-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2vxzwlt1vvet.fsf@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 04, 2026 at 06:22:18PM +0200, Pratyush Yadav wrote:
-> On Fri, Sep 04 2026, Sourabh Jain wrote:
-> > On 02/09/26 16:04, Pratyush Yadav wrote:
-> >> On Sun, Aug 23 2026, Sourabh Jain wrote:
-> >>
-> >>> On 21/08/26 17:26, Pratyush Yadav wrote:
-> >>>> On Fri, Aug 21 2026, Sourabh Jain wrote:
-> [...]
-> >>> I agree that this is one way to work around the low-memory reservation problem.
-> >>> However, there are a few things that come into play here:
-> >>>
-> >>> 1. On powerpc, the crashkernel reservation can go up to 64 GB for kdump. With
-> >>> the
-> >>>     current default scratch memory reservation policy, this could result in
-> >>> reserving
-> >>>     up to 256 GB of scratch memory: 200% for the high-memory reservation and
-> >>> another
-> >>>     200% for per-node memory.
-> >> That calculation looks off. It _should_ be 200% once not twice. So 128
-> >> GB total. If the allocation came out via the global area, it should
-> >> _only_ be accounted to the global scratch size. Similarly, only the
-> >> allocations made specifically on that node should be counted for the
-> >> per-node scratch size.
-> >
-> > For example, if a system has only one node and 64 GB is allocated from
-> > that node before the kernel starts calculating the per-node and global
-> > allocations for scratch memory, wouldn't the per-node allocation also be 64 GB?
-> >
-> > If so, wouldn't that result in 200% of 64 GB being allocated for the global
-> > area and another 200% of 64 GB for the per-node area, resulting in 256 GB
-> > of total scratch memory allocation? Or am I missing something here?
-> 
-> It shouldn't. If the 64 GB of allocation was done with NUMA_NO_NODE, and
-> it _happened_ to land on node X, it should not be counted for per-node
-> sizing. It should count towards the global pool. Only allocations that
-> were explicitly requested with node X should be count for that node's
-> scratch size.
-> 
-> So on a one node system where 64G of memory is allocated with
-> NUMA_NO_NODE and 8G is allocated with node X, we should get 128G of
-> global scratch and 16G of per-node scratch, giving us a total of 144G.
-> 
-> I took a quick look and it looks like the problem might be that the
-> calculation for global scratch includes _all_ nodes in it. See
-> memblock_reserved_kern_size():
-> 
-> 	for_each_reserved_mem_region(r) {
-> 		...
->                 
-> 		if (nid == memblock_get_region_node(r) || !numa_valid_node(nid))
-> 			if (r->flags & MEMBLOCK_RSRV_KERN)
-> 				total += size;
-> 	}
-> 
-> And for global scratch we pass nid as NUMA_NO_NODE.
-> 
-> For KHO we could just drop the || !numa_valid_node(), but
-> memblock_estimated_nr_free_pages() seems to depend on that behaviour. It
-> wants to get _all_ allocations across all nodes. KHO only wants
-> allocations explicitly made with NUMA_NO_NODE.
-> 
-> But disclaimer: all this is from reading the code for maybe 15 minutes.
-> I didn't run anything and might be missing something. So please
-> double-check what I am saying.
+The itable-block bh is locked, then the "is bitmap cached?" probe calls
+sb_getblk(), which can block on that bitmap block's folio lock. A
+concurrent block_read_full_folio() on the same bdev folio locks buffers
+in the opposite order (folio lock, then each bh), so the two tasks can
+deadlock on each other's lock. Use the non-blocking cache lookup here
+instead; a miss already falls back to make_io exactly as before.
 
-That sounds about right, although I didn't check anything at all :)
+Only ext4_reserve_inode_write() reaches this probe with a real inode
+(ext4_iget() passes NULL, which skips it), and it normally runs right
+after the read that loaded that same inode, so the itable buffer is
+still warm and the early "already uptodate" return skips the probe.
+The window needs the folio reclaimed between load and writeback, which
+is why this is rare and why syzbot's bisection could not pin it down.
+
+Reproduction status: root-caused from source and confirmed against
+both syzbot stacks (inode.c:__ext4_get_inode_loc vs.
+buffer.c:block_read_full_folio); the lock_buffer()/reserve_inode_write
+path was exercised live (orphan cleanup on mount) to confirm reachability
+and to confirm this patch introduces no regression there. The deadlock
+itself was not reproduced locally -- doing so needs the itable buffer
+genuinely reclaimed between inode load and writeback, which a small
+single-shot QEMU test doesn't naturally produce.
+
+Reported-by: syzbot+03afbb29537f0336b7ad@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=03afbb29537f0336b7ad
+Signed-off-by: ThangNN99 <ngocthang2710.1999@gmail.com>
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+---
+ fs/ext4/inode.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+index bd4b778df9eb..13e3cb829461 100644
+--- a/fs/ext4/inode.c
++++ b/fs/ext4/inode.c
+@@ -4942,8 +4942,12 @@ static int __ext4_get_inode_loc(struct super_block *sb, unsigned long ino,
  
-> > BTW, do you know the rationale behind the 200% value?
-> >
-> > I couldn't find any explanation for it in the commit message of
-> > 3dc92c311498c ("kexec: add Kexec HandOver (KHO) generation helpers")
-> 
-> We need to ask Alex (or maybe Mike?; I forget who added this).
-> 
-> But if I were to guess, I don't think there is much science involved
-> behind the number. Since the scratch lives across all kexecs, it needs
-> to be large enough in case the next kernel uses more memory. 200% sounds
-> "large enough".
-
-Yeah, that was the rationale indeed :)
-
-> -- 
-> Regards,
-> Pratyush Yadav
-
+ 		start = inode_offset & ~(inodes_per_block - 1);
+ 
+-		/* Is the inode bitmap in cache? */
+-		bitmap_bh = sb_getblk(sb, ext4_inode_bitmap(sb, gdp));
++		/*
++		 * Is the inode bitmap in cache? Non-blocking lookup: bh above
++		 * is locked, and blocking here would folio_lock() against a
++		 * block_read_full_folio() that locks bh the other way round.
++		 */
++		bitmap_bh = sb_find_get_block(sb, ext4_inode_bitmap(sb, gdp));
+ 		if (unlikely(!bitmap_bh))
+ 			goto make_io;
+ 
 -- 
-Sincerely yours,
-Mike.
+2.43.0
+
