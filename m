@@ -1,150 +1,129 @@
-Received: from mail-oo1-f77.google.com (mail-oo1-f77.google.com [209.85.161.77])
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D6A73B584F
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 04:19:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D50F2D47FF
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 04:21:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788668374; cv=none; b=LMQ8tbfQTl4eQYiZ9rCt9XuIfGIBQyMQ7vZ25+H5BCgZxZIBYrtKzaiaSGKqSh8FvzwsLqeZDC1cMF1Po07SEHhh/zdMeHKXJxPGXUHE5wv7fsE0cnHEAVOamXc6KimH8hoKX1siiXJnAKOBmos5WT/FWWPdcAsydR8nrDpziKE=
+	t=1788668515; cv=none; b=iRKu4BGKr2pWgaLbZ9OJHzZsb0l7ZAEd2RxpZiWE3KUwNNoaYgV9qDBD8pjmwde+u4cLP1WtHjV39+0o+Qu1q7mVCr/PmHpCbuGdHBX8JvVd/5zl5fJVz3kiNiG1/Iq7wWrrbxZn6WbxV4yDDOq+GAn+LZ2sjSoBYeWmddD7Xpg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788668374; c=relaxed/simple;
-	bh=PGPzWHwAirtV0I+Q8QKmVU0Rq2BRThx0qhC8Ybjwf/U=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=lMaNsXWi+6m+FvVa99yOsemf0IOBHoW4+BYm9pfqyduvrx0hS2U+jJpvoWSxUruJOMVq9xKuER76lG/7FEWto51tZn0JrSrnNFNzLnBuq6GU1IcLc7Eb3Ieqsdg84CUyE+kSmCrROAKiYdZbdOCU1k0+MRwvg+TIF0QgcDPUrbA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f77.google.com with SMTP id 006d021491bc7-6b173742296so3747813eaf.0
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 21:19:32 -0700 (PDT)
+	s=arc-20240116; t=1788668515; c=relaxed/simple;
+	bh=vdK3wtpjZYQNeaslASnAOYg/PCjcSi/RbT91Z1Uest0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UN1bBHBXvFpoblNlNMdkg3darqLufgoW3K4MECZmRJwCQbRzM8l8rEgWypfxLkNp8HwO37NMG2XNc/SzXuZdIIficMnRFB21YH7sEO7AdfqYpD/Hxv6P5cspeuCIkb0s57Wg7aM2IRbXP48pYID1eL0emexN1CJ2z3PVXSnBXho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JO+e6Hc6; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JO+e6Hc6"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3964e480f76so2849112a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 21:21:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788668513; x=1789273313; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VVHZoxQnI4RGBc2Se+Rzzto/jsA46jGgtEifAbeG3A8=;
+        b=JO+e6Hc6KGrWCldK6My/o+Bquds45AKpAqktRB6N61AflFaGAoLtY8IOjZwRj+Rz23
+         mDSEf7BjNvelbembqo72Y/e+uZk2mK6MD9stlrPEtU45OoNmsEaAY1foYEKdYMA9fhRs
+         0p19GdDHixuycMJto/tLitHjHwGvVRG/0pAjVkTvsvELP7NFXh6+cuSKiGYUeumEH6tr
+         Un6qVsnyJmXy+vroLP/osFxDt/JUhQ90XhzJ1gcPn3uNIXgr1D9RpqNjxnu2kdgyNr5e
+         xQpxxAnUS39woI1skNacI7f7e0+TOfmbsS0Xj3boMc4Vq4Pr4/gLfYmqP6NcAT5Q2ri1
+         GtkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788668371; x=1789273171;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WJYM/ngiHGbwrinobd7mC8mmqG7Yhx352LAc7Qn4uMI=;
-        b=EfitfH8S1CWlLxoDz2EbxdZ3yir3TvSmg16bYN2bYri/MW8y/VE/mer4+e4GDdNhtc
-         pelmusDarxsRS5skIkFcGTPwU56ELRtP7W9PVW/R8+seOWrLzBZdgkVYf8jswLgxwkpg
-         Vt16sevdLngvRwRUYXBRCxOPzBsAaGhXlF1AgxFgiRkDmkW+7pDocDu9OjMcGNfjQvP+
-         CBNrEigshyRhblzsRCtBlaE0Qct2WiNtx3FMLuYt88WmMkrr8qP+0EM6qg7aHoDV387a
-         RPI1P3XqO5FeyrQGWAawUwIwLaFR2WSg3fQmk/rJbu09ZinQyO13nOpeYGBE6UqOXt6Z
-         qkhg==
-X-Forwarded-Encrypted: i=1; AKwUvBzfo2AQAFViFNEEmM+wKHTXIB+KIdvY6wQ4nDkE/DSBiq22aJXreNfQT04rbvUPKwtgWQwK+HnAuR8iOlY=@vger.kernel.org
-X-Gm-Message-State: AFuF++l8/4DuZqAzYP0diOd+dlHIjkpTTj1Lameh0n6XsHpEMd7lTfGC
-	wFMdwO5d093PP/xaEVNhFsdpuxd24qQDWvY7peGoCWFh28VcFfhTW6nG7EdWdlQEl98tSLQO776
-	JJ7e+ALHnDbRQk5PkTmmw/+TPre/9QXGzs1KuyPCEh6q1B52JNryK0nE/f/Q=
+        d=1e100.net; s=20251104; t=1788668513; x=1789273313;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VVHZoxQnI4RGBc2Se+Rzzto/jsA46jGgtEifAbeG3A8=;
+        b=YNAxC5jxUgeCCNB9IwPL/fdrUM22frZLsbRiwSy51SEZ4oLBA4u/jcWm5u/9hj72T6
+         JZFQby20jV7YPQ20G4ZTSa2RF++Rk44415Qtipae4kLk/d39A8no9BzgCdv0mcieoRVT
+         PxdS7xpQD5f4elQMR4wmCTQnmrTmI1Qn7RmS6y4msFuvsB+7G6c0KxwmaI5Inm+h93dR
+         iA04d/hJstHrn5ACPrxBtOhqGWoApSzxMlP9jCrQAwIEY37SB3yJs2O4nszb8Vbd5gNA
+         oEboiLFrl2+ZcPr+CStzE94uGssyW5dD2paBctnm9KJVPdNC/WSoX8PdWsEPKj1xF1+X
+         PiZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy/i5nggPIgzUz2+Pq3y3xlR0QO7wXMkykDBuTYRMVrNhuZUa/qoVdK6XLFKj7ZqTtGeKiTIGuWsKGSBoc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nYKKbBPmO6qlLYxJnDDQjIdcpTSbMDZWx89aJlFv1duyEdB2qS
+	6oXaR9X1chTVCdR4wvgtgfblxaQyTXcn1QPyP32nkL7rFaDrr5sY2uHK
+X-Gm-Gg: AYBFou1faKBljeS/1xcRSe6GvW8I9cOWUIT43CwKDpgfOrhePgtbx8aeiOUPPol8JJg
+	P2CPFLbwNsmtBdC8B5zRCzZx1dX/evyWkE/vV0t9NuUQzxfLO/4oacCEQqqLWgTRSye08xUCeh7
+	kLHKtSIgLK7vC44ZjL2/3oF70C4NlHEosFP6laieErry8Zacn/fPeZm64pRUTZMDp2wEPv4Srf1
+	z+Cv+OcH/KJTYvwA/jUYh+8mhnfX5Mg+lC0+9ildLVqyTYvdRNX+HirM5FyRHRXTcmFqNZIhSp8
+	7eIlbcnkWa+UO4w/PGxdf0+uApPQvp4rP6E2HewGv/Rufh7aXheJPXtb6N4HuXZZspxyB+xlypl
+	AdkQFzKVYq9feeLvO8n5k3soTwF6T+P6lAzn0Sn7CUg2zhGSLa9fX95t8GylNqWPTxv7y/KgHwL
+	ni/YXz0rFPV5vrG1t/Wo5CQawReNLRqi4IYrTvKAPyvalN7zTkxJ2iMIKGMRJCQZ3dfMjbrDbyP
+	lmDmjBGAXyOVqCUy5yQlO/AULpBZTN4nYl3V3x1EI5fsgYyBTbCO90=
+X-Received: by 2002:a17:90b:1e51:b0:399:ecd:d68d with SMTP id 98e67ed59e1d1-39b26260f7dmr22268351a91.22.1788668513437;
+        Sat, 05 Sep 2026 21:21:53 -0700 (PDT)
+Received: from debian-rockchip-rock5b-rk3588.. ([27.130.10.21])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14332405e92sm9412489c88.8.2026.09.05.21.21.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 21:21:53 -0700 (PDT)
+From: Tharit Tangkijwanichakul <tharitt97@gmail.com>
+To: Paolo Bonzini <pbonzini@redhat.com>,
+	Shuah Khan <shuah@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>,
+	Haibo Xu <haibo1.xu@intel.com>,
+	Anup Patel <anup@brainfault.org>,
+	Andrew Jones <ajones@ventanamicro.com>,
+	kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kernel-mentees@lists.linux.dev,
+	skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	jkoolstra@xs4all.nl,
+	Tharit Tangkijwanichakul <tharitt97@gmail.com>,
+	Gokul K <gokul02k@gmail.com>
+Subject: [PATCH] KVM: selftests: Fix reg_list and VM leak in get_reg_list test
+Date: Sun,  6 Sep 2026 04:21:31 +0000
+Message-ID: <20260906042131.630-1-tharitt97@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1c9f:b0:6b8:2b7a:674e with SMTP id
- 006d021491bc7-6b82b7a6a58mr4413455eaf.5.1788668370586; Sat, 05 Sep 2026
- 21:19:30 -0700 (PDT)
-Date: Sat, 05 Sep 2026 21:19:30 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9ce9d2.0a3344eb.391530.0018.GAE@google.com>
-Subject: [syzbot] [nilfs?] WARNING in nilfs_copy_dirty_pages
-From: syzbot <syzbot+5aea413a54e976f31725@syzkaller.appspotmail.com>
-To: konishi.ryusuke@gmail.com, linux-kernel@vger.kernel.org, 
-	linux-nilfs@vger.kernel.org, slava@dubeyko.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+Calling the test with --list or --list-filtered causes an early return
+in run_test() which skips freeing the reg_list and vm.
 
-syzbot found the following issue on:
+Use a goto so that the early return joins the common exit path.
 
-HEAD commit:    89a312991dc6 Merge tag 'cifs-fixes-7.3-rc2' of https://git..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=11a5f349580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=e909ffe6b35dddb7
-dashboard link: https://syzkaller.appspot.com/bug?extid=5aea413a54e976f31725
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-89a31299.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/114a4744ab8e/vmlinux-89a31299.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/c65021627f2c/bzImage-89a31299.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+5aea413a54e976f31725@syzkaller.appspotmail.com
-
-NILFS (loop0): mounting fs with errors
-------------[ cut here ]------------
-inconsistent dirty state
-WARNING: fs/nilfs2/page.c:263 at nilfs_copy_dirty_pages+0x49f/0x6a0 fs/nilfs2/page.c:262, CPU#0: syz.0.0/5326
-Modules linked in:
-CPU: 0 UID: 0 PID: 5326 Comm: syz.0.0 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:nilfs_copy_dirty_pages+0x49f/0x6a0 fs/nilfs2/page.c:262
-Code: c7 ae 60 fe 4d 8b 36 44 89 f6 83 e6 01 31 ff e8 b7 4c ef fd 41 f6 c6 01 0f 85 f1 00 00 00 e8 e8 46 ef fd 48 8d 3d 01 5c aa 0c <67> 48 0f b9 3a e9 67 ff ff ff e8 d2 46 ef fd 48 c7 c7 60 7a 31 8f
-RSP: 0018:ffffc9000f4274e0 EFLAGS: 00010287
-RAX: ffffffff83d88548 RBX: ffffea00010e0080 RCX: 0000000000100000
-RDX: ffffc9000f689000 RSI: 00000000000003d0 RDI: ffffffff9082e150
-RBP: ffffc9000f4276f8 R08: ffffea00010e0087 R09: 1ffffd400021c010
-R10: dffffc0000000000 R11: fffff9400021c011 R12: dffffc0000000000
-R13: ffffea00010e0088 R14: 0000000062000400 R15: 0000000000000000
-FS:  00007f95373936c0(0000) GS:ffff88808c2cf000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000020000000b038 CR3: 0000000040631000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- nilfs_mdt_save_to_shadow_map+0xbb/0x1c0 fs/nilfs2/mdt.c:552
- nilfs_clean_segments+0x28d/0xbe0 fs/nilfs2/segment.c:2546
- nilfs_ioctl_clean_segments fs/nilfs2/ioctl.c:938 [inline]
- nilfs_ioctl+0x2619/0x2780 fs/nilfs2/ioctl.c:1368
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f953659e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f9537392fe8 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007f9536826090 RCX: 00007f953659e159
-RDX: 0000200000000040 RSI: 0000000040786e88 RDI: 0000000000000006
-RBP: 00007f9536635024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f9536826128 R14: 00007f9536826090 R15: 00007fff3c0fc038
- </TASK>
-----------------
-Code disassembly (best guess), 3 bytes skipped:
-   0:	fe 4d 8b             	decb   -0x75(%rbp)
-   3:	36 44 89 f6          	ss mov %r14d,%esi
-   7:	83 e6 01             	and    $0x1,%esi
-   a:	31 ff                	xor    %edi,%edi
-   c:	e8 b7 4c ef fd       	call   0xfdef4cc8
-  11:	41 f6 c6 01          	test   $0x1,%r14b
-  15:	0f 85 f1 00 00 00    	jne    0x10c
-  1b:	e8 e8 46 ef fd       	call   0xfdef4708
-  20:	48 8d 3d 01 5c aa 0c 	lea    0xcaa5c01(%rip),%rdi        # 0xcaa5c28
-* 27:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2c:	e9 67 ff ff ff       	jmp    0xffffff98
-  31:	e8 d2 46 ef fd       	call   0xfdef4708
-  36:	48 c7 c7 60 7a 31 8f 	mov    $0xffffffff8f317a60,%rdi
-
-
+Reported-by: Gokul K <gokul02k@gmail.com>
+Link: https://lore.kernel.org/all/20260808081050.408657-1-gokul02k@gmail.com/
+Fixes: 17da79e009c3 ("KVM: arm64: selftests: Split get-reg-list test code")
+Signed-off-by: Tharit Tangkijwanichakul <tharitt97@gmail.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+Tested on a Rock 5B (RK3588). Running the test with --list and
+--list-filtered now exercises the goto path added by this fix and exits
+cleanly.
+---
+ tools/testing/selftests/kvm/get-reg-list.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+diff --git a/tools/testing/selftests/kvm/get-reg-list.c b/tools/testing/selftests/kvm/get-reg-list.c
+index 216f10644c1a..6eb91d5c739e 100644
+--- a/tools/testing/selftests/kvm/get-reg-list.c
++++ b/tools/testing/selftests/kvm/get-reg-list.c
+@@ -189,7 +189,7 @@ static void run_test(struct vcpu_reg_list *c)
+ 				print_reg(config_name(c), id);
+ 		}
+ 		putchar('\n');
+-		return;
++		goto free_reg_list;
+ 	}
+ 
+ 	for_each_sublist(c, s)
+@@ -306,6 +306,8 @@ static void run_test(struct vcpu_reg_list *c)
+ 	pr_info("%s: PASS\n", config_name(c));
+ 	blessed_n = 0;
+ 	free(blessed_reg);
++
++free_reg_list:
+ 	free(reg_list);
+ 	kvm_vm_free(vm);
+ }
+-- 
+2.47.3
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
