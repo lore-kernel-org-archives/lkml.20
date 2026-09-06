@@ -1,537 +1,332 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 700E73C09E2;
-	Sun,  6 Sep 2026 17:04:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788714248; cv=none; b=qfMae9R5UjrAtD4pwMlWKOVKnM2ltLloSW8I21uCj4OZtr0OwwF3HHzfGJxvyxxDINqW0SVmsBikf/+To0T+0rJglkFvp+SIoEmMR2Jc3FSh+HdDrGvhMYKq8SxdiCICgo//eJPBDsTselg698iN0FT7HqEdVOUBe3tlaeImF9w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788714248; c=relaxed/simple;
-	bh=TrKO+IVafCylphDuUg7oVb018fGOfOedf1V80FIj00A=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=rzWshhj4gknw2tPb7gk7nYYflTsaijJnDMntwQA1HWkP9K2AcDN5B9WSWwBFKdU+cMHVb+92HinZSS74W0ALCtjiB0e63TS5UvPdC6Alals2dlpurQk7mhpqUnc8q+QhKLkFHkmgks7Ba3vd+pi+8rQNYj6O5KoMqH3aXMsTkwo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dA8c/Lp4; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8B713A2E2E
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 17:05:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788714316; cv=pass; b=rznpafjXoo4kMXCrLwHJOvkbeg+GOgTn7hsehhMaVBlUXrrqlpJG5cwwHekqAJf34gdKyqVr9a2llJFTd/Xcq5qO2VsZKmIBMPp5Nt3t5kWxqzxIWh5QHxW8n5isijQuGq1PaRQCtHoeURoF/LDU2HqxHnmdUDWviA/Uy22dsRM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788714316; c=relaxed/simple;
+	bh=8fXne5T8mflJIcqQiHG7pXn1c3SyLN6hIiaTu1VteFE=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=lVYFWWWrgS6vgRSqYkvZ3K/9wMUVum5kbAnISIHV/OiQWnxYoBdO1ckZmEbzbyodOWn4OoL+AKYz3xEKZ1VxQ1trbFfbT4+mK6ZJyswftsPkNXF7LAWEhWKxMM70o3Xq2/+SAWLLDE9K4OZoGVJMccSzm1rLdnfmmdpiCv7pr04=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rYhYHbLu; arc=pass smtp.client-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dA8c/Lp4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 791831F00A3D;
-	Sun,  6 Sep 2026 17:04:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788714245;
-	bh=XoV3UQ1Na6kJ5zELnSnG7wXXxc4owyx3o0WZmyN5d+E=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=dA8c/Lp4agP1zz7eF6KXQkQ58xBR6VDO/qFg9NyRu6Ob8002qwyTQvRig5Jqu1l1D
-	 aA+XZuZ7dApgkvZhMZUMjWSBg6c9SBl2l6yVyJ7cCqeG2OlsBDNq/CyyhosAX6VWus
-	 V6ciwkeOI/EpuOnQ7JJcVrjpNNANW1Rb05lYRxOvzZjeaQzH3SOHO/yj0e9hMsqUoD
-	 ovOFoZ2WP4AeA58mVM0KDRTU7/GYDm8fFLVvGNYY10aneA4SBrUUXdC20rHqzBXowc
-	 2J92qriMyxkVvX38/5hWrBaSq1OtrEYK8MXJfIU7V6/HYswVepQCPvcyXYruiwvLh/
-	 iRNnZeI3jfnlg==
-Subject: Re: [PATCH net-next 5/6] selftests/vsock: test the guest vsock device
- network namespace
-From: netdev-bot+sashiko@kernel.org
-To: bobbyeshleman@gmail.com
-Cc: sgarzare@redhat.com, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
- skhan@linuxfoundation.org, stefanha@redhat.com, mst@redhat.com,
- jasowangio@gmail.com, xuanzhuo@linux.alibaba.com, eperezma@redhat.com,
- shuah@kernel.org, rdunlap@infradead.org, virtualization@lists.linux.dev,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, kvm@vger.kernel.org,
- linux-kselftest@vger.kernel.org, sargun@sargun.me, jlinbox@meta.com,
- bobbyeshleman@meta.com
-Date: Sun, 06 Sep 2026 17:04:04 +0000
-Message-ID: <178871424404.219967.10677105499849976882@kernel.org>
-In-Reply-To: <20260902-vsock-guest-ns-v1-5-9995383e9a8b@meta.com>
-References: <20260902-vsock-guest-ns-v1-5-9995383e9a8b@meta.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rYhYHbLu"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c263110a8cdso117942066b.3
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 10:05:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788714312; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RK43LlZcTKNW5D//pmsz09gQU6RtZAXe3Jyt2+UYiq++X8VARMVWSjBkSR/hF9j3cK
+         m9N64bFswVeuWCwgsiuLGIUYgGAnR2ofp2MzXswjOZRqC/N8nk3LLLGAYQdaS7kup7/t
+         lf7zM2v9VwX7h13TOOim4W8Zn8zMerYv3sLDmr6r0TNNXkP/j0kXVnGm6CQm+XkfpBx7
+         S5TnFqKsvSzp4mNMZIX5kHFJjt4F3Fu1DalSs5SKbWvQmsbys+A73egGV6KY7ahBHXdR
+         GUtTVY2mU1G34XTKkinPh/H58AX/oN21snThooNCkYHGDqxuKFh9uHJ+shSrDhKXTfNG
+         65mw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=lpZZMLMHvlqMqswwbt0dtw/wSlCGyEJ00c3Xa/znKv4=;
+        fh=uT/8OOmyjzlIwXB3nkDAdDDUw7pzsfSWZCfYyNTwxAs=;
+        b=HZ+4rJ7w6jiich79eOMA5ESO1UlLyc8szdjQQIR1lbs9VxmZLQWmr3MRg+Sdo3Xc8M
+         UtPU721Sz5TeQR+5QKqp/ZovDuV54bNDJNjP8o0aCv8LHl+AkbDubjbkLP8VLZnxLS9V
+         03Y4QNxZA+awXj7dW+Irr/BAP4mifCigiZmYZt0tOLICP4y2CJsdEf8DF8y8vpKpp4n6
+         gyHdwqpL6en0a3sMKNI+QgdSuqVCN7WK8DGgzM+7b6TxDsQFCohcb9lHohB+kX/WJr74
+         w4ZWVEfYesI0W+O6t5dHqWIocxeCMzEyt1TzvwEXTm1qZVk5TtrvMne5Tban2e995Pvy
+         RTfQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788714312; x=1789319112; darn=vger.kernel.org;
+        h=content-type:to:subject:message-id:date:from:mime-version:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=lpZZMLMHvlqMqswwbt0dtw/wSlCGyEJ00c3Xa/znKv4=;
+        b=rYhYHbLuRZ0L2E2mZ16lEFQIHNw6sEDskMkUzt01eurVJKZkrn8a3TUxS1r0i+vsvq
+         5BZkmmq7auea4NaMzi+E05PDPz75FdrOjl6hCFE2kJ3gVZhFK0fRsQkhbSCCyHthFria
+         /LebkYwOZJaPalmxWFpHHaGku59D+Z27zscbRMnHwmGX6NLPS6JzKoX3SmTuBhgVnXal
+         lOAPnL4szixjsMwsdQqfvf5y/sVerGrSeugvdCDV2vRTPh1lDkTyEv3yZ4TOKbMjZFSu
+         1HsVwgJ/n3nzR4bdFRHu1s4P1tu3y+oRifViFb6g1o8cr4hqnxUOFcQXGjZlni9b+fxx
+         Z1nQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788714312; x=1789319112;
+        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lpZZMLMHvlqMqswwbt0dtw/wSlCGyEJ00c3Xa/znKv4=;
+        b=ocz3rfBZX3E24KUuv/Sqlk3JCgvYTdpRUKkHPfjKumvE/EoChpwCbLRDJIXIjdlQXW
+         fiY0J5AUbQgIPdFuEmp1rFjvUNU1YI+I9CPypiYDBwMWzfiCDqBcUCGm63if6EwydLkE
+         UVGrCWhif9kVKk7/NGoAt07Y3MEKg3y/XofOPF/edJ35NRbA0OTDSZt8J0qf8DYxKiTr
+         MY/DfQGBZVUeCwGRW85nYbuFJU9L4Ni74bO2lvZC2+dW5qgTlUc0lJ4S4scm1Dud9aSz
+         0xXPv8fmJ9Cl4jhzJQ9Qhkxa/5HJ7PqUBsMvtyHvatsPPbi5AmUcYQ7TBn0zzoy8eKCZ
+         hIOA==
+X-Forwarded-Encrypted: i=1; AKwUvBz04NUxGL5g/CSx6JvW6WA3le27EzQiengzx7kPY1iZxz5sAVpJwQ8NNtvtBHZIvlU6avpopTwG7TGrsUQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kDYB0lC2UUPoQqphWhSITj4IJhglNdC7ZlPdyj4fSGyc7UNU1N
+	qMfLEa5bLWsWPVSesc4/wyGXBV8/lfpXU6qpSl7uXBkdl2It2zn1n5E7zzL/rOraWLU/NYexwCr
+	uFh5Q+rJemXoUo+a9PG6InBGofXOzaXo=
+X-Gm-Gg: AYBFou24Z3I8nHny8BkM43PqYKCDemlg5cOtF9+4+otuVBTkapS2BunuMOe/hQmFeAM
+	XGDiSa9+pEIGsi8fdc46ZfbnOATfzb1mByZmzMIyFDujsAkiFkdXbnbEsQLQP9QuZQMkoiBul5l
+	phSL4s2cM3MnYpWlgwmy1AlbMYCI4/N2EJ99zXWc+zeo3Z7ngKg8zdT6Blrav60hXRMuzCfpQjO
+	OexJmBu4qOqjz+hrI+4GMA4pZWRKaZ6iCYwAoUnLG6gkoK8achIaNQ68QrlC7FiIvF/AfVV8Eb1
+	HDxU0OtRV5qUZ5YSzyn1e5vEnDMbTicI9GgO99Om
+X-Received: by 2002:a17:907:d649:b0:c26:19e3:e982 with SMTP id
+ a640c23a62f3a-c2619e3eee5mr525101766b.34.1788714311398; Sun, 06 Sep 2026
+ 10:05:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+From: Ermak S <germanaizek0@gmail.com>
+Date: Sun, 6 Sep 2026 20:05:02 +0300
+X-Gm-Features: AcwNN1Ugy_dAKZY8eqVOuAgTRDDsM1ZKej_LqO6mg-LVUQmSKhoCBkDei60G_Nc
+Message-ID: <CAMnMt5YMA70FJwH+ddo24Ejd8HbpFSgUv73Ybu-fu+F-gcoesQ@mail.gmail.com>
+Subject: [PATCH] wifi: mt7601u: add vnd_reset parameter to fix probe failure
+ on Tenda U2
+To: kuba@kernel.org, kvalo@kernel.org, linux-wireless@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: multipart/mixed; boundary="00000000000022f14f065ad38151"
 
-Thank you for your contribution! Sashiko AI review found 9 potential
-issue(s) to consider:
+--00000000000022f14f065ad38151
+Content-Type: multipart/alternative; boundary="00000000000022f14d065ad3814f"
 
-Critical: 0 · High: 0 · Medium: 4 · Low: 5
+--00000000000022f14d065ad3814f
+Content-Type: text/plain; charset="UTF-8"
 
-- [Medium] Vacuous PASS in the new negative tests: vm_ns_start() always
-  emits a non-empty PID (even when `unshare -n` failed) and…
-- [Medium] check_deps() makes the new vsock_assign_g2h_netns helper a
-  hard prerequisite for the entire suite (a missing helper now skips…
-- [Medium] guest_send_to_host()/host_send_to_guest() tear down their
-  socat helper with terminate_pids() (bare SIGTERM, never `wait`), and…
-- [Medium] test_ns_guest_assign_g2h_netns_old_conn_send_fails() orders
-  three concurrent actors (the backgrounded guest sender, the host…
-- [Low] The header comment of vsock_g2h_net_get()
-  (net/vmw_vsock/af_vsock.c:754-756) states it returns the g2h device's…
-- [Low] In test_ns_guest_assign_g2h_netns_old_conn_send_fails() the long-
-  running sender is backgrounded (`vm_ssh ... &`) but its PID is never…
-- [Low] host_send_to_guest() captures `$!` of the local backgrounded
-  `vm_ns_exec ...` (a subshell running the ssh client), not of the…
-- [Low] vm_ns_start() publishes the backgrounded `unshare -n sleep
-  infinity` PID with no barrier proving that unshare(2) has already…
-- [Low] Five of the six new tests return immediately after
-  vm_ns_stop()+vm_reset_g2h() while the guest's netns dismantling is…
+wifi: mt7601u: add vnd_reset parameter to fix probe failure on Tenda U2
 
+On certain MT7601U adapters, such as Tenda U2 and
+other newer hardware revisions, driver initialization consistently fails
+during probe with vendor request timeouts (-110 / -ETIMEDOUT):
+  mt7601u 3-14:1.0: ASIC revision: 76010001 MAC revision: 76010500
+  mt7601u 3-14:1.0: Firmware Version: 0.1.00 Build: 7640 Build time:
+201302052146____
+  mt7601u 3-14:1.0: Vendor request req:07 off:09a8 failed:-110
+  mt7601u 3-14:1.0: Vendor request req:02 off:09a8 failed:-110
+  mt7601u 3-14:1.0: Vendor request req:07 off:0734 failed:-110
+  mt7601u 3-14:1.0: Vendor request req:42 off:0230 failed:-110
+  mt7601u 3-14:1.0: probe with driver mt7601u failed with error -110
+
+The failure occurs because mt7601u_load_firmware() unconditionally calls
+mt7601u_vendor_reset() (MT_VEND_DEV_MODE_RESET) before uploading firmware
+chunks. On these devices, issuing this vendor reset leaves the internal
+MCU / FCE DMA engine in an unresponsive state after the first firmware
+URB is submitted. As a result, reading MT_TX_CPU_FROM_FCE_CPU_DESC_IDX
+(0x09a8) immediately times out.
+Introduce a boolean module parameter 'vnd_reset' (default: false) to
+make this vendor reset optional. When the vendor reset is skipped,
+firmware upload succeeds and the wireless interface initializes normally.
+
+Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1716301
+
+More issues with Tenda U2 and Linux:
+- https://www.opena.tv/viewtopic.php?t=63919
+- https://askubuntu.com/questions/1418850/the-problem-with-wi-fi-u2
+- https://bbs.archlinux.org/viewtopic.php?id=224859
+-
+https://www.reddit.com/r/archlinux/comments/1d6dfv5/mt7601u_usb_wifi_not_working/
+
+Signed-off-by: Herman Semenoff <GermanAizek@aizekgroup.ru
+<GermanAizek@yandex.ru>>
+Signed-off-by: Herman Semenoff <GermanAizek@yandex.ru>
+Signed-off-by: Herman Semenoff <germanaizek0@gmail.com
+<GermanAizek@yandex.ru>>
+
+diff patch changes for sashiko.dev viewer
+```
+---
+ drivers/net/wireless/mediatek/mt7601u/mcu.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/wireless/mediatek/mt7601u/mcu.c
+b/drivers/net/wireless/mediatek/mt7601u/mcu.c
+index bad6ca821..abf4767f1 100644
+--- a/drivers/net/wireless/mediatek/mt7601u/mcu.c
++++ b/drivers/net/wireless/mediatek/mt7601u/mcu.c
+@@ -10,6 +10,7 @@
+ #include <linux/delay.h>
+ #include <linux/usb.h>
+ #include <linux/skbuff.h>
++#include <linux/moduleparam.h>
+
+ #include "mt7601u.h"
+ #include "dma.h"
+@@ -21,6 +22,14 @@
+ #define MCU_FW_URB_SIZE (MCU_FW_URB_MAX_PAYLOAD + 12)
+ #define MCU_RESP_URB_SIZE 1024
+
++static bool vnd_reset;
++module_param(vnd_reset, bool, 0644);
++MODULE_PARM_DESC(vnd_reset, "Perform vendor reset during firmware upload
+(default: false)");
++
++static bool disable_usb_sg;
++module_param(disable_usb_sg, bool, 0644);
++MODULE_PARM_DESC(disable_usb_sg, "Unused compatibility parameter");
++
+ static inline int firmware_running(struct mt7601u_dev *dev)
+ {
+  return mt7601u_rr(dev, MT_MCU_COM_REG0) == 1;
+@@ -459,8 +468,10 @@ static int mt7601u_load_firmware(struct mt7601u_dev
+*dev)
+  mt7601u_wr(dev, 0x94c, 0);
+  mt7601u_wr(dev, MT_FCE_PSE_CTRL, 0);
+
+- mt7601u_vendor_reset(dev);
+- msleep(5);
++ if (vnd_reset) {
++ mt7601u_vendor_reset(dev);
++ msleep(5);
++ }
+
+  mt7601u_wr(dev, 0xa44, 0);
+  mt7601u_wr(dev, 0x230, 0x84210);
 --
-
-selftests/vsock: test the guest vsock device network namespace
-
-This adds six vmtest.sh cases around the guest vsock device namespace
-assignment: guest to host and host to guest transfers, namespace deletion,
-and moving the device between namespaces while a socket is live.  The
-namespaces are created inside the guest with unshare -n and held open by a
-sleeping process.
-
-A few questions about the new helpers and the pass/fail criteria below.
-
-> diff --git a/tools/testing/selftests/vsock/vmtest.sh b/tools/testing/selftests/vsock/vmtest.sh
-> index 310dfc2a39ad..53591fa07f1a 100755
-> --- a/tools/testing/selftests/vsock/vmtest.sh
-> +++ b/tools/testing/selftests/vsock/vmtest.sh
-> @@ -17,6 +17,7 @@ readonly KERNEL_CHECKOUT=$(realpath "${SCRIPT_DIR}"/../../../../)
->  source "${SCRIPT_DIR}"/../kselftest/ktap_helpers.sh
->  
->  readonly VSOCK_TEST="${SCRIPT_DIR}"/vsock_test
-> +readonly VSOCK_ASSIGN_G2H_NETNS="${SCRIPT_DIR}"/vsock_assign_g2h_netns
->  readonly TEST_GUEST_PORT=51000
->  readonly TEST_HOST_PORT=50000
->  readonly TEST_HOST_PORT_LISTENER=50001
-
-[ ... ]
-
-> @@ -302,18 +333,20 @@ check_args() {
->  }
->  
->  check_deps() {
-> -	for dep in vng ${QEMU} busybox pkill ssh ss socat nsenter; do
-> +	for dep in vng ${QEMU} busybox pkill ssh ss socat nsenter unshare; do
->  		if [[ ! -x $(command -v "${dep}") ]]; then
->  			echo -e "skip:    dependency ${dep} not found!\n"
->  			exit "${KSFT_SKIP}"
->  		fi
->  	done
->  
-> -	if [[ ! -x $(command -v "${VSOCK_TEST}") ]]; then
-> -		printf "skip:    %s not found!" "${VSOCK_TEST}"
-> -		printf " Please build the kselftest vsock target.\n"
-> -		exit "${KSFT_SKIP}"
-> -	fi
-> +	for prog in "${VSOCK_TEST}" "${VSOCK_ASSIGN_G2H_NETNS}"; do
-> +		if [[ ! -x $(command -v "${prog}") ]]; then
-> +			printf "skip:    %s not found!" "${prog}"
-> +			printf " Please build the kselftest vsock target.\n"
-> +			exit "${KSFT_SKIP}"
-> +		fi
-> +	done
->  }
-
-[Severity: Medium]
-Should a missing vsock_assign_g2h_netns skip the whole suite?  check_deps()
-runs before any test selection, so with this loop "vmtest.sh vm_loopback" in
-an environment that only installed vsock_test now exits KSFT_SKIP and the
-pre-existing tests lose coverage too.
-
-Related question on the other side: is there a gate for a kernel that does
-not implement the assign ioctl?  vm_ns_assign_g2h() just propagates the
-helper's exit status:
-
-vm_ns_assign_g2h() {
-	local ns=$1
-	local nspid=$2
-
-	vm_ns_exec "${ns}" "${nspid}" ./vsock_assign_g2h_netns
-}
-
-and all five callers turn a non-zero status into KSFT_FAIL:
-
-	if ! vm_ns_assign_g2h "init_ns" "${nspid}"; then
-		log_host "failed to assign the vsock device to the guest ns"
-		...
-		return "${KSFT_FAIL}"
-	fi
-
-On a kernel without the feature the ioctl fails and the tests report FAIL
-rather than SKIP.  check_netns() already has the precedent of skipping only
-the ns_* tests when the capability is absent:
-
-	if [[ "${tname}" =~ ^ns_ ]] &&
-	   [[ ! -e /proc/self/ns ]]; then
-		log_host "No NS support detected for test ${tname}"
-		return 1
-	fi
-
-Would a similar per-feature gate fit here?
-
-[ ... ]
-
-> @@ -528,6 +562,58 @@ vm_wait_for_ssh() {
->  	done
->  }
->  
-> +# Create a local mode namespace in the VM and echo the pid holding it open.
-> +vm_ns_start() {
-> +	local ns=$1
-> +
-> +	vm_ssh "${ns}" -- \
-> +		"echo local > /proc/sys/net/vsock/child_ns_mode" &>/dev/null
-> +
-> +	vm_ssh "${ns}" -- "unshare -n sleep infinity" \
-> +		'>/dev/null 2>&1 & echo $!'
-> +}
-
-[Severity: Medium]
-Can the two negative tests pass without ever running anything in the guest?
-The remote shell prints $! as soon as the job is forked, so vm_ns_start()
-emits a non-empty PID and returns 0 even when unshare immediately fails (no
-CONFIG_NET_NS in the guest, EPERM, exec failure).  The write to
-child_ns_mode above it is also &>/dev/null with its status ignored.
-
-The only setup validation in each new test is:
-
-	nspid=$(vm_ns_start "init_ns")
-	if [[ -z "${nspid}" ]]; then
-		log_host "failed to create a namespace inside the guest"
-		return "${KSFT_FAIL}"
-	fi
-
-which cannot fire in that case.  With a stale PID, vm_ns_exec() runs
-"nsenter -t <dead pid> -n sh -c ..." which exits non-zero without executing
-socat, and guest_send_to_host() discards that status:
-
-	vm_ns_exec "${ns}" "${nspid}" "${cmd}" 2>/dev/null
-
-The poll then just times out, and both
-test_ns_guest_local_connect_to_host_fails() and
-test_ns_guest_assign_g2h_netns_init_ns_connect_fails() evaluate an empty
-file against:
-
-	if [[ "${result}" == TEST ]]; then
-		return "${KSFT_FAIL}"
-	fi
-
-	return "${KSFT_PASS}"
-
-so "the command never ran" is indistinguishable from "the kernel blocked the
-connection".  Would checking the exit status of the guest command, or adding
-a positive control to these two tests, make the difference visible?
-
-[Severity: Low]
-A second question on the same helper: is there a barrier proving unshare(2)
-has already run before the PID is used?  unshare execs, calls
-unshare(CLONE_NEWNET), then execs sleep, while callers immediately use the
-published PID as an nsenter target:
-
-	vm_ssh "${ns}" -- nsenter -t "${nspid}" -n sh -c "'${cmd}'"
-
-If /proc/<pid>/ns/net is still the initial netns at that moment, the command
-runs in the guest's initial namespace instead.  In practice every consumer
-first pays a fresh ssh round trip, so the window is small, but a poll until
-readlink /proc/${nspid}/ns/net differs from the initial namespace would
-close it.
-
-> +
-> +# Returns once the holder is gone, so that the namespace is unreferenced and
-> +# the kernel can start tearing it down.
-> +vm_ns_stop() {
-> +	local ns=$1
-> +	local nspid=$2
-> +
-> +	vm_ssh "${ns}" <<-EOF &>/dev/null
-> +		kill ${nspid}
-> +		for ((i = 0; i < ${WAIT_PERIOD_MAX}; i++)); do
-> +			kill -0 ${nspid} 2>/dev/null || break
-> +			sleep 1
-> +		done
-> +	EOF
-> +}
-> +
-> +# Runs in the guest's initial namespace when <nspid> is empty. The command must
-> +# not contain single quotes.
-> +vm_ns_exec() {
-> +	local ns=$1
-> +	local nspid=$2
-> +	local cmd=$3
-> +
-> +	if [[ -z "${nspid}" ]]; then
-> +		vm_ssh "${ns}" -- "${cmd}"
-> +		return
-> +	fi
-> +
-> +	vm_ssh "${ns}" -- nsenter -t "${nspid}" -n sh -c "'${cmd}'"
-> +}
-> +
-> +vm_ns_assign_g2h() {
-> +	local ns=$1
-> +	local nspid=$2
-> +
-> +	vm_ns_exec "${ns}" "${nspid}" ./vsock_assign_g2h_netns
-> +}
-> +
-> +vm_reset_g2h() {
-> +	vm_ns_assign_g2h "init_ns" "" &>/dev/null
-> +}
-> +
-
-[ ... ]
-
-> @@ -1421,6 +1521,290 @@ test_ns_delete_both_ok() {
->  	check_ns_delete_doesnt_break_connection "both"
->  }
->  
-> +# Send a string from the guest to a host listener and leave what the host
-> +# received in <outfile>.
-> +guest_send_to_host() {
-> +	local ns=$1
-> +	local nspid=$2
-> +	local port=$3
-> +	local outfile=$4
-> +	local cmd="echo TEST | socat -u STDIN VSOCK-CONNECT:2:${port}"
-> +	local pid
-> +
-> +	socat -u VSOCK-LISTEN:"${port}" STDOUT > "${outfile}" 2>/dev/null &
-> +	pid=$!
-> +	host_wait_for_listener "${ns}" "${port}" "vsock"
-> +
-> +	vm_ns_exec "${ns}" "${nspid}" "${cmd}" 2>/dev/null
-> +
-> +	timeout "${WAIT_PERIOD}" \
-> +		bash -c 'while [[ ! -s '"${outfile}"' ]]; do sleep 1; done'
-> +
-> +	terminate_pids "${pid}"
-> +}
-
-[Severity: Medium]
-Can consecutive tests collide on host vsock port 12345?  The listener here
-is torn down with terminate_pids(), which sends SIGTERM and never waits:
-
-	for pid in "$@"; do
-		kill -SIGTERM "${pid}" &>/dev/null || :
-	done
-
-so the socket may still be bound when guest_send_to_host() returns.
-test_ns_guest_local_connect_to_host_fails,
-test_ns_guest_assign_g2h_netns_connect_to_host_ok,
-test_ns_guest_assign_g2h_netns_init_ns_connect_fails and
-test_ns_guest_assign_g2h_netns_host_connect_ok all declare "local
-port=12345" and run back to back in the same host namespace.
-
-If the previous socat is still bound, either the new bind fails with
-EADDRINUSE, or ss() sees the old listener whose stdout points at the
-previous, already-deleted outfile.  Either way the new outfile stays empty,
-and the failure is silent because wait_for_listener() breaks out of its loop
-on timeout and returns 0 with no caller checking it.
-
-test_ns_guest_assign_g2h_netns_reset_on_ns_delete_ok already uses
-"$(( port + i ))" per retry.  Would a per-test port, or a wait after the
-kill, help here as well?
-
-> +
-> +# Send a string from the host to a listener in the guest and leave what the
-> +# guest received in <outfile>.
-> +host_send_to_guest() {
-> +	local ns=$1
-> +	local nspid=$2
-> +	local port=$3
-> +	local outfile=$4
-> +	local cmd="socat -u VSOCK-LISTEN:${port} STDOUT"
-> +	local dst="VSOCK-CONNECT:${VSOCK_CID}:${port}"
-> +	local pid
-> +
-> +	vm_ns_exec "${ns}" "${nspid}" "${cmd}" > "${outfile}" 2>/dev/null &
-> +	pid=$!
-> +	vm_ns_wait_for_listener "${ns}" "${nspid}" "${port}" "vsock"
-> +
-> +	echo TEST | socat -u STDIN "${dst}" 2>/dev/null
-> +
-> +	timeout "${WAIT_PERIOD}" \
-> +		bash -c 'while [[ ! -s '"${outfile}"' ]]; do sleep 1; done'
-> +
-> +	terminate_pids "${pid}"
-> +}
-
-[Severity: Low]
-Does terminate_pids() reach the guest-side listener here?  The captured $!
-is the local subshell running the ssh client, not the nsenter/socat inside
-the guest namespace.  ssh is invoked without a TTY, so killing the local
-side does not signal the remote process group, and a socat blocked in
-accept() does not notice the closed channel.
-
-vm_ns_stop() then waits only for the sleep infinity holder, so its documented
-postcondition:
-
-# Returns once the holder is gone, so that the namespace is unreferenced and
-# the kernel can start tearing it down.
-
-does not hold while that leftover socat still references the namespace.  In
-the passing path the host does connect and send, so the guest socat sees EOF
-and exits on its own; the leftover appears when the transfer fails.
-
-> +
-> +test_ns_guest_assign_g2h_netns_old_conn_send_fails() {
-> +	local gap=$(( WAIT_PERIOD * 3 ))
-> +	local port=12346
-> +	local outfile
-> +	local result
-> +	local nspid
-> +	local pid
-> +
-> +	nspid=$(vm_ns_start "init_ns")
-> +	if [[ -z "${nspid}" ]]; then
-> +		log_host "failed to create a namespace inside the guest"
-> +		return "${KSFT_FAIL}"
-> +	fi
-> +
-> +	outfile=$(mktemp)
-> +	socat -u VSOCK-LISTEN:"${port}" STDOUT > "${outfile}" 2>/dev/null &
-> +	pid=$!
-> +	host_wait_for_listener "init_ns" "${port}" "vsock"
-> +
-> +	# Send a message, wait, then send another. While waiting, assign the
-> +	# device to a namespace. Confirm the second message does not arrive.
-> +	vm_ssh "init_ns" -- \
-> +		"(echo FIRST; sleep ${gap}; echo SECOND) |" \
-> +		"socat -u STDIN VSOCK-CONNECT:2:${port}" &>/dev/null &
-> +
-> +	sleep "${WAIT_PERIOD}"
-
-[Severity: Medium]
-Can a correct kernel hit either FAIL verdict in this test?  Three actors are
-ordered with fixed sleeps only.
-
-If the assign lands too early: the guest sender is backgrounded and the
-script waits just "sleep ${WAIT_PERIOD}" (3 s).  Bringing up a fresh ssh
-session into the 9p-rootfs VM, starting socat and connecting can exceed that
-on a loaded host, in which case the device moves before the connection
-exists, FIRST never lands, and the test reports:
-
-	if [[ "${result}" != *FIRST* ]]; then
-		log_host "connection did not work before the assign: [${result}]"
-		return "${KSFT_FAIL}"
-	fi
-
-If the assign lands too late: the assign is itself a new ssh session plus
-nsenter plus the ioctl, while the second write happens at gap =
-WAIT_PERIOD * 3 (9 s) after the sender started and the assign is issued at
-about 3 s.  If the assign round trip exceeds the remaining 6 s, SECOND is
-delivered legitimately and the test reports "old connection still delivered
-after the assign".
-
-Would polling the outfile for FIRST before doing the assign, using the same
-"timeout ... while [[ ! -s file ]]" idiom already used in
-guest_send_to_host(), make this deterministic?
-
-[Severity: Low]
-Separately, is the backgrounded sender ever reaped?  No $! is captured here,
-so it is not passed to terminate_pids() and not registered with the PIDFILES
-map used by the EXIT trap:
-
-cleanup() {
-	terminate_pidfiles "${!PIDFILES[@]}"
-	del_namespaces
-	rm -rf "${TEST_HOME}"
-}
-
-On the assign-failure early return the host ssh client and the guest-side
-subshell still have "sleep ${gap}" (9 s) to run, and on script interruption
-they outlive the script.  Every other background job in this script is
-tracked either with pid=$! plus terminate_pids or via create_pidfile().
-
-> +
-> +	if ! vm_ns_assign_g2h "init_ns" "${nspid}"; then
-> +		log_host "failed to assign the vsock device to the guest ns"
-> +		terminate_pids "${pid}"
-> +		rm -f "${outfile}"
-> +		vm_ns_stop "init_ns" "${nspid}"
-> +		vm_reset_g2h
-> +		return "${KSFT_FAIL}"
-> +	fi
-> +
-> +	# Let the second write happen and land, if it is going to.
-> +	sleep $(( gap + WAIT_PERIOD ))
-> +
-> +	terminate_pids "${pid}"
-> +	result=$(cat "${outfile}")
-> +	rm -f "${outfile}"
-> +
-> +	vm_ns_stop "init_ns" "${nspid}"
-> +	vm_reset_g2h
-> +
-> +	if [[ "${result}" != *FIRST* ]]; then
-> +		log_host "connection did not work before the assign: [${result}]"
-> +		return "${KSFT_FAIL}"
-> +	fi
-> +
-> +	if [[ "${result}" == *SECOND* ]]; then
-> +		log_host "old connection still delivered after the assign"
-> +		return "${KSFT_FAIL}"
-> +	fi
-> +
-> +	return "${KSFT_PASS}"
-> +}
-
-[ ... ]
-
-> +test_ns_guest_assign_g2h_netns_reset_on_ns_delete_ok() {
-
-[ ... ]
-
-> +	vm_ns_stop "init_ns" "${nspid}"
-> +
-> +	# The holder is gone, but the namespace itself is dismantled from a
-> +	# workqueue, so the device does not come back the same instant. Retry
-> +	# until it does, rather than expecting the first send to succeed.
-
-[Severity: Low]
-This comment documents an asynchronous teardown that only this test waits
-for.  The other five return right after vm_ns_stop() plus vm_reset_g2h()
-while the guest namespace is still being dismantled, and
-run_shared_vm_test() snapshots the dmesg warn count per test:
-
-	vm_warn_cnt_before=$(vm_dmesg_warn_count "init_ns")
-
-	name=$(echo "${1}" | awk '{ print $1 }')
-	eval test_"${name}"
-	rc=$?
-
-so a warning emitted by test N's in-flight teardown is charged to test N+1.
-Would a short wait for the teardown in the other tests avoid that
-misattribution?
-
-The device state itself does look well defined: vsock_g2h_net_reset() in
-net/vmw_vsock/af_vsock.c returns early unless the dying net is the current
-one:
-
-	if (likely(rcu_access_pointer(vsock_g2h_net) != net))
-		return;
-
-so a late teardown cannot pull the device out of a later test's namespace.
-
-[ ... ]
-
-One more note, on the kernel side of this series rather than on this patch:
-
-[Severity: Low]
-The header comment of vsock_g2h_net_get() in net/vmw_vsock/af_vsock.c says:
-
-/* Return the g2h devices' namespace with a reference held, or NULL if that
- * namespace is being destroyed.
- */
-
-but in exactly that case the function can return a reference to a different
-namespace instead of NULL:
-
-	if (!net && vsock_net_check_mode(&init_net, assigned))
-		net = get_net(&init_net);
-
-The in-function comment just below explains the init_net fallback, so only
-the header sentence looks out of date for an exported symbol that callers
-such as virtio_transport_rx_work() rely on.  Could the header comment
-mention the init_net fallback?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260902-vsock-guest-ns-v1-0-9995383e9a8b%40meta.com
+```
+
+--00000000000022f14d065ad3814f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>wifi: mt7601u: add vnd_reset parameter to fix probe f=
+ailure on Tenda U2</div><div>=C2=A0</div><div>On certain MT7601U adapters, =
+such as Tenda U2 and</div><div>other newer hardware revisions, driver initi=
+alization consistently fails</div><div>during probe with vendor request tim=
+eouts (-110 / -ETIMEDOUT):</div><div>=C2=A0 mt7601u 3-14:1.0: ASIC revision=
+: <span class=3D"gmail-wmi-callto">76010001</span> MAC revision: <span clas=
+s=3D"gmail-wmi-callto">76010500</span></div><div>=C2=A0 mt7601u 3-14:1.0: F=
+irmware Version: 0.1.00 Build: 7640 Build time: <span class=3D"gmail-wmi-ca=
+llto">201302052146</span>____</div><div>=C2=A0 mt7601u 3-14:1.0: Vendor req=
+uest req:07 off:09a8 failed:-110</div><div>=C2=A0 mt7601u 3-14:1.0: Vendor =
+request req:02 off:09a8 failed:-110</div><div>=C2=A0 mt7601u 3-14:1.0: Vend=
+or request req:07 off:0734 failed:-110</div><div>=C2=A0 mt7601u 3-14:1.0: V=
+endor request req:42 off:0230 failed:-110</div><div>=C2=A0 mt7601u 3-14:1.0=
+: probe with driver mt7601u failed with error -110</div><div>=C2=A0</div><d=
+iv>The failure occurs because mt7601u_load_firmware() unconditionally calls=
+</div><div>mt7601u_vendor_reset() (MT_VEND_DEV_MODE_RESET) before uploading=
+ firmware</div><div>chunks. On these devices, issuing this vendor reset lea=
+ves the internal</div><div>MCU / FCE DMA engine in an unresponsive state af=
+ter the first firmware</div><div>URB is submitted. As a result, reading MT_=
+TX_CPU_FROM_FCE_CPU_DESC_IDX</div><div>(0x09a8) immediately times out.</div=
+><div>Introduce a boolean module parameter &#39;vnd_reset&#39; (default: fa=
+lse) to</div><div>make this vendor reset optional. When the vendor reset is=
+ skipped,</div><div>firmware upload succeeds and the wireless interface ini=
+tializes normally.</div><div>=C2=A0</div><div>Link: <a href=3D"https://bugs=
+.launchpad.net/ubuntu/+source/linux/+bug/1716301" rel=3D"noopener noreferre=
+r" target=3D"_blank">https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1=
+716301</a></div><div>=C2=A0</div><div>More issues with Tenda U2 and Linux:<=
+/div><div>- <a href=3D"https://www.opena.tv/viewtopic.php?t=3D63919" rel=3D=
+"noopener noreferrer" target=3D"_blank">https://www.opena.tv/viewtopic.php?=
+t=3D63919</a></div><div>- <a href=3D"https://askubuntu.com/questions/141885=
+0/the-problem-with-wi-fi-u2" rel=3D"noopener noreferrer" target=3D"_blank">=
+https://askubuntu.com/questions/1418850/the-problem-with-wi-fi-u2</a></div>=
+<div>- <a href=3D"https://bbs.archlinux.org/viewtopic.php?id=3D224859" rel=
+=3D"noopener noreferrer" target=3D"_blank">https://bbs.archlinux.org/viewto=
+pic.php?id=3D224859</a></div><div>- <a href=3D"https://www.reddit.com/r/arc=
+hlinux/comments/1d6dfv5/mt7601u_usb_wifi_not_working/" rel=3D"noopener nore=
+ferrer" target=3D"_blank">https://www.reddit.com/r/archlinux/comments/1d6df=
+v5/mt7601u_usb_wifi_not_working/</a></div><div><br>Signed-off-by: Herman Se=
+menoff &lt;<a href=3D"mailto:GermanAizek@yandex.ru" rel=3D"noopener norefer=
+rer" target=3D"_blank">GermanAizek@aizekgroup.ru</a>&gt;</div><div>Signed-o=
+ff-by: Herman Semenoff &lt;<a href=3D"mailto:GermanAizek@yandex.ru" rel=3D"=
+noopener noreferrer" target=3D"_blank">GermanAizek@yandex.ru</a>&gt;<br>Sig=
+ned-off-by: Herman Semenoff &lt;<a href=3D"mailto:GermanAizek@yandex.ru" re=
+l=3D"noopener noreferrer" target=3D"_blank">germanaizek0@gmail.com</a>&gt;<=
+br><br></div><div>diff patch changes for <a href=3D"http://sashiko.dev">sas=
+hiko.dev</a> viewer</div><div>```</div>---<br>=C2=A0drivers/net/wireless/me=
+diatek/mt7601u/mcu.c | 15 +++++++++++++--<br>=C2=A01 file changed, 13 inser=
+tions(+), 2 deletions(-)<br><br>diff --git a/drivers/net/wireless/mediatek/=
+mt7601u/mcu.c b/drivers/net/wireless/mediatek/mt7601u/mcu.c<br>index bad6ca=
+821..abf4767f1 100644<br>--- a/drivers/net/wireless/mediatek/mt7601u/mcu.c<=
+br>+++ b/drivers/net/wireless/mediatek/mt7601u/mcu.c<br>@@ -10,6 +10,7 @@<b=
+r>=C2=A0#include &lt;linux/delay.h&gt;<br>=C2=A0#include &lt;linux/usb.h&gt=
+;<br>=C2=A0#include &lt;linux/skbuff.h&gt;<br>+#include &lt;linux/modulepar=
+am.h&gt;<br>=C2=A0<br>=C2=A0#include &quot;mt7601u.h&quot;<br>=C2=A0#includ=
+e &quot;dma.h&quot;<br>@@ -21,6 +22,14 @@<br>=C2=A0#define MCU_FW_URB_SIZE	=
+		(MCU_FW_URB_MAX_PAYLOAD + 12)<br>=C2=A0#define MCU_RESP_URB_SIZE		1024<br=
+>=C2=A0<br>+static bool vnd_reset;<br>+module_param(vnd_reset, bool, 0644);=
+<br>+MODULE_PARM_DESC(vnd_reset, &quot;Perform vendor reset during firmware=
+ upload (default: false)&quot;);<br>+<br>+static bool disable_usb_sg;<br>+m=
+odule_param(disable_usb_sg, bool, 0644);<br>+MODULE_PARM_DESC(disable_usb_s=
+g, &quot;Unused compatibility parameter&quot;);<br>+<br>=C2=A0static inline=
+ int firmware_running(struct mt7601u_dev *dev)<br>=C2=A0{<br>=C2=A0	return =
+mt7601u_rr(dev, MT_MCU_COM_REG0) =3D=3D 1;<br>@@ -459,8 +468,10 @@ static i=
+nt mt7601u_load_firmware(struct mt7601u_dev *dev)<br>=C2=A0	mt7601u_wr(dev,=
+ 0x94c, 0);<br>=C2=A0	mt7601u_wr(dev, MT_FCE_PSE_CTRL, 0);<br>=C2=A0<br>-	m=
+t7601u_vendor_reset(dev);<br>-	msleep(5);<br>+	if (vnd_reset) {<br>+		mt760=
+1u_vendor_reset(dev);<br>+		msleep(5);<br>+	}<br>=C2=A0<br>=C2=A0	mt7601u_w=
+r(dev, 0xa44, 0);<br>=C2=A0	mt7601u_wr(dev, 0x230, 0x84210);<br>--<br>```</=
+div>
+
+--00000000000022f14d065ad3814f--
+--00000000000022f14f065ad38151
+Content-Type: text/x-patch; charset="US-ASCII"; 
+	name="0001-PATCH-wifi-mt7601u-add-vnd_reset-parameter-to-fix-pr.diff"
+Content-Disposition: attachment; 
+	filename="0001-PATCH-wifi-mt7601u-add-vnd_reset-parameter-to-fix-pr.diff"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mtq29ec40>
+X-Attachment-Id: f_mtq29ec40
+
+RnJvbSBjMDNkNzNkMzdkZjQ0MGQwMDQ2ZDY4NDA2ZmRlMmFhMWY2MmZlMGQxIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBIZXJtYW4gU2VtZW5vZmYgPEdlcm1hbkFpemVrQGFpemVrZ3Jv
+dXAucnU+CkRhdGU6IFRodSwgMyBTZXAgMjAyNiAwNzoxNDozMiArMDMwMApTdWJqZWN0OiBbUEFU
+Q0hdIFtQQVRDSF0gd2lmaTogbXQ3NjAxdTogYWRkIHZuZF9yZXNldCBwYXJhbWV0ZXIgdG8gZml4
+IHByb2JlCiBmYWlsdXJlIG9uIFRlbmRhIFUyCgp3aWZpOiBtdDc2MDF1OiBhZGQgdm5kX3Jlc2V0
+IHBhcmFtZXRlciB0byBmaXggcHJvYmUgZmFpbHVyZSBvbiBUZW5kYSBVMgoKT24gY2VydGFpbiBN
+VDc2MDFVIGFkYXB0ZXJzLCBzdWNoIGFzIFRlbmRhIFUyIGFuZApvdGhlciBuZXdlciBoYXJkd2Fy
+ZSByZXZpc2lvbnMsIGRyaXZlciBpbml0aWFsaXphdGlvbiBjb25zaXN0ZW50bHkgZmFpbHMKZHVy
+aW5nIHByb2JlIHdpdGggdmVuZG9yIHJlcXVlc3QgdGltZW91dHMgKC0xMTAgLyAtRVRJTUVET1VU
+KToKICBtdDc2MDF1IDMtMTQ6MS4wOiBBU0lDIHJldmlzaW9uOiA3NjAxMDAwMSBNQUMgcmV2aXNp
+b246IDc2MDEwNTAwCiAgbXQ3NjAxdSAzLTE0OjEuMDogRmlybXdhcmUgVmVyc2lvbjogMC4xLjAw
+IEJ1aWxkOiA3NjQwIEJ1aWxkIHRpbWU6IDIwMTMwMjA1MjE0Nl9fX18KICBtdDc2MDF1IDMtMTQ6
+MS4wOiBWZW5kb3IgcmVxdWVzdCByZXE6MDcgb2ZmOjA5YTggZmFpbGVkOi0xMTAKICBtdDc2MDF1
+IDMtMTQ6MS4wOiBWZW5kb3IgcmVxdWVzdCByZXE6MDIgb2ZmOjA5YTggZmFpbGVkOi0xMTAKICBt
+dDc2MDF1IDMtMTQ6MS4wOiBWZW5kb3IgcmVxdWVzdCByZXE6MDcgb2ZmOjA3MzQgZmFpbGVkOi0x
+MTAKICBtdDc2MDF1IDMtMTQ6MS4wOiBWZW5kb3IgcmVxdWVzdCByZXE6NDIgb2ZmOjAyMzAgZmFp
+bGVkOi0xMTAKICBtdDc2MDF1IDMtMTQ6MS4wOiBwcm9iZSB3aXRoIGRyaXZlciBtdDc2MDF1IGZh
+aWxlZCB3aXRoIGVycm9yIC0xMTAKClRoZSBmYWlsdXJlIG9jY3VycyBiZWNhdXNlIG10NzYwMXVf
+bG9hZF9maXJtd2FyZSgpIHVuY29uZGl0aW9uYWxseSBjYWxscwptdDc2MDF1X3ZlbmRvcl9yZXNl
+dCgpIChNVF9WRU5EX0RFVl9NT0RFX1JFU0VUKSBiZWZvcmUgdXBsb2FkaW5nIGZpcm13YXJlCmNo
+dW5rcy4gT24gdGhlc2UgZGV2aWNlcywgaXNzdWluZyB0aGlzIHZlbmRvciByZXNldCBsZWF2ZXMg
+dGhlIGludGVybmFsCk1DVSAvIEZDRSBETUEgZW5naW5lIGluIGFuIHVucmVzcG9uc2l2ZSBzdGF0
+ZSBhZnRlciB0aGUgZmlyc3QgZmlybXdhcmUKVVJCIGlzIHN1Ym1pdHRlZC4gQXMgYSByZXN1bHQs
+IHJlYWRpbmcgTVRfVFhfQ1BVX0ZST01fRkNFX0NQVV9ERVNDX0lEWAooMHgwOWE4KSBpbW1lZGlh
+dGVseSB0aW1lcyBvdXQuCkludHJvZHVjZSBhIGJvb2xlYW4gbW9kdWxlIHBhcmFtZXRlciAndm5k
+X3Jlc2V0JyAoZGVmYXVsdDogZmFsc2UpIHRvCm1ha2UgdGhpcyB2ZW5kb3IgcmVzZXQgb3B0aW9u
+YWwuIFdoZW4gdGhlIHZlbmRvciByZXNldCBpcyBza2lwcGVkLApmaXJtd2FyZSB1cGxvYWQgc3Vj
+Y2VlZHMgYW5kIHRoZSB3aXJlbGVzcyBpbnRlcmZhY2UgaW5pdGlhbGl6ZXMgbm9ybWFsbHkuCgpM
+aW5rOiBodHRwczovL2J1Z3MubGF1bmNocGFkLm5ldC91YnVudHUvK3NvdXJjZS9saW51eC8rYnVn
+LzE3MTYzMDEKCk1vcmUgaXNzdWVzIHdpdGggVGVuZGEgVTIgYW5kIExpbnV4OgotIGh0dHBzOi8v
+d3d3Lm9wZW5hLnR2L3ZpZXd0b3BpYy5waHA/dD02MzkxOQotIGh0dHBzOi8vYXNrdWJ1bnR1LmNv
+bS9xdWVzdGlvbnMvMTQxODg1MC90aGUtcHJvYmxlbS13aXRoLXdpLWZpLXUyCi0gaHR0cHM6Ly9i
+YnMuYXJjaGxpbnV4Lm9yZy92aWV3dG9waWMucGhwP2lkPTIyNDg1OQotIGh0dHBzOi8vd3d3LnJl
+ZGRpdC5jb20vci9hcmNobGludXgvY29tbWVudHMvMWQ2ZGZ2NS9tdDc2MDF1X3VzYl93aWZpX25v
+dF93b3JraW5nLwoKU2lnbmVkLW9mZi1ieTogSGVybWFuIFNlbWVub2ZmIDxHZXJtYW5BaXpla0Bh
+aXpla2dyb3VwLnJ1PgotLS0KIGRyaXZlcnMvbmV0L3dpcmVsZXNzL21lZGlhdGVrL210NzYwMXUv
+bWN1LmMgfCAxNSArKysrKysrKysrKysrLS0KIDEgZmlsZSBjaGFuZ2VkLCAxMyBpbnNlcnRpb25z
+KCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L3dpcmVsZXNzL21l
+ZGlhdGVrL210NzYwMXUvbWN1LmMgYi9kcml2ZXJzL25ldC93aXJlbGVzcy9tZWRpYXRlay9tdDc2
+MDF1L21jdS5jCmluZGV4IGJhZDZjYTgyMS4uYWJmNDc2N2YxIDEwMDY0NAotLS0gYS9kcml2ZXJz
+L25ldC93aXJlbGVzcy9tZWRpYXRlay9tdDc2MDF1L21jdS5jCisrKyBiL2RyaXZlcnMvbmV0L3dp
+cmVsZXNzL21lZGlhdGVrL210NzYwMXUvbWN1LmMKQEAgLTEwLDYgKzEwLDcgQEAKICNpbmNsdWRl
+IDxsaW51eC9kZWxheS5oPgogI2luY2x1ZGUgPGxpbnV4L3VzYi5oPgogI2luY2x1ZGUgPGxpbnV4
+L3NrYnVmZi5oPgorI2luY2x1ZGUgPGxpbnV4L21vZHVsZXBhcmFtLmg+CiAKICNpbmNsdWRlICJt
+dDc2MDF1LmgiCiAjaW5jbHVkZSAiZG1hLmgiCkBAIC0yMSw2ICsyMiwxNCBAQAogI2RlZmluZSBN
+Q1VfRldfVVJCX1NJWkUJCQkoTUNVX0ZXX1VSQl9NQVhfUEFZTE9BRCArIDEyKQogI2RlZmluZSBN
+Q1VfUkVTUF9VUkJfU0laRQkJMTAyNAogCitzdGF0aWMgYm9vbCB2bmRfcmVzZXQ7Cittb2R1bGVf
+cGFyYW0odm5kX3Jlc2V0LCBib29sLCAwNjQ0KTsKK01PRFVMRV9QQVJNX0RFU0Modm5kX3Jlc2V0
+LCAiUGVyZm9ybSB2ZW5kb3IgcmVzZXQgZHVyaW5nIGZpcm13YXJlIHVwbG9hZCAoZGVmYXVsdDog
+ZmFsc2UpIik7CisKK3N0YXRpYyBib29sIGRpc2FibGVfdXNiX3NnOworbW9kdWxlX3BhcmFtKGRp
+c2FibGVfdXNiX3NnLCBib29sLCAwNjQ0KTsKK01PRFVMRV9QQVJNX0RFU0MoZGlzYWJsZV91c2Jf
+c2csICJVbnVzZWQgY29tcGF0aWJpbGl0eSBwYXJhbWV0ZXIiKTsKKwogc3RhdGljIGlubGluZSBp
+bnQgZmlybXdhcmVfcnVubmluZyhzdHJ1Y3QgbXQ3NjAxdV9kZXYgKmRldikKIHsKIAlyZXR1cm4g
+bXQ3NjAxdV9ycihkZXYsIE1UX01DVV9DT01fUkVHMCkgPT0gMTsKQEAgLTQ1OSw4ICs0NjgsMTAg
+QEAgc3RhdGljIGludCBtdDc2MDF1X2xvYWRfZmlybXdhcmUoc3RydWN0IG10NzYwMXVfZGV2ICpk
+ZXYpCiAJbXQ3NjAxdV93cihkZXYsIDB4OTRjLCAwKTsKIAltdDc2MDF1X3dyKGRldiwgTVRfRkNF
+X1BTRV9DVFJMLCAwKTsKIAotCW10NzYwMXVfdmVuZG9yX3Jlc2V0KGRldik7Ci0JbXNsZWVwKDUp
+OworCWlmICh2bmRfcmVzZXQpIHsKKwkJbXQ3NjAxdV92ZW5kb3JfcmVzZXQoZGV2KTsKKwkJbXNs
+ZWVwKDUpOworCX0KIAogCW10NzYwMXVfd3IoZGV2LCAweGE0NCwgMCk7CiAJbXQ3NjAxdV93cihk
+ZXYsIDB4MjMwLCAweDg0MjEwKTsKLS0gCjIuNTUuMAoK
+--00000000000022f14f065ad38151--
