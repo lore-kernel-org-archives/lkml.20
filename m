@@ -1,129 +1,111 @@
 Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62709349CD1
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 22:56:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788735388; cv=pass; b=QE3ikyJuSxzpvBGeFj3cySOkBfutk16Ds0d45S95iAQg4CRitrGAL6i2NS+3+Wf6CoHo/hUfu1SLricaHLD5ifKwhMP6IXc0FNeRIlpJWCVYTW6/e02DUAdSGDBkTAktgeciPrWeywlbx9LGVv+4LO+1PNJNEyrxeIDOA/6DoQc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788735388; c=relaxed/simple;
-	bh=paG/hrimgcWf1EkCmYTBW581sxN7ZwP/TIxnC588EzY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=k5jeHvPoSiqmgcvI4L0/xtn+qs5MWJwzlXEj4iHUUCXUrrVEyLTBi7PZCrUczCzSHulfhmOOk7FmMB3pyPMzKdwo8BsSWlHR1qxrTEgzd4GnpD15ixGtHSg6p0eHS/lmDIorrXbaZb3OxdTQaMsEkgzGQDkrpP8owiEcTSaoid4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U3RXMjRx; arc=pass smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 816F83CE495
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 23:00:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788735639; cv=none; b=FUPAYT90oWPXD/8Nvx2HcqvXZh2pIzRx7dJEttKCURYguHjA0zyiPEUkTd0VzXkrX0VmSFDOE49CJihTHXqnIGcKKmp4wUP7g65Nq/GQLI27GDn2HGSH9QlgetPRvtAxDLWTN4jirXtEFBgJi/mlo1aGpilBStkgKxVqVJxUxU8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788735639; c=relaxed/simple;
+	bh=OoqW51NcndbaQSGiIVU8Ya5rJKCis+Gi9XY3OSSexvk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ltxv53oq3qyeZRMRD+C6zQX8JEpNi8oI4rZyH6VfIt3FlfPkeaLi76c7Qo4KYEztyKa4lMsmIXUcluxAPCdotBh/gxti43jlQ3N4SxqQtAYZJKl3hUlGwzLsqGjZulmxvq7V2Isy2I8N4km4BgvV4J0Cb1DdW7QK2+BdSHbx+xA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hi7r48zZ; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U3RXMjRx"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b2ad861b1so360292a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 15:56:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788735387; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sdpO9N4yQHmRDt7bcYHYG6HJuQNHfoNDIaqyZMdBxGUJJwxa2NRr4l7QSBv6sQJsuW
-         ZAu7mRSDIC7tRfQjeTE+5eOQHOXFYmbA82xeZ9URsJlV7+LmIx6/L9sCoAY80wkxkNtY
-         0kIxv9O3x7eexwB82H0+gjjeOvFOqfS61m6JMYKawpSapWG/6DKbahaGsvvAC3n18VEV
-         RH3Ryp4AveB2AzMkHjzc+VorXMqvPnb7jOLsL9Jlt2JWlvOqyIMmAabeMXf4of4r4Y5z
-         rQXNme+J7uJmwThEsMTQHviVhTQMIghyCeW1ZorJYnQQAooMayKCOCoBv03KvsQz6S0h
-         QniQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rzuSXReGoSaELiwaXh99aoX1WEKTS8+9Sjq3EwGSwww=;
-        fh=/t+CvK0bIQ/xz7cXpDesd/VILHI2dWypLpl3OsljPBQ=;
-        b=GRoYwGc096mWPENXDr/pEml6GNWYb1HLh9rJCMpV4fURWzet7ps/PNnqVtnHD4qfFI
-         6I1jzCHuoz11iImR+AA0USr8A94fMFE2fInZrQSYENsZCePFTbsMWQR22KsvfGkHA2Ka
-         l9lX2vXGiDSHZGooXbpZQHcMsYcq7CWfKNciqQuZG9Eeu0EOqUplbqt4SQyO2Y3nosDu
-         pTMHC69FDpcMECcknQwwuL5VUV7C0zeRMG6kHejHyzJ3NYcR9UcrtWlBvqCMBNlIE5nk
-         ZzXvNzOLQhSY9ZbaxA3Od0qmtZL4uqXYh74j3jNrvTxKQ7Oy6hR7tpNFin4uvqcLmLGO
-         oVcg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hi7r48zZ"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396672b2566so485449a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 16:00:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788735387; x=1789340187; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rzuSXReGoSaELiwaXh99aoX1WEKTS8+9Sjq3EwGSwww=;
-        b=U3RXMjRxGLzRknlLRkASnLwMd5DDqFtb5pKDXrI5rbEFNTV1a5tp8C7fMKyuC27KQo
-         U3sn26+ouJDmw/ezZoPydVwQYZFKW4PW+Cd+XHOSL72hd7U9wlKQy9VBDya+WJ31n9uB
-         nO693DxaJbrtFw8I4ygfmKX99/rwMotaD0z2YT2eUaY7PesYt0qsbGp78AVuZZXRFBDX
-         eLh3+rXP5evqxp9J89PUDdvYQpd3uuBfZ++moHJ0ZrCgVtFFzB+gu9prtySdk+AGowTE
-         AftaTwatmze/EH5SNyMQIXi7b9j+c9osYXqK4ED0UWsuaarFX0qGQMp/sFSyYO38Mt6t
-         mgmw==
+        d=gmail.com; s=20251104; t=1788735636; x=1789340436; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OoqW51NcndbaQSGiIVU8Ya5rJKCis+Gi9XY3OSSexvk=;
+        b=hi7r48zZBbppeJY0dLrbZ7V7YozEdTXzeP4lcedoX5gmfTemT+NPFB/uXp5KYy93xu
+         34rgD8BNPoTBdh9V3XS03iRq4a5mLGYYdgEuAjJGlr7/JtQs4uMeXtsukyJydh/0E95b
+         MV3vegNMA9r/QoZLDtF9/SJft6xuZXIM8p7l0FeAyvimRftjWttLW1IFKEif+gedQdOC
+         y6aKFVd0F1y+m2SlKRwhXpDmCoWjUq2ThCNFzL0QBtkEXdjYVTe350sh3a1agSzGbS96
+         BVYOf/pZS/Kxsi3SgIMPbgiIVyC/1lxlLsnFXSshVjFR1MMVejo43T0RVXchD75gRkD/
+         yulA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788735387; x=1789340187;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rzuSXReGoSaELiwaXh99aoX1WEKTS8+9Sjq3EwGSwww=;
-        b=JCqAdGcqBFTtNbK77Ez9TWerJ5fdnq2g22JjkyIQicuWy1au9LjG/U/aLU5RI9xVbq
-         1x1f45L327EgdiVvRp7gepLZmP1ALPWbfewpNc9xNgLSwZW9+8tyuLUnjpx33HOOFRXj
-         DuAsSglW6OOF3Pr3cbA+4exhzcJZGUBUgz6/68cP1mSL3JjoNWNa5MvGzGJoKFLGDRV3
-         uzYyHng6F6VfpcuR5D54nLcnoXhPOmHU4HCP1LapAXgWBW3JB8AUt/xVIHK99rUeFdAA
-         ou1OensoTq1QZcnF0ve1h+CPtG55k+7JDGCo/xjHVxIv75pDBREq7dp6wNYVlOJVjBmB
-         VQYQ==
-X-Forwarded-Encrypted: i=1; AKwUvByEPMa2uWXCkl4+kdypz/MMMoSjCmU+ZcW6oMsPTC1Y96jJUapkE8YEgs9tfcFK01ReeqJ0zkDRgtJ90Ks=@vger.kernel.org
-X-Gm-Message-State: AFuF++k48MQN6lbJ+wL55sNfb+46d4pmiILYFdyRRltUIVOIystGNx1T
-	9zBrt3+D9AbXTE8RSfPAaR9KTeCLajspU8ertz2flm0Ebp7BxXuGDqsBkuHzSO0oMaUl/DR4VPe
-	xqK5mMxTyenR1a766pem6EZF+ux0YBTI=
-X-Gm-Gg: AYBFou3w2B2XkAKWq/9u+63j03EerPMiXNg5DeJqeI1su7s1u6bhDEqovTmFEONm1Jd
-	Reu5bDZHAHWv+blV4IpJQs8MO1hWhqCTRAowGH09SqjEC3Lqd5f8Y/8CU2mm6MmJqgiCJTN2qsY
-	FQ11jC58fAaqfETTzU1pPlBGLSZHBV+wNGDujMdhnOCBww7rBVWJ3rHutBf5oh8L4/k5s1tkMyI
-	LrE90M7EUhiaTjgENJ2SuU6vJaXOZ3bTWQr/R0v8x0lJzerl2ZT7+9Vx91BF7NRQQXEQCVTSq5S
-	4GupzME1Bjw32Co2MGBKh9TgGPhkM9yY/fkDPUmXGTlQdTPi2gBrGstJW6VallrW5WEirfXYc4k
-	fFJfXuNmudKL/xYOH91bTzQrCeUAodEq8qgOfHdfFbXL9hKARaBDLfsMvPOUM
-X-Received: by 2002:a17:90b:3907:b0:398:bada:832b with SMTP id
- 98e67ed59e1d1-39b3d8a3d1cmr12034422a91.6.1788735386695; Sun, 06 Sep 2026
- 15:56:26 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788735636; x=1789340436;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OoqW51NcndbaQSGiIVU8Ya5rJKCis+Gi9XY3OSSexvk=;
+        b=s+hqHyylPrNHLpYvaxYJkp+dPpJcEiKuEIesbjO5kVj7x7fPPv4aYt00WsbicF8whb
+         zbZNOdWzXaedGGXfSUAsDCMjtaKEKAAeNTJdQA7A/Bh9/QMyRmZbaDkba4+dUHsdHEkn
+         nXl9U115Y2tgWm/dbo/hkdWyM90CVTR/3t0vgHChfwBw+rBeP84XyXZRxIn65sNY61XE
+         OI6bIkx/t5fa7MsQizVwoPb61D6TQaG9+Ugwwcmxt0O9FtLC2zMi88ZVVs3/6QEEOBsZ
+         gHBSqEVxraHIOebRpiq5Hh1tPeJ9+ZLPF7wEmR8e5T/mlmDedwbxLUD/PHwZxf5VxQUT
+         ai0w==
+X-Forwarded-Encrypted: i=1; AKwUvBycj2gKK5Jt6F0k8xvWM3mECv5r0doZUxXPJUHtcCBEpZ4axVAVmivFa1zZ93pBtNnPfd0SLZYGVvIDwt0=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9zvbJwQvSe0F8CnH7KSKR2Pk6zNHPAZJmZ6wMGWyyMKvIvyHQ
+	K7kaOoyxQ5IpICDrNr9kWCuikpYwDGetBUpJ1N8KbrO/UYmQnde3RNk5
+X-Gm-Gg: AYBFou3caFxitLVnWyvLEATIUlWW+MvoxCS145SLnS1qWWfpf00k1bSkI+v4vCT2gQ7
+	ysVgFEudxFSw/CDygz1N5NA3tIqgSlK1b9M0lrb+t+yLQwhHyK/g3EA5TnBmAhOrvLjZ9vo9tN+
+	oH359AAuIkvP+4tFxMSlrjV6QUf0DLOYvbrc298aO1zzDMKVxGFw0Ax3IWlFF6VAkjba7rbxgN+
+	rVO2NOWn40Uk94Nqtn5X4FVWOC8JavnU6+cxn30Yienxe+4zcrJ7nEsWj5QxyVrB11+6cyS2NB2
+	wq3gBUMh217vPURlffeZar7+UnWQBYBzXUpJJF9Rkmr8RIryqYuwh72Zx30ktcC4gv9FKLv/uib
+	X9fyAoh1ct02Jz60piXjQ983thdVVgPlC9FiW2x7vkgXCmPKJy84I5/zo19r5WCHBUwnSFHurwy
+	dP3L2pBZJ3amizbrWVf4lee5+UCo7HM8MQDPyC33ObY0w64h3MVNeMTu0h9qnbgsz9o7aIOkQI/
+	/Tb66dq6OttRcUJtgT02Rcf/KFRyg==
+X-Received: by 2002:a17:90b:2786:b0:395:4df3:8800 with SMTP id 98e67ed59e1d1-39b3d3eb82fmr11742650a91.0.1788735636298;
+        Sun, 06 Sep 2026 16:00:36 -0700 (PDT)
+Received: from cachyos-aura ([45.112.148.108])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-333c9db92b1sm22359551eec.9.2026.09.06.16.00.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 16:00:34 -0700 (PDT)
+From: Navon John Lukose <navonjohnlukose@gmail.com>
+To: linux-wireless@vger.kernel.org,
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>
+Cc: Johannes Berg <johannes@sipsolutions.net>,
+	Bjorn Helgaas <helgaas@kernel.org>,
+	Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
+	Nika Krasnova <nika@nikableh.moe>,
+	Mark Pearson <mpearson-lenovo@squebb.ca>,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH wireless v2 1/3] wifi: iwlwifi: pcie: don't infer CSME presence from a failed read
+Date: Mon,  7 Sep 2026 04:30:22 +0530
+Message-ID: <20260906230022.148733-1-navonjohnlukose@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <1a2c11d47b27dfd8a246300ac158d25cef5abf35.camel@sipsolutions.net>
+References: <20260831130332.323549-1-navonjohnlukose@gmail.com> <20260831130332.323549-2-navonjohnlukose@gmail.com> <20260901154828.GA1879052@bhelgaas> <20260901161736.GA1883420@bhelgaas> <1a2c11d47b27dfd8a246300ac158d25cef5abf35.camel@sipsolutions.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260906215822.1201022-1-jhubbard@nvidia.com> <CANiq72noJ-4Sx6Lj32yGWTm_pzmMkH1Ue37W1y2anzpmN9mMeA@mail.gmail.com>
-In-Reply-To: <CANiq72noJ-4Sx6Lj32yGWTm_pzmMkH1Ue37W1y2anzpmN9mMeA@mail.gmail.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Mon, 7 Sep 2026 00:56:14 +0200
-X-Gm-Features: AcwNN1USv6HajX3FrU4EvG2yFuiOdSdQ1dukhQR4-hacY4j-0RzaxKBUNfPWA2A
-Message-ID: <CANiq72mOMgLi-8BBhFDLTzKqWrBNu0n_5D46jnwU0kwJgZ=j6w@mail.gmail.com>
-Subject: Re: [PATCH] rust: allow `clippy::as_underscore` in the generated bindings
-To: John Hubbard <jhubbard@nvidia.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, rust-for-linux@vger.kernel.org, 
-	LKML <linux-kernel@vger.kernel.org>, =?UTF-8?Q?Emilio_Cobos_=C3=81lvarez?= <emilio@crisal.io>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 7, 2026 at 12:48=E2=80=AFAM Miguel Ojeda
-<miguel.ojeda.sandonis@gmail.com> wrote:
->
-> Thanks! Looks good to me.
->
-> We have been getting 0.73.0 and 0.73.1 fixed for a correctness issue I
-> noticed and I didn't see these yet -- I definitely recommend avoiding
-> those versions for kernel builds.
+On Tue, 2026-09-01 at 19:02 +0200, Johannes Berg wrote:
+> I believe the hardware itself never generates ~0, so yes, it probably
+> should use that.
 
-And by "we" I mean mostly Emilio (Cc'd :).
+I'll switch the tests this series adds to PCI_POSSIBLE_ERROR(); drv.c and
+trans.c already include linux/pci.h. There's no non-PCI transport to
+worry about: Kconfig depends on PCI, and iwl_trans_ops went away in
+0d91a2bfc3dc.
 
-By the way, what do you mean by:
+I'd be more careful with the helper itself. iwl_trans_pcie_read_mem() and
+its _no_grab variant run it over dwords they're copying out of SRAM, and
+~0 is a value the driver writes as data (FW_CTXT_INVALID fills unused
+binding and quota slots). iwl_dump_ini_dbgi_sram_iter() is the sharp
+case: it gives up on a single hit, so one all-ones dword fails a whole
+region. I haven't seen it happen, it's just what the value means.
+Widening the helper and taking the SRAM paths off it would work, but
+that's more churn than belongs here. Your call.
 
-  The minimum supported bindgen is 0.71.1, and 0.72 does not emit the
-  cast, so upstream CI may not see these warnings yet.
+Separately, the test at the top of iwl_pcie_irq_handler() (rx.c:1948)
+looks unreachable: inta has just been masked with at most
+CSR_INI_SET_MASK (0xBA00008F). I'd move it above the mask, unless you'd
+rather drop it. I'll send that and the PCI_POSSIBLE_ERROR() conversions
+separately.
 
-? i.e. what is the "upstream CI"? I am not sure which one is the base
-commit either, so perhaps this is about some CI in DRM or similar? In
-any case, I think I will remove that bit from the message since I am
-not sure what it is meant to add, but if I am missing something,
-please let me know!
-
-Cheers,
-Miguel
+Thanks,
+Navon
