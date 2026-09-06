@@ -1,140 +1,125 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF8E19D8AC;
-	Sun,  6 Sep 2026 14:50:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 544825474E
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 14:56:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788706230; cv=none; b=KGflPFuSiiz66GUjbip/JDH2HWp+4zHzxWNGo0Ycuc+m8CKpiSGFhECD/EFIl/2sN6w3nw/VeYFx8QBobl+SZQDPz9Jr67WDlK1Al1btOW5X3iVanUZotwnl88pxPyU2VO7xZXuUZ5X4tr/Q6kD8g7gW8oyRMrA1MGHC4jGLr74=
+	t=1788706619; cv=none; b=md9+KO37bziXQbC+GKu7vTueAIMgBzSwZ/MMwCvfeUZdliyHCsLXwhedi8eGHUn0H6KWCg2hgGnGApxwdZZ5dGqlWmIjWNQpX1cw+PunlxGw4e7lrG5+q0oRZYVcwKDRyH1K5+GhFodgRHFhH2Ja5293GKNA8nAAI8bWMQRQTz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788706230; c=relaxed/simple;
-	bh=IjyLkpzvKZGf0TMp0S+uPobIvO5j3K0smZKFqNHnLLU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PxfCcLmcesZAmgcSrz5wmWSn2+e/YK3+58Zbf7pMPngmMHIIZpt+nL6aXwsoaYHV8AaQGTV99gj2HTVouh71XrKEV5PR53A+SS0XV79Un00MmbvN3oG5V/cQOG87vllgmuwX+M95CMjSwxzI+TwW9XCW09naLM2DahYhnXOXDIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=b5q9SUWZ; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788706619; c=relaxed/simple;
+	bh=VOdJAvm3TkgarLn1XzB1RN4MFQk63VXd09BrpAxzkvo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DIN687dcD3AY0jAN/Cd9Fzzzl63y46YBeH07Ag4X2Fo3uv13u2Oh/3yUxvCWhroVn5hX79dqJAHNisAmyfZ1/eVT/7VJItEpbX5DfDOETxOFIBZwDm9rzY2tVkw6UQC6kmSBEFsxYEd3UYGhkNDem5g3Q6gRq2yrjIR/+P1b0Lg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a3E3CVgs; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="b5q9SUWZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788706228; x=1820242228;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=IjyLkpzvKZGf0TMp0S+uPobIvO5j3K0smZKFqNHnLLU=;
-  b=b5q9SUWZpyiiqjjbuYimiuSanGiPytmLWJT+E1fsD3eBaMN3H6oNlTPu
-   MiJHHm3RzfTWDOZimWhvwC49me6JQkDrNRITKukbt88eJcyDjEAmIbEaE
-   CUBXllarvDJUJqj0xt8crepWGc7rk72Q9NSN0vqKM1IPnMH096gQUdVy/
-   O01tq423GW7lLic2Crd+6b1A9IiztRMSFjTVwg+Lt3VyBKk6er2w9Vdyt
-   nqQtYQu19jMH95S7cV0Jd7ghHRNydAEmloi0b5Pd606YmTJvOL3M0vdSr
-   lsIHsbYIxLThpqGgNm5/Xis5zuQ6+b8pMkDUcPQ/D8/V61aXiBSuqknDr
-   Q==;
-X-CSE-ConnectionGUID: pt8nlaI7T2WmPtojvkVRiA==
-X-CSE-MsgGUID: ZBBpmq8sSieg9SBJENY+Uw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="88891830"
-X-IronPort-AV: E=Sophos;i="6.25,265,1779174000"; 
-   d="scan'208";a="88891830"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 07:50:28 -0700
-X-CSE-ConnectionGUID: qzTpkR+uSOOld4RlPlwU3Q==
-X-CSE-MsgGUID: VGXaLa6PRCqQLA4qvGXNfQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,265,1779174000"; 
-   d="scan'208";a="266808993"
-Received: from smithj1-mobl2.amr.corp.intel.com (HELO [10.125.111.58]) ([10.125.111.58])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 07:50:26 -0700
-Message-ID: <b3fe6376-bd3f-4c58-8698-abcca3ad7186@intel.com>
-Date: Sun, 6 Sep 2026 07:50:26 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a3E3CVgs"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2db3305f94fso13867145ad.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 07:56:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788706618; x=1789311418; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VWy32RDFiEUCikk0m6EE/IPIz7mmLrlqMEWJVUxd4S8=;
+        b=a3E3CVgsyIcXCkWJOCjP/314K1vO0b/vrd7R8x95y8kKey379qlC/49IFBmXzphiw9
+         //+R20rLdszL3IWA2vEEePWuIS+JUh/MIRg0pmackJi+gWVC/4zdi/YdMUMTTxOgVbDo
+         f5vKuZl/R4wX9Cj+JXLRYbjnPKyCYqw04AjV2Xj/gjlcp/19y/0LtzK7Z+HMDJnbD/C9
+         EkhRUAapTHFMM5ue1hz6w/2Rw4W4xpU+6Qdj8FToWfHCu2sf0HEpckj3maAhljwPm6Ym
+         MQlzIn8brLzCQhecoByd/uuZfv53eTE5WEdq2leZCf7b9RwPJeAwVtfEsLYJplZpp6UT
+         w7RQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788706618; x=1789311418;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VWy32RDFiEUCikk0m6EE/IPIz7mmLrlqMEWJVUxd4S8=;
+        b=ooYkxZZIENq2JEgBMp+J3rW/OvEMo0jacj4h8vyGHLjt1R0HTTUyvTY/2bkleoPxQe
+         BzSBBasU2JhbFQmXFAJTzVQXn0U4ttcMhMFjzEqEnZQ52YJD+/fKmPkWDFU3qd4gElqY
+         x3BLvh+GhCiccBn+0ioYW0ML2I26OYSe+6NzLhZZxiICgAtptXyGFycDg54uv2Sxj7f5
+         4vbYEa8Vx+ZngX5orsQyeKAol3GmhAkMkcqaT4qX+7ZdpoGvw3ihL+nOPXKAefBlf8+o
+         aOeuojwrph3vMcm8SnFQsiddEq9GYoZ6fdtiyHTcCmvUWS+qm3K567euQmI9VOhnlQLq
+         vckg==
+X-Forwarded-Encrypted: i=1; AKwUvBx59yjWxPA+c6hJ28zwgrh70k2g295XXSqteoJRAWWmaJ9f7s2fBXzqqsCEdwJ51ZXQhbRdxDYpKWQgRWY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lTY8l5/i3BX9PyVNW5NZ21DY4PRZVCTbgPLm2KAQU0YjNEttSe
+	ztZPyCTqlN6hU3VcP3SwcEyDtmS27lhZ5vQQKCvoAamaX+Xz4iqkTtzZm6dSwdiJc3s=
+X-Gm-Gg: AYBFou3KLru0wpPG2X91X826LupAj9PE5s5rEsDIG4kkOFLGAVPEshiQTJAF6LlpPKB
+	Srj8dBqcs/IgzfztyDIX+2rBZFf24kmKOQZU7KueL1ZqlvXM3mbYTHJ/fJfRtCEVX+4TwDJd6sX
+	uidw+izU175XnjuQsfb8/fO1865elr+GKQfsWt3bi3q8gKRAVo+BeTQJoX8EnnelRDdDzbB7nHz
+	BZnDaLERuwtI8ffL8MAMHsXSKJuOqtZ0qv5qfmEpUvxlt/bh2lbadxlp7QeRs2KxYKG/ZC/Y1qB
+	M9FrlnNz9caXHVKyuPdaH2grHO56CdYwfSx55HOA87qSzSZ6dpjR81IjagaImjire858QoPT/l5
+	VTON8hJIvrbAPW9SDkAE2hCXZwMY0cVRbIrO2TcoFLbCyZdf2K+gilzBvnOhecEldEdidPVNbR2
+	YxZG4PTNbhyVnbX2A20lN95ZVoY66gkO0uZjnrx+x/1vjJqoruOtdKNluZPuEI18b8keLNKokyr
+	/W+2g40eChya+drGp97xlpVAErK2vpTE6bwGIdsFDl4RCmgVvGSB4G/2Z8sHuk99ZqNAbwbr+s=
+X-Received: by 2002:a17:902:f70f:b0:2bf:dd0:c8b1 with SMTP id d9443c01a7336-2db1225b297mr265306895ad.0.1788706617566;
+        Sun, 06 Sep 2026 07:56:57 -0700 (PDT)
+Received: from codespaces-2362ac.m2fxbej512jepnsor2itp05j3d.ix.internal.cloudapp.net ([207.46.224.87])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1495a0b2sm32845425ad.28.2026.09.06.07.56.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 07:56:57 -0700 (PDT)
+From: Seongjae Jeong <jsjlee1020@gmail.com>
+To: jaegeuk@kernel.org,
+	chao@kernel.org
+Cc: linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	Seongjae Jeong <jsjlee1020@gmail.com>
+Subject: [PATCH] f2fs: skip node_change lock for inline data writes
+Date: Sun,  6 Sep 2026 14:56:11 +0000
+Message-ID: <20260906145614.2749-1-jsjlee1020@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [tip: x86/urgent] x86/mm/pat: Fix effective RW computation in
- lookup_address_in_pgd_attr()
-To: Nathan Chancellor <nathan@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Dave Hansen <dave.hansen@linux.intel.com>
-Cc: linux-tip-commits@vger.kernel.org, Juergen Gross <jgross@suse.com>,
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, syzbot@syzkaller.appspotmail.com,
- Atish Patra <atishp@meta.com>, Nikunj A Dadhania <nikunj@amd.com>,
- stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
- Peter Zijlstra <peterz@infradead.org>
-References: <20260813-cpa-fixes-v2-5-39b4ff90f91d@kernel.org>
- <178837401172.3717435.314324339347590321.tip-bot2@tip-bot2>
- <20260905044253.GA3816371@ax162>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <20260905044253.GA3816371@ax162>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/4/26 21:42, Nathan Chancellor wrote:
-> I just bisected the following warning on a couple of my test machines to
-> commit 453e78594434 ("x86/mm/pat: Fix effective RW computation in
-> lookup_address_in_pgd_attr()") in next-20260904.
-...
-> If there is any information I can provide to help debug this, I am happy
-> to provide it.
+The node_change lock serializes block reservation in the PRE_AIO path
+against checkpoint preparation, since block reservation can create
+dirty node pages and update checkpoint accounting.
 
-Well, the thing you bisected to is the patch that fixes the warning. The
-actual issue comes from:
+However, writes that remain within the inline data area return before
+the block reservation path. Thus, they do not call
+inc_valid_block_count(), change a node mapping from NULL_ADDR to
+NEW_ADDR, or create a dirty node page as a result of block reservation.
+They also do not update total_valid_block_count or
+alloc_valid_block_count.
 
-        if (pages == &its_pages)
-                set_memory_x((unsigned long)page, 1);
+The inline path only copies the existing inline data to the data folio,
+sets FI_DATA_EXIST, and marks the inode folio for deferred inline data
+flushing. FI_DATA_EXIST can dirty inode metadata, but it does not
+reserve a block or update the node mapping and checkpoint accounting
+that node_change is intended to serialize.
 
-which its_alloc() does on an execmem allocation. Any chance you could
-get the output of:
+Skip f2fs_map_lock() for writes that fit within MAX_INLINE_DATA. Keep
+the existing locking for inline conversion, which can update filesystem
+metadata and requires checkpoint serialization.
 
-	/sys/kernel/debug/page_tables/current_kernel
+Signed-off-by: Seongjae Jeong <jsjlee1020@gmail.com>
+---
+ fs/f2fs/data.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-for the page that page that it's complaining about? I'm curious if this
-is temporary or permanent. its_pages_protect() should be fixing this up
-at the end of things, so there would be no permanent harm just a
-temporary violation of CONFIG_STRICT_MODULE_RWX.
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index 21f396ebe22c..f2fb5ef3cb7a 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -3690,10 +3690,11 @@ static int prepare_write_begin(struct f2fs_sb_info *sbi,
+ 
+ 	/* f2fs_lock_op avoids race between write CP and convert_inline_page */
+ 	if (f2fs_has_inline_data(inode)) {
+-		if (pos + len > MAX_INLINE_DATA(inode))
++		if (pos + len > MAX_INLINE_DATA(inode)) {
+ 			flag = F2FS_GET_BLOCK_DEFAULT;
+-		f2fs_map_lock(sbi, &lc, flag);
+-		locked = true;
++			f2fs_map_lock(sbi, &lc, flag);
++			locked = true;
++		}
+ 	} else if ((pos & PAGE_MASK) >= i_size_read(inode)) {
+ 		f2fs_map_lock(sbi, &lc, flag);
+ 		locked = true;
+-- 
+2.53.0
 
-Peter, shouldn't we be using the text poking mm for things like this?
