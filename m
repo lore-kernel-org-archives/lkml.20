@@ -1,151 +1,231 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 846DD3C09ED
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 18:17:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC08535028C;
+	Sun,  6 Sep 2026 18:17:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788718630; cv=none; b=tsvOepShV/GeLgJZLHSZ0McpkEGYKFIu+YG4TOlUFtpfhK0GVQjg7N1vY+a0IqyTuicv/YFCQo08YF+cMVJ6qXNC53ig/P0A6jTBu8qqe01KP3fnSSahp+SwrBLWmjScAVdnPRH+2x/fUqpiKPhLM0ku59SyQdl5gcDYppD/5bs=
+	t=1788718639; cv=none; b=XUgloSqqDz/Yo4yylr4EgSVSNouyqeKrQRyvVII2eqIAXS93wv1eQOVbNJ7Gj+u0Zwn/yghfF/4vH9ZbuXwuBOTNqWuFZfVU2gYZhW05dSdGFadfJ0PsbnZ5D417SYKL6K9+HthKX1VlzZyLRtHgOuLzxhc2sasReDjKjC00coo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788718630; c=relaxed/simple;
-	bh=zE/2hqn4I9P57cCKdIKN6nY4HEnzOsNL+Lxb4BdK5Vk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=plEC5ZZ0yqBDhii1W6Ct6nTEp0D+6uMfwLCYiKKNxBQoyulEM5g7qpdQzdYl40133iS1T1GYVHqOb5o7CDmtEJxR8zd6PmMs7nt5YijgdECknzH1QQW7AYeQTyhZhdard/d7tBiYtDhWW+hCkSVPrr3QJ52PZYrR2K6FIBpTm00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K+o5tDm+; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788718639; c=relaxed/simple;
+	bh=Sri5cwoa9jXxhPTga+k9z0P194cuRmtGhbEKIvZLHp0=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=p0S8g7ZvqGOPjq71VfnT+q9EPs3aC6rkZYxwSJ25+v2HWAvxC9WjMLqKhWVlPEYQROQRa5Z24jxJvJwnErEVzsWLXtfRBGp3icDdAXktjt9eZ4SDuPN6Z3nEmEIVRwwB01wIKR4XLapmtZcOkALLsvrRkgjHjkc5ZZBhrJNo5Gg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bwfiVJJQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K+o5tDm+"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48435bcf9d9so189891f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 11:17:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788718625; x=1789323425; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R/mSQMe/ffg+AP+VO4769NtESa1TU8r20BVXKonSb5k=;
-        b=K+o5tDm+s9drKsg+ic/JvPkVIPEltlhZlGhLNY3dXQumcoqVAeOn6hL4zwTjQivGro
-         Dcdk9YEf6K2yA2iF1kb615YITnEuzz43ghFR/x+dKWPRcaoGAhka+nE1M6ynpaCR1Tyg
-         E0O25V7Iklcg03P+D2VjvO0tHN9CBZSdVr8dVR+JwCCq/+b6szLM4FqizQkm2hhKZRxW
-         8SW3eh8Tvdo6xA72XqGhDzZfshvENnuUuJLncC+0MECM2fF5d+PL1JZA9Aly5WlN8QJ8
-         NcCZu/UEMET+PHJKtAgyMX3OPtKf96LvCJ2aiYCgFzMFZVWQDKtjQ9vlo/3/t1bujd/A
-         Oi4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788718625; x=1789323425;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R/mSQMe/ffg+AP+VO4769NtESa1TU8r20BVXKonSb5k=;
-        b=gTMsOAkZfH8WJsff2AI1HuD8knPCuA3P2SI2O1Kh10Tkpj6WvuswIH1e8bRcby8ONU
-         wz1kcwqTNE11ZaLb8mL3GrVRz5i9Mbh8UnfquxXmIt+HnQku8AIdGEmwUcJXIWIgOE39
-         FXMVd2OiTPaG/l4Ss4+gUsig5HizmTlDHsKAIrHDEFCXTkGXeBVXLg9WT8xhy/+293o0
-         YjUH19yYq1B1U9d7RjigAcAXt5QgHnnOAItBiL8w690PTWQQhdjSEqax0SXldz9CD2Bn
-         1kWkGZkRacBLNI3xUXmKmVXA+pp2/NyGsqrddRPP2xM/RsEnXAflwzUioSb43jB+Li0s
-         QpAw==
-X-Forwarded-Encrypted: i=1; AKwUvBz95IZf5jcY3ArZY2SsQnexGm0LbPzE+uQAYAegCK/zUsNkBEIKA0KkwpTpQDd4h84S44qnzvcMPs53C6w=@vger.kernel.org
-X-Gm-Message-State: AFuF++kuppxv4a56xrzBhcZIrq4B+Mzw91nP6kX6SBJ9wJt3uFiAFsGa
-	s46WOWeqLW189jBdM0Sg7bdR5EJbsjIBeASd7sHvgblg6GxP4mLDT0bN
-X-Gm-Gg: AYBFou2FjxSefwAiTQctxckZWW+PwGZPy6OiAiNPGtJTcU4O6+Slootlp2kj0Fx2mAP
-	1isQYguH+HV7lRyVRJvrr08MvDuiqc5op6LSPQK8mx4/nZQTcdGYfFrLsdcqIKUqPa5A1HtXaGq
-	KAQ+5CoNaryR7maAGH2ivfQ2IystEVczlinx+ijPax/SnMVODtshaPKV/xsEZYYTAWmhCsWxh42
-	j3kRo9qq6Y5u1qO20D2GmG5soulWn57XspfycWa6MzAJZ1O9H3pY8lUEhzxK3TgPWQcYEyR9YKW
-	0VC7qqEFUjrj/fk6RWKPH19sfnKeZznH/ABM2jNvUf68vfTHnasyq49vhqiCeS2VevYAb3dUHYe
-	YUO4P3/Nb536oDEgLjOauAyl24XFUZqu+4rRTIPSX2iWoWM0ViNHh0bQNBfN0yHQjN+exrHCN02
-	KBpqdBBZse1PFNJof2LX662CBsCrsegywqolHQgw9DLu+KMaGK6mnGwQioWoQ2Wsip5NjaKnvyG
-	29Ykl5BXXtrYEkdDKUZr8nLiD1UHM1qyqCStHa91PhDtCKs8hBF9ji4631tpunBQLEuy0chklMn
-	ZsA=
-X-Received: by 2002:a05:600c:c494:b0:49b:916a:e553 with SMTP id 5b1f17b1804b1-49d010c2a57mr100932445e9.0.1788718625331;
-        Sun, 06 Sep 2026 11:17:05 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME (20014C4E1B886400ACFAF9D8E9019935.dsl.pool.telekom.hu. [2001:4c4e:1b88:6400:acfa:f9d8:e901:9935])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf75ce49esm433916725e9.1.2026.09.06.11.17.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 11:17:04 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
-	Ondrej Jirman <megi@xff.cz>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH] arm64: dts: rockchip: fix hym8563 interrupt pin on Orange Pi 5 Plus
-Date: Sun,  6 Sep 2026 20:16:22 +0200
-Message-ID: <20260906181622.11991-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bwfiVJJQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFD951F00A3A;
+	Sun,  6 Sep 2026 18:17:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788718637;
+	bh=uVERsCJGlx+uVFflvPHMDwWoQgR4pFdAHPwLTy/V11w=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=bwfiVJJQUyAdXxef5pcUF3ZKWexsBOxht0hxBx03uwtzPCFfM2t9fUiTkwEjOAy9K
+	 3+pUoDSxy2HqbnvU/CRn3+3b594YMgDjVXchyBOltST09X3ZElYS/XDkbhGmZNYtVx
+	 v67x5Mlj4Vg0+HrBZlQqh6kMHDLtfwK3FMztPKeOuf+MvI5hIjlcawgdV6XmFrSjfQ
+	 WbMF360nJOgHuDpdV0LtFdqtGWAd7cV1U8IWBurEhdc21HMXV+xtmEM3g8Y0ZvOLTZ
+	 /f9jKMv5Ds9z3LBwus4vuqNL1Az+cpG3nL3XxIBeEy+CX+o40uSo0sRaI5NIHKUsNr
+	 yN3itA6XfGufw==
+Content-Type: multipart/mixed; boundary="===============4227706866215804155=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <d7cd223b492db152abcb27b5541b1c9719b4489d6ed94c59064674843d40cadc@mail.kernel.org>
+In-Reply-To: <20260906170819.1212661-2-hi@tychen.cc>
+References: <20260906170819.1212661-2-hi@tychen.cc>
+Subject: Re: [PATCH bpf-next 1/2] bpftool: Use batch lookups for bounded hash map dumps
+From: bot+bpf-ci@kernel.org
+To: hi@tychen.cc,bpf@vger.kernel.org
+Cc: hi@tychen.cc,qmo@kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,shuah@kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Sun,  6 Sep 2026 18:17:16 +0000 (UTC)
 
-The interrupt line of the hym8563 RTC on the Orange Pi 5 Plus is routed
-to GPIO0_C6, not GPIO0_B0. The vendor device tree uses RK_PC6 with a
-pull-up for this pin; the mainline board file uses RK_PB0, which is not
-connected to the RTC.
+--===============4227706866215804155==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-As a result the alarm interrupt never reaches the SoC, so the RTC alarm
-cannot wake the board: rtcwake enters s2idle and the board never
-returns, which looks like a hang.
+> diff --git a/tools/bpf/bpftool/map.c b/tools/bpf/bpftool/map.c
+> index 684a8fb72414..1eccdc0d1e96 100644
+> --- a/tools/bpf/bpftool/map.c
+> +++ b/tools/bpf/bpftool/map.c
 
-This was verified on the board by enabling the alarm interrupt (AIE with
-AF already set, so INT# is asserted) and sampling the EXT_PORT register
-of all five GPIO banks: GPIO0_C6 is the only pad that follows AIE
-(high with AIE=0, low with AIE=1, across repeated cycles), while GPIO0_B0
-stays high and its interrupt counter stays at zero.
+[ ... ]
 
-Switch the interrupt and its pinctrl entry to GPIO0_C6 and use a pull-up,
-as the vendor tree does for this open-drain line.
+> @@ -762,10 +757,108 @@ static int dump_map_elem(int fd, void *key, void *value,
+>  	} else {
+>  		print_entry_plain(map_info, key, value);
+>  	}
+> +}
+> +
+> +static int dump_map_elem(int fd, void *key, void *value,
+> +			 struct bpf_map_info *map_info, struct btf *btf,
+> +			 json_writer_t *btf_wtr)
+> +{
+> +	if (bpf_map_lookup_elem(fd, key, value)) {
+> +		print_entry_error(map_info, key, errno);
+> +		return -1;
+> +	}
+>
+> +	print_map_elem(key, value, map_info, btf, btf_wtr);
+>  	return 0;
+>  }
+>
+> +#define MAP_DUMP_BATCH_SIZE 256U
+> +#define MAP_DUMP_BATCH_MAX_BYTES (4 * 1024 * 1024)
+> +
+> +/* Return 1 to use individual lookups, but only before batch traversal starts. */
+> +static int dump_map_batch(int fd, void *key, void *value,
+> +			  struct bpf_map_info *info, struct btf *btf,
+> +			  json_writer_t *wtr, unsigned int *num_elems)
+> +{
+> +	__u32 capacity, count, batch = 0, next_batch = 0, i;
+> +	void *keys = NULL, *values = NULL, *buf;
+> +	bool first = true, can_fallback = true;
+> +	int err;
+> +
+> +	/* Hash lookup batches must accommodate a whole bucket. Restrict the
+> +	 * optimization to maps whose worst-case bucket fits the memory budget,
+> +	 * so a later ENOSPC never forces a restart after printing some entries.
+> +	 * Division also bounds the allocation multiplications on 32-bit hosts.
+> +	 */
+> +	if (info->type != BPF_MAP_TYPE_HASH || !info->max_entries ||
+> +	    (__u64)info->key_size + info->value_size >
+> +	    MAP_DUMP_BATCH_MAX_BYTES / info->max_entries)
+> +		return 1;
+> +
+> +	capacity = min(info->max_entries, MAP_DUMP_BATCH_SIZE);
+> +resize:
+> +	buf = realloc(keys, (size_t)capacity * info->key_size);
+> +	if (!buf) {
+> +		err = ENOMEM;
+> +		goto error;
+> +	}
+> +	keys = buf;
+> +	buf = realloc(values, (size_t)capacity * info->value_size);
+> +	if (!buf) {
+> +		err = ENOMEM;
+> +		goto error;
+> +	}
+> +	values = buf;
+> +
+> +	while (true) {
+> +		count = capacity;
+> +		err = bpf_map_lookup_batch(fd, first ? NULL : &batch,
+> +					   &next_batch, keys, values, &count, NULL);
+> +		err = err ? errno : 0;
+> +		/* Older kernels reject the command before updating count. Do not
+> +		 * inspect the buffers on these errors, or fall back after progress.
+> +		 */
+> +		if (can_fallback && (err == EINVAL || err == EOPNOTSUPP ||
+> +				     err == 524 /* ENOTSUPP */)) {
+> +			err = 1;
+> +			goto out;
+> +		}
+> +		can_fallback = false;
+> +		if (err == ENOSPC) {
+> +			if (capacity == info->max_entries)
+> +				goto error;
+> +			capacity += min(capacity, info->max_entries - capacity);
+> +			/* Preserve the input cursor: the oversized bucket was not read. */
+> +			goto resize;
+> +		}
+> +		/* In particular, EFAULT can leave count and the buffers invalid. */
+> +		if (err && err != ENOENT)
+> +			goto error;
+> +		for (i = 0; i < count; i++) {
+> +			/* Keep the alignment provided by individual lookups, including
+> +			 * for BTF types whose map key/value size is not aligned.
+> +			 */
+> +			memcpy(key, keys + (size_t)i * info->key_size, info->key_size);
+> +			memcpy(value, values + (size_t)i * info->value_size, info->value_size);
+> +			print_map_elem(key, value, info, btf, wtr);
+> +			(*num_elems)++;
+> +		}
+> +		if (err == ENOENT) {
+> +			err = 0;
+> +			goto out;
+> +		}
+> +		first = false;
+> +		batch = next_batch;
+> +	}
+> +error:
+> +	p_err("can't lookup map batch: %s", strerror(err));
+> +	err = -1;
 
-With this change the alarm interrupt fires while the system is running
-and the RTC wakes the board from s2idle ('PM: Triggering wakeup from
-IRQ 52'); before it, rtcwake never returned.
+Could this p_err() call produce malformed JSON output when json_output is
+set?
 
-Fixes: 236d225e1ee7 ("arm64: dts: rockchip: Add board device tree for rk3588-orangepi-5-plus")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM checkpatch dtbs_check
-Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+Looking at the call chain from do_dump():
+
+do_dump()
+  assigns wtr = json_wtr when json_output is set
+  calls map_dump()
+    opens the elements array with jsonw_start_array(wtr)
+    calls dump_map_batch()
+      can reach p_err() here while the array is still open
+    closes the array at end_dump: with jsonw_end_array(wtr)
+
+When p_err() runs with json_output set, it emits:
+
+tools/bpf/bpftool/common.c:p_err() {
+    if (json_output) {
+        jsonw_start_object(json_wtr);
+        jsonw_name(json_wtr, "error");
+        jsonw_vprintf_enquote(json_wtr, fmt, ap);
+        jsonw_end_object(json_wtr);
+    }
+}
+
+So the error object would be inserted as a member of the elements array,
+giving consumers an object with no .key or .value fields mixed in with
+normal element objects.
+
+This differs from the existing in-array error handling. The pre-existing
+print_entry_error() deliberately emits a well-formed element:
+
+{"key": [...], "value": {"error": "..."}}
+
+And p_info() returns early when json_output is set, which is why the
+existing REUSEPORT_SOCKARRAY warning inside the array is safe.
+
+Would it be better to emit the error after jsonw_end_array() to keep the
+array schema homogeneous, or to use the print_entry_error() format with
+a key?
+
+> +out:
+> +	free(keys);
+> +	free(values);
+> +	return err;
+> +}
+
+[ ... ]
+
+> @@ -869,6 +962,9 @@ map_dump(int fd, struct bpf_map_info *info, json_writer_t *wtr,
+>  		p_info("Warning: cannot read values from %s map with value_size != 8",
+>  		       map_type_str);
+>  	}
+> +	err = dump_map_batch(fd, key, value, info, btf, wtr, &num_elems);
+> +	if (err != 1)
+> +		goto end_dump;
+>  	while (true) {
+>  		err = bpf_map_get_next_key(fd, prev_key, key);
+>  		if (err) {
+> @@ -881,6 +977,7 @@ map_dump(int fd, struct bpf_map_info *info, json_writer_t *wtr,
+>  		prev_key = key;
+>  	}
+>
+> +end_dump:
+>  	if (wtr) {
+>  		jsonw_end_array(wtr);	/* elements */
+>  		if (show_header)
+
+
 ---
-Notes for reviewers (not part of the commit message):
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-Measured on an Orange Pi 5 Plus with the vendor-style method described above
-(GPIO0 EXT_PORT sampled while toggling the alarm interrupt enable); the vendor
-device tree for this board uses RK_PC6 with a pull-up. With the fix the alarm
-IRQ fires at runtime and the RTC wakes the SoC from s2idle. Note that on this
-board the resume itself can still stall later in the USB 2.0 host controllers
-(a separate, unrelated issue being looked at); it does not affect this fix.
-
- arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-index 145986695720..572b892e4066 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-@@ -189,7 +189,7 @@ &hdptxphy1 {
- 
- &hym8563 {
- 	interrupt-parent = <&gpio0>;
--	interrupts = <RK_PB0 IRQ_TYPE_LEVEL_LOW>;
-+	interrupts = <RK_PC6 IRQ_TYPE_LEVEL_LOW>;
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&hym8563_int>;
- };
-@@ -298,7 +298,7 @@ hdmi1_tx_on_h: hdmi1-tx-on-h {
- 
- 	hym8563 {
- 		hym8563_int: hym8563-int {
--			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
-+			rockchip,pins = <0 RK_PC6 RK_FUNC_GPIO &pcfg_pull_up>;
- 		};
- 	};
- 
-
-base-commit: 1fc5a74b108fc90951890ec513ac81869f5eaff1
--- 
-2.43.0
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34048943300
+--===============4227706866215804155==--
