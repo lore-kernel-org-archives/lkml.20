@@ -1,101 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-108-mta0.mxroute.com (mail-108-mta0.mxroute.com [136.175.108.0])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 124C43B5846;
-	Sun,  6 Sep 2026 02:31:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 507F5381EA8
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 02:38:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.175.108.0
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788661885; cv=none; b=iT1VNQyiWTDlAbUygUoXfmgs9wyuum1ZpWN6hTzfxfyZnpiVCUZ8b9WtfMsvjbfKSH7LdPSQWpngXanHzZITcqn6WpTc3U+7xbxuDZrjY+RZTLHYK//sHzvw9GuD/gOdWx66k9COniWW7f21v62ye1lqws0WZ1Fm1HWL+GdgN7c=
+	t=1788662333; cv=none; b=PBS4BCDsARn3/CpDQ74TwywtX9dPlftgBlpK93DcoVmKvmc7SICrLcrvLoLBAosgCykqiQPnChqFvJWgmEux74aZiYR0xp/PLNW3tJ1+HnmlsoY8zdRq4a0gwPd7Toae8dmtjBpuV9X38wY/J3Jxw1S0a8tc1lT6gME9IVbQQAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788661885; c=relaxed/simple;
-	bh=TssNGCerD5sl6kSeAJSUfglIZDQEtphJlgkUglr0yd8=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=kT7hN+ev5k7jmjBoQWFBzGLeQejdYr0aUitpWnB943s78tsMu12NTy9WoG5Om002+whl/cRdXMO1kt10ekp4WZ9hA1ZggnYTWzfwmV+9dlCpa08oSpSWI7mv3LT4jQ9fJgEYvULAbfZwMqoIs4MUuLYDqx3xJmqUVMw64QJAz+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=JiOzH9hU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788662333; c=relaxed/simple;
+	bh=vJy5/Wwf+qwUGd7udQ3LhUnVbITXP0UFwCQQa778e+s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JNiqRFLqK9cc8f7ii08bcOpmkGUQ5GCKvTx4PQUPbzEz6Wq8sCX8xPa9FDGvJmzCHEVOg7GcmT0wlBKCCcuxMf13YqUm/19H0BLtDR6Ztq5T/tWcuglegfadiCdnvnzwXqIAopmfdrfjhbr4MgAxdKdU7LzK5THFoALrFlxu2xE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wii.dev; spf=pass smtp.mailfrom=wii.dev; dkim=pass (2048-bit key) header.d=wii.dev header.i=@wii.dev header.b=Vvkmx+dy; arc=none smtp.client-ip=136.175.108.0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wii.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wii.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="JiOzH9hU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32D201F00A3A;
-	Sun,  6 Sep 2026 02:31:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788661883;
-	bh=dVYnYKeM4V2pRuhTBVBMHS1mPU9NDYVJ/TRJ5gtWSOA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=JiOzH9hU/p7vG6ADzKrmNQzVawhymrYC534PZ7ensT15Jw8U+wDC7/NSUWdqIBOor
-	 FYOBDhcJoDNq5bCQjr7PF82t/1SO3Tpx4W27bfnYyQbGAEuIS8IGogsJwgsae3dwv2
-	 uwxAhe72T26Euru4ZB+qahaygusdDhol552FAeyw=
-Date: Sat, 5 Sep 2026 19:31:22 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Zhao Li <enderaoelyther@gmail.com>
-Cc: mawupeng1@huawei.com, Muchun Song <muchun.song@linux.dev>, Oscar
- Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3] mm/hugetlb: fix max-only subpool accounting on
- alloc_hugetlb_folio failure
-Message-Id: <20260905193122.76f5d3245cd2e0603e7743b7@linux-foundation.org>
-In-Reply-To: <20260428113037.88766-2-enderaoelyther@gmail.com>
-References: <20260427145247.84157-2-enderaoelyther@gmail.com>
-	<20260428030712.66256-2-enderaoelyther@gmail.com>
-	<20260428113037.88766-2-enderaoelyther@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=wii.dev header.i=@wii.dev header.b="Vvkmx+dy"
+Received: from filter006.mxroute.com ([136.175.111.3] filter006.mxroute.com)
+ (Authenticated sender: mN4UYu2MZsgR)
+ by mail-108-mta0.mxroute.com (ZoneMTA) with ESMTPSA id 1a07490829f0002cd7.006
+ for <linux-kernel@vger.kernel.org>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Sun, 06 Sep 2026 02:33:42 +0000
+X-Zone-Loop: d9cb86fc6d2d7ddf47c31631a58fef48507a92ce738b
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=wii.dev;
+	s=x; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc:To:
+	From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:
+	References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:
+	List-Owner:List-Archive; bh=e/Kfiw3qaXMLZ0W+h5i+dWrr+6v+H5PFs6MwMeazqFo=; b=V
+	vkmx+dyuTLamP4NC3lKOipgo6M4GKxgx0f4Dw94vA4r6AsJcZjuYUgAPv4bFzV9kyV2ktwvvLozvR
+	YoRoV16IJsPIERhQeJ5CjATAdNkjUj0a8UExR1+P2RyeXBlrAK0vkH5qxP9RXya3y5GFHY7grJhQQ
+	uaXnH4fC7U9tNjk0NpWp01VqENF7edkRhsiqXjx8vqnWj3L1YxlhlifM6IFAif21XDNXUdh5o5tf0
+	sZXD+b44yfsy0GGEKTsg1jP5Dvvcfw4CMr2HYlugFNh5kG2DtnlquxP2qm5DSct58edpH4QBob3iQ
+	059mRTGkL5yr3fBAQ+wFsN/t93SMrceuQ==;
+From: Richard Patel <ripatel@wii.dev>
+To: intel-wired-lan@lists.osuosl.org
+Cc: Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Steve Douthit <stephend@silicom-usa.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Richard Patel <ripatel@wii.dev>
+Subject: [PATCH iwl-net v2] ixgbe: fix MDIO bus lifetime
+Date: Sun,  6 Sep 2026 02:33:19 +0000
+Message-ID: <20260906023319.1978945-1-ripatel@wii.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Authenticated-Id: ripatel@wii.dev
 
-On Tue, 28 Apr 2026 19:30:38 +0800 Zhao Li <enderaoelyther@gmail.com> wrote:
+Plugging in an unsupported SFP module caused ixgbe NICs to get
+wedged permanently.
 
-> alloc_hugetlb_folio() calls hugepage_subpool_get_pages() when map_chg
-> is set.  For a subpool with max_hpages != -1, that bumps used_hpages
-> regardless of whether it returns gbl_chg = 0 (rsv slot consumed) or
-> gbl_chg > 0 (used_hpages slot only).  If the allocation later fails
-> before a folio is returned, the unwind must undo the used_hpages
-> bump.  The old cleanup only ran for !gbl_chg, leaking used_hpages on
-> the gbl_chg > 0 path.
-> 
-> For gbl_chg > 0 on max-only subpools (max_hpages != -1, min_hpages
-> == -1), hugepage_subpool_get_pages() took only a speculative
-> used_hpages slot.  Drop that slot directly under spool->lock.  In
-> that configuration hugepage_subpool_put_pages() cannot restore
-> rsv_hpages, so the direct decrement is the exact inverse and is
-> race-free against concurrent puts.  This matches the used_hpages-only
-> part of hugetlb_reserve_pages()'s out_put_pages cleanup, but
-> restricts it to the max-only case where no rsv_hpages restoration is
-> possible.
-> 
-> Mounts with min_hpages != -1 are left unchanged for now.  v2's
-> approach (hugepage_subpool_put_pages() + h->resv_huge_pages++ to
-> back a restored rsv_hpages slot) double-counts global backing under
-> concurrent free_huge_folio() and creates phantom reservations under
-> concurrent hugetlb_unreserve_pages().  Safe cleanup of that quadrant
-> needs a coordinated fix across multiple call sites.
-> 
-> Reproduced on size=20M hugetlbfs with the faulting task in a hugetlb
-> cgroup whose limit is exceeded.  Vanilla leaks 6/8 hugepages of
-> subpool quota; this patch leaks 0/8.  Verified under QEMU.
+ixgbe unregisters the netdev when rejecting an SFP transceiver as
+unsupported.
 
-Thanks.
+  ixgbe 0000:3b:00.0: failed to initialize because an unsupported SFP+ module type was detected.
+  ixgbe 0000:3b:00.0: Reload the driver after installing a supported module.
+  ixgbe 0000:3b:00.0: removed PHC on enp59s0
 
-I do like to see a clear statement of the user-visible effects of bugs
-when we fix them.  "subpool quota leak" sounds bad, but how does this
-visibly manifest?
+This code path failed to unregister an MDIO bus owned by that
+netdev, so when unregister_netdev() tries to tear it down
+(via device_del() -> devres_release_all() -> mdiobus_free()),
+it trips over the leaked registration.
 
-I asked you-know-what and came up with
+  ixgbe-mdio-0000:3b:00.0: not in UNREGISTERED state
+  WARNING: drivers/net/phy/mdio_bus_provider.c:711 at mdiobus_free+0x3d/0x50, CPU#21: kworker/u128:0/12
 
-  Failed hugetlbfs page allocations can permanently consume the
-  mount's size= quota without allocating a huge page.  Repeated
-  failures can make the filesystem appear full and cause later
-  huge-page faults or allocations to fail with SIGBUS/allocation
-  failure despite available huge pages and unused real filesystem
-  capacity.
+This prevents ixgbe from reloading, even after PCIe remove/rescan:
 
-Which I'll paste in there.  Because I do like to tell downstream people
-why we want a backport, and to help further downstream people to
-understand whether this might fix a problem they're having.  Please lmk
-if it's inaccurate/incomplete.
+  sysfs: cannot create duplicate filename '/class/mdio_bus/ixgbe-mdio-0000:3b:00.0'
 
-I'll queue this as a backportable hotfix and shall await further
-reviewer input.
+Switch to devm_mdiobus_register(), drop custom unregister calls.
+This is safe because the bus is already devm-allocated, so unregister
+always happens before free.
+
+Assisted-by: LLM
+Fixes: 8fa10ef01260 ("ixgbe: register a mdiobus")
+Suggested-by: Andrew Lunn <andrew@lunn.ch>
+Signed-off-by: Richard Patel <ripatel@wii.dev>
+---
+v1 -> v2: use devm_mdiobus_register() instead of another
+          mdiobus_unregister() call
+v1: https://lore.kernel.org/netdev/20260826042945.2344686-1-ripatel@wii.dev/
+
+ drivers/net/ethernet/intel/ixgbe/ixgbe_main.c | 9 ++-------
+ drivers/net/ethernet/intel/ixgbe/ixgbe_phy.c  | 2 +-
+ 2 files changed, 3 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/net/ethernet/intel/ixgbe/ixgbe_main.c b/drivers/net/ethernet/intel/ixgbe/ixgbe_main.c
+index f91856498eb2..96f60269fca6 100644
+--- a/drivers/net/ethernet/intel/ixgbe/ixgbe_main.c
++++ b/drivers/net/ethernet/intel/ixgbe/ixgbe_main.c
+@@ -8471,6 +8471,7 @@ static void ixgbe_sfp_detection_subtask(struct ixgbe_adapter *adapter)
+ 		e_dev_err("Reload the driver after installing a "
+ 			  "supported module.\n");
+ 		unregister_netdev(adapter->netdev);
++		adapter->mii_bus = NULL;
+ 	}
+ }
+ 
+@@ -8693,11 +8694,8 @@ static void ixgbe_service_task(struct work_struct *work)
+ 	}
+ 	if (ixgbe_check_fw_error(adapter)) {
+ 		if (!test_bit(__IXGBE_DOWN, &adapter->state)) {
+-			if (adapter->mii_bus) {
+-				mdiobus_unregister(adapter->mii_bus);
+-				adapter->mii_bus = NULL;
+-			}
+ 			unregister_netdev(adapter->netdev);
++			adapter->mii_bus = NULL;
+ 		}
+ 		ixgbe_service_event_complete(adapter);
+ 		return;
+@@ -12104,9 +12102,6 @@ static void ixgbe_remove(struct pci_dev *pdev)
+ 	if (adapter->hw.mac.type == ixgbe_mac_e610)
+ 		ixgbe_disable_link_status_events(adapter);
+ 
+-	if (adapter->mii_bus)
+-		mdiobus_unregister(adapter->mii_bus);
+-
+ #ifdef CONFIG_IXGBE_DCA
+ 	if (adapter->flags & IXGBE_FLAG_DCA_ENABLED) {
+ 		adapter->flags &= ~IXGBE_FLAG_DCA_ENABLED;
+diff --git a/drivers/net/ethernet/intel/ixgbe/ixgbe_phy.c b/drivers/net/ethernet/intel/ixgbe/ixgbe_phy.c
+index ab733e73927d..74631cb2ddbc 100644
+--- a/drivers/net/ethernet/intel/ixgbe/ixgbe_phy.c
++++ b/drivers/net/ethernet/intel/ixgbe/ixgbe_phy.c
+@@ -1086,7 +1086,7 @@ int ixgbe_mii_bus_init(struct ixgbe_hw *hw)
+ 	hw->phy.mdio.mode_support = MDIO_SUPPORTS_C45 | MDIO_SUPPORTS_C22;
+ 
+ 	adapter->mii_bus = bus;
+-	return mdiobus_register(bus);
++	return devm_mdiobus_register(dev, bus);
+ }
+ 
+ /**
+-- 
+2.52.0
+
