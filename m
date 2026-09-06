@@ -1,159 +1,316 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5BB8271A94
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 15:12:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788707581; cv=pass; b=MaJk26lq/GXmJ1Wr1IfXMpXu8oLMfLQ1zjlTNqoS32AfAHcROXUfqBYZxy5U8YNkpOL95PxAZLS44ldCWxXH4IJnx0mUMuAYpWICZfDv5XvwB3xVgsZ7W2RiXN8usFp5gEWAIyq6mN1I9cFDdzBSjw7/5me9YtZzXFSYg+f2M/w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788707581; c=relaxed/simple;
-	bh=TsB6cDxdhS/vOua4uuGbd3ckAxlmfBPv0l4rlgTBeK0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=B5LJWNCHUPzChWNRbYRiYXJsJdxyoj6Y8tiShjMWRxCvBbGB2n4wGbev28asoApvB4cr7SNytcmh1nlr2a84Y/0Wh1LWrPA82Al2qBTeTGj3AZS9ojmXAbr+yyCiDUwwOWxjbtS9jaiaJkXvMcruipHxaKSS+bFvL9aHHJK4nnk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=XwxkOkIU; arc=pass smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75779259C9C
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 15:13:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788707636; cv=none; b=tzbvWcOr9nhR7/pmi2fiuVx6aWsP90fDxmQbLTpFHd9uIxYpffxH53QZcRf7AL/K6cL2/dzdxQ+a16JH0xSUXxcwEcX5Eoh0piCjewBBckA1N/lnDlkSanST6Vm7BQJqBPLJ2Uc8t/uRCFWVmYJVupyMQ7NEYcFd8Zhof+pqAkM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788707636; c=relaxed/simple;
+	bh=/vBeovAKlfkxErQIL+wWOGlWME3YMwpZybmfzJyGqtY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gUynCYh5Txc4wXe+zLDC1y5CEhk3KEktLguEfI7aw5zWxL1E6eYk5UQu5YFdBmOz6zclAb3reFsri4ki8lW1hOx0OhoqrUA8lg+BlB+lycbIGPJcguJhwEIz2ktmFmWBIYV5Tni6P88FKVi+Yfv11ENqNrtW6/3cxmN6HsRZVtA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=a1iDf+j4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=X2HPLpQO; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="XwxkOkIU"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48441fa5c37so1843822f8f.3
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 08:12:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788707578; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XN5jCsq6KK+iD3+rLc1szCLhr4+RY3w6FCKDAmYWKirF/Uha1bl4J60jmwFhZK/xWh
-         CAI/wUZkFNCOBsynqAETc8yBweQU4BtCteux3hHRV8w3eA26aUYAWg2RI+Gp9NNqJCcw
-         /YsaDQFrF/By6mw/yuF4GsSsJNmdwQuswzcEWx1Gtcf4b7dWxjK7PG8DRIg8/oagfgtm
-         VVUKYXRpvgqE4BZO+0IL+FA5ya+MmOL8kzMvwmjBCP3azqubpJRTKe1UzBGtpduBMGsZ
-         2eyiuFZyrMRZf+KhxniBS81duSay20v8LMG6Vlxg4tyd7wiKieAWile93AGQAq0R4wtR
-         cmJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=N/YAMMBN+At2K64uihmZTPRoHPZbkV/JDp6orkKdZVQ=;
-        fh=IQT+AXJpQ8B59Pyyveb5ME1810O4/6lDmqmZ6V868h8=;
-        b=OK+eCnLxchji7FVpjZApGk4yq4Cs0KR0euidXFwxkuEG/j24kOLoJbu+sBw0lnUuM9
-         nLLs+s9mI3O5nvOlNJBoym+v1kvIi2HkEmQnkW7INGqHyIb/DwUHSTtRc2Hriernh1uN
-         U84CvmM4kqAEa4sYgYvHpYIi+67ldQ6DQPtVPXIbfWgFR4l99v5KDWNbRXk4JE8f8LPe
-         OSHbg+ArV4anLa+vint1j6Bvcq8OwL6khbHQvU+06YuIYo2KstY3CHLsd6PT6YyoDRH8
-         0bvs4LkQhiSleW+KHVE2GJPTde7vj27GIYgBsB9Upaip+Lmo4NVR19epGi+9xpB3lMar
-         S6wg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="a1iDf+j4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="X2HPLpQO"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 686EX3xm2431303
+	for <linux-kernel@vger.kernel.org>; Sun, 6 Sep 2026 15:13:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	T4SdcNzIo3p7/l31uFVcGP3qz3Lf1+uQEV5rsx9A6c8=; b=a1iDf+j4ho/6G396
+	nwkpRblmF9bd9ECPa8r4sbEdGgDJKBSvG+BEWhlx/4Izwtd7qm6YYnjCutmVy2VL
+	jkE8XmwZE5jqe06r5D6rvMSes2iroNmoqAhmVRAvBKoLO5X193myR/N94qZuhh4e
+	9N/ghHqlydXEpq6ip6enp1vRZivkKzJ9SMQApaCrnGxZVw4Z81/52GRMMuTSX4i/
+	LZs3s979QBnuklYsDaqLjpdyUdKyOeBoekhEL5CTXPStJc7KKfVKUk2mDP3drmX4
+	+F/ak23EXJgpkQjPcIMjBvlQU1KzjTBwpRYuXhIMKKd+uiWwUqS2FLcN2KlZvuY2
+	8sy38w==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gg8sd44gg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 15:13:51 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2db3734d06dso18819405ad.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 08:13:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1788707578; x=1789312378; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=N/YAMMBN+At2K64uihmZTPRoHPZbkV/JDp6orkKdZVQ=;
-        b=XwxkOkIUTid60HpiyOteEKcB/31hj0ZDuQihCWvmZBeRh3Dm1qhriS/+/rhjNoH8ir
-         T0nQPG7BRR5lvV0U5hq/tw30iNV6qB2HMWiVRHcLR5l2L7vfSYHNp+Oq9+oK93ycOcNh
-         GcSWev2j6Qc19qQ4n7Lw6moErvSd0j4bVPuolpBvmg/yLUeY36nTbOwRrEDMAfOzxW0D
-         QWb+YLocmJ3r4YGvansva0IBQh27tN0CL5O7DXvO8zW/9Han7zztYnrH3orHKidz7x51
-         lbRpKK22/Wv8eDPi+49/ZUSFS0EokY0viGbGeQwSXb74ecF4yDAjxa1UZZqMJjuueyBe
-         IbxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788707578; x=1789312378;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1788707631; x=1789312431; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=N/YAMMBN+At2K64uihmZTPRoHPZbkV/JDp6orkKdZVQ=;
-        b=Q99kgZeaGSbGf56xmcVUA5IUdG9W7jd3F56WErmdo0VxYUCCGO4RgqXsF/oxe5X5CN
-         1X1W25QUEF/ARhbRS8RHJAF8ka3roMOAzDb1dwIvA06M0Oo6CdI7jHfZnZRJenbt8rIZ
-         xorakIK2cQFKABRi3OF2ZHkuflN92NrEaPBemQBf2uCCr0NtLgAhhUTLpaDIveSuNNzh
-         6K5tBvhU7anmCtOLYP7osbn7qLyV1CMYznxtNq8IVGCBv/i12txvitFu+3C0Ajft/ghL
-         cWwnYU8DAYKWlPyYOtFEixcMUzcr8MIKCYBdXWPcTpXqRMlsCEReQBP5xG2LgOf5oRsO
-         t6lQ==
-X-Forwarded-Encrypted: i=1; AKwUvByasNL1XCvr0blVps2Lar6+PXb7ia+gt0putHCdzhfH3DYGvKW5fZi/MT6JxzZeWaczRBThfAzatY4BwUU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mAdjuoNuWoszK/lLHXUaFitgOEsKdK74nbiF9HMI0i1HD/caYr
-	4euR/UhG7aOGADQO2vAJzXcLDi2WLdaN9SXEsa5F2CCKq6jQlz0Vyhm/gb3eTB1Cbce+KFtaAKS
-	w8b0yzZy297gllEz8YCGZvOranTntHVPiAtc9Nbpx5w==
-X-Gm-Gg: AYBFou2selmrs6mSDC8lvDyT/Onr25yhdaiaH8ETA1DdfGInOIsNGlhrgjf446EyMeg
-	95Suzdnbbr3c2lYXZLU4OjzfCge041+NSRYbSysBqOHoLiBc8B5k/cMFDBBATYIuHrrwxz6mnF1
-	kRj6X872faxNYtRcceuMb0YNsSQxaHKvwXmqx0jIMl/4QdisIqWDNAk6eVmyJ53+dybAunTxLkR
-	yztoffnvvg7Td1DlhH7URKd5d2db+9hCMo3SAKOgSxO+40ObHLRnb10dQSAwmc4fYdEBayJEAJm
-	RLemhh/jQzCdQWoz43+YrLA0V57HKMZqb/dz7qPo673av4UJHoFnfpodb24gQJAYktDBeOPPsIZ
-	N9iFJLdYaTCk5o7WmT51WAJ0s6BsLU7XWNEBCsdwed4sqHx23ztMjTj/19LvYvaA=
-X-Received: by 2002:a05:6000:2508:b0:485:8e8b:7bf4 with SMTP id
- ffacd0b85a97d-4858e8b7c78mr14147410f8f.33.1788707577698; Sun, 06 Sep 2026
- 08:12:57 -0700 (PDT)
+        bh=T4SdcNzIo3p7/l31uFVcGP3qz3Lf1+uQEV5rsx9A6c8=;
+        b=X2HPLpQOa79vvcU6gMJN1MNEpAELE8PNKgqRl/VLox98R0KM80c8VLArpxHyj5x0Tl
+         Mkb9eY8vYBVO04pfxH5kWKVOp9Ti5C67Ae1bXIkj1l+Lf+Y7bZKZctfB+F2+LZh7mSaG
+         jZ2WvsllPck0gP5mhL2Pc4PUv9wsTLMnd5yXlbiu73T2DI975T1gHnPSEWGby7lu/dlb
+         0Y6aAHKMf23rUZfPERrp6gfM/dSfj/clcUQ+J4GxZiTCJbH0Z7fMWpjT5LZhcdzLNTth
+         KMEedW1OJEdCgm7+5bzNKJ+QTgJbjATB5VVLByno8EIHUTVx63bMsr7AAJQsE52/6KPV
+         a69w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788707631; x=1789312431;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=T4SdcNzIo3p7/l31uFVcGP3qz3Lf1+uQEV5rsx9A6c8=;
+        b=W40nLK2tXWQiqJxwsdAuxvqLU8PYMXz+fsOS8ymCs+ZCmGzbwOlbNST6zj4EL4NiOV
+         8uIparsO9Cs1nYhY2/Vphdsk2W7CAIrOfb74eXgFJrH5nhXMLBJOaL0WJa18+N/t5D4y
+         dqfkwKjKx/aOstJbKt/7aszrccnIbZhvbawcffzEq4SIuGAd74JyENwJfEOm93XXKxx5
+         3588yyC24IrviDW0TraCQlP2ijamKYuz+QVh275cKZZIfLbiB6jJYRRQ2BtTdsh/bVn9
+         //bbEdjhjkxrfGod2wmF4eMNcY8QT6q0HnD2MLeGoMoyNkm1PJpGsJ4HdGhnyOXeRjJh
+         25fQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw5EpDkE7UPsw/sRJghNMpIXUWgRdkGB9zVfmXsbqA0WtN1AVRfiMeUq+mVYBTaue6gTtKR00auVrV83Sk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nX9+Lr5p6SHyjuxp+kY5f0S4geJIn0f9iuMTtLKTiRhOqjzfMk
+	e6c7LoaWu2bgDa/37kt7VgMTr6Kb4fsre0/FOyfxCT9q2fihMGKZNxPtyFZAYbM0zVZklZGWpks
+	WoQiNE9HVWPKo9dORu1HipHhRHhazkdO+rqHUJtb5vU/DlhcYmRCmyJzXY8X3xTTNrLA=
+X-Gm-Gg: AYBFou1E4y/Xx7R+rl/DYpfLqXjHGyWtRY+pI+G5NjSn6Yv1vdnZUQT9ER0XarLY2tQ
+	Sfl0nlcYcshXB6wFYqXpuNF2O3JyAtJ+AvShkDwlUSOnXtoa78jeYYO0X7F1xOrKQctced+wFMe
+	VNXA2XGVqu5h9Y6W3qdmOjM2rf1i/85xGSlzysiogCa1nMb6enIvd+1SHwgtuDOwbS6u1lYx1+e
+	yoULGKmp9sDI6ZM2AfRFwje7PFTs81/G/U5AQ4gwboS94JY4ycHn2gcy4ejDmEKEOd7KIFcFGgt
+	lx3WUB6wCbLM46q3j/AYkJ9evSGoehZwDZTHpCS+1Im8l7LE4XVojUxFGT4quDHiWzcPXa8ksHb
+	UgrMc3NmD0PtZnA7az9QuTm80lw85MFqyoPaMLdQ1v6cEr3Zog1ccPEFyx+ynCXK1tySnFac=
+X-Received: by 2002:a17:902:bd03:b0:2d8:d4d0:792f with SMTP id d9443c01a7336-2db1288bcf4mr167345095ad.19.1788707630751;
+        Sun, 06 Sep 2026 08:13:50 -0700 (PDT)
+X-Received: by 2002:a17:902:bd03:b0:2d8:d4d0:792f with SMTP id d9443c01a7336-2db1288bcf4mr167344715ad.19.1788707630169;
+        Sun, 06 Sep 2026 08:13:50 -0700 (PDT)
+Received: from [10.133.33.92] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1497d9ddsm33312655ad.31.2026.09.06.08.13.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 06 Sep 2026 08:13:49 -0700 (PDT)
+Message-ID: <f0b59964-081c-4547-8251-3e3134c4942f@oss.qualcomm.com>
+Date: Sun, 6 Sep 2026 23:13:02 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <caplitmus-rv.4f722288a2f1483090d75bcd991d5b90.imsic-cover@163.com>
- <caplitmus-rv.bc36e3a0ebcb4a01838171f27625004b.imsic-overlap@163.com>
-In-Reply-To: <caplitmus-rv.bc36e3a0ebcb4a01838171f27625004b.imsic-overlap@163.com>
-From: Anup Patel <anup@brainfault.org>
-Date: Sun, 6 Sep 2026 20:42:45 +0530
-X-Gm-Features: AcwNN1X9oTn0svXCCN4OeBCKJLZeONyVHPKvQXZJrhy7-m9QRuibPvMEQrtTQVA
-Message-ID: <CAAhSdy05y0Er=4xNDU166TA6E268ObPLghktNOsSfNvv_aupYw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] irqchip/riscv-imsic: Reject overlapping group index fields
-To: Pengpeng Hou <hppiscas@163.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Andrew Jones <andrew.jones@oss.qualcomm.com>, 
-	Bjorn Topel <bjorn@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cpufreq: conservative: Ignore idle periods when a policy
+ CPU is busy
+To: hu.shengming@zte.com.cn, rafael@kernel.org, viresh.kumar@linaro.org
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        luo.haiyang@zte.com.cn, zhang.run@zte.com.cn,
+        zhongqiu.han@oss.qualcomm.com
+References: <2026090215474182681fN7LLOSpqIc3s3OqJaW@zte.com.cn>
+Content-Language: en-US
+From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+In-Reply-To: <2026090215474182681fN7LLOSpqIc3s3OqJaW@zte.com.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: MBF9khz_jdr8vUmf0RrM_9pCIzzO6b4j
+X-Proofpoint-ORIG-GUID: MBF9khz_jdr8vUmf0RrM_9pCIzzO6b4j
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA2MDE3MCBTYWx0ZWRfX66DKp2UrB2if
+ tfMwUeBP253ABUyZ6dfPQCscoOD8tlqwRdoHlA7FnJdOIddT73AZX/XRQqiBYKnSJoEnyi+xRdK
+ gmTLKn7WlmzqQBtl6wmU7oRyJ0YdSrs=
+X-Authority-Analysis: v=2.4 cv=dfmwG3Xe c=1 sm=1 tr=0 ts=6a9d832f cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=1RTuLK3dAAAA:8 a=VwQbUJbxAAAA:8 a=0eKtK12xCi3f4MogZNAA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22 a=kRpfLKi8w9umh8uBmg1i:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA2MDE3MCBTYWx0ZWRfX9rPZHbYwYxT2
+ xV7bH17+hAdr2yPNClBY5LIVIhE5AWoe6jc8S/W6mEBrNoRmHhzhGBIH+Bga56p4SLRExX2nJZk
+ PWNsw6zKOdXyl3n+rILYmRWwiJT4z5YhEWLj5KAzX/B7Bgduxic6qxSPBr2qSLmXO3x22m1jenw
+ uiGD2M9Pi97OFZeADhcyxaJKqvA8iyR6YngsR/gObouxin+wQQIh+dEhv8LKnyLITKS8TLJUppk
+ S4NTVK/iPUS5uFlZDQpPdO/QV+OjjkpfjnGdLhbwBUE/Qea6WEjrF1XgCXoREWe0fPGKSxu6wQW
+ vusUNeG5dS9ARjZLbXxgccBvkjW3EUV6DZrYQKwVm4mECOfqRC+JAUEQyNZ04pbF1C9K4ZqIMtR
+ nnxeT9BPMHK40YoAevc459urch5miZhO5t9YIsOCgu1fkTojIY3ofQZyOHA0gJkfcoSmR8jGJOV
+ MjXo718gBzdr9z8uQDQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-06_01,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 priorityscore=1501 spamscore=0 malwarescore=0
+ lowpriorityscore=0 bulkscore=0 phishscore=0 suspectscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609060170
 
-On Sun, Sep 6, 2026 at 1:39=E2=80=AFPM Pengpeng Hou <hppiscas@163.com> wrot=
-e:
->
-> The IMSIC parser validates index widths but does not check that a
-> nonzero group field starts above the page, guest and hart fields.
-> A malformed layout can therefore assign one address bit to two fields.
->
-> Require the group shift to be at least the end of the lower fields.
-> Check the upper bound using subtraction after validating the shift, so
-> the bound check cannot wrap when processing a firmware-supplied value.
->
-> The issue was found by our static-analysis tool and manually reviewed.
->
-> Fixes: 21a8f8a0eb35 ("irqchip: Add RISC-V incoming MSI controller early d=
-river")
-> Assisted-by: GPT-5
-> Signed-off-by: Pengpeng Hou <hppiscas@163.com>
+Hi Shengming,
+
+Thanks for the patch.
+
+On 9/2/2026 3:47 PM, hu.shengming@zte.com.cn wrote:
+> From: Shengming Hu <hu.shengming@zte.com.cn>
+> 
+> For a shared cpufreq policy, dbs_update() derives the load from the
+> highest utilization among its CPUs, but it also records deferred idle
+> periods from any CPU whose idle time exceeds two sampling intervals.
+> 
+> This lets a single update report both a high load (from a busy CPU)
+> and several deferred idle periods (from an idle sibling). Since
+> conservative applies the deferred down steps before the up step
+> triggered by the high load, the down steps can outweigh the single
+> up step.
+> 
+> The issue reproduces on a policy shared by CPUs 2 and 3: a CPU-bound
+> SCHED_EXT task keeps CPU 2 at 100% utilization while CPU 3 stays
+> idle. On this system SCHED_EXT generates update-util callbacks less
+> frequently than CFS, so DBS updates are sparse, tracing shows:
+> 
+>   load=100 idle_periods=7 interval=59 ms
+>   load=100 idle_periods=4 interval=39 ms
+>   load=100 idle_periods=2 interval=19 ms
+>   load=100 idle_periods=7 interval=59 ms
+> 
+> With the default 5% step and a 2.6 GHz ceiling, conservative first
+> removes seven 130 MHz steps and then adds only one. Repeating this
+> sequence keeps the policy near 530 MHz despite CPU 2 being fully busy.
+> 
+> Only retain deferred idle periods when every CPU in the policy meets
+> the long-idle condition. This keeps the existing behavior for
+> single-CPU and fully idle shared policies, while preventing an idle
+> sibling from downscaling a policy that contains a busy CPU.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 00bfe05889e9 ("cpufreq: conservative: Decrease frequency faster for deferred updates")
+> Reviewed-by: Luo Haiyang <luo.haiyang@zte.com.cn>
+> Reviewed-by: Run Zhang <zhang.run@zte.com.cn>
+> Signed-off-by: Shengming Hu <hu.shengming@zte.com.cn>
 > ---
->
-> diff --git a/drivers/irqchip/irq-riscv-imsic-state.c b/drivers/irqchip/ir=
-q-riscv-imsic-state.c
-> index 44b9c34c..c6eb16ae 100644
-> --- a/drivers/irqchip/irq-riscv-imsic-state.c
-> +++ b/drivers/irqchip/irq-riscv-imsic-state.c
-> @@ -742,8 +742,16 @@ static int __init imsic_parse_fwnode(struct fwnode_h=
-andle *fwnode,
->
->         /* Sanity check group index shift */
->         if (global->group_index_bits) {
-> -               i =3D global->group_index_bits + global->group_index_shif=
-t - 1;
-> -               if (i >=3D BITS_PER_LONG) {
-> +               i =3D IMSIC_MMIO_PAGE_SHIFT + global->guest_index_bits +
-> +                   global->hart_index_bits;
-> +               if (global->group_index_shift < i) {
-> +                       pr_err("%pfwP: group index shift too small\n", fw=
-node);
-> +                       return -EINVAL;
-> +               }
-> +
-> +               if (global->group_index_shift >=3D BITS_PER_LONG ||
-> +                   global->group_index_bits >
-> +                   BITS_PER_LONG - global->group_index_shift) {
+>   drivers/cpufreq/cpufreq_governor.c | 5 ++++-
+>   1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/cpufreq/cpufreq_governor.c b/drivers/cpufreq/cpufreq_governor.c
+> index 710d93ec89b5..64eb6b5f08a4 100644
+> --- a/drivers/cpufreq/cpufreq_governor.c
+> +++ b/drivers/cpufreq/cpufreq_governor.c
+> @@ -126,6 +126,7 @@ unsigned int dbs_update(struct cpufreq_policy *policy)
+>   	unsigned int ignore_nice = dbs_data->ignore_nice_load;
+>   	unsigned int max_load = 0, idle_periods = UINT_MAX;
+>   	unsigned int sampling_rate, io_busy, j;
+> +	bool all_cpus_idle = true;
+>   	u64 cur_nice;
+> 
+>   	/*
+> @@ -233,13 +234,15 @@ unsigned int dbs_update(struct cpufreq_policy *policy)
+> 
+>   			if (periods < idle_periods)
+>   				idle_periods = periods;
+> +		} else {
+> +			all_cpus_idle = false;
 
-The above check for "too small group index shift" is fine but why
-is the existing check for "too big group index shift" not sufficient.
+The problem is real, but I don't think this condition is the right one.
+idle_time > 2 * sampling_rate tells us how many sampling periods were
+deferred for that CPU, so its negation means "this CPU was sampled on
+time", not "this CPU is busy".
 
->                         pr_err("%pfwP: group index shift too big\n", fwno=
-de);
->                         return -EINVAL;
->                 }
->
-> base-commit: 13ca1c0b7d8a3ab1e59cb3e780c1dd7441e22515
->
+Since all_cpus_idle is per-policy, one such CPU is enough to discard the
+deferred periods for the whole policy, and in a shared policy it is
+possible. That effectively disables the optimization from 00bfe05889e9
+for shared policies, which is the opposite of what we want for power.
 
-Regards,
-Anup
+What matters is whether the CPU was busy over the sample, that is,
+whether the skipped sampling periods would have led to a frequency
+reduction at all. It seems more appropriate to key that off the load
+measured over the sample (kept separate from the possibly inherited one)
+against up_threshold, so an idle-but-punctually-sampled sibling does not
+throw the deferred periods away, while the fast downscale on wakeup is
+preserved.
+
+May I know could you comment and try this patch on your scenario?  Once 
+everyone agrees I can send this formally:
+
+
+diff --git a/drivers/cpufreq/cpufreq_governor.c 
+b/drivers/cpufreq/cpufreq_governor.c
+index 710d93ec89b5..f10fc335e70e 100644
+--- a/drivers/cpufreq/cpufreq_governor.c
++++ b/drivers/cpufreq/cpufreq_governor.c
+@@ -126,6 +126,7 @@ unsigned int dbs_update(struct cpufreq_policy *policy)
+         unsigned int ignore_nice = dbs_data->ignore_nice_load;
+         unsigned int max_load = 0, idle_periods = UINT_MAX;
+         unsigned int sampling_rate, io_busy, j;
++       bool busy_cpu_seen = false;
+         u64 cur_nice;
+
+         /*
+@@ -147,7 +148,7 @@ unsigned int dbs_update(struct cpufreq_policy *policy)
+                 struct cpu_dbs_info *j_cdbs = &per_cpu(cpu_dbs, j);
+                 u64 update_time, cur_idle_time;
+                 unsigned int idle_time, time_elapsed;
+-               unsigned int load;
++               unsigned int load, measured_load;
+
+                 cur_idle_time = get_cpu_idle_time(j, &update_time, 
+io_busy);
+
+@@ -186,6 +187,19 @@ unsigned int dbs_update(struct cpufreq_policy *policy)
+
+                 j_cdbs->prev_cpu_nice = cur_nice;
+
++
++               /*
++                * Load actually measured over this sample.  The value 
+used for
++                * making frequency decisions below may be inherited 
+from the
++                * previous sample, so this one is needed in order to be 
+able to
++                * tell whether or not this CPU has really been busy. 
+Note that
++                * no per-CPU state is updated by this computation.
++                */
++               if (unlikely(!time_elapsed) || idle_time >= time_elapsed)
++                       measured_load = 0;
++               else
++                       measured_load = 100 * (time_elapsed - idle_time) 
+/ time_elapsed;
++
+                 if (unlikely(!time_elapsed)) {
+                         /*
+                          * That can only happen when this function is 
+called
+@@ -220,14 +234,16 @@ unsigned int dbs_update(struct cpufreq_policy *policy)
+                         load = j_cdbs->prev_load;
+                         j_cdbs->prev_load = 0;
+                 } else {
+-                       if (time_elapsed > idle_time)
+-                               load = 100 * (time_elapsed - idle_time) 
+/ time_elapsed;
+-                       else
+-                               load = 0;
+
++                       load = measured_load;
+                         j_cdbs->prev_load = load;
+                 }
+
++
++               if (measured_load > dbs_data->up_threshold)
++                       busy_cpu_seen = true;
++
++
+                 if (unlikely(idle_time > 2 * sampling_rate)) {
+                         unsigned int periods = idle_time / sampling_rate;
+
+@@ -239,7 +255,7 @@ unsigned int dbs_update(struct cpufreq_policy *policy)
+                         max_load = load;
+         }
+
+-       policy_dbs->idle_periods = idle_periods;
++       policy_dbs->idle_periods = busy_cpu_seen ? UINT_MAX : idle_periods;
+
+         return max_load;
+  }
+
+
+
+>   		}
+> 
+>   		if (load > max_load)
+>   			max_load = load;
+>   	}
+> 
+> -	policy_dbs->idle_periods = idle_periods;
+> +	policy_dbs->idle_periods = all_cpus_idle ? idle_periods : UINT_MAX;
+> 
+>   	return max_load;
+>   }
+
+
+-- 
+Thx and BRs,
+Zhongqiu Han
