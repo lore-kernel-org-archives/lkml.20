@@ -1,127 +1,148 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 338872C3757
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 13:31:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9219D3CCA19
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 13:34:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788701503; cv=none; b=pjcIZuGmUG+3JvBAosI76N27x6NErM8fVgDj9rkuZU9DzJK5kIdzy2cGYXDT+iHjHWWy+MdnCxqMuWz8Z+mmDj/+Xdrf9drqMuQrmi7FlkKbDGsoPScFAWHoINmkVxfDjwxjy8k1oL17c/jKLwIhvVe/x659Tx0z28oN96z/950=
+	t=1788701647; cv=none; b=otvnZznX+Eg+xkUoNPir3ln9Nzp50QmqYMZBQ+3uhA5ziDa98vsIFXEmDLBqL+zIdn7zUxaqpeT0wLR5mh1oDvlldLzjpI+RRIGjLKz6rhSJOm6ZFf9SsOlzr2Z5jrOuyfVwjAJwLofMMLVB/XLFmHiw7ftlg9gJT+e+TRE5u7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788701503; c=relaxed/simple;
-	bh=XV9/Gau1ScfFSIySp4WW7NMKBztrqxSBrSAXGTOY170=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gKS+nyFB9H6k52ijq73mnkxtNK0OrQXTn3sZn6ly6aHPUyBiC4dV3DfLEl7wNeMekNX7ToWgkvVOgm6GJumGCNQZo0jEgEo//jAjvulw+wzXJXhswD/ad1OzsJU0Jy+4owMrlH2TXb7+JHNgapoGgswG43kauGsWsU2oaic8BBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R3PtJWkX; arc=none smtp.client-ip=209.85.214.169
+	s=arc-20240116; t=1788701647; c=relaxed/simple;
+	bh=OmrnDvEUGlBTtRmQLeMuelKWG/ZFqM9c+ArC6f2Q3Pg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=O/jRRDH2SqBHnN52ALhQOyb+Kk8HBwCI/kAq7lBwNtvE2DVu2RgaEKH8CdOpq0O17sAqS2XWZm5/VJBxCrGdW9yf5Q/HXywCwcrD+AWDV9viGEAWdn6NTDUMfP2ziRptcCdiiiYXVLZjy7jMSIxrjikNUFsF/P9nRbRo2e7y+eA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hIopU0sX; arc=none smtp.client-ip=209.85.215.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R3PtJWkX"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d6fe26ef1cso26250535ad.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 06:31:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hIopU0sX"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc1c7364550so2881388a12.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 06:34:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788701501; x=1789306301; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=9tYnhpE7QdeEZNd+tgaIJOLzvVhdJ+mADYDf3k6L6f8=;
-        b=R3PtJWkXF0qqaFViDXgXamNPdK+mIP8L9zO3g5y5wXGIM/OxF27syKtLpnXRbrKl9Z
-         fFeFb0GCzOFRr0TyBPSk/DovwlKtuXQGkDdp3TTaJ4m7HpVaPCiGqjBJHXTfNovED4dQ
-         +1kVo3UOvCYaE56IGMQEr1aeatlQPN6Tosg2ONVEFNE8KW4sHo688HCDJetsYNqqU/AC
-         tBir/n1DrjPlF1Z6w5IQB0Wnm3HZPlMPUNppl7JV2QrUjGC5tP1tgC8i1fuA0RVl+qTf
-         Reb+B4y2eipZ9VmN+kxwm1In2AU8ulVlRonOsegoLo4d92VDR5syf3L+l/7pi6n9FqE4
-         YOYA==
+        d=gmail.com; s=20251104; t=1788701640; x=1789306440; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Fa5UOAWLkyriWvd9QAh8ho2PSU5MrwWqtM+f95UnuKM=;
+        b=hIopU0sXNy2NO5d/Rgrpj6GqD5nkrSMyXk40GCa7M9Lqj0CTaVRmGu5Jq+lX6ppZPn
+         I5FmsLPSY9Gq4XRIRCBB8GgcJKsHOWmecaSVhKcwy3WCXCl7oycqv0pRZesxI7WbG0cW
+         r9RppUtFghEUBf6boxvGLZzupqKxJVerWMnXWyTNC55e6b8Sh6xGfvhj9dHRudDuWTHR
+         VS7Hm9ksXB058pIDL6L+rsQyvjpQZw7ZXZBvNKR6tea/JsnwteIS+q1u5xv5cZ6vX6pB
+         nFAdqzDaoGrwQzxespGOmMUfwJAxOuXhVWAIdKfRR9pyViHls3wSd+Y0bDU82t12qUJS
+         VyuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788701501; x=1789306301;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=9tYnhpE7QdeEZNd+tgaIJOLzvVhdJ+mADYDf3k6L6f8=;
-        b=bW2aZuJ18SoqWhNDnzGsvGuLTRLuCa2KDY62vAAT9htsTKhPZ1VComiaqhk3WFNedl
-         BGusnTBehsl3ZQZAhRk8eQOTmigBO6SYOclflvlKB0i3Yf5vcaLAH4/cSu1Z1RiqE7k6
-         XLuuAvgrS20kShKc/b1ZexGF4K7iNcjMeCLO8o5XhJhWSQQ4+cNdFWrJadk6A7Tr56PQ
-         9hNctViqo2R139x2a1aANIdUfJmgmjwordNIyiUfGYEDq0E2S/UEP7B5Z9n+amx3l2Zh
-         xO2zYpYXPwAeip7oP51nvgY1XR26MI8+JeGhde5rSdjZD/HYm4rT/VG0iEwEixHlxx7M
-         4EQw==
-X-Forwarded-Encrypted: i=1; AKwUvBxoy2Ws6Rp91mX+Vu6yU2ia+tcKfyJ8sOtSzFdfPUvFhUNVdaWPyhjuwk9B3/kwJvR7uhHpExWENIKsUVQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nXafPKmHrT5hKmrmQHIOE2ACTi/sQH5DEH3QE0JDxRZwZBUDvD
-	O+UraAAAr3b4RaPxngpSVwYWZWFVdy8+5baZQescp8iZgr4WJYAQT7bd
-X-Gm-Gg: AYBFou2FzeyCIV6boLNWB37G+ctucC66gVXAZPK457atPrVcS1QmtafIB29E10FbR09
-	2lGJ8L+zHUA92gv3se92q6EzW5HwzANMc5Q9Y2S6PLJxmhclqVLGBqCqoVPxHEd1pHXBtAX/Jfd
-	r4BxSh40LrZmWzHr8er1NeZ+2I8+KCPnO3/4su5M+FK4RwWE/S7DMq17Mis88jnyTNR7v9AayaT
-	lYCvqUSTm1RJrfvBpcFBc9ch05gq0kqp6UJFtYrMd4K4Vwq1zfiRAhMciFnW46HKEB4LDyU5UzS
-	k2E7Wum/gmGxqvGcXURRG07xOlQLldGo0Nt3gdPTLEkWvQLMtKJHV7aQ7VDfqODPY2/gAUYbu6X
-	iHuY0BTkmLLKzui55N+gPQOPrAwGVH5TeikTOgKwd7CtIx5ch2NAaauR6mU1ChcGqWn+GzCugtW
-	2e8hCLil9LhlDbhi6Jv+Cy7NwwfuVrL8kE8qF+VsHxXS7f2kEnzfNfJPXxy5gx+BZNuqj0cokNn
-	yTaIvAgaOwCR67vYFUpLkxaJxU2aufn5H1kmk+SZ4ZpCQuxxACfPbKk
-X-Received: by 2002:a17:90b:1d52:b0:398:dcef:c040 with SMTP id 98e67ed59e1d1-39b26242a20mr27559871a91.19.1788701501355;
-        Sun, 06 Sep 2026 06:31:41 -0700 (PDT)
-Received: from junjungu-PC.localdomain ([223.166.246.74])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b25f88475sm15084306a91.1.2026.09.06.06.31.38
+        d=1e100.net; s=20251104; t=1788701640; x=1789306440;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Fa5UOAWLkyriWvd9QAh8ho2PSU5MrwWqtM+f95UnuKM=;
+        b=Mf1lJdBiL289N9x3BfJ1qWcVclMsH6Hg7O0FZ6vzeMV4KmmbPOX9CdbKTDbnKVZiuT
+         E6zpOnxCdJG6Tyskc+m/X5ROeyfeFkGp5l0GGKUVBFWXYVToADNvsr1cbVQZJ2aaHsQT
+         oKoatNc18NoRN0fq2L/J3QiPJ/1q+9gGfXq7MaNddVdt9CLqqXP/LQDEGBDIBZgw/rds
+         4OzQck3BQSSl3NCrfNstmaNpftQ9v809mQnSSVzHtf2XJTDYlGZJEyFf8Dk3wzGbQZ7O
+         kS6WgOXF0Hx0+V999C4a8henAS2X0s2YYsQpbLYrOY4m8vrwiej1hy9DditX7fProhjD
+         pvDg==
+X-Forwarded-Encrypted: i=1; AKwUvBwoPhwmGV+Ih0Q7gEtKMuqTEtAqc14C8z54KvIHH7j9nJQIpApaEuP/GaFLbgTnX5vjeK0hpYhmMP1yC+s=@vger.kernel.org
+X-Gm-Message-State: AFuF++npL8LywOF13WEYkCgH2XrzaWpH0oCxLBKe3klo7Z+vK/AL8zz4
+	4sspwXMnPs1mwg7icmkN2YzbNuIoA3SWLyLjSoXSMWOlp5Czmzmazz0=
+X-Gm-Gg: AYBFou05WHGPWYH7V8gGWWzegrZ2UJbObFeGzyhQ59FTQ8OrBgOJ8VJ63bh5NXnubGf
+	yrhugDG4SUAxwIkjZX3F9Kt4zDGpwHIxydQgaOLmhMk7sHxQsJLhZU3zzWVmhSXAJybxFO9Ck0V
+	Bnp6e45rWfxJ5vAtGRkeb5WMjXixewhcvAqeyeSFf+Eu4f52OWCho3UAx2KK3kYOEmkj9H3l+Vh
+	Ns9CBEfXFfhid/mGfLF3me2QEoAjSqXQyAxWXyvLK3y77K/0upwCYAZxkAB+6N81yuEk3WA1zXq
+	vHJgRFDOkvbm/xm/JhyNxZpqWjg5o5zGQP0y24roayrqEEYbJXHOMaWMFKhs1ojj4KNF8i4ktEY
+	Dcaj7aIdIqpCVhrZcBbMnXWcfHlmnGN81apEMw1mPFkiMr3X4fIaCLqQbhDYGDZY0yGMg0fL5WN
+	5CBrErVCY2x+wH+d83b53XDEYaO3romb/PhFxpfac7W+FGLFQJUw852O3ihrfsBQiW9UIifJdmY
+	Vep3RaP2/4mYrsU
+X-Received: by 2002:a17:90b:4a49:b0:392:ca3b:370a with SMTP id 98e67ed59e1d1-39b26100cd2mr25616356a91.2.1788701639546;
+        Sun, 06 Sep 2026 06:33:59 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:6467:d689:2b14:fe4a:ab17:f236])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08cacbb0sm21427552a91.13.2026.09.06.06.33.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 06:31:41 -0700 (PDT)
-From: Felix Gu <ustc.gu@gmail.com>
-Date: Sun, 06 Sep 2026 21:30:31 +0800
-Subject: [PATCH] phy: ingenic: fix unbalanced regulator disable in exit
+        Sun, 06 Sep 2026 06:33:59 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Tom Zanussi <zanussi@kernel.org>
+Cc: linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	donggeunyoo.kernel@gmail.com
+Subject: [PATCH] tracing: hist: free the var ref when its initialization fails
+Date: Sun,  6 Sep 2026 22:33:52 +0900
+Message-ID: <20260906133352.3815019-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260906-ingenic-v1-1-2311f3df8ddc@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ5AMBAE0F+RPWtSGo36FXHQWqxDSReRNP5dc
- XyTmYnAGAgZmixCwJOYVp9Q5Bm4ufcTChqSoZSllkZqQSnz5ARWVa20MkbZEVJ7CzjS9T213W8
- +7IJuf+dw3w8IF5PcawAAAA==
-X-Change-ID: 20260906-ingenic-e558363993bf
-To: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- =?utf-8?q?=E5=91=A8=E7=90=B0=E6=9D=B0_=28Zhou_Yanjie=29?= <zhouyanjie@wanyeetech.com>, 
- Paul Cercueil <paul@crapouillou.net>, 
- =?utf-8?q?=E6=BC=86=E9=B9=8F=E6=8C=AF_=28Qi_Pengzhen=29?= <aric.pzqi@ingenic.com>
-Cc: linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Felix Gu <ustc.gu@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788701499; l=1089;
- i=ustc.gu@gmail.com; h=from:subject:message-id;
- bh=XV9/Gau1ScfFSIySp4WW7NMKBztrqxSBrSAXGTOY170=;
- b=fKwMjYR6GxaoT1Tx9EEILzy4qERnxsMXe/8MWE+hh4JcIIFIYXcLmhhtn7WV3LRmWw4913Hro
- jBaj1e6Z1WKCsbOxmt66L8I8/QBFQ4hxv19AxFx/C19EO43UR3YN3Ip
-X-Developer-Key: i=ustc.gu@gmail.com; a=ed25519;
- pk=fjUXwmjchVN7Ja6KGP55IXOzFeCl9edaHoQIEUA+/hw=
+Content-Transfer-Encoding: 8bit
 
-exit() and power_off() both disable vcc_supply, so the regulator
-gets disabled twice for every power cycle, causing an unbalanced
-disable WARN.
+create_var_ref() allocates a VAR_REF hist_field and then calls
+init_var_ref() to fill it in. When that fails the field is leaked.
 
-Drop the regulator_disable() call from the exit callback and leave
-the regulator to the power_on/power_off pair.
+commit 656fe2ba85e8 ("tracing: Use hist trigger's var_ref array to destroy
+var_refs") made destroy_hist_field() return early for
+HIST_FIELD_FL_VAR_REF, since var refs are freed by walking the trigger's
+var_refs[] array instead. create_var_ref() adds the field to that array
+only after init_var_ref() has succeeded, so on this path the field is in
+neither place and nothing frees it. The call was correct when it was
+written, before var refs were taken out of destroy_hist_field().
 
-Fixes: 31de313dfdcf ("PHY: Ingenic: Add USB PHY driver using generic PHY framework.")
-Signed-off-by: Felix Gu <ustc.gu@gmail.com>
+init_var_ref() cannot free it either. The caller owns the field, so
+init_var_ref() undoes only its own string allocations and leaves the
+field alone. Freeing it there would leave create_var_ref() passing freed
+memory to destroy_hist_field(), which reads its flags.
+
+Call __destroy_hist_field(), which frees the field without consulting
+the flag.
+
+Fixes: 656fe2ba85e8 ("tracing: Use hist trigger's var_ref array to destroy var_refs")
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 ---
- drivers/phy/ingenic/phy-ingenic-usb.c | 1 -
- 1 file changed, 1 deletion(-)
+Found by the Sashiko bot while reviewing an unrelated hist trigger patch:
+https://lore.kernel.org/linux-trace-kernel/20260906124025.3550596-1-donggeunyoo.kernel@gmail.com/
 
-diff --git a/drivers/phy/ingenic/phy-ingenic-usb.c b/drivers/phy/ingenic/phy-ingenic-usb.c
-index 7e62d46850fd..d8e5ef302b74 100644
---- a/drivers/phy/ingenic/phy-ingenic-usb.c
-+++ b/drivers/phy/ingenic/phy-ingenic-usb.c
-@@ -124,7 +124,6 @@ static int ingenic_usb_phy_exit(struct phy *phy)
- 	struct ingenic_usb_phy *priv = phy_get_drvdata(phy);
+That patch and this one are independent; this applies with or without it.
+
+init_var_ref() only fails when kstrdup() returns NULL, so to reproduce it I
+built a kernel with its last allocation forced to fail, leaving everything
+else stock, and installed
+
+  hist:keys=next_pid:delta=common_timestamp-$start
+
+200 times against a sched_waking trigger defining $start. All 200 installs
+fail, as intended; the question is what each failure leaves behind. With
+CONFIG_DEBUG_KMEMLEAK:
+
+  before  200 unreferenced objects, 38400 bytes
+  after     0 unreferenced objects,     0 bytes
+
+38400 is 200 * 192, one struct hist_field per failed call, which also
+confirms the strings are not leaked: init_var_ref() frees those itself.
+kmemleak points at the allocation in create_hist_field() reached from
+create_var_ref().
+
+checkpatch --strict is clean and an x86_64 W=1 build of the file adds no
+warnings.
+
+ kernel/trace/trace_events_hist.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index 963e0d6b61fd..34831a01bb9b 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -2234,7 +2234,7 @@ static struct hist_field *create_var_ref(struct hist_trigger_data *hist_data,
+ 	ref_field = create_hist_field(var_field->hist_data, NULL, flags, NULL);
+ 	if (ref_field) {
+ 		if (init_var_ref(ref_field, var_field, system, event_name)) {
+-			destroy_hist_field(ref_field, 0);
++			__destroy_hist_field(ref_field);
+ 			return NULL;
+ 		}
  
- 	clk_disable_unprepare(priv->clk);
--	regulator_disable(priv->vcc_supply);
- 
- 	return 0;
- }
 
----
-base-commit: 9d80aa4617b32f5054c5aa471d06b66704854935
-change-id: 20260906-ingenic-e558363993bf
-
-Best regards,
---  
-Felix Gu <ustc.gu@gmail.com>
+base-commit: 1fc5a74b108fc90951890ec513ac81869f5eaff1
+-- 
+2.53.0
 
