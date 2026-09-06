@@ -1,58 +1,47 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DDA53D5647;
-	Sun,  6 Sep 2026 13:34:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0EB32E1EE0;
+	Sun,  6 Sep 2026 13:38:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788701661; cv=none; b=lXpazUo3uwOKzBXaFdCHU4St5X4jpAJU4YAzOWOtIx1vAe4RAHpS/MwEdyeLVhdFfZ6XYeo7LDrKLAL1wIaD1MChdMwCOEOhFmDHixMBeMyQTXFF88GXUxZa42I9BAXxAf2O9nAsyuXPydfrtxiMrbcf9atk80XXD0X9E/D8l9I=
+	t=1788701912; cv=none; b=HVWN2phU1Dp5Et2AIpbA5vqiu0NA6A7tqUL5R6ZeXpcG/KbSt23l6gWNH+SK+tvlcNKr7jK8H7VjCMl4lKu8m0Sk7zlmrhTdRYk7Qx1jhV/yRahsrjwuR0YKlIlI75CAWUuZ1pxKVi6LHtjusqD6OPpcehFI8GFNGN51slFs16c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788701661; c=relaxed/simple;
-	bh=yGZ2b4/I92LY3NojNG3JFWKOdDEdGIwNd/V1UB4m9yg=;
+	s=arc-20240116; t=1788701912; c=relaxed/simple;
+	bh=Rzpsh38LSRT9PgClakhpTVYyd98c/GlpWFM3afWN8ag=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PCXopaMv2wUI6ouURuFOot+/wui+yZh5DC0uk36TTYwCHMi1jyihxs4ISyA472eSeNvlbHfXk0v55Ta83u/0RZ2qr2mApJjJbWFZTjt+AV4DcxufGVwbe2Ta3HrsIb/o+67qTpXHf9dw9Mhbs/HOuhI2eYHJSLAGHflAs05buxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i45OGsWq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KApFL5PRfBLV5nt30Lb4GamAqnpMkATPabNge7RP2t6a4b/CPWINRZ18KtSUFeT0VxOT3Pk3Uc2poc7CalQyRkN7GH9EhhKipxwwBEtVgfcBFOmjDRMrpMAEvnD8oXWfZV/odSI44UG1kkZsMl16aXeTsevnI2u9ITgsCLKP5s0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=D7WLmSTp; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i45OGsWq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33ACA1F00A3E;
-	Sun,  6 Sep 2026 13:34:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788701654;
-	bh=azucrmYpARUvoUfk9mDRH5xbntyKnSIKyTPXUjGk5WY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i45OGsWqdy4euSHczyhBbYe9CKjXc9/5/9umXeXZeIo2Fd+DpXVd6d6zWbawkVF5R
-	 1p5dloxjqHNKFzjVRD2RdtqCTVePdOjtf5HcjJ1IfkneMSXm3YfBKD0Z+0BUytu8H3
-	 qDWE1qa4o3NsTO0P4yTNf1KPMli+dzHAfb8ZZu4zBMzVebONe+3Ts+U5uT6PFEvOIc
-	 OMuvjJTz7Y9g0X8r4wX/aOo+IcMLlGpYxLpqtcW9vM27oQdIQZIjdn3nCbuHVvs49C
-	 H6HlyCOz+7RSHpbX8lBH3jJJTt8rjMXZkl2bhwo516jr426/5aa5UxrMpv5krE5H4Z
-	 s78OwHpd58OlA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	Eric Dumazet <edumazet@google.com>,
-	syzbot+937b5bbb6a815b3e5d0b@syzkaller.appspotmail.com,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Neal Cardwell <ncardwell@google.com>,
-	Matthieu Baerts <matttbe@kernel.org>,
-	Mat Martineau <martineau@kernel.org>,
-	Geliang Tang <geliang@kernel.org>,
-	netdev@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="D7WLmSTp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=4w
+	H2Hl6u4i2ZJUFiprb5sPHmqLHW9cEhxm4g3fOPW5Y=; b=D7WLmSTp80ueoSt5Jm
+	2coHQ3w/50geMEGOu+XzElrCX4TxPf5EDatK6hWGEsRjIEK2xwWQqLvJYTWESMRp
+	an+06PaUyybq08gGJZ3y0DDxRIwQnVG78veERPORgdNsOn/Jst2d/h2xCVWMpoJ3
+	HNM2rqPxZr2GlEDV9TC1VATdE=
+Received: from XLL-9950X.localdomain (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgD3xv2UbJ1q9P8GRQ--.42576S2;
+	Sun, 06 Sep 2026 21:37:26 +0800 (CST)
+From: Longlong Xia <xialonglong2025@163.com>
+To: yosry@kernel.org
+Cc: akpm@linux-foundation.org,
+	chengming.zhou@linux.dev,
+	hannes@cmpxchg.org,
 	linux-kernel@vger.kernel.org,
-	mptcp@lists.linux.dev,
-	bcm-kernel-feedback-list@broadcom.com,
-	atul.joshi@nokia.com,
-	joakim.tjernlund@nokia.com
-Subject: Re: [PATCH stable 6.1 v2] tcp: fix potential race in tcp_v6_syn_recv_sock()
-Date: Sun,  6 Sep 2026 09:33:16 -0400
-Message-ID: <2026-09-05-daily-reply-0046-tcp-syn-recv-race-v2-6-1@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904183500.3841094-3-florian.fainelli@broadcom.com>
-References: <20260904183500.3841094-3-florian.fainelli@broadcom.com>
+	linux-mm@kvack.org,
+	nphamcs@gmail.com,
+	stable@vger.kernel.org,
+	xialonglong2025@163.com,
+	xialonglong@kylinos.cn
+Subject: [PATCH v2 1/1] mm/zswap: enable zswap_ever_enabled in zswap_pool_create()
+Date: Sun,  6 Sep 2026 21:36:01 +0800
+Message-ID: <20260906133601.3563324-1-xialonglong2025@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CAO9r8zPC4v_S80Gn5M7iiAujebP9QHdRur9fL1ECh8ZDxOov7Q@mail.gmail.com>
+References: <CAO9r8zPC4v_S80Gn5M7iiAujebP9QHdRur9fL1ECh8ZDxOov7Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -60,13 +49,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PigvCgD3xv2UbJ1q9P8GRQ--.42576S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Kr4rXFy5uF47JrWkuryUKFg_yoW8KrWkpr
+	W8Was3Kr48Xr1xG3yUAF40kFy5t397Gr43KryUGw48Z3Z8Cr1FyFWxKr98ta1qvayvkayY
+	vFs7ArnrJr1Yk3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUUhL8UUUUU=
+X-CM-SenderInfo: x0ldz0pqjo00rjsqjki6rwjhhfrp/xtbC3BdCO2qdbJepfQAA3q
 
-> This fixes CVE-2026-43198, v2 of the earlier submission that broke the
-> DCCP build by not updating every icsk_af_ops.syn_recv_sock implementer
-> for the new argument.
+From: Longlong Xia <xialonglong@kylinos.cn>
 
-Queued for 6.1, thanks.
+If zswap is enabled by default at boot and pool creation fails, then a
+pool is later created by updating the compressor, data written to
+zswap is corrupted on swapin.
 
+Enable the static key in zswap_pool_create(), covering boot-time and
+runtime pool creation with a single site.
+
+Verified with fault injection on a stock kernel (compressor builtin,
+CONFIG_ZSWAP_DEFAULT_ON=n):
+
+  1. Boot with zswap.enabled=1; pool creation fails, init completes
+     pool-less (static key off).
+  2. Echo an available compressor name to zswap.compressor.
+  3. Enable zswap.
+  4. madvise(MADV_PAGEOUT) a pattern-verified 512 MiB region, then
+     fault it back in and verify.
+
+Step 4 reads back 131072/131072 zeroed pages (zswpin=0, zswpout=131072)
+without this patch; all pages intact (zswpin=131072) with it.
+
+Fixes: 2d4d2b1cfb85 ("mm: zswap: add zswap_never_enabled()")
+Suggested-by: Yosry Ahmed <yosry@kernel.org>
+Cc: stable@vger.kernel.org
+Assisted-by: Zcode:GLM-5.3
+Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
+---
+Changes in v2:
+- Enable the static key in zswap_pool_create() instead of adding a
+  second site next to the compressor parameter update, as suggested
+  by Yosry; boot-time and runtime pool creation are now covered by a
+  single site, and the zswap_setup() site is gone.
+- Use the high-level description from Yosry's reply to Andrew for the
+  corruption scenario, and rename the subject accordingly.
+
+Link: https://lore.kernel.org/r/20260905125101.2970456-1-xialonglong2025@163.com
+
+ mm/zswap.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/mm/zswap.c b/mm/zswap.c
+index 37f34e406c8e3..6dfb6ae709e97 100644
+--- a/mm/zswap.c
++++ b/mm/zswap.c
+@@ -324,6 +324,9 @@ static struct zswap_pool *zswap_pool_create(char *compressor)
+ 
+ 	zswap_pool_debug("created", pool);
+ 
++	/* Enable the key here so every pool creation path is covered. */
++	static_branch_enable(&zswap_ever_enabled);
++
+ 	return pool;
+ 
+ ref_fail:
+@@ -1805,7 +1808,6 @@ static int zswap_setup(void)
+ 		pr_info("loaded using pool %s\n", pool->tfm_name);
+ 		list_add(&pool->list, &zswap_pools);
+ 		zswap_has_pool = true;
+-		static_branch_enable(&zswap_ever_enabled);
+ 	} else {
+ 		pr_err("pool creation failed\n");
+ 		zswap_enabled = false;
 -- 
-Thanks,
-Sasha
+2.43.0
+
