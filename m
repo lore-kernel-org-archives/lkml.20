@@ -1,132 +1,135 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E8062C1788
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 21:15:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 947F2215F42
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 21:16:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788729307; cv=none; b=Grnz7rXtVDLTON36sEKPjdFP7vhtMRjqPIEvPbHlzSzynPY5ThdencULk9vO+M9oFiJ4LprdQhf2jTWg9daUwIUI5KBb/pMfjUVzGaVNWP2J+W2hz6m/cBqnT+sUWSmllKL0zeEe+j1JuvS8s8dVOfVOo1lrBqrjS2k1xeRFL10=
+	t=1788729389; cv=none; b=sHp8tvIx+oUawdinx8c3F+ddAqydV3h3cMASfIVfq07hQYY+hNUiXb2nUFR5k5nl2atL6S/Tfm0RiUVZG1TIDGzjFe4ycCqi2OcuT2HdARxSn6PJtt+KGkE7F7tRV6NhE1K+vDNDCRIZu+d2Gw77s0Ky9cBg2GQYC1UgnevwzuM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788729307; c=relaxed/simple;
-	bh=vHHRUN0nu/6JFyn9S245jefHltW7+qiKnMMQksi7KP0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=elZmzHCbA9BeBWPbWcIf0d/oIhj6N2s0baCuzGtivB/y5WV39S38+9MjmrNDyrzfTxppolUhDoPEZMQe96CqptfRtxJiGEbLgAQ85vfo7ghBhuf6b7kb89pOcRHjWBODOn7blzUi3PUFyrZKRhvrxass9rPgELxQZ+tFgiQSEMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F5wKHEZN; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788729389; c=relaxed/simple;
+	bh=Yz6XAtOnkvQtlIzqlPnVlNqeGeM/cGnjOg8VCaUYKis=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=npcz091BPj5lzaDy8iyIk2JXLEzZpIfcGgrGa319/924NoZ1oD1cu/2FwzbUodVe91ra+T2rwTHOBKoefK1+1Lt3bHjYBoVGD0xVR5LtMZUewzXQpeLKtmLwQjat2E4mIl9GJ8TByYt8KAvIc92psb8ZXQ8cf9gyjyPIfyOSiHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=f4AoxTbb; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F5wKHEZN"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d6d28aa26cso16215575ad.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 14:15:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788729306; x=1789334106; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WUwZ4TKhPngatBg1HvsgtjPHLyp35oaMbmzVwgRy3+Q=;
-        b=F5wKHEZN1VVU0lDIm1cHkUi6b+atwv4MeOszDA6jv+W2o8DYs6p21FXxh3z9ph+EhK
-         zGlzwtR8VGGtn4YTTscHLdjiXlX5EsAdgcl9vqSGJnn4eFKi6qs3Aq1//JaPFjuapB36
-         93Z6p3rrgwd3BRAUhNOfD8otRez8bXRAuqlDhcMZc/tyva0eCzyZ2LdXKAj4lAnI2bT3
-         +xn/kBITsBPGMjwEI9eQGuHzpugdIUJ6iM8hj+TvAxhlUwQuc0OKRpj+lCZhzYyOg/83
-         owmLGA0BQtZnyFE16/5brEcjzic0CvJG0ui2qQWlw7ewPiTOWBNcMDwcithhOa87BeUR
-         dpWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788729306; x=1789334106;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WUwZ4TKhPngatBg1HvsgtjPHLyp35oaMbmzVwgRy3+Q=;
-        b=Bjmp/N77b17xPF+y2wZzOlgextDjitUVFWH2ZTTLd6Ldmh2Iddbc8KUah2jjkRZstd
-         ZD+bSafMteXdI5ZtFukzqx9O0Rr8hNNG861cIXpW9IPU4S58C1JUxCKlIQCisN1GbS25
-         aTjfVoDXyPQ4ElHgdUU3AfiFo+BflUAMKbZh2QShRX5xhye8TvQwGohDlrIwP8Orv3Li
-         GHVHxR8u1BtqD7EbwEsxSbIeUlQIpZV47vw/kLS7HXbiIPcmjaxAb2/7+7RP/9V7/6fh
-         8+w4qRFGQfp+snGvUkwr+eJCAJBhOpgZetxXX2EECz/tSEPOri7zIE1vzoaTgWLZwlrF
-         ETcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwdTMBdaIP7UoKbPFaQhFpY4PZyzIyUaaRvc98pJMG6l588mqLm+mlvxeFe/wkeQQgLC8O5YF1tIynTQdc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mc4iNFirGu++oCaeGK2ferF26elDGZUWU3DcymXY9iE2MHff0g
-	LItdqOvw91gZGBT+JVmKQpjEkOXuvO9S8Vq7ogkBB2FrbtKxB4URhVPL
-X-Gm-Gg: AYBFou3iT+WvgSynm/utcnv+mqzoqzpJW798+s6CB/meGUKWpbRlcQD4UwuP9WRzWcH
-	jTu7z/iKevYwHfcyu7Euqa+XFi5kmMJWxPNArFQkIkkeLwD8d3Bi5MnKISp4DhR77RuGdJImeE4
-	ptjnWUwcS/UbuPYEct4osEqK57QZfCG5WmflOW856DlLsx/Ictxc/F/jyyFz9nM8P+ak4guAsAG
-	odaMmPBAX6vuV0A5QltDu5LDcIBDBu7vKp3AUD+4EY7ckwb1akRacVB6DLoJQg2M3LQOeeqs35t
-	36wNAOcwXDp7F0tKi9XdUccH4VrVcxdRTPJ/3oiBZ8kMGIKmXgSLjkECSsodmPSRbsJAk4yzezy
-	WsIHSgu9/LuG1VcGS17MIkdHwcWjcMSAuV1ZASeHJC1G0OgsGDK/PBaVQdFXD4R2TFhkXc+Bkd8
-	GLtKG0C/+3W4OByAUiEo7BBrmI+Z0vM8XjwzvSGiCOnGgQWvhOn7Diig==
-X-Received: by 2002:a17:90b:4cce:b0:38f:240d:b857 with SMTP id 98e67ed59e1d1-39b260dd4e9mr31172440a91.2.1788729305628;
-        Sun, 06 Sep 2026 14:15:05 -0700 (PDT)
-Received: from bloom.localdomain ([2604:3d09:178e:e100::3820])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b4b72f62esm9617207a91.5.2026.09.06.14.15.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 14:15:05 -0700 (PDT)
-From: Ivy Lopez <skunkolee@gmail.com>
-To: sathya.prakash@broadcom.com,
-	sreekanth.reddy@broadcom.com,
-	suganath-prabu.subramani@broadcom.com,
-	ranjan.kumar@broadcom.com,
-	James.Bottomley@HansenPartnership.com,
-	martin.petersen@oracle.com
-Cc: MPT-FusionLinux.pdl@broadcom.com,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ivy Lopez <skunkolee@gmail.com>
-Subject: [PATCH v2] scsi: mpt3sas: fix nr_msix underflow in _base_assign_reply_queues()
-Date: Sun,  6 Sep 2026 15:14:54 -0600
-Message-ID: <20260906211454.71432-1-skunkolee@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260906202236.53346-1-skunkolee@gmail.com>
-References: <20260906202236.53346-1-skunkolee@gmail.com>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="f4AoxTbb"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Content-Transfer-Encoding:Content-Type
+	:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version:
+	Reply-To:Content-ID:Content-Description;
+	bh=Y9LS7SYHFlkHvaK4ZooIhwRFHr3vUhLavYrz1nuVPqA=; b=f4AoxTbb7TWe9/8DFTs7RutDb7
+	L82gmbWW2DODqTgiGpBE+E/m0FCkwVtngj8SNAYQuewyWcdMlGTbsVC2+lwNR6wO2xoq3DR7498yq
+	mirf/cmsxLfxhCtGUqUheLnnAbkfCX9gaXuU2mFHeLlZAAYlJNtKMn4nOkQazdx2SK3u2RUlqfOFM
+	KWcbkU4Q73N5/5H/UvoLmg1kZBTNJRKz56T6MAydZXl+bJWQ9dQs7uiQsvZqBs6/e5nhDWZB1AItV
+	U8MJg2E733lKvHsWsYvc/4PDZ1t2e/Smd1u09n+LeuXOg4Y4OLkmRVpwVyptbunYr32iPGvPB515T
+	BJuyiljA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128)
+	(Exim 4.96)
+	(envelope-from <domibel@debian.org>)
+	id 1x3KDw-00116t-2R
+	for linux-kernel@vger.kernel.org;
+	Sun, 06 Sep 2026 21:16:25 +0000
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-853f8c34ba4so3533948b3a.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 14:16:24 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzhOQQ80/jR6DRS2cDdGWcZWjk205jl+jsfBQzCI2To5hfTbNzymiGGmJtRNJxEeAlNkrkynRdmh4zV8Rk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nlczNzuwYBKJimKB/r9P/sdxwXbdIWIfykHq0Cg6nhALFCW3ot
+	vPz/B2TIVXpxpJe9saFem8w+f/ATZnT2gYQ8JsKr7wYZ/p9+aPsfyridLkBaukMI8HozgINeQsd
+	loyHdFP1YMDJsCSzDMRfwKIimn0EUcSY=
+X-Received: by 2002:a05:6a00:c206:b0:851:d12e:389b with SMTP id
+ d2e1a72fcca58-8628622c78fmr14582711b3a.14.1788729379886; Sun, 06 Sep 2026
+ 14:16:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260828-jh7110-clean-send-v2-13-331680c8b9d1@samsung.com>
+ <0ccb4168-ff88-459c-972d-3c091c155db2@murena.io> <e780ecb8-918f-4816-99c8-b69b10b25a18@murena.io>
+ <CAAvaLCwvVUddS14MPx0FHdnp+QeZ99+ox17pXt2hSWPTCFcHtw@mail.gmail.com>
+ <cb0884b3-c9be-4cfd-ba43-27add3821ddd@murena.io> <6a5f8c11a092cef83bae8d9ea0100c2fc133a514.camel@icenowy.me>
+In-Reply-To: <6a5f8c11a092cef83bae8d9ea0100c2fc133a514.camel@icenowy.me>
+From: Dominique Belhachemi <domibel@debian.org>
+Date: Sun, 6 Sep 2026 17:16:08 -0400
+X-Gmail-Original-Message-ID: <CAAvaLCxMntrTbTQ9VNu4H_6LA30TRAqi7mCpn+x3hbTG9WqERA@mail.gmail.com>
+X-Gm-Features: AcwNN1W3Ei1cx4_W0731mEUNvW6xw1POICbdb9C66iM9zFCtDZzsTbla6YfIM_c
+Message-ID: <CAAvaLCxMntrTbTQ9VNu4H_6LA30TRAqi7mCpn+x3hbTG9WqERA@mail.gmail.com>
+Subject: Re: [PATCH v2 13/15] phy: starfive: Add jh7110-inno-hdmi-phy driver
+To: Icenowy Zheng <uwu@icenowy.me>
+Cc: Maud Spierings <maud_spierings@murena.io>, Dominique Belhachemi <domibel@debian.org>, 
+	m.wilczynski@samsung.com, Laurent.pinchart@ideasonboard.com, 
+	airlied@gmail.com, alex@ghiti.fr, andrzej.hajda@intel.com, 
+	andy.yan@rock-chips.com, andyshrk@163.com, aou@eecs.berkeley.edu, 
+	bmasney@redhat.com, conor+dt@kernel.org, conor@kernel.org, 
+	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	hal.feng@starfivetech.com, heiko@sntech.de, hello@big-grey.co.uk, 
+	jernej.skrabec@gmail.com, jonas@kwiboo.se, kernel@esmil.dk, 
+	krzk+dt@kernel.org, lee@kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-phy@lists.infradead.org, linux-riscv@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, luca.ceresoli@bootlin.com, 
+	m.szyprowski@samsung.com, maarten.lankhorst@linux.intel.com, 
+	maudspierings@gocontroll.com, mfd@lists.linux.dev, mripard@kernel.org, 
+	mturquette@baylibre.com, neil.armstrong@linaro.org, p.zabel@pengutronix.de, 
+	palmer@dabbelt.com, pjw@kernel.org, rfoss@kernel.org, robh@kernel.org, 
+	sboyd@kernel.org, simona@ffwll.ch, tzimmermann@suse.de, vkoul@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Debian-User: domibel
 
-The fallback path incorrectly subtracts iopoll_q_count when computing
-nr_msix, when the intent is to reserve both high_iops_queues and
-iopoll_q_count reply queues from the round-robin pool. Since
-iopoll_q_count can be positive, the current subtraction inflates
-nr_msix instead of reducing it, leaving far more queues in the
-round-robin pool than actually available once high-iops and iopoll
-queues are accounted for.
+On Sun, Sep 6, 2026 at 11:19=E2=80=AFAM Icenowy Zheng <uwu@icenowy.me> wrot=
+e:
+>
+> =E5=9C=A8 2026-09-06=E6=97=A5=E7=9A=84 16:59 +0200=EF=BC=8CMaud Spierings=
+=E5=86=99=E9=81=93=EF=BC=9A
+> > On 9/6/26 07:39, Dominique Belhachemi wrote:
+> > > On Sun, Aug 30, 2026 at 10:17=E2=80=AFAM Maud Spierings
+> > > <maud_spierings@murena.io <mailto:maud_spierings@murena.io>> wrote:
+> > >
+> > >     I was still having some glitching happening on the display, but
+> > > I've
+> > >     found the way to fix that, the question is what is actually
+> > >     happening here.
+> > >
+> > >         0x29590020 <- 0x00000005
+> > >     This one I have no idea, it is 0x00000009 with this patch
+> > > series but
+> > >     with the vendor kernel I get the value above. When I hook up my
+> > >     external
+> > >     display (regular 1440p) this becomes 0x0000000D on the vendor
+> > > kernel.
+> > >
+> > >     But I can't find this register being written to anywhere there?
+> > >
+> > >
+> > > Maybe this needs to be swapped?
+> > >
+> > > drivers/gpu/drm/bridge/inno-hdmi.c
+> > >    -#define v_HSYNC_POLARITY(n)          ((n) << 3)
+> > >    -#define v_VSYNC_POLARITY(n)          ((n) << 2)
+> > >    +#define v_HSYNC_POLARITY(n)          ((n) << 2)
+> > >    +#define v_VSYNC_POLARITY(n)          ((n) << 3)
+>
+> Very weirdly, the original definition here matches current mainline
+> inno-hdmi.c, but the changed definition matches JH7110 vendor
+> inno_hdmi.h [1].
+>
 
-Beyond producing an incorrect grouping of cpus onto msix vectors, the
-corrected formula can still drive nr_msix to zero or below under
-plausible queue configurations, which would wrap to a large unsigned
-value and silently break affinity grouping, or hit a divide-by-zero in
-the following nr_cpus / nr_msix computation. Check whether the
-reserved queue count meets or exceeds nr_msix before performing the
-subtraction, and warn if the reply queue budget is exhausted.
+The vendor code is correct and matches the RK3128 TRM.
 
-Fixes: 432bc7caef4e ("scsi: mpt3sas: Add io_uring iopoll support")
-Signed-off-by: Ivy Lopez <skunkolee@gmail.com>
----
-v2: check reserved queue count against nr_msix before the subtraction
-    instead of testing nr_msix for zero afterward, since the subtraction
-    itself could wrap an unsigned int rather than land on exactly zero.
-    Thanks to Sashiko AI review for catching this.
----
- drivers/scsi/mpt3sas/mpt3sas_base.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+HDMI_reg08
+    Bit  Attr  Reset  Description
+    3    RW    0x0    vs_polarity   VSYNC polarity   1'b0: Negative
+1'b1: Positive
+    2    RW    0x0    hs_polarity   HSYNC polarity   1'b0: Negative
+1'b1: Positive
 
-diff --git a/drivers/scsi/mpt3sas/mpt3sas_base.c b/drivers/scsi/mpt3sas/mpt3sas_base.c
-index ce5a5882acc8..3810038dc2ac 100644
---- a/drivers/scsi/mpt3sas/mpt3sas_base.c
-+++ b/drivers/scsi/mpt3sas/mpt3sas_base.c
-@@ -3275,7 +3275,11 @@ _base_assign_reply_queues(struct MPT3SAS_ADAPTER *ioc)
- 
- fall_back:
- 	cpu = cpumask_first(cpu_online_mask);
--	nr_msix -= (ioc->high_iops_queues - iopoll_q_count);
-+	if (ioc->high_iops_queues + iopoll_q_count >= nr_msix) {
-+		ioc_warn(ioc, "high_iops_queues and iopoll_q_count exceed available MSI-X vectors\n");
-+		return;
-+	}
-+	nr_msix -= (ioc->high_iops_queues + iopoll_q_count);
- 	index = 0;
- 
- 	list_for_each_entry(reply_q, &ioc->reply_queue_list, list) {
--- 
-2.55.0
+Nobody noticed this so far because in 720p/1080p both polarities are
+positive, but Maud's 3:2 panel has differing H/V polarity.
 
+Best
+-Dominique
