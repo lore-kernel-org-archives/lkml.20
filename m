@@ -1,107 +1,136 @@
-Received: from sonic313-48.consmr.mail.sg3.yahoo.com (sonic313-48.consmr.mail.sg3.yahoo.com [106.10.240.107])
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08FC9171BB
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 07:32:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=106.10.240.107
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788679947; cv=none; b=tnPWI/SRNEmd9j4NKMgCpHYuf7Jjy2kteCXkxtoVurZ9iqmjykdhcguJnSbdsVVMOKIA3RDuoAtVLBQeidJPfr3BPtEBTlYG4pf8kj4CbAtDq9FZJsJ/bCRi3lMoZfHsTH6Um+5bJ1Kr+M2cxvWGPV5vGPi5HNSZmVq00rpUS/Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788679947; c=relaxed/simple;
-	bh=0fZThvsJiB1SVp88p7xvj4Q2ng8o/do0QgwFtcYm9AY=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:References; b=Yf+g1JEG8YMsixsQaxVcgb+MIUjR7JEBunXBi3Mz3qtx4w2Nr0NJ/2JRdSbELYKn0KqjnrJ/b+7mJJmvINyPrnHBD9dD3AHExRwfkW4vqv2h6oiYFE5Pe73+/n5+tMpcdIogEU9srVPJHxMKIQz0pXgBZrLqkARqu4Nm4ZsF2QQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=X+8LtR12; arc=none smtp.client-ip=106.10.240.107
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4936E2F8EA5
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 07:32:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788679948; cv=pass; b=X7cMd3ggyvnK/2b6mRHiMQivR4oTmJq42TkKBMHqDZjAhoQbwBGqfupHnbnlMXMbS78nV50cpfdFQHebJ5FPZ3XxtxpbBUZdvpmxnwA1USCrDmkIdpbfKIp1CH2MvB3+Wj5CxNSn3piT+keqS4nsOslCe4U38F/8aietD7HTjdk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788679948; c=relaxed/simple;
+	bh=38xxFyuvZIF+Mcb0oDEHyyIdM03D64/gUGg0xDZ+DkU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YgJurYVsuseGMVWjNdRAYqfIhpaVHcd0mPRqEImqEVloEDB4dsA97PdQQ4FcPaOMkcO5HcOB64wydktR2gpQIkxZJnYzzmVaakPownuiMLkHwgZ56j/j5Nrlh85P//poBdDom4IY3UWpILT3dIqtfx7dwJIfp/+ndxHKa9XWTdM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZorRkd5m; arc=pass smtp.client-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="X+8LtR12"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1788679943; bh=l9zWHxulmZx2cLXTPCewxnXcoi+pUT1U77rBAQVom2w=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=X+8LtR12yzoztxXR8ssWDNmlhaqKrjL9UHM0NllsyUHj3GWHBVWGcOYWS1aHoa99zH7WIV2QJ/Ocr1q0JP+vTG2Li4Uhih6p4V1OHWGYssbHzQJJlIKolQxEEnhuv+I4vMuERL334NPnHKVaF6SschViHZnZjhfRPTlWQYdL5pHtPYtLpHeElp7NbKz3GFcC0Ff0iNETMGGn8AeRjDK14EL8wdy/xsht9JcHC7dEEiP+iEdXUg0Kq29ZrlNYp9/2wI4JI2fma0tKPSLk1JInBMf1L7cue7mnOvB0i6X/Os5iG1nIVHpFrA8AQgqTzv7HIENQqUxYekfQzDY/xCHzmg==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1788679943; bh=6Lwe6WeSGoUtlXtV7qA2MF6eHQSWA/taujAOUBsB5KQ=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=cMx+/As3e9su3GpqrvuDrZB+i2AlSa+vPvme06l2vXcfD3mJ5WEEtIDRWjKZksYCUXd2PnrTgj0jhEJXrHd9Q5oJjGbIMxcYcgcmtQEl+eZyjjTow52BoyVW4DKMn88j1g6yH/sgzoMJUBXI3QjAkjlcPi0vsoL0m6z9eAcxEdDzp+JXfW7AEJhnErc+QfCrKqP99/plAkMlgJkGBcFoHoUtZ2Ey4i08LJ/xkpNS7EQI+tpXNPLe34uhyX6ls+JRFbT5jGa6Uxwm0gpQV4gyiBAjcxutL0PkSJntbBX4ka+XMEaJ70+gOu1eQQbfJ3hjT5yOOBpbKhJN3otKhGfo1Q==
-X-YMail-OSG: mA.nyxQVM1lBE5sEC5ACsLpO2NOAs8RmCUT0m7NJ3SXVkZLNJMBSsFe6KotsSre
- 2HTJA7RGmJZNW8eUOHztsmnloI2fXjz0uNGMoGZE9LXf1FNjc_gmPZtebPg8jh2YCmYo6CQMlLvy
- 75NzLSEai.9BV.DA3mBhRDIvlt.Zr1G7S5n73Kt_vICd3CFYXZMdoyjAH.xFvsjy2734RSNDpvgS
- wlqQ6bFWTWtGmb13NiU3vVmn6IUFO5p2KJklvuXRljr8NR0IygwLvvCS8IEI0yUBkA2HtB1QRL47
- dfu30mB5IuoglyNOvRF6I59fMtusqGonFECvcbA8KG1fUEHAoWmBdJS9k6q.p5ABMk.eIuyQP2aZ
- w2MB__DMo8DLgrhY2RomgID7yqiik2HNT8RzYnfrTl9gIR_nt1HfyxvsnV6dKlGMlPZ.ApLUBveC
- bkkysr.roHq7cZtvebKOd2A31TBiyCuCZgyCvMHcwbwksf1FpRRt6DOXHrTMFFz0zHfoWHmmAISn
- scXzvIuosL_FiDVSs5Jiv_ZisBtEyRqK1Ie4Z0yBGDLlDlxWuXDg9lOxwWDsHJRr_SKomZpC0HzF
- OQXHwvNPXN6IGcdARYZOc_yt7ITs1VDcIjx2Nm9Nob.877.F.yq59jLR.vp1ha79sDPREJAb4p_R
- dk0SNn0C7XyGjl8nFYlG484TgYz_91nOi3fMrESucNHdv_4ef2P9BrGHMZhf74SZ2CX..TRnTuej
- sM_SrH2Ro83b.l_yCSjefLnZloPa1dWQUPH7JDBxX9wB_PMOHRRlyFNMHa88Sr.GYR6AS.GrVZPh
- YUAZYLU7QNdAaUAizK.fTgUj0s1DKL6u4jG98w60ZPA31YFa2HYrVdy_v.9hCDm0UWcN_sYnDTG8
- junPHsv6DZewBDLGTkhq1H6yO2LFVUjUl01oOBJT_VgZBtdmPQhvWXeB9e53CC_7hGCwqQwM0LJg
- 9XHB61hEP6g8MVCmoxZwaRIaKLsyMUU5UKgt7tBjZeBIg7gv01D5bRsyyk721RFoYcLvt9pzR6AY
- U92X2RSrZYSVqkjqYTfKa8mN70r2ZnQWl_bkhygFWyqNfAVnAe5qsTIGb6WnuDBQAUctQqCOrK2W
- sOPlmTP4i4hO2sdlMTZOd4VO3Z4xvCNvkxWlm9O3XyZOTlYZvXw..UFaOI60aoZ3M6NZE84Vtp9N
- z85HMuve4ScpuWngtDdrPZfgsSKrb_taIcV4DUCPN36Z7hAURONsshehaBdJdE.TWTdNaOHeX4Ep
- nJU4M3iUUhc3acuRJnQcyj76K7uAg1T40U9_zQeNW79Ukp8nP2A8g4MviXcI74RNKVEjeJImWAES
- rlU1CXhDrlWjLiWS45mFIiA3GbiRBZ3loL.yTHyRpj.2G6xyJOhhfXoD5seJopoB.MNK9FcTjPei
- D0cLC5SIBRFWpMq.cdrcf3nHUdxVV2lYGYeUIFJF8SlX4PkmeAZzC89mfgaphgMXyUcssqs8F_2y
- 8EzEv.lbQm7xIJ.zG8bXsYYn_WeerLrGUToaUmtmRLgSQ4JBMX3olkl3iomT_Jhwm9G5saEYa_rr
- yrsbfY.gGjLM9Aob4h79lOF91PcwnX.SQb0ILllWl2Vl0cPnTrnAFy0VyuCL06STlmbpg7GaRuLO
- B19gbb50S7fYfr7rrkqhNu99mGUcBvRSkgK15cH6tvvcyxUsrVGoGZ0An9RbcFH9e4ttm_LPDtmM
- ctvR.5vJPqay7Ykp6LgF3NyeBc2FLANZfL5qXI4hiwtrQ5KirvWYnZ9JvHZjiH_N7di3hVjOJ75v
- OMj7EaZ7irXp9LRHo6ngU1FiEE0HcfsQgpWiMs8GD9faCr9vRlMPt2BbvhBEZTOY4hi1ssrmok5X
- zjrW0hseJyYkCYXY_HHPG8.bW11ml3ptgSJnuAehXMYcd6zDaifmQKykPox4rlB76AKEWl8FCuiF
- 0Fpoxbrd0fUSkGzuRzoRFLeqdGTZsxtow9Ho3Nw0woWWiiXfbFPesvPbc9I9Pr4Er7s2qFLf7BFD
- J3oLb4mHIEX65I7EyfQFQgm2q4e4qP3hCUCdHSiqNjqQVk_fChnUBXKk6oXQGWj4_.gr0Sr5nJ.s
- 34xTteo6JFfjtxN4_QCO6C6IxrxDf8nqXvTAz9LqCE_8ooIiRSKKVUBQEVmuU0cSJfJBflgQyZJ.
- .bFMowCGHBEAy_7jwO7vwT0xZO3v27XMMwVHWOy6lPfDygdHVbHwYCi3qzu.YotYSersM3T8y5BA
- eYprNgJneJZtw0Jd9C5nVflTckHOw91V16IBHJw--
-X-Sonic-MF: <mafiatamilan@yahoo.com>
-X-Sonic-ID: cd298061-56d0-4ae7-9e77-8e3d8b9010fd
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic313.consmr.mail.sg3.yahoo.com with HTTP; Sun, 6 Sep 2026 07:32:23 +0000
-Received: by hermes--production-sg3-664647588b-52h4b (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID b18fd0aebb47f8ebafacf0df8444bc70;
-          Sun, 06 Sep 2026 07:09:41 +0000 (UTC)
-From: David <mafiatamilan@yahoo.com>
-To: Mark Brown <broonie@kernel.org>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Cc: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>, Takashi Iwai <tiwai@suse.de>, linux-sound@vger.kernel.org, alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, David <mafiatamilan@yahoo.com>
-Subject: [PATCH] ASoC: amd: yc: Fix internal mic for HP board 8C30
-Date: Sun, 06 Sep 2026 12:39:39 +0530
-Message-ID: <178867857905.85694.5014721659216165123@yahoo.com>
-X-Mailer: git-send-email 2.45.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-References: <178867857905.85694.5014721659216165123.ref@yahoo.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZorRkd5m"
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c250f28f1cdso381553466b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 00:32:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788679945; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QIrIwwZzFNC6Uhm4UcTWXECiP0LNj7uXpS2PEyguHaz9+GB0cS1CmLYA+7jQMyy7An
+         /REV0RF1G6pbQBNoWcEkVN1fHDSSHhh+4kIFFk9ZlgT1la9pBwKsdgSZ4/5ikr3K6qM/
+         QAsngkxxdw3DvLw2qRMRTWz9tHCs1NdSNYnx68AQfMpx4AzP3jEq8i0XwMxErOGlVr+4
+         BebAoQp5AKA0dtY06hzj5I4v5/U4QSlVmqi4Z/V0sf2p7pZ4Jfd7Iaox46BjPwcI+nsW
+         5ro/zGITGErE3Ku3mj85lc7G/b2Nt+Xp/iWUGyyiWzTMIr1n/5XGk4zBkeCM/cB9TGax
+         oWqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=fKgOc2l+vVuFNJXwxuWo3OsxtXY42+muaiQdmV0l+QI=;
+        fh=yWH5x2nIMxbcq7aZaVFjoVPPBsoJ8+dKCQmv7vBAW8E=;
+        b=bdXfc+QevzdLB4Q5vDetRlnV0JWL0bvFEegxbr3inZF5xxJ2I+lHJmbGbX1q5NHw5T
+         eauLbNsijq1g48Bk35PC3ttsCnFYZm+BQ4oR8YP9oj8TGYNELqJ/IJU1n75CtrsEWyLm
+         fQQBd27jJM0CrSwlfE8MJQXlF1lj+AtrMvwGxPzjmqtAU2nFOpSbCBmcMRAuIt/2UxSL
+         BNAbQSgZde7Bmrz05AZ6aXpSKNXGs1ps6gU10AGpGWBlH1Gbhwk2addIxrawcjzBWWGQ
+         ZwxKNjHk9P+lqnFhli6VgTPcn5Gj5kqIzD5oOnSqtBNy0iPKtk0wPlT1ZfWzP2u8qrWa
+         CEuQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788679945; x=1789284745; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fKgOc2l+vVuFNJXwxuWo3OsxtXY42+muaiQdmV0l+QI=;
+        b=ZorRkd5mEmFhkouKQ7TPbC/pdIw+Sxqwd5l1lXfuRXFbipBs7HUYAMo+kWYda/lBvg
+         Y0zZkuweKaYWjna36kiQ8DLVgL7VEeyGkmt/Z6E0Wapj5lPD3M4ZPVSrFOS7oTVGwZyi
+         zPN4oHaKSVXuE5rftUCYDEzBwhxPKj5qOGfn/G9qs9kO9CGESU1AmcKxVvEhpvfF/uIQ
+         avMpFEaQx/ILUTnhYFd233/fTWh7s8kMuPlovKlfGpitOfUkG3ZIyUKOnOLoM62oB4Ta
+         kfxfMqjJtYAl0L2MN4nUMO1KMtJRPs2dLk1I4OMIUSfJVdU7d4igmtR6j012FOQWbfe3
+         GZDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788679945; x=1789284745;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fKgOc2l+vVuFNJXwxuWo3OsxtXY42+muaiQdmV0l+QI=;
+        b=CCcvipt1CWansunpWq3Yf7v5Ox2qIPr4OyOzq8J4+qkYb1p4wOYcvGxmJyct5Dg/sG
+         dwSVyIIT3vkIZL8koKw76+vehAQGPZh293iHzKrqfmEBUk9C2TqqkSMxXTWQW/3ptD8J
+         URiP775kpJerNwENF1L+b2u+PlYxnNc44Nt1oo/25kAyJbqJSXvdzg2be5Up2Vti9BnY
+         bopFdKCBJJnUbYGSTTjxuNhqIh9BJs8ZCiG1MG1zwy2Nh9W/RINC4ikLa+KoOXeJkVNp
+         pDQAO4HjFdL6FS1sw5veqrpzK9djqamNLPRngthRVEY3JrR5UfRXw4zrmPyC4PlQUf+H
+         QxyA==
+X-Forwarded-Encrypted: i=1; AKwUvBzhoyxD1py6SISTWYaX4uto3sOh+608cmSzy2/05ppAKtqw7Bbg7fkpLTyVbfXFCfTpNR8WH7pBMge+41A=@vger.kernel.org
+X-Gm-Message-State: AFuF++m8JPi2YrMixsmTK1b7y6VdFvVmoPlL4KeUJi3XdYuPbtE3/Tx2
+	1zv4XqlwYPRxTOclUdJy0hvc9cq+6Hf9d5/KMNTzK+6pad1M4shFBvWMUShkXEOHO4dBlobeDKb
+	WXuR2y3bd68GI/NcnDgVlGyIkCU8jBho=
+X-Gm-Gg: AYBFou1gsq5ya8Ew6rtauMBytLAAVb8YFr4tWrS7TzEpqqHbcoYF2lI0fErzWHUVIiG
+	3D3O7VoQYNMMNK5eh0Yqr0y5VRp1Cm2XGOppe5m4rYbQmleBpxKyWKwgdKmU15jgZmOCqsAYw4v
+	Ba+zt73+TfYZ6ldvCNBmREg5oCaE3qUbCQTL5aT9pw+whvu12DOxYg7TtS3zG8MUrP4BzgYSjU1
+	8114AtVqpOV+yfBa91bwnHIZlxy6KJWH4YhVdyZLJzIxr4Mp8a2uvI45rUkK284PjUHKM1fXbqw
+	Aq+Bkg2r2UK58QaiVnhlAHzDLO6D3OP31xAnJJfVC2Ii3jPJOTX65lkoDiMgAz4cFdK/UQyw4WY
+	4Np0UeYf+1xpkjj/5esPgOnO14YSWK+XKkKLIQYgWu6+8gC+IA5F23Gm9tm/g7xJATkMgsxuxof
+	pcKPM7UlhWx3ZmrBK4YZkWYMZR7J18ZA==
+X-Received: by 2002:a17:907:c28:b0:c26:19de:9acf with SMTP id
+ a640c23a62f3a-c2619dea6efmr444606966b.39.1788679945279; Sun, 06 Sep 2026
+ 00:32:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260906004958.26041-1-lalitshankarch@gmail.com>
+In-Reply-To: <20260906004958.26041-1-lalitshankarch@gmail.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Sun, 6 Sep 2026 10:31:48 +0300
+X-Gm-Features: AcwNN1WzAwLmobc8VQofp4aTL04X2XACY-eMvYBwNFs_k975zra_jqGeD3A71Bk
+Message-ID: <CAHp75VcRYL4idPvU3tC1nPO+HbRAoO63SXh_oqATShLZsommiA@mail.gmail.com>
+Subject: Re: [PATCH] staging: media: atomisp: Use C99 initializers for ACPI IDs
+To: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Andy Shevchenko <andy@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	"open list:STAGING - ATOMISP DRIVER" <linux-media@vger.kernel.org>, 
+	"open list:INTEL MID (Mobile Internet Device) PLATFORM" <linux-kernel@vger.kernel.org>, 
+	"open list:STAGING SUBSYSTEM" <linux-staging@lists.linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The HP laptop with AMD Ryzen 5 7535HS and ACP 6.x coprocessor (PCI ID
-1022:15e2, subsystem 103c:8c30) requires an entry in yc_acp_quirk_table[]
-to enable the internal digital microphone (DMIC).
+On Sun, Sep 6, 2026 at 3:53=E2=80=AFAM Lalit Shankar Chowdhury
+<lalitshankarch@gmail.com> wrote:
+>
+> Use designated initializers for the ACPI ID tables.
 
-Without this quirk, acp6x_probe() returns -ENODEV and the internal
-microphone remains undetected.
+...
 
-Add a DMI quirk matching vendor "HP" and board name "8C30" to enable
-ACP DMIC support.
+>  static const struct acpi_device_id gc2235_acpi_match[] =3D {
+> -       { "INT33F8" },
+> -       {},
+> +       { .id =3D "INT33F8" },
+> +       { },
 
-Signed-off-by: David <mafiatamilan@yahoo.com>
----
- sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+Follow the agreed style for the terminator entry. See Uwe's patches as
+an example.
 
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index 73baa48..0d3304d 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -721,6 +721,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 		.driver_data = &acp6x_card,
- 		.matches = {
- 			DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
-+			DMI_MATCH(DMI_BOARD_NAME, "8C30"),
-+		}
-+	},
-+	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
- 			DMI_MATCH(DMI_BOARD_NAME, "8EE4"),
- 		}
- 	},
--- 
-2.45.0
+>  };
 
+...
+
+>  static const struct acpi_device_id ov2722_acpi_match[] =3D {
+> -       { "INT33FB" },
+> -       {},
+> +       { .id =3D "INT33FB" },
+> +       { },
+
+Ditto.
+
+>  };
+
+--=20
+With Best Regards,
+Andy Shevchenko
