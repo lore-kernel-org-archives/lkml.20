@@ -1,27 +1,27 @@
 Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A282D12F585
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A29F4261B8D
 	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 03:12:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788664363; cv=none; b=sl9bmCAsg0BjOARxkA0hIewKhKOPEovnBz0FkrJYl5/tHj6ZbKzgI+mtnSmGbqaYEXMxCGlxEciT0dON63sjYFIPfhK88BDgit3d1uaESUPA50Nwi0vgDP4T9QC4Wk3gJAgka9aNw33+W4x1xDDenx8kRFzUzqhH/nS1EzXwB8g=
+	t=1788664362; cv=none; b=nuAMOAQHxCOOwhssrx5rr26mP5jnpYCblYEe1lp9qGFNt+nDmzo14/7IKCFG8zDPiCkn2iYqQkdNjvQyQlOJLa4bbcWC7sGXVfKu7dvMBkQrFjfNqE0OmtQUkKbeE9DmGUIO9aOwaWpev2z6SlW6Odqym/RN32GGmZsO21IFuUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788664363; c=relaxed/simple;
-	bh=RoOzhksC5UxUJkAMLtcAc2dDIKJ9fClhlaTw5AEAMl4=;
+	s=arc-20240116; t=1788664362; c=relaxed/simple;
+	bh=zzQBKTVEHs1nUCLb0YOR4hoNiqaUR8Zp8D6eGEpc/tw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Tp1CU1x2yz0bQI6kMb7UAYZU0tqpoZal/hjpJDQ7OFQvrzLG8vPxOwI5eUiFX2knClT2yhqeMIUmFXdeklTYU4V/coctCXcP48jq+2NhJjOfPwD4E7WwrOOcQ8XcRo2R3Re2xSFzCEeWCjACJnW+1to+w5BtNa1W0rJtLQ0g3v0=
+	 MIME-Version; b=jBnSUP51Czd+qD9LgFJyCAGqDCmOBVG3rrz1+7Yn/ojl+wkHdd9R7wCMuTRE4zSbYYwSu6K/EOwsCPNSlZDUTEi2r/bm8KWUeKK3DVQ4cvoYHn9EFPjsF11OWlS6UjYjxrn1DRGABERUO8HCDrFyJmRiF76qaDEl9d9C75Wc6to=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
 Received: from mail.maildlp.com (unknown [172.19.163.198])
-	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hcwGX5svtzYQtqP
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hcwGX1hN9zYQtqq
 	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:11:48 +0800 (CST)
 Received: from mail02.huawei.com (unknown [10.116.40.112])
-	by mail.maildlp.com (Postfix) with ESMTP id 2F91240574
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:12:36 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTP id 9536640574
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:12:35 +0800 (CST)
 Received: from huaweicloud.com (unknown [10.50.85.155])
-	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgBnUAsW2pxqmzytAw--.18069S11;
+	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgBnUAsW2pxqmzytAw--.18069S5;
 	Sun, 06 Sep 2026 11:12:35 +0800 (CST)
 From: Zhou Minqiang <zhouminqiang2@huawei.com>
 To: linux@armlinux.org.uk,
@@ -38,9 +38,9 @@ Cc: linux-arm-kernel@lists.infradead.org,
 	yangerkun@huawei.com,
 	yi.zhang@huawei.com,
 	zhouminqiang <zhouminqiang2@huawei.com>
-Subject: [PATCH v4 7/8] jffs2: rename CONFIG_JFFS2_FS_WBUF_VERIFY to CONFIG_JFFS2_FS_WRITE_VERIFY
-Date: Sun,  6 Sep 2026 11:03:43 +0800
-Message-ID: <20260906030344.2448622-8-zhouminqiang2@huawei.com>
+Subject: [PATCH v4 1/8] jffs2: wbuf: clear wbuf on recovery failure paths
+Date: Sun,  6 Sep 2026 11:03:37 +0800
+Message-ID: <20260906030344.2448622-2-zhouminqiang2@huawei.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260906030344.2448622-1-zhouminqiang2@huawei.com>
 References: <20260906030344.2448622-1-zhouminqiang2@huawei.com>
@@ -51,190 +51,198 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:cCh0CgBnUAsW2pxqmzytAw--.18069S11
-X-Coremail-Antispam: 1UD129KBjvJXoWxKFyUAFWfGF1kJFW7ury3Arb_yoWxGry5pF
-	n5AwsxJF4kGF1YqrZrAFyvga98tFnrZrWjgr47Cw1UuF95Z342va4qyrnxAr48XrZrKr40
-	9a9a9FyfKr1xJ37anT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUQ0b4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAV
-	Cq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0
-	rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267
-	AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7Cj
-	xVAFwI0_Cr1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F4
-	0Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC
-	6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxV
-	Aaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l42xK82IY64kExVAvwVAq07x20xyl4I8I
-	3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxV
-	WUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAF
-	wI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2
-	IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_
-	Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxUxF4iUUUUU
+X-CM-TRANSID:cCh0CgBnUAsW2pxqmzytAw--.18069S5
+X-Coremail-Antispam: 1UD129KBjvJXoW3AF4UWw17Gw4DKF47try3XFb_yoW7CrW3pr
+	ZIyF13Ar45Kr1xJFs5tF15XrW8u3y8Gr1IgrWruw1xXF4vqr1aganaqFy8uFW0yrZ2qa10
+	kwsYk3y7Xr1jy3DanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmlb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUGw
+	A2048vs2IY020Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	WxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVWxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2
+	WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkE
+	bVWUJVW8JwACjcxG0xvY0x0EwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7
+	AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCF04k20xvEw4C26cxK6c8Ij28IcwCFx2IqxVCF
+	s4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r
+	1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW8
+	JVW5JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rV
+	WUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4U
+	JbIYCTnIWIevJa73UjIFyTuYvjxUV0PfDUUUU
 Sender: zhouminqiang@huaweicloud.com
 X-CM-SenderInfo: 52kr3z5lqtxttqj6x35dzhxuhorxvhhfrp/
 
 From: zhouminqiang <zhouminqiang2@huawei.com>
 
-Write verification now covers all write paths including NOR direct
-writes and write-buffer direct page writes, not just the write-buffer
-flush path. The Kconfig option also no longer depends on
-CONFIG_JFFS2_FS_WRITEBUFFER.
+Write verification was introduced by commit a6bc432e296d ("[JFFS2]
+Add support for write-buffer verification.") to detect transport or
+program-time corruption. When verification fails, jffs2_wbuf_recover()
+attempts to recover the data: it first calls jffs2_block_refile()
+to mark the old eraseblock's remaining space as REF_OBSOLETE,
+then rewrites the old block's data along with the new data still
+in the wbuf to a new block.  However, when the recovery write
+verification also fails, the function returns without clearing
+c->wbuf_len, leaving the wbuf still pointing to the refiled old
+block, which leads to two kinds of bugs.
 
-Rename the option from CONFIG_JFFS2_FS_WBUF_VERIFY to
-CONFIG_JFFS2_FS_WRITE_VERIFY to reflect its broader scope and
-independence from the write-buffer configuration.
+Both cases below are illustrated with a filesystem of
+erasesize=16KB and wbuf_pagesize=512B.
 
-Update defconfig files that explicitly enabled the old symbol to use
-the new name, so that platforms which previously relied on this
-verification continue to have it enabled.
+Case 1: BUG_ON in jffs2_link_node_ref():
+
+    User: Two 1KB writes
+      ref0: [A+0,    A+1092) (ri:68B + data:1024B)
+      ref1: [A+1092, A+2184)
+
+    User: append 1KB write
+      ...
+      jffs2_write_dnode
+        jffs2_flash_writev
+          c->wbuf_ofs = A+2048, c->wbuf_len = 512
+          __jffs2_flush_wbuf
+            mtd_write                          -> 0-to-1 bit flip
+            jffs2_verify_write                 -> verify failed
+            jffs2_wbuf_recover
+              jffs2_block_refile
+                c->nextblock = NULL
+                jffs2_link_node_ref            -> mark A remaining
+                  ref2: [A+2184, A+16384)         space REF_OBSOLETE,
+                                                  jeb_A->free_size = 0
+              jffs2_reserve_space_gc
+                jffs2_do_reserve_space
+                  jffs2_find_nextblock
+                    c->nextblock = B
+              start = A+1092, end = A+2184
+              end - start >= c->wbuf_pagesize  -> recover data in A
+              mtd_write
+              jffs2_verify_write               -> verify also failed
+              return                           -> c->wbuf_ofs = A+2048
+                                                  c->wbuf_len = 512
+        retry
+        jffs2_flash_writev
+          if (SECTOR_ADDR(to) != SECTOR_ADDR(c->wbuf_ofs))
+                                               -> SECTOR(to) = B
+                                               -> SECTOR(c->wbuf_ofs) = A
+          __jffs2_flush_wbuf(c, PAD_NOACCOUNT) -> flush residual wbuf data
+            wbuf_jeb = A                       -> c->wbuf_ofs still points
+                                                  to refiled old block
+            mtd_write                          -> succeeds via NAND AND
+            jffs2_verify_write                 -> passed
+            if (pad)
+            jffs2_link_node_ref
+              ref_offset(ref) = c->wbuf_ofs + c->wbuf_len = A+2560
+              jeb_A->offset = A
+              c->sector_size = 16384
+              jeb_A->free_size = 0
+              ref_offset(ref) != jeb_A->offset +
+                c->sector_size - jeb_A->free_size -> BUG
+
+Case 2: deadlock in jffs2_flush_wbuf_pad():
+
+    User: 1KB write
+      A_ref0: [A+0,    A+1092) (ri:68B + data:1024B)
+
+    User: append 1K write
+      ...
+      jffs2_write_dnode
+        jffs2_flash_writev
+          c->wbuf_ofs = A+1024, c->wbuf_len = 512
+          __jffs2_flush_wbuf
+            mtd_write                          -> bit flip
+            jffs2_verify_write                 -> verify failed
+            jffs2_wbuf_recover
+              jffs2_block_refile
+                c->nextblock = NULL
+                jffs2_link_node_ref            -> mark A remaining
+                  A_ref1: [A+1092, A+16384)       space as REF_OBSOLETE
+              jffs2_reserve_space_gc
+                jffs2_do_reserve_space
+                  jffs2_find_nextblock
+                    c->nextblock = B
+              start = A, end = A+1092
+              end - start >= c->wbuf_pagesize  -> recover data in A
+              mtd_write
+              jffs2_verify_write               -> verify also failed
+              jffs2_add_physical_node_ref      -> mark written area in
+                B_ref0: [B+0, B+1536)             B as REF_OBSOLETE
+              return                           -> c->wbuf_ofs = A+1024
+                                                  c->wbuf_len = 512
+        retry
+        jffs2_flash_writev
+          down_write(&c->wbuf_sem)
+          if (SECTOR_ADDR(to) != SECTOR_ADDR(c->wbuf_ofs))
+                                               -> SECTOR(to) = B
+                                               -> SECTOR(c->wbuf_ofs) = A
+          __jffs2_flush_wbuf(c, PAD_NOACCOUNT) -> flush residual wbuf data
+            wbuf_jeb = A                       -> c->wbuf_ofs still points
+                                                  to refiled old block
+            mtd_write                          -> bit flip
+            jffs2_verify_write                 -> verify failed
+            jffs2_wbuf_recover
+              jffs2_block_refile
+                c->nextblock != jeb            -> jeb = A, nextblock = B
+                jffs2_link_node_ref            -> append zero-length ref
+                  A_ref2: [A+16384, A+16384)      marked REF_OBSOLETE
+                                                  after the existing one
+              end = jeb_A->last_node           -> inflates to
+                                                  eraseblock tail
+              start = A, end = A+16384
+              jffs2_reserve_space_gc
+                minsize = end - start = 16384
+                jffs2_do_reserve_space
+                  jeb = c->nextblock           -> points to B
+                  jeb_B->free_size = 16384 - 1536
+                  minsize > jeb_B->free_size   -> first recovery's OBSOLETE
+                                                  ref reduced free_size
+                  jffs2_wbuf_dirty(c)
+                  jffs2_flush_wbuf_pad(c)
+                    down_write(&c->wbuf_sem)   -> already held, deadlock
+
+Fix this by setting c->wbuf_len = 0 when jffs2_verify_write fails in
+recovery path, and also in the jffs2_reserve_space_gc() and
+jffs2_prealloc_raw_node_refs() failure paths, ensuring subsequent
+flushes will not attempt writes on refiled blocks.
 
 Signed-off-by: zhouminqiang <zhouminqiang2@huawei.com>
 ---
- arch/arm/configs/keystone_defconfig     |  2 +-
- arch/arm/configs/lpc32xx_defconfig      |  2 +-
- arch/arm/configs/pxa3xx_defconfig       |  2 +-
- arch/arm/configs/pxa_defconfig          |  2 +-
- arch/powerpc/configs/44x/fsp2_defconfig |  2 +-
- fs/jffs2/Kconfig                        | 23 ++++++++++++++++++-----
- fs/jffs2/os-linux.h                     |  2 +-
- fs/jffs2/writev.c                       |  4 ++--
- 8 files changed, 26 insertions(+), 13 deletions(-)
+ fs/jffs2/wbuf.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm/configs/keystone_defconfig b/arch/arm/configs/keystone_defconfig
-index b0cadd878152..d485b8b0b91d 100644
---- a/arch/arm/configs/keystone_defconfig
-+++ b/arch/arm/configs/keystone_defconfig
-@@ -212,7 +212,7 @@ CONFIG_VFAT_FS=y
- CONFIG_NTFS_FS=y
- CONFIG_TMPFS=y
- CONFIG_JFFS2_FS=y
--CONFIG_JFFS2_FS_WBUF_VERIFY=y
-+CONFIG_JFFS2_FS_WRITE_VERIFY=y
- CONFIG_UBIFS_FS=y
- CONFIG_CRAMFS=y
- CONFIG_NFS_FS=y
-diff --git a/arch/arm/configs/lpc32xx_defconfig b/arch/arm/configs/lpc32xx_defconfig
-index b9e2e603cd95..dd0c6db641be 100644
---- a/arch/arm/configs/lpc32xx_defconfig
-+++ b/arch/arm/configs/lpc32xx_defconfig
-@@ -164,7 +164,7 @@ CONFIG_MSDOS_FS=y
- CONFIG_VFAT_FS=y
- CONFIG_TMPFS=y
- CONFIG_JFFS2_FS=y
--CONFIG_JFFS2_FS_WBUF_VERIFY=y
-+CONFIG_JFFS2_FS_WRITE_VERIFY=y
- CONFIG_UBIFS_FS=y
- CONFIG_CRAMFS=y
- CONFIG_NFS_FS=y
-diff --git a/arch/arm/configs/pxa3xx_defconfig b/arch/arm/configs/pxa3xx_defconfig
-index fb272e3a2337..f2121269f7c8 100644
---- a/arch/arm/configs/pxa3xx_defconfig
-+++ b/arch/arm/configs/pxa3xx_defconfig
-@@ -84,7 +84,7 @@ CONFIG_LEDS_TRIGGER_BACKLIGHT=m
- CONFIG_LEDS_TRIGGER_GPIO=m
- CONFIG_LEDS_TRIGGER_DEFAULT_ON=m
- CONFIG_JFFS2_FS=y
--CONFIG_JFFS2_FS_WBUF_VERIFY=y
-+CONFIG_JFFS2_FS_WRITE_VERIFY=y
- CONFIG_JFFS2_COMPRESSION_OPTIONS=y
- CONFIG_JFFS2_LZO=y
- CONFIG_JFFS2_RUBIN=y
-diff --git a/arch/arm/configs/pxa_defconfig b/arch/arm/configs/pxa_defconfig
-index 66cc149c5ca4..e05cbebb0d8b 100644
---- a/arch/arm/configs/pxa_defconfig
-+++ b/arch/arm/configs/pxa_defconfig
-@@ -596,7 +596,7 @@ CONFIG_TMPFS_POSIX_ACL=y
- CONFIG_CONFIGFS_FS=y
- CONFIG_JFFS2_FS=m
- CONFIG_JFFS2_FS_DEBUG=1
--CONFIG_JFFS2_FS_WBUF_VERIFY=y
-+CONFIG_JFFS2_FS_WRITE_VERIFY=y
- CONFIG_JFFS2_SUMMARY=y
- CONFIG_JFFS2_FS_XATTR=y
- CONFIG_JFFS2_COMPRESSION_OPTIONS=y
-diff --git a/arch/powerpc/configs/44x/fsp2_defconfig b/arch/powerpc/configs/44x/fsp2_defconfig
-index b8b21fa15a07..e626dcb98d34 100644
---- a/arch/powerpc/configs/44x/fsp2_defconfig
-+++ b/arch/powerpc/configs/44x/fsp2_defconfig
-@@ -97,7 +97,7 @@ CONFIG_EXT4_FS_SECURITY=y
- CONFIG_PROC_KCORE=y
- CONFIG_TMPFS=y
- CONFIG_JFFS2_FS=y
--CONFIG_JFFS2_FS_WBUF_VERIFY=y
-+CONFIG_JFFS2_FS_WRITE_VERIFY=y
- CONFIG_JFFS2_SUMMARY=y
- CONFIG_JFFS2_FS_XATTR=y
- CONFIG_CRAMFS=y
-diff --git a/fs/jffs2/Kconfig b/fs/jffs2/Kconfig
-index 560187d61562..556025a5d438 100644
---- a/fs/jffs2/Kconfig
-+++ b/fs/jffs2/Kconfig
-@@ -42,13 +42,26 @@ config JFFS2_FS_WRITEBUFFER
- 	    - NOR flash with transparent ECC
- 	    - DataFlash
- 
--config JFFS2_FS_WBUF_VERIFY
--	bool "Verify JFFS2 write-buffer reads"
--	depends on JFFS2_FS_WRITEBUFFER
-+config JFFS2_FS_WRITE_VERIFY
-+	bool "Verify JFFS2 writes"
-+	depends on JFFS2_FS
- 	default n
- 	help
--	  This causes JFFS2 to read back every page written through the
--	  write-buffer, and check for errors.
-+	  Read back data immediately after flash writes and compare it
-+	  with the in-memory image that was written. This covers both
-+	  write-buffer flushes and direct writes to non-writebuffered
-+	  devices.
-+
-+	  This may catch corruption introduced after node CRCs are
-+	  calculated but before/while data is transferred to the flash
-+	  controller (e.g. RAM or DMA), where mtd_write() may succeed
-+	  while the medium does not match what JFFS2 intended.
-+
-+	  Without an immediate read-back, a later node CRC failure cannot
-+	  tell transport/program-time corruption from post-commit media
-+	  damage.
-+
-+	  If unsure, say 'N'.
- 
- config JFFS2_SUMMARY
- 	bool "JFFS2 summary support"
-diff --git a/fs/jffs2/os-linux.h b/fs/jffs2/os-linux.h
-index e73ef643fd97..65604a6f8148 100644
---- a/fs/jffs2/os-linux.h
-+++ b/fs/jffs2/os-linux.h
-@@ -192,7 +192,7 @@ int jffs2_flash_direct_writev(struct jffs2_sb_info *c, const struct kvec *vecs,
- int jffs2_flash_direct_write(struct jffs2_sb_info *c, loff_t ofs, size_t len,
- 			size_t *retlen, const u_char *buf);
- 
--#ifdef CONFIG_JFFS2_FS_WBUF_VERIFY
-+#ifdef CONFIG_JFFS2_FS_WRITE_VERIFY
- int jffs2_verify_write(struct jffs2_sb_info *c, const unsigned char *buf,
- 		       uint32_t ofs, size_t len);
- int jffs2_verify_writev(struct jffs2_sb_info *c,
-diff --git a/fs/jffs2/writev.c b/fs/jffs2/writev.c
-index e96f10566fe1..604a14bb5710 100644
---- a/fs/jffs2/writev.c
-+++ b/fs/jffs2/writev.c
-@@ -14,7 +14,7 @@
- #include <linux/mtd/mtd.h>
- #include "nodelist.h"
- 
--#ifdef CONFIG_JFFS2_FS_WBUF_VERIFY
-+#ifdef CONFIG_JFFS2_FS_WRITE_VERIFY
- int jffs2_verify_write(struct jffs2_sb_info *c, const unsigned char *buf,
- 			      uint32_t ofs, size_t len)
- {
-@@ -100,7 +100,7 @@ int jffs2_verify_writev(struct jffs2_sb_info *c,
+diff --git a/fs/jffs2/wbuf.c b/fs/jffs2/wbuf.c
+index 3b7803c75d58..61e3dbd4cd7b 100644
+--- a/fs/jffs2/wbuf.c
++++ b/fs/jffs2/wbuf.c
+@@ -390,6 +390,7 @@ static void jffs2_wbuf_recover(struct jffs2_sb_info *c)
+ 	if (ret) {
+ 		pr_warn("Failed to allocate space for wbuf recovery. Data loss ensues.\n");
+ 		kfree(buf);
++		c->wbuf_len = 0;
+ 		return;
  	}
- 	return 0;
- }
--#endif /* CONFIG_JFFS2_FS_WBUF_VERIFY */
-+#endif /* CONFIG_JFFS2_FS_WRITE_VERIFY */
  
- int jffs2_flash_direct_writev(struct jffs2_sb_info *c, const struct kvec *vecs,
- 			      unsigned long count, loff_t to, size_t *retlen)
+@@ -400,6 +401,7 @@ static void jffs2_wbuf_recover(struct jffs2_sb_info *c)
+ 	if (ret) {
+ 		pr_warn("Failed to allocate node refs for wbuf recovery. Data loss ensues.\n");
+ 		kfree(buf);
++		c->wbuf_len = 0;
+ 		return;
+ 	}
+ 
+@@ -431,12 +433,13 @@ static void jffs2_wbuf_recover(struct jffs2_sb_info *c)
+ 
+ 		if (ret || retlen != towrite || jffs2_verify_write(c, rewrite_buf, ofs)) {
+ 			/* Argh. We tried. Really we did. */
+-			pr_crit("Recovery of wbuf failed due to a second write error\n");
++			pr_crit("Recovery of wbuf failed due to a second write error. Data loss ensues.\n");
+ 			kfree(buf);
+ 
+ 			if (retlen)
+ 				jffs2_add_physical_node_ref(c, ofs | REF_OBSOLETE, ref_totlen(c, jeb, first_raw), NULL);
+ 
++			c->wbuf_len = 0;
+ 			return;
+ 		}
+ 		pr_notice("Recovery of wbuf succeeded to %08x\n", ofs);
 -- 
 2.52.0
 
