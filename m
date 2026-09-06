@@ -1,321 +1,152 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F33132DF717
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 16:35:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C1C36194C
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 16:37:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788712531; cv=none; b=tzN18bWOo+5+1U7Ci1dsW6EJVgXOFuTI1PcTKFYfIDMV/GzfAxDB7YGUn12XHJ2GtfqOAXHXSISVDwAokbrnUVq65PZuBuEo3EMJEYOaOv2NVGrVYphzCgs80GDk9/hezRcPMak7skKJbjRC7xn+rKCzDteqwjAespNr+4kjahI=
+	t=1788712668; cv=none; b=ABtMs2An+YAZXMA1KrQmJB8boqVc9/Vt0L1nSlY4cOgTnHXnYydTHumJesw7ewstK//9hSmh++pBJ6CFuaY9QUTNqOeIFOlhyCJ7TFcnWccKE8QMGwWENanDVHpSa/J1w++ExsgmqLRW9r65bLOlwiMggsuNd7FUejlh19/2YKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788712531; c=relaxed/simple;
-	bh=h7/V0at/+NnzSzY6aIr+rxyoxqYmvVBXwXOt5aIeDb8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tPHpRtLd7derqXY6arau4CwJIcs5vfVNVSKlzI9KHk8JhnAr98ITqdSUyhfiZF1I4R8mw1OpU+L9NhuziCJ6lh/EyC/gd5Rw5txiMCdrqykCw6oDmvZbHRCy6M2SnD+xVnq1DQFSLsMjC7mlancAN7JaPzRihvXvoAkTh9rKTAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fsVHdJ+A; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	s=arc-20240116; t=1788712668; c=relaxed/simple;
+	bh=ya+LlWyHt4+HI4LvLhLTcPHQzAe6hbPkzc8Cc9HoXcs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gzriz1xtsW80SdZe2axGeRpKqUHl9UnsOR3daGC5EqvBZd+XTHCQ3COjGaaZoDm9Vu4ldAM9NAlyPfCMIih7OGa1KPqfeX0S3Lvx6j4C6dvt+hk0o23QyG5JX8CjiaeBB/8XmOh3W57V9n+bueoilFMyeX94FLBdiX/N99n66bk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AlecbwRF; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fsVHdJ+A"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3964dfb5b9aso3431962a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 09:35:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AlecbwRF"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso25128005e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 09:37:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788712529; x=1789317329; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nudUPWM2QAIfEFELmaEz+5a6jh0fU341vXApFqIJxX0=;
-        b=fsVHdJ+Alol5RfVCLNFmDxQvYGfnQKuPwKGALOmrliN+dSNCPXWYX1Ycz/XKI8uvRG
-         LgdKgPWyFgE8kKV/CX1KufshBCkrF1tlI8CtLCrzzLxBd6lBTiHjJuiLYolHs/2+qeW6
-         BaKvQOH1WxtNC/6DvbWFFxIRy5r+qm39zE1V4bDHaiqR2KomGcnu5rvmVmJaTx02mEQa
-         DEv0svWg7gDHhgETNFuYF9go6sK2TcN6n1djVqsaXanJd0ZormxJfBi6VzVnS7ymEyMm
-         KCm3JilJQzyy6pCsxbfO+JsZZIY1nXFB81rh+Vu9TGirFbRGqm/Kzj35bbR6jKKwcKTe
-         dGOA==
+        d=gmail.com; s=20251104; t=1788712665; x=1789317465; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ivyLPO2HZhtqk7cqP+57Dc0UEnfX7FjCnb9LTUCpQ7M=;
+        b=AlecbwRFJE5WwIMz3VNFGuaXnszg2YJHMEd6WOCpehmD3MUB4mi2T2XA/34sQPqAX+
+         EWf8XHb2u8dPlz7DnHw5kdGx4EaL5m44Se8BS0wd++M/G4ILQJTROCdHb1mOg5LccyHr
+         HKXQNGdx33QHJD7H02yxUNSOwkpB4GQNECxvP2XxkGZWHlsCKA/5iCDvdMFwEMEWHyvY
+         LPtww+kbDnrJ/m7tnAxVO1eUjynCZTXImIlbcK/QMhoZkKL2P35h3j446LKixEHpyaKh
+         Ke5s0g6ZT5YSS1qHWNWUXm5gxz4HqLNHJ6RCRVvFvjJ4vATJvu7OVgstoggciiZNGZHq
+         UrFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788712529; x=1789317329;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=nudUPWM2QAIfEFELmaEz+5a6jh0fU341vXApFqIJxX0=;
-        b=TckcA9P6tZ/w1Ji0FBByM8aH7j1Hqhl6Pn9RDuJSMM0KG4eiGbner7VCSqYkcoTMkl
-         pB1r6VL5j2rCOxcdEuP33212srsacJ/o/swk3wokcKU7wO419Bny1QQsTSoV7kYhwycz
-         gorJgpUIAoIlceO+OFymK73+QDz5+IW0aWH/xaebPqK5IAGYvWu5Owx+y8P0eGpLw6G4
-         tR2aPnomEJli0YCMUKT2JDsEPw0iHVYByCS5N0HiByO4J+BpEYEhiKwTT2nHDyQ15K1C
-         5cKvIZOWVkR1U1F8OFgmVbby0JWwpZkF74A82QvSUNFGsbQkRUSgJavRBooBI/mXGn8y
-         3tPA==
-X-Forwarded-Encrypted: i=1; AKwUvBxciaIh8P1HCCbbrcsAizMIZoi0WVzYyuuqwIuUTOyuuusfU9O/pRRk05suEzMkNTRCwSuJAJNPU/HyRjM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mfd8SGRax+DLReope+jNU4GP6vdaY8c7bHPWPOaVAVmkxJE/EM
-	FxKnpO/mRiP0Z1e5aY/FIxNuLd5RbydzRQ9mh9ge6qNhVD3qLB8D0UdSibXNAg==
-X-Gm-Gg: AYBFou0kw5jh5OiHBiZFMYbwL7BrKhhINeTL/7EpBQpiPzqqXDDqw7RK+vLkWN7Tphr
-	lnOw3hhXpxShAYeQ/vq2aC4UHVYwlsCS7cqC9XHBI/LikKAeWWsx+POhn7VjN4h/ko/dxVGw+8M
-	jem23+CEU+DMG9q7aivmbL/VzMjzyMFz5eMETG5HBi7llsfrSiJ57/qZQqEYBlku2KRPEZ3qmfK
-	UoSZAFFbjrJkda4W6SPXtfg7mWXm8LFyV+mhwUBpF7ja3f44MHoPtOYhM7IiGF79/tVTw8JE1pX
-	PxXtWyBrePDeBAMRX8EyGr0LNhViMf+taDYAfygx76wQQUYqGFjlKKk0n3rVOZYWzWnxiYN2vkW
-	FMC1nT59+kRPiAT18xZPh9rZvJeikG7BOuYfue19MD5v31LT/92+6fqYj2R8UGi7vgNi/QmYF29
-	ca0feVb5AU4IawzrvNq6Un5uyXrmdv+3Rphp7aNn2Uv+juLCbD2O9QmPQn2FC02wIqqy6HCr9Ek
-	rCwmeH8TVllUlDtD5TxLd8q9CMg1VG5bNtT7Q==
-X-Received: by 2002:a17:90a:d44b:b0:396:4cbf:45bc with SMTP id 98e67ed59e1d1-39b26203f11mr29397287a91.16.1788712529186;
-        Sun, 06 Sep 2026 09:35:29 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432441f5f2sm23627154c88.15.2026.09.06.09.35.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 06 Sep 2026 09:35:28 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <f83af616-c221-4276-a44f-31f5a0072f2b@roeck-us.net>
-Date: Sun, 6 Sep 2026 09:35:27 -0700
+        d=1e100.net; s=20251104; t=1788712665; x=1789317465;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ivyLPO2HZhtqk7cqP+57Dc0UEnfX7FjCnb9LTUCpQ7M=;
+        b=tZ4xLPVcKa2e2sxUakD8OLf/SvkOvwaQ9jLwXA0pBUXbv0Ot8Zubgk+LyuqwWUR0gs
+         I84unj9rMMWGBN3a9Z84gHbRdnY749o04h/DhgH9F8fGAyvegfvHVCYpE7BH8ZKxAYFW
+         +m+J8LeDJ5CAhjvQawe0qZF45KK//d5AS7yZdTx5H62nUIXBgqc8yDdN/2feHw07/pbE
+         O/TxH9V1UY+V2fG41oWMW0eOkPPalnD5fBzkryfX2xrk+3kJ9U/5dq+LefLMECj8jjyE
+         StMesLhhrXFP2AbcaPAHpAAw0ht3xNXMlx8imH229MWD4axDE0SwT3ElhZu0x7zSmjDG
+         keNg==
+X-Forwarded-Encrypted: i=1; AKwUvBy46N6eOn+wOboN3P5r6eP1Je5/YiaFaNBraAaBU3vUOKDuHBuCKIcEibhAYmhu+x68koGrRGQXe8CIGDM=@vger.kernel.org
+X-Gm-Message-State: AFuF++ldtlshp7NylrCU4choWZaR3wv2vgdqeiGph3XXy0HQFN5FWY3W
+	pzsRgTwwQnDDS856QvZjCVJIekolD9SlNlVsbL+m28Ou+4sAlx2ywcYI
+X-Gm-Gg: AYBFou1j4w+rAEgWWPrXOcD5RkhRza290RxMi9j97QlStRkFrJBTb5ygNuFqKsSxZ5+
+	YdRwKDe588C4vN91mA/A4xbm7TbpVgBwLxo5P4zdM8u91RW4aCQVx990fjo9fCTmNlCn1svX0Cz
+	897bfAUwdEKSh0QygP0GQPOiXL6y+G82TfPLA1RnQ9LbISOFgtMq2xj6aq2VyDnQfLH5PHNWOEE
+	S25xzmGMu80ML1Uk2S/jE7gBO87uypAEi+rFzJtwvbMrVLVPMvHJ4wIlFlD6wJ/NctvEmdsuMSg
+	dYySQFVgdcJi1497wG59Bnhnehw49mSUDxWzOW7z9SBsnneoJGdpyvohTkph9mxiWxZkeLIch2D
+	1s/JdNjDNchjaytx9wwhxgXJpqG/HqEkizfs3jLZcy925gCCacrLwD2qHBil0GNA2huYKZcsWzx
+	tWSfKmfvaYod+VH2gNwcSlxjbQ6jiEoEYQDDpXm/QtJ3J4zdajojdZKSsnqkVFt6ABfrpX+ZKry
+	v9gKc+eoC0GUQ/2N5/wkyun6/E=
+X-Received: by 2002:a05:600c:4e8f:b0:49d:4ef:bf70 with SMTP id 5b1f17b1804b1-49d04efc043mr96329235e9.10.1788712664882;
+        Sun, 06 Sep 2026 09:37:44 -0700 (PDT)
+Received: from localhost.localdomain (mob-5-93-26-136.net.vodafone.it. [5.93.26.136])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-485885c5bbdsm20907997f8f.36.2026.09.06.09.37.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 09:37:44 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Beata Michalska <beata.michalska@arm.com>,
+	Sumit Gupta <sumitg@nvidia.com>,
+	Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	driver-core@lists.linux.dev,
+	linux-pm@vger.kernel.org
+Subject: [PATCH v1 0/2] arm64/cpufreq: report and track frequencies above 4.19 GHz
+Date: Sun,  6 Sep 2026 18:37:13 +0200
+Message-ID: <cover.1788712186.git.okerixx@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hwmon: (yogafan) Add support for new Lenovo models
-To: Sergio Melas <sergiomelas@gmail.com>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260906021023.766992-1-sergiomelas@gmail.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260906021023.766992-1-sergiomelas@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/5/26 19:10, Sergio Melas wrote:
-> Add DMI quirk entries and map correct ACPI paths and configurations for
-> additional Lenovo laptop models: Yoga 14cACN 2021, IdeaPad 3 15ALC6 Ub
-> and Yoga 740-15IML.
-> 
-> DMI product family matching is finally preferred over product name to
-> reliably distinguish identical model numbers with different internal
-> fan layouts:
-> MODEL (DMI PN) | FAMILY / SERIES    | FULL ACPI OBJECT PATH
-> 82KU           | IdeaPad 3 15ALC6   | \_SB.PCI0.LPC0.EC0.FAN0
-> 82KU           | IdeaPad 3 15ALC6 ub| \_SB.PCI0.LPC0.EC0.FANS/FA2S
-> 
-> Signed-off-by: Sergio Melas <sergiomelas@gmail.com>
-> ---
->   Documentation/hwmon/yogafan.rst | 40 +++++++++++------------
->   drivers/hwmon/yogafan.c         | 58 +++++++++++++++++++++------------
->   2 files changed, 57 insertions(+), 41 deletions(-)
-> 
-> diff --git a/Documentation/hwmon/yogafan.rst b/Documentation/hwmon/yogafan.rst
-> index 9ff5db5dc..a7e628bc3 100644
-> --- a/Documentation/hwmon/yogafan.rst
-> +++ b/Documentation/hwmon/yogafan.rst
-> @@ -85,27 +85,26 @@ immediately to ensure the user knows the fan has stopped.
->   
->   ::
->   
-> - MODEL (DMI PN) | FAMILY / SERIES  | EC OFFSET | FULL ACPI OBJECT PATH          | WIDTH  | MULTiplier
-> + MODEL (DMI PN) | FAMILY / SERIES    | EC OFFSET | FULL ACPI OBJECT PATH          | WIDTH  | MULTiplier
->    ----------------------------------------------------------------------------------------------------
-> - 82N7           | Yoga 14cACN      | 0x06      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
-> - 80V2 / 81C3    | Yoga 710/720     | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
-> - 83E2           | Yoga Pro 7       | 0xFE      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
-> - 83DN           | Yoga Pro 9 16IMH9 | 0x06/0xFE | \_SB.PC00.LPCB.EC0.FANS/FA2S  |  8-bit | 100
-> - 82A2 / 82A3    | Yoga Slim 7      | 0x06      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
-> - 81YM / 82FG    | IdeaPad 5        | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
-> - 82JW / 82JU    | Legion 5 (AMD)   | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FANS (Fan1) | 16-bit | 1
-> - 82JW / 82JU    | Legion 5 (AMD)   | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FA2S (Fan2) | 16-bit | 1
-> - 82WQ           | Legion 7i (Int)  | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FANS (Fan1) | 16-bit | 1
-> - 82WQ           | Legion 7i (Int)  | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FA2S (Fan2) | 16-bit | 1
-> - 82XV / 83DV    | LOQ 15/16        | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FANS /FA2S  | 16-bit | 1
-> - 83AK           | ThinkBook G6     | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
-> - 81X1           | Flex 5           | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
-> - 83KF           | XiaoXinPro 13ARE | 0x06/0xFE | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
-> - 82KU           | IdeaPad 3 15ALC6 | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
-> - 83RU           | Legion Pro 7 16  | 0x03/0x06 | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
-> - 83KF           | Yoga Pro 7 14IAH | 0x06      | \_SB.PC00.LPCB.EC0.FANS        |  8-bit | 100
-> - 83BS           | Yoga 7 16ARP8    | 0x03/0x06 | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
-> - *Legacy*       | Pre-2020 Models  | 0x06      | \_SB.PCI0.LPC.EC.FAN0          |  8-bit | 100
-> + 82N7           | Yoga 14cACN        | 0x06      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
-> + 80V2 / 81C3    | Yoga 710/720       | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
-> + 83E2 / 83DN    | Yoga Pro 7/9       | 0xFE      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
+The Snapdragon X2 Elite (Glymur) is the first arm64 laptop part I have
+seen whose boost OPP, 4723200 kHz, sits above 4194304 kHz.  Two
+independent problems become visible there, both of which make the
+kernel believe a boosted CPU is running slower than it is.
 
-This is now combined, taking away the entry for Yoga Pro 9 16IMH9 and with it
-0x06 and FA2S. Yet, it is not explained in the commit description.
+Patch 1 fixes an overflow in arch_freq_get_on_cpu(): the u64 product of
+the frequency scale and the reference frequency is truncated to
+unsigned int before being shifted back down, which wraps for any
+reference frequency above 2^32 / SCHED_CAPACITY_SCALE = 4194304 kHz.
 
-This is just an example for unexplained changes.
+Patch 2 makes capacity_freq_ref follow the boost state.  It is latched
+once on CPUFREQ_CREATE_POLICY, and boost frequencies are excluded from
+policy->cpuinfo.max_freq while boost is off, so on a machine that boots
+with boost disabled it keeps the sustained maximum forever.  On arm64
+that saturates the AMU frequency scale at SCHED_CAPACITY_SCALE, so the
+scheduler cannot distinguish a boosted CPU from one at the sustained
+maximum, and arch_freq_get_on_cpu() cannot report above it.
 
-> + 82A2 / 82A3    | Yoga Slim 7        | 0x06      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
-> + 81YM / 82FG    | IdeaPad 5          | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
-> + 82JW / 82JU    | Legion 5 (AMD)     | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FANS/FA2S   | 16-bit | 1
-> + 82WQ           | Legion 7i (Int)    | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FANS/FA2S   | 16-bit | 1
-> + 82XV / 83DV    | LOQ 15/16          | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FANS/FA2S   | 16-bit | 1
-> + 83AK           | ThinkBook G6       | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
-> + 81TD           | Yoga 740-15IML     | 0x06      | \_SB.PCI0.LPCB.EC0.FANS        |  8-bit | 100
-> + 81X1           | Flex 5             | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
-> + 83KF           | XiaoXinPro 13ARE   | 0x06/0xFE | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
-> + 82KU           | IdeaPad 3 15ALC6   | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
-> + 82KU           | IdeaPad 3 15ALC6 ub| 0x06      | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
-> + 83RU           | Legion Pro 7 16    | 0x03/0x06 | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
-> + 83KF           | Yoga Pro 7 14IAH   | 0x06      | \_SB.PC00.LPCB.EC0.FANS        |  8-bit | 100
-> + 83BS           | Yoga 7 16ARP8      | 0x03/0x06 | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
-> + *Legacy*       | Pre-2020 Models    | 0x06      | \_SB.PCI0.LPC.EC.FAN0          |  8-bit | 100
->    ----------------------------------------------------------------------------------------------------
->   
+The order matters: patch 2 is what raises capacity_freq_ref past
+4194304 kHz on this machine, so patch 1 has to land with or before it.
 
-This is doing way more than adding support for new devices. The entire array is
-not only reformatted but reorganized, and the contents have changed. This makes it
-all but impossible to determine what has actually changed and why those changes
-were made.
+Measured on a Lenovo Yoga Slim 7x Gen 11 (Glymur, 4032000 kHz
+sustained, 4723200 kHz boost), pinning a policy to a single OPP and
+timing a fixed workload on one of its CPUs:
 
-I don't mind cleanups, but please do it with separate patches to distinguish it
-from functional changes. One logical change per patch, please.
+  requested OPP    time     cpuinfo_avg_freq
+  ---------------------------------------------------------
+  4032000 kHz      2.011s   4031325   (0.02% low)
+  4723200 kHz      1.726s    524283   before
+  4723200 kHz      1.726s   4032000   with patch 1 only
+  4723200 kHz      1.726s   4718587   with both  (0.10% low)
 
-Also please address the concerns raised by Sashiko.
+The timings never change: 2.011 / 1.726 = 1.165 against a frequency
+ratio of 4723200 / 4032000 = 1.171, so the hardware was running at the
+requested frequency throughout.  Only the kernel's view of it was wrong.
 
-Thanks,
-Guenter
+Note that cpuinfo_cur_freq still reports 4032000 kHz at the boost OPP
+on this machine.  That is a separate path -- scmi_dvfs_freq_get()
+asking firmware for the current performance level -- with no clamp in
+the kernel, and it is not addressed here.
 
+Oleg Keri (2):
+  arm64: topology: fix arch_freq_get_on_cpu() overflow above 4.19 GHz
+  cpufreq: update capacity_freq_ref when the boost state changes
 
+ arch/arm/include/asm/topology.h   |  1 +
+ arch/arm64/include/asm/topology.h |  1 +
+ arch/arm64/kernel/topology.c      |  5 +++--
+ arch/riscv/include/asm/topology.h |  1 +
+ drivers/base/arch_topology.c      | 19 +++++++++++++------
+ drivers/cpufreq/cpufreq.c         |  2 ++
+ include/linux/arch_topology.h     |  1 +
+ include/linux/cpufreq.h           |  7 +++++++
+ 8 files changed, 29 insertions(+), 8 deletions(-)
 
->   METHODOLOGY & IDENTIFICATION:
-> @@ -159,6 +158,7 @@ Contributors & DSDT Providers:
->   - **Sarbajit Sarkar** (Lenovo LOQ 15IAX9)
->   - **HinataKato** (XiaoXin Pro 13ARE 2020 - 83KF)
->   - **PenPenIsGod** (IdeaPad 3 15ALC6 - 82KU & Legion Pro 7 16AFR10H - 83RU)
-> +- **wizard-28** (IdeaPad 3 15ALC6 Ub - 82KU)
->   - **unlockxiaom** (Legion Pro 7 16AFR10H - 83RU, Yoga Pro 7 14IAH10 - 83KF, ThinkCentre M80q)
->   - **Phani Pavan K** (Yoga Pro 7 14IAH10 - 83KF)
->   - **Splarkszter** (Yoga 7 16ARP8 - 83BS)
-> diff --git a/drivers/hwmon/yogafan.c b/drivers/hwmon/yogafan.c
-> index 413ddc721..2ce358c74 100644
-> --- a/drivers/hwmon/yogafan.c
-> +++ b/drivers/hwmon/yogafan.c
-> @@ -1,6 +1,6 @@
->   // SPDX-License-Identifier: GPL-2.0-only
-> -/*
-> - * yoga_fan.c - Lenovo Yoga/Legion Fan Hardware Monitoring Driver
-> +/**
-> + * yogafan.c - Lenovo Yoga/Legion Fan Hardware Monitoring Driver
->    *
->    * Provides fan speed monitoring for Lenovo Yoga, Legion, and IdeaPad
->    * laptops by interfacing with the Embedded Controller (EC) via ACPI.
-> @@ -53,6 +53,17 @@ struct yoga_fan_data {
->   };
->   
->   /* Specific configurations mapped via DMI */
-> +static const struct yogafan_config yoga_740_15iml_cfg = {
-> +	.multiplier = 100,
-> +	.fan_count = 1,
-> +	.paths = { "\\_SB.PCI0.LPCB.EC0.FANS", NULL }
-> +};
-> +
-> +static const struct yogafan_config ideapad_3_15alc6_82ku_cfg = {
-> +	.multiplier = 100,
-> +	.fan_count = 2,
-> +	.paths = { "\\_SB.PCI0.LPC0.EC0.FANS", "\\_SB.PCI0.LPC0.EC0.FA2S" },
-> +};
->   
->   static const struct yogafan_config yoga_8bit_fans_cfg = {
->   	.multiplier = 100,
-> @@ -90,17 +101,6 @@ static const struct yogafan_config yoga_pro_7_14iah10_cfg = {
->   	.paths = { "\\_SB.PC00.LPCB.EC0.FANS", NULL }
->   };
->   
-> -/*
-> - * Lenovo Yoga Pro 9 16IMH9 (83DN) uses the PC00 namespace and has two
-> - * 8-bit fan tachometer fields.
-> - */
-> -static const struct yogafan_config yoga_pro_83dn_cfg = {
-> -	.multiplier = 100,
-> -	.fan_count = 2,
-> -	.paths = { "\\_SB.PC00.LPCB.EC0.FANS",
-> -		   "\\_SB.PC00.LPCB.EC0.FA2S" }
-> -};
-> -
->   static void apply_rllag_filter(struct yoga_fan_data *data, int idx, long raw_rpm)
->   {
->   	ktime_t now = ktime_get_boottime();
-> @@ -200,6 +200,30 @@ static const struct hwmon_chip_info yoga_fan_chip_info = {
->   };
->   
->   static const struct dmi_system_id yogafan_quirks[] = {
-> +	{
-> +		.ident = "Lenovo Yoga 740-15IML",
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-> +			DMI_MATCH(DMI_PRODUCT_FAMILY, "Yoga 740-15IML"),
-> +		},
-> +		.driver_data = (void *)&yoga_740_15iml_cfg,
-> +	},
-> +	{
-> +		.ident = "Lenovo IdeaPad 3 15ALC6 Ub",
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-> +			DMI_MATCH(DMI_PRODUCT_FAMILY, "IdeaPad 3 15ALC6 Ub"),
-> +		},
-> +		.driver_data = (void *)&ideapad_3_15alc6_82ku_cfg,
-> +	},
-> +	{
-> +		.ident = "Yoga 14cACN 2021",
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-> +			DMI_MATCH(DMI_PRODUCT_FAMILY, "Yoga 14cACN 2021"),
-> +		},
-> +		.driver_data = (void *)&yoga_8bit_fans_cfg,
-> +	},
->   	{
->   		.ident = "Lenovo LOQ 15IAX9",
->   		.matches = {
-> @@ -248,14 +272,6 @@ static const struct dmi_system_id yogafan_quirks[] = {
->   		},
->   		.driver_data = (void *)&xiaoxin_8bit_dual_cfg,
->   	},
-> -	{
-> -		.ident = "Lenovo Yoga Pro 9 16IMH9 (83DN)",
-> -		.matches = {
-> -			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-> -			DMI_MATCH(DMI_PRODUCT_NAME, "83DN"),
-> -		},
-> -		.driver_data = (void *)&yoga_pro_83dn_cfg,
-> -	},
->   	{
->   		.ident = "Lenovo Yoga",
->   		.matches = {
+base-commit: 9d80aa4617b32f5054c5aa471d06b66704854935
+-- 
+2.55.0
 
