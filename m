@@ -1,95 +1,190 @@
-Received: from mta1.migadu.com (out-198.mta1.migadu.com [95.215.58.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ED1038D41F
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 21:25:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD59346E43;
+	Sun,  6 Sep 2026 21:32:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788729907; cv=none; b=r6iOZ3oBTuERx8Hu8UkrqnRiISniQIa4be6yb71yEnYkRY1pr6ukJnEE3XI6jMwNoS3TvUwiWGvMcZzBwJXPUgsUsG9F6jWzFMIErQSuhe1hMMTOwlwwZVZe301o8C5hIm+mbnXYKVF5NJdzsbSOniZRxCnJmsY/RvBEgYaKRBM=
+	t=1788730334; cv=none; b=CYUKJOS00/OQk9CtVjUagGYqIT1eQRFyXTVn/wVvYKfyGX1PicaPkoQ9GsYCnU4IBGnYkudL+rIlVyNEGIQ7XkxoY+RCSBMmb+G7ZUDEG1acKUiIbt3LCVzrropxP4t7BKQw+yAhFid0b4cMMVtXDtbNdULjF7xo+YcVj4JdT3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788729907; c=relaxed/simple;
-	bh=pcjhQGSVfuM8CzMveHI2vIfzY9kUvlXaqbuPPVccsXU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hBWOJ6UIo30OWBXwXa5Emk4Eg7i2M3JUTCW30xhk784mgrZ0DYgSep50xmtw1YuKkjRfODmAnnSbXJp7N8fx50vpziZFS9U69/hbFjm4YKKMj8WGKxAuZ+gEPa1mNIngtrkZPl9LqXZN9GA9N46gFe9ubG7jPeZXZW+YVYZNyCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DZwEgUHK; arc=none smtp.client-ip=95.215.58.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788730334; c=relaxed/simple;
+	bh=9xBCvEOIZEHDfq7VP9jQvArZps1bDFIyNj4XdifO+EU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SXv5bMXjTJdKVepw7shW2GO7TQiaLJJ7oIUsk9NRY1ryWfQQqgwj1y76z9IS/pqDo9OCDAipbBfrlPm/jfQ9g5Pgn8chpiljlLghzihi1U9fDyiRNW8KX0T52BVsyUV3aeI9Ly1L2ZNrgxjoc86TSnK1cjOM8ctQ/n4HVhiaq+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=pX1TsPMS; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DZwEgUHK"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=pcjhQGSVfuM8CzMveHI2vIfzY9kUvlXaqbuPPVccsXU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788729903; v=1; x=1789334703;
- b=DZwEgUHKKwYsZpePwjW81ThFPWkbB22R61gZvPivDNujNsx/mWWjWilaN4DtLCzUzOZsLqUv
- 5k7gkL2VQA4CTOsUYINZIZ8w+y4ExaGNctQwi8xLwFBKeF5KYGQ0V3z7Lh/1rVs1zDJI91sUmM9
- BGuCJUBFkPUqPGVAPhfQdjgw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1ebff86c5741b26c;
-	Sun, 06 Sep 2026 21:24:53 +0000
-X-Mizu-Trace-ID: 1ebff86c5741b26c
-X-Migadu-Flow: FLOW_OUT
-Date: Sun, 6 Sep 2026 21:24:39 +0000
-From: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Nathan Chancellor <nathan@kernel.org>, 
-	Nicolas Schier <nsc@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
-	Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, 
-	Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
-	Puranjay Mohan <puranjay@kernel.org>, Xu Kuohai <xukuohai@huaweicloud.com>, 
-	Ard Biesheuvel <ardb@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, 
-	Sami Tolvanen <samitolvanen@google.com>, Kees Cook <kees@kernel.org>, Leon Hwang <leon.hwang@linux.dev>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	live-patching@vger.kernel.org, linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	bpf@vger.kernel.org, linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	Ben Cressey <ben@cressey.dev>, "Florent Revest (Anthropic)" <florent.revest@linux.dev>
-Subject: Re: [PATCH RFC 8/8] arm64: ftrace: Allow CALL_OPS on kCFI kernels
- built with Rust
-Message-ID: <ap3Z-YDtzmdtMiMk@linux.dev>
-References: <20260904-b4-arm64-callops-kcfi-v1-0-ce6687739b0c@linux.dev>
- <20260904-b4-arm64-callops-kcfi-v1-8-ce6687739b0c@linux.dev>
- <CANiq72=xOrSXBBdmrKYfX1=qgF37LRAMzMJd4GJkXaYHMVe9yQ@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="pX1TsPMS"
+Received: from [10.0.0.152] (unknown [10.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 3344B5340736;
+	Sun, 06 Sep 2026 23:32:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1788730330;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=ywu0HVMs2UTCAROTw3iWE+Ohkzj8oh/ZNprFOl07sZA=;
+	b=pX1TsPMSDXYaoQLBzSABrO0AnROnaXad4UszKoP7dgLOpo4Za2GyzFlzWo+byU0AZA7vRs
+	XPUTXY6B2vOE8zpqEuyzvsrQt0aY0VgEQm+cZhSsKaSjCYYtuuqMBD52lbXyCF6ogTsGg4
+	6UYThD/mJirEIyOn1HfAjJQx9b8ZafE=
+Message-ID: <28fb606b-8631-483a-a02e-ecd16e9cc238@ixit.cz>
+Date: Sun, 6 Sep 2026 23:32:09 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CANiq72=xOrSXBBdmrKYfX1=qgF37LRAMzMJd4GJkXaYHMVe9yQ@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] arm64: dts: qcom: sdm845-lg: Enable NFC
+To: Paul Sajna <sajattack@postmarketos.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
+ ~postmarketos/upstreaming@lists.sr.ht
+References: <20260906-sdm845-lg-judy-nfc-v2-1-63aeb7b1a5f6@postmarketos.org>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260906-sdm845-lg-judy-nfc-v2-1-63aeb7b1a5f6@postmarketos.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, 6 Sep 2026 18:56:47 +0200, Miguel Ojeda wrote:
-> Now, if we are going to filter this out for Clang, should we just
-> filter it out for GCC too? i.e. outside the `ifdef`?
+On 06/09/2026 23:11, Paul Sajna wrote:
+> Add the i2c and tlmm nodes to support the NXP PN547 NFC chip
+> 
+> Downstream dtsi for reference:
+> https://github.com/LineageOS/android_kernel_lge_sdm845/blob/lineage-22.2/arch/arm64/boot/dts/lge/sdm845-judy/sdm845-judyln_lao_com/sdm845-judyln_lao_com-nfc.dtsi
+> 
+> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
+> ---
+> Changes in v2:
+> - correct drive-strength
+> - add gpio116
+> - Link to v1: https://lore.kernel.org/r/20260902-sdm845-lg-judy-nfc-v1-1-282173900569@postmarketos.org
+> ---
+>   arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi | 31 ++++++++++++++++++++++++++
+>   1 file changed, 31 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+> index b030a10009c5..c77da1b0d57d 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+> @@ -471,6 +471,25 @@ &gpu {
+>   	status = "okay";
+>   };
+>   
+> +&i2c3 {
+> +	clock-frequency = <1000000>;
+> +
+> +	status = "okay";
+> +
+> +	nfc@28 {
+> +		compatible = "nxp,pn547", "nxp,nxp-nci-i2c";
+> +		reg = <0x28>;
+> +
+> +		interrupts-extended = <&tlmm 63 IRQ_TYPE_EDGE_RISING>;
+> +
+> +		enable-gpios = <&tlmm 12 GPIO_ACTIVE_HIGH>;
+> +		firmware-gpios = <&tlmm 62 GPIO_ACTIVE_HIGH>;
+> +
+> +		pinctrl-0 = <&nfc_default>;
+> +		pinctrl-names = "default";
+> +	};
+> +};
+> +
+>   &ipa {
+>   	status = "okay";
+>   };
+> @@ -551,6 +570,11 @@ &qupv3_id_1 {
+>   	status = "okay";
+>   };
+>   
+> +&qup_i2c3_default {
+> +	drive-strength = <2>;
+> +	bias-disable;
+> +};
+> +
+>   &qup_uart9_rx {
+>   	drive-strength = <2>;
+>   	bias-pull-up;
+> @@ -609,6 +633,13 @@ sd_card_det_n: sd-card-det-n-state {
+>   		function = "gpio";
+>   		bias-pull-up;
+>   	};
+> +
+> +	nfc_default: nfc-default-state {
+> +		pins = "gpio12", "gpio62", "gpio63", "gpio116";
 
-Yes, that makes it more future proof. For v2 I would filter it on the
-bindgen_c_flags_final line, after the ifdef, unless you prefer it
-before.
+here the verbosity may not be bad (device-tree functions as documentation too)
+gpio116 is associated with eSE NFC part (just guessing, but... it worked before, 
+so), and generally the pn547 doesn't need it at all to work.
 
-(And to your question on patch 6: yes, the rustc flag comes in this
-patch.)
+TBH not sure if there or what consensus is here about this. The eSE needs it, 
+but we don't have the driver thus also no integration with NFC part.
 
-> By the way, "generates no code" sounds a bit strange, since `bindgen`
-> generates source code...
+David
 
-Ah, yes. How about this, here and in compiler_types.h (patch 3)?
+> +		function = "gpio";
+> +		drive-strength = <2>;
+> +		bias-pull-up;
+> +	};
+>   };
+>   
+>   &uart6 {
+> 
+> ---
+> base-commit: 32b6ef9a5d0eca44f9cd91f52f4faa89f145a0de
+> change-id: 20260902-sdm845-lg-judy-nfc-5f9e5775393d
+> 
+> Best regards,
 
-# Do not pass -fpatchable-function-entry to bindgen: its libclang may not
-# support the section argument (Clang >= 21), and parsing does not need it.
-
-- Jose
