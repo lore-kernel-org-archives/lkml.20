@@ -1,95 +1,179 @@
-Received: from mta0.migadu.com (out-218.mta0.migadu.com [91.218.175.218])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B6643515FF
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 20:41:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.218
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C5A34A3A5
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 20:44:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788727284; cv=none; b=HZk3eeFse2Bxgbp/OPtD8Lhzsz+3lIoMx1X31x65gVD+XAarY8MWokOjLqk9/xCxnyDOPSKOY7DKVWB3v+8om03Pq46A6GMnJFu6pqjySKMv1xkdlRkJ+FdDRgYMAecT/NYamyS+HNY6nuQBq6F/mRGsgtU5qDRiDoB2rLA+zcs=
+	t=1788727454; cv=none; b=SIc6icKtvwhOZZGmOnuSJc+e7VZOiQH6v24uf8kuRSzN6KSlRisW8cwIpKrxAyGCqnYk7WxbZUYzkPd9HH/dGzTVO1ZjmJeOsoQzVy4bOx3usEQh3vu/b4f8Ph/hiuk2UTTztRbjE3reAnpMnVvrIlc0xmGr1NCSOdJ8Lk6cm9w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788727284; c=relaxed/simple;
-	bh=bSpNhh9FtdEJvuQK9j6aUZgksjI6iJ3Km92h4AkEbNc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Uc0YbDO8BAA9HTPnRrMVDJpyqXeOWDVJTfwaL0N0cn/HS836JbHtrF2UiiSN4wHrztuVgnyWt1upjO3aeSbsIIO4ZKlMhCTJshsEch6ASGJuw7YKma7wXhh1g87R9kCvldJszcqsprxKkPRMpxtJJTlnf8xwrBgo32k2ZV+liwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=omoRRI5D; arc=none smtp.client-ip=91.218.175.218
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788727454; c=relaxed/simple;
+	bh=gX4QggEryg1cIxN5EI0dbWpi4QT15DyTubvIPqUvmf8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=t+m8IxgTun3VgUFq6uO9MM8+TR7uDcUh25fPA6DbFXVUfHrGnjluKyLNltdgqwj51ewIYz/h/LW3BLrPTyD0sQV02BC6FTRtGHJ5ud1e71IqUwi+Wyl0bG/LgLKkm//VxDJwWQlxQFzXJcSTdR9Og0/btrkWPIpxGWRFS5xhgCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q0I6V7F9; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="omoRRI5D"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=bSpNhh9FtdEJvuQK9j6aUZgksjI6iJ3Km92h4AkEbNc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788727281; v=1; x=1789332081;
- b=omoRRI5Dzr5wBNhMy4mtHwZ7FEJVOMY0HPYFLcnT9CXo8cWkLFTDN8K0cZx9nQo2ltHsjl9q
- AWZ7l9tB8YKsXK5Or/obCEAp9GGGmdVumaoEQBglKAvpjjPMx67ilNL4afL+brMphlwppG1OQKb
- Ep9LAV0avim22jNsZ7WeX5Tg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ce9db71ae2dcd178;
-	Sun, 06 Sep 2026 20:41:11 +0000
-X-Mizu-Trace-ID: ce9db71ae2dcd178
-X-Migadu-Flow: FLOW_OUT
-Date: Sun, 6 Sep 2026 20:40:59 +0000
-From: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
-	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Puranjay Mohan <puranjay@kernel.org>, 
-	Xu Kuohai <xukuohai@huaweicloud.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Sami Tolvanen <samitolvanen@google.com>, 
-	Kees Cook <kees@kernel.org>, Leon Hwang <leon.hwang@linux.dev>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	live-patching@vger.kernel.org, linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	bpf@vger.kernel.org, linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	Ben Cressey <ben@cressey.dev>, "Florent Revest (Anthropic)" <florent.revest@linux.dev>
-Subject: Re: [PATCH RFC 1/8] ftrace: Let ftrace_call_adjust() reject a patch
- site
-Message-ID: <ap3PYIdhL3ETmN0Y@linux.dev>
-References: <20260904-b4-arm64-callops-kcfi-v1-0-ce6687739b0c@linux.dev>
- <20260904-b4-arm64-callops-kcfi-v1-1-ce6687739b0c@linux.dev>
- <20260904084728.6d2ebcc8@gandalf.local.home>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q0I6V7F9"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49b9320423cso31432875e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 13:44:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788727451; x=1789332251; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YPj6QUYKEgOwyCjwO8AZVvBEPqAex2m6goITgNkt8RU=;
+        b=Q0I6V7F9nAT6FJqJdAKgm8E62j4nMrb21k0CBa9DHYp1USA1h3CsHNJ0yKjky7SFtT
+         eumovkGZHCYEWcu3GAoKB9kfXJGBOx2jV7FkaM8Uh1thyaq3hEBC9YityJeJ2duGzW0X
+         vVl4nPVt3D1fGk1PDfNJipZ4cjiP/6bA1ulLrbCKfaQj+xN/y0wZdpSUSTJUQEQ+kRn+
+         lrakLWs97PCBnKHCNVZc2QWRZXgcn46xqm+E57waOLo2YCzKDhI1GAjS3YF0n/noY6Eu
+         8ml4yZ5AP3Evjt3QSlPLAVO9YjJvBf5/c6rBT6E1JcKIV+UwUDngorkhVbWT7ZtqpLJz
+         FaYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788727451; x=1789332251;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YPj6QUYKEgOwyCjwO8AZVvBEPqAex2m6goITgNkt8RU=;
+        b=qXibnzNdr93jseUzOmrV/+tmz9Ey+fPXXCxI7X9SP+UcOOjfFYD1z6md6E0Sudrfww
+         ZtNkUa8Y+vue6g574XsPi9mQT8LMd2/fxvXD1FjOQFFeo2EfxQALgN7hQvQW2zDU2PuJ
+         9bnGt7XugR4QoN2xBwpK3YLqri61iV/osE4A0xHqJZZq6USPJ13z7bt7sWxScVqkqduj
+         xbLpjM6/rk/+jnkmcFux/mBd1QaFqgobzwfGWHzu2EjLd95XWS/3TutrfSalf+oDtFDN
+         ix3Abe7TduzOAm6Uc44zQUSxUJkbrqzv2koda7jPntciMFlI0l4VcDSVIx7pPUOId4kz
+         KQAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwCxbctu7QDfj45TSZMDh7sooOR/thv/kEpP5phA24rnWPxKozUwVKq60ebgzqq7MfCe1DAZ9cvv27qlCA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lYJ8ld+EsTVdLIr14gfm3rk9kuaj/kEpSRZ+8Lm5TZ2sMSCc3N
+	/YQ7tAMMj5szuGC+ZRMQsynjBKOID60vXUswr14n8Go9C/at4Roa5vPF
+X-Gm-Gg: AYBFou2vk5ALDwfBYxhIY8W1Cwtc7aZzm1fS4IO8OVQos4BCn1TQCesHV9alqhlMyZ3
+	j6OeW2XzvrcuPRt5UaMhcLNzS1VcXjUF08WUvsvGoycvQX8Yjc1lndMd3yQv8ebn0V6hLi5Jy95
+	3t7XOhShRe/smbmpjko5//3QvlmVLDAwBwDyE1rjvvQI1NPnZOvVa9tGdOiIO2boKOQ5DERJdEy
+	5UNV1zPwd2bKObK8SwnKr7ZtobiMq/ygneFuMCHYv9DVd16K+AwLcaAwPKNgzWYJo82O+Yjg+PU
+	xbhVP99lARESRLgW1zZrRSIw67lVCPPDPL4RiSCD6auZxJ1ghCjQU+Z/61h1Xj8xKjp0YWsy90G
+	GoYjrLwmfVkSxaqC4F5+MxpvCIsMzjHJtuf2d967w1eLnMdRSCAtK0o3kOQLxWLWYTb5f547nay
+	w14JzjSA97HNaM8AZ7NBAUjIy1/Gk2qV0oLnnPCDZsIFXE+08TYhv6hQl4v/RrIbloQQ==
+X-Received: by 2002:a05:600c:6087:b0:49c:d52e:d0ea with SMTP id 5b1f17b1804b1-49cf81e3454mr397273975e9.4.1788727451075;
+        Sun, 06 Sep 2026 13:44:11 -0700 (PDT)
+Received: from [192.168.1.50] ([81.196.40.70])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf75cd8d0sm238044635e9.2.2026.09.06.13.44.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 06 Sep 2026 13:44:10 -0700 (PDT)
+Message-ID: <e864365d-c9c5-4609-94b7-4ec4e3754136@gmail.com>
+Date: Sun, 6 Sep 2026 23:44:08 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904084728.6d2ebcc8@gandalf.local.home>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH wireless-next] wifi: mt7601u: add vnd_reset parameter to
+ fix probe failure on Tenda U2
+To: Herman Semenoff <germanaizek0@gmail.com>, kuba@kernel.org,
+ kvalo@kernel.org, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <CAMnMt5aJwVXEVKyBR7MvVBd=qCn7fNijMC+O_cZn82zGuNPc3A@mail.gmail.com>
+Content-Language: en-US
+From: Bitterblue Smith <rtl8821cerfe2@gmail.com>
+In-Reply-To: <CAMnMt5aJwVXEVKyBR7MvVBd=qCn7fNijMC+O_cZn82zGuNPc3A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, 4 Sep 2026 08:47:28 -0400, Steven Rostedt wrote:
-> The above could use a comment to why addr could be zero (I didn't even
-> realize some architectures do that).
->
-> 	/* Some architectures may return zero for mis-aligned addresses */
+On 06/09/2026 23:20, Herman Semenoff wrote:
+> From c03d73d37df440d0046d68406fde2aa1f62fe0d1 Mon Sep 17 00:00:00 2001
+> From: Herman Semenoff <GermanAizek@aizekgroup.ru>
+> Date: Thu, 3 Sep 2026 07:14:32 +0300
+> Subject: [PATCH wireless-next] wifi: mt7601u: add vnd_reset parameter
+> to fix probe failure on Tenda U2
+> 
+> On certain MT7601U adapters, such as Tenda U2 and other newer hardware
+> revisions, driver initialization consistently fails during probe with
+> vendor request timeouts (-110 / -ETIMEDOUT):
+> 
+>     mt7601u 3-14:1.0: ASIC revision: 76010001 MAC revision: 76010500
+>     mt7601u 3-14:1.0: Firmware Version: 0.1.00 Build: 7640
+>     mt7601u 3-14:1.0: Vendor request req:07 off:09a8 failed:-110
+>     mt7601u 3-14:1.0: Vendor request req:02 off:09a8 failed:-110
+>     mt7601u 3-14:1.0: Vendor request req:07 off:0734 failed:-110
+>     mt7601u 3-14:1.0: Vendor request req:42 off:0230 failed:-110
+>     mt7601u 3-14:1.0: probe with driver mt7601u failed with error -110
+> 
+> The failure occurs because mt7601u_load_firmware() unconditionally calls
+> mt7601u_vendor_reset() (MT_VEND_DEV_MODE_RESET) before uploading firmware
+> chunks. On these devices, issuing this vendor reset leaves the internal
+> MCU / FCE DMA engine in an unresponsive state after the first firmware
+> URB is submitted. As a result, reading MT_TX_CPU_FROM_FCE_CPU_DESC_IDX
+> (0x09a8) immediately times out.
+> 
+> Introduce a boolean module parameter 'vnd_reset' (default: false) to
+> make this vendor reset optional. When the vendor reset is skipped,
+> firmware upload succeeds and the wireless interface initializes normally.
+> 
 
-Will add one in v2, thanks.
+Hi,
 
-Today arm64 returns 0 only for a mis-aligned patch site. But patch 4 of
-this series replaces that check with two: the two NOPs to patch must be
-there, and the ops pointer must fit in the prefix NOPs (which also
-catches a mis-aligned site). How about this to cover the series?
+I don't think a new module parameter will be accepted.
 
-	/* The architecture may return 0 to reject a patch site */
+You could just delete the vendor reset. The devices which currently work
+with the vendor reset will probably still work without it:
 
-Happy to name the mis-aligned case in patch 1 and extend the comment
-in patch 4 if you prefer that.
+https://lore.kernel.org/linux-wireless/62826d1d-9cef-4eff-b6c5-5ed11405a482@gmail.com/
 
-Thanks,
-Jose
+> Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1716301
+> Link: https://www.opena.tv/viewtopic.php?t=63919
+> Link: https://askubuntu.com/questions/1418850/the-problem-with-wi-fi-u2
+> Link: https://bbs.archlinux.org/viewtopic.php?id=224859
+> Link: https://reddit.com/r/archlinux/comments/1d6dfv5/mt7601u_usb_wifi_not_working/
+> Signed-off-by: Herman Semenoff <GermanAizek@aizekgroup.ru>
+> ---
+> This patch is based on linux-next (tag: next-20260904, commit af5f12805e5c)
+> and targets the wireless-next tree.
+> 
+> Note: Alternatively, if maintainers prefer to avoid adding a module
+> parameter and can confirm that mt7601u_vendor_reset() is not required
+> on any supported hardware, the vendor reset call could instead be dropped
+> entirely.
+> 
+>  drivers/net/wireless/mediatek/mt7601u/mcu.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/wireless/mediatek/mt7601u/mcu.c
+> b/drivers/net/wireless/mediatek/mt7601u/mcu.c
+> index bad6ca821400..c7c5bd9bb9df 100644
+> --- a/drivers/net/wireless/mediatek/mt7601u/mcu.c
+> +++ b/drivers/net/wireless/mediatek/mt7601u/mcu.c
+> @@ -10,6 +10,7 @@
+>  #include <linux/delay.h>
+>  #include <linux/usb.h>
+>  #include <linux/skbuff.h>
+> +#include <linux/moduleparam.h>
+> 
+>  #include "mt7601u.h"
+>  #include "dma.h"
+> @@ -21,6 +22,10 @@
+>  #define MCU_FW_URB_SIZE (MCU_FW_URB_MAX_PAYLOAD + 12)
+>  #define MCU_RESP_URB_SIZE 1024
+> 
+> +static bool vnd_reset;
+> +module_param(vnd_reset, bool, 0644);
+> +MODULE_PARM_DESC(vnd_reset, "Perform vendor reset during firmware
+> upload (default: false)");
+> +
+>  static inline int firmware_running(struct mt7601u_dev *dev)
+>  {
+>   return mt7601u_rr(dev, MT_MCU_COM_REG0) == 1;
+> @@ -459,8 +464,10 @@ static int mt7601u_load_firmware(struct mt7601u_dev *dev)
+>   mt7601u_wr(dev, 0x94c, 0);
+>   mt7601u_wr(dev, MT_FCE_PSE_CTRL, 0);
+> 
+> - mt7601u_vendor_reset(dev);
+> - msleep(5);
+> + if (vnd_reset) {
+> + mt7601u_vendor_reset(dev);
+> + usleep_range(5000, 10000);
+> + }
+> 
+>   mt7601u_wr(dev, 0xa44, 0);
+>   mt7601u_wr(dev, 0x230, 0x84210);
+
