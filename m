@@ -1,121 +1,483 @@
-Received: from out03.mta.xmission.com (out03.mta.xmission.com [166.70.13.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FA2025A655;
-	Sun,  6 Sep 2026 22:39:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=166.70.13.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 922123B8BBB
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 22:43:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788734397; cv=none; b=FINYifN1we5qBMpdHFaKBs4M3ecakqSIkQlF7paex/mSmUuD3p/OY2U9ShXMwJ+Gb3bJX9e3meby6um2BSp564D8n1ABMS/6nTa7BMs90ZQx9RDOMKWZrF+dFuln7chuUaE6F+VvXOpnAYyZx6wRw8GRYmHaayAvVFPzkw0gKfw=
+	t=1788734584; cv=none; b=jXIB38ucJ1U8T7K7xQ+kweOhdmjgoBrZz8lFgM3LOaqLuW/Krnb+NfzcYOLVnbkrK+KGHouh95vERpVLlw585jKMrsuxCYZbCqtSreBFWVBhxjulg99ZBQLGH2vIIk+pzNQe+OafujwYalCYSDEw/0dqrW3GHL5gD3GU0FTeSOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788734397; c=relaxed/simple;
-	bh=xZAX/1sQQgxlqyQ4K2MRmOwSG2+ejTZ/10GaF0N3Gio=;
-	h=From:To:Cc:In-Reply-To:References:Date:Message-ID:MIME-Version:
-	 Content-Type:Subject; b=JQYeYawVFXbHBkCtGn3ItGAIYslRHEv1Hjgg4cAcm+BaVxwJAy+jW8O2ygR3gzarB3q+vGhA4QOrM1CQ32+PCo/DgvINFxydyefz3y49qoA9ONcocS2jPTLcBGKOcqwALj86JWrQRv7G7l3Jv7IVVVv8/OrFwvISaK5pnxzg3So=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com; spf=pass smtp.mailfrom=xmission.com; dkim=pass (1024-bit key) header.d=xmission.com header.i=@xmission.com header.b=h9eLrw+g; arc=none smtp.client-ip=166.70.13.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xmission.com
+	s=arc-20240116; t=1788734584; c=relaxed/simple;
+	bh=gCMXErSOeYLLzDQ+jVcZw7bXtMUiDJXA+EfPOxQUYzs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XCE75mIm1j6+8ai+n9X+2hM5Mf34R0rnLMS7w47p8fMyA6p7NNLq3G/SttRmpZRVaRi6XU9+mW9Gb0h5ZeK4nuDgJV53yjVf6xP7tSGYJd1GKM/wE9tdOMKWF/0Jl3ieiCpMmS8g4e9Ricen7Sz+ROh672MhOfS2zVdt6Rfwc2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EQpTtO15; arc=none smtp.client-ip=209.85.167.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xmission.com header.i=@xmission.com header.b="h9eLrw+g"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=simple/simple; d=xmission.com;
-	 s=xmission; h=Subject:Content-Type:MIME-Version:Message-ID:Date:References:
-	In-Reply-To:Cc:To:From:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=xZAX/1sQQgxlqyQ4K2MRmOwSG2+ejTZ/10GaF0N3Gio=; b=h9eLrw+g+uQ2LjAQXuujd7FEa0
-	s+cugeAsSbptAMRyAQf3Sw7Q6Gq0oaRvlD03ATJov1pAydRnFBT6uTzvpLrEnyJQH/VRyG5CCd1zi
-	GPk/QxnS8RPJfMRD2r9k9Hvbsb837LynhJujefsHXT8KVgokqL8LmsyLWfP0OQriN8I0=;
-Received: from in02.mta.xmission.com ([166.70.13.52]:37134)
-	by out03.mta.xmission.com with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.93)
-	(envelope-from <ebiederm@xmission.com>)
-	id 1x3LWe-0084EO-Cr; Sun, 06 Sep 2026 16:39:48 -0600
-Received: from ip72-198-198-28.om.om.cox.net ([72.198.198.28]:60686 helo=email.froward.int.ebiederm.org.xmission.com)
-	by in02.mta.xmission.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.93)
-	(envelope-from <ebiederm@xmission.com>)
-	id 1x3LWd-007WZm-Mn; Sun, 06 Sep 2026 16:39:48 -0600
-From: "Eric W. Biederman" <ebiederm@xmission.com>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>,  "Cc: Hyunwoo Kim"
- <imv4bel@gmail.com>,  Oleg Nesterov <oleg@redhat.com>,  Frederic
- Weisbecker <frederic@kernel.org>,  Christian Brauner <brauner@kernel.org>,
-  Peter Zijlstra <peterz@infradead.org>,  John Stultz <jstultz@google.com>,
-  Ingo Molnar <mingo@kernel.org>,  Alexander Viro
- <viro@zeniv.linux.org.uk>,  stable@vger.kernel.org
-In-Reply-To: <20260905185839.667208455@kernel.org> (Thomas Gleixner's message
-	of "Sat, 05 Sep 2026 20:59:01 +0200")
-References: <20260905181551.738186850@kernel.org>
-	<20260905185839.667208455@kernel.org>
-Date: Sun, 06 Sep 2026 17:39:41 -0500
-Message-ID: <8733vmatsi.fsf@email.froward.int.ebiederm.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EQpTtO15"
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5b4adcce4b1so1647229e87.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 15:43:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788734580; x=1789339380; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4DyD2qirhTY5+nrRt4G0eEDykYAeKeTbEAO/xch2DGw=;
+        b=EQpTtO15ffGUepntdTIFCdK85z/E2kvPYBHIw1qaBXg5FD+5DpqTdXohhAG36/UVg6
+         H/MBYX2cj0PG8Rmmh45EX4M8+bJvYTqvWrX57f5uKQs8f3w/v8kcZQVXc3DhjOBcSn8H
+         Dx4F6sF+u4z1sNFAP6qWF1KJz6rbwPSGh8vv6L9rz7Kc7+itQRNSugVRZ3+ebWyhm+Sb
+         USye6q+/VLxxZLnntLf5zPLL4Q2p9b8gVbRAlgnF7he3q+7aQgWjYc/DW/QK7Uu8yh+M
+         O6cLlDcpO+7bvfJoT2AIstMp+lJ/2DXSEWEdCa7hJ9gz+OXRWfH8ODM1nIM0ArYrAV5z
+         sjZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788734580; x=1789339380;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4DyD2qirhTY5+nrRt4G0eEDykYAeKeTbEAO/xch2DGw=;
+        b=CVjpqSnyrrwZoJsfftcbMxj+1Mkf1kLKTAU2qTzs5kYQqTjzbFlziyAj+v8PB5Ohj4
+         EsdEurRaN07XwPotlZV+f6KehL1Qw6saORTMxnEhW/hqdsbm6JJKMc1Zsfc2oZ93EUtA
+         8jvImbbci3RO8KZ20CYXzkO+jJ45ukZqVGvh2dHxk0eoZghidUhOhBjWV0r7115t6Ko/
+         wlS1v9C5a2UlOefnHnE6jtkMv9eHp7bBt3HDBCkRZaxeiBwQP2YLbZIyQNbGU1Rib6jq
+         V+IhrwEMtmhCLEhB17t4nRsUmdHJ3W24tFuEmjoamP20QKAptPNUZyBv1z6/UYd1W8Be
+         OZfA==
+X-Forwarded-Encrypted: i=1; AKwUvBySqScMabC9RcB61Hh6amgnsYhmIwEfcvSTSj3RpjX/Dt11kk9LWPAd3iSrb/lNXguUwAYIdDc77qMcGyI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nY6DhyM/O9izHjN31BZWcH4X4UAO5GDU8OYQX0sW3Y+Yf2ySaC
+	jdM1Tw63AzolSpkmA5TIAQi/6u4xpD7LUYz2vSCla02Ph7c1MszsUs4B
+X-Gm-Gg: AYBFou39eG/seN4OlHdZKp7Zzbo9Pnt9VRzxFprpPSx1QO6/jCqsyo0XcI6TdkDxD7q
+	Y8u2mmP1suCzgEioVcTCDVtCfjy5Bgq+STEXXpdYQkgHOC86Vbxv5rUoAZElY4ZsLZoLENuu7H/
+	GsC/X+t69i5+A9S8TahMxtC4g43l65aOOQb+LdzzMJ6ZjABuRCV4OZo9cwCzXsDS/BMNoc28QTd
+	osjyfqNXkyphp+6SHLc1njEOAc9xap9eMpTZRIP+vf/4oGqSO27bprAoIXe6H88guAtHjqG6iii
+	z3GOkaQe754awVeDfT5Ns8KVOFI1lYpGet9xJ902ASxhteNBLjApFxJboUf+0EOYt6E0IWGUVad
+	X7onvMPFH+2hwTFh2w7ectpg8G9Q2tZRa1Ls8DU+pYI4sVr8iZtOFrVnm29+JLpqZz15t1OQxdx
+	88Af6nZfJ72wH/+GpJyXD5s6WfBxG3D7jUWN7fETZ+DNjIoOHCqr8XrjOTtPevNkqSWjeZQTIjy
+	Px67IYtDBjL52ouZHDPNA7q1ys4WAIlLpDdOEaPI9dcg17Jgq1HNBrJxw==
+X-Received: by 2002:a05:6512:a88:b0:5ae:bd5e:95f7 with SMTP id 2adb3069b0e04-5b616ed488cmr5806877e87.4.1788734580102;
+        Sun, 06 Sep 2026 15:43:00 -0700 (PDT)
+Received: from localhost.localdomain (46-138-187-224.dynamic.spd-mgts.ru. [46.138.187.224])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b6167097cesm1838889e87.70.2026.09.06.15.42.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 15:42:59 -0700 (PDT)
+From: Artem Lytkin <iprintercanon@gmail.com>
+To: netdev@vger.kernel.org
+Cc: bridge@lists.linux.dev,
+	razor@blackwall.org,
+	idosch@nvidia.com,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	davem@davemloft.net,
+	corbet@lwn.net,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next] net: bridge: bound the port VLAN lists in the IFLA_AF_SPEC nest
+Date: Mon,  7 Sep 2026 01:42:46 +0300
+Message-ID: <20260906224246.21719-1-iprintercanon@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-XM-SPF: eid=1x3LWd-007WZm-Mn;;;mid=<8733vmatsi.fsf@email.froward.int.ebiederm.org>;;;hst=in02.mta.xmission.com;;;ip=72.198.198.28;;;frm=ebiederm@xmission.com;;;sPfnum=0;;;sPf=pass
-X-XM-AID: U2FsdGVkX1/U2RtLE0h6yvQwwGvd0TsBg0iLh9lHKi4=
-X-Spam-Level: 
-X-Spam-Report: 
-	* -1.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
-	*  0.1 BAYES_50 BODY: Bayes spam probability is 40 to 60%
-	*      [score: 0.4989]
-	*  0.0 T_TM2_M_HEADER_IN_MSG BODY: No description available.
-	* -0.0 DCC_CHECK_NEGATIVE Not listed in DCC
-	*      [sa07 1397; Body=1 Fuz1=1 Fuz2=1]
-	*  0.0 T_TooManySym_02 5+ unique symbols in subject
-	*  0.0 T_TooManySym_01 4+ unique symbols in subject
-X-Spam-DCC: XMission; sa07 1397; Body=1 Fuz1=1 Fuz2=1 
-X-Spam-Combo: ;Thomas Gleixner <tglx@kernel.org>
-X-Spam-Relay-Country: 
-X-Spam-Timing: total 259 ms - load_scoreonly_sql: 0.05 (0.0%),
-	signal_user_changed: 11 (4.2%), b_tie_ro: 9 (3.7%), parse: 0.79 (0.3%),
-	 extract_message_metadata: 2.4 (0.9%), get_uri_detail_list: 0.66
-	(0.3%), tests_pri_-2000: 2.6 (1.0%), tests_pri_-1000: 2.4 (0.9%),
-	tests_pri_-950: 0.98 (0.4%), tests_pri_-900: 0.75 (0.3%),
-	tests_pri_-90: 65 (25.2%), check_bayes: 64 (24.7%), b_tokenize: 4.9
-	(1.9%), b_tok_get_all: 6 (2.2%), b_comp_prob: 1.46 (0.6%),
-	b_tok_touch_all: 48 (18.5%), b_finish: 1.10 (0.4%), tests_pri_0: 157
-	(60.7%), check_dkim_signature: 0.42 (0.2%), check_dkim_adsp: 2.1
-	(0.8%), poll_dns_idle: 0.46 (0.2%), tests_pri_10: 1.71 (0.7%),
-	tests_pri_500: 8 (3.0%), rewrite_mail: 0.00 (0.0%)
-Subject: Re: [patch V2 1/8] signal: Prevent exec() race
-X-SA-Exim-Connect-IP: 166.70.13.52
-X-SA-Exim-Rcpt-To: stable@vger.kernel.org, viro@zeniv.linux.org.uk, mingo@kernel.org, jstultz@google.com, peterz@infradead.org, brauner@kernel.org, frederic@kernel.org, oleg@redhat.com, imv4bel@gmail.com, linux-kernel@vger.kernel.org, tglx@kernel.org
-X-SA-Exim-Mail-From: ebiederm@xmission.com
-X-SA-Exim-Scanned: No (on out03.mta.xmission.com); SAEximRunCond expanded to false
+Content-Transfer-Encoding: 8bit
 
-Thomas Gleixner <tglx@kernel.org> writes:
+br_fill_ifinfo() opens one IFLA_AF_SPEC nest, fills it with the VLAN
+information of a bridge port and closes it with nla_nest_end(), which
+stores the accumulated length into nla_len. That field is a u16, so for
+a nest larger than 65535 bytes the stored length wraps modulo 65536.
+The encoding has never been able to describe more than that; nothing
+regressed.
 
-> @@ -1019,6 +1029,21 @@ static inline bool legacy_queue(struct s
->  	return (sig < SIGRTMIN) && sigismember(&signals->signal, sig);
->  }
->  
-> +/*
-> + * When PF_EXITING is set the task is on the way out and has t::pending
-> + * flushed already. Prevent queueing of PIDTYPE_PID signals as they would
-> + * be leaked.
-> + */
-> +static inline bool task_can_queue_signal(struct task_struct *t, enum pid_type type)
-> +{
-> +	lockdep_assert_held(&t->sighand->siglock);
-> +
-> +	if (!(t->flags & PF_EXITING))
-> +		return true;
-> +
+Three per-VLAN lists share the one nest. An IFLA_BRIDGE_VLAN_INFO costs
+8 bytes, an IFLA_BRIDGE_VLAN_TUNNEL_INFO 28 and an IFLA_BRIDGE_MST_ENTRY
+20, on every architecture. A port takes at most 4094 VLANs, so the VLAN
+list alone is at most 32752 bytes, but the other two reach 65535: 2341
+tunnel mappings that are not consecutive in both VID and tunnel id, or
+1821 with uncompressed VLAN information requested alongside, or 3277
+distinct MSTIs. A VXLAN leaf switch with one VXLAN device maps thousands
+of VLANs to VNIs, and "bridge vlan tunnelshow" and "bridge mst show"
+read these lists through the link dump.
 
-I don't know if we care but I just noticed that this disallows
-using tkill(..., SIGKILL) or tgkill(..., SIGKILL) to stop coredumps.
+Nothing fails on the way there. br_get_link_af_size_filtered() accounts
+for all three lists and feeds both rtnl_calcit() for RTM_GETLINK dumps
+and nlmsg_new() in br_info_notify(), so the skb is large enough and no
+nla_put() fails. Userspace then walks the message with RTA_NEXT(),
+which advances by the stored length, so parsing resumes inside VLAN
+payload and everything after the nest is read out of it. A
+CONFIG_DEBUG_NET kernel warns once, in nla_nest_end(), via the check
+added in commit ff205bf8c554 ("netlink: add one debug check in
+nla_nest_end()").
 
-> +	return type != PIDTYPE_PID;
-> +}
-> +
->  static int __send_signal_locked(int sig, struct kernel_siginfo *info,
->  				struct task_struct *t, enum pid_type type, bool force)
->  {
+Measured on a port with 4093 VLAN to VNI mappings: the RTM_GETLINK reply
+for the port is 147776 bytes and carries an IFLA_AF_SPEC nla_len of
+16280, and the top level attribute walk derails 16672 bytes in. The
+notification path is worse, because it broadcasts. A port flag change
+goes through br_ifinfo_notify(), which asks for compressed VLAN
+information, and the resulting RTM_NEWLINK is 115048 bytes with an
+nla_len of 49088; walking it yields 2342 attributes after the nest,
+2341 of them read as IFLA_IFNAME, since IFLA_BRIDGE_VLAN_TUNNEL_INFO and
+IFLA_BRIDGE_VLAN_TUNNEL_FLAGS carry the same numeric type. Every
+RTNLGRP_LINK listener in the netns receives that. The DEBUG_NET warning
+fired from br_fill_ifinfo() while the mappings were being added, in the
+context of the process adding them, since each addition notifies too.
 
-Eric
+Bound the three lists by length: stop adding entries once the next one
+would not fit in 65535 bytes, counted from the start of the nest so that
+the lists and the inner IFLA_BRIDGE_MST nest share the budget, and
+charge a range at its real cost of one or two entries. This is what
+commit bdd39576bf50a ("net: bridge: prevent too big nested attributes
+in br_fill_linkxstats()") did for the sibling nest in this file. A fixed
+cap on the number of entries, as IFLA_VFINFO_LIST got in
+commit 51e15308c6ae ("rtnetlink: cap IFLA_VFINFO_LIST at a documented
+number of VFs"), does not fit here: the lists share one nest, 4094 VLAN
+entries take half of it and 2340 tunnel entries fill it, so any set of
+per-list caps that is safe in the worst case cuts configurations that
+are described correctly today. The byte budget regresses none of them,
+and it is still a limit userspace can compute, since the per-entry
+costs are fixed. Documentation/networking/bridge.rst states them, along
+with the RTM_GETVLAN interface that does not have this limit.
+
+The MRP and CFM lists that br_fill_ifinfo() emits for the bridge device
+itself are not touched. They live in the same nest but never next to
+the port lists, and CFM peer status can grow past the limit on its own;
+that is a separate change.
+
+br_get_link_af_size_filtered() clamps the three lists to the same 65535
+bytes, so a dump of such a port no longer sizes the skb at 147 KB for a
+nest that holds 64 KB, and br_info_notify() no longer makes an
+oversized GFP_ATOMIC allocation from STP timer context for a message
+that would be truncated anyway. The clamp cannot cut into the MRP and
+CFM information: for the bridge device the VLAN list is the only one of
+the three and stays under 33 KB.
+
+With the bound, the same port dumps as 65932 bytes with an nla_len of
+65508, the notification is 65936 bytes with 65512, both walk to the
+end, and nothing warns. A port above the bound reports shortened lists,
+so "bridge vlan tunnelshow" and "bridge mst show" print the first
+entries and stop instead of printing garbage, and the rest of the
+message parses. Read such a port with RTM_GETVLAN, which gives each
+entry its own attribute and continues in a new message once one fills
+up.
+
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Artem Lytkin <iprintercanon@gmail.com>
+---
+ Documentation/networking/bridge.rst | 17 ++++++++++
+ net/bridge/br_mst.c                 | 12 +++----
+ net/bridge/br_netlink.c             | 49 ++++++++++++++++++++++++-----
+ net/bridge/br_netlink_tunnel.c      | 20 ++++++++++--
+ net/bridge/br_private.h             | 23 ++++++++++++--
+ net/bridge/br_private_tunnel.h      |  2 +-
+ 6 files changed, 104 insertions(+), 19 deletions(-)
+
+diff --git a/Documentation/networking/bridge.rst b/Documentation/networking/bridge.rst
+index c1e6ea52c9e59..49403fb4938b4 100644
+--- a/Documentation/networking/bridge.rst
++++ b/Documentation/networking/bridge.rst
+@@ -41,6 +41,23 @@ Bridge port netlink attributes
+ .. kernel-doc:: include/uapi/linux/if_link.h
+    :doc: Bridge port enum definition
+ 
++Size limit of the bridge IFLA_AF_SPEC attribute
++-----------------------------------------------
++
++An ``AF_BRIDGE`` RTM_GETLINK reply and an RTM_NEWLINK notification describe
++the VLANs of a port inside a single IFLA_AF_SPEC attribute. A netlink
++attribute length is a u16, so that one attribute can hold at most 65535
++bytes, and the three lists it carries share the budget: an
++IFLA_BRIDGE_VLAN_INFO costs 8 bytes, an IFLA_BRIDGE_VLAN_TUNNEL_INFO 28 and
++an IFLA_BRIDGE_MST_ENTRY 20, on every architecture. A port with a few
++thousand VLAN tunnel mappings or MST entries therefore does not fit. The
++kernel stops adding entries when the attribute is full, so such a port
++reports shortened lists while the rest of the message stays parsable.
++
++RTM_GETVLAN gives each VLAN entry its own attribute and continues in a new
++message once one fills up, so it has no such limit. Use it to read the VLAN
++and VLAN tunnel configuration of a port that is large enough to hit this.
++
+ Bridge sysfs
+ ------------
+ 
+diff --git a/net/bridge/br_mst.c b/net/bridge/br_mst.c
+index 43a300ae6bfaf..be71df10c73d1 100644
+--- a/net/bridge/br_mst.c
++++ b/net/bridge/br_mst.c
+@@ -252,12 +252,7 @@ size_t br_mst_info_size(const struct net_bridge_vlan_group *vg)
+ 		if (test_bit(v->brvlan->msti, seen))
+ 			continue;
+ 
+-		/* IFLA_BRIDGE_MST_ENTRY */
+-		sz += nla_total_size(0) +
+-			/* IFLA_BRIDGE_MST_ENTRY_MSTI */
+-			nla_total_size(sizeof(u16)) +
+-			/* IFLA_BRIDGE_MST_ENTRY_STATE */
+-			nla_total_size(sizeof(u8));
++		sz += BR_MST_ENTRY_SIZE;
+ 
+ 		__set_bit(v->brvlan->msti, seen);
+ 	}
+@@ -265,7 +260,7 @@ size_t br_mst_info_size(const struct net_bridge_vlan_group *vg)
+ 	return sz;
+ }
+ 
+-int br_mst_fill_info(struct sk_buff *skb,
++int br_mst_fill_info(struct sk_buff *skb, const struct nlattr *af,
+ 		     const struct net_bridge_vlan_group *vg)
+ {
+ 	DECLARE_BITMAP(seen, VLAN_N_VID) = { 0 };
+@@ -277,6 +272,9 @@ int br_mst_fill_info(struct sk_buff *skb,
+ 		if (test_bit(v->brvlan->msti, seen))
+ 			continue;
+ 
++		if (!br_af_spec_has_room(skb, af, BR_MST_ENTRY_SIZE))
++			break;
++
+ 		nest = nla_nest_start_noflag(skb, IFLA_BRIDGE_MST_ENTRY);
+ 		if (!nest ||
+ 		    nla_put_u16(skb, IFLA_BRIDGE_MST_ENTRY_MSTI, v->brvlan->msti) ||
+diff --git a/net/bridge/br_netlink.c b/net/bridge/br_netlink.c
+index b2cd4e39326d0..643ae06f7df8c 100644
+--- a/net/bridge/br_netlink.c
++++ b/net/bridge/br_netlink.c
+@@ -20,6 +20,17 @@
+ #include "br_private_tunnel.h"
+ #include "br_private_mcast_eht.h"
+ 
++/* IFLA_BRIDGE_VLAN_INFO */
++#define BR_VLAN_INFO_SIZE	nla_total_size(sizeof(struct bridge_vlan_info))
++
++/* br_fill_ifvlaninfo_range() emits one entry for a single VLAN and two,
++ * marked RANGE_BEGIN and RANGE_END, for a range.
++ */
++static size_t br_vlan_range_size(u16 vid_start, u16 vid_end)
++{
++	return (vid_end > vid_start ? 2 : 1) * BR_VLAN_INFO_SIZE;
++}
++
+ static int __get_num_vlan_infos(struct net_bridge_vlan_group *vg,
+ 				u32 filter_mask)
+ {
+@@ -117,11 +128,19 @@ static size_t br_get_link_af_size_filtered(const struct net_device *dev,
+ 		vinfo_sz += br_get_vlan_tunnel_info_size(vg);
+ 
+ 	/* Each VLAN is returned in bridge_vlan_info along with flags */
+-	vinfo_sz += num_vlan_infos * nla_total_size(sizeof(struct bridge_vlan_info));
++	vinfo_sz += num_vlan_infos * BR_VLAN_INFO_SIZE;
+ 
+ 	if (p && vg && (filter_mask & RTEXT_FILTER_MST))
+ 		vinfo_sz += br_mst_info_size(vg);
+ 
++	/* These three lists share the IFLA_AF_SPEC nest, whose length is a
++	 * u16, and br_fill_ifinfo() stops once it is full. Do not size the
++	 * skb for entries that will not be emitted. The CFM size below is
++	 * only added for the bridge device, which carries no tunnel or MST
++	 * entries and so stays far below the clamp.
++	 */
++	vinfo_sz = min_t(size_t, vinfo_sz, U16_MAX);
++
+ 	if (!(filter_mask & RTEXT_FILTER_CFM_STATUS))
+ 		return vinfo_sz;
+ 
+@@ -366,6 +385,7 @@ static int br_fill_ifvlaninfo_range(struct sk_buff *skb, u16 vid_start,
+ }
+ 
+ static int br_fill_ifvlaninfo_compressed(struct sk_buff *skb,
++					 const struct nlattr *af,
+ 					 struct net_bridge_vlan_group *vg)
+ {
+ 	struct net_bridge_vlan *v;
+@@ -395,6 +415,11 @@ static int br_fill_ifvlaninfo_compressed(struct sk_buff *skb,
+ 			vid_range_end = v->vid;
+ 			continue;
+ 		} else {
++			if (!br_af_spec_has_room(skb, af,
++						 br_vlan_range_size(vid_range_start,
++								    vid_range_end)))
++				return 0;
++
+ 			err = br_fill_ifvlaninfo_range(skb, vid_range_start,
+ 						       vid_range_end,
+ 						       vid_range_flags);
+@@ -408,7 +433,9 @@ static int br_fill_ifvlaninfo_compressed(struct sk_buff *skb,
+ 		vid_range_flags = flags;
+ 	}
+ 
+-	if (vid_range_start != 0) {
++	if (vid_range_start != 0 &&
++	    br_af_spec_has_room(skb, af, br_vlan_range_size(vid_range_start,
++							    vid_range_end))) {
+ 		/* Call it once more to send any left over vlans */
+ 		err = br_fill_ifvlaninfo_range(skb, vid_range_start,
+ 					       vid_range_end,
+@@ -420,7 +447,7 @@ static int br_fill_ifvlaninfo_compressed(struct sk_buff *skb,
+ 	return 0;
+ }
+ 
+-static int br_fill_ifvlaninfo(struct sk_buff *skb,
++static int br_fill_ifvlaninfo(struct sk_buff *skb, const struct nlattr *af,
+ 			      struct net_bridge_vlan_group *vg)
+ {
+ 	struct bridge_vlan_info vinfo;
+@@ -432,6 +459,9 @@ static int br_fill_ifvlaninfo(struct sk_buff *skb,
+ 		if (!br_vlan_should_use(v))
+ 			continue;
+ 
++		if (!br_af_spec_has_room(skb, af, BR_VLAN_INFO_SIZE))
++			break;
++
+ 		vinfo.vid = v->vid;
+ 		vinfo.flags = 0;
+ 		if (v->vid == pvid)
+@@ -536,12 +566,12 @@ static int br_fill_ifinfo(struct sk_buff *skb,
+ 			goto done;
+ 		}
+ 		if (filter_mask & RTEXT_FILTER_BRVLAN_COMPRESSED)
+-			err = br_fill_ifvlaninfo_compressed(skb, vg);
++			err = br_fill_ifvlaninfo_compressed(skb, af, vg);
+ 		else
+-			err = br_fill_ifvlaninfo(skb, vg);
++			err = br_fill_ifvlaninfo(skb, af, vg);
+ 
+ 		if (port && test_bit(BR_VLAN_TUNNEL_BIT, &port->flags))
+-			err = br_fill_vlan_tunnel_info(skb, vg);
++			err = br_fill_vlan_tunnel_info(skb, af, vg);
+ 		rcu_read_unlock();
+ 		if (err)
+ 			goto nla_put_failure;
+@@ -600,11 +630,16 @@ static int br_fill_ifinfo(struct sk_buff *skb,
+ 		if (!vg || !vg->num_vlans)
+ 			goto done;
+ 
++		/* Do not open the nest unless one entry can follow it */
++		if (!br_af_spec_has_room(skb, af,
++					 nla_total_size(0) + BR_MST_ENTRY_SIZE))
++			goto done;
++
+ 		mst_nest = nla_nest_start(skb, IFLA_BRIDGE_MST);
+ 		if (!mst_nest)
+ 			goto nla_put_failure;
+ 
+-		err = br_mst_fill_info(skb, vg);
++		err = br_mst_fill_info(skb, af, vg);
+ 		if (err)
+ 			goto nla_put_failure;
+ 
+diff --git a/net/bridge/br_netlink_tunnel.c b/net/bridge/br_netlink_tunnel.c
+index e7eceab5b515d..8c8232618fbff 100644
+--- a/net/bridge/br_netlink_tunnel.c
++++ b/net/bridge/br_netlink_tunnel.c
+@@ -145,7 +145,16 @@ static int br_fill_vlan_tinfo_range(struct sk_buff *skb,
+ 	return 0;
+ }
+ 
+-int br_fill_vlan_tunnel_info(struct sk_buff *skb,
++/* br_fill_vlan_tinfo_range() emits one entry for a single VLAN and two,
++ * marked RANGE_BEGIN and RANGE_END, for a range.
++ */
++static size_t br_vlan_tinfo_range_size(const struct net_bridge_vlan *vtbegin,
++				       const struct net_bridge_vlan *vtend)
++{
++	return (vtend->vid > vtbegin->vid ? 2 : 1) * __get_vlan_tinfo_size();
++}
++
++int br_fill_vlan_tunnel_info(struct sk_buff *skb, const struct nlattr *af,
+ 			     struct net_bridge_vlan_group *vg)
+ {
+ 	struct net_bridge_vlan *vtbegin = NULL;
+@@ -169,6 +178,11 @@ int br_fill_vlan_tunnel_info(struct sk_buff *skb,
+ 			vtend = v;
+ 			continue;
+ 		} else {
++			if (!br_af_spec_has_room(skb, af,
++						 br_vlan_tinfo_range_size(vtbegin,
++									  vtend)))
++				return 0;
++
+ 			err = br_fill_vlan_tinfo_range(skb, vtbegin, vtend);
+ 			if (err)
+ 				return err;
+@@ -178,7 +192,9 @@ int br_fill_vlan_tunnel_info(struct sk_buff *skb,
+ 		vtend = v;
+ 	}
+ 
+-	if (vtbegin) {
++	if (vtbegin &&
++	    br_af_spec_has_room(skb, af,
++				br_vlan_tinfo_range_size(vtbegin, vtend))) {
+ 		err = br_fill_vlan_tinfo_range(skb, vtbegin, vtend);
+ 		if (err)
+ 			return err;
+diff --git a/net/bridge/br_private.h b/net/bridge/br_private.h
+index d337b1cfb980d..55dfa44269c90 100644
+--- a/net/bridge/br_private.h
++++ b/net/bridge/br_private.h
+@@ -1954,6 +1954,13 @@ static inline bool br_vlan_state_allowed(u8 state, bool learn_allow)
+ #endif
+ 
+ /* br_mst.c */
++/* IFLA_BRIDGE_MST_ENTRY, holding IFLA_BRIDGE_MST_ENTRY_MSTI and
++ * IFLA_BRIDGE_MST_ENTRY_STATE
++ */
++#define BR_MST_ENTRY_SIZE	(nla_total_size(0) + \
++				 nla_total_size(sizeof(u16)) + \
++				 nla_total_size(sizeof(u8)))
++
+ #ifdef CONFIG_BRIDGE_VLAN_FILTERING
+ DECLARE_STATIC_KEY_FALSE(br_mst_used);
+ static inline bool br_mst_is_enabled(const struct net_bridge_port *p)
+@@ -1971,7 +1978,7 @@ void br_mst_vlan_init_state(struct net_bridge_vlan *v);
+ int br_mst_set_enabled(struct net_bridge *br, bool on,
+ 		       struct netlink_ext_ack *extack);
+ size_t br_mst_info_size(const struct net_bridge_vlan_group *vg);
+-int br_mst_fill_info(struct sk_buff *skb,
++int br_mst_fill_info(struct sk_buff *skb, const struct nlattr *af,
+ 		     const struct net_bridge_vlan_group *vg);
+ int br_mst_process(struct net_bridge_port *p, const struct nlattr *mst_attr,
+ 		   struct netlink_ext_ack *extack);
+@@ -1999,7 +2006,7 @@ static inline size_t br_mst_info_size(const struct net_bridge_vlan_group *vg)
+ 	return 0;
+ }
+ 
+-static inline int br_mst_fill_info(struct sk_buff *skb,
++static inline int br_mst_fill_info(struct sk_buff *skb, const struct nlattr *af,
+ 				   const struct net_bridge_vlan_group *vg)
+ {
+ 	return -EOPNOTSUPP;
+@@ -2161,6 +2168,18 @@ static inline int br_cfm_peer_mep_count(struct net_bridge *br, u32 *count)
+ #endif
+ 
+ /* br_netlink.c */
++/* The IFLA_AF_SPEC nest that br_fill_ifinfo() builds is a single netlink
++ * attribute, so everything put inside it has to fit in the u16 nla_len.
++ * The entries have fixed sizes, so ask for room before adding one instead
++ * of closing the nest with a length that wrapped.
++ */
++static inline bool br_af_spec_has_room(const struct sk_buff *skb,
++				       const struct nlattr *af, size_t size)
++{
++	return skb_tail_pointer(skb) - (const unsigned char *)af + size <=
++	       U16_MAX;
++}
++
+ extern struct rtnl_link_ops br_link_ops;
+ int br_netlink_init(void);
+ void br_netlink_fini(void);
+diff --git a/net/bridge/br_private_tunnel.h b/net/bridge/br_private_tunnel.h
+index efb096025151a..5923eb46f5c67 100644
+--- a/net/bridge/br_private_tunnel.h
++++ b/net/bridge/br_private_tunnel.h
+@@ -25,7 +25,7 @@ int br_process_vlan_tunnel_info(const struct net_bridge *br,
+ 				struct vtunnel_info *tinfo_last,
+ 				bool *changed);
+ int br_get_vlan_tunnel_info_size(struct net_bridge_vlan_group *vg);
+-int br_fill_vlan_tunnel_info(struct sk_buff *skb,
++int br_fill_vlan_tunnel_info(struct sk_buff *skb, const struct nlattr *af,
+ 			     struct net_bridge_vlan_group *vg);
+ bool vlan_tunid_inrange(const struct net_bridge_vlan *v_curr,
+ 			const struct net_bridge_vlan *v_last);
+
+base-commit: 31f961de2f90fbf52eb2d4e15b3eeaa09f9b4fc2
+-- 
+2.43.0
+
