@@ -1,187 +1,130 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 111692512C8
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 00:27:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8870B282F36
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 00:27:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788654440; cv=none; b=R5x1y+lEFRKsASRhG9HpZ2EFVc44N11+H9bfwd+IuFZGlOdae8YMrkpcz9f1jhXTeDxVe3miVqUvJFZilNRfDANj7YXrGiz/SqZnmlAEpS6MxT2Zvg8tLxd5UN8N8VXWjcmqdZDGeIrp8UsxFc+MXMau9xzK/VKMlbFZnautHNk=
+	t=1788654475; cv=none; b=SgTS0UDCfIb27ho7GeYUMm23MqJjOAHcBkiar5etrIvltdaXFVkAHYgFVjfNGG4pN7NrayXxc/9D0qSD3lAhYapdp0qom5gN3MedEV+4OUXe81Bh63SNY3oT4u1Wjlyg1Jpr8+PMf++2ViOfjOzhZiqnRh40O8JaVNVKvZ80Rrw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788654440; c=relaxed/simple;
-	bh=2TdAKrKV0FCbD/Fri2RG+Wg+0ou7YdCoPON6tgECizM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=E7HbCKgbbo5zNEDhlddIOiPEAtKRB63N/sQZLPhv/uQ141RtPMqJkFBHyigZXr4MSO6zjE7+jqnkkX1ZUi+xDLKouRhCfdBCQr6H/nk0mUp5vXNalyhJVflIHvLxVev2pr8bGTC+8W3XQCT9XgyNKp2kfRvAwuubGAGvZpOEzT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IxVLPAil; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1788654475; c=relaxed/simple;
+	bh=fF/vXxPLfH/LP55Q3picOAVcc+78Hi+CViiQRqbY41A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nU6kRzAC4hXoX/8CVIzXpWT8d1jtRj98O3zZN1Fvrnrtjzh/YttAehMDoRmPLjmT6sfGzk7671xUbvEMQ7JvBjfEzNcfyI0heeZ9jAmoGSgXYzFj6CPDuAzXWLDd2vR3s9O1TYKLrYwLPVQZJ22bVDF/4UPN4cvZ4R1eoafnmmU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IxVLPAil"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso34837705e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 17:27:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788654437; x=1789259237; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WmwzJcel3VfLt6Lpe6LNfEoo3vOWPkIx9eCfAv/ke9k=;
-        b=IxVLPAilMhnwq0GbJM/Nz+0ufwylUYO2HUm31iwFddT18h9LHg3cwfCWu/O5pT+eLu
-         itegbDGqaSoiwbPocPQ1x4985iRgfJWK/8HYCtDp+mawe05djxxl9pDeteRyzQ6Z/R9f
-         idHcNnJsxS+hcmDkV38IdeY1EQjb1YX2qVneiyezWFqyqch8Bel7ex78FwCma3hlvFjA
-         F6VDlC0YgsNyHWzsK43OW8rDJxQ1I1wo+ofVLeBy8yy0ZeQsf9OwQ5gRvRwrc4ti+YPH
-         QnAO2g0WEoZIN1nMjSTPIVIoh7sFtuhvba0fKFTrT2M4rAAKj/EDZrupTV6TQ2+DqYCh
-         FuqQ==
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49b8eeb3ff2so19626215e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 17:27:53 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788654437; x=1789259237;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WmwzJcel3VfLt6Lpe6LNfEoo3vOWPkIx9eCfAv/ke9k=;
-        b=gwvQT+ocuCke2//hdfry+Tch8ImnPIHIYmajZvVzHiX0H7LZ6TobVarYqhrG/BvL6K
-         sKp91jgST9q6m8NR9bEEFTorM4oFToXWg+nurIo2IHN66Rhu2eW+dhh6JDC0OO2+j4jb
-         KDvEZzQM0E88GlTBuQ42SpDw6KVs6TjeXyU0kYWfSPfZq8J/QljzmcZb6xq9p7VNMwOF
-         wwQsgChfKpr5s5GViNRleOVYGdsh5JN6RICQRoYNGk4mD6ZajI8u3bwFgimsg2IQ0teM
-         6ZmUb+a31RVt+LERx1SM8FrXUDf5jI0wFIwbxPQ8FIN8I25Mv/EvnITBXmScNqZAdcK2
-         /1QQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx1eGjKwiTp6F/Y+01Y3MFpbREe8dehEyFfgHLW1WDEH/Ldaj66TxgmBoeK/YXDpuXkvwfDKtB7Ssg+t1w=@vger.kernel.org
-X-Gm-Message-State: AFuF++nVqltIrWXt/gWzJg/eXTDjlpXrM2jOH1po/BDM5AsMDf58Aicc
-	NOC2Q4OdY17RorBIzx07wmmeIe/FR0hDNuqyQ6VrZRtmXQz0DQ2fUOi4
-X-Gm-Gg: AYBFou0tltO4/BZ8eIp3M77CftzjRxAXVafWZ37Kki+ENZRGZgjoKhF5fKOGjvexXwW
-	4Yb8kD34bkWssLV3divKDWC60Fz8GqAJXQe+KeqJYqT5bnTEkj80sp9XaGjgTd5aj8sd5oc9yzE
-	3OLmCpuP1YVbp6ADDbvLjm57nhRfaZJMdAkhk8S1fwfln8jr7+VqU7x1UCUOvLuSjTBgGMMGdue
-	J0ETxP2LXI7puVdy9eOjwbjNWFxc5gz4BE1gtpggtLsRQlY4RPatfoD7En19F4h3rcGafumhHfz
-	P5agdJhmJbVvj+79dPeYFbonY1BPbDIYcBnhDOaCfw69BZZlrTEhmFz3/oD8NA8WWOvVyeU9hCd
-	e/9p9Y3KFl8OIiZcFBeQiPyEtnqv9Odkec9jJQpvjH+LMfCegt3BFW9n8rMpoEP2Mqa9X9ENhOX
-	7t/GJcGBE2wADQcqMPkRySkyRnevtMSWhGZR7Y1ShBk4mTx7i54ERU6XSZn7U=
-X-Received: by 2002:a05:600c:474c:b0:49c:fa21:1c8b with SMTP id 5b1f17b1804b1-49cfa211d53mr122489015e9.32.1788654436801;
-        Sat, 05 Sep 2026 17:27:16 -0700 (PDT)
-Received: from metepc ([46.197.185.71])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5533ffbsm236791575e9.3.2026.09.05.17.27.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 17:27:16 -0700 (PDT)
-From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: johannes@sipsolutions.net,
-	kvalo@kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	horms@kernel.org,
-	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>,
-	syzbot+adeb8550754921fece20@syzkaller.appspotmail.com,
-	syzbot+101224300649c3eb8af4@syzkaller.appspotmail.com,
-	syzbot+8141dcbd23a8f857798a@syzkaller.appspotmail.com,
-	syzbot+b0ae8f1abf7d891e0426@syzkaller.appspotmail.com,
-	syzbot+d6bbe0f5705cb8a5aa2b@syzkaller.appspotmail.com
-Subject: [PATCH] wifi: cfg80211: avoid holding rtnl_mutex across all cfg80211_leave() calls
-Date: Sun,  6 Sep 2026 03:25:46 +0300
-Message-ID: <20260906002657.620076-2-omermetekaya0@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260906002657.620076-1-omermetekaya0@gmail.com>
-References: <20260903151542.486376-2-omermetekaya0@gmail.com>
- <20260906002657.620076-1-omermetekaya0@gmail.com>
+        d=1e100.net; s=20251104; t=1788654472; x=1789259272;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fF/vXxPLfH/LP55Q3picOAVcc+78Hi+CViiQRqbY41A=;
+        b=UEoEpkFpm6fD3b4dmh44XC4hu0V8fZNXIalumsjY3M6xhnXhIUeSH/JJ86lwyvOTLF
+         yzPlgOWlVLUeLomBuNnsP95immVO3z8vnk11xWgaW7FrDFRZVJalzdJa/bGxAw5oxMpI
+         UAdW2rAXnlkeW0kgxT7Jq/TvU0SPc78URTzBewiyDb7q/9P3LbKMPXtluA6UAfSxB2cD
+         HM8dcbC2kxOmQ1bRy7vT74tyBUrkhMqhHmn7YpQDcGiZLLORZL3azABVUeobcMy+SCQ7
+         R9/OPTuLgAzebOnh9WJ0I3yvKdn2K2l8JpZ+yJkbC/b/aU8O07BNKvV6TEa2sn+zN+Qb
+         ym8g==
+X-Forwarded-Encrypted: i=1; AKwUvBw3KpRqxjLphTSVEc6ygFoa646zszIz/6ZmZHC64iyp6cS4qNehoOMyMnz/+xQiZzM8x0qI1y2vR5PXFTo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lbqz9zohGP5A+PYiwRgif8mVRIGm5k0CRizGqEfgsFc0xweVyc
+	RxHTc/YlkrCnc52WCG0nc8V8n0ZSL2vN8FTa7F+kunpotE8Pygxsq+rE
+X-Gm-Gg: AYBFou1afds6fuyoxG4YkzwGVRNO9VvYLl08nEldFKvizEkzkN1qozFV0+Rh9KtDWP1
+	mp7Tmt03OO6enjRWtu+dlaJRT4ZOEv9G4M/kSLNY8t/cVfERJd1O6RN+Z2BTV+W5qZYHABcCuf9
+	nMijYaRAo39QmmgRZNGKW7kTbtcmvTabVh8ef5kdeGXCW9T2tGpLMQpYqvdVkqqtW281u1YWL+T
+	IsZyW/fdZtTiYCzgmmzI9Ii/IrYc6wZ7HliABc2yWbxAg0qC2+fcs3hCkdagDYbFlFVUX+68ymR
+	kw/z2+httqVDSUmsHSCYV/1Aw1j2SjMpXN4or/v6oJQA9pTRgA+s/KZujDq/USvLeRS5wzJcmvz
+	sFgg0LXjax+aBMaSndP5/hfonZDObMqbDuHqitDI1MJNnJUYgaER0HzwCvuWmwyk3XgFzGlaqpg
+	p88BJ4uqisAoSb92ELS78ycTGm6OBYieTZMzvweuihdMPpiVuGNLj3yCpCVSl1+3K1+tSTukiLr
+	oVvG+YwPAJZC6ifChqELCw=
+X-Received: by 2002:a05:600c:1986:b0:49c:fa21:e744 with SMTP id 5b1f17b1804b1-49cfa21e906mr115713335e9.26.1788654471726;
+        Sat, 05 Sep 2026 17:27:51 -0700 (PDT)
+Received: from [10.100.102.74] (89-138-77-243.bb.netvision.net.il. [89.138.77.243])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce831af89sm198027065e9.1.2026.09.05.17.27.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 05 Sep 2026 17:27:51 -0700 (PDT)
+Message-ID: <220e9da3-f756-4a16-8de1-d4b171f15009@grimberg.me>
+Date: Sun, 6 Sep 2026 03:27:50 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] nvme-tcp: pin io_cpu to submitter cpu
+To: Saravanan D <saravanand@crusoe.ai>
+Cc: linux-nvme@lists.infradead.org, Keith Busch <kbusch@kernel.org>,
+ Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>,
+ linux-kernel@vger.kernel.org, Nilay Shroff <nilay@linux.ibm.com>,
+ Daniel Wagner <dwagner@suse.de>
+References: <20260820083634.71689-1-saravanand@crusoe.ai>
+ <20260823174348.40236-1-saravanand@crusoe.ai>
+ <1d56144d-6987-40c1-ac02-b15333db121e@grimberg.me>
+ <20260902062431.61412-1-saravanand@crusoe.ai>
+Content-Language: en-US
+From: Sagi Grimberg <sagi@grimberg.me>
+In-Reply-To: <20260902062431.61412-1-saravanand@crusoe.ai>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-reg_check_chans_work() holds rtnl_mutex for the entire duration of
-iterating over all registered devices and calling cfg80211_leave() on
-each invalid wdev. cfg80211_leave() can be slow (disconnect, stop AP,
-leave mesh), causing rtnl_mutex starvation when many wireless interfaces
-are present. This results in tasks waiting for rtnl_mutex for longer
-than hung_task_timeout_secs:
 
-  INFO: task hung in inet_rtm_newaddr
-  INFO: task hung in inet6_rtm_newaddr
-  INFO: task hung in nsim_destroy
-  INFO: task hung in tun_chr_close
-  INFO: task hung in switchdev_deferred_process_work
 
-Fix by taking a snapshot of cfg80211_rdev_list under RCU, holding a
-device reference (get_device/put_device) to prevent freeing, then
-acquiring rtnl per-device so other rtnl waiters get a chance to run
-between devices. After acquiring rtnl, wiphy.registered is checked to
-skip any device that was unregistered in the meantime.
+On 02/09/2026 9:24, Saravanan D wrote:
+> On Mon, 31 Aug 2026 01:30:08 +0300 Sagi Grimberg <sagi@grimberg.me> wrote:
+>> I just think that the adoption approach has downsides in many other
+>> workloads. I wouldn't categorize your use-case as the common use-case.
+>> Not to say that it shouldn't be solved.
+> Adoption in v2 is opt in per controller through the io_cpu_adopt
+> connect option, so every workload that does not enable it
+> keeps today's behavior unchanged. The downsides would only be borne by
+> deployments that choose it. I concur with the broader point. Adoption
+> makes the driver itself decide where socket work belongs, through a
+> fixed rule that cannot fit every deployment, while a writable io_cpu
+> is very flexible and leaves the decision to the control plane.
+>
+>> I agree with you that queue io_cpu selection at connection time is too
+>> limiting. Perhaps we can have each nvme-tcp queue expose a sysfs entry
+>> to set the io_cpu?
+>>
+>> Something like:
+>> echo $CPU > /sys/class/nvme/nvme0/tcp_queues/$QUEUE/io_cpu
+>>
+>> I am just trying to think of a way that will allow some control plane
+>> to set it exactly as it wants, without the guessing part...
+> The per queue sysfs io_cpu works for us, and in one respect it works
+> better than a connect option because a sysfs attribute can be set after
+> the fact on any existing connection. The control plane already knows each
+> VM's cpuset and can read the queue to cpu grouping from mq/*/cpu_list,
+> so it can nail the socket work placement.
+>
+> Two questions before I spin the next version around this.
+>
+> 1. On reconnect the queues come back with the connect time io_cpu, so
+> the control plane has to notice and reapply its placement. Is relying
+> on the existing nvme udev events for controller state the intended
+> signal, or would you want a dedicated notification ?
 
-Fixes: f7e60032c661 ("wifi: cfg80211: fix locking in regulatory disconnect")
-Reported-by: syzbot+adeb8550754921fece20@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=adeb8550754921fece20
-Reported-by: syzbot+101224300649c3eb8af4@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=101224300649c3eb8af4
-Reported-by: syzbot+8141dcbd23a8f857798a@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=8141dcbd23a8f857798a
-Reported-by: syzbot+b0ae8f1abf7d891e0426@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=b0ae8f1abf7d891e0426
-Reported-by: syzbot+d6bbe0f5705cb8a5aa2b@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d6bbe0f5705cb8a5aa2b
-Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
----
- net/wireless/reg.c | 44 +++++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 39 insertions(+), 5 deletions(-)
+I think that io_cpu should not change in reconnect. We can use a
+NVME_TCP_Q_ flag for it.
 
-diff --git a/net/wireless/reg.c b/net/wireless/reg.c
-index a8336baf85dc..7a3f1e470e14 100644
---- a/net/wireless/reg.c
-+++ b/net/wireless/reg.c
-@@ -2463,15 +2463,49 @@ static void reg_leave_invalid_chans(struct wiphy *wiphy)
- 
- static void reg_check_chans_work(struct work_struct *work)
- {
--	struct cfg80211_registered_device *rdev;
-+	struct cfg80211_registered_device *rdev, **snap;
-+	int i, n = 0;
- 
- 	pr_debug("Verifying active interfaces after reg change\n");
--	rtnl_lock();
- 
--	for_each_rdev(rdev)
--		reg_leave_invalid_chans(&rdev->wiphy);
-+	/*
-+	 * Snapshot rdev pointers under RCU with a device reference so they
-+	 * cannot be freed between per-device rtnl acquisitions. Using a
-+	 * per-device rtnl_lock() instead of holding it across all devices
-+	 * avoids starving other rtnl waiters when cfg80211_leave() is slow.
-+	 */
-+	rcu_read_lock();
-+	list_for_each_entry_rcu(rdev, &cfg80211_rdev_list, list)
-+		n++;
-+	rcu_read_unlock();
- 
--	rtnl_unlock();
-+	if (!n)
-+		return;
-+
-+	snap = kmalloc_array(n, sizeof(*snap), GFP_KERNEL);
-+	if (!snap)
-+		return;
-+
-+	i = 0;
-+	rcu_read_lock();
-+	list_for_each_entry_rcu(rdev, &cfg80211_rdev_list, list) {
-+		if (i >= n)
-+			break;
-+		get_device(&rdev->wiphy.dev);
-+		snap[i++] = rdev;
-+	}
-+	rcu_read_unlock();
-+	n = i;
-+
-+	for (i = 0; i < n; i++) {
-+		rtnl_lock();
-+		if (snap[i]->wiphy.registered)
-+			reg_leave_invalid_chans(&snap[i]->wiphy);
-+		rtnl_unlock();
-+		put_device(&snap[i]->wiphy.dev);
-+	}
-+
-+	kfree(snap);
- }
- 
- void reg_check_channels(void)
--- 
-2.55.0
+>
+> 2. What should the write path enforce ? I would validate the cpu is
+> online, rebalance the nvme_tcp_cpu_queues accounting, and let the new
+> value take effect from the next queued io_work. I intend to restrict the
+> value to the queue's map group.
+
+I'd just do basic validation that override the queue io_cpu.. perhaps
+xchg(queue->io_cpu, cpu).
+
+>
+> If this direction sounds right I will drop the adoption heuristic and
+> send the next version v3 exposing each queue's io_cpu as a writeable
+> sysfs attribute.
+>
+> Thanks,
+> Saravanan D.
 
