@@ -1,65 +1,63 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-103.mta0.migadu.com [91.218.175.103])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D9C3B28D;
-	Sun,  6 Sep 2026 19:05:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 936EA3ACF10
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 19:05:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.103
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788721521; cv=none; b=ta2Qiquvo4UnFo4EyBwq1fxAF9EbE9EvS+MQPVgtv0MLa3tVSYCHWol1yoyvdbkTQW6yZi23g0brbPhGz/ZM30mgU3U/GthdlHoJHZARYYsKdw06Mgm9pJ5En8Zwbflubkj6Y/7oCER7XwyuWeN3Fmm5pGyokTzWLu0ZpOz1n+I=
+	t=1788721529; cv=none; b=OtXDe6xhpg4+7nIuihV45/i4eU3XUfRZBB/MQlUbibafD6Ag8dd//TvFaO/QiuJhhNgiCnisI2yajwEJgnw7KZJX2yEWXPRcHXHEyq0hv4l7Ply4j9zdzu5bBcw9UpKLN9QIGrCf5EFSQOMICGlwc1RpS5Fg2TiMWsCImvFZmiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788721521; c=relaxed/simple;
-	bh=lETY9aZwq/hOoo0xW/rBFXJkJiGG6zoo/qAU1fjk32o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tKy3dw6QES+sIRT/UHswzuDry4gnta1ivMxadGeVj142ez3TCeIPuGwDAbVezBqEe0SStZnZ2+QnUQ5PW3ztvP0Ug5mran9vEljWcUYDgjPJ2K6M1E3soeH5mndTRXSFWdD7tx2jmTlKaMPQAr/OG/Cqa3ls5BSd+qgePeJ8DYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i0DSUdFT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788721529; c=relaxed/simple;
+	bh=OsEn4MpjN7QcUwJVnLb+VhWWm2a+Oe9um/I9Q4NnH48=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc; b=OEjYv7DsmK/XVDYGLvqCvwQ2gyz/IrQlnXoUjcZYDTQ8cCcvLcYX9izM5GBMnafclwavEDg2nm7/iwssEKWX7NtOcVWvgCPRul40EsNvSrARPBcpMST9bjQy1eZncekvbgYeZcKm7JbFY0il73fZ566bkQ8zLLEBafZrZBtGGPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AB6nPxky; arc=none smtp.client-ip=91.218.175.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i0DSUdFT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EF241F00A3A;
-	Sun,  6 Sep 2026 19:05:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788721520;
-	bh=dtAM+2bE0Rt5IW1MUTCf8ImDEJDLu+CH2iU80hmdl/4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i0DSUdFT3c6tYVS+//GqcD97I/17wah1Ryw8N2s1nkwwrEScYCZKdLGfnZvC/WTpF
-	 53Q8JEqP+DoBDKx+ywlx4UIAinCp+Ze68MJkbvkMD5wq6UKf+iNSkvPrtv17YGBv4x
-	 wVoqXaJ1SGuXL/znhrd/UgapwfNetF8hSRMEOJjvU+fyljxPYw/JyepxHblzox9Z6K
-	 hEXF4WjHCWn+iQRcIKp/sI0IFWMUp+ySZoDSNrrst07GS6pGZNTI/HEyJd8bDOcDmo
-	 G5y7wjqgWvuLGQ11XWo4vqq1broom0+UUDt2bUoPl2X5Fz+vQ5D43wFZ+wDDxDIcGW
-	 7dr1AoJoszn5Q==
-From: SJ Park <sj@kernel.org>
-To: SJ Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH 0/5] mm/damon/vaddr: support {prep,apply}_probes
-Date: Sun,  6 Sep 2026 12:05:12 -0700
-Message-ID: <20260906190513.98247-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260906184417.96621-1-sj@kernel.org>
-References: 
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AB6nPxky"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=OsEn4MpjN7QcUwJVnLb+VhWWm2a+Oe9um/I9Q4NnH48=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788721525; v=1; x=1789326325;
+ b=AB6nPxkyAamvWBS0rrAEJebktBXTRCCpkUnPNWRmpBo8/u+RwxTSk4FY5/lGt/+4bH4Fql84
+ C5bc+onXPVpsKHmXjJTqFxMJwB1OLPCjw6qbntyLZ1D4+9lVoqYaPQP6Fw8HkcyqfxqBm6YXKeX
+ NsVQqBC7yrbGAt6Xf6lnlB/c=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7e96b81abdc3c11c;
+	Sun, 06 Sep 2026 19:05:10 +0000
+X-Mizu-Trace-ID: 7e96b81abdc3c11c
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Sun, 06 Sep 2026 19:05:09 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Frank Wunderlich" <frank.wunderlich@linux.dev>
+Message-ID: <55267dce42a63e5210c34e49747f564f5cc0b0cf@linux.dev>
+TLS-Required: No
+Subject: gpio-hog names
+To: "Linus Walleij" <linusw@kernel.org>, "Bartosz Golaszewski"
+ <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
 
-On Sun,  6 Sep 2026 11:44:10 -0700 SJ Park <sj@kernel.org> wrote:
+Hi,
 
-> DAMON supports data attributes monitoring.  However, only the physical
-> address space operation set (paddr) is supporting it.  Add the support
-> to the virtual address space operation set (vaddr).
+Until v7.0, GPIO hogs inherited the DT node name when no line-name
+property was specified. This was implemented as a fallback in
+of_parse_own_gpio().
 
-Sashiko found no blocker for this series.  Sashiko send its findings to damon@
-mailing list [1], and I reply those if anything needs to be clarified.  Please
-refer to those for details.
+Commit d1d564ec4992 ("gpio: move hogs into GPIO core") moved hog parsing
+into the GPIO core and removed this fallback.
 
-[1] https://lore.kernel.org/damon/
+Consequently, GPIO hogs without a line-name property are now displayed
+with a ? in /sys/kernel/debug/gpio.
 
+Is this an intentional change, or should the fallback to the DT node name
+be retained?
 
-Thanks,
-SJ
-
-[...]
+regards Frank
