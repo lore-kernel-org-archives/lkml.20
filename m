@@ -1,149 +1,93 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE302874E6
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 03:44:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAA9F2DF717;
+	Sun,  6 Sep 2026 03:50:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788666255; cv=none; b=f+RVIlWcBKIdAl3y1zNTgZYoCPpqxIEXEQ+WqbnzpPTME6HpFRjNvKBT4WUhRo70RrCc/oNQjvhoTmZ+1P6EsOk8zlWLNB664Cx3CxiZiouASzutD3+ZRz4utzus+8NMq2EZaUE75KX5a2cWj5qHB9mvA404HUPA0CNVfXB7gkw=
+	t=1788666627; cv=none; b=BiGNe/gFV0tqRWvAGMyVn/if+JPeJKz3kwvNsxgl0h/EPaM8VegZjrerF+zRiR6CvUgNUtCz/d0y7MKMYtArTK3up5C7xdj8dZzBdF5FhegZ4Mk5/T++VDOqHw/4VawcWEm4KCGmQOLeuCbl5H4S2kUH8+aFfdkyej+f2ASg2Ho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788666255; c=relaxed/simple;
-	bh=nz7WpThK2Yj7pbRrI2t4/rlRY2RNQP/63J6KbYYh4Vk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HBaugJg/SeJAHOatYS9vwfkmAfxb2/tg9YttSUwjsRR/i5WAlt7DZA6eLp9HikDhpY3/ymSl6KB4Hkptx/pnWapJq3jcbjHWyiitX6IEP5kfiamsio7KQXhPncXdI/4gqP+UK3hpPJaFZZsdW/w8KEX4EZPku5GXcOqCdi26Wjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gW4z/BbB; arc=none smtp.client-ip=209.85.216.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788666627; c=relaxed/simple;
+	bh=IZnY/XTRrQnOrn0nQjoU92J3CgS9YD8QZKy+NsGfeCM=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=PPUrmrNCGrAoGdUHmyUp6NeQwCaUYiEmxzGrKzv3SsI0juKakP8Iy3m8DrbJ6AFj5pEL2fxyB6KH8o5gZ5X0nBo+E36h8gNJK7m2D57u63mkH9r2EbBaoXJN/zmTTVk4yQaS1u5s5YWYnslqi3o/NUjPtdarjvLmKlwEX2owJig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GrRh293l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gW4z/BbB"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-38511175ad3so2075256a91.2
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 20:44:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788666253; x=1789271053; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C4Ap773c76TL1E1578+g8wGsSz9MJ+j7nGEGULZVyZ8=;
-        b=gW4z/BbB+9lbC1GbCfud00QxSZZJ0aRmwBiAijOo/LM5wfhW+9JI0DU0iGcEvIcYVu
-         SYaKGPzvt5pZ9ETW4Bu1bPHxuVzXMLUxWGoJ7nvFGwrtcyq5AfaTXaDWoFcta1fby0wF
-         l53TqmDENCnNqCaDGqwxDy0VfPdPRcnApmvvoo5lhpN+h6ux676r0iiC4LWJ5bNqz8bY
-         hDLzTPaJqJuUFGlpvpJSHCHrRvn3gyx/McixGxBI41+aA2K+W4OYbtdYRhl8aHEFMa/3
-         tfCgtWtEDUt6cogMP4R79z6QdbFJfqDhZBhHZvAKQylCwRefe3hxsCCYiPprm0WI6Dou
-         bK+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788666253; x=1789271053;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C4Ap773c76TL1E1578+g8wGsSz9MJ+j7nGEGULZVyZ8=;
-        b=hicG6fhHCfUF+J7nT2c+sPNq0jNF4rKRMflGqf/63HA5DMQTV2cD6RyBnpnDZObJJh
-         d/nCTAZlGY+ywPyogSuB54YROveUXkp9YCLV+WzzSzuYo4zOpaQ8bAag9zZLgsjyJVRy
-         kdt+VMhH4LCiQnBtsO+0tCJH/JkOds5Dlxcd707DEHRmOcfVyaFMX7MEYiIcpDVIYQZb
-         /7eUW8WZDmIMz5V/ORv8EXSgftKXskn3SWXX/fWVsAlV/nO5pWE6rN2Lv5j1KYN/9TN0
-         rx1AOh5LwAmNMOzpKsuWoVMaCU9I/cS+IA7qlcsxmXmJ/MvugR4pyqQf4DTgSk6bwBd6
-         Hjdg==
-X-Forwarded-Encrypted: i=1; AKwUvBxKRurTw7gOFPqd34jVVhgGBNBNHJsGvCcMq4yeknqD1FW/HYCVYyOv6kfj6ID9WBsBRaX+x4xJou7aujs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kulnzDMYdm+JyzRNgEzvnSi8DBrvMtcUaMz4wKrppRpI+9PSqp
-	j/J5LTFT++QPmQvXJtcDS5bgcNtsijcaFQNaMHqzuIRSF9zNDEEnZr8=
-X-Gm-Gg: AYBFou3dBoSrAc4bH7VzC3tdKMQDiITu998dA20KxES6QYdgXAB4VuIuMEoYCP24X1+
-	1nrW/47Ci1wNyobulUbMuK5W/Mq997JXli73CqSXD/7T4GlsYhbHjAfMA1ykCFpZJ5mRRvJ7lV0
-	Of7VGC18pfcBAyNK1w4Z4JnLU41XkX4oy2kfOEvvO45tIOIm9xbNPqd82lsxqTKm98BzF1Q0idE
-	Vh8nWKq6nIUz9aot7aZwl3VpmYbs8ZHQhIqTKeVU2R0sP9lalk2AzE++NNDFI4bQbnwfEh+06O4
-	rjamep6S1TFJDbZmb8ohFpd4ovGGpquzpfwbWIm0AmGGlGVClcFy7ZcovynzZcB3kqpu5+InMoD
-	c68Yoxfj+Snw5TqR3Xkvz+fWCVuH9cns/fTQdtWco3cdKMz0Pz9O9zW5KiPD7wX9En0aYFm2vIf
-	EzyDQ3aU+Rjjj8BDCc85TjY4NXlhSHfD6HEDcLkfpU3OYheXBSDEidWiRdUlkkqyYNhPMqeC+FD
-	d5TIQ2yY/L/IJbZ
-X-Received: by 2002:a17:90b:224c:b0:398:9bd4:d15 with SMTP id 98e67ed59e1d1-39b26245d08mr21476187a91.20.1788666252720;
-        Sat, 05 Sep 2026 20:44:12 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:6467:d689:2b14:fe4a:ab17:f236])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260fdf9asm13075385a91.9.2026.09.05.20.44.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 20:44:12 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	donggeunyoo.kernel@gmail.com
-Subject: [PATCH] function_graph: Use the saved entry's size when reprinting it
-Date: Sun,  6 Sep 2026 12:44:06 +0900
-Message-ID: <20260906034406.1335316-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GrRh293l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F2BE1F00A3A;
+	Sun,  6 Sep 2026 03:50:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788666625;
+	bh=/FVxwLByr2fbsd15tp0aSyHlbFN1N6YltOFpZYUQGHA=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=GrRh293lB5Fhl+8bOwnLznpZsIaKXWyvSqZqtPAmP0nYHye00aYQUPyBGD1dRY9fx
+	 2/S29j+G6H4LfvNh1Q2HFzoe3UROFPYXQywGdPTTYX6I/+TsaE9nStzIDQPYxXoHm5
+	 Hfcn6KXaQ6vjHiQbq/5bJJZv/2Fu6UowWpNcrNteF2XUcnV5JnI9ZcNlldSdUPeq+B
+	 a9pMpffVzrco4HYn0WyU7YTS92F7OcRqveXKoCPROySg+lHTzSY4RlvlotMiq+btzh
+	 sm5eO+qv985AY0wQ14Q2sAIz7dwDPM+ejVujAvC5tlgGZRqc0MOnTAVcXiBpPCxqFX
+	 WU2AM1GCVWGuA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v6 03/17] iio: backend: Add support for CRC
+From: Jonathan Cameron <jic23@kernel.org>
+To: Janani Sunil <janani.sunil@analog.com>
+Cc: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Olivier Moysan <olivier.moysan@foss.st.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Michael Walle <mwalle@kernel.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, linux@analog.com, 
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ linux-doc@vger.kernel.org, jananisunil.dev@gmail.com, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+In-Reply-To: <20260904-ad7768-driver-v6-3-e4378f946bfb@analog.com>
+References: <20260904-ad7768-driver-v6-0-e4378f946bfb@analog.com>
+ <20260904-ad7768-driver-v6-3-e4378f946bfb@analog.com>
+Date: Sun, 06 Sep 2026 04:50:02 +0100
+Message-Id: <178866660276.3402141.14172421662312335123.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=584;
+ i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
+ bh=IZnY/XTRrQnOrn0nQjoU92J3CgS9YD8QZKy+NsGfeCM=;
+ b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqnOLv7Hx5n7x8DTOG5rlW6QNp3iUSDlRdBQ/bp
+ +y2MQsmE+OJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCapzi7xEcamljMjNAa2Vy
+ bmVsLm9yZwAKCRBUhTSZxPQWiK+DD/432gZSN4K7YEEfqH9ZVMc2stEJvXBjpA4mo0teukNxtVR
+ YkbcYfcS6yV2zwSN5T5Zx1seX+f6SaO0x+2prfVryTsTQnkQVdAz6AkCnB+HbBfNTIdJpD/ybi6
+ 8HUtx1tqiaGFKF7L4+fn66q91bG87+nKz7ajY+G1BbmoW/o+892TLI+Il4akAQ8PiZUxW0iWM8c
+ c1sqwAjv585FQ9/lW9OjxH97FT9rFF9ONx7AGNBTcdzfZa6jVDJeE74Ht98Nrhl8PXGwGm/G+mh
+ kOqDt/83WattaEEIdoOPE1VKA/FZTHIvDYK+Tq0D98iOR7zSb9KIKm5ugVC3CShyhybLP+mGqRL
+ BmrPlODYcS0jUt8qkDfAIOnhmZWc+Yzu/4VeXNGmlnsXVQ24C7x34AlPWFAJcM2bHUJn0Nxxz98
+ zSAkwaz13EpGlVrbT/oayCejNRqkogzoRSF82P/5caPYuEo8mFQW+9AjWQDt26fC4XTuE0R0xFe
+ lr8tvnrJ+kWOjfCU0cW5v/Qz9zLOD1KTQ1Vh0Y2VWBGdNS2uzZUSK00QvY/ZNoABJUxVY6dCUcL
+ yTPzBde0UUuyGBkrxWKhU5aRjIDJRVfUR0GiCUQbBui8acYlvlKVZXssqcfeO+gngFz1hLIG28C
+ nsPDaZDkXi0VMtg37UikusKFDfd/ZkmcoVoaHJQ==
+X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
+ fpr=6E2966B387840652912681B154853499C4F41688
 
-When a graph entry does not fit in the trace_seq, print_graph_entry()
-saves it in the iterator's fgraph_data and reprints it on the next read.
-The entry has already been consumed from the ring buffer by then, so the
-copy is all that is left of it.
+> Add a backend operation to enable or disable direction-specific CRC
+> handling. On input data paths, the backend handles CRC data generated by
+> the frontend. On output data paths, the backend generates CRC data for
+> the frontend to verify.
+> 
+> Reviewed-by: David Lechner <dlechner@baylibre.com>
+> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+Looks fine to me, but like all backend stuff I'm looking for a tag
+from Nuno to ensure this is inline with general approach to new
+features etc.
 
-The copy is sized with iter->ent_size, which no longer describes the
-saved entry but whatever entry the iterator has moved on to. The
-argument count is derived from the same field, so a 72 byte entry saved
-and then reprinted ahead of a 48 byte return entry loses its arguments.
+Jonathan
 
-Record the size next to the failure flag, so that the two are always set
-together, and restore it before reprinting.
-
-Fixes: ff5c9c576e75 ("ftrace: Add support for function argument to graph tracer")
-Cc: stable@vger.kernel.org
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
----
-Reproduced under QEMU (x86_64 defconfig plus FTRACE, FUNCTION_GRAPH_TRACER,
-DEBUG_INFO_BTF, 2 vCPUs). function_graph with funcgraph-args on, trace_pipe
-read in 64K chunks 300 times from a static init:
-
-  before: 271 reprints, 190 of them with a size that did not match the saved
-          entry, 184 of those deciding the argument count the wrong way.
-          _raw_spin_unlock() takes one argument and printed as
-          "_raw_spin_unlock()" 19 times out of 2209.
-  after:  same workload, 0 times.
-
-Toggling funcgraph-args and funcgraph-retaddr during the run produces all four
-entry sizes (24, 32, 72, 80 here) and they are all reprinted with their own.
-
-No change in tools/testing/selftests/ftrace: 80 passed, 3 failed, 13 unresolved,
-81 unsupported both with and without the patch, identical per test. The
-in-kernel selftests pass, including "Testing tracer function_graph". A KASAN
-build reports nothing on the same workload.
-
- kernel/trace/trace_functions_graph.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/kernel/trace/trace_functions_graph.c b/kernel/trace/trace_functions_graph.c
-index ff7cb1a76b95..c5befd0c5b9a 100644
---- a/kernel/trace/trace_functions_graph.c
-+++ b/kernel/trace/trace_functions_graph.c
-@@ -52,6 +52,7 @@ struct fgraph_data {
- 	};
- 	struct ftrace_graph_ret_entry	ret;
- 	int				failed;
-+	int				ent_size;
- 	int				cpu;
- };
- 
-@@ -1274,6 +1275,7 @@ print_graph_entry(struct ftrace_graph_ent_entry *field, struct trace_seq *s,
- 		if (s->full) {
- 			data->failed = 1;
- 			data->cpu = cpu;
-+			data->ent_size = iter->ent_size;
- 		} else
- 			data->failed = 0;
- 	}
-@@ -1457,6 +1459,7 @@ print_graph_function_flags(struct trace_iterator *iter, u32 flags)
- 	if (data && data->failed) {
- 		field = &data->ent.ent;
- 		iter->cpu = data->cpu;
-+		iter->ent_size = data->ent_size;
- 		ret = print_graph_entry(field, s, iter, flags);
- 		if (ret == TRACE_TYPE_HANDLED && iter->cpu != cpu) {
- 			per_cpu_ptr(data->cpu_data, iter->cpu)->ignore = 1;
 -- 
-2.53.0
-
+Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
