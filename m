@@ -1,129 +1,105 @@
-Received: from out28-173.mail.aliyun.com (out28-173.mail.aliyun.com [115.124.28.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BADD225B0BB;
-	Sun,  6 Sep 2026 06:40:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 586A92288D5
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 06:41:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788676855; cv=none; b=Ma1bLU96YWPAXo619JC5rlg/LKx0rJ8mKMSmy2UwUBR8ocAhmgBvixXirjCfcRntCvo9qBWV+Zdt6/Rvf1Jccc14vFqjAZoG9Stqkr6nQPklrrI+hGSKcTwznYaVEWOd75tJzVlN1QkUVTgBx53leni63SVB46eD1ywz0eQ8v+E=
+	t=1788676863; cv=none; b=IVTDU/MfeFBkBqXBrucH/i8hh/xPgQgi4xgihzpBpMNSuNn1uSTmQC01Slq66dbST06WfYw8ChuSdBRBoGb3yzXbeJH8yeVjsMsVXUtYpT6OFuDKLRP/U3GWCNcARzAzgNBWGbATYhCafwNqC3UQ5P8Pe20J10eulde5tc0UxOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788676855; c=relaxed/simple;
-	bh=Snb5/FaN46hD/PM5DHcgM7tt4eYUGrFqrqcAS0Y4TCU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=f884UBjp8i3HjgWSbUW9KJTsc5GP3t9pDxcfL9u+K+0zQ5EkvRq/R1dyRGZWb6aEGUk5Trg9LCmP4r5qscPkEMNMsqFZjEF5gvL4QYz89x0TyKARZ5iB8FZ3Xsqu2RV9uE0ZyFk+Zbu3ZHNrYd0rnWKlGzX/S5ulPGRurjUuOR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net; spf=pass smtp.mailfrom=open-hieco.net; arc=none smtp.client-ip=115.124.28.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07460938|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0828489-0.0034155-0.913736;FP=16963791342999162875|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033068005250;MF=zhang_wei@open-hieco.net;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.j6lysWb_1788676841;
-Received: from 192.168.1.4(mailfrom:zhang_wei@open-hieco.net fp:SMTPD_---.j6lysWb_1788676841 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Sun, 06 Sep 2026 14:40:42 +0800
-Message-ID: <f187e4d1-9d31-4e54-a75b-b724ed5d0e9a@open-hieco.net>
-Date: Sun, 6 Sep 2026 14:40:39 +0800
+	s=arc-20240116; t=1788676863; c=relaxed/simple;
+	bh=DKsBa9ZraG+br+wS3RGaMdAkaeqP8KmJBWNDuSBRtos=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=lC88Mf3dmzLAAmA6u5r9xDazZy0Yj+hvpbLVV1E9eJeEjW6AiksluwkECBiSmLWzzf+rzH7W2U1srOQ9T3dq6de/2rRuWG6+MdiTmMcGDgFi+OoZBb4YeGf2OrHsHVnQq8LiYkcq2gcteggs9oOfOld677j8SGKsZUnj1eIA5uw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WCFapWwN; arc=none smtp.client-ip=209.85.219.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WCFapWwN"
+Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-91053c27a91so996856d6.2
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 23:41:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788676861; x=1789281661; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=BoGJBejmDHmob0AE3eTfdjrKII854/Xb9FkvnCxeGR0=;
+        b=WCFapWwNiAEVKXTclRKZ4WoofTnXTfV58xJGrto+B2ZpBsJB7AIwI9uGGorf2rw1D4
+         8e8JH8JS5jsNkC+Rd8crvHs0TynPr4tj8TIcdjvN7esdd/T76N4QMNIpytN2himuBOGE
+         q0QC5QOmcaHFSp8qIElOI2N4Vt0uR5RadFoHxk70J/P3lXVJDps/y2uzfSCYt9y9Yeq1
+         3qCSH4jd700XeLvS98qwNlMzkvK6fBnz+Wi2QrmQDWabc9q7eVWbZYmdmm9kN49IhMgf
+         4h+GMNW6T5FNCB2V4kUuteC/o9jmSQGJzBf8MBmi9Qb1qrxOt42io+cB/CA6K9CsP3h0
+         TG4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788676861; x=1789281661;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BoGJBejmDHmob0AE3eTfdjrKII854/Xb9FkvnCxeGR0=;
+        b=aPhnWk/3gonB6+i0Wh6qU26bBb1BdYTG4WKnJu4VbPLETPctaAmfnOu2kTpZCBaCJh
+         rtfxgrcAba7NLJQO/bh4Sq6BuRYTsc1/EAlcyJNrjsM1ovkx9nrWtR5arwV3KO5mJNTi
+         zjG4ffMkR4LuU5ncplAGTwt4YbaGCkctXgvnGtf33OEOP4/kjhegnwKoOQ5tzYrYQ15D
+         RlDY/d42KlJ5nb+1o9hJS1CpO6mVYzIMciWRyRZwIKhF+FQufknzzfb8llTKIItTVuO2
+         JzHQXbDBCGSkTTCEqYFNAy/LGpsnJ7Ktd+DaVLZ5CIBx+gQQEguNMWsE5qSGlpXUC14R
+         NVyw==
+X-Forwarded-Encrypted: i=1; AKwUvBzE+8JbopXNzTGLZOVf6NTnBn8DJBdE72lB4t9uDvTR9UilhjRciarXTl+UQxaRW77V6rBDsWvipm3SrYc=@vger.kernel.org
+X-Gm-Message-State: AFuF++ng4XTWJ9gZMWEs1hpbTIJHw/o4SVkWrxPs7w31rRDnVRN7W6Lg
+	qzc8BNudaPBzL2GPXnP1Km1IU6j9fcuM0rpyw/1Ketwa5LUgF04m2xbhxAg6xg==
+X-Gm-Gg: AYBFou0iokXYxzzZppdsN5h8quav/0NzARC97fnceYNpLtQixj/3xvyrjrBFb47DUVl
+	m0rJ527n+Fk9xl+Hw2xviQuuEAF7Y0YvrfsTMl05c1jOAkpEY9GIwxmJlNO/e8sP+JkSW6BjjnT
+	COFOINZbVOmb8y/JnFgrSQt8Jh+0Ldy1cvPobEO2jJ+//tidtfOjx0TvS/lN/ErxAGygQU1FrHm
+	1/ONNr7ltpKUPNC3clcPqDOi1PLiTZ2gfO1/k5ZCsMepVjkMCY1zQEHqf2u9uq5p3WozR9H4HwL
+	rhmSlnmVq5AUjLd3nGSHDSfAxCT/ylNBQMO5izDrVNYetDGO96ke5FuYAZi55cd4KXF9w01Oqxo
+	OBX9tSRVnnQwdxXF8uiUedFO9Z1TKfn6DWIAgs56jAGjFb4JxRnWe44FhLhPeO7CODaIAEDmRlk
+	+5f1Ytr3QoLI7w8bzYZYrAUaLvVDHYifuiMtL9cBKEx1Bfy81o3dBr01nwNzZbzr9P7tQZbCWIY
+	objC/dN9sXU77rxmeWy
+X-Received: by 2002:a05:6214:3003:b0:910:3d6e:ed46 with SMTP id 6a1803df08f44-9103f0db656mr178372826d6.31.1788676861267;
+        Sat, 05 Sep 2026 23:41:01 -0700 (PDT)
+Received: from smtpclient.apple ([2601:152:4d00:6110:4590:6205:75b9:b340])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91043b54cd6sm50856876d6.34.2026.09.05.23.41.00
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sat, 05 Sep 2026 23:41:00 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 6/8] KVM: nSVM: Fetch missing DecodeAssist bytes for
- synthesized #NPF/#PF
-To: Jim Mattson <jmattson@google.com>, Sean Christopherson <seanjc@google.com>
-Cc: kvm@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
- Shuah Khan <shuah@kernel.org>, zhouyanjing@hygon.cn,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260824123954.315112-1-zhang_wei@open-hieco.net>
- <20260824123954.315112-7-zhang_wei@open-hieco.net>
- <CALMp9eSoLMx6DLH=Ve5_r7y=0EOmxjZgJWE_fLM_CAYxOvJdkA@mail.gmail.com>
-Content-Language: en-US
-From: Tina Zhang <zhang_wei@open-hieco.net>
-In-Reply-To: <CALMp9eSoLMx6DLH=Ve5_r7y=0EOmxjZgJWE_fLM_CAYxOvJdkA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 14.0 \(3654.120.0.1.15\))
+Subject: Re: [PATCH] m68k: coldfire: fix typo "reseting" in comment
+From: Josh Juran <jjuran@gmail.com>
+In-Reply-To: <20260904112336.38497-1-hemanth.selam@gmail.com>
+Date: Sun, 6 Sep 2026 02:40:56 -0400
+Cc: Greg Ungerer <gerg@linux-m68k.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ linux-kernel@vger.kernel.org,
+ linux-m68k@lists.linux-m68k.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <9051ED9E-9257-41E8-B979-DB7716F516CC@gmail.com>
+References: <20260904112336.38497-1-hemanth.selam@gmail.com>
+To: Hemanth Selam <hemanth.selam@gmail.com>
+X-Mailer: Apple Mail (2.3654.120.0.1.15)
 
+On Sep 4, 2026, at 7:23 AM, Hemanth Selam <hemanth.selam@gmail.com> =
+wrote:
 
+> Correct "reseting" to "resetting", reported by scripts/checkpatch.pl =
+using
+> the misspelling list in scripts/spelling.txt.  Only touches comments, =
+no
+> code changes.
+>=20
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+>=20
+> - *	There are 2 common methods amongst the ColdFure parts for =
+reseting
+> + *	There are 2 common methods amongst the ColdFure parts for =
+resetting
 
-On 9/5/2026 8:39 AM, Jim Mattson wrote:
-> On Mon, Aug 24, 2026 at 5:40 AM Tina Zhang <zhang_wei@open-hieco.net> wrote:
->>
->> For a synthesized #NPF, the emulator fetch cache is not guaranteed to
->> contain the full architected 15-byte DecodeAssist window, e.g. it may
->> contain only the bytes needed to decode the instruction.
->>
->> Keep preparation of synthesized state limited to capturing a matching
->> emulator fetch cache for #NPF.  When constructing VMCB12, copy those bytes
->> and fetch any missing tail through L2 guest page tables.  If no emulator
->> bytes are available, fetch the full window from L2 RIP, including for a
->> queued or synthesized #PF VM-Exit.  Stop at a translation fault, read
->> failure, non-canonical address, or CS limit overrun.
->>
->> For a non-64-bit L2, truncate each incremented linear address to 32 bits
->> so that a fetch whose CS.base makes it cross the 4GB boundary wraps as
->> required.
->>
->> Do not perform tail or fallback reads for SEV guests.  KVM cannot read
->> plaintext instruction bytes from encrypted guest memory, and the existing
->> SEV emulation path treats missing hardware DecodeAssist bytes as
->> unavailable instead of decoding guest memory.  For nested SEV, report only
->> matching emulator bytes already captured for a synthesized #NPF,
->> potentially a zero instruction-byte count.
->>
->> Signed-off-by: Tina Zhang <zhang_wei@open-hieco.net>
->> ---
->>   arch/x86/kvm/svm/nested.c | 58 ++++++++++++++++++++++++++++++++++++++-
->>   1 file changed, 57 insertions(+), 1 deletion(-)
->>
->> diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
->> index 635ff20cc431..c677ad5df8d6 100644
->> --- a/arch/x86/kvm/svm/nested.c
->> +++ b/arch/x86/kvm/svm/nested.c
->> @@ -87,6 +87,54 @@ static void nested_svm_clear_synthesized_insn_bytes(struct vcpu_svm *svm)
->>          svm->nested.synthesized_insn_bytes.insn_len = 0;
->>   }
->>
->> +static u8 nested_svm_fetch_insn_bytes(struct kvm_vcpu *vcpu, u8 *bytes,
->> +                                     u8 count, u8 max_bytes)
->> +{
->> +       struct kvm_pagewalk *gva_walk = &vcpu->arch.gva_walk;
->> +       u64 access = PFERR_FETCH_MASK;
->> +       gva_t rip = kvm_get_linear_rip(vcpu);
->> +       struct x86_exception e;
->> +
->> +       if (kvm_x86_call(get_cpl)(vcpu) == 3)
->> +               access |= PFERR_USER_MASK;
->> +
->> +       if (!is_64_bit_mode(vcpu)) {
->> +               u32 eip = kvm_rip_read(vcpu);
->> +               u32 limit = to_svm(vcpu)->vmcb->save.cs.limit;
->> +
->> +               if (eip > limit)
->> +                       return 0;
->> +               max_bytes = min_t(u64, max_bytes, (u64)limit - eip + 1);
->> +       }
->> +
->> +       count = min(count, max_bytes);
-> 
-> Ugh. Pasting together two partial reads performed at different times
-> is egregious. This function should read all 15 bytes in one go. That
-> pretty much renders the emulator's fetch cache useless, except when it
-> contains the necessary 15 bytes.
+Is there a reason to leave =E2=80=9CColdFure=E2=80=9D as is?
 
-This patch was based on the discussion from the first version of this
-series[1].  My understanding from that exchange was that preserving the
-bytes used by the emulator and fetching the missing tail later was the
-intended approach, as it retains the bytes actually used to decode the 
-instruction.
+Josh
 
-Did I misunderstand the conclusion of that discussion?  If the 
-preference is now to avoid combining reads performed at different times, 
-I can change the next version to use the emulator fetch cache only when 
-it contains the full 15-byte window, and otherwise fetch all 15 bytes in 
-one operation.
-
-[1] 
-https://lore.kernel.org/kvm/20260629125205.52394-1-zhang_wei@open-hieco.net/T/#m3fa3f64ddd3284b312d3ddb44fd30a2e26708037
-
-
-Thanks,
-Tina
