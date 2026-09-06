@@ -1,73 +1,165 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD0B42248A5
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 00:05:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E94315746F;
+	Sun,  6 Sep 2026 00:11:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788653148; cv=none; b=PzVQoNBCLmxA9fabBHzKoL1vJCkArwYVohtUOPvMH7vnL8rCU9epDEMF4v/MjE1acu45VE3B/ybJENPDhknJvte0ACgFAsMmaoQZ8jTc2RxYd6F3ImRHZQGKylPIN547BoSHAk4MPbuYGNUxicHTq/+zeXFXezxUFeJngvh8uTI=
+	t=1788653511; cv=none; b=rnZmvbNYni3TgJf8yGCsFrdOQ6dnp4fGPhVCojDmm8cGJ0dSylh8pvR3oZ/epZlSNk87MxsRmK2IyZVeYfvXV1g7nePg45rfSSE49oYmQ3XE5jc3Oqi/sXBiltJ61oUTH7bhp3LYKsaURZDL2LggQZKFN4vTHnVcvhIUdFN9374=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788653148; c=relaxed/simple;
-	bh=nWpDQmZNg8zKVk12QskQ7NNS05C4fI/JmZBKLdKyu8Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WgLSWR6eGbwc+EKJrgtW4OJ3m5/LyiEQJPqdvPSsPIqtpxNR1aky/MMP/gYVvdHQ3zpiFb1WaU27uY1eT8FU/LAcyBJXtK9CqiY/CyrOytDEZ0qSvr8cJMUa/yGJEEH7GkXTj2gd3JbPreGlb/mYF/Qaj7eCq7kIkH0d85iMHEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49b0eab380eso20140625e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 17:05:45 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788653144; x=1789257944;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nWpDQmZNg8zKVk12QskQ7NNS05C4fI/JmZBKLdKyu8Q=;
-        b=h9bGHzcQFhmmQfvpAEjUkXydM+gdGig9kW7/xTtyj5QkSUc10q8v6B5jDETlUAl7z2
-         bNyXYbuiyHX0kVATj81qDxZJYEDdSkCvN7n2io7C/gYlywopnvrBs5WV8Hkignh1Mv8P
-         rwuNJKPY3XA7YDGfFo62hIK3N4kZgDaKG0p1lMnL8Aquy5O71QCh3ut20R8VpyNygBsV
-         Xdj03V2sRlKrBIn3P9F/h2pn2PPD1Qe5zLcffUKKto2NgHXRFXuP8QpesX67SG1EPuPV
-         7T1ppIEWn8o084dP+oqe7L4HKdcpIxKDEeP/EJ0mGqhP2ZCuTGsusmjWKf8CMTyVo9I3
-         TXJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxN8bIfw8HUxxjf1UZO2kV/+6H4/lFXJ414FoK2ZOXYupMw/ivZdj2cOCJ6FaZb++1CUojiIJTFhnmkKsQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mkKXM08FCy7V0c7Tfb41j29gI3m3XX/JMTeFZp/koKWQbazaHy
-	TrNylPHNPyo/j+GzT/hasFgFPPfaGzTBw09t3QeFPylXhjPqqNto8Vjp
-X-Gm-Gg: AYBFou3RmWaFrvcD93sokYDXKZBmFs54mXhZlALzFnSmcvaurnTKFh37zPVvfs8x4R3
-	iZhqamgbLtEn1kdd+CG9aJoEFK3JxmGv5dU13swLhozbCUx/Bbx3ZRR8JybUK5Ya6v9eaphtoFJ
-	geBrFqKEYtaB+Erz2TD2GHaYVeGQAFutvn/hLohdl0uYSZNceyp23eeA57J+LrAOZWTpA4CvF7W
-	0QWEVTnrTNXJmfzTBze9Ft+n4Zr503Yz/7vPrqSiqiO6CulvqCUGuvk4N+gizVmCN1nCGACGFbq
-	eWs4Q0VypaEYKjE2Ckt7sElK068eMRo3jgkQh6wt7HXFHDFE+g38QgCkD/uy0CzHN5uDnXi/VkM
-	nREyu8St/bIrVygDWoAnh5B3aQhHXDaMRozW4rO67g0QD10SF2XKuhYA/5b7XmCSsIcNvP0j6lM
-	qsNemxhY2RR5+MJPucJlJ27SgJUkYCFwZ3+pGPg4uG7c+1cJlnisKKwc5mNAG6I3JNRGe+V6B5k
-	8z3EpXVL8WXAhnbz4pvrA==
-X-Received: by 2002:a05:600c:c4b8:b0:49c:799a:177b with SMTP id 5b1f17b1804b1-49cf82be855mr139993475e9.2.1788653143599;
-        Sat, 05 Sep 2026 17:05:43 -0700 (PDT)
-Received: from [10.100.102.74] (89-138-77-243.bb.netvision.net.il. [89.138.77.243])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7740d44sm414632675e9.15.2026.09.05.17.05.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 05 Sep 2026 17:05:43 -0700 (PDT)
-Message-ID: <8bd8c5e1-c165-4e88-a4fc-a7a93413bf1c@grimberg.me>
-Date: Sun, 6 Sep 2026 03:05:41 +0300
+	s=arc-20240116; t=1788653511; c=relaxed/simple;
+	bh=l1hkHsIy+E+8CveQ8h98HHxdF1yyMoJ1DepDtPFgWyU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=nQVU01g4KdGaIvxzpnisgVIDXxqPiWgh/vU3U6IKzPQqoZs7im2eHqHtdQH6ExnWOR21QVtWD6E9BXxI5Ua0EW8v4rQD7jc8iOY/BLEFA09f4coiotZ3LhIYJTJNB/+gRmMhccDOZmrpk+B0UCrHqyfUlGkpRjXehiMM2Tb+omI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ub4f8Ns4; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ub4f8Ns4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 567AA1F00A3A;
+	Sun,  6 Sep 2026 00:11:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788653510;
+	bh=P1VhBhJ2SVBj84g41MZsEzrPAza2UbfNOvtzAxLUEzo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Ub4f8Ns4T6gIS8ZTlqwC7TzmChwVMjMAyFYwwZjQtbeUyWzDjZG3S5JAaxnpZoNYj
+	 PSwep+vKMbOPs2PBNTMh0U3Qpj4nI5HVqkikT5LTAmdMLXhHT1II+sEzMrGdCHfbTP
+	 8LtPiTelZvgmka1bc9Vs/SJRpBfEqz31pq6WsD5fx+c4cym06r2ZIEqicLEqyNcjW0
+	 J2JhfJSAq6LfjWieL0HTQtlNeRFnCkbfmd2snR3MafIP/6HQTugpvfSQ0OxHiY+7Ll
+	 dwR6bE16Vg/ZHQuLIWw0f7qWm3hI+SSDhgxKLmnzLrIjkhtsQ8sd3Awg2rpp/pZrnq
+	 erkf5mx7UQg2w==
+Date: Sun, 6 Sep 2026 01:11:45 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Chang Yu <marcus.yu.56@gmail.com>, Andy Shevchenko <andy@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] iio: light: add AS7343 multi-spectral sensor driver
+Message-ID: <20260906011145.4a0f4933@jic23-huawei>
+In-Reply-To: <20260905084258.350fdccb@systembl0wer>
+References: <cover.1788586814.git.marcus.yu.56@gmail.com>
+	<521c26094635bae6376d92f3cecf84c911d5a740.1788586814.git.marcus.yu.56@gmail.com>
+	<20260905084258.350fdccb@systembl0wer>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] nvme-tcp: reject C2HData for a non-read command
-To: Yifei Chu <Chuyf26@linux.alibaba.com>, kbusch@kernel.org
-Cc: axboe@kernel.dk, hch@lst.de, roys@lightbitslabs.com,
- yhlee@isslab.korea.ac.kr, linux-nvme@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <178730451245.442148.11684394617763960186@linux.alibaba.com>
- <20260822014037.1978918-1-yhlee@isslab.korea.ac.kr>
- <0a6b07e8-3ea6-4458-95eb-4a63b6108823@grimberg.me>
- <178842720109.1034236.7954869548413684234@linux.alibaba.com>
-Content-Language: en-US
-From: Sagi Grimberg <sagi@grimberg.me>
-In-Reply-To: <178842720109.1034236.7954869548413684234@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
+On Sat, 5 Sep 2026 08:42:58 +0200
+Joshua Crofts <joshua.crofts1@gmail.com> wrote:
+
+> Hi Chang,
+> 
+> Comments inline.
+> 
+> Josh
+> 
+> On Fri,  4 Sep 2026 22:53:26 -0700
+> Chang Yu <marcus.yu.56@gmail.com> wrote:
+> 
+> > This patch adds a driver for the AMS AS7343 14-channel multi-spectral
+> > sensor with I2C interface.
+> > 
+> > The driver exposes 12 spectral channels (11 visible + 1 near-infrared)
+> > via the IIO sysfs interface. Each channel's raw data is provided as a
+> > 16-bit little-endian unsigned integer.
+> > 
+> > Basic power management (suspend/resume) is supported. More complex
+> > features such as interrupt support and configurable gain/integration
+> > time will be added in future patches.
+> > 
+> > Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
+
+Nice review.  A few small comments on necessity of features etc
+inline.
+
+> > diff --git a/drivers/iio/light/as7343.c b/drivers/iio/light/as7343.c
+> > new file mode 100644
+> > index 000000000000..b620dd308380
+> > --- /dev/null
+> > +++ b/drivers/iio/light/as7343.c
+
+> > +	/* Need to set REG_BANK to 1 before we can access ID */
+> > +	ret = regmap_set_bits(data->regmap, AS7343_REG_CFG0,
+> > +			      AS7343_CFG0_REG_BANK);
+> > +	if (ret < 0)
+> > +		return ret;
+> > +	/* Check device ID */  
+
+...
+
+> 
+> > +	ret = regmap_read(data->regmap, AS7343_REG_ID, &val);
+> > +	if (val != AS7343_DEVICE_ID)
+> > +		return -ENODEV;  
+> 
+> It's better to just do a dev_warn() in case of any fallback
+> devices instead of a hard return.
+
+dev_info(dev, "Unknown device ID: %x\n", val);
+
+or something like this.  In many cases a mismatch is not an error, it is a
+fallback device tree compatible being used.  This is common when a manufacturer
+issues a new device that is a refresh of an older design and so interface
+compatible but with a different device ID.
+ 
+
+...
+
+> > +
+> > +	/* Set 83.4ms integration time and x64 gain for now */  
+> 
+> Good for an initial draft, however you'll definitely have to
+> implement the write function for this to get merged into mainline.
+> Skimming the datasheet shows that there are more integration times
+> possible, not to mention that you can also set the gain etc.
+
+If there is a sensible default / initial value that works most of the time
+(short value probably to avoid saturation) then controlling this isn't
+a requirement for merge.  It's a nice to have though!
+
+...
+
+> > +
+> > +static int as7343_suspend(struct device *dev)
+> > +{
+> > +	struct iio_dev *indio_dev = i2c_get_clientdata(to_i2c_client(dev));
+> > +	struct as7343_data *data = iio_priv(indio_dev);
+> > +
+> > +	return regmap_clear_bits(data->regmap, AS7343_REG_ENABLE,
+> > +				 AS7343_ENABLE_SP_EN);
+> > +}
+> > +
+> > +static int as7343_resume(struct device *dev)
+> > +{
+> > +	struct iio_dev *indio_dev = i2c_get_clientdata(to_i2c_client(dev));
+> > +	struct as7343_data *data = iio_priv(indio_dev);
+> > +
+> > +	return regmap_set_bits(data->regmap, AS7343_REG_ENABLE,
+> > +			       AS7343_ENABLE_SP_EN);
+> > +}
+> > +  
+> 
+> You have suspend/resume functions, yet you're missing a
+> devm_pm_runtime_enable() in probe. 
+
+There is not requirement to do any specific combination of power management
+for an IIO driver because what is necessary is very dependent on the usecase
+a particular developer has. So runtime pm is a nice to have only (as is the
+suspend / resume stuff we have here).  May well make sense to use the same
+for both types (there are macros to ensure that).
+
+> Additionally, you could enable
+> the autosuspend function as well (note, you'll have to wake the
+> device before reading, there are macros that simplify this though,
+> see PM_RUNTIME_ACQUIRE_AUTOSUSPEND)
+
+All nice to haves indeed - but not strictly necessary. Many drivers
+don't go that far initially and it is fairly easy to retrofit this stuff
+if someone cares.
+
+Jonathan
