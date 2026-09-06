@@ -1,69 +1,87 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08BF53DA7C3
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 14:17:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 732D13C37A5
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 14:18:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788704251; cv=none; b=XKIDi0vo6tKIA/wHE7lnk/D9NO3KInH4W48/Kxil/DcFqiBu7gQCsx442VhqwCjyL1KB/53CN1/xw/W8dkgTcplPsUGP8DdwKdmcJfjx/uD8944utrYKuiT+CBgs0wiAk+HGBSBdjBUeak0ur6RcWFihH7b6tEHJKjWty2Vrj3A=
+	t=1788704295; cv=none; b=P70/Dkf+GxRAyKyni/Hijd6i/QARStFdl3VtvZJoQmExG883VQyx4O72EFdcZmr/SZuFU0z4tV4eh85UYAsZAVA1MaDzBXEkQ7nAeJ5mC91G6Ir2sL4wfjTnDynU2SWw3WtQN3ZaPPc3uz5DqRUqOX8+05vzNDcr1WgFLLTnr+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788704251; c=relaxed/simple;
-	bh=YIJJdG8F7qvkpKCTmBVhA8FGxfejNI1V+jwzJ32M+4o=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=uTGvlxDWR3KzScxWkPZOrsOOH2dmBpiDS6jyJkgw1igX9dPKq1k0JSz/wzk78H9t8koaaElh2BlmpH4KjTuqSdRrMVQvTRCZKxxH+IfJ6nfHd8zIaOEtNWi3l2Q5XCEOxxAcAlq9/D6Tk0sp/uJK/Q+xSMAkTmdCAKX5xqkuYDM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=vIZzW7aN; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1788704295; c=relaxed/simple;
+	bh=vStjqaB+Nqw92WBortmBbUZB1pNyr7BWWqyGcO0GRT8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Cs1GJF0l7ZIzxZ9LK/wil/i8De8F4l0/LZ/NobSJ1OMnx1xkyZkEEKmG6G2lPTstDf24pX0pjpNpZR+vjiy+Xg1lTZvkbVFoPKjpCu17KT2Eco+F3tZLM7azJ+0xns1sbFLOrllx3O0bn1YGiyctmFPqkZB1RmBylt20VkZ8zw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=foxwZ7kZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZMfd0R6s; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="vIZzW7aN"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-485850cbac3so1600082f8f.3
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 07:17:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="foxwZ7kZ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZMfd0R6s"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68600DXq3654355
+	for <linux-kernel@vger.kernel.org>; Sun, 6 Sep 2026 14:18:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=l53u6UKvPGM2TSWpb1Vkl9
+	V8N5ihswLqkEnQwa/MwAk=; b=foxwZ7kZkRw4B8DYtv4GuS/TCQ1RjqM+yp+rBG
+	xTdzKGVQRiv8kGujRQma/omErYBUGDX7uAwOAgSt8u2JhUWT+2rV22U9ogpPHjcp
+	V5pKlBOHvWEpCWPIU0MZkrH20/KtlIwHoycWMRKK1Pqp8MAtqg6oWkZVX5dAi+w5
+	m+RD4WcP5YSAZZuEbXKTaqDpO4tYmIgIB2sbNV/YgLPkzYd+szoo4B15TJeLl9sM
+	TPx1zs0J0nAQr7JvZJ1cR0G7bq0fSIFCYhbwjDDs/9bXHza/UEHnAhLEu7Cjfmzh
+	FiiLP1DP/TODj8Zsuk/qSCc6RejwhCY9RAmW0r5E1ggk4uJQ==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ggadhkjbt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 14:18:12 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38f5ac7416eso3259266a91.3
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 07:18:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788704241; x=1789309041; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SFRs5gGLiDPOnHZoeYS5F95xIoLCLe/yvxqAbvUutf4=;
-        b=vIZzW7aNThFRdPh3iIyVCPTc9kEi6HkFo20/POmWYv5KswmgP+SG5+w/MnnwICs7qV
-         swtpmFqTfRTlyGUlkVHioId5BxEDjzjabHZkcIwgB0F2pVAQGd/h1CkKE1WYYWoZ/t7u
-         wdcE6E/QvLClnjoPFkiJ44KaTRUkNW/+RDjWbvwXGjJIdmvYvKFGYvxqdDn9u8EbpfPu
-         NkYcQ9V82MdTMZHeS3QoLKOqs4KJ8jbdSOCDNmcniQSscVTob5EloUnmjT7W9YFT7NJd
-         856j3brZSKZKJg7mWxUnzSwM7DvbGFbiHqzBQKkTL4wMRhcv1g1MYmEcJ4ZvTVnQsB6R
-         69zA==
+        d=oss.qualcomm.com; s=google; t=1788704291; x=1789309091; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=l53u6UKvPGM2TSWpb1Vkl9V8N5ihswLqkEnQwa/MwAk=;
+        b=ZMfd0R6sbnNvLuGF558iKFNMLb1L8OqsoNZ3qMb2xqnmDdQ3oefO7nW/DcsVUFhY2u
+         xGi+T16tYbONy8Df+TJWhLDQ6cPmNoz3dPfKpXSZPwllioCPhG0uDrL263M8EeaH5DF4
+         sfP7lHg6R+xKgFjxk3xWt7IbHD92a8rryRe5a1ZgmhaLan1yeQ95FqlB9knigtthwGKP
+         YbZO4oFiyQm5HdroGP09LX9JoTxtZy4c3BuGzPBjimt8dXrW93ltUraiTr82Suwd8tH+
+         xZ8gXEsB6h396owLnAVEerFXeEDul1Mfv8mpVWDXqXwN924LmjsMIMHhdUSPiJLrZ9f/
+         MeCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788704241; x=1789309041;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SFRs5gGLiDPOnHZoeYS5F95xIoLCLe/yvxqAbvUutf4=;
-        b=Cqby+yX1vB8OF4HP/BgiH8YPHqb0G8/XUqGPqeTDf6TrjGvt0556yq98v60nKxUhSH
-         pgwf5RsdUG46Jo4VngN498k/fFnpWGoVjq9msY4M3kAiChX9u8DHbJw8Tk48xeBhkdZG
-         3RcsWLcEkN4vZvOV5IaE0rDWphNC9tgM9+QJVqPNwJaFYBWw6G6/hr1adf+NwEEv96pM
-         LeQ+F4XVKn/EJk31k/beVJHSdVAV+kUzObg+JH1owZ+HfT/hNOjrPp7siEmSjl2lKYlb
-         BxSlRjwr9buNQXQmHEoxWCaRZrHKN3ZQKQ+op6ML13nV9qUDg5IJeD8/cxrtBJbPSBXX
-         /o8g==
-X-Forwarded-Encrypted: i=1; AKwUvByGJA3VJIVdsCN++E/VFSrVMeR1MMIL8tZx2SAIQTtdrRpH5OPgCwNtXc4oSMc8JQVNis6ibdoVlmYwweg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nEQqIjFlXGZoNNxhVD7kkuzb300IaS2qu4KEAJ2wcnKBAfukJ2
-	Yqqzu3KzNG7COXoXTfyBsXLULXKUkDFb35FUvRZO7A5+1WDPzBe/OVAP/ZE3zI0x67s=
-X-Gm-Gg: AYBFou02zz6xEi8HwnPz6K8KPdXrqZCau4IulXAgZ39FukbXKGeByE/8xKaOyuihBjs
-	OiCNipvz93bja/qH//uX3ezR04HKiDz6RIiehrrj7Jfw+LjeFNs8E6+SUHkKhMDGrIkY8yoj8rM
-	LdFC5EvCY8rULOW1sIaxsbRuxgkXPtYh5mp9S0x0ZxPx+BRg5aL2EqR569XLxzuulFpq162Ibs3
-	eJzY58MTvRA8EOu3ZzmsLNLKD1UCGBWIAbBNGMLAGcc3I3+FJPtmdG5HRZ0tW2wxNnixGAhi6m2
-	BZAIu/u4CE2d6LpS98agjMb3bIX5nSe9eP4OpHsZDsXZtqQyNsZe8gdHxR0kaTgpZhVsUcbOAOD
-	dbP08Htmx847WostKUL9xQp+L4VMiynaNbhsuRfrRrF0SOgcTKUtBynpWb/cTtFfTHlwQlGLTuC
-	u49T/aG9rYIY9BlMmB+N0oruMmWNeb+14xWnjEKiUHALS4KPEYlHyvTTHXtRGWr0yOBqTVijI0x
-	A==
-X-Received: by 2002:a05:6000:2c11:b0:485:8c16:a34d with SMTP id ffacd0b85a97d-4858c16a841mr15860285f8f.37.1788704241137;
-        Sun, 06 Sep 2026 07:17:21 -0700 (PDT)
-Received: from [192.168.0.35] ([109.76.250.151])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48588390e30sm21669763f8f.7.2026.09.06.07.17.19
+        d=1e100.net; s=20251104; t=1788704291; x=1789309091;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=l53u6UKvPGM2TSWpb1Vkl9V8N5ihswLqkEnQwa/MwAk=;
+        b=NPcC9GSefH7X9Hz/KioinVOIyC1fIai0KCr+/VPnn1NC4xPvi3GhVeyW710r9Jd4NN
+         kL5GFHGjGy+rIxkbCWjsRQx5vg7QaAfBr6W1Y2YI1jltGpkscgqeIrrlWzMZWK722Xu3
+         bQhJlPqkLo51zGIhhS0to6e7yUwa1Z71yV+y2d4ARJO0SAHn7uYLJR9J7dySg7Ov4oU5
+         4NHRFcvKHgfs+BchfyW6UTJZO9o4oXWGj2cziuEORdVPAbj6UtgpCiJLRvMAs7NGQEmK
+         GhWr4tt9lNa9piUKSriVbwz6QtwF5qPYA4tDzf8BF/Kyp1AYJUNSDevqMPx3Z1mtXdqP
+         j4jQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxVSHzoAMVGspO3cm/llAjgVeuw6cfLcJv3gfGtyv9Okq16s4mxKbduo3DEEJ8nBJ/pOziPHiiot4MiD7E=@vger.kernel.org
+X-Gm-Message-State: AFuF++kbGib9f6RUOOzYsxurp2R9mL/pInxUvIWaHy+zhlSAyPXcYJKr
+	N2lLb/lp2/CwKCRFQRrhAx49m5Y4z6I8ti70EfilY2CD3Ai1zQMr+nrWU8JnrcJPaWqGbyEqHlf
+	CiGxOJUhjjyrde8VASnApo0YdgIK1XlNmgKgplXs5YNW6cvI6jfffkvs43rT3h+jsQaJWQ9w7sk
+	tPrOr4
+X-Gm-Gg: AYBFou1DJ/mqDSYEQMebSI9G8qaPcZTiUMtZB2IpcJLEiP1pMcTEVdtjTQFhyA8l9TI
+	dh/WPNL1nxLcJTF5u7/A95iAOfDVBXr1W+2KoIxbaVmwkNgZQX25KaKV3sT6plVn6G6mtjTgbtv
+	2oqG42xF0v5cgiE1ztoplTeOlqf44/EjVL0kRD/djBb38nxnp8xFXlD9TOdQqdCe4Aacui8N8R8
+	ENNZGMa0sd+h0d+7FmInV7ldZngSVhxCxvQ3ilIQBc48ZwfEhTkJPBk0RZPwXljy/90QEIuhwtu
+	cJ5Y05sYOuOzZWYny/YJPREfOJ5G5u4huRMDpuMvYm81+jRwGRGeWzV1te5GeTAZ/rhDlBY+aHY
+	gRdWdF/lVGuF7V/6LYitJRCeDzzyzSeKmrA+ZGndXNP8=
+X-Received: by 2002:a17:90b:1b05:b0:398:9bd1:3210 with SMTP id 98e67ed59e1d1-39b262a89d4mr24705016a91.17.1788704291092;
+        Sun, 06 Sep 2026 07:18:11 -0700 (PDT)
+X-Received: by 2002:a17:90b:1b05:b0:398:9bd1:3210 with SMTP id 98e67ed59e1d1-39b262a89d4mr24704942a91.17.1788704290497;
+        Sun, 06 Sep 2026 07:18:10 -0700 (PDT)
+Received: from hu-luoj-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432435ec2bsm17904550c88.3.2026.09.06.07.18.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 07:17:20 -0700 (PDT)
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Date: Sun, 06 Sep 2026 15:17:08 +0100
-Subject: [PATCH v17 4/5] media: qcom: camss: Add support for PHY API
- devices
+        Sun, 06 Sep 2026 07:18:10 -0700 (PDT)
+From: Luo Jie <jie.luo@oss.qualcomm.com>
+Subject: [PATCH v4 00/12] clk: qcom: ipq-cmn-pll: Add IPQ5210 CMN PLL
+ support
+Date: Sun, 06 Sep 2026 07:18:06 -0700
+Message-Id: <20260906-qcom_ipq5210_cmnpll-v4-0-aec5ed642f4f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,585 +90,172 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-4-e2197a3e2551@linaro.org>
-References: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-0-e2197a3e2551@linaro.org>
-In-Reply-To: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-0-e2197a3e2551@linaro.org>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>, 
- Todor Tomov <todor.too@gmail.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Bryan O'Donoghue <bod@kernel.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, linux-phy@lists.infradead.org, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=17246;
- i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
- bh=YIJJdG8F7qvkpKCTmBVhA8FGxfejNI1V+jwzJ32M+4o=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqnXXoW9IKvjK6Apo9Hkd8WvO8TkHdDRwDY0TBM
- 0b7HabJvMmJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCap116AAKCRAicTuzoY3I
- OnQiEACWnEcKd0JFehBfDSdDBB6c84jZDymOx5Cqa2r1omrITI9m7ihhcfR5waMn/C791Uun1p7
- p60Mi1WvfEulNZSxIZTmFQxe/IjTKTts5KUZ6xzUh6JEhtHNWkIeefKmZIupfKsTQx0tNYn9mNH
- 3pHKIrLGBIIjEcEfqr+W1dsjVRadc3GNYchmHLAHK3q5CfHKJtZ11EwoEA3IbhROKacjSAIwk2D
- 3MVJjV2TWH7qPeTd9zDk0YekK8CP0dSwHKjhx7JgYMtu/I7sJaOgGejUYmqsp0o+S1aiQVdrUpi
- zrQFbLYboNWxmEYvAIeTAYTpnmHcquqqnalz+PaTKPjl4hKTGd66LlSgwuZcXGp3JwiVPtIcpRr
- MVRxSy32H/Wbnv94VyG4gD9gckx4mY85YvhUbHJmPIUsg6Rx8xoOWLuNpAZ9E2UnV4qxKRehe4u
- jvSOVS95c33OaWatsLVN0WHc/NwNgdt9MTcLRoTBNA2mOzF4mN69ck/QNfznNrXqt1rcUyOutxG
- 7cGHkiZeHyjQtfwCH0RnHdbviXxODST76XeRheme40cW1/qrhRxJoLyTDfFBqejP8gPHQe7aOQR
- NRwPyNtef4QhMKDnxf1+KhyL2sAyVO7BUuMMPrANSc1/gugssp63v77xd68sgsvg59IE0t77osa
- 9pUOWcM0DPBhxhQ==
-X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+X-B4-Tracking: v=1; b=H4sIAB52nWoC/33OTQ6CMBAF4KuQri3pFGjBlfcwhkAZpIb/AtEQ7
+ m7BhS7ATZOXvPleZ2Kw12jI2ZlJj5M2uqlt8E8OUUVS35HqzGbCGRdMcp92qqli3XYBBxarqm7
+ LkjJMoyQSEGR5Tuxl22Oun5t6vX2yGdMHqmGl1kahzdD0r212grX3f2ECymgSpqGQUcYhyC+NM
+ W43JqUtV659yDo08S8VMrFPcUsphRIshwrkAeX9UHDwK89SHJSXpZ4MBcAOtSzLGwWwj+hlAQA
+ A
+X-Change-ID: 20260724-qcom_ipq5210_cmnpll-0eb9a9615dff
+To: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Luo Jie <jie.luo@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        quic_kkumarcs@quicinc.com, quic_linchen@quicinc.com,
+        quic_leiwei@quicinc.com, quic_suruchia@quicinc.com,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788704288; l=5989;
+ i=jie.luo@oss.qualcomm.com; s=20251128; h=from:subject:message-id;
+ bh=vStjqaB+Nqw92WBortmBbUZB1pNyr7BWWqyGcO0GRT8=;
+ b=wV4tEyHa1+AU0gXj039QgbKwuOGzpOHcoBK3bElVW8INsOrKh3EnPGADiuNc2ccftlWz/SWWB
+ HJKPjbWbrKAD0PUsibNMqOC8aDTZLHmR8HsQESLR8QTXIb3s9BdzwPJ
+X-Developer-Key: i=jie.luo@oss.qualcomm.com; a=ed25519;
+ pk=gSsYMDakxtd6UDFYDdA9y9yjIs5Etp5GK/3DoXWPyS0=
+X-Proofpoint-ORIG-GUID: Nm2XDiVssbZpb4UMp3ft-Ffkl8-hgb2d
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA2MDE1OSBTYWx0ZWRfXxvQmCDCh9qnL
+ 6jMHGwFNd/cZgr8YcG8i8vCizGIin1avyYDra82FSjMqu9CnYKgNVQMXWdVJG7SPFWGYBfGf1QD
+ eEj8csMxKkkeQIfYmydJQ5IofgJqUfMkUfTk1NkYSEzVctrh9fTHfLG0g8xVDqboYLSoIfnGiNi
+ r7jX83LqVOyh0gbOiNyVinKo41RyTkmkp9XtHqnc7Sazkdp3GFvJuCyajQQkuzzos4FN80ya6IV
+ 0QL07Opa2GR4jem3dYu/nUQkYfLdZmgesFw7K5UO+0nVfK0cus54DFab8GIoNHvHau0FIvTct0M
+ t2K5Fq6kfJD2oBDgfoYVH6Yfu3Le30brVLrD5TvsZh7weXr9EnCDLAKu0D49lqzS/2iGQge2Cr3
+ VlI4lyVFildcDl4LBtRD76NCmxyj0o7fZeqCrUTgPjBjDDnRKALtqciYdQvpBVp30uQgk4kJJxT
+ OLlzhGuZ78WrJmb+SCg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA2MDE1OSBTYWx0ZWRfXz/ZD5dYSW1DR
+ u+M+52wXTx5b7RQ6EPvxiL3JJBsOpBpwlQzSmzNM7DifeUiHw58dWjftG3sWqu+4qvfCQy3o8Qh
+ jcV1hsbysxGu5IMoYHjaKNGtQ/cilPI=
+X-Authority-Analysis: v=2.4 cv=OceoyBTY c=1 sm=1 tr=0 ts=6a9d7624 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=_tJmgOXO7FCaeRF5PkUA:9 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-GUID: Nm2XDiVssbZpb4UMp3ft-Ffkl8-hgb2d
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-05_08,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 priorityscore=1501 suspectscore=0 phishscore=0
+ malwarescore=0 impostorscore=0 adultscore=0 spamscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609060159
 
-Add the ability to use a PHY pointer which interacts with the standard PHY
-API.
+The CMN (Common) PLL block of IPQ5210 is almost same as that of IPQ9574
+which is currently supported by the driver. It accepts a 48 MHz reference
+clock from the on-board Wi-Fi block and is configured to run at 12 GHz.
+The difference is in the output clocks.
 
-In the first instance the code will try to use the new PHY interface. If no
-PHYs are present in the DT then the legacy method will be attempted.
+This patch series adds support for IPQ5210 into the CMN PLL clock driver.
+On the IPQ5210, the CMN PLL block supplies a broad set of output clocks
+to the networking hardware and GCC:
 
-Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+  - NSS (network subsystem): configurable rate via 6-bit divider
+  - PPE (packet process engine): configurable rate via 6-bit divider
+  - PON (passive optical network): configurable rate via 8-bit divider,
+    plus a fixed 31.25 MHz UNIPHY mode
+  - EPHY-RAW: 125 MHz or 312.5 MHz for the SoC-integrated Ethernet PHY
+    (EPHY), which supports up to 2.5G link speed:
+      125 MHz for 1G/100M/10M, 312.5 MHz for 2.5G
+  - Gated fixed-rate outputs: PCS 31.25 MHz, ETH0/1/2 50 MHz,
+    EPHY 50 MHz, ETH 25 MHz
+  - Fixed-rate outputs: XO 24 MHz, sleep 32 kHz
+
+The patch series is organised as follows:
+
+   1/12  clk: convert fixed-rate registration to devm, remove remove callback
+   2/12  dt-bindings + clock ID header for IPQ5210
+   3/12  clk-regmap-divider support for CLK_DIVIDER_* flags
+   4/12  Register a shared cmn_pll_div2 fixed-factor clock
+   5/12  NSS configurable divider clock
+   6/12  PPE configurable divider clock
+   7/12  PON reference clock with enable/disable and divider
+   8/12  EPHY-RAW 125/312.5 MHz select clock
+   9/12  clk_fixed_gate gate clock type for gated fixed-rate outputs
+  10/12  IPQ5210 output clock array and device match table entry
+  11/12  DTS node in ipq5210.dtsi
+  12/12  Update IPQ5210 xo_board to use fixed-factor-clock
+
+Changes in v4:
+  - Convert the PON reference clock's and clk_fixed_gate's hand-rolled
+    enable/disable/is_enabled ops to the clk framework's
+    clk_enable_regmap()/clk_disable_regmap()/clk_is_enabled_regmap()
+    helpers.
+  - Convert the EPHY-RAW clock's registration and ops from the
+    CMN-PLL-specific struct clk_cmn_pll to struct clk_regmap and
+    devm_clk_register_regmap(),
+  - Drop the comment above the cmn_pll_div2 fixed-factor clock
+    registration call; the call itself is self-explanatory.
+  - Sort the ref_48mhz_clk node alphabetically by label.
+  - Collect the Reviewed-by tags.
+- Link to v3: https://patch.msgid.link/20260814-qcom_ipq5210_cmnpll-v3-0-21c3db378611@oss.qualcomm.com
+
+Changes in v3:
+  - Drop the new CLK_DIVIDER_EVEN_INTEGERS_NO_OFFSET flag per review
+    feedback; add a dedicated patch registering a shared cmn_pll_div2
+    fixed-factor clock (this /2 stage exists on every supported SoC's
+    CMN PLL block, so the clock is registered unconditionally (Only
+    IPQ5210's output clocks currently parent on it). Reparent every
+    IPQ5210 output clock except the plain fixed-rate xo-24mhz/
+    sleep-32khz taps (NSS, PPE, PON, EPHY-RAW, and the gated fixed-rate
+    clocks) onto it, using the existing CLK_DIVIDER_ONE_BASED flag for
+    NSS/PPE. Same output rates throughout; more accurately models the
+    hardware's real shared /2 stage.
+  - Remove PON's now-redundant internal /2 math to match, and rename its
+    pon_refclk-suffixed identifiers to pon_clk for consistency with the
+    other per-clock-type helpers.
+  - Reword the clk-regmap-divider flags patch to cite CLK_DIVIDER_ONE_BASED
+    as the motivating flag.
+  - Collect the Reviewed-by tag.
+- Link to v2: https://patch.msgid.link/20260806-qcom_ipq5210_cmnpll-v2-0-cce718b8ec17@oss.qualcomm.com
+
+Changes in v2:
+  - Introduce a new CLK_DIVIDER_EVEN_INTEGERS_NO_OFFSET flag in the
+    generic clk divider framework and re-register the NSS/PPE clocks
+    as plain clk_regmap_div instances instead of hand-rolled ops.
+  - Replace the composite clk_fixed_rate + clk_gate implementation for
+    gated fixed clocks with a dedicated clk_fixed_gate type that reads/
+    modifies the shared gate register through regmap.
+  - Replace the rate/enable_bit/strcmp(name, ...) runtime inference in
+    ipq_cmn_pll_register_clks() with an explicit enum cmn_pll_clk_type
+    field, making each output clock's registration path self-describing
+    instead of implicit in its rate/name/enable_bit fields.
+  - Update the EPHY-RAW clock's determine_rate() to pick the nearest of
+    the two supported rates (125 MHz / 312.5 MHz) using the same abs_diff()
+- Link to v1: https://patch.msgid.link/20260724-qcom_ipq5210_cmnpll-v1-0-a8b8679d215f@oss.qualcomm.com
+
 ---
- drivers/media/platform/qcom/camss/Kconfig        |   1 +
- drivers/media/platform/qcom/camss/camss-csiphy.c | 177 +++++++++++++++++++++--
- drivers/media/platform/qcom/camss/camss-csiphy.h |  11 +-
- drivers/media/platform/qcom/camss/camss.c        | 104 +++++++++++--
- drivers/media/platform/qcom/camss/camss.h        |   1 +
- 5 files changed, 263 insertions(+), 31 deletions(-)
+Luo Jie (12):
+      clk: qcom: ipq-cmn-pll: Use devm_clk_hw_register_fixed_rate_parent_data
+      dt-bindings: clock: qcom: Add CMN PLL support for IPQ5210 SoC
+      clk: qcom: clk-regmap-divider: Support CLK_DIVIDER_* flags
+      clk: qcom: ipq-cmn-pll: Register CMN PLL /2 clock
+      clk: qcom: ipq-cmn-pll: Add NSS clock support
+      clk: qcom: ipq-cmn-pll: Add PPE clock support
+      clk: qcom: ipq-cmn-pll: Add PON reference clock support
+      clk: qcom: ipq-cmn-pll: Add EPHY-RAW clock support
+      clk: qcom: ipq-cmn-pll: Add clock gate support for fixed clocks
+      clk: qcom: ipq-cmn-pll: Add all output clocks for IPQ5210
+      arm64: dts: qcom: ipq5210: Add CMN PLL device node
+      arm64: dts: qcom: Update IPQ5210 xo_board to use fixed factor clock
 
-diff --git a/drivers/media/platform/qcom/camss/Kconfig b/drivers/media/platform/qcom/camss/Kconfig
-index 4eda48cb1adf0..1edc5e5a1829e 100644
---- a/drivers/media/platform/qcom/camss/Kconfig
-+++ b/drivers/media/platform/qcom/camss/Kconfig
-@@ -7,3 +7,4 @@ config VIDEO_QCOM_CAMSS
- 	select VIDEO_V4L2_SUBDEV_API
- 	select VIDEOBUF2_DMA_SG
- 	select V4L2_FWNODE
-+	select PHY_QCOM_MIPI_CSI2
-diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/media/platform/qcom/camss/camss-csiphy.c
-index 539ac4888b608..e00748dd83b02 100644
---- a/drivers/media/platform/qcom/camss/camss-csiphy.c
-+++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
-@@ -13,6 +13,8 @@
- #include <linux/io.h>
- #include <linux/kernel.h>
- #include <linux/of.h>
-+#include <linux/of_graph.h>
-+#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <media/media-entity.h>
-@@ -131,10 +133,10 @@ static u8 csiphy_get_bpp(const struct csiphy_format_info *formats,
- }
- 
- /*
-- * csiphy_set_clock_rates - Calculate and set clock rates on CSIPHY module
-+ * csiphy_set_clock_rates_legacy - Calculate and set clock rates on CSIPHY module
-  * @csiphy: CSIPHY device
-  */
--static int csiphy_set_clock_rates(struct csiphy_device *csiphy)
-+static int csiphy_set_clock_rates_legacy(struct csiphy_device *csiphy)
- {
- 	struct device *dev = csiphy->camss->dev;
- 	s64 link_freq;
-@@ -200,7 +202,7 @@ static int csiphy_set_clock_rates(struct csiphy_device *csiphy)
-  *
-  * Return 0 on success or a negative error code otherwise
-  */
--static int csiphy_set_power(struct v4l2_subdev *sd, int on)
-+static int csiphy_set_power_legacy(struct v4l2_subdev *sd, int on)
- {
- 	struct csiphy_device *csiphy = v4l2_get_subdevdata(sd);
- 	struct device *dev = csiphy->camss->dev;
-@@ -219,7 +221,7 @@ static int csiphy_set_power(struct v4l2_subdev *sd, int on)
- 			return ret;
- 		}
- 
--		ret = csiphy_set_clock_rates(csiphy);
-+		ret = csiphy_set_clock_rates_legacy(csiphy);
- 		if (ret < 0) {
- 			regulator_bulk_disable(csiphy->num_supplies,
- 					       csiphy->supplies);
-@@ -254,7 +256,7 @@ static int csiphy_set_power(struct v4l2_subdev *sd, int on)
- }
- 
- /*
-- * csiphy_stream_on - Enable streaming on CSIPHY module
-+ * csiphy_stream_on_legacy - Enable streaming on CSIPHY module
-  * @csiphy: CSIPHY device
-  *
-  * Helper function to enable streaming on CSIPHY module.
-@@ -262,7 +264,7 @@ static int csiphy_set_power(struct v4l2_subdev *sd, int on)
-  *
-  * Return 0 on success or a negative error code otherwise
-  */
--static int csiphy_stream_on(struct csiphy_device *csiphy)
-+static int csiphy_stream_on_legacy(struct csiphy_device *csiphy)
- {
- 	struct csiphy_config *cfg = &csiphy->cfg;
- 	s64 link_freq;
-@@ -306,11 +308,88 @@ static int csiphy_stream_on(struct csiphy_device *csiphy)
-  *
-  * Helper function to disable streaming on CSIPHY module
-  */
--static void csiphy_stream_off(struct csiphy_device *csiphy)
-+static void csiphy_stream_off_legacy(struct csiphy_device *csiphy)
- {
- 	csiphy->res->hw_ops->lanes_disable(csiphy, &csiphy->cfg);
- }
- 
-+/*
-+ * csiphy_stream_on - Enable streaming on CSIPHY module
-+ * @csiphy: CSIPHY device
-+ *
-+ * Helper function to enable streaming on CSIPHY module.
-+ * Main configuration of CSIPHY module is also done here.
-+ *
-+ * Return 0 on success or a negative error code otherwise
-+ */
-+static int csiphy_stream_on(struct csiphy_device *csiphy)
-+{
-+	u8 bpp = csiphy_get_bpp(csiphy->res->formats->formats, csiphy->res->formats->nformats,
-+				csiphy->fmt[MSM_CSIPHY_PAD_SINK].code);
-+	struct csiphy_lanes_cfg *lncfg = &csiphy->cfg.csi2->lane_cfg;
-+	struct phy_configure_opts_mipi_dphy *dphy_cfg;
-+	union phy_configure_opts dphy_opts = { 0 };
-+	struct device *dev = csiphy->camss->dev;
-+	u8 num_lanes = lncfg->num_data;
-+	s64 link_freq;
-+	int ret;
-+
-+	dphy_cfg = &dphy_opts.mipi_dphy;
-+
-+	link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp, num_lanes);
-+
-+	if (link_freq < 0) {
-+		dev_err(dev,
-+			"Cannot get CSI2 transmitter's link frequency\n");
-+		return -EINVAL;
-+	}
-+
-+	phy_mipi_dphy_get_default_config_for_hsclk(link_freq, num_lanes, dphy_cfg);
-+
-+	phy_set_mode(csiphy->phy, PHY_MODE_MIPI_DPHY);
-+
-+	ret = phy_configure(csiphy->phy, &dphy_opts);
-+	if (ret) {
-+		dev_err(dev, "failed to configure MIPI D-PHY\n");
-+		goto error;
-+	}
-+
-+	return phy_power_on(csiphy->phy);
-+
-+error:
-+	return ret;
-+}
-+
-+/*
-+ * csiphy_stream_off - Disable streaming on CSIPHY module
-+ * @csiphy: CSIPHY device
-+ *
-+ * Helper function to disable streaming on CSIPHY module
-+ */
-+static void csiphy_stream_off(struct csiphy_device *csiphy)
-+{
-+	phy_power_off(csiphy->phy);
-+}
-+
-+/*
-+ * csiphy_set_stream - Enable/disable streaming on CSIPHY module
-+ * @sd: CSIPHY V4L2 subdevice
-+ * @enable: Requested streaming state
-+ *
-+ * Return 0 on success or a negative error code otherwise
-+ */
-+static int csiphy_set_stream_legacy(struct v4l2_subdev *sd, int enable)
-+{
-+	struct csiphy_device *csiphy = v4l2_get_subdevdata(sd);
-+	int ret = 0;
-+
-+	if (enable)
-+		ret = csiphy_stream_on_legacy(csiphy);
-+	else
-+		csiphy_stream_off_legacy(csiphy);
-+
-+	return ret;
-+}
- 
- /*
-  * csiphy_set_stream - Enable/disable streaming on CSIPHY module
-@@ -572,16 +651,16 @@ csiphy_match_clock_name(const char *clock_name, const char *format, ...)
- }
- 
- /*
-- * msm_csiphy_subdev_init - Initialize CSIPHY device structure and resources
-+ * msm_csiphy_subdev_init_legacy - Initialize CSIPHY device structure and resources
-  * @csiphy: CSIPHY device
-  * @res: CSIPHY module resources table
-  * @id: CSIPHY module id
-  *
-  * Return 0 on success or a negative error code otherwise
-  */
--int msm_csiphy_subdev_init(struct camss *camss,
--			   struct csiphy_device *csiphy,
--			   const struct camss_subdev_resources *res, u8 id)
-+int msm_csiphy_subdev_init_legacy(struct camss *camss,
-+				  struct csiphy_device *csiphy,
-+				  const struct camss_subdev_resources *res, u8 id)
- {
- 	struct device *dev = camss->dev;
- 	struct platform_device *pdev = to_platform_device(dev);
-@@ -709,6 +788,56 @@ int msm_csiphy_subdev_init(struct camss *camss,
- 	return ret;
- }
- 
-+/*
-+ * msm_csiphy_subdev_init - Initialize CSIPHY device structure and resources
-+ * @camss: CAMSS structure
-+ * @port: DT port index
-+ *
-+ * Return 0 on success or absence of link, negative error code otherwise
-+ */
-+int msm_csiphy_subdev_init(struct camss *camss, u8 port)
-+{
-+	const struct camss_subdev_resources *res = &camss->res->csiphy_res[port];
-+	struct csiphy_device *csiphy = &camss->csiphy[port];
-+	struct device *dev = camss->dev;
-+	struct device_node *ep, *remote;
-+	int ret;
-+
-+	ep = of_graph_get_endpoint_by_regs(dev->of_node, port, -1);
-+	if (!ep)
-+		return 0;
-+
-+	remote = of_graph_get_remote_port_parent(ep);
-+	of_node_put(ep);
-+	if (!remote)
-+		return 0;
-+
-+	if (!of_device_is_available(remote)) {
-+		of_node_put(remote);
-+		return 0;
-+	}
-+
-+	csiphy->phy = devm_phy_get_by_of_node(dev, remote);
-+	of_node_put(remote);
-+	if (IS_ERR(csiphy->phy)) {
-+		ret = PTR_ERR(csiphy->phy);
-+		goto done;
-+	}
-+
-+	csiphy->camss = camss;
-+	csiphy->id = res->csiphy.id;
-+	csiphy->res = &res->csiphy;
-+
-+	snprintf(csiphy->name, ARRAY_SIZE(csiphy->name), "csi%d", csiphy->id);
-+
-+	ret = phy_init(csiphy->phy);
-+	if (ret)
-+		dev_err(dev, "%s init fail %d\n", csiphy->name, ret);
-+
-+done:
-+	return ret;
-+}
-+
- /*
-  * csiphy_link_setup - Setup CSIPHY connections
-  * @entity: Pointer to media entity structure
-@@ -743,8 +872,12 @@ static int csiphy_link_setup(struct media_entity *entity,
- 	return 0;
- }
- 
--static const struct v4l2_subdev_core_ops csiphy_core_ops = {
--	.s_power = csiphy_set_power,
-+static const struct v4l2_subdev_core_ops csiphy_core_ops_legacy = {
-+	.s_power = csiphy_set_power_legacy,
-+};
-+
-+static const struct v4l2_subdev_video_ops csiphy_video_ops_legacy = {
-+	.s_stream = csiphy_set_stream_legacy,
- };
- 
- static const struct v4l2_subdev_video_ops csiphy_video_ops = {
-@@ -758,8 +891,13 @@ static const struct v4l2_subdev_pad_ops csiphy_pad_ops = {
- 	.set_fmt = csiphy_set_format,
- };
- 
-+static const struct v4l2_subdev_ops csiphy_v4l2_ops_legacy = {
-+	.core = &csiphy_core_ops_legacy,
-+	.video = &csiphy_video_ops_legacy,
-+	.pad = &csiphy_pad_ops,
-+};
-+
- static const struct v4l2_subdev_ops csiphy_v4l2_ops = {
--	.core = &csiphy_core_ops,
- 	.video = &csiphy_video_ops,
- 	.pad = &csiphy_pad_ops,
- };
-@@ -785,10 +923,15 @@ int msm_csiphy_register_entity(struct csiphy_device *csiphy,
- {
- 	struct v4l2_subdev *sd = &csiphy->subdev;
- 	struct media_pad *pads = csiphy->pads;
--	struct device *dev = csiphy->camss->dev;
-+	struct camss *camss = csiphy->camss;
-+	struct device *dev = camss->dev;
- 	int ret;
- 
--	v4l2_subdev_init(sd, &csiphy_v4l2_ops);
-+	if (camss->legacy_phy)
-+		v4l2_subdev_init(sd, &csiphy_v4l2_ops_legacy);
-+	else
-+		v4l2_subdev_init(sd, &csiphy_v4l2_ops);
-+
- 	sd->internal_ops = &csiphy_v4l2_internal_ops;
- 	sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
- 	snprintf(sd->name, ARRAY_SIZE(sd->name), "%s%d",
-@@ -828,6 +971,8 @@ int msm_csiphy_register_entity(struct csiphy_device *csiphy,
-  */
- void msm_csiphy_unregister_entity(struct csiphy_device *csiphy)
- {
-+	if (!IS_ERR(csiphy->phy))
-+		phy_exit(csiphy->phy);
- 	v4l2_device_unregister_subdev(&csiphy->subdev);
- 	media_entity_cleanup(&csiphy->subdev.entity);
- }
-diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.h b/drivers/media/platform/qcom/camss/camss-csiphy.h
-index 9d9657b82f748..7a357044b9fdb 100644
---- a/drivers/media/platform/qcom/camss/camss-csiphy.h
-+++ b/drivers/media/platform/qcom/camss/camss-csiphy.h
-@@ -12,6 +12,7 @@
- 
- #include <linux/clk.h>
- #include <linux/interrupt.h>
-+#include <linux/phy/phy.h>
- #include <media/media-entity.h>
- #include <media/v4l2-device.h>
- #include <media/v4l2-mediabus.h>
-@@ -97,6 +98,7 @@ struct csiphy_device_regs {
- 
- struct csiphy_device {
- 	struct camss *camss;
-+	struct phy *phy;
- 	u8 id;
- 	struct v4l2_subdev subdev;
- 	struct media_pad pads[MSM_CSIPHY_PADS_NUM];
-@@ -104,6 +106,7 @@ struct csiphy_device {
- 	void __iomem *base_clk_mux;
- 	u32 irq;
- 	char irq_name[30];
-+	char name[16];
- 	struct camss_clock *clock;
- 	bool *rate_set;
- 	int nclocks;
-@@ -118,9 +121,11 @@ struct csiphy_device {
- 
- struct camss_subdev_resources;
- 
--int msm_csiphy_subdev_init(struct camss *camss,
--			   struct csiphy_device *csiphy,
--			   const struct camss_subdev_resources *res, u8 id);
-+int msm_csiphy_subdev_init_legacy(struct camss *camss,
-+				  struct csiphy_device *csiphy,
-+				  const struct camss_subdev_resources *res, u8 id);
-+
-+int msm_csiphy_subdev_init(struct camss *camss, u8 port);
- 
- int msm_csiphy_register_entity(struct csiphy_device *csiphy,
- 			       struct v4l2_device *v4l2_dev);
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 2123f6388e3d7..84097d82d99c9 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -4799,8 +4799,43 @@ static int camss_parse_ports(struct camss *camss)
- 	fwnode_graph_for_each_endpoint(fwnode, ep) {
- 		struct camss_async_subdev *csd;
- 
--		csd = v4l2_async_nf_add_fwnode_remote(&camss->notifier, ep,
--						      typeof(*csd));
-+		if (!fwnode_device_is_available(ep))
-+			continue;
-+
-+		if (camss->legacy_phy) {
-+			csd = v4l2_async_nf_add_fwnode_remote(&camss->notifier, ep,
-+							      typeof(*csd));
-+		} else {
-+			struct fwnode_handle *phy_out, *phy_node, *phy_in, *sensor_ep;
-+
-+			phy_out = fwnode_graph_get_remote_endpoint(ep);
-+			if (!phy_out)
-+				continue;
-+
-+			phy_node = fwnode_graph_get_port_parent(phy_out);
-+			fwnode_handle_put(phy_out);
-+			if (!phy_node)
-+				continue;
-+
-+			phy_in = fwnode_graph_get_endpoint_by_id(phy_node, 0, 0, 0);
-+			fwnode_handle_put(phy_node);
-+			if (!phy_in)
-+				continue;
-+
-+			sensor_ep = fwnode_graph_get_remote_endpoint(phy_in);
-+			fwnode_handle_put(phy_in);
-+			if (!sensor_ep)
-+				continue;
-+
-+			csd = v4l2_async_nf_add_fwnode(&camss->notifier, sensor_ep,
-+						struct camss_async_subdev);
-+			fwnode_handle_put(sensor_ep);
-+			if (IS_ERR(csd)) {
-+				ret = PTR_ERR(csd);
-+				goto err_cleanup;
-+			}
-+		}
-+
- 		if (IS_ERR(csd)) {
- 			ret = PTR_ERR(csd);
- 			goto err_cleanup;
-@@ -4819,6 +4854,29 @@ static int camss_parse_ports(struct camss *camss)
- 	return ret;
- }
- 
-+static void camss_detect_legacy_phy(struct camss *camss)
-+{
-+	struct device_node *remote;
-+	struct device_node *ep;
-+
-+	camss->legacy_phy = true;
-+
-+	/* Find first remote-endpoint and determine if its a PHY */
-+	for_each_endpoint_of_node(camss->dev->of_node, ep) {
-+		remote = of_graph_get_remote_port_parent(ep);
-+		if (!remote)
-+			continue;
-+
-+		camss->legacy_phy = !of_node_name_eq(remote, "phy");
-+		of_node_put(remote);
-+		of_node_put(ep);
-+		break;
-+	}
-+
-+	dev_dbg(camss->dev, "legacy phy mode %s\n",
-+		camss->legacy_phy ? "true" : "false");
-+}
-+
- /*
-  * camss_init_subdevices - Initialize subdev structures and resources
-  * @camss: CAMSS device
-@@ -4832,14 +4890,21 @@ static int camss_init_subdevices(struct camss *camss)
- 	unsigned int i;
- 	int ret;
- 
-+	camss_detect_legacy_phy(camss);
-+
- 	for (i = 0; i < camss->res->csiphy_num; i++) {
--		ret = msm_csiphy_subdev_init(camss, &camss->csiphy[i],
--					     &res->csiphy_res[i],
--					     res->csiphy_res[i].csiphy.id);
-+		if (!camss->legacy_phy) {
-+			ret = msm_csiphy_subdev_init(camss, i);
-+		} else {
-+			ret = msm_csiphy_subdev_init_legacy(camss,
-+							    &camss->csiphy[i],
-+							    &res->csiphy_res[i],
-+							    res->csiphy_res[i].csiphy.id);
-+		}
-+
- 		if (ret < 0) {
--			dev_err(camss->dev,
--				"Failed to init csiphy%d sub-device: %d\n",
--				i, ret);
-+			dev_err(camss->dev, "csiphy %d init fail\n",
-+				res->csiphy_res[i].csiphy.id);
- 			return ret;
- 		}
- 	}
-@@ -4917,6 +4982,11 @@ inline void camss_link_err(struct camss *camss,
- 		ret);
- }
- 
-+static inline bool csiphy_enabled(struct camss *camss, struct csiphy_device *c)
-+{
-+	return camss->legacy_phy || c->phy;
-+}
-+
- /*
-  * camss_link_entities - Register subdev nodes and create links
-  * @camss: CAMSS device
-@@ -4930,6 +5000,9 @@ static int camss_link_entities(struct camss *camss)
- 
- 	for (i = 0; i < camss->res->csiphy_num; i++) {
- 		for (j = 0; j < camss->res->csid_num; j++) {
-+			if (!csiphy_enabled(camss, &camss->csiphy[i]))
-+				continue;
-+
- 			ret = media_create_pad_link(&camss->csiphy[i].subdev.entity,
- 						    MSM_CSIPHY_PAD_SRC,
- 						    &camss->csid[j].subdev.entity,
-@@ -5056,6 +5129,9 @@ static int camss_register_entities(struct camss *camss)
- 	int ret;
- 
- 	for (i = 0; i < camss->res->csiphy_num; i++) {
-+		if (!csiphy_enabled(camss, &camss->csiphy[i]))
-+			continue;
-+
- 		ret = msm_csiphy_register_entity(&camss->csiphy[i],
- 						 &camss->v4l2_dev);
- 		if (ret < 0) {
-@@ -5131,8 +5207,10 @@ static int camss_register_entities(struct camss *camss)
- 
- 	i = camss->res->csiphy_num;
- err_reg_csiphy:
--	for (i--; i >= 0; i--)
--		msm_csiphy_unregister_entity(&camss->csiphy[i]);
-+	for (i--; i >= 0; i--) {
-+		if (csiphy_enabled(camss, &camss->csiphy[i]))
-+			msm_csiphy_unregister_entity(&camss->csiphy[i]);
-+	}
- 
- 	return ret;
- }
-@@ -5147,8 +5225,10 @@ static void camss_unregister_entities(struct camss *camss)
- {
- 	unsigned int i;
- 
--	for (i = 0; i < camss->res->csiphy_num; i++)
--		msm_csiphy_unregister_entity(&camss->csiphy[i]);
-+	for (i = 0; i < camss->res->csiphy_num; i++) {
-+		if (csiphy_enabled(camss, &camss->csiphy[i]))
-+			msm_csiphy_unregister_entity(&camss->csiphy[i]);
-+	}
- 
- 	if (camss->tpg) {
- 		for (i = 0; i < camss->res->tpg_num; i++)
-diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
-index 93d691c8ac63b..ba3d51d9c0bf8 100644
---- a/drivers/media/platform/qcom/camss/camss.h
-+++ b/drivers/media/platform/qcom/camss/camss.h
-@@ -138,6 +138,7 @@ struct camss {
- 	struct device_link *genpd_link;
- 	struct icc_path *icc_path[ICC_SM8250_COUNT];
- 	const struct camss_resources *res;
-+	bool legacy_phy;
- };
- 
- struct camss_camera_interface {
+ .../bindings/clock/qcom,ipq9574-cmn-pll.yaml       |   1 +
+ arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts        |  22 +-
+ arch/arm64/boot/dts/qcom/ipq5210.dtsi              |  27 +-
+ drivers/clk/qcom/clk-regmap-divider.c              |  16 +-
+ drivers/clk/qcom/clk-regmap-divider.h              |   1 +
+ drivers/clk/qcom/ipq-cmn-pll.c                     | 535 +++++++++++++++++++--
+ include/dt-bindings/clock/qcom,ipq5210-cmn-pll.h   |  30 ++
+ 7 files changed, 591 insertions(+), 41 deletions(-)
+---
+base-commit: af5f12805e5cefa4fe68d6127c7e1fb78cd5535c
+change-id: 20260724-qcom_ipq5210_cmnpll-0eb9a9615dff
 
--- 
-2.55.0
+Best regards,
+--  
+Luo Jie <jie.luo@oss.qualcomm.com>
 
