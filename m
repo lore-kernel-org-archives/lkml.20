@@ -1,27 +1,26 @@
 Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2A77305E1F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A28AC1A9F90
 	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 03:12:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788664361; cv=none; b=DWocpWfRB1vIaz811e4Idy+KM9BB61lchn330UF8KliUeFn5yFb9ZkVrGOCYXpeROY1Cr6wRNJKJhn9MmW/2JkqLCbFgbAFcoJo32bbSagXysjuUn75DY0peGbu21IaU9eppq10Bj/SO6XxKh+vOgtuLdGZzU2K7wP7cyM1HOTI=
+	t=1788664361; cv=none; b=Eo2Plpp+nEioK6MNsOde5eUfXfkLQ+REv6EuGRaYBAVbZIqZXGGAhdliIE3NvUE3fhITmqpGt6+YZfr5NWphCkiX9NisKrrOWGjL1opW0WOTFL6iNbU0/WoNcy5CJ6/sZAg5cqADxkGtRqi5pVX3vXiYk+PNXUOe8imr6AIjYTY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788664361; c=relaxed/simple;
-	bh=/KxzRM0SUSyBhBLAvdxlLLzFbeAWmoVTd6ZZkeL/5mM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZtWwiRa/LTl7KBCGl6XXAUPBKc+IRb52pBF4K9/Jpg5ITuJKLPSdMIFiNgLm8SZJnW07wJNa/Y+KIX0l2rnevKVH/7KvtjE8lim9/4+Vz23o6rsZOQsC5AmiXEfArqKATUJNh+zzFkpygtpIvnNCf3sjVI1AXy/29uYJA6RkcbA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
+	bh=mJsADIFkkHN6GUhvCJqmcP4aisM0+aknqsln+j9U1us=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=H02Pt/DFbUSzPeVxA3xGSbDyO6BM+BKtWSHI26AIyj89vvSvuszfRQJ1FcAk6S3esRcuqlgHavM3GahRbmz4kJ76zUQKyIbS0xIQU4Z9CfNLHizZQFoPLhZcl4bzeEeBTUEkT4PbB/bwRrKtksEafNoKYQ8bh9j4/0VcY9eLxh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com; spf=none smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=huaweicloud.com
 Received: from mail.maildlp.com (unknown [172.19.163.198])
-	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hcwGX3DybzYQtqc
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hcwGX14KwzYQtqT
 	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:11:48 +0800 (CST)
 Received: from mail02.huawei.com (unknown [10.116.40.112])
-	by mail.maildlp.com (Postfix) with ESMTP id CAD3240574
+	by mail.maildlp.com (Postfix) with ESMTP id 832CB40579
 	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:12:35 +0800 (CST)
 Received: from huaweicloud.com (unknown [10.50.85.155])
-	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgBnUAsW2pxqmzytAw--.18069S7;
+	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgBnUAsW2pxqmzytAw--.18069S4;
 	Sun, 06 Sep 2026 11:12:35 +0800 (CST)
 From: Zhou Minqiang <zhouminqiang2@huawei.com>
 To: linux@armlinux.org.uk,
@@ -37,13 +36,11 @@ Cc: linux-arm-kernel@lists.infradead.org,
 	chengzhihao1@huawei.com,
 	yangerkun@huawei.com,
 	yi.zhang@huawei.com,
-	zhouminqiang <zhouminqiang2@huawei.com>
-Subject: [PATCH v4 3/8] jffs2: replace per-superblock verify buffer with per-write buffer
-Date: Sun,  6 Sep 2026 11:03:39 +0800
-Message-ID: <20260906030344.2448622-4-zhouminqiang2@huawei.com>
+	Zhou Minqiang <zhouminqiang2@huawei.com>
+Subject: [PATCH v4 0/8] jffs2: extend write verification to all write paths
+Date: Sun,  6 Sep 2026 11:03:36 +0800
+Message-ID: <20260906030344.2448622-1-zhouminqiang2@huawei.com>
 X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260906030344.2448622-1-zhouminqiang2@huawei.com>
-References: <20260906030344.2448622-1-zhouminqiang2@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,188 +48,134 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:cCh0CgBnUAsW2pxqmzytAw--.18069S7
-X-Coremail-Antispam: 1UD129KBjvJXoWxCr4UKry8KFyrGr45tr13Arb_yoWrtw45pF
-	sayF13Ar48JryxWrs5tFn5Cw15KrW8Gr1Igr47C348Xa18tr1Iqa4rtFy8ZrWrArZ7Wr1S
-	ka9Ikw1rXF1UX37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmGb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUWw
-	A2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
-	w2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
-	W8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAF
-	wI0_Cr1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7
-	xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Y
-	z7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2
-	AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l42xK82IY64kExVAvwVAq07x20xyl4I8I3I0E
-	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
-	WUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
-	Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IUbdMaUUUUUU==
+X-CM-TRANSID:cCh0CgBnUAsW2pxqmzytAw--.18069S4
+X-Coremail-Antispam: 1UD129KBjvJXoWxuw4Uuw4UWFyfAF1Utr4kXrb_yoW7Wr43pF
+	9YkwnIy34kKryxKrsxA3W8X3s3KFs7GF17Wr1UCw1UZF9Y9ryjga95KFyjva48ZrsaqF4j
+	gr4FkF98KF18A3DanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7
+	CjxVAFwI0_Cr1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02
+	F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4I
+	kC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7Cj
+	xVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l42xK82IY64kExVAvwVAq07x20xyl4I
+	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
+	xVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
+	AFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8I
+	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
+	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU4MmhDUUUU
 Sender: zhouminqiang@huaweicloud.com
 X-CM-SenderInfo: 52kr3z5lqtxttqj6x35dzhxuhorxvhhfrp/
 
-From: zhouminqiang <zhouminqiang2@huawei.com>
+When JFFS2 writes data to flash, corruption can occur during the
+write transfer (RAM failures, bus errors) or after commit to the
+medium (bit flips). To distinguish whether the corruption happened
+before or after the data reached the flash, commit a6bc432e296d
+("[JFFS2] Add support for write-buffer verification.") introduced
+CONFIG_JFFS2_FS_WBUF_VERIFY: reading the data back immediately
+after a successful write and comparing it with the in-memory
+source buffer provides the missing observation point for that
+diagnosis.
 
-Subsequent patches will extend write verification to additional write
-paths that may execute concurrently. A shared per-superblock buffer
-would require a coarse lock to serialize all verification, hurting
-concurrency.
+However, the current implementation only performs read-back
+verification on write-buffer flush paths. NOR flash devices write
+directly through jffs2_flash_direct_write() and
+jffs2_flash_direct_writev(), with no equivalent check. Data
+corruption incidents have been observed on NOR-based devices in
+production environments, yet there is no quick diagnostic tool to
+isolate whether the corruption occurred during the write transfer
+or after commit to the medium. A significant number of deployed
+devices rely on JFFS2 on NOR flash, making this gap a practical
+concern.
 
-To avoid this contention, remove the wbuf_verify field from
-jffs2_sb_info, along with the scattered kmalloc/kfree of wbuf_verify
-in jffs2_nand_flash_setup, jffs2_dataflash_setup,
-jffs2_nor_wbuf_flash_setup and their corresponding cleanup functions.
+During the investigation of the NOR flash gap, code inspection also
+revealed that when the write data length exceeds wbuf_pagesize in
+jffs2_flash_writev(), the excess data bypasses the write buffer and
+is written directly to flash via mtd_write(), with no verification.
+Additionally, jffs2_wbuf_recover() does not clear c->wbuf_len on
+recovery failure, which can lead to BUG_ON in jffs2_link_node_ref()
+or deadlock in jffs2_flush_wbuf_pad() on a subsequent write.
 
-Instead, allocate a temporary buffer inside jffs2_verify_write(),
-giving each invocation its own buffer and eliminating the shared state.
+This series closes these gaps with the following changes:
 
-Signed-off-by: zhouminqiang <zhouminqiang2@huawei.com>
----
- fs/jffs2/jffs2_fs_sb.h |  3 ---
- fs/jffs2/wbuf.c        | 61 ++++++++++++++++--------------------------
- 2 files changed, 23 insertions(+), 41 deletions(-)
+- Patch 1: fix wbuf recovery failure exit paths to clear
+		   c->wbuf_len, preventing BUG_ON and deadlock
 
-diff --git a/fs/jffs2/jffs2_fs_sb.h b/fs/jffs2/jffs2_fs_sb.h
-index 5a7091746f68..8a75870d3fc8 100644
---- a/fs/jffs2/jffs2_fs_sb.h
-+++ b/fs/jffs2/jffs2_fs_sb.h
-@@ -124,9 +124,6 @@ struct jffs2_sb_info {
- 
- 	uint32_t wbuf_pagesize; /* 0 for NOR and other flashes with no wbuf */
- 
--#ifdef CONFIG_JFFS2_FS_WBUF_VERIFY
--	unsigned char *wbuf_verify; /* read-back buffer for verification */
--#endif
- #ifdef CONFIG_JFFS2_FS_WRITEBUFFER
- 	unsigned char *wbuf; /* Write-behind buffer for NAND flash */
- 	uint32_t wbuf_ofs;
-diff --git a/fs/jffs2/wbuf.c b/fs/jffs2/wbuf.c
-index ab247117ec77..7e52241de457 100644
---- a/fs/jffs2/wbuf.c
-+++ b/fs/jffs2/wbuf.c
-@@ -233,19 +233,31 @@ static int jffs2_verify_write(struct jffs2_sb_info *c, unsigned char *buf,
- 	int ret;
- 	size_t retlen;
- 	char *eccstr;
-+	void *verify_buf;
-+
-+	verify_buf = kmalloc(c->wbuf_pagesize, GFP_NOFS);
-+	if (!verify_buf) {
-+		pr_warn("%s(): verify buffer allocation failed, skipping verification\n",
-+			__func__);
-+		return 0;
-+	}
-+
-+	ret = mtd_read(c->mtd, ofs, c->wbuf_pagesize, &retlen, verify_buf);
- 
--	ret = mtd_read(c->mtd, ofs, c->wbuf_pagesize, &retlen, c->wbuf_verify);
- 	if (ret && ret != -EUCLEAN && ret != -EBADMSG) {
- 		pr_warn("%s(): Read back of page at %08x failed: %d\n",
- 			__func__, c->wbuf_ofs, ret);
--		return ret;
-+		goto out_free;
- 	} else if (retlen != c->wbuf_pagesize) {
- 		pr_warn("%s(): Read back of page at %08x gave short read: %zd not %d\n",
- 			__func__, ofs, retlen, c->wbuf_pagesize);
--		return -EIO;
-+		ret = -EIO;
-+		goto out_free;
-+	}
-+	if (!memcmp(buf, verify_buf, c->wbuf_pagesize)) {
-+		ret = 0;
-+		goto out_free;
- 	}
--	if (!memcmp(buf, c->wbuf_verify, c->wbuf_pagesize))
--		return 0;
- 
- 	if (ret == -EUCLEAN)
- 		eccstr = "corrected";
-@@ -261,9 +273,14 @@ static int jffs2_verify_write(struct jffs2_sb_info *c, unsigned char *buf,
- 
- 	pr_warn("Read back:\n");
- 	print_hex_dump(KERN_WARNING, "", DUMP_PREFIX_OFFSET, 16, 1,
--		       c->wbuf_verify, c->wbuf_pagesize, 0);
-+		       verify_buf, c->wbuf_pagesize, 0);
- 
-+	kfree(verify_buf);
- 	return -EIO;
-+
-+out_free:
-+	kfree(verify_buf);
-+	return ret;
- }
- #else
- #define jffs2_verify_write(c,b,o) (0)
-@@ -1217,22 +1234,11 @@ int jffs2_nand_flash_setup(struct jffs2_sb_info *c)
- 		return -ENOMEM;
- 	}
- 
--#ifdef CONFIG_JFFS2_FS_WBUF_VERIFY
--	c->wbuf_verify = kmalloc(c->wbuf_pagesize, GFP_KERNEL);
--	if (!c->wbuf_verify) {
--		kfree(c->oobbuf);
--		kfree(c->wbuf);
--		return -ENOMEM;
--	}
--#endif
- 	return 0;
- }
- 
- void jffs2_nand_flash_cleanup(struct jffs2_sb_info *c)
- {
--#ifdef CONFIG_JFFS2_FS_WBUF_VERIFY
--	kfree(c->wbuf_verify);
--#endif
- 	kfree(c->wbuf);
- 	kfree(c->oobbuf);
- }
-@@ -1272,14 +1278,6 @@ int jffs2_dataflash_setup(struct jffs2_sb_info *c) {
- 	if (!c->wbuf)
- 		return -ENOMEM;
- 
--#ifdef CONFIG_JFFS2_FS_WBUF_VERIFY
--	c->wbuf_verify = kmalloc(c->wbuf_pagesize, GFP_KERNEL);
--	if (!c->wbuf_verify) {
--		kfree(c->wbuf);
--		return -ENOMEM;
--	}
--#endif
--
- 	pr_info("write-buffering enabled buffer (%d) erasesize (%d)\n",
- 		c->wbuf_pagesize, c->sector_size);
- 
-@@ -1287,9 +1285,6 @@ int jffs2_dataflash_setup(struct jffs2_sb_info *c) {
- }
- 
- void jffs2_dataflash_cleanup(struct jffs2_sb_info *c) {
--#ifdef CONFIG_JFFS2_FS_WBUF_VERIFY
--	kfree(c->wbuf_verify);
--#endif
- 	kfree(c->wbuf);
- }
- 
-@@ -1309,20 +1304,10 @@ int jffs2_nor_wbuf_flash_setup(struct jffs2_sb_info *c) {
- 	if (!c->wbuf)
- 		return -ENOMEM;
- 
--#ifdef CONFIG_JFFS2_FS_WBUF_VERIFY
--	c->wbuf_verify = kmalloc(c->wbuf_pagesize, GFP_KERNEL);
--	if (!c->wbuf_verify) {
--		kfree(c->wbuf);
--		return -ENOMEM;
--	}
--#endif
- 	return 0;
- }
- 
- void jffs2_nor_wbuf_flash_cleanup(struct jffs2_sb_info *c) {
--#ifdef CONFIG_JFFS2_FS_WBUF_VERIFY
--	kfree(c->wbuf_verify);
--#endif
- 	kfree(c->wbuf);
- }
- 
+- Patch 2: fix ref_totlen misuse in jffs2_wbuf_recover() failure path
+
+- Patch 3: replace pre-allocated per-superblock wbuf_verify
+		   buffer with on-demand allocation inside jffs2_verify_write()
+
+- Patch 4: add byte-by-byte comparison after memcmp() mismatch
+		   to pinpoint the exact mismatch offset
+
+- Patch 5: add verification in jffs2_flash_writev() for the
+		   mtd_write() path that bypasses the write buffer
+
+- Patch 6: add verification calls in jffs2_flash_direct_write() and
+		   jffs2_flash_direct_writev() for NOR flash devices
+
+- Patch 7: rename CONFIG_JFFS2_FS_WBUF_VERIFY to
+		   CONFIG_JFFS2_FS_WRITE_VERIFY and remove the Kconfig
+		   dependency on CONFIG_JFFS2_FS_WRITEBUFFER
+
+- Patch 8: add module parameter write_verify for runtime
+		   enable/disable of write verification
+
+This series extends the existing write verification mechanism to
+cover all write paths. It remains off by default and does not
+alter JFFS2's node CRC integrity checks.
+
+Changes in v4:
+- Change the OBSOLETE length in jffs2_wbuf_recover() secondary write
+  failure path from retlen to end - start, and update the commit message
+- Link to v3: https://lore.kernel.org/linux-mtd/20260901130549.1761342-1-zhouminqiang2@huawei.com/T/#t
+
+Changes in v3:
+- Add patch to fix incorrect ref_totlen usage in jffs2_wbuf_recover()
+  secondary write failure path, which could corrupt free_size accounting
+- Add __GFP_NOWARN to jffs2_verify_write() kmalloc to suppres
+  high-order allocation splats on large-erasesize NAND
+- Link to v2: https://lore.kernel.org/linux-mtd/20260829061658.306854-1-zhouminqiang2@huawei.com/T/#t
+
+Changes in v2:
+- Add patch to fix wbuf recovery failure exit paths not clearing
+  c->wbuf_len, preventing BUG_ON and deadlock on subsequent writes
+- Use kmalloc() instead of vmalloc() for verify buffer allocation
+- Keep memcmp() on the hotpath and add byte-by-byte comparison
+  only after a mismatch, rather than replacing memcmp() entirely
+- In jffs2_flash_direct_write() and jffs2_flash_direct_writev(),
+  call mtd_write() before jffs2_sum_add_kvec() to prevent
+  retlen from being uninitialized if jffs2_sum_add_kvec() causes
+  an early return
+- Update defconfig files to rename CONFIG_JFFS2_FS_WBUF_VERIFY to
+  CONFIG_JFFS2_FS_WRITE_VERIFY
+- Link to v1: https://lore.kernel.org/linux-mtd/20260820105003.2525647-1-zhouminqiang2@huawei.com/T/#t
+
+zhouminqiang (8):
+  jffs2: wbuf: clear wbuf on recovery failure paths
+  jffs2: wbuf: fix OBSOLETE under-coverage on recovery failure
+  jffs2: replace per-superblock verify buffer with per-write buffer
+  jffs2: write verify: add byte-by-byte comparison on mismatch
+  jffs2: add write verification to direct page writes in flash_writev
+  jffs2: add write verification to NOR direct write paths
+  jffs2: rename CONFIG_JFFS2_FS_WBUF_VERIFY to
+    CONFIG_JFFS2_FS_WRITE_VERIFY
+  jffs2: add runtime toggle for write verification
+
+ arch/arm/configs/keystone_defconfig     |   2 +-
+ arch/arm/configs/lpc32xx_defconfig      |   2 +-
+ arch/arm/configs/pxa3xx_defconfig       |   2 +-
+ arch/arm/configs/pxa_defconfig          |   2 +-
+ arch/powerpc/configs/44x/fsp2_defconfig |   2 +-
+ fs/jffs2/Kconfig                        |  31 ++++-
+ fs/jffs2/jffs2_fs_sb.h                  |   3 -
+ fs/jffs2/os-linux.h                     |  11 ++
+ fs/jffs2/wbuf.c                         |  93 +++------------
+ fs/jffs2/writev.c                       | 144 +++++++++++++++++++++++-
+ 10 files changed, 199 insertions(+), 93 deletions(-)
+
 -- 
 2.52.0
 
