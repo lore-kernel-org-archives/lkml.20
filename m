@@ -1,170 +1,107 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B9F239A7E7;
-	Sun,  6 Sep 2026 11:04:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 059B0382F1E
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:05:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788692682; cv=none; b=mGdGO/pJiPIzURipNOuvPRCS/gS1ncuzRm5hzdpNWzMRSrIa94bVdTtXSO1E0cGa/e32tdPF/mpD9MsCU81aTvM2b7WuevpezZW+9bZew7jPUcdNSAkcEjer5zOqkDl7owxVSwvOd8HqiLuRx+nLdyKQ8dP5BOEXxlQdl5rYRvM=
+	t=1788692721; cv=none; b=mfx2wlQzDsMhKgdjcZJHC6wAEPvdUKBNSCPCby8O2fGveUAuZksSc5MRTLsXQ0qkUfGSj58sYEicWMY2LL8mP9eVvhBcDBrmI2zIPisYGtcEVwet/n55+NxHBLk3/VJnRhpmB/yY+NpdUdokdL6FkyMDU2qsKiIZjvEKSuTdahM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788692682; c=relaxed/simple;
-	bh=3r1YeAMVMGuHbNglZ/uSkSe/d0j+JSCsq4mI31UGGSw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QZnTMJfEO5IJFP97NK1yy/1Wl/n8tLhdFRJdBml5YTQ0lxq8M+SeUbd3qRfPEMs5ZtgUJIAMhqbE8m8nwquQHWREdD6QQ1NEBSA3dElXxFtCzMKBVBwe2gE2zIkJkTeUNgty9qbedoeXk1XupIn8uNnS+SQ1eVIIzSne/Mp7UP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=tk5uvgAZ; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788692721; c=relaxed/simple;
+	bh=tvdFzmKtwoFDJ+q1pM6DGnbGu6Ko8qfu6YNLpfpo3h8=;
+	h=Message-ID:MIME-Version:From:To:Cc:Date:Subject:Content-Type; b=Kh/5g/U7Xk35hcio1HujtK/vBEHAyfSfUEdznedQHl2MqLvBrSh9Dd+1e5plpSh/jQNQ5eNpMY5wscm8ec2/m9cvFT4Ui0/2eXAUzVol7++7L4S+Q7RIXnv84PV50Q33r0FdJwt447KI/eaNmKv3YzcVkg2z68nYtFTBkd57R/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mnHm9ciW; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="tk5uvgAZ"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68601bOX1593880;
-	Sun, 6 Sep 2026 11:03:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=u4Ur7E
-	OpJrkbjOzKwMcE8i5Zrhz3ZlOz2pIygiAhYTQ=; b=tk5uvgAZPO8XPnWo3DG3hV
-	PnrHp7OYb8bY6c+PIOXEb9FqtkBmN3zf7wR/I0Cgl7ONjT17TQumvxDD+MB3BCSG
-	WM6h3KImckluQsZmWcwbQrNQ+sr/My8leE4tysG2vlVaDmpfOddVHTS3gDn7L1QX
-	uzp+8cEHT19wcZYi1SYoRuzDpr6lm6UpnR3Bh5T73GydMsRwlyO9Pf4LxTWcrzrP
-	oCtbyvGxiRcpZOtleYQZI/sO6VSuuFyF39JPGPBUpyuq+vThHfQjgtv7liBqm1+t
-	inL9Xl8CMDT/wTkMnXUx6xtgM14Nx9E/pxd8hPbQHNRW5BnT4mVcmw1ZEA3P0NmQ
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbj7uxah-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 06 Sep 2026 11:03:28 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 686AuQTh004474;
-	Sun, 6 Sep 2026 11:03:27 GMT
-Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ggwdq1cae-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 06 Sep 2026 11:03:27 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
-	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 686B3Q7m15991378
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sun, 6 Sep 2026 11:03:26 GMT
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 844055806E;
-	Sun,  6 Sep 2026 11:03:26 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 053E55806C;
-	Sun,  6 Sep 2026 11:03:11 +0000 (GMT)
-Received: from [9.61.37.159] (unknown [9.61.37.159])
-	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Sun,  6 Sep 2026 11:03:10 +0000 (GMT)
-Message-ID: <350d1460-4650-4964-8795-aa67c5517dc3@linux.ibm.com>
-Date: Sun, 6 Sep 2026 16:33:09 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mnHm9ciW"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38a0c7e841fso3384713a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 04:05:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788692719; x=1789297519; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:subject:date:cc:to:from
+         :mime-version:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=w9gyLWtQLohjNP+UG4PRUGY7mDiKdRQaFAscLEnUlZM=;
+        b=mnHm9ciW1jOamz5QsHS/6Og08nilUmO0rHjnvdKkkgm3xEEeCTF7li+fBn2Gv9eTnY
+         w2dspwntaXSovpYdBP/1XopjGG0+kmrdhdLnrZPYisBCQRtEfED+DQztWeHaQcfZTbW4
+         LVj98unjzia5W68ZJfcbn9plMy1bpcLa3vtnlN+1h1Yw/+XyDWx1xg3wnIV807gQJfgF
+         WuCCOFoO6w4rbi8mBwHc4BAfAFrQRzuzatMYugUsc9nNCW5G5iVs7muayVKD6Q6CCAm2
+         iCHerp5jGrr6zAk7qF90TqjRCoOTsVxXVrSsT5+e+T4SfCdKFes87U1LcJLntnouiQ1q
+         9Bvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788692719; x=1789297519;
+        h=content-transfer-encoding:content-type:subject:date:cc:to:from
+         :mime-version:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=w9gyLWtQLohjNP+UG4PRUGY7mDiKdRQaFAscLEnUlZM=;
+        b=NzoAy3brDf+s9b3KZYY0Ll74I1OMXnie8KBgWaMY8iSfHIilPBl87ZT6j60A1px0Cz
+         0CgosGpd6G+QmXY+1JSMNlexYPkppar4S4ruD3hLpK2RRbbbOK8KhSFvetBHpJ6iDhen
+         1IgyKdCCbHXY5e/LmMJWC4X3XVovMgRD3eE1OSmXsEN+6DkEh20Rfx0fV9Ar8G4sdlIz
+         eNi1tqT3U6uoe1aFIXcOZqoK0J540RRTT6orkpkEFJz+bNFl5PqfQbx1DPtEIrDNasep
+         JIot4AyzmGB8X8H+a/OQxfWB+ZN7DR374kvGHFKWhcWLBZMMr+ABVtEwfGquHkM3edbF
+         3Wzw==
+X-Forwarded-Encrypted: i=1; AKwUvBw9T/vNvVfti2BUqFQHfUldzjzNTyqhep4L21NXxOeqmpbWPRU1GPn9eaIvZf9eFdqEq3Niq4vhcSEoQGo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nfIBNFIuKDxXASH6NO5/IKPHjebc6dg+LxmijHfsl7zkANIwOO
+	cNWuCtqoeSu2KlEJ0ydu0LDVteHnwlSm1xQ5cPbiTO/IP9Dudalaz+yE
+X-Gm-Gg: AYBFou1jd2MwOiGNBMOJfLJyxWOUgw/151PySLqUOvIaqKZvvkDIRlBeQjZuYfMPmjG
+	h2XlPOYm81VFYSzPizOMnchk0C9ZJmUZUhpkHBSUHMg+syzLX9f1NiKqVKL48LMl/sZVnK9543+
+	gvrKhtIzqzBiZ/DzPw49Rrf6/LbKqyr77YaTOL0QDrDXu3QLfQz5Lkq2D3KwPYUlUmaAKQ/3Qlv
+	fKJZGGwQr76iIg1Cg8FhyPlzE7FsuO+0ItUwbZsp/pEaEFKf0rtZLN5YFqQGxvPbvKCaIW4JZhS
+	3DVSVZfMqVR/iS94Wm1iyz2Pk1kKKv5I1j5ofgvqDeb9FS0eDSXgj0BdL+hLezau1raHgDeDK9A
+	YaF+Y/lk39qwWzSB7Jx0jwW/0isQ+b/t1qK9/dwatFl1WROhSCXUqCCKIXEUHDQbZwXPtuWTuWx
+	uSJ010O7hwP6uaYJ5vAS8LAfyG9SNrSkLLnL/4wgt7u2AMu+3YdYzV9CFlrGyeVN/E5m5ZIoUWD
+	aQllEvkXZ4/afjNpLAIi4UmW6XI+Rv217j5XCdWEDKZ1En4fSbIs8sjCA==
+X-Received: by 2002:a17:90b:4b90:b0:38e:49c0:75a7 with SMTP id 98e67ed59e1d1-39b2610f2fbmr24009365a91.8.1788692719394;
+        Sun, 06 Sep 2026 04:05:19 -0700 (PDT)
+Received: from manush ([2406:7400:94:7a79:f149:be84:942d:9300])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432435648esm22779262c88.5.2026.09.06.04.05.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 04:05:19 -0700 (PDT)
+Message-ID: <6a9d48ef.4987c784.3608f9.714a@mx.google.com>
+X-Mailer: git-send-email 2.46.2.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] blk-cgroup: use a request_queue rhashtable for blkg
- lookup
-To: Yu Kuai <yukuai@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-        Tejun Heo <tj@kernel.org>, Josef Bacik <josef@toxicpanda.com>,
-        Johannes Weiner <hannes@cmpxchg.org>,
-        =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>
-Cc: Yu Kuai <yukuai@fygo.io>, Christoph Hellwig <hch@lst.de>,
-        Tao Cui <cui.tao@linux.dev>, Jan Kara <jack@suse.cz>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>, Coly Li <colyli@fygo.io>,
-        Kent Overstreet <kent.overstreet@linux.dev>,
-        Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
-        Mikulas Patocka <mpatocka@redhat.com>,
-        Benjamin Marzinski <bmarzins@redhat.com>, Song Liu <song@kernel.org>,
-        Li Nan <magiclinan@didiglobal.com>, Xiao Ni <xiao@kernel.org>,
-        Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
-        Dan Williams <djbw@kernel.org>,
-        Vishal Verma <vishal.l.verma@intel.com>,
-        Dave Jiang <dave.jiang@intel.com>,
-        Alison Schofield <alison.schofield@intel.com>,
-        Ira Weiny
- <iweiny@kernel.org>,
-        Andreas Gruenbacher <agruenba@redhat.com>,
-        Matthew Wilcox <willy@infradead.org>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
-        Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
-        Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
-        Youngjun Park <youngjun.park@lge.com>, cgroups@vger.kernel.org,
-        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
-        dm-devel@lists.linux.dev, linux-raid@vger.kernel.org,
-        nvdimm@lists.linux.dev, virtualization@lists.linux.dev,
-        gfs2@lists.linux.dev, linux-fsdevel@vger.kernel.org,
-        linux-mm@kvack.org
-References: <20260823133045.970199-1-yukuai@kernel.org>
- <20260823133045.970199-2-yukuai@kernel.org>
-Content-Language: en-US
-From: Nilay Shroff <nilay@linux.ibm.com>
-In-Reply-To: <20260823133045.970199-2-yukuai@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: d95BKotMcawyurNxSY90tErgpQBi82fX
-X-Proofpoint-ORIG-GUID: KAqNhEunHYFEyAYPq95mN6bqZVHWW8h2
-X-Authority-Analysis: v=2.4 cv=RNCD2Yi+ c=1 sm=1 tr=0 ts=6a9d4881 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8
- a=-_CD9Cme870wYPz7DKUA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA2MDEyMSBTYWx0ZWRfXyQhHoWQugryi
- aEVw8YT65jz7lXeJ6xFhrRRnoV1R089xeUtQKA0lXdjBN1Yfdg9lJ/qPBqqO7uIMMDWSMf2XR2R
- bJ7rjL2Z72rYW8+fjAqG/BU3rOOo0NQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA2MDEyMSBTYWx0ZWRfX7bmEr79g7ZP2
- aK8Z8do9uj3bOQC6vh1y+zeZ8hFkHV7hfiaR5vf/2y0bT/c2BTRfCSgA8NfYinjJIzK7WU8soyL
- DF12GL39mOBL1tt/4ss5iQsLen9RkA63xnJlnFUmr00uL8xlV/skklNjmDIP6wWkWUVddPBkAUI
- STZ0h/d0B45Wy9sGheIA9Aqtm0qruNelMJKtlYjZ3lDSu45hC0OUoGx7wnjFq7xqOHU5HmHkN9r
- GNEwuJoqIRMcBCy/6vdO8meow8C94llv4e+T/UqYfJfqUoxffkeLPvahNojanQwrSkN6Z1vdyQz
- oILe7ypVQ72ph+7uiVuWcnlBA2hJMxMx6+/IlhuZp/bOunsrzNoF56xYQksixd1ZwG1Vvu6I8F8
- SXGHg+w07Z5HSdx463FdparSEmlDROiaMUWc5/SqB1I+R5FoVQWnE/s9WPn6edlqeKjr49lBKSg
- 5C6KVB6KpTyrSOVL+OA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-05_08,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 bulkscore=0 clxscore=1015 spamscore=0
- impostorscore=0 adultscore=0 phishscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609060121
+From: "Manush Prajwal" <manushprajwal555@gmail.com>
+To: sai.krishna.potthuri@amd.com, conall.ogriofa@amd.com, jic23@kernel.org
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org
+Date: 6 Sep 2026 16:35:18 +0530
+Subject: [PATCH] iio: adc: xilinx-ams: fix OOB read in ams_get_ext_chan()
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 8/23/26 7:00 PM, Yu Kuai wrote:
-> From: Yu Kuai<yukuai@fygo.io>
-> 
-> blkg lookup currently uses a per-blkcg radix tree keyed by request queue
-> ID, plus a lookup hint for the common case. This spreads the queue-local
-> blkcg association index across every blkcg and requires radix-tree
-> preloading before creating a blkg while holding q->queue_lock.
-> 
-> Replace the radix tree and lookup hint with a request_queue-owned
-> rhashtable keyed by the blkcg CSS ID. Cache the ID in each blkg; the blkg
-> holds a CSS reference until after it leaves the hash, so the ID cannot be
-> reused while it is hash-visible. The integer key also reduces hashing and
-> comparison work relative to a pointer-sized key on 64-bit systems.
-> 
-> Keep entries until blkg_release() and provide blkg_lookup_any() for callers
-> which need to find dying entries. blkg_lookup() filters offline entries so
-> existing lookup semantics remain unchanged.
-> 
-> Keep q->blkg_list for ordered policy and scheduler walks. All current
-> walkers are cgroupfs or sysfs slow paths, so they can move to rhashtable
-> iteration once the q->queue_lock to q->blkcg_mutex conversion lands.
-> Initialize and destroy the hash with request_queue, and remove the
-> radix-tree preload paths which are no longer needed.
-> 
-> blkg_release() removes the hash entry only when the blkg was successfully
-> inserted into q->blkg_list; the list_empty case covers allocation or
-> creation failure before insertion.
-> 
-> Signed-off-by: Yu Kuai<yukuai@fygo.io>
-> Reviewed-by: Christoph Hellwig<hch@lst.de>
-
-Looks good to me.
-Reviewed-by: Nilay Shroff <nilay@linux.ibm.com>
+The PL external-channel "reg" property is only checked against it=
+s=0D=0Aupper bound (AMS_PL_MAX_EXT_CHANNEL + 30 =3D=3D 50), match=
+ing the=0D=0A'maximum: 50' constraint in the devicetree binding=0D=0A=
+(Documentation/devicetree/bindings/iio/adc/xlnx,zynqmp-ams.yaml),=
+ but=0D=0Athe binding also documents 'minimum: 20' which the driv=
+er never=0D=0Aenforces at runtime.=0D=0A=0D=0Aext_chan is compute=
+d as 'reg + AMS_PL_MAX_FIXED_CHANNEL - 30' in=0D=0Aunsigned arith=
+metic. For any reg < 20 (e.g. a hand-written or=0D=0Amalformed de=
+vicetree overlay with reg =3D <0>), this underflows to a=0D=0Ahug=
+e unsigned value, and the following=0D=0A=0D=0A	memcpy(chan, &ams=
+_pl_channels[ext_chan], sizeof(*channels));=0D=0A=0D=0Areads far =
+outside the 31-entry ams_pl_channels[] array.=0D=0A=0D=0AReject a=
+ny reg value that would produce an out-of-range ext_chan=0D=0Abef=
+ore it is used to index ams_pl_channels[], instead of relying onl=
+y=0D=0Aon the upper-bound check.=0D=0A=0D=0ASigned-off-by: Manush=
+ Prajwal <manushprajwal555@gmail.com>=0D=0A---=0D=0A drivers/iio/=
+adc/xilinx-ams.c | 5 ++++-=0D=0A 1 file changed, 4 insertions(+),=
+ 1 deletion(-)=0D=0A=0D=0Adiff --git a/drivers/iio/adc/xilinx-ams=
+.c b/drivers/iio/adc/xilinx-ams.c=0D=0Aindex 158e6133a..cd778d053=
+ 100644=0D=0A--- a/drivers/iio/adc/xilinx-ams.c=0D=0A+++ b/driver=
+s/iio/adc/xilinx-ams.c=0D=0A@@ -1154,8 +1154,11 @@ static int ams=
+_get_ext_chan(struct fwnode_handle *chan_node,=0D=0A 		if (ret ||=
+ reg > AMS_PL_MAX_EXT_CHANNEL + 30)=0D=0A 			continue;=0D=0A =0D=0A=
+-		chan =3D &channels[num_channels];=0D=0A 		ext_chan =3D reg + A=
+MS_PL_MAX_FIXED_CHANNEL - 30;=0D=0A+		if (ext_chan >=3D ARRAY_SIZ=
+E(ams_pl_channels))=0D=0A+			continue;=0D=0A+=0D=0A+		chan =3D &c=
+hannels[num_channels];=0D=0A 		memcpy(chan, &ams_pl_channels[ext_=
+chan], sizeof(*channels));=0D=0A =0D=0A 		if (fwnode_property_rea=
+d_bool(child, "xlnx,bipolar"))=0D=0A-- =0D=0A2.46.2.windows.1=0D=0A
 
