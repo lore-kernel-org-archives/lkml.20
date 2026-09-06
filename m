@@ -1,101 +1,125 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from va-2-16.ptr.blmpb.com (va-2-16.ptr.blmpb.com [209.127.231.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C8133E024D
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:41:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57E43360ED6
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:41:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788694877; cv=none; b=ocKYSgUzJ85w/A+dJZQ+oCu/MNuFNVJRKyA+fIrAtKl13BkHwPXTE0su+7nfPkd/Wbt7eWLBXmSlhAxSBJBuNC1HxwgBIYHuTcy0tXsb/1y8ZHp7tK9nKXBCicFv4GZuTqVAQQj/am8oXmUfT4Ym8oVmgEtGSmnktNs878E7b+8=
+	t=1788694902; cv=none; b=e0lr/uLTx/IAwirRYAjJdLxM9/nkB/v8D9VUaowrjDVUI95kkXq7QwmhsfFTZu9LM3OaoiNx4zQWmDcPBolCnV6kK7lQtI7vAWh1Q375c3mN4UkEeCdxHaQoRGrIkJx1orzURvugZFF1m1mijMT0QMurIUq2pZEUe/TXnotXUtk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788694877; c=relaxed/simple;
-	bh=L7WuRDtKownGDfemfPtuBDAiWjwoIi+XSLXQ2oaKJoA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QIwaI6qYlCHON3aml/WFQ1Rp5TLxwjp+pPfwjvE2CLqmm+cs1aNtY+dXGkzy2g/YZmvvsLXlz5hps32+cyrhjeSp2OrbooFabenZ9Dc640BFB/wEegEcIcGlqIqm2ODQ0fACHe5MCBoZeu7mwVmkYSaHFnl7r4036RQI0FdG5Ik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h+maQ081; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788694902; c=relaxed/simple;
+	bh=Txjb4A2ru0WHH8ExTeA1+aRZilQ6U0tRJ24xs4Setuk=;
+	h=To:Subject:References:Cc:Date:Mime-Version:In-Reply-To:Message-Id:
+	 Content-Type:From; b=H70+t98a7xdcSyE8X4GrhiEa6A17e58OHe8XR1SutnF1ksyGYmSzxgQJt626nT6N5G6wgkYynbnJ2lmtt9SXAgEbNBOxG1nJ7AzcwFRF+TCoQdDdPnmgWO42FqkyG0NrC+T5AxwPZC1VXaw1lq+HuAqVW8ZQ+Kw2YqBlKVfFIhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=gsMGNOoB; arc=none smtp.client-ip=209.127.231.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h+maQ081"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48431648f33so2596924f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 04:41:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788694870; x=1789299670; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ARf7a0QuDmnTVS4e664PeRczUd5kEyLkns5J9FozqNA=;
-        b=h+maQ081zONsj7qZ6XiHcb7KdCz/Qgk4ncAZamxVeHudJLjN0RxTiT28NoI6SVFYIn
-         ZOLqAKRwNIAFrJ6Np+JyjlHi0BU/onEE9KDcoIoqakEYcMkXHHDXCJhsgZWvSQES3uTY
-         32Ny6wEPua+SxBmpdUANzHgU35/qbjlZTorqkgnGow8fTkpBUaH57TH1yYQJCkQfYFPU
-         J+1wR8nHItqcxzZfDJauPAXKq9ToWl8HZBTV8+MnnBFuL7SekNo++Wey5sYxSKq5GgiF
-         0V5o4kkk0mDNbrctN+nCKlcKYwi95G9OY4TNzHl/BY1nJdEsml+hIgSMfGq/G61/5eRn
-         /uCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788694870; x=1789299670;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ARf7a0QuDmnTVS4e664PeRczUd5kEyLkns5J9FozqNA=;
-        b=entdb7S6a27deXKKw/XKXB08M2Bd56HMlpmfzd7kx7ERRV03t0kIWBLPMhjm320OmH
-         nkNbviGHakuBEe1LUG0odEzhZBPlyFDB6MXeqx5msDDJHrl7nOzlMtrU9Rz2Y/7cATLZ
-         iX7Qyk3kfMYf8WoCvtCobrTzTZYLJZCzMvZyrDPTVHl0lc0PKmS1+tkX/G2AnpO52GvY
-         ajLR2GyVTV4SQbjiOBaidJVVwVjPmE3C49Ho6KLrtXNF6TYBNeOo4J9drnR8Z8NAu1lh
-         CYefvyi20FlWjsBzrF1FYZqu8w05InOcxeO4MKrHbYs9pJR9yadycaK0DlMYWk+58RTr
-         LmMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz1FSC8P1SjzLFSKghnQ64Ynvyzo/fyF2eWhtd/v366KpOvUkHrCfcgahQG2TD52ieI6oYZd1E5oEo65wE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nVOQjI+DVsH+5MTROhPhDzRsRDDR8WkZLR/jSF0x3XycYrDpgg
-	NGBoVtqrpVPh7OyoMrYt2O48UMXW0++JuxVS/1/+qJjoOrX6yDiCJOu8
-X-Gm-Gg: AYBFou3bJq7v6zeEgzh2WCHV+BGMZ7cBBuLqdK6MZ0SlM07iOHnoUEF3i4/xhxFP6vH
-	SFWA61CcIYJwV+L7QjJWyM0Hf0nvmaD8roT2+PvWJ2hHQ3sr3KFjY6RQssLD8awMzkGonk1Gwt0
-	w4p6ROnAb5XfszypgzHjlYWXecOJ1qHZbZ11fLw7Co3qnlLdaar168Xp7eGQKEd9EueXi0QnlW3
-	3PA4hhQ1naxcFli++MT5HYy552bJZjAIvGRSdzXxqqTfrvKPGEjM5gyskgGLgfCLXpzq45NhdUi
-	nIqb4RRxk1N6+jpdSZj6TKfaBvFrNkcCrLgZCAb4Jpr+EnjD2Z4DFkVPHICntbOYnVf0iTfl13i
-	WkQ7WwPpMVA8eiwuGkZwn0/xdKSy3wT8tmUXwJSw0I6gMGMCIXYCcBor6GELus2Bi++10PNDcNY
-	uGR8g5268h8r71y0PIV9/yw7mJrnvTDfR4Mk9TwY8BmU5yqwGmfp4GY3dS53AZk32a1NX4jgOo+
-	LkXFW96
-X-Received: by 2002:a05:600c:322a:b0:49c:f13d:ffef with SMTP id 5b1f17b1804b1-49d0089db4fmr67572685e9.19.1788694869655;
-        Sun, 06 Sep 2026 04:41:09 -0700 (PDT)
-Received: from fedora ([154.182.82.204])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858ab73c2bsm19356223f8f.22.2026.09.06.04.41.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 04:41:09 -0700 (PDT)
-From: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-To: gregkh@linuxfoundation.org,
-	jic23@kernel.org,
-	nuno.sa@analog.com,
-	Michael.Hennerich@analog.com
-Cc: dlechner@baylibre.com,
-	andy@kernel.org,
-	linux@analog.com,
-	linux-iio@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-Subject: [PATCH v4 0/2] staging: iio: adc: ad7816: Fix SPI read operations and VMAP_STACK issue
-Date: Sun,  6 Sep 2026 14:40:47 +0300
-Message-ID: <20260906114049.32912-1-abdelnasserhussein11@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="gsMGNOoB"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1788694893;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=Txjb4A2ru0WHH8ExTeA1+aRZilQ6U0tRJ24xs4Setuk=;
+ b=gsMGNOoBKWnuzNae+zqKdZqMscRCD1AiEZYEY6htIlRk6+gNoKGaQmKYsKYNBjNXUm1bg6
+ xGaAOEqOARkImszoU6UA/pFzyCd7LSfk32qvYJElb/bqw7GJgVgWGZ/PG3teeTMVKxDjz2
+ 0+sL2e/vQDFiT2KHBN7ctjFgp5CUS+dexxkSZWJwgupilHVZmfc9Qu+tcyc4J2ZBybJEYE
+ 3O7lCgnI+/VOUxbbNaHQn/Cwet4hIu6rLmTVNizTAhAmTzubMJhfIq3DvQpPSPhj27EBwQ
+ 19siYfKDSN/tMAK0s7/7xhbUyXGLHqWKoqogA1tdzyeiqm81vko7cmrmvzJ4AQ==
+To: "Nilay Shroff" <nilay@linux.ibm.com>, "Yu Kuai" <yukuai@kernel.org>, 
+	"Jens Axboe" <axboe@kernel.dk>, "Tejun Heo" <tj@kernel.org>, 
+	"Josef Bacik" <josef@toxicpanda.com>, 
+	"Johannes Weiner" <hannes@cmpxchg.org>, 
+	=?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	"yu kuai" <yukuai@fygo.io>
+Subject: Re: [PATCH 3/3] blk-cgroup: move async bio punt state to blkcg
+References: <20260823133045.970199-1-yukuai@kernel.org> <20260823133045.970199-4-yukuai@kernel.org> <d88a132d-177b-4d54-9927-3d16065c7b60@linux.ibm.com>
+Cc: "Christoph Hellwig" <hch@lst.de>, "Tao Cui" <cui.tao@linux.dev>, 
+	"Jan Kara" <jack@suse.cz>, "Jonathan Corbet" <corbet@lwn.net>, 
+	"Shuah Khan" <skhan@linuxfoundation.org>, "Coly Li" <colyli@fygo.io>, 
+	"Kent Overstreet" <kent.overstreet@linux.dev>, 
+	"Alasdair Kergon" <agk@redhat.com>, "Mike Snitzer" <snitzer@kernel.org>, 
+	"Mikulas Patocka" <mpatocka@redhat.com>, 
+	"Benjamin Marzinski" <bmarzins@redhat.com>, "Song Liu" <song@kernel.org>, 
+	"Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
+	"Pankaj Gupta" <pankaj.gupta.linux@gmail.com>, 
+	"Dan Williams" <djbw@kernel.org>, 
+	"Vishal Verma" <vishal.l.verma@intel.com>, 
+	"Dave Jiang" <dave.jiang@intel.com>, 
+	"Alison Schofield" <alison.schofield@intel.com>, 
+	"Ira Weiny" <iweiny@kernel.org>, 
+	"Andreas Gruenbacher" <agruenba@redhat.com>, 
+	"Matthew Wilcox" <willy@infradead.org>, 
+	"Andrew Morton" <akpm@linux-foundation.org>, 
+	"Chris Li" <chrisl@kernel.org>, "Kairui Song" <kasong@tencent.com>, 
+	"Kemeng Shi" <shikemeng@huaweicloud.com>, 
+	"Nhat Pham" <nphamcs@gmail.com>, "Baoquan He" <baoquan.he@linux.dev>, 
+	"Barry Song" <baohua@kernel.org>, 
+	"Youngjun Park" <youngjun.park@lge.com>, <cgroups@vger.kernel.org>, 
+	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<linux-block@vger.kernel.org>, <linux-bcache@vger.kernel.org>, 
+	<dm-devel@lists.linux.dev>, <linux-raid@vger.kernel.org>, 
+	<nvdimm@lists.linux.dev>, <virtualization@lists.linux.dev>, 
+	<gfs2@lists.linux.dev>, <linux-fsdevel@vger.kernel.org>, 
+	<linux-mm@kvack.org>
+Date: Sun, 6 Sep 2026 19:41:24 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Received: from [192.168.1.104] ([39.182.0.178]) by smtp.larksuite.com with ESMTPS; Sun, 06 Sep 2026 11:41:32 +0000
+In-Reply-To: <d88a132d-177b-4d54-9927-3d16065c7b60@linux.ibm.com>
+Message-Id: <4706f5fa-3a09-4c48-aa4b-c56521166618@fygo.io>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Original-From: yu kuai <yukuai@fygo.io>
+Reply-To: yukuai@fygo.io
+From: "yu kuai" <yukuai@fygo.io>
+User-Agent: Mozilla Thunderbird
+X-Lms-Return-Path: <lba+26a9d516d+f58e2f+vger.kernel.org+yukuai@fygo.io>
 
-Changes in v4:
-- Separated changes into two logical patches.
-- Patch 1: Used guard(mutex) and devm_mutex_init() instead of manual lock/unlock and mutex_init().
-- Patch 2: Used __aligned(IIO_DMA_MINALIGN) instead of ____cacheline_aligned.
-- Patch 2: Fixed the sizeof() argument in spi_read().
+Hi,
 
-Abdelnasser Hussein (2):
-  staging: iio: adc: ad7816: Serialize SPI read operations
-  staging: iio: adc: ad7816: Use DMA-safe buffer for SPI read
+=E5=9C=A8 2026/9/6 19:01, Nilay Shroff =E5=86=99=E9=81=93:
+> On 8/23/26 7:00 PM, Yu Kuai wrote:
+>> @@ -111,10 +104,15 @@ struct blkcg {
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /*
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * List of updated percpu blkg_iosta=
+t_set's since the last flush.
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct llist_head __percpu=C2=A0=C2=A0=C2=
+=A0 *lhead;
+>> =C2=A0 +#ifdef CONFIG_BLK_CGROUP_PUNT_BIO
+>> +=C2=A0=C2=A0=C2=A0 spinlock_t=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 async_bio_lock; /* protects async_bios */
+>> +=C2=A0=C2=A0=C2=A0 struct bio_list=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 async_bios;
+>> +=C2=A0=C2=A0=C2=A0 struct work_struct=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 async_bio_work;
+>> +#endif
+>> =C2=A0 #ifdef CONFIG_BLK_CGROUP_FC_APPID
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 char=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fc_app_id[FC_APPID_LEN]=
+;
+>> =C2=A0 #endif
+>> =C2=A0 #ifdef CONFIG_CGROUP_WRITEBACK
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct list_head=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 cgwb_list;
+>
+> As I mentioned, Clang context annotations are now officially supported
+> in the block layer. Since you're touching this code, I suggest annotating
+> async_bios with __guarded_by(&async_bio_lock) as well.
+>
+> This would allow the Clang thread-safety analyzer to verify that every
+> access to async_bios is properly protected by async_bio_lock.
+Sounds reasonable, will do this in the next version.
+>
+> Thanks,
+> --Nilay
 
- drivers/staging/iio/adc/ad7816.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
-
-
-base-commit: 3d6d817622b0a9721e3cc404df3469171582be13
--- 
-2.54.0
-
+--=20
+Thanks,
+Kuai
