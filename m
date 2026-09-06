@@ -1,73 +1,49 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+Received: from out-2uec-a98.jellyfish.systems (out-2uec-a98.jellyfish.systems [63.250.43.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6970629993F
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 14:41:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1055433A6E2
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 14:41:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=63.250.43.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788705661; cv=none; b=XyhXqvFSgTNQC5mWPBNXgZVmyj1wLLOTeW+u0r6HLfZ5rnGtcY/4IJscDOowRqbIFFVkDS2dsUdeRIDdlEP8kZkAIi3jm1fRNqxJbUkokz7dpW0Lxw/Le8m6/0/mYE09emikP4mzTpoyb/LoqB1TRo1lLiqmAxFPwFThHgnpTMw=
+	t=1788705667; cv=none; b=Q/OHO75h05PRUe/VywpzizuIlB1/js5QcR2ZylOKY3idmTrRGJ70Ssx64B2Pc4blnbuWmq2t/0Xvnc2pMANjaA+PlmuDBSP9v2TVPFN0U93a0q8WcloYvq4L8hwdDFR2mn+U2WAvyVZTaBwtciCKHk4cDDoiDvCoiw9MHMgzK5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788705661; c=relaxed/simple;
-	bh=qSkze1wnDFxPe2Qp8CSDQ7kKZ1F5vdgOvkv/4UTabOQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jIrsSXfdGQfcvkkSrU0p5aw7SEZv7ai4PZGSk5N7Zg/BumJcM3qagOPh7zFVvmLKOTJAkJ6ztNeFzSlhD+XJQSui6UObInJBnMWjLMGKPqxc4TG0oyXT5eeOvygS7a9KwFDkBfJoO24x6uwp7l9e6xklFAnw3T3gGjP4b3Zn8kk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sOTY7hYB; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788705667; c=relaxed/simple;
+	bh=8nFx9yPRzKaj16U/gthA6bI9cl20f2jVshwFSMAEEek=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jJFOdYvgQ+cPlFCws3TtgTNRb13T4KANlcrH0blJk2EfqjFSm+HLbogzUFh88ycsnYKiH+rbeR3LT9jWfpOT30Yvz53paitG4nwpUH+7P6rfNbBq2MR/WiHUQq3WfWvrEF/NnFCPT7t4tey/KLONgLhRz6gbHXXQM5+k3q7K9H4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=iM1agAwn; arc=none smtp.client-ip=63.250.43.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sOTY7hYB"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-398b3c37877so2442151a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 07:41:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788705660; x=1789310460; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y29ZXwt6eztTyx4fKyFoN65StSazZKPoWVgHCLODAmY=;
-        b=sOTY7hYBDrrd+DpLGnmOg6hPtxP8PM1ibQyQJdFtIy44RFnbhHCE4yx2TItdKte3JV
-         4zuzQTIAe0UxE1XTKc3ZZyXlBrnBrxepwPPR1tTD4kJDL9cz6oD97KBqhe/VrkbshUiw
-         eqc/j7FSGOpVqAGYva3yBOF2vf+D+UE2kM3dJCHSDSdL4EoSNbMwfCGs5MNxtQX1aUuT
-         2FrvoaGNRXT7h3puf4faaocePja7PfxEYPTegkgB1QBKFZ06ocLny1yhGJso4PVesyOm
-         uBy/kY0tzsNTKu9HHbaVoP5km7GH9UoNOmE6PiivqJwE5DCDWE6znbo512sS6gNtKs0c
-         ii6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788705660; x=1789310460;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y29ZXwt6eztTyx4fKyFoN65StSazZKPoWVgHCLODAmY=;
-        b=f6m7/DhfIfJZbpMalPZStm/l96CVcCjNvY/bkFMybO/wYsWrAaQ476LpKBo5tg4pSL
-         sovf+c7t8k1nZFsT34YVHnc816LjiulijSvpFiNg9RMvehv9hsPEObnDUGE1ONptwl0s
-         lPX55nKif75SzSdW0Zhpu69mAfchGnxQgK432BcrUHMlxuDq1+mqhTM6plOID8TlI4WM
-         7zFvcLSxw9eYNvzL5WuJY4uTW7ihkgse1UQlRW2oO3cbbF3XwRNAS49AcKCVhRenvs8h
-         jf5ZmymybeqLdjIxlLYQlWB350XS4dsrmtHSSrDeTTaatmvKQ8BQKRgc9kCoSceWo72Y
-         UJWw==
-X-Forwarded-Encrypted: i=1; AKwUvByxZweJW6KjtWeSQuISmd4hdpxRq9/6rP9tq87SXHjGFphOeXm/lnnzTEf98Vrda5pyuPqSDcXj8+XiN14=@vger.kernel.org
-X-Gm-Message-State: AFuF++k8lMUaUnvcu3RttrTUgcF8Cq8s/ZHzkXA2Nud6Jy7+m+RoBnd6
-	imWtyj02mQ/vyeFJabfEymvkcyF+wPNSryS8i7JvzpJnlgM1liGJ8OV4
-X-Gm-Gg: AYBFou0VwaWLgh2NSflIcbnC7JgDDCMlK5uk+SLAL6Zup/XDNU2QqBfKJiCHaZ71uQv
-	1RpVzXnGMcsntfHfA27wN4LHczrwD4A6aCmy9CJTkSIz81uxR36GwWh8Cg0KH9kM1uU4A0lRju3
-	4de2HYJQUuNOmtXNbNefx031QJ+O66JFmz2uEMm2MlK56dbqUiZ9qestb/DHioE6iGny0HFwHtH
-	0vVQUSAot+x1mPSl598zh/Y8YhpJCs9O1jBzF3hvRYyipC3IDa8UWywmPKXeH21/gCJlhgTCNoZ
-	kChJ4Rh1SSHaIR01pON+Auo3/+BiecHn2Nc4RIPYx1DyMPYT6pSWZh3/5cRKegr1T+pQC6DiEQM
-	8zFpz1k5OTjfaniOsMXjndOOvlapBlG+bKCyGqrGF4jb33y4EBlJBvo0YVNfcM6pYiD9CREAtAR
-	QJ6pIImSlDQaGeuMp6utyRuHUcgz/yhc/XqFyf5huGJtTKzx2fzGA0U9KQS6HBJCCCnpRSqCZL
-X-Received: by 2002:a17:90a:d2c6:b0:395:4de4:92c7 with SMTP id 98e67ed59e1d1-39b260d2f07mr27672809a91.3.1788705659725;
-        Sun, 06 Sep 2026 07:40:59 -0700 (PDT)
-Received: from TheRealOne ([152.58.138.157])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260fdc1dsm15583678a91.7.2026.09.06.07.40.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 07:40:59 -0700 (PDT)
-From: Chandradhar Kumar <chandradhar.2003@gmail.com>
-To: Song Liu <song@kernel.org>,
-	Yu Kuai <yukuai@fygo.io>,
-	linux-raid@vger.kernel.org
-Cc: Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Chandradhar Kumar <chandradhar.2003@gmail.com>,
-	syzbot+a32ff75e417c0f49a8e9@syzkaller.appspotmail.com
-Subject: [PATCH] md/raid0: validate device count before allocating devlist
-Date: Sun,  6 Sep 2026 20:09:28 +0530
-Message-ID: <20260906143928.105165-1-chandradhar.2003@gmail.com>
+	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="iM1agAwn"
+Received: from fedora (unknown [69.5.53.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.spacemail.com (Postfix) with ESMTPSA id 4hdCYg3XcBz8sXt;
+	Sun, 06 Sep 2026 14:40:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
+	s=spacemail; t=1788705659;
+	bh=j4yMbUzC3JdQhfwbNkbQdD8PV1ZrYrHZIUWMMMM+we8=;
+	h=From:To:Cc:Subject:Date:From;
+	b=iM1agAwndDus86sCchyIgLCK9fbtXHookdsMXs/FyWf/UuVXihRPpYXpa/K0D7IpZ
+	 pM4ZuuloEIGYPimeRgwWjtU6AXaSBd3SBGcYHvFIRmmwPaoUZ3AcI4zWwjFolA8+aj
+	 cG89hFlO5uEYlXkHDX75Tl5ZXvtMdseMWVXWltX9Ldv/X/F8su0ithbkjWOOJvuUKf
+	 EYQGtnF3e2dsHm3Ga+IDEyRHkSfP7Oa3FLkmmbtU1puSlsvEZAJ+OuszcGqR+uUybM
+	 uKQLRwbKk2/k4urS+eC3sfNL84/atr99fpGHh+CbbJbbxtlFsmPxutT6qiV/39ePn0
+	 VEUsrTT3+GI4A==
+From: Tianyi Chen <hi@tychen.cc>
+To: tj@kernel.org,
+	David Vernet <void@manifault.com>
+Cc: Tianyi Chen <hi@tychen.cc>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Shuah Khan <shuah@kernel.org>,
+	sched-ext@lists.linux.dev,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] selftests/sched_ext: Cover duplicate DSQ creation and ID reuse
+Date: Sun,  6 Sep 2026 22:40:44 +0800
+Message-ID: <20260906144044.849222-1-hi@tychen.cc>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -76,61 +52,105 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Envelope-From: hi@tychen.cc
 
-create_strip_zones() allocates conf->devlist based on mddev->raid_disks
-before verifying that enough devices are present. Validate the number of
-member devices before allocating devlist to reject invalid
-configurations early.
+The create_dsq test creates and destroys queues, but does not check the
+-EEXIST contract for duplicate creation or whether the ID remains
+accessible after the failed operation.
 
-The existing validation later in the function already rejects this
-condition, but it occurs after the potentially excessive allocation.
+Extend the existing lifecycle loop to reject duplicate creation and
+check that the empty queue is still accessible. After destruction,
+require -ENOENT from the queue lookup, then recreate and destroy the
+same ID. Check that all 1024 iterations complete.
 
-Reported-by: syzbot+a32ff75e417c0f49a8e9@syzkaller.appspotmail.com
-Closes: https://syzbot.org/bug?extid=a32ff75e417c0f49a8e9
-Signed-off-by: Chandradhar Kumar <chandradhar.2003@gmail.com>
+This exercises empty queues during initialization, without concurrent
+enqueueing or destruction of a nonempty queue. The create_dsq test
+passes on a two-CPU matching-kernel VM.
+
+Link: https://lore.kernel.org/all/Z-OZ7tJWhRZbUk1l@gpd3/
+Assisted-by: LLM
+Signed-off-by: Tianyi Chen <hi@tychen.cc>
 ---
- drivers/md/raid0.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ .../selftests/sched_ext/create_dsq.bpf.c      | 35 +++++++++++++++++++
+ .../testing/selftests/sched_ext/create_dsq.c  |  4 ++-
+ 2 files changed, 38 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/md/raid0.c b/drivers/md/raid0.c
-index 35e103f0c2c3..586e3411f24c 100644
---- a/drivers/md/raid0.c
-+++ b/drivers/md/raid0.c
-@@ -69,7 +69,7 @@ static int create_strip_zones(struct mddev *mddev, struct r0conf **private_conf)
- 	sector_t curr_zone_end, sectors;
- 	struct md_rdev *smallest, *rdev1, *rdev2, *rdev, **dev;
- 	struct strip_zone *zone;
--	int cnt;
-+	int cnt, nr_devs;
- 	struct r0conf *conf = kzalloc_obj(*conf);
- 	unsigned int blksize = 512;
+diff --git a/tools/testing/selftests/sched_ext/create_dsq.bpf.c b/tools/testing/selftests/sched_ext/create_dsq.bpf.c
+index 2cfc4ffd60e..680cc4b6d8c 100644
+--- a/tools/testing/selftests/sched_ext/create_dsq.bpf.c
++++ b/tools/testing/selftests/sched_ext/create_dsq.bpf.c
+@@ -10,6 +10,8 @@
  
-@@ -79,7 +79,10 @@ static int create_strip_zones(struct mddev *mddev, struct r0conf **private_conf)
- 	*private_conf = ERR_PTR(-ENOMEM);
- 	if (!conf)
- 		return -ENOMEM;
+ char _license[] SEC("license") = "GPL";
+ 
++u32 nr_lifecycle_tests;
 +
-+	nr_devs = 0;
- 	rdev_for_each(rdev1, mddev) {
-+		nr_devs++;
- 		pr_debug("md/raid0:%s: looking at %pg\n",
- 			 mdname(mddev),
- 			 rdev1->bdev);
-@@ -147,6 +150,14 @@ static int create_strip_zones(struct mddev *mddev, struct r0conf **private_conf)
- 	conf->strip_zone = kvzalloc_objs(struct strip_zone, conf->nr_strip_zones);
- 	if (!conf->strip_zone)
- 		goto abort;
+ void BPF_STRUCT_OPS(create_dsq_exit_task, struct task_struct *p,
+ 		    struct scx_exit_task_args *args)
+ {
+@@ -43,7 +45,40 @@ s32 BPF_STRUCT_OPS_SLEEPABLE(create_dsq_init)
+ 	}
+ 
+ 	bpf_for(i, 0, 1024) {
++		err = scx_bpf_create_dsq(i, -1);
++		if (err != -EEXIST) {
++			scx_bpf_error("Duplicate DSQ %d creation returned %d", i, err);
++			return -EINVAL;
++		}
 +
-+	if (nr_devs < mddev->raid_disks) {
-+		pr_warn("md/raid0:%s: too few disks (%d of %d) - aborting!\n",
-+			mdname(mddev), nr_devs, mddev->raid_disks);
-+		err = -EINVAL;
-+		goto abort;
-+	}
++		/* A rejected duplicate must leave the original DSQ accessible. */
++		err = scx_bpf_dsq_nr_queued(i);
++		if (err) {
++			scx_bpf_error("Original DSQ %d queue count is %d", i, err);
++			return -EINVAL;
++		}
 +
- 	conf->devlist = kvzalloc(array3_size(sizeof(struct md_rdev *),
- 					     conf->nr_strip_zones,
- 					     mddev->raid_disks),
++		scx_bpf_destroy_dsq(i);
++		err = scx_bpf_dsq_nr_queued(i);
++		if (err != -ENOENT) {
++			scx_bpf_error("Destroyed DSQ %d queue count is %d", i, err);
++			return -EINVAL;
++		}
++
++		err = scx_bpf_create_dsq(i, -1);
++		if (err) {
++			scx_bpf_error("Failed to recreate DSQ %d: %d", i, err);
++			return err;
++		}
++
++		err = scx_bpf_dsq_nr_queued(i);
++		if (err) {
++			scx_bpf_error("Recreated DSQ %d queue count is %d", i, err);
++			return -EINVAL;
++		}
++
+ 		scx_bpf_destroy_dsq(i);
++		nr_lifecycle_tests++;
+ 	}
+ 
+ 	return 0;
+diff --git a/tools/testing/selftests/sched_ext/create_dsq.c b/tools/testing/selftests/sched_ext/create_dsq.c
+index d67431f57ac..422e6532ee7 100644
+--- a/tools/testing/selftests/sched_ext/create_dsq.c
++++ b/tools/testing/selftests/sched_ext/create_dsq.c
+@@ -37,6 +37,8 @@ static enum scx_test_status run(void *ctx)
+ 
+ 	bpf_link__destroy(link);
+ 
++	SCX_EQ(skel->bss->nr_lifecycle_tests, 1024);
++
+ 	return SCX_TEST_PASS;
+ }
+ 
+@@ -49,7 +51,7 @@ static void cleanup(void *ctx)
+ 
+ struct scx_test create_dsq = {
+ 	.name = "create_dsq",
+-	.description = "Create and destroy a dsq in a loop",
++	.description = "Create, reject duplicates, destroy and recreate DSQs",
+ 	.setup = setup,
+ 	.run = run,
+ 	.cleanup = cleanup,
 -- 
 2.55.0
 
