@@ -1,141 +1,202 @@
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 105B63644A4
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 10:02:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788688979; cv=none; b=Cn5wUrF32W8agId38AcUK66EY5R/hbfH0q8n/VJONqdBWqyK3mJFFzCrCInIkQIIKUgas0ucL86984fBeTy56FS3lixjzJJeHGxA6wAwMnJ/wL2z7+7opriws6diJeDUbY0mGUsx9WActBG/8fouiiQV4p06tjSvHB/0fnNqRRk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788688979; c=relaxed/simple;
-	bh=IC1uCXmtgjcrdcBjucQzryI874h8wBozNrYWy3lJKGY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OmBp+rHoYitZXOoqCeyfx/Levljj+YDDRVX+r7ayGm8FTuymY2Cv8BCamRakU7igAS8ULoylDaX/Dm6dS8GL7TgaTvq5pZHPx5YIpTw3DdrjXFPekK0dGZ9r80ELpy0R1YYHDAp3i9HyDkCJQEV/Ty3XgtGpUlY80gBqs3uRLsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ha71Tm7b; arc=none smtp.client-ip=209.85.167.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA80339399
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 10:06:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788689179; cv=pass; b=UqtG2MHUlq8n6yuhfNOoMwmsf9e26uNyAsfC/Du4j81BjeWtLVsK1gMDnyoJja8BYHiu3RwNYFcWg721tcJroGdhaykSrXrFDpLL+diWVoVd0Mfyxowyu1mIUclZIreL/RZqb8uowKbcKSz4nwFaIUO83ZtHCbaE+AzdDnnuaYY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788689179; c=relaxed/simple;
+	bh=8a2nj5ism2pVax2zk3vSFrEurXZWIpEdcPZTfWHJ5Zo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=o2TlRhgwh9/ufrM7MhMCCmsADHr8hR6KF3TTxjZDN88DGi97R6fTOAZDN4ISZQwgReyODa/gCibb0foqBKtwJrPgndHBQvh+xofHk1ZAb4VJbhQavo27HK5qQpijag2+xrL0P91sQJhWbBwJsHXhfUqQ7aRE2zrGOylLZqV9MAM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PvBEIeea; arc=pass smtp.client-ip=74.125.224.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ha71Tm7b"
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5b01910b499so2251857e87.0
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 03:02:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PvBEIeea"
+Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-66fc2844f0eso2315466d50.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 03:06:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788689177; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NekKXmF1SyiHOF5H6Vnb4HOyHWJtMMCHVQgZsgFC8iTEcLE8lwaFW5i5GOzYFTYbHE
+         ySHoxpsIbRVI2s19yt4DhLju47VyAVRfeU08PO0vLNnvQLwofnnx/kJLLTkVqo0L7/d1
+         jgr/7isN1tg01EY49MusyGxcFXfIYX54/9oH8ak58oDjPQ4uC2eNa8luny40jZILwzXo
+         6kmpsn9nngqlqckOGGKkRDLIjjVvLTX/KxyYMVlhrmT2F79m88yyf8TvIJs03ZjD+B17
+         /7KSRcouSol0H+9f+jEM6/b6nv10MLJVAWu2/ylUHVumU2ffQHFUCk6vItpYYyRWATWR
+         p7xA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=NUDZMLU37XLHOkBGVp205BWGzlrKXxw3l2yxZUP5mzk=;
+        fh=TFwSXzFcnehoUw7vDQ9KRc2ogN0GH9OicLDUOUohpSU=;
+        b=r/h5HEOOtnOAZmQViOcf+E5aC1xkglS0mufhnEgf4cUoWh4A/HSirwb++uoLHbOl5O
+         s4RMRgCCMLCuiR5LXAbTOYEo+kTUBJOuM+jmHLOU57H7D7r83WO8cGCPFT1f5O24a3rJ
+         xYrHNMk1ECvMuoLavpIwf8/SIj1ztxtJgbewJd63Pn05vdUX+7UY1ElfubWX5Fi/Bq31
+         0WjKrVBBqo9IAFxP+hLiLf4RfA9JIj3eXUkMmU58zOOQjbQp7HCEiz8GXyYR+ea2PBZn
+         bOwOYcHYz7kZJ+czE/rNSRyvBOyjc3tCslRaFnHfg01DlDtTGxlI7iKRKdDqF+LR2qAZ
+         WExw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788688976; x=1789293776; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OiR9dFdTiyluo58cBb+DtMhNZ/Aaatk8gf6hWN59PoI=;
-        b=Ha71Tm7bjnwpIzeUJZEVlTdekh4E41/dKZDdyapR1wtad1OOl4747RePRQJRQaly8z
-         0rn8Ja/2tVoaxRmG3TEY4yjM/2Pon2GBAWG/GYky26k2pDEfyDdlmtW2Obz9zNxG3JDn
-         /TL2fXFE2rCBNXEqW70HsHchHTcmm7HpOrOWAWp0X1yyXwYtdLIWStPl70NmBigKxPOG
-         DV0a0Dn34ivkpZb6CNog/zSUq11IX/tzy88aSqRyNx6vrG2vyicMFNTXvyvFZlNeD5D/
-         wRblDpEdWfvtcO5TMx8ag00bmogKMy1PeZNUxPsHwoiBykaxetln10ixL5D4YFsrGprh
-         tvEA==
+        d=gmail.com; s=20251104; t=1788689177; x=1789293977; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NUDZMLU37XLHOkBGVp205BWGzlrKXxw3l2yxZUP5mzk=;
+        b=PvBEIeearfYwFQ5zQRpSxyR7Z+fu6q6sO+rY6F4fdFLCMynO/zBAiE5JbdSkcPgmSy
+         vvfi/DHEIM+cc5P44Dpho7EE1PZGewVNtrcNQn0N6po8jwL6VEio8vKPm0kVfX1jOAKF
+         i13HRkgwRuVyPZ2mOnO+WvtYZmdDFHjwCbYt3uYD9s5CsNUtvD1Trh/RCGtTQhUjK3IW
+         eqV2vj0NmyWmf/zAHNY01O5CD7YfRLr6CY3E1Sz933JYloh1LP6pI0/7DRowHIDAiJl5
+         tFINolo15OMURfPtpWnLEsviaLI5Rzt361bEtcC0/zvezX18Ekl8CoZBMXhAPAS2ZiBZ
+         G8rA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788688976; x=1789293776;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OiR9dFdTiyluo58cBb+DtMhNZ/Aaatk8gf6hWN59PoI=;
-        b=ilcDGmgUMICGm+RAUK0gsIwpi/x8wyPEf5m48BuY4XLI0Cm1Q0NTmgOtzndEFAK1Em
-         TFO5Z1gd35mVAW7IzjqY1yI7zfA9cJNPg8dAyy+lG9O6Ws/6iECFk2plw4ALpXSm38db
-         wa6NA6HgGjSg6s5QZQvuW1yvg3w0NsAmiL9yjUDp1F5ZpAAiKFpaxLrBD+obcnYqmu1O
-         op2o3Dg9Mv2J03dK23tcEkX0zvJKM5qRTtQlZTTDEMtDN8DdkDIjyUhu6PxnB/h2/rld
-         lAv5yJ9lep2Ce/f0H97yOC4bFBkXJMwHaUIfER4KsEd2sAVeE0Kx8Ho8qhMWvQXvj031
-         rb9A==
-X-Forwarded-Encrypted: i=1; AKwUvByTa9wKnoMpn2yt9OFJmTLDxin5loHwHG5x8zRewxin1JV6aft+KB1LDNS78iRYez8kGXJXLKaY2LwOee8=@vger.kernel.org
-X-Gm-Message-State: AFuF++m9Lf8PoOzX70e3e9tCk6/R2h9U5LpVYNMikw2jrlvm0WqxgGfm
-	2vQnrMaXOg1leYLtI8AaiY8e827z3K75+m42jjf7Y6uQv0hzL5iyU3sW
-X-Gm-Gg: AYBFou2MRCSYo3aOhxjxzc/1DWk82+MSGtWGnH66ebQZ1GagqmvgzNkkw2dSEMkoIMn
-	ldKbztyTSt8N3gbuEZ+FEuRvJ1dvmmDODi8QRJXv3GXrk1xPC+BoAXOCfSJyAbNxMtrJhjm7huI
-	QdQfCcDQNynG/uwaPfLMWJqp8thVPaod9WbX4I55UEUprLX149y6Td6b92NTPCDBiueJGhsLOUC
-	NAJzFGQns9+8tC8+bqe1Gau202qP/X33DaRVUJlvfF91cQe9LenfumVhiCXQGYa9EyaBHDwdgOI
-	b/r2qJtRmnMDlYlu325bOl1AFhOWW9x5HeXdflhhPyBe2Z6YOAIoS23CKy3AVor82OHT0Ex7/Au
-	YD8MFznePKH0Lbg48kZZsTY1oSxPlSk03eD+r/VgvbtNYrpiI4nbNeblfRZ2Rq2L7sgPJLge+Cw
-	BwqQIFeZ79F0933L64dGXwvzOeD6rSpMPezKvjY7OpbRfaI5U/TteURMlA70ogk69guDJ7lu46Z
-	EYwzAS8FKL+iyAXlmmK0pcMrR2FELMIXZaa0c0htkGm6hHwy/25+5ANtUI=
-X-Received: by 2002:a05:6512:104f:b0:5b4:a798:2630 with SMTP id 2adb3069b0e04-5b60e6a536bmr3218881e87.3.1788688975659;
-        Sun, 06 Sep 2026 03:02:55 -0700 (PDT)
-Received: from yantra.. (dsl-trebng21-58c187-236.dhcp.inet.fi. [88.193.135.236])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b616700006sm1548665e87.57.2026.09.06.03.02.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 03:02:54 -0700 (PDT)
-From: Rupesh Majhi <zoone.rupert@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Andy Shevchenko <andy@kernel.org>,
-	Bill Wendling <morbo@google.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Eddie James <eajames@linux.ibm.com>,
-	Joel Stanley <joel@jms.id.au>,
-	Justin Stitt <justinstitt@google.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: Re: [PATCH v6 5/6] iio: pressure: dps310: add hardware FIFO support
-Date: Sun,  6 Sep 2026 12:45:04 +0300
-Message-ID: <20260906094622.433243-1-zoone.rupert@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <178813888151.2788519.16547013180884814648.b4-review@b4>
-References: <20260824201203.396651-6-zoone.rupert@gmail.com> <178813888151.2788519.16547013180884814648.b4-review@b4>
+        d=1e100.net; s=20251104; t=1788689177; x=1789293977;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NUDZMLU37XLHOkBGVp205BWGzlrKXxw3l2yxZUP5mzk=;
+        b=aUaOke3u37Q2cZS8uOeTnOkTcYFUY9t1F8gpP1kQHfHjwlQnwkeA3Fv7qvJUnOOOh/
+         30Kwb4S/5DT9zmeq9VCpi+HmiUtZFy3y+h3w4nfDOhtGJmcE3EAgJJAf26wEMiMRIK71
+         hZy4TUrLr41kippPUSrlkJvk17t7gj2UKJWbhC+a8KhkYaLFxROyNspPnSR1tWnC3P05
+         Y1VTN7WtkMMbgjaQfeQK2dlhlWAhMbi4xAiJ9GZf2ffronbQoa+5aXkLNC+gtyanvlO1
+         iYRxGJkP5+k4EeUfbQz1VzIQq0HckqUKlWqCzvLHgZGQ3/TUzV2i4AIy5KBVWiymF6UV
+         EerA==
+X-Forwarded-Encrypted: i=1; AKwUvByPJJfs51LeD2A/wQ5wq+PrmsoSzhL8IQYnMeTrxIvI08sJtH1cTkm6kuK3qiNhtwXrQvps5qlwp3YLZaM=@vger.kernel.org
+X-Gm-Message-State: AFuF++meq23hte7fz2PWOwHFjJpnUGpb/v9Mzprtpswx1LINSlPIExG9
+	3zdydwSukH5+Mz7UxVreGMpYG4gz645YVa+uhuEYZD3X6VSXNzQrZ12QMfwgK/mjVS26r2uck5s
+	R0nOwtS6yE1ps3U10wUZYVvaQel/TCBc=
+X-Gm-Gg: AYBFou0dQ2cpQoPJ5KYp3jW3jB06bd1o4mv4TSn8rt6F+3sE8eLDT7EdeyhOoSFGDEb
+	wlL6hyuQXIzJQXP+iN+WnGzyp3uFVfWeU74d2NWT8jDxhWJEPOhiA6/WT40fYph859na51kyCDk
+	yd0YdlOGEhdWdT8oCVq6JkQbtO0S1vTqylLZh3qBaahmbFhdDcCGse25qe+o4eDjSB25nVm4eEa
+	bRYT67z/3mHOfbu35cXjxCqzWXxpxGNTrW/u5N8Qqy9XRVZTAldRv7QAXm2EXlS0k712KpF+Vp3
+	fsaIngMIkTvT4gCIDF1gMuR/ZNUaetez/TW4R0BeWN3jGe/7eug9Sxyrsgq01XrBbEdYIEXgdaP
+	QQ9ml41S4PLCzlwB0NRc/dWLE3vhuciA2boPutM91Yf+JeDonqWoYB3L/aWwQHiY83JAI2f3CrY
+	/GoBH7YZLq
+X-Received: by 2002:a05:690c:e693:b0:80d:f376:5ba9 with SMTP id
+ 00721157ae682-87127656993mr46931887b3.24.1788689176856; Sun, 06 Sep 2026
+ 03:06:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260905013404.2712866-1-danesh.petigara@broadcom.com>
+In-Reply-To: <20260905013404.2712866-1-danesh.petigara@broadcom.com>
+From: Jonas Gorski <jonas.gorski@gmail.com>
+Date: Sun, 6 Sep 2026 12:06:05 +0200
+X-Gm-Features: AcwNN1VW01k9UPlF2rgBbT3sZ1KrZVqsfWM92xFXCf1YwwGiT4ONQM9vjjTKilU
+Message-ID: <CAOiHx=mhb64eSKVy-HH+dY=F-+1TkGmJOQcUg9UAfwKRNqO7Ww@mail.gmail.com>
+Subject: Re: [PATCH net] net: dsa: bcm_sf2_cfp: fix NULL deref when port_num
+ is out of bounds
+To: Danesh Petigara <danesh.petigara@broadcom.com>
+Cc: florian.fainelli@broadcom.com, andrew@lunn.ch, olteanv@gmail.com, 
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+	vivien.didelot@gmail.com, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Justin Chen <justin.chen@broadcom.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 31 Aug 2026 02:14:41 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
+Hi,
 
-> Dropping data rather defeats the point of the fifo.  Can we avoid it
-> by holding them locally until we will definitely have seen a useable
-> temperature?
+On Sat, Sep 5, 2026 at 3:34=E2=80=AFAM Danesh Petigara
+<danesh.petigara@broadcom.com> wrote:
+>
+> From: Justin Chen <justin.chen@broadcom.com>
+>
+> bcm_sf2_cfp_rule_insert() validates port_num against
+> priv->hw_params.num_ports, but the bounds check was placed after the
+> calls to dsa_is_user_port() and dsa_is_cpu_port():
+>
+>     if (ring_cookie =3D=3D RX_CLS_FLOW_DISC ||
+>         !(dsa_is_user_port(ds, port_num) ||
+>           dsa_is_cpu_port(ds, port_num)) ||
+>         port_num >=3D priv->hw_params.num_ports)
+>
+> Both helpers call dsa_to_port(), which iterates the port list and
+> returns NULL if no entry matches.  With a user-supplied ring_cookie
+> large enough to produce an out-of-bounds port_num, dsa_to_port()
+> returns NULL and the immediate ->type dereference faults.
+>
+> Move the bounds check first so dsa_is_user_port()/dsa_is_cpu_port()
+> are never reached with an invalid port_num.
 
-The temperature is dropped too. dps310_fifo_drain() sets fifo_temp_valid
-only in its second pass but returns at "if (!scans)" first, and FIFO reads
-are destructive, so a batch that pushes nothing loses the temperature it
-read. With pressure enabled, only a batch holding one ahead of a pressure
-entry gets through.
+While in isolation this makes sense, AFAICT the only possible call
+trace here is:
 
-DPS310 on a BeagleBone Black, pressure only, 32 Hz and 1 Hz, 3 s per trial:
+dsa_user_set_rxnfc(...)
+{
+        struct dsa_port *dp =3D dsa_user_to_port(dev);
+        struct dsa_switch *ds =3D dp->ds;
 
-  watermark 1  (31 ms drain):   4 of 6 enables produced nothing
-  watermark 32 (484 ms drain):  0 of 6
+        ...
 
-Other runs gave 3 of 8 and 3 of 6. Silent, nothing in dmesg.
+        return ds->ops->set_rxnfc(ds, dp->index, nfc);
+}
 
-Seeding instead of holding, one temperature read in postenable, fixes it:
-0 of 16. But TMP_RDY is cleared on read, so after a sysfs read the seed
-waits for the next conversion. Buffer enable took:
+int bcm_sf2_set_rxnfc(.. ,int port, ...)
+{
+        ...
+               ret =3D bcm_sf2_cfp_rule_set(ds, port, &nfc->fs);
+        ...
+}
 
-  temp 1 Hz:   661, 781, 802 ms
-  temp 32 Hz:  148, 151, 151 ms   (period is 31 ms, so this is the floor)
+static int bcm_sf2_cfp_rule_set(...)
+{
+        ...
+        ret =3D bcm_sf2_cfp_rule_cmp(priv, port, fs);
+}
 
-Timeout is 1000000/rate, and on timeout dps310_ready() reinits, putting
-PRS_CFG and TMP_CFG back to defaults. Not something I want in a buffer
-enable.
+Since the port is dp->index from the dsa_port from
+dsa_user_to_port(dev), AFAICT it is guaranteed that dsa_to_port(ds,
+port) will be non-NULL (else the user port's dsa_port::index would not
+the user port's index, which would mean the data got corrupted
+somehow).
 
-Hold across batches as you suggested, since a 31 ms batch usually has no
-temperature in it at all, or a non-blocking dps310_refresh_temp_locked()
-seed plus a validity flag?
+Also seeing how ds_user_set_rxnfc() is
+dsa_user_ethtool_ops::set_rxnfc(), I don't see how port could ever be
+anything other than a user port, but maybe I am overlooking some code
+path where it can be called for a CPU port.
 
-> For initial patch just reject starting the buffer if timestamps are
-> set to be captured.
+The check for hw_params.num_ports is sort of valid though, AFAICT sf2
+doesn't ensure that the device tree registered ports are within
+hw_params::num_ports, though I would also assume it would break at
+other places in that scenario. Maybe we should just ensure at
+registration time this is the case so we can just drop the check here?
 
-No sanctioned way that I can find. buffer->scan_timestamp is private and
-kept out of the scan mask: active_scan_mask reads 2 with in_timestamp_en
-set, and validate_scan_mask() sees the same. indio_dev->scan_timestamp is
-reachable and iio_enable_buffers() sets it before postenable:
+Best regards,
+Jonas
 
-	if (ACCESS_PRIVATE(iio, scan_timestamp))
-		return -EINVAL;
-
-but it is __private, used only there and in
-iio_push_to_buffers_with_timestamp(). That, a helper, or drop the soft
-timestamp channel for now? Triggered-path timestamps are real, so I would
-rather keep those.
-
-Rupesh
+> Fixes: 4a5b85ffe2a0 ("net: dsa: use dsa_is_user_port everywhere")
+> Signed-off-by: Justin Chen <justin.chen@broadcom.com>
+> Assisted-by: Claude:claude-sonnet-4-6 vscode
+> Signed-off-by: Danesh Petigara <danesh.petigara@broadcom.com>
+> ---
+>  drivers/net/dsa/bcm_sf2_cfp.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/net/dsa/bcm_sf2_cfp.c b/drivers/net/dsa/bcm_sf2_cfp.=
+c
+> index 84a086c3e99b..6ac5cf154f31 100644
+> --- a/drivers/net/dsa/bcm_sf2_cfp.c
+> +++ b/drivers/net/dsa/bcm_sf2_cfp.c
+> @@ -867,9 +867,9 @@ static int bcm_sf2_cfp_rule_insert(struct dsa_switch =
+*ds, int port,
+>         port_num =3D ring_cookie / SF2_NUM_EGRESS_QUEUES;
+>
+>         if (ring_cookie =3D=3D RX_CLS_FLOW_DISC ||
+> +           port_num >=3D priv->hw_params.num_ports ||
+>             !(dsa_is_user_port(ds, port_num) ||
+> -             dsa_is_cpu_port(ds, port_num)) ||
+> -           port_num >=3D priv->hw_params.num_ports)
+> +             dsa_is_cpu_port(ds, port_num)))
+>                 return -EINVAL;
+>
+>         /* If the rule is matching a particular VLAN, make sure that we h=
+onor
+> --
+> 2.54.0
+>
