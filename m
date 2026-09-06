@@ -1,144 +1,92 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E65FA327BFC
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 02:13:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA4F30C165
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 02:14:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788660840; cv=none; b=sBeMvlcqfPIk9N4f22nvjRwt1IDK0PTW6Ji07Hs5RPCFrUZD7ggNpMqfPxlI5bV3JGAlo+62JjIJsWLI8wcztqzW0sqnp4fSVRtfcszlEG5d2rNTKMo8svrkG7ZZBbuP781T7NFaEYGX+I2gc5Eg51U5LoYH1D4yrZ7Q+z+mqys=
+	t=1788660866; cv=none; b=qLrNhJTjvopiz6uLH8Wy78dpQUs6Gb0XVxp8KdFJFVPvaibg4eeV8zcdjyIGA33sAgPDCyo4faG4uJcF5f0o5vvzoV289+dHqaTiEMYJ2fqNdw7puYpagsWBrRsteGSM169v/EVtK87iB5+rXU8mHYm5cJ/18cBwqhTrCs2ytrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788660840; c=relaxed/simple;
-	bh=PA+s3kQb13WtGZurP+OFfhZZHb7A3tUCZDFqaBMBsjs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BqKWceQ0uqR8jc7kNjeyj7bRTFN2R9Zm8B7WoM+2prWK0pstLTYAoagko59vTtXsLrYtLKSmTY8GHOottBxgGnyMmXbe1BD9ZRLukPIF46v+OeCr6wsHFdj8vBphvPRNlM9CvbgJd8HKBYPIkacV/n/5Ps7VfAYpLFtjwEY5BdA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sBRTfh4N; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788660866; c=relaxed/simple;
+	bh=9gQjVJRbTgwxlXfOTVQkrA5H4QMMlR1N+2aHi/j0oN8=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=swrIzMaGmhOvTaJKErBn9oF2iy8iPjvrJ3plItPY9MZyPfSYw33xALBFrPvCCSbXaUsLPJnvMcOWUDBPXcBoMgmIfVB8vrF2FPhlzzJ8ZMnbBIV+Tsz3y6C0WWlBUxHJEMAav9+BN+QQN+kcLgEWSzgbFtyHyupiVjUwHRWtIB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=eA+88O7z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sBRTfh4N"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-398c1101c1bso2245547a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 19:13:54 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="eA+88O7z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5703D1F00A3A;
+	Sun,  6 Sep 2026 02:14:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788660831; x=1789265631; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xCPt6KzynG3w/MC2ejZoHvPP32P/rZdibGGUikeOpow=;
-        b=sBRTfh4NCsJJM7PssM7z9uxLR8PPo21QtUalkkGh2PJrLOwfUiNCO7AmxuGYNC6jg8
-         3wigFZHIvA21n5KDJAQxiLmpNbMV8HXe9k8lVysWHZAFMz4q6TqyKjuMwPERH9esvu1f
-         VRfOXBD9zUBlzTfAgRWdUAi9ZhLYXeVX6CR+2hEci8qTrngkpEiATpw7cyF5ww2xKJNL
-         //YAA0utMbHx77VRjxJRX2gv5lPGJvcm958hPwFYs/nwYXONkAzjYGI/T3yGlL4rO9/u
-         YPFGzs5BNqp/vY4wqUqfMJwPCKs8eOO3Rx8RWkbCU32uTWRzLMjAzN/HiezvmH0fVg4x
-         zubA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788660831; x=1789265631;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xCPt6KzynG3w/MC2ejZoHvPP32P/rZdibGGUikeOpow=;
-        b=PgTSZmlGjfybI6kz2Ox13PFHMi/tPa+fazfFY2vCIwC3XXzJuRIn5kXhnx6jKoXHlV
-         mK/FfTcXcf94Kh2uQNr0LPox/SBJIr8XphfY4OC+50yADOxqjQK4Kgdj/M2UsVdck+J6
-         fWbK5Kb6zWLW2kcvAIHdGfdnbD5Coy4fQdstqMvuexham6/KyXgKDpQk4MnlLCplZQhb
-         OvrDNm2siSCXnJI6jloCT36SBvfgr1QSem5ZiuqweNYbaxnG3Mkoz1IXUX5/9TNAEqMl
-         9W0YsUlpsfrjIo6gxii/SOThdkF1ZFxXx6ZiAgeHbE3SdH/EVWxD7PZVGoV6mKtmramR
-         KHNg==
-X-Forwarded-Encrypted: i=1; AKwUvBwgvGZVpO+i42ux2/t8MJFEUvcyYJn4kH74QTrIXHSZt6hvYFl9bosgY5NiclFT84NQRlxkew1jVy7doms=@vger.kernel.org
-X-Gm-Message-State: AFuF++lVZngEdqVQj6hTSMidqv+p9TzGmbtmaXPbnBZ3E20vVOsgYkOO
-	5e7MPjUXcTxvpODrEP9w00WlD7J5YYeo6C+BR7g0aFqzH1YUny6MPcRoqYKDCw==
-X-Gm-Gg: AYBFou2L8wM8U2729FiUTcMzfveOjyMNMaYWQD35MKXADmiRb/bklnPQ/T4DApm00SD
-	K2RIJyILiy/bTqjj7RZ+W5I1av7X5pvL13K7TdSf9tWiW2NpEuCp2pxusllJgIcvRHnndw/a1vH
-	M9q7gWWjpLdklW/wCzOAHAqwaCith+RMTzsfvLuzgTFAkqhDhPSA4t+2Fns81zPVHV+/LjaKBed
-	3Sn1jBnKHq3iCLVuVEvpDTJw/G1qeGMZcpcFcu4AlAN0HWK5A/vg4r+gf7xQdbIFHW0nEWGLv7g
-	mxQE/201sImp14WtPX8XPjRscdFN5ROCPo3PiYZ9DpU7CpAmjyA8hyDwAi+3/gmmjL7eL8Twccz
-	0Kmmzx97qYZzlbD6gsKIBLN/BhrxSeBCz7VerJr6TDK2pUPEB8mAo1jUlzIjyUToX9DsfggTt/a
-	acia6KoI97ilED5OFzRof8VuGCVd1KY9mjrVqxl3hq/mUozW+KdSqdrsZDO0mU9ix6+b9l6Dnt4
-	rwZ/q/O9OZ+Ya0weEtlyqu2Ibsxbvp3PdgWm/rFmyioXOw4b9gXUNN5KL0EugxhmjeyMIhKfOlO
-	s4/JJmiPvmGBK6GHb2gjSf+B
-X-Received: by 2002:a17:90a:d2c6:b0:395:4de4:92c7 with SMTP id 98e67ed59e1d1-39b260d2f07mr23930878a91.3.1788660830982;
-        Sat, 05 Sep 2026 19:13:50 -0700 (PDT)
-Received: from rikka.tailabced6.ts.net ([240b:10:ff82:b100:8ce2:c181:4224:d11d])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c3a526sm18520491a91.10.2026.09.05.19.13.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 19:13:50 -0700 (PDT)
-From: wakasio <scarabeeta@gmail.com>
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: Mathias Nyman <mathias.nyman@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: xhci_hcd / ASMedia ASM4242: Bulk-OUT -EPROTO with Logitec 0789:0308 during DVD+RW recording
-Date: Sun,  6 Sep 2026 11:13:45 +0900
-Message-ID: <20260906021345.10436-1-scarabeeta@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260905234752.1f0c9c83.michal.pecio@gmail.com>
-References: <20260905234752.1f0c9c83.michal.pecio@gmail.com>
+	d=linux-foundation.org; s=korg; t=1788660852;
+	bh=iBVmMByjyHp6VlIwj9J/ij88d3KquToqgtFFGZp/q6Y=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=eA+88O7zn4YveFaFuN8ewh0xVk7At7ZsZWYf+LFI80cY/PwDOukQU2+XNFVJfyXJ6
+	 eeT90iJxuHy/c6Cn/oZYAz2fRQeNxNOB3F+mYTs8sqAvDw0//7Q7Kz+3N9OEXU2oWI
+	 12f+qQW1/ZR+4KM5z+cvXoOb/Fa4h+nPARH/O9b0=
+Date: Sat, 5 Sep 2026 19:14:11 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "Li Zhe" <lizhe.67@bytedance.com>
+Cc: <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+ <dave.hansen@linux.intel.com>, <hpa@zytor.com>, <x86@kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] x86/lib: make clean_cache_range() zero-size safe
+Message-Id: <20260905191411.9d29b6733b31491555565ff7@linux-foundation.org>
+In-Reply-To: <1e72a5a1-2534-4016-a311-9c66ddd05941@bytedance.com>
+References: <20260903071125.1946-1-lizhe.67@bytedance.com>
+	<20260903092906.764a9098663aaae3e4e8fa48@linux-foundation.org>
+	<1e72a5a1-2534-4016-a311-9c66ddd05941@bytedance.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Michal,
+On Fri, 4 Sep 2026 15:54:08 +0800 "Li Zhe" <lizhe.67@bytedance.com> wrote:
 
-I applied the second patch on top of the first one and reproduced the
-failure again with the same three debug functions enabled.
+> On 9/4/26 12:29 AM, Andrew Morton wrote:
+> > On Thu,  3 Sep 2026 15:11:25 +0800 "Li Zhe" <lizhe.67@bytedance.com> wrote:
+> >
+> >> clean_cache_range() writes back each cache line in the range
+> >> [addr, addr + size). A zero-size range is empty and should not perform
+> >> any cache maintenance operation.
+> >>
+> >> As pointed out by Sashiko [1], clean_cache_range(addr, 0) currently can
+> >> still execute one CLWB when addr is not cache-line aligned. With size 0,
+> >> vend is equal to addr. However, the loop starts from the
+> >> cacheline-aligned address containing addr. If addr is not cacheline
+> >> aligned, that rounded-down start is below vend, so the loop can execute
+> >> one CLWB even though the requested range is empty.
+> >>
+> >> That gives zero-size callers observable side effects. For example,
+> >> arch_wb_cache_pmem(addr, 0) should not write back any cache line, and
+> >> memcpy_flushcache(dst, src, 0) should preserve the usual zero-length
+> >> copy semantics. If the rounded-down line is not mapped, the stray CLWB
+> >> can also fault.
+> >>
+> >> Return immediately from clean_cache_range() for size 0.
+> > Thanks.  Sashiko might have found a few similar issues in there:
+> > 	https://sashiko.dev/#/patchset/20260903071125.1946-1-lizhe.67@bytedance.com
+> Thanks for pointing this out.
+> 
+> I had a quick look. These comments appear to point at related
+> pre-existing corner cases in cache flush helpers, and one of them also
+> touches the DRM cache flushing helper. They are independent from the
+> specific clean_cache_range() issue fixed by this patch.
 
-Cluster 1 (ep 2, start of write, unrelated): same as before, 4
-Stall/Hard-reset pairs within about 177 ms.
+Yup.
 
-Cluster 2 (ep 3, the real failure):
+> Would it make sense to keep this patch focused on clean_cache_range() for
+> now, 
 
-  11:07:56.930732 Transfer error, ep 3, at ffffccbbc21f1540, resid 23552
-  11:07:56.931126 Soft-reset ep 3
-  11:07:56.939018 Transfer error, ep 3, at ffffccbbc21f1540, resid 23552
-  11:07:56.939183 Soft-reset ep 3
-  11:07:56.947399 Transfer error, ep 3, at ffffccbbc21f1540, resid 23552
-  11:07:56.947686 Soft-reset ep 3
-  11:07:56.955772 Transfer error, ep 3, at ffffccbbc21f1540, resid 23552
-  11:07:56.955939 Soft-reset ep 3
-  11:07:56.964233 Transfer error, ep 3, at ffffccbbc21f1540, resid 23552
-  11:07:56.964395 Soft-reset ep 3
-  11:07:56.972881 Transfer error, ep 3, at ffffccbbc21f1540, resid 23552
-  11:07:56.973060 Soft-reset ep 3
-  11:07:56.981806 Transfer error, ep 3, at ffffccbbc21f1540, resid 23552
-  11:07:56.981975 Soft-reset ep 3
-  11:07:56.991162 Transfer error, ep 3, at ffffccbbc21f1540, resid 23552
-  11:07:56.991324 Soft-reset ep 3
-  11:07:57.002050 Transfer error, ep 3, at ffffccbbc21f1540, resid 23552
-  11:07:57.002211 Soft-reset ep 3
-  11:07:57.015466 Transfer error, ep 3, at ffffccbbc21f1540, resid 23552
-  11:07:57.015576 Soft-reset ep 3
-  11:07:57.034026 Transfer error, ep 3, at ffffccbbc21f1540, resid 23552
-  11:07:57.034195 Soft-reset ep 3
-  11:07:57.041915 Transfer error, ep 3, at ffffccbbc21f1540, resid 23552
-  11:07:57.042019 Hard-reset ep 3
-  11:07:57.162742 usb 6-1: reset SuperSpeed USB device number 2
-  11:07:57.176799 Stopped on No-op or Link TRB, slot 1 ep 2
-  11:07:57.679888 clear err_count at ffffccbbc21e9000
+I think so.  You're under no obligation to fix any Sashiko bugs!  But I
+do like to point these things out because you might consider them
+relevant to the patch under discussion.  
 
-Same pattern as before. 11 soft-resets, all at the same TRB address
-and the same resid, then a hard-reset on the 12th. A different TRB
-address cleared err_count about 0.5 seconds after the port reset.
+> and handle any additional cases separately if maintainers think they
+> should be fixed as well?
 
-The second patch did not change the pattern. This run failed at about
-187 MB into the write, the furthest one so far, but I do not know if
-that means anything given how much the failure point already varies
-between runs (0.35 MB to 103 MB before this).
-
-One more thing, separate from this test. On this kernel, about a
-minute after boot, the ASM4242 controller itself hit this:
-
-  xhci_hcd 0000:77:00.0: Clearing Run/Stop bit failed -110
-  xhci_hcd 0000:77:00.0: PM: suspend_common(): xhci_pci_suspend returns -110
-  xhci_hcd 0000:77:00.0: can't suspend (hcd_pci_runtime_suspend returned -110)
-
-This happened once, during runtime PM autosuspend, before I started
-the burn test. After that the whole controller stopped responding
-until I rebooted. I do not know if it is related to the DVD+RW issue
-or a separate ASM4242 problem. I am mentioning it in case it is
-useful. I have not tried to reproduce it on purpose yet.
-
-Thanks,
-wakasio
+That's up to the x86 team.
