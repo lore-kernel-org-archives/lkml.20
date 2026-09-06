@@ -1,175 +1,154 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D2CA3C1D73;
-	Sun,  6 Sep 2026 10:45:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54CBC262FC1
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 10:47:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788691522; cv=none; b=SfVUWXUGqJyIFtpkYeGEuuZSqBIpgfi7a0e7M12I9MuDNGewfmo41C1p+mK3WievKofaR6FH9BmMMFJIpEs1Z+lyb7U3usGXLCl/naIeGz0+y5LwJAHvGd2uN9MpMTmqHIklX674tCO/Zq5AeWFkWs1dscc9H7M/f1C7ie9M6xU=
+	t=1788691655; cv=none; b=aYXHmuI3ldhb7ZUVnFNTn8GkjjbAGpV8p4YL73IobTUK0fzBDRHy5NElpODowQE9LQwIIPfCuJDon36f+znJnMTsi0rMJWc2U1v7jAcxts0+jhb0HR3pyAUSY4iTCZZVFsMgGXRtQW0a/oA4upMxSGoVVFiY1nC8W6RJK6+zHkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788691522; c=relaxed/simple;
-	bh=v/noHguVJ77dc/ycrCbGgQ6qgmtGDRgf2gscj/IIKWU=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=J79uDTBqVktaxCFsfML8aRi2T6Db3zsjAN0Jg1rG4eKUP/efIMOT/2nvU7kmCblHYf1ULi43haXDKBqYCAQexYBLtKkR57REor+uHfrIx9Ht6iSIj/8DtzUWmcXFA2cpkhXGN8Tak2YzylpZExkPNDwIljbiRCPsiKDwuPjPs+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=b4W4fRQS; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=bpH/1oEV; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1788691655; c=relaxed/simple;
+	bh=Z1V158ciQBWUMoo4Ct/raAOGmMi4iqfFDLfEv9luAN0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qgynig3tOXvIqbt/PYm6V2iH6OpV4J04Cp0xdooo1PatK+tOcsaW6h1rwYQIgXZZkTaA3b1U/Y93lswwJOjGWFGXqk5imMf/HGqpxGXQH1wajbTzoKWh6VXP/XYpBYaMzB2uiCwDIxQYHFpfDfCYTpAQLGS4wXnjusFmoCvaAJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kPTf9X6D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="b4W4fRQS";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="bpH/1oEV"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1788691490; bh=PMnH6FCBZHoFqvsVuGs8J2Z
-	WYfUE+eIkvUD0aBlIEgs=; b=b4W4fRQSkApp9S+BYtz7P9HQN5t0XLOXN0tkLJuX6ACwFdF7fo
-	nVp6ot+niKlYFw9W+bnYdqQ/bpIiF2it1VqZWx5RkYeyKt1PjpIKNU9+g9Um+qWpQkBJRH4/MWp
-	8R+GLGI+1LZGgJOZJRSFPUUXRn+WKrq3DWD/E26RXELxWGJRwXF/AJgksyKvC9hIDLOGphq03XF
-	jUtlsKF50s1J5hSVC46I/c4AD525lMrgQewpwn6mbK9Nzz3czBg48co6fz7bhjuaPo+z8hYIhSc
-	P7ZPDUsal9yDWua+HQaMBtiUAV7x/pXSrtykJa2iTpOFsx83zK2Fjjy5fxynic9uJoQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1788691490; bh=PMnH6FCBZHoFqvsVuGs8J2Z
-	WYfUE+eIkvUD0aBlIEgs=; b=bpH/1oEV7J4I75wamMPY+iLcmbzX+xqR8LlhIXzY3eIwTAtsO/
-	VrDLIZmbJX6E5nc9IEl7waqV542NDxIMD0Bg==;
-Date: Sun, 06 Sep 2026 11:44:48 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: paulmck@kernel.org, "Paul E. McKenney" <paulmck@kernel.org>
-CC: boqun@kernel.org, frederic@kernel.org, include@grrlz.net,
- jiangshanlai@gmail.com, joelagnelf@nvidia.com, josh@joshtriplett.org,
- linux-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com,
- neeraj.upadhyay@kernel.org, qiang.zhang@linux.dev, rcu@vger.kernel.org,
- rostedt@goodmis.org, urezki@gmail.com
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_hazptrtorture=3A_Fix_inverte?=
- =?US-ASCII?Q?d_sleep_condition_in_do=5Fpending_kthread?=
-In-Reply-To: <34021ed4-1a18-4cb6-8027-a8c919086ec0@paulmck-laptop>
-References: <ed125668-a77a-41b6-9d56-46ac93a5d69c@paulmck-laptop> <9D2DEA27-B3D1-4A8B-BA57-2F5EAC920C1D@mainlining.org> <b1abee12-5a3a-4750-be37-a3157c7e2217@paulmck-laptop> <AF26CA5B-6766-4682-A6A4-61F14F8B81F0@mainlining.org> <34021ed4-1a18-4cb6-8027-a8c919086ec0@paulmck-laptop>
-Message-ID: <09BD5394-BF9D-46AF-BED3-CF16B7667716@mainlining.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kPTf9X6D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E62E81F00A3A;
+	Sun,  6 Sep 2026 10:47:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788691653;
+	bh=W6DNGqDYfT3d8o6uHJqWVZo4/oRgPdSR1cxwF3mU6L4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kPTf9X6DCXVGxujdL6WGrcgDganHIgiyQ9VBs+LBDov8fdt4oMm5QEcC94AO24BYc
+	 TkkmPvx8FbDlhKTM6cspMGdzaoKTbNDizMXQFr2Ou+agCaepmZ498pKLqlNoto3itn
+	 quYCQ6taSHLzKo3HO4C30x8EOugzHLGsst1sBQBoecwdIe6WN7ivDDl+TfjUhlVxxN
+	 y1tR2o0H7eQnDNUnFFgerBVzhIzOm92pIl3LFErLMVMRM1LjWpCFmUOwYTk0sgiYYt
+	 0/uqFL4lj269UqdlzS9uR2f9+KxXdifPrgtFTgHRtEyjQg3ZdZnZ+uCbWT4hVa+u5J
+	 zZG0AXACyM3pA==
+Date: Sun, 6 Sep 2026 13:47:24 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Pratyush Yadav <pratyush@kernel.org>
+Cc: Sourabh Jain <sourabhjain@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
+	Aditya Gupta <adityag@linux.ibm.com>,
+	Alexander Graf <graf@amazon.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Baoquan He <baoquan.he@linux.dev>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Hari Bathini <hbathini@linux.ibm.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Mahesh Salgaonkar <mahesh@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shivang Upadhyay <shivangu@linux.ibm.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>, kexec@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Tarun Sahu <tarunsahu@google.com>
+Subject: Re: [RFC PATCH 2/3] powerpc: add support for Kexec HandOver (KHO)
+Message-ID: <ap1EvH00nKze9Kj4@kernel.org>
+References: <20260821105609.983622-1-sourabhjain@linux.ibm.com>
+ <20260821105609.983622-3-sourabhjain@linux.ibm.com>
+ <2vxza4qfznyo.fsf@kernel.org>
+ <7bb84b8a-c394-4895-9e22-632dc506cbb6@linux.ibm.com>
+ <2vxz5x0ox7p9.fsf@kernel.org>
+ <8fa790a7-f387-48f6-ac76-11cf71ef5589@linux.ibm.com>
+ <2vxzwlt1vvet.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2vxzwlt1vvet.fsf@kernel.org>
 
-On 5 September 2026 23:54:38 BST, "Paul E. McKenney" <paulmck@kernel.org>
-wrote:
->On Sat, Sep 05, 2026 at 10:08:30PM +0100, Bradley Morgan wrote:
->> On 5 September 2026 21:40:28 BST, "Paul E. McKenney"
-><paulmck@kernel.org>
->> wrote:
->> >On Fri, Sep 04, 2026 at 06:28:45PM +0100, Bradley Morgan wrote:
->> >> On 4 September 2026 17:00:22 BST, "Paul E. McKenney"
->> ><paulmck@kernel.org>
->> >> wrote:
->> >> >On Fri, Sep 04, 2026 at 09:01:05AM -0400, Mathieu Desnoyers wrote:
->> >> >> On 2026-08-03 20:03, Bradley Morgan wrote:
->> >> >> > The do_pending kthread never sleeps. Its supposed to.
->> >> >> > kthread_do_pending_ms sets the gap between cleanups, and the
->docs
->> >> >> > say so too. But the sleep sits behind torture_must_stop(), and
->> >thats
->> >> >> > false while the test runs. So the kthread never sleeps. It just
->> >loops.
->> >> >> > It drains the pending lists over and over, no pause, and burns a
->> >full
->> >> >> > CPU for the whole test.
->> >> >> 
->> >> >> Paul, I just found this patch in my junk email folder. Maybe
->relevant
->> >> >> for you ?
->> >> >
->> >> >We got it in my -rcu tree:
->> >> >
->> >> >15b9fca2f5ce ("hazptrtorture: Fix inverted sleep condition in
->> >do_pending
->> >> >kthread")
->> >> >
->> >> >But I do appreciate your checking for missed patches, thank you!
->> >> >
->> >> >							Thanx, Paul
->> >> >
->> >> >> Thanks,
->> >> >> 
->> >> >> Mathieu
->> >> >> 
->> >> >> > 
->> >> >> > Flip the check. With !torture_must_stop() it sleeps for
->> >> >> > kthread_do_pending_ms between passes. When the test stops it
->does
->> >one
->> >> >> > last cleanup and exits. Nothing left to do, so no sleep needed
->> >then.
->> >> >> > 
->> >> >> > Fixes: 94d2e93c222e ("hazptrtorture: Add kthread to release
->> >deferred
->> >> >hazard pointers")
->> >> >> > Signed-off-by: Bradley Morgan <include@grrlz.net>
->> >> >> > ---
->> >> >> >   kernel/rcu/hazptrtorture.c | 2 +-
->> >> >> >   1 file changed, 1 insertion(+), 1 deletion(-)
->> >> >> > 
->> >> >> > diff --git a/kernel/rcu/hazptrtorture.c
->> >b/kernel/rcu/hazptrtorture.c
->> >> >> > index 72aeb50668e9..7c8b5899fb01 100644
->> >> >> > --- a/kernel/rcu/hazptrtorture.c
->> >> >> > +++ b/kernel/rcu/hazptrtorture.c
->> >> >> > @@ -555,7 +555,7 @@ static int hazptr_torture_do_pending(void
->*arg)
->> >> >> >   			cpu = cpumask_next_wrap(cpu, cpu_possible_mask);
->> >> >> >   			hazptr_torture_do_one_pending(cpu, &rand);
->> >> >> >   		}
->> >> >> > -		if (torture_must_stop())
->> >> >> > +		if (!torture_must_stop())
->> >> >> >   			torture_hrtimeout_ms(kthread_do_pending_ms, USEC_PER_MSEC, &rand);
->> >> >> >   		// Omit stutter_wait() because this function needs to do cleanup.
->> >> >> >   	} while (!torture_must_stop());
->> >> >> 
->> >> >> 
->> >> >> -- 
->> >> >> Mathieu Desnoyers
->> >> >> EfficiOS Inc.
->> >> >> https://www.efficios.com
->> >> >
->> >> >
->> >> Hi, new email.
->> >> 
->> >> Could I ask where the heck hazptr is? Its not in next, would you
->like,
->> >> help???
->> >> 
->> >> --- Thanks!
->> >>
->>
->>https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
->> >
->> >It is still in my -rcu tree.
->> >
->> >I would not say "no" to a fix for this issue:
->> >
->>
->>https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
->> >
->> >Once that is in place, I would be happy to put this back into -next.
->> >
->> >At some point, we will need to get rid of the concept of wildcard
->hazard
->> >pointers, as those end up instead emulating RCU, but I don't see that
->> >as an immediate obstacle.
->> 
->> Well, okay, tell me more and I'll develop it.
->
->I must confess that I have not looked much into that bug report, so I
->don't have much more to tell.
+On Fri, Sep 04, 2026 at 06:22:18PM +0200, Pratyush Yadav wrote:
+> On Fri, Sep 04 2026, Sourabh Jain wrote:
+> > On 02/09/26 16:04, Pratyush Yadav wrote:
+> >> On Sun, Aug 23 2026, Sourabh Jain wrote:
+> >>
+> >>> On 21/08/26 17:26, Pratyush Yadav wrote:
+> >>>> On Fri, Aug 21 2026, Sourabh Jain wrote:
+> [...]
+> >>> I agree that this is one way to work around the low-memory reservation problem.
+> >>> However, there are a few things that come into play here:
+> >>>
+> >>> 1. On powerpc, the crashkernel reservation can go up to 64 GB for kdump. With
+> >>> the
+> >>>     current default scratch memory reservation policy, this could result in
+> >>> reserving
+> >>>     up to 256 GB of scratch memory: 200% for the high-memory reservation and
+> >>> another
+> >>>     200% for per-node memory.
+> >> That calculation looks off. It _should_ be 200% once not twice. So 128
+> >> GB total. If the allocation came out via the global area, it should
+> >> _only_ be accounted to the global scratch size. Similarly, only the
+> >> allocations made specifically on that node should be counted for the
+> >> per-node scratch size.
+> >
+> > For example, if a system has only one node and 64 GB is allocated from
+> > that node before the kernel starts calculating the per-node and global
+> > allocations for scratch memory, wouldn't the per-node allocation also be 64 GB?
+> >
+> > If so, wouldn't that result in 200% of 64 GB being allocated for the global
+> > area and another 200% of 64 GB for the per-node area, resulting in 256 GB
+> > of total scratch memory allocation? Or am I missing something here?
+> 
+> It shouldn't. If the 64 GB of allocation was done with NUMA_NO_NODE, and
+> it _happened_ to land on node X, it should not be counted for per-node
+> sizing. It should count towards the global pool. Only allocations that
+> were explicitly requested with node X should be count for that node's
+> scratch size.
+> 
+> So on a one node system where 64G of memory is allocated with
+> NUMA_NO_NODE and 8G is allocated with node X, we should get 128G of
+> global scratch and 16G of per-node scratch, giving us a total of 144G.
+> 
+> I took a quick look and it looks like the problem might be that the
+> calculation for global scratch includes _all_ nodes in it. See
+> memblock_reserved_kern_size():
+> 
+> 	for_each_reserved_mem_region(r) {
+> 		...
+>                 
+> 		if (nid == memblock_get_region_node(r) || !numa_valid_node(nid))
+> 			if (r->flags & MEMBLOCK_RSRV_KERN)
+> 				total += size;
+> 	}
+> 
+> And for global scratch we pass nid as NUMA_NO_NODE.
+> 
+> For KHO we could just drop the || !numa_valid_node(), but
+> memblock_estimated_nr_free_pages() seems to depend on that behaviour. It
+> wants to get _all_ allocations across all nodes. KHO only wants
+> allocations explicitly made with NUMA_NO_NODE.
+> 
+> But disclaimer: all this is from reading the code for maybe 15 minutes.
+> I didn't run anything and might be missing something. So please
+> double-check what I am saying.
 
-No, like the getting rid of wildcard hazptrs?
+That sounds about right, although I didn't check anything at all :)
+ 
+> > BTW, do you know the rationale behind the 200% value?
+> >
+> > I couldn't find any explanation for it in the commit message of
+> > 3dc92c311498c ("kexec: add Kexec HandOver (KHO) generation helpers")
+> 
+> We need to ask Alex (or maybe Mike?; I forget who added this).
+> 
+> But if I were to guess, I don't think there is much science involved
+> behind the number. Since the scratch lives across all kexecs, it needs
+> to be large enough in case the next kernel uses more memory. 200% sounds
+> "large enough".
 
->
->						Thanx, Paul
->
->> --- Thanks!
->>
->https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
->> 
+Yeah, that was the rationale indeed :)
 
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+> -- 
+> Regards,
+> Pratyush Yadav
+
+-- 
+Sincerely yours,
+Mike.
