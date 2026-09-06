@@ -1,399 +1,215 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011060.outbound.protection.outlook.com [52.101.57.60])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D1F331EB9
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 15:33:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788708798; cv=none; b=oSpeuDQcGZnfd5992NFO8CGeUBAulbm/PLn+/yMkWLbMGa+fGCGL1sNSloduTMzQi7BpDaArhXutj/qWnJvwupAGCWR2WdgzgBimIC8AliuWk0z3k9Bh+Oc9z0f/ZA/Yg4EO5ce41DNXnmKy8krwqpBIFdiwgX8XSn1jsw1z9Fs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788708798; c=relaxed/simple;
-	bh=TeY3N8JMysIY0I/ZkJMYnbCvtAKCw1ktrbtEkDvbMGI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Wc1iDLclzT/bv7gMObn+xtQyNXyY/aUIufXltH67+oO9I+1HhUSzw5/ymKZ3A5SVWHRnHbwo6EYNq8uKzEOADEff9ArtR5wHyqrtNFZnJtEr6FgsUI+BoHyWP0TiRqOnoS2PmIQQDVI9OxeOsgWSoLCr3RcDzKjiXgZYKDxMOZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=PSgBSbuI; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B1093C2D;
+	Sun,  6 Sep 2026 15:34:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.60
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788708851; cv=fail; b=VSseMzQI42xGzGS4UB1aTqrpuVs6jiRT/LDeBvyeRJDvLdg7nrmUAdARy6QESkZdhq4R6AapdY07vLmFTeshKpN5K9/Uk7aY6waZk1ohMRH/0gBe3OR0Oly8kN6+ksWXBcJxG1n982uhJ5syPyGxl9VjKATW5+x9hRXrvoh05pI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788708851; c=relaxed/simple;
+	bh=boWuphgAwuQjO5285QN5oUMdfv+G80fHvWqTJHjFYeI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=ZmkI7M2ElUY4LgQMEmVtuqohbZ6dLnNEXIjw1IbBWnWbXG8iGrXRjeyBrOZ8DU3NqQHQ4NuNGlxpalp8Y4msTfYGhKov+rs/ikPGnDDj4GUpxgg110OimwqQCP7CI1LqNhLu468duHOgpooorgL7wbWPI59rweo6yPihcUpH6ic=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Ox4XR967; arc=fail smtp.client-ip=52.101.57.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="PSgBSbuI"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 686EXLSh3368966;
-	Sun, 6 Sep 2026 15:32:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=fZE0IW
-	CrA6YqXzzv6iwoA4J+1qBR7GnxKy1Cf5FXBjI=; b=PSgBSbuIDFC+l+9NFjin70
-	46Iz+7CYe6lCglqKt5vuODjjf1YNNbfg4Cc1RhGwy21o14rpizEBBaJ8fsF4uFDC
-	xrdVRw5kteeiTQvCiXZldzJvOPa5Fk864OUV8rcK6qNn5zYFcN0CahiHSxlCUcwf
-	Dxfe6al1S9DQrDmESt7CcQN3aK7CfzC/wPTqj5kJRvb/AAurMbeRfExX92tAO4Vn
-	tgb7ZjqZRgIFk9O5Lma99LmikUDrm2AxSPl9nwtKLA8waaHWGPA/Jkq5yRacYpeu
-	ZJRhJfgENvtW5zaqzcZvahEtoHC/CTUKVmso4frQQDxjoa6fTQNFWrSAPMgh99tg
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbf3mk5y-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 06 Sep 2026 15:32:36 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 686FQHkj003707;
-	Sun, 6 Sep 2026 15:32:34 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ggxwgsr19-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 06 Sep 2026 15:32:34 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 686FWUZe42795302
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sun, 6 Sep 2026 15:32:30 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id BDD8920043;
-	Sun,  6 Sep 2026 15:32:30 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2F1AB20040;
-	Sun,  6 Sep 2026 15:32:26 +0000 (GMT)
-Received: from [9.43.69.205] (unknown [9.43.69.205])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Sun,  6 Sep 2026 15:32:25 +0000 (GMT)
-Message-ID: <5854ba8b-07f3-4c88-90f0-3003bdbf9644@linux.ibm.com>
-Date: Sun, 6 Sep 2026 21:02:24 +0530
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Ox4XR967"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eotdHg5Ngibqg4Bx6MEhxnOa30lXCMzXl+ybUD71tJqMILVrhrJ0k5meh4izVTFKaMoUa4hGTezlEsYRA4U0v8wdfGdv8fzBi+oDqjTNMHEIvlfgHKNwW6bQ/SacmUisp7oHgfMUo1qZ+FqYHipkJwJqZHOb/JubEEFbbF34gVB+TpeqJGZbhAqaxCBH5/dsOgMkGELXgg15KeIcEPu6h9INPtlhUI3M4JGXJUotXcYXjnILB39Xmh3Y1VySGE3qbafYZtOj92+PdmML+TKVmixDUAv+wjNtT+eMsenb31HUAoXuDWOgFSvrZ8LSzk+VfDpISDgQRKODWZB8YWJ+eA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=r51klYyAF6Y0Dn2BoUkZOjprt16HmEtV87812zPwEkA=;
+ b=TKVT9V9KKCfD1zHtEtxIJSXT7lge7L9VWFNFUSXKy28MM1v0axYqqGeB87oXuq/Bz/uIZZ2Y2PkSvdckxC/PdxHTbL6+XiV9DL8GWNLTae7r0HmCkW5uwJ1KjlGE+T+5+zac8yKhT5QcyslV/J/AdEI2e9frRTsopNpRfZwi247AIheImR0Ai8kvdwBGeGbkcAvXnNvcXKElDp42TdfDjHyx0MABEzXwtB/QeQAv0JaR4Re0408wy64/ocIzGAJFvkeGlMIaGHTk06Cw2cykIEMsNE+annyvtdSK0XhtmXhii5ARDzup62NJEVASdRjGIIg17UewIzAmxuR/ux4j6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=r51klYyAF6Y0Dn2BoUkZOjprt16HmEtV87812zPwEkA=;
+ b=Ox4XR9679kPA0x3o/ToPA0/WSYZ9mmBI8QgbnVE88N8Sz3YQK+m1ypqut2lqPfv5ufUKc9bBeUTx4OWIY9OraA1KFUzUtg6bOiREuI/jziP7MN9QyYA9PON4ujYxMa6LXeTBt2PebwMF46eieefNYn1VcopOQddlc2tFIqCooKwFlF4XQ4gExyIa5ATujhtJrvjpf9hJclelAhHqmY8OQxIS01C1Vxi3PyaIycvhoLvwmji0ONYPAopYg7moA/jOsT5dcTLXfQmWjKswPWpLZKInymuj62LVtbU40O28zHJanyuLGsHSK+rotDCBD8PFBAy1JxLY1oB4YWOGWKM/Jg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
+ by DS7PR12MB9043.namprd12.prod.outlook.com (2603:10b6:8:db::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.15; Sun, 6 Sep 2026 15:34:05 +0000
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0382.014; Sun, 6 Sep 2026
+ 15:34:05 +0000
+Date: Sun, 6 Sep 2026 18:33:54 +0300
+From: Ido Schimmel <idosch@nvidia.com>
+To: Chengfeng Ye <nicoyip.dev@gmail.com>
+Cc: David Ahern <dsahern@kernel.org>, netdev@vger.kernel.org,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Xin Long <lucien.xin@gmail.com>,
+	William Tu <u9012063@gmail.com>, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v4] ip_tunnel: reserve FOU/GUE headroom before
+ encapsulation
+Message-ID: <20260906153354.GB323313@shredder>
+References: <20260904165544.1362052-1-nicoyip.dev@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904165544.1362052-1-nicoyip.dev@gmail.com>
+X-ClientProxiedBy: FR3P281CA0093.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a1::13) To PH0PR12MB7957.namprd12.prod.outlook.com
+ (2603:10b6:510:281::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 2/3] powerpc: add support for Kexec HandOver (KHO)
-To: Pratyush Yadav <pratyush@kernel.org>
-Cc: linuxppc-dev@lists.ozlabs.org, Aditya Gupta <adityag@linux.ibm.com>,
-        Alexander Graf <graf@amazon.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Baoquan He <baoquan.he@linux.dev>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        Hari Bathini <hbathini@linux.ibm.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Mahesh Salgaonkar <mahesh@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>, Mike Rapoport <rppt@kernel.org>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        Pasha Tatashin <pasha.tatashin@soleen.com>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Shivang Upadhyay <shivangu@linux.ibm.com>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>, kexec@lists.infradead.org,
-        linux-kernel@vger.kernel.org, Tarun Sahu <tarunsahu@google.com>
-References: <20260821105609.983622-1-sourabhjain@linux.ibm.com>
- <20260821105609.983622-3-sourabhjain@linux.ibm.com>
- <2vxza4qfznyo.fsf@kernel.org>
- <7bb84b8a-c394-4895-9e22-632dc506cbb6@linux.ibm.com>
- <2vxz5x0ox7p9.fsf@kernel.org>
- <8fa790a7-f387-48f6-ac76-11cf71ef5589@linux.ibm.com>
- <2vxzwlt1vvet.fsf@kernel.org>
-Content-Language: en-US
-From: Sourabh Jain <sourabhjain@linux.ibm.com>
-In-Reply-To: <2vxzwlt1vvet.fsf@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: aIIFFm0oA4TrhPCrZM2DRWJbzO1uK31S
-X-Proofpoint-GUID: yfNnEcJ45EF43dtPKGFTPTgh1KwayJmg
-X-Authority-Analysis: v=2.4 cv=DbEnbPtW c=1 sm=1 tr=0 ts=6a9d8794 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=1XWaLZrsAAAA:8 a=X0f19CpMum2MarKMJ0sA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA2MDE3MyBTYWx0ZWRfXztOVvKy3wrI5
- 8Q5Z9BXXZGPs/ZelOb6OfaVMXZztVya4JmVLoYp9OPdoyxi/4LCkS6FkrKDNUM9RPtvGwO5B3cm
- hJo992kdjKOw7lcjPnwiilSAdA0/GV+YmVBsRFojuIQaqdKCDiEHaho+K+l79nAOaLlksECjf36
- 5DaG522uWauDR8iYfcMcovzz3kdlMCMxTzTRGfXdvsUnYC4RG/AZMiNrkOr1ZUS/R32AN5NymEi
- AMHqfHB1vvlSurEHM3oJPpbSMPMVNAIDZwua139AqpnMXepVw2n/IfrxbYXGrOeb5LKjFvKC0gk
- Beu2SeiTommUQesdVymmVLDWBu/YcIlce1gspmd116jslYL+ZU0cFHLWGf6kae0OB4jiGr2sfUz
- aA3qJf206XrK5VgL/wPWI4d3V1q5SAMsKBCjGHov7Xr6dATNarSXB0mAWLIKm+pvSSLqsPFVlqv
- EjjUK/WeTfnHuOA5i4w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA2MDE3MyBTYWx0ZWRfX4b311dRuVv39
- v/JSAgJ6D1WKfvBnaGMVv3I/FDmYwaZuw2fKJ/qH9q49qdGgfKCVUyrO6pWTTOZ8QZ1YW6gB0FB
- 7j0oEErUYCuc0aAxSrl3J+fL9JU7LOQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-06_01,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 impostorscore=0 adultscore=0 spamscore=0
- clxscore=1015 suspectscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609060173
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|DS7PR12MB9043:EE_
+X-MS-Office365-Filtering-Correlation-Id: c18230a5-db46-4020-ee66-08df0c2c48e3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|6133799003|3023799007|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	7FbHHB26rVAZvtjXRifNObMvj3E7MlUCJnfGrb3zc0wj7+WO2cce3yqcZJ466hXY/m0uv5rLsiindfEixcC5AxGlW1Zq8/Cb29/jEuNekfRWAxMxFL6mq3YlB+mZEP5sVXb+WadaMofR/h1CdRvr0VQ5eCJKCpT8zGn1WQMZM3WDpapQEx7L+KBRv+bPYGQ1O+scr3/weGTNHvQAP7h4TNc6l9gUKbyAUhwQkPGSLCd63HsIGY3uqjtIXrRThlMWWH5+52aCXJjCEfdu2fNf1VLeK0vzDhvMlfr+XN/rvN3Vdva9u3dRH+Sk3H7qYG07rfy4DnH58Y5ZHAbd5eMW13VgRZPB31YVYTZ2pN264X2YGoUtpgk0jHasBU+2H11bMpe4aMoEME4GM0fNgVBoyr+6wuO70Rai8FB6wZ4ryjh2DYK0yTwV9ClaFbN/36Qe8T2SzXUSuBN9rXpCksxj7zw33Va2pWP8PQv3VstjYZjeaCJ5TyXhwTMqto64QdDUms3Qt+qOx/CvkDytDyXh5Vq9kjaEVCA/y9FlEkVZ/ErNF2KQj/BgCtno9VA0/N1N9U0wqnArc/A6SSNGC5nKG8YfXPpnZCtfyXihVjHcQ60xk3mEK2F4K2Amjed/mLOH547qtq6UcEIrUz16oYgh7bhSZVyd9Px53ucA/Clr7Jc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(6133799003)(3023799007)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?3fgn4kwDfq0VmvsrBFLmM+8r4BOJDfucJWdhBY/cpF9eQh67ZtnYdBb1pbND?=
+ =?us-ascii?Q?1g8KbGEZPPcALPQnnnDdO6rDtaK3qbWJu3HysclYbiCoRRXVl91jXvIqq2a4?=
+ =?us-ascii?Q?L4b0A8q7lJfUUnPwqEX6xx87a5q5uDjh392ZbZ319KfnJLJsP0iwLILtzomE?=
+ =?us-ascii?Q?5naHryfYEmVSIcmbPJriUIQp0/SOy2cMYnj8gjN/Ij2eav8U+nTgTsjjg8h5?=
+ =?us-ascii?Q?7MDfohPFng6y3tPH/VDHgW3imG5DH2ZPTtMwNBnZTx1/NAb4lHM8Oo5u0Nc2?=
+ =?us-ascii?Q?iU5oCIehnfgdG2kWv6UByaC2pKFKQ6UAq58ic5mzeubvBn2oCco6Kghp00Hj?=
+ =?us-ascii?Q?OJq2CrCkq7QipOL9+N7BrUzghhZjo3uY2u+SaNYqub3Ib2KVsX0deeCrU11T?=
+ =?us-ascii?Q?nTnTn8GCJkaK7qkFkwyf4QOGHXvMkunSsrBDF/WKinvi4cQ3bcboJgYBONrH?=
+ =?us-ascii?Q?AIvDyC2bXFD2rqkDh1xkx/PP+tWrgKJmLdLAzh5BPUFdJnWpJQ0cSfl85Ij2?=
+ =?us-ascii?Q?tnicDaBTlpVowbQmMv3GcBsd57P7ln/nTT9dkQql95+UoHoE63mN97E4QuDU?=
+ =?us-ascii?Q?VmHHeNGQGlgt8tks5fV9pbaIHhlVPqi4rdcgRj9MtyyjKTjuIeg6k4zq2ytB?=
+ =?us-ascii?Q?zDVYZZkfgttE7vzipqt1LvaI0rbDKQ0mPLbe0gXuM/eygPNfYnBeT1uGhVGr?=
+ =?us-ascii?Q?oQB6xgCAqNRlpA4hvj4aWJeq5jP6lRAJFiNcX4PCAqfmksh+TK/51MzRV2Y2?=
+ =?us-ascii?Q?DLljWo0+QCCijd+D9OfIwkbE0IOU1PrHbQkknLGyhRP6Ic2pLK64W9lybHu5?=
+ =?us-ascii?Q?K9XtczogpYgsTn8vy48NTVwOac4DAnk2nr3Z0yKjnnEpzpo1gzKVg3ki7DWu?=
+ =?us-ascii?Q?A1nHwgKbh4HCgSLWdD5ptUv7wanArxJyQfiB0oPyEroI9dwc9UyG9pUGWA8F?=
+ =?us-ascii?Q?jvDgs+KAy8EeHdPOsbJYrNh4lwkIARsgAu14jKlKjxfryZ0wY3gJacHw85OQ?=
+ =?us-ascii?Q?hemLEkkVQoS5IcKZZY9Bec6hn44qoi6e5dk0YzCKstaqDDcieNGHoYBi2/++?=
+ =?us-ascii?Q?8dQikvI6XvjkxFnITD9rflbFdG9+Jgx5UG1YegtZ2Fkcnwr1M+FBwRqsK4m1?=
+ =?us-ascii?Q?tuhsRvDo9E8CigBFo+V+mY+BTw1YvDmgrwUAcWcVoLKPhMS0DSr1yNYeLKLi?=
+ =?us-ascii?Q?8OEmsVR4xOLpmBCO5UIPJJskv8CjrzGAMGXlrUZccNkwVhtDmnrZ3oRQqmPx?=
+ =?us-ascii?Q?EGVtV/Gg6MRY0aPTtW7mFYz9p0H+A7M6cdrwp+5infjFQTSZdy4bUCKZ23aD?=
+ =?us-ascii?Q?OX6obG7p876PmDw/4xN8F8dD7mDzDYe7a9Gu4+q4s+ep+9oTIpD0yClnmJq3?=
+ =?us-ascii?Q?2SZukmUEXh+4Tm1tTTnYmfqh1NNxsHSUVeWQS6vhoXtz6pbnWL+lAFtH0Zj9?=
+ =?us-ascii?Q?9kZNy4m2potehLrhvfWdX/npLjIh4mMxhyaedpECXS/F/AHMem3UGbstkF52?=
+ =?us-ascii?Q?o/7FjY7Y8hK6aPew5Y4B9ACMLCO3U27RKDl8VaT3ivNJZHtS/e/bg9CIXCup?=
+ =?us-ascii?Q?3afPntfCB8r+mWtoOTusUejRlM1RT42PSm2Oo29gF25itd051CLKqP6gVJ04?=
+ =?us-ascii?Q?O82BIIqFDJfWyNrWLFrzf7Tv/eUdThlvl7SYgcPIbfc+xIoiQ53ymmSw9veH?=
+ =?us-ascii?Q?eiZ4uitX08ubqgMOIfpTJgGdumz6cw1fblEh4DdIwkf++EuW?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c18230a5-db46-4020-ee66-08df0c2c48e3
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2026 15:34:05.3757
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SPi5Tq37ls9AclVo14ZauSX4kakQOwxd61Xqr5lUsY8adduZopSjzg3XUTFVTu3qYw9I2t9LGJKjUcPKpR4AcA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9043
 
+On Sat, Sep 05, 2026 at 12:55:44AM +0800, Chengfeng Ye wrote:
+> ip_tunnel_encap() expects its callers to reserve headroom based on
+> ip_encap_hlen(). ip_tunnel_xmit() currently pushes FOU and GUE headers
+> before it grows the skb headroom.
+> 
+> That becomes visible when ipgre_changelink() publishes UDP
+> encapsulation before it updates the device headroom. The transmit path
+> does not serialize with RTNL, so it can interleave as follows:
+> 
+>   CPU 0 (ipgre_changelink)        CPU 1 (ipgre_xmit)
+>   install GUE encapsulation
+>                                   reserve the old needed_headroom
+>   publish larger GRE flags
+>   update tunnel->tun_hlen
+>                                   push the larger GRE header
+>                                   push the GUE and UDP headers
+>   update dev->needed_headroom
+> 
+> With REMCSUM, the new layout can push 16 bytes of GRE and 20 bytes of
+> GUE/UDP headers into an skb with only 32 bytes of actual headroom. The
+> final UDP push writes four bytes before skb->head.
+> 
+> With the update window widened, the kernel reported:
+> 
+>   skbuff: skb_under_panic: ... len:128 put:8 ... dev:gre0poc
+>   kernel BUG at net/core/skbuff.c:214!
+>   Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+>   Call Trace:
+>    skb_push
+>    fou_build_udp
+>    gue_build_header
+>    ip_tunnel_xmit
+>    __gre_xmit
+>    ipgre_xmit
+> 
+> Snapshot tunnel->encap, route and perform PMTU handling first, then
+> reserve the final headroom before ip_tunnel_encap() builds the UDP
+> tunnel headers. Because encapsulation is now delayed, pass the
+> snapshotted encap length into tnl_update_pmtu() so the inner packet
+> size stays skb->len + encap_hlen - tunnel_hlen.
+> 
+> ip_md_tunnel_xmit() is left unchanged. It takes FOU/GUE parameters
+> from the skb metadata dst, not from the device configuration, so it
+> is not exposed to this race. tnl_update_pmtu() still runs after
+> encapsulation there, so that path passes 0 for the extra length.
+> 
+> The IPv6 analogue of this headroom reservation is still work in
+> progress.
 
+Please wait for the IPv6 part to be accepted (some changes are needed
+there and here as well) and then mention its sha1 in the commit message:
 
-On 04/09/26 21:52, Pratyush Yadav wrote:
-> On Fri, Sep 04 2026, Sourabh Jain wrote:
->
->> On 02/09/26 16:04, Pratyush Yadav wrote:
->>> On Sun, Aug 23 2026, Sourabh Jain wrote:
->>>
->>>> On 21/08/26 17:26, Pratyush Yadav wrote:
->>>>> On Fri, Aug 21 2026, Sourabh Jain wrote:
-> [...]
->>>> I agree that this is one way to work around the low-memory reservation problem.
->>>> However, there are a few things that come into play here:
->>>>
->>>> 1. On powerpc, the crashkernel reservation can go up to 64 GB for kdump. With
->>>> the
->>>>      current default scratch memory reservation policy, this could result in
->>>> reserving
->>>>      up to 256 GB of scratch memory: 200% for the high-memory reservation and
->>>> another
->>>>      200% for per-node memory.
->>> That calculation looks off. It _should_ be 200% once not twice. So 128
->>> GB total. If the allocation came out via the global area, it should
->>> _only_ be accounted to the global scratch size. Similarly, only the
->>> allocations made specifically on that node should be counted for the
->>> per-node scratch size.
->> For example, if a system has only one node and 64 GB is allocated from
->> that node before the kernel starts calculating the per-node and global
->> allocations for scratch memory, wouldn't the per-node allocation also be 64 GB?
->>
->> If so, wouldn't that result in 200% of 64 GB being allocated for the global
->> area and another 200% of 64 GB for the per-node area, resulting in 256 GB
->> of total scratch memory allocation? Or am I missing something here?
-> It shouldn't. If the 64 GB of allocation was done with NUMA_NO_NODE, and
-> it _happened_ to land on node X, it should not be counted for per-node
-> sizing. It should count towards the global pool. Only allocations that
-> were explicitly requested with node X should be count for that node's
-> scratch size.
->
-> So on a one node system where 64G of memory is allocated with
-> NUMA_NO_NODE and 8G is allocated with node X, we should get 128G of
-> global scratch and 16G of per-node scratch, giving us a total of 144G.
+https://lore.kernel.org/netdev/2ce8f3e4bbed6060afb0aee33dc4e1d9ae021280.1788262122.git.petalzu987@gmail.com/
 
-That makes sense. I was just going by the reservation that was made. As
-you mentioned, an allocation made on a specific node can be
-differentiated from a general allocation because users pass the NID for
-a specific NUMA allocation and |NUMA_NO_NODE|for a general allocation.
+> 
+> Link: https://lore.kernel.org/netdev/b58876297f7d45de008f2e94b6ecab8b2ed84d21.1786088695.git.petalzu987@gmail.com/
+> Fixes: dd9d598c6657 ("ip_gre: add the support for i/o_flags update via netlink")
 
-Thanks for the clarification!
+Looks like a more suitable Fixes tag:
 
+Fixes: 56328486539d ("net: Changes to ip_tunnel to support foo-over-udp encapsulation")
 
-> I took a quick look and it looks like the problem might be that the
-> calculation for global scratch includes _all_ nodes in it. See
-> memblock_reserved_kern_size():
->
-> 	for_each_reserved_mem_region(r) {
-> 		...
->                  
-> 		if (nid == memblock_get_region_node(r) || !numa_valid_node(nid))
-> 			if (r->flags & MEMBLOCK_RSRV_KERN)
-> 				total += size;
-> 	}
->
-> And for global scratch we pass nid as NUMA_NO_NODE.
->
-> For KHO we could just drop the || !numa_valid_node(), but
-> memblock_estimated_nr_free_pages() seems to depend on that behaviour. It
-> wants to get _all_ allocations across all nodes. KHO only wants
-> allocations explicitly made with NUMA_NO_NODE.
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+> ---
+> Changes in v4:
+> - Not restructure ip_md_tunnel_xmit(); only pass 0 into the new
+>   tnl_update_pmtu() argument.
+> - Snapshot tunnel->encap with data_race() and reuse the copy for both
+>   ip_encap_hlen() and ip_tunnel_encap().
+> - Fix tnl_update_pmtu() inner packet size after delaying the encap
+>   push: pkt_size = skb->len + encap_hlen - tunnel_hlen.
+> - Keep reverse xmas tree for the new locals.
+> - Note that the IPv6 FOU/GUE headroom fix is still WIP.
+> 
+> Changes in v3:
+> - Move the headroom reservation into ip_tunnel_xmit() instead of
+>   growing the skb inside the FOU/GUE builders.
+> - Use ip_encap_hlen() to reserve the final caller-side headroom before
+>   ip_tunnel_encap().
+> - Drop the IPv4 raw-pointer refreshes that were only needed when
+>   skb_cow_head() could run inside the encapsulation builders.
+> 
+> Link: https://lore.kernel.org/netdev/20260824111944.187200-1-nicoyip.dev@gmail.com/ [v3]
+> Link: https://lore.kernel.org/netdev/20260808005956.3761487-1-nicoyip.dev@gmail.com/ [v2]
+> Link: https://lore.kernel.org/netdev/20260801060115.3538849-1-nicoyip.dev@gmail.com/ [v1]
+> ---
+>  net/ipv4/ip_tunnel.c | 24 ++++++++++++++++++------
+>  1 file changed, 18 insertions(+), 6 deletions(-)
 
-Yes the above explanation seems correct to me. !numa_valid_node() is 
-problem in KHO scratch memory reservation context.
-> But disclaimer: all this is from reading the code for maybe 15 minutes.
-> I didn't run anything and might be missing something. So please
-> double-check what I am saying.
->
-> Not sure how to fix this. Since memblock_estimated_nr_free_pages() needs
-> all the reservations anyway, perhaps open code a simple counting loop
-> there? And the drop the || !numa_valid_node() from
-> memblock_reserved_kern_size().
->
-> But yeah, it would be much appreciated if you'd care to fix this.
-
-I will send a fix for this.
-
->
-> The fix should be a separete patch, since it fixes problems on all
-> platforms, and not just PowerPC.
-
-Yes the fix shouldn't be part of this series...
-
->
->>> But I have also noticed this problem on some of the systems Google has.
->>> Which makes me wonder if scratch_size_update() is broken and
->>> over-calculating. I have this on my TODO list and have been meaning to
->>> look into it, but other things keep intervening.
->>>
->>> If you are interested, feel free to take it off my hands.
->> Yes, I can take this up and propose patches to make crashkernel and
->> scratch reservations work together.
->>
->> Based on my current testing, a Linux partition (powerpc) with 16 CPUs and 30 GB
->> of RAM needs only 16 MB of scratch memory in the low-memory area when
->> crashkernel=xxM is not specified.
->>
->> 16 MB is not much. I am also trying to get a larger Linux partition with 1000+
->> CPUs to get a better idea of the limits for low-memory reservations.
->>
->> BTW, do you know the rationale behind the 200% value?
->>
->> I couldn't find any explanation for it in the commit message of
->> 3dc92c311498c ("kexec: add Kexec HandOver (KHO) generation helpers")
-> We need to ask Alex (or maybe Mike?; I forget who added this).
->
-> But if I were to guess, I don't think there is much science involved
-> behind the number. Since the scratch lives across all kexecs, it needs
-> to be large enough in case the next kernel uses more memory. 200% sounds
-> "large enough".
-
-OK..
-
->
->>>>      For fadump, which is the powerpc-specific memory dump capture mechanism, the
->>>> crashkernel
->>>>      reservation can go up to 180 GB. In this case, we could end up reserving up
->>>> to 720 GB of
->>>>      scratch memory, which is too much. I agree that users can tune this, but I
->>>> think the
->>>>      default scale should be more reasonable for powerpc.
->>> Once we fix scratch_size_update() to actually use 200% and not 400%,
->>> perhaps that alone will be enough? If not, we can discuss reducing the
->>> default scratch scale to maybe 150%. But I'd rather do it for all
->>> platforms if we do it at all, because this problem doesn't seem specific
->>> to PowerPC.
->> Yes, it makes sense to have a general fix that works for all architectures.
->>
->> BTW, I was able to reproduce this issue on x86 as well. Please have a
->> look at this:
->>
->> https://lore.kernel.org/all/008fe00e-fd52-4010-86ca-f0ab80a65a46@linux.ibm.com/
->>
->> I have also suggested an approach to handle this issue which is similar how you
->> handle
->> huge pages. Please share your thoughts on it.
-> I missed this.
->
-> We can exclude HugeTLB pages from scratch accounting because the series
-> updates HugeTLB to use a new routine called memblock_alloc_hugetlb() to
-> allocate pages. This special allocator makes sure the pages are
-> _outside_ of scratch even if scratch-only mode is used. Since HugeTLB
-> pages come outside of scratch, they don't get counted in scratch sizing.
->
-> We need to do this for HugeTLB mainly because we want to preserve
-> HugeTLB pages in the future, and pages from scratch can't be preserved.
->
-> We could perhaps do so for crash as well, but I need to think more about
-> this.
->
-> But at first glance, if you need to allocate crash super early, perhaps
-> memblock won't be able to cope. Because allocating crash outside of
-> scratch would depend on kho_extend_scratch() and that needs
-> memblock_allow_resize() to be called to be able to cope with multiple
-> memory regions.
-
-I just saw your patches to handle HugeTLB separately. I was thinking of
-handling the crashkernel reservation in a similar way.
-
-Let me first understand the HugeTLB handling in KHO completely, and then
-I can propose a similar approach for the crashkernel reservation. This
-should allow the crashkernel and scratch reservations to coexist in most
-cases.
-
-
-
->
-> [...]
->>>> Could you please elaborate a bit on what makes the ordering tricky and what the
->>>> main tradeoffs are between crash reservations and KHO? It would help me better
->>>> understand the concerns here.
->>> The problem today is that kho_preserved_memory_reserve() (called by
->>> kho_mem_retrieve()) does a memblock_reserve() for each preserved folio.
->>> So if you have a lot of order-0 (or, 4k) folios, you end up with a lot
->>> of reservations in memblock. The large number of reservations can slow
->>> down later memblock operations like allocations too since memblock might
->>> have to walk through a lot of ranges to find free memory.
->>>
->>> We kind of work around this problem by calling kho_mem_retrieve() as
->>> pretty much the last thing in the MM init. So all allocations prior to
->>> this have already been fulfilled from scratch without any of the
->>> reservations added, so it should be pretty fast. You only take the
->>> performance hit at the end, where the only thing left is to release
->>> pages to buddy.
->> Ah, okay, that makes sense. Thanks for the clarification.
->>
->>
->>> Even then, the memblock reservations can get pretty damn slow. In some
->>> of my testing with under-load systems, preserving a 2G memfd with 4k
->>> pages can go over **5 minutes** in only kho_mem_retrieve() if the folios
->>> of the memfd are fragmented enough. Plus there is the memory overhead of
->>> the regions in memblock.reserved.
->> 5 minutes in kho_mem_retrieve(), which is primarily marking a bunch
->> of memory as reserved using memblock, seems like quite a lot. If you
->> have the test case handy somewhere, I would be interested in trying it
->> myself, just to get a better feel for the issue.
-> I do, but unfortunately based on downstream code so it is neither useful
-> to you nor something I can share I think.
->
-> But your friendly neighbourhood LLM can help here. Ask it to preserve
-> you a memfd but fragment/shatter buddy blocks first. That's pretty much
-> how I wrote my test.
-
-Sure I will try it and share my experience.
-
->
-> But also see [0] which fixes the problem. Maybe Tarun (+Cc) has a test
-> based on upstream that he can share?
->
-> [0] https://lore.kernel.org/kexec/20260903155907.1065681-1-tarunsahu@google.com/
-
-Thanks for the Cc. I will try the above patch also.
-
->
->> Regardless, I understand the concern now. From my perspective also, the
->> current ordering of crashkernel and scratch memory reservations seems
->> reasonable, because crashkernel is not as flexible as scratch reservation
->> atleast on powerpc.
->>
->> On powerpc, the crashkernel offset is determined first, and the
->> corresponding memory region is reserved. To make sure that no
->> other reservation falls within the crashkernel region, the crashkernel
->> reservation is one of the first reservations we make on powerpc.
->>
->> If we change this ordering, there is a possibility that a scratch
->> reservation could end up in a region where the crashkernel is supposed
->> to be placed. That would lead to crashkernel reservation failure.
->>
->> Also, reserving scratch memory at a location where the crashkernel
->> cannot be placed could be problematic. Each architecture has its own
->> constraints on where the crashkernel can be placed, so the available
->> memory for scratch reservation may need to account for those constraints.
->> Which I think too much to take care off...
-> That's a real problem. But I am hoping the restrictions are something
-> along the lines of "crash kernel must be in lowmem", so the lowmem
-> scratch already solves that problem?
-
-
-Yes, for different reasons, the architecture may need to load the
-vmlinux kexec segment in low memory. Alternatively, there may need to
-be some crashkernel reservation in low memory to satisfy the memory
-requirements of components that can only allocate memory from low
-memory.
-
-
-I will also explore how KHO handles reserved memory regions.
-
-For example, let’s say the firmware marks 10 MB as reserved and exports
-that region as reserved in the DTB. If I am not mistaken, while parsing the
-FDT, the kernel calls memblock_reserve() for these regions. PowerPC has
-some such regions, like RTAS and OPAL. Generally, these regions should
-persist across KHO.
-
-So I will explore:
-- How these regions are handled by KHO
-- How they affect the scratch kernel reservation, specially in lowmem
-
-- Sourabh Jain
-
->> And, of course, moving kho_mem_retrieve()earlier during boot would
->> also mean taking the performance hit you mentioned earlier.
->>
->> So let's keep the current ordering and find a way to make both
->> reservations work with it: reserve the crashkernel first, and then
->> reserve the scratch memory.
-> [...]
->
-
+ipip6_tunnel_xmit() also calls ip_tunnel_encap() and seems to have the
+same problem as ip6_tnl_xmit().
