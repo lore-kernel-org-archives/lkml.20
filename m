@@ -1,164 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8862F37A836;
-	Sun,  6 Sep 2026 21:42:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802933C0619;
+	Sun,  6 Sep 2026 21:44:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788730933; cv=none; b=Pv9DzqlWeGXDx02J+ICMEfcrjl11TvcShJ3rfUg6LCS4IHjzH0xz0pVn2eKJrr+Qjdr3VoCMDZMbzRYFppa6NrTstj8pY/qv7jhg5w3S+EHl5EHLZqu/GETi09x3cadv8cpq2dGVN2UCjkCrWbb/X5JJeXm/EPy4h0qHOEJ6w80=
+	t=1788731076; cv=none; b=cTtwk7hiW5NL1noP5+4VG90yvwNJqpfOD2HYZqv/9fdLP2k+gnYZht2ucol6iEzV2XTO6QoaclO0rLcgF1DqWVJhoIe0d5Fe97RhkZk7WblYXsgsOn09W8ZdBaUFK7dxxKc+epvDA5G2V2FrRpcAQJXvjRa1fKsCTSURcqQ5+Hs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788730933; c=relaxed/simple;
-	bh=VDyD8iz27wa8NflmbwW9hSRSzq083qvoKr4XfLGVGsI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=swKLonwGcJnlsDOVNL0BoCK90zJqC+YWbyLdsgEbHKxs8vAbBY0SioA36l2HvsbZRV/GgDJOf306Wkvm/dqH3pFAnxFxam4iPBsz+mcImlSoKD9dELgCB/ESRbC7z8Q5qvBYxsr1bl7ZghgyHW/FaOKoJw8aATRZ+XaPJCmArzQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HQ/eXign; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788731076; c=relaxed/simple;
+	bh=p9IMSs4cUrwyhC59HnLu7FWGqJKYqf+L1eqzvY5S3XQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=NgWirFCWRdGhL+m/wk8ETDmw3fy+f6Nm96RY5pPyUHxNuu1LdVUHVFibT2CO++JQ4z7A3QzEORO5n1HNhrjXdN2fVruNu0qDI/NZXAKd9S4mgDhkpi1h2xRO0pW/IowD0uHERgb5bofqJyoOBQE8epMouhLubeqXHoHA1xGon8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dw8Z7Vpn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HQ/eXign"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 93B42C2BCB8;
-	Sun,  6 Sep 2026 21:42:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788730932;
-	bh=VDyD8iz27wa8NflmbwW9hSRSzq083qvoKr4XfLGVGsI=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=HQ/eXign/Grhh0PdGupiqE1shMHQ839pzqGbBb+OehVwes9/jQa4DQYYcfYsduwh4
-	 fFY34HYh7XmYBvjitzo3DQxcK0vdc4A4hNI6VffPNyFthUtYBhIh7ujhkbRA9BLwqX
-	 kminqD97H5sydabRSwtiErTWLx92IFmCYRF0Wo3RL+BlwfvEIlRbqHBfHPxsuoLiXg
-	 zLHBNAb2q8sJmXrWHrXeFu1yL20lzxHqdzpk+lsBsDlkZcEvk+uQazkcEc/j5rJARa
-	 +aJztckUeA0M53W0ooV2vZRa3mt4HzAzqBOTMPQxh7dgKSR24rHrwdwCDwxPVVGTBe
-	 snEzGBJE4XIBw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7CBF7C79F8C;
-	Sun,  6 Sep 2026 21:42:12 +0000 (UTC)
-From: Ryan Leung via B4 Relay <devnull+untilscour.protonmail.com@kernel.org>
-Date: Sun, 06 Sep 2026 21:42:06 +0000
-Subject: [PATCH mt76 v3] wifi: mt76: mt7915: fix thermal zone
- use-after-free and cooling device leak
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dw8Z7Vpn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7246C1F00A3A;
+	Sun,  6 Sep 2026 21:44:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788731074;
+	bh=EspTMV3Op18o1x9uExv6wM29oNHslhzis7xhIg1ANss=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Dw8Z7Vpnny8BH+mjOcevwEOzvM3CIBV0cf66FTqNUCJIdZH4iI4ZOfqiNyQVcDJ9F
+	 wvQv8g9JKezsM7jYs/XzcquhEZLJd+GIOupO/j3qlh8lnTYtICT26dOcCO4KDFI87H
+	 IQY6NHpbq5boqTUFay+sv8afTeSxe40DRE0Y6D6XcUnOwik7BvL9YkOWtAgK23YzeL
+	 DVxiOh/4tq+1+/eAJewv8FkBu15TLGT1kKHNWCDNCyi6v0tn1OAua2ThQevYXa7g4t
+	 LIbVsGFqghRoxIuRTzwUI8QL++rFQaAGHMnOd9YPZ+/Qnj+AXYFp3nPrOfiSmqy9hn
+	 UobQk0danu2VQ==
+Date: Sun, 6 Sep 2026 22:44:28 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
+ Shevchenko <andy@kernel.org>, linux@analog.com, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC] iio: ad_sigma_delta: support four byte register
+ writes
+Message-ID: <20260906224428.2e0b07fe@jic23-huawei>
+In-Reply-To: <20260902-ad-sigma-delta-4byte-v1-1-af43e4e045f0@vaisala.com>
+References: <20260902-ad-sigma-delta-4byte-v1-1-af43e4e045f0@vaisala.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260906-mt7915-unregister-thermal-v3-1-efb2d06e61f4@protonmail.com>
-X-B4-Tracking: v=1; b=H4sIAC3enWoC/42OQQ6DIBBFr2JYlwawIHbVezRdII5Ko2AATRvj3
- Yu6bNJ0+Sf/vzcLCuANBHTNFuRhNsE4m0J+ypDulG0BmzplxAgTRJISD7EoKceT9dCaEMHj2IE
- fVI8lA0m4FlQqgdJ+9NCY186+ozQT6HFcw1Q9QccNu/W6hHH+vb8w07192Cj5YZsppliLmhfVR
- Ve5kLfRu+jsoEx/1m7YZTP7G8cSjinScKrqhovmC7eu6wdbFVLDLgEAAA==
-X-Change-ID: 20260809-mt7915-unregister-thermal-82e805c618a6
-To: Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>, 
- Ryder Lee <ryder.lee@mediatek.com>, Shayne Chen <shayne.chen@mediatek.com>, 
- Sean Wang <sean.wang@mediatek.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- Ryan Leung <untilscour@protonmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788730934; l=3446;
- i=untilscour@protonmail.com; s=20260906; h=from:subject:message-id;
- bh=jg+VrZXwazJVrct69E59ekan8eJXBrNoBIRKgj68l10=;
- b=x0FHS3zeNHr8A2J5GkukmZc+dv0Tf0y/xb73NXQoLHXl+rMbmkLv3Ip73CTp8uRdJ87MOUzDI
- 6LOHGLHUKcRBQjZ36TG1u1kk3G9PC4jq4R2mfU36LyzCQZS0BvQnaVt
-X-Developer-Key: i=untilscour@protonmail.com; a=ed25519;
- pk=eCaNcoQNRWYKZ9D7KbOGKvQVK2YFguJXZxglTtAR7Xk=
-X-Endpoint-Received: by B4 Relay for untilscour@protonmail.com/20260906
- with auth_id=1011
-X-Original-From: Ryan Leung <untilscour@protonmail.com>
-Reply-To: untilscour@protonmail.com
 
-From: Ryan Leung <untilscour@protonmail.com>
+On Wed, 02 Sep 2026 04:11:43 +0000
+Tapio Reijonen <tapio.reijonen@vaisala.com> wrote:
 
-The thermal zone registered against the parent device is never torn
-down when the phy is unregistered, so it can still be dereferenced
-by the thermal core after the phy is freed. The thermal zone and
-cooling device are also left registered if a later hwmon
-registration step fails during init, leaking both.
+> ad_sd_write_reg() writes at most three bytes of data after the command
+> byte. Devices that protect register writes with a checksum need one more
+> byte on the wire: a three byte register plus its CRC is four bytes of
+> data, which the switch currently rejects with -EINVAL.
+> 
+> Add the four byte case, and grow tx_buf from four to five bytes so that
+> the command byte and four data bytes fit. The layout of the structure
+> does not change, since rx_buf is aligned to eight bytes and only the
+> amount of padding before it shrinks.
+> 
+> Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
+> ---
+> There is no in-tree user of a four byte write yet, so I am sending this
+> as an RFC to ask how you would like it handled.
+> 
+> We drive an ad_sigma_delta part with CRC protected register writes
+> downstream. A three byte register plus its CRC byte is four bytes of
+> data after the command byte, which ad_sd_write_reg() currently rejects
+> with -EINVAL. No mainline sigma-delta driver implements the protocol
+> CRC these parts support, so the four byte case has no caller in tree
+> today.
+> 
+> Two questions:
+> 
+> - Is the core change welcome ahead of a driver that uses it, or would
+>   you rather see it together with CRC support for one of the AD7xxx
+>   parts?
 
-Unregister the thermal zone alongside the cooling device on both the
-regular unregister path and the init failure path. Also clear
-phy->tzone and phy->cdev after unregistering so that a future caller
-invoking the function twice doesn't unregister already-freed objects.
+Needs to come with a patch that uses it.
 
-While at it, include the band index in the thermal zone registration
-warning to help identify which band failed on multi-band chips.
+> - If the latter, is CRC support for ad7173 or ad7124 something you would
+>   want at all?
 
-Fixes: 313f1a27ebcb ("wifi: mt76: mt7915: add thermal zone device registration")
-Signed-off-by: Ryan Leung <untilscour@protonmail.com>
----
-Changes in v3:
-- Clear phy->tzone/phy->cdev in mt7915_unregister_thermal() after
-  unregistering, making it idempotent.
-- Link to v2: https://patch.msgid.link/20260810-mt7915-unregister-thermal-v2-1-2a0f51adf56f@protonmail.com
+Hmm.  Retrofitting something like CRC onto a driver is an interesting corner.
+For a fresh driver I'd normally very much encourage it but for an existing
+driver maybe there would be a noticeable perf drop?  If it is pretty small
+then I think we should enable it anyway and hope no one needed that last
+little bit of perf.  I don't see crc as something that userspace generally
+has a say in enabling - though I'm open to suggestions for why it might
+usefully be given that control.
 
-Changes in v2:
-- Unwind cdev/tzone registration in mt7915_thermal_init() on hwmon registration failure.
-- Link to v1: https://patch.msgid.link/20260810-mt7915-unregister-thermal-v1-1-c6d57b4cb368@protonmail.com
----
- drivers/net/wireless/mediatek/mt76/mt7915/init.c | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
+Do we currently support any CRC using parts via this library?  I'm not keen
+on using put_unaligned_be32 when it is really a put_unaligned_be24 + a byte
+of crc, so I was wondering if there is precedence?
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7915/init.c b/drivers/net/wireless/mediatek/mt76/mt7915/init.c
-index ca46a203aa48..e5285d1a1f9d 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7915/init.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7915/init.c
-@@ -200,11 +200,17 @@ static void mt7915_unregister_thermal(struct mt7915_phy *phy)
- {
- 	struct wiphy *wiphy = phy->mt76->hw->wiphy;
- 
-+	if (phy->tzone) {
-+		devm_thermal_of_zone_unregister(phy->dev->mt76.dev, phy->tzone);
-+		phy->tzone = NULL;
-+	}
-+
- 	if (!phy->cdev)
- 		return;
- 
- 	sysfs_remove_link(&wiphy->dev.kobj, "cooling_device");
- 	thermal_cooling_device_unregister(phy->cdev);
-+	phy->cdev = NULL;
- }
- 
- static int mt7915_thermal_init(struct mt7915_phy *phy)
-@@ -213,6 +219,7 @@ static int mt7915_thermal_init(struct mt7915_phy *phy)
- 	struct thermal_cooling_device *cdev;
- 	struct device *hwmon;
- 	const char *name;
-+	int ret;
- 
- 	name = devm_kasprintf(&wiphy->dev, GFP_KERNEL, "mt7915_%s",
- 			      wiphy_name(wiphy));
-@@ -238,8 +245,8 @@ static int mt7915_thermal_init(struct mt7915_phy *phy)
- 	if (IS_ERR(phy->tzone)) {
- 		if (PTR_ERR(phy->tzone) != -ENODEV)
- 			dev_warn(phy->dev->mt76.dev,
--				 "failed to register thermal zone: %ld\n",
--				 PTR_ERR(phy->tzone));
-+				 "failed to register thermal zone %d: %ld\n",
-+				 phy->mt76->band_idx, PTR_ERR(phy->tzone));
- 		phy->tzone = NULL;
- 	}
- 
-@@ -248,7 +255,11 @@ static int mt7915_thermal_init(struct mt7915_phy *phy)
- 
- 	hwmon = devm_hwmon_device_register_with_groups(&wiphy->dev, name, phy,
- 						       mt7915_hwmon_groups);
--	return PTR_ERR_OR_ZERO(hwmon);
-+	ret = PTR_ERR_OR_ZERO(hwmon);
-+	if (ret)
-+		mt7915_unregister_thermal(phy);
-+
-+	return ret;
- }
- 
- static void mt7915_led_set_config(struct led_classdev *led_cdev,
+> 
+> Note that the buffer growth is not optional if the four byte case is
+> added: put_unaligned_be32() writes data[1] through data[4] and the
+> transfer length becomes five, so tx_buf has to be five bytes. Adding the
+> case without growing the buffer writes one byte out of bounds, into the
+> padding that alignment happens to leave before rx_buf.
 
----
-base-commit: 1b60ed34f712e9f606d80951f1586f4274ebadf1
-change-id: 20260809-mt7915-unregister-thermal-82e805c618a6
+That bit is obviously so drop this paragraph if you do a v2!
 
-Best regards,
---  
-Ryan Leung <untilscour@protonmail.com>
-
+> ---
+>  drivers/iio/adc/ad_sigma_delta.c       | 3 +++
+>  include/linux/iio/adc/ad_sigma_delta.h | 4 ++--
+>  2 files changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/iio/adc/ad_sigma_delta.c b/drivers/iio/adc/ad_sigma_delta.c
+> index 1b410291da5378584347231fcdb328fa5633a68e..bfdf28348e226a3b2311a8fc707aa4f41ed7e848 100644
+> --- a/drivers/iio/adc/ad_sigma_delta.c
+> +++ b/drivers/iio/adc/ad_sigma_delta.c
+> @@ -84,6 +84,9 @@ int ad_sd_write_reg(struct ad_sigma_delta *sigma_delta, unsigned int reg,
+>  	data[0] = (reg << sigma_delta->info->addr_shift) | sigma_delta->comm;
+>  
+>  	switch (size) {
+> +	case 4:
+> +		put_unaligned_be32(val, &data[1]);
+> +		break;
+>  	case 3:
+>  		put_unaligned_be24(val, &data[1]);
+>  		break;
+> diff --git a/include/linux/iio/adc/ad_sigma_delta.h b/include/linux/iio/adc/ad_sigma_delta.h
+> index 6e70a412e218d54bbf9bb6861b1a4cc89be868e8..866355789ef0923c28fe8b61cfecb8b29fa9fb42 100644
+> --- a/include/linux/iio/adc/ad_sigma_delta.h
+> +++ b/include/linux/iio/adc/ad_sigma_delta.h
+> @@ -121,11 +121,11 @@ struct ad_sigma_delta {
+>  	/*
+>  	 * DMA (thus cache coherency maintenance) requires the
+>  	 * transfer buffers to live in their own cache lines.
+> -	 * 'tx_buf' is up to 32 bits.
+> +	 * 'tx_buf' is an 8 bit command plus up to 32 bits of data.
+>  	 * 'rx_buf' is up to 32 bits per sample + 64 bit timestamp,
+>  	 * rounded to 16 bytes to take into account padding.
+>  	 */
+> -	u8				tx_buf[4] __aligned(IIO_DMA_MINALIGN);
+> +	u8				tx_buf[5] __aligned(IIO_DMA_MINALIGN);
+>  	u8				rx_buf[16] __aligned(8);
+>  	u8				sample_addr;
+>  };
+> 
+> ---
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> change-id: 20260831-ad-sigma-delta-4byte-82f465fd2d48
+> 
+> Best regards,
 
