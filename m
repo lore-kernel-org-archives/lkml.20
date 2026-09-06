@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F3630EF97;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A58518C02E;
 	Sun,  6 Sep 2026 16:33:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788712434; cv=none; b=ccMdbKCAzLzvsq+QNVWavSiPlXe67+E28a/C3SxnhOUWAAGA30nPcU0nYk0xzXe6At0BTWwEyFOpM9rdjG78D4Tu7ZbODXMN2VJ2j4fKiM/OwuFD7gK8reavwZMvI5seZX+gGELSvtHa+Ujt7aMqYoi/jvY1o6ZYxie7DRcFXto=
+	t=1788712434; cv=none; b=kXQ1hdQcwlzNgf/Wcn0ipRRwvbRGC8WY/Rl7B80Np6f/+fcMVO+v5dG3WIEwDaPyV06jAcr4xv54Jm2LApN8PBEx18Yo9JgE58TJOiWW8CM0bwJ0EysxyMdkqD4StUrxoJb1cOUZbZg9UjTsfqcKITczbiBA5Qb9S4PQoGfAP1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788712434; c=relaxed/simple;
-	bh=GTKCuKerEVjbEq+ru51jw6Xl/RomTGKgH6W2wG3Nmm8=;
+	bh=NnOq+xRUSpOQqEwshprztuziPWpVBsyCAlS5zdxPx2U=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oCC+Wcm8J18W1mDQxkZtoUUmbwUZ2UGm3impPZNthL8iSsDtcxG/gq0dq+gK55to9cF+xxCtsvIeP8uS7ofarsLeTthj/JJ2koAOtKntWrdr9T2q2CD7+hyMByCQobSbNEP3POlGA23ITgAuUb2CcOnHmrGnSub0CcMqZvz6t1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZoQ3oFPw; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=DZAiEaj67w/AD5oLWkGfGgFsITGyosL/aKIvqShKb9WE0Nktkz0SLgCykIaMpm6576FYyCjKjIwgyM1H6TggImZeWChkSEp5Bzbj1X3K0nnO2syHHYBGbDi7eh9Vf1DL0sp65aUOUlW2l8fAndJuqZeb/pxXBkpyLwgLy92z07c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bnl8zsL/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZoQ3oFPw"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5044CC2BD00;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bnl8zsL/"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2F3A1C2BCFB;
 	Sun,  6 Sep 2026 16:33:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788712434;
-	bh=GTKCuKerEVjbEq+ru51jw6Xl/RomTGKgH6W2wG3Nmm8=;
+	bh=NnOq+xRUSpOQqEwshprztuziPWpVBsyCAlS5zdxPx2U=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=ZoQ3oFPwoNw9uiHW4BQLLbE0rsLeOl+zQrlsWmeTLmFUmw5bTA5YftJ7/wmZkATZ0
-	 +3Eblv5JM3tmGohRuKIUizIiW2ezU2SBilw6UF8u6JC0UjWtJzsl3fm08mWvcQL8m2
-	 HH4VTacIb/JQjMh2o3/9Ps4e4ex6+hgMLaIzNXIBOBsmWPz5kolfMyRByQJBzQ0S72
-	 4x546Q70u51aIdYefGVpNanY7QF6oUkb8xcCnoTILbiQ7WvmFKk8dOCVBn8AL3hRfb
-	 1YljXUEWNOE1VV2plxetkZ4Kr1VaPj9Zv2RuG3GX5dI1CzlkmBmOOHSG/bd37Eg27K
-	 Jd1zZH/X1rDyg==
+	b=Bnl8zsL/JyT/dgcCAq8LTdnrWW1o2J3TusKDfzsmt8x6BIgBFDjiKHEX9udLTrt3Z
+	 0NulHgLX9seBNcpW5jAZoo7BjgDvFPjz8yCNeflKhAuzZNdy3dAqV16DA283RTVr8+
+	 2ra8ZyBtXgweRj4tfWL6vjn5B8h3T5th610XlillOnPQ/VMhpaUHkcsd2HZv5BG2qJ
+	 n+cvAM2gwy/DYeQpPG6hpXpntgKIYjSwg/hjDCf9eXA4U84qz8QWjjR1wYMsVddvpk
+	 7fJAjqITAxjvCpnynVeYs9zY3+JowlAniKBmk6Nb2RA30RCg14t0qSO1WZV7VMI49w
+	 UozsEVCQ8yZWg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 36C51C79F85;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F754C79F8C;
 	Sun,  6 Sep 2026 16:33:54 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Sun, 06 Sep 2026 18:33:51 +0200
-Subject: [PATCH v6 3/3] arm64: dts: qcom: sdm845-google: Add STM FTS
- touchscreen support
+Date: Sun, 06 Sep 2026 18:33:49 +0200
+Subject: [PATCH v6 1/3] dt-bindings: input: touchscreen: st,stmfts:
+ Introduce STM FTS5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260906-stmfts5-v6-3-50fbf6af8718@ixit.cz>
+Message-Id: <20260906-stmfts5-v6-1-50fbf6af8718@ixit.cz>
 References: <20260906-stmfts5-v6-0-50fbf6af8718@ixit.cz>
 In-Reply-To: <20260906-stmfts5-v6-0-50fbf6af8718@ixit.cz>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
@@ -56,108 +56,129 @@ Cc: Petr Hodina <petr.hodina@protonmail.com>, linux-input@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+ David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2317; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2705; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=UYybbePhFZQL67dBaI7ZZMSBOFWG/ciE0qllsHbgzEk=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqnZXweyV+w1DXqt1mMsyGPwwNYULoSaJ+5XDXl
- CX8VS1RRnGJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCap2V8AAKCRBgAj/E00kg
- cpbAD/4+PL3GBlMtZ7FWZ6NoUDM1965ux0TqDTVHiZv91Sn09Lfqy5NPwLsgc6dqt6JeE+fJeRP
- LsJPNGteE0kWPSAUYJ0cYsz76ikj3NLYY7x1oQgSp/ASmFlw455D7GNY4Aae/ifQoBA4EivZA4r
- ecKs6GlKv1xvYhCQxH6DN6ILzIrn6IfhRAAWJ3ROJzyj4xwGh9Jw5kTenCqE9KPma7Qj6D6MLim
- ZAaLBZg8hYEpFVE3N5iNyDkRFZF70fOcQ3azh05Q1EbOoL5L+1yx9ZXPOmKHt70LnkDb/GlK3in
- WzjITu4HA9hcKRMEC63JiHdIQikf+1mDlBgutJ+MKqrMldLZMlxJa3pmTNL+dULO2+vZz84Iozu
- qfTX38VRKYpScCUH6kdugXYZ/3g/5dU81fTEkhNiV/9cGwukoX37K923zBL/RUf5UqbdfEXvSRL
- lLYP4oT9Y8Jn6xnpAN7vcclCH5ZtuCpQwbqHQbIPo/6SD+mnl2IdT76JpviKzmMMjPTIBvgCAC7
- wWYzxK0rw6sNTGMOWRrhZoGY0p2pqYl9zbqUR2Pbha94ICczVNxXdKrkFq6WcRk3vrexqi7TZv/
- dC8nZ4CYwvy4m5etjLAmmJLWH/XqmsOLuUdUfbOUj22VgN6y/chZUchbRs8XO1HcWIRlxwRgAg7
- qYGgCrzDVyhH4IA==
+ bh=pbzOh5CHeD/4F3W1fha7bB0ZUX+yDlqPPUvexzr6fCU=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqnZXwUAH+eKJkEZ1gLvyh6j1bO8MilyV+1mlSi
+ jqW94afWTKJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCap2V8AAKCRBgAj/E00kg
+ cjbBD/wPVJGY3JAGm5ebpcqA9d684JGdvBJdssDoNdmrCAMzePqjUYW8aQ/QPphJIBvA0izatL0
+ kcsZ0R2O2cKTzTh67UPJRzDfFaaEst0DAPgJCUqgBEJhKJYhss2CEoBAw4W+BRAID9pSUlsMF3w
+ UNEqhgeISyabwcD34X0zkWpnEueat04hV1NzSOSXfrdwevFr/H+bfgxs+fmcXjI3wfnQaPwo4Tw
+ uQfsbpHD1VPay2Z6q6ySoQSRCSRGsft8bvREW8aDYAN1vM4MhA9wvV6fNDHmOheUgGOdUtpHDue
+ boadbhrEOQiq4m0oNMZV+/2UOt+9cABQVhIMM855QbHdGKB4FNxrkWMZ1GrRh9D8LhB/WAjI0E0
+ 4t6a1A3G2S6VZfcgfWAbxf0xijIyO1N7LOPGVXc3CeGPuKJLr6Ql2KYvCq/DKG0B61BohGbz05Z
+ Zdbx2fmYrPSg1fFwihVr8Uz1XsoOj2gpInbITn4zYTiZ1MT+3t+8MVDaJME6Xi5fHItTGXMNvvH
+ UL8CfHl0hX6IZrwQQ7rlLgW3mlQ/ols6FXsg65z3VIZsmUvhgGQJQUqpqzMMl3TjSxeXQfjEMZK
+ wChMhWRpXIO+UPO9hth8JmppjiDjmf+uDyCNPGAEUNgIiZfxpo/E9JUFajxacfH3AEKKU28CgZQ
+ zQWs7SeVTnMrUvA==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
 X-Original-From: David Heidelberg <david@ixit.cz>
 Reply-To: david@ixit.cz
 
-From: Petr Hodina <petr.hodina@protonmail.com>
+From: David Heidelberg <david@ixit.cz>
 
-Basic touchscreen connected to second i2c bus.
+Introduce more recent STM FTS5 touchscreen support.
 
-Signed-off-by: Petr Hodina <petr.hodina@protonmail.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Co-developed-by: David Heidelberg <david@ixit.cz>
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts | 19 ++++++++++++++++++-
- arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi  |  2 +-
- 2 files changed, 19 insertions(+), 2 deletions(-)
+ .../bindings/input/touchscreen/st,stmfts.yaml      | 29 ++++++++++++++++------
+ 1 file changed, 21 insertions(+), 8 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
-index fa89be500fb85..51c835dca43f1 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
-@@ -21,17 +21,34 @@ &framebuffer0 {
- 	stride = <(1080 * 4)>;
- };
+diff --git a/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml b/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml
+index 64c4f24ea3dd0..3de4bc5cd3f78 100644
+--- a/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml
++++ b/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml
+@@ -9,22 +9,21 @@ title: ST-Microelectronics FingerTip touchscreen controller
+ maintainers:
+   - Krzysztof Kozlowski <krzk@kernel.org>
  
- &i2c2 {
- 	clock-frequency = <1000000>;
+ description:
+   The ST-Microelectronics FingerTip device provides a basic touchscreen
+   functionality. Along with it the user can enable the touchkey which can work
+   as a basic HOME and BACK key for phones.
  
- 	status = "okay";
+-allOf:
+-  - $ref: touchscreen.yaml#
+-
+ properties:
+   compatible:
+-    const: st,stmfts
++    enum:
++      - st,stmfts
++      - st,stmfts5
  
--	/* ST,FTS @ 49 */
-+	touchscreen@49 {
-+		compatible = "st,stmfts5";
-+		reg = <0x49>;
+   reg:
+     maxItems: 1
+ 
+   avdd-supply:
+     description: Analogic power supply
+ 
+   interrupts:
+@@ -35,42 +34,56 @@ properties:
+ 
+   touch-key-connected:
+     type: boolean
+     description: The touchkey feature is connected
+ 
+   vdd-supply:
+     description: Power supply
+ 
++  mode-switch-gpios:
++    description: Optional switch between touchscreen SLPI and AP mode.
++    maxItems: 1
 +
-+		pinctrl-0 = <&touchscreen_irq_n>, <&touchscreen_reset>;
-+		pinctrl-names = "default";
+   reset-gpios:
+     description: Reset GPIO (active-low)
+     maxItems: 1
+ 
+ required:
+   - compatible
+   - reg
+   - avdd-supply
+   - interrupts
+   - vdd-supply
+ 
++allOf:
++  - $ref: touchscreen.yaml#
++  - if:
++      not:
++        properties:
++          compatible:
++            const: st,stmfts5
++    then:
++      properties:
++        mode-switch-gpios: false
 +
-+		interrupts-extended = <&tlmm 125 IRQ_TYPE_LEVEL_LOW>;
-+
-+		mode-switch-gpios = <&tlmm 136 GPIO_ACTIVE_HIGH>;
-+		reset-gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
-+
-+		avdd-supply = <&vreg_l19a_3p3>;
-+		vdd-supply = <&vreg_l14a_1p8>;
-+
-+		touchscreen-size-x = <1080>;
-+		touchscreen-size-y = <2160>;
-+	};
- };
+ unevaluatedProperties: false
  
- &mdss_dsi0 {
- 	vdda-supply = <&vdda_mipi_dsi0_1p2>;
+ examples:
+   - |
+     #include <dt-bindings/interrupt-controller/irq.h>
  
- 	status = "okay";
+     i2c {
+         #address-cells = <1>;
+         #size-cells = <0>;
  
- 	panel@0 {
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-index 9e952f9862f24..c9db3ea50f5ed 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-@@ -492,17 +492,17 @@ nfc_enable_default: nfc-enable-default-state {
- 
- 	touchscreen_reset: ts-reset-state {
- 		pins = "gpio99";
- 		function = "gpio";
- 		drive-strength = <8>;
- 		bias-pull-up;
- 	};
- 
--	touchscreen_pins: ts-pins-gpio-state {
-+	touchscreen_irq_n: ts-irq-n-gpio-state {
- 		pins = "gpio125";
- 		function = "gpio";
- 		drive-strength = <2>;
- 		bias-disable;
- 	};
- 
- 	touchscreen_i2c_pins: qup-i2c2-gpio-state {
- 		pins = "gpio27", "gpio28";
+         touchscreen@49 {
+             compatible = "st,stmfts";
+             reg = <0x49>;
+-            interrupt-parent = <&gpa1>;
+-            interrupts = <1 IRQ_TYPE_LEVEL_LOW>;
+-            touchscreen-size-x = <1599>;
+-            touchscreen-size-y = <2559>;
++            interrupts-extended = <&gpa1 1 IRQ_TYPE_LEVEL_LOW>;
++            touchscreen-size-x = <1600>;
++            touchscreen-size-y = <2560>;
+             touch-key-connected;
+             avdd-supply = <&ldo30_reg>;
+             vdd-supply = <&ldo31_reg>;
+             ledvdd-supply = <&ldo33_reg>;
+         };
+     };
 
 -- 
 2.55.0
