@@ -1,110 +1,136 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97AD03B27DC;
-	Sun,  6 Sep 2026 03:41:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD7233B42FE;
+	Sun,  6 Sep 2026 03:41:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788666104; cv=none; b=Uzu0mySnbI+pEnqE1hJLXxUuOb7IgoOeD7rAiyoGpNLxuaiTj+ZV/UKWK9EO9A5UgPsaLyKkDnx4s6ZxjltT24X6e9s1shHJ/QotTcfDyakMAvUtFPU2+ABFxv08tH1eX+7M1nXGdv9cIGTl0zcxeIAUHGLZgCXqPowaa4aEZV4=
+	t=1788666106; cv=none; b=myViN6HH6SbvhwOKqvHnuNiD1IacNQihEh3vAaFxNSATRQ4mHHks0aKj+1CDtJ5bKJtXvLzaiBGQW2RVBE5sZFrZcQTMo+PRHVS45o2MNdYlSSrfIeeCCWnpI2F8i7MG5F74zrA0ep+3khiQQZ8bupbpdC+pwv8Tde6eIbkmoEQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788666104; c=relaxed/simple;
-	bh=fmw52iuCxdGkNnLgJ6ANUEmY0geyqWUgqDr7sVjha0o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oIOSdtRISC0u8W520ZnNd6JYCEtZlfM2z0tHdMZoGncDZjEKcZ8rOjBfdYr8TDuCMz0CPlAlPx3swfa5IJP3WPOdTcgaoqhkZWFKoRbq8iATU/oFaawvWBdOmWCHztT4Q6NORSzFDwSrInqC4/JIV5EI+xnZ122hcyzGZp5Vz0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=eQYtbNfn; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788666106; c=relaxed/simple;
+	bh=hG/Upj9RqcrRpgLKGcTFUe5pSKWdIJ0ODzHTTlfV9Sw=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=lEndyOYqS4ZKvgKWBiGkMUXSe3bMVWSNDqMjgR1EfU+sZ0Bt/KCeoaroN8ysYOyo4dCdQuil7/LnLHpZ2CJjmhafH8BYtlkiW67YdW60exCNKrYdFythtpJxFn2vl5qRL1Ggv80W5SkuXta98L5JECSU3iOefYddKJMVQGyDqE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=WUpH2Ju1; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="eQYtbNfn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=QD
-	ZTqb1CH8PuDCI64iNeCo8U7mbrJcdP7sXzmfmEBQA=; b=eQYtbNfnEUZdQmr8SJ
-	7Sq7J88s1XT+FmgPrI2uTV6q0ydcfKHxSmHcoxJ1kNt0d5wiMd/clp5dPJ1D8tkT
-	x120vpaXvG8sIzu42yxd0+f2cTS4Zyx7oqYs43ZrWwo5jejBjZnmcR7+ss/WKolR
-	ClHw+BE7OE29Hdm5BwbawvQZc=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wBXIM7c4Jxqr17VAw--.6409S2;
-	Sun, 06 Sep 2026 11:41:17 +0800 (CST)
-From: Pengpeng Hou <hppiscas@163.com>
-To: Mathias Nyman <mathias.nyman@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Pengpeng Hou <hppiscas@163.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	JC Kuo <jckuo@nvidia.com>,
-	linux-usb@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] usb: host: xhci-tegra: Handle PHY failures while exiting ELPG
-Date: Sun,  6 Sep 2026 11:41:14 +0800
-Message-ID: <20260906034114.85417-1-hppiscas@163.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="WUpH2Ju1"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6863fZdqD1626384, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1788666095; bh=HiPn6/HXhEk2HSUce/QZrMS1zkPRKNbpkmok3iQp/Wk=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=WUpH2Ju15wt7+8ClTNZRrdvKEOnaYkwyfaEoprhAB6vGp8m8vgLy2ETEvDdf6J73h
+	 SycosfzKvmXaDEN1KasQDlw9fkl7OX+fZ9QLlNcJgEtC8pHdEXvl+VEWaLITX0b8TJ
+	 AgLftORJQ7dTP2VuSbror9QEPzIDlQ7hXdesiU2snYoWU1/PF5U9BzxcjO1ZRZA0BE
+	 yeFvUPZhXvCi1d+xz/7fM1Z+GdyhxPA1saW5b3p48ajaCD5KgEHrTgT5DL7Cr6JLlt
+	 IPJzB/x3Fou6DgR6fgU0CUl+CywYSVlayY/8Y6s02353JKIAxu4YbYd/mXVsZPeH+I
+	 TP5JPcOoMsv0Q==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6863fZdqD1626384
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Sun, 6 Sep 2026 11:41:35 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Sun, 6 Sep 2026 11:41:35 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::126f:59ad:658:674d%10]) with mapi id
+ 15.02.2562.043; Sun, 6 Sep 2026 11:41:35 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Mehmet Fide <mehmet.fide@gmail.com>
+CC: Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Mehmet Fide
+	<mehmet.fide@screeningeagle.com>
+Subject: RE: [PATCH rtw-next 1/2] wifi: rtw88: usb: bound what the driver
+ feeds the after-DTIM queue
+Thread-Topic: [PATCH rtw-next 1/2] wifi: rtw88: usb: bound what the driver
+ feeds the after-DTIM queue
+Thread-Index: AQHdOserEIbQKCPZBUapj5uLd8USWrbA5gLA
+Date: Sun, 6 Sep 2026 03:41:35 +0000
+Message-ID: <05f0cbfc6a744053863e3d7233e3ea15@realtek.com>
+References: <20260902104146.3853102-1-mehmet.fide@gmail.com>
+ <20260902104146.3853102-2-mehmet.fide@gmail.com>
+In-Reply-To: <20260902104146.3853102-2-mehmet.fide@gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wBXIM7c4Jxqr17VAw--.6409S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Aw4xXF48WF18Ar18tw48tFb_yoW8Ar4kpF
-	Zag34jgr17JFy3KFnxt3W3ZF1rCws3KrW7Ga4Sk398XrsxW34jgr48KFyrJa9xCr9rtFsx
-	tr10yFyUGr4UXrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRK0PDUUUUU=
-X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7R0x+Wqc4N2sNwAA3o
 
-tegra_xusb_exit_elpg() ignores phy_init() and phy_power_on() failures
-and continues to restore firmware and xHCI state.
+Mehmet Fide <mehmet.fide@gmail.com> wrote:
 
-Stop at the first failed PHY, undo a successful init for that PHY when
-power-on fails, and unwind only the previously enabled PHYs in reverse
-order before using the existing partition and clock cleanup.
+[...]
 
-The issue was found by our static-analysis tool and manually reviewed.
+> --- a/drivers/net/wireless/realtek/rtw88/usb.c
+> +++ b/drivers/net/wireless/realtek/rtw88/usb.c
+> @@ -562,7 +562,38 @@ static int rtw_usb_write_data_h2c(struct rtw_dev *rt=
+wdev, u8 *buf, u32 size)
+>         return rtw_usb_write_data(rtwdev, &pkt_info, buf);
+>  }
+>=20
+> -static u8 rtw_usb_tx_queue_mapping_to_qsel(struct sk_buff *skb)
+> +#define RTW_USB_HIQ_RATE       10
+> +#define RTW_USB_HIQ_BURST      16
+> +
+> +static bool rtw_usb_hiq_take(struct rtw_usb *rtwusb)
+> +{
+> +       unsigned long flags, delta;
+> +       bool ok;
+> +       u32 add;
+> +
+> +       spin_lock_irqsave(&rtwusb->hiq_lock, flags);
 
-Fixes: 971ee247060d ("usb: xhci: tegra: Enable ELPG for runtime/system PM")
-Assisted-by: gpt 5
-Signed-off-by: Pengpeng Hou <hppiscas@163.com>
----
- drivers/usb/host/xhci-tegra.c | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
+nit: a blank line
 
-diff --git a/drivers/usb/host/xhci-tegra.c b/drivers/usb/host/xhci-tegra.c
-index 6f235d1e117e..7b7cf22a577d 100644
---- a/drivers/usb/host/xhci-tegra.c
-+++ b/drivers/usb/host/xhci-tegra.c
-@@ -2328,10 +2328,18 @@ static int tegra_xusb_exit_elpg(struct tegra_xusb *tegra, bool is_auto_resume)
- 		if (!tegra->phys[i])
- 			continue;
- 
--		if (!wakeup)
--			phy_init(tegra->phys[i]);
-+		if (!wakeup) {
-+			err = phy_init(tegra->phys[i]);
-+			if (err)
-+				goto disable_enabled_phys;
-+		}
- 
--		phy_power_on(tegra->phys[i]);
-+		err = phy_power_on(tegra->phys[i]);
-+		if (err) {
-+			if (!wakeup)
-+				phy_exit(tegra->phys[i]);
-+			goto disable_enabled_phys;
-+		}
- 	}
- 	if (tegra->suspended)
- 		tegra_xhci_program_utmi_power_lp0_exit(tegra);
-@@ -2367,7 +2375,9 @@ static int tegra_xusb_exit_elpg(struct tegra_xusb *tegra, bool is_auto_resume)
- 	goto out;
- 
- disable_phy:
--	for (i = 0; i < tegra->num_phys; i++) {
-+	i = tegra->num_phys;
-+disable_enabled_phys:
-+	while (i--) {
- 		if (!tegra->phys[i])
- 			continue;
- 
--- 
-2.50.1 (Apple Git-155)
+> +       delta =3D jiffies - rtwusb->hiq_refill;
+> +       if (delta >=3D HZ / RTW_USB_HIQ_RATE) {
+> +               add =3D delta / (HZ / RTW_USB_HIQ_RATE);
+
+The pattern ' HZ / RTW_USB_HIQ_RATE' repeat many times. Can you just define
+the it as a part of macro? (The macro name should change as well.)
+
+> +               if (add >=3D RTW_USB_HIQ_BURST) {
+> +                       rtwusb->hiq_tokens =3D RTW_USB_HIQ_BURST;
+> +                       rtwusb->hiq_refill =3D jiffies;
+> +               } else {
+> +                       rtwusb->hiq_tokens =3D min_t(u32, rtwusb->hiq_tok=
+ens + add,
+> +                                                  RTW_USB_HIQ_BURST);
+
+Will 'quota' or 'budget' be clearer than 'token'?
+
+> +                       rtwusb->hiq_refill +=3D add * (HZ / RTW_USB_HIQ_R=
+ATE);
+
+It looks like you shift refill jiffies according to the tokens you are addi=
+ng.
+How can I understand '+=3D add * (HZ / RTW_USB_HIQ_RATE)'?
+
+> +               }
+> +       }
+> +       ok =3D rtwusb->hiq_tokens > 0;
+> +       if (ok)
+> +               rtwusb->hiq_tokens--;
+
+nit: a blank line
+
+> +       spin_unlock_irqrestore(&rtwusb->hiq_lock, flags);
+> +
+> +       return ok;
+> +}
+> +
+> +static u8 rtw_usb_tx_queue_mapping_to_qsel(struct rtw_usb *rtwusb,
+> +                                          struct sk_buff *skb)
+>  {
+>         struct ieee80211_hdr *hdr =3D (struct ieee80211_hdr *)skb->data;
+>         struct ieee80211_tx_info *info =3D IEEE80211_SKB_CB(skb);
+
 
