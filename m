@@ -1,150 +1,218 @@
-Received: from mail.w14.tutanota.de (mail.w14.tutanota.de [185.205.69.214])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5B3A363081
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 09:02:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.205.69.214
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 129F336A35C
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 09:03:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788685367; cv=none; b=XM6EkEtNvLSaO1DmlpfolSfR1TGIOIkkOayxzYCe+8GxuGjEs45s+qAK4PgKkuexsnYt+lM/JU+zQiD7Yib2eSgVZz0jPW+yR30alcJXaa+6hz/T9YDoHXkr1kVMeilinW4OQem66ttBMwV0dpb7J5EuiwNyNSEumjsLYxY4H6w=
+	t=1788685433; cv=none; b=RoUe+i56oNVtdPBjEWDMTVXABbUWTLPdm+V2XrnRTpiRstOJagCCHFtrcvmmO4Z8n8ylothQz46372jVmvLrHWZIgI2cVtl5k84pTb6JkK20mD1La6S4/QXcX1kDcJeJYmUMJXO7/BVuNb4Sy7SNZ4TdJN8CL4h8zDax6gbPzW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788685367; c=relaxed/simple;
-	bh=yZFoGE8dGWi16UZgmT16DwSXvRwvxdKjnFRWXFI+KzI=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=VYdP37GGLUNoUU8cevJt2OwwDk8i6vePw7F207c6rg0YQPyFAYU2gk4IvN8BOrD3qdXgzVBOsqax8dTea5XR2XCbtsE22LukWPUmQOOBhqmtCPWzN3m/XNMoLs7ymiclM1lJekS2qL3zoBxgPVaLP57pc3k9VmNzyX+PlIDymfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=well-founded.dev; spf=pass smtp.mailfrom=well-founded.dev; dkim=pass (2048-bit key) header.d=well-founded.dev header.i=@well-founded.dev header.b=S61njnW4; arc=none smtp.client-ip=185.205.69.214
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=well-founded.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=well-founded.dev
+	s=arc-20240116; t=1788685433; c=relaxed/simple;
+	bh=S0PDoW5PBpK6h7jJ6y9njeuqzZP5wKizn0BoyFSKBxM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LwSDxq2BYMrpCQs0gSsvfiY1mw8MopOCWP/OyRgTpTq9Tqaid0saQ6PkUgUGnHckW3quIoTLomhvA3pI4ubjKFQLCoYm3XI11MXA1+Mnwf5YuI17aoZ7y9RJaP+oRKZCxuJdFdD0JOMCR7t1t0GDMM6BffJFMkxZRmulOyGh5FU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=AE6lsCLf; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=well-founded.dev header.i=@well-founded.dev header.b="S61njnW4"
-Received: from tutadb.w10.tutanota.de (w10.api.tuta.com [IPv6:fd:ac::d:10])
-	by mail.w14.tutanota.de (Postfix) with ESMTP id 8C45E17EB3CA3
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:02:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788685357;
-	s=s1; d=well-founded.dev;
-	h=From:From:To:To:Subject:Subject:Content-Description:Content-ID:Content-Type:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Cc:Cc:Date:Date:In-Reply-To:In-Reply-To:MIME-Version:MIME-Version:Message-ID:Message-ID:Reply-To:References:References:Sender;
-	bh=yZFoGE8dGWi16UZgmT16DwSXvRwvxdKjnFRWXFI+KzI=;
-	b=S61njnW40fbOrn0odEA5X48hWhe5d70O9pNWwpu+OR4cu2d06xOqyL3qJjvHok6V
-	zf0tn8/lVYqkLpmkDk9SOWJwpNTi++2WKBohniotZHtmCB7fdbIn2jzVwbbQyCyG0Fr
-	we9KjAQsZyYKadqGJSXHhDat0kRMf0jplT8RzPx7IiyGWyohZ2IK8ITENLWAjJiharh
-	vJtZH8triw5MHASU2WABZOp/PPg+S22O35neNvTIsfX40Dn/LEU99Cb7HPvLirqjl5U
-	7zECohPl2lJcsoEZtTg2nt5toczf5nFgN13HpvBQMzdK91eotUQJpeSnNT81JzLEUef
-	B4APlL0Nwg==
-Date: Sun, 6 Sep 2026 11:02:37 +0200 (CEST)
-From: Ramses <ramses@well-founded.dev>
-To: Hangbin Liu <hangbin.liu@linux.dev>
-Cc: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>, Jiri Bohac <jbohac@suse.cz>,
-	Netdev <netdev@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Message-ID: <P0pqA1I--F-9@well-founded.dev>
-In-Reply-To: <apD3VyaIOmMlv6kK@fedora>
-References: <20260827-bonding-last-rx-v2-1-7c3833822c23@well-founded.dev> <apD3VyaIOmMlv6kK@fedora>
-Subject: Re: [PATCH net v2] bonding: fix initial last_rx vs ARP-monitor
- slack
- window
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="AE6lsCLf"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68601gw61593908;
+	Sun, 6 Sep 2026 09:03:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=u32qnIeOoL7s2TKUFguAHaNyN1zc5k
+	7iOIP12zm7Cos=; b=AE6lsCLfO8kN/XcpFkv5ym2q5UeOymumsUgpF3TbmKB92I
+	5RAKKp5s2J5Bnuujeirxcvlo++2j3JDbFclTrvv1x824AppwJO9TREsZDXKQ6JtY
+	FpEmkuxtRbZKcuf+ua0ssNFMd+ATAbOD3X7xkATBdBnHxESGv/2Lugxmc1qspLxD
+	sA8uUZv6gdhoDdEtIYmDKnIlSi/sZ/FGT0TsZ4rqDmyMNVSGimO5kfqHqtKDXgjC
+	Ygnr4ZHqVuvboq4s11V9I1RtsErGihxaBIxZ7ozqFCbXQHeDIcflr/c5pqHi1JKm
+	HtCbrkvm/vuq0d4W2ylf9R9UsxmsCrLidOlzipEA==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbj7upjm-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 06 Sep 2026 09:03:45 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6868ukcR012193;
+	Sun, 6 Sep 2026 09:03:44 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gh03y0q5x-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 06 Sep 2026 09:03:44 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68693eDq43319736
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Sun, 6 Sep 2026 09:03:40 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C09A220043;
+	Sun,  6 Sep 2026 09:03:40 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id F28D020040;
+	Sun,  6 Sep 2026 09:03:38 +0000 (GMT)
+Received: from fedora (unknown [9.5.7.39])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Sun,  6 Sep 2026 09:03:38 +0000 (GMT)
+Date: Sun, 6 Sep 2026 14:41:23 +0530
+From: Amit Machhiwal <amachhiw@linux.ibm.com>
+To: Aboorva Devarajan <aboorvad@linux.ibm.com>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
+        Mukesh Kumar Chaurasiya <mchauras@linux.ibm.com>,
+        Christophe Leroy <chleroy@kernel.org>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>, linux-kernel@vger.kernel.org,
+        Ritesh Harjani <ritesh.list@gmail.com>,
+        "Nysal Jan K . A ." <nysal@linux.ibm.com>
+Subject: Re: [PATCH v2] powerpc/entry: Fix double accounting of user time on
+ interrupt entry
+Message-ID: <20260906143854.d5f6e8b2-19-amachhiw@linux.ibm.com>
+Mail-Followup-To: Aboorva Devarajan <aboorvad@linux.ibm.com>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org, 
+	Mukesh Kumar Chaurasiya <mchauras@linux.ibm.com>, Christophe Leroy <chleroy@kernel.org>, 
+	Shrikanth Hegde <sshegde@linux.ibm.com>, linux-kernel@vger.kernel.org, 
+	Ritesh Harjani <ritesh.list@gmail.com>, "Nysal Jan K . A ." <nysal@linux.ibm.com>
+References: <20260904025831.3439809-1-aboorvad@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Feedback-ID: 0163e381fa67fa966160938ffa017803050e57578bb1735d37cd25d20463a96a9bb3a550250bbc5eaa94bfdfd8cf3defcf1aa43859ae980630826bb8230f264e7f:TurnOnPrivacy!:tutamail
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904025831.3439809-1-aboorvad@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: R9Y1jjbpGrm1LMe20f718skn-FAJcxkg
+X-Proofpoint-ORIG-GUID: 8Fgm4GK64Txvx3wYkvnlUYVtsvHs_U87
+X-Authority-Analysis: v=2.4 cv=RNCD2Yi+ c=1 sm=1 tr=0 ts=6a9d2c71 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=pGLkceISAAAA:8 a=uId4siVdVRRDVQ4xNrcA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA2MDA5NyBTYWx0ZWRfX0Pqhzp0WdLXj
+ UWyzZWxBWQnJEG8z9zibxLf5LDn+yeLnAfUQS1Pic/Cs0qdhDPmIKYVADVq10/t2AbAUf1eRtku
+ 4Oql0bg3j5vycQA+7Is7dIPKFj21oRk=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA2MDA5NyBTYWx0ZWRfX7Ni1XySBs/72
+ 7lvrIKl0iQajVb+tXf30zPCN003kZ/kVzWgpGpcd+IQU+4kkElKmplLWQI7KB3BnG/6ODGieY/l
+ YiUheNoeF0yfuPyFbHorgaryH4wTWos/J6GvronWACvJsUbkdhvUo5RRyADFnSBoCdPXsdjvQh5
+ LsCfjjeCeR0DZN4biumPYSPbN14Uc7pPPoXmBcVa5MvndxDULx2dKoVNHq3hK21hC5IHlZQXH1e
+ OmWmucfnv1i8uan100ZP4vmHawKVK19qqjTc/18H5VuYfPTPpmwD2Q4iRudNizY/kZoZ2j0u0e5
+ EJpugKy6DuP/3QTOXzxfTDNslFrXI3E1blqYZA7rhl7V+wocIQh3DoefAZYeQVnbtMvw+E5cMZH
+ A+uzUiD59gNtdkVBNooKTHz0wxKyyC6cZbCR1Yxlm1vpsUWGf9kzBBzJ7Ltv9gyjGZN/VAi8MWl
+ pG3nyijAXfaNiJaIsWg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-05_08,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 clxscore=1015 spamscore=0
+ impostorscore=0 adultscore=0 phishscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609060097
 
-Aug 28, 2026, 04:50 by hangbin.liu@linux.dev:
+On 2026/09/04 08:28 AM, Aboorva Devarajan wrote:
+> Since the switch to generic entry, an interrupt from user mode
+> accounts user time twice: once in arch_interrupt_enter_prepare()
+> and again in arch_enter_from_user_mode(), which irqentry_enter()
+> invokes for the same interrupt:
+> 
+> 	arch_interrupt_enter_prepare()
+> 	  account_cpu_user_entry()		/* first */
+> 	irqentry_enter()
+> 	  arch_enter_from_user_mode()
+> 	    account_cpu_user_entry()		/* second */
+> 
+> The second call charges the same interval again, because
+> account_cpu_user_entry() accumulates the time spent in user mode
+> since the last return to user space.
+> 
+> The two calls come from the GENERIC_ENTRY preparation series,
+> where each step was a no-op on its own. Commit 09a9d3a8499d
+> ("powerpc: introduce arch_enter_from_user_mode") added the hook
+> with the user-time accounting in it, but nothing called it yet.
+> Commit 893082ac769b ("powerpc: Prepare for IRQ entry exit")
+> copied interrupt_enter_prepare() verbatim into entry-common.h as
+> arch_interrupt_enter_prepare(); that copy was equally unused, as
+> handlers still called interrupt_enter_prepare().
+> 
+> Commit bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
+> made both live. On the syscall side it did the full conversion:
+> system_call_exception() now accounts once through the hook via
+> syscall_enter_from_user_mode(), rather than calling
+> account_cpu_user_entry() directly. On the interrupt side it
+> switched the handler macros to arch_interrupt_enter_prepare()
+> followed by irqentry_enter(), which also runs the hook, but the
+> accounting in arch_interrupt_enter_prepare() was not removed to
+> match. The double accounting starts with that commit.
+> 
+> With CONFIG_VIRT_CPU_ACCOUNTING_NATIVE=y this roughly doubles the
+> reported user time of any workload that takes interrupts. The
+> other accounting modes compile account_cpu_user_entry() to an
+> empty stub, so they are not affected.
+> 
+> Remove the accounting from arch_interrupt_enter_prepare() and rely
+> on arch_enter_from_user_mode(), which already runs for both
+> syscalls and interrupts. The duplicate account_stolen_time() call
+> is removed the same way.
+> 
+> On a pseries LPAR a busy loop reports 6s user time in 3s elapsed
+> (~210% CPU) before the fix, and 3s (~105% CPU) after it:
+> 
+>   $ python3 -c 'while True: pass' &
+>   $ sleep 3; ps -p $! -o etime,time,pcpu
+> 
+>             ELAPSED     TIME  %CPU
+>   Before      00:03 00:00:06   210
+>   After       00:03 00:00:03   105
+> 
+> A 50% load reports ~70% usr / 30% idle before the fix, and
+> ~49% usr / 51% idle after it:
+> 
+>   $ taskset -c 6 stress-ng --cpu 1 --cpu-load 50 &
+>   $ mpstat -P 6 1
+> 
+>             CPU    %usr   %idle
+>   Before      6   69.74   30.26
+>   After       6   48.51   50.50
+> 
+> Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
+> Reviewed-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+> Signed-off-by: Aboorva Devarajan <aboorvad@linux.ibm.com>
 
-> On Thu, Aug 27, 2026 at 01:44:42PM +0200, Ramses de Norre via B4 Relay wr=
-ote:
->
->> From: Ramses de Norre <ramses@well-founded.dev>
->>
->> Commit f31c7937c254 ("bonding: start slaves with link down for ARP
->> monitor") initialises a freshly enslaved port's last_rx to
->> jiffies - (arp_interval + 1) so that it does not "immediately cause
->> fake detection of 'up' state". At the time, the comparison was a plain
->> <=3D arp_interval and the value was just stale enough.
->>
->> Commit da210f559019 ("bonding: add some slack to arp monitoring time
->> limits"), four months later, added a +arp_interval/2 slack term to
->> every comparison (now bond_time_in_interval()) but did not widen the
->> init to match. Since then, bond_time_in_interval(bond, last_rx, 1) is
->> true for the first ~arp_interval/2 after enslavement even though no
->> packet has been received: the upper bound is last_rx + 1.5*delta and
->> last_rx was set to jiffies - delta - 1.
->>
->> If the ARP monitor tick lands in that window, bond_ab_arp_inspect()
->> proposes the slave UP. If the slave is the configured primary,
->> bond_ab_arp_commit() sets do_failover and the still-armed
->> force_primary in bond_choose_primary_or_current() makes it the active
->> slave regardless of primary_reselect. ARP validation as the active
->> slave then fails (the link has not actually received anything; on
->> SFP+ ports the PHY is often still negotiating) and the bond falls back
->> to the backup. With primary_reselect=3Dfailure, force_primary has now
->> been spent and the bond stays on the backup until something else
->> triggers a reselect.
->>
->
-> Can we set primary_reselect to always or better to avoid this? If you pre=
-fer
-> to using the primary slave.
->
-That hides the symptom, but the wrong link state happens nonetheless, in bo=
-nd_ab_arp_inspect(), independent of any selection policy:
+The fix is minimal and correct: removing the two lines from
+arch_interrupt_enter_prepare() leaves arch_enter_from_user_mode() as the single
+accounting site for both syscalls and interrupts, which matches the generic
+entry design intent.  The benchmarks in the commit message are convincing.
 
-if (slave->link !=3D BOND_LINK_UP) {
-=C2=A0 if (bond_time_in_interval(bond, last_rx, 1)) {
-=C2=A0 =C2=A0 bond_propose_link_state(slave, BOND_LINK_UP);
+Reviewed-by: Amit Machhiwal <amachhiw@linux.ibm.com>
 
-bond_enslave() needs to seed last_rx with a timestamp old enough that this =
-test fails until a real ARP reply arrives. That is what the seed is for, se=
-e f31c7937c254 ("bonding: start slaves with link down for ARP monitor").
+Thanks,
+Amit
 
-The seed is one arp_interval old, which was just old enough back when the t=
-est was "jiffies <=3D last_rx + delta". da210f559019 then added delta/2 of =
-slack to every such comparison without adjusting the seed accordingly, so t=
-he seed now sits inside the window instead of outside it. So for the first =
-half ARP interval after enslavement the test indicates "received recently" =
-for a slave that hasn't actually received anything, and that is true for an=
-y freshly enslaved slave, primary or not, whatever primary_reselect is set =
-to.
-
-With the always policy the bond does recover once the port really comes up,=
- so it is not permanent, but until then traffic goes to a port whose PHY ha=
-s not finished negotiating and is dropped.
-So in my case, I use the failure policy precisely to avoid the bond flappin=
-g back to the primary while it is not actually up, which would cause droppe=
-d packets, but it would be much nicer if the link state was just detected c=
-orrectly and this workaround wasn't needed.
-
->>
->> Reproducer:
->>
->> ip link add bond0 type bond mode active-backup arp_interval 1000 \
->> arp_validate all arp_ip_target 192.0.2.1 \
->> primary eth0 primary_reselect failure
->> # eth0: SFP+ (slow link-up), eth1: RJ45 (fast link-up)
->> ip link set eth0 master bond0
->> ip link set eth1 master bond0
->> ip link set bond0 up
->> # bond0 lands on eth0 via force_primary, ARP-fails it before the
->> # SFP+ has carrier, falls to eth1, and stays there.
->>
->> Initialise last_rx (and the per-target array, and last_tx) to two full
->> intervals in the past so it is outside the slack window from the
->> start.
->>
->
-> Is this trying to init the backup slave down by default?
->
-No, the link state init is untouched, it still comes from netif_carrier_ok(=
-) a few lines further down. Only the last_rx seed changes, from one interva=
-l to two, so that it is outside the window bond_time_in_interval() checks.
-
->
-> Thanks
-> Hangbin
->
-
+> ---
+> Changes in v2:
+>  - Explain which commits introduced each accounting call and how
+>    they overlapped in commit message.
+>  - Drop the code comment.
+> 
+> v1: https://lore.kernel.org/linuxppc-dev/20260902050628.2553909-1-aboorvad@linux.ibm.com/
+> 
+>  arch/powerpc/include/asm/entry-common.h | 2 --
+>  1 file changed, 2 deletions(-)
+> 
+> diff --git a/arch/powerpc/include/asm/entry-common.h b/arch/powerpc/include/asm/entry-common.h
+> index c5adb5006361..000fa925e26a 100644
+> --- a/arch/powerpc/include/asm/entry-common.h
+> +++ b/arch/powerpc/include/asm/entry-common.h
+> @@ -222,8 +222,6 @@ static inline void arch_interrupt_enter_prepare(struct pt_regs *regs)
+>  
+>  	if (user_mode(regs)) {
+>  		kuap_lock();
+> -		account_cpu_user_entry();
+> -		account_stolen_time();
+>  	} else {
+>  		kuap_save_and_lock(regs);
+>  		/*
+> 
+> base-commit: fb442a6673ff1046bf67754957d95880fdb394b5
+> -- 
+> 2.54.0
+> 
