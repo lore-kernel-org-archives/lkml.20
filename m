@@ -1,77 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9FD72E414
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 00:17:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9668118B0A;
+	Sun,  6 Sep 2026 00:21:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788653879; cv=none; b=gvcofZ7Gkk+iOI7Mb4fpTaJuVEK5+9R+L/u3jigjt64hetTfZvvS85Q9VakKxehrhocdHTg9v6rVGA1BiK+sUvComLOBhP7b5I6locwU7aGAJ31Zi+vY+i8QJ434Av/6p9NGfhqeq/HJaFr/MnbPB0Z9Gd9qWqoWSbs7lm+FfiM=
+	t=1788654068; cv=none; b=aNzCO5nUzaayW14jh94xeF1ORloN7S3xPlgR8AZeJFhcb4Bc/g3YdSXKnKqdjsaCl/VabdOCIfjp2719vedNxO1C4XRRACMt/ZyaYg5xyaM1nMIjzZDawSv93N+/3VZAasyff69ob2YXfuNYhH2NsvP7ksQCbZSqOFW0U2PLQk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788653879; c=relaxed/simple;
-	bh=u/LYZxMCyHjy/ciB0i0eqcdvHK4qhlIoVnYhWGhJoCI=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=oK0ViTvyxMmle6m2OVQ4v0ATYQ3LOZr2r/9ixBNVEquvl8WbA7FLoNUhKhW3ZEMHN5fsiSNDun2F6WrykesyJFpFROSTWiZymnxToBVOvTk1BJI1b4xxvaVHaKzHd7nrwjdqurDVfYVDCdMh7oC7T3y8/uPc2SCVfJl3vc8223o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Xn7FIJdb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788654068; c=relaxed/simple;
+	bh=955emJTfXHroZhu6atdLGAyIK3laY6kxsCgRWhe6Syg=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=UX+3z6M9lIB0MTBAJqOFkrr7JUxkuP26hvuaBJk48Okbu9pFkmbgXP/GSKPItPvq48U4r1079zMM0lRWKkPTApIfEC/YlBlmsd4KD7n8OiDGeqWEaAGgLqfXnzhTyu9fRg91RbJfNGuzHUFLVHq/yQePzBIfGYrOLMykkhojInM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F/6kjSUA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Xn7FIJdb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBBEA1F00A3A;
-	Sun,  6 Sep 2026 00:17:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788653878;
-	bh=uG4SsHwh6w3Rir3+3LpKzSaA094DGkWi0CEdHNVDXeg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Xn7FIJdbJUhPVjtDuTGi7m7q+xc0z298VETMk3ZCL0hWWPESP/xnw9CCf4Bzz9UQP
-	 thhaoiSzXvurIIxh9Smo8ir7JuZsJLSXffTPsnI2dCcOVI4bnYWuCKbtt6Mw96Bxug
-	 GiXBhazIZeTeigzUEwpsXO3zvlyNgzWXzvlReWzY=
-Date: Sat, 5 Sep 2026 17:17:57 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Pedro Falcato <pfalcato@suse.de>, "Liam R. Howlett"
- <liam@infradead.org>, David Hildenbrand <david@kernel.org>, Vlastimil Babka
- <vbabka@kernel.org>, Jann Horn <jannh@google.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Mike Kaplinskiy <mike@recall.ai>,
- zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
-Subject: Re: [PATCH] mm/madvise: swap in CoW'd MAP_PRIVATE-file mappings on
- MADV_WILLNEED
-Message-Id: <20260905171757.ba8b0f8f0f18ebd04418bfeb@linux-foundation.org>
-In-Reply-To: <aprjOxDy3JCPb2oa@gremlin>
-References: <20260904-madv-will-need-map-private-v1-1-6b83cc99fcff@kernel.org>
-	<apriM1q4GzAgP7JQ@pedro-suse.tail5790ac.ts.net>
-	<aprjOxDy3JCPb2oa@gremlin>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F/6kjSUA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6C6B1F00A3A;
+	Sun,  6 Sep 2026 00:21:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788654066;
+	bh=rcwhg/AZAos+9wOTo0kL6LUtmvfW6LFdgMLURHiE/3o=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=F/6kjSUAXTKRAGa07wYMfqTtziSaA5LEPGfGyuk6HMviVNCVCJlB3vrSklKbR5IVQ
+	 d0NWJNjCdk5jhFzRjD7k/2mbngOY/jgFf8MsKCQN11pqiPuu52P+XWSgPd+jrxVODw
+	 D0ItfJEbR3VSXKzKMdJy0rGLvFgA5UGtN+AUZdm0oQ9FHJEoJ3gNAZ03AGu+EQDI4x
+	 9m2ReJWbbpo0ThQveMvZ1zjRpzxw85TrKeO05grwgB1RegPU/CER+DdMwz+Uf0jGXf
+	 8O+lir1JHQWm2FzbEsIMdvjrNYXhD4BEafd1s0Jzb7RoBoE5BSMHyIEUf8Bhgtsd24
+	 g4A0SZSf/E+sw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 1994D39253C3;
+	Sun,  6 Sep 2026 00:20:08 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] net: macb: fix NULL pointer dereference on unbind
+ with
+ fixed-link
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178865400689.1390792.2279242920046320730.git-patchwork-notify@kernel.org>
+Date: Sun, 06 Sep 2026 00:20:06 +0000
+References: <20260902102836.2019355-1-vineeth.karumanchi@amd.com>
+In-Reply-To: <20260902102836.2019355-1-vineeth.karumanchi@amd.com>
+To: Vineeth Karumanchi <vineeth.karumanchi@amd.com>
+Cc: theo.lebrun@bootlin.com, conor.dooley@microchip.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, git@amd.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 
-On Fri, 4 Sep 2026 17:01:37 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+Hello:
 
-> Andrew - could you swap the patch out in-place with below? Thanks!
-> 
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-np.
+On Wed, 2 Sep 2026 15:58:36 +0530 you wrote:
+> When the device tree describes a fixed-link and has no "mdio" child
+> node, macb_mii_init() returns early without allocating the MDIO bus,
+> leaving bp->mii_bus as NULL.
+> 
+> Two cleanup paths then dereference this NULL bus:
+> 
+> 1. On driver unbind, macb_remove() unconditionally calls
+>    mdiobus_unregister(bp->mii_bus), which oopses:
+> 
+> [...]
 
-> Currently MADV_WILLNEED treats file-backed and pure anonymous mappings
-> entirely separately - using POSIX_FADV_WILLNEED (equivalent of a readahead)
-> for the former and a tree walk and swap in to swap cache for the latter.
-> 
-> MAP_PRIVATE-file backed mappings straddle the two and currently get treated
-> as if they were purely file-backed, meaning any swapped out private pages
-> remain swapped out.
-> 
-> Resolve the issue by explicitly checking for CoW'd MAP_PRIVATE-file backed
-> mappings and performing both walks in this case.
-> 
-> Since the logic checks for vma->anon_vma this means un-CoW'd
-> MAP_PRIVATE-file backed mappings retain only the single file walk.
-> 
-> Reported-by: Mike Kaplinskiy <mike@recall.ai>
-> Closes: https://lore.kernel.org/all/CABeknB_S2XJSHFgnHdgnN0rjzHhH4oQJs_APq9fvxHztQ_pgiA@mail.gmail.com/
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Here is the summary with links:
+  - [net] net: macb: fix NULL pointer dereference on unbind with fixed-link
+    https://git.kernel.org/netdev/net/c/38b6be101006
 
-The failure mode looks pretty obscure, so I'm thinking that no backport
-is needed.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
