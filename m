@@ -1,66 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-218.mta0.migadu.com [91.218.175.218])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83E8F2EEE93
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 20:39:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B6643515FF
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 20:41:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788727188; cv=none; b=l3AI0/j8JqdfZ9T8z9Ix2fVmchXyc6NHXdRdvcmCEpngyZliLSuRgM5Ma3QbQOuIPgBQ6+p4D0kG7YjLEIzzGU+URNvmIosXfrc7ws11kghLZrSTWj68h2hgMIu2RU97ue/8m0rM8CxUF6NqYPhFTiDvFKWuSafMnQSIp8verjc=
+	t=1788727284; cv=none; b=HZk3eeFse2Bxgbp/OPtD8Lhzsz+3lIoMx1X31x65gVD+XAarY8MWokOjLqk9/xCxnyDOPSKOY7DKVWB3v+8om03Pq46A6GMnJFu6pqjySKMv1xkdlRkJ+FdDRgYMAecT/NYamyS+HNY6nuQBq6F/mRGsgtU5qDRiDoB2rLA+zcs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788727188; c=relaxed/simple;
-	bh=LR3EL8+UCmvdyt5RnYTz1EpjknVnrgzKSF1MRXhd3ko=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=sA5/yztwriFpWgTiebcggW05G2NSKo0d7oMIfohFR7/hTA4c5m2nyZoWhWlyzdKDjRmZ+madg1ZWkX7ZkFyTSohdXlPjLfTSRM+p/ruNsJXIp33XYbwxXnVbtBz5Q+vVTMRwtHtjXHyVwPljDueMsvCOZfD2biPQTvJMFDkEhXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cp8wQt8a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788727284; c=relaxed/simple;
+	bh=bSpNhh9FtdEJvuQK9j6aUZgksjI6iJ3Km92h4AkEbNc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Uc0YbDO8BAA9HTPnRrMVDJpyqXeOWDVJTfwaL0N0cn/HS836JbHtrF2UiiSN4wHrztuVgnyWt1upjO3aeSbsIIO4ZKlMhCTJshsEch6ASGJuw7YKma7wXhh1g87R9kCvldJszcqsprxKkPRMpxtJJTlnf8xwrBgo32k2ZV+liwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=omoRRI5D; arc=none smtp.client-ip=91.218.175.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cp8wQt8a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8F841F00A3A;
-	Sun,  6 Sep 2026 20:39:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788727187;
-	bh=9lfkzVniauHBDUZUWwmYVmAXW8jioDZoVwHD1zl/aeo=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=cp8wQt8aNj9FIuyGPFzrAcRmVtPOlyFJs6mbjmxyTlntQd9qnR2Rmve+W1ZA3fBv+
-	 6+H5TpbE0vf9TAZZ4DSuyMBRvoEZL/BllBU0dc/g2eEf61w78Ka38iXC7RiWUXlXo0
-	 dRnyL2RPbFrV2sNfipbi9kMPUldv5J1xSUHeZK2cOghPOVE+EZjbdNJl4CJRIR+KGX
-	 a5igwscUE7ctwAA048l5Py4Hc4jVtrsy1mlY9NurCjNn6SN4rBlHdXX7aAGIvyeF8U
-	 jGbOXs9AMbG7IHcewhwZvUFvUW4EeIAc1QWiLnhTz/bzHfHFylAnj6OvvaVU9XUJ65
-	 5q6FgCKLIZpCw==
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="omoRRI5D"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=bSpNhh9FtdEJvuQK9j6aUZgksjI6iJ3Km92h4AkEbNc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788727281; v=1; x=1789332081;
+ b=omoRRI5Dzr5wBNhMy4mtHwZ7FEJVOMY0HPYFLcnT9CXo8cWkLFTDN8K0cZx9nQo2ltHsjl9q
+ AWZ7l9tB8YKsXK5Or/obCEAp9GGGmdVumaoEQBglKAvpjjPMx67ilNL4afL+brMphlwppG1OQKb
+ Ep9LAV0avim22jNsZ7WeX5Tg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ce9db71ae2dcd178;
+	Sun, 06 Sep 2026 20:41:11 +0000
+X-Mizu-Trace-ID: ce9db71ae2dcd178
+X-Migadu-Flow: FLOW_OUT
+Date: Sun, 6 Sep 2026 20:40:59 +0000
+From: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Puranjay Mohan <puranjay@kernel.org>, 
+	Xu Kuohai <xukuohai@huaweicloud.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Sami Tolvanen <samitolvanen@google.com>, 
+	Kees Cook <kees@kernel.org>, Leon Hwang <leon.hwang@linux.dev>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	live-patching@vger.kernel.org, linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	bpf@vger.kernel.org, linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	Ben Cressey <ben@cressey.dev>, "Florent Revest (Anthropic)" <florent.revest@linux.dev>
+Subject: Re: [PATCH RFC 1/8] ftrace: Let ftrace_call_adjust() reject a patch
+ site
+Message-ID: <ap3PYIdhL3ETmN0Y@linux.dev>
+References: <20260904-b4-arm64-callops-kcfi-v1-0-ce6687739b0c@linux.dev>
+ <20260904-b4-arm64-callops-kcfi-v1-1-ce6687739b0c@linux.dev>
+ <20260904084728.6d2ebcc8@gandalf.local.home>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 1/1] liveupdate: luo_file: Add documentation for
- dependencies
-From: Mike Rapoport <rppt@kernel.org>
-To: Samiullah Khawaja <skhawaja@google.com>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Mike Rapoport <rppt@kernel.org>, Pratyush Yadav <pratyush@kernel.org>, 
- Alexander Graf <graf@amazon.com>, David Matlack <dmatlack@google.com>, 
- tarunsahu@google.com, open list <linux-kernel@vger.kernel.org>, 
- "open list:KEXEC HANDOVER (KHO)" <kexec@lists.infradead.org>, 
- "open list:KEXEC HANDOVER (KHO)" <linux-mm@kvack.org>
-In-Reply-To: <20260904220555.589752-2-skhawaja@google.com>
-References: <20260904220555.589752-1-skhawaja@google.com>
- <20260904220555.589752-2-skhawaja@google.com>
-Date: Sun, 06 Sep 2026 23:39:41 +0300
-Message-Id: <178872718104.3691424.15410189304450384708.b4-review@b4>
-X-Mailer: b4 0.17-dev
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904084728.6d2ebcc8@gandalf.local.home>
 
-Hi Sami,
+On Fri, 4 Sep 2026 08:47:28 -0400, Steven Rostedt wrote:
+> The above could use a comment to why addr could be zero (I didn't even
+> realize some architectures do that).
+>
+> 	/* Some architectures may return zero for mis-aligned addresses */
 
-> Add documentation for dependencies between FDs preserved by File
-> Handlers. This supplements the previously added
+Will add one in v2, thanks.
 
-Why capital F and H? :)
+Today arm64 returns 0 only for a mis-aligned patch site. But patch 4 of
+this series replaces that check with two: the two NOPs to patch must be
+there, and the ops pointer must fit in the prefix NOPs (which also
+catches a mis-aligned site). How about this to cover the series?
 
-I think we use "file handler" in the most places.
+	/* The architecture may return 0 to reject a patch site */
 
--- 
-Sincerely yours,
-Mike.
+Happy to name the mis-aligned case in patch 1 and extend the comment
+in patch 4 if you prefer that.
 
+Thanks,
+Jose
