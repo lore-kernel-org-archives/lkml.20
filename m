@@ -1,117 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94D7238DC56;
-	Sun,  6 Sep 2026 15:57:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9E78395AEA
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 15:57:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788710223; cv=none; b=Uq38d79MJBka9Kl+SkZYtpeDwbhHRW5bk4Bxtw1uJSryNDFMPKqWX9sFLAy4dMVXwlast+hcqnN16+v64YtGcwqUwjno91ePSw/PCU9LGVeGb6C7C88Fm2XyZKx5JRvd8XdgSAQni3cZTjA9K+SN4EnUHuUe0IRz4RFt4aB6Blg=
+	t=1788710244; cv=none; b=bP2OndVStVE3WXVYGWwZYKamwH1ElLQjSQBXB7yPDjvUUTYfwSSOwgWESloQXSnqb4Ak/0WWKA/lcOY8aYsSNdAIbv3fx4xMOA2zCTr2vrBrkpFojee/Mqdm16iofTZvRtDu4Dq52tko/ko5WWfshG61v3wBeuMCGK8Sd1GSJpg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788710223; c=relaxed/simple;
-	bh=+sN1BOZgcqt5e1XuR+e2V8jDTezM2exro7ksi8BrY/A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=HL2KqQEw+uHnZ+YcRmlElxOSAjnmEIEc7jIk6057+H/Mb6Engy/y5H+9ag0eXiRFcs+tSWYRVaBCmtP34P1HKQFLqDfV8ol5i+PLcsXuGyhYcahWr1EYIRnWYQvAkIFMWncwhLOpWgeAO4r1wXqZzMkotHNZUrDTBrmlBTA1084=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hJqm21oj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788710244; c=relaxed/simple;
+	bh=R+OWhEGuC0AXGIp00EKjH9kKnhBwUsVuPJbJI3JH3kY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y+P7Vw/CpNonOPaSH1uv1EZM8ST81d6o1R4oXbDVTxfwe6MXtMadFQ/BbWmuTJ7QlTQZjXGG+PWKfNwb2jO7ET2eU3LT5LzSzBWnR+8t2WQ7JgK7Dh+JZgxgL4eJ9f0DbkvXysmSahenbRiq6djhx1SK0FMpJAfXbv1Gda7INrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YkKRsAzE; arc=none smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hJqm21oj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A94551F00A3A;
-	Sun,  6 Sep 2026 15:56:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788710219;
-	bh=9BuPP1J9hE67Bx0WxjFC0rAK/j6yeN+uS2eVtoGIYPs=;
-	h=From:To:Cc:Subject:Date;
-	b=hJqm21oj70iZGPxdVp27pIoHdzqKeSHUlEfY3O0ifeXNZ6daQQCD+vIxnbzkuayV3
-	 yj3iiE1hX6OQ+LOqPGsrFq7wNmSFvKHL9ty8BGYpRI+nwkCqJNBFharC40w8ZYerrP
-	 S6tfuXxsCYrESFD7ljSDNluko+tNx1VO8OqqaiKYCHmF3nHH7Ug+XYXcWf18U+jXip
-	 1mpdFzSiMsFyLXZb4L0GFLtaTeIMFNQxhcIbahJ748v39RkSmHxFG7snwblrkBDwv/
-	 /bkUtHp1VCaAHNKeIX2PYCNaBsze2TXdQWqtDBUrA/yc02l5TaZud8VhgFALYEFKWD
-	 ridsvMWLRCdyA==
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-To: Linux ACPI <linux-acpi@vger.kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject:
- [PATCH v1] ACPI: utils: Adjust message printing macros for ACPI objects
-Date: Sun, 06 Sep 2026 17:56:56 +0200
-Message-ID: <2300525.irdbgypaU6@rafael.j.wysocki>
-Organization: Linux Kernel Development - Intel
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YkKRsAzE"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-398a5aad413so1941137a91.3
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 08:57:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788710239; x=1789315039; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=apIkgapLuCgEcMXQm6sW1tAj0MdsQkxgudPXQSkaM5k=;
+        b=YkKRsAzEC6mYD2jv4yGn+fUGdX43NWj86K6wWZQVmj2mPqkrXopJwg1ZRsIhXKxtSO
+         Zb4nu15iNqJw7DCBNdIJ+ABxVoz5tNdDqEOvNsYNGF7Z4IuFABNb+S/2PDtObfebGJWd
+         IXHH3/34yJU4zfJ4WEf+sL1luL7/FVRTynSLgSizEvUdvr4WzJVWY5r7NnO1VdTUaKXC
+         l8FdFXaVllrXbPVaku/5QeMmMrLLvau7v0M28ub3+ANnOnKYCtZj6hxMivaMGrPRuAc5
+         Wra62khdnhfhvohlxqKFUfYUbTsE7aXBmuu/C20voq5Lb72X1xaNT22/S6u26iRYCVLe
+         jFMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788710239; x=1789315039;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=apIkgapLuCgEcMXQm6sW1tAj0MdsQkxgudPXQSkaM5k=;
+        b=PGjlgZFSO5GGmKeJdta6RhPmOSvL6YUbIkYRFiNurxeSKZrpprmF/ib5+fW7KFl/ix
+         fQGdlt0ifxkW6DY+1ZmokLrc8+3Kz631WDuBgFJ8qeH6uvdRr+mplV/R6D40mAqI5Htp
+         5Sg7nho1Fin4McaP+wJtWZq4oFehpy9Gjalk7LLUmL5YFVt+wNFdb5MprzyPheev5oY6
+         MXN+tObzCZPjHvcI9QoAiS9li85y8A7LA17qO86HpvPV+TNgmAIJYU7kZd955RZNam5M
+         ARwqMOqAng2lz0WyWEi6v5Ghi6u12LK7AnGmgwJ/HlbpRHs/dAquNLHDkXtMHlgKU0B+
+         AdVA==
+X-Forwarded-Encrypted: i=1; AKwUvBxMfuebR9p+abE2SwSdmy8AZp4FGhLG8eUsml3B9uLH6rRFoOCKmYpIa+vaLrc8cyl6jg/O96DTTpDQNlw=@vger.kernel.org
+X-Gm-Message-State: AFuF++n7nwCSseoNkB6tuGNTu/9pkcr9dtdN+zlrn6uEW5bQQ7OWWBVc
+	9VwhTSWJFTIYgCzZwt+qhGb5OCk0baOZoR9+sn9HVrWI5bTpOfG3Wmik
+X-Gm-Gg: AYBFou3kB+lrZcmd3s/EVlfKxtG4MKMSSl1YZdo80wFNi5MtAWJG+g/iEfaeA4k27ns
+	bLvHnptrGJle2hsrWGynqXApXl+ZqGKzhEdaDPO+dpG9o+2eEzEr5GJVqKupo/O+ScRSxLGfeSM
+	zxhFzMxjFPXDYVfzbSTSnufpwieOjtNIgnIKo413goKh6I3gD6skn/uvEwMe1uT7Dv8rc7YBocY
+	a3pDfhW2p8U7d5y9nEBB43lq04wFhgvMfJYNfTW5zqKHnfOsPA7PB9Odiu4tqzpNpg7mCNNo77Q
+	PS6wRWS7Ny04FHdWcCp8jSMywX4BxIe6B5yKHmaCKdYDTFprRTp9wAhzjX7ywjUHUpz0vBTzKGU
+	gBa5rNEm59ebLLIUxxo1aiUgA2i8kYdjd8ju6z2TMkTwBDE43hVwpoV+gHGeJLZ/P+qKu7SJ0cu
+	ZXYPt3q9VVbXNUotcxS/BYH1gyNk5zhZf5M+9zG+JvCv6Cg4UEr1s0ptI0jVchF3zCO56EFAGGU
+	QpglO89WFxE/wKbpQ==
+X-Received: by 2002:a17:90b:5243:b0:38e:c232:9d3f with SMTP id 98e67ed59e1d1-39b2614df1emr28808066a91.5.1788710239188;
+        Sun, 06 Sep 2026 08:57:19 -0700 (PDT)
+Received: from acer-nitro-anv15-41.entro.com ([118.34.230.2])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b07b197a9sm21756544a91.0.2026.09.06.08.57.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 08:57:18 -0700 (PDT)
+From: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+To: Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dan Williams <djbw@kernel.org>,
+	Ira Weiny <iweiny@kernel.org>,
+	Li Ming <ming.li@zohomail.com>
+Cc: linux-cxl@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] cxl/events: Return IRQ_NONE when no event is pending
+Date: Sun,  6 Sep 2026 21:27:05 +0530
+Message-ID: <20260906155705.13252-1-shaikhkamal2012@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+CXL event interrupts may share an MSI/MSI-X vector with other event
+logs or device features. Consequently, cxl_event_thread() is registered
+with IRQF_SHARED and must determine whether an interrupt belongs to the
+event-log facility.
 
-The majority of acpi_handle_<level>() macros use neither pr_fmt() nor
-dev_fmt() and acpi_handle_debug() uses pr_fmt() like dev_fmt(), but
-only if dynamic debug is compiled in.
+The handler masks the Device Event Status register to the event logs
+supported by the driver. However, when no supported status bit is set,
+it exits the processing loop and still returns IRQ_HANDLED.
 
-For more consistency, redefine all of the macros in question to use
-dev_fmt() because they are more similar to the analogous dev_*()
-family of macros than to the pr_*() ones and make all of them use it
-in the same way.
+Track whether at least one supported event status bit was observed.
+Return IRQ_NONE when there was no event to service, while continuing to
+return IRQ_HANDLED after processing one or more event logs.
 
-While at it, rephrase the comment documenting those macros for more
-clarity.
+Fixes: a49aa8141b65 ("cxl/mem: Wire up event interrupts")
 
-Fixes: 45fef5b88d1f ("ACPI: add dynamic_debug support")
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
 ---
- include/linux/acpi.h |   24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ drivers/cxl/pci.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
---- a/include/linux/acpi.h
-+++ b/include/linux/acpi.h
-@@ -1305,34 +1305,34 @@ void __acpi_handle_debug(struct _ddebug
- #endif
+diff --git a/drivers/cxl/pci.c b/drivers/cxl/pci.c
+index c7c91e8dc51d..8b560cae91f2 100644
+--- a/drivers/cxl/pci.c
++++ b/drivers/cxl/pci.c
+@@ -515,6 +515,7 @@ static irqreturn_t cxl_event_thread(int irq, void *id)
+ 	struct cxl_dev_id *dev_id = id;
+ 	struct cxl_dev_state *cxlds = dev_id->cxlds;
+ 	struct cxl_memdev_state *mds = to_cxl_memdev_state(cxlds);
++	bool handled = false;
+ 	u32 status;
  
- /*
-- * acpi_handle_<level>: Print message with ACPI prefix and object path
-+ * acpi_handle_<level> - Print a message with ACPI prefix and object path
-  *
-- * These interfaces acquire the global namespace mutex to obtain an object
-- * path.  In interrupt context, it shows the object path as <n/a>.
-+ * In thread context, the global namespace mutex is acquired to obtain the
-+ * object path.  In interrupt context, the object path is shown as <n/a>.
-  */
- #define acpi_handle_emerg(handle, fmt, ...)				\
--	acpi_handle_printk(KERN_EMERG, handle, fmt, ##__VA_ARGS__)
-+	acpi_handle_printk(KERN_EMERG, handle, dev_fmt(fmt), ##__VA_ARGS__)
- #define acpi_handle_alert(handle, fmt, ...)				\
--	acpi_handle_printk(KERN_ALERT, handle, fmt, ##__VA_ARGS__)
-+	acpi_handle_printk(KERN_ALERT, handle, dev_fmt(fmt), ##__VA_ARGS__)
- #define acpi_handle_crit(handle, fmt, ...)				\
--	acpi_handle_printk(KERN_CRIT, handle, fmt, ##__VA_ARGS__)
-+	acpi_handle_printk(KERN_CRIT, handle, dev_fmt(fmt), ##__VA_ARGS__)
- #define acpi_handle_err(handle, fmt, ...)				\
--	acpi_handle_printk(KERN_ERR, handle, fmt, ##__VA_ARGS__)
-+	acpi_handle_printk(KERN_ERR, handle, dev_fmt(fmt), ##__VA_ARGS__)
- #define acpi_handle_warn(handle, fmt, ...)				\
--	acpi_handle_printk(KERN_WARNING, handle, fmt, ##__VA_ARGS__)
-+	acpi_handle_printk(KERN_WARNING, handle, dev_fmt(fmt), ##__VA_ARGS__)
- #define acpi_handle_notice(handle, fmt, ...)				\
--	acpi_handle_printk(KERN_NOTICE, handle, fmt, ##__VA_ARGS__)
-+	acpi_handle_printk(KERN_NOTICE, handle, dev_fmt(fmt), ##__VA_ARGS__)
- #define acpi_handle_info(handle, fmt, ...)				\
--	acpi_handle_printk(KERN_INFO, handle, fmt, ##__VA_ARGS__)
-+	acpi_handle_printk(KERN_INFO, handle, dev_fmt(fmt), ##__VA_ARGS__)
+ 	do {
+@@ -527,11 +528,13 @@ static irqreturn_t cxl_event_thread(int irq, void *id)
+ 		status &= CXLDEV_EVENT_STATUS_ALL;
+ 		if (!status)
+ 			break;
++
++		handled = true;
+ 		cxl_mem_get_event_records(mds, status);
+ 		cond_resched();
+ 	} while (status);
  
- #if defined(DEBUG)
- #define acpi_handle_debug(handle, fmt, ...)				\
--	acpi_handle_printk(KERN_DEBUG, handle, fmt, ##__VA_ARGS__)
-+	acpi_handle_printk(KERN_DEBUG, handle, dev_fmt(fmt), ##__VA_ARGS__)
- #else
- #if defined(CONFIG_DYNAMIC_DEBUG)
- #define acpi_handle_debug(handle, fmt, ...)				\
- 	_dynamic_func_call(fmt, __acpi_handle_debug,			\
--			   handle, pr_fmt(fmt), ##__VA_ARGS__)
-+			   handle, dev_fmt(fmt), ##__VA_ARGS__)
- #else
- #define acpi_handle_debug(handle, fmt, ...)				\
- ({									\
+-	return IRQ_HANDLED;
++	return handled ? IRQ_HANDLED : IRQ_NONE;
+ }
+ 
+ static int cxl_event_req_irq(struct cxl_dev_state *cxlds, u8 setting)
 
-
+base-commit: 7098e9cd98a05c0c5de2fae0c2465f9d966fdd07
+prerequisite-patch-id: 92e40cd60a697020faac475dcc77ba63b33434ea
+prerequisite-patch-id: 10027ad5d9aed85806047f807b3a76273b6c4a77
+-- 
+2.43.0
 
