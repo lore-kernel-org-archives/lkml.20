@@ -1,194 +1,182 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C985242925
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 01:18:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788657527; cv=none; b=um2j4T/eKc+HnsyY2oAY3EGYqMyk2eHywnVEYS3dKZyN6ijfKSxjpSSWBKnJnymz7LoP3EyjxqwyB/yj8SKpLwB9WyE1ro9lJuYn7/PCtWCUG8G8qbUrwTzFI7whYGExY6djaa4gGpQ9m0GvzIIPGOn2q67ykSIYtboyVNJ6GFI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788657527; c=relaxed/simple;
-	bh=+vQ3C0AKhkdy7A8I7Q6xZYvm7oOwojkJjsP0fx+Fhdg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=nmLxp3bKmmhqnXGeBhvoTrA0L8wC670wxJ+FIAqJ3v+dZMEyJ4x4CJbY4Mk2L5pF2NFqrBKx3PW7fW2PIsFcQ1WEDIb5kQOU205cptdSpaMN94PRR44Es5xv/YAe6kq6x4GCrkAyNKbXMrAbBm59CgapE52+7jLCf7Xv98EvlZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Eeev8K58; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB98423D297
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 01:20:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788657639; cv=pass; b=j6IEqShbnwBsvCX4V93sAtg1o9tD6I0MO5PqgGlfPcHRejYdYTMYoOar+qhQHnErRjxSXVVP0Ndytw3v8HNjJ8NOjhWpmmULXIoQaxO8eQFpjLJxoQDVNoMiIt+dbEees6gOTiX6aK3REA6HbQ1+BCamKt08/C9jGibLnAtBAL8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788657639; c=relaxed/simple;
+	bh=VcpjacYfNfPXypVCdkfzz5uNjfBEJ1CeR+0zgePQPwM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qm/fIdlULZVKz/ln6sWxdoMFfYtiSauL86vL1jhAENP+OTlA3q1mzct43QZhqISfoDEIxvAxXk0rJWlqhCYErxokAJrdjDIe5oiFsE/22eoZMKkhUa6p1HI3yrJeBIugBN8tTYrLG0DlUurVsC6/lgSmLGPaDmn2ZmpH2/kHl0E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sXzGTGI2; arc=pass smtp.client-ip=209.85.161.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Eeev8K58"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d71ae3455aso30995875ad.1
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 18:18:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sXzGTGI2"
+Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6b19e291cc6so1936761eaf.2
+        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 18:20:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788657636; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dctu0vdFHsFz5SP3gQt+EH06V3+c+/cxUX6jgWooIgW7bcSpZSwOSR3Dc13m4yCmHl
+         PSqtu/FJcF4uSle425If9dfr0XPq3GlkZwZpaaxp24HFJyrW4EnqHZ9W+PBAigKPUTA4
+         9rqxiATafXMthUFBL361YnJdeR1ViNoblMB8UPxWM2h6AH9WVJyzvzdNKd6CvAd5jjsu
+         xvR1qjarYKy1lOCSYjg9Igh/DJcgIZ4IzeNcxPVL1XQbQOnQBHTvwOv5VOgA128pueSy
+         FmITBgByrG4DFciIzTQGPipZURRxj2YzBs3WeFJZbqeav+FA0xVwfESSgC10Tg5fVoFN
+         Cngw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vrbIhRjPzei1dtqxq+ZD3mi9kwyuQdOPberv3S+Q6ak=;
+        fh=fHa9tifM0qXzAc0aZRywdVMsfvJ+BZth0okGeChS1KU=;
+        b=TiVtaxKS/9d/sWIO13ptGO7x0E1FJ6yGZTddNlPQjstsDdQKob2N2BnbFKyjbPDDlL
+         ezYVVb/PNXizQ2WpTD8P6YioEESRb2apiS847b7GsvNmgZINlPSGEjtTwdMzPDl/9A8Z
+         Pcqms7eei8ZDYPx/YTQlcEexQHw578LOc86Cv1qHgWORdK0CEyRfmMhB/k2abGttmv4i
+         KvuY1h/he7ln5eWOK6iY1p5krxxAVyuo7IMelV0zsp3rJKiyWvMeypm2CqyM6e6ubohQ
+         c8aKhYErkyGw5UUVltFzrzOXEEGLGZCJKFjC0OEJa86PE0rh0lzV0CgFsNRdN8VZBAyI
+         pyHw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788657525; x=1789262325; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ywe2sHtINpj8rB0jtyYuL7DLOlKzJ3vQHaEJq2LOGaw=;
-        b=Eeev8K58pEBrV1wTeMObhA0nvpptUFUcFBpC5Ng1tKp3mcxdI+Bg0BKd1SR4TxImdX
-         0nuEZn2XZG6JersxlWGFyCJLY5w0E7PEUCCflBBNUVv8vOJdFhLTDONX+ANYm9hTarMS
-         jiTWiEadM0KgK8zAQsHNiA+ATcwblDC4HYnpxuNViDWMiZuyjwhH96CGOUHjo2d0f3pr
-         g0LOC7MktEzJguaFG9k7sYc0m6l9WGIWW3DpJ6iEmMzdw3MXzFntzTTW5ulgPoaaCi94
-         zBZgsbcoG72UibkC0e9ablYtfac92jfIpDqGfTbUXc6VF03M3jRNt72G8uqTgMruMe3D
-         2rKw==
+        d=gmail.com; s=20251104; t=1788657636; x=1789262436; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vrbIhRjPzei1dtqxq+ZD3mi9kwyuQdOPberv3S+Q6ak=;
+        b=sXzGTGI2TB3fZVYsMhUSBDxnXji72LlqgTByeqjUkFl04ltxHaU6m6qpJ+rSHXI0s+
+         UWC8OtU4sGQQ7vO5WpHRT4iNnWengxXwtTAVoiGWD+zvnVPnnEGS3wxVjwoo2TayPZY6
+         jHyZmE157KQajQFj8q/ppy73iToc6mxNrrkozsiqumnVZ3v31Bg1h+HPkiExFsYDRsMC
+         HR34cN5DiHmrEWuOajA1lnZ6zh73eNRQeXzwUYfKHxOWPFycRbvMx0wHqmyzbd5vxMLh
+         oO+CR8FIvzIvt5sZmDCm7BXSCAb2+q/f5WClmXEINRTtL4Sck9Bk4yUhToEY/OVDKTyF
+         hi0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788657525; x=1789262325;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ywe2sHtINpj8rB0jtyYuL7DLOlKzJ3vQHaEJq2LOGaw=;
-        b=I6fJvqons3mrQQsbSBmlir/l2b5VJfQC+fJvk7ibFa/SC2CBQDD8BcuefrNOUbdqPS
-         gDUCrLRL4H9NE8p6//i1JgQZupxyTRVYSKdOcS2qKaE+jCmG8j7iU9pmo5hyT6+8LFxe
-         q88QUoTdQYuUV8ltPsSxCZXUIQn3sjqXR51TiqwCXyu2s7zjqklj9qRK6iCF+SrvaGtU
-         MxNJof21cf5x5phIHf4Zn2d9gZaxl24UzUiA+lFRRILFN62p/2toE6xxQyT56sbNqwfO
-         yEajbmaWBiRkO43tgZXH8W7pp0HcfzlyiTeIRrVzPuDGNPAWD19NeSeMOrY9RiBqfjBs
-         pBHg==
-X-Forwarded-Encrypted: i=1; AKwUvByUlnKM6kT9+1UoFwTm2sINShocKP8uc2cweuT9UaHGv1V+oFsRbD0WfaUEzXhRMp1ZsH6y7anPhfDkceg=@vger.kernel.org
-X-Gm-Message-State: AFuF++m70uLtvd7KN+NR1ix8+oLidh7eTyLJvsypx7pakkNszOAZ+M2G
-	Qz2FqEptqvL50fMapUApFHHwOqmgUAPMlbtiEJ0kqeR/rClDOQVOORzb
-X-Gm-Gg: AYBFou1Uest2xGW2bnc8RIg2t7UuGJlPeBwCvdUHM9v2JVxTYCbvDDTQEfUysvLG0T2
-	qoj8dCtcjmUVWScRozHz13mg7eNuo3mQ3c/4jzj6oqTXGmIoBPYRGbi9OyEDmuYrrdc16S22ni+
-	4oTKCkXLHXlfxb9mPh9M3qwVOvestjFhURqMiWz87Y2vHjclQEo13HmWMnd8R1nY2nJv8Ve6NaD
-	Z+3Jz6tbltSPl5Q2CBAIrBylM8M0gXY69Yz7k/DdBgktHHoxZUrBF7aj6zjwZlfK5O6dEo2H8p4
-	1OofuHvw+UyUP0CRdUvyZyHWpnK76qMf94htBKVcVRgabuqBtxdWD2JAUXgb0trf/Qmq9Xrk/s0
-	uwtMB5cDmkwTN6ooEtV3TTWgAjFwJPYMkXGrf4uweC3THX3dxbjkbncMSP63SeElH7sps3deL7A
-	Msol73OJnx3EfKWCstg9eBqqTJtdiwGWB8SCHxIk6DnWgxh6gsI+2tUt7S6/NDj/88gt2hBFtXD
-	DWKGEEwcIVrB7og
-X-Received: by 2002:a17:903:2b0d:b0:2d9:1dee:43db with SMTP id d9443c01a7336-2db1284b6dfmr222969445ad.15.1788657525544;
-        Sat, 05 Sep 2026 18:18:45 -0700 (PDT)
-Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db149c3b80sm26905965ad.63.2026.09.05.18.18.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 18:18:45 -0700 (PDT)
-From: Bo Zhang <zhangbo0325@gmail.com>
-X-Google-Original-From: Bo Zhang <zhangbo56@xiaomi.com>
-To: akpm@linux-foundation.org,
-	hannes@cmpxchg.org
-Cc: baohua@kernel.org,
-	kasong@tencent.com,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	david@kernel.org,
-	mhocko@kernel.org,
-	ljs@kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Bo Zhang <zhangbo56@xiaomi.com>
-Subject: [PATCH v2] mm: vmscan: avoid anon scanning for GFP_NOIO with low swapcache
-Date: Sun,  6 Sep 2026 09:18:20 +0800
-Message-Id: <20260906011820.382381-1-zhangbo56@xiaomi.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260903040131.4016290-1-zhangbo56@xiaomi.com>
-References: <20260903040131.4016290-1-zhangbo56@xiaomi.com>
+        d=1e100.net; s=20251104; t=1788657636; x=1789262436;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vrbIhRjPzei1dtqxq+ZD3mi9kwyuQdOPberv3S+Q6ak=;
+        b=fIAjGOYtIMhWlgjvGrd4hlq8j09JENsUn5oQVv+5ecuHDeakIkPCbs6GxUEjPo2a+f
+         sCEk2VPi3+tMvJmCfwuD+wDnN9P0QlL+t7HdIQ6uBhUbKqFrDh1AStV8MqQ48Pc8D78B
+         5iHLRBRb3CpkC/b7Cc8FByv0ussfe63VJmIsu9IQEMUHIT/yfYamh1m1O09PF+4tUqkY
+         x0SPu8pTVfFHPAVzdqU9fra7eMM+EpXTcznf9yzCV2A050y5ZAKxBBMBVjxrIYv+0lLp
+         QxkntgFIHHq1lOyqCdneWaQ7YOBlHbE+LG6mdF8ZJ6bCXKeHQ/xefJDTjeBvCNJQ0cmb
+         Z63g==
+X-Forwarded-Encrypted: i=1; AKwUvBy90TGapbBq5dNnkHlyK3OGrbgbfv2dIjDX3QWitpgDT16BQrJmd4gzaZCuW1OzH7GSL74j2IIBDbOticg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kWyMoHasexsNhO2VXsE7ZHIxmy+gQdKQ9kTZ1dmAs0yPb3+whW
+	BuEDgkbcMSrACBlCC6gY2SBvSf8VSVfsSoFp1Ejn4VLGKtrO3eirXAi15gekf1ZEHZPsEWmO/1U
+	CqADFJYsQ3cTn1EG7G80O+JgLQtLALrE=
+X-Gm-Gg: AYBFou2qLm2Gq2vyuOqxuSPt9rq3nCHEp49lPV0I4CY9nXFCtLehIDS6ppBT8jGaNYV
+	4jG/u6xQJCG8osU1KG/F07EsENemJ8IoiD6OWsVzuKNFjbS3u2pUcWqg5fcsdElnZwmbdQGy7da
+	D5KWuejp/YZkGAvjir+heteSYokKNO7ILUCiIYemaQcBkeOHJ6LbeRNTzzI0OtT60f7Y3v7Tm1Z
+	x0NBAJPw903vMtWBAjzLfkMlTDaUFcy8zhZuYMPSzA8gwBKHH7NQtAFLk1OJV47fvD2E+nk5xem
+	GPtfsyxvTAA6vnWPdYuD/iqCvDhCechGW386AZ4rK38Zs3lR5pxvrXAz
+X-Received: by 2002:a05:6820:a28c:20b0:6ba:2927:3661 with SMTP id
+ 006d021491bc7-6ba29273f2fmr202772eaf.18.1788657636529; Sat, 05 Sep 2026
+ 18:20:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260714222338.2965707-1-dianders@chromium.org> <20260714152138.7.I5cef580a62c86ba6c3465ad336fa509afbdf1476@changeid>
+In-Reply-To: <20260714152138.7.I5cef580a62c86ba6c3465ad336fa509afbdf1476@changeid>
+From: Jassi Brar <jassisinghbrar@gmail.com>
+Date: Sat, 5 Sep 2026 20:20:24 -0500
+X-Gm-Features: AcwNN1W-1EM5u25I6sIYjSAHidxk9uQmu6rjm34oWnomns496rRML5lm1gN-HB8
+Message-ID: <CABb+yY3_xBvQVFHEs=v39u7+TLjJRaVv3sg5pGgd0YxCruZ8Tw@mail.gmail.com>
+Subject: Re: [PATCH 7/7] mailbox: goog-mba: Introduce the goog-mba mailbox driver
+To: Douglas Anderson <dianders@chromium.org>
+Cc: Joonwon Kang <joonwonkang@google.com>, Subhash Jadavani <sjadavani@google.com>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Lucas Wei <lucaswei@google.com>, 
+	Brian Norris <briannorris@chromium.org>, Peter Griffin <peter.griffin@linaro.org>, 
+	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-samsung-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-We have observed some cases where memory is allocated with GFP_NOIO, so
-we cannot reclaim any anon folios unless they are in swapcache. We can
-end up spending more than 150 ms looping in `shrink_folio_list()` scanning
-non-swapcache folios without reclaiming a single folio. This is pure
-overhead.
+Hi Douglas,
 
-This is particularly true on systems using zRAM, where swapcache is
-relatively rare. So let's check whether anon reclaim is allowed by
-GFP_IO and whether there is enough swapcache to make it worthwhile. If
-the swapcache is extremely low, we're essentially searching for a
-needle in a haystack, so let's avoid scanning anon in the first place.
+On Tue, Jul 14, 2026 at 5:24=E2=80=AFPM Douglas Anderson <dianders@chromium=
+.org> wrote:
+....
+> +
+> +/**
+> + * goog_mba_handle_tx_interrupt() - Handle interrupt that remote Acked o=
+ur msg.
+> + * @goog_mbox: The mailbox info.
+> + */
+> +static void goog_mba_handle_tx_interrupt(struct goog_mbox_info *goog_mbo=
+x)
+> +{
+> +       unsigned int reqs_completed;
+> +       int i;
+> +
+> +       /*
+> +        * ACK interrupt needs to be cleared before reading CLIENT_OUTSTA=
+NDING_MSG.
+> +        * Then if a "race" happens and another message gets Acked after =
+we clear
+> +        * but before we read CLIENT_OUTSTANDING_MSG then the worst that =
+will
+> +        * happen is we'll get a followup interrupt that will show 0 reqs=
+_completed.
+> +        */
+> +       writel(CLIENT_IRQ_STATUS_ACK_INT, goog_mbox->iomem + CLIENT_IRQ_S=
+TATUS_OFFSET);
+> +
+> +       if (goog_mbox->queue_mode) {
+> +               u32 outstanding_msgs;
+> +
+> +               outstanding_msgs =3D readl(goog_mbox->iomem + CLIENT_OUTS=
+TANDING_MSG);
+> +               spin_lock(&goog_mbox->lock);
+> +
+> +               if (goog_mbox->outstanding_msgs >=3D outstanding_msgs) {
+> +                       reqs_completed =3D goog_mbox->outstanding_msgs - =
+outstanding_msgs;
+> +               } else {
+> +                       /*
+> +                        * The hardware's track of outstanding messages s=
+hould always
+> +                        * be less than or equal to the number of message=
+s we queued.
+> +                        * If it thinks there are more messages outstandi=
+ng than we
+> +                        * queued, something is wrong. Assume nothing was=
+ completed.
+> +                        */
+> +                       dev_warn_ratelimited(goog_mbox->mba->dev,
+> +                                            "%pOFP: unexpected outstandi=
+ng msgs: %u -> %u\n",
+> +                                            goog_mbox->np, goog_mbox->ou=
+tstanding_msgs,
+> +                                            outstanding_msgs);
+> +                       reqs_completed =3D 0;
+> +               }
+> +               goog_mbox->outstanding_msgs =3D outstanding_msgs;
+> +               spin_unlock(&goog_mbox->lock);
+> +
+> +               trace_goog_mba_process_q_txdone(goog_mbox, reqs_completed=
+, outstanding_msgs);
+> +       } else {
+> +               reqs_completed =3D 1;
+> +               trace_goog_mba_process_nq_txdone(goog_mbox);
+> +       }
+> +
+> +       for (i =3D 0; i < reqs_completed; i++)
+> +               mbox_chan_txdone(&goog_mbox->chan, 0);
 
-On Android this is triggered by dm-verity hash-block reads through
-dm-bufio, which use GFP_NOIO:
+The patchset doesn't say much about the clients but if the platform
+works like this, I have a strong feeling we can do without introducing
+mbox_controller.has_queue.
+Just use the msg_data[] ringbuffer -- we can avoid changing the core
+internals and you will still get ACK for each message.
+What are the clients going to be like?
 
-  verity_verify_io -> verity_hash_for_block -> verity_verify_level
-    -> dm_bufio_read_with_ioprio -> new_read -> __bufio_new
-      -> alloc_buffer
-         gfp: GFP_NOIO | __GFP_NORETRY | __GFP_NOMEMALLOC | __GFP_NOWARN
-
-Such a reclaimer can land on a memcg with a large, unswapped anon LRU and
-a tiny file LRU (e.g. inactive_anon ~335 MB vs inactive_file ~4 MB, with
-negligible swapcache). shrink_lruvec() then keeps feeding that huge anon
-list into shrink_folio_list() - ~2400 shrink_folio_list() calls, ~93,000
-anon folios scanned - where every folio is kept because it needs IO. The
-150+ ms above is one such single shrink_lruvec() pass (not accumulated
-across a reclaim cycle), and it reclaims nothing; the actual progress
-comes entirely from the file side.
-
-Aging anon alongside file does have some value for a later __GFP_IO
-reclaimer, so it is not strictly pure overhead. But that aging is only
-deferred, not lost: kswapd and other __GFP_IO reclaimers still walk and
-age anon. Spending ~168 ms aging memory that this context cannot reclaim
-is not a worthwhile trade-off in a latency-sensitive path.
-
-To stay conservative, this only skips anon when the swapcache is really
-tiny - below 1/64 of the anon LRU - i.e. when essentially no anon on the
-list can be reclaimed without IO. Whenever there is a meaningful amount of
-swapcached anon, the normal path is used and anon is scanned and aged as
-before.
-
-Signed-off-by: Bo Zhang <zhangbo56@xiaomi.com>
----
-v1 -> v2:
- - Use mem_cgroup_lruvec() instead of get_lruvec(), which returns the raw
-   node lruvec for a NULL memcg and would be misinterpreted by
-   lruvec_page_state()'s container_of() during global reclaim. This also
-   drops the get_lruvec() move. (reported by the sashiko bot, suggested
-   by Barry Song)
- - Drop the SWAP_CLUSTER_MAX cap on the threshold; the check is purely
-   proportional now (swapcache below 1/64 of the anon LRU).
- - Expand the changelog with the workload, the dm-verity/dm-bufio NOIO
-   stack, the ~168 ms single shrink_lruvec() breakdown, and the aging
-   trade-off discussed with Johannes Weiner.
-
- mm/vmscan.c | 23 +++++++++++++++++++++--
- 1 file changed, 21 insertions(+), 2 deletions(-)
-
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 245f68c75b28..e20ac2cb4dd5 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -362,6 +362,23 @@ static bool can_demote(int nid, struct scan_control *sc,
- 	return !nodes_empty(allowed_mask);
- }
- 
-+static inline bool reclaimable_anon_is_low(struct mem_cgroup *memcg,
-+		int nid, struct scan_control *sc)
-+{
-+	struct lruvec *lruvec;
-+	unsigned long anon_pages, swapcache;
-+
-+	if (!sc || (sc->gfp_mask & __GFP_IO))
-+		return false;
-+
-+	lruvec = mem_cgroup_lruvec(memcg, NODE_DATA(nid));
-+	anon_pages = lruvec_page_state(lruvec, NR_INACTIVE_ANON) +
-+		     lruvec_page_state(lruvec, NR_ACTIVE_ANON);
-+	swapcache = lruvec_page_state(lruvec, NR_SWAPCACHE);
-+
-+	return swapcache < (anon_pages >> 6);
-+}
-+
- static inline bool can_reclaim_anon_pages(struct mem_cgroup *memcg,
- 					  int nid,
- 					  struct scan_control *sc)
-@@ -371,11 +388,13 @@ static inline bool can_reclaim_anon_pages(struct mem_cgroup *memcg,
- 		 * For non-memcg reclaim, is there
- 		 * space in any swap device?
- 		 */
--		if (get_nr_swap_pages() > 0)
-+		if (get_nr_swap_pages() > 0 &&
-+		    !reclaimable_anon_is_low(memcg, nid, sc))
- 			return true;
- 	} else {
- 		/* Is the memcg below its swap limit? */
--		if (mem_cgroup_get_nr_swap_pages(memcg) > 0)
-+		if (mem_cgroup_get_nr_swap_pages(memcg) > 0 &&
-+		    !reclaimable_anon_is_low(memcg, nid, sc))
- 			return true;
- 	}
- 
--- 
-2.34.1
-
+Regards,
+Jassi
