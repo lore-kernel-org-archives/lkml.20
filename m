@@ -1,41 +1,44 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5397737A839;
-	Sun,  6 Sep 2026 03:42:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 768223B5319;
+	Sun,  6 Sep 2026 03:42:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788666175; cv=none; b=Dp4x4io8m/zczn9X7gkJ7tzXRCj+T4AJARa61xPP0qeFb8g1JLSgboJ9WnYzcV9c36dVSWLyoxIEq/+CwFjfKryIzFCM3R/kv1T68ksiw/KEkLruZwI9MkLeggKH3cfJDuHVMxob8soQNv4UUhquFOhEU2a/vWCDQzD7TEVS2dk=
+	t=1788666176; cv=none; b=WJwkFXZlw3UGQ5qVw7jykIm5d9r7T8Lh3k7Xmbc51EP12DtdcpGw5uYh0PQOC26gW9IbA4E0eGJYIdIBBCB2WrWGDtV+OsknPhQ99LR1hHC83Arba1bDOBbf4rEZHrwt5fepsotYUhhddgl3aKQIDFZ4jCS6/j60Ofz3bW96vOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788666175; c=relaxed/simple;
-	bh=s2ely7C8IHvnn1zVkej3RjWU3H45Mk+y2tp56m3lSdM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UGX9Uh+pOzwtWysEgUhBpHTQj++WcJweHLc5Eb9LoXf3ygCLONd2uQb5TGiLcO6zux9UQ0kZWyK7Yvtno65HQsLOMw+TWGBriBWky8kSA1OZMplCrwVsv37V3HLU17O9dhk5mCJF9+V6n1opBXsMIovkbACbf8J9QyhKI9E1vgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=DowkPoow; arc=none smtp.client-ip=117.135.210.2
+	s=arc-20240116; t=1788666176; c=relaxed/simple;
+	bh=XxEkSWtGahgcNelruYk9TkoDzG7UJt1S4urDB64x81s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MNnmi5QZMeTs/+N56WcX2EyQ+pXT1T/LZDnQptkXtfKk/2MK2dsNL+nn+OG9kAeBFipe+Q4Ee3JNF5DSKhVUt/nfM+O6GsXJ7RD4KzHFigmgrZXGh0YoEJMz7JggTULNqYJuS24j4FOpj6S4F6O4Zz/LVRR10JYf89hEUoCYVYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=GI0o08ph; arc=none smtp.client-ip=117.135.210.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="DowkPoow"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="GI0o08ph"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=hB
-	md32aKMBI3im5/Bl5uvL0+27adgzsCRSSkVsFnMnA=; b=DowkPoowuvDxaKU7io
-	ulv3jUPjIvWN+x5SY7pOPQYzRng8XXF+x5tsrps8xh7Bu17eSaCfiXPVnpFZL6pp
-	qDnuvaunMMneFBA039WonWXUn7xVOzsUNrrhKaBV/lneNMbgAGYhbnoYk9OTmZ35
-	Q531MuW2uWASfzyl4UuG1zIYM=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=In
+	g9viFHlRqC3Evxp/NzyPpubp0ZutARSR7Ccr1pqjQ=; b=GI0o08phrfwgP1xdgY
+	A1ckuDpbCRYIhLktON7VBDOqRO0DloOwqIs7OEj+rZu6la+2gUxMijroHe/6+gUo
+	3iE7fWVdu77UmU59yaKZvN8xsLGOmonMCfKsZkg3jPZky712xlfG7EPreCsFeZcE
+	e4EWFxPrQ9UuP64XH52lj43Iw=
 Received: from localhost.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgDXHxcb4Zxq8PnERA--.33810S5;
-	Sun, 06 Sep 2026 11:42:22 +0800 (CST)
+	by gzsmtp3 (Coremail) with SMTP id PigvCgDXHxcb4Zxq8PnERA--.33810S2;
+	Sun, 06 Sep 2026 11:42:20 +0800 (CST)
 From: Pengpeng Hou <hppiscas@163.com>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>
 Cc: Pengpeng Hou <hppiscas@163.com>,
 	Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>,
-	Zhang Yi <zhangyi@everest-semi.com>,
+	David Yang <yangxiaohua@everest-semi.com>,
+	Zhu Ning <zhuning0077@gmail.com>,
 	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/4] ASoC: es8389: report resume restore errors
-Date: Sun,  6 Sep 2026 11:42:16 +0800
-Message-ID: <20260906034217.85696-4-hppiscas@163.com>
+	linux-kernel@vger.kernel.org,
+	Zhang Yi <zhangyi@everest-semi.com>,
+	Nick Li <nick.li@foursemi.com>
+Subject: [PATCH 0/4] ASoC: report additional component restore failures
+Date: Sun,  6 Sep 2026 11:42:13 +0800
+Message-ID: <20260906034217.85696-1-hppiscas@163.com>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -44,69 +47,36 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgDXHxcb4Zxq8PnERA--.33810S5
-X-Coremail-Antispam: 1Uf129KBjvJXoW7uFWDZFyxXFW3uw17JF1UKFg_yoW8CF4fpF
-	9xGFWfKr1xXw4fur45ta18ZFyFkrZ2yFW3A342g34xur1rZ34rKa1rKF1UuF98JF47WFsr
-	Zr1jqw18WF1kXaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j3739UUUUU=
-X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbCxh5BCmqc4R7QjwAA3F
+X-CM-TRANSID:PigvCgDXHxcb4Zxq8PnERA--.33810S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrKryUWr45Ww47XF4ftrWDJwb_yoWkJFg_ua
+	4vk398Jr42gF47CFy7Wrn0vayDurWxCry5AF1vga17Jr1xJrn8Ga17Xr1rur1UZF4xt345
+	trn7t34xJw4S9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUb8pnJUUUUU==
+X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbCxRxBCmqc4RxNjwAA3b
 
-es8389_resume() ignores the reset-register read, bias restoration and
-register-cache replay. A failed read can leave regv uninitialized before
-it selects the initialization path.
+The three Everest resume callbacks ignore status reads before branching on
+their output and then discard later restore failures. The FS210x helper marks
+its cache dirty but publishes is_inited even when replay fails.
 
-Check those operations and always leave cache bypass before returning an
-error. The ASoC component wrapper reports callback failures while retaining
-its best-effort resume contract.
+Check the fallible operations that delimit each restore transaction and
+return before publishing dependent IRQ or software state. Commit
+951af101c730 ("ASoC: report component resume callback errors") reports these
+callback results while retaining ASoC's best-effort deferred resume behavior.
 
-The issue was found by our static-analysis tool and manually reviewed.
+The issues were found by our static-analysis tool and manually reviewed.
 
-Fixes: 0319c26889f7 ("ASoC: codecs: add support for ES8389")
-Assisted-by: gpt 5
-Signed-off-by: Pengpeng Hou <hppiscas@163.com>
----
+Pengpeng Hou (4):
+  ASoC: es8326: report resume restore errors
+  ASoC: es8375: report resume restore errors
+  ASoC: es8389: report resume restore errors
+  ASoC: fs210x: report register restore errors
+
+ sound/soc/codecs/es8326.c | 20 +++++++++++++++-----
+ sound/soc/codecs/es8375.c | 18 +++++++++++-------
  sound/soc/codecs/es8389.c | 20 ++++++++++++++------
- 1 file changed, 14 insertions(+), 6 deletions(-)
+ sound/soc/codecs/fs210x.c |  5 +++--
+ 4 files changed, 43 insertions(+), 20 deletions(-)
 
-diff --git a/sound/soc/codecs/es8389.c b/sound/soc/codecs/es8389.c
-index 80efce3e0a22..204fe6731140 100644
---- a/sound/soc/codecs/es8389.c
-+++ b/sound/soc/codecs/es8389.c
-@@ -1026,20 +1026,28 @@ static int es8389_resume(struct snd_soc_component *component)
- {
- 	struct es8389_private *es8389 = snd_soc_component_get_drvdata(component);
- 	unsigned int regv;
-+	int ret;
- 
- 	regcache_cache_only(es8389->regmap, false);
- 	regcache_cache_bypass(es8389->regmap, true);
--	regmap_read(es8389->regmap, ES8389_RESET, &regv);
-+	ret = regmap_read(es8389->regmap, ES8389_RESET, &regv);
-+	if (ret)
-+		goto disable_bypass;
- 
--	if (regv == 0xff)
-+	if (regv == 0xff) {
- 		es8389_init(component);
--	else
--		es8389_set_bias_level(component, SND_SOC_BIAS_ON);
-+	} else {
-+		ret = es8389_set_bias_level(component, SND_SOC_BIAS_ON);
-+		if (ret)
-+			goto disable_bypass;
-+	}
- 
-+disable_bypass:
- 	regcache_cache_bypass(es8389->regmap, false);
--	regcache_sync(es8389->regmap);
-+	if (ret)
-+		return ret;
- 
--	return 0;
-+	return regcache_sync(es8389->regmap);
- }
- 
- static int es8389_probe(struct snd_soc_component *component)
 -- 
 2.50.1 (Apple Git-155)
 
