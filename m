@@ -1,95 +1,156 @@
-Received: from out-zbxj-a67.jellyfish.systems (out-zbxj-a67.jellyfish.systems [198.54.127.67])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C87B2FE56A
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 13:55:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.67
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7FB432B118
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 13:55:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788702921; cv=none; b=Q/9FpJyPakhACBuOux/6a6xEJUI1MyGGip88saVlgSDUiuSLUxKysxu0e7bMA2Cyt02cxbe7CExE1rnkpqP4NB47Jpd8Lw2nW8wAMlH0SVtiBPnPlh/Kyn8/t6IAvwWLTfierMxurlOHo9k9BncD1RwLTOEuiYFAVRroXXcL6UQ=
+	t=1788702940; cv=none; b=H5gX9QKV27lpi37NSF/GkXC8ZZjPsTmzpSfb21cFDXhJ6Wb4+HqDcy0uNnzfebaENgOc+jSeqYcEHSwSZEhrI2w5unfmFft32ooTixo4e4Lm3tKx6jSXa9OUwpGbnDeBnU9Lto1ewlnRLi3WegK6yVlMHABQzF3isL4+KPJmHIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788702921; c=relaxed/simple;
-	bh=SyfwgLgNUrQ9kHyz2X1jy/vY9gOc6JlLxw6yzV19Le0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Jh8SDCh4E/rfej0PRexWNSbWPkYM4t2d7CSo+TLqZ79vxIv14G99hsXfDZ9kClY+3kCxK8f0u0TwvQB8nPlCG6jJI/Hk2BBJlQMn+p8QeCV9p3JwinmPPIAApt2Gi3HdusAxbUaZr9GuzEx24dq4b4DF187gmfGzHY8IsWoitfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=k+nC8v9x; arc=none smtp.client-ip=198.54.127.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
+	s=arc-20240116; t=1788702940; c=relaxed/simple;
+	bh=9AbHtUnyJdSad1+pPE4S5Q1Qe0SJtnb1F3HJ+4VOdHg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rTf/TdOJNtCNl2ZL9Mc6cgXuD6qqWyBj6CmNzuBw3zLT8CWpSWCJAwPcZlGiVfI87eRtHOkPbpkLLd+Pp0t0/LGB5UX6/Rxjc29oQ2MODEtqIZsiM6QcEmP2TCT4O+MrmtmuDyKcxo7sUQDlXrU565VdbgZkCP6Sty0bwb5x5yw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DgXjUoWc; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="k+nC8v9x"
-Received: from fedora (unknown [69.5.53.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4hdBXW3m5Lz8sXQ;
-	Sun, 06 Sep 2026 13:54:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
-	s=spacemail; t=1788702894;
-	bh=Rdk1razVM4wzn8BYFk67V58kT1IZF+tiqXFv5msdJgM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=k+nC8v9xOCXuaxIACm5N2ea5tjPWOcyhsH/oWRcrxtfjOoADlBUKIuVFjLD4QNArL
-	 khGdE484U8oj7VgnrYKk7v0Hbf2fb7ynvhVB1XOmdwpwqPdB8iMLQAy9bO3VXoP7su
-	 l+HuOk+0uokc3WvgH5K0+i5JLGz6YmUVsNSIGobMbSyySAlj/MvonfXoiB5jbx09f4
-	 8udyRITBcATAGCp2De26lgs1aSFvDjDLg5OjZ9f0xfN/yMILtukR3f8S5JKKQfX/Fr
-	 v9X133n9AAOiPRv4GzB2Z1Be60WgN1eO5jcTqtIE2+dA1kLAqvaWONcYrDbzOECpPL
-	 PqKG9AJZ7mqPw==
-From: Tianyi Chen <hi@tychen.cc>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>
-Cc: Tianyi Chen <hi@tychen.cc>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Joel Savitz <jsavitz@redhat.com>
-Subject: [PATCH RESEND] selftests/mm: Exit on invalid command-line options
-Date: Sun,  6 Sep 2026 21:54:39 +0800
-Message-ID: <20260906135444.749144-1-hi@tychen.cc>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <ZTYJZT7Q8UU4.KPP9BUAAJVQO1@mailcore-89d674988-v7w7p>
-References: <ZTYJZT7Q8UU4.KPP9BUAAJVQO1@mailcore-89d674988-v7w7p>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DgXjUoWc"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49d036e0e99so5930635e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 06:55:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788702937; x=1789307737; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AAkt+WsD2x5mubq2SLqxrx2zGJJKOZ40UAK2ergnfnc=;
+        b=DgXjUoWcxBUxd79f+URJCQ1Sj6f5u5bxv1RjUbBWyCzCg4klDK2vnn9IDxWc2+Ywo8
+         MFi3bduJYfjs1Dw3vBDJ122wcnS3YeU1Uh6bnbh8j1n3f+tUz1lqMrrhFw8nPMM5QmJ6
+         bcrBwb5J5y+UZ23Y0upefkVYRkWqxG7HDGl9DDTXG9dq4f3bCwEKwXrL2FJ4ZO65JPld
+         kiKw5Nd5bgNUPN/Efrpyy6Yc67Q+bnS8/60HijATD/Uyie28vaNl0GaMVIRe8K/Zc9I2
+         sWh9yA3sRdMCrMqPewlZ6Bh+8Oz6tHWd3ROYKTaqdrlKafUc7DBpbfvXL69fxYWgg6i0
+         Bddw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788702937; x=1789307737;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AAkt+WsD2x5mubq2SLqxrx2zGJJKOZ40UAK2ergnfnc=;
+        b=pQQBPwXRWMj6LDo2Pb24vJEUGc+qijuJ4tqiIeFZiq4+FJ2HtclBrLPlu4hMWbcax/
+         fSIiKXOFcbjWbQKIXwVjVWn3lH6ljqR32AGvu6Vn+bgjd0fOqWbh9i5xqLk07N50Z7Ht
+         JKKAbik8rQnwiwzBtnbL3THLy6jkhq9rbRJAnZeT4CEbnLIbWC9X0yN0AqRdaP5bODJq
+         jcX3LErSYb1UFjsrdEYj3XDbxOtWwC/YPsnvacD8+dI5vlin7qEK5tL9fYVxOqFniRM2
+         ysRgqgQRbQG/F9J6s1C2mwskZ3+wygHoEcvb6Zp9rfo9d3kTV2JxLJ9G9v2fqgH+O73+
+         zzkA==
+X-Forwarded-Encrypted: i=1; AKwUvBxjgG41VUahECkPGT/V4q/JYqKcaSOr4hC7YQcmaSqW0MQ5Db9drlQdaL5BzSDqMnJHS3rBNKKZc514gwQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++n8K7cUC6w2mfx031rPO0vE2X2OWxwfWnRPjcy95Kquf+dEXOnr
+	9kBTATjBJLQMECcyNbM7OLqtIHwpI+V+f4t3OAYxBdkUoSChlQBtSS9/v2xma2Lx
+X-Gm-Gg: AYBFou0edXRR9t4LMot0/Xu0lDEn5D5CLKKzeVD4vvvwahv56LqH8hH6fXZEVxxeVwH
+	r1XSuvZ13a3th8JpTNKjQFVV3y+CDz4px/3FKQWKCNjogX3reMoE6kLehufUNw9wLaHHDLzoERL
+	+M0OoYOoDEySUGNXDeM1vQN0X5oMXVTh2q9tk9B9BhQi/vUgmOKlWq31fHtZzkgd2MnAn565Vnb
+	Wic2C4S/JttkcEDM+Cig5e6q7+Cgm25Vnqh6yi5uPt/UuNCLKKRzxlkRNijQ5rC8TIwvwo5Jy7D
+	VWOGlf00U638m6+JvVvgXDofr8OZD3FAgSViDulTagetumQhNoT/fpFnhCQMsBDDcchv3bCNQzv
+	O4Hy3DAslNxgmtLPmB0/hoS4UkE3DNBT/1OaqhFz68DDjM0o5zR6A7AXTf9H/Gy+B3uqZfLsxKo
+	pMCqML2NTY14nwfI5eoUYeLQnmZKczrCPd3/FFvhMphvOFW28vDDot+z71Qucjym3fIyqsawOij
+	1A9AtQWJe+o5+gZhx9uo/MZSwhYdqJdEMXEyabqvomkRQfy1+SxNeAKQxssZMaL14o+C4IgFZXx
+	dg3mKT9nWkKI0O5Sxuofa28ucmXq6m/2QGfsBg11nFT/1ERFIi2zLyLmCR9cUmaUEkwP+6p8yHI
+	rIfqDbkLsXqMqEC22OsoRSKCZAVLlNLRh5iu+ljgnm7NhSTEfCDYde9mgIF2znJKhu+9atTHM37
+	qclgk=
+X-Received: by 2002:a05:600c:3550:b0:49d:7fc:5dc5 with SMTP id 5b1f17b1804b1-49d07fc61bdmr62766225e9.1.1788702936623;
+        Sun, 06 Sep 2026 06:55:36 -0700 (PDT)
+Received: from systembl0wer (78-80-112-223.customers.tmcz.cz. [78.80.112.223])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d07b371afsm123925615e9.9.2026.09.06.06.55.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 06:55:36 -0700 (PDT)
+Date: Sun, 6 Sep 2026 15:55:32 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Fabio Cesari <fabio.cesari@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: light: isl29028: fix runtime PM reference leak on
+ error paths
+Message-ID: <20260906155532.35326455@systembl0wer>
+In-Reply-To: <20260906131203.125407-1-fabio.cesari@gmail.com>
+References: <20260906131203.125407-1-fabio.cesari@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: hi@tychen.cc
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-getopts reports unknown options and missing option arguments, but
-run_vmtests.sh ignores its error result and continues running tests.
-For example, passing -z or omitting the argument to -t can run the
-default test selection instead of rejecting the command.
+Hi Fabio,
 
-Exit with failure when getopts reports an error, before any tests or
-their setup run. Keep the diagnostic provided by getopts.
+On Sun,  6 Sep 2026 15:11:40 +0200
+Fabio Cesari <fabio.cesari@gmail.com> wrote:
 
-Verified that -z, -t and -t mmap -z exit with status 1, while -h still
-exits with status 0. The mmap category's three test programs pass in
-a VM running the kernel built from the same source tree.
+...
 
-Fixes: 85463321e726 ("selftests/vm: enable running select groups of tests")
-Assisted-by: LLM
-Signed-off-by: Tianyi Chen <hi@tychen.cc>
----
-Resending because the webmail editor damaged the whitespace in the
-previous submission. The code change is unchanged.
+> Found by auditing IIO drivers for runtime PM acquire/release imbalances
+> with a Coccinelle semantic patch that models pm_runtime_resume_and_get()
+> and pm_runtime_put_autosuspend() along the control flow graph, flagging
+> functions that take a reference and then reach a return without dropping
+> it.
 
- tools/testing/selftests/mm/run_vmtests.sh | 1 +
- 1 file changed, 1 insertion(+)
+I'd put this paragraph under the --- as the Assisted-by tag already mentions
+coccinelle.
 
-diff --git a/tools/testing/selftests/mm/run_vmtests.sh b/tools/testing/selftests/mm/run_vmtests.sh
-index d09f9f6a384..189927f87e6 100755
---- a/tools/testing/selftests/mm/run_vmtests.sh
-+++ b/tools/testing/selftests/mm/run_vmtests.sh
-@@ -110,6 +110,7 @@ while getopts "aht:nd" OPT; do
- 		"t") VM_SELFTEST_ITEMS=${OPTARG} ;;
- 		"n") TAP_PREFIX= ;;
- 		"d") RUN_DESTRUCTIVE=true ;;
-+		"?") exit 1 ;;
- 	esac
- done
- shift $((OPTIND -1))
+> Fixes: 2db5054ac28d ("staging: iio: isl29028: add runtime power management support")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5 coccinelle
+
+The standard is to use "Assisted-by: LLM coccinelle" to prevent free
+advertising of models.
+
+> Signed-off-by: Fabio Cesari <fabio.cesari@gmail.com>
+> ---
+> 
+> Compile-tested only: arm64 (native) and x86_64 (cross), defconfig plus
+> CONFIG_SENSORS_ISL29028=m, with gcc 15.2.0, W=1 and sparse v0.6.5-rc1:
+> no warnings. I have no isl29028 hardware, so this is untested at
+> runtime.
+> 
+> I also have a version that takes the runtime PM reference only where it
+> is needed: isl29028_write_raw() validates its arguments first, and
+> isl29028_read_raw() acquires it only for the reads that reach the
+> hardware, the sampling frequency and lux scale being cached. It also
+> stops propagating the pm_runtime_put_autosuspend() return value to
+> userspace, which fixes a second problem: with CONFIG_PM=n that call
+> returns -ENOSYS, so every read and write fails today even when the
+> access itself succeeded.
+
+I had a whole paragraph about the functions returning -ENOSYS if PM is
+disabled, only then noticing that you already mentioned this... I should
+pay more attention :)
+
+...
+
+> @@ -392,12 +392,11 @@ static int isl29028_write_raw(struct iio_dev *indio_dev,
+>  
+>  	mutex_unlock(&chip->lock);
+>  
+> +	pm_ret = pm_runtime_put_autosuspend(dev);
+>  	if (ret < 0)
+>  		return ret;
+> -
+> -	ret = pm_runtime_put_autosuspend(dev);
+> -	if (ret < 0)
+> -		return ret;
+> +	if (pm_ret < 0)
+> +		return pm_ret;
+
+I'd suggest rewriting the driver to use the 
+PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND macro, as it automatically
+increments the refcount on use and decrements the refcount on scope exit,
+eliminating the need for multiple _put_autosuspend() calls and manual
+checking of the return value of these calls.
+
 -- 
-2.55.0
-
+Kind regards,
+Joshua Crofts
