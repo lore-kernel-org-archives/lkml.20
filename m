@@ -1,191 +1,93 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFA433C0624
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 06:43:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B6C6202C29;
+	Sun,  6 Sep 2026 06:44:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788677000; cv=none; b=KBDIjRiVBihUx13b1bmCzoUqlql8LMVIwojjZhWB2sgTMYixO6xUKzykWxL2zjVayYACv7KK3cCElUhI6EtpsS58UcDi/Ln6J13mUpYwdTBBXlXcAT3Hx0s0rxlrNYRMfww5cpPBgXt7zIDo7v2rqUgupmQi/V/yDe7n/AeKxaw=
+	t=1788677053; cv=none; b=rF0NbXgBWwg98ShahAhXUtYb6amBucrF7Xvz5NCGMEqgKAavvZhIkFcdKPI1+Cg97jFXgh8sbALk+xh1LNC7YHyGfVsboNF4Fl1UJLOHJQMN6OMnsaL7vLmwrXebNkaFUwCMP+zC4MOJyS25uS33cILju7xJFR6fQNU/9EmJ9gY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788677000; c=relaxed/simple;
-	bh=aeVqNouzSdYIpv4jAsF0eK1ZF0yh+/lKYMq2kFn1TlA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kMjl3HlpwcVEqfv6Zw+P/gFHklPOHGMh3ExzDQmya4dVaiqDEmdlTmb1Br/+1Cmy+vIXJ+GAWvjqZUzjytS1sAzbdPpeKIZ+KEGCDc0hyqXzQMAJ5iueuV+OpTf4iBin4AMEmxupa+Ijy6Ix5GD1kZ1Un0VvhVDxb1G2MnBLMYo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hpogmUwo; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=e76uvMN/; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788677053; c=relaxed/simple;
+	bh=PPpde2R4rB8ZoAWExc+0poZci224vLF85ghTounXyWM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=pS0H2q6NzsPckDx6EuE1fjc7yJca60s8/DloWoyhkZu3Go5v4nCOPKKerQFCPkmvJJsNtiCNBWxr2KfKIMH2lrThopyknCODVdn9EBemwwd7vgKi+gqZDubd4y4bvf8Pm3OOIvxBqeNAoDNX2Z0cLrkYrtQckFwB5KRwnGjZDfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=lEN/2nc4; arc=none smtp.client-ip=130.133.4.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hpogmUwo";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="e76uvMN/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788676997;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JFzl9H4Eb8cyafOk0wAUSRBkZEcWcFmHLhnYc0Tm+4s=;
-	b=hpogmUwo+JwpbImwhXQsOqEnz4n22rHhDvLrKV03XSU7/UbWa0NdfKm/JXUSU7p52/kH6/
-	bZfkyMZAfxKvVFTX7I+OO83k5SeGv7HF4iuOdcoizN/siLLxz1hw4NhfxyxlhTRBn9+rdt
-	+aZZid10aClcMFA0nzBY0sp8rZsKZG4=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-516-8ii-nyT3PZa8JWLq5dHk1A-1; Sun, 06 Sep 2026 02:43:15 -0400
-X-MC-Unique: 8ii-nyT3PZa8JWLq5dHk1A-1
-X-Mimecast-MFC-AGG-ID: 8ii-nyT3PZa8JWLq5dHk1A_1788676995
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49cc9f5bee2so19685415e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 23:43:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788676994; x=1789281794; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JFzl9H4Eb8cyafOk0wAUSRBkZEcWcFmHLhnYc0Tm+4s=;
-        b=e76uvMN/r/dP7T8o9AgGkgX07dH/nOKOpM+MLklyO+yHm3k1xaGuvt03Jp5Hpk75hy
-         0EsAk2DVMruJNBn/7QtAAQtdgNDwrT20+L92Sf7BuPmxV1lemgt8OduLrGbXzgFZ1C0z
-         //BlS6m05TEnfIbUMQJv3YWfnYV3VD7TeTx851XUvgxvjC6iMmnqgTlWXMjW7j+I8wCH
-         tYL18eoNb7XMF7jN2x33buzCxshD5oEIwYlJ+wWrdc2kgHr1R/R1EkBcy0qLBPrHNu5y
-         zIo5bemiwXNxreBKKyJwPnI3qPtVMB1uJ+rxjBcyx/yzWYEtswyfDVeOdSHjkVx+kt/u
-         G0kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788676994; x=1789281794;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JFzl9H4Eb8cyafOk0wAUSRBkZEcWcFmHLhnYc0Tm+4s=;
-        b=rQgvNWcQr58JycYXBrOf4MoqrI2JkLO+3ogrZoGjBvNwDzR5ARkBbBcDTK6pbY1o0z
-         7LOZCtfD74ZUGOfhBlqmqhYCYbOno8YzSlF1NISLk3qg7pIZlePj6rRHZkbX93fFQuAC
-         wgaBmsZLJRT3+xawO8odbQ/g3joC7GK0msqU66c3JLD19LLjXsggtC7Jg5+9lJoWOxzY
-         I+0BwuMop05Zxepixng/R0GTwcbc10VcEt3tAUHf4wz+bUI9L850CGGB2LzfzVfvQD4v
-         kUZp9aNdJJAiSw7+z3eXpgBPW7eHxreC/6crenuIDfVGzJ2x/gp3Jxah6pdp5AaoGpsB
-         21pA==
-X-Forwarded-Encrypted: i=1; AKwUvBzD9eMEZGEf1p8E6apOfKtY7nePHafUXj215xkfpKE8z56TM4jzHbBDCYWFHLSci+a/d1gt/GpK8XNEMV8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mwzISIQb3r5zWUTIoFyLBS6M4ISdAUlP5XRPzwKFup77YXQfW7
-	mgMcAPYzfoMBaR5dbD2IjOiUWVwikTGKTeZbV5QxqsRZ2vAL2rlqW4Hph+E12rlxr0CCKTX8+9p
-	ZbyzKdlSMRCc5YnR0t7AF/tWUn4OI8SiyjfgoJnFpezDhzKvZ+lAAz2mBXKmbAySg0g==
-X-Gm-Gg: AYBFou3aZCkFktciZDnexEwew31SYa0sk9/sxM7NuzQXLAFHlx7N39FQgUM55X23INg
-	znDScLLpbnPSZSYTqSEKjj9/B8xY52lO4SPYXOc1AtlsRg1J2ZAEPKEb06jy2z9LMzLMrnTL2Ai
-	CN4ToO4jD/qi92lK7cTtgEKSoaw4AEy9BlfyL861bc7AXP2SJRS30Yi3W7ktg8RMy3YY4GPjvwG
-	QhnwDgZ5Rr71w/N1C197fbOrHF1wvUspPdFGqTuPtLN5FagkQrivUhEoxalUGbRPG9ow1MbuXqb
-	JaKz7ghX9S96b6K77bYaRF8xwA5dvaD5kSQE8YEHR75YG3hr2kdnxZ1Krgzo33Ce8VFQVLvGZEJ
-	IJ4dy+GWjPe6GW/iSGGracAY=
-X-Received: by 2002:a05:600c:3b18:b0:49c:fa21:1c8a with SMTP id 5b1f17b1804b1-49cfa211d97mr123999875e9.31.1788676994388;
-        Sat, 05 Sep 2026 23:43:14 -0700 (PDT)
-X-Received: by 2002:a05:600c:3b18:b0:49c:fa21:1c8a with SMTP id 5b1f17b1804b1-49cfa211d97mr123999575e9.31.1788676993918;
-        Sat, 05 Sep 2026 23:43:13 -0700 (PDT)
-Received: from redhat.com (IGLD-80-230-79-236.inter.net.il. [80.230.79.236])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce58da3acsm648354005e9.0.2026.09.05.23.43.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 23:43:13 -0700 (PDT)
-Date: Sun, 6 Sep 2026 02:43:09 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Jason Wang <jasowangio@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Rusty Russell <rusty@rustcorp.com.au>,
-	Pawel Moll <pawel.moll@arm.com>, Cornelia Huck <cohuck@redhat.com>,
-	Halil Pasic <pasic@linux.ibm.com>,
-	Eric Farman <farman@linux.ibm.com>,
-	Richard Weinberger <richard@nod.at>,
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Vadim Pasternak <vadimp@nvidia.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	virtualization@lists.linux.dev, linux-input@vger.kernel.org,
-	linux-s390@vger.kernel.org, kvm@vger.kernel.org,
-	linux-um@lists.infradead.org, platform-driver-x86@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] virtio: synchronize callbacks during device reset
-Message-ID: <20260906024233-mutt-send-email-mst@kernel.org>
-References: <20260905152059.89560-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="lEN/2nc4"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=uLp+pYZScfccrGeWgbNC7x8og+ftP2mZUPb6nwJ7rAw=; t=1788677049;
+	x=1789281849; b=lEN/2nc40vgzQAc1QVJ7OHpuJKoTZzZQ4KUBEFSE+xiIdS4RfesHuGheftyQa
+	++D5yc5o5HIPtSCEwDmjmPdmjefqxinpXHsafD8S+Cd6nwvmXxQp0jhBj9Ieo3/qHumB2pBMs/Xsa
+	2kBpSnk6XKh7HAc5Q2iLtQuhhNJBLw+UxTMvg43hm1cnBhnuujI/r62rDRGvlCa3BvkhP8/IgvBA3
+	AIzAygpO3c+utm/+0CP76PqBL4N9whar+IVDT0Em46mNtDKIaqFK3pFMJCSiTqBDlDoxPHbQ/9BBr
+	ih0qrggWP7k54U78eDLFFWU5flKPUFbO0Vsybo9g7oY0aeY2PQ==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.99)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1x36bg-0000000106L-2U4P; Sun, 06 Sep 2026 08:44:00 +0200
+Received: from dynamic-078-054-244-244.78.54.pool.telefonica.de ([78.54.244.244] helo=suse-laptop.fritz.box)
+          by inpost2.zedat.fu-berlin.de (Exim 4.99)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1x36bg-00000003dnG-1aDR; Sun, 06 Sep 2026 08:44:00 +0200
+Message-ID: <e038c283a0ee7a3932f3e3bfaed188280ff7188f.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH] m68k: coldfire: fix typo "reseting" in comment
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Josh Juran <jjuran@gmail.com>, Hemanth Selam <hemanth.selam@gmail.com>
+Cc: Greg Ungerer <gerg@linux-m68k.org>, Geert Uytterhoeven
+	 <geert@linux-m68k.org>, linux-kernel@vger.kernel.org, 
+	linux-m68k@lists.linux-m68k.org
+Date: Sun, 06 Sep 2026 08:43:59 +0200
+In-Reply-To: <9051ED9E-9257-41E8-B979-DB7716F516CC@gmail.com>
+References: <20260904112336.38497-1-hemanth.selam@gmail.com>
+	 <9051ED9E-9257-41E8-B979-DB7716F516CC@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260905152059.89560-1-kmehltretter@gmail.com>
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-On Sat, Sep 05, 2026 at 05:20:56PM +0200, Karl Mehltretter wrote:
-> A virtqueue callback can outlive virtio_reset_device() and race with a
-> driver freeing the state it uses. The reset helper documents that no
-> callbacks remain in progress, but that depends on the transport:
-> virtio-pci waits in vp_reset(), while virtio-mmio does not.
-> 
-> virtio_input has a related ordering problem: it unregisters the input
-> device before resetting the virtio device, while an event callback may
-> still be using the input device.
-> 
-> Patch 1 moves the callback wait into the core, using the existing
-> virtio_synchronize_cbs() operation. Patch 2 fixes the virtio_input teardown
-> order. Patch 3 adds the missing synchronize_cbs hooks for UML, TmFIFO,
-> remoteproc and virtio-vdpa. Remoteproc uses one SRCU domain per processor.
-> 
-> The new hooks wait for callbacks already running. UML, TmFIFO and
-> remoteproc still allow new callbacks after reset; fixing that is separate
-> work. The event-virtqueue DMA mapping issue is also separate.
-> 
-> Changes in v2:
-> - Patch 1: move the wait into the core instead of fixing only MMIO, as
->   Michael suggested. Remove the duplicate PCI wait, preserve its shutdown
->   wait, and fix CCW callback locking. Drop the MMIO polling: reset polling
->   for v3 and newer is already in fa8833c085b6 ("virtio-mmio: add support
->   for transport version 3").
-> - Patch 2: keep draining completed events when ready becomes false,
->   instead of breaking out, so teardown does not truncate an input packet.
-> - Patch 3 is new, at Michael's request.
-> 
-> I reran the 120-cycle unbind/rebind test in an arm64 KASAN guest with four
-> vCPUs and a 5 ms busy delay per event. With patch 2 alone over virtio-mmio,
-> reset returned with the callback still running in all 84 overlapping
-> cycles. With the series, it waited in all 103. Over PCI with per-queue
-> MSI-X, it waited in all 66, including runs with threadirqs. No KASAN or
-> lockdep reports. These runs predate the per-rproc change, which leaves
-> the tested MMIO and PCI paths unchanged. They confirmed the missing wait,
-> but did not reproduce a use-after-free: with evdev attached,
-> input_unregister_device() waits for an RCU grace period that the IRQ
-> callback blocks.
-> 
-> That version also passed QEMU input, rebind and shutdown checks on arm64
-> MMIO and x86-64 PCI, including arm64 RT, KASAN and KCSAN builds, and x86
-> UP/Tiny SRCU. A legacy INTx NIC was present for an additional x86
-> shutdown check. The changed objects built with W=1 without warnings on
-> arm64, x86-64, s390 and SMP UML. The per-rproc version built with W=1
-> on arm64 KASAN and x86 Tiny SRCU, and passed six remoteproc callback and
-> lifetime KUnit tests on each, using mock remoteproc devices.
-> 
-> Link: https://lore.kernel.org/r/20260818040433.66986-1-kmehltretter@gmail.com
-> 
-> Karl Mehltretter (3):
->   virtio: synchronize callbacks during device reset
->   virtio_input: stop callbacks before unregistering input device
->   virtio: implement synchronize_cbs for remaining transports
-> 
->  arch/um/drivers/virtio_uml.c             | 10 ++++++++++
->  drivers/platform/mellanox/mlxbf-tmfifo.c | 14 ++++++++++++++
->  drivers/remoteproc/remoteproc_core.c     | 10 ++++++++++
->  drivers/remoteproc/remoteproc_virtio.c   | 20 +++++++++++++++++---
->  drivers/s390/virtio/virtio_ccw.c         |  6 +-----
->  drivers/virtio/virtio.c                  |  2 ++
->  drivers/virtio/virtio_input.c            |  8 ++++++--
->  drivers/virtio/virtio_pci_legacy.c       |  2 --
->  drivers/virtio/virtio_pci_modern.c       |  3 ---
->  drivers/virtio/virtio_vdpa.c             | 21 ++++++++++++++++++++-
->  include/linux/remoteproc.h               |  3 +++
->  include/linux/virtio_config.h            |  6 +++---
->  12 files changed, 86 insertions(+), 19 deletions(-)
-> 
-> base-commit: a500db7819c50db59e55f1b4fa1c3baa5a2616f3
+On Sun, 2026-09-06 at 02:40 -0400, Josh Juran wrote:
+> On Sep 4, 2026, at 7:23 AM, Hemanth Selam <hemanth.selam@gmail.com> wrote=
+:
+>=20
+> > Correct "reseting" to "resetting", reported by scripts/checkpatch.pl us=
+ing
+> > the misspelling list in scripts/spelling.txt.  Only touches comments, n=
+o
+> > code changes.
+> >=20
+> > Assisted-by: Cursor:claude-opus-5
+> > Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+> >=20
+> > - *	There are 2 common methods amongst the ColdFure parts for reseting
+> > + *	There are 2 common methods amongst the ColdFure parts for resetting
+>=20
+> Is there a reason to leave =E2=80=9CColdFure=E2=80=9D as is?
 
-changelog?
+The AI assistant probably never heard about ColdFire, so it assumed the spe=
+lling
+is correct ;-).
 
-> -- 
-> 2.39.5 (Apple Git-154)
+Adrian
 
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
