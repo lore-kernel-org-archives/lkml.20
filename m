@@ -1,142 +1,117 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C0E345751
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 17:22:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788715357; cv=pass; b=Xv7PERn6BSlc6fWOZP65BXNMUNf0qpshF1Np/BgjulrBfua+9O0hsk9VmhSYio8AoCAYXvK6s47AznloSER7ixsxJhtTyoGYuM9vsZgiN9xsQUf4n8gjSRyvk86m59cBe8Swxrc+CKgoaQTyfB79FWeo04F5ii5MRO1wPihbbjI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788715357; c=relaxed/simple;
-	bh=xlfHTmswkSpLXO/4f4jYBhuVejOLiGyJyM/ej83cLuk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VYHk0WogGvf32QVUyGP/FHdzhh9NiuZCXc/TP7SjsyTSUm2GepXqb9+4NwS+SN745GiGRnXr89FN8KRPWiyXuDLkZj2NJnJmFsGuey7DvLwm3vaBoJJGZfqHvnq9wNBtTjdA8CBOj6T8aq7r8E1aABgT18dyFJS7wrziWTxmwtI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DTvN/LN1; arc=pass smtp.client-ip=209.85.215.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DBBD3A961B;
+	Sun,  6 Sep 2026 17:25:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788715507; cv=none; b=VJ5bJ8tLHcegQYz3u0fl4Pw/3456IE+gubn5wTsaZhyvjq4Oz2NblgaVsuH6ieWAYSe0x870np5N3OTFuSENmUVcElWVYLExUdf7AmZli/8wAsj+vpzNjziaUfLqLR+/YLSKsJV+CZ8DS+BLiY4Ef9I+RwI5aQkNH53Qd/blknE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788715507; c=relaxed/simple;
+	bh=V6LNUOGENCLkm9ZOZOi/Vm2wFAm6FSSYMJpDKhCCdp0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=k3yZhRakXbMNjnvfaIDgB3Os977ysgrzt3fPcukIxQw713sVCG/PiPSb/VXNUIBv/h7sF7Bh1oEV8kN9V+ZuPUj/juZGEZA9h8X0HZE36ab0NF24brA4put4LbcU8tyvkPyz1wBgqzjb9uCv141lHEDwcKfd34iLtaGe8LH3y78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=RSkwG/VG; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DTvN/LN1"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cbedf433a99so2775935a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 10:22:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788715355; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EnTjYeRoxuB6CEbn7TSgszrB7cUc67ZOQnWd/Xve7AFIb5/dSGoS7r5jHKfmjoGcE/
-         vsJSK1MXZ9+mzfgA18Huq4OeHXqQsb+TqY6jHqltDBUpWx3yoaCCfT1NJl4jRnsq0dwX
-         QFdm3yv0851OlSKtW+0xRCkmUXbJmJwAPw/EDepWjn2c2ECENtoMdq33LiG860XgO9Vs
-         vAgJ6zYBosybj8q38tbmcYlx2G6grtf5eybNw4Ncd0EsQhKI4bxN/cGKUH2PtlBZQ+Nl
-         06jKEpJoBHT7PMfebxbkZeDtcaRHYBkKoW+DPJgwo3xnJtcBrLjTh0134p9MJsa9L76P
-         MyGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=F+vIa+Qy5L/8ukG4yH01NZv4BrUlQHr2FP5xxn3kwXw=;
-        fh=GQxl0D/jyHEP1DNBNRMZVouOncX+Q+/E0MbXbR+vCXU=;
-        b=YMwHugGxpAO5mnNEeZj7sSmivFncBKCjTG72/hDzs1DH1+5XlW1SN/5MYNbNLl3NC3
-         Ml/OBmzpCM3tgyvTQMwjrqpumFSqwACnmsQHkH22ni8k9iSZr9oj7t42MWTO8LwVMeMS
-         pX2ar8WPkQVux34KInXXtTpNnloVjCCvc/bX/huvJ2+zHjUrO0NBauq6N0RbGScZ2YA/
-         dNRVYJV6AjpV1NusPkOFu4lvjlnpK0s6IMdqc+ciBEI5T6fsvi5s3BwkD0cgkq4EcS/X
-         QZ6XIyYZTZdw7fKYVY2VtdUy7NJjvVgoviyDCPIAPgUd1+E8N/hRbI27cnTRfJCRkqBI
-         Z2qA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788715355; x=1789320155; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=F+vIa+Qy5L/8ukG4yH01NZv4BrUlQHr2FP5xxn3kwXw=;
-        b=DTvN/LN1EdaERFqCd/Pf18xk3C2W9zOejXGnr4Zon7F3zor5rZQ344+GQ1BawH8Yia
-         oxrLD6jEEaJ3VX4H9A0LkI7AjDZUBT/QzS5oBGB1SLqzR9dFcpoQQwfqMFrTwPEZaB1P
-         0m3rvOHTFdLh9lLU4yfbJxyweFX42h5JIcRnl9ozmPY9sAFcxuGYjAFBsARs2CATPDls
-         EhZJEkWhdvjriIJ3fwyBDu21MkwGTZDYmGjDktjCV4tKkevbckt6Pii2RruUjekLWGsV
-         lYM1DxyvWC7EKZK+Cm7hvHm3hx8cVCRAWMfHElaWUrYSGogaVhj9sxCmEemyKJdrhxYS
-         hjwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788715355; x=1789320155;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=F+vIa+Qy5L/8ukG4yH01NZv4BrUlQHr2FP5xxn3kwXw=;
-        b=RXBMedpHxWvvoEUZly+LNyjyznzuuHAep20hZcXK/mE8tJnc3fJbGR+Re06I3ZhE0z
-         6ax+XsVNhynHl+OnseZ27p7DAynApVJOo2/WNJ4lDPAd5aArwV0f6eJRyFTvqMJwFCRD
-         VRbM13HOEIo9AeVG57v/Jd9IMnJ5gllZQ4odBWRgP05XR6Teo8E8p6TupFW3/kGcWRCI
-         Ljlxc4gifqXTtnr470FdDAqLPdc2RCvoCzJGzMKW65axvVzZ6aF7lN6yLnZaE2WzUeFo
-         4/7Cctd2w29YPO1W1Xbf3xUTiww9n67sDJZ208h/EOFCPyCeNfJ4H+Rs6Sn6r7dY2UNQ
-         wOYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz1WEYlGUM00y+B+ihK7rglksWS1m8FtFHhEZU8qjkMG6nIWXGMCo+vaBpZNsb6m+2gFvWsIGBkYR4TSwA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kRiAmqTcucJLCGfix9sq3EcuwnHWzymFpvhimJxjyk66livxx1
-	KN1Dxs4VYjiqNhImF9HVzvMY0scHCW7IFWsnIhlCTWneT1oprQaJNEXG1f08UwYC678hNKuL0p/
-	lFHtPeXeXMiF+Uiog3/kN14YIa2Qa3TI=
-X-Gm-Gg: AYBFou1YtuycyPMqSymTLq6MRCGC9Wmdw3LJ5/3nUSI5D1gJVp7UPDAiQ9ilz6YWnwo
-	QdNy+DnZ5hCgqI6xhStKdcDVbSZKwYjXosETKKNSCkUiXh2udUgutP2p2W/nBpuvWYwZsU9QMUH
-	R7Gl7FJkPxAo1Fy4VIUoxBHNLAaYfVDR0E9X25Now9u1BE7mXzUTmjgWf5PNlQaTAj/9MMS7tGp
-	r06wrUiUojaSK3wzm2gq4ytFnqv7ln9Imuv35A4GP2sgDW37zKN6TQRrLOl7e0oiPkvy/RdjdoJ
-	D2N3cRXVCgPX6mDkstc1LBseq5jf/mqWaZcAPgbqP2mfMvXdqhanqYbUMxJLqn74BypgG5i8Y+s
-	7+w==
-X-Received: by 2002:a05:6a20:e607:b0:3d3:ae50:97c6 with SMTP id
- adf61e73a8af0-3da3a154de6mr29258954637.19.1788715355297; Sun, 06 Sep 2026
- 10:22:35 -0700 (PDT)
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="RSkwG/VG"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id A669140E01E1;
+	Sun,  6 Sep 2026 17:25:02 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id afoUUyLUNP5x; Sun,  6 Sep 2026 17:24:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1788715492; bh=IGvIabwTQZmhND09OHm9YhbR9dwWckJV+EZ+Q9zQ28E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=RSkwG/VGmy5iGQE7hiCDbut1C8EEipXMYhAP+DYVoVCCd8WQBGZZiiysip55ythaF
+	 gVXcbdRDXTBJwD1nwWTDcoFYa5jzdQM5QcxGlJFi9A6KKy/cs2TiUBxwMq0+SqB2P8
+	 7+d/0ZyIR344vOUgKMUXX0TPVVu5HE1aBm03I8xmPpsB3zTvNhmrYfSlHeoSfECHO3
+	 SE16A2ICvzY6skAaAppTDQvmH15BdukmIFafQIrWOyB3AJOLsjAQ9DKGI/Wk0mffe/
+	 nLxxuU42cg6vYk0erabVLYgIiAcpF+OKttQ5h5uw7I6yUvxzIpMlAJV6I19lgCEWxF
+	 51YCOl2ERiDclQ8RNdnaKpQwqmkWdy3+krYG33UcwCpSljE6kPX8OczYUMUpxsjNPu
+	 s3SIsWva5OeTcFqiD7nPTMWNAZg4KyaMYtjA6iM8eO1muwEMf04LnoJ3ufdJaWdA+A
+	 rWZXKjsMGdGWMQWZa7v/NGo3yeckojDpHUTQtNMpy+nw8jsXjmtpyQI4PuSdxegKTv
+	 18+Rl2Qzb6B9B72qmxQTH072CSR6WtxE8mbSf5Hxj7jcLDcpkUl6GU3scNglcfmllv
+	 l/TeRPm7qhMtLPBo6TbmOxPOKvQthXn/J+83VnRse8/5yUyDB8s+i5OIoXHTT84uVt
+	 1Y2u0EYsPM/jTssBe1twvRi8=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::d])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id B710740E00B9;
+	Sun,  6 Sep 2026 17:24:18 +0000 (UTC)
+Date: Sun, 6 Sep 2026 10:24:15 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Ashish Kalra <Ashish.Kalra@amd.com>
+Cc: tglx@kernel.org, mingo@redhat.com, dave.hansen@linux.intel.com,
+	x86@kernel.org, hpa@zytor.com, seanjc@google.com,
+	peterz@infradead.org, thomas.lendacky@amd.com,
+	herbert@gondor.apana.org.au, davem@davemloft.net, ardb@kernel.org,
+	pbonzini@redhat.com, aik@amd.com, Michael.Roth@amd.com,
+	KPrateek.Nayak@amd.com, Tycho.Andersen@amd.com,
+	Nathan.Fontenot@amd.com, ackerleytng@google.com, jackyli@google.com,
+	pgonda@google.com, rientjes@google.com, jacobhxu@google.com,
+	xin@zytor.com, pawan.kumar.gupta@linux.intel.com,
+	babu.moger@amd.com, dyoung@redhat.com, nikunj@amd.com,
+	darwi@linutronix.de, linux-kernel@vger.kernel.org,
+	linux-crypto@vger.kernel.org, kvm@vger.kernel.org,
+	linux-coco@lists.linux.dev
+Subject: Re: [PATCH v13 5/5] x86/sev: Re-enable RMP optimizations on SNP
+ guest shutdown
+Message-ID: <20260906172415.GSap2hv9Aa16O_tL31@fat_crate.local>
+References: <cover.1788296083.git.ashish.kalra@amd.com>
+ <e8a8d0ec63bda2db61cde7cf298a4ccb6a502c20.1788296083.git.ashish.kalra@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260721095233.420823-1-clamor95@gmail.com> <20260721095233.420823-5-clamor95@gmail.com>
- <CAPVz0n2rhZk0fjM06u=C5H4LgVOsN6ACriO1o+byx0dyqTwGzQ@mail.gmail.com>
-In-Reply-To: <CAPVz0n2rhZk0fjM06u=C5H4LgVOsN6ACriO1o+byx0dyqTwGzQ@mail.gmail.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Sun, 6 Sep 2026 20:22:23 +0300
-X-Gm-Features: AcwNN1XDTtBNxGlzLOpLQ3w1y2Et6HgHVsvlBacLuEsWHZNblAyHEWGt7R_cBqA
-Message-ID: <CAPVz0n2mzwp-ffUu7tw5ojXgM=+G-PT3V9pHN--dT=dnYw5hHw@mail.gmail.com>
-Subject: Re: [PATCH v10 4/7] input: keyboard: Add driver for ASUS Transformer
- dock multimedia keys
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Lee Jones <lee@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-input@vger.kernel.org, linux-leds@vger.kernel.org, 
-	linux-pm@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Pavel Machek <pavel@kernel.org>, Sebastian Reichel <sre@kernel.org>, Ion Agorria <ion@agorria.com>, 
-	=?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <e8a8d0ec63bda2db61cde7cf298a4ccb6a502c20.1788296083.git.ashish.kalra@amd.com>
 
-=D1=81=D1=80, 19 =D1=81=D0=B5=D1=80=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 12:2=
-0 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> =D0=B2=D1=82, 21 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 12:53 Sv=
-yatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> >
-> > From: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
-> >
-> > Add support for multimedia top button row of ASUS Transformer's Mobile
-> > Dock keyboard. Driver is made that function keys (F1-F12) are used by
-> > default which suits average Linux use better and with pressing
-> > ScreenLock + AltGr function keys layout is switched to multimedia keys.
-> > Only Dock keyboard input events are tracked for AltGr pressing.
-> >
-> > Co-developed-by: Ion Agorria <ion@agorria.com>
-> > Signed-off-by: Ion Agorria <ion@agorria.com>
-> > Signed-off-by: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > ---
-> >  drivers/input/keyboard/Kconfig                |  10 +
-> >  drivers/input/keyboard/Makefile               |   1 +
-> >  .../input/keyboard/asus-transformer-ec-keys.c | 310 ++++++++++++++++++
-> >  3 files changed, 321 insertions(+)
-> >  create mode 100644 drivers/input/keyboard/asus-transformer-ec-keys.c
-> >
->
-> Hello Dmitry!
->
-> May you please take a look? ATM only ACK on input patches left.
->
-> Thank you!
+On Wed, Sep 02, 2026 at 09:29:21PM +0000, Ashish Kalra wrote:
+> +		/*
+> +		 * Perform RMP optimizations on memory freed by terminating
+> +		 * guests.  The scan is deferred, so it normally runs after
+> +		 * sev_gmem_invalidate() has converted this guest's pages back to
+> +		 * shared, and picks them up then.  A very large guest whose
+> +		 * conversion has not finished by then is picked up by a later
+> +		 * teardown's scan.
+> +		 */
 
-Hello Dmitry!
+Move that comment over the function definition.
 
-May you please take a look? ATM only ACK on input patches left. I
-would like this patch set to move forward.
+> +/*
+> + * Delay, in milliseconds, before the RMP re-optimization pass runs after an
+> + * SNP guest is torn down.  snp_rmpopt_all_physmem() re-arms the delayed work
+> + * with mod_delayed_work() on each teardown, so the pass fires this long after
+> + * the last teardown.  This coalesces a burst of teardowns into a single scan
+> + * and gives each guest's pages time to be converted back to the shared,
+> + * hypervisor-owned state before the scan re-optimizes their 1GB regions.  The
+> + * 10 second value is a heuristic trading re-optimization latency against
+> + * scanning too eagerly.
+> + */
 
-Thank you!
+Simplify:
+
+"Delay, in milliseconds, before the RMP re-optimization pass runs after an SNP
+guest is torn down, passed as the delay to mod_delayed_work(). This coalesces
+a burst of teardowns into a single scan and gives each guest's pages time to
+be converted back to the shared, hypervisor-owned state. The 10 second value
+is a heuristic trading re-optimization latency against scanning too eagerly."
+
+
+> +#define RMPOPT_WORK_TIMEOUT	(10 * MSEC_PER_SEC)
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
