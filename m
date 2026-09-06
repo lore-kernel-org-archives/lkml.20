@@ -1,164 +1,114 @@
-Received: from out-2z4y-a135.jellyfish.systems (out-2z4y-a135.jellyfish.systems [198.54.127.135])
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E52A3356771
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 14:46:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.135
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788706008; cv=none; b=JDerzlvJ60TYPzMg2l3RTV/IwB4k/oUR3Txoo6uQhRZhGqoNFR5KgfGRl5rAntwJd/3/8Vq+dqR0djWUekELVcdPejq3w6C7bKC3nFQxGLFxtT/m48Z7RvPJrcdIBBgUZ4PiKAop/CzvP8fxALDMN5LuaC0INwwDh3ra+WND3ZU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788706008; c=relaxed/simple;
-	bh=WrNRVm5RGaSQs+DmqRDf6tKoYIKl+hzKmxJlGARYPj0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sRmNZVGuhWpMJElue2MSH8rPMIsfaqKmEqqoJstaplu/PkpOuQkX5uzh9HoIRr3aiK8Dy5XuC33XO+tK2nF/wz2vpJ31yp56pSVS+d4BsxMT6pCoB+cXlSTYlJLiwL+fROyQ6zIQy/p64WSN+Up6E7oZHw0B7aTmRZAVeHx8100=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=HeP+2KOE; arc=none smtp.client-ip=198.54.127.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3957A2DA74C
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 14:47:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788706031; cv=pass; b=f4D8+8BPJ0l2qCOXxdRpEqJe6G+GraN0tcBOHW0S1fj1h06OQPTUim2YS3J9A6fcSVl5cUDV1zksJ7s8p6/Cuh51PiO7Lhp44K3T0irkmvGe1P62LQ26+xSAANulD7SNifQQKkiPvQENUgFB5+zMdXvyOlaGvanvgvAshHvmtrY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788706031; c=relaxed/simple;
+	bh=DBqqHAGSczpthp7loMH7wLmtYZ/JVKvH0RGvHHoN8+w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ayOTSTyLbdFZdu9ba6xs65CTFmhNUEkC0sdbwGp6uCxpx9c9fvCHut0Mj4270Eyy1UQpsEvs69lcCm5TgJgujSrvUGNpBuI0qzE9Ux1aNPNmBM00FaQ+uYdmZWsNGfXxXc2pmvDzsnWZFQXBuN9zGKQE01/9ccI/tOJ5ihG9wQg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rajagiritech.edu.in; spf=none smtp.mailfrom=rajagiritech.edu.in; dkim=pass (2048-bit key) header.d=rajagiritech-edu-in.20251104.gappssmtp.com header.i=@rajagiritech-edu-in.20251104.gappssmtp.com header.b=iIYTmwId; arc=pass smtp.client-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rajagiritech.edu.in
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=rajagiritech.edu.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="HeP+2KOE"
-Received: from fedora (unknown [69.5.53.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4hdCYy1G73z2xBH;
-	Sun, 06 Sep 2026 14:41:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
-	s=spacemail; t=1788705673;
-	bh=BMfLqBwWKBeYU1egJqEuEAvuOmS9JC9iK50RUqn+x44=;
-	h=From:To:Cc:Subject:Date:From;
-	b=HeP+2KOEVEQwsAKbaTMLXL4OIo8jhFeapg2UDWFk/ihtHhBlMn0G7rLDNZQb0RUZg
-	 oG4fQ96wIcnDA1bVrRudHsIg+0JF0CXebElLDaqeTDNRjE3UZO2oniUBtwvAVS/R1U
-	 p6+IoLYu9X2dZZ6Eiv1DpMqdlpwhgSeYLUcl2/LOqyDZc8ba44BB7N26ig3QGrnPrW
-	 I74xQgrzk7yd8GJtYvSucSMgxghZOn44uos8PAAJbO+3C1+5VQntUEeOC47mdpB9gl
-	 RiMWukYLciZ9B8viExOLR88mODHjcckRaDLnGK3nYqCQ6oS6c3tj4bevfKTDopCWKb
-	 MCXN60d00Op6Q==
-From: Tianyi Chen <hi@tychen.cc>
-To: ljs@kernel.org,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Tianyi Chen <hi@tychen.cc>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] tools/testing/vma: cover hole filling through __mmap_region()
-Date: Sun,  6 Sep 2026 22:41:00 +0800
-Message-ID: <20260906144100.849288-1-hi@tychen.cc>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=rajagiritech-edu-in.20251104.gappssmtp.com header.i=@rajagiritech-edu-in.20251104.gappssmtp.com header.b="iIYTmwId"
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c207cb16cf5so398006966b.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 07:47:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788706028; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dXy0DgVsQ1D7JZrPsi0dyDo+Pzcs6aL5+I4Nz31MpYW0yLqlQL4IEeK7Hbc2JYZ3/G
+         r0fuUTZbAXZ5N/qwirMfQZREYVESLRSbj11oK6aXxcuairYV1s3X8fRE1AK4XTj2PRtY
+         oVck/Y1zL3d1YixaTMJMqnmkBYA9a0hoDIDmkmF43m8MZaKkAkup1WQHHCiXEHSv8MJM
+         aeFkpR76K0lbCfsckowkkfqkWUQmEYTd5UW/XiGIIS7HkzqzDpuDWg6VMfxxjkC4io+z
+         QscziVS72V2JVQb0eP8YjR/LTgUwAz9Cl4udXptwUf+G+ruiV99E0UJ+VYqa8Zg1hZvh
+         3MEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=fMw2a7h4FJa1ynMxKC2OZdTyNmHlbWlyFXY/M2wRjrI=;
+        fh=lT4WopW3wLwDX2PudQw+1unFOiuJubDuvViXkd78iag=;
+        b=iM820UdR1iHYB+LC2Ug49qBuGkeyNNw80Xii2FFezveQ4wsA/gKNnUU6edHjFPIhwy
+         IBrNxVLgPRgTVVQVUDef/D3IqyNiP195ECbAuNlh48VJTqJ2hRuKSKxQpYRaSxU3/dWS
+         48GJUdIwbFlK/dvoiDF3SUZmoeLHKo3eeaHcGPjmt7IJqonRkCRXHAvIQ8etnfT8ODuy
+         PVGxOUqJ+ugAlKPhzc7hRh2fTYCHkE1q20G3w/d0U+ESGQCNKqUFB3DzhjavFgGK8/74
+         U6cbhEo3c2RgLz2DLCu9hDXp17aScxQoBP4GO+rUB31Zq6KQpUKE32v30SluCT1iCgAd
+         CjEA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rajagiritech-edu-in.20251104.gappssmtp.com; s=20251104; t=1788706028; x=1789310828; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fMw2a7h4FJa1ynMxKC2OZdTyNmHlbWlyFXY/M2wRjrI=;
+        b=iIYTmwIde1cba2Q//LXtNwLXZxx8YaZm68U3uba1OZGxN2H049jvAvTsUgHqU0sTbt
+         oip36PBpzYwaIUTCHZmszroi1Iz1mgmixG55qM7ohXt51prO69INMyTb2nQNXhYD1K52
+         SF3n5sy/UElYPhs7w1etiluG2Av1geQWrkniqNSQvqAMPAQabm3M13RYnuLx1NkKbnG8
+         QWi8GNmGQANCFVcVmYzTpWaHA6OTCP7UI0fTr3PN8mNfDu0caZ455Dn1jAHIbY9jx57m
+         Bb36zpXCBq8kzXlhaYxFfyRZj1Tv0fnYz+BIq+/XsKMsZocAeQvtfU06cZ8ortLrXeHM
+         LLvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788706028; x=1789310828;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=fMw2a7h4FJa1ynMxKC2OZdTyNmHlbWlyFXY/M2wRjrI=;
+        b=glc6ZQ+8mxhVpvZ0v47MYYscEBRQfgyHFVXOosybPbhtUgvRbkELmiV5i4DObQv7hR
+         gXZO8hCNkiZVyrTTUTKM8BamSDLmcAU1+gvcU1wfonKUXzj66BJfHFMDrPSRvUbWZzZa
+         TEHeQBkp20AIM3rSWICyfQGe2BN2WU/osIyvEUqeiAajuuOW6aLbLVHXGe2PBUtewxPu
+         nis3XDUCw/soiGBL8YeZIRoPEY7xPL93zXV8Be2qhJ8JGPTf9kMZc4wRs+wkTrtJR9B1
+         9JIQqMmrdgPdjtZRQt0810dHGoIYi8oKDRKV3qruSkSzkuWMB32rPQji0lGLBsrOTfRj
+         iEYA==
+X-Forwarded-Encrypted: i=1; AKwUvBznprjpJfUx9WBOOia3wunkUTYj6MNzkLCvu2iklTp9EEtll+Uciw61SatoN56LPL/IPhjvF79eal68wvo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kGtcjpMEDTmC28cM8+idwtinh/5YbsYIurE/0xdqxpu6BjCD3A
+	4C7ogZOODEifjMmBmhb8UoNOBfTZgkYy2nlbjHRQILM1UE0VCBQVq+uJWYIabKtgKpjtpW/ph3t
+	luwBR7uJmEBUKhTsCIv8yLKCamFP9tUOYVEcAkF5T8g==
+X-Gm-Gg: AYBFou2iJE5GpISmoBVjNzw+OhLetFymUeFnGAbW0kdpmKRV5Yf0j2DGV7VA8aOmFHt
+	mJo3xtZA1xRSVMry5WcebbuIrNs8VuGrY1dMIGixljZVIk4lS4KkjZq80YWP2qpai48yoQPDK4I
+	tcUTtjf1vpBUJWveVxUxhBDguypsoDj2zJfWf7CnkHLSlY76GfXU7Iozz8tStpMRXxvXH7hGT6H
+	IFPYENrB1q/Z6nn1lvY4q5F69ADxrUsMcmRy44KeiypiI9e/MYwwF4qxsbmfukX0/FhWUFbGDt0
+	shrAnR8Ql3SNB53qEsFfPv+cYvKZWcTa60yUxhxymKHo5y0YwfSHuczmibmHm98PXXJadSEO2NZ
+	ZIz7LWaN/wMs4c3oFYLyYXVrnnUAeD1CJYNH93eQulba6Y9XMvgH6BY0lfY/Uv8TtPM14Q2IxoY
+	Rhk4/N1RdWqYWa
+X-Received: by 2002:a17:907:94c7:b0:c21:4393:c41a with SMTP id
+ a640c23a62f3a-c260c9b556dmr671749166b.11.1788706028458; Sun, 06 Sep 2026
+ 07:47:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: hi@tychen.cc
+References: <20260904045803.810145556@linuxfoundation.org>
+In-Reply-To: <20260904045803.810145556@linuxfoundation.org>
+From: Jeffrin Thalakkottoor <jeffrin@rajagiritech.edu.in>
+Date: Sun, 6 Sep 2026 20:16:29 +0530
+X-Gm-Features: AcwNN1V3DdZWjKZZI59W-lXeZk-QDF9YMp4RrSPhW5D9Euh9iW7L-2IdybpMmLo
+Message-ID: <CAG=yYw=4c2nQXppcKfCv01om-zohPbZoafSfhFSCgOu4cxZuVA@mail.gmail.com>
+Subject: Re: [PATCH 7.2 000/713] 7.2.4-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+	achill@achill.org, sr@sladewatkins.com
+Content-Type: text/plain; charset="UTF-8"
 
-The mmap tests extend existing mappings one neighbor at a time, while
-merge tests construct merge state directly. Neither exercises filling
-a hole between compatible mappings through the mmap setup and completion
-path.
+  hello,
 
-Fill a gap through __mmap_region() and require both neighbors to merge
-into one VMA. Repeat with only the new mapping's execute permission set
-and require three separate VMAs. Check boundaries, permissions, page
-offsets, map_count and tree lookups across the mapped pages.
+ Compiled and booted  7.2.4-rc1 (using qemu-system-x86_64)
 
-The full VMA test suite passes all 28 tests with ASan and UBSan enabled.
+No new typical dmesg regressions .
 
-Assisted-by: LLM
-Signed-off-by: Tianyi Chen <hi@tychen.cc>
----
- tools/testing/vma/tests/mmap.c | 75 ++++++++++++++++++++++++++++++++++
- 1 file changed, 75 insertions(+)
+Tested-by: Jeffrin Jose T <jeffrin@rajagiritech.edu.in>
 
-diff --git a/tools/testing/vma/tests/mmap.c b/tools/testing/vma/tests/mmap.c
-index c85bc000d1c..b66ec932a75 100644
---- a/tools/testing/vma/tests/mmap.c
-+++ b/tools/testing/vma/tests/mmap.c
-@@ -45,7 +45,82 @@ static bool test_mmap_region_basic(void)
- 	return true;
- }
- 
-+static bool mmap_region_fill_hole(bool merge)
-+{
-+	const vma_flags_t vma_flags = mk_vma_flags(VMA_READ_BIT, VMA_WRITE_BIT,
-+			VMA_MAYREAD_BIT, VMA_MAYWRITE_BIT, VMA_MAYEXEC_BIT);
-+	vma_flags_t hole_flags = vma_flags;
-+	struct mm_struct mm = {};
-+	struct vm_area_struct *vma;
-+	unsigned long addr;
-+	int count = 0;
-+	VMA_ITERATOR(vmi, &mm, 0);
-+
-+	current->mm = &mm;
-+	if (!merge)
-+		vma_flags_set(&hole_flags, VMA_EXEC_BIT);
-+
-+	/* Leave a hole between two otherwise mergeable mappings. */
-+	addr = __mmap_region(NULL, 0x300000, 0x3000, vma_flags, 0x300, NULL);
-+	ASSERT_EQ(addr, 0x300000);
-+	addr = __mmap_region(NULL, 0x306000, 0x3000, vma_flags, 0x306, NULL);
-+	ASSERT_EQ(addr, 0x306000);
-+	ASSERT_EQ(mm.map_count, 2);
-+	vma_iter_set(&vmi, 0x303000);
-+	ASSERT_EQ(vma_iter_load(&vmi), NULL);
-+	vma_iter_set(&vmi, 0x305fff);
-+	ASSERT_EQ(vma_iter_load(&vmi), NULL);
-+
-+	/* A single flag difference must prevent merging with either neighbor. */
-+	addr = __mmap_region(NULL, 0x303000, 0x3000, hole_flags, 0x303, NULL);
-+	ASSERT_EQ(addr, 0x303000);
-+	ASSERT_EQ(mm.map_count, merge ? 1 : 3);
-+
-+	vma_iter_set(&vmi, 0);
-+	for_each_vma(vmi, vma) {
-+		unsigned long start = 0x300000 + count * 0x3000;
-+		unsigned long end = merge ? 0x309000 : start + 0x3000;
-+		VMA_ITERATOR(lookup, &mm, start);
-+
-+		ASSERT_EQ(vma->vm_start, start);
-+		ASSERT_EQ(vma->vm_end, end);
-+		ASSERT_EQ(vma_start_pgoff(vma), start >> PAGE_SHIFT);
-+		ASSERT_EQ(vma_start_anon_pgoff(vma), start >> PAGE_SHIFT);
-+		ASSERT_TRUE(vma_test_all(vma, VMA_READ_BIT, VMA_WRITE_BIT,
-+					VMA_MAYREAD_BIT, VMA_MAYWRITE_BIT,
-+					VMA_MAYEXEC_BIT));
-+		ASSERT_EQ(vma_test(vma, VMA_EXEC_BIT), !merge && count == 1);
-+		for (addr = start; addr < end; addr += PAGE_SIZE) {
-+			vma_iter_set(&lookup, addr);
-+			ASSERT_EQ(vma_iter_load(&lookup), vma);
-+			vma_iter_set(&lookup, addr + PAGE_SIZE - 1);
-+			ASSERT_EQ(vma_iter_load(&lookup), vma);
-+		}
-+		count++;
-+	}
-+	ASSERT_EQ(count, mm.map_count);
-+	vma_iter_set(&vmi, 0x2fffff);
-+	ASSERT_EQ(vma_iter_load(&vmi), NULL);
-+	vma_iter_set(&vmi, 0x309000);
-+	ASSERT_EQ(vma_iter_load(&vmi), NULL);
-+
-+	ASSERT_EQ(cleanup_mm(&mm, &vmi), count);
-+	return true;
-+}
-+
-+static bool test_mmap_region_fill_hole_merge(void)
-+{
-+	return mmap_region_fill_hole(true);
-+}
-+
-+static bool test_mmap_region_fill_hole_flags_mismatch(void)
-+{
-+	return mmap_region_fill_hole(false);
-+}
-+
- static void run_mmap_tests(int *num_tests, int *num_fail)
- {
- 	TEST(mmap_region_basic);
-+	TEST(mmap_region_fill_hole_merge);
-+	TEST(mmap_region_fill_hole_flags_mismatch);
- }
--- 
-2.55.0
 
+--
+software engineer
+rajagiri school of engineering and technology
