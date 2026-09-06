@@ -1,217 +1,245 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53AEA78F2F;
-	Sun,  6 Sep 2026 12:19:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788697166; cv=fail; b=aduAyFLv2QlVHybeA3HGQMhNU8CYErchuIaSrpK2i6LRLD68zO5KONCg8fphCfz+qPdXOJ98F+iqvIVybngHflZ3ZB8gns3EBMOFQwpuurGVo0WKWzT6CTsPVilVMdmFtvH4u3GLlpJ0wj5jUH3YHlqFLozUxNwNJWNpQBjneYI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788697166; c=relaxed/simple;
-	bh=zSHxxKkWO8t0nbILhivLWBynRX3CAk+kQynWpy+FI2A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=YlXrTQMPcCnEjBvOnpRQ9Z9mJtMLsO7kCibzgSKX18vKtuu3Q65emze8vvlRnzDrXwLZ/p86SdDMBeInZzB7wwBRXF4Eu+3JgTEjRTYk7XFDRQwwRVGTh0Jx9hIFnT0nwm4FHnx1RAOscAsYF4mriHdywbVB/6S1m5Qd/m7tmLY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=bS47ifbi; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=cQTS1u6Z; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA4E3155C97
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 12:19:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788697182; cv=none; b=f9PXQRG2Ups4MH3FEkXPA4VoQToznN4q3g1P+FOOgjmkco+USbrtxtbTUbrMrYsJzNxJzDqU0ogFhj2zaSSKcFNbZv5azabJ/cusqscmzeNgIBEDCxh5dkG8yowPY2BBTVmSKa8bEnyRNtLEAzOSDdq6jBEdRJE4P3v0zIKApR0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788697182; c=relaxed/simple;
+	bh=WHkdijCBirwJQxGUkjmL74/GZgWdwkOAT7bacyLe+ko=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gXnFCsWrg5v5KztOoHKH5p3cJtVF/yVP1w3ml0HPwNDPc+xNqJCQj6lF7CEY4yHqVK8vyY7BYJPm/lqL0NrKYfs/gUEXrwmVHj+QNHfpi3ZLFierVPMvLu7xibh07k2DCPkgpAVl8+tHICl789Iuuo0oKgoaNtgS43f3awArRNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aHDMnLNa; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="bS47ifbi";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="cQTS1u6Z"
-Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
-	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 6867lgXr063048;
-	Sun, 6 Sep 2026 07:19:19 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=7B2X+IoJr1jpGdtDc76HBnENAB3W6OkhhgHfkiaZT
-	mY=; b=bS47ifbiyicPKRySJ019mpOi/NRWThvAUZ0MRSj20uOE0+WnwucqKfgUJ
-	EXxd9aCmuLFyo8vY9qpb8Fp+BZ4Ub15WzfZmulUsnsFctUuJxZ96foXm/6DhG5OW
-	gNqtG12I0azwvb6kbn5ljnEURrsDNk4DlyX1Hxj7F0VqFDmzo20gB2aXm05R5j81
-	ookEb4viBPohelR9IgzxetMuRuYsteB9yXoTg30AkyooV1fFrlPWFL92EjjEQYOd
-	ZM3svvXH4RyFYiBTDcuD6WnrhlubpfZ9/XY/Da93UaFvZ6GZmi8b6NoWBHEN6+th
-	TqUDUj4J20eVESHlobnu3uXfmhbIA==
-Received: from sj2pr03cu001.outbound.protection.outlook.com (mail-westusazon11012049.outbound.protection.outlook.com [52.101.43.49])
-	by m0380145.ppops.net (PPS) with ESMTPS id 4gh43n0jwd-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sun, 06 Sep 2026 07:19:18 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MOSKoIDMSQ/ueRBeoO+Gxjb5vz7sIcSehe9KRIJ8neZMeQF4b7xbiM5YNlrn/oNRzdsDJS5ngT4LGrMDzNBVU3ppcqJKsabt76IiirA/q1hsBjRDES0jmP9ua63nNmHjppL7c/qknqPM2bY5VEjuMvambF7bHTI8EjgQf2BAdiu5HD/G+YIOk9skraxTBlhO1Dr3H8gKkav9pbt14PEJoW6l4aObKGz40Ym0QMn/xHZNGN9/0/8phBZmeS33hUD9n1eks9k857EGiwKolRoyun2qwzyqN4EVGut39KfoCXkUdZUmez0UzGLvQV+QRGiZKtck7NM+fRkSh3t+gUP2dw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7B2X+IoJr1jpGdtDc76HBnENAB3W6OkhhgHfkiaZTmY=;
- b=O9JuxkCqfNqMiarV5HfpxBd0VDa/vJ1FH8gjG9SWEw7CEgbGCj46E1JMzR34MEVQRP8X4JSdw05DV6hEIfXlzbZg4ngdW888anoDKx+UaAYZX9inA8S9++iPbHFrR7kFbqhRQzgJG6bITBD9/oravvKlnsLRVIzKoP+pm2rNFx4Fq4o6f4sxfxlByMjVMF6tOUk6egWvQgJjSEuGu77vWP46QXC/6Z3tyH8xmbsfH2LLGHILT5FoyZAGhKD9A6gVO+gU5LUzfU7ManDr+47WuzXBD3f/MXPN+PVlAM79nIdTAFeIWB7SI/4rKII3WLJd9MvqOhF//IcDXAT9gxN0IQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7B2X+IoJr1jpGdtDc76HBnENAB3W6OkhhgHfkiaZTmY=;
- b=cQTS1u6Z5daFAsCfSYbwpW2uiqCavtPJ2H+aPhRcxcLlubGcq0wz5BEGWZOvEusRUbIKHhf4mtgrzxPcmuOvGmYt183bE03GmGDq8x9LvqZLuYdoavLB56rjlV90Yvj0aqIp31QRqL6E2NsTuoggTtvXAmecxmw/BpU+La4jijw=
-Received: from BN0PR07CA0027.namprd07.prod.outlook.com (2603:10b6:408:141::29)
- by CY8PR10MB7314.namprd10.prod.outlook.com (2603:10b6:930:7b::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.4; Sun, 6 Sep 2026
- 12:19:16 +0000
-Received: from LV8PEPF0000006C.namprd03.prod.outlook.com
- (2603:10b6:408:141:cafe::a5) by BN0PR07CA0027.outlook.office365.com
- (2603:10b6:408:141::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Sun, 6
- Sep 2026 12:19:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- LV8PEPF0000006C.mail.protection.outlook.com (10.167.248.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Sun, 6 Sep 2026 12:19:14 +0000
-Received: from DFLE202.ent.ti.com (10.64.6.60) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 6 Sep
- 2026 07:18:52 -0500
-Received: from DFLE207.ent.ti.com (10.64.6.65) by DFLE202.ent.ti.com
- (10.64.6.60) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 6 Sep
- 2026 07:18:51 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE207.ent.ti.com
- (10.64.6.65) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Sun, 6 Sep 2026 07:18:51 -0500
-Received: from [10.249.138.105] ([10.249.138.105])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 686CImI13815676;
-	Sun, 6 Sep 2026 07:18:48 -0500
-Message-ID: <a935ba6a-3623-4fb5-a31b-fc58ea9dda21@ti.com>
-Date: Sun, 6 Sep 2026 17:48:47 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aHDMnLNa"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d942c7cc2fso19782055ad.3
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 05:19:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788697178; x=1789301978; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FpdcKrJLKQFKxdneH8MEpLcde77LFmEiZubVtCmbqlQ=;
+        b=aHDMnLNaeNONukYG34MsQIDJ33KU8dE5tSUYFpBD7d9ToVlQpw07o7xfWFmnmuO6Lj
+         tE3hp4N57nf9HpUr+CZL7hPkwnTKM8NspkMLHycA1bj9D+LaSC4E1mkXd4rVkuS1pYPR
+         +Mg7kKkrMvyGcJTQ6DP5sBiqMg1v6zD26ts2Jj2gpbcuz6XtULvDCrR0J7hPdUoRpJ/Q
+         DwU1OsOb9yUgkMf2x1oMNSuV1ERGlrZGAPuUsgeiHYRhV8rx/88LtzenKD/zHIfE5TqE
+         gaBZ4Kpm1re3y+uvqlWe2th4cy8ZbJ5G9M5iqZKVy+LvHA0lkxV2YNIw/K2tS5sF8IDS
+         7IDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788697178; x=1789301978;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=FpdcKrJLKQFKxdneH8MEpLcde77LFmEiZubVtCmbqlQ=;
+        b=KAZsb78nzorksLz7DBrZeWXccuQzNiS1e6MRPXb7sPzb6qnEy9YtTiXdoKLO3CIGSE
+         3I46AvavgoL6oejZHDKkHU5nVMybVQC46zNRM68dQT8KqQd+xE+3OeR02xjc11kVD9Bk
+         o8wSzUc5IDpwbf5IUz52al4odJs2d04Aw5sMhZdz2QVHzzEK6C1Lyf9OWTW3k6rWcjc+
+         hzvZxDnAZW5aDt4N16BpS0PLFd+o6421vnUibFEc0vq8F8+awBVexJF64W0DQ6emLr3u
+         /TS+5XDkzOVa5TG/cpa6kYktWcJ2RqrhqE8H0wjgE5J0AxNenqg6CBiAGAV3r75eE8Oa
+         5OcQ==
+X-Forwarded-Encrypted: i=1; AKwUvByYMgAjRoyWe1zD9U0/bT7ulS+y4W06NEZDTtoTGx1XIDqbjt3IsfGiGaiRxgAiT4LZm6aXKwgTO2Q7qkc=@vger.kernel.org
+X-Gm-Message-State: AFuF++l8oE3A/7rzV1cN+R5jgRk8nBXZXAWSBPRAIdreZfDjAZTLeg8b
+	o9kw46xm6W1d7M7URFD5xCMV1/dO7PdqdjnVw/3AMEF/MQcg29cvoUjN
+X-Gm-Gg: AYBFou1qFliZibLFPzYkAeQXNZZqK5OXfI+pVO8AW5bejRh02ZGCUtu8Ru8n35YfpPV
+	Nd04bhzW3qU2lFbKxQUhJu/OTFzQhJOMco/VbzLHIVtgHyEu80VELpVDBSa3voOsxi+iml+pQRW
+	WkDlW5IqlpDyzrceTh3NUskmjA+Fjwz8Eyo3iXGYaf/J9W5Zl+yQdZULSdjAUCPuOHJQ41kVvxp
+	MltGbtBiuchD9FG11EbZ3HXah9MSx0BKI51yntGswVUiznpSsZcwtbdBLCXPi5dtLhiQtOS22i8
+	nhv2za75JplAbWNerUYb9ZCnGP5rItSg5LSzZixQ3ll9npz+vg+2NHTz9dh5NQ5Lj4JLWgJZV/k
+	cu9xJkyTs1CqXbeMn2U+i9YGSZpC21JkFqaDEKiiEns5AuDVFmUOEwMuCHKGwmGh/tyK7c6eKwF
+	K+e8bRScHVOVD7rAeWk3/jwIy0EyKUAURp/oW2DfIrPhDtt1WgZmDSLT97uWMvWmKzE1nSdQ==
+X-Received: by 2002:a17:903:3b51:b0:2c8:f34c:82c0 with SMTP id d9443c01a7336-2db1250d4e4mr167739125ad.2.1788697177605;
+        Sun, 06 Sep 2026 05:19:37 -0700 (PDT)
+Received: from localhost ([2400:ac40:62f:61d3:d76a:f196:4cf:cc30])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339bdf26c5sm20462005eec.27.2026.09.06.05.19.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 05:19:36 -0700 (PDT)
+From: Coiby Xu <coiby.xu@gmail.com>
+X-Google-Original-From: Coiby Xu <Coiby.Xu@gmail.com>
+Date: Sun, 6 Sep 2026 20:18:23 +0800
+To: Sourabh Jain <sourabhjain@linux.ibm.com>
+Cc: kexec@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>, 
+	Baoquan He <baoquan.he@linux.dev>, Dave Young <ruirui.yang@linux.dev>, 
+	Pratyush Yadav <pratyush@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 2/9] crash_dump: Disallow writing to dm-crypt configfs
+ during kexec_file_load syscall
+Message-ID: <ap1US-aayjZTm1UG@Rk>
+References: <20260828084900.1496839-1-coiby.xu@gmail.com>
+ <20260828084900.1496839-3-coiby.xu@gmail.com>
+ <86f3b10d-6fc2-4dbc-a20b-5d2365601be2@linux.ibm.com>
+ <apLKk_P9wHc9uSZQ@Rk>
+ <ccf3c0ae-f04b-4d81-b09e-daa5c785ec10@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] arm64: dts: ti: k3-j7200-common-proc-board: Add
- ethernet alias
-To: "Kumar, Udit" <u-kumar1@ti.com>, Siddharth Vadapalli <s-vadapalli@ti.com>,
-        <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
-        <krzk+dt@kernel.org>, <conor+dt@kernel.org>
-CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux-arm-kernel@lists.infradead.org>, <srk@ti.com>
-References: <20260811061351.2538688-1-s-vadapalli@ti.com>
- <20260811061351.2538688-3-s-vadapalli@ti.com>
- <b7147489-00bc-4f55-bfe5-2c9cb675c7ec@ti.com>
-Content-Language: en-US
-From: Hari Prasath G E <gehariprasath@ti.com>
-In-Reply-To: <b7147489-00bc-4f55-bfe5-2c9cb675c7ec@ti.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PEPF0000006C:EE_|CY8PR10MB7314:EE_
-X-MS-Office365-Filtering-Correlation-Id: ed9dc302-661f-4821-0e49-08df0c1110ae
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|36860700016|23010399003|1800799024|10067099003|56012099006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	HQSw8xKWw18/gWVQY9i4MDiY6QRhTmnlvE2JYtBEVxvu9W88n0qYrAA2V0hCa8AFXj9Syt4cONt3p5C58p1A0PqA3ItXrZMp85CwNp23mMfEajZDiWHgt+XlD5iytpiHI2DmQqwRrW21b19UH57VnwdiDoqEfQxl6AktaAKm1ZVY2dLs37IHAJWs3JpFosgANRRpAMEjy21315iKeiZ1pY6I44HYd0T17RIz+8paqHKhG6XrcMqMhbZ+J7hmdAMNSR+MDyirC99M6YGhC7wfr4ACp/Me2eAbHMP/t2XC5yvj7WJXCfMxqqi4skRpg64XEKOdBEybykg+xiE8bl9IAqZfajRp8+B34qeWYbhynAaRgsMR0grmS6CUQ0ktj5ihxUeLNfSzd7Th4HuTuPXWTL7VM4qNP6J9obtp2uzcTJoPxiFaIh6wnwjo0YRgFApLdy1qZiCsVTDf0Qy/ETTTD7p7mV/ja4j9bA6z1BfaYryqE7Iv67LMjWP85biyyo557ilvpTLDA3ACDXeudimvC7PK2u/i6Cnlq61MWpnP/05/0FFNybjPiHxxuOEOf6nySPF+cLOvOMfFuQKqWZEs8puBQESdVUm38qPxZcjG8o7kWBAjHBfWGNvqV9wmttDOqFapxGTA0e6XDWcN3VdlcheVbi56jonGe7q0AP17LelgSoLbarkB99t04vUytRktgU0D9GJXPYjYx6pRjVd0Cg==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(10067099003)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	qezDmzWWaIe1ut7wARjMeAdUEgmNhtrv2ABeUyTqYzdpEregSspsDMlW9vg+0oFiFNVXu6ZUKlfMp33meDxCYWHqx4QgJxdJnnY5a2FowNNF9KT/BiSScazf2J2VBhwkc1X1wOAfVFd9VoHHYYEs2D0AvK97j9oAf/oY2fCsnPnTZTcqsqJ0DPDYeobWDQDM1JYnjLkDy6z8PKMlkX5zXwglVQFheUg5c/XiIOsSy9eNxbsTYVee7kfTDLTs/fJFF2s6IGzo3kdOyVcPoqsuOoyQ77TR3Upz1C4z57gwn8UkjyB7qztaM7Q97wjn6KLV026U6jHZjCe++gqeqOr6kZgX1o3GJNzggSQJCV/G7lNmX8ftRK1+MDxwWuXbyi1ILtsuqgsj+0GRcX6TuTqF5Zsxh8fEwzjHLcCGZJShEv8Qz1lDzWkFxaNVbiPBz/Pb
-X-Exchange-RoutingPolicyChecked:
-	w3jGJ5hyk2nm83k6a8JmjZ6BfwIL8v9pWG9OoqKscOH/guzFtc76ICloDXPEQZYktz9AbYRGvdS6D8uACBGslFjAEaZB0ks9LwuEE2u5/9O8mPLyjlMpdvGzm6xSn7I6TrLbtJ03L10sFMTSx0audXOCUk78kt3Y3IM5XGhXq7k7vAHUM/sXz5UzKnS5fEoa5DgZBfbPS2Ala2Yc3An0fYbYowswxOVs9iCw9oPS2m9FWdlNcr7mJ1ECd7V6twJPY4/5vEm8A0LHLE0rntuCDKmcRRiC9x+By1aI+qlx/vkz1sBZfLwVLXXOA2N8PSaG8fxp8vVui/0KvUuP1xv2Cg==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2026 12:19:14.2498
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ed9dc302-661f-4821-0e49-08df0c1110ae
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	LV8PEPF0000006C.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR10MB7314
-X-Proofpoint-GUID: mGOiRXlYVoml7k3Dvf3SdDKkflJe-DyO
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA2MDEzNiBTYWx0ZWRfXzCDHWswr2Q3O
- CkZrPgvtNBUQj8uCEKj1hvyY+qLidw3GwTFIf6j1hPAudtIi4f2WMjnZAxH+G69MSmX0bunr7ND
- J37tqxagvh2GceesaVLMg261/7RZgk068yq+7p6bqhGnFf4koy6pjNxUAte06TDL5zkomAjNmK3
- e36BJnr61jMEg9Qh/Xi2zMlcLt/i4/5dMfUzV4W2fJXF/oh67hvkbWENKeC4Ai2oSUvm/duw2mG
- PVhuubNiAEoOeHIG2ePZD4o4S+MmpjD4Zh2Q6x+8IkXu79MT+wyRGv455ijUQXlsOfxY37zndVc
- YYCVbopvY9EIJYlrBKY8PdlWdBC8wP8l7N8zseK9pPjcCP/gc/f54Tps+i0tR6kl+09lmEeEXku
- kzS15uF9QfoenrgPidunJEP7hmVPeTs5X8wUb8myJ/hsyHpkrF0ise9zNSNlZ8JxP9McdTONN5N
- 8BLpM1ND3FI+HS1msxA==
-X-Proofpoint-ORIG-GUID: mGOiRXlYVoml7k3Dvf3SdDKkflJe-DyO
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA2MDEzNiBTYWx0ZWRfX2LgAKnhlQnZj
- Qa1Cqg7gq4E4eTS4Bsj2JOB7KC1ADKvRDyIIIuu2LL8A+W4MFgSg2WEhMlGl/URuGTiA7kAwksa
- 60/Cx+uptahFc0a/HCUoTSri8H37IGQ=
-X-Authority-Analysis: v=2.4 cv=JdSMa0KV c=1 sm=1 tr=0 ts=6a9d5a46 cx=c_pps
- a=cGw96uMdUXN41aDBKcSctA==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=gO1vWkAQAl3rybz1DQOp:22 a=sozttTNsAAAA:8 a=ybLVR-bQ3a4UdHOyz1MA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-05_08,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
- malwarescore=0 suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609060136
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ccf3c0ae-f04b-4d81-b09e-daa5c785ec10@linux.ibm.com>
 
-Hello Udit,
-
-On 9/6/2026 11:13 AM, Kumar, Udit wrote:
-> 
-> 
-> On 8/11/2026 11:43 AM, Siddharth Vadapalli wrote:
->> Add the 'ethernet0' alias for the Ethernet interface corresponding to the
->> MCU CPSW2G instance of the CPSW Ethernet Switch on the J7200 Common
->> Processor Board.
+On Sun, Aug 30, 2026 at 11:07:30AM +0530, Sourabh Jain wrote:
+>
+>
+>On 29/08/26 17:47, Coiby Xu wrote:
+>>On Sat, Aug 29, 2026 at 12:32:46PM +0530, Sourabh Jain wrote:
+>>>
+>>>
+>>>On 28/08/26 14:18, Coiby Xu wrote:
+>>>>If writing to the configfs group happens concurrently during
+>>>>kexec_file_load syscall, it may lead to the following issues,
+>>>>  - buffer overflow if dm-crypt keys are added after allocation
+>>>>  - stale total_keys if dm-crypt keys are removed during iteration
+>>>>  - keys_header will not be freed if config/crash_dm_crypt_key/reuse is
+>>>>    set true
+>>>>
+>>>>So hold config_keys_subsys.su_mutex for the entire sequence during the
+>>>>kexec_file_load syscall to ensure a consistent snapshot. To have serial
+>>>>access to config/crash_dm_crypt_key/reuse, use the kexec lock as 
+>>>>we also
+>>>>need to access kexec_crash_image serially.
+>>>>
+>>>>Fixes: 479e58549b0f ("crash_dump: store dm crypt keys in kdump 
+>>>>reserved memory")
+>>>>Suggested-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+>>>>Signed-off-by: Coiby Xu <coiby.xu@gmail.com>
+>>>>---
+>>>> kernel/crash_dump_dm_crypt.c | 28 ++++++++++++++++++++++++----
+>>>> 1 file changed, 24 insertions(+), 4 deletions(-)
+>>>>
+>>>>diff --git a/kernel/crash_dump_dm_crypt.c 
+>>>>b/kernel/crash_dump_dm_crypt.c
+>>>>index 4335b6cb1fc4..026c7de4ad85 100644
+>>>>--- a/kernel/crash_dump_dm_crypt.c
+>>>>+++ b/kernel/crash_dump_dm_crypt.c
+>>>>@@ -7,6 +7,7 @@
+>>>> #include <linux/configfs.h>
+>>>> #include <linux/module.h>
+>>>> #include <linux/sysfs.h>
+>>>>+#include "kexec_internal.h"
+>>>> #define KEY_NUM_MAX 128    /* maximum dm crypt keys */
+>>>> #define KEY_SIZE_MAX 256    /* maximum dm crypt key size */
+>>>>@@ -296,14 +297,20 @@ static ssize_t 
+>>>>config_keys_reuse_store(struct config_item *item,
+>>>>     bool val;
+>>>>     int r;
+>>>>+    if (!kexec_trylock()) {
+>>>>+        r = -EBUSY;
+>>>>+        goto unlock;
+>>>
+>>>
+>>>Are we unlocking a lock that we didn't acquire? How about 
+>>>returning -EBUSY directly instead?
 >>
->> Signed-off-by: Siddharth Vadapalli <s-vadapalli@ti.com>
->> ---
->>   arch/arm64/boot/dts/ti/k3-j7200-common-proc-board.dts | 1 +
->>   1 file changed, 1 insertion(+)
+>>Ah, thanks for catching my mistake! And also thanks for prioritizing
+>>reviewing my patch!
+>
+>No worries at all! Happy to help, and thanks for the patch.
+
+Thank you:)
+
+>
+>
 >>
->> diff --git a/arch/arm64/boot/dts/ti/k3-j7200-common-proc-board.dts b/arch/arm64/boot/dts/ti/k3-j7200-common-proc-board.dts
->> index 54dea36b153b..ac1c1ffe40b7 100644
->> --- a/arch/arm64/boot/dts/ti/k3-j7200-common-proc-board.dts
->> +++ b/arch/arm64/boot/dts/ti/k3-j7200-common-proc-board.dts
->> @@ -24,6 +24,7 @@ aliases {
->>   		serial5 = &main_uart3;
->>   		mmc0 = &main_sdhci0;
->>   		mmc1 = &main_sdhci1;
->> +		ethernet0 = &cpsw_port1;
-> 
-> Hello Siddharth,
-> As default only 1 cpsw port is enabled for all boards in this series.
-> So ethernet0 will be cpsw_port1 always, In case you want to enable more
-> port in default config then having aliasing will help.
-> 
-> otherwise, you can consider to add aliasing in overlays where you enable
-> more than 1 port.
-> 
+>>>
+>>>
+>>>>+    }
+>>>>+
+>>>>+    r = -EINVAL;
+>>>>     if (!kexec_crash_image || 
+>>>>!kexec_crash_image->dm_crypt_keys_addr) {
+>>>>         kexec_dprintk(
+>>>>             "dm-crypt keys haven't be saved to crash-reserved 
+>>>>memory\n");
+>>>>-        return -EINVAL;
+>>>>+        goto unlock;
+>>>>     }
+>>>>     if (kstrtobool(page, &val) || !val)
+>>>>-        return -EINVAL;
+>>>>+        goto unlock;
+>>>>     if (is_dm_key_reused) {
+>>>>         pr_info("Already got dm-crypt keys, please continue 
+>>>>with kexec_file_load syscall\n");
+>>>>@@ -311,12 +318,15 @@ static ssize_t 
+>>>>config_keys_reuse_store(struct config_item *item,
+>>>>         r = get_keys_from_kdump_reserved_memory();
+>>>>         if (r) {
+>>>>             pr_warn("Failed to get dm-crypt keys from reserved 
+>>>>memory\n");
+>>>>-            return r;
+>>>>+            goto unlock;
+>>>>         }
+>>>>         is_dm_key_reused = true;
+>>>[...]
+>>>>     }
+>>>>-    return count;
+>>>>+    r = count;
+>>>>+unlock:
+>>>>+    kexec_unlock();
+>>>>+    return r;
+>>>> }
+>>>> CONFIGFS_ATTR(config_keys_, reuse);
+>>>>@@ -421,6 +431,8 @@ static int build_keys_header(void)
+>>>>     return 0;
+>>>> }
+>>>>+static bool mutex_acquired;
+>>>>+
+>>>> int crash_load_dm_crypt_keys(struct kimage *image)
+>>>> {
+>>>>     struct kexec_buf kbuf = {
+>>>>@@ -432,6 +444,9 @@ int crash_load_dm_crypt_keys(struct kimage *image)
+>>>>     };
+>>>>     int r = 0;
+>>>>+    mutex_lock(&config_keys_subsys.su_mutex);
+>>>>+    mutex_acquired = true;
+>>>>+
+>>>>     if (key_count <= 0) {
+>>>>         kexec_dprintk("No dm-crypt keys\n");
+>>>>         return 0;
+>>>>@@ -481,6 +496,11 @@ void 
+>>>>kexec_file_post_load_cleanup_dm_crypt(struct kimage *image)
+>>>
+>>>I explored the kexec_file_load syscall entry path and noticed
+>>>that there is a path where the call to
+>>>kimage_file_post_load_cleanup() can be skipped.
+>>>
+>>>For example, if kexec_file_load is called and everything goes well
+>>>but kexec_post_load() fails, we skip
+>>>kimage_file_post_load_cleanup(), and consequently
+>>>kexec_file_post_load_cleanup_dm_crypt() as well.
+>>>
+>>>If that happens, the config_keys_subsys.su_mutex remains locked,
+>>>which could cause problems with the next kexec load, right?
+>>
+>>Thanks for exploring the kexec_file_load syscall entry path! I took a
+>>further look at it. Even though kimage_file_post_load_cleanup can be
+>>skipped, kimage_free will be called regardless which will in turn call
+>>kimage_file_post_load_cleanup.
+>
+>Ah yes, I missed that. That said, we are calling
+>kimage_file_post_load_cleanup() twice for every kexec_file_load, so this
+>needs to be looked into separately.
 
-The first patch in the series for k3-am62a7-sk has two ports enabled by 
-default, so there it's fine to add alias. Also, there are many other TI 
-K3 platforms which have only one cpsw port enabled but still define 
-aliases. So I guess to keep it consistent, we can decide to accept this. 
-If future overlays are added, this will just mean reserving eth0 for 
-cpsw port1 which is also fine. I am fine to move with accepting this series.
+Thanks for the reminder! I have a further look at
+kimage_file_post_load_cleanup and can confirm repeatedly calling
+kexec_file_post_load_cleanup_dm_crypt won't cause any trouble.
 
-Acked-by: Hari Prasath Gujulan Elango <gehariprasath@ti.com>
+Btw, I think there is no need to call kimage_file_post_load_cleanup
+twice because kimage_free is to be called for sure. I also notice
+kimage_file_alloc_init also calls kimage_file_post_load_cleanup which
+seems unnecessary as well. kimage_file_alloc_init even calls
+kfree(image) which may lead to UAF. Anyways these are separate issues
+thus shall be addressed in separate patches.
 
-Regards,
-Hari
 
->>   	};
->>   
->>   	chosen {
-> 
-
+-- 
+Best regards,
+Coiby
