@@ -1,141 +1,160 @@
-Received: from a14-57.smtp-out.amazonses.com (a14-57.smtp-out.amazonses.com [54.240.14.57])
-	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
+Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net [217.70.183.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 977A0339399
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:02:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.240.14.57
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FBE761FCE;
+	Sun,  6 Sep 2026 11:02:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788692569; cv=none; b=k4udciVG6m2zhCeBw30bz7ARCgcRw0rRKnsCbQiPomQz3n5TXTktF65+a5yjoFiGXS7fz68YXGTX0hACLM/SRYAqOCAzeuGGOAY/Ax2GN9r9yZbbSx+ERCK/yAEgkN6eMXzfUuvZ+XX5F4g6No3VUEJW5IBu2CHLfRr/kYQlrxA=
+	t=1788692572; cv=none; b=W6eeVBo72T/nVx2zlMH04o/8d/7nfWcd71J2P3K8TujB/XZ2xQ7NkB9Sjiq+HVfg8Bvz+tMNwukvRTflDfp83QLKxMubiYQzMdwzhkLeNzmn+NPHPk8wRVSDXVffRBNrokzSHmenu8/mGxZllm7QmVsJqMTfERDaUBfn/Xl+pME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788692569; c=relaxed/simple;
-	bh=4feoQCNVJ9J2oahpqyBpgAsCLQMZvyiLjOF5pjK9Isw=;
-	h=In-Reply-To:From:To:Subject:Message-ID:Date:MIME-Version:
-	 Content-Type; b=I9WVSu5xg2Mcs9XC05Wdq00F/fMDQYFziFzI06dQh3nn7HLmFgwpULvJ23RvD04yi27d4lHCby9IXIaJvltD9X6w8W3RR5jCdD9ObypJA8mkBL7vo+J6luSqKrSpRCTxar0K/8CnBRuvf6WDXmrzErEtaw3skoKFbSeKbSY0V8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=send.bugs.sh; dkim=pass (1024-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=qObk/+s5; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=RP/Lv9Xy; arc=none smtp.client-ip=54.240.14.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.bugs.sh
+	s=arc-20240116; t=1788692572; c=relaxed/simple;
+	bh=gQ7F2XAmG40vhtfTXqEGzKaleN7TiW7wxdd9n6FtiQo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qE0NSsHWsXoRdQPi0+YxoPkj44ylOmi8zk5WjxNF8YG1E3mN15G4KC4CNRJkz1PJcdM0kn2OT1Oe2kL1LlYWKSB/mfPmNbyCzTrvC7KZw3WY8LaKbffmkLC7FL6Do9XYimkssFa1cNkdbE9CHnOmTjk1mEjXJG84umDA5q51560=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=winischhofer.net; spf=pass smtp.mailfrom=winischhofer.net; dkim=pass (2048-bit key) header.d=winischhofer.net header.i=@winischhofer.net header.b=iEmLUVCd; arc=none smtp.client-ip=217.70.183.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=winischhofer.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=winischhofer.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="qObk/+s5";
-	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="RP/Lv9Xy"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
-	d=bugs.sh; t=1788692567;
-	h=In-Reply-To:From:To:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=4feoQCNVJ9J2oahpqyBpgAsCLQMZvyiLjOF5pjK9Isw=;
-	b=qObk/+s5qVwNzRdl3mXsawRzYrymMlRbtd9Mago/cnlp+EzANA8lI/AzyAMxxu2b
-	8zn+uHgcbSWnlILpNWex2YGmA4lIjfZpyFa5RefULbG7HNmPHTgdfnnfJcCh3kexAwy
-	g+g9qmeaqVSJU1T3kBlk036GoUOKIDfoUTLXG5o4=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=224i4yxa5dv7c2xz3womw6peuasteono; d=amazonses.com; t=1788692567;
-	h=In-Reply-To:From:To:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=4feoQCNVJ9J2oahpqyBpgAsCLQMZvyiLjOF5pjK9Isw=;
-	b=RP/Lv9XylnfFs6rOweJW2hwrMQSz64bVEN3YZmEUwCoAB0hbXFcQA4eHt4yhrVs6
-	dXeiKyO974oFREljrxx6cxMe/k0fC73DujL+ZJhZS2s6bXxXLiIQQg5UXOutjJFfa6W
-	z3mZpOLiohpgwPGMrNcB+8i5j9mOVKO74cfQruoI=
-X-Forwarded-Encrypted: i=1;
- AKwUvBwq7RmYQT4iMbNaQfdIhtTntKuUUNOkG/sZDKJHCxuBxQtcR5wmo5C/cqyz+KOdiJKxxZFOdNUDRXbaHsI=@vger.kernel.org
-X-Gm-Message-State:
- AFuF++kp1tkJzny6Qk4dFYFVXqT9eaWMMNCTqlPYwo0D2YQ/QvZnQqLR
- D5apYbNJmgVDOnNBEJr/jDEQy9Jd14U/v5c6I4FMTx82wG1iLFXnUVX5etnJi5mhHg4K1H/gmzl
- ANrK8SalTjpvTD6DE3lpIhvhmO2Xhz7E=
-X-Received: by 2002:a05:6402:3819:b0:6a7:ee55:dcda with SMTP id
- 4fb4d7f45d1cf-6a7ee55ddb2mr4604219a12.41.1788692566019; Sun, 06 Sep 2026
- 04:02:46 -0700 (PDT)
-In-Reply-To:
- <CAMuHMdVVqfqvueX-jk_XfM5tE9XScZPe1OLqGw1MUC=Kd2reBQ@mail.gmail.com>
-X-Gmail-Original-Message-ID:
- <CAMb7gs-C0PpqJ6ixMeoz8PXaLd6+7WY3BS4srLGza4G4fJ6bGA@mail.gmail.com>
-X-Gm-Features:
- AcwNN1U6ph0YcQrKA1PISLuvbcjZNYhUcVvuWoTrrhYYY1PS41fYVNW2cVaZTwg
-From: CO <co@bugs.sh>
-To: linux-kernel@vger.kernel.org
-Subject: Re: [BUG] drivers/net: out-of-bounds in pcan_usb_decode_buf()
-Message-ID: <010001a076629601-12166e18-13cd-4852-a04e-28afd876a461-000000@email.amazonses.com>
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 6 Sep 2026 11:02:47 +0000
+	dkim=pass (2048-bit key) header.d=winischhofer.net header.i=@winischhofer.net header.b="iEmLUVCd"
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 6EB583E95D;
+	Sun,  6 Sep 2026 11:02:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=winischhofer.net;
+	s=gm1; t=1788692560;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XPpsSvpp2RB4Qp0cbCfclENFYpW+anShDks5RU85H1w=;
+	b=iEmLUVCdN5v21qVWMmNkQKCIxncdjnFfOdkEw2/7jSbanvNsSHLhqwKr0i8qVoKYle3sIY
+	uRGSvbwj3WJD9htRiZRIAanIK/Dobi5uUAzQuCHxjjCNe8B21D/cdF1dMp9JnvWC5erkgC
+	TY3Jwf+oaqK9xz0QwI44IFGnWoQtWhNlGaZ/GsixDltHTKdmntu197HFP7v1GEFvJ4wCYq
+	GH2y+IUMdu3luVhaDN0sUmJVS/bLoEEjpYJ0baC3GbmpYMmbTapSVbx1y1P9NkMpFNg2dx
+	8Tft4xuDrCZnJLNNcUm5rLHuEj/4hI04ZXXHAOnr9dTVWNrJ4OOl76IYCuh6HA==
+Message-ID: <3aaeb58f-1a6c-4c90-bd29-2d4c0d7f5963@winischhofer.net>
+Date: Sun, 6 Sep 2026 13:02:37 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Feedback-ID: :1.us-east-1.yL0noGNZdXCKlJHw27bHz8/I7/GZTaYDRe4l4bGvzjPa1Q4S+kzxKgpyYIxfCxOFAjHX6QJhZdsZN1SP8V3NfEiLJ34m58z2/mmJDZ5RtdRTZ06dzneIWyoUkJ1DSaTbU2HlPz+Zb2/NZ41D3j4FLWNy2FyGjUOa4qpft7gzKcs=:1.us-east-1.QSNtDRXSTq9sAuvRl56h5mypgasnQ5yDLNpVzTnziu0=:AmazonSES
-X-SES-Outgoing: 2026.09.06-54.240.14.57
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] USB: sisusbvga: avoid initializing device in open
+To: Michal Pecio <michal.pecio@gmail.com>, Ayush <ayush37735@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ syzbot+3bc656a9271e7c8a5c6b@syzkaller.appspotmail.com
+References: <20260905193634.160600-1-ayush37735@gmail.com>
+ <20260906081032.5ef81315.michal.pecio@gmail.com>
+Content-Language: en-US
+From: Thomas Winischhofer <thomas@winischhofer.net>
+In-Reply-To: <20260906081032.5ef81315.michal.pecio@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-GND-Sasl: thomas@winischhofer.net
+X-GND-Score: -100
+X-GND-Cause: dmFkZTEGProMmK8mFkN83ZpUTf5upJyHV1+WexxplM+Tk/nu+HGv3hDI5k9HzuvQ1J0wXhPpdiwyCxv5Ci0k30Grhhdr6e7uKZNTHmZDZH8xy6TegOCLDsPvWaBMAFK2QUFIQOxk2HQP5rOvMxFeftJRY0jT8Inmx1oWtdsaCovWNFGfE1LkuTidnfwGHleCO5S+E9TWLC1PK7yT8vdOb/ZCDgwiRf2NfTNUiPycbC0rzKflZHTQUFWr7rd8oslgvuEN4+mCAXbi347OUy7zsjWsRz8oYa39amcO4ivgLazvYkLRhfpdwm3lTjJpGCX/Xfbc5vLE3UnjWAt8D1Px62SVk8zPfT58bJFBEcvfdqJCPHeYs+WqFK0OVo0ZrPeDDy8hjOrH2/5yKAIfY1rA+wY/6SjHBucPy9b61CFNnN2XhF71O1dSW/bfvgxgKfRgS5XJ4U4M/sZA1vqGmitRulNHTxHZxYjlaeITgJEa4kYVQUibIu/1byotQ//ONNOSnw5wnw12EfBMWBEHM7rtl5dWb6GvKY+YQXt9g9vwo2c0ZLXORd0hhRoxOmi3SY4u3ftuGXKwARj73zD/aQug3OCdneyfnH+meLgYJ6Tx6GmrxATeBr7BdYmI706uPcJYMsNI34x8h1d/wy1nMi2gM4wA/5MF3cnvZhAPc5rpRIn4WBGBRg
+X-GND-State: clean
 
-On Sat, Sep 5, 2026 at 7:04=E2=80=AFAM Geert Uytterhoeven <geert@linux-m68k=
-.org> wrote:
->
-> Hi Co,
->
-> On Fri, 4 Sept 2026 at 23:17, co =
-<co+5e2bcf11e7027510@bugs.sh> wrote:
-> > We found a bug reachable in:
-> >
-> >     path    drivers/net/can/usb/peak_usb
-> >     crash   out-of-bounds =
-in pcan_usb_decode_buf()
-> >     commit  2f1baf1fc892 ("Merge tag 'trace-v7=
-.2-rc7' of git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace"=
-)
-> >
-> > Config, environment, the sanitizer report and a C reproducer =
-follow.
-> >
-> > =3D=3D Notes =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >     If you patch the bug based on our artifacts, a tag would be
-> >     appreciated:
-> >
-> > Reported-by: co+5e2bcf11e7027510@bugs.sh
-> >
-> >     Everything in this mail is validated by the reproducer below.
-> >
-> >     We also hold an LLM-generated root-cause analysis and a candidate
-> >     patch. The patch passes an A/B test: the same reproducer panics the
-> >     unpatched kernel and runs clean on the patched one. Neither has had
-> >     human review, so both still require validation before you send or
-> >     apply them. Available on:
-> >
-> >         patch.diff  https://bugs.=
-sh/b/5e2bcf11e7027510/patch.diff
-> >         report.md   https://bugs.=
-sh/b/5e2bcf11e7027510/report.md
-> >
-> >     This is an open science project=
-. The code and the full set of PoCs
-> >     are not public at this moment, =
-as we intend to disclose our findings
-> >     in an ethical way.
-> >
-> >     Happy to test patches. Complaints and suggestions about our work
-> >     are welcome at:
-> >
-> >         cedalion@bugs.sh
->
-> Please read Documentation/process/submitting-patches.rst, especially
-> https://elixir.bootlin.com/linux/v7.2.2/source/Documentation/process/subm=
-itting-patches.rst#L928
->
-> Thanks a lot!
 
-Thanks Geert, for the reminder.
-We'll learn the documents and make sure we follow the documents.
+Sorry guys, wrote this more than 20 years ago, no longer have the 
+hardware, nor the knowledge about modern kernels to be of any help.
 
-Xiang
->
-> Gr{oetje,eeting}s,
->
->                         Geert
->
-> --
-> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- =
-geert@linux-m68k.org
->
-> In personal conversations with technical people, I=
- call myself a hacker. But
-> when I'm talking to journalists I just say =
-"programmer" or something like that.
->                                 -- =
-Linus Torvalds
->
+/Thomas
+
+On 06.09.26 08:10, Michal Pecio wrote:
+> On Sun,  6 Sep 2026 01:06:34 +0530, Ayush wrote:
+>> The USB core holds minor_rwsem while invoking a USB character
+>> device's open callback. sisusb_open() can currently initialize the
+>> device while holding sisusb->lock, and that initialization performs
+>> synchronous USB I/O.
+>>
+>> High-speed devices are already initialized during probe. Treat a
+>> probe-time initialization failure as a probe failure instead of
+>> retrying initialization from open, so the open callback no longer
+>> performs blocking device initialization.
+>>
+>> Reported-by: syzbot+3bc656a9271e7c8a5c6b@syzkaller.appspotmail.com
+>> Closes: https://syzkaller.appspot.com/bug?extid=3bc656a9271e7c8a5c6b
+> 
+> Does this even fix the repro? I see no syzbot test requests there.
+> 
+> It seems that even if you delete this code, sisusb_open() will simply
+> wait on mutex_lock() before it even reaches this point.
+> 
+> The root cause is isusb_init_gfxdevice(), called by probe() and from
+> here, taking 10 minutes to complete on nonresponsive device. This is
+> the second time (that I know of) syzbot ran into this recently.
+> 
+> 
+> Thomas, do you still have this HW and a will to improve the driver,
+> or test / comment on patches? I suspect that those timeouts and retries
+> in the init routine are vastly excessive.
+> 
+>> Signed-off-by: Ayush <ayush37735@gmail.com>
+>> ---
+>>   drivers/usb/misc/sisusbvga/sisusbvga.c | 29 ++++++++++++--------------
+>>   1 file changed, 13 insertions(+), 16 deletions(-)
+>>
+>> diff --git a/drivers/usb/misc/sisusbvga/sisusbvga.c b/drivers/usb/misc/sisusbvga/sisusbvga.c
+>> index 3e75a7c24828..6723a65b12b8 100644
+>> --- a/drivers/usb/misc/sisusbvga/sisusbvga.c
+>> +++ b/drivers/usb/misc/sisusbvga/sisusbvga.c
+>> @@ -2223,20 +2223,10 @@ static int sisusb_open(struct inode *inode, struct file *file)
+>>   	}
+>>   
+>>   	if (!sisusb->devinit) {
+>> -		if (sisusb->sisusb_dev->speed == USB_SPEED_HIGH ||
+>> -				sisusb->sisusb_dev->speed >= USB_SPEED_SUPER) {
+>> -			if (sisusb_init_gfxdevice(sisusb, 0)) {
+>> -				mutex_unlock(&sisusb->lock);
+>> -				dev_err(&sisusb->sisusb_dev->dev,
+>> -						"Failed to initialize device\n");
+>> -				return -EIO;
+>> -			}
+>> -		} else {
+>> -			mutex_unlock(&sisusb->lock);
+>> -			dev_err(&sisusb->sisusb_dev->dev,
+>> -					"Device not attached to USB 2.0 hub\n");
+>> -			return -EIO;
+>> -		}
+>> +		mutex_unlock(&sisusb->lock);
+>> +		dev_err(&sisusb->sisusb_dev->dev,
+>> +			"Device not initialized\n");
+>> +		return -EIO;
+> 
+> Not sure if we really want to log every failure to open some device.
+> 
+> Not sure if EIO is the right code to retun from open(), particularly
+> after probe failure.
+> 
+> And really, are we opening the device after probe failed (see below)?
+> Seems weird...
+> 
+>>   	}
+>>   
+>>   	/* Increment usage count for our sisusb */
+>> @@ -2880,9 +2870,16 @@ static int sisusb_probe(struct usb_interface *intf,
+>>   
+>>   	if (dev->speed == USB_SPEED_HIGH || dev->speed >= USB_SPEED_SUPER) {
+>>   		int initscreen = 1;
+>> -		if (sisusb_init_gfxdevice(sisusb, initscreen))
+>> +
+>> +		if (sisusb_init_gfxdevice(sisusb, initscreen)) {
+>>   			dev_err(&sisusb->sisusb_dev->dev,
+>> -					"Failed to early initialize device\n");
+>> +				"Failed to early initialize device\n");
+>> +			sisusb->present = 0;
+>> +			usb_set_intfdata(intf, NULL);
+>> +			usb_put_dev(sisusb->sisusb_dev);
+>> +			retval = -EIO;
+>> +			goto error_4;
+>> +		}
+>>   
+>>   	} else
+>>   		dev_info(&sisusb->sisusb_dev->dev,
+>> -- 
+>> 2.53.0
+>>
+> 
+
