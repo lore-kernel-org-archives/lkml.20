@@ -1,200 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A9072253EB;
-	Sun,  6 Sep 2026 13:58:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788703106; cv=none; b=t6SgoRdao7c94+5+w8bUK2WnI183HeUXrMopOzRhXbWKC0RrnZvjajZuZdOjAkSU0cZT7O77u9uwP9Pvq9WjRbJx+weHHYQ/qbb81RBt/EL3c1BLxngS2Jfjp6xp3VHh+NPcvtda+QrXgNyGbnpAgJJMCp5BDivleAiI3IpWsvI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788703106; c=relaxed/simple;
-	bh=cMPtFeXnQwfMtY2iSNajkw8O1e5RkdUMYYTB7u99l2E=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=l+ScQgeP40QyxTpL0w15ZR+AXmCtAIgBLu+ZsMDxS4bdGsk5294qjgpoIItU9oTpgij58E8w5yuOCTV0NLdEC/eKjdKdLKW/ydozA+U1yvOnhwfqE5Jpc26sI5Kn9Uwgf53EtI3eoEzraGTNqNG4UDJ/cJdgsAy6g5P8sdb3lf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D+Cu3niR; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7363B4CCDD5
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 13:59:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788703153; cv=pass; b=P8Wxj0PQ5XadBllIvacUUUh1oUejgvtlAVbzAL2nQLs93TJbSryDnSDgh1L2DXiYUSRQK35aXKE1BXKU3xDZL4EdEcI1s06r3aixj+aaIFwlaOk7sPk+TsMFNWz91gdv1YzEr7BwrQ0mqW0b53dE+ORSsOw6T4RuyyjT2Jks33s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788703153; c=relaxed/simple;
+	bh=q4im8T6krvAgeClrNJp91WX4LU1MUPcEO8GSV5Jt9rk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KkGt4D1ywHQpc05+CTvDpwe2Di2ZdKcv9qc1O9gdgzQwytM3cbq262mTtXuiMlYuvyh0q0djRR7/N4ucWE5oJ/x4PYRkdYiAWOcUgv+FBNEGbOOKTZg6VUG5tkKOsqOUiiT8UQRjqfK+nnHk5jRU7ZnvFbG2sSgTncuEKnXEppo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ifI0VEcq; arc=pass smtp.client-ip=209.85.210.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D+Cu3niR"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 00256C2BCB8;
-	Sun,  6 Sep 2026 13:58:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788703106;
-	bh=cMPtFeXnQwfMtY2iSNajkw8O1e5RkdUMYYTB7u99l2E=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=D+Cu3niRKLLApsIwTdQTpiSpm3gGvqA9+Z3us7e3e+UFMy49euktz4oRbDNAXQ40P
-	 0onZv+bfQkkKHJ89xPKgsJbFx8o1gm0Gkf6muaN/l5d2BDYJvEme5DB5dr+6P0+R/G
-	 bolCO/bldEo9SlBjhLUql6QxXLWONUz9gR0KXKcZaonqVHWUyAlfKkvY5XLHrb4G5r
-	 zuVeOET3MD3sqLPEltuSBnZMSC06iKYepp7jK8u1bQ5ZKfiQu3DsoocP5igkXQGNUB
-	 e7pAgH2rtLTkPUGMH/xICjeUvpJb7xH/QdvJJnFgbbfPAX47uBqOYPKhcv7PJOtdEx
-	 YxP59TM0Jetgw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D076EC79F9F;
-	Sun,  6 Sep 2026 13:58:25 +0000 (UTC)
-From: Maud Spierings via B4 Relay <devnull+maud_spierings.hotmail.com@kernel.org>
-Subject: [PATCH 0/2] arm64: dts: imx93-11x11-frdm: some fixes
-Date: Sun, 06 Sep 2026 15:58:20 +0200
-Message-Id: <20260906-imx93_frdm_rtc-v1-0-3fadbda0bea1@hotmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ifI0VEcq"
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-7f4e1568932so2365846a34.2
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 06:59:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788703151; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XjgTM/OoHYwclqSJo3sz5qjj3VDkeJeF7sODNN//MqzIc11qjGJu491g/RlYEJqLru
+         8InLWMCaZ+b89kMgqmPcApA1CucRZwc82vj3hHr2K9BkHxTb3pt2hHSZrUezBy4OG7rO
+         BxDf/sc35jhhaKPnaz3h4cg76sIQ0u998J9JROthPCTV49RlMBBZpU7zlNwpye/yvg3x
+         4AMk6oWiz1fxF3NFPxCpzkO0MIc52A5hZ43nsETlU5ZB8oVFmwfBat9pNMMDcUgUIEXn
+         1Kurd+p70bEDdfxYZsNx/khzKGHBqEXWjHzSOuS2XPZUmXu6VHQg4WnLTE3iPh0o1xtz
+         zWcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=q4im8T6krvAgeClrNJp91WX4LU1MUPcEO8GSV5Jt9rk=;
+        fh=55pT+6XXWsJyhFBhLGt6sMgvVDgldtYaLHmRn7mf07o=;
+        b=q5dJNt7r8MjRUh9tY6HjkQkWofK/fS0pUJPyAos1UlaqFYPKnQrohx+zPOe8NTdw8X
+         LRZ7NWFM0PrxlO9k2Rb1Bmn9cyNGC2+voXtB94eNdlALGps2D5O1kT/gfVpk6aACBMYR
+         kJoJ/Ndegfvp3RjyaDSu0+9IGrUtyY4bO2ogRZC9GtUubr1wMaOEIpdLN4cTRbhDv1lQ
+         sjggVmNBQeSDHMjbvcKXqVaagIvVtip/Q1PaDMEzaYD1aKzuXziryRmgO/hmHkBF0XYx
+         sOYulo8TKm5gsTmQCggqvUFF6E3j0tQJNdG5L0p5SH11FIu/PsCxZS864F+to2ullGTN
+         0vLw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788703151; x=1789307951; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=q4im8T6krvAgeClrNJp91WX4LU1MUPcEO8GSV5Jt9rk=;
+        b=ifI0VEcqfeaLCEe4I/gKdaAr48BnHry2h97fZLDRfYaz4TyXW1XcSw7CXcmXncjP+Y
+         17vz4J1cG/NNF3wEQScw6in4lMElS1aPWDYH+stAWo05k9o6CgUDbB5fsBAd1S1f4iAo
+         7nUR6jevL7wM684pBtvfH3NEcZaEhGTSQmQcroeZrG53DhE79GzHY3YDhHrrGFwPCY/p
+         g4LQ0yrwN2Nwq4/UyJA3pmXCLwoHhJZaugf+EVnDIUoyNIaVlbf33imenkCJ6cMF8Cb6
+         LNTBo2pFzGB6HzOaGxTQ0K79GdTCFXlSkuM22yCTI9Pv4IO3nu6qA8RmUhqACN1XF9Cl
+         LSvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788703151; x=1789307951;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=q4im8T6krvAgeClrNJp91WX4LU1MUPcEO8GSV5Jt9rk=;
+        b=E3DVcBGxrJ9TW7TxO/1Sx0Vdj8z/fpHAaE/vgXgAsQn3x3mCr1l+UTvnzj43mQOmnZ
+         ou2Dw5PjhXy5MZxRLCDJIq+ZwJGYwabCnp42n0sohNJeAUQeGfhYI9Oqj3lrXjruVxth
+         iCQkvny5uQ99oHe+/hKCOJtpOzs4X9siul1fql6bEc92Kfob/mw6FhXb447L4mA4mrtv
+         hZTVoidV4xrKa+Me+9F+Nsw+sTwq6BIrLTNFT1kG8xu+/0Tq5h4M1UEhE97M5WWIkYp1
+         jvH86SPiRrEQn+FTzqFd+D6qWULjHI3QlXfaOw8goXOBT7Ny1CQONhdwAE684kDvSU3T
+         pN7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx/E4foqspi3pHA0OGAMbA62Hi25bWSFIFASDOoDXY9CbDKRTOOvlqeFRHJNXlKlV0pBj5B9oCzH5rzGYU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nySWY4erwNe4USxEWoqYjhlxSOooiFtq+u8t3jblibCuU7scYH
+	YnAlb5NOj3N17+ByoOCjloR8KWMQt5ldt/5E8KdejPH+PH3TND/szvWZvRcQMSMyANHjZB2Ykpz
+	ODCBI6q8fagEohnKpzM4gE12YOCqs+gZzG2Py
+X-Gm-Gg: AYBFou0nLKN5Y/1ldsa8nqVLhs7AbzBOjr1xhqemQURQqsCzAonrjfegYavxqeL4Vub
+	xx9mbUzckJDaskZ7kSPVXr+2Gvcb1NIRdBbSVl9tm9TqypEWaJwM95mi9wX0N0trDOuSwqnOguJ
+	3ZOm1klA8X3gwMsFTrG0Xtv/YrkzbSUcWgWQaTUDAaKQ0HmXMvvnvHkQSqdj9duk3oTO4IseJCF
+	3QZCgimEEqwI2uU7/+DxYDAqisKhf2K9iRT8MGgemoTyvZHlFB7uDIkKO19sTkMrP5EpA054q2G
+	oiV/QL775Efa1D1u7pQyuUUz2XBf2Ux0sqU0m5vX39vCfA==
+X-Received: by 2002:a4a:e916:0:b0:6aa:cce3:ab61 with SMTP id
+ 006d021491bc7-6b6fb0ee5fcmr10658265eaf.9.1788703151237; Sun, 06 Sep 2026
+ 06:59:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM2wpAQBCA4VfRXNsaq9bhVSSxBqMcmkVK3t3i8
- rv4/wscCZODPLhA6GDHy+wRhQHYoZ57Utx6g0ZtMEOjeDqzuOqknSrZrNJpanViDNaI4KNVqOP
- zGxblb7c3I9ntvcB9P5OL1khyAAAA
-X-Change-ID: 20260906-imx93_frdm_rtc-288c27660a00
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Maud Spierings <maud_spierings@hotmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788703104; l=7874;
- i=maud_spierings@hotmail.com; s=20241110; h=from:subject:message-id;
- bh=cMPtFeXnQwfMtY2iSNajkw8O1e5RkdUMYYTB7u99l2E=;
- b=zzKau0vv5VHeSSvG9I33HVEXMmbmyChfeZA+iYQwVMkfdSzM/udb94eilnbwsozb8/H1K1G1y
- EeGtY9MEDImCSEJ5JMOWkn157EWW3Mrklyo9D07CyYb7EcuD/6TkMPV
-X-Developer-Key: i=maud_spierings@hotmail.com; a=ed25519;
- pk=CeFKVnZvRfX2QjB1DpdiAe2N+MEjwLEB9Yhx/OAcxRc=
-X-Endpoint-Received: by B4 Relay for maud_spierings@hotmail.com/20241110
- with auth_id=273
-X-Original-From: Maud Spierings <maud_spierings@hotmail.com>
-Reply-To: maud_spierings@hotmail.com
+References: <CAMnqnYxPHeXo6CsuKRGH=oixAsAa0z1_++266yzKW7qR6cqykw@mail.gmail.com>
+ <apqWn2EoguCwX5po@wyuan.org> <CAMnqnYwSKeTHi41iesHxJo1b_GGKWkFzfavJHWtEqxD0St3oBg@mail.gmail.com>
+ <apw1PMXXv2JmDX29@wyuan.org>
+In-Reply-To: <apw1PMXXv2JmDX29@wyuan.org>
+From: Jiaming Ouyang <jiamingouyang13@gmail.com>
+Date: Sun, 6 Sep 2026 15:59:00 +0200
+X-Gm-Features: AcwNN1WHZPbvYs5tjWWsHBhOUhW-32ltXjTVOoH01aJ8WldoL6DPAroYSMThP8c
+Message-ID: <CAMnqnYxD56YveYOgVKH0R7pzs7URhsWH6mCog6hLDoZovh-PbA@mail.gmail.com>
+Subject: Re: [PATCH] docs/zh_CN: add usb/ohci translation
+To: Weijie Yuan <wy@wyuan.org>
+Cc: linux-doc@vger.kernel.org, "corbet@lwn.net" <corbet@lwn.net>, alexs@kernel.org, 
+	si.yanteng@linux.dev, dzm91@hust.edu.cn, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
 
-pcf2131 has been assigned the rtc0 alias, but if the bbnsm_rtc gets
-probed first it will take this name.
-
-Properly assign bbnsm_rtc to rtc1 so that this doesn't happen
-
-Add the power supply to the pcal6408 gpio expander, it doesn't have the
-dependency loop like the pcal6524.
-
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Frank Li <Frank.Li@nxp.com>
-To: Sascha Hauer <s.hauer@pengutronix.de>
-To: Pengutronix Kernel Team <kernel@pengutronix.de>
-To: Fabio Estevam <festevam@gmail.com>
-Cc: devicetree@vger.kernel.org
-Cc: imx@lists.linux.dev
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Signed-off-by: Maud Spierings <maud_spierings@hotmail.com>
-
-----
-
-On a side note, I'm seeing:
-
-[   16.100470] fec 42890000.ethernet: Invalid MAC address: 00:00:00:00:00:00
-[   16.109866] fec 42890000.ethernet: Using random MAC address: 4e:1b:bb:80:4c:90
-
-But I'm not actually getting a random MAC address, it is constently:
-f6:32:43:09:2e:b7
-
-Something off about the nvmem reading or something?
-
-I am also consistently getting crashes on this next tag, also without my
-changes:
-
-[   42.718742] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
-[   42.727600] Mem abort info:
-[   42.730527]   ESR = 0x0000000096000004
-[   42.734649]   EC = 0x25: DABT (current EL), IL = 32 bits
-[   42.739988]   SET = 0, FnV = 0
-[   42.743047]   EA = 0, S1PTW = 0
-[   42.746189]   FSC = 0x04: level 0 translation fault
-[   42.751066] Data abort info:
-[   42.754272]   ISV = 0, ISS = 0x00000004, ISS2 = 0x00000000
-[   42.759793]   CM = 0, WnR = 0, TnD = 0, TagAccess = 0
-[   42.764844]   GCS = 0, Overlay = 0, DirtyBit = 0
-[   42.769492] user pgtable: 4k pages, 48-bit VAs, pgdp=0000000087f6d000
-[   42.776247] [0000000000000000] pgd=0000000000000000, p4d=0000000000000000
-[   42.783070] Internal error: Oops: 0000000096000004 [#1]  SMP
-[   42.788724] Modules linked in: btnxpuart hci_uart btqca snd_soc_fsl_mqs snd_soc_fsl_sai btrtl imx_pcm_dma btbcm snd_soc_fsl_utils sm_misc btintel snd_soc_core bluetooth tcpci tcpm aes_ce_blk ghash_ce gf128mul snd_compress ethosu typec ac97_bus sm4 gpu_sched snd_pcm_dmaengine fsl_imx9_ddr_perf thunderbolt reset_gpio phy_generic snd_pcm drm_dma_helper drm_kms_helper motorcomm nvmem_imx_ocotp_ele snd_timer at24 rtc_nxp_bbnsm nxp_bbnsm_pwrkey rtc_pcf2127 imx_rproc snd flexcan qoriq_thermal can_dev sm_lmm fec imx93_adc imx7ulp_wdt soundcore industrialio sm_cpu dwmac_imx rfkill drm crypto_user mmc_block rpmb_core gpio_keys phy_can_transceiver
-[   42.845147] CPU: 0 UID: 0 PID: 130 Comm: jbd2/mmcblk0p2- Not tainted 7.3.0-rc1-next-20260904 #26 PREEMPT(full)  858e134aa3e8368ae2529c7f3178854a425a3e2b
-[   42.858774] Hardware name: fsl NXP i.MX93 11X11 FRDM board, BIOS barebox 2026.08.0-00258-g32c817c9dbf0 #15 Sat Sep 5 21:03:53 CEST 2026 08/01/2026
-[   42.871879] pstate: 60400009 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-[   42.878828] pc : __bh_submit+0xa8/0x210
-[   42.882659] lr : __bh_submit+0x9c/0x210
-[   42.886490] sp : ffff800083793bf0
-[   42.889791] x29: ffff800083793bf0 x28: ffff0000068f6030 x27: ffff000028f760cc
-[   42.896915] x26: 0000000000000000 x25: 0000000003000000 x24: ffff00000052dc48
-[   42.904039] x23: 0000000000000000 x22: 0000000000000000 x21: ffff8000806c5ad0
-[   42.911163] x20: ffff00000ad9f000 x19: ffff000001a24480 x18: ffff7ffffd6de000
-[   42.918288] x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000000
-[   42.925412] x14: 0000000000000000 x13: 0000000000000000 x12: 0000000000000000
-[   42.932535] x11: 0000000000000000 x10: fffffdffc0e56040 x9 : ffff800080972ac4
-[   42.939659] x8 : ffff000007e3a888 x7 : 000000000000000d x6 : 000000000000000d
-[   42.946783] x5 : 00000000000004c3 x4 : ffff8000828df140 x3 : 0000000000000001
-[   42.953908] x2 : 0000000000009801 x1 : 0000000000000000 x0 : 0000000000000000
-[   42.961032] Call trace:
-[   42.963469]  __bh_submit+0xa8/0x210 (P)
-[   42.967298]  bh_submit+0x24/0x38
-[   42.970522]  jbd2_journal_commit_transaction+0xb98/0x1d20
-[   42.975912]  kjournald2+0xb8/0x238
-[   42.979310]  kthread+0x134/0x150
-[   42.982534]  ret_from_fork+0x10/0x20
-[   42.986108] Code: 940e488e aa0003f4 f9400a60 b9404fe2 (f9400003) 
-[   42.992190] ---[ end trace 0000000000000000 ]---
-[   42.997146] ------------[ cut here ]------------
-[   43.001767] WARNING: kernel/exit.c:935 at do_exit+0x914/0xb78, CPU#0: jbd2/mmcblk0p2-/130
-[   43.009938] Modules linked in: btnxpuart hci_uart btqca snd_soc_fsl_mqs snd_soc_fsl_sai btrtl imx_pcm_dma btbcm snd_soc_fsl_utils sm_misc btintel snd_soc_core bluetooth tcpci tcpm aes_ce_blk ghash_ce gf128mul snd_compress ethosu typec ac97_bus sm4 gpu_sched snd_pcm_dmaengine fsl_imx9_ddr_perf thunderbolt reset_gpio phy_generic snd_pcm drm_dma_helper drm_kms_helper motorcomm nvmem_imx_ocotp_ele snd_timer at24 rtc_nxp_bbnsm nxp_bbnsm_pwrkey rtc_pcf2127 imx_rproc snd flexcan qoriq_thermal can_dev sm_lmm fec imx93_adc imx7ulp_wdt soundcore industrialio sm_cpu dwmac_imx rfkill drm crypto_user mmc_block rpmb_core gpio_keys phy_can_transceiver
-[   43.066355] CPU: 0 UID: 0 PID: 130 Comm: jbd2/mmcblk0p2- Tainted: G      D             7.3.0-rc1-next-20260904 #26 PREEMPT(full)  858e134aa3e8368ae2529c7f3178854a425a3e2b
-[   43.081543] Tainted: [D]=DIE
-[   43.084419] Hardware name: fsl NXP i.MX93 11X11 FRDM board, BIOS barebox 2026.08.0-00258-g32c817c9dbf0 #15 Sat Sep 5 21:03:53 CEST 2026 08/01/2026
-[   43.097524] pstate: 80400009 (Nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-[   43.104474] pc : do_exit+0x914/0xb78
-[   43.108044] lr : make_task_dead+0x84/0x1b8
-[   43.112135] sp : ffff800083793840
-[   43.115437] x29: ffff800083793860 x28: ffff000005461440 x27: ffff000028f760cc
-[   43.122561] x26: 0000000000000000 x25: 0000000003000000 x24: 0000000000000000
-[   43.129685] x23: ffff8000805a99f0 x22: 0000000000000000 x21: ffff000005461440
-[   43.136809] x20: ffff800083793ab0 x19: 000000000000000b x18: ffff7ffffd6de000
-[   43.143933] x17: ffff8000800ec2c4 x16: ffff8000811a1820 x15: ffff8000823823e0
-[   43.151057] x14: ffff80008225b140 x13: 0000000000000181 x12: ffff00007f939140
-[   43.158181] x11: 00000000000000c0 x10: 0000000000000f80 x9 : ffff8000800e9e3c
-[   43.165305] x8 : ffff000005462420 x7 : 0000000000000000 x6 : 000000000000000b
-[   43.172429] x5 : ffff000005461440 x4 : ffff000005461440 x3 : ffff000000ed4f18
-[   43.179552] x2 : 000000000000270f x1 : 0000000000000000 x0 : ffff800083793cf8
-[   43.186677] Call trace:
-[   43.189113]  do_exit+0x914/0xb78 (P)
-[   43.192684]  make_task_dead+0x84/0x1b8
-[   43.196427]  die+0x150/0x170
-[   43.199304]  die_kernel_fault+0x2b8/0x3b8
-[   43.203308]  __do_kernel_fault+0x220/0x230
-[   43.207399]  do_page_fault+0x10c/0x7a0
-[   43.211143]  do_translation_fault+0x38/0x60
-[   43.215320]  do_mem_abort+0x48/0xa0
-[   43.218804]  el1_abort+0x44/0x68
-[   43.222028]  el1h_64_sync_handler+0x50/0xb8
-[   43.226206]  el1h_64_sync+0x6c/0x70
-[   43.229690]  __bh_submit+0xa8/0x210 (P)
-[   43.233520]  bh_submit+0x24/0x38
-[   43.236744]  jbd2_journal_commit_transaction+0xb98/0x1d20
-[   43.242135]  kjournald2+0xb8/0x238
-[   43.245532]  kthread+0x134/0x150
-[   43.248756]  ret_from_fork+0x10/0x20
-[   43.252328] ---[ end trace 0000000000000000 ]---
-
----
-Maud Spierings (2):
-      arm64: dts: imx93-11x11-frdm-common: fix the rtc aliases
-      arm64: dts: imx93-11x11-frdm: add missing vcc-supply
-
- arch/arm64/boot/dts/freescale/imx93-11x11-frdm-common.dtsi | 1 +
- arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts         | 1 +
- 2 files changed, 2 insertions(+)
----
-base-commit: af5f12805e5cefa4fe68d6127c7e1fb78cd5535c
-change-id: 20260906-imx93_frdm_rtc-288c27660a00
-
-Best regards,
---  
-Maud Spierings <maud_spierings@hotmail.com>
-
-
+U3ViamVjdDogW1BBVENIXSBkb2NzL3poX0NOOiBhZGQgQ2hpbmVzZSB0cmFuc2xhdGlvbiBmb3Ig
+dXNiL29oY2kucnN0DQoNClRyYW5zbGF0ZSBEb2N1bWVudGF0aW9uL3VzYi9vaGNpLnJzdCBpbnRv
+IENoaW5lc2UgU2ltcGxpZmllZC4NCg0KVGhlIHRyYW5zbGF0aW9uIGNvdmVycyBPSENJIGRyaXZl
+ciBvdmVydmlldywgaGFyZHdhcmUgcHJvdG9jb2wNCmRpZmZlcmVuY2VzIChPSENJIHZzIFVIQ0kp
+LCBpbXByb3ZlbWVudHMgc2luY2UgMi40IGtlcm5lbCwNCnF1ZXVlYWJsZSBpbnRlcnJ1cHQgdHJh
+bnNmZXJzLCBhbmQgbm9uLVBDSSBzdXBwb3J0Lg0KDQpTaWduZWQtb2ZmLWJ5OiBKaWFtaW5nIE91
+eWFuZyA8amlhbWluZ291eWFuZzEzQGdtYWlsLmNvbT4NCi0tLQ0KU28gSSB0aGluayB0aGlzIGZv
+bGxvd3MgdGhlIHJ1bGUgb2YgIm5vIGF0dGFjaG1lbnRzIg0KDQogLi4uL3RyYW5zbGF0aW9ucy96
+aF9DTi91c2IvaW5kZXgucnN0ICAgICAgICAgIHwgIDIgKy0NCiBEb2N1bWVudGF0aW9uL3RyYW5z
+bGF0aW9ucy96aF9DTi91c2Ivb2hjaS5yc3QgfCAzNyArKysrKysrKysrKysrKysrKysrDQogMiBm
+aWxlcyBjaGFuZ2VkLCAzOCBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pDQogY3JlYXRlIG1v
+ZGUgMTAwNjQ0IERvY3VtZW50YXRpb24vdHJhbnNsYXRpb25zL3poX0NOL3VzYi9vaGNpLnJzdA0K
+DQpkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi90cmFuc2xhdGlvbnMvemhfQ04vdXNiL2luZGV4
+LnJzdA0KYi9Eb2N1bWVudGF0aW9uL3RyYW5zbGF0aW9ucy96aF9DTi91c2IvaW5kZXgucnN0DQpp
+bmRleCBkZjk5ODE0YzY0OTcuLmM5NmVhY2YxM2UxMSAxMDA2NDQNCi0tLSBhL0RvY3VtZW50YXRp
+b24vdHJhbnNsYXRpb25zL3poX0NOL3VzYi9pbmRleC5yc3QNCisrKyBiL0RvY3VtZW50YXRpb24v
+dHJhbnNsYXRpb25zL3poX0NOL3VzYi9pbmRleC5yc3QNCkBAIC0zMiw2ICszMiw3IEBAIFVTQiDm
+lK/mjIENCiAgICAgY2hpcGlkZWENCiAgICAgZHdjMw0KICAgICBlaGNpDQorICAgIG9oY2kNCiAg
+ICAgdXNibW9uDQoNCiDlvoXnv7vor5HmlofmoaPvvJoNCkBAIC00OSw3ICs1MCw2IEBAIFVTQiDm
+lK/mjIENCiAqIG1hc3Mtc3RvcmFnZQ0KICogbWlzY191c2JzZXZzZWcNCiAqIG10b3VjaHVzYg0K
+LSogb2hjaQ0KICogcmF3LWdhZGdldA0KICogdXNiaXBfcHJvdG9jb2wNCiAqIHVzYi1zZXJpYWwN
+CmRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL3RyYW5zbGF0aW9ucy96aF9DTi91c2Ivb2hjaS5y
+c3QNCmIvRG9jdW1lbnRhdGlvbi90cmFuc2xhdGlvbnMvemhfQ04vdXNiL29oY2kucnN0DQpuZXcg
+ZmlsZSBtb2RlIDEwMDY0NA0KaW5kZXggMDAwMDAwMDAwMDAwLi40Mzg3YmIyNzQwNzENCi0tLSAv
+ZGV2L251bGwNCisrKyBiL0RvY3VtZW50YXRpb24vdHJhbnNsYXRpb25zL3poX0NOL3VzYi9vaGNp
+LnJzdA0KQEAgLTAsMCArMSwzNyBAQA0KKy4uIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwt
+Mi4wDQorDQorOk9yaWdpbmFsOiBEb2N1bWVudGF0aW9uL3VzYi9vaGNpLnJzdA0KKw0KKzrnv7vo
+r5E6IOasp+mYs+WutumTrSBKaWFtaW5nIE91eWFuZyA8amlhbWluZ291eWFuZzEzQGdtYWlsLmNv
+bT4NCisNCis9PT09PT09PQ0KK09IQ0npqbHliqgNCis9PT09PT09PQ0KKw0KKzIwMjblubQ45pyI
+Mjnml6UNCisNCivigJxPSENJLWhjZOKAnempseWKqOeoi+W6j+aYr+S4gOS4qlVTQuS4u+acuuaO
+p+WItuWZqOmpseWKqOeoi+W6j++8iEhDRO+8ie+8jOWug+a6kOiHqjIuNOWGheaguOezu+WIl+S4
+reeahOKAnHVzYi1vaGNp4oCdDQor6amx5Yqo56iL5bqP44CC4oCcdXNiLW9oY2nigJ3ku6PnoIHk
+uLvopoHnlLEgUm9tYW4gV2Vpc3NnYWVyYmVyIDx3ZWlzc2dAdmllbm5hLmF0PiDnvJblhpnvvIzk
+vYbkuZ/ojrflvpfkuoYNCivorrjlpJrlhbbku5bkurrnmoTotKHnjK7vvIjor7fpmIXor7vlhbbn
+iYjmnYPvvIkNCivjgIINCisNCivlroPmlK/mjIHigJzlvIDmlL7kuLvmnLrmjqfliLblmajmjqXl
+j6PigJ3vvIhPSENJ77yJ77yM6K+l5o6l5Y+j5qCH5YeG5YyW5LqG55So5LqO5LiOVVNCIDEuMeS4
+u+acuuaOp+WItuWZqOmAmuS/oeeahOehrOS7tuWvhA0KK+WtmOWZqOWNj+iuruOAguS4juiLseeJ
+ueWwlOaXqeacn+eahOKAnOmAmueUqOS4u+acuuaOp+WItuWZqOaOpeWPo+KAne+8iFVIQ0nvvInn
+m7jmr5TvvIzlroPlsIbmm7TlpJrlj6rog73lip/og73ms6jlhaXliLDnoazku7YNCivkuK3jgILp
+maToi7HnibnlsJTlkozlqIHnm5vkuYvlpJbnmoTlhbbku5bkvpvlupTllYbnmoRVU0IxLjHmjqfl
+iLblmajpgJrluLjkvb/nlKhPSENJ44CCDQorDQor6IeqMi405YaF5qC45Lul5p2l55qE5pu05pS5
+5YyF5ousDQorDQorIC0g5o+Q6auY5LqG5YGl5aOu5oCnOyDkv67lpI3kuobplJnor687IOWHj+Ww
+keS6huW8gOmUgA0KKyAtIOaUr+aMgeabtOaWsOWSjOeugOWMlueahHVzYmNvcmUgQVBJDQorIC0g
+5Lit5pat5Lyg6L6T5Y+v5Lul5pu05aSn77yM5bm25LiU5Y+v5Lul5o6S6ZifDQorIC0g6YCa6L+H
+5L2/55So5LiK5bGC4oCcaGNk4oCd5qGG5p6277yM5YeP5bCR5Luj56CB6YePDQorIC0g5pSv5oyB
+5LiA5Lqb6Z2eUENJ55qET0hDSeWunueOsA0KKyAtIC4uLiDku6Xlj4rmm7TlpJoNCisNCivigJxP
+SENJLWhjZOKAnempseWKqOeoi+W6j+WkhOeQhuaJgOaciVVTQiAxLjHkvKDovpPnsbvlnovjgILm
+iYDmnInnsbvlnovnmoTkvKDovpPpg73lj6/ku6XmjpLpmJ/jgILlnKjigJx1c2Itb2hjaeKAneS4
+reS5nw0KK+aYr+WmguatpO+8jOS9huS4reaWreS8oOi+k+mZpOWkluOAguS7peWJje+8jOS9v+eU
+qOS4gOW4p+eahOWRqOacn+S8muWboOS4uklSUeWkhOeQhueahOW8gOmUgOiAjOWvvOiHtOaVsOaN
+ruS4ouWkseeahOmjjumZqeOAgg0KK+W9k+S4reaWreS8oOi+k+aOkumYn+aXtu+8jOWPr+S7pemA
+mui/h+ehruS/neehrOS7tuWcqOaTjeS9nOezu+e7n+WkhOeQhuebuOWFs0lSUeaXtuWni+e7iOac
+ieS8oOi+k+mcgOimgeWkhOeQhu+8jOadpeacgOWkp+mZkA0KK+W6pueahOmZjeS9jui/meS6m+mj
+jumZqQ0KKw0KKy0g5qyn6Ziz5a626ZOtIEppYW1pbmcgT3V5YW5nDQorICA8amlhbWluZ291eWFu
+ZzEzQGdtYWlsLmNvbT4NCi0tIA0KMi41My4wDQoNCk9uIFNhdCwgU2VwIDUsIDIwMjYgYXQgNToy
+OeKAr1BNIFdlaWppZSBZdWFuIDx3eUB3eXVhbi5vcmc+IHdyb3RlOg0KPg0KPiBPbiBTYXQsIFNl
+cCAwNSwgMjAyNiBhdCAwMzoyOTozNlBNICswMjAwLCBKaWFtaW5nIE91eWFuZyB3cm90ZToNCj4g
+PiBJIHRoaW5rIHRoaXMgLnBhdGNoIGluIGF0dGFjaG1lbnQgd2lsbCBzb2x2ZSB0aGlzIHByb2Js
+ZW0sIGFuZCB0aGUNCj4NCj4gVGhhbmtzIGZvciB0aGUgZWZmb3J0LCBidXQgc2FkbHksICJubyBh
+dHRhY2htZW50cyIgaXMgYSBiZXR0ZXIgcHJhY3RpY2UuDQo+IDstKQ0KPg0KPiBTZWU6DQo+DQo+
+IGh0dHBzOi8vZG9jcy5rZXJuZWwub3JnL3Byb2Nlc3Mvc3VibWl0dGluZy1wYXRjaGVzLmh0bWwj
+bm8tbWltZS1uby1saW5rcy1uby1jb21wcmVzc2lvbi1uby1hdHRhY2htZW50cy1qdXN0LXBsYWlu
+LXRleHQNCj4NCj4gTWF5YmUgeW91IGNhbiB0cnkgZ2l0LXNlbmQtZW1haWwgbGF0ZXIuDQo+DQo+
+IEFueXdheSwgSSBtYW51YWxseSBzYXZlZCB0aGUgcGF0Y2ggYW5kIGdpdCBhbSAtMyB3b3JrcyB3
+aGlsZSBnaXQgYW0gZG9lcw0KPiBub3QuDQo+DQo+ID4gY29tbWl0IGluZm9ybWF0aW9uIGhhcyBi
+ZWVuIG1vZGlmaWVkIGFjY29yZGluZyB0byB5b3VyIGZlZWRiYWNrLg0KPg0KPiBZZWFoLCBJIHRo
+aW5rIHRoaXMgb25lIGxvb2tzIGdvb2QsIHRob3VnaC4NCj4NCj4gVGhhbmtzLg0K
