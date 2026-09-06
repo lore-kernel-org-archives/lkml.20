@@ -1,199 +1,399 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013026.outbound.protection.outlook.com [40.93.196.26])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27825331EB9;
-	Sun,  6 Sep 2026 15:32:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.26
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788708775; cv=fail; b=F7lAM7BYWfvzCX2d5oeLocmFbnxEw7hdf55k72zjUHc/Ou6lgNKidT40xQuT6uSPgEjxv8znesBSrpwno96m2MOtut0+sdWZhjSGWUqq1SfphNx+s4POoJNWxLI1gVAP04cQ+lR/cDZr+8NLzPLcQaUm7+5XDYYpvV+9dlwe0Y4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788708775; c=relaxed/simple;
-	bh=PnODsNWDyzyiwg5vvFQ+w+OUXTrJap8xcnz7WCwsM68=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=e7yEMvi4+CWFmxhNWSmjuXR+XgSwoxqAxSsErYEUCvTsyGDNmFIEWl8PZfmDM+mwECybGWgZ8LP3UkYt4PErDDecSqQsHHSngu+sWiK+urd52mDE9uJ8E6S/IWk6xjZDn7pxo4/GVbyI8iUvJhXnimmAXozjsyJUzhi6l5l4XzY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=zxB9u+6n; arc=fail smtp.client-ip=40.93.196.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D1F331EB9
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 15:33:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788708798; cv=none; b=oSpeuDQcGZnfd5992NFO8CGeUBAulbm/PLn+/yMkWLbMGa+fGCGL1sNSloduTMzQi7BpDaArhXutj/qWnJvwupAGCWR2WdgzgBimIC8AliuWk0z3k9Bh+Oc9z0f/ZA/Yg4EO5ce41DNXnmKy8krwqpBIFdiwgX8XSn1jsw1z9Fs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788708798; c=relaxed/simple;
+	bh=TeY3N8JMysIY0I/ZkJMYnbCvtAKCw1ktrbtEkDvbMGI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Wc1iDLclzT/bv7gMObn+xtQyNXyY/aUIufXltH67+oO9I+1HhUSzw5/ymKZ3A5SVWHRnHbwo6EYNq8uKzEOADEff9ArtR5wHyqrtNFZnJtEr6FgsUI+BoHyWP0TiRqOnoS2PmIQQDVI9OxeOsgWSoLCr3RcDzKjiXgZYKDxMOZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=PSgBSbuI; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="zxB9u+6n"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DYU5nWxO2ASXQBPiO+7iQVG7JAO2//3Nf1FIp60yBnKHQlj2zBpKDFuRBj5yVark9OTXgR6PxNxmI3wziwmZ9k6MtF2oix4iwrpoK+0/ULuL8uO7MOJDv0V1Hzx5E8MX6iKmvU6n2Xm+CZ6fQL64cJEcrG+xwkgSaOLsk5L5TzHEQLEewqlH3fl98lgGk/DPt/687Hcz0UQP5IMKRB6a4gNyGK4D4k0qBrJ4NWqhi7/sjS3hqUHLh44MRfN4vdKj5/puXL4Z/6xnSp4TMnQVMeAX/gssepFOmefxIs0A3dBh3tvq55w2xaA5IF6376Q5ePGpH1bLkOAN+iJvIjBdJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K2kym+OYk5U5tlDcWQAPSS3U4RWUcvfHHUMVoM6f4eI=;
- b=wdesCzRH5aOe4Wt2AKhqtFNlIDF0KXfsxuOe11yjssAaDcIDn4eCoGLPLs3fBcS8Num+E6yCVezqjo9lUyNfMM6GWhkAcD3o5Zow8ckoTkOnIwcpEFfPhhPLvxdbJdb78NKib+oeaPyoNPGKy7PyHloXJYmPIihEOInu3V1Q7aYTE0gM28t7wHi7B9IBBOOEqOGihFqV0VF379Syi38IZXeHRdfbGfIbyXYljHt44id/4tzlsm/8N/OTjdO4NTsBAI1QyZMQAKigb6jZ8E12fF7P0OD9/4to6aA2y/EZJGely1/wf+ipG4fKJbpK5uMGdhFonrLuQNCMONuAaw4rlQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lunn.ch smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K2kym+OYk5U5tlDcWQAPSS3U4RWUcvfHHUMVoM6f4eI=;
- b=zxB9u+6nrxCA0QMYUPP9BKcvCQK72aieaLhg5BLChy4ufa/kRyrvQNRlDt2PW58xR0vrPD/SNFISfelRNfTIC+diOGuogutBKHVu3hHJSl5iJG8piLUoKGX9G7gpR4oX5NqicBSIl/zRp2++5ricPcl1Xb23VqdrwwC5PjxuxMk=
-Received: from MN0P223CA0028.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:52b::17)
- by CY8PR12MB7169.namprd12.prod.outlook.com (2603:10b6:930:5e::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Sun, 6 Sep
- 2026 15:32:49 +0000
-Received: from MN1PEPF0000F0E3.namprd04.prod.outlook.com
- (2603:10b6:208:52b:cafe::3c) by MN0P223CA0028.outlook.office365.com
- (2603:10b6:208:52b::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Sun, 6
- Sep 2026 15:32:49 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- MN1PEPF0000F0E3.mail.protection.outlook.com (10.167.242.41) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Sun, 6 Sep 2026 15:32:49 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Sun, 6 Sep
- 2026 10:32:48 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Sun, 6 Sep
- 2026 10:32:47 -0500
-Received: from xhdharinik40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Sun, 6 Sep 2026 10:32:44 -0500
-From: Kusuma Vasana <kusuma.vasana@amd.com>
-To: <radhey.shyam.pandey@amd.com>, <andrew+netdev@lunn.ch>,
-	<davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
-	<pabeni@redhat.com>, <michal.simek@amd.com>, <Kusuma.Vasana@amd.com>
-CC: <git@amd.com>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>
-Subject: [PATCH net-next V3] net: axienet: Clear stale AXI DMA TX/RX status before re-enabling interrupts
-Date: Sun, 6 Sep 2026 21:02:43 +0530
-Message-ID: <20260906153243.1903501-1-kusuma.vasana@amd.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="PSgBSbuI"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 686EXLSh3368966;
+	Sun, 6 Sep 2026 15:32:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=fZE0IW
+	CrA6YqXzzv6iwoA4J+1qBR7GnxKy1Cf5FXBjI=; b=PSgBSbuIDFC+l+9NFjin70
+	46Iz+7CYe6lCglqKt5vuODjjf1YNNbfg4Cc1RhGwy21o14rpizEBBaJ8fsF4uFDC
+	xrdVRw5kteeiTQvCiXZldzJvOPa5Fk864OUV8rcK6qNn5zYFcN0CahiHSxlCUcwf
+	Dxfe6al1S9DQrDmESt7CcQN3aK7CfzC/wPTqj5kJRvb/AAurMbeRfExX92tAO4Vn
+	tgb7ZjqZRgIFk9O5Lma99LmikUDrm2AxSPl9nwtKLA8waaHWGPA/Jkq5yRacYpeu
+	ZJRhJfgENvtW5zaqzcZvahEtoHC/CTUKVmso4frQQDxjoa6fTQNFWrSAPMgh99tg
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbf3mk5y-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 06 Sep 2026 15:32:36 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 686FQHkj003707;
+	Sun, 6 Sep 2026 15:32:34 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ggxwgsr19-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 06 Sep 2026 15:32:34 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 686FWUZe42795302
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Sun, 6 Sep 2026 15:32:30 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id BDD8920043;
+	Sun,  6 Sep 2026 15:32:30 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2F1AB20040;
+	Sun,  6 Sep 2026 15:32:26 +0000 (GMT)
+Received: from [9.43.69.205] (unknown [9.43.69.205])
+	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Sun,  6 Sep 2026 15:32:25 +0000 (GMT)
+Message-ID: <5854ba8b-07f3-4c88-90f0-3003bdbf9644@linux.ibm.com>
+Date: Sun, 6 Sep 2026 21:02:24 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 2/3] powerpc: add support for Kexec HandOver (KHO)
+To: Pratyush Yadav <pratyush@kernel.org>
+Cc: linuxppc-dev@lists.ozlabs.org, Aditya Gupta <adityag@linux.ibm.com>,
+        Alexander Graf <graf@amazon.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Baoquan He <baoquan.he@linux.dev>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        Hari Bathini <hbathini@linux.ibm.com>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Mahesh Salgaonkar <mahesh@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>, Mike Rapoport <rppt@kernel.org>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Pasha Tatashin <pasha.tatashin@soleen.com>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        Shivang Upadhyay <shivangu@linux.ibm.com>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>, kexec@lists.infradead.org,
+        linux-kernel@vger.kernel.org, Tarun Sahu <tarunsahu@google.com>
+References: <20260821105609.983622-1-sourabhjain@linux.ibm.com>
+ <20260821105609.983622-3-sourabhjain@linux.ibm.com>
+ <2vxza4qfznyo.fsf@kernel.org>
+ <7bb84b8a-c394-4895-9e22-632dc506cbb6@linux.ibm.com>
+ <2vxz5x0ox7p9.fsf@kernel.org>
+ <8fa790a7-f387-48f6-ac76-11cf71ef5589@linux.ibm.com>
+ <2vxzwlt1vvet.fsf@kernel.org>
+Content-Language: en-US
+From: Sourabh Jain <sourabhjain@linux.ibm.com>
+In-Reply-To: <2vxzwlt1vvet.fsf@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E3:EE_|CY8PR12MB7169:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4ad76a51-eda6-4612-8695-08df0c2c1bab
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|1800799024|376014|10067099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	rrUZ2QAIWjw73mh6H9x6/24wALSSfKvwE6C1Wfc/RTR/WWSiTuZv/QPBS6PDK91WwbCOLEBaCsYtU6vptxIXMuzR64N3xiB0B2rk6UuF7bTepyoeNCj0zbcKuXouUkYCokej7y1cOVwxmeHCcX+C3PVJp2OU4aoClK4qgD0/Q1LmreIAX+piCH5HCLAMM9j1YQMx0qT8ezwvxUT16f4fAI15ht2NRy5KZuEOidmghrC8NqDjG9tu/SWIPG6gZvaDInAQ20acEdEQnjqbDTnQQyDaQYVLWgPVVn8xDCqHHSIThYCNcDPCb/z742QIVCHQ89/N69vxGuMbD6Jsc95keuFDKl1hiNYyBNZPX8eYBgakHHALJY7M3Lavx+uN3r1ICMsNjC9HOvUcdvrhNx8DyB6u3ygD8Om5hmD9tpOhWIkPhiwjiGzkqElHXZNxhiFW9ExRgqBeFjAJe511wX9d7dRPXuu+6U/AhzmybRXh7oZFyDo57vwe1a1zrZKTaeuMs7C1hVQNQ7/sihiRgwcKLr0cNV4srhg0ezgfzh+ibsomhj7ZRAy1X7/D6SL0QvtIleyBiY+mvvxKeiOiEYGMoSZ3UieoeOGbvX7iL/CCvxzshQUlzjKv+IvtFBwBl0VCSqelkZNOYNA/rDKgP2egtnDpJU1b+OMi0rKLKR5Rci4IgsKLN+FkI+MlYafXaryt7BYkQ4bE4XLWj/zjXfRYUA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(376014)(10067099003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	CRI/0uQBy6DsCBGLczBqIoZyH177GOwQjlFygfjBvMTLPDK4UaWpfskkhzN+B873gRdGY9J5gkYiwn2ktm70a7fKh2Onq8p8BJjgXw7ANZwL4aRI3Xf7YYtxaY+ejvcxfxdpoR6rOUJ+gcL/s0ngQBbUiqJiWtvLHSB+y/bd92RPzJUQRl9AOzRshmYX8OHcrej7xbEF3OwytIbsXKCySOnB5HSHejDwV9cADrXYpSTsBfRikY0vpSTQSvGP6AlubXtk3KNkPqzWnveUBjyzsbJ7S9uNB4SSiLbBOlzGzn+xIQ8eeUKVR6u6aT9pXh+cIhOrO1MNIeOt9WTai8fqgwl/wHwWpK9YdhXrnu3XE3No/sXs4a0qWnjZw7oyAmBSZeII0neVIl+jHmKbrzuX/Q9yG6CyOYrrATjYGibZ+3jbfqgWTAOj7n2bq5htLyIH
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2026 15:32:49.1792
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ad76a51-eda6-4612-8695-08df0c2c1bab
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000F0E3.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7169
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: aIIFFm0oA4TrhPCrZM2DRWJbzO1uK31S
+X-Proofpoint-GUID: yfNnEcJ45EF43dtPKGFTPTgh1KwayJmg
+X-Authority-Analysis: v=2.4 cv=DbEnbPtW c=1 sm=1 tr=0 ts=6a9d8794 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=1XWaLZrsAAAA:8 a=X0f19CpMum2MarKMJ0sA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA2MDE3MyBTYWx0ZWRfXztOVvKy3wrI5
+ 8Q5Z9BXXZGPs/ZelOb6OfaVMXZztVya4JmVLoYp9OPdoyxi/4LCkS6FkrKDNUM9RPtvGwO5B3cm
+ hJo992kdjKOw7lcjPnwiilSAdA0/GV+YmVBsRFojuIQaqdKCDiEHaho+K+l79nAOaLlksECjf36
+ 5DaG522uWauDR8iYfcMcovzz3kdlMCMxTzTRGfXdvsUnYC4RG/AZMiNrkOr1ZUS/R32AN5NymEi
+ AMHqfHB1vvlSurEHM3oJPpbSMPMVNAIDZwua139AqpnMXepVw2n/IfrxbYXGrOeb5LKjFvKC0gk
+ Beu2SeiTommUQesdVymmVLDWBu/YcIlce1gspmd116jslYL+ZU0cFHLWGf6kae0OB4jiGr2sfUz
+ aA3qJf206XrK5VgL/wPWI4d3V1q5SAMsKBCjGHov7Xr6dATNarSXB0mAWLIKm+pvSSLqsPFVlqv
+ EjjUK/WeTfnHuOA5i4w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA2MDE3MyBTYWx0ZWRfX4b311dRuVv39
+ v/JSAgJ6D1WKfvBnaGMVv3I/FDmYwaZuw2fKJ/qH9q49qdGgfKCVUyrO6pWTTOZ8QZ1YW6gB0FB
+ 7j0oEErUYCuc0aAxSrl3J+fL9JU7LOQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-06_01,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 impostorscore=0 adultscore=0 spamscore=0
+ clxscore=1015 suspectscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609060173
 
-The AXI DMA interrupt line is level-sensitive: it asserts whenever
-the IOC (XAXIDMA_IRQ_IOC_MASK) or DELAY (XAXIDMA_IRQ_DELAY_MASK) bits
-in the status register (XAXIDMA_TX_SR_OFFSET / XAXIDMA_RX_SR_OFFSET)
-are set and their corresponding enable bits in the control register
-are active.
 
-During TX/RX, interrupts are disabled in the control register while
-NAPI runs. Completions arriving in this window cause hardware to latch
-IOC/DELAY into the status register regardless of the control register
-mask state. After NAPI completion, re-enabling interrupts immediately
-re-asserts the IRQ line due to these stale status register bits, even
-when no new work is pending.
 
-This results in a stale interrupt and redundant NAPI poll cycle with
-no new work pending, causing unnecessary CPU processing.
+On 04/09/26 21:52, Pratyush Yadav wrote:
+> On Fri, Sep 04 2026, Sourabh Jain wrote:
+>
+>> On 02/09/26 16:04, Pratyush Yadav wrote:
+>>> On Sun, Aug 23 2026, Sourabh Jain wrote:
+>>>
+>>>> On 21/08/26 17:26, Pratyush Yadav wrote:
+>>>>> On Fri, Aug 21 2026, Sourabh Jain wrote:
+> [...]
+>>>> I agree that this is one way to work around the low-memory reservation problem.
+>>>> However, there are a few things that come into play here:
+>>>>
+>>>> 1. On powerpc, the crashkernel reservation can go up to 64 GB for kdump. With
+>>>> the
+>>>>      current default scratch memory reservation policy, this could result in
+>>>> reserving
+>>>>      up to 256 GB of scratch memory: 200% for the high-memory reservation and
+>>>> another
+>>>>      200% for per-node memory.
+>>> That calculation looks off. It _should_ be 200% once not twice. So 128
+>>> GB total. If the allocation came out via the global area, it should
+>>> _only_ be accounted to the global scratch size. Similarly, only the
+>>> allocations made specifically on that node should be counted for the
+>>> per-node scratch size.
+>> For example, if a system has only one node and 64 GB is allocated from
+>> that node before the kernel starts calculating the per-node and global
+>> allocations for scratch memory, wouldn't the per-node allocation also be 64 GB?
+>>
+>> If so, wouldn't that result in 200% of 64 GB being allocated for the global
+>> area and another 200% of 64 GB for the per-node area, resulting in 256 GB
+>> of total scratch memory allocation? Or am I missing something here?
+> It shouldn't. If the 64 GB of allocation was done with NUMA_NO_NODE, and
+> it _happened_ to land on node X, it should not be counted for per-node
+> sizing. It should count towards the global pool. Only allocations that
+> were explicitly requested with node X should be count for that node's
+> scratch size.
+>
+> So on a one node system where 64G of memory is allocated with
+> NUMA_NO_NODE and 8G is allocated with node X, we should get 128G of
+> global scratch and 16G of per-node scratch, giving us a total of 144G.
 
-In the initial driver, the status register was cleared after polling
-all packets, which naturally consumed any status accumulated during
-processing. In later versions of the driver, status register clearing
-was moved to the ISR before polling begins, leaving no mechanism to
-clear status bits that arrive during the NAPI poll window.
+That makes sense. I was just going by the reservation that was made. As
+you mentioned, an allocation made on a specific node can be
+differentiated from a general allocation because users pass the NID for
+a specific NUMA allocation and |NUMA_NO_NODE|for a general allocation.
 
-Clear the status register IOC/DELAY bits before re-enabling interrupts
-and recheck the next BD to catch race-window completions. Both are
-skipped on budget exhaustion. On the RX side, both are additionally
-skipped on refill failure to leave the level-sensitive IRQ armed so the
-poll is rescheduled on the next hardware completion.
+Thanks for the clarification!
 
-Signed-off-by: Kusuma Vasana <kusuma.vasana@amd.com>
----
-Targeting net-next with no Fixes tag: the extra poll cycle is a
-performance inefficiency, not a functional defect.
 
-Changes in v3:
-- Updated the commit description.
-- Restricted TX/RX status-register clear and completion recheck to the
-  NAPI completion path, with RX only when refill succeeds.
-- Rechecked descriptor completion after status-register clear to handle
-  race-window completions.
+> I took a quick look and it looks like the problem might be that the
+> calculation for global scratch includes _all_ nodes in it. See
+> memblock_reserved_kern_size():
+>
+> 	for_each_reserved_mem_region(r) {
+> 		...
+>                  
+> 		if (nid == memblock_get_region_node(r) || !numa_valid_node(nid))
+> 			if (r->flags & MEMBLOCK_RSRV_KERN)
+> 				total += size;
+> 	}
+>
+> And for global scratch we pass nid as NUMA_NO_NODE.
+>
+> For KHO we could just drop the || !numa_valid_node(), but
+> memblock_estimated_nr_free_pages() seems to depend on that behaviour. It
+> wants to get _all_ allocations across all nodes. KHO only wants
+> allocations explicitly made with NUMA_NO_NODE.
 
-Changes in v2:
--Added net-next prefix in the subject
--Updated the commit description
+Yes the above explanation seems correct to me. !numa_valid_node() is 
+problem in KHO scratch memory reservation context.
+> But disclaimer: all this is from reading the code for maybe 15 minutes.
+> I didn't run anything and might be missing something. So please
+> double-check what I am saying.
+>
+> Not sure how to fix this. Since memblock_estimated_nr_free_pages() needs
+> all the reservations anyway, perhaps open code a simple counting loop
+> there? And the drop the || !numa_valid_node() from
+> memblock_reserved_kern_size().
+>
+> But yeah, it would be much appreciated if you'd care to fix this.
 
----
- .../net/ethernet/xilinx/xilinx_axienet_main.c | 22 +++++++++++++++++++
- 1 file changed, 22 insertions(+)
+I will send a fix for this.
 
-diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-index fcf517069d16..4816870e8502 100644
---- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-+++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-@@ -1018,6 +1018,16 @@ static int axienet_tx_poll(struct napi_struct *napi, int budget)
- 			netif_wake_queue(ndev);
- 	}
- 
-+	/* Clear stale IOC/DELAY bits and re-check for race-window completions.
-+	 * Skipped on budget exhaustion.
-+	 */
-+	if (packets < budget) {
-+		axienet_dma_out32(lp, XAXIDMA_TX_SR_OFFSET,
-+				  XAXIDMA_IRQ_IOC_MASK | XAXIDMA_IRQ_DELAY_MASK);
-+		if (lp->tx_bd_v[lp->tx_bd_ci].status & XAXIDMA_BD_STS_COMPLETE_MASK)
-+			return budget;
-+	}
-+
- 	if (packets < budget && napi_complete_done(napi, packets)) {
- 		/* Re-enable TX completion interrupts. This should
- 		 * cause an immediate interrupt if any TX packets are
-@@ -1301,6 +1311,18 @@ static int axienet_rx_poll(struct napi_struct *napi, int budget)
- 	if (tail_p)
- 		axienet_dma_out_addr(lp, XAXIDMA_RX_TDESC_OFFSET, tail_p);
- 
-+	/* Clear stale IOC/DELAY bits and re-check for race-window completions.
-+	 * Skipped on budget exhaustion and on refill failure (cur_p->skb ==
-+	 * NULL) to leave the level-sensitive IRQ armed so the poll is
-+	 * rescheduled on the next hardware completion.
-+	 */
-+	if (packets < budget && cur_p->skb) {
-+		axienet_dma_out32(lp, XAXIDMA_RX_SR_OFFSET,
-+				  XAXIDMA_IRQ_IOC_MASK | XAXIDMA_IRQ_DELAY_MASK);
-+		if (cur_p->status & XAXIDMA_BD_STS_COMPLETE_MASK)
-+			return budget;
-+	}
-+
- 	if (packets < budget && napi_complete_done(napi, packets)) {
- 		if (READ_ONCE(lp->rx_dim_enabled)) {
- 			struct dim_sample sample = {
--- 
-2.43.0
+>
+> The fix should be a separete patch, since it fixes problems on all
+> platforms, and not just PowerPC.
+
+Yes the fix shouldn't be part of this series...
+
+>
+>>> But I have also noticed this problem on some of the systems Google has.
+>>> Which makes me wonder if scratch_size_update() is broken and
+>>> over-calculating. I have this on my TODO list and have been meaning to
+>>> look into it, but other things keep intervening.
+>>>
+>>> If you are interested, feel free to take it off my hands.
+>> Yes, I can take this up and propose patches to make crashkernel and
+>> scratch reservations work together.
+>>
+>> Based on my current testing, a Linux partition (powerpc) with 16 CPUs and 30 GB
+>> of RAM needs only 16 MB of scratch memory in the low-memory area when
+>> crashkernel=xxM is not specified.
+>>
+>> 16 MB is not much. I am also trying to get a larger Linux partition with 1000+
+>> CPUs to get a better idea of the limits for low-memory reservations.
+>>
+>> BTW, do you know the rationale behind the 200% value?
+>>
+>> I couldn't find any explanation for it in the commit message of
+>> 3dc92c311498c ("kexec: add Kexec HandOver (KHO) generation helpers")
+> We need to ask Alex (or maybe Mike?; I forget who added this).
+>
+> But if I were to guess, I don't think there is much science involved
+> behind the number. Since the scratch lives across all kexecs, it needs
+> to be large enough in case the next kernel uses more memory. 200% sounds
+> "large enough".
+
+OK..
+
+>
+>>>>      For fadump, which is the powerpc-specific memory dump capture mechanism, the
+>>>> crashkernel
+>>>>      reservation can go up to 180 GB. In this case, we could end up reserving up
+>>>> to 720 GB of
+>>>>      scratch memory, which is too much. I agree that users can tune this, but I
+>>>> think the
+>>>>      default scale should be more reasonable for powerpc.
+>>> Once we fix scratch_size_update() to actually use 200% and not 400%,
+>>> perhaps that alone will be enough? If not, we can discuss reducing the
+>>> default scratch scale to maybe 150%. But I'd rather do it for all
+>>> platforms if we do it at all, because this problem doesn't seem specific
+>>> to PowerPC.
+>> Yes, it makes sense to have a general fix that works for all architectures.
+>>
+>> BTW, I was able to reproduce this issue on x86 as well. Please have a
+>> look at this:
+>>
+>> https://lore.kernel.org/all/008fe00e-fd52-4010-86ca-f0ab80a65a46@linux.ibm.com/
+>>
+>> I have also suggested an approach to handle this issue which is similar how you
+>> handle
+>> huge pages. Please share your thoughts on it.
+> I missed this.
+>
+> We can exclude HugeTLB pages from scratch accounting because the series
+> updates HugeTLB to use a new routine called memblock_alloc_hugetlb() to
+> allocate pages. This special allocator makes sure the pages are
+> _outside_ of scratch even if scratch-only mode is used. Since HugeTLB
+> pages come outside of scratch, they don't get counted in scratch sizing.
+>
+> We need to do this for HugeTLB mainly because we want to preserve
+> HugeTLB pages in the future, and pages from scratch can't be preserved.
+>
+> We could perhaps do so for crash as well, but I need to think more about
+> this.
+>
+> But at first glance, if you need to allocate crash super early, perhaps
+> memblock won't be able to cope. Because allocating crash outside of
+> scratch would depend on kho_extend_scratch() and that needs
+> memblock_allow_resize() to be called to be able to cope with multiple
+> memory regions.
+
+I just saw your patches to handle HugeTLB separately. I was thinking of
+handling the crashkernel reservation in a similar way.
+
+Let me first understand the HugeTLB handling in KHO completely, and then
+I can propose a similar approach for the crashkernel reservation. This
+should allow the crashkernel and scratch reservations to coexist in most
+cases.
+
+
+
+>
+> [...]
+>>>> Could you please elaborate a bit on what makes the ordering tricky and what the
+>>>> main tradeoffs are between crash reservations and KHO? It would help me better
+>>>> understand the concerns here.
+>>> The problem today is that kho_preserved_memory_reserve() (called by
+>>> kho_mem_retrieve()) does a memblock_reserve() for each preserved folio.
+>>> So if you have a lot of order-0 (or, 4k) folios, you end up with a lot
+>>> of reservations in memblock. The large number of reservations can slow
+>>> down later memblock operations like allocations too since memblock might
+>>> have to walk through a lot of ranges to find free memory.
+>>>
+>>> We kind of work around this problem by calling kho_mem_retrieve() as
+>>> pretty much the last thing in the MM init. So all allocations prior to
+>>> this have already been fulfilled from scratch without any of the
+>>> reservations added, so it should be pretty fast. You only take the
+>>> performance hit at the end, where the only thing left is to release
+>>> pages to buddy.
+>> Ah, okay, that makes sense. Thanks for the clarification.
+>>
+>>
+>>> Even then, the memblock reservations can get pretty damn slow. In some
+>>> of my testing with under-load systems, preserving a 2G memfd with 4k
+>>> pages can go over **5 minutes** in only kho_mem_retrieve() if the folios
+>>> of the memfd are fragmented enough. Plus there is the memory overhead of
+>>> the regions in memblock.reserved.
+>> 5 minutes in kho_mem_retrieve(), which is primarily marking a bunch
+>> of memory as reserved using memblock, seems like quite a lot. If you
+>> have the test case handy somewhere, I would be interested in trying it
+>> myself, just to get a better feel for the issue.
+> I do, but unfortunately based on downstream code so it is neither useful
+> to you nor something I can share I think.
+>
+> But your friendly neighbourhood LLM can help here. Ask it to preserve
+> you a memfd but fragment/shatter buddy blocks first. That's pretty much
+> how I wrote my test.
+
+Sure I will try it and share my experience.
+
+>
+> But also see [0] which fixes the problem. Maybe Tarun (+Cc) has a test
+> based on upstream that he can share?
+>
+> [0] https://lore.kernel.org/kexec/20260903155907.1065681-1-tarunsahu@google.com/
+
+Thanks for the Cc. I will try the above patch also.
+
+>
+>> Regardless, I understand the concern now. From my perspective also, the
+>> current ordering of crashkernel and scratch memory reservations seems
+>> reasonable, because crashkernel is not as flexible as scratch reservation
+>> atleast on powerpc.
+>>
+>> On powerpc, the crashkernel offset is determined first, and the
+>> corresponding memory region is reserved. To make sure that no
+>> other reservation falls within the crashkernel region, the crashkernel
+>> reservation is one of the first reservations we make on powerpc.
+>>
+>> If we change this ordering, there is a possibility that a scratch
+>> reservation could end up in a region where the crashkernel is supposed
+>> to be placed. That would lead to crashkernel reservation failure.
+>>
+>> Also, reserving scratch memory at a location where the crashkernel
+>> cannot be placed could be problematic. Each architecture has its own
+>> constraints on where the crashkernel can be placed, so the available
+>> memory for scratch reservation may need to account for those constraints.
+>> Which I think too much to take care off...
+> That's a real problem. But I am hoping the restrictions are something
+> along the lines of "crash kernel must be in lowmem", so the lowmem
+> scratch already solves that problem?
+
+
+Yes, for different reasons, the architecture may need to load the
+vmlinux kexec segment in low memory. Alternatively, there may need to
+be some crashkernel reservation in low memory to satisfy the memory
+requirements of components that can only allocate memory from low
+memory.
+
+
+I will also explore how KHO handles reserved memory regions.
+
+For example, let’s say the firmware marks 10 MB as reserved and exports
+that region as reserved in the DTB. If I am not mistaken, while parsing the
+FDT, the kernel calls memblock_reserve() for these regions. PowerPC has
+some such regions, like RTAS and OPAL. Generally, these regions should
+persist across KHO.
+
+So I will explore:
+- How these regions are handled by KHO
+- How they affect the scratch kernel reservation, specially in lowmem
+
+- Sourabh Jain
+
+>> And, of course, moving kho_mem_retrieve()earlier during boot would
+>> also mean taking the performance hit you mentioned earlier.
+>>
+>> So let's keep the current ordering and find a way to make both
+>> reservations work with it: reserve the crashkernel first, and then
+>> reserve the scratch memory.
+> [...]
+>
 
