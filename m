@@ -1,209 +1,180 @@
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 159693BED32
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 17:29:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788715775; cv=pass; b=WBBcID1fJmP9QWtlr3dgMlqqUOBJ56X95jDm07ZSIpafY9DPaXde14oaZudv0BZKBbhs2DWAsf309BAHE3kMIm81S8sjthzvp4yQb9vDVTdD0GusJoEy9IPrkvgrj1mq2dCAScjg6vcRKYXQ49ZYh2iHKWt1xiC/wmNv2dwrDCM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788715775; c=relaxed/simple;
-	bh=exym+CZzgOAab18t0m2mPm0HSQCgKgYLWUwmIDyopsA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Content-Type; b=C/KCwEuy22JUJSPLZyozaUCfsYHiKhp7ki/KmtSIYuZRcCpweT4SphonLTqoLb21dmNS44VlYjXAEbKfiZNcKrqZ9kE5KNzC46aaKPO3ls2EMg0v6ZIj4R02yb9IxGhfm2sa0pR8Y4IrX+nDCNVTqZ27nmXgnyVq+f8Cc/xmZMM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WHxjiQ4Z; arc=pass smtp.client-ip=209.85.167.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7893D450F2;
+	Sun,  6 Sep 2026 17:32:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788715968; cv=none; b=M+PwgxTVni38LSXwrIJuykQ1BGmysPAmfTmELGnYLZSmX26sIgfn5OAhqv95yNPvb04IB5HcFfemdkQCkPcYBNlrYXhMFmlSCOUKQM9N5oAsUqGy0KIlapesTiDnPNms4o0PUt1kwHAcK2MC4ILz0THTyK49Zd8vMJRg6oLlM98=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788715968; c=relaxed/simple;
+	bh=J1dMz04icOYOGAmumHJS85Ktsed4rBuh14zvQ8znmmM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Z32vpu0pV+Y1uqW9Qy8VSizfwPYnIGXUcy2Q6tL3Uxn7gm5Zt/mk473I8+O6tn9z7xbIaLPF9YneL0Cn75Z5okoiwLAh1cbQ4z1DXh3rysXcsNEpkR0z6etZfJzCzoWTeyZfGqw5g5HjLD5mU6jQgirTG6xBjAiJutiJcwvnPIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=ZTJ73u2L; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=tYJWTvcg; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WHxjiQ4Z"
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5b5e907853eso2790554e87.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 10:29:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788715770; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hADfKGrJe8zZnv6ZtOpeZK92Pw0YC38KUlyunY3hMs+ew+GxQ6h7ujUm/hHfT6nN/K
-         D0NCruSwNqeppdbW0KfpsJ2568yXZes8bpsF5DAbaGKJ6d25GAmNZpd4PmduZ04UNoZV
-         T7QgkwBbpt/o+T6LTaolKeBah6jgsKNiGDUrD88qMNwyYHgv6wVmfzVe65LdFB498UTh
-         9f4QAUACaOMPTmWG5RoXnnstWGhdSrP0nkDZlopfc3h/lvPeVEYfTJ7hl1+zIwK/OC2W
-         bdqimk06Umj7LeZWMNPiEAVdVldFV7VzhM28hw1/ilmEgnXtzTAWxzTMNonWZIWQUiJC
-         xMDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
-         :dkim-signature;
-        bh=2tjcZmJsdmQErzdeSLKiFZt5uiqLR+LZOBvmbBrdCHM=;
-        fh=AK+5cwZf0tsinnPC7x/3xm+V8f4uBm6qlenW1cmyqAQ=;
-        b=IOw+Brpi89VNATDhsvcBXROqUF6S28q425LlBghPDumdB6rk6RMBh1wuFdvcOFIcnM
-         alcto/rRcNC6ZCVSlPHLtZ0DfKG7E3syoEE7ogajA0S2OqjnTwAdNyyT2VO/p9pFXfjD
-         vs+FnXKrWAstzx4wWpyt4uQbjeADkAH6XsfWAWCTkAX7UbwagW4ZUPG82o04PVky49jU
-         +ZsXle0ZzeRzbxdQLtCTah3AiVwqj70GBi/E7F8G3HWHgn9tLfKNNe0PxL3aHF/SID7w
-         tJ473Q1cLrhEGlAirOjjkqDiGM+aiib/6ARrlwdTrQN4QTWQQJaiCFfnNqVELy2kLNA0
-         OHOQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788715770; x=1789320570; darn=vger.kernel.org;
-        h=content-type:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2tjcZmJsdmQErzdeSLKiFZt5uiqLR+LZOBvmbBrdCHM=;
-        b=WHxjiQ4ZkoRITNJr1V+K4L997+wlgYofvZUc7h1uKaz7tIBH7xTFJ2/h1YGyfPuCZQ
-         t8yx4NFz16+osUIhAhZnAClh9eE4e2+WaBX/QZ6BzhG3cbYf1R5U28dBYdUp5SyVOAss
-         7M5Uw6KVrWwgQEg1M8gkS2Ogf/oEJjJNB3ujKZMBu3dSqks9Q1zx1WzH7QS+BLUQ9LEk
-         oBACLUAh9k+0HqaIxKAx1COTpY41vSLKH62AZ+wSmHdapEfaAOSkfHkUTflO886GA4K7
-         yzeGXw3bK9ldqV3kn8v8tbSNFYkzw5yBvKp6nMiuB8elywJeztlPfMuGQSvudxS2+c5Q
-         mQCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788715770; x=1789320570;
-        h=content-type:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2tjcZmJsdmQErzdeSLKiFZt5uiqLR+LZOBvmbBrdCHM=;
-        b=lchYuWGs739XuSq8lSpjla1o/y3My4bkku0V71n3kGyxfX1akYZogo7HFgOt3mhto7
-         ZfvELbrOIcfyfjxVYnVpU2iPWb+13MEgkWuhFjN8tm0dDMwCqk/HBSkaFgj/vAA04FK5
-         owUSsWx9q9ysveVP/kuykm0HwnsLR/zSVyoajoW2P077pzdjoghnWVUJSh9Uegbs3UqR
-         93kyYi24tlYA/RezsB71GTb3MDXtpROpmw2JmGfbdsrRkUJsq/7T1eI3rN1tAioJuvYI
-         jl7Zmts5+W10+g2ljFVUQbRUXP8i3+D+PPDsDE0tpvuM1V05TKIOZgTMdoT6mbGuHgvq
-         PBjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzvJDVXasSrWh6kld5JcPv2+sfxt+bxT6xKQDnR3ShkacoXdRNwTsEvyEadYQKmMrsKvzJpURUN4LkS/LY=@vger.kernel.org
-X-Gm-Message-State: AFuF++keSbrualPY7z0AGlqBZBDS4s9OVY+4pTcWELeS2wmcWZjnVHWX
-	onOcj9ye/2SPR8JnQ8uVjcMipdUr9TAbLMjxGpycYpYZWXK35Xr2I7PoR+GArTMHovP3RLPg0l1
-	7hHXRS9RW734+bxrKiuWowWLWqWeUnUI=
-X-Gm-Gg: AYBFou0YFHMpW3OG3NThEUbNbp6N0CGvPnkWj8elFPxuy5u3KR2wdJ6X1QRk/PZSdtL
-	uruwyNT6VGWU2gaFqwC6CHxobmfDSf2ZV48wN6R8alCvO646QMwQQrJ9qC45g+b655T+9viUARI
-	ONDbx9KWlRWwKc70hZFq+1rM9iUFxNX9urE7ZF+beDJczIXquwd8k5St+H/+fR2QaGgxpklAXEe
-	qEaJ0jd9tHblHvZKKs7+EvleIlWcsX93XkymFdKviQA308gF0SmvltR/sISdOCf1Y950bGmIZPa
-	XClFT/GsaWlYxb74ZUacFAnubh+DGCv9hwiQWhob1kCYMYxlFyEKMUUuMeLPA4cQiKLJg3PJgFA
-	MdgzG2yNNGB8LWt1cut2c
-X-Received: by 2002:a05:6512:104a:b0:5b5:f946:513c with SMTP id
- 2adb3069b0e04-5b616f32605mr2925330e87.17.1788715769404; Sun, 06 Sep 2026
- 10:29:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="ZTJ73u2L";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="tYJWTvcg"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hdHMv6v0dzMlCx;
+	Sun, 06 Sep 2026 19:32:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788715964;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=UIE+4XFoDu5qq6aHf4+F7XKm5AuUKo/qoPgcCZ8gvjc=;
+	b=ZTJ73u2L7DxkAS+jaf4xMIn4+ZjQegXa6DOv21mu40gzUDHsJcdNAisT4FAn5Vz/FFqnDd
+	T5tcl2nRTWqbWbKCfBwQzzKyq+NdwVGXiLRjz+a98rD8/gbwzXE78VBRNhsx2F55yBxIM1
+	jNb3XS3isWmMhBXi0jfph3/yrDLJy+Z02ylCRxqg8xdlNAehe1MWsPjBc9pKt7oAemUptt
+	l1sjvHgkkFdEx/pXEcViC0tWklA0KCCxyb7GZChT18DpNY+SVkIyGOPfy6fXvitL2C4BtN
+	Z8acxQEsRSPs3mk851LRisqBJGEj0dMyiE/IaXM0wH6p+sCQ1TFOPo96TYp8tg==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=tYJWTvcg;
+	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788715961;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=UIE+4XFoDu5qq6aHf4+F7XKm5AuUKo/qoPgcCZ8gvjc=;
+	b=tYJWTvcgvi2+duolqS8GmywFB5uDSzWo5qAjBCFdrEgLpEgZtSwulDIkUI7Qmp3zrIJ/dG
+	kZ+2l+JtDcPGwjmp8hhihNth0RcPWKBNj7beT2ZPVntS8nlWZju51G0BKC+6YcGEiU5g2D
+	77dK0zQ2Tib8Vos7IbA1dUv02eRHyN0elXEdO8M+nI3nLKwpGs+zBARw0q01gLdZ+obnvX
+	QtUPQvn1LZXQ9RA1Ye/s7Pfz8y9ljXvgnGHyi2gDQ3pjvSYAVVojmtzQ9FgRQpe1QSTiOM
+	3Ug0/ftEig9FLyDmZQjkWV+ofzP3PWfVt6om/aC40OdNJ7Iyfeb+lJ1qPs2DFQ==
+To: linux-pci@vger.kernel.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Koichiro Den <den@valinux.co.jp>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [RFC][PATCH] PCI: rcar-gen4: Add missing PM ops
+Date: Sun,  6 Sep 2026 19:31:00 +0200
+Message-ID: <20260906173234.522400-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAMnMt5YMA70FJwH+ddo24Ejd8HbpFSgUv73Ybu-fu+F-gcoesQ@mail.gmail.com>
- <CAMnMt5Y_fL0cHQ1CjU9+vn0rZVO5eitL6h0dTQ5Wg48c68-yYg@mail.gmail.com>
- <CAMnMt5Y5gKSYk3HjNhdBGZQCg3OwsZ714ZbROzuw_=KVaX0bHQ@mail.gmail.com> <CAMnMt5YgEf2MkDu+wpRi8uR2LJddwSjbji=AzT59zbV5Qzzs-w@mail.gmail.com>
-In-Reply-To: <CAMnMt5YgEf2MkDu+wpRi8uR2LJddwSjbji=AzT59zbV5Qzzs-w@mail.gmail.com>
-From: Herman Semenoff <germanaizek0@gmail.com>
-Date: Sun, 6 Sep 2026 20:29:21 +0300
-X-Gm-Features: AcwNN1VdeF1bNJ1n6crGjHyWxRd2O_6m6j9TJLIJkTjz3E99bnAStAX9QJTjAyQ
-Message-ID: <CAMnMt5afuw8G7U35kPUUJqWAtaNxcoHj=GvHg+6Kk=XRwhs9hw@mail.gmail.com>
-Subject: [PATCH] wifi: mt7601u: add vnd_reset parameter to fix probe failure
- on Tenda U2
-To: kuba@kernel.org, kvalo@kernel.org, linux-wireless@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: multipart/mixed; boundary="0000000000000a3836065ad3d833"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: 3jqaou8uymgyayakppbpdrp9mp3z45ow
+X-MBO-RS-ID: e788f12618cacecb80a
+X-Rspamd-Queue-Id: 4hdHMv6v0dzMlCx
 
---0000000000000a3836065ad3d833
-Content-Type: multipart/alternative; boundary="0000000000000a3833065ad3d831"
+The R-Car Gen4 PCIe controller is part of a power domain. On R-Car S4
+and V4H, this is an always-on power domain which is not shut down in
+suspend. On R-Car V4M, this is a dedicated A2PCIPHY power domain,
+which is shut down during suspend, and the controller loses state,
+which prevents the PCIe from working after resume.
 
---0000000000000a3833065ad3d831
-Content-Type: text/plain; charset="UTF-8"
+Fix this by adding generic suspend/resume noirq ops for the controller,
+which tear the link down on suspend, and restart it on resume. Use the
+same PM ops on all of R-Car Gen4 to gracefully suspend and resume the
+PCIe link on V4H and S4 too.
 
-On certain MT7601U adapters, such as Tenda U2 and
-other newer hardware revisions, driver initialization consistently fails
-during probe with vendor request timeouts (-110 / -ETIMEDOUT):
-  mt7601u 3-14:1.0: ASIC revision: 76010001 MAC revision: 76010500
-  mt7601u 3-14:1.0: Firmware Version: 0.1.00 Build: 7640 Build time:
-201302052146____
-  mt7601u 3-14:1.0: Vendor request req:07 off:09a8 failed:-110
-  mt7601u 3-14:1.0: Vendor request req:02 off:09a8 failed:-110
-  mt7601u 3-14:1.0: Vendor request req:07 off:0734 failed:-110
-  mt7601u 3-14:1.0: Vendor request req:42 off:0230 failed:-110
-  mt7601u 3-14:1.0: probe with driver mt7601u failed with error -110
+Test case which demonstrates the problem on R-Car V4M:
+"
+$ hexdump -vC /sys/bus/pci/devices/0000:00:00.0/config > /tmp/pre
+$ echo s2idle > /sys/power/mem_sleep
+$ echo platform > /sys/power/pm_test
+$ echo mem > /sys/power/state
+$ hexdump -vC /sys/bus/pci/devices/0000:00:00.0/config > /tmp/post
+$ diff -Naru /tmp/pre /tmp/post
+...
+-00000000  12 19 32 00 07 05 10 00  00 00 04 06 00 00 01 00
++00000000  12 19 32 00 07 05 10 00  00 00 00 ff 00 00 80 00
+                                          ^^^^^
+                                    Class 0604->00ff
+"
 
-The failure occurs because mt7601u_load_firmware() unconditionally calls
-mt7601u_vendor_reset() (MT_VEND_DEV_MODE_RESET) before uploading firmware
-chunks. On these devices, issuing this vendor reset leaves the internal
-MCU / FCE DMA engine in an unresponsive state after the first firmware
-URB is submitted. As a result, reading MT_TX_CPU_FROM_FCE_CPU_DESC_IDX
-(0x09a8) immediately times out.
-Introduce a boolean module parameter 'vnd_reset' (default: false) to
-make this vendor reset optional. When the vendor reset is skipped,
-firmware upload succeeds and the wireless interface initializes normally.
+Fixes: 0d0c551011df ("PCI: rcar-gen4: Add R-Car Gen4 PCIe controller support for host mode")
+Reported-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Koichiro Den <den@valinux.co.jp>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-pci@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+NOTE: Depends on series
+      https://lore.kernel.org/linux-pci/20260903205153.283553-1-marek.vasut+renesas@mailbox.org/
+NOTE: I am sending this as an RFC, because I would like to get
+      a TB from Geert before this might get applied
+---
+ drivers/pci/controller/dwc/pcie-rcar-gen4.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1716301
+diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+index 5690dc32f47e0..3bfb2bd53fe3b 100644
+--- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
++++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+@@ -909,6 +909,22 @@ static int rcar_gen4_pcie_ltssm_control(struct rcar_gen4_pcie *rcar, bool enable
+ 	return 0;
+ }
+ 
++static int rcar_gen4_pcie_suspend_noirq(struct device *dev)
++{
++	struct rcar_gen4_pcie *rcar = dev_get_drvdata(dev);
++	struct dw_pcie *dw = &rcar->dw;
++
++	return dw_pcie_suspend_noirq(dw);
++}
++
++static int rcar_gen4_pcie_resume_noirq(struct device *dev)
++{
++	struct rcar_gen4_pcie *rcar = dev_get_drvdata(dev);
++	struct dw_pcie *dw = &rcar->dw;
++
++	return dw_pcie_resume_noirq(dw);
++}
++
+ static struct rcar_gen4_pcie_drvdata drvdata_r8a779f0_pcie = {
+ 	.ltssm_control = r8a779f0_pcie_ltssm_control,
+ 	.mode = DW_PCIE_RC_TYPE,
+@@ -952,10 +968,14 @@ static const struct of_device_id rcar_gen4_pcie_of_match[] = {
+ };
+ MODULE_DEVICE_TABLE(of, rcar_gen4_pcie_of_match);
+ 
++DEFINE_NOIRQ_DEV_PM_OPS(rcar_gen4_pcie_pm_ops,
++			rcar_gen4_pcie_suspend_noirq, rcar_gen4_pcie_resume_noirq);
++
+ static struct platform_driver rcar_gen4_pcie_driver = {
+ 	.driver = {
+ 		.name = "pcie-rcar-gen4",
+ 		.of_match_table = rcar_gen4_pcie_of_match,
++		.pm = &rcar_gen4_pcie_pm_ops,
+ 		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
+ 	},
+ 	.probe = rcar_gen4_pcie_probe,
+-- 
+2.53.0
 
-More issues with Tenda U2 and Linux:
-- https://www.opena.tv/viewtopic.php?t=63919
-- https://askubuntu.com/questions/1418850/the-problem-with-wi-fi-u2
-- https://bbs.archlinux.org/viewtopic.php?id=224859
--
-https://www.reddit.com/r/archlinux/comments/1d6dfv5/mt7601u_usb_wifi_not_working/
-
-Signed-off-by: Herman Semenoff <GermanAizek@aizekgroup.ru>
-
---0000000000000a3833065ad3d831
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">On certain MT7601U adapters, such as Tenda U2 and<br>other=
- newer hardware revisions, driver initialization consistently fails<br>duri=
-ng probe with vendor request timeouts (-110 / -ETIMEDOUT):<br>=C2=A0 mt7601=
-u 3-14:1.0: ASIC revision: 76010001 MAC revision: 76010500<br>=C2=A0 mt7601=
-u 3-14:1.0: Firmware Version: 0.1.00 Build: 7640 Build time: 201302052146__=
-__<br>=C2=A0 mt7601u 3-14:1.0: Vendor request req:07 off:09a8 failed:-110<b=
-r>=C2=A0 mt7601u 3-14:1.0: Vendor request req:02 off:09a8 failed:-110<br>=
-=C2=A0 mt7601u 3-14:1.0: Vendor request req:07 off:0734 failed:-110<br>=C2=
-=A0 mt7601u 3-14:1.0: Vendor request req:42 off:0230 failed:-110<br>=C2=A0 =
-mt7601u 3-14:1.0: probe with driver mt7601u failed with error -110<br><br>T=
-he failure occurs because mt7601u_load_firmware() unconditionally calls<br>=
-mt7601u_vendor_reset() (MT_VEND_DEV_MODE_RESET) before uploading firmware<b=
-r>chunks. On these devices, issuing this vendor reset leaves the internal<b=
-r>MCU / FCE DMA engine in an unresponsive state after the first firmware<br=
->URB is submitted. As a result, reading MT_TX_CPU_FROM_FCE_CPU_DESC_IDX<br>=
-(0x09a8) immediately times out.<br>Introduce a boolean module parameter &#3=
-9;vnd_reset&#39; (default: false) to<br>make this vendor reset optional. Wh=
-en the vendor reset is skipped,<br>firmware upload succeeds and the wireles=
-s interface initializes normally.<br><br>Link: <a href=3D"https://bugs.laun=
-chpad.net/ubuntu/+source/linux/+bug/1716301">https://bugs.launchpad.net/ubu=
-ntu/+source/linux/+bug/1716301</a><br><br>More issues with Tenda U2 and Lin=
-ux:<br>- <a href=3D"https://www.opena.tv/viewtopic.php?t=3D63919">https://w=
-ww.opena.tv/viewtopic.php?t=3D63919</a><br>- <a href=3D"https://askubuntu.c=
-om/questions/1418850/the-problem-with-wi-fi-u2">https://askubuntu.com/quest=
-ions/1418850/the-problem-with-wi-fi-u2</a><br>- <a href=3D"https://bbs.arch=
-linux.org/viewtopic.php?id=3D224859">https://bbs.archlinux.org/viewtopic.ph=
-p?id=3D224859</a><br>- <a href=3D"https://www.reddit.com/r/archlinux/commen=
-ts/1d6dfv5/mt7601u_usb_wifi_not_working/">https://www.reddit.com/r/archlinu=
-x/comments/1d6dfv5/mt7601u_usb_wifi_not_working/</a><br><br>Signed-off-by: =
-Herman Semenoff &lt;<a href=3D"mailto:GermanAizek@aizekgroup.ru">GermanAize=
-k@aizekgroup.ru</a>&gt;</div>
-
---0000000000000a3833065ad3d831--
---0000000000000a3836065ad3d833
-Content-Type: text/x-patch; charset="US-ASCII"; 
-	name="0001-PATCH-wifi-mt7601u-add-vnd_reset-parameter.diff"
-Content-Disposition: attachment; 
-	filename="0001-PATCH-wifi-mt7601u-add-vnd_reset-parameter.diff"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mtq369xp0>
-X-Attachment-Id: f_mtq369xp0
-
-LS0tCiBkcml2ZXJzL25ldC93aXJlbGVzcy9tZWRpYXRlay9tdDc2MDF1L21jdS5jIHwgMTUgKysr
-KysrKysrKysrKy0tCiAxIGZpbGUgY2hhbmdlZCwgMTMgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlv
-bnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC93aXJlbGVzcy9tZWRpYXRlay9tdDc2MDF1
-L21jdS5jIGIvZHJpdmVycy9uZXQvd2lyZWxlc3MvbWVkaWF0ZWsvbXQ3NjAxdS9tY3UuYwppbmRl
-eCBiYWQ2Y2E4MjEuLmFiZjQ3NjdmMSAxMDA2NDQKLS0tIGEvZHJpdmVycy9uZXQvd2lyZWxlc3Mv
-bWVkaWF0ZWsvbXQ3NjAxdS9tY3UuYworKysgYi9kcml2ZXJzL25ldC93aXJlbGVzcy9tZWRpYXRl
-ay9tdDc2MDF1L21jdS5jCkBAIC0xMCw2ICsxMCw3IEBACiAjaW5jbHVkZSA8bGludXgvZGVsYXku
-aD4KICNpbmNsdWRlIDxsaW51eC91c2IuaD4KICNpbmNsdWRlIDxsaW51eC9za2J1ZmYuaD4KKyNp
-bmNsdWRlIDxsaW51eC9tb2R1bGVwYXJhbS5oPgogCiAjaW5jbHVkZSAibXQ3NjAxdS5oIgogI2lu
-Y2x1ZGUgImRtYS5oIgpAQCAtMjEsNiArMjIsMTQgQEAKICNkZWZpbmUgTUNVX0ZXX1VSQl9TSVpF
-CQkJKE1DVV9GV19VUkJfTUFYX1BBWUxPQUQgKyAxMikKICNkZWZpbmUgTUNVX1JFU1BfVVJCX1NJ
-WkUJCTEwMjQKIAorc3RhdGljIGJvb2wgdm5kX3Jlc2V0OworbW9kdWxlX3BhcmFtKHZuZF9yZXNl
-dCwgYm9vbCwgMDY0NCk7CitNT0RVTEVfUEFSTV9ERVNDKHZuZF9yZXNldCwgIlBlcmZvcm0gdmVu
-ZG9yIHJlc2V0IGR1cmluZyBmaXJtd2FyZSB1cGxvYWQgKGRlZmF1bHQ6IGZhbHNlKSIpOworCitz
-dGF0aWMgYm9vbCBkaXNhYmxlX3VzYl9zZzsKK21vZHVsZV9wYXJhbShkaXNhYmxlX3VzYl9zZywg
-Ym9vbCwgMDY0NCk7CitNT0RVTEVfUEFSTV9ERVNDKGRpc2FibGVfdXNiX3NnLCAiVW51c2VkIGNv
-bXBhdGliaWxpdHkgcGFyYW1ldGVyIik7CisKIHN0YXRpYyBpbmxpbmUgaW50IGZpcm13YXJlX3J1
-bm5pbmcoc3RydWN0IG10NzYwMXVfZGV2ICpkZXYpCiB7CiAJcmV0dXJuIG10NzYwMXVfcnIoZGV2
-LCBNVF9NQ1VfQ09NX1JFRzApID09IDE7CkBAIC00NTksOCArNDY4LDEwIEBAIHN0YXRpYyBpbnQg
-bXQ3NjAxdV9sb2FkX2Zpcm13YXJlKHN0cnVjdCBtdDc2MDF1X2RldiAqZGV2KQogCW10NzYwMXVf
-d3IoZGV2LCAweDk0YywgMCk7CiAJbXQ3NjAxdV93cihkZXYsIE1UX0ZDRV9QU0VfQ1RSTCwgMCk7
-CiAKLQltdDc2MDF1X3ZlbmRvcl9yZXNldChkZXYpOwotCW1zbGVlcCg1KTsKKwlpZiAodm5kX3Jl
-c2V0KSB7CisJCW10NzYwMXVfdmVuZG9yX3Jlc2V0KGRldik7CisJCW1zbGVlcCg1KTsKKwl9CiAK
-IAltdDc2MDF1X3dyKGRldiwgMHhhNDQsIDApOwogCW10NzYwMXVfd3IoZGV2LCAweDIzMCwgMHg4
-NDIxMCk7Ci0tCgo=
---0000000000000a3836065ad3d833--
