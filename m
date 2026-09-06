@@ -1,173 +1,148 @@
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from a11-146.smtp-out.amazonses.com (a11-146.smtp-out.amazonses.com [54.240.11.146])
+	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 984F1305E1F
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 03:12:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D931EB1AA
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 03:14:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.240.11.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788664368; cv=none; b=kT5PW1S/rCDj5/Pf+VFYE3KzLuGTTeHBf4FUY9ZYqlDZ8irQfxVfybSDUaWx9cy3B9FDoBisN/0WOI9akcn4/m82HCwM+FMVTd27iGh01OhoVSSbC7SqKwrJBetaXoDC2EOywQVxQqHw0kemBIP0TFVpt0+kkpwkBoF5GnBUXGQ=
+	t=1788664484; cv=none; b=mLTtgTNpu3vRHLdh7r/WlnmSI9EGxCBvq0aeaTio/wTn7CcdQ70uiIVCUn3/VAfk5uM+wLonjryaAF6xdTQM2gFb5PbYoSBWBabjkS6n7LRvfN13xcHaPFJh9N9N5USuc4OCqc0j/nS3+hW+7UbgYB0VjVBMB9WukYU+MNUxslM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788664368; c=relaxed/simple;
-	bh=es2SAREtlwpipJhOBild8lxyo8UddtY/8yaG6OMAt9s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PxKJSwWOoZV19kEUsN5nexIFxXnP9bJFDCq9fxr/3msBYqhhTYagcIBAlXEPROHuviUFjYOVh/1KwwKOPYgDr2N4YFWN68XUwE1weNWi1AVxxtagULGI1qt7pEUrW/VtMaLSp+W4e5sk4jiMPl4wyzoLaHGM3KWhj1p0fwUr9ys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.170])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hcwGK72xczKHMS6
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:11:37 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.112])
-	by mail.maildlp.com (Postfix) with ESMTP id E1FB44056B
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 11:12:35 +0800 (CST)
-Received: from huaweicloud.com (unknown [10.50.85.155])
-	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgBnUAsW2pxqmzytAw--.18069S8;
-	Sun, 06 Sep 2026 11:12:35 +0800 (CST)
-From: Zhou Minqiang <zhouminqiang2@huawei.com>
-To: linux@armlinux.org.uk,
-	vz@mleia.com,
-	piotr.wojtaszczyk@timesys.com,
-	maddy@linux.ibm.com,
-	dwmw2@infradead.org,
-	richard@nod.at
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-mtd@lists.infradead.org,
-	chengzhihao1@huawei.com,
-	yangerkun@huawei.com,
-	yi.zhang@huawei.com,
-	zhouminqiang <zhouminqiang2@huawei.com>
-Subject: [PATCH v4 4/8] jffs2: write verify: add byte-by-byte comparison on mismatch
-Date: Sun,  6 Sep 2026 11:03:40 +0800
-Message-ID: <20260906030344.2448622-5-zhouminqiang2@huawei.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260906030344.2448622-1-zhouminqiang2@huawei.com>
-References: <20260906030344.2448622-1-zhouminqiang2@huawei.com>
+	s=arc-20240116; t=1788664484; c=relaxed/simple;
+	bh=pXOlrsxVn9sFrfQ+wohuB18GfxAbg92rHB0bgKqpf80=;
+	h=From:To:Subject:Message-ID:Date:MIME-Version:Content-Type; b=OcuLkZkJfdesxe1m+qgWvZqJVj2T800NAPVOpVqnRKPhHw7unrWO+5F1DDFyqlXK6SnYxQo+RMB63JpcLZj2tbdbDrC33u0Arzc8Njza1jXJS5cP0Eu5ONX62rhK3o1i2KhLavq36i05AQoQTbvq8r444gOsViEj7OAqJPp3ITQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=willyv3.com; spf=pass smtp.mailfrom=send.willyv3.com; dkim=pass (1024-bit key) header.d=willyv3.com header.i=@willyv3.com header.b=M/eILOId; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=DFPfYh5n; arc=none smtp.client-ip=54.240.11.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=willyv3.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.willyv3.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=willyv3.com header.i=@willyv3.com header.b="M/eILOId";
+	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="DFPfYh5n"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
+	d=willyv3.com; t=1788664482;
+	h=From:To:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
+	bh=pXOlrsxVn9sFrfQ+wohuB18GfxAbg92rHB0bgKqpf80=;
+	b=M/eILOIdN6fpCKX4TPGjgBrGC6Xuurv2oE3NHH32Q53SxyPfXsPNeHlq3eZuPlpA
+	LoMz2ZO8cJdPx3E4YXL4Q+u2SgW7FWv6bUJEwnUelH8+vWQVh1BtqtuWDh8G2Fn4RjL
+	ngZmoY/BMuYEAza5XAkluJpIF+ImWerxaEd3S4jU=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=224i4yxa5dv7c2xz3womw6peuasteono; d=amazonses.com; t=1788664482;
+	h=From:To:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
+	bh=pXOlrsxVn9sFrfQ+wohuB18GfxAbg92rHB0bgKqpf80=;
+	b=DFPfYh5n1P7LYadPq+97Ev76Q1+jle3UwH+HcJa+KhGRl5q/PNfLD4i1R3ltRGz5
+	Kh+eZslDgML/+v7ygByib3ZeqI+x4fd26Vr9s2FCt59ZRGNNHi170ioJFH5ZOZBmsk+
+	14uAl58WcmfP7lhzyT92H4QspH30Q16M2+PnYSz4=
+From: willy@willyv3.com
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
+	simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: only treat a real S3 as a suspend abort on
+ resume
+Message-ID: <010001a074b60857-4cb0239e-c529-4069-ba4e-e347cfe379a4-000000@email.amazonses.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 6 Sep 2026 03:14:41 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:cCh0CgBnUAsW2pxqmzytAw--.18069S8
-X-Coremail-Antispam: 1UD129KBjvJXoWxXFyxtF18ZFykZF4xXF1fWFg_yoW5Cw1kpr
-	say34ayF48Jry7WrsIkFs5C3W3J3y8Gr4xKrW3A34fZa18Z34IgayFqF17ArWFyFZ7X3Wj
-	9FZ0kr1rGFn8tFDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUQ0b4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAV
-	Cq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0
-	rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267
-	AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7Cj
-	xVAFwI0_Cr1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F4
-	0Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC
-	6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxV
-	Aaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l42xK82IY64kExVAvwVAq07x20xyl4I8I
-	3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxV
-	WUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAF
-	wI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2
-	IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_
-	Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxUxF4iUUUUU
-Sender: zhouminqiang@huaweicloud.com
-X-CM-SenderInfo: 52kr3z5lqtxttqj6x35dzhxuhorxvhhfrp/
+Content-Type: text/plain; charset=utf-8
+Feedback-ID: :1.us-east-1.tVoVnBTusQKwEv3FXsafng3gwgTXiveIP8uCFN696SRuTdSqJLPWcLHhZMGYqGEWfSP3N+is2iSOKdmX/9ngsLeiTVoJkakNxJEB+yEN1ZJPtwlO53LLRiFsTHXrFviVUeKFV0/4bko6iGjXsDtchIeimK+HIEYE/SJqJKFonco=:1.us-east-1.pAEstvQcjyhQNKGKcgSlzI7SVR8ZSG5wSmKwiz/A8Dg=:AmazonSES
+X-SES-Outgoing: 2026.09.06-54.240.11.146
 
-From: zhouminqiang <zhouminqiang2@huawei.com>
+From: Willy VanSickle <vansicklewilly@gmail.com>
+Subject: [PATCH] =
+drm/amdgpu: only treat a real S3 as a suspend abort on resume
 
-jffs2_verify_write() uses memcmp() to compare the write buffer
-against data read back from flash. On mismatch, the current code
-dumps the entire source and read-back data, which will become
-impractical once the verify path is extended to NOR flash where
-a single write can span PAGE_SIZE.
+soc15_need_reset_on_resume() resets the ASIC when
+`adev->in_s3 && !=
+pm_resume_via_firmware()`, to recover from an aborted
+S3 suspend. Since commit 38e8ca3e4b6d ("amdgpu/soc15: enable asic
+reset for dGPU in case of suspend abort") this applies to dGPUs as
+well.
 
-Add a byte-by-byte comparison after the memcmp() mismatch path
-to locate the exact mismatch offset, reporting the first
-differing offset and dumping up to 128 bytes of both the source
-and read-back data. memcmp() remains on the hotpath for
-successful writes, and the byte-by-byte loop only runs when an
-error is actually detected.
+Two things make that check fire on every suspend-to-idle resume of a
+dGPU, not just on aborts:
 
-Signed-off-by: zhouminqiang <zhouminqiang2@huawei.com>
+ - amdgpu_acpi_is_s3_active() returns true for =
+any non-APU regardless
+   of the sleep state actually used, so in_s3 is set=
+ on s2idle too.
+ - pm_resume_via_firmware() is only true when platform =
+firmware
+   resumed the system (ACPI S3). s2idle never sets it.
+
+So on an s2idle platform every dGPU resume is misread as an S3 abort
+and gets a mode1 reset it did not need. On most parts the spurious
+reset is survivable. On a MacBookPro15,3 (Radeon Pro Vega 20, PSP
+v11) the PSP goes into suspend with a failed TA unload and the mode1
+issued on that state leaves the bootloader unresponsive:
+
+  amdgpu 0000:03:00.0: S3 suspend abort case, let's reset ASIC.
+  amdgpu 0000:03:00.0: [drm] psp mode1 reset succeed
+  amdgpu 0000:03:00.0: PSP is resuming...
+  amdgpu 0000:03:00.0: psp reg =
+(0x16063) wait timed out, mask: 80000000,
+    read: 0 exp: 80000000
+  amdgpu 0000:03:00.0: PSP load sys drv failed!
+  amdgpu 0000:03:00.0: =
+resume of IP block <psp> failed -62
+
+The check was introduced by commit =
+58a8c756fc4c ("drm/amdgpu: correct the
+S3 abort check condition") for APUs,=
+ on the basis that the PM core sets
+PM_SUSPEND_FLAG_FW_RESUME when a real =
+S3 completes, so its absence on
+resume means the S3 was aborted. That holds=
+ for S3. It does not hold
+for s2idle, where firmware is never involved, and=
+ commit 38e8ca3e4b6d
+("amdgpu/soc15: enable asic reset for dGPU in case of =
+suspend abort")
+dropped the APU gate without adding a check on the sleep =
+state.
+
+The driver already caches the sleep state it suspended with in
+adev->last_suspend_state. Use it: only a suspend whose target was
+PM_SUSPEND_MEM and which firmware did not resume can be an S3 abort.
+
+With this the Vega 20 resumes cleanly from s2idle (PSP up, all rings
+back) on 7.2.2 + t2linux patches; without it every resume fails as
+above.
+
+Fixes: 38e8ca3e4b6d ("amdgpu/soc15: enable asic reset for dGPU in case of =
+suspend abort")
+Signed-off-by: Willy VanSickle <vansicklewilly@gmail.com>
 ---
- fs/jffs2/wbuf.c | 46 ++++++++++++++++++++++++++++------------------
- 1 file changed, 28 insertions(+), 18 deletions(-)
+Tested on a MacBookPro15,3 (Radeon Pro Vega 20, PSP v11) running 7.2.2
+with the t2linux patch set, s2idle only. Verified twice: without the gate
+every resume fails with psp -62; with it the PSP and all rings come back.
 
-diff --git a/fs/jffs2/wbuf.c b/fs/jffs2/wbuf.c
-index 7e52241de457..b2ce642e9bc5 100644
---- a/fs/jffs2/wbuf.c
-+++ b/fs/jffs2/wbuf.c
-@@ -231,7 +231,7 @@ static int jffs2_verify_write(struct jffs2_sb_info *c, unsigned char *buf,
- 			      uint32_t ofs)
- {
- 	int ret;
--	size_t retlen;
-+	size_t retlen, i;
- 	char *eccstr;
- 	void *verify_buf;
- 
-@@ -246,10 +246,10 @@ static int jffs2_verify_write(struct jffs2_sb_info *c, unsigned char *buf,
- 
- 	if (ret && ret != -EUCLEAN && ret != -EBADMSG) {
- 		pr_warn("%s(): Read back of page at %08x failed: %d\n",
--			__func__, c->wbuf_ofs, ret);
-+			__func__, ofs, ret);
- 		goto out_free;
- 	} else if (retlen != c->wbuf_pagesize) {
--		pr_warn("%s(): Read back of page at %08x gave short read: %zd not %d\n",
-+		pr_warn("%s(): Read back of page at %08x gave short read: %zu not %d\n",
- 			__func__, ofs, retlen, c->wbuf_pagesize);
- 		ret = -EIO;
- 		goto out_free;
-@@ -259,24 +259,34 @@ static int jffs2_verify_write(struct jffs2_sb_info *c, unsigned char *buf,
- 		goto out_free;
- 	}
- 
--	if (ret == -EUCLEAN)
--		eccstr = "corrected";
--	else if (ret == -EBADMSG)
--		eccstr = "correction failed";
--	else
--		eccstr = "OK or unused";
-+	for (i = 0; i < c->wbuf_pagesize; i++) {
-+		uint8_t c1 = ((uint8_t *)buf)[i];
-+		uint8_t c2 = ((uint8_t *)verify_buf)[i];
-+		int dump_len;
- 
--	pr_warn("Write verify error (ECC %s) at %08x. Wrote:\n",
--		eccstr, c->wbuf_ofs);
--	print_hex_dump(KERN_WARNING, "", DUMP_PREFIX_OFFSET, 16, 1,
--		       c->wbuf, c->wbuf_pagesize, 0);
-+		if (c1 == c2)
-+			continue;
- 
--	pr_warn("Read back:\n");
--	print_hex_dump(KERN_WARNING, "", DUMP_PREFIX_OFFSET, 16, 1,
--		       verify_buf, c->wbuf_pagesize, 0);
-+		if (ret == -EUCLEAN)
-+			eccstr = "corrected";
-+		else if (ret == -EBADMSG)
-+			eccstr = "correction failed";
-+		else
-+			eccstr = "OK or unused";
- 
--	kfree(verify_buf);
--	return -EIO;
-+		dump_len = min_t(int, 128, c->wbuf_pagesize - i);
-+		pr_warn("Write verify error (ECC %s) at %08x (+%zu/%d). Wrote:\n",
-+			eccstr, ofs, i, c->wbuf_pagesize);
-+		print_hex_dump(KERN_WARNING, "", DUMP_PREFIX_OFFSET, 16, 1,
-+			       buf + i, dump_len, 0);
-+
-+		pr_warn("Read back:\n");
-+		print_hex_dump(KERN_WARNING, "", DUMP_PREFIX_OFFSET, 16, 1,
-+			       verify_buf + i, dump_len, 0);
-+
-+		ret = -EIO;
-+		goto out_free;
-+	}
- 
- out_free:
- 	kfree(verify_buf);
--- 
-2.52.0
+ drivers/gpu/drm/amd/amdgpu/soc15.c | 7 ++++++-
+ 1 file changed, 6 =
+insertions(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15=
+.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+--- a/drivers/gpu/drm/amd/amdgpu/so=
+c15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -591,7 +591,12 @@
+ 	 * 1) S3 suspend aborted in the normal S3 suspend
+ 	 * 2) S3 suspend aborted in performing pm core test.
+ 	 */
+-	if (adev->in_s3 && !pm_resume_via_firmware())
++	/* Only a real S3 (mem) =
+that firmware did not resume is an abort.
++	 * s2idle never resumes via =
+firmware, so without this gate every
++	 * s2idle resume of a dGPU is =
+misread as an abort and mode1-reset.
++	 */
++	if (adev->in_s3 && !=
+pm_resume_via_firmware() &&
++	    adev->last_suspend_state =3D=3D =
+PM_SUSPEND_MEM)
+ 		return true;
+ 	else
+ 		return false;
