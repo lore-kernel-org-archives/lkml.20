@@ -1,65 +1,67 @@
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 674392F9C37
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 16:06:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E78F3B2FCD
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 16:06:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788710808; cv=none; b=bDZw33QT8na9ejxkE92LPaYwKmRZE1axkhSnOhKCfMth/5wxjLNtyYK2Zc5PElRiVZcM8dGlVcCskW6CLCh24PSLMQFod8uzOu7CslBYdGX8J1tCBCh94KSIHLUl2kBGGPPDReMg3jYIIzf34Qp+O4ibekhUPfX6rzlAGlU23io=
+	t=1788710810; cv=none; b=DhCRcPDKhcUrMWZ5gae6naRvWZsFJMmp0L+wPsgOrt+MQ35OYcL5JsvYmHCSwhQaST5RR5UkGzT+U6oi38cMBKcmqu7Dopynbms9VW2MD48slK7OxIufdRY59rKOneTvla1f/5In/sUKP2+hbDUw4pHOhWtIbbqk4+Iv/8tjKEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788710808; c=relaxed/simple;
-	bh=jnZDT8Sv4Cj1A5f61+G4HgmBdnITr/OETP9KlUhlXV0=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=AH6yQynMnzEWUZ01vwGKyQslNHwsY8i3kwXHNY+lDYC5f/eBbqdcceLdWyI61+b79XSnF8HHJf2lyYfGpP2oL5PF1ir78aP46bpUXHU6numTZWJRxr6yD1WWGmnYNJt7csVXMC+vKsaO3JAIZmE8BroksPzjPw58dLb4tfuBURI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qhm8MoOU; arc=none smtp.client-ip=209.85.128.169
+	s=arc-20240116; t=1788710810; c=relaxed/simple;
+	bh=8CvFHtfn4Ljqx5Fa6L2b6SNfX914djxML7DsfBsaOO4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=FfpD9v7ZN1xrMZHMS9rK1MNz0k3f5esLfzAA90x2WppUESls5gUo3MLb8YtHSnVbomi/Dg95I3HpMM4B/stUpgyaJusXJJTSLUjDmRzq2J2cZnc6JfeCdezlb9lCNaW4qOLmKFoH/H2oZB6EKc3bLJhUkwy9P1XC1+mJPefaCpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b0UdnlA1; arc=none smtp.client-ip=209.85.128.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qhm8MoOU"
-Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-86e7f44b773so28831317b3.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 09:06:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b0UdnlA1"
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-855c26cf490so18205127b3.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 09:06:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788710805; x=1789315605; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=wSFdM2TEvYurq7tSF4Gk6z6k0v1njEuK783Dp9gtcPA=;
-        b=qhm8MoOU6224BW8Lh5oqJ27Goal5D3Z6xwXQEVuM4keSQbsohCllNIf8Q6SybzIFdE
-         5Bdez5PpMvqStxRPyE8wVSmvvgIMyxGfUOjQrpmHfZrx0rQ/xk0UJ9EZAkocq+D7fXEN
-         Dc/QU17+Acp71/Hg2o6O8pIFhIskb+Mtgf6pj9JojOL3x2hUY/9R2+3MEhekgPVmO+Ct
-         IWE3byr46Gr1BHp+NvF6QYT4Xoar+bciRgQto9qEsgy9BZUyHUtKOJ72PcZXqI2ZgRqC
-         8FfcaXUCnMOrt9OukN9J2213RgBRNs5z/JuLJG7ZeBp+O+7QiNI1gJXMmSJDdlurRLU0
-         XUsQ==
+        d=gmail.com; s=20251104; t=1788710808; x=1789315608; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=e9O0Uei0AmYGxnrMfKSWfJBNUDOym4vtr5Ws3/LSEZc=;
+        b=b0UdnlA1i7u62AydPIu0wrFzSJ7OQ1+MOC4b8vkYeQHj7QEuOQI4qjmNsOZskPCU8N
+         4/J7362MkX3tAq3VhcIepPS3k505WQSp7ysUOcsUl9T/roFFpWFNb1Aeoik856h1NcHr
+         yXcL6aC9f7x/PboOkIAIiWtdha2yOMxIUS0/PLjN7nsZLk+wj6X9qY6XuZy3JDVJNB8a
+         iUldX89wE4teHR92KdtchdD6Unk9fv8XScEdOJ55bNrrOWLuqG6DmjCKrllbOABkLrA/
+         +mSmEkYaUuMnp8jUtr5IMInv1Q6/hwvOsZo7yhXnKxGSmtERJbL7qgUoyvWaS0fUVyHT
+         dHlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788710805; x=1789315605;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=wSFdM2TEvYurq7tSF4Gk6z6k0v1njEuK783Dp9gtcPA=;
-        b=P30QZHZ8jfyWjclH9BL6JMRUe3Zfv0DuUYWzJxwHMD0c2INH7Lkjlk2dIymGeujinR
-         YcXdg7HWNrypgR9agBWekAUuXv7ySH85IEVql0kj9eFf3y66bF3CNcGL1LML7d0Q88AE
-         6+S1nJgopIZS9COgFNAojv052gg4fu3gWqbJLsmkhmnKpT0iAGU7nAk8kRrYwV/xzYDv
-         hLnr9Gs5tXsboXrGhceC1GQRo0qu2NOCmASeky6WOCjdBUcaooJ7LTuqvdGIctYA2q97
-         KdvK8wDDoj5iBv/0xlkDb0yZxZrhC20py6YjhwGH9z1jSQy+LAmEQk87v9UeO59YpK1e
-         /Fkw==
-X-Gm-Message-State: AFuF++nlZjeUm00YEORI9pw/lRhedn97N58FEKjisHO8N4r5lhEro2OG
-	c8rpeY04GS4m8lg5QwU0in+sGPVLrLNt2KEzv5/ZzzDn1z8nE4taRiIV
-X-Gm-Gg: AYBFou2KSgI3RDaA1/RC4U2ei89zuV+KLH6N82C43gwtmiVLyNwXGw45hH6DBaBZFUa
-	ZcD/t8LEsO/Uc+E+sNLkgtTFNZ2jO2VGks9ihegzntA/k0ZzIOiVegkP6O30Eu2t63SOpgxh0PL
-	jw/6Ne4qIWflJve7k/nJjF/JeHg+NXrLjIEiqO8KnBcKyIB7Ei1dN+ri8zm5WJmhVe/j2mxJMEF
-	isITeL6YnEHOWXebUU3tppzLXJAx5NZIQ28zjeZ/G3QY8HymHpyFFlPkYLPGgun9AeaE3vlI7HF
-	Oi48woM3EmVFuDk93wgkmnCFHJ6EDmh///Lfumo5FkKENOR82GKNWzpr0250M8/3loue3J9hdEJ
-	nQuDB2N5ETu1oEgnAu4JpoN+XlGYitV3COXVrX2lPN7Oj+Ba22QsRAgKU7xxTywnCdJhigYDAMJ
-	KOFXBlv+x+m0iLbvsfCK9hz6M70PRckc+l9nOwNUaUEyg+5yYgpgbYk0K0lXHizA==
-X-Received: by 2002:a05:690c:5:b0:873:5ddf:d85c with SMTP id 00721157ae682-8735ddfda02mr35034637b3.39.1788710804269;
-        Sun, 06 Sep 2026 09:06:44 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788710808; x=1789315608;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=e9O0Uei0AmYGxnrMfKSWfJBNUDOym4vtr5Ws3/LSEZc=;
+        b=A9OrGukdSRVe+NOVf7weYckpPd8HyWtofR1xH4QHyVdq4252+T8SjwxDHXNuy2//IY
+         knlBgxSFBHjM99RHpC4X8X+k7Se5h2euO/l8ea050di5X1JhCun1so0t8V3Vqemg7Pbf
+         xktdFvSyHRlKWci/ziSe1TN1y4Jp/PH2CpjV+/gZvkv0gC4mubMcoonUPL+bR6NCPXe+
+         4UxTT2rQcfis0aU3Z9rA3kzdqR3M4TXN9HEaAgY4auaQww25FE2Us/am2yVp1dWv17k8
+         PgoACtjbRRB747julgq7nXtQ7EUOIKdgKjVxJouTOWRaD/tJlmjY0hyRjvr4diKG8F0D
+         lThw==
+X-Gm-Message-State: AFuF++mJ50Q96kEtWLzFzguu/eIbB3l4ZR4LpoaCSDkFyy/gqdzDLF9k
+	mAJzUf7jO8JimKzh87SHjBGQLYUd5CZkGwi+Y0R4MD+shL0A7ln/4dOO
+X-Gm-Gg: AYBFou0uZuhCao3vZyZMJnT02WfpU+Y6IeiEUoObGhonG/So1U7eTC8SNOxXvBrvbQb
+	W/dTG0yQAQxGpRYQiZGJveIePNonhyNK25TpVcVDG7PlKp5GpurYNY++0Us0lgSFZVDe9jRqYDl
+	T/Dx4K98tgnk99UMfbk8OnG3j3lbiLlDWtuw2zQyK0HPnt+OY/KmMsuDrrjW9HRzzMGKkIHI1JI
+	wKCp8cN208QpT1zyP7HPK3R6S+AIrzAR+pEV0UDgBfElZgb2/JkNEad4Tdr7XFNnaBgy1Y6Xu5+
+	WY8L7pdJGXvQUENI78HAoG+NQxieIWMv3iHuAkCKK5O6A66yI3dNU23iRJSHj6wO0mnmAsvty+i
+	KI1WDu8+VMWDRazw/FFYIqVXvzp81O8TsTdYDTyv6HhKJ44lCmV5I6gta64AvVQMz2B5CB74f2M
+	S5Y8jYIrNOhsUW88RTq8BF2cml0U9/QV0jV3Iwi3eChe63jBgaKDlapETdhHIv
+X-Received: by 2002:a05:690c:c6d0:b0:873:5ddf:d874 with SMTP id 00721157ae682-8735ddfda9emr27184317b3.63.1788710807793;
+        Sun, 06 Sep 2026 09:06:47 -0700 (PDT)
 Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8714b62503dsm57819517b3.38.2026.09.06.09.06.43
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8714c0e5c6fsm57754457b3.48.2026.09.06.09.06.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 09:06:43 -0700 (PDT)
+        Sun, 06 Sep 2026 09:06:46 -0700 (PDT)
 From: Matt Turner <mattst88@gmail.com>
-Subject: [PATCH v3 0/2] perf tools: port UI from GTK2 to GTK4
-Date: Sun, 06 Sep 2026 12:06:41 -0400
-Message-Id: <20260906-perf-gtk2-v3-0-e1f2086214a0@gmail.com>
+Date: Sun, 06 Sep 2026 12:06:43 -0400
+Subject: [PATCH v3 2/2] perf tools: make the GTK4 report browser actually
+ loadable at runtime
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -68,11 +70,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WMwQ6CMBAFf4Xs2ZqypVU8+R/GQylbaBRKWtJoC
- P9u4eRBj/PyZhaIFBxFuBQLBEouOj9mEIcCTK/HjphrMwNyVLzmik0ULOvmBzIppdG8aholEfJ
- /CmTda2/d7pl7F2cf3ns6ldv6q5JKxtlJqqqxZ4lC19du0O55NH6ArZLwr4nZFGSMtVwK05bf5
- rquH94gwZ/cAAAA
-X-Change-ID: 20260906-perf-gtk2-555ca04bb652
+Message-Id: <20260906-perf-gtk2-v3-2-e1f2086214a0@gmail.com>
+References: <20260906-perf-gtk2-v3-0-e1f2086214a0@gmail.com>
+In-Reply-To: <20260906-perf-gtk2-v3-0-e1f2086214a0@gmail.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
  Arnaldo Carvalho de Melo <acme@kernel.org>, 
  Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
@@ -83,81 +83,114 @@ To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
 Cc: linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
  bpf@vger.kernel.org, Matt Turner <mattst88@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3276; i=mattst88@gmail.com;
- h=from:subject:message-id; bh=jnZDT8Sv4Cj1A5f61+G4HgmBdnITr/OETP9KlUhlXV0=;
- b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLLm9k86sCNzyf/XgRu3LrN2/vbnzGkXdb/Cb1+SfRKXn
- glYYuu4u+MjC4MYF8NMMUWWuPWKLLPadiz1OS39C2YOKxPIEGmRBgYgYGHgy03MKzXSMdIz1TbU
- MwQydIziIXJ6DBqZxcWlqUW6aQVFDnn5JYklmfl5xXr5Bal5BekFemmZaSUZGflFxalAI/TyUkt
- MXR3djAwNTCwdLcycLBxNTZydnQyd3BwdnV2djCzNTQycLR1NXC3NGbg4BWCu6ZvNyLD+Xk04Y9
- j95hfb7mcw/WdtMvnUcjl3ge4Z4buGHjlnRe4yMkwq4OrNlu8+0m62/FJO6cYlvK1rTR5mKaRcY
- NRtWMOsxAcA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4031; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=8CvFHtfn4Ljqx5Fa6L2b6SNfX914djxML7DsfBsaOO4=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLLm9k/yW8VW37RnaZlKRnHbITP5s2v2nnm7ql7eOethZ
+ dhltutWHR9ZGMS4GGaKKbLErVdkmdW2Y6nPaelfMHNYmUCGSIs0MAABCwNfbmJeqZGOkZ6ptqGe
+ IZChYxQPkdNj0MgsLi5NLdJNKyhyyMsvSSzJzM8r1ssvSM0rSC/QS8tMK8nIyC8qTgUaoZeXWmL
+ q6uhmZGhgYuloYeZk4Whq4uzsZOjk5ujo7OpkZGluYuBs6WjiamnOwMUpAHNN7gJGhjsnLzlPyx
+ Th/Pj/d/iZlcYmjDuKJc9M9Hwg82XxtntvH+Uz/LO91Ln8gHbGx1X9O/J9mXf901h+xpvby09g2
+ vGm3Bf6lYwA
 X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
  fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-GTK2 is long dead upstream and increasingly hard to keep building on
-current distros. This series ports perf's GTK-based report browser to
-GTK4 and fixes it up so it's actually loadable at runtime after the
-port.
+perf report --gtk dlopen()s libperf-gtk.so and expects it to resolve
+symbols back against the running perf binary (callchain_param,
+symbol_conf, evsel__name, and friends all live in perf itself, not in
+the plugin). Two things stood in the way of that after the GTK 2 to GTK
+4 port:
 
-Patch 1 does the mechanical port (build system, widget API changes).
-Patch 2 fixes a runtime issue found after the port that prevented the
-browser from loading.
+perf never passed -rdynamic, so none of its own symbols were in its
+dynamic symbol table for a dlopen()ed plugin to find at all. Add
+-rdynamic to LDFLAGS when GTK4 support is enabled.
+
+annotated_source__hist_entry() was a static inline in annotate.h, so
+ui/gtk/annotate.c calling it pulled hashmap__find()'s expansion,
+hashmap_find(), directly into libperf-gtk.so as an undefined symbol. The
+only hashmap_find perf links against in the common case is libbpf's
+internal one (tools/lib/bpf/hashmap.c), which libbpf compiles with
+-fvisibility=hidden; a hidden symbol can never be exported to a
+dlopen()ed plugin no matter what LDFLAGS perf itself gets. Move
+annotated_source__hist_entry() out of the header and into annotate.c, as
+an ordinary exported function, so the plugin depends on it the same way
+it already depends on evsel__group_desc() and friends, instead of
+reaching for hashmap_find directly.
+
+With both fixes, a default 'make GTK4=1' build (libbpf statically
+linked, as usual) can dlopen() libperf-gtk.so and open the report
+browser without needing NO_LIBBPF=1 or manual LDFLAGS. Verified with
+perf report --gtk against a real perf.data on an actual GTK4 desktop
+session.
 
 Signed-off-by: Matt Turner <mattst88@gmail.com>
 ---
-Changes in v3:
-- Fix GMainLoop leak if perf_gtk__error() is called re-entrantly: track
-  active loops in a list instead of a single global pointer
-- Add explicit <stdarg.h>/<stdio.h> includes instead of relying on
-  transitive inclusion, which musl doesn't guarantee
-- Drop the gtk4-infobar feature check and HAVE_GTK_INFO_BAR_SUPPORT:
-  GtkInfoBar has been unconditionally available since well before GTK 4,
-  and the check was failing outright due to its deprecation warning
-- Link to v2: https://lore.kernel.org/r/20260906-perf-gtk2-v2-0-3eccff053cd1@gmail.com
+ tools/perf/Makefile.config |  5 +++++
+ tools/perf/util/annotate.c | 11 +++++++++++
+ tools/perf/util/annotate.h | 12 ++----------
+ 3 files changed, 18 insertions(+), 10 deletions(-)
 
-Changes in v2:
-- Fix error dialog's nested GMainLoop hanging if the parent window
-  closes or a signal arrives while the dialog is open (quit from
-  "destroy", not just "response")
-- Fix build with GTK_INFO_BAR_SUPPORT: gtk_info_bar_get_content_area()
-  is gone in GTK 4, use gtk_info_bar_add_child() instead
-- Fix use-after-free in the progress dialog on manual close
-- Fix reuse of an exhausted va_list in the vasprintf() failure path
-- Link to v1: https://lore.kernel.org/r/20260906-perf-gtk2-v1-0-7564bf8523a9@gmail.com
+diff --git a/tools/perf/Makefile.config b/tools/perf/Makefile.config
+index 3e59e2b7eaec..4ee7393a39f9 100644
+--- a/tools/perf/Makefile.config
++++ b/tools/perf/Makefile.config
+@@ -785,6 +785,11 @@ ifdef GTK4
+     GTK_CFLAGS += $(shell $(PKG_CONFIG) --cflags gtk4 2>/dev/null)
+     GTK_LIBS := $(shell $(PKG_CONFIG) --libs gtk4 2>/dev/null)
+     EXTLIBS += -ldl
++    # libperf-gtk.so is dlopen()ed at runtime and calls back into
++    # symbols defined in the perf binary itself (callchain_param,
++    # symbol_conf, evsel__name, ...): perf needs to export those
++    # dynamically for the plugin to resolve them.
++    LDFLAGS += -rdynamic
+   endif
+ endif
+ 
+diff --git a/tools/perf/util/annotate.c b/tools/perf/util/annotate.c
+index df70e95a8470..123b6d5fcea7 100644
+--- a/tools/perf/util/annotate.c
++++ b/tools/perf/util/annotate.c
+@@ -145,6 +145,17 @@ static int annotated_source__alloc_histograms(struct annotated_source *src,
+ 	return src->histograms ? 0 : -1;
+ }
+ 
++struct sym_hist_entry *
++annotated_source__hist_entry(struct annotated_source *src, const struct evsel *evsel, u64 offset)
++{
++	struct sym_hist_entry *entry;
++	long key = offset << 16 | evsel->core.idx;
++
++	if (!hashmap__find(src->samples, key, &entry))
++		return NULL;
++	return entry;
++}
++
+ void symbol__annotate_zero_histograms(struct symbol *sym)
+ {
+ 	struct annotation *notes = symbol__annotation(sym);
+diff --git a/tools/perf/util/annotate.h b/tools/perf/util/annotate.h
+index fa08d09b80f7..40038a3779d4 100644
+--- a/tools/perf/util/annotate.h
++++ b/tools/perf/util/annotate.h
+@@ -406,16 +406,8 @@ static inline struct sym_hist *annotation__histogram(struct annotation *notes,
+ 	return annotated_source__histogram(notes->src, evsel);
+ }
+ 
+-static inline struct sym_hist_entry *
+-annotated_source__hist_entry(struct annotated_source *src, const struct evsel *evsel, u64 offset)
+-{
+-	struct sym_hist_entry *entry;
+-	long key = offset << 16 | evsel->core.idx;
+-
+-	if (!hashmap__find(src->samples, key, &entry))
+-		return NULL;
+-	return entry;
+-}
++struct sym_hist_entry *
++annotated_source__hist_entry(struct annotated_source *src, const struct evsel *evsel, u64 offset);
+ 
+ static inline struct annotation *symbol__annotation(struct symbol *sym)
+ {
 
----
-Matt Turner (2):
-      tools: port perf ui from GTK 2 to GTK 4
-      perf tools: make the GTK4 report browser actually loadable at runtime
-
- tools/build/Makefile.feature                     |  4 +-
- tools/build/feature/Makefile                     | 10 +--
- tools/build/feature/test-gtk2-infobar.c          | 12 ---
- tools/build/feature/{test-gtk2.c => test-gtk4.c} |  4 +-
- tools/perf/Documentation/perf-report.txt         |  2 +-
- tools/perf/Makefile                              |  2 +-
- tools/perf/Makefile.config                       | 27 +++----
- tools/perf/Makefile.perf                         |  6 +-
- tools/perf/builtin-annotate.c                    |  8 +-
- tools/perf/builtin-report.c                      |  8 +-
- tools/perf/scripts/install-build-deps.sh         |  4 +-
- tools/perf/tests/make                            |  4 +-
- tools/perf/ui/gtk/annotate.c                     | 27 +++----
- tools/perf/ui/gtk/browser.c                      | 56 ++++++++++----
- tools/perf/ui/gtk/gtk.h                          | 13 +---
- tools/perf/ui/gtk/hists.c                        | 33 +++-----
- tools/perf/ui/gtk/progress.c                     | 40 +++++++---
- tools/perf/ui/gtk/setup.c                        |  5 +-
- tools/perf/ui/gtk/util.c                         | 95 ++++++++++++++----------
- tools/perf/ui/setup.c                            |  2 +-
- tools/perf/util/annotate.c                       | 11 +++
- tools/perf/util/annotate.h                       | 12 +--
- 22 files changed, 208 insertions(+), 177 deletions(-)
----
-base-commit: 9f0346dcbea363787186c94ef94dd01aaa215afa
-change-id: 20260906-perf-gtk2-555ca04bb652
-
-Best regards,
 -- 
-Matt Turner <mattst88@gmail.com>
+2.54.0
 
