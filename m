@@ -1,135 +1,104 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CCF2309F08
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 16:29:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788712186; cv=pass; b=UoodScO7nKSgrB75GXMqsnyPjAUleK6Zso7Bj/5NCjdNKaMlDoh8EJTIWXb1ME34wTr2Kqe2unsZMeP9naackfzlmatBSeJX8PaffZoBGrZN1rPVX+4VEm0LN3nzozlx74Vx6NToSfT9qHYFZqfcxUD4/ORvR+L2ESKxBGFdsuI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788712186; c=relaxed/simple;
-	bh=xsSKiOspqG/+MtQ6W1neljIxJh5ynRg01+19OLjolSs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PxTKHJ2EHTY7hmlDe4/YIuua78V4NL+3xJWwhei/HJ7cy2jrQwGyauzW/6iHwTS/yZmWs7bR5uQP9xmPKo/MxV5tSBVuH9LQiMyAFbN10VyRye4dStl7FOjVCCpUZPqlmFY0VI2dHyIHnk9ORsNBCIFtdUr1qfTFqDJhIeGz9Ao=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GWePuTp4; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A9E6367B92
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 16:32:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788712369; cv=none; b=bwhLIHukCCXUvABK4SMgGVT8I8lg848TXrINM/rAU8vH7+zC3lxAy5X9OxM9a2YWzNhiuoiR4HrDXWVw2/6meCWIR0Kq8q6QuegNLw1tZCwE8ai5ncN26Q4Eeir9fG4yKNzZ0/o0kCiaILDKdmjdTPJew7UMTepdCA3nySAUROY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788712369; c=relaxed/simple;
+	bh=VC9CS50hEkPgNN2KRwyNAMzImJHMiYhWfiuDpnpliw4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IThogdINeCbbBL2ZEVzHZ2c7Ey6eWKOaQlFuhLggX2dpvhNgha0ON+SLpPua/89Z/i6ACm7rEVQWxjqWNsYkC8xtWUwbFOnq65Ix2rUztlaroZ720E/DL2r+xu9lK8FX/ViTuqQpw03s1ikzc+c2MzkqpwUkxYoWRHisNX7/sRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qaRAjTK8; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GWePuTp4"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6141a61c0so5710a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 09:29:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788712183; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XydiLWnfytalfUt2LuK1QpK5t8VFdWF7TXZ9FFjTBxcGsaulYwMXsUkuG0tQJRGOGd
-         mk3uZMJqpk0oqziAv9JgTGrPGrTpUPlvcMm5F7DksMmvZa2k6jB32jJJOnGzWUjyBXO4
-         nv3HpTdwSSnwxUDAEcntXXSCD3iftSinirM3jHlT7QZnSj7klmgqzi8DtKVkz1ybw1wL
-         weby9aCw448SeJI20QHdmeHls7ZIZvb3V9uVUsAMDXqLMS5c17+u0BKEXM6zvQ3UpQNs
-         Dp1Fhte4a9UpQ60HZ4P3mT7rX3Dv7I6DFIVPqbUWAnDYDkJxYVG2Ih99k7kwv84BVCmV
-         3t2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Um0Pe18GpPgK3b7kgderSLxwrHj3TqfaAiHEwFEfg9w=;
-        fh=MmVjcKVQJR9L7J6W4bdAvFZusMoW1ZO6wlx8lPatpF4=;
-        b=WqntsH8ia1k1ebTHgdOPwhtkwUS5GjpF4FdsvdpXY03afGxgIwFbbssErQyZyyFNlO
-         ybQO4zox15nuh1lyzD19vOQlTK65GUxlBCbE7B8y+hM1gmmAf+57Do0N3gx09KDdE/+m
-         mBwLFnn9Clv9g96hoFk2ogyLVeX50lRTDOwaAmVu/HrKpjRJuj0nB+vKjX6yMq6hE25/
-         BRk0kofoSFriIxTDttyM/2szKSUvLner1++Pcnq3R0wOEzTtpUhjrUUEVB6WG4rHplhj
-         FEc2D/xEG4Gcl5GKiyXSP+B6AlWnJ0oc9vlclVlpVVU7Tpn6ZM2axFmFTV+nVK0YXAym
-         RcFA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qaRAjTK8"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49ccfae359fso23361515e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 09:32:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788712183; x=1789316983; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788712364; x=1789317164; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Um0Pe18GpPgK3b7kgderSLxwrHj3TqfaAiHEwFEfg9w=;
-        b=GWePuTp4DyHrmoN8RLCVlXAjiCAR/3l1vV/63TROXgeraA2vNAIlYSw/TaijwUXHok
-         81FwDN/HrJCCReCymBaJGEuJNS09kC1iOyQpuOTXgoPfVUODPsOIMxPTXKFsbMl/C3JM
-         AO1X34qSdgEz6IepWDXHn6AejkbWcAAz57CENDd7x0AYjxtZDHu928woYrHYxpnpwru2
-         X66QUawfG0NBVnHgzgTPAHSFK2ypFht9ikySCIHD3Xw4t1y8z3T+wqP/rsppziWJWHtE
-         3GnyF3bknUmgvqsg1KTL426+BFOdQo+J3OtVW2yAMVHZ7GPMIOg/jd0Nfd8jx3p2MP7c
-         xnJA==
+        bh=oSMRVQ2ffl+GqdtcpJsergu6EJ70aiuLEE/q2zryERM=;
+        b=qaRAjTK8Gl9qdB2NOyEyV9nOSsFGJeUA9eZ/2aZ06snn8uHZ+JTqqP9KEYdvEetq1K
+         ks2p/PxsJ0P7cY9wOJq77cghACviGLg4vtBEGYnzkS3OuZi6yt7teb2zLbsqJdulZxNC
+         n97SiAFduflUhXxPDIZTzC1Z7iPU9mrsrpsQXPKhsLsmb86Z3m0uXq0CSJpGx+fopu9S
+         wvAvdt+SqsWW/l/T18gMcN0qwQKxdqdAJa8b2lmVAb1KJ/N3sH2mkkJPz75lUMmtVIqZ
+         51NmQjr+VBfU+mOPsSOiK9uFBE+XNwkOmKhBA2PRBAmFVSG3sgAyDrPlz/DprkqsF7bu
+         V0SQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788712183; x=1789316983;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788712364; x=1789317164;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Um0Pe18GpPgK3b7kgderSLxwrHj3TqfaAiHEwFEfg9w=;
-        b=lj7ledryD/NK9dTHD21LGL8fWHEVYwdEFAz5G0k8DonVb9S33t7Ux9ENP/qCoL36OC
-         dc0DzRI8JA5NXIlxeD/4WAYz4jg0n+rlgMj9id26eU+tExlH9Ozo3ZJ4t+2Y8RfxYFwj
-         tHnr+ZnhpQOkPl9TsfPB/WYSwDB5CDjjg/4XNKy7VkKX8EnA1aYH4QxKD4YMgFZNnsDC
-         XkLBSIkAqj7oaYNP3xNBmllmLhKqQoY4Z1D6LkrmpadR77NG8I5HbdUQAWGW1cvsD/0H
-         TlIOe8ukLmwkHg/bc+f3wEYQRknwETw+odY6TxBWN/qcfGGchsFRSShlZorkTYuPokQ8
-         VSGw==
-X-Forwarded-Encrypted: i=1; AKwUvBwk+ZOb9WzU+Rxk5qllJyg9vAbdEfh9tj9cyDx5wEdLsmDQDcy211BDtOcTVJN9fYoruYGCp6CThF0HyQ8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kX1YXayaz5sLomigxH/i9gnbp7wuZc81yjlrJAxHK2KFWBV/Yj
-	t28ofjXSNM1BIlDwYnp6PR8X7FKgpVjUCh9WVR5uWtU/F4Yc3wOe1fp39AVf8XzqfusU6fnclFC
-	7TWG60T0askt4OKAwtfpIZ0g558Ouse2SwoDKExt1
-X-Gm-Gg: AYBFou1wAaFZzp7nic2dCrzSxYpsZ4s4WDFT5mg0CVp6rrB0XP7rq9zAV6KhXOatkhw
-	SiNvo/ykG/fDu8dCegYzzljrhbSoeo8qQulFoTvWOQb+oQdgoANHAD/Ynr6+qXk2d8eapFQKDda
-	XZ8ljAMoUFRqGaduorByvbAU7e4XmINd0W4w11A5uY855YBoc4lMuHdSAPV5puK/79RPv1//K40
-	YD3TuaffeY9ipa90n993iI0KmfBlTD74TobXIeGTJ7iTVHEKpgfujiA0gvB6whNrAbFr7LkwY/B
-	p28khFwBQFUxVXNgs3AVpZkasJ+WKj4cn35oGqEqvTEz+cAsKeWDFrg=
-X-Received: by 2002:a05:6402:3105:b0:68a:e1ba:9cc0 with SMTP id
- 4fb4d7f45d1cf-6a7f68270famr34473a12.8.1788712182134; Sun, 06 Sep 2026
- 09:29:42 -0700 (PDT)
+        bh=oSMRVQ2ffl+GqdtcpJsergu6EJ70aiuLEE/q2zryERM=;
+        b=S9gavfoTawlSZfz5vAdOLu3zEgiiee5BXoY5Ug1PuORRq79Sdqlv/Je2v8ol4JuJ7R
+         X3EhuU//e+duqpYkOXrZxo1p/iQkObM5AnJQ6yejVmPMRs0gI9/YTjyrj6bUuxvKSufs
+         X2PmwxxHFUO1oR5N+n7ufcsiINGQGd1ZwFkSG6BSlBkpGKUvljX73ZqWOAgUs8c4uvrP
+         xP+RhgiYyUGbV81pEMphS+lBHpwAhRiYmDdISlTpPtmwHIiW9c7snEwYTWl1p6Id2gGI
+         FsOveZa9yUy9rN8D5yceQY2t+TrSeqz3rhyObgVpqv/EdmxwHVzXrvTq8q4L6JomZfgo
+         kU6A==
+X-Forwarded-Encrypted: i=1; AKwUvBw5mEr99MBKJZPEHMSBmzHjUS0Z41OiH7uqwKJGmg2ckhHfGIOUpQ6zatQueSq+KwqjWcR2JK7Dlf6GaUw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lr0hBuLfByXECL4eAJUXMn71ja0VXHXFo/xeUR0PjLSxAnLRya
+	bLLxVJTcSzbHGk/oMC2Jf1G7yi9+MlLeaPuIOoVzLY66P/Wy6fNzrXfP
+X-Gm-Gg: AYBFou2/dva5z+FF+SiZaFeO++Fw6BSdTbt9byildD6MZYDe5zmgYQuRxVoDBHwZ9Dn
+	X/zKyahlPTRdbRFFMkisQ9mgO8GrOUK/IhJ7LwEeFB1/crAsS9yciCxnz+pDqnTOgF7GVa06Xdg
+	Kg//n1qd2P24/RWXUw09rg0z41UnnSk7sMKNQoiJgBUvxKr2aaQyUL7WmMQN4jxPuTJ0nwdMrvg
+	6JmljBNsFtMSxrhHy7OS+aeT4QOlLAZgUAM9c2udE3TTU5/W3NAu9wFOOzwvthW531Xj8Ba3Her
+	rLTpGVrZIpJyNj1P4lxdaCeWO3U7Rr4ngt0Ep6BvWzIdRkj7gVrTklLr4LZxpcy2FNR8erzwgbg
+	Lifouk7Cevy/EnruvjPo8fsapxbsBdZFVoOULGivzXoto/evp1HjQQs9Z8MgF9MCgd8VzFWo41r
+	pmdkSPzW1TGh/Vkc4QugV9OGwbZehCLViTjfD2NKOeWjqPbPN05LR+jvSfgYOnjwrrfqoJ9YCe+
+	XuekMm0px+1E7bM/u3ugo2I+g+qVCQC9SjY+NMH1ANZSi86qSgfiOpDq9X8F2bwdVNNF7GIt2Fx
+	VEj/fncMI29j1CDgW/MKT7KFK+znDpoued8Ev40iYXjmbDI0E7/jLViPwt754N1KTBSz5gPydNt
+	b5gv6
+X-Received: by 2002:a05:600c:8b04:b0:49c:fc6c:be11 with SMTP id 5b1f17b1804b1-49cfc6cc0c3mr138648845e9.23.1788712363826;
+        Sun, 06 Sep 2026 09:32:43 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-9d84-5101-9c80-d25b-14b6-410c.310.pool.telefonica.de. [2a02:3100:9d84:5101:9c80:d25b:14b6:410c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48588394fa1sm21761428f8f.8.2026.09.06.09.32.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 09:32:43 -0700 (PDT)
+Date: Sun, 6 Sep 2026 18:32:40 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Jason Wang <jasowangio@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>, 
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rusty Russell <rusty@rustcorp.com.au>, 
+	Pawel Moll <pawel.moll@arm.com>, Cornelia Huck <cohuck@redhat.com>, 
+	Halil Pasic <pasic@linux.ibm.com>, Eric Farman <farman@linux.ibm.com>, 
+	Richard Weinberger <richard@nod.at>, Anton Ivanov <anton.ivanov@cambridgegreys.com>, 
+	Johannes Berg <johannes@sipsolutions.net>, Hans de Goede <hansg@kernel.org>, 
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Vadim Pasternak <vadimp@nvidia.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>, 
+	virtualization@lists.linux.dev, linux-input@vger.kernel.org, linux-s390@vger.kernel.org, 
+	kvm@vger.kernel.org, linux-um@lists.infradead.org, 
+	platform-driver-x86@vger.kernel.org, linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] virtio: synchronize callbacks during device reset
+Message-ID: <ap2VJkoIsBbsqcNm@gmail.com>
+References: <20260905152059.89560-1-kmehltretter@gmail.com>
+ <20260906025249-mutt-send-email-mst@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824123954.315112-1-zhang_wei@open-hieco.net>
- <20260824123954.315112-3-zhang_wei@open-hieco.net> <CALMp9eSmrHdLpOi9-xQvcRUxyVN-8CG2MKWnxKfXFaBBDztzNg@mail.gmail.com>
- <38bac307-e0c5-4a93-98c6-140b1c52d41d@open-hieco.net>
-In-Reply-To: <38bac307-e0c5-4a93-98c6-140b1c52d41d@open-hieco.net>
-From: Jim Mattson <jmattson@google.com>
-Date: Sun, 6 Sep 2026 09:29:28 -0700
-X-Gm-Features: AcwNN1UgWSO6Yjn-R8pVimjApTkTKNe-q72h-YE1U5LYb4CD7YKT9-WMQSoP4ck
-Message-ID: <CALMp9eRYa86-jcgeWsZeiMev8T+wt6TSZk4TN9rqLtcD0uhZOg@mail.gmail.com>
-Subject: Re: [PATCH v5 2/8] KVM: nSVM: Synthesize DecodeAssists EXITINFO for
- emulated intercepts
-To: Tina Zhang <zhang_wei@open-hieco.net>
-Cc: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>, zhouyanjing@hygon.cn, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260906025249-mutt-send-email-mst@kernel.org>
 
-On Sat, Sep 5, 2026 at 7:24=E2=80=AFPM Tina Zhang <zhang_wei@open-hieco.net=
-> wrote:
->
->
->
-> On 9/5/2026 7:07 AM, Jim Mattson wrote:
-> > On Mon, Aug 24, 2026 at 5:40=E2=80=AFAM Tina Zhang <zhang_wei@open-hiec=
-o.net> wrote:
-> >>
-> >> +
-> >> +       vmcb->control.exit_info_1 =3D exit_info_1;
-> >> +       vmcb->control.exit_info_2 =3D 0;
-> >> +}
-> >
-> > Can this entire function be integrated into the existing switch
-> > statement in svm_check_intercept()?
->
-> Yes, that makes sense.
->
-> >
-> > And, if !guest_cpu_cap_has(vcpu, X86_FEATURE_DECODEASSISTS), should
-> > exit_info_1 be cleared for these intercepts?
->
-> My reading is that exit_info_1 is undefined for these intercepts when
-> DecodeAssists is not exposed, and KVM previously left it untouched. I
-> would therefore prefer to preserve the existing behavior and update
-> exit_info_1 only when DecodeAssists is exposed. That said, do you see
-> any reason why KVM should explicitly clear exit_info_1 when
-> guest_cpu_cap_has(vcpu, X86_FEATURE_DECODEASSISTS) returns false?
+On Sun, Sep 06, 2026 at 02:53:05AM +0100, Michael S. Tsirkin wrote:
+> You didn't send patch 3.
+> 
 
-You're right. The APM says, "Note that the contents of the EXITINFO1
-and EXITINFO2 fields are undefined for intercepts where their use is
-not indicated," so pre-Bulldozer CPUs would probably have left them
-alone.
+I resent it to just you now. Mail must have gotton lost somewhere.
+
+If all else fails, it's on lore:
+https://lore.kernel.org/r/20260905152059.89560-4-kmehltretter@gmail.com/
+
+Thanks,
+Karl
