@@ -1,117 +1,207 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DBBD3A961B;
-	Sun,  6 Sep 2026 17:25:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788715507; cv=none; b=VJ5bJ8tLHcegQYz3u0fl4Pw/3456IE+gubn5wTsaZhyvjq4Oz2NblgaVsuH6ieWAYSe0x870np5N3OTFuSENmUVcElWVYLExUdf7AmZli/8wAsj+vpzNjziaUfLqLR+/YLSKsJV+CZ8DS+BLiY4Ef9I+RwI5aQkNH53Qd/blknE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788715507; c=relaxed/simple;
-	bh=V6LNUOGENCLkm9ZOZOi/Vm2wFAm6FSSYMJpDKhCCdp0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k3yZhRakXbMNjnvfaIDgB3Os977ysgrzt3fPcukIxQw713sVCG/PiPSb/VXNUIBv/h7sF7Bh1oEV8kN9V+ZuPUj/juZGEZA9h8X0HZE36ab0NF24brA4put4LbcU8tyvkPyz1wBgqzjb9uCv141lHEDwcKfd34iLtaGe8LH3y78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=RSkwG/VG; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C3253672A8
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 17:27:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788715654; cv=pass; b=UmV/jG7JqC6lIHDk+0xTfWrLlr8NHntl8w01VxNYETzTyuHonVyL3TeD5PKytEnHaUDDH/jVecCcTI4w4YO8ELePUNZtHgaS2p+4kOVdHYv4FnHHTurL1e/Qd4UMOkoZEN9chM1ibLuQlTouDHMxf8xdvhx+onfIVfgK9QMbiJI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788715654; c=relaxed/simple;
+	bh=MraagOlUbpoH3oPLClVqeUHGrTt1DDjhELOYW/M7Pj8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XAe/I0dpk6q0EIK78/vwDcTz3tfwAYnziyu/PidVMvBgz3/vkP1WuR9yO65tVGokNglVCKdx60SCZhmSCzRNc5m/NNpFdKB3nWFWVemV5T2w6OwcxgFR63w1vdnadiPP40nlG7Opd9iZ/vlMXXAikj7ipsbCYxhkvYEZTIiv0lo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tBRGmHtY; arc=pass smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="RSkwG/VG"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id A669140E01E1;
-	Sun,  6 Sep 2026 17:25:02 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id afoUUyLUNP5x; Sun,  6 Sep 2026 17:24:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1788715492; bh=IGvIabwTQZmhND09OHm9YhbR9dwWckJV+EZ+Q9zQ28E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RSkwG/VGmy5iGQE7hiCDbut1C8EEipXMYhAP+DYVoVCCd8WQBGZZiiysip55ythaF
-	 gVXcbdRDXTBJwD1nwWTDcoFYa5jzdQM5QcxGlJFi9A6KKy/cs2TiUBxwMq0+SqB2P8
-	 7+d/0ZyIR344vOUgKMUXX0TPVVu5HE1aBm03I8xmPpsB3zTvNhmrYfSlHeoSfECHO3
-	 SE16A2ICvzY6skAaAppTDQvmH15BdukmIFafQIrWOyB3AJOLsjAQ9DKGI/Wk0mffe/
-	 nLxxuU42cg6vYk0erabVLYgIiAcpF+OKttQ5h5uw7I6yUvxzIpMlAJV6I19lgCEWxF
-	 51YCOl2ERiDclQ8RNdnaKpQwqmkWdy3+krYG33UcwCpSljE6kPX8OczYUMUpxsjNPu
-	 s3SIsWva5OeTcFqiD7nPTMWNAZg4KyaMYtjA6iM8eO1muwEMf04LnoJ3ufdJaWdA+A
-	 rWZXKjsMGdGWMQWZa7v/NGo3yeckojDpHUTQtNMpy+nw8jsXjmtpyQI4PuSdxegKTv
-	 18+Rl2Qzb6B9B72qmxQTH072CSR6WtxE8mbSf5Hxj7jcLDcpkUl6GU3scNglcfmllv
-	 l/TeRPm7qhMtLPBo6TbmOxPOKvQthXn/J+83VnRse8/5yUyDB8s+i5OIoXHTT84uVt
-	 1Y2u0EYsPM/jTssBe1twvRi8=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::d])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id B710740E00B9;
-	Sun,  6 Sep 2026 17:24:18 +0000 (UTC)
-Date: Sun, 6 Sep 2026 10:24:15 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Ashish Kalra <Ashish.Kalra@amd.com>
-Cc: tglx@kernel.org, mingo@redhat.com, dave.hansen@linux.intel.com,
-	x86@kernel.org, hpa@zytor.com, seanjc@google.com,
-	peterz@infradead.org, thomas.lendacky@amd.com,
-	herbert@gondor.apana.org.au, davem@davemloft.net, ardb@kernel.org,
-	pbonzini@redhat.com, aik@amd.com, Michael.Roth@amd.com,
-	KPrateek.Nayak@amd.com, Tycho.Andersen@amd.com,
-	Nathan.Fontenot@amd.com, ackerleytng@google.com, jackyli@google.com,
-	pgonda@google.com, rientjes@google.com, jacobhxu@google.com,
-	xin@zytor.com, pawan.kumar.gupta@linux.intel.com,
-	babu.moger@amd.com, dyoung@redhat.com, nikunj@amd.com,
-	darwi@linutronix.de, linux-kernel@vger.kernel.org,
-	linux-crypto@vger.kernel.org, kvm@vger.kernel.org,
-	linux-coco@lists.linux.dev
-Subject: Re: [PATCH v13 5/5] x86/sev: Re-enable RMP optimizations on SNP
- guest shutdown
-Message-ID: <20260906172415.GSap2hv9Aa16O_tL31@fat_crate.local>
-References: <cover.1788296083.git.ashish.kalra@amd.com>
- <e8a8d0ec63bda2db61cde7cf298a4ccb6a502c20.1788296083.git.ashish.kalra@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tBRGmHtY"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc1cf287ef8so2446483a12.3
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 10:27:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788715653; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BEHRNbvEhQJRI3hFkJpvHNtcruWEm02jnPsuoWTuWYoizzSZE7URGt0fZRueHVeIKt
+         tMDGBhlgOd1mZyWRz0v3x8iuyEp40Bwm44WFMDjMWOmN9mWTOo6u6Kak4s0yKBEHXWqE
+         SFn1dbQUOBfyrihtwH9KLOEmqUCm/JFhnDMz4ZQbybhbz0wLxNyJ4QKULqYgFFGXzujw
+         61G9uFW55pqDGxkJko+B615tIBOOTvogvwD0yyiAZwBInkVnA4drAd8+r31GcV2Yo7bu
+         wRuZFEtaKkhWaeGgi8MmJhffXZ7lvSvO0js6osX46ZvR6CvrWnBNF3XnAPHy58qHorJS
+         ng9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=HTHe80Xg7+ZeuYbrgbgsluol6fsDFnRR/at+m3TB9OE=;
+        fh=P6IGpApH+kkPOYWTy5Om3eq27C9V5xs0kw2MkPZxJ0U=;
+        b=MqiMrPpKN9FuUdDDX7ufwgU4iLRFt4BZUQfDRRS+f4HpV+j/HXUAVw45li5J7xM3wm
+         xjNbZA+o6rFm5N8qbFWy4UuOjALABY46i6ENPz2zRTuj+5mIzs2fr47j5XWu5T1BQoXD
+         ctPZcdi97S+jklU0tNb65n3T1+vWTC0oMpPFSLhP1yS0AK6ceAlF6IkKs26QmfS9glQB
+         McJtR/nzBsbkgw34tcvnLj393LfziEiSK/sv7OdKhNahWvTohKKIpEpts8ABNsnN9B1b
+         wI92e90XGNmd+VXYCWeZoyC1s4ywGOtJRk+IlVh/dfU2bmPNDj4SA9vKM4csa0EQXQ1C
+         gkgg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788715653; x=1789320453; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HTHe80Xg7+ZeuYbrgbgsluol6fsDFnRR/at+m3TB9OE=;
+        b=tBRGmHtYOWv+ER41CDeEHk2vkJodO9MamNNG3ITftTNWohvwTqpT8hLHt6hnq2aN3W
+         /6jxpnx2bPtTiAQRhnrbeyCsqJjrHN9m6161Vq+0+jfNejLl1y3XIHDFwg+uZSev/7iz
+         Z9UtyeQah2Pvm9MxCIu9s0ZN7FAMH2GtRdhqzl5Wp4fYhhvD9k4MaBxAlHReovTS0yat
+         XudzQ77nwXHYDqaUtGMWirPVRPuTm4o+NMgBBo2m267H14dqYkXmLdJ0TtJfsOyZAaYr
+         ErAZLiCIaWiWC0dbZVopnN7y9z1bhJat2xLtxZyHuoWTl+rvC7hYDYsLYPb3XvsscaOl
+         jhZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788715653; x=1789320453;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HTHe80Xg7+ZeuYbrgbgsluol6fsDFnRR/at+m3TB9OE=;
+        b=i7oodUMJ4mtLbO4jJhv6B4a1hYqU9wyyISskxGwI0meNdyOC6dCpfu5NCwqaVwAPzn
+         +9nSh0qEaigcvboKI3W3AThHLGq61MJQ5YEDE+o+C1d1wGOfYGAQF6R5NLmO/tpkdQXN
+         Zcb8WB9xfCM2DQO19ommbafL/bnPxIZoU7ZPuHFu6vNZ6e0heP/s0yOndhd+ICnCtMKG
+         TcpSWqoYym8WEkiYKofH7TfmhkDWCgzLq+xQ2cYwvQbU9XPPzQgU8YHoB+9Z4UGfhW0r
+         SHtLjz/uvXaqv03plV997SqnuxrsH7MtSeJr/Xj0E9oEgahHINNffJaYi9xv2EAPFmi6
+         jmkw==
+X-Forwarded-Encrypted: i=1; AKwUvBw9q3vhLBDfWX3GYxzVp0vcwRhgI3ue64cnp2d9vm7kVgmjjdF6Lkv7iMMB6E9LCaphvXHITcXTMJVNwKM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kmloQ0h0gIF0xBJtwou/CN/4qcXkmQGYPmUD5nNJzvxb4+NjOu
+	atd2j2vuvru0ozTQ074B/sNhjp5E232egwfJQvV5h6xLVjZjRymcPfeqP9XcEDsbTqRgcT/u1cH
+	jOyzpRip2AH4TfA9yPdwfKaVh351J7C8=
+X-Gm-Gg: AYBFou2/X9uMytnVsBUtZATW1FUMvA3iKM64BrlDtQEQr4s6LJU2RIjAewX8H4d+/kn
+	L/ZSaRDbBLz0tnnFOGtS1r1y5b3rTbZF8syHACk9ZU1/D/2PxmNRBCUZ1tjENdWOK8Rxaeooaks
+	27Y0yavXXxG7wfoCXazx1O+BSDX/zVe5Ubigy9TVw6S3+Snb/kAXENjyyROZJ3lSCmez56iZNe1
+	VDGFGAFi4Ide1/DvwlnmbOfaQGmeumQg8iYci0nWTE58yU4m4ZdB+NyDFjL0Kj46heBDMjgv4Si
+	DGBPgDgu8JVyMWanfAwAaCaRaMoWtmetiLwiQYEA0y2mkStOtIyYqbqPSSr7YbbMbD8vcBb+mEf
+	WwQ==
+X-Received: by 2002:a05:6a20:9397:b0:3c3:a3f4:5485 with SMTP id
+ adf61e73a8af0-3da39cff434mr30724224637.6.1788715652668; Sun, 06 Sep 2026
+ 10:27:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <e8a8d0ec63bda2db61cde7cf298a4ccb6a502c20.1788296083.git.ashish.kalra@amd.com>
+References: <20260721095654.429346-1-clamor95@gmail.com> <CAPVz0n3u0D=0swsO4n6LROFurO=as1w-ZRwaje08BN9dY=JhXQ@mail.gmail.com>
+ <20260827141457.GA2943942@google.com>
+In-Reply-To: <20260827141457.GA2943942@google.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Sun, 6 Sep 2026 20:27:20 +0300
+X-Gm-Features: AcwNN1US6VGLlyitJNPleGZ36XvgnLU1yQ7kLv1UGW2us5RAJXeSTeJhWP7qGxo
+Message-ID: <CAPVz0n1bTHph3nquDNzrp+kpRcbzHsBBddHGxY3qt9qiHf7zWw@mail.gmail.com>
+Subject: Re: [PATCH v7 0/6] mfd: cpcap: convert documentation to schema and
+ add Mot board support
+To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org, 
+	Conor Dooley <conor+dt@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 02, 2026 at 09:29:21PM +0000, Ashish Kalra wrote:
-> +		/*
-> +		 * Perform RMP optimizations on memory freed by terminating
-> +		 * guests.  The scan is deferred, so it normally runs after
-> +		 * sev_gmem_invalidate() has converted this guest's pages back to
-> +		 * shared, and picks them up then.  A very large guest whose
-> +		 * conversion has not finished by then is picked up by a later
-> +		 * teardown's scan.
-> +		 */
+=D1=87=D1=82, 27 =D1=81=D0=B5=D1=80=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 17:1=
+5 Lee Jones <lee@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Wed, 19 Aug 2026, Svyatoslav Ryhel wrote:
+>
+> > =D0=B2=D1=82, 21 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 12:57 =
+Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+> > >
+> > > The initial goal was only to add support for the CPCAP used in the Mo=
+t
+> > > Tegra20 board; however, since the documentation was already partially
+> > > converted, I decided to complete the conversion to schema too.
+> > >
+> > > The CPCAP regulator, leds, rtc, pwrbutton and core files were convert=
+ed
+> > > from TXT to YAML while preserving the original structure. Mot board
+> > > compatibility was added to the regulator and core schema. Since these
+> > > were one-line patches, they were not separated into dedicated commits=
+;
+> > > however, the commit message notes this for both cases.
+> > >
+> > > Finally, the CPCAP MFD was slightly refactored to improve support for
+> > > multiple subcell compositions.
+> > >
+> > > ---
+> > > Changes in v2:
+> > > - fixed code style
+> > > - rtc conversion was picked, so patch dropped
+> > > - added audio ports description into mfd schema
+> > > - splitted schema conversion and compatible addition
+> > > - minor style improvements and typo fixes
+> > >
+> > > Changes in v3:
+> > > - added regulator node names list into pattern
+> > > - filled spi_device_id with driver data
+> > > - ADC patches were picked, so changes dropped
+> > >
+> > > Changes in v4:
+> > > - dropped regulator patches (applied)
+> > >
+> > > Changes in v5:
+> > > - switched to MFD_CELL_* macros
+> > > - switched to use determinator of model
+> > > - switched to spi_get_device_match_data
+> > >
+> > > Changes in v6:
+> > > - removed address-cells and size-cells from main node
+> > > - changed macros formatting and OF matches
+> > > - factored out common devices and made device addition staged
+> > > - dropped cpcap->variant check for 0
+> > > - EINVAL > ENODEV in variant checking switch
+> > >
+> > > Changes in v7:
+> > > - adjusted spi_device_id entries (name/driver_data)
+> > > ---
+> > >
+> > > Svyatoslav Ryhel (6):
+> > >   dt-bindings: leds: leds-cpcap: convert to DT schema
+> > >   dt-bindings: input: cpcap-pwrbutton: convert to DT schema
+> > >   dt-bindings: mfd: motorola-cpcap: convert to DT schema
+> > >   dt-bindings: mfd: motorola-cpcap: document Mapphone and Mot CPCAP
+> > >   mfd: motorola-cpcap: diverge configuration per-board
+> > >   mfd: motorola-cpcap: add support for Mot CPCAP composition
+> > >
+> > >  .../bindings/input/cpcap-pwrbutton.txt        |  20 -
+> > >  .../input/motorola,cpcap-pwrbutton.yaml       |  32 ++
+> > >  .../devicetree/bindings/leds/leds-cpcap.txt   |  29 --
+> > >  .../bindings/leds/motorola,cpcap-leds.yaml    |  42 ++
+> > >  .../bindings/mfd/motorola,cpcap.yaml          | 408 ++++++++++++++++=
+++
+> > >  .../bindings/mfd/motorola-cpcap.txt           |  78 ----
+> > >  drivers/mfd/motorola-cpcap.c                  | 143 +++---
+> > >  include/linux/mfd/motorola-cpcap.h            |   7 +
+> > >  8 files changed, 571 insertions(+), 188 deletions(-)
+> > >  delete mode 100644 Documentation/devicetree/bindings/input/cpcap-pwr=
+button.txt
+> > >  create mode 100644 Documentation/devicetree/bindings/input/motorola,=
+cpcap-pwrbutton.yaml
+> > >  delete mode 100644 Documentation/devicetree/bindings/leds/leds-cpcap=
+.txt
+> > >  create mode 100644 Documentation/devicetree/bindings/leds/motorola,c=
+pcap-leds.yaml
+> > >  create mode 100644 Documentation/devicetree/bindings/mfd/motorola,cp=
+cap.yaml
+> > >  delete mode 100644 Documentation/devicetree/bindings/mfd/motorola-cp=
+cap.txt
+> > >
+> > > --
+> > > 2.53.0
+> > >
+> >
+> > Hello Lee! May you please pick this patch set? I have included changes
+> > asked by Rob and Uwe. Thank you!
+>
+> Nope! =3D:-)
+>
+> There are still a bunch of unanswered Sashiko reviews and one from Rob's =
+bot.
+>
 
-Move that comment over the function definition.
+It seems that Rob may be quite busy. Which Sashiko Rob's bot reviews
+concern you? Maybe I can clarify those?
 
-> +/*
-> + * Delay, in milliseconds, before the RMP re-optimization pass runs after an
-> + * SNP guest is torn down.  snp_rmpopt_all_physmem() re-arms the delayed work
-> + * with mod_delayed_work() on each teardown, so the pass fires this long after
-> + * the last teardown.  This coalesces a burst of teardowns into a single scan
-> + * and gives each guest's pages time to be converted back to the shared,
-> + * hypervisor-owned state before the scan re-optimizes their 1GB regions.  The
-> + * 10 second value is a heuristic trading re-optimization latency against
-> + * scanning too eagerly.
-> + */
-
-Simplify:
-
-"Delay, in milliseconds, before the RMP re-optimization pass runs after an SNP
-guest is torn down, passed as the delay to mod_delayed_work(). This coalesces
-a burst of teardowns into a single scan and gives each guest's pages time to
-be converted back to the shared, hypervisor-owned state. The 10 second value
-is a heuristic trading re-optimization latency against scanning too eagerly."
-
-
-> +#define RMPOPT_WORK_TIMEOUT	(10 * MSEC_PER_SEC)
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+> --
+> Lee Jones
