@@ -1,146 +1,165 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92E1D35C1B1;
-	Sun,  6 Sep 2026 08:13:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1335017B425
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 08:18:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788682387; cv=none; b=iXwQkOIds32qvBdoIpupAbzkw/eZQGg5zRiqpvFT9xD3UeTJaFFhOCsQVA9hd6eT8yTOn0lqX34ZXk+c4jtT7NyR0ZIIq7N7mN1/djvkySpEx03yXUR7Y2BMbkpwBfH7QX8klCa0kzNPBpk6DZHLTFGahbsWtx4LI8paTQfgVWQ=
+	t=1788682701; cv=none; b=QOVTGYZ+fP9eVKBFsUVG+8sdaUfVHkIMoLSapDUf8YMovQm5e8NB2jVKU8MUgvA6/MXu5qeTLfiqX/EyDPSFox1/VmI17U4cKp5hQbmzd1s9S+PZjvk6CQ00ZArvASMeBnIEljTK6TaAY2QqJ7fYoGZ3I10aHTbsAJ2+m+iRaNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788682387; c=relaxed/simple;
-	bh=2Ae4w5FVGlCRPio6S8p1O9D6Q80pFAho9TyWa9ZDKOM=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DqlbBxjF/8xyyNS89eDjqFQLrSlFcf3iTOlRpcfruAadBUJhVgqZmQWQPlzU1rgbGX4+xAf77CkbeT/i5LFQkyEUCHEkfLw2TQQBJr1a9GXflGlmvQQm9EH56joMbOcu4vdXF7syjPBb8jHGTJHnNwVzf/emPYGA3v3Nx85TdVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=WyBieGDm; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=dB0ll/Va; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=XpTOGvAi; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=a4Q+mnVl; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1788682701; c=relaxed/simple;
+	bh=E4Z1SuqvJqvbqn3qagUjhd2s8wkGeOFpMw8c7wvjE7o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gAkAs4OSjce6ZawuNRdylm3oYoTRY+pwRhCMQ25uAREJCFMquvIOPjK1jj0jPR0gT7U4uEIszmesLS0DjTKWR2Th2xQy+AlFgqp/fxxrGD8sG7lgO91zWqAb64rIooIkF2Vsyw2RhQ21b/IFK6wlSEQlaCnXu4IHlrTHgymWGtk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Al5dJpzm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="WyBieGDm";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="dB0ll/Va";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="XpTOGvAi";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="a4Q+mnVl"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 6843F1F796;
-	Sun,  6 Sep 2026 08:12:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788682380; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/jJ5LTB2S3MUKcsscjfFt7FCaPlcCSRBEtBK3enUp1A=;
-	b=WyBieGDm5LNW8pKUn3/rYJUbeaAC76LHC02aoIsQSSsFx8pJRMH8UBhLib5dO6VuGoz5k5
-	GHV7uCl4cBBWvhoLZokJPpU9pv34UdICdjj8qZk+4DXK6129fRuE/2DGBI5hrdMWe/ibGr
-	IIFlBuq+pgXBnTdNA2UuZO42837KbHI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788682380;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/jJ5LTB2S3MUKcsscjfFt7FCaPlcCSRBEtBK3enUp1A=;
-	b=dB0ll/VaCpQPRjo+OicpKRJGCAacWc6xEHk5mP56+48heCijIn7KE8LhABiHAl3S+yA05v
-	8ncoWJU1T2zBG/CA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=XpTOGvAi;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=a4Q+mnVl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788682376; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/jJ5LTB2S3MUKcsscjfFt7FCaPlcCSRBEtBK3enUp1A=;
-	b=XpTOGvAitKriA9DuGM7MHVThy0O3vnVA5MKtbjixW0sVTdFnM0LvEyJ73zY3trtoNy4xih
-	GDlSQUHlP24Zhq2vlxqV4qmPg2qppZ5eKB3faNt65r3EfG361FLyvPKXKi2/6vLFLl1HqV
-	dYmYn7F6ZkbzN86q66zn131+qeGNaUE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788682376;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/jJ5LTB2S3MUKcsscjfFt7FCaPlcCSRBEtBK3enUp1A=;
-	b=a4Q+mnVlVgSe/iaiq7jPuVAda8uJEeVo9JxGTJooaXexSP4sI1PgQfHNzqtZSm6u1kNb+G
-	4Gfx7RFgHHLt8+DQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1813413432;
-	Sun,  6 Sep 2026 08:12:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 6f9aBIggnWqdcwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sun, 06 Sep 2026 08:12:56 +0000
-Date: Sun, 06 Sep 2026 10:12:55 +0200
-Message-ID: <87fqzm4x2w.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Sebastian =?ISO-8859-1?Q?Dalfu=DF?= <sd@sedf.de>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: usb-audio: Add boot quirk for Behringer CM1A
-In-Reply-To: <apwG4DRfNyvmRzyb@sedf.de>
-References: <apwG4DRfNyvmRzyb@sedf.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Al5dJpzm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B54751F00AC4
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 08:18:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788682699;
+	bh=rQZRDFZ3IOccz+fd+fDDFPiV3KsBwPv+BsJwqYRjyn0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Al5dJpzm6B1wU9XMtPcueJtAqov0f593Rm4tkkEzmPNh6Ua9LubeoIQHhI51yy71r
+	 VN7vR/v8Es2dfaIyCeMxmbpbPrvOQt0qhU5MZv326M+mdQh0cn7NGgmVZb/9C/Crne
+	 tGW0Cn8yhP8+wzIGZD3MXXRbS9t/55hOgktNFKxEepTfqLciWdeTh9wwMIhwbIqz6K
+	 vnYYZITAYnJ43xp/1f4H51JaPI7iAcCnIKVlg0pmeLZFbU8nFT7Jk3DXMIPKm/IMQe
+	 JNpfO3baA1jRH02KYx/UTfrqSLgftu4EduWqD4Bb6hM2TfENJ7JY8G51c/Uxw0BgnY
+	 9/ptUGQG2WFsA==
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-9399ac1acdeso64104385a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 01:18:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwInsR2q1KN6oqz1ptxlGPkMEDwyRQpnt15Qzg7j53RplXJ5DbJ0SlVzsoLEL3PckkAF5GB56++emW+xsM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kADgZccAiXylQjGvzJvIz9yzsz/y60sWtrstqypJr2EqC2LG0C
+	zBC5zpqSyNJx69CDlOYh5iRSCGFDpbgd8ul96l0/5lTqlYLU6N28NCZktVdI1Zxp+VIq8UH0Btv
+	AjMcOOGaFAGEiiLE9v0l7RFQhrfh1wmI=
+X-Received: by 2002:a05:620a:254a:b0:939:78c0:a496 with SMTP id
+ af79cd13be357-93980468659mr1711454585a.38.1788682698852; Sun, 06 Sep 2026
+ 01:18:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 6843F1F796
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
-X-Spam-Score: -3.51
+MIME-Version: 1.0
+References: <20260901232421.40157-1-baohua@kernel.org> <20260901232421.40157-3-baohua@kernel.org>
+ <ac1f4e9a-d45a-433c-b26a-23fd0d955243@linux.alibaba.com>
+In-Reply-To: <ac1f4e9a-d45a-433c-b26a-23fd0d955243@linux.alibaba.com>
+From: Barry Song <baohua@kernel.org>
+Date: Sun, 6 Sep 2026 16:18:07 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4yRi=YQi9ooV-EZJLzzv2eSCiCCHiG4aC6FMb5QMXWoMg@mail.gmail.com>
+X-Gm-Features: AcwNN1UYQN4xnLf3vWTUQQebCDawV3qL4PRiq8gfcA3oguAOfDAy6RaLtERSzg8
+Message-ID: <CAGsJ_4yRi=YQi9ooV-EZJLzzv2eSCiCCHiG4aC6FMb5QMXWoMg@mail.gmail.com>
+Subject: Re: [PATCH v3 2/7] mm/mglru: batch update lrugen->nr_pages in inc_min_seq()
+To: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: akpm@linux-foundation.org, linux-mm@kvack.org, axelrasmussen@google.com, 
+	baoquan.he@linux.dev, chenridong@xiaomi.com, david@kernel.org, 
+	hannes@cmpxchg.org, kasong@tencent.com, lianux.mm@gmail.com, 
+	linux-kernel@vger.kernel.org, ljs@kernel.org, lyugaofei@xiaomi.com, 
+	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, 
+	stevensd@chromium.org, wangzicheng@honor.com, weixugc@google.com, 
+	yuanchu@google.com, zhangbo56@xiaomi.com, 
+	Xueyuan Chen <xueyuan.chen21@gmail.com>, Kunwu Chan <kunwu.chan@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, 05 Sep 2026 14:11:12 +0200,
-Sebastian Dalfuﬂ wrote:
-> 
-> After a power cycle and reenumeration, the Behringer CM1A* leaves its
-> MIDI endpoint inoperative. USB enumeration and driver binding
-> complete successfully, but MIDI outputs remain pending.
-> 
-> A GET_DESCRIPTOR request for the device descriptor, issued after USB
-> configuration, makes the endpoint operational. Add a one time boot quirk
-> to perform that request before ALSA initializes the device.
-> 
-> *
-> ID 1397:1234 BEHRINGER International GmbH CM1A
-> 
-> Signed-off-by: Sebastian Dalfuﬂ <sd@sedf.de>
+On Thu, Sep 3, 2026 at 6:06=E2=80=AFPM Baolin Wang
+<baolin.wang@linux.alibaba.com> wrote:
+>
+>
+>
+> On 9/2/26 7:24 AM, Barry Song (Xiaomi) wrote:
+> > Currently, folio_inc_gen() updates lrugen->nr_pages for every folio
+> > as it advances generations. Instead, accumulate the size changes
+> > and update lrugen->nr_pages in a batch after scanning the entire
+> > oldest generation, or when the scan stops because remaining reaches
+> > zero.
+> >
+> > Since we only move folios from the oldest generation to the second
+> > oldest generation, the active/inactive state cannot change. We can
+> > therefore skip __lru_update_size().
+>
+> Make sense to me.
+>
+> >
+> > Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
+> > Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+> > Reviewed-by: Lian Wang <lianux.mm@gmail.com>
+> > Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+> > ---
+>
+> LGTM. One nit follows.
+> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 
-Applied now.  Thanks.
+Thanks very much!
 
+>
+> >   mm/vmscan.c | 23 ++++++++++++++++++-----
+> >   1 file changed, 18 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/mm/vmscan.c b/mm/vmscan.c
+> > index 54bce2f608ef..27494505cecc 100644
+> > --- a/mm/vmscan.c
+> > +++ b/mm/vmscan.c
+> > @@ -3918,6 +3918,7 @@ static bool inc_min_seq(struct lruvec *lruvec, in=
+t type, int swappiness)
+> >       struct lru_gen_folio *lrugen =3D &lruvec->lrugen;
+> >       int hist =3D lru_hist_from_seq(lrugen->min_seq[type]);
+> >       int new_gen, old_gen =3D lru_gen_from_seq(lrugen->min_seq[type]);
+> > +     int target_gen =3D (old_gen + 1) % MAX_NR_GENS;
+> >
+> >       /* For file type, skip the check if swappiness is anon only */
+> >       if (type && (swappiness =3D=3D SWAPPINESS_ANON_ONLY))
+> > @@ -3927,35 +3928,47 @@ static bool inc_min_seq(struct lruvec *lruvec, =
+int type, int swappiness)
+> >       if (!type && !swappiness)
+> >               goto done;
+> >
+> > +     VM_WARN_ON_ONCE(get_nr_gens(lruvec, type) !=3D MAX_NR_GENS);
+> > +     VM_WARN_ON_ONCE(lru_gen_is_active(lruvec, old_gen) !=3D
+> > +                     lru_gen_is_active(lruvec, target_gen));
+> >       /* prevent cold/hot inversion if the type is evictable */
+> >       for (zone =3D 0; zone < MAX_NR_ZONES; zone++) {
+> >               struct list_head *head =3D &lrugen->folios[old_gen][type]=
+[zone];
+> > +             long delta =3D 0;
+> >
+> >               while (!list_empty(head)) {
+> >                       struct folio *folio =3D lru_to_folio(head);
+> > +                     long nr_pages =3D folio_nr_pages(folio);
+> >                       int refs =3D folio_lru_refs(folio);
+> >                       bool workingset =3D folio_test_workingset(folio);
+> > +                     bool gen_increased;
+> >
+> >                       VM_WARN_ON_ONCE_FOLIO(folio_test_unevictable(foli=
+o), folio);
+> >                       VM_WARN_ON_ONCE_FOLIO(folio_test_active(folio), f=
+olio);
+> >                       VM_WARN_ON_ONCE_FOLIO(folio_is_file_lru(folio) !=
+=3D type, folio);
+> >                       VM_WARN_ON_ONCE_FOLIO(folio_zonenum(folio) !=3D z=
+one, folio);
+> >
+> > -                     new_gen =3D folio_inc_gen(lruvec, folio);
+> > +                     new_gen =3D __folio_inc_gen(folio, old_gen, &gen_=
+increased);
+>
+> IMO, it's better to add some comments to describe why we don't need to
+> call __lru_update_size(), in case someone thinks this needs to be fixed
+> in the future. :)
 
-Takashi
+We have already said this twice=E2=80=94once in the changelog and once with
+the `VM_WARN_ON()` in C :-)
+
++     VM_WARN_ON_ONCE(lru_gen_is_active(lruvec, old_gen) !=3D
++                     lru_gen_is_active(lruvec, target_gen));
+
+I guess we don't need to say it a third time, do we? It should be
+self-documenting.
+
+For a possible future change, I know Kairui may change the definition
+of active/inactive=E2=80=94for example, by no longer using generations to
+define them, but instead using refs. Kairui knows the MGLRU code
+inside out, though, so I'm not too concerned. :-)
+
+Best Regards
+Barry
