@@ -1,231 +1,419 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AEC731280D
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 15:47:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE29135E1AA
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 15:48:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788709677; cv=none; b=M0MzEqsr23wh9578l81uANMG0aHh/fDMDVY4JMDtAp0TpKtp49WPMIT41EqGh3x6bKRPmcfES7aNOmRNMmP8UKw/Q5oA0EqOaKYBSdNamBViPiAFenRvI7KYU1ZteoCO+/lVxts8O8x1z/Wwr6vjThLsDwByjJB5NiPvv6lekBI=
+	t=1788709684; cv=none; b=BKARkjFhy1whkDpyGsqtiRM0hMWe0e5f4WTkc+WQ+b3crfvOcR+pOUvdhuFRsLZtwS6FMpD/VFUIloMxDT7lX8SZqzSD24HIreuLKpSeWVpd/TkHj4I6BfXnXRQr6/Ykd0kRu1uqodTmIC9KJFXxpoWvPvNZykEpcR5OYetCNdw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788709677; c=relaxed/simple;
-	bh=Qq5Z9pdI3WCpDQKVL6vyoFgxWJ8z9w4v5ed7QbTfgYE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nSEX/cyOy+BEJuzsWteiF8vLtTsopNqzFhBz/FiaF6e053oNGZTaRiOsn7sLG6Ktl+7rIm6+lWLaZR7LJUE1rvZwH25UEK3cdfDw9nXCharZ3siN07e4+g20XFQiAMqB5VRKNff+p8Lp7dAIf4w5GdZczPEZ7z+z1KMEf9ujT3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RiUod8Q+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=N8puf4WH; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RiUod8Q+";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="N8puf4WH"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 686EX3m1087941
-	for <linux-kernel@vger.kernel.org>; Sun, 6 Sep 2026 15:47:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	iJuqbRAfLeuaHG3fQFZPvjkD3eLgn2ZlqMYozAYdRbo=; b=RiUod8Q+hPKtNg6q
-	lOXnR+TICE5yki5olBYNDrHWNCOtU3q/IZRU3XGjns/3X9fkyzBofWf31R74XR6U
-	7QMBQQwzUHhPY7MHjhAz3qaN+xo/T8A2zKHop0jI2DZNmu/shOcxnZfWWqwOUM9i
-	d/kc8sJ4vnTNrnOzjAZEEY1mfgKIztlmGi5jc4jjYyLFrL0NhHbieSDUKVe7eUor
-	qLjEKRl7OJ1B4+nur1BLBCarGbTTb0qKFUde1V6T6F1RDkDFQA8K3agv6v1uS4jb
-	dx2DKBHCStVhzqRtK0s2Lgly1iVNlOBKRE/vbXNjL12mVJAPt2dtHxzgzocQpRWo
-	BguGGw==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ggc8jbm6k-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 15:47:55 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cbedbd182f5so2216092a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 08:47:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788709674; x=1789314474; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iJuqbRAfLeuaHG3fQFZPvjkD3eLgn2ZlqMYozAYdRbo=;
-        b=N8puf4WHvKZeOPFPPpMOLkJmF1ptBVZX43NUnAyqVTHxMHx4aLB3RB4jQhCAApLtWI
-         UPfBffSVBs1NeGavyOckItqcvB7YVM6b69x2jfwi0ulx+L3NN0YNM2RRC7OoPlsn5u9p
-         TfenzrdISMIxiA7GpGsY2OFWBcBel7YZq91lrnYKtTU5G1BfhHPHZXXK5Fb2HN8NRjQd
-         zJLlFmm7eRdxJzlfH6CkdqI7bwtMab4Jqs0nbd9zCZMCGbdC9sL+IOvzutn4n0xEpupw
-         foIYCDG39M7Lxk/+CFMrBZRBf7itb35ETyCT+FCCJKrnGYURzHJF0rhI3Xv7SopixA1A
-         0VPQ==
+	s=arc-20240116; t=1788709684; c=relaxed/simple;
+	bh=azD0Yv0NDZz58sEbawmUhGNVr+OLjAiRRZ1bK8iIhyA=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=o3w97rpHTSBlcuNslLYD5wc7ZejfP8s4qDLPIpWKaNGChpXH7LXuX5ACzHmlA9CilA7rcPlhqH/5MPOGbDf8s9xcrDy08AXcSwcV1cgshPZkHYqwWsLZu++qNbdgeY5ssMeu8Oc0mWYQxnhEwZHBWL0LmkAe6qDrt+sZzRe9NAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7f4eb9e05a8so3158485a34.3
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 08:48:02 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788709674; x=1789314474;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iJuqbRAfLeuaHG3fQFZPvjkD3eLgn2ZlqMYozAYdRbo=;
-        b=It3wJ0dESUGuq9YTJkHsKyfQIRQwYlb3x9wrfrCpOyUmMO9CAJ+eSvnH5ciW9vTXz/
-         GOcbXHBgTxT5ikbKHiEAmyKHFBZFTNMGXc1Gh2+Th50KV5XYXhf/Ymci7pXahZEQAbRe
-         QpnHFv9kRelqOKp1a1gMn1NorQlEtktK4nKFnsNbMs+iWHELv9phrLqCAfRHuZZQ83vl
-         3N17UmsJ5MmV2h5EyjsT3vWjOqi0KgJH0ot5Ad5Srx8d2kc/GEVWNwYEhqJVWiHxzMgr
-         7Q4k3+LwgQa36M15pEGx6aZQMp0aG7TQTCSKaucXIAq3VP6NvGDnZZGUM84zH2I2/7Fu
-         H28A==
-X-Forwarded-Encrypted: i=1; AKwUvBz5O2ZJ+zMQM7aMQGxxdhyOAaSC3dTqf7ip9suskRK4M40jzvE2bXPTHG3E/tkLZrP1zacfFwl9GNVA2Yw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kvZ211MTHS1NmFbvPPPq9Ig5xU+cjNviEHkClVNeCyExlh5NaY
-	Zf19X0SaT89tRmy5OJblW5F4aQf6ykPDfa21nMhtkmBeu5xZfrsokAT2O/Bm0GShBHUauvsJxqs
-	oNxTmRrerHdh7H4GqbPY7xYO8Wx3hqP3fkh7ymWdcP66EpnDd3+A3S1zW0uw0WAgYCnw=
-X-Gm-Gg: AYBFou0F11+z+EEacj+PNYWS+GYsfjZ1ryfbXVspyPjLqYJWT7opHI4fADysITZBVsq
-	232KoimhyiFGzfJtgayKQxGAYz9cg6jioMqhR/4SsRfkp1PQCqSfDe93N204d7mrSB4GFEOckS8
-	r/5mNnVjf4WGzBKGtQJoxMJ/K7xWZbDivm3wJ4GZ1HqEecU4iogztOmmm/d76ZFav5exuNFDQ4u
-	3HRAbPK6J9dhv6dy3k4aSCWljKUX/K/jLFdlblE2jWOmStp2mj018BrcrplkiuAzBSEcWR/VVpo
-	Gdn7a9q+L+unxfFNoOi6cy0+9TEXGwzRmwcwsHSpApZwDsllqx4Ha9swPRRjlL+rYf+dTjTbWHx
-	GlwXVzjWxbU7lBf6FjMmlbB24PaoQ
-X-Received: by 2002:a05:6a21:8887:b0:3d3:3dca:f0a3 with SMTP id adf61e73a8af0-3da21418721mr21362730637.8.1788709674497;
-        Sun, 06 Sep 2026 08:47:54 -0700 (PDT)
-X-Received: by 2002:a05:6a21:8887:b0:3d3:3dca:f0a3 with SMTP id adf61e73a8af0-3da21418721mr21362685637.8.1788709674052;
-        Sun, 06 Sep 2026 08:47:54 -0700 (PDT)
-Received: from [192.168.1.11] ([103.211.19.41])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa33e96sm20951125eec.12.2026.09.06.08.47.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 06 Sep 2026 08:47:53 -0700 (PDT)
-Message-ID: <b0089142-45eb-4cf7-be6f-45c9889b3756@oss.qualcomm.com>
-Date: Sun, 6 Sep 2026 21:17:43 +0530
+        d=1e100.net; s=20251104; t=1788709681; x=1789314481;
+        h=content-transfer-encoding:content-type:to:from:subject:message-id
+         :in-reply-to:date:mime-version:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yOSRmWYQfqtzA8X71XYRhJ++OZt5nqFcovSO3aa4pnU=;
+        b=a6OVTiegLMJEKCUxSPKTXtAbCUN9nywa6WPYg9Jat52qByTu5Pk0vH4WS/Y4cPhmhk
+         jvPLW1XcKT1TDtOKUoxFhAeiboetf/yBoms1E8u+OuZUA0PNl+aqR/hP9G1qJhsoOIHL
+         Z+HR4qlSjD6c58uD5mGToIzCpWod/PFeigGdoqNhHJGkxLHShRTzCgSBT3KpAeYtvxRq
+         /QUO86qfU/6FDDS6ua4sRAjBMDOAWTBV6FWTMHi99N9+875aaSiJZ2YSFewqwp4/ssh2
+         sNbb/TPYmSJBEgFD3X1tUh2WxFk1mFjRu+6SbdBWjsgK21ZPUffIfqkcKtZvtSDovrNz
+         ekGA==
+X-Forwarded-Encrypted: i=1; AKwUvBwSsm4nbi5hh7YVxahbWDA97302QAr2BVoS5x6QKEgz93UF/Wahu80P++mdBAw5Q6Uf+RyFAIxcQj55DRw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mUsNiZf4Sr88XjNpBS97pnSIT1AykFzu7aui/9wWK2fzqZG+ML
+	GwgQHDyCVWjmCvL4O5/WViSpHhC7devnQxxVbezg1jbTPDPVxfEYPWJw4cUDhvCXVuzZxixIbeq
+	3jHcwHc7IA44ZF8+FtkFQiWW92lFoU5hhHCUrmvjRbZYdFm7SkgIXuolr6o0=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 5/5] media: qcom: camss: Use data-lanes starting at 1
- for new CSIPHY mode
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
-        Todor Tomov <todor.too@gmail.com>,
-        Mauro Carvalho Chehab
- <mchehab@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Kishon Vijay Abraham I <kishon@kernel.org>,
-        Felipe Balbi <balbi@ti.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
-        Suresh Vankadara <svankada@qti.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
-        Krzysztof Kozlowski <krzk@kernel.org>
-References: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-0-e2197a3e2551@linaro.org>
- <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-5-e2197a3e2551@linaro.org>
-Content-Language: en-US
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-In-Reply-To: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-5-e2197a3e2551@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: xGyUaqqLNWtSHyqstTA1Ev-aSLJLHYBm
-X-Proofpoint-ORIG-GUID: xGyUaqqLNWtSHyqstTA1Ev-aSLJLHYBm
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA2MDE3NiBTYWx0ZWRfX5fuu15c1smb5
- M1wYObqPurX1F3v/gQZ9QPrUfaTVOCcwAQ6cKwkA/tVLaxo8Y5ry0ADaJQcf6ys3inpRjsM/4uP
- Gke8/ria7TWwmgd6ZEKa+kIXPm/Rg4laxu7JCD+Nx3MY78ErBwPZ/r3ZWjsNitcAwunjNksx9ca
- tv+8vt8USQ7nvDdTRUYZkZdEgmcVEA163nJfe9QFtu6+VaRIZfRAA3kHiS8cJ7vovwnhL39cNIQ
- HyvV+k7vIiESuaJV0Qg5y07pFoGzYN/FEQeLMJI+7UR4769Z1Y8YpK6J7yr3sp8nsevokqatAHq
- bZyzNBlv+m3VZL7yFoHUIglKl2XYMNRmBzo54HlrCSgvAprgw7staIcoD0JP95hgMCpmSXEVqn8
- 1an/tipXRlxumx5DMLxHQh1Wan0vW6ukJDG1/bl4bzCBprzixdgnZXdFILHOI73UagJHAOLuG1Q
- aMVmnSekEMwT7EqmtjA==
-X-Authority-Analysis: v=2.4 cv=DYgnbPtW c=1 sm=1 tr=0 ts=6a9d8b2b cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=HcLy/BXbbKFjgnJyaMb84Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=zWu_p7zOJ7ruh_JjBGAA:9 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA2MDE3NiBTYWx0ZWRfX5EzXie5zIX5m
- YSYhjFYzMX3SFv/3bZSAPnv9IiWWK9PJkA/GvBcRAgxzWWnRRdWeR8qIvmZFuBBuU7C2LOl58PN
- BeunJ8kZBY1NzMe342hlAxfk/SdoNK4=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-06_01,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 bulkscore=0 suspectscore=0 malwarescore=0
- adultscore=0 lowpriorityscore=0 priorityscore=1501 impostorscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609060176
+X-Received: by 2002:a05:6820:1f05:b0:6b1:62fd:3b4d with SMTP id
+ 006d021491bc7-6b6fcfdba21mr18778982eaf.21.1788709681710; Sun, 06 Sep 2026
+ 08:48:01 -0700 (PDT)
+Date: Sun, 06 Sep 2026 08:48:01 -0700
+In-Reply-To: <mrtuxxmd.ritesh.list@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9d8b31.a5e650b3.26d8a.001d.GAE@google.com>
+Subject: Re: [syzbot] [ext4?] linux-next test error: general protection fault
+ in __bh_submit
+From: syzbot <syzbot+5a7a23af225c215902e7@syzkaller.appspotmail.com>
+To: jack@suse.com, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-next@vger.kernel.org, ritesh.list@gmail.com, sfr@canb.auug.org.au, 
+	syzkaller-bugs@googlegroups.com, tytso@mit.edu
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hello,
+
+syzbot tried to test the proposed patch but the build/boot failed:
+
+                           **
+[    1.781826][    T0] **                                                  =
+    **
+[    1.785372][    T0] ** Use hash_pointers=3Dalways to force this mode off=
+      **
+[    1.788229][    T0] **                                                  =
+    **
+[    1.791134][    T0] **   NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTIC=
+E   **
+[    1.794147][    T0] ****************************************************=
+******
+[    1.800729][    T0] SLUB: HWalign=3D64, Order=3D0-3, MinObjects=3D0, CPU=
+s=3D2, Nodes=3D2
+[    1.913042][    T0] allocated 167772160 bytes of page_ext
+[    1.915801][    T0] Node 0, zone      DMA: page owner found early alloca=
+ted 0 pages
+[    1.933467][    T0] Node 0, zone    DMA32: page owner found early alloca=
+ted 21251 pages
+[    1.941240][    T0] Node 0, zone   Normal: page owner found early alloca=
+ted 0 pages
+[    1.955796][    T0] Node 1, zone   Normal: page owner found early alloca=
+ted 19847 pages
+[    1.959586][    T0] Kernel/User page tables isolation: enabled
+[    1.963093][    T0] Dynamic Preempt: full
+[    1.967309][    T0] Running RCU self tests
+[    1.968917][    T0] Running RCU synchronous self tests
+[    1.971348][    T0] rcu: Preemptible hierarchical RCU implementation.
+[    1.973877][    T0] rcu: 	RCU lockdep checking is enabled.
+[    1.975705][    T0] rcu: 	RCU restricting CPUs from NR_CPUS=3D8 to nr_cp=
+u_ids=3D2.
+[    1.979019][    T0] rcu: 	RCU callback double-/use-after-free debug is e=
+nabled.
+[    1.981744][    T0] rcu: 	RCU debug extended QS entry/exit.
+[    1.984219][    T0] 	All grace periods are expedited (rcu_expedited).
+[    1.987289][    T0] 	Trampoline variant of Tasks RCU enabled.
+[    1.989422][    T0] 	Tracing variant of Tasks RCU enabled.
+[    1.991680][    T0] rcu: RCU calculated value of scheduler-enlistment de=
+lay is 10 jiffies.
+[    1.995031][    T0] rcu: Adjusting geometry for rcu_fanout_leaf=3D16, nr=
+_cpu_ids=3D2
+[    1.998432][    T0] Running RCU synchronous self tests
+[    2.000933][    T0] RCU Tasks: Setting shift to 1 and lim to 1 rcu_task_=
+cb_adjust=3D1 rcu_task_cpu_ids=3D2.
+[    2.195362][    T0] NR_IRQS: 4352, nr_irqs: 440, preallocated irqs: 16
+[    2.198834][    T0] rcu: srcu_init: Setting srcu_struct sizes based on c=
+ontention.
+[    2.201284][    T0] clocksource: jiffies: mask: 0xffffffff max_cycles: 0=
+xffffffff, max_idle_ns: 19112604462750000 ns
+[    2.206079][    T0] kfence: initialized - using 2097152 bytes for 255 ob=
+jects at 0xffff88823be00000-0xffff88823c000000
+[    2.211871][    T0] Console: colour VGA+ 80x25
+[    2.213842][    T0] printk: console [ttyS0] enabled
+[    2.213842][    T0] printk: console [ttyS0] enabled
+[    2.217871][    T0] printk: legacy bootconsole [earlyser0] disabled
+[    2.217871][    T0] printk: legacy bootconsole [earlyser0] disabled
+[    2.222615][    T0] Lock dependency validator: Copyright (c) 2006 Red Ha=
+t, Inc., Ingo Molnar
+[    2.226003][    T0] ... MAX_LOCKDEP_SUBCLASSES:  8
+[    2.227931][    T0] ... MAX_LOCK_DEPTH:          48
+[    2.230174][    T0] ... MAX_LOCKDEP_KEYS:        8192
+[    2.232343][    T0] ... CLASSHASH_SIZE:          4096
+[    2.234359][    T0] ... MAX_LOCKDEP_ENTRIES:     1048576
+[    2.236604][    T0] ... MAX_LOCKDEP_CHAINS:      1048576
+[    2.239946][    T0] ... CHAINHASH_SIZE:          524288
+[    2.241944][    T0]  memory used by lock dependency info: 106625 kB
+[    2.244550][    T0]  memory used for stack traces: 8320 kB
+[    2.246632][    T0]  per task-struct memory footprint: 1920 bytes
+[    2.250233][    T0] mempolicy: Enabling automatic NUMA balancing. Config=
+ure with numa_balancing=3D or the kernel.numa_balancing sysctl
+[    2.255922][    T0] ACPI: Core revision 20260408
+[    2.259621][    T0] APIC: Switch to symmetric I/O mode setup
+[    2.262474][    T0] x2apic enabled
+[    2.269220][    T0] APIC: Switched APIC routing to: physical x2apic
+[    2.283082][    T0] ..TIMER: vector=3D0x30 apic1=3D0 pin1=3D0 apic2=3D-1=
+ pin2=3D-1
+[    2.286314][    T0] clocksource: tsc-early: mask: 0xffffffffffffffff max=
+_cycles: 0x1fb63109b96, max_idle_ns: 440795265316 ns
+[    2.291274][    T0] Calibrating delay loop (skipped) preset value.. 4399=
+.99 BogoMIPS (lpj=3D21999980)
+[    2.295562][    T0] Last level iTLB entries: 4KB 64, 2MB 8, 4MB 8
+[    2.298340][    T0] Last level dTLB entries: 4KB 64, 2MB 32, 4MB 32, 1GB=
+ 4
+[    2.301356][    T0] mitigations: Enabled attack vectors: user_kernel, us=
+er_user, guest_host, guest_guest, SMT mitigations: auto
+[    2.306450][    T0] Speculative Store Bypass: Mitigation: Speculative St=
+ore Bypass disabled via prctl
+[    2.311274][    T0] Spectre V2 : Mitigation: IBRS
+[    2.313098][    T0] RETBleed: Mitigation: IBRS
+[    2.314913][    T0] ITS: Mitigation: Aligned branch/return thunks
+[    2.317002][    T0] Spectre V2 : User space: Mitigation: STIBP via prctl
+[    2.319854][    T0] MDS: Mitigation: Clear CPU buffers
+[    2.321273][    T0] TAA: Mitigation: Clear CPU buffers
+[    2.323137][    T0] MMIO Stale Data: Vulnerable: Clear CPU buffers attem=
+pted, no microcode
+[    2.326988][    T0] Spectre V1 : Mitigation: usercopy/swapgs barriers an=
+d __user pointer sanitization
+[    2.331280][    T0] Spectre V2 : Spectre v2 / SpectreRSB: Filling RSB on=
+ context switch and VMEXIT
+[    2.335963][    T0] Spectre V2 : Enabling IBPB for BPF
+[    2.337974][    T0] Spectre V2 : mitigation: Enabling conditional Indire=
+ct Branch Prediction Barrier
+[    2.341320][    T0] active return thunk: its_return_thunk
+[    2.343502][    T0] Spectre V2 : Spectre BHI mitigation: SW BHB clearing=
+ on syscall and VM exit
+[    2.347384][    T0] x86/fpu: Supporting XSAVE feature 0x001: 'x87 floati=
+ng point registers'
+[    2.351279][    T0] x86/fpu: Supporting XSAVE feature 0x002: 'SSE regist=
+ers'
+[    2.353962][    T0] x86/fpu: Supporting XSAVE feature 0x004: 'AVX regist=
+ers'
+[    2.356774][    T0] x86/fpu: xstate_offset[2]:  576, xstate_sizes[2]:  2=
+56
+[    2.359625][    T0] x86/fpu: Enabled xstate features 0x7, context size i=
+s 832 bytes, using 'standard' format.
+[    2.363542][    T0] ------------[ cut here ]------------
+[    2.365737][    T0] CPA detected W^X violation: 8000000000000023 -> 0000=
+000000000023 range: 0xffffffffa0000000 - 0xffffffffa0000fff PFN 140600
+[    2.371284][    T0] WARNING: arch/x86/mm/pat/set_memory.c:725 at __chang=
+e_page_attr_set_clr+0x1d69/0x2820, CPU#0: swapper/0/0
+[    2.376683][    T0] Modules linked in:
+[    2.378262][    T0] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted syz=
+kaller #0 PREEMPT(full)=20
+[    2.381273][    T0] Hardware name: Google Google Compute Engine/Google C=
+ompute Engine, BIOS Google 07/24/2026
+[    2.385137][    T0] RIP: 0010:__change_page_attr_set_clr+0x1d79/0x2820
+[    2.388239][    T0] Code: 00 00 e8 ba 6c 4d 00 48 8b 4c 24 30 4c 8d 81 f=
+f 0f 00 00 48 8d 3d 07 be 02 0f 48 8b b4 24 a0 00 00 00 4c 89 f2 4c 8b 4c 2=
+4 50 <67> 48 0f b9 3a e9 8d 00 00 00 e8 88 6c 4d 00 4c 89 f8 48 c1 e8 03
+[    2.391278][    T0] RSP: 0000:ffffffff8ea07820 EFLAGS: 00010293
+[    2.401293][    T0] RAX: ffffffff817a6b66 RBX: 8000000140600023 RCX: fff=
+fffffa0000000
+[    2.404461][    T0] RDX: 0000000000000023 RSI: 8000000000000023 RDI: fff=
+fffff907d2980
+[    2.407438][    T0] RBP: ffffffff8ea07ad0 R08: ffffffffa0000fff R09: 000=
+0000000140600
+[    2.411273][    T0] R10: dffffc0000000000 R11: fffffbfff1d40ef4 R12: 800=
+0000000000000
+[    2.414650][    T0] R13: 0000000000000002 R14: 0000000000000023 R15: 800=
+0000000000002
+[    2.418017][    T0] FS:  0000000000000000(0000) GS:ffff888124cbf000(0000=
+) knlGS:0000000000000000
+[    2.421275][    T0] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    2.424161][    T0] CR2: ffff88823ffff000 CR3: 000000000eb48000 CR4: 000=
+00000003506f0
+[    2.428084][    T0] Call Trace:
+[    2.429360][    T0]  <TASK>
+[    2.431293][    T0]  ? __pfx___mutex_unlock_slowpath+0x10/0x10
+[    2.434103][    T0]  ? __purge_vmap_area_lazy+0x964/0xb40
+[    2.436630][    T0]  ? __pfx___change_page_attr_set_clr+0x10/0x10
+[    2.439191][    T0]  ? __might_resched+0x71/0x4c0
+[    2.441337][    T0]  ? down_read+0x2b9/0x320
+[    2.443816][    T0]  change_page_attr_set_clr+0x398/0x11d0
+[    2.447135][    T0]  ? __pfx_change_page_attr_set_clr+0x10/0x10
+[    2.450043][    T0]  ? trace_kmalloc+0x2a/0xf0
+[    2.451285][    T0]  set_memory_x+0xd6/0x110
+[    2.453738][    T0]  ? __pfx_set_memory_x+0x10/0x10
+[    2.456130][    T0]  apply_retpolines+0x8e9/0x15a0
+[    2.459193][    T0]  ? events_sysfs_show+0xdd/0xf0
+[    2.461280][    T0]  ? __pfx_apply_retpolines+0x10/0x10
+[    2.464819][    T0]  ? events_sysfs_show+0xdd/0xf0
+[    2.467699][    T0]  ? events_sysfs_show+0xec/0xf0
+[    2.471274][    T0]  ? events_sysfs_show+0xe3/0xf0
+[    2.473354][    T0]  ? unregister_die_notifier+0x43/0x50
+[    2.475535][    T0]  ? __pfx_int3_selftest+0x10/0x10
+[    2.477371][    T0]  alternative_instructions+0x3a/0x100
+[    2.479281][    T0]  arch_cpu_finalize_init+0xb2/0x1f0
+[    2.481279][    T0]  start_kernel+0x310/0x3e0
+[    2.482865][    T0]  x86_64_start_reservations+0x24/0x30
+[    2.485077][    T0]  x86_64_start_kernel+0x137/0x1b0
+[    2.487088][    T0]  common_startup_64+0x13e/0x157
+[    2.489518][    T0]  </TASK>
+[    2.491278][    T0] Kernel panic - not syncing: kernel: panic_on_warn se=
+t ...
+[    2.494734][    T0] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted syz=
+kaller #0 PREEMPT(full)=20
+[    2.499193][    T0] Hardware name: Google Google Compute Engine/Google C=
+ompute Engine, BIOS Google 07/24/2026
+[    2.501258][    T0] Call Trace:
+[    2.501258][    T0]  <TASK>
+[    2.501258][    T0]  vpanic+0x56d/0xa70
+[    2.501258][    T0]  ? __pfx__printk+0x10/0x10
+[    2.501258][    T0]  ? __pfx_vpanic+0x10/0x10
+[    2.501258][    T0]  ? is_bpf_text_address+0x292/0x2b0
+[    2.501258][    T0]  ? is_bpf_text_address+0x26/0x2b0
+[    2.501258][    T0]  panic+0xc5/0xd0
+[    2.501258][    T0]  ? __pfx_panic+0x10/0x10
+[    2.501258][    T0]  ? common_startup_64+0x13e/0x157
+[    2.501258][    T0]  __warn+0x315/0x4c0
+[    2.501258][    T0]  ? __change_page_attr_set_clr+0x1d69/0x2820
+[    2.501258][    T0]  ? __change_page_attr_set_clr+0x1d69/0x2820
+[    2.501258][    T0]  __report_bug+0x276/0x570
+[    2.501258][    T0]  ? __change_page_attr_set_clr+0x1d69/0x2820
+[    2.501258][    T0]  ? __pfx___report_bug+0x10/0x10
+[    2.501258][    T0]  report_bug_entry+0x19b/0x290
+[    2.501258][    T0]  ? __change_page_attr_set_clr+0x1d79/0x2820
+[    2.501258][    T0]  ? __change_page_attr_set_clr+0x1d7e/0x2820
+[    2.501258][    T0]  handle_bug+0xce/0x200
+[    2.501258][    T0]  exc_invalid_op+0x1a/0x50
+[    2.501258][    T0]  asm_exc_invalid_op+0x1a/0x20
+[    2.501258][    T0] RIP: 0010:__change_page_attr_set_clr+0x1d79/0x2820
+[    2.501258][    T0] Code: 00 00 e8 ba 6c 4d 00 48 8b 4c 24 30 4c 8d 81 f=
+f 0f 00 00 48 8d 3d 07 be 02 0f 48 8b b4 24 a0 00 00 00 4c 89 f2 4c 8b 4c 2=
+4 50 <67> 48 0f b9 3a e9 8d 00 00 00 e8 88 6c 4d 00 4c 89 f8 48 c1 e8 03
+[    2.501258][    T0] RSP: 0000:ffffffff8ea07820 EFLAGS: 00010293
+[    2.501258][    T0] RAX: ffffffff817a6b66 RBX: 8000000140600023 RCX: fff=
+fffffa0000000
+[    2.501258][    T0] RDX: 0000000000000023 RSI: 8000000000000023 RDI: fff=
+fffff907d2980
+[    2.501258][    T0] RBP: ffffffff8ea07ad0 R08: ffffffffa0000fff R09: 000=
+0000000140600
+[    2.501258][    T0] R10: dffffc0000000000 R11: fffffbfff1d40ef4 R12: 800=
+0000000000000
+[    2.501258][    T0] R13: 0000000000000002 R14: 0000000000000023 R15: 800=
+0000000000002
+[    2.501258][    T0]  ? __change_page_attr_set_clr+0x1d56/0x2820
+[    2.501258][    T0]  ? __pfx___mutex_unlock_slowpath+0x10/0x10
+[    2.501258][    T0]  ? __purge_vmap_area_lazy+0x964/0xb40
+[    2.501258][    T0]  ? __pfx___change_page_attr_set_clr+0x10/0x10
+[    2.501258][    T0]  ? __might_resched+0x71/0x4c0
+[    2.501258][    T0]  ? down_read+0x2b9/0x320
+[    2.501258][    T0]  change_page_attr_set_clr+0x398/0x11d0
+[    2.501258][    T0]  ? __pfx_change_page_attr_set_clr+0x10/0x10
+[    2.501258][    T0]  ? trace_kmalloc+0x2a/0xf0
+[    2.501258][    T0]  set_memory_x+0xd6/0x110
+[    2.501258][    T0]  ? __pfx_set_memory_x+0x10/0x10
+[    2.501258][    T0]  apply_retpolines+0x8e9/0x15a0
+[    2.501258][    T0]  ? events_sysfs_show+0xdd/0xf0
+[    2.501258][    T0]  ? __pfx_apply_retpolines+0x10/0x10
+[    2.501258][    T0]  ? events_sysfs_show+0xdd/0xf0
+[    2.501258][    T0]  ? events_sysfs_show+0xec/0xf0
+[    2.501258][    T0]  ? events_sysfs_show+0xe3/0xf0
+[    2.501258][    T0]  ? unregister_die_notifier+0x43/0x50
+[    2.501258][    T0]  ? __pfx_int3_selftest+0x10/0x10
+[    2.501258][    T0]  alternative_instructions+0x3a/0x100
+[    2.501258][    T0]  arch_cpu_finalize_init+0xb2/0x1f0
+[    2.501258][    T0]  start_kernel+0x310/0x3e0
+[    2.501258][    T0]  x86_64_start_reservations+0x24/0x30
+[    2.501258][    T0]  x86_64_start_kernel+0x137/0x1b0
+[    2.501258][    T0]  common_startup_64+0x13e/0x157
+[    2.501258][    T0]  </TASK>
+[    2.501258][    T0] Rebooting in 86400 seconds..
 
 
+syzkaller build log:
+go env (err=3D<nil>)
+AR=3D'ar'
+CC=3D'gcc'
+CGO_CFLAGS=3D'-O2 -g'
+CGO_CPPFLAGS=3D''
+CGO_CXXFLAGS=3D'-O2 -g'
+CGO_ENABLED=3D'1'
+CGO_FFLAGS=3D'-O2 -g'
+CGO_LDFLAGS=3D'-O2 -g'
+CXX=3D'g++'
+GCCGO=3D'gccgo'
+GO111MODULE=3D'auto'
+GOAMD64=3D'v1'
+GOARCH=3D'amd64'
+GOAUTH=3D'netrc'
+GOBIN=3D''
+GOCACHE=3D'/syzkaller/.cache/go-build'
+GOCACHEPROG=3D''
+GODEBUG=3D''
+GOENV=3D'/syzkaller/.config/go/env'
+GOEXE=3D''
+GOEXPERIMENT=3D''
+GOFIPS140=3D'off'
+GOFLAGS=3D''
+GOGCCFLAGS=3D'-fPIC -m64 -pthread -Wl,--no-gc-sections -fmessage-length=3D0=
+ -ffile-prefix-map=3D/tmp/go-build185907891=3D/tmp/go-build -gno-record-gcc=
+-switches'
+GOHOSTARCH=3D'amd64'
+GOHOSTOS=3D'linux'
+GOINSECURE=3D''
+GOMOD=3D'/syzkaller/jobs-2/linux/gopath/src/github.com/google/syzkaller/go.=
+mod'
+GOMODCACHE=3D'/syzkaller/jobs-2/linux/gopath/pkg/mod'
+GONOPROXY=3D''
+GONOSUMDB=3D''
+GOOS=3D'linux'
+GOPATH=3D'/syzkaller/jobs-2/linux/gopath'
+GOPRIVATE=3D''
+GOPROXY=3D'https://proxy.golang.org,direct'
+GOROOT=3D'/usr/local/go'
+GOSUMDB=3D'sum.golang.org'
+GOTELEMETRY=3D'local'
+GOTELEMETRYDIR=3D'/syzkaller/.config/go/telemetry'
+GOTMPDIR=3D''
+GOTOOLCHAIN=3D'auto'
+GOTOOLDIR=3D'/usr/local/go/pkg/tool/linux_amd64'
+GOVCS=3D''
+GOVERSION=3D'go1.26.0'
+GOWORK=3D''
+PKG_CONFIG=3D'pkg-config'
 
-On 06-09-2026 19:47, Bryan O'Donoghue wrote:
-> Introducing a dedicated CSIPHY driver community feedback was both to move
-> to data-lanes starting at index 1 on the PHY side and also to match that
-> indexing scheme in the CSI decoder - CSID.
-> 
-> CSID consumes the data-lanes property to determine which CSID lanes to
-> switch on. For indexes starting at 1 we need to amend the logic somewhere.
-> The PHY side code normalises the input data to register level meanings so,
-> replicate that logic on the CSID side.
-> 
-> Introduce a simple flag to differentiate between legacy indexing @ 0 and
-> new indexing @ 1.
-> 
-> Existing bindings are not affected.
-> 
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> ---
->  drivers/media/platform/qcom/camss/camss.c | 15 ++++++++++++---
->  1 file changed, 12 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-> index 84097d82d99c9..07b3cddca5840 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
-> @@ -4742,7 +4742,8 @@ static const struct parent_dev_ops vfe_parent_dev_ops = {
->   */
->  static int camss_parse_endpoint_node(struct device *dev,
->  				     struct fwnode_handle *ep,
-> -				     struct camss_async_subdev *csd)
-> +				     struct camss_async_subdev *csd,
-> +				     u8 lane_base)
->  {
->  	struct csiphy_lanes_cfg *lncfg = &csd->interface.csi2.lane_cfg;
->  	struct v4l2_mbus_config_mipi_csi2 *mipi_csi2;
-> @@ -4777,7 +4778,14 @@ static int camss_parse_endpoint_node(struct device *dev,
->  		return -ENOMEM;
->  
->  	for (i = 0; i < lncfg->num_data; i++) {
-> -		lncfg->data[i].pos = mipi_csi2->data_lanes[i];
-> +		u8 lane = mipi_csi2->data_lanes[i];
-> +
-> +		if (lane < lane_base || lane - lane_base >= lncfg->num_data) {
-> +			dev_err(dev, "invalid data-lane %u\n", lane);
-> +			return -EINVAL;
-> +		}
-> +
-> +		lncfg->data[i].pos = mipi_csi2->data_lanes[i] - lane_base;
->  		lncfg->data[i].pol = mipi_csi2->lane_polarities[i + 1];
->  	}
->  
-> @@ -4794,6 +4802,7 @@ static int camss_parse_ports(struct camss *camss)
->  {
->  	struct device *dev = camss->dev;
->  	struct fwnode_handle *fwnode = dev_fwnode(dev), *ep;
-> +	u8 lane_base = camss->legacy_phy ? 0 : 1;
->  	int ret;
->  
->  	fwnode_graph_for_each_endpoint(fwnode, ep) {
-> @@ -4841,7 +4850,7 @@ static int camss_parse_ports(struct camss *camss)
->  			goto err_cleanup;
->  		}
->  
-> -		ret = camss_parse_endpoint_node(dev, ep, csd);
-> +		ret = camss_parse_endpoint_node(dev, ep, csd, lane_base);
->  		if (ret < 0)
->  			goto err_cleanup;
->  	}
-> 
-Reviewed-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Tested-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com> # Glymur CRD
+git status (err=3D<nil>)
+HEAD detached at 85995287a88
+nothing to commit, working tree clean
 
----
-Regards,
-Nihal Kumar Gupta
+
+tput: No value for $TERM and no -T specified
+tput: No value for $TERM and no -T specified
+Makefile:31: run command via tools/syz-env for best compatibility, see:
+Makefile:32: https://github.com/google/syzkaller/blob/master/docs/contribut=
+ing.md#using-syz-env
+go list -f '{{.Stale}}' -ldflags=3D"-s -w -X github.com/google/syzkaller/pr=
+og.GitRevision=3D85995287a888340d8818a8f3c43e2e89555eea21 -X github.com/goo=
+gle/syzkaller/prog.gitRevisionDate=3D20260902-115702"  ./sys/syz-sysgen | g=
+rep -q false || go install -ldflags=3D"-s -w -X github.com/google/syzkaller=
+/prog.GitRevision=3D85995287a888340d8818a8f3c43e2e89555eea21 -X github.com/=
+google/syzkaller/prog.gitRevisionDate=3D20260902-115702"  ./sys/syz-sysgen
+make .descriptions
+tput: No value for $TERM and no -T specified
+tput: No value for $TERM and no -T specified
+Makefile:31: run command via tools/syz-env for best compatibility, see:
+Makefile:32: https://github.com/google/syzkaller/blob/master/docs/contribut=
+ing.md#using-syz-env
+bin/syz-sysgen
+touch .descriptions
+GOOS=3Dlinux GOARCH=3Damd64 go build -ldflags=3D"-s -w -X github.com/google=
+/syzkaller/prog.GitRevision=3D85995287a888340d8818a8f3c43e2e89555eea21 -X g=
+ithub.com/google/syzkaller/prog.gitRevisionDate=3D20260902-115702"  -o ./bi=
+n/linux_amd64/syz-execprog github.com/google/syzkaller/tools/syz-execprog
+mkdir -p ./bin/linux_amd64
+g++ -o ./bin/linux_amd64/syz-executor executor/executor.cc \
+	-m64 -O2 -pthread -Wall -Werror -Wparentheses -Wunused-const-variable -Wfr=
+ame-larger-than=3D16384 -Wno-stringop-overflow -Wno-array-bounds -Wno-forma=
+t-overflow -Wno-unused-but-set-variable -Wno-unused-command-line-argument -=
+static-pie -std=3Dc++17 -I. -Iexecutor/_include   -DGOOS_linux=3D1 -DGOARCH=
+_amd64=3D1 \
+	-DHOSTGOOS_linux=3D1 -DGIT_REVISION=3D\"85995287a888340d8818a8f3c43e2e8955=
+5eea21\"
+/usr/bin/ld: /tmp/cc6c4SOQ.o: in function `Connection::Connect(char const*,=
+ char const*)':
+executor.cc:(.text._ZN10Connection7ConnectEPKcS1_[_ZN10Connection7ConnectEP=
+KcS1_]+0x386): warning: Using 'gethostbyname' in statically linked applicat=
+ions requires at runtime the shared libraries from the glibc version used f=
+or linking
+./tools/check-syzos.sh 2>/dev/null
+
+
+Error text is too large and was truncated, full error text is at:
+https://syzkaller.appspot.com/x/error.txt?x=3D138aecf9580000
+
+
+Tested on:
+
+commit:         af5f1280 Add linux-next specific files for 20260904
+git tree:       linux-next
+kernel config:  https://syzkaller.appspot.com/x/.config?x=3Dbb4a32c282cc2ec=
+7
+dashboard link: https://syzkaller.appspot.com/bug?extid=3D5a7a23af225c21590=
+2e7
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-=
+1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=3D17fd51255800=
+00
+
