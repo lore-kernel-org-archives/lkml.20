@@ -1,179 +1,148 @@
-Received: from forward501b.mail.yandex.net (forward501b.mail.yandex.net [178.154.239.145])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10C8E356771;
-	Sun,  6 Sep 2026 16:55:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.145
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788713711; cv=none; b=JUimJs2Muuk3L1Q5oDOVwIdWuZhARebCz+STwrQHY8B8j0oAlh0EcBHk/yVVzejiOSFfH9dySjWbotAPEWDv/aCci1KBoxZS4/ggL3hylUeNNwpHohxGOw0jq1VhQV9f3SbrcN5qVvb6fRjZKMSvuyGhqgSR24S1PUPxSPhqeEY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788713711; c=relaxed/simple;
-	bh=ZDJ2S/Yc3L5ekLavHy8ZBIjaGjRq/ciwemU8icUgHxQ=;
-	h=From:To:In-Reply-To:References:Subject:MIME-Version:Date:
-	 Message-Id:Content-Type; b=I6RRuUpMT0fmWNTEWbFV3RqMTx/wU28+XL91oKanPuJPLxU8oqg3DyLtJor0812ZULp3Op+vRtKHoaip+8oUgwPCzvrOkVa1/93pUbL0aA7ESEBlcerP8ajlmv5DIb6wRbzebSrAQfsgu337GIOd+TvvQ+pcB/t98Tp0EIMZFng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru; spf=pass smtp.mailfrom=yandex.ru; dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b=EyBl6wgT; arc=none smtp.client-ip=178.154.239.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9441367B90
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 16:57:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788713823; cv=pass; b=W/l2QwwZjFgS4req/UJ/Q2hx1av4Eea8wJt95O1M7HnU/H5VXXs7dA01FdjSfgzFT6H2MnHCMK7TtfAA4ZH/wQxk77BWCp1cYFqo6BWUS6tw5vZFcivsChZRZFTld0Ohrw7VNfdWZTSscuV5LHdYBau6Hwpw56fTCsZ213UgpK8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788713823; c=relaxed/simple;
+	bh=jLbNWAYKOjUjCxKPAnKQtbCBXntzd3CfPr6hFf0UbZI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Jpc0LCwIZDKd3XbsZESIYyhtYWCyiJTkw/d7h2RUr/9Bm0M/NUIBKu8AbnVmVIjHuNSkwE6KjSJV0HY/Vx29GMo141/qs5ce+Q2ZurVVNS5TRSCZJNja7WW4BSTJVFtD/HOWjNd84sNNbkYeTC4Yk7QTz3/BLCfPB3FybvwSSOY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UjHPtZQt; arc=pass smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b="EyBl6wgT"
-Received: from mail-nwsmtp-mxback-production-main-34.sas.yp-c.yandex.net (mail-nwsmtp-mxback-production-main-34.sas.yp-c.yandex.net [IPv6:2a02:6b8:c1e:4a80:0:640:cad7:0])
-	by forward501b.mail.yandex.net (postfix) with ESMTPS id 991DA814D5;
-	Sun, 06 Sep 2026 19:49:05 +0300 (MSK)
-Received: from mail.yandex.ru (2a02:6b8:c1c:2a9f:0:640:4073:0 [2a02:6b8:c1c:2a9f:0:640:4073:0])
-	by mail-nwsmtp-mxback-production-main-34.sas.yp-c.yandex.net (mxback) with HTTPS id 2nODjlI3kGk0-OveBrXoY;
-	Sun, 06 Sep 2026 19:49:05 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
-	t=1788713345; bh=8YFvUoHML33Vjq/5LkrAEV27Wc24dwQ6+Vy+wIiVmoo=;
-	h=Message-Id:Date:Subject:To:References:In-Reply-To:From;
-	b=EyBl6wgTC5I/icFakGBu96YReEh7fm5p4ZdqyVgMyBLhPT40ApYaodxy0JT4QWAzO
-	 WbVnnuBFaJ13Ti4SvOIyjWBLgnWeVX5fT9L+CixGLJjM/ysG5/odnNnn1QQWhDpgcV
-	 C6Q8uKXX3fuPD2/CJwAyJGoiDHgM/2tYrvhz/8X0=
-Authentication-Results: mail-nwsmtp-mxback-production-main-34.sas.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
-Received: by zgeeltrhob5vt6hx.sas.yp-c.yandex.net (sendbernar) with HTTPS id e90ec2e314cbbca661734ed168c5e560;
-	Sun, 06 Sep 2026 19:49:04 +0300
-From: =?utf-8?B?0JPQtdGA0LzQsNC9INCh0LXQvNGR0L3QvtCy?= <GermanAizek@yandex.ru>
-To: Jakub Kicinski <kuba@kernel.org>,
-	Kalle Valo <kvalo@kernel.org>,
-	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-In-Reply-To: <314831788409434@mail.yandex.ru>
-References: <795111788409331@mail.yandex.ru> <314831788409434@mail.yandex.ru>
-Subject: [PATCH] wifi: mt7601u: add vnd_reset parameter to fix probe  failure on Tenda U2
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UjHPtZQt"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39931869b4aso172526a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 09:57:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788713821; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sWWrKafDr+kJ63Ns6yR35fJBjZthxS3diDndyRfQPiwRSZmZACluX8XHCw6IsBnDmK
+         tEupwMhWhNeiBqegz5tT+OoBkUxw4VAXB46A1eLbDDJbGVkrN/Vs/shXiEjCNeMAs1+n
+         CzRcDW5O76Sx80joPqUww/dnPxBLQi6rDKU7eU7kSvIrMspY5JyTFAZTirgdsMDcC3vK
+         /gw+WSDJFiEcRAC2w8cMn8lVkjvCZhvQWCo/nd7mIWiV+YJnKWTGZdzGFIO+DYr9Lnn/
+         yGrUICIaqCwh7v9L6Zaw2xMRDjtTRXbs4hhCqMcgJ5JIkOdQs9SCrlc0+RDAzsch+31I
+         hcVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=jLbNWAYKOjUjCxKPAnKQtbCBXntzd3CfPr6hFf0UbZI=;
+        fh=+dWK3PRmJiTvOASPlCENjL9T0K/CTkznbdAKvgEodNQ=;
+        b=T4lhhl6ra8xC1yInsc+J7kYtkAaBbiXzvIkwZquprAHHiOrtSEHoCaZQhReIS4QNNn
+         Cj4AuPiVJyBeITzryqUbjSey/4jvrO0o17DkxDSkmlmU0zTom9Kg++ESt9vBvXenHM9z
+         XGn6JSj85FFSaIqhouNR9o9FvgF3y4jFb1nsB+NkiiL0vYe6Ci+0b+P7JWrovgRU/ZjF
+         BCSuhntcuI0UavUnxz8zriG+a16K1U2Uzvb7hagXg7nPUFedPvX+pCgAt8mWvwKK4OnK
+         GYjB0fRKNU55P3lzuPhYXYPFEB7a1zmQJJ0AjUbdMIwdsLAfreilJa26/2yyr8VjBOsj
+         mTeA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788713821; x=1789318621; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jLbNWAYKOjUjCxKPAnKQtbCBXntzd3CfPr6hFf0UbZI=;
+        b=UjHPtZQtZlfn+jMBdsesbKV9hhN0VxB45TUW8NF6jsIj/u6sMjuVZl/S6vNiEMAdHB
+         Te+UXjaLTopyZrVKblQ6F2RdO17BiDzp8YSjJWd1LjGv8/lpVMX/mJq6tjMcQBGE+lh3
+         gkbl212FSvMq4hzn08kjNsXAWfz8CFVxj8DwBvGDcA2V9pboEq4SigdRgrpS5P3lbPAR
+         WaeQlpczdSbYO4EXZkRcm/d2DFhfIccQOCyUcacVGnAtc0aqHvm4nD/lvAQStGw+ys2S
+         nEMr3QPCYz3NCaB4lrh+lVRBv1NLXl63CMfDijyK5BqBSV6Pp1fy8GFAFtzsiR1Bm/Qi
+         cjSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788713821; x=1789318621;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jLbNWAYKOjUjCxKPAnKQtbCBXntzd3CfPr6hFf0UbZI=;
+        b=rrkVDg0c75aKMS4sAronKjZIgoPSJOcyHLGTZ07/q5CD3xt1hgV2ngtHF9h2QYUJkO
+         gIYp/OGbXr8rdtjzHAmf3TVk7/Djh9AN0rP+Igoeid4mxHjomEN3OU8IHnSfKrqcki0s
+         vsUmsnlf5xNoCTGwp/1/1ARXXdli0KfW5SEfPLnYYrO0xuOBFHZnyiQNYcJAjSxqsCa9
+         2hKKx/BIrkfrHSpVlZJgxmUkJaLAsrLng0H3R4sX5Mer9U66u/iRrEFWd8qko95Qu7NU
+         jz4Y2tSyGVRsh19J7RjvKVWxVeqcCQ+sK/TNuOIWZyDQ3r3qQmI2FRGySQP48rbACwO3
+         c2sg==
+X-Forwarded-Encrypted: i=1; AKwUvBwwIo2HhRE1Vn+5Lh8ZAWm3ubW1X4Ysp4Q9X2NLyRVi530A0oBXvD5FKg5ryF8a0Z9kcH+LM4kZULayons=@vger.kernel.org
+X-Gm-Message-State: AFuF++mW9MSnVaDjzVtW8bEtQb9QGBa45lTRLVxvyAsQOgERUz0rgM/b
+	yM7739tMlcIrE+rMlCDdqkMygY5/1ERX3pPTpeYrW+lE0R/gkovtk8oHPBxKTFi3vxvR0dGo3Ya
+	MviqM327MuPeu0iumwRqH5oI+dAxuePM=
+X-Gm-Gg: AYBFou3i5GtH47M/VOdNRDlJXk6udgdlr9bH5MSWiCgbJUbGItxhMe2eeqwfhSfCorf
+	tDVXrOJvIEEbGwB/4eJr7KpoFPcRPSOyJQamTEYkfGtZ/DuLJ+Qvky+PZAnsFWMaIpq/BqzQJXM
+	wcAzf6EGyDBkgGNWOPyaZ5A1XglrAN/1DuEhk77WSHOVWsgTNCN8UJnUfyL9ncCuWdiWCYRv/BB
+	SKRTWoDqop0N64T7Yrf52PnX4DYNmwDyl9hWDwMcwtI09KEMSTx4m2horLrGel06IkqONocnNcJ
+	KYPKZKbmbTyRWfNjoLa8CtRY5ENEV9vNHVFKqlpOQTpuQqOATFlg74PmLvJcM5qsCJ3g6Mdw3sB
+	rrYXLQj5Matp1zJHBGl7sZ6cX3hZF31/hI8MgQ2m+t5IRLa084Neu6Lgv0XZmCGSwZHmwHQLO
+X-Received: by 2002:a17:90b:384d:b0:398:bac0:238e with SMTP id
+ 98e67ed59e1d1-39b3d8377camr12050791a91.6.1788713821151; Sun, 06 Sep 2026
+ 09:57:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Mailer: Yamail [ http://yandex.ru ] 5.0
-Date: Sun, 06 Sep 2026 19:49:04 +0300
-Message-Id: <17311788713082@mail.yandex.ru>
-Content-Type: multipart/mixed;
-	boundary="----==--bound.15573.72fe279f-44e2-4bae-863c-fbcee8ae43a7"
+References: <20260904-b4-arm64-callops-kcfi-v1-0-ce6687739b0c@linux.dev> <20260904-b4-arm64-callops-kcfi-v1-8-ce6687739b0c@linux.dev>
+In-Reply-To: <20260904-b4-arm64-callops-kcfi-v1-8-ce6687739b0c@linux.dev>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sun, 6 Sep 2026 18:56:47 +0200
+X-Gm-Features: AcwNN1Vz7OHfpHx7W0dFC3jg8glvxcm1hmRiClFLpwy0F6DpBbL1JHHuwRxDDvo
+Message-ID: <CANiq72=xOrSXBBdmrKYfX1=qgF37LRAMzMJd4GJkXaYHMVe9yQ@mail.gmail.com>
+Subject: Re: [PATCH RFC 8/8] arm64: ftrace: Allow CALL_OPS on kCFI kernels
+ built with Rust
+To: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Puranjay Mohan <puranjay@kernel.org>, 
+	Xu Kuohai <xukuohai@huaweicloud.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Sami Tolvanen <samitolvanen@google.com>, Kees Cook <kees@kernel.org>, 
+	Leon Hwang <leon.hwang@linux.dev>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	Josh Poimboeuf <jpoimboe@kernel.org>, live-patching@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org, 
+	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	Ben Cressey <ben@cressey.dev>, "Florent Revest (Anthropic)" <florent.revest@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Fri, Sep 4, 2026 at 3:20=E2=80=AFAM Jose Fernandez (Anthropic)
+<jose.fernandez@linux.dev> wrote:
+>
+> +# bindgen generates no code, and its libclang may predate the section
+> +# argument of -fpatchable-function-entry that a kCFI kernel with CALL_OP=
+S
+> +# passes on arm64.
+> +bindgen_c_flags =3D $(filter-out -fpatchable-function-entry=3D%,$(c_flag=
+s))
 
-------==--bound.15573.72fe279f-44e2-4bae-863c-fbcee8ae43a7
-Content-Transfer-Encoding: base64
-Content-Type: text/html; charset=utf-8
+In general, one should be using the same version (we warn otherwise
+early in the build), but yeah, it is just a warning for now and it is
+nice to try to remain a bit flexible.
 
-PGRpdj48ZGl2PndpZmk6IG10NzYwMXU6IGFkZCB2bmRfcmVzZXQgcGFyYW1ldGVyIHRvIGZpeCBw
-cm9iZSBmYWlsdXJlIG9uIFRlbmRhIFUyPC9kaXY+PGRpdj7CoDwvZGl2PjxkaXY+T24gY2VydGFp
-biBNVDc2MDFVIGFkYXB0ZXJzLCBzdWNoIGFzIFRlbmRhIFUyIGFuZDwvZGl2PjxkaXY+b3RoZXIg
-bmV3ZXIgaGFyZHdhcmUgcmV2aXNpb25zLCBkcml2ZXIgaW5pdGlhbGl6YXRpb24gY29uc2lzdGVu
-dGx5IGZhaWxzPC9kaXY+PGRpdj5kdXJpbmcgcHJvYmUgd2l0aCB2ZW5kb3IgcmVxdWVzdCB0aW1l
-b3V0cyAoLTExMCAvIC1FVElNRURPVVQpOjwvZGl2PjxkaXY+wqAgbXQ3NjAxdSAzLTE0OjEuMDog
-QVNJQyByZXZpc2lvbjogNzYwMTAwMDEgTUFDIHJldmlzaW9uOiA3NjAxMDUwMDwvZGl2PjxkaXY+
-wqAgbXQ3NjAxdSAzLTE0OjEuMDogRmlybXdhcmUgVmVyc2lvbjogMC4xLjAwIEJ1aWxkOiA3NjQw
-IEJ1aWxkIHRpbWU6IDIwMTMwMjA1MjE0Nl9fX188L2Rpdj48ZGl2PsKgIG10NzYwMXUgMy0xNDox
-LjA6IFZlbmRvciByZXF1ZXN0IHJlcTowNyBvZmY6MDlhOCBmYWlsZWQ6LTExMDwvZGl2PjxkaXY+
-wqAgbXQ3NjAxdSAzLTE0OjEuMDogVmVuZG9yIHJlcXVlc3QgcmVxOjAyIG9mZjowOWE4IGZhaWxl
-ZDotMTEwPC9kaXY+PGRpdj7CoCBtdDc2MDF1IDMtMTQ6MS4wOiBWZW5kb3IgcmVxdWVzdCByZXE6
-MDcgb2ZmOjA3MzQgZmFpbGVkOi0xMTA8L2Rpdj48ZGl2PsKgIG10NzYwMXUgMy0xNDoxLjA6IFZl
-bmRvciByZXF1ZXN0IHJlcTo0MiBvZmY6MDIzMCBmYWlsZWQ6LTExMDwvZGl2PjxkaXY+wqAgbXQ3
-NjAxdSAzLTE0OjEuMDogcHJvYmUgd2l0aCBkcml2ZXIgbXQ3NjAxdSBmYWlsZWQgd2l0aCBlcnJv
-ciAtMTEwPC9kaXY+PGRpdj7CoDwvZGl2PjxkaXY+VGhlIGZhaWx1cmUgb2NjdXJzIGJlY2F1c2Ug
-bXQ3NjAxdV9sb2FkX2Zpcm13YXJlKCkgdW5jb25kaXRpb25hbGx5IGNhbGxzPC9kaXY+PGRpdj5t
-dDc2MDF1X3ZlbmRvcl9yZXNldCgpIChNVF9WRU5EX0RFVl9NT0RFX1JFU0VUKSBiZWZvcmUgdXBs
-b2FkaW5nIGZpcm13YXJlPC9kaXY+PGRpdj5jaHVua3MuIE9uIHRoZXNlIGRldmljZXMsIGlzc3Vp
-bmcgdGhpcyB2ZW5kb3IgcmVzZXQgbGVhdmVzIHRoZSBpbnRlcm5hbDwvZGl2PjxkaXY+TUNVIC8g
-RkNFIERNQSBlbmdpbmUgaW4gYW4gdW5yZXNwb25zaXZlIHN0YXRlIGFmdGVyIHRoZSBmaXJzdCBm
-aXJtd2FyZTwvZGl2PjxkaXY+VVJCIGlzIHN1Ym1pdHRlZC4gQXMgYSByZXN1bHQsIHJlYWRpbmcg
-TVRfVFhfQ1BVX0ZST01fRkNFX0NQVV9ERVNDX0lEWDwvZGl2PjxkaXY+KDB4MDlhOCkgaW1tZWRp
-YXRlbHkgdGltZXMgb3V0LjwvZGl2PjxkaXY+SW50cm9kdWNlIGEgYm9vbGVhbiBtb2R1bGUgcGFy
-YW1ldGVyICd2bmRfcmVzZXQnIChkZWZhdWx0OiBmYWxzZSkgdG88L2Rpdj48ZGl2Pm1ha2UgdGhp
-cyB2ZW5kb3IgcmVzZXQgb3B0aW9uYWwuIFdoZW4gdGhlIHZlbmRvciByZXNldCBpcyBza2lwcGVk
-LDwvZGl2PjxkaXY+ZmlybXdhcmUgdXBsb2FkIHN1Y2NlZWRzIGFuZCB0aGUgd2lyZWxlc3MgaW50
-ZXJmYWNlIGluaXRpYWxpemVzIG5vcm1hbGx5LjwvZGl2PjxkaXY+wqA8L2Rpdj48ZGl2Pkxpbms6
-IDxhIGhyZWY9Imh0dHBzOi8vYnVncy5sYXVuY2hwYWQubmV0L3VidW50dS8rc291cmNlL2xpbnV4
-LytidWcvMTcxNjMwMSIgcmVsPSJub29wZW5lciBub3JlZmVycmVyIj5odHRwczovL2J1Z3MubGF1
-bmNocGFkLm5ldC91YnVudHUvK3NvdXJjZS9saW51eC8rYnVnLzE3MTYzMDE8L2E+PC9kaXY+PGRp
-dj7CoDwvZGl2PjxkaXY+TW9yZSBpc3N1ZXMgd2l0aCBUZW5kYSBVMiBhbmQgTGludXg6PC9kaXY+
-PGRpdj4tIDxhIGhyZWY9Imh0dHBzOi8vd3d3Lm9wZW5hLnR2L3ZpZXd0b3BpYy5waHA/dD02Mzkx
-OSIgcmVsPSJub29wZW5lciBub3JlZmVycmVyIj5odHRwczovL3d3dy5vcGVuYS50di92aWV3dG9w
-aWMucGhwP3Q9NjM5MTk8L2E+PC9kaXY+PGRpdj4tIDxhIGhyZWY9Imh0dHBzOi8vYXNrdWJ1bnR1
-LmNvbS9xdWVzdGlvbnMvMTQxODg1MC90aGUtcHJvYmxlbS13aXRoLXdpLWZpLXUyIiByZWw9Im5v
-b3BlbmVyIG5vcmVmZXJyZXIiPmh0dHBzOi8vYXNrdWJ1bnR1LmNvbS9xdWVzdGlvbnMvMTQxODg1
-MC90aGUtcHJvYmxlbS13aXRoLXdpLWZpLXUyPC9hPjwvZGl2PjxkaXY+LSA8YSBocmVmPSJodHRw
-czovL2Jicy5hcmNobGludXgub3JnL3ZpZXd0b3BpYy5waHA/aWQ9MjI0ODU5IiByZWw9Im5vb3Bl
-bmVyIG5vcmVmZXJyZXIiPmh0dHBzOi8vYmJzLmFyY2hsaW51eC5vcmcvdmlld3RvcGljLnBocD9p
-ZD0yMjQ4NTk8L2E+PC9kaXY+PGRpdj4tIDxhIGhyZWY9Imh0dHBzOi8vd3d3LnJlZGRpdC5jb20v
-ci9hcmNobGludXgvY29tbWVudHMvMWQ2ZGZ2NS9tdDc2MDF1X3VzYl93aWZpX25vdF93b3JraW5n
-LyIgcmVsPSJub29wZW5lciBub3JlZmVycmVyIj5odHRwczovL3d3dy5yZWRkaXQuY29tL3IvYXJj
-aGxpbnV4L2NvbW1lbnRzLzFkNmRmdjUvbXQ3NjAxdV91c2Jfd2lmaV9ub3Rfd29ya2luZy88L2E+
-PC9kaXY+PGRpdj48YnIgLz5TaWduZWQtb2ZmLWJ5OiBIZXJtYW4gU2VtZW5vZmYgJmx0OzxhIGhy
-ZWY9Im1haWx0bzpHZXJtYW5BaXpla0B5YW5kZXgucnUiIHJlbD0ibm9vcGVuZXIgbm9yZWZlcnJl
-ciI+R2VybWFuQWl6ZWtAYWl6ZWtncm91cC5ydTwvYT4mZ3Q7PC9kaXY+PGRpdj5TaWduZWQtb2Zm
-LWJ5OiBIZXJtYW4gU2VtZW5vZmYgJmx0OzxhIGhyZWY9Im1haWx0bzpHZXJtYW5BaXpla0B5YW5k
-ZXgucnUiIHJlbD0ibm9vcGVuZXIgbm9yZWZlcnJlciI+R2VybWFuQWl6ZWtAeWFuZGV4LnJ1PC9h
-PiZndDs8YnIgLz5TaWduZWQtb2ZmLWJ5OiBIZXJtYW4gU2VtZW5vZmYgJmx0OzxhIGhyZWY9Im1h
-aWx0bzpHZXJtYW5BaXpla0B5YW5kZXgucnUiIHJlbD0ibm9vcGVuZXIgbm9yZWZlcnJlciI+Z2Vy
-bWFuYWl6ZWswQGdtYWlsLmNvbTwvYT4mZ3Q7PC9kaXY+PC9kaXY+
-------==--bound.15573.72fe279f-44e2-4bae-863c-fbcee8ae43a7
-Content-Disposition: attachment;
-	filename="0001-PATCH-wifi-mt7601u-add-vnd_reset-parameter-to-fix-pr.txt"
-Content-Transfer-Encoding: base64
-Content-Type: text/x-diff;
-	name="0001-PATCH-wifi-mt7601u-add-vnd_reset-parameter-to-fix-pr.txt"
+Now, if we are going to filter this out for Clang, should we just
+filter it out for GCC too? i.e. outside the `ifdef`?
 
-RnJvbSBjMDNkNzNkMzdkZjQ0MGQwMDQ2ZDY4NDA2ZmRlMmFhMWY2MmZlMGQxIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBIZXJtYW4gU2VtZW5vZmYgPEdlcm1hbkFpemVrQGFpemVrZ3Jv
-dXAucnU+CkRhdGU6IFRodSwgMyBTZXAgMjAyNiAwNzoxNDozMiArMDMwMApTdWJqZWN0OiBbUEFU
-Q0hdIFtQQVRDSF0gd2lmaTogbXQ3NjAxdTogYWRkIHZuZF9yZXNldCBwYXJhbWV0ZXIgdG8gZml4
-IHByb2JlCiBmYWlsdXJlIG9uIFRlbmRhIFUyCgp3aWZpOiBtdDc2MDF1OiBhZGQgdm5kX3Jlc2V0
-IHBhcmFtZXRlciB0byBmaXggcHJvYmUgZmFpbHVyZSBvbiBUZW5kYSBVMgoKT24gY2VydGFpbiBN
-VDc2MDFVIGFkYXB0ZXJzLCBzdWNoIGFzIFRlbmRhIFUyIGFuZApvdGhlciBuZXdlciBoYXJkd2Fy
-ZSByZXZpc2lvbnMsIGRyaXZlciBpbml0aWFsaXphdGlvbiBjb25zaXN0ZW50bHkgZmFpbHMKZHVy
-aW5nIHByb2JlIHdpdGggdmVuZG9yIHJlcXVlc3QgdGltZW91dHMgKC0xMTAgLyAtRVRJTUVET1VU
-KToKICBtdDc2MDF1IDMtMTQ6MS4wOiBBU0lDIHJldmlzaW9uOiA3NjAxMDAwMSBNQUMgcmV2aXNp
-b246IDc2MDEwNTAwCiAgbXQ3NjAxdSAzLTE0OjEuMDogRmlybXdhcmUgVmVyc2lvbjogMC4xLjAw
-IEJ1aWxkOiA3NjQwIEJ1aWxkIHRpbWU6IDIwMTMwMjA1MjE0Nl9fX18KICBtdDc2MDF1IDMtMTQ6
-MS4wOiBWZW5kb3IgcmVxdWVzdCByZXE6MDcgb2ZmOjA5YTggZmFpbGVkOi0xMTAKICBtdDc2MDF1
-IDMtMTQ6MS4wOiBWZW5kb3IgcmVxdWVzdCByZXE6MDIgb2ZmOjA5YTggZmFpbGVkOi0xMTAKICBt
-dDc2MDF1IDMtMTQ6MS4wOiBWZW5kb3IgcmVxdWVzdCByZXE6MDcgb2ZmOjA3MzQgZmFpbGVkOi0x
-MTAKICBtdDc2MDF1IDMtMTQ6MS4wOiBWZW5kb3IgcmVxdWVzdCByZXE6NDIgb2ZmOjAyMzAgZmFp
-bGVkOi0xMTAKICBtdDc2MDF1IDMtMTQ6MS4wOiBwcm9iZSB3aXRoIGRyaXZlciBtdDc2MDF1IGZh
-aWxlZCB3aXRoIGVycm9yIC0xMTAKClRoZSBmYWlsdXJlIG9jY3VycyBiZWNhdXNlIG10NzYwMXVf
-bG9hZF9maXJtd2FyZSgpIHVuY29uZGl0aW9uYWxseSBjYWxscwptdDc2MDF1X3ZlbmRvcl9yZXNl
-dCgpIChNVF9WRU5EX0RFVl9NT0RFX1JFU0VUKSBiZWZvcmUgdXBsb2FkaW5nIGZpcm13YXJlCmNo
-dW5rcy4gT24gdGhlc2UgZGV2aWNlcywgaXNzdWluZyB0aGlzIHZlbmRvciByZXNldCBsZWF2ZXMg
-dGhlIGludGVybmFsCk1DVSAvIEZDRSBETUEgZW5naW5lIGluIGFuIHVucmVzcG9uc2l2ZSBzdGF0
-ZSBhZnRlciB0aGUgZmlyc3QgZmlybXdhcmUKVVJCIGlzIHN1Ym1pdHRlZC4gQXMgYSByZXN1bHQs
-IHJlYWRpbmcgTVRfVFhfQ1BVX0ZST01fRkNFX0NQVV9ERVNDX0lEWAooMHgwOWE4KSBpbW1lZGlh
-dGVseSB0aW1lcyBvdXQuCkludHJvZHVjZSBhIGJvb2xlYW4gbW9kdWxlIHBhcmFtZXRlciAndm5k
-X3Jlc2V0JyAoZGVmYXVsdDogZmFsc2UpIHRvCm1ha2UgdGhpcyB2ZW5kb3IgcmVzZXQgb3B0aW9u
-YWwuIFdoZW4gdGhlIHZlbmRvciByZXNldCBpcyBza2lwcGVkLApmaXJtd2FyZSB1cGxvYWQgc3Vj
-Y2VlZHMgYW5kIHRoZSB3aXJlbGVzcyBpbnRlcmZhY2UgaW5pdGlhbGl6ZXMgbm9ybWFsbHkuCgpM
-aW5rOiBodHRwczovL2J1Z3MubGF1bmNocGFkLm5ldC91YnVudHUvK3NvdXJjZS9saW51eC8rYnVn
-LzE3MTYzMDEKCk1vcmUgaXNzdWVzIHdpdGggVGVuZGEgVTIgYW5kIExpbnV4OgotIGh0dHBzOi8v
-d3d3Lm9wZW5hLnR2L3ZpZXd0b3BpYy5waHA/dD02MzkxOQotIGh0dHBzOi8vYXNrdWJ1bnR1LmNv
-bS9xdWVzdGlvbnMvMTQxODg1MC90aGUtcHJvYmxlbS13aXRoLXdpLWZpLXUyCi0gaHR0cHM6Ly9i
-YnMuYXJjaGxpbnV4Lm9yZy92aWV3dG9waWMucGhwP2lkPTIyNDg1OQotIGh0dHBzOi8vd3d3LnJl
-ZGRpdC5jb20vci9hcmNobGludXgvY29tbWVudHMvMWQ2ZGZ2NS9tdDc2MDF1X3VzYl93aWZpX25v
-dF93b3JraW5nLwoKU2lnbmVkLW9mZi1ieTogSGVybWFuIFNlbWVub2ZmIDxHZXJtYW5BaXpla0Bh
-aXpla2dyb3VwLnJ1PgotLS0KIGRyaXZlcnMvbmV0L3dpcmVsZXNzL21lZGlhdGVrL210NzYwMXUv
-bWN1LmMgfCAxNSArKysrKysrKysrKysrLS0KIDEgZmlsZSBjaGFuZ2VkLCAxMyBpbnNlcnRpb25z
-KCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L3dpcmVsZXNzL21l
-ZGlhdGVrL210NzYwMXUvbWN1LmMgYi9kcml2ZXJzL25ldC93aXJlbGVzcy9tZWRpYXRlay9tdDc2
-MDF1L21jdS5jCmluZGV4IGJhZDZjYTgyMS4uYWJmNDc2N2YxIDEwMDY0NAotLS0gYS9kcml2ZXJz
-L25ldC93aXJlbGVzcy9tZWRpYXRlay9tdDc2MDF1L21jdS5jCisrKyBiL2RyaXZlcnMvbmV0L3dp
-cmVsZXNzL21lZGlhdGVrL210NzYwMXUvbWN1LmMKQEAgLTEwLDYgKzEwLDcgQEAKICNpbmNsdWRl
-IDxsaW51eC9kZWxheS5oPgogI2luY2x1ZGUgPGxpbnV4L3VzYi5oPgogI2luY2x1ZGUgPGxpbnV4
-L3NrYnVmZi5oPgorI2luY2x1ZGUgPGxpbnV4L21vZHVsZXBhcmFtLmg+CiAKICNpbmNsdWRlICJt
-dDc2MDF1LmgiCiAjaW5jbHVkZSAiZG1hLmgiCkBAIC0yMSw2ICsyMiwxNCBAQAogI2RlZmluZSBN
-Q1VfRldfVVJCX1NJWkUJCQkoTUNVX0ZXX1VSQl9NQVhfUEFZTE9BRCArIDEyKQogI2RlZmluZSBN
-Q1VfUkVTUF9VUkJfU0laRQkJMTAyNAogCitzdGF0aWMgYm9vbCB2bmRfcmVzZXQ7Cittb2R1bGVf
-cGFyYW0odm5kX3Jlc2V0LCBib29sLCAwNjQ0KTsKK01PRFVMRV9QQVJNX0RFU0Modm5kX3Jlc2V0
-LCAiUGVyZm9ybSB2ZW5kb3IgcmVzZXQgZHVyaW5nIGZpcm13YXJlIHVwbG9hZCAoZGVmYXVsdDog
-ZmFsc2UpIik7CisKK3N0YXRpYyBib29sIGRpc2FibGVfdXNiX3NnOworbW9kdWxlX3BhcmFtKGRp
-c2FibGVfdXNiX3NnLCBib29sLCAwNjQ0KTsKK01PRFVMRV9QQVJNX0RFU0MoZGlzYWJsZV91c2Jf
-c2csICJVbnVzZWQgY29tcGF0aWJpbGl0eSBwYXJhbWV0ZXIiKTsKKwogc3RhdGljIGlubGluZSBp
-bnQgZmlybXdhcmVfcnVubmluZyhzdHJ1Y3QgbXQ3NjAxdV9kZXYgKmRldikKIHsKIAlyZXR1cm4g
-bXQ3NjAxdV9ycihkZXYsIE1UX01DVV9DT01fUkVHMCkgPT0gMTsKQEAgLTQ1OSw4ICs0NjgsMTAg
-QEAgc3RhdGljIGludCBtdDc2MDF1X2xvYWRfZmlybXdhcmUoc3RydWN0IG10NzYwMXVfZGV2ICpk
-ZXYpCiAJbXQ3NjAxdV93cihkZXYsIDB4OTRjLCAwKTsKIAltdDc2MDF1X3dyKGRldiwgTVRfRkNF
-X1BTRV9DVFJMLCAwKTsKIAotCW10NzYwMXVfdmVuZG9yX3Jlc2V0KGRldik7Ci0JbXNsZWVwKDUp
-OworCWlmICh2bmRfcmVzZXQpIHsKKwkJbXQ3NjAxdV92ZW5kb3JfcmVzZXQoZGV2KTsKKwkJbXNs
-ZWVwKDUpOworCX0KIAogCW10NzYwMXVfd3IoZGV2LCAweGE0NCwgMCk7CiAJbXQ3NjAxdV93cihk
-ZXYsIDB4MjMwLCAweDg0MjEwKTsKLS0gCjIuNTUuMAoK
-------==--bound.15573.72fe279f-44e2-4bae-863c-fbcee8ae43a7--
+By the way, "generates no code" sounds a bit strange, since `bindgen`
+generates source code...
+
+Thanks!
+
+Cheers,
+Miguel
