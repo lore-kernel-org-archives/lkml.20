@@ -1,121 +1,157 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D43536C581
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 15:49:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60307376BF7
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 15:51:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788709773; cv=none; b=rGYTCsyNYUtmWM5JmZXzxTJATTYUOsYQSk6k5bfMA1ZAe/XisMgR8rmsro7sdETy4nRTPw0i0+V3pIQsoX40z1QDsJqZgEO2GkNM7mZtov6B8IL9FIjB78JWsi88JUxQf5cm/NF17ltzFrk5FF48uWohGuKBOIhjfV1a74Uc0wM=
+	t=1788709887; cv=none; b=QGh+N/KvmJtlOXYfeExD9bqFN82DNoBFiAqxnk2KNbg8puw7SJHqf1PSObGabU0AHV8m/6p8AR0Kpnsz0fm/Ag9B5WLnKKVHRcXQYWCb4eS3PWg5G3j2kmLuhSLyHN0kznMbQ7RnoU2TnXYsnJcgT+1qPNBKm3cag/xb1tPFgmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788709773; c=relaxed/simple;
-	bh=gLgR5hH9TpKdCjqZyFRqJNOHPp4YzoVfvrONPg729BQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lp+azQPovWScWWTZT5sqCKIJBa/B+UjMVXtmnFgUFXaEvbC/B9pkbVyfWZELfg5NrJdxzyHyzQkT6o7kO5VTcdJPLpcvP5hWxQyPMKpr7v/EPyJUoEKT3jl4pJD3ssO3k2GyUhosY97fx3bmXOYJgVxER2XnnUPJ3FFF9vNFfCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F33D9ilR; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788709887; c=relaxed/simple;
+	bh=aBvKHXJMUyfS8/ReEsoPVCIlZRhVrQR480IPSglyxog=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FPPJKYDQxtt+u7ZJDhohMuBSO6Ugp1ynoSvo/xG96fuIYCMOhvw91HXOmPmtLyVRNTPtJA39n59kr3dQir75AVS4hi9hfsC9KQ7QHpEiG//QkB2WfsxSmeXu17aI0cP3LN02ZtUfgmz0q6dKr/xckg/BuRXZl0Fwsas0PLu97zs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DLmEQD6I; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iaPB7chR; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F33D9ilR"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3964dfb5a69so3610419a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 08:49:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DLmEQD6I";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iaPB7chR"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 686EXNbO1615530
+	for <linux-kernel@vger.kernel.org>; Sun, 6 Sep 2026 15:51:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	WCNnlg4GyeLNFBgZB9Ozm8QTq3ZkWVLYSJhs0FHtgyo=; b=DLmEQD6Ii5g5CD3L
+	FCtBjZ9lXnkhOq/YfgNIJf6rThoNoOq8496Ys2s/zcgDEbMM+yVBpkOke5DwMaCH
+	RR07zWJd+EyUU5vW1b5yApfl3AuTr1B5Ylbj+jauQmBJMoe2vSLPf//JK1lQ2sLW
+	58HyWmyfFkhKNxrRqafZZyW1GNgXU6HAkMU2NqezcGJEoYvrWwPs3k/ui7PoRLaE
+	a9hGvrtLnLYVDnuMpNbgXDj5G0JWHWxkDVK48OTKhOOXYotCFKMNvoEkS8PMrfVA
+	8u5+iu7zJjM1BzHCCuLc6J7i0wT4VIUSp+hXF1FFSBdLldtRWupyBVrYultfYd+H
+	eyrtMA==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gga373te6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 15:51:25 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-398e1fafe17so4276009a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 08:51:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788709770; x=1789314570; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nnEQOH1FPlYD+C4tmq677bqNxTEuPgTx+WW+XcbxEss=;
-        b=F33D9ilRpLuhsTtwTMjjwJFdOJYYKsCC4SyzYoF0ihBSOAHt9l6nrHWWyeJnphCWIb
-         bFxVhnq2IwyBFORGgg3LOhyVksM8pT9bvbANTsnqCygOpnkeiSxJxZHko39IURHHNafj
-         /EzLG5BQcMLG3vi7Z0BnTJV7KZ+9GscT7fSARENeXmkROPSuWh0F1kMsoc1d4hIGCDgL
-         RzvWeMot48rmEZ4tMnms0DmXhgoaFzny/X7gKYLLNM1qKlDVaWGhmMxzwcXmnv6djpjn
-         mkX6YlrmbU8lHA1eURqb0L1SwnK8kjNdUzU7dro3ShIvhPIfadVYy69Z68CKJAAMVsHL
-         QD9g==
+        d=oss.qualcomm.com; s=google; t=1788709884; x=1789314684; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WCNnlg4GyeLNFBgZB9Ozm8QTq3ZkWVLYSJhs0FHtgyo=;
+        b=iaPB7chRrUwVqrsYjyBlwkVRs6HJUO7X9qXMcSumcJ21v2FlE2dm5RabE5wjoWpQ5q
+         9fAYNi5bF+D++zq1EJcmoZD7DSHQyTKFOD+1g58CidbtBVStZPdODY4q+myMmD+WmpJH
+         26YpgRH8c4aoByizxviOh7rwSUHFCr10KkD2dRM9vnbT/GD4/pEWWIXyEz2JFR7lZ8ZJ
+         uoNdc/7ltOmVhEvO/OS0IEaqMmMmy6LTthH0a8/Tln7cDJlqDpF/gRKInGPECL8nRv3g
+         sgtrs6hLUC5ZD/Yr+eujXR71iEPvaqPYK6LtESybQooQ//toGOYVN1Wi7+7kb/h9Ctr7
+         0I8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788709770; x=1789314570;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788709884; x=1789314684;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=nnEQOH1FPlYD+C4tmq677bqNxTEuPgTx+WW+XcbxEss=;
-        b=kEQ9LLJVHyjMn60+ddKtHaeANZaA4MMWrKaybgeu77CZLWG6a2R+kahineiwp3hpIR
-         u+6YVloXdz0e7iLyIHQ0Y4F3VLIPd6X7vzExl7SMxRctB/8/Wnet33Wg3Tvs0H7wimTl
-         YcjwvvJ4mE5uOcoN+DaowufOUL1/37XX9WraAcUl4OVNHCaHYdX40Bs2Hw4NgjOfbb5Y
-         ob3oT7QjZe0X/ZG87z6g4qY4KlZmG7f7LiktDzOk+d97JJo5Vou1Pw572f8A4znooZ+8
-         x7fWTqimVL5naI4TvCvTh3pRltC+xyd/aDYJae+9QSkN0vvydzcmpndBJa9wBzck+0h3
-         gmTA==
-X-Forwarded-Encrypted: i=1; AKwUvBwqnl3gej2g5JrOxeJAF4+PaLDYKoLwk7wpwzdkbO8yWfngVuomHsVKLLomgxUeEOTYxXyK8XMD0L3S2aE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kjZPR4GnoSoCJKYJiC3r9dnhlY1FI8NidfnAG6nCLWXxDg9IE/
-	pEarpZnpxtMrgaD9NRlbQMso3JRjhvwpanNKDV1cG9qixDwXZzRpGppB4ktV6Q==
-X-Gm-Gg: AYBFou1eFmUov8JzVjgIk2KP97CF2lpHOOWuG9ely+/+Cx2Z16Rg7S9atyEr3CyUOK6
-	77OPa5fy2VGiA9KPejccoI1Nhv2xYgS2f8RUT3NHGro/ntcko/pVkA2XrSjO7Fey7D9lnAfmZap
-	4vDjxXdNAJuDy/64RZ0UuK/1qTYkAXJs0rCk27mYj7FKOBsMGUf0BdxO5r+d01LkDq3L65qtfWF
-	SL3GaeYDJpMdEPpzezI6D+h9fPObAQfyIz0b0cL6sT+1pTGfDewgs63Q7KRH8RawjA1lKiIXQc2
-	H9Q8Glo+rivFmnajJ6s/X7p59B/GJBQ4frDXtuts0DhYKof+m4aImUQRORUpYKL/GOEPn/y4vEc
-	g4e2sqT+X2tt0Gf89J3QRqcwfypcjRlApZ0kpCzgocCeG1P0QegY/+9Yjj3+TwT8LvgLyHYJh0O
-	03VSmjY8QzWVBtB4Oxx1au3yLcvLrm0uNCpDuqQXcPLv/zjPvcLypEqG08nF6gp4+OdbK0I1uZr
-	inMDwJM
-X-Received: by 2002:a17:90b:55cf:b0:396:b918:c2a with SMTP id 98e67ed59e1d1-39b261b1a52mr30338457a91.12.1788709770473;
-        Sun, 06 Sep 2026 08:49:30 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:1d38:5c70:7bb9:b8bf:8aa8:fb0d])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae610e5b2sm7271765a91.0.2026.09.06.08.49.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 08:49:29 -0700 (PDT)
-From: ThangNN99 <ngocthang2710.1999@gmail.com>
-To: Viacheslav Dubeyko <slava@dubeyko.com>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Yangtao Li <frank.li@vivo.com>
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ThangNN99 <ngocthang2710.1999@gmail.com>,
-	syzbot+f8ce6c197125ab9d72ce@syzkaller.appspotmail.com
-Subject: [PATCH] hfsplus: fix recursive tree_lock in hfsplus_file_extend()
-Date: Sun,  6 Sep 2026 22:49:24 +0700
-Message-ID: <20260906154924.94160-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=WCNnlg4GyeLNFBgZB9Ozm8QTq3ZkWVLYSJhs0FHtgyo=;
+        b=AHisgP0RVSBZo/eGlKYCWTcRF/kudM8T5Ynte+YpzKrbg5fzREAmEMj/AxXonNXl47
+         RNmRYAPDQAvzyBOKX3XAiVhit+jLkPmVGDGLEqDprMD9GB71hH1UDBerBhqdqghzlPAA
+         RB6lwGFrkov9OPwB1XtA0j8jQqGUHtU8FKY42b6ATwVX6q4TwwIzVhTuDoqq2zKpxnOJ
+         3OWUc7ieEIPjXUeHVinDRZt3MofmI3z0LIvsCVwYxbcmwFOgIEHngmkRUQjt4hSKX2kU
+         sH2g4LZxOI4jpgsd8Hlj/8xlvcYuGSB4kDqzlBvbKVrcXQGyjut6tJ9QZAM64Yr5mXSm
+         XeUw==
+X-Forwarded-Encrypted: i=1; AKwUvBwp0OmQLffW6LMLwdquwgE1Aw7La4arc3MSHyomgvUHeyszjdmPNgaTwF3BkJG2pbrgwzVLM/S4SiecPbY=@vger.kernel.org
+X-Gm-Message-State: AFuF++l74n9K1wLGnFEbw+DMyMascSKQ8rkrKoMsCqgOxRNtdVSE4fg0
+	sbBdZvXy8RjYNd5mOzaTgie4hm3mYRUkqVLkXYRR32bf9HTuwy92aAJIGL7umhJtG7bQ8BJqdvw
+	beovaGIzHJFVmssprFIBGLYxmsNCmyO8Y97UZVLdGZ9QRgc2vrpTO88/dZvyyEQdbTRY=
+X-Gm-Gg: AYBFou3A94Aq6dsG1qq0PYovlNMm2R0T5WR+HskJdnLrTjl2dFsEyClE7ncaMmuC7FF
+	KIHDA4Fwqtt1lgDMv9bU8DMRRKNoRu0JRaRfUBi4r4h2mWzbcUgR1GpiMy2kPe1rk5tfEApHhYT
+	GnCGGFLb6y9VOIDnm61nCjD7SEhqiWKItlYKMQP10vpwcOFce9tfEpRK4BF0pGutNbHf154soXG
+	83HzTjgLvN4qQ0PZc6vC9iPsv+GPQFcYsILsRIs3RqjcOjMCK8rUFZngs8BsZpFad5sRe9wwV+C
+	Jw9TrBKQuHcDFN2deiUZ3ugKHVLNnwHLq8sb2kfyYsakiTlgDm5bUJqg71j1WojiOpppJdNh0sn
+	yMGarVRkRpQd3FFYFJ85D7zOuC/WV
+X-Received: by 2002:a17:90b:4fca:b0:38e:5b59:c2ff with SMTP id 98e67ed59e1d1-39b260dd278mr27450027a91.3.1788709884242;
+        Sun, 06 Sep 2026 08:51:24 -0700 (PDT)
+X-Received: by 2002:a17:90b:4fca:b0:38e:5b59:c2ff with SMTP id 98e67ed59e1d1-39b260dd278mr27449993a91.3.1788709883853;
+        Sun, 06 Sep 2026 08:51:23 -0700 (PDT)
+Received: from [192.168.1.11] ([103.211.19.41])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243bfbe3sm19755723c88.11.2026.09.06.08.51.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 06 Sep 2026 08:51:23 -0700 (PDT)
+Message-ID: <3a2f535c-7ccb-4b50-a6fc-f73ec02d4acf@oss.qualcomm.com>
+Date: Sun, 6 Sep 2026 21:21:17 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v17 0/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vinod Koul <vkoul@kernel.org>,
+        Kishon Vijay Abraham I <kishon@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Suresh Vankadara <svankada@qti.qualcomm.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260903-x1e-csi2-phy-v17-0-26606fa9a039@linaro.org>
+Content-Language: en-US
+From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+In-Reply-To: <20260903-x1e-csi2-phy-v17-0-26606fa9a039@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: ooTysZEXWxld4BXkUvsWXmENssD93lgm
+X-Proofpoint-ORIG-GUID: ooTysZEXWxld4BXkUvsWXmENssD93lgm
+X-Authority-Analysis: v=2.4 cv=CbQ4Irrl c=1 sm=1 tr=0 ts=6a9d8bfd cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=HcLy/BXbbKFjgnJyaMb84Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=0VQvOID68a5ICqMF5fEA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA2MDE3NyBTYWx0ZWRfX6czCawkiGYIM
+ Ya3B2t9BCh62QBX49iffDUWLJlR+TQpeHGtmG/RvomfXGAnCuPdPsWso0bbi5KJfDV0luNKi3Xp
+ JbVYsdY81NgEVtnHSSbUAYulgtTnVL0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA2MDE3NyBTYWx0ZWRfXxccPGqWhKrPS
+ hC7OcZOPRtPJb3johk435KP8Rq4aY/gV6GbhpWjcWmqQuLkunzNb8ljparQ54iRt9EDXkGJmQnd
+ MkCgS4XSsyX6A80oY1TBrItbEyomoo+74diFS+hyBqxzmrc1wdjg0FvmXwCPEq6iycgHPdsnh6f
+ /xMaoZXeq3bz0V1bLv2cbjN6IP0YiaYXYh3xTJzWUFXk+spWz69qFKnA7Om0cfnuvZ7t31CjofT
+ AVM4WZxLasr5pj6/8awhvIJr/ftS27H+C2jgTI1F3KlpR19hoqWEW+wSfq2GU0uiGhMEETenjWm
+ 7b6y3FhFDvPrjdiFp7R9RcwpLJv8TJhhXtGvGstNIXwgLH7hNpMZtdXAUDltoxNJiu0skWJtWUs
+ mjSnuy7DK982OoF54wdWWgihIWRXUlFw9jqUlIJARCTosUtHAjttFcoXMmN7/Zs3sEDTS0fIj5B
+ sSHDGmCjrHeigShi9vA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-06_01,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501
+ phishscore=0 bulkscore=0 suspectscore=0 clxscore=1015 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609060177
 
-hfs_bmap_reserve() calls hfsplus_file_extend() on tree->inode with
-tree->tree_lock already held.  When the tree is the extents overflow
-B-tree and its own fork already claims more blocks than its eight
-fork extents describe, hfsplus_file_extend() calls
-hfsplus_ext_read_extent() -> hfs_find_init() on that same tree,
-taking tree_lock a second time (lockdep: "possible recursive locking
-... &tree->tree_lock/1").
 
-Per the HFS+ format the extents overflow file is fully described by
-its eight fork extents, so this state only arises from a corrupted
-image. hfsplus_get_block() already refuses it for lookups; do the
-same when growing the file.
 
-Reported-by: syzbot+f8ce6c197125ab9d72ce@syzkaller.appspotmail.com
-Signed-off-by: ThangNN99 <ngocthang2710.1999@gmail.com>
+On 04-09-2026 02:14, Bryan O'Donoghue wrote:
+> I've retained the callback indirections give us scope to add in another type of
+> future PHY including potentially adding in the 2PH later on.
+> 
+> This driver is tested and working on x1e/Hamoa and has been tested as not
+> breaking sc8280xp/Makena and sm8250/Kona.
+> 
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+
+For the series:
+Tested-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com> # Glymur CRD
+
 ---
- fs/hfsplus/extents.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/fs/hfsplus/extents.c b/fs/hfsplus/extents.c
-index eb7c11524d18..39920b51e08b 100644
---- a/fs/hfsplus/extents.c
-+++ b/fs/hfsplus/extents.c
-@@ -458,6 +458,15 @@ int hfsplus_file_extend(struct inode *inode, bool zeroout)
- 	if (hip->alloc_blocks == hip->first_blocks)
- 		goal = hfsplus_ext_lastblock(hip->first_extents);
- 	else {
-+		/*
-+		 * The extents overflow file can't have overflow extents of
-+		 * its own; growing it here would re-enter hfs_find_init()
-+		 * on the extents tree, whose tree_lock is already held.
-+		 */
-+		if (inode->i_ino == HFSPLUS_EXT_CNID) {
-+			res = -EIO;
-+			goto out;
-+		}
- 		res = hfsplus_ext_read_extent(inode, hip->alloc_blocks);
- 		if (res)
- 			goto out;
--- 
-2.43.0
-
+Regards,
+Nihal Kumar Gupta
