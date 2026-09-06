@@ -1,152 +1,178 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7511C3F4DDD
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 07:55:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08D4C37418C;
+	Sun,  6 Sep 2026 08:01:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788681333; cv=none; b=Q1bXjKjUJQ2yhr6WM9GAETFo1+UzmpVN1ugfbL6HuWe5Uioio9o6+ZNkJHlBvpYBncsRthQK91SE8tQeWpM4dmkI7Izdm7tV8bXxowQsiP58w8Dt6EqODWLq3aC/M4NF28p72e5GDWvlc65pjyHjXvvx8wImtNzBlZmFxai6Z6k=
+	t=1788681697; cv=none; b=H0mkmsxFah5z/mlfkNlb+hynzrpPxamvYXzxHtXvgN/VZYI7l3mSLJAsYAHUDl/YuWYb7zGVjGXyqHIRBORqFzgCCwXpB6w7vc7UUMskFg2ZTrVHEz/tSDDKZ7dtFEIMsOdTYSv9DZuVrFo3iepbG6+MMorMng6QGAjjc/7Xrz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788681333; c=relaxed/simple;
-	bh=qNTDOlPILV3T04HAjwGIZq4By932gRZYYSompesDPNE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gUNQquy6FMM1fU2M/BrEO95P8nmPpl1XOFWdWke3431mX9jfbC7nVbrO9TzPtGoRoZVDdSIm36VQSNMgnEQRWaAsftW7N8cLyIbaXxLs4EBxiM2AzL37rlIqL4G9CY15cBcH/4YDbPQOm1AdvMnlHOuo237itUN/2bTlyE2JDgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j5K1D/2k; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788681697; c=relaxed/simple;
+	bh=lispaYJXyvdYsvDoj+kW+PP2c4CzAetUpDeaeRiyTi4=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=QTUWGx3pVMVHGRzWP+ZQrXuoj7gY3qP9SFs6ExIzCEHHS8uiD0oPp6Ot6gKv+89rWLtomIlbvWDHtSUBQpQdgJeL8OUSyijUehXrr4vugzoa/mmW9KmC9b2ciGtZBzGbQf3vKVTh0y+3U++rwxq9hpuhKXucTP1OOwRtd6O+DJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=urGshmDO; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=nwW7C1qH; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=lTmj1quW; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=7DEvy6Lj; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j5K1D/2k"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d9201076b3so28663845ad.0
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 00:55:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788681325; x=1789286125; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/l1qLwJSS6D6HFID29WNOWsYoWwOmZTzkLIw+IBHN20=;
-        b=j5K1D/2k29HcTJ+qa0lx2BCGIjrj0+232m5KUNbxLr83GgA7rPw6Mf3FyNU5Ia+++6
-         UejkdeMIJXGBge8ahwgfVzcGgChwxn9BuOO6ucNmcbgb9XSe83BJdX0BujjTsoBxaJrA
-         hvhroZa7yOc8bNbhCX289xeiClq2y8qEWz0zkyAHZV3O22WNrMqvQl8GeocJnVqHWfuf
-         qZDxKq4zm8VuVmk2fk6hdaHlG4I7PANIr1ZG1NAQPad3FSvmj2aBKkPg5ED1JJBfuIUp
-         UWiEVGYK2dKR/rqvPwVz7SVevJrEObIXrqWxls3sDyDZh5z1h29iJld9tQC/x+1SIizs
-         fdVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788681325; x=1789286125;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/l1qLwJSS6D6HFID29WNOWsYoWwOmZTzkLIw+IBHN20=;
-        b=l7oXdQAo54gsloHetHzRHnQLv63VqMYDGpCOuSeD1xdYCUmZ7GiFjjNauFpRkP7y1J
-         kcDqDiR1+ZLl2OP+LunEGhRrEAtpIs/JRi/8uAG9GZwKskIwBXR6qGskVzOrco9+dz5N
-         clrflSXG8jCJAzS8uempAuKcUDszTNiSruAh52SmdwXVpTeZFXU4yImaTZeR068bI59c
-         +RB9Ig+AKK0WQSLtwJ1a+TqJwWXBEhDW9mgd5sl01qmRp4hBxMU6ga0R2sKBORQ4UPpU
-         DG6skzUC6ZsKuwL0mrH2sRmBMOcd9UWvAZIi2AWknVWUQdBo8umJJm93d+2Zv5Y36VEM
-         R5Ew==
-X-Forwarded-Encrypted: i=1; AKwUvByZb6xRdcm0t+Z+Ol88TEQzf2FH1RKPN34GN8bgUsQrt40EMLzqRcEG7LvabvUj2Rm6Pk4sDtWMc4ZoWQA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nchWG2fz6Co41zWpreUrKIJNH5t2ZWB25z/z4NL7zGkMRRpRtl
-	abJ3dfzuzFCQM3XxgOR0dOXDAuBQKghBcV7hYIhArwipt37hFFXSnvsg
-X-Gm-Gg: AYBFou3cUcwMdpi82S2Igdm1a/TXRnuAQftyfdCyupVYt6D5/JdGME8IH/t3SISKj/7
-	YRf938pCMRY4imyMxYzx4EUDVrK2ryEQZd5yYhPvOsO+N4JzcNebDGtYd8+rMeAFFa+8RauLhd2
-	2A2NerypneUxVHlYUMrK74goLGvI60F5AgUqBmtcbXGEdyyTyw0G5vApk/KjEXNds/uT7bQFQ4b
-	pI3Kwe8lWhjSK4PyZJPc3hvqMTUmFRIYJJr1lzMoKCTHBWIrZCnOmVycClsTDAE5avm/opTzVFb
-	oS6UbK7CkTCj6jkv/meeVz/HpHM/bF7Zst0v/2hp7LN990fYW70mie8EGgIq/CSOjIJPGMvBfCp
-	heQDRIIVJIIbdlCDBhnCEGstki7ijC7+reML4sTM/5+vB25BQtGww87P49tnoDbgx5/heyKbAK4
-	BD1xicNTSBlKQR86ITYba+XZNSl2ttk/2qoHpeXWiaPJihI5SJSc4aHCGOaWLRyZUv7JM2kCOZ7
-	zAzGM5rLfj+VWEvIQlR
-X-Received: by 2002:a17:902:c40f:b0:2d7:107c:917b with SMTP id d9443c01a7336-2db1212ee51mr225631555ad.0.1788681324676;
-        Sun, 06 Sep 2026 00:55:24 -0700 (PDT)
-Received: from 192.168.50.3 ([183.193.115.0])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1495b57fsm29936115ad.24.2026.09.06.00.55.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 00:55:23 -0700 (PDT)
-From: Weiming Shi <bestswngs@gmail.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="urGshmDO";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="nwW7C1qH";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="lTmj1quW";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="7DEvy6Lj"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 6F4451F836;
+	Sun,  6 Sep 2026 08:01:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788681690; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=E7bVrx7Y8l6Q0BtkNtIWmgbqwYSF3CebnyWsx+/Wj8Y=;
+	b=urGshmDO5Rccb/BI4KI3fyGZ7Aybdip8L473cm5d+5FwL8Vn6GbeGCCCQbonV142+/T4qH
+	7e4FxlNctuZPhCFzYkcTgEITqtDRpLLiFpXvCQuysJjYfnRsOU6u1kPC1lTL3C3lx8wDyq
+	5WlRcsD7Pf2gzB69/BBLco5IdXI7SGg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788681690;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=E7bVrx7Y8l6Q0BtkNtIWmgbqwYSF3CebnyWsx+/Wj8Y=;
+	b=nwW7C1qH/gbfQNxCj2zZf4yCeVPo8T9btTk7NnFLAy5S9hmH4HkqsfG5fwsqnCMvS/nNTk
+	ZbOKRkc9Rv4FlzCQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788681685; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=E7bVrx7Y8l6Q0BtkNtIWmgbqwYSF3CebnyWsx+/Wj8Y=;
+	b=lTmj1quWDk+3Bd9NH/EJpkYafqq22BasZsfDatMJ8+lbVZ0PB96sf+snoDVXLpP4eWjQDj
+	ThAyfEb5nHnXH7oxKSIitza1LlTD6/pPrfgiTt1ulhJoACwRlLihHfduFsHuB8jm5RX1+U
+	ln5bcOrfFBLVqnV/MzlWe4pDM0Tgz30=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788681685;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=E7bVrx7Y8l6Q0BtkNtIWmgbqwYSF3CebnyWsx+/Wj8Y=;
+	b=7DEvy6Lj5eCSiPMQgWRC/C1JPSal0D5+nRr5uKxAAfUMiatG9ZKqDVL507hZQfOMzumYeB
+	RT7HXnaLYO7P0ECw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E8E2F13432;
+	Sun,  6 Sep 2026 08:01:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id auB4N9QdnWpLaAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sun, 06 Sep 2026 08:01:24 +0000
+Date: Sun, 06 Sep 2026 10:01:24 +0200
+Message-ID: <87mrtu4xm3.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Edward Adam Davis <eadavis@sina.com>
+Cc: daniel@caiaq.org,
+	gregkh@linuxfoundation.org,
 	linux-kernel@vger.kernel.org,
-	co+459f67f4d8af8ce6@bugs.sh,
-	Xiang Mei <xmei5@asu.edu>,
-	stable@vger.kernel.org
-Subject: [PATCH nf v2] netfilter: ip6t_rpfilter: reject routes without inet6_dev
-Date: Sun,  6 Sep 2026 15:54:40 +0800
-Message-ID: <20260906075440.4123076-1-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	linux-sound@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	perex@perex.cz,
+	syzbot+832ce9fa3face1b7d44d@syzkaller.appspotmail.com,
+	syzkaller-bugs@googlegroups.com,
+	tiwai@suse.com,
+	tiwai@suse.de,
+	zonque@gmail.com
+Subject: Re: [PATCH v4] ALSA: caiaq: Decoupling ep1_in_urb in caiaq dev
+In-Reply-To: <20260903130521.554840-1-eadavis@sina.com>
+References: <20260903115652.550250-1-eadavis@sina.com>
+	<20260903130521.554840-1-eadavis@sina.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -1.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-1.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TAGGED_RCPT(0.00)[832ce9fa3face1b7d44d];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,sina.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[caiaq.org,linuxfoundation.org,vger.kernel.org,perex.cz,syzkaller.appspotmail.com,googlegroups.com,suse.com,suse.de,gmail.com];
+	FREEMAIL_TO(0.00)[sina.com];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
+X-Spam-Flag: NO
 
-ip6_route_lookup() can return an error-free route whose rt6i_idev is
-NULL. Lowering an external nexthop device's MTU below IPV6_MIN_MTU tears
-down its inet6_dev while fib6_ifdown() leaves routes using nexthop objects
-in the FIB. An unprivileged user can construct this state with rtnetlink
-in a private user and network namespace, then trigger a NULL dereference
-through an IPv6 rpfilter lookup:
+On Thu, 03 Sep 2026 15:05:21 +0200,
+Edward Adam Davis wrote:
+> 
+> The epq_in_urb object belonging to the caiaq device is coupled within
+> the struct snd_usb_caiaqdev. After usb_submit_urb(epq_in_urb, GFP_KERNEL)
+> executes successfully, epq_in_urb is successfully added to the urbp_list
+> queue of the dummy HCD driver (userspace specifies dummy_hcd as the HCD
+> layer driver for the caiaq USB device).
+> 
+> When init_card() calls snd_usb_caiaq_send_command() which subsequently
+> fails due to a timeout, and proceeds to call snd_card_free() to release
+> the card, the embedded ep1_in_urb object is also freed. When the dummy
+> HCD driver detects that the URB has been unlinked, it returns the URB
+> (by usb_hcd_giveback_urb()), which triggers [1].
+> 
+> Decouple the ep1_in_urb object from the struct snd_usb_caiaqdev and switch
+> to using a pointer instead. Separately allocate and manage the memory for
+> ep1_in_urb to prevent the release of the snd_card memory object from
+> interfering with it.
+> 
+> midi_out_urb has the same issue as ep1_in_urb and is handled in the same
+> way.
+> 
+> [1]
+> BUG: KASAN: slab-use-after-free in usb_free_urb+0x24/0x120 drivers/usb/core/urb.c:96
+> Write of size 4 at addr ffff88803cee1050 by task ktimers/1/29
+> Call Trace:
+>  usb_free_urb+0x24/0x120 drivers/usb/core/urb.c:96
+>  dummy_timer+0xaac/0x4d50 drivers/usb/gadget/udc/dummy_hcd.c:2019
+>  __run_hrtimer kernel/time/hrtimer.c:2067 [inline]
+>  __hrtimer_run_queues+0x3eb/0xaf0 kernel/time/hrtimer.c:2124
+>  hrtimer_run_softirq+0x1e1/0x2e0 kernel/time/hrtimer.c:2141
+> 
+> Allocated by task 36:
+>  snd_card_new+0x7b/0x110 sound/core/init.c:184
+>  create_card sound/usb/caiaq/device.c:429 [inline]
+>  snd_probe+0x236/0x1af0 sound/usb/caiaq/device.c:544
+> 
+> Freed by task 36:
+>  snd_card_free_when_closed sound/core/init.c:630 [inline]
+>  snd_card_free+0x138/0x1d0 sound/core/init.c:662
+>  snd_probe+0x162b/0x1af0 sound/usb/caiaq/device.c:553
+>  
+> Fixes: 523f1dce3743 ("[ALSA] Add Native Instrument usb audio device support")
+> Reported-by: syzbot+832ce9fa3face1b7d44d@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=832ce9fa3face1b7d44d
+> Tested-by: syzbot+832ce9fa3face1b7d44d@syzkaller.appspotmail.com
+> Signed-off-by: Edward Adam Davis <eadavis@sina.com>
 
-  Oops: general protection fault, probably for non-canonical address
-  0xdffffc0000000000
-  KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-  RIP: rpfilter_mt (net/ipv6/netfilter/ip6t_rpfilter.c:75)
-  Call Trace:
-  ip6t_do_table (net/ipv6/netfilter/ip6_tables.c:316)
-  nf_hook_slow (net/netfilter/core.c:619)
-  ipv6_rcv (net/ipv6/ip6_input.c:351)
-  __netif_receive_skb_one_core (net/core/dev.c:6216)
-  process_backlog (net/core/dev.c:6680)
-  __napi_poll (net/core/dev.c:7739)
-  net_rx_action (net/core/dev.c:7959)
-  handle_softirqs (kernel/softirq.c:622)
-  do_softirq.part.0 (kernel/softirq.c:523)
-  __local_bh_enable_ip (kernel/softirq.c:450)
-  __dev_queue_xmit (net/core/dev.c:4913)
-  packet_sendmsg (net/packet/af_packet.c:3139)
-  __sys_sendto (net/socket.c:2252)
-  __x64_sys_sendto (net/socket.c:2259)
-  do_syscall_64 (arch/x86/entry/syscall_64.c:94)
-  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-  Kernel panic - not syncing: Fatal exception in interrupt
+Applied now.  Thanks.
 
-Reject routes without an inet6_dev immediately after lookup. Such routes
-are not eligible for reverse-path filtering, and the check protects all
-later rt6i_idev dereferences.
 
-Fixes: e26f9a480fb6 ("netfilter: add ipv6 reverse path filter match")
-Reported-by: co+459f67f4d8af8ce6@bugs.sh
-Closes: https://lore.kernel.org/all/VtWUkE8QzJt5CroTj2V2v3ZQ0gwbXZ7nq7I3@bugs.sh/
-Suggested-by: Florian Westphal <fw@strlen.de>
-Assisted-by: Claude:gpt-5
-Cc: stable@vger.kernel.org
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
----
-v2:
-- Reject routes without inet6_dev in both loose and strict modes, as
-  suggested by Florian.
-v1: https://lore.kernel.org/all/20260906034939.3746540-1-bestswngs@gmail.com/
----
- net/ipv6/netfilter/ip6t_rpfilter.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/net/ipv6/netfilter/ip6t_rpfilter.c b/net/ipv6/netfilter/ip6t_rpfilter.c
-index 67c87a88cde4f..b5def30c3127e 100644
---- a/net/ipv6/netfilter/ip6t_rpfilter.c
-+++ b/net/ipv6/netfilter/ip6t_rpfilter.c
-@@ -61,7 +61,7 @@ static bool rpfilter_lookup_reverse6(struct net *net, const struct sk_buff *skb,
- 		fl6.flowi6_oif = dev->ifindex;
- 
- 	rt = (void *)ip6_route_lookup(net, &fl6, skb, lookup_flags);
--	if (rt->dst.error)
-+	if (rt->dst.error || !rt->rt6i_idev)
- 		goto out;
- 
- 	if (rt->rt6i_flags & (RTF_REJECT|RTF_ANYCAST))
--- 
-2.55.0
+Takashi
