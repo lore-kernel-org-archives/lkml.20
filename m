@@ -1,64 +1,78 @@
-Received: from mail-06.mail-europe.com (mail-06.mail-europe.com [85.9.210.45])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B90438330C
-	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 13:20:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.210.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12EBB19E992
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 13:21:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788700844; cv=none; b=mBsMVl/FOk556buxvcSKuJq24giPaPJjbEXrm0WeLihNgXTCa5rIiUdwY/Jfho6iRZHiPpKd/LFcdSKPfRj+qRgcY/liihyURfRo483SLis+VyG7g0iRQaaBdx21pwq9UyAKtu+kTxyWNHCRKNS77uzXFWhrYRGSWZtVeWdQoLI=
+	t=1788700877; cv=none; b=FuqCdT76A8mUpeP+O2lqhLWHiRwGc6gun/XxJuXBIXZRRNnzMlW9f7wUZpAkDXirwzgof1QX+xaHqzHqpGZNNdMnDQvImlm3ugf7Uq1ZZDAUYdNuAkYaoUeCANx5moDt4FkX3eN6TLSmTy9LJcMdLMWD3BvC7wnrvoSe1pqH5tw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788700844; c=relaxed/simple;
-	bh=JaDqY+FMnvMV9N3lkdS7P2z3YllJmR6KY4jBHM+kse8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AouCXTNSGoAliX/a5a5uR1L1KLCmwEojYzz7vZsPgx8phmEUutu0BGYvpWquNrt3Jo/yk4vNqNUcGZbEftTSvQ1hWm1zs5GYlLmxW1cLGNxnk3/vMpUFHHjhlXHtjUVkiR7KL9dkb8bOilQympFOpmhYx/F+Kuwf71NUJlvqG0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=D1pDpeqA; arc=none smtp.client-ip=85.9.210.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	s=arc-20240116; t=1788700877; c=relaxed/simple;
+	bh=alPKOn5jAxNKbM1bj3uVT9M8gY6+O/RJ1mvuAo8YnZ4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fi+Z3qJsFtsLLBSYiBbMpQif9tqN3Q7TIsWCcVPNVaX0rRLuQs4RtluvGsaW0knFDj+QVEMQBrII3KpGwCN5La60eGvBaTAzGyJrudQn67MqlBa/9V+gAKj8lDDAOH+dwn3c7a24bsaYO1j57hhy4Lby21HGcLnxJ9xYkopEoQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=aY7Mpr57; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="D1pDpeqA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1788700825; x=1788960025;
-	bh=Bo7D1KVEvw4vJzHAZyECQCZWWddAzI2Ir5Nr3Dj6Dxs=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=D1pDpeqAl9mOF1RUw3klQZfh+qC/2dPE6o3so9bJz2beu6sGNOdbFITxEgx5DA1Kj
-	 q1a4HVByMcYwKgXYbZrTSjsBDrXc8OUfCCBg/3CQshsGOhOuDpd4PoDhquzMraYwPk
-	 O3N/XY5E4rDQI7/dQuBomkeubgb7s3gScWED0UEwY3RCYH4rhHYRv30oul3I/WH2oV
-	 lrCR549w1nQLno26gw17uIpxYiEEtGgnpzbj8KqD7D/q3ZssvSaKAEUps+ZEjYlAJp
-	 4U6DuqAUoaPub6b7FNwWIy2n1evCsGu0ACEjqn96sa6HsO1QPp3fdaClkIPff3wCgP
-	 1kI5xBBn+okOw==
-Date: Sun, 06 Sep 2026 13:20:18 +0000
-To: "hpa@zytor.com" <hpa@zytor.com>, "tglx@kernel.org" <tglx@kernel.org>, "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>, "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>
-From: Tobias Jakobsen <tjakobsen84@protonmail.com>
-Cc: "x86@kernel.org" <x86@kernel.org>, "clm@meta.com" <clm@meta.com>, "linux@leemhuis.info" <linux@leemhuis.info>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: Status check: dropped CONFIG_X86_USER_SHADOW_STACK fix in vdso Makefile (a48acbaf99d2)
-Message-ID: <ofdR9pSRAmQ7lqupZ9_7rWr3vopf2pSRMnUi7Mq3MKoCahxB1sENnVCPxuw9HV8XUW3bjqTvi4A4QQG_BdgduvtxBfkD82cH6KZZJgnlMps=@protonmail.com>
-In-Reply-To: <E2noDa6jo1NnrYFapbObdbWsUaIxYsnVxVN3X6bbrj-oNKctuuMb1dmUqNn_P5mWqFL4fOlCwaDuAa38ICbsAfNnOcwLUKIVEPyV-H3w6_A=@protonmail.com>
-References: <E2noDa6jo1NnrYFapbObdbWsUaIxYsnVxVN3X6bbrj-oNKctuuMb1dmUqNn_P5mWqFL4fOlCwaDuAa38ICbsAfNnOcwLUKIVEPyV-H3w6_A=@protonmail.com>
-Feedback-ID: 214933398:user:proton
-X-Pm-Message-ID: 8d9665bded3c6dc9e81d545f0570cbcf232ee239
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="aY7Mpr57"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788700874;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=alPKOn5jAxNKbM1bj3uVT9M8gY6+O/RJ1mvuAo8YnZ4=;
+	b=aY7Mpr57TFtmK4KozlXn2KNSAqMvuREzCu6daRrb7MMvQPsMhYZ8pbTyAQNTdgz8uv0Xmb
+	ULx3hRkoMuo3ZRj5k+AhytuVHTp/5G0ZyJBJc2du0HACmRUG9oYjUqOw641rTQwZAEjcJR
+	ZQUl1BwVQJIuigvxBd4eQjrHEsklPLE=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-158-Xz_C8Gk5OZ-LrqpUjLBUOg-1; Sun,
+ 06 Sep 2026 09:21:11 -0400
+X-MC-Unique: Xz_C8Gk5OZ-LrqpUjLBUOg-1
+X-Mimecast-MFC-AGG-ID: Xz_C8Gk5OZ-LrqpUjLBUOg_1788700869
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 809BB1955F21;
+	Sun,  6 Sep 2026 13:21:08 +0000 (UTC)
+Received: from fedora (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 2442A1955F05;
+	Sun,  6 Sep 2026 13:21:04 +0000 (UTC)
+Received: by fedora (nbSMTP-1.00) for uid 1000
+	oleg@redhat.com; Sun,  6 Sep 2026 15:21:08 +0200 (CEST)
+Date: Sun, 6 Sep 2026 15:21:03 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch V2 2/8] exec: Cleanup POSIX timers right after de_thread()
+Message-ID: <ap1ov3-KS_y9NVcc@redhat.com>
+References: <20260905181551.738186850@kernel.org>
+ <20260905185839.716693014@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260905185839.716693014@kernel.org>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On Friday, 14 August 2026 at 03:19, Tobias Jakobsen <tjakobsen84@protonmail=
-.com> wrote:
+On 09/05, Thomas Gleixner wrote:
+>
+> Move the POSIX timer cleanup right after de_thread() before any of the
+> later failure conditions brings the task into do_exit().
 
-> Hi all,
->=20
-> Following up on commit a48acbaf99d2 ("x86/entry/vdso: Fix filtering
-> of vdso compiler flags", Jan 16 2026). That commit fixed two of the
-> three typos Chris's AI review found, but deliberately left one out:
->=20
->   "Chris's script also found that CONFIG_X86_USER_SHADOW_STACK was
->   missing CONFIG_, but it needs a different fix."
+Reviewed-by: Oleg Nesterov <oleg@redhat.com>
 
-I wonder if this missing CONFIG_ will be fixed before or after January 2027=
- which would make it 12 months to fix a typo in a Makefile. What an absolut=
-e joke.
