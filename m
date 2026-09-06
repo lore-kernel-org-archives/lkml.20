@@ -1,191 +1,135 @@
-Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 581AE366542;
-	Sun,  6 Sep 2026 16:26:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.169.211.239
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788712003; cv=none; b=JM1Kc5LX1K9dD5GLdtqdnqF557HYgFjmQmj+hj8HrC9TfPehOhPd513TN6FSAWys3n9f8hsXpyrh5DHQKkAYWbbc6l4LyovqNdKS+nvawiczfNeyxdMSSGoe48RBwuOBKqKjH0Ejr6ZR3ip10TWWzrbiOKdpMDzsFh6bPbz5M3E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788712003; c=relaxed/simple;
-	bh=XJdjMUVCftFBMMiEi003iBcikmZDE5mweCyGJKfSxuM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Rzhi7FOgLoskkG0oeWB2ojfibnfYhV3P99gZx3mHngO8WYtYsYlScUkeFSB04CRdCMJQGnvuDM2ARc1a0X1nLUi5rBCI4mI2/AyrV6aISVXWAgtASTVbIO8CHvQxuCSl+WBcvS1MiK6xLZAA3Yrk+BItfmZUm0o9KxjxmIPgRmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ugreen.com; spf=pass smtp.mailfrom=ugreen.com; dkim=pass (1024-bit key) header.d=ugreen.com header.i=@ugreen.com header.b=bBTZTZ2C; arc=none smtp.client-ip=18.169.211.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ugreen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ugreen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CCF2309F08
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 16:29:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788712186; cv=pass; b=UoodScO7nKSgrB75GXMqsnyPjAUleK6Zso7Bj/5NCjdNKaMlDoh8EJTIWXb1ME34wTr2Kqe2unsZMeP9naackfzlmatBSeJX8PaffZoBGrZN1rPVX+4VEm0LN3nzozlx74Vx6NToSfT9qHYFZqfcxUD4/ORvR+L2ESKxBGFdsuI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788712186; c=relaxed/simple;
+	bh=xsSKiOspqG/+MtQ6W1neljIxJh5ynRg01+19OLjolSs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PxTKHJ2EHTY7hmlDe4/YIuua78V4NL+3xJWwhei/HJ7cy2jrQwGyauzW/6iHwTS/yZmWs7bR5uQP9xmPKo/MxV5tSBVuH9LQiMyAFbN10VyRye4dStl7FOjVCCpUZPqlmFY0VI2dHyIHnk9ORsNBCIFtdUr1qfTFqDJhIeGz9Ao=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GWePuTp4; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ugreen.com header.i=@ugreen.com header.b="bBTZTZ2C"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ugreen.com;
-	s=pkvm2402; t=1788711981;
-	bh=XLgE1BWZQcirBHc+iAqWZqWGaNQfMqPqb7W8sbLZEds=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=bBTZTZ2C6CNicTyDoR6l7L8enCwVpmUqL6KFndrbBuMZUAXwQJlZt2eN+2EaRPPcI
-	 vrLX16OPDQGCpCbhekSPLVLfVa7MdETbO1TX+EtzknV+qUz8DUvKqcbsDHtjLaYnQk
-	 NgowPqtrGkN+4qRI7jNz2m88RxULLSvOCbgw+ELE=
-X-QQ-mid: zesmtpsz3t1788711979tc1ff63a2
-X-QQ-Originating-IP: UhAUtab69h2sGqbP0Vin8ZKayYmnrnRDTPaw3PRVB4s=
-Received: from 9DFG3.ugreendc.com ( [61.172.236.178])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 07 Sep 2026 00:26:14 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 14850577790075968854
-EX-QQ-RecipientCnt: 6
-From: Haowen Bai <calvin.bai@ugreen.com>
-To: mathias.nyman@intel.com
-Cc: gregkh@linuxfoundation.org,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Haowen Bai <calvin.bai@ugreen.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] usb: pci-quirks: abort xHCI handoff if MMIO is inaccessible
-Date: Mon,  7 Sep 2026 00:26:14 +0800
-Message-ID: <A8558181A93455E3+20260906162614.26940-1-calvin.bai@ugreen.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GWePuTp4"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6141a61c0so5710a12.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 09:29:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788712183; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XydiLWnfytalfUt2LuK1QpK5t8VFdWF7TXZ9FFjTBxcGsaulYwMXsUkuG0tQJRGOGd
+         mk3uZMJqpk0oqziAv9JgTGrPGrTpUPlvcMm5F7DksMmvZa2k6jB32jJJOnGzWUjyBXO4
+         nv3HpTdwSSnwxUDAEcntXXSCD3iftSinirM3jHlT7QZnSj7klmgqzi8DtKVkz1ybw1wL
+         weby9aCw448SeJI20QHdmeHls7ZIZvb3V9uVUsAMDXqLMS5c17+u0BKEXM6zvQ3UpQNs
+         Dp1Fhte4a9UpQ60HZ4P3mT7rX3Dv7I6DFIVPqbUWAnDYDkJxYVG2Ih99k7kwv84BVCmV
+         3t2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Um0Pe18GpPgK3b7kgderSLxwrHj3TqfaAiHEwFEfg9w=;
+        fh=MmVjcKVQJR9L7J6W4bdAvFZusMoW1ZO6wlx8lPatpF4=;
+        b=WqntsH8ia1k1ebTHgdOPwhtkwUS5GjpF4FdsvdpXY03afGxgIwFbbssErQyZyyFNlO
+         ybQO4zox15nuh1lyzD19vOQlTK65GUxlBCbE7B8y+hM1gmmAf+57Do0N3gx09KDdE/+m
+         mBwLFnn9Clv9g96hoFk2ogyLVeX50lRTDOwaAmVu/HrKpjRJuj0nB+vKjX6yMq6hE25/
+         BRk0kofoSFriIxTDttyM/2szKSUvLner1++Pcnq3R0wOEzTtpUhjrUUEVB6WG4rHplhj
+         FEc2D/xEG4Gcl5GKiyXSP+B6AlWnJ0oc9vlclVlpVVU7Tpn6ZM2axFmFTV+nVK0YXAym
+         RcFA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788712183; x=1789316983; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Um0Pe18GpPgK3b7kgderSLxwrHj3TqfaAiHEwFEfg9w=;
+        b=GWePuTp4DyHrmoN8RLCVlXAjiCAR/3l1vV/63TROXgeraA2vNAIlYSw/TaijwUXHok
+         81FwDN/HrJCCReCymBaJGEuJNS09kC1iOyQpuOTXgoPfVUODPsOIMxPTXKFsbMl/C3JM
+         AO1X34qSdgEz6IepWDXHn6AejkbWcAAz57CENDd7x0AYjxtZDHu928woYrHYxpnpwru2
+         X66QUawfG0NBVnHgzgTPAHSFK2ypFht9ikySCIHD3Xw4t1y8z3T+wqP/rsppziWJWHtE
+         3GnyF3bknUmgvqsg1KTL426+BFOdQo+J3OtVW2yAMVHZ7GPMIOg/jd0Nfd8jx3p2MP7c
+         xnJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788712183; x=1789316983;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Um0Pe18GpPgK3b7kgderSLxwrHj3TqfaAiHEwFEfg9w=;
+        b=lj7ledryD/NK9dTHD21LGL8fWHEVYwdEFAz5G0k8DonVb9S33t7Ux9ENP/qCoL36OC
+         dc0DzRI8JA5NXIlxeD/4WAYz4jg0n+rlgMj9id26eU+tExlH9Ozo3ZJ4t+2Y8RfxYFwj
+         tHnr+ZnhpQOkPl9TsfPB/WYSwDB5CDjjg/4XNKy7VkKX8EnA1aYH4QxKD4YMgFZNnsDC
+         XkLBSIkAqj7oaYNP3xNBmllmLhKqQoY4Z1D6LkrmpadR77NG8I5HbdUQAWGW1cvsD/0H
+         TlIOe8ukLmwkHg/bc+f3wEYQRknwETw+odY6TxBWN/qcfGGchsFRSShlZorkTYuPokQ8
+         VSGw==
+X-Forwarded-Encrypted: i=1; AKwUvBwk+ZOb9WzU+Rxk5qllJyg9vAbdEfh9tj9cyDx5wEdLsmDQDcy211BDtOcTVJN9fYoruYGCp6CThF0HyQ8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kX1YXayaz5sLomigxH/i9gnbp7wuZc81yjlrJAxHK2KFWBV/Yj
+	t28ofjXSNM1BIlDwYnp6PR8X7FKgpVjUCh9WVR5uWtU/F4Yc3wOe1fp39AVf8XzqfusU6fnclFC
+	7TWG60T0askt4OKAwtfpIZ0g558Ouse2SwoDKExt1
+X-Gm-Gg: AYBFou1wAaFZzp7nic2dCrzSxYpsZ4s4WDFT5mg0CVp6rrB0XP7rq9zAV6KhXOatkhw
+	SiNvo/ykG/fDu8dCegYzzljrhbSoeo8qQulFoTvWOQb+oQdgoANHAD/Ynr6+qXk2d8eapFQKDda
+	XZ8ljAMoUFRqGaduorByvbAU7e4XmINd0W4w11A5uY855YBoc4lMuHdSAPV5puK/79RPv1//K40
+	YD3TuaffeY9ipa90n993iI0KmfBlTD74TobXIeGTJ7iTVHEKpgfujiA0gvB6whNrAbFr7LkwY/B
+	p28khFwBQFUxVXNgs3AVpZkasJ+WKj4cn35oGqEqvTEz+cAsKeWDFrg=
+X-Received: by 2002:a05:6402:3105:b0:68a:e1ba:9cc0 with SMTP id
+ 4fb4d7f45d1cf-6a7f68270famr34473a12.8.1788712182134; Sun, 06 Sep 2026
+ 09:29:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:ugreen.com:qybglogicsvrgz:qybglogicsvrgz3a-1
-X-QQ-XMAILINFO: NcfXIs+Ms1qHQLnO4odoRZd3h1LIqnq4lXo57MTDipchhGvNRJNRs2+5
-	TWMALC48SCXRnbV5xMJ0p7250gmU7piDY1X7yjctJQ1PvHkV5R/fBgQ7vJzWf+5t4Khlyhw
-	8/pNeKskLlKjg1hxsT244WYlYf2VazUm9LFTCa7JFmv09nl8gs8Wi5Z+WnsJzL/oS+yijq4
-	5JysJPIYTWuL5BswqVJWBG+slAviPwSQCmj/6yHsuIQGzGl86WKTGBhu/WQZPGn+h8omMxP
-	WoWw5OkyXpqZb4YGdSjnv9Up6Upwt2Vca/YsphRvh2kNpHIDQ+55p8TFOtodKD85CoJtsWP
-	SHRIe7kHOw+WVlPERfVu3/2rx6mFpOfFiLJW+oVvEYX9XJ+wo1ccRrXIgaqPoZra5B/i2+3
-	D+ywCscVzKqn2O7tzfUwNivC76/a+FTcHa0N82bCd8hR6AJMZGcKbSfCCWMF+k0okBONpzI
-	7nW0OBf5GVl2zXlTmQTZMIYkhqVXHlmmiz1OkhlhqLkod8cqlclRqrGSP1pdypjn9xi26uT
-	GyrN5Br344RFYymJn7htOhXFKL5aVPL4xjABx9y7FzJ2CLRmQ7rfl6PxHuieKEFseoqoVCf
-	TibC5JIcRTvEugPeRF34SKJPAp2kFTJTSkJRSxKOKiAPOJOzRjc9hYllUSaLBxOHuplmQz7
-	2+v2NWEnXbW74zWVtO7RGtkJJZMvqn17r2c6boGO3Ln5rRYl49WknfqerCFhgGz0RIY6m7h
-	27vS0qHtqv4iL4iLmvaPX7nrLWceelXzGBdT1WNjDowXOOE014gogJST+VnJ6qkt/63HpOz
-	zbv/5V11LfRJ//Lpb+40BoSplgln+DXOhA3xD0grXckoodPAaa/WCf4Na0GVop05OeUpoF6
-	kSgY3A9FEmWoKiQX+sbsKJIehCD88YOZ8Wg9kTIBSbXqUt1JWWKEe9wvszi6wU8bhchd3oX
-	RDQ0MKJd/I9IoOL1Y7qQcw5yETB8N2M+Ysz7MuKobYPPMVJRWid39uZOxnLp4XXNGWfxv54
-	ujFwDN+AoM9fijLe4P
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
+References: <20260824123954.315112-1-zhang_wei@open-hieco.net>
+ <20260824123954.315112-3-zhang_wei@open-hieco.net> <CALMp9eSmrHdLpOi9-xQvcRUxyVN-8CG2MKWnxKfXFaBBDztzNg@mail.gmail.com>
+ <38bac307-e0c5-4a93-98c6-140b1c52d41d@open-hieco.net>
+In-Reply-To: <38bac307-e0c5-4a93-98c6-140b1c52d41d@open-hieco.net>
+From: Jim Mattson <jmattson@google.com>
+Date: Sun, 6 Sep 2026 09:29:28 -0700
+X-Gm-Features: AcwNN1UgWSO6Yjn-R8pVimjApTkTKNe-q72h-YE1U5LYb4CD7YKT9-WMQSoP4ck
+Message-ID: <CALMp9eRYa86-jcgeWsZeiMev8T+wt6TSZk4TN9rqLtcD0uhZOg@mail.gmail.com>
+Subject: Re: [PATCH v5 2/8] KVM: nSVM: Synthesize DecodeAssists EXITINFO for
+ emulated intercepts
+To: Tina Zhang <zhang_wei@open-hieco.net>
+Cc: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>, zhouyanjing@hygon.cn, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The xHCI early handoff quirk polls the BIOS ownership, CNR, and HALT bits
-with readl_poll_timeout_atomic(). Unlike xhci_handshake(), handshake()
-does not treat an all-ones read as an inaccessible controller.
+On Sat, Sep 5, 2026 at 7:24=E2=80=AFPM Tina Zhang <zhang_wei@open-hieco.net=
+> wrote:
+>
+>
+>
+> On 9/5/2026 7:07 AM, Jim Mattson wrote:
+> > On Mon, Aug 24, 2026 at 5:40=E2=80=AFAM Tina Zhang <zhang_wei@open-hiec=
+o.net> wrote:
+> >>
+> >> +
+> >> +       vmcb->control.exit_info_1 =3D exit_info_1;
+> >> +       vmcb->control.exit_info_2 =3D 0;
+> >> +}
+> >
+> > Can this entire function be integrated into the existing switch
+> > statement in svm_check_intercept()?
+>
+> Yes, that makes sense.
+>
+> >
+> > And, if !guest_cpu_cap_has(vcpu, X86_FEATURE_DECODEASSISTS), should
+> > exit_info_1 be cleared for these intercepts?
+>
+> My reading is that exit_info_1 is undefined for these intercepts when
+> DecodeAssists is not exposed, and KVM previously left it untouched. I
+> would therefore prefer to preserve the existing behavior and update
+> exit_info_1 only when DecodeAssists is exposed. That said, do you see
+> any reason why KVM should explicitly clear exit_info_1 when
+> guest_cpu_cap_has(vcpu, X86_FEATURE_DECODEASSISTS) returns false?
 
-If the controller becomes inaccessible, readl() can return U32_MAX. The CNR
-bit then never clears, and the atomic poll keeps retrying. The atomic poll
-budget is decremented using the requested delay and loop iterations, but
-not the time spent in readl(). Slow failed MMIO reads can therefore keep
-the PCI hotplug thread spinning far beyond the nominal timeout and trigger
-a soft lockup. The 26-second value in the first warning is the watchdog
-threshold, not the handshake timeout; repeated warnings showed the thread
-still stuck up to 260 seconds before a controlled reboot, leaving the
-system unavailable to normal management. Comparing the watchdog timestamps
-with the RBP loop counter in the dumps (about 1,372 iterations in 26 s and
-15,638 in 260 s) implies roughly 16-19 ms per polling iteration, despite
-configured 10 us delay; these values are inferred, not direct measurements
-of an individual readl().
-
-Return -ENODEV when the polled register reads U32_MAX and stop the handoff
-before issuing further accesses. This prevents an inaccessible xHCI from
-keeping the PCI hotplug thread busy and making the system unavailable. An
-eGPU may still fail to enumerate, but that failure must remain controlled
-rather than causing a kernel Soft Lockup and taking down SSH or desktop
-management. The existing timeout behavior for non-all-ones reads is
-preserved, matching xhci_handshake().
-
-A Thunderbolt-attached AMD Radeon Pro W5700 in a Razer Core X enclosure
-reproduced this on an x86_64 UGREEN DXP8800 Plus with an Intel Core
-i5-1235U. The GPU's xHCI function 0000:06:00.2 (1002:7316) triggered
-the soft lockup in irq/123-pciehp; the register dump contained
-RAX=U32_MAX:
-
-  watchdog: BUG: soft lockup - CPU#6 stuck for 26s! [irq/123-pciehp:139]
-  RIP: 0010:quirk_usb_early_handoff+0x552/0x7e0
-  register state: RAX=00000000ffffffff
-
-The call trace was:
-
-  pci_do_fixups
-  pci_bus_add_device
-  pci_bus_add_devices
-  pciehp_configure_device
-  pciehp_handle_presence_or_link_change
-  pciehp_ist
-  irq_thread_fn
-
-The failure reproduced on two hot-plug attempts and did not occur when the
-enclosure was connected before boot.
-
-Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Haowen Bai <calvin.bai@ugreen.com>
----
- drivers/usb/host/pci-quirks.c | 22 +++++++++++++++++++---
- 1 file changed, 19 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/usb/host/pci-quirks.c b/drivers/usb/host/pci-quirks.c
-index 0404489c2f6a..e5ddd33c734d 100644
---- a/drivers/usb/host/pci-quirks.c
-+++ b/drivers/usb/host/pci-quirks.c
-@@ -1026,15 +1026,22 @@ static void quirk_usb_disable_ehci(struct pci_dev *pdev)
-  * Returns 0 when the mask bits have the value done.
-  * Returns -ETIMEDOUT if this condition is not true after
-  * wait_usec microseconds have passed.
-+ * Returns -ENODEV if the register reads as all-ones (hardware removed).
-  */
- static int handshake(void __iomem *ptr, u32 mask, u32 done,
- 		int wait_usec, int delay_usec)
- {
- 	u32	result;
-+	int	ret;
- 
--	return readl_poll_timeout_atomic(ptr, result,
--					 ((result & mask) == done),
--					 delay_usec, wait_usec);
-+	ret = readl_poll_timeout_atomic(ptr, result,
-+					(result & mask) == done ||
-+					result == U32_MAX,
-+					delay_usec, wait_usec);
-+	if (result == U32_MAX)
-+		return -ENODEV;
-+
-+	return ret;
- }
- 
- /*
-@@ -1203,6 +1210,9 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
- 		timeout = handshake(base + ext_cap_offset, XHCI_HC_BIOS_OWNED,
- 				0, 1000000, 10);
- 
-+		if (timeout == -ENODEV)
-+			goto iounmap;
-+
- 		/* Assume a buggy BIOS and take HC ownership anyway */
- 		if (timeout) {
- 			dev_warn(&pdev->dev,
-@@ -1231,6 +1241,9 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
- 	 */
- 	timeout = handshake(op_reg_base + XHCI_STS_OFFSET, XHCI_STS_CNR, 0,
- 			5000000, 10);
-+	if (timeout == -ENODEV)
-+		goto iounmap;
-+
- 	/* Assume a buggy HC and start HC initialization anyway */
- 	if (timeout) {
- 		val = readl(op_reg_base + XHCI_STS_OFFSET);
-@@ -1247,6 +1260,9 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
- 	/* Wait for the HC to halt - poll every 125 usec (one microframe). */
- 	timeout = handshake(op_reg_base + XHCI_STS_OFFSET, XHCI_STS_HALT, 1,
- 			XHCI_MAX_HALT_USEC, 125);
-+	if (timeout == -ENODEV)
-+		goto iounmap;
-+
- 	if (timeout) {
- 		val = readl(op_reg_base + XHCI_STS_OFFSET);
- 		dev_warn(&pdev->dev,
--- 
-2.47.3
-
+You're right. The APM says, "Note that the contents of the EXITINFO1
+and EXITINFO2 fields are undefined for intercepts where their use is
+not indicated," so pre-Bulldozer CPUs would probably have left them
+alone.
