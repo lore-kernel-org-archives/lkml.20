@@ -1,222 +1,110 @@
-Received: from szelinsky.de (szelinsky.de [85.214.127.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA68364942;
-	Sun,  6 Sep 2026 15:39:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.214.127.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B640C364942
+	for <linux-kernel@vger.kernel.org>; Sun,  6 Sep 2026 15:40:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788709183; cv=none; b=FwDZ5tz5kYudRbdFQijd67/DCr8orSPXNDxvaxODT5YTzyqw/7qdkKIAXlpfOLVUEBSRatkzd35OmGXxw621RDs6cVgfXE504CVtCFASyFVsi5TI2jL0Zw6I49ijFm3iMSpZAjPVql4YXbiDvNUtiHI3mtpwP9zdKXOTbNiG3yc=
+	t=1788709246; cv=none; b=PLiS9iRsZt5TkRn9vwbdGT2HWbY3OMM0NRjw6iFCnEic71qTKcUlQNruy7g9tvdRoynCZb1XQObD5ZCSqG8IktT2xGzhEf5DTBus/gFXbBtMf3NwowoLcPrb+ndQmcwoWcHeDTw2kYntVBI825V79ymdkLzK2OmF036XffhP0Mg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788709183; c=relaxed/simple;
-	bh=4fHxGeXjo/4OXBi8jhnGGqUU/Ygon4FWYtEd4idbkWc=;
+	s=arc-20240116; t=1788709246; c=relaxed/simple;
+	bh=EvrbSw6riBn3WFQnWMdTkjWQdPI6Io5eRWlEYnSUdh4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RIYWaiOnc3tJhUcw5sc0KI7M5UxkoJLGHZ6xzmcA+bJSZBufePrJDn+Do3w3YyVjKCoTUAB2MQegsifBijvqSI7CFYkSNhTnu5yfJUSdrU7aP0E0OQ2vowaE2frrb/KaLl+uCNlFCuQRN2zxOiQERU+QO2vLtivXQcAFrJ0ClnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szelinsky.de; spf=pass smtp.mailfrom=szelinsky.de; dkim=temperror (0-bit key) header.d=szelinsky.de header.i=@szelinsky.de header.b=S+Sx4h49; arc=none smtp.client-ip=85.214.127.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szelinsky.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szelinsky.de
+	 MIME-Version:Content-Type; b=QEeRpiZZTl1dsraIdh6bj4hRzUF3bOOJq61X19Xg7ZnT7jv7S48XFWF7MAtisCCLOqyTAfzrJj3BLLQLBjqRNNUz8R8jrtFMMbeBDnw8Aib5LgtPnRcm2RftkJ02RSJAEdgYeWLJ+TybEAsfV0Ww6Mt5PwTMB7hjjZZ9Orczngo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NhcHMYSC; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=szelinsky.de header.i=@szelinsky.de header.b="S+Sx4h49"
-Received: from localhost (localhost [127.0.0.1])
-	by szelinsky.de (Postfix) with ESMTP id 7A68AE8392E;
-	Sun, 06 Sep 2026 17:31:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=szelinsky.de;
-	s=mail; t=1788708700;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bec0yhM2e6J0DHWUR9ij9INSwz0Ba/y7Pys3eGuwrro=;
-	b=S+Sx4h49U56+QoJpFECOKfod4mu42XueKRUBML18f9gDBGfGNXNh+pXJ/5wt1mUaWDN29O
-	HCX67LS2FhApGQAWGA6+sFZ4yHPiJ82Zq/thi8arF2cuC+uiNEKm46bIpBz3j41WFyWp7M
-	EGEbETZPRq0vn5e6301JqaUOoum48vyYsIMveaEy6WOoWP8DHUS44FWHFPI8tVBbPcVyjx
-	afHas8jWDmvKGEatmDVd4QAzLVGX2ubMCWDmT3NTmIIblKx6ueex8DbaWbI3gFvMbBt+84
-	IWzkqdugQpJApjrJJEbSQWglu6sdbt3mBqnDU0piB/YGfMeg5OSttEohZL+akg==
-X-Virus-Scanned: Debian amavis at szelinsky.de
-Received: from szelinsky.de ([127.0.0.1])
- by localhost (szelinsky.de [127.0.0.1]) (amavis, port 10025) with ESMTP
- id 9HTVk9JC-fd7; Sun,  6 Sep 2026 17:31:40 +0200 (CEST)
-Received: from p14sgen5.lan (p578611d6.dip0.t-ipconnect.de [87.134.17.214])
-	by szelinsky.de (Postfix) with ESMTPSA;
-	Sun, 06 Sep 2026 17:31:39 +0200 (CEST)
-From: Carlo Szelinsky <github@szelinsky.de>
-To: Oleksij Rempel <o.rempel@pengutronix.de>,
-	Kory Maincent <kory.maincent@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Corey Leavitt <corey@leavitt.info>,
-	Jonas Jelonek <jelonek.jonas@gmail.com>,
-	Simon Horman <horms@kernel.org>,
-	Aleksander Jan Bajkowski <olek2@wp.pl>,
-	netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NhcHMYSC"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4859245e493so823401f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 08:40:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788709241; x=1789314041; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zb+fQYyrJ/70MX/Kj2ZYXqK6NS7Fru2LZRqOKcxD/0g=;
+        b=NhcHMYSCIaFbAk2O8fs7NZp1OOu8RY1/jIzrmLmc2EolExnGgY0/SZxD6w/SyNBmAn
+         XTalGJ9OsMh4cjVfNIVrE2cCigbG5mqnlGa7lt7z/LWysor+ppEU40AeL0eON+xATdAh
+         ew4bK6vx2RgGMB1/v4Xtksdw+vuNBel/45OexV3v6kU+90nDQ0byYp0e8OjHbtqhYQR1
+         N1jM+XQUIGkXBAHhEBl+7hfQWLzdefnelVlH6JW+XgjJi1wTOz1OVRBnu+XB9IUC4d/B
+         7eEfDxEt07mTSrTJe6HPdxYDGQHtiIj8cYCHJ0qNKKqktLf34lm4KXVKNJb5S9AW6bK9
+         WgaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788709241; x=1789314041;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zb+fQYyrJ/70MX/Kj2ZYXqK6NS7Fru2LZRqOKcxD/0g=;
+        b=giOdjrSvhtiikopfStk/M7DKhiF1MvIdc+uCEyg4nyvtJgrnGvsJQJJp6s0kKTZzxa
+         CPOrh2zYIQWqDJkajsK6gb5j2VEmeYWuBbFreuqDCdtnYysxdPAALNaH/Lgbrrpas3hR
+         wE66lKLWtIuqmd1FbdIThIbju10+5IHvid4GYk4Q3eyxyzzf5XyXAM5D/W5usXRlyQF3
+         KQ0zqWve8MFSXpjIL/FdIvEuaS6+wZGs+6GE/9iOIaO/clNJmCImjsDXtZKaSN5bLyRk
+         O8H8uvMqJz8jAlkpRwt37WZfGFNTl68Wjcrr07bIx7vwA0T8hxxP2JIfMfxwDKlAjQu2
+         GKqw==
+X-Forwarded-Encrypted: i=1; AKwUvBxxv6U9jA4HmRL7d5rWQDbsdXhVyiosbih5rOexXXBTjyNBRjrIrdwHrkbAdW5/JTyfjuk+EzCuvHdRPQA=@vger.kernel.org
+X-Gm-Message-State: AFuF++n0DNo4NmO2sB7N+iuD97QdZQUl2enpantV5P1yDpXo197Lm8oI
+	1vYN4sxFsg4QZBCu09l/GKxP80Ml2/xxMZVzIH/A9pgbPpNMkGG3I4ui
+X-Gm-Gg: AYBFou3/61s7cKaVKOY1uwxjY/olwzPWUrkogGN8S9GA7AB3QvJim4NT0bPtEiPFK1p
+	dNs/yTZEqig51ZZPxKUnPOnNFGya1Pnxxy4GD0e0q1krsDVX2WTR01dmZ6UUR0+eOuzDwJzhBSl
+	iNGso3WP8o9MSEfAXhPaUOzq0MQEX6ve0ShPiSEA2jf7+Oz14sfyH4yxjO7WXyNoNJz9dZxff8+
+	TCcng5eK0Nz7MgRiNJYzHrlZsc43px98SbkT4k3wK7XCI5ipTjyT0wuCFIGlAbVo2zTVpOfnr9d
+	vQMQG6adPkwfmjKuqz/owS4d/uzpTnuP1UvZ6nzXR9XaFNNHxqm7Rf47r5Ogss/9q4j1xffNUDL
+	9ZGaGIYzySbI0U57JIioGqQXH1dSOATlsSd2BINRhRRGRAdLLs8dIpb3VZ6GRXPK1sS7PgIFAsa
+	t5+cb+5CTkdXCtA+IN5g1g/mIJQ/eFsb5nS8Defsz9LTen/NymlcA2c+JMiEWCKyTF1Xn2c5P/d
+	pevX7rbWeMdmd/TgW3C6xzwc6vA
+X-Received: by 2002:a5d:5f51:0:b0:485:8a47:5b9c with SMTP id ffacd0b85a97d-4858a475d7dmr15641422f8f.57.1788709240790;
+        Sun, 06 Sep 2026 08:40:40 -0700 (PDT)
+Received: from localhost.localdomain (mob-5-93-26-136.net.vodafone.it. [5.93.26.136])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-485883959f0sm23825319f8f.10.2026.09.06.08.40.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 08:40:40 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Carlo Szelinsky <github@szelinsky.de>
-Subject: [PATCH net-next v6 1/5] net: pse-pd: add notifier chain for controller lifecycle events
-Date: Sun,  6 Sep 2026 17:30:58 +0200
-Message-ID: <20260906153102.959217-2-github@szelinsky.de>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260906153102.959217-1-github@szelinsky.de>
-References: <20260906153102.959217-1-github@szelinsky.de>
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v2 0/3] X2 Elite Lenovo Yoga Slim 7x Gen11 support
+Date: Sun,  6 Sep 2026 17:40:21 +0200
+Message-ID: <178870922140.5716.3695070640167210897@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260731-topic-yoga_submission-v2-0-f1887031da4f@oss.qualcomm.com>
+References: <20260731-topic-yoga_submission-v2-0-f1887031da4f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Corey Leavitt <corey@leavitt.info>
+On Fri, Jul 31, 2026 at 07:59:43PM +0200, Konrad Dybcio wrote:
+> This series brings the bits necessary to support the Lenovo Yoga Slim 7x
+> Gen11 laptop, based on the Qualcomm Snapdragon X2 Elite (Glymur) SoC.
 
-Introduce a blocking notifier chain that allows other subsystems to be
-informed when a PSE controller is registered or unregistered, and
-provide pse_register_notifier() / pse_unregister_notifier() as the
-subscriber interface.
+Tested-by: Oleg Keri <okerixx@gmail.com>
 
-Subsequent patches will use this to let the phy subsystem own the
-phydev->psec lifecycle directly, decoupling PSE lookup from
-fwnode_mdiobus_register_phy() and removing the probe-time
--EPROBE_DEFER coupling that currently exists between mdio, phy and
-pse-pd when the PSE controller driver is modular.
+I have been running this DT on a Lenovo Yoga Slim 7x Gen 11 as my daily
+driver for several weeks now, on top of linux-next, and everything the
+cover letter lists works here. 
 
-A blocking chain (rather than atomic) is used because callbacks will
-take rtnl_lock and call back into pse_core via of_pse_control_get().
+Is anything blocking the series?  It has had no replies since it was
+posted five weeks ago, and both review points from v1 -- the duplicated
+&pmh0101_gpios node and documenting the single-compatible reasoning --
+look addressed in v2.  It still applies to next-20260904; glymur.dtsi
+only took three commits in the meantime.
 
-The enum pse_controller_event is placed outside the
-IS_ENABLED(CONFIG_PSE_CONTROLLER) guard so that subscribers compiled
-into a kernel without PSE support can still reference the event
-values in dead-code paths without breaking the build.
+Happy to test a v3 rebase.
 
-This patch is pure infrastructure: nothing fires events yet, and
-nothing subscribes. No observable behavior change.
-
-Signed-off-by: Corey Leavitt <corey@leavitt.info>
-Signed-off-by: Carlo Szelinsky <github@szelinsky.de>
-Tested-by: Jonas Jelonek <jelonek.jonas@gmail.com>
----
- drivers/net/pse-pd/pse_core.c | 34 ++++++++++++++++++++++++++++++++++
- include/linux/pse-pd/pse.h    | 32 ++++++++++++++++++++++++++++++++
- 2 files changed, 66 insertions(+)
-
-diff --git a/drivers/net/pse-pd/pse_core.c b/drivers/net/pse-pd/pse_core.c
-index 69dbdbde9d71..3c4d09f1d6e4 100644
---- a/drivers/net/pse-pd/pse_core.c
-+++ b/drivers/net/pse-pd/pse_core.c
-@@ -8,6 +8,7 @@
- #include <linux/device.h>
- #include <linux/ethtool.h>
- #include <linux/ethtool_netlink.h>
-+#include <linux/notifier.h>
- #include <linux/of.h>
- #include <linux/phy.h>
- #include <linux/pse-pd/pse.h>
-@@ -23,6 +24,39 @@ static LIST_HEAD(pse_controller_list);
- static DEFINE_XARRAY_ALLOC(pse_pw_d_map);
- static DEFINE_MUTEX(pse_pw_d_mutex);
- 
-+static BLOCKING_NOTIFIER_HEAD(pse_controller_notifier);
-+
-+/**
-+ * pse_register_notifier - register a callback for PSE controller events
-+ * @nb: notifier block to register
-+ *
-+ * See enum pse_controller_event for events fired and their subscriber
-+ * contract. Callbacks run in process context; they may sleep, take
-+ * rtnl, and call of_pse_control_get(). The chain fires synchronously,
-+ * so a PSE controller driver's probe/unbind path must not hold any
-+ * such lock when calling pse_controller_register() or
-+ * pse_controller_unregister().
-+ *
-+ * Return: 0 on success, negative error code otherwise.
-+ */
-+int pse_register_notifier(struct notifier_block *nb)
-+{
-+	return blocking_notifier_chain_register(&pse_controller_notifier, nb);
-+}
-+EXPORT_SYMBOL_GPL(pse_register_notifier);
-+
-+/**
-+ * pse_unregister_notifier - unregister a previously registered callback
-+ * @nb: notifier block previously passed to pse_register_notifier()
-+ *
-+ * Return: 0 on success, negative error code otherwise.
-+ */
-+int pse_unregister_notifier(struct notifier_block *nb)
-+{
-+	return blocking_notifier_chain_unregister(&pse_controller_notifier, nb);
-+}
-+EXPORT_SYMBOL_GPL(pse_unregister_notifier);
-+
- /**
-  * struct pse_control - a PSE control
-  * @pcdev: a pointer to the PSE controller device
-diff --git a/include/linux/pse-pd/pse.h b/include/linux/pse-pd/pse.h
-index 4e5696cfade7..78fe3a2b1ea8 100644
---- a/include/linux/pse-pd/pse.h
-+++ b/include/linux/pse-pd/pse.h
-@@ -21,6 +21,7 @@ struct net_device;
- struct phy_device;
- struct pse_controller_dev;
- struct netlink_ext_ack;
-+struct notifier_block;
- 
- /* C33 PSE extended state and substate. */
- struct ethtool_c33_pse_ext_state_info {
-@@ -337,6 +338,24 @@ enum pse_budget_eval_strategies {
- 	PSE_BUDGET_EVAL_STRAT_DYNAMIC	= 1 << 2,
- };
- 
-+/**
-+ * enum pse_controller_event - PSE controller lifecycle events
-+ *
-+ * Event data in callbacks is always a pointer to the struct
-+ * pse_controller_dev firing the event.
-+ *
-+ * @PSE_REGISTERED: controller added to pse_controller_list and
-+ *	resolvable by of_pse_control_get().
-+ * @PSE_UNREGISTERED: controller about to be removed from
-+ *	pse_controller_list. Subscribers holding pse_control references
-+ *	targeting it must drop them before returning and must not
-+ *	acquire new references for it.
-+ */
-+enum pse_controller_event {
-+	PSE_REGISTERED,
-+	PSE_UNREGISTERED,
-+};
-+
- #if IS_ENABLED(CONFIG_PSE_CONTROLLER)
- int pse_controller_register(struct pse_controller_dev *pcdev);
- void pse_controller_unregister(struct pse_controller_dev *pcdev);
-@@ -366,6 +385,9 @@ int pse_ethtool_set_prio(struct pse_control *psec,
- bool pse_has_podl(struct pse_control *psec);
- bool pse_has_c33(struct pse_control *psec);
- 
-+int pse_register_notifier(struct notifier_block *nb);
-+int pse_unregister_notifier(struct notifier_block *nb);
-+
- #else
- 
- static inline struct pse_control *of_pse_control_get(struct device_node *node,
-@@ -416,6 +438,16 @@ static inline bool pse_has_c33(struct pse_control *psec)
- 	return false;
- }
- 
-+static inline int pse_register_notifier(struct notifier_block *nb)
-+{
-+	return 0;
-+}
-+
-+static inline int pse_unregister_notifier(struct notifier_block *nb)
-+{
-+	return 0;
-+}
-+
- #endif
- 
- #endif
--- 
-2.43.0
-
+Thanks,
+Oleg
