@@ -1,173 +1,84 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from Chamillionaire.breakpoint.cc (Chamillionaire.breakpoint.cc [91.216.245.30])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E20B274670;
-	Sun,  6 Sep 2026 04:17:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 598B9217704;
+	Sun,  6 Sep 2026 04:18:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.216.245.30
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788668224; cv=none; b=itlVTFSqJ4vexaYfeHcmkloU3kDu1cznmP+astbsEf0HY9Jpc4XEbWcXGHLFY0JhV8M4jIjqoUXZGMbnsLdOp5EKIPcOo4o/q2N1g979q+nRoatjhHtYF5/GLxccoi9wqcwZGU80JPFyh0gondvKRANkBYIbC7S0UqtkLME9wdY=
+	t=1788668324; cv=none; b=dtrZkX4SMYZs+pi49g4h2eF7Sb0KPQ7aGv4rcUdTCbUp/GtfJDhEZnkHSfy69GT8HklUIpZHeFs801YrC8omJRLHqPpyeVbckm2WVjgk1jUqbawhr9EDqDnQWMq2BCcXb8aA5DBT499LrOjz+iHb0e5UnlhaB4kmkzpaPzKUQFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788668224; c=relaxed/simple;
-	bh=IwTqmfMPncIgBjHLwSuuH7ngS6S356PSqcqPnT78y7Y=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=OLynqritWazgGdwosjXr7kCCgrnQWo0DPP3LIQrpmDY/1j+vwsxrM2iQzkMoFJnzv3iRo4Aazy8NIFrPp7feizq4ABg/AZH73ZIxm9eX7eBMU+zUlY7CsCwgjmfcoCgHstpALgFr/X8yK2F+y/4OJ7F2TPbbhVPf9rw78hmcC3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=FX25eoPT; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="FX25eoPT"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6864GkTC21636335, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1788668206; bh=LLGZhRw50YaVUHwnsyYfR6nnwSv29pwHJaPZDbQpylg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=FX25eoPTuZY9YElHfVqIaESjzIWmvtorssb3PCmN9JhnQaaxbPmJQtEvpHhU2l5QO
-	 rnvh3l4RiOobayAIJmhcp68L6ZvQf1PDZBe2NpPZefBvQ3cOatdYE3SXcBuQJqZkUn
-	 rxZAOiaaHwn4o7Pgh9LWxiagqtWk5HCck6tSwJ5y3bHgQ/jC4G4hqLJPCep7XpOGau
-	 l8L/eudTWg3QbU1670KGCnHzbzBXs8ocuxPyV361KuoDqf7nnrG/fFDjFwbi6c/ozN
-	 5HV9pywP/cAESHsF/4nA7ZxUL9ErrrWI4z8z5HvNbJkb7/lXi9ivpqaTWgmem/itE8
-	 sMWPvo1F9qHfQ==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6864GkTC21636335
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Sun, 6 Sep 2026 12:16:46 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Sun, 6 Sep 2026 12:16:46 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::126f:59ad:658:674d%10]) with mapi id
- 15.02.2562.043; Sun, 6 Sep 2026 12:16:46 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Abdurrahman Karadag <abdurrahmankaradag19@gmail.com>,
-	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>
-CC: "kvalo@kernel.org" <kvalo@kernel.org>, "briannorris@chromium.org"
-	<briannorris@chromium.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH rtw-next] wifi: rtw88: pci: recover from a stalled TX ring
-Thread-Topic: [PATCH rtw-next] wifi: rtw88: pci: recover from a stalled TX
- ring
-Thread-Index: AQHdOrv2my6O5pDEZ0akoQ39a3KAlrbA9beQ
-Date: Sun, 6 Sep 2026 04:16:46 +0000
-Message-ID: <6f2a314798c64ccfbfd59ac8a8ee6e01@realtek.com>
-References: <20260902091738.41047-1-abdurrahmankaradag19@gmail.com>
-In-Reply-To: <20260902091738.41047-1-abdurrahmankaradag19@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	s=arc-20240116; t=1788668324; c=relaxed/simple;
+	bh=C2APnU0KFZkND5kSczDYEavOxInW2UclGHzMtXaxKvQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tZbvVHykqqXC6ZFPYiuHjaGQ7q/q6lpmJ/ZiKYVk58bC5A7NCE4h6M8AgmsKaRr/mVTYfy0zbcZiXRTchoe2cCz1pzv+UdCWDXONxVrilQPMefccHmixTzEjKbAfzUob2owcT9DTMivyN9UWbve0W6fcHHumZYzuRk7UcTBjR8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de; spf=pass smtp.mailfrom=strlen.de; arc=none smtp.client-ip=91.216.245.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=strlen.de
+Received: by Chamillionaire.breakpoint.cc (Postfix, from userid 1003)
+	id 3F89C60544; Sun, 06 Sep 2026 06:18:34 +0200 (CEST)
+Date: Sun, 6 Sep 2026 06:18:33 +0200
+From: Florian Westphal <fw@strlen.de>
+To: Weiming Shi <bestswngs@gmail.com>
+Cc: Pablo Neira Ayuso <pablo@netfilter.org>, Phil Sutter <phil@nwl.cc>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, co+459f67f4d8af8ce6@bugs.sh,
+	Xiang Mei <xmei5@asu.edu>
+Subject: Re: [PATCH nf] netfilter: ip6t_rpfilter: handle routes without
+ inet6_dev
+Message-ID: <apzpbMAdqSa_SkEx@strlen.de>
+References: <20260906034939.3746540-1-bestswngs@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260906034939.3746540-1-bestswngs@gmail.com>
 
-Abdurrahman Karadag <abdurrahmankaradag19@gmail.com> wrote:
+Weiming Shi <bestswngs@gmail.com> wrote:
+> ip6_route_lookup() can return an error-free route whose rt6i_idev is
+> NULL.  For example, lowering an external nexthop device's MTU below
+> IPV6_MIN_MTU tears down its inet6_dev while fib6_ifdown() leaves routes
+> using nexthop objects in the FIB.
+> 
+> rpfilter_lookup_reverse6() dereferences rt6i_idev before evaluating its
+> loose-mode condition.  This lets an unprivileged user with a private user
+> and network namespace trigger a NULL pointer dereference:
+> 
+>   Oops: general protection fault, probably for non-canonical address
+>   0xdffffc0000000000
+>   KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+>   RIP: rpfilter_mt
+>   ip6t_do_table
+>   nf_hook_slow
+>   ipv6_rcv
+>   process_backlog
+>   net_rx_action
+>   handle_softirqs
+> 
+> Evaluate loose mode first because route existence is sufficient there.
+> In strict mode, compare devices only when the route has an inet6_dev.
 
-[...]
+I don't think we should treat rt->rt6i_idev == NULL as an eligible
+result, even in loose mode. Maybe this instead?
 
-> diff --git a/drivers/net/wireless/realtek/rtw88/pci.c b/drivers/net/wirel=
-ess/realtek/rtw88/pci.c
-> index 66d2e5f51..f9875cb07 100644
-> --- a/drivers/net/wireless/realtek/rtw88/pci.c
-> +++ b/drivers/net/wireless/realtek/rtw88/pci.c
-> @@ -787,6 +787,72 @@ static void rtw_pci_tx_kick_off_queue(struct rtw_dev=
- *rtwdev,
->         spin_unlock_bh(&rtwpci->irq_lock);
->  }
->=20
-> +/* The hardware read pointer of a TX ring can stop advancing while the d=
-river
-
-First line of comment block should be empty. We don't use special style for
-networking subsystem anymroe.
-
-> + * keeps queueing descriptors. Once the ring is full, rtw_pci_tx_write()=
- stops
-> + * the mac80211 queue, and because the only wake up is inside the comple=
-tion
-> + * loop of rtw_pci_tx_isr(), which does not run while the read pointer i=
-s
-> + * frozen, the queue would stay stopped forever. Detect a ring that is n=
-ot
-> + * draining and kick it off again.
-> + */
-> +#define RTW_PCI_TX_STALL_LIMIT 3
-> +
-> +static void rtw_pci_tx_stall_check(struct rtw_dev *rtwdev)
-> +{
-> +       struct rtw_pci *rtwpci =3D (struct rtw_pci *)rtwdev->priv;
-> +       struct rtw_pci_tx_ring *ring;
-> +       enum rtw_tx_queue_type queue;
-> +       u32 bd_idx, cur_rp, wp;
-> +       bool pending, kick, warn, stopped;
-> +
-> +       for (queue =3D 0; queue < RTK_MAX_TX_QUEUE_NUM; queue++) {
-> +               /* BCN is the reserved page and H2C is managed by the
-> +                * firmware, neither is flow controlled through mac80211
-> +                */
-> +               if (queue =3D=3D RTW_TX_QUEUE_BCN || queue =3D=3D RTW_TX_=
-QUEUE_H2C)
-> +                       continue;
-> +
-> +               ring =3D &rtwpci->tx_rings[queue];
-> +               kick =3D false;
-> +               warn =3D false;
-> +
-> +               spin_lock_bh(&rtwpci->irq_lock);
-> +
-> +               /* nothing in flight, do not touch the device */
-> +               if (skb_queue_empty(&ring->queue) && !ring->queue_stopped=
-) {
-> +                       ring->stall_cnt =3D 0;
-> +                       ring->stall_warned =3D false;
-> +                       spin_unlock_bh(&rtwpci->irq_lock);
-> +                       continue;
-> +               }
-> +
-> +               bd_idx =3D rtw_read32(rtwdev, rtw_pci_tx_queue_idx_addr[q=
-ueue]);
-> +               cur_rp =3D (bd_idx >> 16) & TRX_BD_IDX_MASK;
-> +               wp =3D ring->r.wp;
-> +               pending =3D ring->queue_stopped || cur_rp !=3D wp;
-> +
-> +               if (pending && cur_rp =3D=3D ring->last_rp) {
-> +                       if (++ring->stall_cnt >=3D RTW_PCI_TX_STALL_LIMIT=
-) {
-> +                               ring->stall_cnt =3D 0;
-> +                               kick =3D true;
-> +                               warn =3D !ring->stall_warned;
-> +                               ring->stall_warned =3D true;
-> +                       }
-> +               } else {
-> +                       ring->stall_cnt =3D 0;
-> +                       ring->stall_warned =3D false;
-> +               }
-> +               stopped =3D ring->queue_stopped;
-> +               ring->last_rp =3D cur_rp;
-
-Does software pointer cause driver doesn't restart queue?
-Or without changes of this chunk, the stuck can be resolved?
-
-> +               spin_unlock_bh(&rtwpci->irq_lock);
-> +
-> +               if (warn)
-> +                       rtw_warn(rtwdev, "TX queue %d stalled (rp %u wp %=
-u%s), kicking\n",
-> +                                queue, cur_rp, wp, stopped ? ", stopped"=
- : "");
-> +               if (kick)
-> +                       rtw_pci_tx_kick_off_queue(rtwdev, queue);
-
-I mean just doing this kick is enough to resolve the stuck?
-
-> +       }
-> +}
-> +
->  static void rtw_pci_tx_kick_off(struct rtw_dev *rtwdev)
->  {
->         struct rtw_pci *rtwpci =3D (struct rtw_pci *)rtwdev->priv;
-
+diff --git a/net/ipv6/netfilter/ip6t_rpfilter.c b/net/ipv6/netfilter/ip6t_rpfilter.c
+--- a/net/ipv6/netfilter/ip6t_rpfilter.c
++++ b/net/ipv6/netfilter/ip6t_rpfilter.c
+@@ -61,7 +61,7 @@ static bool rpfilter_lookup_reverse6(struct net *net, const struct sk_buff *skb,
+                fl6.flowi6_oif = dev->ifindex;
+ 
+        rt = (void *)ip6_route_lookup(net, &fl6, skb, lookup_flags);
+-       if (rt->dst.error)
++       if (rt->dst.error || !rt->rt6i_idev)
+                goto out;
+ 
+        if (rt->rt6i_flags & (RTF_REJECT|RTF_ANYCAST))
 
 
