@@ -1,114 +1,90 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16EC2367295
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 19:19:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E3313AFAE6;
+	Mon,  7 Sep 2026 19:20:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788808795; cv=none; b=oHZiFLdbYBOYfKqk33Ldly55tYG3V4xtphyRBe0Lw+uHYx81civyBOHh/SygtK/ZwnBGIGflZ464xMfo947KgpmiW5HjQkiMbgOF1QyYpJJgt27VG7Q4CzFEPC05xkxfrPNFIjqq5OVt2md+watwthGLTQrHsB2UxbF5plnVdOU=
+	t=1788808811; cv=none; b=NYIOkZOTk5PmqsLb0xsLgJ5ClRU87uf9ITu+qPwZ5gCkGpu4sq3uNz7QLkQw1UZ/NWVDa9o5Neaoff3wug2AtJpwCNXtVLfZUolgIFlc2XdR0Jdc6dQACes+jb4/+HhTqaeJz0eWyqkSPcB4CiAl6qA9HcyI4O+K7usUL9Gsjfc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788808795; c=relaxed/simple;
-	bh=kKsh8G02HdVpc2N26b3iNoXlx79rQU6xtvF8QVQccEs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KDAz8PEgIOmLmh+091nCpOiLqUB4kAxTgk6RRwBi7O5sOvwuDDHPdVMef90iZh71dsKERP+QHH2IGZwAGhRIKR92JMdQzhIp32RA58Q+27FFM2l7WDLObJ8fxUc5S+mMA2hH15Sw4C/RAkYQ6fXvEUllxNu438GCTh8AhaEwYlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QklsIe0/; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788808811; c=relaxed/simple;
+	bh=B2X4bWGMk/FhaOtRzqPtbwCBIe/I5ub1vzMOSMrZ/dE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rkLyQn5SqpwbxC+tyEESi0sY6Rl/C4hQrmAkodYXyUbNGzGOQS0f2GmlLhJVIDsu5gJiwqFcgObeYyFCZwHAPHYCCNpIxduH6ze0UyMvsragFMk4T2Be5YDa8Rtf0RqeLsYLwdXZiiZ2nG00vt0wO8gTGW++LUm1fIIYjF2l5q4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QaR7vrOi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QklsIe0/"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49ccfae359fso34341705e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 12:19:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788808792; x=1789413592; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=V/o46YaC7pYeVZPsZJcV4phXeXLrFAX/x8xzi7YXaI4=;
-        b=QklsIe0/OapVD97Bf92t/2A6sKwPm3bOZa4FJT4h07/A8lqI5DRcxsEwOCetwsjlLZ
-         hzUXd0ziQiSnHTb1GnCPPkpsrMNWgB31txX8J3gLX2vwnNR3l8HE3LQ/d6WYW+jahDHZ
-         Dsg2wPKjiyNFugocDYFqhhequA2c5yzUiAExVj6MRjVqb8dgE6yLR9YcvoihZdjGbvjU
-         RJsB6rShHkzwC+ePYcdSrf8WIFelgqJlYXcxD/RbHSHQk+h6aGtc8BDx6bXYIJDR4hcJ
-         KBIzjYD5qQvtXWvNWnPYGxHap/+VzZBeXwHH2rhbTGP+P+mh7EOMxsDYQ06T13E3zV2r
-         4IqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788808792; x=1789413592;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=V/o46YaC7pYeVZPsZJcV4phXeXLrFAX/x8xzi7YXaI4=;
-        b=PU021kjQvBEBpN3kpGiTLq8px2bkrl4C4jCwdaWhFw0+R6N1kLT77g7vDXv+B3jBqs
-         0p/XFAnIBDSNcwHldE8NEJI5S6r/Ey57Iq4pk9gw0tY4qs9h/sWwzit4+fogFbkka5+B
-         tX8w/FjkpKwQthKf8DKN8yLnZCC76tJEE4uuL4LQiyCIZxck+KIrNmyEzJPkJR2Ykh7J
-         9D9szPAU/42z9i/hKf+NItME9qD2zPHoB4O5zeNBiHKVqoqvJm9Wj9hjc0UzpDAHSKLZ
-         wpIREAcAAf/hh1WcCkkJM6Os6is3ZqISMOfc+TWkYj1tFb8SX1R661+thrJyWwcuQGCR
-         rMdA==
-X-Forwarded-Encrypted: i=1; AKwUvBxIZkkP52Gjgs9JO6St/BsVo8I2jbtXwuPwKjijxeDd/fZ0fHYeN4YrFpQE3+0MIf+ajQfFDu/DBgF69hE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lpaxL6hRJsD2OtvnhAi4QuY4vkYZtKMlY1ukAN+ygEorBcyuqz
-	knQnFiEw0a01y1zBDH8OXEsZQ5KHtreV/Hv+8dOq02tZyqFTDv59i2DI
-X-Gm-Gg: AYBFou0EUI0vfZrUA4hMdvWyHn38evmc3y7ZIprkpbJ8V05FdllHhvcKfOvQV/ua0mc
-	YGUAwNLl7JoNJoIrBPcaVJJgL65rMMLeVKqvFSk6Lt91QlGGlA2bS30DwOpkd4l6cNrYyo7kODc
-	nVNyr3MiLY3hcKtgetXP+Su1I1N6xuE4n5JXazm0w82+swVELn1YlLqSMIUbuRLd0P3gYTbkkZM
-	ifXe5fFgXYPZh/T77qtsLozAe0xi5mzaxFfa345+N4EkNXVBd6Ha5ckCQ/x0OBo+HwhQe/Vsf6Y
-	s5ULk1fAQP0WGKqFgO5T9dPi9v60fRZ1SFTIR5fqnXw620Xnw4hpRtmeF2+JB0uxol8HmR7toFt
-	Vz4I1XzgPdp0HnGvNx9QcHJ5R98zZFz707QEKHXiX4lurLN/YVTtU+q8nIN5adQ8WrTYNsX3Dg2
-	lgrkQaQldfsqSPztmRPph5It5LIxLQ+SPt72THxcRQSzH1VvMMRNrJPnLHIt3ncsKFCq9QoQEnW
-	8h9gWB8V0l57d+RHRfQljB4XdivJA4ThAHDEDa6
-X-Received: by 2002:a05:600c:4685:b0:499:8704:242c with SMTP id 5b1f17b1804b1-49cf7f32214mr252352075e9.0.1788808792027;
-        Mon, 07 Sep 2026 12:19:52 -0700 (PDT)
-Received: from VivoBook-ASUS-X712UA-M712UA.lan (public-gprs692038.centertel.pl. [5.184.246.135])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d04fe7f9dsm231242835e9.0.2026.09.07.12.19.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 12:19:51 -0700 (PDT)
-From: Stanislaw Pal <kuncy7@gmail.com>
-To: Linus Walleij <linus.walleij@linaro.org>,
-	=?UTF-8?q?Alvin=20=C5=A0ipraga?= <alsi@bang-olufsen.dk>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Johan Alvarado <contact@c127.dev>,
-	Mieczyslaw Nalewaj <namiltd@yahoo.com>,
-	Stanislaw Pal <kuncy7@gmail.com>
-Subject: [PATCH net] net: dsa: realtek: rtl8365mb: let the SerDes PLL settle after the data-path reset
-Date: Mon,  7 Sep 2026 21:19:45 +0200
-Message-ID: <20260907191945.806751-1-kuncy7@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QaR7vrOi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42B101F00A3A;
+	Mon,  7 Sep 2026 19:20:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788808809;
+	bh=MBF954dvFmkhgI0aFSJi7k7vhmBty1EC28SfxK4YPSA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QaR7vrOijinEhd9KEUPySAQE3a5WYYOYaTpktNd01h4PBTdOoQkU6YsCp7p5g/BsY
+	 aJwOxHZY3o1ftkakOMn1ObMgdgNw0emPrxgS+f+HDR707+J3NtHKfVJ1jIi1oPPs+h
+	 4yeGJ60ThUsimj53ngWWMom4pLdSutXUP8DZNpics1uAwNhw6Qq9kIGpk2JEZ4hze0
+	 m72fTjg3Y6PkDfxCTRqp8EX0oEFOnVJPri/3WR3D9O2CvA9pdCdwY2e975FaMcu8d3
+	 WQwN/zeCQDNFMzniwOwoyk9BCjUExOKRwSBZxgRpv4hHDBPJT/zkMqf2UJFfuS/lM1
+	 hFbG8MAS4m53A==
+Date: Mon, 7 Sep 2026 20:20:05 +0100
+From: Mark Brown <broonie@kernel.org>
+To: David <mafiatamilan@yahoo.com>
+Cc: Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+	Takashi Iwai <tiwai@suse.de>, linux-sound@vger.kernel.org,
+	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: amd: yc: Fix internal mic for HP board 8C30
+Message-ID: <0b298bc2-ae48-4e08-823e-25be3ce09382@sirena.org.uk>
+References: <178867857905.85694.5014721659216165123.ref@yahoo.com>
+ <178867857905.85694.5014721659216165123@yahoo.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="jp8fH7H7p8UsvJg1"
+Content-Disposition: inline
+In-Reply-To: <178867857905.85694.5014721659216165123@yahoo.com>
+X-Cookie: Who's on first?
 
-The vendor DW8051 firmware waits ~98 ms after the BMCR data-path reset
-(constant SGMII_TIMEOUT_98MS in Sgmii_Init[]) before any further SerDes
-register access, giving the SerDes PLL and analog front-end time to
-settle. Without the wait the SGMII link on the RTL8367S can come up
-half-alive on cold boot: carrier up and RX passing traffic, TX
-permanently dead (measured on a TP-Link Archer AX55 v1, IPQ5018).
 
-Fixes: 0b577e2fe06c ("net: dsa: realtek: rtl8365mb: add SGMII support for RTL8367S")
-Suggested-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-Signed-off-by: Stanislaw Pal <kuncy7@gmail.com>
----
---- a/drivers/net/dsa/realtek/rtl8365mb_main.c
-+++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
-@@ -1408,6 +1408,14 @@ static int rtl8365mb_pcs_config(struct p
- 	if (ret)
- 		return ret;
- 
-+	/* The vendor DW8051 firmware waits ~98 ms after the data-path reset
-+	 * (SGMII_TIMEOUT_98MS in Sgmii_Init[]) for the SerDes PLL and analog
-+	 * front-end to settle before any further SerDes register access.
-+	 * Without the wait the link can come up half-alive on cold boot:
-+	 * carrier and RX fine, TX permanently dead.
-+	 */
-+	msleep(98);
-+
- 	/* Keep SGMII in-band autonegotiation disabled: the link parameters are
- 	 * forced from rtl8365mb_pcs_link_up() instead.
- 	 */
+--jp8fH7H7p8UsvJg1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Sun, Sep 06, 2026 at 12:39:39PM +0530, David wrote:
+> The HP laptop with AMD Ryzen 5 7535HS and ACP 6.x coprocessor (PCI ID
+> 1022:15e2, subsystem 103c:8c30) requires an entry in yc_acp_quirk_table[]
+> to enable the internal digital microphone (DMIC).
+>=20
+> Without this quirk, acp6x_probe() returns -ENODEV and the internal
+> microphone remains undetected.
+>=20
+> Add a DMI quirk matching vendor "HP" and board name "8C30" to enable
+> ACP DMIC support.
+
+Does this already merged patch:
+
+   https://patch.msgid.link/20250715031434.222062-1-queler+k@gmail.com
+
+also get things working for your system?
+
+--jp8fH7H7p8UsvJg1
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqfDmQACgkQJNaLcl1U
+h9BxRAf/cCwAPCz7cNsbjofRRmDXMH/m9AKzvJEsnuD7GpCSiicCsjawdk7l3AOb
+IkmiHFAUALP+2WB+7c0iptxSXLnz1VR8CEsb2WRYDsgrTS5K9FKIOfHeJEK5D429
+VC+XjJ+Adw72DDPpi55/it6s4HvnAzIZg5nVbXkteBvfeeLJ0SlzHjLTgQzqkLok
+ePAnR8sL9KfacqImhNCZ0LwWJi79SNBmi7Rn9BIV7kuLIOCV7zXJUWWMl6KslA1X
+KLPjovqr+zhe14wd5f1NW/F0ZYSI2mUOPPadX2RQizWg0Np4KuSRD1pXM1TRCUk5
+ivwrwR6N/q754SDrB7NqZtpzfTXvBA==
+=dQrf
+-----END PGP SIGNATURE-----
+
+--jp8fH7H7p8UsvJg1--
