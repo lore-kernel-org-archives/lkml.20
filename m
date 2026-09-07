@@ -1,182 +1,171 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C61F4A2630
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:06:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FDE54CC266
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:06:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788786416; cv=none; b=L1vuJzlCpXNpzNfPisPCgBddZmDCvc3yWw9LIpRr+h5oBU5CLjOPHlH1Gq+cLtuXtypCVMZkwwM+ZamKWMx6jvvNzE2RR5yBxmHnNr39RZgJE4n8XBUhTE4K01yQ7WPdJ/AjHsYQSNy86DLbgKGUwI1ajrVdA8GLr+4eO+f/JuY=
+	t=1788786424; cv=none; b=JlfjOy+uQSa6Ub4z822m5fYBZndfCTuK/5J+ApUgLXc4VN9HoKrcMTiEwxuTiwc7GBo0pAjBL1yHyv2IMHqwIXCM8piMpltzyQWTdFj5Bo37rCGzIy/iPMnmNnUAHAdGZIgrPyCTLbgo2QuqVPS+6ZCjcxvwLBQiun/qlJYwqeo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788786416; c=relaxed/simple;
-	bh=eoELJwkDlwS9cl0WbC/oBljazj8jzeYPt267DDxKQMI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ai7GEUCaltAPqV/B+NuaRUEsKck3evfCk4N7+b08ZEQ6sjfrdjyBrwGOqcINhiTqGkwMu3ZsCAqZ1oHHHKwElN50BTcWtqcufkGeyov6DgNhv69juM0vx/Z91xr7+gP2kLwLTBN+huNt1PZIGz6xYbKYKejgkO1zbTV5rWOBANI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dN1OaUhM; arc=none smtp.client-ip=209.85.221.46
+	s=arc-20240116; t=1788786424; c=relaxed/simple;
+	bh=Aq2Yj8WlY/n8sjOdlrRc6EEnwqw44OPa3KHFRf4++So=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=C8OyuB7O8rYAiGUWfH7TCpTOU/4/7WBufd85BqyP63Oux6l4G4ybbWLbrex9RxE2stB8JnqSZrYBDyNhdGpwP0Rd2QXUThfyqdY/81GCWaFi0OtnO4BOAzCIICfynieKcjOerbK+R2Ct7c8MmqKsVmSkPJtc6ubuW66W4XLPXVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hs2ov4Uk; arc=none smtp.client-ip=209.85.216.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dN1OaUhM"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48441a2ba14so3100784f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:06:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hs2ov4Uk"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-39b2ad862bdso3780202a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:06:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788786406; x=1789391206; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ySxHLNrdZAbSwcz4SMQYBg7MBYiQBtCno7JKBz+dwo4=;
-        b=dN1OaUhMVVuEw0c3URs5MBke2AXqLEWnlBw37xX2r1J5Vj4X4SiR4QP5oETKIYeR1y
-         VORiQJTSScTbCy2k9R+IKlZuzhdTCl/W7CYCgCRLkqXs6kMzMskSrZQve7qYwkq877ZY
-         dyFx01Ihs0FuR1p+SPINfUvrdpMm+r34/twUzRNLZ74X9hGpMmq19OEned9pvmCpHdez
-         h+y1RU2OxT3y4dkR9OvypkeIEq685qXquuW6IcvkTISaMoZ26cNF8yG7+Xh0UuSREITh
-         pa+YgjGItCzAOWGfj3TF0cuvIiTliUMZw6H1KFUXyn/eQx7ph60XBKA60iw9z+O8Dwjz
-         aAQQ==
+        d=gmail.com; s=20251104; t=1788786407; x=1789391207; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YnZZQEjTT3ispo9t2Rp3ilMwMqDfcn5R3yYWSok4gBU=;
+        b=Hs2ov4UkFW+3Ps6wOnyI0xRBCDAmGThte3uzHkEIoQ4hk7Q4nQVnnEsy+77xUC0awn
+         nRn1dtYLhkuPIBrYPe3guKnvth68e4aq3ydEYZqy4u7tniI8rFfFI9QaCFK6BBkZ3Wqh
+         aqCpc7OqNlMWOPPVsgv//a11tcQrx5uQ+LRbcZ1HSKAglqMQI0HZuvTHe2OE0jhRNlAi
+         8KWaCjtCPyNkmDL+bD/POxZHQ1GBtB/G+15RSfnfXwXcdOmquP6HajZ0+YDZA7A5JxOi
+         Z+Tj4W8yscWftdJtvvw/KAF8KO8eM5nNtWRkm0A4wdBvGWDlBLP6JKX6M6dea+klLvam
+         Cj1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788786406; x=1789391206;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ySxHLNrdZAbSwcz4SMQYBg7MBYiQBtCno7JKBz+dwo4=;
-        b=PG6Q3ltnbq9bfzsoi/ySmDg/4z4xInfn9w19VfpKOmJFcpdf1hgzdb2rbZuAE8kscg
-         ZayPc7jqcS4MMHm63pcazg7XSqKL2XlesAHC2ZWVwtTqcGx5DHmrLMIgv0L8zBZuSVHW
-         AYMZCypfWZ5lmtY37AYu3jYBZXtFxZPWCbaUVsb1u4d9Qv9OZnDYMOoyS1GMB52QDZXF
-         M5cwIHOurduDGk0iOamU7LaXFWulzCMRi9ExyMTFKHo6COuXIBzP/adNGr8/JDKz3rpY
-         DVf5FpFoBoBoCjruNe830YWkMffiPB25YLJQV4SttQkq0z4Fd5imkx8Ho0L+h/XL/vpL
-         MKLA==
-X-Forwarded-Encrypted: i=1; AKwUvBymU/wokhhhQvHhhz13O+wWYhQk2TyIz4vMgK02EVMHsPCvxgtbk8Ha/ONOP0Rp9XvUfCNYUh50lK0FqGg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nWUpmpwNDVwrp43Cp6sjWFwpiB/E6c4lDRs5A+caOpuiOXSxpZ
-	NT4nq6vj4LMt4huQIYmLERXOXID20ey/U0kd4bNolJSq5VPlG9nzDMKw
-X-Gm-Gg: AYBFou3dthUK5ot1MGkjPLKNBlK6yiv4c6thZW7re5/KVs+eM9m2MREbOv8UTatzvdk
-	KOBHI6ofH1IpiPcW/dBAgRpOvHXkG5rbx1bc7/wzdCzbKKETs2YlH6gIeeBTM/mxpFwtr1GbdMD
-	lq/H+AnNjYTE7pzVM8Ppfl5+qf0At7cjskz/5cjxcKjuPXkjlYADoYmZa5CY94v9DlaCJVPptm9
-	ySuwftrIvUHFYIbIsktcm9gjW9VJwS+68ZHPcgx0tAHnmvHToJs7QxGxWQBKuvLehivgioDR/D5
-	R+Vi3PgWLbWcJ4+11dM+LINBbZ6B3xqfThKebyxg1+y4BVqRS3EziZjRmto5+WBv7Eni4X/6+w2
-	6LzKqRzwy44yDbGfSg2lIvTrjf0z5aA2plDPv2zhYr6NsxWovv3MOFWTkaKtwscYzcFLyW6hqKx
-	2s9bJzHghIpp0jlvDELhx5q+KRcyfsJ4/ZPsHGKuEmLgaK0OgNgFVEOeXmBvSrbSBnicXhTjmkW
-	r8gLjvW6WXr+45pV1LEMuyCRA==
-X-Received: by 2002:a05:6000:260f:b0:485:8be8:b2ba with SMTP id ffacd0b85a97d-4858be8b4bcmr22749936f8f.49.1788786406401;
-        Mon, 07 Sep 2026 06:06:46 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883c81c3sm28717743f8f.26.2026.09.07.06.06.45
+        d=1e100.net; s=20251104; t=1788786407; x=1789391207;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YnZZQEjTT3ispo9t2Rp3ilMwMqDfcn5R3yYWSok4gBU=;
+        b=St4mIgW4If4b908M+FKqrAjXqYJNYJ7PlHac0GvERVIUEpgDK+JtfU9y8C2C3YyY4t
+         XQsoDT1bQR89ac/FltZHH6t7gPyNSveh/rJPCYjeKZx9W51MNIwbUDHbUgpz38GyPq50
+         AZhzXmhkARWBKPQg8xj3MzN39TRIW7dHlFW51X9aRO5Oi5vnNB3qVh2sRm0zq6wiWm+G
+         l+Lks9T4JFKtsTiOzSTp3MBog1O4dkaurWziZMCOl1sAJn3JizYmNq1a5KKn/qrZHKyJ
+         tRiAU0Zt+vFCSpVjchCJHGKdgOeQG36Q/TV52mT+yk9QoBuS7EfSuBNgPtY4huDTMozs
+         h7tQ==
+X-Forwarded-Encrypted: i=1; AKwUvByIq0mWZOW0Ab7Y0QbOcqAH2vx20ulC4/oiTZdHm1QIGqMcoPwtOfYRqTWyURKRpShFh6WmjHNjRSwD3j4=@vger.kernel.org
+X-Gm-Message-State: AFuF++ktbhAp+Vq2KBF5mekpmvHhRRRShl/vqOeirTGZEE3A9/MLsxrs
+	d5vfJu7kS8WFki3VaqygzJL1f2cByEKc3t/rf25nYwJsRaAVS0typjA=
+X-Gm-Gg: AYBFou2/wtleL8BXUMJiDtZijT0X6aQT20/EJMmMAFIWQPNXak28mTi9hNYCm2QWedB
+	LoGhiZsQlRU9hVGlNqFp461MaTdALnZdx6wQE5udJRw73rFlPcYHpMGZo8q3x3NNPaBq42ORWrj
+	O49IhjvF2dbeKRzXSWwlwaUiPOZfxWxHFfeOI5Qh8kx9PAd5n8bAAYWiNcmB0wqrjigDt3gHqQS
+	Hntpl4G1pOSWDOf6Twzn/3Zi172nMMwDHntSU9bQD2QRKQ0VONSa9+46qnJxn3FYacrkAXNjYMg
+	YLslx24t+RxR9SBSnnWFYho7GKnWVElhswm9FvZS5ltoE1O4uBPO3HyZamw/JWtjhSFiHrGzSSZ
+	m/JM2khPwiRElFsF9gOCmiRVhh3TeouCBwPTe8Tg6PBi9mlXxQ1aGse/NnFuD36IzKgIP0BGibt
+	63+nKNNZh/qV1lTrnL5m2C7h872A10L7pfaEXsHZwRB1NqKiguw1OV+z1AAnqWtpEKdTwy4sQvq
+	zn4LM0HhKcVcwaA
+X-Received: by 2002:a17:90b:3809:b0:381:a766:efc9 with SMTP id 98e67ed59e1d1-39b261014e2mr32056634a91.7.1788786407241;
+        Mon, 07 Sep 2026 06:06:47 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:6467:d689:c773:5f09:906c:a72b])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b07b197a9sm26742398a91.0.2026.09.07.06.06.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Mon, 07 Sep 2026 06:06:46 -0700 (PDT)
-Date: Mon, 7 Sep 2026 14:06:44 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: David Howells <dhowells@redhat.com>
-Cc: netdev@vger.kernel.org, Marc Dionne <marc.dionne@auristor.com>, Jakub
- Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon
- Horman <horms@kernel.org>, linux-afs@lists.infradead.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v9 01/14] afs: Fix lack of loop around sendmsg() to
- rxrpc
-Message-ID: <20260907140644.18dba619@pumpkin>
-In-Reply-To: <20260907113743.1453210-2-dhowells@redhat.com>
-References: <20260907113743.1453210-1-dhowells@redhat.com>
-	<20260907113743.1453210-2-dhowells@redhat.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Puranjay Mohan <puranjay@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Song Liu <song@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Xu Kuohai <xukuohai@huaweicloud.com>,
+	Yonghong Song <yonghong.song@linux.dev>
+Cc: bpf@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	donggeunyoo.kernel@gmail.com
+Subject: [PATCH bpf v3 2/2] selftests/bpf: cover the exception callback using its own BPF stack
+Date: Mon,  7 Sep 2026 22:06:24 +0900
+Message-ID: <20260907130624.611942-3-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260907130624.611942-1-donggeunyoo.kernel@gmail.com>
+References: <20260907130624.611942-1-donggeunyoo.kernel@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon,  7 Sep 2026 12:37:28 +0100
-David Howells <dhowells@redhat.com> wrote:
+The existing exception tests do not reach a callback that materializes
+BPF_REG_FP into a register. They either throw from the main program,
+where BPF_REG_FP already holds the value the callback needs, or use a
+callback whose only stack accesses are frame pointer relative, which the
+arm64 JIT rewrites to be stack pointer relative.
 
-> Fix the afs callers of sendmsg() to send data through an rxrpc socket to
-> call again if a short send occurs.
-> 
-> Note that this is also a prerequisite for changing the way rxrpc_send_data()
-> works to return a short send rather than an error if some data was buffered.
-> 
-> Fixes: 08e0e7c82eea ("[AF_RXRPC]: Make the in-kernel AFS filesystem use AF_RXRPC.")
-> Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260824091645.415423-1-dhowells%40redhat.com
-> Signed-off-by: David Howells <dhowells@redhat.com>
-> cc: Marc Dionne <marc.dionne@auristor.com>
-> cc: Eric Dumazet <edumazet@google.com>
-> cc: "David S. Miller" <davem@davemloft.net>
-> cc: Jakub Kicinski <kuba@kernel.org>
-> cc: Paolo Abeni <pabeni@redhat.com>
-> cc: Simon Horman <horms@kernel.org>
-> cc: linux-afs@lists.infradead.org
-> cc: stable@vger.kernel.org
-> ---
->  fs/afs/rxrpc.c | 38 ++++++++++++++++++++++++--------------
->  1 file changed, 24 insertions(+), 14 deletions(-)
-> 
-> diff --git a/fs/afs/rxrpc.c b/fs/afs/rxrpc.c
-> index d82916657a3d..a80b043d36be 100644
-> --- a/fs/afs/rxrpc.c
-> +++ b/fs/afs/rxrpc.c
-> @@ -412,26 +412,32 @@ void afs_make_call(struct afs_call *call, gfp_t gfp)
->  	msg.msg_controllen	= 0;
->  	msg.msg_flags		= MSG_WAITALL | (call->write_iter ? MSG_MORE : 0);
->  
-> -	ret = rxrpc_kernel_send_data(call->net->socket, rxcall,
-> -				     &msg, call->request_size,
-> -				     afs_notify_end_request_tx);
-> -	if (ret < 0)
-> -		goto error_do_abort;
-> +	do {
-> +		ret = rxrpc_kernel_send_data(call->net->socket, rxcall, &msg,
-> +					     msg_data_left(&msg),
-> +					     afs_notify_end_request_tx);
-> +		if (ret < 0)
-> +			goto error_do_abort;
-> +	} while (msg_data_left(&msg) > 0);
+Add a test that throws from a subprogram using its own BPF stack, with a
+callback that hands the address of a local variable to
+bpf_probe_read_kernel(). The helper and the callback have to name the
+same slot for the value read back to be the one the helper stored.
 
-Is there any reason you didn't change rxrpc_kernel_send_data() instead?
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+---
+ .../selftests/bpf/prog_tests/exceptions.c     |  1 +
+ .../testing/selftests/bpf/progs/exceptions.c  | 30 +++++++++++++++++++
+ 2 files changed, 31 insertions(+)
 
-David
-
->  
->  	if (call->write_iter) {
->  		msg.msg_iter = *call->write_iter;
->  		msg.msg_flags &= ~MSG_MORE;
->  		trace_afs_send_data(call, &msg);
->  
-> -		ret = rxrpc_kernel_send_data(call->net->socket,
-> -					     call->rxcall, &msg,
-> -					     iov_iter_count(&msg.msg_iter),
-> -					     afs_notify_end_request_tx);
-> +		do {
-> +			ret = rxrpc_kernel_send_data(call->net->socket,
-> +						     call->rxcall, &msg,
-> +						     msg_data_left(&msg),
-> +						     afs_notify_end_request_tx);
-> +			if (ret < 0) {
-> +				trace_afs_sent_data(call, &msg, ret);
-> +				goto error_do_abort;
-> +			}
-> +		} while (msg_data_left(&msg) > 0);
->  		*call->write_iter = msg.msg_iter;
->  
-> -		trace_afs_sent_data(call, &msg, ret);
-> -		if (ret < 0)
-> -			goto error_do_abort;
-> +		trace_afs_sent_data(call, &msg, 0);
->  	}
->  
->  	/* Note that at this point, we may have received the reply or an abort
-> @@ -912,8 +918,12 @@ void afs_send_simple_reply(struct afs_call *call, const void *buf, size_t len)
->  	msg.msg_controllen	= 0;
->  	msg.msg_flags		= 0;
->  
-> -	n = rxrpc_kernel_send_data(net->socket, call->rxcall, &msg, len,
-> -				   afs_notify_end_reply_tx);
-> +	do {
-> +		n = rxrpc_kernel_send_data(net->socket, call->rxcall,
-> +					   &msg, msg_data_left(&msg),
-> +					   afs_notify_end_reply_tx);
-> +	} while (n >= 0 && msg_data_left(&msg) > 0);
-> +
->  	if (n >= 0) {
->  		/* Success */
->  		_leave(" [replied]");
-> 
-> 
+diff --git a/tools/testing/selftests/bpf/prog_tests/exceptions.c b/tools/testing/selftests/bpf/prog_tests/exceptions.c
+index 3588d6f97fd4..639866ce09a9 100644
+--- a/tools/testing/selftests/bpf/prog_tests/exceptions.c
++++ b/tools/testing/selftests/bpf/prog_tests/exceptions.c
+@@ -55,6 +55,7 @@ static void test_exceptions_success(void)
+ 	RUN_SUCCESS(exception_ext, 0);
+ 	RUN_SUCCESS(exception_ext_mod_cb_runtime, 35);
+ 	RUN_SUCCESS(exception_throw_subprog, 1);
++	RUN_SUCCESS(exception_throw_subprog_stack_cb, 0x1234);
+ 	RUN_SUCCESS(exception_assert_nz_gfunc, 1);
+ 	RUN_SUCCESS(exception_assert_zero_gfunc, 1);
+ 	RUN_SUCCESS(exception_assert_neg_gfunc, 1);
+diff --git a/tools/testing/selftests/bpf/progs/exceptions.c b/tools/testing/selftests/bpf/progs/exceptions.c
+index c8d716fbd419..91c81971e58c 100644
+--- a/tools/testing/selftests/bpf/progs/exceptions.c
++++ b/tools/testing/selftests/bpf/progs/exceptions.c
+@@ -212,6 +212,36 @@ int exception_throw_subprog(struct __sk_buff *ctx)
+ 	return 0;
+ }
+ 
++u64 exception_cb_stack_src = 0x1234;
++
++/*
++ * The address handed to the helper has to be this callback's own stack
++ * slot, not one from a frame that is already gone.
++ */
++__noinline int exception_cb_stack(u64 cookie)
++{
++	volatile u64 val = 0xdead;
++
++	bpf_probe_read_kernel((void *)&val, sizeof(val), &exception_cb_stack_src);
++	return val;
++}
++
++/* Throws from a subprogram that has a stack of its own. */
++__noinline static int throwing_subprog_stack(struct __sk_buff *ctx)
++{
++	volatile u64 pad[4] = {};
++
++	bpf_throw(pad[0]);
++	return 0;
++}
++
++SEC("tc")
++__exception_cb(exception_cb_stack)
++int exception_throw_subprog_stack_cb(struct __sk_buff *ctx)
++{
++	return throwing_subprog_stack(ctx);
++}
++
+ __noinline int assert_nz_gfunc(u64 c)
+ {
+ 	volatile u64 cookie = c;
+-- 
+2.53.0
 
