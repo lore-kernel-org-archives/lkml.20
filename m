@@ -1,54 +1,71 @@
-Received: from mta0.migadu.com (out-80.mta0.migadu.com [91.218.175.80])
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7EF439902B
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:23:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE37B3A641D
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:24:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788762228; cv=none; b=o0hapoImF0zLJ4UN8lIEKW/zgy/I7//BUqXO3GU401KowhNEtfwVf3WxhtbXnBfnfi2ZsJby4SRz+4gzHyXNRjABpfpYWyRCPdlUsqpvT5R1YhGqcbmDWifrD5Clug+l5V5swLIpoi4iUTlSm6LO9Uu4el83LQjYPxEsi0T2FJ4=
+	t=1788762282; cv=none; b=PrWcHXFVyUDv/Dexl5IUVJyjlMWIqPe0BXkdXVUDwJmChxf9FIyyaY90wkx3ourfkD5Ww7mlxML+gjxZe83rjyUzQq8/Mb/UEb3L3/+ijMnog0abCvNDdev7Vkt4mASk+jamw1Y9DP1oj7lGuKl5TgU3kPtGg+tvuO9TSxOq7Xc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788762228; c=relaxed/simple;
-	bh=ZC7KtKLUN5VQuY7xOf0M7JnuJe+C9bnmljuxLn9sX8g=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=N04M1O+xOY7a6PLZYexERAlou3bcB8f94aVtW5IzdXK1RstwUiv3WOsax+002RNdAn14bklEKB9pLkX+DRuRefHyA7u5rBq4W79sY5YKqcjH/Vnp6bWt0ebpGnqtIU8XIX/gsWhMReWR6Aj+hvSn4Kqulg41Ef+6UJUuiXYanmE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tXNY0+GU; arc=none smtp.client-ip=91.218.175.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788762282; c=relaxed/simple;
+	bh=VdkVJzDQO+OBjCF1MtCaPsN0N+KhAg88SDzZqzXyrPE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K7EW/xJ/fKRcX8K7XnsvAIH6iAYg2oMQfEz1//JohdAmgi6lQJm/m2WlKtDTuTMlZvxPr3fRJ7eKTALxmdMz8oGu7+btdb0NbnyP02NechRn+TGN5/F00QmtNWvY5nPB7SASHphRfE1+cWN0qrKixSIH4k9+6tgAjx7hiAYxd1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aL/B0RTb; arc=none smtp.client-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tXNY0+GU"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ZC7KtKLUN5VQuY7xOf0M7JnuJe+C9bnmljuxLn9sX8g=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788762220; v=1; x=1789367020;
- b=tXNY0+GU0SJM6JXoUvJ1LkPJTPmJS18ZlQNbB99ovOHTe7bez+cb5y8mrQhqHdI/RsLsNtPl
- QqM81FWBKNQFLFFtHK88jzpZZ40pE8csfkhL6WZIxP67pwiVbOPUdUXTAEHXP7dTLJYZBmY73Fw
- u7YP2IXSRR0FsVitVASARuvQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e3dafb86706da778;
-	Mon, 07 Sep 2026 06:23:39 +0000
-X-Mizu-Trace-ID: e3dafb86706da778
-X-Migadu-Flow: FLOW_OUT
-From: Hao Ge <hao.ge@linux.dev>
-To: Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Hao Ge <hao.ge@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v8 3/4] module: allocate codetag sections before the regular module layout
-Date: Mon,  7 Sep 2026 14:24:12 +0800
-Message-Id: <20260907062414.106873-4-hao.ge@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260907062414.106873-1-hao.ge@linux.dev>
-References: <20260907062414.106873-1-hao.ge@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aL/B0RTb"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8535a9be75eso2370669b3a.2
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:24:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788762273; x=1789367073; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0IKKrl5YcZhRUUWHg2BiTHgq9GP40fvyQGauSEF11zQ=;
+        b=aL/B0RTbjA8QU/Wj/J1EEvMOo4iPvVjf1fhm9wfoPAwivwKtxnI7kwb+H5XhfXmgmc
+         R72NE15v7KEbpWqwlX4eoITOCE+pCdEUeNv/NcnJmlmzyX2ylBClII8FD4frNfwocmzC
+         LbaFRHJSU7CG5nligHfthJPPoSoQWNY81hozdDvPAiK9HDjAJE7jcVnHxcY1mbo2Eegb
+         jVbXcTGdiSY5wc0UssI1PPqJFj8hhSuh1c7bLRAayhcD0q0jo3M7MVr2fMcVkA/Ng74+
+         kdMq6Oxa9wL0fGm8v+lHAPv0sPqssyRyGNCH7TdeRA2yXsJkdLXyNpit91NuSRKaxRtP
+         f7QQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788762273; x=1789367073;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0IKKrl5YcZhRUUWHg2BiTHgq9GP40fvyQGauSEF11zQ=;
+        b=lkkggH0smoXt3VfsLT3ndyCmie0fb1iuzP8Dj9AnnOv7OWuxw4XFPCAkumI/WRvzVJ
+         kZOIeAzeCeCA3ucIVdTHyWunnVUr4rEEu92xHe6hDiUDcUotGTxrfDc3isUKWPvs6Bzn
+         S+7fcUXjRGSt1zPj9fIk39JVYYW3c+jtgozEyWZ12NTpI4OJ1vmvTdN1ObanisHow18i
+         jROrjH+K9Ded9OTyEUXLu2MlR3kwlaGve3miFPsReXGdWNcSBhTU8Y/vZpfJMAudIEd9
+         0pHYcFS7yogoO/ODeEc2N35guJvgQMmjGKFlLXrAD0VkIh1j4bnqV09n4dVzwZZEiUM6
+         ENzg==
+X-Forwarded-Encrypted: i=1; AKwUvBw2Vgl4YpIIQxHRDFosU9dlFDBBMP3ixjdLK2E2FxVv+zG/xeOFvOxQK4QmfKu0LaAMzjfQyJYVaJmE/nA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mchwTumkBg8VwktuAvdCa+d1T7axOrVidZ2NztUvCMePenRTG2
+	dU6TKM6UZ7XgRhyACkOnb13rqsQE5wOTNlrsITYNiEZLxqvuPJ5GSWUAzFTvx+aKZa0=
+X-Gm-Gg: AYBFou3JABUdrARkZW7yTBSe5MeWkqwotye/D/01lJaMA+XuxTvxbXoNCorwI2l6wXT
+	xvPY0789gdgUePmt5wgx2Uhi5vX0szUVnqmgYC4vNOStRqp9bJVWTpS8+IbhfWN//EReuDWgkhB
+	bHljI9Zwh3eFejkRttjXlBtP6tlRd+gUq5sDzqLU8l6Y5WtQ38YiE6uSEwllJhmniIVEGjNHF5J
+	3gKMBFsVC+b7nVfRrNafAcfebaCfef6BGj1SNp99G7dvMHhWzhoRi5Lb7dBVnlTjBd7NLFB6Y7E
+	tMT+nAplMT6pN6RrhxTnfIwPyrc1xuyShZ3FxMG0jRMh3jl0RuYZ4zrbH+2Qq/mCjDq3nloElqv
+	J2dnuS89UhQTWRbiraJWjrKqP8nsSOHZvWpfHp0wge8pOYxbVzj+t02BThoLW0N/gKhbsLzkL1N
+	ncy0Xm70nUtR5CCDiaZ/Vl5asz330O4Y9gTQYnnZ0785CDjfPpjLLQjnpAoM1Wz9XxCyhqyUMtL
+	6GzPDt0xGG/Qg==
+X-Received: by 2002:a05:6a21:e081:b0:3bf:6222:2e7e with SMTP id adf61e73a8af0-3da39b4390cmr31343540637.4.1788762272860;
+        Sun, 06 Sep 2026 23:24:32 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-333c9db92b1sm24622408eec.9.2026.09.06.23.24.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 23:24:32 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Ryusuke Konishi <konishi.ryusuke@gmail.com>,
+	Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: linux-nilfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] nilfs2: fix typos in comments
+Date: Mon,  7 Sep 2026 11:54:27 +0530
+Message-ID: <20260907062427.11910-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,212 +74,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Whether a codetag section goes to the codetag region is decided by
-layout_sections() and asked again in move_module(). A concurrent
-load can shut profiling down in between, and move_module() then
-copies the section to offset 0 of its regular destination,
-overwriting whatever is there.
+Fix typos in comments, reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
-Decide and allocate in one pass, before the layout. Allocation
-errors fail the load. On a tag area overflow profiling is already
-disabled, so -EAGAIN makes the section fall back to regular module
-data and the module still loads.
-
-When profiling was toggled off the overflow check did not run, a
-module could load with more tags than the page flags can address,
-and re-enabling profiling then silently corrupted /proc/allocinfo.
-The check no longer depends on mem_alloc_profiling_enabled().
-
-Based on a patch by Petr Pavlu [1].
-
-Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/all/499bb60c-c6e3-43a3-bd92-95a0567ece5e@suse.com/ [1]
-Cc: stable@vger.kernel.org
-Signed-off-by: Hao Ge <hao.ge@linux.dev>
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- kernel/module/main.c | 101 +++++++++++++++++++++++--------------------
- mm/alloc_tag.c       |   8 ++--
- 2 files changed, 59 insertions(+), 50 deletions(-)
+ fs/nilfs2/sufile.c | 2 +-
+ fs/nilfs2/super.c  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/module/main.c b/kernel/module/main.c
-index 20b85148ad72..612facc51214 100644
---- a/kernel/module/main.c
-+++ b/kernel/module/main.c
-@@ -1724,20 +1724,6 @@ static void __layout_sections(struct module *mod, struct load_info *info, bool i
- 			if (WARN_ON_ONCE(type == MOD_INVALID))
- 				continue;
- 
--			/*
--			 * Do not allocate codetag memory as we load it into
--			 * preallocated contiguous memory.
--			 */
--			if (codetag_needs_module_section(mod, sname, s->sh_size)) {
--				/*
--				 * s->sh_entsize won't be used but populate the
--				 * type field to avoid confusion.
--				 */
--				s->sh_entsize = ((unsigned long)(type) & SH_ENTSIZE_TYPE_MASK)
--						<< SH_ENTSIZE_TYPE_SHIFT;
--				continue;
--			}
--
- 			s->sh_entsize = module_get_offset_and_type(mod, type, s, i);
- 			pr_debug("\t%s\n", sname);
- 		}
-@@ -2784,7 +2770,6 @@ static int move_module(struct module *mod, struct load_info *info)
- {
- 	int i, ret;
- 	enum mod_mem_type t = MOD_MEM_NUM_TYPES;
--	bool codetag_section_found = false;
- 
- 	for_each_mod_mem_type(type) {
- 		if (!mod->mem[type].size) {
-@@ -2804,35 +2789,13 @@ static int move_module(struct module *mod, struct load_info *info)
- 	for (i = 0; i < info->hdr->e_shnum; i++) {
- 		void *dest;
- 		Elf_Shdr *shdr = &info->sechdrs[i];
--		const char *sname;
- 
- 		if (!(shdr->sh_flags & SHF_ALLOC)
- 		    || shdr->sh_entsize == SH_ENTSIZE_STANDALONE)
- 			continue;
- 
--		sname = info->secstrings + shdr->sh_name;
--		/*
--		 * Load codetag sections separately as they might still be used
--		 * after module unload.
--		 */
--		if (codetag_needs_module_section(mod, sname, shdr->sh_size)) {
--			dest = codetag_alloc_module_section(mod, sname, shdr->sh_size,
--					arch_mod_section_prepend(mod, i), shdr->sh_addralign);
--			if (WARN_ON(!dest)) {
--				ret = -EINVAL;
--				goto out_err;
--			}
--			if (IS_ERR(dest)) {
--				ret = PTR_ERR(dest);
--				goto out_err;
--			}
--			codetag_section_found = true;
--		} else {
--			enum mod_mem_type type = shdr->sh_entsize >> SH_ENTSIZE_TYPE_SHIFT;
--			unsigned long offset = shdr->sh_entsize & SH_ENTSIZE_OFFSET_MASK;
--
--			dest = mod->mem[type].base + offset;
--		}
-+		dest = mod->mem[shdr->sh_entsize >> SH_ENTSIZE_TYPE_SHIFT].base +
-+		       (shdr->sh_entsize & SH_ENTSIZE_OFFSET_MASK);
- 
- 		if (shdr->sh_type != SHT_NOBITS) {
+diff --git a/fs/nilfs2/sufile.c b/fs/nilfs2/sufile.c
+index eceedca02697..6918be6fce2e 100644
+--- a/fs/nilfs2/sufile.c
++++ b/fs/nilfs2/sufile.c
+@@ -1050,7 +1050,7 @@ ssize_t nilfs_sufile_set_suinfo(struct inode *sufile, void *buf,
+  * len:		number of Bytes to trim from start
+  * minlen:	minimum extent length in Bytes
+  *
+- * Decription: nilfs_sufile_trim_fs goes through all segments containing bytes
++ * Description: nilfs_sufile_trim_fs goes through all segments containing bytes
+  * from start to start+len. start is rounded up to the next block boundary
+  * and start+len is rounded down. For each clean segment blkdev_issue_discard
+  * function is invoked.
+diff --git a/fs/nilfs2/super.c b/fs/nilfs2/super.c
+index 893a504cb80c..65f44ff6779e 100644
+--- a/fs/nilfs2/super.c
++++ b/fs/nilfs2/super.c
+@@ -654,7 +654,7 @@ static int nilfs_statfs(struct dentry *dentry, struct kstatfs *buf)
  			/*
-@@ -2864,8 +2827,6 @@ static int move_module(struct module *mod, struct load_info *info)
- 	module_memory_restore_rox(mod);
- 	while (t--)
- 		module_memory_free(mod, t);
--	if (codetag_section_found)
--		codetag_free_module_sections(mod);
- 
- 	return ret;
- }
-@@ -2936,6 +2897,49 @@ static bool blacklisted(const char *module_name)
- }
- core_param(module_blacklist, module_blacklist, charp, 0400);
- 
-+/*
-+ * Allocate codetag sections separately. They are loaded into preallocated
-+ * contiguous memory because they may still be used after the module is
-+ * unloaded.
-+ *
-+ * If the separate allocation overflows, allocate the section normally
-+ * so that the module can still be loaded.
-+ */
-+static int allocate_codetag_sections(struct load_info *info)
-+{
-+	for (unsigned int i = 1; i < info->hdr->e_shnum; i++) {
-+		Elf_Shdr *shdr = &info->sechdrs[i];
-+		const char *sname = info->secstrings + shdr->sh_name;
-+		void *dest;
-+
-+		if (!codetag_needs_module_section(info->mod, sname, shdr->sh_size))
-+			continue;
-+
-+		dest = codetag_alloc_module_section(info->mod, sname, shdr->sh_size,
-+				arch_mod_section_prepend(info->mod, i), shdr->sh_addralign);
-+		if (WARN_ON(!dest)) {
-+			codetag_free_module_sections(info->mod);
-+			return -EINVAL;
-+		}
-+		if (dest == ERR_PTR(-EAGAIN))
-+			/* Allocate the section as a regular section. */
-+			continue;
-+		if (IS_ERR(dest)) {
-+			codetag_free_module_sections(info->mod);
-+			return PTR_ERR(dest);
-+		}
-+
-+		if (shdr->sh_type != SHT_NOBITS)
-+			memcpy(dest, (void *)shdr->sh_addr, shdr->sh_size);
-+		else
-+			memset(dest, 0, shdr->sh_size);
-+		shdr->sh_addr = (unsigned long)dest;
-+		shdr->sh_entsize = SH_ENTSIZE_STANDALONE;
-+	}
-+
-+	return 0;
-+}
-+
- static struct module *layout_and_allocate(struct load_info *info, int flags)
- {
- 	struct module *mod;
-@@ -2968,18 +2972,21 @@ static struct module *layout_and_allocate(struct load_info *info, int flags)
- 	 */
- 	module_mark_ro_after_init(info->hdr, info->sechdrs, info->secstrings);
- 
--	/*
--	 * Determine total sizes, and put offsets in sh_entsize.  For now
--	 * this is done generically; there doesn't appear to be any
--	 * special cases for the architectures.
--	 */
-+	/* Allow codetag sections to be allocated separately first. */
-+	err = allocate_codetag_sections(info);
-+	if (err)
-+		return ERR_PTR(err);
-+
-+	/* Determine total sizes and put offsets in sh_entsize. */
- 	layout_sections(info->mod, info);
- 	layout_symtab(info->mod, info);
- 
- 	/* Allocate and move to the final place */
- 	err = move_module(info->mod, info);
--	if (err)
-+	if (err) {
-+		codetag_free_module_sections(info->mod);
- 		return ERR_PTR(err);
-+	}
- 
- 	/* Module has been copied to its final place now: return it. */
- 	mod = (void *)info->sechdrs[info->index.mod].sh_addr;
-diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
-index e7a79116ad81..248496470904 100644
---- a/mm/alloc_tag.c
-+++ b/mm/alloc_tag.c
-@@ -958,10 +958,12 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
- 		int grow_res;
- 
- 		module_tags.size = offset + size;
--		if (mem_alloc_profiling_enabled() && !tags_addressable()) {
-+		if (!tags_addressable()) {
- 			shutdown_mem_profiling(true);
--			pr_warn("With module %s there are too many tags to fit in %d page flag bits. Memory allocation profiling is disabled!\n",
--				mod->name, NR_UNUSED_PAGEFLAG_BITS);
-+			pr_warn_once("With module %s there are too many tags to fit in %d page flag bits. Memory allocation profiling is disabled!\n",
-+				     mod->name, NR_UNUSED_PAGEFLAG_BITS);
-+			release_module_tags(mod, false);
-+			return ERR_PTR(-EAGAIN);
- 		}
- 
- 		grow_res = vm_module_tags_populate();
+ 			 * If nilfs_palloc_count_max_entries() returns
+ 			 * -ERANGE error code then we simply treat
+-			 * curent inodes count as maximum possible and
++			 * current inodes count as maximum possible and
+ 			 * zero as free inodes value.
+ 			 */
+ 			nmaxinodes = atomic64_read(&root->inodes_count);
 -- 
-2.25.1
+2.48.1
 
