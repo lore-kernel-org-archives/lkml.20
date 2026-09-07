@@ -1,211 +1,433 @@
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023136.outbound.protection.outlook.com [40.107.44.136])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62795448B93;
-	Mon,  7 Sep 2026 09:16:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.136
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788772575; cv=fail; b=oo3syWumKNA/LJMT399zrrX1NMVEOuRwZNWGSmqUEi7QdmUFweV95lxU4Db0WO92hALYRKwWVWjXICWhGQZVCfEz9r3dQo0xYbq0pBLAL4WO97TBznatdY7PT7Fv/fcEPon2CRIC25e7C3NEnaO0LLPpeRkoVbloxEQTTXWfm78=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788772575; c=relaxed/simple;
-	bh=xtz7gKDBhQ3Ge42axsn7Adik5D6Vomqv5OjiEq/QSl4=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=HQbhqnPXYpNF5+JQfIzQd15hEOTv6lGQZoO1HqQyVuz4H97tHJiJEO44VIEOwj8ApdYy2QOa8UkqS9iHBScJrikh06Sb8QD7f1SpNcNCzd78ZMWKEHF7EHWOay3eDGSlwpbzwTNpbPKWs+iY5VYuZIDs3d0C0Qb1tp4KtB2uT/s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=genesyslogic.com.tw; spf=pass smtp.mailfrom=genesyslogic.com.tw; dkim=pass (2048-bit key) header.d=genesyslogic.com.tw header.i=@genesyslogic.com.tw header.b=ESzwV0Pa; arc=fail smtp.client-ip=40.107.44.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=genesyslogic.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=genesyslogic.com.tw
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE8A315FA81;
+	Mon,  7 Sep 2026 09:16:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788772610; cv=none; b=LvbyatdlIcuJi6H0VHopQI8SnooJ6Ob8/Oef5gSU9wAKh8vTWebJokJK893ojt7r3Ttpq3HkUwMKKI6pojVPiT6f/lBYkNc/EAlqXZ9d2v0yYkliIOiik+++xYbxfsu0nISNBKgAgDfp/8lMjQ+nujEgUolDpRVtWCzuWoQNqAc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788772610; c=relaxed/simple;
+	bh=PQLfqa7veDPeFKxq6zor8/Q2FT3lLuiYQUP2bbBuYsw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nz3WXIf7MGmGNXUPjr/1HNC63SXs3eajv9XCBPqiMIG4T0dOJv8/G6gvEIgbxu8/ZwMJDjUPLQvyvqvQfIZ8aGwL5hgBF0Ej8HTQr96Z614qSA+MCgcSVhm+DGvwjrele4Z/QC6/s+5Eq8hDTO6ZgFD0fbAOBYaALz4cAwjeJ34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=jGEJKBni; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=genesyslogic.com.tw header.i=@genesyslogic.com.tw header.b="ESzwV0Pa"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Hc1j6jzfdJ4SRwCav82Idt5G41N7K61JXbTaaug7fnov4d7BW1sFDvXbe+giPCVShEAu8MTms2spZUhEPLTg7ADYN1yPmyLFR9t1BTeJbBAzMh8lUkUcV5kj+fgacptTai50z+sJQTudztUhkuTTST6Vnlft4cdAs0HGeGTkb/Sj/LGy35Ab/Sn1yHVRZUeKWOlfiUB8fVxQlaRgVGhxeVkFgyfxY3rZtsa3OIY05/Aq5koHa+PuiAGazSKPAupA8Q4zbSkmv4PFVEs0QxczrzuEA0kdXGK0Fei6w01gsf42WaOcxWWq23VvYVnYEAJVWjAdTCorKtW9NlKpeAUoeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xtz7gKDBhQ3Ge42axsn7Adik5D6Vomqv5OjiEq/QSl4=;
- b=uARbl55mxlk7YlaYMXoyFHyz/kjAZiQkt7q50cr9KrWqubAdLsUEawfDVwQfFafvlRxnCUWMU9bl8de3ZsLYpqFPN0kp53anZaZQCwSFSQHbkRv6S/BDvQENmcTwhLsxDzropdDLLZZiAqPXKNbWAAUMvVFJzzdR+UXeamnVolqOjppyxzKMyjstaSuKFHD7AIh0RWIdA0bcicn2BBPLBbPTKfuwdzFzh+SspbW/eluOInmHN75ckFeLvCVBM3nEXZfVeYgT27FacwaXuIRMSJlztqtUBdTUa8a8OVWHUNFZ0fjYE7cPguJPQae/gAC1Ps0Tj3MrW7qWt2uu+SbAfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=genesyslogic.com.tw; dmarc=pass action=none
- header.from=genesyslogic.com.tw; dkim=pass header.d=genesyslogic.com.tw;
- arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=genesyslogic.com.tw;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xtz7gKDBhQ3Ge42axsn7Adik5D6Vomqv5OjiEq/QSl4=;
- b=ESzwV0Pat1Qcx/JI1G+kHfYwgpmtLeWleN+9aBLmAJOTLd5BGXEXnrwlkXJUxcuX66nBrradFUwC6yC3ppjxWWolftH917/6fAC4LL70dlXyRdUHuTJCfgDTuuc9QS+VWsd3/XbDc3UKlNmfLM8Wm1xV5p6US88w/+D8pDu/4fUKADrHuvpa+wAqmEPBbp8N2vi+KXf2QGW1an3gwVtIOKkMeOvJOugymq7ag1rw2vMwFov8gHOZM3pxW7Z5aEx9gk8SawmtWrfRSP5RRiC7E1KcXIeKParo8i0fcB2EdGy3XsJwoy6y/ecOgvhY1++n8goc4Y9BKLox9e/8diadww==
-Received: from TYZPR01MB4260.apcprd01.prod.exchangelabs.com
- (2603:1096:400:1c0::6) by SEYPR01MB4747.apcprd01.prod.exchangelabs.com
- (2603:1096:101:b6::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Mon, 7 Sep
- 2026 09:16:00 +0000
-Received: from TYZPR01MB4260.apcprd01.prod.exchangelabs.com
- ([fe80::7c4:a145:8415:c272]) by TYZPR01MB4260.apcprd01.prod.exchangelabs.com
- ([fe80::7c4:a145:8415:c272%4]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
- 09:16:00 +0000
-From: =?utf-8?B?QmVuQ2h1YW5nW+iOiuaZuumHj10=?=
-	<Ben.Chuang@genesyslogic.com.tw>
-To: Pengpeng Hou <hppiscas@163.com>, Adrian Hunter <adrian.hunter@intel.com>,
-	Ulf Hansson <ulfh@kernel.org>
-CC: "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	=?utf-8?B?U2VhbkhZQ2hlblvpmbPlrqPku7Bd?= <SeanHY.Chen@genesyslogic.com.tw>
-Subject: RE: [PATCH] mmc: sdhci-pci-gli: Fail runtime resume on PLL timeout
-Thread-Topic: [PATCH] mmc: sdhci-pci-gli: Fail runtime resume on PLL timeout
-Thread-Index: AQHdPbFjsTjPuuJZL0up5inWkVFSKbbC1vAw
-Date: Mon, 7 Sep 2026 09:16:00 +0000
-Message-ID:
- <TYZPR01MB42600B6DC2CDC47D42D8FA33D7B22@TYZPR01MB4260.apcprd01.prod.exchangelabs.com>
-References: <20260906033947.85078-1-hppiscas@163.com>
-In-Reply-To: <20260906033947.85078-1-hppiscas@163.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=genesyslogic.com.tw;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYZPR01MB4260:EE_|SEYPR01MB4747:EE_
-x-ms-office365-filtering-correlation-id: 828e22e9-5d10-416a-ed2e-08df0cc0a26f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|10067099003|6133799003|56012099006|18002099003|22082099003|38070700021;
-x-microsoft-antispam-message-info:
- yG0BkKVliF0ytKS5Ao3//S3ceWL7WFTmG10GoUgwoqWpYncfXloDRaO8QHPksTu1ldt3yk+wn/SsKvyfB1OlTGsQzquoL9OMsgpEHo0Pd4bIBUcyRV7RMYky13V2XFLYfWJEPzs/jrfpZjuI5/RsKzWWQn/nDW46xAJ6qaU2oky67qYrBGBL4Pi41hSlaR8D15sHemebIjrubeZUKg0zWuR0cQ29gdOXtrhhg19wmM3hbvZ60XypzR5HMXZcONWy01oYJSCNJ7DKL6IYgIArVAqO3Q9s5TNxcK79dpGaFPuMP7e4SZF8Xe/eu1DHYcfXuav0z8eUizmnRFrJqgo6bElYnT62Y8K3CAF8o1vvYqiNVlhK1I+YqPn/2sPvrjsgyYIf31MrLErKLW+y3A4ngRdX/F50VhoAYEw+21bVOAvGI3eXIRl4yWf8efs/bZrFvWsnqoiEbgdEqutqev+mLmsn/WpUUazm3WaWPHY1SW9I2COEf2gPdtCK8rnwwG63cMM10FMSIjTlrG4MxH+G327emljuPUmz3KITxpdf4QfKgYScgzxOx5x8N77sSML6rXK2PAu5SvFsMcHVy7cCF6WFwxuf6CS3ZBGK7JR2FKD7U/GyV5leH5x0Cl7ohiFcHelUavDEqmQHBS3yOaTtTS5AkOFT88jWwKeUpVCgQU9qzTfIO411hFCIOnMZczz2NWy0g32kJZo+eKh2qiKplUfcW7Jy0KRZNsxhNs5SdZI=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR01MB4260.apcprd01.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(10067099003)(6133799003)(56012099006)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?THRzZ1UvU2diV3FxMVFSZ0kwM042eEpDUmEzVWdiSFU2YWg2eXRVR3J0R2NK?=
- =?utf-8?B?MmdlNmx2SlhkRmpqQVNkSDdvUlBuZUF2WlEycXBteGFlekVVdWZFVnZLYjNj?=
- =?utf-8?B?TFFGdjJ1ZnpCUjY3dHA4R3h2MC9uNWp6cFAzM0llNWRQYjFiT0NHQURvT1lt?=
- =?utf-8?B?UkJMT0hlNnljR21WUVNUS25lM3RCSE5VUCtvQnlCQ0JqZzY5emFnVjVsRkln?=
- =?utf-8?B?aWJTUVN1Z2NiSmdqYjdkT0J0aDdGa2FyTTQ0NzZ3dHlsb1lSRUhoYnBCTDdr?=
- =?utf-8?B?NzVYQVRhR0NlKzF2Q1J1Ulg5S0N1amMrNzVPbE5hZm1xNUJheDVQWWNpUkYw?=
- =?utf-8?B?NW9RMC9mTlFFNkxsczRqeDNTMTZlVlI1U01WQUJERnQxSlBGR3VsczZMRHRo?=
- =?utf-8?B?SFZLOTFEV2hhTXQyM1VXWXRPRlB6cXhOMHBuNFZPb3ZqcVNXVlBNUDNUQTJW?=
- =?utf-8?B?a3NtTkxhZ0xldW96KzlRMzM4NDdDRjRPTDBmMzBOWEhRRWt1cWdDMXY5VC9t?=
- =?utf-8?B?MGYyb0c2Z0E0cnY0MitvbEl3c1VjMnY0Ni9ZOFlyci9pYm1qVUZ3LzIxc1dy?=
- =?utf-8?B?RzZYMkNZYVQ3Y0RUUjUrelFCOC96clhhWC9QZzVJL1h1cTlqUWhGUW40endh?=
- =?utf-8?B?WG44N0RZcDFVVXN0TkpGT1JSc0lCUm45NWF4dzlNb3pnR0E1enJxZlAyeUs0?=
- =?utf-8?B?aC8xVnJkRTUyaUJoam5lTkJpRnFiZjBhb29CanorU20veGdxOTdHM1pSVDV0?=
- =?utf-8?B?aW1wYW83VTgxZmNRV0Rod1k5dVQxUWFta0tNSE1wOW9ZZE9aalZVSEdhWE1k?=
- =?utf-8?B?LzNBQlVtUS9LQjZzTng4UHFXeFlrWElJR08rZVhzYTIyaE5KTmhnWVhCTUZS?=
- =?utf-8?B?bFJGM1hqKzB1UCtyNkdCaFBBM3RnWEE3bHFjb1NYYVduTmVNeUUvcmdlR0ZE?=
- =?utf-8?B?dml3MXpicXpMUjJPcEtYK1hPNTdaazIxcFVkVkwrMFY4b0wvMnhzSjBDSDVO?=
- =?utf-8?B?SXY3eVhKWW1qTENLQ3dxNGJEdTdXU0g1VmpteWZxUXFTOUNnMVpJbXh2c2FZ?=
- =?utf-8?B?Y3JyT2tuYXkyZDdjWWxqZTI5ZkF5Slk1eUNyZHR6bEVsU0pNSlFGWklTZlhS?=
- =?utf-8?B?SG10bHBIaXk0M2JhR1crZ1RmUndsK2p3eWFYUGFoTVBoRmhVQWt2MlZEU20r?=
- =?utf-8?B?YTN0V2UrYVBFVzY5S01sMVUxYVVMQXJ6Z0hpZE5UVk41U2ZrOEV4K01xSjRx?=
- =?utf-8?B?cEFJbFFNVXZNMFlrVVE4RnM4enJjYnRkMGdCWGhTbUU5YXpodFcyQURkR21i?=
- =?utf-8?B?SE0yVXFadEVGQm16Qm1VdFRjcDlrZEh4VmNlY2h5L3h2dUcwZTNvcGgzWlFI?=
- =?utf-8?B?d2ltWHh2WVJxTEJLYStaSmlVdVdiclZjclhtWnNHdWk3enMvOEUwc0lhNHhp?=
- =?utf-8?B?eUN1TUJMeHZXQ3VNUGxJU1ZZM0pwQlpYVjlndFJoZHhuZC9BWHVXZGR5OGZi?=
- =?utf-8?B?a1UyZ3NpTDdNRUU2U3Y2bXZEV1JOQkdmZS9iWmxJQi9HT3JxOHRRd1FKdXFC?=
- =?utf-8?B?bksyeWl6TTJvRkR2Y3ZqcWNpNVFlTUc2YTk5UXZPbEhpcUlJc2xRanNJQWVp?=
- =?utf-8?B?R1ZHbWZlMjFOaUFleVVCeTRNZmEzZHNGWVZ6QmpaNHFJRW5nRkt6NEIyT0VT?=
- =?utf-8?B?YW5LUi9leUdJLzc3QTl3cWZnWnkxQUFTRjdUZWRqZzhEdllBQ0x0L2hlZVg0?=
- =?utf-8?B?K2Zva1NJSncrUmJVakxOeTc0SlY3Y3lRWHRnYktwbUN3aEpoMWJXcGpCODJD?=
- =?utf-8?B?SitZVkhmUzFpdjZsUG1TR0JhdWNPN1ZKUjFRdFNIMTFEdWJUWmQraXZsNEtS?=
- =?utf-8?B?d0lES25vcEUyVmpGVUdIbHArWDBxL3BGN3VmMDAxZ05YY1ZsbHNZRlM2UDlE?=
- =?utf-8?B?QTdnWVBFam9YUEhXUVRzcUVya1pmWU1DellZYmdkVHdZaUhIUzRKVVdxaGhp?=
- =?utf-8?B?bG1hU1VuL0pFWkdKSjVpcWVuWjFJby9QT2xhZ09hRXBiZFUvOXByQkpVMW45?=
- =?utf-8?B?SWNvVEdsKzREZm1rN2FiUERJRm1rMnNRdVNLMkZOM2Q3ek1jSFJjTkhaaUdX?=
- =?utf-8?B?aVRLRzNFNzlaRGZ0SndVTzBEL3BqeTQwN2tjZlJRMnF5T1Z4cjBlYTBFT001?=
- =?utf-8?B?ZW82bFBsaGRYK1dONG1helFMNHFTT3ovOHBzdEE3K0I4Z1dDSkNqM0lESVBq?=
- =?utf-8?B?cTdnWHQ3YUJ2U05GTVl1YlhZRHBSYjZ3SmdQQm1nekVNQ1FzUVJGK2FWZjVQ?=
- =?utf-8?B?L1NDRlAydmxtVFFNaFFsdGVBTVRlUkRQKzcvOXBZT1hZNnlFNWNVUT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="jGEJKBni"
+Received: from ideasonboard.com (mob-109-113-65-131.net.vodafone.it [109.113.65.131])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id CBA82981;
+	Mon,  7 Sep 2026 11:15:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788772511;
+	bh=PQLfqa7veDPeFKxq6zor8/Q2FT3lLuiYQUP2bbBuYsw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=jGEJKBniHgxJtjVK7R+tpH9sggpGwczbbP1bYrvUiN1I/0ND64hm860jzwDl1KgSV
+	 axuBrz6FmP7AJd8v0TmOSW1C4r9okx1HlbKAfFpMBouL5Cp1oIa1OQeXx5SwAW0qey
+	 DmeysCynyvHhGzEI65gn837rJ4UVNryLftn6OYiE=
+Date: Mon, 7 Sep 2026 11:16:41 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Philippe Baetens <philippebaetens@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	Jai Luthra <jai.luthra@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] media: i2c: mira016: Add driver for Mira016
+Message-ID: <ap6ALNC8Q0M-Oo51@zed>
+References: <20260904-mira016-v2-0-1dcf7b3a807e@ideasonboard.com>
+ <20260904-mira016-v2-2-1dcf7b3a807e@ideasonboard.com>
+ <ap3M0h2S6EFpuC2T@kekkonen.localdomain>
+ <ap5n7OyZrI0KzzN-@zed>
+ <ap561H8xYJvjZsRa@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: genesyslogic.com.tw
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR01MB4260.apcprd01.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 828e22e9-5d10-416a-ed2e-08df0cc0a26f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Sep 2026 09:16:00.8228
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 4e753840-bf6b-40a1-9645-185818deeb52
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: TTYZZxOF9uX+/I5kRLnFIC/C1U3Mjb2JkfQ8RAyUFa7NOQyWbR2I1SnHsBUX523sMYHW6mu0GJiz/n2fTii0y8d6ofEYvdBXk2QXllnufIk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR01MB4747
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ap561H8xYJvjZsRa@kekkonen.localdomain>
 
-DQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IFBlbmdwZW5nIEhvdSA8aHBw
-aXNjYXNAMTYzLmNvbT4NCj4gU2VudDogU3VuZGF5LCBTZXB0ZW1iZXIgNiwgMjAyNiAxMTo0MCBB
-TQ0KPiBUbzogQWRyaWFuIEh1bnRlciA8YWRyaWFuLmh1bnRlckBpbnRlbC5jb20+OyBVbGYgSGFu
-c3NvbiA8dWxmaEBrZXJuZWwub3JnPg0KPiBDYzogUGVuZ3BlbmcgSG91IDxocHBpc2Nhc0AxNjMu
-Y29tPjsgbGludXgtbW1jQHZnZXIua2VybmVsLm9yZzsgQmVuQ2h1YW5nW+iOiuaZuumHj10NCj4g
-PEJlbi5DaHVhbmdAZ2VuZXN5c2xvZ2ljLmNvbS50dz47IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5l
-bC5vcmcNCj4gU3ViamVjdDogW1BBVENIXSBtbWM6IHNkaGNpLXBjaS1nbGk6IEZhaWwgcnVudGlt
-ZSByZXN1bWUgb24gUExMIHRpbWVvdXQNCj4NCj4gW1lvdSBkb24ndCBvZnRlbiBnZXQgZW1haWwg
-ZnJvbSBocHBpc2Nhc0AxNjMuY29tLiBMZWFybiB3aHkgdGhpcyBpcyBpbXBvcnRhbnQgYXQNCj4g
-aHR0cHM6Ly9ha2EubXMvTGVhcm5BYm91dFNlbmRlcklkZW50aWZpY2F0aW9uIF0NCj4NCj4gZ2w5
-NzYzZV9ydW50aW1lX3Jlc3VtZSgpIGxvZ3Mgd2hlbiB0aGUgaW50ZXJuYWwgY2xvY2sgbmV2ZXIg
-YmVjb21lcw0KPiBzdGFibGUgYnV0IHN0aWxsIGVuYWJsZXMgdGhlIGNhcmQgY2xvY2sgYW5kIHJl
-cG9ydHMgcnVudGltZS1yZXN1bWUNCj4gc3VjY2Vzcy4NCj4NCj4gUmV0dXJuIHRoZSBwb2xsIHRp
-bWVvdXQgYmVmb3JlIGVuYWJsaW5nIHRoZSBjYXJkIGNsb2NrLiBDbGVhciB0aGUNCj4gUExMLWVu
-YWJsZSBiaXQgc28gYSBmYWlsZWQgcmVzdW1lIGxlYXZlcyB0aGUgY2xvY2sgc3RhdGUgbWF0Y2hp
-bmcgcnVudGltZQ0KPiBzdXNwZW5kLiBMb3ctcG93ZXIgbmVnb3RpYXRpb24gcmVtYWlucyBlbmFi
-bGVkIGZvciB0aGUgc3VzcGVuZGVkIGRldmljZS4NCj4NCj4gVGhlIGlzc3VlIHdhcyBmb3VuZCBi
-eSBvdXIgc3RhdGljLWFuYWx5c2lzIHRvb2wgYW5kIG1hbnVhbGx5IHJldmlld2VkLg0KPg0KDQpI
-aSBQZW5ncGVuZywNCg0KVGhhbmtzIGZvciB0aGUgcGF0Y2guDQoNClJlY2VudGx5LCBubyBuZXcg
-Q2hyb21lYm9va3MgdXNlIHRoZSBHTDk3NjNFIGNoaXAuIFRoaXMgZHJpdmVyIGlzIG9sZCBhbmQg
-d2Ugb25seSB3YW50IHRvIGtlZXAgaXQgc3RhYmxlLg0KDQpUaGlzIG1vZGlmaWNhdGlvbiBjb21l
-cyBmcm9tIGEgc3RhdGljLWFuYWx5c2lzIHRvb2wsIG5vdCBhIHJlYWwgYnVnIHJlcG9ydCBmcm9t
-IGEgdXNlci4gT24gb3VyIHNpZGUsIHdlIG9ubHkNCmhhdmUgdGhlIGdlbmVyaWMgRVZCIGJvYXJk
-IGFuZCB3ZSBkbyBub3QgaGF2ZSB0aGUgcmVhbCBDaHJvbWVib29rIG1hY2hpbmVzIHRvIHRlc3Qg
-dGhpcyBjaGFuZ2UuDQpDaGFuZ2luZyB0aGUgcmV0dXJuIHZhbHVlIGZyb20gMCB0byBhIG5vbi16
-ZXJvIGVycm9yIGxpa2UgLUVUSU1FT1VUIG1pZ2h0IGJyaW5nIHVua25vd24gcmlza3MgdG8gb2xk
-IG1hY2hpbmVzLA0Kc28gd2UgdGhpbmsgaXQgaXMgc2FmZXIgdG8ga2VlcCB0aGUgb3JpZ2luYWwg
-Y29kZS4NCg0KQXQgdGhpcyBzdGFnZSwgd2Ugd2FudCB0byBzZWUgd2hhdCB0aGUgbWFpbnRhaW5l
-cnMgdGhpbmsgYWJvdXQgdGhpcy4gVGhhbmtzIQ0KDQpCZXN0IHJlZ2FyZHMsDQpCZW4gQ2h1YW5n
-DQoNCj4gRml4ZXM6IGQ2MDc2NjdiYjhmYSAoIm1tYzogc2RoY2ktcGNpLWdsaTogQWRkIHJ1bnRp
-bWUgUE0gZm9yIEdMOTc2M0UiKQ0KPiBBc3Npc3RlZC1ieTogZ3B0IDUNCj4gU2lnbmVkLW9mZi1i
-eTogUGVuZ3BlbmcgSG91IDxocHBpc2Nhc0AxNjMuY29tPg0KPiAtLS0NCj4gIGRyaXZlcnMvbW1j
-L2hvc3Qvc2RoY2ktcGNpLWdsaS5jIHwgMTIgKysrKysrKysrKy0tDQo+ICAxIGZpbGUgY2hhbmdl
-ZCwgMTAgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkNCj4NCj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvbW1jL2hvc3Qvc2RoY2ktcGNpLWdsaS5jIGIvZHJpdmVycy9tbWMvaG9zdC9zZGhjaS1w
-Y2ktZ2xpLmMNCj4gaW5kZXggYjU1NjE4NTY2ZDY1Li4xNzcxN2I1NGUwOGMgMTAwNjQ0DQo+IC0t
-LSBhL2RyaXZlcnMvbW1jL2hvc3Qvc2RoY2ktcGNpLWdsaS5jDQo+ICsrKyBiL2RyaXZlcnMvbW1j
-L2hvc3Qvc2RoY2ktcGNpLWdsaS5jDQo+IEBAIC0xODg4LDYgKzE4ODgsNyBAQCBzdGF0aWMgaW50
-IGdsOTc2M2VfcnVudGltZV9yZXN1bWUoc3RydWN0IHNkaGNpX3BjaV9jaGlwICpjaGlwKQ0KPiAg
-ICAgICAgIHN0cnVjdCBzZGhjaV9wY2lfc2xvdCAqc2xvdCA9IGNoaXAtPnNsb3RzWzBdOw0KPiAg
-ICAgICAgIHN0cnVjdCBzZGhjaV9ob3N0ICpob3N0ID0gc2xvdC0+aG9zdDsNCj4gICAgICAgICB1
-MTYgY2xvY2s7DQo+ICsgICAgICAgaW50IHJldDsNCj4NCj4gICAgICAgICBpZiAoaG9zdC0+bW1j
-LT5pb3MucG93ZXJfbW9kZSAhPSBNTUNfUE9XRVJfT04pDQo+ICAgICAgICAgICAgICAgICByZXR1
-cm4gMDsNCj4gQEAgLTE4OTksMTEgKzE5MDAsMTggQEAgc3RhdGljIGludCBnbDk3NjNlX3J1bnRp
-bWVfcmVzdW1lKHN0cnVjdCBzZGhjaV9wY2lfY2hpcCAqY2hpcCkNCj4gICAgICAgICBzZGhjaV93
-cml0ZXcoaG9zdCwgY2xvY2ssIFNESENJX0NMT0NLX0NPTlRST0wpOw0KPg0KPiAgICAgICAgIC8q
-IFdhaXQgbWF4IDE1MCBtcyAqLw0KPiAtICAgICAgIGlmIChyZWFkX3BvbGxfdGltZW91dChzZGhj
-aV9yZWFkdywgY2xvY2ssIChjbG9jayAmIFNESENJX0NMT0NLX0lOVF9TVEFCTEUpLA0KPiAtICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAxMDAwLCAxNTAwMDAsIGZhbHNlLCBob3N0LCBTREhD
-SV9DTE9DS19DT05UUk9MKSkgew0KPiArICAgICAgIHJldCA9IHJlYWRfcG9sbF90aW1lb3V0KHNk
-aGNpX3JlYWR3LCBjbG9jaywNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoY2xv
-Y2sgJiBTREhDSV9DTE9DS19JTlRfU1RBQkxFKSwNCj4gKyAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAxMDAwLCAxNTAwMDAsIGZhbHNlLCBob3N0LA0KPiArICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIFNESENJX0NMT0NLX0NPTlRST0wpOw0KPiArICAgICAgIGlmIChyZXQpIHsN
-Cj4gICAgICAgICAgICAgICAgIHByX2VycigiJXM6IFBMTCBjbG9jayBuZXZlciBzdGFiaWxpc2Vk
-LlxuIiwNCj4gICAgICAgICAgICAgICAgICAgICAgICBtbWNfaG9zdG5hbWUoaG9zdC0+bW1jKSk7
-DQo+ICAgICAgICAgICAgICAgICBzZGhjaV9kdW1wcmVncyhob3N0KTsNCj4gKw0KPiArICAgICAg
-ICAgICAgICAgY2xvY2sgJj0gflNESENJX0NMT0NLX1BMTF9FTjsNCj4gKyAgICAgICAgICAgICAg
-IHNkaGNpX3dyaXRldyhob3N0LCBjbG9jaywgU0RIQ0lfQ0xPQ0tfQ09OVFJPTCk7DQo+ICsgICAg
-ICAgICAgICAgICByZXR1cm4gcmV0Ow0KPiAgICAgICAgIH0NCj4NCj4gICAgICAgICBjbG9jayB8
-PSBTREhDSV9DTE9DS19DQVJEX0VOOw0KPiAtLQ0KPiAyLjUwLjEgKEFwcGxlIEdpdC0xNTUpDQoN
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQoNCkdlbmVzeXMgTG9naWMgRW1haWwg
-Q29uZmlkZW50aWFsaXR5IE5vdGljZToNClRoaXMgbWFpbCBhbmQgYW55IGF0dGFjaG1lbnRzIG1h
-eSBjb250YWluIGluZm9ybWF0aW9uIHRoYXQgaXMgY29uZmlkZW50aWFsLCBwcm9wcmlldGFyeSwg
-cHJpdmlsZWdlZCBvciBvdGhlcndpc2UgcHJvdGVjdGVkIGJ5IGxhdy4gVGhlIG1haWwgaXMgaW50
-ZW5kZWQgc29sZWx5IGZvciB0aGUgbmFtZWQgYWRkcmVzc2VlIChvciBhIHBlcnNvbiByZXNwb25z
-aWJsZSBmb3IgZGVsaXZlcmluZyBpdCB0byB0aGUgYWRkcmVzc2VlKS4gSWYgeW91IGFyZSBub3Qg
-dGhlIGludGVuZGVkIHJlY2lwaWVudCBvZiB0aGlzIG1haWwsIHlvdSBhcmUgbm90IGF1dGhvcml6
-ZWQgdG8gcmVhZCwgcHJpbnQsIGNvcHkgb3IgZGlzc2VtaW5hdGUgdGhpcyBtYWlsLg0KDQpJZiB5
-b3UgaGF2ZSByZWNlaXZlZCB0aGlzIGVtYWlsIGluIGVycm9yLCBwbGVhc2Ugbm90aWZ5IHVzIGlt
-bWVkaWF0ZWx5IGJ5IHJlcGx5IGVtYWlsIGFuZCBpbW1lZGlhdGVseSBkZWxldGUgdGhpcyBtZXNz
-YWdlIGFuZCBhbnkgYXR0YWNobWVudHMgZnJvbSB5b3VyIHN5c3RlbS4gUGxlYXNlIGJlIG5vdGVk
-IHRoYXQgYW55IHVuYXV0aG9yaXplZCB1c2UsIGRpc3NlbWluYXRpb24sIGRpc3RyaWJ1dGlvbiBv
-ciBjb3B5aW5nIG9mIHRoaXMgZW1haWwgaXMgc3RyaWN0bHkgcHJvaGliaXRlZC4NCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fDQo=
+Hi Sakari
+
+On Mon, Sep 07, 2026 at 11:50:28AM +0300, Sakari Ailus wrote:
+> Hi Jacopo,
+>
+> On Mon, Sep 07, 2026 at 09:45:16AM +0200, Jacopo Mondi wrote:
+> > > > +}
+> > > > +
+> > > > +static inline u32 mira016_nsec_to_lines(struct mira016 *mira016, u32 nsec)
+> > > > +{
+> > > > +	return nsec / (mira016_trow_psec(mira016) / HZ_PER_KHZ);
+> > > > +}
+> > > > +
+> > > > +static inline u32 mira016_calc_prate(struct mira016 *mira016, u32 h_tot)
+> > > > +{
+> > > > +	/*
+> > > > +	 * Pixel rate is calculate as the row duration divided by the total line
+> > > > +	 * length.
+> > > > +	 *
+> > > > +	 * pixel time (psec) = t_row(psec) / h_tot
+> > > > +	 * pixel rate (mbps) = 10^12 / pixel_time
+> > > > +	 *		     = 10^12 * h_tot / t_row
+> > > > +	 *		     = h_tot * 10^6 / t_row * 10^6 to avoid overflows
+> > > > +	 */
+> > > > +	u32 trow_psec = mira016_trow_psec(mira016);
+> > > > +
+> > > > +	return h_tot * HZ_PER_MHZ / trow_psec * HZ_PER_MHZ;
+> > >
+> > > Can this overflow?
+> > >
+> >
+> > I don't think so. I chose to multiply by 10^6 two times before and after
+> > the division to avoid overflows.
+> >
+> > Should I re-consider something ?
+>
+> It was a question. :-) If it can't then it's fine as-is.
+>
+> >
+> >
+> > > > +}
+> > > > +
+> > > > +static inline u32 mira016_calc_min_vblank(struct mira016 *mira016, u32 y_tot)
+> > > > +{
+> > > > +	/*
+> > > > +	 * See 3.15.2 Frame Rate, equation 4.
+> > > > +	 *
+> > > > +	 * TODO: The minimum frame duration has to be expanded if embedded data
+> > > > +	 * are used.
+> > > > +	 */
+> > > > +	u32 trow_nsec = mira016_trow_psec(mira016) / HZ_PER_KHZ;
+> > > > +	u32 min_duration_nsec =  trow_nsec * (y_tot + 35) + 50 * HZ_PER_KHZ;
+> > >
+> > > What are 35 and 50 here?
+> > >
+> >
+> > No idea, the sensor datasheet doesn't describe those values
+>
+> Ok.
+>
+> There's also an extra whitespace there.
+>
+
+Oh thanks
+
+> ...
+>
+> > > > +static int mira016_set_ctrl(struct v4l2_ctrl *ctrl)
+> > > > +{
+> > > > +	struct mira016 *mira016 =
+> > > > +		container_of(ctrl->handler, struct mira016, ctrl_handler);
+> > > > +	struct i2c_client *client = v4l2_get_subdevdata(&mira016->sd);
+> > > > +	struct v4l2_subdev_state *state;
+> > > > +	struct v4l2_rect *crop;
+> > > > +	int ret = 0;
+> > > > +
+> > > > +	state = v4l2_subdev_get_locked_active_state(&mira016->sd);
+> > > > +	crop = v4l2_subdev_state_get_crop(state, 0);
+> > > > +
+> > > > +	if (ctrl->id == V4L2_CID_VBLANK) {
+> > > > +		s32 exposure_max = crop->height + ctrl->val
+> > > > +				 - MIRA016_FRAME_INTEGRATION_DIFF;
+> > > > +		s32 exposure_def = min(exposure_max,
+> > > > +				       mira016->exposure->val);
+> > > > +
+> > > > +		ret = __v4l2_ctrl_modify_range(mira016->exposure,
+> > > > +					       mira016->exposure->minimum,
+> > > > +					       exposure_max,
+> > > > +					       mira016->exposure->step,
+> > > > +					       exposure_def);
+> > > > +		if (ret)
+> > > > +			return ret;
+> > > > +	}
+> > > > +
+> > > > +	if (!pm_runtime_get_if_in_use(&client->dev))
+> > > > +		return 0;
+> > > > +
+> > > > +	switch (ctrl->id) {
+> > > > +	case V4L2_CID_EXPOSURE:
+> > > > +		ret = mira016_write_exposure_reg(mira016, ctrl->val);
+> > > > +		break;
+> > > > +	case V4L2_CID_VBLANK:
+> > > > +		ret = mira016_write_frame_duration_reg(mira016, state, ctrl->val);
+> > > > +		break;
+> > >
+> > > Is hblank part of the register lists?
+> > >
+> >
+> > These sensors (there will hopefully be more supported by this driver)
+> > do not have a real horizontal blanking.
+> >
+> > Their line length is expressed by a time base multipled by a line
+> > length which doesn't directly depend on the pixel width but rather on
+> > the ADC and PHY timings.
+> >
+> > You could expand the line duration by increasing the time base, but I
+> > wouldn't go there and use VBLANK only to control the frame duration.
+> >
+> > As you can see the HBLANK control is registered with  fixed value of
+> > 0.
+>
+> How does control frame rate then? If HBLANK is zero, the frame rate is
+> undefined, isn't it?
+>
+
+Why do you think so ?
+
+The row_timing is the product of the time base (in usec) multiplied by
+the row length expressed in time base cycles (see mira016_trow_psec()
+and how seq_time_base and row_length are calculated).
+
+VBLANK is still controllable, and you can vary the frame rate by
+changing the vblank.
+
+What have am I missing ?
+
+> > > > +static int mira016_init_controls(struct mira016 *mira016)
+> > > > +{
+> > > > +	struct i2c_client *client = v4l2_get_subdevdata(&mira016->sd);
+> > > > +	struct v4l2_fwnode_device_properties props;
+> > > > +	struct v4l2_ctrl_handler *ctrl_hdlr;
+> > > > +	struct v4l2_ctrl *link_freq;
+> > > > +	struct v4l2_ctrl *hblank;
+> > > > +	u32 min_exposure_lines;
+> > > > +	u32 def_exposure;
+> > > > +	u32 min_vblank;
+> > > > +	u32 def_vblank;
+> > > > +	u32 pixel_rate;
+> > > > +	int ret;
+> > > > +
+> > > > +	ctrl_hdlr = &mira016->ctrl_handler;
+> > > > +	v4l2_ctrl_handler_init(ctrl_hdlr, 12);
+> > > > +
+> > > > +	/* By default, PIXEL_RATE is read only */
+> > > > +	pixel_rate = mira016_calc_prate(mira016, MIRA016_PIXEL_ARRAY_WIDTH);
+> > > > +	mira016->prate = v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_PIXEL_RATE,
+> > > > +					   pixel_rate, pixel_rate, 1,
+> > > > +					   pixel_rate);
+> > > > +
+> > > > +	def_vblank = mira016_nsec_to_lines(mira016,
+> > > > +					   MIRA016_DEFAULT_DURATION_NSEC);
+> > > > +	def_vblank -= MIRA016_PIXEL_ARRAY_HEIGHT;
+> > > > +
+> > > > +	min_vblank = mira016_calc_min_vblank(mira016,
+> > > > +					     MIRA016_PIXEL_ARRAY_HEIGHT);
+> > > > +	mira016->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &mira016_ctrl_ops,
+> > > > +					    V4L2_CID_VBLANK, min_vblank,
+> > > > +					    MIRA016_MAX_VBLANK, 1,
+> > > > +					    def_vblank);
+> > > > +
+> > > > +	/* Fixed 0 horizontal blanking. */
+> > > > +	hblank = v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_HBLANK, 0,
+> > > > +				   0, 1, 0);
+> > > > +
+> > > > +	link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, NULL, V4L2_CID_LINK_FREQ,
+> > > > +					   0, 0, &mira016_link_freqs[0]);
+> > > > +
+> > > > +	min_exposure_lines = mira016_nsec_to_lines(mira016,
+> > > > +						   mira016->timings.min_exposure_time);
+> > > > +	def_exposure = mira016_nsec_to_lines(mira016,
+> > > > +					     MIRA016_EXPOSURE_DEF_NSEC);
+> > > > +	mira016->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &mira016_ctrl_ops,
+> > > > +					      V4L2_CID_EXPOSURE,
+> > > > +					      min_exposure_lines,
+> > > > +					      MIRA016_MAX_EXPOSURE, 1,
+> > > > +					      def_exposure);
+> > > > +
+> > > > +	mira016->gain = v4l2_ctrl_new_std(ctrl_hdlr, &mira016_ctrl_ops,
+> > > > +					  V4L2_CID_ANALOGUE_GAIN,
+> > > > +					  1, 1, 1, 1);
+> > > > +
+> > > > +	/*
+> > > > +	 * Changing VFLIP requires re-programming the top point, hence we
+> > > > +	 * program flips along with the ROI windows at enable_streams time. As
+> > > > +	 * we grab the flip controls there, there's no need to handle the two
+> > > > +	 * controls while streaming.
+> > > > +	 */
+> > > > +	mira016->hflip = v4l2_ctrl_new_std(ctrl_hdlr, NULL,
+> > > > +					   V4L2_CID_HFLIP, 0, 1, 1, 0);
+> > > > +
+> > > > +	mira016->vflip = v4l2_ctrl_new_std(ctrl_hdlr, NULL,
+> > > > +					   V4L2_CID_VFLIP, 0, 1, 1, 0);
+> > > > +
+> > > > +	v4l2_fwnode_device_parse(&client->dev, &props);
+> > >
+> > > v4l2_fwnode_device_parse() can return an error and I'd check for it. I'd
+> > > however do that before initialising the control handler as it simplifies
+> > > error handling.
+> >
+> > Interesting idea. I still see most drivers calling
+> > v4l2_fwnode_device_parse() and v4l2_ctrl_new_fwnode_properties() in
+> > sequence at the end of the controls initialization, but doing the
+> > parsing at the beginning of the function is certainly a good idea.
+>
+> Yes, the ones you've been looking at are old drivers. :-)
+>
+> > > > +		{ 16, 21 }, { 17, 26 }, { 18, 29 }, { 19, 30 }, { 20, 15 },
+> > > > +		{ 21, 23 }, { 22, 27 }, { 23, 13 }, { 24, 22 }, { 25, 11 },
+> > > > +		{ 26, 5 }, { 27, 18 }, { 28, 25 }, { 29, 12 },
+> > > > +		{ 30, 6 }, { 31, 3 }, { 32, 1 }
+> > > > +	};
+> > > > +
+> > > > +	for (unsigned int i = 0; i < ARRAY_SIZE(pll_n_lut); ++i) {
+> > > > +		if (pll_n_lut[i].n != pll_n)
+> > > > +			continue;
+> > > > +
+> > > > +		return pll_n_lut[i].pll_n;
+> > > > +	}
+> > > > +
+> > > > +	return 0;
+> > > > +}
+> > > > +
+> > > > +static u8 mira016_m_to_pll_m(u32 pll_m)
+> > > > +{
+> > > > +	/* Table 12: Lookup table for “M to PLL_DIV_M” mapping */
+> > > > +	static const struct pll_m_div {
+> > > > +		u8 m_min;
+> > > > +		u8 m_max;
+> > > > +		u8 pll_m_min;
+> > > > +		u8 pll_m_max;
+> > > > +	} pll_m_lut[] = {
+> > > > +		{ 16, 31, 224, 239 }, { 32, 63, 192, 233 },
+> > > > +		{ 64, 127, 128, 191 }, { 128, 255, 0, 127 },
+> > > > +	};
+> > > > +
+> > > > +	for (unsigned int i = 0; i < ARRAY_SIZE(pll_m_lut); ++i) {
+> > > > +		const struct pll_m_div *p = &pll_m_lut[i];
+> > > > +
+> > > > +		if (pll_m > p->m_max)
+> > > > +			continue;
+> > > > +
+> > > > +		return p->pll_m_min + pll_m - p->m_min;
+> > > > +	}
+> > > > +
+> > > > +	return 0;
+> > > > +}
+> > > > +
+> > > > +static void mira016_pll_calc(struct mira016 *mira016)
+> > >
+> > > It's nice to have a PLL calculator for this. Thank you! :-)
+> > >
+> >
+> > I also considered using the CCS PLL calculator, but this PLL is so
+> > simple it felt like an overkill
+>
+> If the CCS PLL calculator fits for the job, I'd just use it. If it does a
+> little more, it's possible to use the same value for minimum and maximum
+> for the relevant parameters.
+>
+> > > > +static int mira016_parse_endpoint(struct device *dev, struct mira016 *mira016)
+> > > > +{
+> > > > +	struct fwnode_handle *endpoint __free(fwnode_handle) = NULL;
+> > > > +	struct v4l2_fwnode_endpoint ep_cfg = {
+> > > > +		.bus_type = V4L2_MBUS_CSI2_DPHY
+> > > > +	};
+> > > > +
+> > > > +	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0, 0);
+> > > > +	if (v4l2_fwnode_endpoint_alloc_parse(endpoint, &ep_cfg))
+> > > > +		return dev_err_probe(dev, -EINVAL, "Failed to parse endpoint\n");
+> > >
+> > > Don't mask error codes! Just return the error code returned by
+> > > v4l2_fwnode_endpoint_alloc_parse().
+> > >
+> >
+> > With PTR_ERR() I presume
+>
+> v4l2_fwnode_endpoint_alloc_parse() returns an integer.
+>
+
+Yeah I just noticed.
+
+> > > > +static int mira016_probe(struct i2c_client *client)
+> > > > +{
+> > > > +	struct device *dev = &client->dev;
+> > > > +	struct mira016 *mira016;
+> > > > +	int ret;
+> > > > +
+> > > > +	mira016 = devm_kzalloc(&client->dev, sizeof(*mira016), GFP_KERNEL);
+> > > > +	if (!mira016)
+> > > > +		return -ENOMEM;
+> > > > +
+> > > > +	mira016->dev = &client->dev;
+> > > > +
+> > > > +	v4l2_i2c_subdev_init(&mira016->sd, client, &mira016_subdev_ops);
+> > > > +
+> > > > +	mira016->regmap = devm_cci_regmap_init_i2c(client, 16);
+> > > > +	if (IS_ERR(mira016->regmap))
+> > > > +		return dev_err_probe(dev, PTR_ERR(mira016->regmap),
+> > > > +				     "failed to initialize CCI\n");
+> > > > +
+> > > > +	mira016->xclk = devm_v4l2_sensor_clk_get(dev, NULL);
+> > > > +	if (IS_ERR(mira016->xclk))
+> > > > +		return dev_err_probe(dev, PTR_ERR(mira016->xclk),
+> > > > +				     "failed to get xclk\n");
+> > > > +
+> > > > +	mira016->xclk_freq = clk_get_rate(mira016->xclk);
+> > > > +	if (mira016_validate_xclk_freq(mira016)) {
+> > > > +		dev_err(dev, "xclk frequency not supported: %d Hz\n",
+> > > > +			mira016->xclk_freq);
+> > > > +		return -EINVAL;
+> > > > +	}
+> > > > +
+> > > > +	ret = mira016_get_regulators(mira016);
+> > > > +	if (ret)
+> > > > +		return dev_err_probe(dev, ret, "failed to get regulators\n");
+> > > > +
+> > > > +	mira016->reset_gpio = devm_gpiod_get_optional(dev, "reset",
+> > > > +						      GPIOD_OUT_HIGH);
+> > > > +	if (IS_ERR(mira016->reset_gpio))
+> > > > +		return dev_err_probe(dev, PTR_ERR(mira016->reset_gpio),
+> > > > +				     "failed to get reset gpio\n");
+> > > > +
+> > > > +	ret = mira016_parse_endpoint(dev, mira016);
+> > > > +	if (ret)
+> > > > +		return ret;
+> > >
+> > > Parsing the endpoint should be done as soon as you can before acquiring
+> > > resources related to power management, for instance. -EPROBE_DEFER may well
+> > > be returned in some cases.
+> > >
+> >
+> > I can probably do that even before calling v4l2_i2c_subdev_init()
+>
+> Sounds good.
+>
+> > > > +static void mira016_remove(struct i2c_client *client)
+> > > > +{
+> > > > +	struct v4l2_subdev *sd = i2c_get_clientdata(client);
+> > > > +	struct mira016 *mira016 = to_mira016(sd);
+> > > > +
+> > > > +	v4l2_ctrl_handler_free(mira016->sd.ctrl_handler);
+> > > > +
+> > > > +	v4l2_async_unregister_subdev(sd);
+> > > > +	v4l2_subdev_cleanup(&mira016->sd);
+> > > > +	media_entity_cleanup(&sd->entity);
+> > > > +
+> > > > +	pm_runtime_disable(&client->dev);
+> > > > +	if (!pm_runtime_status_suspended(&client->dev))
+> > > > +		mira016_power_off(&client->dev);
+> > > > +	pm_runtime_set_suspended(&client->dev);
+> > >
+> > > pm_runtime_dont_use_autosuspend()?
+> > >
+> >
+> > Ack
+> >
+> > Thanks for the review!
+>
+> You're welcome! :-)
+>
+
+Thanks
+  j
+
+> --
+> Regards,
+>
+> Sakari Ailus
