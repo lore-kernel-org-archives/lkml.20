@@ -1,186 +1,122 @@
-Received: from va-2-36.ptr.blmpb.com (va-2-36.ptr.blmpb.com [209.127.231.36])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4829D47B432
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:17:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2919486E4D
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:18:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788787051; cv=none; b=ZTezJK9GeNEQpD2JxzF+Vryk1zQQdlA9GPixjeKZwyUCX5PApfwqv0HoWKdVeJfdsCd1wVFow56TCQjBlMjU0lFXEM1+07kICeICBmLmVlxSWMO8w1aTCNTA0JEzbJF69S5bflSFI26wvFClOCboRoVF26R/57crEed5dZXH+Rc=
+	t=1788787117; cv=none; b=fyIWnPpzJg0K1IrbaihxDnCvA11ZNxfrvMLpFROyrKQyMvwa5ERRC1s8OKDYJr0LTnVTPV6djwPRd6tp2ttNH8vuil/+2vI2RJHNvBd1s+AoonMWX7ENoJ4wZWS+xmR1SqPCbWZ1tWZHJrKVjo5+Iu3FccxP1iQmdKCSUtVx7N4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788787051; c=relaxed/simple;
-	bh=yQD+qTOHxM6Tkpx31cCx9rs4vJQbozGXPz411G/NNMg=;
-	h=Cc:Subject:Date:References:To:From:Message-Id:Content-Type:
-	 Mime-Version:In-Reply-To; b=oo+vLrvgx5/Tcr+0frxqBPgPcIsWVnjgIIX9zfJvqOdXDlK3NfB5OcSTvg8LfcEHyQhahgO9O+Ajmze3PXzhpefe8PTOLd6BcKeSxfvMFaQhAO6Y0neL8+Y5FIlKl45npI/vYxkn0/RZMDQ23V7NV8pehngHPd1Dxz8co7omi3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com; spf=pass smtp.mailfrom=picoheart.com; dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b=b7BCS4CY; arc=none smtp.client-ip=209.127.231.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=picoheart.com
+	s=arc-20240116; t=1788787117; c=relaxed/simple;
+	bh=ZHT1nwRV+EF2Mm8bVfNXYmPeTXEgGItvBUgZF4Bfnrw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bCTEiTD64KfnnOabB69U6Da+ZUvNF/oG7bRihPAzAafV/HLSHVcEGmW2reFIGYvGTYg/FGpMJCsXqHg3SUuXroAaJF87TqbLBdTqHcNcgopIjuBV7x8yD9vDuU3fC4C2GSs4NXjDvc+guzpETBJ9eSppK3EYhhAiXA71ZbbEaeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y7CNazp9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b="b7BCS4CY"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604151535; d=picoheart.com; t=1788787039; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=paxgRnqRRQ5ClGyRNJIpWS/UEGCwA35sFQ+eOrhG0G4=;
- b=b7BCS4CYV32u3+7M3iBxs+XuWxwRyvmuysrZRarM5M+zawUTJLgRPPN64XJTst68bb2DBc
- EvMSaAVal40YwUUorvgl+lK5eF3jp8cV0YEEZjaJe3Fcid7xhJqaTXimnSrncUFx7Ein6v
- snNWyMGxzyA4MoWu0WtikyG29EjL9e0Eu/3n25qdoZiIzvsBpUSQas6yCQZLveOUyMuGX7
- nHDH7Kq86ZFV4g0fY851VbHaXxYCezQ3aRq2AAP/FSGlp/w/8kDXHrQ+XHyHznvy0w56A8
- 9wcg9RhEZ6/qQNgk2GyKk1K+ECOJRcAlpFdZGVsAqjgcs8YHzeGd3k0Mcxq81w==
-Cc: "Yufan Dou" <douyufan@picoheart.com>, 
-	"Sunil V L" <sunilvl@ventanamicro.com>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>, "Len Brown" <lenb@kernel.org>, 
-	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, 
-	<linux-acpi@vger.kernel.org>, <linux-riscv@lists.infradead.org>, 
-	<linux-kernel@vger.kernel.org>, <yang.yicong@picoheart.com>, 
-	<yuchao.46@picoheart.com>, <geshijian@picoheart.com>
-Subject: Re: [PATCH] ACPI: RISC-V: CPPC: Implement cpc_read_ffh_fb_ctrs()
-Date: Mon, 7 Sep 2026 21:17:14 +0800
-X-Original-From: Yicong Yang <yang.yicong@picoheart.com>
-User-Agent: Mozilla Thunderbird
-Received: from [172.16.155.39] ([120.234.49.250]) by smtp.feishu.cn with ESMTPS; Mon, 07 Sep 2026 21:17:16 +0800
-References: <20260902083450.2348-1-douyufan@picoheart.com> <d48e5c92-f666-44e0-8375-9772d95065b5@hisilicon.com>
-Content-Language: en-US
-To: "Jie Zhan" <zhanjie9@hisilicon.com>
-From: "Yicong Yang" <yang.yicong@picoheart.com>
-Message-Id: <37731989-e1f1-4dc9-944d-2544ce8e9302@picoheart.com>
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y7CNazp9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EFB71F00ADB
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:18:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788787112;
+	bh=hEWmuW7cufMWV2/b01w8XaTQOw/m9I21NgDQfNHpcUA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Y7CNazp9aYy+PdY0qNLl0B7UHZGVyc8NYIl94q4rS75a7fb8BfHqZHqCpHGBY7ozT
+	 bpCYs8vIAFiWTPcNj/lChvaKSivlCaFedS6Ze+NtCFryS34HzgcrXFVtO2tOcXATXj
+	 aknvYJ11xVYV4y8yNd8VziMCP2T0lBncq/esm+x6+QSPmgy5nksNQSNEfaMp7IoRP9
+	 vYRpAABEdC4+WP2xtBFi4jX9ngfv44GbSba9HP9kVPFnxDWZslemR+Fl1L1buFOYDw
+	 tuhIDnqUDLUhOdvW78rdgfXZPJD3XBxfgdDBeEEUMsAOf4bwV2JQol8t2DBGFTlthI
+	 YPyUwMljIZjdg==
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a601ba6870so4927775a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:18:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByXxlQfibT7f05r7Hwrf4hFoWza/9rEVegjhMoZqxO6M7XEIbKtuN85A3KJZJETB9GHzsNcIEiBVDOH3II=@vger.kernel.org
+X-Gm-Message-State: AFuF++lMvTxWL/sESDIXIORRtMB7D1Om8FEy1MyCljNz5y3ELYuctHJg
+	sjnVzaEVA+Fr8debfxlftTaEIX2f4zGtKxwVO7lTd1D689Z7WTGT+zsbJ4Qm4og+8M1Ug8W1Dz/
+	bneiQiHo0KDyVS3JDn9BNC7a6FNzKUkg=
+X-Received: by 2002:a17:907:7294:b0:c26:19de:9139 with SMTP id
+ a640c23a62f3a-c2619dea0f1mr784114966b.44.1788787111068; Mon, 07 Sep 2026
+ 06:18:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-In-Reply-To: <d48e5c92-f666-44e0-8375-9772d95065b5@hisilicon.com>
-X-Lms-Return-Path: <lba+26a9eb95d+fe384e+vger.kernel.org+yang.yicong@picoheart.com>
+MIME-Version: 1.0
+References: <20260907130821.1726595-1-xialonglong2025@163.com>
+In-Reply-To: <20260907130821.1726595-1-xialonglong2025@163.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Mon, 7 Sep 2026 06:18:19 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zMhs_DQGah6mRfh2=Q_9WU4tm7SsWWGguUt4h7mXiOFRg@mail.gmail.com>
+X-Gm-Features: AcwNN1VW7ax0yb2yZAzS8soWDZl4_rah1ysY0avA1R2-TIGVjOCZmj9VVC6GuJ4
+Message-ID: <CAO9r8zMhs_DQGah6mRfh2=Q_9WU4tm7SsWWGguUt4h7mXiOFRg@mail.gmail.com>
+Subject: Re: [PATCH 1/1] mm/zswap: publish the initial pool with list_add_rcu()
+To: Longlong Xia <xialonglong2025@163.com>
+Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev, 
+	akpm@linux-foundation.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Longlong Xia <xialonglong@kylinos.cn>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/7/26 7:29 PM, Jie Zhan wrote:
-> 
-> 
-> On 9/2/2026 4:34 PM, Yufan Dou wrote:
->> On RISC-V, each cpc_read_ffh() for a CSR-type FFH register sends a
->> separate IPI to the target hart via smp_call_function_single().
->> cppc_get_perf_ctrs() therefore samples the delivered and reference
->> counters in two separate IPIs, at two different instants. The skew
->> between the two sampling points distorts the delivered/reference
->> ratio and thus the frequency reported by cpufreq.
->>
->> Implement the cpc_read_ffh_fb_ctrs() hook to read both CSR counters
->> back-to-back in a single IPI, which narrows the sampling window to a
->> few instructions and halves the number of cross-CPU calls. This
->> improves the accuracy of the reported frequency in the same way as
->> the arm64 implementation of the hook, which reads both AMU counters
->> in a single counters_read_on_cpu() call.
->>
->> SBI-type FFH registers still fall back to individual reads, since
->> pairing them would not reduce the number of SBI calls on the target
->> hart.
->>
->> Testing was performed while CPU1 was kept busy with:
->>
->>   # stress-ng --cpu 1 --taskset 1
->>
->> On a CPU with cpuinfo_max_freq of 3000000 kHz:
->>
->> Before:
->>
->>   Maximum observed cpuinfo_cur_freq: 3201369 kHz
->>   Maximum observed error:            +201369 kHz (+6.71%)
->>
->> After:
->>
->>   Maximum observed cpuinfo_cur_freq: 3009646 kHz
->>   Maximum observed error:              +9646 kHz (+0.32%)
->>
->> The maximum observed error is reduced by 95.2%.
-> Glad to see that works for RISC-V as well.
->>
->> Signed-off-by: Yufan Dou <douyufan@picoheart.com>
->> ---
->>  drivers/acpi/riscv/cppc.c | 47 +++++++++++++++++++++++++++++++++++++++
->>  1 file changed, 47 insertions(+)
->>
->> diff --git a/drivers/acpi/riscv/cppc.c b/drivers/acpi/riscv/cppc.c
->> index 42c1a9052470..2ca98fa69e9a 100644
->> --- a/drivers/acpi/riscv/cppc.c
->> +++ b/drivers/acpi/riscv/cppc.c
->> @@ -85,6 +85,20 @@ static void cppc_ffh_csr_write(void *write_data)
->>  	data->ret.error = -EINVAL;
->>  }
->>  
->> +struct sbi_cppc_fb_ctrs_data {
->> +	struct sbi_cppc_data first;
->> +	struct sbi_cppc_data second;
->> +};
->> +
->> +static void cppc_ffh_csr_read_fb_ctrs(void *read_data)
->> +{
->> +	struct sbi_cppc_fb_ctrs_data *data = read_data;
->> +
->> +	cppc_ffh_csr_read(&data->first);
->> +	if (!data->first.ret.error)
->> +		cppc_ffh_csr_read(&data->second);
->> +}
->> +
->>  /*
->>   * Refer to drivers/acpi/cppc_acpi.c for the description of the functions
->>   * below.
->> @@ -125,6 +139,39 @@ int cpc_read_ffh(int cpu, struct cpc_reg *reg, u64 *val)
->>  	return -EINVAL;
->>  }
->>  
->> +int cpc_read_ffh_fb_ctrs(int cpu, struct cpc_reg *reg1, u64 *val1,
->> +			 struct cpc_reg *reg2, u64 *val2)
->> +{
->> +	struct sbi_cppc_fb_ctrs_data data;
->> +	int ret;
->> +
->> +	if (WARN_ON_ONCE(irqs_disabled()))
->> +		return -EPERM;
-> AFAICS, this may cause CPPC FIE to constantly fail to read counters because
-> FIE runs in hardirq context.
+On Mon, Sep 7, 2026 at 6:09=E2=80=AFAM Longlong Xia <xialonglong2025@163.co=
+m> wrote:
+>
+> From: Longlong Xia <xialonglong@kylinos.cn>
+>
+> zswap_setup() publishes the pool on the zswap_pools list with a
+> plain list_add(), but the list is walked by concurrent RCU readers
+> holding nothing but rcu_read_lock() through zswap_total_pages(), e.g.
+> /proc/meminfo and the shrinker count path.
+>
+>     CPU 0 (writer)                          CPU 1 (reader)
+>     --------------                          --------------
+>     zswap_pool_create():
+>       pool->zs_pool =3D zs_create_pool(); (1)
+>     list_add() -> __list_add():
+>       WRITE_ONCE(zswap_pools.next,
+>           &pool->list);                (2)   zswap_total_pages():
+>                                                 pool =3D READ_ONCE(     (=
+a)
+>                                                     zswap_pools.next);
+>                                                 zs_get_total_pages(   (b)
+>                                                     pool->zs_pool);
+>
+> If (2) becomes visible to CPU 1 before (1), CPU 1 finds the pool at
+> (a) but dereferences a wild pointer at (b). Publish the node with
+> list_add_rcu().
+>
+> Fixes: 91cdcd8d624bf ("mm: zswap: optimize zswap pool size tracking")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Zcode:GLM-5.3
+> Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
 
-I suppose it's mainly due to the smp_call_function_single() cannot work
-with irqs_disabled().
+Acked-by: Yosry Ahmed <yosry@kernel.org>
 
-seems we need to do the similar handling like arm64's
-counters_read_on_cpu() - read the counters locally when irqs_disabled()
-if local cpu is the target cpu.
+> ---
+> Link: https://sashiko.dev/#/patchset/20260906133601.3563324-1-xialonglong=
+2025%40163.com
 
-so is cpc_read_ffh() of riscv. but I suppose this should be a fix of below
-commit, as it were in the kthread for FIE...
-997c021abc6e ("cpufreq: CPPC: Update FIE arch_freq_scale in ticks for non-PCC regs")
+This should probably be:
 
-> 
-> Any test on CPPC FIE?
->> +
->> +	/* Only CSR counters can be paired within a single IPI. */
->> +	if (FFH_CPPC_TYPE(reg1->address) != FFH_CPPC_CSR ||
->> +	    FFH_CPPC_TYPE(reg2->address) != FFH_CPPC_CSR)
->> +		return -EOPNOTSUPP;
->> +
->> +	data.first.reg = FFH_CPPC_CSR_NUM(reg1->address);
->> +	data.second.reg = FFH_CPPC_CSR_NUM(reg2->address);
->> +
->> +	ret = smp_call_function_single(cpu, cppc_ffh_csr_read_fb_ctrs,
->> +				       &data, 1);
->> +	if (ret)
->> +		return ret;
->> +
->> +	if (data.first.ret.error)
->> +		return data.first.ret.error;
->> +	if (data.second.ret.error)
->> +		return data.second.ret.error;
->> +
->> +	*val1 = data.first.ret.value;
->> +	*val2 = data.second.ret.value;
->> +
->> +	return 0;
->> +}
->> +
->>  int cpc_write_ffh(int cpu, struct cpc_reg *reg, u64 val)
->>  {
->>  	struct sbi_cppc_data data;
->>
->> base-commit: 89a312991dc6e638a36adc43ccb91dbc25504c04
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20260906133601.3563324-1-xialonglong20=
+25%40163.com
+
+>
+>  mm/zswap.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/mm/zswap.c b/mm/zswap.c
+> index 37f34e406c8e..cb5a0855fd2a 100644
+> --- a/mm/zswap.c
+> +++ b/mm/zswap.c
+> @@ -1803,7 +1803,7 @@ static int zswap_setup(void)
+>         pool =3D __zswap_pool_create_fallback();
+>         if (pool) {
+>                 pr_info("loaded using pool %s\n", pool->tfm_name);
+> -               list_add(&pool->list, &zswap_pools);
+> +               list_add_rcu(&pool->list, &zswap_pools);
+>                 zswap_has_pool =3D true;
+>                 static_branch_enable(&zswap_ever_enabled);
+>         } else {
+> --
+> 2.43.0
+>
