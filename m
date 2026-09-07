@@ -1,93 +1,115 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C593F47FAEA
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:59:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from flow-a3-smtp.messagingengine.com (flow-a3-smtp.messagingengine.com [103.168.172.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6498B47279F;
+	Mon,  7 Sep 2026 12:59:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788785973; cv=none; b=G1JHsnvmxla5a5oG096n95H9EuwCvTZcj1M6TCIbUL9QGn89HIJN7Tp/TNYLKAnob5MDg+Uhji/0ONwOCeFGnxK5kMvqP9la+W/KFKiamULLk22T9XW9DHv+BWKE5ew/CcAVOh2FX+dLFY0ZR4H7Lmgab3t9LLQGDayGViP96wE=
+	t=1788785997; cv=none; b=R2fMsqYlF6VgTQOm+6xk1WKxLgTcrHUNJOCPqg42/X5RDHlRRAr+62AYNjv/XAMGV3xbOvLYm+3zE5u8G87Xq7iBpAnW5Qf+bP4p/LOj8I45mszdc7EkCAfrxkHARiZfPY+WY+eimvxDsNIvr7PLq4smtC/fVef6Icv9sdlrm9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788785973; c=relaxed/simple;
-	bh=fs6D9307+D5ofEdJVbGr/fE9RQA62x0tlXgWzmyLjRc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VksWGTkueX2n3WxbS69y3gCALFNfjUfOvnEGRkyCejspKTCXQgWtMBkim9rBjVfb8r0M/lvwu8yiFPqQTxO2mxtReMzV1s0078Xuq4pArkMTmq8pziCRtqOrLq99kYJC/j1u9CzseY1hA8scEWvVt5TQOFGayrjGRqdJeqHtwiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=u233w6RG; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788785997; c=relaxed/simple;
+	bh=MkvOaW8wkaxVsp7+9WEl+B97dZNt1FDF4HFuRtuNW6U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z4bz5H84Zlo8KFmJBDnm+kICtd9kqD1Tr8MYtUtl1ccYwHviZpZNny4rDwM4TE1watX6LB7VT2cKDLVjpkY+BwTaT13METNRRHtlGdbEFR9maZOcdL+aeX8djJ1jOL0AxRaV5LhailttLnSxcHuxk3VCcpLDCFvSHq9YCrXSFaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=bG1F3G79; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=IayrZM0F; arc=none smtp.client-ip=103.168.172.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="u233w6RG"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7758D1476;
-	Mon,  7 Sep 2026 05:59:13 -0700 (PDT)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D4F033F7D8;
-	Mon,  7 Sep 2026 05:59:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788785957; bh=fs6D9307+D5ofEdJVbGr/fE9RQA62x0tlXgWzmyLjRc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=u233w6RGdA63wnnNOM1ASAwHeUBU9au3b10Ya20EViUQr9/u/7lzCA0HCjc7gpO6l
-	 NEj+i2bTMvaL5FGzTDGLjpvKlyE8gThWSFwbZdk8fIdt0fARLgl6r4RJnSkSzPa/ai
-	 WUpyFueqgRTQ4D5MDkaI/ABLRrSN3tYBa86tkZXM=
-Message-ID: <ea42f2a7-f4f7-46ab-a5e0-239c74174499@arm.com>
-Date: Mon, 7 Sep 2026 13:59:14 +0100
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="bG1F3G79";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="IayrZM0F"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailflow.phl.internal (Postfix) with ESMTP id 633F41380054;
+	Mon,  7 Sep 2026 08:59:46 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Mon, 07 Sep 2026 08:59:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1788785986; x=
+	1788793186; bh=lYDGB/RXWunUBHizdGiMziv4O2zhbYW2jWaEbKuOHsI=; b=b
+	G1F3G79iC03Ct6JwvcO+c5TCzquytWTPpldQGzzb3BrMw3yKtHS03Y49D3tCbhhE
+	yhBa95NKaEoz9uAijnkv1y/zgutADJBIg8iBi+EBLjaQqYRzGVhWegX5L8QdxqPE
+	5NhrT1sxjgSyHujPJdg+mJpJs4GYODMgNaenjrRFL0c+XdM/MBXrWG9+Mvlx9Pmp
+	OoObvnqUD1h38zBA6gjYLeRqwGQHQrbiHvFJjHmpwYHE/DaeMwcAdoFZ/iLPP4IN
+	uRFQc6L2zX3w6DFK2DxjAD8F5/jOs1QEiQ8rdGt3a6vbiHmKhp6hWw/Jh+fRiQZX
+	Id9NzriDuk4ES9VUGSLqw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1788785986; x=1788793186; bh=lYDGB/RXWunUBHizdGiMziv4O2zhbYW2jWa
+	EbKuOHsI=; b=IayrZM0FqNCpp7HFPd7Ovd70efH1vXDuTyb4BuTqXMndLQVFYiO
+	Rm43PEw5vcxHL8byV6kOe4FZF8b2ZL/Bu/Pxk/ZFx2Z854UkGanu+YebEQ6y5NFX
+	/6oCrEhl9qIf69LVNABM4Z8NnI657ihA8pvyKJrJISUtxi2mmkd3fMK+JWG+ajGZ
+	3k+YVD3VxuAzrYEwVCFgmMBnZTCwypwrPRbwUI18P6ANHY00k+kyagOH9uFDrcBu
+	pcXcAo+Br7LjIghJGgOL3SVfEgbJKNbXVc8V43kZwHD1kW5fWFAkJTXwjW926MFv
+	o+NWxrlWOqi2K/TbrYXt7bM8ExAgUpwNF8w==
+X-ME-Sender: <xms:QbWeatZoN5cL5KI_BtpTGntigHz0Ugcb6QzkLKV6fcYkLbbhtv7-yw>
+    <xme:QbWeatashrvgTrojrqEtRF96HwS50lAJl4nrXP2BEAl98FEQUKZ1mnnKaMC48exYl
+    SbnMMLQRGIKAN5z49gZsHZWD90GIvCcSLhhttd0dMP50d7R_zTJ5bMl>
+X-ME-Received: <xmr:QbWeapruxHftV97YXljez7WSiuCOEM_KXSC9n9N4JHpWzHQjS-tsU7zex0I>
+X-ME-Proxy-Cause: dmFkZTE/RyyJEHpH/xeKsN4XNBiUmGFM48RXSJCmmPUQ993cXAA4f4cCG2jBf4pg29mZZH
+    T0r5B8dg0Dgu/wTg3OkNeKKPGFjIPrnT+MxaTt+8JtQRA42zTbyuy6nvryU5phm5fb7if/
+    z4Wbe/ItURKbRrCxTBW72oofYLTVqcjT+80q6k9+Mq+e2HmMOB7x7rGOcl+QvJIGaHfcn6
+    bVTQrWtvCBDnpBojICyjPD/5jOkMukeqbAaxJ8Wicr9D+j+A0z1NtJx39x4bQFcjxdrDIJ
+    YU1+rDhx99mj0WMR+3CjWZPMSKi3uW9hcvcF6FVFP+f/sCGSJy8pp4S0me+2cvoQSw44ky
+    KZMB7bjnQkGZmvAr928a4dgg0aB2Bp/gcycSjNt7fDIMjbomTTe0f26+r67PDOeOL8bR5e
+    PFPwiapu00b1fFRij9so+5V+/TLFms3zeeWD5ln9qxQX7UvD+joArJiZ4wwm29xa2JUHT6
+    q9eeZqsygeA42u0Y+ogLcjyAos13BOO8I8JADXNpIMJy5WYMu3T3pDbzDtupDuoO/NFZ0E
+    6A0t8bzPVeuLuW85BMr49/F5OazgMuHDrN8QMptNFdvfcZBMGUgClGmKC/KU6dHpsy5EPr
+    joPL+Y8gAC4Y9wOGnaFkpCO3C3XPjvoNy1yaVVSezyY3ZwayIZYc4OS4HS0Q
+X-ME-Proxy: <xmx:QbWeailDfJP8gGeUlK9_5ekuwXlnmH-Gie1kPnAicPACaBy5pojlhg>
+    <xmx:QbWearWK0qk44MiQJ1sRqt49J60_pHycK9_DnalTR6-1v5ZiwIT3bQ>
+    <xmx:QbWeapQ7OAETFED8c77bY9SX04yprCcbrQL_Z6AO_Tbn-3sQ0eYpJQ>
+    <xmx:QbWeaoloQZT4G3otJX8A33K7IjAuRjlkK0avTjegMoErcCXgS5lfPg>
+    <xmx:QrWeaj4fqco_THgKMBs-0rzUYSbsMisBGtFVVJ5uiDL4x77Ik8ZHK3Yb>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 7 Sep 2026 08:59:44 -0400 (EDT)
+Date: Mon, 7 Sep 2026 13:59:43 +0100
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: akpm@linux-foundation.org, david@kernel.org, nico.pache@linux.dev, 
+	baolin.wang@linux.alibaba.com, baohua@kernel.org, dev.jain@arm.com, hughd@google.com, 
+	lance.yang@linux.dev, liam@infradead.org, mhocko@suse.com, rppt@kernel.org, 
+	ryan.roberts@arm.com, shuah@kernel.org, surenb@google.com, usama.arif@linux.dev, 
+	vbabka@kernel.org, ziy@nvidia.com, usama.anjum@arm.com, agordeev@linux.ibm.com, 
+	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 08/19] selftests/mm: add folio-order check for address
+ ranges
+Message-ID: <ap60vvh09oqrQZ_T@thinkstation>
+References: <20260815015901.1236937-1-kirill@shutemov.name>
+ <20260815015901.1236937-9-kirill@shutemov.name>
+ <aoQxLVg3IsTuA9NE@lucifer>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm_mpam: resctrl: Catch and propagate error from
- get_cpu_cacheinfo_id()
-To: Andre Przywara <andre.przywara@arm.com>, James Morse <james.morse@arm.com>
-Cc: Reinette Chatre <reinette.chatre@intel.com>,
- Fenghua Yu <fenghuay@nvidia.com>, Tony Luck <tony.luck@intel.com>,
- Dave Martin <Dave.Martin@arm.com>, Yin Li <yin.li@oss.qualcomm.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260902143757.3469690-1-andre.przywara@arm.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20260902143757.3469690-1-andre.przywara@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aoQxLVg3IsTuA9NE@lucifer>
 
-Hi Andre,
-
-On 02/09/2026 15:37, Andre Przywara wrote:
-> get_cpu_cacheinfo_id() can fail, in which case it returns a negative
-> error value.
+On Tue, Aug 18, 2026 at 11:25:27AM +0100, Lorenzo Stoakes (ARM) wrote:
+> > +bool is_range_backed_by_folio_orders(char *start, size_t len, int order,
 > 
-> Check the returned value for this error condition, before passing the
-> value on to other code, which would hide the negative number in some high
-> value in the unsigned type.
+> is_range_mthp_backed() seems a lot clearer?
 > 
-> Fixes: 36528c7681b8 ("arm_mpam: resctrl: Add support for 'MB' resource")
-> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
 
-This looks good to me. Out of interest what led you to find this?
+I would rather keep the order in the name.
 
-Reviewed-by: Ben Horgan <ben.horgan@arm.com>
+The helper checks that the range is backed by folios of exactly the
+order the caller names, and the mTHP cases call it three times per check
+at three different orders to tell them apart -- reporting an order-7
+folio as order-6 is a bug.
 
-Thanks,
+It is also called with order 0, which is not an mTHP.
 
-Ben
+Going with is_range_backed_by_order() in v5.
 
-> ---
->  drivers/resctrl/mpam_resctrl.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-> index 9d223057953ab..a5e661eff86d7 100644
-> --- a/drivers/resctrl/mpam_resctrl.c
-> +++ b/drivers/resctrl/mpam_resctrl.c
-> @@ -786,7 +786,10 @@ static u32 get_mba_min(struct mpam_props *cprops)
->  /* Find the L3 cache that has affinity with this CPU */
->  static int find_l3_equivalent_bitmask(int cpu, cpumask_var_t tmp_cpumask)
->  {
-> -	u32 cache_id = get_cpu_cacheinfo_id(cpu, 3);
-> +	int cache_id = get_cpu_cacheinfo_id(cpu, 3);
-> +
-> +	if (cache_id < 0)
-> +		return -ENOENT;
->  
->  	lockdep_assert_cpus_held();
->  
+Everything else here taken as suggested, and the comment made kdoc.
 
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
