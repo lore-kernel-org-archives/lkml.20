@@ -1,118 +1,134 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6016E3AA1BD
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:27:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2762D3AAF44
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:27:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788762427; cv=none; b=pumm8DR2mK95J8WkI/nMFghCNYa6xdC9lOVG4XuJ5vDaYqPaWh0OefnQzA8AN8lJ4/182LT61LxUZLdwAbk92VhRgj/sxds78r5o4Zf2Zo7bfPJsBr5rc8VFgQJyz6a0r7+zfYHWsp1N2tWI1p6cODEy8txBqQ3By1nOTlEGrVA=
+	t=1788762445; cv=none; b=jFvfjvGk6fxMgEk3IeNKr4JZFtowwy2VbiwJkw3rw0pCs3KSXOfC2DQNVxDt+4tKMwuDu1YfTVBvwY3f3f4RcxuOok1mayUvP4BJXdWJa2dH4BiZZ6augEwVBJfSjcpoy4EO0zHJYdYg3tXty6vrvi5KJkmb8lJwbMtgNh4kMjc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788762427; c=relaxed/simple;
-	bh=rZ8iRBSZE6xpKvhJ0ZOhQ94EMB7ydccG7ry6lP67m40=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EHQt0e9E2ikq3JXdjEzPN26cw6JhP2AyURXjgVZniD6e6tx646nZnZzAGU8Ni16KLZhi945B7tWPALZvxSz2bLOUj+emyxaSVICLr1CxeIGjOgUTa5VqhBrcucuh5KzO3rLJhv5NSeWeuQhLowyj0Png4fSqrx/liRgNwmXs1dk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nrSgwwQ4; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788762445; c=relaxed/simple;
+	bh=nkgyAUJ7pHClAvsZ5qJwmiwRizcq1QZyOlHnQIOYXNI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ezzwfrTrFw/FVttrUjxEwPjRPYig1kyVG19X4SPJNnJyrRu8DJwOFNbjrx3+oRaKQvP1DSasoyWISjFHtvJTdPJYVNwsqlClzXsRxpRGk6ek9eNER2hf9lJ14kQCHFujRf3oN5mx069WJapo8tYzDr3EK2Xeyi1uHsvWJzhYCGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=Wi5xplCg; arc=none smtp.client-ip=115.124.30.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nrSgwwQ4"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d5cad1a6baso26946145ad.3
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:27:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788762424; x=1789367224; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OcF57hu0+g/ff9yOn0KrB5lQwjHMKCpuTDcWS1ABzmY=;
-        b=nrSgwwQ4mP+GDp/Ie1Umg0MgTJOWzUZbn1CzHIT/7zk11giFBiSXHhIAfGb5cPRtYs
-         UtfXY7ZOHkFuOWEqnK0g1/i1njA4h0GikT58SCJu6rPyd1xP4kLX9TSDiPpFHhOMek4c
-         biJOQev9dP7EPtqWacpajMhlYMDyET1wEg4L1tSHemROFGd3jvCtVftk3eJzUFgnzmoF
-         kEO4IJ5HTKQ5MO2kS8RfofjUfo+3r/F/RuZeXVH81D7Nwmd0nSCHoav4OblUVEwsglAk
-         zh2xkeUBjk3qWSJ3s0e6+HykZ1m1GfKGB5GQMdIPdS0hkQEXixTfJOChnHwazPzABkPg
-         CJvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788762424; x=1789367224;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OcF57hu0+g/ff9yOn0KrB5lQwjHMKCpuTDcWS1ABzmY=;
-        b=A0yLfvQ3UnGHEjxh/p1V9u8MWMi0w4/YmwOa6RJI/885h/GWjZcjAhEXELMC0V+KCY
-         /336F7A8Tpj1kt2Tq+7GYvljn4SCJGbrh+p4u2qYRk4KuoNlpupFnXm2045kj8/g5IFA
-         eyhmS7wk57hCCtVFvV9rGedzSvpyXVAJS8A5zTRInnDHhbY61q2UdZwoE/n35tcGfhig
-         vwYYfiSwhtKA5F1kmlZxquZ4X8ZKr04lzSQrQi+0UZjkPoGFPlmkHwmppURojf7rgoO1
-         +rrYi9pna/5Od3kfYT51ONSeK3NlxTsgBghLFMJsidltDv8hJckLaJ1piRvRMcw0Yojp
-         prJw==
-X-Forwarded-Encrypted: i=1; AKwUvBwGrWZn6whmF3NpcHqv/5pzY5nllrU3teq7j2AMJGkOdCCKKd+OgEtpg/vRt3rPgMYXpZyptPmpYbEHkN0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lNtxgpRKiGkRB4LObBO8RcCyAp3hcrNdZvjv33ZfJDkFcGaa19
-	wI/CSVPsXI/VkkbcOPtmuoQPGdTgvujNY5UHC8Lu7OHYQW7y38sVdO67AD4xWZ6vBMk=
-X-Gm-Gg: AYBFou2XPc7QGtP6CcszwWBQpYe0lUaFEcUiiVpCwWds3eQ1CgFXbe6bGS1OynAiMDh
-	fMyonGs1gfDfv5wby5hZ5HeItCzv669DxZz79fmgantNRjgw2pvRKaWP/xNI+kfBf2bVDcrpvMP
-	s2ZeSb/56YdVmfAPNrRPidwk2rK/9kRR06mY+wUaLpncWT7TEcrMptQZGkDsJE0SfvLIaV11zp4
-	gFsKPEaG3kkvfqqKV7Bc7WHkshi0qdVE7Ejic22DLPJJyba1nM5wyDIPq7s+XrTzdzukF/i0Krv
-	Y0qS/r+SvLvBJbUxx6RatcF5FP6SExMKi1D1A8ALGxNE8Ftz46FrVVPvXROotkDgWtUNH0kV3kA
-	zv6r6UMv16oVZhfSTc7ercNJq55ILMNHwpICtbZhl4SePV+PEuSiOZJ49+QHgKSyxbe8KPlLpQP
-	o0gGwCTPJlAZZFQdHPD7dItXgkiBQ+Uow+xdd0BFB+TC4FNiHx1kKqAV7bUu47mWgs2fDBMg5Gt
-	opKLniD15q9Nw==
-X-Received: by 2002:a17:903:1b4c:b0:2d8:d4d3:da4d with SMTP id d9443c01a7336-2db1262325fmr342823045ad.17.1788762424119;
-        Sun, 06 Sep 2026 23:27:04 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33450e140d3sm20404392eec.4.2026.09.06.23.27.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 23:27:03 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: linux-pwm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] pwm: fix typos in comments
-Date: Mon,  7 Sep 2026 11:56:58 +0530
-Message-ID: <20260907062659.15500-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Wi5xplCg"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788762431; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=hENVjyqztRMLk2vL/FfYPkshdB/mPunTh4py6EM4dwA=;
+	b=Wi5xplCgmJdBzTENybB84fUBRCmNmGS72v5W5rkcKeNer4EOE9QqbRinW01u2R1jJ0d0c9JYySkmBtBCZYkTzeZceV1ZRDGnFfuA5obZYegRYwyP4R4C2H3XXRBoqVwzSeZWjbSLmplR3a5Pgp7m16OI+YeQZG7dWLnEk700Em0=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=16;SR=0;TI=SMTPD_---0XAQ7YRv_1788762429;
+Received: from 30.74.144.134(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XAQ7YRv_1788762429 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 07 Sep 2026 14:27:10 +0800
+Message-ID: <ecef66b1-f0a9-4a7f-bf52-227dcd69d88f@linux.alibaba.com>
+Date: Mon, 7 Sep 2026 14:27:09 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm: mglru: clear the reference counter for rejected
+ folios
+To: Kairui Song <ryncsn@gmail.com>
+Cc: akpm@linux-foundation.org, qi.zheng@linux.dev, shakeel.butt@linux.dev,
+ baohua@kernel.org, axelrasmussen@google.com, yuanchu@google.com,
+ weixugc@google.com, hannes@cmpxchg.org, david@kernel.org, mhocko@kernel.org,
+ ljs@kernel.org, ridong.chen@linux.dev, hebaoquan@kylinos.cn,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <8e4db9a298c5ea6ccb192e274caed5b96f0cf022.1788751143.git.baolin.wang@linux.alibaba.com>
+ <CAMgjq7Cf2ZjkW0JxtHnm06NECHA0+wCXAxd4tkbtCLhC+qA0ZA@mail.gmail.com>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <CAMgjq7Cf2ZjkW0JxtHnm06NECHA0+wCXAxd4tkbtCLhC+qA0ZA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Fix typos in comments, reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- drivers/pwm/pwm-brcmstb.c | 2 +-
- drivers/pwm/pwm-pca9685.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/pwm/pwm-brcmstb.c b/drivers/pwm/pwm-brcmstb.c
-index 790ef7ffbbe5..78378787e4e9 100644
---- a/drivers/pwm/pwm-brcmstb.c
-+++ b/drivers/pwm/pwm-brcmstb.c
-@@ -101,7 +101,7 @@ static int brcmstb_pwm_config(struct pwm_chip *chip, struct pwm_device *pwm,
- 	u32 value;
- 
- 	/*
--	 * If asking for a duty_ns equal to period_ns, we need to substract
-+	 * If asking for a duty_ns equal to period_ns, we need to subtract
- 	 * the period value by 1 to make it shorter than the "on" time and
- 	 * produce a flat 100% duty cycle signal, and max out the "on" time
- 	 */
-diff --git a/drivers/pwm/pwm-pca9685.c b/drivers/pwm/pwm-pca9685.c
-index a2792b803643..3374ed76f8d3 100644
---- a/drivers/pwm/pwm-pca9685.c
-+++ b/drivers/pwm/pwm-pca9685.c
-@@ -54,7 +54,7 @@
- /*
-  * The time value of one counter tick. Note that NSEC_PER_SEC is an integer
-  * multiple of PCA9685_OSC_CLOCK_HZ, so there is no rounding involved and we're
-- * not loosing precision due to the early division.
-+ * not losing precision due to the early division.
-  */
- #define PCA9685_QUANTUM_NS(_prescale)	((NSEC_PER_SEC / PCA9685_OSC_CLOCK_HZ) * (_prescale + 1))
- 
--- 
-2.48.1
+On 9/7/26 12:57 PM, Kairui Song wrote:
+> On Mon, Sep 7, 2026 at 11:29 AM Baolin Wang
+> <baolin.wang@linux.alibaba.com> wrote:
+>>
+>> As per the comment on LRU_REFS_FLAGS, when accessed folios are promoted to
+>> a new generation, LRU_REFS_FLAGS should be cleared so that the reference
+>> counter can start over.
+>>
+>> For folios rejected by shrink_folio_list(), we clear LRU_REFS_FLAGS and
+>> set the PG_active flag if the rejected folio is planned to be put back to
+>> the oldest generation. That's fine.
+>>
+>> But for those that are not put back to the oldest generation (which can
+>> be treated as a promotion), we do not clear LRU_REFS_FLAGS, which can
+>> violate the promotion mechanism. This means the rejected folio enters the
+>> new generation with stale, inflated tier bits, which can inflate reference
+>> counts and distort eviction statistics for these rejected folios.
+>>
+>> Fix this by clearing LRU_REFS_FLAGS for rejected folios, and also do some
+>> measurement. On my 32-core Arm machine, with the memcg limit set to 3G,
+>> running 'make -j32' to build the kernel showed a small improvement in sys
+>> time when using either a zram or NVMe swap device (averaged over 2 runs with
+>> no significant variance).
+>>
+>> zram swap:
+>>                  w/o patch       w/ patch
+>> sys time:       1666.5s         1589.5s
+>>
+>> NVMe swap:
+>>                  w/o patch       w/patch
+>> sys time:       760s            741.5s
+> 
+> Hi Baolin,
+> 
+> Thanks for the patch, it makes sense and I like the idea!
 
+Thanks for taking a look.
+
+> However, I find it interesting that your test setup shows such a
+> significant benefit with several recent changes when I can't observe a
+> performance gain on any of my setups. I'm a bit worried this (not only
+> this patch) might be overfitting into to the kernel build test on
+> specific setups.
+> 
+> I did try this optimization before and found no gain, maybe it is
+> somehow tangled with some other recent upstream changes?
+
+Probably.
+
+> 
+> For example a few recently landed MGLRU optimizations sped up the ZRAM
+> kernel build test on your setup, but slowed down many other cases.
+
+I'm not sure if there are other hardware environment differences. I 
+agree that for complex changes or optimizations, we need to cover more 
+test cases than just the kernel build workload, such as the test 
+coverage in your MGLRU-FG work.
+
+However, for the current patch, I think it's more about correcting the 
+correctness of the promotion mechanism, and the goal is not merely 
+performance optimization. If we stack more changes on top of the current 
+broken mechanism, I'm afraid future optimizations will become more 
+fragile. So let's first reach agreement on the underlying promotion 
+mechanism.
+
+Also, as I replied to Barry, the promotion in lru_gen_set_refs() needs 
+to be reconsidered as well. It similarly requires clearing reference 
+counters before promotion.
+
+So for this simple mechanism correction, I only evaluated the kernel 
+build (which is still somewhat representative as a comprehensive 
+workload) and it did not introduce a regression (which is fortunate). I 
+wouldn't want any workload to rely on this incorrect logic for 
+performance gains.
+
+> I still think this is mergable, but before that, do you have the
+> LRU_REFS_WIDTH data from your kernel build? Or lru_gen_full output? In
+> some cases it shrinks to only 1 or 0 bits, leading to very different
+> performance readings.
+
+The LRU_REFS_WIDTH is always 2 on my setup.
