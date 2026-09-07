@@ -1,190 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AA4646D2B9;
-	Mon,  7 Sep 2026 09:58:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B88CD3AFAEF;
+	Mon,  7 Sep 2026 09:59:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788775132; cv=none; b=eNl8UMyg36yipJ9f1YHr12g2RoiebDDeWXlgqlnQcOxV+z2KN77/XZcUNR7v384Q1XMfv7Obm5Uyy5BnhvyJSXPB/rbSRJ1TjGNTTRV77ZysV98XJwuXkkOMJHpZfcGpnwjISEVAOvVXZAiiy5EfFEQJY6fg6XOGz/R4vYJcpa8=
+	t=1788775172; cv=none; b=tncGCjvNeZg2gD5nuGkcnoELcBYAgGencD3yROuGboSvkFU5jo5QUsygpI9kUXVDfVJDrMNxn6Tr9HULNb4G0g4s8tj1Bu3TS7lgnjlNCwD5Amr2tv/5lLZGplu7sE18NWdXeiacNE/DOR+2RzNT6+dahlIK9JZX2+y+dUzOzQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788775132; c=relaxed/simple;
-	bh=2WSeminL2sHAHn+HbQhaOX4FADTSAQfyN4PN41I4lsw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=g9A5jgw2QeHU86V7RqFd6tUObLof1IeZv8lrIIQLserIo3UR8RmZ/feJc9p5L+6XnnuJYVBE9EvNAzTuRhSJVS94+MlcOn6H7ZCkIh6of7PoBD5EJsXR8nLstoyUpnKNaD9CIC5uFB+RkiXMxyqFF1j8G7cA9XsR+Qtomd8l6Uc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dbBVeCbr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788775172; c=relaxed/simple;
+	bh=8MJKxxoccE8R0yQTP0Xn0yEz2tqNsX4Ml0v7HyjBe/0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JDdsGE8rHRk/Nb3jpTOBcfBBF9bksCq/unGM348DZmt67dHUebVOXK7LdmkXJXvn7qjz+OY5XaFKnKOo7roecXo8MCYkVLwSRbsm6gtorIO1hINpSNB05j3O8Du8r5Zj6YDAILsGadYkEQAjoHOT1O7uljymoOnucPKYOBatbxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=RBCObkqe; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dbBVeCbr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C011E1F00ACA;
-	Mon,  7 Sep 2026 09:58:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788775130;
-	bh=BqnIWeCAGaPUYlaZlk6L1OPF4VRf6Uq0c3BQIWypxoA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dbBVeCbrIiVEQAhhDrY6TpOpojp1xG4UaPfjdNsWtWXQ15rIWEUF6U0z0TtBdWe8v
-	 4zhJHDeIjsxGW9XjgxvMNcCCTdw5uBrCtCGfRyNuWdDtvvtpuTmHTgmpsoDBZcx6E8
-	 uNZH/V2aCqxELC0TmPQMPi5KHcXHgm/YoIQ19lSavpEaJ7N5KG0AuENUpoQgZVQYcB
-	 3CcMTzPdGzqS7QdaZMRuKE6u7OG9Fz4002O0DmkZ817oFM5E0tipqBXs+41MDaQwH0
-	 uM7ejISloEu/d7lUIR+aCxVnkhD8diBfXrhfUqczK+8LPHm+LFHPOpOQVbksrS0mSB
-	 lGueKopIbqfqQ==
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfauth.ams.internal (Postfix) with ESMTP id EACA0198003A;
-	Mon,  7 Sep 2026 05:58:46 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Mon, 07 Sep 2026 05:58:48 -0400
-X-ME-Sender: <xms:1oqeanAtK-gOkFsE1aBfOLFFC9pXpzo0_Qe9O1FIZeZ2A1HjEHe2Bg>
-    <xme:1oqeakdWWL0GWfydQXyrNBYjTLZ9S5v5kJOyUijVf5qRY4UXsG4_oXFB36xFhOnpI
-    3d5KLWn_sjCO-JtAy5pjdKCbiSoU3utNwI86P_KdDsIif3_Y24RG4QG>
-X-ME-Received: <xmr:1oqeanrYg8mzNtlwyuthz3qFkAU7LgF2mo4WD8PPxz6ZVWcKCtJ8S4_7QCI>
-X-ME-Proxy-Cause: dmFkZTEfmTDj/r+7N3SoJC/vnCUjsKNijMe1VXFD0b88h55H2gBIFouQJkZSZK1yyk30Sm
-    mIpo4+lqFBdKW9tiCpcqxnDvXOftY/uwGIbts6csXqNfxsNqOfnYnFu40A0wAOj35G9s+w
-    IAMv9bbisiS7ei9Uc4aFfDLSUxZi6vkR+vpXkb8NeS63qvjIFlVzXVDhwHvtwaAOtbHyG2
-    EUUfEj73JOAPxGIHZGnc8vHsjF2mphj6z1w+QhR+1XLYLXNDi1frGA6EeIrPkmhp8ZYVyp
-    w0DvRbQmjeBcjm+uOYs5drfpJJgg1sHnCQ9G2soFC7z9xfrcgmKRrSpzbA16VZVaATLmjT
-    G3X7mrluRu/OP7GWi6COueqWAS0H3GTAGJ/fm56NGzoGd7yk6zkLuzmNrmSMjr6442CP+y
-    HnlPe3n8Xk+qYwbdJcNYCz0zhVGBp52fzd8usy6Fv9D8UkByjw9bqELipPUY49VIjGJE2y
-    JcYI/8qNW7KnpCpfbw5A/XZmV7qwKjxVYos5Scwlkivj00woZwco40oiQ1DODWrecViyGZ
-    ov5bIFs7u1nvBAMGn0nSs7osJZqBdFI2+Je/NL7bbI8gmBfKSV2p5aE0ilvuAaSk5uQcds
-    Tvsfw7j9v1iyR6EXzbNGjAsmmJ+QAREUZ87tqDPg3s1zIjJQp39uQZ/tNe5A
-X-ME-Proxy: <xmx:1oqeag4Az8IE3i1krUREylLDILUEbfW7dkcW1CaAGsjwR1DL-Ly7Sw>
-    <xmx:1oqeanCOdjfvxxZvT36qwvehRFKmPrKF7gQvR3GoKQ-qrlDkWl_hmw>
-    <xmx:1oqeaiYdhQ3Fxw6SiYkbkGC_fPKuSWHl02pJZCbdBTWCeKVMDB3F0g>
-    <xmx:1oqearLVMWATyBz1DjlLACTAyFKCiDw1mxgsZSbfxI7njkhAQ7pv5g>
-    <xmx:1oqearA3UfMNpPQTwLpiEqugOEzXKL3E_KY3Yt5Q3Fh4g57KL8KnO63f>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 7 Sep 2026 05:58:45 -0400 (EDT)
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Nicolin Chen <nicolinc@nvidia.com>
-Cc: Jason Gunthorpe <jgg@nvidia.com>,
-	Pranjal Shrivastava <praan@google.com>,
-	Mostafa Saleh <smostafa@google.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Krishna Reddy <vdumpa@nvidia.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Breno Leitao <leitao@debian.org>,
-	Kyle McMartin <jkkm@meta.com>,
-	Usama Arif <usama.arif@linux.dev>,
-	kernel-team@meta.com,
-	linux-arm-kernel@lists.infradead.org,
-	iommu@lists.linux.dev,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Subject: [PATCH v5 2/2] iommu/arm-smmu-v3: Default queue depths to one page in a kdump kernel
-Date: Mon,  7 Sep 2026 10:58:35 +0100
-Message-ID: <20260907095835.1233352-3-kas@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260907095835.1233352-1-kas@kernel.org>
-References: <20260907095835.1233352-1-kas@kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="RBCObkqe"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id EE937C45;
+	Mon,  7 Sep 2026 11:57:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788775073;
+	bh=8MJKxxoccE8R0yQTP0Xn0yEz2tqNsX4Ml0v7HyjBe/0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=RBCObkqevtvA6PD8XPgIjA+Iw5TAy3OzJlnKh7XeMYZXAH9sMNdXQKjDhFhrGCdVf
+	 o9p5o+z1VwCKp4JaESH0yDvzuDsTba9jgOZiKbLNW1QJnqyX8T3nu8EXd/ONdC3uKY
+	 rEbtykvpq3Y9V6Ap+LgBfIwZSVWj6d/YX0jpHxj0=
+Date: Mon, 7 Sep 2026 12:59:26 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 4/7] drm/rcar-du: dsi: Support DSC in the pipeline
+Message-ID: <20260907095926.GA1672293@killaraus.ideasonboard.com>
+References: <20260615-rcar-du-dsc-v5-0-aed1a28610e4@ideasonboard.com>
+ <20260615-rcar-du-dsc-v5-4-aed1a28610e4@ideasonboard.com>
+ <20260702212423.GA3662157@killaraus.ideasonboard.com>
+ <7be9a590-2c27-4725-89eb-dad9dc3632b9@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <7be9a590-2c27-4725-89eb-dad9dc3632b9@ideasonboard.com>
 
-All three queues are sized from the maxima the hardware advertises in IDR1
-and allocated at probe, up to 4 MB each on a 4K-page kernel. The capture
-kernel already disables two of them: arm_smmu_device_reset() drops
-CR0_EVTQEN and CR0_PRIQEN. It still allocates both at full size.
+On Mon, Sep 07, 2026 at 11:56:01AM +0300, Tomi Valkeinen wrote:
+> On 03/07/2026 00:24, Laurent Pinchart wrote:
+> > On Mon, Jun 15, 2026 at 04:11:57PM +0300, Tomi Valkeinen wrote:
+> >> Enabling DSI clocks on rcar-du needs some tricks as the DU dot clock is
+> >> provided by the DSI. Thus, we call rcar_mipi_dsi_pclk_enable() from the
+> >> crtc, when enabling the crtc.
+> >>
+> >> With DSC (added in upcoming patch) in the pipeline, between the DU and
+> >> the DSI, the above call path is broken as the crtc tries to call
+> >> rcar_mipi_dsi_pclk_enable() on the DSC.
+> >>
+> >> To solve this problem, make sure we store the DSI bridge to the
+> >> rcdu->dsi[] array, instead of the first bridge in the DSI pipeline
+> >> (which can be DCS), by checking the bridge's bridge->type.
+> >>
+> >> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+> >> ---
+> >>   drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c | 18 ++++++++++++++++--
+> >>   drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c   |  1 +
+> >>   2 files changed, 17 insertions(+), 2 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
+> >> index db2088529b48..ac85838ab3b8 100644
+> >> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
+> >> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
+> >> @@ -89,9 +89,23 @@ int rcar_du_encoder_init(struct rcar_du_device *rcdu,
+> >>   				drm_bridge_get(bridge);
+> >>   
+> >>   		if (output == RCAR_DU_OUTPUT_DSI0 ||
+> >> -		    output == RCAR_DU_OUTPUT_DSI1)
+> >> +		    output == RCAR_DU_OUTPUT_DSI1) {
+> >> +			struct drm_bridge *dsi_bridge;
+> >> +
+> >> +			/*
+> >> +			 * When we have a DSC block between the DU and the DSI,
+> >> +			 * the "bridge" points to the DSC. Detect the DSC by looking
+> >> +			 * at the bridge type, and skip the DSC if the bridge is not
+> >> +			 * the DSI bridge.
+> >> +			 */
+> >> +
+> >> +			dsi_bridge = bridge->type == DRM_MODE_CONNECTOR_DSI ?
+> >> +						     bridge :
+> >> +						     bridge->next_bridge;
+> > 
+> > The indentation looks weird.
+> > 
+> > 			dsi_bridge = bridge->type == DRM_MODE_CONNECTOR_DSI
+> > 				   ? bridge : bridge->next_bridge;
+> 
+> That looks even weirder, you are associating = and ? there. What about:
+> 
+> dsi_bridge = bridge->type == DRM_MODE_CONNECTOR_DSI ?
+> 	     bridge : bridge->next_bridge;
 
-A kdump capture kernel runs from a small crashkernel reservation, and every
-SMMUv3 instance pays that cost again, up to 12 MB apiece. It goes to queues
-that either serve the handful of devices used to save the dump or are
-switched off outright, and it is memory the dump itself needs.
+I like my version better :-)
 
-Default all three depths to one page worth of entries when
-is_kdump_kernel(). The queues carry commands and fault records rather than
-DMA data, so dump throughput is unaffected. A shallower command queue only
-bounds how many commands may be in flight before a sync, which does not
-matter for the few devices that save the dump.
-
-An explicit cmdq_max_entries still wins, so a capture kernel that wants a
-deeper command queue can ask for one on the command line.
-
-Suggested-by: Kyle McMartin <jkkm@meta.com>
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Assisted-by: Claude-Code:claude-opus-5
----
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 37 +++++++++++++++++----
- 1 file changed, 30 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-index 4550b1105e9c..67dca0cb487b 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-@@ -4424,6 +4424,9 @@ static struct iommu_dirty_ops arm_smmu_dirty_ops = {
-  * @ent_sz_shift: log2 of the queue entry size in bytes
-  * @entries: number of entries to cap the queue at, or zero for the default
-  *
-+ * The default is @ceiling, except in a kdump capture kernel, which defaults to
-+ * one page worth of entries.
-+ *
-  * @entries is rounded down to a power of two and floored at one page, because
-  * coherent DMA is page granular: a shallower queue occupies the same memory as
-  * one that fills the page, and arm_smmu_init_one_queue() stops shrinking at a
-@@ -4433,11 +4436,32 @@ static u32 arm_smmu_queue_max_n_shift(u32 ceiling, u32 ent_sz_shift,
- 				      u32 entries)
- {
- 	u32 floor = PAGE_SHIFT - ent_sz_shift;
-+	u32 new_ceiling;
- 
--	if (!entries)
-+	if (entries)
-+		new_ceiling = max(ilog2(entries), floor);
-+	else if (is_kdump_kernel())
-+		new_ceiling = floor;
-+	else
- 		return ceiling;
- 
--	return min(ceiling, max(ilog2(entries), floor));
-+	return min(ceiling, new_ceiling);
-+}
-+
-+static inline u32 arm_smmu_evtq_max_n_shift(u32 ceiling)
-+{
-+	/* Capped to ensure natural alignment */
-+	ceiling = min(EVTQ_MAX_SZ_SHIFT, ceiling);
-+
-+	return arm_smmu_queue_max_n_shift(ceiling, EVTQ_ENT_SZ_SHIFT, 0);
-+}
-+
-+static inline u32 arm_smmu_priq_max_n_shift(u32 ceiling)
-+{
-+	/* Capped to ensure natural alignment */
-+	ceiling = min(PRIQ_MAX_SZ_SHIFT, ceiling);
-+
-+	return arm_smmu_queue_max_n_shift(ceiling, PRIQ_ENT_SZ_SHIFT, 0);
- }
- 
- /*
-@@ -5196,7 +5220,6 @@ static int arm_smmu_device_hw_probe(struct arm_smmu_device *smmu)
- 	if (reg & IDR1_ATTR_TYPES_OVR)
- 		smmu->features |= ARM_SMMU_FEAT_ATTR_TYPES_OVR;
- 
--	/* Queue sizes, capped to ensure natural alignment */
- 	smmu->cmdq.q.llq.max_n_shift =
- 		arm_smmu_cmdq_max_n_shift(FIELD_GET(IDR1_CMDQS, reg));
- 	if (smmu->cmdq.q.llq.max_n_shift <= ilog2(CMDQ_BATCH_ENTRIES)) {
-@@ -5211,10 +5234,10 @@ static int arm_smmu_device_hw_probe(struct arm_smmu_device *smmu)
- 		return -ENXIO;
- 	}
- 
--	smmu->evtq.q.llq.max_n_shift = min_t(u32, EVTQ_MAX_SZ_SHIFT,
--					     FIELD_GET(IDR1_EVTQS, reg));
--	smmu->priq.q.llq.max_n_shift = min_t(u32, PRIQ_MAX_SZ_SHIFT,
--					     FIELD_GET(IDR1_PRIQS, reg));
-+	smmu->evtq.q.llq.max_n_shift =
-+		arm_smmu_evtq_max_n_shift(FIELD_GET(IDR1_EVTQS, reg));
-+	smmu->priq.q.llq.max_n_shift =
-+		arm_smmu_priq_max_n_shift(FIELD_GET(IDR1_PRIQS, reg));
- 
- 	/* SID/SSID sizes */
- 	smmu->ssid_bits = FIELD_GET(IDR1_SSIDSIZE, reg);
 -- 
-2.54.0
+Regards,
 
+Laurent Pinchart
