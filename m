@@ -1,64 +1,64 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FB6943CE7C
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:59:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E41542B33E
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:59:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788767961; cv=none; b=CHz+Wb63zVjwTA+ba3LvlFVprcc/S9+XecBKL5LLuE6XRgnCLBUE7fFsqXFnyOQZvB2O+Bh4hK9wome6AVqj/+msP8865BRgZWB+GvtHcw/6ZqJ4dpwNsFw5RnE8CtL2065u+Ji7tz3O3D0H+F/3EA3z372nGZ0a/0e2hQ5S9gQ=
+	t=1788767965; cv=none; b=pdvgrUi4wXEEMnca91Cbi1rBNWaQfVwHQHeVewj4mvE9BR17XJ1LGBcYLoajCkiM8GEu6gfe03QJCg4iIA9437Ni64WNITPWVwbuU4CDrx4Hju4ovzqrY/Psi3REC0Wwf6BhFXz0yS+++utAWGymAsgk6zZJH88LOO224lqa2eY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788767961; c=relaxed/simple;
-	bh=RzK7kMbyNX0ub/uYwf0yfYkwe5IMNl40/Xs6NO4qP68=;
+	s=arc-20240116; t=1788767965; c=relaxed/simple;
+	bh=dg7Xxulm0f7n3Jncso1740bE2QW01y0FbyYtuO+2rns=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CAIrsaSrO8SVUIB5Iq2jSPqAkV5IIHsPe9f98lVhSxbuuXrt58uCsEB1t0oBwNr6Lhr12e1OiVqRxK7LzxFlJ09p7ox5CZfzSr/IHW8PxngX4+gMMQhFqDYsJ2Vcv89MXiRdBAXUFNlpWFuJbVVWcfGZ5Wjxuv23LZLQ/vu7Q+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DjoTBF35; arc=none smtp.client-ip=209.85.214.170
+	 MIME-Version; b=qSf6C9367AQ8v+qaeyk0g936iEDoiFiNBnUQjSeor6U/PIPdN0ZFzZIZVYxsTc9BFrsy0jYAY+xxwK4uWPRIVdY51cQNPEX9CpDb6NjNKvw1N+BhVGYXtlN5azyebVeklipV5c9qgJ9ah/Yu9FVOFA2fLx5QvsbYNc1y2pRlb9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A3dQKsRR; arc=none smtp.client-ip=209.85.214.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DjoTBF35"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2db18e5cb56so29079355ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 00:59:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A3dQKsRR"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2ceab75934dso31012465ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 00:59:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788767960; x=1789372760; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788767963; x=1789372763; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KKFw3PpfzfMC3bCjGChjW74mzAGePmhCsoG4uFIYkwk=;
-        b=DjoTBF35k8pJoY/itnQ8weDS5Uya4GAjLz5kc5MU6G6/RELaAPf+poWX0MjouRCgMM
-         RMEPIeoPXXeHtJis8HbZZ3cVDTzGQ377RBrafGgece9eUR5oWDj+fot7YH5yOUl6ZzIK
-         Gq0Zdy+cuXzRYnGMMJYVqnRIgixD6n/StoNU13J8oiUdVTCP5XCv/2meiMAMaNxL0fPp
-         sg2HXmU0d19sWhn22FTMmk8yuQPVz+UT0fWRo+z0wcKJMvCJEqwQTKCaLn/GL1+aYvER
-         emVF37/ZpJzfvuKdoKo6fqY0QoSMcxFpFRSbs/aFL2wqFbWEWsfT0A4jG+myytNsqGeZ
-         ZH7w==
+        bh=DX1yDb5IswgEQSYkpWQVORuzyx8T1C+zUGVpHzXErSU=;
+        b=A3dQKsRR6bQsVkTgc1hWyIHzpvhr56LM9fIaKwZPOgKPQMVbMjU6bETbTF2C64DpXH
+         VYazgsbVFvYIwCqCHbOIbIytWeS5oTEv4fdUS04sAVIrEhYxp+dbtfNs3lYD23hWGmmJ
+         lylH6Ph4BJyLw2eD4lgqVIWDWEGRYe3B9THVYPrjkMNAaUhUVnlvKspsNxr5gCDcDNJi
+         4gFwO7Uhv1iuIXoKeuu+S2Ojp4UeISomEx9tt1kC2648NjGdX6M+UkmO3VwVf2ubjYp0
+         uZQKF9SOOhuKJNvucCxYMufcJlWNsKu9JTbk3ZP0yx65aIow8M0Gu8VknMTw4vjQgQk/
+         Nx+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788767960; x=1789372760;
+        d=1e100.net; s=20251104; t=1788767963; x=1789372763;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KKFw3PpfzfMC3bCjGChjW74mzAGePmhCsoG4uFIYkwk=;
-        b=CkIe3hgQHu+03kVywvE82+t7/4oZGnpdCoW+ed60AlNpAdruK520IVdj3UteIanvmE
-         nmqal88AafIRq4IUwuB+TbuH4ik6uS67UwRmQv2pfB6jhclEXnJLKwl+AuvhIGtLItLa
-         D1wOP2+xNR9wh8DQ0yAcd2iOoopJ6CPZHtPLcuHTgg4bCXD5KVsOjgBKD521AzoKnRXp
-         Y8Frq3cwvLUwMrcCF3oN7tKmDXtXFLL+OC9E1tLZ3BUwqtYKygToIagOh53qTR63x8+X
-         dkOujoPYYqREA4343bSYv+BvLcR3gnaSovRVqlwjlQd23AOrliNmVlELV465nFOn7Ol6
-         nlHA==
-X-Forwarded-Encrypted: i=1; AKwUvByg5vAgIqX3KW+W8lZNNskZO3Rnu8cjiEhjSXaIjQgjhboDPG5kx+XvqZrK8JL6D1+/V9AY2ZZwXOOK3MY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kTZ2gICkdFD/5qd/0xItZToUMO0+pFoXWUEYBLVsxvQ0BOCoZf
-	8Ib+Y39ViXJh5fwBIzKv84ru+xuY7GRO+aUYwjd8e1s0EC3ts/fs6IoN
-X-Gm-Gg: AYBFou3647FwgnP/FmhnsePyatIT4o38N/Ly91DxoHZT+vKG149G3EPZmjLlgxpxpvn
-	FrsTr5O4jTjHaf6QiH9QI6oPRWZc+vKNVdg01Gh2By6RKzuS7WWzKHN2UzJdmMgePaIw2VkM74V
-	QTK0rz6cin9XQ1mvIgDVNeA/F93PXNx0c8MIOHzIUjGL8c2r2QBMCMmO1v2FjDs+EiqhfTy3RLc
-	13zDNqsKmbmr901U6dC3EmSJLrg3U8AgAmiUzC5M2wshzeE4VoVJFfpCHqbTQYlEg75Mr2+lHPd
-	bL4hYYgZo+unN9RTybb/GmDSiDS+RBdi3pWBbA5bx5xF60tzBk1XUTACxEK9eN/9r0THP5Fepij
-	daV2obX9sxnVAoM78dtm5DV+ii/zIKcoxUUEyFV3miW1pzmWiYSkg9Xq+y++yQg+ij/rwAcFuKE
-	0zeFNXvVSiBgwGxVOpi5viErLrFJbWPIpGJ0J2UtCHAroxiAUiP2ou7LLABQi3U0VEBsSxUNXQb
-	2Hoyso=
-X-Received: by 2002:a17:903:1acc:b0:2d8:d4d0:7931 with SMTP id d9443c01a7336-2db128bde59mr303579055ad.21.1788767959527;
-        Mon, 07 Sep 2026 00:59:19 -0700 (PDT)
+        bh=DX1yDb5IswgEQSYkpWQVORuzyx8T1C+zUGVpHzXErSU=;
+        b=lHobEnIyK11g9H+rp7oYfxxpPteXfk2RLItM0rmh6ez38CkIBNS2rRNZrmxfckh3ZD
+         27Hr3/YauDDhCH2woHWJ2I4ReSgUFha9a0Acsraw3f3xaPdOWfLL9YI+TqXBx3yoXNUF
+         dYmSqySRooWTeYKR7lj8XOdHiznucIDEJ3ixfo6Ob7RBpIh408G3RNcP1JsaIZCErlTg
+         U9xFzwCrKMrWftNAR1d9Zhq8orppK2TUSagbER4V/hS/ikbV1t9tDcK4GmgyLOGOwmVA
+         3g5AuMJnxJ+X5Q9TfSQck9EZ2RYnQrDgEy4/VmzffdD+sZxWOuEkq3yigc7L3CzztIMa
+         T5Ow==
+X-Forwarded-Encrypted: i=1; AKwUvBwnvP7ry5co5V7ll2Q39Q4vhP6Pj9WsLMzzCCnYQcDoUx2MMjEf5aUnE64Ld9Z4s4Dcofa7hRXxGT0i9t8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kH9vPywzuuZ9SCteaI1W5Zha0gd2kpL/eqxmgncD9la27TzQt1
+	2QqE4OGecJQimpeTV7XSTi/KiqhahYzR6+fcOS/XNvXU1oB6hQQXIiu8hsT4iWN4nZE=
+X-Gm-Gg: AYBFou0em5FkeWjeebi+nbj/yBL4jDSpnKt7zeTkyyvAlA4nocYErI/9duxwNnQ8cSB
+	jwXIClXVE+j63bKmGWE2HNcDLGl8u8J08eMT8QAj6xzMX9UceIGZrdPVue+UOr/RfgbcX/0D2Ya
+	JpMNCgtPJUTeLPiSuz0o5McCJf1XK+ioB6btt6P8A2X366mvI5tTi10VrvHADq/9Wa2hejXonK6
+	AK7k8EpQe1Q0Nor02sR14qdUeR5BSx7/9q/Y6sVksqcE/G1YEWPGBdJPzs74ZMUqds8tzcxHdcU
+	4+WoEd53pHHiUtP5NM1TpnianNV13sncrAdSCL1cX52bvHUALdNLcJ8avlEVNM47hkRUTCYrSd1
+	w4tUWVEWkQtDSMjo2+FGTrDVFTS9fLmEINQ0d2fxZDogWZSj8rzO/YXAUtKWw4RW222Fl7ivG7O
+	Kd09nQ3hJ4r4OEHA84GUXvmF4ol0h7VOd7XAXbm5r+fLMnHBbGfWG8VWQma0IftG4KPTldgFrxv
+	GevHa0=
+X-Received: by 2002:a17:903:32c4:b0:2db:39dc:48af with SMTP id d9443c01a7336-2db39dc4bfdmr135589825ad.17.1788767963010;
+        Mon, 07 Sep 2026 00:59:23 -0700 (PDT)
 Received: from kernel.tail6741c6.ts.net ([185.220.238.35])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14ae7637sm40945595ad.79.2026.09.07.00.59.16
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14ae7637sm40945595ad.79.2026.09.07.00.59.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 00:59:19 -0700 (PDT)
+        Mon, 07 Sep 2026 00:59:22 -0700 (PDT)
 From: Kunwu Chan <kunwu.chan@gmail.com>
 X-Google-Original-From: Kunwu Chan <kunwu.chan@linux.dev>
 To: paulmck@kernel.org,
@@ -69,9 +69,9 @@ Cc: rostedt@goodmis.org,
 	rcu@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Kunwu Chan <kunwu.chan@gmail.com>
-Subject: [PATCH 10/13] srcutree: Skip callback scheduling for atomic SRCU grace periods
-Date: Mon,  7 Sep 2026 15:58:26 +0800
-Message-ID: <20260907075829.2073224-11-kunwu.chan@linux.dev>
+Subject: [PATCH 11/13] srcutree: Remove srcu_barrier() sleep for atomic SRCU
+Date: Mon,  7 Sep 2026 15:58:27 +0800
+Message-ID: <20260907075829.2073224-12-kunwu.chan@linux.dev>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260907075829.2073224-1-kunwu.chan@linux.dev>
 References: <20260907075829.2073224-1-kunwu.chan@linux.dev>
@@ -85,36 +85,37 @@ Content-Transfer-Encoding: 8bit
 
 From: Kunwu Chan <kunwu.chan@gmail.com>
 
-call_srcu() is forbidden on atomic srcu_struct, so srcu_gp_end() never
-has callbacks to invoke for them.  Yet it schedules callback invocation,
-which for atomic SRCU's SRCU_SIZE_SMALL state arms the boot CPU's
-->delay_work timer every grace period, only for srcu_invoke_callbacks()
-to find nothing to do.
+The atomic-SRCU path in srcu_barrier() sleeps for 100 milliseconds just
+in case there are callbacks to wait for.  But call_srcu() refuses
+atomic SRCU with a WARN_ON_ONCE() before reaching the deferred-enqueue
+path, so there can be no callbacks, deferred or otherwise.
 
-Skip this for atomic SRCU.
+Drop the sleep.
 
 Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 ---
- kernel/rcu/srcutree.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ kernel/rcu/srcutree.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
 diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
-index 2d2a12f86115..c19f59725706 100644
+index c19f59725706..a93bf803e2f7 100644
 --- a/kernel/rcu/srcutree.c
 +++ b/kernel/rcu/srcutree.c
-@@ -1018,10 +1018,10 @@ static void srcu_gp_end(struct srcu_struct *ssp, bool is_atomic)
+@@ -1895,12 +1895,9 @@ void srcu_barrier(struct srcu_struct *ssp)
+ 	unsigned long s;
  
- 	/* Initiate callback invocation as needed. */
- 	ss_state = smp_load_acquire(&sup->srcu_size_state);
--	if (ss_state < SRCU_SIZE_WAIT_BARRIER) {
-+	if (!is_atomic && ss_state < SRCU_SIZE_WAIT_BARRIER) {
- 		srcu_schedule_cbs_sdp(per_cpu_ptr(ssp->sda, get_boot_cpu_id()),
- 					cbdelay);
--	} else {
-+	} else if (!is_atomic) {
- 		idx = rcu_seq_ctr(gpseq) % ARRAY_SIZE(snp->srcu_have_cbs);
- 		srcu_for_each_node_breadth_first(ssp, snp) {
- 			raw_spin_lock_irq_rcu_node(snp);
+ 	check_init_srcu_struct(ssp, false);
+-	if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC)) {
+-		// There shouldn't be any callbacks for atomic SRCU,
+-		// but just in case.
+-		schedule_timeout_uninterruptible(HZ/10);
++	// Atomic SRCU has no callbacks, so there is nothing to wait on.
++	if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC))
+ 		return;
+-	}
+ 
+ 	/*
+ 	 * Register any deferred callbacks before snapshotting the sequence.  The
 -- 
 2.43.0
 
