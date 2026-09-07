@@ -1,88 +1,88 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B1E5221FD
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 20:34:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1354F5237B4
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 20:34:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788813252; cv=none; b=IczIPJKFpre/C2YxQlTjat4UzmY73Xv5heM+UBIugOE28FP/5OjURfBaAhgFcgwtW3uhvnvv9aKVvmOOf+EHKeNC50SvN2Z6PxifrRZk6m/96G9xJ2PR2Ejad06kI+HoW5WYSvv66mIrD3I/HoTyUXaacEXWLVKdA65E8Ux1srg=
+	t=1788813255; cv=none; b=jEiHEx0sQtzjAhvwCcLSYN0z8HmsMGn6Tgjdm2uifVHzpKNCRC77tBlZnVKvV4LLg6avLjTztR60DbfEDevjVCKGA0dIMNJii+Bee023N1xlQ1qCoPCMeinOljAk18SSMaM+BgklXci5KjrDqAn4ibYXyG5l2ixuw4yCiU5Vq7c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788813252; c=relaxed/simple;
-	bh=9GUJmm0JnYOjtca2tQcxf9Y4BE+SaF+P3iTowK/ZOVM=;
+	s=arc-20240116; t=1788813255; c=relaxed/simple;
+	bh=koNnvwZa0vK3Gfgf+JGtHxqQbGSq5YiRRM9pn+/Ijsc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=js+zOMDFcCnt+1OBzdzCj2PU9u3I4HaxfDo4gUxmGUThrt8EzPxMcFN5+ok0QMf2rvP/u5l7glFhFjhJtWLPLQpIuPtTA/ykhzXCzhGfFSGZLWURGfY485gOH6d5GnZLtQ8AbXFxxTAKmQk8k1JKWB0D0PoGCd34HfxFgS7Cj4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ddoh97ek; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=blKIGHxX; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=UQRuGH8kPaAKxytTn6TSbNtlqps5Ef7xNxGz/m5awANegloRQ+HIlCMzvE3Scel/BmnKKzNMnDTfaH11cCylaXTc89HQ3P1lKmml4uw/JqNLm9PO1YO6OXYzmgASPPUuhc3bozOHjSLWCa4XcbNIg0ky04bhCfrzDS5eMFZHxl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZQBU1vH7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZtYsYKCn; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ddoh97ek";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="blKIGHxX"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687HX8Lw552303
-	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 20:34:08 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZQBU1vH7";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZtYsYKCn"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687HWMLS565403
+	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 20:34:12 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	wVk15Adnij0xzN+GSJBRJZvYMNQ2RQbb8lQpb3qcGW8=; b=Ddoh97ekoxO8K/6B
-	vxZfoZ/3CldzvgdjITcJEd7yV1dzBOkbiv0FXPVLFWE3Juf/EmjMEDqq/V2zUBzm
-	lewTzP5LNtbrrPSlak1OFSP6d14TWRtNPovoT9+G5OyP+eC9gThwb83sf4foG3GP
-	0G5YWZ5wBfTf84wFCnWKqapAiCUTjvuVd5dOaFbKCwSQIkNuRYIWZ6Iahba3cfJG
-	4d8SNUROtNKvGN4I4KhrEfI/hsMALB87P48NXBd8xyD5beB2OCO2MejS9qI7qNEU
-	JZc8OOrylZBNlWeKWWZ2E4zmgRtuZwzAXu7Ly/czj6ZyT/Fm1bq7CntSzfMzFWH3
-	ICnzyA==
+	zLlnTeI0ddtuhwizLW1JQhzy8jPGbUL1WY3U9N/wbPI=; b=ZQBU1vH76LLXvqAU
+	jWEyURRpL4e2TKHTy3/+xEF4POIobywOliaEmCA8uLG7ZO+xI8n7RyN8rdDZMkn0
+	yFBqdFvILbsRotetnzmKo4o9uPm9oK0UwexW1AGD1IM37VPBhu0TMILkPqd7+u3c
+	++iB5bZLzk10+aQ+gmCKOAmpxE/tbJ8DJGDwrQS5XKfL71NuHUTofVITN/dZfiGH
+	QvYuhObbJsnF6uFy3vXgYLVE3j3jkKJeTJdsLPbvMD0QrifEar7mG5SzOFy7cZKd
+	NvFRCX2b6TNAJx3SCOwthmsiN5KS6OlU8vnxVbvw9FcPBzvXG0pyyMY6EoKP7cAY
+	/aV1aw==
 Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gj1rwgfjn-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gj1rrgg01-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 20:34:08 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39533bb224cso354614a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 13:34:08 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 20:34:12 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39533bb224cso354699a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 13:34:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788813248; x=1789418048; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1788813252; x=1789418052; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wVk15Adnij0xzN+GSJBRJZvYMNQ2RQbb8lQpb3qcGW8=;
-        b=blKIGHxX+cFuqBZWHX+DUAwjqgaNBQ3OCOgRJ/EJLGaLXo0yY5EO7epCxtCh9xyjb6
-         UIW9HaJCdaLOr51bojcYUdz5r9V+h21uJi+lQM5BkqX1AkTYj/QT0maAAF2+AYGqkFXj
-         nCALd+nvnQj/rrImSsGATJWxEyzsAQFAlvZpylFnO6+j0DIrbWFeaU9HiTGoWaWhhifm
-         eFjhtBDS+5a7S8J8T+zT0ZPYPjGpbO0vnNKz1QozDUdKEOkde8dpxg44YMceSurBMxf+
-         skWvqmtF5Gm2fXR82JiKBF6z8Krde9RhRgq7XrqUYGfg7BCk0tu0lDBfjPFfe77H23wW
-         Z40g==
+        bh=zLlnTeI0ddtuhwizLW1JQhzy8jPGbUL1WY3U9N/wbPI=;
+        b=ZtYsYKCn/KjNXuvlJoxnuL6+ycur0U75hVMIfX9C9Lrd1u8WNICMC+fxCXDQPFP2js
+         lH4ELFyIYOuh+u/8XMR2oPOXvOdXOJEIiJUSakGIXgVIIBm+pdl3tZDecWjTLVlU/4gC
+         951LkPhFVQyj8oQOHFcl9PkUahxSp2f53iA+JMcori2pWISPDGFLL7gW+tiePZn2LeNm
+         esrfVw/zHcUUXCnGNNhGBVrPlboAENGOpFj4TV4CJ5KuMboxpyL7mkRwGKWGKsd0geGo
+         8GaAh49CmpSD0XM09mvI+TabcLyCEugs8qBswloooa03FK02CqZq3cuF0Oy8USk4qywe
+         Wq8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788813248; x=1789418048;
+        d=1e100.net; s=20251104; t=1788813252; x=1789418052;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wVk15Adnij0xzN+GSJBRJZvYMNQ2RQbb8lQpb3qcGW8=;
-        b=rrvrL+lYMcxfYaCnKp8GzTSjlwrcgBpBCnheeaiMAHZ8pvQ9oWa/v73PWfKVVQUKxx
-         /e1iPPN9CDN2IAKwk4tohBVAWSYYcDd00LTNMT/nvHtH9iGWBCMi3nSplOjxXkXoK96J
-         7O5S+5FYBKk9jDb2hVHZ16coKpajdy3btlGbjnzAZ7lIn91amDJgZRBgv/iGKNa60E/c
-         3X5zBagvq5POHLIKmOKrni0DFogfKY/9iUjJV2MGVFi2Xknojtt9Enxj23L3ShULmNWp
-         IYI9LYfzaozD/lIgVJez8DFAt+CKsKjsTyjP0M7bLPINbA7GPmCIFnWD7no1YV8oUBJI
-         2JKg==
-X-Gm-Message-State: AFuF++maDpw7mmJPNrW1666/ra2JHS/u/qtikNZqGYV0Va0ovjY0x9EJ
-	x3Yqt0Z/Qk7UPYKXLEzcUJTGSpZD1JF2TT+8gCjYQdIyRH2pKR9cQoUf15lU1oDnIEnotUb7Y9m
-	ialEsNPP9xnI/h4SmiVPDoi+aaYt6DZ7pzisP2kicjs9U78gE6KLze4/6Chl41mzP/A==
-X-Gm-Gg: AYBFou3NNtD9fgslbWiX4OcQQM2UQ8mtNNLr72FJvkXcm3a194IZ1Vab6q46fEPrbaZ
-	sawOrUrezCujLn6qhqEtOIfvGWw4uuXI7upQGePknO6ncyc4S/vhYNEu5mQoWRVuFMv/8YQjjs1
-	ULwBHtYY0P0mHB4P3/zyZqSqH50yw6J2R1mIkZjX0x8suhXQzmo/t3NVeRm4A8sZHVK3sHIn31q
-	Csa4I+NDVC4Ym6BPew9o0mHFzqktqVJr76TO2lPZnDiSQa0bVMFw2N7tYd38XQF8bPX7vmJTbUI
-	Ibyg6wHoufjhD9O9VlJDgvBlApNwPlFST1106CfZqp/EcZKVOTarHYXZqC+XfUUo6tzZqSZRcU6
-	pvwRssTBfq7EBLE0Oewqnl1TmZnKswY7vIkU5q6u4L7m+LgLQt5ntEUEwoiKL+Blx/6Nwii6HcD
-	wS4Vb5sV4bSh6uSKQgAGuEhw==
-X-Received: by 2002:a05:6a21:e8b:b0:3d1:c99f:efbf with SMTP id adf61e73a8af0-3da3a11ed0cmr41235093637.14.1788813247711;
-        Mon, 07 Sep 2026 13:34:07 -0700 (PDT)
-X-Received: by 2002:a05:6a21:e8b:b0:3d1:c99f:efbf with SMTP id adf61e73a8af0-3da3a11ed0cmr41235048637.14.1788813247274;
-        Mon, 07 Sep 2026 13:34:07 -0700 (PDT)
+        bh=zLlnTeI0ddtuhwizLW1JQhzy8jPGbUL1WY3U9N/wbPI=;
+        b=fCH7tW2KTz400mO40B5xKFLLSECehqWkuH0rkiPmXx9DNlYL3RsnQDLAaXH9XBqjgq
+         /jlL5ryBAw4DbUxYASXIcAC3p5vcn35owaZPF2ZWNyqvw1RPP1H60vrSkMazbGhuz79k
+         cQgLNIBpQPW7LuIg7VGfgxJV+/VLOOwoYx19NpGFBtCSX73VwtKGUEMAN9Cz95L1JpTB
+         pr8aTA9kIimtoIBfQEWuNby0jSuJk2BJVSqttXTvc6di7CMT+6xghA7P4sGkHvXT3ido
+         zlkI54jyqzCTSghWwOvLhkwIpFokpQBRUxYUSohwyLBtO23dGjx7PsJXWnR5nr9zcygu
+         13gg==
+X-Gm-Message-State: AFuF++neQPL/KJR5x/Md5qBiUmBCCC3OXb0oEEdDv6lrZcVJ6i0DM6Rx
+	2jUKmCeSx6iuvjAgUbtNXPIVmXz+tat22foc++WWwmdZ0NP/XRKQ/GiT9HBeVo9WFzBZnKHGwoC
+	14D5ZVScvRQNy5aDW7ETLGtT7z9NDaPMUtWWSaZOq5s0nHYEHvMtTDRoj67kfPveEcw==
+X-Gm-Gg: AYBFou0YhAZHBIGHidw7ctGCGUodsfYo+ctfv6cuD/IVNxyW/NYLJh/YcQxupffJFMY
+	KaWckWjK2rFICyUuISjluIyppQJJ3te/g1IDpumZJGFJMIZ81us//jS1pvHcMcpV+sX2thnSqVz
+	uvPlgGAcw6QjFk0Na53+HiwWHTgiFkuVbN4M8XVVOToL2ZX/I/H2HhKDvPE4TShmoz2l/o023X8
+	HIs1jy79BGvr5GKD/FhvFc8oR0rEz/YKm4IUOO27zxsVhwNE5ixOAjn7RuxBtTMf2aFRM8r+cb6
+	ChEy93tPQ1Z30gkcIdsu/i3d1Z5HrxDLneFjOEIvsyE6yVa96kzuwu3Yi6cEa7hEFwWwstak9I+
+	XsEKd2jCR4fWBtosavvlNTEJB+G4rXZZwFW4X7arpLsiujnmnl2HbS/C00PhbRhysr7V0bVV1Rt
+	wmllN8qa3Ys2A2uFMOj6axIQ==
+X-Received: by 2002:a05:6a20:4311:b0:3c3:bbe6:95de with SMTP id adf61e73a8af0-3da39eacfc8mr32184464637.6.1788813251607;
+        Mon, 07 Sep 2026 13:34:11 -0700 (PDT)
+X-Received: by 2002:a05:6a20:4311:b0:3c3:bbe6:95de with SMTP id adf61e73a8af0-3da39eacfc8mr32184436637.6.1788813251159;
+        Mon, 07 Sep 2026 13:34:11 -0700 (PDT)
 Received: from hu-pooventh-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm47841297eec.16.2026.09.07.13.34.03
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm47841297eec.16.2026.09.07.13.34.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 13:34:06 -0700 (PDT)
+        Mon, 07 Sep 2026 13:34:10 -0700 (PDT)
 From: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
-Date: Tue, 08 Sep 2026 01:59:23 +0530
-Subject: [PATCH wireless-next 14/18] wifi: nl80211: Pack SMD dynamic
- context along with frame
+Date: Tue, 08 Sep 2026 01:59:24 +0530
+Subject: [PATCH wireless-next 15/18] wifi: nl80211/cfg80211: Add support
+ for SMD context programming
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,7 +91,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-smd-v1-14-65ad4ab30fbd@oss.qualcomm.com>
+Message-Id: <20260908-smd-v1-15-65ad4ab30fbd@oss.qualcomm.com>
 References: <20260908-smd-v1-0-65ad4ab30fbd@oss.qualcomm.com>
 In-Reply-To: <20260908-smd-v1-0-65ad4ab30fbd@oss.qualcomm.com>
 To: "David S. Miller" <davem@davemloft.net>,
@@ -102,345 +102,516 @@ Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
         linux-wireless@vger.kernel.org,
         Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Authority-Analysis: v=2.4 cv=Ga8nWwXL c=1 sm=1 tr=0 ts=6a9f1fc0 cx=c_pps
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDIyNiBTYWx0ZWRfX/rKn/Tr/ymk9
+ 3oVmq5zPj5Ifcv9R8sKErEAGalz+TfmYT6TdOeVx3MQi1VenCJwjcKuoFCS22c+vJPGHLFYnmo1
+ TZutVTr2afLi7ysHt8zbvzueeQmhM8U=
+X-Proofpoint-GUID: -Ky8c_PaEYrp7suFG_nkzg0rI4kn2ZOa
+X-Authority-Analysis: v=2.4 cv=NsjhtcdJ c=1 sm=1 tr=0 ts=6a9f1fc4 cx=c_pps
  a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=bhEJrp4yiY6RaB6cu_EA:9 a=QEXdDO2ut3YA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=4KCYKawKnagZyZotmBEA:9 a=QEXdDO2ut3YA:10
  a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDIyNiBTYWx0ZWRfX4aH2dAki8BnD
- rtg1dhCF2RHj5JO10CSxKeWDyyj0MnFajSSemW9Ls0oMj5GvyCTfoSEkdcM1S7dUeA60q6mqE65
- ge672QuDQziAPvqinWgK3tOIL62blU4UFVd/fgp9qnWpcZ3vPtCS0WdiLGiS6XUhpw4namNV+Md
- GC83qxy1O2Xmsw05pH0lCjWuLmEqeN9zdOEWNXz+f6bgeD0TmMX74qkmJpTguVZkmj0k47vTbtK
- WhNdHxOVIrkRY/vmLQk1Ez9IkAAS745pdCoZvzotwZ54dR9a//BwPG3jaYqupoZj7GXcWe/DHtw
- r0c4qGoWfACtHA0fVcNOpRS7QMIqEojtfKdvKOt53W734DEza4gctf0CzSXzlMikzk16tfulmYp
- OsRHLNQiKT+3ZAPrwY9THAsujslunJaD9/dxu73Ajuq++TEaNVRwxJccIoz5Vo8uWxb/sveQSUo
- E4DyiEaDDVwNLq1B3OA==
-X-Proofpoint-ORIG-GUID: QFAMcBJtH_t3Y9EH9krd-_-HgTFNzQGM
-X-Proofpoint-GUID: QFAMcBJtH_t3Y9EH9krd-_-HgTFNzQGM
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDIyNiBTYWx0ZWRfX0c/MeSCkWsur
- UkseT2Lp9uO9gzqK1w4POwyrcHZch4n56+qLuD+32G8K2LK/wyFLWmP+wmJW7/NTwliwTj3GRje
- 0UyfDzxcPXbmfkH86/EWKI/r6dcd6Ts=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDIyNiBTYWx0ZWRfX/A+LjepHKGW4
+ 68lgmkZDQ2Ebei/GlYct+OajvNStaE+h0nYlYJqCAM0gfHQObJYRDjmDZy7rDgYEkx5rrtz5py7
+ 6tFjE8DXu4wtRW6eEV6rdNwXWBwhoCwUkoRmGrbHeqhS5p4LqYyK2eJNRSBvBMSGWQskrrSgA2H
+ XqB3py49lFt5UTgURBHD/ModI/LhgTOo8mG1p+8PiGKWMHQrr5wkrl6mVSdQpmqZvbYAFWFckCY
+ 1Yj/fm/TZRBtARPgk4tcsVijE0eLGq6s055Yt+r4uektTClpsl25K6W2c68pXn8cl1VKQ8u/wW+
+ /iGtDOVozHMvGXN0fIyoRI/tW0NsrH4XfqTT8KEEc0L2ZJMyCHtZG4iyETX98b6W/kEtKTZMuS0
+ BtTq4SFf952pI89H90uPSzDCsYYOuCkzEDhl2JrTTYMktbwfixD2cJpbQL040Fivh9smPQmXmiR
+ k639pngd9uKIXv2iqcg==
+X-Proofpoint-ORIG-GUID: -Ky8c_PaEYrp7suFG_nkzg0rI4kn2ZOa
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-07_05,2026-09-07_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 suspectscore=0 clxscore=1015 impostorscore=0
- bulkscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
+ impostorscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 clxscore=1015
+ priorityscore=1501 spamscore=0 adultscore=0 bulkscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070226
 
-While packing the received management frame in nl80211_send_mgmt() to
-send to userspace, nest the SMD dynamic context along with the frame
-message. This shall be used by userspace to transport the context to the
-target AP MLD for programming the dynamic state of the STA session for
-seamless roaming as part of SMD BSS Transition.
+On the target AP MLD to which the STA will be transitioning, the dynamic
+context collected and sent by the current AP MLD needs to be programmed
+on the TX and RX queues to enable seamless transition and reception.
 
-Suggested-by: Jouni Malinen <jouni.malinen@oss.qualcomm.com>
-Co-developed-by: Aditya Sathish <asathish@qti.qualcomm.com>
-Signed-off-by: Aditya Sathish <asathish@qti.qualcomm.com>
+Such data include Sequence Number (SN), Packet Number (PN), BlockAck
+sessions, and any driver-specific data.
+
+Add nl80211 support to handle NL80211_CMD_SET_SMD_CTX, parse the SMD
+context attributes, and invoke the cfg80211 operation on the target AP
+MLD.
+
 Signed-off-by: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
 ---
- net/wireless/nl80211.c | 269 ++++++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 268 insertions(+), 1 deletion(-)
+ include/net/cfg80211.h  |   7 +
+ net/wireless/nl80211.c  | 332 ++++++++++++++++++++++++++++++++++++++++++++++++
+ net/wireless/rdev-ops.h |  14 ++
+ net/wireless/trace.h    |  47 +++++++
+ 4 files changed, 400 insertions(+)
 
+diff --git a/include/net/cfg80211.h b/include/net/cfg80211.h
+index 7b0f328fec79..b68f5f6837be 100644
+--- a/include/net/cfg80211.h
++++ b/include/net/cfg80211.h
+@@ -5329,6 +5329,10 @@ struct cfg80211_smd_transition_info {
+  *
+  * @start_pd: Start the PD interface.
+  * @stop_pd: Stop the PD interface.
++ *
++ * @set_smd_ctx: Set UHR SMD context data for the non-AP MLD. @st_info->ctx is
++ *	freed immediately after this call returns; drivers must copy
++ *	@st_info->ctx if asynchronous processing is required.
+  */
+ struct cfg80211_ops {
+ 	int	(*suspend)(struct wiphy *wiphy, struct cfg80211_wowlan *wow);
+@@ -5707,6 +5711,9 @@ struct cfg80211_ops {
+ 			    bool val);
+ 	int	(*start_pd)(struct wiphy *wiphy, struct wireless_dev *wdev);
+ 	void	(*stop_pd)(struct wiphy *wiphy, struct wireless_dev *wdev);
++	int	(*set_smd_ctx)(struct wiphy *wiphy, struct wireless_dev *wdev,
++			       const u8 *addr,
++			       struct cfg80211_smd_transition_info *st_info);
+ };
+ 
+ /*
 diff --git a/net/wireless/nl80211.c b/net/wireless/nl80211.c
-index d59f0eb40493..5065dc75b0bc 100644
+index 5065dc75b0bc..70b8697e5dac 100644
 --- a/net/wireless/nl80211.c
 +++ b/net/wireless/nl80211.c
-@@ -19568,6 +19568,265 @@ nl80211_epcs_cfg(struct sk_buff *skb, struct genl_info *info)
- 	return rdev_set_epcs(rdev, dev, val);
+@@ -19827,6 +19827,293 @@ static int nl80211_put_smd_ctx(struct sk_buff *msg,
+ 	return -EINVAL;
  }
  
-+static size_t _nl80211_smd_ctx_nl_ba_param_size(void)
-+{
-+	size_t n = 0;
-+
-+	n += nla_total_size(0); /* ba_params nest header */
-+	n += n_dl_tids * (nla_total_size(0) + /* tid nest header */
-+			nla_total_size(sizeof(u16)) + /* buff_size */
-+			nla_total_size(sizeof(u8)) + /* policy */
-+			nla_total_size(0) + /* amsdu_support */
-+			nla_total_size(sizeof(u16)) + /* timeout */
-+			nla_total_size(0) + /* ext_no_frag */
-+			nla_total_size(sizeof(u8)) + /* ext_frag_lvl */
-+			nla_total_size(sizeof(u16))); /* ext_buff_size */
-+
-+	return n;
-+}
-+
-+static size_t
-+nl80211_smd_ctx_nl_size(struct cfg80211_smd_transition_info *st_info)
-+{
-+	const struct ieee80211_smd_ctx *ctx = st_info->ctx;
-+	int n_dl_tids = 0, n_ul_tids = 0;
-+	u8 pn_len = ctx->pn_len;
-+	size_t n = 0;
-+
-+	/* count valid TIDs */
-+	n_dl_tids = bitmap_weight(ctx->dl.valid_tid_bmap,
-+				  IEEE80211_SMD_CTX_NUM_TIDS);
-+	n_ul_tids = bitmap_weight(ctx->ul.valid_tid_bmap,
-+				  IEEE80211_SMD_CTX_NUM_TIDS);
-+
-+	n += nla_total_size(sizeof(u8)); /* ST type */
-+
-+	/* outer NL80211_ATTR_SMD_CTX nest */
-+	n += nla_total_size(0); /* nest header */
-+
-+	/* DL nest */
-+	n += nla_total_size(0); /* DL nest header */
-+
-+	n += nla_total_size(sizeof(u8)); /* valid_tid_bitmap */
-+
-+	if (test_bit(IEEE80211_SMD_CTX_VALID_DL_SN, ctx->valid_ctx_bmap)) {
-+		n += nla_total_size(0); /* DL SN nest header */
-+		n += n_dl_tids * nla_total_size(sizeof(u16)); /* DL SN */
-+	}
-+
-+	if (test_bit(IEEE80211_SMD_CTX_VALID_PN, ctx->valid_ctx_bmap))
-+		n += nla_total_size(pn_len); /* DL PN */
-+
-+	if (test_bit(IEEE80211_SMD_CTX_VALID_BA_PARAMS, ctx->valid_ctx_bmap))
-+		n += _nl80211_smd_ctx_nl_ba_param_size(); /* DL BA params */
-+
-+	/* UL nest */
-+	n += nla_total_size(0); /* UL nest header */
-+
-+	n += nla_total_size(sizeof(u8)); /* valid_tid_bitmap */
-+
-+	if (test_bit(IEEE80211_SMD_CTX_VALID_UL_SN, ctx->valid_ctx_bmap)) {
-+		n += nla_total_size(0); /* UL SN nest header */
-+		n += n_ul_tids * nla_total_size(sizeof(u16)); /* UL SN */
-+	}
-+
-+	if (test_bit(IEEE80211_SMD_CTX_VALID_PN, ctx->valid_ctx_bmap)) {
-+		n += nla_total_size(0); /* UL PN nest header */
-+		n += n_ul_tids * nla_total_size(pn_len); /* UL PN */
-+	}
-+
-+	if (test_bit(IEEE80211_SMD_CTX_VALID_BA_PARAMS, ctx->valid_ctx_bmap))
-+		n += _nl80211_smd_ctx_nl_ba_param_size(); /* UL BA params */
-+
-+	if (ctx->drv_ctx_size)
-+		n += nla_total_size(ctx->drv_ctx_size); /* Driver data */
-+
-+	return n;
-+}
-+
 +static int
-+nl80211_put_smd_ctx_ba_params(struct sk_buff *msg,
-+			      const unsigned long *tid_bmap,
-+			      const struct ieee80211_smd_ctx_ba *ba_tids,
-+			      bool dl)
++nl80211_parse_smd_ctx_ba_params(struct nlattr *tb,
++				struct ieee80211_smd_ctx_ba *ba_tids,
++				unsigned long *valid_ctx_bmap)
 +{
-+	u32 ba_params_attr = NL80211_SMD_CTX_DL_ATTR_BA_PARAMS;
-+	struct nlattr *dl_ul_ba = NULL, *tid_ba = NULL;
-+	u8 tid;
++	struct nlattr *ba_tb[NL80211_SMD_CTX_BA_ATTR_MAX + 1];
++	struct ieee80211_smd_ctx_ba *ba;
++	struct nlattr *ba_attr;
++	int n_tids = 0;
++	int rem, tid;
 +
-+	if (!dl)
-+		ba_params_attr = NL80211_SMD_CTX_UL_ATTR_BA_PARAMS;
++	if (!tb)
++		return 0;
 +
-+	dl_ul_ba = nla_nest_start(msg, ba_params_attr);
-+	if (!dl_ul_ba)
-+		return -ENOBUFS;
++	nla_for_each_nested(ba_attr, tb, rem) {
++		tid = nla_type(ba_attr) - 1;
++		if (tid < 0 || tid >= IEEE80211_SMD_CTX_NUM_TIDS)
++			return -EINVAL;
 +
-+	for_each_set_bit(tid, tid_bmap, IEEE80211_SMD_CTX_NUM_TIDS) {
-+		const struct ieee80211_smd_ctx_ba *ba = &ba_tids[tid];
++		if (nla_parse_nested(ba_tb, NL80211_SMD_CTX_BA_ATTR_MAX,
++				     ba_attr, nl80211_smd_ctx_ba_policy,
++				     NULL))
++			return -EINVAL;
 +
-+		tid_ba = nla_nest_start(msg, tid + 1);
-+		if (!tid_ba)
-+			goto nla_fail;
++		ba = &ba_tids[tid];
 +
-+		if (nla_put_u16(msg, NL80211_SMD_CTX_BA_ATTR_BUFF_SIZE,
-+				ba->buffer_size) ||
-+		    nla_put_u8(msg, NL80211_SMD_CTX_BA_ATTR_POLICY,
-+			       ba->ba_policy) ||
-+		    (ba->amsdu_supported &&
-+		     nla_put_flag(msg,
-+				  NL80211_SMD_CTX_BA_ATTR_AMSDU_SUPPORT)) ||
-+		    nla_put_u16(msg, NL80211_SMD_CTX_BA_ATTR_TIMEOUT,
-+				ba->timeout) ||
-+		    (ba->ext_no_frag &&
-+		     nla_put_flag(msg, NL80211_SMD_CTX_BA_ATTR_EXT_NO_FRAG)) ||
-+		    nla_put_u8(msg, NL80211_SMD_CTX_BA_ATTR_EXT_FRAG_LEVEL,
-+			       ba->extfrag_level) ||
-+		    nla_put_u16(msg, NL80211_SMD_CTX_BA_ATTR_EXT_BUFF_SIZE,
-+				ba->ext_buffer_size)) {
-+			nla_nest_cancel(msg, tid_ba);
-+			goto nla_fail;
-+		}
++		if (ba_tb[NL80211_SMD_CTX_BA_ATTR_BUFF_SIZE])
++			ba->buffer_size =
++				nla_get_u16(ba_tb[NL80211_SMD_CTX_BA_ATTR_BUFF_SIZE]);
 +
-+		nla_nest_end(msg, tid_ba);
++		if (ba_tb[NL80211_SMD_CTX_BA_ATTR_POLICY])
++			ba->ba_policy =
++				nla_get_u8(ba_tb[NL80211_SMD_CTX_BA_ATTR_POLICY]);
++
++		ba->amsdu_supported =
++			!!ba_tb[NL80211_SMD_CTX_BA_ATTR_AMSDU_SUPPORT];
++
++		if (ba_tb[NL80211_SMD_CTX_BA_ATTR_TIMEOUT])
++			ba->timeout =
++				nla_get_u16(ba_tb[NL80211_SMD_CTX_BA_ATTR_TIMEOUT]);
++
++		ba->ext_no_frag = !!ba_tb[NL80211_SMD_CTX_BA_ATTR_EXT_NO_FRAG];
++
++		if (ba_tb[NL80211_SMD_CTX_BA_ATTR_EXT_FRAG_LEVEL])
++			ba->extfrag_level =
++				nla_get_u8(ba_tb[NL80211_SMD_CTX_BA_ATTR_EXT_FRAG_LEVEL]);
++
++		if (ba_tb[NL80211_SMD_CTX_BA_ATTR_EXT_BUFF_SIZE])
++			ba->ext_buffer_size =
++				nla_get_u16(ba_tb[NL80211_SMD_CTX_BA_ATTR_EXT_BUFF_SIZE]);
++
++		n_tids++;
 +	}
 +
-+	nla_nest_end(msg, dl_ul_ba);
-+	return 0;
++	if (!n_tids)
++		return -EINVAL;
 +
-+nla_fail:
-+	nla_nest_cancel(msg, dl_ul_ba);
-+	return -ENOBUFS;
++	set_bit(IEEE80211_SMD_CTX_VALID_BA_PARAMS, valid_ctx_bmap);
++
++	return 0;
 +}
 +
-+static int nl80211_put_smd_ctx(struct sk_buff *msg,
-+			       struct cfg80211_smd_transition_info *st_info)
++static int nl80211_parse_smd_ctx(struct genl_info *info,
++				 struct cfg80211_smd_transition_info *st_info)
 +{
-+	struct nlattr *dl_sn = NULL, *ul_sn = NULL, *ul_pn = NULL;
-+	struct nlattr *smd_ctx = NULL, *dl = NULL, *ul = NULL;
-+	const struct ieee80211_smd_ctx *ctx;
-+	u8 dl_tid_bmap = 0, ul_tid_bmap = 0;
-+	u8 tid;
++	struct nlattr *dl_tb[NL80211_SMD_CTX_DL_ATTR_MAX + 1];
++	struct nlattr *ul_tb[NL80211_SMD_CTX_UL_ATTR_MAX + 1];
++	struct nlattr *tb[NL80211_SMD_CTX_ATTR_MAX + 1];
++	struct ieee80211_smd_ctx *ctx;
++	struct nlattr *bmap_attr;
++	size_t drv_ctx_size = 0;
 +
-+	/* ST Type */
-+	if (nla_put_u8(msg, NL80211_ATTR_SMD_CTX_TYPE, st_info->type))
-+		return -ENOBUFS;
++	st_info->type = nla_get_u8(info->attrs[NL80211_ATTR_SMD_CTX_TYPE]);
 +
-+	smd_ctx = nla_nest_start(msg, NL80211_ATTR_SMD_CTX);
-+	if (!smd_ctx)
-+		return -ENOBUFS;
-+
-+	ctx = st_info->ctx;
-+
-+	/* Build DL context */
-+	dl_tid_bmap = bitmap_read(ctx->dl.valid_tid_bmap, 0,
-+				  IEEE80211_SMD_CTX_NUM_TIDS);
-+
-+	dl = nla_nest_start(msg, NL80211_SMD_CTX_ATTR_DL);
-+	if (!dl)
-+		goto nla_fail;
-+
-+	if (nla_put_u8(msg, NL80211_SMD_CTX_DL_ATTR_VALID_TID_BITMAP,
-+		       dl_tid_bmap))
-+		goto nla_fail_dl;
-+
-+	if (test_bit(IEEE80211_SMD_CTX_VALID_DL_SN, ctx->valid_ctx_bmap)) {
-+		dl_sn = nla_nest_start(msg, NL80211_SMD_CTX_DL_ATTR_SN);
-+		if (!dl_sn)
-+			goto nla_fail_dl;
-+
-+		for_each_set_bit(tid, ctx->dl.valid_tid_bmap,
-+				 IEEE80211_SMD_CTX_NUM_TIDS) {
-+			if (nla_put_u16(msg, tid + 1, ctx->dl.sn[tid])) {
-+				nla_nest_cancel(msg, dl_sn);
-+				goto nla_fail_dl;
-+			}
-+		}
-+		nla_nest_end(msg, dl_sn);
++	if (nla_parse_nested(tb, NL80211_SMD_CTX_ATTR_MAX,
++			     info->attrs[NL80211_ATTR_SMD_CTX],
++			     nl80211_smd_ctx_policy, NULL)) {
++		GENL_SET_ERR_MSG(info, "failed to parse SMD context");
++		return -EINVAL;
 +	}
 +
-+	if (test_bit(IEEE80211_SMD_CTX_VALID_PN, ctx->valid_ctx_bmap) &&
-+	    nla_put(msg, NL80211_SMD_CTX_DL_ATTR_PN, ctx->pn_len, ctx->dl.pn))
-+		goto nla_fail_dl;
++	if (tb[NL80211_SMD_CTX_ATTR_DRV_DATA])
++		drv_ctx_size = nla_len(tb[NL80211_SMD_CTX_ATTR_DRV_DATA]);
 +
-+	if (test_bit(IEEE80211_SMD_CTX_VALID_BA_PARAMS, ctx->valid_ctx_bmap) &&
-+	    nl80211_put_smd_ctx_ba_params(msg, ctx->dl.valid_tid_bmap,
-+					  ctx->dl.ba, true))
-+		goto nla_fail_dl;
++	ctx = kzalloc(sizeof(*ctx) + drv_ctx_size, GFP_KERNEL);
++	if (!ctx)
++		return -ENOMEM;
 +
-+	nla_nest_end(msg, dl);
++	st_info->ctx = ctx;
 +
-+	/* Build UL context */
-+	ul_tid_bmap = bitmap_read(ctx->ul.valid_tid_bmap, 0,
-+				  IEEE80211_SMD_CTX_NUM_TIDS);
++	/* DL Context */
++	if (tb[NL80211_SMD_CTX_ATTR_DL]) {
++		struct nlattr *ba_attr;
 +
-+	ul = nla_nest_start(msg, NL80211_SMD_CTX_ATTR_UL);
-+	if (!ul)
-+		goto nla_fail;
-+
-+	if (nla_put_u8(msg, NL80211_SMD_CTX_UL_ATTR_VALID_TID_BITMAP,
-+		       ul_tid_bmap))
-+		goto nla_fail_ul;
-+
-+	if (test_bit(IEEE80211_SMD_CTX_VALID_UL_SN, ctx->valid_ctx_bmap)) {
-+		ul_sn = nla_nest_start(msg, NL80211_SMD_CTX_UL_ATTR_SN);
-+		if (!ul_sn)
-+			goto nla_fail_ul;
-+
-+		for_each_set_bit(tid, ctx->ul.valid_tid_bmap,
-+				 IEEE80211_SMD_CTX_NUM_TIDS) {
-+			if (nla_put_u16(msg, tid + 1, ctx->ul.sn[tid])) {
-+				nla_nest_cancel(msg, ul_sn);
-+				goto nla_fail_ul;
-+			}
++		if (nla_parse_nested(dl_tb, NL80211_SMD_CTX_DL_ATTR_MAX,
++				     tb[NL80211_SMD_CTX_ATTR_DL],
++				     nl80211_smd_ctx_dl_policy, NULL)) {
++			GENL_SET_ERR_MSG(info, "failed to parse DL context");
++			goto err_free_ctx;
 +		}
-+		nla_nest_end(msg, ul_sn);
++
++		bmap_attr = dl_tb[NL80211_SMD_CTX_DL_ATTR_VALID_TID_BITMAP];
++		if (bmap_attr)
++			bitmap_write(ctx->dl.valid_tid_bmap,
++				     nla_get_u8(bmap_attr),
++				     0, IEEE80211_SMD_CTX_NUM_TIDS);
++
++		if (dl_tb[NL80211_SMD_CTX_DL_ATTR_SN]) {
++			struct nlattr *sn_attr;
++			int n_tids = 0;
++			int rem, tid;
++
++			nla_for_each_nested(sn_attr,
++					    dl_tb[NL80211_SMD_CTX_DL_ATTR_SN],
++					    rem) {
++				tid = nla_type(sn_attr) - 1;
++				if (tid < 0 ||
++				    tid >= IEEE80211_SMD_CTX_NUM_TIDS) {
++					GENL_SET_ERR_MSG(info,
++							 "invalid DL SN tid");
++					goto err_free_ctx;
++				}
++
++				if (nla_len(sn_attr) != sizeof(u16)) {
++					GENL_SET_ERR_MSG(info,
++							 "invalid DL SN len");
++					goto err_free_ctx;
++				}
++
++				ctx->dl.sn[tid] = nla_get_u16(sn_attr);
++				n_tids++;
++			}
++
++			if (!n_tids) {
++				GENL_SET_ERR_MSG(info, "empty DL SN nesting");
++				goto err_free_ctx;
++			}
++
++			set_bit(IEEE80211_SMD_CTX_VALID_DL_SN,
++				ctx->valid_ctx_bmap);
++		}
++
++		if (dl_tb[NL80211_SMD_CTX_DL_ATTR_PN]) {
++			const u8 *pn_data =
++				nla_data(dl_tb[NL80211_SMD_CTX_DL_ATTR_PN]);
++
++			ctx->pn_len =
++				nla_len(dl_tb[NL80211_SMD_CTX_DL_ATTR_PN]);
++
++			memcpy(ctx->dl.pn, pn_data, ctx->pn_len);
++			set_bit(IEEE80211_SMD_CTX_VALID_PN,
++				ctx->valid_ctx_bmap);
++		}
++
++		ba_attr = dl_tb[NL80211_SMD_CTX_DL_ATTR_BA_PARAMS];
++		if (ba_attr &&
++		    nl80211_parse_smd_ctx_ba_params(ba_attr, ctx->dl.ba,
++						    ctx->valid_ctx_bmap)) {
++			GENL_SET_ERR_MSG(info,
++					 "failed to parse DL BlockAck params");
++			goto err_free_ctx;
++		}
 +	}
 +
-+	if (ctx->pn_len &&
-+	    test_bit(IEEE80211_SMD_CTX_VALID_PN, ctx->valid_ctx_bmap)) {
-+		ul_pn = nla_nest_start(msg, NL80211_SMD_CTX_UL_ATTR_PN);
-+		if (!ul_pn)
-+			goto nla_fail_ul;
++	/* UL Context */
++	if (tb[NL80211_SMD_CTX_ATTR_UL]) {
++		struct nlattr *ba_attr;
 +
-+		for_each_set_bit(tid, ctx->ul.valid_tid_bmap,
-+				 IEEE80211_SMD_CTX_NUM_TIDS) {
-+			if (nla_put(msg, tid + 1, ctx->pn_len,
-+				    ctx->ul.pn[tid])) {
-+				nla_nest_cancel(msg, ul_pn);
-+				goto nla_fail_ul;
-+			}
++		if (nla_parse_nested(ul_tb, NL80211_SMD_CTX_UL_ATTR_MAX,
++				     tb[NL80211_SMD_CTX_ATTR_UL],
++				     nl80211_smd_ctx_ul_policy, NULL)) {
++			GENL_SET_ERR_MSG(info, "failed to parse UL context");
++			goto err_free_ctx;
 +		}
-+		nla_nest_end(msg, ul_pn);
++
++		bmap_attr = ul_tb[NL80211_SMD_CTX_UL_ATTR_VALID_TID_BITMAP];
++		if (bmap_attr)
++			bitmap_write(ctx->ul.valid_tid_bmap,
++				     nla_get_u8(bmap_attr),
++				     0, IEEE80211_SMD_CTX_NUM_TIDS);
++
++		if (ul_tb[NL80211_SMD_CTX_UL_ATTR_SN]) {
++			struct nlattr *sn_attr;
++			int n_tids = 0;
++			int rem, tid;
++
++			nla_for_each_nested(sn_attr,
++					    ul_tb[NL80211_SMD_CTX_UL_ATTR_SN],
++					    rem) {
++				tid = nla_type(sn_attr) - 1;
++				if (tid < 0 ||
++				    tid >= IEEE80211_SMD_CTX_NUM_TIDS) {
++					GENL_SET_ERR_MSG(info,
++							 "invalid UL SN tid");
++					goto err_free_ctx;
++				}
++
++				if (nla_len(sn_attr) != sizeof(u16)) {
++					GENL_SET_ERR_MSG(info,
++							 "invalid UL SN len");
++					goto err_free_ctx;
++				}
++
++				ctx->ul.sn[tid] = nla_get_u16(sn_attr);
++				n_tids++;
++			}
++
++			if (!n_tids) {
++				GENL_SET_ERR_MSG(info, "empty UL SN nesting");
++				goto err_free_ctx;
++			}
++
++			set_bit(IEEE80211_SMD_CTX_VALID_UL_SN,
++				ctx->valid_ctx_bmap);
++		}
++
++		if (ul_tb[NL80211_SMD_CTX_UL_ATTR_PN]) {
++			struct nlattr *pn_attr;
++			int n_tids = 0;
++			int rem, tid;
++
++			nla_for_each_nested(pn_attr,
++					    ul_tb[NL80211_SMD_CTX_UL_ATTR_PN],
++					    rem) {
++				u8 pn_len;
++
++				tid = nla_type(pn_attr) - 1;
++				if (tid < 0 ||
++				    tid >= IEEE80211_SMD_CTX_NUM_TIDS) {
++					GENL_SET_ERR_MSG(info,
++							 "invalid UL PN tid");
++					goto err_free_ctx;
++				}
++
++				/*
++				 * PN length must be the same for all DL and
++				 * UL TIDs.
++				 */
++				pn_len = nla_len(pn_attr);
++				if (pn_len > IEEE80211_SMD_CTX_MAX_PN_LEN ||
++				    (ctx->pn_len && pn_len != ctx->pn_len)) {
++					GENL_SET_ERR_MSG(info,
++							 "invalid PN length");
++					goto err_free_ctx;
++				}
++				ctx->pn_len = pn_len;
++
++				memcpy(ctx->ul.pn[tid], nla_data(pn_attr),
++				       ctx->pn_len);
++				n_tids++;
++			}
++
++			if (!n_tids) {
++				GENL_SET_ERR_MSG(info, "empty UL PN nesting");
++				goto err_free_ctx;
++			}
++
++			set_bit(IEEE80211_SMD_CTX_VALID_PN,
++				ctx->valid_ctx_bmap);
++		}
++
++		ba_attr = ul_tb[NL80211_SMD_CTX_UL_ATTR_BA_PARAMS];
++		if (ba_attr &&
++		    nl80211_parse_smd_ctx_ba_params(ba_attr, ctx->ul.ba,
++						    ctx->valid_ctx_bmap)) {
++			GENL_SET_ERR_MSG(info,
++					 "failed to parse UL BlockAck params");
++			goto err_free_ctx;
++		}
 +	}
 +
-+	if (test_bit(IEEE80211_SMD_CTX_VALID_BA_PARAMS, ctx->valid_ctx_bmap) &&
-+	    nl80211_put_smd_ctx_ba_params(msg, ctx->ul.valid_tid_bmap,
-+					  ctx->ul.ba, false))
-+		goto nla_fail_ul;
-+
-+	nla_nest_end(msg, ul);
-+
-+	/* Driver data blob */
-+	if (ctx->drv_ctx_size &&
-+	    nla_put(msg, NL80211_SMD_CTX_ATTR_DRV_DATA, ctx->drv_ctx_size,
-+		    ctx->drv_ctx))
-+		goto nla_fail;
-+
-+	nla_nest_end(msg, smd_ctx);
++	/* Driver data */
++	if (tb[NL80211_SMD_CTX_ATTR_DRV_DATA]) {
++		ctx->drv_ctx_size = drv_ctx_size;
++		memcpy(ctx->drv_ctx,
++		       nla_data(tb[NL80211_SMD_CTX_ATTR_DRV_DATA]),
++		       drv_ctx_size);
++	}
 +
 +	return 0;
 +
-+nla_fail_ul:
-+	nla_nest_cancel(msg, ul);
-+
-+nla_fail_dl:
-+	nla_nest_cancel(msg, dl);
-+
-+nla_fail:
-+	nla_nest_cancel(msg, smd_ctx);
++err_free_ctx:
++	kfree(ctx);
++	st_info->ctx = NULL;
 +	return -EINVAL;
 +}
 +
  #define NL80211_FLAG_NEED_WIPHY		0x01
  #define NL80211_FLAG_NEED_NETDEV	0x02
  #define NL80211_FLAG_NEED_RTNL		0x04
-@@ -22193,10 +22452,14 @@ int nl80211_send_mgmt(struct cfg80211_registered_device *rdev,
- 		      struct cfg80211_rx_info *info, gfp_t gfp)
- {
- 	struct net_device *netdev = wdev->netdev;
-+	int st_roaming_data_len = 0;
- 	struct sk_buff *msg;
- 	void *hdr;
+@@ -20168,6 +20455,44 @@ static int nl80211_set_sar_specs(struct sk_buff *skb, struct genl_info *info)
+ 	return err;
+ }
  
--	msg = nlmsg_new(100 + info->len, gfp);
-+	if (info->st_info.ctx)
-+		st_roaming_data_len = nl80211_smd_ctx_nl_size(&info->st_info);
++static int nl80211_set_smd_ctx(struct sk_buff *skb, struct genl_info *info)
++{
++	struct cfg80211_registered_device *rdev = info->user_ptr[0];
++	struct cfg80211_smd_transition_info st_info = {};
++	struct net_device *dev = info->user_ptr[1];
++	struct wireless_dev *wdev = dev->ieee80211_ptr;
++	const u8 *addr;
++	int err;
 +
-+	msg = nlmsg_new(100 + info->len + st_roaming_data_len, gfp);
- 	if (!msg)
- 		return -ENOMEM;
- 
-@@ -22230,6 +22493,10 @@ int nl80211_send_mgmt(struct cfg80211_registered_device *rdev,
- 						   NL80211_ATTR_PAD)))
- 		goto nla_put_failure;
- 
-+	if (st_roaming_data_len &&
-+	    nl80211_put_smd_ctx(msg, &info->st_info))
-+		goto nla_put_failure;
++	if (!rdev->ops->set_smd_ctx)
++		return -EOPNOTSUPP;
 +
- 	genlmsg_end(msg, hdr);
++	if (wdev->iftype != NL80211_IFTYPE_AP &&
++	    wdev->iftype != NL80211_IFTYPE_AP_VLAN)
++		return -EINVAL;
++
++	if (!info->attrs[NL80211_ATTR_MLD_ADDR] ||
++	    !info->attrs[NL80211_ATTR_SMD_CTX] ||
++	    !info->attrs[NL80211_ATTR_SMD_CTX_TYPE]) {
++		GENL_SET_ERR_MSG(info, "required attributes are missing");
++		return -EINVAL;
++	}
++
++	addr = nla_data(info->attrs[NL80211_ATTR_MLD_ADDR]);
++
++	err = nl80211_parse_smd_ctx(info, &st_info);
++	if (err)
++		return err;
++
++	/*
++	 * Drivers must copy @ctx if processing is deferred after
++	 * returning from this function.
++	 */
++	err = rdev_set_smd_ctx(rdev, wdev, addr, &st_info);
++	kfree(st_info.ctx);
++	return err;
++}
++
+ #define SELECTOR(__sel, name, value) \
+ 	((__sel) == (value)) ? NL80211_IFL_SEL_##name :
+ int __missing_selector(void);
+@@ -21069,6 +21394,13 @@ static const struct genl_small_ops nl80211_small_ops[] = {
+ 		.flags = GENL_ADMIN_PERM,
+ 		.internal_flags = IFLAGS(NL80211_FLAG_NEED_WDEV_UP),
+ 	},
++	{
++		.cmd = NL80211_CMD_SET_SMD_CTX,
++		.doit = nl80211_set_smd_ctx,
++		.flags = GENL_UNS_ADMIN_PERM,
++		.internal_flags = IFLAGS(NL80211_FLAG_NEED_NETDEV_UP |
++					 NL80211_FLAG_CLEAR_SKB),
++	},
+ };
  
- 	return genlmsg_unicast(wiphy_net(&rdev->wiphy), msg, nlportid);
+ static struct genl_family nl80211_fam __ro_after_init = {
+diff --git a/net/wireless/rdev-ops.h b/net/wireless/rdev-ops.h
+index 46849fe8d0b3..d33a969606d7 100644
+--- a/net/wireless/rdev-ops.h
++++ b/net/wireless/rdev-ops.h
+@@ -1636,4 +1636,18 @@ rdev_set_epcs(struct cfg80211_registered_device *rdev,
+ 	return ret;
+ }
+ 
++static inline int rdev_set_smd_ctx(struct cfg80211_registered_device *rdev,
++				   struct wireless_dev *wdev, const u8 *addr,
++				   struct cfg80211_smd_transition_info *st_info)
++{
++	int ret = -EOPNOTSUPP;
++
++	trace_rdev_set_smd_ctx(&rdev->wiphy, wdev, addr, st_info);
++	if (rdev->ops->set_smd_ctx)
++		ret = rdev->ops->set_smd_ctx(&rdev->wiphy, wdev, addr, st_info);
++	trace_rdev_return_int(&rdev->wiphy, ret);
++
++	return ret;
++}
++
+ #endif /* __CFG80211_RDEV_OPS */
+diff --git a/net/wireless/trace.h b/net/wireless/trace.h
+index 8c2a91b85c39..6234ceb9ebb1 100644
+--- a/net/wireless/trace.h
++++ b/net/wireless/trace.h
+@@ -4405,6 +4405,53 @@ TRACE_EVENT(cfg80211_nan_channel_evac,
+ 	TP_printk(WDEV_PR_FMT ", " WIPHY_PR_FMT ", " CHAN_DEF_PR_FMT,
+ 		  WDEV_PR_ARG, WIPHY_PR_ARG, CHAN_DEF_PR_ARG)
+ );
++
++TRACE_EVENT(rdev_set_smd_ctx,
++	TP_PROTO(struct wiphy *wiphy, struct wireless_dev *wdev, const u8 *addr,
++		 struct cfg80211_smd_transition_info *st_info),
++
++	TP_ARGS(wiphy, wdev, addr, st_info),
++
++	TP_STRUCT__entry(
++		WIPHY_ENTRY
++		WDEV_ENTRY
++		MAC_ENTRY(sta_addr)
++		__field(u8, st_type)
++		__field(unsigned int, num_tids)
++		__dynamic_array(unsigned long, tx_tid_bitmap,
++				BITS_TO_LONGS(IEEE80211_SMD_CTX_NUM_TIDS))
++		__dynamic_array(unsigned long, rx_tid_bitmap,
++				BITS_TO_LONGS(IEEE80211_SMD_CTX_NUM_TIDS))
++	),
++
++	TP_fast_assign(
++		struct ieee80211_smd_ctx *ctx = st_info->ctx;
++		unsigned long sz;
++
++		WIPHY_ASSIGN;
++		WDEV_ASSIGN;
++		MAC_ASSIGN(sta_addr, addr);
++		__entry->st_type = st_info->type;
++
++		__entry->num_tids = IEEE80211_SMD_CTX_NUM_TIDS;
++		sz = BITS_TO_LONGS(__entry->num_tids) * sizeof(unsigned long);
++
++		memcpy(__get_dynamic_array(tx_tid_bitmap),
++		       ctx->dl.valid_tid_bmap, sz);
++		memcpy(__get_dynamic_array(rx_tid_bitmap),
++		       ctx->ul.valid_tid_bmap, sz);
++	),
++
++	TP_printk(WIPHY_PR_FMT  ", " WDEV_PR_FMT
++		  ", sta=%pM, ST type=%u DL TIDs: %*pb, UL TIDs: %*pb",
++		  WIPHY_PR_ARG, WDEV_PR_ARG, __entry->sta_addr,
++		  __entry->st_type,
++		  __entry->num_tids,
++		  (unsigned long *)__get_dynamic_array(tx_tid_bitmap),
++		  __entry->num_tids,
++		  (unsigned long *)__get_dynamic_array(rx_tid_bitmap))
++);
++
+ #endif /* !__RDEV_OPS_TRACE || TRACE_HEADER_MULTI_READ */
+ 
+ #undef TRACE_INCLUDE_PATH
 
 -- 
 2.34.1
