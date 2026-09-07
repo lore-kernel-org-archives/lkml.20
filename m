@@ -1,72 +1,68 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012049.outbound.protection.outlook.com [52.101.48.49])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013030.outbound.protection.outlook.com [40.107.201.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 567422DCF46
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 02:51:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE06F149C7B
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 02:51:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.30
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788749471; cv=fail; b=mCN8ASOLulj7Txn/2mak80pUj/HKg/L/dWhsHOLnfqYore4doA3PQfw8cdQez1x7yiabDXaXsNNbSeVnnIKUEvspbJPLj+aDZLQJvXvUJzs+tOyaIiGE/dyorbrCaKlFBnTwALFcc5NyagRytUkOU3CZDnpeDgRky3O25BjX3MY=
+	t=1788749497; cv=fail; b=EHj8rWU3XQiW58aPVtoV6DrSPAH42KrTJNRh5dxx/IiI4mrW6EygqyxSxC1MZ5GiBGGOcdWOFxj9CHkiHR/qrhPGipt1gxrOOQKgq7Kp4juNGT2QU0Jc81ZL+3c6eWNetbAV6VgKDA55qXQci2K9S7FEkU0fxhvSZdFx3hYta3M=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788749471; c=relaxed/simple;
-	bh=vF7z1lVdocGclECsUxhW0Orq1eCE4Et3IdUxu2WvtVQ=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=BIsezWKcNfLNZN/uAS32YtC9zw+VkPuoqb+sr/RGf+Whd0s+0GjP3i8KVrnhsE+EkiTqzLEfrECficWJMhlL52Wcyn1awCWK2+n5rVHCT3p2v3gAWn/yL1cwqd0nAlp9DawdTy7nn+o1nsY1zP2GrW1gelIHgMhJEAhjv392LVE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=oRDnb9ot; arc=fail smtp.client-ip=52.101.48.49
+	s=arc-20240116; t=1788749497; c=relaxed/simple;
+	bh=Cbb4NTap5Gy7tyglOfL7qQ+jUgD07rkYrSwKS30+4vQ=;
+	h=Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
+	 In-Reply-To:MIME-Version; b=qM9CZAUcjKvEy/gykfejdq8v/T5IBllBjtwtRuTPuY5b2wafa6Xcn6c+7w+vGKCFFAKi1y18ngywttrIfmTiCAQRDxNKZkakmGpAv0u13CSlx7AsfILA4iCkQTueTjXgOb/N8gV41r4+sF1W3jrGieoy/rl6mIyvEn/D+jpZZnk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=fdNMuH07; arc=fail smtp.client-ip=40.107.201.30
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="oRDnb9ot"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="fdNMuH07"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fK0q3oNm9DYdfWewTnNH1E+WtNWkMpD/3HH2xucxZvY/qAoWLh1PxSmuW16a0akwIpJfidwH4qsXrO952iTHTfBYOVQxw4kgS597uiY/rfWdgs60e8tdo/mVw9/ZJUhblm1Ej9i6UFm7hw+Gf562zroEbOHETzRoody4NGxq6UvTM2hVvRmec5aam69tAQbJ1l7A1sQNFHN41HL23knGpNI2+BWyA3IBfAbJOdAFxZ9D9psKzGOvODddzQYT33I3+4wuGdBr+8aHHoHUK1pMxA2IbFG4IFy4mLJ9CN/FDz5I2+l4EWBoH+SMEiMs6i4tX1FhV6+eTQM9vKh+vWQ+KA==
+ b=lywMg7h5oxLj0XaRmBunzDvrRqfJH7Cu6KEzOvDFALG62u/CyatK6uHrmtClu3/PdWcXKNnzctUS/8VHEbgFiIEwAbStF5od0xEez6uqlMHNGXui5QHe2iPI9rMoW/50ITu9twOZ5igiE4gXPp9vVogeMccbrLEIgwdRj1GT34DoQgC0EJmwqDn1uIiNypy1dr+ndSQ6sAH1YnkuTgb0ETbkSdLPZEdKZbEXZ66w1ReXpSP9CHlySv98phSv2SeC2dCt88P4LlGogSN6My9NAUfrlerEBiCR6MSAESodah5dzf6hzrAB7Xn9x/MCK/Xu7tYK0W27MQQHXdd317/g8g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hlkj13SLztfMVass1OVtDDOE07rb3DLPiRLzG+XLzhU=;
- b=fILNniaeHEbmTo7rNMYV+BZm7tJLDLBMaM9gXzdCTT8cPd2TwEt3d+tJU4I3t1fP3SOVGhu+Cy1g6m2Bq4ogYgGYywNI8EujRuqrn8O5+Tnu5/G1b5mPVjitF2aAS20/rgwD1QskYaFiDTqzGcjAc9FbYbcL0wPCX+uiJZQBfn7SnQvxXXYjZEjjzm31hlv20EaQL36qUJy/tYDi9DEgRjgwG+EfS+VuNSoglNzL6yLJcmXkhECkh+WjfPHO7oWMHM9XwXXxgaNS1uh9+oIbNTQEKRPep+oBRKv1qMpt2bVuCPej428TLsXn3IwHSl8zkeUjxWcUO9R0BnojxCljdQ==
+ bh=ZOv69Y9kWwA00zsckDOV6ICWiBKiNFOJZyNchtPUfL8=;
+ b=mh0mzfzLTqQamznuIBZsgFgXlu4hcaZadViDb2dy2C8JpSoHEo4XmtH6YjCkUy7jKiZg8jb9yJMZK13VamnP9SqbGGbpt72Vrrp95S5qtfo4Xlp5v4o8yYe/X2uK7bLNMmldYPeqoPf/rm3TciZjvcQID93BkDdQKpgUucVh8fHEFl3iApKjw/5LQ7iEjvLy+sveh05cJ/KohXz86aiLpLynMrZPRhyBCrAl453eKVu2JLke/UUGknRECyYsNEo5I9DG/6KYFIZB7ZrFoTPW10Q9q3tL6D0RJtjPbbe/6usb7tItENmoNGSaJJIYAIZGTCUj3zhKBriKAi2pZVu0kQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hlkj13SLztfMVass1OVtDDOE07rb3DLPiRLzG+XLzhU=;
- b=oRDnb9otgSaozzHszq4hlqmLVJsavyv5KhH463+815+RwSDDFOacba7M1A9e5E7/c9Na6k6T1IOoMGOWctIRKaF+mKyie2lLf32BJHdNktHoH8dnqrauLqhTHYY9OaXDmi99jsKUPI1dsbCXhmFt6E0Br3lKz1kzZpFqM/6+lOrsuy0c06fIAYpjKJvW/yJDOws/jP/m2j+v7rd3DfEUPLARgzucWRqdnDiLzM+pC64gQ+NjCfWcrHiRqU9Orf1OjESVRVvuV4sdccfG8auZyIJO/EJoHhmz5KwfnHU3sReeRpHmXAJoUiLWUZ8mfHC6IfpcBvwUZl/DRAbWlIuliQ==
+ bh=ZOv69Y9kWwA00zsckDOV6ICWiBKiNFOJZyNchtPUfL8=;
+ b=fdNMuH07rvOwo1C9HHir8H4McHRcmnUNNOGxCGevQtKSFBLICGDpWhXSAJCoIsqE+qwMtzgdk4LEtfXz6EFwPDjCK8ehlAshuX9V7l/X5Fa0QIGHu7U9c+k35M4Mra85CMJk5xVdUr3Tj3toNEPHRyomSCpRrzRY/nG3ApcSM7qR+TshLUIAgKRCww2kQyStcoZjLSjMQNso0hQEmJZAJU+pr/5SP/M3trJhMoxpyIVhh3FVAYd72Rntl+MTpAe7eTKLo6sMuIFWm/H+nIzruzcTHdoID01SDgCW52r3JQWnovsbOb1rZi8KCwC7OHIMJIkyMfJgU3mZ/c3rXbOTlw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by PH6PR12MB944609.namprd12.prod.outlook.com (2603:10b6:510:3de::7) with
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by MN2PR12MB4301.namprd12.prod.outlook.com (2603:10b6:208:1d4::22) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 02:51:07 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0382.007; Mon, 7 Sep 2026
- 02:51:07 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 07 Sep 2026 11:51:04 +0900
-Message-Id: <DL8QRJJ1DIEP.1F6RLHTRQS1AL@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
- "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex Gaynor"
- <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 07/31] gpu: nova-core: distinguish async GSP RPC
- traffic in debug logs
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "John Hubbard" <jhubbard@nvidia.com>
+ 2026 02:51:31 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
+ 02:51:31 +0000
 Content-Transfer-Encoding: quoted-printable
-References: <20260822015448.238214-1-jhubbard@nvidia.com>
- <20260822015448.238214-8-jhubbard@nvidia.com>
-In-Reply-To: <20260822015448.238214-8-jhubbard@nvidia.com>
-X-ClientProxiedBy: OS7PR01CA0253.jpnprd01.prod.outlook.com
- (2603:1096:604:24b::10) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 06 Sep 2026 22:51:29 -0400
+Message-Id: <DL8QRV0RZS55.238LGA5F34MYG@nvidia.com>
+Subject: Re: [RFC PATCH 0/4] mm: compaction: mTHP-friendly memory compaction
+Cc: <surenb@google.com>, <mhocko@suse.com>, <brendan.jackman@linux.dev>,
+ <hannes@cmpxchg.org>, <ljs@kernel.org>, <liam@infradead.org>,
+ <rppt@kernel.org>, <qi.zheng@linux.dev>, <shakeel.butt@linux.dev>,
+ <kasong@tencent.com>, <baohua@kernel.org>, <axelrasmussen@google.com>,
+ <yuanchu@google.com>, <weixugc@google.com>, <zhaonanzhe@xiaomi.com>,
+ <lipengfei28@xiaomi.com>, <linux-mm@kvack.org>,
+ <linux-kernel@vger.kernel.org>, "Bo Zhang" <zhangbo56@xiaomi.com>
+To: "Bo Zhang" <zhangbo0325@gmail.com>, <akpm@linux-foundation.org>,
+ <vbabka@kernel.org>, <david@kernel.org>
+From: "Zi Yan" <ziy@nvidia.com>
+X-Mailer: aerc 0.22.0
+References: <20260825043833.2659350-1-zhangbo56@xiaomi.com>
+In-Reply-To: <20260825043833.2659350-1-zhangbo56@xiaomi.com>
+X-ClientProxiedBy: YQZPR01CA0152.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:8c::25) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,248 +70,287 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|PH6PR12MB944609:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ab049ca-a589-42fd-3cfb-08df0c8add59
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|MN2PR12MB4301:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0fcc5740-d678-47bd-7a69-08df0c8aebca
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|10070799003|6133799003|3023799007|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003;
+	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|6133799003|10067099003|56012099006|11063799006|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	w3zH0GMa5B/rmIeATZHHFhhFYtRKiyDj+k4zK9de4uPBB57aYgtsrqcUnQ/Ixl7IySBihukxjYnsa2ipgrS5orr9YK/v9NycCjPpj2l9gPj5SPj0ap6Z9/7VuWLZ6wMjtzSwddPQfRr78jjSAlraZb9z2TGfbRSVlazDHyiVRqQBB9lmH5ITmJepCoS3CqVg2uqKup+NFmp7xsqKQ69tvqNSLCcpazMfFHmV2bIE8w3CNIDI29ZPs6pB4C/hV6kboiAe8EPw9AIBFf7bHW8oL0Ks1NSM7lnNOHjC7y2XUa2soFs+aW+5EXkp2yD9qbytbH9lhcals61SSDqlRNZMNN2LOLLYG5ZqS02dh0Oz9fvl+KaqN6L//egErRk33GWeh0gxiPLmlNgYinX8VGJavw3mfkzVXDFTnCumY4em4FxK9V+YKKQvC4ebWdrFDrJPPOLIghcS2gsFTAqM2kfrFBo4MhgqodXlOiVZGx/RzcJr8xmB6M1N74BOspnLXPVEloKskSDRNNaM/wUUgN+9CYY5zfn7wVyC4EgsoaDvGW8iqdZyfZKT3X7o9u0eqxw7R589M92YubbjscNF/msMQmGawUcoSYgIFyqndP2bLJWBcQKG+mBesMfos+PfOIThVo52nKbAra1EtzIubZwHx3QSKfy1UfHq+3wngeL/F8M=
+	tVyo4eJW4KX7b9NTcCzH6Sq0fMcdi5unoTt/iYfybZe/SA81wM1y8XMXHWPszHEXZwN6sg4K7DnhwBVT2PW5hJtSyBpnYKZhaMF6zyzG3cKpXo6+WzN8dGNIk90+CUtRum/lpsSRp7+2MH7sRkmPsrgxh7vggeHFmqrt3gSRQWNFEEZxyd2MWw8Pha5e3dLWW7R3Pur/lvd/0E0Fu/rKENtw8br1c7XoIy2B6oe0HfjzAia+zyXkFmZ0hJMK2iXoTi+/2NsIfHElY/tUDukuoZNRU6RLXaDTXys2fNH60HkBv0a5vs7TPvgzzViamAqlRRjpVqa0Fq9rz3uhNX0UsQJ1cF+ARgl72SFHor6kKW3fpJaQgEeADk+wodSIdOsS4Gcg31dfztXdY4aVEuC1SdmfChl88U29iL49dLclHpo06GkBUPf+31VcWt499HfAJAjg35fS6QJ1I3crHDV6G/KTi+UqErg0+XbzxcJk88QoDMv9BNoBTm0GsYBqxmsuVwLsQNKhJiKw4f9Bx8HTQYS0vGH2/YpG5w/yR5RMLGGFcv9HZ4NgpbKtmkplwvey5/B2LUjYoX1aeFXjVRWx3IwhKM+wprzJDutByf2c6FqvKCQokAAdoEe6RdQyklUDs+IatalPRPOld9JnUO9y9ANYDyszHu2a603MoLmzBLI=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(10070799003)(6133799003)(3023799007)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(6133799003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?L3hoYTdaM1ZhdFFLeHVzSEVkd2xaZXdzckJSMEQvRW1sL0x1MmVCR2pZdWwv?=
- =?utf-8?B?Sm1ybEZwenZEYUh2RHJhVS9KQlJOYTRPdG5aQ0t3eXRDbThMd2VHY25DRS9W?=
- =?utf-8?B?S01Dd1ZGa3BFSkN6YitmMHREVUp0dmdQampGRG96OXNqbStROE9GMTZiYTlQ?=
- =?utf-8?B?K0VwT0JmT0xza0pCWjdhVXJkTlJ5VlByY29YcE5wRmNmT3pjc2VnQ1FYcnZ0?=
- =?utf-8?B?OTZvcEhtcFV3bEt0SzQrakZHMGxlTEFvNlp3ZjlzN2huc0krYnZnNTIvT1BB?=
- =?utf-8?B?OGpkWEs0c2QxUFR4dWt0NHUxQjBSSUZZTmN0aFZFanFySHZtNjhkSmR1Ym9i?=
- =?utf-8?B?SGhJMEt1S1dpeWx4cHAyZ2NITmp1cVRQNUNVMWxEb1gvQXZ0L0VyOE4rVnVo?=
- =?utf-8?B?Q2xNYm1aRTB0UUZHTVJqSlE1UldWY3hsTUZjalFZa3Z3MXRFWW4ya1hBSDNa?=
- =?utf-8?B?YkFBNzk1RzlkM1RGdzBnY09jaHRMUnRhNWR6Y2N5NmFiRnM3ZGRZOGJyZGF3?=
- =?utf-8?B?NjZtZzhYSy9jcXlDNjVmZ2VkQ1ZuZHFJOC9wSE1DcC9yTGNmOU9zVVNueitW?=
- =?utf-8?B?Rjh1SENtSjg5YWZRSFJXNVAyQ2xqVXBEL3BGWmIzeUQrVHo5TUZkbzNucndl?=
- =?utf-8?B?NkpJbXJiaTEwVnRxcHY4V1dSbDgrNGRCaWRCSmxiR2RiUDJqRlVGTE5kUXE5?=
- =?utf-8?B?eHRkbHdzUjlmQ1FFS044QmtqYjAvSmt6eWpuNWdpSWx4TnRVQ3VqN25YV212?=
- =?utf-8?B?R3JEODFMdUl4d05Fckk4QTBVSzZCT0ZKQTBhQWNnZkxkL0d0NlJ3dFFscEJL?=
- =?utf-8?B?VjhtVi82cmlGUlg5cWhtSnlpS0xWeDY3YldxdDJ4c1BRTEp1YkpxYXpJTGc2?=
- =?utf-8?B?Rmc3dzlaOVd6YlFBV1ZoOVdEeFlneFZ4dHRoUjZwMUVKcE4wMFVXWG9QRzFl?=
- =?utf-8?B?MVVTejF4blVuQkw1UGhjRHhGYUJxaCtjZFVDQm9qRERaM3lMRmhEWVhmWXo5?=
- =?utf-8?B?aG5LUXZsT2pPdENYNjVlRm5mNXpkcDNpWDFEcERuUk9MR1VkN2trbHVaekhL?=
- =?utf-8?B?dDVPbzNLSnlxdjM5ODJieGlPYmJrYk1FamZrOHpyREV1VVNOSHl0dXlKVndN?=
- =?utf-8?B?K3lhUFBOM1JaN0U5WFplV2M5WWdBWlI3anlDQS9uQk90MmM4eE15a0VwTDJE?=
- =?utf-8?B?ZExvTXEzWHBiYmlMRnYrTjdBOWkvbzhYMi9hQmZaZW5VWlRibjRZMWU1T3p5?=
- =?utf-8?B?WmVPMEZTVU83WEE0NEZ2eDBFcEYrcGhIMTV5Smovdll1SmxLRzY0K3hZOUlE?=
- =?utf-8?B?aSt0U043NTlpMW1aTUNTZENKdEtyNENSb002elFMUk14SkpQQVE4NzFRdUNl?=
- =?utf-8?B?ZmNna2R0L3hYSXgyaE0rZEViMUtPcHpIT0hqb3lMdkZqSGg2ZFFYSmJjK2Za?=
- =?utf-8?B?cEhUV1pKQU40TnRrc1ZSb1dGNzBudU5uUnhIcVVsRm11ck5yRGtMRFErUlFF?=
- =?utf-8?B?Sk5kSFlDbkorOFFZendUQWtVbHlEZSsrZFRXTXdseUVHdTl0NzlQVDhlRDhu?=
- =?utf-8?B?ZGN3TFIwaFFsQmlVenZPN3BDT043cnZaN3hLYzJzYkhncy9PVjNyR2YwQVk1?=
- =?utf-8?B?YWFBbVdUekpEL2ttQjU5TTVrTWJwZmVjaW5Cbm9ITTljcEdsdnNpdkkxTDBM?=
- =?utf-8?B?MnMyZUd0dnRtalZMbVJmcmtCR1NlSWo5TFh2WXdkdW9vM3pCMEJmaERyQXo1?=
- =?utf-8?B?TW53VHRiMFVHbEFTdllBTGhrRmd6NFRZUVBiZG5KUjgzZHNIblV4R2NCbjE0?=
- =?utf-8?B?THBuazkrY0ErNS9DOUdlYXhhMFFJV055UGVsZFlieVRLWDk0MzRIdHdxUFEr?=
- =?utf-8?B?TXlxbjZUaURwYVBzUHMzZWx0WmxiTmgzSnNDL3g3K0tyeVdtYTZUZHBzc1J1?=
- =?utf-8?B?eWxDdFRiYTBFcDlSTzJhVTJNcUh3OUdOaVExSEtSaEwwdFFURzJvcm04cDJ6?=
- =?utf-8?B?dEZ2T0drRGZTb0RvN3hMTGFzbE5NSE1nY0VldTEwTG9pSjNFRWpJcDFCUENo?=
- =?utf-8?B?TC9tVzRMWUJ4KzdHM1AzQTNMOUd0VEpkWjZtRWt5bVJxcFczb3llZnhYa3pD?=
- =?utf-8?B?d0dya1Q4OFlyZy93eW9nS1BrTUNZdld1K0dMOUR0MWZYbTlKd0ZpL3VFUXJS?=
- =?utf-8?B?TSt4UDgybm1mVlVpT2ZDdUhuckVSR0Nkb05TcThxNTZXZ0hoUEowZm1mb1Yr?=
- =?utf-8?B?ZVJYRktNZ3BBQUd6UFFodzJHNWZqdUJXQVBQSTV0R3B5djhGZ2VHSkZZckc4?=
- =?utf-8?B?ZTFhWHRIaHR1NkowUjNzS3cwdFl2Y2FraEEyWk1NdytpVnlESCtERFFqcVhR?=
- =?utf-8?Q?yEt0VjC5LC9CbvJcvx1hB2inwz6KNKcAIjp+EfZDATEeo?=
-X-MS-Exchange-AntiSpam-MessageData-1: MMvnFaemJ699nQ==
+	=?utf-8?B?T0tyYXB4RjExUEQySVVURURYQTY1U1diMzNhVFBpaEhUNUlCblFVYzJMMlVu?=
+ =?utf-8?B?NWNTOS90YjlWOUd3bStHSVNYRkszcHByZVRxSFlkNUFBSE1WQ042TDhWZkQ5?=
+ =?utf-8?B?R3JPRmtsb2RyUlhPZTdxQmZlT3JMVkRGM1dJMlhZZFBURWFlYVBGdVo0djFH?=
+ =?utf-8?B?NG9NWmNLLzNacmRsNXJ0NTUwdDJxMjAvcGdsT3RkZkN0bGRSQXVlKzJ4ck8z?=
+ =?utf-8?B?c2FCVGlnYWU0SHR6N2c3RGZaRHFjWlNscmE0RkxIZC9jSmJoRnYwQzc2RXR1?=
+ =?utf-8?B?TXlGVlpLZVJPQUQ1Ynh5eTFreGx6TS9FVjJrbXR4YUR2WXNweU9KT2JuSjZV?=
+ =?utf-8?B?ZmljY3VhNGppam1uREdlTlo4UUFEV3hDbk1FUE44ZmtRT1NpZEUwT0tuSS9Y?=
+ =?utf-8?B?dFlJTHhwYUIyOXBtS295b3ZuUlgzRFNMT2o5SC96c3h5dElvUTZlTDQ5NjBa?=
+ =?utf-8?B?M2o4elNjdjJIN0E3aHdXdGNzSzNlMUxXRlZyekxkQUNxRnNlS0VjVVBMN3hy?=
+ =?utf-8?B?YXdxVEZyUFZLRkdJZFVMZUU2aVo1dVg3OTFkTkc4dWVOR2xJaXJxQ2JQUXM5?=
+ =?utf-8?B?RkwweTljNWtkQmxXTjkrNHIzSUd4V1dKMVFTU2xvV3duSGFIWXNYc0pEM1lY?=
+ =?utf-8?B?RmpQRGZ5Z0lRSjhlL3pxTm4xVDFSOWEzZTY4emV4SUdsNzNKMC9ILzlTUHZR?=
+ =?utf-8?B?dm0xTENGRUFMb1hyZExsN2dtK2NDNFh6dldXVWxqTTB0RHR5SC9zaTlCTWpu?=
+ =?utf-8?B?NmpPN2pvdmJTWkYzZnk3TWM5Y3NIZTk1clY4b3dSazRWR2lSbDNZank3Q1Bw?=
+ =?utf-8?B?MWlHU21hOUNDWWQxRjNTdkpud3V1RmE4bXR6TmlMUEc3WnlxdUwzTkI5SHc5?=
+ =?utf-8?B?aXZjNkxhdDhxT2NFejZMMFMvSWdxUXlpR1RUdWVWSEx1b0h4ZDFkZDJMTHZD?=
+ =?utf-8?B?UW14VjdMY2tIMFRYR3czdEpJdy9NUVBuc2Yxb0J6dXRBcEN2M2VINmN0bkRF?=
+ =?utf-8?B?MVRNa0ZwK2lJd1R4M0ZwN3NPRXVweUYwYURXMXpRdVdnNnlqdVUvNGlWZzRB?=
+ =?utf-8?B?ZmNyWU1jaVEwVGlaRXZ4dW1YNUpoYmdTdFlQTjF4WkR0S2N0V1hNUE9sRkpD?=
+ =?utf-8?B?R3ZtelgzOFVDR0svMHNQeERuTXVJR2hHdkRLajhzcTNiK1dpSnhzS1lhZ09K?=
+ =?utf-8?B?a2cwNTBoUUFQL3h1S3FDTzJXcUJkOWkxVzQxZDk1cWkyNVR5dWIrSkZmYnUz?=
+ =?utf-8?B?WWpmaHVlQnA2M1I5SEk0ek1Rb2RVTUc1WnRNUWs4QkdPaVBjbTZUTkpPcjVJ?=
+ =?utf-8?B?cHlBWFpzaUEwVktoYjNNZDY0TS9Sd1BqQ2NEeU5mV0thczdtckF5WUl5QWpx?=
+ =?utf-8?B?dVlrUzZjSXVHTERERUZQNCtETnd2ZmtJZ0orR2xVZWRTRXJjUkpXZXF1UUhO?=
+ =?utf-8?B?VlU2aUUvUHJQS2Z2RXVlQUlEUzVnYmduK2F0RExwMTk3azdoc2dOemorWXh3?=
+ =?utf-8?B?azJMOGxaQlZkZi9OeHB0VVdCTHN4Vit5RVNDUXJSL0VKMTBtS3Y5dzB1NkN3?=
+ =?utf-8?B?K2VuUFhibUIwNHZVcjlTNDdHdk1BQWIwMWNOcnAyUm9YbER6bFc0eWpYSDNu?=
+ =?utf-8?B?UTNQUTRYNTVXQkVvUkJEenI2aXgzWFJoeG50TnNJbDhWd1BzSEJ5VWdHRHJ1?=
+ =?utf-8?B?L1pEVXQrTW40NE9aQTRXRThwVkVnOUZoeWhjUng5VGRXTmk3V3ZLNXF1NFB0?=
+ =?utf-8?B?ekwvODByMCttWlNJVlV2Qms2K1F6OVdndTlDYVo0bGZ2S3UzdUU0a2ZVS1pr?=
+ =?utf-8?B?dDBlcnNDRy9BOHR6UDBYR3NqRnVIOUpsV3MrbnYwNk9TUVJHZThwZ1NrZXN4?=
+ =?utf-8?B?VkY3eDIvdlRvak1Rd010US84d0dBRzVBT3NDdnhvSUp0emYvUzB6RVlKd3cv?=
+ =?utf-8?B?TDZNejhTQ0FvblBNaWVhWjdOb2FPQXdQQklEWEhpWDc2eG9ZbG1YRXl4ZU1O?=
+ =?utf-8?B?NndMT1hORjFva2FtWHVZK0EzeGpqTm5FNEFQdGRXU1BYQ29EcEYxUEVFYTl1?=
+ =?utf-8?B?aHpGQ0w5cHh4aExqMUZhK3lWVTF4OE1zUDM1ZkliWFh2UFpwdWIrV3hWVmVH?=
+ =?utf-8?B?RktNOWFMZU5ubTNDOFdvWUpQODZtNU1hdllyTEk4NEpKVkkwQWJUZjRvbFZz?=
+ =?utf-8?B?UnFEalhtRTVENnJJcytqZU1jTWc0VVZIRWJQQUVTY04wZzdtRXhZTlZSKzBT?=
+ =?utf-8?B?UVI3TEFGSCtPWCtnV0krOEtpK3U2RXluR3NXQnBwRkJSUWlTN1FTVGVLODVW?=
+ =?utf-8?Q?9BxnMNVsxdqOVY8W5X?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ab049ca-a589-42fd-3cfb-08df0c8add59
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0fcc5740-d678-47bd-7a69-08df0c8aebca
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 02:51:07.0155
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 02:51:31.1854
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qANxeQRuGRVsnIbg8flOtGt+9FyS39eCbkPHOybFN4iMu+n+4JEQk77ZfEg7sakmFirobjw9AYE5aav2LfOgtA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH6PR12MB944609
+X-MS-Exchange-CrossTenant-UserPrincipalName: d7fScnR5GqQIfJqMD830s2mqKjaFPACO1w6AF7D5qz62lzZCJDC1STyzp43qveHb
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4301
 
-On Sat Aug 22, 2026 at 10:54 AM JST, John Hubbard wrote:
-> The receive path logged every message at the transport layer and did not
-> distinguish events from command replies. Async sends shared the RPC
-> sequence with waited-for commands, and GSP-initiated events arrived
-> with that field unset.
+On Tue Aug 25, 2026 at 12:38 AM EDT, Bo Zhang wrote:
+> Hi all,
 >
-> Print a distinct debug line for async send, sync send, event, and
-> command reply. Number async sends and events with driver-local counters,
-> which wrap rather than trap, since they only number log lines.
+> This series improves memory compaction to better serve mTHP (multi-size
+> THP) allocations, particularly for small orders like order-2 (16KB).
+> The changes cover the proactive compaction and kswapd-triggered compactio=
+n
+> paths.
 >
-> IS_ASYNC selects only the send log line. Every command still carries the
-> next RPC sequence on the wire.
+> Problem:
 >
-> Assisted-by: Cursor:claude-opus-5
-> Reviewed-by: Timur Tabi <ttabi@nvidia.com>
-> Reviewed-by: Zhi Wang <zhiw@nvidia.com>
-> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-> ---
->  drivers/gpu/nova-core/gsp/cmdq.rs             | 111 ++++++++++++++----
->  .../gpu/nova-core/gsp/cmdq/continuation.rs    |   1 +
->  drivers/gpu/nova-core/gsp/commands.rs         |   2 +
->  drivers/gpu/nova-core/gsp/fw.rs               |  19 +++
->  4 files changed, 107 insertions(+), 26 deletions(-)
+> The current proactive compaction targets COMPACTION_HPAGE_ORDER (order-9,
+> 2MB), which is unfriendly to mTHP in two ways:
 >
-> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
-p/cmdq.rs
-> index ac3e6642031a..1eeef2120b6e 100644
-> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
-> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-> @@ -87,6 +87,12 @@ pub(crate) trait CommandToGsp {
->      /// Function identifying this command to the GSP.
->      const FUNCTION: MsgFunction;
-> =20
-> +    /// Classifies the send-side debug log as an async send.
-> +    ///
-> +    /// Default is `false`. Set this only on commands that are sent with=
-out waiting for a reply. A
-> +    /// [`NoReply`] continuation of a waited-for command stays `false`.
-> +    const IS_ASYNC: bool =3D false;
-> +
->      /// Type generated by [`CommandToGsp::init`], to be written into the=
- command queue buffer.
->      type Command: FromBytes + AsBytes;
-> =20
-> @@ -528,6 +534,8 @@ pub(crate) fn new(dev: &device::Device<device::Bound>=
-) -> impl PinInit<Self, Err
->                      gsp_mem,
->                      elem_seq: 0,
->                      rpc_seq: 0,
-> +                    tx_async_seq: 0,
-> +                    rx_event_seq: 0,
->                      poisoned: Cell::new(false),
->                  }),
->              }))
-> @@ -672,6 +680,12 @@ struct CmdqInner {
->      /// [`CmdqInner::receive_msg`] match that reply to the awaiting comm=
-and. Advances once per
->      /// logical command.
->      rpc_seq: u32,
-> +    /// Debug-log sequence for async sends. Those commands do not wait f=
-or a reply, so this
-> +    /// counter is the number printed in the send log.
-> +    tx_async_seq: u32,
-> +    /// Debug-log sequence for GSP-initiated events. The GSP leaves the =
-RPC sequence unset on
-> +    /// those messages, so the driver numbers them itself.
-> +    rx_event_seq: u32,
+> 1. It migrates folios that already satisfy mTHP allocation needs. For
+>    example, an order-2 folio is a valid mTHP page, yet compaction still
+>    moves it around trying to form order-9 blocks. This is unnecessary
+>    work and wastes energy.
 
-What do these counters give us concretely? I don't understand how they
-are useful for debugging since we already have sequence numbers for the
-commands.
+But skip_isolation_on_order() skips a folio with an order >=3D target
+order.
 
->      /// Set once a message with corrupt framing or a bad checksum is see=
-n. Such a message has an
->      /// untrusted length, so the queue cannot be advanced past it, and e=
-very later receive fails
->      /// until the queue is torn down and reset.
-> @@ -738,13 +752,24 @@ fn send_single_command<M>(&mut self, bar: Bar0<'_>,=
- command: M, rpc_seq: u32) ->
->                  dst.contents.1,
->              ])));
-> =20
-> -        dev_dbg!(
-> -            &self.dev,
-> -            "GSP RPC: send: seq# {}, function=3D{:?}, length=3D0x{:x}\n"=
+>
+> 2. Compaction designed for 2MB huge pages is too heavyweight for mTHP.
+
+Yes.
+
+>    mTHP allocations are frequent and only require small contiguous blocks
+>    (e.g., 4 pages for order-2). A lighter-weight, mTHP-aware compaction
+>    strategy is needed to reduce overhead and power consumption.
+>
+> Approach:
+>
+> This series makes four changes:
+>
+> 1. Generalize the fragmentation score functions to accept an order parame=
+ter
+>    and use the minimum always-enabled mTHP order as the compaction target=
+.
+
+Makes sense.
+
+>
+> 2. During proactive compaction (compact_memory), skip isolating folios th=
+at
+>    already satisfy mTHP requirements, avoiding unnecessary migration over=
+head.
+
+Oh, you are targeting proactive compaction, where
+skip_isolation_on_order() does not apply.
+
+>
+> 3. Allow proactive compaction to proceed concurrently with kswapd for
+>    non-costly mTHP orders, since kswapd reclaim alone may not produce the
+>    contiguous blocks needed for these allocations.
+>
+> 4. Introduce zone_effective_free_pages() that provides mTHP-aware free pa=
+ge
+>    accounting for watermark checks, counting only buddy blocks that can
+>    actually satisfy mTHP allocations.
+>
+> Test setup:
+>
+> Boot Ubuntu with 2700 MB of memory, with mTHP disabled
+> initially and the defrag mode set to defer+madvise.
+>
+> Then set the 16 KB mTHP size to always and run a kernel
+> build with -j20.
+>
+> For both cases below, we run a background script to
+> proactively trigger compaction as follows:
+>  #!/bin/bash
+>
+>  while true; do
+>  	echo 50 > /proc/sys/vm/compaction_proactiveness
+>  	sleep 0.1
+>  done
+>
+> W/o patch:
+>
+> *** Executing round 0 ***
+>
+> real	2m1.312s
+> user	25m38.968s
+> sys	5m16.934s
+> anon_fault_alloc: 6328991
+> anon_fault_fallback: 214553
+>
+> *** Executing round 1 ***
+>
+> real	1m55.370s
+> user	25m24.482s
+> sys	3m52.512s
+> anon_fault_alloc: 6355263
+> anon_fault_fallback: 108692
+>
+> *** Executing round 2 ***
+>
+> real	2m7.579s
+> user	25m11.530s
+> sys	3m45.456s
+> anon_fault_alloc: 6355816
+> anon_fault_fallback: 107852
+>
+> *** Executing round 3 ***
+>
+> real	1m53.824s
+> user	25m26.774s
+> sys	3m42.160s
+> anon_fault_alloc: 6355457
+> anon_fault_fallback: 107705
+>
+> W/patch:
+>
+> *** Executing round 0 ***
+>
+> real	1m55.906s
+> user	25m16.985s
+> sys	4m24.480s
+> anon_fault_alloc: 6354486
+> anon_fault_fallback: 109845
+>
+> *** Executing round 1 ***
+>
+> real	1m51.303s
+> user	25m16.456s
+> sys	3m26.629s
+> anon_fault_alloc: 6392515
+> anon_fault_fallback: 69797
+>
+> *** Executing round 2 ***
+>
+> real	1m51.495s
+> user	25m13.075s
+> sys	3m28.501s
+> anon_fault_alloc: 6395096
+> anon_fault_fallback: 67510
+>
+> *** Executing round 3 ***
+>
+> real	1m52.980s
+> user	25m8.217s
+> sys	3m37.506s
+> anon_fault_alloc: 6389556
+> anon_fault_fallback: 72743
+>
+> Before "Executing round 0", mTHP is not enabled. Therefore, both
+> cases show a higher anon_fault_fallback in Round 0 than in the
+> other rounds. With the patch, however, memory can be compacted faster
+> into an mTHP-friendly state, resulting in a much lower fallback rate
+> in Round 0. In the other rounds, the patch also consistently shows
+> a lower anon_fault_fallback, as well as lower sys and wall time for
+> the kernel build.
+
+What about the impact on THP compaction? How does it affect direct
+compaction for both mTHP and THP?
+
+It sounds to me that this patch series target proactive compaction. Am I
+getting right?
+
+Thanks.
+
+>
+> Open questions:
+>
+> 1. When multiple mTHP orders are enabled (e.g., order-2 and order-4 both
+>    "always"), this series only targets the minimum order. Should proactiv=
+e
+>    compaction also independently evaluate and serve higher orders?
+>
+> 2. In skip_isolation_on_order(), the filter order ideally should come fro=
+m
+>    the compaction control path. However, during proactive compaction
+>    target_order is always -1 (via compact_memory), and there is no clean
+>    way to pass the mTHP order down from upper layers. Currently we read
+>    huge_anon_orders_always directly, but this variable can be changed by
+>    userspace at any time, making the semantic fragile (the compaction may
+>    start with one order target and finish with another). Ideas on how to
+>    plumb the target order through the proactive compaction path cleanly
+>    are welcome.
+>
+> 3. In __compact_finished(), the original code skips proactive compaction
+>    when kswapd is running to avoid interference. Patch 3 removes this
+>    skip for non-costly mTHP orders (< PAGE_ALLOC_COSTLY_ORDER). The
+>    reason is that small-order compaction is lightweight and likely to
+>    succeed quickly even while kswapd is reclaiming, forming an order-2
+>    block requires migrating very few pages. Does this approach make sense=
 ,
-> -            rpc_seq,
-> -            M::FUNCTION,
-> -            dst.header.length(),
-> -        );
-> +        if M::IS_ASYNC {
-> +            dev_dbg!(
-> +                &self.dev,
-> +                "GSP RPC: async send: seq# {}, function=3D{:?}, length=
-=3D0x{:x}\n",
-> +                self.tx_async_seq,
-> +                M::FUNCTION,
-> +                dst.header.length(),
-> +            );
-> +            self.tx_async_seq =3D self.tx_async_seq.wrapping_add(1);
-> +        } else {
-> +            dev_dbg!(
-> +                &self.dev,
-> +                "GSP RPC: send: seq# {}, function=3D{:?}, length=3D0x{:x=
-}\n",
-> +                rpc_seq,
-> +                M::FUNCTION,
-> +                dst.header.length(),
-> +            );
-> +        }
+>    or is there a better way to coordinate proactive compaction with kswap=
+d
+>    in the mTHP scenario?
+>
+> 4. In the direct reclaim path (__alloc_pages_slowpath), compact_first is
+>    only set for costly orders or non-movable allocations. For mTHP always=
+-
+>    enabled non-costly orders (e.g., order-2 MIGRATE_MOVABLE), when free
+>    memory is sufficient (watermarks met) but fragmentation is high,
+>    compaction is more appropriate than reclaim. Should we also set
+>    compact_first for this case to avoid unnecessary reclaim?
+>
+> Bo Zhang (4):
+>   mm: compaction: make proactive compaction mTHP-aware
+>   mm: compaction: skip isolating large folios that satisfy the mTHP order
+>   mm: compaction: don't skip proactive compaction for non-costly mTHP
+>   mm: adjust free_pages to make __zone_watermark_ok() mTHP-aware
+>
+>  mm/compaction.c | 83 ++++++++++++++++++++++++++++++++++++++-----------
+>  mm/internal.h   |  3 ++
+>  mm/vmscan.c     | 23 +++-----------
+>  3 files changed, 72 insertions(+), 37 deletions(-)
+>
+> --
+> 2.34.1
 
-These two `dev_dbg!` statements are almost identical, can we
-differentiate the relevant part with a custom string and `fmt!`?
 
-<...>
-> diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-cor=
-e/gsp/commands.rs
-> index 61fe93db9e7e..d5575c036eb9 100644
-> --- a/drivers/gpu/nova-core/gsp/commands.rs
-> +++ b/drivers/gpu/nova-core/gsp/commands.rs
-> @@ -52,6 +52,7 @@ pub(crate) fn new(pdev: &'a pci::Device<device::Bound>,=
- chipset: Chipset) -> Sel
-> =20
->  impl<'a> CommandToGsp for SetSystemInfo<'a> {
->      const FUNCTION: MsgFunction =3D MsgFunction::GspSetSystemInfo;
-> +    const IS_ASYNC: bool =3D true;
->      type Command =3D fw::commands::GspSetSystemInfo;
->      type Reply =3D NoReply;
->      type InitError =3D Error;
-> @@ -122,6 +123,7 @@ pub(crate) fn new(vgpu_state: VgpuState) -> Result<Se=
-lf> {
-> =20
->  impl CommandToGsp for SetRegistry {
->      const FUNCTION: MsgFunction =3D MsgFunction::SetRegistry;
-> +    const IS_ASYNC: bool =3D true;
->      type Command =3D fw::commands::PackedRegistryTable;
->      type Reply =3D NoReply;
->      type InitError =3D Infallible;
 
-Async commands are effectively removed by the end of this series, so I'd
-question the need to add this distinction here. This looks to me like
-this patch should come *after* the switch to r000 to make sure that all
-of its premises still hold.
 
-So unless there is a strong need for it I'd wager it is best to drop
-this patch for now as it looks more like a drive-by feature than a
-preliminary need for r000 support.
+--=20
+Best Regards,
+Yan, Zi
 
-> diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/=
-fw.rs
-> index d3678f16750a..857d53c77297 100644
-> --- a/drivers/gpu/nova-core/gsp/fw.rs
-> +++ b/drivers/gpu/nova-core/gsp/fw.rs
-> @@ -359,6 +359,25 @@ fn try_from(value: u32) -> Result<MsgFunction> {
->      }
->  }
-> =20
-> +impl MsgFunction {
-> +    /// Returns true if this is a GSP-initiated async event (`NV_VGPU_MS=
-G_EVENT_*`), as opposed to
-> +    /// a command response (`NV_VGPU_MSG_FUNCTION_*`).
-> +    pub(crate) fn is_event(&self) -> bool {
-> +        matches!(
-> +            self,
-> +            Self::GspInitDone
-> +                | Self::GspRunCpuSequencer
-> +                | Self::PostEvent
-> +                | Self::RcTriggered
-> +                | Self::MmuFaultQueued
-> +                | Self::OsErrorLog
-> +                | Self::GspPostNoCat
-> +                | Self::GspLockdownNotice
-> +                | Self::UcodeLibOsPrint //
-> +        )
-> +    }
-> +}
-
-There is a `NV_VGPU_MSG_EVENT_FIRST_EVENT` value in the bindings that
-can be used to classify events without resorting to an exhaustive and
-error-prone list.
