@@ -1,152 +1,128 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C792D459AE6
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:47:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 060E846DFF7;
+	Mon,  7 Sep 2026 14:48:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788792459; cv=none; b=m1m0NSf3JRlvmWUShXKt9IZAEup77M61EZdEYAKxKD3NOH1PmVn51Cg/OzPjb/BwkfTjs0m43Xq4b++Yq+BrzVhawwrEYBVeHJp9VzrydRMZ4jOlDdonmt6OAtA/KUeZFYmeTScjdRD1vuQPzdYOsIoh6kFaEbRdve7EjwXlPiA=
+	t=1788792492; cv=none; b=T3LH3IvJtsXxVdVGTAcy6m5XVG2F/6LY+HITJUWSjcMXqpxMAzZL4EenCmvXiRwAh9bqqBwUEk2R2HHBYh3GnPkOmkt7SnRjNSkib/G+59jAJl8x3AcF3mPShWLB56NypEHmPTzHdLWUSWpaIuPx0XDUUkCXOb5lIRI5qSHWGm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788792459; c=relaxed/simple;
-	bh=E+MeBfcTyMEV9OSx8wYUhiX3tACuQ1SoFRNY0klEmXg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BVZHwwrK7p2XqRvxT/WKZASt4LEHbTu6d+k11ur78NbeGOMBD6IhXMEnQ4hefz9XZvQY4KZmjB3hrixVnR5sEUIj8GrQJufKS7iv8VIPpYwZv4yf4zXosV9SLCWoTMX1OzGGQK7TDWZnaPMWXiv2O0IamiZkU8PGMSVL0pA8N+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lySrdM3H; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788792492; c=relaxed/simple;
+	bh=49Aa4H1qnvtFpsBuJ+dOSTi5a4PnkG/KF6KUQT5tTXs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TosGg1g32YKCykCq5GWnM7IVTHH13pyKW1zMDU1HgIXiYbDKTxNWFgh8Uh7cNzchINYLs85yCE4RgvvDwEXXk+WHzny4TmhsYbo3rPMdz6OkQvhtuJgyK/UCsxs7CZYeNEgt/cGSpXszeIJa+kn+96bgMP3soxT8UCVXWJonQak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=LEdbSJ1v; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lySrdM3H"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-499ae1c6471so35812215e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 07:47:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788792456; x=1789397256; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5yFrcnbH5MykHypbL5/SQUfD+utrrwUHZtQrV81eIR8=;
-        b=lySrdM3HMYnaM60f6QQIrtGJiZTJfUfnHNY85vVypqubQ7Nfj4dUyQxxkn7USHPeBb
-         EnqMBxfRxGtduofJbFK1O/ePy7r9wxVpbKOZsjnSdyjYzXe3JIr2IOeR1zMkQa2tzVyE
-         qDCy3PrTM+H7nCk7a57sj4ZmukL3dk4UdDzhKtrRyDiGKbxjHsby/mTkQ8QqVTvCj7XD
-         H7dRs5SiVwkKjQtfh4stFlJeoTx1Cg6Y0IS4zWseJM3onH81QLME2D25x7Aw4qVcuHds
-         Ptb1V9xN/qILugyRbM8N+133z97aAbTv54kjHOluwbKGvT7SRPsvmm7rNmUZMq1qgMTj
-         p1NQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788792456; x=1789397256;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5yFrcnbH5MykHypbL5/SQUfD+utrrwUHZtQrV81eIR8=;
-        b=D9zG+ZMiXHVBmkjUGWyf1n0QwJa+Qw12ubxo6fGvYYLOoAd0QkpAi8ZC8VntXSAXcP
-         DDPlmYy/pK93hM/FHuTGFywBVXKtfCvzZ/pGvSZeiGrL4XJhiF8sfb3ywdDjN4eLNFS2
-         xwrI2V4UpwrLzXsktPiywfGe6aArl+4sAIiOtmSM9BMSqkqUyP0maZnoVJ8DGV+qOzSV
-         EX1wQkqUpJIERFCtik1WByLzDf4q1ZsDT6NdH5qoncmxHzlHBiB0AUuTh6Cb2EFRRpbn
-         I7IemgJVUCsXaHajmcWmkLrc6cKFq2zTiqTQNaitIEakOtql6KL1Mdm8QgFUCF4+hnfd
-         UELw==
-X-Forwarded-Encrypted: i=1; AKwUvBxYQdtTVCRMNGG29gmDELEv/uL1WOjFPIWyPTkGja7nJ3IGtjth3JolNE+wRD+gdObQrlPGSI9lY1ciJxU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lX4tswKpp7jZX9VHUuo3fYMAF6NBFHLSPLBuLlDLF62IZHhPoE
-	2D/5npC+PBvPgNcvxQnyvQTvU+rGMEZbA86Kiugs2dopeSJoLi9LwtWe
-X-Gm-Gg: AYBFou10wNCe17kp7nq3gMG09YWSRA2jbjDQi3Xy7Smw7GwJvPCCem0tmWIW5tJLCTO
-	rmKdZ3uk6cke9aFj0/aVFVKgXckoISOSuz5D87PPINroV07YoDOT/q7AzuQXscRl7KqMaTB8i4t
-	d0vUt8hD2OmKEvU1BzWS35t+17jjv5QHuBgzoNxuu2yk8U2ju7TcVQifPSU9u/KsbiV6K5S1Fr7
-	AgU0/WtshkcYzhBOLc6g+T19WvaL42GKTprqQi41KihQIHxSD6bUqactVEsZnclPHk2pSXidLS0
-	MM7Nc7G6dWCzHnOZGqv8J8h76VFex5TvSSOjRpuq79kVAPhvLUJ8iZQhrrDhE6PpucrjZrS5TzG
-	xGzzxZAhqlWrwADRI9OKPuH4fH94Qlj602QDo2EJzjiI88rJ213WCzCf9vdfuK/63SRjCUabO3T
-	YlMxOz9vYIuo+8EQaiXyuvEdToAKJSWs8RL8kGoLHVGE7M0XC15ex24ln2z5xFXcsOiQalLnoGz
-	b99u6HKqoD3cdmAgCs2UPy/DppJPplvk59SGWUsLh82ErnDPEQ+ZTcLDL0jHzjo+4WWJCSF9E6M
-	DRCoaz/wwS5PxbmtMqf4Aq/UvnOTO/h9NInvDZs5xptDqoYENYys6IjT2PmcfClEhwRgEtU1ddY
-	OyodzDBsCjgTsacQlZZt+o26bRLDyoL+ZPGm8VEJGORllZVQdRhRAlI6lUtkqThOou7JvzQ==
-X-Received: by 2002:a05:600c:a0a:b0:49c:e1f1:3dd5 with SMTP id 5b1f17b1804b1-49cf81e6cebmr413588155e9.4.1788792455654;
-        Mon, 07 Sep 2026 07:47:35 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885be1c1sm28494015f8f.32.2026.09.07.07.47.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 07:47:35 -0700 (PDT)
-Date: Mon, 7 Sep 2026 16:47:33 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Salah Triki <salah.triki@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: temperature: tmp006: Fix endianness byte swap in
- trigger handler
-Message-ID: <20260907164733.000066f9@gmail.com>
-In-Reply-To: <20260907082216.52821-1-salah.triki@gmail.com>
-References: <20260907082216.52821-1-salah.triki@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="LEdbSJ1v"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=ICYiSV43kYcKi3w/xRQ/Uas9brIt0oFdfmwI0JjU7/I=; b=LEdbSJ1vptFInpVZGgZaULk+vd
+	DQo37X+q6ZRORyORTGdTprPmHsz6SWYLBydsnmvcR/ypYchTuPBNEz5dEaaQ/IlL9wG3KF84rhmLc
+	tYOJUtnytxIrIUK91YfkX+U6C5DRjmsM/tF8IFi+i3g11jArKPgR/nAHRe9gSguz3O3uP4ltR70Hw
+	p5dNMZ6wBrYxBXHx9Mt+/rGGGk6OOAc6v7KTPJJef7+pNWMRkHPIUiQsJx+UD6l0EZz191tpJvWU0
+	m7txRONOs2qSVH/PVsXEBeWVTCCewenoKvSngeUrN2XTnxwZLGCfA5b+3kqhCVoIXvhLnPGWnYAJP
+	+2NnDqtQ==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1x3adP-001a5u-0c;
+	Mon, 07 Sep 2026 14:47:47 +0000
+Date: Mon, 7 Sep 2026 07:47:41 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+	Naoya Horiguchi <nao.horiguchi@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	kexec@lists.infradead.org, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, linux-efi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, rmikey@meta.com, riel@surriel.com, 
+	kernel-team@meta.com
+Subject: Re: [PATCH v3 2/5] mm/memory-failure: libstub: install the
+ poisoned-memory EFI table
+Message-ID: <ap7OBwOs8BKGUJh8@gmail.com>
+References: <20260826-hwpoison-kho-v3-0-6f79c4b605bc@debian.org>
+ <20260826-hwpoison-kho-v3-2-6f79c4b605bc@debian.org>
+ <apGSy78NoCov0MWr@thinkstation>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apGSy78NoCov0MWr@thinkstation>
+X-Debian-User: leitao
 
-On Mon,  7 Sep 2026 09:22:15 +0100
-Salah Triki <salah.triki@gmail.com> wrote:
-
-> In tmp006_trigger_handler(), i2c_smbus_read_word_data() is used to read
-> the VOBJECT and TAMBIENT registers. However, the TMP006 stores register
-> values in Big Endian byte order, while i2c_smbus_read_word_data() assumes
-> Little Endian.
+On Fri, Aug 28, 2026 at 02:59:43PM +0100, Kiryl Shutsemau wrote:
+> On Wed, Aug 26, 2026 at 05:03:53AM -0700, Breno Leitao wrote:
+> > A EFI config table can only be installed while boot services are still
+> > up, so the stub has to create it; the running kernel can only flip bits
+> > in a table that already exists.
+> > 
+> > Size the bitmap from the top of usable RAM, which efi_get_ram_top()
+> > works out by walking the UEFI memory map, since the stub has no max_pfn.
+> > Bit N covers unit N counting from address 0, so the table tracks
+> > max_pfn. Memory the firmware hot-adds later sits above it and is not
+> > carried across a kexec.
+> > 
+> > One table has to serve every architecture, so efi_get_ram_top() takes
+> > the union of the memory types they turn into RAM: what setup_e820() maps
+> > to E820_TYPE_RAM on x86, plus the EFI_ACPI_RECLAIM_MEMORY and
+> > EFI_PERSISTENT_MEMORY that is_usable_memory() accepts on arm64. Sizing
+> > wide only costs bitmap bytes; sizing narrow silently drops the records
+> > for every frame above the top.
 > 
-> This causes byte-swapped values to be pushed to the IIO buffer on Little
-> Endian architectures, leading to corrupted sensor readings when using
-> triggered buffers.
+> x86 and ARM doesn't seem to agree what RAM is. On x86 it is by ->type
+> and on ARM it is by ->attribute (anything WB/WC/WT).
 > 
-> Fix this by switching to i2c_smbus_read_word_swapped() inside the trigger
-> handler.
-> 
-> Fixes: 91f75ccf9f03 ("iio: temperature: tmp006: add triggered buffer support")
-> Assisted-by: LLM
-> Signed-off-by: Salah Triki <salah.triki@gmail.com>
-> ---
->  drivers/iio/temperature/tmp006.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/iio/temperature/tmp006.c b/drivers/iio/temperature/tmp006.c
-> index d9f6449ec0d8..f3b3de0bf221 100644
-> --- a/drivers/iio/temperature/tmp006.c
-> +++ b/drivers/iio/temperature/tmp006.c
-> @@ -256,12 +256,12 @@ static irqreturn_t tmp006_trigger_handler(int irq, void *p)
->  	} scan = { };
->  	s32 ret;
->  
-> -	ret = i2c_smbus_read_word_data(data->client, TMP006_VOBJECT);
-> +	ret = i2c_smbus_read_word_swapped(data->client, TMP006_VOBJECT);
+> is_usable_memory() only decides nomap. Everything is_memory() lets in
+> lands in memblock.memory, and max_pfn is PFN_DOWN(memblock_end_of_DRAM()),
+> so the top of RAM there can be a type that is not on your list.
 
-Sashiko has something to say:
+Thanks. I will just ignore the memory types and get the base and top
+based on the memory map descriptors.
 
-Does this code introduce a regression where sensor readings are corrupted for
-userspace clients reading from the triggered IIO buffer on Little Endian
-architectures?
+Now that I need to get the phys base (from previous patch discussion),
+I will need to get the range, doing something like:
 
-Before this patch, i2c_smbus_read_word_data() returned a byte-swapped word.
-When this was assigned to the s16 array in tmp006_trigger_handler() on a Little
-Endian CPU, the memory layout became [msb, lsb]. This implicitly matched the
-IIO_BE (Big Endian) endianness declared in the tmp006_channels array, so it
-worked correctly.
+	static efi_status_t efi_get_ram_range(u64 *base, u64 *top)
+	{
+	       struct efi_boot_memmap *map __free(efi_pool) = NULL;
+	       u64 ram_base = ULLONG_MAX, ram_top = 0;
+	       efi_status_t status;
+	       int i, nr_desc;
+	
+	       status = efi_get_memory_map(&map, false);
+	       if (status != EFI_SUCCESS)
+	               return status;
+	
+	       nr_desc = map->map_size / map->desc_size;
+	       for (i = 0; i < nr_desc; i++) {
+	               efi_memory_desc_t *d;
+	
+	               d = efi_memdesc_ptr((unsigned long)map->map, map->desc_size, i);
+	               ram_base = min(ram_base, d->phys_addr);
+	               ram_top = max(ram_top,
+	                             d->phys_addr + d->num_pages * EFI_PAGE_SIZE);
+	       }
+	       if (!ram_top)
+	               return EFI_NOT_FOUND;
+	
+	       *base = round_down(ram_base, EFI_POISON_UNIT_SIZE);
+	       *top = round_up(ram_top, EFI_POISON_UNIT_SIZE);
 
-By switching to i2c_smbus_read_word_swapped(), the value is now in native CPU
-endianness [lsb, msb]. However, the channel specification in tmp006_channels
-still specifies IIO_BE:
-drivers/iio/temperature/tmp006.c:tmp006_channels[] {
-    ...
-        .scan_type = {
-            .endianness = IIO_BE,
-        },
-    ...
-}
+	       return EFI_SUCCESS;
+	}
 
-Because the ABI still advertises the data as Big Endian, userspace will parse
-the little-endian data as big-endian.
+is it what you had in mind?
 
-Should the channel specification be updated from IIO_BE to IIO_CPU, or should
-scan.channels be declared as __be16 and populated using cpu_to_be16() to
-preserve the existing Big Endian ABI?
-
--- 
-Kind regards,
-Joshua Crofts
+Thanks,
+--breno
