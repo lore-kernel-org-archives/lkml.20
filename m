@@ -1,143 +1,84 @@
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 243BC4028F7
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:05:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 571D13EB108;
+	Mon,  7 Sep 2026 21:06:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788815123; cv=none; b=UYgy+QfJNWy1i5ryz5iUu+dCsurnyZiK72PWBlBTieEaDOemNCX7goB098AFDvluzb+5bXh4JAKtL6oHIkWL39UFwQrpN2tB8pL1MUvkVg2BIUfzWoBLupMHPn1DoZOAoiA0TQ9oXGiyuZO1tOyQbGRldNmCQAjEhMYXhosOPnE=
+	t=1788815207; cv=none; b=XCDBeY/IakHKwDN6JztQhn+20dwuBVClyJF/KsoUI2O7IACnW1APgj5VYacFeXAeVNswXNWw+8vvW/OSfbTu5ok6So81APBpEaxRGolskXo8n5+D0hov1nzbo9jqS9WlB/iacriDKEdUAaQ9dj4oQ5+9J0PMG4o5gbOjKlDGfB0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788815123; c=relaxed/simple;
-	bh=UJGiGn2L6JlGWKi00NV6I86Kya9Dh8i6c/d0ym4ux+s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SjnONJOF8f21pzUwcnWSC1CmkEjuFBUV7v1bzSusTn5Yo0rhpmELVWDJDtFHl6HQ+qdSdgEuyZS60HnvbfFYC4p79RHbP6ANyn3dzBkeqmArXauFib1GU1ISXLXtuiZYRcDGywKfLSOLLZ9pkKsFLZzoCT1uWu4BHfcJf8YA8xw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=cwfRj0Eu; arc=none smtp.client-ip=209.85.222.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1788815207; c=relaxed/simple;
+	bh=u0NXWeg/Httt9i9X81l4G9xFkgPmdQRSI5qAMBSyB1s=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:
+	 References:In-Reply-To; b=H4VXjbjL+Zx7vcrz6Jz03iC6av4tkza6qtlF7i/9O3ZPBNwnpuEzYixfZPFC5FbXL50f74D0X3Yn4uNr+nLfjqPPcIf71GZ6Ek5ci2uvFra9/10SzZ8FAlGLb5fVIHKi8T61BbKMZdnR92I+X+0eHJcMvgjE/Lqc2bvMpUCp7dE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CaoOipGM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="cwfRj0Eu"
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-9399798ca61so245003885a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 14:05:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1788815120; x=1789419920; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jr5pTyJqXfvpszR/f6xdIiW4q3ltvvAQPTAcZR/VHKM=;
-        b=cwfRj0EuGT8r0csM3DJky7VB9De0Icu2GDXtIvRlZqxLdmvO7mCHZRG5fQbndYJ4oO
-         J43XMFZlpeBwItWjZhxc4pdb6mvqQoAAFpPSTlVOdbACto/BIrOcs5jxFZQQnWqgK1hQ
-         ocf/erDEK2Xnnw9DctkL/hHH0xi7KGn8bE5SMh02lnmzrtlF711Fl5/2PATJ409jKaMj
-         O03gUkpUsoz/Ji6+mn6cRlnTJfEfzElDQPpN82DY4cSq/0XMvxracxiL1DKLVn1zC8/a
-         WstEOPvR3b3Y8Dd0nW4ywk6a1VNSWUccBRenO/gnpOABPhyKse8qGBQO0VuJpAXTg6EM
-         oa4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788815120; x=1789419920;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jr5pTyJqXfvpszR/f6xdIiW4q3ltvvAQPTAcZR/VHKM=;
-        b=gWUMXcPKvYHiqkaaUxFGz4LXMRyYqD7X/lFWzL9DUakVuzJnJg6XHFfr+4mArjimNB
-         g1+hXa1ITYtHNH1Iteok7dpPYB5hmM/lgydS2ucFRrG7zLDpDMGZ+MAAcFnvybXl5hvL
-         splIZqC2UdH1Oi0S19slX3wS8E+bljfhccMs4Mf9lwiRSH6YZo5y2Fun/OksJZmiml3N
-         2xIuJuN8DaHGzQsv3fbyEVMbya/am3QegYRXhDfkuLjwCfDRDwsiwSrI9C5tJJ1PYKde
-         n2ntNoj0OESePtSh3rd+O6heN2s7GZtkfL4kDEk214neoPGfJ0wX0euAC+W2uwL6mPKe
-         saJA==
-X-Forwarded-Encrypted: i=1; AKwUvBy6I3j13FCDEvlrHkI9xTYEaMP5Ru+K0mqPhKtQ5fH4qImcakRQTnPYQWqdJFyQ1ZSMW7RjaNLR97Y/B7c=@vger.kernel.org
-X-Gm-Message-State: AFuF++kWL+KxxM3fN2nPPvRT2e9UAWjpfY3WC9VKlD0Y6gEnVxzJDWt3
-	RdiDFC00d/kfW5KFUZ3lbJ3M1x9gHL6QxuzRTCUfESKTjIl1UNLR0x0W2ALr6GLIOGg=
-X-Gm-Gg: AYBFou3hPsHhfoD5Sl2qF1ZAUUhJh+MzUvKRlNI1+5p4fiINrad6zljpQ9TOX0Yty/K
-	PPnm+3mUthNotR0z+0mG/BKwv6hTaTjeoaRgstGyt//cjGqwzS3kuJ1gWotCBmBxrYI0cq/F16b
-	LtcgIqEEYFiWImjjbyYyanHQEix/pJVh7Fn0vM7LiqAfYTJHNN9/dlE6wYIKAJefeaiNDLRo7ZX
-	+6XCQVWRRX8cp6hvrm6uX9KiVNliKTDM61pmJC0Jp1qeS27tF9w4sI8lLuvtICW+D/kZTVKZzOl
-	25nEOZSGopC8GlY/uFNg1CI8NfZ/CxlT9zED9bBe1VER5wFdY1l0IOBaFdEXwP5ludQCJl//eh0
-	MZLffApD+obmauGOTwLXRbByvmJM1i3qCoeMfE0NrtQznxaBF1M43v9EC019phwDsyFOKPLvm6C
-	WHxdZIOrpKNPy+NabOCnU3ENqCyhlzmImhyF5AORF/HW2fe1H8lZ93T9ZryTra7ouJhz6hphrxd
-	OvxHsKGMFNT02UQG7dtD/tgqW/cCMPIFx1n6XdnRzpMGenVfI+UgFg=
-X-Received: by 2002:a05:620a:404c:b0:939:df5:977c with SMTP id af79cd13be357-93980361c84mr2678122285a.19.1788815119859;
-        Mon, 07 Sep 2026 14:05:19 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9399429b97esm677101585a.29.2026.09.07.14.05.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 14:05:19 -0700 (PDT)
-Date: Mon, 7 Sep 2026 17:05:15 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: Ye Liu <ye.liu@linux.dev>, Thomas Gleixner <tglx@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, "Paul E. McKenney" <paulmck@kernel.org>, 
-	Frederic Weisbecker <frederic@kernel.org>, Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
-	Joel Fernandes <joelagnelf@nvidia.com>, Josh Triplett <josh@joshtriplett.org>, 
-	Uladzislau Rezki <urezki@gmail.com>, Juri Lelli <juri.lelli@redhat.com>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>, Ye Liu <liuye@kylinos.cn>, 
-	Michal Hocko <mhocko@suse.com>, mic@digikod.net, david@kernel.org, linmiaohe@huawei.com, 
-	nao.horiguchi@gmail.com, gnoack3000@gmail.com, ljs@kernel.org, sj@kernel.org, 
-	rientjes@google.com, shakeel.butt@linux.dev, xu.xin16@zte.com.cn, 
-	chengming.zhou@linux.dev, tony.luck@intel.com, reinette.chatre@intel.com, x86@kernel.org, 
-	paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com, pavel@kernel.org, 
-	lance.yang@linux.dev, pmladek@suse.com, longman@redhat.com, 
-	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com, qiang.zhang@linux.dev, 
-	dietmar.eggemann@arm.com, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
-	kprateek.nayak@amd.com, mark.rutland@arm.com, Dave.Martin@arm.com, james.morse@arm.com, 
-	babu.moger@amd.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-pm@vger.kernel.org, rcu@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-security-module@vger.kernel.org
-Subject: Re: [PATCH v2 5/8] kernel: convert process/thread iterators to
- for_each_*_rculock
-Message-ID: <ap8mgnpE7D4TTrno@gourry-fedora-PF4VCD3F>
-References: <20260907081334.1152889-1-ye.liu@linux.dev>
- <20260907081334.1152889-6-ye.liu@linux.dev>
- <ap7dC-LWNaoPYJvv@gourry-fedora-PF4VCD3F>
- <ap76-0-hN6CAcYXX@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CaoOipGM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE9161F00A3A;
+	Mon,  7 Sep 2026 21:06:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788815206;
+	bh=90F9gpIn6ahg1Sh32fek9TE5xaVsZqJW6WdR2q7nJtE=;
+	h=Date:Subject:Cc:From:References:In-Reply-To;
+	b=CaoOipGMy+LRNytnbxmP9ZFmgaCGRcVpuOcDUxNDoNnDM+chAKVS3z/SXqC61FkUo
+	 hU5DbovmMj5tFB8LfDtshTKDvvGJdBPkrfS0YAj2pmLNy2AgCEyhsXk67NccTBz845
+	 oISqnvxdR/VOFI6UfhjeoO3O5Pu2gTZG8TzN2jYS0+MW58cq8ZUjLJL1vfChPKVAX4
+	 VvZkwdVgN7soN9BkH89HPHNFtn5ckczW6lmCuht7erv7PdPJ9CU9m6ObULR1/xi1wS
+	 RbNl564Rg+zj66OfqyUmjs2TD8gunPwNniUK0TyuOE32AKpROMJx9fLuku2w8wbovB
+	 rnv5+kbJs1aOw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ap76-0-hN6CAcYXX@redhat.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 07 Sep 2026 23:06:40 +0200
+Message-Id: <DL9E2EFLN138.3DMBLYEZRFW1R@kernel.org>
+Subject: Re: [PATCH 0/4] rust: dma: tie DMA allocations to the device's
+ bound lifetime
+Cc: <abdiel.janulgue@gmail.com>, <daniel.almeida@collabora.com>,
+ <robin.murphy@arm.com>, <a.hindborg@kernel.org>,
+ <gregkh@linuxfoundation.org>, <rafael@kernel.org>, <aliceryhl@google.com>,
+ <acourbot@nvidia.com>, <ojeda@kernel.org>, <boqun@kernel.org>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <tmgross@umich.edu>, <tamird@kernel.org>, <work@onurozkan.dev>,
+ <mmaurer@google.com>, <driver-core@lists.linux.dev>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260830193824.471089-1-dakr@kernel.org>
+ <20260906153753.3207797-1-dakr@kernel.org>
+In-Reply-To: <20260906153753.3207797-1-dakr@kernel.org>
 
-On Mon, Sep 07, 2026 at 07:57:15PM +0200, Oleg Nesterov wrote:
-> On 09/07, Gregory Price wrote:
-> >
-> > On Mon, Sep 07, 2026 at 04:13:31PM +0800, Ye Liu wrote:
-> > > --- a/kernel/hung_task.c
-> > > +++ b/kernel/hung_task.c
-> > > @@ -315,13 +315,12 @@ static void check_hung_uninterruptible_tasks(unsigned long timeout)
-> > >  		return;
-> > >
-> > >  	this_round_count = 0;
-> > > -	rcu_read_lock();
-> > > -	for_each_process_thread(g, t) {
-> > > +	for_each_process_thread_rculock(g, t) {
-> > >  		if (!max_count--)
-> > > -			goto unlock;
-> > > +			goto out;
-> > ... snip ...
-> > > - unlock:
-> > > -	rcu_read_unlock();
-> > > -
-> > > +out:
-> > >  	if (!this_round_count)
-> > >  		return;
-> > >
-> >
-> > The sunken rcu_read_lock()/unlock() + scoped_guard usage makes this goto
-> > at a minimum very confusing, if not actually broken.
-> 
-> I am afraid I misunderstood you concerns...
+On Sun Sep 6, 2026 at 5:37 PM CEST, Danilo Krummrich wrote:
+> On Sun, 30 Aug 2026 21:37:12 +0200, Danilo Krummrich wrote:
+>> [PATCH 0/4] rust: dma: tie DMA allocations to the device's bound lifetim=
+e
 >
+> Applied, thanks!
+>
+>   Branch: topic/rust-dma
+>   Tree:   git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/drive=
+r-core.git
+>
+> [1/4] rust: debugfs: drop 'static bound from ScopedDir file creation meth=
+ods
+>       commit: 9dc6cedcd971
+>
+>       [ Remove unrelated change from Self to T. - Danilo ]
+>
+> [2/4] rust: dma: tie CoherentHandle to the device's bound lifetime
+>       commit: f6b56da8e1b8
+> [3/4] samples: rust_dma: separate driver type from driver data
+>       commit: c3d4fd0e9d27
+> [4/4] rust: dma: tie Coherent and CoherentBox to the device's bound lifet=
+ime
+>       commit: bed87375f90f
+>
+> The patches are in the topic/rust-dma topic branch and will be merged int=
+o the
+> corresponding target branch soon.
 
-This might be my - admittedly shallow - understanding of scoped_guard,
-but does scoped guard handle goto correctly?
-
-On the surface it looks like it would skip the unlock entirely.
-
-That is what i mean by "at a minimum very confusing, if not broken"
-and why it's generally discouraged to mix cleanup.h and goto.
-
-~Gregory
+Merged into driver-core-next and drm-rust-next, thanks!
