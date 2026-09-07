@@ -1,182 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77BCC33262A;
-	Mon,  7 Sep 2026 08:49:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64A9E440641
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:49:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788770959; cv=none; b=NzXoISFJx1eBkmhHHFwgWFV71lv49aoTCg9jbZkpZULIu1s9oe6/eEm5sLqjOjRgw4OBbHBNAlHN5YFrwGRrCOtZNHcHf7neLs9QkRJg1jy2XECy5LRWlpGZMiY5dG/wRQKJz7NwDz7xWsyDWFOs/ZaRpec+jQunKhaIq4DIk1A=
+	t=1788770963; cv=none; b=Gj7iDS1aTN/AS069tuMsamw710Fra0xxzWgjNnx3clp15hQj5RG4/jjS6jQrtyeT8F9mqTFoGwuXleUtwt1p+ZH7ml8cnjGiFQsIMqTQJVKBxmKDGpSmx84/e3ZmsE+rfIKtbw+62Mf1i69Z4p0bJmjFDPbjzofWU2bxqCtAKho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788770959; c=relaxed/simple;
-	bh=ftfDffwrgtPDQEpFXbH7UbYOc+SPqwxGnUvnr/hgSew=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AcMpy61TSs9k4lpBrBYS/3G6Hld+4rxX65rN9HVwY6z/+mVJdbP0gTxGyfDrrUylYjIoNdflD/QcJ7QcbwVKv8IEkXBB7Q1kfvjdY1YV+p2m+raXC14/EBhaEtMFsBA4S+2vWcioZ3BEx1MJx2SqG8O9pd7qlVmWZ1qRJjvMd8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kDnxOiS0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788770963; c=relaxed/simple;
+	bh=OrSdW0cwhgNd4LjbyiMrxcWjoLDm5czxoDQHAXez5Wk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KC9bdCkNR8TPRkbgn2HTOOnEMT8joUDme0AnXQ73nfNoQuarpuyA1dHtvVzZBBCPs/2251LoBpj1dKOgLruEF81nZcvFO9vMuKfu7qkm2VS0Cyc67FqRmJKBd1Z+3LbdL3NCvGK03W57WnBhUojmKwXQOnW3jM/egkm6Ecz9StI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BHb//XwM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LCwrWnvn; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kDnxOiS0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 075411F00A3A;
-	Mon,  7 Sep 2026 08:49:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788770958;
-	bh=RvFN7usOxne2FeOsw/QK8eU4IeWXfySDfmX/m8AFoFw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=kDnxOiS01hMx0VLlxLXiHYC62wTl7Ke5PvrUiR1Vfj8SOoEuUrCT0TMeIPlnbE2Kj
-	 PRfc1qeyM62M8l008Fgl37/M0BS7aNsawfw3ayV3hNkg12Yn9AwUB7Qt+3K1jplyUL
-	 j0vdbk4o2Dio2r+KpJL3aTUh3HcU7Gg8bkSXoY2oU7VmmbEeArDRFf3goPJkwgrOFa
-	 tXoHHOSjk14qcMtEJtHEgsIXW6RGlpHGbivn91/Wkr+TZz7aM2HXG5QYR85cL/5KpK
-	 ns8TiMP5Plmgom5Is8gIwW26xKzD4vKYvcASTLml6xlee3UCIyVZPy0IWl9NJ1pa/s
-	 RXo0vAjeVqS7w==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x3V2S-00000005f2L-0Au8;
-	Mon, 07 Sep 2026 08:49:16 +0000
-Date: Mon, 07 Sep 2026 09:49:15 +0100
-Message-ID: <86jyox4fas.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
-Cc: Mostafa Saleh <smostafa@google.com>,
-	Georgi Djakov <djakov@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley
- <conor+dt@kernel.org>,
-	Rajendra Nayak <quic_rjendra@quicinc.com>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Konrad Dybcio
- <konrad.dybcio@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>
-Subject: Re: [PATCH v2 2/3] interconnect: qcom: x1e80100: enable QoS configuration
-In-Reply-To: <f58bd978-ca45-48b9-a928-45a2878fb54a@oss.qualcomm.com>
-References: <20260527-x1e80100_qos-v2-0-305c6539e6d2@oss.qualcomm.com>
-	<20260527-x1e80100_qos-v2-2-305c6539e6d2@oss.qualcomm.com>
-	<apgeBNSiP01YfNcs@google.com>
-	<86ld9d4h4n.wl-maz@kernel.org>
-	<f58bd978-ca45-48b9-a928-45a2878fb54a@oss.qualcomm.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BHb//XwM";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LCwrWnvn"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68777Cp82838515
+	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 08:49:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	BXTzOwyzZKv0PbSpGLHgvDcuBXWW0EY8OpiOEjhnqC8=; b=BHb//XwMAO8UsV/8
+	IYn1mz8wsaUlcJrTcOBpyMdxcGrocww8V0hQN1njhOE37Qx4JdGsiyyRJKVwV09a
+	6/IqSTrH8bTgJrhN4BFHetcG7EhWbr87CTKbrkKn11fCK+wB/MHsPHAJNOiDcSFq
+	O/aEEg1ZcCpMR5yrdIOUnPWaA7P/NfioCcCeGIUhEc42BgJf0sSkv1Wf85JpKVSS
+	A2QGkgGKStD11uLesxZ04E7pHLodxHXAzE4sKaeXpl08fhwyieTirJh3cfYzios0
+	8bAdOheWqv/utnA5MKTEbtJfGwDBbkLJ16l65f6Mp7+WmV0yQZzky4Dxaio064MR
+	dVu4ng==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ggbuep255-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:49:21 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-90cd500ad0aso6921336d6.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:49:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788770960; x=1789375760; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BXTzOwyzZKv0PbSpGLHgvDcuBXWW0EY8OpiOEjhnqC8=;
+        b=LCwrWnvnkpKe0K72QYI5zeHZ/YpuY5y/FF/Nx8iIYJzMcpgdXA3YJdiq2maTEn7e1D
+         Or8imGdflATBCEOLsz5Ls8QfjWEYS/e9KyHK50t0YWZTc1vgSZ9shdaJwZYKiIzeqjt5
+         pwKzij6TtsBkIFatp+qEWhh5yg5DV1t+t8QSI911KDUOdKJ3Q+N462fxeiZj1is/mSUJ
+         //NR/upLUfMiAtHQkhrDuaedCQ++luLZH+Eamd+vT0JtD+2ZTtO8j8ePdiKiqEZjPChH
+         5y4fw46YUZS3b5IL1rkKHiCd8nkEIVD11joQitO59xoPUym0NP2SjhY4vHU5TqqyTNWX
+         8wNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788770960; x=1789375760;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BXTzOwyzZKv0PbSpGLHgvDcuBXWW0EY8OpiOEjhnqC8=;
+        b=kQ8O2v73nQd7Ov6Hm+ro1JR8l7S5gJCUNMBtm3vuaA9AXSYjTvmG5A2CDacdGGjwGQ
+         JbbVkTPOgFtVfVzUvttJBAghoLqEPC1npWArCZc8y0kPztuR8Gn0XXAMssfvaLIOHjc2
+         ONr5cCbZCVyHrNKrDeBQTvbcM/lp8CUYXulPQMuZ0B1RCnTCbhefrCvwKH/hdZqpnS6g
+         MTG2rNqyI2pzqqYQsHar/zxik6y/JK7amka3498jV8lIa61MTopktTuGDBwcL3Z9dGOi
+         nxHNjGOEHdk/J3ug9sbGtUKj9Ee8ji+2TorAKTPEShZCDI86xH2+SwI/WXMKv9nQCiOn
+         G0cg==
+X-Forwarded-Encrypted: i=1; AKwUvBxUC15PxxqLV2D5nOXHBiMPXFz4x8o+Oq5hbpeNoLK4Sz4tUVXkTls1z3zBLRDMrBFMq9zVxayLEDr64nI=@vger.kernel.org
+X-Gm-Message-State: AFuF++my7z6D3LNhXQ83APiF9qve5bHhNDUteHLFFdi7bvK3b+OIg6eH
+	jtnOxM/bO0RuY2xWXxv72mG/LEVSM17mE8sBKgwxBub6C/JKgLdyciQHDjwtrkbzZNfGDhdlSFg
+	K5Z5VjXvfoOZsRUFlu/INn0gGs5YsxvHPIV/dvP2n6WNe/ktI534r/rOEy4A6cj/qxD4=
+X-Gm-Gg: AYBFou3So7lixLSWdjo1uWSDeNLiA/DSeg8CHj6qGb/rmpt4dclhupUaM4yfeizBOIB
+	+xK1d9YPC5tceOadG/6TDTBhNJwZ8go7IdOCSqwHyvr3h9lc6qVYrThvE5ruGYL02luF+VeC8F4
+	1LfCUV30OloBZiC5Zkp3p7B/S+aC0Mu+9kdptTCjmhiGHSYs10awdXdCT0Eg4LbNyT24WnZeB8j
+	Aea7XLZANtDTh2vKcMmQtyEk05hN56llRWbuwI8erQJrFo7CfO8SSM6LW0gvb+q/N5SJnx8ePhD
+	HsN7aRYlI5wziy3ohLLmOlwGFqxR9KKLqsBPBlX5w1nt4vu4+kcNFrh7sE71Gz9eBRX6E3iHxaN
+	zQO5Wff2GUk/rENfdU7Pz7A==
+X-Received: by 2002:a05:620a:218f:b0:939:9d7d:1928 with SMTP id af79cd13be357-9399d7d19b2mr545614285a.3.1788770960472;
+        Mon, 07 Sep 2026 01:49:20 -0700 (PDT)
+X-Received: by 2002:a05:620a:218f:b0:939:9d7d:1928 with SMTP id af79cd13be357-9399d7d19b2mr545612685a.3.1788770960022;
+        Mon, 07 Sep 2026 01:49:20 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c262ccca88fsm270502966b.17.2026.09.07.01.49.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 01:49:19 -0700 (PDT)
+Message-ID: <ce951267-5872-439a-96ab-93d45162d498@oss.qualcomm.com>
+Date: Mon, 7 Sep 2026 10:49:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: raviteja.laggyshetty@oss.qualcomm.com, smostafa@google.com, djakov@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, quic_rjendra@quicinc.com, abelvesa@kernel.org, andersson@kernel.org, konradybcio@kernel.org, linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, konrad.dybcio@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com, odelu.kukatla@oss.qualcomm.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/7] arm64: dts: qcom: Add Purwa IdeaCentre Mini 01Q8X10
+To: jens.glathe@oldschoolsolutions.biz,
+        Bjorn Andersson
+ <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
+ <20260905-x1-ideacentre-mini-prettify-v1-3-9a87882973bb@oldschoolsolutions.biz>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260905-x1-ideacentre-mini-prettify-v1-3-9a87882973bb@oldschoolsolutions.biz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA5NSBTYWx0ZWRfX7U+onJbdGfrb
+ Y2K9jgZuWbmzSBVfIfpnW7SGktb/9ED/JOjvPrAzj5oBVpDlXObWajIesAdhLjNEpulOAN6cC4r
+ GAgqpQzdQpgW65f55tKjzJUdG0xmfCPvGd8y5I7HHZYpULA4X9H1bluC3GuZ+iqI1bavElHNiHb
+ /i3CVcgkIhnXaWrRQqraE20QoK1yIgV1C9yRxW7+OigKdXlQLCHA79+IDGb3Mx8SROd4gfgepwo
+ 0As8bSSb+vFeBPGD/u+lkZlBi9IKxqhYDMd9lMd8Tbuk9CNczojJrg/TZsb8nyQ6kn9UhvnGGgj
+ 2jv7zBe8Oh4EIj9Z5rvW1EGhuv+iG7MiNjxm10iVU9vUvtZAus3msgESpht1V5hHvgSH18nlEhD
+ hm9eNpe8t10uJ1reLMIGXg/EpBj4atJeYgaKHGpXmGIFcTErqaxr6juRb/+u1QPymZQKnHiQ/iu
+ F3Tl+35VeFh27PeYf8Q==
+X-Authority-Analysis: v=2.4 cv=P8AKQCAu c=1 sm=1 tr=0 ts=6a9e7a91 cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=gxl3bz0cAAAA:8 a=EUspDBNiAAAA:8 a=xFBEpEO1I9XzTPArvIcA:9 a=QEXdDO2ut3YA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22 a=kiRiLd-pWN9FGgpmzFdl:22
+X-Proofpoint-GUID: 64AKiwwTvlC61ayw3ljoH_n3jtVf9-bk
+X-Proofpoint-ORIG-GUID: 64AKiwwTvlC61ayw3ljoH_n3jtVf9-bk
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA5NSBTYWx0ZWRfXzLvqBEWkAvGt
+ 3GkjLR31LVwiSuQogmr7ZDipy5AsY/NmrOzZZzJvcDADJWQTUmS1eXiChxJdtXlQlWw7RqEvWW/
+ MlvXBVf9EPa8GjzKfK4AxLq72Ajy0FM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_02,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0 bulkscore=0 clxscore=1015 adultscore=0
+ spamscore=0 lowpriorityscore=0 suspectscore=0 priorityscore=1501
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609070095
 
-On Mon, 07 Sep 2026 09:18:38 +0100,
-Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com> wrote:
+On 9/5/26 11:28 AM, Jens Glathe via B4 Relay wrote:
+> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 > 
+> Add the Purwa SKU of the Lenovo IdeaCentre Mini 01Q8X10. The chassis is
+> the common x1-lenovo-ideacentre-mini-01q8x10DTSI; this file supplies the
+> Purwa SoC include, firmware paths, and the PMC8380_6 nodes that are
+> absent on this board.
 > 
-> 
-> On 9/7/2026 1:39 PM, Marc Zyngier wrote:
-> > On Wed, 02 Sep 2026 14:00:52 +0100,
-> > Mostafa Saleh <smostafa@google.com> wrote:
-> >>
-> >> On Wed, May 27, 2026 at 05:37:10AM +0000, Raviteja Laggyshetty wrote:
-> >>> Enable QoS configuration for master ports with predefined priority
-> >>> and urgency forwarding.
-> >>>
-> >>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> >>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> >>> Signed-off-by: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
-> >>
-> >> Testing with Linus's tree, this patch broke my Lenovo IdeaCenter Mini X
-> >> booting, the board resets very early during boot.
-> >> I see that the last patch (device tree) is missing from the tree, I
-> >> included it, but that doesn't fix it, disabling the driver also
-> >> doesn't help. I can boot again by reverting this patch.
-> >>
-> >> I have my own device tree as my device is Purwa based [1]
-> >>
-> >> [1] https://lore.kernel.org/all/20260429141815.827157-1-smostafa@google.com/
-> > 
-> > Same here. My Mini-X hard reboots after 2.45s in the kernel. Example
-> > from the serial console:
-> 
-> Is the Mini-X based on Purwa ?
+> Assisted-by: Grok 4.5 (xAI)
+> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+> ---
 
-Yes. At least the one I have in the rack.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-> 
-> > 
-> > <quote>
-> > [    2.280289] VFIO - User Level meta-driver version: 0.3
-> > [    2.286872] usbcore: registered new interface driver usb-storage
-> > [    2.307218] i2c_dev: i2c /dev entries driver
-> > [    2.316386] efifb: probing for efifb
-> > [    2.320065] efifb: framebuffer at 0xe4800000, using 8100k, total 8100k
-> > [    2.326768] efifb: mode is 1920x1080x32, linelength=7680, pages=1
-> > [    2.333026] efifb: scrolling: redraw
-> > [    2.336704] efifb: Truecolor: size=8:8:8:8, shift=24:16:8:0
-> > [    2.346518] Console: switching to colour frame buffer device 240x67
-> > [    2.356787] fb0: EFI VGA frame buffer device
-> > [    2.361793] clocksource: arch_mmio_counter: mask: 0xffffffffffffff max_cycles: 0x46d987e47, max_idle_ns: 440795202767 ns
-> > [    2.372947] arch-timer-mmio 17800000.timer: mmio timer running at 19.20MHz (virt)
-> > [    2.380860] usbcore: registered new interface driver usbhid
-> > [    2.386577] usbhid: USB HID core driver
-> > [    2.391899] hw perfevents: enabled with armv8_pmuv3 PMU driver, 13 (0,80000fff) counters available
-> > [    2.403182] NET: Registered PF_INET6 protocol family
-> > [    2.408516] Segment Routing with IPv6
-> > [    2.412289] In-situ OAM (IOAM) with IPv6
-> > [    2.416326] NET: Registered PF_PACKET protocol family
-> > [    2.421533] 9pnet: Installing 9P2000 support
-> > [    2.425923] Key type dns_resolver registered
-> > [    2.430357] NET: Registered PF_VSOCK protocol family
-> > [    2.440369] registered taskstats version 1
-> > [    2.444633] Loading compiled-in X.509 certificates
-> > [    2.451480] Demotion targets for Node 0: null
-> > Format: Log Type - Time(microsec) - Message - Optional Info
-> > Log Type: B - Since Boot(Power On Reset),  D - Delta,  S - Statistic
-> > S - QC_IMAGE_VERSION_STRING=BOOT.MXF.2.4-00541-HAMOA-1
-> > S - IMAGE_VARIANT_STRING=SocHamoaWP
-> > S - OEM_IMAGE_VERSION_STRING=ip-10-195-202-30
-> > S - Boot Interface: SPI
-> > S - Secure Boot: On
-> > S - Boot Config @ 0x221c8600 = 0x00000001
-> > S - JTAG ID @ 0x221c8744 = 0x002ad0e1
-> > S - OEM ID @ 0x221c8700 = 0x00000040
-> > S - Serial Number @ 0x221c8610 = 0x00000460d5171bbb
-> > S - Feature Config Row 0 @ 0x221c21e0 = 0x0000000000000000
-> > S - Feature Config Row 1 @ 0x221c21e8 = 0x0000000000000000
-> > S - Core 0 Frequency, 1363 MHz
-> > S - PBL Patch Ver: 0
-> > S - PBL freq: 600 MHZ
-> > S - Cluster: 0, Core: 0
-> > </quote>
-> > 
-> > I'm also seeing spurious resets on my "X1E001DE Snapdragon Devkit for
-> > Windows" when doing large file transfers over the network (30GB+).
-> > With this patch reverted on top of 7.3-rc1, both machines are as solid
-> > as they were before it.
-> >
-> The current patch enable QoS for Hamoa SoC, which get programmed only during
-> driver probe. This shouldn't impact or cause any spurious resets once the 
-> device is booted up and probe is successful.
-
-And yet it absolutely does break things.
-
-With this patch applied, the box resets within 5GB of heavy network
-traffic, probably because some transaction get delayed, and a watchdog
-fires. With the patch reverted, the box keeps receiving packets, and
-everything is hunky dory (100GB+ so far).
-
-Which makes me think that the set of hardcoded parameters in this
-patch is not universal at all.
-
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
+Konrad
