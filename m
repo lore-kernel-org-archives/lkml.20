@@ -1,41 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC09D51C32A;
-	Mon,  7 Sep 2026 16:28:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE3E1477299;
+	Mon,  7 Sep 2026 16:29:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788798530; cv=none; b=uhLg7FkZ8CJ401wsMG8yDeqssEosMaRRr6xwS5d8kRiq1x8ONf0rxsQDCdZMahQ5zZSfbWhyx5MMZTdafhRS0Ou8O319+NzL0SRtCSDTVDvL27nOb+dZ8iLQv489FaOJsEB3ZMO6yNI6Htoxquho9qOXKJ6IK0FziIuoZvTp1Bc=
+	t=1788798554; cv=none; b=gi9kpV75IFRAHUFRuAFwnrepuI9CDviA3XItRLKZAY/NlXi3ErP1D24fLzNASmEYAt1s1xuPnXsugI8T1n3XZruTw3S27yQ78MFm8wRhLuvQCdQ/PGVbXPpk/87IjT/NzngifpLFXnxt4IZzrkN1AtMrR1yM0IzqJ/a+FGI8AgE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788798530; c=relaxed/simple;
-	bh=E/jlsf872zdL3EtKm5Y/XoVv1q0n9nvGAD6RqIza8FU=;
+	s=arc-20240116; t=1788798554; c=relaxed/simple;
+	bh=6Mi0KexjACT8EM1oYAJ+w+kZqAp8kzJ2mApTUd50940=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F1j6Rzn/p7iX6BDYnxN7pGtomRNUogMIH8KIxxuEwHffk2nliP5Csz8iEgOwEf9vmqATGBKkusbtj85mPNEI3YQ+dbfF9iGmhrR7WV3tjtygBYtjyugu62wLFPUiQF/HVCtWR4KeAhuMPNHFIMJO4kFMInwF8Cayl5piO3WAn8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=aK9KEJNK; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=doKGXMS+ezM7+Gzj3wOEYWLrsvyxgaGp2eCk2IcRHXPIbH7KA22osRgxc8kSesMxHEUEB/O9DEw51d73au2FGOIxpA6lo2YfVKZtWkzRVw7s0KxEwfvRwzAHOAfrYNhI3GkiFylClzcmXQwRR560f3LRxjoRYPwMA3pKYlNF990=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AA9jvqee; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="aK9KEJNK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAF141F00A3A;
-	Mon,  7 Sep 2026 16:28:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788798527;
-	bh=Z65WBBBF7G92k960PKXScovbivXMHjLFEkoVlOcc44s=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AA9jvqee"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F52A1F00A3D;
+	Mon,  7 Sep 2026 16:29:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788798551;
+	bh=6Mi0KexjACT8EM1oYAJ+w+kZqAp8kzJ2mApTUd50940=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aK9KEJNKgdyfh05DTdwFpNo1+9ySTuXwdpPtGn+xr0+JfkFF4oizgOjwfZa6/hP4Y
-	 Z5j7+zaKObZ7SyzGZYibsRiW6950kn/tr3ObF61xzGWn/DY7AjBqdwQbiWBEjOL7cZ
-	 PCA34G4IrLq3MGH7scL7gR0VupQkPLlumQcYP2KM=
-Date: Mon, 7 Sep 2026 18:26:50 +0200
-From: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-To: contectforbusiness@proton.me
-Cc: "rmfrfs@gmail.com" <rmfrfs@gmail.com>,
-	"johan@kernel.org" <johan@kernel.org>,
-	"elder@kernel.org" <elder@kernel.org>,
-	"greybus-dev@lists.linaro.org" <greybus-dev@lists.linaro.org>,
-	"linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/2] staging: greybus: light: add comments to mutex
- definitions
-Message-ID: <2026090735-rental-bloating-4d77@gregkh>
-References: <PqjvDjNm1A3nH3BCu_rlHx6YLIzrr0r8McQL1Xbg5GX6VcF6GW49nKPhkTIcHashk4ktOEARq8_izQ6xyFqeWAliK0JqQ8MMPOrFIXSowcw=@proton.me>
+	b=AA9jvqeelrtgtADkk5mv9JMok2q4G/kVWhwLejDCvh7k6Bjosp16ast2eQbe8z3wZ
+	 32Jq8QsukZsY6MQEnZXPOrmXS1S6Gz4mRLAd0yCXI322sqt7HacOuSQEuoQ9Cby0q4
+	 Dmt6Z3Mr4zOK4ejpTbMgDIjkWmh9oM7y22gbIwFDLlAfoz3qjh46jLWvdQFuLC3sWG
+	 pI68lEya2SWOP9mM3qUldcXe9u+fiVXEre9AsJ0BDUIni2CL+AUGL18eQkIlyqkmAy
+	 GB49tJWtBs46+5TjG9ft7p1HGBBc0FzrEnhdIGPOMYzsSuOPma6Dy9P8sz0/ko/HuM
+	 Jn0ywdYBjHvUg==
+Date: Mon, 7 Sep 2026 17:29:04 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH 2/6] mm: implement file_is_dev_zero() to uniquely
+ identify /dev/zero
+Message-ID: <ap7mL02N2lPZuqB5@gremlin>
+References: <20260902-map-private-dev-zero-v1-0-a578c730cec7@kernel.org>
+ <20260902-map-private-dev-zero-v1-2-a578c730cec7@kernel.org>
+ <292b27a7-94d1-4a2e-8346-a53e80fd2ed0@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,49 +52,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <PqjvDjNm1A3nH3BCu_rlHx6YLIzrr0r8McQL1Xbg5GX6VcF6GW49nKPhkTIcHashk4ktOEARq8_izQ6xyFqeWAliK0JqQ8MMPOrFIXSowcw=@proton.me>
+In-Reply-To: <292b27a7-94d1-4a2e-8346-a53e80fd2ed0@kernel.org>
 
-On Fri, Sep 04, 2026 at 05:56:25AM +0000, contectforbusiness@proton.me wrote:
-> checkpatch complains about:
-> 
->   CHECK: struct mutex definition without comment
-> 
-> Add short comments describing what each mutex protects. The
-> channel lock protects the channel state and lights_lock protects
-> the lights array.
-> 
-> No functional change, just quiets checkpatch.
-> 
-> Signed-off-by: Vaibhav <contectforbusiness@proton.me>
-> ---
->  drivers/staging/greybus/light.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+On Mon, Sep 07, 2026 at 06:21:27PM +0200, David Hildenbrand (Arm) wrote:
+> On 9/2/26 20:00, Lorenzo Stoakes (ARM) wrote:
+> > To lay the foundation for a future change that converts
+> > MAP_PRIVATE-/dev/zero mappings to be truly anonymous, add the ability to
+> > uniquely identify these mappings.
+> >
+> > With the memory character device now part of mm/ this is trivially
+> > achievable through a file_is_dev_zero() predicate that simply tests that
+> > the file operation hooks are zero_fops.
+> >
+> > Also update userland VMA tests to expose file_is_dev_zero() and provide
+> > a stub zero_fops for testing.
+> >
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+>
+> yes!
+>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Hi,
+I thought you might like these ;)
 
-This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
-a patch that has triggered this response.  He used to manually respond
-to these common problems, but in order to save his sanity (he kept
-writing the same thing over and over, yet to different people), I was
-created.  Hopefully you will not take offence and will fix the problem
-in your patch and resubmit it so that it can be accepted into the Linux
-kernel tree.
+Thanks for pushing back last cycle, this is MUCH better. Struck me that
+actually that it's trivial + requires no fugliness the second we have it
+mm/.
 
-You are receiving this message because of the following common error(s)
-as indicated below:
+>
+> --
+> Cheers,
+>
+> David
 
-- It looks like you did not use your "real" name for the patch on either
-  the Signed-off-by: line, or the From: line (both of which have to
-  match).  Please read the kernel file,
-  Documentation/process/submitting-patches.rst for how to do this
-  correctly.
-
-
-If you wish to discuss this problem further, or you have questions about
-how to resolve this issue, please feel free to respond to this email and
-Greg will reply once he has dug out from the pending patches received
-from other developers.
-
-thanks,
-
-greg k-h's patch email bot
+--
+Cheers, Lorenzo
