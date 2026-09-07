@@ -1,106 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDA434FC8FD
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:03:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5B09472536
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:04:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788793390; cv=none; b=DEs2ZzXwCQ+NlHloYBfrbD5ZgCYk6J1t5fUjQA0a6h1FF8oVTE/LB9cwjrP304AsT/HGW1y4/lgMuHERJ51OG8oNd2INLTwecpKOA85VSSnIXhzNy6WM+3/oqaRAHzcKnEljHsgfqyd/ypTvvyq8dB5U7MJU5J9+FK7QB43NUG0=
+	t=1788793465; cv=none; b=n0NVD2yHPPj7ApU2LEBFiWr26SCsdEHKVxpwsYE4ne5daf/PxdH7EeEC61I5KpHT+7yA6evF5RvzCVpf635lkLyf4siyhyT/Y9yGXyuy7dt4WIvWAjAs/IGecNeFkNmVNzqJoo/WATYFbgneNARhHEQM4PuiKRA1piNCf5rFi1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788793390; c=relaxed/simple;
-	bh=ps9a50Bqx0LvWJwsmZQ60stghEX9sRVpmuKyfzzcksI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TkBdyjTj7lMdX6Z2q21qP6w2LC2+4XYsabo6zEmrnkTH2gJn/bmQ2eoOlD+BFI9IugCwiX3TtzJu5cZYR/uSm5ye51vpudtAQZVInROtzuEeZSXrTTdnZL+ZA3SGBmTLbXPZSVLKpCq43YVwkl9QzwAF/yYFxV3V56gW1s8C4FI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PgTSUEgw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788793465; c=relaxed/simple;
+	bh=KNMVQC+0iDccEpQ+h2CPp+7RsmXBgouseN3dW7gRxc4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gJleIRZHequJQABFPHlYx1C/QpMnpQP+ewL7CZ0tFGW0BA0Vk36SqojV+bOha1P62FWT7Nz7vkBIp0C5r6MfSexrf6knL6l0WNeJrCa8/l0lp88ae21FiMJnAEHUvEOghvBYh3iR/Cu/YEylmHkRxMnBPUqeIvQ0q7ytRtRDyeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DFkNTvvL; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PgTSUEgw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C12721F00A3A;
-	Mon,  7 Sep 2026 15:03:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788793389;
-	bh=9uP17uHCuhjFLw8SyL7E1yzczVcF2HWa1IcWs1P6CnI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=PgTSUEgwMViH9O0Ctr4/qFmBqyKGp8mKypOH/GL3h1tiuiVoXPmvH2PDulvh//mXr
-	 6OJgE+08XLyLJUoH6Tun3qo3auANuR++qibQYliCWXIl8WG/HqaS1l8yIXsrF2qrrw
-	 Q6/oJj7rQr3YKWtzi3ZmehRZc8li4xJ/8gfBVj6fxOybShSY2DpkfVZvveVgctS1OD
-	 gx8Cj6zoeuF9N885LzwELKeiRG3ATJR/bh4plwQfjdoPjQ6I6doV/zkslHoykDT2kE
-	 xuSlObK1xmeWQ8MonF0DSj9q54qLj5w+rCOD0leWywfZowEiocPUTjcOXW2psvUPdt
-	 f0MSWxQlMo0Ag==
-Message-ID: <0afd7bf5-a059-4cf2-b9cf-e028b4eb86dd@kernel.org>
-Date: Mon, 7 Sep 2026 17:03:06 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DFkNTvvL"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-495590dde14so52722585e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:04:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788793462; x=1789398262; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rHozVKxaETh27XlRQJCL5N6I2hRb8EdRmazGxj/Cnp0=;
+        b=DFkNTvvLtBQOQ4BuvIB68rPMSCDqbcSlk/ROkIIC8cfY719oZ0LINbejNN+Ro/3Prv
+         RYmOxJGWRosXpL+aFsIaDOoTdhuy+LJBibJ37ZIP1gyM10FsrL2czULj+LLrOEvCRE+T
+         iEzKb0mPiMPlH4p9q+tqOVPXXZ5dXSHXEKTapYlvLxBWsJdiRU49TIQ3D3JwXcwkTaog
+         rCXIBDyip6mNdcUvNFyOLdiZOAhZmhg2ONcLPP5xK5pmmCwZXVMx/w0+yoKvwEDnSOT0
+         F5ag0BHA3TcOEOdAJNUkhsuw8qmzVSujivXip5C75s8CUD5R28yJx8jEm1fqFCnPsljG
+         uoGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788793462; x=1789398262;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rHozVKxaETh27XlRQJCL5N6I2hRb8EdRmazGxj/Cnp0=;
+        b=c94XExcHWYNNn4Ki3oQQDzHwpjXJt07nf7TXmqcJdvSAzF8MbFIetvwxpsdAS9h8Fq
+         Ew3FYOf30yFsVCUoNhaXbEWhjXVHhv25WeQGVDJHbn3YRtsaHuewSmvd45PiKwJaoqN/
+         FpXLwmLE/J3mmJBEGKnMoE9BsZiQN5NlLGPo34/hR3D5dKORPEhY+T8QVl4aV5zQlkTR
+         cSTjfgvJ78iZ9DI1lDNSg2Ei53H1JHAJtx9QJAkdO7F4wD6NfI8hXEso9NNARHyDhCBx
+         fU+KQdjuR1sP+hi2l9U9yFI8uGzbV1ziPgYL9Cxuq43v5PMG9Xl0jpGbWbzq5Vwecwff
+         aFjw==
+X-Forwarded-Encrypted: i=1; AKwUvBx3/Dq4BJ/AvDGpZ3rackoCqTgsjKcUZZGOBxVkFVETun9wCbYUkLmYIjNlb2MHsNIbJvfDmZ3MhSavk10=@vger.kernel.org
+X-Gm-Message-State: AFuF++mG6PtGv9iRs1O9rZy6GhGpkqgtWLlUv9+mYON7QbjcphCBBVZ9
+	BUc9f8bdqTHLSOHMDwtum7mGDrn9242yKvWcCqS77OS65WlyNGT9WZmQ
+X-Gm-Gg: AYBFou1CdalT7zSTa6JIBUjJxQpR8nnBGwfCnhGLEb/NbD6lkMjU3RPwGe0FhdqmCGk
+	SX/8/FtxBrqGhOVWqwrFC0ZuF+IiMWvEXxkk0yBpnrBT3cY1kprD98vCSl8m2CzgkdyVn+wQvR9
+	8hMTW6SwLdZh1cqlSaWHPu6o++WZsN4sMXFgCl3HKbUZDZY7MLss3Do/GQXzFovQQGtSc3kskCu
+	mFpP91bD1OpwS6oTVWaGO7ykbn9Hz92ymVN/zBv1oAyev4lbsDZ51wfXmeAFoSg09IlzaN8KAYC
+	XwuQCcMz/CBkgoOcY1jz/Xb0QY3f+tBaz3XL+0P5TiDIhgCyxUR4hx6bm57dTUu4BnXI1zSnUc0
+	o6NCUEvborLOd9LugtE26HxyAFv5yMuTyLQnsaJdWiokFUk7VADidOvGOrD4zAAkPO8UDXmaNhB
+	pwSUNXcRbQe1hhW5ZvfEIS+UoSu3a9nAX5+1q9RX4cYYxy51//S+Q4sngq2RbqPjt5kWVgIzOuw
+	Ld43LObarLapMB6rJZbOm24jO2C00HzJxyDnLM0W5J4hL4T0NjgTmiqJlkMkW+3D6u3ZSmJdXmu
+	r7CUezmwtZFMuaE3i69DBm0EciM7666Uh/Hoje//NtPOHQujricWrUKHqmIBQuzUtxZHxix37oL
+	p/JXuMxv6tGVVyPQpCeDoFr44GASRJoOoOaBBmBS5jVWuajVCyTdovR4CyRo0MQ/R3+9e8w==
+X-Received: by 2002:a05:600c:3d92:b0:49d:726:cc9f with SMTP id 5b1f17b1804b1-49d0726cd2emr281885525e9.5.1788793461845;
+        Mon, 07 Sep 2026 08:04:21 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7736132sm310592495e9.12.2026.09.07.08.04.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 08:04:21 -0700 (PDT)
+Date: Mon, 7 Sep 2026 17:04:20 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Esben Haabendal <esben@geanix.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen
+ <lars@metafoo.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Martin Kepplinger
+ <martink@posteo.de>, Sean Nyekjaer <sean@geanix.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Martin Kepplinger
+ <martin.kepplinger@theobroma-systems.com>, Christoph Muellner
+ <christoph.muellner@theobroma-systems.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 5/9] iio: accel: mma8452: Fix unintended comment
+ indent
+Message-ID: <20260907170420.00006312@gmail.com>
+In-Reply-To: <20260907-mma8452-open-drain-v8-5-c17407e22118@geanix.com>
+References: <20260907-mma8452-open-drain-v8-0-c17407e22118@geanix.com>
+	<20260907-mma8452-open-drain-v8-5-c17407e22118@geanix.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/slub: unify slub stat definitions to simplify metric
- additions
-Content-Language: en-US
-To: Hao Li <hao.li@linux.dev>, harry@kernel.org
-Cc: akpm@linux-foundation.org, cl@gentwo.org, rientjes@google.com,
- roman.gushchin@linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20260814071848.46922-1-hao.li@linux.dev>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20260814071848.46922-1-hao.li@linux.dev>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 8/14/26 09:17, Hao Li wrote:
-> Currently, adding a new slub stat requires modifying three separate
-> locations: stat_item, STAT_ATTR, and slab_attrs. This is inconvenient,
-> especially when temporarily adding metrics for debugging during
-> development.
-> 
-> This patch borrows the approach from SCHED_FEAT by introducing an ITEM_EXP
-> X-macro, which is then temporarily defined as different operations at the
-> three locations (stat_item, STAT_ATTR, and slab_attrs) to perform distinct
-> macro expansions.
-> 
-> Going forward, adding a new metric only requires adding a single line:
-> ITEM_EXP(XXX, xxx)
-> 
-> Signed-off-by: Hao Li <hao.li@linux.dev>
+On Mon, 07 Sep 2026 16:51:00 +0200
+Esben Haabendal <esben@geanix.com> wrote:
 
-Nice, thanks! Added to mm/slab.git slab/for-7.4/misc -> slab/for-next
+> The extra space this block was indented with looks quite untraditional, and
+> does not align with the common style used in the kernel.
+> 
+> Signed-off-by: Esben Haabendal <esben@geanix.com>
+> ---
 
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+
+-- 
+Kind regards,
+Joshua Crofts
