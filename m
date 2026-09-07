@@ -1,57 +1,158 @@
-Received: from Chamillionaire.breakpoint.cc (Chamillionaire.breakpoint.cc [91.216.245.30])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71FA93876C6;
-	Mon,  7 Sep 2026 08:33:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.216.245.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C22E40EB81;
+	Mon,  7 Sep 2026 08:33:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788770005; cv=none; b=hJusBPxn1Cji+0pA0RpBzwtOXNwmMlsvjqAbFJ8bxPTXSwvKhHqNbtRUq4auF55LzEDpLZVBgb+COBdPs0mEJubqgAsPzUJecvqk3RsZHH2vXRbKSfwbEGVZxmd8IUCZTtPJXSdEi6e4xuQB7R+Gjyby/ZKjLX3Y/VCWvD5wARU=
+	t=1788770034; cv=none; b=bns/eSiS6cs1UFasEo0glrT7/MHVGseDzI+56ONlF363a6ffPwDL0IDTF5tJgQIyv48oITyhYUuX3hO4uRqf4e47xwlClcPoQZ5oSLZLACGgKbWnJZXqq8Q9CLpDADmVkf5f1K8zBeo/LC4CGKbBeIyKaHJqbRnTwBm2wUxeFds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788770005; c=relaxed/simple;
-	bh=G0Ls6hGpgkBcrO/SpGc9Cz1kboCdluvHoiOH1nVxegE=;
+	s=arc-20240116; t=1788770034; c=relaxed/simple;
+	bh=AEeZZ08E0aNVjJ6wdlxXUBdl9cuLVhx4VU0BgGnkyUk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rISbSb+j49UTqO/KWSbMI5UB62kVLYcmJOn2I24RgxVPU01nXmwgwqBTKsk+VanY0aKf3GvqKJOnN3yxDIojIyM8vUw6L02gkPo1AoU+yeZ8vO0CVFdwQJ5yGaVEJ6mdLkFImjmCj16BQ1ENOb8rMj9Q7cIHxt+bZ7znxrClNW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de; spf=pass smtp.mailfrom=strlen.de; arc=none smtp.client-ip=91.216.245.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=strlen.de
-Received: by Chamillionaire.breakpoint.cc (Postfix, from userid 1003)
-	id C078460544; Mon, 07 Sep 2026 10:33:20 +0200 (CEST)
-Date: Mon, 7 Sep 2026 10:33:20 +0200
-From: Florian Westphal <fw@strlen.de>
-To: Aamir Ahmed <elb12345@hotmail.co.uk>
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
-	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] netfilter: conntrack_amanda: fix port value truncation
-Message-ID: <ap520Gf4XawDWeaX@strlen.de>
-References: <AS8P251MB0001CCFE2A0F40637E5A366CC8B32@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+	 Content-Type:Content-Disposition:In-Reply-To; b=NHtvrLtAcx3x1RfjAXb0uVkWeINC4ZCuFO0KwAvtYmJC248nNjICNPB97DIUPZiwY+AB5ALEGi6Ny0HIqjpii4yKc+kT4F1RXnI2KzRLpKSTfuEIgS5djcAIJbiKXNYbgrXdqd5wmyTee/bzDW0EqKOPr7oyzB3j9bBNuO6cJUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=YEoltXTa; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="YEoltXTa"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6877VkRK3605798;
+	Mon, 7 Sep 2026 08:33:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=ZoiwGS
+	2pFKgVA+y83afWzWIUjIMjemxrI5kdbzIGBwU=; b=YEoltXTakyaqbdaCghG6Qz
+	XYbuww2JR2B9RF9sJw3XA4Fpf82h8zMPsFlXaN1bSGG6jm63KWcv81gflsCBqlh8
+	flFraSZalPnoIkPyMuya6NqK5/ECH9PQnGnvYjOPKGjjEcU/tNOHShUXB0cwx3PC
+	P4O73umagVKkqRDPvfhGAGrS39Pov6BtQ/fvjJTotzp91+UzgZtqCa9XrnDv6yKg
+	52ZJsDeNuaAuZ8Y58vGGRt5405emjln5LIfeMTh9jB5zAqQExMLFhoPBF0uScIIw
+	SKZqAMPYLbpywxKvDYp0mTJ6OcyZ4HEuFzLmL19d1aQOQet70BtNKpZwvjd4AmkQ
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbqjqh0t-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 07 Sep 2026 08:33:39 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6878QGc9032087;
+	Mon, 7 Sep 2026 08:33:38 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gh03y4m8v-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 07 Sep 2026 08:33:38 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6878XaU342926560
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 7 Sep 2026 08:33:36 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A6E5720040;
+	Mon,  7 Sep 2026 08:33:36 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id EF0B92004B;
+	Mon,  7 Sep 2026 08:33:34 +0000 (GMT)
+Received: from dhcp-9-123-3-18.bl1-in.ibm.com (unknown [9.123.3.18])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Mon,  7 Sep 2026 08:33:34 +0000 (GMT)
+Date: Mon, 7 Sep 2026 14:03:32 +0530
+From: Gautam Menghani <gautam@linux.ibm.com>
+To: nhuquynh@tutamail.com
+Cc: Maddy <maddy@linux.ibm.com>, Npiggin <npiggin@gmail.com>,
+        Mpe <mpe@ellerman.id.au>, Chleroy <chleroy@kernel.org>,
+        Linuxppc Dev <linuxppc-dev@lists.ozlabs.org>,
+        Kvm <kvm@vger.kernel.org>, Linux Kernel <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] KVM: PPC: Fix callback check in kvmppc_gsm_refresh_info
+Message-ID: <ap523IteSsBqzsVw@dhcp-9-123-3-18.bl1-in.ibm.com>
+References: <P0S7RHx--F-9@tutamail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <AS8P251MB0001CCFE2A0F40637E5A366CC8B32@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <P0S7RHx--F-9@tutamail.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: jDOeV9YhtMSYIT991h2GzNG7SyLAOB5u
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA5MiBTYWx0ZWRfX25ktg2jaxZ9L
+ XC8whGm6ReEfA+ZsvlSba9PeZAh7VP8qixMIK9gO/fE9VSELvriHVSZOnQL46awxtW1DiAq9gUJ
+ 5fYyW4mzQN29Cf/pCMejd8Gp+A0ZwQ8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA5MiBTYWx0ZWRfX6grXX7B4QKhl
+ gE++grhwxbz86+zGOI0nFdw4hWuvU/J+L4QHoEsKRisJ0unVRChZ5gc1cJRWCJyRmYt9nIHLEdQ
+ bPHqznQ7hF7goCWGJ+ENFGGu7CLVnRSsCabhGBirj2QZeAyp4/RorneMnKNy7opwCHESHc/pJdk
+ bD8E0/qRSQUXdYehB5swQial0dXmf4Acnav7gdDMOO+rIVQZzyoBZUfnJ+1IPJ5E6GN/YA3nALQ
+ ARwd0lwh9IUlSXVeKdBnuWS0ogNvpJXvqnapwZ5VD+qz5kGRdBDgemU346ril0vawjHH1QnCpyY
+ /pZqoJvvNfT1wIShyseCf+z3b4MUj2HP7PBzOQsNb7pSDnNL3fIF9Aft99KLM3NBiAUlcJPxF3r
+ o24enzbszODyJw20DDN7buIS4kBjreqK/magcGaX5SIuPW6+eXqZ+a+OihQG+bLuv9nMpsNhi5o
+ 9yHgFWgTRXmdwf3nnBw==
+X-Authority-Analysis: v=2.4 cv=JaKMa0KV c=1 sm=1 tr=0 ts=6a9e76e3 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=8nJEP1OIZ-IA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
+ a=opkI-JdcAAAA:8 a=R09e3Zh0702w9eNjLlgA:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
+ a=Ww8VKtPN2Pdc02dhIGwG:22
+X-Proofpoint-GUID: LavG8GBNDPuCOmI0Cv9KOaWXrzPsy3Fc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_02,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0
+ adultscore=0 bulkscore=0 priorityscore=1501 suspectscore=0 clxscore=1011
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070092
 
-Aamir Ahmed <elb12345@hotmail.co.uk> wrote:
-> amanda_help() uses simple_strtoul() to parse the port number from
-> Amanda CONNECT replies, passing the result directly through htons()
-> into a __be16.  simple_strtoul() returns unsigned long, so values
-> above 65535 are silently truncated by the implicit conversion to u16
-> inside htons().
+On Tue, Sep 01, 2026 at 03:26:56PM +0200, nhuquynh@tutamail.com wrote:
+> From 80fd05e6d156d5a90d4908f2498bf6cc7acbdefd Mon Sep 17 00:00:00 2001
+> From: Bui Nguyen Nhu Quynh <nhuquynh@tutamail.com>
+> Date: Tue, 1 Sep 2026 19:39:49 +0700
+> Subject: [PATCH] KVM: PPC: Fix callback check in kvmppc_gsm_refresh_info
 > 
-> The existing check "port == 0 || len > 5" is insufficient: it
-> catches values that truncate to zero (e.g. 65536) and strings longer
-> than 5 digits, but misses values 65537-99999 whose u16 truncation is
-> non-zero.  For example, port 65537 becomes port 1, creating a
-> conntrack expectation for an unintended port.
-> 
-> Parse into an unsigned long and explicitly reject values above 65535
-> before the htons() conversion, mirroring the pattern used by the FTP
-> helper's get_port() and the recent IPVS FTP fix (commit
-> e625a9477d12).
 
-Is amanda still a thing?  Maybe time to retire this helper?
+This should not be in the patch description.
+
+> The kvmppc_gsm_refresh_info() function incorrectly checks for the
+> presence of the fill_info callback instead of refresh_info.
+> 
+> This can lead to:
+> - NULL pointer dereference if refresh_info is NULL but fill_info is present
+> - EINVAL return if refresh_info is present but fill_info is NULL
+> 
+> Fix this by checking the correct callback.
+> 
+> Fixes: 6ccbbc33f06ad ("KVM: PPC: Add helper library for Guest State Buffers")
+> Signed-off-by: Bui Nguyen Nhu Quynh <nhuquynh@tutamail.com>
+> ---
+> arch/powerpc/kvm/guest-state-buffer.c | 2 +-
+> 1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/powerpc/kvm/guest-state-buffer.c b/arch/powerpc/kvm/guest-state-buffer.c
+> index 42843eca6727..aeb586ba4523 100644
+> --- a/arch/powerpc/kvm/guest-state-buffer.c
+> +++ b/arch/powerpc/kvm/guest-state-buffer.c
+> @@ -598,7 +598,7 @@ EXPORT_SYMBOL_GPL(kvmppc_gsm_fill_info);
+> int kvmppc_gsm_refresh_info(struct kvmppc_gs_msg *gsm,
+>     struct kvmppc_gs_buff *gsb)
+> {
+> -	if (!gsm->ops->fill_info)
+> +	if (!gsm->ops->refresh_info)
+> return -EINVAL;
+>  
+> return gsm->ops->refresh_info(gsm, gsb);
+> -- 
+> 2.54.0
+
+
+This patch does not apply
+
+# git apply 20260901_nhuquynh_kvm_ppc_fix_callback_check_in_kvmppc_gsm_refresh_info.mbx --check --verbose
+error: corrupt patch at 20260901_nhuquynh_kvm_ppc_fix_callback_check_in_kvmppc_gsm_refresh_info.mbx:30
+
+
+The change itself is fine, but please fix the above issues and send a
+v2. Refer the documentation in case something is not clear -
+https://www.kernel.org/doc/html/latest/process/submitting-patches.html
+
+Thanks,
+Gautam
