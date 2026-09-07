@@ -1,49 +1,39 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpo75.interia.pl (smtpo75.interia.pl [217.74.67.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F7C94483A9;
-	Mon,  7 Sep 2026 09:46:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66EAC442393
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:46:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.74.67.75
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788774384; cv=none; b=M6XszpAq+Q4/2Mbsutx4pWzx01QqL3F3xGG3SvDTO9gUfmipRQug2D9TqhRg3pOZ18FYqo7rz+TC+Sx5+Ya6eQ5mIwVKFjS3dH24bUipLOX+MH0PvaV3drKW68m6oRRtrEaEsbAq+ZKXPiAhpH5dARGczqUzNIPlxwcThuPy7mg=
+	t=1788774397; cv=none; b=Sk+9fjOxkkQs+ut2Mo78rne7s35D41Vq14DqRgfpoOAbSF1XLm2MZMyb5hPNYHDMQec8aGZZAwI1d8nO3wl8T+hfvoyOvMdQ/Z15r7SnHZzUZYGF5GDYs/6cNhYvKux0lqPpar1/IqSDIluST4y72TBtPO/xIO9Vn0EtR2Y/CAo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788774384; c=relaxed/simple;
-	bh=nGTvvrUiHp0b1HJJHXA9pXkPc/mOBhA29s3WwxJqep4=;
+	s=arc-20240116; t=1788774397; c=relaxed/simple;
+	bh=NcIZPAEXx+xGpOzOy3HmqtQivZXN0toLyO/bs9gO084=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oXRYNN6LS5mrIfd+Tm5ydKLErWjTjpFJr+w97WHbxVDlyJtWJXWvZRuX7HapG+IocuMLaVJx9usM79/mTSdbgoFcsdTXfHV24ndNjDhH7O4V2qx/bIPzxXQhBdJjc3SKUu7JfNNeAIoxPVMLbhrkL0aCu0TKrUb2c/AAliYRVjk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=jqBAko16; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	 Content-Type:Content-Disposition:In-Reply-To; b=cVcS8GzDlBq10aM2TvGCMhSbMW2wpvFi5ts4o4dJjhGYRtwsKiQCPJDgjhkCSnwjPz6XY+NsTqXt0TsY2uKBoREbgeTnY+FgvZy01m/T0CPDDNjsR1AJMvpU25hXtKnRLow3T6h1saMJQ0xnC9fbiLCmb5Q1e43lUn8IV677FQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=poczta.fm; spf=pass smtp.mailfrom=poczta.fm; dkim=pass (1024-bit key) header.d=poczta.fm header.i=@poczta.fm header.b=YRxWttTd; arc=none smtp.client-ip=217.74.67.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=poczta.fm
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=poczta.fm
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="jqBAko16"
-Received: from francesco-nb (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
-	by mail11.truemail.it (Postfix) with ESMTPA id A0BBF1FDC8;
-	Mon,  7 Sep 2026 11:46:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1788774380;
-	bh=2A/Nbd/sgxzMN3+ZeCUQZmfzW3dZ/qRtwKK82swN7eU=; h=From:To:Subject;
-	b=jqBAko162TWMJDxFqoY9VWo16uH8wShA8f4jgt5mJsuqzneYMm3R4YrZfC4hUCtgY
-	 SRldY8Gfcq/P0tCxwMxvw1lZCT8eV7NqThugNKHoiVrDtenovKJrMIs48PxdRMHHoh
-	 1IQo3jz4fzRUqtyj0Pmb3Z705ZAcXvTtJ2FcXibo4g6xaQMl1gj5vpYAo1zg8lkmTl
-	 gJXBCbwlenwJgkt5FKPGe3UI4huPN77l9awcwdjpWddUDOYX1WBVc7SO5m9ubQriWV
-	 Fy0kHJKHHg2nyhqbQJmpzSV7AYuJSEf7RNnRi2IRDkSL/ABd5SG1FxJ38JuJv73QkB
-	 eNrZpnzPOfNHQ==
-Date: Mon, 7 Sep 2026 11:46:16 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Franz Schnyder <fra.schnyder@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Francesco Dolcini <francesco@dolcini.it>,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Franz Schnyder <franz.schnyder@toradex.com>
-Subject: Re: [PATCH v2 0/2] arm64: dts: freescale: imx95: Add ENETC port 2 in
- SGMII mode on Toradex boards
-Message-ID: <20260907094616.GA53628@francesco-nb>
-References: <20260907-add-enetc-port2-v2-0-e8f1f8b000c0@toradex.com>
+	dkim=pass (1024-bit key) header.d=poczta.fm header.i=@poczta.fm header.b="YRxWttTd"
+Received: from nr200 (unknown [80.68.231.31])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by poczta.interia.pl (INTERIA.PL) with ESMTPSA;
+	Mon,  7 Sep 2026 11:46:24 +0200 (CEST)
+Date: Mon, 7 Sep 2026 11:46:21 +0200
+From: Slawomir Stepien <sst@poczta.fm>
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: syzkaller-bugs@googlegroups.com, linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org, syzbot@lists.linux.dev,
+	syzbot+9bdc0c5998ab45b05030@syzkaller.appspotmail.com
+Subject: Re: [PATCH 3/3] wifi: cfg80211: check if AP has been started before
+ adding new station
+Message-ID: <ap6H7U3j0CgPj2IR@nr200>
+References: <20260813090434.2071318-1-sst@poczta.fm>
+ <20260813090434.2071318-3-sst@poczta.fm>
+ <113768c35523738bdc7ab8441ecda64a063900bf.camel@sipsolutions.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,16 +42,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260907-add-enetc-port2-v2-0-e8f1f8b000c0@toradex.com>
+In-Reply-To: <113768c35523738bdc7ab8441ecda64a063900bf.camel@sipsolutions.net>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poczta.fm; s=dk;
+	t=1788774385; bh=1IVuQ9U4trB4ZPIHclI3jr/GrbNDukNvOZV7lT2GCjA=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
+	b=YRxWttTdJbYposjdFGSezTXawacAM+6/tDqyQ473gvLxhv5B7NvpAQa7/T1Iwe2CC
+	 UiCkMm+P7blpuHaSRIP4DVIgNTkf4oITgUkI2ZcJLvuH6aMvojSZXrNNwGrkQgK9hR
+	 2d2zhh/OgIZUsWxuEdu+ocCRJHUvmrIbjNt+0zBM=
 
-On Mon, Sep 07, 2026 at 08:47:19AM +0200, Franz Schnyder wrote:
-> Add the ENETC port 2 on Toradex SMARC and Aquila iMX95. The port
-> is connected as an SGMII Ethernet interface.
+On wrz 04, 2026 11:25, Johannes Berg wrote:
+> On Thu, 2026-08-13 at 11:04 +0200, Slawomir Stepien wrote:
+> > 
+> >  	case NL80211_IFTYPE_P2P_GO:
+> > +		/* Add a new station only after the AP and link has been started */
+> > +		link_id = wdev->valid_links ? params.link_sta_params.link_id : 0;
 > 
-> Enable the reference clock on the modules and enable the PHY connections
-> on the supported carrier boards.
+> max() maybe?
+
+But wouldn't that blur the intent here? It's not about a bigger value. It's about MLO or not MLO
+device handling.
+
+> > +		if (!wdev->links[link_id].ap.beacon_interval)
+> > +			return -ENETDOWN;
 > 
-> Signed-off-by: Franz Schnyder <franz.schnyder@toradex.com>
+> I think the same issue might exist also for mesh, maybe address that as
+> well?
 
-Reviewed-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+Sure, I will take a look at this.
 
+> And I think you could have a fourth patch to clean up the mac80211 code
+> to no longer handle the "STA creation on AP_VLAN" case?
+
+Sure, will take a look on that too.
+
+Thanks for review!
+
+-- 
+Slawomir Stepien
