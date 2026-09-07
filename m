@@ -1,83 +1,60 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F62650EC0C
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:14:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945424DBD67
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:14:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788797694; cv=none; b=s6Bb/OoYoR5khYhLTNKzTjl4Ue+nR8wLRiiUewQRGpbaYX311EnIA0UuH0Kpq3bjez2cay/82WBt1tEcOAvwZE+W/KnxWHb3RLR+JaJf/chBAen0XMQO5eRtBuct08eBSOfD471uNXAKgaiUA4MPrtyzpsO3C+9XRL0p73Ht8Rg=
+	t=1788797698; cv=none; b=QFXevQxIXd2jnqb43+bl7jXvpK/1SC6AWCQ/O3rBnQo69+Br2mJpOnwSrbNEo4Hr1KL7pIf+zFeGmp2uY3bL3eE+h4C7ZYMw6WKQi2eZ5FNuOJfOnh8CHGV1ALR3gB1iWBpki0J5jlsErSjob2/bNwd4iUi20jJKKhhwpLn6dao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788797694; c=relaxed/simple;
-	bh=pRAALjD4TH8fUKXhy3WAVF2EJZFrERevmrWFZD7sesA=;
+	s=arc-20240116; t=1788797698; c=relaxed/simple;
+	bh=i9Jn+nMK5yRKJILpxGhn4u+rjeyL7aCOIsewDJssZDo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qCLuNLZuilgdhkxEG3+rArfM4pqLrVk2WDSk5ek+O8o4pWxk4yXzvjP3tDpCZGFuiB/goSMTPMQZeXhzOOPDNFtsY5UMGFwaHa+1R27sDjLYmWSX46YlanHiIaSXlCMV4ztT/BCypNMtyRo15YdfBLQG/GjSSUsWqHI81oLZ7+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TUoJSEcR; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=qA3nD+Pm0g+S6q1s6fMqRG+HGi+sKxfKqmnVb9xcl85uftlmUCpNlmHFtgpNZdBw7JAr2RFcOh0Xyj5NhiXRy0EuZRA1Negq8yVv5/GWYB8m+H4EqSDL8JjIOzdZFcny9rZfaBpo+KbrZ0LBXRnyITA4Z1uDFpE7cN3B1oHyrcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=gy8h3Q8H; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TUoJSEcR"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843971bdd0so386300f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 09:14:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788797691; x=1789402491; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fX2W7WEaFgzQ+G9ZWHq9TsKAeN2X1/3oz4Q8aMxWcYA=;
-        b=TUoJSEcRuFIugHI/2ndo0IwUQjVvozn2YhM9i4BvtbtLptDTKzbyQefA8fJNqfo5KR
-         iNagCF8X7jjhFfalGt1WL4ttp1GXAv/T2tM+qCTR7AkeAuBl/MsOfzFuCD1/DPamcIYu
-         M31Hohcmp+Aa/8csb4muo79dNfQGCQRQqzqsbnlgb1Eal5/0zZM4AZyQ9DGqCwpTjRYT
-         iQQ7cDipHgvoOW5UFn51a0bHndvVUOaZa71jp8+lFiWr5P6kODWBs3lU+NqLjfjIz55S
-         TbgWjS1glhHeTNOvSmDmI865O17XzzAo6131RMgW/C7JCnkgISJG8e39V5fY8k2URXkD
-         fcOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788797691; x=1789402491;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fX2W7WEaFgzQ+G9ZWHq9TsKAeN2X1/3oz4Q8aMxWcYA=;
-        b=WuNckxBu1oFu9GdvMm89AippaMfjIYQvYlxGBnpHTfqQsHWlCPYK58jipT+8HoVUZE
-         oKyRG3TN8KC0/xln4skdd4rCQIKfl7FYbtJeusEH46V/WTsYr+FgDCi/WGdf+upBRh8k
-         8uqUnEqv3UT7gr7ZETeH3Uz9FHPuNk84XZ3oUCEXnNE5h3dtaQH3BLzGUm+Yn5rkKdVF
-         OxRsi0ueZInOwbz9mOTx4LDBZj8mWPH9EOBQWTsKBeTPFiLERXvbiWMtFpzjDyuxhMnj
-         +yc6fSispM7EfBuoAVBnd+9efWZTrbT4AUwwsQAdfE395Sz3J6rLCyYCLUhFhqFAYyLb
-         dOeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwxm54WkdwFmMdRJScRryCP7PWKwxFUeu28yjeB5LfdpxbkBlj7uNfOrIixdLCc/fCYtKGz+fxltnz/q2g=@vger.kernel.org
-X-Gm-Message-State: AFuF++nmjItZhP/ZkS7v+XvGM17RXOnKQMMWBHYnZIQIl/KGGBFvQzKg
-	9C5ljDUlKON8zZhK7njv6pSYrnbIK+fNLMrPFow2zG3oga6J8ZIHj4wo
-X-Gm-Gg: AYBFou2R/CHVFczdZVeidc6jqV+TpwXDNfgU9fLSpJ6nIOElAUmGviebdD24GmZMD2b
-	rJIC2Gfkl/dKlMK8uPGMx5m9dhDKqmjY4uWt4wlmEQNjt0DPxY1KheZ5rXpTesU+dx2HOVb6Je+
-	eM74hkc4WOK7nSsiUQjVATcdJmIkxBPdLb0WbFqzNNNBld1iBhDrg1WEi0cVkztjNIM0tzW22r2
-	hB//AGKCWBntahBixz+FLqeL8dVQFJRblqk0iGmkyOzBwIuiYKfEw9gViE8poGyvFr9ua3hCCKv
-	zrhqTu3RrRmYP03awBtrZBk1pwaxTBMUqu38SVkeRF4i3TRwLYT0RoPXzAe9uQT+EC2UYLpKO2O
-	cwu5cRcSlvS1d0/Ng6WjzWvGvasdoSp1/2go+7T2ne37Akea2okB6pwxmPbuhUnLp5j3t9nuMQO
-	xGFv27Vq7FvPAPoxwwA/qDj5gYC6uWKho8bC3gwkvJ1pbcy8leWPDHW5lJ1UOTzG2zNVbFQK5+4
-	fh7FKrSLJY=
-X-Received: by 2002:a05:600c:4f48:b0:49d:798:67a4 with SMTP id 5b1f17b1804b1-49d079867f5mr134404175e9.0.1788797691569;
-        Mon, 07 Sep 2026 09:14:51 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5563c6csm347750865e9.4.2026.09.07.09.14.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 09:14:51 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: kayracizmeci@gmail.com
-Cc: bsegall@google.com,
-	dietmar.eggemann@arm.com,
-	juri.lelli@redhat.com,
-	kprateek.nayak@amd.com,
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="gy8h3Q8H"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 04ACB1A1A3E;
+	Mon,  7 Sep 2026 16:14:55 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id CD70A60383;
+	Mon,  7 Sep 2026 16:14:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 56C6211C79FF1;
+	Mon,  7 Sep 2026 18:14:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788797689; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=28SvcWgrOztUICc4tgGJQGEoj/8YPhXVEIGuRH590fY=;
+	b=gy8h3Q8H8baCsejxCAwmcrrrVlG2bpxVFCEFl1pRzcoz2uOFJ2ewLCVbItFVcOWIt4CjfK
+	ZtBd8I2ZSDBzP0FqQVtef95Emjz78vY9TsTRcf9KNFGntXHDS98CPtbDTRWivqZPrjq+dF
+	M31KuzsPfTfYoLK0JNzrOiC30ljbH+Am9Uk8015ulQ6A98DWuTBnCvR3Smq5k3FsFL7EtP
+	/fd6t3QS3jbTdY1IC4yzDMabrL9lQxg5lHc5J4Peg1pVd+yqrxik70plLugw9wLipUgeHz
+	SjageWEHpt/Ko0wKlWcGE5naXdRCimuhnNRigmQIhvMigpAxjP6inaGTr730Bg==
+From: "Maxime Chevallier (Netdev Foundation)" <maxime.chevallier@bootlin.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Donald Hunter <donald.hunter@gmail.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	matttbe@kernel.org,
+	Stanislav Fomichev <sdf@fomichev.me>
+Cc: "Maxime Chevallier (Netdev Foundation)" <maxime.chevallier@bootlin.com>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	mgorman@suse.de,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	rostedt@goodmis.org,
-	vincent.guittot@linaro.org,
-	vschneid@redhat.com
-Subject: Re: [PATCH v2 1/2] sched/fair: reuse the ENQUEUE_DELAYED calculation in enqueue_task_fair()
-Date: Mon,  7 Sep 2026 19:14:48 +0300
-Message-ID: <20260907161448.1152895-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907160522.1152423-1-kayracizmeci@gmail.com>
-References: <20260907160522.1152423-1-kayracizmeci@gmail.com>
+	thomas.petazzoni@bootlin.com,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH net-next v3 1/2] tools: ynl: Allow cross-compiling ynl and associated tools
+Date: Mon,  7 Sep 2026 18:14:35 +0200
+Message-ID: <20260907161438.755125-2-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260907161438.755125-1-maxime.chevallier@bootlin.com>
+References: <20260907161438.755125-1-maxime.chevallier@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,39 +62,112 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hello Prateek,
+The ynl tool and libraries may be built standalone or through the
+drivers/net/hw selftest machinery. This may target a different arch, so
+we need to take the CROSS_COMPILE variable into account for LLVM and
+gcc.
 
->> @@ -7996,12 +7996,12 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
->>  	 * Let's add the task's estimated utilization to the cfs_rq's
->>  	 * estimated utilization, before we update schedutil.
->>  	 */
->> -	if (!p->se.sched_delayed || (flags & ENQUEUE_DELAYED))
->> +	if (!p->se.sched_delayed || delayed)
+Let's include the tools/scripts/Makefile.include that deals with the
+CC/AR resolution.
 
-> nit. This reads funny now - not delayed or delayed?
+Fixup the ynltool CFLAGS handling to use +=, so that we don't override
+the ones set in Makefile.include.
 
-> Maybe wakeup_delayed but all of this should be optimized by compiler
-> at the end and a big ENQUEUE_DELAYED is better for humans who are
-> reading the code no?
+Makefile.include also sets the Q variable for verbose mode, so we can
+drop it from the ynltool Makefile. This will allow properly selection
+the verbosity of ynltool builds with the V=1 make flag.
 
-In my first message I was thinking that renaming and using it in both places would be 
-the better approach. But I thought about this the meantime and I changed my mind.
-flags & ENQUEUE_DELAYED reads better and more clear than a bool. And I can't really
-see a big advantage of renaming it over this version.
+Reviewed-by: Matthieu Baerts (Netdev Foundation) <matttbe@kernel.org>
+Signed-off-by: Maxime Chevallier (Netdev Foundation) <maxime.chevallier@bootlin.com>
+---
+ tools/net/ynl/Makefile           | 1 +
+ tools/net/ynl/generated/Makefile | 3 ++-
+ tools/net/ynl/lib/Makefile       | 3 ++-
+ tools/net/ynl/tests/Makefile     | 2 +-
+ tools/net/ynl/ynltool/Makefile   | 6 ++----
+ 5 files changed, 8 insertions(+), 7 deletions(-)
 
-Patch subject is a bit confusing since it says reuse the bla bla
-calculation in the enqueue_task_fair(). And this subject
-makes it seem like there is a performance claim.
+diff --git a/tools/net/ynl/Makefile b/tools/net/ynl/Makefile
+index 3cefe4ed96cb..838c465d65aa 100644
+--- a/tools/net/ynl/Makefile
++++ b/tools/net/ynl/Makefile
+@@ -1,5 +1,6 @@
+ # SPDX-License-Identifier: GPL-2.0
+ 
++include ../../scripts/Makefile.include
+ include ../../scripts/Makefile.arch
+ 
+ INSTALL	?= install
+diff --git a/tools/net/ynl/generated/Makefile b/tools/net/ynl/generated/Makefile
+index ea4128f612d6..5a186349b5a8 100644
+--- a/tools/net/ynl/generated/Makefile
++++ b/tools/net/ynl/generated/Makefile
+@@ -1,6 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0
+ 
+-CC=gcc
++include ../../../scripts/Makefile.include
++
+ CFLAGS += -std=gnu11 -O2 -W -Wall -Wextra -Wno-unused-parameter -Wshadow \
+ 	-I../lib/ -idirafter $(UAPI_PATH)
+ ifeq ("$(DEBUG)","1")
+diff --git a/tools/net/ynl/lib/Makefile b/tools/net/ynl/lib/Makefile
+index 9b98c0599600..7b3eae89982f 100644
+--- a/tools/net/ynl/lib/Makefile
++++ b/tools/net/ynl/lib/Makefile
+@@ -1,6 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0
+ 
+-CC=gcc
++include ../../../scripts/Makefile.include
++
+ CFLAGS += -std=gnu11 -O2 -W -Wall -Wextra -Wno-unused-parameter -Wshadow
+ ifeq ("$(DEBUG)","1")
+   CFLAGS += -g -fsanitize=address -fsanitize=leak -static-libasan
+diff --git a/tools/net/ynl/tests/Makefile b/tools/net/ynl/tests/Makefile
+index 40827ca8e579..99ae7dcd6348 100644
+--- a/tools/net/ynl/tests/Makefile
++++ b/tools/net/ynl/tests/Makefile
+@@ -2,8 +2,8 @@
+ # Makefile for YNL tests
+ 
+ include ../Makefile.deps
++include ../../../scripts/Makefile.include
+ 
+-CC=gcc
+ CFLAGS += -std=gnu11 -O2 -W -Wall -Wextra -Wno-unused-parameter -Wshadow \
+ 	-I../lib/ -I../generated/ -I../../../testing/selftests/ \
+ 	-idirafter $(UAPI_PATH)
+diff --git a/tools/net/ynl/ynltool/Makefile b/tools/net/ynl/ynltool/Makefile
+index 48b0f32050f0..b8c67cdb4fdf 100644
+--- a/tools/net/ynl/ynltool/Makefile
++++ b/tools/net/ynl/ynltool/Makefile
+@@ -1,12 +1,12 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ 
+ include ../Makefile.deps
++include ../../../scripts/Makefile.include
+ 
+ INSTALL	?= install
+ prefix  ?= /usr
+ 
+-CC := gcc
+-CFLAGS := -Wall -Wextra -Werror -O2
++CFLAGS += -Wall -Wextra -Werror -O2
+ ifeq ("$(DEBUG)","1")
+   CFLAGS += -g -fsanitize=address -fsanitize=leak -static-libasan
+ endif
+@@ -27,8 +27,6 @@ include $(wildcard *.d)
+ 
+ all: $(YNLTOOL)
+ 
+-Q = @
+-
+ $(YNLTOOL): ../libynl.a $(OBJS)
+ 	$(Q)echo -e "\tLINK $@"
+ 	$(Q)$(CC) $(CFLAGS) -o $@ $(OBJS) ../libynl.a -lm
+-- 
+2.55.0
 
-I knew It was getting optimized by the compiler, I thought at the time that
-gathering this flags & ENQUEUE_DELAYED in one place would be better.
-
-I'm dropping this patch (1/2) but I'll continue with 2/2 :->.
-
-NOTE: I send the wrong file that was with the same
-name with my correct file that I supposed to send. Sorry for this autogroup.h
-ping thing. Ah..
-
-Thanks, 
-Kayra
