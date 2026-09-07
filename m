@@ -1,120 +1,119 @@
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0483503BE1
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:04:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F6E511231;
+	Mon,  7 Sep 2026 16:05:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788797097; cv=none; b=lTMWflyQH+L6j+y8yjx6I76nL+3JaLSZQLOn4TUmYfDE881UcwSOCdhpJ/QRBE0ZtqMchquQ4qsLJSoa7XQMP3dp3QPOyjj5Cm0iU8WzVaTsKPnkWm3HELZcwc3+3mRY8ezqNLKYKz+gjrQCj2G+5YEl64GlpaLCSBI1vlv1JZQ=
+	t=1788797127; cv=none; b=ti4N3WY7v7nWrl0dYsdFncnsrrOm8OIZt0zUgMsKb7D3HApRJxoKeg5FBpUuXkXe9OYbPyBoCIwQVYs5EUXIDnQr2dENCpsu201PQyFMw50IFqIk9Oot+Z+vgGIflV/yh/dUweEsSI9hc5QUZ6vcf+KTHR/To2AJ3+3ccQ/LV2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788797097; c=relaxed/simple;
-	bh=7oIcXSH1gZ5pYqSF0p9nTlhpOlZssCHFCItFtSVIiEs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m9IsH/57MChweH450PBnNlVWZ5RMdHVht8ksWaWoIukOPg8UPfjU33FDerI4H8NNsKS3m4iN9ppxfDoyiBu+e44R86E0joFfThP5yAbIjeUWjeUUhYzhWuDt1v9QjgbX+yy28/U5mXyR1frCGsmVgS3rZrZHg/2YrUTWBjsmU1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=mOUSZR5a; arc=none smtp.client-ip=209.85.222.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1788797127; c=relaxed/simple;
+	bh=w8EZ05k0q853OfA8iwP87wk48lOVG5pSeQC1y/3ymSg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=fyFiE6p4yB/BgVMe+U/srlZAX7d7WltHK/qPzQEXQkaFxH2HonIEYDeHKk7A9rQFMwuLkJ94lDSitoLE8d+Z8IuOoQomViZaY+C4RnWrEK+IgeS/UsDBkedf/F87as1OwHJ8SC6MO/Oxsarb1pSU5bq11rwnlCeUSovWp7ng7K0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=q0XmPrJz; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="mOUSZR5a"
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-9399798ca61so220503585a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 09:04:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1788797093; x=1789401893; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FNnTBID4g9aytHQLyfm+JMBPPEsDRdj9xryUeJJj4sA=;
-        b=mOUSZR5a+jKgEMol0Hs8T8xctZFoniizjw9yko8/lHt97hsjjdfh8H7JdITzhH6RcU
-         5OvNOf0yAFXzE7AuVTc9G7P6IvObGFJwBL6dex1xECb7ayQfii1sudbg/Uun3yNd36oL
-         sIFj/I8mpNtpWcxQzh9C3hu1H5R5P6lRSZfaHzqCopL+6JqQh36zGC80U4GzPsB4D1cw
-         FL56uRQUPbCvEVLlOibqAAV2R8gtzVn7Sesoep7Iq3/ncQeP6LnZr3EMAoGbFwRlUATS
-         llI5GxdxOcd0lGXTrjb7r4/4oIpXZTkGE3yB5B3dWUWjuPpyd2V3cIxRi39qqHL+eJ0V
-         HWUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788797093; x=1789401893;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FNnTBID4g9aytHQLyfm+JMBPPEsDRdj9xryUeJJj4sA=;
-        b=FWZGWcYP2tNCAHI2KJ7g4OS8Yr/Sy2HmWT/9XpfrjZIEc1oPZEqhPY2nQJ1FGzOcK6
-         dTr7v3+5xFIxc/FoAYK2PnBF0vUcFxOpBEgJhw/xwZt1sRVmLTEEWwzt+DiEZLmTfyjf
-         3s1zLH5jvRKRC4bv8NNAuV39kKegBNgF9LPLXUMTukSFKiMNrgbglj8dqzIgNQOq0Gay
-         kQguwzcYbr004S5hKOJfy39bxZAKtlcK/2M0rR1pT9mOvWgHS7TSymm9gE4kam2DE+cB
-         YHe9ZlqUsN+XtjCad3olFuE5TIKGcrLwVA9aC5lCwGNtfvjJ1sX/NIInIJ//gzh335c6
-         7KTA==
-X-Forwarded-Encrypted: i=1; AKwUvBzzAjkmcROpKjTDt7xr/aiV19E70b0eUaPSBvhRPbHo5mYMb7blWH+mL270HjKR/nF66jgIbc9VKfPAikM=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9Ynab0MwgXVdAKvval2YCexI2So8VZ+7M/zAPp/SDtJ/nEo98
-	kuWLhHZZj/mzqRalxvZIV/PsnDaNZLHpvJJeNVADmVhqsYH+JQZBzs+jeqmooUmTjcA=
-X-Gm-Gg: AYBFou316sx0bc+SYN2psbpBWPy5icD0wP4VpwoeynO6s7r0ZyqU/HRRijOZYV8tQuH
-	VLbKBCdrRJ1GV5mKjrjZXJlXdjoQyfcjYyAEbvN73qu4OKtvITXbEGLOh52bYzj4smeRr6lVncp
-	2fbH9wIbdbPhnQZCz/yilpW+zD264Nq1oRYI92YtdXDWQjCo2F5O2pQsazG7y+rhDAM9Zv5Qwil
-	PMajU5vNpjgIaNpGJtbAvMkVVgZMO0ndDsuL2bmjMIyOhp3N2kBUdJQ9SDQZUwaaPUpEr5b/hBS
-	UBz9jB61uS0iC+KzcAk3iUfMQr63k07bx+E5ObZHl0oWXbnO9DsMB9kwESjvZoDwP9S6ucXFvei
-	2FRSn6YA1oLK7E/YkVPYcZcira0WCZOpp7cPINSnPMxDYvD3+hzJha2cV91VbGuTfSaUnlpXT1T
-	cF4xGuRL2KwlkUJYVQMeBtieT4+2x9b1agbb9sH3UCy20Ig3uRElVMfWG0Dd79qIqRfyZiRQJpO
-	4eVdfu4lNQJ4kzFcuMoEZNZiqSe72ktefQSW3JlTtc3
-X-Received: by 2002:a05:620a:a38a:b0:939:f89:3688 with SMTP id af79cd13be357-9398048b90emr1959600685a.42.1788797092662;
-        Mon, 07 Sep 2026 09:04:52 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397fbb70f1sm932389885a.40.2026.09.07.09.04.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 09:04:52 -0700 (PDT)
-Date: Mon, 7 Sep 2026 12:04:50 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH 3/6] mm/vma: only permit MAP_PRIVATE /dev/zero to be
- mapped anonymous
-Message-ID: <ap7fOu5DHkKtqlkg@gourry-fedora-PF4VCD3F>
-References: <20260902-map-private-dev-zero-v1-0-a578c730cec7@kernel.org>
- <20260902-map-private-dev-zero-v1-3-a578c730cec7@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="q0XmPrJz"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B33EDC2BCC7;
+	Mon,  7 Sep 2026 16:05:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788797126;
+	bh=w8EZ05k0q853OfA8iwP87wk48lOVG5pSeQC1y/3ymSg=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=q0XmPrJz2D55pN8Yf07Dd+0Shs7NFo+ah/2FZXnaq1fXz2mzuXJ4V2CKddAcGM0i1
+	 1eZsmY+F8NtsMG7cuH4ooCI+q+6wFwYEDDgiPAAEWnkQAlNN/VSMEFLvrfUzPiaOnh
+	 4qqhlSjDIsdDwMT2mIdc6/HSAlct8Hs+VxPrxB4wKEYHJm2XeKXD5zU9xorYL7Asu2
+	 K79KYjYv7SSscXqyQ8sEmVOk1AsYD3gZUqkA/ot6Z1Oct8mGFNdNIpzE5++Ht+4Ttk
+	 lvvM9e965dlEdpq6l/56cqxJE2F3mPamQvFt7H1bxUlE456fQNZ7NV4c19bCo4ltJH
+	 8dpK0PIU2BvEg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 87F5FC79FA0;
+	Mon,  7 Sep 2026 16:05:26 +0000 (UTC)
+From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
+Subject: [PATCH v5 0/2] Add pinctrl support for MSM8952
+Date: Mon, 07 Sep 2026 19:05:23 +0300
+Message-Id: <20260907-msm8952-pinctrl-v5-0-9a2d8d72ffdb@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902-map-private-dev-zero-v1-3-a578c730cec7@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XPwYrDIBCA4VcpnuvijBq1p75H2UNMNB1oTNESd
+ gl59zW97EK69PgPzDfMwkrIFAo7HRaWw0yFplRDHw+su7ZpCJz62gwFNsJCw8cyWqeR3yl1j3z
+ jvkPfK6scNsDq1j2HSF9P8fJZ+0rlMeXv54EZtun/1gxc8NagQd/1CNacx5bSjRKl4WPKA9vAG
+ f8gKPYIVsRH9NYbL43zLxH5izih9oisCIDQoGOMGuRLRL1BVEUaA8ro0IN0+3fWdf0BR6gs1YI
+ BAAA=
+X-Change-ID: 20260816-msm8952-pinctrl-bc2bd4849261
+To: Bartosz Golaszewski <brgl@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Muzaffer Kadir <muzafferkadir@mainlining.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788797124; l=2000;
+ i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
+ bh=w8EZ05k0q853OfA8iwP87wk48lOVG5pSeQC1y/3ymSg=;
+ b=pA6RhdN/1ibvbeFEwNkdgITnMcWvxfF7Dp8JxNN0tH/UXSnBHDkzfYlSVPB7N86uv4p1bduMq
+ 63EpZ75pVhADjc58yTB1hOERpFWjP5pxBZXRtebFmk3RlYel1oKU79S
+X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
+ pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
+X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
+ with auth_id=954
+X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Reply-To: muzafferkadir@mainlining.org
 
-On Wed, Sep 02, 2026 at 07:00:20PM +0100, Lorenzo Stoakes (ARM) wrote:
-> In order to use mmap_prepare() with MAP_PRIVATE mappings of /dev/zero
-> without the success_hook hack we explicitly permitted mmap_prepare handlers
-> to set NULL vm_ops.
-> 
-> However this is dangerous and we really only want to allow this for
-> MAP_PRIVATE-mapped /dev/zero.
-> 
+MSM8952 has pinctrl system that is similar to MSM8917 pinctrl, but it
+has some differences in some of the pins and their functions.
+This driver tested on General Mobile GM 5 Plus.
 
-"this is dangerous" -> can you expand on this?
+Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+---
+Changes in v5:
+- Add mpm map as Konrad Dybcio provided.
+- Change "GPL v2" to "GPL" as Konrad Dybcio suggested.
+- Add missing pin mappings for qdss_tracedata_b and
+  atest_combodac_to_gpio_native functions.
+- Link to v4: https://lore.kernel.org/r/20260904-msm8952-pinctrl-v4-0-671475ed1397@mainlining.org
 
-I had been experimenting with mmap'ing kmem dax devices as a way to test
-generating a driver-defined efault mempolicy on an anonymous region, and
-this exact pattern came up for me during mmap_prepare trying to get rid
-of the "fileness" of the VMA.
+Changes in v4:
+- Revert back accidentally changed dt-bindings gpio regex.
+- Link to v3: https://lore.kernel.org/r/20260904-msm8952-pinctrl-v3-0-110515fff513@mainlining.org
 
-Basically looked exactly like the /dev/zero vma.
+Changes in v3:
+- Added missing functions and removed unnecessary functions
+  with Konrad Dybcio's suggestions.
+- Because of the changes on functions, I changed dt-bindings too.
+  Dropped Krzysztof's Reviewed-By attribute because of the changes.
+- Rebased and Tested on linux-next, next-20260902 tag.
+- Link to v2: https://lore.kernel.org/r/20260820-msm8952-pinctrl-v2-0-bf2b8b7b379b@mainlining.org
 
-I understand this is a hack, i'm just trying to better understand why
-"this is dangerous" and it shouldn't be a supported pattern.
+Changes in v2:
+- Reworded dt-bindings commit as Krzysztof suggested.
+- Added depends and default to kconfig entry of pinctrl
+- Link to v1: https://lore.kernel.org/r/20260816-msm8952-pinctrl-v1-0-a7272bcd2187@mainlining.org
 
-for clarity:
+---
+Muzaffer Kadir (2):
+      dt-bindings: pinctrl: qcom: Add MSM8952 pinctrl
+      pinctrl: qcom: Add MSM8952 tlmm pinctrl driver
 
-   fd = open("/dev/dax0.0",...);
-   buf = mmap(fd, ...);
-   /* 
-    * mmap(_prepare) callback marks the vma anonymous so it takes anon
-    * fault routes and sets an mbind mempolicy installed on the vma to
-    * prefer the node the dax device is registered to.
-    */
-   buf[0] = 0xDEADBEEF; /* faults an anon page from the node */
+ .../bindings/pinctrl/qcom,msm8952-pinctrl.yaml     |  146 +++
+ drivers/pinctrl/qcom/Kconfig.msm                   |    8 +
+ drivers/pinctrl/qcom/Makefile                      |    1 +
+ drivers/pinctrl/qcom/pinctrl-msm8952.c             | 1257 ++++++++++++++++++++
+ 4 files changed, 1412 insertions(+)
+---
+base-commit: 32b6ef9a5d0eca44f9cd91f52f4faa89f145a0de
+change-id: 20260816-msm8952-pinctrl-bc2bd4849261
+
+Best regards,
+-- 
+Muzaffer Kadir <muzafferkadir@mainlining.org>
+
+
