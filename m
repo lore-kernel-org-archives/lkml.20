@@ -1,22 +1,22 @@
-Received: from mail-m121165.qiye.163.com (mail-m121165.qiye.163.com [115.236.121.165])
+Received: from mail-m15592.qiye.163.com (mail-m15592.qiye.163.com [101.71.155.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D5C6363C50;
-	Mon,  7 Sep 2026 08:32:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.121.165
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D1F243F0B9;
+	Mon,  7 Sep 2026 08:32:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788769930; cv=none; b=boH9H2Y5cuULH9EEOjrYaZSPT/FgoiSYf/Noy3dRKpHc7i7JvM6H7yAO8d7HwDSuGl/oR7MxzYUu/SvRZknoZbzIWeWZ/+WDHyPZeD6/yaruR8QlYjwqZXN6Zh3fsPfT436oj8kUU17qUqHIKRdWLYGC3jKW+X5/z9ifEV4zhbs=
+	t=1788769932; cv=none; b=CrzFyWBe2S+r4dKGc9sRohwPswtV+qdh5sY7Kb/NDc2K6wOcun+W49ynpLWxtuew5fCOp5Zne8WTDPq2pSWoS5lvZjPb+IU9CfqJJBnAHvKtVbFoFQC/ICp9mVVQeyjNg+vbS2Uh7B4FQHP4esh2vCAplskkUXqCOTwLNszFgpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788769930; c=relaxed/simple;
-	bh=MpUHU733qzsJ4+FiGD4z7+UXVjIh2pRMsXYv67X1+hE=;
+	s=arc-20240116; t=1788769932; c=relaxed/simple;
+	bh=aWnIf2I2cq5kOVBa43sgWoDNexgBJwDofrFewGx+0dA=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=UApkzp0LUjd/8YIcHGKO0IqjhOeMIfrtMWeRD+/GafC1ybyrfWJae/5eDV+46i7eX+ijGvjlHJ0ZD3OWe62D3JINRzCkehZ3x2H63E6biOj1ASwiGTXHmxTGXOsAZamJ6K8ySDGrTdv2QOIpR8NeGqZA69yFOrU1lTUoBb7aryY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=115.236.121.165
+	 MIME-Version; b=Pt/ARKtuR2t/pGXrMutwGNxk8IkWDOUaoS0gRTeAo8089t+u+36vzQIKgSgMevRhe6XjCAD1fqAdLn3ix7Ajby24RwGcBtLIHXL2ZhF/djnofA3Yq/X9FMInTveZQHVoqe7Yzf9hwIY0oCpnaUspxMprT9tRViBMyET8Ko0bTBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=101.71.155.92
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
 Received: from localhost.localdomain (unknown [218.94.118.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 1ec6fa09d;
-	Mon, 7 Sep 2026 16:26:46 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 1ec6fa0a3;
+	Mon, 7 Sep 2026 16:26:49 +0800 (GMT+08:00)
 From: Zhen Ni <zhen.ni@easystack.cn>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: David Hildenbrand <david@kernel.org>,
@@ -36,9 +36,9 @@ Cc: David Hildenbrand <david@kernel.org>,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Zhen Ni <zhen.ni@easystack.cn>
-Subject: [PATCH v3 5/8] mm/page_owner: Add memcg filter support
-Date: Mon,  7 Sep 2026 16:26:17 +0800
-Message-Id: <20260907082620.2083838-6-zhen.ni@easystack.cn>
+Subject: [PATCH v3 7/8] tools/mm: Add memory cgroup filtering support to page_owner_filter
+Date: Mon,  7 Sep 2026 16:26:19 +0800
+Message-Id: <20260907082620.2083838-8-zhen.ni@easystack.cn>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20260907082620.2083838-1-zhen.ni@easystack.cn>
 References: <20260907082620.2083838-1-zhen.ni@easystack.cn>
@@ -49,258 +49,138 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa07afa1bf20229kunm225d16da162d12
+X-HM-Tid: 0aa07afa263d0229kunm225d16da162d22
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSUJLVk5CT09CHxgfTBhKS1YVFA
+	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaS05CVh4fThkeT0IZSUNCTFYVFA
 	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
 	lPT09IVUpLS1VKQktLWQY+
 
-Add memory cgroup filtering to page_owner to allow filtering pages by
-their memcg path. This helps debug memory usage patterns for specific
-cgroups. Users can now filter page_owner output to show only pages
-belonging to a particular memory cgroup.
+Add filtering capability for page_owner to allow filtering by
+memory cgroup path.
 
-Collect cgroup path in memcg_info using cgroup_path() and store the
-filter state in page_owner_filter_state. When the user sets memcg filter
-via "memcg=<path>" command, compare each page's cgroup path against
-the specified path and skip non-matching pages using strcmp.
+Filter page_owner output by cgroup path:
+./page_owner_filter -g /
+./page_owner_filter -g /user.slice
+./page_owner_filter -g /user.slice -c systemd
 
 Signed-off-by: Zhen Ni <zhen.ni@easystack.cn>
 ---
 Changes in v3:
-- Add a NULL guard for state->memcg_path before strcmp()
+- Replace the v1/v2 classification.
 
 Changes in v2:
-- Allocate the cgroup path buffer once per read() outside the loop
-  instead of per page inside get_page_memcg_info(); a GFP_KERNEL
-  allocation must not sleep inside the page_ext RCU read-side critical
-  section.
-- Guard the memcg= parsing branch with CONFIG_MEMCG
+- Print an error message for an empty -g argument.
 
-v1: https://lore.kernel.org/linux-mm/20260828031339.1270699-6-zhen.ni@easystack.cn/
-v2: https://lore.kernel.org/linux-mm/20260903041819.1776630-6-zhen.ni@easystack.cn/
+v1: https://lore.kernel.org/linux-mm/20260828031339.1270699-8-zhen.ni@easystack.cn/
+v2: https://lore.kernel.org/linux-mm/20260903041819.1776630-8-zhen.ni@easystack.cn/
 ---
- mm/page_owner.c | 81 ++++++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 76 insertions(+), 5 deletions(-)
+ tools/mm/page_owner_filter.c | 52 +++++++++++++++++++++++++++++++++---
+ 1 file changed, 49 insertions(+), 3 deletions(-)
 
-diff --git a/mm/page_owner.c b/mm/page_owner.c
-index 3bdf4faa8f6b..7f1f2dcc633f 100644
---- a/mm/page_owner.c
-+++ b/mm/page_owner.c
-@@ -71,6 +71,7 @@ static const char * const page_owner_print_mode_strings[] = {
+diff --git a/tools/mm/page_owner_filter.c b/tools/mm/page_owner_filter.c
+index 516c2d109a6a..ede39a1704de 100644
+--- a/tools/mm/page_owner_filter.c
++++ b/tools/mm/page_owner_filter.c
+@@ -20,7 +20,7 @@
+ #include <getopt.h>
+ #include <signal.h>
  
- struct memcg_info {
- 	char name[80];
-+	char *path;
- 	bool is_slab;
- 	bool is_objcg;
- 	bool is_online;
-@@ -86,6 +87,7 @@ struct page_owner_filter_state {
- 	enum page_owner_print_mode print_mode;
- 	bool nid_filter_enabled;
- 	bool proc_filter_enabled;
-+	bool memcg_filter_enabled;
- 	nodemask_t nid_filter;
- 	int pid_count;
- 	int tgid_count;
-@@ -93,6 +95,7 @@ struct page_owner_filter_state {
- 	pid_t pid_list[MAX_FILTER_PIDS];
- 	pid_t tgid_list[MAX_FILTER_TGIDS];
- 	char comm_list[MAX_FILTER_COMMS][TASK_COMM_LEN];
-+	char *memcg_path;
- };
+-#define MAX_CMD_LEN	512
++#define MAX_CMD_LEN	2048
+ #define TASK_COMM_LEN	16
  
- static int cmp_pid_t(const void *a, const void *b)
-@@ -582,7 +585,8 @@ void pagetypeinfo_showmixedcount_print(struct seq_file *m,
- /*
-  * Get memcg information from page
-  */
--static void get_page_memcg_info(struct page *page, struct memcg_info *info)
-+static void get_page_memcg_info(struct page *page, struct memcg_info *info,
-+				 char *path_buf)
- {
- 	unsigned long memcg_data;
- 	struct obj_cgroup *objcg;
-@@ -606,6 +610,10 @@ static void get_page_memcg_info(struct page *page, struct memcg_info *info)
- 	info->is_objcg = (memcg_data & MEMCG_DATA_KMEM) != 0;
- 	info->is_online = css_is_online(&memcg->css);
- 	cgroup_name(memcg->css.cgroup, info->name, sizeof(info->name));
-+	if (path_buf) {
-+		info->path = path_buf;
-+		cgroup_path(memcg->css.cgroup, info->path, PATH_MAX);
-+	}
- out_unlock:
- 	rcu_read_unlock();
+ static void usage(const char *prog)
+@@ -33,12 +33,13 @@ static void usage(const char *prog)
+ 	fprintf(stderr, "  -t, --tgid TGID_LIST  : Thread Group IDs (comma-separated, max 16)\n");
+ 	fprintf(stderr, "  -c, --comm COMM_LIST  : Process names (comma-separated, max 8)\n");
+ 	fprintf(stderr, "                          Supports wildcards: * ? [a-z]\n");
++	fprintf(stderr, "  -g, --cgroup PATH     : Memory cgroup path\n");
+ 	fprintf(stderr, "  -o, --output FILE     : output file (default: stdout)\n");
+ 	fprintf(stderr, "  -h, --help            : show this help message\n");
+ 	fprintf(stderr, "\nExamples:\n");
+ 	fprintf(stderr, "  %s -m handle -o output.txt\n", prog);
+ 	fprintf(stderr, "  %s -n 0,1 -c bash\n", prog);
+-	fprintf(stderr, "  %s -c \"python*\" -t 1\n", prog);
++	fprintf(stderr, "  %s -c \"python*\" -g user.slice\n", prog);
  }
-@@ -775,11 +783,23 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
- 	struct page_ext *page_ext;
- 	struct page_owner *page_owner;
- 	depot_stack_handle_t handle;
-+	char *memcg_path_buf = NULL;
- 	struct page_owner_filter_state *state = file->private_data;
-+	ssize_t ret;
  
- 	if (!static_branch_unlikely(&page_owner_inited))
- 		return -EINVAL;
- 
-+	/*
-+	 * Allocate outside the loop, as GFP_KERNEL allocations may not
-+	 * sleep inside the page_ext RCU read-side critical section.
-+	 */
-+	if (state->memcg_filter_enabled) {
-+		memcg_path_buf = kmalloc(PATH_MAX, GFP_KERNEL);
-+		if (!memcg_path_buf)
-+			return -ENOMEM;
-+	}
-+
- 	page = NULL;
- 	if (*ppos == 0)
- 		pfn = min_low_pfn;
-@@ -899,7 +919,11 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
- 		}
- 
- #ifdef CONFIG_MEMCG
--		get_page_memcg_info(page, &memcg_info);
-+		get_page_memcg_info(page, &memcg_info, memcg_path_buf);
-+		if (state->memcg_filter_enabled)
-+			if (!memcg_info.path || !state->memcg_path ||
-+			    strcmp(memcg_info.path, state->memcg_path) != 0)
-+				goto ext_put_continue;
- #endif
- 
- 		/* Record the next PFN to read in the file offset */
-@@ -907,13 +931,16 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
- 
- 		page_owner_tmp = *page_owner;
- 		page_ext_put(page_ext);
--		return print_page_owner(buf, count, pfn, page,
-+		ret = print_page_owner(buf, count, pfn, page,
- 				&page_owner_tmp, handle, state, &memcg_info);
-+		kfree(memcg_path_buf);
-+		return ret;
- ext_put_continue:
- 		page_ext_put(page_ext);
- 		cond_resched();
- 	}
- 
-+	kfree(memcg_path_buf);
+ static int validate_mode(const char *mode)
+@@ -225,6 +226,34 @@ static int validate_comm_list(const char *comm_list)
  	return 0;
  }
  
-@@ -1016,7 +1043,10 @@ static int page_owner_open(struct inode *inode, struct file *file)
- 
- static int page_owner_release(struct inode *inode, struct file *file)
- {
--	kfree(file->private_data);
-+	struct page_owner_filter_state *state = file->private_data;
++static int validate_cgroup_path(const char *path)
++{
++	char cgroup_path[512];
++	const char *input_path = path;
 +
-+	kfree(state->memcg_path);
-+	kfree(state);
- 	return 0;
- }
- 
-@@ -1074,9 +1104,11 @@ static ssize_t page_owner_write(struct file *file,
- 	enum page_owner_print_mode new_print_mode;
- 	nodemask_t new_nid_filter;
- 	bool new_nid_filter_enabled;
-+	bool new_memcg_filter_enabled;
- 	pid_t new_pid_list[MAX_FILTER_PIDS];
- 	pid_t new_tgid_list[MAX_FILTER_TGIDS];
- 	char (*new_comm_list)[TASK_COMM_LEN] = NULL;
-+	char *new_memcg_path;
- 	int new_pid_count = 0;
- 	int new_tgid_count = 0;
- 	int new_comm_count = 0;
-@@ -1092,16 +1124,24 @@ static ssize_t page_owner_write(struct file *file,
- 	if (count > 32 + 6 * MAX_NUMNODES +
- 			(PID_MAX_DIGITS + 1) * MAX_FILTER_PIDS + 4 +
- 			(PID_MAX_DIGITS + 1) * MAX_FILTER_TGIDS + 5 +
--			TASK_COMM_LEN * MAX_FILTER_COMMS + 5)
-+			TASK_COMM_LEN * MAX_FILTER_COMMS + 5 +
-+			PATH_MAX + 6)
- 		return -EINVAL;
- 
- 	new_comm_list = kmalloc_array(MAX_FILTER_COMMS, TASK_COMM_LEN, GFP_KERNEL);
- 	if (!new_comm_list)
- 		return -ENOMEM;
- 
-+	new_memcg_path = kmalloc(PATH_MAX, GFP_KERNEL);
-+	if (!new_memcg_path) {
-+		kfree(new_comm_list);
-+		return -ENOMEM;
++	if (!path || strlen(path) == 0) {
++		fprintf(stderr, "Error: Empty cgroup path\n");
++		return -1;
 +	}
 +
- 	kbuf = memdup_user_nul(buf, count);
- 	if (IS_ERR(kbuf)) {
- 		kfree(new_comm_list);
-+		kfree(new_memcg_path);
- 		return PTR_ERR(kbuf);
++	if (path[0] == '/')
++		input_path++;
++
++	snprintf(cgroup_path, sizeof(cgroup_path),
++		"/sys/fs/cgroup/%s/memory.stat", input_path);
++	if (access(cgroup_path, F_OK) == 0)
++		return 0;
++
++	snprintf(cgroup_path, sizeof(cgroup_path),
++		"/sys/fs/cgroup/memory/%s/memory.stat", input_path);
++	if (access(cgroup_path, F_OK) == 0)
++		return 0;
++
++	fprintf(stderr, "Error: Cgroup path '%s': "
++		"not found or no memory controller\n", path);
++	return -1;
++}
++
+ int main(int argc, char *argv[])
+ {
+ 	const char *output_file = NULL;
+@@ -244,6 +273,7 @@ int main(int argc, char *argv[])
+ 		{"pid",		required_argument, 0, 'p'},
+ 		{"tgid",	required_argument, 0, 't'},
+ 		{"comm",	required_argument, 0, 'c'},
++		{"cgroup",	required_argument, 0, 'g'},
+ 		{"output",	required_argument, 0, 'o'},
+ 		{"help",	no_argument,	   0, 'h'},
+ 		{0, 0, 0, 0}
+@@ -270,7 +300,7 @@ int main(int argc, char *argv[])
+ 		return 1;
  	}
  
-@@ -1123,6 +1163,9 @@ static ssize_t page_owner_write(struct file *file,
- 				state->comm_count * TASK_COMM_LEN);
- 		new_comm_count = state->comm_count;
- 	}
-+	new_memcg_filter_enabled = state->memcg_filter_enabled;
-+	if (state->memcg_filter_enabled && state->memcg_path)
-+		strscpy(new_memcg_path, state->memcg_path, PATH_MAX);
+-	while ((opt = getopt_long(argc, argv, "m:n:p:t:c:o:h", long_options, NULL)) != -1) {
++	while ((opt = getopt_long(argc, argv, "m:n:p:t:c:g:o:h", long_options, NULL)) != -1) {
+ 		int len;
  
- 	while ((token = strsep(&kbuf, " \t\n")) != NULL) {
- 		if (*token == '\0')
-@@ -1166,12 +1209,35 @@ static ssize_t page_owner_write(struct file *file,
- 			ret = parse_comm_list(token + 5, new_comm_list, &new_comm_count);
- 			if (ret < 0)
- 				goto out_free;
-+#ifdef CONFIG_MEMCG
-+		} else if (!strncmp(token, "memcg=", 6)) {
-+			if (token[6] == '\0') {
-+				ret = -EINVAL;
-+				goto out_free;
-+			}
-+			ret = strscpy(new_memcg_path, token + 6, PATH_MAX);
-+			if (ret < 0)
-+				goto out_free;
-+			new_memcg_filter_enabled = true;
-+#endif
- 		} else {
- 			ret = -EINVAL;
- 			goto out_free;
+ 		switch (opt) {
+@@ -344,6 +374,22 @@ int main(int argc, char *argv[])
+ 			cmd_len += len;
+ 			break;
  		}
- 	}
- 
-+	if (new_memcg_filter_enabled) {
-+		if (!state->memcg_path) {
-+			state->memcg_path = kzalloc(PATH_MAX, GFP_KERNEL);
-+			if (!state->memcg_path) {
-+				ret = -ENOMEM;
-+				goto out_free;
++		case 'g': {
++			const char *cgroup_path = optarg;
++
++			if (validate_cgroup_path(cgroup_path) < 0)
++				return 1;
++			const char *path = (cgroup_path[0] == '/') ? cgroup_path + 1 : cgroup_path;
++
++			len = snprintf(filter_cmd + cmd_len, MAX_CMD_LEN - cmd_len,
++				       "%smemcg=/%s", cmd_len > 0 ? " " : "", path);
++			if (len < 0 || cmd_len + len >= MAX_CMD_LEN) {
++				fprintf(stderr, "Error: Command too long\n");
++				return 1;
 +			}
-+		} else {
-+			memset(state->memcg_path, 0, PATH_MAX);
++			cmd_len += len;
++			break;
 +		}
-+	}
-+
- 	/* Commit all filter changes */
- 	state->print_mode = new_print_mode;
- 	state->nid_filter = new_nid_filter;
-@@ -1198,11 +1264,16 @@ static ssize_t page_owner_write(struct file *file,
- 				new_comm_count * TASK_COMM_LEN);
- 		state->comm_count = new_comm_count;
- 	}
-+	if (new_memcg_filter_enabled) {
-+		strscpy(state->memcg_path, new_memcg_path, PATH_MAX);
-+		state->memcg_filter_enabled = true;
-+	}
- 
- 	ret = count;
- 
- out_free:
- 	kfree(new_comm_list);
-+	kfree(new_memcg_path);
- 	kfree(orig);
- 	return ret;
- }
+ 		case 'o':
+ 			output_file = optarg;
+ 			break;
 -- 
 2.20.1
 
