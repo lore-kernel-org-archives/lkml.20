@@ -1,356 +1,111 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013030.outbound.protection.outlook.com [40.107.201.30])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-68.mta1.migadu.com [95.215.58.68])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE06F149C7B
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 02:51:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.30
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788749497; cv=fail; b=EHj8rWU3XQiW58aPVtoV6DrSPAH42KrTJNRh5dxx/IiI4mrW6EygqyxSxC1MZ5GiBGGOcdWOFxj9CHkiHR/qrhPGipt1gxrOOQKgq7Kp4juNGT2QU0Jc81ZL+3c6eWNetbAV6VgKDA55qXQci2K9S7FEkU0fxhvSZdFx3hYta3M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788749497; c=relaxed/simple;
-	bh=Cbb4NTap5Gy7tyglOfL7qQ+jUgD07rkYrSwKS30+4vQ=;
-	h=Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
-	 In-Reply-To:MIME-Version; b=qM9CZAUcjKvEy/gykfejdq8v/T5IBllBjtwtRuTPuY5b2wafa6Xcn6c+7w+vGKCFFAKi1y18ngywttrIfmTiCAQRDxNKZkakmGpAv0u13CSlx7AsfILA4iCkQTueTjXgOb/N8gV41r4+sF1W3jrGieoy/rl6mIyvEn/D+jpZZnk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=fdNMuH07; arc=fail smtp.client-ip=40.107.201.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A5ED2E7367
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 02:51:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.68
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788749508; cv=none; b=qFBBF+1VmADMW488qXZkUtjUF/dzgBPYCU+bXOvM/LexnqTZmEXaiWNk8Yzn79jmJx1QdEShNlW6AVGHg1YIqLUN1z5spSCHqeqNXh5Ax8yIR5SAxw4JNoLonGqFEy0WRiWVVsF1BXlPJVDQPVQPV0VR00bt8wgIMSaoRxmqHgo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788749508; c=relaxed/simple;
+	bh=SxzjzX434z8T2FekJgnAJrbYVmucvXUWeYnZppPlDZk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=itT+dOt9hxx5EHiu8co9XFZiBKq5igR38RA9Tm2sHJJr07IxLBUVC/oYdhXQsK36tFh7S4pf4RAlUn+juHWhg5/bUCEoOE3LSNUl56iH6e9Vi0f8cMGaswLxPnegGc5w5XEeiIoOF/b25SJ1TlMm74d/+lJBil/ZMkEPvylgQjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=huIfSwIq; arc=none smtp.client-ip=95.215.58.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="fdNMuH07"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lywMg7h5oxLj0XaRmBunzDvrRqfJH7Cu6KEzOvDFALG62u/CyatK6uHrmtClu3/PdWcXKNnzctUS/8VHEbgFiIEwAbStF5od0xEez6uqlMHNGXui5QHe2iPI9rMoW/50ITu9twOZ5igiE4gXPp9vVogeMccbrLEIgwdRj1GT34DoQgC0EJmwqDn1uIiNypy1dr+ndSQ6sAH1YnkuTgb0ETbkSdLPZEdKZbEXZ66w1ReXpSP9CHlySv98phSv2SeC2dCt88P4LlGogSN6My9NAUfrlerEBiCR6MSAESodah5dzf6hzrAB7Xn9x/MCK/Xu7tYK0W27MQQHXdd317/g8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZOv69Y9kWwA00zsckDOV6ICWiBKiNFOJZyNchtPUfL8=;
- b=mh0mzfzLTqQamznuIBZsgFgXlu4hcaZadViDb2dy2C8JpSoHEo4XmtH6YjCkUy7jKiZg8jb9yJMZK13VamnP9SqbGGbpt72Vrrp95S5qtfo4Xlp5v4o8yYe/X2uK7bLNMmldYPeqoPf/rm3TciZjvcQID93BkDdQKpgUucVh8fHEFl3iApKjw/5LQ7iEjvLy+sveh05cJ/KohXz86aiLpLynMrZPRhyBCrAl453eKVu2JLke/UUGknRECyYsNEo5I9DG/6KYFIZB7ZrFoTPW10Q9q3tL6D0RJtjPbbe/6usb7tItENmoNGSaJJIYAIZGTCUj3zhKBriKAi2pZVu0kQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZOv69Y9kWwA00zsckDOV6ICWiBKiNFOJZyNchtPUfL8=;
- b=fdNMuH07rvOwo1C9HHir8H4McHRcmnUNNOGxCGevQtKSFBLICGDpWhXSAJCoIsqE+qwMtzgdk4LEtfXz6EFwPDjCK8ehlAshuX9V7l/X5Fa0QIGHu7U9c+k35M4Mra85CMJk5xVdUr3Tj3toNEPHRyomSCpRrzRY/nG3ApcSM7qR+TshLUIAgKRCww2kQyStcoZjLSjMQNso0hQEmJZAJU+pr/5SP/M3trJhMoxpyIVhh3FVAYd72Rntl+MTpAe7eTKLo6sMuIFWm/H+nIzruzcTHdoID01SDgCW52r3JQWnovsbOb1rZi8KCwC7OHIMJIkyMfJgU3mZ/c3rXbOTlw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by MN2PR12MB4301.namprd12.prod.outlook.com (2603:10b6:208:1d4::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 02:51:31 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
- 02:51:31 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 06 Sep 2026 22:51:29 -0400
-Message-Id: <DL8QRV0RZS55.238LGA5F34MYG@nvidia.com>
-Subject: Re: [RFC PATCH 0/4] mm: compaction: mTHP-friendly memory compaction
-Cc: <surenb@google.com>, <mhocko@suse.com>, <brendan.jackman@linux.dev>,
- <hannes@cmpxchg.org>, <ljs@kernel.org>, <liam@infradead.org>,
- <rppt@kernel.org>, <qi.zheng@linux.dev>, <shakeel.butt@linux.dev>,
- <kasong@tencent.com>, <baohua@kernel.org>, <axelrasmussen@google.com>,
- <yuanchu@google.com>, <weixugc@google.com>, <zhaonanzhe@xiaomi.com>,
- <lipengfei28@xiaomi.com>, <linux-mm@kvack.org>,
- <linux-kernel@vger.kernel.org>, "Bo Zhang" <zhangbo56@xiaomi.com>
-To: "Bo Zhang" <zhangbo0325@gmail.com>, <akpm@linux-foundation.org>,
- <vbabka@kernel.org>, <david@kernel.org>
-From: "Zi Yan" <ziy@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <20260825043833.2659350-1-zhangbo56@xiaomi.com>
-In-Reply-To: <20260825043833.2659350-1-zhangbo56@xiaomi.com>
-X-ClientProxiedBy: YQZPR01CA0152.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:8c::25) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="huIfSwIq"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=SxzjzX434z8T2FekJgnAJrbYVmucvXUWeYnZppPlDZk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788749504; v=1; x=1789354304;
+ b=huIfSwIql7bAvbMpbjCxU61Sb0KuWhQA5LKrw5Tmf4hu4wQcF93B2UDAoYOqsaodDIXoUIrC
+ Ss8XVdrvDB91JSYoHlV4FQ3/UH4KrMcCo56t7/8IQjO2iaAhSMiBWL7aKQfvkJT0q3ENEYX2BZ5
+ dedx2FmhrvgSbtkv+fOxYZLk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 209a31feee9fdb3e;
+	Mon, 07 Sep 2026 02:51:33 +0000
+X-Mizu-Trace-ID: 209a31feee9fdb3e
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 7 Sep 2026 10:51:23 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
+Cc: Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] selftests/lib.mk: run_tests= print summary at the end
+Message-ID: <ap4mq02KukH7W8kI@fedora>
+References: <20260625-sft-run-tests-print-totals-v1-1-bfe588266249@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|MN2PR12MB4301:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0fcc5740-d678-47bd-7a69-08df0c8aebca
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|6133799003|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	tVyo4eJW4KX7b9NTcCzH6Sq0fMcdi5unoTt/iYfybZe/SA81wM1y8XMXHWPszHEXZwN6sg4K7DnhwBVT2PW5hJtSyBpnYKZhaMF6zyzG3cKpXo6+WzN8dGNIk90+CUtRum/lpsSRp7+2MH7sRkmPsrgxh7vggeHFmqrt3gSRQWNFEEZxyd2MWw8Pha5e3dLWW7R3Pur/lvd/0E0Fu/rKENtw8br1c7XoIy2B6oe0HfjzAia+zyXkFmZ0hJMK2iXoTi+/2NsIfHElY/tUDukuoZNRU6RLXaDTXys2fNH60HkBv0a5vs7TPvgzzViamAqlRRjpVqa0Fq9rz3uhNX0UsQJ1cF+ARgl72SFHor6kKW3fpJaQgEeADk+wodSIdOsS4Gcg31dfztXdY4aVEuC1SdmfChl88U29iL49dLclHpo06GkBUPf+31VcWt499HfAJAjg35fS6QJ1I3crHDV6G/KTi+UqErg0+XbzxcJk88QoDMv9BNoBTm0GsYBqxmsuVwLsQNKhJiKw4f9Bx8HTQYS0vGH2/YpG5w/yR5RMLGGFcv9HZ4NgpbKtmkplwvey5/B2LUjYoX1aeFXjVRWx3IwhKM+wprzJDutByf2c6FqvKCQokAAdoEe6RdQyklUDs+IatalPRPOld9JnUO9y9ANYDyszHu2a603MoLmzBLI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(6133799003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?T0tyYXB4RjExUEQySVVURURYQTY1U1diMzNhVFBpaEhUNUlCblFVYzJMMlVu?=
- =?utf-8?B?NWNTOS90YjlWOUd3bStHSVNYRkszcHByZVRxSFlkNUFBSE1WQ042TDhWZkQ5?=
- =?utf-8?B?R3JPRmtsb2RyUlhPZTdxQmZlT3JMVkRGM1dJMlhZZFBURWFlYVBGdVo0djFH?=
- =?utf-8?B?NG9NWmNLLzNacmRsNXJ0NTUwdDJxMjAvcGdsT3RkZkN0bGRSQXVlKzJ4ck8z?=
- =?utf-8?B?c2FCVGlnYWU0SHR6N2c3RGZaRHFjWlNscmE0RkxIZC9jSmJoRnYwQzc2RXR1?=
- =?utf-8?B?TXlGVlpLZVJPQUQ1Ynh5eTFreGx6TS9FVjJrbXR4YUR2WXNweU9KT2JuSjZV?=
- =?utf-8?B?ZmljY3VhNGppam1uREdlTlo4UUFEV3hDbk1FUE44ZmtRT1NpZEUwT0tuSS9Y?=
- =?utf-8?B?dFlJTHhwYUIyOXBtS295b3ZuUlgzRFNMT2o5SC96c3h5dElvUTZlTDQ5NjBa?=
- =?utf-8?B?M2o4elNjdjJIN0E3aHdXdGNzSzNlMUxXRlZyekxkQUNxRnNlS0VjVVBMN3hy?=
- =?utf-8?B?YXdxVEZyUFZLRkdJZFVMZUU2aVo1dVg3OTFkTkc4dWVOR2xJaXJxQ2JQUXM5?=
- =?utf-8?B?RkwweTljNWtkQmxXTjkrNHIzSUd4V1dKMVFTU2xvV3duSGFIWXNYc0pEM1lY?=
- =?utf-8?B?RmpQRGZ5Z0lRSjhlL3pxTm4xVDFSOWEzZTY4emV4SUdsNzNKMC9ILzlTUHZR?=
- =?utf-8?B?dm0xTENGRUFMb1hyZExsN2dtK2NDNFh6dldXVWxqTTB0RHR5SC9zaTlCTWpu?=
- =?utf-8?B?NmpPN2pvdmJTWkYzZnk3TWM5Y3NIZTk1clY4b3dSazRWR2lSbDNZank3Q1Bw?=
- =?utf-8?B?MWlHU21hOUNDWWQxRjNTdkpud3V1RmE4bXR6TmlMUEc3WnlxdUwzTkI5SHc5?=
- =?utf-8?B?aXZjNkxhdDhxT2NFejZMMFMvSWdxUXlpR1RUdWVWSEx1b0h4ZDFkZDJMTHZD?=
- =?utf-8?B?UW14VjdMY2tIMFRYR3czdEpJdy9NUVBuc2Yxb0J6dXRBcEN2M2VINmN0bkRF?=
- =?utf-8?B?MVRNa0ZwK2lJd1R4M0ZwN3NPRXVweUYwYURXMXpRdVdnNnlqdVUvNGlWZzRB?=
- =?utf-8?B?ZmNyWU1jaVEwVGlaRXZ4dW1YNUpoYmdTdFlQTjF4WkR0S2N0V1hNUE9sRkpD?=
- =?utf-8?B?R3ZtelgzOFVDR0svMHNQeERuTXVJR2hHdkRLajhzcTNiK1dpSnhzS1lhZ09K?=
- =?utf-8?B?a2cwNTBoUUFQL3h1S3FDTzJXcUJkOWkxVzQxZDk1cWkyNVR5dWIrSkZmYnUz?=
- =?utf-8?B?WWpmaHVlQnA2M1I5SEk0ek1Rb2RVTUc1WnRNUWs4QkdPaVBjbTZUTkpPcjVJ?=
- =?utf-8?B?cHlBWFpzaUEwVktoYjNNZDY0TS9Sd1BqQ2NEeU5mV0thczdtckF5WUl5QWpx?=
- =?utf-8?B?dVlrUzZjSXVHTERERUZQNCtETnd2ZmtJZ0orR2xVZWRTRXJjUkpXZXF1UUhO?=
- =?utf-8?B?VlU2aUUvUHJQS2Z2RXVlQUlEUzVnYmduK2F0RExwMTk3azdoc2dOemorWXh3?=
- =?utf-8?B?azJMOGxaQlZkZi9OeHB0VVdCTHN4Vit5RVNDUXJSL0VKMTBtS3Y5dzB1NkN3?=
- =?utf-8?B?K2VuUFhibUIwNHZVcjlTNDdHdk1BQWIwMWNOcnAyUm9YbER6bFc0eWpYSDNu?=
- =?utf-8?B?UTNQUTRYNTVXQkVvUkJEenI2aXgzWFJoeG50TnNJbDhWd1BzSEJ5VWdHRHJ1?=
- =?utf-8?B?L1pEVXQrTW40NE9aQTRXRThwVkVnOUZoeWhjUng5VGRXTmk3V3ZLNXF1NFB0?=
- =?utf-8?B?ekwvODByMCttWlNJVlV2Qms2K1F6OVdndTlDYVo0bGZ2S3UzdUU0a2ZVS1pr?=
- =?utf-8?B?dDBlcnNDRy9BOHR6UDBYR3NqRnVIOUpsV3MrbnYwNk9TUVJHZThwZ1NrZXN4?=
- =?utf-8?B?VkY3eDIvdlRvak1Rd010US84d0dBRzVBT3NDdnhvSUp0emYvUzB6RVlKd3cv?=
- =?utf-8?B?TDZNejhTQ0FvblBNaWVhWjdOb2FPQXdQQklEWEhpWDc2eG9ZbG1YRXl4ZU1O?=
- =?utf-8?B?NndMT1hORjFva2FtWHVZK0EzeGpqTm5FNEFQdGRXU1BYQ29EcEYxUEVFYTl1?=
- =?utf-8?B?aHpGQ0w5cHh4aExqMUZhK3lWVTF4OE1zUDM1ZkliWFh2UFpwdWIrV3hWVmVH?=
- =?utf-8?B?RktNOWFMZU5ubTNDOFdvWUpQODZtNU1hdllyTEk4NEpKVkkwQWJUZjRvbFZz?=
- =?utf-8?B?UnFEalhtRTVENnJJcytqZU1jTWc0VVZIRWJQQUVTY04wZzdtRXhZTlZSKzBT?=
- =?utf-8?B?UVI3TEFGSCtPWCtnV0krOEtpK3U2RXluR3NXQnBwRkJSUWlTN1FTVGVLODVW?=
- =?utf-8?Q?9BxnMNVsxdqOVY8W5X?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0fcc5740-d678-47bd-7a69-08df0c8aebca
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 02:51:31.1854
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: d7fScnR5GqQIfJqMD830s2mqKjaFPACO1w6AF7D5qz62lzZCJDC1STyzp43qveHb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4301
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260625-sft-run-tests-print-totals-v1-1-bfe588266249@kernel.org>
 
-On Tue Aug 25, 2026 at 12:38 AM EDT, Bo Zhang wrote:
-> Hi all,
->
-> This series improves memory compaction to better serve mTHP (multi-size
-> THP) allocations, particularly for small orders like order-2 (16KB).
-> The changes cover the proactive compaction and kswapd-triggered compactio=
-n
-> paths.
->
-> Problem:
->
-> The current proactive compaction targets COMPACTION_HPAGE_ORDER (order-9,
-> 2MB), which is unfriendly to mTHP in two ways:
->
-> 1. It migrates folios that already satisfy mTHP allocation needs. For
->    example, an order-2 folio is a valid mTHP page, yet compaction still
->    moves it around trying to form order-9 blocks. This is unnecessary
->    work and wastes energy.
+On Thu, Jun 25, 2026 at 06:22:19PM +0200, Matthieu Baerts (NGI0) wrote:
+> When there are many tests and/or many log lines, it is difficult to
+> quickly find out how the different tests went when running:
+> 
+>     make -C tools/testing/selftests run_tests
+> 
+> This run_tests target executes 'run_many' from runner.sh, which relies
+> on ktap_helpers.sh. At the end of the execution, the KTAP_CNT_* counters
+> have been populated, and the total can then be simply printed with the
+> ktap_print_totals helper.
+> 
+> Now a summary is printed at the end, e.g. here with the two last lines:
+> 
+>     $ make -sC tools/testing/selftests TARGETS=(...) run_tests
+>     # timeout set to (...)
+>     # selftests: (...)
+>     (...)
+>     ok 1 selftests: (...)
+>     # timeout set to (...)
+>     # selftests: (...)
+>     (...)
+>     ok 2 selftests: (...) # SKIP
+>     # timeout set to (...)
+>     # selftests: (...)
+>     (...)
+>     not ok 3 selftests: (...)
+>     # 1 skipped test(s) detected.  Consider enabling relevant config options to improve coverage.
+>     # Totals: pass:1 fail:1 xfail:0 xpass:0 skip:1 error:0
+> 
+> This summary is printed, using '#' as prefix to be treated as a comment
+> in the TAP format. The summary is also printed when summary=1 is used to
+> redirect log lines in different files because it still looks useful when
+> there are many tests, not to have to check each line.
+> 
+> Note that this 'make' command will continue to exit without errors
+> (returned code is 0) when the tests can be executed. I guess it is
+> better not to change this behaviour to be able to continue detecting
+> kselftests failures.
+> 
+> Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+> ---
+>  tools/testing/selftests/lib.mk | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/tools/testing/selftests/lib.mk b/tools/testing/selftests/lib.mk
+> index f02cc8a2e4ae..de15e63bc6b4 100644
+> --- a/tools/testing/selftests/lib.mk
+> +++ b/tools/testing/selftests/lib.mk
+> @@ -106,7 +106,8 @@ define RUN_TESTS
+>  	if [ "X$(summary)" != "X" ]; then       \
+>  		per_test_logging=1;		\
+>  	fi;                                     \
+> -	run_many $(1)
+> +	run_many $(1);				\
+> +	ktap_print_totals
+>  endef
+>  
+>  define INSTALL_INCLUDES
 
-But skip_isolation_on_order() skips a folio with an order >=3D target
-order.
+This helps get a clear summary for make run_tests.
 
->
-> 2. Compaction designed for 2MB huge pages is too heavyweight for mTHP.
-
-Yes.
-
->    mTHP allocations are frequent and only require small contiguous blocks
->    (e.g., 4 pages for order-2). A lighter-weight, mTHP-aware compaction
->    strategy is needed to reduce overhead and power consumption.
->
-> Approach:
->
-> This series makes four changes:
->
-> 1. Generalize the fragmentation score functions to accept an order parame=
-ter
->    and use the minimum always-enabled mTHP order as the compaction target=
-.
-
-Makes sense.
-
->
-> 2. During proactive compaction (compact_memory), skip isolating folios th=
-at
->    already satisfy mTHP requirements, avoiding unnecessary migration over=
-head.
-
-Oh, you are targeting proactive compaction, where
-skip_isolation_on_order() does not apply.
-
->
-> 3. Allow proactive compaction to proceed concurrently with kswapd for
->    non-costly mTHP orders, since kswapd reclaim alone may not produce the
->    contiguous blocks needed for these allocations.
->
-> 4. Introduce zone_effective_free_pages() that provides mTHP-aware free pa=
-ge
->    accounting for watermark checks, counting only buddy blocks that can
->    actually satisfy mTHP allocations.
->
-> Test setup:
->
-> Boot Ubuntu with 2700 MB of memory, with mTHP disabled
-> initially and the defrag mode set to defer+madvise.
->
-> Then set the 16 KB mTHP size to always and run a kernel
-> build with -j20.
->
-> For both cases below, we run a background script to
-> proactively trigger compaction as follows:
->  #!/bin/bash
->
->  while true; do
->  	echo 50 > /proc/sys/vm/compaction_proactiveness
->  	sleep 0.1
->  done
->
-> W/o patch:
->
-> *** Executing round 0 ***
->
-> real	2m1.312s
-> user	25m38.968s
-> sys	5m16.934s
-> anon_fault_alloc: 6328991
-> anon_fault_fallback: 214553
->
-> *** Executing round 1 ***
->
-> real	1m55.370s
-> user	25m24.482s
-> sys	3m52.512s
-> anon_fault_alloc: 6355263
-> anon_fault_fallback: 108692
->
-> *** Executing round 2 ***
->
-> real	2m7.579s
-> user	25m11.530s
-> sys	3m45.456s
-> anon_fault_alloc: 6355816
-> anon_fault_fallback: 107852
->
-> *** Executing round 3 ***
->
-> real	1m53.824s
-> user	25m26.774s
-> sys	3m42.160s
-> anon_fault_alloc: 6355457
-> anon_fault_fallback: 107705
->
-> W/patch:
->
-> *** Executing round 0 ***
->
-> real	1m55.906s
-> user	25m16.985s
-> sys	4m24.480s
-> anon_fault_alloc: 6354486
-> anon_fault_fallback: 109845
->
-> *** Executing round 1 ***
->
-> real	1m51.303s
-> user	25m16.456s
-> sys	3m26.629s
-> anon_fault_alloc: 6392515
-> anon_fault_fallback: 69797
->
-> *** Executing round 2 ***
->
-> real	1m51.495s
-> user	25m13.075s
-> sys	3m28.501s
-> anon_fault_alloc: 6395096
-> anon_fault_fallback: 67510
->
-> *** Executing round 3 ***
->
-> real	1m52.980s
-> user	25m8.217s
-> sys	3m37.506s
-> anon_fault_alloc: 6389556
-> anon_fault_fallback: 72743
->
-> Before "Executing round 0", mTHP is not enabled. Therefore, both
-> cases show a higher anon_fault_fallback in Round 0 than in the
-> other rounds. With the patch, however, memory can be compacted faster
-> into an mTHP-friendly state, resulting in a much lower fallback rate
-> in Round 0. In the other rounds, the patch also consistently shows
-> a lower anon_fault_fallback, as well as lower sys and wall time for
-> the kernel build.
-
-What about the impact on THP compaction? How does it affect direct
-compaction for both mTHP and THP?
-
-It sounds to me that this patch series target proactive compaction. Am I
-getting right?
-
-Thanks.
-
->
-> Open questions:
->
-> 1. When multiple mTHP orders are enabled (e.g., order-2 and order-4 both
->    "always"), this series only targets the minimum order. Should proactiv=
-e
->    compaction also independently evaluate and serve higher orders?
->
-> 2. In skip_isolation_on_order(), the filter order ideally should come fro=
-m
->    the compaction control path. However, during proactive compaction
->    target_order is always -1 (via compact_memory), and there is no clean
->    way to pass the mTHP order down from upper layers. Currently we read
->    huge_anon_orders_always directly, but this variable can be changed by
->    userspace at any time, making the semantic fragile (the compaction may
->    start with one order target and finish with another). Ideas on how to
->    plumb the target order through the proactive compaction path cleanly
->    are welcome.
->
-> 3. In __compact_finished(), the original code skips proactive compaction
->    when kswapd is running to avoid interference. Patch 3 removes this
->    skip for non-costly mTHP orders (< PAGE_ALLOC_COSTLY_ORDER). The
->    reason is that small-order compaction is lightweight and likely to
->    succeed quickly even while kswapd is reclaiming, forming an order-2
->    block requires migrating very few pages. Does this approach make sense=
-,
->    or is there a better way to coordinate proactive compaction with kswap=
-d
->    in the mTHP scenario?
->
-> 4. In the direct reclaim path (__alloc_pages_slowpath), compact_first is
->    only set for costly orders or non-movable allocations. For mTHP always=
--
->    enabled non-costly orders (e.g., order-2 MIGRATE_MOVABLE), when free
->    memory is sufficient (watermarks met) but fragmentation is high,
->    compaction is more appropriate than reclaim. Should we also set
->    compact_first for this case to avoid unnecessary reclaim?
->
-> Bo Zhang (4):
->   mm: compaction: make proactive compaction mTHP-aware
->   mm: compaction: skip isolating large folios that satisfy the mTHP order
->   mm: compaction: don't skip proactive compaction for non-costly mTHP
->   mm: adjust free_pages to make __zone_watermark_ok() mTHP-aware
->
->  mm/compaction.c | 83 ++++++++++++++++++++++++++++++++++++++-----------
->  mm/internal.h   |  3 ++
->  mm/vmscan.c     | 23 +++-----------
->  3 files changed, 72 insertions(+), 37 deletions(-)
->
-> --
-> 2.34.1
-
-
-
-
---=20
-Best Regards,
-Yan, Zi
-
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
