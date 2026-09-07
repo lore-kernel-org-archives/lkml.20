@@ -1,183 +1,108 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8977455188;
-	Mon,  7 Sep 2026 09:52:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24B873BB66B
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:52:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788774736; cv=none; b=ZG1V/t8ZbYM6GgwwFSXPVgVQ7UHYfaCgZZ4F+wMtMXLPBiq0LsRhzMzrYBEEM4/ZgvmjIz/O0WY+dCyLE4dISfSRZIShPOmrTGVyNmN02mmxbwutRa3X5AghrO7L+IVga8Z3+p9qFalAdjq+0dlgFAxv0rb1KRkB8AUE2egmucM=
+	t=1788774770; cv=none; b=RzKskKPf4THC/opZexUpdfhOJIH+jj244z97NfbMwry5WY+B/XIykHpQB+kpqqh/gFko5HRa8XGO6nleeJQSsk3MZFlGx+Q3g9hzujWwOqYZlbziTZ2q9+yK59rEU3gRlOHNxl9/mD1629dXGMjHZinVHdyKqYUf/1o1LVAkzD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788774736; c=relaxed/simple;
-	bh=1J43Z5p2j17qR+iNKUyDptc6cvK3RmhcLZAg7kCMElU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BN0t0yTOHefshMu/6RHodolnvcAKW/hLFShU+09g1UpsEQv6C9uHzmbFjgWRqxOV0KHLs9Mc+mjtxlKwxHXw/s9zK4NrhFaRAWVf9Gb9UE83YbABjQlFyM5bi+9BLbASYwQzesBt8HOkM32+Ss/yoOi3F77z1F9sLDqPSdg1LZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=dE3PFJPZ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=evckSjsS; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=NbQGgxrx; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=1h27ebbK; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1788774770; c=relaxed/simple;
+	bh=cqlFSrgeVcyAu1DwjM5N2nW2E2ZNBwopzV3zyer3On4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KpbngPtov79LJwsm9vCn6IPsoWgo7Dnm/ZD3mkI5h5hXfiL1Z8cVD3Kq068VnbUReqqWLx5YxiheKSzJFsg51rGjn47FNYkGKmyQmLEJiby4lb470dRbN9yfxbFlzrb+Z1iiZzMsXvu6NtAmPz0nKqM9OB6uQV46Ul/AnlSCkpc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bjLwZjxq; arc=none smtp.client-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="dE3PFJPZ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="evckSjsS";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="NbQGgxrx";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="1h27ebbK"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A71E41F74B;
-	Mon,  7 Sep 2026 09:51:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788774717; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Lrwr41K2Av2Kuzp3keYp7cIHw72jszLX9DJXo1qTJ+s=;
-	b=dE3PFJPZWRBPE3E4+rmps6dicaRZa2lCogXhIAPARvhDr6vvx9qYbxmlSQjsnHfXNen+k9
-	5jcmJNUQgEpcf/GRp/OUHCDGv/s2RwAJb9RLv5g8y28PVln/B67+9+tv9bvPSNtXQLRIp4
-	auJpXhHpf9JXfP+UwDoG3pnUYEsRvEk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788774717;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Lrwr41K2Av2Kuzp3keYp7cIHw72jszLX9DJXo1qTJ+s=;
-	b=evckSjsSFhYc+ha+a3TasKEfS0/LQCR+139IpylcHE6VnVcJPNJjmlXsOvY9O3DuwYYjaA
-	CTIgKmbtMXby6CCQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=NbQGgxrx;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=1h27ebbK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788774713; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Lrwr41K2Av2Kuzp3keYp7cIHw72jszLX9DJXo1qTJ+s=;
-	b=NbQGgxrx4+NYiF3BWZ485svl9z6Ee1XZLb/1OpRgnur5eDPsRpMyj4gNviEj+/kc+QPDCL
-	ODIOJEQYohutKHlDEki5eB59AHMB6I33iDeolOCdVGGUuCKnZ8AIIImspU26tZvI8+B/Aa
-	87/kQFxM5cCda+/c9MYTphsxXUmchIs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788774713;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Lrwr41K2Av2Kuzp3keYp7cIHw72jszLX9DJXo1qTJ+s=;
-	b=1h27ebbKa5K3TTcSGv2wM/I+9Ex8ihbl44C997NEjxlviuolS4UO8fGXYe8BefaiWwHQWs
-	IQkWQKViMr4m1xAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2D0AF13432;
-	Mon,  7 Sep 2026 09:51:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 3FX5BTiJnmpiFAAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Mon, 07 Sep 2026 09:51:52 +0000
-Date: Mon, 7 Sep 2026 10:51:50 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: Vernon Yang <vernon2gm@gmail.com>
-Cc: tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
-	dave.hansen@linux.intel.com, akpm@linux-foundation.org, david@kernel.org, hpa@zytor.com, 
-	rmclure@linux.ibm.com, andrew+kernel@donnellan.id.au, pasha.tatashin@soleen.com, 
-	kas@kernel.org, tj@kernel.org, rppt@kernel.org, rick.p.edgecombe@intel.com, 
-	yu-cheng.yu@intel.com, orsonpeters@gmail.com, linux-kernel@vger.kernel.org, 
-	x86@kernel.org, linux-mm@kvack.org, Vernon Yang <yanglincheng@kylinos.cn>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] x86/mm: Fix pmd_modify() dropping the dirty bit
-Message-ID: <ap6IYeTM8PMinxo-@pedro-suse.tail5790ac.ts.net>
-References: <20260903031608.1194238-1-vernon2gm@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bjLwZjxq"
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-ca12086c06eso2643106a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:52:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788774768; x=1789379568; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iLGaza3s6F5rgIQf4Pq3PulD1HjtmOc+h6lAEkmWtfU=;
+        b=bjLwZjxqs6MoH7uIcpsGHtDVI9kXVStsDfRBRRognSb1JCxLQh1n+wyNUtlKNwyVSa
+         1idNSCcz7PUMJARA9h2KsWv/MBgaEFd/+dysIFEPTwPya9ALc8Gsvd/96xSUyvJ0zhxF
+         254x1gKhTc9mLrUsS637Wwwpi5P+ZF9MNZX1nByvRUMX3kzi2nuZABbGGoArtAnZQlTT
+         SXwY2sW0z53WVUkgky+Qb2JSLa01zfegGOCo8Zu9x0uKxiZGp2lcwBU5ZNRv8WjgLzX2
+         2s3YT4mKFyZq9nPpcGe51v+MJa9x8+EJmpf9Cn8nbMGv82qIXBYOWZxQ89fbHYiBTq5S
+         jIKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788774768; x=1789379568;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iLGaza3s6F5rgIQf4Pq3PulD1HjtmOc+h6lAEkmWtfU=;
+        b=A4Afqw2YNGLS0dlJJj1Jd7GXBw+y+H8l6U63xz+iJcLVx4sCXCFuDINnbfPIadLNld
+         8tC+qNpq8oqApTR9132rAbQDebPPTlhI2xvnOMq8zu84/nC714fF05/OGgLYVLThoyx+
+         LNHbl+7tD/ttvh/F2x6Ub/f40Leix1sdFKy1LBfnA7F5PzOWePEbiikNPdGq9Nyj93iB
+         nN7IKSAAzQ0u/mbhUdKDiEu+mRBFTxVBIP4zNKZV+oMmDdwinbWhQbWxO0y7fgdZilDW
+         LW8ZfSMmyWEp2pFaA/YcAWxFqq6FjAclNf5I2+RqNphGth8CSFP3pFIqmJMAbbnAqv/w
+         CSKw==
+X-Forwarded-Encrypted: i=1; AKwUvBytpRgQA1TN2mWluRRdrQJn1M0XUZ92CZT2cq/SWm4Hshjygbpx6BcpX2VK/2m0gwimgY3Bq70X5Sflv4o=@vger.kernel.org
+X-Gm-Message-State: AFuF++lg6j/AFu9ra68o5gILLczZvrgHdr/n5cw1blb8fJP4WS6ZWw7u
+	VqXHz+ylPKAkB7hg6b62iH3VMeuKWT/55a3CqAcy+ZYIiihtL3Azw4lU
+X-Gm-Gg: AYBFou2PEsppXyBBod/3cR72jVB8WeLw1VDNNh5dLRsKha7JgqopPvPRTrLYjOCYxd0
+	cs0W3efPh8D6wuXFW4NMScKN0jVbk7rML8UvscOxg4ynr68FSC1K6bV44x+ekirxILNOr+aWFX5
+	H3epnCFLxSN49zVWm3noL8xoU1L9Uy8d4mKqNByO5D2CFBm4Nfzc4ytNhec2eMpwNgJrQ7UaXcc
+	o8Ro7oCNlKF8M7vrBIAAofcLqG5MHpX8Pg4z71+AQx7/cmPJJxEd7MQsQP02VNRX6KacvHLw/dV
+	WMkzAxaeDeKoocHfwDSyD5ev7nJ7NvSoKoYKxNWwDNEnhGlYa+VYxDH0V64u0jvxg2xTR+NKoLc
+	GJ+hcVBfUvZyUR7uRjHfoQkHujslnWC3oOzZ9CdRKTnamt/Z84GA1KS5h8l+JZtAtDHZCQMzQuQ
+	XLXHTy64Uj+X/4M4R7R3SenUQHM9Fs2NCWDQc9MhbW0CSLrcvlxBBz0j5fMFDlhiwdX99oWvG+P
+	Rc87NpgEVqNAYA+EMqNfqv1
+X-Received: by 2002:a17:90b:1d52:b0:398:dcef:c040 with SMTP id 98e67ed59e1d1-39b26242a20mr34261880a91.19.1788774768453;
+        Mon, 07 Sep 2026 02:52:48 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14332405e92sm18924258c88.8.2026.09.07.02.52.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 02:52:48 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>
+Cc: netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH nf-next v2 0/3] netfilter: fix typos in comments
+Date: Mon,  7 Sep 2026 15:22:38 +0530
+Message-ID: <20260907095241.24441-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903031608.1194238-1-vernon2gm@gmail.com>
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: A71E41F74B
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_TO(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[22];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[kernel.org,redhat.com,alien8.de,linux.intel.com,linux-foundation.org,zytor.com,linux.ibm.com,donnellan.id.au,soleen.com,intel.com,gmail.com,vger.kernel.org,kvack.org,kylinos.cn];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[kernel];
-	DKIM_TRACE(0.00)[suse.de:+];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email]
-X-Spam-Flag: NO
-X-Spam-Score: -3.01
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 03, 2026 at 11:16:08AM +0800, Vernon Yang wrote:
-> From: Vernon Yang <yanglincheng@kylinos.cn>
-> 
-> pmd_modify() masks the old value with (_HPAGE_CHG_MASK & ~_PAGE_DIRTY),
-> silently discarding the hardware dirty bit.  The subsequent
-> pmd_mksaveddirty() call is supposed to transfer _PAGE_DIRTY into
-> _PAGE_SAVED_DIRTY when write-protecting, but the dirty bit was already
-> stripped from the value, so there is nothing left to transfer.
-> 
-> Contrast with pte_modify(), which keeps _PAGE_DIRTY_BITS in its mask,
-> and pud_modify(), which keeps _HPAGE_CHG_MASK untouched: pmd_modify()
-> is the odd one out.  Any pmd_modify() on a writable, dirty PMD loses
-> the dirty state.
-> 
-> One visible consequence is data loss with MADV_FREE on PMD-mapped THP:
-> 
->     memset(buf, 0x5A, size);          // PMD-mapped THP, PMD dirty
->     madvise(buf, size, MADV_FREE);    // PMD cleaned but left writable,
->                                       // folio marked lazyfree
->     memset(buf, 0x5A, size);          // hardware sets _PAGE_DIRTY again
->     mprotect(buf, size, PROT_READ);   // pmd_modify() drops the dirty bit
->     mprotect(buf, size, PROT_READ|PROT_WRITE);
->     // ... memory pressure ...
-> 
-> Reclaim (e.g. under memcg pressure) then finds the lazyfree folio with
-> no dirty bit set anywhere and frees it in
-> __discard_anon_folio_pmd_locked(), even though the data was rewritten
-> after MADV_FREE; subsequent reads fault in fresh zero pages.  NUMA
-> hinting alone can trigger the same loss, as do_huge_pmd_numa_page()
-> restores the PMD through pmd_modify() as well.
-> 
-> PMD-mapped file THPs are affected too: mprotect()/NUMA hinting dropping
-> the dirty bit means rewritten data is never written back.
-> 
-> Fix it by keeping _PAGE_DIRTY in the preserved mask, exactly like
-> pte_modify() and pud_modify() do.  The existing
-> pmd_mksaveddirty()/pmd_clear_saveddirty() pair then performs the
-> hardware-dirty <-> saved-dirty transition based on the write bit,
-> preserving the shadow-stack encoding rules.
-> 
-> Closes: https://lore.kernel.org/r/CAJxLxMUGu1-L+O_nAONOwOXnS=cNbNApCWqdthRjd76LThtSPg@mail.gmail.com/
-> Fixes: bb3aadf7d446 ("x86/mm: Start actually marking _PAGE_SAVED_DIRTY")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+Three comment typos under netfilter, split one per component.  Found with scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Comments only, no code
+changes.
 
-FYI we just had a customer case for our downstream kernel for this exact same
-issue. This fixed it beautifully (I'm wondering if polars started doing
-something interesting lately, that nobody else does, and that's why...).
+v1 went out with a bare [PATCH] and a "net:" subject prefix.  As
+maintainer-netdev.rst asks, v2 designates the patches to a tree, and
+each subject now names the component it touches instead of "net:".  The
+series is rebased onto that tree; the diff is unchanged.
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Tested-by: Pedro Falcato <pfalcato@suse.de>
+v1: https://lore.kernel.org/all/20260907064239.39910-1-hemanth.selam@gmail.com/
 
--- 
-Pedro
+
+Hemanth Selam (3):
+  netfilter: arp_tables: fix typo "alignement" in comment
+  netfilter: ipset: fix typo "artifical" in comment
+  selftests: netfilter: fix typo "adress" in comment
+
+ net/ipv4/netfilter/arp_tables.c                                 | 2 +-
+ net/netfilter/ipset/ip_set_core.c                               | 2 +-
+ tools/testing/selftests/net/netfilter/conntrack_icmp_related.sh | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
