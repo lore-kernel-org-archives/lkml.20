@@ -1,162 +1,233 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8811E49EC69
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:27:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE3B4457DF
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:28:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788784073; cv=none; b=PwZNzdtL7UHXlAN8tM4Bkjbe3qTkVyvckPrUgACQL5gnfaGqjprgJisDlPdEpL+obo1LTII2Th1pT4WanyAv4vEFkGyR+PpXACWrn0seyFYGjTFacljMoghzP6ZqHxssc1CtULNs56AlUn/W/+E5PX9GzB5J6CGeYoozDt43PDU=
+	t=1788784102; cv=none; b=K96RGUQIz0y5vdPBnlOsZCFL5vNo8txUYx0EvRehi3W5LVq4IWkRR4gPniFJIrWZFVa3V0LJIwla4dVu0bzITKW16XktHZ6qrMzEaqyMcD2c8JfyL8kgFx1h48vm7OBo90Izt9QCMMh5746OE+IsjgmbdJ6uLfQB/+eIstH1bGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788784073; c=relaxed/simple;
-	bh=+J91eDr7kWpWxL2VErpxQSnatb/cbGe70zHEmvdVQEQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SA8/v+w8Pq7NAgKfWcleti4V1YK+Gua49K1cyyqya9n6iSd4HJZfC1Cnx9cISm8C4Gh3Uf3V+ZdM5zB60c59Kfs9agce5IbVTQPpzAtaw+4mWLl+h/dmXHq13+UAYfBoSqO6i50XGzjhyGGoOgC8LXE9a1/SJ4k4FMQ+LnJxbpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DKOYizD4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RAqJiVca; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788784102; c=relaxed/simple;
+	bh=zf8Ca+XzPYYB1/mo/qycM7+P/lumy4Wq0eW+EuNeJKY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DzyIjAxPSXTpEHCeyzWuOttv1Rhbrpo/4gtRh7eqXwg1SlSIheYZxa94k/8pWV++8BMVtYU95bKho4rr19gP4mzJvvX/kaxxaGcnLrT4kYlCrtVtz+YXSEyG3ch0OKzwRfBPhfpTVHXxfUD25odDBAfP3gjh0JVj8JEKDlGMwXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UbNkyagE; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DKOYizD4";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RAqJiVca"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687An3vx3873334
-	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 12:27:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	YGw+UONwD/1MsqquhuuqfV+vYDTZQZWhfcVMBBeRj7s=; b=DKOYizD4bBHncWGl
-	CTB5/7gu5v6R12yd2UovTGFWcxBmw9uHBv4l8uH9gMjKWYlO2OlItU9DBI2kU3xg
-	8WanJcPp/ikThYtLa82oP+h9bCpbq6UqdE1h0GVXbIg8bzqjVb7asvBEmlhSn1/S
-	Vbtec5ggzkFjJk1qpN/rxiXYVcQge/eVGg7k9sFJMLMoQYaiK5zHOn8y/iH49ueg
-	L2vy79wXrkfhePL4VJ6yduAVD7BHIBLbHw4wQMRlaRoTXUEChJ8ajwlIG+5NVv49
-	3SxZeMoPaBL3jOsR5wTNyM4GfkSz8jqJ8AMIsx3gQuYQyr+XeZ2Nn2d4xD4wap9k
-	/WyeOg==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghnmj1yt3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 12:27:50 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-9103db79014so11290736d6.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:27:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UbNkyagE"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-398b3d66515so3330479a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:28:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788784070; x=1789388870; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YGw+UONwD/1MsqquhuuqfV+vYDTZQZWhfcVMBBeRj7s=;
-        b=RAqJiVcaaeZLy17GIU/DH668v8F1QTDyjolb9htz98b9vjISR234mobIN/pPuZBT3N
-         gYn2lnGwD/0LELSE4vUWSaNxGbLuWsSuL8Mk5+vYlUsq33Jvv8G6iOqgxMQ2pY+uWwiQ
-         Ti/CSorYtCqNLGyIWG1+x/z12yzCT2U9eayj5JbprH8/V9AXEmbhHIZfzA6H1xKwrjoL
-         8B0giV4cTMhoQNEg8SEfhkYHHIIUyP0B6XQVvegSUGeXvd7lVOlDpt5ls9rO0T7VHD2M
-         rMXIHiTsZ8xzkdfs6qS7+Dm29a1Myit7akfMbNC0KgaB5JeCXOD16OnBgT76feY/2gwk
-         j9kA==
+        d=gmail.com; s=20251104; t=1788784100; x=1789388900; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JTzF6RGmGUg4NezQEPwLNpok/5t7X4IGc6Kb6nHVcDw=;
+        b=UbNkyagEyP5Ez8Is9fvkckQsSb8HFXB/uAutyHXS1btPgdsI1yz4I151MoHmaO5Bly
+         UH6MT6+QnBMAhackfikDIeDt2Xchf6XbJEWlb6ENcvbxabfeVrzfG8nVs5f0p4sfcVKq
+         ighcuvaUPYsk+W+zy6ifxt9wUGsQJGDWHT11lrcIJsfXUzXvjfJ44qRQjS6q5P98AMJH
+         W5qUOYfIpWH05q9iP9LQ4Qmh7uRo/FaMR0Js3TQlzmCaXHy6DzzWPZRmxdslyzHdbOF/
+         UqoHRtO2k2Tsntba3RvdzaIrSNKG/Ni5db7NVfEl+GzJMgqDvjLK3aTxWj42MrY2bfLs
+         O35Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788784070; x=1789388870;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788784100; x=1789388900;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YGw+UONwD/1MsqquhuuqfV+vYDTZQZWhfcVMBBeRj7s=;
-        b=iT2/ftcsE+CNim9HhfqL4ttd/PT/B+BmSwEB+9dx3OvQ/HAocIbr3DsrIg+bdF0/QO
-         fmOgjmg7lOozl8M3d2co9k3Cvyi93W5XNPAR88ZS8RjOMGZJfP6nRjO3sPA2X8yQEMD1
-         kPE24eIE4gB0BtW71L7O61FIabkbga68ax3xUJ7gr7EjB9gwjfkw019Dxl8SrI+lEzCo
-         z0SK+ujlXBXbtR9YlWxN07QzW0jyVr+VnsS+u9zyUnTTNuQ0KVepbOM9vNMkfiLCGv0a
-         BuQqOXO6sbfFtNFxYP1qb7iWW47d4FCRk2EnWWHEoAaw07Fv4cOSH6kigb3n05huob43
-         66tQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx6pKnoKErbh6ptavUDr6zi95FKnrlNb5xedxXq6uqxaQR7fLHjKMzvMcaFgHWYAPi8XrmNawcu5+WWkmE=@vger.kernel.org
-X-Gm-Message-State: AFuF++llAgjCmZDyX0oaJux5J9EenOLE2MnunSqJhCY4LFZ73UJ2Skvd
-	G8u+wQ4JbcmYOijefy+qT5Vp/fV8vfgdn1jjKbg3CHpOyVpmQxFEqTY6Nryh4mGBTZfLL66widi
-	fKc+yLKW2QLGv8wo/CvKwJYhOV4SW6sH6Kg7GxQYvANKpM/gfMF7qmuJwisQokqSklys=
-X-Gm-Gg: AYBFou3TnT2Ehwa/61d0r9T5a5CDBkfIsCZzhPoamtjNr+5QeF50bUJSSt5hknYMa2o
-	l2BtXbV3ZiUzHDrr1GiHC0QgQMY2EUUrCut/zMrDL3tgWQygpMwc13i/Pp+hEh74ybiUWbyywRU
-	2GE1Bx+FBxliET75NjMMbACGlrsWl31cfk7ryR0opN8kO4M2o7iETaqVRfIy8LsjIC3mMzVJdnI
-	53apXXxVlyBBPAWArSSymYot/U78aifT9NpH/Zoyw5tc8HuifaDke8QFiAnZFas2kRMX+ETKUnw
-	QuVXnJsknbLv/uzE4CZSnnfJriaVOEZyVf62CuUMFetyWIH/DfZ4GvclH1vUbEnNQPyC96cvKBh
-	J4UDoa4OgipEC2bn1VJxkYA==
-X-Received: by 2002:a05:620a:7103:b0:939:9ef4:79eb with SMTP id af79cd13be357-9399ef47a04mr794477985a.6.1788784069791;
-        Mon, 07 Sep 2026 05:27:49 -0700 (PDT)
-X-Received: by 2002:a05:620a:7103:b0:939:9ef4:79eb with SMTP id af79cd13be357-9399ef47a04mr794473485a.6.1788784069191;
-        Mon, 07 Sep 2026 05:27:49 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d4aa01dsm467446066b.15.2026.09.07.05.27.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 05:27:48 -0700 (PDT)
-Message-ID: <b4e0dbd4-f50b-4366-add5-e99cd4432aa8@oss.qualcomm.com>
-Date: Mon, 7 Sep 2026 14:27:45 +0200
+        bh=JTzF6RGmGUg4NezQEPwLNpok/5t7X4IGc6Kb6nHVcDw=;
+        b=Pp+3HfZGobjOpulg0EIHId593Sb1FxvMjhjpU1Koa9AnqNWP8T9MNFDf/wVo7GHpOa
+         qM8go4r3sHk7Qnz7j8neJ6XdCWSD04ndoWo52O31S/kXDgjA2vB1umaZ/r08JyH4+zDN
+         8pNiI7oDGIaMcGjyEhoh/1AR+PuN0/KLZsfdvInv2dLPRj9AHPgHgc+w9HJ9G82eHmUO
+         Vent2HH2gJYgCuZzVL/VAGINV+rIknp+yuvIUf6ubf1mlmryBT4ZqUSad2wRgSSbVh1t
+         tQYwEQCbL/3deW2tX2KZf7J1RZL9Al488jZ4MjRbpaLrPyC/NVxuUG5lU85pCQOPrHfr
+         zAIw==
+X-Forwarded-Encrypted: i=1; AKwUvBwLhBAinVQFE4CRq0NfNwH7xJduirrQOfZWkzpP7RdyBGEGX1aPQVsPu8/hsXjPzJpAOMObWShzgAu/zmI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kyuNGukHnfytZBCC/xMqmYHqNvocZ679DX5KacAWiehMDjutDK
+	PGypXpGgjAJ6Tky42/nl0OrK0q9GzTr0FpeWEddlFVQ2izpTHw4T/YY1
+X-Gm-Gg: AYBFou1PxoFURLKfayWmL/zFv6tEPieWj+Ax0ylAqBt5BcyQ59aOKnyf/B96ycfqBVa
+	xcDKBnUFrDCYvJOFm8ZL6Eot0lI60NldOmEhk0VNdzQtdmfCJOs/mw6RZROy0/noSZxvOerj/QZ
+	0FS76dSMbr3TprtFAuzCze1GqWCqTAGWOFFQC0pcMqO41GVisC63tlO11mBfE7vaVjijtlmd+oq
+	kHT1rBaWZpvBvoA9bG07mhVT9rRKQQIWvBSrbKd8xmre5EQnjFzAfjJxUGQSSZTWrna2rWh3qnk
+	EndCb/ipjD2fmJ+KfF/XmRaVj/FsbjESu5ad1O55kWE9k9BvpTbzGpQB7An2t6q5cShDHSxPr21
+	yeS4dApeJZ+rNxI6KsPhlcPvMhxRxPS3ddRKT70jc461OpO9W/Ppbho0h8q+MQzeQjFm9AWIl7P
+	kuziDAEhrr6r+CEwMhsMPE5oI8yw8h7o1ZxMMq6frkE1fb7TnjvaH/uqkNfbDddZrkZSTH8G7vN
+	quHkQ==
+X-Received: by 2002:a17:90b:5106:b0:37f:c22a:c188 with SMTP id 98e67ed59e1d1-39b260feb03mr33390832a91.4.1788784100350;
+        Mon, 07 Sep 2026 05:28:20 -0700 (PDT)
+Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b84cce64fsm2345266a91.3.2026.09.07.05.28.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 05:28:20 -0700 (PDT)
+From: Bo Zhang <zhangbo0325@gmail.com>
+X-Google-Original-From: Bo Zhang <zhangbo56@xiaomi.com>
+To: akpm@linux-foundation.org,
+	hannes@cmpxchg.org
+Cc: baohua@kernel.org,
+	kasong@tencent.com,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	david@kernel.org,
+	mhocko@kernel.org,
+	ljs@kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Bo Zhang <zhangbo56@xiaomi.com>
+Subject: [PATCH v3] mm: vmscan: avoid anon scanning for GFP_NOIO with low swapcache
+Date: Mon,  7 Sep 2026 20:27:57 +0800
+Message-Id: <20260907122757.748111-1-zhangbo56@xiaomi.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 6/6] arm64: dts: qcom: qcs6490-rubikpi3: Add audio
- support
-To: Hongyang Zhao <hongyang.zhao@thundersoft.com>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Daniel Drake <drake@endlessm.com>,
-        Katsuhiro Suzuki <katsuhiro@katsuster.net>,
-        Matteo Martelli <matteomartelli3@gmail.com>,
-        Binbin Zhou <zhoubinbin@loongson.cn>,
-        Srinivas Kandagatla
- <srini@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-        Roger Shimizu <rosh@debian.org>, linux-sound@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org
-References: <20260904-rubikpi-next-20260605-v3-0-f49146d85af3@thundersoft.com>
- <20260904-rubikpi-next-20260605-v3-6-f49146d85af3@thundersoft.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260904-rubikpi-next-20260605-v3-6-f49146d85af3@thundersoft.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDEzOCBTYWx0ZWRfXxDYWN2KUSiTy
- 8IUzgsKnK/AdDaQAYdo5bi4iLa5jsPscUBAvdIdWxPp011beKkGf6TnJRryXlfKRIPC/5iaQMFO
- +kVG3VJi0a8jADZBmQARNw3JICAPGtFQjPd4cTZ7UT35kInix9+Dofn5wXOjfLkdIhjBloXUl/f
- rsZCHdwXVf985okE4Gi0PVDsZcVivLdlK82ttxaiueCZps7M11W70beAMBPFteibY7mCIj2jD0s
- d9x+GPBIMiLii+nIcUd21F/JDoAJJlmFESDERSIVDOhEXoydsiMUBRRy4ZLHZFWjjKQ97rIexj4
- 1mHaQ9z1dyVI7JVfMBUq9TF24qrrDuJTHFETx211jZiACvgOboQJPRPcx4wM1xwZNrQDMO91XQN
- NGmctNUqgKdMxgimVylcDSX0XimYhWfpmT+Y+c506bkwLri7bl2ClGH0NQ2f/U5oJVmz5ofjfgX
- lLEAPFS6XGFFYXK4Ndg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDEzOCBTYWx0ZWRfX23dsPUmi/Ppe
- oehNT7zwRBYFOmQqLbw7fThkAVgkUZNoEdcREQ+GFLQZ5rEsBwnCqoOPHkw4jwMZQfJNP6d8kTK
- XChi6d8LhsIN295Pw9dfNvkNMwJezkk=
-X-Proofpoint-ORIG-GUID: qsOTmWZvFws3k-Cu56OqLWla5HFpFAMz
-X-Proofpoint-GUID: qsOTmWZvFws3k-Cu56OqLWla5HFpFAMz
-X-Authority-Analysis: v=2.4 cv=LZYMLDfi c=1 sm=1 tr=0 ts=6a9eadc6 cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=qEK3ycSJ6RxWlfFwZCkA:9 a=QEXdDO2ut3YA:10
- a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-07_03,2026-09-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 malwarescore=0 suspectscore=0 impostorscore=0
- lowpriorityscore=0 phishscore=0 bulkscore=0 clxscore=1015 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070138
+Content-Transfer-Encoding: 8bit
 
-On 9/4/26 12:02 PM, Hongyang Zhao wrote:
-> RubikPi 3 uses the AudioReach firmware path for its external audio
-> interfaces. Primary MI2S connects to an ES8316 codec for headset playback
-> and capture, while quaternary MI2S feeds the LT9611 HDMI bridge.
+We have observed some cases where memory is allocated with GFP_NOIO, so
+we cannot reclaim any anon folios unless they are in swapcache. We can
+end up spending more than 150 ms looping in `shrink_folio_list()` scanning
+non-swapcache folios without reclaiming a single folio. This is pure
+overhead.
 
-[...]
+This is particularly true on systems using zRAM, where swapcache is
+relatively rare. So let's check whether anon reclaim is allowed by
+GFP_IO and whether there is enough swapcache to make it worthwhile. If
+the swapcache is extremely low, we're essentially searching for a
+needle in a haystack, so let's avoid scanning anon in the first place.
 
-> +&i2c0 {
-> +	status = "okay";
+On Android this is triggered by dm-verity hash-block reads through
+dm-bufio, which legitimately use GFP_NOIO because they run underneath the
+IO path:
 
-This should have an explicitly set `clock-frequency`
+  verity_verify_io -> verity_hash_for_block -> verity_verify_level
+    -> dm_bufio_read_with_ioprio -> new_read -> __bufio_new
+      -> alloc_buffer
+         gfp: GFP_NOIO | __GFP_NORETRY | __GFP_NOMEMALLOC | __GFP_NOWARN
 
-with that fixed:
+Such a reclaimer can land on a memcg with a large, unswapped anon LRU and
+a tiny file LRU (e.g. inactive_anon ~335 MB vs inactive_file ~4 MB, with
+negligible swapcache). shrink_lruvec() then keeps feeding that huge anon
+list into shrink_folio_list() - ~2400 shrink_folio_list() calls, ~93,000
+anon folios scanned - where every folio is kept because it needs IO. The
+150+ ms above is one such single shrink_lruvec() pass (not accumulated
+across a reclaim cycle), and it reclaims nothing; the actual progress
+comes entirely from the file side.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Aging anon alongside file does have some value for a later __GFP_IO
+reclaimer, so it is not strictly pure overhead. But that aging is only
+deferred, not lost: kswapd and other __GFP_IO reclaimers still walk and
+age anon. Spending ~168 ms aging memory that this context cannot reclaim
+is not a worthwhile trade-off in a latency-sensitive path.
 
-Konrad
+To stay conservative, this only skips anon when the swapcache is really
+tiny - below 1/64 of the anon LRU - i.e. when essentially no anon on the
+list can be reclaimed without IO. Whenever there is a meaningful amount of
+swapcached anon, the normal path is used and anon is scanned and aged as
+before.
+
+Note this only addresses the traditional active/inactive LRU. MGLRU
+selects anon vs file scanning in its own path and is not covered here;
+fixing the MGLRU case is left as a TODO.
+
+Signed-off-by: Bo Zhang <zhangbo56@xiaomi.com>
+---
+v2 -> v3:
+ - Fix stats source in reclaimable_anon_is_low(): for global reclaim
+   (memcg == NULL, e.g. from set_initial_priority()) use node_page_state()
+   instead of mem_cgroup_lruvec(NULL), which resolves to the root memcg and
+   excludes the child cgroups where anon actually lives. (reported by the
+   sashiko bot / AI review, raised by Andrew Morton)
+ - Add a comment explaining the heuristic and its rationale. (Andrew Morton)
+ - Update the comments above the can_reclaim_anon_pages() checks. (Barry Song)
+ - Note in the changelog that only the traditional LRU is addressed; MGLRU
+   is left as a TODO. (Barry Song)
+
+v1 -> v2:
+ - Use mem_cgroup_lruvec() instead of get_lruvec(), which returns the raw
+   node lruvec for a NULL memcg and would be misinterpreted by
+   lruvec_page_state()'s container_of() during global reclaim. This also
+   drops the get_lruvec() move. (sashiko bot, Barry Song)
+ - Drop the SWAP_CLUSTER_MAX cap on the threshold; the check is purely
+   proportional now (swapcache below 1/64 of the anon LRU). (Barry Song)
+ - Expand the changelog with the workload, the dm-verity/dm-bufio NOIO
+   stack, the single shrink_lruvec() breakdown, and the aging trade-off.
+   (Johannes Weiner)
+
+ mm/vmscan.c | 52 +++++++++++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 47 insertions(+), 5 deletions(-)
+
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 245f68c75b28..e5c07490f5b3 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -362,20 +362,62 @@ static bool can_demote(int nid, struct scan_control *sc,
+ 	return !nodes_empty(allowed_mask);
+ }
+ 
++static inline bool reclaimable_anon_is_low(struct mem_cgroup *memcg,
++		int nid, struct scan_control *sc)
++{
++	pg_data_t *pgdat = NODE_DATA(nid);
++	unsigned long anon_pages, swapcache;
++
++	/*
++	 * A !__GFP_IO reclaimer can only reclaim anon that is already in the
++	 * swapcache (adding anon to the swapcache needs IO). When swapcache is
++	 * far below the anon LRU, scanning anon reclaims nothing and only burns
++	 * CPU; the aging it would do is merely deferred to later __GFP_IO
++	 * reclaimers. The 1/64 threshold keeps this to the case where anon is
++	 * effectively unreclaimable.
++	 *
++	 * Use the memcg's lruvec for memcg reclaim; for global reclaim
++	 * (memcg == NULL) use node-wide stats. mem_cgroup_lruvec(NULL) would
++	 * only see the root memcg, not the child cgroups where anon lives.
++	 */
++	if (!sc || (sc->gfp_mask & __GFP_IO))
++		return false;
++
++	if (memcg) {
++		struct lruvec *lruvec = mem_cgroup_lruvec(memcg, pgdat);
++
++		anon_pages = lruvec_page_state(lruvec, NR_INACTIVE_ANON) +
++			     lruvec_page_state(lruvec, NR_ACTIVE_ANON);
++		swapcache = lruvec_page_state(lruvec, NR_SWAPCACHE);
++	} else {
++		anon_pages = node_page_state(pgdat, NR_INACTIVE_ANON) +
++			     node_page_state(pgdat, NR_ACTIVE_ANON);
++		swapcache = node_page_state(pgdat, NR_SWAPCACHE);
++	}
++
++	return swapcache < (anon_pages >> 6);
++}
++
+ static inline bool can_reclaim_anon_pages(struct mem_cgroup *memcg,
+ 					  int nid,
+ 					  struct scan_control *sc)
+ {
+ 	if (memcg == NULL) {
+ 		/*
+-		 * For non-memcg reclaim, is there
+-		 * space in any swap device?
++		 * For non-memcg reclaim, is there space in any swap device?
++		 * And under GFP_NOIO, is there enough swapcached anon to make
++		 * scanning anon worthwhile?
+ 		 */
+-		if (get_nr_swap_pages() > 0)
++		if (get_nr_swap_pages() > 0 &&
++		    !reclaimable_anon_is_low(memcg, nid, sc))
+ 			return true;
+ 	} else {
+-		/* Is the memcg below its swap limit? */
+-		if (mem_cgroup_get_nr_swap_pages(memcg) > 0)
++		/*
++		 * Is the memcg below its swap limit, and under GFP_NOIO does
++		 * it have enough swapcached anon to make scanning worthwhile?
++		 */
++		if (mem_cgroup_get_nr_swap_pages(memcg) > 0 &&
++		    !reclaimable_anon_is_low(memcg, nid, sc))
+ 			return true;
+ 	}
+ 
+-- 
+2.34.1
+
