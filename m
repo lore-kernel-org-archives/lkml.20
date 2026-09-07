@@ -1,220 +1,98 @@
-Received: from mta1.migadu.com (out-201.mta1.migadu.com [95.215.58.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E0574562BA
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:16:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C54D456DE2
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:16:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788776204; cv=none; b=l7BCGBxNxDhS5RlxioAa4vWn+zwwq/Yricrad+3pcetP/6mQfMyRoLfiWADEHSkoFf5Z1MDdULckYcwts0oBkhxA02QBNZPyu7pQKcunWAm1IW3HXU/Zs2uDYYeiNqw2ZZpJqFjoi5D5Tmg1o76apJWnCko+3HFrO9jDqJn4Vbs=
+	t=1788776215; cv=none; b=plSVyZGcsoogSXPpX0QgL1+vB6mRmd1AdG2zmIfJJ5TT6w7A+pUJFPFFthalTAF0Pxp0k/iML2nCJ4zcHT9SzCbiejfzeog47TggfE5szMk6jVqQGwbm6ydHV3X3a4hrMWw3XRaaUj1ZQC7/mf/AEHa3VkvevQkS0zpxdY+pCJQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788776204; c=relaxed/simple;
-	bh=vtnw3/F8lWgxCizJj1LomFF2YMoZAGQBpQS83aThC4s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tyrKhH/IoqFA4cqeaQpa23zPgiS2/g0EXbAx0mfDUmULOyiUgIJs3XUcMvG2/D2rRpjk75vUrgmWWHrhJW/1voUZmVD+RYR18h4qVO7wxxfpK+vFsNY8JYETovqih0d68Mmq5REHIgNSl6zt2ulC5hx1YW+4jKjsTExhFyYLs7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=muVozIc3; arc=none smtp.client-ip=95.215.58.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788776215; c=relaxed/simple;
+	bh=koOpTUb6YTdsPAfmxU0F4QcjTxU9LKAdIwUkd4Ok940=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=pmssM5LP5gcN9HefeccIlDipKS00SpgF0RzYOOSuXaBC4syyvmSO62kyJGAtPyq8NbjJSLXlkZQ7kCpfi6Lq73/XBQ//32DB2BeZFs9p+tt0QoZy5a9JSj7vPeT/9DjBjN8teMmb0lEAp6gFfRORzojj98bF3zc55Pdq5wcuXaE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Y/lha7Xw; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="muVozIc3"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=vtnw3/F8lWgxCizJj1LomFF2YMoZAGQBpQS83aThC4s=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788776198; v=1; x=1789380998;
- b=muVozIc3LmFVJdkoHhsbJwZwzRXDFiDpqOiVNf+rrgCfY+f5gwWbP4IDHaHg2C8r7G31RX+N
- 30SMyAkfZ06h59703MDMoZS4Npx1PFb72E8u9aFyDDLI3xiTFqIrlSuX616JM3HWvQy9bQyxruH
- HMa3lbfML74kRpClJIDTYtzM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3af2089f0fc6ec0a;
-	Mon, 07 Sep 2026 10:16:27 +0000
-X-Mizu-Trace-ID: 3af2089f0fc6ec0a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <0b2b6b9d-98de-4f45-8e65-a202fe9ce0d1@linux.dev>
-Date: Mon, 7 Sep 2026 18:16:23 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Y/lha7Xw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788776213; x=1820312213;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version:content-transfer-encoding;
+  bh=koOpTUb6YTdsPAfmxU0F4QcjTxU9LKAdIwUkd4Ok940=;
+  b=Y/lha7XwvTifd7+uBJMRm3+B2GVfiooSZ1C5eiZpmfGMZsLZ0aI1vN6k
+   diL0Ap7/UWVLhF9K2PsY6sAeWDF5pFo9zLa16BJLAuz03CLbhGaaMNrAX
+   AtfDpp0y1dmIFmJ1dr3qZGtFhQA1NDfIncvirX4WXTvCWV4g14KlUOwVZ
+   mtnuCPdfCEctueHaY3FTQ7NHGuAcg/C4BAS6xmn9XPS+n/gVkfPPGuud3
+   wgHdTfkMTD1H35UVEHAfuZqkSlHjjnD+lRNem3xmOoNwd808B1blLe3Jh
+   RLwQRlgF3VTrQ3RlsyTrQE4sonh8GNC/f9U/RRnECP4aExO0DCkY4BaUG
+   Q==;
+X-CSE-ConnectionGUID: dwPeBE8iTxWeATZr0wBY2g==
+X-CSE-MsgGUID: Ca0JrKjcQamDrVqYhJFKNQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="89107234"
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="89107234"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 03:16:52 -0700
+X-CSE-ConnectionGUID: qJOGdW5pRTm0os/SzdFdaA==
+X-CSE-MsgGUID: ujSiwgFZSOiYrjw5VVSp9w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="267426695"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.229])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 03:16:50 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: =?utf-8?B?5b6Q5bqG?= <965456495@qq.com>, regressions
+ <regressions@lists.linux.dev>
+Cc: intel-gfx <intel-gfx@lists.freedesktop.org>, dri-devel
+ <dri-devel@lists.freedesktop.org>, linux-kernel
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [REGRESSION] i915: s2idle lid-open resume leaves eDP panel
+ black until an input event (Raptor Lake; works on 6.18 LTS)
+In-Reply-To: <tencent_8D7EB01E00F5CD0928A0F70A451C586E0608@qq.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <tencent_8D7EB01E00F5CD0928A0F70A451C586E0608@qq.com>
+Date: Mon, 07 Sep 2026 13:16:48 +0300
+Message-ID: <b366e45424ee2cf3d8bfef3cfb90cf2f5491ad3b@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/7] cgroup/cpuset: Factor out child partition
- validation
-To: Ridong Chen <ridong.chen@linux.dev>, Waiman Long <longman@redhat.com>,
- cgroups@vger.kernel.org
-Cc: tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Guopeng Zhang <zhangguopeng@kylinos.cn>
-References: <20260902102615.79189-1-guopeng.zhang@linux.dev>
- <20260902102615.79189-2-guopeng.zhang@linux.dev>
- <5842edcd-9283-4a87-afc9-50e51962368e@redhat.com>
- <5e0d1386-b094-4d4e-8569-e6b584f955c5@linux.dev>
- <7d1f1c95-5dad-4124-858c-7c8e3119f437@linux.dev>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <7d1f1c95-5dad-4124-858c-7c8e3119f437@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+On Sun, 06 Sep 2026, "=E5=BE=90=E5=BA=86" <965456495@qq.com> wrote:
+> a regression report, following Documentation/admin-guide/reporting-regres=
+sions.rst:
+>
+>
+> Regression range: v6.18..v7.2 (last known good: linux-lts 6.18.49-2-lts;
+> first tested broken: 7.2.3-arch1-2; intermediate 7.0/7.1/7.2 untested)
+>
+>
+> Symptom:
+> After closing the lid (systemd-logind suspends to s2idle) and reopening i=
+t,
+> the machine resumes fine (kernel resume log clean, ~1 s, Wi-Fi and input
+> work), but the internal eDP panel stays on a static black frame. The scre=
+en
+> only lights up after any input event (key press or mouse move), which then
+> triggers the compositor to repaint. Reproducible on every lid cycle with
+> kernel 7.2.3; the identical userspace on linux-lts 6.18.49-2-lts does NOT
+> show the problem.
+
+Please file a bug report as described at [1].
+
+BR,
+Jani.
+
+[1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
 
 
-
-在 2026/9/4 09:55, Ridong Chen 写道:
-> 
-> 
-> On 9/4/2026 9:25 AM, Ridong Chen wrote:
->>
->>
->> On 9/4/2026 2:33 AM, Waiman Long wrote:
->>> On 9/2/26 6:26 AM, Guopeng Zhang wrote:
->>>> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
->>>>
->>>> compute_partition_effective_cpumask() checks whether each valid child
->>>> partition remains covered by the parent exclusive CPU mask and whether it
->>>> would consume all remaining CPUs of a populated parent.
->>>>
->>>> Factor these two checks into child_partition_error() so the same rules can
->>>> be reused when evaluating a proposed parent configuration. This is a
->>>> preparatory refactoring with no intended functional change.
->>>>
->>>> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
->>>> ---
->>>>   kernel/cgroup/cpuset.c | 38 +++++++++++++++++++++++++++++---------
->>>>   1 file changed, 29 insertions(+), 9 deletions(-)
->>>>
->>>> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
->>>> index 8f24171b6055..6994dc75d940 100644
->>>> --- a/kernel/cgroup/cpuset.c
->>>> +++ b/kernel/cgroup/cpuset.c
->>>> @@ -2085,6 +2085,26 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->>>>       return 0;
->>>>   }
->>>> +/*
->>>> + * Return the error that will invalidate a child partition under a proposed
->>>> + * parent partition configuration.
->>>> + */
->>>> +static enum prs_errcode
->>>> +child_partition_error(struct cpuset *child,
->>>> +              const struct cpumask *partition_cpus,
->>>> +              const struct cpumask *remaining_cpus,
->>>> +              bool parent_populated)
->>> I think you should add some functional comments on what "partition_cpus" and "remaining_cpus" are supposed to be so that caller knows what to pass into this helper.
->>
->> Would it help to rename them to excpus and local_excpus?
->> local already implies "excluding children" (just like cgroup.stat.local), so I think that makes the intent clearer.
->>
-> 
-> Regarding the naming: child_partition_error is a bit odd — it sounds like it's validating a hierarchical child partition, but it's actually validating the partition itself (the child argument). The parent is only needed as context for the validation logic, not because we're checking a subordinate partition.
-> 
-> I'd suggest renaming it to something like:
-> 
-> ```
-> static enum prs_errcode cs_partition_error(struct cpuset *cs, ...)
-> 
-> ```
-> 
-> That would better reflect what the function actually does.
-> 
-
-Thanks, Ridong. I see what you mean about the name.
-
-My intention with "child" was to describe the role of the partition in these checks. Both callers use the helper while walking a parent's child partitions, and the result depends on the parent's complete exclusive mask, whether the parent is populated, and the active CPUs remaining at that point in the walk. The helper also checks only the two conditions that can invalidate a child during this process, rather than performing general validation of an arbitrary cpuset partition.
-
-For that reason, `cs_partition_error()` might suggest a broader scope than the helper actually has. Would it make sense to keep `child_partition_error()` and clarify the comment, for example:
-
-/*
- * Return the error that would invalidate @child under its parent
- * partition's CPU configuration.
- */
-
-I am also open to another name that preserves this parent-child context.
-
-
-> On a related note, the current partition validation logic is scattered across the code. I think we should consider consolidating it into a common set of helpers, perhaps like:
-> 
-> 
-> ```
-> static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *trialcs, struct cpuset *parent)
-> {
-> ...
-> }
-> 
-> static enum prs_errcode validate_local_partition(struct cpuset *cs, struct cpuset *trialcs, struct cpuset *parent)
-> {
->     // local partion specific check
->     // call validate_partition
->     
-> }
-> 
-> static enum prs_errcode validate_remote_partition(struct cpuset *cs, struct cpuset *trialcs, struct cpuset *parent)
-> {
->     // remote partion specific check
->     // call validate_partition
-> }
-> 
-> ```
-> 
-
-That sounds like a good idea.
-
-Since these validation paths have different inputs and side effects, consolidating them may require a broader review and restructuring.
-
-I will look into this separately after the current series is completed.
-
-Thanks,
-Guopeng
-> 
->>>> +{
->>>> +    if (!cpumask_subset(child->effective_xcpus, partition_cpus))
->>>> +        return PERR_INVCPUS;
->>>> +
->>>> +    if (parent_populated &&
->>>> +        cpumask_subset(remaining_cpus, child->effective_xcpus))
->>>> +        return PERR_NOCPUS;
->>>> +
->>>> +    return PERR_NONE;
->>>> +}
->>>> +
->>>>   /**
->>>>    * compute_partition_effective_cpumask - compute effective_cpus for partition
->>>>    * @cs: partition root cpuset
->>>> @@ -2121,6 +2141,8 @@ static void compute_partition_effective_cpumask(struct cpuset *cs,
->>>>       rcu_read_lock();
->>>>       cpuset_for_each_child(child, css, cs) {
->>>> +        enum prs_errcode child_err;
->>>> +
->>>>           if (!is_partition_valid(child))
->>>>               continue;
->>>> @@ -2129,15 +2151,13 @@ static void compute_partition_effective_cpumask(struct cpuset *cs,
->>>>            * partition root.
->>>>            */
->>>>           WARN_ON_ONCE(is_remote_partition(child));
->>>> -        WRITE_ONCE(child->prs_err, 0);
->>>> -        if (!cpumask_subset(child->effective_xcpus,
->>>> -                    cs->effective_xcpus))
->>>> -            WRITE_ONCE(child->prs_err, PERR_INVCPUS);
->>>> -        else if (populated &&
->>>> -             cpumask_subset(new_ecpus, child->effective_xcpus))
->>>> -            WRITE_ONCE(child->prs_err, PERR_NOCPUS);
->>>> -
->>>> -        if (child->prs_err) {
->>>> +        WRITE_ONCE(child->prs_err, PERR_NONE);
->>>> +        child_err = child_partition_error(child, cs->effective_xcpus,
->>>> +                          new_ecpus, populated);
->>>> +        if (child_err)
->>>> +            WRITE_ONCE(child->prs_err, child_err);
->>>> +
->>>
->>> You can ignore the inital PERR_NONE write and always write the child_err value into child->prs_err.
->>>
->>> Not big issue, just some nits.
->>>
->>> Cheers,
->>> Longman
->>>
->>>> +        if (child_err) {
->>>>               int old_prs = child->partition_root_state;
->>>>               /*
->>>
->>
-> 
-
+--=20
+Jani Nikula, Intel
