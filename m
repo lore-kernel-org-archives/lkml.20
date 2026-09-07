@@ -1,646 +1,225 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2098.outbound.protection.partner.outlook.cn [139.219.17.98])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF07E377A8E;
-	Mon,  7 Sep 2026 04:50:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A4A13749FB;
+	Mon,  7 Sep 2026 04:51:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788756658; cv=fail; b=VPqmRFapbaJ6xXCqHpB91IxR2oii11e/udMfGBofdddhUGgjIJG7Yp804IFdb36A6puLN5BBFnUh8p9ln4pG8yu9fjmKOK1q02w67+gqxkCmxBlrYZzx1e1v05sMtq7juiIafrJhos0/NhgKMYgWChuZHkLb4DxJOcyN37B+DkU=
+	t=1788756676; cv=fail; b=fxlSu4XbqvgaSk1AalW8ewfu/lZErWNLwqBxjGG1pjJ6/SFqkzHzhZl8HhD52iglSYafoxh2CCk+YGYrl/9UFfnyjaKsi8XrzkpDCdTdLNvkNDQiETnn9OJ6DEy6kIYz9PnND3HfJDSAzj9Gz5Ny2SBjw0IWDuYjTrUeuARDRWs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788756658; c=relaxed/simple;
-	bh=269JVTYurMzcVlxQ6ir4eL0tDY1mZ9uL3MOeRPc9Ww0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Ckf9JZB1sEWBcR6G1Jzuiqy52yFy890UsFSbhOioGGZ90l+bUvq5OTW+Sm0KKNSQq5p6kVzbn9JtA6xiqSdYbqvv9O6b39259160Hf91SHT6vh9i9xTPdzJ8tVGu4IEhJ85Od8C/4654MTvM7jfz2jPmby2idVyG+7Tz3yiqAWI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Wt0hi9U9aizUT9riJNRYUcZw7DY4kNQfgtoxQPxHOUTb9nim8/1MRVuLmJkuj+Hku5n1N74Zl1MtWmqLuU6H/Hs37q2e1oz3JCAhsIREB5sPNFW+b7zukJudhNUE+OMhHH/NUeDBwW2K5hzr8WZC5u+yGK8k1Y79qymieQQUVdd0sOsOYRR7y7apRG8iyKSTa5IDwH9k8v1o0L8bqbDBtEmfQ682k+Jz3JD7VM5NY4IlvGM7EmmQrNE4prT3Uoz60Qqw+ixWszdBpYXabuWX3wgtvA01HCEb6FNDCnIgR1lkP8aZgymIxIQYi8R9xi6kIl5qkkQcgI3pRJRg3mw55g==
+	s=arc-20240116; t=1788756676; c=relaxed/simple;
+	bh=gKXF3pSsHIlOy0TozLcFLQeDcoM9EdJ8QMtFuq1Kmak=;
+	h=Message-ID:Date:MIME-Version:CC:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=bQO6tbK1vS0vWDiH4QgEt8JxRUfTtfCAZ+OYNhTEKFMd8Bk4ZlL3H/dsknqu0OsMoNXyc+DP7CVFT2kRWix7UdQTruP/8YtlAAe3kdvW0rq0g/AxGzQ+EFS6O9CE3B8Nlt5F7OiSpNe8mFNUAV0PguKh5EPvTo2U7Kobus3gRWM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=OybfWX8H; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=gAUYKrR6; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="OybfWX8H";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="gAUYKrR6"
+Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
+	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 6873ixiU476922;
+	Sun, 6 Sep 2026 23:51:08 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=LE5GRO4jIQ2xwgdrSCSRH3P6qYYPJhXXgcPGGwMQI
+	RA=; b=OybfWX8HFuxhBZe+/voMO9+G/T649mLCXogrEgOKm+2qu6aMO/xJhGhek
+	SfBCjxo43iPQI/rdURxgKDZDzXpZj19L4DU/VODLyRdJEKgMkMM53VUF1zd1RI/X
+	Yg4Y+qrxweE98nqdeB9lY6u5Y9ri3CBTgSAcneZsBhlIjWd/jGcVpPhZd6eIOphI
+	3QHn6/k4THdcry09cBUzAd9il/bZRjDnCave1NdvWNkwLj5wZD0KjjbJm9Zy+vHW
+	hfsvTeFKGC7yrYWAyafb7tD3vYh03LcyUKsWWGZs/1ZLw/RfOFNTUCpDScTWP1aq
+	2N6g7wjXymT3a0VWR2lMOk5wmJ/eA==
+Received: from cy7pr03cu001.outbound.protection.outlook.com (mail-westcentralusazon11010013.outbound.protection.outlook.com [40.93.198.13])
+	by m0384305.ppops.net (PPS) with ESMTPS id 4gh51nk8a9-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Sun, 06 Sep 2026 23:51:08 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hAMZoOyuinAAQSRa4NBaaKHKK9w3uJEPyoMZUEoDPO+cSNFxeVETD/7U6cAyzCt+vfq5VIrP95kt5dS5Gx9BEztkEcj1wSThLJD2EwGF08xFnl01hJPd77brRuJVqynznFFBpalbtas1UJW04+l7xJOspJfuu85eKj79xPBp+11VRdwZ+M7mpVsK8qEnmNWnQb+YVOfooJeyfh4z2CVbgdmIH4juGo6j/eHkk3hcrhyJQSUFYyrfWTCZHlkzSxvuPb7/8/xIkCxL/6PD5zUVYkUVtF+aGAHD30obgvMKyO3TD6hAdwGWi0plkVAREBMR197ngStEyCXgbM9kdNCBjg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
+ s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i1MNcZm62LUm+9TBBCHtVsaDxbbWAlDv4K3HB/rJAx8=;
- b=jSxwGGb1c/Qzr4C71rWB1kcnG13kK6jABxYe2DNOWk5NQiOPlggAM1P9CLSK/+6aWJexAQvqkIyAC7aVkSetl7wAYPMcrywzIxcVudh6NI1PQVzA+3jkcfWpTx9B0UiJz1mXmS1rZHL0wlEpjQIAGI4eqrwcmWr73H7uw/PNXnjwjDJ/d5TfHqXFDG6GCokOewHnWwGQFVn5vkNQGy0nqqhlLtn9VYPS0o8kaKW+MMbNBpaB5/UnGuQTS35Qdd4f7kdnQngo5Z0yoDdKL8YzlTfaOCeVYUdPDYETn8I0TS4yNjgjjwZ//NTrAOBUPKIHWVJkHtTD/OMW4i/b9ziT7w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:18::6) by ZQ0PR01MB1320.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:19::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.18; Mon, 7 Sep
- 2026 03:16:13 +0000
-Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- ([fe80::973:272c:ab11:7570]) by ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- ([fe80::973:272c:ab11:7570%4]) with mapi id 15.21.0339.017; Mon, 7 Sep 2026
- 03:16:13 +0000
-From: "lianfeng.ouyang" <lianfeng.ouyang@starfivetech.com>
-To: Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-crypto@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Subject: [PATCH v8 2/2] hwrng: starfive: rework clk/reset teardown order for JHB100
-Date: Mon,  7 Sep 2026 11:16:03 +0800
-Message-Id: <20260907031603.188483-3-lianfeng.ouyang@starfivetech.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260907031603.188483-1-lianfeng.ouyang@starfivetech.com>
-References: <20260907031603.188483-1-lianfeng.ouyang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: NT0PR01CA0033.CHNPR01.prod.partner.outlook.cn (10.2.8.10)
- To ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn (10.2.3.134)
+ bh=LE5GRO4jIQ2xwgdrSCSRH3P6qYYPJhXXgcPGGwMQIRA=;
+ b=DoqolyvlYhqVZ1yLkt7gkIe/gZ0Dg6wm4NjIUynQuiWHG/8obc5cXVG+uchUeCPdx+E4QYJmA8jP+qhH9NezOuPzwzbXa7tkWS3tjJ+plfHaWfXjlXVarG6Dej6jt6EA+hch+OlqGgiifv1bo+N0EZxZR1g0jO10tPfkh1D8Dz/d6b4sgcxsHT7nRjFbADNMLuWmOT1//HQmwqScB0Tvpqb6+lTO/jc26UMMK4BMkhPXsgXUS+lBRC5h9eVgjFE0eNw0ZUfQxJ1CKrB1vIp03NDQ88jKSmj1pFL4cYdGg7UNVvBNGxZz4ZanSk8/W4L0QLENxIFKfF0xc2jwJJo1SQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LE5GRO4jIQ2xwgdrSCSRH3P6qYYPJhXXgcPGGwMQIRA=;
+ b=gAUYKrR6AJ5hRn8RrsxAn3K3wuTicrr6pn75fBEQnQSqPV0UNljvtJu+uvuL2XZ5rwVIU/8xIqRmoeRuD61wWBFrIe2hErGJkJP8IgIq1ECLyyYw/V31TMT6UGKITJkCkNTp2MYs0zupv2jmoeZq1tQibY17dDOr7UFOWXuW6HA=
+Received: from CH0P220CA0002.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:ef::14)
+ by SA6PR10MB8016.namprd10.prod.outlook.com (2603:10b6:806:442::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.4; Mon, 7 Sep 2026
+ 04:51:06 +0000
+Received: from LV8PEPF0000005C.namprd02.prod.outlook.com
+ (2603:10b6:610:ef:cafe::50) by CH0P220CA0002.outlook.office365.com
+ (2603:10b6:610:ef::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Mon, 7
+ Sep 2026 04:51:05 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ LV8PEPF0000005C.mail.protection.outlook.com (10.167.245.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Mon, 7 Sep 2026 04:51:05 +0000
+Received: from DLEE200.ent.ti.com (157.170.170.75) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 6 Sep
+ 2026 23:51:03 -0500
+Received: from DLEE213.ent.ti.com (157.170.170.116) by DLEE200.ent.ti.com
+ (157.170.170.75) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 6 Sep
+ 2026 23:51:03 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE213.ent.ti.com
+ (157.170.170.116) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Sun, 6 Sep 2026 23:51:03 -0500
+Received: from [10.24.68.110] (uda0492258.dhcp.ti.com [10.24.68.110])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6874oxWk4013895;
+	Sun, 6 Sep 2026 23:51:00 -0500
+Message-ID: <9ad18c6d-979c-49ad-a96b-c835ea2188f3@ti.com>
+Date: Mon, 7 Sep 2026 10:24:41 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+CC: Conor Dooley <conor+dt@kernel.org>,
+        Krzysztof Kozlowski
+	<krzk+dt@kernel.org>,
+        Rob Herring <robh@kernel.org>, Tero Kristo
+	<kristo@kernel.org>,
+        Vignesh Raghavendra <vigneshr@ti.com>, Nishanth Menon
+	<nm@ti.com>,
+        <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-arm-kernel@lists.infradead.org>, <s-vadapalli@ti.com>
+Subject: Re: [PATCH 1/1] arm64: dts: ti: k3-j784s4-j742s2-evm-common: Set
+ ACSPCIe refclk to MAIN_PLL2_HSDIV4 for pcie1
+To: Jared McArthur <j-mcarthur@ti.com>
+References: <20260828195140.3476062-1-j-mcarthur@ti.com>
+Content-Language: en-US
+From: Siddharth Vadapalli <s-vadapalli@ti.com>
+In-Reply-To: <20260828195140.3476062-1-j-mcarthur@ti.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ0PR01MB1269:EE_|ZQ0PR01MB1320:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1de7c392-b88d-4f8a-ed53-08df0c8e5f73
+X-MS-TrafficTypeDiagnostic: LV8PEPF0000005C:EE_|SA6PR10MB8016:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0ab7a892-2109-434f-71e2-08df0c9ba032
 X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|52116014|10067099003|6133799003|22082099003|18002099003|56012099006|38350700014;
+	BCL:0;ARA:13230040|23010399003|36860700016|376014|1800799024|82310400026|10067099003|3023799007|22082099003|18002099003|56012099006|13003099007;
 X-Microsoft-Antispam-Message-Info:
-	DCnjtSRfFXsLM5okghf7BMfrqHvLYD0nmE0Ia9JfgDh0C3Tl8mdIEfzPJaSzbeDvVO3NxF6+8UzjunuAQP3WjyMwqIdmiykUele3PSO0GQ8n2eC6Cg2v0KZOQE1f4OV1FmMM9JMsVNvB6del+qmNCIZyfdqWczIfarlRbOpXzMsQM0zEZK16FN4x64e22jMJa9KuhFnkk6bjltZFy0eC8hT2NaeD/p2tQ9CtVC929lRoeWAsWqNV5QmawD5W+5WWsQpsE3CAF+Z7bczUBs2QZ9UHB4VoaqHA8WR7u8UEql+9rffumDpUOFmO9iylV+m4fRZdEPZHLIS6AjFNoPtap/rJ2onasLCah574bWPkkAv8Jf1WOEoZYSI4qGm+/6mrujdz8lKfoNMALtyYB1vlKfejzzLV322ABpZ4uxwfgP8zlRh8zyquV30u2zDhrmc+u1iEoDwlMO8kPVRXmKJEPcwWGE1lxXyOk7FDtXGDnrAGQISv87K1VIjKc+w+13NpVGh3DEjhowIn0f6p+UMmRXJGs5H56yFrLqmNlgLqUydGNHz4oH1HZTnPi+b2+ctc
+	LaUw/KZX8GXU6ZhgsT+UwEnGNeutL2UY0B1DeShBWpgcFaeMY9xjFC4B+iRw6xtUuHYAkr+vmMz35hPmKISCdCnXsl/ieMkNegnEr3HN37GcQ5C702Xj+41s9X4XfW2vCOqN9PjoctcR1knBG36I7MjM8XIasr7wb2G18EafpMTTWf6oNC0+Q4Av22WQLD/+4Kx+GwJw2wiZZE1EJ+PUssCAcuN1aUs3ft9NLFEFClFYtfik5MyXX1+iZzMWWVKBe05RRrOffsrRsYwrqRbdLHVhbpWSiYCys+e8V+rgXP43DuF4ks/rEY7JpVq2KEL2KtS/5zxSdNkHgqEqZpFcQZAYHTvDGbthEhIj+9aOyeCA3QkhU0I9+Wn4cpzDrsz0QLzIIvgkG5miR06dEUtn39nBq88Obx6CGwCu95Wa8FCqw7LfT+4pxT6sK1JNTLz/BCunoZDXJLSCpGR/Gpz2erB0ycWwPqeqcUKjwKDOr5Wk1KNF5AIhyLgrYRi7bnAMUfU6CDxlwgJUT3rETxIFJ1webUuhUkLfKNGCS4mkuxqjmfgUE4ZfHju2yZHcCe+iM73tsOCUsZ4isLnw/ieoBligsxPzfP+6/AzsHGLXwkZedU7145LY00WX2I6Nz6wyyhY/eBPk/CgJnH3YELavJA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(52116014)(10067099003)(6133799003)(22082099003)(18002099003)(56012099006)(38350700014);DIR:OUT;SFP:1102;
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(10067099003)(3023799007)(22082099003)(18002099003)(56012099006)(13003099007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?h82T3dTNRo9yrS5ZUpWhHp5qw0zNx4XUKYkuJ2zZfFl2LEmiYy/sgRXEsMtf?=
- =?us-ascii?Q?7ka9JDgtWriyG6+jNqmdFrukeCD5lBHUtPZbI+FHHX6o7xNzpQxQ8TO38y9y?=
- =?us-ascii?Q?Kx7zO5/lFPsSD5lQj6qxUoGJWkh5MXsFAZP8n1PS4RBYqrCvWKx9qLYc3U6G?=
- =?us-ascii?Q?+InPRAw4MHZf+JGFZADQVSxo/6vfKbRlHbQ9SEGedmoRdfViAXrP3k0GDIEg?=
- =?us-ascii?Q?32J1I8zUEF4wfVaL++3IwlkowoRjXEYJ1Fkljvwc3LdP8r7t+nIWOKlwCUt/?=
- =?us-ascii?Q?0RN64pEEfOI2dWJyVwCi29v5CUBnXnweVl5a28StnDWUnS7KSaiOg4Rg8Ntq?=
- =?us-ascii?Q?xzgCEZ2/yQnH1i9q9x+GU/xfZnJ8mRmbdoPAymBBBLhBW1ZzCqlBoTRqXqSr?=
- =?us-ascii?Q?feOqIHPnKTFwJZQv5C/lSlOcGHNGL/m9jrhK8QpZ94JbRijN+NwYrFkKvqff?=
- =?us-ascii?Q?p7c15m4pEcCwgFsFhnpJu1faA5gut1r4xSP5GIoZwMSy/dzsvySsNEFPWAiq?=
- =?us-ascii?Q?mt9/Ad1Vi7Y8As8Y3cDAfQmXoqU0BE3rsTE1uw2ZzX5LZcc5nZvee1J7mMFX?=
- =?us-ascii?Q?u15hUT1dbSiTEbsSzfyDAI02xMHyoD2FLwB2k8aI9lj7OBOipEBAmi0+SmZP?=
- =?us-ascii?Q?fJ9TmxGE9AN2MBtHe7pgSRzwOnV0+/8Eg6wEnAdrO8+vVmbm6SNm3pzPhaEX?=
- =?us-ascii?Q?z6lPFdaxBhQCDhl5TyZgosvKvL9Ihx1H5ZXuDkg2VAuv3ccHxgfnEiUWQS1l?=
- =?us-ascii?Q?MSgbVr5dW1vN1oWSgufg1u5KDZzCYFMMYZHrU4OOXJpyfIpbWeAI6g+91EQp?=
- =?us-ascii?Q?Li30IhNifGq9cJyFWJYRi5YCIddKRucnYaknRz2mO4LDoUoFBf9t/bEvRlUB?=
- =?us-ascii?Q?HTXxZ4h4ld1I9t2wWGnyBtKpccVIOul+e/+CRMkPk4eRTz198UV+y7SIp2Pe?=
- =?us-ascii?Q?TobWXqvSA2r3gvXFe8KRzU3UrPfv8ND6IE4Rlat49opTq+jwfRJY9FrKKfxj?=
- =?us-ascii?Q?9IDngbD4b0bkUJc3BzuP3FRiDG/BTmy9qby8mYRB3WrXrrwkcqyTT9hY+BgJ?=
- =?us-ascii?Q?D6oz8UUZEnPvNBqA3nsKD/BHatihiJ+ccersQWkzNbNPvldvTieX5X4XE1bZ?=
- =?us-ascii?Q?RGLtPx9MCr/F1ovik7IRakATxDjee496+WoMJR1A0robT9RjaZMDDsJ5Z0Lj?=
- =?us-ascii?Q?GadWiuUcAUlVd3hD/Uh3TzadxQIZykC+vsOMz5jiYStpFNeuUPd9sjd6Tcbu?=
- =?us-ascii?Q?ombnlYKUnVNd3DfBFZpFf4OiE1mdTZ3tDUT4BOnTEGyOnYnUwRUQcDMixiHD?=
- =?us-ascii?Q?/nCU/bkNEO1kAU07bELUtQOCxVg2ZUivan8M/uHurQX19c8NqWtBvQqv54YU?=
- =?us-ascii?Q?c9QYVc7aWOsWs7APEV10PgeQGZKdphszgBR0HiuJNUSftsCxpYebpF+F0NNL?=
- =?us-ascii?Q?GpXGKykFkhkZNTUrZe+LdmYjuF+r3PJr7H5kMCk6drzBBphxoRDlIFLKL4yU?=
- =?us-ascii?Q?JiuXhkmPSCkXbPaedeHQuzDIIlH6NkNcLK1wVvAvv7ttTmNqUaEHz2T9zGvc?=
- =?us-ascii?Q?Y4n5SSmJpPOCLUPllV1f8Q6Tt02Ept8Wh/D3DYMmzmQxcYdlHGhRm/lc6HSQ?=
- =?us-ascii?Q?f6klZMtIwGb76/1BlUFTHwh1giFoWwUHULSPl9S+9t7VLixFOw6HnLwzieim?=
- =?us-ascii?Q?9jvmM6aBA21720UjDlJsmxOfW0wZqM+Cz7Y1EULIdbVvhz2atDkZNZru2tEo?=
- =?us-ascii?Q?lpXYSEC4n2VXRdb+BPK8bNzvEidfKhj07Y4Twy6e9dg2WBNntsSn?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1de7c392-b88d-4f8a-ed53-08df0c8e5f73
-X-MS-Exchange-CrossTenant-AuthSource: ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 03:16:13.7579
+	1xtgACfIkfoxffV+hazMyP55ylOKnUS/8Jko0+mobgQlUlsOwbV0jF3Y8+MM4AMTvvCispOMo3D3LI54P7IBoRYFqnMaDzpebQrEWfWrXtl68Lhtnr9WCo6eXJX2skkabktg4XykkbO8AQ87uELAMFnXmSQgvwNpE+Fmii5n+ryQGiwslY1jJf/tNvRA0gzJ10U2Lb+0TUva4AVo+EF0q0uLjWsoRD1qJ68jSnUmKtM9nuAahTjq35TZ8IdguS9GU/X+/4Vr8Cc62bvxLrPO4mKhvfJPKI8MwwE8vpbQtkRi4oRhZf8X9PafzJUFY8lofVgWE0pRffTmoXxJ7gnJOse3+ASSoCPEaQhbIZ/LWc++76MB/d/8E4Fv4QwssrtFOHlXQ4tSjWfNjDGsumz1D6MYIgb8MiTAziUqQZtEeZls2pGdTPbcOLMuQW75gZoJ
+X-Exchange-RoutingPolicyChecked:
+	EgD9T/UT2NXLNEdsOpuDJkYepwESxbFi3ouPOwXtlk/rkRYU+kJbRB/xxJK6Feen3gu+5llr9d8CD5mPZXT3Rq1N6UIepMp52p5RL0myqoJAGY30gxIk9uZfY22ju3VowxyMjqZgmi0okC6l8qo/2Js/i0zXJ5ffi5AzLoQbkSD0jqT41w/LPkAdWa1Sdpr/3qsy9rfQ3H9XNoAwvXmkY1U7E8w/aUv+0kGVO9XPXPRqFaxkW8A+rwLC5Z2juZYlDPc9l3bbaqGIosiHhvnE/Hn2d0JPvgan50VcPbJAsG2DWC6mPzBdsTjTIlGf2npYQn3nylYGoba3EN1NW1hm8g==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 04:51:05.5818
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nz/PX58C+KTJUR6nd+q7EJuz8TShGatGzxYeuoUZ1EeppRG8mVnkCzpLJcT/4aHR8pyStU30UJpJEjf8s/kj2YIV296MSFHSQxn+4/Ba3WM4eJF1VKBlTzQz/1PDwedX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ0PR01MB1320
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ab7a892-2109-434f-71e2-08df0c9ba032
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	LV8PEPF0000005C.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA6PR10MB8016
+X-Authority-Analysis: v=2.4 cv=J8GaKgnS c=1 sm=1 tr=0 ts=6a9e42bc cx=c_pps
+ a=RNtfRSV62N0+FXzFNxkaPw==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22 a=sozttTNsAAAA:8
+ a=VwQbUJbxAAAA:8 a=VErd2KFUq15UWt1rfAYA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: Q9qlorxyzOaipoYNbe_0DH1w0wXhbbDc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA0OSBTYWx0ZWRfX6rk9CgoYHdzP
+ wLiGdn+zLCtgbuKV0Slr17Fg5MRFnPoZZANdAcrsszgUbap4W6tfU/i403U2boYjeoIehANpsYT
+ cabNfdvqw1NwwAE0RZHntKDzFxQUOSzNagzR6y1lhtgyDt+q8OEW/gUF4UYZgHwOILZZOOjjhCX
+ uOfg4TWBRyzjYXRWg3l4TQSPwsLC0KPt0J8kKrwowgHW9RT/569Q2z3FhFFKe/pkX2sxip+K5RQ
+ 77LopWe+YwJpb7qDAhD/RYswKyDgAtEWRM1M1EmorWbVl8xR7N/XjYFdxLU2Wm7j3BMyCGtGYwJ
+ s6SeWf26WegkH4jJ/LG6eKhUPUN/6CxcIT6j58Xqm6Q+1f9/3TW1yDMJ1y4c0FKD4Ji2RjNjpcf
+ cXfJUcF2Ivaa2tDVK8gUSzGzQj2ptALs6DajMlup3+Mt0zgrhRd5ddUtbJSiyAQOgzdkluZVcsU
+ x/6GHf5+P75tEAprgIg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA0OSBTYWx0ZWRfX/2/0PUcy+R+/
+ 39NBh4593F/fuwfxJX3AIy9mbTJ6exGNUhUWIapqzTzgxNWYU35UxFXT3aEJYFOh3cgd8sLa/3m
+ a6Czdh5iTPKYqlVRbsdo/JEg7wRDRDU=
+X-Proofpoint-GUID: Q9qlorxyzOaipoYNbe_0DH1w0wXhbbDc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_01,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 lowpriorityscore=0 malwarescore=0 spamscore=0
+ impostorscore=0 clxscore=1015 bulkscore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070049
 
-From: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+On 29/08/26 01:21, Jared McArthur wrote:
+> The ACSPCIe buffers provide the PCIe refclk for external
+> devices. The ACSPCIe reference clock is muxable between multiple
+> sources: SERDESx_REF_DER_OUT_CLK, MAIN_PLL2_HSDIV4_CLKOUT, and
+> SERDESx_REF_OUT_CLK [0]. On reset, the refclk is set to the
+> SERDESx_REF_DER_OUT_CLK. In the J742S2 and J784S4, "the SerDes PCIe
+> Reference Clock Output will be temporarily disabled when changing Data
+> Rates to or from 8.0 GT/s in Derived Refclk mode". Some external PCIe
+> devices cannot tolerate the reference clock being disabled and will
+> therefore fail to link.
+> 
+> This advisory is described in more detail as: i2242 of the J784S4
+> Silicon Revision 1.0 (Rev. B) document [1].
+> 
+> The refclk for devices connected to PCIe1 is provided by the ACSPCIe
+> buffers in the J742S2XH01EVM [2] and J784S4XEVM [3]. Work around
+> the advisory by setting the ACSPCIe reference clock source to
+> MAIN_PLL2_HSDIV4_CLKOUT. Use the TI SCI clock controller to assign the
+> clock's source [4].
+> 
+> [0] https://www.ti.com/lit/zip/spruj52
+> [1] https://www.ti.com/lit/er/sprz536b/sprz536b.pdf
+> [2] https://www.ti.com/lit/zip/SPAC001
+> [3] https://www.ti.com/lit/zip/SPRR458
+> [4] https://software-dl.ti.com/tisci/esd/latest/5_soc_doc/j784s4/clocks.html
+> 
+> Signed-off-by: Jared McArthur <j-mcarthur@ti.com>
 
-Rework the StarFive TRNG driver to address hardware-specific requirements
-  for JHB100 SoC. To avoid reset-domain crossing glitches, the driver now
-  ensures clocks are gated before asserting reset during teardown for
-  JHB100, while JH7110 retains the original reset-first sequence.
+Since this seems to be a 'Fix', adding a 'Fixes tag' and copying 
+'stable@vger.kernel.org' will get the fix backported to all LTS kernels.
 
-Add per-compatible match data (struct starfive_trng_data) describing the
-  clock/reset teardown order, a new "starfive,jhb100-trng" compatible, and
-  select the ordering from it.
+Rest of the patch however looks good to me.
 
-Fix the runtime-PM get/put balancing across the init/read/reseed/cleanup
-  paths, manage PM and the clk/reset teardown via devm so all error paths
-  unwind correctly, run the SEU-triggered reseed from a workqueue instead
-  of hard IRQ, and serialise the command sequences with a mutex.
+Reviewed-by: Siddharth Vadapalli <s-vadapalli@ti.com>
 
-Signed-off-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
----
- MAINTAINERS                          |   2 +-
- drivers/char/hw_random/jh7110-trng.c | 297 +++++++++++++++++++++------
- 2 files changed, 239 insertions(+), 60 deletions(-)
+Regards,
+Siddharth.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 6d998ed051a8..5211aa88048f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -26239,7 +26239,7 @@ F:	Documentation/devicetree/bindings/perf/starfive,jh8100-starlink-pmu.yaml
- F:	drivers/perf/starfive_starlink_pmu.c
- 
- STARFIVE TRNG DRIVER
--M:	Jia Jie Ho <jiajie.ho@starfivetech.com>
-+M:	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
- S:	Supported
- F:	Documentation/devicetree/bindings/rng/starfive*
- F:	drivers/char/hw_random/jh7110-trng.c
-diff --git a/drivers/char/hw_random/jh7110-trng.c b/drivers/char/hw_random/jh7110-trng.c
-index aee12caab578..ecc7d5bd7bf5 100644
---- a/drivers/char/hw_random/jh7110-trng.c
-+++ b/drivers/char/hw_random/jh7110-trng.c
-@@ -92,22 +92,44 @@ enum mode {
- 	PRNG_256BIT,
- };
- 
-+/*
-+ * For JHB100, assert reset after disabling clocks to avoid
-+ * reset-domain crossing (RDC) induced glitches that can affect
-+ * downstream IPs.
-+ */
-+enum seq_rst_clk {
-+	SEQ_RST_FIRST,
-+	SEQ_CLK_FIRST,
-+};
-+
-+struct starfive_trng_data {
-+	enum seq_rst_clk	seq_rst_clk;
-+};
-+
- struct starfive_trng {
- 	struct device		*dev;
- 	void __iomem		*base;
-+	int			irq;
- 	struct clk		*hclk;
- 	struct clk		*ahb;
- 	struct reset_control	*rst;
- 	struct hwrng		rng;
- 	struct completion	random_done;
- 	struct completion	reseed_done;
-+	struct work_struct	work;
-+	const struct starfive_trng_data *data;
- 	u32			mode;
-+	u32			cleanup;
- 	u32			mission;
- 	u32			reseed;
--	/* protects against concurrent write to ctrl register */
--	spinlock_t		write_lock;
-+	struct mutex		lock; /* protect trng cmd seq */
- };
- 
-+static inline struct starfive_trng *work_to_trng(struct work_struct *work)
-+{
-+	return container_of(work, struct starfive_trng, work);
-+}
-+
- static u16 autoreq;
- module_param(autoreq, ushort, 0);
- MODULE_PARM_DESC(autoreq, "Auto-reseeding after random number requests by host reaches specified counter:\n"
-@@ -130,7 +152,7 @@ static inline int starfive_trng_wait_idle(struct starfive_trng *trng)
- 					  10, 100000);
- }
- 
--static inline void starfive_trng_irq_mask_clear(struct starfive_trng *trng)
-+static inline void starfive_trng_irq_clear(struct starfive_trng *trng)
- {
- 	/* clear register: ISTAT */
- 	u32 data = readl(trng->base + STARFIVE_ISTAT);
-@@ -138,6 +160,28 @@ static inline void starfive_trng_irq_mask_clear(struct starfive_trng *trng)
- 	writel(data, trng->base + STARFIVE_ISTAT);
- }
- 
-+static void starfive_trng_release(void *data)
-+{
-+	struct starfive_trng *trng = data;
-+
-+	if (!pm_runtime_status_suspended(trng->dev)) {
-+		writel(0, trng->base + STARFIVE_IE);
-+		starfive_trng_irq_clear(trng);
-+
-+		if (trng->irq >= 0)
-+			synchronize_irq(trng->irq);
-+
-+		if (trng->data->seq_rst_clk == SEQ_RST_FIRST)
-+			reset_control_assert(trng->rst);
-+
-+		clk_disable_unprepare(trng->ahb);
-+		clk_disable_unprepare(trng->hclk);
-+
-+		if (trng->data->seq_rst_clk == SEQ_CLK_FIRST)
-+			reset_control_assert(trng->rst);
-+	}
-+}
-+
- static int starfive_trng_cmd(struct starfive_trng *trng, u32 cmd, bool wait)
- {
- 	int wait_time = 1000;
-@@ -149,17 +193,13 @@ static int starfive_trng_cmd(struct starfive_trng *trng, u32 cmd, bool wait)
- 	switch (cmd) {
- 	case STARFIVE_CTRL_GENE_RANDNUM:
- 		reinit_completion(&trng->random_done);
--		spin_lock_irq(&trng->write_lock);
- 		writel(cmd, trng->base + STARFIVE_CTRL);
--		spin_unlock_irq(&trng->write_lock);
- 		if (!wait_for_completion_timeout(&trng->random_done, usecs_to_jiffies(wait_time)))
- 			return -ETIMEDOUT;
- 		break;
- 	case STARFIVE_CTRL_EXEC_RANDRESEED:
- 		reinit_completion(&trng->reseed_done);
--		spin_lock_irq(&trng->write_lock);
- 		writel(cmd, trng->base + STARFIVE_CTRL);
--		spin_unlock_irq(&trng->write_lock);
- 		if (!wait_for_completion_timeout(&trng->reseed_done, usecs_to_jiffies(wait_time)))
- 			return -ETIMEDOUT;
- 		break;
-@@ -174,13 +214,24 @@ static int starfive_trng_init(struct hwrng *rng)
- {
- 	struct starfive_trng *trng = to_trng(rng);
- 	u32 mode, intr = 0;
-+	int ret;
-+
-+	ret = pm_runtime_resume_and_get(trng->dev);
-+	if (ret < 0) {
-+		dev_warn(trng->dev, "Failed to wake device for init: %d\n", ret);
-+		return ret;
-+	}
-+
-+	mutex_lock(&trng->lock);
-+
-+	WRITE_ONCE(trng->cleanup, 0);
- 
- 	/* setup Auto Request/Age register */
- 	writel(autoage, trng->base + STARFIVE_AUTO_AGE);
- 	writel(autoreq, trng->base + STARFIVE_AUTO_RQSTS);
- 
- 	/* clear register: ISTAT */
--	starfive_trng_irq_mask_clear(trng);
-+	starfive_trng_irq_clear(trng);
- 
- 	intr |= STARFIVE_IE_ALL;
- 	writel(intr, trng->base + STARFIVE_IE);
-@@ -201,45 +252,105 @@ static int starfive_trng_init(struct hwrng *rng)
- 
- 	writel(mode, trng->base + STARFIVE_MODE);
- 
--	return starfive_trng_cmd(trng, STARFIVE_CTRL_EXEC_RANDRESEED, 1);
-+	ret = starfive_trng_cmd(trng, STARFIVE_CTRL_EXEC_RANDRESEED, 1);
-+
-+	mutex_unlock(&trng->lock);
-+
-+	pm_runtime_put_autosuspend(trng->dev);
-+
-+	return ret;
-+}
-+
-+static void starfive_trng_randreseed_work(struct work_struct *work)
-+{
-+	struct starfive_trng *trng = work_to_trng(work);
-+	int ret;
-+
-+	ret = pm_runtime_resume_and_get(trng->dev);
-+	if (ret < 0) {
-+		dev_warn(trng->dev, "Failed to wake device for reseed: %d\n", ret);
-+		return;
-+	}
-+
-+	mutex_lock(&trng->lock);
-+
-+	if (READ_ONCE(trng->cleanup))
-+		goto unlock;
-+
-+	reinit_completion(&trng->reseed_done);
-+	writel(STARFIVE_CTRL_EXEC_RANDRESEED, trng->base + STARFIVE_CTRL);
-+
-+unlock:
-+	mutex_unlock(&trng->lock);
-+
-+	pm_runtime_put_autosuspend(trng->dev);
- }
- 
- static irqreturn_t starfive_trng_irq(int irq, void *priv)
- {
-+	int ret;
- 	u32 status;
- 	struct starfive_trng *trng = (struct starfive_trng *)priv;
- 
-+	ret = pm_runtime_get_if_active(trng->dev);
-+	if (ret <= 0) {
-+		dev_err_ratelimited(trng->dev, "pm is inactive in irq\n");
-+		return IRQ_NONE;
-+	}
-+
- 	status = readl(trng->base + STARFIVE_ISTAT);
--	if (status & STARFIVE_ISTAT_RAND_RDY) {
-+	if (status & STARFIVE_ISTAT_RAND_RDY)
- 		writel(STARFIVE_ISTAT_RAND_RDY, trng->base + STARFIVE_ISTAT);
--		complete(&trng->random_done);
--	}
- 
--	if (status & STARFIVE_ISTAT_SEED_DONE) {
-+	if (status & STARFIVE_ISTAT_SEED_DONE)
- 		writel(STARFIVE_ISTAT_SEED_DONE, trng->base + STARFIVE_ISTAT);
--		complete(&trng->reseed_done);
--	}
- 
- 	if (status & STARFIVE_ISTAT_LFSR_LOCKUP) {
- 		writel(STARFIVE_ISTAT_LFSR_LOCKUP, trng->base + STARFIVE_ISTAT);
- 		/* SEU occurred, reseeding required*/
--		spin_lock(&trng->write_lock);
--		writel(STARFIVE_CTRL_EXEC_RANDRESEED, trng->base + STARFIVE_CTRL);
--		spin_unlock(&trng->write_lock);
-+		schedule_work(&trng->work);
- 	}
- 
-+	if (status & STARFIVE_ISTAT_RAND_RDY)
-+		complete(&trng->random_done);
-+
-+	if (status & STARFIVE_ISTAT_SEED_DONE)
-+		complete(&trng->reseed_done);
-+
-+	pm_runtime_put_noidle(trng->dev);
-+
- 	return IRQ_HANDLED;
- }
- 
- static void starfive_trng_cleanup(struct hwrng *rng)
- {
- 	struct starfive_trng *trng = to_trng(rng);
-+	int ret;
-+
-+	ret = pm_runtime_resume_and_get(trng->dev);
-+	if (ret < 0) {
-+		dev_warn(trng->dev, "Failed to wake device for cleanup: %d\n", ret);
-+		goto end;
-+	}
-+
-+	mutex_lock(&trng->lock);
-+
-+	writel(0, trng->base + STARFIVE_IE);
-+	starfive_trng_irq_clear(trng);
-+
-+	if (trng->irq >= 0)
-+		synchronize_irq(trng->irq);
- 
- 	writel(0, trng->base + STARFIVE_CTRL);
- 
--	reset_control_assert(trng->rst);
--	clk_disable_unprepare(trng->hclk);
--	clk_disable_unprepare(trng->ahb);
-+	WRITE_ONCE(trng->cleanup, 1);
-+
-+	mutex_unlock(&trng->lock);
-+
-+	pm_runtime_put_sync(trng->dev);
-+
-+end:
-+	cancel_work_sync(&trng->work);
- }
- 
- static int starfive_trng_read(struct hwrng *rng, void *buf, size_t max, bool wait)
-@@ -247,7 +358,18 @@ static int starfive_trng_read(struct hwrng *rng, void *buf, size_t max, bool wai
- 	struct starfive_trng *trng = to_trng(rng);
- 	int ret;
- 
--	pm_runtime_get_sync(trng->dev);
-+	ret = pm_runtime_resume_and_get(trng->dev);
-+	if (ret < 0) {
-+		dev_warn(trng->dev, "Failed to wake device for read: %d\n", ret);
-+		return ret;
-+	}
-+
-+	if (wait) {
-+		mutex_lock(&trng->lock);
-+	} else {
-+		if (!mutex_trylock(&trng->lock))
-+			return -EAGAIN;
-+	}
- 
- 	if (trng->mode == PRNG_256BIT)
- 		max = min_t(size_t, max, (STARFIVE_RAND_LEN * 8));
-@@ -256,28 +378,29 @@ static int starfive_trng_read(struct hwrng *rng, void *buf, size_t max, bool wai
- 
- 	if (wait) {
- 		ret = starfive_trng_wait_idle(trng);
--		if (ret) {
--			ret = -ETIMEDOUT;
--			goto out_put;
--		}
-+		if (ret)
-+			goto end;
- 	}
- 
- 	ret = starfive_trng_cmd(trng, STARFIVE_CTRL_GENE_RANDNUM, wait);
- 	if (ret)
--		goto out_put;
-+		goto end;
- 
- 	memcpy_fromio(buf, trng->base + STARFIVE_RAND0, max);
-+
- 	ret = max;
- 
--out_put:
--	pm_runtime_put_sync_autosuspend(trng->dev);
-+end:
-+	mutex_unlock(&trng->lock);
-+
-+	pm_runtime_put_autosuspend(trng->dev);
-+
- 	return ret;
- }
- 
- static int starfive_trng_probe(struct platform_device *pdev)
- {
- 	int ret;
--	int irq;
- 	struct starfive_trng *trng;
- 
- 	trng = devm_kzalloc(&pdev->dev, sizeof(*trng), GFP_KERNEL);
-@@ -285,26 +408,22 @@ static int starfive_trng_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 
- 	platform_set_drvdata(pdev, trng);
-+
- 	trng->dev = &pdev->dev;
-+	trng->data = of_device_get_match_data(&pdev->dev);
-+	if (!trng->data)
-+		return -EINVAL;
-+
-+	if (trng->data->seq_rst_clk != SEQ_RST_FIRST && trng->data->seq_rst_clk != SEQ_CLK_FIRST) {
-+		dev_err(&pdev->dev, "Unknown seq_rst_clk value\n");
-+		return -EINVAL;
-+	}
- 
- 	trng->base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(trng->base))
- 		return dev_err_probe(&pdev->dev, PTR_ERR(trng->base),
- 				     "Error remapping memory for platform device.\n");
- 
--	irq = platform_get_irq(pdev, 0);
--	if (irq < 0)
--		return irq;
--
--	init_completion(&trng->random_done);
--	init_completion(&trng->reseed_done);
--	spin_lock_init(&trng->write_lock);
--
--	ret = devm_request_irq(&pdev->dev, irq, starfive_trng_irq, 0, pdev->name,
--			       (void *)trng);
--	if (ret)
--		return ret;
--
- 	trng->hclk = devm_clk_get(&pdev->dev, "hclk");
- 	if (IS_ERR(trng->hclk))
- 		return dev_err_probe(&pdev->dev, PTR_ERR(trng->hclk),
-@@ -320,9 +439,14 @@ static int starfive_trng_probe(struct platform_device *pdev)
- 		return dev_err_probe(&pdev->dev, PTR_ERR(trng->rst),
- 				     "Error getting hardware reset line\n");
- 
--	clk_prepare_enable(trng->hclk);
--	clk_prepare_enable(trng->ahb);
--	reset_control_deassert(trng->rst);
-+	init_completion(&trng->random_done);
-+	init_completion(&trng->reseed_done);
-+	mutex_init(&trng->lock);
-+	INIT_WORK(&trng->work, starfive_trng_randreseed_work);
-+
-+	trng->irq = platform_get_irq(pdev, 0);
-+	if (trng->irq < 0)
-+		return trng->irq;
- 
- 	trng->rng.name = dev_driver_string(&pdev->dev);
- 	trng->rng.init = starfive_trng_init;
-@@ -333,40 +457,86 @@ static int starfive_trng_probe(struct platform_device *pdev)
- 	trng->mission = 1;
- 	trng->reseed = RANDOM_RESEED;
- 
--	pm_runtime_use_autosuspend(&pdev->dev);
--	pm_runtime_set_autosuspend_delay(&pdev->dev, 100);
--	pm_runtime_enable(&pdev->dev);
-+	ret = clk_prepare_enable(trng->hclk);
-+	if (ret) {
-+		dev_err(&pdev->dev, "hclk clk_enable failed: %d\n", ret);
-+		return ret;
-+	}
- 
--	ret = devm_hwrng_register(&pdev->dev, &trng->rng);
-+	ret = clk_prepare_enable(trng->ahb);
- 	if (ret) {
--		pm_runtime_disable(&pdev->dev);
-+		clk_disable_unprepare(trng->hclk);
-+		dev_err(&pdev->dev, "ahb clk_enable failed: %d\n", ret);
-+		return ret;
-+	}
- 
--		reset_control_assert(trng->rst);
-+	ret = reset_control_deassert(trng->rst);
-+	if (ret) {
- 		clk_disable_unprepare(trng->ahb);
- 		clk_disable_unprepare(trng->hclk);
-+		dev_err(&pdev->dev, "failed to deassert trng\n");
-+		return ret;
-+	}
- 
--		return dev_err_probe(&pdev->dev, ret, "Failed to register hwrng\n");
-+	pm_runtime_use_autosuspend(&pdev->dev);
-+	pm_runtime_set_autosuspend_delay(&pdev->dev, 100);
-+	devm_pm_runtime_set_active_enabled(&pdev->dev);
-+
-+	ret = devm_request_irq(&pdev->dev, trng->irq, starfive_trng_irq, 0, pdev->name,
-+			       (void *)trng);
-+	if (ret) {
-+		starfive_trng_release(trng);
-+		return dev_err_probe(&pdev->dev, ret, "Failed to register interrupt handler\n");
- 	}
- 
-+	ret = devm_add_action_or_reset(&pdev->dev, starfive_trng_release, trng);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_hwrng_register(&pdev->dev, &trng->rng);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "Failed to register hwrng\n");
-+
- 	return 0;
- }
- 
- static int __maybe_unused starfive_trng_suspend(struct device *dev)
- {
- 	struct starfive_trng *trng = dev_get_drvdata(dev);
-+	bool cleanup = READ_ONCE(trng->cleanup);
-+
-+	if (cleanup && trng->data->seq_rst_clk == SEQ_RST_FIRST)
-+		reset_control_assert(trng->rst);
- 
--	clk_disable_unprepare(trng->hclk);
- 	clk_disable_unprepare(trng->ahb);
-+	clk_disable_unprepare(trng->hclk);
-+
-+	if (cleanup && trng->data->seq_rst_clk == SEQ_CLK_FIRST)
-+		reset_control_assert(trng->rst);
- 
- 	return 0;
- }
- 
- static int __maybe_unused starfive_trng_resume(struct device *dev)
- {
-+	int ret;
- 	struct starfive_trng *trng = dev_get_drvdata(dev);
- 
--	clk_prepare_enable(trng->hclk);
--	clk_prepare_enable(trng->ahb);
-+	ret = clk_prepare_enable(trng->hclk);
-+	if (ret) {
-+		dev_err(trng->dev, "hclk clk_enable failed: %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = clk_prepare_enable(trng->ahb);
-+	if (ret) {
-+		clk_disable_unprepare(trng->hclk);
-+		dev_err(trng->dev, "ahb clk_enable failed: %d\n", ret);
-+		return ret;
-+	}
-+
-+	if (READ_ONCE(trng->cleanup))
-+		reset_control_deassert(trng->rst);
- 
- 	return 0;
- }
-@@ -378,8 +548,17 @@ static const struct dev_pm_ops starfive_trng_pm_ops = {
- 			   starfive_trng_resume, NULL)
- };
- 
--static const struct of_device_id trng_dt_ids[] __maybe_unused = {
--	{ .compatible = "starfive,jh7110-trng" },
-+static const struct starfive_trng_data jh7110_data = {
-+	.seq_rst_clk = SEQ_RST_FIRST,
-+};
-+
-+static const struct starfive_trng_data jhb100_data = {
-+	.seq_rst_clk = SEQ_CLK_FIRST,
-+};
-+
-+static const struct of_device_id trng_dt_ids[] = {
-+	{ .compatible = "starfive,jh7110-trng", .data = &jh7110_data },
-+	{ .compatible = "starfive,jhb100-trng", .data = &jhb100_data },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, trng_dt_ids);
-@@ -389,7 +568,7 @@ static struct platform_driver starfive_trng_driver = {
- 	.driver	= {
- 		.name		= "jh7110-trng",
- 		.pm		= &starfive_trng_pm_ops,
--		.of_match_table	= of_match_ptr(trng_dt_ids),
-+		.of_match_table	= trng_dt_ids,
- 	},
- };
- 
--- 
-2.43.0
+> ---
+>   arch/arm64/boot/dts/ti/k3-j784s4-j742s2-evm-common.dtsi | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/ti/k3-j784s4-j742s2-evm-common.dtsi b/arch/arm64/boot/dts/ti/k3-j784s4-j742s2-evm-common.dtsi
+> index ff3a85cbc524a..7c085663c8880 100644
+> --- a/arch/arm64/boot/dts/ti/k3-j784s4-j742s2-evm-common.dtsi
+> +++ b/arch/arm64/boot/dts/ti/k3-j784s4-j742s2-evm-common.dtsi
+> @@ -1206,6 +1206,8 @@ &pcie1_rc {
+>   	status = "okay";
+>   	clocks = <&k3_clks 333 0>, <&serdes0 CDNS_TORRENT_REFCLK_DRIVER>;
+>   	clock-names = "fck", "pcie_refclk";
+> +	assigned-clocks = <&k3_clks 415 0>;
+> +	assigned-clock-parents = <&k3_clks 415 2>;
+>   	num-lanes = <2>;
+>   	reset-gpios = <&exp1 2 GPIO_ACTIVE_HIGH>;
+>   	phys = <&serdes0_pcie1_link>;
 
