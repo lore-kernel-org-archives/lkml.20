@@ -1,116 +1,68 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D961C3859C3
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:22:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 183CE2576E;
+	Mon,  7 Sep 2026 06:22:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788762124; cv=none; b=GEztSYpS9NJRnrYasHqNAQ4Y9Fcm9r70XxT0bhQrnDYd2dju0lSHjo9cDjfX/RPqSQ85YXZmUcXir4235DL1DsJgfUkXZgAEPVS/zW79M/90jwci7AsZQ0vHzyiKyU+/+UoFwKsgWNOxxoVrwBMmKgj/TskFzApRt5MjHqw9GsI=
+	t=1788762129; cv=none; b=omuG12EL0Cdzjw/oYBzMV/oAXXgwtZToIz9PWsZYgUE1wL8FICbGXwhq8qxgZgD2aDfZX+MCzt+oQAb8pTOwsqLsrMoocQPuawXRafc0RdX5p3yQ+LqfMJX6i0fVyLt9hh3IDa5XFfG9AVzGxV1viOVfZOOOy8Q8pLUHE2WqDeI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788762124; c=relaxed/simple;
-	bh=MeRW5bXEGeIEkp5gf8eUoDyMZ6P61cTaAQ2l91fGwJM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kBX/pCvY6c/qpfLWaYOHlcTJqgBTYIcirpTfW5Xk2XvrNYbpZAJrbpw52hhvLyzVHbGgWl4ojci+HBJaeHRdcPPyn/YnRYBBpKAcumUhI07sylu+RUlHje/DwiVy2dLQVdqBY7CXZmXPbWQ5E6MISDrF/iaMHY6vJZvYd33IgLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tDJE1/hd; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788762129; c=relaxed/simple;
+	bh=wWahGpfz8cqoCrsIiVlK5sBg91JCdGv6kzl8Gbxwp74=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sGHtnaFsz3HF6DRo7PoPUepuCPwe4dmndbWAxHHiK/7s1NUw5Id449CVlk39mlW4myJCW/MxIeT9igDxt4c5Cec1CupDTsYxVcaB6KGvwgiSfms6nqD7ajGRFGvmeXbYx5UHvzMPRkVVOb0NhebDwq8UusOSboOAsulIO1vja98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZiaZkOU+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tDJE1/hd"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38759bcd877so3171333a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:22:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788762122; x=1789366922; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pgQmB11lwCyevM+5cq0InhbT0EBZhc/NlddXm3mSXGc=;
-        b=tDJE1/hddIcwYHpeCVruCxw50WkQVGx1g9m2Tyq3Ee3sJAqqNqnmX28hz1A6FUOE9U
-         P8QUJYCtQfOO8patGcKhMExpoubuvMOjtdK64GPkNin/65D3iZO0O7lzSjzpanZn6vr2
-         kqCfCniNQ2UonG7T2piXVR9cWcxCym9Edmhsv0yaeeiAZKMXBtLndVS5390CJPF7l9b4
-         z7Xul5fvTZV6x2XOtaqm29/q5jSe3KrfkJGliphMGwUaQepCp6FHxWVYBQuk184Kyodw
-         FSPzi/yhWP6/mVSn/gZ+iHjwmBczsx5Dmw0z18rVIq0AxQD+qzKMRm8LOiyswBPMcWnl
-         Ma8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788762122; x=1789366922;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pgQmB11lwCyevM+5cq0InhbT0EBZhc/NlddXm3mSXGc=;
-        b=MJuL/XTVrb9WrbiaKiOBuv2ESBIhr0jB1+qSFxSLT07T7pKOFMQEeP7DSzgBzVfE+e
-         wcb2SO3rPIJ6Y/9doh0d7UDhED27VAEtgzAgk7+IIdVq6uids5I4pBb5YjkOPemYw+og
-         yPSbQaAGsCUh+WzFG1iljw52yfNTmDAMDQfbWCpSN8R8ZjoCt1jBc2s6nTRTRX3apJbF
-         b4m0N+Vs0An9XNiDyFCf/8GNVSE/I3Q3F9REz1anyUqx7d5I2kYy50hwfJw0bcjZalQA
-         W6c0b87dl4Jzf8NWcF2z4gZuJN89dubn3GQfNz2VUu2igPYYu8Xw+4SqDjA77XfWPufS
-         4ydw==
-X-Forwarded-Encrypted: i=1; AKwUvByaLYL70UUn4jSzV7n6ZidJhVHdwUNgASd68oYLC1o7gckVTaQTqUQ+52Iec+42AsclsRAPy4qwUhdtvQU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mlIy2XfsCcSyd/LiSA1dviz6mC+CjT/3RamFlRTsN+2e+Y6jlg
-	40m/ft/TV42nuMg8rfmhv9HHQJWEaRjP8GHOr5Z/PKvWC/gpUPl1F/pgq2PSBXrjVvA=
-X-Gm-Gg: AYBFou0x73U3uClqSQxkD2kzXrpZgwjnPb6XJTZ7ky25Lvvn2TVcfCvCJKyk4Ni7cFc
-	kVMzT2EVwT1efu0NsIzeFJASX8rq8BvDUIPeck8S5iloU0nYXhWWyBDnJf0NulHfy2Q5qaBgIMu
-	39V1/+ShGWL61yDcjvDWVol1XvCBaxlepQ2mF4tP+6LDeFIeWeAhj4p3KpxvYUdQA5rHkNXwJKj
-	P5K/47lull3qfOzzxduVI5kqaVDK0mIe5jSPwZayPJt7WIkQhCLJ5kUcq2JQlXd2GQBfvO2a0hb
-	VK+q6Hv8xws6PCI7l68xjGCpv9THHWAlNfr3YNmQXt7acwYOa6CuO1eqVMQf1QaivPZEvkvszy9
-	rM5Yrpw1Ts32yd0kZu1hGljS6giE+9vPiHAgVBN1Quz3V4LIGBB969S2B2mlvspeFH3YTeszMav
-	GpT04mMOFY3hwhxSB3C+vatC9KBDlS1FHJe7WBLwX8SJZu/tC5ofzOsua7ev6+iEq+mBJQZFHfd
-	BCnnvOagr3QBIFv66+fXMp7
-X-Received: by 2002:a17:90b:580e:b0:398:c3c9:d0ae with SMTP id 98e67ed59e1d1-39b25ee242bmr29928116a91.0.1788762122144;
-        Sun, 06 Sep 2026 23:22:02 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432441f5f2sm27532996c88.15.2026.09.06.23.22.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 23:22:01 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Alexander Aring <aahringo@redhat.com>,
-	David Teigland <teigland@redhat.com>
-Cc: gfs2@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dlm: fix typos in comments
-Date: Mon,  7 Sep 2026 11:51:57 +0530
-Message-ID: <20260907062157.8474-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZiaZkOU+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A67C61F00A3A;
+	Mon,  7 Sep 2026 06:22:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788762127;
+	bh=hOR1wgZMWegMI44NaSdYvTT3p5cO7has09pGbSG16cg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZiaZkOU+zbPN2E/soShDbHJzmp/Hhf78XkCckfp1K/8WmHD/ovuOStMl/35niayi1
+	 z57OY+IsTOKodK3OGs0PyS8GDfQYTR47x246Yrk+eUuW5ZKG9fMbP3cXCxRTBUY5Yt
+	 vhHactmxQNrjkY8gQOdF9DpZgr3UmooYR+aWpcpdjYqx5HLKQm7gxeOS851eqru8ik
+	 3Q0sgrUFK62NObpJTa593at+OK+1IuoVH4OWXMrfZOtSPumV86LTL2AilKLnSt8qc/
+	 MAX4no5lAG/fOxufsphz5IZ/dzm2T2FnPnGp5woXjz0FOM5mWKcqzVXQOJg5mnrhyn
+	 nt6R86PluVPMg==
+Date: Mon, 7 Sep 2026 08:22:03 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH] dt-bindings: usb: qcom,snps-dwc3: Document the Nord DWC3
+ controller
+Message-ID: <20260907-athletic-thick-cockle-b21fda@quoll>
+References: <20260901103300.60803-1-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260901103300.60803-1-shengchao.guo@oss.qualcomm.com>
 
-Fix typos in comments, reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+On Tue, Sep 01, 2026 at 06:33:00PM +0800, Shawn Guo wrote:
+> From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> 
+> Add a compatible for the DWC3 USB controller found on the Qualcomm Nord
+> SoC.
+> 
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- fs/dlm/ast.c  | 2 +-
- fs/dlm/lock.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-diff --git a/fs/dlm/ast.c b/fs/dlm/ast.c
-index 0fe8d80ce5e8..7dd38e15bd25 100644
---- a/fs/dlm/ast.c
-+++ b/fs/dlm/ast.c
-@@ -81,7 +81,7 @@ bool dlm_may_skip_callback(struct dlm_lkb *lkb, uint32_t flags, int mode,
- 		 * Suppress some redundant basts here, do more on removal.
- 		 * Don't even add a bast if the callback just before it
- 		 * is a bast for the same mode or a more restrictive mode.
--		 * (the addional > PR check is needed for PR/CW inversion)
-+		 * (the additional > PR check is needed for PR/CW inversion)
- 		 */
- 		if (lkb->lkb_last_cb_mode != -1 &&
- 		    lkb->lkb_last_cb_flags & DLM_CB_BAST) {
-diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
-index c381e1028446..1e1dc1909733 100644
---- a/fs/dlm/lock.c
-+++ b/fs/dlm/lock.c
-@@ -92,7 +92,7 @@ static void do_purge(struct dlm_ls *ls, int nodeid, int pid);
- static void deactivate_rsb(struct kref *kref);
- 
- /*
-- * Lock compatibilty matrix - thanks Steve
-+ * Lock compatibility matrix - thanks Steve
-  * UN = Unlocked state. Not really a state, used as a flag
-  * PD = Padding. Used to make the matrix a nice power of two in size
-  * Other states are the same as the VMS DLM.
--- 
-2.48.1
+Best regards,
+Krzysztof
 
