@@ -1,104 +1,128 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7135A46D095
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:18:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E0846C851
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:18:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788779883; cv=none; b=OX/j3gRblhlkgIxz5ditF5Dgjt+PHQoBnZMBnCmkz3Rc6+uLTCKwyEQeeRXfiEmYEu0WCt2mUdPo6PFmHWzpy5nvfDWhZLl65XNGa47/23BXc1vcdL0eRyXi/+OPON3OkX2X27bn7HeaxfdsttfFO6Nq3rE6ET/RRGkaunkVcqc=
+	t=1788779883; cv=none; b=WZ0Rw95z2swLL8NwLi2lwg4AGT0DlY8S6ePG1hLwfI9x1P9JXe4GyqxKzY19FPHAl2I7+AnrcB+3iQCSqJKjtxI0sINKREgrgSuIn65MSb1CjyecVGAMTXljb3ND/IdvM0gFFgzjs2YvC3wX6MJaOVmJptgLz8ouksPKY15vppk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788779883; c=relaxed/simple;
-	bh=XYqEV1M0GpB+fKUY4FbmTaxiqGTleihRUV7J7Wx1cSI=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=jJSq/dWmqHwECf2ErhKWKKtOqz5zdszJtcMncIBBXBdF4UO8BxkNZGGZXzRaxcByFeojMvcHSlHXAcbaMy3Z8kCF+H4VSOSk9SHMQ4XAXx1QxXNvLLrQXhVd5odvG3klOluOuMo+c5WZT/mR7M9G9iQq1T9YmJj/BI8WA81vvs4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TtGcz1qC; arc=none smtp.client-ip=209.85.221.47
+	bh=vc/u2+6K3u9duPkyjAm1VSzu2f/ZyL4eiCIH6p0kCCM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=buWD3Y8AQmieodQVOJ7nKdkKZHpET8HnBUp/VBPcWQOBd93DZX1UuNep4HsohToctHGdNff3RLMpaWjUShgS4ZnvWPpOBaG79Ki7t2xlQjzD+qV8U+kdf1/EFi3pDKJIADHSbAsVd8fJTXtWwMCVdPgfri2YXa6cufS8PMzMMZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=de2MEp7Q; arc=none smtp.client-ip=209.85.221.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TtGcz1qC"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-485850cbac3so2172083f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 04:18:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="de2MEp7Q"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47ddf7b09e5so3880537f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 04:18:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1788779879; x=1789384679; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XYqEV1M0GpB+fKUY4FbmTaxiqGTleihRUV7J7Wx1cSI=;
-        b=TtGcz1qCoGur1AWzOGbC7r+6KXeDxBiuaJBX7bCeFzbBUdW/aUKItYWvZoe7RsBYvm
-         5TzIbCE5VynFN92BICU4PzI834qCfCwkVWOjlJ2JRlGbFRAHZRzat7IgXvviPgcGzwOq
-         +QR4E7G2uEHx1DVbOh8lUNwrjTjEK/jiKTDR3GPQ94uw9JoO5Ff1AglPy2AYbn3H3ZQP
-         JrySE7ss5NpUtZgqviEURQPaUdzZKguI7mY2y5AIe0U9KxZpf+GOgKwvmlZZKoXOZ8VU
-         qnnVvSHmeAO0yfmbJ+Zn9mD2HSG8ObJauwJYpVa+1iONbWdWS9BKWTYY2T71npsfyhoH
-         EAlA==
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kZeKG88pQvz+t3Gm/KrMtRBK71hTluhBWfm1A4t1QXw=;
+        b=de2MEp7QCbYxhT5Uaog3gIdpkYeUO0mVMVQtiCMgH5BJo4MLMu0GREGhdFYPLS2Fua
+         cxA/Pdft+yc3I+Zr3i3LCX/V9CDxAURVLJKTpP0pEGp7/pUJ2Zia5amibAXFRo7GNTIn
+         bbgNa6YiKBYgCOOx7JHcYR3sFNer6TirsXmCrtfmL1iPQx5qelkve5peqcyZ4HITw6Dw
+         QROMDiYlC8mkzpX8RO59w4qY5GWHM91SKo4XPP258xs0JXB5J+AwGxhKErj/qTtsqHKP
+         ihyTQ2cqlwiXs3QUOsRHJVWEqTRsbBPFs+VpgL9lu2dTBq+akrYPKlUZpnkEnKkvEeBT
+         4nVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1788779879; x=1789384679;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XYqEV1M0GpB+fKUY4FbmTaxiqGTleihRUV7J7Wx1cSI=;
-        b=nmOI+sejD2zeTAc2r9EZZTOfXPwQbrocyvUz8RdDUP5g7KY4PnLekR8/POSXvWQTUa
-         XlFj6ePUw3+NcawdJvAyOGlgeCmqK5AgvCJzc94mybngLVsQPCl9JMUEoJHxjnXz5qFF
-         6f5VARjl8MGE6OZbEnAB9XK4ua/WAAyY9qxwPd334so+huPY5S33rZ+SubUXSMTjsCxq
-         F73fdsYX2NQKfMSU3NE3rDWe68fSReGn7Xl2W9ZnV1yW8Zs5JgwQ7V4RJlsJW7xoYLeV
-         KR7uCw2jwonMASjjRekS/fclgjW2CRww8Ez329YfaPVLnNva1Wod7Ka/vIatSlFRDQTi
-         qwpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw0JFR6eefzLZN5OIUjjuoLl87pVp0mX7sya2CjCdcpU/MuaVhRQONHyETdP5zDWqSxrOevsbvMZsLaGt8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nuPBYDCgEGUPkMauS1n4m0nkcakz1CJCJLyB5tu6IIq5QDSHNu
-	PUh+Tcr9ujrIzlnrWWTG7w0r07BPXsXjO8gs+X6Bz1EluQd9+K6QI+0=
-X-Gm-Gg: AYBFou3z0jg9qQ1iV1/pprav097ocHJDNAWO9WkGs/FYM0z31ei21YNsVkmxpkOonCQ
-	GelRB6rvAK2y9SZ7ZHrx5IiReDpYpDn4CllCoDJEipC6rKVx4lknyGtWO4IbxMsRsQqa6qj9+wM
-	qZJkU7ieGJ1Cac2hPd92JGxk2nvLK3vrDxV25TTEteassqNkjoyibHLbzPyonK+g4CscdbK8CFg
-	6jCY8ufid8eZwOaZysyVludIes1vinhr9eFUwT9RG52Fq0v1nvnsEfnrLX0bv7n9h/I0Zzmpqw2
-	YwFKSw1P0ExXAQhHfG55GdgLu0cwWEHDp65/sxM2HVFZ9bnGSJyZmFrcKU3bODWcLg33pVcT78c
-	QlqQ/zXNjOhnbgdDhK3SNKp2a95my6MnRGs95v4mHv+RtFWJTKkTkLTfq17dpFHtgkH/9kIiDrc
-	wTjsf23V2c0uRgTM4zL3v+Z4Je8VWHs1wXoJp97sAnRaTJjvViqO8peRPb9RaAqUdhIPnbM4Gyp
-	kBwe7lnI6I8/g6ITxkpaYvZRnhnYSurL0GohALMlbfJ5D2uIGCK/SKvMxnfXxwk7wq25wvzimFG
-	j4fstqzkr7KBKVinmffKv7zOpECKCOPCbDmBFPP9iqBKhgl1EcS43TiYR1F50Q==
-X-Received: by 2002:a5d:55d1:0:b0:481:4697:8808 with SMTP id ffacd0b85a97d-485872dee4cmr22090578f8f.22.1788779879457;
-        Mon, 07 Sep 2026 04:17:59 -0700 (PDT)
-Received: from localhost (92-242-248-12.broadband.mtnet.hr. [92.242.248.12])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48591eb3d3bsm16032918f8f.0.2026.09.07.04.17.58
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kZeKG88pQvz+t3Gm/KrMtRBK71hTluhBWfm1A4t1QXw=;
+        b=Mj1hfC2T8Kor+AllcnWaow676mj2I6bq7986nUj7PIYjnrhZsh0jQZW/SA+LMOn4CA
+         5n5+5BaT3xIF8MHBukKfBYrDk19xwsjSUsOS5LNJrht+s1PP8aSPcxSU6MyAEK+O7NTU
+         hGlRAMtlPc7lKVTyqhaljnVQm7IEBrvqqNCNwPbMkFPY6cCVZdO701EQrZCLJxbzq+Aj
+         7jwC2qrJ2683i2KoPn5W1/xYQFG1BjgkJ4W8FwpHgXkEJTlK1n0QCgbPTayW7ERZ6UKd
+         0UX++toke5oIdNLzRldg04NvIA9BnBw2eQbFtkE0loNh7pSKrwbksHY/03NeRnAkbhB7
+         9QVA==
+X-Forwarded-Encrypted: i=1; AKwUvByXz7JQu1bXxw13ggWr+aMrJB46x/8v3XWpGACwXzCP71RuSDGm7Kv70CkKV+ofr+xMEGkVhaj4n81coxw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kJKJTM+DBRt4VO/dDAHjzHWRvBNsj8rm/Hq2UcUf2EJiNZmTEN
+	SQPP5TEiz2OPhVYNtqs5lfzQAZgfcEzCUO5wQkM9H+/vR/hXfWv2+Z+G
+X-Gm-Gg: AYBFou35K7UoFEgBxuArDUAu0OodjXoHcsr9fpk/tlvfsMHE8jylhaE20LOzWO02Co4
+	LNyCgtOUaZEp6SOAGtOkC/hB4lk5v9Bmj3tuzNFeqq0EOWGs+xbxOlfjPQgx5Yga6O1LJ2HR93L
+	KLQn7ck8M5yJ9WPl32O5NqBlfdkINO6jI0wxmhQBoYTpTMSE+jqqGm9ssMow/tshTPc+RyqGGiY
+	r7eSsXGBuUK3YtBcQAtc5qZ12wNg923KP1U3bBJ7M6KLnh7LwcC85tFr9v0e/hM3UL8ZgTc01kn
+	QdUS3aUPTQHXICNQ2S+OGQ8/6tldQ1E5MXFb98Z+hR0Youq3db0pxQeQhNp+LLWlfPg4B7343Mn
+	x+xENoa+zKGb4E+OBHk1QF1ysuUcMpTJtesdsb3gB4TiNq9R5KvbuLsFiqjsA1P1pFhXnvbiD++
+	8d2pmay3HhUuzZKxka3ChHcMsNwMgVnm6DCRi6sd53/fABm1im4yC9b4bDZLlYaHEFl72+Q19y
+X-Received: by 2002:a05:600c:3e06:b0:49c:fc6c:be1b with SMTP id 5b1f17b1804b1-49cfc6cc0e9mr176101505e9.33.1788779878713;
+        Mon, 07 Sep 2026 04:17:58 -0700 (PDT)
+Received: from [172.24.138.145] ([137.71.226.102])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7736132sm296957105e9.12.2026.09.07.04.17.56
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 04:17:59 -0700 (PDT)
+        Mon, 07 Sep 2026 04:17:58 -0700 (PDT)
+Message-ID: <4056ce28-cbf6-46cc-8bcf-a3db35410275@gmail.com>
+Date: Mon, 7 Sep 2026 13:17:55 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 07 Sep 2026 13:16:59 +0200
-Message-Id: <DL91IWM6YXRN.3892K60CVKZ3U@gmail.com>
-Cc: <linux-mmc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-kernel-mentees@lists.linux.dev>, "Ulf Hansson" <ulfh@kernel.org>,
- "Guangshuo Li" <lgs201920130244@gmail.com>, "Runyu Xiao"
- <runyu.xiao@seu.edu.cn>, "Shuah Khan" <skhan@linuxfoundation.org>,
- <syzbot+1ee4f3b9228e35f14677@syzkaller.appspotmail.com>, "Geert
- Uytterhoeven" <geert+renesas@glider.be>
-Subject: Re: [PATCH] mmc: vub300: fix sleeping function call from invalid
- context in vub300_inactivity_timer_expired
-From: "Jakov Novak" <jakovnovak30@gmail.com>
-To: "Tetsuo Handa" <penguin-kernel@I-love.SAKURA.ne.jp>, "Johan Hovold"
- <johan@kernel.org>, "Jakov Novak" <jakovnovak30@gmail.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260816153809.7067-1-jakovnovak30@gmail.com>
- <aoLCr8JEYaYxcJcQ@hovoldconsulting.com>
- <61c4cee5-3c63-4b09-abbf-bf945b538403@I-love.SAKURA.ne.jp>
-In-Reply-To: <61c4cee5-3c63-4b09-abbf-bf945b538403@I-love.SAKURA.ne.jp>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 05/17] iio: adc: Add AD7768 and AD7768-4 core support
+To: Andy Shevchenko <andriy.shevchenko@intel.com>,
+ Janani Sunil <janani.sunil@analog.com>
+Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Olivier Moysan <olivier.moysan@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Michael Walle <mwalle@kernel.org>,
+ Randy Dunlap <rdunlap@infradead.org>, linux@analog.com,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-doc@vger.kernel.org, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+ <u.kleine-koenig@baylibre.com>
+References: <20260904-ad7768-driver-v6-0-e4378f946bfb@analog.com>
+ <20260904-ad7768-driver-v6-5-e4378f946bfb@analog.com>
+ <ap0lp5THO64olugK@ashevche-desk.local>
+Content-Language: en-US
+From: Janani Sunil <jananisunil.dev@gmail.com>
+In-Reply-To: <ap0lp5THO64olugK@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-> syzbot has an AI-generated patch at
-> https://lkml.kernel.org/r/49982079-95f4-4e8c-bbbc-bcb127e2f378@mail.kerne=
-l.org .
+
+On 9/6/26 10:34, Andy Shevchenko wrote:
+> On Fri, Sep 04, 2026 at 04:14:57PM +0200, Janani Sunil wrote:
+>> Add core support for the AD7768 and AD7768-4 simultaneous sampling ADCs.
+>> Configure supplies, clock and reset, use a custom regmap bus for the SPI
+>> protocol, and parse the enabled channels and input buffer settings from
+>> devicetree.
+>>
+>> Connect the converter to an IIO backend for buffered capture with CRC,
+>> provide a fixed safe wideband sampling configuration and add runtime
+>> power management.
+> ...
 >
-> Please check.
-I checked the AI-generated patch and it just uses the deadworkqueue in a
-new function. That is the same thing I am doing except that I'm using
-the vub300_queue_dead_work function instead of writing some new code
-that does the same thing.
+>> +	/*
+>> +	 * DCLK(min) is ODR * channels per DOUTx * 32. With fast mode
+>> +	 * (fMOD = MCLK / 4) and x64 decimation, this gives:
+>> +	 * MCLK / DCLK = 8 * data lines / channels.
+>> +	 */
+>> +	dclk_div = 8 * st->datalines / st->chip_info->num_channels;
+>> +	dclk_div_reg = AD7768_INTERFACE_CFG_DCLK_DIV(dclk_div);
+> So, this one is (4 - ffs(dclk_div)). If num_channels == 1, this will always give 0.
+> If num_channels == 2, this might give 0, 8, ... Since ffs(0) implementation is defined
+> to return 0, this will return... 0! So, tell me how this code may return
+> anything than 0?
 
-The real question is whether mmc_free_host should be allowed to invoke
-the sleep function or not. Geert needs to elaborate on that since he
-added this change in 1036f69e2513 ("mmc: core: Cancel
-delayed work before releasing host").
+The st->chip_info->num_channels is fixed at either 8 (AD7768) or 4 (AD7768-4) and not the number of channels described in the firmware. The supported dataline configurations produce dclk_div of 1, 2 or 8 and register values of 3, 2 or 0.
+However, I agree that using the ffs() obscures this mapping, so I will replace it with an explicit switch over the supported divider values.
+
+Regards,
+Jan
+
