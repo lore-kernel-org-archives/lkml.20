@@ -1,123 +1,64 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 805C9448391;
-	Mon,  7 Sep 2026 09:03:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D82A392C32
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:03:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788771788; cv=none; b=EZtwsB5HU8Ke9NwuCai5Z6mFjncvTWfPNEehIWk97pHMMjmGbg9cai7Rofn8QVqii2qXPB1ecpX1FDzIv/YO2gqiPSAMic0FWx74B+kehagSwAG2SkG1Ci0w+FOLvIfOVT1j/r617pCnPxT97+Jy5ieNru1ZeKEDnr/fIn11qMg=
+	t=1788771838; cv=none; b=MMPa6ndr5/l6oJ56Vu19cFsUQJHNndpoZ1yVSV/XW2b5bI2NRYvdqd+BBcOEcVGoPs/vUGcNP6A7mVVRxW94nidDbbcFdtWQ/2Ri3GlzDpjKQhLolSjL4vWQfheBFGS7zobGEnFJBis4AttFrKW7LrCHpiByuBekmijUGc1b6s4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788771788; c=relaxed/simple;
-	bh=98wbZBa0cueKeX7rxI7zVGJ1KZaQ56QTJZuCcR8ZZK0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uppL4vg6luw33Iy8gQLjvEtKjsio0ErzBUFkHY1w2NuGyYK47UzOOXlHgTOmcb+z8E2YDxrsA++kRAoKlDRzlpAOcwMixHpEV9yxO/4GngokIaYErssmoAwPEW75N4znkTqbTGFqF6azWFltoJt/FDVwNCtq+vDHNGWYlytE2F8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cpRh0mK8; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cpRh0mK8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788771786; x=1820307786;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=98wbZBa0cueKeX7rxI7zVGJ1KZaQ56QTJZuCcR8ZZK0=;
-  b=cpRh0mK8nMyWAaKhqzZCPMAhqqkIsmsavaMTb+f02inATkbNCWC3hLXh
-   qJeop1veKgXsgxiBj1agt8NDcBFNlff3eU7Kj6t3JAgBe8miKXwqMNuVZ
-   dYT5gKFGo+Kp71QPFgX3iNYleIqZcq1YSJkiIHiT5kF6f1DD+zKSNEFRK
-   Z62aGMnQ73mYcwStT86JmFLLbt5J62lQkDK7Ay4TucLnvBybrNTwjqLb6
-   qxgvdGDK7yJV5UnkQjem6+BRGdP1h9eMwG6+LVEy1ssXizsZp2Iow/50g
-   f+f0Xv0kavMD0Ee/rxyHh3GPNsnsJ78UA+IqzxZyZfwmKnw3Mich1Jvb7
-   Q==;
-X-CSE-ConnectionGUID: tRbtK+7sRJ+qrySJqxkzqg==
-X-CSE-MsgGUID: XtCI4r2UTYeL8fLtHFzZ7A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="92872962"
-X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="92872962"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 02:03:05 -0700
-X-CSE-ConnectionGUID: TVe2MCW+QtG99Mcl8b8VKA==
-X-CSE-MsgGUID: XkAqN48+Q/a/TJ/wvaUqHw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="272588583"
-Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.66])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 02:03:01 -0700
-From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: linux-pci@vger.kernel.org,
-	intel-gfx@lists.freedesktop.org,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Andi Shyti <andi.shyti@linux.intel.com>,
-	Krzysztof Karas <krzysztof.karas@intel.com>,
-	Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
-	Krzysztof Niemiec <krzysztof.niemiec@intel.com>,
-	linux-kernel@vger.kernel.org,
-	Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-Subject: [PATCH v2] PCI: Disable not supported reset methods on DG1 0x4905
-Date: Mon,  7 Sep 2026 10:59:18 +0200
-Message-ID: <20260907090249.1348552-2-janusz.krzysztofik@linux.intel.com>
-X-Mailer: git-send-email 2.54.0
+	s=arc-20240116; t=1788771838; c=relaxed/simple;
+	bh=HdkmwakBT+yKQLFDKMqA4ZThE5+CAO5nZoICqfRp2MA=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=D2YrRrMfuPDel5JBLTgoSUjGF+jQZWL2NAzkhme+FTNmqGxou8DMHqYpPTqAa8352MuCdbUVCOFOshVN5NTquWVPB2S6kk3ttQRDlVAjK4EFaA1YTwyfds/VD2oUzlys4Ijahe7sz4MwnzKeMZKSzWZN5wMc15y5helo6kzXeRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b28d9952a5so4160432b6e.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:03:57 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788771836; x=1789376636;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6ASXXRjkJNDzi40Xr6lmT/1490UVRie/XYZdnqEz5wY=;
+        b=Q0KTJB5uxwWpxtf/dxvYkv/IPxBtpErXTGiELni3DA3nOUH2Ydce0KuWbd9b17vPLq
+         NZywkST47ga8QDH2lJX5zC1c+/Pr/oFfL5OpjBwdtolis0Jt4KeODZaoz5VwOio1KOXl
+         pau5GPxW5CiVEU6zFnyIerpOrFbFLQaMymQk2mfJ1wCqgbLho/7+WdM0+4UOEpds9OIz
+         HWt9mySNMiKmYgqK6vuA3s2wGdN7+GiZFhRVHNM4JF4MOJYEDmEAQFYYjO1am1AAmcPn
+         e8IfJBjAacpEfkDIRRf9MJdMdr4t+RSeGRf1Fzivf7XHgOJZ0ywhoK1QeZVWBXyPFNU+
+         MlhA==
+X-Gm-Message-State: AFuF++kFwA+bVVCElvYh9UBOUV1zMvwiUe6RuDmRsqtHV+FXkvnVqrNT
+	m/Xd/qy/7da2ueVVYSx88j1c/nJKrduT3cg87P13L6b2eISjQLLAV/AN1lLq7MorcE/cO6r6FDl
+	LSAzayVCYGpxCPFe5w7yDKyqYsrnsPCJkC3sh/h2Z/NImWEyHwR1/kXfvUYU=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:8606:b0:4bc:fbd4:2a43 with SMTP id
+ 5614622812f47-4bcfbd467c3mr2164646b6e.41.1788771836551; Mon, 07 Sep 2026
+ 02:03:56 -0700 (PDT)
+Date: Mon, 07 Sep 2026 02:03:56 -0700
+In-Reply-To: <6a88012e.dbb3a75c.13dd47.0007.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9e7dfc.a6639fcc.23b8b0.0012.GAE@google.com>
+Subject: Forwarded: 
+From: syzbot <syzbot+1a01783ea233350598b5@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-DRM CI consistently reports failing device reset attempts on Intel DG1
-discrete graphics adapters.  Manual reproduction attempts allowed to
-narrow down the scope of that problem to a specific revision of that
-hardware, SKU 8086:4905.  It has been confirmed that both reset methods
-claimed by the device, i.e., flr and bus, suffer from that issue.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Since consecutively failing device resets may lead to system hangs,
-disable both useless reset methods.  A respective CI test will then be
-skipped instead of aborting whole CI jobs.
+***
 
-Suggested-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/11814
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
-Reviewed-by: Krzysztof Karas <krzysztof.karas@intel.com>
-Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
----
-v2: Fix commit description wording (Andi)
-  - add Suggested-by: tag missing from v1,
-  - add collected Reviewed-by: tags.
+Subject: 
+Author: nogikh@google.com
 
- drivers/pci/quirks.c | 5 +++++
- 1 file changed, 5 insertions(+)
+See the discussion at
+https://lore.kernel.org/all/6a88012e.dbb3a75c.13dd47.0007.GAE@google.com/T/
 
-diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index de9bbccda21fd..e55475374c6fd 100644
---- a/drivers/pci/quirks.c
-+++ b/drivers/pci/quirks.c
-@@ -3811,6 +3811,9 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_TI, 0xb005, quirk_no_bus_reset);
-  */
- DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_ASMEDIA, 0x1164, quirk_no_bus_reset);
- 
-+/* Intel DG1 0x4905 may not recover from bus reset */
-+DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x4905, quirk_no_bus_reset);
-+
- static void quirk_no_pm_reset(struct pci_dev *dev)
- {
- 	/*
-@@ -5597,6 +5600,7 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x443, quirk_intel_qat_vf_cap);
-  * AMD Neural Processing Unit 0x1502 0x17f0
-  * Intel 82579LM Gigabit Ethernet Controller 0x1502
-  * Intel 82579V Gigabit Ethernet Controller 0x1503
-+ * Intel DG1 Discrete Graphics Adapter 0x4905
-  * Mediatek MT7922 802.11ax PCI Express Wireless Network Adapter
-  * Mediatek MT7925 802.11be PCI Express Wireless Network Adapter
-  */
-@@ -5612,6 +5616,7 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x1502, quirk_no_flr);
- DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x17f0, quirk_no_flr);
- DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1502, quirk_no_flr);
- DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1503, quirk_no_flr);
-+DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x4905, quirk_no_flr);
- DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_MEDIATEK, 0x0616, quirk_no_flr);
- DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_MEDIATEK, 0x7925, quirk_no_flr);
- 
--- 
-2.54.0
-
+#syz invalid
