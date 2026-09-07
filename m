@@ -1,128 +1,157 @@
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010061.outbound.protection.outlook.com [52.101.193.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8FC151121A
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:05:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788797158; cv=none; b=C2zQQIQiJEmA04MEYjPnZVcbkwyIDeHHMvSgiaF6fL0ZdOSWQzK55pr3JCgLR5ziUUgpORI7+KVbSY7tnb6QHqrfPe4qwrPA8lLTrp2XJr14sbYJmhr5N1YZaKKt0OiCYUwHoXKx/3lRbRlsC4Xwl9qFou0UeM1kTJqAaqJSdSg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788797158; c=relaxed/simple;
-	bh=hU7eRYQ2L+6W3KSv4c0PzkTILRIgPmu556oNrVZACTE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AkYcQ83442REmFjR4aXDb9k+EA21ar4kXDcXipYFo8aQzsiz5bwvild9LrzKI4Auk6KiAA0XAxBCahGofbRWvxSg27TckMOoYFd6VLPy22lNrEf5t7ZjkTGBakVmISxNHt8GGCH2qFl+J6K+dJfBX0k7Bfg3SsUumJYZkEnUiRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5c67175d176so1644562e0c.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 09:05:55 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788797154; x=1789401954;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=9kwN9YV2UIWR9vTDW/+7DxPdDKrz03iqFaixNrlJ+1U=;
-        b=SqAl2PnMruc09B1opGS7i/vQL8s0UsdXmFnObv4McgczEaXIuwI6u0WXgBMByYvOdj
-         RQbVr7JpBF52sXIalDjz7frmAbnre3/0/X3v3H9mjODUVswdEJMU/XPJgddV1gHO5Zpr
-         I3QY53nKj3fqB6SpfOPH0ZazQEXQUThPu5YVRJwnluTu6tror9uIy+BTYeNLQvkR3flr
-         iXMZHa8+IAtQI8DfFwuCArwdFYKLYW/sHt87Drm8wLLojhlspKHW6TlbqD9WYQdZpg9J
-         VmbIdgBy4FMb0hRDrmYpMKskOYs1L7E9iUH54APfWcj9NClAJ08WAflcH+RQWNIuST/4
-         +9Qw==
-X-Forwarded-Encrypted: i=1; AKwUvBzyMS8LeqdgAX5PYVZrAq7FDr7gbMIdJifb9kPQCmi/Wpr8eL2bSWEIGD2Nio9hpQ7OCfZXjTmiQLqQ8VQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kx5DOPPxGOT53eOedpeRaLfu2q7LcHf9l5AoI7iBsU+gjN1tEn
-	UpGUoJcBBJOnNj7k/q/B9srotB9gBV+MF2oG21+BSn7scYAj/zkpwOyKWE/c/16i
-X-Gm-Gg: AYBFou3QG7F4+AS9xL9LZCzRyOJlzQZhKcj3TtgmEDMXOsh0vS+WE2EfvlSm+vTTRhM
-	APWPQ3jgogNZmgA4wMW9iwlIbKE81ctDJJzqm9irhM927eqGvQjTmyhgiAVnU9MjrisPJtpfGJb
-	yl8LZAMqboReCPeE0STgP9mNYvlE3AaiMY1g1DImcsOCu8Vy9iOot1mL7sNGGm+3XxKd2c7LPo6
-	l9NCqw6TM4jDH9cxIItUIwdMD9/zD/Qvs9BlWz8qIV/1lSQ4nTskN+FfKVyrDuFTMVP8Nw2DPIv
-	S7IRV8TcC5MKZy6JbaTmR8ODH3tC7HHoGz8oH5pFu6qF/pWvIC8eVvFoeUCgNdbhOUGxzZi3jz5
-	v/oWIBhrLU6V4FJFYIWTplNnD9eh40tVjSVE+YoU1rDjm0E5ITBZa0aHdzN5NHIm09m4tZOT5fW
-	YlhEvI3x9TmuEBiwoo4zC27oHk2EBK4j1XqfsRWPFitqlP9kqx4sKR3dGPzbqHFLdjeiGZu1L+f
-	Cy9EfLb8nMDrmzukNIOQ/OL3r2ZpA==
-X-Received: by 2002:a05:6122:179b:b0:5c7:b165:7057 with SMTP id 71dfb90a1353d-5c7ed3cf5eamr10584511e0c.5.1788797153825;
-        Mon, 07 Sep 2026 09:05:53 -0700 (PDT)
-Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com. [209.85.221.176])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9808ee8039csm7688440241.11.2026.09.07.09.05.52
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 09:05:52 -0700 (PDT)
-Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-5c675de8e1dso1675438e0c.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 09:05:52 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzsAQHtkdJKtaR/JH4VURMJseUzpU4khFjk0LJ1GYeB2o/YB+bss075ud1fAUL7Hol49rcJjppIg2bDuh8=@vger.kernel.org
-X-Received: by 2002:a05:6123:67:b0:5bf:b500:c4f4 with SMTP id
- 71dfb90a1353d-5c7ed285aefmr10980239e0c.2.1788797151556; Mon, 07 Sep 2026
- 09:05:51 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B15DF503BC9;
+	Mon,  7 Sep 2026 16:06:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.61
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788797220; cv=fail; b=hzRtrsf5k7F9O2iDAEfGCF9KgmWAifkD33aKT5TS7NWR80dG2ShjJM5MSKlfPmtSoxg0mL+mXBvZvQMzwwUINMKMI/8Ea5gg9JfG0oVKj2i0EzphxHGJqCRf3YisBVlNJl5p8uyKs6fYta5eGM/tn0IL2P0AI/pWpCFU6DnjlBw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788797220; c=relaxed/simple;
+	bh=5bh0s62d0+iip/MykvoGSDVLP9hzrKMTg5UkOZz38IA=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PUYwcQsdEb48aw2CAkqKIJNTWE9VfV260wewPZR85+zmP6kJZ7qZ/UoaxPGswoUEqtjtk48lTQQCtvHYZmmsp5g3IPG++gvqtHyzevSExRFNjj3qgxDIVPWwDb6Z42iaF0e1UX+QDpllitch8HzmxgWoWjzz/QWLym+eIz9Y2rM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=F2mW2V1l; arc=fail smtp.client-ip=52.101.193.61
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="F2mW2V1l"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Py/PRVVjC02DR9Zw1W7EU/k7hub1zPsEvyxdxy5PjSri4IpZca4Lb+bKqN+zuZT/2kaSJ3D9ucOJWZSlltJDFHTkcU6elopyeHaQCL9m4/J0Mwly5u/cN2PbyLy1WNIERfLgO+l+FeuwQFfnVaJOhGmN+fFPW+qzM9jDku+I2SZ3Ade7BdKJTuhQFnZFPuJD1JHWbDHzFa4gZkA0cxRvO8zcFqAeExzO89wVLyj9/iUbT9EW5SaEak/NTJKA8jPqwJHWvaPA6qJQwNSTUL7J9vmtCCmINgK52mzw85y4+QCCxUzqO6W72TSnaT0N8fR1GSuCGZ/hEB45F1ERkYi33Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VvRENxPFMuo44ZLq8DOq3H9/A0pmOFvLSXWBuBbNTwo=;
+ b=AIb3veGfHR551080FOAzf7avqVOvOwf20KTffyPnpF943WxwagsFaMLJpMWPvgVgx3vGqJoIQCJwiRIAwkjnjrH93+XvxW6r6XCt5dDs5wUyllxiz0YIoCQrqCZ3oTD/7tuwVZ4aDi4cyjKLqcRkQm8lTaRkQuKK+ehduP0W6bbbAmlevOohJfL3AyyttARtT2ocCab2mAdXimXk0iuyO0l+tyxbJygkw/K8lpIUtUz7eJYbvrbMGoCowYhLKEDGB1/IJjTue+Ct8oPYLX4kHg4HvCFrfVSHFKIRagfC5T8jQ29gk0FiExRYkdwqErjhlDi7mWXL8JIyH88YOjaHhw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VvRENxPFMuo44ZLq8DOq3H9/A0pmOFvLSXWBuBbNTwo=;
+ b=F2mW2V1l2czkjizUMmS/W3aOD3sBzYT5iXRcLfUKZiXIOH0ci0tOOWvQFNb5hRse5AyIWvay7CsBCO7xyMBQI7iFxax0pabMrgV1zIBGQKcxMEt4K6QZV4wnSfafjRf0UCKO3BugPOUKH7FTwkIS5SzuxQucKdRTg0wC+tzNq7Q=
+Received: from SJ0PR13CA0067.namprd13.prod.outlook.com (2603:10b6:a03:2c4::12)
+ by IA0PPF170E97DF1.namprd12.prod.outlook.com (2603:10b6:20f:fc04::bc9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
+ 2026 16:06:47 +0000
+Received: from SJ1PEPF00002321.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c4:cafe::38) by SJ0PR13CA0067.outlook.office365.com
+ (2603:10b6:a03:2c4::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.6 via Frontend Transport; Mon, 7
+ Sep 2026 16:06:47 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF00002321.mail.protection.outlook.com (10.167.242.91) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Mon, 7 Sep 2026 16:06:47 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 7 Sep
+ 2026 11:06:46 -0500
+Received: from sriov-SYS-7048GR-TR.xilinx.com (10.180.168.240) by
+ satlexmb09.amd.com (10.181.42.218) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 7 Sep 2026 11:06:44 -0500
+From: Nikola Prica <nikprica@amd.com>
+To: <bhelgaas@google.com>
+CC: <linux-pci@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<jerry.jiang@amd.com>, <haijun.chang@amd.com>, <andy.zhang@amd.com>,
+	<christian.koenig@amd.com>, <jim.chow@broadcom.com>,
+	<matthew.mcclure@broadcom.com>, Nikola Prica <nikola.prica@amd.com>
+Subject: [PATCH v2] PCI: Accept AtomicOps already enabled by the hypervisor
+Date: Mon, 7 Sep 2026 18:17:01 +0200
+Message-ID: <20260907161701.454364-1-nikprica@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260903121217.23F751F000E9@smtp.kernel.org>
+References: <20260903121217.23F751F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907153711.653861-1-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260907153711.653861-1-marek.vasut+renesas@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 7 Sep 2026 18:05:39 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUxPf41iwq15WSMqWiTgi9XM3CXJeH_-e+FS0T3kDMz3Q@mail.gmail.com>
-X-Gm-Features: AcwNN1Wm8DHsL2a0zy-uAEM1hkCTVJZKfNb68aES8fX2T4VBPEpycd5vofPPqGA
-Message-ID: <CAMuHMdUxPf41iwq15WSMqWiTgi9XM3CXJeH_-e+FS0T3kDMz3Q@mail.gmail.com>
-Subject: Re: [PATCH v2] PCI: rcar-gen4: Add missing PM ops
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-pci@vger.kernel.org, 
-	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Koichiro Den <den@valinux.co.jp>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb09.amd.com
+ (10.181.42.218)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002321:EE_|IA0PPF170E97DF1:EE_
+X-MS-Office365-Filtering-Correlation-Id: 47f584af-eea6-4aa5-e0a3-08df0cfa04e8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|10067099003|6133799003|56012099006|5023799004|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	5oSeYonK8fqHfnx9dWWaO/opUFsHAGpfOEO3sm8f5oxhVyHrIJcAsMyncmo5g7kNaAdvmN/Hottsku0FW1I1RD+ngPA6QMj+cQroy9+wY/5uxHgAW5XIzy1AgM+nfXYu7bhkgY+p+cL8G/L28laNCjpfxPcnJJbnI8wPV1EzXaQpFkFK2UFb0ZiXwO6agMSWhGQTjbWylN4BNmyIxX/xvvA1kwtaa7Vxe3WTr17UWhRvNfvGtm6LGkxW4+dpIIZDDt4rNy2rmQ7MMcaXLqC2tRmNwQJsmAHPqz9+HOcRz4BFNnE6r/H1fdJOVInBXGmr8BzxyutOapp/mkT6XN0RxPN7euVxGTs0rqKieyYVOjwyaWi0Lw1HjC2HbWQMUkLXHmNkEq5KU/YUuHycI4OsIj6gn2AG/FdZ7TCgX8+Yf8cd7ePTeMs+qk90qF4OsD/9+Y/Xpf7rfkDGN+gifyouagrf2clOu+p23ed6zd7qkf0sgv2UV2mtuhw5g8Jll3AeGEEsAqZywGpHEQdCMobFIHmYvDfSuq/vHejEOluGlbOIpYpCNW8OGjP2cidgPrKzTfkcQj+dTsItilTd5F0q5KFDtKfjorXyl00IhAmxmLqrYh0pGvr2UFDlwAwWWE20Qxn26Vz6D0gt6vrgwYXJolUlVTifyUgaJiZdSu9lFg32wM7BUHHitkcl4CZ/xPbVBzNWYTBDoEJixKB67+LfDQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(10067099003)(6133799003)(56012099006)(5023799004)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	y7bcK8PmPws5dIK1k291oPnltcvMnoWUvb92Q4ARVnwApCDvUc8okZeeBYQDhQu9W2CIdTV5Gu0uWNiND1xuYO0An9QoUnuI+jpL7TrQM81xr1hlhcVDD/c3WTZztSs90ANzPeG9iYVJ8C4KriPYl3cBNwduwLrtqdqypOEEOKOYs3bjMKE3rCbD1ojpl6nso0EcVGr+/Mtd0TsjhEqPzN14KSIVTVJel7lkCW/A6VcWGihuhEpxuee/P3Qsni8dQuPRVDx1QBpiIYHirArinM0VxlIkX+1b2JWLrIYwSKeNhemtOR91EOm8yzEWSOXdAGwxmsReDziEJR520Wi42qQs6n3mT0JVyxR6Sp+qGd/LzdEKZzf+SJHhdWbk536JbhOjD1pkTNWzrQiwOl9womN3CMCVbFM08lr6dibm/iFIgVFAqIVx1G76zCwqBVXa
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 16:06:47.3000
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 47f584af-eea6-4aa5-e0a3-08df0cfa04e8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00002321.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF170E97DF1
 
-On Mon, 7 Sept 2026 at 17:37, Marek Vasut
-<marek.vasut+renesas@mailbox.org> wrote:
-> The R-Car Gen4 PCIe controller is part of a power domain. On R-Car S4
-> and V4H, this is an always-on power domain which is not shut down in
-> suspend. On R-Car V4M, this is a dedicated A2PCIPHY power domain,
-> which is shut down during suspend, and the controller loses state,
-> which prevents the PCIe from working after resume.
->
-> Fix this by adding generic suspend/resume noirq ops for the controller,
-> which tear the link down on suspend, and restart it on resume. Use the
-> same PM ops on all of R-Car Gen4 to gracefully suspend and resume the
-> PCIe link on V4H and S4 too.
->
-> Test case which demonstrates the problem on R-Car V4M:
-> "
-> $ hexdump -vC /sys/bus/pci/devices/0000:00:00.0/config > /tmp/pre
-> $ echo s2idle > /sys/power/mem_sleep
-> $ echo platform > /sys/power/pm_test
-> $ echo mem > /sys/power/state
-> $ hexdump -vC /sys/bus/pci/devices/0000:00:00.0/config > /tmp/post
-> $ diff -Naru /tmp/pre /tmp/post
-> ...
-> -00000000  12 19 32 00 07 05 10 00  00 00 04 06 00 00 01 00
-> +00000000  12 19 32 00 07 05 10 00  00 00 00 ff 00 00 80 00
->                                           ^^^^^
->                                     Class 0604->00ff
-> "
->
-> Fixes: 0d0c551011df ("PCI: rcar-gen4: Add R-Car Gen4 PCIe controller support for host mode")
-> Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> Reported-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> ---
-> V2: - Add TB from Geert for RC mode
->     - Use pm_sleep_ptr()
->     - Call HOST suspend/resume ops only in case the controller is in RC mode
+From: Nikola Prica <nikola.prica@amd.com>
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+pci_enable_atomic_ops_to_root() currently fails when no root port is
+visible. That is common in passthrough guests (ESXi, Hyper-V): the
+endpoint is assigned to the VM, but the guest topology has no root
+port above it.
 
-Gr{oetje,eeting}s,
+In those setups the hypervisor may already have enabled AtomicOp
+requester enable on the device. If PCI_EXP_DEVCTL2_ATOMIC_REQ is set,
+treat AtomicOps as already enabled and return success instead of
+failing the Root Port walk.
 
-                        Geert
+Signed-off-by: Nikola Prica <nikola.prica@amd.com>
+---
+Changes in v2:
+- Be more strict and only apply logic in headless device case.
 
+ drivers/pci/pci.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index b2879a6be5f8..62729ade496f 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -3769,8 +3769,18 @@ int pci_enable_atomic_ops_to_root(struct pci_dev *dev, u32 cap_mask)
+ 	}
+ 
+ 	root = pcie_find_root_port(dev);
+-	if (!root)
++	if (!root) {
++		/*
++		 * A hypervisor may expose a headless topology with no
++		 * visible root port.  If it has already set AtomicOp
++		 * Requester Enable, there is nothing more to do.
++		 */
++		pcie_capability_read_dword(dev, PCI_EXP_DEVCTL2, &ctl2);
++		if (ctl2 & PCI_EXP_DEVCTL2_ATOMIC_REQ)
++			return 0;
++
+ 		return -EINVAL;
++	}
+ 
+ 	pcie_capability_read_dword(root, PCI_EXP_DEVCAP2, &cap);
+ 	if ((cap & cap_mask) != cap_mask)
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.34.1
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
