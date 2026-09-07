@@ -1,97 +1,165 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B133C4AD4AB;
-	Mon,  7 Sep 2026 13:39:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B60594949FA
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:39:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788788343; cv=none; b=jD7HsxZ7GUO7LZjRANOdzSESICQ2JiTcZ1b+DwtFiUN+ijTM+ovKfrbQOezdXx75+AQ0DVXnDS6sIOrc3RkBuHm1AIFLSRehm7sAmDsTV+Wcf+jlVrqSZvV75fjOmWlOXGCQ3dEElJqEaGj/1oaHsHsjkiVjN/psY59kHXcboTU=
+	t=1788788363; cv=none; b=mwWGd5cEO2PxdMahsI5mTqFG4VdLJXwS1ntfqhivEJw7L/nzQX/myk6m3nyRJ/rCR6t3eNTA21LD6b6+hhvDMOVBfxAHJ6yd0kUPtTdP8Y0e4camtfoUJ7Zvnmz9WHDnSlXpQ2dZpp0zDNia3lw3AZ3yPgJhj0L9hZyMND8WvaY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788788343; c=relaxed/simple;
-	bh=LEke2EPs1nd9N9Nxynh/mJMqpAdvs9NuQ3mp5kWf9VE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=e2Vv50JFZeg/+ojXFUuZKFIh/BOnfc2mpvdqmIDgTQlaCxENx7A2ICUQeFxB+blb6hpXgDTca+SMpLD/d+QTFXBmGdIxEO8L95WecD4dsfyTi/Tn2o4ZHKR/+XbHjp6R6dtG50hmTCd8XUGYo3KRdYSyQlDSsDeQgaJ8ezziORw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=awq3sdmG; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788788363; c=relaxed/simple;
+	bh=LuoUpMNshQ5t5idHuLjWLOPZmBgbq2ucZ5M7HsXdSsE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mq0u507sbtpkmR/TlLzKad/3UvaQRXaPn2Ii436H56R+vWH4d7end59Oegr6kZkM+eujqEU2xR9STgn2i/+bRFiAwoUqdm//1LYDE2aQXynpjoaVn9Zh10agtK/FamIpHTtDKE9HT2ZmAkc0WwbMC3SH4DNAuDRQCUhi7+6B1gs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DcMxJJhQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jUqHCYk7; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="awq3sdmG"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hdp7b1WKhz8spW;
-	Mon, 07 Sep 2026 15:38:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788788331; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LEke2EPs1nd9N9Nxynh/mJMqpAdvs9NuQ3mp5kWf9VE=;
-	b=awq3sdmGdjFFqitT1UNk0BqAkA+qyYbZbf+Z8qOSG+02uqNin7wCy1iX7rIox2uPTiDHBW
-	z9Kd87A6zfshdOdlfvQSIYQehqxImBRY4BYmtiGvfNpPe0n75i2kROIYNYUNSpbUulBLku
-	z49T8v1G/phTGJWX1WFSTYBfxPrgyDKlOMBlCqUQi7CvwW9JbYqV49dspnd5c3LxDWVi+f
-	g1Po48j9W4F+PssuMZIQIsSd8+NNLEOBKPQ+sWyNXItU8BOsgEPwMALYdSZSFr3pK6huI/
-	MBDtNxHEVIebcAsn6hW2TKC0uyGxdW6v/iM1kmdgoA9mzgUTGrhSzosCSrDiFA==
-Message-ID: <299ef4389875fe1333bb934edcece3bee5c5526b.camel@mailbox.org>
-Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
- use-after-free
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
-	phasta@kernel.org, Tvrtko Ursulin <tursulin@ursulin.net>, "Jonghyuk
- Kim(MalHyuk)" <malhyuk97@gmail.com>, matthew.brost@intel.com,
- dakr@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
- 	stable@vger.kernel.org
-Date: Mon, 07 Sep 2026 15:38:46 +0200
-In-Reply-To: <fa12360b-2ccf-41c4-a158-84e34835c0e9@amd.com>
-References: <20260904080618.2098450-1-malhyuk97@gmail.com>
-	 <20260904080618.2098450-2-malhyuk97@gmail.com>
-	 <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
-	 <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
-	 <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
-	 <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
-	 <81e51d72-d608-46d0-a986-390ecd6f468a@ursulin.net>
-	 <d3d2ae0ae55fb07780f643de9517f3668484575a.camel@mailbox.org>
-	 <47464619-890d-484f-986b-9a6c06cd89b0@ursulin.net>
-	 <c3434f0a80318390d183a3a2f8f8fb3ae71c9906.camel@mailbox.org>
-	 <2aa58eb8-a33f-45b9-8ee0-518d72160f41@ursulin.net>
-	 <206df2dad0c68b8c25862c74c0a8399940044af2.camel@mailbox.org>
-	 <fa12360b-2ccf-41c4-a158-84e34835c0e9@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DcMxJJhQ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jUqHCYk7"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687DdKai376668
+	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 13:39:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Imd8sMtl7PDNNp8Q9khBRYLBDX+X8v274yOTSj2qwzc=; b=DcMxJJhQghvdxWJi
+	Tk+FWZE67WMGXYylw5stS+Yt6WvgpXD1v9e/5yP0Q3GEDupUy3TjWkK86Y6gJR7u
+	XYgkEkT63u/sqmHyp0ju/wzf0x1qx+DOv6La8QzlyOfRiSYc2N+j6kcgyOl1jgFT
+	vHAkGJnSEviXjPWfSum+PBHah2REvWgKr5eSWrAR5YyOrLJjSycmjeaJdS6DLADY
+	QgfdOskRmAIw4DSAcYJhN/WeEjZ41otAoUwVyWBVBUvonzITcziEjG+qVi9NntBx
+	1htNsmCZGyHKClaEg3IAW0M4w53HrEDGeHtYxb3cTiIbN47636msAM/at6koH+Uk
+	BWnl7Q==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghssg17uh-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 13:39:20 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-399311947f6so6096960a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:39:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788788359; x=1789393159; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Imd8sMtl7PDNNp8Q9khBRYLBDX+X8v274yOTSj2qwzc=;
+        b=jUqHCYk7LB58iIfT0ZBT1j8rofwQA9K+zgN21+2uJZ0UdqZ/kRsyVg8PL6/XNqL/hp
+         XlrvB08FGrP6sptVfnKhYALTTljJe1QHAeaZWcokKOrQ+c9JJyyBY3vzq+uPboTAJwIJ
+         kMnjUDqbal+fzp6dPfqPB3/tIrYgp9RlyqY9Wwn/5kWYU8c6F/zUvtzAKGIgmWEtIkF4
+         lMZZT0LyjDGu+tu4RCBN1x+ufRGqnUjnOkjLQPtzHQWp3hZ3lfPfBykMXcXBeB/6i1mX
+         Isho7+lgwM7F3yePOnRxHi0iE8DgiEEAXFea7oWTkDKQ5oEKmFgYq2yPOylEiZi4wiXF
+         65jQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788788359; x=1789393159;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Imd8sMtl7PDNNp8Q9khBRYLBDX+X8v274yOTSj2qwzc=;
+        b=HVtIDbxp/fJzVJIb4Dq4pd+3CTuY/6s8zidQSktkx7QJ9nYHW6BAGrAJcZpCObS881
+         u6Dnj7FImGq6ZaIrYm1FTVra6Q+vZHS5XShT+DfXrdQXcbronl3ClNifYMAQsjXnf8ZX
+         Lt7Yw/s37j21hoy60uvcK7OIgbm0dDL0zJyIcDf+JJ4mIfW2BX9IAql11Dv4XPQ4BhT1
+         cKCcB6V8rMYk4A+PhuyTWm4vga6bahuiuZZ/OW9t7n3yAyGK1yNvnp5K58UDolwVlHfc
+         kzOgDOscqBJvjMhYWb3fDmgzifSuU1v+bflCwvoZDhMRXcn5BixdEYE9qCdqOkLMYd4U
+         bEUg==
+X-Forwarded-Encrypted: i=1; AKwUvBxJxpwTm9NiyQEwAbpOob2L8zrXP30NVjJqJWGg/gWrSgMN0vR1RanDVzjh1pJlKTLlc3y+zVCg2cHlNIE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nwEGv0a2y8CACX+16DOdY3iCvVhGZHrIkvwuJR5QVY/Gu1VskR
+	kvl/LioqE0gOOgnT4SIxX11pWV3C5viE8uHh7nmL+5i+QJ6N6toF9QG6exJrCu80ghFK3NK7O2H
+	aK8CIEntwYolbWcs+xy6RbpDpMWsF5Sy9p2mIKGLzzhXG7Nj+DHVBJTp5EbB44Zj40fE=
+X-Gm-Gg: AYBFou3HLnKFPwYD/h9MgJN5IvsjOZjvxaWi0+T84Q9TLDnY9t9nPRH5wW2Qe+2hPYy
+	zbWivudQ4iHeAUOAM4ozNHIRaQmUQYdlCJQdOd7LM81DJ+Zoc6WUoqzD3mEIbSDLL8I+sxETt/w
+	RbrUBteM2ndEiXxnGf123sp3NrkcXc+0kWqbMDxZ6eSswuAyURXyqQezwoAo60sNoAAgXKrHWwW
+	bfOOHECzCoz99ZAgsgOIhykh7SbBKFYOSIcwlFvGW8mXSeaKq/Q1VGj6t0FNd7WC9thWhOMk7gR
+	lOc8bp2jSZlYLXhrF0HDSvfSmmW3SsvOCEv4agqA0/qg1CWV2KXbY1CuR+VLdfPweapUwAtl56i
+	OJh1Sdu0esWShIfBuIzyDQIL08KPqtFk=
+X-Received: by 2002:a17:90b:5790:b0:398:9bd5:4910 with SMTP id 98e67ed59e1d1-39b2624f0ffmr33905915a91.23.1788788359411;
+        Mon, 07 Sep 2026 06:39:19 -0700 (PDT)
+X-Received: by 2002:a17:90b:5790:b0:398:9bd5:4910 with SMTP id 98e67ed59e1d1-39b2624f0ffmr33905857a91.23.1788788358993;
+        Mon, 07 Sep 2026 06:39:18 -0700 (PDT)
+Received: from [192.168.1.12] ([223.230.61.94])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432435648esm32726196c88.5.2026.09.07.06.39.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 06:39:18 -0700 (PDT)
+Message-ID: <841a008a-1ce6-40f9-95ad-09b4abc7456a@oss.qualcomm.com>
+Date: Mon, 7 Sep 2026 19:09:10 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: ipg9bp9sjkftrx9pyqqjiyefy5qzrbq1
-X-MBO-RS-ID: fc4c7d91b475e08ac8a
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/2] arm64: dts: qcom: shikra: Correct QCE node
+ configuration
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+        Herbert Xu <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260907-b4-shikra_crypto_changse-v6-0-0676f61894b3@oss.qualcomm.com>
+ <20260907-b4-shikra_crypto_changse-v6-2-0676f61894b3@oss.qualcomm.com>
+ <iow4xf2uflvjduax55tkbhaw2r4436uqvys22u6pbm3ry2gryw@g777gu46cgin>
+Content-Language: en-US
+From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+In-Reply-To: <iow4xf2uflvjduax55tkbhaw2r4436uqvys22u6pbm3ry2gryw@g777gu46cgin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDE1MSBTYWx0ZWRfX4RdO489NvcLL
+ d9goDS3zMo2f3GBG1KYMObzM4ja+TJGvDcBaEWHlQ4bS6/6ZyH1fEFbomwldWJqEMxY7Zdy9tNt
+ cPisrY3d2qCDalu8u+8z6AJfUzcFQy9Ss/O8R+ssxo8mP47L/qjII+HkgMHUJcsIMsbwEfo8cjQ
+ o1x12ZXMfOPjnzHz5e+EBHaUDyXwvNNEJj3OBlKcbW/3OePQE2E4MMQUl1eLvJeafT7K9Ux8l1Z
+ 4EPiCB//u0IW2bBHZEqY/vYfHcnYT9LLq05KJN3RLcaHW7kqRTf5Q1Y7e8Wi+kXBdvfpT6HBF/U
+ y1ZkV1TxC2tZQNhanXNTTpiZBYXd2+Enk3rsugPoINMu6495Eup3n/TetKcdc5XCx0MaxGLqGMO
+ wwHEUI72eSgxuhudh4ieMPzb1s6mNJseVGLS1L2XrLvNSSJPbgACEfaKhPKeUMH7ULwXdBHldQo
+ r5WMZBJ/bV89fRhWcuw==
+X-Authority-Analysis: v=2.4 cv=MrJiLWae c=1 sm=1 tr=0 ts=6a9ebe88 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=YDt4qybLIboWMMC/SFNjLA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=9GsNmjbEMOpVDnpVqTcA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-ORIG-GUID: hqRjj72NcFOBtjuvgHbfd0nwN4MgSEuL
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDE1MSBTYWx0ZWRfX3XS4W1gdMwt/
+ 7KBnKd+a5n67OqjIz4oABfx4lFG+o2dL8w8OvRwPdROhMAhkrSAu6BzBD8BNEUX0L9Fk80dIY/4
+ utK2rWdAxDfo1c1ZtjEvZB9a0Sm0Iwc=
+X-Proofpoint-GUID: hqRjj72NcFOBtjuvgHbfd0nwN4MgSEuL
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_04,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 malwarescore=0 phishscore=0 clxscore=1015
+ priorityscore=1501 impostorscore=0 suspectscore=0 adultscore=0 bulkscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609070151
 
-On Mon, 2026-09-07 at 14:59 +0200, Christian K=C3=B6nig wrote:
-> I think the memory ordering isn't really a problem.
->=20
-> See if the ops pointer or the signaled bit is loaded first doesn't
-> matter if you check both.
->=20
-> You only need to make sure that the ops pointer is loaded once cause
-> that one is used multiple times, but that is already the case by
-> using rcu_dereference().
+On 07-09-2026 19:01, Abel Vesa wrote:
+> On 26-09-07 17:33:37, Kuldeep Singh wrote:
+>> Shikra is derived from Agatti and uses the same QCE integration.
+>> Update the QCE node to match the underlying hardware implementation by
+>> adjusting the fallback compatible and related properties, including
+>> clocks and clock-names.
+>>
+>> Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+> 
+> No fixes tag ?
 
-That.. sounds correct.
+I was having confusion so didn't add it.
 
-Although I still don't get why we then can't use the signaled state
-everywhere instead of the ops pointer. That would be simpler.
+The parent change is in linux-next branch and not in torvalds tree
+currently.
+Shall i update Fixes tag based on linux-next commit only? or not needed
+at all?
 
+-- 
+Regards
+Kuldeep
 
-Anyways.
-Maybe Jonghyuk can give your patch a test run and then we could use it
-as a hot-fix to backport and discuss the wider future of dma-fence
-separately?
-
-
-P.
