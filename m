@@ -1,138 +1,234 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1A9222A4F1;
-	Mon,  7 Sep 2026 09:22:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7463C43F4BA
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:23:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788772980; cv=none; b=PPhdVZHlVtv0ollLs6IkX/lIUHzfTmMj0L40jLZAOVKA0cCPIq5pQAt+1LHNfQk7H1Bnsl2rUmO7XEjFvAOT7XzAYe0ZX+XNDDFFn0oouda7N0PJH+FB/U4JlVs2y+3lUwp4qsB1HkyATrEbYRvlSyFwrALymuGL9rUesfMRzRA=
+	t=1788772987; cv=none; b=D8ECQcljUYI1V4svrt5Ix0TpoVnxi96eNuqcXwfbNlhvs5EIuriik01/xCrRLJaunz0E4aaqyRJIYwRlVEw2i0YYJQ/19wKZzZpah8oLYluNDAxd44ziKzVEkEkBE0aPL2vpFWWzioa+OuxeZUjz4lUJ+HxbyX/AozDy5BeuOAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788772980; c=relaxed/simple;
-	bh=MKtLa1IhgHKeHKhnsVZh7ZvPJrp/BffwYqom7d9Acg4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LpqNo16/NtQ2YOAlYWNIN4c3IHSfqLeoil33alsZIb8D+/AO7HCsqPpGBYIUFCR3ug7kr2ecu6rO3E4RX4oNO4yjuLSNbEZAI1DYfAvkvNKZU0mQYTKKoYok/3yrjN0zNgYoAG3H4KWp1X+kBvBG18jtMzPZeOEB9ZmoSDP2WxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=IHy8wklt; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=e9Q8Sic5; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=vuT8mqeS; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=q18bsIrO; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1788772987; c=relaxed/simple;
+	bh=O9E5UU7KDMg1prlzm9x6rf/L2j9ojB1u4O+i5dh5pe0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=B91bb1wlc9d4s4dkfLqtFIuGVt6nP3XXY7q5ic5o7hPC6m4r6SvlT16mdc6c82v9JxqggTFqqLI/xuwoVk99exCcL6gQoX8yx3OvL6w3/TzWXXF/eKib/e2LOaxbEFNAZQolOtGn+/LmrfrBt+kVm4Scsvwy7CIrrPnzNvwAq0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SGks5zDb; arc=none smtp.client-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="IHy8wklt";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="e9Q8Sic5";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="vuT8mqeS";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="q18bsIrO"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D05FD1F397;
-	Mon,  7 Sep 2026 09:22:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788772972;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vz1OjNiCGVWHkKUxQaOO5ojg7oFzygU9xZMIvnCtbpo=;
-	b=IHy8wkltR2qJKpLE6b4aY/pyimEhDdZg2z1vqHJljHK3q0Xs8SD6LgZsIKQxQWmZvGHZfc
-	NVrbYhwO/fqV5a9vvvb2rhkUAAQbS9eM48XJ57DxiaPYJHJCz1c2CQMQYwbtd3OuJFs/LI
-	if3RDr8N+748qONQJbbiVWuron+xjMI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788772972;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vz1OjNiCGVWHkKUxQaOO5ojg7oFzygU9xZMIvnCtbpo=;
-	b=e9Q8Sic5EshDXVjrekzU5nLlbWdP8IBqgPiVzCwVXWmZrCMitTXZ3FNLkObICgmc7XndGU
-	yv1wR5Q80eKWaEAA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788772968;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vz1OjNiCGVWHkKUxQaOO5ojg7oFzygU9xZMIvnCtbpo=;
-	b=vuT8mqeSOs1lTY4YlVepLyvDG9IX/eCIrKNtuf2slubpR0vHVjleG8DhHg//INTHAOpcAe
-	7eNtVTPnxl+neVv81YbFy2f2bJgNDyyFYuuibt/3dxIwBz2lADJBjxH69pyqUC+esiKyf/
-	wc6F6tBysk6pem0UoBPbD4anroVtElA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788772968;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vz1OjNiCGVWHkKUxQaOO5ojg7oFzygU9xZMIvnCtbpo=;
-	b=q18bsIrO2RgbmngB1bTYEFEmm7u2CNS8b/Ysz9ryBv/s3ZWn1Gbbj6wprlPIY4yp7Sxs6j
-	jUUyHc7mm38sZzAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id ADA9C13432;
-	Mon,  7 Sep 2026 09:22:48 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 7/oxKmiCnmrLdgAAD6G6ig
-	(envelope-from <dsterba@suse.cz>); Mon, 07 Sep 2026 09:22:48 +0000
-Date: Mon, 7 Sep 2026 11:22:47 +0200
-From: David Sterba <dsterba@suse.cz>
-To: Daniel Vacek <neelx@suse.com>
-Cc: Hemanth Selam <hemanth.selam@gmail.com>, Chris Mason <clm@fb.com>,
-	David Sterba <dsterba@suse.com>, linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] btrfs: fix typos and repeated words in comments
-Message-ID: <20260907092247.GP9053@suse.cz>
-Reply-To: dsterba@suse.cz
-References: <20260907044801.9088-1-hemanth.selam@gmail.com>
- <CAPjX3FfQ4X4Bd-1-_Q3h4azLM98vnJLfZ8TvduPK6zf=y==Z2g@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SGks5zDb"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-84e04df8c46so3728955b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:23:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788772984; x=1789377784; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=779V8up9UUbTfdCTWD8dD075WrCFiRj+sKr7et++Wgw=;
+        b=SGks5zDbOINN+NZ1/N1WH3ZRHpheVJvMxIlFdnPhEcKZXszAs4Sd6bzKXBtb6ndQAl
+         MQVfdGXjfO/0OQR4AKIGPQ/RMOHuN5qcbWbIO2vO+/SOm1Xxd0r57xcA9KvvCn1vj04h
+         lqWhb3RaOq9Ix0q94V685WCJcH/bor9Q/he+w2WyhVCqIUcqA2dSsqTM1RNyXGHeLGgd
+         eaPYXg6krhWLeMoXM8ubQAi4/tzaQUMGqslvzZErAh+v40//dEd4XAV/qO0uTkO39mrP
+         tPGQZ2MtO1qLkbds21LeAI0boKlN69Jvz4w0Ia7GYIcMQC0z62+WIDLzd0qoj0hxl/TM
+         Q3Ww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788772984; x=1789377784;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=779V8up9UUbTfdCTWD8dD075WrCFiRj+sKr7et++Wgw=;
+        b=Bpw1nvjicUwcMEoXNgOgD/M7EENXtqvTAye3j/FLEZSOm6b/S56POhfbE244Wob5hL
+         TSixI10R7OpNGiLQgZ/NETdLfKT1NUF5nMWIb3yHZt2DGbFZq6AGM5hvL+/vW1bHbFG9
+         7DQ81UGsV6DUzSRZlR89WZEaizEpIoTlxJ1YsojlCGTzFtHUi8YpLIWfd0UCQbMkmVI5
+         V95gvmhELbNttlCfVfhgCll+IDRRSjEoJHxDpTVOtOpriKrWdKHmTxzwXNwINl0mCX6b
+         XzDS4D+mhUfyGgeZ6zxcwqVMSJYrG2xfeacCU3AgFf/11vdSfV3gWStkvVpEBpueAKBH
+         I80g==
+X-Forwarded-Encrypted: i=1; AKwUvBwNVMSsge/fCIx6I4p/HpUheEp/U5X99ldNOkEQNe/DQVWYiUCGzm+WmbJ39C+UrrzIzOSxD4nfsTGJ5Xg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kZ42SVo2XZh91okQMJb4yvCRw24OB1Dg1OLiDuPSK18poCy78P
+	hRtSpIFleZblKrjEQIGqgUAfYzAinPcUG+WEu3ZmrFFMc+maA95+IDcv
+X-Gm-Gg: AYBFou3lADq53eYERcB0KXPUKEEHZI/oa25pYHm/ia0dwwVcVaf1mzhhPaRJcLLgDdB
+	khbSWP4kooL3DqfWGSfH7t1mh6OLA4wexv0S4cBgBdPcMgB8Ux4XzYS6FSxhIa0AEn5EDUXSgXK
+	9k1h1laHUkhZZOmM8ioGuy5F/B8V5QpFJxKSpYMiDWzPSiTYFmZmwBvbvJhff2IfDygP+7IrzXV
+	wmYROv/J/0I1UxdgajpkswPxZ4/Rj0RENAahzBWpxxbNG/wB8Mha2R0GMFJX0ndclSu6pgxwIom
+	2RaYf4hXqaed2dJT71fmewHvYmUNxu+r2JdQFCrNPnS7i1KOPgkLUff7Hwp74B9ULyFjFJIGPtY
+	lqVVzUGWa5ElO9FWiE+/AYLinAtzTZ3EXA4Cv7bEgEg9U4n58ZpXUb/DRBLzWG9MWaJo3HACnpJ
+	ew5L4HVI9yGsQUD4y5RKVtq3SNTipvqhIHcnc96l7nC1Nehfw4hQWn95JKo1IGjHV+tu99bm2RA
+	kGU133gQahlM3IaW5U+oSpTJBK6nAW3Yw==
+X-Received: by 2002:a05:6a00:f0d:b0:848:4faa:480b with SMTP id d2e1a72fcca58-8616ba5f20fmr31101318b3a.12.1788772983589;
+        Mon, 07 Sep 2026 02:23:03 -0700 (PDT)
+Received: from [10.0.2.15] (KD106167137155.ppp-bb.dion.ne.jp. [106.167.137.155])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-864782f0be1sm1477885b3a.41.2026.09.07.02.23.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 02:23:03 -0700 (PDT)
+Message-ID: <4608104c-7075-43cd-adaf-c15ef09cec54@gmail.com>
+Date: Mon, 7 Sep 2026 18:23:00 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAPjX3FfQ4X4Bd-1-_Q3h4azLM98vnJLfZ8TvduPK6zf=y==Z2g@mail.gmail.com>
-User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
-X-Spam-Score: -4.00
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	HAS_REPLYTO(0.30)[dsterba@suse.cz];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TAGGED_RCPT(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,fb.com,suse.com,vger.kernel.org];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	REPLYTO_ADDR_EQ_FROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:replyto,suse.cz:mid];
-	RCVD_COUNT_TWO(0.00)[2];
-	REPLYTO_DOM_NEQ_TO_DOM(0.00)[]
-X-Spam-Flag: NO
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] docs/ja_JP: translate submitting-patches.rst (review and
+ report tags)
+To: Akiyoshi Kurita <weibu@redadmin.org>
+Cc: skhan@linuxfoundation.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, corbet@lwn.net,
+ Akira Yokosawa <akiyks@gmail.com>
+References: <20260903020356.1055420-1-weibu@redadmin.org>
+Content-Language: en-US
+From: Akira Yokosawa <akiyks@gmail.com>
+In-Reply-To: <20260903020356.1055420-1-weibu@redadmin.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 07, 2026 at 11:15:33AM +0200, Daniel Vacek wrote:
-> > --- a/fs/btrfs/raid56.c
-> > +++ b/fs/btrfs/raid56.c
-> > @@ -953,7 +953,7 @@ static void rbio_orig_end_io(struct btrfs_raid_bio *rbio, blk_status_t status)
-> >
-> >         /*
-> >          * Clear the data bitmap, as the rbio may be cached for later usage.
-> > -        * do this before before unlock_stripe() so there will be no new bio
-> > +        * do this before unlock_stripe() so there will be no new bio
-> >          * for this bio.
+Hi Kurita-san,
+
+First of all, this email has a lot of bogus @www.redadmin.org addresses
+in To: and Cc:.  Please don't do that.
+
+On 9/3/26 11:03, Akiyoshi Kurita wrote:
+> Translate the section describing Reported-by, Tested-by, Reviewed-by,
+> Suggested-by, and Fixes tags into Japanese.
 > 
-> The sentence should start with a capital. Perhaps it would also fit
-> into two lines?
+> This includes the Reviewer's Statement and the guidance on adding or
+> removing review and testing tags in subsequent patch versions.
+> 
+> Keep the Japanese submitting-patches documentation aligned with the
+> corresponding English section.
 
-Reformatting whole lines makes the typos harder to spot, so it's fine to
-leave it like that and reformat at commit time eventually.
+Inline comments below.
+
+> 
+> Signed-off-by: Akiyoshi Kurita <weibu@redadmin.org>
+> ---
+>  .../ja_JP/process/submitting-patches.rst      | 91 +++++++++++++++++++
+>  1 file changed, 91 insertions(+)
+> 
+> diff --git a/Documentation/translations/ja_JP/process/submitting-patches.rst b/Documentation/translations/ja_JP/process/submitting-patches.rst
+> index 797b70b97fa7..0b4e22b015d7 100644
+> --- a/Documentation/translations/ja_JP/process/submitting-patches.rst
+> +++ b/Documentation/translations/ja_JP/process/submitting-patches.rst
+> @@ -573,3 +573,94 @@ Acked-by:、Cc:、Co-developed-by: を使用する場合
+>      Signed-off-by: From Author <from@author.example.org>
+>      Co-developed-by: Submitting Co-Author <sub@coauthor.example.org>
+>      Signed-off-by: Submitting Co-Author <sub@coauthor.example.org>
+> +
+> +
+> +Reported-by:、Tested-by:、Reviewed-by:、Suggested-by:、Fixes: の使用
+> +---------------------------------------------------------------------
+> +
+> +``Reported-by:`` タグは、バグを発見して報告した人の功績を示すものであり、
+> +今後も再び協力してもらうきっかけになることが期待されます。このタグは
+> +バグを対象としています。機能追加の要望に対する功績を示すためには
+> +使用しないでください。報告が Web 上で参照できない場合を除き、
+> +``Reported-by:`` タグの後には、その報告を指す ``Closes:`` タグを
+> +付ける必要があります。パッチが報告された問題の一部だけを修正する場合は、
+
+   付けてください。報告された問題の一部だけを修正するパッチの場合は、
+
+> +``Closes:`` の代わりに ``Link:`` タグを使用できます。なお、
+> +``Reported-by:`` は、名前を記載される本人の明示的な許可なしに
+> +使用できる可能性がある三つのタグのうちの一つです。詳細については、
+> +後述の「人をタグ付けするには許可が必要」を参照してください。
+> +
+> +``Tested-by:`` タグは、記載された人が（何らかの環境で）パッチを
+> +正常にテストしたことを示します。このタグは、何らかのテストが
+> +実施されたことをメンテナーに知らせ、将来のパッチでテスターを
+> +探す手段を提供するとともに、テスターの功績を記録します。
+> +
+> +一方、``Reviewed-by:`` は、パッチがレビューされ、以下の
+> +レビュー担当者の声明に従って受け入れ可能と判断されたことを示します::
+> +
+> +        レビュー担当者による確認声明
+
+You used "レビューア" for "reviewer" in your earlier submissions.
+Is there any reason for the different word/term ?
+
+Also, "Reviewer's statement of oversight" is similar to the DCO.
+I think it should be translated in a way so that it looks like
+a legal statement.
+Especially, I'd use "だ体", or formal style.
+
+I would rather put the original English text here, and append the
+translation as a 試訳 (or 訳例).
+
+> +
+> +        ``Reviewed-by:`` タグを付けることにより、私は以下を表明します:
+> +
+> +         (a) このパッチがメインラインカーネルへの取り込みに適切であり、
+> +             その準備が整っているかを評価するため、技術的なレビューを
+> +             行いました。
+> +
+> +         (b) パッチに関する問題、懸念、または質問はすべて提出者に
+> +             伝えられています。私は、自分のコメントに対する提出者の
+> +             回答に満足しています。
+> +
+> +         (c) この提出物には改善できる点が残っている可能性がありますが、
+> +             現時点では、(1) カーネルに対する価値のある変更であり、
+> +             (2) 取り込みに反対する理由となる既知の問題がないと
+> +             考えています。
+> +
+> +         (d) 私はこのパッチをレビューし、妥当であると考えていますが、
+> +             別途明示されていない限り、そのパッチが記載された目的を
+> +             達成すること、またはいかなる状況でも正しく動作することを
+> +             保証するものではありません。
+> +
+> +``Reviewed-by:`` タグは、そのパッチが重大な技術的問題を残していない、
+> +カーネルに対する適切な変更であるという意見を表明するものです。
+> +必要なレビューを行った既知の身元を持つ人であれば、関心のある
+> +レビュー担当者は誰でもパッチに ``Reviewed-by:`` タグを付けられます。
+> +このタグは、レビュー担当者の功績を示すとともに、どの程度のレビューが
+> +行われたかをメンテナーに知らせる役割を果たします。対象分野を理解し、
+> +十分なレビューを行うことで知られているレビュー担当者が付けた
+> +``Reviewed-by:`` タグは、通常、パッチがカーネルに取り込まれる
+> +可能性を高めます。
+> +
+> +``Tested-by:`` と ``Reviewed-by:`` の両方のタグは、メーリングリスト上で
+> +テスターまたはレビュー担当者から受け取った後、次のバージョンを
+> +送信するときに、作者が該当するパッチへ追加する必要があります。
+> +ただし、次のバージョンでパッチが大幅に変更された場合は、これらのタグが
+> +適用できなくなる可能性があるため、削除する必要があります。
+> +通常、誰かの ``Acked-by:``、``Tested-by:``、または ``Reviewed-by:`` タグを
+> +削除した場合は、その理由をパッチの変更履歴で説明する必要があります
+> +（``---`` 区切りの後）。
+> +
+> +``Suggested-by:`` タグは、パッチのアイデアが記載された人によって
+> +提案されたことを示し、そのアイデアに対する功績を記録します。
+> +アイデアを提案した人の功績をきちんと記録すれば、今後も再び協力して
+> +もらうきっかけになることが期待されます。なお、これは、名前を
+> +記載される本人の明示的な許可なしに使用できる可能性がある三つの
+> +タグのうちの一つです。詳細については、後述の
+> +「人をタグ付けするには許可が必要」を参照してください。
+> +
+> +``Fixes:`` タグは、そのパッチが以前のコミットにあるバグを修正する
+> +ことを示します。これは、問題がどこで発生したのかを容易に特定できる
+> +ようにし、バグ修正のレビューに役立ちます。また、このタグは stable
+> +kernel チームが、どの stable kernel バージョンに修正を適用すべきかを
+> +判断する際にも役立ちます。パッチが修正するバグを示す方法としては、
+> +これが推奨されています。詳細については :ref:`describe_changes` を
+
+This will point the original (English) section.  File-local reference
+can be made by:
+
+                        詳細については `変更内容を記述する`_ を
+
+> +参照してください。
+> +
+> +注意: ``Fixes:`` タグを付けても、stable kernel rules の手順や、
+> +stable 向けパッチ候補すべてで ``Cc: stable@vger.kernel.org`` を
+> +指定する要件がなくなるわけではありません。詳細については、
+> +Documentation/process/stable-kernel-rules.rst を参照してください。
+> +
+> +最後に、タグを付けることは歓迎され、通常は非常にありがたいものですが、
+> +署名者（すなわち、提出者およびメンテナー）は、提示されたタグを
+> +適用するかどうかを自身の判断で決めることができます。
+
+This label is not needed in this patch/file ...
+
+> +
+> +.. _tagging_people:
+
+Thanks, Akira
+
