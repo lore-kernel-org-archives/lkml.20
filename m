@@ -1,204 +1,96 @@
-Received: from mta1.migadu.com (out-49.mta1.migadu.com [95.215.58.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2BE51993D
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:45:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C55C54FB9DF;
+	Mon,  7 Sep 2026 16:46:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788799529; cv=none; b=kFXNGcFtu8i5w0Tzhhr5H+OTUfSVb4ZlQ59PwGc0mSLpMA+bfeva/fnrzRf9CNdbZXhrCtKBkX4s2mvhVXyGRV9a1a/VeI+oP/QTB5b/hFRYUFFtzVoSbNEtZILbw0UPBpBYqwhqz/tcxC4/uZskjyuLAO5F05Qg/rPV8irymZE=
+	t=1788799583; cv=none; b=lR+mKMEUmKzRalx+OItAO79zhNPxUlVCx7dV2fj9SbMMuVNjkfeqNCfV3WmKU49xleL6BgB6ffYbm9t222/+yr0vyPoiZ0j09wxMgSHoTBnQyB4S8Qk6FGxjEiJsMPkbg9eLCMLX6Zymo6Um/OCuCKMS/dvoh39csvc2B5aicF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788799529; c=relaxed/simple;
-	bh=mA7P/Qe1tvxUEQLZlPrgfbJg0c6VIZe0R0iXWMkfLmM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XRSLjDc7yCdzjQz/aiQmrNYZlLrPTwpy3kbZN4fKjPbPi2DaQVZuEyLih6idjd4z+9ZcQfXisIVssaEEEsBnlTyxY7z4GBtLCFiiD1EJIgb7r3olodzTMuDFO9kHQCcnQmSuOpqc0wuwctxH5gad8bU24qdSaBj8Syup5zUyYJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=E11nSGYU; arc=none smtp.client-ip=95.215.58.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788799583; c=relaxed/simple;
+	bh=LX83kIxvxb9Xh6M7jPdPVuES9mIs0FMDi/3ZtAMbmrQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=ota0+Fhe9bLBc84XnWV7CMnt9liFK2BsQ3/39Xow1vm57HtuZfmgoxy0sEhlwaPDuuNuxnKAWlvHD7VLKAUzGFV5CbI9TJHHotEn1ETelYGuiVP01Rx61cJiEwM23KD6J9HIwTi/4+KvDgbYR99vbrfdinqHtTvMPCFfpIKi/D4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=C+z3UkHK; arc=none smtp.client-ip=45.79.88.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="E11nSGYU"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=mA7P/Qe1tvxUEQLZlPrgfbJg0c6VIZe0R0iXWMkfLmM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788799523; v=1; x=1789404323;
- b=E11nSGYUdFDOKkZEOPkTm2YxFAzEOKlNI8sSZFUvCSIyQLC1YygSwlGE1iHVJFpLwtucE0Fu
- YYktdxxUDnVQwqq3ue65c/Yo6t0OAYZjFqLPLh2RH9D8nxDUdxFacmtLDoLfdt4YSJlymhzQF7j
- ea+Dmb7tbknUTrQYlJ+hOm2g=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id f0a5260ef7ab4742;
-	Mon, 07 Sep 2026 16:45:04 +0000
-X-Mizu-Trace-ID: f0a5260ef7ab4742
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: Usama Arif <usama.arif@linux.dev>,
-	akpm@linux-foundation.org,
-	liam@infradead.org,
-	ljs@kernel.org,
-	vbabka@kernel.org,
-	david@redhat.com,
-	willy@infradead.org,
-	jannh@google.com,
-	paulmck@kernel.org,
-	pfalcato@suse.de,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH v2 1/5] proc/task_mmu: remove unnecessary helpers
-Date: Mon,  7 Sep 2026 09:44:57 -0700
-Message-ID: <20260907164500.3920334-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907063918.3432401-2-surenb@google.com>
-References: 
+	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="C+z3UkHK"
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net DE55B408FF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+	t=1788799581; bh=bfGeFE0QA/H0zdYazVCg0mjCJk512rtabn92S77Os4c=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=C+z3UkHK2OZbaCWcSbM6uFo8KP6S+tvPc4lC8I18gK+/9xGb9Hnv08OWuow3W7y1L
+	 etrRDXh+OKybk8Yukx4rJHlhinFellKoQD7yVV/cjQTy9Jx+77+A16YgovNxYEEyez
+	 ht0CygTsA6LBuspXV4CPCNwC1fPRvI6OC/CWQ0Lde0hBaoo886BNmpRnR5IG+fSgiK
+	 aBL3QuFw4kyXptBgPGBaSk2JH4MAGtW6DmO5bEJRsMDghOSiyippaZCLYKkeSckrHK
+	 vMVfxIDqpKDfU5PlVdMTAKD5w1NV6UcDB9+/AnsqIKXoXAY0BviJyJb62+eRuT+CLW
+	 rZv5nCnGOSDdQ==
+Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id DE55B408FF;
+	Mon,  7 Sep 2026 16:46:20 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Marco Crivellari <marco.crivellari@suse.com>,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>, Frederic Weisbecker
+ <frederic@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Shuah Khan
+ <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Michal
+ Hocko <mhocko@suse.com>, Marco Crivellari <marco.crivellari@suse.com>,
+ "Paul E. McKenney" <paulmck@kernel.org>, Sebastian Andrzej Siewior
+ <bigeasy@linutronix.de>, Valentin Schneider <vschneid@redhat.com>, Waiman
+ Long <longman@redhat.com>
+Subject: Re: [PATCH v3 0/2] doc: Rename dynticks-testing to cpunoise
+In-Reply-To: <20260902092434.85096-1-marco.crivellari@suse.com>
+References: <20260902092434.85096-1-marco.crivellari@suse.com>
+Date: Mon, 07 Sep 2026 10:46:19 -0600
+Message-ID: <878q5dovqc.fsf@trenco.lwn.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On Sun,  6 Sep 2026 23:39:14 -0700 Suren Baghdasaryan <surenb@google.com> wrote:
+Marco Crivellari <marco.crivellari@suse.com> writes:
 
-> When per-vma locks were behind a config option, a number of helper
-> functions were needed to simplify the locking code. Now that these
-> locks are universally available, we can do a little cleanup.
-> Remove lock_vma_range(), unlock_vma_range(), query_vma_setup(),
-> query_vma_teardown() helpers.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+> Hi,
+>
+> Currently the documentation still mention dynticks-testing.
+>
+> Recently the repository name and the tool have been renamed to cpunoise,
+> both the patches reflect this change.
+>
+> The tool announcement can be found at:
+>
+>   https://lore.kernel.org/all/20260815083728.15470-1-marco.crivellari@suse.com/
+>
+> Thanks!
+>
 > ---
->  fs/proc/task_mmu.c | 67 ++++++++++++----------------------------------
->  1 file changed, 17 insertions(+), 50 deletions(-)
+> Changes in v3:
+> - Use "https:" instead of "git:" for the repo URL
+>
+> Link to v2: https://lore.kernel.org/all/20260831092118.124576-1-marco.crivellari@suse.com/
+>
+> Changes in v2:
+> - Link to the tool Announcement added in both the patches and cover letter
+>
+> - Corrected another occurrence reported by Sebastian
+>
+> Link to v1: https://lore.kernel.org/all/20260831081823.67972-1-marco.crivellari@suse.com/
+>
+> Marco Crivellari (2):
+>   doc: Change dynticks-testing repository name
+>   Documentation/no_hz: Change dynticks-testing repository name
+>
+>  Documentation/admin-guide/cpu-isolation.rst | 4 ++--
+>  Documentation/timers/no_hz.rst              | 4 ++--
+>  2 files changed, 4 insertions(+), 4 deletions(-)
 
-Change makes sense independent of the series as well.
+Applied, thanks.
 
-Acked-by: Usama Arif <usama.arif@linux.dev>
-
-> 
-> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> index e671b4fd8ded..2f500d639db5 100644
-> --- a/fs/proc/task_mmu.c
-> +++ b/fs/proc/task_mmu.c
-> @@ -160,25 +160,6 @@ static void unlock_ctx_vma(struct proc_maps_locking_ctx *lock_ctx)
->  	}
->  }
->  
-> -static inline bool lock_vma_range(struct seq_file *m,
-> -				  struct proc_maps_locking_ctx *lock_ctx)
-> -{
-> -	rcu_read_lock();
-> -	reset_lock_ctx(lock_ctx);
-> -
-> -	return true;
-> -}
-> -
-> -static inline void unlock_vma_range(struct proc_maps_locking_ctx *lock_ctx)
-> -{
-> -	if (lock_ctx->mmap_locked) {
-> -		unlock_ctx_mm(lock_ctx);
-> -	} else {
-> -		unlock_ctx_vma(lock_ctx);
-> -		rcu_read_unlock();
-> -	}
-> -}
-> -
->  static struct vm_area_struct *get_next_vma(struct proc_maps_private *priv,
->  					   loff_t last_pos)
->  {
-> @@ -286,13 +267,8 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
->  		return NULL;
->  	}
->  
-> -	if (!lock_vma_range(m, lock_ctx)) {
-> -		mmput(mm);
-> -		put_task_struct(priv->task);
-> -		priv->task = NULL;
-> -		return ERR_PTR(-EINTR);
-> -	}
-> -
-> +	rcu_read_lock();
-> +	reset_lock_ctx(lock_ctx);
->  	/*
->  	 * Reset current position if last_addr was set before
->  	 * and it's not a sentinel.
-> @@ -325,7 +301,12 @@ static void m_stop(struct seq_file *m, void *v)
->  		return;
->  
->  	release_task_mempolicy(priv);
-> -	unlock_vma_range(&priv->lock_ctx);
-> +	if (priv->lock_ctx.mmap_locked) {
-> +		unlock_ctx_mm(&priv->lock_ctx);
-> +	} else {
-> +		unlock_ctx_vma(&priv->lock_ctx);
-> +		rcu_read_unlock();
-> +	}
->  	mmput(mm);
->  	put_task_struct(priv->task);
->  	priv->task = NULL;
-> @@ -518,21 +499,6 @@ static int pid_maps_open(struct inode *inode, struct file *file)
->  		PROCMAP_QUERY_VMA_FLAGS				\
->  )
->  
-> -static int query_vma_setup(struct proc_maps_locking_ctx *lock_ctx)
-> -{
-> -	reset_lock_ctx(lock_ctx);
-> -
-> -	return 0;
-> -}
-> -
-> -static void query_vma_teardown(struct proc_maps_locking_ctx *lock_ctx)
-> -{
-> -	if (lock_ctx->mmap_locked)
-> -		unlock_ctx_mm(lock_ctx);
-> -	else
-> -		unlock_ctx_vma(lock_ctx);
-> -}
-> -
->  static struct vm_area_struct *query_vma_find_by_addr(struct proc_maps_locking_ctx *lock_ctx,
->  						     unsigned long addr)
->  {
-> @@ -653,12 +619,7 @@ static int do_procmap_query(struct mm_struct *mm, void __user *uarg)
->  	if (!mm || !mmget_not_zero(mm))
->  		return -ESRCH;
->  
-> -	err = query_vma_setup(&lock_ctx);
-> -	if (err) {
-> -		mmput(mm);
-> -		return err;
-> -	}
-> -
-> +	reset_lock_ctx(&lock_ctx);
->  	vma = query_matching_vma(&lock_ctx, karg.query_addr, karg.query_flags);
->  	if (IS_ERR(vma)) {
->  		err = PTR_ERR(vma);
-> @@ -732,7 +693,10 @@ static int do_procmap_query(struct mm_struct *mm, void __user *uarg)
->  		vm_file = get_file(vma->vm_file);
->  
->  	/* unlock vma or mmap_lock, and put mm_struct before copying data to user */
-> -	query_vma_teardown(&lock_ctx);
-> +	if (lock_ctx.mmap_locked)
-> +		unlock_ctx_mm(&lock_ctx);
-> +	else
-> +		unlock_ctx_vma(&lock_ctx);
->  	mmput(mm);
->  
->  	if (karg.build_id_size) {
-> @@ -773,7 +737,10 @@ static int do_procmap_query(struct mm_struct *mm, void __user *uarg)
->  	return 0;
->  
->  out:
-> -	query_vma_teardown(&lock_ctx);
-> +	if (lock_ctx.mmap_locked)
-> +		unlock_ctx_mm(&lock_ctx);
-> +	else
-> +		unlock_ctx_vma(&lock_ctx);
->  	mmput(mm);
->  out_file:
->  	if (vm_file)
-> -- 
-> 2.55.0.979.g7e5102b832-goog
-> 
-> 
+jon
