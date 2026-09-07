@@ -1,142 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC9B64A92C8
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:44:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B8F4F0538
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:44:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788788671; cv=none; b=qYDM/UvKutyE+1Sinfr01nb2gcAiCo9R+mvC8Ok+6BTLZ9GYzSLoAz9xw7O/tg+xI08X7TbQ0EncOqcAwEobfVHgLHxOjl01lVk9HRYUCcv2y0hzl9QHnFecHhHcnPdM945UayrafoKB9gurEk9uAAHFmrN+0xBf8TMeZzMLfts=
+	t=1788788684; cv=none; b=pXgxzT3yachCB9bXXwlEBC77dcWNEVx/91BA6tGWRDLjT1CgaHQCBHGnPeNYHMdbSzgYIqv8YULczpfxwOeyhrMYqcPYnFwzYM8qxGrLfmvTS+VCFByZvzgZEMLFu0gs60Vemz5/Tf98Jx00HqM6x1ASFZW5iBVJEtRBEBOmBtg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788788671; c=relaxed/simple;
-	bh=hOvXC/LRJ0dcobCykinLByuKMFWUo/Cz0R/LJk4DiJ8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ua4IW70GA3ToVGW3QAEqUdPQYkFES9CeF5Ep8XTEeBbwXCl5hvXDXTdElirS+I/QUNVn2Ie5g8KV1V/Al67/OsA4zQxurRw0LIdrappuh1l6JH4u14Ax9GIUQB3zatxEb3spdcqfpfjHJhOka/1ST7sfmoF6IC6Xw008IKOQkuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XsNGdcn0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788788684; c=relaxed/simple;
+	bh=tJ+ci/OjwSH4g1HCdnKxOeDgMxc+hJOL4wmM9HhLWos=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pz0k7dmhQuQfiCdAcuLrNo8VKme0sB1jTHylTGShpUBVqI9ylk2xyA6ulZsJi4MuEnjUJclGKjq7Ahz6aNQ8/oNJ3eG+uXxVeKL2S0fJWXAPwnFvYnA2PhdeouxI1qOFA8+ZKUhNeD49trjsjPoC/2FEsJRLQlM65+5TXl3oYCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TUESuyC3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XsNGdcn0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE81C1F00A3A;
-	Mon,  7 Sep 2026 13:44:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TUESuyC3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 887171F0155B
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:44:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788788665;
-	bh=AU/2q2RjFTQV8CKHYz9OqViFmABICgmL5+psZGMcbnw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XsNGdcn0HY+Fek1KKRl0zvn6EWQhXtA7Go4AUMmfM9ZQaxEMz5Z7/kHkKPtKLAVzW
-	 1AMiW0AO6GXKxw/qhYAC+8sz6SimYNO6IAPh3ptu+48aG950tkn/yRGX35alaNbEi0
-	 9FNDWYzBgyVVQc5xX9gfq07ci6aOt3ZJsRkFcLPFJJYsvL+qDhICiAAJghNgV3k2z+
-	 UXR+O+dopOjzjD0qcRezwFtdE+aIFWQAY9raKgzakNPdjr/EcvhpXIsHM9wlngTJQ2
-	 dMW797dtRdOw0nAeL78XNwFLTK7UbGiGxC/u+We6l8z8cwfGGUb6ltbikYEEO9UYHo
-	 nWMIx9Vxmh8IQ==
-Message-ID: <d35a4da9-aed6-4b25-8a6b-2ffaf5263009@kernel.org>
-Date: Mon, 7 Sep 2026 15:44:21 +0200
+	s=k20260515; t=1788788675;
+	bh=tJ+ci/OjwSH4g1HCdnKxOeDgMxc+hJOL4wmM9HhLWos=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=TUESuyC39HYj6EVNoJmtNo+u8Gw90rhQmKrgfvDOVCjMqKysq/iTciWXc+RGqlCeU
+	 97XngaPTehi3rDaxCqJSeed8z+KW7p0c1F/L3StHY4Q+kz1bnvPZK7YzvOFRf+QDVY
+	 5hhHKFCOt1zKW2DVSBDONaywTOQ88G1kRQFFfqrZtSug+mwSPCC6CbqDSfNlEtzdZw
+	 34MR570w80SZ8aIicpmzaYiVqxenyYRV2nrjm5SzPiTEaFopkeBxHqLRtSAy71Dm2u
+	 GsayiaXswEvw3b3PvDOHjR2By003w2LGuMdTnJzDE25llMD5cE2D1SzHCK+QImBi1/
+	 pe36niYw/3oHQ==
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b4ae0b3308so2498302e87.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:44:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx9Tt3CmPaxZyIU5uf/vPJQaGTyMrMNEVWDkjLfjnSQyyj+Fmrv/yzdWQUaWYBkkqolcROGIWK1tVZckPk=@vger.kernel.org
+X-Gm-Message-State: AFuF++ntAa+cSecFJOcFZOPlPr13PKfHSgGSvdtpvu39+CuTTQnLJPMe
+	wc9mPEJnY1uWYKZX7beVfSL7jVihPv46qLl2e3ZaW9Uu72LSzSbxAsswzC2GVJddZ1gnTaYQdfF
+	TQPX/q9UDdRIWjtdSgmGrGk9OLUQQJcxDW0YVwGfPUg==
+X-Received: by 2002:a05:6512:baa:b0:5b6:1a7d:553b with SMTP id
+ 2adb3069b0e04-5b61a7d5899mr3225959e87.63.1788788674151; Mon, 07 Sep 2026
+ 06:44:34 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 7 Sep 2026 06:44:32 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 7 Sep 2026 06:44:32 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <841a008a-1ce6-40f9-95ad-09b4abc7456a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/gup_test: report actual pinned bytes
-To: Sarthak Sharma <sarthak.sharma@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Kiryl Shutsemau <kas@kernel.org>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20260831101304.162867-1-sarthak.sharma@arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260831101304.162867-1-sarthak.sharma@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260907-b4-shikra_crypto_changse-v6-0-0676f61894b3@oss.qualcomm.com>
+ <20260907-b4-shikra_crypto_changse-v6-2-0676f61894b3@oss.qualcomm.com>
+ <iow4xf2uflvjduax55tkbhaw2r4436uqvys22u6pbm3ry2gryw@g777gu46cgin> <841a008a-1ce6-40f9-95ad-09b4abc7456a@oss.qualcomm.com>
+Date: Mon, 7 Sep 2026 06:44:32 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MefGHidh=BH+iF-4F5hJku333p4OMe=g5p7dfw_ieTfMA@mail.gmail.com>
+X-Gm-Features: AcwNN1UE-xk-gq1trefKbWs4xIbafCmkL-IwujrEOLIyY7VGNHY6z5QgxqvdZ2g
+Message-ID: <CAMRc=MefGHidh=BH+iF-4F5hJku333p4OMe=g5p7dfw_ieTfMA@mail.gmail.com>
+Subject: Re: [PATCH v6 2/2] arm64: dts: qcom: shikra: Correct QCE node configuration
+To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	"David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
+	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 8/31/26 12:13, Sarthak Sharma wrote:
-> __gup_test_ioctl() advances addr to the end of the current batch before
-> checking if GUP pinned the entire requested batch. If GUP pins more than
-> 0 pages but less than the requested batch size, addr still advances by
-> the requested batch size.
-> 
-> The next iteration detects the partial pinning and breaks out of the loop.
-> Again gup->size is calculated using addr - gup->addr, so it also includes
-> the unpinned pages of the requested batch.
-> 
-> Calculate gup->size using the actual number of pages pinned multiplied
-> by PAGE_SIZE.
-> 
-> Fixes: 64c349f4ae78 ("mm: add infrastructure for get_user_pages_fast() benchmarking")
-> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
-> ---
-> Changes in v2:
-> - Fix typo in the commit message
-> 
-> v1: lore.kernel.org/all/20260831064808.77768-1-sarthak.sharma@arm.com/
-> 
->  mm/gup_test.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/mm/gup_test.c b/mm/gup_test.c
-> index 44c1cdfb9c37..185ba3bb8ed1 100644
-> --- a/mm/gup_test.c
-> +++ b/mm/gup_test.c
-> @@ -188,7 +188,7 @@ static int __gup_test_ioctl(unsigned int cmd,
->  	nr_pages = i;
->  
->  	gup->get_delta_usec = ktime_us_delta(end_time, start_time);
-> -	gup->size = addr - gup->addr;
-> +	gup->size = nr_pages * PAGE_SIZE;
->  
->  	/*
->  	 * Take an un-benchmark-timed moment to verify DMA pinned
+On Mon, 7 Sep 2026 15:39:10 +0200, Kuldeep Singh
+<kuldeep.singh@oss.qualcomm.com> said:
+> On 07-09-2026 19:01, Abel Vesa wrote:
+>> On 26-09-07 17:33:37, Kuldeep Singh wrote:
+>>> Shikra is derived from Agatti and uses the same QCE integration.
+>>> Update the QCE node to match the underlying hardware implementation by
+>>> adjusting the fallback compatible and related properties, including
+>>> clocks and clock-names.
+>>>
+>>> Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+>>
+>> No fixes tag ?
+>
+> I was having confusion so didn't add it.
+>
+> The parent change is in linux-next branch and not in torvalds tree
+> currently.
+> Shall i update Fixes tag based on linux-next commit only? or not needed
+> at all?
+>
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+It still makes sense to add Fixes tag even if it's targetting the next cycle
+and fixing an issue queued for v7.4.
 
-
-I assume that loop handling could get cleaned up a bit.
-
--- 
-Cheers,
-
-David
+Thanks,
+Bart
