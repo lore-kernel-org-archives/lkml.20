@@ -1,139 +1,103 @@
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 826FC31197C;
-	Mon,  7 Sep 2026 13:09:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E8504854FE;
+	Mon,  7 Sep 2026 13:09:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788786558; cv=none; b=tqabGZEhuq13xg7KutehgK2X2zlzGAGWn6Jc2dqoa403o5730TUJ04r8fXwBmtJMx1hUgOCzxbJeHWjYdKy5z4Q7lxcQGF9+V7mgceEJE+JnsYKEnS4OObRK7yqqAt55OEiluvBRK+hZbdFXYXWlrSZeKDHI5m+nZuQAKhT8zog=
+	t=1788786582; cv=none; b=P4VwVE+ynGh9s9O7p/apghHkd5ckb+WAHI3i7Lod6LjGu9HlSc0njHic+g5Djg2bmUmIAR7EHU7S7S1rb9ERjrqDH3Z2OOKGpsH6NpkE5pJIEPzBdRGlJzTKCEtHsjneZ9OJTO9yKm90Rw/ONxq6221mGAZK5O9zzSjQw6IzLNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788786558; c=relaxed/simple;
-	bh=/o9/t0rmsd+fDXAPn0EGWSuuwiBMQU0cSgC7TC+ItGs=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 In-Reply-To:References; b=JrClLGDB543KlDCTIph7GQO8ZVVlSLF2u1njwFcG+DaFRgpFPHIOBC5xyuUuzAUNG6/IAs2/EpjKPyrYBMKIdkKaA3ZTVC6oXZuyL6hiTcNjSvlUale4oo8D4wakUFrOYD50KPzIATKumGCbKQ8Qqbk34/kyuhWPppcfAlkgOsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=l3mgh9Fw; arc=none smtp.client-ip=54.206.16.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1788786582; c=relaxed/simple;
+	bh=/3SH0WO8o7Y3yVbm8wMlCNCv4EcMwq2TBhXGPRX+060=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=itvJRKY6jUwYlN/lfydxF0cFPBKFmF/dL2U1d5fXtEIVE9dsP8+ff5T+MIr9jTaThM+QyaM44SM7COGkmJN/djjh4xn/Net+Wm1QR7zhlTL90+xzDQ8oyGJZNmptGECP8DEBGXqpd18Q0oBcL7YEZMy0LWWjLhaC1xTJDkul5DI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=mWE4FaVh; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="l3mgh9Fw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1788786517;
-	bh=pfKIQsbo9vF3XKUv7eH674e4/SPUP9mmFk38JxN5/+E=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=l3mgh9FwALlTah5zOJpypOJ3uMMBBc8FN0PS6a/mERDu8FSLvDif7/c+QSWEuwEq7
-	 +c9gRjyECkiHC/wdfTOUHUQnIVWUE75zZYR8iREMZIkNbEa8VzBixx7tIRJvgpa2R0
-	 p0F5ty2IDMyzVMyJIEhso6rIxvhj5ud7qExirEKs=
-X-QQ-mid: zesmtpgz9t1788786514t356b3c3e
-X-QQ-Originating-IP: 4bNg8jVrPAYnd+pOgZsuQP2LrmvmE3yfNAvXm2ENHLQ=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 07 Sep 2026 21:08:30 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 11280198482771072461
-EX-QQ-RecipientCnt: 41
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="mWE4FaVh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=9a
+	IgFDMgD3gep474UQZVVvhqGHf5S2g87xXTFr6YcCs=; b=mWE4FaVhya/+AfIoIg
+	8AjO1f5kmpedNSnEw2E+YBPTLVmjEP+a+8x3OJM1pkRvAyPUxKk2XlrKKYORLoRZ
+	14GWXiGkc8n+nqSlePJvnZ+XaSYAoqXin4OOny8BCpzDvqaBc1yyVNglBjf8F89+
+	2qtzh336QXn4h+/4TnxPjfO90=
+Received: from XLL-9950X.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD310Zdt55qUKzsBA--.63999S2;
+	Mon, 07 Sep 2026 21:08:46 +0800 (CST)
+From: Longlong Xia <xialonglong2025@163.com>
+To: hannes@cmpxchg.org,
+	yosry@kernel.org,
+	nphamcs@gmail.com
+Cc: chengming.zhou@linux.dev,
+	akpm@linux-foundation.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Longlong Xia <xialonglong@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/1] mm/zswap: publish the initial pool with list_add_rcu()
+Date: Mon,  7 Sep 2026 21:08:21 +0800
+Message-ID: <20260907130821.1726595-1-xialonglong2025@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=650bf3549e64181e01b13e7f3b0c8c6526d5423fd2d0620ee7d870eb7180;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Mon, 07 Sep 2026 21:08:28 +0800
-Message-Id: <DL93W9G65JL4.SW643T11BP8O@linux.spacemit.com>
-Cc: <linux-pci@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, "Yixun Lan" <dlan@gentoo.org>, "Longbin Li"
- <looong.bin@gmail.com>, "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-Subject: Re: [PATCH v5 5/6] dt-bindings: PCI: spacemit: Introduce Spacemit
- K3 PCIe host controller
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Inochi Amaoto" <inochiama@gmail.com>, "Jingoo Han"
- <jingoohan1@gmail.com>, "Manivannan Sadhasivam" <mani@kernel.org>, "Lorenzo
- Pieralisi" <lpieralisi@kernel.org>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, "Rob Herring" <robh@kernel.org>, "Bjorn Helgaas"
- <bhelgaas@google.com>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Yixun Lan" <dlan@kernel.org>, "Paul
- Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
- Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Frank Li"
- <Frank.Li@nxp.com>, "Niklas Cassel" <cassel@kernel.org>, "Sherry Sun"
- <sherry.sun@nxp.com>, "Arnd Bergmann" <arnd@arndb.de>, "Christian Bruel"
- <christian.bruel@foss.st.com>, "Krishna Chaitanya Chundru"
- <krishna.chundru@oss.qualcomm.com>, "Senchuan Zhang"
- <zhangsenchuan@eswincomputing.com>, "Alex Elder" <elder@riscstar.com>,
- "Xincheng Zhang" <zhangxincheng@ultrarisc.com>, "Randolph Lin"
- <randolph@andestech.com>, "Siddharth Vadapalli" <s-vadapalli@ti.com>, "Andy
- Shevchenko" <andriy.shevchenko@linux.intel.com>, "Vidya Sagar"
- <vidyas@nvidia.com>, "Neil Armstrong" <neil.armstrong@linaro.org>, "Danilo
- Krummrich" <dakr@kernel.org>,
- =?utf-8?b?VXdlIEtsZWluZS1Lw7ZuaWcgKFRoZSBDYXBhYmxlIEh1Yik=?=
- <u.kleine-koenig@baylibre.com>, "Pengpeng Hou" <pengpeng@iscas.ac.cn>,
- "Anirudh Srinivasan" <asrinivasan@oss.tenstorrent.com>, "Gustavo Pimentel"
- <gustavo.pimentel@synopsys.com>
-In-Reply-To: <20260907112606.465778-6-inochiama@gmail.com>
-References: <20260907112606.465778-1-inochiama@gmail.com>
- <20260907112606.465778-6-inochiama@gmail.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NZcrde3zhHkVEfBIs3uijfG3JeRbhBq3UmJylEptFf0SpLLWdZHy7Ot0
-	ZdrWOeHEzdThDcXv5zV3qL8m9nubSaA4PMjERuDye9Pwl18vZKWliluD3v4PoyFXUNpB1cG
-	wCobNOSmmwGrVFIGEoOVWYIlCSNboCG01PEpsJlxkI6wSRESTwfgVCfxd91wIWa9waZiI1v
-	iQ7iIp+YaOllGQIhwbJEVIvWUUX3Li82zr1xG9UCEC6LV9jN3h6ypdtx1Rl0Qyw4NOhFIwz
-	EUy1lKyNza2sTL1PjXch136CShXCFXRW6z+ELzeem5rTa0hmmtccxotvCPqFLPfM+SCZNRI
-	YAKUrqJKIL0r7M/E2AgtOVl2wy3/h9gAzadmb6S8BLKgvC0EYEopoqPCxeKQsqgmWNeW8u3
-	Pbvrwm/jVjBgRgolhzzTj5ZDj/dwcyj6Hg/7O0QGEFfDUjuiWz2t8LgnLMPI6QKyYHf6swz
-	DrPuEIPxmZVA4g1RBnQ5iw5sqjwWUx7kSBzO+DsyL7Mpk3jO67pxVkc7NozN4cZY0fQV4nk
-	VhKzHSwgkpUNeJZ7tZTtGWj5qppTgHJvt4Zmqc0rNa0DxAp0ik0Haa187asxSpPDMJiOJyn
-	2m2+iEHaxCtx81hmh5f7nJN1T0brRHjhNfW8gvzMkGBSDyE08zqIWtTEDs5lBNwu9pHo8PX
-	Ta8fm6vm4snKTFwz5TscETaFsm5H8SVKErqHAkXbKKPerNHVb0C1tU1Qbpg6LZ/UG28EPzF
-	8doJbQMfQ4IdH/CSI6Sxw4OAfWRk0Wq5FZ2rx6awC1YMOq7rrtq4bA2lZN7jdAwCZzskuqK
-	S8ePmsFLMzXr44f6jV9K78r2EFJv31tMATbM40Vaf9oK7M6anrvUrtGU0GEebC5LJjFN+OG
-	xEgec1pPYyBpjFXMOkKimV50IKBB/wEASWZRHE2SK1WJDS8B5ACVjn/ybSWV6LZJ2QxE6zV
-	RwZr0Xihs60COUgOz2W2Nz0eFkFWXPtUfHx6QcpIjYP/dGGVfKddmSrwQkcePrs0UmBTFdB
-	wAmMdpnaHktt/1rQO+nYRVN2xBzmoXy4+eyxQuKgtZi7hEF7Fs8VQ5HolxQfBV4jFitqdYk
-	lMVIxWCW4PMQwcy3UFxIYg=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD310Zdt55qUKzsBA--.63999S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7uFykuFWUCFy7JFWDtryfCrg_yoW8WrykpF
+	WSgr9xKFWUXrn7trW7Ja48urn8J34UtF4rKr1UWF4xZwn5Ar1ay34xtr95tasav3ykC3y7
+	WrW8A347Jr1Ykr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jbNVgUUUUU=
+X-CM-SenderInfo: x0ldz0pqjo00rjsqjki6rwjhhfrp/xtbC9x9HQGqet1-L0wAA3r
 
---650bf3549e64181e01b13e7f3b0c8c6526d5423fd2d0620ee7d870eb7180
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+From: Longlong Xia <xialonglong@kylinos.cn>
 
-On Mon, Sep 7, 2026 at 07:26:04PM +0800, Inochi Amaoto wrote:
-> @@ -14,26 +14,29 @@ description: >
->    PCIe IP.  The controller uses the DesignWare built-in MSI interrupt
->    controller, and supports 256 MSIs.
-> =20
-> -allOf:
-> -  - $ref: /schemas/pci/snps,dw-pcie.yaml#
-> -
->  properties:
->    compatible:
-> -    const: spacemit,k1-pcie
-> +    enum:
-> +      - spacemit,k1-pcie
-> +      - spacemit,k3-pcie
-> =20
+zswap_setup() publishes the pool on the zswap_pools list with a
+plain list_add(), but the list is walked by concurrent RCU readers
+holding nothing but rcu_read_lock() through zswap_total_pages(), e.g.
+/proc/meminfo and the shrinker count path.
 
-Please update the title and description to cover K3 as well. They still des=
-cribe
-only K1.
+    CPU 0 (writer)                          CPU 1 (reader)
+    --------------                          --------------
+    zswap_pool_create():
+      pool->zs_pool = zs_create_pool(); (1)
+    list_add() -> __list_add():
+      WRITE_ONCE(zswap_pools.next,
+          &pool->list);                (2)   zswap_total_pages():
+                                                pool = READ_ONCE(     (a)
+                                                    zswap_pools.next);
+                                                zs_get_total_pages(   (b)
+                                                    pool->zs_pool);
 
-                                            - Troy
+If (2) becomes visible to CPU 1 before (1), CPU 1 finds the pool at
+(a) but dereferences a wild pointer at (b). Publish the node with
+list_add_rcu().
 
---650bf3549e64181e01b13e7f3b0c8c6526d5423fd2d0620ee7d870eb7180
-Content-Type: application/pgp-signature; name="signature.asc"
+Fixes: 91cdcd8d624bf ("mm: zswap: optimize zswap pool size tracking")
+Cc: stable@vger.kernel.org
+Assisted-by: Zcode:GLM-5.3
+Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
+---
+Link: https://sashiko.dev/#/patchset/20260906133601.3563324-1-xialonglong2025%40163.com
 
------BEGIN PGP SIGNATURE-----
+ mm/zswap.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCap63TA0caUB0cm95LXku
-b3JnAAoJEJgJ74D5MzQvrqIBAPoJ1V5DULfRR0iJ/PbsZQSGaU27Bg5bTx8RdSGL
-sdFIAQCo20UN07hYGkyKe/hWeA2JzbRW4qEfBzGFoFaMdr/IAw==
-=WCkQ
------END PGP SIGNATURE-----
+diff --git a/mm/zswap.c b/mm/zswap.c
+index 37f34e406c8e..cb5a0855fd2a 100644
+--- a/mm/zswap.c
++++ b/mm/zswap.c
+@@ -1803,7 +1803,7 @@ static int zswap_setup(void)
+ 	pool = __zswap_pool_create_fallback();
+ 	if (pool) {
+ 		pr_info("loaded using pool %s\n", pool->tfm_name);
+-		list_add(&pool->list, &zswap_pools);
++		list_add_rcu(&pool->list, &zswap_pools);
+ 		zswap_has_pool = true;
+ 		static_branch_enable(&zswap_ever_enabled);
+ 	} else {
+-- 
+2.43.0
 
---650bf3549e64181e01b13e7f3b0c8c6526d5423fd2d0620ee7d870eb7180--
