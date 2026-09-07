@@ -1,37 +1,33 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 826403803CC;
-	Mon,  7 Sep 2026 11:35:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 695A04756C9;
+	Mon,  7 Sep 2026 11:36:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780947; cv=none; b=GdyZkUP4mJGkBdviJuy3t3ir03r9JW3uhdPBfY+Zu0CbwPfp+ShM//1i+EuUQR2wsWlL8yfGzXjtkhtUzLoSOWRNR6ZYFtqyY0NSljtJcE26oUqIOYnUDsIVPU9+5m+7KGnL0z27DXN+ejNHG6fvgf93VEN0U+EOlvpDg5k+zYY=
+	t=1788780990; cv=none; b=iONoSSvceA7jSYwp/3kuSpj/eRiWZZGv2bFjK7LU5gOm6Orkb8p6a84hjwd/GDUzLhcpfvFStJ+o/GbWglfr+Y8n4WivspxALEyF+N2AFs7LNM4JTX95zFTx6GD3fzk4/unCM4TGxtjZyLuBVmo8H+XxYe2zpN5CAfZ/nwkZoqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788780947; c=relaxed/simple;
-	bh=tStPoEn07LYFbvgkThuMKLxe/CTLKb5WMfGxLDYBQB4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=FRFfxq4+lwegIQiFDbCHm3KWsHgjl6w2GY8ETBRjwFxFgno/TI2uRAxd0IbYZbTm2mNidkYawAU2+3ADxakUMzpZaY5AwhXFAfN/Xn0GlXOZzHmR5vFhOe3yYKq+4BcK+NL238yeBa6V5oeF+PK1Ca+bvYA1DJc7QuG5clK308Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bdh6ZQIa; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788780990; c=relaxed/simple;
+	bh=SWBIK6gGMsz7pNTKU7LU4Pfbs/fX5wTd4qP8ada3ezo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gA4AW8NRgbt9+TBzVzVpx3OXyyZ+O8HnwDSxQ4LnFIEBZNRr/2n5fnl8pUh3vsSC9ZNKezjOE1bngyFpcB9wHg6jaQpkgFZOLlXlpwAwuLIuN3JZ/GzpNijflfeFIVNBsv73nIADYLaqVoiVbDfYL8pUAahP6pZQgTLJ6o9FYYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=eUZmKWO5; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bdh6ZQIa"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 00246C2BCC7;
-	Mon,  7 Sep 2026 11:35:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788780947;
-	bh=tStPoEn07LYFbvgkThuMKLxe/CTLKb5WMfGxLDYBQB4=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=Bdh6ZQIamQ0q9W+LnEf0nPfBNrFSfLM9oZX3CXfd9NglLonCbQfHrw3uudK5kxf0o
-	 f5Cvf3E/Uu/JLD9hjPSW3IxUmHHEmjiz370bzCoPHipknCi+2kc7T8NepQL1Jh7YAn
-	 EPcGE3ApCuPBSE1As37Dv8onH8MO8wPRQhYUoBctnXPt7KoTn4LqVXisxR274fJ2d4
-	 CieERsibq4wH0DnHXY0+x7uL6hVEcJ8m+WIfBocT+ov/jijumfdflUNsfZpU0Ch1TA
-	 3rdBRJnW21S9HrzIJXN2AomNpP/p1Ha9JFMLcpblv1DyHAY8P+jZKsWc+gJe0Ez5Z4
-	 BpnO32p1NlsDA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CEED5C79F9E;
-	Mon,  7 Sep 2026 11:35:46 +0000 (UTC)
-From: Jiucheng Xu via B4 Relay <devnull+jiucheng.xu.amlogic.com@kernel.org>
-Date: Mon, 07 Sep 2026 19:35:42 +0800
-Subject: [PATCH] f2fs: force out-place update for all writes on compressed
- file
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="eUZmKWO5"
+Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id CB5F74B0;
+	Mon,  7 Sep 2026 13:34:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788780893;
+	bh=SWBIK6gGMsz7pNTKU7LU4Pfbs/fX5wTd4qP8ada3ezo=;
+	h=From:Date:Subject:To:Cc:From;
+	b=eUZmKWO5GYyv4gicwQfj8OhnyLfGCKHBnVAtLOhu1M4uZ4IMKKsNCtuYpGWNVD5pK
+	 uJlHYPSJ/YbQqaZbqVdrXGz6ySOnj4RfoKqDqW6kKKk+oWhKShfvCSTaQ1i5k5IIVw
+	 1RnTazKF0CbOmaGzJi1n6VKmE1tu3u1IcVJDlWYw=
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Date: Mon, 07 Sep 2026 14:36:09 +0300
+Subject: [PATCH v2] media: v4l2-common: add Y12 to v4l2_format_info()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,91 +35,67 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260907-origin-dev-v1-1-85ae7ebc8c98@amlogic.com>
-X-B4-Tracking: v=1; b=H4sIAI2hnmoC/03MQQrCMBCF4auUWRvJjBqDq95DugjpmA7YRhIJS
- sndjcWFy//B+1bInIQzXLoVEhfJEpcWuOvAT24JrGRsDaTJaItWxSRBFjVyUZqtNwcmPJ4ctMM
- j8U1eG3YdWk+SnzG9N7vgd/0xZP6ZggqVJ6QzOkuode/mewzi9z7OMNRaP6PQm9qmAAAA
-X-Change-ID: 20260818-origin-dev-0e8c63e2145a
-To: Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>
-Cc: linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, jianxin.pan@amlogic.com, tao.zeng@amlogic.com, 
- tuan.zhang@amlogic.com, Jiucheng Xu <jiucheng.xu@amlogic.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788780945; l=2497;
- i=jiucheng.xu@amlogic.com; s=20250821; h=from:subject:message-id;
- bh=YNrmwUC6hZBgGF3yjLDcDf3MEef/HpM3lXoE8cXM+oc=;
- b=2QKUyokgLLcsjxunR6k7wQ0huDmzz9QlttyBun5ZhJCS8hhFtf0fT5/2MtvQZv6XkjvH1SZt1
- xqgZwn86I2+BJAHh+YZhlRgzQj05jHztIJ+/JhOUkSZjkvKltWETVXa
-X-Developer-Key: i=jiucheng.xu@amlogic.com; a=ed25519;
- pk=Q18IjkdWCCuncSplyu+dYqIrm+n42glvoLFJTQqpb2o=
-X-Endpoint-Received: by B4 Relay for jiucheng.xu@amlogic.com/20250821 with
- auth_id=498
-X-Original-From: Jiucheng Xu <jiucheng.xu@amlogic.com>
-Reply-To: jiucheng.xu@amlogic.com
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260907-v4l2-format-info-y12-yuv24-v2-1-46d8689dab95@ideasonboard.com>
+X-B4-Tracking: v=1; b=H4sIAKihnmoC/42NQQ6CMBAAv0J6dk27kiqe/IfhUNpF1khrWmgkh
+ L8L+AGPk0xmZpEoMiVxLWYRKXPi4FfAQyFsZ/yDgN3KAiVqeZEacvlCaEPszQDs2wCTQpjGjCW
+ UeNK2qSplzkasgXeklj97/F7/OI3Nk+ywFTej4zSEOO33rDbvr1FWoMAROiu1akjijR2ZFHwTT
+ HRHG3pRL8vyBdvLCXndAAAA
+X-Change-ID: 20260806-v4l2-format-info-y12-yuv24-4236cb991a7a
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Vishal Sagar <vishal.sagar@amd.com>, 
+ Nicolas Dufresne <nicolas@ndufresne.ca>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1881;
+ i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
+ bh=SWBIK6gGMsz7pNTKU7LU4Pfbs/fX5wTd4qP8ada3ezo=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqnqG6iMyfAs+UM/Dv8EblCTU60M7MXb0boTmMp
+ Mv3e7FiaDaJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCap6hugAKCRD6PaqMvJYe
+ 9QUuD/0YVADZUaZQ/9yllsbBhIVGhQwejIamdK6ZPdZEQeaqhFWIYUiFeglqYPqrjPsEfhknEj8
+ nOkzn0HiYNAMVetM7EQqzNiLfzS/HY1TFIU0nntxLjrB1WVQBBIDx4ff7rGEn22PDp1Rn8qP6EP
+ M93q0yU5MLEfz9t5j/FciyYX9ocpcE7hICyTdLQE9a6krnZpavN6nm528X8fzL0aO9QjDaggWk7
+ qBYmM7q94LZRGdV21fjRoSFnAmf/MCprKXlPJaerF85aI17zJM04Tj+w2EY7g12wPf48X1Z55TD
+ lKZeWpeX+lzePqv4EGmKHaL14cPmY6gNp9zk6e9xd9xjgziezecrcSYU90Yod71OhebFq+rQElC
+ /EQTGGav3Fzbq1dAGwfcFkQ4PZ636Xy0fCecCpRwKGEM80XrqL5fS5cC+IYdAdZNX8yCTPvxvRD
+ AdlFIRYfEt4uegHKYHOrlwJu0rJUdRGjZWXw4MI3c0qAIZg5zj4PDP4Cg4irQJUyrilAadlMTT2
+ c8QddMNoY/69u5+d6O9sQyLPpb+73UVK8BGt8zZ9CzqEoPTsYLHyDjNpR2WA4ewfGyUYOSnaO21
+ T2kAVxkX6igPaYAe1sW/Ln4eQgJvP6yBIhQUO9hpG0i7udABgR69ZTgem0VgHQ/4Ct2SakgN3Va
+ 63UClTdH0d1epKg==
+X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
+ fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-From: Jiucheng Xu <jiucheng.xu@amlogic.com>
+Add the V4L2_PIX_FMT_Y12 (12-bit greyscale stored in 16 bit container)
+to the v4l2_format_info table.
 
-For compressed file, compressed write may fail and fall back to raw
-write.
-
--Thread A                                         - Thread B
-  - f2fs_write_multi_pages                          - f2fs_down_write(&sbi->cp_rwsem);
-   - f2fs_write_compressed_pages                    - ...
-    - f2fs_trylock_op                               - ...
-     - f2fs_down_read_trylock(&sbi->cp_rwsem);      - ...
-   - f2fs_write_raw_pages                           - ...
-
-Thread B acquires the lock first, which causes Thread A to fail lock
-acquisition and fall back to raw-data write.
-IPU_FORCE is enabled on small-capacity storage devices (< 16GB),
-so f2fs_write_raw_pages() overwrites the original compressed data
-in-place.
-
-The in-memory node has been updated with raw-data addresses, while the
-node metadata stored on eMMC still remains in compressed state.
-If a power-cut occurs before the node is flushed to disk, on-disk
-inconsistency arises: disk data is raw, yet metadata treats it as a
-compressed cluster, leading to decompression failure.
-
-To eliminate this risk completely, force out-place update for all
-write operations on compressed file.
-
-Signed-off-by: Jiucheng Xu <jiucheng.xu@amlogic.com>
+Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
-- Link to v1: https://lore.kernel.org/r/20260826-origin-dev-v1-1-c21271a82100@amlogic.com
+Changes in v2:
+- Drop V4L2_PIX_FMT_YUV24 which was already added upstream
+- Link to v1: https://patch.msgid.link/20260806-v4l2-format-info-y12-yuv24-v1-1-de2dc061be02@ideasonboard.com
 ---
- fs/f2fs/data.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/media/v4l2-core/v4l2-common.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 6ae0eb37d20f96ed51a8124f59ba90dabf632fb5..aaeea561dcd30681b9b37f2f6f0493ed58ec2fe0 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -2973,10 +2973,12 @@ bool f2fs_should_update_outplace(struct inode *inode, struct f2fs_io_info *fio)
- 		return true;
- 	if (f2fs_used_in_atomic_write(inode))
- 		return true;
--	/* rewrite low ratio compress data w/ OPU mode to avoid fragmentation */
--	if (f2fs_compressed_file(inode) &&
--		F2FS_OPTION(sbi).compress_mode == COMPR_MODE_USER &&
--		is_inode_flag_set(inode, FI_ENABLE_COMPRESS))
-+	/*
-+	 * rewrite low ratio compress data w/ OPU mode to avoid fragmentation.
-+	 * If IO comes from compressed write path and fallback to raw write,
-+	 * force out‑place to prevent metadata‑data inconsistency.
-+	 */
-+	if (f2fs_compressed_file(inode))
- 		return true;
+diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-core/v4l2-common.c
+index 65db7340ad38..5920941d7f60 100644
+--- a/drivers/media/v4l2-core/v4l2-common.c
++++ b/drivers/media/v4l2-core/v4l2-common.c
+@@ -333,6 +333,7 @@ const struct v4l2_format_info *v4l2_format_info(u32 format)
+ 		{ .format = V4L2_PIX_FMT_YVU420,  .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 3, .bpp = { 1, 1, 1, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 2 },
+ 		{ .format = V4L2_PIX_FMT_YUV422P, .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 3, .bpp = { 1, 1, 1, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 1 },
+ 		{ .format = V4L2_PIX_FMT_GREY,    .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 1, .bpp = { 1, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
++		{ .format = V4L2_PIX_FMT_Y12,     .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
  
- 	/* swap file is migrating in aligned write mode */
+ 		/* Tiled YUV formats */
+ 		{ .format = V4L2_PIX_FMT_NV12_4L4, .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 2, .bpp = { 1, 2, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 2 },
 
 ---
-base-commit: 0a1703eba23707e3b2edfa2a2329352e7abc0ffa
-change-id: 20260818-origin-dev-0e8c63e2145a
+base-commit: 274af88c8acaa4bb538791047bd17fa5136ba78f
+change-id: 20260806-v4l2-format-info-y12-yuv24-4236cb991a7a
 
 Best regards,
--- 
-Jiucheng Xu <jiucheng.xu@amlogic.com>
-
+--  
+Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 
