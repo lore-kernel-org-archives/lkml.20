@@ -1,124 +1,165 @@
-Received: from embla.dev.snart.me (embla.dev.snart.me [54.252.183.203])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013009.outbound.protection.outlook.com [40.107.201.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 540C91F09AD
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 03:21:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.252.183.203
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788751316; cv=none; b=B9XjquSBFRIOal7isBf66uiTCpFe46+m6uWVRytBJoCL5oUUW3/JK/118SURTIxLhJBo4ViZdKcpD1EyokTdoontta75Iy0fMrlk6/vHmIvut7kwG8NrEOldY1fjri2KEDahBYj+lC/jVLXtTvrTDJ7DTqYYAajt1LW86ABxJUU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788751316; c=relaxed/simple;
-	bh=ySylN1SmJ6aK0bzf/drbZfZ5VBFujZEv7/WjT4uLgEM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iXH2DfQh1dAChHFQ2Ra0sdmnU5uVFh6zj0+puCV3KUznHTvgikjU4d/JZZLfrb5GQ6DLiehAM1r4JJuLwvuPEai3q3RmCmYv/XzO4PLSNX5Fnoqyr3cSrSyhzpkxFcgxjqOBjuZc9IR4UlJco0UfFwGUp9u6lZFRs4DK4qq+vIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dev.snart.me; spf=pass smtp.mailfrom=dev.snart.me; dkim=pass (1024-bit key) header.d=dev.snart.me header.i=@dev.snart.me header.b=abmp/aap; arc=none smtp.client-ip=54.252.183.203
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dev.snart.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dev.snart.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81BCD1F09AD;
+	Mon,  7 Sep 2026 03:22:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.9
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788751360; cv=fail; b=GuKhdIVEIIKmXhEtDsdp3VbHNCcKES3AtNBkKos2yD8Fxdox1sDegR6znbqiYQM+xYp9LABNRhKT/pr3pZkIrR3b/OoDvpK2nqCdnFMlhKQ9/ED/q/XZg14RGZaqd/MPpEUCKx2lQyVhA9XheZg/xrRgsjWp7kr0AXO8Y+eo2y0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788751360; c=relaxed/simple;
+	bh=KR5d+a/f2IcA82LPgqT7NKnYG32Z/aPN7D+X51HB2PI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 Content-Type:MIME-Version; b=SxBcZJus9SoJI+TaWlebX0OF03QM15D30KAK987E9f60Pa7gllp6Ju5CI/lqu4m71ltwbrOB6nPtaHyFemAxH4akKIu0d9WZRD8mMxIzt7126LRwHn/yfQ6EDMTh/VIAqUKOYk9OvhMIyZfhAsCymC61pvC6xQrLp6mJh+W3pWs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=FCGxJVfo; arc=fail smtp.client-ip=40.107.201.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=dev.snart.me header.i=@dev.snart.me header.b="abmp/aap"
-Received: from embla.dev.snart.me (localhost [IPv6:::1])
-	by embla.dev.snart.me (Postfix) with ESMTP id 181241D452;
-	Mon,  7 Sep 2026 03:21:46 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 embla.dev.snart.me 181241D452
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=dev.snart.me; s=00;
-	t=1788751308; bh=ySylN1SmJ6aK0bzf/drbZfZ5VBFujZEv7/WjT4uLgEM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=abmp/aaprc87o518fN3qgyx88JNYaL702xe6RglZbQUueQBDIJbxx0f/6206FTVyk
-	 VjqGJvD63xLpb4EkVnxMJF32wCI+AaZTgON8UNL+Y3RT22ZCd946kauipAFYkbemGT
-	 w2NGqvVQzrj4RMsIQNNwdi3a4foaprXuVq0AZDbk=
-Received: from [192.168.1.18] ([182.226.25.243])
-	by embla.dev.snart.me with ESMTPSA
-	id SKcbLsotnmrbIgYA8KYfjw
-	(envelope-from <dxdt@dev.snart.me>); Mon, 07 Sep 2026 03:21:46 +0000
-Message-ID: <0eb35731-1d8f-4f46-9a0d-36a45ceccfb2@dev.snart.me>
-Date: Mon, 7 Sep 2026 03:21:45 +0000
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="FCGxJVfo"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kpGCcwGaflfqAr9VDnLhqRR0VJGo69zZDG7O5mAcpFYxS9gvDpsPgVCyLgWP/p1ppbQ0+S+4DquSphGk4M2sc13KKcbd9O5cKXV75LlpB2zqeGi8AtbAXgF9cm/okiekWmM4kslNBFSFKi1ggtBswToaCwm9df/ULX7qb8pCiu7HAHrTlEH/E8FX29bNEcX5VRyEiO9MSDMXKtGuxIIoRk8iQGDLCrSsBu9XGXLxzK8BoPZlGd/nkFiTwf8p77H+rD8r+KvbVLZ9OivjojvVraPXTMNZJqcjNTwbYQL1tKnERKCsXX0KGkUUjzejKlkIKSYVE1QPculkUKsK+2wu9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9M2v9VDgXqdNtVIyd47VYuyMKP9KPyYiO+MkK5pHyHg=;
+ b=RG5mSnsB1SXe2rp0QswB7W+GXin/naFYAQWRsJxUQAzP8mfq6kOMyRf8uQpveGqTlN8qbEw1BJrzJgvB9pKi21JfeTO1vGQv9p+B3LA014c7n9leVMrVUFH1O6t9/ME43Iia9yRyqQeZfvt1CbLgx60cFrjb+AQ31d8PMuO0/7n8UVWbRb8CuMV/p0rWfbelTtfG9l+dDD8iJ7Bw3W8rv6+CgwC29FZhsQjbhvaKTJZusO6tNmMbF1e8FvbOTkRGejZulf4w5VsGX39poXlhPEKRtntLMI3sl8kmRT9aiR+dmDurSjFjWP45/lijp1PRP62jXfFMfkgykfJ+5HR99A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9M2v9VDgXqdNtVIyd47VYuyMKP9KPyYiO+MkK5pHyHg=;
+ b=FCGxJVfoIaUBfUJPbWTaeX9sWHH0PeeMC9dG47pttoSo6aH09CxsUZ+xGhGrXVhcrjzTkwdIyYbEX0Vj3O2rolXILdVTqlTwGOsr30lluQgr+hhxl2I2yGJlS23lbRCEiHgfW34SBlFKEqpoqjs5i5X+nibyZ/0CU9zjk9opqid33TqG6ggNopy5Az/cyVbcE4QecwA9yK/cUH4w7fIZU2zIDztRBE8mM/DoegMLj8TqKzLMdPoy0z2JWNruC1LNb6jhOlTiD9Rz3ySqHfTrHqmCfY9z+W6MR6bGZ3TJEAK92n/e6uRuazgWj6xURoq4ZagefHzWBqvWp7amFpFnVQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by IA1PR12MB161209.namprd12.prod.outlook.com (2603:10b6:208:5ac::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
+ 2026 03:22:33 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0382.007; Mon, 7 Sep 2026
+ 03:22:33 +0000
+From: Alexandre Courbot <acourbot@nvidia.com>
+To: Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, Björn Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Onur Özkan <work@onurozkan.dev>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Eliot Courtney <ecourtney@nvidia.com>
+Cc: John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
+In-Reply-To: <20260827-pramin-split-v3-0-24b24d7afc52@nvidia.com>
+References: <20260827-pramin-split-v3-0-24b24d7afc52@nvidia.com>
+Subject: Re: [PATCH v3 00/10] gpu: nova-core: add PRAMIN window support
+Message-Id: <178875129291.3189712.2386326014688459969.b4-ty@b4>
+Date: Mon, 07 Sep 2026 12:21:32 +0900
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TYCP286CA0244.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:456::19) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] exfat: take bitmap_lock at the start of
- exfat_alloc_cluster()
-To: Chi Zhiling <chizhiling@163.com>, exfat@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>, Sungjong Seo
- <sj1557.seo@samsung.com>, Yuezhang Mo <yuezhang.mo@sony.com>,
- Chi Zhiling <chizhiling@kylinos.cn>
-References: <20260905054951.674766-1-chizhiling@163.com>
- <20260905054951.674766-3-chizhiling@163.com>
-From: David Timber <dxdt@dev.snart.me>
-Content-Language: en-US, ko
-Autocrypt: addr=dxdt@dev.snart.me; keydata=
- xjMEYmJg1hYJKwYBBAHaRw8BAQdAf5E+ri1XLtjqYbZdHOyc8oS+1/XJ5bSlbx5WHXmVBZzN
- IERhdmlkIFRpbWJlciA8ZHhkdEBkZXYuc25hcnQubWU+wpQEExYKADwWIQQn/Jn96EMUaIoF
- X+T/ldyyrZpWaAUCYmJg1gIbAwULCQgHAgMiAgEGFQoJCAsCBBYCAwECHgcCF4AACgkQ/5Xc
- sq2aVmjJZwD8COjPlUwccrlRvbNQ6f87DWchtYO0o8W2DNRM3RLps0EA/jEhIbRV6AsyC8jr
- 30Ut3aJ3/mO/6G4sLj7OvkEEBH0MzjgEYmJg1hIKKwYBBAGXVQEFAQEHQFpgtIgaByv9lIEY
- EmpavMO0pYjtu7TMJynwdnGYkN9LAwEIB8J4BBgWCgAgFiEEJ/yZ/ehDFGiKBV/k/5Xcsq2a
- VmgFAmJiYNYCGwwACgkQ/5Xcsq2aVmhFCwEA0kM9VyYB4bLCM7+SuXUUH+5Ec99Nj4RXxFad
- Key9GuwA/2BZK6bNyrLSfEk2JDRoskqf7OIL0wa6JOD5SrBnMe8E
-In-Reply-To: <20260905054951.674766-3-chizhiling@163.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|IA1PR12MB161209:EE_
+X-MS-Office365-Filtering-Correlation-Id: b8d7842c-583f-41f2-d8a6-08df0c8f4182
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|366016|1800799024|23010399003|7416014|376014|10067099003|56012099006|11063799006|18002099003|22082099003|921020;
+X-Microsoft-Antispam-Message-Info:
+	rzcvoeLqCz7AYhnPAEUhEQ3iHVRP1imVby4CGvNmRwfwZwFv8abJ5c4PpSUnixt2vTXUkNSuZniwLcXo/CFJGoc5tJljjVwz7QEdxRkR6rPpzWbJntdYx88Dy0lzFlurmS6zA55ch8cHwkiWwWen9DjH7u9/5yRpPZgI/lFKWolW1iOUDDuPtaflQ6CuE89jAintEj3aSKGIsL1DcJUOPKJVRFAMAkeL+xmE1bpYuhsKX+cKgUW7Ybx84wmEthhbn9IpVMHXKCrNUlYKLXJ1fXkcUOqTiqxLlok+LM9f5GBqLxXcyEQstGt8JFRJ+g4cYQQ99syfAiTiOeTl1Ndn8hlBT6/ekue3W1Fx9Xy1pMPydHDqlB0p12Yjut0VkPija63sWs+CtdkKUfu6St+eMzRlta7x4Andbm16IV1MVxsoSHDxot0MFAh7yRu7X1jiCccW73TQV2cMx38qHuMI8GILivDEz8c8zj81akiUEdSgPsTT+IfGY86nXgV0gC8SEP6bVX6qmWpdIpUlDK+5iFjk+Zq1/WHtAEogFXha3fHczMi9YuhlhBMLk0t+hUkpPH3RcrQzb4YvqZB3XFQA1qTvK0mTq+qDrR+0SI44LVgVTmc0UEUPvhcd3PEYRb0Dr62yf69IUmL8P4dF4aaHs8PmR402UnmVnAkCkzGmmwOeKshY/ztiy6i+qaccwVpIrC6w98pOLMFhMWEkIZj9oQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(1800799024)(23010399003)(7416014)(376014)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cjdtWWowaWFuZ08rcVBOZ0ZvQ0lZc2dSZzcrbDhkcFV5blVZQ0wzRnNwT1Yx?=
+ =?utf-8?B?N3FwVkxGY0hSb1RwSjNVdVUvRWVqMHZ2bURyQ2hsQW0vK0hCWlliQTQ0WDlt?=
+ =?utf-8?B?M3lnTWw3ZUdmemFraW9BVGtpaStoRkc1eFJQUWdFMFVSZjNzUWVPb3JMbW83?=
+ =?utf-8?B?bzllWmN4NlAyMWpNSG1kYnloK2Q0cnFzYmtJa3liaFBHWjdLK0k3cWw4SlVT?=
+ =?utf-8?B?WEJRUzZPSm5SNVlma2psM2VhQjRac0lwenFZTjB5MnJkR2VueDhUa2F0VTBZ?=
+ =?utf-8?B?a3drWTZDUWVyVUV0Z3h1Z2dQemhERjFZTDJTaUpBa2lKRXV5T1J6ZkE1VzdI?=
+ =?utf-8?B?NlJtckNXV3VkQ0JwSEU5c1VvNDRhM0M0OU5zUjZDNDQwaW94WkROdHBteDdQ?=
+ =?utf-8?B?aXBsNHZiYzZVVUMzejBaWE1qZHRHSXRSZGpKUGVxMlZ4cnhuNGNvbkYrTDRO?=
+ =?utf-8?B?ZGJMOVA2YVRQYlhkaFQxbTFGcTF1Q2VhaTdmMFBPemhucHN1ankxWDRDcTl0?=
+ =?utf-8?B?djdQSEszZmIvQy9VSDZxNVA5QTVBdFJSZEM5UmZTdkVBcGovb1pDSUhPeGhV?=
+ =?utf-8?B?MlFweHpDYjVvanYxSnNRcEhuMGRBVWFpSXJtUENmRkx2VE11U09ZbXRYcVU1?=
+ =?utf-8?B?NjF4TWw5UElpMGVhQnluVEdHRkVFL3N5aTYrT2RZeDVwSjFNRjJBUzNIMVhX?=
+ =?utf-8?B?RzlBYmhyRDlvcG9MOVBkMFp4RmNsYlgzSnBGZTRDQ21KOUNHcjZ4by9JM0o1?=
+ =?utf-8?B?WlhFb2NTVm1WNUtKN1hWazVtTDJJajJCWXI2Z3JrVUVSZ1Rvb1FnbndDbnVr?=
+ =?utf-8?B?MFBIVGI3QlZJaUVjNXp3Ukl4OFF1Vi9GVzR5MEJWRmhmTTlGTkoreHlBUkZS?=
+ =?utf-8?B?S2xXWHkyYjgzUzY3V0Vtc0toRHVkbzVjUG9ISndEMTh2am8wOWJmTi9ISjdO?=
+ =?utf-8?B?VkF0WHJ0OVlFZkZObXplaGxRdkh5SlBGUEVsZDAyVTBQdG9OcmZXaCsxVFAx?=
+ =?utf-8?B?MDA4Wk1iMjhrUDZkc2tUSHdXZTBicmJUdWNTYlNwQXhUS1AwQW5yck1senc2?=
+ =?utf-8?B?RzYyRzRvL1MvNE5ZS0RzOTFRWXlyTXFFOWxhSlJRNWxoUmxGN1d2Y1FERGpS?=
+ =?utf-8?B?anR6M3ZjNzhrMEd1L3FXQzZJY1lNaGlUdGxqNzc5MDVEazRQM1pxbk5FZ3Bs?=
+ =?utf-8?B?Znk1T2dIZk5OZHJ1TVVnSlROTno1SmdZNURveU5NenJTTDZZWi9KR1Ryc1dv?=
+ =?utf-8?B?Njdmb3laWTVpUUNkbHlBeUN5V3FLZVNCMlExdnNxZTlUbVVoaEtIM1BQUitS?=
+ =?utf-8?B?TzhvazNZcUE4UmJWdFlsVmNGOE8wNkJUVGFIblQ5RG9sVThoeWtkaW5xMjZn?=
+ =?utf-8?B?VHBZeHZMSkxZWDdQZjR5T0Y1OURGVHNpL08zaTgrU2RnaDZzWmtMZ2N6NHNs?=
+ =?utf-8?B?OTRjUVkyVzlWYm9razhkR3F4NGZtaG5GbitCRllQajdybThFZmFsUDVVbjY3?=
+ =?utf-8?B?TnRPSFp5ZXBwaE9LdE1ydnpKd0RsR0V2dVpXLzZmNm42c0ZEZThXYzV3Vmcr?=
+ =?utf-8?B?cE1xM3pOb1ZRMzVjbzRUd0JwY2VNM2puNllJOVlaWlhyWmJwTEk3Z2RRTHFq?=
+ =?utf-8?B?bUlMV3BVek5IdjBKSXlscXVYbk9MblNuQ3hGYlV0emhGT0RjMnUzYXM0aTJD?=
+ =?utf-8?B?U0xnblZpUCt0WXB0UGNBVlEydENnTG93NlNTUkVXeHZqRjRvZEJKZjVPbi9x?=
+ =?utf-8?B?cm1malpFYWJSVXdzZFJKNXFXYU9mUDRZNlpCSCtmT2VPdTF2Um5hUTY1NEd4?=
+ =?utf-8?B?cTRldzZ6a0FVcjBFL09mTXlpSStuSHFyQnB0cTcwSWRob2NLTjlvSGZSOWRM?=
+ =?utf-8?B?NEp1VmI1TFNKdVVTWEgvaGNPUUIwc0VUakN4RVYxbHdSeGpKdkIxaUJEUnNN?=
+ =?utf-8?B?cW1zNndqUVRldHptYVJRc0ozV3dVbmlJZkt5RVJKRDNURlMzZldNS1NDRmU4?=
+ =?utf-8?B?ZFNaeUFTNEVqQjBiVlRGN3p1SHFpelFVMm1jc0ptSEgvQXhwbkhXTC92UVRG?=
+ =?utf-8?B?Tkd0YWl5WWRJTmtzMWZLcnV3N3RLZEVvODJ6MVNUa0s3VVJTY0dqRlFWRSty?=
+ =?utf-8?B?eWVjdmFUQ1YwWVNHQmtGNlV4TmRycW10WVJWUDRDL2wyckhsZGdKQU16WHdu?=
+ =?utf-8?B?dDEyWGZINDVJOUx2ZTdLZzVkZU44K01DS1I0ekR6azlaRnBzY2h0N3drSXhQ?=
+ =?utf-8?B?Z2VKV3E2bm9zL1NVMUhtaUIwRkhCc0Z5ZWowL3VWTkVjR1VjNVR3dDRjVG1Z?=
+ =?utf-8?B?S3d0aDVzQkRRZ3MvNldLVHZNNzhVMlIvNFg0YTZtUGZJZGM4cG0wb2hyZThM?=
+ =?utf-8?Q?+JMafEE7mXXJ/RbEnBSNukj6JzYXt844/8uOV3NQkQuWY?=
+X-MS-Exchange-AntiSpam-MessageData-1: bDRCIlFO4Q2e8A==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b8d7842c-583f-41f2-d8a6-08df0c8f4182
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 03:22:33.1347
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pbvHcW1kIrdzDoyrBx5BMKESYAUV7/AcTFpk+z1RjCN1a9sBsMaC1WFWW15WuTPoI3fxlsnsziOpYHgpGdmyLQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB161209
 
-On 9/5/26 05:49, Chi Zhiling wrote:
-> From: Chi Zhiling <chizhiling@kylinos.cn>
->
-> exfat_alloc_cluster() checks sbi->used_clusters against the total
-> number of data clusters before acquiring sbi->bitmap_lock. A concurrent
-> allocation can update sbi->used_clusters after the check but before
-> the lock is acquired, making the check stale. This can allow the
-> allocation to proceed even though there are not enough free clusters,
-> causing it to fail partway through.
->
-> Acquire sbi->bitmap_lock before checking sbi->used_clusters so that
-> the free-space check and subsequent cluster allocation are serialized
-> with concurrent allocations.
->
-> Signed-off-by: Chi Zhiling <chizhiling@kylinos.cn>
-> ---
->  fs/exfat/fatent.c | 17 ++++++++++-------
->  1 file changed, 10 insertions(+), 7 deletions(-)
->
-> diff --git a/fs/exfat/fatent.c b/fs/exfat/fatent.c
-> index a6728c361289..3c8bdc131f6f 100644
-> --- a/fs/exfat/fatent.c
-> +++ b/fs/exfat/fatent.c
-> @@ -427,19 +427,22 @@ int exfat_alloc_cluster(struct inode *inode, unsigned int num_alloc,
->  	struct super_block *sb = inode->i_sb;
->  	struct exfat_sb_info *sbi = EXFAT_SB(sb);
->  
-> +	mutex_lock(&sbi->bitmap_lock);
-Speaking of which, I think we should do this as well:
+On Thu, 27 Aug 2026 17:51:41 +0900, Eliot Courtney wrote:
+> This series adds support for the PRAMIN window, plus some documentation.
+> Some of these patches were originally written by Joel Fernandes [1]. I
+> have updated them with changelog notes in each patch. For example, I
+> updated them for the newer IO machinery from Gary Guo.
+> 
+> This series adds a Pramin structure which deals with updating the PRAMIN
+> window and handing out typed MMIO views. The PRAMIN window is a method
+> that lets arbitrary VRAM be written over BAR0 by configuring a 1 MiB
+> window through GPU registers. That 1 MiB window can point anywhere in
+> VRAM. This is useful for bootstrapping e.g. GPU side page tables.
+> 
+> [...]
 
-diff --git a/fs/exfat/super.c b/fs/exfat/super.c
-index 217d150652cf..238533982831 100644
---- a/fs/exfat/super.c
-+++ b/fs/exfat/super.c
-@@ -62,7 +62,9 @@ static int exfat_statfs(struct dentry *dentry, struct kstatfs *buf)
-        buf->f_type = sb->s_magic;
-        buf->f_bsize = sbi->cluster_size;
-        buf->f_blocks = sbi->num_clusters - 2; /* clu 0 & 1 */
-+       mutex_lock(&sbi->bitmap_lock);
-        buf->f_bfree = buf->f_blocks - sbi->used_clusters;
-+       mutex_unlock(&sbi->bitmap_lock);
-        buf->f_bavail = buf->f_bfree;
-        buf->f_fsid = u64_to_fsid(id);
-        /* Unicode utf16 255 characters */
+Applied to drm-rust-next, thanks!
 
-
-Because there's a short window of chance that stale data is returned to
-userspace on NUMA systems. For example, if a shell script or a
-multi-threaded process makes changes to the fs and pulls statfs() in
-rapid succession, the kernel might give userspace a wrong impression
-that the fs has been chnaged by other users when it's really just a
-cache coherency issue.
-
-Well, this happens all the time with CoW-based fs like btrfs and zfs.
-But this is a traditional fs and people would expect generally the same
-behaviour as FAT(which does the right thing by placing a lock before
-counting clusters).
-
-Davo
+[01/10] gpu: nova-core: mm: Add VramAddress type
+        commit: 1473ea0e38b3e3bc76d5e9f89ea4378550ed6328
+[02/10] gpu: nova-core: mm: Implement Alignable and Debug for VramAddress
+        commit: 8e43629439b7bbdbe4336300aa33727bae9792ca
+[03/10] gpu: nova-core: mm: Add PRAMIN window registers
+        commit: d3bd73dcf51d88ae116a574ce2f49209c7b48944
+[04/10] gpu: nova-core: mm: Add the memory management HAL
+        commit: b05ff82081b7b90fdd70cc7d07b3da9d85184f88
+[05/10] rust: io: add static `cast()` method for views
+        commit: 9aa6069d624ea877a17b7d0952c993d2eb07dc22
+[06/10] gpu: nova-core: mm: Add support to use PRAMIN windows to write to VRAM
+        commit: a14a957c0e619437fd3a67bc435120b0b6270914
+[07/10] docs: gpu: nova-core: Document the PRAMIN aperture mechanism
+        commit: b4481b9e3b5a3e1b45b5a70880cc2b730bc3700a
+[08/10] gpu: nova-core: mm: Add GpuMm centralized memory manager
+        commit: 5958450e98e52adb61c4967d67b76734ff9052c0
+[09/10] gpu: nova-core: Add self-test assertion macros and config option
+        commit: 2c76c4ec9eb0c91f7b37795f83df8a34d4172285
+[10/10] gpu: nova-core: mm: Add PRAMIN aperture self-tests
+        commit: e6a2c988ed96a5a3af51ed97ecba980521bf2fc0
