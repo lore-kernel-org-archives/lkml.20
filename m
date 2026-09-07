@@ -1,189 +1,119 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBFEF3ECBF5
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 20:45:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4025430ACE3
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 20:46:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788813950; cv=none; b=NO/tQLyXv9jN5bXFsHyq4lBZkW6NAS1bGUzbSXeG+Yg2xpd/ld7Tl2Tt9I3SLaiQxpLHy+C/K4TuuJ7cX+lDg+B/aTpDhGholT3byUgXnt43YKrjGRByXlqMkWktMQmAAFSxxR6detoTOYCMfBeOrvXmlG3zwNxSb5QsYhYdQmw=
+	t=1788813991; cv=none; b=Ab9mHsZ6di4wep1YQTvIAlaxwE+JzyYHmStkbSId1e2E0WLXV0tkwMP0s3ASmuDa0GBy+kzqQVsCQboY3pFKvRwElbePGWxhVZNUg3eJBsr1US9ZaWowLA9hcz2iHDLxwC3m6hPtecsWqprG6HC61j1oPdXlFKe1nXrwhCjzPCo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788813950; c=relaxed/simple;
-	bh=CPWm+hocHeEMJStLxAePVuE6mUhVnF4LuV+Kps3m5bg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Lg4uaXbFEvSE4oBW+wyAyxn7+c5qcZJaAdaTHJe5JyfhUaW9CT3L5syke0Yc8SRXV6Kbqhl9eyXyU0c/hj+iPrFZhPjEmjxGoKm03MI/W5qpjRW7x6T48icl4p9scE+TRwNNmOm/CcHqo8th7sEdRyXHByDKZI+9SICA40JEC50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N80vz9DY; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	s=arc-20240116; t=1788813991; c=relaxed/simple;
+	bh=GSSfyFGNNq4pQYKo+hQzH2CnwwYSzKuqLldYn6rPMUc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XHODcvcmXF4rKEgnEuiCdYXIdjEBiwgH4HJUdyMwaAw4NTOmcV4nz+kDit6/GVSUdbHoGBnmCYtdbt2lRQ5iLJfm9Q6Hj5NXP9tqL53GWRyJEDpvHy6sae1rxgj/3g8TG3ojSiVDjx+zqj1DaYYoELACJHvDNbA63eZ75c5g+m0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E+pA/gMy; arc=none smtp.client-ip=209.85.160.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N80vz9DY"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2d6d28aa26cso23337935ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 13:45:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E+pA/gMy"
+Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-52cd38ddcdfso44840741cf.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 13:46:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788813946; x=1789418746; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yKFQMDZI744lGQKbB13keNLgxM4gqMYw/XKck3CakQ0=;
-        b=N80vz9DYB3bm+QLM4T7VvS6gvz33iaIhxhcwCPlFMfezR4yIPSA5zNLRh35frVHem/
-         CO7o/CIU8bsZ6iEnEDM+VPHv/O0Mkjn8gTOzjmK+c+Wkvt5uAAtxpFeo2kWt6KzHgiyN
-         Yw1XPty6H9hcB4xwvbOyb4gNyZUF43SAgecvK6sZYO3zMEgZ+zpa6y+bdMYqQwGHWSDK
-         55Lk3EfIbQ0ehJaGRHDlZAcbkWhE1s2dseYwuX17MTrC1LjW0f6w8xuzkfg46/13nzR0
-         OQmckxzuG/crv+NOLe6Tdwx0ajrSUaLrw/EjOQrm7oEvnJ1cENWVW3SJUdKCYLiOjvPp
-         oGJA==
+        d=gmail.com; s=20251104; t=1788813989; x=1789418789; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VER40sFOr0PvBhXNUCuY5FdhQBtPHE4tZxDhsZnhadY=;
+        b=E+pA/gMyCI9+i0kTWPX4HbSfd2mUzdmYyl3fChVG+9MIzNmRFlMEjkr1wU1jr+QRkJ
+         acaxtznH4R9qWzygvBvyc0r8m1y6Gfm+9uRvZXRJSCVasVBsQFOmBnaSjHeO/xtY0djK
+         OJjXjBqEIMSINmjIgVFw1A4JOZQ8C/mDKNkO0tkSchbbY0VJCHYilXdHTq76WsVMZyV1
+         aY8PXs7dFt3FzCftIvDfb6Xen1UQ+pVerrxkjmCgZoK4cr9J7De3TS8Q4/sjqVE0WZSm
+         O5jAYJbF4Zx8UQJ+WtpRx3jGiiKV00iH39z5MMCr6p7NQXnIn0LOWVYpQX3wXMAzMjFd
+         aFhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788813946; x=1789418746;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=yKFQMDZI744lGQKbB13keNLgxM4gqMYw/XKck3CakQ0=;
-        b=p0ehu0Zj20IGa0PB3Ern8MzHicCWfQFLAXrKLc2//8Q/TPaW8sAYiPZCabR9QAow5z
-         6a9X8jxV3/xvrsdYEffqgtMO4GdEMih9XAtai/cMxGE30n+VgdxvPQ3EE7QpMSxx0BwB
-         SeNx84jCpD+++VV+wAqbokNJSUnfAvK5PP7o7iH+7q0MR/Z+j+UVk1mB5WUEyUJyDoFC
-         zYAqxLNp59VTy2rVbojjt7zgamSXFrGJciGplJiTk2iR9zoct0XEiUFnAm83sAnjdzFN
-         LqbSLeWocS2Gdn+kUKeKWhHwhMmuetzmk908gdJ9MkaApFlz7WfB4XzLYAUCVqk8Zye0
-         oJtA==
-X-Forwarded-Encrypted: i=1; AKwUvByAoSC8HO9WBo0yJpRR6Xh9kDe5XPzDqLjU/+gVoPblZjG3BLy4WU7WhybdC5xpp43jbFExXnd2pymw0fQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++n9+vpoH0ijPnc/76pI0FiGzEjTcvhVF7U6XJd5cVtO8W/zetLM
-	nVXpKpiCAU8a6l+bDipOJWD38UvBDTPAYcC8lFZdtUdL8wOGfBByo3ae
-X-Gm-Gg: AYBFou1SCTsEocP8CyQ2K3fmmxv41GJ7C7YKWnWtRlExx8/Z9u5IHY+akXsu/u/FtuS
-	W3yzi6lYfdXmBN8Ij2Bm2eyGQPZtyRQOBuy1OAvqicEVSZjTiHXtNaOiX6HLZIs5hkJosWziH73
-	PDYJeAmhlnvRdXKUBmiEkgwgLeWk/MdX+iaQHVJz0x7af/Kf1zrC/xiTt0JRAN4HaxXXK0ApT5w
-	edZVr7YU2M8H/ZM/b3DpcrhVkVJ9wmqxK1IVjs4Cl8XIZsASFSEoB5s9uiqqM41HiQ0g6KiIhdg
-	9w0dmdmgBEX2CvmTQimC4oMCnFWs8rPhyW3c7SnOE4onGlH/QtVUytNCYCryGOV9e51MEaB3oK8
-	kCsFY/oazHe/ny8fJd8gOdv+Iky505OQFePVrSOBSBRjeaQnguA83l3TpFNR7yda6vinbk1q7Zz
-	0ByEQgqhsZcitZ6ceDaTyCwfKJYbTz88V3yfI2caCnj9R71L/5y0ky23PsqWMuw3ET/bacYOYej
-	SXpWrYzsCOMtmTICUDQc2xQgaAIVAHsxVcHlno=
-X-Received: by 2002:a17:90b:4c06:b0:396:b98b:a3c2 with SMTP id 98e67ed59e1d1-39b26116d9fmr32402317a91.8.1788813945794;
-        Mon, 07 Sep 2026 13:45:45 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b608409sm34629947eec.21.2026.09.07.13.45.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 13:45:45 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <8ba0d9db-a9ae-44d1-96f4-54eaaa6666f9@roeck-us.net>
-Date: Mon, 7 Sep 2026 13:45:43 -0700
+        d=1e100.net; s=20251104; t=1788813989; x=1789418789;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VER40sFOr0PvBhXNUCuY5FdhQBtPHE4tZxDhsZnhadY=;
+        b=e8AW6TKohb9YKb6Rc4WOAm4vgHaa+70hZE3K65I3s6Fl1JZ0RsIFYCARYPKMEYvpkW
+         iZTsGpuYgzT7GXdGlcZkpNpsGtN1tlwL0AxzQdpKuQZpMSYXqaL5PQWI8YlPbMXwMSGx
+         oBGurs5rVIdvw85V+cfT7j8s/7z6RwyAKflHB/7ObUnXG+dmxFyiPTymYlpYkiUolv/G
+         Op4Rm4Lhgx2TPS/qpk7vjCDE+QxR3OBzTB7Qn4Fyvb/Ot/eUnKaskm1oVUHxf4iEesxR
+         4mqTIuomRha5wwKU4i6Qt7JD/N21LdeZ71JOTG3kcy5HLU8+u+bAlFSc60XExHO/Lv8l
+         PS7A==
+X-Forwarded-Encrypted: i=1; AKwUvBx1plYYF5BmjsBihqhJTU0jMf3U7B5Xsmy76czPJHmHCDYRpQ+m2vcbTH2bjAMrCxqq5UwqBQ5xlDDkvYw=@vger.kernel.org
+X-Gm-Message-State: AFuF++md1c4oIj+Elc4IDvGjk1W4Wizud/hseh/M31zCq9LFyNN/kDY8
+	v4QaB369i0Po184p5N6g76FlMkJUCjqcXbocXGMVcf7LlD5tBVAiJoAp
+X-Gm-Gg: AYBFou1hzmoLUg0RQAxHyR3CMckxsXwBEl2u0GF3DRuwJdJM1GGpLbi80QKxDE9/sOJ
+	ehvxnHbs3wse1YRFTG9cWXz9pJlEGFOsDzSNZLs4Yynkn5ClQP5N86wg6MwOeuiQtkXDv/8SSAp
+	4yrh0TfxwDq3/GwHl1E98EjA9s/Tt+Sma59wy/i829YO2W1GlvRZrXIlQDP5B3w6kpCiJuBUvgc
+	/daTWsuOcK8a72AMLI+n6YmjPeSiZ+fzZOEJcoPMUy5drT4rBkmcGOwsYpp0oA+NAr57HY5nSGq
+	hSFn/ihn7x+E2rEk5tLlsDeZwYqVAMw4nP5ZMVjTdfwMU6dRNA5PMup2t5zYYP71tvql2Hf0MVs
+	PAK2HSNRu5rktkELar3EBMCiAvJkudx/OJ1t9xAaWeGhIGXWlVXsFterdklgsigI0uZGgHpEmIt
+	MS9WVB0aIFO+yGvW8IM+jfUhCpHzxIBrZ3Hi/3FYYCd3N2pD4w
+X-Received: by 2002:ac8:594c:0:b0:52f:b1b6:a4aa with SMTP id d75a77b69052e-530547fb02fmr294840361cf.4.1788813988866;
+        Mon, 07 Sep 2026 13:46:28 -0700 (PDT)
+Received: from linux.. ([8.34.174.240])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53054180b0asm95479811cf.19.2026.09.07.13.46.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 13:46:28 -0700 (PDT)
+From: Changyul Lee <lcy8047@gmail.com>
+To: Lucas Stach <l.stach@pengutronix.de>
+Cc: Russell King <linux+etnaviv@armlinux.org.uk>,
+	Christian Gmeiner <christian.gmeiner@gmail.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	etnaviv@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Changyul Lee <lcy8047@gmail.com>
+Subject: [PATCH] drm/etnaviv: erase context from active_contexts on open failure
+Date: Mon,  7 Sep 2026 16:46:19 -0400
+Message-ID: <20260907204619.645774-1-lcy8047@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hwmon: (yogafan) Add support for new Lenovo models
-To: Sergio Melas <sergiomelas@gmail.com>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260907112929.1531690-1-sergiomelas@gmail.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260907112929.1531690-1-sergiomelas@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/7/26 04:29, Sergio Melas wrote:
-> Add DMI quirk entries and map correct ACPI paths and configurations for
-> additional Lenovo laptop models: Yoga 14cACN 2021, IdeaPad 3 15ALC6 Ub
-> and Yoga 740-15IML, leveraging DMI product family matching.
-> 
-> Signed-off-by: Sergio Melas <sergiomelas@gmail.com>
-> ---
+etnaviv_open() allocates an ID in priv->active_contexts for the new
+struct etnaviv_file_private. When etnaviv_iommu_context_init() fails,
+the error path frees ctx but does not remove the entry from the
+XArray, so the entry keeps a dangling pointer.
 
-This should be tagged v2, and change log goes here.
+Erase the entry before freeing the context on that path.
 
-Guenter
+Fixes: d306788b6e1b ("drm/etnaviv: allocate unique ID per drm_file")
 
->   drivers/hwmon/yogafan.c | 29 +++++++++++++++++++++++++++++
->   1 file changed, 29 insertions(+)
-> 
-> diff --git a/drivers/hwmon/yogafan.c b/drivers/hwmon/yogafan.c
-> index 413ddc721..aa3284560 100644
-> --- a/drivers/hwmon/yogafan.c
-> +++ b/drivers/hwmon/yogafan.c
-> @@ -53,6 +53,11 @@ struct yoga_fan_data {
->   };
->   
->   /* Specific configurations mapped via DMI */
-> +static const struct yogafan_config yoga_740_15iml_cfg = {
-> +	.multiplier = 100,
-> +	.fan_count = 1,
-> +	.paths = { "\\_SB.PCI0.LPCB.EC0.FANS", NULL }
-> +};
->   
->   static const struct yogafan_config yoga_8bit_fans_cfg = {
->   	.multiplier = 100,
-> @@ -200,6 +205,30 @@ static const struct hwmon_chip_info yoga_fan_chip_info = {
->   };
->   
->   static const struct dmi_system_id yogafan_quirks[] = {
-> +	{
-> +		.ident = "Lenovo Yoga 740-15IML",
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-> +			DMI_MATCH(DMI_PRODUCT_FAMILY, "Yoga 740-15IML"),
-> +		},
-> +		.driver_data = (void *)&yoga_740_15iml_cfg,
-> +	},
-> +	{
-> +		.ident = "Lenovo IdeaPad 3 15ALC6 Ub",
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-> +			DMI_MATCH(DMI_PRODUCT_FAMILY, "IdeaPad 3 15ALC6 Ub"),
-> +		},
-> +		.driver_data = (void *)&xiaoxin_8bit_dual_cfg,
-> +	},
-> +	{
-> +		.ident = "Yoga 14cACN 2021",
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-> +			DMI_MATCH(DMI_PRODUCT_FAMILY, "Yoga 14cACN 2021"),
-> +		},
-> +		.driver_data = (void *)&yoga_8bit_fans_cfg,
-> +	},
->   	{
->   		.ident = "Lenovo LOQ 15IAX9",
->   		.matches = {
+Signed-off-by: Changyul Lee <lcy8047@gmail.com>
+---
+ drivers/gpu/drm/etnaviv/etnaviv_drv.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
+index 08aca9035fc1..ceb8c00d66c0 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
+@@ -79,7 +79,7 @@ static int etnaviv_open(struct drm_device *dev, struct drm_file *file)
+ 					      priv->cmdbuf_suballoc);
+ 	if (!ctx->mmu) {
+ 		ret = -ENOMEM;
+-		goto out_free;
++		goto out_free_id;
+ 	}
+ 
+ 	for (i = 0; i < ETNA_MAX_PIPES; i++) {
+@@ -98,6 +98,8 @@ static int etnaviv_open(struct drm_device *dev, struct drm_file *file)
+ 
+ 	return 0;
+ 
++out_free_id:
++	xa_erase(&priv->active_contexts, ctx->id);
+ out_free:
+ 	kfree(ctx);
+ 	return ret;
+-- 
+2.43.0
 
