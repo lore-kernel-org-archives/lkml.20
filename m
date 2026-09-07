@@ -1,188 +1,975 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82D4048C8CD
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:47:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788781654; cv=pass; b=iPeT8HuROUtr6NjSDvUiTaX8wbHoq1di6GKQhOW8NN+4vBflncNbAnV27Y/EDRnhg5UkoRhhkBFgsuo29pmJter7rJm3jLFuBUw4BVGX8CsB3IZ7v5CwncYfvlsEH46anl0vJOKv6bNDOtaQVhe7HEtLack5YZWk94wAZGsn2p4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788781654; c=relaxed/simple;
-	bh=Wer6SSG/uDE6Ee8Fljcjhj1Fc9lWtsOpuA414gbFytM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=T5y870W2MVvAqkt+yoEc6GxqT5qebOF5rPMOHTjTEwJmf7DbBbH2Z9j3DLUMsWh9mCvmJZXuNgBf8ewF5ZS67C09nkvDTjs4KevPztgsLOWZGwii1Z/3d9rhyVjVnDzfMPD4EzEabltjIdxkXEoAZaEQEQWcGgRGvhE8yUCpSnU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KVh+6URp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TMEAMZuI; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA5AD48F830;
+	Mon,  7 Sep 2026 11:47:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788781657; cv=none; b=HrZvJJE38RdBL+nvUizrq2pAKatVNiWlaD86iv/IBaYhvxE//CWcS0JwswLBT7cVj1O3hYc5hg/dux5hHmT/XVk+pufsu1JbtwjQs3yHKzoG+thzpErH8z3v/KKBFfPXqhuDLT4d+yfkgtcHtqfhgV85ds+msBQwQ3fbVsOHNb4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788781657; c=relaxed/simple;
+	bh=QAYRwmwg8UG7A1u+jXkkTrTx95/06nW94GP6MfDVjGg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WbnDV0JkBMHV6BFEtPEC20Cmix0YlRYVFbd3WA+NsLUKUswqZoxj6QYsigiQ8E358QL8+KNaGsbUkzp3Mv+SNg1drY5y97mtvflhzJnpYi0QCpQahzXIte8PYYTgmLVXMNgSgLEu0iCExf7m81fUwWtaIvt3Mju+EAErbwFNdyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HZQhshAW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KVh+6URp";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TMEAMZuI"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687AnDRl004214
-	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 11:47:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	nyr2Dn/TQ2r0AHguZSfEcPQuWVOImDyOiCZxPv9gNbc=; b=KVh+6URpAkw9KsmP
-	irbg8XvFBh9A6eBx989QXAL13WlV1Jrh0mmYPZdj5c01TfzI5xEL674WJwhfe/jb
-	OUAF1Vr19KYwnmcSyjRMXKsxQSN8Eki9ZmSKwly25d8wWP0yCrnERjKfhU+9MroU
-	prIf7hQRZvLYIqHCoodMOd3xbVg3LhDZ7fdV3HctW0nwhRcCI28jcWO10KUi7QDo
-	zwJEogawHXaLyFiJgy+m3QvGGkIIyLD96we8/PazWpLwlWmaAo7pC0I++u9MsEmW
-	CT/UDrMsb34cZOdGk0moA5xFjihWv1A2af3GDOcLHXLBRxtFA09DbYaL3fVux8C6
-	i03mMg==
-Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com [74.125.224.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghssg0u2q-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 11:47:31 +0000 (GMT)
-Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-66faff68c0bso4880141d50.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 04:47:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788781651; cv=none;
-        d=google.com; s=arc-20260327;
-        b=blQTeZxkrcIeSZnoPpzwvot3k3yMs/Yil+PxMBFGPosNN4oo7DlNH8/COx7iFAbU40
-         0dC2CV11I2T5eAYnyftW3Og9Wcpi95y8Xe/cQ9SgS08q/fORSqea6/6OBxK1xRCFroRW
-         DQpnJRfbu7wkyurvOz6MP/eRv0Dl+B4tTyzo4pa6NBoNAQwzonPbo+JlEaN0rjEkcVkP
-         TRVZq7gB1Nyttq2RQI8+LtQxmGcrXnNOCFnfPDHWIOvQuEx2qbC4k1QNclRbScpnp+v7
-         xJyXs8YKNXpHd0EcIUkVt7by6kV03eL8RYS4O1YDfwWtnR7+B4xFBBGcEAbAfJ54TIYQ
-         bX0Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=nyr2Dn/TQ2r0AHguZSfEcPQuWVOImDyOiCZxPv9gNbc=;
-        fh=6mQDzqblrxTQzFj+mZK+mf/0LPVLJr3De6SwTBnG7AU=;
-        b=MsHuVpEymqNsnhEM8hBI6DnjgF/zkyVSCaBLCvA6ysoUJVHeT4VALMUA9yWOLiOSdI
-         09NIwn4ZofoJ3wzgYfPyKvorbmA449ZoyMb7nLuwMmBzO3EYeEXVIImcIIVNs5whnxqD
-         uUuu39tgcfYM9fOv0BSpseFi99aEGApovHa0HdDlkR8Ruu0PGlAU5f91UZbAy/0Wfk+k
-         LMPgZGQyn67+B3wtq2VJOXg8bU+itqvJ02b80NHhlPw0zNPCQoeeCfef8iNcOoXPdXUh
-         SEErDF4QrIsLb++e0I3Bk7FPVyMTzXkpk1r4a/Id14yygGb7d7mH6F6CRRAB3AGyyolj
-         CRdA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788781651; x=1789386451; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nyr2Dn/TQ2r0AHguZSfEcPQuWVOImDyOiCZxPv9gNbc=;
-        b=TMEAMZuIT+LoJN2NefwoKobwwgz8IHx3Pz9ypLAlt+KzOSO+WWA5SKIbwPGvQFaIiz
-         EuV5z6NhFwed8jM4Fo0DazGqrALOTk8XTL79OveVX3CZxDvBhJO/RaEvgc0kUSxhe5Rn
-         ZseR4Rt/50I++/hiVAuv4sY5agcEjGx9GV4UGkasgt3b8gm4IV+jjqeSsorzO1Mv69fG
-         Dyk26GmTx3IWJ0qB5OvlsgqF6uqrv0x/D3EqdeAEQblrTqwlELVOdhexUWwDjzE6FC/m
-         sEuKq2ObZAYVOusjDTp34dhKn8pzx2gRyWeM1e2bHxKpmv5HmUS1+xiDB9FTRL1Iy5Mn
-         qEqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788781651; x=1789386451;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nyr2Dn/TQ2r0AHguZSfEcPQuWVOImDyOiCZxPv9gNbc=;
-        b=mNQc1WJ23hz+F/8Zdr1bPSjIWVNURnlv5F5ZbF9/d8qkPL6aleKx3jwTU7fthHIrQB
-         AQc01L5LmGBHDipbUK/bQmDaF/RztJem2f1R9vdmMNXgKiQDNB4QMza/g7LdH/ldbLKx
-         7ytklDoMYTND0uIsab9iZLV3e4FlycP0hszRzutSO68Ax/5O0bkYF1k4waYIX6AUlG/V
-         Jl/DDTvUnKQgxRaYyKZm69ZmFlZ1A8slThFPRA/d4FVQK2Bo4myiW8lvwg23Y7eaDNFj
-         uhPLbHCBq2dv+7P0WkraOPWArnOXKKKksXSCgEbczFpgWBoG+vV9C9qlrARhfdZvLZEn
-         +I9w==
-X-Forwarded-Encrypted: i=1; AKwUvBxBCYGuA8jP5YROQBzXeQpSrgdBCDggkhJBsbC102PSYz55XE/Olc+nQtLPKHS2lswidE1nyUlPgH1XdAM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lyymViZdKto7NY5vkFqirVwAJ82tjISb5LbArQSFvRMe0Fs3CL
-	ex90siPaD/DEVIqmLDPGH5Ucn9Bgd8KxkIJ+ZGrOxK7Up6EEZJq1JwFLcyx+67oaTwSpQkYoLRp
-	q3pGpq9th3XNWUtawDKn3wdZtXF0o6d77rxLAbA9kMEPNmbe7dEJOLZOco0knb3iMlwd1haVfdM
-	d+Sud3Jz8cqGDqLzV1bTodBDlBUn0TgHZGRlINCTRjGw==
-X-Gm-Gg: AYBFou2UfJ2T92UWzH30WrnJ3R+zyLrvtTA35D+IQTWXlAdngyXsLnL8rSS1TALdTC5
-	eqws6POMQeuzmEvpbZmF9sNfjdJuxdsLb5DY5KiNyZGTMmtGUcJ4vd4KI0lpaDQuwxtx7Lhk1au
-	doTbUUZTL4MVHfFS3V5M1wb+FGDSK0+KYvov1VTL3b7uzkS8qHbiLea1isIw==
-X-Received: by 2002:a05:690e:b8d:b0:66d:2276:bea with SMTP id 956f58d0204a3-66fb5abc685mr5954578d50.35.1788781650735;
-        Mon, 07 Sep 2026 04:47:30 -0700 (PDT)
-X-Received: by 2002:a05:690e:b8d:b0:66d:2276:bea with SMTP id
- 956f58d0204a3-66fb5abc685mr5954550d50.35.1788781650223; Mon, 07 Sep 2026
- 04:47:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HZQhshAW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 806FF1F01558;
+	Mon,  7 Sep 2026 11:47:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788781653;
+	bh=QY0l/SArX4OZtOcZuoIiRtCNilpGONhQ+xe0gYIsVv0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HZQhshAWn6VcdFh6d1VylqaLC7Ddf1wfptssMNToyhfydsBEiCgaSrP33gTQWUk5d
+	 29QkfBHkSBCVRHFvWXg9T/uKVH9Dy40vLmLWrMiohgjfuAOl2oBBXAE+RsLemzN3k1
+	 uwpEi7HvHEycLkPEnI6oF13oPfLoiLtx6HhzOAyY7VmwCOOujrSnZC1NxBTooFgfFf
+	 tJDS6aaUsVVcGEXZVeajGHaCN4Wa7X8W5J2hD2QSxFgJHu/sGr7USp6P5txGE27Wst
+	 L4jrCBpPF/Lq4tp/0T5pyRA94AC+gJ1zN6lLwpZqC+bfvmwkejuZxWf5tQJItG/DA2
+	 s7CVmcXZ4SczA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>,
+	Steve French <sfrench@samba.org>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Enzo Matsumiya <ematsumiya@suse.de>,
+	linux-cifs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Steve French <stfrench@microsoft.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 4/5] cifs: SMB1 split: Separate out SMB1 decls into smb1proto.h
+Date: Mon,  7 Sep 2026 07:47:26 -0400
+Message-ID: <20260907114727.2870618-4-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260907114727.2870618-1-sashal@kernel.org>
+References: <2026090302-bronco-shame-0d3f@gregkh>
+ <20260907114727.2870618-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903072902.3870009-1-harendra.gautam@oss.qualcomm.com>
- <20260903072902.3870009-2-harendra.gautam@oss.qualcomm.com>
- <20260907-arcane-sassy-fennec-afc02a@quoll> <58e186c1-d199-40ec-a165-2d3e4f36c623@kernel.org>
-In-Reply-To: <58e186c1-d199-40ec-a165-2d3e4f36c623@kernel.org>
-From: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-Date: Mon, 7 Sep 2026 17:17:19 +0530
-X-Gm-Features: AcwNN1XXb0eVO7BU5GwO2TvIzIj99UoYsYsbFLmLlnq_kiZvskMwYXQlzc44yys
-Message-ID: <CAC-tS8ANBcNatz4LO781zT_4XKwE7TkHrDaQ4N8JFr5x_vFvFw@mail.gmail.com>
-Subject: Re: [PATCH v4 01/10] ASoC: dt-bindings: qcom,shikra-qaif-cpu: Add binding
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Mark Brown <broonie@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>,
-        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
-        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDEzMCBTYWx0ZWRfX6ZqpO8Df3+WM
- Eusf7IwNzOS5ovd+yB7dUiNMVaB/a+JQSikxTyTBpviqSlIfpH2ZOvD2NqC4MeXWZiE6d1brBF4
- S87maOaKXkIITLVrJ4ygjBKQvI5e0d39GbMHgt1f0O8/Dj/HJCkZO5RKag8Z808Oux32DJ9rEwv
- tFLx/w8hCuAdxdsGF3UkZJQhK11iz8aFPoSNPVjfQwEPvgnFrZmhXS5acM5m1Oi7xHRfp2/JrTb
- na/xyotkSA56tAjy9ubV05USczv/smBwJiE0YG4gjqiuIo1Q6bHcoO1oqWFRxl+32gG+IZnz9dI
- UIlTuEr+7yX7Lwo5P5ZdfZf0bKl8jhvEDRNFXSjsk73JYBH5jjp99DwSa1BueoKOtNVpKfnV+eN
- LZTzeivFR/l2LAsPIcac2viR8ad80eNB0SG+TabWSokP+7WGzTLSSTf7YDZ7PwRNLNwG6TWoHEf
- tVMVSZAaA3rLk1m0qxg==
-X-Authority-Analysis: v=2.4 cv=MrJiLWae c=1 sm=1 tr=0 ts=6a9ea453 cx=c_pps
- a=S/uc88zpIJVNbziUnJ6G4Q==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=jnI5DnPC5xRnza1bqQQA:9 a=QEXdDO2ut3YA:10 a=nd2WpGr1bMy9NW-iytEl:22
-X-Proofpoint-ORIG-GUID: OfM3bznMw3lLnRV7rwLRjxv4IPV31xh5
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDEzMCBTYWx0ZWRfX0PfEhRPqQvx7
- NAoZa+6Uz6j8/uYvp9ddOohE6HzcM6RX2WJ3Ck6Mz4hWG0Per2RcMrwINVfOxreM99Rq1wyW8Ea
- tIn/evUFjOe7LK5wffFNFEPskpni2R8=
-X-Proofpoint-GUID: OfM3bznMw3lLnRV7rwLRjxv4IPV31xh5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-07_03,2026-09-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 phishscore=0 clxscore=1015
- priorityscore=1501 impostorscore=0 suspectscore=0 adultscore=0 bulkscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609070130
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 7, 2026 at 2:04=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.org=
-> wrote:
->
-> On 07/09/2026 10:30, Krzysztof Kozlowski wrote:
-> > On Thu, Sep 03, 2026 at 12:58:52PM +0530, Harendra Gautam wrote:
-> >>
-> >> Add the Devicetree binding for the Qualcomm Audio Interface (QAIF) CPU=
- DAI
-> >
-> > Why do your commits have leading blank line? I mean, really, how is it
-> > possible to create such commit?
-> >
-> > Additionally, way you send your work is making this unnecessarily
-> > difficult for us. Look, does this work?
-> >
-> >       b4 diff '20260903072902.3870009-2-harendra.gautam@oss.qualcomm.co=
-m'
-> >
-> > ? No, it does not:
-> >
->
-> And now I checked... and you did not even use b4 to send v3 and v4. I
-> mean, really... why? All internal guides, all external presentations
-> EVERYWHERE we say this is expected and even almost a must for bigger work=
-.
-Apologies for that. This is my first upstream series and I was not
-aware of the b4 send requirement at the time. v3 and v4 were sent via
-git send-email. v5 will be sent via b4 send.
--Harendra
->
-> Best regards,
-> Krzysztof
+From: David Howells <dhowells@redhat.com>
+
+[ Upstream commit 645427b7a6c59e0074df29bf939aec2e9d6f2819 ]
+
+Separate out SMB1 declarations scriptedly into smb1proto.h.  Script below:
+
+	#!/usr/bin/perl -w
+	use strict;
+	unless (@ARGV) {
+	    die "Usage: $0 <c_file1> [<c_file2> ...]\n";
+	}
+
+	# Data tracking
+	my %funcs = ();		# Func name => { func prototype }
+	my %headers = ();	# Header filename => { header content }
+	my %c_files = ();	# C filename => { ordered func list, header pref }
+	my %cmarkers = ();	# C filename marker => { header filename it's in }
+
+	# Parse state
+	my $pathname = "-";
+	my $lineno = 0;
+
+	sub error(@) {
+	    print STDERR $pathname, ":", $lineno, ": ", @_, "\n";
+	    exit(1);
+	}
+
+	sub pad($) {
+	    # Reindent the function arguments to line the arguments up with the char
+	    # after the opening bracket on the func argument list
+	    my ($lines) = @_;
+	    return $lines if ($#{$lines} <= 0);
+	    my $has_empty = 0;
+	    for (my $i = 0; $i <= $#{$lines}; $i++) {
+		$lines->[$i] =~ s/^[ \t]+//;
+		$has_empty = 1 if ($lines->[$i] eq "");
+	    }
+
+	    if ($has_empty) {
+		my @clean = grep /.+/, @{$lines};
+		$lines = \@clean;
+	    }
+
+	    my $indlen = index($lines->[0], "(");
+	    return $lines if ($indlen < 0);
+	    my $indent = "";
+	    $indlen++;
+	    $indent .= "\t" x ($indlen / 8);
+	    $indent .= " " x ($indlen % 8);
+
+	    my @padded = ();
+	    my $acc = "";
+	    my $len = -$indlen;
+	    for (my $i = 0; $i <= $#{$lines}; $i++) {
+		my $argument = $lines->[$i];
+		my $arglen = length($argument);
+		my $last = ($i == $#{$lines} ? 1 : 0);
+
+		if ($i == 0 ||
+		    $i == 1) {
+		    $acc .= $argument;
+		    $acc .= ";" if ($last);
+		    $len += $arglen + $last;
+		    next;
+		}
+		if (!$acc) {
+		    $acc = $indent . $argument;
+		    $acc .= ";" if ($last);
+		    $len += $arglen + $last;
+		    next;
+		}
+		if ($indlen + $len + 1 + $arglen + $last > 79) {
+		    push @padded, $acc;
+		    $acc = $indent . $argument;
+		    $acc .= ";" if ($last);
+		    $len = $arglen + $last;
+		    next;
+		}
+
+		$acc .= " " . $argument;
+		$acc .= ";" if ($last);
+		$len += 1 + $arglen + $last;
+	    }
+	    push @padded, $acc if ($acc);
+	    return \@padded;
+	}
+
+	sub earliest(@) {
+	    my $ret = -1;
+	    foreach (@_) {
+		$ret = $_ if ($ret < 0 || ($_ >= 0 && $_ < $ret));
+	    }
+	    return $ret;
+	}
+
+	foreach my $file (@ARGV) {
+	    # Open the file for reading.
+	    next if $file =~ /trace[.]h$/;
+	    next if $file =~ /smbdirect[.][ch]$/;
+	    open my $fh, "<$file"
+		or die "Could not open file '$file'";
+	    $pathname = $file;
+	    $lineno = 0;
+
+	    my $filename;
+	    my @file_content = ();
+	    my @copy = ();
+
+	    my $state = 0;
+	    my $qual = "";
+	    my $type = "";
+	    my $funcname = "";
+	    my @funcdef = ();
+	    my $bracket = 0;
+	    my $comment = 0;
+	    my $smb1 = 0;
+	    my $header = 0;
+	    my $inline = 0;
+	    my $file_marker = "";
+	    my $config = "";
+	    my $c_file = 0;
+
+	    $filename = $pathname;
+	    $filename =~ s!.*/!!;
+
+	    if ($file =~ m!.h$!) {
+		my %new_h_file = (
+		    path    => $pathname,
+		    fname   => $filename,
+		    content => [],
+		    );
+		$header = \%new_h_file;
+		$headers{$filename} = \%new_h_file;
+	    } elsif ($file =~ m!.c$!) {
+		my %new_c_file = (
+		    path  => $pathname,
+		    fname => $filename,
+		    funcs => [],
+		    );
+		$c_file = \%new_c_file;
+		$c_files{$filename} = \%new_c_file;
+	    } else {
+		warn("Ignoring unexpected file $file\n");
+		next;
+	    }
+
+	    $smb1 = 1 if ($file =~ m!/smb1ops.c|/cifssmb.c|/cifstransport.c!);
+
+	    foreach my $line (<$fh>) {
+		$lineno++;
+		chomp($line);
+		push @copy, $line;
+		if (!$line) {
+		    # Blank line
+		    push @file_content, @copy;
+		    @copy = ();
+		    next;
+		}
+
+		# Handle continuation or end of block comment.  Look for C file
+		# prototype insertion point markers.
+		if ($comment) {
+		    if ($line =~ m![*]/!) {
+			if ($comment == 2 && $file_marker) {
+			    $cmarkers{$file_marker} = $file_marker;
+			    push @copy, "#C_MARKER " . $file_marker;
+			    $file_marker = 0;
+			}
+			$comment = 0;
+		    } else {
+			$comment++;
+			if ($comment == 2 && $line =~ m! [*] ([a-z][a-z_0-9]*[.][c])$!) {
+			    $file_marker = $1;
+			    print("Found file marker ", $file_marker, " in ", $filename, "\n");
+			}
+		    }
+		    push @file_content, @copy;
+		    @copy = ();
+		    next;
+		}
+
+		# Check cpp directives, particularly looking for SMB1 bits
+		if ($line =~ /^[#]/) {
+		    if ($header) {
+			if ($line =~ /ifdef.*(CONFIG_[A-Z0-9_])/) {
+			    error("multiconfig") if $config;
+			    $config = $1;
+			    $smb1++ if ($config eq "CONFIG_CIFS_ALLOW_INSECURE_LEGACY");
+			} elsif ($line =~ /endif/) {
+			    $smb1-- if ($config eq "CONFIG_CIFS_ALLOW_INSECURE_LEGACY");
+			    $config = "";
+			}
+		    }
+		    push @file_content, @copy;
+		    @copy = ();
+		    next;
+		}
+
+		# Exclude interference in finding func names and return types
+		if ($line =~ /^[{]/ ||
+		    $line =~ /##/ ||
+		    $line =~ /^[_a-z0-9A-Z]+:$/ || # goto label
+		    $line =~ /^do [{]/ ||
+		    $line =~ m!^//!) {
+		    push @file_content, @copy;
+		    @copy = ();
+		    next;
+		}
+
+		# Start of a block comment
+		if ($line =~ m!^/[*]!) {
+		    $comment = 1 unless ($line =~ m![*]/!);
+		    push @file_content, @copy;
+		    @copy = ();
+		    next;
+		}
+
+		# End of a braced section, such as a function implementation
+		if ($line =~ /^[}]/) {
+			$type = "";
+			$qual = "";
+			$funcname = "";
+			@funcdef = ();
+			push @file_content, @copy;
+			@copy = ();
+			next;
+		}
+
+		if ($line =~ /^typedef/) {
+		    $type = "";
+		    $qual = "";
+		    $funcname = "";
+		    @funcdef = ();
+		    push @file_content, @copy;
+		    @copy = ();
+		    next;
+		}
+
+		# Extract function qualifiers.  There may be multiple of these in more
+		# or less any order.  Some of them cause the func to be skipped (e.g. inline).
+
+		if ($line =~ /^(static|extern|inline|noinline|noinline_for_stack|__always_inline)\W/ ||
+		    $line =~ /^(static|extern|inline|noinline|noinline_for_stack|__always_inline)$/) {
+		    error("Unexpected qualifier '$1'") if ($state != 0);
+		    while ($line =~ /^(static|extern|inline|noinline|noinline_for_stack|__always_inline)\W/ ||
+			   $line =~ /^(static|extern|inline|noinline|noinline_for_stack|__always_inline)$/) {
+			$qual .= " " if ($qual);
+			$qual .= $1;
+			$inline = 1 if ($1 eq "inline");
+			$inline = 1 if ($1 eq "__always_inline");
+			$line = substr($line, length($1));
+			$line =~ s/^\s+//;
+		    }
+		}
+
+		if ($state == 0) {
+		    # Extract what we assume to be the return type
+		    if ($line =~ /^\s/) {
+			push @file_content, @copy;
+			@copy = ();
+			next;
+		    }
+		    while ($line =~ /^(unsigned|signed|bool|char|short|int|long|void|const|volatile|(struct|union|enum)\s+[_a-zA-Z][_a-zA-Z0-9]*|[*]|__init|__exit|__le16|__le32|__le64|__be16|__be32|__be64)/) {
+			$type .= " " if $type;
+			$type .= $1;
+			$line = substr($line, length($1));
+			$line =~ s/^\s+//;
+		    }
+		    if ($line =~ /^struct [{]/) {
+			# Ignore structure definitions
+			$type = "";
+			$qual = "";
+			$funcname = "";
+			@funcdef = ();
+			push @file_content, @copy;
+			@copy = ();
+			next;
+		    }
+		    if (index($line, "=") >= 0) {
+			# Ignore assignments
+			$type = "";
+			$qual = "";
+			$funcname = "";
+			@funcdef = "";
+			push @file_content, @copy;
+			@copy = ();
+			next;
+		    }
+
+		    # Try and extract a function's type and name
+		    while ($line =~ /(^[_a-zA-Z][_a-zA-Z0-9]*)/) {
+			my $name = $1;
+			$line = substr($line, length($name));
+			next if ($line =~ /^[{]/);
+			$line =~ s/^\s+//;
+
+			my $ch = substr($line, 0, 1);
+			last if ($ch eq "[" || $ch eq ";"); # Global variables
+
+			if ($ch eq "(") {
+			    # Found the function name
+			    $state = 1;
+			    $line = substr($line, 1);
+			    $funcname = $name;
+			    my $tmp = $qual . $type . " " . $funcname . "(";
+			    $tmp =~ s/[*] /*/;
+			    push @funcdef, $tmp;
+			    $bracket = 1;
+			    last;
+			}
+
+			if ($type) {
+			    last if (index($line, ";") >= 0 && index($line, "(") == -1);
+			    error("Unexpected name '$name' after '$type'");
+			}
+
+			$type .= " " if $type;
+			$type .= $name;
+			if ($line =~ /^(\s*[*]+)/) {
+			    my $ptr = $1;
+			    $type .= $ptr;
+			    $line = substr($line, length($ptr));
+			}
+		    }
+		}
+
+		# Try and extract a function's argument list
+		my $from = 0;
+		if ($state == 1) {
+		    while (1) {
+			my $o = index($line, "(", $from);
+			my $c = index($line, ")", $from);
+			my $m = index($line, ",", $from);
+
+			my $b = earliest($o, $c, $m);
+			if ($b < 0) {
+			    push @funcdef, $line
+				unless ($line eq "");
+			    last;
+			}
+			my $ch = substr($line, $b, 1);
+
+			# Push the arguments separately on to the list
+			if ($ch eq ",") {
+			    push @funcdef, substr($line, 0, $b + 1);
+			    $line = substr($line, $b + 1);
+			    $from = 0;
+			} elsif ($ch eq "(") {
+			    # Handle brackets in the argument list (e.g. function
+			    # pointers)
+			    $bracket++;
+			    $from = $b + 1;
+			} elsif ($ch eq ")") {
+			    $bracket--;
+			    if ($bracket == 0) {
+				push @funcdef, substr($line, 0, $b + 1);
+				$line = substr($line, $b + 1);
+				$state = 2;
+				last;
+			    }
+			    $from = $b + 1;
+			}
+		    }
+		}
+
+		if ($state == 2) {
+		    $inline = 1 if ($qual =~ /inline/);
+		    #print("QUAL $qual $type $funcname $inline ", $#funcdef, "\n");
+		    if (!$header &&
+			$qual !~ /static/ &&
+			$funcname ne "__acquires" &&
+			$funcname ne "__releases" &&
+			$funcname ne "module_init" &&
+			$funcname ne "module_exit" &&
+			$funcname ne "module_param" &&
+			$funcname ne "module_param_call" &&
+			$funcname ne "PROC_FILE_DEFINE" &&
+			$funcname !~ /MODULE_/ &&
+			$funcname !~ /DEFINE_/) {
+
+			# Okay, we appear to have a function implementation
+			my $func;
+			my $dup = 0;
+
+			if (exists($funcs{$funcname})) {
+			    $func = $funcs{$funcname};
+			    if (exists $func->{body}) {
+				print("dup $funcname\n");
+				$dup = 1;
+			    }
+			} else {
+			    my %new_func = (
+				name => $funcname,
+				cond => "",
+				legacy => 0,
+				);
+			    $func = \%new_func;
+			    $funcs{$funcname} = $func;
+			    $func->{body} = pad(\@funcdef);
+			}
+			$func->{body} = pad(\@funcdef);
+			$func->{legacy} = 1 if $smb1;
+
+			if ($funcname eq "cifs_inval_name_dfs_link_error") {
+			    $func->{cond} = "#ifdef CONFIG_CIFS_DFS_UPCALL";
+			} elsif ($funcname eq "cifs_listxattr") {
+			    $func->{cond} = "#ifdef CONFIG_CIFS_XATTR";
+			}
+
+			push @{$c_file->{funcs}}, $func
+			    unless $dup;
+		    } elsif (!$header || $inline) {
+			# Ignore inline function implementations and other weirdies
+			push @file_content, @copy;
+		    } elsif ($header && !$inline) {
+			push @file_content, "#FUNCPROTO " . $funcname;
+
+			my $func;
+
+			if (exists($funcs{$funcname})) {
+			    $func = $funcs{$funcname};
+			    $func->{lineno} = $lineno;
+			    $func->{pathname} = $pathname;
+			} else {
+			    my %new_func = (
+				name => $funcname,
+				cond => "",
+				lineno => $lineno,
+				pathname => $pathname,
+				legacy => 0,
+				);
+			    $func = \%new_func;
+			    $funcs{$funcname} = $func;
+			}
+
+			$func->{legacy} = 1 if $smb1;
+		    }
+
+		    @funcdef = ();
+		    $type = "";
+		    $qual = "";
+		    $funcname = "";
+		    $inline = 0;
+		    $state = 0;
+		    @copy = ();
+		}
+		if ($line =~ /;/) {
+		    $type = "";
+		    $qual = "";
+		    $funcname = "";
+		    @funcdef = ();
+		    $state = 0;
+		    push @file_content, @copy;
+		    @copy = ();
+		}
+	    }
+	    close($fh);
+
+	    if ($header) {
+		$header->{content} = \@file_content;
+	    }
+	}
+
+	sub write_header($)
+	{
+	    my ($header) = @_;
+	    my $path = $header->{path};
+	    my $legacy = 0;
+
+	    $legacy = 1 if ($path =~ m!smb1proto[.]h!);
+
+	    my @output = ();
+
+	    foreach my $line (@{$header->{content}}) {
+		if ($line =~ "^[#]C_MARKER (.*)") {
+		    my $file_marker = $cmarkers{$1};
+		    my $c_file = $c_files{$file_marker};
+		    print("Found $line\n");
+		    foreach my $func (@{$c_file->{funcs}}) {
+			print("func ", $func->{name}, "\n");
+			push @output, @{$func->{body}};
+		    }
+		    next;
+		} elsif ($line =~ "^[#]FUNCPROTO ([_a-zA-Z0-9]+)") {
+		    my $funcname = $1;
+		    my $func = $funcs{$funcname};
+		    if (!$func->{body}) {
+			print($func->{pathname}, ":", $func->{lineno}, ": '", $funcname,
+			      "' dead prototype\n");
+			next;
+		    }
+		    if ($func->{legacy} == $legacy) {
+			#push @output, $line;
+			push @output, @{$func->{body}};
+		    }
+		} else {
+		    push @output, $line;
+		}
+	    }
+
+	    open my $fh, ">$path"
+		or die "Could not open file '$path' for writing";
+	    foreach my $f (@output) {
+		print($fh $f, "\n") or die $path;
+	    }
+	    close($fh) or die $path;
+	}
+
+	foreach my $h (keys(%headers)) {
+	    write_header($headers{$h});
+	}
+
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Steve French <sfrench@samba.org>
+cc: Paulo Alcantara <pc@manguebit.org>
+cc: Enzo Matsumiya <ematsumiya@suse.de>
+cc: linux-cifs@vger.kernel.org
+cc: linux-fsdevel@vger.kernel.org
+cc: linux-kernel@vger.kernel.org
+Acked-by: Enzo Matsumiya <ematsumiya@suse.de>
+Signed-off-by: Steve French <stfrench@microsoft.com>
+
+[ sashal: Reduced backport -- upstream 645427b7a6c59 touches 3 file(s), this
+  backport carries 3. Not backported here:
+  fs/smb/client/cifsproto.h
+  fs/smb/client/fscache.h
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: 6343c1da5619 ("smb: client: fix OOB read/write from unvalidated DataOffset in coalesce_t2()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/smb/client/smb1ops.c       | 171 ----------------------------------
+ fs/smb/client/smb1proto.h     |   2 +
+ fs/smb/client/smb1transport.c | 171 ++++++++++++++++++++++++++++++++++
+ 3 files changed, 173 insertions(+), 171 deletions(-)
+
+diff --git a/fs/smb/client/smb1ops.c b/fs/smb/client/smb1ops.c
+index ca8f3dd7ff63b..5a500a5e138c1 100644
+--- a/fs/smb/client/smb1ops.c
++++ b/fs/smb/client/smb1ops.c
+@@ -238,146 +238,6 @@ cifs_get_next_mid(struct TCP_Server_Info *server)
+ 	return mid;
+ }
+ 
+-/*
+-	return codes:
+-		0	not a transact2, or all data present
+-		>0	transact2 with that much data missing
+-		-EINVAL	invalid transact2
+- */
+-static int
+-check2ndT2(char *buf)
+-{
+-	struct smb_hdr *pSMB = (struct smb_hdr *)buf;
+-	struct smb_t2_rsp *pSMBt;
+-	int remaining;
+-	__u16 total_data_size, data_in_this_rsp;
+-
+-	if (pSMB->Command != SMB_COM_TRANSACTION2)
+-		return 0;
+-
+-	/* check for plausible wct, bcc and t2 data and parm sizes */
+-	/* check for parm and data offset going beyond end of smb */
+-	if (pSMB->WordCount != 10) { /* coalesce_t2 depends on this */
+-		cifs_dbg(FYI, "Invalid transact2 word count\n");
+-		return -EINVAL;
+-	}
+-
+-	pSMBt = (struct smb_t2_rsp *)pSMB;
+-
+-	total_data_size = get_unaligned_le16(&pSMBt->t2_rsp.TotalDataCount);
+-	data_in_this_rsp = get_unaligned_le16(&pSMBt->t2_rsp.DataCount);
+-
+-	if (total_data_size == data_in_this_rsp)
+-		return 0;
+-	else if (total_data_size < data_in_this_rsp) {
+-		cifs_dbg(FYI, "total data %d smaller than data in frame %d\n",
+-			 total_data_size, data_in_this_rsp);
+-		return -EINVAL;
+-	}
+-
+-	remaining = total_data_size - data_in_this_rsp;
+-
+-	cifs_dbg(FYI, "missing %d bytes from transact2, check next response\n",
+-		 remaining);
+-	if (total_data_size > CIFSMaxBufSize) {
+-		cifs_dbg(VFS, "TotalDataSize %d is over maximum buffer %d\n",
+-			 total_data_size, CIFSMaxBufSize);
+-		return -EINVAL;
+-	}
+-	return remaining;
+-}
+-
+-static int
+-coalesce_t2(char *second_buf, struct smb_hdr *target_hdr)
+-{
+-	struct smb_t2_rsp *pSMBs = (struct smb_t2_rsp *)second_buf;
+-	struct smb_t2_rsp *pSMBt  = (struct smb_t2_rsp *)target_hdr;
+-	char *data_area_of_tgt;
+-	char *data_area_of_src;
+-	int remaining;
+-	unsigned int byte_count, total_in_tgt;
+-	__u16 tgt_total_cnt, src_total_cnt, total_in_src;
+-
+-	src_total_cnt = get_unaligned_le16(&pSMBs->t2_rsp.TotalDataCount);
+-	tgt_total_cnt = get_unaligned_le16(&pSMBt->t2_rsp.TotalDataCount);
+-
+-	if (tgt_total_cnt != src_total_cnt)
+-		cifs_dbg(FYI, "total data count of primary and secondary t2 differ source=%hu target=%hu\n",
+-			 src_total_cnt, tgt_total_cnt);
+-
+-	total_in_tgt = get_unaligned_le16(&pSMBt->t2_rsp.DataCount);
+-
+-	remaining = tgt_total_cnt - total_in_tgt;
+-
+-	if (remaining < 0) {
+-		cifs_dbg(FYI, "Server sent too much data. tgt_total_cnt=%hu total_in_tgt=%u\n",
+-			 tgt_total_cnt, total_in_tgt);
+-		return -EPROTO;
+-	}
+-
+-	if (remaining == 0) {
+-		/* nothing to do, ignore */
+-		cifs_dbg(FYI, "no more data remains\n");
+-		return 0;
+-	}
+-
+-	total_in_src = get_unaligned_le16(&pSMBs->t2_rsp.DataCount);
+-	if (remaining < total_in_src)
+-		cifs_dbg(FYI, "transact2 2nd response contains too much data\n");
+-
+-	/* find end of first SMB data area */
+-	data_area_of_tgt = (char *)&pSMBt->hdr.Protocol +
+-				get_unaligned_le16(&pSMBt->t2_rsp.DataOffset);
+-
+-	/* validate target area */
+-	data_area_of_src = (char *)&pSMBs->hdr.Protocol +
+-				get_unaligned_le16(&pSMBs->t2_rsp.DataOffset);
+-
+-	data_area_of_tgt += total_in_tgt;
+-
+-	total_in_tgt += total_in_src;
+-	/* is the result too big for the field? */
+-	if (total_in_tgt > USHRT_MAX) {
+-		cifs_dbg(FYI, "coalesced DataCount too large (%u)\n",
+-			 total_in_tgt);
+-		return -EPROTO;
+-	}
+-	put_unaligned_le16(total_in_tgt, &pSMBt->t2_rsp.DataCount);
+-
+-	/* fix up the BCC */
+-	byte_count = get_bcc(target_hdr);
+-	byte_count += total_in_src;
+-	/* is the result too big for the field? */
+-	if (byte_count > USHRT_MAX) {
+-		cifs_dbg(FYI, "coalesced BCC too large (%u)\n", byte_count);
+-		return -EPROTO;
+-	}
+-	put_bcc(byte_count, target_hdr);
+-
+-	byte_count = be32_to_cpu(target_hdr->smb_buf_length);
+-	byte_count += total_in_src;
+-	/* don't allow buffer to overflow */
+-	if (byte_count > CIFSMaxBufSize + MAX_CIFS_HDR_SIZE - 4) {
+-		cifs_dbg(FYI, "coalesced BCC exceeds buffer size (%u)\n",
+-			 byte_count);
+-		return -ENOBUFS;
+-	}
+-	target_hdr->smb_buf_length = cpu_to_be32(byte_count);
+-
+-	/* copy second buffer into end of first buffer */
+-	memcpy(data_area_of_tgt, data_area_of_src, total_in_src);
+-
+-	if (remaining != total_in_src) {
+-		/* more responses to go */
+-		cifs_dbg(FYI, "waiting for more secondary responses\n");
+-		return 1;
+-	}
+-
+-	/* we are done */
+-	cifs_dbg(FYI, "found the last secondary response\n");
+-	return 0;
+-}
+-
+ static void
+ cifs_downgrade_oplock(struct TCP_Server_Info *server,
+ 		      struct cifsInodeInfo *cinode, __u32 oplock,
+@@ -386,37 +246,6 @@ cifs_downgrade_oplock(struct TCP_Server_Info *server,
+ 	cifs_set_oplock_level(cinode, oplock);
+ }
+ 
+-static bool
+-cifs_check_trans2(struct mid_q_entry *mid, struct TCP_Server_Info *server,
+-		  char *buf, int malformed)
+-{
+-	if (malformed)
+-		return false;
+-	if (check2ndT2(buf) <= 0)
+-		return false;
+-	mid->multiRsp = true;
+-	if (mid->resp_buf) {
+-		/* merge response - fix up 1st*/
+-		malformed = coalesce_t2(buf, mid->resp_buf);
+-		if (malformed > 0)
+-			return true;
+-		/* All parts received or packet is malformed. */
+-		mid->multiEnd = true;
+-		dequeue_mid(mid, malformed);
+-		return true;
+-	}
+-	if (!server->large_buf) {
+-		/*FIXME: switch to already allocated largebuf?*/
+-		cifs_dbg(VFS, "1st trans2 resp needs bigbuf\n");
+-	} else {
+-		/* Have first buffer */
+-		mid->resp_buf = buf;
+-		mid->large_buf = true;
+-		server->bigbuf = NULL;
+-	}
+-	return true;
+-}
+-
+ static bool
+ cifs_need_neg(struct TCP_Server_Info *server)
+ {
+diff --git a/fs/smb/client/smb1proto.h b/fs/smb/client/smb1proto.h
+index a73213f6a2aa1..8dfc6976ceba1 100644
+--- a/fs/smb/client/smb1proto.h
++++ b/fs/smb/client/smb1proto.h
+@@ -33,6 +33,8 @@ extern struct smb_version_values smb1_values;
+ /*
+  * smb1transport.c
+  */
++bool cifs_check_trans2(struct mid_q_entry *mid, struct TCP_Server_Info *server,
++		       char *buf, int malformed);
+ 
+ #endif /* CONFIG_CIFS_ALLOW_INSECURE_LEGACY */
+ #endif /* _SMB1PROTO_H */
+diff --git a/fs/smb/client/smb1transport.c b/fs/smb/client/smb1transport.c
+index bafc5181e0292..f7b00bcb9df1a 100644
+--- a/fs/smb/client/smb1transport.c
++++ b/fs/smb/client/smb1transport.c
+@@ -563,3 +563,174 @@ SendReceiveBlockingLock(const unsigned int xid, struct cifs_tcon *tcon,
+ 		return -ERESTARTSYS;
+ 	return rc;
+ }
++
++/*
++	return codes:
++		0	not a transact2, or all data present
++		>0	transact2 with that much data missing
++		-EINVAL	invalid transact2
++ */
++static int
++check2ndT2(char *buf)
++{
++	struct smb_hdr *pSMB = (struct smb_hdr *)buf;
++	struct smb_t2_rsp *pSMBt;
++	int remaining;
++	__u16 total_data_size, data_in_this_rsp;
++
++	if (pSMB->Command != SMB_COM_TRANSACTION2)
++		return 0;
++
++	/* check for plausible wct, bcc and t2 data and parm sizes */
++	/* check for parm and data offset going beyond end of smb */
++	if (pSMB->WordCount != 10) { /* coalesce_t2 depends on this */
++		cifs_dbg(FYI, "Invalid transact2 word count\n");
++		return -EINVAL;
++	}
++
++	pSMBt = (struct smb_t2_rsp *)pSMB;
++
++	total_data_size = get_unaligned_le16(&pSMBt->t2_rsp.TotalDataCount);
++	data_in_this_rsp = get_unaligned_le16(&pSMBt->t2_rsp.DataCount);
++
++	if (total_data_size == data_in_this_rsp)
++		return 0;
++	else if (total_data_size < data_in_this_rsp) {
++		cifs_dbg(FYI, "total data %d smaller than data in frame %d\n",
++			 total_data_size, data_in_this_rsp);
++		return -EINVAL;
++	}
++
++	remaining = total_data_size - data_in_this_rsp;
++
++	cifs_dbg(FYI, "missing %d bytes from transact2, check next response\n",
++		 remaining);
++	if (total_data_size > CIFSMaxBufSize) {
++		cifs_dbg(VFS, "TotalDataSize %d is over maximum buffer %d\n",
++			 total_data_size, CIFSMaxBufSize);
++		return -EINVAL;
++	}
++	return remaining;
++}
++
++static int
++coalesce_t2(char *second_buf, struct smb_hdr *target_hdr)
++{
++	struct smb_t2_rsp *pSMBs = (struct smb_t2_rsp *)second_buf;
++	struct smb_t2_rsp *pSMBt  = (struct smb_t2_rsp *)target_hdr;
++	char *data_area_of_tgt;
++	char *data_area_of_src;
++	int remaining;
++	unsigned int byte_count, total_in_tgt;
++	__u16 tgt_total_cnt, src_total_cnt, total_in_src;
++
++	src_total_cnt = get_unaligned_le16(&pSMBs->t2_rsp.TotalDataCount);
++	tgt_total_cnt = get_unaligned_le16(&pSMBt->t2_rsp.TotalDataCount);
++
++	if (tgt_total_cnt != src_total_cnt)
++		cifs_dbg(FYI, "total data count of primary and secondary t2 differ source=%hu target=%hu\n",
++			 src_total_cnt, tgt_total_cnt);
++
++	total_in_tgt = get_unaligned_le16(&pSMBt->t2_rsp.DataCount);
++
++	remaining = tgt_total_cnt - total_in_tgt;
++
++	if (remaining < 0) {
++		cifs_dbg(FYI, "Server sent too much data. tgt_total_cnt=%hu total_in_tgt=%u\n",
++			 tgt_total_cnt, total_in_tgt);
++		return -EPROTO;
++	}
++
++	if (remaining == 0) {
++		/* nothing to do, ignore */
++		cifs_dbg(FYI, "no more data remains\n");
++		return 0;
++	}
++
++	total_in_src = get_unaligned_le16(&pSMBs->t2_rsp.DataCount);
++	if (remaining < total_in_src)
++		cifs_dbg(FYI, "transact2 2nd response contains too much data\n");
++
++	/* find end of first SMB data area */
++	data_area_of_tgt = (char *)&pSMBt->hdr.Protocol +
++				get_unaligned_le16(&pSMBt->t2_rsp.DataOffset);
++
++	/* validate target area */
++	data_area_of_src = (char *)&pSMBs->hdr.Protocol +
++				get_unaligned_le16(&pSMBs->t2_rsp.DataOffset);
++
++	data_area_of_tgt += total_in_tgt;
++
++	total_in_tgt += total_in_src;
++	/* is the result too big for the field? */
++	if (total_in_tgt > USHRT_MAX) {
++		cifs_dbg(FYI, "coalesced DataCount too large (%u)\n",
++			 total_in_tgt);
++		return -EPROTO;
++	}
++	put_unaligned_le16(total_in_tgt, &pSMBt->t2_rsp.DataCount);
++
++	/* fix up the BCC */
++	byte_count = get_bcc(target_hdr);
++	byte_count += total_in_src;
++	/* is the result too big for the field? */
++	if (byte_count > USHRT_MAX) {
++		cifs_dbg(FYI, "coalesced BCC too large (%u)\n", byte_count);
++		return -EPROTO;
++	}
++	put_bcc(byte_count, target_hdr);
++
++	byte_count = be32_to_cpu(target_hdr->smb_buf_length);
++	byte_count += total_in_src;
++	/* don't allow buffer to overflow */
++	if (byte_count > CIFSMaxBufSize + MAX_CIFS_HDR_SIZE - 4) {
++		cifs_dbg(FYI, "coalesced BCC exceeds buffer size (%u)\n",
++			 byte_count);
++		return -ENOBUFS;
++	}
++	target_hdr->smb_buf_length = cpu_to_be32(byte_count);
++
++	/* copy second buffer into end of first buffer */
++	memcpy(data_area_of_tgt, data_area_of_src, total_in_src);
++
++	if (remaining != total_in_src) {
++		/* more responses to go */
++		cifs_dbg(FYI, "waiting for more secondary responses\n");
++		return 1;
++	}
++
++	/* we are done */
++	cifs_dbg(FYI, "found the last secondary response\n");
++	return 0;
++}
++
++bool
++cifs_check_trans2(struct mid_q_entry *mid, struct TCP_Server_Info *server,
++		  char *buf, int malformed)
++{
++	if (malformed)
++		return false;
++	if (check2ndT2(buf) <= 0)
++		return false;
++	mid->multiRsp = true;
++	if (mid->resp_buf) {
++		/* merge response - fix up 1st*/
++		malformed = coalesce_t2(buf, mid->resp_buf);
++		if (malformed > 0)
++			return true;
++		/* All parts received or packet is malformed. */
++		mid->multiEnd = true;
++		dequeue_mid(mid, malformed);
++		return true;
++	}
++	if (!server->large_buf) {
++		/*FIXME: switch to already allocated largebuf?*/
++		cifs_dbg(VFS, "1st trans2 resp needs bigbuf\n");
++	} else {
++		/* Have first buffer */
++		mid->resp_buf = buf;
++		mid->large_buf = true;
++		server->bigbuf = NULL;
++	}
++	return true;
++}
+-- 
+2.53.0
+
