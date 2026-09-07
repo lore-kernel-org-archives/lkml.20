@@ -1,212 +1,137 @@
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94D43440A0A
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:06:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F8021B4223;
+	Mon,  7 Sep 2026 10:06:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788775599; cv=none; b=d5FgrSEMzksIBWUSclO70Ah3N9YxJ10mEJsoW/JO+DWVM8vbfSPU3Wym2FJg1sifv8PnNBf0qSgMMhv8FuM64GKCLRuLYVKE8F3563tkFpEe0rGC0mBScx+6glF4esrc5tX1vIv3m/zZa1ZUFK4WUE6PCKmUEUGDjrgPreQ67iQ=
+	t=1788775605; cv=none; b=A7bIt12ve6FrS0cOwzk5tDP8RO9h1YupkdHj9N40jQjKIkLXxsOmBT/Dcm6nB/o8aiGhRLKqaVV3pMYQHCMwP0Bo/61ljd5kAUzC+felleCMy2S11xZ9C5tHN46lO4SDm9Lq1BUnpUKvlUcdwCNpZEm19GfGKuLXoZy8SbCsOYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788775599; c=relaxed/simple;
-	bh=cfZlsUNL1tYXf3StIFp8xyHHzkshbzsXgfZAOQaTPHk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=i8Zrqbu6p6cH6Iip8XiiP4pWyua7eK/n6vMx0zaPgaClKDG72EsifBi+ey+fO1PfZ9bt6hIsisIfVm2kXSQ6kbQzoJr4IwicC0sHCppv+1lrdR0JHQblQYayFInOE4kC1XJzcoss4rxr5rynHLvODPNIHk0Gf3NYftoGqNDTR0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=EsWx4Qy7; arc=none smtp.client-ip=185.125.188.122
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	s=arc-20240116; t=1788775605; c=relaxed/simple;
+	bh=iR+ouRZSgudAUubhPbtWPIF1DIqALlnk2uBCLxgQZ9c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aReqDia1uf1cDTZ3cgKewCoy2vVq5e6HSC+45D2j3XAXIp1W07jeu2g4dKvjZXnHxkgkgAdlWw3az/XHG1GkXL5Zogk8aRf+9QTP5xaPj6U8Bmxc7GHT0h67i8GSjWaT+D7W4IRGf2xq+rYUifdtMFGAWNaowPkt7/OW1PtM7Q0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=t+VESbmp; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=wxIW4jeF; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=d+u+KEB8; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=SQVSZ697; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="EsWx4Qy7"
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com [209.85.221.69])
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="t+VESbmp";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="wxIW4jeF";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="d+u+KEB8";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="SQVSZ697"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id EA8333F28F
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:06:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1788775593;
-	bh=dRV5mMHnpzRbNcgwfhh0JIyTTCV6Vk7ZoBlXJcHwHHk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version;
-	b=EsWx4Qy7wLOIpR+FOd1YtEeCeqv2cICHe0YuX/q5Met9vFX/E2H0WQI8dCqdMoWqg
-	 izUzfZ6I9j4DGTlLh7Bze2SENnnGhT089ABN3g12J4eFZJxBq/T0Exr3GiiaYC1mep
-	 th8I6jHgVTHUWFcWSp0xKhQjQA+uLoNepCT2k+48ZYgPuoozjG0RPb+2pRJ0vfm7l2
-	 V1U1kLww1ZxC/1mBWZFrJXnDsso1y8ZMgb/WnCEOjU62CEXFe8/lvlGhOtS6gyKkmO
-	 gHr/Hy7PV8SoAN2+S54SryVG1cUcQD0CEoq7WzxLAuN29reB5NACcXOFgqQAdTCvCB
-	 djH7r8IFWjf5WYm4fqx4YgdBKuS4hh/BeGEraja2IXgb1OqF6Nt05uHXkjCvp0AvOJ
-	 T0AMIuHYgI6oQ46wNgW+497EHZaDBq8ANpvxk5BokOy4sphc6kQGqJKgSf3YDJzhKR
-	 NOh1m7M1rxhubcz3upYoZKKAOwMzG5QPp5UZJ9/HItN1pI8oV9c3L+srKpDu/TdDRc
-	 MYko0zdlbnsARwCKvrwk4CwTLN3b97AfGK7d5w/Cee1mRB6ruSsDu50vDyKweIcRsz
-	 T2CNnNoS3OJpKm5kHpjj653eIx3jKs6dpUZj9LInsj0l8Gvu5v5Xra7FWmf4RXc4KN
-	 uqlNbGmjcmJsURhK3Rx4AWyQ=
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-4858f06e142so1477803f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 03:06:33 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788775593; x=1789380393;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dRV5mMHnpzRbNcgwfhh0JIyTTCV6Vk7ZoBlXJcHwHHk=;
-        b=c+VNQg8ov1sPN3rVDlCb/8FS+1YYv2EqoeH6uHnarWXjPN7TqTN6WZfEQy6qN2tnfm
-         Q5yg7d7s06NGLsETWv+dI8HNk1D2ZAMIbCVni50uRy0z19udyzZiZ4y6ThhWyFTkQdHe
-         3lkyeDeQkBdnwI1KcAJImmuHmULpDM6qewdasr/sGrp3nqFKZNnCdqcQmC+ZfWmwU8HZ
-         V5tDhwNDAVZSKu265q3Kf0wUdVLyP2AVDVp7DbKo180kx0dcdoxKC7maojpVo7m15saD
-         g2NKwuxU07JOe8Rvb1fWpgR+4l9FsD2x3YJxjtI7KpwnNxuCQENeNKwxNX6Ur/C4kt42
-         O6Lg==
-X-Forwarded-Encrypted: i=1; AKwUvByUJP9bpIoDkXJ4uFJrmwsqc4xqr8UCBGr0D8TBEcWzLl9P2zMqP7sXlwso5+Qt3D8KWjwd0lOr9+BNGAY=@vger.kernel.org
-X-Gm-Message-State: AFuF++n7qK11N0m+NYGHXnvshXMkaFyerklr6ir0ahOm3iD42vwVrQ1h
-	7uh1Mwuwshog8G0r/7+TzY39uwP7BYxUqxKLGZZ37U+uMheOyYQyvhMJjyjGu67aZ2S60D6tgEP
-	5WjymKRD0cMo5FVopRFN9kwQ/XMzPU9VZDjRWvQqGCfv2wjl/WjS2avIgmVUNkOiNLum2M9O1rv
-	76TUlcCw==
-X-Gm-Gg: AYBFou33zxv+oMUOEmyPaEMQX4nokqcKU25HjGcvg4rYofnB8X5NomyVYEBrj0bKKAZ
-	0M7ROjWJrcQNDiVT59T3b51m+Q9hE0CTsHWwhRFIS5L+LU/yZJmcufAEaENDbTn96Ri9a2mh6Mo
-	IXp0YG5jVBQvRxBzR5Docb3YZe7vjml8Yelb458Cvyz+rsYp4WbI9fSbpBLrLmB1y73FwsfDtWA
-	lCiz1OIgXuBTVIrtiTLZyIHY3FWRbCYn1hPVg3uE10wk6cRVhB1bkAebu7MANhmTAy1xNnH9pun
-	DkCH5exRagPorgzGL73OHQiklg2WrPcx0rIBnsPxBkpH4lLXxqY3+9+T0fDYugrfBgi8Cp8Fg24
-	5V2/R/VaLnU65ayusmIvKXsFU98gcEN731fwQtLphMPTikf+ZwelifUeFOdkOG06HFkmm8w==
-X-Received: by 2002:a05:6000:388:b0:485:8c75:48fb with SMTP id ffacd0b85a97d-4858c75598cmr17163976f8f.50.1788775593455;
-        Mon, 07 Sep 2026 03:06:33 -0700 (PDT)
-X-Received: by 2002:a05:6000:388:b0:485:8c75:48fb with SMTP id ffacd0b85a97d-4858c75598cmr17163935f8f.50.1788775592991;
-        Mon, 07 Sep 2026 03:06:32 -0700 (PDT)
-Received: from localhost (93-40-94-241.ip38.fastwebnet.it. [93.40.94.241])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485881353e8sm27574871f8f.1.2026.09.07.03.06.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 03:06:32 -0700 (PDT)
-From: Alessio Faina <alessio.faina@canonical.com>
-To: Andrea Mayer <andrea.mayer@uniroma2.it>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v3] selftests/net: skip srv6_end_dt[4/6]_l3vpn_test.sh if vrftable not available
-Date: Mon,  7 Sep 2026 12:06:31 +0200
-Message-ID: <20260907100631.1923148-1-alessio.faina@canonical.com>
-X-Mailer: git-send-email 2.43.0
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 457091F45E;
+	Mon,  7 Sep 2026 10:06:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788775597;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PfoTAYFqTl2Hak1JlmZCMv1BTYA+TeE2F5LGEJs0pn8=;
+	b=t+VESbmpnboxICr1KOGyA+1+6HvXRH1GTZYni8Exsde0oh4yDJoTA0Clp9v/l0HT5/g/XD
+	tHXb3lEkMBR8GDtFVm4fs62rIORm8exaMjtwN3aEnxObkZX6v7Sfsr7huJ3jNU1Dheaq50
+	hDZuFxudJX86DTCod57yCJMn6fKaScE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788775597;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PfoTAYFqTl2Hak1JlmZCMv1BTYA+TeE2F5LGEJs0pn8=;
+	b=wxIW4jeFuYirg6E7infoShmTHnHMLSv7WOToij/gugB9dXFf1vkAoI0dG074u60buQWilY
+	0or7mkp1vrc4tmDw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788775593;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PfoTAYFqTl2Hak1JlmZCMv1BTYA+TeE2F5LGEJs0pn8=;
+	b=d+u+KEB87XgOBkSCAchxtzJ2XMpDXf/Bt5NJgObhcBPRZX/x853mhZdiySeWqQOMaJDHIj
+	1YCTOdN/FxnTCSwFl8uUGTrBEtM6eAJvI7K/yZpVbOvHsfz0ugNQzjHAGhu8JltDQ2OW+6
+	sSBdFMoNf9X++UXfipmvpbuGj89uLE8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788775593;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PfoTAYFqTl2Hak1JlmZCMv1BTYA+TeE2F5LGEJs0pn8=;
+	b=SQVSZ697+iV1UgcmOkOAM8WkDQVfZCeUmi2M5/gFvLp55EDnqENfD845Hk3CNp7fYQCWjD
+	H/GCrbuXsuyQauBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 00C221339B;
+	Mon,  7 Sep 2026 10:06:32 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id vvAhO6iMnmocIgAAD6G6ig
+	(envelope-from <dsterba@suse.cz>); Mon, 07 Sep 2026 10:06:32 +0000
+Date: Mon, 7 Sep 2026 12:06:27 +0200
+From: David Sterba <dsterba@suse.cz>
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: Chris Mason <clm@fb.com>, David Sterba <dsterba@suse.com>,
+	linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] btrfs: fix typos and repeated words in comments
+Message-ID: <20260907100627.GR9053@twin.jikos.cz>
+Reply-To: dsterba@suse.cz
+References: <20260907044801.9088-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907044801.9088-1-hemanth.selam@gmail.com>
+User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
+X-Spam-Score: -2.50
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.50 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	HAS_REPLYTO(0.30)[dsterba@suse.cz];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	REPLYTO_ADDR_EQ_FROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,twin.jikos.cz:mid,suse.cz:replyto];
+	RCVD_COUNT_TWO(0.00)[2];
+	REPLYTO_DOM_NEQ_TO_DOM(0.00)[]
+X-Spam-Flag: NO
 
-In case iproute2 is older than version 5.11.0, released ~Feb 23, 2021,
-the vrftable support is not available and the tests
-contained in the following 2 test files
- - srv6_end_dt4_l3vpn_test.sh
- - srv6_end_dt6_l3vpn_test.sh
-are failing in some kernel backports.
-This is the result of one of those tests in an unsupported environment:
+On Mon, Sep 07, 2026 at 10:18:01AM +0530, Hemanth Selam wrote:
+> Fix misspellings and repeated words in comments, found with
+> scripts/checkpatch.pl and codespell.  Only touches comments, no code
+> changes.
+> 
+> Changes since v1:
+>  - the typo and repeated-word patches are folded into one, as they only
+>    touch comments
+>  - rebased onto btrfs for-next
+>  - picked up the further typos codespell found, which David Sterba
+>    listed: Temporarilly, Checksume, coresponding, caclulated, wheather
+>    and cannnot ("commited" in block-group.h was already fixed by v1)
+> 
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 
- ##########################################################################
- TEST SECTION: SRv6 VPN connectivity test among hosts in the same tenant
- ##########################################################################
-
-    TEST: Hosts connectivity: hs-t100-1 -> hs-t100-2 (tenant 100)    [FAIL]
-
-    TEST: Hosts connectivity: hs-t100-2 -> hs-t100-1 (tenant 100)    [FAIL]
-
-    TEST: Hosts connectivity: hs-t200-3 -> hs-t200-4 (tenant 200)    [FAIL]
-
-    TEST: Hosts connectivity: hs-t200-4 -> hs-t200-3 (tenant 200)    [FAIL]
-
-The test installs a route with the vrftable feature; if this feature is
-not available, the approach taken is to skip the test rather than
-failing it.
-
-Signed-off-by: Alessio Faina <alessio.faina@canonical.com>
----
-v3: - Fix Commit message and mail subject
-v2: https://patchwork.kernel.org/project/netdevbpf/patch/20260903103545.1325276-1-alessio.faina@canonical.com/
-    - remove dx[4/6] tests
-    - test if vrftable is available in the installed iproute2
-      application
-v1: https://patchwork.kernel.org/project/netdevbpf/patch/20260824091537.2305107-1-alessio.faina@canonical.com/
-    - initial approach by testing DT[4/6] and DX[4/6]
-    - test if DT4/DT6 are available in iproute2
-
- ./tools/testing/selftests/net/srv6_end_dt4_l3vpn_test.sh  | 21 +++++++++++++++++++
- ./tools/testing/selftests/net/srv6_end_dt6_l3vpn_test.sh  | 21 +++++++++++++++++++
- 2 files changed, 42 insertions(+)
-
-diff --git a/tools/testing/selftests/net/srv6_end_dt4_l3vpn_test.sh b/tools/testing/selftests/net/srv6_end_dt4_l3vpn_test.sh
-index a649dba3cb77..037e5fe1da2a 100755
---- a/tools/testing/selftests/net/srv6_end_dt4_l3vpn_test.sh
-+++ b/tools/testing/selftests/net/srv6_end_dt4_l3vpn_test.sh
-@@ -469,12 +469,33 @@ if [ ! -x "$(command -v ip)" ]; then
- 	exit $ksft_skip
- fi
- 
-+test_vrftable_supp_or_ksft_skip()
-+{
-+	local nsname
-+
-+	setup_ns nsname
-+	ip netns exec "${nsname}" sh -c "echo 1 > /proc/sys/net/vrf/strict_mode"
-+	ip -netns "${nsname}" link add vrf-100 type vrf table 100
-+	ip -netns "${nsname}" link set vrf-100 up
-+
-+	if ! ip -netns "${nsname}" -6 route add fc00::1/128 \
-+			encap seg6local action End.DT4 vrftable 100 dev vrf-100 2>/dev/null; then
-+		cleanup_ns "${nsname}"
-+		echo "SKIP: SRv6 End.DT4 vrftable not supported"
-+		exit "${ksft_skip}"
-+	fi
-+
-+	cleanup_ns "${nsname}"
-+}
-+
- modprobe vrf &>/dev/null
- if [ ! -e /proc/sys/net/vrf/strict_mode ]; then
-         echo "SKIP: vrf sysctl does not exist"
-         exit $ksft_skip
- fi
- 
-+test_vrftable_supp_or_ksft_skip
-+
- cleanup &>/dev/null
- 
- setup
-diff --git a/tools/testing/selftests/net/srv6_end_dt6_l3vpn_test.sh b/tools/testing/selftests/net/srv6_end_dt6_l3vpn_test.sh
-index e408406d8489..9a29e0d6c912 100755
---- a/tools/testing/selftests/net/srv6_end_dt6_l3vpn_test.sh
-+++ b/tools/testing/selftests/net/srv6_end_dt6_l3vpn_test.sh
-@@ -479,12 +479,33 @@ if [ ! -x "$(command -v ip)" ]; then
- 	exit $ksft_skip
- fi
- 
-+test_vrftable_supp_or_ksft_skip()
-+{
-+	local nsname
-+
-+	setup_ns nsname
-+	ip netns exec "${nsname}" sh -c "echo 1 > /proc/sys/net/vrf/strict_mode"
-+	ip -netns "${nsname}" link add vrf-100 type vrf table 100
-+	ip -netns "${nsname}" link set vrf-100 up
-+
-+	if ! ip -netns "${nsname}" -6 route add fc00::1/128 \
-+			encap seg6local action End.DT6 vrftable 100 dev vrf-100 2>/dev/null; then
-+		cleanup_ns "${nsname}"
-+		echo "SKIP: SRv6 End.DT6 vrftable not supported"
-+		exit "${ksft_skip}"
-+	fi
-+
-+	cleanup_ns "${nsname}"
-+}
-+
- modprobe vrf &>/dev/null
- if [ ! -e /proc/sys/net/vrf/strict_mode ]; then
-         echo "SKIP: vrf sysctl does not exist"
-         exit $ksft_skip
- fi
- 
-+test_vrftable_supp_or_ksft_skip
-+
- cleanup &>/dev/null
- 
- setup
--- 
-2.43.0
-
+Added to for-next, thanks.
