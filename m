@@ -1,164 +1,302 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8C148A2CE
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:05:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8560941A551;
+	Mon,  7 Sep 2026 12:05:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788782707; cv=none; b=q6pZ812I8WpNS4AbWZWTx+lUyhO6qPAPeTwJDcppOWaGg2PH8JSttSLp+PR2veqKGn8ms+chAbEfT98u1lJv4Y9TtNoFN42pAJO6/B2nHpRA0RDFiN8QfdW+ga6Kjgdlo72RhQ/A3Q88OS8kJXgO6rsld/kDKWPNM2C1TFRnhmQ=
+	t=1788782732; cv=none; b=Oa5CX+te56mDKuMsGWGICURK2O2bV9WnBBTQe+LwI4mjZ4ym7srFLCspb1ybZjsSHOmPWLlfCLbdKvsEaz4gUB6Wu4t9CD4lqSxnhdXtQb1flMWFxJ+deoun9GW2ogWuaZ15PaArN669/TjCcdaVFz2bDHDJeE+Ctvg7hoSeY0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788782707; c=relaxed/simple;
-	bh=gMWErXSYRc5v7JBT6ywk6kOtY9nHKNpPH1IBdR78J4Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MAvrdT3X9n/yb9EOBvBqn+yMs/cQf13vQWziYXJ4S9ktiHJLHgXdiuo4WFc9X+U+99GRyIuFZjtILT5FQVs2vIZhjMesF44YWsc+4aGDWHnnywGzt2vyGkb/JQnaETxKyEp+W6F25j/600q1Rboda9os/alIM9NC+dzJ0luYkPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=op7VPV6N; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QYIHepnp; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788782732; c=relaxed/simple;
+	bh=nBOw5KMEnNUXRYpKwfcK2ytyOLkjWpMUdImYCkuggLo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cOUaje9pXhmoLW8LN81djAN4/YNk34144acZ+iOBsxfJeAYGU2SZ0erAauQm4asxLaJZVgI2aaXXJFQLL4vqe/0dgPcJRZ5N9CPx7BF1BVr3tOFSBDJ1tfrSf1J5ux0N7IksG8hXux5YONMM2p3Y/sNYMb6Lut7pA8NwJseHQCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OkKDCiMI; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="op7VPV6N";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QYIHepnp"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687AmnCD2652020
-	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 12:05:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	bVgKgqOoFXytrZYRxPyu4M0vvgU1+iefS8c1X4FLYD0=; b=op7VPV6NmM8jKMcZ
-	wMx7pL7Q+WP58EWAJ3qDyW5Feedf4y9JHQJjKBu/oeHqpggNUWwOBaBeSPnU9wR3
-	fv0vg0FxhsJ2MOH4cAAayVvl62c/w00YLsQG01m55J2fGKIz0r/7A7SG9OdGVI8h
-	5IslqqkrXnAP+ntKPoJxl4UG8RmBLnxS4EPrGlWAtZFFc0XZ5a7naGBzCurBhW3T
-	LJQHe/SA9VaPFWtyA3zgSArjJd2eb3E01UJvOrf7aWGo0U7lUBdjlfWzsNeM2znu
-	9yr//FvaKM4yjKhfCYp1zBQqr0yJMKGivF7uajcqkYPWFdeleBNWPCTj+Aosvnj2
-	njGDIA==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghtty0hj8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 12:05:03 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-52ffd22d2b1so7801471cf.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:05:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788782703; x=1789387503; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bVgKgqOoFXytrZYRxPyu4M0vvgU1+iefS8c1X4FLYD0=;
-        b=QYIHepnpsqujDRnsb2puiA+MvM812tzmVuTI0ztuSL/ocmELtKsrMt+tlAESBgOgVQ
-         RLgykWXqD1mtWIeZkpq2nDOKwEjZf4oqxnzGV9SEAOIMIsavp91M0FnuzSPDniDC3BXX
-         oqnKaaxGOHGiSZLNYbcRvYlGWLYvUs6PFgPzbVedkd8cmgnBwCu2YGfg/o6NLRpJl4hD
-         XKRq9b0mVjPwP7IR4XTaTaLFo/6rNAZ3wxQ1RwCe8yHTHp9SUBnI9g8LHE+f/fhrGFdG
-         anU/DAXO4dYFRG2d2gc4xJv0u3EFsdqpY6GIc2boFYGSDZsiDRIftKXFd7qUx3BG+aVm
-         E/1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788782703; x=1789387503;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bVgKgqOoFXytrZYRxPyu4M0vvgU1+iefS8c1X4FLYD0=;
-        b=CfIZ5+OsKTy+F9jUYpCiuWKAM76OrdVJR17kovqhn7CCXevtipms1Q8zKruNPEJMRO
-         WYAa7H0tYolewg771CQrHyEm2JnaOUfwLzZEVzCWZLA8dgtqZTkPRjedIQMMh0n5ATV5
-         KWpFVmrIw81Zu6Dtm3YH8HrrNNUmZWsJZZKEfz4YtOqPihY+4WLq7ZX+lZxqO5kfqPcw
-         VUwz46AUDcyEBmpUCMnXpiXQXSopRPz3mE94K+m/0q4nUJv6xeP2Zxonx3K3RyyAd7aJ
-         Urv5uNVMTEQXYzckkQUtvmy1A5eTBDgzPPjID5rXIKF2sinF2pCdgntgmmUHC2/3p/yG
-         8VWA==
-X-Forwarded-Encrypted: i=1; AKwUvBw/mEldJ9kaqWi2Ygbc2MESba9yldB/HYUqfd8LQTksZ3m8QalBdKPJ3JkEoeP7A4wqFbb5YvTUHU9ZV38=@vger.kernel.org
-X-Gm-Message-State: AFuF++nTHJQxmxNn2MlJCXrpmes+EsteAptxP115j6mgqTDHL2VpeUYV
-	JUKOOwG2H6vNNxm4aw4wVls8i5fE0G5nblJdosQBe9EFwnMCpuyGBeRhZOP4txO6rI9CgdS+xQ0
-	N/xRfZpgU8NtI6xQsHYEc+vfXgSKq5E/xNaara7/j9War0UoMlo+VevSZLFKs7Czb70o=
-X-Gm-Gg: AYBFou3QUSGIl9YLI2er4v1xbOXKX/uHXHTy374bUi+cSplwc1zpqbkSwHaf2XBb4pg
-	AHB1MSEUPoiyznh6aP/sA6kBzCL5vax3bKmQSN+L33Bn2CffATJg4Q1sIOZkYrWtwguqkBkL2kS
-	+1EQVzJqBYJQ3la1zIJazVi7LvSMNuHDS/Tuq76NB/F+7IIaBxiA47HdaqRRuMzpYPJc+WB0JSs
-	nMzBUlEXbonzRqRWqaGoTdzVinF7HSBmje6HeS8UijcumseA427rjuC5aw0hFzAcGYLyqWEP7OB
-	qGPKeKkN1sCtoY+1ESwt6GcKMvL5iY6/HwyaSERmHLC5VTiDDTlGeJf0StXbFUsq2lPcDw1pjEY
-	JeLjeW5PMaN8JqywYmT1u2iYDy6zyBKkNSA==
-X-Received: by 2002:a05:622a:148c:b0:50f:a53b:9d5 with SMTP id d75a77b69052e-53064575926mr130309921cf.2.1788782702920;
-        Mon, 07 Sep 2026 05:05:02 -0700 (PDT)
-X-Received: by 2002:a05:622a:148c:b0:50f:a53b:9d5 with SMTP id d75a77b69052e-53064575926mr130309241cf.2.1788782702399;
-        Mon, 07 Sep 2026 05:05:02 -0700 (PDT)
-Received: from [192.168.0.242] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d04fe7f9dsm205136585e9.0.2026.09.07.05.05.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 05:05:01 -0700 (PDT)
-Message-ID: <ef41a092-cd83-4e65-a16a-7a8b838bcb63@oss.qualcomm.com>
-Date: Mon, 7 Sep 2026 14:04:59 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OkKDCiMI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788782731; x=1820318731;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=nBOw5KMEnNUXRYpKwfcK2ytyOLkjWpMUdImYCkuggLo=;
+  b=OkKDCiMIpUXwuh7MB/L7nff41WZX2aC7Q0rJ52YzeSXVjyu3XNiHHuvV
+   cPGGTA+WybPn/gyEo35lFQCuexupRn4/YKZqmO9/pZipusnzVMR79AcDB
+   uoX6rYjqxx1lJGU+yi3ddOUK0lfIZQPqBrg42nQfFMAGLVobrh3Sbf3gw
+   c3r8Z2nGKOnza/g0VdEvMR74DyC9nO5ZS2fs3wrouFMyWkZT7kxtAubKC
+   0NjQ6rNQqsZP9P6UAkApUmtrBLXJZa7sh8HpgJ9rZWhNTbZ4aTr/Tdacp
+   WjcoVUbgGIQTfNSoaMzZV767KkXtQOTBVKZPHDl15BmEbjOwYJcgn2oX+
+   w==;
+X-CSE-ConnectionGUID: nTQPLjKQQ/6PaQkgEOHZHg==
+X-CSE-MsgGUID: D8h0rm1jTwSdzNDetMdMTw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="99518645"
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="99518645"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 05:05:31 -0700
+X-CSE-ConnectionGUID: nSuGNdrFRT6yqqJl18g8cQ==
+X-CSE-MsgGUID: d/YeiH8UQbSjxprguIVMfg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="268115157"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa008.fm.intel.com with ESMTP; 07 Sep 2026 05:05:28 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id A76C099; Mon, 07 Sep 2026 14:05:26 +0200 (CEST)
+Date: Mon, 7 Sep 2026 14:05:26 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Edward Blair <edward.blair@gmail.com>
+Cc: linux-acpi@vger.kernel.org, linux-usb@vger.kernel.org,
+	rafael@kernel.org, lenb@kernel.org, mika.westerberg@linux.intel.com,
+	gregkh@linuxfoundation.org, W_Armin@gmx.de,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] usb: typec: ucsi: add ITE885x I2C transport driver
+Message-ID: <ap6ohv5oM4Ze9dzz@black.igk.intel.com>
+References: <20260829145516.13500-1-edward.blair@gmail.com>
+ <20260829145516.13500-3-edward.blair@gmail.com>
+ <apavoDwVFw_FKRNd@black.igk.intel.com>
+ <CAJDQNgjq-oxQkdYK+fTSd5AHMjM-qTcSPo+s2-+W=Pcn7jYr-g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] pinctrl: qcom: Add MSM8952 tlmm pinctrl driver
-To: muzafferkadir@mainlining.org, Bartosz Golaszewski <brgl@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260904-msm8952-pinctrl-v4-0-671475ed1397@mainlining.org>
- <20260904-msm8952-pinctrl-v4-2-671475ed1397@mainlining.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260904-msm8952-pinctrl-v4-2-671475ed1397@mainlining.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=QNBYgALL c=1 sm=1 tr=0 ts=6a9ea86f cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=OuZLqq7tAAAA:8 a=7cKmDxSfVGQto59j-ZYA:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22 a=AKGiAy9iJ-JzxKVHQNES:22
-X-Proofpoint-ORIG-GUID: K_yzDji5qYZvXg_jrp1_LXC7zdNNNe9E
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDEzMyBTYWx0ZWRfX9EdI+DxC2I3U
- RjloETZxtoOMqMuz61adT0rL6wjcddBHSG+jntvzGPx2Uo/1hOqsOiEXY3hFvEHBig9nqquOueJ
- 4hV2SeK94D28s1LtzNcHePAnnyxWTF8=
-X-Proofpoint-GUID: K_yzDji5qYZvXg_jrp1_LXC7zdNNNe9E
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDEzMyBTYWx0ZWRfX6HJMvFiYDDdu
- M0UmjYA2hL54PRsqQCGdrUYqH06B8U9fGwx2n/czuyCordjDFclWjijhBiTx2WXwHdL6av+xR7I
- UHjMZHUtwRIITjH80doTcbYgzG01EPphz4i3AqaRAubpFObiksmQ1KZOdT5jGuWzWhYEYX7j4Z7
- 585R1fGZEk6ciDaXTfKO4LcCUxmIDlFO+CAqj1Tx/PSWWiBTMDjiZMS8jjFZOo6TkdxAJtZG8GO
- VKovLgCZdjjB5PSBhDGHJOsed67Q7vlEducuGgZRWi4rSYlp25JxaZKQH5hvqNqsr2VgHnDC0VJ
- Hs/SpuXhbt2CEcyu23SFtzjXnu6Bcud27L0FQ5ErPPyjjKgbYGipOCikW5xBTy1JoQkOvbDWi55
- v7Cy+lII/jUxAw2ZKG9tF5d30tyYeNnUiutWTf8dx2bJTjt0D7TOrDB2Gw1DnP51WTbI2mnwt0Q
- ++LHSxPhpScmzojhacg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-07_03,2026-09-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 suspectscore=0 phishscore=0 priorityscore=1501
- lowpriorityscore=0 adultscore=0 clxscore=1015 bulkscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070133
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAJDQNgjq-oxQkdYK+fTSd5AHMjM-qTcSPo+s2-+W=Pcn7jYr-g@mail.gmail.com>
 
-
-
-On 04-Sep-26 14:55, Muzaffer Kadir via B4 Relay wrote:
-> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+On Tue, Sep 01, 2026 at 01:03:50PM +0100, Edward Blair wrote:
+> Thanks,
 > 
-> MSM8952 has same pin count and similar pinctrl
-> functions mostly with msm8917, but some functions use different pins.
+> I will add the explicit includes and use guard(mutex) for event_lock.
 > 
-> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
-> ---
+> I kept the explicit IRQ handling because ucsi_resume() queues work which
+> issues UCSI commands. If the callbacks are moved to the noirq phase,
+> that work can run before the parent I2C controller's resume_early or
+> resume callback, while the controller may still be unavailable.
 
-I told the robot to take a look again (and again and again
-a couple more times until it stopped complaining)..
+Okay, got it.
 
-The following feedback is meaningful:
+> The current ordering disables the device IRQ before quiescing UCSI, then
+> re-enables it during normal resumption after the I2C bus has resumed. Does
+> that address your concern, or would it be preferable the IRQ and UCSI
+> handling to be split across separate PM phases?
 
-Hi Muzaffer,
+I'm sure it's fine as it is now.
 
-  `qdss_tracedata_b_groups` advertises GPIOs that cannot actually select
-  the function. Please populate the corresponding PINGROUP slots:
+Thanks,
 
-    GPIO8:  mux 11
-    GPIO9:  mux 12
-    GPIO12: mux 12
-    GPIO13: mux 12
+> Thanks,
+> Edward
+> 
+> On Tue, 1 Sept 2026 at 11:57, Heikki Krogerus
+> <heikki.krogerus@linux.intel.com> wrote:
+> >
+> > On Sat, Aug 29, 2026 at 03:55:16PM +0100, Edward Blair wrote:
+> > > Add a UCSI transport driver for ITE8853 and ITE8800 through ITE8805
+> > > USB Type-C controllers found on desktop motherboards.
+> > >
+> > > These controllers expose CCI, MESSAGE_IN and CONTROL at ITE-specific I2C
+> > > offsets and signal UCSI and vendor events through a shared interrupt
+> > > status register. Read and cache each complete UCSI event before
+> > > acknowledging it so command data remains coherent between the interrupt
+> > > handler and UCSI core.
+> > >
+> > > The interface does not expose a VERSION register and does not accept
+> > > PPM_RESET over I2C. Report UCSI 1.0, limit MESSAGE_IN to its 16-byte
+> > > window and handle PPM_RESET locally, matching the vendor driver's
+> > > behavior.
+> > >
+> > > Signed-off-by: Edward Blair <edward.blair@gmail.com>
+> > > ---
+> > >  drivers/usb/typec/ucsi/Kconfig    |  11 +
+> > >  drivers/usb/typec/ucsi/Makefile   |   1 +
+> > >  drivers/usb/typec/ucsi/ucsi_ite.c | 395 ++++++++++++++++++++++++++++++
+> > >  3 files changed, 407 insertions(+)
+> > >  create mode 100644 drivers/usb/typec/ucsi/ucsi_ite.c
+> > >
+> > > diff --git a/drivers/usb/typec/ucsi/Kconfig b/drivers/usb/typec/ucsi/Kconfig
+> > > index 87dd992a4..3819c4f73 100644
+> > > --- a/drivers/usb/typec/ucsi/Kconfig
+> > > +++ b/drivers/usb/typec/ucsi/Kconfig
+> > > @@ -104,4 +104,15 @@ config UCSI_HUAWEI_GAOKUN
+> > >         To compile the driver as a module, choose M here: the module will be
+> > >         called ucsi_huawei_gaokun.
+> > >
+> > > +config UCSI_ITE
+> > > +     tristate "UCSI Interface Driver for ITE885x"
+> > > +     depends on ACPI && I2C
+> > > +     help
+> > > +       This driver enables UCSI support on platforms that expose an ITE8853
+> > > +       or ITE8800-ITE8805 USB Type-C controller over I2C, commonly found
+> > > +       on ASUS Z690/Z790/X670E motherboards.
+> > > +
+> > > +       To compile the driver as a module, choose M here: the module will be
+> > > +       called ucsi_ite.
+> > > +
+> > >  endif
+> > > diff --git a/drivers/usb/typec/ucsi/Makefile b/drivers/usb/typec/ucsi/Makefile
+> > > index c7e38bf01..9bc1d6bbb 100644
+> > > --- a/drivers/usb/typec/ucsi/Makefile
+> > > +++ b/drivers/usb/typec/ucsi/Makefile
+> > > @@ -28,3 +28,4 @@ obj-$(CONFIG_UCSI_PMIC_GLINK)               += ucsi_glink.o
+> > >  obj-$(CONFIG_CROS_EC_UCSI)           += cros_ec_ucsi.o
+> > >  obj-$(CONFIG_UCSI_LENOVO_YOGA_C630)  += ucsi_yoga_c630.o
+> > >  obj-$(CONFIG_UCSI_HUAWEI_GAOKUN)     += ucsi_huawei_gaokun.o
+> > > +obj-$(CONFIG_UCSI_ITE)                       += ucsi_ite.o
+> > > diff --git a/drivers/usb/typec/ucsi/ucsi_ite.c b/drivers/usb/typec/ucsi/ucsi_ite.c
+> > > new file mode 100644
+> > > index 000000000..16b22c77f
+> > > --- /dev/null
+> > > +++ b/drivers/usb/typec/ucsi/ucsi_ite.c
+> > > @@ -0,0 +1,395 @@
+> > > +// SPDX-License-Identifier: GPL-2.0-only
+> > > +/*
+> > > + * UCSI I2C transport driver for ITE885x USB-C controllers
+> > > + *
+> > > + * ITE8853/ITE8800-ITE8805 are UCSI-compliant USB-C controllers found on
+> > > + * desktop motherboards. They communicate over I2C using UCSI registers at
+> > > + * ITE-specific offsets and signal events through a vendor interrupt register.
+> > > + */
+> > > +
+> > > +#include <linux/acpi.h>
+> > > +#include <linux/i2c.h>
+> > > +#include <linux/interrupt.h>
+> > > +#include <linux/module.h>
+> > > +#include <linux/mutex.h>
+> >
+> > We need to include everything instead of relying on nested headers
+> > nowadays.
+> >
+> >         linux/device.h
+> >         linux/device/devres.h
+> >         linux/dev_printk.h
+> >         linux/pm.h
+> >         linux/string.h
+> >
+> > > +static int ucsi_ite_process_event(struct ucsi_ite *ite, u32 *cci)
+> > > +{
+> > > +     u8 message_in[ITE_MESSAGE_IN_MAX_LEN] = {};
+> > > +     __le32 raw_cci;
+> > > +     u8 status;
+> > > +     u8 len = 0;
+> > > +     int event;
+> > > +     int err = 0;
+> > > +     int ret;
+> > > +
+> > > +     mutex_lock(&ite->event_lock);
+> >
+> > guard(mutex)(@ite->event_lock);
+> >
+> > > +     ret = ucsi_ite_read(ite, ITE_REG_INT_STATUS, &status, sizeof(status));
+> > > +     if (ret)
+> > > +             goto out_unlock;
+> > > +
+> > > +     status &= ITE_INT_MASK;
+> > > +     if (!status) {
+> > > +             mutex_lock(&ite->received_lock);
+> > > +             *cci = ite->cci;
+> > > +             mutex_unlock(&ite->received_lock);
+> > > +             ret = ITE_EVENT_NONE;
+> > > +             goto out_unlock;
+> > > +     }
+> > > +
+> > > +     if (status & ITE_INT_CCI) {
+> > > +             err = ucsi_ite_read(ite, ITE_REG_CCI, &raw_cci,
+> > > +                                 sizeof(raw_cci));
+> > > +             if (!err) {
+> > > +                     *cci = le32_to_cpu(raw_cci);
+> > > +                     len = UCSI_CCI_LENGTH(*cci);
+> > > +
+> > > +                     if (len > sizeof(message_in)) {
+> > > +                             len = sizeof(message_in);
+> > > +                             *cci &= ~GENMASK(15, 8);
+> > > +                             *cci |= UCSI_SET_CCI_LENGTH(len);
+> > > +                     }
+> > > +                     if (len) {
+> > > +                             err = ucsi_ite_read(ite, ITE_REG_MESSAGE_IN,
+> > > +                                                 message_in, len);
+> > > +                     }
+> > > +             }
+> > > +     }
+> > > +
+> > > +     /* Acknowledge each latched event with the value expected by the PPM. */
+> > > +     if (status & ITE_INT_VENDOR_ALERT) {
+> > > +             u8 ack = ITE_INT_VENDOR_ALERT;
+> > > +
+> > > +             ret = ucsi_ite_write(ite, ITE_REG_INT_ACK, &ack, sizeof(ack));
+> > > +             if (ret)
+> > > +                     goto out_unlock;
+> > > +     }
+> > > +
+> > > +     if ((status & ITE_INT_CCI) && !err) {
+> > > +             u8 ack = ITE_INT_CCI;
+> > > +
+> > > +             ret = ucsi_ite_write(ite, ITE_REG_INT_ACK, &ack, sizeof(ack));
+> > > +             if (ret)
+> > > +                     goto out_unlock;
+> > > +     }
+> > > +
+> > > +     if (err) {
+> > > +             ret = err;
+> > > +             goto out_unlock;
+> > > +     }
+> > > +
+> > > +     if (status & ITE_INT_CCI) {
+> > > +             mutex_lock(&ite->received_lock);
+> > > +             ite->cci = *cci;
+> > > +             memset(ite->message_in, 0, sizeof(ite->message_in));
+> > > +             memcpy(ite->message_in, message_in, len);
+> > > +             mutex_unlock(&ite->received_lock);
+> > > +             event = ITE_EVENT_CCI;
+> > > +     } else {
+> > > +             mutex_lock(&ite->received_lock);
+> > > +             *cci = ite->cci;
+> > > +             mutex_unlock(&ite->received_lock);
+> > > +             event = ITE_EVENT_VENDOR;
+> > > +     }
+> > > +
+> > > +     ret = event;
+> > > +
+> > > +out_unlock:
+> > > +     mutex_unlock(&ite->event_lock);
+> > > +     return ret;
+> > > +}
+> >
+> > > +static int ucsi_ite_suspend(struct device *dev)
+> > > +{
+> > > +     struct ucsi_ite *ite = dev_get_drvdata(dev);
+> > > +     int ret;
+> > > +
+> > > +     disable_irq(ite->client->irq);
+> > > +     ret = ucsi_suspend(ite->ucsi);
+> > > +     if (ret)
+> > > +             enable_irq(ite->client->irq);
+> > > +
+> > > +     return ret;
+> > > +}
+> > > +
+> > > +static int ucsi_ite_resume(struct device *dev)
+> > > +{
+> > > +     struct ucsi_ite *ite = dev_get_drvdata(dev);
+> > > +
+> > > +     enable_irq(ite->client->irq);
+> > > +     return ucsi_resume(ite->ucsi);
+> > > +}
+> > > +
+> > > +static DEFINE_SIMPLE_DEV_PM_OPS(ucsi_ite_pm, ucsi_ite_suspend,
+> > > +                             ucsi_ite_resume);
+> >
+> > Is the enable/disable_irq really necessary - couldn't you just use
+> > NOIRQ version of the PM operations (DEFINE_NOIRQ_DEV_PM_OPS)?
+> >
+> > Thanks,
+> >
+> > --
+> > heikki
 
-  Minor nit: use MODULE_LICENSE("GPL") to match the nearby Qualcomm
-  pinctrl drivers. // and checkpatch will ask you to do the same
-
-Konrad
+-- 
+heikki
