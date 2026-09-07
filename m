@@ -1,111 +1,60 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF3AA231A23;
-	Mon,  7 Sep 2026 01:42:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF9967478;
+	Mon,  7 Sep 2026 01:42:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788745341; cv=none; b=CohPE8JL4uB4Par+RUZ6XhtldVg0tS4noTy1g1LGOHgCuwrqHye0WbLvjK3Wq4JsdqTP3uTIvziktA2BpUL7JxWsqKd3jGtghjE2hQcNWuq7pvLI+pCaNufUq5+hftGnxcfDWlMlTthR+J+UbF3CeqpmxMWAEqFsP5yyBoaWWUI=
+	t=1788745361; cv=none; b=AhahQJmF9KyKASw3Y5a8NqmIVrx/eb7yJUMjeSQIoWyf4QinOUddQRYhVX49qgat9It5t7dxGNqVEFrWi5U9lpDvFwotz1fVg1JVWcYelKeQwBXOX+gMyPvyM1KHBMn5FiY+3lo27JTZJpsV7Wb9sfHbHBqU8pVweRQypfX6HFI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788745341; c=relaxed/simple;
-	bh=BYYxv4WBNVAj9hQvEn3hA5I/gf8lvQXgIemii6JmEDU=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=lOESJLMP/y9DVGyWoUgVPxEHfiYA5PneGRUDzy0o5Jwain+UWy8RG49jb3/fgewLiZzkXW3NAWZEift4gYrBARoT7BmV9iih+xY8kLtbjJOCOLfD1y9xxXIYlu2ZLfCKKnJiFdY0gOHkG+WhL8UzQOGE+0dig4Rb33Lk/fG0hQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=K2sW23dx; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="K2sW23dx"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6871g9MU12377520, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1788745329; bh=BYYxv4WBNVAj9hQvEn3hA5I/gf8lvQXgIemii6JmEDU=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=K2sW23dxdLxoBfi1dQ8eUWPobi2qeJcuwwzbHs1jYyVtCIKB+UTVYg2WZS0uvb6KD
-	 IKftB0OHUBaWNFEZfHx/P9wvQrMotUir9uApp/TuYSg84/lz4za74elbemVARas1v9
-	 kRmErPgZn1tlECSpxS1UPJf9PYiCn+3HQDOeOpCH2BPHNhpWUIp0dO/Re+qVflIcvE
-	 8tVEX2k98I/zCixrVOAXhg2Qk3C/BBPOXbjp4vKbUgnwn0oy7qW8IxxCsfqLS54xpv
-	 Zbcho/j9H21wydDzUD3+F/HWB3osPDH2ioiCtyHAlJB6lucN9JvHy2zx5GLL4gnKUR
-	 B0BOxD33+4pGg==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6871g9MU12377520
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 7 Sep 2026 09:42:09 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Mon, 7 Sep 2026 09:42:09 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::126f:59ad:658:674d%10]) with mapi id
- 15.02.2562.043; Mon, 7 Sep 2026 09:42:09 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Mehmet Fide <mehmet.fide@gmail.com>
-CC: Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Mehmet Fide
-	<mehmet.fide@screeningeagle.com>
-Subject: RE: [PATCH rtw-next v3] wifi: rtw88: usb: route bmc frames via the
- high queue only for DTIM delivery
-Thread-Topic: [PATCH rtw-next v3] wifi: rtw88: usb: route bmc frames via the
- high queue only for DTIM delivery
-Thread-Index: AQHdK66WOfaBclcfS0e15NhvFyIcILazZGiAgAXJeAD//9pbAIAH9LaQ///WroCAAaK/MA==
-Date: Mon, 7 Sep 2026 01:42:09 +0000
-Message-ID: <d91b4f77a662442fa796f0407fe08d54@realtek.com>
-References: <070f9724ca4a42a0b64bbf63724d8cdc@realtek.com>
- <20260906082017.909554-1-mehmet.fide@gmail.com>
-In-Reply-To: <20260906082017.909554-1-mehmet.fide@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	s=arc-20240116; t=1788745361; c=relaxed/simple;
+	bh=rcKkLl0+HMemz7y0htxoayTeLNWt4yhwfwIZG+eNesg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=bhI/6OPgjmXTI51s+/9W5CjCutSfAqUPU42Gfrlenm6jnEBWlpHPy7Jbj/7NbZ3iV1ZvMlbp040bH+ebngDnCE/3OIYP1d536JbgnT421h8zVTFMQseQY4MUXsd24qn4tDHe/p/ddkEJ5ukjM7gpS23iARkTobvuWQrOsQBXNL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 5f102b56aa5d11f19a56ed5b684f684d-20260907
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:e72015f5-cc9e-4b78-935d-bf75381495c0,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:6d069ef7f174f2f2823559d39252c101,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|83|102|865|898,TC:nil,Content:0|15|50|99,EDM
+	:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
+	,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 5f102b56aa5d11f19a56ed5b684f684d-20260907
+X-User: liuxixin@kylinos.cn
+Received: from [127.0.1.1] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <liuxixin@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 449294600; Mon, 07 Sep 2026 09:42:22 +0800
+From: Xixin Liu <liuxixin@kylinos.cn>
+To: sudeep.holla@kernel.org
+Cc: arm-scmi@vger.kernel.org, cristian.marussi@arm.com, linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, liuxixin@kylinos.cn, mturquette@baylibre.com, sboyd@kernel.org
+Subject: Re: [PATCH v2 0/5] firmware/clk: arm_scpi hardening (leak, OPP bounds, cpufreq)
+Date: Mon, 7 Sep 2026 09:35:00 +0800
+Message-ID: <reply-scpi-hardening-v2-thanks.20260907.liuxixin@kylinos.cn>
+In-Reply-To: <178852798387.330796.10489318614485340307.b4-ty@b4>
+References: <cover.v2.1785200642.git.liuxixin@kylinos.cn> <178852798387.330796.10489318614485340307.b4-ty@b4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailer: patches/scripts/send-local.py
 
-Mehmet Fide <mehmet.fide@gmail.com> wrote:
-> Hi Ping-Ke,
->=20
-> > FYI. I checked vendor driver. Normally REG_ATIMWND sets 0xa or 0xc in A=
-P mode
-> > for chips.
->=20
-> Thanks, that matches what I measured: 0x04 already drained the storm, so
-> 0xa leaves comfortable headroom. If you agree I will add a small third pa=
-tch
-> to the series that programs REG_ATIMWND to 0xa when the interface goes in=
-to
-> AP mode, as a complement to the bound and the filter (each covers a
-> different failure mode: the window adds drain capacity, the bound protect=
-s
-> the pool if the window is not enough, the filter keeps the ordinary chatt=
-er
-> off the beacon-paced path altogether).
+Hi Sudeep,
 
-Agree. Please do it.=20
+Thanks for applying the series.
 
-As many chips don't initialize REG_ATIMWND (0x55a) at all, you might set th=
-e
-value back to 0x2 when stopping AP.
-
->=20
-> > As you saw it is for TDLS channel switching (timeslot sharing), I
-> > don't think it can work in AP mode...
-> > I will ask USB experts internally to see if there is an interrupt
-> > to notify driver about TBTT (or beacon early).
->=20
-> Understood, and thank you for asking. If such a notification exists I wou=
-ld
-> be glad to prototype IEEE80211_HW_HOST_BROADCAST_PS_BUFFERING on top of i=
-t
-> as the long-term solution; the bound and filter series does not depend on=
- it.
-
-I'm still checking this, and will give back to you if it exists.
-
-By the way, comments you left in patches 1/2 and 2/2 look good to me.
-
-Ping-Ke
+Thanks,
+Xixin Liu
 
