@@ -1,698 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D334F4738;
-	Mon,  7 Sep 2026 14:14:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5F8D4CB8CA;
+	Mon,  7 Sep 2026 14:14:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788790456; cv=none; b=kytU99Ti4s92/Djl2OmKKpZDT3X/geAOe4dR3Rt/QeLtCGKiyM6rgwga/UV+wd8it2Kz32i8ruLWrkwL9rUqtgra/jiDhSPk76XpnrHY8Z+z4nunvi+QiECU32vdlrIAnkJdQo0beBs/RYjf+dtR26EraW4J1Evx9OX43WfMEvw=
+	t=1788790483; cv=none; b=HL37NjqEKrNXB4+QBabFTP6FzaA7sc/noVMBMv4jfwUHrPstxsIizWBQxWb0aafm0qtg7/oMoSx2rwify958otWSnvTLo+4moXg4cWLgfvuzI5f3rXDnS20F65s81jn1gdyLDz9OiggNhz/U9z1ydy88UP3m8QjhIgQZNh6XJpk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788790456; c=relaxed/simple;
-	bh=NDFasX7f5O77tue5nZiVpOSge3mAPGUl0jJk43QC0GQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bky7DYOGcksyyLIZ4HzgCZ3+RAi7YJQCZE6nU6+ENDqdIZJxmRE93slqQQY0w8DPn9UWipK/Y1YZ7yqs9O/ZYGbYIqpnaO+7MZ4gUwRtlHJjEhmSH5Nxn/kRLytSJoa97pR5ujG0oeLBXhloyTwJ6jXy1r1nnTRI06d/Zq7nq4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eeTfojQ0; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788790483; c=relaxed/simple;
+	bh=yvb3TKII5RqnvWR4KKPwM6Pa0eGdrgURYd2q830BwGg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=npN6Qc211+Db9jgufvOGMPH9NugBn7h7ZuNPbmxY40MgiRlXhhbeCMZ1Eo9USTCJ57oLtNnwVfxsyplWHX7ERuUXNxnc4ZCDlyYIeC7MmRK+YyfDy2Z1qJSGORhWYF/6O255SST+f8dekGSriyCjwLkTo6uXyRLxNtH2LeQN+F8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NhoyMxVX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eeTfojQ0"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 170F8C2BD01;
-	Mon,  7 Sep 2026 14:14:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788790456;
-	bh=NDFasX7f5O77tue5nZiVpOSge3mAPGUl0jJk43QC0GQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=eeTfojQ0oyXXaTIkPr8d57TS1h87yx/HqOfGE+V8lHAqS4uP9HynEHjZ/UBr5R8A6
-	 4KM21buXU1tDwTeiTuvYgwhSEzXdczfWG6uVxmnD6vjClFuM8Ficv7frZOaLO5putj
-	 XwhOWnzrGHVplW3G4uWhQ5CL7SzGPVd3yZW9goTsKHYLyef8d2v5TmRfuQghh6XfzV
-	 o7AnWfxXTYlBWUN1QFn3pnT7yqIAQdtGHn6DZIB/UYGlTJ2sS1hD1/dGjDhf6VUmX0
-	 Wi/nTjMjO3D8pyb1RPIi74LpqNaawYTLcDY0TYeWFrRtcnanPq8ifDy1rbjCfRlz2Z
-	 9nHo+b9ydOBKQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EC0BCC79F89;
-	Mon,  7 Sep 2026 14:14:15 +0000 (UTC)
-From: =?utf-8?q?=E5=AE=89=E5=AE=B9_via_B4_Relay?= <devnull+HystericalDragons.proton.me@kernel.org>
-Date: Mon, 07 Sep 2026 22:13:56 +0800
-Subject: [PATCH v2 2/3] arm64: dts: rockchip: Split out the common NanoPi
- RK3528 parts
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NhoyMxVX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E13F91F00A3A;
+	Mon,  7 Sep 2026 14:14:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788790481;
+	bh=vSaY8hFogQ8XMCarbwj5OucKl8VFySrfC7cRQOJejcs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NhoyMxVXLvulJLaKclIWhey+zgZ3IDzhbkoezViwyf/Uj/o2j2rj5/DAnppDI556c
+	 RtNPIYDrUsFyY/9uH3cimmT0KElBGmbB8AVwypDnqQLonLQu+mwlhnZ3a3NAECgOfg
+	 1D39BRQRZ5XQofKPUoAIjIYrdWjbf1QPtmef6KMEZplUV0meDYbA5jOnhye1HgAcwl
+	 N/xK+z16UrOabUYhTrqi6r3KofzuzKLqLrymAtOrPvYv9IWjaKTXgA0Qt7ue4q3uip
+	 KoW8J315Vdl/a36GJCkPTqpZhN6ByI5J+3N7Yyux3QEeRuy62GRcVZclr4dnLoo09w
+	 zlF9rtE5IBO6w==
+Date: Mon, 7 Sep 2026 15:14:34 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Fuad Tabba <fuad.tabba@linux.dev>, Peter Maydell <peter.maydell@linaro.org>, 
+	Leonardo Bras <leo.bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>, 
+	Yao Yuan <yaoyuan@linux.alibaba.com>, linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, 
+	kvmarm@lists.linux.dev, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v20 03/14] KVM: arm64: Manage GCS access and registers
+ for guests
+Message-ID: <ap7GPxGs3nhT70sS@gremlin>
+References: <20260901-arm64-gcs-v20-0-f31750bdfadb@kernel.org>
+ <20260901-arm64-gcs-v20-3-f31750bdfadb@kernel.org>
+ <apmfx08vccSd2MXw@gremlin>
+ <d2659ac3-2f00-4fc4-8f9e-0585691a4ba2@sirena.org.uk>
+ <apqA_SuoA6-TyHsS@gremlin>
+ <apszJZ17KUvd6BJ7@sirena.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260907-r28s-upstream-v2-2-21ab570fc91c@proton.me>
-References: <20260907-r28s-upstream-v2-0-21ab570fc91c@proton.me>
-In-Reply-To: <20260907-r28s-upstream-v2-0-21ab570fc91c@proton.me>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Chukun Pan <amadeus@jmu.edu.cn>, jensen <jensenhuang@friendlyarm.com>, 
- =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=14628;
- i=HystericalDragons@proton.me; h=from:subject:message-id;
- bh=VQNKFK/7WLlIKiODmRr2dRbp9QoC8D3CcasFo2DcVuU=;
- b=owGbwMvMwCUmepz3XUtTHjvjabUkhqx5x7alJi05tTbHLatiZtuGowzMHDLdD3awP0+d8ls2h
- N29P25qRykLgxgXg6yYIovspupIoVXRM4tYpI7DzGFlAhnCwMUpABORms3wP6+mInCumVhmY/a/
- DyeSPWQSYn6x2lSKTPf45m1xa2vuNobfLLapDK+1N2+Zsd1uh+W7fzv6Axwkb/zjcz/vHsm245I
- hDwA=
-X-Developer-Key: i=HystericalDragons@proton.me; a=openpgp;
- fpr=1DB27B5912AA5B9972041AC715C70DEE84826E07
-X-Endpoint-Received: by B4 Relay for HystericalDragons@proton.me/default
- with auth_id=1004
-X-Original-From: =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
-Reply-To: HystericalDragons@proton.me
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apszJZ17KUvd6BJ7@sirena.co.uk>
 
-From: 安容 <HystericalDragons@proton.me>
+On Fri, Sep 04, 2026 at 10:07:49PM +0100, Mark Brown wrote:
+> On Fri, Sep 04, 2026 at 09:54:51AM +0100, Lorenzo Stoakes (ARM) wrote:
+> > On Thu, Sep 03, 2026 at 09:41:26PM +0100, Mark Brown wrote:
+>
+> > > originally written the code without expressing this dependency but on a
+> > > previous version Marc asked for this nesting as an optimisation.  Since
+> > > it's about optimisastion adding checks that don't otherwise exist on the
+> > > restore path would doubtless get the similar complaints.  Exactly the
+> > > same concerns were raised on v19.
+>
+> > Could you implement the nesting the same in the cases where there is a bare
+> > ctx_has_gcs() as an alternative?
+>
+> > So then it'd always be tcrx -> s1pie -> gcs everywhere and that'd resolve things
+> > also and make things symmetric.
+>
+> > You could also I think express the dependency if it makes sense to.
+>
+> Clearly we *can*, it's a question of what'd be acceptable - it'd result
+> in the compiler emitting a bunch of extra alternatives and conditionals
+> in the context switch path.
 
-The FriendlyElec NanoPi Zero2 and the NanoPi R28S share their power
-tree, storage, RGMII Ethernet, RTC and debug console. Move those parts
-into rk3528-nanopi.dtsi so the NanoPi R28S can reuse them, and leave
-only the board specific nodes in the NanoPi Zero2 devicetree.
+Right. And that's presumably a rather _sensitive_ bit of code.
 
-Suggested-by: Chukun Pan <amadeus@jmu.edu.cn>
-Signed-off-by: 安容 <HystericalDragons@proton.me>
----
- .../boot/dts/rockchip/rk3528-nanopi-zero2.dts      | 271 +-------------------
- arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi    | 279 +++++++++++++++++++++
- 2 files changed, 280 insertions(+), 270 deletions(-)
+>
+> > > We could do checking of the ID registers at vCPU creation so we could
+> > > avoid worrying about them in the fast path but there was also feedback
+> > > about not doing that.  One idea I had was to generate feature
+>
+> > Could you possibly check in sanitise_id_aa64pfr1_el1(), something like:
+>
+> Sanitising the writes is a bit tricky since multiple ID registers are
+> involved, TCRX and S1PIE are in ID_AA64MMFR3_EL1 while GCS is in
+> ID_AA64PFR1_EL1 so you'd create an ordering constraint for userspace,
+> and you'd also have to handle the case where TCR2 or S1PIE are turned
+> off with GCS already enabled.  It feels like a bunch of complication,
+> especially if you start applying the same approach with other features.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
-index 97d85124d2..48e4273872 100644
---- a/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
-@@ -2,41 +2,13 @@
- 
- /dts-v1/;
- 
--#include <dt-bindings/input/input.h>
- #include <dt-bindings/leds/common.h>
--#include <dt-bindings/pwm/pwm.h>
--#include "rk3528.dtsi"
-+#include "rk3528-nanopi.dtsi"
- 
- / {
- 	model = "FriendlyElec NanoPi Zero2";
- 	compatible = "friendlyarm,nanopi-zero2", "rockchip,rk3528";
- 
--	aliases {
--		ethernet0 = &gmac1;
--		i2c1 = &i2c1;
--		mmc0 = &sdhci;
--		mmc1 = &sdmmc;
--		serial0 = &uart0;
--	};
--
--	chosen {
--		stdout-path = "serial0:1500000n8";
--	};
--
--	adc-keys-0 {
--		compatible = "adc-keys";
--		io-channels = <&saradc 0>;
--		io-channel-names = "buttons";
--		keyup-threshold-microvolt = <1800000>;
--		poll-interval = <100>;
--
--		button-maskrom {
--			label = "MASK";
--			linux,code = <KEY_SETUP>;
--			press-threshold-microvolt = <0>;
--		};
--	};
--
- 	adc-keys-1 {
- 		compatible = "adc-keys";
- 		io-channels = <&saradc 1>;
-@@ -83,66 +55,6 @@ vcc0v6_ddr: regulator-0v6-vcc-ddr {
- 		vin-supply = <&vcc5v0_sys>;
- 	};
- 
--	vdd_0v9: regulator-0v9-vdd {
--		compatible = "regulator-fixed";
--		regulator-name = "vdd_0v9";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <900000>;
--		regulator-max-microvolt = <900000>;
--		vin-supply = <&vcc5v0_sys>;
--	};
--
--	vcc_ddr: regulator-1v1-vcc-ddr {
--		compatible = "regulator-fixed";
--		regulator-name = "vcc_ddr";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <1100000>;
--		regulator-max-microvolt = <1100000>;
--		vin-supply = <&vcc5v0_sys>;
--	};
--
--	vcc_1v8: regulator-1v8-vcc {
--		compatible = "regulator-fixed";
--		regulator-name = "vcc_1v8";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <1800000>;
--		regulator-max-microvolt = <1800000>;
--		vin-supply = <&vcc_3v3>;
--	};
--
--	vcc_3v3: regulator-3v3-vcc {
--		compatible = "regulator-fixed";
--		regulator-name = "vcc_3v3";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <3300000>;
--		regulator-max-microvolt = <3300000>;
--		vin-supply = <&vcc5v0_sys>;
--	};
--
--	vcc3v3_sd: regulator-3v3-vcc-sd {
--		compatible = "regulator-fixed";
--		gpios = <&gpio4 RK_PA1 GPIO_ACTIVE_LOW>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&sdmmc_pwren_l>;
--		regulator-name = "vcc3v3_sd";
--		regulator-min-microvolt = <3300000>;
--		regulator-max-microvolt = <3300000>;
--		vin-supply = <&vcc_3v3>;
--	};
--
--	vcc5v0_sys: regulator-5v0-vcc-sys {
--		compatible = "regulator-fixed";
--		regulator-name = "vcc5v0_sys";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <5000000>;
--		regulator-max-microvolt = <5000000>;
--	};
--
- 	usb2_host_5v: regulator-5v0-usb2-host {
- 		compatible = "regulator-fixed";
- 		enable-active-high;
-@@ -154,112 +66,9 @@ usb2_host_5v: regulator-5v0-usb2-host {
- 		regulator-max-microvolt = <5000000>;
- 		vin-supply = <&vcc5v0_sys>;
- 	};
--
--	vccio_sd: regulator-vccio-sd {
--		compatible = "regulator-gpio";
--		gpios = <&gpio4 RK_PB6 GPIO_ACTIVE_HIGH>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&sdmmc_vol_ctrl_h>;
--		regulator-name = "vccio_sd";
--		regulator-min-microvolt = <1800000>;
--		regulator-max-microvolt = <3300000>;
--		states = <1800000 0x0>, <3300000 0x1>;
--		vin-supply = <&vcc5v0_sys>;
--	};
--
--	vdd_arm: regulator-vdd-arm {
--		compatible = "pwm-regulator";
--		pwms = <&pwm1 0 5000 PWM_POLARITY_INVERTED>;
--		pwm-supply = <&vcc5v0_sys>;
--		regulator-name = "vdd_arm";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <746000>;
--		regulator-max-microvolt = <1201000>;
--		regulator-settling-time-up-us = <250>;
--	};
--
--	vdd_logic: regulator-vdd-logic {
--		compatible = "pwm-regulator";
--		pwms = <&pwm2 0 5000 PWM_POLARITY_INVERTED>;
--		pwm-supply = <&vcc5v0_sys>;
--		regulator-name = "vdd_logic";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <705000>;
--		regulator-max-microvolt = <1006000>;
--		regulator-settling-time-up-us = <250>;
--	};
--};
--
--&cpu0 {
--	cpu-supply = <&vdd_arm>;
--};
--
--&cpu1 {
--	cpu-supply = <&vdd_arm>;
--};
--
--&cpu2 {
--	cpu-supply = <&vdd_arm>;
--};
--
--&cpu3 {
--	cpu-supply = <&vdd_arm>;
--};
--
--&gmac1 {
--	clock_in_out = "output";
--	phy-handle = <&rgmii_phy>;
--	phy-mode = "rgmii-id";
--	phy-supply = <&vcc_3v3>;
--	pinctrl-names = "default";
--	pinctrl-0 = <&rgmii_miim>, <&rgmii_tx_bus2>, <&rgmii_rx_bus2>,
--		    <&rgmii_rgmii_clk>, <&rgmii_rgmii_bus>;
--	status = "okay";
--};
--
--&gpu {
--	mali-supply = <&vdd_logic>;
--	status = "okay";
--};
--
--&i2c1 {
--	pinctrl-names = "default";
--	pinctrl-0 = <&i2c1m0_xfer>;
--	status = "okay";
--
--	hym8563: rtc@51 {
--		compatible = "haoyu,hym8563";
--		reg = <0x51>;
--		#clock-cells = <0>;
--		interrupt-parent = <&gpio4>;
--		interrupts = <RK_PC1 IRQ_TYPE_LEVEL_LOW>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&rtc_int_l>;
--		wakeup-source;
--	};
--};
--
--&mdio1 {
--	rgmii_phy: ethernet-phy@1 {
--		compatible = "ethernet-phy-ieee802.3-c22";
--		reg = <0x1>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&gmac1_rstn_l>;
--		reset-assert-us = <20000>;
--		reset-deassert-us = <100000>;
--		reset-gpios = <&gpio4 RK_PC2 GPIO_ACTIVE_LOW>;
--	};
- };
- 
- &pinctrl {
--	ethernet {
--		gmac1_rstn_l: gmac1-rstn-l {
--			rockchip,pins = <4 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
--		};
--	};
--
- 	leds {
- 		led1: led1 {
- 			rockchip,pins = <4 RK_PB1 RK_FUNC_GPIO &pcfg_pull_none>;
-@@ -270,22 +79,6 @@ led_sys: led-sys {
- 		};
- 	};
- 
--	rtc {
--		rtc_int_l: rtc-int-l {
--			rockchip,pins = <4 RK_PC1 RK_FUNC_GPIO &pcfg_pull_up>;
--		};
--	};
--
--	sdmmc {
--		sdmmc_vol_ctrl_h: sdmmc-vol-ctrl-h {
--			rockchip,pins = <4 RK_PB6 RK_FUNC_GPIO &pcfg_pull_none>;
--		};
--
--		sdmmc_pwren_l: sdmmc-pwren-l {
--			rockchip,pins = <4 RK_PA1 RK_FUNC_GPIO &pcfg_pull_none>;
--		};
--	};
--
- 	usb {
- 		usb20_host1_pwren: usb20-host1-pwren {
- 			rockchip,pins = <4 RK_PB5 RK_FUNC_GPIO &pcfg_pull_none>;
-@@ -293,52 +86,6 @@ usb20_host1_pwren: usb20-host1-pwren {
- 	};
- };
- 
--&pwm1 {
--	pinctrl-names = "default";
--	pinctrl-0 = <&pwm1m0_pins>;
--	status = "okay";
--};
--
--&pwm2 {
--	pinctrl-names = "default";
--	pinctrl-0 = <&pwm2m0_pins>;
--	status = "okay";
--};
--
--&saradc {
--	vref-supply = <&vcc_1v8>;
--	status = "okay";
--};
--
--&sdhci {
--	bus-width = <8>;
--	cap-mmc-highspeed;
--	mmc-hs200-1_8v;
--	no-sd;
--	no-sdio;
--	non-removable;
--	vmmc-supply = <&vcc_3v3>;
--	vqmmc-supply = <&vcc_1v8>;
--	status = "okay";
--};
--
--&sdmmc {
--	bus-width = <4>;
--	cap-mmc-highspeed;
--	cap-sd-highspeed;
--	disable-wp;
--	sd-uhs-sdr104;
--	vmmc-supply = <&vcc3v3_sd>;
--	vqmmc-supply = <&vccio_sd>;
--	status = "okay";
--};
--
--&uart0 {
--	pinctrl-names = "default";
--	pinctrl-0 = <&uart0m0_xfer>;
--	status = "okay";
--};
--
- &usb_host0_ehci {
- 	status = "okay";
- };
-@@ -347,23 +94,7 @@ &usb_host0_ohci {
- 	status = "okay";
- };
- 
--&usb_host0_xhci {
--	extcon = <&usb2phy>;
--	maximum-speed = "high-speed";
--	phys = <&usb2phy_otg>;
--	phy-names = "usb2-phy";
--	status = "okay";
--};
--
--&usb2phy {
--	status = "okay";
--};
--
- &usb2phy_host {
- 	phy-supply = <&usb2_host_5v>;
- 	status = "okay";
- };
--
--&usb2phy_otg {
--	status = "okay";
--};
-diff --git a/arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi b/arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi
-new file mode 100644
-index 0000000000..8d9d0056a0
---- /dev/null
-+++ b/arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi
-@@ -0,0 +1,279 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Common parts of the FriendlyElec RK3528 boards: NanoPi Zero2 and NanoPi R28S.
-+ */
-+
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/pwm/pwm.h>
-+#include "rk3528.dtsi"
-+
-+/ {
-+	aliases {
-+		ethernet0 = &gmac1;
-+		i2c1 = &i2c1;
-+		mmc0 = &sdhci;
-+		mmc1 = &sdmmc;
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:1500000n8";
-+	};
-+
-+	adc-keys-0 {
-+		compatible = "adc-keys";
-+		io-channels = <&saradc 0>;
-+		io-channel-names = "buttons";
-+		keyup-threshold-microvolt = <1800000>;
-+		poll-interval = <100>;
-+
-+		button-maskrom {
-+			label = "MASK";
-+			linux,code = <KEY_SETUP>;
-+			press-threshold-microvolt = <0>;
-+		};
-+	};
-+
-+	vdd_0v9: regulator-0v9-vdd {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vdd_0v9";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <900000>;
-+		regulator-max-microvolt = <900000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vcc_ddr: regulator-1v1-vcc-ddr {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_ddr";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <1100000>;
-+		regulator-max-microvolt = <1100000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vcc_1v8: regulator-1v8-vcc {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_1v8";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		vin-supply = <&vcc_3v3>;
-+	};
-+
-+	vcc_3v3: regulator-3v3-vcc {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_3v3";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vcc3v3_sd: regulator-3v3-vcc-sd {
-+		compatible = "regulator-fixed";
-+		gpios = <&gpio4 RK_PA1 GPIO_ACTIVE_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&sdmmc_pwren_l>;
-+		regulator-name = "vcc3v3_sd";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc_3v3>;
-+	};
-+
-+	vcc5v0_sys: regulator-5v0-vcc-sys {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc5v0_sys";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+	};
-+
-+	vccio_sd: regulator-vccio-sd {
-+		compatible = "regulator-gpio";
-+		gpios = <&gpio4 RK_PB6 GPIO_ACTIVE_HIGH>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&sdmmc_vol_ctrl_h>;
-+		regulator-name = "vccio_sd";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <3300000>;
-+		states = <1800000 0x0>, <3300000 0x1>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vdd_arm: regulator-vdd-arm {
-+		compatible = "pwm-regulator";
-+		pwms = <&pwm1 0 5000 PWM_POLARITY_INVERTED>;
-+		pwm-supply = <&vcc5v0_sys>;
-+		regulator-name = "vdd_arm";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <746000>;
-+		regulator-max-microvolt = <1201000>;
-+		regulator-settling-time-up-us = <250>;
-+	};
-+
-+	vdd_logic: regulator-vdd-logic {
-+		compatible = "pwm-regulator";
-+		pwms = <&pwm2 0 5000 PWM_POLARITY_INVERTED>;
-+		pwm-supply = <&vcc5v0_sys>;
-+		regulator-name = "vdd_logic";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <705000>;
-+		regulator-max-microvolt = <1006000>;
-+		regulator-settling-time-up-us = <250>;
-+	};
-+};
-+
-+&cpu0 {
-+	cpu-supply = <&vdd_arm>;
-+};
-+
-+&cpu1 {
-+	cpu-supply = <&vdd_arm>;
-+};
-+
-+&cpu2 {
-+	cpu-supply = <&vdd_arm>;
-+};
-+
-+&cpu3 {
-+	cpu-supply = <&vdd_arm>;
-+};
-+
-+&gmac1 {
-+	clock_in_out = "output";
-+	phy-handle = <&rgmii_phy>;
-+	phy-mode = "rgmii-id";
-+	phy-supply = <&vcc_3v3>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&rgmii_miim>, <&rgmii_tx_bus2>, <&rgmii_rx_bus2>,
-+		    <&rgmii_rgmii_clk>, <&rgmii_rgmii_bus>;
-+	status = "okay";
-+};
-+
-+&gpu {
-+	mali-supply = <&vdd_logic>;
-+	status = "okay";
-+};
-+
-+&i2c1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c1m0_xfer>;
-+	status = "okay";
-+
-+	hym8563: rtc@51 {
-+		compatible = "haoyu,hym8563";
-+		reg = <0x51>;
-+		#clock-cells = <0>;
-+		interrupt-parent = <&gpio4>;
-+		interrupts = <RK_PC1 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&rtc_int_l>;
-+		wakeup-source;
-+	};
-+};
-+
-+&mdio1 {
-+	rgmii_phy: ethernet-phy@1 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <0x1>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&gmac1_rstn_l>;
-+		reset-assert-us = <20000>;
-+		reset-deassert-us = <100000>;
-+		reset-gpios = <&gpio4 RK_PC2 GPIO_ACTIVE_LOW>;
-+	};
-+};
-+
-+&pinctrl {
-+	ethernet {
-+		gmac1_rstn_l: gmac1-rstn-l {
-+			rockchip,pins = <4 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
-+	rtc {
-+		rtc_int_l: rtc-int-l {
-+			rockchip,pins = <4 RK_PC1 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+	};
-+
-+	sdmmc {
-+		sdmmc_pwren_l: sdmmc-pwren-l {
-+			rockchip,pins = <4 RK_PA1 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+
-+		sdmmc_vol_ctrl_h: sdmmc-vol-ctrl-h {
-+			rockchip,pins = <4 RK_PB6 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+};
-+
-+&pwm1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pwm1m0_pins>;
-+	status = "okay";
-+};
-+
-+&pwm2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pwm2m0_pins>;
-+	status = "okay";
-+};
-+
-+&saradc {
-+	vref-supply = <&vcc_1v8>;
-+	status = "okay";
-+};
-+
-+&sdhci {
-+	bus-width = <8>;
-+	cap-mmc-highspeed;
-+	mmc-hs200-1_8v;
-+	no-sd;
-+	no-sdio;
-+	non-removable;
-+	vmmc-supply = <&vcc_3v3>;
-+	vqmmc-supply = <&vcc_1v8>;
-+	status = "okay";
-+};
-+
-+&sdmmc {
-+	bus-width = <4>;
-+	cap-mmc-highspeed;
-+	cap-sd-highspeed;
-+	disable-wp;
-+	sd-uhs-sdr104;
-+	vmmc-supply = <&vcc3v3_sd>;
-+	vqmmc-supply = <&vccio_sd>;
-+	status = "okay";
-+};
-+
-+&uart0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart0m0_xfer>;
-+	status = "okay";
-+};
-+
-+&usb_host0_xhci {
-+	extcon = <&usb2phy>;
-+	maximum-speed = "high-speed";
-+	phys = <&usb2phy_otg>;
-+	phy-names = "usb2-phy";
-+	status = "okay";
-+};
-+
-+&usb2phy {
-+	status = "okay";
-+};
-+
-+&usb2phy_otg {
-+	status = "okay";
-+};
+Yeah, you're right, it is a bit of a nightmare and feels like it could get
+a bit combinatorial.
 
--- 
-2.55.0
+>
+> If we're going to validate the ID registers it feels safer to check at
+> the point where we finalise the ID registers and refuse to start the
+> vCPU if there's an unsupportable configuration, that would mean the
+> check would only need to be done in one place and userspace wouldn't
+> trip over any ordering requirements with how it updates registers.  Only
+> userspaces that set architecturally invalid configurations should see an
+> error.  We could also handle things by fixing up the configuration at
+> the same point, disabling features that are missing their dependencies,
+> that's a bit more friendly in the short term but could lead to trouble
+> later on as it means we hide issues in userspace.
+>
+> I think the best thing overall would be to leave the runtime paths as
+> they are and refuse to run with an architecturally invalid setup, that
+> would avoid bloating the fast path.
 
+Ack, it'd be nice to not have to worry about that.
 
+Presumably we definitely want an oops on a GCS violation in general?
+
+--
+Cheers, Lorenzo
