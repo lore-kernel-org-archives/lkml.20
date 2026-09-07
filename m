@@ -1,132 +1,165 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BED14CCDC7
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:17:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788794232; cv=pass; b=RiwWLZ88LFsMRG3ou0tb02Ua9CW4uKH+DztrVtC5MQroXZDrP8Pe1iUQnskaL3tzc9WJ1dLZB/2SwY4Kps3m3XGWymsJ7v+v3xYNXGrrptCWIJGq3yB2MEaT1BAw4DaEu1sZLte73EOHk646v06N0DrkcX0zHkAA/ccxa1Ayb2c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788794232; c=relaxed/simple;
-	bh=tRadtUkaVvj04esL9CJgzsoORuST+i5234dOZxdyPl0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZZvinYTM6wOOc29lzqBXOFzVoEOu7Vhw2m8Pzy1UKKAhIcMPFMOQXUzZys1RX6Iz6yNkvKE8un1FrEcsB92grw6x83Xi9fkwY/lYEgBcOJEZG1t/+vBRJbdw7jl+vvT+s2U6MnnEOE1U/rOkhWwXP0WuSkdOixHnK5bqtpvMC2c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=3iW/nw1V; arc=pass smtp.client-ip=209.85.218.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AE7C37EFF4
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:18:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788794288; cv=none; b=TOfXXMc6AhmUYDBSFl0QKg4SSdVw0XEMk8nNU7qMa/OTQFulh7VhSOE5vPbplMcmNwJxGfIhqvcxXFT55STFbVx7uF9MAfCOhPnfbQ/KprjTTJc6K8pX7DJqDH70Lx4xG0VZj3Lz2BPYNscG//PoDvwWNFdk4MQwXUXp4LsG9vk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788794288; c=relaxed/simple;
+	bh=wi3N23N9BdZtUoN9NWpI/GnFso98egox1jks3c5pCJ8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=uBp/pCMFQCJ4WrS1wnz3ZOBsIQElGAGWDrKTLihwvAX3buJeEv7GJqOceYB/hONux8qgHQ0HlaVA2G10twq6VZJzc/qVv4dxV7XA6Dsc1Gzw2W3NcJAuIbI/F6thel+3V1Mzazz+OpAr0QHbOQm1zIICsY0iCx0XuAr6E0CBQVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk; spf=pass smtp.mailfrom=thegoodpenguin.co.uk; dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b=sD+UiZPI; arc=none smtp.client-ip=209.85.161.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="3iW/nw1V"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c2533d83e3bso614537866b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:17:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788794229; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hCO2Mud4adbh8PD6KOnwxrR7JyEqh6sJ5wu8qbbotYFiefV84pk1ACjmiGIr73APEQ
-         P+haj92G51AF3tbpqWWIor977DHZN4WGzsW5WURjcbPxivzRkVsWm0MwgWXWsf+s6xFb
-         CMyCVuEACBD4PseaHvPMvPjp7hnUJurFwjSqmlkDW87HBBCExm5xvw5xa50qhJvSCGRv
-         DPs0agGjfMI5/wF2X8g+qY0guQibxjCaadh9nFg+evpKhch5Nbc6FhAGcnZhIqTaqTAZ
-         uhygm8NcTG96wMxNReR3wI8Fn/aRPisZZs+F8AG5lqwBUoCGxVDpIqqT9Ax/f9KoDpqv
-         gYEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=SKK5R4Wa7HrnZmxxyX5YlzuTj7TxD9g6ApN3R7me0Ns=;
-        fh=odxYQIRWWN8lvtjejGHqKKkU4dFxByhtr0GtT1SL6C4=;
-        b=ITe8D6Yjd2elij2YkrLcZlOci9ac17xWFnCrW+Qw8lUsZrtRMQF/hMFlgIvMoAHqKX
-         hZCRI6SPM/RwG0lDg0cjHiFBlu3o1ebOOOFGDNMg/2Cz44ZuqzPOCOT+/8P+wCe8MSc4
-         +dQY11+Q8MaEk8/nar7lAtenqoOZJjrbBgERDZ4dGAwKYdTDWl2bcNlhY4xcNS5yVTp9
-         O72fxpnARnnIQTRf7/GDaoUnOuQ1bmfuYs8nTeSjlnKPMapr9AhrQiQ4/LXSfvNzoWzv
-         Pwgqnvg0+K3Tm7jHV9sz4dCa1LvDrC+CQ2jKDfhilIDPLRCVxBHqS2oewX+drAWB4L4x
-         9LVA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b="sD+UiZPI"
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6b1bcd9e00bso2940269eaf.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:18:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1788794229; x=1789399029; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SKK5R4Wa7HrnZmxxyX5YlzuTj7TxD9g6ApN3R7me0Ns=;
-        b=3iW/nw1Vdh8ghzDkYFr4HbQ0k1NentvcGosN+qxMNj45+uXsaH8fBQJ8Kf6aXPMC4G
-         MrGJDT2VH2XbtRsQe7LtPVLgA4NHwowtUQFG+l+nZLadtNJ4emJlG3ts2lmb+s0R7nrR
-         Y7cdqH3FIlSREJ1hnXAVsK2ydU4v3pWYHWDlESs12KHDsFk31BuFvdxQPM43W8Mortl3
-         PP/rLQ1bW+Xmy6QYRgZ94u7bXii81fnHUfPiM6bh6Lte3juyB3M29u/DAQNJfUU18vQB
-         iNkdRt8cn67pH/Gy/7B3JkO8DNLFQOTeOfgSk46JzM9JfPOzCRHagSHMTRKVCCAEn7ku
-         i4Eg==
+        d=thegoodpenguin-co-uk.20251104.gappssmtp.com; s=20251104; t=1788794284; x=1789399084; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=nL4d6aFEfv8KmOGv5PZG8XQQu0qz+kYwSNFh+zYXjxk=;
+        b=sD+UiZPI3qY8CHRYiJoQ2FbTp4VG9AL2VRHOhzQPVolfQC6W/wytjkRBqSWfH35uwT
+         jdHGqlLJYU8/AJvkivZiR5Qc8IivuK5mn1OKRiOsB1aaHu+KSCtSvYh/L10oC0+Y90L1
+         k8R9+YIAn+fJV4U8DWviL2qvIjRQvkohilGxoc1PrQxYcmNG2OLezcoSnlBE47fhJiD1
+         hH9CqqdTZNP22vA1uJbzQFSgm6YsNOzzTQLvnN8J0rU6tiqQVL/EJnkapU3DEFHvfRFW
+         5KLnyADab9CXbbKkPlqF/oTS03Z8u8KF9oez0wLTGpctunS/GP4lRKLZQGniKD0w0kqo
+         s2Rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788794229; x=1789399029;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SKK5R4Wa7HrnZmxxyX5YlzuTj7TxD9g6ApN3R7me0Ns=;
-        b=jF60LO4pu6DjNMoU13ctYst/ks3jxeReshvgCtAZbfPXd7yx5mI6Qdqucy+tMqtplF
-         FrR1tJ1lPy6e5SJiXeVU8pLF6HE6N1GWbSAqI4ukueyvbrxhdrYni+cjPUe6eQsbIkOw
-         jDB3V8qQ1E5IcBWkcOFOLdlT8msCtnThU4vTRaQ9rMoITDjKDSkkpt4z6RqdZ81UqtUx
-         s7FtS41us5WHr8IF0K3U9GTofMlpkdJpAdsSFixZCdDWCqEL4uuzc1E4PQG0UsoVDYZ2
-         Is6bEfCBWpgcUQI/EanHjULAW3RIR6RApp9S9a5XwLDk4rpV89truy3SKCNDHxQBoBcn
-         rgiA==
-X-Forwarded-Encrypted: i=1; AKwUvBwVQAQGr/ZhBOeJP+oaCKyFipZJ7Wp9d3fkZZV5NfJNt2nu0TYVki+tkzSuGXFuuYkHN7uxzaXHsjv+LPM=@vger.kernel.org
-X-Gm-Message-State: AFuF++krIhsivtvLOXVSeyvGHmJRmYqfyOZD6Pk5qwT2DK1BwtV6ec/x
-	IgvWixRgOsZ5hW17rzl7H96Qtk6XjYtScgDMvME7cl2F9QSZu6usSwAtpWeMSbi3lPs+oyDkhUj
-	ZcmtEKXpmm0JdYNhtEKGupnommBCd1w+iMB5mnsu6jg==
-X-Gm-Gg: AYBFou2C2QGBFs9NwwCjUPEaNhTPSyG11+P+vd8jJEDNeFAcpgNvbnRCkl9k+YICam1
-	iyY9NwU25CtQpuOJU3HLFpelDpCksKxxJ+7zy319a4M82aYRlZawBXe7GZZnAOW/1EYbfQyEhen
-	s4Rsw2J0X7M+GObQelf//BssJfwE56+RckcphGu9f4D2FdRl29Az7gxjfXk9BskkN747kz3/cxT
-	9BZvGm2CtRAK4pIQ1LTkNo5v/s/QZtbyiepVcMXrdSodfiXcr+qh32APDmnkuo8Z1hCpqEjGq5e
-	nAoOeyH0Vjc2HZ+UuhXLKedWAgRxyHCD6+bwDBT1OWw1EZvvgUk5TSN4c42dqv72NYTVXtU+SVG
-	Za2kLxDjD5rNF
-X-Received: by 2002:a17:907:1b1b:b0:c26:3190:2965 with SMTP id
- a640c23a62f3a-c2631903285mr1089445866b.12.1788794229405; Mon, 07 Sep 2026
- 08:17:09 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788794284; x=1789399084;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=nL4d6aFEfv8KmOGv5PZG8XQQu0qz+kYwSNFh+zYXjxk=;
+        b=KimkBDBOixHSPV4/yE9Z9/5YBKNoP4nfLAMakz7k5+yP3MrjVv+bdRsOZ93357GSGv
+         NX0cou2LySVPKUE1mLE9SmWpMdKDZds1p9/IaPmvrlCbXiwU/aJ2mHss3p+GGPRY/FOT
+         jtIx6oJvhxfmqnI3zFdmrjHSRygWnl7xzvUX2gitvt1WT63X6mU6pS/IefgFRecEYX6C
+         OW15iFD0k4ZROTeHbctRmlHFsi3Ew9ztynD2PNZm8VV2VHykFms/+f1RqmafRaFNqC8W
+         vUoWnWJPW2n0aNiWD1m2/NwX1sLsiRUOCHd9D0LlpTTE2/DIaFxSxD3tZjQWn8j0tr3E
+         l0zg==
+X-Forwarded-Encrypted: i=1; AKwUvBxffrdo2bWo4OYVpR/fFdffjnx4D335QXnJ0nTAon5Z9i2umNT35hya6jpZn0OWGewK+QeGnQvxLaIahPY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mhPu0evZMwR8FKcGg6MPpDMnBqOQZqw+i7mGSSSzW29hvm8Kt5
+	nvTCL4nu6Iu6bV2J8o+O4MmCeRRqQH+XfmsWqI88301GxW4fAlDj9raeGyjiUIkH8HX8UrLTjzy
+	+F76nFfw=
+X-Gm-Gg: AYBFou38I0zqbRH+zghTYQr6191GuLMTRJIMos+t4rzlCcV8HaLu5CHENxIhd5h4paC
+	bgK4ykKeUO85UxevD/gHz+NUe2JKaUI14xcy495HAzJXkQTc1B4MDXEtB0xcNkoPVinrWMKIkUU
+	lYwRWwnaWtrmZUT3qTAY/tc58alyyN5lqiAjk76+BNaNo+Z2HoWBz6VrUj5hf/24a0Jj4izwG3z
+	HcdHE2Oezb2ikMkmmSgLO2cf/QBvjWh6h5inUkXHwMJWs0IjWyhx14C3MDR90bSgbzFrKdWIltX
+	hHPcMDZf7JtZ9yHxXjyaa4UPVi0ygaKPAFt+0u3SU+xsmsY9/Cp6dVwpHlIkrWUJEs2pZO3z7Rm
+	DFDTurf1By7aStKR18qgvw1tJCAqbg/dInkLSFSS3e+vd/rYTgw9k/WU91eLmxeYlehFmykQ/da
+	dkR77v5p9XvOoDOXHuxAj/h8Sf5TbvBIMTqcKe0qS4H/c7Uv/AIuvVg5QjPqCwXZoCzajgtBRjJ
+	tLqhA==
+X-Received: by 2002:a05:6820:179b:b0:6b6:b5c8:7432 with SMTP id 006d021491bc7-6b6fd1cab2amr15396165eaf.33.1788794284261;
+        Mon, 07 Sep 2026 08:18:04 -0700 (PDT)
+Received: from [10.42.0.1] ([2a00:23c7:1d1a:9c01:9f74:2a4b:1c38:e2d8])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432435648esm33474770c88.5.2026.09.07.08.18.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 08:18:03 -0700 (PDT)
+From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+Subject: [PATCH v2 0/4] dma: use designated initializers for acpi_device_id
+Date: Mon, 07 Sep 2026 16:17:42 +0100
+Message-Id: <20260907-acpi-dma-v2-0-0ffe4a007992@thegoodpenguin.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260727-bq25792-v8-0-c1c70473bbe7@flipper.net>
- <CAKTNdwF5yW4YFFmsvDFVY+Q+89Uo=YS79nb4qYrT4WyKOszyvw@mail.gmail.com>
- <CAKTNdwGC=AZ9jmD71tz6JqCWk-00QLWCYb9wiG6RRQ0bO=mC4Q@mail.gmail.com> <7c9d0cfb-361c-424c-9e12-0fb35930576e@sirena.org.uk>
-In-Reply-To: <7c9d0cfb-361c-424c-9e12-0fb35930576e@sirena.org.uk>
-From: Alexey Charkov <alchark@flipper.net>
-Date: Mon, 7 Sep 2026 19:16:58 +0400
-X-Gm-Features: AcwNN1UnkWmNQ4cjm6HuUENUEdivKAN15-Dx3TSE__uWOXkXPewLiSPKYPBjbEI
-Message-ID: <CAKTNdwE-m7_=EE1cp+B6dF0D5VXbrfnkYrJx48=78p04mccSVQ@mail.gmail.com>
-Subject: Re: [PATCH v8 0/2] Add support for the TI BQ25792 battery charger
- (regulator part)
-To: Mark Brown <broonie@kernel.org>
-Cc: Chris Morgan <macromorgan@hotmail.com>, Sebastian Reichel <sre@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Lee Jones <lee@kernel.org>, linux-kernel@vger.kernel.org, 
-	Sebastian Reichel <sebastian.reichel@collabora.com>, linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJbVnmoC/22NwQ6DIBAFf8XsuRiklKQ99T+MB4RVtk3BgJo2h
+ n8v2muPk8ybt0HCSJjgVm0QcaVEwRcQpwqM035ERrYwCC4Uv3LJtJmI2ZdmiI22VvYaJULRp4g
+ DvY9U2/04Lf0Dzbzvd8NRmkP8HF9rs3t/smvDOOODMeps1aX077PDMQQ7oR8X8rUJ9fKELuf8B
+ SmmaE29AAAA
+X-Change-ID: 20260904-acpi-dma-ee1add4bae4e
+To: Viresh Kumar <vireshk@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Binbin Zhou <zhoubinbin@loongson.cn>, Sinan Kaya <okaya@kernel.org>
+Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
+ Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788794281; l=2877;
+ i=pzalewski@thegoodpenguin.co.uk; s=20260430; h=from:subject:message-id;
+ bh=wi3N23N9BdZtUoN9NWpI/GnFso98egox1jks3c5pCJ8=;
+ b=6u7XMl18GxIGtzGX7ctGJC+yePbveKR/UO9155kGs9pCUoaPrpf2OJhQbgWyAoctwtsI4F2Q1
+ HYkg8tfJdgMCDT/zVVrInKU7RmRSO6B7uettbQQZNDQ8JNcHZ/4DyxX
+X-Developer-Key: i=pzalewski@thegoodpenguin.co.uk; a=ed25519;
+ pk=vHq4n9IonORH2GTzLv8r6CWAFHzgfBuNkQPXA8NSly0=
 
-On Mon, Sep 7, 2026 at 7:10=E2=80=AFPM Mark Brown <broonie@kernel.org> wrot=
-e:
->
-> On Mon, Sep 07, 2026 at 05:49:55PM +0400, Alexey Charkov wrote:
->
-> > Gentle ping :) This still applies cleanly to -next, so I'd appreciate
-> > it if this could be applied.
->
-> Please don't send content free pings and please allow a reasonable time
-> for review.  People get busy, go on holiday, attend conferences and so
-> on so unless there is some reason for urgency (like critical bug fixes)
-> please allow at least a couple of weeks for review.  If there have been
-> review comments then people may be waiting for those to be addressed.
->
-> Sending content free pings adds to the mail volume (if they are seen at
-> all) which is often the problem and since they can't be reviewed
-> directly if something has gone wrong you'll have to resend the patches
-> anyway, so sending again is generally a better approach though there are
-> some other maintainers who like them - if in doubt look at how patches
-> for the subsystem are normally handled.
+This series is converting lists that contain the acpi_device_id struct,
+which is defined in the include/linux/device-id/acpi.h to make use of named
+initializers (which they do not use currently). This work is part of the on
+going effort in the kernel associated with device-ids [1]
 
-Sure, but it has been over a month since the last ping, and several
-months since the patches in question were last changed and reviewed.
-At least two merge windows have passed since they received your
-Reviewed-by, and no additional feedback has surfaced. If it got lost
-(as it appeared in this case), I'd rather ping than live with it
-falling between the cracks. I didn't mean to get on your nerves.
+The plan is to convert acpi_device_id::driver_data to have an anonymous
+union, similarly to what was introduced for PCI and I2C device ID tables.
+The goal is to increase type-safety (most of the existing casts are gone),
+to improve readability and to make use intent a bit more clear:
+
+```
+union {
+	kernel_ulong_t driver_data;
+	const void *driver_data_ptr;
+}
+```
+
+But for that to work all lists containing the structs need to use named
+initializers first to avoid triggering -Wmissing-braces. I already have
+patches that implement this and touching a lot of kernel subsystmes that
+use the acpi_device_id struct and that list keeps on growing. Therefore, 
+I have decided to split the series per every subsystem into:
+- pre-clean-ups that convert the lists to use named initializers
+  (which is this series)
+- actual implementations that make some of the modules use the new 
+  driver_data_ptr member
+
+That way the task can be fragmented into manageable and independent chunks
+of work and makes this effort easier to review.
+
+Tested builds on x86-64 and a64 in Yocto using 7.3-rc2.
+
+[1] https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylibre.com/
+
+Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+---
+Changes in v2:
+- Tidy up messages and wrapped at 75 chars; added Reviewed-bys from V1.
+- Link to v1: https://patch.msgid.link/20260904-acpi-dma-v1-0-0fcc63d65d4b@thegoodpenguin.co.uk
+
+To: Viresh Kumar <vireshk@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Vinod Koul <vkoul@kernel.org>
+To: Frank Li <Frank.Li@kernel.org>
+To: Binbin Zhou <zhoubinbin@loongson.cn>
+To: Sinan Kaya <okaya@kernel.org>
+Cc: dmaengine@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-arm-msm@vger.kernel.org
+
+---
+Pawel Zalewski (4):
+      dma: dw: use designated initializers for acpi_device_id
+      dma: loongson:  use named initializers for acpi_device_id
+      dma: qcom: use named initializers for acpi_device_id
+      dma: xgene-dmac: use named initializers for acpi_device_id
+
+ drivers/dma/dw/platform.c                    | 12 ++++++------
+ drivers/dma/loongson/loongson2-apb-cmc-dma.c |  4 ++--
+ drivers/dma/qcom/hidma.c                     |  8 ++++----
+ drivers/dma/xgene-dma.c                      |  4 ++--
+ 4 files changed, 14 insertions(+), 14 deletions(-)
+---
+base-commit: df2908090cda368b01ff43709f51890076c56157
+change-id: 20260904-acpi-dma-ee1add4bae4e
 
 Best regards,
-Alexey
+--  
+Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+
