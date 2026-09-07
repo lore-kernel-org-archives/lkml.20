@@ -1,102 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 668882FFF89;
-	Mon,  7 Sep 2026 18:04:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B28373BE7;
+	Mon,  7 Sep 2026 18:05:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788804267; cv=none; b=mdpS3Pt8l1PNUYBnfy5/vhpNixzgdu+MznkxZTtM/W+W7Lz19SOKE54vE+FRGYLQ1skaPh6OMamvmuyi+LCWOsN7csSzH+c1KniwGKzmrjdML29LVWlfWG0CIIrHtMN2ErobIPV90Xh17Tl7ASF2Lu7zjYkwk4RIrvabu3an4Zk=
+	t=1788804307; cv=none; b=L/w9Z8wXqcng3zqfaCIKfpr3MEXMphvdDI2Ss8i5l6dlX++L6PL2nUHv/u7xazVRgF7g8j15eOlQHzbG0EmcPnGYoRpLXpDojHIvwjTR/Qljjy+5nH/ykWr445OUUfzNnhjnPakLtAbRGHWxEVAjyL1Y22xNekadUyVRaJIrsfg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788804267; c=relaxed/simple;
-	bh=FJ3KlRxpUXOaqZYlnv1OpZKQEVhij59iEgNdlEfcslM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gAYU4QgXdyH0y0Od6bFNCRvZCUm57oxciZbPwV0+SRBtUsL6GLUjDO+NUuQiP0s3wQBft4mAAPYhP+phzjOgp1nOCguUEv+YFYUUYWJ06IXa4Pb2x0rIfyXb2wt9xTefh1eW/rwy5IeSvPtlzz+FUXCnFz/TuGVsLYytp+SNx+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c5ZH6r7B; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788804307; c=relaxed/simple;
+	bh=HRKfDnU7fpe4hKYsO1qj++xJuTiGlwZYM7a7gsCq21Q=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=YxjXn5geSzneLNuYfznCQwM1krzpQmXad5Jikj21cyxDI/0Mz+qsNw6H2xi+POHrlII/rMflA9vZMTpulpmIH9Wqjnpiva1rKiE1XmeYnMs9FUe7Hr/lFRK7MDcIyuoqTXAKFaghmxhe4RLdQyxbgZ/otyhgJ9BPkz+t2/swT1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q6w8fsQR; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c5ZH6r7B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25C751F00A3A;
-	Mon,  7 Sep 2026 18:04:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788804266;
-	bh=uCwW6+gT3njRjgvc+5t1hsycs1+h5TBUJkyDrYO4u7I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=c5ZH6r7B9rcNWDmwK9ka7TzCln2oQankfFX/ykdQqIr9OL4RsaS1rGTS10rbX5FUV
-	 7eBtFIsfa6mn6hgb6QDwA7cxiRV0jDjSftOAswhbMhTzz7T+M3XFCm8lRQQClHJQsV
-	 /kLuTFZ/dOk7R6RGjnmBporPHmA+vqcs1RkKQ7OQrMjGIZO+3/p3fvAljfcstiuqVG
-	 7jJMoq0nQafjd/0JCqJBtc0RDMACVvz4BBYsC0jib9Fec7EGhevjgcfIHbWh6DAUXQ
-	 0exSOg4sVmKLum9eI7Jf1MAd3CP7iI2V8Deu+PJ4klKuNCsDaX4Eld8cd+brsXJ3My
-	 6Yt7pRwj6bkTQ==
-Date: Mon, 7 Sep 2026 19:04:21 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Shashank Maurya <shashank.maurya@oss.qualcomm.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	venkata.valluru@oss.qualcomm.com,
-	Jessica Zhang <jesszhan0024@gmail.com>
-Subject: Re: [PATCH v2 2/2] regulator: rpi-panel-v2: Add required vcc-supply
- support
-Message-ID: <20260907-showroom-elevation-ba1a0792b7f7@spud>
-References: <20260907-rpi_reg-v2-0-0c59aa60d31f@oss.qualcomm.com>
- <20260907-rpi_reg-v2-2-0c59aa60d31f@oss.qualcomm.com>
- <20260907-ensnare-wanted-e86eeaf770b0@spud>
- <27fb1c11-c1eb-4494-ac38-d794baf80814@sirena.org.uk>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q6w8fsQR"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 544F8C2BCFC;
+	Mon,  7 Sep 2026 18:05:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788804307;
+	bh=HRKfDnU7fpe4hKYsO1qj++xJuTiGlwZYM7a7gsCq21Q=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=Q6w8fsQREm1eCpIPHDmn+hdFxAHEh88vOFEOJaFm5Niv3iB+YTyiPwVIwkHFlZU7z
+	 nKvaNlzGixY7NJOQuOHDzu0YraARtU5Q1JK//7vG+77TqN7qIBYGNxpkJogsDySee8
+	 irL8lp/MIaDXeQ8Un8Ei98cm6Gggb6173PJajhIWe7nnpbNL/IR4hdWivHQBEupdih
+	 8Q/zB3lnp1wl+UARMyr5lNhi5nPS+DrsBUEdPG3Bx18tjsuiqtl+SAnD+XyWCEQOa2
+	 DM4Kx4fna2SvaS11aLvQxg4ynQRrSvgaN9jWdnGqdu3dg37LOKQ9QcC3hju3ZVC8Ny
+	 p9Um2+3NKsL0w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3052BC79F99;
+	Mon,  7 Sep 2026 18:05:07 +0000 (UTC)
+From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
+Date: Mon, 07 Sep 2026 21:03:05 +0300
+Subject: [PATCH v2 1/3] dt-bindings: mailbox: mediatek,gce-mailbox: add
+ mt6572
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="FBwSaQHk5R1QIosT"
-Content-Disposition: inline
-In-Reply-To: <27fb1c11-c1eb-4494-ac38-d794baf80814@sirena.org.uk>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260907-6572-gce-v2-1-412a5b037290@protonmail.com>
+References: <20260907-6572-gce-v2-0-412a5b037290@protonmail.com>
+In-Reply-To: <20260907-6572-gce-v2-0-412a5b037290@protonmail.com>
+To: Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Houlong Wei <houlong.wei@mediatek.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ Roman Vivchar <rva333@protonmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788804305; l=2822;
+ i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
+ bh=/tLOb7ev/WM/LwpIpJ2zPo9FlE7c2orfGWi2CVoRzjw=;
+ b=3Oxrmkyz4/yIStLEu203OBakaNbk1L4OkD0Yt892uXJuGpzqi8MbwMB6NCflV2Xjl3WBtwYlF
+ N27vLwsUqavD26aiumMKqa2lhGVhXtZSqXSAgMboSAIksIKr1WuTUG6
+X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
+ pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
+X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
+ auth_id=777
+X-Original-From: Roman Vivchar <rva333@protonmail.com>
+Reply-To: rva333@protonmail.com
 
---FBwSaQHk5R1QIosT
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+From: Roman Vivchar <rva333@protonmail.com>
 
-On Mon, Sep 07, 2026 at 06:09:57PM +0100, Mark Brown wrote:
-> On Mon, Sep 07, 2026 at 06:06:24PM +0100, Conor Dooley wrote:
-> > On Mon, Sep 07, 2026 at 11:16:08AM +0530, Shashank Maurya wrote:
->=20
-> > > +	vcc =3D devm_regulator_get(&i2c->dev, "vcc");
-> > > +	if (IS_ERR(vcc))
-> > > +		return dev_err_probe(&i2c->dev, PTR_ERR(vcc),
-> > > +				     "Failed to get vcc supply\n");
->=20
-> > This needs to be optional, because without it you'll break existing
-> > devicetrees. Unless you can explain how all existing users are
-> > nonfunctional (e.g. nothing ever enabled the supply, which seems
-> > doubtful given this surely worked when it was added) this must remain
-> > optional.
->=20
-> The core will stub in a dummy regulator for mandatory supplies that
-> don't have anything mapped by firmware, otherwise essentially all
-> regualtors would be optional and our error handling would be a disaster
-> zone.
+Add a compatible string and a header for the GCE constants.
 
-I always forget how this works. Thanks for the reminder.
+Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+---
+There's also 'other' subsystem which covers 0x16XXXXXX range, however
+mt6572 doesn't seem to have any MMIO there. It's not included in this
+patch.
+---
+ .../bindings/mailbox/mediatek,gce-mailbox.yaml     |  1 +
+ include/dt-bindings/mailbox/mediatek,mt6572-gce.h  | 52 ++++++++++++++++++++++
+ 2 files changed, 53 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/mailbox/mediatek,gce-mailbox.yaml b/Documentation/devicetree/bindings/mailbox/mediatek,gce-mailbox.yaml
+index 587126d03fc6..d6e93010bb94 100644
+--- a/Documentation/devicetree/bindings/mailbox/mediatek,gce-mailbox.yaml
++++ b/Documentation/devicetree/bindings/mailbox/mediatek,gce-mailbox.yaml
+@@ -18,6 +18,7 @@ properties:
+   compatible:
+     oneOf:
+       - enum:
++          - mediatek,mt6572-gce
+           - mediatek,mt6779-gce
+           - mediatek,mt8173-gce
+           - mediatek,mt8183-gce
+diff --git a/include/dt-bindings/mailbox/mediatek,mt6572-gce.h b/include/dt-bindings/mailbox/mediatek,mt6572-gce.h
+new file mode 100644
+index 000000000000..94eb6ea97542
+--- /dev/null
++++ b/include/dt-bindings/mailbox/mediatek,mt6572-gce.h
+@@ -0,0 +1,52 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (c) 2026 Roman Vivchar
++ */
++
++#ifndef _DT_BINDINGS_GCE_MT6572_H
++#define _DT_BINDINGS_GCE_MT6572_H
++
++/* GCE HW thread priority */
++#define CMDQ_THR_PRIO_NORMAL		0
++#define CMDQ_THR_PRIO_HIGHEST		1
++
++/* GCE SUBSYS */
++#define SUBSYS_14XXXXXX			0
++#define SUBSYS_15XXXXXX			1
++
++/* GCE HW EVENT */
++#define CMDQ_EVENT_MUTEX0		0
++#define CMDQ_EVENT_MUTEX1		1
++#define CMDQ_EVENT_MUTEX2		2
++#define CMDQ_EVENT_MUTEX3		3
++#define CMDQ_EVENT_MUTEX4		4
++#define CMDQ_EVENT_MUTEX5		5
++#define CMDQ_EVENT_MUTEX6		6
++#define CMDQ_EVENT_MUTEX7		7
++
++#define CMDQ_EVENT_DISP_WDMA_EOF	12
++#define CMDQ_EVENT_DISP_RDMA_EOF	13
++#define CMDQ_EVENT_DISP_BLS_EOF		14
++#define CMDQ_EVENT_DISP_COLOR_EOF	15
++#define CMDQ_EVENT_DISP_OVL_EOF		16
++#define CMDQ_EVENT_MDP_TDSHP_EOF	17
++#define CMDQ_EVENT_MDP_RSZ1_EOF		18
++#define CMDQ_EVENT_MDP_RSZ0_EOF		19
++#define CMDQ_EVENT_MDP_RDMA_EOF		20
++#define CMDQ_EVENT_MDP_WDMA_EOF		21
++#define CMDQ_EVENT_MDP_WROT_EOF		22
++
++#define CMDQ_EVENT_MDP_WROT_SOF		24
++#define CMDQ_EVENT_MDP_RSZ0_SOF		25
++#define CMDQ_EVENT_MDP_RSZ1_SOF		26
++#define CMDQ_EVENT_DISP_OVL_SOF		27
++#define CMDQ_EVENT_MDP_WDMA_SOF		28
++#define CMDQ_EVENT_MDP_RDMA_SOF		29
++#define CMDQ_EVENT_DISP_WDMA_SOF	30
++#define CMDQ_EVENT_DISP_COLOR_SOF	31
++#define CMDQ_EVENT_MDP_TDSHP_SOF	32
++#define CMDQ_EVENT_DISP_BLS_SOF		33
++#define CMDQ_EVENT_DISP_RDMA_SOF	34
++#define CMDQ_EVENT_CAM_MDP		35
++
++#endif
+
+-- 
+2.55.0
 
 
-
---FBwSaQHk5R1QIosT
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCap78pQAKCRB4tDGHoIJi
-0uTBAP9evMaKmff7rJAlkiT1L5Zx4532B5L6cpV0O5jW49THDQEAx/4ZV4Z/icen
-QJ8YGia+cNCbCHFaHC2DFjOWUQ9irgA=
-=QAjk
------END PGP SIGNATURE-----
-
---FBwSaQHk5R1QIosT--
