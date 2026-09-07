@@ -1,139 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E184D25B082;
-	Mon,  7 Sep 2026 21:01:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A616F40BCBB
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:01:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788814872; cv=none; b=PoBSPrbmDCbX8QX+n6UhJDP68k8FcOFBxYPNl3SoSvruGH8CZ/01Fdr0ecr3lya0JwcBLgan7B65G3oatlBxheySem06cW9ZnopfPE8mX57SvznfPUNF81QadKyozt5b4FE2cV+ifsEiOWVAQfX0M/CPVkfZ0hlriiBkUlYcvsM=
+	t=1788814905; cv=none; b=RQB84LJ7Mdg7OrJXa3rIuX/BCDo2T4G5VaFQCn9sUbISZ02I7wvrN1NZCnISALKdqJjtxxJwVHgaWqVJEno2Vx3pGLDeAr7PE9wCnSYjjjnk6aYNMtgdMGzHzRQBJuOfU7Ys3peMmvXWEf9LLyJYYf6xyloFycDXDwzeGYMk/QY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788814872; c=relaxed/simple;
-	bh=mrYhEaR9IK2yeyG/ryNn5tLLDTUhEhyf1+dAvbhMTY8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VSwquCb4vZnF1XmKqSxDoQg1Tm76RCM+HzQiFu+LUXlWHhPe2W16iTvt18PuJMiM+K3VAoKxccwd+iLuWTc5avIOhFbQ5uDEnf55wjKH0hk2X7BwOHIB3H1XBf01AP0eFhYgmG7hhVGF8sz/kgSwDp4G2Lmi4od3J095tGaMwwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MqH16lWx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788814905; c=relaxed/simple;
+	bh=NBcfPz5Kg5pxUSo6iph13FYLp+Mgm5G1VrbxsH1itNw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=B3LndL0Wxr0yvF48gofk7IgYlH+y/D7attpai8zQW2iWaiLAth/Wqh/WBHgzlAV67V6e9ahT4ywNHpa7YygVL8bzO6w69oxaNVYrGIJ3N9jI85cFWaq9PiC1+q9feZE3sHzKt+XrYjZz5iljudkW1DwRnvma1XArd7KBAPNPQfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ghebp8M5; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MqH16lWx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EE5B1F00A3E;
-	Mon,  7 Sep 2026 21:01:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788814870;
-	bh=n1wZ7r4xayWp9nNQN29FZBPntyP6nacsynwTW8yABMk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=MqH16lWxY9rAj2RAKZcgaJ0bRqsUtkedUcprRyQQHHiKIU4kLqQ4depqjYj9XD1k/
-	 fY46WbEkCdTzjWPOtXamgWAu7EDr/jWsN4us+NKMdikWKRjhRG7b982Vi0cNQH/uSI
-	 lodBsazUSH/rBfznGsG6XC1UMIVyDwXU5xh57egIwylCemyipzo28hS8bh8Wf2ouSJ
-	 AtFebYUon7PhgZRq0n6/NDg1OhzJn28TB0iYo0Ah52EdnYePj9YR7Fj74OCjYuCJkh
-	 wy6e8+Gv/oqhJtvhLzpXYrgvbWoSFRCwK2is+n0biwzloQhPNv6EB3lm/M/kJuFcHc
-	 HaeTypu3XmEtg==
-Message-ID: <c64ce430a9c5ba3b7c36acaf8b5befe84bdd6f50.camel@kernel.org>
-Subject: Re: [PATCH 1/2] tracing: hist: take the reference before publishing
- the named trigger
-From: Tom Zanussi <zanussi@kernel.org>
-To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>, Steven Rostedt
-	 <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 07 Sep 2026 16:01:09 -0500
-In-Reply-To: <20260907124420.607097-2-donggeunyoo.kernel@gmail.com>
-References: <20260907124420.607097-1-donggeunyoo.kernel@gmail.com>
-	 <20260907124420.607097-2-donggeunyoo.kernel@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ghebp8M5"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso17938765e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 14:01:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788814902; x=1789419702; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0jKO+9sWDvAmMVaHnfnr4Hp4hjfEF0vm85uCtXj8WFQ=;
+        b=ghebp8M5VPbmNcaHHW7NTilf6ArvvK1Rw9d00eTsqMrk47ryKX5Lv5Ibv7wm50vSnk
+         PDernjrqC6K1ONjX7RuwGLKREynlU8grfvc5fKglYxmEXkEhtNol8pfQp/HxGmpvDPlq
+         b/4Vu1pJVyRZNTWVp9nhw+9jSf5Z35V7AG/m2v7ZQyx56/cw7pg3x8jjQkwIIrExYdeO
+         Phq/rYgdDwCAtYX+XpQQ4ehGl8U9RMjzF2mAkd4AM7CUaWEz0Un1U6HpiCqJTmimewO5
+         fLoE543d8kal8UHNI9FTJbNLdTU1Sf13fj2g1C0Y4aWqAKcc4p6mwQFbpARXlnAbClJo
+         pycg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788814902; x=1789419702;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0jKO+9sWDvAmMVaHnfnr4Hp4hjfEF0vm85uCtXj8WFQ=;
+        b=UKSrF2ub/YebGCohMv2Ky9nXQ0A6QfIS+vhL4acu+AWPeAXn425NzXN2Ws+X2HLH5v
+         m3EdknNub0mh+jqT38saxJmJbiaFwHamTIrjV4zlJjWviR7JA1zxq4XUwgydmjyO+g2o
+         y/tLfo65tnKOrKz20hsTyDF+9A5/0V7yFqqVYSmulHc8qGqJBe1BXhO+PNxHhF0WRten
+         zQMFb8UaQmC/LFNjoxyOxTHW1uqopwvEZuajzOl74LutS0U35fyZU66NkPNoCphQez3o
+         tqDtq/P0eh4X2/HT5k7E/nbICLSV5K6N6zaNxg9OHrgI5AFhpWPQFHwPKO4mI4yn5Pa8
+         +OOA==
+X-Forwarded-Encrypted: i=1; AKwUvBwMQcIflPnYFsr3hxLFGSDRU/ZIDvPaMypx6/OyQLbP1gguieZzyJPUYdMeCRKClZyrESIt6xenAkPa+Kg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mmoUHlYpRXIfzJo6Q9+PJnSwHeOwe5Rd3h4jsmEzADhijBAJWJ
+	7475R3jhB/eAKwLxnFtNmhqZC8YE4zT5Rtr/4V5HHnABXAaiggNO5weg
+X-Gm-Gg: AYBFou25fN9SusE+JkL54Y3Cpq4iQYZqejcnIxz+XonKOVo7qfOyS8kLiNCCV9NnRN6
+	ZJlhz7LG+M1kJ2Iht+XZYheWfmwc4/IWm2Kr4dWCcKvu76TPSeCpj1HXLRx4cWf09o/5/QiHonB
+	U/SocN7uyOgnk0FIAOUw+y1fjGSgKugydfszrM3uwKuVtBQMGExsnrUCNes8LanyqFm3Vp72mty
+	sut3bd+uO0yY4VCkrE+NWAZAd2FQU9Iuy1v8wWzKOpFUofefCPZh1ZImEb17d0yEKn0ULVKm+oL
+	0TIEd8Zh1zzRrD0bOTNAh9Hqve1advzR8nNsuEyPHF+6dT3ql32y8aMTuAJ0JVIN6vRYjwDzCTn
+	Wg+GDUrCnpn2MAvbwqar+Jc1iskOkhq8khECCgSVJ5G3y6DBlvixS6q7OH56zpYwxlOTMLsyf/y
+	iHShNjLqtE80AOcY68ECLsoeZztV5PHqEbNS3L03v+1b5WMQBvXb0YwpsldJl0MaVEUuhyqCnv
+X-Received: by 2002:a05:600c:1da8:b0:49c:cf18:494e with SMTP id 5b1f17b1804b1-49cf825a530mr297613755e9.12.1788814901592;
+        Mon, 07 Sep 2026 14:01:41 -0700 (PDT)
+Received: from [192.168.1.10] ([95.43.220.235])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49cf5135353sm299682235e9.2.2026.09.07.14.01.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 14:01:41 -0700 (PDT)
+Message-ID: <6fb14341-655f-4cd0-8704-50c8d2e5850d@gmail.com>
+Date: Tue, 8 Sep 2026 00:01:39 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ASoC: ti: omap-hdmi: Fix build error from a merge commit
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>, Sen Wang <sen@ti.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ linux-sound@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+References: <20260903-omap-hdmi-fix-v1-1-b0447a1d35d5@ideasonboard.com>
+Content-Language: en-GB
+From: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+In-Reply-To: <20260903-omap-hdmi-fix-v1-1-b0447a1d35d5@ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, 2026-09-07 at 21:44 +0900, Donggeun Yoo wrote:
-> event_hist_trigger_named_init() puts the trigger on the global
-> named_triggers list and only then takes the reference on the trigger it
-> shares its histogram with:
->=20
-> 	data->ref++;
->=20
-> 	save_named_trigger(data->named_data->name, data);
->=20
-> 	ret =3D event_hist_trigger_init(data->named_data);
-> 	if (ret < 0) {
-> 		kfree(data->cmd_ops);
-> 		data->cmd_ops =3D &trigger_hist_cmd;
-> 	}
->=20
-> 	return ret;
->=20
-> event_hist_trigger_init() fails when alloc_hist_pad() cannot allocate, an=
-d
-> nothing takes the trigger back off the list on the way out.
-> event_hist_trigger_parse() frees it, and the next lookup by name reads th=
-e
-> freed object:
->=20
-> =C2=A0BUG: KASAN: slab-use-after-free in find_named_trigger+0xac/0xc0
-> =C2=A0Read of size 8 at addr ffff888009346860 by task init/1
-> =C2=A0 find_named_trigger+0xac/0xc0
-> =C2=A0 hist_register_trigger+0xc1/0xa00
-> =C2=A0 event_hist_trigger_parse+0x3146/0x6af0
-> =C2=A0 event_trigger_write+0xce/0x160
-> =C2=A0Freed by task 67:
-> =C2=A0 kfree+0x154/0x420
-> =C2=A0 trigger_kthread_fn+0xfd/0x160
->=20
-> Do the reference first and publish once it has succeeded, so that nothing
-> which can fail runs after the trigger becomes findable.
->=20
-> Reported-by: Sashiko AI <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/linux-trace-kernel/20260907092944.3950E1F=
-00A3D@smtp.kernel.org/
-> Fixes: 7ab0fc61ce73 ("tracing: Move histogram trigger variables from stac=
-k to per CPU structure")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+
+
+On 3.09.26 г. 12:38 ч., Tomi Valkeinen wrote:
+> 'ad->card' was removed in commit 9af2c1d4f847 ("ASoC: ti: omap-hdmi:
+> remove unused *card"), but commit 699e5975e2a5 ("drm/omap: Report HDMI
+> hotplug events to the ASoC HDMI codec") moved that code line. These
+> commits were applied to different trees, and the merge was not quite
+> right: assignment to 'ad->card' from the latter commit was left in the
+> file, causing:
+> 
+> sound/soc/ti/omap-hdmi.c:408:11: error: ‘struct hdmi_audio_data’ has no member named ‘card’
+> 
+> Fix the issue by removing the line.
+> 
+> Reported-by: Mark Brown <broonie@kernel.org>
+> Closes: https://lore.kernel.org/all/apbbvQSfUbzYRFaw@sirena.org.uk/
+> Fixes: 1ae7fe832c2d ("Merge drm/drm-next into drm-misc-next")
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+
+Reviewed-by: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+
 > ---
-> =C2=A0kernel/trace/trace_events_hist.c | 11 ++++++-----
-> =C2=A01 file changed, 6 insertions(+), 5 deletions(-)
->=20
-> diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events=
-_hist.c
-> index 963e0d6b61fd..c6c04926bdf0 100644
-> --- a/kernel/trace/trace_events_hist.c
-> +++ b/kernel/trace/trace_events_hist.c
-> @@ -6383,17 +6383,18 @@ static int event_hist_trigger_named_init(struct e=
-vent_trigger_data *data)
-> =C2=A0{
-> =C2=A0	int ret;
-> =C2=A0
-> -	data->ref++;
-> -
-> -	save_named_trigger(data->named_data->name, data);
-> -
-> =C2=A0	ret =3D event_hist_trigger_init(data->named_data);
-> =C2=A0	if (ret < 0) {
-> =C2=A0		kfree(data->cmd_ops);
-> =C2=A0		data->cmd_ops =3D &trigger_hist_cmd;
-> +		return ret;
-> =C2=A0	}
-> =C2=A0
-> -	return ret;
-> +	data->ref++;
-> +
-> +	save_named_trigger(data->named_data->name, data);
-> +
-> +	return 0;
-> =C2=A0}
-> =C2=A0
-
-Makes sense. Note that save_named_trigger() can also fail with -ENOMEM,
-but maybe that's a separate patch..
-
-Acked-by: Tom Zanussi <zanussi@kernel.org>
-
-
-> =C2=A0static void event_hist_trigger_named_free(struct event_trigger_data=
- *data)
->=20
-> base-commit: df2908090cda368b01ff43709f51890076c56157
-
+>   sound/soc/ti/omap-hdmi.c | 1 -
+>   1 file changed, 1 deletion(-)
+> 
+> diff --git a/sound/soc/ti/omap-hdmi.c b/sound/soc/ti/omap-hdmi.c
+> index c32ec7c0b0cf..2cabd4cc5b0b 100644
+> --- a/sound/soc/ti/omap-hdmi.c
+> +++ b/sound/soc/ti/omap-hdmi.c
+> @@ -405,7 +405,6 @@ static int omap_hdmi_audio_probe(struct platform_device *pdev)
+>   	card->dev = dev;
+>   
+>   	atomic_set(&ad->jack_state, -1);
+> -	ad->card = card;
+>   
+>   	snd_soc_card_set_drvdata(card, ad);
+>   	ret = devm_snd_soc_register_card(dev, card);
+> 
+> ---
+> base-commit: 97c594f71fa71dc30a0583a76d8b6ef5c5ea10b1
+> change-id: 20260903-omap-hdmi-fix-7f085e21b708
+> 
+> Best regards,
+> --
+> Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> 
