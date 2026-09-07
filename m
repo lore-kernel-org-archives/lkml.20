@@ -1,163 +1,289 @@
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 003BF443AA7;
-	Mon,  7 Sep 2026 08:30:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8BE219E992;
+	Mon,  7 Sep 2026 08:30:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788769810; cv=none; b=NRXAmYPQj5csjxgUWVE3eM10rw6zK+vPHiqlcNMC3ZS5ckD4Y1Dk+2b9s22wOXYl2zkZUsvB1HHA029iFT5v28Wk34wzILqNiNZ9/KIe+ZUl9mbOnSjyDx5q9PociBAnbgSNEAqMuHDHzT7pwi9Jm+F9y03jOEReG88wX+YYE7U=
+	t=1788769829; cv=none; b=MvgiZTBAQNih6O3JiP3PTNL4tGDrQ7A47CRoU/C/rzmG3egEQwUTHBPYMNF/WMIRUsl6u26TyW5vCfAjrgDCYlHP2fPjrsWf6eDdYDspjyoqXBh3rTocoIQPtjKQEnY5fzJQCwYMIotYrawIrca2lHvYurgPSguXteiANu+3Kf8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788769810; c=relaxed/simple;
-	bh=QAEt6P9ewAx4tLQ7zDcVEugSrb2nPpwxpUVMi3n1/+A=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=i/+h+FvD4mo6vOcTy7sKhGQnjg29/ycpqjWU5UFYCN5YM4smem/n1JkgLq8lW4roHrFCqdto5oJad/2zwYPXokBZwB9GCjn7NgWJOxMkiaI1Ec7rbNj6f9NYxVJcBOfYISRxg/L4THRjyrz2kRnu183C+xq7p0/FjVf9vLUMBlg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=oBR+IBXz; arc=none smtp.client-ip=54.254.200.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1788769829; c=relaxed/simple;
+	bh=MIy6oc+mmGeiTiEOnYbhdFCgaanSJS+rRZtaHrq098o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HRySaRrGNa4EO17LB2bs9ZAkb773267Q1uAskiGvsulibTJIpnhlBURj5G7GP8WoNFMOkMyIJEvvLPNFfgB7xYnD1ZpaqspYJDV2Cb1VrCR/EgBYtymwjqvXxDCtMnWtILK77eyCMRQwm8aLBcs8niVSiYzDqOHTCzhK8WUtQvI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JUIxaQu0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="oBR+IBXz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1788769753;
-	bh=qWRgI9AOsx/PXxW+VxjVPzW5Qmp+SlNGLn4ruFkG9nE=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=oBR+IBXzLjBaJocWvo/zFzPA1ALw0ELmD/h6uUfAsTjuFLZwd/lKN0MUcbn7x9Cwm
-	 BvOd189qqOcCUHnyyXnYr1Dds5pWLW6/HtcJs1+bPK99cpJfVE36/CuzXBhlUcZwkk
-	 Y2Nt4nJ/A8V+vqhCgsEL/tu3B1MBo3UQKZiLGHn0=
-X-QQ-mid: zesmtpsz8t1788769746t20a8a9a2
-X-QQ-Originating-IP: wIBhlM3drIQ9Ntyumd1ujaGUl+998+uevieIExULl4I=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 07 Sep 2026 16:29:03 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 11320355853612536940
-EX-QQ-RecipientCnt: 20
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JUIxaQu0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AD461F00A3A;
+	Mon,  7 Sep 2026 08:30:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788769827;
+	bh=/VLRSJhmb8ySGPzPHNCE4Cf5qZTkDz8ticvT8UR3XHE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JUIxaQu0YH4H3IxvzP7wImXBVxSGhebJjTg/xR9Kq3MMz6mwu6alQ0zhI2EuCTHpY
+	 m6R9N6VXl61q1SY6P9olXBeVl8i3AkRKJ0NgX1bclGnt8dQPrsVuLN2jnredm8lgVp
+	 R4cGJYCt+z35XiXGua6QUyhgzhGpA0iSv4sUIzuSbgQsd5mgy8ynB0KpfdQhSDuncR
+	 WZDOUFoCdlsM+5XvGt9eW9NFZnpyA0HR5fFOM5Bkp7k/8sXTOKWmc4lZcn9qyvIhEv
+	 kRxZZH8PyAkHtGk4aAnxR5n5szcSjVqMF0Mm0gZtKkADXDexZQKMIVUGmG6+7rW9PT
+	 GIARVabJiquiQ==
+Date: Mon, 7 Sep 2026 10:30:23 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>, 
+	Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+	Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>, Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>, 
+	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Subject: Re: [PATCH v4 01/10] ASoC: dt-bindings: qcom,shikra-qaif-cpu: Add
+ binding
+Message-ID: <20260907-arcane-sassy-fennec-afc02a@quoll>
+References: <20260903072902.3870009-1-harendra.gautam@oss.qualcomm.com>
+ <20260903072902.3870009-2-harendra.gautam@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=c5ea966f1287d2fb0a065fbd8bfacc535291a111e20b04421be1800d226c;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Mon, 07 Sep 2026 16:29:01 +0800
-Message-Id: <DL8XYAR1UCMY.8XJN1LP6YQPE@linux.spacemit.com>
-Subject: Re: [PATCH 2/6] usb: chipidea: usb2: add optional reset support
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Junzhong Pan" <panjunzhong@linux.spacemit.com>, "Peter Chen"
- <peter.chen@kernel.org>
-Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Yixun Lan" <dlan@kernel.org>, "Xu Yang"
- <xu.yang_2@nxp.com>, "Peng Fan" <peng.fan@nxp.com>, "Philipp Zabel"
- <p.zabel@pengutronix.de>, "Paul Walmsley" <pjw@kernel.org>, "Palmer
- Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
- "Alexandre Ghiti" <alex@ghiti.fr>, <linux-usb@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>, "Troy
- Mitchell" <troy.mitchell@linux.spacemit.com>
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260812-b4-spacemit-k1-usb2-v1-0-f28cf29e522b@linux.spacemit.com> <20260812-b4-spacemit-k1-usb2-v1-2-f28cf29e522b@linux.spacemit.com> <an2UgcS8cHDGwzsO@hu-petche-lv.qualcomm.com> <870CB1C672C91040+8a75565f-344c-4f1e-aa69-33585a88c8e5@linux.spacemit.com>
-In-Reply-To: <870CB1C672C91040+8a75565f-344c-4f1e-aa69-33585a88c8e5@linux.spacemit.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: Ni68Q0J6fxe2wIqzzpnjqZqcDXBL641bOrXTVUP6GxzUtXHWeJH1XJNw
-	8uKsDXFi4zyR4vFBMulVXHap12RAkqtvyG9DxflBI6RyYUFvGBl7SFTw7/75yvJ9hRmCvJA
-	WZx3zpUR3Dn+sQ0u44hOGt++j4pETwG/FrDRa6y2ESbwySpFmzfsYF4eMV12PS1YrrQ+L49
-	B3Jts8fd10gD1EfFazIDSc9sX356lJtVrUchFNYU6JvbPSUzqbSHIiEStuKhHTsvT9N2bKY
-	XMrnvaPar5DasCTpjLNQEGYAFGbI+qIKyoFw+bZdHCsXzYUQ3Ww8+MiwGm4rUUADFGlq9u4
-	+BsqwdCcup3GHypTe/xA6JbwzIpTlg6bZ9AP/sYRVn7akIXmOZg+i0xEu2eL2D53u5YmFip
-	v4Tcdg1zQedCwqg5nwWBvb1P9DV2i5/PH+gZumEY6HSIh1Jw6yU3GRHMKsdTvpc2jI7anKQ
-	Ss4v0I+jKIXE3ZGa5yruqkZUVfNgfPNHRRBw7+/ssnqL1X5LFSwFsZye2Vhx0VsDEHADvKR
-	TBgkfE+z69IJOtGxRC70kVCKDFbmK27FbuwuCF1uzqEkYg5VFP8lJUVRyWaVxSUC7ZBzpqd
-	in+ZQU4Qe8k95hZvcPKa1kozSvUllU4G2GU/Imz6ndTGL+2QCxnCfbuqsg5IlK6mPBb7GJG
-	YcB4IhV3wtqhzbXmUToTmwAC9kkLp3DL/wT8RBefcIkThHQnlq/dBm3z5EoaxtLH3rmJvlo
-	zUtLNqvqlb9SBFsfBhvd1P0Dz9Flu8LIuBXxuswhkp1zb9NY56bW+I7jD/+8gt/VMtPjNUb
-	z0vKiqyoMCfDAgPhBzuVIu6F2mhZwcF3zvxj84tQ0nZVtXGjZPVnzJnOX/LSkWPSvqs663/
-	9wf6bezEFVcJgsXtRIZ4tLu+Y2rGA/W9lq9zKuHYlnh2KVEv+BnkSzI4CMDqEtuhtZ2e707
-	KimJJxbiVLWCiQkl4eouU7flPQ5bHJ1j3v3bXZoZDLzwM/k8lyqYjICSvmhBCyu0goadn9p
-	gll/OuXn0/NC6Ocf8X78ReUuOuw+IMp81rppD13HmlhP5cZ3KcIiypggtBor3hUYV892mzY
-	A==
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260903072902.3870009-2-harendra.gautam@oss.qualcomm.com>
 
---c5ea966f1287d2fb0a065fbd8bfacc535291a111e20b04421be1800d226c
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+On Thu, Sep 03, 2026 at 12:58:52PM +0530, Harendra Gautam wrote:
+> 
+> Add the Devicetree binding for the Qualcomm Audio Interface (QAIF) CPU DAI
 
-On Thu Aug 13, 2026 at 9:39 PM +08, Junzhong Pan wrote:
-> On 8/13/2026 5:55 PM, Peter Chen wrote:
->> On 26-08-12 17:26:13, Junzhong Pan wrote:
->>> The USB2 controller of SpacemiT K1 SoC requires reset support, to keep
->>> compatibility, add optional reset support.
->>>
->>> Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
->>> ---
->>>  drivers/usb/chipidea/ci_hdrc_usb2.c | 8 ++++++++
->>>  1 file changed, 8 insertions(+)
->>>
->>> diff --git a/drivers/usb/chipidea/ci_hdrc_usb2.c b/drivers/usb/chipidea=
-/ci_hdrc_usb2.c
->>> index 8ffa1e95d8e8..00d575cd2955 100644
->>> --- a/drivers/usb/chipidea/ci_hdrc_usb2.c
->>> +++ b/drivers/usb/chipidea/ci_hdrc_usb2.c
->>> @@ -12,6 +12,7 @@
->>>  #include <linux/phy/phy.h>
->>>  #include <linux/platform_device.h>
->>>  #include <linux/property.h>
->>> +#include <linux/reset.h>
->>>  #include <linux/usb/chipidea.h>
->>>  #include <linux/usb/hcd.h>
->>>  #include <linux/usb/ulpi.h>
->>> @@ -21,6 +22,7 @@
->>>  struct ci_hdrc_usb2_priv {
->>>  	struct platform_device	*ci_pdev;
->>>  	struct clk		*clk;
->>> +	struct reset_control	*reset;
->>>  };
->>> =20
->>>  static const struct ci_hdrc_platform_data ci_default_pdata =3D {
->>> @@ -80,6 +82,12 @@ static int ci_hdrc_usb2_probe(struct platform_device=
- *pdev)
->>>  		return ret;
->>>  	}
->>> =20
->>> +	priv->reset =3D devm_reset_control_get_optional_exclusive_deasserted(=
-dev, NULL);
->>> +	if (IS_ERR(priv->reset)) {
->>> +		ret =3D PTR_ERR(priv->reset);
->>> +		goto clk_err;
->>> +	}
->>> +
->>=20
->> You may update binding doc?
->>=20
->
-> Sure, I forgot it, will do in v2.
->
-> Thanks.
+Why do your commits have leading blank line? I mean, really, how is it
+possible to create such commit?
 
-Is the reset required for K1? If not, no binding change is needed. I checke=
-d the
-binding, and it already defines resets as an optional property.
+Additionally, way you send your work is making this unnecessarily
+difficult for us. Look, does this work?
 
-Reviewed-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+	b4 diff '20260903072902.3870009-2-harendra.gautam@oss.qualcomm.com'
 
---=20
-Troy Mitchell
+? No, it does not:
+
+Looking up 20260903072902.3870009-2-harendra.gautam@oss.qualcomm.com
+Checking for older revisions
+Grabbing search results from lore.kernel.org
+  Added from v3: 10 patches
+---
+Analyzing 112 messages in the thread
+WARNING: duplicate messages found at index 1
+   Subject 1: MAINTAINERS: Add Qualcomm QAIF driver entry
+   Subject 2: ASoC: dt-bindings: qcom,shikra-qaif-cpu: Add binding
+  2 is not a reply... assume additional patch
+WARNING: duplicate messages found at index 2
+   Subject 1: ASoC: qcom: Add QAIF shared data structures and variant interface
+   Subject 2: ASoC: dt-bindings: qcom,shikra-qaif-cpu: Add binding
+  2 is not a reply... assume additional patch
+Looking for additional code-review trailers on lore.kernel.org
+Analyzing 0 code-review messages
+Preparing fake-am for v3: ASoC: qcom: Add QAIF driver for Shikra audio platform
+  range: d7fead291383..a37de53198ea
+Preparing fake-am for v4: MAINTAINERS: Add Qualcomm QAIF driver entry
+ERROR: v4 series incomplete; unable to create a fake-am range
 
 
---c5ea966f1287d2fb0a065fbd8bfacc535291a111e20b04421be1800d226c
-Content-Type: application/pgp-signature; name="signature.asc"
+You are sending big patchset, with big/complex new driver, so if the
+process things are not done right, we are not going to spend time top
+look at it. There are other patches waiting where we do not need to
+struggle with such obstacles.
 
------BEGIN PGP SIGNATURE-----
 
-iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCap51zQ0caUB0cm95LXku
-b3JnAAoJEJgJ74D5MzQv9j0A/AuCeVJ9yE/gt/KfEJxLTBV6zSXK8wkfge0WTxJC
-wNLzAP9N5s2ZVrfHOn5l/94Qv1u5kJxbdnjE6iR9SbxpQB0UBg==
-=lw1Q
------END PGP SIGNATURE-----
+> controller used on the Shikra audio platform, together with a dt-bindings
+> header for QAIF DAI and AIF interface IDs.
+> 
+> QAIF routes audio between system memory, external PCM/TDM/MI2S serial
+> interfaces and the internal Bolero/WCD codec. Platform Devicetree files
+> need a binding to describe the controller resources, DAI cells and per-
+> interface AIF configuration, and named constants to avoid raw numeric IDs
+> in sound-dai references and child-node reg values.
+> 
+> Describe the MMIO region, interrupt, clocks, DMA IOMMU mapping and
+> aif-interface child nodes required by the controller.
+> 
+> Signed-off-by: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+> ---
+>  .../bindings/sound/qcom,shikra-qaif-cpu.yaml  | 308 ++++++++++++++++++
+>  .../sound/qcom,q6dsp-lpass-ports.h            |  52 +++
+>  2 files changed, 360 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/qcom,shikra-qaif-cpu.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,shikra-qaif-cpu.yaml b/Documentation/devicetree/bindings/sound/qcom,shikra-qaif-cpu.yaml
+> new file mode 100644
+> index 000000000000..9d0616ac7554
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/qcom,shikra-qaif-cpu.yaml
+> @@ -0,0 +1,308 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/qcom,shikra-qaif-cpu.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm Audio Interface (QAIF) CPU DAI Controller
+> +
+> +maintainers:
+> +  - Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+> +
+> +description: |
+> +  The Qualcomm Audio Interface (QAIF) is a fully configurable DMA-based
+> +  audio subsystem controller. It serialises and deserialises PCM audio
+> +  between system memory and external serial audio peripherals (PCM, TDM,
+> +  I2S, MI2S) through the AIF path, and transfers parallel audio between
+> +  memory and an internal WCD codec through the CIF path.
+> +
+> +  AIF (Audio Interface): up to 13 multi-lane Unified Audio Interfaces,
+> +  each supporting up to 8 independent data lanes. Each lane is individually
+> +  configurable as TX (output/speaker) or RX (input/mic). All lanes of an
+> +  interface share a single bit clock and frame sync. Supported modes are
+> +  PCM (short/long sync), TDM, and MI2S (stereo/mono). Per-interface
+> +  configuration includes sync source (master/slave), sync mode, sync delay,
+> +  sync inversion, slot width (8/16/24/32-bit), sample width, active slot
+> +  masks (up to 32 slots), bits-per-lane frame size, lane enable/direction
+> +  masks, loopback, output-enable control, and full-cycle path support for
+> +  long chip-to-chip connections.
+> +
+> +  CIF (Codec Interface): up to 10 RDDMA (playback) and 10 WRDMA (capture)
+> +  channels connecting to an internal codec over a parallel bus. Each channel
+> +  supports active-channel enable mask (up to 16 channels), frame-sync
+> +  selection, frame-sync delay, frame-sync output gating, dynamic clock
+> +  gating, and 16-bit packing/unpacking.
+> +
+> +  Note on RX/TX naming convention: in QAIF, TX refers to the output
+> +  (speaker/playback) direction and RX refers to the input (mic/capture)
+> +  direction. This applies to both AIF lane directions and CIF slot/mask
+> +  properties.
+> +
+> +  DMA engine: RDDMA fetches audio from DDR/TCM/LPM into a shared SRAM
+> +  latency buffer (SHRAM) and drains it to the interface. WRDMA collects
+> +  data from the interface into SHRAM and writes it to memory. Each DMA
+> +  owns a private SHRAM region defined by start address and length registers.
+> +  Burst sizes of 1/2/4/8/16 beats (64-bit) are supported with up to 4
+> +  outstanding transactions per DMA. Two QSB master ports (QXM0 for TCM,
+> +  QXM1 for DDR/LPM) provide the memory interface.
+> +
+> +  Resources are partitioned among up to 5 Execution Engines (EEs) via
+> +  EE map registers. Each EE owns a set of DMAs, audio interfaces, and
+> +  interface groups, and receives its own independent interrupt output.
+> +  The interrupt hierarchy has a two-level structure: a summary register
+> +  identifies the event class (DMA period, underflow/overflow, error
+> +  response, audio interface underflow/overflow, group done, rate detector,
+> +  VFR), and per-resource status registers identify the specific channel.
+> +
+> +  Interface grouping (bonding) allows up to 6 groups of audio and codec
+> +  interfaces to start synchronously and align their DMA period interrupts
+> +  within half a frame duration using the RDDMA padding feature.
+> +
+> +  Two rate detector blocks measure the frequency of incoming frame sync or
+> +  word select signals and generate interrupts on rate change, undetected
+> +  rate, or sync timeout.
+> +
+> +  Block diagram::
+> +
+> +    System Memory (DDR / LPM / TCM)
+> +    +---------------------------------+
+> +    |  Circular Buffers (ping-pong)   |
+> +    +----------+----------+-----------+
+> +               |          ^
+> +         64-bit AXI  64-bit AXI
+> +               |          |
+> +    +----------v----------+-----------+
+> +    |        QSB Master Ports         |
+> +    |  +----------+  +----------+     |
+> +    |  |   QXM0   |  |   QXM1   |     |
+> +    |  +----+-----+  +-----+----+     |
+> +    +-------|--------------|----------+
+> +            |              |
+> +    +-------v--------------v----------+
+> +    |         Shared RAM (SHRAM)       |
+> +    |  +------------+  +------------+ |
+> +    |  | QXM0 Read  |  | QXM0 Write | |
+> +    |  | SHRAM      |  | SHRAM      | |
+> +    |  +------------+  +------------+ |
+> +    |  +------------+  +------------+ |
+> +    |  | QXM1 Read  |  | QXM1 Write | |
+> +    |  | SHRAM      |  | SHRAM      | |
+> +    |  +------------+  +------------+ |
+> +    +---+--------+--------+-------+---+
+> +        |        |        |       |
+> +    +---v--+  +--v---+ +--v---+ +-v----+
+> +    |RDDMA |  |RDDMA | |WRDMA | |WRDMA |
+> +    | AIF  |  | CIF  | | AIF  | | CIF  |
+> +    |[0..n]|  |[0..n]| |[0..n]| |[0..n]|
+> +    +--+---+  +--+---+ +--+---+ +-+----+
+> +       |         |       ^          ^
+> +       | TX      | TX    | RX       | RX
+> +       v         v       |          |
+> +    +--+--------------------+  +----+----------+
+> +    |  Unified Audio Intf   |  | Codec DMA     |
+> +    |  (AIF 0..12)          |  | Interface     |
+> +    |                       |  | (CIF)         |
+> +    |  AUD_INTFa block:     |  |               |
+> +    |  - Serializer (TX)    |  | RDDMA: DDR -> |
+> +    |  - De-serializer (RX) |  |   internal    |
+> +    |  - Sync gen/detect    |  |   codec       |
+> +    |  - Up to 8 data lanes |  | WRDMA: codec  |
+> +    |  - PCM / TDM / MI2S   |  |   -> DDR      |
+> +    |  - Near Pad Logic     |  | Up to 16 ch   |
+> +    +--+--------------------+  +----+----------+
+> +       |  Lane 0..7 (TX/RX)       |  Parallel bus
+> +       |  Bit clk + Frame sync    |  + Frame sync
+> +       v                          v
+> +    +--+--------+          +------+------+
+> +    | External  |          | Internal    |
+> +    | Serial    |          | Digital     |
+> +    | Peripherals|         | Codec       |
+> +    | (PCM/TDM/ |          | (Bolero/    |
+> +    |  MI2S)    |          |  WCD)       |
+> +    +-----------+          +-------------+
+> +
+> +allOf:
+> +  - $ref: dai-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,shikra-qaif-cpu
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description: QAIF core registers
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +    description:
+> +      QAIF summary interrupt for this Execution Engine. Signals DMA period
+> +      completion, buffer underflow/overflow, error response, audio interface
+> +      underflow/overflow, interface-group done, rate detector and VFR events.
+> +
+> +  iommus:
+> +    maxItems: 1
+> +    description: Phandle to apps_smmu node with sid mask
+> +
+> +  dma-coherent: true
+> +
+> +  clocks:
+> +    minItems: 5
+> +    maxItems: 9
+> +
+> +  clock-names:
+> +    description:
+> +      The first five clocks are always required. Any further entries are the
+> +      per-AIF bit clocks (aif_if<N>_ibit), supplied in order starting from
+> +      AIF interface 0 for as many serial AIF interfaces as the board uses.
 
---c5ea966f1287d2fb0a065fbd8bfacc535291a111e20b04421be1800d226c--
+Who provides these clocks? Your example DTS suggests that another SoC
+block, so how these clocks could be optional? Either they are in the
+hardware or they are not. Hardware is not really flexible.
+
+I actually finished here, since b4 diff does not work, I have no time to
+review it further. I might get back to it later.
+
+Best regards,
+Krzysztof
+
