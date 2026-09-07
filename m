@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49BA2509F16
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:34:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADCDB3C0A14
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:34:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788795288; cv=none; b=YlTOOqvGKAvDGNCRCkrCMgp7VSLNuywybXUGF6ZRF5QyJjanrgDGIfe2pr9Euqbo2wwkYOkcGMOQCKkGQdBaED8CSSQ2fJ7zQVdA+IL6rISxv69GwbluWoNGUZQl9X2NqdJ4sZCnsidzyZh4VPk4WIZLTMupGB9aJ9/NZC/8/YE=
+	t=1788795283; cv=none; b=fIeoigPsU75ZOZPy4ThFzotzU1gIBuLPt6oSTIBvAA1tq/ce5jO1Pvw9XEhoajIkZ3BcMRp+Bvh+vnujNN+u6/JeYjTePKNoZ0pyBtg3OM/oUMkQ+Fg0t54k5HCo63FwX7MIaXVE0vukkNQ8oHjZM3es6x1d/MgKj3KP4ddu1Vc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788795288; c=relaxed/simple;
-	bh=aUqa+U0rvYDMuxwBfMOm7AffnEN6LwPYcMtdpT7cB1s=;
+	s=arc-20240116; t=1788795283; c=relaxed/simple;
+	bh=KGCrAR/T2WVSS15NlOOPgq4g/mbcRioGXInGYY/rJ0E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RfI8pOGkeQqsRoO2lXOtmXtRTDMWlcdE61ivy5XPKg8jmcaoIgitlSqZEi4pevG6M40yRat8Q1Aw82EiNehfgJJGsbf37Qt1ipA8Cpn23+w2c/dnwvbIbkwRZcos5vMBgC16ioNwAf+LosR6VtvUnXPGxQd+aVjpmLZevwc6X2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=biphSlJw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=jmghgKzbkXvFEZs9+LhbkYlVk3K1+BFaQUjc5Y0OVnd+DBboVNhf4/WeNRORLQ5wNPfOFN4kkpaa1OqKhtrt66cqg9kx/3dBxnHbr31Uagd8dAYtvzI38yKfIDnAxc9aTdj3a54K/WCgeMIwPYjUafs8IkgOW6czwbxBElNnDeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EoElUDct; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="biphSlJw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F28F1F00A3F;
-	Mon,  7 Sep 2026 15:34:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EoElUDct"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 969691F00A3A;
+	Mon,  7 Sep 2026 15:34:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788795284;
-	bh=rUtjrYEbG1KraQAUaYquvt0ku0ZcfAlrQLb/m0sJffw=;
+	s=k20260515; t=1788795276;
+	bh=znvmixE620ZLsCnkyAYTT60sRef1h2y+RevyjPTXKGg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=biphSlJwKgERHw41gbSpl409w9CPUrCx+oUvKD1kExC314T9bfsjIBHLcWAAJfggO
-	 fXgCo477UfIL4G2wpxQZytwZZvyDas9nlSXqdFA5rWg/9nmktjQ8+3cFoH1//xrlOd
-	 fnipba2ZH9L8MroTcdLfH2Akq/xYbH51tJosJKZK/zE1zwMChOQTy6rpS9cM52/wMU
-	 g8n35syniHXawoapW0+1ySHjhiMjl7ZenSh+0BwIeogDz9RRCx3UCJz/vP5eh2Pr7X
-	 rrmiMy8QBHgQrZxF4/7agvtnKeJZG1Te9UWwsb1TutArFBYYXMSmc7b2KSdyw44oS+
-	 kX1Dg8wLJ9t6g==
+	b=EoElUDctbswG2S0pdCcuH3mNf5iyHzvwoVFzhy1so7iH3XgH/HDALstZVu+XYWPrH
+	 +EhaQRkFvoBg2aA9XGFXjIUECtD4tvbSC497MGBT/HZE+s38oUZIxeyZgMTVNKFCwF
+	 KIrq6lU4/SGwlAksXRIZHKGRoUxT4CpoAS3lfXuF73tkU/PyvN/4qKIPCWTuYZT4Dk
+	 uWbaLs1F4ferJ/2ak/nGob4HfKUXqCYylAyMTn6uoWo3mOSIDJWO2VoZEbemYKjBiL
+	 RW5r8xUk9h22VoRtbTRmEjLMLgbU5TdK/ptG9HJT2Xv2DQHRf82BmE0sJ3bQvE+xyg
+	 xK0vkWCAKJR/A==
 From: Jisheng Zhang <jszhang@kernel.org>
 To: Paul Walmsley <pjw@kernel.org>,
 	Palmer Dabbelt <palmer@dabbelt.com>,
@@ -39,9 +39,9 @@ To: Paul Walmsley <pjw@kernel.org>,
 Cc: linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	kasan-dev@googlegroups.com
-Subject: [PATCH v2 4/5] riscv: RISCV_ISA_SV48 and RISCV_ISA_SV57 under NONPORTABLE
-Date: Mon,  7 Sep 2026 23:14:36 +0800
-Message-ID: <20260907151437.7603-5-jszhang@kernel.org>
+Subject: [PATCH v2 2/5] riscv: convert pgtable_l4|l5_enabled to inline function
+Date: Mon,  7 Sep 2026 23:14:34 +0800
+Message-ID: <20260907151437.7603-3-jszhang@kernel.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260907151437.7603-1-jszhang@kernel.org>
 References: <20260907151437.7603-1-jszhang@kernel.org>
@@ -53,181 +53,651 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In last commit, we have optimized the pgtable_l4|l5_enabled with isa
-extension alternative mechanism, thus a typical access_ok(addr, 1);
-is compiled as:
-
-ffffffff8001dd30:	1141                	addi	sp,sp,-16
-ffffffff8001dd32:	e022                	sd	s0,0(sp)
-ffffffff8001dd34:	e406                	sd	ra,8(sp)
-ffffffff8001dd36:	0800                	addi	s0,sp,16
-ffffffff8001dd38:	00000013          	nop
-ffffffff8001dd3c:	02a0006f          	j	ffffffff8001dd66 <foo+0x3e>
-ffffffff8001dd40:	60a2                	ld	ra,8(sp)
-ffffffff8001dd42:	6402                	ld	s0,0(sp)
-ffffffff8001dd44:	57fd                	li	a5,-1
-ffffffff8001dd46:	83a1                	srli	a5,a5,0x8
-ffffffff8001dd48:	00a7b533          	sltu	a0,a5,a0
-ffffffff8001dd4c:	00154513          	xori	a0,a0,1
-ffffffff8001dd50:	0141                	addi	sp,sp,16
-ffffffff8001dd52:	8082                	ret
-...
-ffffffff8001dd64:	bfe1                	j	ffffffff8001dd3c <foo+0x14>
-ffffffff8001dd66:	0180006f          	j	ffffffff8001dd7e <foo+0x56>
-ffffffff8001dd6a:	60a2                	ld	ra,8(sp)
-ffffffff8001dd6c:	6402                	ld	s0,0(sp)
-ffffffff8001dd6e:	57fd                	li	a5,-1
-ffffffff8001dd70:	83c5                	srli	a5,a5,0x11
-ffffffff8001dd72:	00a7b533          	sltu	a0,a5,a0
-ffffffff8001dd76:	00154513          	xori	a0,a0,1
-ffffffff8001dd7a:	0141                	addi	sp,sp,16
-ffffffff8001dd7c:	8082                	ret
-ffffffff8001dd7e:	60a2                	ld	ra,8(sp)
-ffffffff8001dd80:	6402                	ld	s0,0(sp)
-ffffffff8001dd82:	57fd                	li	a5,-1
-ffffffff8001dd84:	83e9                	srli	a5,a5,0x1a
-ffffffff8001dd86:	00a7b533          	sltu	a0,a5,a0
-ffffffff8001dd8a:	00154513          	xori	a0,a0,1
-ffffffff8001dd8e:	0141                	addi	sp,sp,16
-ffffffff8001dd90:	8082                	ret
-
-As can be seen, different branches for SV39/SV48/SV57 are still there,
-since access_ok() sits at hot code path, why not reduce the code size
-to optimize to make the instruction cache happy?
-
-Introduce RISCV_ISA_SV48 and RISCV_ISA_SV57 under NONPORTABLE, so that
-the embedded platforms can choose the best option themselves, while
-still keep the feature of unified one kernel Image for all SV39, SV48
-and SV57.
-
-Before the patch, vmlinux built with pure RISCV64 defconfig
-   text    data     bss     dec     hex filename
-13439437   6790446  483221 20713104 13c0e90 /tmp/old/vmlinux
-
-After the patch, vmlinux built with pure RISCV64 defconfig:
-   text    data     bss     dec     hex filename
-13314445   6787934  466837 20569216 139dc80 /tmp/new/vmlinux
-
-.text section is reduced by 122KB!
-
-And after the patch, typical access_ok(addr, 1) is compiled as:
-ffffffff8001809a:	1141                	addi	sp,sp,-16
-ffffffff8001809c:	e022                	sd	s0,0(sp)
-ffffffff8001809e:	e406                	sd	ra,8(sp)
-ffffffff800180a0:	0800                	addi	s0,sp,16
-ffffffff800180a2:	00000013          	nop
-ffffffff800180a6:	60a2                	ld	ra,8(sp)
-ffffffff800180a8:	6402                	ld	s0,0(sp)
-ffffffff800180aa:	4785                	li	a5,1
-ffffffff800180ac:	179a                	slli	a5,a5,0x26
-ffffffff800180ae:	00f53533          	sltu	a0,a0,a5
-ffffffff800180b2:	0141                	addi	sp,sp,16
-ffffffff800180b4:	8082                	ret
-
-only 12 instruction!! For refernece, before the patch, the access(addr,
-1) needs 32 instructions.
+This is the preparation of optimizing pgtable_l4|l5_enabled(). No
+functionality change.
 
 Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
 ---
- arch/riscv/Kconfig                  | 24 ++++++++++++++++++++++++
- arch/riscv/include/asm/pgtable-64.h | 12 ++++++++++++
- arch/riscv/mm/init.c                | 10 ++++++++++
- 3 files changed, 46 insertions(+)
+ arch/riscv/include/asm/pgalloc.h    | 14 +++----
+ arch/riscv/include/asm/pgtable-32.h |  4 +-
+ arch/riscv/include/asm/pgtable-64.h | 50 +++++++++++++---------
+ arch/riscv/include/asm/pgtable.h    |  4 +-
+ arch/riscv/include/asm/vmalloc.h    |  5 +--
+ arch/riscv/kernel/cpu.c             |  4 +-
+ arch/riscv/mm/init.c                | 64 ++++++++++++++---------------
+ arch/riscv/mm/kasan_init.c          | 20 ++++-----
+ arch/riscv/mm/pgtable.c             |  4 +-
+ arch/riscv/mm/ptdump.c              |  4 +-
+ 10 files changed, 91 insertions(+), 82 deletions(-)
 
-diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
-index e9476b8cbeb0..4cdb1e3f34be 100644
---- a/arch/riscv/Kconfig
-+++ b/arch/riscv/Kconfig
-@@ -602,6 +602,30 @@ config RISCV_ISA_SSQOSID
- 	  cache partitioning scheme and use the MCID to track how much
- 	  cache a process, or a group of processes, is using.
+diff --git a/arch/riscv/include/asm/pgalloc.h b/arch/riscv/include/asm/pgalloc.h
+index 770ce18a7328..0133f7ba41d7 100644
+--- a/arch/riscv/include/asm/pgalloc.h
++++ b/arch/riscv/include/asm/pgalloc.h
+@@ -41,7 +41,7 @@ static inline void pud_populate(struct mm_struct *mm, pud_t *pud, pmd_t *pmd)
  
-+config RISCV_ISA_SV48
-+	bool "Page-Based 48-bit Virtual-Memory System"
-+	depends on 64BIT && NONPORTABLE
-+	default y
-+	help
-+	  Add support for the Page-Based 48-bit Virtual-Memory System.
-+
-+	  Enable this option for systems for which a 39-bit virtual address
-+	  space is insufficient. But if 39-bit is enough, disabling this
-+	  option will result in smaller kernel size and slighly better
-+	  performance.
-+
-+config RISCV_ISA_SV57
-+	bool "Page-Based 57-bit Virtual-Memory System"
-+	depends on 64BIT && NONPORTABLE
-+	default y
-+	help
-+	  Add support for the Page-Based 57-bit Virtual-Memory System.
-+
-+	  Enable this option for systems for which a 48-bit virtual address
-+	  space is insufficient. But if 48-bit is enough, disabling this
-+	  option will result in smaller kernel size and slighly better
-+	  performance.
-+
- config RISCV_ISA_SVPBMT
- 	bool "Svpbmt extension support for supervisor mode page-based memory types"
- 	depends on 64BIT && MMU
+ static inline void p4d_populate(struct mm_struct *mm, p4d_t *p4d, pud_t *pud)
+ {
+-	if (pgtable_l4_enabled) {
++	if (pgtable_l4_enabled()) {
+ 		unsigned long pfn = virt_to_pfn(pud);
+ 
+ 		set_p4d(p4d, __p4d((pfn << _PAGE_PFN_SHIFT) | _PAGE_TABLE));
+@@ -51,7 +51,7 @@ static inline void p4d_populate(struct mm_struct *mm, p4d_t *p4d, pud_t *pud)
+ static inline void p4d_populate_safe(struct mm_struct *mm, p4d_t *p4d,
+ 				     pud_t *pud)
+ {
+-	if (pgtable_l4_enabled) {
++	if (pgtable_l4_enabled()) {
+ 		unsigned long pfn = virt_to_pfn(pud);
+ 
+ 		set_p4d_safe(p4d,
+@@ -61,7 +61,7 @@ static inline void p4d_populate_safe(struct mm_struct *mm, p4d_t *p4d,
+ 
+ static inline void pgd_populate(struct mm_struct *mm, pgd_t *pgd, p4d_t *p4d)
+ {
+-	if (pgtable_l5_enabled) {
++	if (pgtable_l5_enabled()) {
+ 		unsigned long pfn = virt_to_pfn(p4d);
+ 
+ 		set_pgd(pgd, __pgd((pfn << _PAGE_PFN_SHIFT) | _PAGE_TABLE));
+@@ -71,7 +71,7 @@ static inline void pgd_populate(struct mm_struct *mm, pgd_t *pgd, p4d_t *p4d)
+ static inline void pgd_populate_safe(struct mm_struct *mm, pgd_t *pgd,
+ 				     p4d_t *p4d)
+ {
+-	if (pgtable_l5_enabled) {
++	if (pgtable_l5_enabled()) {
+ 		unsigned long pfn = virt_to_pfn(p4d);
+ 
+ 		set_pgd_safe(pgd,
+@@ -82,21 +82,21 @@ static inline void pgd_populate_safe(struct mm_struct *mm, pgd_t *pgd,
+ #define pud_free pud_free
+ static inline void pud_free(struct mm_struct *mm, pud_t *pud)
+ {
+-	if (pgtable_l4_enabled)
++	if (pgtable_l4_enabled())
+ 		__pud_free(mm, pud);
+ }
+ 
+ static inline void __pud_free_tlb(struct mmu_gather *tlb, pud_t *pud,
+ 				  unsigned long addr)
+ {
+-	if (pgtable_l4_enabled)
++	if (pgtable_l4_enabled())
+ 		tlb_remove_ptdesc(tlb, virt_to_ptdesc(pud));
+ }
+ 
+ static inline void __p4d_free_tlb(struct mmu_gather *tlb, p4d_t *p4d,
+ 				  unsigned long addr)
+ {
+-	if (pgtable_l5_enabled)
++	if (pgtable_l5_enabled())
+ 		tlb_remove_ptdesc(tlb, virt_to_ptdesc(p4d));
+ }
+ #endif /* __PAGETABLE_PMD_FOLDED */
+diff --git a/arch/riscv/include/asm/pgtable-32.h b/arch/riscv/include/asm/pgtable-32.h
+index 00f3369570a8..5003a7e0f0b0 100644
+--- a/arch/riscv/include/asm/pgtable-32.h
++++ b/arch/riscv/include/asm/pgtable-32.h
+@@ -33,7 +33,7 @@
+ 					  _PAGE_WRITE | _PAGE_EXEC |	\
+ 					  _PAGE_USER | _PAGE_GLOBAL))
+ 
+-static const __maybe_unused int pgtable_l4_enabled;
+-static const __maybe_unused int pgtable_l5_enabled;
++static inline bool pgtable_l4_enabled(void) { return false; }
++static inline bool pgtable_l5_enabled(void) { return false; }
+ 
+ #endif /* _ASM_RISCV_PGTABLE_32_H */
 diff --git a/arch/riscv/include/asm/pgtable-64.h b/arch/riscv/include/asm/pgtable-64.h
-index 7e30ec0e9f6c..f2d29da93eea 100644
+index 6e789fa58514..72b8c63469fa 100644
 --- a/arch/riscv/include/asm/pgtable-64.h
 +++ b/arch/riscv/include/asm/pgtable-64.h
-@@ -16,21 +16,33 @@ extern bool _pgtable_l5_enabled;
- #ifdef USE_EARLY_PGTABLE_LEVELS
- static __always_inline bool pgtable_l5_enabled(void)
- {
-+	if (IS_ENABLED(CONFIG_NONPORTABLE) && !IS_ENABLED(CONFIG_RISCV_ISA_SV57))
-+		return false;
+@@ -10,14 +10,24 @@
+ #include <linux/const.h>
+ #include <asm/errata_list.h>
+ 
+-extern bool pgtable_l4_enabled;
+-extern bool pgtable_l5_enabled;
++extern bool _pgtable_l4_enabled;
++extern bool _pgtable_l5_enabled;
 +
- 	return _pgtable_l5_enabled;
++static __always_inline bool pgtable_l5_enabled(void)
++{
++	return _pgtable_l5_enabled;
++}
++
++static __always_inline bool pgtable_l4_enabled(void)
++{
++	return _pgtable_l4_enabled;
++}
+ 
+ #define PGDIR_SHIFT_L3  30
+ #define PGDIR_SHIFT_L4  39
+ #define PGDIR_SHIFT_L5  48
+-#define PGDIR_SHIFT     (pgtable_l5_enabled ? PGDIR_SHIFT_L5 : \
+-		(pgtable_l4_enabled ? PGDIR_SHIFT_L4 : PGDIR_SHIFT_L3))
++#define PGDIR_SHIFT     (pgtable_l5_enabled() ? PGDIR_SHIFT_L5 : \
++		(pgtable_l4_enabled() ? PGDIR_SHIFT_L4 : PGDIR_SHIFT_L3))
+ /* Size of region mapped by a page global directory */
+ #define PGDIR_SIZE      (_AC(1, UL) << PGDIR_SHIFT)
+ #define PGDIR_MASK      (~(PGDIR_SIZE - 1))
+@@ -26,8 +36,8 @@ extern bool pgtable_l5_enabled;
+ #define P4D_SHIFT_L3   30
+ #define P4D_SHIFT_L4   39
+ #define P4D_SHIFT_L5   39
+-#define P4D_SHIFT      (pgtable_l5_enabled ? P4D_SHIFT_L5 : \
+-		(pgtable_l4_enabled ? P4D_SHIFT_L4 : P4D_SHIFT_L3))
++#define P4D_SHIFT      (pgtable_l5_enabled() ? P4D_SHIFT_L5 : \
++		(pgtable_l4_enabled() ? P4D_SHIFT_L4 : P4D_SHIFT_L3))
+ #define P4D_SIZE       (_AC(1, UL) << P4D_SHIFT)
+ #define P4D_MASK       (~(P4D_SIZE - 1))
+ 
+@@ -233,7 +243,7 @@ static inline struct page *pud_page(pud_t pud)
+ #define mm_p4d_folded  mm_p4d_folded
+ static inline bool mm_p4d_folded(struct mm_struct *mm)
+ {
+-	if (pgtable_l5_enabled)
++	if (pgtable_l5_enabled())
+ 		return false;
+ 
+ 	return true;
+@@ -242,7 +252,7 @@ static inline bool mm_p4d_folded(struct mm_struct *mm)
+ #define mm_pud_folded  mm_pud_folded
+ static inline bool mm_pud_folded(struct mm_struct *mm)
+ {
+-	if (pgtable_l4_enabled)
++	if (pgtable_l4_enabled())
+ 		return false;
+ 
+ 	return true;
+@@ -275,7 +285,7 @@ static inline unsigned long _pmd_pfn(pmd_t pmd)
+ 
+ static inline void set_p4d(p4d_t *p4dp, p4d_t p4d)
+ {
+-	if (pgtable_l4_enabled)
++	if (pgtable_l4_enabled())
+ 		WRITE_ONCE(*p4dp, p4d);
+ 	else
+ 		set_pud((pud_t *)p4dp, (pud_t){ p4d_val(p4d) });
+@@ -283,7 +293,7 @@ static inline void set_p4d(p4d_t *p4dp, p4d_t p4d)
+ 
+ static inline int p4d_none(p4d_t p4d)
+ {
+-	if (pgtable_l4_enabled)
++	if (pgtable_l4_enabled())
+ 		return (p4d_val(p4d) == 0);
+ 
+ 	return 0;
+@@ -291,7 +301,7 @@ static inline int p4d_none(p4d_t p4d)
+ 
+ static inline int p4d_present(p4d_t p4d)
+ {
+-	if (pgtable_l4_enabled)
++	if (pgtable_l4_enabled())
+ 		return (p4d_val(p4d) & _PAGE_PRESENT);
+ 
+ 	return 1;
+@@ -299,7 +309,7 @@ static inline int p4d_present(p4d_t p4d)
+ 
+ static inline int p4d_bad(p4d_t p4d)
+ {
+-	if (pgtable_l4_enabled)
++	if (pgtable_l4_enabled())
+ 		return !p4d_present(p4d);
+ 
+ 	return 0;
+@@ -307,7 +317,7 @@ static inline int p4d_bad(p4d_t p4d)
+ 
+ static inline void p4d_clear(p4d_t *p4d)
+ {
+-	if (pgtable_l4_enabled)
++	if (pgtable_l4_enabled())
+ 		set_p4d(p4d, __p4d(0));
  }
  
- static __always_inline bool pgtable_l4_enabled(void)
+@@ -323,7 +333,7 @@ static inline unsigned long _p4d_pfn(p4d_t p4d)
+ 
+ static inline pud_t *p4d_pgtable(p4d_t p4d)
  {
-+	if (IS_ENABLED(CONFIG_NONPORTABLE) && !IS_ENABLED(CONFIG_RISCV_ISA_SV48))
-+		return false;
-+
- 	return _pgtable_l4_enabled;
+-	if (pgtable_l4_enabled)
++	if (pgtable_l4_enabled())
+ 		return (pud_t *)pfn_to_virt(__page_val_to_pfn(p4d_val(p4d)));
+ 
+ 	return (pud_t *)pud_pgtable((pud_t) { p4d_val(p4d) });
+@@ -342,7 +352,7 @@ pud_t *pud_offset(p4d_t *p4d, unsigned long address);
+ 
+ static inline void set_pgd(pgd_t *pgdp, pgd_t pgd)
+ {
+-	if (pgtable_l5_enabled)
++	if (pgtable_l5_enabled())
+ 		WRITE_ONCE(*pgdp, pgd);
+ 	else
+ 		set_p4d((p4d_t *)pgdp, (p4d_t){ pgd_val(pgd) });
+@@ -350,7 +360,7 @@ static inline void set_pgd(pgd_t *pgdp, pgd_t pgd)
+ 
+ static inline int pgd_none(pgd_t pgd)
+ {
+-	if (pgtable_l5_enabled)
++	if (pgtable_l5_enabled())
+ 		return (pgd_val(pgd) == 0);
+ 
+ 	return 0;
+@@ -358,7 +368,7 @@ static inline int pgd_none(pgd_t pgd)
+ 
+ static inline int pgd_present(pgd_t pgd)
+ {
+-	if (pgtable_l5_enabled)
++	if (pgtable_l5_enabled())
+ 		return (pgd_val(pgd) & _PAGE_PRESENT);
+ 
+ 	return 1;
+@@ -366,7 +376,7 @@ static inline int pgd_present(pgd_t pgd)
+ 
+ static inline int pgd_bad(pgd_t pgd)
+ {
+-	if (pgtable_l5_enabled)
++	if (pgtable_l5_enabled())
+ 		return !pgd_present(pgd);
+ 
+ 	return 0;
+@@ -374,13 +384,13 @@ static inline int pgd_bad(pgd_t pgd)
+ 
+ static inline void pgd_clear(pgd_t *pgd)
+ {
+-	if (pgtable_l5_enabled)
++	if (pgtable_l5_enabled())
+ 		set_pgd(pgd, __pgd(0));
  }
+ 
+ static inline p4d_t *pgd_pgtable(pgd_t pgd)
+ {
+-	if (pgtable_l5_enabled)
++	if (pgtable_l5_enabled())
+ 		return (p4d_t *)pfn_to_virt(__page_val_to_pfn(pgd_val(pgd)));
+ 
+ 	return (p4d_t *)p4d_pgtable((p4d_t) { pgd_val(pgd) });
+diff --git a/arch/riscv/include/asm/pgtable.h b/arch/riscv/include/asm/pgtable.h
+index 40b1ed4f3ea8..a71671166852 100644
+--- a/arch/riscv/include/asm/pgtable.h
++++ b/arch/riscv/include/asm/pgtable.h
+@@ -75,8 +75,8 @@
+ #define VA_BITS_SV48 48
+ #define VA_BITS_SV57 57
+ 
+-#define VA_BITS		(pgtable_l5_enabled ? \
+-				VA_BITS_SV57 : (pgtable_l4_enabled ? VA_BITS_SV48 : VA_BITS_SV39))
++#define VA_BITS		(pgtable_l5_enabled() ? \
++				VA_BITS_SV57 : (pgtable_l4_enabled() ? VA_BITS_SV48 : VA_BITS_SV39))
  #else
- static __always_inline bool pgtable_l4_enabled(void)
+ #define VA_BITS		VA_BITS_SV32
+ #endif
+diff --git a/arch/riscv/include/asm/vmalloc.h b/arch/riscv/include/asm/vmalloc.h
+index fefe94dc98e2..4d8b80ce570b 100644
+--- a/arch/riscv/include/asm/vmalloc.h
++++ b/arch/riscv/include/asm/vmalloc.h
+@@ -3,15 +3,14 @@
+ #define _ASM_RISCV_VMALLOC_H
+ 
+ #ifdef CONFIG_HAVE_ARCH_HUGE_VMAP
+-
+-extern bool pgtable_l4_enabled, pgtable_l5_enabled;
++#include <asm/pgtable.h>
+ 
+ #define IOREMAP_MAX_ORDER (PUD_SHIFT)
+ 
+ #define arch_vmap_pud_supported arch_vmap_pud_supported
+ static inline bool arch_vmap_pud_supported(pgprot_t prot)
  {
-+	if (IS_ENABLED(CONFIG_NONPORTABLE) && !IS_ENABLED(CONFIG_RISCV_ISA_SV48))
-+		return false;
-+
- 	return riscv_has_extension_likely(RISCV_ISA_EXT_SV48);
+-	return pgtable_l4_enabled || pgtable_l5_enabled;
++	return pgtable_l4_enabled() || pgtable_l5_enabled();
  }
  
- static __always_inline bool pgtable_l5_enabled(void)
- {
-+	if (IS_ENABLED(CONFIG_NONPORTABLE) && !IS_ENABLED(CONFIG_RISCV_ISA_SV57))
-+		return false;
-+
- 	return riscv_has_extension_likely(RISCV_ISA_EXT_SV57);
- }
- #endif
+ #define arch_vmap_pmd_supported arch_vmap_pmd_supported
+diff --git a/arch/riscv/kernel/cpu.c b/arch/riscv/kernel/cpu.c
+index 3dbc8cc557dd..af84b97af3a1 100644
+--- a/arch/riscv/kernel/cpu.c
++++ b/arch/riscv/kernel/cpu.c
+@@ -292,9 +292,9 @@ static void print_mmu(struct seq_file *f)
+ #if defined(CONFIG_32BIT)
+ 	sv_type = "sv32";
+ #elif defined(CONFIG_64BIT)
+-	if (pgtable_l5_enabled)
++	if (pgtable_l5_enabled())
+ 		sv_type = "sv57";
+-	else if (pgtable_l4_enabled)
++	else if (pgtable_l4_enabled())
+ 		sv_type = "sv48";
+ 	else
+ 		sv_type = "sv39";
 diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
-index 2a2402d79bc4..90bb85c5f167 100644
+index f8994caefc70..fc74142fe6e6 100644
 --- a/arch/riscv/mm/init.c
 +++ b/arch/riscv/mm/init.c
-@@ -844,6 +844,16 @@ static __init void set_satp_mode(uintptr_t dtb_pa)
+@@ -52,10 +52,10 @@ u64 satp_mode __ro_after_init = SATP_MODE_32;
+ EXPORT_SYMBOL(satp_mode);
  
- 	kernel_map.page_offset = PAGE_OFFSET_L5;
+ #ifdef CONFIG_64BIT
+-bool pgtable_l4_enabled __ro_after_init = true;
+-bool pgtable_l5_enabled __ro_after_init = true;
+-EXPORT_SYMBOL(pgtable_l4_enabled);
+-EXPORT_SYMBOL(pgtable_l5_enabled);
++bool _pgtable_l4_enabled __ro_after_init = true;
++bool _pgtable_l5_enabled __ro_after_init = true;
++EXPORT_SYMBOL(_pgtable_l4_enabled);
++EXPORT_SYMBOL(_pgtable_l5_enabled);
+ #endif
  
-+	/* Fall back to Sv48 if Sv57 is unsupported on non-portable systems */
-+	if (IS_ENABLED(CONFIG_NONPORTABLE) && !IS_ENABLED(CONFIG_RISCV_ISA_SV57) &&
-+			satp_mode_limit == 0)
-+		satp_mode_limit = SATP_MODE_48;
-+
-+	/* Fall back to Sv39 if Sv48 is unsupported on non-portable systems */
-+	if (IS_ENABLED(CONFIG_NONPORTABLE) && !IS_ENABLED(CONFIG_RISCV_ISA_SV48) &&
-+			satp_mode_limit == SATP_MODE_48)
-+		satp_mode_limit = SATP_MODE_39;
-+
- 	if (satp_mode_limit == SATP_MODE_48) {
- 		disable_pgtable_l5();
- 	} else if (satp_mode_limit == SATP_MODE_39) {
+ phys_addr_t phys_ram_base __ro_after_init;
+@@ -652,23 +652,23 @@ static void __meminit create_p4d_mapping(p4d_t *p4dp, uintptr_t va, phys_addr_t
+ }
+ 
+ #define pgd_next_t		p4d_t
+-#define alloc_pgd_next(__va)	(pgtable_l5_enabled ?			\
+-		pt_ops.alloc_p4d(__va) : (pgtable_l4_enabled ?		\
++#define alloc_pgd_next(__va)	(pgtable_l5_enabled() ?			\
++		pt_ops.alloc_p4d(__va) : (pgtable_l4_enabled() ?	\
+ 		pt_ops.alloc_pud(__va) : pt_ops.alloc_pmd(__va)))
+-#define get_pgd_next_virt(__pa)	(pgtable_l5_enabled ?			\
+-		pt_ops.get_p4d_virt(__pa) : (pgd_next_t *)(pgtable_l4_enabled ?	\
++#define get_pgd_next_virt(__pa)	(pgtable_l5_enabled() ?			\
++		pt_ops.get_p4d_virt(__pa) : (pgd_next_t *)(pgtable_l4_enabled() ? \
+ 		pt_ops.get_pud_virt(__pa) : (pud_t *)pt_ops.get_pmd_virt(__pa)))
+ #define create_pgd_next_mapping(__nextp, __va, __pa, __sz, __prot)	\
+-				(pgtable_l5_enabled ?			\
++				(pgtable_l5_enabled() ?			\
+ 		create_p4d_mapping(__nextp, __va, __pa, __sz, __prot) : \
+-				(pgtable_l4_enabled ?			\
++				(pgtable_l4_enabled() ?			\
+ 		create_pud_mapping((pud_t *)__nextp, __va, __pa, __sz, __prot) :	\
+ 		create_pmd_mapping((pmd_t *)__nextp, __va, __pa, __sz, __prot)))
+-#define fixmap_pgd_next		(pgtable_l5_enabled ?			\
+-		(uintptr_t)fixmap_p4d : (pgtable_l4_enabled ?		\
++#define fixmap_pgd_next		(pgtable_l5_enabled() ?			\
++		(uintptr_t)fixmap_p4d : (pgtable_l4_enabled() ?		\
+ 		(uintptr_t)fixmap_pud : (uintptr_t)fixmap_pmd))
+-#define trampoline_pgd_next	(pgtable_l5_enabled ?			\
+-		(uintptr_t)trampoline_p4d : (pgtable_l4_enabled ?	\
++#define trampoline_pgd_next	(pgtable_l5_enabled() ?			\
++		(uintptr_t)trampoline_p4d : (pgtable_l4_enabled() ?	\
+ 		(uintptr_t)trampoline_pud : (uintptr_t)trampoline_pmd))
+ #else
+ #define pgd_next_t		pte_t
+@@ -713,11 +713,11 @@ static uintptr_t __meminit best_map_size(phys_addr_t pa, uintptr_t va, phys_addr
+ 	if (debug_pagealloc_enabled())
+ 		return PAGE_SIZE;
+ 
+-	if (pgtable_l5_enabled &&
++	if (pgtable_l5_enabled() &&
+ 	    !(pa & (P4D_SIZE - 1)) && !(va & (P4D_SIZE - 1)) && size >= P4D_SIZE)
+ 		return P4D_SIZE;
+ 
+-	if (pgtable_l4_enabled &&
++	if (pgtable_l4_enabled() &&
+ 	    !(pa & (PUD_SIZE - 1)) && !(va & (PUD_SIZE - 1)) && size >= PUD_SIZE)
+ 		return PUD_SIZE;
+ 
+@@ -769,14 +769,14 @@ u64 __pi_set_satp_mode_from_fdt(uintptr_t dtb_pa);
+ 
+ static void __init disable_pgtable_l5(void)
+ {
+-	pgtable_l5_enabled = false;
++	_pgtable_l5_enabled = false;
+ 	kernel_map.page_offset = PAGE_OFFSET_L4;
+ 	satp_mode = SATP_MODE_48;
+ }
+ 
+ static void __init disable_pgtable_l4(void)
+ {
+-	pgtable_l4_enabled = false;
++	_pgtable_l4_enabled = false;
+ 	kernel_map.page_offset = PAGE_OFFSET_L3;
+ 	satp_mode = SATP_MODE_39;
+ }
+@@ -867,7 +867,7 @@ static __init void set_satp_mode(uintptr_t dtb_pa)
+ 
+ 	create_pgd_mapping(early_pg_dir,
+ 			   set_satp_mode_pmd,
+-			   pgtable_l5_enabled ?
++			   pgtable_l5_enabled() ?
+ 				(uintptr_t)early_p4d : (uintptr_t)early_pud,
+ 			   PGDIR_SIZE, PAGE_TABLE);
+ 
+@@ -879,7 +879,7 @@ static __init void set_satp_mode(uintptr_t dtb_pa)
+ 	local_flush_tlb_all();
+ 
+ 	if (hw_satp != identity_satp) {
+-		if (pgtable_l5_enabled) {
++		if (pgtable_l5_enabled()) {
+ 			disable_pgtable_l5();
+ 			memset(early_pg_dir, 0, PAGE_SIZE);
+ 			goto retry;
+@@ -1120,11 +1120,11 @@ asmlinkage void __init setup_vm(uintptr_t dtb_pa)
+ 
+ #ifndef __PAGETABLE_PMD_FOLDED
+ 	/* Setup fixmap P4D and PUD */
+-	if (pgtable_l5_enabled)
++	if (pgtable_l5_enabled())
+ 		create_p4d_mapping(fixmap_p4d, FIXADDR_START,
+ 				   (uintptr_t)fixmap_pud, P4D_SIZE, PAGE_TABLE);
+ 	/* Setup fixmap PUD and PMD */
+-	if (pgtable_l4_enabled)
++	if (pgtable_l4_enabled())
+ 		create_pud_mapping(fixmap_pud, FIXADDR_START,
+ 				   (uintptr_t)fixmap_pmd, PUD_SIZE, PAGE_TABLE);
+ 	create_pmd_mapping(fixmap_pmd, FIXADDR_START,
+@@ -1132,10 +1132,10 @@ asmlinkage void __init setup_vm(uintptr_t dtb_pa)
+ 	/* Setup trampoline PGD and PMD */
+ 	create_pgd_mapping(trampoline_pg_dir, kernel_map.virt_addr,
+ 			   trampoline_pgd_next, PGDIR_SIZE, PAGE_TABLE);
+-	if (pgtable_l5_enabled)
++	if (pgtable_l5_enabled())
+ 		create_p4d_mapping(trampoline_p4d, kernel_map.virt_addr,
+ 				   (uintptr_t)trampoline_pud, P4D_SIZE, PAGE_TABLE);
+-	if (pgtable_l4_enabled)
++	if (pgtable_l4_enabled())
+ 		create_pud_mapping(trampoline_pud, kernel_map.virt_addr,
+ 				   (uintptr_t)trampoline_pmd, PUD_SIZE, PAGE_TABLE);
+ 	create_pmd_mapping(trampoline_pmd, kernel_map.virt_addr,
+@@ -1406,7 +1406,7 @@ static void __init preallocate_pgd_pages_range(unsigned long start, unsigned lon
+ 		if (!p4d)
+ 			goto failed;
+ 
+-		if (pgtable_l5_enabled)
++		if (pgtable_l5_enabled())
+ 			continue;
+ 
+ 		lvl = "pud";
+@@ -1414,7 +1414,7 @@ static void __init preallocate_pgd_pages_range(unsigned long start, unsigned lon
+ 		if (!pud)
+ 			goto failed;
+ 
+-		if (pgtable_l4_enabled)
++		if (pgtable_l4_enabled())
+ 			continue;
+ 
+ 		lvl = "pmd";
+@@ -1624,13 +1624,13 @@ static void __meminit remove_pud_mapping(pud_t *pud_base, unsigned long addr, un
+ 
+ 	for (; addr < end; addr = next) {
+ 		next = pud_addr_end(addr, end);
+-		pudp = pgtable_l4_enabled ? pud_base + pud_index(addr) : pud_base;
++		pudp = pgtable_l4_enabled() ? pud_base + pud_index(addr) : pud_base;
+ 		pud = pudp_get(pudp);
+ 		if (!pud_present(pud))
+ 			continue;
+ 
+ 		if (pud_leaf(pud)) {
+-			if (pgtable_l4_enabled) {
++			if (pgtable_l4_enabled()) {
+ 				pud_clear(pudp);
+ 				if (is_vmemmap)
+ 					free_vmemmap_storage(pud_page(pud), PUD_SIZE, altmap);
+@@ -1641,7 +1641,7 @@ static void __meminit remove_pud_mapping(pud_t *pud_base, unsigned long addr, un
+ 		pmd_base = pmd_offset(pudp, 0);
+ 		remove_pmd_mapping(pmd_base, addr, next, is_vmemmap, altmap);
+ 
+-		if (pgtable_l4_enabled)
++		if (pgtable_l4_enabled())
+ 			free_pmd_table(pmd_base, pudp, is_vmemmap);
+ 	}
+ }
+@@ -1655,13 +1655,13 @@ static void __meminit remove_p4d_mapping(p4d_t *p4d_base, unsigned long addr, un
+ 
+ 	for (; addr < end; addr = next) {
+ 		next = p4d_addr_end(addr, end);
+-		p4dp = pgtable_l5_enabled ? p4d_base + p4d_index(addr) : p4d_base;
++		p4dp = pgtable_l5_enabled() ? p4d_base + p4d_index(addr) : p4d_base;
+ 		p4d = p4dp_get(p4dp);
+ 		if (!p4d_present(p4d))
+ 			continue;
+ 
+ 		if (p4d_leaf(p4d)) {
+-			if (pgtable_l5_enabled) {
++			if (pgtable_l5_enabled()) {
+ 				p4d_clear(p4dp);
+ 				if (is_vmemmap)
+ 					free_vmemmap_storage(p4d_page(p4d), P4D_SIZE, altmap);
+@@ -1672,7 +1672,7 @@ static void __meminit remove_p4d_mapping(p4d_t *p4d_base, unsigned long addr, un
+ 		pud_base = pud_offset(p4dp, 0);
+ 		remove_pud_mapping(pud_base, addr, next, is_vmemmap, altmap);
+ 
+-		if (pgtable_l5_enabled)
++		if (pgtable_l5_enabled())
+ 			free_pud_table(pud_base, p4dp);
+ 	}
+ }
+diff --git a/arch/riscv/mm/kasan_init.c b/arch/riscv/mm/kasan_init.c
+index 1f3aa9611187..84f87c8277c3 100644
+--- a/arch/riscv/mm/kasan_init.c
++++ b/arch/riscv/mm/kasan_init.c
+@@ -168,7 +168,7 @@ static void __init kasan_early_clear_pud(p4d_t *p4dp,
+ 	pud_t *pudp, *base_pud;
+ 	unsigned long next;
+ 
+-	if (!pgtable_l4_enabled) {
++	if (!pgtable_l4_enabled()) {
+ 		pudp = (pud_t *)p4dp;
+ 	} else {
+ 		base_pud = pt_ops.get_pud_virt(pfn_to_phys(_p4d_pfn(p4dp_get(p4dp))));
+@@ -193,7 +193,7 @@ static void __init kasan_early_clear_p4d(pgd_t *pgdp,
+ 	p4d_t *p4dp, *base_p4d;
+ 	unsigned long next;
+ 
+-	if (!pgtable_l5_enabled) {
++	if (!pgtable_l5_enabled()) {
+ 		p4dp = (p4d_t *)pgdp;
+ 	} else {
+ 		base_p4d = pt_ops.get_p4d_virt(pfn_to_phys(_pgd_pfn(pgdp_get(pgdp))));
+@@ -203,7 +203,7 @@ static void __init kasan_early_clear_p4d(pgd_t *pgdp,
+ 	do {
+ 		next = p4d_addr_end(vaddr, end);
+ 
+-		if (pgtable_l4_enabled && IS_ALIGNED(vaddr, P4D_SIZE) &&
++		if (pgtable_l4_enabled() && IS_ALIGNED(vaddr, P4D_SIZE) &&
+ 		    (next - vaddr) >= P4D_SIZE) {
+ 			p4d_clear(p4dp);
+ 			continue;
+@@ -221,7 +221,7 @@ static void __init kasan_early_clear_pgd(pgd_t *pgdp,
+ 	do {
+ 		next = pgd_addr_end(vaddr, end);
+ 
+-		if (pgtable_l5_enabled && IS_ALIGNED(vaddr, PGDIR_SIZE) &&
++		if (pgtable_l5_enabled() && IS_ALIGNED(vaddr, PGDIR_SIZE) &&
+ 		    (next - vaddr) >= PGDIR_SIZE) {
+ 			pgd_clear(pgdp);
+ 			continue;
+@@ -239,7 +239,7 @@ static void __init kasan_early_populate_pud(p4d_t *p4dp,
+ 	phys_addr_t phys_addr;
+ 	unsigned long next;
+ 
+-	if (!pgtable_l4_enabled) {
++	if (!pgtable_l4_enabled()) {
+ 		pudp = (pud_t *)p4dp;
+ 	} else {
+ 		base_pud = pt_ops.get_pud_virt(pfn_to_phys(_p4d_pfn(p4dp_get(p4dp))));
+@@ -277,7 +277,7 @@ static void __init kasan_early_populate_p4d(pgd_t *pgdp,
+ 	 * Note that this test is then completely equivalent to
+ 	 * p4dp = p4d_offset(pgdp, vaddr)
+ 	 */
+-	if (!pgtable_l5_enabled) {
++	if (!pgtable_l5_enabled()) {
+ 		p4dp = (p4d_t *)pgdp;
+ 	} else {
+ 		base_p4d = pt_ops.get_p4d_virt(pfn_to_phys(_pgd_pfn(pgdp_get(pgdp))));
+@@ -336,7 +336,7 @@ asmlinkage void __init kasan_early_init(void)
+ 				(__pa((uintptr_t)kasan_early_shadow_pte)),
+ 				PAGE_TABLE));
+ 
+-	if (pgtable_l4_enabled) {
++	if (pgtable_l4_enabled()) {
+ 		for (i = 0; i < PTRS_PER_PUD; ++i)
+ 			set_pud(kasan_early_shadow_pud + i,
+ 				pfn_pud(PFN_DOWN
+@@ -344,7 +344,7 @@ asmlinkage void __init kasan_early_init(void)
+ 					PAGE_TABLE));
+ 	}
+ 
+-	if (pgtable_l5_enabled) {
++	if (pgtable_l5_enabled()) {
+ 		for (i = 0; i < PTRS_PER_P4D; ++i)
+ 			set_p4d(kasan_early_shadow_p4d + i,
+ 				pfn_p4d(PFN_DOWN
+@@ -461,7 +461,7 @@ static void __init create_tmp_mapping(void)
+ 	memcpy(tmp_pg_dir, swapper_pg_dir, sizeof(pgd_t) * PTRS_PER_PGD);
+ 
+ 	/* Copy the last p4d since it is shared with the kernel mapping. */
+-	if (pgtable_l5_enabled) {
++	if (pgtable_l5_enabled()) {
+ 		ptr = (p4d_t *)pgd_page_vaddr(pgdp_get(pgd_offset_k(KASAN_SHADOW_END)));
+ 		memcpy(tmp_p4d, ptr, sizeof(p4d_t) * PTRS_PER_P4D);
+ 		set_pgd(&tmp_pg_dir[pgd_index(KASAN_SHADOW_END)],
+@@ -472,7 +472,7 @@ static void __init create_tmp_mapping(void)
+ 	}
+ 
+ 	/* Copy the last pud since it is shared with the kernel mapping. */
+-	if (pgtable_l4_enabled) {
++	if (pgtable_l4_enabled()) {
+ 		ptr = (pud_t *)p4d_page_vaddr(p4dp_get(base_p4d + p4d_index(KASAN_SHADOW_END)));
+ 		memcpy(tmp_pud, ptr, sizeof(pud_t) * PTRS_PER_PUD);
+ 		set_p4d(&base_p4d[p4d_index(KASAN_SHADOW_END)],
+diff --git a/arch/riscv/mm/pgtable.c b/arch/riscv/mm/pgtable.c
+index 9c4427d0b187..cd180f9abb5e 100644
+--- a/arch/riscv/mm/pgtable.c
++++ b/arch/riscv/mm/pgtable.c
+@@ -41,7 +41,7 @@ EXPORT_SYMBOL_GPL(ptep_test_and_clear_young);
+ #ifdef CONFIG_64BIT
+ pud_t *pud_offset(p4d_t *p4d, unsigned long address)
+ {
+-	if (pgtable_l4_enabled)
++	if (pgtable_l4_enabled())
+ 		return p4d_pgtable(p4dp_get(p4d)) + pud_index(address);
+ 
+ 	return (pud_t *)p4d;
+@@ -50,7 +50,7 @@ EXPORT_SYMBOL_GPL(pud_offset);
+ 
+ p4d_t *p4d_offset(pgd_t *pgd, unsigned long address)
+ {
+-	if (pgtable_l5_enabled)
++	if (pgtable_l5_enabled())
+ 		return pgd_pgtable(pgdp_get(pgd)) + p4d_index(address);
+ 
+ 	return (p4d_t *)pgd;
+diff --git a/arch/riscv/mm/ptdump.c b/arch/riscv/mm/ptdump.c
+index f4b4a9fcbbd8..f765a63e2ca7 100644
+--- a/arch/riscv/mm/ptdump.c
++++ b/arch/riscv/mm/ptdump.c
+@@ -446,8 +446,8 @@ static int __init ptdump_init(void)
+ 
+ 	kernel_ptd_info.base_addr = KERN_VIRT_START;
+ 
+-	pg_level[1].name = pgtable_l5_enabled ? "P4D" : "PGD";
+-	pg_level[2].name = pgtable_l4_enabled ? "PUD" : "PGD";
++	pg_level[1].name = pgtable_l5_enabled() ? "P4D" : "PGD";
++	pg_level[2].name = pgtable_l4_enabled() ? "PUD" : "PGD";
+ 
+ 	for (i = 0; i < ARRAY_SIZE(pg_level); i++)
+ 		for (j = 0; j < ARRAY_SIZE(pte_bits); j++)
 -- 
 2.53.0
 
