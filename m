@@ -1,64 +1,64 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66A923546DE
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:44:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 058602DC765
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:44:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788756290; cv=none; b=C+zj/EkL6NYM5KISqR4e4TuHkXysJwJ4Dv3VeAdDwcjLPf+1rjlKlB0WIk+VLgnC+GkmOnyB+9VJ+vNWJZj21jPbcEp2Be9VownjsONJ3lXdkwu6YG4+L4RDCQBkYud0qiPTAxacQzycuKDwgkhY4NRAfVgakecgPg5Scqpjhd0=
+	t=1788756296; cv=none; b=KVeN6qosD/i8BLMtO202o9NPl8fzRGjuV7kIBX4jytlyuGuZlbh2wsZ+gxN9vVdWv4XpsWZ2F49yJFtcDwvMgxPOkH5pjmjlYjL4cfmRdrrFhrsqgmP+XDD7Qr5XmDaj+2yVr5blcvP4Iov6lZVCdw3MDNd5VEj6Hef/LNxPBMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788756290; c=relaxed/simple;
-	bh=r/Yb1TwYqrAmxqT4G7QAMIstgXNzCAcMpunOKlup3Rk=;
+	s=arc-20240116; t=1788756296; c=relaxed/simple;
+	bh=q/VShi8y2Rb70ozxxxWRAtjTcKmlnjijX7MzBXAKbSQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mb9SLbX/0MjxXBUGCapny3u1gh6v/s7o7MxryjVY+uQTwu1KnA+KHITghIlk+esIJBbIy8GE73C1qgKgcK9VXhvHjZDwZKS4Xysl2WgKmrE+IlRg2hvLydgpSEYXUDkDDLIX9PTG8KXptrEDgtyKU0PscPpqUYd7KRvbX9ZpFbA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=imcqLLlX; arc=none smtp.client-ip=209.85.214.170
+	 MIME-Version; b=XTRtUMwQm1t6KXhiVRAsoTpgxh+5AE38fNMQFotu5rYxQZ1de59jb4FcjKCY68TuCX1sIkyATObPp/CjPYjaXW1yByoaY3DrBqqfTjxpTuMyV5NqmAJyRrejNhDVPeikbvIWgpbw0VJE498GNW5z3SbveqVN96QXUrtkyRqNcyQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P5IsOPr7; arc=none smtp.client-ip=209.85.210.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="imcqLLlX"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d71ae3455aso45251235ad.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 21:44:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P5IsOPr7"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-84f3ab8750cso2194318b3a.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 21:44:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788756289; x=1789361089; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788756294; x=1789361094; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ieAuNZcZYYBHRZ196owNjlAruJ8erVXUUQKh5uVkow4=;
-        b=imcqLLlXgHNZDrZ6nULWcLPgtC/h83N5LI6NIFElx5hE1GwTI9N6lOYkROpKn/Va0n
-         pXPaie7Xj1Uxe15CxMrVs7ClUCwes7KF1ONpsLY1oOEpzqnqGZLmuQdqRGEtdjLGVKtC
-         YUCohzNykrdTmTaz7L0hMx9/eIuhK/rnmYpkLYXmC52aV/b2En8wWLaB6CgsRbfZd/qo
-         7GP48z5ApDg8gA7Nl/BdG9yZ7PicPRZy/4HsOwPKjr7TanVwX23nSvRDUGPI2bS2toOW
-         NXqwNJrcqoHNpDsfgq9KSIe4O1djkFQ3UrVDG/MFkaV0RGRJmNo8lDSatWlzfMcpFUas
-         OGnA==
+        bh=NsCXtS0F1ozalP9OgDEtI+4ABXzVdG2gEkR2YSb8sls=;
+        b=P5IsOPr7ey12N0SLpLU8R7dFfBG24Y8XVzaq90vJAudj1+lE+7w4p233O+kZfwPKDl
+         xcpRHbVUF/3cIOD4OvyU1ufn+QiRQnJ/O8nR9i5N07a4lKIWadHnKDA+raavd/UQJJsC
+         0NFt3+PFYxJ0QmeHu6VEQ0vvAqYj1VZLL9JJiBrhqOJ4F31oc+jzIwXsvA/Kz9l8+0bK
+         0nEpVDbW/p1nHKxHUG6+Q0ZErT/Q3cw5Mzj9/UYYa/LDamfL8zbihPojcos7R8jirCE/
+         swz4mufNnOeYDGhdq3qD/QtzPWnRuH6Tb6yuItwigqf7/tqTEV5WrL/TIuus+ImpO6LM
+         grhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788756289; x=1789361089;
+        d=1e100.net; s=20251104; t=1788756294; x=1789361094;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ieAuNZcZYYBHRZ196owNjlAruJ8erVXUUQKh5uVkow4=;
-        b=Ktx1hYi1yXEoGtRDVKX4FnfSfVNN1APRFgT2ImwAIYTUcPZh0H9wIvkjoerhicEB3u
-         eCtIox5GPzdTRogG/qmZ6uVzx2PNhjrmY1NeEm+WqSOsjKXtqz5S1nQ4w0mjeeMxLmby
-         xFKLPFaJ7d43HXWPBdH7/bnSsA3m7FbdmyXuGoh7rO0WUUaKz5I6VKsoavqSi4/xfxmR
-         SZTKxsx602M1BTdvPGxUIVPR80arOapgN3GfUFISpaIOSf2M/lK4ezUrCev/Jx3kLc8v
-         cThBoNsWoMacnQHEry+Vxo2TbmO4AqjEPc1rVaOy1NwpbrTr7gB1vkhS16Tgrp1PGk0h
-         EANA==
-X-Forwarded-Encrypted: i=1; AKwUvBxuXu2T8m6xF8ZUD1veRjb9mXu4r0Ph2XQC7zf6F+wMuMVFr8gvTcqm0YegxAO9nSlTtEUa4VVibr9ki7E=@vger.kernel.org
-X-Gm-Message-State: AFuF++n47i84+3uyji82TFwYyZumZcp4WltzLjJvxntCwm4zQVdSWVra
-	Z5hByXkSlB0QIZKj7MsO2E5/t3dc/ZZaZSE8KKJ+HrMDChFCKCSCQXuU
-X-Gm-Gg: AYBFou2mkeTroHmY4KhnqsRf+qJAedHQobCuMXlRvnAvKqJ86F51e2k0QKl0lzRyjut
-	6pzilmJszVkWKkD+wdNWtWS3lfL6cllJOBPjN/+bgmTOQo3Ki9E8ptCg+LNB2u7W+TGWRxJo+es
-	otY0hvXTIM3eQ2ah3lKJm9h+LqmGeMP0yCt0T27eYfNqNcXvovO6UrzI2RuXMbXopf0sXzNYrcR
-	DR2wDwYRLDzsjnRqkHW1+bjNHiFBPSHjq9d+LeIa/GY8taxMXmsGyl18uWvzkjQ4lJSq72rj9RX
-	S+flgCmkHBCQ1AuPH9Ol7wj1f/YjmlGocFQedN12EEPEOgdF0cCgCLROPPC8tdi/W+M0oOftmlb
-	0Wa2DoWSik3RX/0ORG0pvZMycD4OQXCTqxqq0QlhHwVjPnE9g21XWDCKEKWyo2T+06xcgiuCSHE
-	DqrnLkd5jfDz43OxoL5Rlohwgxdu2YUiZF+V71Xuhid4uNf//U7pywuoBR9C8n4JO/X9heyaWoh
-	oPd1r8NyXlm4O7OD+rCJ3tk
-X-Received: by 2002:a17:903:40c6:b0:2d8:d4cc:5bb1 with SMTP id d9443c01a7336-2db1286ae13mr285166485ad.17.1788756288604;
-        Sun, 06 Sep 2026 21:44:48 -0700 (PDT)
+        bh=NsCXtS0F1ozalP9OgDEtI+4ABXzVdG2gEkR2YSb8sls=;
+        b=b7uvoR3YpJ0dUzpTXPV6wKkn4alsw8DZ1Is0T6iRswbVhK+9HEGBHrw5ypJvBYcUZY
+         6td1D3sQ0DjVdwTXuO6+dqfwg4EmyM5o4utW5sb8eZ/XioMEsal82YPy4lfLmPxH4WYi
+         qg17oaNNMMcMsb/9qgdi/xz8YuJNMOB69QAieCQCXKEwO9+gus/FwVWJc4iwyeWa/SKP
+         mwhcmgIuK+PpDoL3Sor0e9Pr4KJIBuMBZzWsKDhWNu1bAYVwMQgH/BxY+4UWN1NNXI/z
+         hRAJbakXP4TLAKZgwjjAJdga867kXAVtju1lr2js4qGOhe5y/z4Ec5ZCc2waf+Qhs9Zi
+         OE3A==
+X-Forwarded-Encrypted: i=1; AKwUvByQHRBVXoqVv6NX9iwsi17V2Fu4aVZU9ImiLoJDs8bQcKo+D+nb2xno72ftg+Jty1VJyWNOHNa3jmmXWH8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lUiYwEZHXJna/mKjQ3R5J8RIzklO2xMPYlABnN7DHAaENxv9jg
+	4uyzNU5d9oJpYbNQfYOW5ofMG+Zc9FSm3M7w1IDJvh3hoGpA+QC5LU1F
+X-Gm-Gg: AYBFou2uASXw6Jsc1LYphnUu3DPKkmqb9VIXSipp8PfVkHcgM8vYhZDhPk8vPMcHFzm
+	LVPB/oh4srnILR5SECnUx4qqctkJ+avFwR+exBUIFc+G1zjDluvw+46Z4gCPmC9VKmeavcgUoD0
+	xsdJz7sNp63zLPjCYNAqJaFT/GgI2aG4nFcVqyv+xLTRsORsHVAkMAqPTr82tRWqMBoSGwOcdYH
+	MK+M80o3IiUGyszGrOaTBI263xLWov/NM5B/EqAP56bGcFvxOKeG/M3hdBtsyx0RgJqBB7oHC9q
+	VZ/pHki4V+pjJWijr0ALXFlp3GFYMSyAABGE8liGZxdBuMbEhHmHbgA9+PDmRAtd2qSQYIy1e4X
+	C7dhRKAaq8yRK0a+8iE1W6z4PqpkROsus5G/o7GQfJ/rDU68mmUo7NSMNHSFFxZwjRo7Qshy/F/
+	STzsYFhmgu8RGbh6NH137XG61NMCRAYB9aFvtWshLCe8S7duEBkvHy8i9cJ9/KLkw1D5kJSOXqx
+	mpt9aJFeRGD6Q==
+X-Received: by 2002:a05:6a20:9630:b0:3cd:9f0b:f7a2 with SMTP id adf61e73a8af0-3da39ee15d0mr32834555637.11.1788756294346;
+        Sun, 06 Sep 2026 21:44:54 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm37823751eec.16.2026.09.06.21.44.43
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm37823751eec.16.2026.09.06.21.44.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 21:44:48 -0700 (PDT)
+        Sun, 06 Sep 2026 21:44:54 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
 To: Marc Zyngier <maz@kernel.org>,
 	Oliver Upton <oupton@kernel.org>,
@@ -78,9 +78,9 @@ Cc: linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org,
 	linux-kselftest@vger.kernel.org
-Subject: [PATCH v2 1/3] arm64: kvm: fix typo "synchonized" in comment
-Date: Mon,  7 Sep 2026 10:14:32 +0530
-Message-ID: <20260907044434.4682-2-hemanth.selam@gmail.com>
+Subject: [PATCH v2 2/3] selftests: kvm: fix typos in comments
+Date: Mon,  7 Sep 2026 10:14:33 +0530
+Message-ID: <20260907044434.4682-3-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20260907044434.4682-1-hemanth.selam@gmail.com>
 References: <20260907044434.4682-1-hemanth.selam@gmail.com>
@@ -92,26 +92,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Correct "synchonized" to "synchronized", reported by scripts/checkpatch.pl
-using the misspelling list in scripts/spelling.txt.  Only touches comments,
-no code changes.
+Fix typos in comments, reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- arch/arm64/kvm/hyp/entry.S | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tools/testing/selftests/kvm/arm64/debug-exceptions.c | 2 +-
+ tools/testing/selftests/kvm/arm64/hypercalls.c       | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/kvm/hyp/entry.S b/arch/arm64/kvm/hyp/entry.S
-index 308100ed25de..9709905f21b5 100644
---- a/arch/arm64/kvm/hyp/entry.S
-+++ b/arch/arm64/kvm/hyp/entry.S
-@@ -46,7 +46,7 @@ alternative_else_nop_endif
+diff --git a/tools/testing/selftests/kvm/arm64/debug-exceptions.c b/tools/testing/selftests/kvm/arm64/debug-exceptions.c
+index 7dc5f0b4f6ad..9da6dc5bcfe6 100644
+--- a/tools/testing/selftests/kvm/arm64/debug-exceptions.c
++++ b/tools/testing/selftests/kvm/arm64/debug-exceptions.c
+@@ -387,7 +387,7 @@ static void guest_code_ss(int test_cnt)
+ 		 * Enable Single Step execution.  Note!  This _must_ be a bare
+ 		 * ucall as the ucall() path uses atomic operations to manage
+ 		 * the ucall structures, and the built-in "atomics" are usually
+-		 * implemented via exclusive access instructions.  The exlusive
++		 * implemented via exclusive access instructions.  The exclusive
+ 		 * monitor is cleared on ERET, and so taking debug exceptions
+ 		 * during a LDREX=>STREX sequence will prevent forward progress
+ 		 * and hang the guest/test.
+diff --git a/tools/testing/selftests/kvm/arm64/hypercalls.c b/tools/testing/selftests/kvm/arm64/hypercalls.c
+index 5d96cdf382c4..a24becda9e62 100644
+--- a/tools/testing/selftests/kvm/arm64/hypercalls.c
++++ b/tools/testing/selftests/kvm/arm64/hypercalls.c
+@@ -1,9 +1,9 @@
+ // SPDX-License-Identifier: GPL-2.0-only
  
- 	// Ensure that __guest_enter() always provides a context
- 	// synchronization event so that callers don't need ISBs for anything
--	// that would usually be synchonized by the ERET.
-+	// that would usually be synchronized by the ERET.
- 	isb
- 	mov	x0, #ARM_EXCEPTION_IRQ
- 	ret
+-/* hypercalls: Check the ARM64's psuedo-firmware bitmap register interface.
++/* hypercalls: Check the ARM64's pseudo-firmware bitmap register interface.
+  *
+  * The test validates the basic hypercall functionalities that are exposed
+- * via the psuedo-firmware bitmap register. This includes the registers'
++ * via the pseudo-firmware bitmap register. This includes the registers'
+  * read/write behavior before and after the VM has started, and if the
+  * hypercalls are properly masked or unmasked to the guest when disabled or
+  * enabled from the KVM userspace, respectively.
