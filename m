@@ -1,297 +1,224 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C6AA481FB4
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:38:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788781126; cv=none; b=CfFReqJbO85NCiT5sT51HkfhPS89H5MdXGI20ksC1uKbbhoS7Gfirfe9utByGeiyab/AuFs7VisH2qS2PuxW+Ir+tDVD87hnNiLFBirkzDjluNfq0/9wlyofi4NO1fIqKh8Rx7a1dGaYamkULboDHt2OJqgzvMHjOAbnYhAuTbg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788781126; c=relaxed/simple;
-	bh=TsDMA/MeL7R3gT7mdT45KJCnSy+kE9/LlWl5Rkg5/7Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bTCD2i1mkShOS1C/eA2wcXhRNn6vFLCrzIkZIE8wWtT4Bj3zl7/dbSVUe9/FHEUGOx56BOJe9zEWzL7iSw0+79SaFBJoPcCuEsF52Qv5LaUQy9c3S3JND+0UX7+3IDO1ocGJmo6TOnC8kawZHl3V5UKuHZGLuExXTQMi9CV+aAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TTsKigCN; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E06E4A13A6
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:38:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788781127; cv=pass; b=cGDU4F5mXBwjGpjLtyDQz3uAmGdadglUENVWVrEKPZ3pVdqheVLr6l58aMWVRsFVmSo5iQTQX89NhrBRtvkUDUDgdDa9FEqDgb91/mUgA+W9cPJ3RscN1LbdBKWIwPbSqoKDtUJfZOvid9eN3At2Aj0rP3Mzktm7IMr3p/5Ix6k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788781127; c=relaxed/simple;
+	bh=VVL02GMYWb/u6hDJI/5bikv4BicjcyQC43KoC26CTf8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mA9McbVfv4J6fMCG6AdgGabfWlbytEpg63SfsqaPMK9qFKO4/dntrxW6K2HegZDtn9QuBVjC+dI+hsuHHyl6M+iWupJPz9QvcUHHH2/vZng5gwavRULRftUMmNxDB0U2Iebmvr7ReZts51JNvUz265QC0O9Qz58dUQ8yHoN5ibY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jLKnNSEV; arc=pass smtp.client-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TTsKigCN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788781123;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MUKRZg5p5RLsQwLnENs9+U5uoPXN8+g4eiTJcd+gods=;
-	b=TTsKigCNOF66oidLfTZ47qYSFyklPagQiU/dl2W+XjXcI2QFmZnUHPyBLmXc40w/a35mMr
-	W+YCByT3+IQhp435Q2AlB4mT2GwbublNeipX0c+UZF33p1FRyqqqQW5qRPKkQe/Rt3UXm0
-	oEGQGl6t31SY80jkdcknnIzgMYaNuOc=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-75-9jh6N_ZpPKyasRKm6KeU3g-1; Mon,
- 07 Sep 2026 07:38:39 -0400
-X-MC-Unique: 9jh6N_ZpPKyasRKm6KeU3g-1
-X-Mimecast-MFC-AGG-ID: 9jh6N_ZpPKyasRKm6KeU3g_1788781117
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 468DB1954B3F;
-	Mon,  7 Sep 2026 11:38:37 +0000 (UTC)
-Received: from warthog.com (unknown [10.44.32.158])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1AADC1800348;
-	Mon,  7 Sep 2026 11:38:33 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: netdev@vger.kernel.org
-Cc: David Howells <dhowells@redhat.com>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-afs@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@kernel.org
-Subject: [PATCH net v9 09/14] rxrpc: Fix generation of notifications after call completion
-Date: Mon,  7 Sep 2026 12:37:36 +0100
-Message-ID: <20260907113743.1453210-10-dhowells@redhat.com>
-In-Reply-To: <20260907113743.1453210-1-dhowells@redhat.com>
-References: <20260907113743.1453210-1-dhowells@redhat.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jLKnNSEV"
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c2637dd37c1so201176066b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 04:38:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788781124; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Dnx37oGaeL8vc/6oaUl3o0jN5N9ZPYe9SIDTYqZP6gvRItIu8ao67+oc+QJuyGd+CT
+         52Pjr9cEFZIflYWqhc4Nz2VAEA610nAg8+7j9J5LPYLC6S8uzS26M7GBenQuVsWHPV3v
+         9QPMaLkQPn9M1Itl+i1Xatwnc1NrD0ZErkc8klfsyME27iMn80jmkUvqj7jA7aAMUmAB
+         aQOuxUMC4PU1Gc0JXuvb4C0I5xkiFDZ3+nUOfwPW8A5jAttV2S8vXn2bpI/BZBVd9s3M
+         i6dqTk9T5wom0YXQJ5l4RjgQP9IPxHWC18mdwjMIIVh/kf+qlAo0Cr40cDgFSFEKJP6n
+         UBYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=zsumuHn7FPHHPCQh2IOcR/Revkm68pLy+fSdVwAPQkQ=;
+        fh=dTGW2hFdc0khVoqY2SJ8jyw+0FFU6iYWO6mtWxeuBZc=;
+        b=rdydbJ+/+8rg5wAONffPz5uXf7pn62zP/mRiobeIRYyVcMZMfbIOGAWRO8eyTOUTZb
+         HvKrZokOSSFRp03a/TIwJ1MeIO454qxuWAcoFrMyDoUsnqDj4QelI15Y6JA95VXkHRTS
+         P2wR5vzCYsm1KDh2JZPTYQjxAO/BccZcMcAhozByWNTqHVFThdWIs+F6d5wQ3FAWgf4l
+         3Fypd2YmqLHulFZZuNQqdlqcXDJjAUoqt/dncuA165y4FW9Mg2nHocKELhN87CkpTEDd
+         E4Oj18FqX8crlsKLz+joEB0VfVRh8SwYol/lCvlnkDUjOw2rKK0fbHCzIi9IASdb4apO
+         OGxg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788781124; x=1789385924; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zsumuHn7FPHHPCQh2IOcR/Revkm68pLy+fSdVwAPQkQ=;
+        b=jLKnNSEVETgXbG4tt89OsJpvO9IS+oa1tI7Q/JJCP36p5HbDUTMD5Pnv+wG4Qupz78
+         8xIKXq4P5fkwDLKrTv7HV8NntXrIxFDmCP6MotXHn/7KznBpLZy5Cxkkt6c0Vc+JmPzF
+         LDDQZ1uWKKOynMpLEbeZiLse7yaSmISd4WxkxjoG3pE8yt8izUGWaNI1ZWCBSN/1RrNj
+         m+hngsCMhx4dvKQwksggAh/ZB/Ayn4Tmd0wN4tZ8v3DFyIpuSKN7LzQ8E1AxDfylVTrn
+         2L5q86POweCVN8QD3ULIKid6aeYxO6FCHx2D1+FVUJt5dkVKjTOM7OIw6Nf1soMcZZ4U
+         qL1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788781124; x=1789385924;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zsumuHn7FPHHPCQh2IOcR/Revkm68pLy+fSdVwAPQkQ=;
+        b=sN5C5+HsVYoZWHEtMS8nvI+HRj0TW3Bw8mksJWI0fVn3SY4Da3REpX7XQn3i1PvlZ1
+         ojmQXiah6t1sO8xySobfhVv3xoO1+7D1mZnGzU/WsrpoPJaGNtnWw20kP/ndpv97g7Kz
+         JEvpA859/mI+pLpSdpb4xW4BT3aPeUofYa5U4ijh1JE2lYuU4nU9OSbxsLpa1Xs6dm/9
+         TPKxzx5FqRPGprUaM2FOqkOAcqXHh+NzzD4ISSxmGbMeWE02uKlNAEywEgeK+7+Q1b3d
+         J3tRSFw5QAw6gFU+iEcn5frMcs0KvhlWhOG0k0TF2s8XsjrjEnvca5onM0R25NylwLWc
+         5/gA==
+X-Forwarded-Encrypted: i=1; AKwUvByGBuRhBIeEqu9x06/VB7FdJI8yAkonY+pa9cFOin56fjFZfmvcknUG9Of85mEGj6su6wmkDRt4JuPiFys=@vger.kernel.org
+X-Gm-Message-State: AFuF++n3+sJ7sRKP8QcxXnUFu9l7qMR/4ErdXRWoWSL7ZO5U36vpSIHC
+	WLuHgeGV5H3Blmhy441jPWgYGIcgy5LZuvZNX8eKOIyYYCSqj1875cyGSMpBQu4sPqoUjneOlA1
+	iSd3U0KT/bQ6ICyInquofDX/9pcIENlU=
+X-Gm-Gg: AYBFou1xYpW+003KKT+UKxzkPgkOuWm/ZIYqqoBwDAvcNSZPJgUdnyJByoONRHHOc+9
+	hrVruqJli7bIrTkMEydyuyD0TjVbwJplE9YWPdbM9DLAeh+Jv+/42eJZ767WS+T8YYiQB1w1jIS
+	kBU32wm93WYs7wYyG0c6m3VWns+JnYLJ4r07zXJzYKF8w7XXSIMgogmoXEtAxZnoqH0PvXfMU50
+	qy17E8A6ol6yXlLmU/1T4i2aqJ9TlCjs6rOArHYlFMok6a1GTQRp7bvmJPROr2182EBdd3X4Gsl
+	7IaCXlwbE4HSZUFnglSdb8WejqpVG6jpkZHm1tW/mC7rzHZFr3hf9JLa
+X-Received: by 2002:a17:907:6092:b0:c26:3478:fbb0 with SMTP id
+ a640c23a62f3a-c263478fce6mr388269066b.11.1788781123926; Mon, 07 Sep 2026
+ 04:38:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+References: <20260904103920.4471-1-luis@igalia.com> <20260904103920.4471-5-luis@igalia.com>
+ <CAOQ4uxgR8v6H=8fHMmLjChsuXUn8560nzda55t8pCNA1ocvg_A@mail.gmail.com> <87pkypfihg.fsf@wotan.olymp>
+In-Reply-To: <87pkypfihg.fsf@wotan.olymp>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Mon, 7 Sep 2026 13:38:31 +0200
+X-Gm-Features: AcwNN1VBg_-Nh0xqgh5QGpERcqSlw7P_XDXd6wO9zSOlVqLVhQ7X3lt_FZWaIoE
+Message-ID: <CAOQ4uxjtuwyXrckor8pu+ShvOJWO8rG1=o-DfbWhwQ+vbHTnTg@mail.gmail.com>
+Subject: Re: [RFC PATCH v3 4/8] selftests/fuse: factor-out test fixture setup/teardown
+To: Luis Henriques <luis@igalia.com>
+Cc: Miklos Szeredi <miklos@szeredi.hu>, Chen Linxuan <me@black-desk.cn>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, fuse-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	Matt Harvey <mharvey@jumptrading.com>, kernel-dev@igalia.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-AF_RXRPC may generate a notification to the application after a call has
-completed because it generates one notification when
-rxrpc_input_split_jumbo() queues the final packet and completes the call
-and then generates another when rxrpc_input_split_jumbo() does the
-aggregated data receive notification at the end of the function.
-
-This might cause the AFS filesystem to malfunction because it tries to
-queue the afs_call for processing an extra time.  Most of the time this
-happens quickly enough that the second queue_work skips, but sometimes this
-means that the call work may happen a second time with implications for
-afs_call lifetime management.
-
-Fix this by:
-
- (1) Create a lighter version of rxrpc_notify_socket() that's just used to
-     requeue a call for rxrpc_recvmsg() without creating another
-     notification.
-
- (2) Move rxrpc_notify_socket() to call_state.c and rename it to
-     __rxrpc_notify_socket().
-
- (3) Create a wrapper called rxrpc_notify_socket() that skips the
-     notification if a call is completed.
-
- (4) Make rxrpc_set_call_completion() call __rxrpc_notify_socket() to avoid
-     the skip-if-completed check.
-
-Also remove the comment on rxrpc_notify_socket() that said it added the
-call to a dummy queue to prevent further notification.
-
-Fixes: 2d1faf7a0ca3 ("rxrpc: Simplify skbuff accounting in receive path")
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Marc Dionne <marc.dionne@auristor.com>
-cc: Eric Dumazet <edumazet@google.com>
-cc: "David S. Miller" <davem@davemloft.net>
-cc: Jakub Kicinski <kuba@kernel.org>
-cc: Paolo Abeni <pabeni@redhat.com>
-cc: Simon Horman <horms@kernel.org>
-cc: linux-afs@lists.infradead.org
-cc: stable@kernel.org
----
- include/trace/events/rxrpc.h |  1 +
- net/rxrpc/ar-internal.h      |  2 +-
- net/rxrpc/call_state.c       | 56 +++++++++++++++++++++++++++++++++++-
- net/rxrpc/recvmsg.c          | 43 +++++++++------------------
- 4 files changed, 71 insertions(+), 31 deletions(-)
-
-diff --git a/include/trace/events/rxrpc.h b/include/trace/events/rxrpc.h
-index a5c92592d8f9..52f8718cf725 100644
---- a/include/trace/events/rxrpc.h
-+++ b/include/trace/events/rxrpc.h
-@@ -343,6 +343,7 @@
- 	EM(rxrpc_call_see_distribute_error,	"SEE dist-err") \
- 	EM(rxrpc_call_see_input,		"SEE input   ") \
- 	EM(rxrpc_call_see_notify_released,	"SEE nfy-rlsd") \
-+	EM(rxrpc_call_see_notify_skipped,	"SEE nfy-skip") \
- 	EM(rxrpc_call_see_recvmsg,		"SEE recvmsg ") \
- 	EM(rxrpc_call_see_recvmsg_requeue,	"SEE recv-rqu") \
- 	EM(rxrpc_call_see_recvmsg_requeue_first, "SEE recv-rqF") \
-diff --git a/net/rxrpc/ar-internal.h b/net/rxrpc/ar-internal.h
-index a6f830c1621f..cb36a709f540 100644
---- a/net/rxrpc/ar-internal.h
-+++ b/net/rxrpc/ar-internal.h
-@@ -1110,6 +1110,7 @@ static inline bool rxrpc_is_client_call(const struct rxrpc_call *call)
- /*
-  * call_state.c
-  */
-+void rxrpc_notify_socket(struct rxrpc_call *call);
- bool rxrpc_set_call_completion(struct rxrpc_call *call,
- 			       enum rxrpc_call_completion compl,
- 			       u32 abort_code,
-@@ -1442,7 +1443,6 @@ extern const struct seq_operations rxrpc_local_seq_ops;
- /*
-  * recvmsg.c
-  */
--void rxrpc_notify_socket(struct rxrpc_call *);
- int rxrpc_recvmsg(struct socket *, struct msghdr *, size_t, int);
- 
- /*
-diff --git a/net/rxrpc/call_state.c b/net/rxrpc/call_state.c
-index 6afb54373ebb..364810c65276 100644
---- a/net/rxrpc/call_state.c
-+++ b/net/rxrpc/call_state.c
-@@ -7,6 +7,60 @@
- 
- #include "ar-internal.h"
- 
-+/*
-+ * Post a call for attention by the socket or kernel service.
-+ */
-+static void __rxrpc_notify_socket(struct rxrpc_call *call)
-+{
-+	struct rxrpc_sock *rx;
-+	struct sock *sk;
-+	unsigned long flags;
-+
-+	if (test_bit(RXRPC_CALL_RELEASED, &call->flags)) {
-+		rxrpc_see_call(call, rxrpc_call_see_notify_released);
-+		return;
-+	}
-+
-+	rcu_read_lock();
-+
-+	rx = rcu_dereference(call->socket);
-+	sk = &rx->sk;
-+	if (rx && sk->sk_state < RXRPC_CLOSE) {
-+		if (call->notify_rx) {
-+			spin_lock_irqsave(&call->notify_lock, flags);
-+			call->notify_rx(sk, call, call->user_call_ID);
-+			spin_unlock_irqrestore(&call->notify_lock, flags);
-+		} else {
-+			spin_lock_irqsave(&rx->recvmsg_lock, flags);
-+			if (list_empty(&call->recvmsg_link)) {
-+				rxrpc_get_call(call, rxrpc_call_get_notify_socket);
-+				list_add_tail(&call->recvmsg_link, &rx->recvmsg_q);
-+			}
-+			spin_unlock_irqrestore(&rx->recvmsg_lock, flags);
-+
-+			if (!sock_flag(sk, SOCK_DEAD)) {
-+				_debug("call %ps", sk->sk_data_ready);
-+				sk->sk_data_ready(sk);
-+			}
-+		}
-+	}
-+
-+	rcu_read_unlock();
-+}
-+
-+/*
-+ * Post a call for attention by the socket or kernel service.
-+ */
-+void rxrpc_notify_socket(struct rxrpc_call *call)
-+{
-+	if (rxrpc_call_is_complete(call)) {
-+		rxrpc_see_call(call, rxrpc_call_see_notify_skipped);
-+		return;
-+	}
-+
-+	__rxrpc_notify_socket(call);
-+}
-+
- /*
-  * Transition a call to the complete state.
-  */
-@@ -25,7 +79,7 @@ bool rxrpc_set_call_completion(struct rxrpc_call *call,
- 	rxrpc_set_call_state(call, RXRPC_CALL_COMPLETE);
- 	trace_rxrpc_call_complete(call);
- 	wake_up(&call->waitq);
--	rxrpc_notify_socket(call);
-+	__rxrpc_notify_socket(call);
- 	return true;
- }
- 
-diff --git a/net/rxrpc/recvmsg.c b/net/rxrpc/recvmsg.c
-index 56fa324d0962..28b2148b5693 100644
---- a/net/rxrpc/recvmsg.c
-+++ b/net/rxrpc/recvmsg.c
-@@ -17,14 +17,12 @@
- #include "ar-internal.h"
- 
- /*
-- * Post a call for attention by the socket or kernel service.  Further
-- * notifications are suppressed by putting recvmsg_link on a dummy queue.
-+ * Requeue a call for recvmsg() to pick up.
-  */
--void rxrpc_notify_socket(struct rxrpc_call *call)
-+static void rxrpc_requeue_call(struct socket *sock, struct rxrpc_call *call)
- {
--	struct rxrpc_sock *rx;
--	struct sock *sk;
--	unsigned long flags;
-+	struct rxrpc_sock *rx = rxrpc_sk(sock->sk);
-+	struct sock *sk = &rx->sk;
- 
- 	_enter("%d", call->debug_id);
- 
-@@ -33,31 +31,18 @@ void rxrpc_notify_socket(struct rxrpc_call *call)
- 		return;
- 	}
- 
--	rcu_read_lock();
+On Mon, Sep 7, 2026 at 12:44=E2=80=AFPM Luis Henriques <luis@igalia.com> wr=
+ote:
+>
+> On Sat, Sep 05 2026, Amir Goldstein wrote:
+>
+> > On Fri, Sep 4, 2026 at 12:38=E2=80=AFPM Luis Henriques <luis@igalia.com=
+> wrote:
+> >>
+> >> In order to reduce new tests setup/teardown code duplication, factor-o=
+ut
+> >> these functions from the existing acl_cache test into a new fuse_commo=
+n.c
+> >> file that can be reused in other tests.
+> >>
+> >> Signed-off-by: Luis Henriques <luis@igalia.com>
+> >> ---
+> >>  .../selftests/filesystems/fuse/Makefile       |  8 ++-
+> >>  .../filesystems/fuse/fuse_acl_cache_test.c    | 62 +++---------------=
 -
--	rx = rcu_dereference(call->socket);
--	sk = &rx->sk;
--	if (rx && sk->sk_state < RXRPC_CLOSE) {
--		if (call->notify_rx) {
--			spin_lock_irqsave(&call->notify_lock, flags);
--			call->notify_rx(sk, call, call->user_call_ID);
--			spin_unlock_irqrestore(&call->notify_lock, flags);
--		} else {
--			spin_lock_irqsave(&rx->recvmsg_lock, flags);
--			if (list_empty(&call->recvmsg_link)) {
--				rxrpc_get_call(call, rxrpc_call_get_notify_socket);
--				list_add_tail(&call->recvmsg_link, &rx->recvmsg_q);
--			}
--			spin_unlock_irqrestore(&rx->recvmsg_lock, flags);
-+	spin_lock_irq(&rx->recvmsg_lock);
-+	if (list_empty(&call->recvmsg_link)) {
-+		rxrpc_get_call(call, rxrpc_call_get_notify_socket);
-+		list_add_tail(&call->recvmsg_link, &rx->recvmsg_q);
-+	}
-+	spin_unlock_irq(&rx->recvmsg_lock);
- 
--			if (!sock_flag(sk, SOCK_DEAD)) {
--				_debug("call %ps", sk->sk_data_ready);
--				sk->sk_data_ready(sk);
--			}
--		}
-+	if (!sock_flag(sk, SOCK_DEAD)) {
-+		_debug("call %ps", sk->sk_data_ready);
-+		sk->sk_data_ready(sk);
- 	}
- 
--	rcu_read_unlock();
- 	_leave("");
- }
- 
-@@ -562,7 +547,7 @@ int rxrpc_recvmsg(struct socket *sock, struct msghdr *msg, size_t len,
- 
- 	if (!(flags & MSG_PEEK) &&
- 	    !skb_queue_empty(&call->recvmsg_queue))
--		rxrpc_notify_socket(call);
-+		rxrpc_requeue_call(sock, call);
- 	goto not_yet_complete;
- 
- call_failed:
+> >>  .../selftests/filesystems/fuse/fuse_common.c  | 60 ++++++++++++++++++
+> >>  .../selftests/filesystems/fuse/fuse_common.h  | 25 ++++++++
+> >>  4 files changed, 100 insertions(+), 55 deletions(-)
+> >>  create mode 100644 tools/testing/selftests/filesystems/fuse/fuse_comm=
+on.c
+> >>  create mode 100644 tools/testing/selftests/filesystems/fuse/fuse_comm=
+on.h
+> >>
+> >> diff --git a/tools/testing/selftests/filesystems/fuse/Makefile b/tools=
+/testing/selftests/filesystems/fuse/Makefile
+> >> index a3ee9b3a2f5d..7744f796eb06 100644
+> >> --- a/tools/testing/selftests/filesystems/fuse/Makefile
+> >> +++ b/tools/testing/selftests/filesystems/fuse/Makefile
+> >> @@ -21,8 +21,12 @@ ifeq ($(VAR_LDLIBS),)
+> >>  VAR_LDLIBS :=3D -lfuse3 -pthread
+> >>  endif
+> >>
+> >> +CFLAGS +=3D $(VAR_CFLAGS)
+> >> +LDLIBS +=3D $(VAR_LDLIBS)
+> >> +
+> >>  $(OUTPUT)/fuse_mnt: CFLAGS +=3D $(VAR_CFLAGS)
+> >>  $(OUTPUT)/fuse_mnt: LDLIBS +=3D $(VAR_LDLIBS)
+> >>
+> >> -$(OUTPUT)/fuse_acl_cache_test: CFLAGS +=3D $(VAR_CFLAGS)
+> >> -$(OUTPUT)/fuse_acl_cache_test: LDLIBS +=3D $(VAR_LDLIBS)
+> >> +$(OUTPUT)/fuse_acl_cache_test: fuse_common.c fuse_acl_cache_test.c
+> >> +
+> >> +EXTRA_CLEAN :=3D fuse_common.o
+> >> diff --git a/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_t=
+est.c b/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test.c
+> >> index 2411a6e285f1..12cbf9753d03 100644
+> >> --- a/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test.c
+> >> +++ b/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test.c
+> >> @@ -33,23 +33,15 @@
+> >>   */
+> >>
+> >>  #define _GNU_SOURCE
+> >> -#include <errno.h>
+> >>  #include <fcntl.h>
+> >>  #include <linux/limits.h>
+> >> -#include <pthread.h>
+> >>  #include <stdint.h>
+> >> -#include <stdio.h>
+> >> -#include <stdlib.h>
+> >> -#include <string.h>
+> >> -#include <sys/stat.h>
+> >>  #include <sys/xattr.h>
+> >> -#include <unistd.h>
+> >> -
+> >> -#define FUSE_USE_VERSION 31
+> >> -#include <fuse_lowlevel.h>
+> >>
+> >>  #include "kselftest_harness.h"
+> >>
+> >> +#include "fuse_common.h"
+> >> +
+> >>  /* ---- ACL binary encoding -----------------------------------------=
+------- */
+> >>  /*
+> >>   * POSIX ACL v2 xattr format (little-endian):
+> >> @@ -176,69 +168,33 @@ static const struct fuse_lowlevel_ops fs_ops =3D=
+ {
+> >>         .getxattr =3D fs_getxattr,
+> >>  };
+> >>
+> >> -/* ---- Daemon thread -----------------------------------------------=
+-------- */
+> >> -
+> >> -static void *run_daemon(void *arg)
+> >> -{
+> >> -       fuse_session_loop((struct fuse_session *)arg);
+> >> -       return NULL;
+> >> -}
+> >> -
+> >>  /* ---- kselftest harness -------------------------------------------=
+-------- */
+> >>
+> >>  FIXTURE(acl_cache) {
+> >>         struct fuse_session *se;
+> >> -       char                 mountpoint[PATH_MAX];
+> >> +       char                 mountpoint[MOUNTPOINT_SZ];
+> >>         char                 file_path[PATH_MAX];
+> >>         pthread_t            thread;
+> >>  };
+> >
+> > Nice!
+> > I think it would be even nicer to have struct fuse_common_ctx
+> > with the common members embedded in the per test state,
+> > but I'll let you decide if you want to do that or not.
+>
+> Thanks for the suggestion.  It may make sense indeed to have that common
+> struct, although it would probably only include the spinlock and a bool
+> for enabling/disabling the cache.  I'll have a closer look and see if it
+> makes sense.
 
+I meant that it should include:
+         struct fuse_session *se;
+         char                 mountpoint[PATH_MAX];
+         pthread_t            thread;
+
+instead of passing them by reference individually to fs_setup/teardown()
+not a big deal, just a bit nicer IMO.
+
+Thanks,
+Amir.
