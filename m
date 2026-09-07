@@ -1,142 +1,151 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF44141834B
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:42:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A38370D5E
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:42:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788766936; cv=none; b=ENYXsdWfAQehPVGZAZo1r630L8sPKXdpsUVVBduN1x6ieZkxfvXKBVE9J9c2DADoVNCHu6U1HHhw2wThi3CCi7hsVYaMinzWiTbcNfshVJ+cj1D9/m2IwD4OnBmpQ1k4pwz1B9Tm417bMQsnSN2O1g8aKCb7N7/xpsnAM7rhq0Q=
+	t=1788766980; cv=none; b=oV/dVYpNuhp1rzddTmW2corEG0twiC26hOfvGqK2vGUTeqvqhngCNi5CFlNKObgslJfc2txizF9Fry48Lsejd/6gyMq7bePW7g3hbTTwOwuH/uuVyccREWj46henif0ZJ2P0vzdu51i0XCrrS5yYZ1Zc6Ai8V2btC3mSWQTCwcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788766936; c=relaxed/simple;
-	bh=4Y5xAsf43glCZh088++ZapXrJHidaLKDLANNbMfpkt0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=l+gFzpsBvdpokG9BVZM5fWr6oz4aPAcb7EMOxezdTzsmfw0TJ/P4IrhNy0pE3OWxj67t/jySgW0TX/bva4Z2LWgja4V5BQCIa+wBLCC4lEv2u9CRryuiv+nbtr+iLpuNAL8AdbH7172GnMSNg70SIHmdgulTfoXou+XJ6dGZLts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jopQQZsx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LYPMEJ8I; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788766980; c=relaxed/simple;
+	bh=f6NPYr2AbxZQRthNVKm2sTOTvqetpaZlb867OTi2aBE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fpfYrcpehWgDpwnuWrmiBnJtDyjyWJXUhMmDJohPWF3GBKN/VBtOkmZQmMIEEaCthJQKpx4HWSwJOi57mtxemwp+pMgKLUpINk9u2inzwNn/zhMOjTrs5Y8/OerMEWspMaQKYkWPrNoqkzkg4KBomMtviUt1t9ji67zMWSJxELk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ar3kfNbL; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jopQQZsx";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LYPMEJ8I"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68777ZqQ3550517
-	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 07:42:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	CgvCrmU1Tuvc/GsdKD3kD/Ov677P/v4Ew88GYviJCFo=; b=jopQQZsxm+iSnWzW
-	RMVIJKHT4mZ2cZg9oza2yW8NVJ7IQDHeWvBruJL7asOF4HtDxjPnazQdBkgISW1f
-	8mZoF178D9/MSJnvJ8cV7euLqZNmnEdyjEIJ3XV26HWLgoHx3wAq1PrWLZU5LBFg
-	t8bCzmqSqO4PhlzBqYXcLAPpcCj2ZRB6SBH9jeCSSo1uitBZpFN+XUPwsK8xZgp0
-	4baQLhNADbCEVpYdjlA82wnn1LV+eMCHmPhTwnnpdiX3npGIPykwg+6jNAsLGB4h
-	0WGVPN+sBcX2PlKPg5j5+GYygnko4sHFCjdAHEjsX75fD0KKPEDAQkAD4PF8rTqD
-	GGtAkg==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ggb5vdn6h-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 07:42:13 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-90e8d3a2d3fso7125996d6.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 00:42:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ar3kfNbL"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d9004f39d3so40108255ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 00:42:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788766933; x=1789371733; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CgvCrmU1Tuvc/GsdKD3kD/Ov677P/v4Ew88GYviJCFo=;
-        b=LYPMEJ8IkxZspK+q7SmU3b+bfqg+MrnAv2ejENAFohPHWbP6UYFxXFsB4LnSdZbRLF
-         rrK+7kxyIfFrqleQj7rpCqYGCF+dsxhPkGO+WaM/7nhafxP75npmu11WvFcnV1uRVAih
-         kvSWx9FCsPwk90liexhSA761G4xX9hCoeBBuqYo2oVmr4fJ87M3U/GufpQPoucNpxj3X
-         dnf/RZkTYdGTXeyKl+pXdRIrX4w3x+kUDaP5dh7ycIaklIQaYOI1CmNei22r4n54Zlm8
-         O3JKX8q+wa54OjGjG4e6e8hQezUzTqrQxCO5zolBcsmsWScwFl+fdfPYCgqV2jBl1lr2
-         pHvw==
+        d=gmail.com; s=20251104; t=1788766978; x=1789371778; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z1UBgFBd90nwHRd6YeMX+tFewu5XhDiJ8y8k8qjPtt4=;
+        b=ar3kfNbLHh0PcgHBdXuw0bQPxLXlQShkYerB7AG7jOpw83EVQiPT6fCuj+C5rpoF7h
+         6LEfKOyBEcXZZAyQQddNTXE/ocqAUNyL+FRK93wHucyhAL7JrEZBW/TEbrXV/DtCDMFR
+         Yy9ZnwK5glp41fKPLG2FzSbo2MNV7Kai5w4puHB9YGi2r58IGxNQRKSKZQz5wLddMCQK
+         CGO9cj7zQC67c4RqTo9Ifpw341FEngmexmfIoZyVOacACjf8luhUK3vAnb6rcUoSAhTV
+         OX8ejDzhekvYwlT63lDVZXedcj+tI8IiJQ98/HAFSkw9efFm2fDgD2khJiiXdFpIJisx
+         bFZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788766933; x=1789371733;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788766978; x=1789371778;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CgvCrmU1Tuvc/GsdKD3kD/Ov677P/v4Ew88GYviJCFo=;
-        b=o941jAER5pH7woYmB4/zZzj28xpAAqlL0gAg0FdG1HUEgcKLsDnQ2qgbgQxdKNoUJz
-         AMXT5We8h2BwWEchdLkGdAG2jfHxpTMZzXk+RQjo+FbPGYvLUfG5rScheHza8yT/6BVN
-         QMuPs9O0yChbjN3hlSzBXJ3uF1ytxSK1cj7FUVIFKHTb9Mojywpa3VMJb/DgPJLkYs+U
-         v7v+NMewW3z8pIOwvitNaHapl2tFHmTNWz4mUix6YYuqNzdm56yVwPly13UTGABzlzTI
-         ppYoRKXncDJjZahYkinaAu0TkpB2iYT/MQYbF7p2anyRRw75DyTJc/pATuIXhtgsSwMo
-         y2KA==
-X-Gm-Message-State: AFuF++m6TBZ/NSPoMLiis+W7YL4g157HvKZO05eragqPY2FRTI73kCBW
-	pa6i/NsHNyN3EJ80N5bM+xOfW5CmxVQ2NN2dhpUtkZfeqJypOftfRbKT+GZKWHRj5tnUkaTV45y
-	3jsqqBSNPuT9u/lZ2co3881kaLyphLhEqR6TFXNbrD1g1D/7ap/ga2cTtW3ObiNjwPD0lmmVXIL
-	o=
-X-Gm-Gg: AYBFou1b8NAyefEA9NykLPdK07WXrm2tccHSTLpe1pnO1EBV2i9SWvnOWvnLxoTF/OT
-	F4d5oGo1sZgzQgiF/kUMUm+ZN4hQa37Bm+a1CZzajbU6Mqqmr5xnexRUNskigsQO5v8h+FZKk2M
-	HkUd1TaYDHMyEK47d+E1BQsPnFgkUv8RQHiMM2GP51oQKm/6HwwAPa3ruit4K/2WhtNoqmWgzpa
-	Q7eKCWdTBdZMP0dC01A4Zr63wuG4D1ZZ1eC9myyHqfFuoAX21hOh5s6oxk5/6N/sx1kwl6aRXsH
-	VIWAzv3pSwXrN+tiYSwoAuch75BOQwZ0I18lsc/w2NHmM+6UGsxxWqDTbyhcV+W+QZMe7sYTsKX
-	6gUQuyPuDrsnzAOAR7zIMcQ==
-X-Received: by 2002:a05:620a:4008:b0:937:7dc4:d2b3 with SMTP id af79cd13be357-9399184f186mr1035546085a.4.1788766933089;
-        Mon, 07 Sep 2026 00:42:13 -0700 (PDT)
-X-Received: by 2002:a05:620a:4008:b0:937:7dc4:d2b3 with SMTP id af79cd13be357-9399184f186mr1035543685a.4.1788766932651;
-        Mon, 07 Sep 2026 00:42:12 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c262ccca940sm266442166b.18.2026.09.07.00.42.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 00:42:11 -0700 (PDT)
-Message-ID: <66a8275e-451c-4a76-94ec-958f3c0aa6b9@oss.qualcomm.com>
-Date: Mon, 7 Sep 2026 09:42:10 +0200
+        bh=z1UBgFBd90nwHRd6YeMX+tFewu5XhDiJ8y8k8qjPtt4=;
+        b=AmEdlksaTQpN2/X3G5rjJIz8+QGxOWupQP3O4xXT1HWMwtsHHptd9dB3lIY5j6cH5Y
+         ct8LQGJf1CO8xVukMkTwLqYwvPg3pNnrhN+9mEOJ/h2QQ/o1cUbbWcCTlcbMl+aoPVI4
+         74ZpxQvtdQsnRYZmGta8M6nnhr3YmtiD45yksWEAG9Bq5abtWJNsRwV/2aOHttNOXqnF
+         SR1miHRX+hankoBk6/aBp9iIemOE5cOX/4uwTgCHsNbHWcq6RRA2/BCUxtquQP+JLmVb
+         dSXFeEj4DTsZLTSEVlJhPhnQTe8GltybmFIcwKVd42GJ/bYpAx5eubYFv3qYiRk63r+F
+         M8eQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzhm6EM9+0eWXPC7uJmTgVV90dmwTVNpkMgRpQ4TB+aFKzDKlEMiTLaMMFurHN/g6zWizqlzSN/YKBBt5Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6iTYWKgvzQZdFKFndJ2wTvl3WtQ3jLxcYb4OmZANoLwWZC3rX
+	RsUpG8E4iS3j8Po8AYWf/J1Qf15dxXOBpnma7zIa5bsg99qPx38hyyarBU14Xr1C
+X-Gm-Gg: AYBFou1+aI6eO4F5mfMnMmUBUhluYPx4nX2X6BGPJflXadLAcCv+qwKlumb4fGRoTb3
+	Apotl2ouTm/Rp3DMcgh8snfpfszQCuHvNJYxcGY7gV66RYqWQ5ODooM5Qsvk3Xtc6Xz8DCkBKPn
+	Uah2DAzpQBWhT2oArPoSGKBKOBHvOx8PAIrSsH1sth1A2+G64cPWedxXZTXiy6ZmOhKYQMuhFn0
+	fZo9SjROTK+1D+QcXcVDmpUW1IWwTgxii6W//Gl/krKVH9QfLEEjiUjS7TWIP//CKsykqGTZnOd
+	4QZHOhDDLay/lBvGDVdNZ6NM0SUjBXaQEj2Eylp19Iw20AKCucNvYM4iK9JHJg1JWC0P5aC5ZnH
+	oaAPJ+4d74N2GPvi9sF6Lfhrz3PQ+RLFC2LqZQzFAAgazQmlEiPH0eUFZBctmbTvNzx909ZtEYw
+	3bCvvYs7tuSR/XjvDjdMPxvQAIt1jPoMvzD2rDTxrrAzW9H/yw90AtHf5xX6jki0wB/9Gs6PEqk
+	5Leb1dghfYxk24=
+X-Received: by 2002:a17:90a:1189:b0:39b:61f1:8032 with SMTP id 98e67ed59e1d1-39b61f18060mr6111080a91.16.1788766978149;
+        Mon, 07 Sep 2026 00:42:58 -0700 (PDT)
+Received: from somonox.localdomain ([210.180.194.253])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b26127fddsm18646695a91.12.2026.09.07.00.42.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 00:42:57 -0700 (PDT)
+From: Hyungmin Lee <hungmin090929@gmail.com>
+To: Dave Kleikamp <shaggy@kernel.org>
+Cc: jfs-discussion@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] jfs: reject negative symlink size in jfs_iget()
+Date: Mon,  7 Sep 2026 16:42:35 +0900
+Message-ID: <20260907074235.73696-1-hungmin090929@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] interconnect: fix typo "commited" in comments
-To: Hemanth Selam <hemanth.selam@gmail.com>, Georgi Djakov <djakov@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-pm@vger.kernel.org
-References: <20260904111632.29262-1-hemanth.selam@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260904111632.29262-1-hemanth.selam@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: Yd0GyncAf5YYUSCW2SXWww-12XEMgWQy
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA4MiBTYWx0ZWRfX0rQxyCytLoX9
- vRq2KpvflY8n1zMCXz0nGa2JhFDmZKhPEwxT4wBdqjGYKjGHoNbCij53E5tPZGPiiaMmjDHh/Ib
- UcPuKSaUibf00YkV4Lv98sVBbYdwNDaQTEzbk4PTrdgRAM8w6EuXyem61YBjyEBo135MPCgwki2
- OWdloHPvuRUx6B5sIWV5p0BHUUcfxrNVC4r7RuJpjohdMNrSdcbezhHcekpEIqbyuEmTItmyg1j
- eAv/qIUUPVmcR5ct+0kYJInmo8yDFVAnX1DL0km3YMILPx8eoDxRiSaWP19X1T/UWPqhnVEsyLu
- Yk7gXPh/Mz7kyZHXwdio7wyH/qUZsa33tA0t1VKkmBzksECnNm0GActUWa7JeElRquGHyNh2wzy
- F7/9z3dADdaBwgWfmZ+ITlNagkEfdR10dpK0sS41TVGYte/yqJsEFGeezHcRcX+p9NtpIH2+mAu
- qYCDcScnVGgXo2IhdiA==
-X-Authority-Analysis: v=2.4 cv=UO3t2ify c=1 sm=1 tr=0 ts=6a9e6ad5 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=kddr3pe2UqKiqFkHGCYA:9 a=QEXdDO2ut3YA:10
- a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-GUID: Yd0GyncAf5YYUSCW2SXWww-12XEMgWQy
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA4MiBTYWx0ZWRfX7lABJ6P2x47w
- jWV76LUYhiSyx24fg05+8pCM0rJQPnN1+cvO8xRe/0EJWa5Zl9XZ4KfZ7b0+wyWoHdhdL0L9GDC
- Ka7W/FZiIAoVfRvzD7jsJ4zigZmiOO0=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-07_02,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
- impostorscore=0 bulkscore=0 spamscore=0 priorityscore=1501 adultscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609070082
+Content-Transfer-Encoding: 8bit
 
-On 9/4/26 1:16 PM, Hemanth Selam wrote:
-> Correct "commited" to "committed", reported by scripts/checkpatch.pl using
-> the misspelling list in scripts/spelling.txt.  Only touches comments, no
-> code changes.
-> 
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
-> ---
+The on-disk di_size field is copied into the signed inode->i_size
+without checking whether the resulting value is negative.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+For a symbolic link, a negative size passes the existing
 
-Konrad
+	inode->i_size >= IDATASIZE
+
+check and enters the fast-symlink path. jfs_iget() then uses the
+negative size directly as an index into the inline symlink buffer:
+
+	inode->i_link[inode->i_size] = '\0';
+
+With an on-disk di_size of 0x8000000000000000, inode->i_size becomes
+LLONG_MIN and the store generates a general protection fault on a
+non-canonical address.
+
+Reject negative symlink sizes before selecting the fast- or
+page-backed symlink operations. The affected inode lookup then fails
+with -EIO instead of crashing the kernel.
+
+The original crash and the fix were tested on Linux 6.12.108 in an
+x86-64 KVM guest with CONFIG_JFS_FS=y. A malformed JFS image was
+created with a symlink inode whose di_size is LLONG_MIN. Looking up
+that symlink with stat(2) reached the affected path in jfs_iget().
+
+The same unchecked path is present at mainline commit
+df2908090cda368b01ff43709f51890076c56157.
+
+Before this change, looking up the symlink caused a GPF followed by a
+kernel panic. After this change, the same lookup produces:
+
+	jfs_lookup: iget failed on inum 34
+	stat: can't stat '/mnt/file0/file1': Input/output error
+
+and the guest powers down normally without a GPF or kernel panic.
+
+AI assistance from Claude Code using Claude Opus 4.8 was used to
+identify the affected code path, structure the fix, and prepare the
+technical documentation and changelog. The author independently
+reviewed the analysis and patch, built the resulting kernel, and
+verified the fix using the reproducer described above.
+
+Tested with:
+
+	make -j16 bzImage
+	scripts/checkpatch.pl --no-tree --no-signoff
+
+checkpatch reported 0 errors and 0 warnings. A tested reproducer is
+available on request.
+
+Fixes: d69e83d99cf8 ("jfs: ensure symlinks are NUL-terminated")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude-Code:Claude-Opus-4.8
+Signed-off-by: Hyungmin Lee <hungmin090929@gmail.com>
+---
+ fs/jfs/inode.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/fs/jfs/inode.c b/fs/jfs/inode.c
+index 470976271..9bbac7fec 100644
+--- a/fs/jfs/inode.c
++++ b/fs/jfs/inode.c
+@@ -46,6 +46,10 @@ struct inode *jfs_iget(struct super_block *sb, unsigned long ino)
+ 		inode->i_op = &jfs_dir_inode_operations;
+ 		inode->i_fop = &jfs_dir_operations;
+ 	} else if (S_ISLNK(inode->i_mode)) {
++		if (inode->i_size < 0) {
++			iget_failed(inode);
++			return ERR_PTR(-EIO);
++		}
+ 		if (inode->i_size >= IDATASIZE) {
+ 			inode->i_op = &page_symlink_inode_operations;
+ 			inode_nohighmem(inode);
+-- 
+2.53.0
+
