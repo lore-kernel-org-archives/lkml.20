@@ -1,224 +1,75 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A26401A33
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:06:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1828191F94;
+	Mon,  7 Sep 2026 07:07:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788764812; cv=none; b=gmPGo1N+20jQGqjcOxPJOk59mCDayuAb5HAL5pTZdwRiL9tlR+2qByoyU0CpYAb1ylxtH2hkeN1xeWRBPTiN8ot9rjgnoW/+rYZy9zPx1MWcR9aSp9gU7ZNjk3ahfVYZ5luTuuU6+8BPnK3qIrSm6jqPuHqzjz9K9thEO960/Qk=
+	t=1788764835; cv=none; b=cbgh5/ldXiFit21zwfAsjlxHSWMF5b4IIQPL/EY8l75NyCSoEynnvWAslNRj7VzJw+qIfECFgQNxBeoN1O/zsLH08kbegrmARZd7LXp04YupWnSBsDOGVJtXjWzoD9Bdn937htej1VRvfWFOli79iSovXyw1yZLWrWFxfoysF+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788764812; c=relaxed/simple;
-	bh=qTwZJkfh2VUY8OtOKYeifb/aCPpwnvxrW/9H8LeVtbw=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=pWmxhOZCHOc/0vbO/SRe/4d+9qBacb28ALU7zS8jqLb0eMNY3CS1SUyUkFhUB3BCdv2NG205JuZ62U4+bsWacNB8azEA9mydeVq02ymtGXDzivBoZgPFiFVTDaKowH3WERE84dTAm388lipIgW6poXqQE8czQZ8LGrF3zRgZC+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ko0vC4FJ; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ko0vC4FJ"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68741m4U660756;
-	Mon, 7 Sep 2026 07:06:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=U4F173
-	0LiN4V0F0jaP71ngB/OBRFul8aXhg6XG0+dpA=; b=ko0vC4FJh243BkxQ1m3Kxw
-	bTK0Kc6CdnUHxEpXGEEMlkxW+XMi4/mJIG6O/xCF31GHP0Ng6aPwRpnwh1TgRLk+
-	SSpH1U1DG+cPQxopn58jV7AzfbqOO+GtFd3eEMJLW3VmY1BIFqDmudmjewOuo37z
-	X63SlSAET9AHIw9gJgehzfFh/QUs50nEXgLQEo2EvWYpLsEWfbo6T7oFm5Swwi+w
-	JLaepuehLSk30bVUTIORZ+3KkuAuTwuPQM/PBNolQt92FHMireCb7ic3WCCi0/qn
-	JD4Z6O/ee/UxVH8KpvxHqz1PvllD/sTICd9FxFX4I17m6UKe7Gp4YYeihgBj8Stw
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbj7y19d-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 07 Sep 2026 07:06:43 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6876uGDl026935;
-	Mon, 7 Sep 2026 07:06:43 GMT
-Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ggymg4a1g-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 07 Sep 2026 07:06:42 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
-	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68776fPR26083992
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 7 Sep 2026 07:06:42 GMT
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C10305805F;
-	Mon,  7 Sep 2026 07:06:41 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CB3C358053;
-	Mon,  7 Sep 2026 07:06:38 +0000 (GMT)
-Received: from smtpclient.apple (unknown [9.61.246.56])
-	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTPS;
-	Mon,  7 Sep 2026 07:06:38 +0000 (GMT)
-Content-Type: text/plain;
-	charset=utf-8
+	s=arc-20240116; t=1788764835; c=relaxed/simple;
+	bh=jUpI8QmY2zt09p7fJfntjnzIJU02xge66mO+Uvr+eHo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=nJuBZUGiHlLGRv5ZYn4TQbE8dQ9UEks5aGR0PACXlYylut7ybkihauz6tA0oS+Nl/d4xVVhsPdzPrBFP5KRjUs9WMDK9KSV7mDBYZR0BBGhGV4nEv/OLnsgrwzpJirN1xIhHy3eYWsCgVhT3K+gLk52xwKMnwZVOPc7OYmX/194=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: bc285a7aaa8a11f19a56ed5b684f684d-20260907
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:7ee0efd5-45c7-43e6-8cec-54db9a498778,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:4e9c6f7c6b1d8e5d02603cb27829e052,BulkI
+	D:nil,BulkQuantity:0,SF:80|81|82|83|102|136|850|865|898,TC:nil,Content:0|1
+	5|50|99,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,C
+	OL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: bc285a7aaa8a11f19a56ed5b684f684d-20260907
+X-User: gonglinkai@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <gonglinkai@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 2007751916; Mon, 07 Sep 2026 15:07:06 +0800
+From: Linkai Gong <gonglinkai@kylinos.cn>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Wolfram Sang <wsa@kernel.org>,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] i2c: atr: fix dangling adapter pointer on add failure
+Date: Mon,  7 Sep 2026 15:07:03 +0800
+Message-Id: <20260907070703.1021671-1-gonglinkai@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <anszXdhlAJk7p7ts@ashevche-desk.local>
+References: <20260806073545.2071006-1-gonglinkai@kylinos.cn> <anszXdhlAJk7p7ts@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: Re: [PATCH v2] powerpc/entry: Fix double accounting of user time on
- interrupt entry
-From: Venkat <venkat88@linux.ibm.com>
-In-Reply-To: <20260904025831.3439809-1-aboorvad@linux.ibm.com>
-Date: Mon, 7 Sep 2026 12:36:25 +0530
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
-        Mukesh Kumar Chaurasiya <mchauras@linux.ibm.com>,
-        Christophe Leroy <chleroy@kernel.org>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>, linux-kernel@vger.kernel.org,
-        Ritesh Harjani <ritesh.list@gmail.com>,
-        "Nysal Jan K . A ." <nysal@linux.ibm.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <31C68D4C-E2A4-4052-A884-CF142AAC01C2@linux.ibm.com>
-References: <20260904025831.3439809-1-aboorvad@linux.ibm.com>
-To: Aboorva Devarajan <aboorvad@linux.ibm.com>
-X-Mailer: Apple Mail (2.3864.600.51.1.1)
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: PWfMhVlJmuHV5igsf-2owlKHS7PAkfAt
-X-Proofpoint-ORIG-GUID: dd2lFNlfi2alnkv6gmJGNT8-EtxtSPM4
-X-Authority-Analysis: v=2.4 cv=RNCD2Yi+ c=1 sm=1 tr=0 ts=6a9e6284 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=pGLkceISAAAA:8 a=uId4siVdVRRDVQ4xNrcA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA3NCBTYWx0ZWRfXxozI5vMopOKA
- j9Ext8WqzoRM+yMsd9LvQovnrYB8wvPl/W60rJFgpdLsipOUY8Ls7RQcqk3AuHT0abo1Oxn7TbO
- HtA8Gd+lbT3+RdWEzA+Hjr2VRLhFlJ8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA3NCBTYWx0ZWRfX1sj6PRMuVwHZ
- udqLgbPemIVKmZ4h2AozJWVEvfpP+BzYlOKcpL7iSeojE/gsNjlqeduotB5tgtn4ZXyHDcDA25G
- e0q91iALv2Z3R7vQs7mAxVyleLJFwko8MduKzqSF9dbEyg0IoaNOaoT0Jo2PuE3krgZzAXSblJi
- Ab7pXusujmpPZLmKZS0OKjTdU6vWiaAF9P95K9ZTgGvyW423Gx/9izkWfpgC+Nr2u1Py/v7lf9T
- DqYOmiITFsXqKbjzlGqpekAjE1S8DL2cZTLddz5veY+7gPN6VhdCezBMQEXFQbQF7rxp4gZtyDs
- zF/PyINoIPMOLSTaz2j1GjBRkZOCXRKdSlEPxph21kfSxfnb9xFPWjdbAz4KoQ7M2ztxNvtRHTV
- qjouCWyzzWQoI2xXlh+BA1DZ255cpPu9AWRCSxBnAbVBvpSm96hJGXM6ZYGVbYqgJkQj8iFZoVU
- Vu/Vqx7t6D1l+AjHMyQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-07_01,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 bulkscore=0 clxscore=1015 spamscore=0
- impostorscore=0 adultscore=0 phishscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070074
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+On Tue, Aug 11, 2026 at 05:36:13PM +0300, Andy Shevchenko wrote:
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+>
+> ...
+>
+> >  	if (ret) {
+> >  		dev_err(dev, "failed to add atr-adapter %u (error=%d)\n",
+> >  			chan_id, ret);
+> > +		atr->adapter[chan_id] = NULL;
+>
+> It's better to NULLify first and print after. This will reduce the window of
+> possible calls with the stale pointer.
 
+Agreed. I will send a v2 that clears the slot before the error print.
 
-> On 4 Sep 2026, at 8:28=E2=80=AFAM, Aboorva Devarajan =
-<aboorvad@linux.ibm.com> wrote:
->=20
-> Since the switch to generic entry, an interrupt from user mode
-> accounts user time twice: once in arch_interrupt_enter_prepare()
-> and again in arch_enter_from_user_mode(), which irqentry_enter()
-> invokes for the same interrupt:
->=20
-> arch_interrupt_enter_prepare()
->  account_cpu_user_entry() /* first */
-> irqentry_enter()
->  arch_enter_from_user_mode()
->    account_cpu_user_entry() /* second */
->=20
-> The second call charges the same interval again, because
-> account_cpu_user_entry() accumulates the time spent in user mode
-> since the last return to user space.
->=20
-> The two calls come from the GENERIC_ENTRY preparation series,
-> where each step was a no-op on its own. Commit 09a9d3a8499d
-> ("powerpc: introduce arch_enter_from_user_mode") added the hook
-> with the user-time accounting in it, but nothing called it yet.
-> Commit 893082ac769b ("powerpc: Prepare for IRQ entry exit")
-> copied interrupt_enter_prepare() verbatim into entry-common.h as
-> arch_interrupt_enter_prepare(); that copy was equally unused, as
-> handlers still called interrupt_enter_prepare().
->=20
-> Commit bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
-> made both live. On the syscall side it did the full conversion:
-> system_call_exception() now accounts once through the hook via
-> syscall_enter_from_user_mode(), rather than calling
-> account_cpu_user_entry() directly. On the interrupt side it
-> switched the handler macros to arch_interrupt_enter_prepare()
-> followed by irqentry_enter(), which also runs the hook, but the
-> accounting in arch_interrupt_enter_prepare() was not removed to
-> match. The double accounting starts with that commit.
->=20
-> With CONFIG_VIRT_CPU_ACCOUNTING_NATIVE=3Dy this roughly doubles the
-> reported user time of any workload that takes interrupts. The
-> other accounting modes compile account_cpu_user_entry() to an
-> empty stub, so they are not affected.
->=20
-> Remove the accounting from arch_interrupt_enter_prepare() and rely
-> on arch_enter_from_user_mode(), which already runs for both
-> syscalls and interrupts. The duplicate account_stolen_time() call
-> is removed the same way.
->=20
-> On a pseries LPAR a busy loop reports 6s user time in 3s elapsed
-> (~210% CPU) before the fix, and 3s (~105% CPU) after it:
->=20
->  $ python3 -c 'while True: pass' &
->  $ sleep 3; ps -p $! -o etime,time,pcpu
->=20
->            ELAPSED     TIME  %CPU
->  Before      00:03 00:00:06   210
->  After       00:03 00:00:03   105
->=20
-> A 50% load reports ~70% usr / 30% idle before the fix, and
-> ~49% usr / 51% idle after it:
->=20
->  $ taskset -c 6 stress-ng --cpu 1 --cpu-load 50 &
->  $ mpstat -P 6 1
->=20
->            CPU    %usr   %idle
->  Before      6   69.74   30.26
->  After       6   48.51   50.50
->=20
-> Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
-> Reviewed-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
-> Signed-off-by: Aboorva Devarajan <aboorvad@linux.ibm.com>
-> ---
-
-I have tested this patch, by applying on top of latest mainline, and its =
-working as expected.
-
-Please add below tag.
-
-Tested-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
-
-Regards,
-Venkat.
-> Changes in v2:
-> - Explain which commits introduced each accounting call and how
->   they overlapped in commit message.
-> - Drop the code comment.
->=20
-> v1: =
-https://lore.kernel.org/linuxppc-dev/20260902050628.2553909-1-aboorvad@lin=
-ux.ibm.com/
->=20
-> arch/powerpc/include/asm/entry-common.h | 2 --
-> 1 file changed, 2 deletions(-)
->=20
-> diff --git a/arch/powerpc/include/asm/entry-common.h =
-b/arch/powerpc/include/asm/entry-common.h
-> index c5adb5006361..000fa925e26a 100644
-> --- a/arch/powerpc/include/asm/entry-common.h
-> +++ b/arch/powerpc/include/asm/entry-common.h
-> @@ -222,8 +222,6 @@ static inline void =
-arch_interrupt_enter_prepare(struct pt_regs *regs)
->=20
-> if (user_mode(regs)) {
-> kuap_lock();
-> - account_cpu_user_entry();
-> - account_stolen_time();
-> } else {
-> kuap_save_and_lock(regs);
-> /*
->=20
-> base-commit: fb442a6673ff1046bf67754957d95880fdb394b5
-> --=20
-> 2.54.0
->=20
-
+Thanks,
+Linkai
