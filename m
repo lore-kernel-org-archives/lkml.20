@@ -1,188 +1,181 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D824248BB
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:47:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788770850; cv=none; b=JAcPPDbYWLak20V+wIlejQoDncVw/MJJBsvsEZuoL0dYZkaU76DNLNWyS4YECVp/rtsFVBqiCo1jF86XeXDMg7zTEIOCcQ/D75lXLItWI8vgIrcOyGLTqxm8BEdIMcZv6a4Nqk5Jagj9QKK1U6g19Z5Ne9xVi7Tc0/EnVe2JB30=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788770850; c=relaxed/simple;
-	bh=uAdR7AJefg7XJMmJnGVxreLMfgxg4l7CIv5IiLGe2q4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WEfbt4zoiJoNDB7/nG5hkMYyuyWtunBzL3VZxXm7nFuqCaaBhwaKClPHf35Buj5XcwEBPs5XY9f3eQmc+6cLcFPS+i6gfkS8B/P5BkHn4I+P97IE9egG7MlfNW7vFjCvgluFpcgwN+raBSFCbQ+nSlDG8L8KpWJXqfo58kKvNdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org; spf=none smtp.mailfrom=blackwall.org; dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b=gN4zDSqJ; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=blackwall.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97F61353A90
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:47:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788770867; cv=pass; b=CBUnHg1N02O7T9WrzDRju+rzIZAENdm54lwJFQYxd2MzUxcYbrOHaiLt3GVpNxSIeRLro9wfP0sPkUPlwnkK8OfDCwp1FOAOqEZ2jyEAkN/4yBw83WcNtDDKwSLC1LkRRscpgwTMj0nD6yZaR++DeAiKHbqhMS5NFheNSyjF9us=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788770867; c=relaxed/simple;
+	bh=KCb+AEWT222QOqqi/nfb/AJwudII8A22iwSuXfgeJ0A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JuInL9bTXOfRWJxs6dDxC8ro9BvtyHRO5xgFQDPLQZOieFRZxhqoTjo1D+I9gd2CTd6eM+LgEvsjY7Ne1IX5tY7X0GEYA3fWY1c4LXvrybacqwlPgk3CdFlX+N/Duoq9Mog0gnGrYDP4kCPhqXTRmU8dGTqOwt8qQcJ9BNAn8O0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=MaM3+GZ8; arc=pass smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b="gN4zDSqJ"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49b0d8bc2aaso41808055e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:47:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="MaM3+GZ8"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d9201076b3so37331795ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:47:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788770864; cv=none;
+        d=google.com; s=arc-20260327;
+        b=M0beR2404OC4HctDugtveGN6ItPqUlTsCQcoeaXRDz92Juox4faIimOEjjQVy531G4
+         n+o9t4HwE+Nxn2SWHGkpTf8G1ugunWlOAyQIJzWKV0JhfsSuQPA0ARftHH7wfGbf9aEB
+         OHGLyYxjjb+4vPGUBuCKhY+NaqRx6Ttd6mSk7qesc+hxB/nD7PNoR+Fm+6Wr9873iptV
+         Tb8agocsQLewD54ZIDwCLQAtiA6B01jDVLwJuzlkKJqM55kh7Cn+1kVnz2AXraIMBw/H
+         qescFY9ISjkwMabtM2RXyz9uu/e9XPfWXO/nHz/FoaoKteumlHYt/4TQarx+Tjr5zfrB
+         ndaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vD4jMxO/NmU/pHfxFJ8NQMuBlPLvKvFHeSpZFwyymkM=;
+        fh=HsbLZer0BVxJXiyXS/XFIzoVce8vtL78dRtheJNZxKs=;
+        b=o2vH9TzKvk2zgAQB3VwSkvAAL5fA0IbKUegRePu6ulWVWuMR5oLnUWcE3fxLtDjaMq
+         AB12PEXT6Db5ADgQTxkz04FzGV9U4CmaxcP4xwYD0nysKfOZyaAl6/eczpQB/y4i7PK1
+         iERigqDjFsKLR9bnQJoT+zoEC8flNMBkvDOn6TIuDGy9/sZ9SnfrZ1kgbcUK25wa5qpV
+         gCZ/Uhv9ELz7G6je4HvaftIoGGQdjhdmzXMlIYUGP/ucDFOQYyLklp6c7ftwW0d2S9Ta
+         RL148nbW+IlTAblCM9lyEsKpE+vQjSF1ZBryTkRGxAYC68FxHkz0IjNfbS9+4KlDwNjx
+         iTyA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blackwall.org; s=google; t=1788770846; x=1789375646; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BrZfINTX7sxI4mWYRCn7cilENkHFd4AeCmaM2CD2NQQ=;
-        b=gN4zDSqJfqNJ2rlAp+g8bqrY9gKMWctoYH/ulGWJ2NswUdpmqk72L0zUlc9n5vOdlO
-         O6QeMflNZnrBEa+In8M7xTMFrY1eY1UuUiJ3w6xODJEHkY5OrqNsnlzwCYkwwtlYdhyF
-         pAPfzEyAAinJB2qY4bSeRiuANUbuBsSTVDBYF9dHIvd8BWote14LvILLJJqjAhGuBk+d
-         2jJJ4eOBaYsDlfYRX+nNQeQFn7oMcjGj4agYYMPUc4wRnMQhtSREPMUMy3PK2uaD0rv5
-         jYZhIGbMzwfecHdNOYP6PbuNMADzJOzYoJySZEFCC7qajq0NWgWoOxRclKXQV/oyy1i9
-         uS5g==
+        d=sartura.hr; s=sartura; t=1788770864; x=1789375664; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vD4jMxO/NmU/pHfxFJ8NQMuBlPLvKvFHeSpZFwyymkM=;
+        b=MaM3+GZ8CgUjDMCr9OVjhS62XoBR2OhkcGnUyOFxHL/yysmPcnJr88vUUdsA6fk3qg
+         sDj0ihjZqfYbfEiOD17ky21fh4irAn67OgELzwnJyT7Bg1M3KCUd29T7R6QWvebfw5AZ
+         ZiuCwC28nb6glW1Gh+RU3U26ITznkrlcXDQ7iEOhejEu2HaoBFvOw41UqG7uR81v8fae
+         yYFkcoc76cF+70EvjsQNTvhIuHwOfFrf6LTi/zVfR+s9s9mi6U5LrZWGX9eTc8RWDc6I
+         dymI4+kM/T1PEr1x+wXDI/sBiKhsn7shAgo0sxCgX3G1wSzyNonEbwG3eBWP+ZCZaSTD
+         S1vQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788770846; x=1789375646;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BrZfINTX7sxI4mWYRCn7cilENkHFd4AeCmaM2CD2NQQ=;
-        b=FFM2qOpuOp2ENa3+FMBlmWv0S/WuplearOqC7+jroF9HiQcyT3MfAVXjsoC7sfykLF
-         5K8qzTnc3Z7zpqCWJq7J9qCFi0kD/m7567X4qKE6cK9NYdiQYNL+dYYshhsaD17G6KYz
-         16jWAbBx5aGuhxXelGAkriS1ieWEwb26cyAKW1zsFAoZ2gfidldlrsitvnBPc2qiEcxt
-         OFeiiStBpTV5gpJzn+On8GFNrPNFv+UQOItfbFU182drzV4KRZynn5xdULAzI8NfEMr/
-         ncTFcu1P//zbz0wAPwSxRG/hT/wG0EWfxdQmLmwa09JX/ugyP6uh0tGjLsKUETqtSGt0
-         sEwA==
-X-Forwarded-Encrypted: i=1; AKwUvBzB28WduSn/kQjNIEGOYgj8+cks+6Sg0SKwBtLCcTA2xZhwI8i9a2qyoyvzi/YpCk1DVN335rK1GvOGCEY=@vger.kernel.org
-X-Gm-Message-State: AFuF++m9kMyrgP15cbaW3sPtcSKqdn1xI4vFrM2NFQv7uaQ1NFfh+Pjb
-	YjtP2TyFLp0gFvi7XmL8E46qD/jKoHOXeAnrc31pNMt/7T94FRm7N3XdifXf9/oHlCI=
-X-Gm-Gg: AYBFou2GIqeBn9qzmVH0nOceZuDUnPtyD85lGinteAYWkEiG+oPCov1GEJ4WqaeqmXT
-	K0o4BJBfXh3nzAcByxluCl0QyMlNZd8Om3GGWgjbF7Z+CUZ5KC0psFBYXKyi20FasWsCRXfai3m
-	UC3cozO8RDswneeQC6xiDgG1slAHvKdzyab9iJskgBJP0Fl66FBpuSaBq3gAmM2aJwUMcwiwzTF
-	YHbQXoDbcd6onC8MWARk68ImKdaOCGD7GNNQJGsGplhgNHmOrn+givlwnv7DWQ0QZeLEjZiN37d
-	iF2SqEeDGG3wXUHu056XqwHbCevpKTGWNLkpzoQr1vzHHoj76HelX4r3rwXFpGvbUCDmkXCfrao
-	cBc7Cl2orkr9YQ1ZCgRGVi7rLK2ri8zTFxAdJQw2eoYaclgIBqfcWNjkGyoI2/DC5X4PNeozUtQ
-	sYXSyh/dEclgAksmAhm/d/zFLC4PwP9pdfgAnHr4fxgEXrAxCqovq8iYVwEU3/ig84969WuUGMl
-	1YQ6ziav7d2s9GN1sg=
-X-Received: by 2002:a05:600d:8481:20b0:49c:fde6:8b39 with SMTP id 5b1f17b1804b1-49cfde68bacmr126832555e9.29.1788770846306;
-        Mon, 07 Sep 2026 01:47:26 -0700 (PDT)
-Received: from [192.168.0.161] (78-154-14-127.ip.btc-net.bg. [78.154.14.127])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7703cefsm400041515e9.5.2026.09.07.01.47.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 01:47:25 -0700 (PDT)
-Message-ID: <ba2dcdb6-923d-4fc1-9c92-7a77c0b61a09@blackwall.org>
-Date: Mon, 7 Sep 2026 11:47:24 +0300
+        d=1e100.net; s=20251104; t=1788770864; x=1789375664;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vD4jMxO/NmU/pHfxFJ8NQMuBlPLvKvFHeSpZFwyymkM=;
+        b=mOmfguCw8iom7oJaRoYm67OXhcbwkitTfxr/fh9SGF+5XBBmHd2YhBRHRGyrztEWL1
+         VDxethc5w6uGZJ08fEM35KVXeYkSpfQ++8esDE2XvFDX9RZqaKwOY1ICk3kYs54cBnfi
+         tri6PxYEnlIaaisOKTvFDvvBIiO+JptX6HcgpvU1W0fMyGf+PurDdL4kcWRqpds3HwZX
+         9mexuIaeA2a568I+Wbmwr1EK/N0TH9u8xStcb3vFkqVUeRMPachzVaa35DqxdSzRgJg4
+         3XKZYlL5jFtVfhCkhf84KqbR/JCCQp1ffEh48/Emq3y/L+l3eK1zX434mFSfHWl4hjZk
+         9NuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwNXrErYGZOepdWF2UdaIJSXcFoKn/0X9ozoP+ef4IvKNcjuw5GQMyO13DmkDSM+HMRvtSoys5PCi9TAkM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mLk8oxdwY+Hr6WyjbN89sR3Tqrg9IuaKtimHb29uVDVlogN41v
+	XfzmFUdOzmk3wshFlEsHf7KuUoV5vzmhzSnXtGozOJri/JBQ0NBXRg0MWzi0rWS0xwibf7PAEAt
+	r4jxS116jN4hZ/4fcGvesiwDpPKhudrBXkGpfWw4aa9eg/lpCtm1r
+X-Gm-Gg: AYBFou3FABQDiagCIsYjfK+YxzlLMPkmb72gPNkU6Wku95pASPkt+hkMYHNXgTfVcha
+	+MF7egslNQkll+lmBXV/Ztf/nPuZEhzKlprQZBDC0hHmXkMokaRCp7Rh5prslVVuZGb7swKErn4
+	akk8Dg2IsjWbSfMBGMWDVBKUM39Pw8oA8uiyZWDweQD/pI98C93Dx+71AiMgYIYjJJLipw4ayj5
+	itj0WXwmHrmWumeEYp9kDKrs0aUSM88flt2CK2NbQXruiYucnKHcpGNrwLK2PUZJ7EIjz6PPdnO
+	2D6xEnu+vGtb1zHBp7DQgPck+Tf9Jky/yk7E3mx9k3HMR7Xd0Io5d+j7rRCEMn72X2f/WR81Tfa
+	58LMNG6upa8BN69VTW1z+tcBwgA==
+X-Received: by 2002:a17:902:ba98:b0:2d6:fee6:65ae with SMTP id
+ d9443c01a7336-2db1232e1c3mr208841035ad.4.1788770863774; Mon, 07 Sep 2026
+ 01:47:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next] net: bridge: bound the port VLAN lists in the
- IFLA_AF_SPEC nest
-Content-Language: en-US, bg
-To: Artem Lytkin <iprintercanon@gmail.com>, netdev@vger.kernel.org
-Cc: bridge@lists.linux.dev, idosch@nvidia.com, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, davem@davemloft.net,
- corbet@lwn.net, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260906224246.21719-1-iprintercanon@gmail.com>
-From: Nikolay Aleksandrov <razor@blackwall.org>
-In-Reply-To: <20260906224246.21719-1-iprintercanon@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260824110432.1074136-1-robert.marko@sartura.hr>
+ <20260824110432.1074136-2-robert.marko@sartura.hr> <0cc2d875-7aab-4091-816c-031f21f3cbac@microchip.com>
+In-Reply-To: <0cc2d875-7aab-4091-816c-031f21f3cbac@microchip.com>
+From: Robert Marko <robert.marko@sartura.hr>
+Date: Mon, 7 Sep 2026 10:47:32 +0200
+X-Gm-Features: AcwNN1UN3QTAaO3T5aX08ZJGRbzWUSCSQzk2RVV1wbUqXENm6k12pDenn8TnFIY
+Message-ID: <CA+HBbNFdqjAJYduFukaZL4+EN12OrsT4qsso95tds828m_z0ag@mail.gmail.com>
+Subject: Re: [PATCH 2/4] arm64: dts: microchip: lan969x: add SDMMC nodes
+To: Aubin Constans <aubin.constans@microchip.com>
+Cc: ulfh@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com, 
+	claudiu.beznea@tuxon.dev, linux-mmc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, luka.perkov@sartura.hr
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 07/09/2026 01:42, Artem Lytkin wrote:
-> br_fill_ifinfo() opens one IFLA_AF_SPEC nest, fills it with the VLAN
-> information of a bridge port and closes it with nla_nest_end(), which
-> stores the accumulated length into nla_len. That field is a u16, so for
-> a nest larger than 65535 bytes the stored length wraps modulo 65536.
-> The encoding has never been able to describe more than that; nothing
-> regressed.
-> 
-> Three per-VLAN lists share the one nest. An IFLA_BRIDGE_VLAN_INFO costs
-> 8 bytes, an IFLA_BRIDGE_VLAN_TUNNEL_INFO 28 and an IFLA_BRIDGE_MST_ENTRY
-> 20, on every architecture. A port takes at most 4094 VLANs, so the VLAN
-> list alone is at most 32752 bytes, but the other two reach 65535: 2341
-> tunnel mappings that are not consecutive in both VID and tunnel id, or
-> 1821 with uncompressed VLAN information requested alongside, or 3277
-> distinct MSTIs. A VXLAN leaf switch with one VXLAN device maps thousands
-> of VLANs to VNIs, and "bridge vlan tunnelshow" and "bridge mst show"
-> read these lists through the link dump.
-> 
-> Nothing fails on the way there. br_get_link_af_size_filtered() accounts
-> for all three lists and feeds both rtnl_calcit() for RTM_GETLINK dumps
-> and nlmsg_new() in br_info_notify(), so the skb is large enough and no
-> nla_put() fails. Userspace then walks the message with RTA_NEXT(),
-> which advances by the stored length, so parsing resumes inside VLAN
-> payload and everything after the nest is read out of it. A
-> CONFIG_DEBUG_NET kernel warns once, in nla_nest_end(), via the check
-> added in commit ff205bf8c554 ("netlink: add one debug check in
-> nla_nest_end()").
-> 
-> Measured on a port with 4093 VLAN to VNI mappings: the RTM_GETLINK reply
-> for the port is 147776 bytes and carries an IFLA_AF_SPEC nla_len of
-> 16280, and the top level attribute walk derails 16672 bytes in. The
-> notification path is worse, because it broadcasts. A port flag change
-> goes through br_ifinfo_notify(), which asks for compressed VLAN
-> information, and the resulting RTM_NEWLINK is 115048 bytes with an
-> nla_len of 49088; walking it yields 2342 attributes after the nest,
-> 2341 of them read as IFLA_IFNAME, since IFLA_BRIDGE_VLAN_TUNNEL_INFO and
-> IFLA_BRIDGE_VLAN_TUNNEL_FLAGS carry the same numeric type. Every
-> RTNLGRP_LINK listener in the netns receives that. The DEBUG_NET warning
-> fired from br_fill_ifinfo() while the mappings were being added, in the
-> context of the process adding them, since each addition notifies too.
-> 
-> Bound the three lists by length: stop adding entries once the next one
-> would not fit in 65535 bytes, counted from the start of the nest so that
-> the lists and the inner IFLA_BRIDGE_MST nest share the budget, and
-> charge a range at its real cost of one or two entries. This is what
-> commit bdd39576bf50a ("net: bridge: prevent too big nested attributes
-> in br_fill_linkxstats()") did for the sibling nest in this file. A fixed
-> cap on the number of entries, as IFLA_VFINFO_LIST got in
-> commit 51e15308c6ae ("rtnetlink: cap IFLA_VFINFO_LIST at a documented
-> number of VFs"), does not fit here: the lists share one nest, 4094 VLAN
-> entries take half of it and 2340 tunnel entries fill it, so any set of
-> per-list caps that is safe in the worst case cuts configurations that
-> are described correctly today. The byte budget regresses none of them,
-> and it is still a limit userspace can compute, since the per-entry
-> costs are fixed. Documentation/networking/bridge.rst states them, along
-> with the RTM_GETVLAN interface that does not have this limit.
-> 
-> The MRP and CFM lists that br_fill_ifinfo() emits for the bridge device
-> itself are not touched. They live in the same nest but never next to
-> the port lists, and CFM peer status can grow past the limit on its own;
-> that is a separate change.
-> 
-> br_get_link_af_size_filtered() clamps the three lists to the same 65535
-> bytes, so a dump of such a port no longer sizes the skb at 147 KB for a
-> nest that holds 64 KB, and br_info_notify() no longer makes an
-> oversized GFP_ATOMIC allocation from STP timer context for a message
-> that would be truncated anyway. The clamp cannot cut into the MRP and
-> CFM information: for the bridge device the VLAN list is the only one of
-> the three and stays under 33 KB.
-> 
-> With the bound, the same port dumps as 65932 bytes with an nla_len of
-> 65508, the notification is 65936 bytes with 65512, both walk to the
-> end, and nothing warns. A port above the bound reports shortened lists,
-> so "bridge vlan tunnelshow" and "bridge mst show" print the first
-> entries and stop instead of printing garbage, and the rest of the
-> message parses. Read such a port with RTM_GETVLAN, which gives each
-> entry its own attribute and continues in a new message once one fills
-> up.
-> 
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Artem Lytkin <iprintercanon@gmail.com>
-> ---
->   Documentation/networking/bridge.rst | 17 ++++++++++
->   net/bridge/br_mst.c                 | 12 +++----
->   net/bridge/br_netlink.c             | 49 ++++++++++++++++++++++++-----
->   net/bridge/br_netlink_tunnel.c      | 20 ++++++++++--
->   net/bridge/br_private.h             | 23 ++++++++++++--
->   net/bridge/br_private_tunnel.h      |  2 +-
->   6 files changed, 104 insertions(+), 19 deletions(-)
-> 
+On Tue, Aug 25, 2026 at 7:14=E2=80=AFPM Aubin Constans
+<aubin.constans@microchip.com> wrote:
+>
+> On 24/08/2026 12:56, Robert Marko wrote:
+> > Add nodes for both SDMMC controllers.
+> >
+> > Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+> > ---
+> >   arch/arm64/boot/dts/microchip/lan9691.dtsi | 24 +++++++++++++++++++++=
++
+> >   1 file changed, 24 insertions(+)
+> >
+> > diff --git a/arch/arm64/boot/dts/microchip/lan9691.dtsi b/arch/arm64/bo=
+ot/dts/microchip/lan9691.dtsi
+> > index a8541c6a098d..2d943ea75768 100644
+> > --- a/arch/arm64/boot/dts/microchip/lan9691.dtsi
+> > +++ b/arch/arm64/boot/dts/microchip/lan9691.dtsi
+> > @@ -414,6 +414,30 @@ qspi0: spi@e0804000 {
+> >                          status =3D "disabled";
+> >                  };
+> >
+> > +               sdmmc0: mmc@e0830000 {
+> > +                       compatible =3D "microchip,lan9691-sdhci",
+> > +                                    "microchip,sam9x60-sdhci";
+> > +                       reg =3D <0xe0830000 0x00000300>;
+> > +                       interrupts =3D <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>=
+;
+> > +                       clocks =3D <&clks GCK_ID_SDMMC0>, <&clks GCK_ID=
+_SDMMC0>;
+> > +                       clock-names =3D "hclock", "multclk";
+> > +                       assigned-clocks =3D <&clks GCK_ID_SDMMC0>;
+> > +                       assigned-clock-rates =3D <100000000>;
+>
+> If always targeting an e.MMC, capped at the High Speed DDR mode, one migh=
+t consider
+> a multiple of 52 MHz here.
 
-So much crap in a single patch, my eyes hurt... Yes, we know about this problem
-and it is obvious to anyone who can count. This is not the right way to fix it,
-it should probably be considered a corner case but still - IMO silently truncating
-is very bad. I prefer a more explicit path - return error for both (RTM_GETLINK and notifications)
-you'll have to plumb down extack but then user-space will know there are too many objects or lost
-RTNL_LINK notifications and it should resync (e.g. use RTM_GETVLAN to dump the vlans if needed).
+Hi Aubin,
+The issue is that LAN969x cannot derive a 52MHz nor 104Mhz clock.
+Requsting 104MHz would be around 111MHz, while with 100MHz the end
+clock is 50MHz.
 
-Cheers,
-  Nik
-
-    
+Regards,
+Robert
+>
+> > +                       status =3D "disabled";
+> > +               };
+> > +
+> > +               sdmmc1: mmc@e0838000 {
+> > +                       compatible =3D "microchip,lan9691-sdhci",
+> > +                                    "microchip,sam9x60-sdhci";
+> > +                       reg =3D <0xe0838000 0x00000300>;
+> > +                       interrupts =3D <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>=
+;
+> > +                       clocks =3D <&clks GCK_ID_SDMMC1>, <&clks GCK_ID=
+_SDMMC1>;
+> > +                       clock-names =3D "hclock", "multclk";
+> > +                       assigned-clocks =3D <&clks GCK_ID_SDMMC1>;
+> > +                       assigned-clock-rates =3D <45000000>;
+> > +                       status =3D "disabled";
+> > +               };
+> > +
+> >                  qspi2: spi@e0834000 {
+> >                          compatible =3D "microchip,lan9691-qspi";
+> >                          reg =3D <0xe0834000 0x00000100>,
+> > --
+> > 2.55.0
+> >
+>
 
 
+--=20
+Robert Marko
+Staff Embedded Linux Engineer
+Sartura d.d.
+Lendavska ulica 16a
+10000 Zagreb, Croatia
+Email: robert.marko@sartura.hr
+Web: www.sartura.hr
