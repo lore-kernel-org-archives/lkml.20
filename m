@@ -1,117 +1,201 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC6A345DF71
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:34:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788777267; cv=pass; b=RazWew9xh47CSg/6JBRLqSDzfnThzQ31i3LrvApt2sKbVgEcnNp51i0398+WVzxCuBd9eJ0SNcx+oyHO6sDZdrqlvmKqaqw2Vmogl1VOBfzKVRjVNY9uKkDzmfyQ4W/EFXMkWVpBfeEHSbvc/TbYn7LpuyGqKj6TZOCzynOixEU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788777267; c=relaxed/simple;
-	bh=+yS+OWDWHgj8L1bOSAbU79jIY2VHoZj62mLc+Oc2Vlk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hq3pUsNMLXvQ3jZ7NYXUDEJwzPEPVbFDlxsWt5QmW5En2xUkyNqDyixpsbzq3htS1fOR392uFficulKumgb5smcoYATsELkbIh4JbZRacGS6hxAd1FRja7VK+jXSmtW5JFYY6uAtC5muj2pnAARQqLR+0T7Q7wz6xUYxvGMmLG8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IZn095UM; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C43E843F8CD
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:34:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788777280; cv=none; b=ODHaA7cARLflFfc7Udj1uSXVkgm3W/9mWBzWVx15P3JgjD/u2vjZsuSrz3Fv1Up4PJtCGKYDKWaFteZQaPJpXsFbgEpSL8ZcpA5obLE6cEuB+5gEoJyhdqLbzxj4H9sNPOUu02Ex/1+f8g0c3po+weT0Fy+T9aCaz+usJ+v/xmE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788777280; c=relaxed/simple;
+	bh=jFpAo7i529GMRvwEedXFKqgtoTVh//GOmUce7AX7C+s=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=h0z721OKkZdujE11igi3Tm1X3MxRjYQyfagVt4fz5EFvOVilBmnz0qPPLOY0gx/3MiobJ/cHb673u/szqQv6ulxrGYqLr6uttBU72iqZS5F7VY0DuQ5m39TOKddLLMT6MTBK2ZN0g78Ua5NpGVEn3Ldm0xG3D339GTHwdT++Qzc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ursulin.net; spf=pass smtp.mailfrom=ursulin.net; dkim=pass (2048-bit key) header.d=ursulin.net header.i=@ursulin.net header.b=OlzG46hW; arc=none smtp.client-ip=209.85.208.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ursulin.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ursulin.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IZn095UM"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60591bb18so16969a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 03:34:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788777264; cv=none;
-        d=google.com; s=arc-20260327;
-        b=J9UaIGfLshhYFyDawCYB7oJJix7/sul/CayeZ1pbQusA7sj5Q2l1dLMFfV5SG8jOJm
-         PfXtPrZgyNVXUj0wu85t/sxXrFmWe0U15Pc9K12rkT+TrPxqH5gR88gvZlgIomd5ghn6
-         /QBiC7/RtE/V4mVyl4rWzB3XhBGtEz48O+WqHpMiYAN6VuXYONOzM+qH0o5+wSgbhyYq
-         VkWViMlgfi8n6TJ1dzVhKMj2CAUpvYgUyvWi4jDTo/q4yrJj2PRlRab3skpJItgz3k+7
-         5A4W76E47ee09O1s/hRkxqr1lLnAKkhzmE5653OXeP/KRKBC0boT2QylgXw/d5FrM5lW
-         8FGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+yS+OWDWHgj8L1bOSAbU79jIY2VHoZj62mLc+Oc2Vlk=;
-        fh=dEMxqKFJGmgYluIqeb5NSxsLmevOFeLOZvzYIxbZ9+8=;
-        b=kjXCuizRjmxfblBuT9Yj/y7Std1o5JIGLAFEx5S06HyM4YsaHxjKIm4zeJKaLJf+Vt
-         FQfRQh05Y80BGgantIAkBTF/QLx751qkHSyAUeHGRAOHRy81lebqFFBfUPMWm+yo3tNs
-         tV+J1lSYsgLprJUBLE9UwLpObUM8LwzOKdFceN41YT8jvAu7c5sozHVaxPoFoSkfSv1T
-         +FCurROslfTH5r2h8VnxRlLQr//mNpnheemLxzDmPFbWCTLemjBU5L+KqCPUYHFrwGCX
-         EVKZvd0UM26878yMXHUsPWYM4MH4xnAsEFz3XlRmLlNXNsGpIf2aah9OGXFek4pA8Aa2
-         dE5Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=ursulin.net header.i=@ursulin.net header.b="OlzG46hW"
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6a63c610b8dso4415737a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 03:34:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788777264; x=1789382064; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+yS+OWDWHgj8L1bOSAbU79jIY2VHoZj62mLc+Oc2Vlk=;
-        b=IZn095UMZppKejO7xWluUfNsRQLG6pAamNXLKTIH8yO7tK/QVLuFjrwSdRrBorK/1/
-         nAYqJdjWITzkwcm8+S1MY+Z/TYzPDSvgaDNCij9ZKn1Vf4ziNGArQCDnbknFXi29vkJm
-         7FQXbeKLq5IWR0cQ62+OElB1VDCEPLFcUMG3C4xunXDYNST+jfWnPMQ1rDVr8YPQLUbT
-         xwdEgaDFTh5rd/L55cZFMYjbh7z04qsMGNBwy2Am6jmbjPyvlHI4ZPQ8gFv/nrU/Nzi1
-         Eft1RbDsdx38C8W8Jfv5SKAEdbwbCKRVud0dOl7wGwP9DN3MrSKKWkE9H2mJ/bw5RHzX
-         Bopg==
+        d=ursulin.net; s=google; t=1788777277; x=1789382077; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=B+Aa6ObNtsWuLVnK07xngOY/Mvint7kr6yr+j3fGmn0=;
+        b=OlzG46hWqGVlMt8HOlGeLzFt2jBUEcLbINmYcHyb1c/Rmgc54i75rNDBNaskIiBLsD
+         Rptup58sd4m+i5r2pv80uck92X2ax6U+0I3kDUKXjAkb4KfCfaes4nQVpy3ZuGnOKNPP
+         txEJTqTyqurjONcGbYhqtZ61qEFQBG+sy6uZi+oDBrlAKGR/P92xvKcRUsNURMeyI4hZ
+         5sVzeoy+wEN5aXlLkqvyRwk4WyaeoJFUvXwQq/ABUTSAJp9zPhDMJvC0RGw3ZQdTSMy3
+         uv5FbtO/+bOhKuSmfJ3c5hA3FUcaEj4o9FbEcAb4oeeF0devXK2EI5+xUav9GlFR0J+6
+         D0TA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788777264; x=1789382064;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+yS+OWDWHgj8L1bOSAbU79jIY2VHoZj62mLc+Oc2Vlk=;
-        b=jrUu/Ofk3MLezU8dv9W2ZwDDM0kETDTufUS24/kyldsWVT71pwh9OY9JW16S6+npMT
-         Ou8LEZFgwBE3NxXQrf90AjMKBepn2H2Up7OhQz8KOrJfasBKy1aa9DODQvpuvJy/ut3T
-         Rh+KGA3Tl1Wue+QT0dASIF3lnzxKCmhLIJE3YU/EsYOqBIB9uMycFRq7VD3zak3dEBjL
-         VAq55dPZFNYtn8vtCDRwVG+2I4B3LQxq44Jw+vgEJlp0pTXUYaCEi15mwcOhTbeoBitZ
-         joIJaplJ/TlXumU+TuXW15XlxY44aIKwo1tLbZi2NTTgvxo4P6Phe8VhKKEhMYlRmXaU
-         JLWA==
-X-Forwarded-Encrypted: i=1; AKwUvBwpZ7vztrDnpvuk6IPIiifueL4kRgSNI+4VYdmsvZDLqZLpV/MMBFkEEnFupww8wa1/i9t6mbvjF0cXD+0=@vger.kernel.org
-X-Gm-Message-State: AFuF++ls4ngM19Cx/Meiv7V+Zs0g6UdvwotrBltSBkK8o7M+yfrvKL1l
-	8/3t1NXSCRcAJuej0OJtAK97BBzcAmnDEx51TwlUcL/BZMTcI7J5lC+KcA20pp7NAQp+dZ3u2hJ
-	uNPQ8wg6ZYJTDKWqgNA5bW2/C2aylUJo=
-X-Gm-Gg: AYBFou26zCn36uDIeg6wysf+L+4tsDIhrz4ujOpCvUlLdBKsjR4j84BeGdb8MOqcYsW
-	YXMsTSDRmcNT5T2C6ZjfRxknQNeB4UzkW66hKPH5kCNOPqji2SJ15EIJ3Ll1PhuzvXdOqRll8eT
-	Jilik9u2hYBhJjKM4tBbFefRYGPnKp95V0vXWK6bUzUFY+rWSmN2rhgCzj6fNAJkLIYRgReyM2R
-	Dqv8Wa4ug9EK6cVdIaWC+BGUaS5+HJhcsdWj5CWdZg0pJ4kxUuC9LgesdXT5ftES7ktcy0o6B/p
-	2kRQzkBQmIB9ZhrB/99i1Mf/mdMv4OErseGhaa18lkWPSfWKH9h2gWg6XI+QY/Ee5Lqai7IX8wA
-	UWrUsCHVQZ8hQZ3S91HIQfVxMZbPXMWXGnOWO1IbVLpWE/pOOcEotApc/2A5s2TNeXQmGkGDZls
-	5CM5oI8c3vrV+AYWl6pin7TrAWyejh4f2w
-X-Received: by 2002:a17:907:3f09:b0:c25:f7db:4bea with SMTP id
- a640c23a62f3a-c290446b88cmr6398466b.16.1788777263623; Mon, 07 Sep 2026
- 03:34:23 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788777277; x=1789382077;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=B+Aa6ObNtsWuLVnK07xngOY/Mvint7kr6yr+j3fGmn0=;
+        b=O8wvjoJy9BRmjRHEehck0J/7hRmKsw9ylku3/6OGuXttjo1g0uHJpEjQa1WJRsWP6d
+         iL4hHjLGLnZ47t80yky0SEXWPEOoq+soCflNZKduPGmkECNZ7BPCwXmS5AICyaeQQJ0o
+         ydFplfcHIduY/KvXb1RZrhBU36Wqbny0eZfLh4+osUtDeQ4B3e/TezOhhoy5i35hHujR
+         zsPMC/9v2+utRQgRAep15zd7cwF4G4qd659NSUpJCgIVEpzsCx72BB6uhOGSFk8WVMNh
+         bHJg6Pmfr0eYL1OpzoI4pJOnQpPE5Va3irbgPlxI4kVV+dLA3eJ44WoiROGHyzr2qA46
+         x8QQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz00d/G+JwOGzKx4w6WNcrh2oHFzaVGmJjguAy+s2aASVC9boWc3ges62HGL7z94oYPqZ+qFK+yFM1HkBk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lNHt0BqXBTvIlAdISopoYQBoKhvKmHKrPqUzV053pXauhNhkNZ
+	ZVXWQL+vAGPik1ou6ugvlrElxTYzNFRNul7aYooUzOvZ+tcE9zk6EHMndL1AS5BS3X4=
+X-Gm-Gg: AYBFou1zVnn10x7QUjpN2lyey90Qc2PS/bD2D31TkiFhYIWjrWK8a7R5iKCB9dnVrlW
+	nh88Q7l7OADr40abIFLK0r7439qgPc1FbkhsI4qIJqKO0pTw1r3zU22dHAcXkbW7RTLAvD5cuXn
+	oUfxuJqUv/s+E1ACM3s7Ew/Dt+c5CCGFUtH5rTXYUjbFhyyno11BMN187+kAhPdXvJEMwTxD8c+
+	1glL4107+2YKUDDgqkdyhBKqFiCvrAAWv1nboCeKmvjNK6CSsZ8zDwMN73EjswF5Z2+KBAto7vE
+	Ug8WAB5sDT28cJA4Bpo+mI7leaUDawGxS4Hp2IHX3o+06kdCCRcrJBX+cwvwco6bvxAno/33NG2
+	E+oN6y3YtWuZ+FKCujquYynKQcyQLylZZzuJlhWzqg5i5HMNvoFUpcwCxY1aOCfcs4aTWVPByXg
+	WvCYct633kJZPSDkruXq59NEDf5KphttgpUcGPDW2DhZubREHZi5OSzQnmbVHtrgzp4iwT//8eE
+	Rmq
+X-Received: by 2002:a17:907:72c2:b0:c25:2e93:289e with SMTP id a640c23a62f3a-c260ca19c04mr1482747566b.16.1788777276733;
+        Mon, 07 Sep 2026 03:34:36 -0700 (PDT)
+Received: from [192.168.0.116] ([81.79.79.1])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d5cfaa2sm450462066b.59.2026.09.07.03.34.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 03:34:36 -0700 (PDT)
+Message-ID: <7e98c872-6eff-4eb5-b53b-aedaf0fcc7ff@ursulin.net>
+Date: Mon, 7 Sep 2026 11:34:35 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907084319.351688-4-blum@kernel.org> <20260907084319.351688-6-blum@kernel.org>
-In-Reply-To: <20260907084319.351688-6-blum@kernel.org>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 7 Sep 2026 13:33:46 +0300
-X-Gm-Features: AcwNN1VffgvnaRhRlD6uHBYo6Fl574uE4g4_q78txLgAdLn8cRR-VrD4lzKeSJo
-Message-ID: <CAHp75VdrNu_7JzfrXFEv=ALoY4x07xD=Um8NxyVPNdiOk2fmGw@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] platform/x86: thinkpad_acpi: Use
- str_supported_unsupported() helper
-To: Thorsten Blum <blum@kernel.org>
-Cc: Mark Pearson <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
-	Henrique de Moraes Holschuh <hmh@hmh.eng.br>, Hans de Goede <hansg@kernel.org>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, platform-driver-x86@vger.kernel.org, 
-	ibm-acpi-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
+ use-after-free
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+To: phasta@kernel.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>,
+ matthew.brost@intel.com, dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
+ stable@vger.kernel.org
+References: <20260904080618.2098450-1-malhyuk97@gmail.com>
+ <20260904080618.2098450-2-malhyuk97@gmail.com>
+ <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
+ <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
+ <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
+ <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
+ <81e51d72-d608-46d0-a986-390ecd6f468a@ursulin.net>
+ <d3d2ae0ae55fb07780f643de9517f3668484575a.camel@mailbox.org>
+ <47464619-890d-484f-986b-9a6c06cd89b0@ursulin.net>
+Content-Language: en-GB
+In-Reply-To: <47464619-890d-484f-986b-9a6c06cd89b0@ursulin.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 7, 2026 at 11:44=E2=80=AFAM Thorsten Blum <blum@kernel.org> wro=
-te:
->
-> Remove the local str_supported() function and use the common
-> str_supported_unsupported() helper.
->
-> Debug messages now use "unsupported" instead of "not supported".
 
-Reviewed-by: Andy Shevchenko <andy@kernel.org>
+On 07/09/2026 11:28, Tvrtko Ursulin wrote:
+> 
+> On 07/09/2026 10:42, Philipp Stanner wrote:
+>> On Mon, 2026-09-07 at 10:15 +0100, Tvrtko Ursulin wrote:
+>>>
+>>>
+>>> On 04/09/2026 20:06, Philipp Stanner wrote:
+>>>
+>>> 8><
+>>>
+>>>> If you can think of a stupid and simple solution, shoot. The only thing
+>>>> I can think of is moving the string into the dma_fence, as a hard copy
+>>>> :)
+>>>>
+>>>>
+>>>> In the mean time, my proposal is to keep aiming for removing
+>>>> sched_fence->ops->release and fixing pvr and amdgpu.
+>>>
+>>> Fixing the drivers sounds like an obvious thing to try indeed. Along the
+>>> same lines as it was done for xe and panthor. It is an already
+>>> established and well understood approach so shouldn't be controversial.
+>>> After that we can discuss in leisurely pace if something better is
+>>> possible in the scheduler core.
+>>>
+>>> I understand its amdxdna, nouveau, and msm. Was it attempted so far? Is
+>>> it significantly more complicated than it was for panthor and xe?
+>>
+>> How did the others fix that?
+> 
+> Combination of kfree_rcu, synchronize_rcu and storing the name in an 
+> object protected by those:
+> 
+> 6bd90e700b42 ("drm/xe: Make dma-fences compliant with the safe access 
+> rules")
+> 299bc6d50b1b ("drm/xe/guc: Keep scheduler timeline name alive")
+> efe24898485c ("drm/panthor: fix for dma-fence safe access rules")
+> 
+> Not too complicated on the overall. Simply ensure RCU grace period 
+> between signaling the hw fence and freeing the ops, scheduler, name, all 
+> that it is in the externally accessible dereference chain.
+> 
+>> If we look at nouveau:
+>>
+>> static void
+>> nouveau_sched_fini(struct nouveau_sched *sched)
+>> {
+>>   struct drm_gpu_scheduler *drm_sched = &sched->base;
+>>   struct drm_sched_entity *entity = &sched->entity;
+>>
+>>   wait_event(sched->job.wq, nouveau_sched_job_list_empty(sched));
+>>
+>>   drm_sched_entity_fini(entity);
+>>   drm_sched_fini(drm_sched);
+>>
+>>   /* Destroy workqueue after scheduler tear down, otherwise it might 
+>> still
+>>   * be in use.
+>>   */
+>>   if (sched->wq)
+>>   destroy_workqueue(sched->wq);
+>> }
+>>
+>>
+>> We see that it
+>>     1. stops accepting jobs from userspace (not visible here)
+>>     2. waits until all hardware fences in this ring are signaled
+>>     3. only then tears down drm_sched
+> 
+> I cannot do a very deep dive into nouveau at the moment. I see fence 
+> itself is already freed with kfree_rcu so that's good. What is reachable 
+> via the timeline name callback:
+> 
+>      struct nouveau_fence *fence = to_nouveau_fence(f);
+>      struct nouveau_fence_chan *fctx = nouveau_fctx(fence);
+> 
+>      return !fctx->dead ? fctx->name : "dead channel";
+> 
+> Fence is presumably the fence so channel. Chagning to kfree_rcu in 
+> nouveau_fence_context_put() there might be enough for that one.
+> 
+> For the scheduler (nouveau_sched_destroy()) the same, kfree_rcu.
+> 
+> That makes scheduler timeline name vfunc safe:
+> 
+> static const char *drm_sched_fence_get_timeline_name(struct dma_fence *f)
+> {
+>      struct drm_sched_fence *fence = to_drm_sched_fence(f);
+>      return (const char *)fence->sched->name;
+> 
+> sched is then RCU protected. sched->name is already static so not a 
+> concern.
+> 
+> As you say nouveau_sched_fini() only tears down the scheduler after 
+> fences have been signaled it seems adding two new kfree_rcu make is safe.
 
---=20
-With Best Regards,
-Andy Shevchenko
+P.S. Idea on how to test it from userspace:
+
+https://patchwork.freedesktop.org/patch/642709/?series=146211&rev=2
+
+But as nouveau does not export via sync_file you would need to adapt to 
+export sync_file from syncobj.
+
+Regards,
+
+Tvrtko
+
