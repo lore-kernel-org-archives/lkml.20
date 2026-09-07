@@ -1,90 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E3313AFAE6;
-	Mon,  7 Sep 2026 19:20:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C8E63B8124;
+	Mon,  7 Sep 2026 19:21:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788808811; cv=none; b=NYIOkZOTk5PmqsLb0xsLgJ5ClRU87uf9ITu+qPwZ5gCkGpu4sq3uNz7QLkQw1UZ/NWVDa9o5Neaoff3wug2AtJpwCNXtVLfZUolgIFlc2XdR0Jdc6dQACes+jb4/+HhTqaeJz0eWyqkSPcB4CiAl6qA9HcyI4O+K7usUL9Gsjfc=
+	t=1788808887; cv=none; b=W0KvU+GGtIxdthfYPu4DeDL9HDEFUw5sZA+wSRs58KNjEPjeTMqvmIZ1G52q4nQ/OeSYBS2QJAly7d8K/7FucDqSxbSRY7/dTCWdNnYaDnARTZyA679Q1+1KqNtl4mckI0NI58jxgzqUfADtDtXUp5NSsTtV2a2405bvM/NlDg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788808811; c=relaxed/simple;
-	bh=B2X4bWGMk/FhaOtRzqPtbwCBIe/I5ub1vzMOSMrZ/dE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rkLyQn5SqpwbxC+tyEESi0sY6Rl/C4hQrmAkodYXyUbNGzGOQS0f2GmlLhJVIDsu5gJiwqFcgObeYyFCZwHAPHYCCNpIxduH6ze0UyMvsragFMk4T2Be5YDa8Rtf0RqeLsYLwdXZiiZ2nG00vt0wO8gTGW++LUm1fIIYjF2l5q4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QaR7vrOi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788808887; c=relaxed/simple;
+	bh=TfbnUxTVBTvUxC8opjtq3AleJUWFFIIQ/muzG8J/sx4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eRDiJatjE+KBXElv5cuFq7uuFCvPMMEMz89zw8ab8pcKqOByH6igW23ByvNJPItienK6MA5y06YwD5xlfc+pajZ3i1Ag8PLYBFAMqf0B0fiCUQTMRejTVXMuVMPCnP5ObaTV6XeGw+cg9LgFRbxS7zYj7PuvFPKQGdwOGCWZNmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=clLvBAlf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QaR7vrOi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42B101F00A3A;
-	Mon,  7 Sep 2026 19:20:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="clLvBAlf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19AA11F00A3A;
+	Mon,  7 Sep 2026 19:21:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788808809;
-	bh=MBF954dvFmkhgI0aFSJi7k7vhmBty1EC28SfxK4YPSA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QaR7vrOijinEhd9KEUPySAQE3a5WYYOYaTpktNd01h4PBTdOoQkU6YsCp7p5g/BsY
-	 aJwOxHZY3o1ftkakOMn1ObMgdgNw0emPrxgS+f+HDR707+J3NtHKfVJ1jIi1oPPs+h
-	 4yeGJ60ThUsimj53ngWWMom4pLdSutXUP8DZNpics1uAwNhw6Qq9kIGpk2JEZ4hze0
-	 m72fTjg3Y6PkDfxCTRqp8EX0oEFOnVJPri/3WR3D9O2CvA9pdCdwY2e975FaMcu8d3
-	 WQwN/zeCQDNFMzniwOwoyk9BCjUExOKRwSBZxgRpv4hHDBPJT/zkMqf2UJFfuS/lM1
-	 hFbG8MAS4m53A==
-Date: Mon, 7 Sep 2026 20:20:05 +0100
-From: Mark Brown <broonie@kernel.org>
-To: David <mafiatamilan@yahoo.com>
-Cc: Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
-	Takashi Iwai <tiwai@suse.de>, linux-sound@vger.kernel.org,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ASoC: amd: yc: Fix internal mic for HP board 8C30
-Message-ID: <0b298bc2-ae48-4e08-823e-25be3ce09382@sirena.org.uk>
-References: <178867857905.85694.5014721659216165123.ref@yahoo.com>
- <178867857905.85694.5014721659216165123@yahoo.com>
+	s=k20260515; t=1788808886;
+	bh=qWijxrLdQDsGgRgXmpcSlRR5URwkb33or6eeb1Anop0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=clLvBAlf81C989FzdCRjFL934EgS/wHJBNl+CtcseYiWtQgpMf++IL/wOF4+ku39P
+	 vyUSvZfPYATgAjvB53XIv+hkM+V92ZugAuOdDpsvRBHYVTy76SGwPEzc+zHA10kS0J
+	 D+XsTik6h6/nYenZDyZKlC0/5k+DZYYeK89sp0bFrAHr5o3M7xbFSQ8z5Gd3lAO7GX
+	 Hp2ARovbdCnreU8pCmPR2xg3+8X5UFjARnMzqldN75dQxx2AqgQmLiuXSyC+cbMGoX
+	 SmcbflxKJk6vSFvOnfKDBm99+pdqJGb7OBiZXMVE5Wdp6Y0qGcJbyFZ8B44RBADs0I
+	 ltr1R/8cjX0zg==
+From: SJ Park <sj@kernel.org>
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [RFC PATCH v2 2/7] mm/damon/core: extend probe_hits_wsum() for moving sum based calculation
+Date: Mon,  7 Sep 2026 12:21:18 -0700
+Message-ID: <20260907192119.111740-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260907171218.101430-3-sj@kernel.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jp8fH7H7p8UsvJg1"
-Content-Disposition: inline
-In-Reply-To: <178867857905.85694.5014721659216165123@yahoo.com>
-X-Cookie: Who's on first?
+Content-Transfer-Encoding: 8bit
+
+On Mon,  7 Sep 2026 10:12:11 -0700 SJ Park <sj@kernel.org> wrote:
+
+> damon_probe_hits_wsum() is being called only in aggregation time.  In
+> future, it could also be used by DAMOS.  In this case, since DAMOS uses
+> its own apply_interval, it could be called in sampling time.  Then using
+> the not yet fully aggregated probe_hits could result in suboptimum
+> outcomes.  Extend damon_probe_hits_wsum() to get the weighted sum based
+> on moving sum to prepare the DAMOS usage.
+[...]
+> --- a/mm/damon/vaddr.c
+> +++ b/mm/damon/vaddr.c
+> @@ -704,7 +704,7 @@ static unsigned int damon_va_apply_probes(struct damon_ctx *ctx,
+>  			__damon_va_apply_probes(ctx, mm, r);
+>  			if (return_max_wsum)
+>  				max_wsum = max(damon_probe_hits_wsum(r, false,
+> -							ctx), max_wsum);
+> +							false, ctx), max_wsum);
+>  		}
+>  		if (mm)
+>  			mmput(mm);
+
+This cannot be applied on latest mm-new, because this relies on a
+not-yet-merged patch series [1].  Hence Sashiko also failed [2] at reviewing
+this series.  I will post another RFC after rebasing to latest mm-new.
+
+[1] https://lore.kernel.org/20260906184417.96621-1-sj@kernel.org
+[2] https://sashiko.dev/#/patchset/20260907171218.101430-1-sj%40kernel.org
 
 
---jp8fH7H7p8UsvJg1
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thanks,
+SJ
 
-On Sun, Sep 06, 2026 at 12:39:39PM +0530, David wrote:
-> The HP laptop with AMD Ryzen 5 7535HS and ACP 6.x coprocessor (PCI ID
-> 1022:15e2, subsystem 103c:8c30) requires an entry in yc_acp_quirk_table[]
-> to enable the internal digital microphone (DMIC).
->=20
-> Without this quirk, acp6x_probe() returns -ENODEV and the internal
-> microphone remains undetected.
->=20
-> Add a DMI quirk matching vendor "HP" and board name "8C30" to enable
-> ACP DMIC support.
-
-Does this already merged patch:
-
-   https://patch.msgid.link/20250715031434.222062-1-queler+k@gmail.com
-
-also get things working for your system?
-
---jp8fH7H7p8UsvJg1
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqfDmQACgkQJNaLcl1U
-h9BxRAf/cCwAPCz7cNsbjofRRmDXMH/m9AKzvJEsnuD7GpCSiicCsjawdk7l3AOb
-IkmiHFAUALP+2WB+7c0iptxSXLnz1VR8CEsb2WRYDsgrTS5K9FKIOfHeJEK5D429
-VC+XjJ+Adw72DDPpi55/it6s4HvnAzIZg5nVbXkteBvfeeLJ0SlzHjLTgQzqkLok
-ePAnR8sL9KfacqImhNCZ0LwWJi79SNBmi7Rn9BIV7kuLIOCV7zXJUWWMl6KslA1X
-KLPjovqr+zhe14wd5f1NW/F0ZYSI2mUOPPadX2RQizWg0Np4KuSRD1pXM1TRCUk5
-ivwrwR6N/q754SDrB7NqZtpzfTXvBA==
-=dQrf
------END PGP SIGNATURE-----
-
---jp8fH7H7p8UsvJg1--
+[...]
