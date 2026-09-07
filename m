@@ -1,191 +1,196 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazolkn19010003.outbound.protection.outlook.com [52.103.2.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCDD9233941;
-	Mon,  7 Sep 2026 17:02:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788800564; cv=none; b=QhiIx0I2n3U4R0nEXkMiR6HXPLBk77HdMzbHfc4tdeEFIpQm8WOUoV3DZNnzdRy+A82xVyxeGHs2fOvpsy5CCNqqKu8RmnGQEKT3wMlUJxo/+5CRRwTSSgLyYLYuliFw3Yp2VPLCHlr4jxA8s2bMlL/k+sgWvyMBDemp8JNYID4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788800564; c=relaxed/simple;
-	bh=X/s1XNaINmiUqzvzDx/P4+fqGZPIdSlPLAWBJ/UyuMw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=TsRABKXJxwwVSNCkxPbE8iMITGFxhaIgAgGjmVolbWQ4T8hewDfgrUZL7CpdcooookXUaWjExyp0Cl5p6sCPoGgxa4I9JEi/qenwzHeMvzzZ5bmCBXPqn6g154butBlCZoIH/MAk0LJQtT/ItIc66W+gLHfOpFt+aKJPyQnlkGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=KN1T63TQ; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7C722083;
+	Mon,  7 Sep 2026 17:03:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.2.3
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788800585; cv=fail; b=JNbbbWuH5J6atms0IfTGH4aTIzfEx7TX3hM+6G4cadLzxJMiWrD1ymUDQbLrmy5cR3vZqg4txARxLPi8Ii0nbRF+KoELRu1EDEPcKrXAWQzeTfXcrfAn05O2QLMAWBh2ajKg0De+4CyEFdKD+nRKoGL4N0o+W2uGprqsbpChNNQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788800585; c=relaxed/simple;
+	bh=gkqKCU8gfWh+w8Ixf+tCusR8jeb824erpK7/xSFoLXM=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=uX2T4EkTs9shrzYY+wHdi3haV3PEiXvWHOeiHmKQWqR4i9S16IiOydHkd4AQrv7z9SrvgqwlJ7GzHIXtC1oPX74ylvk00WKL8GJ6hhlOAW9ScYB0hKTgo9vfhhgTLubJPy/mBrRMTxqMLkto93V16HqkXUE9EIw1Wo9/9W9mLGY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=c3A6DlcZ; arc=fail smtp.client-ip=52.103.2.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="KN1T63TQ"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 3E81F1A1A40;
-	Mon,  7 Sep 2026 17:02:40 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1059C60383;
-	Mon,  7 Sep 2026 17:02:40 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5B3DD11C7A34F;
-	Mon,  7 Sep 2026 19:02:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788800559; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=TPBFaRQq2cT8jbiEmrzWCCDROYRAcXs2NN30XcIR25k=;
-	b=KN1T63TQ3ZnSJ4mevdIUUZ4InvDmcu++2eCJ4+otbuUH2Ets5xoyZ+9kJhZ5a8xGv5PcGA
-	ie0THgIg+PNDIiIFC+MWtWqHxEP93hEmg2z8WhWwgULEKaFLJdWJIkFYJBQ1q71OslYolt
-	XGfIfhY/rdkh5o6hEnU1+xlwZxlhJlUkl8LVBRjdbDHL/SuqsUAHGrOwGMfdI/EhnBsvn3
-	v0t5llm2Ijc4tC+YO0AjP70IQTvhfrtGuLltTx7jduCMZVSo5aQ9KLjy6tAp/lpOCmPati
-	PrIMAjv9Mc1LXFZdQqfQ9dNuPReepM0H1TfedlhHr/Mo3q3+TZv613FsNO0SrQ==
-From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Mon, 07 Sep 2026 19:02:30 +0200
-Subject: [PATCH 6.12.y] tcp: clear sock_ops cb flags before force-closing a
- child socket
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="c3A6DlcZ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KDXw7hHvFnveuAgKcU7WltsD1fxg7L9TcRNRC1lBGRTL1wfTrjHhtZ+hQPJO15Z/Yd/F7x1QWL+TtbVIDVin0h6NEtMvyNpsfrHEkJ0W12591DIRZUNgVL96iJ92hecR8HVpD3iIakoKkaHljuKS9HHatiYd+64XZkgoxCME9Qwj4JPJUi8Ux1hkCLliJ+cPf8ey34WOrRIOFD9SDoMwRPctnRaxOvh3MKtNJvPvRcdVhEyl8Zx/gD+grP6pnWjI1mNSlXWAvJFhcmtuOEm0nYpTAmJ+KTNycaGBSIn/q2vDwOvqI+5LjCv0OZSntA0CSLISTeREktsfThDqFre9cw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=V9eVhRkkvz71uMqNzvhECg1gqH7+uH0q0Tou4sk6hZ0=;
+ b=Av2RUu5HPW5QNmxidahw4fU9muYBxiknL0iiaGGyZgirxaEzb7ncbP7bb3r/j4hsFf+iw95KImhE7ISPE1uk38c5ugl992YoqfQv29A2gfJyHKGcgEXJFp+W22/JCW70moWLaqAEKQEOqQLLo2ZiEazjFyZRzG3GY3k5oyrKhsjBbJ6Ep4dKqvHEE9BTuWIKNdUmlCB+crFlzp2KWs68SF/SiRwWThSGpNxR+8yzRA2lr6pyUAtrLyWs9NLIS2axoeIB8t6osqZE40d6VFw9I1MMF5FcBK5/B70Qm1A/LAXll0rro1jgEJ6MFoATcgmimWqElfp4wJBQ+CAmBaHwbg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=V9eVhRkkvz71uMqNzvhECg1gqH7+uH0q0Tou4sk6hZ0=;
+ b=c3A6DlcZQZx2CTQNulJBb4dmq+TFmFxSEa5LY0CmOHM9kxfolulA7Gun9r72WxhmcjMbqhZgMjA7riiGPgi6zKPTYfZbGUpmR9iuThpvpL5bsD08uvRnOVWMq0ua+pQSg6Vf16a2gO0lTMzMk8y405exsph1Avb1FZ6NETuba7eoy/tk4IvIX7ZqYfZnDAVzllPuHIeIUenD16oQmFNpQlvAKJaDE6UShy588Ng8P1hb34l1SnlI//A7V5sx2Bq2crpFsHA2x4euTW8S+2Gz3Beby3IdRVMHb/1YMRwCYprvHGOdSrQwyMpn4/WIyRBYox5fAt0FP9Uigjb4C15d8g==
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
+ by MW6PR02MB9933.namprd02.prod.outlook.com (2603:10b6:303:239::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 7 Sep
+ 2026 17:02:58 +0000
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::900:1ccf:2b1e:52b6]) by SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::900:1ccf:2b1e:52b6%3]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
+ 17:02:56 +0000
+From: Michael Kelley <mhklinux@outlook.com>
+To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+CC: "kys@microsoft.com" <kys@microsoft.com>, "haiyangz@microsoft.com"
+	<haiyangz@microsoft.com>, "wei.liu@kernel.org" <wei.liu@kernel.org>,
+	"decui@microsoft.com" <decui@microsoft.com>, "longli@microsoft.com"
+	<longli@microsoft.com>, "linux-hyperv@vger.kernel.org"
+	<linux-hyperv@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH 1/1] Drivers: hv: Remove !CPU_BIG_ENDIAN qualifier for
+ arm64
+Thread-Topic: [PATCH 1/1] Drivers: hv: Remove !CPU_BIG_ENDIAN qualifier for
+ arm64
+Thread-Index: AQH7sa8dnqV4RTQVc/XkoqPH319zIbZ2f8EAgAAcWcCAD9X5oA==
+Date: Mon, 7 Sep 2026 17:02:56 +0000
+Message-ID:
+ <SN6PR02MB415769FD3AA18318F4E755C7D4B22@SN6PR02MB4157.namprd02.prod.outlook.com>
+References: <20260828034448.8291-1-mhklinux@outlook.com>
+ <apGNvkZMlYccBNcv@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+ <BN7PR02MB41487D42F307392195E5BCD2D4AC2@BN7PR02MB4148.namprd02.prod.outlook.com>
+In-Reply-To:
+ <BN7PR02MB41487D42F307392195E5BCD2D4AC2@BN7PR02MB4148.namprd02.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|MW6PR02MB9933:EE_
+x-ms-office365-filtering-correlation-id: 27a620dc-3a11-4a71-b5a5-08df0d01dcfc
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|37011999003|25010399006|8060799015|8062599012|19110799012|55001999006|24021099003|15080799012|13091999003|31061999003|51005399006|1602099012|440099028|3412199025|4302099013|102099032|40105399003|2607281247196008|10035399007;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?gqYzsxIs3C68liHETcfMDMgPFg2dfTvOxw8xQD1Q46fpZ/T6Rs4twvZ/cLG+?=
+ =?us-ascii?Q?hohoneN3tKkeRzCxiDW38SdK8t7c3gq5kBSSGmeRyXALUy7kpZpJ9yl9bXB+?=
+ =?us-ascii?Q?VRsp/aPbdc0U7P+w7HnFN23dnBEz7Hmf8ZjRBsPVGJrhkDJFuSdIBUkY0nM5?=
+ =?us-ascii?Q?uxytg/JLIf5ODLbVv0xvBdKKNoj5kEcyNUAS4peLjb8PTVASEeGBFpClQDXy?=
+ =?us-ascii?Q?lrz3/HpRNoT6ung4JzbYyxcGpaStmNxpejfDDI/AS0yC2cCbprrj2FQ4Yom+?=
+ =?us-ascii?Q?ZhlsEo8FkUSfmpLkW1eIUMUs0s/iGyqsYtSy1f8Yk3wd2zHhgbz57uvFsDrS?=
+ =?us-ascii?Q?85o4Foq4q+0cQ/MhD7T+PUrtM4az94fY6GhW4HNNA+m6CtxLjyuA1DPjGPAT?=
+ =?us-ascii?Q?4IsETKFYBlVEKjRYPgq7e8YWzMyJFB35ELyOntlRLjkRohZzcW3kdlDIDkW9?=
+ =?us-ascii?Q?3qlS5HIcT2O8X7vNq8pHxThO20cXsqcP1S6HDfQYrM6FZVFeVAcPzWjoKhoy?=
+ =?us-ascii?Q?oxvBVVL1T/EtPAGSUkK8WSZHfo2dIzKYv2JonuSoEiR8oqEehfD2ZXIq7gKQ?=
+ =?us-ascii?Q?QN9ZQVMylhUn/eZqq8sKi+K7QDhgoMBiaK+wfHVT2fBELoe6L+h6H0FfzEbP?=
+ =?us-ascii?Q?hxZlENxTG5N5bE3yBR7t8hMPqE1rbWXsc8Hu5pg0ySI0oQpGKdRXmnfXtirG?=
+ =?us-ascii?Q?FZU84eAylERjH5ipkzR8Ts4838eI99oC1pZAk9HAmBQrcXnepLE1n477VxFW?=
+ =?us-ascii?Q?rjcYAV+FCQi98YAtJgRmghIcGjf3XqjUlxl1vSszSndMEXGAG43p4IyiRe6r?=
+ =?us-ascii?Q?aM8BBOq5IjTf7R8xxp7QW62s851kWz+/JdMr5VzioaqRL0dlDvTrB6uchlXw?=
+ =?us-ascii?Q?hu1NYtFZyJAtPyajdYCRUKXt0Cx9oSzySL8a+1CbxQffCUR+hRLv570S+DL+?=
+ =?us-ascii?Q?VMhkRIvUcs8Bwg8E1s2A/V7PpxJb1u8jrul8dhzG8yOYvpBrPnVekMIIGqor?=
+ =?us-ascii?Q?QzMlFHbGBCvotC/uR2ve7T0EUmhydgFLNWnnx1EYaD7XTvn3dFHXYR/tNjqg?=
+ =?us-ascii?Q?kWMkwmgiTXTo78piBaO0fnrHSSGobKl2QwDx0TYDgAS9CQcQyIhiQ1h5vAok?=
+ =?us-ascii?Q?tSwY9aqaZuyA?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?dqsJcJ6nQww5O1mCnlrhkPlhnjVMz5yIz/jVLImpe5OWLASyOvgROB6eLvXR?=
+ =?us-ascii?Q?hAM3YX261zLZ4PfNQj0Z/97rt63LhN/6LKRyRlfwIX8pzf/MIBLJTicz8gJt?=
+ =?us-ascii?Q?42YeMwYxDvf8toxFuRNZ9XADarh+qC7MrSFIQpBjzuMQco6UEwW72ACSgKss?=
+ =?us-ascii?Q?MWKodQd5pCNYkMvY1FXKr4c9zJam9DpGMiu2mZ5dd++IhYaB/M2RvxTDfyXQ?=
+ =?us-ascii?Q?TAAFeJ6PAWqc5aX4VT2omlj7CBK90vzpBWI+Yhb8HSfAsnjwDTTwuGsDCMfI?=
+ =?us-ascii?Q?Wn5+hvRQ+QUUmLvPZqrPhDN9Gem0qZRuvN+e33bELvWrnif43cwRGVtLuhsL?=
+ =?us-ascii?Q?+s6TemDrePrOB+Pb4hqDPQxo+10ol1CUc998t5lv4uTyFbcUFENUEne3ad22?=
+ =?us-ascii?Q?RCKcZ4o0s2mhf3RoMEn4Kd2oOly4sTn/ZM8Nr1ew91/RgitY8sjLVN7AMYap?=
+ =?us-ascii?Q?IwlTVgEiQL1pjmAu78RbDLH8w+KyBtJ/SL1AH17XKVebtwJtcBxFsXcOPn9d?=
+ =?us-ascii?Q?JoMsKhw7Xh0QwCnbMbpbgvEA2YOzMfX143pHQCx3tTFGwqrtrpDSDVeIQm+m?=
+ =?us-ascii?Q?SswgfuNtPAZ0e/4IGQMn+pIO0UbSFxTXATpdw8bsopf4Zav7Ixc6vCbOzmpM?=
+ =?us-ascii?Q?HP4D+8Sj3G6voL9wkAV1OF5H8wIDfCy5zktj39SJvY1n0FN1i1KeH0bD/TYo?=
+ =?us-ascii?Q?ZgcrYTEheDuaHR0LNlkuTCdXDXP+pDVfJHH3Nl82T9i619Mbr896xKsuwEgh?=
+ =?us-ascii?Q?n+v2MXMlxV9K4eMH3PGJ0zcWoVFtXjvhl1vKPfOYSYKEY/HFsRXEFpk0fgVQ?=
+ =?us-ascii?Q?yggVVlSJ2HYb6nMsBOTbnyRB43jK103LnlGP8rcoGrSw6DvCwf35MT7iS6tw?=
+ =?us-ascii?Q?yLn313gZzWDjKxhBWwng1X3jstgYYHQNcrONsZ+q4+vtf21SOQtxdIe1Z/j0?=
+ =?us-ascii?Q?LZCj21oPUebgBLNHn46gcjchcUqWWToJVR58sZu0UAYudQowYr7hsdMj2L6P?=
+ =?us-ascii?Q?aHkJIClB7gqNXBYVRrvWF/kIA7f+SDXJ7KA0euj5OmphgrmjPg0L/hyawnS+?=
+ =?us-ascii?Q?wiVye9ca4b6QxBF6HMJPWceZqiaYzLrhAhjYswVEm6aGLQWtX1HUD/zyuIZP?=
+ =?us-ascii?Q?4lnSRz7zsbGkBiKkmwXYieU5ik39kaD43RArjTluieZOcunOZ5Jv4xFslESS?=
+ =?us-ascii?Q?a+nkxVPIupZmu4Xef0KVN8NHpPzrVpeJfOEJoULZVxe7059cBjQUfSkfGl8B?=
+ =?us-ascii?Q?sraGEIGp8gOC/6eWv0ruTiBFyheiAqHdzVOooaTkKkvAZV4a3sVsCP1DV83q?=
+ =?us-ascii?Q?Ox4bzF0eyd/MkDkjjHk/Wdl7g/9pw4GRGiDEiNUG11/m7Xwbt1cxFwY3gHID?=
+ =?us-ascii?Q?UaX4Efo=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-cve-2026-74268-v1-1-cacea38d7fb3@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ7CMBBD0atUXjNVEiCBXgWxgMHAsCgogQpU9
- e6ksHyW/EcUZmNB14zIHKzYva/wiwZ6PfQXip2qEVyIbuuS6ECZIWkV4kY8U/Jr1SWVqKdH5tn
- ev+AOsfWh/WD/38vreKM+5xqm6QtZUEhfegAAAA==
-X-Change-ID: 20260907-cve-2026-74268-1e7715cc3ece
-To: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- David Ahern <dsahern@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
- Lawrence Brakmo <brakmo@fb.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
- Sechang Lim <rhkrqnwk98@gmail.com>, Jiayuan Chen <jiayuan.chen@linux.dev>, 
- Kuniyuki Iwashima <kuniyu@google.com>, Sasha Levin <sashal@kernel.org>, 
- "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788800553; l=4566;
- i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=eQtDX2FDK17S6DsoeWyEMqBzN907bygcNtweixVS7tM=;
- b=3rkpEAzzhblkFI6ongGK7I6+IHHAbACofPIdRX27pJXf5AMvX04hoEk7+5iin0lSw7SWL1+Aw
- tx/1VEXb78tDMiLQTFvpy9mE8M15LURzfTA6MsyxqYPpnmFTgQfO3U2
-X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
- pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
-X-Last-TLS-Session-Version: TLSv1.3
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 27a620dc-3a11-4a71-b5a5-08df0d01dcfc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Sep 2026 17:02:56.3043
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR02MB9933
 
-From: Sechang Lim <rhkrqnwk98@gmail.com>
+From: Michael Kelley <mhklinux@outlook.com> Sent: Friday, August 28, 2026 8=
+:13 AM
+> From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com> Sent: Friday, Augu=
+st 28, 2026 6:32 AM
+> >
+> > On Thu, Aug 27, 2026 at 08:44:48PM -0700, Michael Kelley wrote:
+> > > Support for CPU_BIG_ENDIAN configurations on arm64 was deprecated
+> > > in commit 1cf89b6bf660 ("arm64: Kconfig: Make CPU_BIG_ENDIAN depend
+> > > on BROKEN"). The support is now in the process of being completely
+> > > removed.
+> > >
+> > > The Kconfig for Hyper-V guests on arm64 currently has a
+> > > !CPU_BIG_ENDIAN qualifier since Hyper-V only supports little
+> > > endian. But with Linux on arm64 restricted to little endian,
+> > > that qualifier is no longer necessary. Remove it.
+> > >
+> > > Signed-off-by: Michael Kelley <mhklinux@outlook.com>
+> > > ---
+> > >  drivers/hv/Kconfig | 2 +-
+> > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > >
+> > > diff --git a/drivers/hv/Kconfig b/drivers/hv/Kconfig
+> > > index aa11bcefddf2..db8464fcd119 100644
+> > > --- a/drivers/hv/Kconfig
+> > > +++ b/drivers/hv/Kconfig
+> > > @@ -5,7 +5,7 @@ menu "Microsoft Hyper-V guest support"
+> > >  config HYPERV
+> > >  	bool "Microsoft Hyper-V core hypervisor support"
+> > >  	depends on (X86 && X86_LOCAL_APIC && HYPERVISOR_GUEST) \
+> > > -		|| (ARM64 && !CPU_BIG_ENDIAN)
+> > > +		|| ARM64
+> >
+> > Personally, I think we should leave it be until aarch64_be support is
+> > completely stripped out of the kernel.
+> >
+>=20
+> The removal is in progress -- see [1].  As noted in that overview,
+> some kernel areas have already removed the big-endian support,
+> so the kernel is already irrevocably down the path. But there's
+> certainly no urgency to do it here as it has no operational effect.
+> It's just a cleanup item I noted and if the preference is to wait on
+> picking it up, that's fine.
+>=20
+> Michael
+>=20
+> [1] https://lore.kernel.org/lkml/20260811140132.22778-1-will@kernel.org/
+>
 
-[ Upstream commit 990348e5bb457697c2f1f7f7b65154a3334d9d2b ]
+This can be dropped as a separate patch. Will Deacon is making the
+change in v2 of his series to remove and cleanup arm64 big-endian
+support throughout the kernel [2]. He did not have the Hyper-V
+change in v1 of his series.
 
-A child socket inherits the listener's bpf_sock_ops_cb_flags via
-sk_clone_lock(). If its setup fails in tcp_v4_syn_recv_sock() /
-tcp_v6_syn_recv_sock(), the child is freed through put_and_exit, where
-inet_csk_prepare_forced_close() drops the socket lock and tcp_done() runs
-without it.
+Michael
 
-If BPF_SOCK_OPS_STATE_CB_FLAG was inherited, tcp_done() -> tcp_set_state()
-calls tcp_call_bpf(), which expects the lock and trips sock_owned_by_me():
-
-  WARNING: include/net/sock.h:1799 at tcp_set_state+0x433/0x550
-  RIP: 0010:tcp_set_state+0x433/0x550 include/net/sock.h:1799
-  Call Trace:
-   <IRQ>
-   tcp_done+0xba/0x250 net/ipv4/tcp.c:5095
-   tcp_v4_syn_recv_sock+0x850/0xa50 net/ipv4/tcp_ipv4.c:1787
-   tcp_check_req+0xf30/0x1360 net/ipv4/tcp_minisocks.c:926
-   tcp_v4_rcv+0x1047/0x1b50 net/ipv4/tcp_ipv4.c:2164
-   </IRQ>
-
-The child is freed before it is ever established, so it should run no
-sock_ops callback. Clear its cb flags in inet_csk_prepare_for_destroy_sock(),
-the common point for the IPv4, IPv6 and chtls forced-close paths and for the
-MPTCP ->syn_recv_sock() failure path (dispose_child), which reaches tcp_done()
-on a child that was never established too.
-
-Suggested-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Fixes: d44874910a26 ("bpf: Add BPF_SOCK_OPS_STATE_CB")
-Signed-off-by: Sechang Lim <rhkrqnwk98@gmail.com>
-Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Reviewed-by: Eric Dumazet <edumazet@google.com>
-Link: https://patch.msgid.link/20260611092923.1895982-1-rhkrqnwk98@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-[ Moved inet_csk_prepare_for_destroy_sock() to inet_connection_sock.c due to header dependency ]
-Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
----
- include/net/inet_connection_sock.h | 8 +-------
- include/net/tcp.h                  | 9 +++++++++
- net/ipv4/inet_connection_sock.c    | 8 ++++++++
- 3 files changed, 18 insertions(+), 7 deletions(-)
-
-diff --git a/include/net/inet_connection_sock.h b/include/net/inet_connection_sock.h
-index bcc138ff087b..534f4fafad42 100644
---- a/include/net/inet_connection_sock.h
-+++ b/include/net/inet_connection_sock.h
-@@ -296,14 +296,8 @@ reqsk_timeout(struct request_sock *req, unsigned long max_timeout)
- 	return (unsigned long)min_t(u64, timeout, max_timeout);
- }
- 
--static inline void inet_csk_prepare_for_destroy_sock(struct sock *sk)
--{
--	/* The below has to be done to allow calling inet_csk_destroy_sock */
--	sock_set_flag(sk, SOCK_DEAD);
--	this_cpu_inc(*sk->sk_prot->orphan_count);
--}
--
- void inet_csk_destroy_sock(struct sock *sk);
-+void inet_csk_prepare_for_destroy_sock(struct sock *sk);
- void inet_csk_prepare_forced_close(struct sock *sk);
- 
- /*
-diff --git a/include/net/tcp.h b/include/net/tcp.h
-index 1cc25e0b3bde..c472c1cdd3b8 100644
---- a/include/net/tcp.h
-+++ b/include/net/tcp.h
-@@ -2702,6 +2702,11 @@ static inline int tcp_call_bpf_3arg(struct sock *sk, int op, u32 arg1, u32 arg2,
- 	return tcp_call_bpf(sk, op, 3, args);
- }
- 
-+static inline void tcp_clear_sock_ops_cb_flags(struct sock *sk)
-+{
-+	tcp_sk(sk)->bpf_sock_ops_cb_flags = 0;
-+}
-+
- #else
- static inline int tcp_call_bpf(struct sock *sk, int op, u32 nargs, u32 *args)
- {
-@@ -2719,6 +2724,10 @@ static inline int tcp_call_bpf_3arg(struct sock *sk, int op, u32 arg1, u32 arg2,
- 	return -EPERM;
- }
- 
-+static inline void tcp_clear_sock_ops_cb_flags(struct sock *sk)
-+{
-+}
-+
- #endif
- 
- static inline u32 tcp_timeout_init(struct sock *sk)
-diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
-index 91dcdb7567ac..e0bd8e76fa78 100644
---- a/net/ipv4/inet_connection_sock.c
-+++ b/net/ipv4/inet_connection_sock.c
-@@ -1315,6 +1315,14 @@ void inet_csk_destroy_sock(struct sock *sk)
- }
- EXPORT_SYMBOL(inet_csk_destroy_sock);
- 
-+void inet_csk_prepare_for_destroy_sock(struct sock *sk)
-+{
-+	/* The below has to be done to allow calling inet_csk_destroy_sock */
-+	tcp_clear_sock_ops_cb_flags(sk);
-+	sock_set_flag(sk, SOCK_DEAD);
-+	this_cpu_inc(*sk->sk_prot->orphan_count);
-+}
-+
- /* This function allows to force a closure of a socket after the call to
-  * tcp/dccp_create_openreq_child().
-  */
-
----
-base-commit: 064531c7e30cd67b79c0c694ac97f00c7796f4d6
-change-id: 20260907-cve-2026-74268-1e7715cc3ece
-
-Best regards,
---  
-Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+[2] https://lore.kernel.org/lkml/20260907163726.17104-15-will@kernel.org/
+=20
 
