@@ -1,30 +1,32 @@
 Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D55823A9DAE;
-	Mon,  7 Sep 2026 16:12:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF4A5514762;
+	Mon,  7 Sep 2026 16:12:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788797536; cv=none; b=Tyl2O+LNyjqWL6xwPajLZ+OGKiZzst3L+0L8NmXLePK4lUMy+bf4v0IlC3O9Cu7PfjipF9Fe01QetDm3/f0LDz0MHi1Pr72Ck3nr/R7C5O7HqYV49X17PEu0HWVdzGhY3aWrBMgQqNlejnV0FlzBAjVCtv7e8AAuKeXeV8Kur04=
+	t=1788797540; cv=none; b=NKXJCJVUgQxf5kb1A9xsoHGIcuBkCe4smvYgLSlhg2QqQf2Qb1W7T5LL50R2SbFmNN/peVXtwYzwn3nymjrxxCTsi69ljUT8hemytkQ9jOkCCbfKRVyHeiLJGVG1dDqK1kx/cPcaKAyNsGxSeb2rk2yeDf3/dw3BQEw0T1gMa5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788797536; c=relaxed/simple;
-	bh=3u6bCRB3JwqsXbGlIyMoRInAHLy5juD2oOrDDFF/lAI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cntrbC69uxg0/d+0D8EuV2KGZg9lqpf/EVKRZwfsQrfe/PDiTDS5XuToIwXMvD9urKtnHTsEmLfXKh9oU4c6swzbLxpvYhqpurxEyWcfcfc002xOXqNmtvBkIBX97bHLUE+nmc9uuxIlnLGpZojMGxxPPcOXSgZunhewMGv/mt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=HRe2Spde; arc=none smtp.client-ip=178.251.229.89
+	s=arc-20240116; t=1788797540; c=relaxed/simple;
+	bh=G2F6FbAD9vn4IvzWBWh0aSIh+oUNh09NSYrfW9dBMQg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=c6WhJmQRZL4DqCvFgBN1LaGyCA92aO0NPW3Ejr21YZUIl20NmITM7VaVrNHxKsCw3gRzlKSX2JSCr9weRoq7/Fq+PolG+SM68GSlphanP+ObyKLHFd48lpZmMzxeZXEMW+A1etnOQPrgik/MQIf8gE06ESgaT37oOn5nRepTze4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=Mzg53cAY; arc=none smtp.client-ip=178.251.229.89
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="HRe2Spde"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5DEB111D0D1;
-	Mon, 07 Sep 2026 18:12:05 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="Mzg53cAY"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 653A011DAAD;
+	Mon, 07 Sep 2026 18:12:12 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1788797528; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=nmrLDUpli0xczKPjyc2UOxB5amey9DMtoKl7SwhodJ0=;
-	b=HRe2SpdeIkiqzutGSpDg/sMU7VSzFY79LU851PioylIIf4wkfK35btGVTXoCFe3gY6iLnd
-	jnjg23KH4rxLoCBdWNnfJfH2nAiT/gZoFo4NF3MpVgpvoI7SlVJza3t9VMueZvfKOD3zVT
-	Vz583TwOVHNKpPfng4RGXg5w4AqbH4Pv4g3jmvrX1BYAHw/xNAQT8qQiATZyq0t2L4hSbh
-	VJSq3hobVML7/1W/6x6UkiZYgVZUFNi7LD0mBCkEnZlIJuQsNTYDUYwzpCZnUk0RnMBLQw
-	lhBIhnF34jnnH5sCOq7NxMQXfiDdgKGy+FtWDfmmnjr082A6jqTH4UM95oD05w==
+	s=dkim; t=1788797533; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=JeA7gvxgHLA2RU/64BLRdxjcMQo+Aba/0ZU2WSO8u6I=;
+	b=Mzg53cAYWnDW5vkPfY1LIWITg7Xt3OFcNqfmz/cqhaULfVFwR0l7Nu2EHLrhobc9hCfohu
+	AXqIlCcPuGFR0DxUri3L+9SpMCrBx0sqJB+zQvziy0nITF05ZepBTGt4ETyccfPbX4kpag
+	4dXZ55UvSBjFSIZDp3tapKmmCBIv60z6Bpv/R4iUNOWq134q7MTXZYZQ6LivgD+kNesW1D
+	nP4bgly4H8GNTgGTlaEjxjo39VFaofHVSsso8+mlhSoOi1n1Odo71HWdgoMNOmnAkTBaL/
+	54Ai4M98Dxc+Jao4kemumMz0hqDipoOU9vHtV4Ypmo3LtnFZSi8qd6Uo5xJi2Q==
 From: Marek Vasut <marex@nabladev.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: Marek Vasut <marex@nabladev.com>,
@@ -38,10 +40,12 @@ Cc: Marek Vasut <marex@nabladev.com>,
 	linux-kernel@vger.kernel.org,
 	linux-stm32@st-md-mailman.stormreply.com,
 	linux-usb@vger.kernel.org
-Subject: [PATCH 1/2] dt-bindings: usb: generic-ohci: Restrict access-controllers to ST STM32MP2 SoC
-Date: Mon,  7 Sep 2026 18:11:53 +0200
-Message-ID: <20260907161203.713424-1-marex@nabladev.com>
+Subject: [PATCH 2/2] dt-bindings: usb: generic-ehci: Restrict access-controllers to ST STM32MP2 SoC
+Date: Mon,  7 Sep 2026 18:11:54 +0200
+Message-ID: <20260907161203.713424-2-marex@nabladev.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260907161203.713424-1-marex@nabladev.com>
+References: <20260907161203.713424-1-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,14 +74,14 @@ Cc: linux-kernel@vger.kernel.org
 Cc: linux-stm32@st-md-mailman.stormreply.com
 Cc: linux-usb@vger.kernel.org
 ---
- Documentation/devicetree/bindings/usb/generic-ohci.yaml | 3 +++
+ Documentation/devicetree/bindings/usb/generic-ehci.yaml | 3 +++
  1 file changed, 3 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/usb/generic-ohci.yaml b/Documentation/devicetree/bindings/usb/generic-ohci.yaml
-index 7a8c3c2318153..cd9f51bbb445f 100644
---- a/Documentation/devicetree/bindings/usb/generic-ohci.yaml
-+++ b/Documentation/devicetree/bindings/usb/generic-ohci.yaml
-@@ -237,6 +237,9 @@ allOf:
+diff --git a/Documentation/devicetree/bindings/usb/generic-ehci.yaml b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
+index 908b02d9175e0..9f5130a0e784c 100644
+--- a/Documentation/devicetree/bindings/usb/generic-ehci.yaml
++++ b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
+@@ -217,6 +217,9 @@ allOf:
        required:
          - access-controllers
          - clocks
