@@ -1,56 +1,56 @@
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com [209.85.218.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA40521205
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 17:19:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF6FF51FCD9
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 17:19:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788801588; cv=none; b=uPwiLh8l0xbFMSpJ4SUjqY/vlMvsgotosqzVZCLX5Dd+/ZoS03ARuvg09/ZtX9h7JYRuN4cdJyrl5hAzRrlzaOVonhLKgID1cD4AZhw2cSsXAqEndM1ZjkDt6qNMgVXVu2+WirnR6+5xBPyGEq8vf4VjtwHcA/2Q4NPr201PHzo=
+	t=1788801589; cv=none; b=mic5LLew9wYnIB2oMHxCJwSJfPaTk4DXr4lQU/4UQB3d5v6ciVynyZT08ujSgtKVhq+OnzIN0DyH7vDuzZChVQ5GHY1guuew+el8JCf95AmpYn9xDsIe/sOU8r+4yIuQyMBXIGEMP1bptFU9/Xf8Tsd48/vLnmI0oLMKqOaXGS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788801588; c=relaxed/simple;
-	bh=BVQs2KMfxV/tT9rQPMbT3YixzDlqI/g+6wdyT9j5U6Y=;
+	s=arc-20240116; t=1788801589; c=relaxed/simple;
+	bh=NbKk/Hdzgc8mwGs1OGNkYIpfW6nhoT838QZM7abSr8A=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=uMZ3fwkzUin2EthteFY/sJQqAbbsJIPek26flHef5lp1kZ8CJCbkgQcqGyzYBZ+ItUBMXhA7Zsrsw/RI4MEMVji8OvyVekNFHN1bg+oIN3eilI23qS5MrCD4OFLjZqcCk9eOLx7TEUe31p5XLhZKGTQAmcrSJfjcTc0kTWz905Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--sebastianene.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tQ6Qco0F; arc=none smtp.client-ip=209.85.128.69
+	 To:Cc:Content-Type; b=cwh9km4/sFsxgwvF4ptZnrhmbypn22SYrG95fh0+BlpmPE9FQDTMTlJwfol/cQx4q7l2vfBl2Idcq39WgGjUehmEd2cygvgTmRD5kt16oJHbW+y5OgNExe5Ar9ZvOp881K+06zGIw54SYUjPBnZb4l9kEJ0JS6U6irowBxXyuGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--sebastianene.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vEuxa8UZ; arc=none smtp.client-ip=209.85.218.69
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sebastianene.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tQ6Qco0F"
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49b7c1dcc82so22591795e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 10:19:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vEuxa8UZ"
+Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c252a2ae8e1so384847366b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 10:19:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788801585; x=1789406385; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788801586; x=1789406386; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pgNVIw8B8D8cs9XgDbUZbP9oPGN4jX1fGCXxaqN5ORM=;
-        b=tQ6Qco0FoM7+VsQdLU+dciRBdgJ+NnF+cxLnqdfkZ9/wJ/ENnv5RK15dR/OQl4TbID
-         hJNt/AjnKF9cfrRcsEjCmDAXGd9s8rjxcsJFysRttzWqqBq3ia1w9YESgybIdAgJtTK7
-         yF17T7unKUlFvw85pOVHw8mAtmgb72AWNXFattSSqZ8jXWCTnvnAyZgWLktvk3CSzHjA
-         ZnjY63moxmWo4NytkodyvXlHXHEt1UF6i8TVbUiljpJtxQSJmEg1vvQ3l8esPHQoE9M2
-         yZjOUpAxaHR9OSBs7vE0O+En5QXnjR79ZKVjMkhjIhyH7EyEeTOYKMhoLietFgny1u9I
-         BURg==
+        bh=KmIWpzhFDJoaOM2vzu23v41LySXrh6uszkNkTVUH7Ao=;
+        b=vEuxa8UZv6bRW7Gx6Ck9Bd2qcGXeDv2A0NxePdLiJPWj3/IEqq6HKkUAl3GXk59eIx
+         10BoT+99fstAOrKbiAr1l4TA6NgGZvZPaHzNT45gTSfHjUXmL9OMuS/KRpGZpkijqCqq
+         4zBmZw0LJ34//xbIVjByeLUh7NTGwNXdcMhPIXPN5O5Gy4kTrQLKRltNMf93NtMhJNNg
+         YaXmVXgQ8YLLkC/rsmHM0LZfIO4y1dg9qiovrZkhsgHHKllomR/1KsGLDT+wsIffTtyM
+         y7pNCDhraKsRIjxxrzUUQ5Ci6JdOsZ+4kN8/q6wNsondWJDGAHVgVDvbRmTc0w1HYnnd
+         H6Qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788801585; x=1789406385;
+        d=1e100.net; s=20251104; t=1788801586; x=1789406386;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pgNVIw8B8D8cs9XgDbUZbP9oPGN4jX1fGCXxaqN5ORM=;
-        b=FbwSlLQMf9RFfkKF5ge8fbIWGekt/xzxn94/g1EGSuUmYAcQdFG8Zj67uNu0LZHIJJ
-         LFat4HTQK4DaGfDhdvihCESgtx3biGgUUk0Ll78cAz80g5TtUdiWDjNRhcfAgTTbHBMY
-         K3+1Dv6731wbxKPOqsjNwwYALVgHQLonA+5o8MyBZLeblJHuwic3zM1sH8TuHMWujgnn
-         53AfSbV0UQ3mTr0B3sZ8zgV2BRHN9/R24mlXUb15AegXzzQpFXOUg/GycLQDJjaFFoAp
-         BP2FQBwHRLXou5p4tU0JkNywbGCJMlzsVzKTPrUgcPek+Bs/HpFe/7DGcJb2HB651cAY
-         FC2A==
-X-Forwarded-Encrypted: i=1; AKwUvBzG21EmuBT+BwgXGWck8D2b4/+GewPjfoWyzjUrJvyMczhWvRRWdG1toBub937dwN4Sl65W5Bp6k3rLFqo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kGJqTd+DtkTnjKP2CdKlSh8r8zb6BtXZCFvvF7BPmy91dce0NC
-	5TvHieP/fHD//pu4DuXsB+cT0HcXkn7eBq10X8kZm55p1OIaHNS9IFR1CgYZEHjDIa99x8X5R8W
-	2gj+TAEZUMbERm7zy2w/9+xM40tPKgw==
-X-Received: from wmbgx24.prod.google.com ([2002:a05:600c:8598:b0:499:bb2f:becf])
+        bh=KmIWpzhFDJoaOM2vzu23v41LySXrh6uszkNkTVUH7Ao=;
+        b=S7+HXStsOsZiHG7apmTLNqG3NIlvdnQX6Wcj6zr5dLR9sJKe9Uo8ph8xUOAcnYKb7o
+         uhdIXLtkjwh+dYOB2W71wsRvO5i+j97qI2AscWv9I8bvAA74cx4UdavCFzWdiiIbCl7t
+         LXufiSefeFy4FPwN6e38WfyTbMi5R21fDdNBUQt55sMpEHHp1qpV0xBxbiUsCtqTPoVi
+         Plb1Td78Et7z6dxtJo2NnI1RvusxFBdWgsmPKNalQzqnPIdt0GZO2MPsUgYPL5djtRlD
+         m0p85rjfw3dJSRaXe9ph51gGnra8oG4h45tWNdeMvKvBmZFEsGtfZnn3IxWH0eT6rZWe
+         WPXw==
+X-Forwarded-Encrypted: i=1; AKwUvBxUxJ5S15j3qJPLurK050FMrSItTkD0TeMpUutcVJbFwhUgdGI565K1aysoySoIT8FfIecGvrb5ToBeVVc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kCgxKlCDZ6tIjJFhFOozpA6t5ltjwUYDZeZhK9v0pV1slo7L3o
+	QHfAMxYeOm6/HqtznF5+m+1iGTvO5ZSHEndcXT0nbvWjoL2BvM/cGUVNVRP+MJJzWvmXd7zNwc6
+	1p6EzGLMJvOc+vCXFYxP5KyYtMEDo2g==
+X-Received: from edyv10.prod.google.com ([2002:a05:6402:184a:b0:6a3:670b:43f1])
  (user=sebastianene job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600d:864a:10b0:49c:fc89:59cb with SMTP id 5b1f17b1804b1-49cfc8960ccmr150937795e9.5.1788801584621;
- Mon, 07 Sep 2026 10:19:44 -0700 (PDT)
-Date: Mon,  7 Sep 2026 17:19:28 +0000
+ 2002:a05:6402:4585:b0:6a7:ee56:8153 with SMTP id 4fb4d7f45d1cf-6a7ee5681d5mr6951962a12.33.1788801585853;
+ Mon, 07 Sep 2026 10:19:45 -0700 (PDT)
+Date: Mon,  7 Sep 2026 17:19:29 +0000
 In-Reply-To: <20260907171930.4037166-1-sebastianene@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260907171930.4037166-1-sebastianene@google.com>
 X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
-Message-ID: <20260907171930.4037166-7-sebastianene@google.com>
-Subject: [PATCH v9 6/7] KVM: arm64: Support FFA_NOTIFICATION_INFO_GET in host handler
+Message-ID: <20260907171930.4037166-8-sebastianene@google.com>
+Subject: [PATCH v9 7/7] KVM: arm64: Enforce strict SBZ checks in the FF-A proxy
 From: Sebastian Ene <sebastianene@google.com>
 To: catalin.marinas@arm.com, maz@kernel.org, oupton@kernel.org, 
 	fuad.tabba@linux.dev, will@kernel.org
@@ -72,28 +72,232 @@ Cc: joey.gouly@arm.com, korneld@google.com, kvmarm@lists.linux.dev,
 	yuzenghui@huawei.com
 Content-Type: text/plain; charset="UTF-8"
 
-Allow the host to send FF-A notification queries to Trustzone and proxy
-these messages from pKVM.
+Introduce a helper method ffa_check_unused_args_sbz to enforce strict
+arguments checking when the hypervisor acts as a relayer between the
+host and Trustzone.
 
 Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
+Acked-by: Will Deacon <will@kernel.org>
 Signed-off-by: Sebastian Ene <sebastianene@google.com>
 ---
- arch/arm64/kvm/hyp/nvhe/ffa.c | 2 --
- 1 file changed, 2 deletions(-)
+ arch/arm64/kvm/hyp/nvhe/ffa.c | 96 ++++++++++++++++++++++++++++++++++-
+ 1 file changed, 95 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm64/kvm/hyp/nvhe/ffa.c b/arch/arm64/kvm/hyp/nvhe/ffa.c
-index e11fb06df63d..2281ac2e42fc 100644
+index 2281ac2e42fc..5ad74ab265b5 100644
 --- a/arch/arm64/kvm/hyp/nvhe/ffa.c
 +++ b/arch/arm64/kvm/hyp/nvhe/ffa.c
-@@ -694,8 +694,6 @@ static bool ffa_call_supported(u64 func_id)
- 	case FFA_RXTX_MAP:
- 	case FFA_MEM_DONATE:
- 	case FFA_MEM_RETRIEVE_REQ:
--       /* Optional notification interfaces added in FF-A 1.1 */
--	case FFA_NOTIFICATION_INFO_GET:
- 	/* Optional interfaces added in FF-A 1.2 */
- 	case FFA_MSG_SEND_DIRECT_REQ2:		/* Optional per 7.5.1 */
- 	case FFA_MSG_SEND_DIRECT_RESP2:		/* Optional per 7.5.1 */
+@@ -74,6 +74,21 @@ static u32 hyp_ffa_version;
+ static bool has_version_negotiated;
+ static hyp_spinlock_t version_lock;
+ 
++static bool ffa_check_unused_args_sbz(struct kvm_cpu_context *ctxt, int first_reg)
++{
++	DECLARE_REG(u32, func_id, ctxt, 0);
++	int reg, end_reg = 7;
++
++	if (hyp_ffa_version >= FFA_VERSION_1_2 && ARM_SMCCC_IS_64(func_id))
++		end_reg = 17;
++	for (reg = first_reg; reg <= end_reg; reg++) {
++		if (cpu_reg(ctxt, reg))
++			return true;
++	}
++
++	return false;
++}
++
+ static void ffa_to_smccc_error(struct arm_smccc_1_2_regs *res, u64 ffa_errno)
+ {
+ 	*res = (struct arm_smccc_1_2_regs) {
+@@ -242,6 +257,11 @@ static void do_ffa_rxtx_map(struct arm_smccc_1_2_regs *res,
+ 	int ret = 0;
+ 	void *rx_virt, *tx_virt;
+ 
++	if (ffa_check_unused_args_sbz(ctxt, 4)) {
++		ret = FFA_RET_INVALID_PARAMETERS;
++		goto out;
++	}
++
+ 	if (npages != (KVM_FFA_MBOX_NR_PAGES * PAGE_SIZE) / FFA_PAGE_SIZE) {
+ 		ret = FFA_RET_INVALID_PARAMETERS;
+ 		goto out;
+@@ -318,6 +338,11 @@ static void do_ffa_rxtx_unmap(struct arm_smccc_1_2_regs *res,
+ 	DECLARE_REG(u32, id, ctxt, 1);
+ 	int ret = 0;
+ 
++	if (ffa_check_unused_args_sbz(ctxt, 2)) {
++		ret = FFA_RET_INVALID_PARAMETERS;
++		goto out;
++	}
++
+ 	if (id != HOST_FFA_ID) {
+ 		ret = FFA_RET_INVALID_PARAMETERS;
+ 		goto out;
+@@ -424,6 +449,11 @@ static void do_ffa_mem_frag_tx(struct arm_smccc_1_2_regs *res,
+ 	int ret = FFA_RET_INVALID_PARAMETERS;
+ 	u32 nr_ranges;
+ 
++	if (ffa_check_unused_args_sbz(ctxt, 5)) {
++		ffa_to_smccc_res(res, FFA_RET_INVALID_PARAMETERS);
++		return;
++	}
++
+ 	if (fraglen > KVM_FFA_MBOX_NR_PAGES * PAGE_SIZE)
+ 		goto out;
+ 
+@@ -486,6 +516,11 @@ static void __do_ffa_mem_xfer(const u64 func_id,
+ 	int ret = 0;
+ 	size_t mem_region_len = FFA_MEM_REGION_SZ(hyp_ffa_version);
+ 
++	if (ffa_check_unused_args_sbz(ctxt, 5)) {
++		ret = FFA_RET_INVALID_PARAMETERS;
++		goto out;
++	}
++
+ 	if (addr_mbz || npages_mbz || fraglen > len ||
+ 	    fraglen > KVM_FFA_MBOX_NR_PAGES * PAGE_SIZE) {
+ 		ret = FFA_RET_INVALID_PARAMETERS;
+@@ -589,6 +624,11 @@ static void do_ffa_mem_reclaim(struct arm_smccc_1_2_regs *res,
+ 	int ret = 0;
+ 	u64 handle;
+ 
++	if (ffa_check_unused_args_sbz(ctxt, 4)) {
++		ffa_to_smccc_res(res, FFA_RET_INVALID_PARAMETERS);
++		return;
++	}
++
+ 	handle = PACK_HANDLE(handle_lo, handle_hi);
+ 
+ 	hyp_spin_lock(&host_buffers.lock);
+@@ -780,6 +820,11 @@ static void do_ffa_version(struct arm_smccc_1_2_regs *res,
+ {
+ 	DECLARE_REG(u32, ffa_req_version, ctxt, 1);
+ 
++	if (ffa_check_unused_args_sbz(ctxt, 2)) {
++		res->a0 = FFA_RET_NOT_SUPPORTED;
++		return;
++	}
++
+ 	if (FFA_MAJOR_VERSION(ffa_req_version) != 1) {
+ 		res->a0 = FFA_RET_NOT_SUPPORTED;
+ 		return;
+@@ -829,6 +874,11 @@ static void do_ffa_part_get(struct arm_smccc_1_2_regs *res,
+ 	DECLARE_REG(u32, flags, ctxt, 5);
+ 	u32 count, partition_sz, copy_sz;
+ 
++	if (ffa_check_unused_args_sbz(ctxt, 6)) {
++		ffa_to_smccc_res(res, FFA_RET_INVALID_PARAMETERS);
++		return;
++	}
++
+ 	hyp_spin_lock(&host_buffers.lock);
+ 	if (!host_buffers.rx) {
+ 		ffa_to_smccc_res(res, FFA_RET_BUSY);
+@@ -876,9 +926,15 @@ static void do_ffa_part_get(struct arm_smccc_1_2_regs *res,
+ static void do_ffa_notif_bitmap(struct arm_smccc_1_2_regs *res,
+ 				struct kvm_cpu_context *ctxt)
+ {
++	DECLARE_REG(u32, func_id, ctxt, 0);
+ 	DECLARE_REG(u32, vmid, ctxt, 1);
+ 	struct arm_smccc_1_2_regs *args;
+ 
++	if (ffa_check_unused_args_sbz(ctxt, func_id == FFA_NOTIFICATION_BITMAP_CREATE ? 3 : 2)) {
++		ffa_to_smccc_res(res, FFA_RET_INVALID_PARAMETERS);
++		return;
++	}
++
+ 	if (vmid != HOST_FFA_ID) {
+ 		ffa_to_smccc_res(res, FFA_RET_INVALID_PARAMETERS);
+ 		return;
+@@ -895,6 +951,11 @@ static void do_ffa_notif_bind(struct arm_smccc_1_2_regs *res,
+ 	DECLARE_REG(u32, flags, ctxt, 2);
+ 	struct arm_smccc_1_2_regs *args;
+ 
++	if (ffa_check_unused_args_sbz(ctxt, 5)) {
++		ffa_to_smccc_res(res, FFA_RET_INVALID_PARAMETERS);
++		return;
++	}
++
+ 	if (FIELD_GET(FFA_NOTIF_RECEIVER_ENDP_MASK, endp_id) != HOST_FFA_ID) {
+ 		ffa_to_smccc_res(res, FFA_RET_INVALID_PARAMETERS);
+ 		return;
+@@ -916,7 +977,7 @@ static void do_ffa_notif_unbind(struct arm_smccc_1_2_regs *res,
+ 	DECLARE_REG(u32, reserved, ctxt, 2);
+ 	struct arm_smccc_1_2_regs *args;
+ 
+-	if (reserved) {
++	if (ffa_check_unused_args_sbz(ctxt, 5) || reserved) {
+ 		ffa_to_smccc_res(res, FFA_RET_INVALID_PARAMETERS);
+ 		return;
+ 	}
+@@ -942,6 +1003,11 @@ static void do_ffa_notif_set(struct arm_smccc_1_2_regs *res,
+ 		return;
+ 	}
+ 
++	if (ffa_check_unused_args_sbz(ctxt, 5)) {
++		ffa_to_smccc_res(res, FFA_RET_INVALID_PARAMETERS);
++		return;
++	}
++
+ 	if (flags & GENMASK(15, 2)) {
+ 		ffa_to_smccc_res(res, FFA_RET_INVALID_PARAMETERS);
+ 		return;
+@@ -963,6 +1029,11 @@ static void do_ffa_notif_get(struct arm_smccc_1_2_regs *res,
+ 		return;
+ 	}
+ 
++	if (ffa_check_unused_args_sbz(ctxt, 3)) {
++		ffa_to_smccc_res(res, FFA_RET_INVALID_PARAMETERS);
++		return;
++	}
++
+ 	if (flags & GENMASK(31, 4)) {
+ 		ffa_to_smccc_res(res, FFA_RET_INVALID_PARAMETERS);
+ 		return;
+@@ -972,6 +1043,20 @@ static void do_ffa_notif_get(struct arm_smccc_1_2_regs *res,
+ 	hyp_smccc_1_2_smc(args, res);
+ }
+ 
++static void do_ffa_notif_info_get(struct arm_smccc_1_2_regs *res,
++				  struct kvm_cpu_context *ctxt)
++{
++	struct arm_smccc_1_2_regs *args;
++
++	if (ffa_check_unused_args_sbz(ctxt, 1)) {
++		ffa_to_smccc_res(res, FFA_RET_INVALID_PARAMETERS);
++		return;
++	}
++
++	args = (void *)&ctxt->regs.regs[0];
++	hyp_smccc_1_2_smc(args, res);
++}
++
+ bool kvm_host_ffa_handler(struct kvm_cpu_context *host_ctxt, u32 func_id)
+ {
+ 	struct arm_smccc_1_2_regs res = {0};
+@@ -1000,6 +1085,11 @@ bool kvm_host_ffa_handler(struct kvm_cpu_context *host_ctxt, u32 func_id)
+ 
+ 	switch (func_id) {
+ 	case FFA_FEATURES:
++		if (ffa_check_unused_args_sbz(host_ctxt, 3)) {
++			ffa_to_smccc_res(&res, FFA_RET_INVALID_PARAMETERS);
++			goto out_handled;
++		}
++
+ 		if (!do_ffa_features(&res, host_ctxt))
+ 			return false;
+ 		goto out_handled;
+@@ -1046,6 +1136,10 @@ bool kvm_host_ffa_handler(struct kvm_cpu_context *host_ctxt, u32 func_id)
+ 	case FFA_NOTIFICATION_GET:
+ 		do_ffa_notif_get(&res, host_ctxt);
+ 		goto out_handled;
++	case FFA_NOTIFICATION_INFO_GET:
++	case FFA_FN64_NOTIFICATION_INFO_GET:
++		do_ffa_notif_info_get(&res, host_ctxt);
++		goto out_handled;
+ 	}
+ 
+ 	if (ffa_call_supported(func_id))
 -- 
 2.55.0.979.g7e5102b832-goog
 
