@@ -1,59 +1,121 @@
-Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D3E314A6CE9
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:35:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.214.250.239
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788784528; cv=none; b=QQSoGCQI27BYgWYgdR+mnsOr4zEMOGjeLAYkiDIf//bI9WVEkjJM1x3mWOdrhn07sXCmcxwL8JbnF7Kexk6cZMUZJGcbF+f5UZz5pLtOTBw9Akn9K1mr5WHwzeW/+jy1++LPWtFHfqr7lReOQSI2Ahdg16LmgPbGrtvJ0zm6HVA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788784528; c=relaxed/simple;
-	bh=1cNPswN7JJF1hEN/8JK45QLPJaEGl/7/REtDmalhhHQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HyUVFAHkYowIY9PdgiB2buOEucTytQRpqTq4tT2haCC1SqLLJtu3D9Fz2XEIcl1Cmzx1ipn2ZMIpZ+J3DWFqQCgXM9QXrP4U1qhfeIY0tw5gcoXVbxI2H20u252zAC4srX1PKso3k/x+hR7xB4NMNtHQkNFhQDp6OnU/wEzBh0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org; spf=pass smtp.mailfrom=8bytes.org; arc=none smtp.client-ip=85.214.250.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
-Received: from 8bytes.org (p200300f6af085a0015db8e28914752a6.dip0.t-ipconnect.de [IPv6:2003:f6:af08:5a00:15db:8e28:9147:52a6])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from mta0.migadu.com (out-148.mta0.migadu.com [91.218.175.148])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mail.8bytes.org (Postfix) with ESMTPSA id 8E03620A085;
-	Mon,  7 Sep 2026 14:35:25 +0200 (CEST)
-Date: Mon, 7 Sep 2026 14:35:24 +0200
-From: =?utf-8?B?SsO2cmcgUsO2ZGVs?= <joro@8bytes.org>
-To: fangyu.yu@linux.alibaba.com
-Cc: tomasz.jeznach@linux.dev, will@kernel.org, robin.murphy@arm.com, 
-	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, 
-	baolu.lu@linux.intel.com, jroedel@suse.de, zong.li@sifive.com, 
-	andrew.jones@oss.qualcomm.com, anup@brainfault.org, jgg@nvidia.com, jgg@ziepe.ca, 
-	guoren@kernel.org, iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-riscv@lists.infradead.org
-Subject: Re: [PATCH v2 0/3] iommu/riscv: Fix command queue publishing races
-Message-ID: <ap6veD4V8RGHL9zE@8bytes.org>
-References: <20260901133920.14550-1-fangyu.yu@linux.alibaba.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE3D481665
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:35:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.148
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788784549; cv=none; b=eEdy2Yatgld5fCY2dGQGkoc+PP1Dj3N2RpVJtnr6UXm6+CkiQp0I/VpjUKayn2jabWL25llni0FacOJHPt5enm07QOJdRhWxCd9X6kqtTrbduJ9wa147llJhmTc8/LgUcORL9M1yqLL2aZlFUT/CKB82m0eNGEQdy3+TFoMP3Ow=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788784549; c=relaxed/simple;
+	bh=9Vrwldiu86hCVdvrUFji2IlPOad8eDYhb/cvDGNbV4A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VjrT76ZfjfYL+u5ydUBHSKk5igaEfpQM5CSM4+oMNvaJlxOotU0PfvA/bq2vfHBPiHNab0Cn3GIkFLYRxIbEy92RC7TvftfwOegucOsUbk01qiXxdbWDqEDyG3WBCx9qn+Pm7C5tASzSM7TH18ulvREo5O4qclMj3A0a7NZbW8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ozLwK3Pb; arc=none smtp.client-ip=91.218.175.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ozLwK3Pb"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=9Vrwldiu86hCVdvrUFji2IlPOad8eDYhb/cvDGNbV4A=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788784545; v=1; x=1789389345;
+ b=ozLwK3Pb65dziwhuS3T7hQnggmdjF3z/rCiFJmrCNG9T2WXRd4yM4DMNHRoekv2yF8hOaQB2
+ nP2Zc3HnL1+2Zqy+H3PrgrRzJGvd4eQxrKmZgsbG8vtOfEyFDRXDcN4qtFq88yomaFQNPv+w4St
+ CoQsODqU01cGJp37btoEo4QU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 83939cb49fa7006e;
+	Mon, 07 Sep 2026 12:35:31 +0000
+X-Mizu-Trace-ID: 83939cb49fa7006e
+X-Migadu-Flow: FLOW_OUT
+From: Zenghui Yu <zenghui.yu@linux.dev>
+To: damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: sj@kernel.org,
+	shuah@kernel.org,
+	akpm@linux-foundation.org,
+	ekffu200098@gmail.com,
+	"Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
+Subject: [PATCH] selftests/damon: stop kdamond on error exits of no-op commit test
+Date: Mon,  7 Sep 2026 20:34:55 +0800
+Message-ID: <20260907123455.67246-1-zenghui.yu@linux.dev>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901133920.14550-1-fangyu.yu@linux.alibaba.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 01, 2026 at 09:39:17PM +0800, fangyu.yu@linux.alibaba.com wrote:
-> Changes in v2:
->     - Avoid reacquiring the command queue lock after waiting for space
->       times out.
->     - Link to v1:
->       https://lore.kernel.org/linux-riscv/20260817142728.61783-1-fangyu.yu@linux.alibaba.com/
-> 
-> Fangyu Yu (3):
->   iommu/riscv: Add command queue lock
->   iommu/riscv: Serialize command queue publishing
->   iommu/riscv: Avoid waiting on failed command enqueue
-> 
->  drivers/iommu/riscv/iommu.c | 117 +++++++++++++++++++++---------------
->  drivers/iommu/riscv/iommu.h |   2 +
->  2 files changed, 72 insertions(+), 47 deletions(-)
+From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
 
-Queued for -rc, thanks.
+The sysfs_no_op_commit_break test starts a kdamond via sysfs, but its error
+paths (e.g., drgn not installed) exit without stopping it.  The leaked
+kdamond then makes subsequent tests, e.g. lru_sort.sh and reclaim.sh, skip
+with "Another kdamond is running".
+
+Wrap the post-start logic in try-finally so that kdamonds.stop() is
+executed on every exit path.
+
+Fixes: 10725cd2b09a ("selftests/damon: test no-op commit broke DAMON status")
+Assisted-by: GLM-5.3 OpenCode
+Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
+---
+ .../damon/sysfs_no_op_commit_break.py         | 35 ++++++++++---------
+ 1 file changed, 18 insertions(+), 17 deletions(-)
+
+diff --git a/tools/testing/selftests/damon/sysfs_no_op_commit_break.py b/tools/testing/selftests/damon/sysfs_no_op_commit_break.py
+index 2c65cffe6b54..81774ddc55ac 100755
+--- a/tools/testing/selftests/damon/sysfs_no_op_commit_break.py
++++ b/tools/testing/selftests/damon/sysfs_no_op_commit_break.py
+@@ -47,26 +47,27 @@ def main():
+         print('kdamond start failed: %s' % err)
+         exit(1)
+ 
+-    before_commit_status, err = \
+-        dump_damon_status_dict(kdamonds.kdamonds[0].pid)
+-    if err is not None:
+-        print('before-commit status dump failed: %s' % err)
+-        exit(1)
++    try:
++        before_commit_status, err = \
++            dump_damon_status_dict(kdamonds.kdamonds[0].pid)
++        if err is not None:
++            print('before-commit status dump failed: %s' % err)
++            exit(1)
+ 
+-    kdamonds.kdamonds[0].commit()
++        kdamonds.kdamonds[0].commit()
+ 
+-    after_commit_status, err = \
+-        dump_damon_status_dict(kdamonds.kdamonds[0].pid)
+-    if err is not None:
+-        print('after-commit status dump failed: %s' % err)
+-        exit(1)
+-
+-    if before_commit_status != after_commit_status:
+-        print(f'before: {json.dumps(before_commit_status, indent=2)}')
+-        print(f'after: {json.dumps(after_commit_status, indent=2)}')
+-        exit(1)
++        after_commit_status, err = \
++            dump_damon_status_dict(kdamonds.kdamonds[0].pid)
++        if err is not None:
++            print('after-commit status dump failed: %s' % err)
++            exit(1)
+ 
+-    kdamonds.stop()
++        if before_commit_status != after_commit_status:
++            print(f'before: {json.dumps(before_commit_status, indent=2)}')
++            print(f'after: {json.dumps(after_commit_status, indent=2)}')
++            exit(1)
++    finally:
++        kdamonds.stop()
+ 
+ if __name__ == '__main__':
+     main()
+-- 
+2.53.0
+
