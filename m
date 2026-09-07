@@ -1,123 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F04F155D86B;
-	Tue,  8 Sep 2026 14:59:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 530FD554096;
+	Tue,  8 Sep 2026 15:02:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788879604; cv=none; b=FBoC2DzX1oiWmj8700PTbck9FZLtluYnubS/OrS/yhJawebJMnzTAjLpr3g4fTyUxJrDgMSVgHRyiKEeSyNC3z0Jw8lSy0/mTQyqR0kDhkGVO7xE+XmYRSfAgAPFgXWd4VUDk9lJfkzG+sxUPUD5P03cdD6jaYGpQ4bSNtbCND8=
+	t=1788879741; cv=none; b=J4f5c3B7k07Y85WXwaL8zXIkRBsrO+X0f1WLSrBKKf/LKd24lv4SNYouuvhwb9m2ruDOpX0DMVTJ/STguWoAhYeMpLHW4krLjcBmffaGxaIxBq/La8H1JZD/yWiPZbuOOh6o5ww2dHFk1KZxMreDp//CF3hJ/19ayKbzWO2EgzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788879604; c=relaxed/simple;
-	bh=WUvmRzQ99IvWir9XATVDX75lWBY78cbwJF2UYPnQqKw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OFZnLFuPqkEZY5GcCfDjUkRDQsaW1x1Dg70gV6XqovDPn57ylDo9tClktMcDhOW7YddJEog9rPcY9qjVId9xW1+0CiFVN3Ok/P/hyUe+jJl2PzR9twP1ZECrmCdN13gtz1GUuGcAhkBAqO05vsvv2/fLXtafVuhrDj/NazNiTY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QvGYzZvW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788879741; c=relaxed/simple;
+	bh=7FRrLvnJiZVAimKF/j88jz54tDKP3hFh2nkzbKFXkQI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=m7wY0zwEbXifaYQrsOO1DnWFBBz/s56YgMn4Zz7uOQ25VZfGCY6ZFvtm7XKHnDKDeDdFAXilArrh/Rvce8HqRNlbpqQe2YUgKsVyMhhRYa0NrZy0B9RSh40S3My6BpnbDr+ZYe0j+oE2A5Ph6DwWLGDY/QWYZMIRrKvq2GrdjaE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GTymgIIj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QvGYzZvW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B47B31F00A3A;
-	Tue,  8 Sep 2026 14:59:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GTymgIIj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C71081F00A3A;
+	Tue,  8 Sep 2026 15:02:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788879589;
-	bh=mjLxlDjwVMKv9IYIkt+Ko/Nyuaq1pNIEbnWW+mI79fE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QvGYzZvW6Biq/bKb+ElGh8jCXJmgfMxoVL0Otn2vzu3W/Xmg9Bv+JC3DvUD+LuWy4
-	 5zHSOarYcP9CaGN7JAmEgbOcuiq5k4yqeVAeBse1GJx2ytaLCk7BgTyJ9K90260SkQ
-	 +QqOg36QieaIouCcAp5vjxWrkrJVoBQmG3a7dNypT5QdKVWri9HRkytxVHW5G0Sh9K
-	 cUTG68rmgshSn7vU79mx+3naUuCrNIHt8nqtZFbsEmVDRSI8g4TNkpBD5lsw00gxQq
-	 FgKaSVtHrOlKhSwHL37yeayu9D9QlIaagzVnoJAVY9TyBXnfhIJfBQT4BlKyzMoCSa
-	 ZC8kDVt3Wo8hQ==
-Date: Tue, 8 Sep 2026 09:59:29 -0500
-From: Rob Herring <robh@kernel.org>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Sowjanya Komatineni <skomatineni@nvidia.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Yury Norov <yury.norov@gmail.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Russell King <linux@armlinux.org.uk>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Brian Starkey <Brian.Starkey@arm.com>,
-	John Stultz <jstultz@google.com>,
-	"T.J. Mercier" <tjmercier@google.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Chun Ng <chunn@nvidia.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-s390@vger.kernel.org, linux-mm@kvack.org,
-	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
-	linux-trace-kernel@vger.kernel.org,
-	Thierry Reding <treding@nvidia.com>
-Subject: Re: [PATCH v6 06/12] of: Export of_node_to_nid()
-Message-ID: <20260908145929.GB3123582-robh@kernel.org>
-References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
- <20260904-tegra-vpr-v6-6-79042cfa8de5@nvidia.com>
+	s=k20260515; t=1788879727;
+	bh=80f3+AF52zcevnLWJ5bCvG2rYVQ1CNFhIMnR7u01iWM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=GTymgIIjrd946UwQfxfPtsuPExjXK30L2y7wpYR9zIXlFoO9+Nrv5TMILgVOxT33L
+	 2eIUIkM62y00HPZCeMSbGFeOYPoqPaJpOs+k5tJ065xCZ033KqiyY1xvSnbQ3ZuJFq
+	 TUFOLoaFfZjVKlY4xnfBdv21CGES65ktYactWsh+2jFzuyN3vvSrCb7vBQnmVfKowy
+	 p5PD+uPJ0ADrkAk8iD797rzQIwy6ARwr6WF3W9SKceG/dm0n3bNb5Qyx77CZ1RKRGK
+	 VMs3jGEv3e6VoHt9JXcsVGqEoKlbdCb9MAyLBxgLG8ExiChtarhWuNu8g/Hir08zJo
+	 1LAdJbc6BTCNQ==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Pengpeng Hou <hppiscas@163.com>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ David Yang <yangxiaohua@everest-semi.com>, Zhu Ning <zhuning0077@gmail.com>, 
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260906034217.85696-2-hppiscas@163.com>
+References: <20260906034217.85696-2-hppiscas@163.com>
+Subject: Re: [PATCH 1/4] ASoC: es8326: report resume restore errors
+Message-Id: <178882136788.118202.13350473647316370947.b4-ty@b4>
+Date: Mon, 07 Sep 2026 23:49:27 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904-tegra-vpr-v6-6-79042cfa8de5@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1431; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=7FRrLvnJiZVAimKF/j88jz54tDKP3hFh2nkzbKFXkQI=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqoCNqHAne4rpLk8Af6HCV1Gwx6c4zN+c7zvSVi
+ ZpxU2JaxdqJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaqAjagAKCRAk1otyXVSH
+ 0BOqB/9S3OIX1gNY+UWjGEXWh+E2ZLi+8IlAnt+koLteGJuu3epAZKVyIboHumTtdgUVc1uuJIl
+ 1b8zsWMBfe0iIsdCNcw/y8srWH6vgpliDU1cg5VdNQLn1KNZ5zCfHq0bO7UU0n6X9pnOjiJ1H6M
+ 2wmE6of8LutxZMzQ6pJSJtWj3sAEE5t4gd11+0rGCUM5oKmMD++Ug+TshTOYOyS17ANchiQW0C4
+ z6FjDzeMqZpdUC5pgOnSYXKt4cnl5aeE3z3s7s0tV8PO6ulBD/1Zua2XWPf3504mvMn+yzwrVQ0
+ c/fh1ofXIrm3StMwBCIb1yIr5QA79omAnCE1sBHmWEvJpiwu
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Fri, Sep 04, 2026 at 12:44:57PM +0200, Thierry Reding wrote:
-> From: Thierry Reding <treding@nvidia.com>
-> 
-> Drivers buildable as a module may want to use this, so export it.
+On Sun, 06 Sep 2026 11:42:14 +0800, Pengpeng Hou wrote:
+> ASoC: es8326: report resume restore errors
 
-We need a specific reason/driver. Otherwise, that's every API function. 
+Applied to
 
-It doesn't look to me like the VPR driver ever actually uses the NID.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
 
-> 
-> Signed-off-by: Thierry Reding <treding@nvidia.com>
-> ---
->  drivers/of/of_numa.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/of/of_numa.c b/drivers/of/of_numa.c
-> index 230d5f628c1b..da2e9bd1717c 100644
-> --- a/drivers/of/of_numa.c
-> +++ b/drivers/of/of_numa.c
-> @@ -171,6 +171,7 @@ int of_node_to_nid(struct device_node *device)
->  
->  	return NUMA_NO_NODE;
->  }
-> +EXPORT_SYMBOL(of_node_to_nid);
+Thanks!
 
-Assuming this is still needed, EXPORT_SYMBOL_GPL.
+[1/4] ASoC: es8326: report resume restore errors
+      https://git.kernel.org/broonie/sound/c/349e94679968
+[2/4] ASoC: es8375: report resume restore errors
+      https://git.kernel.org/broonie/sound/c/8f43acfd3add
+[3/4] ASoC: es8389: report resume restore errors
+      https://git.kernel.org/broonie/sound/c/8f7d23eb8ffb
+[4/4] ASoC: fs210x: report register restore errors
+      https://git.kernel.org/broonie/sound/c/aa7d985d8552
 
-Rob
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
