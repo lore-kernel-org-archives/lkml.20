@@ -1,47 +1,72 @@
-Received: from mta1.migadu.com (out-53.mta1.migadu.com [95.215.58.53])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B86A3793D3
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:55:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5177937B022
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:55:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788756932; cv=none; b=gyh0IKP7rCDdeCIwYVI8VJWZE5uKqv9pqXPosVJyhII3R0YT/Zv6OTkYGgyWgWIFE4XTZljhlk609I/NvCdiy7gKkkwd50tPIOlMCzb2EFyKESYUquYLbcbpcdzQPlKGB6YeiBUBNoREBLie80tR3tMLd+d6UJFE5GWTuMV4koE=
+	t=1788756933; cv=none; b=CFhG6ToTjXYMGuI5f/xe9i4iK6RJN2y6HC+XtBhiCIi7O/HalyjeZkype2pXN9hkViCC6FdESPZoOFwR4ppiZc48IeuKQDA6DcU4JYFSq3D2k//gV1lJXDey21HeFkyF3g0wyowY8u97fPjBy+mZgEdELNHL+y5J0vWylLl7C5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788756932; c=relaxed/simple;
-	bh=u9/82jjn7HPYGB+0454M/+i3SLDdyKFmb/gGHFwv9Bk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CW2/dt4GGNVewyV9tU3raKFtD5++bX3VKgQ9zcQwU0E0uiRczRC5ZXUkvm2zR0Wbe6D8X7NDRAjjrgBoNkW8csXBYgnM4IIkww/mqaGljN9GuOchsYyRRWYHdEKiqpo84pVHq7yRFVsbz6ygWbCuN5CX30M/ZF4iYcFBK/sFS3A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hsiZskD3; arc=none smtp.client-ip=95.215.58.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788756933; c=relaxed/simple;
+	bh=ucrjeC2hRJEEIZ6EHIccUwGf0DU4vAKej/No8MYuwHU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z70Ey6aFb7RFs+SGbIMmrukcD2wv2ZzCj0ZpSL0JHyWDwKDLL2AoCYBlcOiDkjFRlO95WLTu0ht895E4Gs9ypW+SDmu20LlR3fTr/z+GttycfQ9nMten616c3SznKbaTrJHnBpTPTgzHBVSbcSx6gvnAIX7Lc9vLGvGKBJ/RCfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IAWxj3yT; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hsiZskD3"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=u9/82jjn7HPYGB+0454M/+i3SLDdyKFmb/gGHFwv9Bk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788756928; v=1; x=1789361728;
- b=hsiZskD3WOcXtmYCxfYy+uaO7GW5b4bH6/gx7fE98Yf4nFfoMkbQuncaG6rVFHhn4r8Oi2Ns
- O612/s/8h0ertqoTqCshvTHxKl9BZ2OzfX9uug12ZYNYZ2J/ZaIpBMXhiMvldW2IWYiqKG85Veu
- xdwHygOIMQU7dw41PQlatq/k=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a71d6b4f24578b51;
-	Mon, 07 Sep 2026 04:55:26 +0000
-X-Mizu-Trace-ID: a71d6b4f24578b51
-X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: linux-unionfs@vger.kernel.org,
-	miklos@szeredi.hu,
-	amir73il@gmail.com
-Cc: andrealmeid@igalia.com,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cui.tao@linux.dev,
-	Tao Cui <cuitao@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] ovl: clean up dir on casefold mismatch
-Date: Mon,  7 Sep 2026 12:55:17 +0800
-Message-ID: <20260907045517.1347518-1-cui.tao@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IAWxj3yT"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so2812511a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 21:55:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788756932; x=1789361732; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=q5jhlbEZ3qh8vQURGYIzWDz29UaYaWgBqWg0Y2URfxQ=;
+        b=IAWxj3yTG1xNrF5i8Ic70+DymUr4b7wQgJteK+G0f8eJTQOBshC7YNFN34eNhN8v8x
+         9EIOS+p/V663NSYwP+UW0bQmwZaBrFhjScXjsCU5lzB+lgNlE2e953f30njMXQmc08ZG
+         Oqmww5IdQEXc0Qf3Wvgau/X23otQEXXmgDY4pPIKc5NR/F0z8NWZAwOACvnTpPPAoPJc
+         Fv/7g1ZrAGybxWuzVf4Dzob7WdHUkMOqG41onRi6cUn3PQXDewwKBzxEkBSjKTkCBIGe
+         w+mTR4ITJUBQSoLTsNBEgHx1m0NgX8dgCJdmVpcZGua+YCbNh+mZDQCbfWoHzbjO/A6L
+         3a2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788756932; x=1789361732;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=q5jhlbEZ3qh8vQURGYIzWDz29UaYaWgBqWg0Y2URfxQ=;
+        b=S37z18RbfEYKFog9QSC8D4Gesv9vvDaMCwk0qBXMKsn1hi54igLoeEl85jWRXXmbJF
+         tsFmhs9IcrFV9+hx/iJ1yfy1PSGigtrCmMt7ZrZOvsgWWxVWwIhdm6dB+g3DlbrUZ6qY
+         90oCtz7qwvEopzOnvDiYS5pYjmMRIPHs5dF69rWvNtkeZOFyjONreWVBJNtIyo+mlRNF
+         swdaFsXBOeAw5XDohagKvbNqNpSClGKYTjRpSB55v+AstXvzWDVfQ4IiJc9dG152lUSV
+         w5N30wsfoSc46ef7Jev6TbX46LKrfWvf318SzBBkxKSWZr08cunus8GfQcIkbQmSrorV
+         9igQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxjh18T4/wPd8wf7b78JbDk0eT5I6XInZlg0lWnvM2RCuYSaqY4G1IYfZ7AnuDKBRCUH1vFvREO+2Kp21g=@vger.kernel.org
+X-Gm-Message-State: AFuF++kwhJa9OCiPY8qpiuSEc5yBtbBDtd8KeKCs7XuGGSESyhmrxFLY
+	l9mvJ3Ux505/mW1XHPqnaI4M52m9CuyVqvOoFD8qt8qSgLtYsTX4xbKa7iJp0AnAV0w=
+X-Gm-Gg: AYBFou3U96Ud9+UirbzNR9e3q1lT8PvZ5nTbMHkLQ4k7VIDR+h6Cxd2DfoBS5LXR3F5
+	5n12Qfhf2KWlVI+gM2H8TkRur4Vftsb+kKyGUxiO7eADjd/b53Mb0AfNlQYxqJS89HCWzSSYZZX
+	tYaFaKpGhxU7YVSarMrX8iiOeGgScSDm4kCm+tUvjPtIr1rDPBBc32CddAxRu/Sr/3x9Bl28voe
+	zN2QFiaTYdecoH6HnD9RFZnAeRU3mPC+gg8zx6l+a3l0EuYF0tWSw8S3+LMS6Nz7I24QumRhbPP
+	Yv4kTxoYfR4NHUHnjOuZNfQgBcsHPYHCeMlcHEaaxBTpvhM9kyx6y9TX/DyhVsuces0FUcQPBPG
+	FQPerLu2pNQ9X/ibWdDqUNXfOomX2/vPQCE+RZ9qONISxkGJ6iD5lcRowohB7ikaAxhKEKL6pCu
+	f6ihp2reetLtUwRYPT/bIRHX+YrV5DyMJJDYDiVdLPGl8xvh+o4U6+k4SquXqUzZI9dSZHZmEFa
+	uQ6lvVSRp0HNw==
+X-Received: by 2002:a17:90b:2f46:b0:398:9c39:520f with SMTP id 98e67ed59e1d1-39b261e763dmr32156369a91.15.1788756931715;
+        Sun, 06 Sep 2026 21:55:31 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14324410092sm22006422c88.14.2026.09.06.21.55.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 21:55:31 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Lee Jones <lee@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org,
+	mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] mfd: ab8500: Fix typo "interupts" in comment
+Date: Mon,  7 Sep 2026 10:25:26 +0530
+Message-ID: <20260907045526.18873-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,45 +75,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tao Cui <cuitao@kylinos.cn>
+Correct "interupts" to "interrupts", reported by scripts/checkpatch.pl
+using the misspelling list in scripts/spelling.txt.  Only touches a
+comment, no code changes.
 
-In ovl_create_real(), the S_IFDIR case checks after a successful
-ovl_do_mkdir() that the new directory inherited the expected casefold
-flag.  On mismatch, err is set to -EINVAL but the directory that was
-just created in the workdir or in the upper layer is left behind.
+Since v1 the subject carries the driver name and a capitalised
+description, to match the MFD subsystem convention.
 
-The mismatch is reachable: ofs->casefold is fixed at mount time, but
-the casefold flag of the index dir can diverge.  With index=on, a
-pre-existing "index" directory with +F is accepted at mount, and every
-temp mkdir for an index entry inside it fails the check and leaks one
-directory.  Measured on an ext4 casefold upper: 100 directory renames
-left 100 "#nnnn" entries in the index dir, one per failed mkdir,
-growing without bound.
-
-Clean up the created directory with ovl_cleanup_locked() before
-returning the error.  All callers of ovl_create_real() arrive with the
-parent inode locked (via start_creating()), so the locked variant must
-be used; ovl_cleanup() would deadlock on inode_lock().
-
-Fixes: dfc7da402ccc9 ("ovl: Check for casefold consistency when creating new dentries")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+Assisted-by: Cursor:claude-opus-5
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- fs/overlayfs/dir.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/mfd/ab8500-core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
-index 7beb0af26498..4e451bbd8f97 100644
---- a/fs/overlayfs/dir.c
-+++ b/fs/overlayfs/dir.c
-@@ -188,6 +188,7 @@ struct dentry *ovl_create_real(struct ovl_fs *ofs, struct dentry *parent,
- 			if (!err && ofs->casefold != ovl_dentry_casefolded(newdentry)) {
- 				pr_warn_ratelimited("wrong inherited casefold (%pd2)\n",
- 						    newdentry);
-+				ovl_cleanup_locked(ofs, dir, newdentry);
- 				err = -EINVAL;
- 			}
- 			break;
--- 
-2.43.0
-
+diff --git a/drivers/mfd/ab8500-core.c b/drivers/mfd/ab8500-core.c
+index 86fa99022cb3..ceea1ae34dd8 100644
+--- a/drivers/mfd/ab8500-core.c
++++ b/drivers/mfd/ab8500-core.c
+@@ -125,7 +125,7 @@ static u8 turn_on_stat_set;
+ 
+ /*
+  * Map interrupt numbers to the LATCH and MASK register offsets, Interrupt
+- * numbers are indexed into this array with (num / 8). The interupts are
++ * numbers are indexed into this array with (num / 8). The interrupts are
+  * defined in linux/mfd/ab8500.h
+  *
+  * This is one off from the register names, i.e. AB8500_IT_MASK1_REG is at
