@@ -1,99 +1,102 @@
-Received: from outboundhk.mxmail.xiaomi.com (outboundhk.mxmail.xiaomi.com [118.143.206.90])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 97AE73A984F
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:25:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=118.143.206.90
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E74395AC0
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:26:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788762359; cv=none; b=nnJp+YSn//bFtrsy9dDVdvB37Xt/qUjCjFLNW/86PyV5fsAvHPYbgcUYprK+c2pvA7xo3+owbQRFAs4O0CCw31JMpPczeRp6AOlXp4+IXyZhhAWItmPWW0ftPB9NA8WRLF4rctu05117hD60xf0atFPdNLozDSyisOLLao5p54w=
+	t=1788762376; cv=none; b=L5a9WbIUJduFB7hRx8oSiS4/OhhbMJdHgR73lhXiFYnUenaee5pRV7/9KRCMNK34IMG60JqNQuu4B+++HPhNcNH9rGZtH7+z6OVDJ6VaARBvweyn2ohCy9C1+ybzezQDf4DNfBgOCo0G5vjFt/kvNqeBHQ48XxnxI+jJMvBmHbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788762359; c=relaxed/simple;
-	bh=gH9fAhqrupTFLY2A9c/3iBOKFUWtQXhPwQUY8XXTh6s=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=XSHBCP2In8lyKZXorQGCxR2GC/4fw2LBFr2J99svM+Q0IcqlFvRzpAx48BwDvlUdk/pnfYOT1Odl5WYwd0GHLftQiwCs2NXPpam6ik41wcqun/RIROXYynVem6zt/o9GWhswjcIetFh1UU3RZDt9ikwp+KdDEQHYhMW/45rMypw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=xiaomi.com; arc=none smtp.client-ip=118.143.206.90
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=xiaomi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaomi.com
-X-CSE-ConnectionGUID: ABga19qYS12lR3Izhhx/kQ==
-X-CSE-MsgGUID: E/KmHheSTfmzwmRRfGVBCA==
-X-IronPort-AV: E=Sophos;i="6.25,266,1779120000"; 
-   d="scan'208";a="161776485"
-From: =?utf-8?B?5YiY5pyv6auY?= <liushugao@xiaomi.com>
-To: Thomas Gleixner <tglx@linutronix.de>, =?utf-8?B?5pyx5oG65Lm+?=
-	<zhukaiqian@xiaomi.com>, Daniel Lezcano <daniel.lezcano@linaro.org>,
-	=?utf-8?B?J+W8oOWYieS8nyc=?= <zhangjiawei8@xiaomi.com>
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	=?utf-8?B?546L6Z+s?= <lingyue@xiaomi.com>, =?utf-8?B?54aK5Lqu?=
-	<xiongliang@xiaomi.com>, "isaacmanjarres@google.com"
-	<isaacmanjarres@google.com>, Frederic Weisbecker <frederic@kernel.org>,
-	Anna-Maria Behnsen <anna-maria@linutronix.de>, =?utf-8?B?5qKB5Lyf6bmP?=
-	<weipengliang@xiaomi.com>, =?utf-8?B?57+B6YeR6aOe?= <wengjinfei@xiaomi.com>
-Subject: =?utf-8?B?5Zue5aSNOiDlm57lpI06IFtFeHRlcm5hbCBNYWlsXVtQQVRDSF0gdGljay9i?=
- =?utf-8?Q?roadcast:_Plug_clockevents_replacement_race?=
-Thread-Topic: =?utf-8?B?5Zue5aSNOiBbRXh0ZXJuYWwgTWFpbF1bUEFUQ0hdIHRpY2svYnJvYWRjYXN0?=
- =?utf-8?Q?:_Plug_clockevents_replacement_race?=
-Thread-Index: AQHa7MK0Vqp0kbQNSkKwEnDO0Z5mtLa3v96ggAlCo9CAA5Y6AIACsIKQ
-Date: Mon, 7 Sep 2026 06:24:43 +0000
-Message-ID: <cecc2fe0ba9d4ada96b68a12cef0612d@xiaomi.com>
-References: <042520850d394f0bb0004a226db63d0d@xiaomi.com>
- <87o77m1v9r.ffs@tglx> <b07f9746a58d46919b1600b22f5dff05@xiaomi.com>
- <835d5847-1aa0-4852-89c7-6a6996b3eb65@linaro.org>
- <bc1a086b932f454f9379c49221983675@xiaomi.com> <87o775uh0y.ffs@tglx>
- <87frrs8lsg.ffs@tglx> <87cymdsu0r.ffs@tglx>
- <6eb4fac303f4457f9686510664e79bff@xiaomi.com>
- <e52a3bfe9e444c14bc6281b1075c1fb2@xiaomi.com> <87jyoz4cs5.ffs@fw13>
-In-Reply-To: <87jyoz4cs5.ffs@fw13>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	s=arc-20240116; t=1788762376; c=relaxed/simple;
+	bh=ytaOgPiD27NmO0p/hdzmEK5TXPSV7EgzssfUs4MDXBc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Cmp0SZYYXtBjE741oHc3fRbGKOeu2atMqrbceK+iPqBSA2lY0U7DTumTNPeHgI6Ls4XY59aqKt0lpmWvNxl4+k7qX3OcDlULy/eKUmgrMr611ju34ipCEXc7gi5d5ATLo06Gf034QtuXwp575PwI67Ob8NA21rs5dorTczysvsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oLFXwa+T; arc=none smtp.client-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oLFXwa+T"
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc1cb472b76so2545310a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:26:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788762373; x=1789367173; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=02lq+eXcDw6s0xPfNQzAdvi3Q6KYZBjnBNOuKbpzIQE=;
+        b=oLFXwa+TCQ8s0ApW4KClE/BUvwo8Cjtw2++6wskABH4IheceP0S4ng1JtO3FT6KM5m
+         1UhMFbcjne7meBTil+g/BJY2ec+ehhYpBntp9WqtBN1C1ndPj3mQsA2+FVPwyiYjuanh
+         70zKS16qD9puTEYcPtNqzeqi1AgWPaMyTp3JSG+buuPUs8OxOSFTe9KwbIr1h8vk8jNS
+         XgwNfGbTzQqwB58CqDkzI2Wbd6Tot9Zi3+lJIgYxsVi/CfxHzQ8ngnU8WdC/l5kmwvQL
+         e8FfdnHG7FtPzTBGie2mJ3wBUtUvrRugyabd1Q5xx1i3119t9u+CW2BKofY97mZuBrn1
+         rJ+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788762373; x=1789367173;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=02lq+eXcDw6s0xPfNQzAdvi3Q6KYZBjnBNOuKbpzIQE=;
+        b=aExIIWQvKKlHauqG57RWRtiWZCgrsBLh6X/J09G6cVoUjiWiSeiPfmguyFsKoOx83U
+         G7JZYUJrwH5CzG8g67I4DjBL13a3Lq4Nuwx1iO/nh+3PJOWPWQ4ECesglvFjnrNXdoJR
+         wHoKukqzi6AcZaeF+3RaRFyimHcB4xb/zmsOALw53bdEzqvGQhkWxHUI6XhiF0P/SU5Q
+         AYulxHKmeZ2UZPtiSanh1xAEEjhG4itdYxxqdf+1kCgeMgepN8FL8p6m5nesJhJlR4Qu
+         HSPTKryk+88ebfADSE3RNGmhNrgI5+6BLY1paRgUpdB9YKVUoL5DU91KCfn1AqTurIdV
+         Oagg==
+X-Gm-Message-State: AFuF++lL6aIWjWdKewI/UBkXVCikMsE8KUbydDkiSG2BHHHZsszP6Qgj
+	MMsJ6wR2Onb7HsmmFDML7z0h7UyzhTANYT91KAmKA/fNU2APXtMVzJa/
+X-Gm-Gg: AYBFou1q44EwTul20u6xr/+X0/Oq8dOf3TvTkaZD7m04R18/b8/lsNBYE707nqlO+JJ
+	rEpayC4qR5TSFpToRpD+YPwngbVVqxUsDHmN0itH/XlpZ2CKSvCSUx9JI/10QVZyrc1ejeEC/HT
+	zqgHzLFeb5fOIxBUyc74l+1DguTXkyds4aEMF9dNeJvchIa0VvMXrfXvfESWu/sTkGI800dSoRr
+	mHWN4HGrRUF0GymKsmW6wgrI0i1lEl5KH76py/Z4rHJnwQZBm6mANGIy0cvVoYHaJOg/0BnsHXP
+	McsmE7cqlgUySiisQHOcZTMvYbyggG92r/TWomxhm93c+Ta0qbSj4yUbaOyoCn5xgBzceQnq3rz
+	V0zb8+du9KIfvkpgMoQIC1Gfeqq5iqo78URwOyCV/3M9BkOOQhJ/XGrwsjNczCM1jyH/Q47pB0H
+	k3y1y3MoI1RkzoiF5uq3J39pVhzuXCZvzqnATvXWoq08p30S0/6NFvUqIEKEpHol+DcoIj8mTpR
+	MEDhR/Pi9BUXU67liKn4p0L
+X-Received: by 2002:a05:6a21:9103:b0:3d3:ae40:51e6 with SMTP id adf61e73a8af0-3da3a104fefmr31944175637.26.1788762373444;
+        Sun, 06 Sep 2026 23:26:13 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b8f44d7sm24354228eec.22.2026.09.06.23.26.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 23:26:13 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org
+Subject: [PATCH] tracing: fix typo "availabe" in comment
+Date: Mon,  7 Sep 2026 11:56:08 +0530
+Message-ID: <20260907062608.13924-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-T24gVGh1LCBTZXAgMDMgMjAyNiBhdCAwNjozMywgVGhvbWFzIEdsZWl4bmVyIHdyb3RlOg0KPiBJ
-dCB0b29rIHlvdSBtb3JlIHRoYW4gZnJpY2tpbmcgVFdPIFlFQVJTIHRvIHRlc3QgYW5kIHZhbGlk
-YXRlIHRoYXQNCj4gcGF0Y2ggYW5kIG5vdyB0aGF0IHlvdSBmaW5hbGx5IGNhbWUgYXJvdW5kIHRv
-IHRha2UgY2FyZSBvZiBpdCB3aXRob3V0DQo+IGZvbGxvd2luZyB0aGUgZG9jdW1lbnRlZCBwcm9j
-ZXNzIHlvdSBleHBlY3QgbWUgdG8gbWVyZ2UgaXQgd2l0aGluIGENCj4gY291cGxlIG9mIGRheXMg
-YW5kIHByZWZlcnJhYmx5IGV4cGVkaXRlIGl0IGFuZCBwcm92aWRlIHlvdSB0aGUNCj4gZXhwZWN0
-ZWQgdGltZWxpbmUgYmVjYXVzZSB5b3UgaGF2ZSBhIGJ1c2luZXNzIGNhc2UuDQoNCllvdSBhcmUg
-cmlnaHQuIFRoZSBkZWxheSBpcyBlbnRpcmVseSBvbiBvdXIgc2lkZSwgYW5kIEkgc2hvdWxkIG5v
-dA0KaGF2ZSByZXF1ZXN0ZWQgZXhwZWRpdGluZyBvciBhIHRpbWVsaW5lLiBJIGFwb2xvZ2l6ZSBm
-b3IgdGhhdC4NCg0KVGVzdGVkLWJ5OiDliJjmnK/pq5ggPGxpdXNodWdhb0B4aWFvbWkuY29tPg0K
-DQpJIHdpbGwgbWFrZSBzdXJlIHRvIGZvbGxvdyB0aGUgZG9jdW1lbnRlZCBwcm9jZXNzIGFuZCBy
-ZXNwb25kIG1vcmUNCnByb21wdGx5IGluIHRoZSBmdXR1cmUuDQoNClRoYW5rcywNCg0KCeWImOac
-r+mrmA0KDQotLS0tLemCruS7tuWOn+S7ti0tLS0tDQrlj5Hku7bkuro6IFRob21hcyBHbGVpeG5l
-ciA8dGdseEBsaW51dHJvbml4LmRlPiANCuWPkemAgeaXtumXtDogMjAyNuW5tDnmnIg25pelIDU6
-MTkNCuaUtuS7tuS6ujog5YiY5pyv6auYIDxsaXVzaHVnYW9AeGlhb21pLmNvbT47IOacseaBuuS5
-viA8emh1a2FpcWlhbkB4aWFvbWkuY29tPjsgRGFuaWVsIExlemNhbm8gPGRhbmllbC5sZXpjYW5v
-QGxpbmFyby5vcmc+OyAn5byg5ZiJ5LyfJyA8emhhbmdqaWF3ZWk4QHhpYW9taS5jb20+DQrmioTp
-gIE6IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc7IOeOi+mfrCA8bGluZ3l1ZUB4aWFvbWku
-Y29tPjsg54aK5LquIDx4aW9uZ2xpYW5nQHhpYW9taS5jb20+OyBpc2FhY21hbmphcnJlc0Bnb29n
-bGUuY29tOyBGcmVkZXJpYyBXZWlzYmVja2VyIDxmcmVkZXJpY0BrZXJuZWwub3JnPjsgQW5uYS1N
-YXJpYSBCZWhuc2VuIDxhbm5hLW1hcmlhQGxpbnV0cm9uaXguZGU+OyDmooHkvJ/puY8gPHdlaXBl
-bmdsaWFuZ0B4aWFvbWkuY29tPjsg57+B6YeR6aOeIDx3ZW5namluZmVpQHhpYW9taS5jb20+DQrk
-uLvpopg6IFJlOiDlm57lpI06IFtFeHRlcm5hbCBNYWlsXVtQQVRDSF0gdGljay9icm9hZGNhc3Q6
-IFBsdWcgY2xvY2tldmVudHMgcmVwbGFjZW1lbnQgcmFjZQ0KDQpb5aSW6YOo6YKu5Lu2XSDmraTp
-gq7ku7bmnaXmupDkuo7lsI/nsbPlhazlj7jlpJbpg6jvvIzor7fosKjmhY7lpITnkIbjgILoi6Xl
-r7npgq7ku7blronlhajmgKflrZjnlpHvvIzor7flsIbpgq7ku7bovazlj5Hnu5ltaXNlY0B4aWFv
-bWkuY29t6L+b6KGM5Y+N6aaIDQoNCk9uIFRodSwgU2VwIDAzIDIwMjYgYXQgMDY6MzMsIOWImOac
-r+mrmCB3cm90ZToNCj4gQ291bGQgeW91IHBsZWFzZSBzaGFyZSB0aGUgZXhwZWN0ZWQgdGltZWxp
-bmUgZm9yIG1lcmdpbmcgdGhpcyBmaXggaW50byANCj4gdGhlIG1haW5saW5lIGtlcm5lbD8gV2Ug
-aGF2ZSBkb3duc3RyZWFtIHByb2R1Y3RzIGRlcGVuZGluZyBvbiB0aGlzIGZpeCANCj4gYW5kIHdv
-dWxkIGFwcHJlY2lhdGUgaXQgaWYgdGhlIG1lcmdlIGNvdWxkIGJlIGV4cGVkaXRlZC4NCg0KSnVz
-dCBmb3IgdGhlIHJlY29yZC4gSGVyZSBpcyB0aGUgdGltZWxpbmU6DQoNCjIwMjQtMDYtMjY6IElz
-c3VlIHJlcG9ydGVkDQoyMDI0LTA4LTEyOiBQYXRjaCBhdmFpbGFibGUgYWZ0ZXIgc29tZSBkaXNj
-dXNzaW9uDQoyMDI2LTA4LTI4OiBDb25maXJtYXRpb24gdGhhdCB0aGUgcGF0Y2ggd29ya3MNCjIw
-MjYtMDktMDU6IFJlcXVlc3QgZm9yIHRpbWUgbGluZQ0KDQpJdCB0b29rIHlvdSBtb3JlIHRoYW4g
-ZnJpY2tpbmcgVFdPIFlFQVJTIHRvIHRlc3QgYW5kIHZhbGlkYXRlIHRoYXQgcGF0Y2ggYW5kIG5v
-dyB0aGF0IHlvdSBmaW5hbGx5IGNhbWUgYXJvdW5kIHRvIHRha2UgY2FyZSBvZiBpdCB3aXRob3V0
-IGZvbGxvd2luZyB0aGUgZG9jdW1lbnRlZCBwcm9jZXNzIHlvdSBleHBlY3QgbWUgdG8gbWVyZ2Ug
-aXQgd2l0aGluIGEgY291cGxlIG9mIGRheXMgYW5kIHByZWZlcnJhYmx5IGV4cGVkaXRlIGl0IGFu
-ZCBwcm92aWRlIHlvdSB0aGUgZXhwZWN0ZWQgdGltZWxpbmUgYmVjYXVzZSB5b3UgaGF2ZSBhIGJ1
-c2luZXNzIGNhc2UuDQoNCklPVywgdGhpcyBjb3VsZCBoYXZlIGJlZW4gZml4ZWQgVFdPIFlFQVJT
-IGFnbyBpZiB5b3Ugd29sZCBoYXZlIHBhaWQgYXR0ZW50aW9uLg0KDQpTZXJpb3VzbHk/DQoNClRo
-YW5rcywNCg0KICAgICAgICB0Z2x4DQo=
+Correct "availabe" to "available", reported by scripts/checkpatch.pl using
+the misspelling list in scripts/spelling.txt.  Only touches comments, no
+code changes.
+
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ kernel/trace/rethook.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/trace/rethook.c b/kernel/trace/rethook.c
+index 5a8bdf88999a..87a27f3aa4a6 100644
+--- a/kernel/trace/rethook.c
++++ b/kernel/trace/rethook.c
+@@ -171,7 +171,7 @@ struct rethook_node *rethook_try_get(struct rethook *rh)
+ 	 * This expects the caller will set up a rethook on a function entry.
+ 	 * When the function returns, the rethook will eventually be reclaimed
+ 	 * or released in the rethook_recycle() with call_rcu().
+-	 * This means the caller must be run in the RCU-availabe context.
++	 * This means the caller must be run in the RCU-available context.
+ 	 */
+ 	if (unlikely(!rcu_is_watching()))
+ 		return NULL;
+-- 
+2.48.1
+
