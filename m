@@ -1,267 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB9941F5D9;
-	Mon,  7 Sep 2026 20:18:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C77973EDE6E
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 20:19:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788812332; cv=none; b=rGNOoVVphDyqeBkbtYOu3jqBd1R17sQrW44iFlou19Q2h3sMvdnfM27RqKEKehtMHb7HsBQAOa4u6d+k0crtTOTfm+tCd2ZTG6490m5CnjKZ2ymuc9P1wmN9Ccw5RESIUwRUNPCpi8TBDdvE8SF42Dl+otKRsBdAEpB4KFI5LuM=
+	t=1788812385; cv=none; b=qonRhIuiJv7ly6Z0WhED+inAvnOZmXV5xecIg3x9gr/Nzxz9Vlif3wCK2NbBpClsBcbhmGqlHh8Qa33tsiwG37FvKlhY5DLOFvBjJOqzMiZ0GKoFFp8Nw0Tzb9X1pqQ5Qo74IMiqyUPAKnvZDQgYKTt5b0nh2U/51B4C59w8IDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788812332; c=relaxed/simple;
-	bh=exVgwIhxCB4FqfRbUzXjOD6Bfp2zjfD/SySNjut3sMM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z5uPVh8l7LCi6/8LJvD3jRBZLRBCQksTmo2Ug5bCY+dUwkHh6ZlrXa+Mxr99oYudApWdaI9gYapvyrNARsLLFzT9qmaVB5D9UZpQpMYd+JFqicLSQj9aRk2lHtRS2Je+ZTJXRfhgYlKWbsgllCefg1kzk2n7tGv5xM8q4bd+7e4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gB7XHpY2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788812385; c=relaxed/simple;
+	bh=ibfSzuvEqAX4vqhVzf0MhyB9RVT64f5Zvs5HA/q3DxI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NCJG7LuEFyaXEo3svxdFRRYzMdk/9fTHU+wzUnwxUIv/hkVnJ/kxI+p1VRQv6PY6vcL6xQAWSLx9d+5xeIWtaTnq1LNk5k0YFI+LNiJhswqlXZieUa6c2gMWVVN3fA4lTLg/iHlREzO8jT5jt/dM3Ql5wUtWwa5IrH0rm2e+Tr8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OEdGhvpw; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gB7XHpY2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F4D61F00ACA;
-	Mon,  7 Sep 2026 20:18:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788812331;
-	bh=g/K+ETr6QD181oYSMtQhZffpfb4s0blaYWm8THI030w=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=gB7XHpY2t5h8TI/7iLx+BhEvzzqDSP6JcBtPxKY7aVHMofUZNZn3BjRudt2/3SatG
-	 GvoV6WgQLEWM6blbHynr5XQ9blq9dwaMayHCADOQJ8zxv89ANdH6/LEPNupmEUsH5s
-	 3HeARIvWI+FCmDdWM1ZZ2RE8Z5LzPjylZJXDr9sV3a+MLcnhmLhYYAOzy4clx4UpJ8
-	 gizhFw4DKyRTKPqCriVzy/LkNE78gJxEwsPqxcg8K/fwouAlNtyZP/kqRFMASZkc+r
-	 IsaZAG483xWN6CVp9hV5YFoZvGjMeZzARZATavUHwLv29d2RLK2Rb1v8fhyw9J2CEe
-	 o06P8u9ovf+UQ==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id CAE7BCE0F83; Mon,  7 Sep 2026 13:18:50 -0700 (PDT)
-Date: Mon, 7 Sep 2026 13:18:50 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Bradley Morgan <brads@mainlining.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, boqun@kernel.org,
-	frederic@kernel.org, include@grrlz.net, jiangshanlai@gmail.com,
-	joelagnelf@nvidia.com, josh@joshtriplett.org,
-	linux-kernel@vger.kernel.org, neeraj.upadhyay@kernel.org,
-	qiang.zhang@linux.dev, rcu@vger.kernel.org, rostedt@goodmis.org,
-	urezki@gmail.com
-Subject: Re: [PATCH] hazptrtorture: Fix inverted sleep condition in
- do_pending kthread
-Message-ID: <730e268b-6e21-4311-81d0-007c862a2b77@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <ed125668-a77a-41b6-9d56-46ac93a5d69c@paulmck-laptop>
- <9D2DEA27-B3D1-4A8B-BA57-2F5EAC920C1D@mainlining.org>
- <b1abee12-5a3a-4750-be37-a3157c7e2217@paulmck-laptop>
- <28838ba4-8618-45d0-9994-3efee251bce2@efficios.com>
- <748b12b2-f1a3-4ed8-8c9b-86fa8d9a5926@paulmck-laptop>
- <179E0ECA-C65D-4480-9E4E-CFA960D55665@mainlining.org>
- <bbab8067-9bb4-46d0-bbbd-da7b836b04f5@paulmck-laptop>
- <D45E54F1-E015-46B1-9213-0801CF32A4F2@mainlining.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OEdGhvpw"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2db3305f94fso26070595ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 13:19:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788812383; x=1789417183; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XqM7CNcQIe0bZF2r0IXx9E1bi6r31mjO2/QDFutoPOg=;
+        b=OEdGhvpwwtWyTvG4DRd2e/4cuMe1a5sMjOVqLLGRJWDe4Y6/ERT7ooEWpNRBeH43r2
+         +DsaQSj6ZyZ5vrIxFkOTsZa1QF9hQdVdfGgX5/NtUE/eOfKnaHl2tDAM1SUVF8xnI9TN
+         nDBxYEoDXg38ldHXROAz4ZdRiUkIg5Y9/0XcKw8BYF5lI5MCYT+c89F+rIV4l5i9zh/7
+         kcF7dttrfS/2cYuqoClbSCDo+4PtOSQrs1liijwugSThQpz0gZ704HqTcl2oJr3o7L17
+         m8pLVX9oCXIsPjx5G1LLnGY9Xuj26K3b9Yp4sZWVzFTpFRABlmYkfdrJW7HYMxAx8S62
+         LaBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788812383; x=1789417183;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XqM7CNcQIe0bZF2r0IXx9E1bi6r31mjO2/QDFutoPOg=;
+        b=tIUFB5Fj6PNqTK0Y4Q8p91xOhPvvOlDySzJq5HBcrrtpQPE8BubQgw9rEghvkEaUZB
+         st9Y0a0tjLc2YE7FuRrmWzwA8j90UxmkLT7gCR3bgkpAaSTnP0tkPTGn3dDTd37tuMbS
+         u1rGvD0IBCX0fXiMqnhRBC9pnAUBBWedo5dchx798vD075F8LU24AsQWBXYa/eYBhMzd
+         T9KrPmtFg/Uha+13+mxNPUHPt9CNsK0Vs0NKGwPpbxvmEcJB6IwSdfbLB1mFuBGJdite
+         2dn33T3cwiCi5Hse9gy+sF89oXPKdSu6KLVUjUqJ4EA5Yb2wqizkhsBlgzoaIRRUr8GY
+         VXLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwlRjE5ynOUpnbxsMzxy9JQ0ffDUVCc7/HqY97jXzhCN4bldSt4nHpW5V9GOA6lx65B419TzPe1zzEQq4I=@vger.kernel.org
+X-Gm-Message-State: AFuF++kHzxIPSoAPYlu2E5/t8OLEYdAofcoiHEg/EZO7WdgHPh3VyTBK
+	2Q0Eck6BYFtD5lCsXnrHNPCiNw6F+nxxIQmgOtYvH2ROdrRdd5gtuvrAmjDIFw==
+X-Gm-Gg: AYBFou2YsLQyfw7A5m1ijk1hh0K1dBlR14b3dH2g662BS+aEAEkikL/ry2s6N8aFH5y
+	/ApKbeslfFtmysSIeetA2jYK7kOzNNLw4XSwNyBPd3+6lK7BAgQNr2iFgYxx85nKbPVhYtE/XFJ
+	qzyD7zSGRX6ILA55Rmto9lCXjKIle3y1ZdqlyGvRUq7ek7kRGtwUTOJTvbb+Zk7m8idZTrvMYNn
+	la6zvFFahnYRiXTCSU7VECHK4+MuMTGjzkxlj6eXpjQWyQwBEiUGFmdyVPHXlMNavVXfZluTZj7
+	C6o/iBFXb2jiZYaeTsJNhA+pzlEL/ifDPuEf9oAt1lBFaNRJRqbSYqPRItq50nvhMv/Mj5HpZCA
+	G3cGMIOpCs66lDSR3PVGeuJVUOjBC2IlMQ961EHdu+g+72C3y18cC6FVwch7EyAGbeS+LCqwtVu
+	cxZOFkuBRn2KTo1IhSGmqs+nOeaRT8zjKsUcYksKrmmcqHYefJK2F+AAOPhqDc+cBl2mhS8rxjU
+	rrTZxDOzG/U7lgaWKJjoG4hn5ORTCjgeZfJ+N+ex8uSl3srHbf5EmlrwLb7fg+cQ/eSje3uRWfz
+	iQraPK+wV2cDSXDXzMertdOWdS+aE7cAD7JEgA==
+X-Received: by 2002:a17:90b:1d4f:b0:398:9be5:b417 with SMTP id 98e67ed59e1d1-39b26221eb1mr36621766a91.18.1788812383036;
+        Mon, 07 Sep 2026 13:19:43 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b26123c99sm22082690a91.11.2026.09.07.13.19.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 13:19:42 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-leds@vger.kernel.org
+Cc: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] leds: is31fl32xx: Use fwnode/device property APIs
+Date: Mon,  7 Sep 2026 13:19:40 -0700
+Message-ID: <20260907201940.40524-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <D45E54F1-E015-46B1-9213-0801CF32A4F2@mainlining.org>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 07, 2026 at 07:11:53PM +0100, Bradley Morgan wrote:
-> On 7 September 2026 00:16:55 BST, "Paul E. McKenney" <paulmck@kernel.org>
-> wrote:
-> >On Sun, Sep 06, 2026 at 07:56:29PM +0100, Bradley Morgan wrote:
-> >> On 6 September 2026 19:46:50 BST, "Paul E. McKenney"
-> ><paulmck@kernel.org>
-> >> wrote:
-> >> >On Sun, Sep 06, 2026 at 09:09:53AM -0400, Mathieu Desnoyers wrote:
-> >> >> On 2026-09-05 16:40, Paul E. McKenney wrote:
-> >> >> > On Fri, Sep 04, 2026 at 06:28:45PM +0100, Bradley Morgan wrote:
-> >> >> [...]
-> >> >> > I would not say "no" to a fix for this issue:
-> >> >> > 
-> >> >> >
-> >>
-> >>https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
-> >> >> 
-> >> >> I'm not sure this URL actually points to a relevant issue ?
-> >> >
-> >> >Indeed, it does not, apologies!  Here you go:
-> >> >
-> >> >https://lore.kernel.org/all/202608130915.62b53936-lkp@intel.com/
-> >> >
-> >> >> > Once that is in place, I would be happy to put this back into
-> >-next.
-> >> >> > 
-> >> >> > At some point, we will need to get rid of the concept of wildcard
-> >> >hazard
-> >> >> > pointers, as those end up instead emulating RCU, but I don't see
-> >that
-> >> >> > as an immediate obstacle.
-> >> >> 
-> >> >> I already have the implementation which eliminates the wildcard if we
-> >> >> care about this. It was part of a previous hazptr series version.
-> >> >> 
-> >> >> Do you want me to resurrect it on top of the current series ?
-> >> >> This depends on:
-> >> >> 
-> >> >> - ptr_eq(),
-> >> >> - then use ptr_eq() to compare the loaded pointer (pre mb)
-> >> >>   with the re-loaded pointer (post-mb).
-> >> >> 
-> >> >> See:
-> >>
-> >>https://lore.kernel.org/all/20251218014531.3793471-1-mathieu.desnoyers@efficios.com/
-> >> >
-> >> >The main objection was over the content and style of the kernel-doc
-> >> >header comment, right?  I am guessing that it should be possible to
-> >> >resolve this to roughly equal disgust of all concerned.  ;-)
-> >> >
-> >> >We did make some progress on this sort of pointer issue in C++29
-> >> >this past June:
-> >> >
-> >> >https://people.kernel.org/paulmck/c-pointer-zap-and-oota-progress
-> >> >
-> >> >But the piece you need is this guy, which is still in process:
-> >> >
-> >> >https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2025/p3790r1.pdf
-> >> >
-> >> >Plus it will be some time before this reaches all the compilers used
-> >> >to build the Linux kernel, and probably even more time to reach the
-> >> >C language.  I do have pen-on-paper notes that will lead to a draft
-> >> >of the corresponding C-language working paper, but these things do not
-> >> >move quickly.
-> >> >
-> >> >So, yes, we will need something like ptr_eq() for some years to come.
-> >> >
-> >> >Back to your original question, given the fix for the above bug and
-> >> >given the current use case, I believe we can get the current series
-> >into
-> >> >mainline.  Give or take Linus's thoughts on the matter.  But either
-> >way,
-> >> >we will need a version that allows the user to avoid all wildcard use
-> >> >sooner rather than later.
-> >> >
-> >> >So having a series on top of the current one for a later merge window
-> >> >would be a very good thing!
-> >> >
-> >> Can I participate in this? :)
-> >
-> >If Mathieu is OK with it, feel free to look at the patch stack that
-> >Mathieu sent the URL for earlier in this thread.  Either way, please
-> >feel free to look at the stack in my -rcu tree based on v7.3-rc1 and
-> >headed by this commit:
-> >
-> >4398b7c192d ("hazptr: Implement two-phase wildcard scan")
-> >
-> >Perhaps you can find the bug that kernel test robot located.  ;-)
-> >
-> >My -rcu tree is here:
-> >
-> >git://git.kernel.org/pub/scm/linux/kernel/git/paulmck/linux-rcu.git
-> >
-> >Just so you know, in all cases, your taking on a task does not preclude
-> >others from also taking that same task on.
-> >
-> >							Thanx, Paul
-> >
-> >> --- Thanks!
-> >>
-> >https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
-> Hey, test this fix?
+Convert the DT-specific helpers in is31fl32xx_parse_dt() and
+is31fl32xx_parse_child_dt() to their fwnode/device equivalents.
+Behaviour is unchanged for device tree: device_property_read_bool(),
+device_for_each_child_node_scoped() and device_get_child_node_count()
+operate on the same nodes and keep the skip of unavailable children.
 
-Very good, thank you!
+Use the %pfwP format specifier in error messages, as child is now a
+struct fwnode_handle and %pOF would misread it as a device_node.
 
-Please post this patch as a reply to the report, asking them to test:
+Assisted-by: opencode:deepseek-v4-flash-free
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/leds/leds-is31fl32xx.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-https://lore.kernel.org/all/202608130915.62b53936-lkp@intel.com/
+diff --git a/drivers/leds/leds-is31fl32xx.c b/drivers/leds/leds-is31fl32xx.c
+index 6c8d6b833260..285085d27453 100644
+--- a/drivers/leds/leds-is31fl32xx.c
++++ b/drivers/leds/leds-is31fl32xx.c
+@@ -378,23 +378,23 @@ static int is31fl32xx_init_regs(struct is31fl32xx_priv *priv)
+ }
+ 
+ static int is31fl32xx_parse_child_dt(const struct device *dev,
+-				     const struct device_node *child,
++				     const struct fwnode_handle *child,
+ 				     struct is31fl32xx_led_data *led_data)
+ {
+ 	struct led_classdev *cdev = &led_data->cdev;
+ 	int ret = 0;
+ 	u32 reg;
+ 
+-	ret = of_property_read_u32(child, "reg", &reg);
++	ret = fwnode_property_read_u32(child, "reg", &reg);
+ 	if (ret || reg < 1 || reg > led_data->priv->cdef->channels) {
+ 		dev_err(dev,
+-			"Child node %pOF does not have a valid reg property\n",
++			"Child node %pfwP does not have a valid reg property\n",
+ 			child);
+ 		return -EINVAL;
+ 	}
+ 	led_data->channel = reg;
+ 
+-	of_property_read_u32(child, "led-max-microamp", &led_data->max_microamp);
++	fwnode_property_read_u32(child, "led-max-microamp", &led_data->max_microamp);
+ 
+ 	cdev->brightness_set_blocking = is31fl32xx_brightness_set;
+ 
+@@ -422,7 +422,7 @@ static int is31fl32xx_parse_dt(struct device *dev,
+ 	int ret = 0;
+ 
+ 	if ((cdef->output_frequency_setting_reg != IS31FL32XX_REG_NONE) &&
+-	    of_property_read_bool(dev_of_node(dev), "issi,22khz-pwm")) {
++	    device_property_read_bool(dev, "issi,22khz-pwm")) {
+ 
+ 		ret = is31fl32xx_write(priv, cdef->output_frequency_setting_reg,
+ 				       IS31FL32XX_PWM_FREQUENCY_22KHZ);
+@@ -433,7 +433,7 @@ static int is31fl32xx_parse_dt(struct device *dev,
+ 		}
+ 	}
+ 
+-	for_each_available_child_of_node_scoped(dev_of_node(dev), child) {
++	device_for_each_child_node_scoped(dev, child) {
+ 		struct led_init_data init_data = {};
+ 		struct is31fl32xx_led_data *led_data =
+ 			&priv->leds[priv->num_leds];
+@@ -451,17 +451,17 @@ static int is31fl32xx_parse_dt(struct device *dev,
+ 							  led_data->channel);
+ 		if (other_led_data) {
+ 			dev_err(dev,
+-				"Node %pOF 'reg' conflicts with another LED\n",
++				"Node %pfwP 'reg' conflicts with another LED\n",
+ 				child);
+ 			return -EINVAL;
+ 		}
+ 
+-		init_data.fwnode = of_fwnode_handle(child);
++		init_data.fwnode = child;
+ 
+ 		ret = devm_led_classdev_register_ext(dev, &led_data->cdev,
+ 						     &init_data);
+ 		if (ret) {
+-			dev_err(dev, "Failed to register LED for %pOF: %d\n",
++			dev_err(dev, "Failed to register LED for %pfwP: %d\n",
+ 				child, ret);
+ 			return ret;
+ 		}
+@@ -576,7 +576,7 @@ static int is31fl32xx_probe(struct i2c_client *client)
+ 
+ 	cdef = device_get_match_data(dev);
+ 
+-	count = of_get_available_child_count(dev_of_node(dev));
++	count = device_get_child_node_count(dev);
+ 	if (!count)
+ 		return -EINVAL;
+ 
+-- 
+2.55.0
 
-But first, have you tested it locally?  Something like this:
-
-tools/testing/selftests/rcutorture/bin/kvm.sh --torture hazptr --allcpus --duration 2h
-
-Would run a two-hour test of each of the two scenarios, within a guest OS.
-If your host system has 32 or more CPUs, it will run both scenarios
-concurrently.
-
-							Thanx, Paul
-
-> >From 3e92b8153c31106d6a080e1c9bbe9bf1e86e1f63 Mon Sep 17 00:00:00 2001
-> From: Bradley Morgan <brads@mainlining.org>
-> Date: Mon, 7 Sep 2026 18:00:08 +0000
-> Subject: [PATCH] hazptrtorture: Only detach acquired hazard pointers
-> 
-> hazptr_torture_acquire() detaches unconditionally, even when the
-> readlock fails. A failed acquire leaves nothing to detach, but the
-> detach still promotes the context to its backup slot and chains that
-> slot into the running CPU's overflow list. The reader then retries on
-> its own CPU, the fast path hands out a per-CPU slot and overwrites
-> ctx->slot, and the chained backup node is orphaned, still linked,
-> with nobody left to unchain it.
-> 
-> The next detach of the same context chains the same node a second
-> time, into another CPU's list, and the node ends up reachable from
-> both. The eventual release unchains it once, hlist_del() poisons
-> node->next, and the first list is left pointing at the poisoned node.
-> The writer's next hazptr_synchronize() walks that list, steps onto
-> LIST_POISON1 (0x100 on i386, where POISON_POINTER_DELTA is 0), and
-> reads slot.addr at offset 8 of the backup slot, address 0x108, which
-> is the crash the robot hit.
-> 
->   cpuA (IPI acquire)     cpuR (reader)          cpuD (do_pending)
->   ---------------------  ---------------------  -------------------
->   readlock() returns
->     NULL
->   detach chains the
->     backup node into
->     cpuA list
->                          hpp_htp is NULL,
->                            continue
->                          reacquire, ctx->slot
->                            is now a cpuR
->                            per-CPU slot
->                          acquire succeeds,
->                            defer, detach chains
->                            the SAME node into
->                            cpuR list
->                                                 release, unchain
->                                                   once, node->next
->                                                   is POISON1
->                                                 kfree(hppp)
->   synchronize walks cpuA
->     list, node->next is
->     0x100, reads 0x108,
->     Oops
-> 
-> Skip the detach when the acquire failed. The slot holds NULL in that
-> case, note_context_switch() and the synchronize scanners skip NULL
-> slots, and the next acquire overwrites ctx->slot, so leaving the
-> context attached is safe.
-> 
-> The robot's original report was against the defer path before detach
-> existed, which 4bd7f458229a fixed. This is the same crash surviving
-> through the IPI acquire path that 6357ec235c59 added.
-> 
-> Fixes: 6357ec235c59 ("hazptrtorture: Fix hazptr ownership issue")
-> Reported-by: kernel test robot <yi1.lai@intel.com>
-> Closes: https://lore.kernel.org/oe-lkp/202608130915.62b53936-lkp@intel.com
-> Signed-off-by: Bradley Morgan <brads@mainlining.org>
-> ---
->  kernel/rcu/hazptrtorture.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/kernel/rcu/hazptrtorture.c b/kernel/rcu/hazptrtorture.c
-> index 7c8b589..267f262 100644
-> --- a/kernel/rcu/hazptrtorture.c
-> +++ b/kernel/rcu/hazptrtorture.c
-> @@ -373,8 +373,11 @@ static void hazptr_torture_acquire(void *hppp_in)
->  	/*
->  	 * Acquiring a hazard pointer from a remote CPU.
->  	 * Detach hazptr from its task so it can be released by another task.
-> +	 * A failed acquire has nothing to detach, and detaching one anyway
-> +	 * orphans the chained backup slot on this CPU's overflow list.
->  	 */
-> -	hazptr_detach(&hppp->hpp_hc);
-> +	if (hppp->hpp_htp)
-> +		hazptr_detach(&hppp->hpp_hc);
->  	atomic_long_inc(per_cpu_ptr(&hazptr_torture_acquires_irq, raw_smp_processor_id()));
->  }
->  
-> -- 
-> 2.47.3
-> 
-> 
-> --- Thanks!
-> https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
