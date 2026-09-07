@@ -1,121 +1,151 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E2DB443313
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:43:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3A7B447811;
+	Mon,  7 Sep 2026 08:43:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.243.244.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788770593; cv=none; b=UXBubkS29bR+jzkWY7OvKpeK0DVlTq69nwEi4KpAkTEXmrk+khQpfgZBr1sVU1krNqFr0Xwdtmx+ru3GEOrzUoePgFa+mPVAxpvlDOrPJPFTIkISEu9OX4pTMh6Y5UEY7TA7IgatZ8jcwd/6JxR+XwSVsTgX/P/sQsD/xNGEwW8=
+	t=1788770598; cv=none; b=gAyaiTjva540/+R08VdL+IlXK7IX9pdSq2TDgIapsZcWy1JKMCfRKSbig267GkUfm/DXFze3oN/4xFzYr1gKi1CT9NJwDGpwyLJMbpPaoRrZIdlO6l4cPIN3UJ/NoqrgSCyI5PoXK8Px5TPEGUBBBxwD/quJuHJqpkIhFrssazo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788770593; c=relaxed/simple;
-	bh=OywrNZ4BtrhKjQt24W3zA3T7LubwDSC/jinrjoF+zgM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=q0ZeXXwRqIFw2SljDlbX2UvblNWIyzYsqhXwEz5dMuEHuPYmw9OVZYJz96OOURrNK2gFulQkieY2ITSfCL6pYjbvEqDs8Pxb/TjMnDmGGH+c5mEgq5dggUzELaBcp9SlQ3kOcMFn5QeZbE7xYTQEo4iH5lSoryFM9B5oG4Bv98Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=coAlhRbA; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788770598; c=relaxed/simple;
+	bh=H5VjVeVoUgUjNqoDLCIpjWNEi66teorWEZ7mOrP4fEY=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=b7MAldC7OuB3nuE5yy+0BU/FZ3MIDifR6k8R8yPTxFSxF2FQverVvGqETg7uyZ/+ykcRTNMefLU8UCJp96yleeKedsGsA3odi5b5WWecWqndjikdBX6PC/BVlQ2K7mMcZpA4ygAdpmqipOO+kcbMpTTp3ins6mWElBNGuwUuXX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=NjiMJ+SY; arc=none smtp.client-ip=54.243.244.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="coAlhRbA"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id C89C51A1A21;
-	Mon,  7 Sep 2026 08:43:08 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9428760383;
-	Mon,  7 Sep 2026 08:43:08 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D9DE811C7A43E;
-	Mon,  7 Sep 2026 10:43:02 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788770587; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=QPH9SwD0hXddm6xXbxjZJJRgmfIRKy2x0pI2YYN7uWo=;
-	b=coAlhRbAGLCBssJtWVENWIjlmTXIFDrRkn/FUW9R7GJF0H3uYFpCozKK57CHxWHqGltbl6
-	9kW3LR+wuQmweNJVwCSruG51FkFy37lFfbIPWJ2tj8FtYOsdmRWain/eNRldoCVA9wn1ZA
-	pmf96tNkede6vgD8UNP/fWu/8RvWsdHIM4GDVfL+SEfJgsAjpOrQsOnuCmgNxDmBocT5xT
-	BzzleahE2adqKJk3b1UrFy66G9PpxIPGlFMQWq0J6Trate8IQZvyx68boN0iVG0GcMvrd6
-	Ltbuk1J0B39LmRw+YRjAQUICJoLDkZwse3VzboFjj6Bbk74XoL0nX71+XUBblQ==
-Message-ID: <a3ee0fb0-417a-4844-8c8d-b29189ea2b31@bootlin.com>
-Date: Mon, 7 Sep 2026 10:43:01 +0200
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="NjiMJ+SY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1788770550;
+	bh=yHCVeW/8VwrYJ68Qkewz1g1dKX6qVgzMZhqZvnvGTp0=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=NjiMJ+SYes74uePdnQ7Zhe82jEUMfGwy/hSLQO+LbBibi6OyDzO4MRkeHmNSyICiP
+	 7IWfTYCiFYKCK79TH3/bk/egYB7HDWJPrAykW9oKgaqGYIhbHjGB2ROLVPirLlvJDo
+	 kCjItFpl2BbRxdJWhiZM53rx1pQrAR+G5385f2q4=
+X-QQ-mid: zesmtpsz8t1788770544t3ba04c59
+X-QQ-Originating-IP: ij1MO0uxI1//XoyXbOGLzQihrsJbw3343CI25+CyBHk=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 07 Sep 2026 16:42:22 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 15574196219480591680
+EX-QQ-RecipientCnt: 20
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2 10/10] net: dsa: microchip: add periodic
- output support for the KSZ8463
-To: netdev-bot+sashiko@kernel.org
-Cc: woojung.huh@microchip.com, UNGLinuxDriver@microchip.com, andrew@lunn.ch,
- olteanv@gmail.com, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, richardcochran@gmail.com,
- pascal.eberhard@se.com, miquel.raynal@bootlin.com,
- thomas.petazzoni@bootlin.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260902-ksz-perout-v2-10-6f277fcc9e68@bootlin.com>
- <178857332410.219967.8963048354667407581@kernel.org>
-Content-Language: en-US
-From: Bastien Curutchet <bastien.curutchet@bootlin.com>
-In-Reply-To: <178857332410.219967.8963048354667407581@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=45e5895e4c3e82e45f3be96fceae5c1f0b830969d7cc94f6648371c4801a;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Mon, 07 Sep 2026 16:42:19 +0800
+Message-Id: <DL8Y8HJ75OUV.2AC7IAYJ0UB26@linux.spacemit.com>
+Cc: <linux-usb@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, "Troy Mitchell"
+ <troy.mitchell@linux.spacemit.com>
+Subject: Re: [PATCH 5/6] riscv: dts: spacemit: enable USB2.0 controllers on
+ BananaPi F3
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Junzhong Pan" <panjunzhong@linux.spacemit.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Yixun Lan" <dlan@kernel.org>, "Xu Yang" <xu.yang_2@nxp.com>, "Peng Fan"
+ <peng.fan@nxp.com>, "Peter Chen" <peter.chen@kernel.org>, "Philipp Zabel"
+ <p.zabel@pengutronix.de>, "Paul Walmsley" <pjw@kernel.org>, "Palmer
+ Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Alexandre Ghiti" <alex@ghiti.fr>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260812-b4-spacemit-k1-usb2-v1-0-f28cf29e522b@linux.spacemit.com> <20260812-b4-spacemit-k1-usb2-v1-5-f28cf29e522b@linux.spacemit.com>
+In-Reply-To: <20260812-b4-spacemit-k1-usb2-v1-5-f28cf29e522b@linux.spacemit.com>
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: OFoXdVIInG+RDtkto4OqsOWYRqY2Uy3kymiablynzo66wsKqzKLeMG3V
+	h3TyAUmxulv6YB92hisnG8Ahxt5NgYaqs0NCuutnKBN76/18wK3W4mXKE7ha3+1sFsltsqc
+	+ED2A3jDnZBHxGyv6nRawXxey8tLtVIY4bGrxlQtc5P9HriKOM7oV5HyUA8tOCjY4u2fg90
+	VxgZhJyN7GoyWFZmPiY1pJ3USDe5vaBuwFQuEIo8ldzFy/BiYj/Y/agC2crVAXAifSL5+Wz
+	ODpQoY0plIoR6zGbtNAMQes2G+ijJFiirDdUSg4X2ELuhgKrLoE2nyHHSqBbRU1U7xGol3X
+	u3HhcB6KAY0q/SFmzEbImJ5Q5Coo0Ey5DN3p+ZrbNUsDLtYScn0x7uaK2PbQNoomIDtKB2B
+	A+eQfYO6sXW5Dq6X9apskZvOHsVqfrMYl6V+kvHbxF8zwnkXG+i3AwNQ/lOu/otH6a3n5LF
+	E7I14bghSBijsy/KHIyFcdgroh/+A19t1JUrSw0VN5/0+TRJvFRHCUHwQLCRAfjK8fwd1Ce
+	VyWZGGMaRrd8Q9FMnfGV9LPPdh5uOEO/I7ndxV/fn7lUKEAys6NcK7T8D6twyZ4Q4imOx8S
+	Fi6DeBTtrKzSLSjRMhT48nSQigli+qLzkThR29PwGgQsOlRb7Rvxw/5R84aX24bl15niPcY
+	A3TuyVOGfZoltmFEmVrUlrHsyzh2I6R9JZruoeacJFwPhfw/Q4O9YcGUDZDTqPy/OjJLqLe
+	vbJRb7DTxMrU/T4eEDhgb1OAEwKgF3PcbR3QgSmT4CSToX6O8flUnSGRSFtLzT84omPGgAS
+	11y6c0id2MfPPzmY/ZrdbD/dLRtdEdKCBzMp6tDv9QpF6PiqnSqIEorQ20srbZzYcaq0Iy/
+	oig8wZNAQfxJx1ZezCxC2cBGzbp7tezLmpCWUuIv14MGMoSedOkB17nmcr7e1/3Q+lnCVuG
+	22WLerJRClpSD2bqUcN/Uu08zSsxWwwf1SkYqRAkTUhmRH8JOQemdMy53KZ1mFy7IDHc8xh
+	S5ENixmlWLXR0RneYxgnr63NbZfbB6bv9I7z6uUn5AwJQe2TCRbL4nYtibRvVJinWkTgyLL
+	EaziIL2UmYW6Neg7Nbu1P11OVSQYMFOfg==
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-RECHKSPAM: 0
 
-Hi all,
+--45e5895e4c3e82e45f3be96fceae5c1f0b830969d7cc94f6648371c4801a
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-On 9/5/26 3:55 AM, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 5 potential
-> issue(s) to consider:
-> 
-> Critical: 0 · High: 2 (1) · Medium: 3 · Low: 0 (2)
-> 
-> - [High] KSZ8463 periodic output is advertised as 12 independent channels
->    (.n_pins = 12, .n_per_out = 12 in ksz_switch_chips[KSZ8463]) but the…
-> - [High] KSZ8463 periodic output (TOU) is not properly disabled in
->    hardware (leaves EN bit).
-> - [Medium] Build failure when CONFIG_NET_DSA_MICROCHIP_KSZ_PTP=n:
->    ksz8463_setup() in drivers/net/dsa/microchip/ksz8.c now calls…
-> - [Medium] The newly added ksz8463_ptp_configure_perout() dereferences
->    dev->ptp_data.pin_config[index] (reading pin->chan to select the…
-> - [Medium] KSZ8463 TOU enable bit is left set in the hardware if the
->    activation verification check fails.
-> 
-> Pre-existing issues:
-> - [High] A non-normalized periodic-output period whose nanosecond value
->    converts to zero is accepted, stored as the global restart period, and…
-> - [Low] The KSZ periodic-output implementation accepts and processes
->    PTP_PEROUT_DUTY_CYCLE (ksz_ptp_get_pin() returns -EOPNOTSUPP only for…
-> - [Low] ksz_ptp_clock_unregister() only calls ptp_clock_unregister(); it
->    never disables the trigger units that the perout path enabled.
-> 
-> --
-> 
-> net: dsa: microchip: add periodic output support for the KSZ8463
-> 
-> This adds KSZ8463 specific periodic output handling, since the chip has one
-> configuration register block per trigger unit, a smaller maximum pulse
-> width and 12 outputs instead of 2.  It wires new ksz8463_ptp_* callbacks
-> into a dedicated ksz8463_ptp_set_caps() and advertises 12 pins / 12
-> periodic output channels for the KSZ8463.
-> 
-> A few questions on the new code below.
-> 
->> diff --git a/drivers/net/dsa/microchip/ksz8.c b/drivers/net/dsa/microchip/ksz8.c
->> index f2a23e2e474ac..6b08bb8fed5b7 100644
->> --- a/drivers/net/dsa/microchip/ksz8.c
->> +++ b/drivers/net/dsa/microchip/ksz8.c
->> @@ -2478,7 +2478,7 @@ static int ksz8463_setup(struct dsa_switch *ds)
->>   		if (ret)
->>   			goto free_girq;
->>   
->> -		ksz_ptp_set_caps(ds);
->> +		ksz8463_ptp_set_caps(ds);
-> 
-> [Severity: Medium]
-> Does this still build with CONFIG_NET_DSA_MICROCHIP_KSZ_PTP=n?
-> 
-
-No it doesn't .. I'll send a new iteration with this fixed
+On Wed Aug 12, 2026 at 5:26 PM +08, Junzhong Pan wrote:
+> On BananaPi F3, usb2_0 is connected to a Type-C connector at device
+> mode by default. This port have no VBUS supply capability, thus host
+> mode only works with self-powered device or hub. User could switch the
+> role in sysfs.
+>
+> And the usb2_1 is connected to the USB2.0 pins of the Mini PCIe slot to
+> support cellular modules.
+>
+> Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
+> ---
+>  arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+>
+> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv=
+/boot/dts/spacemit/k1-bananapi-f3.dts
+> index 72f77e9edd63..fd0f96262009 100644
+> --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+> @@ -350,6 +350,22 @@ &uart0 {
+>  	status =3D "okay";
+>  };
+> =20
+> +&usbphy0 {
+> +	status =3D "okay";
+> +};
+> +
+> +&usb2_0 {
+> +	status =3D "okay";
+> +};
+> +
+> +&usbphy1 {
+> +	status =3D "okay";
+> +};
+> +
+> +&usb2_1 {
+> +	status =3D "okay";
+> +};
+> +
+>  &usbphy2 {
+>  	status =3D "okay";
+>  };
+Could you keep the USB nodes in the same order as in k1.dtsi, with
+usbphy0/1/2 first, followed by usb2_0, usb2_1 and usb_dwc3?
 
 
-Best regards,
-Bastien
+--=20
+Troy Mitchell
+
+
+--45e5895e4c3e82e45f3be96fceae5c1f0b830969d7cc94f6648371c4801a
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCap546w0caUB0cm95LXku
+b3JnAAoJEJgJ74D5MzQvvCQA/3TMCabR6SOxIQsLp3SeFZYsrwhnszx/dAlUR50L
+2rc1AQClb0UwfcFZC4MPdfk85Rg2JoRIAwKQFKP//cnSYMzhDw==
+=IXf1
+-----END PGP SIGNATURE-----
+
+--45e5895e4c3e82e45f3be96fceae5c1f0b830969d7cc94f6648371c4801a--
