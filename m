@@ -1,105 +1,90 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CCC94F649A
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:59:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50C38519906;
+	Mon,  7 Sep 2026 16:59:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788800375; cv=none; b=IW6MEmEm66erIrYwagqwd6cGT/SCndLguQjk7d9Q17yKxGOkMyhsa8aYp4dio73uWv26t3oillfPJJK2O6tfKfCyxnfnMwZBDsXuA2s7XAurBkCDzwGTH5Sr9xb40U8y2R801tkrFSEasXjhJohpFZH5BgntLoiTMwvijeKgLUo=
+	t=1788800397; cv=none; b=XriZa7ncE1sC8p75M2fWIAnYabCrnb3Xo5hlX1x0PVI50Qm+Pr3m3D4EE1n5P7DvOrKBq+sG+wDcI/+CptZX93qbKt4hsV26xJPy2kjmsXlae/55PSbzdhKTSozjWPYtati6k6KeyN9GrTcMp5KxxiYP+m39VAusnBM4PUyP6h0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788800375; c=relaxed/simple;
-	bh=+lKahDHlU/h4cbQNkjk5pAh2dazWgNUL9ynWEWxv+n4=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=I54MYXl58yPqiXoci4xTbDbhc+byogs/Cq/XJmBsgPtEmf/6gXhZ2C0pDlNZQ7b8Zl3I3M9s6kUkCxbNIQMADolOJSQuOT3vU2PnS6awq/CT6KrQyMnoWS8Zhty6HYXGFc0+bJyr63utfz6aMjoQTc/swA/XjkXnTJegA3Oivyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=BD9gd1c+; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1788800397; c=relaxed/simple;
+	bh=IIlbBjPVL9SGm3Vs5mstFCN7buv5sEMUkbK5Y1LdE5Q=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=G9sVzLn1l+0VdnE0y0QZ56a3JRum+yhVswfEoFnj5s1E20taLv8jrxmpphc2biGIRqmuCk6nT+E52E6IeENZVPMXmiXuxhqWKkI2pacxqvjIVGLQm9usxHBcWSPaeDlsovEl4rd0o2DajjgJNmNs4SztIJ3wMMrys5AL6Ay79Nc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PQr/gJaS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="BD9gd1c+"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Content-Type:MIME-Version:Message-ID:
-	Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=FgHcm6sgDXUVe2bUExPb5JcKcGNE+x6ewfocQ82ZgOY=; b=BD9gd1c+yCk45YOKurA6Z2VWn0
-	KLtV4rwhFOVXcUqE9phbaDb/U2XhRBYV0v4jsimgpVk9JSTHVe2xBsJRYlhgook8QIgqiHjj7Gi5J
-	HURtbngcf6LMa4wysTXvcfncf+AvwHpkj/oDgXznCqWUtnbG+L8S7FTQMq1z0uTWyaWZCCpvW1r1g
-	MKlpBK7xRKJDZxeEloQJhtUj/zg4ysiWfCzH9CL8Wy8wHs65TrJO456psl899KWc87I9MJtGo+I9V
-	HbSIKvFa1QctWcBdxPaai/9zP3NmzI9Kv0QSyoQrAiIyM4Pol2j/hYMDmFC4YxI9q+jrVPNNg0wsA
-	XLaP6Grg==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1x3cgs-001eew-1n;
-	Mon, 07 Sep 2026 16:59:30 +0000
-Date: Mon, 7 Sep 2026 09:59:26 -0700
-From: Breno Leitao <leitao@debian.org>
-To: torvalds@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org, a.hindborg@kernel.org
-Subject: [GIT PULL] configfs: Fixes for 7.3
-Message-ID: <ap7pHxLx9DDF8Rxd@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PQr/gJaS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FDCB1F00A3A;
+	Mon,  7 Sep 2026 16:59:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788800395;
+	bh=h8uootJdn7y6hiezHT25dBz28nB26GojxQM2yMtCx0Q=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=PQr/gJaS3tmGKlWmACnenTX7zQU4VZLQNt9cFmUKwPFiBaXXmucSxW2By2QT+Ol2g
+	 jVOk1kcHyjwOwfHQ7WdScfakUL4x/v6d0DylWoI809PFNOPvO4DYfGjBI/yrNHXGZa
+	 wZkLIPS/HXS3h/jdBoxmqAsXiePjhmOC6dcSD7CBbket+gZeYDOivviol6xaeCD1K+
+	 Dtn07QxbhKtZGwJQnKxFanudPP3O8Ie5tb/wpiAVcad+HVsXK2oHiWlXn5lAPMfJ61
+	 qt67blIGC37QDXzZiKGTb6jtFMHLxu25me3WA2wGBYqSKiSFgVajIfAn45fxQrtyzH
+	 wia/Szs+vhaWw==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, "hpp.iscas" <hppiscas@163.com>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Kevin Li <kevin-ke.li@broadcom.com>
+In-Reply-To: <20260905133103.63432-1-hppiscas@163.com>
+References: <20260905133103.63432-1-hppiscas@163.com>
+Subject: Re: [PATCH] ASoC: bcm: bcm63xx: Publish the OF module aliases
+Message-Id: <178879302852.118202.17490760276173407712.b4-ty@b4>
+Date: Mon, 07 Sep 2026 15:57:08 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Debian-User: leitao
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1113; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=IIlbBjPVL9SGm3Vs5mstFCN7buv5sEMUkbK5Y1LdE5Q=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqnu2HqoxKcS25IZYf5uNyZ+v3iNb9X2Oh3oop6
+ KkPoPqenCWJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCap7thwAKCRAk1otyXVSH
+ 0BMJB/4w7qIGtx6GVf25C+jJxDcK3Dxdy9H9oiTRzvRSclTmmNmW49RSU4tEdaavp09UQg976Y4
+ yQi3KKKWOV2cAmfLvkmqCl8PCONRB7zSg254rYXEsxQirIakn6CXnCWDhV7JsaWzlDN6XZLcW6g
+ y/oPqJAfhaEJoo0RDpUkPeGcn/Vf7nJlc8JGNFJNFWa2czgeqrMv3yKxPjaQpnwhK3MrKCY+Lsu
+ jDdogUtmwZbtPhbYR4vrjI6XP24PJijLhkWlszT9Bdarx96UtUCF1RM9FcYUaKbZ5AtZIC/bDqj
+ +u8JObVzwHaRh81Xg1EiOpnvhH/3eJyE6Kw0f8FYfoqgg5uN
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Linus,
+On Sat, 05 Sep 2026 21:31:03 +0800, hpp.iscas wrote:
+> ASoC: bcm: bcm63xx: Publish the OF module aliases
 
-Please consider pulling these configfs fixes for 7.3-rc3.
+Applied to
 
-These are configfs fixes for two racing issues that were detected by
-syszbot and finally addressed.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
+
+Thanks!
+
+[1/1] ASoC: bcm: bcm63xx: Publish the OF module aliases
+      https://git.kernel.org/broonie/sound/c/32689f0fc54f
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
---breno
+Mark
 
-PS: This is my first pull request, please let me know if I am not
-following any rule.
-
-----------------------------------------------------------------
-The following changes since commit df2908090cda368b01ff43709f51890076c56157:
-
-  Linux 7.3-rc2 (2026-09-06 15:07:20 -0700)
-
-are available in the Git repository at:
-
-  https://git.kernel.org/pub/scm/linux/kernel/git/leitao/linux.git tags/configfs-7.3-rc3
-
-for you to fetch changes up to f06c2d26d1999d37e93299db0ecead04ca7d0b9f:
-
-  configfs: unhash the dentry before dropping the item in rmdir (2026-09-07 09:15:05 -0700)
-
-Tag SHA: d396bc8e8fb0f7b6517e733816450896c1894813
-HEAD SHA: f06c2d26d1999d37e93299db0ecead04ca7d0b9f
-
-----------------------------------------------------------------
-configfs: Fixes for v7.3-rc2
-
-- A symlink racing with rmdir of its target could reach a freed
-  ->ci_dentry. The reference get_target() takes pins the config_item,
-  not its dentry; the dentry is pinned by DCACHE_PERSISTENT, which
-  configfs_remove_dir() drops while the item is still alive. Take the
-  target's configfs_dirent under ->d_lock instead of chasing
-  ->ci_dentry.
-
-- configfs_rmdir() left the dentry hashed across the final put of the
-  item, and configfs_get_config_item() treats a hashed dentry as proof
-  of a live item. A concurrent symlink could therefore resurrect a
-  dying item and hit a use-after-free. Unhash in configfs_remove_dir(),
-  while the item is still guaranteed to be there.
-
-Both issues were found by syzbot.
-
-----------------------------------------------------------------
-Vasileios Almpanis (2):
-      configfs: pin the symlink target's dirent instead of chasing ->ci_dentry
-      configfs: unhash the dentry before dropping the item in rmdir
-
- fs/configfs/dir.c     |  9 +++++++++
- fs/configfs/symlink.c | 24 ++++++++++++++++++++----
- 2 files changed, 29 insertions(+), 4 deletions(-)
