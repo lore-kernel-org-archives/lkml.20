@@ -1,33 +1,60 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCEBD4CC266
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:15:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B93E1472542
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:16:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788786943; cv=none; b=VXCZSIHyeZE4pZatuJYy3Qqo6nz+sCWtU3pM/sl5rzpb6FFqqK3Ln7kPKNx5zyptgpPw0/Sudw0aoxu/BTmhKh7a6mb/87jsRFeQLpwkvaDqh41tAIjz2o9LLanribBmFQoGO7e5aEt/CrTXodzo2u+poBQhpqHrfPb9EyhCgPc=
+	t=1788786966; cv=none; b=dk8MN1FJZfr93xDIjvGY5w+P5IrAa+q2JYC6bTQEcY93v15NroerIEoZdd1doGzD11LoIdn6BXdg9K1O9EnofiW7ACdgcIdQgwue9B3K1HvZKKV/NbPrSNubapnwuOdsK36okHV6YvI4UKtBHfVWv/HahKIRAhGmxmi/tGfiMHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788786943; c=relaxed/simple;
-	bh=OEiccPmhUiPrwYCNpjGZUMA+7y1ZYynDuwh/jUysPXI=;
+	s=arc-20240116; t=1788786966; c=relaxed/simple;
+	bh=Ev2XWwud0NMchVn7W7A/yUPBKsff4ekNAD1Zq3hdm4Q=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=evQgMpCX2SKPhZ8DGXWzkgld7EBJNe1ZwxGqIJyjQADutUKfeYJBvkMD9gZ/kDQuxbQgCYjC2SeIrO2Hpf2bENvGlmIc0715pDXsPT935JCWypdBxXTShyIN9wRUX39uZRiisfKtGq4TDKiLzv4ijjJRUK/aJtl7bLUG1E4o9aU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=k04dqhL4; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 In-Reply-To:Content-Type; b=g/ellwOokgzFjhz37XadcSPQF+dG6fcNwNxzuqzBEEHx6TVJxZ64GuBQb+iDhjWzW/feGssWvm7Mpx0iBcbvaGiRALe+eJ4k0bZRqIEYBN6Wyj5ppHQbaH2vxbk/KpEP557Mc1mwDU0i0JeIM5hSz/8aSVCjmcp3MQsaSfhSx8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=DMzCv+Hp; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="k04dqhL4"
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 69DBE8FD;
-	Mon,  7 Sep 2026 15:13:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788786839;
-	bh=OEiccPmhUiPrwYCNpjGZUMA+7y1ZYynDuwh/jUysPXI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=k04dqhL4Bb+NAqJTuhffb4nfK89EFdjckkZ3+CRadtReB8sbKJ2/r96S9MBD62sE6
-	 fVAOm0nL6+hemUwA8WsOwHy9MDFDAtHoIbwn7yfokLDBOd4ZRWL8YSn1b3Ero/VjE7
-	 cVdKWoS3RJJo5Ike1x5XsmaYUT+cPzcjrWYOBijA=
-Message-ID: <dc4f1e73-caff-4371-9463-9d4d4c4af442@ideasonboard.com>
-Date: Mon, 7 Sep 2026 16:15:30 +0300
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="DMzCv+Hp"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687B1jSZ1785414;
+	Mon, 7 Sep 2026 13:15:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=/TSTbS
+	tenYNmkwzCBdUyEcXtY08ZuCRAcrpLdm4VEyo=; b=DMzCv+HpwRBeJpqhDoT6it
+	Fn0eRgR8rou/3ugAEwl3/4WYTC3g+vbAKovO1ul1JhHbO56BZbKcRGKe6q+XigdK
+	aUzCAjNVB3a7ltBZWlrZC4IBYHv8pOmElbuHJhwOsO05W95TqZEU3uFD4Ug1JeDv
+	06KS9FskVrItUuG91ZfoeBx1vvGijDNIxw+CQJ3/NO0Mc6GnrJfGh4tkqp7ILnTx
+	vdoEwvBW52AUFi2/Mrg0jvtAjB/sR5uYdZxZZwgO/ki4s6GT+fW/DutZts+/ue1j
+	msYrk6PMYLTAKqk1KLIXdb2LcTzAEXTbI3TyWgcCtBgAnVOfv9/2U4hdbhde7zCA
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbf3rwcs-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 07 Sep 2026 13:15:29 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 687DBHwK005937;
+	Mon, 7 Sep 2026 13:15:28 GMT
+Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ggwdq68f8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 07 Sep 2026 13:15:28 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
+	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 687DFS7B54919454
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 7 Sep 2026 13:15:28 GMT
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6213558058;
+	Mon,  7 Sep 2026 13:15:28 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1C17B58057;
+	Mon,  7 Sep 2026 13:15:25 +0000 (GMT)
+Received: from [9.61.43.34] (unknown [9.61.43.34])
+	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Mon,  7 Sep 2026 13:15:24 +0000 (GMT)
+Message-ID: <84112f53-5c05-46ca-97d0-550565fb941c@linux.ibm.com>
+Date: Mon, 7 Sep 2026 18:45:22 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,292 +62,251 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/tidss: Fix synclost issue while disabling layer
- due to erratum i2097
-To: Yashas D <y-d@ti.com>, u-kumar1@ti.com, devarsht@ti.com, s-jain1@ti.com,
- d-mittal@ti.com, b-padhi@ti.com, jyri.sarha@iki.fi
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260701063337.2165966-1-y-d@ti.com>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Subject: Re: [PATCH] nvme-multipath: add fail_io_now sysfs attribute to fail
+ queued I/O
+To: Krishna Iyer <kiyer@crusoe.ai>, kbusch@kernel.org, axboe@kernel.dk,
+        hch@lst.de, sagi@grimberg.me
+Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+        sj@kernel.org, saravanand@crusoe.ai
+References: <20260904032605.65758-1-kiyer@crusoe.ai>
 Content-Language: en-US
-In-Reply-To: <20260701063337.2165966-1-y-d@ti.com>
+From: Nilay Shroff <nilay@linux.ibm.com>
+In-Reply-To: <20260904032605.65758-1-kiyer@crusoe.ai>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: -bPbKPZ8cYf-JRgV45mmzLgyg_w4bRzT
+X-Proofpoint-GUID: -bPbKPZ8cYf-JRgV45mmzLgyg_w4bRzT
+X-Authority-Analysis: v=2.4 cv=DbEnbPtW c=1 sm=1 tr=0 ts=6a9eb8f1 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=i89cb_tVjrOSbL2ZDJYA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDE0NCBTYWx0ZWRfX/nxdTPEzqAqo
+ CcJkBd97I0lszyQsW1XiGE/2rzFBobmcrRZ6IODzIKYVa4hgzzti4hKVFUkY01jTPzBcnrAtsLc
+ T/c/37Hg8g65KoF5Mj/DnC0NkQFFjSz0uP0ae4+Vy1lkKt9fJE4t22Qnoz5WErXEZO8CdBEyF3Y
+ SRpjBFoUcAiM8IsOqQry38iRgmROtapsEJAppKQquW2snjECbt1RX/CyjXQC2sYNrMByjNi+DJD
+ raeYm4veIJeq9Loq8LRdYEqzehMvniQG5THGLzCbpXz3/eLTk5SThawUCHUlTi05NKligU5FmBt
+ vG8SFxa3SPMSU/uNr+YezXtUTN537GljIbQkAMRdkJcoSwcIIxaTXIhUK2GfTUBUQISY5b1aEC3
+ 8PCszz4klnqiMsw6xSprKXwq7sovnZ4hm4okuWZCGufsMMBhdVe+Ty6hwoGaLzloXXWYJqtQ55R
+ 7rIBaAgtCq1asHbSGkw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDE0NCBTYWx0ZWRfX6dwgYqdtMByv
+ oBWXj8FKpQNyQC0DS1CNZVsfgxbquxBdvizutXrCTgfOHEvFW0QiC7cSwA8dLxTuJQC3EDAYVO7
+ d2Br+Uwg3VtKaOI3j5V+glABBKLJ3YE=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_03,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 impostorscore=0 adultscore=0 spamscore=0
+ clxscore=1011 suspectscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070144
 
-Hi,
-
-On 01/07/2026 09:33, Yashas D wrote:
-> A gap beyond a frame duration for disabling the layer in overlay manager
-
-I don't think that's right. The key is that the layer is disabled on 
-frame N, and the GO bit is set on frame N+1. So the duration can be less 
-than a frame, if the frame boundary is between disable and GO.
-
-> and go bit setting on the corresponding video port may lead to SYNC_LOST.
-
-I think it's quite guaranteed, not "may" =).
-
-> Fix by moving the layer to the non-visible area and deferring the ENABLE=0
-> write, immediately before the GO bit, guaranteeing both occur within the
-> same frame window.
-
-Maybe: "Fix by moving the layer outside the visible area, and deferring 
-the ENABLE=0 write to happen just before the GO bit write, ..."
-
-> Link: https://www.ti.com/lit/pdf/sprz530 # i2097
+On 9/4/26 8:56 AM, Krishna Iyer wrote:
+> When all paths to a multipath namespace are down, I/O is held on the
+> head requeue list until a path returns. With ctrl_loss_tmo=-1 the
+> controllers reconnect forever, so during a long fabric outage the I/O
+> is held indefinitely and any process waiting on it sleeps in D state
+> until the fabric heals or the host is rebooted. We hit this on
+> virtualization hosts, where a SIGKILLed VM process cannot exit because
+> it is still draining I/O to an unreachable NVMe/TCP target.
 > 
-> Signed-off-by: Yashas D <y-d@ti.com>
+> There is currently no way to fail this I/O without tearing something
+> down. Deleting the controller (or letting ctrl_loss_tmo expire) works
+> but takes every namespace on the controller with it and requires a
+> manual reconnect afterwards. fast_io_fail_tmo only arms on the
+> RESETTING -> CONNECTING transition, so it cannot be set once the
+> outage has started. delayed_removal_secs only matters after all
+> controllers are gone, which never happens with ctrl_loss_tmo=-1.
+> dm-multipath has had "dmsetup message <dev> 0 fail_if_no_path" for
+> this for decades; nvme multipath has no equivalent.
+> 
+> Add a fail_io_now attribute on the ns-head disk. Writing a true value
+> sets NVME_NSHEAD_FAIL_IO_NOW, synchronizes SRCU so submitters see it,
+> and kicks the requeue work. nvme_available_path() treats the flag as
+> no path available, so the existing bio_io_error() branch fails the
+> parked and any newly arriving I/O, for that namespace only. Controller
+> state is not touched: reconnect attempts continue and other namespaces
+> on the controller keep queueing. The flag is cleared in
+> nvme_mpath_set_live() when a path comes back, like
+> NVME_CTRL_FAILFAST_EXPIRED.
+> 
+> Locking, SRCU usage and sysfs visibility follow the neighboring
+> delayed_removal_secs attribute; input parsing follows
+> io_passthru_err_log_enabled (kstrtobool, shows on/off). Validated on
+> real hardware with a 6.17 backport of this change.
+> 
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Krishna Iyer <kiyer@crusoe.ai>
 > ---
+> Testing notes: the 6.17 backport was exercised on a virtualization
+> host with a two-path NVMe/TCP namespace connected with
+> ctrl_loss_tmo=-1. With both target portals firewalled off and a
+> SIGKILLed VM process stuck in D state on the parked I/O, the process
+> stayed unreapable for over six minutes; delayed_removal_secs=60,
+> armed before the outage, never triggered since the controllers were
+> CONNECTING throughout. Writing fail_io_now released the process in
+> about two seconds, the reconnect loop was undisturbed, and once the
+> firewall was removed the paths came back live and the attribute read
+> back off on its own. A namespace on a second subsystem kept the
+> default queueing behavior throughout. This posting is compile-tested
+> (including W=1) on nvme-next.
 > 
-> changelog v1->v2:
-> - Flushed the pending layers in dispc_vp_disable to prevent hanging layers in hardware
->    when dispc_vp_go is not called in CRTC teardown and modeset paths.
-> - Removed the AM62L switch case as its the same as the default case.
+>   drivers/nvme/host/multipath.c | 62 +++++++++++++++++++++++++++++++++++
+>   drivers/nvme/host/nvme.h      |  2 ++
+>   drivers/nvme/host/sysfs.c     |  4 ++-
+>   3 files changed, 67 insertions(+), 1 deletion(-)
 > 
-> Link to v1: https://lore.kernel.org/all/20260630103802.1853564-1-y-d@ti.com/
-> 
->   drivers/gpu/drm/tidss/tidss_dispc.c | 118 +++++++++++++++++++++++++++-
->   drivers/gpu/drm/tidss/tidss_dispc.h |   1 +
->   2 files changed, 118 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
-> index 58d5eb033bdb..02a3cf50e0ce 100644
-> --- a/drivers/gpu/drm/tidss/tidss_dispc.c
-> +++ b/drivers/gpu/drm/tidss/tidss_dispc.c
-> @@ -38,6 +38,8 @@
->   #include "tidss_dispc_regs.h"
->   #include "tidss_scale_coefs.h"
->   
-> +#define OVR_LAYER_MAX_POS(mask)		FIELD_MAX(mask)
-
-Maybe just use FIELD_MAX() in the code below.
-
-> +
->   static const u16 tidss_k2g_common_regs[DISPC_COMMON_REG_TABLE_LEN] = {
->   	[DSS_REVISION_OFF] =                    0x00,
->   	[DSS_SYSCONFIG_OFF] =                   0x04,
-> @@ -467,6 +469,8 @@ struct dispc_device {
->   
->   	struct clk *fclk;
->   
-> +	unsigned long fclk_rate;
-> +
->   	bool is_enabled;
->   
->   	struct dss_vp_data vp_data[TIDSS_MAX_PORTS];
-> @@ -477,6 +481,9 @@ struct dispc_device {
->   	u32 memory_bandwidth_limit;
->   
->   	struct dispc_errata errata;
-> +
-> +	/* WA for erratum i2097: OVR Layer Disable May Cause Sync Lost. */
-> +	u32 pending_disable_layers[TIDSS_MAX_PORTS];
->   };
->   
->   static void dispc_write(struct dispc_device *dispc, u16 reg, u32 val)
-> @@ -1134,6 +1141,12 @@ void dispc_vp_prepare(struct dispc_device *dispc, u32 hw_videoport,
->   	bool align, onoff, rf, ieo, ipc, ihs, ivs;
->   	u32 hsw, hfp, hbp, vsw, vfp, vbp;
+> diff --git a/drivers/nvme/host/multipath.c b/drivers/nvme/host/multipath.c
+> index fc6800a9f7f9..a026bdfb9d7f 100644
+> --- a/drivers/nvme/host/multipath.c
+> +++ b/drivers/nvme/host/multipath.c
+> @@ -482,6 +482,15 @@ static bool nvme_available_path(struct nvme_ns_head *head)
+>   	if (!test_bit(NVME_NSHEAD_DISK_LIVE, &head->flags))
+>   		return false;
 >   
 > +	/*
-> +	 * WA for erratum i2097: clear any stale layer disable tracking
-> +	 * state left over from the previous VP enable/disable cycle.
+> +	 * The user requested any I/O queued or arriving while no path is
+> +	 * usable to be failed immediately (e.g. to release I/O held for a
+> +	 * fabric that retries reconnection indefinitely). The flag is
+> +	 * cleared when a path becomes live again.
 > +	 */
-> +	dispc->pending_disable_layers[hw_videoport] = 0;
-
-When is such stale state left over?
-
+> +	if (test_bit(NVME_NSHEAD_FAIL_IO_NOW, &head->flags))
+> +		return false;
 > +
->   	fmt = dispc_vp_find_bus_fmt(dispc, hw_videoport, tstate->bus_format,
->   				    tstate->bus_flags);
->   
-> @@ -1210,6 +1223,23 @@ void dispc_vp_enable(struct dispc_device *dispc, u32 hw_videoport)
->   
->   void dispc_vp_disable(struct dispc_device *dispc, u32 hw_videoport)
->   {
-> +	u32 layer;
-> +
-> +	/*
-> +	 * WA for erratum i2097: flush any pending layer disables directly.
-> +	 * dispc_vp_go() is not called in the CRTC teardown and modeset paths
+Does the intention here is to force I/O to fail irrespective of the
+controller state, or the intention here's to fail I/O only when no
+usable path exist? If it's latter then I believe this is not the right
+place to enforce this policy as since this check makes nvme_available_path()
+return false unconditionally when NVME_NSHEAD_FAIL_IO_NOW is set, without
+considering whether a usable path exists.
 
-I think "teardown" is what happens when e.g. one unloads the module. I 
-assume you mean crtc disable here? Or what's "crtc teardown" and 
-"modeset", exactly?
-
-> +	 * so pending_disable_layers would otherwise never be consumed, leaving
-> +	 * layers enabled in hardware. Sync lost does not matter here since the
-
-What do you mean does not matter? If it causes sync lost error prints, 
-it matters.
-
-> +	 * VP is being disabled.
-> +	 */
-> +	for (layer = 0; layer < dispc->feat->num_vids; layer++) {
-> +		if (dispc->pending_disable_layers[hw_videoport] & BIT(layer))
-> +			OVR_REG_FLD_MOD(dispc, hw_videoport,
-> +					DISPC_OVR_ATTRIBUTES(layer),
-> +					0, DISPC_OVR_ATTRIBUTES_ENABLE_MASK);
-> +	}
-> +	dispc->pending_disable_layers[hw_videoport] = 0;
-> +
->   	VP_REG_FLD_MOD(dispc, hw_videoport, DISPC_VP_CONTROL, 0,
->   		       DISPC_VP_CONTROL_ENABLE_MASK);
->   }
-> @@ -1233,6 +1263,38 @@ void dispc_vp_go(struct dispc_device *dispc, u32 hw_videoport)
->   {
->   	WARN_ON(VP_REG_GET(dispc, hw_videoport, DISPC_VP_CONTROL,
->   			   DISPC_VP_CONTROL_GOBIT_MASK));
-> +
-> +	if (dispc->errata.i2097 &&
-> +	    dispc->pending_disable_layers[hw_videoport]) {
-> +		u32 layer;
-> +		u32 delay_ns;
-> +
-> +		/* WA for erratum i2097: set GO bit #1 to latch position
-
-Start a comment block with "/*" line.
-
-What do you mean with "set GO bit #1"? Do you just mean writing 1 to GO 
-bit? If so, just "set GO bit to latch..." is enough.
-
-
-> +		 * changes into the DSS pipeline, wait 10 DSS functional clock
-> +		 * cycles, then write ENABLE=0.
-> +		 */
-> +		VP_REG_FLD_MOD(dispc, hw_videoport, DISPC_VP_CONTROL, 1,
-> +			       DISPC_VP_CONTROL_GOBIT_MASK);
-> +
-> +		if (dispc->fclk_rate)
-> +			delay_ns = DIV_ROUND_UP_ULL((u64)10 * NSEC_PER_SEC,
-> +						    dispc->fclk_rate);
-> +		else
-> +			delay_ns = 500;
-
-When do we not have fclk_rate? Shouldn't we always have it?
-
-> +
-> +		ndelay(delay_ns);
-> +
-> +		for (layer = 0; layer < dispc->feat->num_vids; layer++) {
-> +			if (dispc->pending_disable_layers[hw_videoport] &
-> +			    BIT(layer))
-> +				OVR_REG_FLD_MOD(dispc, hw_videoport,
-> +						DISPC_OVR_ATTRIBUTES(layer),
-> +						0,
-> +						DISPC_OVR_ATTRIBUTES_ENABLE_MASK);
-> +		}
-> +		dispc->pending_disable_layers[hw_videoport] = 0;
-
-My first thought was if this causes problems if vsync happens somewhere 
-in the middle here, and tidss_crtc does pageflip handling. But I think 
-that can't happen, as this is only called from tidss_crtc, inside a spin 
-lock. If that's the case, I think a comment here somewhere would still 
-be a good thing.
-
-> +	}
-> +
->   	VP_REG_FLD_MOD(dispc, hw_videoport, DISPC_VP_CONTROL, 1,
->   		       DISPC_VP_CONTROL_GOBIT_MASK);
->   }
-> @@ -1503,6 +1565,53 @@ void dispc_ovr_enable_layer(struct dispc_device *dispc,
->   	if (dispc->feat->subrev == DISPC_K2G)
+>   	list_for_each_entry_srcu(ns, &head->list, siblings,
+>   				 srcu_read_lock_held(&head->srcu)) {
+>   		if (test_bit(NVME_CTRL_FAILFAST_EXPIRED, &ns->ctrl->flags))
+> @@ -780,6 +789,12 @@ static void nvme_mpath_set_live(struct nvme_ns *ns)
+>   	if (!head->disk)
 >   		return;
 >   
-> +	if (dispc->errata.i2097 && !enable) {
-> +		/*
-> +		 * WA for erratum i2097:
-> +		 *
-> +		 * Do not write ENABLE=0 directly. Instead move the layer to
-> +		 * the non-visible area so it contributes no pixels.
-> +		 *
-> +		 * Position register layout differs per SoC:
-> +		 *   J721E : DISPC_OVR_ATTRIBUTES2, X[13:0],  Y[29:16] (14-bit)
-> +		 *   Others: DISPC_OVR_ATTRIBUTES,  X[17:6],  Y[30:19] (12-bit)
-> +		 */
-> +		switch (dispc->feat->subrev) {
-> +		case DISPC_J721E:
-> +			OVR_REG_FLD_MOD(dispc, hw_videoport,
-> +					DISPC_OVR_ATTRIBUTES2(layer),
-> +					OVR_LAYER_MAX_POS(DISPC_OVR_ATTRIBUTES2_POSX_MASK),
-> +					DISPC_OVR_ATTRIBUTES2_POSX_MASK);
-> +			OVR_REG_FLD_MOD(dispc, hw_videoport,
-> +					DISPC_OVR_ATTRIBUTES2(layer),
-> +					OVR_LAYER_MAX_POS(DISPC_OVR_ATTRIBUTES2_POSY_MASK),
-> +					DISPC_OVR_ATTRIBUTES2_POSY_MASK);
-> +			break;
-> +		default:
-> +			OVR_REG_FLD_MOD(dispc, hw_videoport,
-> +					DISPC_OVR_ATTRIBUTES(layer),
-> +					OVR_LAYER_MAX_POS(DISPC_OVR_ATTRIBUTES_POSX_MASK),
-> +					DISPC_OVR_ATTRIBUTES_POSX_MASK);
-> +			OVR_REG_FLD_MOD(dispc, hw_videoport,
-> +					DISPC_OVR_ATTRIBUTES(layer),
-> +					OVR_LAYER_MAX_POS(DISPC_OVR_ATTRIBUTES_POSY_MASK),
-> +					DISPC_OVR_ATTRIBUTES_POSY_MASK);
-> +			break;
-> +		}
-
-You could probably use dispc_ovr_set_plane() here. It writes one extra 
-register, but I don't see much harm in that, and gets rid of this 
-duplication.
-
+> +	/*
+> +	 * A path is usable again, restore the default queue-if-no-path
+> +	 * behavior in case fail_io_now was set during a fabric outage.
+> +	 */
+> +	clear_bit(NVME_NSHEAD_FAIL_IO_NOW, &head->flags);
 > +
-> +		dispc->pending_disable_layers[hw_videoport] |= BIT(layer);
-> +		return;
-> +	}
-> +
-> +	if (dispc->errata.i2097 && enable) {
-> +		/*
-> +		 * Layer being re-enabled: cancel any pending disable so
-> +		 * dispc_vp_go() does not write ENABLE=0 after we have
-> +		 * just written ENABLE=1 here.
-> +		 */
-> +		dispc->pending_disable_layers[hw_videoport] &= ~BIT(layer);
-> +	}
-> +
->   	OVR_REG_FLD_MOD(dispc, hw_videoport, DISPC_OVR_ATTRIBUTES(layer),
->   			!!enable, DISPC_OVR_ATTRIBUTES_ENABLE_MASK);
->   }
-> @@ -2871,6 +2980,12 @@ static void dispc_init_errata(struct dispc_device *dispc)
->   		dispc->errata.i2000 = true;
->   		dev_info(dispc->dev, "WA for erratum i2000: YUV formats disabled\n");
->   	}
-> +
-> +	if (dispc->feat->subrev != DISPC_K2G) {
-> +		dispc->errata.i2097 = true;
-> +		dev_info(dispc->dev,
-> +			 "WA for erratum i2097: OVR layer disable uses non-visible area\n");
-
-I don't think an dev_info print is required. The other WA info print is 
-there as it's a rather big one, disabling YUV formats.
-
-> +	}
->   }
+>   	/*
+>   	 * test_and_set_bit() is used because it is protecting against two nvme
+>   	 * paths simultaneously calling device_add_disk() on the same namespace
+> @@ -1168,6 +1183,53 @@ static ssize_t delayed_removal_secs_store(struct device *dev,
 >   
->   /*
-> @@ -3059,7 +3174,8 @@ int dispc_init(struct tidss_device *tidss)
->   			__func__, PTR_ERR(dispc->fclk));
->   		return PTR_ERR(dispc->fclk);
->   	}
-> -	dev_dbg(dev, "DSS fclk %lu Hz\n", clk_get_rate(dispc->fclk));
-> +	dispc->fclk_rate = clk_get_rate(dispc->fclk);
-> +	dev_dbg(dev, "DSS fclk %lu Hz\n", dispc->fclk_rate);
+>   DEVICE_ATTR_RW(delayed_removal_secs);
 >   
->   	of_property_read_u32(dispc->dev->of_node, "max-memory-bandwidth",
->   			     &dispc->memory_bandwidth_limit);
-> diff --git a/drivers/gpu/drm/tidss/tidss_dispc.h b/drivers/gpu/drm/tidss/tidss_dispc.h
-> index 739d211d0018..e2ce9fdf1279 100644
-> --- a/drivers/gpu/drm/tidss/tidss_dispc.h
-> +++ b/drivers/gpu/drm/tidss/tidss_dispc.h
-> @@ -57,6 +57,7 @@ struct dispc_vid_info {
->   
->   struct dispc_errata {
->   	bool i2000; /* DSS Does Not Support YUV Pixel Data Formats */
-> +	bool i2097; /* OVR Layer Disable May Cause Sync Lost */
+> +static ssize_t fail_io_now_show(struct device *dev,
+> +		struct device_attribute *attr, char *buf)
+> +{
+> +	struct gendisk *disk = dev_to_disk(dev);
+> +	struct nvme_ns_head *head = disk->private_data;
+> +
+> +	return sysfs_emit(buf, test_bit(NVME_NSHEAD_FAIL_IO_NOW,
+> +			&head->flags) ? "on\n" : "off\n");
+> +}
+> +
+> +static ssize_t fail_io_now_store(struct device *dev,
+> +		struct device_attribute *attr, const char *buf, size_t count)
+> +{
+> +	struct gendisk *disk = dev_to_disk(dev);
+> +	struct nvme_ns_head *head = disk->private_data;
+> +	bool enable;
+> +	int ret;
+> +
+> +	ret = kstrtobool(buf, &enable);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	mutex_lock(&head->subsys->lock);
+> +	if (enable)
+> +		set_bit(NVME_NSHEAD_FAIL_IO_NOW, &head->flags);
+> +	else
+> +		clear_bit(NVME_NSHEAD_FAIL_IO_NOW, &head->flags);
+> +	mutex_unlock(&head->subsys->lock);
+> +
+> +	/*
+> +	 * Ensure that update to NVME_NSHEAD_FAIL_IO_NOW is seen
+> +	 * by its reader.
+> +	 */
+> +	synchronize_srcu(&head->srcu);
+> +
+> +	/*
+> +	 * Kick the requeue list so already-queued I/O re-evaluates path
+> +	 * availability and fails immediately.
+> +	 */
+> +	if (enable)
+> +		kblockd_schedule_work(&head->requeue_work);
+> +
+> +	return count;
+> +}
+> +
+> +DEVICE_ATTR_RW(fail_io_now);
+> +
+>   static int nvme_lookup_ana_group_desc(struct nvme_ctrl *ctrl,
+>   		struct nvme_ana_group_desc *desc, void *data)
+>   {
+> diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
+> index eeabc72863d8..ca93a8934123 100644
+> --- a/drivers/nvme/host/nvme.h
+> +++ b/drivers/nvme/host/nvme.h
+> @@ -566,6 +566,7 @@ struct nvme_ns_head {
+>   	unsigned int		delayed_removal_secs;
+>   #define NVME_NSHEAD_DISK_LIVE		0
+>   #define NVME_NSHEAD_QUEUE_IF_NO_PATH	1
+> +#define NVME_NSHEAD_FAIL_IO_NOW		2
+>   	struct nvme_ns __rcu	*current_path[];
+>   #endif
 >   };
+> @@ -1067,6 +1068,7 @@ extern struct device_attribute dev_attr_ana_state;
+>   extern struct device_attribute dev_attr_queue_depth;
+>   extern struct device_attribute dev_attr_numa_nodes;
+>   extern struct device_attribute dev_attr_delayed_removal_secs;
+> +extern struct device_attribute dev_attr_fail_io_now;
+>   extern struct device_attribute subsys_attr_iopolicy;
 >   
->   enum dispc_vp_bus_type {
+>   static inline bool nvme_disk_is_ns_head(struct gendisk *disk)
+> diff --git a/drivers/nvme/host/sysfs.c b/drivers/nvme/host/sysfs.c
+> index 93513c17ad5f..c154cc78c290 100644
+> --- a/drivers/nvme/host/sysfs.c
+> +++ b/drivers/nvme/host/sysfs.c
+> @@ -261,6 +261,7 @@ static struct attribute *nvme_ns_attrs[] = {
+>   	&dev_attr_queue_depth.attr,
+>   	&dev_attr_numa_nodes.attr,
+>   	&dev_attr_delayed_removal_secs.attr,
+> +	&dev_attr_fail_io_now.attr,
+>   #endif
+>   	&dev_attr_io_passthru_err_log_enabled.attr,
+>   	NULL,
+> @@ -297,7 +298,8 @@ static umode_t nvme_ns_attrs_are_visible(struct kobject *kobj,
+>   		if (nvme_disk_is_ns_head(dev_to_disk(dev)))
+>   			return 0;
+>   	}
+> -	if (a == &dev_attr_delayed_removal_secs.attr) {
+> +	if (a == &dev_attr_delayed_removal_secs.attr ||
+> +	    a == &dev_attr_fail_io_now.attr) {
+
+This attribute should be only exposed for fabric controller.
+It looks this is being exported for non-fabric controller
+as well. Moreover, I like attribute fail_if_no_path better
+than fail_io_now, since it describes the actual policy being
+enabled: when no usable path exists, fail I/O instead of
+queueing it.
+
+>   		struct gendisk *disk = dev_to_disk(dev);
+>   
+>   		if (!nvme_disk_is_ns_head(disk))
+> 
+> base-commit: 011e0880d366be065d273c22ad1638934748d3e0
+
+This patch appears to be based off older kernel branch. Please
+rebase it against the nvme-7.3 branch.
+
+Thanks,
+--Nilay
 
