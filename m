@@ -1,232 +1,159 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D85BD3612E0;
-	Mon,  7 Sep 2026 05:20:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B43F838239A
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 05:20:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788758435; cv=none; b=eGbXLnA/HwXOVQcX6XMN70Td5eD63nRTuc0tOk6zYfqZVVF7PWNqkKwzTrgbFiUc58XIgbCeoJcnjLkXB5V76OveprhglWRH/Acv1PMhD12HWXNksNznjoH/WmmkRVs/tXITqXNteKHWpI9qY81F9oQTZWEIF1X+OdJPK8UuxaA=
+	t=1788758461; cv=none; b=YMs5ezqF5BK14gE3s0pKFXyEvTXgzPHXugdk1fNWUNj510Z1tuMwOcx6K5QKjFWS9tvAq0riTJIrXskAfn6bR05U/B6Vqm3pH/grJ8BCRO3L8TWmUuLdywbk1t8vPTszvxhSariJ4qxU5SR8hweYDSrkZwYJSoG6HYi1WvaY/YU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788758435; c=relaxed/simple;
-	bh=VwLGan1+3YGhVfuzesPn4v2bxGRsWy+Aj5ZjsYag92s=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LPl3pLddBw3N5vplU9558V2MyEs+IUlOQXGFlwCDvd8tXeQw94zDI1sYkiKGsAvsR+YbEFo04RV8oDP9wTlj3A7I/B83mN0z4Qs2OeYXmCE+GQqFFTX03qXIZt4tGpgJjs53VUBPRCaxz2rVeY4tHPAWiZouMuFfnS6EN8hHjPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=COdk1lFf; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1788758461; c=relaxed/simple;
+	bh=9BNICUCjnYuSs2tIQEnmzXWtbxa30Ttn26Pcsn6RMNY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rF/XlZYJ60Zs6mLt2smA+2pgcy4sybUfWXFWCnSQ/uRBjpAMKk9grDhdX0JCkxavPyeltYKOWIxeipOAgX7TLRIVILaSdzSaecWQKFN5Eulck8b3yoK+E5dIDaxUemokeQhIxofJGhYroZAOVaISfsX+Rdb/uPv7tbFDUMqHzGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GqZ7lyQE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hs0bdPzA; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="COdk1lFf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1788758437; x=1820294437;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=VwLGan1+3YGhVfuzesPn4v2bxGRsWy+Aj5ZjsYag92s=;
-  b=COdk1lFfDWJ1MgncBy2ABF19wQc/41vv1zZpBnR52b/7thgvBL4dDmO3
-   Zmf1LGL22a8U9S/xDntrjDNTurJU7d6ppMawRRocYi3GZfh496hGHrZiQ
-   Ow9inXJzDvT/PgJHW9MxyL5G/MHtUSi/Xm7AJZvm0CTiI7LQ9kKUUAl2j
-   HUqQ+88j60NS8Kq9hJf8NoiVangaB1uxTN2wWy+TJZnMF/kkS0KMLGPoT
-   g0Aml8G3LdRLgjVbxOCFF8abUT+yVwepZarwbncd1NUd5b6XOBIjOSjzb
-   BrHAdgdOrMhxBoo1gDH64AhRi6giH5ACuXORd3sb+7vP99wVF35GN6832
-   Q==;
-X-CSE-ConnectionGUID: Ob4BUn1rS3yTrrsWSXfa+g==
-X-CSE-MsgGUID: BLVKhjU+RdGj5GCAMeYC9w==
-X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; 
-   d="scan'208";a="62323103"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 06 Sep 2026 22:20:37 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Sun, 6 Sep 2026 22:20:32 -0700
-Received: from che-ll-i17164.microchip.com (10.10.85.11) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Sun, 6 Sep 2026 22:20:28 -0700
-From: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
-To: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-	<kuba@kernel.org>, <pabeni@redhat.com>, <hkallweit1@gmail.com>,
-	<linux@armlinux.org.uk>
-CC: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<UNGLinuxDriver@microchip.com>, <Parthiban.Veerasooran@microchip.com>,
-	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
-Subject: [PATCH net-next v2 4/4] net: phy: microchip_t1s: fix collision detection for LAN867X Rev.D0
-Date: Mon, 7 Sep 2026 10:50:06 +0530
-Message-ID: <20260907052007.391972-5-parthiban.veerasooran@microchip.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260907052007.391972-1-parthiban.veerasooran@microchip.com>
-References: <20260907052007.391972-1-parthiban.veerasooran@microchip.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GqZ7lyQE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hs0bdPzA"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6873l54D2276617
+	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 05:20:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	EQi0m10Vw7Hsn/l3jeRYM6TgeGL2nUNqyr7d+OOIegI=; b=GqZ7lyQEHkFMRo4O
+	TkDdpR++EibuNdfmpDeaiHQIwrStHnX8y0zG/yR5L/bS9Y5Enawz6Ru6Gs9c2EtE
+	hGRBNGv/0Rzr68woDMjuS93uhWa9kwG7Q1kHoOtu12ZIVJfZPL2KqcSrDyAXDlym
+	KGEhMXF4YaQ6o++Z7QRwjrubgwJDRHGwbaAAdrhiZ3QrKh38GlwtUvViDfxFo38c
+	eDf56HNSUDkhlEfpNon1FBGu6n44VODXg7Cd0XPPZxy/wN1wIywl7Stlzx4MH4Yy
+	hSPLcqKVo/fLnubbjWTEjfBUkc6GVTb4rcuDVvhdcfcV2vjzg1wFANXxR5vaLanG
+	8BC5YA==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghfxkrw1h-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:20:58 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-85602449126so6246412b3a.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 22:20:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788758457; x=1789363257; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EQi0m10Vw7Hsn/l3jeRYM6TgeGL2nUNqyr7d+OOIegI=;
+        b=hs0bdPzAEt9jSj4n0ty7RTCcyMB2LWWNB2HMRiHlCGyvlTGR7gGkDBWvBPYlV6O+Kq
+         TrRjhyCrg17NFExyPsmqc/Y3+DMuTsNPqfu9nSxNWB9OFfcOSeygtdevfqYquUt8KLG6
+         HWJKylYkZXL9S7Q/2iiA/CCOORH9C3YrzYkBw08aOTTFwEl+AkXdSdXoUYX2sqoex8K5
+         JXOmgYFoCRcEOhGbn+SRQof/FBpaiCo6phDehGc35xRJ7ZaXKF+5+XsBWBHaA5C3G1GE
+         nan6OoGwWbNcBm0hh8mS/aYS2dKKFW38bLcAKKDx5E6jmCFg33BFkELqKh+S25RIN3tP
+         fzwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788758457; x=1789363257;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EQi0m10Vw7Hsn/l3jeRYM6TgeGL2nUNqyr7d+OOIegI=;
+        b=E9iUq6ZAATZDhD0g0JG2YNPxMPpKtYR7Np+UCyoUsV2kCatHvTNNnzaAN+00F4ldkp
+         WiTG/PhMQtj/kuECBV76FGKaW7bRt1M9qZXlKi1C2zll3QHedi7Edc7dDJern+ABB3A4
+         irQFm1xeiGZdrOCSc3gFTKun1V3D/ejQ6ZRDL9sGyiVYi1vuFLLbOB+kj2P0dImGTJhA
+         X6+mjOuokJQdRzfM2FB46xCGaNLs3aQABgtiba/jeGfQvWqehIRjYLVfOfbZFr/9PyDd
+         TTMSpSisKeNvp2Fmr3/7rFX9JUIiN7D2I3FtXvPe3jULVv+LmlBTVlptxT197H1u9LhT
+         I2Ag==
+X-Forwarded-Encrypted: i=1; AKwUvBxkViMLzMLJGCEQsjIKRmBcetLAffwNivbMwgBAyZaXcEzzFOp2dwkca/zw+UpGIqRit2DA+uNMaCM6Xe0=@vger.kernel.org
+X-Gm-Message-State: AFuF++napxoGmhUkNjByST1RXpJNHigj73uNSKbAuQLcPbJzdvkt56X9
+	DJgG/55quL1S0bYcS0Bd+T2mCQEwBdEM8dcpARvxfqX4UuNWFkxmV9yaObPvhzF6NqZHgMCXKFx
+	hVhs8Hok/cnKFN4+0Ncu3YKqU0cvAg4DD4zYmW8e3hLWfq+lhT5mInpdcn0Cswo4TXt8=
+X-Gm-Gg: AYBFou1pks9e4bOIpkCyy66k4TCKcWasoiBVa0UboC9N6w0ItZCrdtfr+Szuiio98OL
+	4LCLMMl9E4hjWjA18zJkUMxXFlRuV3rS1i5qin4KTHT095jB6CKK7YglNBwYcL5CF3nJp5bGBM0
+	dtWAgpXtZrNLW2ePE6vSxwzMUewPozio10h3aaX/KxaosxebguVevNM1UpzfDSeMwvr3Gm8sDMi
+	wZUov+Bb60rc7+wNgE7ijyEUM3I109KnAXihj4ACrIMCVZSufRaP+7dmEEvkyfLtWa3AlHqVo4c
+	0PYNPrdu8zbbDemm41ObB6fd9D0CS1dw9F5FU4KdGYuMxWJ8TxmJ0crOXrqnpxIYXKoOHR5pSrj
+	S95TQRUTKUkimpuO4v0EvTT9J9xrsza0O0H9eN/eOLjrFZKNEv5246/ia2khVK7JX
+X-Received: by 2002:a05:6a00:9a9:b0:857:726d:270e with SMTP id d2e1a72fcca58-8616dd533a7mr29855203b3a.26.1788758457577;
+        Sun, 06 Sep 2026 22:20:57 -0700 (PDT)
+X-Received: by 2002:a05:6a00:9a9:b0:857:726d:270e with SMTP id d2e1a72fcca58-8616dd533a7mr29855135b3a.26.1788758457058;
+        Sun, 06 Sep 2026 22:20:57 -0700 (PDT)
+Received: from [10.133.33.39] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86278118b7dsm2821348b3a.28.2026.09.06.22.20.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 06 Sep 2026 22:20:56 -0700 (PDT)
+Message-ID: <8df9e586-d504-434c-a14a-a4553adf535c@oss.qualcomm.com>
+Date: Mon, 7 Sep 2026 13:20:52 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] clk: qcom: ipq-cmn-pll: Assign .num before accessing .hws
+To: Aamir Ahmed <elb12345@hotmail.co.uk>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Kees Cook <kees@kernel.org>,
+        linux-hardening@vger.kernel.org, stable@vger.kernel.org
+References: <AS8P251MB0001B905088748016A0965F1C8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+Content-Language: en-US
+From: Jie Luo <jie.luo@oss.qualcomm.com>
+In-Reply-To: <AS8P251MB0001B905088748016A0965F1C8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA1NCBTYWx0ZWRfXwbG9dfCT1cQe
+ rl3l96rbsm821EWzS5CT3bIKhY05ssuD71mbDYqGG7eHSscgPsDaNtzEd4ZKwcW2T4GAe0O2cGm
+ C8704zhcip5VGMmW+gs6dgMVx9PtGaZIFqVHLfgBnWeUEOBrSiR4RBRpyBoYRY1QtWxXV73WA8H
+ OxFYwco0q8eKri5YUzldsr7xL6ubaohQM6xiuphBZgAOKpgcGBvQ8o5yHh3xeZMLlZnX74bnbq0
+ VIpGnIwIU7/mPronWIfI68NNF14E3wKxoIQgSZpdn/VFPOxVpoSsE3uHNkPF2Phw73h5eZUbVJr
+ YOyqVWHVe3XlpHPJKXmu32nDmQen7HgdbQV1bbnyD2r70b72mi4FdtF+s5NM7NfdLPvhP9qe7+Z
+ L5tihXJut9iX7fRmoIF799C+iUx+HKTqgt5LQNNCUBJRcvSAzy1pMTL/asHed+x4MPnULWzQaf4
+ VQFinvAvDisZpxEvLTg==
+X-Proofpoint-GUID: h2Ne8E3iVTDjaBJ4Nqdjk8sKnMQz9F4e
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA1NCBTYWx0ZWRfX+r93BJy7COll
+ TTuSCHxfyScV5DNaXgve0DPZboELuJXID5HtYhp3OSDsfQkLg/hnoTzvqTUTDhxHI85nI7qvdsN
+ aS6gWH+KL9JiZH0xLUikgv51LeC5hCQ=
+X-Authority-Analysis: v=2.4 cv=daOwG3Xe c=1 sm=1 tr=0 ts=6a9e49ba cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=hpht91bhI_x_d6pdDbkA:9 a=QEXdDO2ut3YA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-ORIG-GUID: h2Ne8E3iVTDjaBJ4Nqdjk8sKnMQz9F4e
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_01,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 bulkscore=0 spamscore=0 phishscore=0
+ lowpriorityscore=0 adultscore=0 malwarescore=0 impostorscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070054
 
-LAN867X Rev.D0 introduces a Collision Counting and MAC Forwarding Control
-field (CCMFC, bits 10:9) in the Collision Detector Control 0 register
-(CDCTL0, 0x0087). When configured to the OA default value (0x1), the
-hardware automatically gates collision forwarding to the MAC based on the
-live PLCA_Status: collisions are neither counted nor forwarded when
-PLCA_Status is OK, and are counted and forwarded when PLCA_Status is not
-OK.
 
-This eliminates the inherent delay between a PLCA status change and the
-software interrupt handler toggling CDEN, which was a limitation on older
-revisions that had no hardware alternative. Since CCMFC handles collision
-gating autonomously, the PSTC interrupt handler for Rev.D0 only needs to
-update the link status selection on each PLCA status transition.
 
-Configure CCMFC to the OA default in lan867x_revd0_config_init(). Add
-lan867x_revd0_handle_interrupt() to handle two separate events:
+On 9/6/2026 4:48 AM, Aamir Ahmed wrote:
+> Commit f316cdff8d67 ("clk: Annotate struct clk_hw_onecell_data with
+> __counted_by") annotated the hws member of 'struct clk_hw_onecell_data'
+> with __counted_by, which informs the bounds sanitizer (UBSAN_BOUNDS)
+> about the number of elements in .hws[], so that it can warn when .hws[]
+> is accessed out of bounds. As noted in that change, the __counted_by
+> member must be initialized with the number of elements before the first
+> array access happens, otherwise there will be a warning from each access
+> prior to the initialization because the number of elements is zero.
+> This occurs in ipq_cmn_pll_register_clks() due to .num being assigned
+> only after the fixed rate output clocks and the CMN PLL clock have been
+> stored in .hws[]. If registering one of the fixed rate clocks fails, the
+> unwind loop under unregister_fixed_clk reads .hws[] while .num is still
+> zero as well. With CONFIG_UBSAN_BOUNDS and a compiler that implements
+> __counted_by (GCC 15.1+ or Clang 20.1+), this triggers an
+> array-index-out-of-bounds report during probe, and with
+> CONFIG_UBSAN_TRAP the first store traps so the CMN PLL clocks are never
+> provided.
+> 
+> Move the .num initialization to right after the allocation.
 
-1. Link Status Change (LNKSTSC): Triggers the phylib state machine via
-   phy_trigger_machine() to re-evaluate link status and perform necessary
-   state transitions.
+Thanks for the change.
 
-2. PLCA Status Change (PSTC): Reads the current PLCA operational status
-   via genphy_c45_plca_get_status() and calls
-   lan867x_revd0_link_active_selection() to update the link status
-   selection accordingly.
-
-Unmask both link status change and PLCA status change interrupt masks for
-Rev.D0 in lan86xx_config_intr(). Wire up .config_intr and .handle_interrupt
-for Rev.D0 using the shared lan86xx_config_intr() and the new handler.
-
-Fixes: e7e756779afa ("net: phy: microchip_t1s: add support for Microchip LAN867X Rev.D0 PHY")
-Signed-off-by: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
----
- drivers/net/phy/microchip_t1s.c | 68 +++++++++++++++++++++++++++++++--
- 1 file changed, 65 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/phy/microchip_t1s.c b/drivers/net/phy/microchip_t1s.c
-index afb7e52594e7..c3a738c7425b 100644
---- a/drivers/net/phy/microchip_t1s.c
-+++ b/drivers/net/phy/microchip_t1s.c
-@@ -33,6 +33,7 @@
- #define LAN86XX_REG_STS1		0x0018
- #define LAN86XX_REG_IMSK1		0x001C
- 
-+#define LAN86XX_STS1_LINK_STS_CHANGED	BIT(13)
- #define LAN86XX_STS1_PLCA_STS_CHANGED	BIT(11)
- 
- /* Collision Detector Control 0 Register */
-@@ -40,6 +41,9 @@
- #define COL_DET_CTRL0_ENABLE_BIT_MASK	BIT(15)
- #define COL_DET_ENABLE			BIT(15)
- #define COL_DET_DISABLE			0x0000
-+#define COL_DET_CTRL0_CCMFC_MASK	GENMASK(10, 9)
-+/* OA default: collisions gated by PLCA_Status in hardware */
-+#define COL_DET_CTRL0_CCMFC_OA_DEFAULT	BIT(9)
- 
- /* LAN8670/1/2 Rev.D0 Link Status Selection Register */
- #define LAN867X_REG_LINK_STATUS_CTRL	0x0012
-@@ -502,6 +506,18 @@ static int lan867x_revd0_config_init(struct phy_device *phydev)
- 			return ret;
- 	}
- 
-+	/* AN1760: configure CCMFC to OA default so that the hardware
-+	 * automatically gates collision forwarding to the MAC based on
-+	 * PLCA_Status. Collisions are neither counted nor forwarded when
-+	 * PLCA_Status = OK, eliminating the need for software-driven CDEN
-+	 * toggling in the interrupt handler. CDEN remains enabled.
-+	 */
-+	ret = phy_modify_mmd(phydev, MDIO_MMD_VEND2, LAN86XX_REG_COL_DET_CTRL0,
-+			     COL_DET_CTRL0_CCMFC_MASK,
-+			     COL_DET_CTRL0_CCMFC_OA_DEFAULT);
-+	if (ret)
-+		return ret;
-+
- 	/* Initially the PHY will be in CSMA/CD mode by default. So it is
- 	 * required to set the link always active as it doesn't support
- 	 * autoneg.
-@@ -526,8 +542,12 @@ static int lan86xx_read_status(struct phy_device *phydev)
- 
- static int lan86xx_config_intr(struct phy_device *phydev)
- {
-+	u16 mask = LAN86XX_STS1_PLCA_STS_CHANGED;
- 	int ret;
- 
-+	if (phydev->phy_id == PHY_ID_LAN867X_REVD0)
-+		mask |= LAN86XX_STS1_LINK_STS_CHANGED;
-+
- 	if (phydev->interrupts == PHY_INTERRUPT_ENABLED) {
- 		/* Read to clear any pending status before enabling. */
- 		ret = phy_read_mmd(phydev, MDIO_MMD_VEND2, LAN86XX_REG_STS1);
-@@ -536,12 +556,11 @@ static int lan86xx_config_intr(struct phy_device *phydev)
- 
- 		/* A mask bit of 0 enables the corresponding interrupt. */
- 		return phy_clear_bits_mmd(phydev, MDIO_MMD_VEND2,
--					  LAN86XX_REG_IMSK1,
--					  LAN86XX_STS1_PLCA_STS_CHANGED);
-+					  LAN86XX_REG_IMSK1, mask);
- 	}
- 
- 	ret = phy_set_bits_mmd(phydev, MDIO_MMD_VEND2, LAN86XX_REG_IMSK1,
--			       LAN86XX_STS1_PLCA_STS_CHANGED);
-+			       mask);
- 	if (ret)
- 		return ret;
- 
-@@ -595,6 +614,47 @@ static irqreturn_t lan86xx_handle_interrupt(struct phy_device *phydev)
- 	return ret_irq;
- }
- 
-+static irqreturn_t lan867x_revd0_handle_interrupt(struct phy_device *phydev)
-+{
-+	struct phy_plca_status plca_st;
-+	irqreturn_t ret_irq = IRQ_NONE;
-+	int sts1, ret;
-+
-+	/* Reading the status register clears the latched event bits. */
-+	sts1 = phy_read_mmd(phydev, MDIO_MMD_VEND2, LAN86XX_REG_STS1);
-+	if (sts1 < 0) {
-+		phy_error(phydev);
-+		return IRQ_NONE;
-+	}
-+
-+	if (sts1 & LAN86XX_STS1_LINK_STS_CHANGED) {
-+		phy_trigger_machine(phydev);
-+		ret_irq = IRQ_HANDLED;
-+	}
-+
-+	if (sts1 & LAN86XX_STS1_PLCA_STS_CHANGED) {
-+		ret = genphy_c45_plca_get_status(phydev, &plca_st);
-+		if (ret < 0) {
-+			phy_error(phydev);
-+			return IRQ_NONE;
-+		}
-+
-+		/* Collision detection is handled autonomously by the hardware
-+		 * via CCMFC. Only the link status selection needs to be updated
-+		 * on each PLCA status transition.
-+		 */
-+		ret = lan867x_revd0_link_active_selection(phydev, plca_st.pst);
-+		if (ret < 0) {
-+			phy_error(phydev);
-+			return IRQ_NONE;
-+		}
-+
-+		ret_irq = IRQ_HANDLED;
-+	}
-+
-+	return ret_irq;
-+}
-+
- static struct phy_driver microchip_t1s_driver[] = {
- 	{
- 		PHY_ID_MATCH_EXACT(PHY_ID_LAN867X_REVB1),
-@@ -637,6 +697,8 @@ static struct phy_driver microchip_t1s_driver[] = {
- 		.name               = "LAN867X Rev.D0",
- 		.features           = PHY_BASIC_T1S_P2MP_FEATURES,
- 		.config_init        = lan867x_revd0_config_init,
-+		.config_intr        = lan86xx_config_intr,
-+		.handle_interrupt   = lan867x_revd0_handle_interrupt,
- 		.get_plca_cfg	    = genphy_c45_plca_get_cfg,
- 		.set_plca_cfg	    = lan86xx_plca_set_cfg,
- 		.get_plca_status    = genphy_c45_plca_get_status,
--- 
-2.43.0
-
+Reviewed-by: Luo Jie <jie.luo@oss.qualcomm.com>
