@@ -1,169 +1,435 @@
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9DB04C957B
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:53:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788785627; cv=pass; b=b5nSL3YMs2w0u3CaJZGV9+Oet5bBlWNItHKieRIYL3e5UCezcaiNdmcSMXbEzCDu11XLr4tnjz73202BJrH1U946dkDtiLApD2TLYqAaLB/hVGgXd1p8NDiY8F23HaBqu0nKlf+w4tb/h8XoKUCNVqw/++bTjZrkMCnmiyfQ4DM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788785627; c=relaxed/simple;
-	bh=8m9GX5w5lxT8loUdxPM+WgOlnMcCdSnplV5yJYmeSSs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TUnkM44XlGZBo2UUjhVJxz4eYnqg/lRPf1KN6h9cjtBtoRzle4vyA+uz8ASJ7ldkL3gLYnkhIjHv8zNEnWYyTrc54kjSkBB9dV7jOMnzm3g+HxOxob+zmPWGeuc3Z0NU8eGmwTPwLRDaTDQU0Sc6tLMXpfrc2SzcIKey6mpT6Ys=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=NqoItOLI; arc=pass smtp.client-ip=209.85.208.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DEC84DBD70;
+	Mon,  7 Sep 2026 12:53:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.224
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788785629; cv=none; b=lQiF9YEumcjp+utDK36kbUhqCsyYJDqMCUNzQvnmwY9DEXMSkGa39YYK8set26jQX/0HLYiGyFfQAs93EiOZZBk3weI+aJIUerTbUgS9PGTzSVrae0JxgEFanOhI3kduux7glkQ4T2IEVfkAXnMDn/Gg3hCvp6Y9iszBrHQI/v0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788785629; c=relaxed/simple;
+	bh=1BOQi9l+1pksRMdNBG3KX15mi66dtLh14LBLi3xbnjg=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=k70Nh31eFmZcnaObnXxV7iQM5qmVZqwu6bLRiAiGSkZZyE3jdIM6zN1L88/Md63RjVWGtJQe0trtMVV9usiUrey9gf+DUzD4YeF+8jp2B2j1uN/TP8piSfyGSMLLFeUD2aaOPN3aCZso7dHjilU0R40sODSabmYR4To4Qd+9eCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=PFWOEzW3; arc=none smtp.client-ip=113.46.200.224
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="NqoItOLI"
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-39c86945164so37647411fa.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:53:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788785622; cv=none;
-        d=google.com; s=arc-20260327;
-        b=iml9V3OKj3fZXZs/XdrD61ficCoYEKkEBZlNqy5i4AZeOMRSCjx8ffCwtz60wFE4Z9
-         S0pWfqCxxubwtIShNzvVLHMzIxNe1I3PrdZy2EYQsWjJkq9wwihKexMBLu8mTUX6o/Gb
-         T4gGZWh+bqDRewZ+LwBTDPMEneG2JLu2xF5ADugLQMXA0djUGH9NipnBqIlYHcEJMYHx
-         9jwol/22hX75xh/y/rfCbIGM/tWuLkzn941qMgrE1iQlr/IzlyCLPS04lOVidM9vitgW
-         g+xuBX8Vl74doj1qiWmOxaE4qrFJ2+UIal98UtTMVRxwRZY9DZC/EPmRPMkC8M/6t0H2
-         ttEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=8m9GX5w5lxT8loUdxPM+WgOlnMcCdSnplV5yJYmeSSs=;
-        fh=s2lpDLbKG/HfKEoSzEI3jMT+XPy8rdYjlyBBcqUw3/M=;
-        b=XLeurDPT2OGVDMzkgXHs0xWnQ9Nd8/j7MDZZvhARH+CtaK7gR32AWI5tw73j2RgcXd
-         C/WrLhTood2RGp4mlnQm4Yi8S98r6RqfHH0I17O4cnXv+3GV51Wip9XZ5Ex/VceGeNsZ
-         gV28IEl0o8bsOsNfdJ0dJMDSXwCu3gOmiW3rVCZ7JWR63fbZ1vckZdzTBtKqVZXGYA5H
-         Ig+vWmkkaErjUIDQHjIT4MxoH0Nd7JPfneQvVYLjuB7SuDC7n99ly2Ukc8NesqO8jQ50
-         /TeE1pjryVnJum5OCBqsrXADQw/cs2TCEfF3rWytTBRMgk3+voyRevvGi7+BSzHZaETD
-         FrVg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1788785622; x=1789390422; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8m9GX5w5lxT8loUdxPM+WgOlnMcCdSnplV5yJYmeSSs=;
-        b=NqoItOLI8buUm+bCoGln8l5ILJ/2SDZCzo1+5vgty37NfsLiT4e2OyJy4T8Egp969w
-         gSvsNbm3y2i14vuIBI16yT5VA0oIYZ3qhkUI2o4+XaXWrtgp1tGDXy3fa8cOmrWPOEDU
-         T6KIInPhioD28NMk8rupt6ymDxP/0p6A8cDXlkVAv79k63cjy/KlNfoJeuLNVexr+G/E
-         nEBVbMvRuM8efxEJ2/LI8FQFdVdF7U4JXqSe/ueGbq8lPXXnDeTjTErFAHpcIw/vYk3J
-         ZVBmCxNbkL8wSTTGmFBYc6phmTWFqh3cIHBwFf1gMN8kwoYZihA1Koqzm6KFWmyRlLZW
-         s/qA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788785622; x=1789390422;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8m9GX5w5lxT8loUdxPM+WgOlnMcCdSnplV5yJYmeSSs=;
-        b=KuvUnUeaouC3O5e8BMnZVaqMKGDM8Gl0cDoFFLMkTdDTp4LJLRpWei9NuH+RmPZKx1
-         llOP8j/JfKMk+2vkMkWi0iN5UtXW/0wVN4KxbMF65bB7d7OgmrivlsKosGzEwMcei8XB
-         z1d4G89gORDGW5K4gfsQ34nscyBxB/0TU0gXD2NZ2ZcLCCvjGcSEz0vL0noNLEQFMwCB
-         bDjJivzhb2JcCeEw05fX/Y/n3I9jmpPgJeInilQsdvGRaS9VI5D8TJp22CObjTpNrSK8
-         p34h6VkD/zJqdHVNkjMwRZsnOl6VXByApfWklvSwXCsNuTNhIpUPBSgoUwCGFBO4sGYv
-         t57g==
-X-Forwarded-Encrypted: i=1; AKwUvByW3ppEIlbrJfJuHJMCRMu+4O+cwKjFdOeTt2Bi7FOxN7TzEP5p13DV2pTehNXcjPnJM9C1pUt1rzSSm7k=@vger.kernel.org
-X-Gm-Message-State: AFuF++llP71pTS1HIKw7Qj8m9jYRMqUxgafLhfwD39If1gpSF4XDFL5y
-	E+ro/LHHEuy+YstIlEMw56Q6egdWMKlFJskGp+fuZGlyVf7+7qiRnzXKPvgaNqh2ohjuqzM4XZo
-	e5B1BxFSs5mTuj1wrGUnP/CrmA5D2IBSniy6UtQghvGw=
-X-Gm-Gg: AYBFou0YrCgRhO9KJmCtH1i1dxm9Ssv9f/g3oUaT7u+2tIQ0mAc633Px/rx36XAki4I
-	49Qzy/Bpl6eLJUz6SMV5gs4UGFJnez5rt1xfkjqxvlzcq5xnAi86iLD1sDITy7kUFnsDQCWoUwp
-	zGOh34Nsqv0GxmknevgUPQh4yr7wsGuBeOqhltNbO5VVarJdT8kfsy7tfnL1GrUU+vyKxUPxcB6
-	ri9CDWTr26ABHVXk3II0D1w/EnYnxipjhKKHBbNxvF9LqHsC1nTY96PXc5AnkQZ2lldCgFNwNgr
-	Zv0Ut6flxfm+os/cq8K4tGTicA2perVxghLQsSZrK0BArC2Z3MHzoeBGUCSA7Y/8yZ5Av/lkWtS
-	+
-X-Received: by 2002:a05:651c:43cc:20b0:39c:8124:93b3 with SMTP id
- 38308e7fff4ca-3a371ba9af3mr18512751fa.9.1788785622569; Mon, 07 Sep 2026
- 05:53:42 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="PFWOEzW3"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=YMsDzrH1XpehMqQs/w0JG1pv9sEwHPRhsiu7VhrmhiE=;
+	b=PFWOEzW34CdPN9JSv+yhTNsaJl9NX1WASFU7PMTHtkuU5Cg6snn8UuLSCgjbA6fRwCMfSGUZd
+	wUlvUu05OgFweBO0eZKgjSB9KUhIeFgJxjhu6Uyisx/JZFHDDjaUug1/Zno+bL4jM+TkzSBOGb3
+	C8e/AqwAQtW2yyEUkwMfAHc=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4hdmtx2HRHz1cyPY;
+	Mon,  7 Sep 2026 20:42:49 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id CBB2E4057A;
+	Mon,  7 Sep 2026 20:53:41 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 7 Sep
+ 2026 20:53:40 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
+	<mpe@ellerman.id.au>, <npiggin@gmail.com>, <chleroy@kernel.org>,
+	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <akpm@linux-foundation.org>,
+	<baoquan.he@linux.dev>, <rppt@kernel.org>, <pasha.tatashin@soleen.com>,
+	<pratyush@kernel.org>, <ruirui.yang@linux.dev>, <kees@kernel.org>,
+	<ruanjinjie@huawei.com>, <thuth@redhat.com>, <jic23@kernel.org>,
+	<tan.shaopeng@jp.fujitsu.com>, <zengheng4@huawei.com>, <james.morse@arm.com>,
+	<ardb@kernel.org>, <leitao@debian.org>, <yeoreum.yun@arm.com>,
+	<sourabhjain@linux.ibm.com>, <robh@kernel.org>, <coxu@redhat.com>,
+	<tangyouling@kylinos.cn>, <hbathini@linux.ibm.com>, <adityag@linux.ibm.com>,
+	<djbw@kernel.org>, <seanjc@google.com>, <liaoyuanhong@vivo.com>,
+	<vishal.l.verma@intel.com>, <fuqiang.wang@easystack.cn>, <makb@juniper.net>,
+	<piliu@redhat.com>, <ebiggers@kernel.org>, <jbouron@amazon.com>,
+	<mclapinski@google.com>, <me@linux.beauty>, <graf@amazon.com>,
+	<bgwin@google.com>, <takahiro.akashi@linaro.org>, <palmer@rivosinc.com>,
+	<x86@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <loongarch@lists.linux.dev>,
+	<linuxppc-dev@lists.ozlabs.org>, <kexec@lists.infradead.org>,
+	<linux-fsdevel@vger.kernel.org>, <linux-mm@kvack.org>
+Subject: [PATCH v4 12/12] arm64: crash: Add crash hotplug support
+Date: Mon, 7 Sep 2026 20:54:04 +0800
+Message-ID: <20260907125404.922123-13-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260907125404.922123-1-ruanjinjie@huawei.com>
+References: <20260907125404.922123-1-ruanjinjie@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788765185.git.zihanx@nebusec.ai> <ef4076c94466ea4b147653e2b7f933778f245437.1788765185.git.zihanx@nebusec.ai>
- <20260907121830.GA647811@shredder>
-In-Reply-To: <20260907121830.GA647811@shredder>
-From: zihan xi <zihanx@nebusec.ai>
-Date: Mon, 7 Sep 2026 20:53:30 +0800
-X-Gm-Features: AcwNN1Uk3i8a39rPmzWaebzH5pBKLNcdaTlZf_kVKmdapl2vlm677TXmYyaCLb4
-Message-ID: <CAANe3eSV3JYqzjnEE+vVmTJdC4oUZh8v=9vy==1xE9H9+YkLEg@mail.gmail.com>
-Subject: Re: [PATCH net v3 1/1] ipmr: account multicast table and route memory
-To: Ido Schimmel <idosch@nvidia.com>
-Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Benjamin Thery <benjamin.thery@bull.net>, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Vega <vega@nebusec.ai>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Mon, Sep 7, 2026 at 8:18=E2=80=AFPM Ido Schimmel <idosch@nvidia.com> wro=
-te:
->
-> On Mon, Sep 07, 2026 at 08:10:56AM +0000, Zihan Xi wrote:
-> > A netadmin in a user+net namespace can create many IPv6 multicast
-> > routing tables with MRT6_TABLE. Each unseen id allocates an mr_table,
-> > links it into mr6_tables, and leaves it until netns teardown. Those
-> > objects were not charged to memcg, so the host unreclaimable slab
-> > grows with the table count.
->
-> This reads like an IPv6-only fix, but it also applies to IPv4.
-> mr_table_alloc() is used by both families. Please reword this paragraph
-> to reflect that.
+When CPU or memory hotplug events occur, the elfcorehdr in the kdump
+image becomes stale, potentially leading to incomplete crash dumps.
 
-Will do. v4 rewords this for both IPv4 and IPv6, since mr_table_alloc()
-is shared.
->
-> >
-> > Account mr_table allocations with GFP_KERNEL_ACCOUNT and mark the
-> > IPv4/IPv6 MFC caches SLAB_ACCOUNT. This matches the established
-> > handling of IP addresses, routes and alternate interface names.
->
-> The bots might complain that this doesn't cover unresolved cache entries
-> that are allocated from softIRQ context. This is correct, but: 1. They
-> expire after 10 seconds. 2. Bound by the socket's receive queue. See
-> commit 0079ad8e8dc3 ("ipmr: remove hard code cache_resolve_queue_len
-> limit"). Worth mentioning in the commit message.
+Currently, userspace udev rules reload the entire kdump image upon such
+events, which is inefficient and leaves kdump inactive for a long time.
 
-Agreed, will mention that in the commit message.
->
-> >
-> > The first unaccounted IPv6 heap table appeared in commit 4e16880cb422
-> > ("netns: ip6mr: dynamically allocates vif6_table"), which replaced a
-> > static vif6_table[] with kcalloc(..., GFP_KERNEL). Commit
-> > 6bd521433942 ("ipv6: ip6mr: move mroute data into seperate structure")
-> > only wrapped that already-heap state into mr6_table. Commit
-> > d1db275dd3f6 ("ipv6: ip6mr: support multiple tables") only expanded
-> > the table count from 1 to N. IPv6 MFC entries were already unaccounted
-> > from commit 7bc570c8b4f7 ("[IPV6] MROUTE: Support multicast
-> > forwarding."); IPv4 ip_mrt_cache is older still.
-> >
-> > Fixes: 4e16880cb422 ("netns: ip6mr: dynamically allocates vif6_table")
->
-> I think it makes more sense to blame the commits that allowed user space
-> to create these tables:
->
-> Fixes: f0ad0860d01e ("ipv4: ipmr: support multiple tables")
-> Fixes: d1db275dd3f6 ("ipv6: ip6mr: support multiple tables")
->
-> Your reproducer depends on it. And dropping / rewording the last
-> paragraph.
+Commit 247262756121 ("crash: add generic infrastructure for crash hotplug
+support") introduced a kernel mechanism to update only the elfcorehdr.
+This patch enables that support for arm64.
 
-Will switch Fixes: to these two commits and drop that paragraph.
->
-> Please wait 24h before posting another version:
->
-> https://docs.kernel.org/next/process/maintainer-netdev.html
+On arm64, only memory hotplug events require elfcorehdr updates:
+- Physical CPU hotplug is not supported.
 
-Will wait 24h before sending v4.
+- For ACPI based vCPU hotplug [1], the elfcorehdr is built using
+  for_each_possible_cpu(), so no update is needed.
 
-Thanks,
-Zihan Xi
->
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Vega <vega@nebusec.ai>
-> > Assisted-by: LLM
-> > Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+The patch:
+- Adds CONFIG_ARCH_SUPPORTS_CRASH_HOTPLUG (default y).
+
+- Implements following arch functions to handle memory hotplug:
+  1. arch_crash_hotplug_support()
+  2. arch_crash_get_elfcorehdr_size()
+  3. arch_crash_handle_hotplug_event()
+
+- Moves arch_get_system_nr_ranges() and arch_crash_populate_cmem()
+  from machine_kexec_file.c to crash.c for crash hotplug reuse.
+
+Follows the approach of x86 commit ea53ad9cf73b ("x86/crash: add x86 crash
+hotplug support") and powerpc commit b741092d5976 ("powerpc/crash: add
+crash CPU hotplug support").
+
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: Baoquan He <bhe@redhat.com>
+Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Breno Leitao <leitao@debian.org>
+Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
+Cc: Mark Rutland <mark.rutland@arm.com>
+Cc: Ard Biesheuvel <ardb@kernel.org>
+Cc: Thomas Huth <thuth@redhat.com>
+[1]: https://lore.kernel.org/all/20240529133446.28446-1-Jonathan.Cameron@huawei.com/
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+---
+ arch/arm64/Kconfig                     |   3 +
+ arch/arm64/include/asm/kexec.h         |  11 ++
+ arch/arm64/kernel/Makefile             |   2 +-
+ arch/arm64/kernel/crash.c              | 167 +++++++++++++++++++++++++
+ arch/arm64/kernel/machine_kexec_file.c |  42 ++-----
+ 5 files changed, 192 insertions(+), 33 deletions(-)
+ create mode 100644 arch/arm64/kernel/crash.c
+
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+index b5a51b0ef944..96de2660b1cb 100644
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -1720,6 +1720,9 @@ config ARCH_DEFAULT_CRASH_DUMP
+ config ARCH_HAS_GENERIC_CRASHKERNEL_RESERVATION
+ 	def_bool CRASH_RESERVE
+ 
++config ARCH_SUPPORTS_CRASH_HOTPLUG
++	def_bool y
++
+ config TRANS_TABLE
+ 	def_bool y
+ 	depends on HIBERNATION || KEXEC_CORE
+diff --git a/arch/arm64/include/asm/kexec.h b/arch/arm64/include/asm/kexec.h
+index 892e5bebda95..f165c094b32e 100644
+--- a/arch/arm64/include/asm/kexec.h
++++ b/arch/arm64/include/asm/kexec.h
+@@ -130,6 +130,17 @@ extern int load_other_segments(struct kimage *image,
+ 		char *cmdline);
+ #endif
+ 
++#ifdef CONFIG_CRASH_HOTPLUG
++void arch_crash_handle_hotplug_event(struct kimage *image, void *arg);
++#define arch_crash_handle_hotplug_event arch_crash_handle_hotplug_event
++
++int arch_crash_hotplug_support(struct kimage *image, unsigned long kexec_flags);
++#define arch_crash_hotplug_support arch_crash_hotplug_support
++
++unsigned int arch_crash_get_elfcorehdr_size(void);
++#define crash_get_elfcorehdr_size arch_crash_get_elfcorehdr_size
++#endif
++
+ #endif /* __ASSEMBLER__ */
+ 
+ #endif
+diff --git a/arch/arm64/kernel/Makefile b/arch/arm64/kernel/Makefile
+index d2690c3ec528..9bbac452994c 100644
+--- a/arch/arm64/kernel/Makefile
++++ b/arch/arm64/kernel/Makefile
+@@ -64,7 +64,7 @@ obj-$(CONFIG_KEXEC_CORE)		+= machine_kexec.o relocate_kernel.o	\
+ obj-$(CONFIG_KEXEC_FILE)		+= machine_kexec_file.o kexec_image.o
+ obj-$(CONFIG_ARM64_RELOC_TEST)		+= arm64-reloc-test.o
+ arm64-reloc-test-y := reloc_test_core.o reloc_test_syms.o
+-obj-$(CONFIG_CRASH_DUMP)		+= crash_dump.o
++obj-$(CONFIG_CRASH_DUMP)		+= crash_dump.o crash.o
+ obj-$(CONFIG_VMCORE_INFO)		+= vmcore_info.o
+ obj-$(CONFIG_ARM_SDE_INTERFACE)		+= sdei.o
+ obj-$(CONFIG_ARM64_PTR_AUTH)		+= pointer_auth.o
+diff --git a/arch/arm64/kernel/crash.c b/arch/arm64/kernel/crash.c
+new file mode 100644
+index 000000000000..f3333c10c1e6
+--- /dev/null
++++ b/arch/arm64/kernel/crash.c
+@@ -0,0 +1,167 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Architecture specific functions for kexec based crash dumps.
++ */
++
++#define pr_fmt(fmt)	"crash hp: " fmt
++
++#include <linux/cacheflush.h>
++#include <linux/elf.h>
++#include <linux/kexec.h>
++#include <linux/memblock.h>
++#include <linux/memory.h>
++#include <linux/vmalloc.h>
++
++#include <asm/kexec.h>
++
++#if defined(CONFIG_KEXEC_FILE) || defined(CONFIG_CRASH_HOTPLUG)
++unsigned int arch_get_system_nr_ranges(void)
++{
++	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* for exclusion of crashkernel region */
++	phys_addr_t start, end;
++	u64 i;
++
++	for_each_mem_range(i, &start, &end)
++		nr_ranges++;
++
++	return nr_ranges;
++}
++
++int arch_crash_populate_cmem(struct crash_mem *cmem)
++{
++	phys_addr_t start, end;
++	u64 i;
++
++	for_each_mem_range(i, &start, &end) {
++		cmem->ranges[cmem->nr_ranges].start = start;
++		cmem->ranges[cmem->nr_ranges].end = end - 1;
++		cmem->nr_ranges++;
++	}
++
++	return 0;
++}
++#endif
++
++#ifdef CONFIG_CRASH_HOTPLUG
++int arch_crash_hotplug_support(struct kimage *image, unsigned long kexec_flags)
++{
++#ifdef CONFIG_KEXEC_FILE
++	if (image->file_mode)
++		return 1;
++#endif
++	/*
++	 * For kexec_load syscall, crash hotplug support requires
++	 * KEXEC_CRASH_HOTPLUG_SUPPORT flag to be passed by userspace.
++	 */
++	return kexec_flags & KEXEC_CRASH_HOTPLUG_SUPPORT;
++}
++
++unsigned int arch_crash_get_elfcorehdr_size(void)
++{
++	unsigned long phdr_cnt;
++
++	/* A program header for possible CPUs, vmcoreinfo and kernel_map */
++	phdr_cnt = 2 + num_possible_cpus();
++	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
++		phdr_cnt += CONFIG_CRASH_MAX_MEMORY_RANGES;
++
++	return elf64_phdr_size(phdr_cnt);
++}
++
++/**
++ * update_crash_elfcorehdr() - Recreate the elfcorehdr and replace it with old
++ *			       elfcorehdr in the kexec segment array.
++ * @image: the active struct kimage
++ * @mn: struct memory_notify data handler
++ */
++static void update_crash_elfcorehdr(struct kimage *image, struct memory_notify *mn)
++{
++	void *elfbuf = NULL, *old_elfcorehdr;
++	unsigned long mem, memsz, elfsz = 0;
++	struct crash_mem *cmem = NULL;
++	u64 start, end;
++	int ret;
++
++	ret = crash_get_memory_ranges_nolock(&cmem);
++	if (ret) {
++		pr_err("Failed to get crash memory ranges.\n");
++		goto out;
++	}
++
++	/*
++	 * The hot unplugged memory is part of crash memory ranges,
++	 * remove it here.
++	 */
++	if (image->hp_action == KEXEC_CRASH_HP_REMOVE_MEMORY) {
++		start = PFN_PHYS(mn->start_pfn);
++		end = start + PFN_PHYS(mn->nr_pages) - 1;
++
++		ret = crash_exclude_mem_range(cmem, start, end);
++		if (ret) {
++			pr_err("Failed to remove hot-unplugged memory from crash memory ranges.\n");
++			goto out;
++		}
++	}
++
++	/*
++	 * Create the new elfcorehdr reflecting the changes to CPU and/or
++	 * memory resources.
++	 */
++	ret = crash_prepare_elf64_headers(cmem, true, &elfbuf, &elfsz);
++	if (ret) {
++		pr_err("Failed to create new elfcorehdr");
++		goto out;
++	}
++
++	/*
++	 * Obtain address and size of the elfcorehdr segment, and
++	 * check it against the new elfcorehdr buffer.
++	 */
++	mem = image->segment[image->elfcorehdr_index].mem;
++	memsz = image->segment[image->elfcorehdr_index].memsz;
++	if (elfsz > memsz) {
++		pr_err("update elfcorehdr elfsz %lu > memsz %lu",
++			elfsz, memsz);
++		goto out;
++	}
++
++	/* Copy new elfcorehdr over the old elfcorehdr at destination. */
++	old_elfcorehdr = phys_to_virt(mem);
++
++	/*
++	 * Temporarily invalidate the crash image while the
++	 * elfcorehdr is updated.
++	 */
++	xchg(&kexec_crash_image, NULL);
++	memcpy(old_elfcorehdr, elfbuf, elfsz);
++	dcache_clean_inval_poc((unsigned long)old_elfcorehdr,
++			       (unsigned long)(old_elfcorehdr + elfsz));
++	xchg(&kexec_crash_image, image);
++	pr_debug("updated elfcorehdr\n");
++
++out:
++	kvfree(cmem);
++	vfree(elfbuf);
++}
++
++/**
++ * arch_crash_handle_hotplug_event() - Handle hotplug elfcorehdr changes
++ * @image: a pointer to kexec_crash_image
++ * @arg: struct memory_notify handler for memory hotplug case and
++ *       NULL for CPU hotplug case.
++ *
++ * Update the kdump image based on the type of hotplug event:
++ * - CPU add and remove: No action is needed.
++ * - Memory add/remove: Update the elfcorehdr to reflect the current memory layout.
++ *
++ * Prepare the new elfcorehdr and replace the existing elfcorehdr.
++ */
++void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
++{
++	if (image->hp_action == KEXEC_CRASH_HP_ADD_CPU ||
++	    image->hp_action == KEXEC_CRASH_HP_REMOVE_CPU)
++		return;
++
++	update_crash_elfcorehdr(image, (struct memory_notify *)arg);
++}
++#endif /* CONFIG_CRASH_HOTPLUG */
+diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
+index 3d907f8ee594..c0d0442fad9b 100644
+--- a/arch/arm64/kernel/machine_kexec_file.c
++++ b/arch/arm64/kernel/machine_kexec_file.c
+@@ -14,7 +14,6 @@
+ #include <linux/kernel.h>
+ #include <linux/kexec.h>
+ #include <linux/libfdt.h>
+-#include <linux/memblock.h>
+ #include <linux/of.h>
+ #include <linux/of_fdt.h>
+ #include <linux/slab.h>
+@@ -39,34 +38,6 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
+ 	return kexec_image_post_load_cleanup_default(image);
+ }
+ 
+-#ifdef CONFIG_CRASH_DUMP
+-unsigned int arch_get_system_nr_ranges(void)
+-{
+-	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* for exclusion of crashkernel region */
+-	phys_addr_t start, end;
+-	u64 i;
+-
+-	for_each_mem_range(i, &start, &end)
+-		nr_ranges++;
+-
+-	return nr_ranges;
+-}
+-
+-int arch_crash_populate_cmem(struct crash_mem *cmem)
+-{
+-	phys_addr_t start, end;
+-	u64 i;
+-
+-	for_each_mem_range(i, &start, &end) {
+-		cmem->ranges[cmem->nr_ranges].start = start;
+-		cmem->ranges[cmem->nr_ranges].end = end - 1;
+-		cmem->nr_ranges++;
+-	}
+-
+-	return 0;
+-}
+-#endif
+-
+ /*
+  * Tries to add the initrd and DTB to the image. If it is not possible to find
+  * valid locations, this function will undo changes to the image and return non
+@@ -89,8 +60,9 @@ int load_other_segments(struct kimage *image,
+ 	kbuf.buf_min = kernel_load_addr + kernel_size;
+ 
+ #ifdef CONFIG_CRASH_DUMP
++	unsigned long nr_ranges = 0;
+ 	if (image->type == KEXEC_TYPE_CRASH) {
+-		ret = crash_prepare_headers(true, &kbuf.buffer, &kbuf.bufsz, NULL);
++		ret = crash_prepare_headers(true, &kbuf.buffer, &kbuf.bufsz, &nr_ranges);
+ 		if (ret) {
+ 			pr_err("Preparing elf core header failed\n");
+ 			goto out_err;
+@@ -100,10 +72,13 @@ int load_other_segments(struct kimage *image,
+ 			vfree(image->elf_headers);
+ 
+ 		image->elf_headers = kbuf.buffer;
+-		image->elf_headers_sz = kbuf.bufsz;
+ 
+ 		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
+-		kbuf.memsz = kbuf.bufsz;
++		kbuf.memsz = kbuf.bufsz + crash_extra_elfcorehdr_size(nr_ranges);
++		image->elf_headers_sz = kbuf.memsz;
++#ifdef CONFIG_CRASH_HOTPLUG
++		image->elfcorehdr_index = image->nr_segments;
++#endif
+ 		kbuf.buf_align = SZ_64K; /* largest supported page size */
+ 		kbuf.buf_max = ULONG_MAX;
+ 		kbuf.top_down = true;
+@@ -177,6 +152,9 @@ int load_other_segments(struct kimage *image,
+ 	return 0;
+ 
+ out_err:
++#ifdef CONFIG_CRASH_HOTPLUG
++	image->elfcorehdr_index = -1;
++#endif
+ 	while (image->nr_segments > orig_segments) {
+ 		kexec_free_segment_cma(image, image->nr_segments - 1);
+ 		image->nr_segments--;
+-- 
+2.34.1
+
