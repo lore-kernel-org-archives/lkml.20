@@ -1,77 +1,92 @@
-Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DF6C10F1
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 06:06:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50DC736B92B;
+	Tue,  8 Sep 2026 06:08:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788847600; cv=none; b=T+u8uY9VUi208dkVe3cHc0V+d7ceFDn75LxWnPU6gN1Wg2ZO/2LXnTU8AGIFY4LPdOydYrY02DqY+bCu9zSfVDyB0lzHJCcx6U/b5L05DkpqXUeb1YzhIypNE5EBX/nxer6TliozqCEyMQT39MhhhOfCRUhZ1sfKKu49uqGLU08=
+	t=1788847743; cv=none; b=RyNWZ84piGavkX+NaGpvcSAdEMihKpMz0OaaaW+0GXbA8nx9ZJ2m11oEEc8q7rlBj/bCjQ9B9+qXWlBpjMvWeGjGtVxinRKTP0/ovt9lA4/kOMPG6pA3nsgWLafazBV+hgOrDKJLU4PhEyvcb24PG6ZO50HID5DU0jxSxE+lhk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788847600; c=relaxed/simple;
-	bh=XpL8HqdoOUxXEc2wAkk0UlM0Z9JAkdPJuRyKTFzEFzk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VtXpCJiOAS02/nsgE/r1h+lBOaz348bzL5yoBvHlDS39dWcrTIFtE+3HNwUok2PjLV+E3YeAL+QGWR4KlEyo87i1+vTqUZFqi7LaMxq7+lRYB5upw4s3OvhrCHD201C35iWtjKIhGH0mRl6JyYsdRU6UBDl1w3Q9KFUlkBeSFSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=BdcnA0oW; arc=none smtp.client-ip=115.124.30.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="BdcnA0oW"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788847590; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=kezm3pPzdV4fcSPT4bPXK4sC51VDlMynJvYJEKLruRo=;
-	b=BdcnA0oWd6qOV7/QQc912uv/Tm9gj7ocw1aO01KcjtjZ/2qRSQ25v5Q9cE2Mz9a+vx8Wx4aPawzY7w1I7rQcSwP2Th2BHXt4jZ9LBbYfZbu2V0S9wQ/Q979epFeMtLaDmdnXrWYSVtkVmOIz1/XpEHDI3tJ8stKVe7IWgQIyDmk=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R711e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=20;SR=0;TI=SMTPD_---0XAaTebm_1788847586;
-Received: from 30.74.144.127(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XAaTebm_1788847586 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 08 Sep 2026 14:06:28 +0800
-Message-ID: <4f39b888-5dc8-4cf9-b1c6-b02292abd710@linux.alibaba.com>
-Date: Tue, 8 Sep 2026 14:06:26 +0800
+	s=arc-20240116; t=1788847743; c=relaxed/simple;
+	bh=fcaoUqvYL76N8Nw3lHrzd4EC+S+gqT/vA0ds4HsboWQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=okUeejP+RWiIGv4QJZs4Va8frU5NYrgPC322Iw2ZmF2UA1f95ML+qVMPAp/vPpLDnt6yqKdmKMY+gf8SG6lWe+z6SpsYF6leSxYN5OK8fuCipj/uidKwNkwUbDfxd7DnH4m6Prep19KtG7Nm8Vfx0i9UH9AQMUeqcyy12/VP8pk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn; spf=pass smtp.mailfrom=kylinsec.com.cn; arc=none smtp.client-ip=54.254.200.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinsec.com.cn
+X-QQ-mid: esmtpgz16t1788847715tb7285871
+X-QQ-Originating-IP: SEfJL9rAMZDeKA1FN1dqC0EMj7Wsjq2WyNAmPvWjSAY=
+Received: from localhost.localdomain ( [39.144.190.97])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 08 Sep 2026 14:08:33 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 6356268314036142137
+EX-QQ-RecipientCnt: 5
+From: Xuhua Zhang <zhangxuhua@kylinsec.com.cn>
+To: marcel@holtmann.org,
+	luiz.dentz@gmail.com
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Xuhua Zhang <zhangxuhua@kylinsec.com.cn>
+Subject: [PATCH] Bluetooth: hci_ll: Sleep while waiting for the controller to power up
+Date: Mon,  7 Sep 2026 23:12:45 +0800
+Message-ID: <8A1A2E77C277A87D+20260907151245.13609-1-zhangxuhua@kylinsec.com.cn>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/huge_memory: add folio_reset_partially_mapped()
-To: Kiryl Shutsemau <kirill@shutemov.name>, akpm@linux-foundation.org,
- david@kernel.org, ziy@nvidia.com, hannes@cmpxchg.org
-Cc: ljs@kernel.org, usama.arif@linux.dev, lance.yang@linux.dev,
- liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com,
- dev.jain@arm.com, baohua@kernel.org, kasong@tencent.com, hughd@google.com,
- balbirs@nvidia.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- kernel-team@meta.com, "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-References: <20260907183340.1446132-1-kirill@shutemov.name>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20260907183340.1446132-1-kirill@shutemov.name>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:kylinsec.com.cn:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NV9lVvsB36OptcF2U9IILXEVFGnRylEEm9GBKVP8F9X/yZW8a6QeoqPl
+	L3UTSlpMA0plIPQfGLyfQQhlTOfKoJkFeNjBYxSFZUgm6g9gysuUeL4kjH5x3Od1wT2TL++
+	Xms3AgIdTN8XP9OFKn8KNxo+v2CyfISlmJDLUciMTmnUjdjjyV3t32XlPjI3iUW2M03MsbG
+	jim9GnqafNVW0XSCnzCw2J8haVBHzBVWKOlbUSnrhjRkD26zX2VKpk+dCyIVwk1Te8vBoav
+	CVIHsgl6mDkD+OnMFGKUSLvzxVM8Huf89ZiO8/qhLOtEtLG/6yi30K1X+jMPCvFV4Vg2App
+	AyAre13ryMDg+IMPR/AQbRWvOJlvCpIepBkspqonA41gGGalCfoZywtIbqgLYnwZ67RCgoB
+	6ySN8YG+3o7pRfUMoTEVYDzEFNiWSnVvcOXT4hIgI02G5QlT3t9mJktm7UB628e2vc3TT/+
+	S8Inalo79oaY9zWR4xK4iwyqDnqweG6QjI1/LK/ezxiMnq4Crg7xg+JiH+5yOpmAm7vIn0d
+	4AzAq4D7p5PSB0xWInCbtOThQ6TGxgL27ATAINmYu7ac6h7bb7ntMyclGdrPa0wvQxgvqdV
+	ePpK62GF2s1yLLia5sXPAEM1yND1If4OfUdb5yWssBk6R/zmw0uNLDpoYYuBEK2vSwyBe7l
+	LRTKpG5LxtA3IpxoSuzc23BQrsRCAJ1AklIQqTc1orHApnAdE0wTQP6jL6m945+AD8x74zZ
+	7DsAsZ2Qyu2P8tyeiYleigLq6CvQLwM+q5dLsAiY465GukVpwS9hJW0Xlsdg9gVtrIWM6H4
+	c3a0T0gtTSn4oSj31eTPT1K6h6dkO2UN8wqosj6uRJh2oQs6gNMxHSaaTYg6DolGQCLZKqN
+	yVgRR6Cufyqshwup4xOOCrf3v/k0QLbUi6G1zrxf+tjV6Abx7EAmje12B6e2zIAvbjr3SYd
+	4h7xFsDB1oM8mi4O3y/RHQ+1/oGbdhHWxyBWzeghlAlBzFEDWsswVDtRzwh4Legg4FCQhiS
+	ZvrJWmQ6B5FCpb1c+KAfULCi8ooaYiT4cfmiDe5+dt7iCjRKc2
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 
+ll_setup() busy-waits for 100 ms after asserting the controller enable
+GPIO on each firmware download attempt. With retries this can occupy
+the CPU for up to 400 ms.
 
+The setup callback runs in sleepable context and already uses msleep(),
+gpiod_set_value_cansleep() and synchronous firmware commands. Replace
+mdelay(100) with msleep(100) so the CPU can run other work during the
+power-up delay. Keep the requested delay and subsequent CTS wait.
 
-On 9/8/26 2:33 AM, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> 
-> __folio_unqueue_deferred_split() and __folio_freeze_and_split_unmapped()
-> both clear PG_partially_mapped and take the folio out of
-> MTHP_STAT_NR_ANON_PARTIALLY_MAPPED with the same five lines.
-> 
-> Move the block into folio_reset_partially_mapped() and call it from both
-> places.
-> 
-> The helper asserts what both callers rely on: the folio is frozen, so
-> deferred_split_folio() cannot set the flag again under it, and the folio
-> is already off the deferred split queue. The list check sits behind the
-> flag test because order-1 folios have no _deferred_list.
-> 
-> folio_order() is safe to use at this point in the split process: it
-> still shows the pre-split order.
-> 
-> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-> Assisted-by: Claude-Code:claude-fable-5-1
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> ---
+Signed-off-by: Xuhua Zhang <zhangxuhua@kylinsec.com.cn>
+---
+ drivers/bluetooth/hci_ll.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-LGTM.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+diff --git a/drivers/bluetooth/hci_ll.c b/drivers/bluetooth/hci_ll.c
+index ab744001dafc..35adf869cc1f 100644
+--- a/drivers/bluetooth/hci_ll.c
++++ b/drivers/bluetooth/hci_ll.c
+@@ -629,7 +629,7 @@ static int ll_setup(struct hci_uart *hu)
+ 		gpiod_set_value_cansleep(lldev->enable_gpio, 0);
+ 		msleep(5);
+ 		gpiod_set_value_cansleep(lldev->enable_gpio, 1);
+-		mdelay(100);
++		msleep(100);
+ 		err = serdev_device_wait_for_cts(serdev, true, 200);
+ 		if (err) {
+ 			bt_dev_err(hu->hdev, "Failed to get CTS");
+-- 
+2.43.0
+
