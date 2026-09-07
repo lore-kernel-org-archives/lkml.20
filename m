@@ -1,206 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B40E1714AA;
-	Mon,  7 Sep 2026 01:09:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC3271CAA6C;
+	Mon,  7 Sep 2026 01:11:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788743381; cv=none; b=abqrvLA68uzXbkU2zbus/iJc82+3DXzwX8xuovexmZbYme7mTg/HnTvkeEcmHQmGSb77INPfDdJoGibSM6OGe0G3azvxe1kPUtsT5LQGsb/mRhD7Z1M23O1PgCt0TIypx0hAT8NNJ9FaKNIsenHdqUMRcNB4vnoSEUkwWW4Ty9g=
+	t=1788743480; cv=none; b=DMOOLwvHZ8trdjQftCkZ9QmT06qwxPyWLsfYcM2jA6eiZ0ThLhwjflwcRraHeHS9kfy7Kz0WoLYZ1+onHHgNQFrhqvbFeFHFkt623ztTgBapzjIZpdpJnaefH+Z559yy4Th4/6LHEct74nyQt4FgKJi8kfWsCD9G5S1LfO7Lagw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788743381; c=relaxed/simple;
-	bh=iIpTN5b2N0XssK38X2TJy0NEhqrp8MgahtzizDZap20=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HaazzqjgtL+Yvmn4weT8E/rZAaEvBwuxMVRGR+uZWZcd/WTGO3UlbAnVisu1Fme6YJRswPMPtVNc5DCA6O0AswHe8u0eKIjlEbVgNsPprrRNOGlcWopnnR2tF+mlCYkPEEdbHkGYVaRtRbZ6yGgud7mH7o+2vaZWqkKyr1a0I2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ck/apwF6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788743480; c=relaxed/simple;
+	bh=gp0U4c7Gl86hsDlI1yzVwX/iAoxxd9CbHAcoKLYLdSQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=PTROvZYP17RRdhoP2cH24yDb+9LvMtVlMZnaNU/NYXQHjq1iRXCl8iTFYuAxEu0qf9HmChB8KFgFJ5OP3o5Ac4cm/WZEIVlDgVlyxCm0ACpPKHZY5FfDkd+/3J7cWTZ3RiBytuGiFKkb+TBWFYSGCWaA+OKqhZA3Onr0Ct+6cMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=Oc/NX915; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ck/apwF6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A34921F00A3A;
-	Mon,  7 Sep 2026 01:09:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788743379;
-	bh=IPdLxEuyKna0csuR7jWKlIWbFwDNpYGlS2AZgesPbUU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ck/apwF6iq+LeVuhRZUdWUwxg96pITSAoHjnbwpTAtgxJi7hMCletZjOnNNTYHpp8
-	 ui9UFF2JRj9zlcHl12ZUEhcb4kGdKLu5s3kStS4IfRn9zg5kXKnuEMbmfSE7T5EW3+
-	 kK5HZUCFvcS1mEptj2wgbgTr33zD8J8e18EpTwn1SkZJWE5lgRmXjhjPKFnGxGxdSz
-	 lf8WS1yyQuWopbDPLAoWKxeOsVTtX/YhtoVVBIAZObWeV6oFSIagExg5yvw5Bcy7En
-	 hRWeSfLlC29rg1cuVyb1TScvzODzbpZ3on5B/064FnxSTSyseo8k9a2yrfN6zejDUF
-	 jgUJvSHz2pIWg==
-Date: Mon, 7 Sep 2026 02:09:32 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andrei Stancovici <andrei.stancovici@analog.com>
-Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Liam
- Beguin <liambeguin@gmail.com>, <linux@analog.com>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 2/3] iio: adc: ltc2497: add LTC2499 internal
- temperature channel
-Message-ID: <20260907020810.3ff1713c@jic23-huawei>
-In-Reply-To: <20260902064415.132588-3-andrei.stancovici@analog.com>
-References: <20260902064415.132588-1-andrei.stancovici@analog.com>
-	<20260902064415.132588-3-andrei.stancovici@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="Oc/NX915"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6871BDacC2362451, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1788743474; bh=gp0U4c7Gl86hsDlI1yzVwX/iAoxxd9CbHAcoKLYLdSQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=Oc/NX915Gu0JoAQQZZm6SORNF2xi3Fu9qP3z/3eoHvUFu19/MArwovCSWEezToM0C
+	 QmMvnYLmfxDyvoz1DYnwvKgku3PQhGD20vz98H/UCae4iUcAnU45KvmnM7qcd3DQdb
+	 9zVKGo6LC0stKBoXOLOC27Kqcl3weLbcletnTcVhdu4Sxh37vmVd7ShneGurM69k0+
+	 JWgCf0ZnptWSNKGdNzLlRrN+8YUhclUONqJSEtZO+cSFmEKySSC7LAJQxIEB32oICZ
+	 6KUX5OPgttLmPI9v5P5SVeIH2lDgR2Bss6F2WiUMAD7JwawCFp2+5e6tRi9UawzaLI
+	 PoLIjnxSDB/EQ==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6871BDacC2362451
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 7 Sep 2026 09:11:13 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Mon, 7 Sep 2026 09:11:14 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::126f:59ad:658:674d%10]) with mapi id
+ 15.02.2562.043; Mon, 7 Sep 2026 09:11:14 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Arsenii Pashchenko <ulijg308@gmail.com>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH rtw-next v8 2/3] wifi: rtw88: rtw8822c: Convert DAC IQ
+ calibration path to signed math
+Thread-Topic: [PATCH rtw-next v8 2/3] wifi: rtw88: rtw8822c: Convert DAC IQ
+ calibration path to signed math
+Thread-Index: AQHdPR4nN3UPBQlEpkWjno9edhMlpbbCUSlg
+Date: Mon, 7 Sep 2026 01:11:14 +0000
+Message-ID: <8d45ee8562e14d3491c321360689e2ca@realtek.com>
+References: <cover.1788601784.git.ulijg308@gmail.com>
+ <afafa518cf4f34ff906927eeae488fb25d9aa7bb.1788601784.git.ulijg308@gmail.com>
+In-Reply-To: <afafa518cf4f34ff906927eeae488fb25d9aa7bb.1788601784.git.ulijg308@gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2 Sep 2026 09:44:11 +0300
-Andrei Stancovici <andrei.stancovici@analog.com> wrote:
-
-> The LTC2499 has an internal PTAT (proportional to absolute temperature)
-> sensor that is activated by a second I2C configuration byte (EN2 | IM).
-> Expose it as an IIO_TEMP channel providing raw, scale and offset so the
-> standard IIO formula
+Arsenii Pashchenko <ulijg308@gmail.com> wrote:
+> Convert the temporary stack arrays 'iv' and 'qv' from u32 to s32.
+> Update all internal function signatures to accept s32 pointers and
+> handle signed values natively.
 >=20
-> 	T[m=C2=B0C] =3D (raw + offset) * scale
+> Use sign_extend32() combined with FIELD_GET_SIGNED() to properly interpre=
+t
+> the 10-bit hardware values as signed integers. This allows flattening
+> the complex nested unsigned boundary conditions in
+> rtw8822c_dac_iq_check() into a simple amplitude boundary check. Ensure
+> rtw8822c_dac_iq_offset() properly maps the signed average back to a
+> 10-bit unsigned format expected by the hardware registers via GENMASK().
 >=20
-> reconstructs the temperature.
+> Signed-off-by: Arsenii Pashchenko <ulijg308@gmail.com>
 
-Andy raised the point about too much description on the next patch and
-it definitely applies here as well. Think about what matters to those
-reading the patch. E.g. something like.
-
-"The LTC2499 includes a temperatures sensor. Expose the raw reading and
-appropriate scale and offset."
-
-
->=20
-> The PTAT sensor yields the absolute temperature as
->=20
-> 	T(K) =3D DATAOUT24 * Vref / 1570		(Vref in volts)
->=20
-> The raw value exported here is sign-extended and normalised to
-> 2^(resolution + 1) =3D=3D 2^25, i.e. raw =3D 2 * DATAOUT24, so on the IIO
-> milli-degree-Celsius convention
->=20
-> 	scale[m=C2=B0C/LSB] =3D Vref_uV / 3140000
-> 	offset         =3D -273150 * 3140000 / Vref_uV
-
-If this stuff belongs anywhere it is as comments where the maths is
-in the code. You have it it there, no point in repeating here.
-
->=20
-> The scale and offset are derived from the reference voltage returned by
-> regulator_get_voltage(); its error is propagated as before, so a board
-> that fails to describe vref-supply gets a clear read error instead of a
-> silently wrong temperature. No board-specific reference value is assumed
-> in the driver.
-This bit is useful but focus on what matters a little more. Something like
-"As scale and offset depend on the reference voltage, if no regulator
- is specified by firmware, reading them will return an error."
-I'd talk about why as well. e.g. "As this is a new feature simply failing
-probe is not a option."
->=20
-> The single temperature channel is appended as the last entry of the
-> shared channel array and excluded via num_channels for parts without an
-> internal sensor, so the existing LTC2497 channel layout and device name
-> are unchanged.
-
-Implementation detail this description shouldn't mention.
-
->=20
-> The LTC2499 latches its converter configuration from the second command
-> byte and only re-evaluates it when that byte has EN2 set. EN2 | IM
-> selects the internal temperature sensor. Because a single-byte command,
-> or a second byte with EN2 =3D 0, means "keep previous", a one-byte channel
-> select cannot pull the device back out of temperature mode: after a
-> temperature read every subsequent voltage read would keep returning the
-> PTAT result instead of the selected input. Temperature support is
-> therefore only correct if the voltage path also emits a second command
-> byte that re-selects an external input.
-
-What does this mean to the user? =20
-
->=20
-> Send two-byte commands for all conversions on parts that have the sensor
-> (has_temp):
->=20
-> 	temperature:	EN2 | IM
-> 	voltage:	EN2			(IM =3D 0 -> external input)
->=20
-> The LTC2497 and LTC2496, which lack the second-byte mechanism, keep using
-> the original single-byte channel select and are unchanged.
-
-I'd not bother talking about what happens for those that are unaffected
-(given it is the obvious answer of nothing!)
-
->=20
-> Signed-off-by: Andrei Stancovici <andrei.stancovici@analog.com>
-> ---
->  drivers/iio/adc/ltc2497-core.c | 58 +++++++++++++++++++++++++++++++---
->  drivers/iio/adc/ltc2497.c      | 33 +++++++++++++++++++
->  drivers/iio/adc/ltc2497.h      | 12 +++++++
->  3 files changed, 99 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/iio/adc/ltc2497-core.c b/drivers/iio/adc/ltc2497-cor=
-e.c
-> index 2dc5c7044269..6df9c72bd8cf 100644
-> --- a/drivers/iio/adc/ltc2497-core.c
-> +++ b/drivers/iio/adc/ltc2497-core.c
-> @@ -9,9 +9,11 @@
-
-...
-
-> diff --git a/drivers/iio/adc/ltc2497.c b/drivers/iio/adc/ltc2497.c
-> index c1668b5a351e..79c87bac05e1 100644
-> --- a/drivers/iio/adc/ltc2497.c
-> +++ b/drivers/iio/adc/ltc2497.c
-> @@ -84,6 +84,38 @@ static int ltc2497_result_and_measure(struct ltc2497co=
-re_driverdata *ddata,
->  			return 0;
->  	}
-> =20
-> +	/*
-> +	 * Parts with the internal PTAT sensor (LTC2499) latch their converter
-> +	 * configuration via a second command byte and only re-evaluate it when
-> +	 * that byte has EN2 set; a single byte, or a second byte with EN2 =3D =
-0,
-> +	 * means "keep previous".  A one-byte channel select therefore cannot p=
-ull
-> +	 * the device back out of temperature mode, so a voltage read after a
-> +	 * temperature read would keep returning the PTAT result.  Always drive=
- the
-> +	 * second byte with EN2 set on these parts: IM =3D 1 for a temperature =
-read,
-> +	 * EN2 alone (IM =3D 0) to (re)select an external input.  FA =3D FB =3D=
- 0 keeps
-> +	 * the power-on simultaneous 50/60Hz rejection, whose worst-case
-> +	 * conversion time the driver's wait already covers.
-
-Say why it is 'always' done.  Seems you could do it only when the configura=
-tion
-needs to change.  Thus if someone keeps reading a particular channel don't =
-send
-the second byte?  Fine to just say it is for simplicity.
-
-> +	 */
-> +	if (ddata->chip_info->has_temp) {
-> +		u8 cmd[2];
-> +
-> +		if (address =3D=3D LTC2497_TEMP_ADDR) {
-> +			cmd[0] =3D LTC2497_ENABLE | LTC2497_CONFIG_DEFAULT;
-> +			cmd[1] =3D LTC2499_EN2 | LTC2499_IM;
-> +		} else {
-> +			cmd[0] =3D LTC2497_ENABLE | address;
-> +			cmd[1] =3D LTC2499_EN2;
-> +		}
-> +
-> +		ret =3D i2c_master_send(st->client, cmd, sizeof(cmd));
-> +		if (ret < 0) {
-> +			dev_err(&st->client->dev, "i2c transfer failed: %pe\n",
-> +				ERR_PTR(ret));
-> +			return ret;
-> +		}
-> +		return 0;
-> +	}
-> +
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
 
 
