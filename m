@@ -1,338 +1,183 @@
-Received: from out-2z4y-a135.jellyfish.systems (out-2z4y-a135.jellyfish.systems [198.54.127.135])
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E537F248880
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 01:21:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.135
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788744063; cv=none; b=PL272JyWsOPOiuW7lQb4eEYV740f+EiD1qWl4MH/vAe0gNkI4X8D1ullc/LoWbIKxPd34xV/x0D8z1ZY/dsAF0D+RsKOynRu8gtCDSRCdcGZyrf3NcOTbPuO+9FBihEB7237yQKN1O/ObWuGeSvF5V8ShI9CC4x/sVheNLv4QvA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788744063; c=relaxed/simple;
-	bh=LMGzWJiBaFKeUmagq7X11c6Lx0jBfZy0uGxegtdaMwk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MLJt1mCZfbY3nEBew6I2sab/gtkQbheI2tmyGGol6u1jL0BCnWN/s2Iuma51fIdcab9vZH5qCZtAjHv0017rGJtEF5BmMriL125nqWtp0M8gJ5k/gX6gIntd7bCZ39/QK8Fn4z+drazQB12LFNa5xCz4v+XRTkA1yAhSXjOsnJs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=izxF9O+b; arc=none smtp.client-ip=198.54.127.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42B02283FC4
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 01:21:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788744070; cv=pass; b=WunNzs2U0NbujKXPXpnqpR4t/9f7ZAfzpviv5cxGwygt5JuiCDXECWPeZzJ1bAC0VUxNJqOBiKgzbEwUDweTm/HvZJdEXIpoNBrX9mbFHCVC4LI9cbJPe/lmHsCBWqbSp3ylj87gTRc/xoCkhVzIQH8/zuNDQE76CcaUIiIbUZA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788744070; c=relaxed/simple;
+	bh=dLy4e1qHLcvoLadjjzsNDriWy6dgQR+5gciIFi63BmU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FQjdqPQGjiio/e/5I6N6BiNLJ85vkWNhak3Jqw30dGchPJqGS12zntzL8Q0hXHAHo6WJTUxwuLzIIAm5sH5omxt5cjh6YvBQw2a1C61+UMK8FxrChzJV1yWWPQGGOwxq2DCTbcfWs2OeULmufeXmkijHfKEROPmI9krlVDNOEjI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CSfE/pg3; arc=pass smtp.client-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="izxF9O+b"
-Received: from 192.168.5.3 (unknown [69.5.53.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4hdTlt1r8xz6tlq;
-	Mon, 07 Sep 2026 01:20:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
-	s=spacemail; t=1788744045;
-	bh=GJ8Ln+jyy31Wa7u6fUJJyoQB3HH2yJgGsQqYaXNmcak=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=izxF9O+bpDX4/r9946K3Xd+qZc+pi3R1kKotELCUFrBqjOCH1OQ6Zp4C3hAnmlNf4
-	 I3sfdsBOLwNjgDem4khzok9OL68+JITX9jArTPV8r6Y3vNkVG7vPKbsH/oHbIbBGcc
-	 iX2Mt5JmemokecGVQH+GWS4dTey9msbcLvfTIvSHTKd5UiY+Zf1sKudFEr/joQxaWa
-	 BFb+s68TWUVO9Oabeg41mg1sxBNwyYX9x8uz1IDz9P61bh1MpyolZkrYiWB3ZkEdjt
-	 LG7MrK/eFpAaQz6cfcD+uOfwubL+mVRj1y7xI5prC4fXWL7y6tKj6077OKCbQRuIic
-	 2i0C9FF/KeW8A==
-From: Tianyi Chen <hi@tychen.cc>
-To: rppt@kernel.org
-Cc: Tianyi Chen <hi@tychen.cc>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] memblock tests: cover allocations below the low address limit
-Date: Mon,  7 Sep 2026 09:20:33 +0800
-Message-ID: <178874362959.1415955.5009708808960886376.memblock-v2-2@tychen.cc>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <178874362959.1415955.18132997964995947947.memblock-v2-0@tychen.cc>
-References: <20260906144011.848898-1-hi@tychen.cc> <178874362959.1415955.18132997964995947947.memblock-v2-0@tychen.cc>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CSfE/pg3"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a173ad7cf4so4560474a12.3
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 18:21:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788744067; cv=none;
+        d=google.com; s=arc-20260327;
+        b=J/SOF7feuEoxxDONYelT88PvM2SK7NS9CXRMZRy7GaJ8eMlbUrhLHTKp4Y+wGGxcZh
+         8kXaAabCmFuiCXyHIAFpC9DV7SqAWoyrmoYp006nVyxi9nsfL8ze9Vw/Gg9BrQQQKKZh
+         wRkGVlDkNWl2LakK+NkkSyLNCIro52vYSldXgMGINcboFm5o8AWQShLs4HXnn+W6JlVl
+         tFa+vvQVxBKnQZIXAOsoxO6Nvjr0VvaCHlYeX4jMCjSyLC6ne3RfTnv0RHF4HJGYtwlt
+         L9+oz41ULL5XVI0K6qUe2P5cylRlpYxzVkorh+QD9piPwqCwlrbbraBDpQDTlnzu8WI5
+         vpGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=EJdnZa7puyaFnP7aZ2zyhYbn4tJFzehkq2tCfsTQdIc=;
+        fh=Tm0VlLrFS0kRGJKxxzAa+IuGpteApiHMcdDcno67+Ws=;
+        b=hPOya/KIhrRwx2fJvP2f7ZVAlQnVdkZSqW92rHQuy5Jin1jdHigfjqL208cNjq4JeV
+         6R5+1cKIcukpRrRvQofyGrUNObyIcYnEvdL2xDcqjJD6j5ALfHQDYgMgMb8h3WOPm/Sd
+         PUtMWEN4YCPAfOownzIJMVJnDOc9lETzrzCfWNyYBr7DeWUyh1Y3ONWHkSkebZ38fFDs
+         OM8bzS0kiqUTI7ATrb3JOYWJzQzl6MvvIWrxE3LfkbLwkhdrJ59whe6dOJ5dMtI8AO8Y
+         YCQ5HOwxCfiSHWiPrTXHbOsc58OZ2dzMNabu0XpJIMOW6e+3v0/PFttHuoI4gIqQjpMO
+         r+zg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788744067; x=1789348867; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EJdnZa7puyaFnP7aZ2zyhYbn4tJFzehkq2tCfsTQdIc=;
+        b=CSfE/pg3v3t1UmDVqGC1Nf5YSCDwr2TzUaSV2BmkIt9K5eR9eI+ntyZ9GFJb3cFsUx
+         OSgAkhz16/5x45UaBypYBWBHUT/Mnm9ThI1ZokzRqKwTCT3ZrH3KJkn+NG4DlPHP3IRT
+         2D7vV4PbTHZ9YkpZLjzoaTtFLt5KpB7Y264FdJooAAjGEh2wAozY5cHCGUQ7mKma4S7h
+         Y68YzQtBejsvH7T1yGn9s95glb/vq9is3pwlcebIs1CWef08YoF5EtX2YuDXhqhst66a
+         VIJp4v3q3v/vWfJiufFKpqvmoLb+SscF7P0JzDFESClYJoN5hNn7a2+Km6LN1RFs1Qxr
+         HYbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788744067; x=1789348867;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EJdnZa7puyaFnP7aZ2zyhYbn4tJFzehkq2tCfsTQdIc=;
+        b=p1xRRrhSbz6rk4feJPwx847NMALCPCk7GouPCYFWJSLDJ50YEg+xqH7ut7mcrdle9g
+         9xd3sSotiSiIO/g95SV6zWgYht69aMcoHSR+3pBCkJ654RhBm0Utk14AAPins1eEm1rP
+         KOdPpt9B1fdADJvgmiQrj6WTTf76KgnWknQInEeoDjKT1D+3TR//TagV5fpZdh8t6xBe
+         0jiGIxZQO8iDakKYXPQflfJIfm1SZ3zPzj6Cnf/IXW5Q11yh01CsRuYS2ayghbngW4px
+         M+7yjI4ob/jO/ZzmPsgi1moa+n9RsHrLcMmsOIfewA36hfZwYWc9uPJ3Q8oG/GDZ+xFy
+         ZKUg==
+X-Forwarded-Encrypted: i=1; AKwUvBznfm+e5TL9fVwnih6oPUtOhyAE3IMMI0sdj31oGu9HuxIAdAgwjLt4cECQwgZP2QxcN/bqUwk356i+zkw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nuNVjMJBEGUuav1m+r0zf8qsbA3+zndg1+X2BpbjdfnXF4k9SV
+	nv6c28snbD1gmapAOlFiyvg4G8HI6va00ur5T7md4mA0zlyApIl8etwXuucb8LKohAu5kJbDrDE
+	QkG80P3sbm9Ya/JowweuuAbLwbt8b3HQ=
+X-Gm-Gg: AYBFou32Db2eA383+E4TurvPF2btHV9PeZuSnpUYPnYwKfUhN6g15pODUIYdReuZawj
+	MAGFiXh9dBKgrJKYQ9VKEulNdihX1E0RMl1loKH+kliORfdJyazA2sk/dH6YXrHMfHZbtZ6NZum
+	NIB/ngqCGOL2lsqrnWkQZmoicf+hLoCB9Bh2qkwuEUgzP4J1ije+IW0Rz95inQQaic3fg3Sfwpv
+	s1vlU4c12S6AXJWiqdxq3Gpq2sL1Ox+F4kSslZI3u3pzAigdW7KFtXUol/cZZukbDzpaVtTFpU1
+	ZyvkSAs5nQG2XXvh4W7R2MES93+GZueBxLzYZLBhBGc79S4SsOIyrcc+EARcvlgMqMXdnocT1bt
+	6f0GhJ16EipZLgJc6oMwUxGE31O8qdSDObdhGJBAsnpylVtKcI2VX2Apd1rWg3619Ab1kSNwY/E
+	8umqMuHxoQxrXHIOfZIBv5hBDa3FlMYrWL1ey1EvQoFnP4D/Ds/THw/aE=
+X-Received: by 2002:a05:6402:454d:b0:6a6:7305:2dff with SMTP id
+ 4fb4d7f45d1cf-6a7e8e95808mr5594031a12.12.1788744067371; Sun, 06 Sep 2026
+ 18:21:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: hi@tychen.cc
+References: <20260710070704.60680-1-rosenp@gmail.com>
+In-Reply-To: <20260710070704.60680-1-rosenp@gmail.com>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Sun, 6 Sep 2026 18:20:56 -0700
+X-Gm-Features: AcwNN1Xq_5QVaYhUhaquQ0B-Wpws9p3xwYr1tiY25wcmZty-OeFp50QPfSbK6uQ
+Message-ID: <CAKxU2N8uVimJ09aaRz2o6pY+yh7VpE0G6fBXdERnquoTPYcYXg@mail.gmail.com>
+Subject: Re: [PATCHv2] gpio: mvebu: convert to noirq suspend/resume to prevent
+ interrupt storm on resume
+To: linux-gpio@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add memblock_alloc_low() coverage using the simulator's low address
-limit. Exercise aligned allocation, an allocation whose last byte is
-immediately below the limit, an alignment constraint that prevents
-fitting below it, and fully reserved low memory with high memory still
-available.
-
-Run each case with bottom-up and top-down allocation. Check zeroing
-and reserved-region accounting as well as returned addresses. Verify
-that an unrestricted allocation can use the free high memory after
-the low allocation fails.
-
-Document the registered memory range and its simulated limit, clarify
-the allocation boundary, and remove the completed TODO.
-
-Assisted-by: Codex:GPT-6
-Signed-off-by: Tianyi Chen <hi@tychen.cc>
----
- tools/testing/memblock/Makefile              |   3 +-
- tools/testing/memblock/README                |  14 +-
- tools/testing/memblock/TODO                  |   5 -
- tools/testing/memblock/main.c                |   2 +
- tools/testing/memblock/tests/alloc_low_api.c | 148 +++++++++++++++++++
- tools/testing/memblock/tests/alloc_low_api.h |   9 ++
- 6 files changed, 168 insertions(+), 13 deletions(-)
- delete mode 100644 tools/testing/memblock/TODO
- create mode 100644 tools/testing/memblock/tests/alloc_low_api.c
- create mode 100644 tools/testing/memblock/tests/alloc_low_api.h
-
-diff --git a/tools/testing/memblock/Makefile b/tools/testing/memblock/Makefile
-index d80982ccdc2..20524fcbe3c 100644
---- a/tools/testing/memblock/Makefile
-+++ b/tools/testing/memblock/Makefile
-@@ -7,7 +7,8 @@ CFLAGS += -I. -I../../include -Wall -O2 -fsanitize=address \
- LDFLAGS += -fsanitize=address -fsanitize=undefined
- TARGETS = main
- TEST_OFILES = tests/alloc_nid_api.o tests/alloc_helpers_api.o tests/alloc_api.o \
--		  tests/basic_api.o tests/common.o tests/alloc_exact_nid_api.o
-+		  tests/basic_api.o tests/common.o tests/alloc_exact_nid_api.o \
-+		  tests/alloc_low_api.o
- DEP_OFILES = memblock.o lib/slab.o mmzone.o slab.o cmdline.o
- OFILES = main.o $(DEP_OFILES) $(TEST_OFILES)
- EXTR_SRC = ../../../mm/memblock.c
-diff --git a/tools/testing/memblock/README b/tools/testing/memblock/README
-index b435f48d8a7..13b7f58b2ee 100644
---- a/tools/testing/memblock/README
-+++ b/tools/testing/memblock/README
-@@ -67,13 +67,13 @@ memblock
- |-- tests
- |    |-- alloc_api.(c|h)         -- memblock_alloc tests
- |    |-- alloc_helpers_api.(c|h) -- memblock_alloc_from tests
-+|    |-- alloc_low_api.(c|h)     -- memblock_alloc_low tests
- |    |-- alloc_nid_api.(c|h)     -- memblock_alloc_try_nid tests
- |    |-- basic_api.(c|h)         -- memblock_add/memblock_reserve/... tests
- |    |-- common.(c|h)            -- helper functions for resetting memblock;
- |-- main.c        --------------.   dummy physical memory definition
- |-- Makefile                     `- test runner
- |-- README
--|-- TODO
- |-- .gitignore
- 
- Simulating physical memory
-@@ -101,12 +101,12 @@ There's no need to explicitly free the dummy memory from memblock via
- memblock_free() call. The entry will be erased by reset_memblock_regions(),
- called at the beginning of each test.
- 
--Known issues
--============
--
--1. Tests for memblock_alloc_low() can't be easily implemented. The function uses
--   ARCH_LOW_ADDRESS_LIMIT marco, which can't be changed to point at the low
--   memory of the memory_block.
-+The simulator defines ARCH_LOW_ADDRESS_LIMIT in asm/dma.h using the midpoint
-+of the MEM_SIZE range registered by setup_memblock(), rather than the larger
-+PHYS_MEM_SIZE backing buffer. This leaves registered memory both below and
-+above the limit, even when malloc() returns an address above the kernel's
-+default limit. The limit is the first address an allocation must not use;
-+an allocation's base plus its size may equal the limit.
- 
- References
- ==========
-diff --git a/tools/testing/memblock/TODO b/tools/testing/memblock/TODO
-deleted file mode 100644
-index c13ad0dae77..00000000000
---- a/tools/testing/memblock/TODO
-+++ /dev/null
-@@ -1,5 +0,0 @@
--TODO
--=====
--
--1. Add tests for memblock_alloc_low() once the simulator can model
--   ARCH_LOW_ADDRESS_LIMIT against the low memory in memory_block
-diff --git a/tools/testing/memblock/main.c b/tools/testing/memblock/main.c
-index 278f9dec500..9a96e178551 100644
---- a/tools/testing/memblock/main.c
-+++ b/tools/testing/memblock/main.c
-@@ -4,6 +4,7 @@
- #include "tests/alloc_helpers_api.h"
- #include "tests/alloc_nid_api.h"
- #include "tests/alloc_exact_nid_api.h"
-+#include "tests/alloc_low_api.h"
- #include "tests/common.h"
- 
- int main(int argc, char **argv)
-@@ -12,6 +13,7 @@ int main(int argc, char **argv)
- 	memblock_basic_checks();
- 	memblock_alloc_checks();
- 	memblock_alloc_helpers_checks();
-+	memblock_alloc_low_checks();
- 	memblock_alloc_nid_checks();
- 	memblock_alloc_exact_nid_checks();
- 
-diff --git a/tools/testing/memblock/tests/alloc_low_api.c b/tools/testing/memblock/tests/alloc_low_api.c
-new file mode 100644
-index 00000000000..1ea5a36fcf0
---- /dev/null
-+++ b/tools/testing/memblock/tests/alloc_low_api.c
-@@ -0,0 +1,148 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+#include "alloc_low_api.h"
-+#include <linux/align.h>
-+
-+/* Allocate at the first or last aligned address below the low limit. */
-+static int alloc_low_simple_check(void)
-+{
-+	struct memblock_region *rgn = &memblock.reserved.regions[0];
-+	phys_addr_t size = SZ_64;
-+	phys_addr_t expected;
-+	void *allocated_ptr;
-+
-+	PREFIX_PUSH();
-+	setup_memblock();
-+
-+	/* malloc() does not guarantee SMP_CACHE_BYTES alignment. */
-+	if (memblock_bottom_up())
-+		expected = ALIGN(memblock_start_of_DRAM(), SMP_CACHE_BYTES);
-+	else
-+		expected = ALIGN_DOWN(ARCH_LOW_ADDRESS_LIMIT - size,
-+				      SMP_CACHE_BYTES);
-+
-+	allocated_ptr = memblock_alloc_low(size, SMP_CACHE_BYTES);
-+
-+	ASSERT_NE(allocated_ptr, NULL);
-+	ASSERT_EQ((phys_addr_t)(uintptr_t)allocated_ptr, expected);
-+	ASSERT_MEM_EQ(allocated_ptr, 0, size);
-+	ASSERT_EQ(rgn->base, expected);
-+	ASSERT_EQ(rgn->size, size);
-+	ASSERT_LE(region_end(rgn), ARCH_LOW_ADDRESS_LIMIT);
-+	ASSERT_EQ(memblock.reserved.cnt, 1);
-+	ASSERT_EQ(memblock.reserved.total_size, size);
-+
-+	test_pass_pop();
-+	return 0;
-+}
-+
-+/* The last byte of the allocation is immediately below the low limit. */
-+static int alloc_low_exact_limit_check(void)
-+{
-+	phys_addr_t limit = ARCH_LOW_ADDRESS_LIMIT;
-+	phys_addr_t base = ALIGN_DOWN(limit - SZ_64, SMP_CACHE_BYTES);
-+	phys_addr_t size = limit - base;
-+	void *allocated_ptr;
-+
-+	PREFIX_PUSH();
-+	setup_memblock();
-+	ASSERT_EQ(memblock_remove(memblock_start_of_DRAM(),
-+				  base - memblock_start_of_DRAM()), 0);
-+
-+	allocated_ptr = memblock_alloc_low(size, SMP_CACHE_BYTES);
-+
-+	ASSERT_NE(allocated_ptr, NULL);
-+	ASSERT_EQ((phys_addr_t)(uintptr_t)allocated_ptr, base);
-+	ASSERT_MEM_EQ(allocated_ptr, 0, size);
-+	ASSERT_EQ(memblock.reserved.regions[0].base, base);
-+	ASSERT_EQ(region_end(&memblock.reserved.regions[0]), limit);
-+	ASSERT_EQ(memblock.reserved.cnt, 1);
-+	ASSERT_EQ(memblock.reserved.total_size, size);
-+
-+	test_pass_pop();
-+	return 0;
-+}
-+
-+/*
-+ * There are size bytes below the limit, but aligning the start makes the
-+ * allocation cross it. Memory above the limit must not satisfy the request.
-+ */
-+static int alloc_low_alignment_crosses_limit_check(void)
-+{
-+	phys_addr_t limit = ARCH_LOW_ADDRESS_LIMIT;
-+	phys_addr_t base = ALIGN_DOWN(limit, SMP_CACHE_BYTES) - 1;
-+	phys_addr_t size = limit - base;
-+	void *allocated_ptr;
-+
-+	PREFIX_PUSH();
-+	setup_memblock();
-+	ASSERT_EQ(memblock_remove(memblock_start_of_DRAM(),
-+				  base - memblock_start_of_DRAM()), 0);
-+
-+	allocated_ptr = memblock_alloc_low(size, SMP_CACHE_BYTES);
-+
-+	ASSERT_EQ(allocated_ptr, NULL);
-+	ASSERT_EQ(memblock.reserved.cnt, 0);
-+	ASSERT_EQ(memblock.reserved.total_size, 0);
-+	ASSERT_MEM_EQ((void *)(uintptr_t)base, 1, memblock_end_of_DRAM() - base);
-+
-+	test_pass_pop();
-+	return 0;
-+}
-+
-+/* Allocation must fail after reserving all low memory, with high memory free. */
-+static int alloc_low_reserved_check(void)
-+{
-+	phys_addr_t limit = ARCH_LOW_ADDRESS_LIMIT;
-+	phys_addr_t base = dummy_physical_memory_base();
-+	phys_addr_t size = SZ_64;
-+	void *allocated_ptr;
-+
-+	PREFIX_PUSH();
-+	setup_memblock();
-+	ASSERT_EQ(memblock_reserve(base, limit - base), 0);
-+
-+	allocated_ptr = memblock_alloc_low(size, SMP_CACHE_BYTES);
-+
-+	ASSERT_EQ(allocated_ptr, NULL);
-+	ASSERT_EQ(memblock.reserved.cnt, 1);
-+	ASSERT_EQ(memblock.reserved.regions[0].base, base);
-+	ASSERT_EQ(memblock.reserved.regions[0].size, limit - base);
-+	ASSERT_EQ(memblock.reserved.total_size, limit - base);
-+	ASSERT_MEM_EQ((void *)(uintptr_t)base, 1, MEM_SIZE);
-+
-+	allocated_ptr = memblock_alloc(size, SMP_CACHE_BYTES);
-+	ASSERT_NE(allocated_ptr, NULL);
-+	ASSERT_LE(limit, (phys_addr_t)(uintptr_t)allocated_ptr);
-+	ASSERT_MEM_EQ(allocated_ptr, 0, size);
-+
-+	test_pass_pop();
-+	return 0;
-+}
-+
-+static int alloc_low_checks(void)
-+{
-+	alloc_low_simple_check();
-+	alloc_low_exact_limit_check();
-+	alloc_low_alignment_crosses_limit_check();
-+	alloc_low_reserved_check();
-+
-+	return 0;
-+}
-+
-+int memblock_alloc_low_checks(void)
-+{
-+	prefix_reset();
-+	prefix_push("memblock_alloc_low");
-+	test_print("Running memblock_alloc_low tests...\n");
-+
-+	reset_memblock_attributes();
-+	dummy_physical_memory_init();
-+
-+	run_top_down(alloc_low_checks);
-+	run_bottom_up(alloc_low_checks);
-+
-+	dummy_physical_memory_cleanup();
-+	prefix_pop();
-+
-+	return 0;
-+}
-diff --git a/tools/testing/memblock/tests/alloc_low_api.h b/tools/testing/memblock/tests/alloc_low_api.h
-new file mode 100644
-index 00000000000..2e3cbe336f5
---- /dev/null
-+++ b/tools/testing/memblock/tests/alloc_low_api.h
-@@ -0,0 +1,9 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+#ifndef _MEMBLOCK_ALLOC_LOW_H
-+#define _MEMBLOCK_ALLOC_LOW_H
-+
-+#include "common.h"
-+
-+int memblock_alloc_low_checks(void);
-+
-+#endif
--- 
-2.55.0
-
+On Fri, Jul 10, 2026 at 12:07=E2=80=AFAM Rosen Penev <rosenp@gmail.com> wro=
+te:
+>
+> The driver uses the legacy .suspend/.resume callbacks, but sets
+> IRQCHIP_MASK_ON_SUSPEND on the irq_chip. During resume, the PM core
+> runs dpm_resume_noirq() first, which calls irq_pm_resume() to unmask
+> interrupts, and only then runs dpm_resume() which invokes the driver's
+> .resume callback to restore GPIO registers (GPIO_IN_POL, GPIO_IO_CONF,
+> mask registers).
+>
+> This ordering means interrupts are unmasked while the hardware is still
+> in its reset state, potentially with incorrect polarities, causing
+> spurious level-triggered interrupts before local IRQs are re-enabled.
+>
+> Convert the driver from legacy .suspend/.resume callbacks to noirq
+> callbacks via dev_pm_ops. The noirq phase runs before resume_device_irqs(=
+)
+> on resume and after suspend_device_irqs() on suspend, ensuring GPIO
+> registers are restored before interrupts are unmasked.
+>
+> Assisted-by: opencode:big-pickle
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  v2: add __maybe_unused to fix compilation
+Should I resend?
+>  drivers/gpio/gpio-mvebu.c | 15 +++++++++------
+>  1 file changed, 9 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpio/gpio-mvebu.c b/drivers/gpio/gpio-mvebu.c
+> index 7094ab34020c..bd31acf779e6 100644
+> --- a/drivers/gpio/gpio-mvebu.c
+> +++ b/drivers/gpio/gpio-mvebu.c
+> @@ -979,9 +979,9 @@ static const struct of_device_id mvebu_gpio_of_match[=
+] =3D {
+>         },
+>  };
+>
+> -static int mvebu_gpio_suspend(struct platform_device *pdev, pm_message_t=
+ state)
+> +static __maybe_unused int mvebu_gpio_suspend(struct device *dev)
+>  {
+> -       struct mvebu_gpio_chip *mvchip =3D platform_get_drvdata(pdev);
+> +       struct mvebu_gpio_chip *mvchip =3D dev_get_drvdata(dev);
+>         int i;
+>
+>         regmap_read(mvchip->regs, GPIO_OUT_OFF + mvchip->offset,
+> @@ -1031,9 +1031,9 @@ static int mvebu_gpio_suspend(struct platform_devic=
+e *pdev, pm_message_t state)
+>         return 0;
+>  }
+>
+> -static int mvebu_gpio_resume(struct platform_device *pdev)
+> +static __maybe_unused int mvebu_gpio_resume(struct device *dev)
+>  {
+> -       struct mvebu_gpio_chip *mvchip =3D platform_get_drvdata(pdev);
+> +       struct mvebu_gpio_chip *mvchip =3D dev_get_drvdata(dev);
+>         int i;
+>
+>         regmap_write(mvchip->regs, GPIO_OUT_OFF + mvchip->offset,
+> @@ -1339,13 +1339,16 @@ static int mvebu_gpio_probe(struct platform_devic=
+e *pdev)
+>         return 0;
+>  }
+>
+> +static const struct dev_pm_ops mvebu_gpio_pm_ops =3D {
+> +       SET_NOIRQ_SYSTEM_SLEEP_PM_OPS(mvebu_gpio_suspend, mvebu_gpio_resu=
+me)
+> +};
+> +
+>  static struct platform_driver mvebu_gpio_driver =3D {
+>         .driver         =3D {
+>                 .name           =3D "mvebu-gpio",
+>                 .of_match_table =3D mvebu_gpio_of_match,
+> +               .pm             =3D pm_sleep_ptr(&mvebu_gpio_pm_ops),
+>         },
+>         .probe          =3D mvebu_gpio_probe,
+> -       .suspend        =3D mvebu_gpio_suspend,
+> -       .resume         =3D mvebu_gpio_resume,
+>  };
+>  builtin_platform_driver(mvebu_gpio_driver);
+> --
+> 2.55.0
+>
