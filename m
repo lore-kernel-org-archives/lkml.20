@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C87B523781
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C8AF523783
 	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 18:12:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788804737; cv=none; b=YYziLzBt2V2Z2iqI1SXz6SN/a5184gq4lEacziPrSBqnSjp81O7TJx/ifNshwvRsgJdUvC3bSXlQc1njjo0qlxQ5uAAR70mkyGEnhj5+aXrypWL1SWSh36LGFNSbl/zD9tF+wy3aqNh60CrhyslI1U34QZkMKDHBED1xC5R9fVU=
+	t=1788804737; cv=none; b=mv5LhOG9LYsk4U4+cDG4SzmKPny0sPTB9ZtDX4rj4VTeKvRn20+gA1sZNJwYpNmFLcdzbvETqdlryd8nfzStjbZPz5hQdgRHHZwnZZ+4RWLFn2SUWBnDcjIhJyrkqt/xE3Joqm3YmKWSIVevxA0DUL5yGC1oQWFjcH62dqyfnXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788804737; c=relaxed/simple;
-	bh=CKnadc+7pWXJlgz4J8xzzvddy/Ve8PJlE6DTq8avhuU=;
+	bh=I+u+i0OhFDYXj2sOqSO0jh8o9wLuzioiM46T0DNhMxY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CJ/oJ/5Luc1OLy8f+FBrqdhCwSBHnJv50XhmF0dB3aCmegMUP48mLgGZfdJyEL6GX5bTJAzQDCUJufkhQk9QQZJxdOlGF7lOkQey9ZHNkQOMGIGcLFRLCqihF5fZ2BDEe5nqOvPsQGhyMWwCFPwQ09c/xHNWjQSzxuwgr0CQgtc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pg9LUZlo; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=lDuAIWBGgG8hSnZ0mu291iQcfQDwT8k4DEmjU3MrCRgy9n7mTB6xQSInPHEDt3SOWHxXXqtFDJRWROIIgVWfSFEHCahdF1kNerK8sroGnRGvcM9vALtnhuXiynPRAL7JgT9WimgB9k8I/TlQIAXTRHAbgDK3iY6Psi8CnmNsD50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kLQ/9gyb; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pg9LUZlo"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3D7ACC2BD01;
-	Mon,  7 Sep 2026 18:12:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kLQ/9gyb"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B5B3CC2BCFF;
+	Mon,  7 Sep 2026 18:12:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788804737;
-	bh=CKnadc+7pWXJlgz4J8xzzvddy/Ve8PJlE6DTq8avhuU=;
+	s=k20201202; t=1788804736;
+	bh=I+u+i0OhFDYXj2sOqSO0jh8o9wLuzioiM46T0DNhMxY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Pg9LUZlohuQ3KwhtKtfYnhOTWDqL0C9cHdWVObXskUDJonNpsGphwSFI9DV96SVma
-	 mi/zgru98Z674Ak08rySE6ghTLnOvbDdtrfoFObjwe7bX9U0aNEwrVLtwpy9W8InxS
-	 eEtjnSCOoct3xMdJr/mjTILWXeOKsydV5ej5tDySUu04mA64JlUbxfBiDNad2QbqfA
-	 S8wqFiB8ounwkKbN/qIDR7ZwporiTWUnlAVq0Ph06J2IcpDryY4k+cXTWXF0Js3nJH
-	 lgBh/HFpRO7dLHqbl8y+B/gfqlqcmv0xj1Qj1sWfJq/tNO/O7/cP8bs10ZnZV9x1r0
-	 foesTlInjm26w==
+	b=kLQ/9gybOIgpNAOdvEuIotJ4XzANmeSDRFv8eKBkyPd0ogwiXBS9Uw4jmdo8RuAZC
+	 GEa1E+xXHN9R4e3eFXi7o9oxGoMjoct9ExxILR6s2SnV8l5SdB9rUyhEY/XPDFFDub
+	 wOOaaGoXLVdZMXu69XIP7cXEWRUxTX3i+KT3GFYmdHrdkcjiu5rTQLdbcFQOscDdBo
+	 d1eVgN0C+YwFgwhusBYTyDmA4Mq2mjZbVJDrfYNDrCxWWJrJ9PiZa9BaBU1y7uub+V
+	 ypYy+YtLF96QNViswrOaqiyOoBpHqkjtJB1tak8phhbBbthpDb8PkAlVJcHsWFKdwi
+	 AHVPg1HrVXYiw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 27046C79FAA;
-	Mon,  7 Sep 2026 18:12:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A0640C79F9F;
+	Mon,  7 Sep 2026 18:12:16 +0000 (UTC)
 From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
-Date: Tue, 08 Sep 2026 02:12:20 +0800
-Subject: [PATCH v4 16/17] mm/huge_memory: count only swap cache refs in
- anon folio split
+Date: Tue, 08 Sep 2026 02:12:15 +0800
+Subject: [PATCH v4 11/17] mm/huge_memory: move filemap management into the
+ file split helper
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-swap-thp-cleanup-v4-16-b532a3f20e71@tencent.com>
+Message-Id: <20260908-swap-thp-cleanup-v4-11-b532a3f20e71@tencent.com>
 References: <20260908-swap-thp-cleanup-v4-0-b532a3f20e71@tencent.com>
 In-Reply-To: <20260908-swap-thp-cleanup-v4-0-b532a3f20e71@tencent.com>
 To: linux-mm@kvack.org
@@ -61,11 +61,11 @@ Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
  Shivam Kalra <shivamkalra98@zohomail.in>, Kairui Song <kasong@tencent.com>, 
  Kairui Song <ryncsn@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788804732; l=4303;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788804732; l=6255;
  i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
- bh=x2XvuBUmjQ9RNkNardz/nbyUAIqiAzW7DbxwXCBxFbw=;
- b=0Gsh+74RbR9mPQw8kiFGdkSNC+du48fBuP6BSEuvvogqBLljdob48chw7eBIYhZ2o7By15fSR
- +JdLUcoRtWQBC2dRnrWTaaESvHKWcD1NTESkgxQ6SsuNAZdHCnkXlus
+ bh=vVlYGjPyxYAYmn821pQL1VWkwmnGIaxktKpsOp5j70I=;
+ b=h4Qkg+uChtRz/caeznumouNlo2l0UEj+Q2LMUaWSS9ZV0h+sAcMuQo9rAMjROhgWQJgv8Dp/G
+ RKH9/kdQNRXCl9ekDK+BxBA1TodPkFP8OKVALZoBywEdV1SKjNB9iXm
 X-Developer-Key: i=kasong@tencent.com; a=ed25519;
  pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
 X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
@@ -75,123 +75,204 @@ Reply-To: kasong@tencent.com
 
 From: Kairui Song <kasong@tencent.com>
 
-Only __folio_freeze_split_anon() sees anon folios and swap cache folios
-now. The file split helper only handles page cache folios, which hold
-exactly folio_nr_pages() references.
+Only file split needs the filemap and xarray handling and related
+variables.  Move them out of __folio_split() into the file helper so
+the helper is self-contained, and simplify the parameters.
 
-Rename folio_cache_ref_count() to folio_swapcache_ref_count() and drop
-the anon check so the helper counts what its name says. The file split
-helper now uses folio_nr_pages() directly.
+No functional change.
 
-No feature change.
-
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Yeoreum Yun <yeoreum.yun@arm.com>
 Signed-off-by: Kairui Song <kasong@tencent.com>
 ---
- mm/huge_memory.c | 35 +++++++++++++++--------------------
- 1 file changed, 15 insertions(+), 20 deletions(-)
+ mm/huge_memory.c | 102 ++++++++++++++++++++++++-------------------------------
+ 1 file changed, 44 insertions(+), 58 deletions(-)
 
 diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index f2862556d715..661b1c747c33 100644
+index 17bd2c053210..c4910c0b6018 100644
 --- a/mm/huge_memory.c
 +++ b/mm/huge_memory.c
-@@ -3989,10 +3989,10 @@ int folio_check_splittable(struct folio *folio, unsigned int new_order,
- 	return 0;
- }
+@@ -4087,16 +4087,42 @@ static int __folio_freeze_split_anon(struct folio *folio,
  
--/* Number of folio references from the pagecache or the swapcache. */
--static unsigned int folio_cache_ref_count(const struct folio *folio)
-+/* Number of folio references from the swapcache. */
-+static unsigned int folio_swapcache_ref_count(const struct folio *folio)
+ static int __folio_freeze_split_file(struct folio *folio,
+ 		unsigned int new_order, struct page *split_at,
+-		struct xa_state *xas, struct address_space *mapping,
+ 		bool do_lru, struct list_head *list,
+ 		enum split_type split_type)
  {
--	if (folio_test_anon(folio) && !folio_test_swapcache(folio))
-+	if (!folio_test_swapcache(folio))
- 		return 0;
- 	return folio_nr_pages(folio);
- }
-@@ -4034,7 +4034,7 @@ static int __folio_freeze_split_anon(struct folio *folio,
- 
- 	local_irq_disable();
- 
--	if (!folio_ref_freeze(folio, folio_cache_ref_count(folio) + 1)) {
-+	if (!folio_ref_freeze(folio, folio_swapcache_ref_count(folio) + 1)) {
- 		ret = -EAGAIN;
- 		goto out_no_split;
- 	}
-@@ -4075,7 +4075,7 @@ static int __folio_freeze_split_anon(struct folio *folio,
- 		next = folio_next(new_folio);
- 		zone_device_private_split_cb(folio, new_folio);
- 		folio_ref_unfreeze(new_folio,
--				   folio_cache_ref_count(new_folio) + 1);
-+				   folio_swapcache_ref_count(new_folio) + 1);
- 		if (do_lru)
- 			lru_add_split_folio(folio, new_folio, lruvec, list);
- 		if (ci)
-@@ -4083,7 +4083,7 @@ static int __folio_freeze_split_anon(struct folio *folio,
- 	}
- 
- 	zone_device_private_split_cb(folio, NULL);
--	folio_ref_unfreeze(folio, folio_cache_ref_count(folio) + 1);
-+	folio_ref_unfreeze(folio, folio_swapcache_ref_count(folio) + 1);
- 
- 	if (do_lru)
- 		lruvec_unlock(lruvec);
-@@ -4112,6 +4112,7 @@ static int __folio_freeze_split_file(struct folio *folio,
- 	struct address_space *mapping = folio->mapping;
- 	XA_STATE(xas, &mapping->i_pages, folio->index);
++	struct address_space *mapping = folio->mapping;
++	XA_STATE(xas, &mapping->i_pages, folio->index);
  	struct folio *end_folio = folio_next(folio);
-+	long old_nr_pages = folio_nr_pages(folio);
- 	struct mem_cgroup *memcg, *old_memcg;
  	struct folio *new_folio, *next;
  	int nr_shmem_dropped = 0;
-@@ -4182,22 +4183,16 @@ static int __folio_freeze_split_file(struct folio *folio,
- 		goto fail;
- 	}
++	unsigned int min_order;
+ 	struct lruvec *lruvec;
+ 	pgoff_t end;
+-	int ret;
++	gfp_t gfp;
++	int ret = 0;
++
++	min_order = mapping_min_folio_order(mapping);
++	if (new_order < min_order)
++		return -EINVAL;
++
++	gfp = current_gfp_context(mapping_gfp_mask(mapping) & GFP_RECLAIM_MASK);
++	if (!filemap_release_folio(folio, gfp))
++		return -EBUSY;
++
++	mapping_set_update(&xas, mapping);
++
++	if (split_type == SPLIT_TYPE_UNIFORM) {
++		int old_order = folio_order(folio);
++
++		xas_set_order(&xas, folio->index, new_order);
++		xas_split_alloc(&xas, folio, old_order, gfp);
++		if (xas_error(&xas)) {
++			ret = xas_error(&xas);
++			goto fail_free;
++		}
++	}
++
++	i_mmap_lock_read(mapping);
  
--	if (!folio_ref_freeze(folio, folio_cache_ref_count(folio) + 1)) {
-+	if (!folio_ref_freeze(folio, old_nr_pages + 1)) {
+ 	/* Currently device private folios can only back anonymous memory. */
+ 	VM_WARN_ON_ONCE_FOLIO(folio_is_device_private(folio), folio);
+@@ -4114,15 +4140,15 @@ static int __folio_freeze_split_file(struct folio *folio,
+ 
+ 	ret = unmap_folio(folio);
+ 	if (ret)
+-		return ret;
++		goto fail_mmap_unlock;
+ 
+-	xas_lock_irq(xas);
++	xas_lock_irq(&xas);
+ 
+ 	/*
+ 	 * Check if the folio is present in page cache.
+ 	 * We assume all tail are present too, if folio is there.
+ 	 */
+-	if (xas_load(xas) != folio) {
++	if (xas_load(&xas) != folio) {
  		ret = -EAGAIN;
  		goto fail;
  	}
+@@ -4149,7 +4175,7 @@ static int __folio_freeze_split_file(struct folio *folio,
+ 	if (do_lru)
+ 		lruvec = folio_lruvec_lock(folio);
  
--	if (folio_test_pmd_mappable(folio) &&
--	    new_order < HPAGE_PMD_ORDER) {
--		int nr = folio_nr_pages(folio);
+-	ret = __split_frozen_folio(folio, new_order, split_at, xas,
++	ret = __split_frozen_folio(folio, new_order, split_at, &xas,
+ 				   mapping, split_type);
+ 
+ 	/*
+@@ -4205,9 +4231,19 @@ static int __folio_freeze_split_file(struct folio *folio,
+ 	 * If we want to use try_to_migrate() on file in unmap_folio,
+ 	 * remember to add remap_folio() and adapt it.
+ 	 */
+-	xas_unlock_irq(xas);
++	xas_unlock_irq(&xas);
++fail_mmap_unlock:
+ 	if (nr_shmem_dropped)
+ 		shmem_uncharge(mapping->host, nr_shmem_dropped);
++	/*
++	 * Drop the mapping while the inode is still pinned. @folio stays
++	 * locked and present in the page cache, so eviction cannot free
++	 * the inode yet, nothing past this point may touch the inode or
++	 * the mapping.
++	 */
++	i_mmap_unlock_read(mapping);
++fail_free:
++	xas_destroy(&xas);
+ 	return ret;
+ }
+ 
+@@ -4236,11 +4272,9 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+ 		struct page *split_at, struct page *lock_at,
+ 		struct list_head *list, enum split_type split_type)
+ {
+-	XA_STATE(xas, &folio->mapping->i_pages, folio->index);
+ 	struct folio *end_folio = folio_next(folio);
+ 	bool is_anon = folio_test_anon(folio);
+ 	struct mem_cgroup *memcg, *old_memcg;
+-	struct address_space *mapping = NULL;
+ 	struct anon_vma *anon_vma = NULL;
+ 	int old_order = folio_order(folio);
+ 	struct folio *new_folio, *next;
+@@ -4287,60 +4321,15 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+ 			goto out;
+ 		}
+ 		anon_vma_lock_write(anon_vma);
+-		mapping = NULL;
+-	} else {
+-		unsigned int min_order;
+-		gfp_t gfp;
 -
--		if (folio_test_swapbacked(folio)) {
--			lruvec_stat_mod_folio(folio,
--					      NR_SHMEM_THPS, -nr);
--		} else {
--			lruvec_stat_mod_folio(folio,
--					      NR_FILE_THPS, -nr);
+-		mapping = folio->mapping;
+-		min_order = mapping_min_folio_order(mapping);
+-		if (new_order < min_order) {
+-			ret = -EINVAL;
+-			goto out;
 -		}
-+	if (folio_test_pmd_mappable(folio) && new_order < HPAGE_PMD_ORDER) {
-+		if (folio_test_swapbacked(folio))
-+			lruvec_stat_mod_folio(folio, NR_SHMEM_THPS, -old_nr_pages);
-+		else
-+			lruvec_stat_mod_folio(folio, NR_FILE_THPS, -old_nr_pages);
+-
+-		gfp = current_gfp_context(mapping_gfp_mask(mapping) &
+-							GFP_RECLAIM_MASK);
+-
+-		if (!filemap_release_folio(folio, gfp)) {
+-			ret = -EBUSY;
+-			goto out;
+-		}
+-
+-		mapping_set_update(&xas, mapping);
+-
+-		if (split_type == SPLIT_TYPE_UNIFORM) {
+-			xas_set_order(&xas, folio->index, new_order);
+-			xas_split_alloc(&xas, folio, old_order, gfp);
+-			if (xas_error(&xas)) {
+-				ret = xas_error(&xas);
+-				goto out;
+-			}
+-		}
+-
+-		anon_vma = NULL;
+-		i_mmap_lock_read(mapping);
  	}
  
- 	/* lock lru list/PageCompound, ref frozen by page_ref_freeze */
-@@ -4221,7 +4216,7 @@ static int __folio_freeze_split_file(struct folio *folio,
- 		next = folio_next(new_folio);
+ 	if (is_anon)
+ 		ret = __folio_freeze_split_anon(folio, new_order, split_at,
+ 						true, list, split_type);
+ 	else
+-		ret = __folio_freeze_split_file(folio, new_order, split_at, &xas, mapping,
++		ret = __folio_freeze_split_file(folio, new_order, split_at,
+ 						true, list, split_type);
  
- 		folio_ref_unfreeze(new_folio,
--				   folio_cache_ref_count(new_folio) + 1);
-+				   folio_nr_pages(new_folio) + 1);
- 
- 		lru_add_split_folio(folio, new_folio, lruvec, list);
- 
-@@ -4248,7 +4243,7 @@ static int __folio_freeze_split_file(struct folio *folio,
- 	 * Otherwise, a parallel folio_try_get() can grab @folio
- 	 * and its caller can see stale page cache entries.
- 	 */
--	folio_ref_unfreeze(folio, folio_cache_ref_count(folio) + 1);
-+	folio_ref_unfreeze(folio, folio_nr_pages(folio) + 1);
- 	lruvec_unlock(lruvec);
- fail:
+-	/*
+-	 * Drop the mapping while the inode is still pinned. @folio stays
+-	 * locked and present in the page cache until the loop below, so
+-	 * eviction cannot free the inode yet; @lock_at is not enough, it may
+-	 * be a tail beyond EOF that the split already dropped from the page
+-	 * cache. Nothing past this point may touch the inode or the mapping.
+-	 */
+-	if (mapping) {
+-		i_mmap_unlock_read(mapping);
+-		mapping = NULL;
+-	}
+-
  	/*
+ 	 * Unlock all after-split folios except the one containing
+ 	 * @lock_at page. If @folio is not split, it will be kept locked.
+@@ -4364,14 +4353,11 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+ 		anon_vma_unlock_write(anon_vma);
+ 		put_anon_vma(anon_vma);
+ 	}
+-	if (mapping)
+-		i_mmap_unlock_read(mapping);
+ out:
+ 	/* restore to caller's old_memcg */
+ 	set_active_memcg(old_memcg);
+ 	mem_cgroup_put(memcg);
+ out_no_memcg:
+-	xas_destroy(&xas);
+ 	if (is_pmd_order(old_order))
+ 		count_vm_event(!ret ? THP_SPLIT_PAGE : THP_SPLIT_PAGE_FAILED);
+ 	count_mthp_stat(old_order, !ret ? MTHP_STAT_SPLIT : MTHP_STAT_SPLIT_FAILED);
 
 -- 
 2.55.0
