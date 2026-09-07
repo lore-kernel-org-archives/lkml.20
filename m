@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA20751FCAD
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:40:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A395E519914
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:40:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788799257; cv=none; b=emJqgcuq2trO3e0KpROas97VdEAoeEZTAx88ckW8BQsdK0ekteWebIW73puamcN8/nk0inaB+jqwEIyq1veb0hWzRlREcp6IHBXKdmop7w88NZff5rpr7EqEV1Dp+TALlDnQHYSylksW4PwRpq8d3n9jo24RaqbfgeOWZXFlQis=
+	t=1788799259; cv=none; b=sjhvdeVAMfDZs1SX8lgaoXyNpXO8N844HS/ADMjMcCVlvgSE/o8ngNCEOEhg3RZxT284VhgD7yw891YXUiLJov0G5gkP7yVMnfD5EZvPJSJsYCjjPMnkFRp/BVV02iYdY/kEO5ZOm0ky072qE+uk10cFlNzFCRQU6jSnHsIXNAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788799257; c=relaxed/simple;
-	bh=unB9HLg/A52hjV9RXAp9bO5R7C9p4LOr3SHaG1NcH4U=;
+	s=arc-20240116; t=1788799259; c=relaxed/simple;
+	bh=Cbo7edR0u4Ntl50z+0N6x5hHPp6wTLUe5ca/xMW2TRI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nMWUGD/ke0DqhgWR46l2OuVKLYNGcxED+BAb9EAcXtDHb2NGx0A+UkQ+W3J7r6nYYAlEr2KRlmlFstmVHdfP9FV1vju1fYrCzTT128FSZwGmx1B2IiR4UJQbkLW09KKZar1BHTQdXgT0otBgAK8HuQT2Ac/FJcwU2JycIf/mbkc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CxoXJiCk; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ijxVvLpEpYpKJSceOIxD7Kzlw/NhLYD0X5LsVYNX64Oye2gcj7tbY3nDRtTV/WlrrqOaMBYOW5T0YzZ7rry4FsDn/xeredgB9nZfFcYbWBqQaQXV00ICb4I+FA5j/KNDllSHYhMC2wqciCR10G383ebMLHVCy8KkWjbQhnyOSYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BhUr78NX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CxoXJiCk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E69981F00A3D;
-	Mon,  7 Sep 2026 16:40:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BhUr78NX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E66F31F00A3A;
+	Mon,  7 Sep 2026 16:40:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788799255;
-	bh=puRxUS2/XAPl8zTD4NIPKVxwBIteg8DAERZVvuIbp4I=;
+	s=k20260515; t=1788799258;
+	bh=sUkfRfE9yNyBzalxMx3/89AuUQW9k7kD7LJuIN09w18=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CxoXJiCk9jy52gzQo1fE0/EPtcgByPb2aekDRwGXIUBCStgxq0xf039Huc/1cqpZ/
-	 YdXujKVw/hqR8aIgKejJbvd7qFGnEL++OUIe/88ADEB2AOMdHiMhZKxXzkOTqXd5Tz
-	 D6gsZ8VrZ0wht8v2ko5b4tDabq6dTf9py7C9V3OGkKNjyYE38NyXYf0utw3mwJNLnT
-	 hH9yGQcAJaBZRjFmGuoAB+8SIUnDp32kyY0QvSMXRewnGqdNdvfqm66J6F+DhSIvIp
-	 JlZnBaeK5TUm6kXgbrtk2w31qKGRCfBMUaOhX8Iean3Ry5jL53uXo6LLqS2ihoDgmD
-	 W7ErQ0s2ac3vQ==
+	b=BhUr78NXijbJVLVkM69gB/h8NgBlzzcHr8oX4s2y3NPVMtU3IAVjR5zEPMg2NNDCg
+	 2yDO+i3ySKuMyaNqrgNny+n7QrhcmIFNXN641mG2UkkLLZg75XjHHvVVQ03+9MpvZF
+	 33Hl4vWCHOGExdmjdhl0l/FtPRGEwfd8XCHEBUYshKk+WwfhpoUgFX8savPgljwh38
+	 PjvMvAGvblRyQg8huBMuQ78dK0uVDAXHpAFIFdMxUoNpzEcNjp92E+pjXRKA3+tqvZ
+	 O10M0mhQum9kPN/+iCPjSmtCfm4lOhGfCTqj/nAw/RAM0FTqSoBeHzgjyvwpR1Reol
+	 ItzJNfDrIeqtw==
 From: Will Deacon <will@kernel.org>
 To: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org,
@@ -39,9 +39,9 @@ Cc: linux-kernel@vger.kernel.org,
 	David Woodhouse <dwmw@amazon.co.uk>,
 	Peter Zijlstra <peterz@infradead.org>,
 	Marc Zyngier <maz@kernel.org>
-Subject: [PATCH 07/19] arm64: smp: Defer update of secondary CPU capabilities
-Date: Mon,  7 Sep 2026 17:40:10 +0100
-Message-ID: <20260907164024.17164-8-will@kernel.org>
+Subject: [PATCH 08/19] arm64: smp: Don't bother printing the I-cache policy for each CPU
+Date: Mon,  7 Sep 2026 17:40:11 +0100
+Message-ID: <20260907164024.17164-9-will@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260907164024.17164-1-will@kernel.org>
 References: <20260907164024.17164-1-will@kernel.org>
@@ -53,356 +53,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-check_local_cpu_capabilities() runs relatively early during the boot of
-each secondary CPU and, despite its name, calls update_cpu_capabilities()
-to manipulate the global 'system_cpucaps' based on the features detected
-by the incoming CPU.
+The I-cache policy isn't particularly interesting but printing it early
+can result in unnecessary serialisation of onlining CPUs.
 
-In preparation for parallel bringup of secondary CPUs, move the call
-to update_cpu_capabilities() into update_cpu_features(), allowing
-check_local_cpu_capabilities() to run concurrently in future, as it now
-only performs local verification of the incoming CPU.
+Remove the pointless print.
 
 Signed-off-by: Will Deacon <will@kernel.org>
 ---
- arch/arm64/kernel/cpufeature.c | 311 +++++++++++++++++----------------
- 1 file changed, 157 insertions(+), 154 deletions(-)
+ arch/arm64/kernel/cpuinfo.c | 16 ----------------
+ 1 file changed, 16 deletions(-)
 
-diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
-index 33279a264145..fadc36cdff99 100644
---- a/arch/arm64/kernel/cpufeature.c
-+++ b/arch/arm64/kernel/cpufeature.c
-@@ -1408,156 +1408,6 @@ static int update_32bit_cpu_features(int cpu, struct cpuinfo_32bit *info,
- 	return taint;
- }
- 
--/*
-- * Update system wide CPU feature registers with the values from a
-- * non-boot CPU. Also performs SANITY checks to make sure that there
-- * aren't any insane variations from that of the boot CPU.
-- */
--void update_cpu_features(int cpu)
+diff --git a/arch/arm64/kernel/cpuinfo.c b/arch/arm64/kernel/cpuinfo.c
+index b423301a13cc..6dbea3a8bb23 100644
+--- a/arch/arm64/kernel/cpuinfo.c
++++ b/arch/arm64/kernel/cpuinfo.c
+@@ -31,19 +31,6 @@
+  * values depending on configuration at or after reset.
+  */
+ DEFINE_PER_CPU(struct cpuinfo_arm64, cpu_data);
+-
+-static inline const char *icache_policy_str(int l1ip)
 -{
--	struct cpuinfo_arm64 *boot, *info;
--	int taint = 0;
--
--	boot = &boot_cpu_data;
--	info = per_cpu_ptr(&cpu_data, cpu);
--
--	/*
--	 * The kernel can handle differing I-cache policies, but otherwise
--	 * caches should look identical. Userspace JITs will make use of
--	 * *minLine.
--	 */
--	taint |= check_update_ftr_reg(SYS_CTR_EL0, cpu,
--				      info->reg_ctr, boot->reg_ctr);
--
--	/*
--	 * Userspace may perform DC ZVA instructions. Mismatched block sizes
--	 * could result in too much or too little memory being zeroed if a
--	 * process is preempted and migrated between CPUs.
--	 */
--	taint |= check_update_ftr_reg(SYS_DCZID_EL0, cpu,
--				      info->reg_dczid, boot->reg_dczid);
--
--	/* If different, timekeeping will be broken (especially with KVM) */
--	taint |= check_update_ftr_reg(SYS_CNTFRQ_EL0, cpu,
--				      info->reg_cntfrq, boot->reg_cntfrq);
--
--	/*
--	 * The kernel uses self-hosted debug features and expects CPUs to
--	 * support identical debug features. We presently need CTX_CMPs, WRPs,
--	 * and BRPs to be identical.
--	 * ID_AA64DFR1 is currently RES0.
--	 */
--	taint |= check_update_ftr_reg(SYS_ID_AA64DFR0_EL1, cpu,
--				      info->reg_id_aa64dfr0, boot->reg_id_aa64dfr0);
--	taint |= check_update_ftr_reg(SYS_ID_AA64DFR1_EL1, cpu,
--				      info->reg_id_aa64dfr1, boot->reg_id_aa64dfr1);
--	/*
--	 * Even in big.LITTLE, processors should be identical instruction-set
--	 * wise.
--	 */
--	taint |= check_update_ftr_reg(SYS_ID_AA64ISAR0_EL1, cpu,
--				      info->reg_id_aa64isar0, boot->reg_id_aa64isar0);
--	taint |= check_update_ftr_reg(SYS_ID_AA64ISAR1_EL1, cpu,
--				      info->reg_id_aa64isar1, boot->reg_id_aa64isar1);
--	taint |= check_update_ftr_reg(SYS_ID_AA64ISAR2_EL1, cpu,
--				      info->reg_id_aa64isar2, boot->reg_id_aa64isar2);
--	taint |= check_update_ftr_reg(SYS_ID_AA64ISAR3_EL1, cpu,
--				      info->reg_id_aa64isar3, boot->reg_id_aa64isar3);
--
--	/*
--	 * Differing PARange support is fine as long as all peripherals and
--	 * memory are mapped within the minimum PARange of all CPUs.
--	 * Linux should not care about secure memory.
--	 */
--	taint |= check_update_ftr_reg(SYS_ID_AA64MMFR0_EL1, cpu,
--				      info->reg_id_aa64mmfr0, boot->reg_id_aa64mmfr0);
--	taint |= check_update_ftr_reg(SYS_ID_AA64MMFR1_EL1, cpu,
--				      info->reg_id_aa64mmfr1, boot->reg_id_aa64mmfr1);
--	taint |= check_update_ftr_reg(SYS_ID_AA64MMFR2_EL1, cpu,
--				      info->reg_id_aa64mmfr2, boot->reg_id_aa64mmfr2);
--	taint |= check_update_ftr_reg(SYS_ID_AA64MMFR3_EL1, cpu,
--				      info->reg_id_aa64mmfr3, boot->reg_id_aa64mmfr3);
--	taint |= check_update_ftr_reg(SYS_ID_AA64MMFR4_EL1, cpu,
--				      info->reg_id_aa64mmfr4, boot->reg_id_aa64mmfr4);
--
--	taint |= check_update_ftr_reg(SYS_ID_AA64PFR0_EL1, cpu,
--				      info->reg_id_aa64pfr0, boot->reg_id_aa64pfr0);
--	taint |= check_update_ftr_reg(SYS_ID_AA64PFR1_EL1, cpu,
--				      info->reg_id_aa64pfr1, boot->reg_id_aa64pfr1);
--	taint |= check_update_ftr_reg(SYS_ID_AA64PFR2_EL1, cpu,
--				      info->reg_id_aa64pfr2, boot->reg_id_aa64pfr2);
--
--	taint |= check_update_ftr_reg(SYS_ID_AA64ZFR0_EL1, cpu,
--				      info->reg_id_aa64zfr0, boot->reg_id_aa64zfr0);
--
--	taint |= check_update_ftr_reg(SYS_ID_AA64SMFR0_EL1, cpu,
--				      info->reg_id_aa64smfr0, boot->reg_id_aa64smfr0);
--
--	taint |= check_update_ftr_reg(SYS_ID_AA64FPFR0_EL1, cpu,
--				      info->reg_id_aa64fpfr0, boot->reg_id_aa64fpfr0);
--
--	/* Probe vector lengths */
--	if (IS_ENABLED(CONFIG_ARM64_SVE) &&
--	    id_aa64pfr0_sve(read_sanitised_ftr_reg(SYS_ID_AA64PFR0_EL1))) {
--		if (!system_capabilities_finalized()) {
--			unsigned long cpacr = cpacr_save_enable_kernel_sve();
--
--			vec_update_vq_map(ARM64_VEC_SVE);
--
--			cpacr_restore(cpacr);
--		}
--	}
--
--	if (IS_ENABLED(CONFIG_ARM64_SME) &&
--	    id_aa64pfr1_sme(read_sanitised_ftr_reg(SYS_ID_AA64PFR1_EL1))) {
--		unsigned long cpacr = cpacr_save_enable_kernel_sme();
--
--		/* Probe vector lengths */
--		if (!system_capabilities_finalized())
--			vec_update_vq_map(ARM64_VEC_SME);
--
--		cpacr_restore(cpacr);
--	}
--
--	if (detect_ftr_has_mpam()) {
--		info->reg_mpamidr = read_cpuid(MPAMIDR_EL1);
--		taint |= check_update_ftr_reg(SYS_MPAMIDR_EL1, cpu,
--					info->reg_mpamidr, boot->reg_mpamidr);
--	}
--
--	/*
--	 * The kernel uses the LDGM/STGM instructions and the number of tags
--	 * they read/write depends on the GMID_EL1.BS field. Check that the
--	 * value is the same on all CPUs.
--	 */
--	if (gmid_el1_accessible(info))
--		taint |= check_update_ftr_reg(SYS_GMID_EL1, cpu,
--					      info->reg_gmid, boot->reg_gmid);
--
--	/*
--	 * If we don't have AArch32 at all then skip the checks entirely
--	 * as the register values may be UNKNOWN and we're not going to be
--	 * using them for anything.
--	 *
--	 * This relies on a sanitised view of the AArch64 ID registers
--	 * (e.g. SYS_ID_AA64PFR0_EL1), so we call it last.
--	 */
--	if (id_aa64pfr0_32bit_el0(info->reg_id_aa64pfr0)) {
--		lazy_init_32bit_cpu_features(info, boot);
--		taint |= update_32bit_cpu_features(cpu, &info->aarch32,
--						   &boot->aarch32);
--	}
--
--	/*
--	 * Mismatched CPU features are a recipe for disaster. Don't even
--	 * pretend to support them.
--	 */
--	if (taint) {
--		pr_warn_once("Unsupported CPU feature variation detected.\n");
--		add_taint(TAINT_CPU_OUT_OF_SPEC, LOCKDEP_STILL_OK);
+-	switch (l1ip) {
+-	case CTR_EL0_L1Ip_VIPT:
+-		return "VIPT";
+-	case CTR_EL0_L1Ip_PIPT:
+-		return "PIPT";
+-	default:
+-		return "RESERVED/UNKNOWN";
 -	}
 -}
 -
- u64 read_sanitised_ftr_reg(u32 id)
- {
- 	struct arm64_ftr_reg *regp = get_arm64_ftr_reg(id);
-@@ -3902,16 +3752,169 @@ void check_local_cpu_capabilities(void)
- 	 */
- 	check_early_cpu_features();
+ unsigned long __icache_flags;
  
-+	/*
-+	 * Verify that this CPU has all the system advertised
-+	 * capabilities.
-+	 */
-+	if (system_capabilities_finalized())
-+		verify_local_cpu_capabilities();
-+}
-+
-+/*
-+ * Update system wide CPU feature registers with the values from a
-+ * non-boot CPU. Also performs SANITY checks to make sure that there
-+ * aren't any insane variations from that of the boot CPU.
-+ */
-+void update_cpu_features(int cpu)
-+{
-+	struct cpuinfo_arm64 *boot, *info;
-+	int taint = 0;
-+
- 	/*
- 	 * If we haven't finalised the system capabilities, this CPU gets
- 	 * a chance to update the errata work arounds and local features.
--	 * Otherwise, this CPU should verify that it has all the system
--	 * advertised capabilities.
- 	 */
- 	if (!system_capabilities_finalized())
- 		update_cpu_capabilities(SCOPE_LOCAL_CPU);
--	else
--		verify_local_cpu_capabilities();
-+
-+	boot = &boot_cpu_data;
-+	info = per_cpu_ptr(&cpu_data, cpu);
-+
-+	/*
-+	 * The kernel can handle differing I-cache policies, but otherwise
-+	 * caches should look identical. Userspace JITs will make use of
-+	 * *minLine.
-+	 */
-+	taint |= check_update_ftr_reg(SYS_CTR_EL0, cpu,
-+				      info->reg_ctr, boot->reg_ctr);
-+
-+	/*
-+	 * Userspace may perform DC ZVA instructions. Mismatched block sizes
-+	 * could result in too much or too little memory being zeroed if a
-+	 * process is preempted and migrated between CPUs.
-+	 */
-+	taint |= check_update_ftr_reg(SYS_DCZID_EL0, cpu,
-+				      info->reg_dczid, boot->reg_dczid);
-+
-+	/* If different, timekeeping will be broken (especially with KVM) */
-+	taint |= check_update_ftr_reg(SYS_CNTFRQ_EL0, cpu,
-+				      info->reg_cntfrq, boot->reg_cntfrq);
-+
-+	/*
-+	 * The kernel uses self-hosted debug features and expects CPUs to
-+	 * support identical debug features. We presently need CTX_CMPs, WRPs,
-+	 * and BRPs to be identical.
-+	 * ID_AA64DFR1 is currently RES0.
-+	 */
-+	taint |= check_update_ftr_reg(SYS_ID_AA64DFR0_EL1, cpu,
-+				      info->reg_id_aa64dfr0, boot->reg_id_aa64dfr0);
-+	taint |= check_update_ftr_reg(SYS_ID_AA64DFR1_EL1, cpu,
-+				      info->reg_id_aa64dfr1, boot->reg_id_aa64dfr1);
-+	/*
-+	 * Even in big.LITTLE, processors should be identical instruction-set
-+	 * wise.
-+	 */
-+	taint |= check_update_ftr_reg(SYS_ID_AA64ISAR0_EL1, cpu,
-+				      info->reg_id_aa64isar0, boot->reg_id_aa64isar0);
-+	taint |= check_update_ftr_reg(SYS_ID_AA64ISAR1_EL1, cpu,
-+				      info->reg_id_aa64isar1, boot->reg_id_aa64isar1);
-+	taint |= check_update_ftr_reg(SYS_ID_AA64ISAR2_EL1, cpu,
-+				      info->reg_id_aa64isar2, boot->reg_id_aa64isar2);
-+	taint |= check_update_ftr_reg(SYS_ID_AA64ISAR3_EL1, cpu,
-+				      info->reg_id_aa64isar3, boot->reg_id_aa64isar3);
-+
-+	/*
-+	 * Differing PARange support is fine as long as all peripherals and
-+	 * memory are mapped within the minimum PARange of all CPUs.
-+	 * Linux should not care about secure memory.
-+	 */
-+	taint |= check_update_ftr_reg(SYS_ID_AA64MMFR0_EL1, cpu,
-+				      info->reg_id_aa64mmfr0, boot->reg_id_aa64mmfr0);
-+	taint |= check_update_ftr_reg(SYS_ID_AA64MMFR1_EL1, cpu,
-+				      info->reg_id_aa64mmfr1, boot->reg_id_aa64mmfr1);
-+	taint |= check_update_ftr_reg(SYS_ID_AA64MMFR2_EL1, cpu,
-+				      info->reg_id_aa64mmfr2, boot->reg_id_aa64mmfr2);
-+	taint |= check_update_ftr_reg(SYS_ID_AA64MMFR3_EL1, cpu,
-+				      info->reg_id_aa64mmfr3, boot->reg_id_aa64mmfr3);
-+	taint |= check_update_ftr_reg(SYS_ID_AA64MMFR4_EL1, cpu,
-+				      info->reg_id_aa64mmfr4, boot->reg_id_aa64mmfr4);
-+
-+	taint |= check_update_ftr_reg(SYS_ID_AA64PFR0_EL1, cpu,
-+				      info->reg_id_aa64pfr0, boot->reg_id_aa64pfr0);
-+	taint |= check_update_ftr_reg(SYS_ID_AA64PFR1_EL1, cpu,
-+				      info->reg_id_aa64pfr1, boot->reg_id_aa64pfr1);
-+	taint |= check_update_ftr_reg(SYS_ID_AA64PFR2_EL1, cpu,
-+				      info->reg_id_aa64pfr2, boot->reg_id_aa64pfr2);
-+
-+	taint |= check_update_ftr_reg(SYS_ID_AA64ZFR0_EL1, cpu,
-+				      info->reg_id_aa64zfr0, boot->reg_id_aa64zfr0);
-+
-+	taint |= check_update_ftr_reg(SYS_ID_AA64SMFR0_EL1, cpu,
-+				      info->reg_id_aa64smfr0, boot->reg_id_aa64smfr0);
-+
-+	taint |= check_update_ftr_reg(SYS_ID_AA64FPFR0_EL1, cpu,
-+				      info->reg_id_aa64fpfr0, boot->reg_id_aa64fpfr0);
-+
-+	/* Probe vector lengths */
-+	if (IS_ENABLED(CONFIG_ARM64_SVE) &&
-+	    id_aa64pfr0_sve(read_sanitised_ftr_reg(SYS_ID_AA64PFR0_EL1))) {
-+		if (!system_capabilities_finalized()) {
-+			unsigned long cpacr = cpacr_save_enable_kernel_sve();
-+
-+			vec_update_vq_map(ARM64_VEC_SVE);
-+
-+			cpacr_restore(cpacr);
-+		}
-+	}
-+
-+	if (IS_ENABLED(CONFIG_ARM64_SME) &&
-+	    id_aa64pfr1_sme(read_sanitised_ftr_reg(SYS_ID_AA64PFR1_EL1))) {
-+		unsigned long cpacr = cpacr_save_enable_kernel_sme();
-+
-+		/* Probe vector lengths */
-+		if (!system_capabilities_finalized())
-+			vec_update_vq_map(ARM64_VEC_SME);
-+
-+		cpacr_restore(cpacr);
-+	}
-+
-+	if (detect_ftr_has_mpam()) {
-+		info->reg_mpamidr = read_cpuid(MPAMIDR_EL1);
-+		taint |= check_update_ftr_reg(SYS_MPAMIDR_EL1, cpu,
-+					info->reg_mpamidr, boot->reg_mpamidr);
-+	}
-+
-+	/*
-+	 * The kernel uses the LDGM/STGM instructions and the number of tags
-+	 * they read/write depends on the GMID_EL1.BS field. Check that the
-+	 * value is the same on all CPUs.
-+	 */
-+	if (gmid_el1_accessible(info))
-+		taint |= check_update_ftr_reg(SYS_GMID_EL1, cpu,
-+					      info->reg_gmid, boot->reg_gmid);
-+
-+	/*
-+	 * If we don't have AArch32 at all then skip the checks entirely
-+	 * as the register values may be UNKNOWN and we're not going to be
-+	 * using them for anything.
-+	 *
-+	 * This relies on a sanitised view of the AArch64 ID registers
-+	 * (e.g. SYS_ID_AA64PFR0_EL1), so we call it last.
-+	 */
-+	if (id_aa64pfr0_32bit_el0(info->reg_id_aa64pfr0)) {
-+		lazy_init_32bit_cpu_features(info, boot);
-+		taint |= update_32bit_cpu_features(cpu, &info->aarch32,
-+						   &boot->aarch32);
-+	}
-+
-+	/*
-+	 * Mismatched CPU features are a recipe for disaster. Don't even
-+	 * pretend to support them.
-+	 */
-+	if (taint) {
-+		pr_warn_once("Unsupported CPU feature variation detected.\n");
-+		add_taint(TAINT_CPU_OUT_OF_SPEC, LOCKDEP_STILL_OK);
-+	}
+ static const char *const hwcap_str[] = {
+@@ -424,7 +411,6 @@ device_initcall(cpuinfo_regs_init);
+ 
+ static void cpuinfo_detect_icache_policy(struct cpuinfo_arm64 *info)
+ {
+-	unsigned int cpu = smp_processor_id();
+ 	u32 l1ip = CTR_L1IP(info->reg_ctr);
+ 
+ 	switch (l1ip) {
+@@ -436,8 +422,6 @@ static void cpuinfo_detect_icache_policy(struct cpuinfo_arm64 *info)
+ 		set_bit(ICACHEF_ALIASING, &__icache_flags);
+ 		break;
+ 	}
+-
+-	pr_info("Detected %s I-cache on CPU%d\n", icache_policy_str(l1ip), cpu);
  }
  
- bool this_cpu_has_cap(unsigned int n)
+ static void __cpuinfo_store_cpu_32bit(struct cpuinfo_32bit *info)
 -- 
 2.55.0.979.g7e5102b832-goog
 
