@@ -1,119 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AE6E31197C;
-	Mon,  7 Sep 2026 14:01:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A28704EC646
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:02:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788789699; cv=none; b=XddrIWlXO5GEq4c/T3LLlVMiTWNN+SjiksfsAFz4TtITNuF3HcKBoNpwgQ66a/PY/nJsMSz5xytUGxhzSDVEb1EL2X4N6BzBv256qArE+jsKJtgcOZLIcw7SCVXN6pGDmo8PzOm4gI/uf0glynb1nEKSbMh2B599k7dFmss6MMg=
+	t=1788789731; cv=none; b=kLyCBDwW97YuMI+6DeV+guXmpMqDAIT/1xaJNC6Wk3nM/PuXQipYQ8WTHuy2drVwAt37i3q7GiIuoz/hMZPWEdPfqPBynU5URdsWrAha0n0w4sdo+B2yhXVTmE+aJjt8YdE7cYrIGi6k0tjV/8hK4HeWYg6YysLHknEICkdq+K4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788789699; c=relaxed/simple;
-	bh=7kJIDjYW8q33BgxlHYzic8uH2Wmk+MD3jfErTIt51hA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VFwi3e4eY10h6FENDdfJOD8lv5Ur9LtRT2aRMieXFyZdk1b0gQYz8VwpuVX+jD17cacEL3uzRnqVeJuw3YBHLXJi6KXb/U9Jq1J8AukyKq+3rS6p3wENnnn+saZ37wOkTe6MaFc6hzI3LnYZgsnL5TBeHgU92zYXkikDunMlN14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gZDItgF5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788789731; c=relaxed/simple;
+	bh=oA/AdAjxhNjtwc1Lrk6qquh95AYfGVwGHutvBnoLC6U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oj8mr+U+m+8B9yXT7A/TPGiAKOoZPWfy9Q2oNsHzJuWJwvrWbz453URgADKeHMdduusHR0JOrsV1t3q3FRW6vBqppuw4/HvD4UKzGlLpe+nBUuN4jiaAVUThDwjBf4G62f5OXDD4GIQdLg0bjMdSVvk+Qvhwv9De0ObLR3dOCjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Ns5v0J2Y; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gZDItgF5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52E131F00A3D;
-	Mon,  7 Sep 2026 14:01:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788789697;
-	bh=CT/PRZLhit2fRIl3/YwuJ8bKg1BMJtfb23DmTmMzVEM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gZDItgF5lu7ObJAVqpHDntSxEo5tnQSW97w+OS3wzeszJHbYiCLfnRHHpSFXM9pSd
-	 agr+j+4sQa8+BXS0SCLYyA5/yGk6soH2cY4y44jMqgxnRDm5+u0+B7HQHKCwPu9YgP
-	 OwwBtmiqO9gxxGTzNrEIn+8/do2+xJw6XuCOFijbQ7nS61OMGxNQ2o/Vp+amWYf8zV
-	 p/tXJKpLX7czlW1NVpT5cOKHcnUrynpMW7OxkgfmCIIUsjrqbPA53GwVtjOiG8QcYS
-	 I0Q+7FlF/WKakyEpCFfKJ7oe1btbCA7Km89/UDdOpKf1uIEI0XBsirEGbFRHzkmjmN
-	 3cK2HvEfdSQHA==
-Date: Mon, 7 Sep 2026 15:01:30 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
-Cc: david@kernel.org, akpm@linux-foundation.org, andrii@kernel.org, 
-	ast@kernel.org, bpf@vger.kernel.org, brauner@kernel.org, daniel@iogearbox.net, 
-	eddyz87@gmail.com, kpsingh@kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, matt@bobrowski.net, memxor@gmail.com, 
-	song@kernel.org, sun.jian.kdev@gmail.com, utilityemal77@gmail.com, 
-	viro@zeniv.linux.org.uk
-Subject: Re: [PATCH bpf-next v4 1/7] mm: Add copy_remote_mm_str()
-Message-ID: <ap7CocZyy6K9QYMp@gremlin>
-References: <0e4edfd3-0c82-42e0-ad09-19ff8b8d1511@kernel.org>
- <20260907134101.424017-1-tasos.papagiannnis@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Ns5v0J2Y"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 06DCB1476;
+	Mon,  7 Sep 2026 07:02:05 -0700 (PDT)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C3DD53F528;
+	Mon,  7 Sep 2026 07:02:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788789728; bh=oA/AdAjxhNjtwc1Lrk6qquh95AYfGVwGHutvBnoLC6U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Ns5v0J2YvGYVoHRTTsZV9OtLrblHHZXXcaeylCj9DLtSNjaRqhaCUdWovQP79SbRT
+	 ftFJxhipFotB29XIARYbwnVQf1IwOy/WTZ+cjn64T66fYIYvWATsoPofR+PtYHKDib
+	 jav3MKmIaL6WIymr/t7JA6LQpqnptjVU+PSUj0JU=
+Message-ID: <3e93f413-2d51-4647-bda4-f1aad6ad1820@arm.com>
+Date: Mon, 7 Sep 2026 15:02:06 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907134101.424017-1-tasos.papagiannnis@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm_mpam: Only schedule mpam_enable work after first
+ successful MSC probe
+To: "ping.li" <leeonion.muyu@gmail.com>, james.morse@arm.com
+Cc: linux-kernel@vger.kernel.org, reinette.chatre@intel.com,
+ fenghuay@nvidia.com, "ping.li" <ping.li@horizon.auto>
+References: <20260818130646.663778-1-ping.li@horizon.auto_quarantine>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20260818130646.663778-1-ping.li@horizon.auto_quarantine>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 07, 2026 at 04:41:01PM +0300, Anastasios Papagiannis wrote:
-> > We have this check in copy_remote_vm_str(). Why are we performing the check now
-> > twice?
->
-> > It should either go only into __copy_remote_mm_str(), or if there a reason to
-> > have it before get_task_mm(), it should go into copy_remote_mm_str(). Same
-> > applies to the memory.c case.
->
-> Yes, this makes sense. I will fix that.
->
-> > What's more annoying is that both implementations of copy_remote_vm_str() are
-> > identical, and both implementations of copy_remote_mm_str() are nearly identical
-> > (just dropping the gup_flags for nommu). I'd like to avoid duplicating code for
-> > nommu.
->
-> > If we could export __copy_remote_vm_str(mm, addr, buf, len, gup_flags) for both
-> > cases, we could instead provide a single implementation for copy_remote_vm_str()
-> > and copy_remote_mm_str() e.g., in mm.h? (I'd prefer somewhere else, but we don't
-> > seem to have a good git for memory.c + nommu.c shared stuff)
->
-> Another idea can be:
-> mm/memory.c: MMU implementation of __copy_remote_mm_str()
-> mm/nommu.c: NOMMU implementation of __copy_remote_mm_str()
-> mm/internal.h: declaration of __copy_remote_mm_str()
-> include/linux/mm.h: declaration of copy_remote_mm_str() and  copy_remote_vm_str()
-> mm/util.c: shared implementation for copy_remote_mm_str() and copy_remote_vm_str()
+Hi Ping,
 
-I mean copy_remote_vm_str() is tiny, so maybe just inline it in mm.h?
+Thanks for the patch and sorry for the delay in replying; I had to dig this e-mail out of quarantine.
 
-get_task_mm() is available from include/linux/sched/mm.h anyway so it's not a
-problem to use that there.
+On 18/08/2026 14:06, ping.li wrote:
+> mpam_discovery_cpu_online() sets new_device_probed unconditionally after
+> processing each reachable MSC. Once an MSC has already been probed
+> (msc->probed is true), later CPUs sharing it skip
+> mpam_msc_hw_probe() but still leave err at its default value of 0.
+> As a result, new_device_probed is still set to true, causing
+> mpam_enable_work to be scheduled again even though no new hardware was
+> probed.
+> 
+> Set new_device_probed only when mpam_msc_hw_probe() is called and
+> succeeds.
+> 
+> Fixes: 8f8d0ac1da78 ("arm_mpam: Add cpuhp callbacks to probe MSC hardware")
 
->
-> This allows us to remove the duplicate code. Does this sound reasonable?
->
-> > Now, that's also not completely nice, as I don't want us to EXPORT
-> > __copy_remote_vm_str() ... given that these functions are "#ifdef
-> > CONFIG_BPF_SYSCALL" could we EXPORT_SYMBOL_FOR_MODULES?
->
-> Now copy_remote_vm_str() is EXPORT_SYMBOL_GPL. In this series, we use
-> copy_remote_mm_str() without the need to export that. Why do we need to
-> consider exporting __copy_remote_vm_str()?
+Are the extra mpam_enable() calls causing any harm or can this be considered just an optimzsation?
+If they aren't causing any real issues then there is no need for the fixes tag.
 
-I don't think that's a problem, because all copy_remote_vm_str() is is:
+> Signed-off-by: ping.li <ping.li@horizon.auto>
+> ---
+>  drivers/resctrl/mpam_devices.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+> index 2f09f4b78bd3..fefdcf588932 100644
+> --- a/drivers/resctrl/mpam_devices.c
+> +++ b/drivers/resctrl/mpam_devices.c
+> @@ -1866,13 +1866,15 @@ static int mpam_discovery_cpu_online(unsigned int cpu)
+>  			continue;
+>  
+>  		mutex_lock(&msc->probe_lock);
+> -		if (!msc->probed)
+> +		if (!msc->probed) {
+>  			err = mpam_msc_hw_probe(msc);
+> +			if (!err)
+> +				new_device_probed = true;
+> +		}>  		mutex_unlock(&msc->probe_lock);
+>  
+>  		if (err)
+>  			break;
+> -		new_device_probed = true;
+>  	}
+>  
+>  	if (new_device_probed && !err)
 
-- get_task_mm() (already GPL exported)
-- invokes __copy_remote_vm_str()
+The code change looks good to me.
 
-It already requires that the caller has pinned mm, and I guess the one key
-difference is you can't pass some stupid parameter like NULL mm and have it
-break.
+Thanks,
 
-But if you're kernel code you can NULL ptr deref without anybody's help so :)
+Ben
 
-The other concern would be accessing a remote mm but... that's literally the
-whole point of the function and we already export that.
-
-I guess the other thing is mm copy_remote_vm_str() is only available if
-CONFIG_BPF_SYSCALL is enabled but that's pretty much any sensible kernel config
-so meh doesn't matter really.
-
->
-> --
-> Thanks,
-> -Anastasios
-
---
-Cheers, Lorenzo
