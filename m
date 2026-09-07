@@ -1,219 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B61F34457D5;
-	Mon,  7 Sep 2026 08:44:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA983446BEA;
+	Mon,  7 Sep 2026 08:44:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788770678; cv=none; b=CFg+jecpXYOGS0593H1zIo/MoeLEMHkUd38VlrlhEhoRXdw97/jX89YNUyI3+96harMUK9Y+eaiB0Ub/8GARQ1A8bf07zBrt/rr/0omBlxPruu8MumilWPXTSGZJv3yOBATRN46KR1M7dLI8Yrxq08ZjdAdLWB7ONrzbQMjtjLE=
+	t=1788770691; cv=none; b=h4GD0frLl7FgFQ+0yxdIxni24s7tbdyGuVqyWM/0jdMK4D5GDoiN51sIAKz3oApEVKShhB6Xee+4LjH/NZYwgWB2QuLMHIulOj5fF5Vf0U6ccj2z6fF1MJe4LWHe24CvscemJz+tFXr4f7x+58YK0oQLYhcCdDUW3iX/d8ACFSI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788770678; c=relaxed/simple;
-	bh=vLIhxE4HPPG0ZpwIf7etXdPJdHQAsbV/v0AuWclIo4Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=S7H+0JcXS/WMCgZlvAC6mRvstfAvr5Qa9ju3oB4dhEoUwsDiMA4WDMQPgf6WgJ97xkFw0UERPI6v5QpR8YOZooTskK2IsLyAngoqdDeHJZxxifaapOLrJoT8Wt3eP5uQzgZit+CGaibWUQ5utvRtllRMgTpbJdXrzWv2w+mDiAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YvOYmLRp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788770691; c=relaxed/simple;
+	bh=XXR4CdSOCQVaEWh/J/sOK4i5cim+nXOfmdVGqWCXSHw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iIBAUbMrVfGoWF+XDCtvFR1+8DqeYqwMIf4sjM880av0BICbKG6B5FfNlFXvoBQ3JVD2ScrgLzIkLHCmSyN61B/FPukQFdB4wQpQheOr8gAzEoOEy3hF6nDCrjpb9Nnn3VCxH4doR7NkEfE2e4wDJ+t28wGRvtqe/Uu6CC5ZxUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=GJUje829; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YvOYmLRp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CB6E1F00A3E;
-	Mon,  7 Sep 2026 08:44:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788770676;
-	bh=0OLA/B+yqr44OLCPzEQB5/tvzjZC/y9Kh/Rd5nyMsdI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YvOYmLRpiDnrtyVM6B7HbLjKTiZxIP10/aCIcCWLkkjbf9uBcN4M93WfE+cXvh0YM
-	 YL9HN/2Y1q5TBPzUNEsWZ63nNNQQ/uzNFl9jQt9Onjy4O9rwNUJEihuUYSUJwCK33N
-	 RIWrABZT67VRwJNhEUk9Ima1xgkSZjJw8+qCSiZwUCbFcacI1fPM4ceETJiYhiVMlT
-	 F46JRHnZNrhmPioo6VNdx+XNQXqCPRi+y6drwyRPndGoRV1wT6cTRfJgMIyEeSxsEt
-	 DnNxlADcNGle79yWEiGGpnsue2ZOF4t2/m8YCpZTwRodl7H+CtdqD9EQj1NH0Jw2xu
-	 OClDzQl8QFqhQ==
-From: Thorsten Blum <blum@kernel.org>
-To: Mark Pearson <mpearson-lenovo@squebb.ca>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	Henrique de Moraes Holschuh <hmh@hmh.eng.br>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Kees Cook <kees@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>
-Cc: platform-driver-x86@vger.kernel.org,
-	ibm-acpi-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org,
-	Thorsten Blum <blum@kernel.org>
-Subject: [PATCH v2 2/2] platform/x86: thinkpad_acpi: Use str_supported_unsupported() helper
-Date: Mon,  7 Sep 2026 10:43:21 +0200
-Message-ID: <20260907084319.351688-6-blum@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260907084319.351688-4-blum@kernel.org>
-References: <20260907084319.351688-4-blum@kernel.org>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="GJUje829"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6877VbJD1321163;
+	Mon, 7 Sep 2026 08:44:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=EAfw4d
+	96C9QBb2fWVi/UeCpZirm/U+Gfs/73M9rpazQ=; b=GJUje829Qg2okkFJcX8V5Y
+	eRPKRnvBzyI/uyClZ4I+S/3u+CIzW890DeC/hOw7HfBsvcb8zWix51AoVsWSMf77
+	iomgCF9xri1cJRn2Nu5GQGGk5cbyHaurDSMK57w0gw0CwHeBvDY+FHKIQKub3yz6
+	M3ucL2c3kj9TUTBuC7qszpmm1fTi6vkwMR8p8S4SjK8tXxthvGCp4F9Mx7Pd57jp
+	SNjq9C2VpSD6252cDdXRn3wy6D8fuxV78TRtQYt4c2tbi6NAP4NHrtOanMLiog2m
+	bH55WWIn0DCCZz2+Q34ygExbNhdNb4Bc3xlCTFiZYaaX913t//XDZ/Qrkk4E1O7w
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbheqgn6-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 07 Sep 2026 08:44:35 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6878fMqd030062;
+	Mon, 7 Sep 2026 08:44:34 GMT
+Received: from smtprelay02.dal12v.mail.ibm.com ([172.16.1.4])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ggymg4q08-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 07 Sep 2026 08:44:34 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
+	by smtprelay02.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6878iWAD18481900
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 7 Sep 2026 08:44:32 GMT
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7F8A258053;
+	Mon,  7 Sep 2026 08:44:32 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id CDA4C58043;
+	Mon,  7 Sep 2026 08:44:25 +0000 (GMT)
+Received: from [9.111.200.229] (unknown [9.111.200.229])
+	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Mon,  7 Sep 2026 08:44:25 +0000 (GMT)
+Message-ID: <fc1eb33d-f9da-427c-9e0c-c2ff79d2a1fe@linux.ibm.com>
+Date: Mon, 7 Sep 2026 14:14:23 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6281; i=blum@kernel.org; h=from:subject; bh=vLIhxE4HPPG0ZpwIf7etXdPJdHQAsbV/v0AuWclIo4Y=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFnzKp2UVyVaWAhPjVyQGHCJ+cPNJIPgFBvlP3aZqy/xF sVzHQrrKGVhEONikBVTZHkw68cM39Kayk0mETth5rAygQxh4OIUgIlkvWdk+Pn7wc/DR+fOe1qz bUJd5eGbHFfaAydtKu7LjG5glM49x83IMGnGtUnmq7uvrvvr4fxl751Ph98/sRVsKnyzoHB1w7E OJxYA
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v5 0/3] net/smc: bound wire-controlled CDC cursors
+ against the local buffers
+To: Jakub Kicinski <kuba@kernel.org>, hexlabsecurity@proton.me
+Cc: hexlabsecurity@proton.me, Sidraya Jayagond <sidraya@linux.ibm.com>,
+        "D. Wythe" <alibuda@linux.alibaba.com>,
+        "David S. Miller"
+ <davem@davemloft.net>,
+        Wen Gu <guwen@linux.alibaba.com>, Wenjia Zhang <wenjia@linux.ibm.com>,
+        Eric Dumazet <edumazet@google.com>, Tony Lu <tonylu@linux.alibaba.com>,
+        Dust Li <dust.li@linux.alibaba.com>, Paolo Abeni <pabeni@redhat.com>,
+        linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org,
+        Ursula Braun <ubraun@linux.ibm.com>, netdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Stefan Raspl <raspl@linux.ibm.com>,
+        Simon Horman <horms@kernel.org>
+References: <20260723-b4-disp-0d07164f-v5-0-6a9e235dbc4e@proton.me>
+ <db896915-5858-4fc3-a56c-77b626980284@linux.ibm.com>
+ <20260901162012.602cc62e@kernel.org>
+Content-Language: en-US
+From: Mahanta Jambigi <mjambigi@linux.ibm.com>
+In-Reply-To: <20260901162012.602cc62e@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: sn1HUWt12Rt2VV8QcIsYcPlNZwOtMDAI
+X-Authority-Analysis: v=2.4 cv=RIaD2Yi+ c=1 sm=1 tr=0 ts=6a9e7973 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=oaOSjWHYWp1lFbvcr-AA:9
+ a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA5MiBTYWx0ZWRfX0uHFajoQP/6V
+ xpU3yYlH4kOeEb+GYaZi62p8NyDIYYAAgmakUgHuUMexjhgUElzDLN53DnLUw9dstv1oCK57YU0
+ Lm2iyEqiyGPtb4uTWCjI5Ons7R+Mrdw=
+X-Proofpoint-ORIG-GUID: kOxnBZaBb7HhVYlTyBAa0J70dqPcLZaP
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA5MiBTYWx0ZWRfX9mgXC+SYhJay
+ +jYYZ3qpy933/G7F9I5B5ISjsLo8pgCMbsaXN9zydhwgH7UKxAHWQhDI5647ZPy5E6yRM5XpYRZ
+ SqtyN9LI0lbStK+zbwuD6lZsCBlscA0Ynji2A0fHr8XHRpsYe/w4IVLcS7UlsVt7Yq/+W5ulomi
+ tDWa7dFZrrMyWx3SEuxaqA5yaQsKZfmlszdza+dNF/9Y03BC+TQ57pb+PMDnsLwVkcycYKHHOoy
+ xIpgkpNWd2ajoCI4SIoeg48K38kdeasu9joDp2DxlqUnze2TNMYjxbCRBAJ82AptjtxL10mfkYe
+ A/763S5wyc6oeubFVvIAuReK4XPGkTWDKpQ5aoP/48Qz7Ggw7XHm4+dj7Hm81DY20AspnEtnTvY
+ Sja9mh9T6n9IkAyBNHY0Tq+wjyHubNcz3bue8cQ4sTIfB1Z5aWJI2UXe21j5Rm7ZEFu1Sjc2EvZ
+ AD14MHduvkWmE7ALb+w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_02,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 bulkscore=0
+ adultscore=0 phishscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070092
 
-Remove the local str_supported() function and use the common
-str_supported_unsupported() helper.
 
-Debug messages now use "unsupported" instead of "not supported".
 
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
- drivers/platform/x86/lenovo/thinkpad_acpi.c | 42 ++++++++-------------
- 1 file changed, 16 insertions(+), 26 deletions(-)
+On 02/09/26 4:50 am, Jakub Kicinski wrote:
+> On Tue, 1 Sep 2026 12:10:35 +0530 Mahanta Jambigi wrote:
+>> I noticed that this series has *not* yet been merged into the net tree.
+>> Is there anything still pending or any outstanding concerns that need to
+>> be addressed before it can be merged?
+> 
+> FWIW it needs to be reposted to be considered for merging since it's
+> over a month old at this point.
+> 
 
-diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c b/drivers/platform/x86/lenovo/thinkpad_acpi.c
-index 1082c36ae723..bda192d9261d 100644
---- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
-+++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
-@@ -456,9 +456,7 @@ do {									\
- 
- #ifdef CONFIG_THINKPAD_ACPI_DEBUG
- #define vdbg_printk dbg_printk
--static const char *str_supported(int is_supported);
- #else
--static inline const char *str_supported(int is_supported) { return ""; }
- #define vdbg_printk(a_dbg_level, format, arg...)	\
- 	do { if (0) no_printk(format, ##arg); } while (0)
- #endif
-@@ -3338,7 +3336,7 @@ static int __init hotkey_init(struct ibm_init_struct *iibm)
- 
- 	vdbg_printk(TPACPI_DBG_INIT | TPACPI_DBG_HKEY,
- 		"hotkeys are %s\n",
--		str_supported(tp_features.hotkey));
-+		str_supported_unsupported(tp_features.hotkey));
- 
- 	if (!tp_features.hotkey)
- 		return -ENODEV;
-@@ -3415,7 +3413,7 @@ static int __init hotkey_init(struct ibm_init_struct *iibm)
- 
- 	vdbg_printk(TPACPI_DBG_INIT | TPACPI_DBG_HKEY,
- 		"hotkey masks are %s\n",
--		str_supported(tp_features.hotkey_mask));
-+		str_supported_unsupported(tp_features.hotkey_mask));
- 
- 	/* Init hotkey_all_mask if not initialized yet */
- 	if (!tp_features.hotkey_mask && !hotkey_all_mask &&
-@@ -4327,7 +4325,7 @@ static int __init bluetooth_init(struct ibm_init_struct *iibm)
- 
- 	vdbg_printk(TPACPI_DBG_INIT | TPACPI_DBG_RFKILL,
- 		"bluetooth is %s, status 0x%02x\n",
--		str_supported(tp_features.bluetooth),
-+		str_supported_unsupported(tp_features.bluetooth),
- 		status);
- 
- #ifdef CONFIG_THINKPAD_ACPI_DEBUGFACILITIES
-@@ -4506,7 +4504,7 @@ static int __init wan_init(struct ibm_init_struct *iibm)
- 
- 	vdbg_printk(TPACPI_DBG_INIT | TPACPI_DBG_RFKILL,
- 		"wan is %s, status 0x%02x\n",
--		str_supported(tp_features.wan),
-+		str_supported_unsupported(tp_features.wan),
- 		status);
- 
- #ifdef CONFIG_THINKPAD_ACPI_DEBUGFACILITIES
-@@ -4634,7 +4632,7 @@ static int __init uwb_init(struct ibm_init_struct *iibm)
- 
- 	vdbg_printk(TPACPI_DBG_INIT | TPACPI_DBG_RFKILL,
- 		"uwb is %s, status 0x%02x\n",
--		str_supported(tp_features.uwb),
-+		str_supported_unsupported(tp_features.uwb),
- 		status);
- 
- #ifdef CONFIG_THINKPAD_ACPI_DEBUGFACILITIES
-@@ -4742,7 +4740,7 @@ static int __init video_init(struct ibm_init_struct *iibm)
- 		video_supported = TPACPI_VIDEO_NEW;
- 
- 	vdbg_printk(TPACPI_DBG_INIT, "video is %s, mode %d\n",
--		str_supported(video_supported != TPACPI_VIDEO_NONE),
-+		str_supported_unsupported(video_supported != TPACPI_VIDEO_NONE),
- 		video_supported);
- 
- 	return (video_supported != TPACPI_VIDEO_NONE) ? 0 : -ENODEV;
-@@ -5340,8 +5338,8 @@ static int __init light_init(struct ibm_init_struct *iibm)
- 			acpi_evalf(ec_handle, NULL, "KBLT", "qv");
- 
- 	vdbg_printk(TPACPI_DBG_INIT, "light is %s, light status is %s\n",
--		str_supported(tp_features.light),
--		str_supported(tp_features.light_status));
-+		str_supported_unsupported(tp_features.light),
-+		str_supported_unsupported(tp_features.light_status));
- 
- 	if (!tp_features.light)
- 		return -ENODEV;
-@@ -5458,7 +5456,7 @@ static int __init cmos_init(struct ibm_init_struct *iibm)
- 	TPACPI_ACPIHANDLE_INIT(cmos);
- 
- 	vdbg_printk(TPACPI_DBG_INIT, "cmos commands are %s\n",
--		    str_supported(cmos_handle != NULL));
-+		    str_supported_unsupported(cmos_handle));
- 
- 	return cmos_handle ? 0 : -ENODEV;
- }
-@@ -5803,7 +5801,8 @@ static int __init led_init(struct ibm_init_struct *iibm)
- 	}
- 
- 	vdbg_printk(TPACPI_DBG_INIT, "LED commands are %s, mode %d\n",
--		str_supported(led_supported), led_supported);
-+		str_supported_unsupported(led_supported != TPACPI_LED_NONE),
-+		led_supported);
- 
- 	if (led_supported == TPACPI_LED_NONE)
- 		return -ENODEV;
-@@ -5924,7 +5923,7 @@ static int __init beep_init(struct ibm_init_struct *iibm)
- 	TPACPI_ACPIHANDLE_INIT(beep);
- 
- 	vdbg_printk(TPACPI_DBG_INIT, "beep is %s\n",
--		str_supported(beep_handle != NULL));
-+		str_supported_unsupported(beep_handle));
- 
- 	quirks = tpacpi_check_quirks(beep_quirk_table,
- 				     ARRAY_SIZE(beep_quirk_table));
-@@ -6374,7 +6373,7 @@ static int __init thermal_init(struct ibm_init_struct *iibm)
- 	thermal_read_mode = thermal_read_mode_check();
- 
- 	vdbg_printk(TPACPI_DBG_INIT, "thermal is %s, mode %d\n",
--		str_supported(thermal_read_mode != TPACPI_THERMAL_NONE),
-+		str_supported_unsupported(thermal_read_mode != TPACPI_THERMAL_NONE),
- 		thermal_read_mode);
- 
- 	return thermal_read_mode != TPACPI_THERMAL_NONE ? 0 : -ENODEV;
-@@ -7596,7 +7595,7 @@ static int __init volume_init(struct ibm_init_struct *iibm)
- 
- 	vdbg_printk(TPACPI_DBG_INIT | TPACPI_DBG_MIXER,
- 			"mute is supported, volume control is %s\n",
--			str_supported(!tp_features.mixer_no_level_control));
-+			str_supported_unsupported(!tp_features.mixer_no_level_control));
- 
- 	if (software_mute_requested && volume_set_software_mute(true) == 0) {
- 		software_mute_active = true;
-@@ -8993,8 +8992,8 @@ static int __init fan_init(struct ibm_init_struct *iibm)
- 
- 	vdbg_printk(TPACPI_DBG_INIT | TPACPI_DBG_FAN,
- 		"fan is %s, modes %d, %d\n",
--		str_supported(fan_status_access_mode != TPACPI_FAN_NONE ||
--		  fan_control_access_mode != TPACPI_FAN_WR_NONE),
-+		str_supported_unsupported(fan_status_access_mode != TPACPI_FAN_NONE ||
-+					  fan_control_access_mode != TPACPI_FAN_WR_NONE),
- 		fan_status_access_mode, fan_control_access_mode);
- 
- 	/* fan control master switch */
-@@ -11632,15 +11631,6 @@ static struct proc_dir_entry *proc_dir;
- 
- static bool force_load;
- 
--#ifdef CONFIG_THINKPAD_ACPI_DEBUG
--static const char * __init str_supported(int is_supported)
--{
--	static char text_unsupported[] __initdata = "not supported";
--
--	return (is_supported) ? &text_unsupported[4] : &text_unsupported[0];
--}
--#endif /* CONFIG_THINKPAD_ACPI_DEBUG */
--
- static struct dentry *tpacpi_dbg;
- static void tpacpi_debugfs_init(void)
- {
+Hi Bryam Vargas,
+
+Could you please repost as requested by Jakub Kicinski?
