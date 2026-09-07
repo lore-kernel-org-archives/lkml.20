@@ -1,126 +1,128 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84AE637AA9F
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:35:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1DE4481647
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:36:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788791734; cv=none; b=iHsRBEaCWhIU4SbJCdhKdmFGNeVEzhMo/Fo+ka9dhXhmsY2chj5W34+/V89Jy5d8c/4tw9j98l6y946vzjp2hyHUIB2nc+7wpeeurpklzTYnAIn5uKB490uXWPaOHqFjxHjBpPHCkTHD9Tw4K09jmcd5Fd1b5+gcGLTmXoJVqoc=
+	t=1788791791; cv=none; b=oKMUxfNVvvctBgGNzHfrePSJm0pq++yyyiWwLjGW66tX20NXo6jvq38XhJXUjEgK510GjH8UzjJB7FVZ9w/KRZGmAB+lsWLxPqP665KJxBNqgTafNCL6uPvMXqcmshrg+V4OnWRW4Z/rbemadEeYlo2LqfMKX4EdinDIl8UeNAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788791734; c=relaxed/simple;
-	bh=jxXo5DsfyeLjv1OjbjWtVtQ47KUYD4jAJc12PsYCAng=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dmiXVhomnXTeYCn+Ja5Qlw7C9Jd8O0GzEbMKWwLXSyCh5uu2a5ANF39p8HQTZ103HMg+Ps6FzFu/7rC0tJwAa+UeZlxGqRfp8PL02zIlDLwZ1ATZd7YFATTTrdC3UHFfvfB+TLpT3QBVwVU4wydBIblVg346BUW7qt3+LdyLZPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UhYP577x; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788791791; c=relaxed/simple;
+	bh=J0n6FNetT0debjqacgno3iFuQ8IxVHZb8XLMsQnDoeM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ok+RE7JkfpX0wvG7v3Rk09xw3JdI8yqi44Bm1pL2e6tsrHDtcY81rSZ0vd1F32amc0WKiwq9sQuQfjFgsgEVq+Ja76fQUqmQj2lQ6Bqs6T++yelcvHyQtfNt3hLKQkxEUCRx+NvB6cMTyBfQVJof12EPb6lA7keLxOErwe8ec4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kwZ4Y3EA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UhYP577x"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788791733; x=1820327733;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=jxXo5DsfyeLjv1OjbjWtVtQ47KUYD4jAJc12PsYCAng=;
-  b=UhYP577x7caoYEGr18Jk+vZNI6QPBXmm+qAcARTspmeHWQ/midAYloD+
-   M1F6xiwXdlRxT9JqlYmyAXnnj2BHCmciAxFT+MgXocBHKAaWxzGkMSjhE
-   37XcUGPq0GZ2z+rt6BJ5DMlU9gXziHr/iB7e88XmFl37LOI6SnO98u1Gh
-   Sl7jXB5QvlwEIykGOlzSnhWgBr71izraozYL3rKsKvUAxgsPeUPYO153H
-   SXkfLu+raWnHHk0hLW0edmUAwdLoegmrVIo6R3NX8kyzEvMNc0pRc+Ug/
-   AsT7XWvAvbwxTjaCImvDut55f8rGDPUc9panr/0j5zqXYURs4Lp0o8lpd
-   A==;
-X-CSE-ConnectionGUID: 113vPFSnREWVZmTLbjZDdg==
-X-CSE-MsgGUID: BW1/6NXJT1KTydGIXpL3Og==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="89040717"
-X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="89040717"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 07:35:32 -0700
-X-CSE-ConnectionGUID: wJZ1ig3ARNq13mtTGg5k2Q==
-X-CSE-MsgGUID: VL4mwGL7Sd6Wt2g3t3dFRA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="274878549"
-Received: from aschende-mobl.amr.corp.intel.com (HELO [10.125.111.75]) ([10.125.111.75])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 07:35:32 -0700
-Message-ID: <2ef38e83-dacc-4e2f-9b22-b02381664d9e@intel.com>
-Date: Mon, 7 Sep 2026 07:35:31 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kwZ4Y3EA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E0641F00A3D;
+	Mon,  7 Sep 2026 14:36:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788791781;
+	bh=P3Kg5n837DJ3J6t9BGAhbWn48bBIjiawWgKaQGRPoBU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kwZ4Y3EAFDceBci5/+JDost4FCO6v6ExEQloPZiqRWJa6DrOpq59BDlANcRZ5W9Da
+	 0YkGiIrhMIM0Y4oA3bJVAPkVAkMh2ZDVas7JYI4vB/gxTsPFEuUMoap5+zn8l201ss
+	 vIrebluu5TiTYiThICUXUVwuBhTr2+8j6uG17pIcaC1Lj4tVaIfDE0cv0ER0HX98uz
+	 BePxSlC+haHMQiO2On7vvkPHUFeyRxeSZw75yBTaFsekJcP5eIqD1cV86KrTa3gu2b
+	 J4NCub9aTVDwfl0AlDdoa8TdACemyKWz1brmqYF2P1K9hN4ToS6wnUkW4CYRGUNcuN
+	 N3/1cVUgAH0IQ==
+Date: Mon, 7 Sep 2026 17:36:09 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Xueyuan Chen <xueyuan.chen21@gmail.com>, akpm@linux-foundation.org,
+	ljs@kernel.org, usama.arif@linux.dev, ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com, liam@infradead.org,
+	nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
+	baohua@kernel.org, lance.yang@linux.dev, kas@kernel.org,
+	catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
+	linux-arm-kernel@lists.infradead.org, tglx@kernel.org,
+	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
+	x86@kernel.org, hpa@zytor.com, luto@kernel.org,
+	peterz@infradead.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 1/3] mm: make persistent huge zero folio read-only
+Message-ID: <ap7L2UEriz6DJfif@kernel.org>
+References: <20260901151818.3191443-1-xueyuan.chen21@gmail.com>
+ <20260901151818.3191443-2-xueyuan.chen21@gmail.com>
+ <apk8ZRr6do_YAlzf@kernel.org>
+ <CA+qSx6wqd5VSR=9yarFFmyN1SyvLJqEHpA7BwmzuxNQTHbS=Xg@mail.gmail.com>
+ <ap05ue1pq3TgHOS6@kernel.org>
+ <CA+qSx6y=OaMsvTKUbPP2DOan3Ym6c8L5z60512-tCYeUjLZz3w@mail.gmail.com>
+ <ap5Tqu5yswJrj5UM@kernel.org>
+ <69db9546-d14d-4107-96b7-30963292c2bd@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] x86/virt/tdx: Formalize SEAMCALL leaf version encoding
- support
-To: Tony Lindgren <tony.lindgren@linux.intel.com>,
- Xu Yilun <yilun.xu@linux.intel.com>
-Cc: dave.hansen@linux.intel.com, x86@kernel.org,
- linux-kernel@vger.kernel.org, kas@kernel.org, nik.borisov@suse.com,
- rick.p.edgecombe@intel.com, yilun.xu@intel.com, linux-coco@lists.linux.dev
-References: <20260901105436.461823-1-yilun.xu@linux.intel.com>
- <ap6eDuCtcQ_GjTbI@tlindgre-MOBL1>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <ap6eDuCtcQ_GjTbI@tlindgre-MOBL1>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <69db9546-d14d-4107-96b7-30963292c2bd@kernel.org>
 
-On 9/7/26 04:20, Tony Lindgren wrote:
->  /*
-> - * Used in __tdcall*() to gather the input/output registers' values of the
-> - * TDCALL instruction when requesting services from the TDX module. This is a
-> - * software only structure and not part of the TDX module/VMM ABI
-> + * Used in __tdcall*() to gather the input/output parameters of the TDCALL
-> + * instruction when requesting services from the TDX module. "version" is
-> + * encoded in RAX along with the leaf number. Others are raw input/output
-> + * registers' values. This is a software only structure and not part of the TDX
-> + * module/VMM ABI.
->   */
+On Mon, Sep 07, 2026 at 01:18:42PM +0200, David Hildenbrand (Arm) wrote:
+> On 9/7/26 08:03, Mike Rapoport wrote:
+> > Hi Xueyuan,
+> > 
+> > On Mon, Sep 07, 2026 at 09:11:14AM +0800, Xueyuan Chen wrote:
+> >> On Sun, Sep 6, 2026 at 6:00 PM Mike Rapoport <rppt@kernel.org> wrote:
+> >>>
+> >>>
+> >>> I believe this is an historical artifact. change_memory_common() already
+> >>> updates the linear map when a vmalloc mapping switches to RO and the system
+> >>> supports it.
+> >>
+> >> On x86, set_memory_ro() does work on direct-map addresses.
+> >>
+> >>>
+> >>> I believe arm64::set_memory_ro() can change the linear map in the general
+> >>> case as well as long as can_set_direct_map() is true.
+> >>>
+> >>
+> >> On arm64, I'm reading arch/arm64/mm/pageattr.c, and the linear-map
+> >> update in change_memory_common() is only reachable for vmalloc
+> >> addresses:
+> >>
+> >>   set_memory_ro
+> >>     change_memory_common
+> >>        area = find_vm_area((void *)addr);
+> >>        if (!area || ...)
+> >>           return -EINVAL;
+> >>
+> >> So set_memory_ro() on a linear-map address returns -EINVAL on arm64.
+> > 
+> > And I believe this is an historical artifact rather than necessity. For
+> > configurations that allow set_direct_map on arm64, change_memory_common can
+> > update direct map too, it just need to be implemented there.
+> > 
+> 
+> Are we sure the other architectures do what we want in their set_memory_ro?
 
-It's a wee bit silly to talk about "version" in here. If you need to
-comment on "version" specifically, then put a comment *on* that variable.
+It's a zoo right now :(
+Although most of them do.
+
+But we need to sort it out anyway because of increasingly growing demand
+for modifications of the kernel page tables.
+
+I started something here:
+https://lore.kernel.org/linux-mm/20260721-generic-set-memory-v0-1-v1-0-2c1fc62306b3@kernel.org/
+
+Now that x86 CPA is nearly fixed, I can look into the next iteration.
+
+> Having a dedicated set_direct_map_ro() with clear (documented ;)) semantics does
+> not sound too crazy to me.
+
+It's not too crazy, no.
+
+Still making arm64 more aligned with x86 and other arches that update the
+direct/linear map in the set_memory_ro() seem a good thing on it's own.
+ 
+> -- 
+> Cheers,
+> 
+> David
+
+-- 
+Sincerely yours,
+Mike.
