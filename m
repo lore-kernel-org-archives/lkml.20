@@ -1,73 +1,47 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B791D7E5C
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:56:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F7D406834;
+	Mon,  7 Sep 2026 06:56:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788764200; cv=none; b=g4t+aV3jSFCOn+y4WCQ7L4O8GUHeITwqu1zCPPLVPeDa5JCncLTn3INRMCh9N4qvuZTSjWPuoBYb3t5ZyVH0bWYI2R4ChynveEfCPi+/Gj79WSuVA7m7ti7gsAuIq9OTVoPg4C8S7oMeVfP8OU+KNMsOT0WPKaf4O5IFKhtJScc=
+	t=1788764204; cv=none; b=aJpU+wbrc3TDcfXnUYsD51+V6EiwQMaY746RCKYY9rKIwogqe0kZXkFgA5FUmcoEyHSsEbIugMgtphtEzWhO2nIzFHTFQX/pLDkBD/LujzpxYd+RKcZF25seqnPN+AZytMlChrRv+7CMN4houIvmYBDq4n90JGO7nPXS9NjBvoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788764200; c=relaxed/simple;
-	bh=0e4PknjWGYqZaJgSDla4dqwhDMtsuPFHlFNhQVypUD0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K5+YALFmJQFGpQi0JkgFZA+jrQAUZUoIJBMUZPy8/Y18+RuG5lJ6TbyIvEL0hFyo1xUVgSEArEEMgNzih/U5IBhOYVc/nD/jVDnn4FVyp7NX/jvG9aH3oMx94eZd3jvNPeBZd0qcJJACLeqilEhbfBxRgIuTTA5OTM6Tgl1NWOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C6q9P34N; arc=none smtp.client-ip=209.85.215.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788764204; c=relaxed/simple;
+	bh=/wkMVvADfANsF88IfEhps+ta/Rq2LjzqGVcIwAnw4VI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hqXZSsoCNpGVUUtFgaGGAw7fMP2xTzz6I51XJcxVZOHczF1WlFJJ3uJbxePcISA8mlz9OPoCrE0j/Sv1Zs1/1N92Kkv56iI1vVzSBRQXAb/tSLLFUJ7ZEIECtoJ51tQuQQhVukwieKht+KqjIS2d/QMsvXaoy5vrDKfAPRU28Lg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ct1QvAzZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C6q9P34N"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc1c7364550so3431354a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:56:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788764199; x=1789368999; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jclWpROriP3FoZDOnb3tefkS+XAR3+Gm8Eg+GjimeM4=;
-        b=C6q9P34N01RIx66oGvVrH9ehRx+E5ZXbx2Ev52x/FsXwo63ti6z1UomoYNmbbQz9yT
-         b8i5SPkKn6XorWHKSouSnIIkJAmTDawoIQ6WZT/v0dBUL4Xzsh+pDTGxlBs8giZvHZNl
-         t7zJHqba8G4OwkDCzVrFtrs+uaeihJeezSjcca+O54v6NUdr7xHs4YXQdRnQ/LvdiYJv
-         PTYqRs8VlwRp4TYVOTuFHktl5wX5HaNqcbkljISNYKCszSYmgQ98iOQxENV9IHVtBGlf
-         19S7x2mdV5ihPN5108kOUy4FP16ysxiRbzZ5qi0a7FWOwSwRMe/+1AZfIJ9F6nsUCqVn
-         8NdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788764199; x=1789368999;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jclWpROriP3FoZDOnb3tefkS+XAR3+Gm8Eg+GjimeM4=;
-        b=kuuoESSBTOSUMd5YOhM0YqJicnmaVsOEHP70CuRVx9JAU3jExBc/lXYEev6KS4YJY+
-         4HtuCXjF3q1s2G4LXu1hxEIcVUDpEgbFhB4rJeGTWKFbac/7CHqIYmuOfEA5e2tCm49i
-         w0Q0bofL4Xlc/rU+YfOwyY80C/LpqBpWsmUdJVcGORblE3Jo7HkZEfPI4nimNBgKedTi
-         9OwjcprDG14ShaNQQ6fb2pZ8KchJKja+l3ZjLtWGuzQ1FrcudKCoZyhe8T4pnCdqOUnp
-         multVkLcwhNww3GhWs1frOzakyuYRopA3RHw0LPSt5tpCO1unOmIyXIh2p6kJo5mk4fi
-         rT7A==
-X-Gm-Message-State: AFuF++mnzqI9glg7QCHADJb6xQ0OXJW2PYtVQbzd1eAwnxWMhMTrr9Rl
-	xaFoSsI3Xaorl7luTAGWoMrHx0J9qo/3L8SIbu3OSauv+BbP/almNNOJ
-X-Gm-Gg: AYBFou3LY41OH0gyFXiDafkofOseoORddsBQi0uvjGDDAQXrfP6YlfkJTyJzLkYIz3d
-	+fDdh2jfNEXwIvXJvUKK9qzjdnax2NQMCqQM8JjZ8sXig/Pv2t+RIygxSWPzPZxTazGpvreZLN8
-	br4X4Or14Wwm10tt4gED8yarY1EBtiO6Z7BHtIm9T8h8cgyun8RCqMOpuIXlTtLH/oNZAqMIAhk
-	DymKmLw0D/hpRolh4arR7Ko6MIzNmaSYXFdjtV+oMHyIWq7YCjXS9yMQRZJPDpk1t+PCX5S3LD5
-	2rMm1a5vKcXbhTVjtXArQ7r+nM7ToutuEoPgQOTOirFXZm35cWu3J8zbQH7G4/drE0KHqOQUPwE
-	tZPiFmCLt/J/O7G1+9VhFWghd9i5NQ0G4Ea5DLV7OgVZh4cL94Q2m9AW09lJWLjfmbRRb+ffLLP
-	cHb6zK8GKHrBEKE00kUt9I+jajk15hE1KbEGHbrD5RUCl+J0MKFMUYIAsXS/Z8KJrap5sNCTttC
-	UFO59rXXdd+D4Y=
-X-Received: by 2002:a05:6a21:9d8a:b0:3c3:791e:5e18 with SMTP id adf61e73a8af0-3da39e6cd73mr34188654637.7.1788764198874;
-        Sun, 06 Sep 2026 23:56:38 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-338778fb926sm518372eec.31.2026.09.06.23.56.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 23:56:38 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 09/14] x86: fix typos in comments
-Date: Mon,  7 Sep 2026 12:26:33 +0530
-Message-ID: <20260907065633.5271-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ct1QvAzZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C0F81F00A3A;
+	Mon,  7 Sep 2026 06:56:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788764202;
+	bh=/m4zDVNEv3Vemxw3xr7Ub1WP3qAIAIAjBDAXA7mngxA=;
+	h=From:To:Cc:Subject:Date;
+	b=ct1QvAzZifzGIOuDnC+M19+trfyZXoAmEWMVygurMOj1/pmdGCQlZd1Yaikb2og/9
+	 BH0ljSa2UkExdY3yx5ssx+mVygqIDy4ZoQedX3sF0fw676afJisdLII0ww/7yvsbFZ
+	 v/3vgDkvr/lsSCPgAn5juRrnDmZC0A/p3FXxVHAB6ZB0yoIwvyghGsJczu/MzdLMbL
+	 nhNi39ujCwoUYix05+xBXCJgC9ZAbcvmW+b3Og8uohhA7vBq632wsA22BF1grSm/qi
+	 nv11Fqlh7/zhvl0arCmkPgOysaG8TOdgGfQzNRzWdIJsYLcZ7WfdDUzozVf9SUQZUq
+	 Vok2X/Ehw0oqQ==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1x3THU-00000000QJd-1w8c;
+	Mon, 07 Sep 2026 08:56:40 +0200
+From: Johan Hovold <johan@kernel.org>
+To: David Lin <dtwlin@gmail.com>,
+	Johan Hovold <johan@kernel.org>,
+	Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: greybus-dev@lists.linaro.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] staging: greybus: uart: fix racy TIOCMIWAIT implementation
+Date: Mon,  7 Sep 2026 08:56:32 +0200
+Message-ID: <20260907065632.101144-1-johan@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,54 +50,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix typos in comments, reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+The wakeup condition needs to be checked after adding the task to the
+waitqueue and updating the task state to avoid missing a racing modem
+status update or disconnect.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+Fixes: e68453ed28c5 ("greybus: uart-gb: now builds, more framework added")
+Cc: stable@vger.kernel.org	# 4.9
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Johan Hovold <johan@kernel.org>
 ---
- arch/x86/include/asm/iosf_mbi.h  | 2 +-
- arch/x86/include/asm/processor.h | 2 +-
- arch/x86/kernel/cpu/common.c     | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/staging/greybus/uart.c | 23 ++++++++++++++---------
+ 1 file changed, 14 insertions(+), 9 deletions(-)
 
-diff --git a/arch/x86/include/asm/iosf_mbi.h b/arch/x86/include/asm/iosf_mbi.h
-index 8ace6559d399..386f285736ce 100644
---- a/arch/x86/include/asm/iosf_mbi.h
-+++ b/arch/x86/include/asm/iosf_mbi.h
-@@ -137,7 +137,7 @@ void iosf_mbi_punit_release(void);
-  *
-  * Note this function may be called multiple times and the bus will not
-  * be released until iosf_mbi_unblock_punit_i2c_access() has been called the
-- * same amount of times.
-+ * same number of times.
-  *
-  * Return: Nonzero on error
-  */
-diff --git a/arch/x86/include/asm/processor.h b/arch/x86/include/asm/processor.h
-index ec9db0dfa0df..0709e5e1b004 100644
---- a/arch/x86/include/asm/processor.h
-+++ b/arch/x86/include/asm/processor.h
-@@ -373,7 +373,7 @@ struct x86_hw_tss {
- 	(offsetof(struct tss_struct, x86_tss) + sizeof(struct x86_hw_tss) - 1)
- #endif
+diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
+index 24b4dab069c3..bcfea0a02155 100644
+--- a/drivers/staging/greybus/uart.c
++++ b/drivers/staging/greybus/uart.c
+@@ -643,7 +643,10 @@ static int wait_serial_change(struct gb_tty *gb_tty, unsigned long arg)
+ 	if (!(arg & (TIOCM_DSR | TIOCM_RI | TIOCM_CD)))
+ 		return -EINVAL;
  
--/* Base offset outside of TSS_LIMIT so unpriviledged IO causes #GP */
-+/* Base offset outside of TSS_LIMIT so unprivileged IO causes #GP */
- #define IO_BITMAP_OFFSET_INVALID	(__KERNEL_TSS_LIMIT + 1)
+-	do {
++	add_wait_queue(&gb_tty->wioctl, &wait);
++	for (;;) {
++		set_current_state(TASK_INTERRUPTIBLE);
++
+ 		spin_lock_irq(&gb_tty->read_lock);
+ 		old = gb_tty->oldcount;
+ 		new = gb_tty->iocount;
+@@ -657,18 +660,20 @@ static int wait_serial_change(struct gb_tty *gb_tty, unsigned long arg)
+ 		if ((arg & TIOCM_RI) && (old.rng != new.rng))
+ 			break;
  
- struct entry_stack {
-diff --git a/arch/x86/kernel/cpu/common.c b/arch/x86/kernel/cpu/common.c
-index c7352827f491..bbf4963c1983 100644
---- a/arch/x86/kernel/cpu/common.c
-+++ b/arch/x86/kernel/cpu/common.c
-@@ -2628,7 +2628,7 @@ void __init arch_cpu_finalize_init(void)
- 	fpu__init_cpu();
+-		add_wait_queue(&gb_tty->wioctl, &wait);
+-		set_current_state(TASK_INTERRUPTIBLE);
+-		schedule();
+-		remove_wait_queue(&gb_tty->wioctl, &wait);
+ 		if (gb_tty->disconnected) {
+-			if (arg & TIOCM_CD)
+-				break;
+ 			retval = -ENODEV;
+-		} else if (signal_pending(current)) {
++			break;
++		}
++
++		schedule();
++
++		if (signal_pending(current)) {
+ 			retval = -ERESTARTSYS;
++			break;
+ 		}
+-	} while (!retval);
++	}
++	__set_current_state(TASK_RUNNING);
++	remove_wait_queue(&gb_tty->wioctl, &wait);
  
- 	/*
--	 * This needs to follow the FPU initializtion, since EFI depends on it.
-+	 * This needs to follow the FPU initialization, since EFI depends on it.
- 	 */
- 	if (efi_enabled(EFI_RUNTIME_SERVICES))
- 		efi_enter_virtual_mode();
+ 	return retval;
+ }
+-- 
+2.55.0
+
