@@ -1,106 +1,123 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F1FE22D8DD0;
-	Mon,  7 Sep 2026 07:51:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5C75353A6F
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:53:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788767467; cv=none; b=s58lGrDADmQjwNnfezK8Sk1zNTHBAf0aggs8ITVBQx9WrhHnF2LTMThgHv0oUR0Wghe2bjgRrH6o4E03MgNQYUlHPjKTp7KquO0139E7JegAjEDaKdSpFUYLPD24m9vm0M7JJzgOznqyepM0M9Fji5nZBTTmBgmPcCPCuIORKSU=
+	t=1788767589; cv=none; b=VkCx+7iOVQCqAKFyCVXEQyBTtVknAvGo5wcpUjKSGwuphziJJDtH7i0l+Re6gDPgW4KFOl5O0GnwmgwYi0g8M/6Y4vHpmC5UQ5LacNjqvCWjVA2ZaZnLTwiq4BNqLRlOVcI03xvvkBBowYW77n3Og1m6LzAJI8AydPJw9vXKj5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788767467; c=relaxed/simple;
-	bh=ebLBQtPrjU4gp1KUCxeFk5SffvdJ64+gWA08vNBPWLA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jefQi/BJ9E20Jak/DsGzMsNZWVyJKR5b236WO1op7dHplOOpP+YXZfddGJFPCstyarl0Yy9VAa4yfa/1w65otXkohsIj8FnO8ziAs04Hf51PAtsKwqXZyTtj1fBxosSMWUdqp8dMPiWlWBwpAVKLicMSVJGIcTt1HCD510iyiZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=sXIu8+RJ; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788767589; c=relaxed/simple;
+	bh=8xX4xD5K8txlJzZzy3xE60HFJ1/eyfY0yVprq5JvpsE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=UZ+Kfglm/SGfvnSgrTA8joHHAIwvg40pegQRCZQTXF6Iuj4y8M0I1A/e/YuSwemLAXgdxGzxY5CV8poA1fRjwaq32clHDu1n1PYZsfA7WO2yjMgMvCnxB+mu3ZM/cMkPjwgC6VuYPVsWvneOWKjgOZ7Kch+S/y4aqKjUQY1PTfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ep1Tx18j; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="sXIu8+RJ"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5D9E41477;
-	Mon,  7 Sep 2026 00:51:00 -0700 (PDT)
-Received: from [10.57.7.146] (unknown [10.57.7.146])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EFFDF3F7D8;
-	Mon,  7 Sep 2026 00:51:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788767464; bh=ebLBQtPrjU4gp1KUCxeFk5SffvdJ64+gWA08vNBPWLA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=sXIu8+RJt5Fqfg4Zs35LnsPFw3Td73XmrGIeZwnl7XBN76YyeeNOBvEFaseCzfuNN
-	 9DZvpGywhz3X714a6bgHutIqw8HWgmcHOXA46lmZfuELHfhyqcYiW1Pix/bxfqHK1u
-	 sFkSzwcr3qTwgIIx5iZWJJdgH9pQjFfbQW96Sc/Y=
-Message-ID: <3284bfcb-2dd9-4ca2-be08-c7ecc7571695@arm.com>
-Date: Mon, 7 Sep 2026 08:51:19 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ep1Tx18j"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48436251906so3668105f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 00:53:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788767586; x=1789372386; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=LWm7EBXqtORA9y3VkC/oQd5/rS2zUBKOaOuWn3r0D+g=;
+        b=ep1Tx18jyIQPuEw0cQvZ2oukB+zqkafC8tXbTcETS1G6khgPISddG83yOZrQkg7JDl
+         1novmlb5MWM/0NWKXZABckTuALgUHzLoQzpw+knGslzU/zOa4qRo9aEUgXwxxo2G7/N6
+         0XtCbt6VMjoovgLMf7ejhhubVFDU3FEGPoKS5cX9wnoZc0h7tzeI6H+RowGvuRVSFM2j
+         OngLXlLKpRfuZ6ok4kvi+soTyU4qByLLerVrlidGLSy8tss6PShsyL4CCshCiY/qWQKe
+         W4U0DqzRUGH8gSjwJZMDO0kQKCuvhNJ8QA3835TsaGWou6zZ4nfH1g1t4OxcJQy7SFWq
+         hMoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788767586; x=1789372386;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=LWm7EBXqtORA9y3VkC/oQd5/rS2zUBKOaOuWn3r0D+g=;
+        b=obqMofeYV4k24e3Lwxg8c12R54jEm4Gc4jD7Q2bdxcmOxItB0wnO7erontDA1H9m8C
+         opyFrSsngOcbcuDdv654vgXGgmuOHDReZQQlFHlURpKiwafKPgsNosXMkW40B839EGXg
+         VVtN5tSyJNXcLIzIZX7IjRhEVkZx8pmCmJ0z6A0MTfEAdgjdzzqox0BIVQ/uD+zmS+jH
+         ddBJ2ET+YoSvrFuwkQYjdIYiajqn11wAZShvAFDVneM6pFPj5Nm/0DIh/MeNqwh1aZyZ
+         6GEj4WSRvv9YQYxNQr/Papap6PFof4dNMY8wa85z0C23+ijXC/qMy5l019lQZVcQ+qqK
+         VRaw==
+X-Forwarded-Encrypted: i=1; AKwUvBxSJi3ScjXbQ6B+CXDvEO3t0ONA/2pVqiSzaKXgOqy/B4g2HArQ7ltVWa8BBfiSxlrS7EkwFZf0NMjrnLE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mpT5c4Yx2UXBdbgZ4BS0y6Fobo2w/UiLJBXuer/oKofynfv3ga
+	KvtgJG0/myxQs+osovlgL0TnXgZgE45H+0Z8B+ByeRKJi3aGSD7IW6Fr
+X-Gm-Gg: AYBFou34qXCOqWLQlwfmTim560oN78LARhCXqpu/hXfNha93g6D2iuqUE5lkjxG4SGN
+	UZsqUMNeHP1wLE8nXF1h9zcVJtTJqbuDc6jsYXJqdpOT27vwmfpqXvC6kc4huWMAQtuyp28AIA/
+	HWQdfTkKNBnURrVeI8JRhULAgnyFNnU6cFkBeEysE58Us6t1qfQoKg7i2NxlLDZuNR3Qt9Okbny
+	J2dDEaoalnVrRwjbYw9CiAyx6/0p3c2Urse0QfYU29HWZ7zkwLS/bV6spj3DFGc5mZ1OXpZPCZd
+	l1CaFITMOChgDJND8dlrKetcE11RCBoiab+DhK+dPnXOf4dXTAhsZuC6Vdhw+4f3jlWPw/6oMdo
+	7fWeG6bjGP1zbjW6Kquxm0sRLFvdxigJjjv5GjR0+/rhPTU5cnZ8UZYgyClOL7TxdpHQmwrld3v
+	Xxm9MZt03GtqNOGAu+s2il+B201VH9Zib60aeGiEJSyN/QkHJG/x7ZCKdPO1erdMdstH1CUPViI
+	osAGsxFHJbonQ4UMQu4ws86vxdjIhjB1W3dlyOBShAKr1g=
+X-Received: by 2002:a05:600c:3f12:b0:49c:c8de:96a9 with SMTP id 5b1f17b1804b1-49cf7fdd2dfmr411193075e9.2.1788767585604;
+        Mon, 07 Sep 2026 00:53:05 -0700 (PDT)
+Received: from [127.0.1.1] (lmontsouris-656-1-83-121.w82-127.abo.wanadoo.fr. [82.127.110.121])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cffdb2c40sm168377745e9.1.2026.09.07.00.53.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 00:53:05 -0700 (PDT)
+From: Amin Gattout <amin.gattout@gmail.com>
+Date: Mon, 07 Sep 2026 09:52:45 +0200
+Subject: [PATCH] media: synopsys: hdmirx: Remove redundant dev_err_probe()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] thermal: gov_power_allocator: Fix NULL pointer
- dereference in update_tz()
-To: Sumeet Pawnikar <sumeet4linux@gmail.com>
-Cc: linux-kernel@vger.kernel.org, rafael@kernel.org,
- linux-pm@vger.kernel.org, rui.zhang@intel.com, daniel.lezcano@kernel.org
-References: <20260822114236.15998-1-sumeet4linux@gmail.com>
-Content-Language: en-US
-From: Lukasz Luba <lukasz.luba@arm.com>
-In-Reply-To: <20260822114236.15998-1-sumeet4linux@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260907-snps_hdmirx-v1-1-760dccc4664c@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAExtnmoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSwNz3eK8guL4jJTczKIKXfNEY4Pk5GRTs0QTSyWgjoKi1LTMCrBp0bE
+ QfnFpUlZqcgnICKXaWgBTN6fBbwAAAA==
+X-Change-ID: 20260907-snps_hdmirx-7a30ccc56a49
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, kernel@collabora.com, 
+ linux-kernel@vger.kernel.org, Amin Gattout <amin.gattout@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788767584; l=1228;
+ i=amin.gattout@gmail.com; s=20260818; h=from:subject:message-id;
+ bh=8xX4xD5K8txlJzZzy3xE60HFJ1/eyfY0yVprq5JvpsE=;
+ b=hgTm6Y51CD9FAcrGJmyN5tMTgy6Mf3aon2rY7fbe7pVWabcFvJdMBlZcx/ANLnHPglvXUOfPS
+ UknZVY669m+AZRFG7zeDvPD8F7iEvqWiBO7523gnxTyI+PZeDY/lf6r
+X-Developer-Key: i=amin.gattout@gmail.com; a=ed25519;
+ pk=MSIqDPkCOkwtyP8Fns1m+KFU9SgqoDl2mpLe18vL+hQ=
 
+The devm_request_threaded_irq() function now automatically logs detailed
+error messages on failure. This eliminates the need for driver-specific
+dev_err_probe() calls that print generic messages.
 
+Signed-off-by: Amin Gattout <amin.gattout@gmail.com>
+---
+ drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-On 8/22/26 12:42, Sumeet Pawnikar wrote:
-> power_allocator_update_tz() unconditionally derives the trip descriptor of
-> params->trip_max as below,
->    const struct thermal_trip_desc *td = trip_to_trip_desc(params->trip_max);
-> and then walks td->thermal_instances. However, params->trip_max is allowed
-> to be NULL and in that case the list walk dereferences a bogus pointer
-> derived from NULL which oops the kernel.
-> 
-> get_governor_trips() picks trip_switch_on and trip_max out of the trip
-> table of the zone. When the zone has neither a passive nor an active trip
-> point, last_active is NULL and params->trip_max is left NULL. This is an
-> explicitly supported configuration, as documented in the function
-> get_governor_trips() as below,
->    If there are no passive or active trip points, then the governor won't
->    do anything. In fact, its throttle function won't be called at all.
-> 
-> Return early from power_allocator_update_tz() when params->trip_max is NULL
-> and only compute the trip descriptor after that check. There is nothing to
-> update in that case anyway, with no trip_max and there are no thermal
-> instances for the governor to account for, num_actors stays zero and
-> total_weight is irrelevant.
-> 
-> Fixes: 912e97c67cc3 ("thermal: gov_power_allocator: Move memory allocation out of throttle()")
-> 
-> Signed-off-by: Sumeet Pawnikar <sumeet4linux@gmail.com>
-> ---
->   drivers/thermal/gov_power_allocator.c | 7 ++++++-
->   1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/thermal/gov_power_allocator.c b/drivers/thermal/gov_power_allocator.c
-> index 37f2e22a999e..b5c254187628 100644
-> --- a/drivers/thermal/gov_power_allocator.c
-> +++ b/drivers/thermal/gov_power_allocator.c
-> @@ -660,10 +660,15 @@ static void power_allocator_update_tz(struct thermal_zone_device *tz,
->   				      enum thermal_notify_event reason)
->   {
->   	struct power_allocator_params *params = tz->governor_data;
-> -	const struct thermal_trip_desc *td = trip_to_trip_desc(params->trip_max);
-> +	const struct thermal_trip_desc *td;
->   	struct thermal_instance *instance;
->   	int num_actors = 0;
->   
-> +	if (!params->trip_max)
-> +		return;
-> +
-> +	td = trip_to_trip_desc(params->trip_max);
-> +
->   	switch (reason) {
->   	case THERMAL_TZ_BIND_CDEV:
->   	case THERMAL_TZ_UNBIND_CDEV:
+diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+index 25f8ca0d6d94..b456138c381a 100644
+--- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
++++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+@@ -2595,10 +2595,8 @@ static int hdmirx_setup_irq(struct snps_hdmirx_dev *hdmirx_dev,
+ 	ret = devm_request_threaded_irq(dev, irq, NULL, hdmirx_dma_irq_handler,
+ 					IRQF_ONESHOT, "rk_hdmirx-dma",
+ 					hdmirx_dev);
+-	if (ret) {
+-		dev_err_probe(dev, ret, "failed to request dma irq\n");
++	if (ret)
+ 		return ret;
+-	}
+ 
+ 	irq = gpiod_to_irq(hdmirx_dev->detect_5v_gpio);
+ 	if (irq < 0) {
 
+---
+base-commit: df2908090cda368b01ff43709f51890076c56157
+change-id: 20260907-snps_hdmirx-7a30ccc56a49
 
-LGTM,
+Best regards,
+--  
+Amin Gattout <amin.gattout@gmail.com>
 
-Reviewed-by: Lukasz Luba <lukasz.luba@arm.com>
