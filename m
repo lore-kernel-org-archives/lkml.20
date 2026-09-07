@@ -1,71 +1,71 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF4102C11CF;
-	Mon,  7 Sep 2026 06:11:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC44D2E4257;
+	Mon,  7 Sep 2026 06:12:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788761514; cv=none; b=SRo13MD8LMjedxLSuXWhdSKUryl6wVRvQKQvTrVTYA25PWANNRaH70NaZcV953CuA+yPVOnYW3528mq37PvIEvwwrnFRU1hzx9tpFKSthw9mIe9rC0tf/5+nXVvPoI8sT9GYS2rB+xbyJsYixrJ/DSVjAYGr4H0QV5ZwhJdxG1E=
+	t=1788761547; cv=none; b=IiR/+V/IoPh4olJLIviNjPTEGmt3qaQ5bH2iuooulO4Gux0fi2yws7l9sSeqRvufKKCZG6gQLZFDg8PFbhjEyzD+r/s7u7pW0OnHf9rHXuJeqzkIhzB7p+VQuwP7/VbHqKfWvljFmRPcDNvDv1k0cyLV9nZUeh58OIGcluCvw4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788761514; c=relaxed/simple;
-	bh=wGPay9A9qATNnqppqo4cBmmU5rAf4n9Ajlzx3PExD4I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HG2tLgbPF4opp5o3bXugpBU2V2Qk58ggotKaeK1MSiZBT0MTkhdxcw5c9PDRslkF4wQWpZx0dAoXnQSWHTovP48Dgrvo0wRRY6JKq0gQ9RY7dDbfuxs+miJWuD5QxcxnE3KuPv65w9UtEQLXDhLz1LSnTtQjg/txSAXewyaRofs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=n4+nhmX2; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788761547; c=relaxed/simple;
+	bh=b8DPEUF6Dcf8dRSHE6FIljtsfPZ2f4lFfNYbtFxDW3A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=slEOZyIbqae3+/SkvEw4kvLAUc8r+xwTTiXWw+0aUfpCxMAuKcoytKtSxWHxZJWCdMy+yWvytpApwLQfncvsE8fUCWnoMoaVPJ/Qa08FoEnrxHFrXObYIGYieNJlBm+lcjbcXRhWzMi8+ynnnJu8SGMwv823ZT7TCZAEw+XbQp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gU45Zf7m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="n4+nhmX2"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hdcCh18ZLzMlCM;
-	Mon, 07 Sep 2026 08:11:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788761504;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wGPay9A9qATNnqppqo4cBmmU5rAf4n9Ajlzx3PExD4I=;
-	b=n4+nhmX2YrLYMSIb6VrVETQrp1mPvyUkA4grZShT815sCyb9F7viXZqvAhM2VbXXG3To3y
-	U6IfYoTQf5LvCviVaNSsT/L1l9dZknpKg4EhxFFsYPbmWM0jQo87e7kqxM5xJdZKplbk+C
-	MpEkiftx9rTFlJmEYJueUii3KyDyk8EpZBiALcKDkzGNs4o1fi99GMvK4k7HVXJRH0w/QI
-	+SVATSHDRUrtLIx/jNGN2WBpmI5DaT5z08XWmXoDoaPuEEP+hGNDrLnjunr91UTteeaIB4
-	mQpjp55cPP9Cf8nZA4rpv9BFp26QItE65sNP/z36cdzg0RxNw/eutwaL3hCRbA==
-Message-ID: <6c47f4e0-bcd3-4349-b8d6-a3889e08370d@mailbox.org>
-Date: Mon, 7 Sep 2026 08:02:20 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gU45Zf7m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDA6E1F00A3A;
+	Mon,  7 Sep 2026 06:12:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788761545;
+	bh=JAvrEwXqqWCVQAuDFZAxAYaZ+IyHoFVwskUDWUWe2i0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gU45Zf7maoHD3FyxPH6/dIJhv/vvtxjqcFSfJPFrpReivmUZBJEghMrjQzbv2450+
+	 6zBnyNlO9HwuCNVk8ZXZCmKZaEdHfULW5Qy7AjrnY2gr2EceDjGyHHnyj6ptBy5iEZ
+	 EAaKTZFZDPlNtRM9jjNDCJy1SaqC/qCLse6YQWHpuY2Haad5BRutPpnx4C8AG9rhe1
+	 PosbmSL4eV51y2OdynuhwFHDnsaYY1LUqAOuecgIfXuy2JuUDDKUWTbZpJvzE/ftqu
+	 DKOTNWjfNLC9Nvl4Gv2ENmUHWm1BwTjJ8whZMWvYMZA5Zpi/MWKmcbn86wt2KjzOQH
+	 tbZya7bOeWoAA==
+Date: Mon, 7 Sep 2026 08:12:21 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Abel Vesa <abelvesa@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH 2/4] dt-bindings: phy: qcom,snps-eusb2-phy: Document the
+ Nord eUSB2 PHY
+Message-ID: <20260907-eminent-silky-dog-98e56a@quoll>
+References: <20260901095055.42229-1-shengchao.guo@oss.qualcomm.com>
+ <20260901095055.42229-3-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v2 2/2] regulator: rpi-panel-v2: Add required vcc-supply
- support
-To: Shashank Maurya <shashank.maurya@oss.qualcomm.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- venkata.valluru@oss.qualcomm.com, Jessica Zhang <jesszhan0024@gmail.com>
-References: <20260907-rpi_reg-v2-0-0c59aa60d31f@oss.qualcomm.com>
- <20260907-rpi_reg-v2-2-0c59aa60d31f@oss.qualcomm.com>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <20260907-rpi_reg-v2-2-0c59aa60d31f@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: 3rtxcznpykrpkofi3z1e1xdqpbddtpj3
-X-MBO-RS-ID: 7c43c5405db0c7d7e45
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260901095055.42229-3-shengchao.guo@oss.qualcomm.com>
 
-On 9/7/26 7:46 AM, Shashank Maurya wrote:
-> The Raspberry Pi 7" touchscreen panel V2 MCU requires an external power
-> rail to be enabled before any I2C register access is attempted. Use
-> devm_regulator_get() to obtain the vcc supply and enable it at the
-> start of probe.
-Which power rail is this ?
+On Tue, Sep 01, 2026 at 05:50:53PM +0800, Shawn Guo wrote:
+> From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> 
+> Add a compatible for the eUSB2 PHY found on the Qualcomm Nord SoC.
+> It is compatible with the sm8550 eUSB2 PHY.
+> 
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+
+This should be squashed with previous patch. Why reset is being made
+optional? The change itself had not meaning, no sense. It was made
+optional as part of qcom,nord-snps-eusb2-phy requirements... unless it
+was all about drivers?
+
+Best regards,
+Krzysztof
+
