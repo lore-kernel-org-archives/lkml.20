@@ -1,147 +1,204 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 60A0E51FCDB;
-	Mon,  7 Sep 2026 16:45:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mta1.migadu.com (out-49.mta1.migadu.com [95.215.58.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2BE51993D
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:45:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788799508; cv=none; b=FDsgAWvNLvDYteRwL/zijWJL0+ljxjBAIptIYATKLhtfQ2wAYYIyBOCDFltYBFmOxgk6KIm++8BNpRKK2dgzTMVeIe0v9ObAAb0hJ6e03wadrQZHZPyBCSXRUsukQ4KPXYVNQ+HgjBQ7xCrNQoXeZmbSMdUdI28Q9UJ/2qU5TuA=
+	t=1788799529; cv=none; b=kFXNGcFtu8i5w0Tzhhr5H+OTUfSVb4ZlQ59PwGc0mSLpMA+bfeva/fnrzRf9CNdbZXhrCtKBkX4s2mvhVXyGRV9a1a/VeI+oP/QTB5b/hFRYUFFtzVoSbNEtZILbw0UPBpBYqwhqz/tcxC4/uZskjyuLAO5F05Qg/rPV8irymZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788799508; c=relaxed/simple;
-	bh=JNNcGPg6GIL/WEakvJ694PuUxBRXX0IGTFIMXIj6GJI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NowlyiITkqu/8mAZmIQsM5OV3+4PPEZbmiDrwAF/g6vGhriz/ubEhDfsI621QaptaCB7ON+hftoirPDnyECPCE3J6kn85uwHEXpKXAypzRGD4US6VhGErX046tmE1aIsUuOaZ4zipDv5rvzfvpdCPQ7f6Q4xpM/tkLigTN0iFaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=OmTGGLEr; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1788799529; c=relaxed/simple;
+	bh=mA7P/Qe1tvxUEQLZlPrgfbJg0c6VIZe0R0iXWMkfLmM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XRSLjDc7yCdzjQz/aiQmrNYZlLrPTwpy3kbZN4fKjPbPi2DaQVZuEyLih6idjd4z+9ZcQfXisIVssaEEEsBnlTyxY7z4GBtLCFiiD1EJIgb7r3olodzTMuDFO9kHQCcnQmSuOpqc0wuwctxH5gad8bU24qdSaBj8Syup5zUyYJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=E11nSGYU; arc=none smtp.client-ip=95.215.58.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="OmTGGLEr"
-Received: from CPC-beaub-VBQ1L.localdomain (unknown [70.37.26.58])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 5124620B710C;
-	Mon,  7 Sep 2026 09:44:27 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 5124620B710C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1788799467;
-	bh=IJMNT8Zybj9jSX6rKt61DM5iZuECFfZ5JYyExgt+5sQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OmTGGLEruBeMFCJ+JVv75nsr4RHFhRxwKi+Yuaati/bTNxce62jY8pJnxod+rdegs
-	 cKO3qmyt+tJDmB7mAnP0RFaWa7dSyuhp8/CWGxO6XbLDrT1JocIze3abyUj+iLaIqS
-	 OabSBYZZWUtPS65gTgzUdKPCbNpvasIRR9DA+2zI=
-Date: Mon, 7 Sep 2026 16:45:02 +0000
-From: Beau Belgrave <beaub@linux.microsoft.com>
-To: Henry Martin <bsdhenrymartin@gmail.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] tracing/user_events: Don't destroy fields when event
- removal fails
-Message-ID: <20260907164502.GA65-beaub@linux.microsoft.com>
-References: <20260903182903.GA62-beaub@linux.microsoft.com>
- <20260904115223.2976446-1-bsdhenrymartin@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="E11nSGYU"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=mA7P/Qe1tvxUEQLZlPrgfbJg0c6VIZe0R0iXWMkfLmM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788799523; v=1; x=1789404323;
+ b=E11nSGYUdFDOKkZEOPkTm2YxFAzEOKlNI8sSZFUvCSIyQLC1YygSwlGE1iHVJFpLwtucE0Fu
+ YYktdxxUDnVQwqq3ue65c/Yo6t0OAYZjFqLPLh2RH9D8nxDUdxFacmtLDoLfdt4YSJlymhzQF7j
+ ea+Dmb7tbknUTrQYlJ+hOm2g=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id f0a5260ef7ab4742;
+	Mon, 07 Sep 2026 16:45:04 +0000
+X-Mizu-Trace-ID: f0a5260ef7ab4742
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: Usama Arif <usama.arif@linux.dev>,
+	akpm@linux-foundation.org,
+	liam@infradead.org,
+	ljs@kernel.org,
+	vbabka@kernel.org,
+	david@redhat.com,
+	willy@infradead.org,
+	jannh@google.com,
+	paulmck@kernel.org,
+	pfalcato@suse.de,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH v2 1/5] proc/task_mmu: remove unnecessary helpers
+Date: Mon,  7 Sep 2026 09:44:57 -0700
+Message-ID: <20260907164500.3920334-1-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260907063918.3432401-2-surenb@google.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904115223.2976446-1-bsdhenrymartin@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 04, 2026 at 07:52:23PM +0800, Henry Martin wrote:
-> destroy_user_event() destroys the event's fields before attempting to
-> remove the trace event call. If user_event_set_call_visible() fails,
-> e.g. because the event is still enabled and trace_remove_event_call()
-> returns -EBUSY, the event is left registered with an irreversibly
-> destroyed field list. Any subsequent interaction with the event then
-> operates on an empty field list while it is still fully visible in
-> tracefs.
+On Sun,  6 Sep 2026 23:39:14 -0700 Suren Baghdasaryan <surenb@google.com> wrote:
+
+> When per-vma locks were behind a config option, a number of helper
+> functions were needed to simplify the locking code. Now that these
+> locks are universally available, we can do a little cleanup.
+> Remove lock_vma_range(), unlock_vma_range(), query_vma_setup(),
+> query_vma_teardown() helpers.
 > 
-> Move the field destruction after the call removal, and splice the
-> field list back onto the event when the removal fails so the event
-> remains in a consistent state.
+> No functional change intended.
 > 
-> Fixes: 7f5a08c79df35 ("user_events: Add minimal support for trace_event into ftrace")
-> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
 > ---
-> v2:
->  - Restore the comment on detaching the fields before removal: removing
->    the event frees the field list memory, which is allocated and owned
->    by user_events (Beau).
->  - Comment why the fields are spliced back onto the event when removal
->    fails: the event stays registered and the fields must be recovered
->    (Beau).
+>  fs/proc/task_mmu.c | 67 ++++++++++++----------------------------------
+>  1 file changed, 17 insertions(+), 50 deletions(-)
+
+Change makes sense independent of the series as well.
+
+Acked-by: Usama Arif <usama.arif@linux.dev>
+
 > 
-
-This looks good to me.
-
-Reviewed-by: Beau Belgrave <beaub@linux.microsoft.com>
-
-Thanks,
--Beau
-
->  kernel/trace/trace_events_user.c | 26 ++++++++++++++++++++-------
->  1 file changed, 20 insertions(+), 6 deletions(-)
-> 
-> diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
-> index 93cda2f6f2692..f658c3a77aa7a 100644
-> --- a/kernel/trace/trace_events_user.c
-> +++ b/kernel/trace/trace_events_user.c
-> @@ -1122,10 +1122,9 @@ static void user_event_destroy_validators(struct user_event *user)
+> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+> index e671b4fd8ded..2f500d639db5 100644
+> --- a/fs/proc/task_mmu.c
+> +++ b/fs/proc/task_mmu.c
+> @@ -160,25 +160,6 @@ static void unlock_ctx_vma(struct proc_maps_locking_ctx *lock_ctx)
 >  	}
 >  }
 >  
-> -static void user_event_destroy_fields(struct user_event *user)
-> +static void user_event_destroy_fields(struct list_head *head)
+> -static inline bool lock_vma_range(struct seq_file *m,
+> -				  struct proc_maps_locking_ctx *lock_ctx)
+> -{
+> -	rcu_read_lock();
+> -	reset_lock_ctx(lock_ctx);
+> -
+> -	return true;
+> -}
+> -
+> -static inline void unlock_vma_range(struct proc_maps_locking_ctx *lock_ctx)
+> -{
+> -	if (lock_ctx->mmap_locked) {
+> -		unlock_ctx_mm(lock_ctx);
+> -	} else {
+> -		unlock_ctx_vma(lock_ctx);
+> -		rcu_read_unlock();
+> -	}
+> -}
+> -
+>  static struct vm_area_struct *get_next_vma(struct proc_maps_private *priv,
+>  					   loff_t last_pos)
 >  {
->  	struct ftrace_event_field *field, *next;
-> -	struct list_head *head = &user->fields;
+> @@ -286,13 +267,8 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
+>  		return NULL;
+>  	}
 >  
->  	list_for_each_entry_safe(field, next, head, link) {
->  		list_del(&field->link);
-> @@ -1502,17 +1501,32 @@ static int user_event_set_call_visible(struct user_event *user, bool visible)
+> -	if (!lock_vma_range(m, lock_ctx)) {
+> -		mmput(mm);
+> -		put_task_struct(priv->task);
+> -		priv->task = NULL;
+> -		return ERR_PTR(-EINTR);
+> -	}
+> -
+> +	rcu_read_lock();
+> +	reset_lock_ctx(lock_ctx);
+>  	/*
+>  	 * Reset current position if last_addr was set before
+>  	 * and it's not a sentinel.
+> @@ -325,7 +301,12 @@ static void m_stop(struct seq_file *m, void *v)
+>  		return;
 >  
->  static int destroy_user_event(struct user_event *user)
->  {
-> +	LIST_HEAD(fields);
->  	int ret = 0;
->  
->  	lockdep_assert_held(&event_mutex);
->  
-> -	/* Must destroy fields before call removal */
-> -	user_event_destroy_fields(user);
-> +	/*
-> +	 * Detach the fields before removing the call. Removing the event
-> +	 * frees the field list memory (trace_destroy_fields() is run on
-> +	 * successful removal and kmem_cache_free()s the fields), but the
-> +	 * fields here are allocated and owned by user_events. Destroy
-> +	 * them separately once removal has succeeded.
-> +	 */
-> +	list_splice_init(&user->fields, &fields);
->  
->  	ret = user_event_set_call_visible(user, false);
->  
-> -	if (ret)
-> +	if (ret) {
-> +		/*
-> +		 * Removal failed and the event stays registered, recover
-> +		 * the fields so it is left in a consistent state.
-> +		 */
-> +		list_splice(&fields, &user->fields);
->  		return ret;
+>  	release_task_mempolicy(priv);
+> -	unlock_vma_range(&priv->lock_ctx);
+> +	if (priv->lock_ctx.mmap_locked) {
+> +		unlock_ctx_mm(&priv->lock_ctx);
+> +	} else {
+> +		unlock_ctx_vma(&priv->lock_ctx);
+> +		rcu_read_unlock();
 > +	}
-> +
-> +	user_event_destroy_fields(&fields);
+>  	mmput(mm);
+>  	put_task_struct(priv->task);
+>  	priv->task = NULL;
+> @@ -518,21 +499,6 @@ static int pid_maps_open(struct inode *inode, struct file *file)
+>  		PROCMAP_QUERY_VMA_FLAGS				\
+>  )
 >  
->  	dyn_event_remove(&user->devent);
->  	hash_del(&user->node);
-> @@ -2212,7 +2226,7 @@ static int user_event_parse(struct user_event_group *group, char *name,
->  put_user_lock:
->  	mutex_unlock(&event_mutex);
->  put_user:
-> -	user_event_destroy_fields(user);
-> +	user_event_destroy_fields(&user->fields);
->  	user_event_destroy_validators(user);
->  	kfree(user->call.print_fmt);
+> -static int query_vma_setup(struct proc_maps_locking_ctx *lock_ctx)
+> -{
+> -	reset_lock_ctx(lock_ctx);
+> -
+> -	return 0;
+> -}
+> -
+> -static void query_vma_teardown(struct proc_maps_locking_ctx *lock_ctx)
+> -{
+> -	if (lock_ctx->mmap_locked)
+> -		unlock_ctx_mm(lock_ctx);
+> -	else
+> -		unlock_ctx_vma(lock_ctx);
+> -}
+> -
+>  static struct vm_area_struct *query_vma_find_by_addr(struct proc_maps_locking_ctx *lock_ctx,
+>  						     unsigned long addr)
+>  {
+> @@ -653,12 +619,7 @@ static int do_procmap_query(struct mm_struct *mm, void __user *uarg)
+>  	if (!mm || !mmget_not_zero(mm))
+>  		return -ESRCH;
 >  
+> -	err = query_vma_setup(&lock_ctx);
+> -	if (err) {
+> -		mmput(mm);
+> -		return err;
+> -	}
+> -
+> +	reset_lock_ctx(&lock_ctx);
+>  	vma = query_matching_vma(&lock_ctx, karg.query_addr, karg.query_flags);
+>  	if (IS_ERR(vma)) {
+>  		err = PTR_ERR(vma);
+> @@ -732,7 +693,10 @@ static int do_procmap_query(struct mm_struct *mm, void __user *uarg)
+>  		vm_file = get_file(vma->vm_file);
+>  
+>  	/* unlock vma or mmap_lock, and put mm_struct before copying data to user */
+> -	query_vma_teardown(&lock_ctx);
+> +	if (lock_ctx.mmap_locked)
+> +		unlock_ctx_mm(&lock_ctx);
+> +	else
+> +		unlock_ctx_vma(&lock_ctx);
+>  	mmput(mm);
+>  
+>  	if (karg.build_id_size) {
+> @@ -773,7 +737,10 @@ static int do_procmap_query(struct mm_struct *mm, void __user *uarg)
+>  	return 0;
+>  
+>  out:
+> -	query_vma_teardown(&lock_ctx);
+> +	if (lock_ctx.mmap_locked)
+> +		unlock_ctx_mm(&lock_ctx);
+> +	else
+> +		unlock_ctx_vma(&lock_ctx);
+>  	mmput(mm);
+>  out_file:
+>  	if (vm_file)
 > -- 
-> 2.43.0
+> 2.55.0.979.g7e5102b832-goog
+> 
+> 
