@@ -1,115 +1,267 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D4BF3CC337
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 20:18:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788812328; cv=pass; b=hgnRTUBBG4nylIGv6+4s0aWZfK4HD0kNlyvv5bgIovIEnCXlz2OF1ve805VmtxlAEtBbecEsdY4psEQGPWuFcefAyJMAX1tp9Vx3tVM8u+EHhb/fr3RiLKQqhIb0cuxpkPMcTyjlS3ONIt0U7MrVGbFJGEEdwSUxi36Gb7KQNwM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788812328; c=relaxed/simple;
-	bh=fcINJblJRb432SfE3VmHwqT0pqshFhBkvIiNxSLnr6s=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=itAkjc+5yT8kDwavRGAhgU++EGsjxCFBERxvXFC1RJsnhTRlMuHgU75jh3aH0s7d5Bp3ZJNFH5JYPbg1jUcgkrTLKizwPOCPfy23pJMkFT4H7RttyDaiA1OpfJOy/ghs29BIBOAUXgsWo5IBtDbSqilJtfoZam1sI/0h4Dk0wWY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=ODzSJp3X; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB9941F5D9;
+	Mon,  7 Sep 2026 20:18:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788812332; cv=none; b=rGNOoVVphDyqeBkbtYOu3jqBd1R17sQrW44iFlou19Q2h3sMvdnfM27RqKEKehtMHb7HsBQAOa4u6d+k0crtTOTfm+tCd2ZTG6490m5CnjKZ2ymuc9P1wmN9Ccw5RESIUwRUNPCpi8TBDdvE8SF42Dl+otKRsBdAEpB4KFI5LuM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788812332; c=relaxed/simple;
+	bh=exVgwIhxCB4FqfRbUzXjOD6Bfp2zjfD/SySNjut3sMM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z5uPVh8l7LCi6/8LJvD3jRBZLRBCQksTmo2Ug5bCY+dUwkHh6ZlrXa+Mxr99oYudApWdaI9gYapvyrNARsLLFzT9qmaVB5D9UZpQpMYd+JFqicLSQj9aRk2lHtRS2Je+ZTJXRfhgYlKWbsgllCefg1kzk2n7tGv5xM8q4bd+7e4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gB7XHpY2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="ODzSJp3X"
-ARC-Seal: i=1; a=rsa-sha256; t=1788812291; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=HsSESzIReyq8ohGsCaKzZrhVmJwLEXr2ANOLQ3GNpPJkEihi8LLo1pahexliMX9onj26bBeQQdpFOTvCGkaiJq16/Jst/mGM71bvVgnpMcvPJiGq15V1YXns9mOHTWv6lL6sDxuAFDU+0xdv41KV4u7APn4NzeBrFyuf01G8zYU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1788812291; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=GiNAk1ddULmDOvtto/fkJvNwC9OGSrBfiGgPyvguuH0=; 
-	b=hcelYD4J3cRqES7P0DMZoHlrGR5G20PQGNzSMjkUNNiHJARpVoWA0+Ev0/5otyGFrgdNonA63lHs59X7LgR60J/zStNsamPSMZmu2pYVxTCe4BRBQI8t/PnkEs76VvbABdK+TJPSKSCOEOjuSoAZg2Ut0iG3pCPiFbzLnzLSvHg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788812291;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=GiNAk1ddULmDOvtto/fkJvNwC9OGSrBfiGgPyvguuH0=;
-	b=ODzSJp3XyuPT6iipXL7WtbnPP3Vner73f3nlKb/wlOCv62gVieaJSM2HNVl04JIy
-	It/yc3f04pAgz+XZdV4drB+1gYTlkiFfi9x+mKCcFyyyimpYTd/o0fbpgC9cao3Lzw+
-	cmt1r9fwyWi8ogrpJc/TeH+zK7aWy8Lwj2wdoYWg=
-Received: by mx.zohomail.com with SMTPS id 1788812289723366.9762585632135;
-	Mon, 7 Sep 2026 13:18:09 -0700 (PDT)
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Mon, 07 Sep 2026 21:16:25 +0100
-Subject: [PATCH v8 16/16] drm/panfrost: Bump driver minor to reflect new
- DUMP IOCTL req field
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gB7XHpY2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F4D61F00ACA;
+	Mon,  7 Sep 2026 20:18:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788812331;
+	bh=g/K+ETr6QD181oYSMtQhZffpfb4s0blaYWm8THI030w=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=gB7XHpY2t5h8TI/7iLx+BhEvzzqDSP6JcBtPxKY7aVHMofUZNZn3BjRudt2/3SatG
+	 GvoV6WgQLEWM6blbHynr5XQ9blq9dwaMayHCADOQJ8zxv89ANdH6/LEPNupmEUsH5s
+	 3HeARIvWI+FCmDdWM1ZZ2RE8Z5LzPjylZJXDr9sV3a+MLcnhmLhYYAOzy4clx4UpJ8
+	 gizhFw4DKyRTKPqCriVzy/LkNE78gJxEwsPqxcg8K/fwouAlNtyZP/kqRFMASZkc+r
+	 IsaZAG483xWN6CVp9hV5YFoZvGjMeZzARZATavUHwLv29d2RLK2Rb1v8fhyw9J2CEe
+	 o06P8u9ovf+UQ==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id CAE7BCE0F83; Mon,  7 Sep 2026 13:18:50 -0700 (PDT)
+Date: Mon, 7 Sep 2026 13:18:50 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, boqun@kernel.org,
+	frederic@kernel.org, include@grrlz.net, jiangshanlai@gmail.com,
+	joelagnelf@nvidia.com, josh@joshtriplett.org,
+	linux-kernel@vger.kernel.org, neeraj.upadhyay@kernel.org,
+	qiang.zhang@linux.dev, rcu@vger.kernel.org, rostedt@goodmis.org,
+	urezki@gmail.com
+Subject: Re: [PATCH] hazptrtorture: Fix inverted sleep condition in
+ do_pending kthread
+Message-ID: <730e268b-6e21-4311-81d0-007c862a2b77@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <ed125668-a77a-41b6-9d56-46ac93a5d69c@paulmck-laptop>
+ <9D2DEA27-B3D1-4A8B-BA57-2F5EAC920C1D@mainlining.org>
+ <b1abee12-5a3a-4750-be37-a3157c7e2217@paulmck-laptop>
+ <28838ba4-8618-45d0-9994-3efee251bce2@efficios.com>
+ <748b12b2-f1a3-4ed8-8c9b-86fa8d9a5926@paulmck-laptop>
+ <179E0ECA-C65D-4480-9E4E-CFA960D55665@mainlining.org>
+ <bbab8067-9bb4-46d0-bbbd-da7b836b04f5@paulmck-laptop>
+ <D45E54F1-E015-46B1-9213-0801CF32A4F2@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260907-claude-fixes-v8-16-c2bcb5e82184@collabora.com>
-References: <20260907-claude-fixes-v8-0-c2bcb5e82184@collabora.com>
-In-Reply-To: <20260907-claude-fixes-v8-0-c2bcb5e82184@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>, 
- "Marty E. Plummer" <hanetzer@startmail.com>, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Collabora Kernel Team <kernel@collabora.com>, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1175;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=fcINJblJRb432SfE3VmHwqT0pqshFhBkvIiNxSLnr6s=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqnxuMjIWVkrqvWdN8Cru2QMhlsN+QjHzTfzIIr
- +pKdzEdXCGJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCap8bjAAKCRAOJn5M7lND
- PXPMC/9xkqRLGYZ1vg0t6bsCK7x1Q5AHKkFpkXG4jrl8j0JxKUX65dDN9/mSjBGcYJlbs0L3yLy
- +uh+czRcVcojFWpr9ibBflRh8hK+Yqltc+7TMUxRmW8I7TRQRJSaJ9absc6WAksrlRYl7M9j27S
- M6TzcuUxPE3KjycLtSJHqy50e1yxpoE4Pt5gmt9rsYC3qbMSY8ZnNlMZABhzEjp5OtLJ144wY+/
- QbaKDBF9BWccq8fPc4RMFtUN92DF1ajKcoFveWwRvNA7MwR5NLQUtZyf2SrZvBFrMtZM0IKpkpx
- N4chlfl3iZpJrwg0aSbgQP86cn1mVga1pUZKDiSpm1Yyi9C9qaBZMqHvAfUk8cT89GJJUm7VJzU
- 0Ttmxt7Lq+urlmmqlojMNhKSrDtP8bbLDuBrQFVMn04NaRynDNOSNoGwoGhZyFdhJkQQRM7Z6IT
- vTNphLb00qTsyQ5YNnLmMvo2g8XwKH3bmLZEgtgvvtbrgpXUJFTp1XXRmKKMIFAfDNmQ4=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <D45E54F1-E015-46B1-9213-0801CF32A4F2@mainlining.org>
 
-Expose expanded PERFCNT_DUMP IOCTL interface to user mode.
+On Mon, Sep 07, 2026 at 07:11:53PM +0100, Bradley Morgan wrote:
+> On 7 September 2026 00:16:55 BST, "Paul E. McKenney" <paulmck@kernel.org>
+> wrote:
+> >On Sun, Sep 06, 2026 at 07:56:29PM +0100, Bradley Morgan wrote:
+> >> On 6 September 2026 19:46:50 BST, "Paul E. McKenney"
+> ><paulmck@kernel.org>
+> >> wrote:
+> >> >On Sun, Sep 06, 2026 at 09:09:53AM -0400, Mathieu Desnoyers wrote:
+> >> >> On 2026-09-05 16:40, Paul E. McKenney wrote:
+> >> >> > On Fri, Sep 04, 2026 at 06:28:45PM +0100, Bradley Morgan wrote:
+> >> >> [...]
+> >> >> > I would not say "no" to a fix for this issue:
+> >> >> > 
+> >> >> >
+> >>
+> >>https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+> >> >> 
+> >> >> I'm not sure this URL actually points to a relevant issue ?
+> >> >
+> >> >Indeed, it does not, apologies!  Here you go:
+> >> >
+> >> >https://lore.kernel.org/all/202608130915.62b53936-lkp@intel.com/
+> >> >
+> >> >> > Once that is in place, I would be happy to put this back into
+> >-next.
+> >> >> > 
+> >> >> > At some point, we will need to get rid of the concept of wildcard
+> >> >hazard
+> >> >> > pointers, as those end up instead emulating RCU, but I don't see
+> >that
+> >> >> > as an immediate obstacle.
+> >> >> 
+> >> >> I already have the implementation which eliminates the wildcard if we
+> >> >> care about this. It was part of a previous hazptr series version.
+> >> >> 
+> >> >> Do you want me to resurrect it on top of the current series ?
+> >> >> This depends on:
+> >> >> 
+> >> >> - ptr_eq(),
+> >> >> - then use ptr_eq() to compare the loaded pointer (pre mb)
+> >> >>   with the re-loaded pointer (post-mb).
+> >> >> 
+> >> >> See:
+> >>
+> >>https://lore.kernel.org/all/20251218014531.3793471-1-mathieu.desnoyers@efficios.com/
+> >> >
+> >> >The main objection was over the content and style of the kernel-doc
+> >> >header comment, right?  I am guessing that it should be possible to
+> >> >resolve this to roughly equal disgust of all concerned.  ;-)
+> >> >
+> >> >We did make some progress on this sort of pointer issue in C++29
+> >> >this past June:
+> >> >
+> >> >https://people.kernel.org/paulmck/c-pointer-zap-and-oota-progress
+> >> >
+> >> >But the piece you need is this guy, which is still in process:
+> >> >
+> >> >https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2025/p3790r1.pdf
+> >> >
+> >> >Plus it will be some time before this reaches all the compilers used
+> >> >to build the Linux kernel, and probably even more time to reach the
+> >> >C language.  I do have pen-on-paper notes that will lead to a draft
+> >> >of the corresponding C-language working paper, but these things do not
+> >> >move quickly.
+> >> >
+> >> >So, yes, we will need something like ptr_eq() for some years to come.
+> >> >
+> >> >Back to your original question, given the fix for the above bug and
+> >> >given the current use case, I believe we can get the current series
+> >into
+> >> >mainline.  Give or take Linus's thoughts on the matter.  But either
+> >way,
+> >> >we will need a version that allows the user to avoid all wildcard use
+> >> >sooner rather than later.
+> >> >
+> >> >So having a series on top of the current one for a later merge window
+> >> >would be a very good thing!
+> >> >
+> >> Can I participate in this? :)
+> >
+> >If Mathieu is OK with it, feel free to look at the patch stack that
+> >Mathieu sent the URL for earlier in this thread.  Either way, please
+> >feel free to look at the stack in my -rcu tree based on v7.3-rc1 and
+> >headed by this commit:
+> >
+> >4398b7c192d ("hazptr: Implement two-phase wildcard scan")
+> >
+> >Perhaps you can find the bug that kernel test robot located.  ;-)
+> >
+> >My -rcu tree is here:
+> >
+> >git://git.kernel.org/pub/scm/linux/kernel/git/paulmck/linux-rcu.git
+> >
+> >Just so you know, in all cases, your taking on a task does not preclude
+> >others from also taking that same task on.
+> >
+> >							Thanx, Paul
+> >
+> >> --- Thanks!
+> >>
+> >https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+> Hey, test this fix?
 
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
----
- drivers/gpu/drm/panfrost/panfrost_drv.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Very good, thank you!
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-index 571a26b84126..de9b1c115181 100644
---- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-@@ -808,6 +808,7 @@ static const struct file_operations panfrost_drm_driver_fops = {
-  * - 1.6 - adds PANFROST_BO_MAP_WB, PANFROST_IOCTL_SYNC_BO,
-  *	   PANFROST_IOCTL_QUERY_BO_INFO and
-  *	   DRM_PANFROST_PARAM_SELECTED_COHERENCY
-+ * - 1.7 - adds PERFCNT_DUMP req state field
-  */
- static const struct drm_driver panfrost_drm_driver = {
- 	.driver_features	= DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ,
-@@ -820,7 +821,7 @@ static const struct drm_driver panfrost_drm_driver = {
- 	.name			= "panfrost",
- 	.desc			= "panfrost DRM",
- 	.major			= 1,
--	.minor			= 6,
-+	.minor			= 7,
- 
- 	.gem_create_object	= panfrost_gem_create_object,
- 	.gem_prime_import	= panfrost_gem_prime_import,
+Please post this patch as a reply to the report, asking them to test:
 
--- 
-2.55.0
+https://lore.kernel.org/all/202608130915.62b53936-lkp@intel.com/
 
+But first, have you tested it locally?  Something like this:
+
+tools/testing/selftests/rcutorture/bin/kvm.sh --torture hazptr --allcpus --duration 2h
+
+Would run a two-hour test of each of the two scenarios, within a guest OS.
+If your host system has 32 or more CPUs, it will run both scenarios
+concurrently.
+
+							Thanx, Paul
+
+> >From 3e92b8153c31106d6a080e1c9bbe9bf1e86e1f63 Mon Sep 17 00:00:00 2001
+> From: Bradley Morgan <brads@mainlining.org>
+> Date: Mon, 7 Sep 2026 18:00:08 +0000
+> Subject: [PATCH] hazptrtorture: Only detach acquired hazard pointers
+> 
+> hazptr_torture_acquire() detaches unconditionally, even when the
+> readlock fails. A failed acquire leaves nothing to detach, but the
+> detach still promotes the context to its backup slot and chains that
+> slot into the running CPU's overflow list. The reader then retries on
+> its own CPU, the fast path hands out a per-CPU slot and overwrites
+> ctx->slot, and the chained backup node is orphaned, still linked,
+> with nobody left to unchain it.
+> 
+> The next detach of the same context chains the same node a second
+> time, into another CPU's list, and the node ends up reachable from
+> both. The eventual release unchains it once, hlist_del() poisons
+> node->next, and the first list is left pointing at the poisoned node.
+> The writer's next hazptr_synchronize() walks that list, steps onto
+> LIST_POISON1 (0x100 on i386, where POISON_POINTER_DELTA is 0), and
+> reads slot.addr at offset 8 of the backup slot, address 0x108, which
+> is the crash the robot hit.
+> 
+>   cpuA (IPI acquire)     cpuR (reader)          cpuD (do_pending)
+>   ---------------------  ---------------------  -------------------
+>   readlock() returns
+>     NULL
+>   detach chains the
+>     backup node into
+>     cpuA list
+>                          hpp_htp is NULL,
+>                            continue
+>                          reacquire, ctx->slot
+>                            is now a cpuR
+>                            per-CPU slot
+>                          acquire succeeds,
+>                            defer, detach chains
+>                            the SAME node into
+>                            cpuR list
+>                                                 release, unchain
+>                                                   once, node->next
+>                                                   is POISON1
+>                                                 kfree(hppp)
+>   synchronize walks cpuA
+>     list, node->next is
+>     0x100, reads 0x108,
+>     Oops
+> 
+> Skip the detach when the acquire failed. The slot holds NULL in that
+> case, note_context_switch() and the synchronize scanners skip NULL
+> slots, and the next acquire overwrites ctx->slot, so leaving the
+> context attached is safe.
+> 
+> The robot's original report was against the defer path before detach
+> existed, which 4bd7f458229a fixed. This is the same crash surviving
+> through the IPI acquire path that 6357ec235c59 added.
+> 
+> Fixes: 6357ec235c59 ("hazptrtorture: Fix hazptr ownership issue")
+> Reported-by: kernel test robot <yi1.lai@intel.com>
+> Closes: https://lore.kernel.org/oe-lkp/202608130915.62b53936-lkp@intel.com
+> Signed-off-by: Bradley Morgan <brads@mainlining.org>
+> ---
+>  kernel/rcu/hazptrtorture.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/kernel/rcu/hazptrtorture.c b/kernel/rcu/hazptrtorture.c
+> index 7c8b589..267f262 100644
+> --- a/kernel/rcu/hazptrtorture.c
+> +++ b/kernel/rcu/hazptrtorture.c
+> @@ -373,8 +373,11 @@ static void hazptr_torture_acquire(void *hppp_in)
+>  	/*
+>  	 * Acquiring a hazard pointer from a remote CPU.
+>  	 * Detach hazptr from its task so it can be released by another task.
+> +	 * A failed acquire has nothing to detach, and detaching one anyway
+> +	 * orphans the chained backup slot on this CPU's overflow list.
+>  	 */
+> -	hazptr_detach(&hppp->hpp_hc);
+> +	if (hppp->hpp_htp)
+> +		hazptr_detach(&hppp->hpp_hc);
+>  	atomic_long_inc(per_cpu_ptr(&hazptr_torture_acquires_irq, raw_smp_processor_id()));
+>  }
+>  
+> -- 
+> 2.47.3
+> 
+> 
+> --- Thanks!
+> https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
