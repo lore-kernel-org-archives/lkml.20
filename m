@@ -1,98 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81AE551FCD4;
-	Mon,  7 Sep 2026 17:48:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B85F2475CB
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 17:50:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788803298; cv=none; b=aa/9/lZKkU+nyQntMGCEgi+IvK8noxvhYrY659zw8yvVuQUg5OUDt7qdDkylY/E5mjLiL19+6ZsxSVoQIClmw9UyNR5wv5hUdPyrTaEH7VADLxlVKc5DWd8mupStSovrdr40/fQFp47s9X+tvDpihHl0MmGiJRA1MY4aA9qgxxM=
+	t=1788803418; cv=none; b=CybA2uycBYRYU+Nr9m7C3C6Fu6yo+YmGhwMIOYi9scgJycmO/AGIT6+Z+A6hlqEyuL42b3kMN1qVNS3wKdv/4av1NDRVJ2YZRmopZ35+231PkzEwY+TT8A2x8VIKg+3eVxjqEqKmSjNalUihv5fd3TOqp0yTvdwzpWyR6Tz22FQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788803298; c=relaxed/simple;
-	bh=gVcHIR091nKe63kW081P1hu2+NxnGR6WHkyTfC/Akoo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AtjuAAyPGyVziJ69gPqloSfkHQnn1pd9/7jZ2lWqRHlOEwaLixPl0eyVfBl6HJtKDiYDfs52A7JJstwXmRmk36d87u8YCgU158SZfEQzSdNcZgoQ4Vbv8IZWIVM2DYS1NZ1S5hDYmmnOJpL9R01tAhNAVOG7yZVxMzjPRrKLWCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YqQJEem/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788803418; c=relaxed/simple;
+	bh=9hQn/3/R4y5/GLB1rVl7wVcBchcJx8HdrOrtByILXL0=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=r0JchPLvLZNXjM2uaC/QCr/QSkGWeRKER35RFQ/4Bn1a+NRlG56CXwyNTowRZ5PfrdjE5UDSKJmxDkbmz43m7WmQ2/1cnzxv+CESMQc9sG0A3f4wlC1f8AcwLZZD1JlFdshyi4iHwKmme+sXU8AJnN1qh0FSvPX4k83t9W7ZZ6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aXYBXV5L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YqQJEem/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D5E81F00A3A;
-	Mon,  7 Sep 2026 17:48:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aXYBXV5L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4C641F00A3A;
+	Mon,  7 Sep 2026 17:50:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788803295;
-	bh=bS1qZ/XIBX3jq/MS6/8/SYsogjn2xT0pzwijJAZpnT8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YqQJEem/l3sQWCzKDHeiv2Zn/9ofYsiWZL7n06Rgp/+XURvoYGgUTQ+WBYiw9qx/5
-	 Ce0cpFy3pLkoU1nq1dRKMYbKLg1R0m/jNYfon+cUau4IAmc7Ceo5zooRuSzugsVO6N
-	 vwHcw0zoelak7tQa2DnNyfB2qmZuQvtsE97672k5GHeKyVrLIcc9yf62UbzMFyxwAf
-	 N3QnVnKzN5QdjC3kLq9JmRsz+8Ezd1wWAvlw0agsEDvcAVVYcGT3HzP0UiXWyhIT/y
-	 kEvmfNpUFmn7Pdn086fVsM//Ry9WbtJh6AycgGX40r5DNwYmIDB9CYawGDmSCd30/Q
-	 jDW8r6Cw/JMyA==
-From: Danilo Krummrich <dakr@kernel.org>
-To: Philipp Stanner <phasta@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
-	Asahi Lina <lina+kernel@asahilina.net>,
-	Burak Emir <burak.emir@gmail.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	FUJITA Tomonori <fujita.tomonori@gmail.com>,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v11 0/2] rust / dma_buf: Add abstractions for dma_fence
-Date: Mon,  7 Sep 2026 19:47:30 +0200
-Message-ID: <20260907174729.3669166-2-dakr@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260905085343.1827305-2-phasta@kernel.org>
-References: <20260905085343.1827305-2-phasta@kernel.org>
-X-Patch-Reply: applied
+	s=k20260515; t=1788803416;
+	bh=mllLkfa4j6cMDPeyNiMqsOMa/da1v2mEshsDPnTO6MA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=aXYBXV5LjCa95Ar1ahT4FkT0RH2hAHbboc+AU+af64jq11E0qdOIFR+n5DQ163Vz/
+	 86YbKPwrtq1aeFC1dB4U8tmOoaEuetTUakgi5wpWweH+D3oOdd0VrP+DMvF6/3MyFK
+	 jJOqBiKR8PDgMFadBfziaDQNuxALVK3y/RjOf24hDhDj1LL1+GjFlsMUxR2pwXM9kv
+	 hmJR5hZVreqCfqeSqzTXo989ClOLYdhxY7HHBO2d9hpyM652NjD77O2nwtjjMEMvN8
+	 sSfXQL5PZM+I4eIYXdBOkws45gclWOPqd3M7fLGF59P435+u98dPXPeVhWv8PDHOlE
+	 pkcrqSKjgabrQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x3dTy-00000005tfl-3fb0;
+	Mon, 07 Sep 2026 17:50:14 +0000
+Date: Mon, 07 Sep 2026 18:50:14 +0100
+Message-ID: <868q5d3q95.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Sascha Bischoff <Sascha.Bischoff@arm.com>
+Cc: "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>,
+	"linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>,
+	nd <nd@arm.com>,
+	"lpieralisi@kernel.org" <lpieralisi@kernel.org>,
+	"tglx@kernel.org"
+	<tglx@kernel.org>,
+	Catalin Marinas <Catalin.Marinas@arm.com>,
+	"will@kernel.org" <will@kernel.org>,
+	Mark Rutland <Mark.Rutland@arm.com>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v2] irqchip/gic-v5: Preserve ICC_CR0_EL1 state
+In-Reply-To: <20260907164945.714545-1-sascha.bischoff@arm.com>
+References: <20260907164945.714545-1-sascha.bischoff@arm.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: Sascha.Bischoff@arm.com, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, nd@arm.com, lpieralisi@kernel.org, tglx@kernel.org, Catalin.Marinas@arm.com, will@kernel.org, Mark.Rutland@arm.com, sashiko-bot@kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Sat,  5 Sep 2026 10:53:41 +0200, Philipp Stanner wrote:=0D
-> [PATCH v11 0/2] rust / dma_buf: Add abstractions for dma_fence=0D
-=0D
-Applied, thanks!=0D
-=0D
-  Branch: drm-rust-next=0D
-  Tree:   https://gitlab.freedesktop.org/drm/rust/kernel.git=0D
-=0D
-[1/2] rust: Add dma_fence abstractions=0D
-      commit: 3282d5916019=0D
-=0D
-      [ In dma_fence_callback(), split combined unsafe block into separate=
-=0D
-        blocks for container_of!() and pointer dereference. - Danilo ]=0D
-=0D
-[2/2] MAINTAINERS: Add entry for Rust dma-buf=0D
-      commit: 7aa432f5121b=0D
-=0D
-The patches will appear in the next linux-next integration (typically withi=
-n 24=0D
-hours on weekdays).=0D
-=0D
-The patches are queued up for the upcoming merge window for the next major=
-=0D
-kernel release.=0D
+On Mon, 07 Sep 2026 17:49:50 +0100,
+Sascha Bischoff <Sascha.Bischoff@arm.com> wrote:
+> 
+> In addition to EN, ICC_CR0_EL1 contains other fields, such as LINK and
+> LINK_IDLE. The driver only needs to modify EN, and must preserve the
+> values of all other fields when enabling or disabling the CPU
+> interface.
+> 
+> Define the missing LINK and LINK_IDLE fields, and use read-modify-write
+> accesses to update EN without affecting the rest of ICC_CR0_EL1.
+> 
+> Fixes: 7ec80fb3f025 ("irqchip/gic-v5: Add GICv5 PPI support")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/r/20260807121703.D4B7A1F00A3A@smtp.kernel.org
+> Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
+
+Reviewed-by: Marc Zyngier <maz@kernel.org>
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
