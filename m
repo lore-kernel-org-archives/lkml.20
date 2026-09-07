@@ -1,106 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 744E744063E
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:42:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E2DB443313
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:43:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788770566; cv=none; b=HaEfgnFY4a2IVN7FQmZKqFfriSATjoXmTgrJ+UgtMin3Tfa60NBxYRlG9K9gct8z/YsKK7Yi+raShvqtQ9ZGhVh6qzjCgOuBjAI2XYNXpz13rTH2Qjd5FOlqny9n+n237VOXA/0dUcScjOSv4qb+jK9S9UrRU0TtMvGz4GuxVRo=
+	t=1788770593; cv=none; b=UXBubkS29bR+jzkWY7OvKpeK0DVlTq69nwEi4KpAkTEXmrk+khQpfgZBr1sVU1krNqFr0Xwdtmx+ru3GEOrzUoePgFa+mPVAxpvlDOrPJPFTIkISEu9OX4pTMh6Y5UEY7TA7IgatZ8jcwd/6JxR+XwSVsTgX/P/sQsD/xNGEwW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788770566; c=relaxed/simple;
-	bh=bvgnRIDupB6q+uAT7fNeLBNHD/lrtfXyh4a6Y69o1ew=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hMsRW8bYbHI50fh/EL0E648d5HDvLOyAHrlcjgwbndbf9VsBnAQKZvnZPV3rb5M1DACgS9XXMHwzeUrZk2Xc9yEUPwQ90LcucWVC2UDu9PBjjZV3KbVFkZxopf3NoCJS15GYu22fqLhNuIknjrMXX56GM3ciznxlfmox53I2vAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nPGFXv9e; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788770593; c=relaxed/simple;
+	bh=OywrNZ4BtrhKjQt24W3zA3T7LubwDSC/jinrjoF+zgM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=q0ZeXXwRqIFw2SljDlbX2UvblNWIyzYsqhXwEz5dMuEHuPYmw9OVZYJz96OOURrNK2gFulQkieY2ITSfCL6pYjbvEqDs8Pxb/TjMnDmGGH+c5mEgq5dggUzELaBcp9SlQ3kOcMFn5QeZbE7xYTQEo4iH5lSoryFM9B5oG4Bv98Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=coAlhRbA; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nPGFXv9e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1768E1F00A3E
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:42:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788770565;
-	bh=FsL1JRBtjl14wKfbHM2QsZ2zNoKnZ1ubF74NM1A6Jzs=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=nPGFXv9ebB9LWaJ4ZpwBlxuZi9KUW/dyOfZkOUMsGz3kJUpXXasI3Ki32vsrg+Tqh
-	 VJMfCrM9GZD28QvyPaxqNPSe8KvY+jR7kX59lgynC/QpxlFaoEuQKZHDmK8160ETgv
-	 l3Ji2FlItbsgAMnZOLpWtvoim2FOo3IXOYOv9IZhAzLKUC9idQGf8vmSGBCLuFtiDl
-	 s+ApzFchXRZ1kye8xnkHXgmyc2kU09h9F6n2+K7GRc/9a5/GVjcBOmAs5LASnHPwcf
-	 o1269GRHN4hqcsu6tiI4EK6h3r7sfUXHBEElE0wjbOmlkrywYTt8ATUsxZ0U1V3Ysu
-	 iQOz01z1sYE4g==
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-39c95395230so29990661fa.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:42:45 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxnuEUniCXG8lVSnMLAGjSF9x/ewszwGlGc/bhRmpYzhGL3HQpxwJlhnw3qZTKIr0Ivf5GfPupol/KCFQ0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgteHdoox7D+aGC3qFPi9wIJ26/CYveV48IfvErxx6STSO0v80
-	e231QrkOhlvypdcPtr1MuWH4CW7rtQjv4OXxash0uY9kpLicTPQ6AmnurHbAUsB+/lihrP18uKv
-	td/DSEtTk454YCOApLp0KFAz32uUUVfDLrWSRjnM+kg==
-X-Received: by 2002:a2e:b88f:0:b0:3a3:368:fb9f with SMTP id
- 38308e7fff4ca-3a371f5630emr24940481fa.13.1788770563714; Mon, 07 Sep 2026
- 01:42:43 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 7 Sep 2026 01:42:42 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 7 Sep 2026 01:42:41 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <0587c422-8279-491e-b377-af623e13366c@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="coAlhRbA"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id C89C51A1A21;
+	Mon,  7 Sep 2026 08:43:08 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9428760383;
+	Mon,  7 Sep 2026 08:43:08 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D9DE811C7A43E;
+	Mon,  7 Sep 2026 10:43:02 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788770587; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=QPH9SwD0hXddm6xXbxjZJJRgmfIRKy2x0pI2YYN7uWo=;
+	b=coAlhRbAGLCBssJtWVENWIjlmTXIFDrRkn/FUW9R7GJF0H3uYFpCozKK57CHxWHqGltbl6
+	9kW3LR+wuQmweNJVwCSruG51FkFy37lFfbIPWJ2tj8FtYOsdmRWain/eNRldoCVA9wn1ZA
+	pmf96tNkede6vgD8UNP/fWu/8RvWsdHIM4GDVfL+SEfJgsAjpOrQsOnuCmgNxDmBocT5xT
+	BzzleahE2adqKJk3b1UrFy66G9PpxIPGlFMQWq0J6Trate8IQZvyx68boN0iVG0GcMvrd6
+	Ltbuk1J0B39LmRw+YRjAQUICJoLDkZwse3VzboFjj6Bbk74XoL0nX71+XUBblQ==
+Message-ID: <a3ee0fb0-417a-4844-8c8d-b29189ea2b31@bootlin.com>
+Date: Mon, 7 Sep 2026 10:43:01 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260821070651.39763-1-vaknins33@gmail.com> <178827844334.39529.382963115769227795.b4-ty@oss.qualcomm.com>
- <aplfrNXzNvgbMJf1@ashevche-desk.local> <CAMRc=Mck+ft9wmWQLcq4uFTvH9u_rB_bFQ6tGtG7YkYdbowJaw@mail.gmail.com>
- <0587c422-8279-491e-b377-af623e13366c@kernel.org>
-Date: Mon, 7 Sep 2026 01:42:41 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MeDKQCuh683UVm1mZLa7gMfi9_q6nia6WFT_sZAPu4GnQ@mail.gmail.com>
-X-Gm-Features: AcwNN1WSwhJ1q6AAMkoDnQTqEurSzKK3a8rvISuNw7xwBUqiDTxxQZNMz_gWSlc
-Message-ID: <CAMRc=MeDKQCuh683UVm1mZLa7gMfi9_q6nia6WFT_sZAPu4GnQ@mail.gmail.com>
-Subject: Re: [PATCH] gpiolib: acpi: Add ignore_wake quirk for ASUS ZenBook UX425UA_UM425UA
-To: Hans de Goede <hansg@kernel.org>
-Cc: Mika Westerberg <westeri@kernel.org>, Kivan <vaknins33@gmail.com>, 
-	Linus Walleij <linusw@kernel.org>, Mario Limonciello <mario.limonciello@amd.com>, 
-	linux-gpio@vger.kernel.org, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v2 10/10] net: dsa: microchip: add periodic
+ output support for the KSZ8463
+To: netdev-bot+sashiko@kernel.org
+Cc: woojung.huh@microchip.com, UNGLinuxDriver@microchip.com, andrew@lunn.ch,
+ olteanv@gmail.com, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, richardcochran@gmail.com,
+ pascal.eberhard@se.com, miquel.raynal@bootlin.com,
+ thomas.petazzoni@bootlin.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260902-ksz-perout-v2-10-6f277fcc9e68@bootlin.com>
+ <178857332410.219967.8963048354667407581@kernel.org>
+Content-Language: en-US
+From: Bastien Curutchet <bastien.curutchet@bootlin.com>
+In-Reply-To: <178857332410.219967.8963048354667407581@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, 4 Sep 2026 09:56:58 +0200, Hans de Goede <hansg@kernel.org> said:
-> Hi,
->
-> On 3-Sep-26 14:42, Bartosz Golaszewski wrote:
->> On Thu, 3 Sep 2026 13:53:16 +0200, Andy Shevchenko
->> <andriy.shevchenko@linux.intel.com> said:
->>> On Tue, Sep 01, 2026 at 06:00:46PM +0200, Bartosz Golaszewski wrote:
->>>>
->>>> On Fri, 21 Aug 2026 10:06:50 +0300, Kivan wrote:
->>>>> The ASUS ZenBook UX425UA_UM425UA (with AMD Ryzen 7 5700U SoC) fails
->>>>> to stay suspended in s2idle (Modern Standby), prematurely waking
->>>>> after 1-3 seconds with 0% hardware sleep achieved.
->>>>>
->>>>> In the laptop's ACPI SSDT tables (SSDT15), GPIO Pin 24 (hex 0x18) is
->>>>> defined in _AEI as ExclusiveAndWake targeting the PCIe bridge device
->>>>> \_SB.PCI0.GPP3:
->>>
->>> [...]
->>>
->>>> Applied, thanks!
->>>>
->>>> [1/1] gpiolib: acpi: Add ignore_wake quirk for ASUS ZenBook UX425UA_UM425UA
->>>>       https://git.kernel.org/brgl/c/1900b5a41493e7050c68c1e62780d6fb9a209457
->>>
->>> I thought I am going to pick this up via my tree...
->>> But okay, not a big deal, I don't expect any conflict in that area.
->>>
->>
->> Oops, sorry. If any conflict does occur let me know, I can revert it or we can
->> fix it in tree.
->
-> Regardless of who's tree this goes through I would like to point out
-> that a quirk like this really should go through a fixes branch
-> for the current cycle (no idea if it already is on a fixes branch,
-> the "applied" message does not make that clear).
->
+Hi all,
 
-It's queued for v7.4 alright.
+On 9/5/26 3:55 AM, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 5 potential
+> issue(s) to consider:
+> 
+> Critical: 0 · High: 2 (1) · Medium: 3 · Low: 0 (2)
+> 
+> - [High] KSZ8463 periodic output is advertised as 12 independent channels
+>    (.n_pins = 12, .n_per_out = 12 in ksz_switch_chips[KSZ8463]) but the…
+> - [High] KSZ8463 periodic output (TOU) is not properly disabled in
+>    hardware (leaves EN bit).
+> - [Medium] Build failure when CONFIG_NET_DSA_MICROCHIP_KSZ_PTP=n:
+>    ksz8463_setup() in drivers/net/dsa/microchip/ksz8.c now calls…
+> - [Medium] The newly added ksz8463_ptp_configure_perout() dereferences
+>    dev->ptp_data.pin_config[index] (reading pin->chan to select the…
+> - [Medium] KSZ8463 TOU enable bit is left set in the hardware if the
+>    activation verification check fails.
+> 
+> Pre-existing issues:
+> - [High] A non-normalized periodic-output period whose nanosecond value
+>    converts to zero is accepted, stored as the global restart period, and…
+> - [Low] The KSZ periodic-output implementation accepts and processes
+>    PTP_PEROUT_DUTY_CYCLE (ksz_ptp_get_pin() returns -EOPNOTSUPP only for…
+> - [Low] ksz_ptp_clock_unregister() only calls ptp_clock_unregister(); it
+>    never disables the trigger units that the perout path enabled.
+> 
+> --
+> 
+> net: dsa: microchip: add periodic output support for the KSZ8463
+> 
+> This adds KSZ8463 specific periodic output handling, since the chip has one
+> configuration register block per trigger unit, a smaller maximum pulse
+> width and 12 outputs instead of 2.  It wires new ksz8463_ptp_* callbacks
+> into a dedicated ksz8463_ptp_set_caps() and advertises 12 pins / 12
+> periodic output channels for the KSZ8463.
+> 
+> A few questions on the new code below.
+> 
+>> diff --git a/drivers/net/dsa/microchip/ksz8.c b/drivers/net/dsa/microchip/ksz8.c
+>> index f2a23e2e474ac..6b08bb8fed5b7 100644
+>> --- a/drivers/net/dsa/microchip/ksz8.c
+>> +++ b/drivers/net/dsa/microchip/ksz8.c
+>> @@ -2478,7 +2478,7 @@ static int ksz8463_setup(struct dsa_switch *ds)
+>>   		if (ret)
+>>   			goto free_girq;
+>>   
+>> -		ksz_ptp_set_caps(ds);
+>> +		ksz8463_ptp_set_caps(ds);
+> 
+> [Severity: Medium]
+> Does this still build with CONFIG_NET_DSA_MICROCHIP_KSZ_PTP=n?
+> 
 
-Bart
+No it doesn't .. I'll send a new iteration with this fixed
+
+
+Best regards,
+Bastien
