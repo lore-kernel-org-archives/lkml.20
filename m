@@ -1,63 +1,110 @@
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB3C63890EE;
-	Mon,  7 Sep 2026 05:47:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6F2BA15350B;
+	Mon,  7 Sep 2026 05:48:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788760068; cv=none; b=JkPXpDukbFgfck5J00gn1bNIRLUjW2b+ZJTsYJsQqrKwZ30UYrUXQKWiQoeUPrSbxKyJM5D+rgG31Phl3P5QCnAmrH76jM6WC+uldAGUMD9/8YQwcaBDnn4jnTFLyB2SzR8SIRleokGeahYQYSxWogxxeg+XaGFFpRkqdoVny0s=
+	t=1788760089; cv=none; b=Tspd9qjI1LJCEJBbXSOZ2DefSe0+CKTw9PaaDWSnruwAAHRKBD4AItHnCGJzyLP8R0wGLQtz8gdMh7QEEGXnaSlWhjs942AVh6RL+P5vZsQDNEdClLGp2XTlfMZfvahKOetnSOtmr+d1Kdt+UkqgnyQW5eFUQGYPSBqQMwmUL6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788760068; c=relaxed/simple;
-	bh=4ThRzGW7IctlP8T6z3xRy9lRlyo/ONNZS/ibyFk7cj8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=imTP1eUlxtTawF9qrwFCA4NK1DSh3KCtr/dOWVBsHN7/0oEGYT+uh01913z/LjPIycjhe7YbkgLYiFMNywl6fDFABf10zZfCdhpvB9AVid1DRNXoSJNQ64qZy0k7C47uR5EvPRpL4uZSR6KNfJLwxGdtIPepGmS3un/NW32fS2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id 852CA68D07; Mon,  7 Sep 2026 07:47:34 +0200 (CEST)
-Date: Mon, 7 Sep 2026 07:47:33 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Ruizhe Zhou <zhouruizhe@resnics.com>
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>,
-	Frank Li <Frank.li@oss.nxp.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
-	iommu@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] docs: dma-api: require checking DMA mask setup errors
-Message-ID: <20260907054733.GA31481@lst.de>
-References: <20260907054400.1088151-1-zhouruizhe@resnics.com>
+	s=arc-20240116; t=1788760089; c=relaxed/simple;
+	bh=EnkT3PfpjHgbAy/MZsLCiXVsssiJqparqDSUJtwxkE0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KgRZG/FO58Lt04QvfsZJdOg47oYZFfmKHs21rMAlN6P+wEgapJkthhJraNf5r7N+35mOkhwSC/h47UKHB4AVqO022uLypIJ2uZPtysP7tsFSUEJD4zW7JXJjiSM0rEVSFq0QTs5usqvovaTU5DtmBiVYaOsY4dsaAav2IKVTVn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=h3gVHoAl; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="h3gVHoAl"
+Received: from CPC-namja-026ON.localdomain (unknown [4.213.232.22])
+	by linux.microsoft.com (Postfix) with ESMTPSA id D2AAB20B710C;
+	Sun,  6 Sep 2026 22:47:19 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com D2AAB20B710C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1788760043;
+	bh=xDNwdLh8JmVBsFDeugXrEX6DXh99FNRMDhih3my7cI8=;
+	h=From:To:Cc:Subject:Date:From;
+	b=h3gVHoAlefu72DM1BT66euAJxyhOchcKwFQIdFGDLtzpa5622qW8O3oXnTy26ms7R
+	 WJRrsWNdsLdRgCYTUjSfJX6PtNwCZRIBx7g+RXUSJvWC4nKUKr/oLJRQmelvb4WsJe
+	 3E0hBvUbqGa2L8IRu3Dp194hMYCh1SX6zVBUAAPs=
+From: Naman Jain <namjain@linux.microsoft.com>
+To: "K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Long Li <longli@microsoft.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-hyperv@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] PCI: hv: Probe vPCI buses asynchronously
+Date: Mon,  7 Sep 2026 05:47:42 +0000
+Message-ID: <20260907054742.235389-1-namjain@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907054400.1088151-1-zhouruizhe@resnics.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 07, 2026 at 01:44:00PM +0800, Ruizhe Zhou wrote:
-> The DMA HOWTO says dma_set_mask_and_coherent() cannot fail for
-> DMA_BIT_MASK(64), and more generally for masks wider than 32 bits. It
-> consequently recommends calls to discard the check for return value.
-> 
-> The generic direct-DMA path does accept every mask of at least 32 bits,
-> but that is not an API-wide success guarantee. Backend callbacks can
-> reject wider masks: ibmebus_dma_supported() and
-> xen_grant_dma_supported() accept only DMA_BIT_MASK(64), so a 40-bit mask
-> fails.
+On Hyper-V guests each virtual PCI bus is enumerated by its own
+hv_pci_probe() call. The probe performs several synchronous host
+request/response exchanges while negotiating the protocol, querying bus
+relations, entering D0, and reporting allocated resources. These waits
+are latency-bound rather than CPU-bound.
 
-Please fix them as they break the very sensible API guarantees
-instead of officially sanctioning this behavior.
+hv_pci registers as an ordinary VMBus driver, so driver_register() walks
+matching vPCI buses and probes them sequentially while the driver's
+initcall runs. On guests that expose several devices, each through its
+own vPCI bus, this serialization adds the host round-trip latencies to
+device initialization.
 
-> 
-> Even DMA_BIT_MASK(64) can fail when DMA setup is unavailable or
-> inconsistent. For example, dma_dummy_supported() rejects every mask.
+Each bus is described by its own struct hv_pcibus_device, so
+independent buses can be probed concurrently. Request asynchronous
+probing via PROBE_PREFER_ASYNCHRONOUS, causing the driver core to
+schedule matching buses for asynchronous probe work.
 
-So?  Did you actually try to understand this code or is this just dumb
-agent work?
+On an Azure Standard_L32s_v3 guest with five vPCI targets (four NVMe
+controllers and one Mellanox VF), Linux 7.2.3 was tested with one warm-up
+and three measured boots per variant. The median interval from the first
+hv_pci_probe() entry to the last return decreased from 2847.968 ms to
+2786.709 ms, a 61.259 ms (2.15%) improvement.
+
+Co-developed-by: Dexuan Cui <decui@microsoft.com>
+Signed-off-by: Dexuan Cui <decui@microsoft.com>
+Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
+---
+
+Previous discussion around this change:
+https://lore.kernel.org/all/20230420024037.5921-7-decui@microsoft.com/
+
+Skipping removal of pci_rescan_remove_lock, due to possible
+synchronization problems associated with this lock removal. Also, with
+my current setup, I was not able to see much improvements with this
+change, so keeping it for later. Asynchronous probing change is not
+dependent on this.
+
+---
+ drivers/pci/controller/pci-hyperv.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/pci/controller/pci-hyperv.c b/drivers/pci/controller/pci-hyperv.c
+index 89816a2bd7cd3..056d379b3cee4 100644
+--- a/drivers/pci/controller/pci-hyperv.c
++++ b/drivers/pci/controller/pci-hyperv.c
+@@ -4155,6 +4155,9 @@ static struct hv_driver hv_pci_drv = {
+ 	.remove		= hv_pci_remove,
+ 	.suspend	= hv_pci_suspend,
+ 	.resume		= hv_pci_resume,
++	.driver = {
++		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
++	},
+ };
+ 
+ static void __exit exit_hv_pci_drv(void)
+-- 
+2.43.0
 
