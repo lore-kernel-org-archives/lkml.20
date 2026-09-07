@@ -1,126 +1,182 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazolkn19013082.outbound.protection.outlook.com [52.103.14.82])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F9304C0433
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:19:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788794367; cv=none; b=PZ5QBrfSCdvmCkgHS3mhKKGhdw5wWbfad+O6lu/ZKmGFI4QdHBon3xNcwtlmKPz1GS1nBm64K2MxJKiN5rZjQH13MoT0Dug+rqLmTXX070IW+NHUduypCxu32PsrhJaFF8DMxDLpktsij8RDPYIc5gMGEvcjAVmD596+m71JLgY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788794367; c=relaxed/simple;
-	bh=rcVRS04U4Y1NhrUxKFWvxVXiVm9RAyYBSNeIX0vtRAg=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=VOOatLvC2O4y2ABAlH0dNOir8HkergmeWHFNLCHsxpn7g/gMfYJ0CQbFW9KnD8xAsvyyiepoHVMK2gFOb17epmNINeRJ572if1pKVE8IfObAIWIxrgLpYgFh/QnlntFnIchS7maJ30PILyW3xtzT50JWhmfSNq2+Yc4mNe9M+lo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=WcjO6Pjr; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F18377ABB
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:21:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.14.82
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788794470; cv=fail; b=srP+imaPpVwzcD7kVs9iZiVAQF4IL8Izyr3XPmjo9gR45C2ge+0qlQrpb4oYboGr8DieRAIoEK3yUGuhYubZzjgPF0TT/0Sk0gKW9voRj6gGAPPD3j2D0XDQ6NJXQnHFPHwU0KBPBUJbpTaq8ap/qaUcER03V/2KboBqX9U1nYI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788794470; c=relaxed/simple;
+	bh=x1skAIYGekzrMLRHgxd5Yj5goli+b76ZmKQUhUrkCp0=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=LV1x+1cchKrLviL84DKDE+rAEjCGYIcX/w32RvxONnrVcYyiUxby9H5rryHJBTvQVV6BSemlX1oJlMeRTbQkBdRysX8TVxyKB735ZUEf7j91TFrxFizxC0bhD3s502AMR5+ZEundVR02831acCtLG4ZniJDWPIw8F/kv9myE1e8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=b31XxE1N; arc=fail smtp.client-ip=52.103.14.82
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="WcjO6Pjr"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-484362f5c4aso4632624f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:19:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788794362; x=1789399162; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=wfsM5V0FaQQokzmgJre3daRZfS2iieNpUVCSCH5e4Uo=;
-        b=WcjO6Pjr/Xe21JivKqhd7zW2Wev1CqRRTyYrs3KMr7rXsPgN/kyBafvkLkss6A/Tra
-         w3VSjhT3hIvPqhRPyH+52jDaCaIwmiUDn27ZfG1lPutE4HZcoBujAQVigRyDwpULWzs0
-         DBpTVYJEDRlosx7OBBWTuNxLqbssSjsYdCeMiuPK9imGgy1/jqJgPzX4CV8bOgye5QHK
-         VTLFqrL+bUaNXZDaQlOCPLcQ2lhkrHYialup0OuiGeb9m8dbVrQyYtH208OgQHhsSchI
-         fNAeXt59o43+/XyJPFfqmO2hDYKaBtAwMUWLzjQmSexMS90yKGAw/v9szxH1MaDN2Sfx
-         LuRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788794362; x=1789399162;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wfsM5V0FaQQokzmgJre3daRZfS2iieNpUVCSCH5e4Uo=;
-        b=ecmgtV06AB+gw9HZC6vm8LnZ16K+3KG4ikLbE265Ow7c31D0pH34noGDi3NTskeQ82
-         iClwqzcq5XfqL2oonB0RqJ05GLJmVitsg6lM2uWh7f8QAtFtpezY5cc5xcqDx0ZqqguS
-         ufmYJuaBx7I5j2EQS2IQQPU2c3ef1YjQn8vHmky/HY1rovNk5RkV4AIhcNvGoDZxRVpg
-         RoZJ0hV4vpDCg+I2U8Vqxw8kN/cNY8usvDDUeJwEHXf2POdRNeiDpjPPSKvAU6P2T6pm
-         vhJp36uipjg73R7TywrUFKl086J0Xl70doqFZbH1MhCySM1dT4Hqf5CzIAlBtyeXxmmT
-         Wmkw==
-X-Forwarded-Encrypted: i=1; AKwUvBya5X5DpoP9l+OPUMKAfJtZT5xRvZOyaUY4SSdIjuh55haYG+jgqOsABp3MqGOjfftbUnFGOKLFsfYR6/Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++li9r0WMUf1BmTPSCT9XZqoe8+bdQ6buk5KTqvOmKBtoz3fTHsN
-	lH+pERDJEuCtOha2dzr2+v1vuWbmPvZVvf3sAZpeK0dY5Bha7lEk/Mq3EAoZjsJbvWA=
-X-Gm-Gg: AYBFou0bUfh0bHOl2FsQRhq48JaV1uj0rhqPC3/iiA2MsH9I3yKkxTQpRapI+vjqbw7
-	5FdmEG4iLqz2QMPsKhFL3L/sO8U5Gm+43bqB5/NltvHsb2A+NrRLY28bYzNYkthH4B3frKAOE6a
-	qg1p3Zbg9WVanTQDzxSg7/y6hEqQao9h/fsO75Edpw3dGqTDEAMusv1rSWpPvYFLaszQRF2y4Ym
-	v1slff86IGRb0Xg3Sz6xzxL7UBaKN+niXj1oDZ0Tn4htBaBu5a8RuFbWWCOIpti/pRn0RrQOLDl
-	7J2XOQ5uJ3K7UOLINHvJyq/Z/VELWUZDknda3O3ARrqMn6hqB4T778rFCwowmODP68U3yQfaS1i
-	xtCqRQXNQHIQM55QziX+XIylj/wMlG232Pz92gqDNkGKeY7w1tIGZAndbUm7glezo+O4MVZjuuP
-	pJeWicqIZjCGDeMSNda26IQ5tOY1WPFmzfAL5afX7kRP5Xnp3yv0HEs0g4I0oylea1hC+bVJj9B
-	UravO92+Vj8wpazp0sZcw==
-X-Received: by 2002:a05:600c:4e94:b0:498:943:ccc0 with SMTP id 5b1f17b1804b1-49cf81e368emr393160235e9.6.1788794362159;
-        Mon, 07 Sep 2026 08:19:22 -0700 (PDT)
-Received: from [192.168.7.218] (82-230-44-19.subs.proxad.net. [82.230.44.19])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49ce46696e8sm288040175e9.0.2026.09.07.08.19.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 08:19:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="b31XxE1N"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=U5vz+ndVFrK8P4A/c4TyDURhc5mCwZC/kI8tJDIKXQFCj2kGWjQnyUfDJleAdK/OHca0WdDnj213w7Fb17UaaRPHMn5Ok6gmx5uIJWqHAlQkBMaJkkNKFDjTDtmf8CHzVGm7n1veGMrfVtllnWGy03ZBQMsKNnFw+xuwAt8zjaBDWEzsv59iF4/s10LABTzNLYyZ4T8cDJcgJmbGTPh7Wj+qvpVgwoN2+t92XbgP4FV8NvpEn9qR6DvqX9dCKKnJSegwKjVbzwhDvbPN6KIMiVSFpk3pSvvf94lMzaewhFE8U9ipHjq1U0S1s6YV7ncWdXEOlyQrnF57GlNUTdAA5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RjWpL3z1ExwwzVr8x5jZLQ8FBkoH1OHa3IKQre/V+EI=;
+ b=SWf3KhhXWNvDFrzNpbFG5rva3ThjkO/Y5RAD09RFpNzYw0p9TTlxbOI7HY1wu0svg2ImyH5TfrKxgkMAmQMCi3OvgsdmR84Je7Pd6Io5jRwLUDeakq18QVGF9mWG9EZrI9m5CmpVna5miq25kdXmWdqarNnjLKtez4Ma1h6i3zFrvMVcy5THbpnp49xfQkfvJWCVO99uXisQp7xsRjtmCibF+1szDqxj6heK6ozrrVt9oaqdT73wSn4Nj6vZBWbziMuGL56RBK6nuQBVhJqCiVQ24OHrgD39Xhv/onkj+lo4oUmrycIjskTGPPbz/XA1TWrPTVnZpUmTAaSveRdeow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RjWpL3z1ExwwzVr8x5jZLQ8FBkoH1OHa3IKQre/V+EI=;
+ b=b31XxE1NV1ojfz5/qVcQitZZ4e1i+MBczlh2KESeDIobNu+Ja0bPb/IltZqS/MZcs80A4HmJUI3QYd8HllEDnqwFCFH7kxUmW95WAoDxW4Q6G26qMPglQEsN0dFMmSyFtd+RIRbx6RKg5sLPlgEYcVJUQxTV71eu5TUsD/rgpGM1tTJRJCKG3IKFKRmOGGsOCfc+jt0T9PqckV2vuknTxq+0NPZo2J8zvCZVbhjKNkyiCuEfFXPuabOjIJY7vQGxy7o9navynkOTcRfY/rhVxL5+dJwAs5lgpVkxXUEsS07sAptHDNQMu9DY9iurppJvpOzKAmKwhoQFnvYtp1oIhQ==
+Received: from CPUPR80MB6583.lamprd80.prod.outlook.com (2603:10d6:103:180::10)
+ by CPUPR80MB429769.lamprd80.prod.outlook.com (2603:10d6:103:3ae::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
+ 2026 15:21:04 +0000
+Received: from CPUPR80MB6583.lamprd80.prod.outlook.com
+ ([fe80::26cd:a90b:7748:403d]) by CPUPR80MB6583.lamprd80.prod.outlook.com
+ ([fe80::26cd:a90b:7748:403d%4]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
+ 15:21:04 +0000
+From: Danilo Machado <danilomachado2002@hotmail.com>
+To: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	"linux@leemhuis.info" <linux@leemhuis.info>
+Subject: Re: [BUG REPORT] AMD Radeon R9 380 (Tonga) - HDMI no signal after
+ suspend / regression tracking update
+Thread-Topic: [BUG REPORT] AMD Radeon R9 380 (Tonga) - HDMI no signal after
+ suspend / regression tracking update
+Thread-Index: AQHdPtw9Ub0bdlVoJkOLBrcx72wrOA==
+Date: Mon, 7 Sep 2026 15:21:04 +0000
+Message-ID:
+ <CPUPR80MB65833B1554155D4CCF024CF2A3B22@CPUPR80MB6583.lamprd80.prod.outlook.com>
+Accept-Language: pt-BR, en-US
+Content-Language: pt-BR
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CPUPR80MB6583:EE_|CPUPR80MB429769:EE_
+x-ms-office365-filtering-correlation-id: bb67ec1a-81b5-4c89-a678-08df0cf3a223
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|25031999004|21061999006|41001999006|8062599012|8060799015|24121999003|19110799012|24021099003|25010399006|22091999003|55001999006|31061999003|15080799012|15030799006|51005399006|5062599005|4295299021|440099028|3412199025|4302099013|102099032|1602099012|40105399003|2607281247196008|10035399007;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?+rGcMLpkcrB5spUdI99dFGHfpZnRoEtQVktuCVRQsUqsFRPq2h9UzClGb6?=
+ =?iso-8859-1?Q?ZMaNgH4wO1UUcb2MQbJagxR1jl9DFL4wz87y3duspRvE84NZoe1eaMoxfg?=
+ =?iso-8859-1?Q?w0uISVXcKrjkRSfbdrM0TJJP483gkT/8DsD8VdxJ+yMPQZSXVTWoGne/GW?=
+ =?iso-8859-1?Q?PgBiLNAbwlpCAnoDsjjRZvBNOGY6HeUU9FW6mcOuzwLkL/eTx3Frr1gAAM?=
+ =?iso-8859-1?Q?BjICzZOaOYrIHJF/xxjamNYEDYgdgksGcFYYljIdc8CTUREMpVubH4Z5zw?=
+ =?iso-8859-1?Q?mGd61WjIQ8ROfjOcTxpleDFNGIPmtsmOAJVLGezZznB666/yAArgUDPdba?=
+ =?iso-8859-1?Q?R1jnIgRWvfxnLYMRbvQWKnqn+N839JmoW+t1T3HffhA25Gf5PLrmDvM5ni?=
+ =?iso-8859-1?Q?Mo/8RFdi6Oy8nmKsVEZrXndVb1+8XCw6rt/OqCjlHgNKvs5i3CoK3WaZV5?=
+ =?iso-8859-1?Q?6vm3926cHd3FtVlABztNCLAucDeaWdfNdrcKEgijmAZa9doIjFuF8FLNI1?=
+ =?iso-8859-1?Q?lNyTr4YXB4v4CHeYf9PuUfmjqUIGcr6c4SkHZPkmEGvTq/6A/E4cmU3FxY?=
+ =?iso-8859-1?Q?PfeS5+Xd4PPXFmMbjmNX0yOwmilT8Zi3iTf2yq9SuqyJVCcE6mKVtC9fwI?=
+ =?iso-8859-1?Q?wmLU8QsP8jN6hBgztKm+qcpkgwjxu5vYcuX8jxScfsIAbxrPIJ76dyV1kQ?=
+ =?iso-8859-1?Q?6UBgf6aegvUSOYxV93v8TH8PqgZi8sXShAfN6TSRTkZeD0VCzaLhLt2Q+o?=
+ =?iso-8859-1?Q?LPJOzq87MoBsSQIZ9CTSjDUAjowFcemwcYn/VkP5Aw9kJiKPqpawK2NC/r?=
+ =?iso-8859-1?Q?UMCvAw8MnByVLbWazQplc0dFcWkfGr22umNLuIvpJXmlpLBzIW/XfKY9fE?=
+ =?iso-8859-1?Q?SXngt2LzrjYBTmme2dYawt34dFxf8Ga+5xXUDyEN9MWDAX3V6hsBNiPfR2?=
+ =?iso-8859-1?Q?ZLm7qFIyNIks63lYm6B7xxSD+6HkhWm0KENiwVAqAtknmZnDFtQDlufFvz?=
+ =?iso-8859-1?Q?vaoZxDAWzcLCfA8DZhQ8PH3XUofXqr5NINTG15nT1sTXAwniPNFDNXXjxy?=
+ =?iso-8859-1?Q?YKp6CkpuqPSfQDcJq9ShRSKBGqMpUXJG4TOJW2u/vIB1bVku4U2VJbJu/4?=
+ =?iso-8859-1?Q?98r2PmGnIlHvrvjWNOgoCgZ+1ZoUFQFqQcbW0qIHuyKLXaRQ84gdrcCGJJ?=
+ =?iso-8859-1?Q?ysd2HhCX8x7diQmlL2Yy+Ja2nM8waLL7ysJeAZC3829/qbAaDVM3s97+km?=
+ =?iso-8859-1?Q?+69cUpjHhnK9PSNBtuUHT1fVbrjyNr09kelBKSSVU=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?0WIuRoJoh/ylNCsD+cezshwDT2W1Nsp3k/yQ8TZ819tr83w872594TT6as?=
+ =?iso-8859-1?Q?gD9nE1jrGZ+I0IA8nE9GETJ6JeHsf8Ws0+Ss67aks0fR+qHQSAbE7kmLfC?=
+ =?iso-8859-1?Q?y4JorUOdNmOALpP3Lt6G1FKQQxcT/YJF3/cI0rJlYzbn+NYb9nYLYrJas1?=
+ =?iso-8859-1?Q?6WHw1MxN3G0KDpHtOEXrME8iPL5qU4gWhsM4h1rp1A/e0DLQqfXNxu7m9s?=
+ =?iso-8859-1?Q?lOnd+V8gCH+oVKweHyKLiyIrqkxrJdf6GraCrihRT6428GV10U9x70c8xf?=
+ =?iso-8859-1?Q?74+T8rjDCIZkpz9eyLkAZMnvfhVujzmlt8XswEVWoBEHTesLMrdFqjYHA1?=
+ =?iso-8859-1?Q?rv0hmXOOle92HJB6+hq7JXdQQ7ZfXboqUu2DNoMU2Wz/jrQOLSIruW2W+h?=
+ =?iso-8859-1?Q?Ja0j2z9ZS9aK/+javeXT9XNSaVDaMwbEmxQU8NJZ8MlOT5Zy21yYHl+waF?=
+ =?iso-8859-1?Q?W16Qx35ZcmBQtIARSH9fD8GQy9fW5n+5NRkIhhxWIIeRHcAmTJEcL0xQ/k?=
+ =?iso-8859-1?Q?M1AoYhlNf/JjkKtAqRByHllufLERWTrjll6jzRqxQnzPzIxK6itaf8I0DU?=
+ =?iso-8859-1?Q?+GfXRe2DNuwaGxva5Me6hxXvEW6YwujjO/Borz6UzpVJA+VzqXtHsnYiOs?=
+ =?iso-8859-1?Q?auAP/bomsBswevoX2ETR6RdXo+KMY5RwMT44UhlaZaJL+kBYD2HjHiY9tI?=
+ =?iso-8859-1?Q?WceBkbu3yJGsDkP06v4QYTA60CVkCWLMV0rK3UKBP0mW/eTRJ6i1vyP9+Y?=
+ =?iso-8859-1?Q?7M83/o1rKwmGogS00O6/fmsGW1jXf2SgHLWwr33vEfJhlVABCxxt7W6S7a?=
+ =?iso-8859-1?Q?B4UH6+7rwLNmqnZNxtmaEJNNLxSOGAyphYC5S1T04BYTBDmF5K/Imc30gz?=
+ =?iso-8859-1?Q?UWmBLa8MzkrVTKQFpZE4Zu3U56ln9A+2USbTrJXm4TgISO4McD+Tr4cL/2?=
+ =?iso-8859-1?Q?gjeI4fxRpghtw7cuem7UBwy9sWEIFE2wh3XkMSRUHWfjC5DJ+eQpKYXee+?=
+ =?iso-8859-1?Q?cf+c/JvkPSEXVz+eTiCoGHBUNfZTY066frahpUMaWFaZGESZCz+IGbWVex?=
+ =?iso-8859-1?Q?Eb0dbpXAk79zbPFLtHOHMsFkmWG1gsgFuzxgK4nX5W0ro3nFfUkB6QdSO3?=
+ =?iso-8859-1?Q?vEGxK62nmMjiC2fmWuYfrjqgI3OZPGsxd+2VOCKNbKY4E9Sy6IrtEkhOOB?=
+ =?iso-8859-1?Q?piUWZ4qd+LW8p8/+sm3/xm0VO9pbM/9R7RBf8oWy2whBGuKxauhoRRbgNa?=
+ =?iso-8859-1?Q?NgDx+r6yqaiEM6E0Jiu0E9s2UEakRlJCsolFNB+Tdz13LP1jE3egNcXAZB?=
+ =?iso-8859-1?Q?IWIB54rPQmfNBc2S3iiUJMYouEtYaZaDLy5pwK18Sy2qLo2ZIQM2U0/Zwp?=
+ =?iso-8859-1?Q?+uRYkvUUajl4EYWFXUvCs6me0kKvdGlHF6VIWeNZDZuQz5GBraOiGBlFk7?=
+ =?iso-8859-1?Q?ePePdq8DBQJh03x+5iKXZ3mbYSUb0l9NX5ewSJ4xBuZ6dYr3XAuZq+T5y5?=
+ =?iso-8859-1?Q?X87xWHtOcRODROaS/dnSwIreQZ6IAPT9kXlit+zDvCOg=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4 2/4] pwm: meson: add the PWM count driver data
-From: Alexandre Mergnat <amergnat@baylibre.com>
-To: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Cc: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org
-In-Reply-To: <20260827-s6-s7-pwm-v4-2-d28a2015177d@amlogic.com>
-References: <20260827-s6-s7-pwm-v4-0-d28a2015177d@amlogic.com>
- <20260827-s6-s7-pwm-v4-2-d28a2015177d@amlogic.com>
-Date: Mon, 07 Sep 2026 17:19:15 +0200
-Message-Id: <178879435514.2256446.12623877061277695056.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=748; i=amergnat@baylibre.com;
- h=from:subject:message-id; bh=rcVRS04U4Y1NhrUxKFWvxVXiVm9RAyYBSNeIX0vtRAg=;
- b=owEBbQKS/ZANAwAKAStGSZ1+MdRFAcsmYgBqntX6M1dVwwpG2kkr876Epbt5jZrSl70Nlw4AG
- HstsY/+0kyJAjMEAAEKAB0WIQQjG17X8+qqcA5g/osrRkmdfjHURQUCap7V+gAKCRArRkmdfjHU
- RbpRD/0ehx78POhhYnSt521wnujPrwLy1gEErNRrExkWhZysX4QDuXyJy2R8JOv9iSpxCyY6sHp
- OStxUC59Z7yn8cTVgbQufMKwTpINIBqq5eXL8bQhdsmJEy+Pk1/3ww0GAVwSq5ZXHtMjsE0/7eV
- AkW7ix5czGVHop96QPnKwjREam7sb0FcFaRGjR0hs1AAnQEl9DTq2+UFZCj1ikMy4Tz43KRS9qX
- 1h+GdCJIlctY0Ge/7SF9+07et3J/2sH3lE8vQRMoPP7wQLB6dXuGbrbv3LYHmXIW55nZY4c/viA
- e5eM4ibjmSZMZCeRZH7T8mDxi5aZTDC5KggxpX120TSlF/RpdsC0MXhtgxg5jA8HLusYvIWV/rm
- BVTWqgIAxnOD2oZSKgE1THvUmZQ+tZ28aeVKEo+Ppv08GZva7gqjPTPTUeIzenyqwqaShfSAQSt
- gsvvXrPntt6cLxx9mVFNvNrcEK7z0FVkpP6Eb6sJW3if8dSnHywjT0ORFxjzt2ppnmSPMM5oMKk
- Su0Z/+5Gnc5ZeZY3CMt/hHdXJdRL4csf3nqLomgLjoJfIPBQLmB/xj8JEaO/So0odhbKv8K0x2n
- 0u5N4D7tb2oUl/tf0At1LWLYbd6JgnKZ7nlfiL3OzD3xfYXgt7x8rmtMFDTO9rVbDdJuPI1Bsr4
- /p2Q9nrsCVSI+sQ==
-X-Developer-Key: i=amergnat@baylibre.com; a=openpgp;
- fpr=231B5ED7F3EAAA700E60FE8B2B46499D7E31D445
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-665fe.templateTenant
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CPUPR80MB6583.lamprd80.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb67ec1a-81b5-4c89-a678-08df0cf3a223
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Sep 2026 15:21:04.6289
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CPUPR80MB429769
 
-> Add .npwm fill the  existing entries, use it in probe, and switch the loop
-> in meson_pwm_init_clocks_meson8b() and meson_pwm_init_channels_s4() to
-> chip->npwm. No functional change.
-> 
-> Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
->
-> diff --git a/drivers/pwm/pwm-meson.c b/drivers/pwm/pwm-meson.c
-> index 8c6bf3d49753..22cefc6d5dd0 100644
-> --- a/drivers/pwm/pwm-meson.c
-> +++ b/drivers/pwm/pwm-meson.c
-> @@ -113,6 +113,7 @@ struct meson_pwm_data {
->  	int (*channels_init)(struct pwm_chip *chip);
-
-The commit message has a small typo ("Add .npwm fill the  existing entries" has
-a double space.
-
-beside that:
-Reviewed-by: Alexandre Mergnat <amergnat@baylibre.com>
-
--- 
-Alexandre Mergnat <amergnat@baylibre.com>
+#regzbot back in-progress=0A=
+#regzbot monitor https://bugs.launchpad.net/ubuntu/+source/linux/+bug/21423=
+89=0A=
+#regzbot monitor https://gitlab.freedesktop.org/drm/amd/-/work_items/5123=
+=0A=
+=0A=
+Hi Thorsten, Alex, and Linux Kernel Maintainers,=0A=
+=0A=
+I am writing to update the status of this regression after checking the Reg=
+zbot tracking dashboard:=0A=
+https://linux-regtracking.leemhuis.info/regzbot/regression/lore/CAOnW2VTGBP=
+=3DMMWM=3DW41uPDLrzTVHM1sw8P1myvftnNk0vEMMFw@mail.gmail.com/=0A=
+=0A=
+The dashboard currently lists this issue as "fizzled out / resolved: inconc=
+lusive", but I want to clarify that this bug is ACTIVE, UNRESOLVED, and act=
+ively tracked. The lack of recent email activity on LKML was due to ongoing=
+ technical data collection on Launchpad and GitLab while awaiting upstream =
+feedback.=0A=
+=0A=
+Current Status & Verification:=0A=
+=0A=
+1. Launchpad Report (#2142389):=0A=
+   - Status: Confirmed (assigned to maintainer Timo Aaltonen).=0A=
+   - Heat/Users: 220 Bug Heat points with 44+ explicitly confirmed affected=
+ users across various AMD architectures (Tonga R9 380, Polaris RX 400/500, =
+and recent Vega APUs).=0A=
+   - Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2142389=0A=
+=0A=
+2. Freedesktop GitLab Issue (#5123):=0A=
+   - Status: Open.=0A=
+   - Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5123=0A=
+=0A=
+3. Technical Summary:=0A=
+   - I have executed 3 full git bisect routines on hardware testbenches, is=
+olating the regression behavior between kernel transitions.=0A=
+   - Recent user reports confirm the same black screen / no EDID handshake =
+failure upon resume and DPMS display wake-up across multiple Linux distribu=
+tions (Ubuntu, Fedora, Void Linux) and kernel versions (up to kernel 7.0).=
+=0A=
+=0A=
+Please re-open and maintain active tracking for this regression on Regzbot.=
+ I remain available to test candidate patches, kernel builds, or debug flag=
+s on physical hardware.=0A=
+=0A=
+Best regards,=0A=
+Danilo Machado=
