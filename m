@@ -1,175 +1,234 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010070.outbound.protection.outlook.com [52.101.46.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17E953F1046;
-	Mon,  7 Sep 2026 03:58:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.70
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788753515; cv=fail; b=OuQWnZcoJHQ7k+W0Tb5jnr3e1IwtpyLTjOyJyJa9yIUJFqrMOtEP3htfOH8zgQpDVGphfVlM6thVFFqV9iUHtV2f6lmclt2dvQPJbugqJlyRxMwNgxol9b1e241MXafkStxMfYOYS6Y+SaIArta21LWrirZ31Qwmaz9jeGDHOCQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788753515; c=relaxed/simple;
-	bh=MIKgo7pJSHi4R6Fc6MIqV634p+ojSaQibEgxVGynZ3w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=JcICQRS6RskD+nWupZ88tOmsJhVi7beLRow9G6983E/N+PJkbq4b/VctnC5SNbgtQX0zbf/1/d0kQdcYr0k29c5Kl30HLWTfw07NmYnvq5tAjaVLeWiW/sbHSsmwaunzBjw95QmN9al4ZYUszo9E3sFUOJplCnC9XGjWkdqdVOM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=e6//eibZ; arc=fail smtp.client-ip=52.101.46.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 017D31E3DDE
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:00:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.71
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788753632; cv=none; b=uOHF/TEA2LwDuhNCLfbd8m4VkL1J/jfQTfsMBc6f8TV1YnqYoY1os4nJ7//AjqXykSPNZSLoXURe+KiytqHRQhS4kMPENhxHQJwIyTa1h8StvdIlCRC2UxFcg6YEEzYRQ5yi20qfJsWDzARML8Z31iDxzXPVE5vDiq6QHgdvM/A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788753632; c=relaxed/simple;
+	bh=6xXvJnEys6s0eOWiQuVH2AYlNtvheC1WGn8R/ksO9sg=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=LuxVYhSY/mBe/t4wvU4pykuxsIiUeO2eXTESZuPJ2xP3gLsFOCQjR80Sgy3KsI7w9IWCgW1jO5oTSK1YORV79pNKhI3qfgqXkHT34xj59G1WWcvSfVlm2czhCpV+AS3D2WtRfLA3UoB7gtJK18VOXqUne2CdT4sGJP0/CpfqnqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=h/1FcwGM; arc=none smtp.client-ip=209.85.208.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="e6//eibZ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VgmcFnEUOHQb48kNEOpfeaTHhUSyNmu4rhoNBRDKXYN3GWBGTqLaIpJRDLB8j5bQpRXT7lgN/JB9cetkvDH0RBMKqXiC1CJLahcAq8yWhlfjaoIaAKR/nbf9uX8XaqZ4cnzEChbjtRVN3EdQyuxNzU6+DG36hvztG+67/IboB6uaxfeJQ7K2vBzMWRDZrJ1r3wmuDgrtpj4zTaNt36xFUHM12eYRl2qaVssobgEDvP+cI7ngIoAV6PWpyI1vHKuM0MNXSAq3n3mm2H/vYetk5YXC2ggIcpqNftPOF5aELQzWPsK0FNnkL6vn64CNhmnoRUV3sK/6/Ec3C9Kl+Tvu0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5ROediwCISLOC3NKV1oNJMK2i4R/cBdx1LSH1JM4rwQ=;
- b=QeCmO9edrgYl4cvXtdJUVMCiOSxmQeJaDmH0qHe458Lydr63jrf7TUn4fOD3B+5P1qqEyawUNZw9Y58ieXv8IJuclSfD3fudTDcRe56MftoMTBYeVN2bgy0DL9YRTYElfB6EmOR65lmBO314aWmB673Pb9cNRBxxGUeu4Ay0qHFmaZ+hZdYoS9FfLT7jbfx7t39VFh3fT+GmTpUDP7/kyPmwlpMDNUfrylPp6CsCdv2bzfpuUHmz6dyhZcjqdvYoEKwOlwB14xvwwkBtchbA6FSo8efKp7lQvyekfSTmVtiW6uFUfABvBMCyvJT4MuCfg2GvhvAuGHpoo2FKhEX8cA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5ROediwCISLOC3NKV1oNJMK2i4R/cBdx1LSH1JM4rwQ=;
- b=e6//eibZgZPL1LHpaWWLgPZDIbG1U4qZir7pV+x6AYE51AsGQMpmIJchijct1WuV3VAJ/67hwgWwHPyagZcRbuGnXtEz1afTDPTHzM1tcd39xvD12UT4LCU6DGy82uQBrXug2K8O2MuW2wj8Oq0bJ8KAzHNJiHCv0N/XoMCjfy4=
-Received: from MN2PR03CA0010.namprd03.prod.outlook.com (2603:10b6:208:23a::15)
- by IA1PR12MB6649.namprd12.prod.outlook.com (2603:10b6:208:3a2::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 03:58:29 +0000
-Received: from BN7PEPF000000A6.namprd05.prod.outlook.com
- (2603:10b6:208:23a:cafe::a7) by MN2PR03CA0010.outlook.office365.com
- (2603:10b6:208:23a::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Mon, 7
- Sep 2026 03:58:29 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN7PEPF000000A6.mail.protection.outlook.com (10.167.245.230) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Mon, 7 Sep 2026 03:58:29 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Sun, 6 Sep
- 2026 22:58:28 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Sun, 6 Sep
- 2026 22:58:27 -0500
-Received: from [10.136.42.177] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Sun, 6 Sep 2026 22:58:25 -0500
-Message-ID: <4a577dcb-3fa2-4d28-8b86-757dd67cd6cb@amd.com>
-Date: Mon, 7 Sep 2026 09:28:24 +0530
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="h/1FcwGM"
+Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-6a64cb77b0aso2445406a12.3
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 21:00:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788753629; x=1789358429; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=um99HQvxm8U8bWkMubZ+aKjTZImXgaTd+AqHI5SXH5Q=;
+        b=h/1FcwGMHewnmYkY9KQBte4+UDHqPx/TpUKRdp5iUXEO7gIJZ4J/VM2h9lMcfOILVJ
+         cpj/e1dr3G4VhlxCHqiDtGqurdX1G43DlbLdZgv5MutReEr/z3x9VyDusEr9JgeYk0at
+         Ha5pXIFh9eMZgavE9nzGd5g1vi9DPo9Nl74NnUl1HQHywv0TesPud/ab5vOsoO1C6cin
+         13gq6352wI2bVOtGIb5nb9RLlVPcGIvKUIMDVdNhgEB1q2jqYxnYk9N9dRzbxg/uBteL
+         KFV3haV0nIYJgXqyfUigqlHsS+3Srd+I/qexG21oyXTnhLfq5a/sHoVKGHpdrtEGj9zG
+         7b8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788753629; x=1789358429;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=um99HQvxm8U8bWkMubZ+aKjTZImXgaTd+AqHI5SXH5Q=;
+        b=gtCqN4BdFYuM26xk87ehWiqb4+7n6sdTWaNlb6C5v7D9VLJF8IW0HpzpcczK4M4C/+
+         XrR5ykLLUCWZr4krNy4ff6RyyiHm6atuk/OBDHCQz6V9AH/exUHny1ual1G5NyjSCbaA
+         CFGb1oTd6+PDMpYy2rJnGzcIJpOiEymKMmH8+5pYpFkneEIp7K+FLI3x9U6ZMLex06Dh
+         /OtAcIkhMfl3hUvbb5A5wuMxE8PV5wUQiJSsjFvw53SjNYNfttMHhRFR1TZ48Bkby90l
+         Oo3wNU3xNurRDeo4Y9s4Nfv7DDmEgU++nGXQ/lUuZa6uMlt8OsB87zTNAOt3ZZz4HRzj
+         YX8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwUNQYACCIUy6zDlGGPT8aPso6qqdQ0R/qLB8LxN8gOAK+G8O285pzmRo/LnGB8LizkQPtSXl/DahAn5xg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nyv3HyM9jXAyramTsHHiMBOP0M2cbdKrpAnMDz4HxKoAOdqLOb
+	pL/Xhhhn+3wIb84ndfk49ZVaYO3bTBDMq2ftlGMenEOCwgRGFMTjw0F6CKKYUG1sm+Yp7tkwTWk
+	YKce40BC9p4KQiSfFlQ==
+X-Received: from edqt8.prod.google.com ([2002:aa7:d708:0:b0:6a7:60c4:e4ad])
+ (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6402:3241:b0:6a6:32fa:1e9a with SMTP id 4fb4d7f45d1cf-6a7e90c2f67mr4994847a12.18.1788753628866;
+ Sun, 06 Sep 2026 21:00:28 -0700 (PDT)
+Date: Mon, 07 Sep 2026 04:00:28 +0000
+In-Reply-To: <ap0_lSVF43FP3PPb@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cpufreq/amd-pstate: Remove obsolete amd_dynamic_epp
- documentation
-To: Karl Mehltretter <kmehltretter@gmail.com>, Jonathan Corbet
-	<corbet@lwn.net>
-CC: Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
-	<rdunlap@infradead.org>, Huang Rui <ray.huang@amd.com>, Mario Limonciello
-	<mario.limonciello@amd.com>, Perry Yuan <perry.yuan@amd.com>, "Mario
- Limonciello (AMD)" <superm1@kernel.org>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-pm@vger.kernel.org>
-References: <20260905010706.57380-1-kmehltretter@gmail.com>
-Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <20260905010706.57380-1-kmehltretter@gmail.com>
+Mime-Version: 1.0
+References: <20260903155907.1065681-1-tarunsahu@google.com> <ap0_lSVF43FP3PPb@kernel.org>
+Message-ID: <9huzwlsxk8wz.fsf@tarunix.c.googlers.com>
+Subject: Re: [PATCH] memblock: use binary search to locate candidate regions
+From: tarunsahu@google.com
+To: Mike Rapoport <rppt@kernel.org>
+Cc: dmatlack@google.com, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Pratyush Yadav <pratyush@kernel.org>, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-mm@kvack.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF000000A6:EE_|IA1PR12MB6649:EE_
-X-MS-Office365-Filtering-Correlation-Id: cbcd00fd-2f65-4bbb-f01b-08df0c94472c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|1800799024|23010399003|82310400026|3023799007|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	UoD3JHrqymUtTbyEoQmTEWgCwVwA3DPiM6vPHpTsNFIWoCqwKXNw3tApznSFAJqcxICRo/qiWCnbrRHEIscWSLWAf2KInfsbxP3i1x0SkSCxm53yvdd+QdAL6LcbFNWEvwL/yEXV0FZh7JLWnEDBa3mUn7uJsV/43udEHY1lCuki6OJFcQqsf2rcCJK4juQOrR+JhJB/w4wocp52i7skyu/rwo/3t2rzrN0yCN0FJ7W/JJMqVqhdAPwI8QLvHkMHeMmddewLoFoC4g+8Af5nSGGKa7RkjlsMD/nLC/8MwSXYdu3wKov/wmI/L2d/jZ1zeTbbj7eefLD7fDm6nYWSKXKZfvJFEfNgpzZsWHKncbhRTqFqLwYJ/WFkg5dpYUu77wsqv914sL0Z4Wo5HcJUGWmSVgTun8XK/LaRWpFf90pAaHQBWOOUr452PcezWtVJ5m9qpkWup3CagQUPwUsVp7OF4Zb5VsTmTi/0na89XYXyhBCvGFwouwOpLdlGwAuqMF6+nxwJ+R5ZYv/NO+n7iYdNEx03lfgjjQ/S43BfgLmpwXxfv2fiNNP9g+61Arz+1lDncWwseaGG60V/HdwFr10Dx0cegmBbdM/XP4XJAHJHAU/9KptZW+lvMbJP2FN3+EipQ0x3XtpwKv3gFtgxGEv4xJ8TeqnvUzz8lbCfL+gHo9/1jx642yD4Y3nvcUo3UcVTC+Uf7uROSg/2vUBYSQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(1800799024)(23010399003)(82310400026)(3023799007)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	jUmYiRxmDWEnep89CDY/vmDEi/2xQfTURWCU3U2wcGrjqHVNdaMXZOybelaju6N9fs5JvJ775F6OJaz30vyQXoM8J/4uBqTsZcHEA0HuzuFy5dJIKDErMHRAkL75xCcnQB0AXU95aqwmZqYAbm6aqfpG6ycRTpVdzvfdmBmaPmqQpvavt1q6x0qRPyrzymNP8w0Ync+aPJjpTpm7kFWOmzLI21+GW2IgsI+XSirMPOyUjJ5B9fb5diIZZRbtqx+m4N6SHptSBw6DhKJQPrxBvzTJ/Yt8vwaPxAj9yPKvhK3X+N4arbCqzp0ziMSBGHZlCLOTT7xhYEfUcVkMyoA2/VauKjnGfSGEkz9jOYE7iNekIniuj6VyEWaw3OlqvfF0Qp6//G0tjNx3XHy0KWyVYu//BFyZzxS2cpA2EZ8JsZ3R64qtrscWNwfKkMx0xv1I
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 03:58:29.8287
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cbcd00fd-2f65-4bbb-f01b-08df0c94472c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN7PEPF000000A6.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6649
 
-Hello Karl,
+Mike Rapoport <rppt@kernel.org> writes:
 
-On 9/5/2026 6:37 AM, Karl Mehltretter wrote:
-> The amd_dynamic_epp command-line parameter was removed. Dynamic EPP
-> is now selected through the per-policy energy_performance_preference
-> attribute, which is already documented.
-> 
-> Fixes: 32692fcf61ed ("cpufreq/amd-pstate: Remove "amd_dynamic_epp" cmdline and "dynamic_epp" sysfs")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> Hi Tarun,
+>
+> On Thu, Sep 03, 2026 at 03:59:06PM +0000, Tarun Sahu wrote:
+>> Use binary search (memblock_bsearch_start) in memblock_add_range() and
+>> memblock_isolate_range() to locate candidate regions instead of linearly
+>> scanning from index 0.
+>> 
+>> Under heavy memory fragmentation (such as KHO page preservation registering
+>> hundreds of thousands of disjoint folios), scanning from index 0 on every
+>> insertion and isolation results in O(N^2) complexity, causing boot-time
+>> memory retrieval to take several minutes (~268s for 393k pages).
+>> 
+>> Using binary search reduces the worst-case complexity to O(N log N)
+>> (and O(N) for sequential appends), cutting KHO memory retrieval time
+>> from ~268s to ~50ms.
+>> 
+>> Signed-off-by: Tarun Sahu <tarunsahu@google.com>
+>> ---
+>>  mm/memblock.c | 38 ++++++++++++++++++++++++++++++++++++--
+>>  1 file changed, 36 insertions(+), 2 deletions(-)
+>> 
+>> diff --git a/mm/memblock.c b/mm/memblock.c
+>> index 9ce86349a29f..88940474b020 100644
+>> --- a/mm/memblock.c
+>> +++ b/mm/memblock.c
+>> @@ -160,6 +160,11 @@ static __refdata struct memblock_type *memblock_memory = &memblock.memory;
+>>  	     i < memblock_type->cnt;					\
+>>  	     i++, rgn = &memblock_type->regions[i])
+>>  
+>> +#define for_each_memblock_type_from(i, memblock_type, rgn, start)	\
+>> +	for (i = (start), rgn = &memblock_type->regions[i];		\
+>> +	     i < memblock_type->cnt;					\
+>> +	     i++, rgn = &memblock_type->regions[i])
+>> +
+>>  #define memblock_dbg(fmt, ...)						\
+>>  	do {								\
+>>  		if (memblock_debug)					\
+>> @@ -591,6 +596,33 @@ static void __init_memblock memblock_insert_region(struct memblock_type *type,
+>>  	type->total_size += size;
+>>  }
+>>  
+>> +/**
+>> + * memblock_bsearch_start - Find the first region index where rend > base
+>> + * @type: memblock type to search
+>> + * @base: base physical address of the candidate range
+>> + *
+>> + * Returns the first region index that could potentially overlap @base.
+>> + */
+>> +static int __init_memblock memblock_bsearch_start(struct memblock_type *type,
+>> +						  phys_addr_t base)
+>> +{
+>
+> We already have memblock_search() ;-)
 
-Thank you for catching this. Feel free to include:
+Yes, I preferred to have saperate function because we need to search
+lower bound but not the exact match, as new entry might not exist and
+memblock_search will return -1 in that case.
 
-Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
+To not duplicate the binary search code, we can update the
+memblock_search as the wrapper of memblock_bsearch_start (Approach 1):
 
-> ---
->  Documentation/admin-guide/kernel-parameters.txt | 7 -------
->  Documentation/admin-guide/pm/amd-pstate.rst     | 6 ------
->  2 files changed, 13 deletions(-)
-> 
-> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-> index 4a12805a50ba5..1fa37bce5bb3a 100644
-> --- a/Documentation/admin-guide/kernel-parameters.txt
-> +++ b/Documentation/admin-guide/kernel-parameters.txt
-> @@ -499,13 +499,6 @@ Kernel parameters
->  			disable
->  			  Disable amd-pstate preferred core.
->  
-> -	amd_dynamic_epp=
-> -			[X86]
-> -			disable
-> -			  Disable amd-pstate dynamic EPP.
-> -			enable
-> -			  Enable amd-pstate dynamic EPP.
-> -
->  	amijoy.map=	[HW,JOY] Amiga joystick support
->  			Map of devices attached to JOY0DAT and JOY1DAT
->  			Format: <a>,<b>
-> diff --git a/Documentation/admin-guide/pm/amd-pstate.rst b/Documentation/admin-guide/pm/amd-pstate.rst
-> index 6fd72ba52df20..4c5d3d8acf645 100644
-> --- a/Documentation/admin-guide/pm/amd-pstate.rst
-> +++ b/Documentation/admin-guide/pm/amd-pstate.rst
-> @@ -481,12 +481,6 @@ For systems that support ``amd-pstate`` preferred core, the core rankings will
->  always be advertised by the platform. But OS can choose to ignore that via the
->  kernel parameter ``amd_prefcore=disable``.
->  
-> -``amd_dynamic_epp``
-> -
-> -When AMD pstate is in auto mode, dynamic EPP will control whether the kernel
-> -autonomously changes the EPP mode. The default is disabled. It can be enabled
-> -with the kernel parameter ``amd_dynamic_epp=enable``.
-> -
->  User Space Interface in ``sysfs`` - General
->  ===========================================
->  
+diff --git a/mm/memblock.c b/mm/memblock.c
+index 88940474b020..d9a71234abcd 100644
+--- a/mm/memblock.c
++++ b/mm/memblock.c
+@@ -2096,17 +2096,10 @@ static void __init_memblock memblock_dump(struct memblock_type *type)
+ static int __init_memblock memblock_search(struct memblock_type *type, phys_addr_t addr)
+ {
+-	unsigned int left = 0, right = type->cnt;
+-
+-	do {
+-		unsigned int mid = (right + left) / 2;
+-
+-		if (addr < type->regions[mid].base)
+-			right = mid;
+-		else if (addr >= (type->regions[mid].base +
+-				  type->regions[mid].size))
+-			left = mid + 1;
+-		else
+-			return mid;
+-	} while (left < right);
+-	return -1;
++	int idx = memblock_bsearch_start(type, addr);
++
++	if (idx < type->cnt && addr >= type->regions[idx].base)
++		return idx;
++	return -1;
+ }
 
--- 
-Thanks and Regards,
-Prateek
+OR Approach 2:
 
+The above approach still introduce two function for doing the search.
+So, I thought of updating the memblock_search(..., enum search_type) but
+this will require changes to all the places of memblock_search also.
+
+I prefer approach 1, As it will keep the binary_search code
+within single function and have two function for two different type
+return values.
+
+WDYT?
+
+>
+>> +	int mid, low = 0;
+>> +	int high = type->cnt;
+>> +
+>> +	if (type->cnt && base >= type->regions[type->cnt - 1].base +
+>> +				 type->regions[type->cnt - 1].size)
+>> +		return type->cnt;
+>> +
+>> +	while (low < high) {
+>> +		mid = (low + high) / 2;
+>> +		if (type->regions[mid].base + type->regions[mid].size <= base)
+>> +			low = mid + 1;
+>> +		else
+>> +			high = mid;
+>> +	}
+>> +	return low;
+>> +}
+>> +
+>>  /**
+>>   * memblock_add_range - add new memblock region
+>>   * @type: memblock type to add new region into
+>> @@ -651,7 +683,8 @@ static int __init_memblock memblock_add_range(struct memblock_type *type,
+>>  	base = obase;
+>>  	nr_new = 0;
+>>  
+>> -	for_each_memblock_type(idx, type, rgn) {
+>> +	for_each_memblock_type_from(idx, type, rgn,
+>> +				    memblock_bsearch_start(type, base)) {
+>
+> I think we can just kill for_each_memblock_type() and open code all loops
+> that use it and make memblock_add_range() and memblock_isolate_range() use
+> binary search.
+
+Agree, there were three places memblock_add_range, memblock_dump,
+memblock_isolate_range, This patch already updating two of them.
+The for loop is not complex to be part of the macro, Open code sounds
+good to me.
+
+
+~Tarun
+>
+>>  		phys_addr_t rbase = rgn->base;
+>>  		phys_addr_t rend = rbase + rgn->size;
+>>  
+>> @@ -827,7 +860,8 @@ static int __init_memblock memblock_isolate_range(struct memblock_type *type,
+>>  		if (memblock_double_array(type, base, size) < 0)
+>>  			return -ENOMEM;
+>>  
+>> -	for_each_memblock_type(idx, type, rgn) {
+>> +	for_each_memblock_type_from(idx, type, rgn,
+>> +				    memblock_bsearch_start(type, base)) {
+>>  		phys_addr_t rbase = rgn->base;
+>>  		phys_addr_t rend = rbase + rgn->size;
+>>  
+>> -- 
+>> 2.55.0.970.g62bdec98f9-goog
+>> 
+>
+> -- 
+> Sincerely yours,
+> Mike.
