@@ -1,42 +1,42 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CC6D4E13FF
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:23:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 797F04F55A7
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:23:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788787433; cv=none; b=oR02RYM6A14a7Mpu+2+eIsznH7dx+ohNo63pxQc5kVi2KYMVwXdMjLjrnxTlqAJJRECovsBf8Jly9AebViAHt7LN7ErLoqRvRlc+2M3bH2exhS/kzFiW9mlSYRjdOvH55qFkv/8jouyZqr3DAiIiFl9i5El9IDrnZ/JE+GJSoco=
+	t=1788787438; cv=none; b=qEORKG8Aar3HnMFinJXRFuy+3W+DIvvGfM+o6T1SyiroLMke8eJ3FQtxmsc271HAGN7KBamM+3U7kn74I/jdmdljW9JBCP8LOXTs/ao4lWeqBJ4z0+uqAaG/F+PnsqBemMCCIaFtuRe9PwW6eF9qQf5uAw9tSnAIgMXfcJU25GY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788787433; c=relaxed/simple;
-	bh=brEGUYZKaNNO3u6r1PMA7TjGMwU57Zrw9OoF9YO2U04=;
+	s=arc-20240116; t=1788787438; c=relaxed/simple;
+	bh=vFSTLNRrZ6eLdKlszPb1mYsHg7VDedLTdmgCk0wKe9c=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Jl46ZUpNo5o/J29zey1U0RpFmVh80+1i8OfwSuNSE1AfsQw4U/sY7KOh+mDIhtcHZSLIV/CLb9soq5GQST+VcqhFvZTI3iaP9RWudwSnwNgsKgyV+QlnZL4bPq4Iwq39NVBfSAqK96MdF2H75rp6gZTLx4N2HSmTj+4OxEx4/DM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=AmyJ7Zv+; arc=none smtp.client-ip=185.246.84.56
+	 In-Reply-To:To:Cc; b=qnnerUTf6awG5MVBbJNLFVhToQ5ptihsfg7y5MmlgZEm1ucosUi0g1FbNfl7lxuazgs3uBVYSQz28koUsXbzCMhEAOh/RK30Ul3fP5HjPMcpwRLKRQ1p7wzJjRAc/yYtsI85F0N+4C1iq5kbPHy02g7U320rrL4v1Qk0CM7Jc9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=HJ1ZpOx5; arc=none smtp.client-ip=185.246.85.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="AmyJ7Zv+"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="HJ1ZpOx5"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 8C0851A1A0C
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:23:44 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 740C84E41570;
+	Mon,  7 Sep 2026 13:23:47 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 60FAD60383;
-	Mon,  7 Sep 2026 13:23:44 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CB68411C7AF1C;
-	Mon,  7 Sep 2026 15:23:42 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4993460383;
+	Mon,  7 Sep 2026 13:23:47 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E9FBC11C7AF29;
+	Mon,  7 Sep 2026 15:23:45 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788787423; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1788787426; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=qb1wUb4EMthjmNfom9HtvCpm5Q01NkTLeocM6P8AyjI=;
-	b=AmyJ7Zv+gl3OdnQlHk3Zj0nu6FSCBRDxpLih+lo96qgw9CM9xCTORwicVYIHNyge6ADFU2
-	HA+6c52lrEcR1hsrJ7MwC0wA+Ugu4FkoitdjRTqyQw7rDYv55aM1YtZqtX0GPb82YcyC5A
-	18/py+dxY/soqi8yFHp2O1miQMoJBm17LPczIN6V/g39EheKqxvSAW4opvdy4/24xs1ktr
-	59mlOWl08PYC7G984zf0GnSbkkPXUGrizLUFS6kWY6FeR26Tu5ygY2PjcVYAGShlEFO9Gr
-	leTu1HVT4mtQ3j/OtQko9/fY4t1cgnWS2XEwSJUSXbBaZCBPQuq35KI+2CZ0/w==
+	bh=BYLQVfrm2gGmdLutl+qbsE6ahiX0VvgmjHbvQAFG68E=;
+	b=HJ1ZpOx5/bwOM56YaBmWZb5oA9WmWob8osydVRq3miOuYZ/ebq7AE5tJUHjI+TDfs3sm1+
+	BEDDPS7dWrnaMJxc0VY74cRs0401M4l8PhsUan7EYK1xsL33nFLNndii2M+XDRYjhsJ3LE
+	SWYFZqaLOpiz4zfT8FmDLXyyFfCZ8zGkpWe8ASvgSEzTWnclw+62RccJs7crBY9j9MALuf
+	i380yK/xyzkz+0lSRPYw7nsvzlT/Uk0Sm9oqAva8Ok2b+fl8fW4VGaJdamSguponFlGZLE
+	hnseZHhJyBIbY6QvJqzAWZHxu68KkSOAE4wDO2gS1XhW8rkzXyDhwcXv7qo5DA==
 From: Paul Louvel <paul.louvel@bootlin.com>
-Date: Mon, 07 Sep 2026 15:22:48 +0200
-Subject: [PATCH v5 14/19] crypto: talitos/skcipher - Use macro for
- algorithm definitions
+Date: Mon, 07 Sep 2026 15:22:50 +0200
+Subject: [PATCH v5 16/19] crypto: talitos - Introduce is_sec1() helper with
+ static key support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-7-1-rc1_talitos_cleanup-v5-14-860f43cd7317@bootlin.com>
+Message-Id: <20260907-7-1-rc1_talitos_cleanup-v5-16-860f43cd7317@bootlin.com>
 References: <20260907-7-1-rc1_talitos_cleanup-v5-0-860f43cd7317@bootlin.com>
 In-Reply-To: <20260907-7-1-rc1_talitos_cleanup-v5-0-860f43cd7317@bootlin.com>
 To: Herbert Xu <herbert@gondor.apana.org.au>, 
@@ -55,259 +55,101 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  Christophe Leroy <chleroy@kernel.org>, linux-crypto@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Paul Louvel <paul.louvel@bootlin.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788787387; l=9109;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788787387; l=2752;
  i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
- bh=brEGUYZKaNNO3u6r1PMA7TjGMwU57Zrw9OoF9YO2U04=;
- b=8V8yJzEElf0KS9muQZpIUATcQKblM3D+LZLGldyUqmMgxz+LLfe0EvfU1hHk570BZbq3RvV+j
- 6u1EdIryXyNDb5lD+sC/Jxz7I2BU6k5pgdNVWbuzSrHXtCsNsp/ONef
+ bh=vFSTLNRrZ6eLdKlszPb1mYsHg7VDedLTdmgCk0wKe9c=;
+ b=ZDfQinRIoEGdzPt+hCwBkClk+y+TVMlW3M8Cvfp4TC8i2JBaasezm4sJEqV1MAyWgjsrFlKey
+ nQp25ceq/tZBWX2bw3x3bcOwkemxQCHcrYeVijLYAirq0bBo2LGPw9J
 X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
  pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
 X-Last-TLS-Session-Version: TLSv1.3
 
-Replace the repetitive struct initializer entries with preprocessor
-macros.
+In preparation for per-SEC-version code paths, introduce an is_sec1()
+inline helper that abstracts the SEC version check behind a static key.
+The goal is to remove all bool is_sec1 parameters from the call chain via
+the is_sec1() helper.
 
-The fallback setkey assignment (skcipher_alg->setkey ?: skcipher_setkey)
-is no longer needed because each macro specifies the correct setkey
-handler directly.
-
-Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
 Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
 ---
- drivers/crypto/talitos/talitos-skcipher.c | 212 ++++++++++++------------------
- 1 file changed, 82 insertions(+), 130 deletions(-)
+ drivers/crypto/talitos/talitos.c | 10 +++++++++-
+ drivers/crypto/talitos/talitos.h | 28 ++++++++++++++++++++++++++++
+ 2 files changed, 37 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/crypto/talitos/talitos-skcipher.c b/drivers/crypto/talitos/talitos-skcipher.c
-index 6c60ad6aa9be..8360181840f6 100644
---- a/drivers/crypto/talitos/talitos-skcipher.c
-+++ b/drivers/crypto/talitos/talitos-skcipher.c
-@@ -237,131 +237,89 @@ static void talitos_cra_exit_skcipher(struct crypto_skcipher *tfm)
- 	talitos_cra_exit(crypto_skcipher_tfm(tfm));
+diff --git a/drivers/crypto/talitos/talitos.c b/drivers/crypto/talitos/talitos.c
+index ff938cc4e837..c93e3b551f6d 100644
+--- a/drivers/crypto/talitos/talitos.c
++++ b/drivers/crypto/talitos/talitos.c
+@@ -1196,8 +1196,12 @@ static int talitos_probe(struct platform_device *ofdev)
+ 				  TALITOS_FTR_SHA224_HWINIT |
+ 				  TALITOS_FTR_HMAC_OK;
+ 
+-	if (of_device_is_compatible(np, "fsl,sec1.0"))
++	if (of_device_is_compatible(np, "fsl,sec1.0")) {
+ 		priv->features |= TALITOS_FTR_SEC1;
++		talitos_init_branch(true);
++	} else {
++		talitos_init_branch(false);
++	}
+ 
+ 	if (of_device_is_compatible(np, "fsl,sec1.2")) {
+ 		priv->reg_deu = priv->reg + TALITOS12_DEU;
+@@ -1317,6 +1321,10 @@ static int talitos_probe(struct platform_device *ofdev)
+ 	return err;
  }
  
-+#define TALITOS_SKCIPHER_ALG_COMMON(name, driver_name, blk_sz, iv_sz, min_ksz, max_ksz, \
-+				    set_key, desc_template)                \
-+	{ \
-+		.type = CRYPTO_ALG_TYPE_SKCIPHER, \
-+		.alg.skcipher = { \
-+			.base.cra_name = name, \
-+			.base.cra_driver_name = driver_name"-talitos", \
-+			.base.cra_blocksize = blk_sz, \
-+			.base.cra_flags = CRYPTO_ALG_ASYNC | \
-+					  CRYPTO_ALG_ALLOCATES_MEMORY | \
-+					  CRYPTO_ALG_KERN_DRIVER_ONLY, \
-+			.base.cra_priority = TALITOS_CRA_PRIORITY, \
-+			.base.cra_ctxsize = sizeof(struct talitos_ctx), \
-+			.base.cra_module = THIS_MODULE, \
-+			.min_keysize = min_ksz, \
-+			.max_keysize = max_ksz, \
-+			.ivsize = iv_sz, \
-+			.setkey = set_key, \
-+			.init = talitos_cra_init_skcipher, \
-+			.exit = talitos_cra_exit_skcipher, \
-+			.encrypt = skcipher_encrypt, \
-+			.decrypt = skcipher_decrypt, \
-+		}, \
-+		.desc_hdr_template = desc_template, \
-+	}
++#if defined(CONFIG_CRYPTO_DEV_TALITOS1) && defined(CONFIG_CRYPTO_DEV_TALITOS2)
++DEFINE_STATIC_KEY_FALSE(talitos_is_sec1);
++#endif
 +
-+#define TALITOS_SKCIPHER_ALG_AES(name, driver_name, blk_sz, iv_sz, desc_template)       \
-+	TALITOS_SKCIPHER_ALG_COMMON(name, driver_name, blk_sz, iv_sz, AES_MIN_KEY_SIZE, \
-+				    AES_MAX_KEY_SIZE, skcipher_aes_setkey, \
-+				    desc_template)
-+
-+#define TALITOS_SKCIPHER_ALG_DES(name, driver_name, blk_sz, iv_sz, desc_template)   \
-+	TALITOS_SKCIPHER_ALG_COMMON(name, driver_name, blk_sz, iv_sz, DES_KEY_SIZE, \
-+				    DES_KEY_SIZE, skcipher_des_setkey, \
-+				    desc_template)
-+
-+#define TALITOS_SKCIPHER_ALG_DES3(name, driver_name, blk_sz, iv_sz, desc_template)        \
-+	TALITOS_SKCIPHER_ALG_COMMON(name, driver_name, blk_sz, iv_sz, DES3_EDE_KEY_SIZE,  \
-+				    DES3_EDE_KEY_SIZE, skcipher_des3_setkey, \
-+				    desc_template)
-+
- static const struct talitos_alg_template skcipher_driver_algs[] = {
--	{	.type = CRYPTO_ALG_TYPE_SKCIPHER,
--		.alg.skcipher = {
--			.base.cra_name = "ecb(aes)",
--			.base.cra_driver_name = "ecb-aes-talitos",
--			.base.cra_blocksize = AES_BLOCK_SIZE,
--			.base.cra_flags = CRYPTO_ALG_ASYNC |
--					  CRYPTO_ALG_ALLOCATES_MEMORY,
--			.min_keysize = AES_MIN_KEY_SIZE,
--			.max_keysize = AES_MAX_KEY_SIZE,
--			.setkey = skcipher_aes_setkey,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_COMMON_NONSNOOP_NO_AFEU |
--				     DESC_HDR_SEL0_AESU,
--	},
--	{	.type = CRYPTO_ALG_TYPE_SKCIPHER,
--		.alg.skcipher = {
--			.base.cra_name = "cbc(aes)",
--			.base.cra_driver_name = "cbc-aes-talitos",
--			.base.cra_blocksize = AES_BLOCK_SIZE,
--			.base.cra_flags = CRYPTO_ALG_ASYNC |
--					  CRYPTO_ALG_ALLOCATES_MEMORY,
--			.min_keysize = AES_MIN_KEY_SIZE,
--			.max_keysize = AES_MAX_KEY_SIZE,
--			.ivsize = AES_BLOCK_SIZE,
--			.setkey = skcipher_aes_setkey,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_COMMON_NONSNOOP_NO_AFEU |
--				     DESC_HDR_SEL0_AESU |
--				     DESC_HDR_MODE0_AESU_CBC,
--	},
--	{	.type = CRYPTO_ALG_TYPE_SKCIPHER,
--		.alg.skcipher = {
--			.base.cra_name = "ctr(aes)",
--			.base.cra_driver_name = "ctr-aes-talitos",
--			.base.cra_blocksize = 1,
--			.base.cra_flags = CRYPTO_ALG_ASYNC |
--					  CRYPTO_ALG_ALLOCATES_MEMORY,
--			.min_keysize = AES_MIN_KEY_SIZE,
--			.max_keysize = AES_MAX_KEY_SIZE,
--			.ivsize = AES_BLOCK_SIZE,
--			.setkey = skcipher_aes_setkey,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_AESU_CTR_NONSNOOP |
--				     DESC_HDR_SEL0_AESU |
--				     DESC_HDR_MODE0_AESU_CTR,
--	},
--	{	.type = CRYPTO_ALG_TYPE_SKCIPHER,
--		.alg.skcipher = {
--			.base.cra_name = "ctr(aes)",
--			.base.cra_driver_name = "ctr-aes-talitos",
--			.base.cra_blocksize = 1,
--			.base.cra_flags = CRYPTO_ALG_ASYNC |
--					  CRYPTO_ALG_ALLOCATES_MEMORY,
--			.min_keysize = AES_MIN_KEY_SIZE,
--			.max_keysize = AES_MAX_KEY_SIZE,
--			.ivsize = AES_BLOCK_SIZE,
--			.setkey = skcipher_aes_setkey,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_COMMON_NONSNOOP_NO_AFEU |
--				     DESC_HDR_SEL0_AESU |
--				     DESC_HDR_MODE0_AESU_CTR,
--	},
--	{	.type = CRYPTO_ALG_TYPE_SKCIPHER,
--		.alg.skcipher = {
--			.base.cra_name = "ecb(des)",
--			.base.cra_driver_name = "ecb-des-talitos",
--			.base.cra_blocksize = DES_BLOCK_SIZE,
--			.base.cra_flags = CRYPTO_ALG_ASYNC |
--					  CRYPTO_ALG_ALLOCATES_MEMORY,
--			.min_keysize = DES_KEY_SIZE,
--			.max_keysize = DES_KEY_SIZE,
--			.setkey = skcipher_des_setkey,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_COMMON_NONSNOOP_NO_AFEU |
--				     DESC_HDR_SEL0_DEU,
--	},
--	{	.type = CRYPTO_ALG_TYPE_SKCIPHER,
--		.alg.skcipher = {
--			.base.cra_name = "cbc(des)",
--			.base.cra_driver_name = "cbc-des-talitos",
--			.base.cra_blocksize = DES_BLOCK_SIZE,
--			.base.cra_flags = CRYPTO_ALG_ASYNC |
--					  CRYPTO_ALG_ALLOCATES_MEMORY,
--			.min_keysize = DES_KEY_SIZE,
--			.max_keysize = DES_KEY_SIZE,
--			.ivsize = DES_BLOCK_SIZE,
--			.setkey = skcipher_des_setkey,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_COMMON_NONSNOOP_NO_AFEU |
--				     DESC_HDR_SEL0_DEU |
--				     DESC_HDR_MODE0_DEU_CBC,
--	},
--	{	.type = CRYPTO_ALG_TYPE_SKCIPHER,
--		.alg.skcipher = {
--			.base.cra_name = "ecb(des3_ede)",
--			.base.cra_driver_name = "ecb-3des-talitos",
--			.base.cra_blocksize = DES3_EDE_BLOCK_SIZE,
--			.base.cra_flags = CRYPTO_ALG_ASYNC |
--					  CRYPTO_ALG_ALLOCATES_MEMORY,
--			.min_keysize = DES3_EDE_KEY_SIZE,
--			.max_keysize = DES3_EDE_KEY_SIZE,
--			.setkey = skcipher_des3_setkey,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_COMMON_NONSNOOP_NO_AFEU |
--				     DESC_HDR_SEL0_DEU |
--				     DESC_HDR_MODE0_DEU_3DES,
--	},
--	{	.type = CRYPTO_ALG_TYPE_SKCIPHER,
--		.alg.skcipher = {
--			.base.cra_name = "cbc(des3_ede)",
--			.base.cra_driver_name = "cbc-3des-talitos",
--			.base.cra_blocksize = DES3_EDE_BLOCK_SIZE,
--			.base.cra_flags = CRYPTO_ALG_ASYNC |
--					  CRYPTO_ALG_ALLOCATES_MEMORY,
--			.min_keysize = DES3_EDE_KEY_SIZE,
--			.max_keysize = DES3_EDE_KEY_SIZE,
--			.ivsize = DES3_EDE_BLOCK_SIZE,
--			.setkey = skcipher_des3_setkey,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_COMMON_NONSNOOP_NO_AFEU |
--				     DESC_HDR_SEL0_DEU |
--				     DESC_HDR_MODE0_DEU_CBC |
--				     DESC_HDR_MODE0_DEU_3DES,
--	},
-+	/* AES */
-+
-+	TALITOS_SKCIPHER_ALG_AES("ecb(aes)", "ecb-aes", AES_BLOCK_SIZE, 0,
-+				 DESC_HDR_TYPE_COMMON_NONSNOOP_NO_AFEU |
-+					 DESC_HDR_SEL0_AESU),
-+
-+	TALITOS_SKCIPHER_ALG_AES("cbc(aes)", "cbc-aes", AES_BLOCK_SIZE, AES_BLOCK_SIZE,
-+				 DESC_HDR_TYPE_COMMON_NONSNOOP_NO_AFEU |
-+					 DESC_HDR_SEL0_AESU |
-+					 DESC_HDR_MODE0_AESU_CBC),
-+
-+	TALITOS_SKCIPHER_ALG_AES("ctr(aes)", "ctr-aes", 1, AES_BLOCK_SIZE,
-+				 DESC_HDR_TYPE_AESU_CTR_NONSNOOP |
-+					 DESC_HDR_SEL0_AESU |
-+					 DESC_HDR_MODE0_AESU_CTR),
-+
-+	TALITOS_SKCIPHER_ALG_AES("ctr(aes)", "ctr-aes", 1, AES_BLOCK_SIZE,
-+				 DESC_HDR_TYPE_COMMON_NONSNOOP_NO_AFEU |
-+					 DESC_HDR_SEL0_AESU |
-+					 DESC_HDR_MODE0_AESU_CTR),
-+	/* DES */
-+
-+	TALITOS_SKCIPHER_ALG_DES("ecb(des)", "ecb-des", DES_BLOCK_SIZE, 0,
-+				 DESC_HDR_TYPE_COMMON_NONSNOOP_NO_AFEU |
-+					 DESC_HDR_SEL0_DEU),
-+
-+	TALITOS_SKCIPHER_ALG_DES("cbc(des)", "cbc-des", DES_BLOCK_SIZE, DES_BLOCK_SIZE,
-+				 DESC_HDR_TYPE_COMMON_NONSNOOP_NO_AFEU |
-+					 DESC_HDR_SEL0_DEU |
-+					 DESC_HDR_MODE0_DEU_CBC),
-+	/* DES3 */
-+
-+	TALITOS_SKCIPHER_ALG_DES3("ecb(des3_ede)", "ecb-3des", DES3_EDE_BLOCK_SIZE, 0,
-+				  DESC_HDR_TYPE_COMMON_NONSNOOP_NO_AFEU |
-+					  DESC_HDR_SEL0_DEU |
-+					  DESC_HDR_MODE0_DEU_3DES),
-+
-+	TALITOS_SKCIPHER_ALG_DES3(
-+		"cbc(des3_ede)", "cbc-3des", DES3_EDE_BLOCK_SIZE, DES3_EDE_BLOCK_SIZE,
-+		DESC_HDR_TYPE_COMMON_NONSNOOP_NO_AFEU | DESC_HDR_SEL0_DEU |
-+			DESC_HDR_MODE0_DEU_CBC | DESC_HDR_MODE0_DEU_3DES),
- };
+ static const struct of_device_id talitos_match[] = {
+ #ifdef CONFIG_CRYPTO_DEV_TALITOS1
+ 	{
+diff --git a/drivers/crypto/talitos/talitos.h b/drivers/crypto/talitos/talitos.h
+index c2fc71282c0b..5927dfe84770 100644
+--- a/drivers/crypto/talitos/talitos.h
++++ b/drivers/crypto/talitos/talitos.h
+@@ -14,6 +14,7 @@
+ #include <linux/dma-mapping.h>
+ #include <linux/hw_random.h>
+ #include <linux/interrupt.h>
++#include <linux/jump_label.h>
+ #include <linux/scatterlist.h>
+ #include <linux/types.h>
  
- int talitos_register_skcipher(struct device *dev)
-@@ -386,12 +344,6 @@ int talitos_register_skcipher(struct device *dev)
- 		if (has_ftr_sec1(priv))
- 			alg->cra_alignmask = 3;
+@@ -224,6 +225,33 @@ struct talitos_crypto_alg {
+ #define TALITOS_FTR_HMAC_OK 0x00000008
+ #define TALITOS_FTR_SEC1 0x00000010
  
--		skcipher_alg->init = talitos_cra_init_skcipher;
--		skcipher_alg->exit = talitos_cra_exit_skcipher;
--		skcipher_alg->setkey = skcipher_alg->setkey ?: skcipher_setkey;
--		skcipher_alg->encrypt = skcipher_encrypt;
--		skcipher_alg->decrypt = skcipher_decrypt;
--
- 		if (!strcmp(alg->cra_name, "ctr(aes)") && !has_ftr_sec1(priv) &&
- 		    DESC_TYPE(talitos_alg_template.desc_hdr_template) !=
- 			    DESC_TYPE(DESC_HDR_TYPE_AESU_CTR_NONSNOOP)) {
++#if defined(CONFIG_CRYPTO_DEV_TALITOS1) && defined(CONFIG_CRYPTO_DEV_TALITOS2)
++DECLARE_STATIC_KEY_FALSE(talitos_is_sec1);
++
++static __always_inline bool is_sec1(void)
++{
++	return static_branch_unlikely(&talitos_is_sec1);
++}
++
++static inline void talitos_init_branch(bool sec1)
++{
++	if (sec1)
++		static_branch_enable(&talitos_is_sec1);
++}
++
++#else
++
++static __always_inline bool is_sec1(void)
++{
++	return IS_ENABLED(CONFIG_CRYPTO_DEV_TALITOS1);
++}
++
++static inline void talitos_init_branch(bool sec1)
++{
++}
++
++#endif
++
+ /*
+  * If both CONFIG_CRYPTO_DEV_TALITOS1 and CONFIG_CRYPTO_DEV_TALITOS2 are
+  * defined, we check the features which are set according to the device tree.
 
 -- 
 2.55.0
