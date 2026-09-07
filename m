@@ -1,112 +1,89 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3BFE483BD5
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:06:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B18B347ECF7;
+	Mon,  7 Sep 2026 12:06:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788782789; cv=none; b=jB+jXhtsUPntgGAqnUXywQf1VTyQYXpmCCjEcHkFKqNes7FpcApw8kV89rx1pymmxKzNtclwYUh1voZT6QsgDUiMhHBA9PzL0zRj5n1RE7dfbPNhIvS64wk5ZztEJ9xkVnjABH4qitCat3n5csU/Sl5QT7r9ydKbDfP/BdWWdsg=
+	t=1788782794; cv=none; b=lcthb+Fi1/H+wKGxnem4S7tWphmBGAqS3ApBtUvGO/tGRv+c8ZhFbm5aAxG7r/paCdBlkFhThbVBCQiqZjIprEBubklaqn18L3w7jWboBwAoLTBu7uOyszN1Weh5G8ZmU4v4hMDWowiyon4GyNOFB3vKb+ZUjR2wynVyisoHymY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788782789; c=relaxed/simple;
-	bh=S9tHVz0KUWoQgg2OMR1yUXRyftZyF9ufT6cdmiqBYRQ=;
+	s=arc-20240116; t=1788782794; c=relaxed/simple;
+	bh=piInyLgkcbDyzpblMqGAf2ynunGkgJ4We8r7EwXq64M=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MKWLNkfsAbRY3whS/FY6p75f1OucaefhkeaTDdwRy8s7mAS+PEwuErv72eSpAEjbFn9VpwmhcTOH/gd3e0AVBbya5jJNOXzk7Wn4pvW+CoIGhDQivpT4tmK+4HYgCelD6+oN8W/Aw0psGtvUuGHiv9Ou9yugFuINPB8cVECi93Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YaQ61reh; arc=none smtp.client-ip=209.85.215.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=PVk2T9DONfvcNHrmsC0r43mXxNjSE16uC0Uq9MysJUtnJ5881B3FPTQ+ipntAGObIpdLQv+T5bjBtnDZPKWB/s1+lCeBgQKDTgBbFMEL8uDxAkecokUT2MAZmHR7Dx3+wjP1zVB48zdSFgqvhMkDiaH5xJIcZohJMHp1ud7lPn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=eDZNiepM; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YaQ61reh"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cbee846deecso4260333a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:06:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788782787; x=1789387587; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jalcXwT2Yf1NbQPCnMUl/zDvl6z8nL40vYt7Jj9wsrg=;
-        b=YaQ61rehHsytr2H3reuwCfBAQiDwnzQj2byfOTxV/JKfo6TlckGSimkw2t+vHFFoAb
-         EvVeazF1oLGQNGvqB2pEy4P4WnXsGEAHWtZsrWyRdh2qmIH8DxRXI48Fz5gYgr5V3ctx
-         /JLBqMIOSON5w6MvVFB7UxiX1YWQQtlWBa+WwuGuBtcdaRyQDNi46P9gYCHpePsAU//S
-         Jj1T8DolWeRpcXte8ENc6AaO74YCSCKA2ebA8IYuoaV0Pw2+QoVhY5LrbYsjiJbRBiW6
-         Or6UOcNSnR/LfSYWtbIGcJCLV1BU6WnvYnNaQNLmB46srK1nIf/jA1zS25Sh+NMUvpCI
-         lxoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788782787; x=1789387587;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jalcXwT2Yf1NbQPCnMUl/zDvl6z8nL40vYt7Jj9wsrg=;
-        b=at3KZ1QSnmdKWEM0Cld1y/y/PjcOmpTz6JLVOCPWBJDpWPEDUygDBuPEAu64C6sDD9
-         RpkYrM2WhJzbcKaectzH0UnxQzun+ModewQdjzS4ndgu4sKcFDcUdhbI8Z+5GXjF/ue3
-         fRbv9DExTorqI2BkH2bk+ZiA4rEZ9d5AHYf24ugECHwZJSCJInP6iE88wyIvkpWZsteI
-         yAyWIueBGJIiLF+jK6bX33GC3q9Cesk8jqz7rvhQ6ru74dzZ0azqPfUi6Q5SPG1C8opI
-         tKtkD558EsAFpZzhAiSoPMBYzCmkjy3gNJLwrBSF0S7Si5xlV08xbT7afn09HAyukaaA
-         MedQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx/EEctZ9JPds7GW0Uqi9COd23Grutnpi3IIrAymVG5YmhG5wE/mda77r07dl231dmVGV4GyuVigFgc7tY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJuLZvzbhdStCPoh8+PEWZYLccZ4QGDF4UKzKR7tvrM+jcQRrr
-	F84f0dkXk8E/2/gxw1EnZesSoK6dWxEqqyumhYUEhzXefFqg5YeKgQKh
-X-Gm-Gg: AYBFou35dP13BKRCc/AAVJmkzDxtwNXYxBeGeIY350NtLUPn+BDFShyzqgxYVvCCK3S
-	6kNYgSAfYx7R0GKKfRfnC5CcVSbB5pBePDdv8Dvk6Rzui+5luxFQZVwyqBF1//ptZT7tbKdyg/x
-	quoJIMBojk4ooGwZj2uQ91PmgFpLqyvsX9WRgRfAiMef87C3/SI6My+/TCYjH3rxZXKN/ZU1ako
-	M48UCqzGZPu1sgh7wAX1G62AW14wKNdrbOvKufVj3FP4ckolOh6+KxYAa/lTaz1xuwPaau+G0Zq
-	ukdpAM76wvEnbwkEPnu6jUaTfVfEuBlpjyUd/SrJzmwVS0xyZZUWiviv2KbOkt0Qq/jzTqsvBZ8
-	HmGHiRgSdjL3sRqe6epeIkDFPC5nLpTrqN+dJ/0zvj8Da8sTBxHGg6VzMeqvdfDHfuUrMJ7xTd/
-	rJ8RzRz4dTKgMLNs1QvhV0edL33yNviHKIVr/osLbjlVLgitL9DA1660g0WuM=
-X-Received: by 2002:a05:6a20:430f:b0:3d1:9166:5c68 with SMTP id adf61e73a8af0-3da39ee15fdmr29716602637.8.1788782787245;
-        Mon, 07 Sep 2026 05:06:27 -0700 (PDT)
-Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc45a6abb12sm3818124a12.16.2026.09.07.05.06.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 05:06:26 -0700 (PDT)
-Date: Mon, 7 Sep 2026 20:05:57 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Vladimir Oltean <olteanv@gmail.com>, 
-	Inochi Amaoto <inochiama@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH v2 0/4] phy: core: Add phy bulk helpers support
-Message-ID: <ap6ngAxlztCAFSH0@inochi.infowork>
-References: <20260904083709.425893-1-inochiama@gmail.com>
- <20260907102849.w7yn43x6m3f2rnuj@skbuf>
- <ap6fcP7Oct109dkY@inochi.infowork>
- <20260907115712.dg5pw4ajvrtdipey@skbuf>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="eDZNiepM"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Reply-To:Content-ID:Content-Description;
+	bh=eqN+lGGowV/0PJOpQ1jZTWLYGirGXTEyq2f7xgjKbOY=; b=eDZNiepMtBaKYeKraQipuckICA
+	59VH4/wNICYoM+4MZDtZijGsjP/EF2AXDVoRuE5VqXF8dAOurqlwek2PI6XHex6OIMm6HH/gtKK3a
+	2KFzYTUybztBPWCMkryrVayc5P39+C3f25iFdGE0rTbs1xGO0qeIVIiNz/hL7t3ZQ8bsYZa3pg1UP
+	q40uQMQzsPC0xAZUdI2mQ+UW81o+wVd0ZbTK2yI8O7BOkJ+SN8mp/1O3sDf8Tt7LDVQfz224QQNCi
+	8Od9cGrRnfSnpgKsvpKGWCFcoO6zdzaoR3IkrKrqC9GuXoPwfuwTb2lGnYjn3bN81/UFhJICv2mwf
+	HMhUfNEg==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1x3Y6s-001Ukf-2j;
+	Mon, 07 Sep 2026 12:06:03 +0000
+Date: Mon, 7 Sep 2026 05:05:56 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Hangbin Liu <hangbin.liu@linux.dev>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Shuah Khan <shuah@kernel.org>, 
+	Jay Vosburgh <jv@jvosburgh.net>, Vladimir Oltean <olteanv@gmail.com>, 
+	Jiri Pirko <jiri@resnulli.us>, "Michael S. Tsirkin" <mst@redhat.com>, 
+	Jason Wang <jasowangio@gmail.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, Petr Machata <petrm@nvidia.com>, 
+	Matthieu Baerts <matttbe@kernel.org>, netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, virtualization@lists.linux.dev, 
+	Hangbin Liu <liuhangbin@kylinos.cn>
+Subject: Re: [PATCH net] selftests/drivers/net: include lib/sh/*.sh
+Message-ID: <ap6oi4YujKEgoKhu@gmail.com>
+References: <20260907-selftest_lib_defer-v1-1-8af94645aaa3@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260907115712.dg5pw4ajvrtdipey@skbuf>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260907-selftest_lib_defer-v1-1-8af94645aaa3@kylinos.cn>
+X-Debian-User: leitao
 
-On Mon, Sep 07, 2026 at 02:57:12PM +0300, Vladimir Oltean wrote:
-> On Mon, Sep 07, 2026 at 07:29:49PM +0800, Inochi Amaoto wrote:
-> > Yes, I have one for it. This is the spacemit pcie driver.
-> > https://lore.kernel.org/linux-pci/20260907112606.465778-1-inochiama@gmail.com/
-> > 
-> > But it only uses a few of these helpers. So should I remove all the
-> > things that are not directly used, and let others add these if they
-> > need?
+On Mon, Sep 07, 2026 at 03:28:09PM +0800, Hangbin Liu wrote:
+> From: Hangbin Liu <liuhangbin@kylinos.cn>
 > 
-> How many functions would go away, and how difficult would they be to
-> reconstruct, if we only were to add them on an "as-needed" basis?
+> When I tried to install and run bonding selftests via:
 > 
-> If the answer is "many", I suppose you could also leave a note in
-> phy.rst that links to v2 and mentions unimplemented functions because
-> they lack a user.
+>   make INSTALL_PATH=/tmp/kself TARGETS=drivers/net/bonding \
+>      -C tools/testing/selftests install
 > 
+> Some tests fail because net/lib/sh/defer.sh is missing:
+> 
+>   /tmp/kself/net/forwarding/../lib.sh: line 5: /tmp/kself/net/lib/sh/defer.sh: No such file or directory
+> 
+> One option is to add defer.sh directly to TEST_INCLUDES. Alternatively,
+> follow the approach from commit f72aa1b27628 ("selftests: net: include
+> lib/sh/*.sh with lib.sh"), which pulls in all .sh files to accommodate
+> future changes to the library directory.
+> 
+> This patch adds a wildcard to include all shell files for drivers/net
+> tests that consume net lib.sh. TEST_INCLUDES is also sorted to avoid
+> ordering‑related problems for future modifications. The team driver is
+> not affected by this bug, but we use the wildcard for it as well, rather
+> than listing only defer.sh.
+> 
+> Fixes: a6e263f125cd ("selftests: net: lib: Introduce deferred commands")
+> Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
 
-In fact I think it is happy. This PCIe driver only use three APIs:
-- devm_of_phy_bulk_get_all
-- phy_bulk_init
-- phy_bulk_exit
-
-So most of them will be removed as only a few are on the path.
-I will follow you suggestion. Thanks.
-
-Regards,
-Inochi
+Reviewed-by: Breno Leitao <leitao@debian.org>
