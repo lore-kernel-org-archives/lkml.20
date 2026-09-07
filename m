@@ -1,95 +1,121 @@
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1B183CCA02
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:57:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E7C4C6811;
+	Mon,  7 Sep 2026 13:57:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788789454; cv=none; b=AEBo8k/P8V0g93njggTEGo1xzytrh7qia+0wEj9Qdbysi9BZgTazu731fmKJz7hA9Im4Xz8OOPc9Dw74OXsAzSUT1G5CVA8FUXR9q4S3EOiGSPjh9E0v5pkabtwI/5igxY3JdowUFMpKlHNax0hq2Zp87WsIdzcpiIoorM0AktQ=
+	t=1788789477; cv=none; b=J00ACcqPZB9RNVEtrxeL7nGVg8WBKnWqxn+fz4BiA9yoRwosi8aGcZi6doTZAbvyHW9NIjNXhRZI9atrcZ2jbDoBh7/Kl8yidpj/SxrPAAZOVdJ41aMTYpx/cqXibfE1ZD8urisDq2NoFuZo52gBly3DdjqVy/78WfuhVrpzRQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788789454; c=relaxed/simple;
-	bh=+PIa7RCCl8olkBEYaYco1dViLKWTa01hHSp6B5FTSfQ=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=liztJGevoCi/IehrZ8k3juDCKZgTCZALjrBH2MslVvQfPrm4ZLPUDB64XgKDzphcqDL+ZXn85/Dxs2GzHv5gICj18BizGPJEzjbTyM9raLPsyVIppHBlo2Uv1TlpVFqewJPwklxVWuLcSFp3WVY52dajl7gZKHnptF+Q9J7aSRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7e9e0e71e05so6456782a34.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:57:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788789451; x=1789394251;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=WkHLWemjua9M8JGz/wKd8Lu3ngZhrUdH9vDay4I5ST4=;
-        b=gQM5HlI1zqQTBeFd/p8zrDpsjbOiQAw3pmJIKlPnqBb1hF5CNtDr5qcX9jyjTo2Y5b
-         W7qqdVIJAbMx+bt7gp+evhkq4HwPG+cz3sIvm4okKwNlkEtigXUKUqCk5U5gHpvcMMHh
-         xCmSR6yX/xeVvOfa0KJqqNTVs+Nf+u0ZjzOI8stmNc9l8/e1tAN8Bf1AhFTMSYs3+abY
-         VwvcDM55Q56PQPcBLQmRnhoh6dMD1igf2sXZLHNrX5zETqsP6yNb9eBVc4l401clvyiW
-         yRUVZfzpLxqaR4LEDchWkBv1a6dQNDFpVwbnV+uHl4ghde8GtBLJMmkQdPnF66dprOsJ
-         W1rw==
-X-Gm-Message-State: AFuF++kbq64n+7QT4cnlkNojjAUJV6Iidvm0Mu8By3yTonEJc9qJrUU4
-	YaTmTptPXDAgAHAI9tCNPdW4k3QrNYCs1bouv2xTnDLLqU8I2s3y/p5K88U/kDJUj0PZ/nS7I1a
-	tWWrjThWRli83qiDjuaX80vFLp/GmfmMfnJhKPN0cDsolgRGzyIzBFtlm9WE=
+	s=arc-20240116; t=1788789477; c=relaxed/simple;
+	bh=n+ZwElaMdGUvrsRJ939qZ8gQ/U7uAQhaB+lulgwLwZs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MCfLUI+1a28gYpHGdZ40r4HQqUQO2BUFTaagBQJr7evk5zf1Km9rULUUUkQ5KQr2W3Ick9imZMWyVPDNaTaeLOSSNwfpJLh25AM1A1qw/19ACOkzkQt3Ft0fDoO/cMrm6VQnmUpJmTF/dyAXYNPAd+pEetAeKreAhQahHBYNhg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QtRIRZxt; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QtRIRZxt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0DF21F00A3A;
+	Mon,  7 Sep 2026 13:57:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788789476;
+	bh=mTX1LYu7X9YZwtw9opoxl4XbB8EDCTT9fYS8a407r3Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=QtRIRZxtbrOTV/3mTDMwLSW8y++rxKfFQLzxxIOZ0AWvyeT24botgks8ilBW5Nsou
+	 0kMPrRW7qWF/SucxE2a2XHGiTcb/hXfDXMu7pDNpzSlLi+QKEFzcYNLXGsEfqETDNB
+	 R/NkOgiK8/VjBRJUiMlGI1dS9EJBapB87ZKh4F34S1lfIG6D1wdkcqOTVX4Nxsc4bs
+	 OY7uTGPZiXJLsQ9utfMVsS8y3LoZnpFt8ROcxZ/FM8I42JsDUcbsXynOYQnAEl3vKj
+	 JXVKnv0Q7glnbto9vRDVhNADkOKqeVxxHAPB3qcc4uu3CA0KGbOueSrWWeK40vix+h
+	 bUC8HW+wM+FkA==
+Message-ID: <ee03fd39-389d-44d8-9027-6148b1f4601a@kernel.org>
+Date: Mon, 7 Sep 2026 15:57:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:190b:b0:6b7:83c5:fdf1 with SMTP id
- 006d021491bc7-6b783c6039amr11440113eaf.50.1788789451526; Mon, 07 Sep 2026
- 06:57:31 -0700 (PDT)
-Date: Mon, 07 Sep 2026 06:57:31 -0700
-In-Reply-To: <6a6d375e.2d659fcc.1d46f5.01a4.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9ec2cb.2bb5a69c.24b23c.0001.GAE@google.com>
-Subject: Forwarded: Re: test patch
-From: syzbot <syzbot+31117fde582fe6a0cd62@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] tools/testing/selftests/mm: add missing .gitignore
+ entries
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>
+Cc: Pratyush Mallick <pratmal@google.com>, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260831-fix-mm-selftests-gitignore-v1-1-c984bbd4c5e4@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260831-fix-mm-selftests-gitignore-v1-1-c984bbd4c5e4@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+On 8/31/26 16:18, Lorenzo Stoakes (ARM) wrote:
+> Commit 2bee308f3adb ("selftests/mm: use pattern matching in .gitignore")
+> switched to a pattern-matching mechanism to reduce churn in .gitignore.
+> 
+> It however accidentally excluded the page_frag test's-generated module
+> intermediate C file with .mod.c extension, and also the local_config.h
+> header generated if liburing is available locally.
+> 
+> Explicitly fix both the issues, fixing the module-generated C file as a
+> general pattern as these are always intermediate files that should be
+> ignored.
+> 
+> Since this is a trivial .gitignore change it doesn't seem necessary to
+> treat it as a hotfix.
+> 
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
 
-***
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Subject: Re: test patch
-Author: syedtayyabfarooq08@gmail.com
+-- 
+Cheers,
 
-#syz test
-
---- a/drivers/usb/usbip/usbip_event.c
-+++ b/drivers/usb/usbip/usbip_event.c
-@@ -105,6,11 @@ int usbip_start_eh(struct usbip_device *ud)
- }
- EXPORT_SYMBOL_GPL(usbip_start_eh);
-
-+#define WORK_QUEUE_NAME "usbip_event"
-+
-+static struct workqueue_struct *usbip_queue;
-+static DECLARE_WORK(usbip_work, event_handler);
-+
- void usbip_stop_eh(struct usbip_device *ud)
- {
- 	unsigned long pending = ud->event & ~USBIP_EH_BYE;
-@@ -115,16 +120,12 @@ void usbip_stop_eh(struct usbip_device *ud)
- 	if (pending)
- 		usbip_dbg_eh("usbip_eh waiting completion %lx\n", pending);
-
--	wait_event_interruptible(ud->eh_waitq, !(ud->event & ~USBIP_EH_BYE));
-+	wait_event(ud->eh_waitq, !(ud->event & ~USBIP_EH_BYE));
-+	flush_workqueue(usbip_queue);
- 	usbip_dbg_eh("usbip_eh has stopped\n");
- }
- EXPORT_SYMBOL_GPL(usbip_stop_eh);
-
--#define WORK_QUEUE_NAME "usbip_event"
--
--static struct workqueue_struct *usbip_queue;
--static DECLARE_WORK(usbip_work, event_handler);
--
- int usbip_init_eh(void)
- {
- 	usbip_queue = create_singlethread_workqueue(WORK_QUEUE_NAME);
+David
