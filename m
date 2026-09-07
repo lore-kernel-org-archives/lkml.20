@@ -1,133 +1,159 @@
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B043C3D6CB0
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:15:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788765356; cv=pass; b=U+m9ebBc8FpDYKaKFD7xffW1oQzfF4+SMZqP5pHjBNYCmEjBR9Eg7VV47AEUREfVTdbLwwCkIWrXLsk6IYNGtcgNWivKUgFK+od7Itq52iVb+gL0Xw1CMzBH0j4JBgkd07l3BgaQaw8SnE6CBGXQEllHl6QISUoAdrAwq15O2Nw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788765356; c=relaxed/simple;
-	bh=leHVZXld9eH9iZDPZ6fIXvSuhv4Lo3E5ocYgQ1ebU9M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oEZQqU57+5fYK92LpXAOJ0aFML9lYDIwwaJjKjuEIRwcnAryLfX0DoRvz+PpVJ/oZZQkxU306ttpqg8APbJuHaOb3Gi/KjlSzboxJuWsjMqZwCkyu2meeRrV0TzLuK5EIblNAq0sFtqDUcQr/w9YiFC27U0MxJwItmLHyPg6CFU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=Lq1YwZgP; arc=pass smtp.client-ip=209.85.208.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41257411F9E
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:16:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788765373; cv=none; b=MrrCQlFrgdyZpbsgrMu1ULoa6aOQg61TBFLz6eAQ6rm1cA4feuH0uP9kpMd4BD8VijlEe0hSBO3R/in2lOIv6qqpaINlw5me9znWwZXC1qx6sn3JuEEKaFrL6yyXG8my11v6W+yw7S4bx2NfPvGGFetYINC1w4KnQZNvL8WQOFw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788765373; c=relaxed/simple;
+	bh=3rf8WCArGfJnJ5YqNTKjZyWh5tuPcbn/lII/ch9ILbo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=DNy4bQ5sOqTbxUosozCbAfpuJmPrJ1+LJcvB7x3B6F5CgQXpDFRR59Yuhb8aCXCFAqWTw5jbgjQ1ddSWpqkbv14ZtJP2t+mwKFSUxXBmuxIdkT+ziFFyDDeHg/GQBRuUfAJH8EZokR4OqVWX2PEffcubnrKZPCTrLYSxKGqpBwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PJLM6lgX; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="Lq1YwZgP"
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a1981228f8so26537101fa.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 00:15:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788765350; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QlcaL/G93MWzGS7YYspf7/MrWEbKy4fJvN7djJ5bylvNwmokT0LIYtIp03escLAuHf
-         22QlhI0LAUOANQVzYpyg50JRxSgaEKqOMnjkSTbsbt0CmhNKKxQAJ4Gzqa5TFkUS6UdF
-         CH8wm68QhUUFmsk3f2/40cbhnqSNx4n+dMdZuCO+h7YtzaZ42i93y9IJk46pRWNHUAL0
-         oIilWOw7GPF53sPCfD5IqHSO3WEcQNRbhx+/Prgvv2dstMdNcsRIV71lwICxkrUN4LFE
-         Tte2U8mHnhJgJ/tJ7jCvvNo2dvF1lGVFpSPUIpwme8NrVr1sv8pWlDeltDICpIt8GgEB
-         XfBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WWwKXGzFB/6B7wjEdxdxzEcQwrEfUSJ8Wvetx/HvB60=;
-        fh=Ihuvj3xp0qFIvBnHZKjOeUoMhtyYo4tbnkuMW3BqoJo=;
-        b=Cg3mHkNMtGOR55XGtF9IpSTC8q70l1l9d6ijDIhC4HYHLlKPpZolZRyf8wmdtfsJI8
-         P0fXs8ICxrTaCMNmWR5pB+RvagoFGTdiqXC1MdJicClk1PNgxCBXMcuXLXb/6+Dqg4r5
-         s00fbelsCOTbfj7071aacHe6vPdDgRmMOTH/d156uE4jRw/r9OD8W2TwVBkTtV7pHo3j
-         IKhvJkyCXfN6iVvkcN70HNLZ8i219Ufpyh4Ig288n6F8NGlpV+zmNoIoOgqYIGfFSri4
-         DJCSp+8Hk70KzNh76ThXxCv4QoEzSaf0qQ00yIRIEumN8ufjUj72gEsR5s72vhjGcYVN
-         JMJw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PJLM6lgX"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-484374f54d0so1846958f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 00:16:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1788765350; x=1789370150; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WWwKXGzFB/6B7wjEdxdxzEcQwrEfUSJ8Wvetx/HvB60=;
-        b=Lq1YwZgPqRf+7Pxl9disFZ14dqGl/QPk4Q92znevy1bB4ggHV+vi6ltGVKpRmbXSeY
-         Fz6I/psXx6S5j5exsaDwFrnRr65fPKk2efBueXG2RcEiQT4NZtQdhs/RsuTa3m70o1bw
-         H6vnT+hB1BCqedp6kAOjo4jEVz3PzJKynHawAZ6gCaqVnyUeX7DxbFseqFq2vkXH2NHm
-         avTL/6+q3Icf03UjmNMx6EIPZn/XmdoW+ysI1bpzh3l5PgWUKDvbBdDoTuJpImd2TxrX
-         JIexykIu2edhMbyLxJzM3O27zDY6wBqYCTbi76dRReRRMy2mvfsIvB+5IPgUwHLmGhtV
-         O28A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788765350; x=1789370150;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788765366; x=1789370166; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=WWwKXGzFB/6B7wjEdxdxzEcQwrEfUSJ8Wvetx/HvB60=;
-        b=e19F45Z3sv2V9IdMBXbW46zijeRx71mvk13hX+N3pGj5Q9TzHemDZ/1wZQtEXrKH54
-         kqOrJT/W40E6cKIVg3H2wAEeCNjZamLLGlzl4uhxh8b/H0Ce8ZxRpuYW0Ub8LivzOcC/
-         BM61Kcly0GMqDf7r3cSk6iX4XUMdaqYULI5vEhji/cht5+WDCvB7h7i3ArwSregDHvpU
-         J29Iy7UNyv/XeYh/X6zc3vD9OQh3GC6SH3anF9plIJauTUW6T3ewoJVqE212ZXHrrd6A
-         IoL3giuhILnKiSCrEE29oDBY3cK79HIMfmK78xpsArQ9nu8zia9/2u78NOXarh/XsFXX
-         bZBg==
-X-Forwarded-Encrypted: i=1; AKwUvByb5H3GO72W7CX31FsGDbUMHBmxiPVmWlN7VrEOYpp6Xb5EHAwOosDmSQUZXYPXze8JejC+2o5tDb1+M4A=@vger.kernel.org
-X-Gm-Message-State: AFuF++l8XgUjQMo9Bod1czKJaahvoSMr4fUFZryntCop+F/DADlKgOB/
-	MiB7ARFi3MQxmVFjeyzTgemT7edXYfg/u7zGpWjFP99Hzbh7X/bVatd68EyQL2VmU0DvV+tOiWd
-	7hF1kWp05vnySAY0BxgJGO34wLL0OdUtJfb4gfN4kkR8=
-X-Gm-Gg: AYBFou1/5cICObsg/Uw30U5Js/pt9DpjboYasAFLyeNvrcB02OjTGwi8jz/0qM0vdD/
-	DohPxYlujflyOMBLd7sI6imJfdksmJiARLGYBGmADDsR746Yt5czPquy4xk2SsKrdxCYrthC9OQ
-	jZGZIqOtYGihzVtDMZbhqZvbLNO25ChtDrDRfHcemaAtTjBSe0tOS6pfdGC/25hzTidGvOmXQ30
-	Exx7Lmv3vpCu43+RJAewZkMwZCpBqR+/3v2hUHvnL76opC5ShCoQVho7eCs+54zCD+4aa2+GaXa
-	vZ09cO4Z4m8LdZxXPdo7zyJxI1B/f+ssi5hWPbxxOn06R9p2tGpo7/q8EBRCbuKNo8TlnFKQjvY
-	=
-X-Received: by 2002:a2e:a98e:0:b0:3a3:2a41:c0c4 with SMTP id
- 38308e7fff4ca-3a371bdb9ecmr21466191fa.14.1788765349741; Mon, 07 Sep 2026
- 00:15:49 -0700 (PDT)
+        bh=1tGILImqdihdoegOmNJ3w6PKKrtUiUtdllHhJypF5GI=;
+        b=PJLM6lgXe9wL8rq2pc8DTOJX6V/kdSbB8x4egwj9tZW8gl/ONtWezTthbTy5i80Mn9
+         gHtExd7rh2DpRZBQ96weWDxLeI1im8p+h7MOAF5dctbuk6C6Ykb3QWX9GTq7pBL8AE+C
+         UArvKGtf/kILDF5uKKPchjj5X/Jr/a6j+3ndFp07U42n7R1H4repwoFgPVVzpShaVRif
+         WNjcPiAjsTbovRA2YJRJqNnSrvUKdOMTRMHAs++XbN3Tiyz730JpHH63Yxw5SumXHQnK
+         QrG7u5BI/4I3CQJJHqQPOK/j2WnVKmpwpBqP36WqRAp0mJwjlK60P3C/IrnhBFx7GHTB
+         Tzww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788765366; x=1789370166;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1tGILImqdihdoegOmNJ3w6PKKrtUiUtdllHhJypF5GI=;
+        b=shtz+ixPMVrONA/21LjY/tkp9cuy6fUjqLV66F+UyUKE2YEZfxA35dJMiCD+0d8V7H
+         +Db8D3reka1tPiP0hqcxp+8WXN4r5IhSQ+oDekt8ejIR2XHFu5ckKO1Wd/WPYkLPjTmm
+         BJVxVY9waV6p/Frg1O3ugiekQPS+I/Mclboe90Ny1+oB/fJn8V7dIAxqZ0Sglbj650bp
+         apIYib3Uqc98gQlgsMBcpMqZnMT/61HGudkKQWSdd3G+U1Ai2m3mdsc56jhE6rmPe89g
+         tnwpRSnK4U7DWVDEMV6sIUZoMMF2rMiCFAUATmw7F0CiDuqgJ8BQ5LtEXUCnK7jN26Ex
+         d3rQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxfme+fvw6yEHQFafcQ746EDdxh3HuLSxPp5wkUviE0wM0FJvHyFabDeNdOf+2gtgR7MK+op1U5d9DnaKs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lr2LaUsc4JCsGe4JeOJOYSltD4me9U7rGRHLLdO7Z/d3HqGNmd
+	L/DPjjxtR51qIXlJvlbkaT71tiHNKhnfG8PBoRN8JqZo0Gzsg4p9kuH7
+X-Gm-Gg: AYBFou296YEd9Dg6bq6MkGvhr1QHnMLuWzKFlpo8d4OdWfSKWw9ibnev7LmZak9BlJb
+	3T5LQ769UVN59H/Ra/nnVsT/YJ+fksic8cEKIGxthGNnwXtI/D4LIgRuSF0GdQ0dF4Do4j+qWLh
+	n/BvqhXXNGFkGnFQbLXF+ebix3czLOWXJRnBU+xmsyXMjCIAa/+bfNS1If6pwjITlXqHDc/OI9r
+	msESN/V3ib5stnxWytNyi907p6cLWS4h/BC0K7lwv2QFrkOyF3HIhgjxHqKGUoIECR9F6y218aA
+	n08eRsgAr56VA7f3GOAHxYdWeu4KrkmkDcMmd4rnrbfutKrubV9qA07T8+ynUtckfXjUaSCFYL9
+	OEgd+d57ihcbiGU9ImzXodse7jsPhunR+G/LorHwDUavrCVvY0172fhjea/WWLMaYXoO5VCXvOB
+	+ekD13WfYo0B7a067taXYBpoAVAKSD/FRprcgdOEqyTwJ9Uy2LhNS1O7LWckRAIAM+qt+znGUf7
+	qsOz4M2HCXlBSk7dtAiwWD+iuG+S6dPiUiU4aY=
+X-Received: by 2002:a5d:59c9:0:b0:485:8420:26d with SMTP id ffacd0b85a97d-48587057223mr41470378f8f.8.1788765365778;
+        Mon, 07 Sep 2026 00:16:05 -0700 (PDT)
+Received: from nixos.tail6917ec.ts.net ([95.15.165.152])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858d2693e8sm25175989f8f.3.2026.09.07.00.16.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 00:16:05 -0700 (PDT)
+From: tuxdevv <denizgozen61@gmail.com>
+To: linux-staging@lists.linux.dev
+Cc: greybus-dev@lists.linaro.org,
+	linux-kernel@vger.kernel.org,
+	Vaibhav Agarwal <vaibhav.sr@gmail.com>,
+	Mark Greer <mgreer@animalcreek.com>,
+	Johan Hovold <johan@kernel.org>,
+	Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	=?UTF-8?q?Deniz=20G=C3=B6zen?= <denizgozen61@gmail.com>
+Subject: [PATCH] staging: greybus: fix missing newline in sysfs_emit() format strings
+Date: Mon,  7 Sep 2026 10:15:25 +0300
+Message-ID: <20260907071525.43505-1-denizgozen61@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cdc628415cf10721480a51ce14837f846ec778c2.1788248601.git.zihanx@nebusec.ai>
- <178875495405.219967.5594821749566554418@kernel.org> <CAANe3eRBOQud=bMgLnPbD_yUYUkJtT=GBqtY+GR0ZtU0_kbzhg@mail.gmail.com>
- <CANn89iLn+Xi9cEphy3nR4bGnFCownrWa9rTZ=AnijArDFo2O7Q@mail.gmail.com>
-In-Reply-To: <CANn89iLn+Xi9cEphy3nR4bGnFCownrWa9rTZ=AnijArDFo2O7Q@mail.gmail.com>
-From: zihan xi <zihanx@nebusec.ai>
-Date: Mon, 7 Sep 2026 15:15:37 +0800
-X-Gm-Features: AcwNN1VAmgJsxlkj9OvW4LjLVIy_57TEsN_AWLvPrdkLDxAVfSNlHuWjRZ_THxg
-Message-ID: <CAANe3eR=sQeTRNuewiqo0ZFwS6fk=HtxvT6TMGhq8F5Pqdxovg@mail.gmail.com>
-Subject: Re: [PATCH net v2 1/2] tcp: diag: bound bucket lock hold in tcp_diag_dump()
-To: Eric Dumazet <edumazet@google.com>
-Cc: netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, mptcp@lists.linux.dev, davem@davemloft.net, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, ncardwell@google.com, 
-	kuniyu@google.com, matttbe@kernel.org, martineau@kernel.org, 
-	geliang@kernel.org, gnault@redhat.com, fw@strlen.de, stable@vger.kernel.org, 
-	vega@nebusec.ai
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 7, 2026 at 3:06=E2=80=AFPM Eric Dumazet <edumazet@google.com> w=
-rote:
->
-> > - bind cursor UAF / dangling tb2: valid
-> > - unconditional sock_hold() on unpublished TIME_WAIT: valid
-> > - clearing s_num on cursor mismatch: valid
-> > - lockless cursor-membership checks: valid as a concern
-> > - commit message overstating bind/ehash fill-under-lock: valid
-> > - missing note that MPTCP needs the follow-up patch: valid as a
-> >   backport note
-> > - endless re-scan of the same bucket head: not valid as a
-> >   guaranteed livelock; duplicate output after a rejected cursor
-> >   is valid
->
-> I just saw your patch today. This is absolutely insane.
->
-> Please limit the complexity of a filter to something reasonable.
-> Absolutely no sane user is using a very complex filter.
->
-> Same for UDP.
+From: Deniz Gözen <denizgozen61@gmail.com>
 
-Thanks for the feedback.
+The show functions for the audio module's name, vid, pid, intf_id,
+ip_devices and op_devices sysfs attributes pass format strings to
+sysfs_emit() without a trailing newline. Per sysfs conventions each
+attribute should return content terminated by '\n', and checkpatch.pl
+flags all six calls as missing the terminator.
 
-We will drop the dump-cursor rewrite.
+Add the missing '\n' to each format string.
 
-A follow-up can cap inet_diag bytecode complexity in
-inet_diag_bc_audit() so TCP, UDP and MPTCP dumps share the same limit.
+Signed-off-by: Deniz Gözen <denizgozen61@gmail.com>
+---
+ drivers/staging/greybus/audio_manager_module.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-Please let me know if that is the direction you want.
+diff --git a/drivers/staging/greybus/audio_manager_module.c b/drivers/staging/greybus/audio_manager_module.c
+index dc90cc2d2..5737f2a32 100644
+--- a/drivers/staging/greybus/audio_manager_module.c
++++ b/drivers/staging/greybus/audio_manager_module.c
+@@ -75,7 +75,7 @@ static void gb_audio_module_release(struct kobject *kobj)
+ static ssize_t gb_audio_module_name_show(struct gb_audio_manager_module *module,
+ 					 struct gb_audio_manager_module_attribute *attr, char *buf)
+ {
+-	return sysfs_emit(buf, "%s", module->desc.name);
++	return sysfs_emit(buf, "%s\n", module->desc.name);
+ }
+ 
+ static struct gb_audio_manager_module_attribute gb_audio_module_name_attribute =
+@@ -84,7 +84,7 @@ static struct gb_audio_manager_module_attribute gb_audio_module_name_attribute =
+ static ssize_t gb_audio_module_vid_show(struct gb_audio_manager_module *module,
+ 					struct gb_audio_manager_module_attribute *attr, char *buf)
+ {
+-	return sysfs_emit(buf, "%d", module->desc.vid);
++	return sysfs_emit(buf, "%d\n", module->desc.vid);
+ }
+ 
+ static struct gb_audio_manager_module_attribute gb_audio_module_vid_attribute =
+@@ -93,7 +93,7 @@ static struct gb_audio_manager_module_attribute gb_audio_module_vid_attribute =
+ static ssize_t gb_audio_module_pid_show(struct gb_audio_manager_module *module,
+ 					struct gb_audio_manager_module_attribute *attr, char *buf)
+ {
+-	return sysfs_emit(buf, "%d", module->desc.pid);
++	return sysfs_emit(buf, "%d\n", module->desc.pid);
+ }
+ 
+ static struct gb_audio_manager_module_attribute gb_audio_module_pid_attribute =
+@@ -103,7 +103,7 @@ static ssize_t gb_audio_module_intf_id_show(struct gb_audio_manager_module *modu
+ 					    struct gb_audio_manager_module_attribute *attr,
+ 					    char *buf)
+ {
+-	return sysfs_emit(buf, "%d", module->desc.intf_id);
++	return sysfs_emit(buf, "%d\n", module->desc.intf_id);
+ }
+ 
+ static struct gb_audio_manager_module_attribute
+@@ -114,7 +114,7 @@ static ssize_t gb_audio_module_ip_devices_show(struct gb_audio_manager_module *m
+ 					       struct gb_audio_manager_module_attribute *attr,
+ 					       char *buf)
+ {
+-	return sysfs_emit(buf, "0x%X", module->desc.ip_devices);
++	return sysfs_emit(buf, "0x%X\n", module->desc.ip_devices);
+ }
+ 
+ static struct gb_audio_manager_module_attribute
+@@ -125,7 +125,7 @@ static ssize_t gb_audio_module_op_devices_show(struct gb_audio_manager_module *m
+ 					       struct gb_audio_manager_module_attribute *attr,
+ 					       char *buf)
+ {
+-	return sysfs_emit(buf, "0x%X", module->desc.op_devices);
++	return sysfs_emit(buf, "0x%X\n", module->desc.op_devices);
+ }
+ 
+ static struct gb_audio_manager_module_attribute
+-- 
+2.55.0
+
