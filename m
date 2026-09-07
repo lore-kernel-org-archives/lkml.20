@@ -1,165 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE9E521234;
-	Mon,  7 Sep 2026 20:06:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 517D84CA768
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 20:07:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788811594; cv=none; b=WNRcB2UD4lyAm5e5UqR/ZvisGCVyv4E2Bo0sa74OiTSsV9GkpkvkrENproplqRSjKmbVK5W/HwxEmkS5F0NpnQl28Epwmbp4GU540zBDNUPiejdb9/iTj0mmx0kiBvRQv2wY0p7xqsRDeyAZ0oih9kthwWtOyJKOtZS6J+iFvDw=
+	t=1788811651; cv=none; b=oNpAqv4/tb/vJqT6FseRNnj5lO+1Z4nhrIsErC81qg70GpZ25/phOpGeykEc/VTimKjZaN5NQptF2yhAec9KhAZsoF6L+DEM0oqT4LWWqwDrnNxMCMj7tjNhCafD1F9qDJQxmQItcC2lHPaSRtGVE5kbBVasmc+6n2urV2/UQLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788811594; c=relaxed/simple;
-	bh=6z+DKIAYLJkOjTbCElZ17IsPYuMv4G48gys7vG2ZGtY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ieXhQlcmlPo/+sqla4ZeZCjfQS+BcHJ7bUCG05FCSmsWX75zdqoaaRpmdXZxaFBtOl0tCnfig9bks3c7osw3OmYH51UV7piBtZYmSxwnwilrC52TtIdOWWHSwRvBnBxFVTMww34y1t9YcJrjKB1P+GD9ODaSwdMpT69f9xuY6W4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=itj8IO6W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788811651; c=relaxed/simple;
+	bh=7NykevhhirRjqD4n4VJwFeqZSAO1XwPp+tka/eMaYgI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=n3LfxjGLf2lBXuqlbkLx27ifvG2haarElC8yxkOiuF/KSAF86XUuTe04iqJ7D/l1TpLt3fnx+S81x+mFn/KK6oxrNwZKcJeTCCghUVoooheWhPczwKiFxiX4kEwCHVS8P50k7UYNHB4L3ngBmnj6GXs5H18OZph5SQ2MX3KKLHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=Y9OFU7xP; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="itj8IO6W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E356D1F00A3A;
-	Mon,  7 Sep 2026 20:06:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788811590;
-	bh=8iZFtkM4l1pBZzM0aft9DJRPxcvPbB47sa2kHkN4CLw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=itj8IO6WuGDUlG4fV19yF3V4rKpQ14rYl9UeIVKDmHnSJolv7EFD8UQxFlCdkBVGK
-	 ws9Vqsg1Z5r3sQcqqF/wAeIxdjJpCuEOH8c/snnX01Cix6RsOz8HMTuSuIxyouMrEX
-	 N9Ho7R/MyeVcbXscY7gENbyUtymnAzjTKk4/z1IDjAsYrtk1M77rWloHCt2hqKJLKo
-	 RJGm+RXuXyXLJDPqMwjCCESNFKNgKuiECjrFBmLVzhKAvOx6SXB7UFw/iN06DxwGtd
-	 PXj/TdTFDuHpUbKZBcLTJzspv/NQjcVuLM3gTFfWwF/b6764/khZWF7e+zmsWaTxUO
-	 tAY1Bek0OCNgg==
-Message-ID: <daeab5a8-44b8-4933-80c5-e4145b01a0a1@kernel.org>
-Date: Mon, 7 Sep 2026 22:06:22 +0200
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="Y9OFU7xP"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49556f97a9dso33090865e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 13:07:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=lex.la; s=google; t=1788811647; x=1789416447; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7NykevhhirRjqD4n4VJwFeqZSAO1XwPp+tka/eMaYgI=;
+        b=Y9OFU7xPUJBy+/s5oAlg1Be75AVxSTrepbtWpgk0VsCl0038EUCjAF+DWkr/Ftq7eU
+         w7c41FYEEqLSYs4tED7SCWIxtTKwxN7S5OfWexWjs0ry4+SDVJpAt4G+dqKClIKBdrMq
+         xu818MkI5vXHJaZh5dzWWFJZR0S7oAtJjAQmeU31zsOmJkw2vdRaxO5LdR6Mo+7NDmoG
+         i0d+nnVG5azcG55xjrLo/PnU9BTO0yP28SOTvcLEqMefqr6pueE5926ljGthl88UoXsh
+         1yCTw7rAQZ1bEQKGWSbH4Z7XmVfB1f2xsTzNy9W/dAhfbhzVi5UG9BE7I/koyi0/D1uj
+         GGXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788811647; x=1789416447;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7NykevhhirRjqD4n4VJwFeqZSAO1XwPp+tka/eMaYgI=;
+        b=gF4q1JK6MP18evGc1bTDZRR/0sJTpglq0RVqejHlgkmj5tTrS2+zTqPKJP237yOBI8
+         agr+e+p8UZNR51uNqHCLfLv1eeeLFyll8F/JZ6KanUIx6PqXHdLLCAX6abiYK2KHPEnb
+         0B3z0oKaRFLoCdKgxZxWkqZ9ThQhgho4qyMCeaygcKxCUs2uRh3EIR6D4JWKfA+7d+0C
+         9iUVgjXJL7ammZ3K2X1Rp+t5HU0lY1Dwv4S7b5FJOBuMGZ8RyF0IcG5TzdcEVWCyJrMP
+         vZiy63Jaext/CaSJ4TN+krvkBrZW6bv36632qxg1L5xEyNdRZ+sD47PFs37AAuGoV87a
+         CWsw==
+X-Forwarded-Encrypted: i=1; AKwUvBxtQiKVj/y3v9aIxPwt46ghLFb+M54Qyyu5uaP/jmzEEv4l3gR2ombMB46yFenCGOUeO0RU0qnAmLXlhiE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nyj2GTyNpINblW1cZp0Oy+eC33mNgiXK9Elbv46gF6Kspuil3i
+	wxy/I3nmtiMet44umtoHg6/B+KzIHuZILGbVy7nto8Bp77mkcnJu8j/wuU2FnYkz6HBbViuUyT9
+	ntVcQ7JbwewdJ
+X-Gm-Gg: AYBFou1N2perljkDmnE3DOt9Z0L0yBQxrJa5O45dcIPw6x/qQ8Su+tdqiWMrWlqf/AZ
+	YfKA3st7aKDlXhdZF5SKI1j5SlQkC4AGb0IaYkVto5QKRxWLECA4hWY0mSJLWWsv1ZQwEVhnZvR
+	3AcULxOLFNCp93hc8wsQs0UCwtj5s5nZySa09mDGyYDH2eXRA2geAqKVJydAyszfP7FFBH0oFDB
+	MM/XgW9q2ZJsfMCjhaPvpTMKJB8Ih/iwPOFPR7GjQ5oSZtIAklOnppSIHQp1fMzkGLd8aqUMVfH
+	pXdfU9Gu84tcvJo/SUYNfsTKeWMf93mFtfjJ00+8cO0CyD8VF9jgq0xX8m4+aszSTwfAJGWBDRj
+	d3r+YJY7zdyCAx9XytfDPi8lU8syaAKAG7iqPz30693pDO5zbc7qWjkU0Ft7Uzv7dMfR6tKnR9A
+	j24gD2r2jlOxcJwEAjgvaT7hXN93pGnBmRWj38BNU=
+X-Received: by 2002:a05:600c:a40f:b0:49c:fa21:e74b with SMTP id 5b1f17b1804b1-49cfa21e9a7mr169708245e9.33.1788811647263;
+        Mon, 07 Sep 2026 13:07:27 -0700 (PDT)
+Received: from remote-01 ([84.17.55.227])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfd3f8192sm295497795e9.3.2026.09.07.13.07.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 13:07:26 -0700 (PDT)
+From: Aleksei Sviridkin <f@lex.la>
+To: Conor Dooley <conor@kernel.org>
+Cc: linux@armlinux.org.uk,
+	andrew@lunn.ch,
+	andrew+netdev@lunn.ch,
+	hkallweit1@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aleksei Sviridkin <f@lex.la>
+Subject: Re: [RFC PATCH net-next 1/2] dt-bindings: net: ethernet-controller: add phy-needs-host-firmware
+Date: Mon,  7 Sep 2026 20:07:21 +0000
+Message-ID: <20260907200721.3391458-1-f@lex.la>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260907-shallow-universal-b614da6fe0c4@spud>
+References: <cover.1788711837.git.f@lex.la> <20260906174621.4107320-1-f@lex.la> <20260907-shallow-universal-b614da6fe0c4@spud>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v5 1/7] mm: Add copy_remote_mm_str()
-To: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>, bpf@vger.kernel.org
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, akpm@linux-foundation.org, andrii@kernel.org,
- ast@kernel.org, brauner@kernel.org, daniel@iogearbox.net, eddyz87@gmail.com,
- kpsingh@kernel.org, ljs@kernel.org, matt@bobrowski.net, memxor@gmail.com,
- song@kernel.org, sun.jian.kdev@gmail.com, utilityemal77@gmail.com,
- viro@zeniv.linux.org.uk
-References: <20260907165220.52431-1-tasos.papagiannnis@gmail.com>
- <20260907165220.52431-2-tasos.papagiannnis@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260907165220.52431-2-tasos.papagiannnis@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/7/26 18:52, Anastasios Papagiannis wrote:
-> copy_remote_vm_str() gets the target address space from a struct
-> task_struct. This does not work for an address space that exists but is
-> not yet associated with a task_struct, such as the mm held by struct
-> linux_binprm during exec.
-> 
-> Add copy_remote_mm_str(), which operates directly on a struct mm_struct.
-> 
-> Use a common internal interface for the MMU and NOMMU implementations
-> and define both public wrappers in mm/util.c. Preserve the existing
-> copy_remote_vm_str() behavior, including handling zero-length requests
-> before acquiring the task's mm.
-> 
-> Signed-off-by: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
-> ---
->  include/linux/mm.h |  2 ++
->  mm/internal.h      |  5 ++++
->  mm/memory.c        | 41 ++----------------------------
->  mm/nommu.c         | 41 ++----------------------------
->  mm/util.c          | 62 ++++++++++++++++++++++++++++++++++++++++++++++
->  5 files changed, 73 insertions(+), 78 deletions(-)
+On Mon, Sep 07, 2026 at 06:26:31PM +0100, Conor Dooley wrote:
+> That doesn't seem right, sounds like it should be on the phy if the
+> behaviour is caused by the phy.
 
-Almost looks like a cleanup now ;)
+I'll move it to the phy node.
 
-> 
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index dd09c438fa23..d5bde1f71a97 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -3326,6 +3326,8 @@ extern int access_remote_vm(struct mm_struct *mm, unsigned long addr,
->  		void *buf, int len, unsigned int gup_flags);
->  
->  #ifdef CONFIG_BPF_SYSCALL
-> +extern int copy_remote_mm_str(struct mm_struct *mm, unsigned long addr,
-> +			      void *buf, int len, unsigned int gup_flags);
->  extern int copy_remote_vm_str(struct task_struct *tsk, unsigned long addr,
->  			      void *buf, int len, unsigned int gup_flags);
+> In fact, it seems like something that should be determined when the phy
+> is identified, not really sure why it needs a property at all?
 
-Ah, no new "extern" and best to drop the "extern" from the other involved
-function while at it.
+There is no device to identify when the controller connects. The PHY's
+MDIO bus is registered by the driver that loads its firmware, seconds
+later, so phy-handle points at nothing yet. The chip does answer a
+Clause 45 identifier before the firmware runs, I read it on my board, so
+identification is not the blocker.
 
-Also, you can just drop the ifdef; the linker will complain either way later.
+> Or based on the fact that the phy has firmware-name.
 
->  #endif
-> diff --git a/mm/internal.h b/mm/internal.h
-> index 38b1165212c9..8264a346d18a 100644
-> --- a/mm/internal.h
-> +++ b/mm/internal.h
-> @@ -25,6 +25,11 @@
->  struct folio_batch;
->  struct hstate;
->  
-> +#ifdef CONFIG_BPF_SYSCALL
-> +int __copy_remote_mm_str(struct mm_struct *mm, unsigned long addr,
-> +			 void *buf, int len, unsigned int gup_flags);
-> +#endif
-> +
-
-Same here, the linker will complain, so no need for the ifdef.
-
-
-
-Apart from that LGTM, thanks!
-
--- 
-Cheers,
-
-David
+Nothing carries firmware-name here, the blob names are in the driver. I
+can add it to the phy node and key off that instead. Which do you want
+in v2?
