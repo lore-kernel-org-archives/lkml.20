@@ -1,126 +1,281 @@
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 474E429405
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:15:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E7B35B136;
+	Mon,  7 Sep 2026 09:15:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788772534; cv=none; b=XLzWNym8tRFXSjNxam8V81YeGE9v+4/ubPDwf/bK0lfewftYNEsi82/cnL3/c+nMxy/T5OVa2sYFY0mEquExlcffQMuDBZ+RHbunJ1icdzqbWFkPQAaw3luoDHAP9KXIK0URYU5uDVYy5KXotKkLL4Kt7euVqePnvjUBv7PURI0=
+	t=1788772538; cv=none; b=gVlKQ9vrlHOBbIpumE1D7EfdnGA03qjdNQcvJ48Ye/9acm7w+A7bm/9HrkeIGpgAGHq1Yp9ArNwIXbDTF/EXfQS1CjrSPqmvAhLvlnctLkTMg47PNJjfMOF9EF8DWKOyW3ry5V26xYvz5z6B8mDKECSuCQJ4CBjjMGBOTGf+EH4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788772534; c=relaxed/simple;
-	bh=PoZ+z8P/Re+NlT4D+YmbbUbhcfBRKFIXe5/qVN1RLM0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=P6jlCmkQSj1xromPjRUg3cYRihb13ymWbuXa2+h1bGQlM5prykaREIF+gJhdTQbDL9vpwr/Gz+u3uFSw7pfKiPYx7LrdOED89bgZKSbqyFf8Zr1oV5PL1gJ7lBGTk8l4N1JR4Xzo6HWEp5vXlK6l0Utjq27XlydNAgyVgF+MuCU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ursulin.net; spf=pass smtp.mailfrom=ursulin.net; dkim=pass (2048-bit key) header.d=ursulin.net header.i=@ursulin.net header.b=HNvvUGO2; arc=none smtp.client-ip=209.85.218.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ursulin.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ursulin.net
+	s=arc-20240116; t=1788772538; c=relaxed/simple;
+	bh=JrhI1pwfP5E7pM/lrcbDACaZ5BelzgMgrifuwTDGV9U=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=IXhkYekE/KPRsSe1AQ+PIfKP5OqiWaD0B4JupvcUnlrRL5GVufC8sKejTQMuNEbkiJSXGuADhcarl+02+B5XoMY2IkEpvlS0+EPiqv0nA/eu0VmFwYKKdBLSo20JBb8qZGtciqN3QADr+7vRcnDdGAqjEBwXG00OFVwLVgvHmiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=jV05nrkB; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=7OBjapsh; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ursulin.net header.i=@ursulin.net header.b="HNvvUGO2"
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c15cf78d1a2so302990766b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:15:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ursulin.net; s=google; t=1788772531; x=1789377331; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xBgijUTK0RaiV4bs4COhasChcigDnWDkUPfx1dw6myY=;
-        b=HNvvUGO2QnrtHG6pTPuROEhsrc+QgrYc1Db+v9A9wVIbhCbdjBptgrsqVj+poHFX5G
-         TPWie/uG6066SfHVtoR4R9iP+VOwnlvbsZB4BhVXwFjm5//lyv/RkPtfpPmTvibAEERD
-         2IMa5risWX+T2uvRC4AidoFbM2sJBMgwJbPCUab/1/sLDsBFrrNKapkZR0DzoOryw3ix
-         ahjs6pFx2S+pq7WWLfJNzSfhQX/F5PQr4TaF/HibxogBHD5Ik0eitOqh9EGhzNfSkdFB
-         f5jaQJBq074CcDfonmWjJfIY2jzydpT/IAvLrO6eykc+UJKG49fk39nyfvZOt+0HIS2Q
-         Fyhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788772531; x=1789377331;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xBgijUTK0RaiV4bs4COhasChcigDnWDkUPfx1dw6myY=;
-        b=I2AQ1f6DYN4F3So7yvTSNFZR8k1RtGqAM4OAIeLuDL2PJOahbkqHLJuLJemW/R2OFg
-         P9p0k8MXAvCQSGmo9r3SKhadctFID4vFr0iwn7zV/Z3B70/RBFxt8EjYGxvQ1m0V8G2s
-         A4cLR/U4lX6VUgYdREWpWWPy4vHMJ+UADkhoqhACdFyWopz1QAh3YbpOE5BhzStD8qKw
-         8HXdd9SyD2ckq7VcqDq9NABwAahxpjfJ1leqc/gTjxMitqe7Z88FvFRPQZ0E5ubMIcia
-         wNBX4SXV3WCd5dhs8OjpyGsklQ0535anhe+E3oLNsO4t5lrQHS7NCmxD8hJ0wk040sn2
-         4mBA==
-X-Forwarded-Encrypted: i=1; AKwUvByeZUID/XWRC9VLGB+DOQRMPveZ0shqRcYQ2x0W+WLocRdctlxICviySdmz9UgKF5QmPE39xOi4HgmmUhc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kGR2Wga9yZLg8KlcE3pHmr4qsOptxXlnvFIGgBW4XTn33x6Hw9
-	sffDBryZkPLbGMJfcAiy0q0FogYE3mvXqrCw7FTXeIGBruZ5AZPOdaeO1I8Ru4Q2LAqKsPGb87z
-	MsaX4JDo=
-X-Gm-Gg: AYBFou2+PBpt6Xs9p+jdLo5xZ9VNBpO30OXmrdfXm7K645uaNYCPR14Zv3cF8byA/VQ
-	76JkfD2Nyhu09Vc6b/TsqMubrfaacCal8qb4/w6MWPHP4j5tS1+D38Wdj+Q0gfjoURIRhUB3pg5
-	682YunhmIUchuQfwKO2vi8NIfNhw0iC/YwC5NMgWTd4L59seEh6PfTMg/APU33E2myRkXFUocid
-	DuhuojcgaBKFC/QJJbJ8NY3lOXjsOjjcUgzNPoIvaH1us505hipfx1p2TGU916m/DmtA3Y2mc6U
-	14uwbXXqFA8wD6r6IDr0Ze2dmrRvpN1oWpuWwpB8oEcFQLbMH00f9YPB1m8ilcSIXbgbhJ1rAde
-	uusxi+kQT9nwn0FtddH1rqBsROOt8MXOEvsFq7K91M4gQM9jq2QYPCzvw8IVFyGXyHsh8h1hFkk
-	xmD3rGZVt/W5G/lBlnXmdCJnXxROIRzwbPkca7t8MOCDEcaYh3UPN/hlfOeTLxrIHgEeW+8u5O6
-	kpv
-X-Received: by 2002:a17:907:d18:b0:c26:19e3:e98c with SMTP id a640c23a62f3a-c2619e3f016mr677971266b.44.1788772531387;
-        Mon, 07 Sep 2026 02:15:31 -0700 (PDT)
-Received: from [192.168.0.116] ([81.79.79.1])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d5b371esm443215066b.54.2026.09.07.02.15.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 02:15:30 -0700 (PDT)
-Message-ID: <81e51d72-d608-46d0-a986-390ecd6f468a@ursulin.net>
-Date: Mon, 7 Sep 2026 10:15:30 +0100
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="jV05nrkB";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="7OBjapsh"
+Date: Mon, 07 Sep 2026 09:15:31 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788772534;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oO9nRGpDhYZlMnMKD8svHE0MFR5a0GKjMcBKoppBhww=;
+	b=jV05nrkBafELDtt3WXVaN7WEaynHEcOFchW593CklL0PjYzrr14gbr/E9Ua1Nxqq2ihx+Q
+	/grU1x7s/nRw6DVhdo4y/q1T78zq8NtmJuvboItPYyuShI/P4WzDAnToDwkjLG7MOMp+lj
+	R7jFBo9LU7krrjtcuW9CuUF8MW8jUAe4eBbuvaMIogyjpv+6Q0gT4C2VnwSpSNBP53KZDn
+	YYo9beb/juHdUKdd7aZWB3O02iVcJSYSvzoEgBfLNZaQ/sdWBVpwUv6VdNhVXeovKSwMap
+	2v8CuaAo1Qex4MFprjZ3f2/asznGwRCh75TH+Cg2Wu0lUHBZUgL7p2AX4UufRA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788772534;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oO9nRGpDhYZlMnMKD8svHE0MFR5a0GKjMcBKoppBhww=;
+	b=7OBjapsh6H6CQobK1vPhBG/mznTXsUtmyPoKlnxxIYyc4LLGMWH3q8MJC9zVwQfw08R2v1
+	BqVjBObKrdPivNBw==
+From: "tip-bot2 for Thomas Gleixner" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject:
+ [tip: timers/urgent] tick/broadcast: Plug clockevents replacement race
+Cc: zhukaiqian@xiaomi.com, Thomas Gleixner <tglx@linutronix.de>,
+ Thomas Gleixner <tglx@kernel.org>, Bradley Morgan <brads@mainlining.org>,
+ liushugao@xiaomi.com, stable@vger.kernel.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <87cymdsu0r.ffs@tglx>
+References: <87cymdsu0r.ffs@tglx>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
- use-after-free
-To: phasta@kernel.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>,
- matthew.brost@intel.com, dakr@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
- stable@vger.kernel.org
-References: <20260904080618.2098450-1-malhyuk97@gmail.com>
- <20260904080618.2098450-2-malhyuk97@gmail.com>
- <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
- <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
- <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
- <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Message-ID: <178877253200.623050.1090783884992407003.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
+The following commit has been merged into the timers/urgent branch of tip:
 
+Commit-ID:     113a9796effe3376d2ec5aabcca1fef4fef4cd62
+Gitweb:        https://git.kernel.org/tip/113a9796effe3376d2ec5aabcca1fef4fef=
+4cd62
+Author:        Thomas Gleixner <tglx@linutronix.de>
+AuthorDate:    Mon, 12 Aug 2024 16:19:48 +02:00
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Mon, 07 Sep 2026 11:10:20 +02:00
 
-On 04/09/2026 20:06, Philipp Stanner wrote:
+tick/broadcast: Plug clockevents replacement race
 
-8><
+=E6=9C=B1=E6=81=BA=E4=B9=BE reported and decoded the following race condition=
+ when a broadcast
+device is replaced:
 
-> If you can think of a stupid and simple solution, shoot. The only thing
-> I can think of is moving the string into the dma_fence, as a hard copy
-> :)
-> 
-> 
-> In the mean time, my proposal is to keep aiming for removing
-> sched_fence->ops->release and fixing pvr and amdgpu.
+CPUA					CPUB
+ __tick_broadcast_oneshot_control()
+   bc =3D tick_broadcast_device.evtdev;
+					tick_install_broadcast_device(dev)
+        				clockevents_exchange_device(cur, dev)
+					   shutdown(cur);
+					   detach(cur);
+					   cur->handler =3D noop;
+					   tick_broadcast_device.evtdev =3D dev;
 
-Fixing the drivers sounds like an obvious thing to try indeed. Along the 
-same lines as it was done for xe and panthor. It is an already 
-established and well understood approach so shouldn't be controversial. 
-After that we can discuss in leisurely pace if something better is 
-possible in the scheduler core.
+  tick_broadcast_set_event(bc, next_event); <- FAIL: arms a detached device.
 
-I understand its amdxdna, nouveau, and msm. Was it attempted so far? Is 
-it significantly more complicated than it was for panthor and xe?
+If the original broadcast device has a restricted interrupt affinity mask
+and the last CPU in that mask goes offline then the BUG() in
+tick_cleanup_dead_cpu() triggers because the clockevent device is not in
+detached state.
 
-As for regarding the 035219a760ed ("dma-buf: dma-fence: Fix potential 
-NULL pointer dereference") sub-thread - I did not manage to penetrate 
-the consensus there - whether it was established that it needs adding 
-the is signaled check back (with additional memory barriers, like v1 of 
-that patch) or not? Regardless of fixing the drivers or what?
+The reason for this is that tick_install_broadcast_device() is not
+serialized vs. tick broadcast operations.
 
-Regards,
+The obvious cure is to serialize tick_install_broadcast_device() with
+tick_broadcast_lock against a concurrent tick broadcast operation.
 
-Tvrtko
+That requires to split clockevents_exchange_device() into two parts, one
+which does the exchange, shutdown and detach operation and the other which
+drops the module reference count. This is required because the module
+reference cannot be dropped while holding tick_broadcast_lock.
 
+Let clockevents_exchange_device() do both operations as before, but let the
+broadcast device code take the two step approach and do the device
+exchange under tick_broadcast_lock and drop the module reference count
+after releasing it.
+
+Fixes: f8381cba04ba ("[PATCH] tick-management: broadcast functionality")
+Reported-by: =E6=9C=B1=E6=81=BA=E4=B9=BE <zhukaiqian@xiaomi.com>
+Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Tested-by: =E5=88=98=E6=9C=AF=E9=AB=98 <liushugao@xiaomi.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/87cymdsu0r.ffs@tglx
+---
+ kernel/time/clockevents.c    | 33 +++++++++++++++++++-------------
+ kernel/time/tick-broadcast.c | 36 +++++++++++++++++++++--------------
+ kernel/time/tick-internal.h  |  2 ++-
+ 3 files changed, 44 insertions(+), 27 deletions(-)
+
+diff --git a/kernel/time/clockevents.c b/kernel/time/clockevents.c
+index 0014d16..62ad7c0 100644
+--- a/kernel/time/clockevents.c
++++ b/kernel/time/clockevents.c
+@@ -615,34 +615,41 @@ void clockevents_handle_noop(struct clock_event_device =
+*dev)
+ {
+ }
+=20
+-/**
+- * clockevents_exchange_device - release and request clock devices
+- * @old:	device to release (can be NULL)
+- * @new:	device to request (can be NULL)
+- *
+- * Called from various tick functions with clockevents_lock held and
+- * interrupts disabled.
+- */
+-void clockevents_exchange_device(struct clock_event_device *old,
+-				 struct clock_event_device *new)
++void __clockevents_exchange_device(struct clock_event_device *old,
++				   struct clock_event_device *new)
+ {
+ 	/*
+ 	 * Caller releases a clock event device. We queue it into the
+ 	 * released list and do a notify add later.
+ 	 */
+ 	if (old) {
+-		module_put(old->owner);
+ 		clockevents_switch_state(old, CLOCK_EVT_STATE_DETACHED);
+ 		list_move(&old->list, &clockevents_released);
+ 	}
+=20
+ 	if (new) {
+-		BUG_ON(!clockevent_state_detached(new));
++		WARN_ON(!clockevent_state_detached(new));
+ 		clockevents_shutdown(new);
+ 	}
+ }
+=20
+ /**
++ * clockevents_exchange_device - release and request clock devices
++ * @old:	device to release (can be NULL)
++ * @new:	device to request (can be NULL)
++ *
++ * Called from various tick functions with clockevents_lock held and
++ * interrupts disabled.
++ */
++void clockevents_exchange_device(struct clock_event_device *old,
++				 struct clock_event_device *new)
++{
++	__clockevents_exchange_device(old, new);
++	if (old)
++		module_put(old->owner);
++}
++
++/**
+  * clockevents_suspend - suspend clock devices
+  */
+ void clockevents_suspend(void)
+@@ -699,7 +706,7 @@ void tick_offline_cpu(unsigned int cpu)
+ 		if (cpumask_test_cpu(cpu, dev->cpumask) &&
+ 		    cpumask_weight(dev->cpumask) =3D=3D 1 &&
+ 		    !tick_is_broadcast_device(dev)) {
+-			BUG_ON(!clockevent_state_detached(dev));
++			WARN_ON(!clockevent_state_detached(dev));
+ 			list_del(&dev->list);
+ 		}
+ 	}
+diff --git a/kernel/time/tick-broadcast.c b/kernel/time/tick-broadcast.c
+index 115e0bf..bda3d23 100644
+--- a/kernel/time/tick-broadcast.c
++++ b/kernel/time/tick-broadcast.c
+@@ -165,23 +165,31 @@ static bool tick_set_oneshot_wakeup_device(struct clock=
+_event_device *newdev,
+  */
+ void tick_install_broadcast_device(struct clock_event_device *dev, int cpu)
+ {
+-	struct clock_event_device *cur =3D tick_broadcast_device.evtdev;
++	struct clock_event_device *cur;
+=20
+-	if (tick_set_oneshot_wakeup_device(dev, cpu))
+-		return;
++	scoped_guard(raw_spinlock_irqsave, &tick_broadcast_lock) {
+=20
+-	if (!tick_check_broadcast_device(cur, dev))
+-		return;
++		if (tick_set_oneshot_wakeup_device(dev, cpu))
++			return;
+=20
+-	if (!try_module_get(dev->owner))
+-		return;
++		cur =3D tick_broadcast_device.evtdev;
++		if (!tick_check_broadcast_device(cur, dev))
++			return;
+=20
+-	clockevents_exchange_device(cur, dev);
++		if (!try_module_get(dev->owner))
++			return;
++
++		__clockevents_exchange_device(cur, dev);
++		if (cur)
++			cur->event_handler =3D clockevents_handle_noop;
++		WRITE_ONCE(tick_broadcast_device.evtdev, dev);
++		if (!cpumask_empty(tick_broadcast_mask))
++			tick_broadcast_start_periodic(dev);
++	}
++
++	/* Module release must be outside of the lock */
+ 	if (cur)
+-		cur->event_handler =3D clockevents_handle_noop;
+-	tick_broadcast_device.evtdev =3D dev;
+-	if (!cpumask_empty(tick_broadcast_mask))
+-		tick_broadcast_start_periodic(dev);
++		module_put(cur->owner);
+=20
+ 	if (!(dev->features & CLOCK_EVT_FEAT_ONESHOT))
+ 		return;
+@@ -1218,7 +1226,7 @@ int tick_broadcast_oneshot_active(void)
+  */
+ bool tick_broadcast_oneshot_available(void)
+ {
+-	struct clock_event_device *bc =3D tick_broadcast_device.evtdev;
++	struct clock_event_device *bc =3D READ_ONCE(tick_broadcast_device.evtdev);
+=20
+ 	return bc ? bc->features & CLOCK_EVT_FEAT_ONESHOT : false;
+ }
+@@ -1226,7 +1234,7 @@ bool tick_broadcast_oneshot_available(void)
+ #else
+ int __tick_broadcast_oneshot_control(enum tick_broadcast_state state)
+ {
+-	struct clock_event_device *bc =3D tick_broadcast_device.evtdev;
++	struct clock_event_device *bc =3D READ_ONCE(tick_broadcast_device.evtdev);
+=20
+ 	if (!bc || (bc->features & CLOCK_EVT_FEAT_HRTIMER))
+ 		return -EBUSY;
+diff --git a/kernel/time/tick-internal.h b/kernel/time/tick-internal.h
+index 182974c..65680db 100644
+--- a/kernel/time/tick-internal.h
++++ b/kernel/time/tick-internal.h
+@@ -55,6 +55,8 @@ static inline void clockevent_set_state(struct clock_event_=
+device *dev,
+ }
+=20
+ extern void clockevents_shutdown(struct clock_event_device *dev);
++extern void __clockevents_exchange_device(struct clock_event_device *old,
++					  struct clock_event_device *new);
+ extern void clockevents_exchange_device(struct clock_event_device *old,
+ 					struct clock_event_device *new);
+ extern void clockevents_switch_state(struct clock_event_device *dev,
