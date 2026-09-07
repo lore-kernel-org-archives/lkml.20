@@ -1,271 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF5129B766;
-	Mon,  7 Sep 2026 22:28:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D29E40BCBB
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 22:29:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788820125; cv=none; b=Isdu8FgHDVvuojB4r6LTLHc1fLP50ijp/+FBK3qd9XT6O5FHk0EFcNrctaMPvV/O9e9zUx3Ti+i2diDmGMeg2USRgNLbGOZ3Q4K4ofIKzvvFKOqmY55W0TjEV30iFvG//MamIgWYuXhALvQtWIK/u9SnGkbNYi1zQuSzPkHa7oA=
+	t=1788820143; cv=none; b=Zmz0oXScw8MyaTw9HbYBPJvlXB+4Lbo0LaZDM4/joyXZUlYVbiaGkHpnpJw7Y/1OyclnoPfdTDRU1GXPTCek1sGeTbzA4OoSb28vUCVaAO/Xhm1oEkwUJjnCiRPLZ2itm2qlj0kB0o2Xm9vB2boYxToEPkoP1PFJSiV6oYet6sE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788820125; c=relaxed/simple;
-	bh=okZP9YA8of/dppP99bLktXk24pN3bXeDO5/37rESBwo=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=D0IrvWBqcHj41oM4WA1kxw5TCDVO2efY1yWGdn1oRgyKa1/JQG3JKDQQT3jihjH7od/pV1GbTmwnimUyPHBe3k8zrXHmanyA/HK8sBOL8E60wxa+bQk/tzQcMg/VJMwweLlRa/ncRPmXtooPhQPUkYTY+R2OTs0AsovwmZLNq6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lLsCg+pp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788820143; c=relaxed/simple;
+	bh=n5smKdbmoLdH/KsjFUvdZ/gYh+7Nhl/mQBlm4196Mz0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RYKL6wm6NtAs4iXwfqSsYcow/QDXZQuj0NMv243PmnCEttoPLlYuewy5RkVr97BYgkLRNgtY+Ho+OaG6+hYsQd3vcaMOLCwOmlnkdMlDqGq3mzClUMJrebufK0QlFIzSWNxak5oQcYOrToHGIJsIEdeTQ24wOxjUvxsYIJ6p+EE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DsZ8SVM6; arc=none smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lLsCg+pp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5CF51F00A3A;
-	Mon,  7 Sep 2026 22:28:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788820124;
-	bh=uWvwo68q0NiNc9fVhinIy0eFRzsHQNVbNmrCZS9XcMo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=lLsCg+pp8pIi8dXNlao2ibO+D5LwxEnDKcbLC39blku54J243+/c5Vmro+lWuRKAN
-	 E2GAqmXC1XmMDrACulrCvrZlIRIsz7MN0BoHdv9Kt8NqzLhHE0y15fsQ507KeFcZbh
-	 pUudh6VlmDcDE04Xo26Iuob3GQYzt6C5G3nE7jO8xOfqwcnTbpIJgB6PnNBYpiRpLV
-	 MOpAkOO/NIUlnBi/F+42ms+W7DfYk6LvSBvs/gzFCPo75DCvptT48SVSFO4KKmRnbv
-	 dmFyGzPiEthtKD60mKISiRt95q6HGRwP2QIKmuovmzi7Wy9YsMGIQbbaYkp/JTlD95
-	 ssEAcJlWZHstw==
-Subject: Re: [PATCH net-next v2] net: davicom: Propagate wakeup IRQ errors
-From: netdev-bot+sashiko@kernel.org
-To: phucduc.bui@gmail.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, paul@crapouillou.net,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Date: Mon, 07 Sep 2026 22:28:43 +0000
-Message-ID: <178882012336.219967.15894359577050376625@kernel.org>
-In-Reply-To: <20260903102656.370039-1-phucduc.bui@gmail.com>
-References: <20260903102656.370039-1-phucduc.bui@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DsZ8SVM6"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2d6fe26ef1cso38774495ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 15:29:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788820142; x=1789424942; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/MjzhtBXM0iX2iDGhUeHjUxxReJ7nNqiLgIG0FGKsSc=;
+        b=DsZ8SVM6atrJItwHTtrAp49qOYWULOAD1o1RueKEyVv1HgZPN2m5ve7ofxidnoKLdU
+         FzchROwgu/VQz0B9FJ61sQ4aCHDxoPlWEIUZ8lghsd5Bd/lQL9jV6QwGBkWl/sidATKW
+         wFFYXi8WZBuRALRE9Qy5bQ+TAss5IdfV6qwRLtsxLkHJ01u2XjtRNRHvGwT7UHPr0rys
+         op37TGXX0tNHLUMjZnMXsK+QJp9Q2ylc6pZGKfXQIyHa9vQYNzTA7mU2JiWGo5fq91ik
+         vssqxFSwkMBG4d+2B9hj/l7IkOFgdkUaAz03LC0q2xssFQ/Rio9QDr2e+ikh6qs79UVj
+         e6og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788820142; x=1789424942;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/MjzhtBXM0iX2iDGhUeHjUxxReJ7nNqiLgIG0FGKsSc=;
+        b=RdcIs+WWWlF/5XzTqi6ZzsLTERSahSFf5TENgxYVzB6BP/NYlajWaoHyZR4BWiqcA/
+         3LbChKxatdb0HQK4UHEGlU0MYu7MV4knVynC6hOOK3v5BghShyIxcBdA2ZE0h/lif7GE
+         xZ7bsbJRiCENr2xqQU58wCS2YdID1HgS2yjlIAXWlPshxaItpjXcB7WDIR380i0ThM3o
+         ll6AgOtmQUV6iZRCzhkHZ5CF/YSgqWMuqHXidmnA4UZdyCilf9Y5F1g7c7gM8sXdlLmd
+         Hzm7LUZdScH8FlcmJ7zntNkQNltGRklkp0HaWXCd9RlyYvLaR0tH5AiRrUtJjtxbIsUY
+         zmKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzbuc+C55KPrkbc0EFlTTnFoOk+Csv47+0OyKl4/Ec3AXKV1Owuig1deSjhZ4wgOnhwv1Ov6kvdq5Yf6s0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kNfWFxrfFBTkVZNPhUu5o1T6I8fMjmrsSWhznaIKXLzNpTdsaa
+	GKJpxzRlzqUVBnHoc7bOQoIup/wEw93rMK9tu3JOLKPEslbKHW8KiToa
+X-Gm-Gg: AYBFou28DT19FvJgL9LyDGY250h0OzPrPFWjnU5vY0e62R2H/gNWvVyAWcLaYS42C8e
+	y7o3+7OiFciVOPWaajVOUKMl0+A+b6UZKga0gE7hHqDRYYWRHQe38Ej+FQcgEjDFtcvy6lJySUw
+	E+/X7Jzgbu/368l2jnvO6tkEGw9eiYlbdGqXpM7e2bqgIuiYO2moYNZ1RuiJclexv8pJUVIGsHf
+	2GFvjazbHkSJZrNEWeR85sHgyHchfTlpbgTB1PpjL7OQIF8nw4FId+svahCffo7gsRhAZQNWs9E
+	N9/Tfu8y8IIZbukpcDPL9H5sdElHmC7OvrENqAstqTRqzZ1vRvqoA16FVbX/FiJLEcxFua9RFfB
+	ATPWbsHEQzmTOWCVV93MiTG+r48+292tswaAbS/DMl0c88wVoBbYu0SSNif8mdi3+oaiinFyMtT
+	jovMIdOlnBR/MbVQ/rp79GABXDBD4jkDpCoO291j5Jq4Ej2lNy7i5ZpqiNkjfIYUoWO6RSnA==
+X-Received: by 2002:a17:902:8a8d:b0:2ca:e19c:97b with SMTP id d9443c01a7336-2db122edd50mr271424715ad.5.1788820141536;
+        Mon, 07 Sep 2026 15:29:01 -0700 (PDT)
+Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14841054sm50444525ad.3.2026.09.07.15.29.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 15:29:01 -0700 (PDT)
+Date: Tue, 8 Sep 2026 06:28:33 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Vladimir Oltean <olteanv@gmail.com>, 
+	Inochi Amaoto <inochiama@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH v2 0/4] phy: core: Add phy bulk helpers support
+Message-ID: <ap86IO78I_1AZbkU@inochi.infowork>
+References: <20260904083709.425893-1-inochiama@gmail.com>
+ <20260907102849.w7yn43x6m3f2rnuj@skbuf>
+ <ap6fcP7Oct109dkY@inochi.infowork>
+ <20260907115712.dg5pw4ajvrtdipey@skbuf>
+ <ap6ngAxlztCAFSH0@inochi.infowork>
+ <20260907121653.4ajpkjt2i5opmwzc@skbuf>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907121653.4ajpkjt2i5opmwzc@skbuf>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider:
+On Mon, Sep 07, 2026 at 03:16:53PM +0300, Vladimir Oltean wrote:
+> On Mon, Sep 07, 2026 at 08:05:57PM +0800, Inochi Amaoto wrote:
+> > On Mon, Sep 07, 2026 at 02:57:12PM +0300, Vladimir Oltean wrote:
+> > > On Mon, Sep 07, 2026 at 07:29:49PM +0800, Inochi Amaoto wrote:
+> > > > Yes, I have one for it. This is the spacemit pcie driver.
+> > > > https://lore.kernel.org/linux-pci/20260907112606.465778-1-inochiama@gmail.com/
+> > > > 
+> > > > But it only uses a few of these helpers. So should I remove all the
+> > > > things that are not directly used, and let others add these if they
+> > > > need?
+> > > 
+> > > How many functions would go away, and how difficult would they be to
+> > > reconstruct, if we only were to add them on an "as-needed" basis?
+> > > 
+> > > If the answer is "many", I suppose you could also leave a note in
+> > > phy.rst that links to v2 and mentions unimplemented functions because
+> > > they lack a user.
+> > > 
+> > 
+> > In fact I think it is happy. This PCIe driver only use three APIs:
+> > - devm_of_phy_bulk_get_all
+> > - phy_bulk_init
+> > - phy_bulk_exit
+> > 
+> > So most of them will be removed as only a few are on the path.
+> > I will follow you suggestion. Thanks.
+> > 
+> > Regards,
+> > Inochi
+> 
+> I think you should call phy_bulk_power_on()/phy_bulk_power_off() as
+> well from the PCI controller driver, even if the PHY provider driver
+> doesn't (currently) implement them. The Generic PHY API is about
+> offering some degree of mutual consumer<->provider intercompatibility,
+> not just a pretentious indirect function call k1_pcie_init() ->
+> k1_pcie_phy_init().
+> 
+> So those 2 functions should also make it to your v3 patch set.
+> 
 
-Critical: 0 · High: 2 (2) · Medium: 0 · Low: 0 (1)
+Good. That's the point I have missed. I will add them, thanks.
 
-- [High] dm9000_probe() now aborts the whole probe when the *optional*
-  wakeup-IRQ setup fails.
-- [High] The newly added 'goto out' after a failing
-  irq_set_irq_wake(db->irq_wake, 1) is taken while…
+> BTW, do you need a stable tag to be provided by linux-phy, to continue
+> your work on PCI in this development cycle? You should mention this in
+> your cover letter, because it does require a bit of maintainer
+> preparation beforehand.
+> 
 
-Pre-existing issues:
-- [High] The wakeup IRQ requested in dm9000_probe() is never released on
-  any path other than the newly added one either: the pre-existing later…
-- [High] In dm9000_probe() the shared wakeup IRQ is requested (line 1521,
-  IRQF_SHARED, handler dm9000_wol_interrupt, dev_id = ndev) before…
-- [Low] Documentation/devicetree/bindings/net/davicom,dm9000.yaml
-  restricts 'interrupts' to 'maxItems: 1' (and defines no interrupt-…
+I think I need. The most problem of PCI driver is already fixed so I
+think there is a chance for it to get merged.
 
---
-
-net: davicom: Propagate wakeup IRQ errors
-
-This changes dm9000_probe() so that an error from
-platform_get_irq_optional(pdev, 1) is returned to the caller unless it is
--ENXIO, and so that failures of request_irq() and irq_set_irq_wake() for
-the optional wakeup IRQ abort the probe instead of only being logged.
-
-A few questions about the new error paths below.
-
-> diff --git a/drivers/net/ethernet/davicom/dm9000.c b/drivers/net/ethernet/davicom/dm9000.c
-> index b87eaf0c250c..904b859f0a63 100644
-> --- a/drivers/net/ethernet/davicom/dm9000.c
-> +++ b/drivers/net/ethernet/davicom/dm9000.c
-> @@ -1511,13 +1511,18 @@ dm9000_probe(struct platform_device *pdev)
->  	}
->  
->  	db->irq_wake = platform_get_irq_optional(pdev, 1);
-> -	if (db->irq_wake >= 0) {
-> +	if (db->irq_wake < 0 && db->irq_wake != -ENXIO) {
-> +		ret = db->irq_wake;
-> +		goto out;
-> +	}
-> +	if (db->irq_wake > 0) {
-
-[Severity: Low]
-This is a pre-existing inconsistency and not something introduced here, but
-is the wakeup IRQ index reachable at all from device tree?
-
-Documentation/devicetree/bindings/net/davicom,dm9000.yaml declares:
-
-  interrupts:
-    maxItems: 1
-
-and defines no interrupt-names.  For a node that validates against that
-schema, index 1 does not exist, so of_irq_get() fails and
-platform_get_irq_affinity() falls back to platform_get_resource(), which
-returns NULL and produces -ENXIO.  That is exactly the value the new check
-tolerates, so on schema-compliant device trees the whole wakeup block that
-this patch hardens is skipped.
-
-Should the binding gain a second interrupt entry (with interrupt-names) so
-the driver and the documented contract agree on how many interrupts a
-davicom,dm9000 node may declare?
-
->  		dev_dbg(db->dev, "wakeup irq %d\n", db->irq_wake);
->  
->  		ret = request_irq(db->irq_wake, dm9000_wol_interrupt,
->  				  IRQF_SHARED, dev_name(db->dev), ndev);
->  		if (ret) {
->  			dev_err(db->dev, "cannot get wakeup irq (%d)\n", ret);
-> +			goto out;
-
-[Severity: High]
-Is it intended that a failure to set up an optional feature now takes down
-the whole netdev?
-
-request_irq() here uses IRQF_SHARED, so it can legitimately return -EBUSY
-when a non-shared handler already owns that line.  Before this change the
-failure was logged, db->wake_supported stayed 0, and the interface
-registered normally; dm9000_set_wol() then simply refused WoL:
-
-	if (!dm->wake_supported)
-		return -EOPNOTSUPP;
-
-With the new goto out, register_netdev() is never reached and such a board
-loses Ethernet entirely.  Would it be better to keep the graceful
-degradation for the two setup failures and only propagate the
-platform_get_irq_optional() error (which is where -EPROBE_DEFER matters)?
-
-[Severity: High]
-This ordering isn't introduced by this patch, but can the shared wake
-handler run before the register window exists?
-
-request_irq() installs dm9000_wol_interrupt() here, while db->io_addr and
-db->io_data are only filled in later in dm9000_probe():
-
-	db->io_addr = ioremap(db->addr_res->start, iosize);
-	...
-	db->io_data = ioremap(db->data_res->start, iosize);
-
-db comes from alloc_etherdev()/netdev_priv() and is zeroed, so both
-pointers are NULL in that window.  The handler starts with MMIO
-immediately:
-
-	nsr = ior(db, DM9000_NSR);
-	wcr = ior(db, DM9000_WCR);
-
-and ior() has no guard:
-
-	writeb(reg, db->io_addr);
-	return readb(db->io_data);
-
-Since the line is shared, a co-tenant device (or an already-asserted
-level-triggered line at request time) can invoke this and dereference NULL
-in hard-IRQ context.  Would moving the wake-IRQ request to after the
-ioremap()/dm9000_set_io() sequence close this, and at the same time make
-the new error paths easier to unwind?
-
->  		} else {
->  
->  			/* test to see if irq is really wakeup capable */
-> @@ -1525,6 +1530,7 @@ dm9000_probe(struct platform_device *pdev)
->  			if (ret) {
->  				dev_err(db->dev, "irq %d cannot set wakeup (%d)\n",
->  					db->irq_wake, ret);
-> +				goto out;
-
-[Severity: High]
-The comment right above this call describes the operation as a capability
-test:
-
-	/* test to see if irq is really wakeup capable */
-	ret = irq_set_irq_wake(db->irq_wake, 1);
-
-Is a non-zero return really an error condition here?  set_irq_wake_real()
-in kernel/irq/manage.c starts with:
-
-	int ret = -ENXIO;
-
-	if (irq_desc_get_chip(desc)->flags &  IRQCHIP_SKIP_SET_WAKE)
-		return 0;
-
-	if (desc->irq_data.chip->irq_set_wake)
-		ret = desc->irq_data.chip->irq_set_wake(&desc->irq_data, on);
-
-so -ENXIO is the normal result for any irqchip that implements no
-.irq_set_wake and is not flagged IRQCHIP_SKIP_SET_WAKE, which covers many
-simple platform, SoC and GPIO controllers.  On such a board the probe now
-fails where it previously succeeded with WoL disabled.
-
-[Severity: High]
-Can this goto out leave the wake handler registered on a freed net_device?
-
-At this point request_irq(db->irq_wake, dm9000_wol_interrupt, IRQF_SHARED,
-dev_name(db->dev), ndev) has already succeeded, but the unwind path is:
-
-out:
-	dev_err(db->dev, "not found (%d).\n", ret);
-
-	dm9000_release_board(pdev, db);
-	free_netdev(ndev);
-
-and dm9000_release_board() does no IRQ teardown at all:
-
-	iounmap(db->io_addr);
-	iounmap(db->io_data);
-
-	if (db->data_req)
-		release_resource(db->data_req);
-	kfree(db->data_req);
-	...
-
-The only free_irq() in the driver is free_irq(ndev->irq, ndev) in
-dm9000_stop(), so nothing releases db->irq_wake.  After free_netdev(ndev)
-the shared handler is still installed with dev_id pointing at the freed
-net_device, and any assertion of that line runs:
-
-	struct net_device *dev = dev_id;
-	struct board_info *db = netdev_priv(dev);
-	...
-	spin_lock_irqsave(&db->lock, flags);
-
-	nsr = ior(db, DM9000_NSR);
-
-which touches freed memory and does MMIO through the already-iounmapped
-bases in hard-IRQ context.  Should this path get its own label that calls
-free_irq(db->irq_wake, ndev) before dm9000_release_board()?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the same missing free_irq()
-applies to the paths that already existed.  The later goto out failures in
-dm9000_probe() (request_mem_region() or ioremap() failure, unknown chip ID,
-register_netdev() failure), for example:
-
-	if (db->addr_req == NULL) {
-		dev_err(db->dev, "cannot claim address reg area\n");
-		ret = -EIO;
-		goto out;
-	}
-
-and dm9000_drv_remove():
-
-	unregister_netdev(ndev);
-	dm9000_release_board(pdev, dm);
-	if (dm->power_supply)
-		regulator_disable(dm->power_supply);
-
-	free_netdev(ndev);		/* free device structure */
-
-all reach free_netdev(ndev) while dm9000_wol_interrupt() is still
-registered with dev_id = ndev, so an unbind or rmmod of a device that has a
-wake IRQ leaves a dangling handler on a shared line.  Would it make sense
-to add the wake-IRQ release in a helper shared between the probe error
-paths and remove()?
-
->  			} else {
->  				irq_set_irq_wake(db->irq_wake, 0);
->  				db->wake_supported = 1;
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260903102656.370039-1-phucduc.bui%40gmail.com
+Regards,
+Inochi
