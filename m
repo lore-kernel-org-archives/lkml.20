@@ -1,100 +1,144 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 576B43783B5
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:39:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788755989; cv=none; b=lvU/yAa2oD4DkGFV4aVo2quip2S8jV8F+lSTNZEXxRsaNiBhlGlgGtjqYQK41CMGJqo4SfdVxl1WW0VZ9lgFdajuefe7TZy27E1kKbDOPUr32J3/SfhfmIigWR56DtdZ8aXJ5dHfmhwz8SYAhoKTPQyPlKFNEM1+GpZ3D0BsABE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788755989; c=relaxed/simple;
-	bh=0szBl1KpAqdYl+/iLU82KzE0MUT5jGzpSEQ4wgBzJhc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RB3BOgYA9nZLrTgTn2x8lYfyWIhF1l6goj5Zq/dyRZt5SDFzJd/liO4efnBYBHhtnvqwYNeLffhsL4A958LTnWZ60VXg68PsqY5eWjWt7Ecl2zauGumZbsouIbrb1jMsdv6RFupxj30hSwOzAJlVINqNdZEsHr+S5sHQ0vCs6Qo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K+yCZc5Z; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59FCB17557E
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:42:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788756162; cv=pass; b=s9DEIzitxeAr9kKIqZlGx+3mHvS/NySOF+Dra8LpTsDpUqvb6rq9k2J+BHoWEcK/PgpHK4JsRgz5vFRz1XhB84WCzl1HwiTItKLlJixUJ+NJo0SwafYu3mNl9o8S6WyHfOB41rrL0fjMV4lZhvGJB4CmR4ldTjKDyzqXiBeNvQA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788756162; c=relaxed/simple;
+	bh=5b15TWitPaTKveFATERpTvz5aWJPuBSMBQiiYbwQeSc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iFhrLcNOhp3mUQtLo+mVIow5zEmdke7D0xBZToXeP5MdyGiYfQhiJR4gorJrn5XD4QW/Pef4QQq+jk8IOJjLsZKS76j5rk48lZqPzeWV8KgW7jCSsb7dhRcJpdC/UzPdvJhFYKzpDx7RaPuUK3Hd7bjErEpJHPYHTwV6si1l3qM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fRqGcE3p; arc=pass smtp.client-ip=209.85.208.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K+yCZc5Z"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso2199278a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 21:39:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fRqGcE3p"
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3a20f06cce6so32001541fa.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 21:42:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788756158; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mHB4WG21co8WpkXGRgMG/wHkDPflfLm2YYiZH+p+/1g1f7Y7cHm65aNLvxUDrkzJF1
+         ZUJQc+ZND7ugZulSZ/mtdIhr4RWehdtKESjpWpeqtc7EBqhzI3iWzUE6g9udrJJPuzGh
+         OZ5GytCNWyiRHfls86KBHON5Y0r9sHsojcrUyE9tjgcrK4eliCj8sz3IeJVd/0krS2ax
+         u9TjB/NKTYRNm8DOROd47wZnVcp4jwiZY74ckp6te7olrnCDxl5aCAEuykI/6Pha7bYl
+         fXhzWLM/qdFsGPHoo+F4qc8ZcVZEroKahNlF308dGcEpg0YZvaebBDpWgXFxgROj3YyQ
+         RZuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=CSusZvCrdCFZf7SPpy0xHMhy2Jts9A1KvNNSnOpLMr4=;
+        fh=jIodrbJDBWOcpLzNzvp/wKO0YnSkRAEm1VNCu/DJzw0=;
+        b=D3InrhXPwfRj6cvGTfvGZ6iZtSb5SWBCL++Rme6Il2X8H5MRbSoqfPSKgteZ5iBmfD
+         TkPMljJfkrQ3KBMr+zmcib1frNipKsCvoHG152vbSfUxIoLRcbN1j3J5YF6K8+NJ1XmQ
+         TWDEm2an2X8pmNsGAbqYUNOxLlbblloAIFJV5Xjeva6JtGCxoD8VO+Za71CRxZ96XOxj
+         legUYpnoGbE1Y5fMjIHuRQgFBvf9SiTjUmoq5xNU4szpHdYX7a7FIeXlBpcUplE8mQlU
+         efVkYY6z2IGy48RMTkHg5snK/CQSixKc3YU/P1BAcu7R33iIIxRCFWyrxyDf4iFRRmpt
+         H2Og==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788755986; x=1789360786; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NFJtmsje91DWGpcIA1bWlvRmTiFeE/3YUxs7e19aT0k=;
-        b=K+yCZc5ZSj3CCj/YaZaBdOZgtFEMAVZSlbU7QLUqJdC0FgHtetgb0TKEywlikE/uJ8
-         5fcbE/Uo2tHTeg4YKPXvhFa0/zHwciBss4wCVciXOdJz+AGSwiCSrspxWrW3B3uE7kmW
-         EFI5V0gqYXDBCldaV74mgpH59X+DCd7wpQ4NnCIlp5mYcTR37lN0aS8zmPFepnTwmpZH
-         rLj3Gj+LpZ/j6cqCw9QZRuBW2KZ1KtWg/jPnog9UrsVTMnEb9C8Q1TH4/jGBhZ0eTcc/
-         1ZRh9A4ppWEyW/WY4f1U1S5flyruovybemrJWAMylu0ZFiUR8Tuc8v4Ij2D2r4YPV4jj
-         YZKQ==
+        d=gmail.com; s=20251104; t=1788756158; x=1789360958; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CSusZvCrdCFZf7SPpy0xHMhy2Jts9A1KvNNSnOpLMr4=;
+        b=fRqGcE3pBtBkkgLpM+oU3FLDxnjlqlK1zzEgTCEt1uhmt/i6zCnVJI9pNaHsxti64r
+         bnjEd5r9Ygu7fvD3JF0C6c287+He7C8HkVeVvknO5swU/6N+VH6sSNm83D+fs+uPOHHd
+         Qip7NaqMIcitIrwYaou4rSYmO42OvVHHoPaX9Ues9MiJOXVKmfndNbWCKozII8KQvqEa
+         cPlvrgg/Rw3a+tNAntmPNWWupWQhnYjdXcwk64y0OcmDQmozYLIpLwpop6mkKn7KWtCW
+         WTFtRM5tl8QA1czyzBJrupbLouDXSC6cPYkUZRRFRCOLbzTSnM7RxfxB8WnGJZACC/uR
+         i3ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788755986; x=1789360786;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NFJtmsje91DWGpcIA1bWlvRmTiFeE/3YUxs7e19aT0k=;
-        b=reUU3GHwtTGt9sU2T7lnvfsneqAZUd0Y2spu8LfQ2YHxl1UKjgMuiEic4uwWYssiKX
-         hv0EOYlvcBh7xVkuFLky/OygNYC28UAsKLyGU6w7s6Jg2zevYbT0mzxrj6fguYbiwS7A
-         TKBLUU87uL7E08h2PMDJgoIUiFa9eTd31bVKlU2qmdizQ4XAYRo9kW/2hW/7xfSv8HJI
-         J42HRJ0uaaoTombua78ihW8+v+3GMAQikGspCjpnx7n1kz9CDorC3aqfG56hruqB0oG/
-         fJJCpkWWTi/pN4tsKF2S50cqXciYroWuIOdscrVOvFQpqGXjd27NCB50CxVyL07OIixq
-         inQQ==
-X-Forwarded-Encrypted: i=1; AKwUvByJ5j45Dwty4CKu5DGWivHUul0JljCstjvyqJAfPUvH3umZ74r2UurWnqhcqEMkSwX/0CPsirU7+tuPg+g=@vger.kernel.org
-X-Gm-Message-State: AFuF++k+G76Mqq8SSdD90hQa72YEqeKXQnkBrcSzvIXYX/blXfKrcUI+
-	+2qoIiaQkxoiVi9r0fjrBr0Bjp5qTuyO2buDT+okrm+qthAb9HiGb6Ah
-X-Gm-Gg: AYBFou1YA0Tgx14oO38PN9mIwANwA0T9CW0iq/fcF8iPw945Xt22e889czOqKkIZ2xS
-	xVD05FIoDrfonlVcT6SeXFlPtYK+kf/LbEdkxAM/qlNwSzQckBfMNqR72tGBlm/Tod5q9G2NT7F
-	ZuHul70zY9bd6WrqdwzjNVp8DXu0zSEWYPqCEDVIbRuIyip4d6hRiZyw81npKL4IGCvSSlIYmWO
-	VkApmjS9ztUNaY5v334yr3UR+2VCwnaqnS+oYfne2MovYUVaBPlJbslvFXIpGDvugVMwZgYmn77
-	PCq/+hLQKnlFYLWOW3spKma7PDn5QgzHfxxin/3fT/WegLCrXb00S2kg7cq5mdV9zAFk5ERtrrP
-	oBWeilyWEuuzf6jkaU+of1uevpRacsKGO7xIW3fsHg3I+zxcdYhHdEfBi3PlPHT+JsGGvIPuVDw
-	Cix2GPBm6p8HN6w4vtVLlw1TtCgC6ri2B3iwLit1rJ/TPUezjJKd23KhamptuyzpVEJva8Tp6Gc
-	WcbTs6Y4/56lMATornIiXIQQw==
-X-Received: by 2002:a17:90b:2749:b0:398:d292:e6d5 with SMTP id 98e67ed59e1d1-39b26304385mr32688314a91.24.1788755986571;
-        Sun, 06 Sep 2026 21:39:46 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b123731sm22649867eec.18.2026.09.06.21.39.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 21:39:46 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Shuah Khan <skhan@linuxfoundation.org>
-Cc: Thomas Renninger <trenn@suse.com>,
-	Shuah Khan <shuah@kernel.org>,
-	"John B. Wyatt IV" <jwyatt@redhat.com>,
-	John Kacur <jkacur@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH] cpupower: fix typos in comments
-Date: Mon,  7 Sep 2026 10:09:33 +0530
-Message-ID: <20260907043933.33452-4-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <f1b5ae1c-f6cd-4f9f-9143-4bdd3b8c2b46@linuxfoundation.org>
-References: <f1b5ae1c-f6cd-4f9f-9143-4bdd3b8c2b46@linuxfoundation.org>
+        d=1e100.net; s=20251104; t=1788756158; x=1789360958;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CSusZvCrdCFZf7SPpy0xHMhy2Jts9A1KvNNSnOpLMr4=;
+        b=HBeJPgtTw9U4CeqTfxpDMlzzi0rA60hmu5To/ESgkOjbauSCmoIOY80BbtPIdBouhX
+         yojBtzzJpdeICHe+8dgP8smxTq7h3ZlUk4RtCj+2ZaVHNcK/yLpJBDRViz1jZ6RDPncI
+         x2JcaQahZdzVF28zTyjErNHOBX1oHBN26IlOSB6ma3m3C40lV7oCZ7qED5uVaxhRh9FQ
+         S/ARTLQ20uRazyMnQlYIlYz5C9DdKvHh4SyE3UVJnJJqxkIbWIdYpNFDhf2YH3Mz5Hdm
+         uJArkqtxiEqxe3pBHEin/M0Oa5qQFkkFvxCt655S5+wXXPxcTQ5AkZZDa1ykyTKo5HKq
+         E4kA==
+X-Forwarded-Encrypted: i=1; AKwUvBzZIJlpFUF1AI6yIj9iMxEttVEMWVaOwwjkAjsc6znaUb6IYBWUR4HqAgEKkZq7mDNme5H47Q4L+T2ewrY=@vger.kernel.org
+X-Gm-Message-State: AFuF++ly/t2cQyUkoA5YpV2o1qxpDByd34ZFSKesxaJJpLCF93ucDoHO
+	C+FIwfBy5T3czV+j9a4nknj8srS0GfoV/a0Ib+s7xtqHwM6SKyr4NA8E7OHLldg0xIvXQtUqvtk
+	9zq78jZ3GPHOFZ/I9WDpfo5FN7S4IurXsAuTtl9k=
+X-Gm-Gg: AYBFou3rAi0cE4i3tR0M0UGYZhpWH+5162TbYjms6du8EIeZK60h5e2aNKGb/RGasiZ
+	lpFAVxe3D9OUX0RguIeG+NMNLVVb1JBXJZDHbp9ADWkmlmvzIpqm/wP19T4wG+6X+4vgHNdiPib
+	oGUkylqrNXJTY/9q9kDsYKSqE6R3/Vajgbr1vW5b65MLB9NRERMdprWlqU7d/iiDIXExwsKR8op
+	U5g5yRXAJkZlboEHwmMxDSdzuKBNHGMGy8CFMLW13zGYwfpON/cvfzdd7SQ1/zIY7yAYe7M0Mvp
+	JZg4mwcYlxUm7Z6ddyG8RUlJ1yWIim7rxk8HtIJ4Ao5FwJfAYtY5yWEfOSS6/evQfMBf6CnP3xB
+	I6tylxZgtjth4WSAkrh/d5gQ395b8r8eWACmxTWp2LEAQsC/HCxOvleF+cFX0B61oIb95cs/XEb
+	cGbE/GzEp023D9l/OZnQ==
+X-Received: by 2002:a05:651c:19aa:b0:3a3:2550:d76a with SMTP id
+ 38308e7fff4ca-3a372ccb3b8mr19730511fa.6.1788756157976; Sun, 06 Sep 2026
+ 21:42:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260906183942.103011-1-ubizjak@gmail.com> <fe6933ae-5684-4c5a-8c99-1d80f583a101@zytor.com>
+In-Reply-To: <fe6933ae-5684-4c5a-8c99-1d80f583a101@zytor.com>
+From: Uros Bizjak <ubizjak@gmail.com>
+Date: Mon, 7 Sep 2026 06:42:26 +0200
+X-Gm-Features: AcwNN1XS9Uu5kgP_zPPBPSrB1_HqhtAiPlulYi7Y6meIu0LNK31JSJ_FQzHT9hQ
+Message-ID: <CAFULd4ZU-Ui3QErP9NwEqpos2L9dX9B75cB+tm+kvdr0SpBScg@mail.gmail.com>
+Subject: Re: [PATCH RESEND] x86/kexec: store segment registers directly to
+ memory in crash_setup_regs()
+To: "H. Peter Anvin" <hpa@zytor.com>
+Cc: x86@kernel.org, linux-kernel@vger.kernel.org, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@kernel.org>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Fair question, and the honest answer is that I did not need it for the
-typos themselves.
+On Mon, Sep 7, 2026 at 3:33=E2=80=AFAM H. Peter Anvin <hpa@zytor.com> wrote=
+:
+>
+> On 2026-09-06 11:39, Uros Bizjak wrote:
+> > crash_setup_regs() currently moves segment registers (ss, cs, ds, es)
+> > into pt_regs via a general purpose register (%eax). Update the code to
+> > avoid the intermediate register and store segment registers directly
+> > to their destination fields. This reduces the generated code from:
+> >
+>
+> > diff --git a/arch/x86/include/asm/kexec.h b/arch/x86/include/asm/kexec.=
+h
+> > index 5cfb27f26583..ad7ef567452b 100644
+> > --- a/arch/x86/include/asm/kexec.h
+> > +++ b/arch/x86/include/asm/kexec.h
+> > @@ -106,11 +106,11 @@ static inline void crash_setup_regs(struct pt_reg=
+s *newregs,
+> >               asm volatile("mov %%r14,%0" : "=3Dm"(newregs->r14));
+> >               asm volatile("mov %%r15,%0" : "=3Dm"(newregs->r15));
+> >  #endif
+> > -             asm volatile("mov %%ss,%k0" : "=3Da"(newregs->ss));
+> > -             asm volatile("mov %%cs,%k0" : "=3Da"(newregs->cs));
+> > +             asm volatile("mov %%ss,%0" : "=3Dm"(newregs->ss));
+> > +             asm volatile("mov %%cs,%0" : "=3Dm"(newregs->cs));
+> >  #ifdef CONFIG_X86_32
+> > -             asm volatile("mov %%ds,%k0" : "=3Da"(newregs->ds));
+> > -             asm volatile("mov %%es,%k0" : "=3Da"(newregs->es));
+> > +             asm volatile("mov %%ds,%0" : "=3Dm"(newregs->ds));
+> > +             asm volatile("mov %%es,%0" : "=3Dm"(newregs->es));
+> >  #endif
+> >               asm volatile("pushf\n\t"
+> >                            "pop %0" : "=3Dm"(newregs->flags));
+>
+> Why not use "=3Drm"? "=3Da" seems odd in the extreme.
 
-checkpatch and codespell found every word in this series.  What the
-assistant did was the work around that: splitting several hundred one-line
-fixes into per-subsystem patches, running get_maintainer.pl to decide who
-each one goes to, and drafting the changelogs.  No part of the diff was
-model-generated - each change is the substitution checkpatch printed.
+"=3Drm" will produce assembly using an intermediate register due to GCC
+PR124209 [1]. clang also has issues with "=3Drm", please see the
+definition of ASM_OUTPUT_RM in compiler-clang.h. Using "=3Dm" will
+always create optimal code on both compilers.
 
-The Assisted-by: tag names the tool and model because
-Documentation/process/coding-assistants.rst asks for the tool to be
-identified, and the prevailing form in the tree is Vendor:model.
+[1] https://gcc.gnu.org/bugzilla/show_bug.cgi?id=3D124209
 
-I should add that the review this series has had since Friday has turned up
-cases where the mechanical fix was simply wrong - deleting a word from
-"kicks in in a timely manner", for instance.  I am auditing the rest and
-withdrawing the bad ones rather than leaving them for maintainers to catch.
+Uros.
