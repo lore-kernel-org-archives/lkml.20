@@ -1,227 +1,156 @@
-Received: from mta1.migadu.com (out-97.mta1.migadu.com [95.215.58.97])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0E42271450
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 02:55:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67ACB376BD9;
+	Mon,  7 Sep 2026 02:56:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788749732; cv=none; b=W1NimgvE3pQAqEzUUauPGqw3Lx2GywzOe45qdIttIwDKyru5rE2nrxSRN2ygTTmT3/SKr9PEtdq8GCNZxZ+7ZXfnwPb9lFC4NW2bVEqdmiRNVsjjQZ3tLTtmZUMEDly/0Pho+R+lASkFfPqR6n1Q2g3TDJ7hs+DUhQF1rlTKD8k=
+	t=1788749816; cv=none; b=EmE0Z8hfUBnieEDvlyeTnPqeBDBAP8MJkLJ9N+Lo9v8DTQUorfLXb38Hb6yHfQfs5LFYp2/TuK3jNvH53YBf0e/vXqv8Bg9CO2yjB7SpSwrQSV/TxpwXLO7j8m82VLaCV454xqniGFx4kaxXiH/hScKKOi3BteZY27eWN2UOdBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788749732; c=relaxed/simple;
-	bh=rHLKkqj9+AnMNB8Bzjtied3AhPjbeZr0topGLVp+bxQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=TBGoH10xURX23xaoXENsMI+Fxp4M4rb+yLpPU/s2Gt415uxUGMKtYM2h1gOeewId7vtKrYBKsyhxIkQzsD6m6X0K3eUqahaLKbu5aVLt+GFDEkVdVuB3mCTqt4bHsbLE0nQHoGEepy6BpMA218OSvUS74h4tUUEaegTCSgv3ZcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cyPkrCpm; arc=none smtp.client-ip=95.215.58.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cyPkrCpm"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=rHLKkqj9+AnMNB8Bzjtied3AhPjbeZr0topGLVp+bxQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788749728; v=1; x=1789354528;
- b=cyPkrCpm7owhg9wR2jRknZq/f5GpZrFhZ3ZVBPufOmQ+vUR4n8TEkaXxc9dYwR5G3OjCGDWc
- dfozPmmNAY+cQ5NgPjbvD+Szv2/z58zs6eTzHe9j4r8xHQDYARfAZxNYJc1nHRcRMYSSGSBeSD9
- cnTw3Bmt1I7YmqW091W1Rux8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 12f2adc598a284d7;
-	Mon, 07 Sep 2026 02:55:28 +0000
-X-Mizu-Trace-ID: 12f2adc598a284d7
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Muchun Song <muchun.song@linux.dev>,
-	David Hildenbrand <david@kernel.org>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Chris Down <chris@chrisdown.name>,
-	Tejun Heo <tj@kernel.org>,
-	Yu Zhao <yuzhao@google.com>,
-	cgroups@vger.kernel.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
-	linux-mm@kvack.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
-	linux-kernel@vger.kernel.org,
-	Ridong Chen <ridong.chen@linux.dev>,
-	Ridong Chen <chenridong@xiaomi.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v4 2/2] mm/mglru: fix ineffective memory protection for non-kswapd reclaim
-Date: Mon,  7 Sep 2026 10:54:45 +0800
-Message-Id: <20260907025445.1836238-3-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260907025445.1836238-1-ridong.chen@linux.dev>
-References: <20260907025445.1836238-1-ridong.chen@linux.dev>
+	s=arc-20240116; t=1788749816; c=relaxed/simple;
+	bh=6aDjopDtC9TELJP9Z/u/p2WjR0KPjRj6dj5gS1egddI=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=NmOlhgdA4J9PjvsJZ56SA9zEWeJLEtayb0M9CsomkC6/qEBQkCzY9AesXOmauq5qg3d3z0KzomJvON92Toeyl4IUhizVGhI/UgSZbLdKlfPbw8iCjGCV64JvcXXUhk6I7NZObgBwQaF/wUxJ+rfbxALDUIeKbc9nXOocoaJk+Mo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.198])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hdWWF0vgdzYQtk1;
+	Mon,  7 Sep 2026 10:39:53 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.112])
+	by mail.maildlp.com (Postfix) with ESMTP id 2715640577;
+	Mon,  7 Sep 2026 10:40:42 +0800 (CST)
+Received: from [10.174.176.103] (unknown [10.174.176.103])
+	by APP1 (Coremail) with UTF8SMTPA id cCh0CgDHrQgmJJ5q12MmBA--.51243S2;
+	Mon, 07 Sep 2026 10:40:41 +0800 (CST)
+Subject: Re: [PATCH bpf v4] bpf: Fix UAF due to concurrent consumption of
+ ttrace lists in alloc_bulk
+To: Pu Lehui <pulehui@huaweicloud.com>, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>,
+ Leon Hwang <leon.hwang@linux.dev>
+Cc: Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>,
+ Yonghong Song <yonghong.song@linux.dev>, Song Liu <song@kernel.org>,
+ Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Pu Lehui <pulehui@huawei.com>
+References: <20260905021139.4116529-1-pulehui@huaweicloud.com>
+From: Hou Tao <houtao@huaweicloud.com>
+Message-ID: <87f13600-6988-f407-ed3b-61b11424da52@huaweicloud.com>
+Date: Mon, 7 Sep 2026 10:40:38 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260905021139.4116529-1-pulehui@huaweicloud.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-CM-TRANSID:cCh0CgDHrQgmJJ5q12MmBA--.51243S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxXFy8GryUZFyxAw1DXrWUArb_yoW5ArykpF
+	Z5Zr98XF1kAw1aya40qr4xCrZ7ZrsrWw43GFZ7WFnakw13Kr1DKFWfKryYqr9Yyw4xua43
+	tryq9r1rJw1UZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUB214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
+	1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IY64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+	n2IY04v7Mxk0xIA0c2IEe2xFo4CEbIxvr21lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2
+	Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s02
+	6x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0x
+	vE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE
+	42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6x
+	kF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUonmRUUUUU
+X-CM-SenderInfo: xkrx3t3r6k3tpzhluzxrxghudrp/
 
-From: Ridong Chen <chenridong@xiaomi.com>
 
-For MGLRU, memory.min/low is not honored during global proactive reclaim
-(writing to the root memory.reclaim) and global direct reclaim, because
-these paths shrink memcgs using stale protection (emin/elow).
-It can be reproduced as follows:
 
-  # echo 7 > /sys/kernel/mm/lru_gen/enabled
-  # cd /sys/fs/cgroup
-  # mkdir -p a/b
-  # echo 100M > a/memory.min
-  # echo +memory > a/cgroup.subtree_control
-  # echo 100M > a/b/memory.min
-  # echo $$ > a/b/cgroup.procs
-  # dd if=/dev/zero of=/tmp/testfile bs=1M count=200
-  # cat a/b/memory.current
-  222650368
-  # echo 500M > memory.reclaim
-  -bash: echo: write error: Resource temporarily unavailable
-  # cat a/b/memory.current
-  6070272
+On 9/5/2026 10:11 AM, Pu Lehui wrote:
+> From: Pu Lehui <pulehui@huawei.com>
+>
+> Syzkaller repeatedly triggered UAF splats related to nodes in
+> waiting_for_gp_ttrace within the bpf memalloc:
+>
+> BUG: KASAN: slab-use-after-free in llist_del_first+0x85/0x110 lib/llist.c:61
+> Read of size 8 at addr ffff8881572cd080 by task syz.4.470/5112
+>  ...
+>  llist_del_first+0x85/0x110 lib/llist.c:61
+>  alloc_bulk+0x193/0x460 kernel/bpf/memalloc.c:229
+>  bpf_mem_refill+0x386/0x560 kernel/bpf/memalloc.c:436
+>
+> Freed by task 14:
+>  ...
+>  __free_rcu kernel/bpf/memalloc.c:281 [inline]
+>  __free_rcu_tasks_trace+0x48/0xd0 kernel/bpf/memalloc.c:291
+>  rcu_tasks_invoke_cbs+0x1ec/0x3e0 kernel/rcu/tasks.h:571
+>  rcu_tasks_one_gp+0x13d/0x220 kernel/rcu/tasks.h:621
+>  rcu_tasks_kthread+0xf3/0x120 kernel/rcu/tasks.h:651
+>
+> The reason is that the UAF occurs after the RCU Tasks Trace GP expires:
+> when the __free_rcu() callback runs, there is no synchronization
+> protecting llist_del_all() against concurrent alloc_bulk() operating on
+> waiting_for_gp_ttrace, leading to the race condition below:
+>
+> CPU0                                           CPU1
+>                                                __free_rcu (RCU Tasks Trace callback)
+> alloc_bulk
+>   llist_del_first(&c->waiting_for_gp_ttrace)
+>     entry = smp_load_acquire(&head->first);
+>     do {
+>       if (entry == NULL)
+>         return NULL;
+>                                                free_all(llist_del_all(&c->waiting_for_gp_ttrace))
+>                                                  llist_for_each_safe(pos, t, llnode)
+>                                                    free_one(pos);
+>       next = READ_ONCE(entry->next); <-- trigger UAF
+>     } while (!try_cmpxchg(&head->first, &entry, next));
+>
+> In addition, there is also a theoretical race condition on the
+> free_by_rcu_ttrace list. This race requires two preconditions: an
+> in-flight Tasks Trace GP keeping c->call_rcu_ttrace_in_progress == 1,
+> and concurrent cross-CPU frees repopulating c->free_by_rcu_ttrace with
+> new nodes. Under these conditions, the following scenario triggers UAF:
+>
+> // CPU0
+> // irq work is still busy (on PREEMPT_RT)
+> alloc_bulk()
+>   llist_del_first(&c->free_by_rcu_ttrace)
+>     entry = smp_load_acquire(&head->first);
+>     do {
+>       if (entry == NULL)
+>         return NULL;
+>
+>         // CPU1
+>         bpf_mem_alloc_destroy()
+>           WRITE_ONCE(c->draining, true)
+>           // wait for CPU0
+>           irq_work_sync()
+>
+>                 // CPU2
+>                 do_call_rcu_ttrace(tgt(CPU0))
+>                   if (c->draining) {
+>                     llist_del_all(&c->free_by_rcu_ttrace)
+>                     free_all()
+>                   }
+>
+> // CPU0 continue
+>       next = READ_ONCE(entry->next); <-- trigger UAF
+>     while (!try_cmpxchg(&head->first, &entry, next));
+>
+> Fix this by introducing a raw spinlock to synchronize the concurrent
+> consumption on waiting_for_gp_ttrace and free_by_rcu_ttrace.
+>
+> Fixes: 04fabf00b4d3 ("bpf: Allow reuse from waiting_for_gp_ttrace list.")
+> Suggested-by: Alexei Starovoitov <ast@kernel.org>
+> Suggested-by: Hou Tao <houtao1@huawei.com>
+> Signed-off-by: Pu Lehui <pulehui@huawei.com>
 
-memory.min is 100M, yet reclaim drops a/b down to 6M, breaking the
-protection. The traditional LRU path is not affected because
-shrink_node() calls mem_cgroup_calculate_protection() for each memcg it
-visits during a top-down tree walk.
-
-Commit 30d77b7eef01 ("mm/mglru: fix ineffective protection calculation")
-moved the protection computation into lru_gen_age_node(), which only
-runs for kswapd. Non-kswapd global reclaim reaches shrink_one() through
-lru_gen_shrink_node() -> shrink_many() without any protection
-computation, so emin/elow are whatever a previous kswapd run left behind
-- or zero if kswapd never ran on this node. Relying on a prior kswapd
-pass is not correct either: a memcg's emin/elow are derived from its
-ancestors' memory.min/low settings and from children_min_usage, both of
-which change over time, so emin/elow go stale even after kswapd has run
-and must be recomputed at the point of reclaim.
-
-Introduce mem_cgroup_calculate_protection_path() which computes emin/elow
-along the root-to-target path only, by iterating through the cgroup
-ancestors array top-down. This avoids the full tree traversal that would
-be needed with mem_cgroup_calculate_protection(), limiting the cost to
-O(depth) per memcg - typically 3-5 levels.
-
-Call it from shrink_one() for the non-kswapd path so that each memcg
-about to be shrunk has correct protection values.
-
-Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
----
- include/linux/memcontrol.h | 10 +++++++++
- mm/memcontrol.c            | 45 ++++++++++++++++++++++++++++++++++++++
- mm/vmscan.c                |  8 ++++++-
- 3 files changed, 62 insertions(+), 1 deletion(-)
-
-diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-index f227348a3f24a..a65a516adc665 100644
---- a/include/linux/memcontrol.h
-+++ b/include/linux/memcontrol.h
-@@ -1885,6 +1885,16 @@ static inline bool memcg_is_dying(struct mem_cgroup *memcg)
- }
- #endif /* CONFIG_MEMCG */
- 
-+#if defined(CONFIG_MEMCG) && defined(CONFIG_LRU_GEN)
-+void mem_cgroup_calculate_protection_path(struct mem_cgroup *root,
-+					  struct mem_cgroup *memcg);
-+#else
-+static inline void mem_cgroup_calculate_protection_path(struct mem_cgroup *root,
-+							struct mem_cgroup *memcg)
-+{
-+}
-+#endif
-+
- #if defined(CONFIG_MEMCG) && defined(CONFIG_ZSWAP)
- bool obj_cgroup_may_zswap(struct obj_cgroup *objcg);
- void obj_cgroup_charge_zswap(struct obj_cgroup *objcg, size_t size);
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 256b68ffca70e..ae568fc688130 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -5214,6 +5214,51 @@ void mem_cgroup_calculate_protection(struct mem_cgroup *root,
- 	page_counter_calculate_protection(&root->memory, &memcg->memory, recursive_protection);
- }
- 
-+#ifdef CONFIG_LRU_GEN
-+/**
-+ * mem_cgroup_calculate_protection_path - compute protection along a path
-+ * @root: the top ancestor of the sub-tree being checked (NULL for root_mem_cgroup)
-+ * @memcg: the target memory cgroup
-+ *
-+ * Walk the ancestor path from @root down to @memcg and compute the effective
-+ * protection at each level.  This is safe for isolated queries because it
-+ * ensures parents are computed before children.
-+ */
-+void mem_cgroup_calculate_protection_path(struct mem_cgroup *root,
-+					  struct mem_cgroup *memcg)
-+{
-+	bool recursive_protection =
-+		cgrp_dfl_root.flags & CGRP_ROOT_MEMORY_RECURSIVE_PROT;
-+	struct cgroup *cg;
-+	int root_level, i;
-+
-+	if (mem_cgroup_disabled())
-+		return;
-+
-+	if (!root)
-+		root = root_mem_cgroup;
-+
-+	if (memcg == root)
-+		return;
-+
-+	root_level = root->css.cgroup->level;
-+	cg = memcg->css.cgroup;
-+
-+	rcu_read_lock();
-+	for (i = root_level + 1; i <= cg->level; i++) {
-+		struct mem_cgroup *cur;
-+
-+		cur = mem_cgroup_from_css(cgroup_css(cg->ancestors[i],
-+						     &memory_cgrp_subsys));
-+		if (cur)
-+			page_counter_calculate_protection(&root->memory,
-+							  &cur->memory,
-+							  recursive_protection);
-+	}
-+	rcu_read_unlock();
-+}
-+#endif /* CONFIG_LRU_GEN */
-+
- static int charge_memcg(struct folio *folio, struct mem_cgroup *memcg,
- 			gfp_t gfp)
- {
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index b4c9b8f3dfe99..8409ea4bbf379 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -5111,7 +5111,13 @@ static int shrink_one(struct lruvec *lruvec, struct scan_control *sc)
- 	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
- 	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
- 
--	/* lru_gen_age_node() called mem_cgroup_calculate_protection() */
-+	/*
-+	 * For kswapd, mem_cgroup_calculate_protection() has already
-+	 * been called during the top-down cgroup traversal.
-+	 */
-+	if (!current_is_kswapd())
-+		mem_cgroup_calculate_protection_path(NULL, memcg);
-+
- 	if (mem_cgroup_below_min(NULL, memcg))
- 		return MEMCG_LRU_YOUNG;
- 
--- 
-2.34.1
+Acked-by: Hou Tao <houtao1@huawei.com>
 
