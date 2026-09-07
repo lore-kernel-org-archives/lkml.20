@@ -1,72 +1,77 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D04357D0A;
-	Mon,  7 Sep 2026 18:05:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FD443537E5;
+	Mon,  7 Sep 2026 18:08:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788804337; cv=none; b=cD9AnWfaRE5NOiauq9eYrhX1wt4PBlCI1E7C6jt04NPxnmUxrAp+5No3vTtzt4XzqPiSZrJJa6I+RxE9Xqm7Vh1pBTJFYnpAW3oqu0r94P4D7ESvlkquaEZjR9lh5L/f0Et9Cj+ExPyHfehjRhnywAPetJgWWGpBxdZ8tB9obC4=
+	t=1788804510; cv=none; b=AahCrKrpzy05NkR79u1jMLbwSgJ5x1NPJoNdXoTkMn5lyqypVqUzPClDZbCxEGucs4ynQZ6ARlOox7xyQWLi/txFJriWJZdzAj6IgTJ/AJK2LT83DZxaAtQxgx4Hf6HOBFQBqbUb8oHnekD1MS3P07qEaz+Y5Vbc5sCfRCEqoGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788804337; c=relaxed/simple;
-	bh=irCQ4jBgKVi9PdwNEEM5T06sY24CnC/GOVKxNfPwso8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DLSOhQjwXc36PA0oDYA+LgskTUVC6BWDFj+/oE1WdRbnQYrTPiNDfkni+tzdEeb5MZJwWLIrBRsOtu/V4B6lr1BcLCdmQhh8NNTrHb7tg9RjIvsHMe94Z2uCp0vNrfSmsKlnRnJb5dQy9VQetube2kHOB8KEKZcRZmyc/cYr9YU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=WWLGjDwb; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788804510; c=relaxed/simple;
+	bh=nsTn+f5p/oeOk9s4FDodU0ZT+xHIuz5uH+mNqdXYbuw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AwD4X18kldSWcWiDya71eReuCyNATlryGY/T6js25fJnyfFwdOe/qe+7RdztVcBJhad9s4IqQC1c6F2+I7j+V2nloKCz+RslyE4C9DkT6fmTeblWUgBkA3PwEesU9Lf4WX18cDP3Ncb082cWzvLuY9UtXneyH3wUPs0CLvU2vqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ox99Oq+E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="WWLGjDwb"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=5DGA5yGgA6WfP2iOigvVrpj/b8QvWE0uJAMX/rb27bg=; b=WWLGjDwbVkls5zSmMFgX9TOmdZ
-	Dzot4tUT+wMtcsWxNstt3dBm0YdnGl79RGTSdqvy9vUr0o3LhvHize+bmp6yR8+TrWfGSo+rg0aoN
-	lySE9Wbm8qOkeu927q2KCdkeMFTSPnDrGXKrnMJnu4yXtRn7D5kWD4D3GMtUwzYzk8UE=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x3diO-003aXf-M0; Mon, 07 Sep 2026 20:05:08 +0200
-Date: Mon, 7 Sep 2026 20:05:08 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
-	Oliver O'Halloran <oohall@gmail.com>,
-	Geoff Levand <geoff@infradead.org>,
-	Haren Myneni <haren@linux.ibm.com>,
-	Rick Lindsley <ricklind@linux.ibm.com>,
-	Nick Child <nnac123@linux.ibm.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org, netdev@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH 0/2] powerpc: fix typos and repeated words in comments
-Message-ID: <b1f18b1e-dd7c-4e12-9a87-c7ee5e69697c@lunn.ch>
-References: <20260907065153.33578-1-hemanth.selam@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ox99Oq+E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AEAE1F00A3A;
+	Mon,  7 Sep 2026 18:08:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788804508;
+	bh=MuZcYPh1omkK8HEZAXjbGNcKNlLfSUT4dmGoKmWIVI4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ox99Oq+E1x0aCR9QfZaBIpMRK10/Kaz+mG8KeuckNkgLWjCTRzhtUq9JVB0EC7Kk4
+	 GyF6+w9CgAafQfKNTcgK+OP8NtRg9l+qZXkBt2D6yc2VcjVIY2v2tPr3FvBO7hZ+u9
+	 HOw9PmMgwLbMYu2z5RcvdsT/8Q/SeNDZA8eNY9EC3VrtEtjnrn+VC1Yd6iGZlxDZW0
+	 dkcwA/ZsTTylD0Mw6FVLZYdzk5AdR37rXI8Ztz/474zp65yfHdeSBoT7iPhimRqcL+
+	 KpFijJmccHuhawmLpX4haPNle7le9+KNYH8p/p3WO10Ba3uBmEmtMOHTHyJYRb4YcB
+	 QBSh6NQgvMcvQ==
+From: SJ Park <sj@kernel.org>
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	stable@vger.kernel.org,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH] mm/damon/vaddr: avoid hw-driven pte updates during damon_hugetlb_mkold()
+Date: Mon,  7 Sep 2026 11:08:20 -0700
+Message-ID: <20260907180821.102875-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260907170358.100168-1-sj@kernel.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907065153.33578-1-hemanth.selam@gmail.com>
+Content-Transfer-Encoding: 8bit
 
->  drivers/net/ethernet/ibm/ibmvnic.h                     |  4 ++--
+On Mon,  7 Sep 2026 10:03:56 -0700 SJ Park <sj@kernel.org> wrote:
 
-Please split this one out and subnet it to netdev.
+[...]
+> +static bool damon_hugetlb_ptep_mkold(pte_t *pte, struct mm_struct *mm,
+> +		struct vm_area_struct *vma, unsigned long addr, pte_t *entry)
+> +{
+> +	unsigned long psize = huge_page_size(hstate_vma(vma));
+> +
+> +	if (!pte_young(*entry))
+> +		return false;
+> +	*entry = huge_ptep_get_and_clear(mm, addr, pte, psize);
+> +	*entry = pte_mkold(*entry);
+> +	set_huge_pte_at(mm, addr, pte, *entry, psize);
+> +	return true;
 
-    Andrew
+Sashiko says [1] this might violate BBM.  But this is only for accessed bit
+change.  So I don't think BBM is required here.  Also, we intentionally do not
+flush TLB because this is just a best-effort monitoring.  Please correct me if
+I'm wrong.
 
----
-pw-bot: cr
+[1] https://lore.kernel.org/20260907171613.A09B11F00A3A@smtp.kernel.org
+
+
+Thanks,
+SJ
+
+[...]
