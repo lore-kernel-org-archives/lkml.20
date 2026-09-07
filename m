@@ -1,375 +1,208 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B7054734C6
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:12:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC4EF46E019
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:12:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788790333; cv=none; b=mXuNDdSPoweKEg09MSX8cmpuXoz4YUMkdt4oNpJMogsokMUfSz5BQoP37OOqtAiKwKJ1i8t5i5/zRUsjK/cxB2ps3EQbHPa5zBlNB52ryqIbj0izUBkBTG554YZ0S7K81yON/8bZZFuJuIqxB2Z3ljY11a6gFHfusUlkimqhhNQ=
+	t=1788790350; cv=none; b=fs5kUmc5wvZK/pc3QyMLtKkNrfL2CSyg362VweH77A0BLLbR6qJi47+RT7adj46rnZq48/EN47QzDQwsRPw4EvI1aNzTT0Qp5YWdGVeX6dt/cfQ1+3VJKdSYrM3yfhmHimoyli6AEBXzwQOMUEpeAj3jEVC7a+vMEFmfFshzmdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788790333; c=relaxed/simple;
-	bh=fS+geZIdxtmX7yxbcEzrvKuspfoxDdUwZsyfHCvJ/GY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jMxGnfxI6iSYBKIHWLn8Ens4u/wImdMRLaGe5ppcPz4K1ILxtvfaJnt34V9gZ42ubLSKTCrjg8tJUv08W4lJMTcDr/pfXLQ56ClLhVy26qIGOmZPxlno5ZCeBSPAPghKGzPWtu/D5hZyF19i52YD9Br0tRNzvchTb5oCEGjRa74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TjcSxl9u; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788790350; c=relaxed/simple;
+	bh=CPG+Nl1FjLiJ91vtK09JG+tyqgPwabdg+bCzl4R7GoI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hviIHcdy/aigr9dt0dS0gkcL1Gz3GcmuXs76i7mhF6MvyuO7gt9Cu4ncAWFqsqU/tZ4sKIBIomg95H5USpJAkraoofrh8wUMtzZhemJvbAiQsJryU9Ad0WL0pslmtm8Ebys6fMCNvh9CHPEb7XmXh1RpvVw7geU+ZdCLeZCwtF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=aSJ9bwQm; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ndD01nXT; arc=none smtp.client-ip=103.168.172.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TjcSxl9u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D6C51F00A3E
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:12:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788790330;
-	bh=4j34JVFyI4cB1/rq3EimeqA7+T20tu0tgDX1NSgvu/8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=TjcSxl9usDzSzcnm6PbtlAErVDzLwHmd9WRMJSnD1x9BZXSLSmh1YVwU98ynQlEhP
-	 PUGfZKuK43jzT4cR36HKNojmr2Ak9EVDUDVjXmUm6Uu5MVVovdwBV3ywLmP3AnvF+y
-	 JgPIiOh7CHmYNfmrynpNHh96iH/iqeapdOkCwc1cm3vS27lB2dLWnbU6Gwazs+vGFs
-	 U9YX80+dCAWjha7oVXCQP3SS72gDtdxCKw4bxE8MkaS8laqV63KqZBoV5t64NqXipo
-	 LpCKns58HEN8yEPuhCtwFnWJuEA2CibNNnEezMec684Md/bBDBYxJb5UI4QCJCqDjm
-	 y1qr2k5391j3A==
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a68ca482e2so4495099a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 07:12:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy8jdDmTMvA2gyiK3NgbbnxLru09+cgcQKSMWot2shcE2h6aqP/Aw50oPLwgnTLXM5pvw3yW5ZAN5YXpjo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mypbMCwKKOoutrJO6L+5JU+pKbEKTGORiL1kexrqANngWZVO4b
-	ApMM3NjbRxp9FLtdLdyI2Z1glvbcydPIJNjcRsJsl3Q5Qo9UVROdXBCzXAgKEaRRpMi38D/jrD+
-	gDaMruCD8jjSvT54g6yNprDpRlWcrqNA=
-X-Received: by 2002:a05:6402:325a:b0:6a6:1a05:8b30 with SMTP id
- 4fb4d7f45d1cf-6a7e8d53f89mr12222359a12.6.1788790328635; Mon, 07 Sep 2026
- 07:12:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="aSJ9bwQm";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ndD01nXT"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 297EA14001AE;
+	Mon,  7 Sep 2026 10:12:26 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Mon, 07 Sep 2026 10:12:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1788790346; x=
+	1788876746; bh=umeAJ+zJcQvKDZlRTgQ3GHuC/ov3xHfi3/+4coId5nk=; b=a
+	SJ9bwQmgeeXzCh+rpvi6NWAt8C0hvIhJum2+soViebhRo6m1VPmiRfXP0KKnYLnZ
+	zt89JmR0Biq/0iXIgZBL04O/oukjPQGrgOLb85zu9XDZANUFDqdRlGid1j+Hpk1C
+	bErT9d42T2mYILgIbcJqDuzwAe6kI0cCvLoDfZm7rA2esFk2+nxcSyl1k70qqB+p
+	xaNxGCcTic46YgoVhMeS6sJlx2Pt+NZ23rTsf2aFt1B/E2VW9x5/y+vzjQZNYI3H
+	Ur81z2247HuY0kDtKbHhxFIOPsdT1RSGewN+M3NNPsYVd+JMvnM0QhpCrGO8+yGP
+	jd/hePvWAF7z3PP4Da2Mw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1788790346; x=1788876746; bh=umeAJ+zJcQvKDZlRTgQ3GHuC/ov3xHfi3/+
+	4coId5nk=; b=ndD01nXTGRUV2sHHjJwAPiONfchcAnfjXYUIMb9lep4GhVlQGB9
+	rXLeS6+Msxq3mzxEJVvMnzvyMasJNLS5pIHDoNqBhI9h7CUgyQFr8dnDYiJOCEH+
+	8FymkyGlvYAi3YdD7q4e5H2xWdLe9qWUa/s8+ej3fp0dxhLmtHZDdKrHboizavGQ
+	4H5+Qy5Xnxcwy7Hicy+6Jhse+YapElI82yuHjRJsoCvPpuAhtTkU380VqP+f12XT
+	O6IvDkEzCKi4/r1maZ0MtJNQNa2VXss4i3ZN7ejgyqDEyKiKAc1aZCqUwF0D30K9
+	c0R0lS/Au0i8JHaO+V5OWEAetbGfVd82lUQ==
+X-ME-Sender: <xms:R8aeaiRaeJvMbr9Rr4CPkjz2Q3k0yfJEHoO2bi0g0p30uFjqkwSYHA>
+    <xme:R8aeaukei0h6ZkdKALZVxwAM679YQNQ2-p2CxNW2llRZ8-DYJHk0lBIrWiWFLIH2N
+    TqCWHezjYXY3ppGFBfEZLceyzskHotHFyUx3ltY4RLlyNePZ78vJWw>
+X-ME-Received: <xmr:R8aeaowVW0v5jg7BYP2neHE6BAZuGPTkeamZ42LDjc61EZqe8doPtnZjpWE>
+X-ME-Proxy-Cause: dmFkZTGoFCFY9lnCBAPkrzJuFdKFm5LgvA7vP2oOkhQ51damXXSrFR8r0fW/T/fEZZCcBS
+    cBr66M7WugjCfFCs3yKrXSMBJR0a4lDmZmFFz8Q37pMl3EQtfEnkIjRP7VcLGbiOhAOv8U
+    wKll2j8iFpfDXVDN6ZSFUQVgyjIt8i4vrTEo/XZHT9rYzaRSdwqbEKLk368Bdf42v+aX6d
+    KDRxz5XSieQJRfWSBQ9w8eLUqCFB7pTB9OFBoZNbHqAP/mirV8lJfQCIGC8yC1mmEx+4HI
+    91fxW/JgKt9pXSjBmKJK17bvBRjajPqOce+gw2NdBH0lA4jh8lkZiYgaWT6ccDpGm1hjnX
+    sSkiJ58Y3/H58ZvxBdG4tD5bgjmmcWKJAOXnJ9qYu3znkyJbWuSM2PWFWb6zKD3lU48ZYT
+    QqsCGndowo9+mKhFjsMTWxQE7n1FAPgdArsKnl5A4vPEpQWMxY4X3tAloBkybQIxXtL3mh
+    4PooriQ2tRULx7DoPg1KZnZqKjiBo6Fo0lqtCySrmDkaMlI7H+tYTTbOiQO/iL+lE9d0fJ
+    Qdf5RA24R9XGGvXS1W+7ayqZl3vWMF1C6u0vka2phaEfvdCYz10YmPB5mlerXeNt+oIZuf
+    DzmMdEVQKf7GAjFnddTTn09jfxA0fc2OX2xjeNAxLr99HmMt87nxd0ybhPdg
+X-ME-Proxy: <xmx:R8aeag3ANUhcpofUaDgDUrAFj8kBr4in5ewUjqU1PXhtzqdR5Jz3QA>
+    <xmx:R8aeavz2GnundL7MefdCZ7scxQM5oFyO0ggGwowZHiK8z1pNVEwSVw>
+    <xmx:R8aeapL5nz9as05vT_tZFHAiORdCT0sBqmARlnW5DTeOxF6eVQ2YiQ>
+    <xmx:R8aeat-rrorQQanmUrJGIbipGEDt_WPuccT0HoZL32mzuHbZzvhXGA>
+    <xmx:SsaeavvT4IEjEFkBUbui4eNOrDkE6EMxJpfw8kM0MWO22RWLFWrvB_V4>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 7 Sep 2026 10:12:23 -0400 (EDT)
+Date: Mon, 7 Sep 2026 15:12:21 +0100
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: akpm@linux-foundation.org, ljs@kernel.org, hannes@cmpxchg.org, 
+	usama.arif@linux.dev, lance.yang@linux.dev, ziy@nvidia.com, kasong@tencent.com, 
+	hughd@google.com, baolin.wang@linux.alibaba.com, baohua@kernel.org, 
+	liam@infradead.org, nico.pache@linux.dev, dev.jain@arm.com, ryan.roberts@arm.com, 
+	balbirs@nvidia.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] mm/huge_memory: dequeue the deferred split after
+ the split freeze
+Message-ID: <ap7Fs9DCP3PVOxwY@thinkstation>
+References: <20260831091514.1879786-1-kirill@shutemov.name>
+ <20260831091514.1879786-3-kirill@shutemov.name>
+ <f44181bb-ff82-4537-b2eb-fcbde304d7eb@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907023827.14905-1-zhaoqunqin@163.com> <20260907023827.14905-3-zhaoqunqin@163.com>
-In-Reply-To: <20260907023827.14905-3-zhaoqunqin@163.com>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Mon, 7 Sep 2026 22:12:01 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H6M+MKs+YYB9dKofVi56wKSoY1y9KYWP9wJfjz=cK9waw@mail.gmail.com>
-X-Gm-Features: AcwNN1VHJCFS1XdyxdMPGv6MTjODmAr6tsGUPDrJQz9tSWNPnmxPSO_egWRxx8A
-Message-ID: <CAAhV-H6M+MKs+YYB9dKofVi56wKSoY1y9KYWP9wJfjz=cK9waw@mail.gmail.com>
-Subject: Re: [PATCH v6 2/2] mfd: loongson-se: Fix miscellaneous issues
-To: Qunqin Zhao <zhaoqunqin@163.com>
-Cc: lee@kernel.org, linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, 
-	linux-crypto@vger.kernel.org, mfd@lists.linux.dev, 
-	Qunqin Zhao <zhaoqunqin@loongson.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f44181bb-ff82-4537-b2eb-fcbde304d7eb@kernel.org>
 
-Hi, Qunqin,
+On Mon, Sep 07, 2026 at 03:55:53PM +0200, David Hildenbrand (Arm) wrote:
+> On 8/31/26 11:15, Kiryl Shutsemau wrote:
+> > From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> > 
+> > __folio_freeze_and_split_unmapped() takes the deferred split list_lru lock
+> > across the freeze. It is only there to stop deferred_split_scan() from
+> > touching the folio under split.
+> > 
+> > With deferred_split_isolate() fixed, the workaround can be dropped.
+> > 
+> > Unqueue the folio after folio_ref_freeze(), the way
+> > __folio_migrate_mapping() does: folio_unqueue_deferred_split() needs a
+> > zero refcount and a memcg still set, and both hold there.
+> > 
+> > If the split is called from deferred_split_scan(), the unqueue is a
+> > no-op -- the folio is already removed from the list. But
+> > PG_partially_mapped is still set, so it has to be cleared here or
+> > MTHP_STAT_NR_ANON_PARTIALLY_MAPPED never comes back down.
+> > 
+> > Assisted-by: Claude-Code:claude-opus-5
+> > Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> > Reviewed-by: Zi Yan <ziy@nvidia.com>
+> > Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+> > Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> > ---
+> >  mm/huge_memory.c | 44 +++++++++++++-------------------------------
+> >  1 file changed, 13 insertions(+), 31 deletions(-)
+> > 
+> > diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> > index 6281ed993243..c84e8cbc986d 100644
+> > --- a/mm/huge_memory.c
+> > +++ b/mm/huge_memory.c
+> > @@ -3931,41 +3931,27 @@ static int __folio_freeze_and_split_unmapped(struct folio *folio, unsigned int n
+> >  	struct folio *end_folio = folio_next(folio);
+> >  	struct folio *new_folio, *next;
+> >  	int old_order = folio_order(folio);
+> > -	struct list_lru_one *lru;
+> > -	bool dequeue_deferred;
+> >  	int ret = 0;
+> >  
+> >  	VM_WARN_ON_ONCE(!mapping && end);
+> > -	/*
+> > -	 * If this folio can be on the deferred split queue, lock out
+> > -	 * the shrinker before freezing the ref. If the shrinker sees
+> > -	 * a 0-ref folio, it assumes it beat folio_put() to the list
+> > -	 * lock and must clean up the LRU state - the same dequeue we
+> > -	 * will do below as part of the split.
+> > -	 */
+> > -	dequeue_deferred = folio_test_anon(folio) && old_order > 1;
+> > -	if (dequeue_deferred) {
+> > -		struct mem_cgroup *memcg;
+> >  
+> > -		rcu_read_lock();
+> > -		memcg = folio_memcg(folio);
+> > -		lru = list_lru_lock(&deferred_split_lru,
+> > -				    folio_nid(folio), &memcg);
+> > -	}
+> 
+> Nice cleanup.
+> 
+> >  	if (folio_ref_freeze(folio, folio_cache_ref_count(folio) + 1)) {
+> >  		struct swap_cluster_info *ci = NULL;
+> >  		struct lruvec *lruvec;
+> >  
+> > -		if (dequeue_deferred) {
+> > -			__list_lru_del(&deferred_split_lru, lru,
+> > -				       &folio->_deferred_list, folio_nid(folio));
+> > -			if (folio_test_partially_mapped(folio)) {
+> > -				folio_clear_partially_mapped(folio);
+> > -				mod_mthp_stat(old_order,
+> > -					MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, -1);
+> > -			}
+> > -			list_lru_unlock(lru);
+> > -			rcu_read_unlock();
+> > +		/* Take off the deferred split queue while frozen and memcg set */
+> > +		folio_unqueue_deferred_split(folio);
+> > +
+> > +		/*
+> > +		 * deferred_split_scan() takes the folio off the queue before it
+> > +		 * splits it, so the unqueue above finds an empty list and
+> > +		 * leaves PG_partially_mapped set.
+> > +		 * Clear it here: the flag does not survive the split.
+> > +		 */
+> > +		if (folio_test_partially_mapped(folio)) {
+> > +			folio_clear_partially_mapped(folio);
+> > +			mod_mthp_stat(old_order,
+> > +				      MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, -1);
+> >  		}
+> 
+> In general,
+> 
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> 
+> But I do wonder whether this sequence (that also
+> __folio_unqueue_deferred_split()) performs would deserve a small local helper in
+> mm/huge_memory.c
+> 
+> Could be done as a separate cleanup.
 
-On Mon, Sep 7, 2026 at 10:38=E2=80=AFAM Qunqin Zhao <zhaoqunqin@163.com> wr=
-ote:
->
-> From: Qunqin Zhao <zhaoqunqin@loongson.cn>
->
-> Address multiple historical driver issues discovered by the Sashiko
-> Automation system within the loongson_se_probe() initialization flow
-> and the driver's interrupt service routines [1].
->
-> - Add an explicit bounds check in se_irq_handler() before accessing
->   the engines array to prevent an out-of-bounds memory access.
->
-> - Switch from devm_kmalloc() to devm_kzalloc() and explicitly
->   initialize all engine completion structures in probe() to avoid a
->   kernel panic from complete() dereferencing a NULL wait head when a
->   spurious interrupt fires before child drivers call
->   loongson_se_init_engine().
->
-> - Serialize command submission with a new poll_lock spinlock and
->   protect the completion reset with the interrupt lock.  Before
->   issuing a command, mask the target interrupt, clear any pending
->   status, and reinitialize the completion under dev_lock, then
->   re-enable the interrupt after the command has been triggered.  This
->   closes the race where a stale interrupt from a previously
->   interrupted command could complete the current command's
->   completion.  The spin_lock_irq() around the 10 ms poll is dropped so
->   interrupts are not disabled for the full busy-wait.
->
-> - Fix EPROBE_DEFER handling: propagate the error directly from
->   platform_irq_count() instead of overwriting it with ENODEV so that
->   probe deferral works when the interrupt provider is not yet ready.
->
-> - Validate dmam_size from firmware against the minimum required size
->   to keep the command buffers of all engines within engine 0's data
->   region and prevent overlapping DMA buffers.
->
-> - Return the error code from devm_request_irq() instead of silently
->   continuing to prevent an indefinite hang.
->
-> - Add a loongson_se_stop() cleanup handler registered with
->   devm_add_action_or_reset() before loongson_se_init() so that a
->   failed init still stops the controller and masks all interrupts via
->   devres, preventing DMA access to freed memory.
->
-> - Zero-initialize the local controller command structures in
->   loongson_se_init() and loongson_se_init_engine() to prevent
->   uninitialized stack data from being written to device registers.
->
-> - Add the SE_CMD_STOP command definition.
->
-> Link: https://lore.kernel.org/all/20260618095949.GB1672911@google.com/ [1=
-]
-> Fixes: e551fa3159e3 ("mfd: Add support for Loongson Security Engine chip =
-controller")
-> Signed-off-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
-> ---
->  drivers/mfd/loongson-se.c       | 90 +++++++++++++++++++++++++++++----
->  include/linux/mfd/loongson-se.h |  1 +
->  2 files changed, 82 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/mfd/loongson-se.c b/drivers/mfd/loongson-se.c
-> index 7f552a8ee..1d332c418 100644
-> --- a/drivers/mfd/loongson-se.c
-> +++ b/drivers/mfd/loongson-se.c
-> @@ -23,6 +23,8 @@
->  struct loongson_se {
->         void __iomem *base;
->         spinlock_t dev_lock;
-> +       /* Synchronizes command submission between users of different eng=
-ines */
-> +       spinlock_t poll_lock;
-Can't we reuse dev_lock?
+Just to be sure, do you want a helper like this:
 
-Huacai
+static void folio_clear_partially_mapped_stat(struct folio *folio)
+{
+      if (!folio_test_partially_mapped(folio))
+              return;
 
->         struct completion cmd_completion;
->
->         void *dmam_base;
-> @@ -42,7 +44,7 @@ static int loongson_se_poll(struct loongson_se *se, u32=
- int_bit)
->         u32 status;
->         int err;
->
-> -       spin_lock_irq(&se->dev_lock);
-> +       spin_lock(&se->poll_lock);
->
->         /* Notify the controller that the engine needs to be started */
->         writel(int_bit, se->base + SE_L2SINT_SET);
-> @@ -52,17 +54,48 @@ static int loongson_se_poll(struct loongson_se *se, u=
-32 int_bit)
->                                                 !(status & int_bit),
->                                                 1, LOONGSON_ENGINE_CMD_TI=
-MEOUT_US);
->
-> -       spin_unlock_irq(&se->dev_lock);
-> +       /*
-> +        * Re-enable the interrupt that loongson_se_reinit_completion() m=
-asked.
-> +        * The hardware guarantees that once the interrupt is re-enabled,=
- only
-> +        * interrupts for the command just issued can arrive, so a stale
-> +        * interrupt from a previously interrupted command can never comp=
-lete
-> +        * this command's completion.
-> +        */
-> +       writel(int_bit | readl(se->base + SE_S2LINT_EN), se->base + SE_S2=
-LINT_EN);
-> +
-> +       spin_unlock(&se->poll_lock);
->
->         return err;
->  }
->
-> +/*
-> + * Prepare a completion for a new command: mask the corresponding interr=
-upt,
-> + * clear any pending interrupt status, and reset the completion.  This r=
-uns
-> + * under dev_lock so that the IRQ handler cannot race with it.  The inte=
-rrupt
-> + * is re-enabled in loongson_se_poll() after the command has been issued=
-.
-> + */
-> +static void loongson_se_reinit_completion(struct loongson_se *se,
-> +                                         struct completion *completion, =
-u32 int_bit)
-> +{
-> +       spin_lock_irq(&se->dev_lock);
-> +
-> +       writel(readl(se->base + SE_S2LINT_EN) & ~int_bit, se->base + SE_S=
-2LINT_EN);
-> +
-> +       writel(int_bit, se->base + SE_S2LINT_CL);
-> +
-> +       reinit_completion(completion);
-> +
-> +       spin_unlock_irq(&se->dev_lock);
-> +}
-> +
->  static int loongson_se_send_controller_cmd(struct loongson_se *se,
->                                            struct loongson_se_controller_=
-cmd *cmd)
->  {
->         u32 *send_cmd =3D (u32 *)cmd;
->         int err, i;
->
-> +       loongson_se_reinit_completion(se, &se->cmd_completion, SE_INT_CON=
-TROLLER);
-> +
->         for (i =3D 0; i < SE_SEND_CMD_REG_LEN; i++)
->                 writel(send_cmd[i], se->base + SE_SEND_CMD_REG + i * 4);
->
-> @@ -75,12 +108,16 @@ static int loongson_se_send_controller_cmd(struct lo=
-ongson_se *se,
->
->  int loongson_se_send_engine_cmd(struct loongson_se_engine *engine)
->  {
-> +       int err;
-> +
-> +       loongson_se_reinit_completion(engine->se, &engine->completion, BI=
-T(engine->id));
-> +
->         /*
->          * After engine initialization, the controller already knows
->          * where to obtain engine commands from. Now all we need to
->          * do is notify the controller that the engine needs to be starte=
-d.
->          */
-> -       int err =3D loongson_se_poll(engine->se, BIT(engine->id));
-> +       err =3D loongson_se_poll(engine->se, BIT(engine->id));
->
->         if (err)
->                 return err;
-> @@ -93,7 +130,7 @@ struct loongson_se_engine *loongson_se_init_engine(str=
-uct device *dev, int id)
->  {
->         struct loongson_se *se =3D dev_get_drvdata(dev);
->         struct loongson_se_engine *engine =3D &se->engines[id];
-> -       struct loongson_se_controller_cmd cmd;
-> +       struct loongson_se_controller_cmd cmd =3D {0};
->
->         engine->se =3D se;
->         engine->id =3D id;
-> @@ -155,7 +192,8 @@ static irqreturn_t se_irq_handler(int irq, void *dev_=
-id)
->         /* For engines */
->         while (int_status) {
->                 id =3D __ffs(int_status);
-> -               complete(&se->engines[id].completion);
-> +               if (id < SE_ENGINE_MAX)
-> +                       complete(&se->engines[id].completion);
->                 int_status &=3D ~BIT(id);
->                 writel(BIT(id), se->base + SE_S2LINT_CL);
->         }
-> @@ -167,7 +205,7 @@ static irqreturn_t se_irq_handler(int irq, void *dev_=
-id)
->
->  static int loongson_se_init(struct loongson_se *se, dma_addr_t addr, int=
- size)
->  {
-> -       struct loongson_se_controller_cmd cmd;
-> +       struct loongson_se_controller_cmd cmd =3D {0};
->         int err;
->
->         cmd.command_id =3D SE_CMD_START;
-> @@ -188,6 +226,17 @@ static const struct mfd_cell engines[] =3D {
->         { .name =3D "tpm_loongson" },
->  };
->
-> +static void loongson_se_stop(void *data)
-> +{
-> +       struct loongson_se *se =3D data;
-> +       struct loongson_se_controller_cmd cmd =3D {0};
-> +
-> +       cmd.command_id =3D SE_CMD_STOP;
-> +       loongson_se_send_controller_cmd(se, &cmd);
-> +
-> +       writel(0, se->base + SE_S2LINT_EN);
-> +}
-> +
->  static int loongson_se_probe(struct platform_device *pdev)
->  {
->         struct device *dev =3D &pdev->dev;
-> @@ -195,19 +244,34 @@ static int loongson_se_probe(struct platform_device=
- *pdev)
->         int nr_irq, irq, err, i;
->         dma_addr_t paddr;
->
-> -       se =3D devm_kmalloc(dev, sizeof(*se), GFP_KERNEL);
-> +       se =3D devm_kzalloc(dev, sizeof(*se), GFP_KERNEL);
->         if (!se)
->                 return -ENOMEM;
->
->         dev_set_drvdata(dev, se);
->         init_completion(&se->cmd_completion);
->         spin_lock_init(&se->dev_lock);
-> +       spin_lock_init(&se->poll_lock);
->         mutex_init(&se->engine_init_lock);
->
-> +       for (i =3D 0; i < SE_ENGINE_MAX; i++)
-> +               init_completion(&se->engines[i].completion);
-> +
->         dma_set_mask_and_coherent(dev, DMA_BIT_MASK(64));
->         if (device_property_read_u32(dev, "dmam_size", &se->dmam_size))
->                 return -ENODEV;
->
-> +       /*
-> +        * Engine 0 does not exist and its data buffer is reused as the c=
-ommand
-> +        * buffer for the other engines.  The command buffers of all engi=
-nes
-> +        * therefore must fit within engine 0's data region, i.e.
-> +        * dmam_size / SE_ENGINE_MAX >=3D SE_ENGINE_MAX * 2 * SE_ENGINE_C=
-MD_SIZE.
-> +        * Enforce this to keep each engine's data and command buffers fr=
-om
-> +        * overlapping.
-> +        */
-> +       if ((se->dmam_size / SE_ENGINE_MAX) < (SE_ENGINE_MAX * 2 * SE_ENG=
-INE_CMD_SIZE))
-> +               return -EINVAL;
-> +
->         se->dmam_base =3D dmam_alloc_coherent(dev, se->dmam_size, &paddr,=
- GFP_KERNEL);
->         if (!se->dmam_base)
->                 return -ENOMEM;
-> @@ -217,20 +281,28 @@ static int loongson_se_probe(struct platform_device=
- *pdev)
->                 return PTR_ERR(se->base);
->
->         nr_irq =3D platform_irq_count(pdev);
-> -       if (nr_irq <=3D 0)
-> +       if (nr_irq =3D=3D 0)
->                 return -ENODEV;
-> +       if (nr_irq < 0)
-> +               return nr_irq;
->
->         writel(SE_INT_ALL, se->base + SE_S2LINT_CL);
->
->         for (i =3D 0; i < nr_irq; i++) {
->                 irq =3D platform_get_irq(pdev, i);
->                 err =3D devm_request_irq(dev, irq, se_irq_handler, IRQF_S=
-HARED, "loongson-se", se);
-> -               if (err)
-> +               if (err) {
->                         dev_err(dev, "failed to request IRQ: %d\n", irq);
-> +                       return err;
-> +               }
->         }
->
->         writel(SE_INT_ALL, se->base + SE_S2LINT_EN);
->
-> +       err =3D devm_add_action_or_reset(dev, loongson_se_stop, se);
-> +       if (err)
-> +               return err;
-> +
->         err =3D loongson_se_init(se, paddr, se->dmam_size);
->         if (err)
->                 return err;
-> diff --git a/include/linux/mfd/loongson-se.h b/include/linux/mfd/loongson=
--se.h
-> index 07afa0c25..8237ccab7 100644
-> --- a/include/linux/mfd/loongson-se.h
-> +++ b/include/linux/mfd/loongson-se.h
-> @@ -9,6 +9,7 @@
->  #define SE_SEND_CMD_REG_LEN            0x8
->  /* Controller command ID */
->  #define SE_CMD_START                   0x0
-> +#define SE_CMD_STOP                    0x1
->  #define SE_CMD_SET_DMA                 0x3
->  #define SE_CMD_SET_ENGINE_CMDBUF       0x4
->
-> --
-> 2.47.2
->
+      folio_clear_partially_mapped(folio);
+      mod_mthp_stat(folio_order(folio),
+                    MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, -1);
+}
+
+?
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
