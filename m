@@ -1,132 +1,217 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C37B40E8C1
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:45:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58838156F45
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:46:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788763548; cv=none; b=ASmIv6CwBozuuUtX0qyLpc4h2dXlus/Zb6nE7hlsyAvuve53bw1SUJlAUo9TwfO2IaibnXovW8MfPBSMsVJtWhjSApQ8AzHIRmPMruYXdOW6Z/o2dhI9hGjB9hVFkxOMj55+hTWYKTKvGFaKr5XlDoLM/540zAdZNe6E+dlldk4=
+	t=1788763586; cv=none; b=O2WCGlyHGnd7/zpjOcuVtd+4KLUZB4ANdJuvmvIIO7S+5JfUGuZ+no1TTEwJTvf4NlxJCtZLv1dZCB7uvjNIgzp+ePIxbQNt5CJhWJ83uW9wJHUqKdRLpL8Wszobt3L3DXhXosaM1kqP7epPMutg0Vvw9kv4buuWULPDFHYlexg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788763548; c=relaxed/simple;
-	bh=5fUeK/Z5b3ew/Qab9dwvTg8ptqVTibIEMxGUMA1R2/s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ubkIR1wFzZMPnozfsYbopbBDw2vjZRdVyGMMbnkQG0bPV7pL6w+Ds97pNdcTvi27wGoAsqlvDm4Eyi7rt1r1YLM5yTPCoEiGjP7UjbbwFnB6kqYW9V3G78yGp20FabPKs3jTcY3NthTMBzJYOHXjPLpOgO/hKvVXjaqja8AF6mg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V2OcIATn; arc=none smtp.client-ip=209.85.216.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788763586; c=relaxed/simple;
+	bh=fM7fhcx6hqGG/yvwRQZw/AW5oiBbcnxITrr2S1uzF5s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Qhka5jjD3VIo2B9inF6N6HGVFNH5baYIozFYCLKGNs4S9Kjf9jo3zqmZJBzQHdTtIzMHeR0MrEyW/ft1EYqKv2gr+KDeOwkVE2kVpVB3DeC7hqFrGBEoR5YbsFkq8DKMiWubXC0wH25SwH2Ws6+OosTOJZ0MZ2qDHr685tXY4sg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nNGA1Bi0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RpGV2bQL; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V2OcIATn"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso2272212a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:45:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nNGA1Bi0";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RpGV2bQL"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6873lQvf2391256
+	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 06:46:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Z1/b/ciKiZaldA0A18HpPcagbdf5bHqmr0JAuiX+snw=; b=nNGA1Bi0LAfAWnrd
+	B1FUg1B7QBvr1h6DQuPVLG4uSWJQJqqu4mAt11fA6uWIzf+w1ddfXoVf3JAXwjbX
+	jcCZ61aUIY5p5/enVlUgtfwvXlzunAhm2CdgsKW+JI/8AKaAoSH0M5WOcl9VjoQa
+	7/x/S9Wp9duN7svVM2e6KsFojdP0/v4Wl1jRNYc3UyczRj1QIbQoyEjdNmMjl3Za
+	dqIM/7x2twDHY4Oe2ZH9gNuyIiF7RTCDOUd5N+okwcx4zZsvfC3KSJli61+G99x/
+	dX1fkDoq5sftDFjCpLht91IYgl6/FT0nxjkxgvmruoic+bLs+52ouWEjeShfvFYS
+	WpuHAA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ggbuenfac-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:46:24 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-395543dc382so4322736a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:46:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788763547; x=1789368347; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=iRkujaorlRRownXMQ24CydTkW9kZUj9cAg9923H2gP4=;
-        b=V2OcIATnVVro2MsY3OySyMiCqcnRDyx+tbptnBpq9B+d+OcNzPtlhieouEqOEAhP2l
-         tbPNIg8Rud+fDeLtrOevThoM8fXbuPpQ0ulf2lCcP+gYxaWLDD5vWXpldSE31IPUxvjD
-         qzkR1fTGI4X7pRC2pNDqqofAJPkO+j656adGoj9FbqGU4IWEAP8NqRBo3X5G3UpOiaAZ
-         PPuaGZmTFDXTYqdkiIOBLoharWjcizIgA05jWUb9hgDaC0hqiEFL8qeGXHfHS2dNhlXF
-         s4l0JXWHh/c9/X25DDDdrqdqk1ruIpGM7QzrTItAQhNDCRSA+EVPr7oHK83PYo1My83l
-         RxOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788763547; x=1789368347;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1788763584; x=1789368384; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=iRkujaorlRRownXMQ24CydTkW9kZUj9cAg9923H2gP4=;
-        b=VwRoLX9v1R12wM6h/D6+vEoEsGXdyTgI23WrWBZS9XEzSGdWFC7AddJM/wxAEPpAF2
-         t3z3fWNTbKAClQtawsfSOEtO5DAHYvcC642mHtvufA5GcLoeM7iJVJYEyPBjyyzdFtKU
-         wyunq4QSdKgrC88V9+XKSdDhWdooa+sTA+wAwQv5rZlL2Jy63HEnxgHHRfIyqUAFHFAx
-         ab/qY+gs6gMlBn14FkdPs+TeYcQ6RFWayVuyEselZhpzVn8gAnS+uTel5OM50A92w4QB
-         a43VhzMvUjZLmyDSvR2Ns49V4NNbTO96eUSmLBhcq38CagJvTNVepn3cG+IkmM5b6xMB
-         1Jng==
-X-Forwarded-Encrypted: i=1; AKwUvBwAX5sUWgr82jMdRqK12yQYugMY+HEmnBhVKdloSANVlgXKQty0BnqX2p0+gjWV4/nXniDX+Pc1KtfO6/M=@vger.kernel.org
-X-Gm-Message-State: AFuF++mqV9Jymkno/YD42voUSYoI/aygxSNz3A/T7ZQxp/0A0kvNYYtT
-	AtWievrjECBrk36kG5itoTkUqmYbm5g1e7N2Bz2rsJHFrlEe0Z1awGHB
-X-Gm-Gg: AYBFou1OcWxa6rmx5kB/hJyQTXMZubJjazZlEWokdNUJAakBYimP1USUMzR0rFwOATU
-	o4MtYPjU5OK842Xs5sl3dxWcezuEntL9XC9sa1SVNxHYBFrIAKLCtOmpBR/RIRcoThQe/KSn4g5
-	0YZpM8upH1AAg1ObGj5SO4QmYA1GMgsA2GrokxoGTbqOmS8WFhO+/du2llMq6md1xjKwG+1F4Iu
-	KzpbZbSE+1du+Ue9BT1eywCLXyB+kyK+k5lzWXqT8ffhjItfqi6uxbF/wYDWQPI5IHiz4xmlBvB
-	f3tlu/hMoB11QDb82FJYmmrBNhUW9Myfb+jxUo4Oj36+VgojS2sZdyaEFomaPyD4n7d7DiPwszm
-	4MiXHJtEuSsObyGC7S4umkpMdUz3ghWeF2pQWDssQzf3SKjHwJ3YOjnwVObd/cqY2PaY2AB4lYE
-	UEyQZxTqkYbVaqkgLL99fuGmIdYZDvEA+a4nUueHtAQWJG+Y2MTENoLhX2s9n7/hpwPc4QgY7Aj
-	vLP2Bv+nLHArQ==
-X-Received: by 2002:a17:90b:4d06:b0:366:10f1:3d91 with SMTP id 98e67ed59e1d1-39b2614df74mr30463582a91.1.1788763546458;
-        Sun, 06 Sep 2026 23:45:46 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14332405e92sm17209594c88.8.2026.09.06.23.45.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 23:45:46 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>
-Cc: intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: [PATCH 2/2] Documentation/networking: fix repeated words in comments
-Date: Mon,  7 Sep 2026 12:15:28 +0530
-Message-ID: <20260907064528.6602-3-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260907064528.6602-1-hemanth.selam@gmail.com>
-References: <20260907064528.6602-1-hemanth.selam@gmail.com>
+        bh=Z1/b/ciKiZaldA0A18HpPcagbdf5bHqmr0JAuiX+snw=;
+        b=RpGV2bQL4Wjv3G3qxzHqr1g1sFuQB+CCPo9O98ZKV9ZI2YR/3AMvWNDhIy6VULjwKx
+         aVqz77NISSNC8aTnMp1bjxWlxHz67wmNionYXVRCCa+pi1JcOVvlXXZ1FL8gnYtK8tIn
+         zRRQzPsTpaZzYuv3ZjBlaN8kv6z1f8bw/bHKoQz7x/PuJhwjiXosg+SxPM1Id3sOzhrg
+         166gNrFIXFDfH4G0OIhbqVZufHPsdVAMgaxJyzep6846TCWMae/ucjuTzlXNbzV+LDyV
+         IuH6ZvYLnFl056EjTbLD4aL2ZY08xZkQWLYw1XMj3EObBN8UvJ8NWndG6BcAkoejUItr
+         Ib4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788763584; x=1789368384;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z1/b/ciKiZaldA0A18HpPcagbdf5bHqmr0JAuiX+snw=;
+        b=LFY/9rScH1PfbQLS1k5aNjDcRivXMZ62wrlhquieM4xFvaTeuD8smbGSNzz974LoOs
+         s9ZLkOps4m8aassgQ8X1WNOL52wn981Fa30R5YR3bC05sB+f8YfbfbJYat1Hn0CjaPnl
+         LjIUW975Sfq0lqxM2gWskeT+ivTIJMVlvWFXZf2Jr/Q66xOv8495eRnCw4svvntrueiR
+         mt7CPHfNSrfVHQlcm/CPjD9Y79Mjjkshq/4B3OL18WaotJd3dd1E7wzxsH+0ofsYB31M
+         pLds4dRlycAtTG7FF/K975TgpPmKfGPRPixGCVr9dPd/gns/GitvS1K2ZrpIaMQqSXDB
+         gQKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzmgThY87dtGj6uaMpb623iUjD10S2N8a3sUifep1tmfyXMqaESA0qe5hlrez1ArfitxVSVB/K39scnq2g=@vger.kernel.org
+X-Gm-Message-State: AFuF++mHRrEetNeymr658UGf4zLQy+I9vK5pIBBaDFeONe1KYtf7y94p
+	OHmEF+Pajgwl5+oUk6i/3xDU9hh5BFYUfGiPb6JpR6Xqbb/HD+0uPF1M+APT/pn1D80AMcmY+nn
+	Itz7xuaz3JnpFFpEaQ20TIPSb+yM9yq59kxH5//hwecioHutKqsmUP/u9O/QXxb+wPSQ=
+X-Gm-Gg: AYBFou0JP3jc4garrq9cIAQMvNfyUE+EdNPkcMDDa9OEorv+NGPYPxy2ucKjZIzworn
+	+nDkNZ7A7NPWfTsvsimTZRrUsJTVWYctGbG9g/TMc6OsguEod9e32LQiKh3J5fTX5/5SZXA7Lmc
+	yQlDw0df7Uflo9eUXRuIPM8Mxuthy+voYix017H48OUYncWMK28Qfe4dk76ykMHcqdWJtFOPWFL
+	rU2tt97196cvqWPMwccnWTeFnIZ5U+brloNQ714IaJCmTBXxWxJgLkNN+UBrHP/5tIUZD5IhRr1
+	UIXSF3tj2bOzXKNlEaEV2jn4WbGwOqT/Ijff6GU/9GKAcE9+JQ0+YeFuprMew9T6XDeWH9BfzN6
+	NL66PssH2YYPKBL5cnpJxSf37YnXTWzvBFw==
+X-Received: by 2002:a17:90b:4d85:b0:37d:f206:a2ac with SMTP id 98e67ed59e1d1-39b2617abf0mr32619194a91.7.1788763583433;
+        Sun, 06 Sep 2026 23:46:23 -0700 (PDT)
+X-Received: by 2002:a17:90b:4d85:b0:37d:f206:a2ac with SMTP id 98e67ed59e1d1-39b2617abf0mr32619152a91.7.1788763583023;
+        Sun, 06 Sep 2026 23:46:23 -0700 (PDT)
+Received: from [10.217.219.15] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14332405e92sm17219997c88.8.2026.09.06.23.46.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 06 Sep 2026 23:46:22 -0700 (PDT)
+Message-ID: <bcf5b148-d4d0-434d-a020-deca2381f5a3@oss.qualcomm.com>
+Date: Mon, 7 Sep 2026 12:16:18 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 3/3] i2c: qcom-geni: Add bus recovery support for GPI
+ DMA mode
+To: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>,
+        Aniket Randive <aniket.randive@oss.qualcomm.com>,
+        Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+        Andi Shyti <andi.shyti@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org
+References: <20260826-i2c_bus_recovery-v1-0-203f0ec76f84@oss.qualcomm.com>
+ <20260826-i2c_bus_recovery-v1-3-203f0ec76f84@oss.qualcomm.com>
+ <7cc05c51-811f-4949-9fe6-10580ff90eea@oss.qualcomm.com>
+Content-Language: en-US
+From: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
+In-Reply-To: <7cc05c51-811f-4949-9fe6-10580ff90eea@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA3MCBTYWx0ZWRfX8lPH8Yexicmz
+ 6Ht0cuOkd2Md+jGcNQ5dOXDlCY1PayS0d+Eoq2mKl6WSIG43aaWcdjESCnwQ8MFhYh4cs74If3K
+ XRn/unESNHdoIaKxqZW8jfnefGIFo0xav2iJ2QfiZqBF5/2Riv/LBGjMy+qbFgXWSGEqcIkome5
+ 0UEjf+FuunfOI4ZsnfYDeEQk2zUJ2N3+ageZtysQUeEe3iH1vh7iz8buhGyMg4LBb3dreND8x8H
+ wNnekRooMDoFVrcBy3eIbpqBYWOYxFWymPyAqoKqtHUPnvuVOeRMcuLgTNiP3rYwmrfLBUygffn
+ Jm/SIx8QrucIM7RMwJhhOill3SoCvJHDDFPWiGSmjrB/ZuBIwkJjOaV82WDMO6UX99cpFVKJivi
+ suGn+KxKzVDMKX2LkayjGYgSLpq+l6gS7CWkbiv0ir6iufxBqPn1SElEdG3KijdYtUBbv+nkQb5
+ GL07MihMIuVvfGLfHjg==
+X-Authority-Analysis: v=2.4 cv=P8AKQCAu c=1 sm=1 tr=0 ts=6a9e5dc0 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=8PfKY5Vedw5zlJPuvQQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-GUID: Zqgm7gWuzjdEif1s-eLrE6VMinm2Lq5S
+X-Proofpoint-ORIG-GUID: Zqgm7gWuzjdEif1s-eLrE6VMinm2Lq5S
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA3MCBTYWx0ZWRfX5nKWjkKqBPxS
+ 6jMP+6BGpSW0RSXm+vaqA8zAwrF2SQ7w5u0vFyhSFjzvIXqQAsr+sFCJoFMfX1FH+JK9RZ2st7r
+ HawIi59JhVcSGQD20Q44TJkT7CILx14=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_01,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0 bulkscore=0 clxscore=1015 adultscore=0
+ spamscore=0 lowpriorityscore=0 suspectscore=0 priorityscore=1501
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609070070
 
-Drop words accidentally written twice, reported by checkpatch.pl as a
-possible repeated word.  Only touches comments, no code changes.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- Documentation/networking/device_drivers/ethernet/intel/i40e.rst | 2 +-
- Documentation/networking/device_drivers/ethernet/intel/iavf.rst | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/networking/device_drivers/ethernet/intel/i40e.rst b/Documentation/networking/device_drivers/ethernet/intel/i40e.rst
-index 53d9d5829d69..e01f0adda3f6 100644
---- a/Documentation/networking/device_drivers/ethernet/intel/i40e.rst
-+++ b/Documentation/networking/device_drivers/ethernet/intel/i40e.rst
-@@ -692,7 +692,7 @@ queues: for each tc, <num queues>@<offset> (e.g. queues 16@0 16@16 assigns
- 16 queues to tc0 at offset 0 and 16 queues to tc1 at offset 16. Max total
- number of queues for all tcs is 64 or number of cores, whichever is lower.)
- 
--hw 1 mode channel: ‘channel’ with ‘hw’ set to 1 is a new new hardware
-+hw 1 mode channel: ‘channel’ with ‘hw’ set to 1 is a new hardware
- offload mode in mqprio that makes full use of the mqprio options, the
- TCs, the queue configurations, and the QoS parameters.
- 
-diff --git a/Documentation/networking/device_drivers/ethernet/intel/iavf.rst b/Documentation/networking/device_drivers/ethernet/intel/iavf.rst
-index eb926c3bd4cd..5840569917f5 100644
---- a/Documentation/networking/device_drivers/ethernet/intel/iavf.rst
-+++ b/Documentation/networking/device_drivers/ethernet/intel/iavf.rst
-@@ -171,7 +171,7 @@ queues: for each tc, <num queues>@<offset> (e.g. queues 16@0 16@16 assigns
- 16 queues to tc0 at offset 0 and 16 queues to tc1 at offset 16. Max total
- number of queues for all tcs is 64 or number of cores, whichever is lower.)
- 
--hw 1 mode channel: ‘channel’ with ‘hw’ set to 1 is a new new hardware
-+hw 1 mode channel: ‘channel’ with ‘hw’ set to 1 is a new hardware
- offload mode in mqprio that makes full use of the mqprio options, the
- TCs, the queue configurations, and the QoS parameters.
- 
--- 
-2.48.1
+On 9/3/2026 9:44 PM, Jyothi Kumar Seerapu wrote:
+[...]
+
+>> +static int geni_i2c_gpi_bus_cmd(struct geni_i2c_dev *gi2c, enum 
+>> i2c_op cmd)
+>> +{
+>> +    const struct geni_i2c_clk_fld *itr = gi2c->clk_fld;
+>> +    struct dma_async_tx_descriptor *desc;
+>> +    struct gpi_i2c_config peripheral = {};
+>> +    struct dma_slave_config config = {};
+>> +    unsigned long time_left;
+>> +    unsigned long flags;
+>> +    dma_cookie_t cookie;
+>> +
+>> +    config.peripheral_config = &peripheral;
+>> +    config.peripheral_size = sizeof(peripheral);
+>> +
+>> +    peripheral.set_config  = 1;
+>> +    peripheral.pack_enable = I2C_PACK_TX | I2C_PACK_RX;
+>> +    peripheral.cycle_count = itr->t_cycle_cnt;
+>> +    peripheral.high_count  = itr->t_high_cnt;
+>> +    peripheral.low_count   = itr->t_low_cnt;
+>> +    peripheral.clk_div     = itr->clk_div;
+>> +    peripheral.op          = cmd;
+>> +
+>> +    if (dmaengine_slave_config(gi2c->tx_c, &config)) {
+should capture the return value and print, as it returns specific error 
+code.>> +        dev_err(gi2c->se.dev, "dma config error for bus cmd 
+%u\n", cmd);
+>> +        return -EIO;
+>> +    }
+>> +
+
+[...]
+
+>> @@ -1066,14 +1136,18 @@ static int geni_i2c_xfer(struct i2c_adapter 
+>> *adap,
+>>       else
+>>           ret = geni_i2c_fifo_xfer(gi2c, msgs, num);
+>> -    if (!gi2c->gpi_mode &&
+>> -        (ret == -EPROTO || ret == -ETIMEDOUT || ret == -EAGAIN)) {
+>> +    if (ret == -EPROTO || ret == -ETIMEDOUT || ret == -EAGAIN ||
+>> +        (gi2c->gpi_mode && ret == -EIO)) {
+>>           /*
+>>            * Only attempt recovery if SDA is stuck low. -EPROTO and
+>>            * -ETIMEDOUT indicate bus errors where the target may be
+>>            * holding SDA low. ARB_LOST (-EAGAIN) on a single-controller
+>>            * bus indicates a stuck target, not a real arbitration loss.
+>> -         * GPI DMA mode extends this trigger separately.
+>> +         * In GPI DMA mode the completion callback reports NACK,
+>> +         * BUS_PROTO and ARB_LOST alike as -EIO, so the SE_GENI_IOS
+>> +         * RX_DATA_IN check below is what distinguishes a genuinely
+>> +         * stuck bus from a benign NACK: a NACK leaves SDA released
+>> +         * (high) after the STOP, so recovery is skipped.
+after the STOP, indicating i2c bus is in idle state, so.....>>            */
+>>           if (!(readl_relaxed(gi2c->se.base + SE_GENI_IOS) & 
+>> RX_DATA_IN)) {
+>>               int recovery_ret = i2c_recover_bus(adap);
+> This does not appear to handle scenarios such as an I2C multi-message 
+> transfer where the stretch bit is set during the first message, but an 
+> error occurs while preparing the second message (for example, during 
+> memory allocation or DMA descriptor preparation). In such cases, the SCL 
+> line may remain asserted low and impact subsequent transfers.
+>   > @@ -1292,10 +1366,8 @@ static int geni_i2c_probe(struct 
+> platform_device *pdev)
+>>       if (ret < 0)
+>>           return ret;
+>> -    if (!gi2c->gpi_mode) {
+>> -        gi2c->rinfo.recover_bus = geni_i2c_recover_bus;
+>> -        gi2c->adap.bus_recovery_info = &gi2c->rinfo;
+>> -    }
+>> +    gi2c->rinfo.recover_bus = geni_i2c_recover_bus;
+>> +    gi2c->adap.bus_recovery_info = &gi2c->rinfo;
+>>       ret = i2c_add_adapter(&gi2c->adap);
+>>       if (ret)
+>>
+> 
 
