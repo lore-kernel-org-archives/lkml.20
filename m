@@ -1,128 +1,110 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A087D353EC0
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:35:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE1C637E5DE;
+	Mon,  7 Sep 2026 08:35:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788770119; cv=none; b=VbxNCy29SW3qpCnY5iFBI0PydC/H4VL53WxPnLuBOt7Wgv5g7WkJ3zu7MyUUbfhJ0bi0ulvwncAulm/8liAkvr3mlBa9eAIazzqqCXBr8TLMqfPehbV9uF03lglUnkkKbieXSjHYif1+pmYrJNJWnU8UcwHjvwEOlwU8BKos0rs=
+	t=1788770152; cv=none; b=PG4K9ufc4Ocp8jgXOF9idhbpv+mpz1vdj5oIHYQtsjxwC3qegAg/FgvTAwxBre8c2mddALR0GZb7Qg6X8svcairNUkyIMrwqdzkCoMqyfmnALqhmb/vT1hD/cE0LcKRnevKEI508qrPy2R74AyJ+KqtqRw0hLRHbt6lNtXF9baY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788770119; c=relaxed/simple;
-	bh=zNMtCRsUQspr7I5Yp/4mxHgCjGnZu22lUWt/I66qtMo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h6Ii4U8BTSZmMd0yK+e9HoRbycD03tiiqSYP33+z0JmlWNWNDhvh1WPVuwtC6dxd22DhADYlNq4rocSI34D2zIikKnZwSyQlKEOwQlBYKX8qAwp4r45/sNeNcchEfAEu4K2H/Qllk+JK7KZphVZmLTrc45ziZlBduke7uU+9p1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=JRRCTVK7; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1788770152; c=relaxed/simple;
+	bh=Fja9bCbUIZ72CqNHx8WpbG23xt3oe+rgfXZwbGgB+cE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BUOlOJmr6IUvMduDcWpAw2pJLzyscC/C0Xc3VKBDhh/w62A+DenHSvp+EnVReHRAW/htMhXXj7/IV2vASgmpzBG6HNuW1JOWOZ4mSBvK+zQ4BFkWEboQTvVC5FxCu57kJ1G5gxTfzdEGXnGkbwXM8khpxIlWm0uNh5oJjb44dPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=anyq2syZ; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="JRRCTVK7"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso30962525e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:35:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788770116; x=1789374916; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zNMtCRsUQspr7I5Yp/4mxHgCjGnZu22lUWt/I66qtMo=;
-        b=JRRCTVK7h1DC57qMTcJxIx7iViDaB3G32uM+/ix4lR/+eIXKwhwbdGhQTIOXqN2mx5
-         7gMRI+TnBWP3aTGrmCZunL6S191T1M71nnp6YPFi5+OH1BBko0cILTPgMv37KxrJ6bgX
-         5PFgvm2qymbNMIGLsk+MiR0sCGkZUw5t6VsSKAVVYwqSXW6/gfSzMeRQXE/EjPeio6tw
-         ZWdG/GBUB0sFG246bxhLeQ+CWl3mwn2HrUjNVnto/F5DcIJwgrXPq2AbPUByzO0NvNuk
-         kqZ+UHfJ5pikHSvhZKgIAeQAJysgN+JN3KX6b0LwtkB1A33Ywpu19uVKU/eWCTOvXBXV
-         Xxjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788770116; x=1789374916;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zNMtCRsUQspr7I5Yp/4mxHgCjGnZu22lUWt/I66qtMo=;
-        b=kT4wWabP+/ZBOdUaNLcJVCzyMoY5lIfVAarjlX31ubis+pScW7bE+DjpycJWX9kBIU
-         fdpXhpK+nIOvGg0mlX9DpbGI09psMS/Cipotj+Gf1LAmySmLKa84Rndq/REUsQZTXZqg
-         nq8vz7xMrZXCL+nlmh5cWmkCRlw4n9OVhAy+HFhvNX4QPXeHncxPSzG7CGYOCVwoqp3k
-         Ugb1EPF/6gjHzmdX/jK79qMvaxTbK0PCJ+6LIzFM6bbUK238Re87TgQNmk6/YY8Nr7Tq
-         aqF+5fiBml7m9Ux0AdAS8XCxsIrSaBYPu3mw8c84VibF+0fDbDK0nuTMmdiDy47ZyAmI
-         0bSA==
-X-Forwarded-Encrypted: i=1; AKwUvBx1oMQCp4kok0+UmcDItDc4WcWCXP70HlfjUbh48UCYBpcC0I2WwXnhjd0Xs7qiV8Ap9UEpGWRdZYivJP0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLr1pp/BTRnfGdnCYqDafL8SyQ9d4SzWwZV+SjElPbZ6yTKA/Z
-	tM05ShuZ06GozpIbmsqveuFjfXp2VUlX5qa+8zIW4/wFb4KiRrw4+/WXoSrUrCRh/P0=
-X-Gm-Gg: AYBFou3YpWhasIfdP9NySJLrqxH4deAw9wFgt5RI84hAj/QgCzbTQUICu/3BTx3/apY
-	QkfgvqdUznapPRD4CZWNwHrqHl7gg6ng8UIdr4WPaQAfw6Cfq6TJi8hegmVC2ttoSjerIm87nB6
-	XdAw5Jzm9pCSJtMvXmmno7MZpuQ9ptWOhaLGP262Ll3EcRCnNA6cT9+dPW/uSQfvDcLkvDq0AxJ
-	NlQKCdEPmrUzah+tY3UEIvAL1TQhnt0QV5orHRTNPqAk1vuVRMv82s9knzs3gorJpLriJAJg6Lz
-	EUWSEYpq4RGxMDH5LebtgalVFs91IIO/lPFVAOCi5X9+kDR76k9eFu02GjHnMMONSrxbSsBI3cD
-	93f2b3KWATyz2mT4+qbI67oqYB1P0dx/PGFV99y5V1/lXhJPR5AHhQ7YBj6JZKjNt0XeWM0SBuy
-	FsXiFCe485DlgEZuIJN9YAdsHZZLLVgLv36p8bZU7EaXasnJ31XFIzPFyqfk4+hsWW4214VaILZ
-	eKgNAQqZsKiMTlfy557tCNAsJP9cxI+c5RTV0kvKSlqYCtkMK4=
-X-Received: by 2002:a05:600c:3b9b:b0:49a:77c1:d246 with SMTP id 5b1f17b1804b1-49cf8286e30mr197654635e9.15.1788770115721;
-        Mon, 07 Sep 2026 01:35:15 -0700 (PDT)
-Received: from localhost (p200300f65f19a9047ae53bb37ada872a.dip0.t-ipconnect.de. [2003:f6:5f19:a904:7ae5:3bb3:7ada:872a])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49ce4761dd1sm274503085e9.0.2026.09.07.01.35.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 01:35:13 -0700 (PDT)
-Date: Mon, 7 Sep 2026 10:35:13 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Nickolay Goppen <setotau@mainlining.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Alexey Minnekhanov <alexeymin@minlexx.ru>
-Subject: Re: [PATCH RFC 2/2] drivers: gpu: drm: panel: Add BOE NT51021 driver
-Message-ID: <ap52w_LsxykYh6T1@monoceros>
-References: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
- <20260829-qcom-novatek-nt51021-panels-v1-2-cc1ca61bd261@mainlining.org>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="anyq2syZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=iD5hjqjZJPsHFAqATNG9xWcTWffuFguqJoBpwb1tbK4=;
+	b=anyq2syZvtpSGO8P+MTpfRAN0gmY8w2CQcIP9aqxna70AGyTmwhN09KJ/wmUBT
+	8R0sn2aG0YTf/LTWwLTKnfYYceMANFp9mzHVfce41uud4tmvJ7Q4F4xx5NHLNOAG
+	lVZ3Sjyw/b/XdSiSZd6uFeVsQN760Esigqo8rULvOlq5M=
+Received: from [IPV6:2409:8900:1e93:d74:46a:b98a:2b32:6a19] (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wBXo95Gd55q6IP7BA--.1196S2;
+	Mon, 07 Sep 2026 16:35:19 +0800 (CST)
+Message-ID: <62be2fb6-26c5-43f7-972b-9c38a3bd6131@163.com>
+Date: Mon, 7 Sep 2026 16:35:18 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="f7m35ekvx6ajsize"
-Content-Disposition: inline
-In-Reply-To: <20260829-qcom-novatek-nt51021-panels-v1-2-cc1ca61bd261@mainlining.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ntfs: use fatal_signal_pending() for fallocate
+ interruption checks
+To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
+ hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+ zhongling0719@126.com, stable@vger.kernel.org
+References: <20260907035726.37123-1-zenghongling@kylinos.cn>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20260907035726.37123-1-zenghongling@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wBXo95Gd55q6IP7BA--.1196S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7CF18Jr15ZrWUGrW7ZF1rXrb_yoW8ZFW5pr
+	Z8GryYkrWrWrnrCr4ktw4UWFW5W3s7KrWUGrs8Z3WxArsaqFnxKFWxtr1vqF1IyrykXw12
+	qrWj9w4xuw4UZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRlzutUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6ggy-Gqed0gYLQAA3S
 
 
---f7m35ekvx6ajsize
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH RFC 2/2] drivers: gpu: drm: panel: Add BOE NT51021 driver
-MIME-Version: 1.0
 
-Hello,
+在 2026/9/7 11:57, Hongling Zeng 写道:
+> The fallocate implementation uses signal checks to let a long allocation
+> loop abort early.  However, signal_pending() also returns true for
+> TIF_NOTIFY_SIGNAL, which io_uring uses to deliver task_work completions
+> to the submitting task.
+> 
+> generic/616 is an io_uring fsx soak test that issues fsx-style
+> read/write requests through io_uring and calls fallocate() directly in
+> between.  A pending io_uring task_work notification can therefore make
+> signal_pending() true inside ntfs_attr_fallocate() even though no real
+> signal was delivered.
+> 
+> That caused the previous signal-interruption patch to return -EINTR for
+> an io_uring notification, which fsx treats as a fatal failure.  Switch
+> both checks to fatal_signal_pending() so only fatal signals interrupt
+> the allocation loop.  A real fatal signal still returns -EINTR, and any
+> other error still takes precedence.
+> 
+> Fixes: 4dc8f4ee2d46 ("ntfs: handle signal interruption in fallocate")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+> ---
+>   fs/ntfs/attrib.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
+> index 848a0d338b89..5f761a3b29f4 100644
+> --- a/fs/ntfs/attrib.c
+> +++ b/fs/ntfs/attrib.c
+> @@ -5708,7 +5708,7 @@ int ntfs_attr_fallocate(struct ntfs_inode *ni, loff_t start, loff_t byte_len, bo
+>   						goto out;
+>   				}
+>   
+> -				if (signal_pending(current))
+> +				if (fatal_signal_pending(current))
+>   					goto signal_out;
+>   
+>   				vcn += alloc_cnt;
+> @@ -5729,7 +5729,7 @@ int ntfs_attr_fallocate(struct ntfs_inode *ni, loff_t start, loff_t byte_len, bo
+>   					    try_alloc_cnt, &balloc, false, false);
+>   		up_write(&ni->runlist.lock);
+>   		mutex_unlock(&ni->mrec_lock);
+> -		if (err || signal_pending(current))
+> +		if (err || fatal_signal_pending(current))
+>   			goto signal_out;
+>   
+>   		vcn += alloc_cnt;
 
-On Sat, Aug 29, 2026 at 11:09:14PM +0300, Nickolay Goppen wrote:
-> +#include <linux/delay.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/regulator/consumer.h>
 
-Please rely on <linux/of.h> to provide of_device_id and don't include
-<linux/mod_devicetable.h>. If you want to stick to IWYU, include
-<linux/device-id/of.h> instead.
+Looks good to me.
 
-Liebe Gr=FC=DFe
-Uwe
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
 
---f7m35ekvx6ajsize
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqedz4ACgkQj4D7WH0S
-/k6mCwf8DB+wWG1X5R1Barm6eVJNkn6T9iEtu6q952Rb44GVXBmsgNzH/8kPoPvx
-MgqVTBvCjN5jnomwxeU4EPk1eRtFXqf4jwGytePENeFWAqwNGvBZHuYaowSbPCzb
-r6NXPx7I9i9qrBNTAufIz8/sLutrkzoc5so8Z33c3eovQgHbRZXbNpsBSW7Et7d3
-DEBJbSFNF4lYRM6ozD7Xk2CHDgfhaf1sznfIlFIXe1jA1/tAIyI21LSclKz58Dkt
-JuDlvdCCSC+hoWswZFYnITu60LPBwbgo8JeIVPx07ZuHJr2v6yknqw1yefvB1TKC
-r+3sOCPIgjR9hMDIjXlfEVZwDo/T+A==
-=6K8E
------END PGP SIGNATURE-----
-
---f7m35ekvx6ajsize--
