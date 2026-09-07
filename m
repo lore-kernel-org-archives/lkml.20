@@ -1,175 +1,232 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazolkn19011008.outbound.protection.outlook.com [52.103.66.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FC2718DB2A;
-	Mon,  7 Sep 2026 08:58:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.66.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788771530; cv=fail; b=Nfu/ltxcT3taws1NT/cbSEqkyypClcWeuEmvAOazbseZ86id4Z2h9BLYRXQFRUgW7u1d6a4PlqHqA4wRWChiYgSlfi7fsezEMycqUCkQVk0oDq4yhDf+/C3fK7gn1jHhA+w+b4VCXtvBGKVrqOfp0RKm1U6jVIfkzCUXTqTdSmQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788771530; c=relaxed/simple;
-	bh=FQcXv3WwSpz9QgZnTfGgUCuSfFwckOgIk2jF4TWQ8iU=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=RGUPXy5+rJPpr+7hr9NJlS07z3Uz4CTPALBSMHKDCzMx4+TqnS+LuojyREh4VN+05o7VfGAN8pLeSHRuGia2oCK0b8fXUDVTHGSj++xDnMWsih+mV/R+2zPl0Q1J0RW5+ZfdON3vMLQA+dBgdwFvL1xtg31kBOCyq34De38ZsWY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=rzG6ROJy; arc=fail smtp.client-ip=52.103.66.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0418F4457BC
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:00:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788771649; cv=none; b=sUod9TVWdmpyzYvl4cIzdn5oH4OElqnw2q5EdvEGX3cngM76cJXjEL2z+z4sNXzzrBf1kHu2LVlGJXSxYtk9mbCAmaVCLDpuwQWDNxO9ms3qb/ei6DK9Nv9fuXvcJd8ZDWl82ySfjxvTwJ0WjAM4SqWaYKxJP2IaViRcfRZ0pic=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788771649; c=relaxed/simple;
+	bh=qjss7lUF3Y/rjAuBg4W/OXETaJBt4OSrrAlxAxeAmRM=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PeIAfEF4jCuYV0ckCUfH0es1mGroC5y2Ic4pWwCGwVkEwX5Hq/SdUCt93znAcyV2D2rHfD03r5y5JeyHGngGIYwvmzcF2GX/kSMhFLPrDDxB2rdBYVgq39Ual+edev0ga066QknHonso0dmviw1DyZw/W6eM2TSe+op3SQoibs0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=orNrfk0D; arc=none smtp.client-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="rzG6ROJy"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bhsB4ymwLmQDDG594xAP+pnBPrqOQZ21g2+LR0/K0kRc0WyHQWlB7EuzMZUpnmBB6wkjaEa3/Q2RlGTXKuBJsJ/AIomE3KHJu/ON4zTt7hHCKPRQWvOQNMAxtX2nR1Khus+gMbu3V2l4eccnmaCwGm1b0xfcJ6l9eubqENr7hfYoq2nMk80EO7Rlh7DlkXTsPHqF7yI0Z4w5eAqZBqS7AYnHAMku3x9RHb+i4nny9hWcMIihF9zDOqxqxQKLFc8cOYbGpK6K+kn/LI+oCPgPf2mZT5HDXnIOop56p3VsknxRSDjnbwNNfoyIg6PkYw9bGkDjVCBnPIp7sJx7JmuXYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dpDrQwbrpgA1LcJ9xv5lFsq5IJM3oNOwZgvQiQvJr54=;
- b=Ed59RwFj1nsra4ictZMbcg74zh8oxj61HrTPL95Y736L2sPL6qfL8lQKcoXjEYoXib+ABcIPldWL/Y2nt7tyEkgTMfWNvUm+tSFsxzuoTF3xdzMFpnOd+xnfvuHNfJRn6ojd4g1FA9EmeM0ch8NR5eg4LlD0kZGUDHNuTF6f/NuozwtWfhvcn3YAhDKn4WYNLKns5Gs7CXHqjfIMWmrPF+TcmP5RfVUmQnbEznM4ENji4faGgN/N3QWjJ1jVIlYvSlZYIHZTktwj7uSROCk6MpAzREUShGxkPw1q3e42nQai1bDi4iAAqxc7O5UnQEB5AaJb3MDeP//hhiOogcizXA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dpDrQwbrpgA1LcJ9xv5lFsq5IJM3oNOwZgvQiQvJr54=;
- b=rzG6ROJyk0O+nGaph8FHK2ACMN/t/mlqINlOq1QgJkAN9fk87O45uHlz03xdnGolLy1aBITfIjscwJwcltDg8IAAiMGAvD4J0qSYCVPt5rBjqSXQSaZz/ME/ein4/4Qj/pzzvjcCVO36nC9t+VoTQ8je1ACZeM7k27hOa6UxNS1Tfshk46CmHnKqYQQjdgc92uBWcBuRVXXoyRMO/1enLAFy5VzaR07GCbRuAqZWUVegse0E4FKysY3IMw6Qa9wBaL7D4ja8jfUAy0/hZ+DdBPXPEIUjKXnpvQO+A10r0q5qkACWqWW5Y+faDYYoesvWzI0OHoqOG+BJF4B8V6kyMg==
-Received: from OSZPR01MB9313.jpnprd01.prod.outlook.com (2603:1096:604:1d9::14)
- by OSAPR01MB7277.jpnprd01.prod.outlook.com (2603:1096:604:11c::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 08:58:42 +0000
-Received: from OSZPR01MB9313.jpnprd01.prod.outlook.com
- ([fe80::90bf:9b82:54c3:1542]) by OSZPR01MB9313.jpnprd01.prod.outlook.com
- ([fe80::90bf:9b82:54c3:1542%4]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
- 08:58:42 +0000
-From: Keisuke Tsukuda <catnyaaan@outlook.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-CC: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"syzbot+a83a5a1ba9ff57935171@syzkaller.appspotmail.com"
-	<syzbot+a83a5a1ba9ff57935171@syzkaller.appspotmail.com>,
-	"syzbot+d31109047baed8f3b590@syzkaller.appspotmail.com"
-	<syzbot+d31109047baed8f3b590@syzkaller.appspotmail.com>, Keisuke Tsukuda
-	<catnyaaan@outlook.com>
-Subject: [PATCH 2/2] usb: gadget: f_mass_storage: ignore class requests while
- inactive
-Thread-Topic: [PATCH 2/2] usb: gadget: f_mass_storage: ignore class requests
- while inactive
-Thread-Index: AQHdPqcVo82q95tMy0mErm8E/6z4tw==
-Date: Mon, 7 Sep 2026 08:58:42 +0000
-Message-ID: <20260907085806.52647-3-tkdkei@outlook.jp>
-References: <20260907085806.52647-1-tkdkei@outlook.jp>
-In-Reply-To: <20260907085806.52647-1-tkdkei@outlook.jp>
-Accept-Language: en-US, ja-JP
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: OSZPR01MB9313:EE_|OSAPR01MB7277:EE_
-x-ms-office365-filtering-correlation-id: 5f95650e-7604-45d6-3dd0-08df0cbe37a6
-x-microsoft-antispam:
- BCL:0;ARA:14566002|8062599012|8060799015|31061999003|15080799012|12121999013|41001999006|38102599003|24021099003|25031999004|8022599003|19110799012|25010399006|1602099012|10035399007|2607281247196008|3071699003|102099032|3412199025|4302099013|440099028|19061999003|1710799026;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?/OeKpfd+LhwULmV4vaUtZmZPGfYYgQUzHq8uAn6N5TBkrVqmcGoBr3oS9d?=
- =?iso-8859-1?Q?zIV4AHpz8MQlvs4C82LEW2Q+eqf2PRGCCmUCTcMeqH7BO5YYLTuFDv/apQ?=
- =?iso-8859-1?Q?Ogf3YoZ7s7uKbbzSZKZ++zB+/Rh1x7b7Qx9D2CQGvXBvKnhxqT1NFm5GnD?=
- =?iso-8859-1?Q?6P/mNUxiHvINo26OGYeDUuK/fq0hO3NZluugxyFA4aoer8JWlRm+bqfE0U?=
- =?iso-8859-1?Q?JDckVS0RyI90IN2ZG6TjLp5FXxvURGEC2qLNTFvDIjMyPj/b2EV0AKJDFz?=
- =?iso-8859-1?Q?SVrY9q1iONHK19I+YUPg6VDyh6PQRlpnIFgs6ugZS373Az56NmHZcqNWnq?=
- =?iso-8859-1?Q?nZiCZDbzYDfn7+Q3BoSlGIYalHsWQmVsXmebn0v59mCl0y6Ozn3c7TwUA8?=
- =?iso-8859-1?Q?W5x6lbKMs2811oZqUhjvNAflSe1ecRu4UwxwtV4Gw19V0MgzPX8zES1Tac?=
- =?iso-8859-1?Q?riGPlEB7CKHT7PfCnA/SHkVSvqKz2GIO7zg8qkcHUN31ObkAEqg2rsoL81?=
- =?iso-8859-1?Q?1eyzvnlDQOHPVMf+Q5LlC66ZE5H9Ys6tSTrOhD1KuITtT8THEkkLi12oI3?=
- =?iso-8859-1?Q?O+4AmQgVevO4IffEcg3UF2mrI+Dxf4vmBuqbgZNKBlUwx4Y9fZQByVghea?=
- =?iso-8859-1?Q?tFWg8cYXVh2Ga9XcO/MdXToDszQA22WUZmU7DRxHNz6KkCtzaJdU1PZhx3?=
- =?iso-8859-1?Q?NiA181JBNnlEs+g8iBWe1lTe+8Ta1o8WhHuUNODtpn+2lciS41IuMAj72Q?=
- =?iso-8859-1?Q?UXJhYTOoMY3+ZMQj8TmLqQ8kg4LFSmb0GRikFPge7oHNJ4XIZFPZIYU8lF?=
- =?iso-8859-1?Q?Sm+1e/+0+uDGmoZAj8sYALs/v7tAcdIlsNWnirijYeK2fmA1rh2TOy70K5?=
- =?iso-8859-1?Q?cOfNsb2wnMAf0v0/YpXospjiz7R724zQwdiPJkwHokaLeNYTx0lSwEbENA?=
- =?iso-8859-1?Q?ngPjgSX55/HC0at3nTQPm4PXcElQAmmg2/lLJQ0hUiBB8DBMbYQjCJRRCR?=
- =?iso-8859-1?Q?8g2/DlPbxoAEKt+UQXzCOS2k5m8R7tsjD8RgoCPr1ab3WPhk5ocDPfDwCa?=
- =?iso-8859-1?Q?ndVnG/tUsv+RxUcFzLi66CZczXozAJSgqkhaZnFDWImeODiU9AoindQ/xE?=
- =?iso-8859-1?Q?z1FoK5BAq4tEs9NAnHIp+L/RbIYpNbKQkDsAbwFB1YCVXCmG6bAaTCkctS?=
- =?iso-8859-1?Q?Qws2HqrY3FKCDLubef1N3JpqroSYvGxcNX0=3D?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?IpLhWIaQbUYIwK0WwuN4Q8Zz/SzNeTam4oIPUWhtChEqbVl+fS+L/qLEhE?=
- =?iso-8859-1?Q?8uKXsOz40sFofrjHrB79xFYNrSL3pbwgdkh0YKPDmIRQyrtjn7gv/BdEI5?=
- =?iso-8859-1?Q?NA+xHC4izC0VqP3XSJpNLFpUIomEm4zXtb7pCYe4Zx8qtufLoz+xcaOzO9?=
- =?iso-8859-1?Q?Qk6/oWZ7Ngti3/CPqEiRKnAvTtapnhvIcIsylhfIrsNRPZnoW9eUh+Kv5k?=
- =?iso-8859-1?Q?wjLMHjgRDz1SngfnUeqMyjmy5UkX9Hbzj96e8lGjf08xURpupWzfXfP3QO?=
- =?iso-8859-1?Q?nfLtAHQ4UXcsrgMEJhlhh85GPxCDEwIf2jQVxhpeTMjNowXwR744vOLBuB?=
- =?iso-8859-1?Q?d+S2sPfTyrLviuldOc8TBmNtdeVOnt/0nPlssC9fKcYOpGs/oi2PUZCEsF?=
- =?iso-8859-1?Q?XHtq5oTUNOvM9hOXDLG14zmiJS+284zkH7mYZmw3trLAL3IPi140/WIumI?=
- =?iso-8859-1?Q?h6X58VTKyYSwO/gPKmxOW30NAXQLSDXMW7qE2jIiCgIZ/GRMtfA2lc7vHB?=
- =?iso-8859-1?Q?EtbfB/wek9qp1mPjlyfRiBtwPzkEidouwQGsdLmT1SiCKeFMuMWcI7+iKq?=
- =?iso-8859-1?Q?MEOAveJ9e4833ow3TvR7kIAUrYB7WyiUPXgGmQLrr3n6PinVIzeiFMQa48?=
- =?iso-8859-1?Q?zmG+gaRCII5agHFKmlcPosLX4hsOwSKGdIk9pyAZ4L56l4GTc55fur4ORm?=
- =?iso-8859-1?Q?OpJ+bY9JDhn9VvPAq4mPGYTgaztuaTlSbnVLbP2wlrHcPCEY2idaCPlhOI?=
- =?iso-8859-1?Q?slztC3a8GciiZ4eUt5LHmefzQQJ//D9GLygL7OiRrF5vpP7ylG0dryVUWP?=
- =?iso-8859-1?Q?SQ7HfQQmOgyZsWiHAHxPsDnOzn2/n6g2hdU5Ss084+U3VwpGimWqyr68XZ?=
- =?iso-8859-1?Q?OHrS+MINUuYgepqPDi24NyRjNKWWrWJjvtjxhqm+mFBFkWn5y4Z6XQlJJd?=
- =?iso-8859-1?Q?BXMQpMsxLZI72QeBD7TJ9zYVrzzLuvmzx/V4KXU8epCSfV+KVryz30jixQ?=
- =?iso-8859-1?Q?irmm1mV/mab3WWEK8inDkZ3qZxQwjvqnQqC+DaVMN6muXitUieRFLFKcKQ?=
- =?iso-8859-1?Q?IGuvPD00Kj7e/hLUAHq4LBFbqHR1uAy1/ir5F9HvJjxkSPzulqlXeOzW2A?=
- =?iso-8859-1?Q?5EnZHVy9yadaARxHhDuLQYug1JESWRhPoXsEicgDNoRWVHmtVkAQdll2Kc?=
- =?iso-8859-1?Q?kZXQAgIAyGGvain04jBoPFBhL1BbYsOYsSMtEzzRXPf1qYZxSBHegqfqi1?=
- =?iso-8859-1?Q?ituEe1kOHwJXizu1Z3bwBqe2iDwVa+Yc44TuEpLxC8tPtjd1qMs+RGbX4p?=
- =?iso-8859-1?Q?XXEqDMOsewVpVhA+QkpRBa8XJ5ii9U3IRHnaFPK+DvBGN6zlC4q4P4VRX4?=
- =?iso-8859-1?Q?OBXzs3vRupIACUyfV3cyEORj+kZm7eHWIAwnJ4cYeGQlC71KLCDcFVIjhP?=
- =?iso-8859-1?Q?8RBTGo4HMKMzOabh?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="orNrfk0D"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a0a4aa99bdso3786119a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:00:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788771646; x=1789376446; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xy+IN57SJ+erwNKooouJ4W3oQbU76/YCXs2psoMgnps=;
+        b=orNrfk0DLL/SslqOLptfIovxTS3FAeTif3FOeRmEyh/z42QMFnlx3bBcPFh5WcXfeJ
+         D8LnFPPxZnQ5OMefWFCAZgJWTRXHk5v4KS7Run5GpNgxPF3NmrVeNt9+HRExuabIexfZ
+         a5p6I3LX9/vH21vj1Nqyjw0jBFCBLs2xRu6hsiWjZZ4y+9iZfLm4IJGOitDEZ4rm+S2A
+         hNNzefbB5+DTYTtNXevMa8MCoGiKewCqtn5hKa+/9dIR0OPBSzYFIYhQXgja54lj7+nr
+         Gq8G8ezzNMGotwyBloL7PKU7cBV/bUhpRH/p/13v6YIQ+OEi2jMhKwIggQ3vAk2QdWYO
+         cDbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788771646; x=1789376446;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:cc:to:from:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xy+IN57SJ+erwNKooouJ4W3oQbU76/YCXs2psoMgnps=;
+        b=L9HWGNQRlhUDyEpWpWZ/aoAOGbEht/EvKhlBvPHYleY39mULSbW/JvXL6Fr5VsYAWC
+         Gb/0IDCiosAWbvna5RkStrI0cYAP8VaplzVW0beLRHXx0p/O1Sqnf6KvPCcU/OTWXQOy
+         pmVLgpGbOPE6QvzuLrgYlVC0ORDmMIYNvQ/7QfbSPq14gej3k7IPgf5PD4PNcqV4iGT2
+         x6JSto5EckzjoSqhrAS5FkmwuT3onR72EjM9u4P9GQ+wb6lptV4n44yva7cMDUXG9Dz4
+         Ecnpf6al26p6EXjMnnwxW7/YyqvABY73FYRZkPLubI+uZWkdMrmkP9/Ka9WCqKifKR3h
+         LRRw==
+X-Forwarded-Encrypted: i=1; AKwUvBwviIgQstogj4YZ5cjnQjmFUjn2GmQ1v1V9stuSx0UNTfU7ANdma8LMsZ7cIB4yDTzLjS3FW6CwTKuaIFg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kBaxxx1Ao4i7Dn0tl15LaHu32GwQ7WMd5ZsUzX4ebjPUxyvKh8
+	UH94rXi4CIVe8PRGvqnl/5QtCXZFlNTNx0mBTVOdT/GZ+yeVh/zoYjjj
+X-Gm-Gg: AYBFou1inkE2NY4GT/OOdOmRbhEe+I37lN10AtJLYR2YseXOoAbbzUd2p260uOsmhZR
+	uYUGLsMa8WM2DCsiQrYygeG+AmF61/Y6LBILqRzXqfJenctVNPMmpYqdJPRRxIazXVT4GkmifHT
+	4JkChfB493GKS1XRyH9812CiQUmJ4tECFHN67MtEZuJLZaqxXVj3F4W5+4ceXrbM0Qvk92RHGcV
+	1wgIJkFdKGQLOvjPDvryGUbfHer2FY1J1zlM61yuLpZNzWesILkZgLDrPlWO9FpyyziVg04EQRu
+	8oMWmcCZVcxkt6wlxJkk0kI2Xf4GyUZrI6FlVuIF1Pr5unYbf6WaA/DQ1e5slqX9KsA5B9gC6Qh
+	F+Zpmi1NzujYPAWNMLltiNlg8Hjgxdx2hXiX7/+V9wa6+1x7+zBWEo/Yk+W+oe+wPGE9hiO8h6l
+	KatBvIcWf/8aTUv4zVZ5TbNcXHCKfvntwymsswoyU2uh2q5qvRd39m306OZFXxPuB+z9ywjHgd/
+	UAa1/A/Zw5vMCBTxjqh+TMsNM2sv2qhGGI=
+X-Received: by 2002:a05:6938:a084:20b0:c26:3107:71dd with SMTP id a640c23a62f3a-c2631077920mr261082266b.13.1788771644348;
+        Mon, 07 Sep 2026 02:00:44 -0700 (PDT)
+Received: from Ansuel-XPS. (host-79-26-252-140.retail.telecomitalia.it. [79.26.252.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d5bb9a9sm420312466b.55.2026.09.07.02.00.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 02:00:43 -0700 (PDT)
+Message-ID: <6a9e7d3b.0f5dc47b.330412.df04@mx.google.com>
+X-Google-Original-Message-ID: <ap59OSq9XsFz44OY@Ansuel-XPS.>
+Date: Mon, 7 Sep 2026 11:00:41 +0200
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/3] dt-bindings: phy: airoha: Document support for
+ AN7583 USB PHY
+References: <20260901123933.15388-1-ansuelsmth@gmail.com>
+ <20260901123933.15388-2-ansuelsmth@gmail.com>
+ <20260907-auspicious-liberal-raccoon-bd7a81@quoll>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: OSZPR01MB9313.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5f95650e-7604-45d6-3dd0-08df0cbe37a6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Sep 2026 08:58:42.6827
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSAPR01MB7277
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907-auspicious-liberal-raccoon-bd7a81@quoll>
 
-SET_CONFIGURATION is handled asynchronously by the mass-storage thread.=0A=
-A class request can arrive after the composite core selects the function=0A=
-but before the thread installs common->fsg, or while the function is being=
-=0A=
-disabled.=0A=
-=0A=
-fsg_setup() already rejects this state with -EOPNOTSUPP, but checking it=0A=
-through fsg_is_set() also emits a warning. Check the active function=0A=
-directly so normal requests during a configuration transition are rejected=
-=0A=
-without hiding fsg_is_set() warnings from other internal paths.=0A=
-=0A=
-Fixes: 8876f5e7d3b2 ("USB: gadget: f_mass_storage: added eject callback")=
-=0A=
-Reported-by: syzbot+d31109047baed8f3b590@syzkaller.appspotmail.com=0A=
-Closes: https://syzkaller.appspot.com/bug?extid=3Dd31109047baed8f3b590=0A=
-Signed-off-by: Keisuke Tsukuda <tkdkei@outlook.jp>=0A=
----=0A=
- drivers/usb/gadget/function/f_mass_storage.c | 2 +-=0A=
- 1 file changed, 1 insertion(+), 1 deletion(-)=0A=
-=0A=
-diff --git a/drivers/usb/gadget/function/f_mass_storage.c b/drivers/usb/gad=
-get/function/f_mass_storage.c=0A=
-index a50743c..52d486a 100644=0A=
---- a/drivers/usb/gadget/function/f_mass_storage.c=0A=
-+++ b/drivers/usb/gadget/function/f_mass_storage.c=0A=
-@@ -463,7 +463,7 @@ static int fsg_setup(struct usb_function *f,=0A=
- 	u16			w_value =3D le16_to_cpu(ctrl->wValue);=0A=
- 	u16			w_length =3D le16_to_cpu(ctrl->wLength);=0A=
- =0A=
--	if (!fsg_is_set(fsg->common))=0A=
-+	if (!fsg->common->fsg)=0A=
- 		return -EOPNOTSUPP;=0A=
- =0A=
- 	++fsg->common->ep0_req_tag;	/* Record arrival of a new request */=0A=
--- =0A=
-2.50.1 (Apple Git-155)=0A=
-=0A=
+On Mon, Sep 07, 2026 at 08:35:56AM +0200, Krzysztof Kozlowski wrote:
+> On Tue, Sep 01, 2026 at 02:39:31PM +0200, Christian Marangi wrote:
+> > Add documentation for Airoha AN7583 USB PHY that describe the USB PHY
+> > for the USB controller.
+> > 
+> > Airoha AN7583 SoC support a maximum of 2 USB port. The USB 2.0 mode is
+> > always supported. The USB 3.0 mode is optional and depends on the Serdes
+> > mode currently configured on the system for the relevant USB port.
+> > 
+> > To correctly calibrate, the USB 2.0 port require correct value in
+> > "airoha,usb2-monitor-clk-sel" property. Both the 2 USB 2.0 port permit
+> > selecting one of the 4 monitor clock for calibration (internal clock not
+> > exposed to the system) but each port have only one of the 4 actually
+> > connected in HW hence the correct value needs to be specified in DT
+> > based on board and the physical port. Normally it's monitor clock 1 for
+> > USB1 and monitor clock 2 for USB2.
+> > 
+> > To correctly setup the Serdes mode attached to the USB 3.0 mode, a phys
+> > property is required with the phandle pointing to the correct Serdes port
+> > provided by the SCU node. Providing the phys property is optional if USB
+> > 3.0 is not used.
+> > 
+> > Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> > ---
+> >  .../bindings/phy/airoha,an7583-usb-phy.yaml   | 133 ++++++++++++++++++
+> >  1 file changed, 133 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
+> > 
+> > diff --git a/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml b/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
+> > new file mode 100644
+> > index 000000000000..f1a5d83e8968
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
+> > @@ -0,0 +1,133 @@
+> > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/phy/airoha,an7583-usb-phy.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Airoha AN7583 SoC USB PHY
+> > +
+> > +maintainers:
+> > +  - Christian Marangi <ansuelsmth@gmail.com>
+> > +
+> > +description: >
+> > +  The Airoha AN7583 SoC USB PHY describes the USB PHY for the USB controller..
+> > +
+> > +  Airoha AN7583 SoC support a maximum of 2 USB port. The USB 2.0 mode is
+> > +  always supported. The USB 3.0 mode is optional and depends on the Serdes
+> > +  mode currently configured on the system for the relevant USB port.
+> > +
+> > +  On Airoha AN7583 there is an unified PHY implementation where a single
+> > +  PHY provide support for both the 2 USB 2.0 port and
+> > +  optionally one 3.0 USB.
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: airoha,an7583-usb-phy
+> > +
+> > +  reg:
+> > +    items:
+> > +      - description: phy register
+> > +      - description: ana register
+> > +      - description: pma register
+> > +      - description: dig register
+> 
+> "registers"
+> 
+> > +
+> > +  reg-names:
+> > +    items:
+> > +      - const: phy
+> > +      - const: ana
+> > +      - const: pma
+> > +      - const: dig
+> > +
+> > +  '#address-cells':
+> > +    const: 1
+> > +
+> > +  '#size-cells':
+> > +    const: 0
+> > +
+> > +  usb3-phy:
+> > +    type: object
+> > +
+> > +    properties:
+> > +      phys:
+> > +        items:
+> > +          - description: phandle to Serdes PHY
+> > +
+> > +      '#phy-cells':
+> > +        description: The cell contains the mode, PHY_TYPE_USB2 or PHY_TYPE_USB3,
+> > +          as defined in dt-bindings/phy/phy.h.
+> > +        const: 1
+> > +
+> > +    required:
+> > +      - phys
+> > +      - '#phy-cells'
+> > +
+> > +    additionalProperties: false
+> > +
+> > +patternProperties:
+> > +  '^usb2-phy@[0-9a-f]+$':
+> 
+> You should not mix MMIO and non-MMIO children. Either children have
+> distinctive addressing, or not. Not both.
+> 
+> The other problem is that your children have no resources, so are not
+> really distinctive children and should be folded in to the parent.
+> 
+> I already asked that at v2, so let's finish with asking: drop the
+> children.
+>
+
+I misunderstood the request and tought it was only related to the PCIe
+part.
+
+I'm not really sure how to drop the child without complicating the node
+structure a lot (also I feel dropping the child would make the description
+of the HW less clear and I would like to prevent that)
+
+The register for the usb2 node 0x0 and 0x1000 are offset of the register
+declared in the parent node 0x1fac0000. For usb2 1 the phy registers are at 
+0x1fac0000 - 0x1fac0200, for usb2 2 the phy register are at
+0x1fac1000 - 0x1fac1200.
+
+The driver read this offset and apply it to every register access for the
+related phy.
+
+The usb2 child are needed for the specific airoha,usb2-monitor-clk-sel
+property since it's specific for the usb 2.0 phy.
+
+Also would like to stress that these PHY are all part of the same register
+block.
+
+One solution might be to just classify the usb2 node as 0x0 and 0x1 and
+handle internally the register mapping with the driver. But again the
+problematic thing is map the monitor-clk-sel with the relevant USB 2.0 phy.
+
+Any hint on this? Is it ok to keep the child node and use 0x0 and 0x1?
+
+-- 
+	Ansuel
