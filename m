@@ -1,149 +1,105 @@
-Received: from mta1.migadu.com (out-143.mta1.migadu.com [95.215.58.143])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DE113AFAEF
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:58:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.143
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 507EC4503EA;
+	Mon,  7 Sep 2026 09:58:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788775097; cv=none; b=SyQfeLQhKAFBOVKowGFxo84+gN3OnZZTPWmsjllP33LEecZRrVDc7LYue2ukW5KXxWrZeI7xGGriWusQKjOhy+CLn/WB6uQr6EEiqiCeqBPZlC53D6qHxQsZOa6Y8v/06U4nPQP0J1keUtP4yCJQ2udTLiuYuV2JtDvcwetW/Gk=
+	t=1788775106; cv=none; b=lPMrPe7z5BNm6FFWIvFGc+MZk/sJrNZFqE/usDI2LZgWwg1XE+99vw+z2KmXMivCwD6Z679k9Pr1E6oZOlxjys9EJkv9sqMMlcNvZkH0yRqf+5FpjoKjILia93ti1GcRfKTyu+NAtUiMPqjMmTFKJccodhW5Pr9jTII/1YE1Tuk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788775097; c=relaxed/simple;
-	bh=29hVNzV5VatCE2BbvQyw9Qb42LUeW/8dYMtj6fXymzI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pfIYcF/XYDLY0NgoN9BtevuaNp8YLY2B6sd/WQpqPN0Y+MwKcDg3RkLNmFUuyNXGzUQrimlIQ4Ee5Rp3Eqy/eBykNRu+xQFbMGNKML3ezlT6ZyvDwGCMvqdvXDXnadBI1fc+fLkWQuc4s9OqM3rkvdrRoEm1mhnExz9NHyCc8QM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wnLbLIRn; arc=none smtp.client-ip=95.215.58.143
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788775106; c=relaxed/simple;
+	bh=jx8p4XoDCEmHkARz3LvR8mZjbN2RulpuK3cx8pTILlM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=e6dA37+OIsTbKX2u79aqLbEJk5Y6PLZdAdD1d29EaL5TGiUwQtGVky4OcKgJk+DRx7+wGMI7Py/gM6OrdvM9sQ7ySh2wfnVwaWXv42+5VgJhWuC3VLuGj3JqAek+FMUOZst2W+TjOvw0P3JPQ3QgBFIBJh4DhGEePieWRmbzJa4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CUO6ibPB; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wnLbLIRn"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=29hVNzV5VatCE2BbvQyw9Qb42LUeW/8dYMtj6fXymzI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788775093; v=1; x=1789379893;
- b=wnLbLIRn+MJdmPInpmR3/TLVFVsK3xU/iNJ8ncK/r69+lgYi0wdnr6Nj59Snpcc7ycINLBkN
- Q5HvQ7ZV2S6qPAoWxLwbV9Ieh6aaS73QAtq59+LuAggoNXvwkmfeS4aeu9ZfhjIlf9/aXDE/RE2
- 2rqCmvKNKXz2IbcqGFAv0oZk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 052701c0d7406b80;
-	Mon, 07 Sep 2026 09:58:13 +0000
-X-Mizu-Trace-ID: 052701c0d7406b80
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 7 Sep 2026 17:58:01 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Junjie Cao <junjie.cao@intel.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	David Ahern <dsahern@kernel.org>, Simon Horman <horms@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Fernando Fernandez Mancera <fmancera@suse.de>,
-	Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v4] net: dropreason: add
- SKB_DROP_REASON_IP_TTL_EXCEEDED
-Message-ID: <ap6KqSk5O1tVLh9N@fedora>
-References: <20260907030133.482834-1-junjie.cao@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CUO6ibPB"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DF860C2BCFA;
+	Mon,  7 Sep 2026 09:58:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788775106;
+	bh=jx8p4XoDCEmHkARz3LvR8mZjbN2RulpuK3cx8pTILlM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=CUO6ibPBnRIJ6br9N1+tglZAtiCQb54P+xFBHtVbEeHzlX7CCIYEohoJJxP2aCOVF
+	 rhWyA78DUPUPbC3nqZv25YVRlFygwkTF5HKV9hJ46PPgTlYc+wX3jRITtn2jRUTokB
+	 1jhxo/x3/bzHyxynHeE7NA8eVcKOlxGcyFxKjs5FxfIGtDybOkxLB+8UudHOr/P1fB
+	 kyUXoE5DfLyeAj5lNm6CyvJorHlvlCSZCEJN1JDlJ/iRsWMEsHA8Jseny5+0tIvPLv
+	 9jtDXPQlC7drisbr1plgBltwYk02ojwsytr/REnf07GLVb3xoxh4ObJiqqag8Cnap1
+	 LqrQlM99gmGKw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BECEDC79F89;
+	Mon,  7 Sep 2026 09:58:25 +0000 (UTC)
+From: Jia Wang via B4 Relay <devnull+wangjia.ultrarisc.com@kernel.org>
+Date: Mon, 07 Sep 2026 17:54:40 +0800
+Subject: [PATCH v2 01/10] dt-bindings: vendor-prefixes: Add shenrongda
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907030133.482834-1-junjie.cao@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260907-ultrarisc-dts-v2-1-5eb4c97477c5@ultrarisc.com>
+References: <20260907-ultrarisc-dts-v2-0-5eb4c97477c5@ultrarisc.com>
+In-Reply-To: <20260907-ultrarisc-dts-v2-0-5eb4c97477c5@ultrarisc.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Jia Wang <wangjia@ultrarisc.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Anup Patel <anup@brainfault.org>, Mark Brown <broonie@kernel.org>, 
+ Andi Shyti <andi.shyti@kernel.org>, 
+ Mika Westerberg <mika.westerberg@linux.intel.com>, 
+ Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
+ linux-riscv@lists.infradead.org, linux-spi@vger.kernel.org, 
+ linux-i2c@vger.kernel.org, dmaengine@vger.kernel.org, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788775103; l=887;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=e/Kow+cCHmWBpSOP+t1oxwgy4BH4snNIyYRmuufij+E=;
+ b=CR9ZckKOmzRgkynMxxjsH9rH+5MRkkuyyO5RWGoWCZBgJ9+mRHevzyy21zSGICPYhWEoToO9w
+ 2Kmphmkzo25Bfj0HIxEXWJH+ogZkWr5HtF7yOJTdXD+dM6ShhURhDZS
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-Endpoint-Received: by B4 Relay for wangjia@ultrarisc.com/20260515 with
+ auth_id=779
+X-Original-From: Jia Wang <wangjia@ultrarisc.com>
+Reply-To: wangjia@ultrarisc.com
 
-Hi Junjie,
-On Mon, Sep 07, 2026 at 11:01:33AM +0800, Junjie Cao wrote:
-> The forwarding paths report an expired TTL or hop limit as
-> SKB_DROP_REASON_IP_INHDR, the reason otherwise used for a header that is
-> malformed (ip_input.c, exthdrs.c, br_netfilter). Nothing else in the drop
-> path separates the two: IPSTATS_MIB_INHDRERRORS covers both, and the TTL
-> check runs before NF_INET_FORWARD, so netfilter tracing stops at
-> PREROUTING and never sees the drop.
-> 
-> The Fedora bug linked below shows how that reads in practice. The
-> reporter took kfree_skb(reason=IP_INHDR, loc=ip_forward) to mean the
-> software header checksum check had failed, and worked through RX checksum
-> offload, tc csum actions and both libvirt firewall backends before the
-> drops turned out to be replies arriving with TTL 1. ip_forward() never
-> verifies the header checksum; that runs earlier, in ip_rcv_core(), and
-> reports IP_CSUM.
-> 
-> TTL expiry is not a corner case -- every traceroute through a Linux
-> router goes through too_many_hops.
-> 
-> The three loopback hop limit checks in exthdrs.c drop with no reason at
-> all; give them the new one.
-> 
-> IPSTATS_MIB_INHDRERRORS stays as it is: RFC 1213 counts time-to-live
-> exceeded under ipInHdrErrors. The drop reason has no such constraint.
-> 
-> Link: https://bugzilla.redhat.com/show_bug.cgi?id=2517131
-> Signed-off-by: Junjie Cao <junjie.cao@intel.com>
-> Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-> Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
-> ---
-> v4: kernel-doc says "<= 1" instead of "hit zero" (Jiayuan Chen)
-> v3: https://lore.kernel.org/netdev/20260904030112.450920-1-junjie.cao@intel.com/
-> v2: https://lore.kernel.org/netdev/20260901020613.417495-1-junjie.cao@intel.com/
-> v1: https://lore.kernel.org/netdev/20260825073906.336072-1-junjie.cao@intel.com/
->  include/net/dropreason-core.h | 6 ++++++
->  net/ipv4/ip_forward.c         | 2 +-
->  net/ipv6/exthdrs.c            | 6 +++---
->  net/ipv6/ip6_output.c         | 2 +-
->  4 files changed, 11 insertions(+), 5 deletions(-)
-> 
-> diff --git a/include/net/dropreason-core.h b/include/net/dropreason-core.h
-> index 2f312d1f67d6..3d6aec203c3f 100644
-> --- a/include/net/dropreason-core.h
-> +++ b/include/net/dropreason-core.h
-> @@ -128,6 +128,7 @@
->  	FN(PSP_INPUT)			\
->  	FN(PSP_OUTPUT)			\
->  	FN(RECURSION_LIMIT)		\
-> +	FN(IP_TTL_EXCEEDED)		\
->  	FNe(MAX)
->  
->  /**
-> @@ -606,6 +607,11 @@ enum skb_drop_reason {
->  	SKB_DROP_REASON_PSP_OUTPUT,
->  	/** @SKB_DROP_REASON_RECURSION_LIMIT: Dead loop on virtual device. */
->  	SKB_DROP_REASON_RECURSION_LIMIT,
-> +	/**
-> +	 * @SKB_DROP_REASON_IP_TTL_EXCEEDED: IPv4 TTL or IPv6 hop limit <= 1
-> +	 * (see IPSTATS_MIB_INHDRERRORS)
-> +	 */
-> +	SKB_DROP_REASON_IP_TTL_EXCEEDED,
->  	/**
->  	 * @SKB_DROP_REASON_MAX: the maximum of core drop reasons, which
->  	 * shouldn't be used as a real 'reason' - only for tracing code gen
-> diff --git a/net/ipv4/ip_forward.c b/net/ipv4/ip_forward.c
-> index 8b65f12583eb..b242561d37e7 100644
-> --- a/net/ipv4/ip_forward.c
-> +++ b/net/ipv4/ip_forward.c
-> @@ -174,7 +174,7 @@ int ip_forward(struct sk_buff *skb)
->  	/* Tell the sender its packet died... */
->  	__IP_INC_STATS(net, IPSTATS_MIB_INHDRERRORS);
->  	icmp_send(skb, ICMP_TIME_EXCEEDED, ICMP_EXC_TTL, 0);
-> -	SKB_DR_SET(reason, IP_INHDR);
-> +	SKB_DR_SET(reason, IP_TTL_EXCEEDED);
->  drop:
->  	kfree_skb_reason(skb, reason);
->  	return NET_RX_DROP;
+From: Jia Wang <wangjia@ultrarisc.com>
 
-I saw
+Add Shenzhen Rongda Computer Co., Ltd. to the vendor prefixes.
 
-ip_vs_forward_icmp()
-  - ip_vs_in_icmp_v6
-      - ip_vs_icmp_xmit_v6()
-        - __ip_vs_get_out_rt_v6()
-          - decrement_ttl()
+Link: http://www.shenrongda.com/
+Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Also sends ICMP_EXC_TTL/ICMPV6_EXC_HOPLIMIT messages, But not changed
-in this patch. Should we also update them? Or there is no plan to
-change the ipvs code yet?
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index ba2002969373..e100f3993e57 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1507,6 +1507,8 @@ patternProperties:
+     description: SGX Sensortech
+   "^sharp,.*":
+     description: Sharp Corporation
++  "^shenrongda,.*":
++    description: Shenzhen Rongda Computer Co., Ltd.
+   "^shift,.*":
+     description: SHIFT GmbH
+   "^shimafuji,.*":
 
-Thanks
-Hangbin
+-- 
+2.34.1
+
+
