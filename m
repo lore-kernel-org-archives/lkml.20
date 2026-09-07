@@ -1,232 +1,145 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F593ED5B9;
-	Mon,  7 Sep 2026 19:13:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788808441; cv=none; b=mQh2YZhWFdJShWFu6YbaCfaMxlygO/owagfywFvSDuA92+AXLpOb/uINRjAgfobCcBE9EJiMycqg28VkiYEpTmK1Y2UahK/p7EBIv3cGUwm6H5EBxAOUqHhBbEIoHIq4LheoIrwd3z00nL7EvaKhOqQN6atdwQyfJZsNvwe7IUI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788808441; c=relaxed/simple;
-	bh=VFPW8oU/qQ6NR5NdxRiQ/DQWigGtH7XbMQnShuzReJ0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tBh3s2FwBJFf+P8/+Vk5XQD4/h7SeKlJjDUo2XXuAdpPANY0E/54x1eUOFIi/70BRkeIbhghYpBVCWKN+DXi4QyUcqV/RR62EpWv3GlWxVlbL30s8kssoaMGgZ1B4hqH0fqeMrl6rs/DJro7Op+a0Ihbey19N5+IlrrYPLcpdeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OTQXZ1MT; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D697F367295
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 19:15:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788808530; cv=pass; b=n9VgFcn/utpJtDeUDQQj2OTBwsB8IZZ/II5r7OPhNnAF9R9wFENZ2AZVqGKpvEpeA0gzqKRbr/ouL35maGYf59ULSdH+aQOXK3oQef6ULk7AAqaSebYjPKPlE6bIf67v1gfhW4pO386VlTNDr4K2lJD8ycFaGSiK8mRsbRBBi5U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788808530; c=relaxed/simple;
+	bh=x5vPF2zdApbc1bQDHCY5MbAFgU4op6PaAJerhpeqC0Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XsfnK1R3rcWoyvGC/lUFPSdIg7iAsgi0Xcchxcrm8CoyTQxKhKXs06k+43vY0hvFI6wGN9Y62rEthP3oQvvnO737EPv3WQD1JTdUWg/r/fBu+kY0I3U4wrb7GfijFmjPzKUMW3d1UdjK+KCotBVS3ei+aPZAbccJfbfESaqp4hk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=cutZm4vn; arc=pass smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OTQXZ1MT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788808439; x=1820344439;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=VFPW8oU/qQ6NR5NdxRiQ/DQWigGtH7XbMQnShuzReJ0=;
-  b=OTQXZ1MTzWX69wvuexhIkSRq4PiOTvd825Y+EEuYjJQQAVOlB+QKVJBV
-   gyfAeJe5Za13ZhiA9odspQoVhZhj4srVrHS8625jRlEFIIEea7GyNO8f8
-   mwrsPp7hMbwSWEVB+29Ethp0CYHqnSJ3kPFP8FrCf8jMZslj2FArrz6uV
-   CyrYp5bspzp2m4wpaqq4WayO5Gub5VSinSvVtFKkWUkk3ZSmgihOvEwwY
-   W+8bnlsH6iRDFVgFCvomxrqPk6AfY/H8x+IGtGg2SQcyog9Amdw0DS1PO
-   ft8u945ovZRpiiD/I3oW9A+9tzGVF7+fgnKM1p6CHeXPn5GocSLsRm3U7
-   g==;
-X-CSE-ConnectionGUID: ahkudvLTSxuMkcX8U533uQ==
-X-CSE-MsgGUID: 4mYU3U4BShmhW9i5G4xYNg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="89244558"
-X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="89244558"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 12:13:58 -0700
-X-CSE-ConnectionGUID: o3+lIQxbQYWqH/2/Z77CYA==
-X-CSE-MsgGUID: 9pFAzUJPQLePJ+LCBmiexw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="266450197"
-Received: from lkp-server01.sh.intel.com (HELO dff15f1b2031) ([10.239.97.150])
-  by fmviesa006.fm.intel.com with ESMTP; 07 Sep 2026 12:13:56 -0700
-Received: from kbuild by dff15f1b2031 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x3emv-000000001Gl-3HDL;
-	Mon, 07 Sep 2026 19:13:53 +0000
-Date: Tue, 8 Sep 2026 03:13:22 +0800
-From: kernel test robot <lkp@intel.com>
-To: Breno Rodrigues Alves <breno3011alves@gmail.com>,
-	gregkh@linuxfoundation.org
-Cc: oe-kbuild-all@lists.linux.dev, torvalds@linux-foundation.org,
-	linux-media@vger.kernel.org, linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Breno Rodrigues Alves <breno3011alves@gmail.com>
-Subject: Re: [PATCH v2] media: dvb-core: extirpate defective and unsafe ULE
- debug block
-Message-ID: <202609080307.AVMbAAz0-lkp@intel.com>
-References: <20260905142222.22818-1-breno3011alves@gmail.com>
+	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="cutZm4vn"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c252e703fa3so585421066b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 12:15:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788808527; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LKOcBMBdXv2UZqDBihSA3LAT9O0UxG/BuYHx7OPVDvtiOl5veecRMqoBUXqGMjvIg9
+         FP+uthX3s4wtOUSEFkm5mBsHDV+CktulOLQYm6iqUdF6nDT9C2fm9sAxWP6Q1yF7ZqRt
+         5dDNsAyUdt5KqHEbptqo99vPKb0p83Hs4cSm47CvxoBjUWaFOt5eCeyLf0RTIgZASHhF
+         zLrpFJTDYsJ9rtG6qtGW1piz5Yq+cqzu3vh5NdnxBLsm7VVE6icEcxUJ8UyevfNqp5aV
+         F92S9mkHiDJOs2MKcr4diO5JC+xWrKtbheyA62gwd62VEKUVOHJnajQ/jkhVNGOPqugG
+         rAiQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YLZ2agjLMgvlPAn6cdRVBCiOCyjFQG2uOoEUzkcYPBU=;
+        fh=0RxRxG5aUyHJMGblBPc6+w3IDV9IEMOSi7+KVXcww58=;
+        b=ndcdrB5MG7K3ZbRUXQW8r6Ty/y7b10+AGr6VVYHy/Kx/NgQxSEiyaF/BTNPfuuC0Io
+         0+ulsUhnfjm4ymCyPvSgr82Z6jDasJmi4y1pXNRtHuVyndtM68ry7//5yT0xbUZCDacl
+         xVYy4ZmEC4ciydHvb0BUPn5LkpJNKrKmOYMCeYtwI3mtQWc7xzB2SI06plAaTZpWVN2R
+         4aY+nD5k2v6sXk5YCyuT9xcwlu3YD3Flv4d6flWC9E5J8V/R4ihTq+qT4WipPKiPj6g9
+         IwOxT4V42s4VdNo46yxUroIixKGa7yvOGC2U8IgaK+TWTe4PUYeFJWN2mzgfp2IYyA0f
+         XP1g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ionos.com; s=google; t=1788808527; x=1789413327; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YLZ2agjLMgvlPAn6cdRVBCiOCyjFQG2uOoEUzkcYPBU=;
+        b=cutZm4vn5t2JZOR9OMgI6pnmqYqQFfvcFwC63fGWUTWiVKer5VjKXFZo8dC1DLyJgA
+         JeaS+sEUqPRQeejiN6VA+HRNH5InkI62g5gY6mmT4CmtIqHG3xgxoXiVxzJrA8AfN0/X
+         /abBW0tO2dEig72VExEuxJTYAu5kRqLLxm8i6HRQ+0VTirB8F8uoubAZj67hfsLNw96O
+         BBkaCVu3HHgzHYwxIfgyb4hT1cNZpUfVBzhzLcCIKbkSzu9yi6m3fqa158hrCnkcD+6d
+         LxrtoCmbP+P21eFmt622XvDz5NLoRzP5zQTG0Ie8ErhkuFy5FGiCglCwIO/NXF6EPF8Q
+         AhDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788808527; x=1789413327;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YLZ2agjLMgvlPAn6cdRVBCiOCyjFQG2uOoEUzkcYPBU=;
+        b=V+huRTRAVe4zz8varJLbWfuGq73AcbSNVLe05YUAWAe2hxTepG/yz19NRrtfq9tEzV
+         HVaxmLli1DPUtQoGJfLmIA/WfCLavqDa9CQTXksNx3AhLq4190XqBtCsKgV3st2UXpCS
+         Idg0uTayDlG0qGpnpmm0BBHcKjkReC2NYlJVL9W//m+g6XpoWyDQX1w+aBmgoecDXAut
+         1b4r3HQE5BL3wgujKKP1jGp3j8WqrRtNw1vU103hiQU/0pApI7jOe03/1njTMy/A2jnv
+         mUTJAhPPwHDWJEwPYPgZytYydawmAxy97HMWC8Od1tFV4VybfRr+MucOjWtYuFgScn2c
+         rbQA==
+X-Forwarded-Encrypted: i=1; AKwUvBz3M3Z6XvZf6oDbo5tLl3miR0ILWahcNUxIowK+CFq8YbQ+AgCz4hmU7E3/DALMmXblJTvOWzVIj6oeCnc=@vger.kernel.org
+X-Gm-Message-State: AFuF++k95d8NEvET3FQETJdOOY9Om+sFl+Vk0piZm2JhAIKAqH9YG7eT
+	hjrjYVezSu4s6VoJlUKVX5U1FPuRHSwN207r+cJpESXOT+4g2FA7HsyvW1Y+pYkZIO2FCIhotnt
+	syAPbYgXRjJokEuU4MWo3/4bXdvnbh7O/jA7DAJ83Yw==
+X-Gm-Gg: AYBFou0L/PzNIMjJ4suxk+93/ofARnCbIyWpu3RUsVWMGCq+hRtmj+KiOud1hIQUIjy
+	erPPoWva1vsi+zo70aUJS9crELA01DpU9pjALrkkYYajB23YCnvQ0xZHkYnyZ3dlN6KYB1xmQlo
+	9sW0KI30/aL7VorAjcBLjzYojQjkoS5ygfli6jpUy7g2Z3q+oFjCklUkV8k/QMHd9JYzzkrIW5h
+	DC/VFrb0/kobsp4Ezkw6PrANYvjFjglK/fGT1q7PIF1wz1oxCo68+w1m3o8PwOzFYPQIxLZMcfW
+	lO8Va8gE6U0Ed7Rxh2TJn2MMDrQb3pH9bUKs7lmJCXSD+xNxray904vnUwqMp3NpPy+mhfPLkb3
+	2cnRLa/dj
+X-Received: by 2002:a17:907:c20d:b0:c25:23d:5295 with SMTP id
+ a640c23a62f3a-c260c9f8920mr994472866b.17.1788808527122; Mon, 07 Sep 2026
+ 12:15:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260905142222.22818-1-breno3011alves@gmail.com>
+References: <20260904150304.49104-1-max.kellermann@ionos.com>
+ <20260904150304.49104-4-max.kellermann@ionos.com> <CAOJNxRKxO3z3H0xXG0J0W9_hp2qwBfFEUeKFGFnk_MRQtu--tA@mail.gmail.com>
+In-Reply-To: <CAOJNxRKxO3z3H0xXG0J0W9_hp2qwBfFEUeKFGFnk_MRQtu--tA@mail.gmail.com>
+From: Max Kellermann <max.kellermann@ionos.com>
+Date: Mon, 7 Sep 2026 21:15:15 +0200
+X-Gm-Features: AcwNN1VSJfSMfCn3vuBaXzqEcc2QZfWjSUijicTPAmQje5KrNhk1pl3uBSLDJng
+Message-ID: <CAKPOu+-zixbekaeE3+96hV+abQxnEAnTQnFJwhgPeNa7__6irw@mail.gmail.com>
+Subject: Re: [PATCH v4 3/3] ceph: don't unregister an MDS session before
+ removing its caps
+To: Xiubo Li <xiubo.li@clyso.com>
+Cc: idryomov@gmail.com, amarkuze@redhat.com, ceph-devel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Breno,
+On Sat, Sep 5, 2026 at 3:56=E2=80=AFAM Xiubo Li <xiubo.li@clyso.com> wrote:
+> Just one remaining teardown path still unregisters the session before
+> removing its caps: the fallback loop in ceph_mdsc_close_sessions():
+>
+> mutex_lock(&mdsc->mutex);
+> for (i =3D 0; i < mdsc->max_sessions; i++) {
+>         if (mdsc->sessions[i]) {
+>                 session =3D ceph_get_mds_session(mdsc->sessions[i]);
+>                 __unregister_session(mdsc, session);
+>                 mutex_unlock(&mdsc->mutex);
+>                 mutex_lock(&session->s_mutex);
+>                 remove_session_caps(session);
+>                 mutex_unlock(&session->s_mutex);
+>                 ...
+>
+> The rest of this series consistently changes the ordering to keep the
+> rank occupied until remove_session_caps() has completed. Is the
+> ordering in ceph_mdsc_close_sessions() intentionally excluded?
+>
+> This path is not limited to shutdown: it is also reached from the
+> corrupt snap-trace handling in ceph_handle_caps(), ceph_handle_reply()
+> and handle_snap(). In those cases mdsc->stopping may be false and the
+> mount need not be in CEPH_MOUNT_FENCE_IO, so a concurrent
+> __do_request() can register a new session for the rank in the window
+> between __unregister_session() and remove_session_caps().
 
-kernel test robot noticed the following build errors:
+I don't think that's true for the call paths you mentioned. They call
+ceph_mdsc_close_sessions() only after ceph_update_snap_trace() has
+failed, and on failure, that function always sets CEPH_MOUNT_FENCE_IO,
+which prevents creating a new session.
 
-[auto build test ERROR on staging/staging-testing]
-[also build test ERROR on staging/staging-next staging/staging-linus linuxtv-media-pending/master media-tree/master sailus-media-tree/master linus/master linux/master sailus-media-tree/streams v7.3-rc2 next-20260907]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+The only other callers are ceph_put_super() and the mount-failure path
+in ceph_get_tree(), where this is not relevant (no requests exist).
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Breno-Rodrigues-Alves/media-dvb-core-extirpate-defective-and-unsafe-ULE-debug-block/20260905-112222
-base:   staging/staging-testing
-patch link:    https://lore.kernel.org/r/20260905142222.22818-1-breno3011alves%40gmail.com
-patch subject: [PATCH v2] media: dvb-core: extirpate defective and unsafe ULE debug block
-config: x86_64-randconfig-r071-20260907 (https://download.01.org/0day-ci/archive/20260908/202609080307.AVMbAAz0-lkp@intel.com/config)
-compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
-smatch: v0.5.0-9187-g5189e3fb
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260908/202609080307.AVMbAAz0-lkp@intel.com/reproduce)
+Am I missing something?
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609080307.AVMbAAz0-lkp@intel.com/
+--=20
+Max Kellermann
+Principal Architect
+Hosting Technology
 
-All errors (new ones prefixed by >>):
-
->> drivers/media/dvb-core/dvb_net.c:806:51: error: too few arguments to function call, expected 4, have 3
-     806 |                         dvb_net_ule_check_crc(&h, ule_crc, expected_crc);
-         |                         ~~~~~~~~~~~~~~~~~~~~~                          ^
-   drivers/media/dvb-core/dvb_net.c:625:13: note: 'dvb_net_ule_check_crc' declared here
-     625 | static void dvb_net_ule_check_crc(struct dvb_net_ule_handle *h,
-         |             ^                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     626 |                                   struct kvec iov[3],
-         |                                   ~~~~~~~~~~~~~~~~~~~
-     627 |                                   u32 ule_crc, u32 expected_crc)
-         |                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   1 error generated.
-
-
-vim +806 drivers/media/dvb-core/dvb_net.c
-
-   721	
-   722	static void dvb_net_ule(struct net_device *dev, const u8 *buf, size_t buf_len)
-   723	{
-   724		int ret;
-   725		struct dvb_net_ule_handle h = {
-   726			.dev = dev,
-   727			.priv = netdev_priv(dev),
-   728			.ethh = NULL,
-   729			.buf = buf,
-   730			.buf_len = buf_len,
-   731			.skipped = 0L,
-   732			.ts = NULL,
-   733			.ts_end = NULL,
-   734			.from_where = NULL,
-   735			.ts_remain = 0,
-   736			.how_much = 0,
-   737			.new_ts = 1,
-   738			.error = false,
-   739		};
-   740	
-   741		/*
-   742		 * For all TS cells in current buffer.
-   743		 * Appearently, we are called for every single TS cell.
-   744		 */
-   745		for (h.ts = h.buf, h.ts_end = h.buf + h.buf_len;
-   746		     h.ts < h.ts_end; /* no incr. */) {
-   747			if (h.new_ts) {
-   748				/* We are about to process a new TS cell. */
-   749				if (dvb_net_ule_new_ts_cell(&h))
-   750					continue;
-   751			}
-   752	
-   753			/* Synchronize on PUSI, if required. */
-   754			if (h.priv->need_pusi) {
-   755				if (dvb_net_ule_ts_pusi(&h))
-   756					continue;
-   757			}
-   758	
-   759			if (h.new_ts) {
-   760				if (dvb_net_ule_new_ts(&h))
-   761					continue;
-   762			}
-   763	
-   764			/* Check if new payload needs to be started. */
-   765			if (h.priv->ule_skb == NULL) {
-   766				ret = dvb_net_ule_new_payload(&h);
-   767				if (ret < 0)
-   768					return;
-   769				if (ret)
-   770					continue;
-   771			}
-   772	
-   773			/* Copy data into our current skb. */
-   774			h.how_much = min(h.priv->ule_sndu_remain, (int)h.ts_remain);
-   775			skb_put_data(h.priv->ule_skb, h.from_where, h.how_much);
-   776			h.priv->ule_sndu_remain -= h.how_much;
-   777			h.ts_remain -= h.how_much;
-   778			h.from_where += h.how_much;
-   779	
-   780			/* Check for complete payload. */
-   781			if (h.priv->ule_sndu_remain <= 0) {
-   782				/* Check CRC32, we've got it in our skb already. */
-   783				__be16 ulen = htons(h.priv->ule_sndu_len);
-   784				__be16 utype = htons(h.priv->ule_sndu_type);
-   785				const u8 *tail;
-   786				struct kvec iov[3] = {
-   787					{ &ulen, sizeof ulen },
-   788					{ &utype, sizeof utype },
-   789					{ h.priv->ule_skb->data,
-   790					  h.priv->ule_skb->len - 4 }
-   791				};
-   792				u32 ule_crc = ~0L, expected_crc;
-   793				if (h.priv->ule_dbit) {
-   794					/* Set D-bit for CRC32 verification,
-   795					 * if it was set originally. */
-   796					ulen |= htons(0x8000);
-   797				}
-   798	
-   799				ule_crc = iov_crc32(ule_crc, iov, 3);
-   800				tail = skb_tail_pointer(h.priv->ule_skb);
-   801				expected_crc = *(tail - 4) << 24 |
-   802					       *(tail - 3) << 16 |
-   803					       *(tail - 2) << 8 |
-   804					       *(tail - 1);
-   805	
- > 806				dvb_net_ule_check_crc(&h, ule_crc, expected_crc);
-   807	
-   808				/* Prepare for next SNDU. */
-   809				reset_ule(h.priv);
-   810			}
-   811	
-   812			/* More data in current TS (look at the bytes following the CRC32)? */
-   813			if (h.ts_remain >= 2 && *((unsigned short *)h.from_where) != 0xFFFF) {
-   814				/* Next ULE SNDU starts right there. */
-   815				h.new_ts = 0;
-   816				h.priv->ule_skb = NULL;
-   817				h.priv->ule_sndu_type_1 = 0;
-   818				h.priv->ule_sndu_len = 0;
-   819				// pr_warn("More data in current TS: [%#x %#x %#x %#x]\n",
-   820				//	*(h.from_where + 0), *(h.from_where + 1),
-   821				//	*(h.from_where + 2), *(h.from_where + 3));
-   822				// pr_warn("h.ts @ %p, stopped @ %p:\n", h.ts, h.from_where + 0);
-   823				// hexdump(h.ts, 188);
-   824			} else {
-   825				h.new_ts = 1;
-   826				h.ts += TS_SZ;
-   827				h.priv->ts_count++;
-   828				if (h.priv->ule_skb == NULL) {
-   829					h.priv->need_pusi = 1;
-   830					h.priv->ule_sndu_type_1 = 0;
-   831					h.priv->ule_sndu_len = 0;
-   832				}
-   833			}
-   834		}	/* for all available TS cells */
-   835	}
-   836	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+cm4all | Im Mediapark 6a | 50670 K=C3=B6ln | Germany
+General information about the company can be found here:
+https://www.cm4all.com/impressum
+A member of the IONOS Group
