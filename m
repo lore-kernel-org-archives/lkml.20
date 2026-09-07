@@ -1,171 +1,184 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 816203AE191;
-	Mon,  7 Sep 2026 16:33:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A884F7985;
+	Mon,  7 Sep 2026 16:34:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788798833; cv=none; b=sdt5PIlo/tM39oyP3G0AtIDyZ7eO/UXVd6NEKtmU/br6BfTXjYxkiwUh0tk6UHbaikuqdLlw3mRpdvVVvGUCK9miJqBjeZBa0C0cNjdZrqPTQyvAP86W/h6gHCu/eNWCyq05tjGS3cQtwlF8Dj4pTpR9x0MyYJH3aISjTHk+gr4=
+	t=1788798895; cv=none; b=RhuwCG7V0JB0U/qAD6fIP+XuiGzDpGgXKkl2GSL7NO4VrJacnIcYBPrOYRetKiGPdYMwQhUvHOa/6HKUqE8tqZvrdo2nf0JsNJQaMvx0PhJwziDw65k1anFEvj/Nmz525EwAsd2ZdkLDQWmPdkWQp8WjPL5Tdjx0VCo3aJoQJ00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788798833; c=relaxed/simple;
-	bh=SXQS3GLuO0AH4tyO9ImfLK+DZ0Ip6pIdRyKdrgzqYyc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pGNS0YhIPK6t0RBFbQJg5b3wCdPjSjB5X1NIAhoEifdiMwuEnwihkqCYd6ycEcdSt+bwXOmVrExG7ciqjJExarWMAf79zciHAcfxXVBfk7VSkj0tBZXn/3kaIcE2a0CyNTIc8sIG7DFlM81+tdzEMoveH9uT4HWtqfWDvmA0Li8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i5wYc8By; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788798895; c=relaxed/simple;
+	bh=fj20gJDGnUllR4Ou1jl1kIWdCnAByuDtqtMbODz65Cs=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=QuH1Jr8+JOS9c/mveN4/MbwvdmotQRY2vlFJ5c/h/SVHct3cqYu9LcblLsuBtUnLXWIhJQXqjCm+PvMf4j/h2TreTSXp0Ai8Se5IO2f928s7NrFeePMUE/iFDatyfGN23bG7Izdh5zFJ5NZBz0bvMIfQ+cpfk7aTvozlh9mTQt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l3OKWJQK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i5wYc8By"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABCF51F00A3A;
-	Mon,  7 Sep 2026 16:33:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l3OKWJQK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBF021F00A3A;
+	Mon,  7 Sep 2026 16:34:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788798832;
-	bh=cAuFkVwr+DWI2V4wrox0xZCJB/0hu3m74aTo0dee8I0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i5wYc8BysTLjWIl1VZMisAs6qq70fofF+8/cz4NAB0r9TF8ieAzpbP2DsOXRCdYPs
-	 h/OAHgy169+b1CuJ8FoTJPYCFcuobmAA83xbEl5HsAtmh2DgNO1LaFmCflDfzD30hv
-	 ZBKpii018dEnIpP6ts7o8tlPIs8xXjKxmZhUfRujTGOO3v7A6fIZb7xR/H1eU5wzhj
-	 54x6CLqyDPNStPOVx9pj7VdSDCz5FeIJZA7TRfvq/M4GnVeN0mCsVuk4BehIK+nDPQ
-	 v7aYdvHltnPnINFV6eQ9PkxGIW95GK6TA5BTBB+9fxbWdMc/r5ZQuG1CKQhZI1Qn2Y
-	 /cpt8yAFkCgUA==
-From: SJ Park <sj@kernel.org>
-To: Liew Rui Yan <aethernet65535@gmail.com>
-Cc: SJ Park <sj@kernel.org>,
-	akpm@linux-foundation.org,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2.1] mm/damon/core: fix false positive in damos_quota_is_full() when esz is zero
-Date: Mon,  7 Sep 2026 09:33:44 -0700
-Message-ID: <20260907163344.87006-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260906222633.4227-1-aethernet65535@gmail.com>
-References: 
+	s=k20260515; t=1788798894;
+	bh=2KE0p1ANOYskMb814mDpz+QLuRe12o7f1q8RtEEwvAE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=l3OKWJQKG0Mp9BLMNyiKZXxHGk19I9JDMXljZnLCvtxvUZf87I8bdjKmra8oPXKTw
+	 rTdT3S5GAkgxxs2/0ktOyWbVTEuJnLrrosUbGWK06sOOyoULHouUJ/SMQSC6JVAN5b
+	 3U4XJ/VQsFH3/EXlu2Y53bpwHWJYNqP2CFDYch7zF5Y5TcFHcOX5W8PDIc4JAcQAyW
+	 WHsPgVaiUvjfIQkMMYK/DFzq7Mpx2Qa8qM4BUY55qLka0yKeyx5/h+vDEVKEg8B5Lo
+	 20+qRxzW1jiczTEPiyZMviMmXu/T/Zf1kAaj3Fo76tc/kycFK/9FuDWVsCwMuuU0zl
+	 FphsgMDlWBXyA==
+Date: Mon, 7 Sep 2026 11:34:52 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Sangwoo Han <sangwoo.han@nearthlab.com>
+Cc: jim2101024@gmail.com, florian.fainelli@broadcom.com,
+	lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
+	bhelgaas@google.com, bcm-kernel-feedback-list@broadcom.com,
+	robh@kernel.org, linux-pci@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Thomas Gleixner <tglx@kernel.org>,
+	Inochi Amaoto <inochiama@gmail.com>
+Subject: Re: [PATCH] PCI: brcmstb: Reserve only the MSI vectors that are
+ handed out
+Message-ID: <20260907163452.GA2526539@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260730072215.2090974-1-sangwoo.han@nearthlab.com>
 
-On Mon,  7 Sep 2026 06:25:28 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+[+cc Thomas, Inochi for MSI expertise]
 
-> On Sat, 05 Sep 2026 09:12:33 -0700 SJ Park <sj@kernel.org> wrote:
+On Thu, Jul 30, 2026 at 04:22:15PM +0900, Sangwoo Han wrote:
+> brcm_msi_alloc() reserves a naturally aligned power-of-two region with
+> bitmap_find_free_region(order_base_2(nr_irqs)), but the irqdomain core
+> releases the vectors of a block one at a time:
 > 
-> > On Sat,  5 Sep 2026 18:36:58 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
-> > 
-> > > On Fri, 04 Sep 2026 17:25:34 -0700 SJ Park <sj@kernel.org> wrote:
-> > > 
-> > > > On Fri,  4 Sep 2026 23:35:38 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
-> > > > 
-> > > > > That said, it's not important for me to add explanations to the
-> > > > > document, but may I know why commit [2] changed the behavior which
-> > > > > introduced by commit [1]?
-> > > > > 
-> > > > > Commit [1] Behavior:
-> > > > > 
-> > > > >     if (quota->esz && quota->changed_sz >= quota->esz)
-> > > > >         s->stat.qt_exceeds++;
-> > > > > 
-> > > > > Commit [2] Behavior:
-> > > > > 
-> > > > >     if (damos_quota_is_full(quota, c->min_region_sz))
-> > > > >         s->stat.qt_exceeds++;
-> > > > > 
-> > > > > Before commit [2], qt_exceeds will only increase when quota->esz is not
-> > > > > zero, but after commit [2], qt_exceeds also increase even when
-> > > > > quota->esz is zero.  I'd love to understand the rationale behind this
-> > > > > change to better grasp the design evolution.
-> > > > > 
-> > > > > [1] 6268eac34ca30 ("mm/damon/schemes: account how many times quota limit has exceeded")
-> > > > >     (Fri Jan 14 14:10:20 2022 -0800)
-> > > > > [2] c7ec7d5f6b3d1 ("mm/damon/core: handle <min_region_sz remaining quota as empty")
-> > > > >     (Mon Apr 27 18:33:50 2026 -0700)
-> > > > 
-> > > > Seems commit c7ec7d5f6b3d1 didn't make a behavior change that you are
-> > > > describing.
-> > > 
-> > > I actually wanted to point out the behavior difference between commit [1]
-> > > and [2], but I've understood and agreed with your point.
-> > > 
-> > > > 
-> > > > '''
-> > > > $ git show c7ec7d5f6b3d1
-> > > > [...]
-> > > > @@ -2601,8 +2613,7 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
-> > > >         if (!time_in_range_open(jiffies, quota->charged_from,
-> > > >                                 quota->charged_from +
-> > > >                                 msecs_to_jiffies(quota->reset_interval))) {
-> > > > -               if (damos_quota_is_set(quota) &&
-> > > > -                               quota->charged_sz >= quota->esz)
-> > > > +               if (damos_quota_is_full(quota, c->min_region_sz))
-> > > >                         s->stat.qt_exceeds++;
-> > > >                 quota->total_charged_sz += quota->charged_sz;
-> > > >                 quota->charged_from = jiffies;
-> > > > '''
-> > > > 
-> > > > And I don't think there was a behavior change.  Hopefully commit 54419bbd0ee3
-> > > > ("mm/damon/core: allow quota goals set zero effective size quota") will give
-> > > > you some clues.
-> > > 
-> > > Thank you very much for your clarifying :>
-> > > 
-> > > Now I completely understand why there is different behavior
-> > 
-> > I told you I don't think there was a behavior change.  I still think so.
-> > 
-> > > between
-> > > commit [1] and [2].  Because in commit [1], esz==0 only means quota is
-> > > unlimited.
-> > 
-> > No.  Commit 54419bbd0ee3 says "DAMON core assumes zero effective quota means
-> > the user has set no quota."
-> > 
-> > 
-> > > After commit 54419bbd0ee3, esz==0 also can means do not have
-> > > quota at all.
-> > 
-> > That's what the commit is describing the before-commit status...
-> > 
-> > > But the qt_exceeds should just not increase when quota is
-> > > unlimited, that's why the current implementation is completely correct.
-> > 
-> > There is no unlimited quota.  Hence I don't understand what you are saying
-> > here.  Please carefully read the commit message again.
+>   /* irq_domain_free_irqs_hierarchy() */
+>   for (i = 0; i < nr_irqs; i++)
+>           if (irq_domain_get_irq_data(domain, irq_base + i))
+>                   domain->ops->free(domain, irq_base + i, 1);
 > 
-> Thank you for the detailed explanation, and sorry for my confusing
-> wording.  Let me confirm my corrected understanding:
+> That loop is the only caller of an irq_domain's ops->free(), so
+> brcm_irq_domain_free() always sees nr_irqs == 1 and
+> bitmap_release_region() clears exactly one bit per call. A request whose
+> vector count is not a power of two therefore reserves
+> roundup_pow_of_two(nr_irqs) bits but releases only nr_irqs of them, and
+> the difference stays set for the lifetime of the controller.
 > 
-> Before commit 54419bbd0ee3, esz == 0 appeared only when the quota was
-> unset, i.e., the user has set no quota.  DAMON core therefore assumed
-> zero effective quota means the user has set no quota, and the code
-> checked quota->esz to tell whether a quota is set.  Commit 54419bbd0ee3
-> decoupled "quota is set" from "esz != 0" by introducing
-> damos_quota_is_set().  After that, the temporal goal tuner
-> (af738a6a00c1f) made it possible for a set quota to have esz == 0 as
-> well, for example once its goal is over-achieved.  In that case the
-> scheme is intentionally deactivated,
-
-From user's perspective, it may look like it is deactivated.  Technically
-speaking, however, it is not deactivated.  Everything keeps working in the
-normal way.  Just one difference is that now it has very small (zero) quota.
-
-> and counting qt_exceeds is intended,
-> not a bug.
+> Multi-MSI regions are order-aligned and the controller has at most 32
+> MSIs, so the pool is quickly exhausted. Observed on a BCM2712 with a
+> 5-vector endpoint behind a 4-port PCIe switch: the switch ports take
+> hwirq 0x0-0x3 and the endpoint's block walks 0x8 -> 0x10 -> 0x18 across
+> three driver reloads until no aligned order-3 region is left.
+> pci_alloc_irq_vectors() then falls back to a single vector for the rest
+> of the boot, silently multiplexing the endpoint's four completion
+> interrupts onto one hwirq.
 > 
-> Commit c7ec7d5f6b3d1 did not change the behavior I asked about; it only
-> refactored the check into damos_quota_is_full().
-
-Seems you fully understand that now :)
-
+> Devices that ask for a non-power-of-two vector count are not exotic:
+> wil6210 asks for 3, the MHI modems for 5 (Quectel EM1xx, Foxconn SDX55,
+> Telit FN990, MediaTek MV3x) or 7 (Qualcomm v1), ath11k WCN6750 for 28
+> and ptp_ocp for 17. MSI-X is unaffected because it allocates one
+> descriptor per vector with nvec_used == 1, so the order is always zero.
 > 
-> I will send a documentation patch in the near future.  Thank you again
-> for your patience.
+> Reserve exactly the vectors that are handed out, at a base found with
+> bitmap_find_next_zero_area(), and clear exactly the vectors that are
+> freed. The number of reserved bits then matches the number the core
+> releases, whatever arity it uses.
+> 
+> The base still has to be aligned: PCI Local Bus Specification 3.0
+> (section 6.8.1.6) lets the endpoint encode the vector number in the low
+> order_base_2(nr_irqs) bits of the Message Data register, and in this
+> controller those bits are the hwirq itself. The alignment mask has to be
+> roundup_pow_of_two(nr_irqs) - 1 rather than nr_irqs - 1:
+> bitmap_find_next_zero_area() requires a mask of the form 2^k - 1. No
+> align_offset is needed because the bitmap index is the value the
+> endpoint ORs in, see brcm_msi_compose_msi_msg().
+> 
+> For a power-of-two nr_irqs the alignment and the region length are both
+> nr_irqs, so the base returned is the same as before and those
+> allocations are unaffected.
+> 
+> Fixes: 198acab1772f ("PCI: brcmstb: Enable Multi-MSI")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sangwoo Han <sangwoo.han@nearthlab.com>
+> ---
+> 
+> Notes:
+>     Tested on a BCM2712 (Raspberry Pi 5) with a 5-vector endpoint behind a
+>     4-port PCIe switch, running 6.12.25 where brcm_msi_alloc() and
+>     brcm_msi_free() are byte-identical to mainline. Without the patch the
+>     endpoint's block walks 0x8 -> 0x10 -> 0x18 over three driver reloads and
+>     then falls back to a single vector for the rest of the boot; with it the
+>     block returns to 0x8 on all of eight reload cycles and the inner
+>     domain's mapped count round-trips cleanly.
+>     
+>     Compile-tested on mainline for arm64 with W=1 and C=1 (sparse); no new
+>     warnings.
+> 
+>  drivers/pci/controller/pcie-brcmstb.c | 17 ++++++++++++++---
+>  1 file changed, 14 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/pci/controller/pcie-brcmstb.c b/drivers/pci/controller/pcie-brcmstb.c
+> index 8a0c353d2a..6c5166666d 100644
+> --- a/drivers/pci/controller/pcie-brcmstb.c
+> +++ b/drivers/pci/controller/pcie-brcmstb.c
+> @@ -595,11 +595,22 @@ static struct irq_chip brcm_msi_bottom_irq_chip = {
+>  
+>  static int brcm_msi_alloc(struct brcm_msi *msi, unsigned int nr_irqs)
+>  {
+> +	/*
+> +	 * brcm_msi_compose_msi_msg() puts hwirq in the low order bits of the
+> +	 * message data, which a Multi-MSI endpoint rewrites per vector, so a
+> +	 * block's base must be aligned to the Multiple Message Enable count.
+> +	 */
+> +	unsigned long align_mask = roundup_pow_of_two(nr_irqs) - 1;
+>  	int hwirq;
+>  
+>  	mutex_lock(&msi->lock);
+> -	hwirq = bitmap_find_free_region(msi->used, msi->nr,
+> -					order_base_2(nr_irqs));
+> +	hwirq = bitmap_find_next_zero_area(msi->used, msi->nr, 0, nr_irqs,
+> +					   align_mask);
+> +	if (hwirq >= msi->nr) {
+> +		mutex_unlock(&msi->lock);
+> +		return -ENOSPC;
+> +	}
+> +	bitmap_set(msi->used, hwirq, nr_irqs);
+>  	mutex_unlock(&msi->lock);
+>  
+>  	return hwirq;
+> @@ -609,7 +620,7 @@ static void brcm_msi_free(struct brcm_msi *msi, unsigned long hwirq,
+>  			  unsigned int nr_irqs)
+>  {
+>  	mutex_lock(&msi->lock);
+> -	bitmap_release_region(msi->used, hwirq, order_base_2(nr_irqs));
+> +	bitmap_clear(msi->used, hwirq, nr_irqs);
+>  	mutex_unlock(&msi->lock);
+>  }
 
-Thank you for your patience, too.  Looking forward to the patch!
+I want to revive this thread because I think there's a real problem
+here, and we should solve it for all the PCI controller drivers.
 
+There's nothing brcm-specific about the bitmap alloc/free except the
+size of the msi->used bitmap, so I don't want to copy/paste this sort
+of fix in all the affected drivers.
 
-Thanks,
-SJ
+I'd also like to avoid the extra align_mask and
+bitmap_find_next_zero_area() followed by manual bitmap_set().
+bitmap_find_free_region() already takes care of the alignment and
+setting the allocated bits.
 
-[...]
+The MSI Multiple Message Enable situation of enabling more vectors in
+the device than the driver wants is generic to all devices that
+advertise Multiple Message Capable, and I don't think we should have
+to deal with this in every host controller driver.
+
+If a driver requests 3 vectors, we have to enable 4 because MSI only
+supports power-of-two number of vectors.  This tells the device it is
+allowed to use all 4 vectors, and I think the PCI MSI core should
+assume they all *will* be used instead of relying on the driver's
+claim that it will only use 3.
