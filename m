@@ -1,262 +1,324 @@
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C5C637996C
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:04:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31D26372058;
+	Mon,  7 Sep 2026 06:05:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788761096; cv=none; b=GKbvuV+gux37NBkw44SHWsMbfokl2WbHJjQYZ032o2RJOy+Uytq6uEWXnBPHB2JvtntxGEaHJAXzLvAlPZ/wM15mv8/zjCw57KOjYXTsU95oHcXSeVNw6TGRiTJAox7+CKWXw7lB4CxXsrECiw2WkqH7E+ue6AehtUM3B/Gs1Yw=
+	t=1788761113; cv=none; b=HFMNa9N2ymYhrw94PkKm8f3gnXwYN++HQM6v406O7Fq/1cYIvJAQW2Kdlt1g5plkDiWz1uNVAs1r5QC14vubNURLsh2uoQnMcXEGZ6E9klB9AFklpx5SAaSPMiYkScuovjZKc5hDz/1BANMCoUog3a48y5RBuwk2TTHX+44nZ3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788761096; c=relaxed/simple;
-	bh=b1Hz9rYycwYrYX/+s3pbLxWS7uKOceawfWb5yqx4yE4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=LHLmuuXtWPWNeD9rUTKR0Gcs4JDB+6h3swEFmq5kPz9j8VnpT1ujTeL1MEL1n/WRS4JJ0+mcCWHT/sQ/JCsMz1ao/9TqUa5HiuZozkJmfZPJ7IuirOLAvgnjZDrFiMekeRYAHQ84YzP/755IJMQ3sKfiMVCqiV98mG7q/wAgbWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=slcRk5m+; arc=none smtp.client-ip=203.254.224.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1788761113; c=relaxed/simple;
+	bh=9orKWGEZ9lUfHOz13R0MuutwxAutMIr1x5Q16KvOFUg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Uv94JWmr5ryk7r2Q73I8PbYBzPzD5pSe3/rr5hIxPyNeSTT4B8pGzssf3cWRUyzSLp8mWfw+E/yeMSLeOXxKPspSY1UiL+SRAZ+ogeNEdAJLBo1q5k2fkBQkcpWCJwvS+tNbn/qCzKELLUiKLu3KRyeNWATG3SdFIh4pFd37XLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=uLuJh3xm; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="slcRk5m+"
-Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20260907060445epoutp0147972b9cb3e6be6101a8e7f447795b86~S9LrXcYMt1487714877epoutp01z
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:04:45 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20260907060445epoutp0147972b9cb3e6be6101a8e7f447795b86~S9LrXcYMt1487714877epoutp01z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1788761085;
-	bh=Apw2iUirqek8VKGufyLgdLjs5Rfxgc8/vl6/NyrKW8k=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=slcRk5m+WGQ1SjbuuoGM/zupLNokbYmmpTiZPQm2hBMLwBwpJquqgA75gVj2kx5ZW
-	 qItUWlQ3NBdlpuha6fRDXLcS8npdspRdWWEJffIYY3vEAEKgK5GEG+PxQb/o/JTUWz
-	 7M6tfDOsVP0F/W1L01kCkHwkO/ot09Pv1oqCFH28=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
-	20260907060444epcas5p28eb4578f521d4d2b9e0694c18df3def2~S9LqPUohf2359923599epcas5p2F;
-	Mon,  7 Sep 2026 06:04:44 +0000 (GMT)
-Received: from epcas5p2.samsung.com (unknown [182.195.38.95]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4hdc3b0q6yz6B9m7; Mon,  7 Sep
-	2026 06:04:43 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
-	20260907060442epcas5p309df4da89d1a3040ddcec14195fc2b3b~S9Lo4EmvD1977119771epcas5p3s;
-	Mon,  7 Sep 2026 06:04:42 +0000 (GMT)
-Received: from [107.122.5.126] (unknown [107.122.5.126]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260907060440epsmtip21f4fd38dcbbe0387455b812404e9bd80~S9LmbZNx51077310773epsmtip2O;
-	Mon,  7 Sep 2026 06:04:39 +0000 (GMT)
-Message-ID: <e4bafeea-4548-41ef-b5e2-98ade2864e74@samsung.com>
-Date: Mon, 7 Sep 2026 11:34:38 +0530
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="uLuJh3xm"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=OjJ0lPhuwDWz0mKBuGHCQwKRNSMrXhJq6rQPeivDlJA=; b=uLuJh3xmld+g5DnD/lguXv+MmA
+	DQGM+RLAEeyzf0mPXY6HuyN2Yrf9nDASl7ytJJFluOGvAvLOLQuEJxhljz1xUI3g1Z0rrbKSHD3Ht
+	Dz+cROgn+FbHF58bUyEdMXE9SNFf/CcNgRijVJSZ9+9/QnxhWRnX/2iABNucnbzYzZh6SisSwvcqO
+	hAQzwVF4dsEtYy92hwZmbxs5YAlZ3DKiuPcVUv7BoqZdcKkpYk+TtKU66qWSk9rYOEk/54jZyiFVm
+	vVJdQQwg8GbU4ZyLjzI7qQHd2BW0nkLn2WWDO+u32wF6k3HAh/Fuc2oVHR0QeZ4MLfVQqssSszZOU
+	iwgrn1LA==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x3STc-00000005zMf-3PBa;
+	Mon, 07 Sep 2026 06:05:09 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+	Miklos Szeredi <miklos@szeredi.hu>,
+	Bernd Schubert <bernd@bsbernd.com>,
+	Joanne Koong <joannelkoong@gmail.com>,
+	fuse-devel@lists.linux.dev
+Subject: [PATCH] fuse: repair lots of uapi kernel-doc
+Date: Sun,  6 Sep 2026 23:05:07 -0700
+Message-ID: <20260907060507.2582993-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] dt-bindings: usb: Introduce samsung,snps-dwc3
-To: Krzysztof Kozlowski <krzk@kernel.org>, peter.griffin@linaro.org,
-	alim.akhtar@samsung.com, gregkh@linuxfoundation.org, robh@kernel.org,
-	conor+dt@kernel.org, Thinh.Nguyen@synopsys.com,
-	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: jh0801.jung@samsung.com, dh10.jung@samsung.com, akash.m5@samsung.com,
-	hongpooh.kim@samsung.com, eomji.oh@samsung.com, shijie.cai@samsung.com,
-	muhammed.ali@samsung.com, thiagu.r@samsung.com
-Content-Language: en-US
-From: Selvarasu Ganesan <selvarasu.g@samsung.com>
-In-Reply-To: <ad1d8c01-a810-443a-9ad5-721d6d0b68b1@kernel.org>
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260907060442epcas5p309df4da89d1a3040ddcec14195fc2b3b
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260903071318epcas5p4b804edb84554847c576d1d034b814d7a
-References: <20260903071250.3421499-1-selvarasu.g@samsung.com>
-	<CGME20260903071318epcas5p4b804edb84554847c576d1d034b814d7a@epcas5p4.samsung.com>
-	<20260903071250.3421499-3-selvarasu.g@samsung.com>
-	<ad1d8c01-a810-443a-9ad5-721d6d0b68b1@kernel.org>
 
+Fix all (24) kernel-doc warnings in <uapi/linux/fuse.h>:
+- modify some instances to use common C comment style instead of
+  kernel-doc
+- convert a few instances to use kernel-doc format
 
-On 9/5/2026 12:52 PM, Krzysztof Kozlowski wrote:
-> On 03/09/2026 09:12, Selvarasu Ganesan wrote:
->> The Samsung Exynos8855 USB glue is not separate from the Synopsys DWC3
->> core, using a flattened model where the DWC3 controller is directly
->> addressable rather than nested as a child node of a glue layer.
->>
->> Describe the Exynos USB block as a single node, referencing the split
->> out Synopsys DWC3 core properties via snps,dwc3-common.yaml. The new
->> binding follows the same approach as qcom,snps-dwc3.
->>
->> A generic fallback compatible "samsung,snps-dwc3" is introduced to
->> describe this binding, selected by the validator based on the presence
->> of the fallback string in the compatible list. Future Exynos SoCs
-> This is AI slop text. Over longish useless sentence describing diff
-> without actual information WHY.
->
-> Don't send AI generated slop messages.
+The warnings are all of this form (list is truncated for brevity):
 
-Sorry for the misleading info on this commit message. We were trying to 
-explain why a separate flattened representation is being introduced with 
-using generic fallback string, and follow the style of some other DWC3 
-flattened refactors (like the Qualcomm : 
-https://lore.kernel.org/all/20250414-dwc3-refactor-v7-2-f015b358722d@oss.qualcomm.com) 
-to justify the separate binding, but it became too long. We'll simplify 
-it and keep only the technical reasoning.
+Warning: include/uapi/linux/fuse.h:370 This comment starts with '/**', but isn't a kernel-doc comment.
+ * Bitmasks for fuse_setattr_in.valid
+Warning: include/uapi/linux/fuse.h:386 This comment starts with '/**', but isn't a kernel-doc comment.
+ * Flags returned by the OPEN request
+Warning: include/uapi/linux/fuse.h:414 This comment starts with '/**', but isn't a kernel-doc comment.
+ * INIT request/reply flags
+Warning: include/uapi/linux/fuse.h:526 This comment starts with '/**', but isn't a kernel-doc comment.
+ * CUSE INIT request/reply flags
+Warning: include/uapi/linux/fuse.h:630 This comment starts with '/**', but isn't a kernel-doc comment.
+ * extension type
+Warning: include/uapi/linux/fuse.h:1307 This comment starts with '/**', but isn't a kernel-doc comment.
+ * Header for all fuse-io-uring requests
+Warning: include/uapi/linux/fuse.h:1320 This comment starts with '/**', but isn't a kernel-doc comment.
+ * sqe commands to the kernel
 
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+---
+Cc: Miklos Szeredi <miklos@szeredi.hu>
+Cc: Bernd Schubert <bernd@bsbernd.com>
+Cc: Joanne Koong <joannelkoong@gmail.com>
+Cc: fuse-devel@lists.linux.dev
 
->
->> utilizing the same flattened model can be added by extending the
->> compatible enum with per SoC clock and property constraints.
->>
->> Co-developed-by: Muhammed Ali <muhammed.ali@samsung.com>
->> Signed-off-by: Muhammed Ali <muhammed.ali@samsung.com>
->> Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
->> ---
->>
->> Krzysztof Kozlowski is added as a maintainer of this YAML binding, as
->> he is the ARM/Samsung SoC architecture maintainer (ARM/SAMSUNG S3C,
->> S5P AND EXYNOS ARM ARCHITECTURES) who already maintains Samsung Exynos
->> DT bindings (e.g. samsung,exynos-dwc3.yaml) and reviews all
->> Samsung related binding changes. This follows the same convention used
->> by existing Samsung Exynos DT binding schemas.
->> ---
->>   .../bindings/usb/samsung,snps-dwc3.yaml       | 98 +++++++++++++++++++
->>   1 file changed, 98 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/usb/samsung,snps-dwc3.yaml
->>
->> diff --git a/Documentation/devicetree/bindings/usb/samsung,snps-dwc3.yaml b/Documentation/devicetree/bindings/usb/samsung,snps-dwc3.yaml
->> new file mode 100644
->> index 000000000000..480308c16f37
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/usb/samsung,snps-dwc3.yaml
->> @@ -0,0 +1,98 @@
->> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: https://protect2.fireeye.com/v1/url?k=1a7dfa9a-7bf6efdd-1a7c71d5-000babff99aa-643f51fc0561c489&q=1&e=c6c89336-1f3a-4d30-a005-615c2b8d9c6f&u=http%3A%2F%2Fdevicetree.org%2Fschemas%2Fusb%2Fsamsung%2Csnps-dwc3.yaml%23
->> +$schema: https://protect2.fireeye.com/v1/url?k=515f3c48-30d4290f-515eb707-000babff99aa-9a67f9f3980bd8f3&q=1&e=c6c89336-1f3a-4d30-a005-615c2b8d9c6f&u=http%3A%2F%2Fdevicetree.org%2Fmeta-schemas%2Fcore.yaml%23
->> +
->> +title: Samsung Exynos SoC DWC3 USB Controller
->> +
->> +maintainers:
->> +  - Krzysztof Kozlowski <krzk@kernel.org>
->> +  - Selvarasu Ganesan <selvarasu.g@samsung.com>
->> +
->> +description:
->> +  Describes the DWC3 USB controller block implemented on Samsung Exynos SoCs.
-> Huh? Did you even look at existing bindings?
+ include/uapi/linux/fuse.h |   82 +++++++++++++++++++++---------------
+ 1 file changed, 50 insertions(+), 32 deletions(-)
 
-
-Yes, We checked samsung,exynos-dwc3.yaml. Exynos8855 could use it, but 
-that binding uses a parent and child representation. This patch 
-introduces a flattened model where the USB vendor block and SNPS dwc3 
-block are in a single node. The goal is to use this for Exynos8855 and 
-eventually migrate the other samsung USB implementations from the old 
-parent and child model to this one. We'll make this clearer and shorter 
-in the commit message.
-
->
->> +
->> +select:
->> +  properties:
->> +    compatible:
->> +      contains:
->> +        const: samsung,snps-dwc3
->> +  required:
->> +    - compatible
->> +
->> +properties:
->> +  compatible:
->> +    items:
->> +      - enum:
->> +          - samsung,exynos8855-dwc3
->> +      - const: samsung,snps-dwc3
-> There is no snps device from Samsung, neither DWC3. The name of device
-> is completely wrong. snps is a vendor, not a device.
->
-> Anyway, don't use generic fallbacks.
-Understood. The fallback was intended to cover upcoming SoCs (8865, 
-9955, 9965) and the migration of older SoCs without adding a unique 
-string for every project, similar to the qcom,snps-dwc3 approach.
-
-We agree that the naming was incorrect since  "snps" is the vendor. We 
-can switch to per SoC compatible strings, but would a corrected fallback 
-name like samsung,exynos-dwc3-common or samsung,exynos-snps-dwc3 be 
-acceptable instead?
->
->
->> +
->> +  reg:
->> +    maxItems: 1
->> +
->> +  power-domains:
->> +    maxItems: 1
->> +
->> +  interrupts:
->> +    maxItems: 1
->> +
->> +  clocks:
->> +    description: |
->> +      Several clocks are used, depending on the variant. Typical ones are:
->> +       - ref: Reference clock for SOF/ITP generation.
->> +       - bus: Bus (APB) clock for register access.
->> +    minItems: 1
->> +    maxItems: 4
->> +
->> +  clock-names:
->> +    minItems: 1
->> +    maxItems: 4
-> You have only one device, why is this flexible?
-
-
-Exynos8855 only needs two clocks, but maxItems: 4 was added to support 
-other samsung USB implementations that use up to four. Since we plan to 
-migrate those to the flattened representation later, we wanted the 
-binding to cover those requirements as well. Example required 4 clocks 
-for gs101-dwusb3 (ref: 
-Documentation/devicetree/bindings/usb/samsung,exynos-dwc3.yaml)
-
-
->
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - clocks
->> +  - clock-names
->> +  - interrupts
->> +
->> +allOf:
->> +  - $ref: snps,dwc3-common.yaml#
->> +
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: samsung,exynos8855-dwc3
->> +    then:
->> +      properties:
->> +        clocks:
->> +          minItems: 2
->> +          maxItems: 2
->> +        clock-names:
->> +          items:
->> +            - const: ref
->> +            - const: bus
-> Why do you need all this? Look at existing code, don't duplicate. And
-> for sure do not introduce one more DWC3 binding claiming to be for
-> Samsung devices and completely ignoring existing ones.
-
-
-We understand the concern about adding another binding. The goal is to 
-migrate all samsung USB implementations to this flattened model, and 
-then deprecate samsung,exynos-dwc3.yaml to avoid duplication.
-
-
-Thanks,
-Selva
-
->
-> Best regards,
-> Krzysztof
+--- linux-next-20260904.orig/include/uapi/linux/fuse.h
++++ linux-next-20260904/include/uapi/linux/fuse.h
+@@ -367,7 +367,7 @@ struct fuse_file_lock {
+ 	uint32_t	pid; /* tgid */
+ };
+ 
+-/**
++/*
+  * Bitmasks for fuse_setattr_in.valid
+  */
+ #define FATTR_MODE	(1 << 0)
+@@ -383,7 +383,7 @@ struct fuse_file_lock {
+ #define FATTR_CTIME	(1 << 10)
+ #define FATTR_KILL_SUIDGID	(1 << 11)
+ 
+-/**
++/*
+  * Flags returned by the OPEN request
+  *
+  * FOPEN_DIRECT_IO: bypass page cache for this open file
+@@ -411,7 +411,7 @@ struct fuse_file_lock {
+ #define FOPEN_PASSTHROUGH	(1 << 7)
+ #define FOPEN_IO_URING_ZERO_COPY (1 << 8)
+ 
+-/**
++/*
+  * INIT request/reply flags
+  *
+  * FUSE_ASYNC_READ: asynchronous read requests
+@@ -523,30 +523,30 @@ struct fuse_file_lock {
+ #define FUSE_HAS_IO_URING_BUFPOOL (1ULL << 43)
+ #define FUSE_HAS_SYNCFS		(1ULL << 44)
+ 
+-/**
++/*
+  * CUSE INIT request/reply flags
+  *
+  * CUSE_UNRESTRICTED_IOCTL:  use unrestricted ioctl
+  */
+ #define CUSE_UNRESTRICTED_IOCTL	(1 << 0)
+ 
+-/**
++/*
+  * Release flags
+  */
+ #define FUSE_RELEASE_FLUSH	(1 << 0)
+ #define FUSE_RELEASE_FLOCK_UNLOCK	(1 << 1)
+ 
+-/**
++/*
+  * Getattr flags
+  */
+ #define FUSE_GETATTR_FH		(1 << 0)
+ 
+-/**
++/*
+  * Lock flags
+  */
+ #define FUSE_LK_FLOCK		(1 << 0)
+ 
+-/**
++/*
+  * WRITE flags
+  *
+  * FUSE_WRITE_CACHE: delayed write from page cache, file handle is guessed
+@@ -560,12 +560,12 @@ struct fuse_file_lock {
+ /* Obsolete alias; this flag implies killing suid/sgid only. */
+ #define FUSE_WRITE_KILL_PRIV	FUSE_WRITE_KILL_SUIDGID
+ 
+-/**
++/*
+  * Read flags
+  */
+ #define FUSE_READ_LOCKOWNER	(1 << 1)
+ 
+-/**
++/*
+  * Ioctl flags
+  *
+  * FUSE_IOCTL_COMPAT: 32bit compat ioctl on 64bit machine
+@@ -586,21 +586,21 @@ struct fuse_file_lock {
+ 
+ #define FUSE_IOCTL_MAX_IOV	256
+ 
+-/**
++/*
+  * Poll flags
+  *
+  * FUSE_POLL_SCHEDULE_NOTIFY: request poll notify
+  */
+ #define FUSE_POLL_SCHEDULE_NOTIFY (1 << 0)
+ 
+-/**
++/*
+  * Fsync flags
+  *
+  * FUSE_FSYNC_FDATASYNC: Sync data only, not metadata
+  */
+ #define FUSE_FSYNC_FDATASYNC	(1 << 0)
+ 
+-/**
++/*
+  * fuse_attr flags
+  *
+  * FUSE_ATTR_SUBMOUNT: Object is a submount root
+@@ -609,28 +609,28 @@ struct fuse_file_lock {
+ #define FUSE_ATTR_SUBMOUNT      (1 << 0)
+ #define FUSE_ATTR_DAX		(1 << 1)
+ 
+-/**
++/*
+  * Open flags
+  * FUSE_OPEN_KILL_SUIDGID: Kill suid and sgid if executable
+  */
+ #define FUSE_OPEN_KILL_SUIDGID	(1 << 0)
+ 
+-/**
++/*
+  * setxattr flags
+  * FUSE_SETXATTR_ACL_KILL_SGID: Clear SGID when system.posix_acl_access is set
+  */
+ #define FUSE_SETXATTR_ACL_KILL_SGID	(1 << 0)
+ 
+-/**
++/*
+  * notify_inval_entry flags
+  * FUSE_EXPIRE_ONLY
+  */
+ #define FUSE_EXPIRE_ONLY		(1 << 0)
+ 
+ /**
+- * extension type
+- * FUSE_MAX_NR_SECCTX: maximum value of &fuse_secctx_header.nr_secctx
+- * FUSE_EXT_GROUPS: &fuse_supp_groups extension
++ * enum fuse_ext_type - extension type
++ * @FUSE_MAX_NR_SECCTX: maximum value of &fuse_secctx_header.nr_secctx
++ * @FUSE_EXT_GROUPS: &fuse_supp_groups extension
+  */
+ enum fuse_ext_type {
+ 	/* Types 0..31 are reserved for fuse_secctx_header */
+@@ -1036,14 +1036,14 @@ struct fuse_fallocate_in {
+ };
+ 
+ /**
+- * FUSE request unique ID flag
++ * define FUSE_UNIQUE_RESEND - FUSE request unique ID flag
+  *
+  * Indicates whether this is a resend request. The receiver should handle this
+  * request accordingly.
+  */
+ #define FUSE_UNIQUE_RESEND (1ULL << 63)
+ 
+-/**
++/*
+  * This value will be set by the kernel to
+  * (struct fuse_in_header).{uid,gid} fields in
+  * case when:
+@@ -1273,12 +1273,12 @@ struct fuse_supp_groups {
+ };
+ 
+ /**
+- * Size of the ring buffer header
++ * define FUSE_URING_IN_OUT_HEADER_SZ - Size of the ring buffer header
+  */
+ #define FUSE_URING_IN_OUT_HEADER_SZ 128
+ #define FUSE_URING_OP_IN_OUT_SZ 128
+ 
+-/**
++/*
+  * fuse_uring_ent_in_out flags
+  *
+  * FUSE_URING_ENT_ZERO_COPY: Set if the ent's payload is zero-copied
+@@ -1305,34 +1305,52 @@ struct fuse_uring_ent_in_out {
+ };
+ 
+ /**
+- * Header for all fuse-io-uring requests
++ * struct fuse_uring_req_header - Header for all fuse-io-uring requests
+  */
+ struct fuse_uring_req_header {
+-	/* struct fuse_in_header / struct fuse_out_header */
++	/**
++	 * @in_out: struct fuse_in_header / struct fuse_out_header
++	 */
+ 	char in_out[FUSE_URING_IN_OUT_HEADER_SZ];
+ 
+-	/* per op code header */
++	/**
++	 * @op_in: per op code header
++	 */
+ 	char op_in[FUSE_URING_OP_IN_OUT_SZ];
+ 
++	/**
++	 * @ring_ent_in_out: TBD
++	 */
+ 	struct fuse_uring_ent_in_out ring_ent_in_out;
+ };
+ 
+ /**
+- * sqe commands to the kernel
++ * enum fuse_uring_cmd - sqe commands to the kernel
+  */
+ enum fuse_uring_cmd {
++	/** @FUSE_IO_URING_CMD_INVALID: invalid command value */
+ 	FUSE_IO_URING_CMD_INVALID = 0,
+ 
+-	/* register the request buffer and fetch a fuse request */
++	/**
++	 * @FUSE_IO_URING_CMD_REGISTER: register the request buffer and
++	 * fetch a fuse request
++	 */
+ 	FUSE_IO_URING_CMD_REGISTER = 1,
+ 
+-	/* commit fuse request result and fetch next request */
++	/**
++	 * @FUSE_IO_URING_CMD_COMMIT_AND_FETCH: commit fuse request result
++	 * and fetch next request
++	 */
+ 	FUSE_IO_URING_CMD_COMMIT_AND_FETCH = 2,
+ 
+-	/* add a queue */
++	/**
++	 * @FUSE_IO_URING_CMD_ADD_QUEUE: add a queue
++	 */
+ 	FUSE_IO_URING_CMD_ADD_QUEUE = 3,
+ 
+-	/* add a bufpool to a queue */
++	/**
++	 * @FUSE_IO_URING_CMD_ADD_BUFPOOL: add a bufpool to a queue
++	 */
+ 	FUSE_IO_URING_CMD_ADD_BUFPOOL = 4,
+ };
+ 
+@@ -1344,7 +1362,7 @@ enum fuse_uring_cmd {
+  */
+ #define FUSE_URING_ZERO_COPY		(1 << 0)
+ 
+-/**
++/*
+  * In the 80B command area of the SQE.
+  */
+ struct fuse_uring_cmd_req {
