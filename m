@@ -1,181 +1,128 @@
-Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com [209.85.222.47])
+Received: from mta0.migadu.com (out-198.mta0.migadu.com [91.218.175.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00FF651E428
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 17:05:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ECBE37C0F8
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 17:06:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788800758; cv=none; b=sJHqqeffx3taNUpsZ1ke0pa6KbuHF3cTkuFa0RrdQtk5ZU20/STN/kdnZGXG6ec0VatJwleSj5Gnqz7migZH+S7WnL7TqHU/mY1M8iwzL+S3e7TnIUYvQ4Pz+t/qmkpVkv6rW14M8DYJWKI0Wc8XKJoO46KxsWeukRW6o1Rh8fc=
+	t=1788800771; cv=none; b=WP5ep48RZkewdsmGkwIHfWan8i3fApDEDmYaPns6gwCKadee4F4LJLF3LTrKv2X1CxRpdOy6A6ynF+E7gNMjI9DuHDtW30VgocHF3HqKMxFJCRGvl/JhBJDpTvljwYG8bgYNzl+iVMVbilen2ST7sw1dc4r/18j5x3l0Z8SUj/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788800758; c=relaxed/simple;
-	bh=30E5+fn1SPBaPinE5yhL9vLNK+JbITEUO6qnT0TgdOY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=uZRwUgSwwT62ehHFG3F1jT+DGSrO/5rtACOFkPk3vFQo+hmeJOrGUHqaTsc9VwZFMEAcSBCW2Y2Aip4iYxBKmexWCTkvvx3KB4ksqLxvhctqhOnlcU362G9s7HN/Yt3zFKtCu2hgeXg2q6+um1KngoZm7U2+X4plt/aGGHfnEhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=nMkC82fi; arc=none smtp.client-ip=209.85.222.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	s=arc-20240116; t=1788800771; c=relaxed/simple;
+	bh=7pByG30llvEWWSce4UCN2bXV3w2mwOr+4zGW6Pv3EaM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FfEimmWWOL3RKZuVMNflfKvBNZ6znGyADOosmApNVjwXaabiA1vu8PvqpJes6JREup4ol88Bokgz6CX5fWxS96xivq0gfBE43Oc0vkjMPFJQyLuRSyhFLnPMoag8hOqp02N76Ht+LiMgeJWK+0baXHc42TDGDTMTb0rxXv6OmEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=VcdN1Wmr; arc=none smtp.client-ip=91.218.175.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="nMkC82fi"
-Received: by mail-ua1-f47.google.com with SMTP id a1e0cc1a2514c-98076bb236eso1855654241.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 10:05:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1788800754; x=1789405554; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4ViMkmwSoErS7rxxMTiQ1fqBwA5lQ27YbW52AFDf1PI=;
-        b=nMkC82fiE0qrtydvqmovNXyKhS6Bo2yeRyyrJqHZdusVz8GawhSnphotCH0CKxvkYp
-         THDr1T6zBoK93qFpAhs9h/qbpWq5gGO3RwvKHplbiAQGYRUPDx2yvS8F9Z09PvhK1LwH
-         2kPT2sG2CYm5FoaANHqiRiCawKd57LjAvz3wcRDuxC+7wh4PB8lNYXHlNdgcePH7pzze
-         cO3xduMT8z2uMB3rDo0yiTz0CqVwVKvOLWE3IcFaIhektlf8ZOxQdkC3otQw7Il4j0kP
-         ccgqxvMTsFyNo6I3toclxphc+A2j5PHdUjcAVCfi7JcwQwYgZ5sY73VwSUiy1XEFzwWe
-         6yDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788800754; x=1789405554;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=4ViMkmwSoErS7rxxMTiQ1fqBwA5lQ27YbW52AFDf1PI=;
-        b=kz8O9qGdw9hF/XOIM37vhLl49PKTSoTTeX3Lw8JEbuzGZy7zHGQsJWyyg21Mp6l8oq
-         HkX3RzNTFZaiiocIhkwjAqhq2qLunU2s0s0LNw6FNQ3Iopp5w9u6Lc0fHFrBxioc4WL+
-         U05wr767elaKvlBcBbKD3XnUe8GaTcyYhDT0kbBipGeANdOZaBT4V8yQa2ZU4m6Henn4
-         FnorTdk1pW8Sj426L9dyF32MkrgEAHrPdnBXTC7IY+s3AM9ENwldMb5e0PV7jzyFB8v9
-         9IZl+c84JuNjHm+Ij6oaQgU4CNx/zI5ZEuzog22nqYR9Cq74P/aEevZ3uq46L6cH64h5
-         sJ9Q==
-X-Forwarded-Encrypted: i=1; AKwUvByMp/wbVNzLw4wUkrCbCV1YJhUU2E82IrrT91OMtRVTJH35tWHYetJOA9Ej+6itgYGCwqEiQG1Vpa1FgBY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUxpbcNHB6BLDLJ87EfNS1JaLjD+OrzlJTIYtYl+iV8nIVfcqw
-	Xp5RfVM32xEl3z9wHOyrYTQ22ouXNG1IeVNHJr7zWRttk4y8xxzclz9Cosyb2/DfxzM=
-X-Gm-Gg: AYBFou19BTQhGCmM7aNEOgQH6Ta5f0xn4t4mM5ROrK+mEkqbBVp7R1I8Z+0VbaJDuO9
-	u82DnB0BWn3X4LpvjxH7IzE6j9aMO4REHpBMu7euzpuRcTqomLfQpUFg3mWUJF26rrGF5UWwnSe
-	Y89iWrYYs+yjbv0bF3TFz9npCXtYICGnY/Cw9TD4uLfK+RIODDNBpbwBBK6/S4fVcutjPp91e8M
-	d1MTj7uvI798LNtk9NzXDh7OuDU837k8/JxP2wHTiLF1wQ8yXoCG8O4OMiNLR5jbxvngvRQ3/7t
-	fAy096SfojINxadn+erIoySKVDaEoB+q+uStAYl5uzmE4jcuIT1Y0x0RqDYBEFCz7biMW0EiuLz
-	dkMDi0Vxy7DGwAfjRAEnnD6lXa1Zvh//Z2zrTJTnVeqDrOt7+D6x91b0vU/cdsjVeDDIBy+J+mU
-	wUBqMrpBKeVpp0g/+XYWKZ1jDZzRSdUTWeZFibX4g1FvTsY8bKha1NodT3fWoQG0y9dmsObc0/G
-	tIfGQPnUmrlUBoXpI32HDXn1sN5xbNBnG+fz3VZMV+n8vhS9RQ9eJcI/koTvGcLULYsQBX0tx/G
-	IgCq9NDJcpXhyOE7LMWiM+rEcYLHQpgs5+PV564AJt+tU9TmeroVtCA=
-X-Received: by 2002:a05:6102:1484:b0:785:1d9c:633c with SMTP id ada2fe7eead31-78a4a8436b7mr10378157137.7.1788800754614;
-        Mon, 07 Sep 2026 10:05:54 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:51d3:d0fc:6793:303f? ([2600:1700:6476:1430:51d3:d0fc:6793:303f])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-78a4764e321sm7450610137.0.2026.09.07.10.05.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 10:05:51 -0700 (PDT)
-Message-ID: <56524bbf4d0a08e932f9cea18861538151a89534.camel@dubeyko.com>
-Subject: Re: [PATCH] hfsplus: fix recursive tree_lock in
- hfsplus_file_extend()
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: ThangNN99 <ngocthang2710.1999@gmail.com>, John Paul Adrian Glaubitz
-	 <glaubitz@physik.fu-berlin.de>, Yangtao Li <frank.li@vivo.com>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzbot+f8ce6c197125ab9d72ce@syzkaller.appspotmail.com
-Date: Mon, 07 Sep 2026 10:05:50 -0700
-In-Reply-To: <20260906154924.94160-1-ngocthang2710.1999@gmail.com>
-References: <20260906154924.94160-1-ngocthang2710.1999@gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="VcdN1Wmr"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=7pByG30llvEWWSce4UCN2bXV3w2mwOr+4zGW6Pv3EaM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788800767; v=1; x=1789405567;
+ b=VcdN1WmrOrPCtLseFfeYX7tkR7IbS93f0Xm0+OxoJN1g4jH8KPa/wbyot+eC4JAEeQYC6ErR
+ ugJKx3xs0CIFuLwzrpbmEImHDKIXqI6+3zCkGTGMW4P/bHtUaCsUa1OF9AXOb66+ozr96DjTbOp
+ AcCyrfGkAI3tg3JVXoEsU6IE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 22398892ef57cd52;
+	Mon, 07 Sep 2026 17:05:57 +0000
+X-Mizu-Trace-ID: 22398892ef57cd52
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <fe1ec84e-31df-408b-961a-6d79848bff9c@linux.dev>
+Date: Tue, 8 Sep 2026 01:05:49 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/memory: fix hugetlb_zap_begin() call in
+ zap_vma_range_batched()
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: SJ Park <sj@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org
+References: <20260904000028.149656-1-sj@kernel.org>
+ <20260903173540.e8f660dcaf083946417cba3e@linux-foundation.org>
+Content-Language: en-US
+From: Zenghui Yu <zenghui.yu@linux.dev>
+In-Reply-To: <20260903173540.e8f660dcaf083946417cba3e@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, 2026-09-06 at 22:49 +0700, ThangNN99 wrote:
-> hfs_bmap_reserve() calls hfsplus_file_extend() on tree->inode with
-> tree->tree_lock already held.=C2=A0 When the tree is the extents overflow
-> B-tree and its own fork already claims more blocks than its eight
-> fork extents describe, hfsplus_file_extend() calls
-> hfsplus_ext_read_extent() -> hfs_find_init() on that same tree,
-> taking tree_lock a second time (lockdep: "possible recursive locking
-> ... &tree->tree_lock/1").
+On 9/4/26 8:35 AM, Andrew Morton wrote:
+> On Thu,  3 Sep 2026 17:00:26 -0700 SJ Park <sj@kernel.org> wrote:
+> 
+> > I didn't read the broken commit in depth.  This fix is only
+> > build-tested.  I wanted to report the issue with this as a temporal fix,
+> > but the broken commit doesn't have Link: tag.  So directly posting this
+> > temporal and not very well verified fix first.
+> 
+> Yeah, this is possible fix for
+> https://syzkaller.appspot.com/bug?extid=bd6aaf99e8443d8a9034 which I
+> had chatgpt create for me.  It's in limbo at present until I figure out
+> what to do with it.  Actually I'll hide it from others while figuring-out
+> happens.
+> 
+> 
+> 
+> For the morbidly curious.  It's really only a 2-line change, plus a bunch
+> of changes to pass the zap_details down to  __hugetlb_zap_begin().
+> 
+> 
+> 
+> From: Andrew Morton <akpm@linux-foundation.org>
+> Subject: mm/hugetlb: don't lock private resv_map during final unmap
 
-Could you please explain the use-case or workload that is trying to
-claim more blocks that fork can include for Extents Overflow file?
-Could you please share the call trace for the issue?
+FYI this causes the following warn when running selftests:
+
+ ------------[ cut here ]------------
+ DEBUG_RWSEMS_WARN_ON((rwsem_owner(sem) != current) && !rwsem_test_oflags(sem, RWSEM_NONSPINNABLE)): count = 0x0, magic = 0xffff8000059ff478, owner = 0x0, curr 0xffff800104a29000, list not empty
+ WARNING: kernel/locking/rwsem.c:1412 at up_write+0x1f4/0x25c, CPU#6: pagemap_ioctl/1352
+ Modules linked in: rfkill fuse virtio_gpu drm_client_lib virtio_dma_buf drm_shmem_helper drm_kms_helper drm
+ CPU: 6 UID: 0 PID: 1352 Comm: pagemap_ioctl Kdump: loaded Tainted: G                 N  7.3.0-rc1+ #70 PREEMPT 
+ Tainted: [N]=TEST
+ Hardware name: QEMU QEMU Virtual Machine, BIOS edk2-stable202408-prebuilt.qemu.org 08/13/2024
+ pstate: 61400005 (nZCv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
+ pc : up_write+0x1f4/0x25c
+ lr : up_write+0x1f4/0x25c
+ sp : ffffc0008903bab0
+ x29: ffffc0008903bab0 x28: ffff800104a29000 x27: 0000000000000000
+ x26: 0000000000000000 x25: 0000000000000000 x24: 0000000000000000
+ x23: ffff800104a29000 x22: ffffc000826254d0 x21: ffffc0008903bc68
+ x20: ffffc00081eb6000 x19: ffff8000059ff478 x18: 0000000000000020
+ x17: ffffc000800da3a8 x16: ffffc000800d971c x15: 00000000ffffffff
+ x14: 0000000000000aab x13: ffffc00081edca98 x12: 0000000000002001
+ x11: ffffffffffe26460 x10: ffffc00081edca98 x9 : 0000000000000006
+ x8 : 0000000000000003 x7 : ffffc0008903b800 x6 : ffffc0008018bf04
+ x5 : ffff8001eeb7d208 x4 : ffff8001eeb7d280 x3 : 0000000000000001
+ x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff800104a29000
+ Call trace:
+  up_write+0x1f4/0x25c (P)
+  __hugetlb_zap_end+0x58/0xfc
+  unmap_vmas+0xbc/0x178
+  exit_mmap+0xbc/0x4d0
+  __mmput+0x58/0x154
+  mmput+0x50/0x5c
+  do_exit+0x2bc/0xd00
+  do_group_exit+0x34/0x90
+  pid_child_should_wake+0x0/0x5c
+  invoke_syscall+0x54/0x110
+  el0_svc_common.constprop.0+0x40/0xe0
+  do_el0_svc+0x1c/0x28
+  el0_svc+0x54/0x424
+  el0t_64_sync_handler+0xa0/0xe4
+  el0t_64_sync+0x1b0/0x1b4
+ irq event stamp: 0
+ hardirqs last  enabled at (0): [<0000000000000000>] 0x0
+ hardirqs last disabled at (0): [<ffffc000800ce3a8>] copy_process+0x8f8/0x2078
+ softirqs last  enabled at (0): [<ffffc000800ce3b0>] copy_process+0x900/0x2078
+ softirqs last disabled at (0): [<0000000000000000>] 0x0
+ ---[ end trace 0000000000000000 ]---
 
 Thanks,
-Slava.
-
->=20
-> Per the HFS+ format the extents overflow file is fully described by
-> its eight fork extents, so this state only arises from a corrupted
-> image. hfsplus_get_block() already refuses it for lookups; do the
-> same when growing the file.
->=20
-> Reported-by: syzbot+f8ce6c197125ab9d72ce@syzkaller.appspotmail.com
-> Signed-off-by: ThangNN99 <ngocthang2710.1999@gmail.com>
-> ---
-> =C2=A0fs/hfsplus/extents.c | 9 +++++++++
-> =C2=A01 file changed, 9 insertions(+)
->=20
-> diff --git a/fs/hfsplus/extents.c b/fs/hfsplus/extents.c
-> index eb7c11524d18..39920b51e08b 100644
-> --- a/fs/hfsplus/extents.c
-> +++ b/fs/hfsplus/extents.c
-> @@ -458,6 +458,15 @@ int hfsplus_file_extend(struct inode *inode,
-> bool zeroout)
-> =C2=A0	if (hip->alloc_blocks =3D=3D hip->first_blocks)
-> =C2=A0		goal =3D hfsplus_ext_lastblock(hip->first_extents);
-> =C2=A0	else {
-> +		/*
-> +		 * The extents overflow file can't have overflow
-> extents of
-> +		 * its own; growing it here would re-enter
-> hfs_find_init()
-> +		 * on the extents tree, whose tree_lock is already
-> held.
-> +		 */
-> +		if (inode->i_ino =3D=3D HFSPLUS_EXT_CNID) {
-> +			res =3D -EIO;
-> +			goto out;
-> +		}
-> =C2=A0		res =3D hfsplus_ext_read_extent(inode, hip-
-> >alloc_blocks);
-> =C2=A0		if (res)
-> =C2=A0			goto out;
+Zenghui
