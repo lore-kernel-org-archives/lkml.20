@@ -1,165 +1,190 @@
-Received: from mail-oa2-f0.google.com (mail-oa2-f0.google.com [74.125.231.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail2.ecloud.global (mail2.ecloud.global [135.181.6.248])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09082211A09
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:01:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788760904; cv=none; b=gIkdfEMKcrks4nt+cM/bNoNryV9FIG5AffFu4dZf1bJ3Wk4ebRorvFKhW3Tm2NIzEyZH3PpclDb2rEJUIOPDunsyqcc92Yp+qfJfk6xcMSLRq19E46eMJgJFYeAMZ140NIZiAsppPzALlOno4CXTVEDvO4qTM3KCRaMemuafAvI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788760904; c=relaxed/simple;
-	bh=nb7e40O2vHkCkRzIEYHaNAAJYNdeSoerKZswLkgEi18=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VC4o7nrvddbKK206wBiWqWNvfgEFqFXbiVC6wGfZMWzImR72P+zmX3NkZ52b3ySmZJUnM7qL0EFF4EkprPNRSHz0KyjlQsx+AiyWKaKbSYIfXNXAT3R6NWnJuzeeWaLEfKNZy4Krv96nrUtC1gH1iZFl4oG9siMxM5W55XDmRXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h1sSX41r; arc=none smtp.client-ip=74.125.231.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E2BF307AE3;
+	Mon,  7 Sep 2026 06:02:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=135.181.6.248
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788760963; cv=pass; b=m2tpeihJpLc6jNfFohB5TQ7qs5B31/nVANqsoXNxI/H+0PtAZfP7OoJgw2RwEFWjcgea7Dnebp5VuEEQUp0Mql9mI+SNW8lJtWEcOuE8KqLjh4+Ujp7GH1XfVXKE53sgKqWeKDBRW9EjRNfHWfW4+CyDCmo1c9KqXulAo2dAMn4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788760963; c=relaxed/simple;
+	bh=j6NNC903zHxkzvRUFicQk32m/77k10e3EwnZbP6cIJs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QWdneRNdeZjq/U8U36qKlErFu+3OEIWb+JTsrvG8NWcwD73SZU4AQOmHcLF1jNHNGcBfy5xXz35Z2PC0RHgETJKdSdjuRtrGKtMwz+IvtOShAlyn0yvHxhRwQYmNS61OpvVu8yH7d30ecp918p5cIHnU4eVzbgMzCcPn2C+wE/Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=murena.io; spf=pass smtp.mailfrom=murena.io; dkim=pass (1024-bit key) header.d=murena.io header.i=@murena.io header.b=PmA/HmG6; arc=pass smtp.client-ip=135.181.6.248
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=murena.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=murena.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h1sSX41r"
-Received: by mail-oa2-f0.google.com with SMTP id 586e51a60fabf-4511f6a63edso526697fac.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:01:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788760902; x=1789365702; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oXRC1vJzIXUhQWExc4MItt9EZDnsCd9kQ4t3XgfcoB0=;
-        b=h1sSX41rKMV9vKkIZ1d/y31k6vLrwySgR2ZHIyyMPh+jyeRR2jaUA4Dw0S1YE8huDW
-         DGPdVm39mnxNfD31ZSwQu8foI3L3zobMsLx6WP8EQA3++lYe6UNqZplFPkYbYQ3hC75l
-         W9AmCnvtsq7qFxbO2lwZJjCFg2JjKByRx/L+iY2SfMmmRTONbWB9sC5mOKxvYGQnkfTy
-         0CKpebQNiCj9+9RdY6quqiin9YS4z0vpYNAtJGfU2btLDX8OjY1gE1Iqu8PMROB4aYWD
-         pb3INR/RlRLMRrIjWomGGjBYFQtb6xKVZuJBdA6ik3WKjUjaRmHLZDQuL8nnKPnp+NQq
-         YReQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788760902; x=1789365702;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oXRC1vJzIXUhQWExc4MItt9EZDnsCd9kQ4t3XgfcoB0=;
-        b=dbOzXhY82v83v3LsNW1/bX4F4Mr30CAM8kTPcUVYADUD5FnFAShMAWwKRL4XQKp5K4
-         7wj24W2xtsYtxwOczUEzeCEAGnbe+vgNsE63Yt1wntV8y+cgrkiVknbjIdehI+50Inxk
-         Po3gE9BFKlxpUc7EsnQ7ixoDcqI7HQqqYol52b8u25KBhVPCpld3ql9yMA7IiYkRFGEw
-         7nvrBIaQbu0+vyGZIxI3Ci3YsLRDSbAfRXilsjp64S+ee5hBROaAwM6VSWqSlCZSrsKA
-         baBTRPMIydstVryqFmbzBMYQTXqPv5lRBAgaBn2Ugvz8KfW+Acc8YU89H3WMYZ98cYmx
-         Qg+w==
-X-Forwarded-Encrypted: i=1; AKwUvByy5bqN7EAgzOo3QGc1QUmgv9xDRbUE4pLuaSQb4DGxL5pHaGlLfomVbwMAcC8nm9mIErWtAv831izIjzg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lSVYldHnAXYOXNRGbdYxDSdnrplmNGjudSrJ2NiPduYB3sSi7g
-	yeENABRy32Nu2UJQnlWcjOIV+wIvFskG98ai0y2Jww02q2MgV0oo1bb7
-X-Gm-Gg: AYBFou0Kx0B4Q1IPdZ+m1WZ/RhZAmg866UkoGm5Rpz+9XS1MDrfLsQanbgdNy8sq0TD
-	64HDCOQ8O48LOoTin9WIWLH8OIofeV/pcHmHet+c9xokwhLU/Mek9GcUCkp9jZ45mgpo+IfNU8+
-	QgPNsUTbqdUEUVB7/CWBVHG7uXiNJufwb6jQhiNiReYCFtoGAs3/cvA6QIv5ZLLMNlbLz3V7PhW
-	ouJWYi5cqH211UcmkhIW9wd7g62wT67Q+O+gLcddt/OrLe8fwACtT4hR3BNLK/V0Pws4A0LVEJ5
-	U0YrMu79g1AkqhKLi8p8VlktANIug2UYqBp0GW8OU/tQuJeRr0BjT7c2GejvGEqWz+uAYkoDjYd
-	mpi+gGSlG9vKIdOc4KpjO4nt9GnzRdr1xNr55002FAGvBRLaoEgp0UW6jjfxWKyKx3RnknFkjF9
-	9xHPdy1vO024nCUPnDtJqO4zvraJFwP3k7apRJPaSDJLY82MSkhMGK4iLYncxYEg==
-X-Received: by 2002:a05:6870:8127:b0:465:27b7:4009 with SMTP id 586e51a60fabf-47550f20db6mr13400608fac.4.1788760901877;
-        Sun, 06 Sep 2026 23:01:41 -0700 (PDT)
-Received: from ryan-dell ([2600:100b:b039:79f4:f7f:ccf7:cd6f:384])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4755493580fsm9761726fac.13.2026.09.06.23.01.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 23:01:40 -0700 (PDT)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-To: Nickolay Goppen <setotau@mainlining.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Alexey Minnekhanov <alexeymin@minlexx.ru>
-Subject: Re: [PATCH RFC 0/2] Novatek NT51021 DSI panel IC driver
-Date: Mon,  7 Sep 2026 01:01:28 -0500
-Message-ID: <20260907060129.120497-1-ryanbrue.dev@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
-References: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
+	dkim=pass (1024-bit key) header.d=murena.io header.i=@murena.io header.b="PmA/HmG6"
+Received: from authenticated-user (mail2.ecloud.global [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail2.ecloud.global (Postfix) with ESMTPSA id B5691721160;
+	Mon,  7 Sep 2026 06:02:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io; s=mail2;
+	t=1788760956;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BAVC7+HWaVQEnnbRSHCcKz7r6ECmUII3NjKcSqgDdqE=;
+	b=PmA/HmG6YkWmDztp42L5zdma4jFThIPnKvAqNfbKAdesgHuHViEz/9/BsbLyLPrFlMVsMR
+	90PURNCV5f0ejRhPmxHXdYpHnShCWVdp5iL/i21PpFNl/H2uZYZ9c3+WkelnaTWFUrGk5B
+	iBSfUKxKxkV64Fa5Y7MRVyL/qoQhpp4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io;
+	s=mail2; t=1788760956;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BAVC7+HWaVQEnnbRSHCcKz7r6ECmUII3NjKcSqgDdqE=;
+	b=B7cL82PImBfFxeoSczoECpP9wW/1E0dBlifMotXVGSAoewtJC7WP6rAasDziB5y+nt8d9t
+	ka/7gR0eTSE8njdmzxtOje2HHaTjLKe6OFXRMXhKUbs66npTNSBI20Odzcy8a+XGIHu3B9
+	u6sSUVyaFcRVrbYVNphd1SZ9uMItg/o=
+ARC-Authentication-Results: i=1;
+	mail2.ecloud.global;
+	auth=pass smtp.mailfrom=maud_spierings@murena.io
+ARC-Seal: i=1; s=mail2; d=murena.io; t=1788760956; a=rsa-sha256; cv=none;
+	b=rwRBNY+YtZMISw0XZ4wJRHpzo5Yp5mjZm9wz7veARrU2FXHtXfGXC60RqIcwXWYC5dud+W
+	L7dEyuwGnjdl0A8avafm5S5qS1okQ4f9cuM7HuL2m1jEy3RMF9b7rhW97RRaFAfovoOiBa
+	OvyG566rnyc+P4JwysSkJgarI/RAlcQ=
+Message-ID: <f68d95d0-f918-4dee-9443-38c64247b71a@murena.io>
+Date: Mon, 7 Sep 2026 08:02:33 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Subject: Re: [PATCH v2 13/15] phy: starfive: Add jh7110-inno-hdmi-phy driver
+To: Icenowy Zheng <uwu@icenowy.me>, Dominique Belhachemi <domibel@debian.org>
+Cc: m.wilczynski@samsung.com, Laurent.pinchart@ideasonboard.com,
+ airlied@gmail.com, alex@ghiti.fr, andrzej.hajda@intel.com,
+ andy.yan@rock-chips.com, andyshrk@163.com, aou@eecs.berkeley.edu,
+ bmasney@redhat.com, conor+dt@kernel.org, conor@kernel.org,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ hal.feng@starfivetech.com, heiko@sntech.de, hello@big-grey.co.uk,
+ jernej.skrabec@gmail.com, jonas@kwiboo.se, kernel@esmil.dk,
+ krzk+dt@kernel.org, lee@kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, luca.ceresoli@bootlin.com,
+ m.szyprowski@samsung.com, maarten.lankhorst@linux.intel.com,
+ maudspierings@gocontroll.com, mfd@lists.linux.dev, mripard@kernel.org,
+ mturquette@baylibre.com, neil.armstrong@linaro.org, p.zabel@pengutronix.de,
+ palmer@dabbelt.com, pjw@kernel.org, rfoss@kernel.org, robh@kernel.org,
+ sboyd@kernel.org, simona@ffwll.ch, tzimmermann@suse.de, vkoul@kernel.org
+References: <20260828-jh7110-clean-send-v2-13-331680c8b9d1@samsung.com>
+ <0ccb4168-ff88-459c-972d-3c091c155db2@murena.io>
+ <e780ecb8-918f-4816-99c8-b69b10b25a18@murena.io>
+ <CAAvaLCwvVUddS14MPx0FHdnp+QeZ99+ox17pXt2hSWPTCFcHtw@mail.gmail.com>
+ <cb0884b3-c9be-4cfd-ba43-27add3821ddd@murena.io>
+ <6a5f8c11a092cef83bae8d9ea0100c2fc133a514.camel@icenowy.me>
+ <CAAvaLCxMntrTbTQ9VNu4H_6LA30TRAqi7mCpn+x3hbTG9WqERA@mail.gmail.com>
+ <057d97bd4b63fa4445dd86548f2ecdcbe9c3b1b6.camel@icenowy.me>
+Content-Language: en-US
+From: Maud Spierings <maud_spierings@murena.io>
+In-Reply-To: <057d97bd4b63fa4445dd86548f2ecdcbe9c3b1b6.camel@icenowy.me>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Nickolay,
+Hi Dominique and Icenowy,
 
-I sent a duplicate NT51021 driver on September 5th without finding
-yours from the 29th first. That was my mistake, and I have withdrawn
-mine. That's my bad, I'm new to kernel development :)
+On 9/7/26 06:01, Icenowy Zheng wrote:
+> 在 2026-09-06日的 17:16 -0400，Dominique Belhachemi写道：
+>> On Sun, Sep 6, 2026 at 11:19 AM Icenowy Zheng <uwu@icenowy.me> wrote:
+>>>
+>>> 在 2026-09-06日的 16:59 +0200，Maud Spierings写道：
+>>>> On 9/6/26 07:39, Dominique Belhachemi wrote:
+>>>>> On Sun, Aug 30, 2026 at 10:17 AM Maud Spierings
+>>>>> <maud_spierings@murena.io <mailto:maud_spierings@murena.io>>
+>>>>> wrote:
+>>>>>
+>>>>>      I was still having some glitching happening on the display,
+>>>>> but
+>>>>> I've
+>>>>>      found the way to fix that, the question is what is actually
+>>>>>      happening here.
+>>>>>
+>>>>>          0x29590020 <- 0x00000005
+>>>>>      This one I have no idea, it is 0x00000009 with this patch
+>>>>> series but
+>>>>>      with the vendor kernel I get the value above. When I hook
+>>>>> up my
+>>>>>      external
+>>>>>      display (regular 1440p) this becomes 0x0000000D on the
+>>>>> vendor
+>>>>> kernel.
+>>>>>
+>>>>>      But I can't find this register being written to anywhere
+>>>>> there?
+>>>>>
+>>>>>
+>>>>> Maybe this needs to be swapped?
+>>>>>
+>>>>> drivers/gpu/drm/bridge/inno-hdmi.c
+>>>>>     -#define v_HSYNC_POLARITY(n)          ((n) << 3)
+>>>>>     -#define v_VSYNC_POLARITY(n)          ((n) << 2)
+>>>>>     +#define v_HSYNC_POLARITY(n)          ((n) << 2)
+>>>>>     +#define v_VSYNC_POLARITY(n)          ((n) << 3)
+>>>
+>>> Very weirdly, the original definition here matches current mainline
+>>> inno-hdmi.c, but the changed definition matches JH7110 vendor
+>>> inno_hdmi.h [1].
+>>>
+>>
+>> The vendor code is correct and matches the RK3128 TRM.
+> 
+> Thanks for the tips on documentation, and I verified this.
+> 
+> It seems that Rockchip people made this always wrong, even with their
+> pre-DRM display driver... [1]
+> 
+> BTW I checked the Innosilicon dGPU driver code, and its g3_ne_hdmi.h
+> source file also contains the definition of BIT(3) as VSYNC. (It's
+> quite weird that most logic of that driver is in some .o_shipped blob,
+> but fortunately the g3 logic might be too new to be closed down)
+> 
+> Thanks,
+> Icenowy
+> 
+> [1]
+> https://github.com/rockchip-linux/kernel/blob/release-4.4/drivers/video/rockchip/hdmi/rockchip-hdmiv1/rockchip_hdmiv1_hw.h#L161
+> 
+>>
+>> HDMI_reg08
+>>      Bit  Attr  Reset  Description
+>>      3    RW    0x0    vs_polarity   VSYNC polarity   1'b0: Negative
+>> 1'b1: Positive
+>>      2    RW    0x0    hs_polarity   HSYNC polarity   1'b0: Negative
+>> 1'b1: Positive
+>>
+>> Nobody noticed this so far because in 720p/1080p both polarities are
+>> positive, but Maud's 3:2 panel has differing H/V polarity.
+>>
+>> Best
+>> -Dominique
 
-Since I had the hardware set up, I tested your series on the device I
-am working on: the Amazon Fire HD 10 (2017), an MT8173 tablet with a BOE
-1200x1920 NT51021 module, driven by mediatek-drm rather than msm. It
-works.
+This also solves the devmem behaviour I saw, or well, doesn't realy 
+explain it but does show what is actually happening. As Icenowy noted 
+(maybe that was on telegram only?) the inno-hdmi regs are 8bit instead 
+of 32 bit.
 
-Concretely, on that panel:
+What is actually happening is:
 
-  - your 10.1" register sequence, timings and mode_flags, unmodified,
-    bring the panel up correctly at your 60 Hz / 993.5 Mbps per lane
-  - it also works with my vendor's own sequence and timings under your
-    driver, at 62.5 Hz / 980 Mbps
-  - verified across a cold boot, display off and on cycles and a
-    suspend/resume, with the MIPI TX PLL reading back at the intended
-    rate each time
+devmem 0x29590000 b reads 0x29590000 as expected
+but
+devmem 0x29590004 b reads 0x29590001
+devmem 0x29590008 b reads 0x29590002
+....
+devmem 0x29590020 b reads 0x29590008
 
-So, for what it is worth on hardware you cannot test:
+For some reason the addressing is weird?
 
-Tested-by: Ryan Brue <ryanbrue.dev@gmail.com>
+With this change, the assigned clock change and removing the 
+v_REG_CLK_INV | v_REG_CLK_SOURCE_SYS write to HDMI_SYS_CTRL, the display 
+comes up from the start as it should!
 
-Two things I checked that might save you answering them later:
-
-  - The generic writes are right. Xiaomi's own panel dtsi uses dtype
-    0x29, and this panel accepts both generic and DCS short writes, so
-    nothing depends on the choice.
-
-  - prepare() never sending a set_display_on looked like an omission to
-    me at first, but the 0x01 software reset at the head of the init
-    restores it, and repeated off and on cycles pass. It may be worth a
-    comment, since unprepare() does send set_display_off and the
-    asymmetry invites the question.
-
-One question on the binding, which is as much about my patch as yours.
-Where does "boe,tv101wum-nx0" come from? Xiaomi's panel dtsi
-(dsi-panel-nt51021-boe-10wu-video.dtsi) gives only
-
-    qcom,mdss-dsi-panel-name = "NT51021_BOE_BOE10";
-
-with no part number, and the register sequence in your driver matches
-that file byte for byte. TV101WUM-NX0 is a real BOE part, and its
-datasheet active area of 216.576 x 135.36 mm agrees nicely with the
-135 x 216 in that dtsi, so the attribution looks reasonable. But if it
-is inferred rather than read off the panel or a BOM, it may be worth
-saying so in the commit message, or naming the compatible after the
-board the way panel-novatek-nt36523.c does for
-xiaomi,elish-boe-nt36523.
-
-I ask because my module has no identity I can establish at all. It
-answers no DSI read, DCS or generic, before or after sleep-out; the
-vendor kernel and bootloader name it only "BOE", chosen from two board
-ID straps; and its vendor-declared physical height is arithmetically
-impossible, since 1200/136 and 1920/221 disagree by 1.5%. So I am
-naming mine after the board, and would rather not accidentally imply it
-is or is not your part.
-
-If it is useful, I have the Fire HD 10 panel ready as a variant on top
-of your series: two patches, binding and driver, adding
-amazon,suez-boe-nt51021. The only change it needs in your code is
-making mode_flags per variant. My vendor asks for sync-event video mode
-with a continuously running HS clock rather than burst, and your two
-panels keep exactly the flags they have now. Burst worked on my panel
-too, so this is about matching what the module is characterised for,
-not a fix.
-
-I will hold that until your v2, since Neil's renaming will touch every
-identifier it adds. Happy to test v2 on this hardware when you post it.
-
-Thanks for doing this first.
-
-Ryan
+Kind regards,
+Maud
