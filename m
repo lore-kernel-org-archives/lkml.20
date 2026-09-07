@@ -1,105 +1,136 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from mailrelay-egress16.pub.mailoutpod3-cph3.one.com (mailrelay-egress16.pub.mailoutpod3-cph3.one.com [46.30.212.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F2E437C0F8;
-	Mon,  7 Sep 2026 17:20:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52FEB501F4E
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 17:20:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.30.212.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788801622; cv=none; b=WxGsbe1OUOex9Lw5Euo4ddKOnN96uQHDhzguH7UI5fQtMS8s+KJEvd5LbXlSxr9k2t5nKZzmiGQHI0X+GGg+qQX1DqGrx2TS4Nzwu64i26w+9vBvwrqH+3VCOhM+NSnLSrZp388yjre5QcxPwYhQo/WaD6d9mUmwNwHT4ygfb7k=
+	t=1788801656; cv=none; b=T5qGEjvcpA6HUd2c9njqBO16ncHzlp/ju/K+d5OcMLdV3bupg2ynTozjdgOewYkL+X52igu+c1h/rKmtY8qWU2ZFtVUVPYHS0nUgWibDwuxz0gFdycOyalOs7QSwghv3P8eUIGRFi/7iLw4Vmd4lc2kIUQFvlc0mAuw9dbEVggU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788801622; c=relaxed/simple;
-	bh=BISwuPj5+X/ReVljgBOUZggnnuBBhj12WS3jwYi6xnI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IQtfTrEKb8izAzJ24Ms01wyGuNP/JWTDpVZfnzXauoRBELhcv8VjqGaUFg8zlEReha3Fu59A8aymlMn89yM5rD+Ap4GRxT++l4t9Ehhdd3l4YxRJ5j8NfQtsz0hUfChY7w/n6FHQEl3N7mEgt4SDymEl/B6wK2LzhV1NbYcsZxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=e5UX5puf; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788801656; c=relaxed/simple;
+	bh=3nTEFFutEHpB2+1O678dGGnisQRT4iuoBriSb3BiG3s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=boHWvn1rYRmHHCuZdxuQxy9KlHYVrewieSIPR0iLTxNrvwdWjinu5XWOXf98Q0FMNpFPRI+DA0TZWZCJJzIAet10eYcyBhpCrQYz8OI9cf/2yc6/KTnRfITdbi5VPx/2kJL7KnFfsR90OiQayN8uZieIY9nKTQ+TxZc8aNPUUqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embetrix.com; spf=none smtp.mailfrom=embetrix.com; dkim=pass (2048-bit key) header.d=embetrix.com header.i=@embetrix.com header.b=gw/YVvym; dkim=permerror (0-bit key) header.d=embetrix.com header.i=@embetrix.com header.b=04y/wQjg; arc=none smtp.client-ip=46.30.212.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embetrix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=embetrix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="e5UX5puf"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=jdfg7obfW7JkQiBKarLyFeZzGv6IWCWDHOBGhZOM7dQ=; b=e5UX5pufGvR8DwqgaAhDj4fhBA
-	W7Znwrd5dI8du+62prUWlp5a0onJAiwmVZjUu9fecClhl63y+QUoIn8ufndGKHVNKltCid/oixJNd
-	oEmP+XM4AIv2S4rf3GJw3WaNF+KRMQztRaMR2LyqWz4uHG8b3milNbCaQtezkSy5opuxZ01sNawrO
-	3kXRS7y1754zapArLxLRapFAdyWWcz/zADr7iy1vltB17HOux840zA7Mj1nJjZOT4Q+c6HYCdjnrX
-	Pj4kncaqd43eiSRrBsNmS3sxZEswSWBPc90QkzcssdhboMeSEkvcaMvlmBGPRb9kKn3+hMrpJqds+
-	sPL/iYYA==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x3d10-00000007TKJ-1lZZ;
-	Mon, 07 Sep 2026 17:20:18 +0000
-Message-ID: <cc61467a-761c-4f50-8355-f78360f9d1e8@infradead.org>
-Date: Mon, 7 Sep 2026 10:20:17 -0700
+	dkim=pass (2048-bit key) header.d=embetrix.com header.i=@embetrix.com header.b="gw/YVvym";
+	dkim=permerror (0-bit key) header.d=embetrix.com header.i=@embetrix.com header.b="04y/wQjg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1788801582; x=1789406382;
+	d=embetrix.com; s=rsa2;
+	h=content-transfer-encoding:mime-version:message-id:date:subject:cc:to:from:
+	 from;
+	bh=nTcsBJLmFu8dYMLn+V9Q/4af4M3A3nE5vl3NtUhRMU8=;
+	b=gw/YVvymdZ8+gZgNXCdhQtu+WXCdmrmUxyezOalZKMUkQGQtmqA9Aew61pQ2Xjxq7k81BN6nDVQaR
+	 6fKQup7jrHw9Fejai4Nu1cjEpJIE3I/61ePSCDF4wmiq0RvlqePRM5zsCTIFTHw+RgNWv2kUrzOaiz
+	 vx8P71gPKyChS+PzJQwiKNMo3IaUawOyfwgUs3HRUUJN3tQCGeu90FtfCt6dHgpyL2GWUu9JAf47Il
+	 S4L9gH2bh8gqs+zYCxxJUmzrSYRlZ0nz1HTVHIYsizuouh9QgvYfQo7TrmIdLtL2y/00PLkObzNl4B
+	 CSNY7pWgnM7lceHzaMNFPORz7xkmZ9w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1788801582; x=1789406382;
+	d=embetrix.com; s=ed2;
+	h=content-transfer-encoding:mime-version:message-id:date:subject:cc:to:from:
+	 from;
+	bh=nTcsBJLmFu8dYMLn+V9Q/4af4M3A3nE5vl3NtUhRMU8=;
+	b=04y/wQjg+9nLAx6LFS8sICVNa00JQBh2H0BEDhfXjZth+CgoJJQBAs5A0Rb0HN2fSxDKi3UILgK++
+	 kR6r3lFBA==
+X-HalOne-ID: 4eb452ed-aae0-11f1-9c77-f14abb5dfc6c
+Received: from xps-13.fritz.box (dynamic-2a02-3102-8c10-1ae0-2993-9966-0174-5d77.310.pool.telefonica.de [2a02:3102:8c10:1ae0:2993:9966:174:5d77])
+	by mailrelay1.pub.mailoutpod2-cph3.one.com (Halon) with ESMTPSA
+	id 4eb452ed-aae0-11f1-9c77-f14abb5dfc6c;
+	Mon, 07 Sep 2026 17:19:41 +0000 (UTC)
+From: Ayoub Zaki <ayoub.zaki@embetrix.com>
+To: mpatocka@redhat.com,
+	snitzer@kernel.org,
+	agk@redhat.com,
+	bmarzins@redhat.com
+Cc: dm-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	corbet@lwn.net,
+	linux-doc@vger.kernel.org,
+	Ayoub Zaki <ayoub.zaki@embetrix.com>
+Subject: [PATCH] dm-verity: add DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE
+Date: Mon,  7 Sep 2026 19:19:38 +0200
+Message-ID: <20260907171939.355472-1-ayoub.zaki@embetrix.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] docs: arm64: Fix typo "initalised" in booting.rst
-To: Hemanth Selam <hemanth.selam@gmail.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>, Jonathan Corbet <corbet@lwn.net>,
- Weijie Yuan <wy@wyuan.org>, Shuah Khan <skhan@linuxfoundation.org>,
- linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260907114146.39715-1-hemanth.selam@gmail.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260907114146.39715-1-hemanth.selam@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Add DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE Kconfig option.  When enabled,
+dm-verity always requires a valid root hash signature: require_signatures
+defaults to true and can no longer be cleared on the command line.  When
+disabled, the existing require_signatures module parameter controls
+enforcement.
 
+Signed-off-by: Ayoub Zaki <ayoub.zaki@embetrix.com>
+---
+ Documentation/admin-guide/device-mapper/verity.rst |  5 +++++
+ drivers/md/Kconfig                                 | 14 ++++++++++++++
+ drivers/md/dm-verity-verify-sig.c                  |  4 ++--
+ 3 files changed, 21 insertions(+), 2 deletions(-)
 
-On 9/7/26 4:41 AM, Hemanth Selam wrote:
-> Add the missing "i" to "initalised" in the description of the
-> spin-table cpu-release-addr property.
-> 
-> The British spelling is deliberate.  doc-guide/contributing.rst asks
-> that both American and British spellings be left alone, so only the typo
-> is corrected, not the dialect.  checkpatch.pl suggests "initialized"
-> here because scripts/spelling.txt maps this entry to the American form;
-> that is addressed separately.
-> 
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+diff --git a/Documentation/admin-guide/device-mapper/verity.rst b/Documentation/admin-guide/device-mapper/verity.rst
+index eb9475d7e196..bb48c001aeac 100644
+--- a/Documentation/admin-guide/device-mapper/verity.rst
++++ b/Documentation/admin-guide/device-mapper/verity.rst
+@@ -163,6 +163,11 @@ root_hash_sig_key_desc <key_description>
+     also gain new certificates at run time if they are signed by a certificate
+     already in the secondary trusted keyring.
+ 
++    Whether a signature is required for every dm-verity device is controlled by
++    the dm_verity.require_signatures parameter which defaults to off. Setting
++    DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE makes it default to on in which case it
++    can no longer be turned off.
++
+ try_verify_in_tasklet
+     If verity hashes are in cache and the IO size does not exceed the limit,
+     verify data blocks in bottom half instead of workqueue. This option can
+diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
+index df27c7d066d2..59098d1f4534 100644
+--- a/drivers/md/Kconfig
++++ b/drivers/md/Kconfig
+@@ -610,6 +610,20 @@ config DM_VERITY_VERIFY_ROOTHASH_SIG_PLATFORM_KEYRING
+ 
+ 	  If unsure, say N.
+ 
++config DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE
++	bool "Require dm-verity root hash signature verification"
++	depends on DM_VERITY_VERIFY_ROOTHASH_SIG
++	help
++	  Reject dm-verity devices that are created without a valid root hash
++	  signature.  Without this, whether a signature is required is decided
++	  at boot time by the dm_verity.require_signatures parameter which
++	  defaults to off.
++
++	  Enabling this makes that parameter default to on and it can then no
++	  longer be turned off.
++
++	  If unsure, say N.
++
+ config DM_VERITY_FEC
+ 	bool "Verity forward error correction support"
+ 	depends on DM_VERITY
+diff --git a/drivers/md/dm-verity-verify-sig.c b/drivers/md/dm-verity-verify-sig.c
+index b2b55c41e2cb..aadcf5e4a47c 100644
+--- a/drivers/md/dm-verity-verify-sig.c
++++ b/drivers/md/dm-verity-verify-sig.c
+@@ -21,8 +21,8 @@ static bool dm_verity_keyring_unsealed __ro_after_init;
+ module_param_named(keyring_unsealed, dm_verity_keyring_unsealed, bool, 0444);
+ MODULE_PARM_DESC(keyring_unsealed, "Leave the dm-verity keyring unsealed");
+ 
+-static bool require_signatures;
+-module_param(require_signatures, bool, 0444);
++static bool require_signatures = IS_ENABLED(CONFIG_DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE);
++module_param(require_signatures, bool_enable_only, 0444);
+ MODULE_PARM_DESC(require_signatures,
+ 		"Verify the roothash of dm-verity hash tree");
+ 
 
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
-Thanks.
-
-> ---
-> 
-> Notes:
->     Changes since v2:
->      - the guidance lives in doc-guide/contributing.rst, not
->        doc-guide/checkpatch.rst as v2 claimed (Weijie Yuan)
->      - drop the v1 narrative and the redundant "only the documentation text
->        changes" line
->     
->     Changes since v1:
->      - keep "initialised" rather than switching the file to "initialized",
->        so the British spelling is preserved (Randy Dunlap)
-> 
->  Documentation/arch/arm64/booting.rst | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/arch/arm64/booting.rst b/Documentation/arch/arm64/booting.rst
-> index 13ef311dace8..891fd22f7229 100644
-> --- a/Documentation/arch/arm64/booting.rst
-> +++ b/Documentation/arch/arm64/booting.rst
-> @@ -588,7 +588,7 @@ following manner:
->  
->  - CPUs with a "spin-table" enable-method must have a 'cpu-release-addr'
->    property in their cpu node.  This property identifies a
-> -  naturally-aligned 64-bit zero-initalised memory location.
-> +  naturally-aligned 64-bit zero-initialised memory location.
->  
->    These CPUs should spin outside of the kernel in a reserved area of
->    memory (communicated to the kernel by a /memreserve/ region in the
-
+base-commit: df2908090cda368b01ff43709f51890076c56157
 -- 
-~Randy
+2.43.0
+
