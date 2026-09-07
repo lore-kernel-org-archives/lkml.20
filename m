@@ -1,171 +1,118 @@
-Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A97DF48A2CE
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:07:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D67471CE9;
+	Mon,  7 Sep 2026 12:08:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788782847; cv=none; b=QSCqrulZK2MNy8c9gWqE6jKqH+iJ1vfWFz3Bs12svtBwsDgM7P14DG9zOHNYBO5c87xOYqI7NXyvhH6iqnbQDYMOC6KfaeFNz8KTeYWWuMOFicFNBRp0bmwcQ1y+C7M5h/iefbxjDnA6YJWhMtENumXTQMb+XtFs1nVp+AcL8D4=
+	t=1788782925; cv=none; b=kNLVn7c4FR5jOQefxM7T4/qX3h99NThoaZDqslPCZQGplgvbbmRC0RcldJsb+bVmVFEci9tb/ZbDcbe393jJBZCGukpIkPuErpdZ68kWD8buhS+Rd/rFBi1oMk+JPYYEzCCO9rx11OTynAvOJ+8GugLwhR8VhBjG5NYVhwghkac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788782847; c=relaxed/simple;
-	bh=P7CaDYp4Md1JqTyutqJPlck3ggTW3k80tlDn2jcOYR8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bC/01DlwbfcvYgpnge/cXETT0+QUZn924y26sjKDSC35OgnawzV+GXW0J13vXq9NfJ9UCsQINTZP5/EtaIFrwsJnBvyBcypLBSbcWEEp4E5fmly6iLr1ViN6aJW3YU1p1SXRX9vxGAF/EOtefokl1nKFE4yAxxrWvsm1tFizFoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yuc1wh8Z; arc=none smtp.client-ip=209.85.161.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788782925; c=relaxed/simple;
+	bh=74FzT5xvhYQ9YWQapkVwrpxd0VrXliCap1qsp2bOkRA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=h38/0pFkcg8DrChqQgvLy4vlm46cRE4SaXCweWJnTbR9XrJkhsjcCU9aLfanMKSadN1dZ2I49rsb/WMmaWS3EDwMm62WCtf90CK6i6uFZlsGfMmxrFmH7cjwL8cnHTgo3+aqpZr+3ut0orHm0vO0PLDe8m5X9XPOLryVSj64ubQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=a/N7lN3S; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yuc1wh8Z"
-Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6b1b233ca98so2586669eaf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:07:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788782843; x=1789387643; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mdcXJNy9L8Tsu/vg5VhZVH08lUj+s69BRMYHBDv7fJk=;
-        b=Yuc1wh8Z2allQOLB1X+Fx8FWuKZ9jaW8Lh7xou61YWzz3lO+uabc6Fl9TG83LeKekz
-         6+MNdBUVZSggZBpYunxV33ysEZNSbfBd9m8WdOtkxQu5PeMT/9GgOjg3gI2ZE5sCuJOD
-         mgzoQMwSttI9X7DE6LeCICS1aEJh+9jxajwxhzalbCwbJ0ldoDads6KxxuYrsqcxG8jJ
-         Cpay2A6v1eDJhteL7+3nk3JTd0VkGEyylaC6iRkJv4HQ/nxxRQPLhb0wHYnOcYyXsWc6
-         kEk5P1Rd6r/XKorsx4LxLoH1NIJR2ufvsAOWwVhTi6vNa/TfVQF4bq54wdId70MMjlrg
-         6BvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788782843; x=1789387643;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mdcXJNy9L8Tsu/vg5VhZVH08lUj+s69BRMYHBDv7fJk=;
-        b=Ez3SJ8dBlvpezUOedO6NnEatH6oCg9IrGL3WxQcvNMq+cHq6oCuprf30e/CBw2ROKi
-         SJ3FijcX+VpEIAWXktBT6TgIw87o/sVHB9jWHL4k/71P+k5M/AOw1tY7glCrFbqDFdnC
-         cbYCHa0XiI3Nd7h/w3oGjxVQ9+hhW4o7PIBHPXluFjjZpRHPeTic0d5hpyxaEDFTkxS/
-         qCc54ZW4oPhozSQuFU6MAIlj0YvHptsrbx30bLTwKr34T86mpCifbTNb/2dD3/JQhYRs
-         p2q02vZlOVkfFuxYnDBwyILipg+HJ9LndgFufYEhrChhxM4vTPGEluJZs8BjI6LtaJ+V
-         AmYA==
-X-Forwarded-Encrypted: i=1; AKwUvByo3uAyeJTQI9UUaesQxmS91sVKLGK24fzhOGfArXbdRmjpZPiEBLuz8Q4dOKaqojt0hF3rdj523rQ0njQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mUSNCoY7x8kxOhLOVGNf0TiYFWSoWTVtQt3fdx8SCD3LShl67i
-	QV66J7leG3xD/wYd2C155j/dr5ZnEjIt996sCVoPoQpHHdICoOjELVCD
-X-Gm-Gg: AYBFou3ero/53uNtU6GpS00msCd2IdCkeE7TjKCWfFOH7bn1KpNOu0rD9bWYsh1npS7
-	o5P7Qzl3VvDJ++CUGsCieiubYEu7Qp/CXnLZCTPZ6qXRousarBT6015bUoXzN1xKuRFFA8XE1Gc
-	Q2xm8o9dXU1y7ga7uxrIBYDZa9Sq64/vDHULlmOhSJ/ovXoxh7L5gI3krdevYJWAP0UjYmt3Iz6
-	kTFZW62nmyhG5fl5TDg00ZUMJbBy+3CpqMdX4eKcp/9rtp+q0lWPaK1G7L0qosRKjLfRB9SatQf
-	M8crTMJu/La07HBMIK3uUp6LCTgpmF4DJt3PJ/TZvi3YDlqTY8b896Myrt2jYL4eUuPTcFZX7XX
-	etL1okByXvRItg/vR8yAUvycQggQpfSlVkg77VbPjFh8NSPATfla5vuwK9dVth5yiSDNLolTtgl
-	VAsBUsU82EPcmrch1GdT3qXEm95TGN+HAzvHc7d6P0PKhJHhRqEc39rYt/EZWA83RiZ/IXAefbf
-	4vQoTba0YAwQlg7meZhoKL4
-X-Received: by 2002:a05:6820:6ae7:b0:6b9:3295:7704 with SMTP id 006d021491bc7-6b9329579e2mr5576998eaf.52.1788782843391;
-        Mon, 07 Sep 2026 05:07:23 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa37dbdsm23658592eec.11.2026.09.07.05.07.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 05:07:23 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Shuah Khan <shuah@kernel.org>,
-	Thomas Renninger <trenn@suse.com>
-Cc: Shuah Khan <skhan@linuxfoundation.org>,
-	"John B. Wyatt IV" <jwyatt@redhat.com>,
-	John Kacur <jkacur@redhat.com>,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] cpupower: monitor: Show how a counter value is exported
-Date: Mon,  7 Sep 2026 17:37:17 +0530
-Message-ID: <20260907120717.35503-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="a/N7lN3S"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788782924; x=1820318924;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=74FzT5xvhYQ9YWQapkVwrpxd0VrXliCap1qsp2bOkRA=;
+  b=a/N7lN3SVZNjpEfMrSb7r3xcPd9te3Kx4h2pumdAo7ilL/tWViiRT+5k
+   1rcvJ/1s/NnHsVtpe0Jip42AX+FUAQTublW/lS3SHpTyYAWgyLF9ncEQA
+   eOYDKGNpAbHHoBPHgPGPmXERBf4AqYo2Ya879P1hqzusQ2ThThJq6oFTE
+   k8WX1kYPMHWsAnLFA9VcpSfLwJlJh7SzKuCuxxIvBXG2QTghmoUgMw9tF
+   xs1vaN/qpIB/l+mmAhTwK6yVsNTOMm0TFcdllb+EK9bDiZRJbaFKvsBHm
+   seFR7H6i0LR3YahLJexScQMLBXcCZrgzFqtdLAwpoGbnz+wUrXyI2uxEe
+   A==;
+X-CSE-ConnectionGUID: C/0mK1JrRAOJDGbGUdIYIg==
+X-CSE-MsgGUID: OVI+C7MeQPWIPokUiMusbw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="89029412"
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="89029412"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 05:08:43 -0700
+X-CSE-ConnectionGUID: 41fBlsJpReCUVNx4ojz0SQ==
+X-CSE-MsgGUID: DwKU8ZnWTHK6Dp2R8UC6xA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="272623748"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa004.fm.intel.com with ESMTP; 07 Sep 2026 05:08:41 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 4A79E99; Mon, 07 Sep 2026 14:08:40 +0200 (CEST)
+Date: Mon, 7 Sep 2026 14:08:40 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Sven Peter <sven@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, asahi@lists.linux.dev,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: typec: tipd: Disable mode control for CD321x
+Message-ID: <ap6pSJbx_HNPerOs@black.igk.intel.com>
+References: <20260906-b4-tipd-mode-ctrl-v1-1-71032eaaa452@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260906-b4-tipd-mode-ctrl-v1-1-71032eaaa452@kernel.org>
 
-"cpupower monitor -l" lists the name, the processor hierarchy level and
-a description of every counter, but not how its value is exported. Some
-counters are a percentage of the time spent in a state, others are
-absolute values with their own unit, for example the Mperf "Freq"
-counter reports MHz and the RAPL zones report micro Joule. Both cannot
-be told apart from the listing.
+On Sun, Sep 06, 2026 at 02:24:00PM +0200, Sven Peter wrote:
+> Apple's CD321X firmware controls which alternate mode is entered and
+> cannot be influenced from Linux. Set the no_mode_control capability to
+> accurately reflect this to the typec subsystem.
+> 
+> Signed-off-by: Sven Peter <sven@kernel.org>
 
-Show the value type behind the hierarchy level and document it:
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-  [%]   The counter is a percentage of the time spent in the state.
-  [abs] The counter is an absolute value, its unit depends on the
-        counter, MHz for "Freq" or micro Joule for a RAPL zone.
+> ---
+>  drivers/usb/typec/tipd/core.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
+> index 522f56742aa9..8fdb37e288b4 100644
+> --- a/drivers/usb/typec/tipd/core.c
+> +++ b/drivers/usb/typec/tipd/core.c
+> @@ -151,6 +151,7 @@ struct tipd_data {
+>  	irq_handler_t irq_handler;
+>  	u64 irq_mask1;
+>  	size_t tps_struct_size;
+> +	bool no_mode_control;
+>  	void (*remove)(struct tps6598x *tps);
+>  	int (*register_port)(struct tps6598x *tps, struct fwnode_handle *node);
+>  	void (*unregister_port)(struct tps6598x *tps);
+> @@ -1242,6 +1243,7 @@ tps6598x_register_port(struct tps6598x *tps, struct fwnode_handle *fwnode)
+>  	typec_cap.driver_data = tps;
+>  	typec_cap.ops = &tps6598x_ops;
+>  	typec_cap.fwnode = fwnode;
+> +	typec_cap.no_mode_control = tps->data->no_mode_control;
+>  
+>  	switch (TPS_SYSCONF_PORTINFO(conf)) {
+>  	case TPS_PORTINFO_SINK_ACCESSORY:
+> @@ -2015,6 +2017,7 @@ static const struct tipd_data cd321x_data = {
+>  		     APPLE_CD_REG_INT_DATA_STATUS_UPDATE |
+>  		     APPLE_CD_REG_INT_PLUG_EVENT,
+>  	.tps_struct_size = sizeof(struct cd321x),
+> +	.no_mode_control = true,
+>  	.remove = cd321x_remove,
+>  	.register_port = cd321x_register_port,
+>  	.unregister_port = cd321x_unregister_port,
+> 
+> ---
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> change-id: 20260906-b4-tipd-mode-ctrl-80835d9e3f72
+> 
+> Best regards,
+> --  
+> Sven Peter <sven@kernel.org>
+> 
 
-Before:
-
-  $ cpupower monitor -l
-  Monitor "Mperf" (3 states) - Might overflow after 922000000 s
-  C0	[T] -> Processor Core not idle
-  Cx	[T] -> Processor Core in an idle state
-  Freq	[T] -> Average Frequency (including boost) in MHz
-
-After:
-
-  $ cpupower monitor -l
-  Monitor "Mperf" (3 states) - Might overflow after 922000000 s
-  C0	[T] [%] -> Processor Core not idle
-  Cx	[T] [%] -> Processor Core in an idle state
-  Freq	[T] [abs] -> Average Frequency (including boost) in MHz
-
-The check mirrors the one print_results() already makes when it decides
-how to read a counter, so no new helper is needed.
-
-The time granularity part of the ToDo needs a new cstate_t member every
-monitor has to fill in, keep it noted.
-
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
-
-Notes:
-    Changes since v1:
-     - drop the value_abbr() helper and check s.get_count_percent inline at
-       the printf, as Shuah Khan asked; it matches what print_results()
-       already does a few lines above
-
- tools/power/cpupower/man/cpupower-monitor.1              | 8 ++++++++
- .../power/cpupower/utils/idle_monitor/cpupower-monitor.c | 9 ++++++---
- 2 files changed, 14 insertions(+), 3 deletions(-)
-
-diff --git a/tools/power/cpupower/man/cpupower-monitor.1 b/tools/power/cpupower/man/cpupower-monitor.1
-index 89af019f8dc4..c8008919627c 100644
---- a/tools/power/cpupower/man/cpupower-monitor.1
-+++ b/tools/power/cpupower/man/cpupower-monitor.1
-@@ -51,6 +51,14 @@ coverage in square brackets:
- .IP \(bu
- [M] \-> Machine/Platform wide counter
- .RE
-+.IP \(bu
-+How the counter is exported, in square brackets behind the hierarchy level:
-+.RS 4
-+.IP \(bu
-+[%] \-> Percentage of the time spent in the state
-+.IP \(bu
-+[abs] \-> Absolute value, the unit depends on the counter
-+.RE
- .RE
- .RE
- .PP
-diff --git a/tools/power/cpupower/utils/idle_monitor/cpupower-monitor.c b/tools/power/cpupower/utils/idle_monitor/cpupower-monitor.c
-index e8b3841d5c0f..df00e82eb820 100644
---- a/tools/power/cpupower/utils/idle_monitor/cpupower-monitor.c
-+++ b/tools/power/cpupower/utils/idle_monitor/cpupower-monitor.c
-@@ -284,10 +284,13 @@ void list_monitors(void)
- 		for (state = 0; state < monitors[mon]->hw_states_num; state++) {
- 			s = monitors[mon]->hw_states[state];
- 			/*
--			 * ToDo show more state capabilities:
--			 * percent, time (granlarity)
-+			 * ToDo show the time granularity of a counter, this
-+			 * needs a new cstate_t member every monitor has to
-+			 * fill in.
- 			 */
--			printf("%s\t[%c] -> %s\n", s.name, range_abbr[s.range],
-+			printf("%s\t[%c] [%s] -> %s\n", s.name,
-+			       range_abbr[s.range],
-+			       s.get_count_percent ? "%" : "abs",
- 			       gettext(s.desc));
- 		}
- 	}
 -- 
-2.48.1
-
+heikki
