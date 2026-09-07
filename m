@@ -1,117 +1,268 @@
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DA3646D096
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:17:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788779838; cv=pass; b=FhxNho3q7JjiyEUBSxgthZKywvl1pLsAnkjsRuhy0WK43WK9yG4O8GCDKn6PhUNHDyf/7Gvmef10mr3o7KzPpdj7HLCrZeOjvInTXIHmYAg3IBQhMqSoZCJ/SZEgGZuWOq7t22OdXtGfXXVTb84EKntPjZdb/RpAYAE0jLWuVsI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788779838; c=relaxed/simple;
-	bh=NRIOJ7LdHSiFoCy4s5VPIFe11Z/c9wcns1PStTsWpYY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=B+8NHxvdkwQ3X5lpUppAjgp+WaKBXUQhUTXEfkRmYF76dxcukjbUCRzmqcz9kpNcoOHvmD7aoGirogIOPN+jTBhrHmgvPoD/4R314SfCt+M2QAMKl7hSs0ITGaLQGYum19DLQvkfw99RRUkzKr7JJWnNJskeTpIv9qu4TbSQwgE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=JTk3B7kI; arc=pass smtp.client-ip=209.85.210.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA7E46C4DD
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:17:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788779837; cv=none; b=eiZFTOxfa3zK6O9cwrd5AKG87Ymq5BhvCODSBlsnJlIpb8wZzDHhVnGokJCgrxTzs5B3GnlxcRo5eVQW8Xku3eCW4bXIa1oJdA28LNqF8hhukKV69iG5ki3EWpoSMwIR0x6PXCfZNguq8dJil68wC9p7H+1U7zD5pwwC89TfkvU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788779837; c=relaxed/simple;
+	bh=rtfTi8s7RnrDdgBmfWgzW5pFKcIkk1Hq5E0Rp7CqHm8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Azah6tBWKlHqo3eC966EI08nGUtdkH1DYf5iGqxaa8iWM+qIeaeFXqSGLk2n+Gs/RazfDPaGSNKqQYjd7PMbWObOKgFrSuM5W//QC/CVoaHuR1HP005GOsBTRjTxuI1jyGG2beC2S+zKLM1rninwvbQ7ZDZulZIncHVc1kNgrR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=e9E0eb5f; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TdsctEgE; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="JTk3B7kI"
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-7f6617c7536so1551471a34.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 04:17:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788779834; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QU+uGEa0U84JV1legQzyQk4R6HebC5pUKg+Sqit8bu761ohWno5/uIm1EZxPE+K2u9
-         +CrkaiCV4XPYMwCOtTiF9FbtWC8ImASDuOxmS/kfEKmczwndC4OH8McKfEmhdQTEXn4n
-         7y7nxuLv/vzrIgASL5dcI74QfQVQ+Ks4RdRtmAmOyBZqWZxY2USmXaZQhY/W/aGpzEak
-         1hHWjKY9+mEgwdUQlt62hGVfv0mu4Wiidw6zGzKSa420oPU1QsHbnVc4r+gPM9GSM893
-         OuYOClvPMZ1IxzzW/dmPJDy3HFoVhN1t5YyxMxTLCmWbIanpKsWvjSYYDWgo354lshA1
-         JKCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=sx8OmWpKZX9lW/xSqneryQkwLjJ1xoG1ldpS3CIMT6c=;
-        fh=7HUvE7x/2MkHWJtJEhWoKBCvzZspK06GELwT7ig8iZE=;
-        b=Z6S6muWRVrqgBlbSLiP64qK62bqzwm9bK0JdwlznSp4NX3EuQc0PupVVIGJxvmtuc3
-         ZtcCfHV2AEFuupCNftn2gNhoy9nIlKpRsNlZe7eEWYROjBcXVKS0eCw6/hozpVXct6Et
-         irCkSDfdMWivEL1qTdiNgkZ4Ds4MlEZS9UOil0RvTZaWrYY3Q2vDqDy/6BYllpOHMnFo
-         NCqlpn2VYw0mRqZrPA1iZkcyrOPWr3UaaIfHmfNSbgUuaDjlzZHg4Q0uztH7tL3FEZgY
-         WHoQJZmA4cjL2KvPwGNKEjUvqh2jIDQ5AGJj20FivPS7gXGVip2u+I6crHOW9Ih81zMp
-         bY1g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="e9E0eb5f";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TdsctEgE"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687An3Xp3230477
+	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 11:17:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=uMpBv2fRBJd
+	s8dHrhYUMdWkn5lQ9prASbg0GWZNOMRc=; b=e9E0eb5fQtChLbGgluVBn5yBJzG
+	X0C/+XM2EPfeutvph+M/8GNqEgAIICjC0QGqwezaFPuT4bVwDncPRHhQGliD/znA
+	SnjZjPxrs+suLrWdz+2KhEPbE1i37VCJ0HTCy7U4kk8yEYq2Wc/gUkD8Lj3WxflA
+	Fnl/EZXHQYoL2eiKAzohK9GaC4axH0rqzpjrdRtKE6+iQSFEMh76cxxYQ2DhFHM6
+	96kLjObHC4lOkSWlznpnC7xF9dxDdN7+LNUgnIc7b4LFg/+h2wkZhl/pfEiNvlqr
+	Cv706Vrz3XDtb15sUSqdX/Oa0BQh7FaufilNr835ZoHeJKRmac0811ZTZ9w==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghfxktec7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 11:17:13 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5c58ce17b10so4214220e0c.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 04:17:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1788779834; x=1789384634; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sx8OmWpKZX9lW/xSqneryQkwLjJ1xoG1ldpS3CIMT6c=;
-        b=JTk3B7kIT/O2NHmbAYbIfXtgNJlqMsTFHBu18yPLQtnGiOlJMJ504Nfyj0lz8WRLjU
-         sP/SOSggyu7UJKZd61Yfc47aASI2/X6tbn6VN4jWK0prVV0CIxAGZGI7DVF7VgWfborv
-         8XvfmYzv3HKGfXrWfBLluBC+Y6gr0BkkFv+Z7bUl1E+OWEgYnT8k+WjWFZ13eTMStaN8
-         XPBEts67if/LnB7oDnRTyf+aTWq4n8fHBz/mrz0zzqNjsSv+mhcReSAnjbmwRfd8BcEq
-         fIuQxxMJ3rlo0BcZRQPX6iFYRcVo9CixytXy6zS9UIyjIhBklhVh1vkPaRgHQDDofH8K
-         oBDg==
+        d=oss.qualcomm.com; s=google; t=1788779833; x=1789384633; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uMpBv2fRBJds8dHrhYUMdWkn5lQ9prASbg0GWZNOMRc=;
+        b=TdsctEgE86HAOK1j5qHrDSI47NTxfEbC/UI27rrI0cZZyAOB9J2FEh9MSPnzyOJbWk
+         rAwh8hS+Kv8XuTleYtvDMzYl7Fmq2owncIookJjnF1iAtaja0OIJHMdSfLxmrTcE09W1
+         7S75bKtiUnzd7oZjns7MOdsxshDAa9CJP8KSLjStUskcPG6TTnDQl3aG3Ws9X+tO6Tnb
+         WqMhf1jJ4xvlDgDy8tj2GdpOI9/hemoG00p0XzfnkZxfCE0YT6YXTlO+g9HKYRgxJ2N6
+         JMOC2jrQs+DVzmLR7jC7yGECqJ6UqOC9dreWUBEJryKODUddNNzy+HeJ9Ah0128R5q/G
+         3oqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788779834; x=1789384634;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=sx8OmWpKZX9lW/xSqneryQkwLjJ1xoG1ldpS3CIMT6c=;
-        b=aN+kyX06tJCNSZ8/kzUnHtOTvC9pkWTfiaV8LxhKCDJfCbBq/8Sw2mjdxGWGZ9BBoN
-         5N/Ptmbvny44iR2SHu6oTvJWkp/N3jZ00QFd/FNjwd8AmCgNEyIUohfghTDtdZR8PYe/
-         /wlhj0hX0cciu9OLggCCt3qh5B2WqSMk7Cm3ECHfodamfk2yVjgRRhFpIJzLN6FE8W/m
-         XPp+y7feiYkiJkG9Q/g36mwkopsvMN8qMtt4IV7k1q0RHrh5hOcp00jwRpJVeywWmBQB
-         nUg/qxjTsiOEhWcPGlYAV4QEW4CSRklI+Dq0A8yFabXSzZGgM3JM0QyWEYY3E2xwOOPM
-         q4nA==
-X-Forwarded-Encrypted: i=1; AKwUvBw4emcQCuFNzm9foSyzdiMoQVXlHYUatTiPl3QVz9Tf4vMDxa1CEft28wVr5rwcOtOIummywyJ+oDIbQhs=@vger.kernel.org
-X-Gm-Message-State: AFuF++njVHPigKvXhOdHCreXmgd1cjZSwtsqtmjrGG55j3vUz5br28Mg
-	yTs1URMeerYlTtweCzRzyO4fvuIcNUzmTllBlAMUoe7ExAhVClXfor55CtLMtsBaOgPAWxnihR8
-	zNNWFoGRuujJG4xmcXNWoZdLwxGMYfGM=
-X-Gm-Gg: AYBFou1oJFCM7Jcs5LeCBPUOdr73OZv8V29dtlwsl/bWkEOgaggPYqCar4F0nuB4HPH
-	TKNDxAiszR0W7uZrq9akMNvHz9zDvrr/CZDqF2UntEnBVJlXKZyivOs6wAkCV72GhsWH9d+k46p
-	7tuQnj4Ru97BrhVPNNQorGM7aBfr05aRMxYiMdiUnLwd7CKDFHwQCzJJume1cVmBVkMk16JA2hQ
-	zMQKoQU5DL+Z0zPhGz3eVtuGEDi7oBzBeyRKUm2uWWdpTO7/49lWkFVobgSMycFELebyPAvxQL5
-	JwULWQM697/Bedhzysxohgq7mNiok00aI6UiKDw00ZOe6mfvZXsRjWJ8+TxlvYbs1+mPFA9p5Q=
-	=
-X-Received: by 2002:a05:6820:1613:b0:6aa:da04:b56f with SMTP id
- 006d021491bc7-6b6fa7e183amr13654410eaf.3.1788779834482; Mon, 07 Sep 2026
- 04:17:14 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788779833; x=1789384633;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uMpBv2fRBJds8dHrhYUMdWkn5lQ9prASbg0GWZNOMRc=;
+        b=TyqHwy2wT4pG+HC1aVPgLlkaDKzN22EXzmFVv8e4NqjhzzvFdPbP+qK50Dqq80VxsF
+         BgmGtHMA4VTHHPg/jR8+8yVAKbtCul15aMF7SFn/tB5DyBeFIaFIeQvN4Aiv+E34Tzfi
+         Ix1QP/vvnHK43kRw4ZR43Rh3F7xtr9pOqDooWqw7j10ZiJZ6yVKIJcbYoc7EOjS/fRRh
+         fGK9oOcvaCCQzZIin2CT8mjruNKL5SKevSCWsx1xujDahNsbhno5RfZzwbLTz5sSY+9+
+         DPxIIyoelrDT6CJHL8ymrVgVVixumXz8QlC2vGLkQaioUJMTtmPVwpEPQsuKkRpyOtFr
+         PL6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBynPkAZDuqMiEpAQqbyuzyz3I6X4UCudnJMiJnx7gA5DeMojWNRaNB2n/M7Gnb3UTXd5/EaY9UGud2nCaY=@vger.kernel.org
+X-Gm-Message-State: AFuF++k6Dkb+JkPqAwPf7PPNElrNENf+uZpnX6hFR6EkAYweLcMyUK5U
+	3b13RzkhC/2zGmltdoUCOtFK0Ke79XMhXKUsMel4cnzXzdoWmyhNzaIL0PDS+cY30a3omCW2QkB
+	mE+hU8vLQ/TZd/UpmUtntMVdi04oornVvqs9EPzC0cR3vgi3dYGmNBAJokOdeb1yOFcg=
+X-Gm-Gg: AYBFou1pmhNpN3TFXyFW66D32FftKq/3vY61wuDSqHfVArdV6fw+WIkAf/60HPxnJUn
+	COUreUyZBNYCQp6GHGPMZrPiPF1Z3btVyiDQcHfw4mxHa8hp45Vn96zjdHhWoGzifl1uJQ6uIPy
+	+PQVtlBXsxdSeirnutcsJOxxvd1G8ZfKDvq/MEtFhkg2KwwKtAUauNMWfezT6Z7OfgKUKWEP2ri
+	N5O2rJNHyyeMqRQj6hd7xFULD29BO58sesZ367eRJXQ+HFd8tjr2LljP+8rTIftysBFY1r6zipz
+	vhE89tANUTTbmKXGViHiIzr8C1kWk3Y4+enS3kpfxLHVtYGEqU+01nFHuMN7H/CHezSRfrptHE0
+	FIV/w5nsB6g6oVzQoHFzCN9GZ2xgLnBUujT4ZyBejFyIeaN8v9tx+9hIaBg==
+X-Received: by 2002:a05:6102:2c8e:b0:785:b0ac:54bb with SMTP id ada2fe7eead31-78a4a9eebcbmr7883341137.7.1788779832757;
+        Mon, 07 Sep 2026 04:17:12 -0700 (PDT)
+X-Received: by 2002:a05:6102:2c8e:b0:785:b0ac:54bb with SMTP id ada2fe7eead31-78a4a9eebcbmr7883320137.7.1788779832329;
+        Mon, 07 Sep 2026 04:17:12 -0700 (PDT)
+Received: from uffe-tuxpro14.. (h-178-174-189-39.A498.priv.bahnhof.se. [178.174.189.39])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d5cfaa2sm456120066b.59.2026.09.07.04.17.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 04:17:11 -0700 (PDT)
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+To: Sudeep Holla <sudeep.holla@kernel.org>,
+        "Rafael J . Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>, linux-pm@vger.kernel.org
+Cc: Dhruva Gole <goledhruva@gmail.com>, Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        Christian Loehle <christian.loehle@arm.com>,
+        Maulik Shah <maulik.shah@oss.qualcomm.com>,
+        Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
+        Sneh Mankad <sneh.mankad@oss.qualcomm.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
+        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/5] pmdomain: core: Rename genpd_status_on()
+Date: Mon,  7 Sep 2026 13:16:51 +0200
+Message-ID: <20260907111659.263324-2-ulf.hansson@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260907111659.263324-1-ulf.hansson@oss.qualcomm.com>
+References: <20260907111659.263324-1-ulf.hansson@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260813062039.14567-1-kmehltretter@gmail.com> <rvsksbxeput4impcquq3kjxg6pv3ixovpk5or2mgtuifsu65fh@wuoukaeelovg>
-In-Reply-To: <rvsksbxeput4impcquq3kjxg6pv3ixovpk5or2mgtuifsu65fh@wuoukaeelovg>
-From: Karl Mehltretter <kmehltretter@googlemail.com>
-Date: Mon, 7 Sep 2026 13:17:02 +0200
-X-Gm-Features: AcwNN1UczZjMW4p4EYJlnlzfPEBGVu9_4lKAUmRz_TMoKp6TJFSsoOPV9Fyqs_0
-Message-ID: <CACzUYvRVi+XW2piwsBE1Lhe1Pg7Z_mNvFq2HX+da8RDpzTXxQw@mail.gmail.com>
-Subject: Re: [PATCH] syscall_user_dispatch: Use CONFIG_SYSCTL for sysctl guard
-To: Joel Granados <joel.granados@kernel.org>
-Cc: Thomas Gleixner <tglx@kernel.org>, Gregory Price <gourry@gourry.net>, 
-	Peter Zijlstra <peterz@infradead.org>, Andy Lutomirski <luto@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Oleg Nesterov <oleg@redhat.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Mark Brown <broonie@kernel.org>, Stephen Rothwell <sfr@canb.auug.org.au>, linux-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-next@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDEyNCBTYWx0ZWRfX5sLPHfN2ai1A
+ 1j9igbMphZ+jKKWvVmkrwtYUZVdnU25EOUdADvgjz7o7TE0LtBtdDLMd4DMxXv8WnvgRnDXbcv+
+ hY5JKy1e7If4P2WJLRPKP2x1t50lTA7UlJiEPcq6UKqPpSpKxHa3EZ9nriLn+vfhbrS/YzeGZ7o
+ 2NbFXkWWEFX6oFo+dLKhgLJ/HNKsiTBloV1/+pQeYA97hCd98pKGftrRIuAXxqYuPswz3eb/u19
+ M7KeTfGhhnoGnnygeaRAOmC+5Y/phHok9bapDg3eww79pihfj540IKm5WqWE5cDKk2aWAN3EpGe
+ 3bCruD7BJ5EuKNZbhUR/hPCER4tuvUgpXqbW846eu4+O72FdVbN7XKTFy26e2xDJggI9182R1F8
+ zalC5LdGXwWrJtO/47BoYugD7J+whZDUPItgOK+6b1sAEQN7F315dcK/itHTn/jDtDY99cx5zgi
+ 5vPqiPXGGERkAlfqqwA==
+X-Proofpoint-GUID: wwgamDLKv40S4ImMNeqvGIzAQfdwtLQK
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDEyNCBTYWx0ZWRfX+HbrKM3ApI38
+ aGGP0N06XtG4vF0nqA8amKHgn1jZFEqRai9avHU7t3X6u5TRgVIcpYlvmvuKMo2/Y5zU2B+6iw9
+ RctDnnolosrZcUkgGQ2zTh6bATHnSzc=
+X-Authority-Analysis: v=2.4 cv=daOwG3Xe c=1 sm=1 tr=0 ts=6a9e9d39 cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=h7aNHqOhPKB91FvYUefsSA==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=pGLkceISAAAA:8 a=zIFADOUqQBSm_Ft5s84A:9 a=vmgOmaN-Xu0dpDh8OwbV:22
+X-Proofpoint-ORIG-GUID: wwgamDLKv40S4ImMNeqvGIzAQfdwtLQK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_03,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 bulkscore=0 spamscore=0 phishscore=0
+ lowpriorityscore=0 adultscore=0 malwarescore=0 impostorscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070124
 
-Am Mo., 7. Sept. 2026 um 12:37 Uhr schrieb Joel Granados
-<joel.granados@kernel.org>:
-> I don't see this in 7.3-rc2. Did we miss pushing this in? At the moment
-> I see that syscall_user_dispatch.c is still using CONFIG_PROC_SYSCTL
-> which is never defined anywhere.
->
-> Two questions:
->
-> 1. Did I miss anything. Is this not supposed to be upstreamed at the
->    end?
+Rename the genpd_status_on() to genpd_status_on_unlocked() to make the name
+available for a lock taking wrapper introduced by a subsequent change.
 
-I already sent an updated v2 rebased on mainline with an adjusted
-commit message:
+Suggested-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Tested-by: Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>
+Reviewed-by: Dhruva Gole <goledhruva@gmail.com>
+Signed-off-by: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+---
 
-https://lore.kernel.org/r/20260822072325.51994-1-kmehltretter@gmail.com/
+Changes in v3:
+	- Updated a comment in the code and the commit message.
 
-Thanks,
-Karl
+Changes in v2:
+	- New patch.
+---
+ drivers/pmdomain/core.c | 26 +++++++++++++-------------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
+index 052ec478dfcc..6abe8b198949 100644
+--- a/drivers/pmdomain/core.c
++++ b/drivers/pmdomain/core.c
+@@ -173,7 +173,7 @@ static const struct genpd_lock_ops genpd_raw_spin_ops = {
+ #define genpd_lock_interruptible(p)	p->lock_ops->lock_interruptible(p)
+ #define genpd_unlock(p)			p->lock_ops->unlock(p)
+ 
+-#define genpd_status_on(genpd)		(genpd->status == GENPD_STATE_ON)
++#define genpd_status_on_unlocked(genpd)	(genpd->status == GENPD_STATE_ON)
+ #define genpd_is_irq_safe(genpd)	(genpd->flags & GENPD_FLAG_IRQ_SAFE)
+ #define genpd_is_always_on(genpd)	(genpd->flags & GENPD_FLAG_ALWAYS_ON)
+ #define genpd_is_active_wakeup(genpd)	(genpd->flags & GENPD_FLAG_ACTIVE_WAKEUP)
+@@ -771,8 +771,7 @@ EXPORT_SYMBOL_GPL(dev_pm_genpd_rpm_always_on);
+  * @dev: Device to get the current power status
+  *
+  * This function checks whether the generic power domain associated with the
+- * given device is on or not by verifying if genpd_status_on equals
+- * GENPD_STATE_ON.
++ * given device is on or not by checking if genpd->status equals GENPD_STATE_ON.
+  *
+  * Note: this function returns the power status of the genpd at the time of the
+  * call. The power status may change after due to activity from other devices
+@@ -791,7 +790,7 @@ bool dev_pm_genpd_is_on(struct device *dev)
+ 		return false;
+ 
+ 	genpd_lock(genpd);
+-	is_on = genpd_status_on(genpd);
++	is_on = genpd_status_on_unlocked(genpd);
+ 	genpd_unlock(genpd);
+ 
+ 	return is_on;
+@@ -963,7 +962,7 @@ static void genpd_power_off(struct generic_pm_domain *genpd, bool one_dev_on,
+ 	 * The domain was on at boot and still need to stay on.
+ 	 * The domain has a subdomain being powered on.
+ 	 */
+-	if (!genpd_status_on(genpd) || genpd->prepared_count > 0 ||
++	if (!genpd_status_on_unlocked(genpd) || genpd->prepared_count > 0 ||
+ 	    genpd_is_always_on(genpd) || genpd_is_rpm_always_on(genpd) ||
+ 	    genpd->stay_on || atomic_read(&genpd->sd_count) > 0)
+ 		return;
+@@ -1040,7 +1039,7 @@ static int genpd_power_on(struct generic_pm_domain *genpd, unsigned int depth)
+ 	struct gpd_link *link;
+ 	int ret = 0;
+ 
+-	if (genpd_status_on(genpd))
++	if (genpd_status_on_unlocked(genpd))
+ 		return 0;
+ 
+ 	/* Reflect over the entered idle-states residency for debugfs. */
+@@ -1406,7 +1405,7 @@ static void genpd_sync_power_off(struct generic_pm_domain *genpd, bool use_lock,
+ {
+ 	struct gpd_link *link;
+ 
+-	if (!genpd_status_on(genpd) || genpd_is_always_on(genpd))
++	if (!genpd_status_on_unlocked(genpd) || genpd_is_always_on(genpd))
+ 		return;
+ 
+ 	if (genpd->suspended_count != genpd->device_count
+@@ -1472,7 +1471,7 @@ static void genpd_sync_power_on(struct generic_pm_domain *genpd, bool use_lock,
+ {
+ 	struct gpd_link *link;
+ 
+-	if (genpd_status_on(genpd))
++	if (genpd_status_on_unlocked(genpd))
+ 		return;
+ 
+ 	list_for_each_entry(link, &genpd->child_links, child_node) {
+@@ -2170,7 +2169,8 @@ static int genpd_add_subdomain(struct generic_pm_domain *genpd,
+ 	genpd_lock(subdomain);
+ 	genpd_lock_nested(genpd, SINGLE_DEPTH_NESTING);
+ 
+-	if (!genpd_status_on(genpd) && genpd_status_on(subdomain)) {
++	if (!genpd_status_on_unlocked(genpd) &&
++	    genpd_status_on_unlocked(subdomain)) {
+ 		ret = -EINVAL;
+ 		goto out;
+ 	}
+@@ -2186,7 +2186,7 @@ static int genpd_add_subdomain(struct generic_pm_domain *genpd,
+ 	list_add_tail(&link->parent_node, &genpd->parent_links);
+ 	link->child = subdomain;
+ 	list_add_tail(&link->child_node, &subdomain->child_links);
+-	if (genpd_status_on(subdomain))
++	if (genpd_status_on_unlocked(subdomain))
+ 		genpd_sd_counter_inc(genpd);
+ 
+  out:
+@@ -2246,7 +2246,7 @@ int pm_genpd_remove_subdomain(struct generic_pm_domain *genpd,
+ 		list_del(&link->parent_node);
+ 		list_del(&link->child_node);
+ 		kfree(link);
+-		if (genpd_status_on(subdomain))
++		if (genpd_status_on_unlocked(subdomain))
+ 			genpd_sd_counter_dec(genpd);
+ 
+ 		ret = 0;
+@@ -2441,7 +2441,7 @@ int pm_genpd_init(struct generic_pm_domain *genpd,
+ 
+ 	/* Always-on domains must be powered on at initialization. */
+ 	if ((genpd_is_always_on(genpd) || genpd_is_rpm_always_on(genpd)) &&
+-			!genpd_status_on(genpd)) {
++			!genpd_status_on_unlocked(genpd)) {
+ 		pr_err("always-on PM domain %s is not on\n", genpd->name);
+ 		return -EINVAL;
+ 	}
+@@ -3839,7 +3839,7 @@ static int genpd_summary_one(struct seq_file *s,
+ 
+ 	if (WARN_ON(genpd->status >= ARRAY_SIZE(status_lookup)))
+ 		goto exit;
+-	if (!genpd_status_on(genpd))
++	if (!genpd_status_on_unlocked(genpd))
+ 		snprintf(state, sizeof(state), "%s-%u",
+ 			 status_lookup[genpd->status], genpd->state_idx);
+ 	else
+-- 
+2.43.0
+
