@@ -1,98 +1,109 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-88.mta1.migadu.com [95.215.58.88])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E50136215D;
-	Mon,  7 Sep 2026 15:24:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18EFF3D79E9
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:24:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.88
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788794651; cv=none; b=t3dC52fKonvo+7tuHa8aYxluaf3JFcn9Ea7QcdHKqIGsNZE5D/4Bq2OmFIKvq23SlEbHu2NxXBqsB8ljmOaGOFQ3Tk4/Uuq/LjHqu/Nrcdezx4s4emFHzUWeRr1uNXRjHjk1eYw+VwT5rMkuNjCknlRoEiz72Zn8ptCkGi61HaE=
+	t=1788794662; cv=none; b=cwLMshmJkWnWbr8D73WEPUzYg20TtDGADKI+btNaKKKMmLEOo0dPMxC8tFU1+5ciIzxbFNKt2XctSCUvMlemb02ih0MS3i0k+f8B7xgjPH3YCAPG9o+VE8Ylekxm89BcRL3J7Bzb+EoB2802SvTKg66KedZyYv+AJVAUHbekaN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788794651; c=relaxed/simple;
-	bh=77OB6XLSPGdx1mrtaqK7OaOPUS+8dLBkb8o1P9wfP/Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o2Y24HnE2Sa4brKQQ27NDwtNuXKFgPImg/C88fmauW3jZE5p9bXx4XvbHXeSvQ2E2iHywE5B5RdKU5QRXX8juXoj9hsSPxB0L3NdtHOGlJfgdycyTRg+VQQgBaBOXaVBB2f5Z42cqGe5XiMLR03Nemyq9fIo1DsAwJUwqgWRFdc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=TwhS7pT7; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1788794662; c=relaxed/simple;
+	bh=53M13uLe2tDWwPpHOljST/aFN6C7iTXS5c1/+w9kOOk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=E9a1GYjcrtuzOTuWnkBo28Nw1gYiMyr/O8s68tEDfofF88KOxRVXhwmI6QxKHARIL+E2K8UBzLjcXfcUOP3IOdJHur7YdIAIA1saoPtAQ97LwVQAjKHhptLIKMcH+hS06hxVc8VsN/vBgQAUBKMlG4S62ojX6DFQQWrcmEdxToc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TgPLWoK3; arc=none smtp.client-ip=95.215.58.88
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="TwhS7pT7"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=6c435i0Ybwx2SpPArP3T09GV23HR1EORsj2zutcyrsA=; b=TwhS7pT7b6MrSEMKFQfGDeSRIA
-	mv6TiijYkOzV3ljABhwcKRIImezX6VdLF59YDNzKwVu9XJSBnGJI+8bj+Zieec2dbmSX+dI64ObiU
-	C6HdX1Joy5LOL3lb5qIr5LcgDoacSanCjFIsu3Kvf6RuotHWPs8FxHINv1Mo6Jw8NyZsEJZmyioRK
-	Ei8ZzeJcwumibhpITvX9zwoCt14QChw+J8HOtulb9LVA4kEShJ+v6nO0XqbRUzgWQ7L1V+pSaiCHT
-	tbHwZpkOABgvU1Qwurrtp391g+wt6DKKAT7yXWR5gRPtkmNkPLKZHrevAIYTNDGTBgmBkr3mc7fuO
-	e3n1TF0Q==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1x3bCK-001bGs-0M;
-	Mon, 07 Sep 2026 15:23:52 +0000
-Date: Mon, 7 Sep 2026 08:23:46 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Miaohe Lin <linmiaohe@huawei.com>, 
-	Naoya Horiguchi <nao.horiguchi@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	kexec@lists.infradead.org, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, linux-efi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, rmikey@meta.com, riel@surriel.com, 
-	kernel-team@meta.com
-Subject: Re: [PATCH v3 3/5] mm/memory-failure: efi: record hardware-poisoned
- frames into the poisoned-memory table
-Message-ID: <ap7Tup6mahjIljVF@gmail.com>
-References: <20260826-hwpoison-kho-v3-0-6f79c4b605bc@debian.org>
- <20260826-hwpoison-kho-v3-3-6f79c4b605bc@debian.org>
- <apGWUWi5-RbhFHpe@thinkstation>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TgPLWoK3"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=53M13uLe2tDWwPpHOljST/aFN6C7iTXS5c1/+w9kOOk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788794658; v=1; x=1789399458;
+ b=TgPLWoK346LvOvh+5++prgFFITm2KxGTHxI3/b4WC+RmDpCtjzno7O8/7icyAw/y5TZPB5sa
+ vZ4tkfTzteeI4k0M94U4dKj8xWV+qsu4eBOOYvlbiOArH02UHQOxlYl3L0vAPwioRC3ppzmWrCE
+ eIt2DGRGp7ShlxKc598/6ipY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 51765449fb49eae3;
+	Mon, 07 Sep 2026 15:24:17 +0000
+X-Mizu-Trace-ID: 51765449fb49eae3
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <534e5a3b-5160-4619-8b2e-27a81783e17f@linux.dev>
+Date: Mon, 7 Sep 2026 23:24:10 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apGWUWi5-RbhFHpe@thinkstation>
-X-Debian-User: leitao
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next 1/2] selftests/bpf: Move verifier failure tests
+ out of test_global_percpu_data
+To: =?UTF-8?Q?Thi=C3=A9baud_Weksteen?= <tweek@google.com>,
+ Quentin Monnet <qmo@kernel.org>
+Cc: Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Shuah Khan <shuah@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Sid Nayyar <sidnayyar@google.com>,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
+References: <20260904031912.2133476-1-tweek@google.com>
+ <b965bb62-fcc8-4517-9947-24613650f1f5@linux.dev>
+ <CA+zpnLc-WAqE9rA0PsjvOFe_YCZOdVj9YAzuayGXx0nhpqtw7g@mail.gmail.com>
+Content-Language: en-US
+From: Leon Hwang <leon.hwang@linux.dev>
+In-Reply-To: <CA+zpnLc-WAqE9rA0PsjvOFe_YCZOdVj9YAzuayGXx0nhpqtw7g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 28, 2026 at 03:11:10PM +0100, Kiryl Shutsemau wrote:
-> On Wed, Aug 26, 2026 at 05:03:54AM -0700, Breno Leitao wrote:
-> > +#include <linux/memblock.h>
+On 2026/9/7 13:46, Thiébaud Weksteen wrote:
+> On Fri, Sep 4, 2026 at 4:07 PM Leon Hwang <leon.hwang@linux.dev> wrote:
+>>
+>> On 4/9/26 11:19, Thiébaud Weksteen wrote:
+>>> Commit 4c9241bd731a ("selftests/bpf: Add tests to verify global percpu
+>>> data") added test_global_percpu_data.c to LSKELS_EXTRA. Later, in commit
+>>> 1ed2294b31fc ("selftests/bpf: Test verifier log for global percpu data")
+>>> two verifier failure tests were added (verifier_strncmp and
+>>> verifier_snprintf), both marked as non-autoload (SEC("?kprobe")).
+>>>
+>>> When bpftool generates light skeletons, non-autoloaded programs are
+>>> skipped during loading, causing the loader program to store subsequent
+>>> program FDs into incorrect skeleton struct fields (e.g. dump_percpu_data's
+>>> FD was stored into verifier_strncmp's descriptor).
+>>
+>> IIUC, patch 2 will fix the issue totally.
+>>
+>> Better to add a subtest to verify both the issue and the fix?
 > 
-> Is it leftover? I don't see any memblock usage.
-
-Yes, good catch, I will remove.
-> > +#include <linux/mm.h>
-> > +#include <linux/overflow.h>
-> > +
-> > +static struct linux_efi_poisoned_memory *efi_poison __ro_after_init;
-> > +static u64 efi_poison_nbits __ro_after_init;
-> > +
-> > +static u64 __init
-> > +efi_poison_usable_size(const struct linux_efi_poisoned_memory *pm)
-> > +{
-> > +	u64 nr_units = DIV_ROUND_UP(PFN_PHYS(max_pfn), pm->unit_size);
-> > +	u64 bytes = DIV_ROUND_UP(nr_units, BITS_PER_BYTE);
-> > +
-> > +	/* Whole words: the bitmap is reached an unsigned long at a time. */
-> > +	return min(round_up(bytes, sizeof(unsigned long)), pm->size);
+> Thanks for the review. That's right, patch 2 will fix the issue:
+> bpftool will fail to build any program that is set up that way. That's
+> why patch 1 is necessary; otherwise, the existing test would fail.
 > 
-> Hm. Why bother to clamp to max_pfn? What's what's wrong with just using
-> pm->size directly?
+> Just checking your suggestion: what I can do is add a new test to make
+> sure that dump_percpu_data is set up as expected (fd > 0). I can write
+> a new test_global_percpu_data_iter_lskel, that is similar to
+> test_global_percpu_data_iter, but for lskel?
+> 
+> I can also write a test to ensure that bpftool fails when light
+> skeletons are set up with autoload=false?
+> 
 
-The clamp is a min(), so it can only ever make the kernel use less of
-the table than the table claims, just a silly and cheap optimization.
+imo, the rejection of autoload=false prog when generating light skeleton
+is not friendly for users. Users should not care about mixing
+autoload=false progs with autoload=true progs, even for light skeletons.
 
-That said, pm->size is more than enought for now, and we optimize later.
+The users-friendly way is to skip those autoload=false progs when
+generating light skeletons.
 
-I will drop efi_poison_usable_size() completely and replace it by
-pm->size.
+So, this is a bpftool issue. A selftest is unnecessary. You can verify
+both the issue and the fix manually. Probably, paste the verification
+result in the patch message.
 
 Thanks,
---breno
+Leon
+
