@@ -1,129 +1,124 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9959D41754;
-	Mon,  7 Sep 2026 07:31:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB6D412269
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:31:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788766280; cv=none; b=tfyfeVChkT3U0TrYdjsRbGDB8YyHhBHFHpOwxIaVaXWtCRRJcQxftnhp7aD6yShFBpU3Gl8zKDUjlsMNjPp7dNyFUkKBgCjoZbx99rZxaUeJIpBrR4s/ePgcZjOjZS1VZCj4+4QEXmOmh0FMhPEA1pmCmxdRGuV8iJZMddNFp8k=
+	t=1788766292; cv=none; b=e3SgthxaN2Ow8OBYNBCVe6HEDrXKF7LgLAWRYA8eGOQtIzMMBj9Sp5Tvef3O+ynVMQ9FRMIrwtM3yATA0e2P/ol+sToaXZUMHLadIxAwckl9OCsiH6kNaTrS4w3zepvTRZDBJXB/2leSKb4zA0G8unnpl7vfg1M4mN1sJshEPnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788766280; c=relaxed/simple;
-	bh=+kSRN1FQPOt4QIhJo16lizhPz7nrDoHjL5HpjoLU4GI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=AoKCtvXIyj9VWK/waBwR9M+E3OvKq5Lf35iJT3IgRSeRP9Tb0qKhMBwNSjPfscQJ35Hq46ihe+R26cqZxJeiaHxIvUhdAtvU2kMGWK+xCYS2GBoZYYx3inkdUEW4k3D7WKKkZB3kUv21Ea4gfCacZhqww9Pq2k5Otrlz117OobI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 18b17c1aaa8e11f19a56ed5b684f684d-20260907
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:89b840f9-024d-4148-b878-1f86844f3a3f,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:1ca462b37043b423338bde794a61413d,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:-3,I
-	P:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
-	,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 18b17c1aaa8e11f19a56ed5b684f684d-20260907
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1921757649; Mon, 07 Sep 2026 15:31:10 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: cem@kernel.org,
-	darrick.wong@oracle.com,
-	chandanrlinux@gmail.com
-Cc: linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] xfs: fix array bounds checking in log recovery
-Date: Mon,  7 Sep 2026 15:31:06 +0800
-Message-Id: <20260907073106.300362-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1788766292; c=relaxed/simple;
+	bh=XfnvZ+tGyvOEX04e8DPs3Qx6yRkrqyInvUwTUbYGHgA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ap6nnvwbLvAaQw4yR5HMKtMNl8vgtl/OS/OmmgrUyoJNJ+fz1V5xWuajMZMJMeIOp8KvCH+QkXUmt6TStM8TPxShjQFVPHyM1M5JXODNpR8mMHmMaWhecd9Q5R/WNbC5GAmI1zU6vplZPrh2Hi7EFcLQ10rLpGcCXhgKjZ8fasI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UMoYMvNe; arc=none smtp.client-ip=209.85.208.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UMoYMvNe"
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3a482cbbf35so3427491fa.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 00:31:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788766286; x=1789371086; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vEX1aCK9nP42qtFnudljLMoJtVeAMHoRCznJunAcW28=;
+        b=UMoYMvNe/POuG0HOXyp2T6Z3jfsus6mPHI1rteuPKjd0EeYbxML4eT+MSZpucxXwo6
+         SxEntXokxlPeMVA9HY7Q1bP70OdNfkmqMhI4vPY4LrhvYIZQLcmoPlm4hG3C1N7JP+fx
+         hH/55Q/dKWk7E2PgKzOw8S5vefHegBYe0uMfnW8SxOGv8jZBY+0KyhCWjhhqApA04R1I
+         OAgmgHzoFhhuqLqTsT53ZyCLxrFxNIxzr6wH+xdQTKa1OJbukNMKwEy52e2izQpxBDaL
+         +KWr2utLyghN5O/rcTyf0oeOBXyadHkvrKIYZFH1GuCsnlFn5tNTa9w/eQbCtN3y0xS4
+         jCXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788766286; x=1789371086;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vEX1aCK9nP42qtFnudljLMoJtVeAMHoRCznJunAcW28=;
+        b=RQ5gwaloesONZwBCdrhz1fWRLTB7Xd5EY2wKXrMACJH0PKzIPq7tYYOo7oKXTuy9Qu
+         B150uVOSGARDZbPf2ji7Yvk1EgTaWS26pLHFnI9M1ABwDXE0VABOXm213h27g2YFe1Ox
+         wKWj/YPiuvaWg1l6SMEzY64AM/kVuqpykfynrtml+9OXlluXnySS6Z/vWNWN0kqeb/46
+         2UTP9/U5wyX+bFtuCV2vQZAUyYvjWqhue/ihWPIs9eM78wLBTyll233JGQYddA8EfP+N
+         q2A6+6rWd+2kL7DDL8qVpRZ/I9HzX8NIqFby/s8LudSvfo5BpLyTxR/PRaM6T3poGNG1
+         YYfw==
+X-Forwarded-Encrypted: i=1; AKwUvBxN63/XBpDq8HX6E6k8JWvv96kxxx2YGHUGzwt6g0ZDgLVpqnbUhtX3zxPeMoumRhWaBHfSL7IMkbxy1Bk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kLqPYKe5JKX1g/ezrba/hOk+/MdPCCVneV5ecHwHf5UKk0Jl5r
+	kN2fXpZZr8fQCkeCmCtHWy+beTHzrHDHyT8Gy3GRuKYY3uBOtjVkO3g3
+X-Gm-Gg: AYBFou3Ga/RGJkmZG8P1GjSFjn8cL+05EWtNfmU+xc9ZwdAZOnEVbPF89cAcA4vuc8r
+	b9j4YXjIERTqAiWrA+GUyGneK6BQDIZOSMT8PDHs9o3kAQ3hBMGQbNIddWTE0Go80frnukDg9xU
+	qRKpvO1k8rnJvXzBZLszHWMg+HsxC5JLjsTK9aMth05csCHC4p0n00b8LkxLJVBplFDdu0sbYTj
+	kz+5RKq0WX1ZvZgwqeIge5TDb76FyehJm0Yjp1Mz3glApyT0IWVqnec3bp+yHXVmMgnt5mmdJbq
+	Y1frW8CuhUwoDqCCOfevvg4nQESncJPNiVDKLKt0uP3DZqTaltgkEWJPZxfs/Gs/ksn6u4HDl9B
+	fZiKwXApHSjhzg9wRfoss9q96QVntQ0NBdXJ7Flhoykg5FJtUfi7t55rohSLGceR9bQkcBp2zs1
+	1rRi+ldoygk80buciJFs/7EDwbMOLnv6B2c2ePNaKir4Ff9bRzva/opdPkNKU=
+X-Received: by 2002:a05:651c:3049:b0:3a3:a3:3560 with SMTP id 38308e7fff4ca-3a371b2e558mr23880441fa.6.1788766286141;
+        Mon, 07 Sep 2026 00:31:26 -0700 (PDT)
+Received: from archlinux ([94.229.17.163])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a37059aa61sm27035991fa.27.2026.09.07.00.31.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 00:31:25 -0700 (PDT)
+Date: Mon, 7 Sep 2026 10:31:22 +0300
+From: Nikolay Kulikov <nikolayof23@gmail.com>
+To: Gabriel Windlin <gawindlin@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andrei Khomenkov <khomenkov@mailbox.org>,
+	Khasar Munkh-Erdene <02khasar@gmail.com>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: rtl8723bs: remove unneeded else after return in
+ enqueue_reorder_recvframe()
+Message-ID: <ap5oSuo4v9ZZaHeY@archlinux>
+References: <20260906233552.971860-1-gawindlin@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260906233552.971860-1-gawindlin@gmail.com>
 
-The log recovery code increments array indices based on bits set in
-blf_data_map without verifying that the indices stay within the bounds
-of the item->ri_buf array.
+On Mon, Sep 07, 2026 at 01:35:43AM +0200, Gabriel Windlin wrote:
+> In enqueue_reorder_recvframe(), checkpatch warns that 'else is not
+> generally useful after a break or return'. The duplicate packet check
+> returns false, making the following else on break redundant.
+> 
+> Simplify the loop control flow by using continue when advancing the
+> list and eliminating the unneeded else statement.
+> 
+> Signed-off-by: Gabriel Windlin <gawindlin@gmail.com>
+> ---
+>  drivers/staging/rtl8723bs/core/rtw_recv.c | 13 +++++++------
+>  1 file changed, 7 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/staging/rtl8723bs/core/rtw_recv.c b/drivers/staging/rtl8723bs/core/rtw_recv.c
+> index 7568fc514d7c..498c7273f273 100644
+> --- a/drivers/staging/rtl8723bs/core/rtw_recv.c
+> +++ b/drivers/staging/rtl8723bs/core/rtw_recv.c
+> @@ -1782,14 +1782,15 @@ static int enqueue_reorder_recvframe(struct recv_reorder_ctrl *preorder_ctrl, un
+>  		pnextrframe = (union recv_frame *)plist;
+>  		pnextattrib = &pnextrframe->u.hdr.attrib;
+>  
+> -		if (SN_LESS(pnextattrib->seq_num, pattrib->seq_num))
+> +		if (SN_LESS(pnextattrib->seq_num, pattrib->seq_num)) {
+>  			plist = get_next(plist);
+> -		else if (SN_EQUAL(pnextattrib->seq_num, pattrib->seq_num))
+> -			/* Duplicate entry is found!! Do not insert current entry. */
+> -			/* spin_unlock_irqrestore(&ppending_recvframe_queue->lock, irql); */
+> +			continue;
+> +		}
+> +
+> +		if (SN_EQUAL(pnextattrib->seq_num, pattrib->seq_num))
+>  			return false;
+> -		else
+> -			break;
+> +
+> +		break;
+>  	}
 
-Since blf_data_map is from untrusted log data, a malicious log could set
-many bits while ri_total is small, causing array index overflow.
+Hi,
 
-This can result in an out-of-bounds access during log recovery, causing
-a kernel crash or memory corruption.
-
-This patch adds array bounds checking for ri_buf access in
-xlog_recover_do_reg_buffer() and xlog_recover_do_inode_buffer().
-
-The check in xlog_recover_do_inode_buffer() is placed right before the
-actual array access, not after incrementing the index, to avoid false
-positives when processing the last valid region.
-
-Fixes: 1094d3f12363 ("xfs: refactor log recovery buffer item dispatch for pass2 commit functions")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
----
-Change in v2:
- -Rebase top of for-next and re-send.
----
- fs/xfs/xfs_buf_item_recover.c | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
-
-diff --git a/fs/xfs/xfs_buf_item_recover.c b/fs/xfs/xfs_buf_item_recover.c
-index 57929f115055..7148716366ba 100644
---- a/fs/xfs/xfs_buf_item_recover.c
-+++ b/fs/xfs/xfs_buf_item_recover.c
-@@ -485,6 +485,19 @@ xlog_recover_do_reg_buffer(
- 			break;
- 		nbits = xfs_contig_bits(buf_f->blf_data_map,
- 					buf_f->blf_map_size, bit);
-+
-+		/*
-+		 * The bitmap can have more bits set than there are regions
-+		 * in ri_buf, so we must check array bounds before using the
-+		 * index to access ri_buf[i].
-+		 */
-+		if (XFS_IS_CORRUPT(mp, i >= item->ri_total)) {
-+			xfs_alert(mp,
-+		"Buffer log item index (%d) exceeds allocated regions (%d).",
-+					i, item->ri_total);
-+			return -EFSCORRUPTED;
-+		}
-+
- 		ASSERT(nbits > 0);
- 		ASSERT(item->ri_buf[i].iov_base != NULL);
- 		ASSERT(item->ri_buf[i].iov_len % XFS_BLF_CHUNK == 0);
-@@ -688,6 +701,19 @@ xlog_recover_do_inode_buffer(
- 		if (next_unlinked_offset < reg_buf_offset)
- 			continue;
- 
-+		/*
-+		 * Check array bounds here (right before accessing ri_buf)
-+		 * rather than after incrementing item_index. This avoids
-+		 * incorrectly rejecting logs when item_index reaches
-+		 * ri_total after processing the final valid region.
-+		 */
-+		if (XFS_IS_CORRUPT(mp, item_index >= item->ri_total)) {
-+			xfs_alert(mp,
-+		"Inode buffer log item index (%d) exceeds allocated regions (%d).",
-+				item_index, item->ri_total);
-+			return -EFSCORRUPTED;
-+		}
-+
- 		ASSERT(item->ri_buf[item_index].iov_base != NULL);
- 		ASSERT((item->ri_buf[item_index].iov_len % XFS_BLF_CHUNK) == 0);
- 		ASSERT((reg_buf_offset + reg_buf_bytes) <= BBTOB(bp->b_length));
--- 
-2.25.1
-
+there is already a similar patch in the lore:
+https://lore.kernel.org/linux-staging/20260820162601.74952-1-myeonghyeon.park@gmail.com/T/
