@@ -1,166 +1,507 @@
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net [217.70.183.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52555409273;
-	Mon,  7 Sep 2026 11:10:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.193
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 747293B71D9
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:12:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788779424; cv=none; b=GPwFPAh91wYIgHETCeyqQavPcBRa1FNw3iDBGCOn3SUFcb1N3FNyPCKd3nJ6/e6VNXZ32iPTtfw9A73nGM/w8ewfIJVCADkp1iTdkDAH6/be8FufKyArNUUNB4cp3CVAaQfQNo4p1qo4IbO63EKfVIvQJ8QPctGzyJwJqWorOJw=
+	t=1788779557; cv=none; b=P829xBag4hxL0EIr5zdesIDPUcjl1NrP2+YS11xYnnQwOUcrrzcxgl6ZHNFdpELwkzJiN8y9hAQKCGLlebYTBrMlvB95whdkcGqMYYDH2thSnM8yzD2seWDYpA3cP5CVRZ2H00q37HEbXHK5WhR39sRyn6/DlOWR+6rWVR3h1gU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788779424; c=relaxed/simple;
-	bh=8KOCIqbGCcAaCsYNh6VBanLe/XQcKRZmlOIQAK5SSdM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hnJ1215X4sZZYHFzd57eF00OBR8RI6hqKOy2T4loY08X1Zu6APg6uFgEKZ/lRzWJPbImRNqXd8iPFwTS3v0kv0jDOJXHtlQ0lkvDbUUMW4i0OrkvP/ByAYph0UIW9FJ5Un7DI7kXlD0l4xxXcfxvJoJnXF/OeS4FSF+Rz6s1SR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io; spf=pass smtp.mailfrom=gtucker.io; dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b=KxrSsN63; arc=none smtp.client-ip=217.70.183.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gtucker.io
+	s=arc-20240116; t=1788779557; c=relaxed/simple;
+	bh=GF7/YPL0HWRDZcMXZJtA443hHFAhpSrxVIaylOHC8CU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kAx1P3ZsKlcIl6jGHe9Bycc3lndIVKWQuxnQ2sAB/G3enIM2HSvXugS59VyNXt2nYXW6xv3HXHSkIRw3EKa5CTzn+mp2etXNimakFqRndfoJ3ruko3psM/gwNceLY+BGr80u2w9RLDMpkIzqLldN8llRvZHZyQ67SeOj5ZtY+x4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=p9gZOxfM; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b="KxrSsN63"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 788D83EDFB;
-	Mon,  7 Sep 2026 11:10:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gtucker.io; s=gm1;
-	t=1788779414;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RI7S+0rgBA5kP+wlTLpQxQsJeegAm+Kbw6tOkonnoS4=;
-	b=KxrSsN63yCyoUnW6w7R6y2gzsjehg8p9dnI+82LS4jVKRcYNfH06SJuzk/2haIU9K3LTU3
-	ok/E/LlDteMfP5xh/bGdckVS/Xa3m/njJaW6kRlK/ygHNL1Y2OWuDv+NjTAr+QMp36UfsE
-	s+bBMtq/krvuAWrAbomKhtR4eiSm+kX584r/Fv9SKsaX/w6zpMvU1IeOEIa87bWjHkQ2e7
-	rWke2jC7HWE/5PKG4Lu6H27aqpygChf3VK5/j601akjD0n0Quev1K779ae8meZ7OTH7Swm
-	PGDbSeSWIpuJRfvrEvAWAw7MV1+4p8R2I5bBgQ1a2RH7cokNfRFD429XEtmO9g==
-From: Guillaume Tucker <gtucker@gtucker.io>
-To: Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Miguel Ojeda <ojeda@kernel.org>
-Cc: Guillaume Tucker <gtucker@gtucker.io>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	linux-doc@vger.kernel.org,
-	workflows@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kbuild@vger.kernel.org,
-	kernelci@lists.linux.dev,
-	automated-testing@lists.yoctoproject.org
-Subject: [PATCH v4 3/3] Documentation: dev-tools: refer to user ID rather than id
-Date: Mon,  7 Sep 2026 13:10:06 +0200
-Message-ID: <5585f8bc5c64e005aa8e4b7651f7cbcac0d93ad3.1788779245.git.gtucker@gtucker.io>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <68b14a76a4cb2e6437c869bab948983a98acffbd.1788779245.git.gtucker@gtucker.io>
-References: <68b14a76a4cb2e6437c869bab948983a98acffbd.1788779245.git.gtucker@gtucker.io>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="p9gZOxfM"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D775F1476;
+	Mon,  7 Sep 2026 04:12:30 -0700 (PDT)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 706083F7D8;
+	Mon,  7 Sep 2026 04:12:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788779554; bh=GF7/YPL0HWRDZcMXZJtA443hHFAhpSrxVIaylOHC8CU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=p9gZOxfMIwizXB8FqDNrdPhO3/1zTH1LN6nFTu2vMXkyjMRRdN4n1eH0vYn9yzTi2
+	 laFBHiFwZvsaoZuS4TUdjIWRdqvhsQwH9ecgj6mpjHTEXx0izLgDQiUG+mI26thVJV
+	 +3mZKGiJ5xSbhwsysjJ2OWRTQuMpmhga8ZFtyOgw=
+Message-ID: <ef9fb6b1-3c11-4169-802b-b82c8ea07849@arm.com>
+Date: Mon, 7 Sep 2026 12:12:31 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-GND-Sasl: gtucker@gtucker.io
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: dmFkZTFnHr60Sm/qV9Jz9A+bocXjRyABUch8i4wGVL/yW72gikdeI8cW0Iu29rbEuD1FK3Q8WjWk+BmHmZBcV9C19JTXXS3A3/5OvFLrnwK0T43+aXxuo2uP7cuHeYTZl9HL9UlZDO+U41G7i3f9jYwAcX1QfVM0yagxnCT58Cq+yXgKojJ/gBt0BZVodIQvqr2pf5UOosiixqjDaFe6CdYib/fd7TKBtTb6L6bj/WEoeQO0tSWqrSL2udu3LceyaD+454kJAMs4xEExq6A6EpNIIqvgXuRrHBkA4Ii4rL7yjpdN8Te1/UylVIIRFzqmeHoAS2WjwHmoVD3Gm4/PL1Ld5SvMILeKfdhJXTQeHwljOv8S/Rss+HxndoyISx0li+ZdLugOvBhuo40BFCuqH8xdAfGD1ZQfAqm9ADuZxuCEs+DAK3p7uCQtZSj+fLco4rre1sWUbtRebzkYCyjVFinK495Ry6caE9ik1r4C01en+7xA+idJ4yXenuksyz8A2VZS1HFqbkrSGwNVrFoLd/KylbfALdw2rN3ZjNc9Ymrs34SKoPl8PR+Q8cSqcJWSETp5UN9d+ul8ALLIswYM6wVc/nYORYtZJznOUhunInkdWz0MWY9EI7bykOCfJdoJFBabG2X/ncjfe6udWdGAKZ8QqROfEnqK2fgh1/mjImap1wBdqw
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v2 12/19] arm_mpam: resctrl: Add NUMA node notifier
+ for domain online/offline
+To: Fenghua Yu <fenghuay@nvidia.com>,
+ Reinette Chatre <reinette.chatre@intel.com>, Tony Luck
+ <tony.luck@intel.com>, James Morse <james.morse@arm.com>,
+ Dave Martin <Dave.Martin@arm.com>, Will Deacon <will@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Shaopeng Tan <tan.shaopeng@fujitsu.com>, Chen Yu <yu.c.chen@intel.com>,
+ Babu Moger <babu.moger@amd.com>, Drew Fustini <fustini@kernel.org>,
+ Vikram Sethi <vsethi@nvidia.com>, Shanker Donthineni
+ <sdonthineni@nvidia.com>, Newton Liu <newtonl@nvidia.com>,
+ Richard Cheng <icheng@nvidia.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+References: <20260831172245.42253-1-fenghuay@nvidia.com>
+ <20260831172245.42253-13-fenghuay@nvidia.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20260831172245.42253-13-fenghuay@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-User and group identifiers are commonly known as IDs i.e. UID and GID
-written in capital letters rather than lowercase 'id'.  Update the
-scripts/container documentation accordingly.
+Hi Fenghua,
 
-Signed-off-by: Guillaume Tucker <gtucker@gtucker.io>
----
+On 31/08/2026 18:22, Fenghua Yu wrote:
+> From: James Morse <james.morse@arm.com>
+> 
+> To expose resctrl resources that contain CPU-less NUMA domains, resctrl
+> needs to be told when a CPU-less NUMA domain comes online. This can't
+> be done with the cpuhp callbacks.
+> 
+> Add a memory hotplug notifier, and use this to create and destroy
+> resctrl domains.
+> 
+> Signed-off-by: James Morse <james.morse@arm.com>
+> Signed-off-by: Fenghua Yu <fenghuay@nvidia.com>
+> ---
+>  drivers/resctrl/mpam_resctrl.c | 343 ++++++++++++++++++++++++++++++++-
+>  include/linux/memory.h         |   1 +
+>  2 files changed, 337 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+> index cd9bebf5f0c2..8bb313efc716 100644
+> --- a/drivers/resctrl/mpam_resctrl.c
+> +++ b/drivers/resctrl/mpam_resctrl.c
+> @@ -11,6 +11,8 @@
+>  #include <linux/limits.h>
+>  #include <linux/list.h>
+>  #include <linux/math.h>
+> +#include <linux/memory.h>
+> +#include <linux/node.h>
+>  #include <linux/printk.h>
+>  #include <linux/rculist.h>
+>  #include <linux/resctrl.h>
+> @@ -1775,16 +1777,25 @@ void resctrl_arch_reset_all_ctrls(struct rdt_resource *r)
+>  	mpam_reset_class_locked(res->class);
+>  }
+>  
+> +static void mpam_resctrl_domain_hdr_init_mask(const struct cpumask *cpus,
+> +					      int id_cpu,
+> +					      struct mpam_component *comp,
+> +					      enum resctrl_res_level rid,
+> +					      struct rdt_domain_hdr *hdr)
+> +{
+> +	INIT_LIST_HEAD(&hdr->list);
+> +	hdr->id = mpam_resctrl_pick_domain_id(id_cpu, comp);
+> +	hdr->rid = rid;
+> +	cpumask_copy(&hdr->cpu_mask, cpus);
+> +}
+> +
+>  static void mpam_resctrl_domain_hdr_init(int cpu, struct mpam_component *comp,
+>  					 enum resctrl_res_level rid,
+>  					 struct rdt_domain_hdr *hdr)
+>  {
+>  	lockdep_assert_cpus_held();
+>  
+> -	INIT_LIST_HEAD(&hdr->list);
+> -	hdr->id = mpam_resctrl_pick_domain_id(cpu, comp);
+> -	hdr->rid = rid;
+> -	cpumask_set_cpu(cpu, &hdr->cpu_mask);
+> +	mpam_resctrl_domain_hdr_init_mask(cpumask_of(cpu), cpu, comp, rid, hdr);
+>  }
+>  
+>  static void mpam_resctrl_online_domain_hdr(unsigned int cpu,
+> @@ -1805,12 +1816,12 @@ static void mpam_resctrl_online_domain_hdr(unsigned int cpu,
+>   * indicating the parent structure can be freed.
+>   * If there are other CPUs in the domain, returns false.
+>   */
+> -static bool mpam_resctrl_offline_domain_hdr(unsigned int cpu,
+> -					    struct rdt_domain_hdr *hdr)
+> +static bool mpam_resctrl_offline_domain_hdr_mask(const struct cpumask *cpus,
+> +						 struct rdt_domain_hdr *hdr)
+>  {
+>  	lockdep_assert_held(&domain_list_lock);
+>  
+> -	cpumask_clear_cpu(cpu, &hdr->cpu_mask);
+> +	cpumask_andnot(&hdr->cpu_mask, &hdr->cpu_mask, cpus);
+>  	if (cpumask_empty(&hdr->cpu_mask)) {
+>  		list_del_rcu(&hdr->list);
+>  		synchronize_rcu();
+> @@ -1820,6 +1831,12 @@ static bool mpam_resctrl_offline_domain_hdr(unsigned int cpu,
+>  	return false;
+>  }
+>  
+> +static bool mpam_resctrl_offline_domain_hdr(unsigned int cpu,
+> +					    struct rdt_domain_hdr *hdr)
+> +{
+> +	return mpam_resctrl_offline_domain_hdr_mask(cpumask_of(cpu), hdr);
+> +}
+> +
+>  static void mpam_resctrl_domain_insert(struct list_head *list,
+>  				       struct rdt_domain_hdr *new)
+>  {
+> @@ -1835,6 +1852,23 @@ static void mpam_resctrl_domain_insert(struct list_head *list,
+>  	list_add_tail_rcu(&new->list, pos);
+>  }
+>  
+> +static struct mpam_component *find_component_nid(struct mpam_class *class, int nid)
+> +{
+> +	struct mpam_component *comp;
+> +
+> +	if (!class || class->type != MPAM_CLASS_MEMORY)
+> +		return NULL;
+> +
+> +	guard(srcu)(&mpam_srcu);
+> +	list_for_each_entry_srcu(comp, &class->components, class_list,
+> +				 srcu_read_lock_held(&mpam_srcu)) {
+> +		if (comp->comp_id == nid)
+> +			return comp;
+> +	}
+> +
+> +	return NULL;
+> +}
+> +
+>  static struct mpam_component *find_component(struct mpam_class *class, int cpu)
+>  {
+>  	struct mpam_component *comp;
+> @@ -2094,6 +2128,297 @@ static void mpam_resctrl_offline_ctrls(unsigned int cpu, struct mpam_resctrl_res
+>  	}
+>  }
+>  
+> +static bool mpam_mba_uses_memory_nid(void)
+> +{
+> +	struct mpam_resctrl_res *res = &mpam_resctrl_controls[RDT_RESOURCE_MBA];
+> +
+> +	return res->class && res->class->type == MPAM_CLASS_MEMORY;
+> +}
+> +
+> +static struct mpam_resctrl_dom *
+> +mpam_get_ctrl_domain_from_nid(int nid, struct mpam_resctrl_res *res,
+> +			      struct resctrl_ctrl *ctrl)
+> +{
+> +	struct mpam_resctrl_dom *dom;
+> +
+> +	list_for_each_entry(dom, &ctrl->domains, resctrl_ctrl_dom.hdr.list) {
+> +		if (!dom->ctrl_comp || !dom->ctrl_comp->class)
+> +			continue;
+> +		if (dom->ctrl_comp->class->type != MPAM_CLASS_MEMORY)
+> +			continue;
+> +		if (dom->ctrl_comp->comp_id == nid)
+> +			return dom;
+> +	}
+> +
+> +	return NULL;
+> +}
+> +
+> +static struct mpam_resctrl_dom *
+> +mpam_get_mon_domain_from_nid(int nid, struct mpam_resctrl_res *res)
+> +{
+> +	struct mpam_resctrl_dom *dom;
+> +	struct rdt_resource *r = &res->resctrl_res;
+> +
+> +	if (!r->mon_capable)
+> +		return NULL;
+> +
+> +	list_for_each_entry(dom, &r->mon_domains, resctrl_mon_dom.hdr.list) {
+> +		if (!dom->ctrl_comp || !dom->ctrl_comp->class)
+> +			continue;
+> +		if (dom->ctrl_comp->class->type != MPAM_CLASS_MEMORY)
+> +			continue;
+> +		if (dom->ctrl_comp->comp_id == nid)
+> +			return dom;
+> +	}
+> +
+> +	return NULL;
+> +}
+> +
+> +static struct mpam_resctrl_dom *
+> +mpam_resctrl_alloc_ctrl_domain_nid(int nid, struct mpam_resctrl_res *res,
+> +				   struct resctrl_ctrl *ctrl,
+> +				   struct mpam_component *comp)
+> +{
+> +	int err;
+> +	struct mpam_resctrl_dom *dom;
+> +	struct rdt_ctrl_domain *ctrl_d;
+> +	struct rdt_resource *r = &res->resctrl_res;
+> +	int id_cpu = cpumask_first(cpu_possible_mask);
+> +
+> +	if (id_cpu >= nr_cpu_ids)
+> +		id_cpu = 0;
+> +
+> +	lockdep_assert_held(&domain_list_lock);
+> +
+> +	if (!r->alloc_capable)
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	if (WARN_ON_ONCE(!comp))
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	dom = kzalloc_node(sizeof(*dom), GFP_KERNEL, nid);
+> +	if (!dom)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	dom->ctrl_comp = comp;
+> +
+> +	ctrl_d = &dom->resctrl_ctrl_dom;
+> +	mpam_resctrl_domain_hdr_init_mask(cpu_possible_mask, id_cpu, comp,
+> +					  r->rid, &ctrl_d->hdr);
+> +	ctrl_d->hdr.type = RESCTRL_CTRL_DOMAIN;
+> +	err = resctrl_online_ctrl_domain(r, ctrl, ctrl_d);
+> +	if (err)
+> +		goto free_domain;
+> +
+> +	mpam_resctrl_domain_insert(&ctrl->domains, &ctrl_d->hdr);
+> +
+> +	return dom;
+> +
+> +free_domain:
+> +	kfree(dom);
+> +	return ERR_PTR(err);
+> +}
+> +
+> +static struct mpam_resctrl_dom *
+> +mpam_resctrl_alloc_mon_domain_nid(int nid, struct mpam_resctrl_res *res,
+> +				  struct mpam_component *comp)
+> +{
+> +	int err;
+> +	struct mpam_resctrl_dom *dom;
+> +	struct rdt_l3_mon_domain *mon_d;
+> +	struct rdt_resource *r = &res->resctrl_res;
+> +	struct mpam_component *any_mon_comp = NULL;
+> +	struct mpam_resctrl_mon *mon;
+> +	enum resctrl_event_id eventid;
+> +	int id_cpu = cpumask_first(cpu_possible_mask);
+> +
+> +	if (id_cpu >= nr_cpu_ids)
+> +		id_cpu = 0;
+> +
+> +	lockdep_assert_held(&domain_list_lock);
+> +
+> +	if (!r->mon_capable)
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	if (WARN_ON_ONCE(!comp))
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	dom = kzalloc_node(sizeof(*dom), GFP_KERNEL, nid);
+> +	if (!dom)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	dom->ctrl_comp = comp;
+> +
+> +	for_each_mpam_resctrl_mon(mon, eventid) {
+> +		struct mpam_component *mon_comp;
+> +
+> +		if (!mon->class)
+> +			continue;
+> +
+> +		mon_comp = find_component_nid(mon->class, nid);
+> +		dom->mon_comp[eventid] = mon_comp;
+> +		if (mon_comp)
+> +			any_mon_comp = mon_comp;
+> +	}
+> +	if (!any_mon_comp) {
+> +		err = -EFAULT;
+> +		goto free_domain;
+> +	}
+> +
+> +	mon_d = &dom->resctrl_mon_dom;
+> +	mpam_resctrl_domain_hdr_init_mask(cpu_possible_mask, id_cpu, any_mon_comp,
+> +					  r->rid, &mon_d->hdr);
+> +	mon_d->hdr.type = RESCTRL_MON_DOMAIN;
+> +	err = resctrl_online_mon_domain(r, &mon_d->hdr);
+> +	if (err)
+> +		goto free_domain;
+> +
+> +	mpam_resctrl_domain_insert(&r->mon_domains, &mon_d->hdr);
+> +
+> +	return dom;
+> +
+> +free_domain:
+> +	kfree(dom);
+> +	return ERR_PTR(err);
+> +}
+> +
+> +static int mpam_resctrl_online_node(unsigned int nid)
+> +{
+> +	struct mpam_resctrl_res *res = &mpam_resctrl_controls[RDT_RESOURCE_MBA];
+> +	struct rdt_resource *r = &res->resctrl_res;
+> +	struct mpam_component *comp;
+> +	struct resctrl_ctrl *ctrl, *em_ctrl;
+> +	struct mpam_resctrl_dom *dom;
+> +
+> +	if (!res->class)
+> +		return 0;
+> +
+> +	comp = find_component_nid(res->class, nid);
+> +	if (!comp)
+> +		return 0;
+> +
+> +	guard(mutex)(&domain_list_lock);
+> +
+> +	if (r->alloc_capable) {
+> +		for_each_resource_ctrl(ctrl, r) {
+> +			dom = mpam_get_ctrl_domain_from_nid(nid, res, ctrl);
+> +			if (!dom) {
+> +				dom = mpam_resctrl_alloc_ctrl_domain_nid(nid, res,
+> +									 ctrl, comp);
+> +				if (IS_ERR(dom))
+> +					return PTR_ERR(dom);
+> +			}
+> +
+> +			list_for_each_entry(em_ctrl, &ctrl->emulated_by, entry) {
+> +				dom = mpam_get_ctrl_domain_from_nid(nid, res, em_ctrl);
+> +				if (!dom) {
+> +					dom = mpam_resctrl_alloc_ctrl_domain_nid(nid, res,
+> +										 em_ctrl, comp);
+> +					if (IS_ERR(dom))
+> +						return PTR_ERR(dom);
+> +				}
+> +			}
+> +		}
+> +	}
+> +
+> +	if (r->mon_capable) {
+> +		dom = mpam_get_mon_domain_from_nid(nid, res);
+> +		if (!dom) {
+> +			dom = mpam_resctrl_alloc_mon_domain_nid(nid, res, comp);
+> +			if (IS_ERR(dom))
+> +				return PTR_ERR(dom);
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int mpam_resctrl_offline_node(unsigned int nid)
+> +{
+> +	struct mpam_resctrl_res *res = &mpam_resctrl_controls[RDT_RESOURCE_MBA];
+> +	struct rdt_resource *r = &res->resctrl_res;
+> +	struct resctrl_ctrl *ctrl, *em_ctrl;
+> +	struct mpam_resctrl_dom *dom;
+> +	struct rdt_ctrl_domain *ctrl_d;
+> +	struct rdt_l3_mon_domain *mon_d;
+> +
+> +	if (!res->class)
+> +		return 0;
+> +
+> +	if (!find_component_nid(res->class, nid))
+> +		return 0;
+> +
+> +	guard(mutex)(&domain_list_lock);
+> +
+> +	if (r->alloc_capable) {
+> +		for_each_resource_ctrl(ctrl, r) {
+> +			list_for_each_entry(em_ctrl, &ctrl->emulated_by, entry) {
+> +				dom = mpam_get_ctrl_domain_from_nid(nid, res, em_ctrl);
+> +				if (WARN_ON_ONCE(!dom))
+> +					continue;
+> +				ctrl_d = &dom->resctrl_ctrl_dom;
+> +				if (mpam_resctrl_offline_domain_hdr_mask(cpu_possible_mask,
+> +									 &ctrl_d->hdr)) {
+> +					resctrl_offline_ctrl_domain(r, em_ctrl, ctrl_d);
+> +					kfree(dom);
+> +				}
+> +			}
+> +
+> +			dom = mpam_get_ctrl_domain_from_nid(nid, res, ctrl);
+> +			if (WARN_ON_ONCE(!dom))
+> +				continue;
+> +			ctrl_d = &dom->resctrl_ctrl_dom;
+> +			if (mpam_resctrl_offline_domain_hdr_mask(cpu_possible_mask,
+> +								 &ctrl_d->hdr)) {
+> +				resctrl_offline_ctrl_domain(r, ctrl, ctrl_d);
+> +				kfree(dom);
+> +			}
+> +		}
+> +	}
+> +
+> +	if (r->mon_capable) {
+> +		dom = mpam_get_mon_domain_from_nid(nid, res);
+> +		if (WARN_ON_ONCE(!dom))
+> +			return 0;
+> +		mon_d = &dom->resctrl_mon_dom;
+> +		if (mpam_resctrl_offline_domain_hdr_mask(cpu_possible_mask, &mon_d->hdr)) {
+> +			resctrl_offline_mon_domain(r, &mon_d->hdr);
+> +			kfree(dom);
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int mpam_resctrl_node_notifier(struct notifier_block *self,
+> +				      unsigned long action, void *arg)
+> +{
+> +	struct node_notify *nn = arg;
+> +
+> +	if (nn->nid < 0 || !mpam_mba_uses_memory_nid())
+> +		return NOTIFY_OK;
+> +
+> +	/*
+> +	 * Ignore nids that have CPUs. Resctrl needs to see the cpu offline
+> +	 * call for each CPU to update the CPUs in control groups.
+> +	 */
+> +	if (!cpumask_empty(cpumask_of_node(nn->nid)))
+> +		return NOTIFY_OK;
 
-Notes:
-    Changes in v3:
-    - added as extra patch to clean up documentation
+I was expecting the lifecycle of the resctrl MB_NODE resource to be the same as the memory
+associated with the memory node. This is discussed on Reinette's controls PoC here:
 
- Documentation/dev-tools/container.rst | 30 +++++++++++++--------------
- 1 file changed, 15 insertions(+), 15 deletions(-)
+https://lore.kernel.org/lkml/f5b6cec4-03d8-4a11-884d-d4579dab6b22@intel.com/
 
-diff --git a/Documentation/dev-tools/container.rst b/Documentation/dev-tools/container.rst
-index 5c2957da1ec7..5dde95f6b222 100644
---- a/Documentation/dev-tools/container.rst
-+++ b/Documentation/dev-tools/container.rst
-@@ -11,7 +11,7 @@ various platforms, for example when a test bot has reported an issue which
- requires a specific version of a compiler or an external test suite.  While
- this can already be done by users who are familiar with containers, having a
- dedicated tool in the kernel tree lowers the barrier to entry by solving common
--problems once and for all (e.g. user id management).  It also makes it easier
-+problems once and for all (e.g. user ID management).  It also makes it easier
- to share an exact command line leading to a particular result.  The main use
- case is likely to be kernel builds but virtually anything can be run: KUnit,
- checkpatch etc. provided a suitable image is available.
-@@ -37,7 +37,7 @@ Available options:
- 
- ``-g, --gid GID``
- 
--    Group id to use inside the container.
-+    Group ID to use inside the container.
- 
- ``-i, --image IMAGE``
- 
-@@ -61,10 +61,10 @@ Available options:
- 
- ``-u, --uid UID``
- 
--    User id to use inside the container.
-+    User ID to use inside the container.
- 
--    If the ``-g`` option is not specified and no group id is defined in the
--    configuration file, the user id will also be set as the group id.
-+    If the ``-g`` option is not specified and no group ID is defined in the
-+    configuration file, the user ID will also be set as the group ID.
- 
- ``-v, --verbose``
- 
-@@ -81,7 +81,7 @@ Usage
- It's entirely up to the user to choose which image to use and the ``CMD``
- arguments are passed directly as an arbitrary command line to run in the
- container.  The tool will take care of mounting the source tree as the current
--working directory and adjust the user and group id as needed.
-+working directory and adjust the user and group ID as needed.
- 
- The container image which would typically include a compiler toolchain is
- provided by the user and selected via the ``-i`` option.  The container runtime
-@@ -145,22 +145,22 @@ User IDs
- 
- This is an area where the behaviour will vary slightly depending on the
- container runtime.  The goal is to run commands as the user invoking the tool.
--With Podman, a namespace is created to map the current user id to a different
-+With Podman, a namespace is created to map the current user ID to a different
- one in the container (1000 by default).  With Docker, while this is also
- possible with recent versions it requires a special feature to be enabled in
- the daemon so it's not used here for simplicity.  Instead, the container is run
--with the current user id directly.  In both cases, this will provide the same
-+with the current user ID directly.  In both cases, this will provide the same
- file permissions for the kernel source tree mounted as a volume.  The only
--difference is that when using Docker without a namespace, the user id may not
-+difference is that when using Docker without a namespace, the user ID may not
- be the same as the default one set in the image.
- 
--Say, we're using an image which sets up a default user with id 1000 and the
--current user calling the ``container`` tool has id 1234.  The kernel source
-+Say, we're using an image which sets up a default user with ID 1000 and the
-+current user calling the ``container`` tool has ID 1234.  The kernel source
- tree was checked out by this same user so the files belong to user 1234.  With
--Podman, the container will be running as user id 1000 with a mapping to id 1234
--so that the files from the mounted volume appear to belong to id 1000 inside
-+Podman, the container will be running as user ID 1000 with a mapping to ID 1234
-+so that the files from the mounted volume appear to belong to ID 1000 inside
- the container.  With Docker and no namespace, the container will be running
--with user id 1234 which can access the files in the volume but not in the user
-+with user ID 1234 which can access the files in the volume but not in the user
- 1000 home directory.  This shouldn't be an issue when running commands only in
- the kernel tree but it is worth highlighting here as it might matter for
- special corner cases.
-@@ -280,7 +280,7 @@ Supported options in each section are:
- 
- ``uid`` / ``gid`` (integers)
- 
--    User and group id numbers to use inside the container, equivalents to the
-+    User and group ID numbers to use inside the container, equivalents to the
-     ``-u`` and ``-g`` command line options respectively.
- 
- 
--- 
-2.47.3
+This looks to be a different lifecycle?
+
+Thanks,
+
+Ben
+
+> +
+> +	switch (action) {
+> +	case NODE_ADDED_FIRST_MEMORY:
+> +		mpam_resctrl_online_node(nn->nid);
+> +		break;
+> +	case NODE_REMOVED_LAST_MEMORY:
+> +		mpam_resctrl_offline_node(nn->nid);
+> +		break;
+> +	default:
+> +		break;
+> +	}
+> +
+> +	return NOTIFY_OK;
+> +}
+> +
+>  int mpam_resctrl_online_cpu(unsigned int cpu)
+>  {
+>  	struct mpam_resctrl_res *res;
+> @@ -2229,6 +2554,10 @@ int mpam_resctrl_setup(void)
+>  		}
+>  	}
+>  
+> +	if (mpam_mba_uses_memory_nid())
+> +		hotplug_node_notifier(mpam_resctrl_node_notifier,
+> +				      RESCTRL_CALLBACK_PRI);
+> +
+>  	cpus_read_unlock();
+>  
+>  	if (!resctrl_arch_alloc_capable() && !resctrl_arch_mon_capable()) {
+> diff --git a/include/linux/memory.h b/include/linux/memory.h
+> index 463dc02f6cff..1497d4be38ee 100644
+> --- a/include/linux/memory.h
+> +++ b/include/linux/memory.h
+> @@ -120,6 +120,7 @@ struct mem_section;
+>  #define CPUSET_CALLBACK_PRI	10
+>  #define MEMTIER_HOTPLUG_PRI	100
+>  #define KSM_CALLBACK_PRI	100
+> +#define RESCTRL_CALLBACK_PRI	100
+>  
+>  #ifndef CONFIG_MEMORY_HOTPLUG
+>  static inline void memory_dev_init(void)
 
