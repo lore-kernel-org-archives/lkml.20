@@ -1,219 +1,142 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F2340E8D7
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:47:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4688B41379E;
+	Mon,  7 Sep 2026 06:47:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788763669; cv=none; b=TKEKZ7lZZwlzDi79bU6rdOVoFFSP7iiu5gR2YXoudmuLHJGkR+uN3Or8HnEGZ18d1UTszTU36WTdP9Fodv1zKOYx0lCOBoTkoTdskf6kkcGHkvUUOuNL0HTWBRoiKq2RRokM20hYoyFUnpVG/1GkvgYtYo9H2KJX//dSZ1zFI4M=
+	t=1788763671; cv=none; b=E3zL86X0RV4hR+jTVR8kn0FoOBcT2BLQJjBjOMrkxxnY/nFCVNi0yADZ7fWclVzg9ku0ymNXiCWnN4zw68Eisv8omrQvaytwKsOFYS1JvFv8ZEcOeQi24thhMPed4PUu0r3/BQz+6grOzKuqVKwLJ503yIk9q1ZiNizsK093E48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788763669; c=relaxed/simple;
-	bh=x+n4CsDHf+Aujek4+a1pPXZx82JkPYNueFhs42Dc/2I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iwwEifyfqpJtFHR7KLyeKMiFXjPDo6QUmgg5qrnR3u9lkzxy3mzfnsRP2+cEvnRGXN5ttJJhCDn/X+ORtZbqfx8JqAqUd8K7XQ16uWjNDzMl4IGCbe3ideTOghWlXGLyB7MB/9KFwk1li87kBv9b4RRIsxassunpLFpd6pBr2Ik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oA4a7c+w; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788763671; c=relaxed/simple;
+	bh=BNie282xU5eu890Ms/upZMZQO49kpQrhLK8FlGZdHrI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nhOqnJVIBzRyEuVJYdM1u7SpTfgbFTdet4233OO1uri8Zh18JzpZy3dKWuNQLS4uVJ2HIUeU6XR3QnaD4LHAmN0zX/Hkzy/Y8VopanaEhgaD9H7KCSHn7jooJXnxPqg4dSFEUPdVhiqrLF3etc6+heXhTt8AegJshelvxftZA+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uu1cQqUn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oA4a7c+w"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38a0c7e841fso4231607a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:47:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788763666; x=1789368466; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6JqmZnYM/OOyRwgWKJJuvp7/Dkkhk+cDvs6k7nFOO2I=;
-        b=oA4a7c+wtGt9Tf9+CBXzXN2NbS74KmXZwdllGkfnzo3ZN5Jobqj8hLF6ITGHbvWzMS
-         DKQDcLA/Q876KwNoXj49XSpe19fufYCIf+Eki9lrp+uYuPIAQ2CA2U2qocINC6QPr2Tq
-         ejz1VNebgzL+/dINYAb1m4eyIvgWU76cFcBz3DwoWAMM4LXZHZKEI0+Y/CcUysP00WdS
-         DvK0huntqFjqz7MOlhli/MzeE+U84z9yUKpadYbuOeV4zO+k4E9Joyd+r7dNTAwXhWYI
-         MSCq00DDjaeCgkzyhjv8AXOsMYGdc5e/SVdrxHoh0f9UAMuikkf2kcmpaHs0RoLx7IEZ
-         C92Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788763666; x=1789368466;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6JqmZnYM/OOyRwgWKJJuvp7/Dkkhk+cDvs6k7nFOO2I=;
-        b=DCsvzIK+q5O+r/K+7lC9QvY6E+6IjLi/weuKDFWomzNcr7bnM2K2fGktRNhx8P/pV3
-         5tTom1VhEHaLhpWgj3Y5HtIohQJZEnZafw9cG83nboO4j83wbSy9DiUO3ZwGf9UAirbY
-         g7+4tKYeHCxOyL+1lrNerpHrS0ydF+gejJeC2FcBrVDFqD3Ia5yoijVaeaz6c7vituUI
-         UYOSW4EnqqQsyXIlRPoKvflw2GCpjfQP8LElyxPTpArztzEDr3fj35d8YPyasMNJX12T
-         wBggMrtraRR0dWyXajoM+Bcz400g0b3MMhZ6aYWuspopxgvCwCPwKcw6/06m5B6as4Qx
-         xNxg==
-X-Forwarded-Encrypted: i=1; AKwUvBxcy6LVVFxtS6YMkstKxGzm3ZCHTcwcW1tCA7pev3qM7zPXJprQ/StVWRyGQWW+ZdhltcPdh30suCNk0kU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mgJE+FYheTvPYVDmYmuvFNL71AZYj5zBLeDuogiNATKOtKlMTO
-	Df0fwsIgtdr+GcpirX5UIz4rI35rhvbsS2twCN/9i/MU2ruhu24YB0P4
-X-Gm-Gg: AYBFou3VnrMNvBQNINvloCDNbXIPk7Zpr8zSwncCYm3sZaxfCifFU1vU6pqpNSYJfkg
-	1fxLc4KUsIfhiLGJtSjdeKo+AgFAz6OCpgfHAogHL/cFL6+vtqn+OHxuuq8oddnNuWv91kIMWwf
-	gJktoD/9Y+yC7JdrgfRVWf9s1otob47IerL7xBoivePPWWI94tL2+jBE3/viFrrCgGkCHjEO+Bd
-	AKJE4N9e6h+Wuwewq14vy+x8Z4Rytf93CpbViIKFiQMwHDkXCjhlRT5daE78ZeKGll2WLTALB8j
-	giFFTDZqATydKN2d3BZz1BKp//4oocnRoVC+3uHJU3S2vJJ5Z6m1rB92E/a7YMQt/wDd/Ix375q
-	Ca3V24E4kDRpCH72rq5vHfd6kx2o5E1VJ3OZq4nN2CUC/R6nKZkYDbeQT0bGx1q4Qq3kpTLH9e7
-	FlHGd9ixXdGh9BOBkL/37d6UHj/Vjl+kojeaGH/irDkFoJbAw1Dp2rnTGkNZ42cn25dMqI5Si9y
-	Syj3f6QjSVDjou6W3dh+BLW
-X-Received: by 2002:a17:90b:268d:b0:398:bdb0:adb7 with SMTP id 98e67ed59e1d1-39b261e1beemr34790323a91.16.1788763665963;
-        Sun, 06 Sep 2026 23:47:45 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-333c9db92b1sm24811158eec.9.2026.09.06.23.47.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 23:47:45 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	Eduardo Valentin <edubezval@gmail.com>,
-	Keerthy <j-keerthy@ti.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>
-Cc: linux-pm@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-omap@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-acpi@vger.kernel.org
-Subject: [PATCH 2/5] thermal: fix typos in comments
-Date: Mon,  7 Sep 2026 12:17:22 +0530
-Message-ID: <20260907064725.10686-3-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260907064725.10686-1-hemanth.selam@gmail.com>
-References: <20260907064725.10686-1-hemanth.selam@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uu1cQqUn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 852DC1F00A3D;
+	Mon,  7 Sep 2026 06:47:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788763668;
+	bh=TKhJNQZ3kTdGLSdNxwitpgDe39MWhrreC+MxyA1vdgs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Uu1cQqUnIInzGmTWcEycZJ78Lzuli/xVHHI4VLpzTVIO2QTYr7HmVDnc8kQxYX1uE
+	 UCpJNNtPJhvfM8V1Y541K8MD0m89J87Z8sDeMSm0O6g1uI7zRcUDz98gwh0XiEcZHn
+	 Go3I0qRE82rJpIE3EPoJtoYGLIZ3heXp0r/J7BWUwofIq4IoltaEQcgkI9tWBJW6C5
+	 /rZxq+YlSOPXZwC/mwv7APpGwbg64m/BUtepuhZVqK3vjh9ZKWWr/wHx5/c16bKQuq
+	 Tymy7EK1Gzdd3MlaAl/9rwP0O7pg9ZHgaXfuiQoMvEpNvtpuUIzf7asQvMXCkEtRDA
+	 T4w9GnA3JOWbQ==
+Message-ID: <3f33d9f0-65c2-49b7-bb6d-2fe33f0d8fbe@kernel.org>
+Date: Mon, 7 Sep 2026 08:47:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/4] serial: revert guards in uart_wait_modem_status()
+To: Johan Hovold <johan@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260907064418.92953-1-johan@kernel.org>
+ <20260907064418.92953-2-johan@kernel.org>
+Content-Language: en-US
+From: Jiri Slaby <jirislaby@kernel.org>
+Autocrypt: addr=jirislaby@kernel.org; keydata=
+ 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
+In-Reply-To: <20260907064418.92953-2-johan@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Fix typos in comments, reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+On 07. 09. 26, 8:44, Johan Hovold wrote:
+> Mixing scope-based and regular cleanup is discouraged and
+> uart_port_deref() used by uart_wait_modem_status() falls in the latter
+> category.
+> 
+> Revert the premature guard conversion in preparation for fixing a hangup
+> race.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- drivers/thermal/thermal_core.c              |  2 +-
- drivers/thermal/thermal_of.c                |  4 ++--
- drivers/thermal/ti-soc-thermal/ti-bandgap.c | 12 ++++++------
- include/uapi/linux/thermal.h                |  8 ++++----
- 4 files changed, 13 insertions(+), 13 deletions(-)
+It's not premature. Just convert uart_port_ref() to guards too. Gotos suck.
 
-diff --git a/drivers/thermal/thermal_core.c b/drivers/thermal/thermal_core.c
-index 82e2f0d8a26d..5db52de33398 100644
---- a/drivers/thermal/thermal_core.c
-+++ b/drivers/thermal/thermal_core.c
-@@ -1662,7 +1662,7 @@ EXPORT_SYMBOL_GPL(thermal_zone_device_unregister);
-  *
-  * Return: On success returns a reference to an unique thermal zone with
-  * matching name equals to @name, an ERR_PTR otherwise (-EINVAL for invalid
-- * paramenters, -ENODEV for not found and -EEXIST for multiple matches).
-+ * parameters, -ENODEV for not found and -EEXIST for multiple matches).
-  */
- struct thermal_zone_device *thermal_zone_get_zone_by_name(const char *name)
- {
-diff --git a/drivers/thermal/thermal_of.c b/drivers/thermal/thermal_of.c
-index 0217a49b08ae..f6566b5b916c 100644
---- a/drivers/thermal/thermal_of.c
-+++ b/drivers/thermal/thermal_of.c
-@@ -349,10 +349,10 @@ static bool thermal_of_should_bind(struct thermal_zone_device *tz,
- }
- 
- /**
-- * thermal_of_zone_unregister - Cleanup the specific allocated ressources
-+ * thermal_of_zone_unregister - Cleanup the specific allocated resources
-  *
-  * This function disables the thermal zone and frees the different
-- * ressources allocated specific to the thermal OF.
-+ * resources allocated specific to the thermal OF.
-  *
-  * @tz: a pointer to the thermal zone structure
-  */
-diff --git a/drivers/thermal/ti-soc-thermal/ti-bandgap.c b/drivers/thermal/ti-soc-thermal/ti-bandgap.c
-index ba43399d0b38..5c028d25a565 100644
---- a/drivers/thermal/ti-soc-thermal/ti-bandgap.c
-+++ b/drivers/thermal/ti-soc-thermal/ti-bandgap.c
-@@ -332,7 +332,7 @@ static inline int ti_bandgap_validate(struct ti_bandgap *bgp, int id)
-  * ti_bandgap_read_counter() - read the sensor counter
-  * @bgp: pointer to bandgap instance
-  * @id: sensor id
-- * @interval: resulting update interval in miliseconds
-+ * @interval: resulting update interval in milliseconds
-  */
- static void ti_bandgap_read_counter(struct ti_bandgap *bgp, int id,
- 				    int *interval)
-@@ -352,7 +352,7 @@ static void ti_bandgap_read_counter(struct ti_bandgap *bgp, int id,
-  * ti_bandgap_read_counter_delay() - read the sensor counter delay
-  * @bgp: pointer to bandgap instance
-  * @id: sensor id
-- * @interval: resulting update interval in miliseconds
-+ * @interval: resulting update interval in milliseconds
-  */
- static void ti_bandgap_read_counter_delay(struct ti_bandgap *bgp, int id,
- 					  int *interval)
-@@ -394,7 +394,7 @@ static void ti_bandgap_read_counter_delay(struct ti_bandgap *bgp, int id,
-  * ti_bandgap_read_update_interval() - read the sensor update interval
-  * @bgp: pointer to bandgap instance
-  * @id: sensor id
-- * @interval: resulting update interval in miliseconds
-+ * @interval: resulting update interval in milliseconds
-  *
-  * Return: 0 on success or the proper error code
-  */
-@@ -427,7 +427,7 @@ int ti_bandgap_read_update_interval(struct ti_bandgap *bgp, int id,
-  * ti_bandgap_write_counter_delay() - set the counter_delay
-  * @bgp: pointer to bandgap instance
-  * @id: sensor id
-- * @interval: desired update interval in miliseconds
-+ * @interval: desired update interval in milliseconds
-  *
-  * Return: 0 on success or the proper error code
-  */
-@@ -471,7 +471,7 @@ static int ti_bandgap_write_counter_delay(struct ti_bandgap *bgp, int id,
-  * ti_bandgap_write_counter() - set the bandgap sensor counter
-  * @bgp: pointer to bandgap instance
-  * @id: sensor id
-- * @interval: desired update interval in miliseconds
-+ * @interval: desired update interval in milliseconds
-  */
- static void ti_bandgap_write_counter(struct ti_bandgap *bgp, int id,
- 				     u32 interval)
-@@ -486,7 +486,7 @@ static void ti_bandgap_write_counter(struct ti_bandgap *bgp, int id,
-  * ti_bandgap_write_update_interval() - set the update interval
-  * @bgp: pointer to bandgap instance
-  * @id: sensor id
-- * @interval: desired update interval in miliseconds
-+ * @interval: desired update interval in milliseconds
-  *
-  * Return: 0 on success or the proper error code
-  */
-diff --git a/include/uapi/linux/thermal.h b/include/uapi/linux/thermal.h
-index 46a2633d33aa..36f3da2d6a7c 100644
---- a/include/uapi/linux/thermal.h
-+++ b/include/uapi/linux/thermal.h
-@@ -81,11 +81,11 @@ enum thermal_genl_event {
- 	THERMAL_GENL_EVENT_CDEV_STATE_UPDATE,	/* Cdev state updated */
- 	THERMAL_GENL_EVENT_TZ_GOV_CHANGE,	/* Governor policy changed  */
- 	THERMAL_GENL_EVENT_CPU_CAPABILITY_CHANGE,	/* CPU capability changed */
--	THERMAL_GENL_EVENT_THRESHOLD_ADD,	/* A thresold has been added */
--	THERMAL_GENL_EVENT_THRESHOLD_DELETE,	/* A thresold has been deleted */
-+	THERMAL_GENL_EVENT_THRESHOLD_ADD,	/* A threshold has been added */
-+	THERMAL_GENL_EVENT_THRESHOLD_DELETE,	/* A threshold has been deleted */
- 	THERMAL_GENL_EVENT_THRESHOLD_FLUSH,	/* All thresolds have been deleted */
--	THERMAL_GENL_EVENT_THRESHOLD_UP,	/* A thresold has been crossed the way up */
--	THERMAL_GENL_EVENT_THRESHOLD_DOWN,	/* A thresold has been crossed the way down */
-+	THERMAL_GENL_EVENT_THRESHOLD_UP,	/* A threshold has been crossed the way up */
-+	THERMAL_GENL_EVENT_THRESHOLD_DOWN,	/* A threshold has been crossed the way down */
- 	__THERMAL_GENL_EVENT_MAX,
- };
- #define THERMAL_GENL_EVENT_MAX (__THERMAL_GENL_EVENT_MAX - 1)
+> Fixes: 56609c050051 ("serial: serial_core: use guard()s")
+> Cc: stable@vger.kernel.org	# 6.18
+> Cc: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+> Signed-off-by: Johan Hovold <johan@kernel.org>
+> ---
+>   drivers/tty/serial/serial_core.c | 13 +++++++------
+>   1 file changed, 7 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+> index 95774b0f1484..1553bc6cbe7b 100644
+> --- a/drivers/tty/serial/serial_core.c
+> +++ b/drivers/tty/serial/serial_core.c
+> @@ -1213,15 +1213,16 @@ static int uart_wait_modem_status(struct uart_state *state, unsigned long arg)
+>   	uport = uart_port_ref(state);
+>   	if (!uport)
+>   		return -EIO;
+> -	scoped_guard(uart_port_lock_irq, uport) {
+> -		memcpy(&cprev, &uport->icount, sizeof(struct uart_icount));
+> -		uart_enable_ms(uport);
+> -	}
+> +	uart_port_lock_irq(uport);
+> +	memcpy(&cprev, &uport->icount, sizeof(struct uart_icount));
+> +	uart_enable_ms(uport);
+> +	uart_port_unlock_irq(uport);
+>   
+>   	add_wait_queue(&port->delta_msr_wait, &wait);
+>   	for (;;) {
+> -		scoped_guard(uart_port_lock_irq, uport)
+> -			memcpy(&cnow, &uport->icount, sizeof(struct uart_icount));
+> +		uart_port_lock_irq(uport);
+> +		memcpy(&cnow, &uport->icount, sizeof(struct uart_icount));
+> +		uart_port_unlock_irq(uport);
+>   
+>   		set_current_state(TASK_INTERRUPTIBLE);
+>   
+
+
 -- 
-2.48.1
-
+js
+suse labs
