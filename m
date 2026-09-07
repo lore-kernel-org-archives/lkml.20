@@ -1,33 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A6B2BDC1C;
-	Mon,  7 Sep 2026 15:15:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3477537EFF4
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:16:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.139.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788794130; cv=none; b=GUBOZCmF6IusAhHa5DVbveazTcW/gxs0oUFb+vQjfSj7XtJ49Q9yWsmwcPmp5lkc23x+eu6+ogzIT3G1aPGgLbVmprrYkhz+u0n2BvE37ycU+mVD920ilZ6kRAAUGrM+AA6cvvoHccVe9uTPD6i5QSPoPl71SIG4lbK49IjNsjw=
+	t=1788794170; cv=none; b=t5vVw20dqbod5VWWvfvwdsqNFJAJzw3Bnu4ZE+f0dwQzoIc2juHv3I2xQVeOa93BM3l7dUgVKbwVlTtjYQEbK/GITYWY8p+q4uEMO/Dk31nwjRrPnP3JS1MA2isPR3Fhb22siKlGzmhJFrTtuZ9AripfffRuPCH1iGh/mEclAKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788794130; c=relaxed/simple;
-	bh=sVyEianJEmsmNv8odnB6QrpoJZkRjqeCjoAPD0AAGqk=;
+	s=arc-20240116; t=1788794170; c=relaxed/simple;
+	bh=971moIbuxQGrNg8shhjzaiFX0Rig1XFMJuAVYBXJXiQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rF9XweWJ/7X61+Nr0CEax5GP0EQ4W2LCprjIsO8AZ9tWCppQSenWQgOIlBq6xyLCJyRGXpPuFq7l7D2/G8Igq1LB8BGvFEoJ9cEfbYvCKDLw0+1YEXMSi/q8i9YjEuMgLZbGNT7bRMjyEEphV2MFUIQso6/AuzMcktojgkP4aJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=euGPfO0e; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=tzqNfvpLd8whdo2s9BSTbFwBEo8sQ9T8msOT3sOde13f4OQ3OyxpOK6CI0ONiKrB/lNaD5JlQrI5tILGS32tKj/tiyAsVp/qWCwe1p53kYfFd6W+OgaiuHAg05pvjr5avWOZQx6+kq4c/zxDrqv/Oqk0oDoRoTV9QWksg/+Vfec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=fshBdm2A; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=zpwLeVm2; arc=none smtp.client-ip=148.163.139.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="euGPfO0e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE94A1F00A3A;
-	Mon,  7 Sep 2026 15:15:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788794128;
-	bh=LI25JDv6LdNw5GdP3MdBucH0tpqtW3EinfdRXPIOwiI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=euGPfO0ehic5DgwGGkfjKu2JXIQIkYF5QqhsNhhQ8GYQ6fP8C8RvWTRpMyrfYxOOh
-	 VLCa5/GQbIbRsqek+3ZUjTVrd6DJqgCtI/fiw8SJWuTVbR/d9LHrA3tCX0kW/cmw60
-	 WDm/ASKaufbBR6jq781kYTujJNTKx/CePweRVq5wf0Wo43SaHaRNfSzx59dXpywJ6Z
-	 jIanAfMNDKZwsax14FRMi5tpTo8JYLLlvJ34HImhgkH+VtNrZY3TDhV1kdRpx8rJO+
-	 NPQznX5FP+rFbTQ0MgfjxS88Wa0zLAnFJuqbLkUAr1jkwBYAXKytu1k4lhP7ZuiqdO
-	 JKzXdjX5y2mTQ==
-Message-ID: <b0400430-c3b6-40d5-b476-49189b1cc292@kernel.org>
-Date: Mon, 7 Sep 2026 17:15:17 +0200
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="fshBdm2A";
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="zpwLeVm2"
+Received: from pps.filterd (m0167073.ppops.net [127.0.0.1])
+	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687EYtdL2578685
+	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 11:16:07 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=c+TK
+	bdK1agZJdxZqMsqMSFeIuL9KGJPEvEVEBL9qQ68=; b=fshBdm2AsgaCLXYLc3bm
+	2lLQ43myR8qGRU8WGd/tVljomA6uUhMgO5t2sYWUW/b+a/gA+ofM3AhtgSx3N/Wi
+	x1OrlJ3Aess6ZgeJ/E82KtJcEzDxakkkiZJEwE2MI+aC/AId514g8LKaUkYx5REt
+	bVN+wDkOnv3yDNeyKR05T+aQpVh3UF/q6dkF4tz7AqASeNMsDzn9HsBJw+Z1U0h3
+	NzAjIdxctvTph+1/h/0F/H8Q6BlVs8tQqB1m32zgHkhxMSGNdiYDCS7ewfldhzOE
+	sOBwO67thb9h4a3Ic+ZR4pmh5ryGxkV6ZbsCkRUSPF99IGubhN6Yghy09ZgrsFW2
+	bw==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4ghfawura2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 11:16:07 -0400 (EDT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91049eac948so28582296d6.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:16:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1788794167; x=1789398967; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c+TKbdK1agZJdxZqMsqMSFeIuL9KGJPEvEVEBL9qQ68=;
+        b=zpwLeVm2toI99NHBwY9NZP+iOVrA8VtcJW8YfxzhTI7Il9+fFOnkBSxvlnM8Pe8YVf
+         2u5WrIJwyX8f/+dHleqJ91MDQMXvv9WyHEqyqez8A+ZCikSLx0HEB2YBEnBxfaTAdmGf
+         O57S0NNIiwhzhieNbbWTJFda9ZGRvt/BYZFEwvM2xRsnrEncbXo692mus0NXWXRz7r4k
+         1kDtAdv55cWz5WpF7vR5W7TXeOZ+Pz24rh66gFSz4ON06C04QdL3JDmG4D+xd91dwZHW
+         clSrcXqSTRhc3QaeZGKGXZ7l+Ap5mcX+c8Absccm5GBYgwSt3LKKz1FFK29b4B1pH6PN
+         V12Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788794167; x=1789398967;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c+TKbdK1agZJdxZqMsqMSFeIuL9KGJPEvEVEBL9qQ68=;
+        b=e8PjzIcsv4hU28nd+C6N5dY9yumtFTIEMwS0IRFh2wtEnK+q+B2Exwxv2MyStVK/8x
+         WY/03gHf+Dp+kMXFtDRhZ7rAiENv5reGBI3mDWgDQtOkYR0h6w9gt9hiyOThcAWvRyBh
+         dKvZVvXFkX/SXuKb++uHZ2y19StoiyheuLZzr85JDpr5Fz4LS6Ls14TPUbgmQRFEsHW2
+         UuvM3YnabmN2vSsalkYHJlrxAMm/ZLeDeD3gsUcEmk7iDGwFm00RlRdzKr/pdNZyXOwv
+         gwLrWud+A9x6/HA+GeONUmBqTZ4160Gxqr0PPfHmGkVJazkYHVUHYHr4Fb7HlsVtqus/
+         SjFQ==
+X-Forwarded-Encrypted: i=1; AKwUvByidJD5rh1rhijwh8Ogm8O8AcnTQllRJ00DaC6JgMdT5s/2xaS0jk/MQYWGyg+6TGf+pJbboJHHAw//JNA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nY8NQMRl5245dXl8VBwnG1LPgSQu1nUW7hj6db7tVewcQkG0BQ
+	ev/xp1DvSoHGe4j/fYq90M4krt2ekGLhDB9Hzm90GtEQiPAvIk8pt2SsCeqUe3fma/Vq8aZZOQj
+	fTINMDbtF28Zm2+7cGG5v4PP4Nax4/ypBzKqFgDa+C24etCp//UpA4zSbXHrjAA==
+X-Gm-Gg: AYBFou09x4lwdB+8LaQOA0U4wiq3BGmrwrf5h6ufm/gzTq5xWp/zTEHxcNseduEkIrp
+	e7qow7+Wif1gcBuU3aVBCp5i3W1Ga/B6Z10z72u9QI17SXfHxwjNcKtESUM3Qdo8oBynSRFOpBy
+	xDJarMnmN/TQ/lMTBPMeQJ8VHGqGD+3uPyPpy49J+3tR+AqMgu2i4UiadzqAHrkgkXTohvBI0mr
+	Jkin9PlLYFUB1tbezsLQZDtaTYu9WPf1nxpOOzmNZOsosG+UcpsU4TFiiAF04sMXta40k2a64NC
+	E+zD63IDs72mkXi9G0Iydoh0Buvo7x2GHHx0kV95sjiasIcYeXT2CX4EXMFttTgPETwCQSXu9St
+	Wmx/pugwWmVbq7MDtDz75Icp+h1F4QF7K3kkFxrlUAe6YsO/Oww==
+X-Received: by 2002:a05:620a:2903:b0:939:13a7:70f0 with SMTP id af79cd13be357-939802f7939mr2480362785a.5.1788794166583;
+        Mon, 07 Sep 2026 08:16:06 -0700 (PDT)
+X-Received: by 2002:a05:620a:2903:b0:939:13a7:70f0 with SMTP id af79cd13be357-939802f7939mr2480332385a.5.1788794164195;
+        Mon, 07 Sep 2026 08:16:04 -0700 (PDT)
+Received: from [192.168.1.62] (dyn-160-39-33-242.dyn.columbia.edu. [160.39.33.242])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397fbe31c6sm913141485a.46.2026.09.07.08.16.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 08:16:03 -0700 (PDT)
+Message-ID: <3b01d1c8-c207-48c1-8700-0e7b350aecf5@columbia.edu>
+Date: Mon, 7 Sep 2026 11:16:02 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,252 +89,135 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 6/6] selftests/mm: add a GUP selftest
-To: Sarthak Sharma <sarthak.sharma@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
- Shuah Khan <skhan@linuxfoundation.org>, Jonathan Corbet <corbet@lwn.net>,
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Leon Romanovsky <leon@kernel.org>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Mark Brown <broonie@kernel.org>,
- Anshuman Khandual <anshuman.khandual@arm.com>,
- Muhammad Usama Anjum <usama.anjum@arm.com>, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260904123631.198697-1-sarthak.sharma@arm.com>
- <20260904123631.198697-7-sarthak.sharma@arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH] isofs: convert the zisofs read path to use folios
+To: Jan Kara <jack@suse.cz>
+Cc: Matthew Wilcox <willy@infradead.org>, linux-fsdevel@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260906-isofs-zisofs-folio-v1-1-cbea614a773f@columbia.edu>
+ <4cnybzi6btbswplm6xeuamkxf7k7a7hlvw5oa4urst6tltbw4x@77nu26jpv5oq>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260904123631.198697-7-sarthak.sharma@arm.com>
+From: Tal Zussman <tz2294@columbia.edu>
+In-Reply-To: <4cnybzi6btbswplm6xeuamkxf7k7a7hlvw5oa4urst6tltbw4x@77nu26jpv5oq>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 6fQv1CCaAPLfrFpUUMbva7J9ci7NZ69d
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDE2OSBTYWx0ZWRfX7eSpXiPIvJ3R
+ CdW5p9XFHWMj9156CY/DDqsRTZhMnS6Y7lwLIqZBEgtZ/y4V9/96EZljx+Db0iGEJv5iJAxiDFQ
+ h7Xnptcjhsi412UhI2fRIkDic4QQUB2BSSxntf+Gl7uzNrN2N0JI
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDE2OSBTYWx0ZWRfXyMi8Tw0As0hP
+ TkDGTZn8Wm8CR7/LbrG60oTzVNvImRcaDuM0wNz0OHf8J5OsJ/SJwP1gMShv1tbKZn2NN+NUFYt
+ v0Vg4WDyrp9EZZSV+146z3hMJ3K+OYFAaxV61l2Dn17riKEn60dlp0B25FBdehDYF21Nf0VS/JO
+ tPYbMFm2vA5SzeueQbmn4dxwA5/7F48pdMoDlcf9KlyVHoXu80ZQRS8AA9qKId4XkZbU2gpQDKf
+ mdryWltl6jBK9lnauyV43j93tasHyyBjjY6OP3033EbQ3ztZv4LrjeIwf7mudnmr9bAURKUrf2S
+ fJWAoeEM3qzqyt5orl9Uqv8B6OqaJACbb0iN6I2MZuxMetYe5PhGNJH4hFe9HkKHRWWhN+//Zk1
+ DRs+7RAHRVydc0tvFJrWfm5Iw7XKwnDKJiRgK32SNA1+lkyuGPfbiVZ9lOoFr1Vy0Wfs7frw6LH
+ UUwgjSI0vHJR/65o4BA==
+X-Proofpoint-ORIG-GUID: 6fQv1CCaAPLfrFpUUMbva7J9ci7NZ69d
+X-Authority-Analysis: v=2.4 cv=bvd8wkai c=1 sm=1 tr=0 ts=6a9ed537 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=GaPK54s0Se3oFqK5NkZy0g==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=jHxIr1HyPKZ_Q5_91PL3:22
+ a=VwQbUJbxAAAA:8 a=JfrnYn6hAAAA:8 a=iox4zFpeAAAA:8 a=pwd4NrRpc-W-YhxAJzsA:9
+ a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22 a=1CNFftbPRP8L7MoqJWF3:22
+ a=WzC6qhA0u3u7Ye7llzcV:22
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11899
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=10 malwarescore=0 clxscore=1015 priorityscore=1501
+ suspectscore=0 impostorscore=10 phishscore=0 spamscore=0 adultscore=0
+ bulkscore=10 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609070169
 
-On 9/4/26 14:36, Sarthak Sharma wrote:
-> Add a new GUP selftest which uses kselftest_harness.h. Cover
-> 12 mapping configurations: THP enabled, THP disabled and
-> HugeTLB, each across private/shared mappings and with/without
-> FOLL_WRITE. Run 5 test cases for every variant: get_user_pages,
-> get_user_pages_fast, pin_user_pages, pin_user_pages_fast and
-> pin_user_pages_longterm.
+On 9/7/26 12:34 PM, Jan Kara wrote:
+> On Sun 06-09-26 22:14:59, Tal Zussman wrote:
+>> Store folios in the array that zisofs_read_folio() passes to
+>> zisofs_fill_pages() and zisofs_uncompress_block(), use the folio APIs on
+>> them, and grab the folios with __filemap_get_folio() instead of
+>> grab_cache_page_nowait(). This removes six compound_head() calls, from
+>> page_offset(), the three SetPageUptodate() calls, unlock_page() and
+>> put_page(), and the last struct page usage in isofs.
+>> 
+>> grab_cache_page_nowait() passed FGP_NOFS as well, but FGP_NOWAIT already
+>> prevents reclaim entirely, so leave it out, as FGP_NOFS is on its way
+>> out [1].
+>> 
+>> Change poffset to be unsigned int rather than just unsigned while at
+>> it.
+>> 
+>> [1] https://lore.kernel.org/linux-mm/20260830041901.2668-9-willy@infradead.org/
+>> 
+>> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 > 
-> Choose the number of default hugeTLB pages using a 256 MiB target,
-> with a minimum of 1 page and derive the mapping size from that
-> number. This avoids reserving excess memory when the hugeTLB page
-> size is too large and retains 128 pages for the most common case
-> of 2MiB hugeTLB pages.
+> Thanks for the conversion! The patch looks mostly good, some smaller
+> comments below:
 > 
-> Sweep four nr_pages_per_call values for each test: 1, 512, 123 and
-> all pages. This preserves the coverage previously provided by
-> run_gup_matrix(): 12 mapping combinations x 5 GUP/PUP operations x 4
-> batch sizes. In total the selftest reports 60 TAP cases and issues
-> 240 ioctls.
+
+Thanks! Will adjust all of these and send v2.
+
+>> @@ -66,11 +66,12 @@ static loff_t zisofs_uncompress_block(struct inode *inode, loff_t block_start,
+>>  	if (block_size == 0) {
+>>  		for ( i = 0 ; i < pcount ; i++ ) {
+>>  			unsigned int off = i ? 0 : poffset;
+>> +			struct folio *folio = folios[i];
+>>  
+>> -			if (!pages[i])
+>> +			if (!folio)
+>>  				continue;
+>> -			memzero_page(pages[i], off, PAGE_SIZE - off);
+>> -			SetPageUptodate(pages[i]);
+>> +			folio_zero_range(folio, off, PAGE_SIZE - off);
+> 						     ^^ perhaps
+> "folio_size(folio) - off" here?
 > 
-> Do not carry DUMP_USER_PAGES_TEST into the new selftest because its
-> output is written to the kernel log and the selftest does not verify
-> that output.
+>> +			folio_mark_uptodate(folio);
+>>  		}
+>>  		return (((loff_t)pcount) << PAGE_SHIFT) - poffset;
+>>  	}
+> ...
+>> @@ -119,9 +120,11 @@ static loff_t zisofs_uncompress_block(struct inode *inode, loff_t block_start,
+>>  
+>>  	while (curpage < pcount && curbh < haveblocks &&
+>>  	       zerr != Z_STREAM_END) {
+>> +		struct folio *folio = folios[curpage];
+>> +
+>>  		if (!stream.avail_out) {
+>> -			if (pages[curpage]) {
+>> -				stream.next_out = kmap_local_page(pages[curpage])
+>> +			if (folio) {
+>> +				stream.next_out = kmap_local_folio(folio, 0)
+>>  						+ poffset;
+> 						  ^^^ this is just:
+> 					kmap_local_folio(folio, poffset);
 > 
-> Add the new gup binary to the selftests/mm build, run_vmtests.sh and
-> MAINTAINERS. Update mm/Kconfig to describe the benchmark and
-> selftest split.
+>>  				stream.avail_out = PAGE_SIZE - poffset;
 > 
-> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-> Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-> Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
-> ---
->  MAINTAINERS                               |   1 +
->  mm/Kconfig                                |  21 +-
->  tools/testing/selftests/mm/Makefile       |   1 +
->  tools/testing/selftests/mm/gup.c          | 287 ++++++++++++++++++++++
->  tools/testing/selftests/mm/run_vmtests.sh |   1 +
->  5 files changed, 300 insertions(+), 11 deletions(-)
->  create mode 100644 tools/testing/selftests/mm/gup.c
+> And this would be probably more idiomatic as "folio_size(folio) - poffset"
+> after the conversion.
 > 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index d7a146b093de..1ca7de3e440e 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -17189,6 +17189,7 @@ F:	mm/gup.c
->  F:	mm/gup_test.c
->  F:	mm/gup_test.h
->  F:	tools/mm/gup_bench.c
-> +F:	tools/testing/selftests/mm/gup.c
->  F:	tools/testing/selftests/mm/gup_longterm.c
->  
->  MEMORY MANAGEMENT - KSM (Kernel Samepage Merging)
-> diff --git a/mm/Kconfig b/mm/Kconfig
-> index c1ddf59c0d71..79163b7d795a 100644
-> --- a/mm/Kconfig
-> +++ b/mm/Kconfig
-> @@ -1287,24 +1287,23 @@ config PERCPU_STATS
->  	  be used to help understand percpu memory usage.
->  
->  config GUP_TEST
-> -	bool "Enable infrastructure for get_user_pages()-related unit tests"
-> +	bool "Enable infrastructure for get_user_pages()-related unit tests and benchmarks"
->  	depends on DEBUG_FS
->  	help
->  	  Provides /sys/kernel/debug/gup_test, which in turn provides a way
-> -	  to make ioctl calls that can launch kernel-based unit tests for
-> -	  the get_user_pages*() and pin_user_pages*() family of API calls.
-> +	  to make ioctl calls that can launch kernel-based unit tests and
-> +	  benchmarks for the get_user_pages*() and pin_user_pages*() families
-> +	  of API calls.
->  
-> -	  These tests include benchmark testing of the _fast variants of
-> -	  get_user_pages*() and pin_user_pages*(), as well as smoke tests of
-> +	  These include benchmark testing of the _fast variants of
-> +	  get_user_pages*() and pin_user_pages*(), as well as tests of
->  	  the non-_fast variants.
->  
-> -	  There is also a sub-test that allows running dump_page() on any
-> -	  of up to eight pages (selected by command line args) within the
-> -	  range of user-space addresses. These pages are either pinned via
-> -	  pin_user_pages*(), or pinned via get_user_pages*(), as specified
-> -	  by other command line arguments.
-> +	  There is also a test that allows running dump_page() on any of up
-> +	  to eight pages within the range of user-space addresses. These
-> +	  pages are either acquired via pin_user_pages*() or get_user_pages*().
->  
-> -	  See tools/testing/selftests/mm/gup_test.c
-> +	  See tools/testing/selftests/mm/gup.c and tools/mm/gup_bench.c.
+> ...
+>> @@ -289,9 +292,11 @@ static int zisofs_fill_pages(struct inode *inode, int full_page, int pcount,
+>>  		cstart_block++;
+>>  	}
+>>  
+>> -	if (poffset && *pages) {
+>> -		memzero_page(*pages, poffset, PAGE_SIZE - poffset);
+>> -		SetPageUptodate(*pages);
+>> +	if (poffset && *folios) {
+>> +		struct folio *folio = *folios;
+>> +
+>> +		folio_zero_range(folio, poffset, PAGE_SIZE - poffset);
+> 						 ^^^ again
+> folio_size(folio) here?
+> 
+>> +		folio_mark_uptodate(folio);
+>>  	}
+>>  	brelse(bh);
+>>  	return 0;
+> 
+> 								Honza
+> -- 
+> Jan Kara <jack@suse.com>
+> SUSE Labs, CR
+> 
 
-
-BTW, I was wondering what it would take to:
-
-1) Turn mm/gup_test.o into an OOT module (would we need more EXPORT_SYMBOL_GPL?
-EXPORT_SYMBOL_FOOR_MODULE ?)
-
-2) Move it to tools/mm/modules or sth like that.
-
-3) Build it with the selftests etc
-
-4) Remove GUP_TEST
-
-5) Try insmod'ing it from the tools+selftests that need it.
-
-[...]
-
-> +int main(int argc, char **argv)
-> +{
-> +	char *file = "/dev/zero";
-> +	int fd;
-> +
-> +	fd = open(file, O_RDWR);
-> +	if (fd < 0) {
-> +		ksft_print_header();
-> +		ksft_exit_fail_msg("Unable to open %s: %s\n", file, strerror(errno));
-> +	}
-> +	close(fd);
-
-
-I'm confused. Why do we have to open+close /dev/zero?
-
-> +
-> +	fd = open(GUP_TEST_FILE, O_RDWR);
-> +	if (fd == -1) {
-> +		ksft_print_header();
-> +		if (errno == EACCES)
-> +			ksft_exit_skip("Please run this test as root\n");
-
-Wouldn't we want to fail here?
-
-> +		if (errno == ENOENT) {
-> +			DIR *debugfs = opendir("/sys/kernel/debug");
-> +
-> +			if (!debugfs) {
-> +				ksft_exit_skip("Mount debugfs at /sys/kernel/debug\n");
-> +			} else {
-> +				closedir(debugfs);
-> +				ksft_exit_skip("Check CONFIG_GUP_TEST in kernel config\n");
-> +			}
-
-You can remove the } else { part as you skip on !debugfs.
-
-> +		}
-> +		ksft_exit_fail_msg("Failed to open %s: %s\n", GUP_TEST_FILE, strerror(errno));
-> +	}
-> +	close(fd);
-> +
-> +	hp_size = default_huge_page_size();
-> +	if (hp_size) {
-> +		nr_huge_pages = HUGETLB_TARGET_SIZE / hp_size;
-> +		if (!nr_huge_pages)
-> +			nr_huge_pages = 1;
-> +
-> +		hugetlb_setup_succeeded = hugetlb_setup_default(nr_huge_pages);
-> +	}
-
-BTW, why are we using HUGETLB_TARGET_SIZE instead of just using the
-default_huge_page_size()?
-
-> +
-> +	return test_harness_run(argc, argv);
-> +}
-> diff --git a/tools/testing/selftests/mm/run_vmtests.sh b/tools/testing/selftests/mm/run_vmtests.sh
-> index 8f1e828e4f39..ae0ab5efabae 100755
-> --- a/tools/testing/selftests/mm/run_vmtests.sh
-> +++ b/tools/testing/selftests/mm/run_vmtests.sh
-> @@ -251,6 +251,7 @@ fi
->  
->  CATEGORY="mmap" run_test ./map_fixed_noreplace
->  
-> +CATEGORY="gup_test" run_test ./gup
->  CATEGORY="gup_test" run_test ./gup_longterm
-
-Nice
-
--- 
-Cheers,
-
-David
