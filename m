@@ -1,87 +1,55 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83E1B311592
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:33:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B60593C0625;
+	Mon,  7 Sep 2026 12:33:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.133.224.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788784381; cv=none; b=B6WhIm+DoUi5s9r8Ev8jNHz07ZSwr4sNC0iwL/fQ170XDMty74f/z8PrWWDVHd2Y08r8wKYX//w+6mcSt+yntZXHLG6SrNAccBhAwIhLaD1mejepL+LhDJXMWqvGXJFi5TGvhut0VFbzgEtxFtikZW1rsboFsc3Lf47dGaID8hI=
+	t=1788784402; cv=none; b=E4GyzEO5eQhia2n+jhKdpsOjn2bC9bYRFDzVAR3rT1KBfIHID4S0ry/o17JlvjKXbgGMzbe5VIQyRpZ25nTOGvapnvgkp2Z3sl0CmtC6EkPCsgZpyJBIK8EEOx8wDjCoRESCwG3JdC/fjrcgEEFyLD7Wi3hTVxmZq6udknWbzI0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788784381; c=relaxed/simple;
-	bh=A2iHD3gqDKCj2QGR7GYWNFcmLP3k10Fn9vLLIK1hz6Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qn21ZGDXWyC11vzHc0fiBkK7Dya8OytFWz/j2kG0d/8zlgVf9Uwut8p8y6M2MU/Dh+YAVkTVS5iku24LTyI62hbyPLLR/Io5hWg6w5uXPpxNqCskXaX4AZ8/XP9WvKvkqTsIMvWdHfGPzx/rsvz9h+EgQecLtxOcLmESfGYy42M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MR24bwJJ; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MR24bwJJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83D3D1F00A3A;
-	Mon,  7 Sep 2026 12:32:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788784380;
-	bh=A2iHD3gqDKCj2QGR7GYWNFcmLP3k10Fn9vLLIK1hz6Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MR24bwJJn3WPSLSaGDC4QmCRAH0ef5go8d+B6Hd8hOAdYfLk3I1XTgLFC+W8oRSlU
-	 wYV7gjxDSoo3rZN/buTvNfDA8RrHZ7izDRqPu19IQaMz7pQCA9pPc8Nl9g4H3DFjnG
-	 6cQTnDcZCKcsozvUu9zxIiGgHwOISy2a51nuPGV37VgLK7BFgoeHA1iww8WMI64Z60
-	 jIyCaxBHh3/3juv45cHnjMvf5u9Y1xhupwy81zFRQg48rh0mXtmv1Bntj3ScGqi+h0
-	 6CxXkjQ1jHeSH/BjiMvoR8/h235xKerP8ll7kQyS/lo/4HtnB+uR3zbCguJ9XD9LaM
-	 u6Lq4L99cV5qQ==
-Date: Mon, 7 Sep 2026 13:32:54 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Pedro Falcato <pfalcato@suse.de>, 
-	"Liam R. Howlett" <liam@infradead.org>, David Hildenbrand <david@kernel.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Mike Kaplinskiy <mike@recall.ai>, 
-	zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
-Subject: Re: [PATCH] mm/madvise: swap in CoW'd MAP_PRIVATE-file mappings on
- MADV_WILLNEED
-Message-ID: <ap6u6Ana3MvvIIUe@gremlin>
-References: <20260904-madv-will-need-map-private-v1-1-6b83cc99fcff@kernel.org>
- <apriM1q4GzAgP7JQ@pedro-suse.tail5790ac.ts.net>
- <aprjOxDy3JCPb2oa@gremlin>
- <20260905171757.ba8b0f8f0f18ebd04418bfeb@linux-foundation.org>
+	s=arc-20240116; t=1788784402; c=relaxed/simple;
+	bh=Xq5/ce3tivwpMGp2s9/KRURLmeqJnprW1NrEIHmsBNY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=jlOVU1lmnxKYG2BiWpxzky1YZNpXpBkWQUWyr3u1s2+bd0bkRlFA6/V2+9t+pL6twNJ3+MaM3VMZVN9c+9llvNz4nEOjNLSdMa8CmzHk/WCBc5p+tNCv4LYZDg83GNc6VuHYWBnmlbSxpRWU5+LCV03hCpNoWSDqTZMi5PgyOys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk; spf=none smtp.mailfrom=orcam.me.uk; arc=none smtp.client-ip=78.133.224.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
+Received: by angie.orcam.me.uk (Postfix, from userid 500)
+	id C849A92009E; Mon,  7 Sep 2026 14:33:17 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+	by angie.orcam.me.uk (Postfix) with ESMTP id C489792009B;
+	Mon,  7 Sep 2026 13:33:17 +0100 (BST)
+Date: Mon, 7 Sep 2026 13:33:17 +0100 (BST)
+From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+cc: Bjorn Helgaas <bhelgaas@google.com>, Aoxtj <aoxiangtianji@axtjblog.cc>, 
+    linux-pci@vger.kernel.org, Andreas Wild <andiwild@gmail.com>, 
+    linux-kernel@vger.kernel.org, 
+    Linux kernel regressions list <regressions@lists.linux.dev>, 
+    restafvalendergelijke@outlook.com
+Subject: Re: [PATCH v3] PCI: Skip Target Speed quirk on clamped ports with
+ no link
+In-Reply-To: <fdbe2872-6fe3-4746-9d10-1ccef3a3e88d@leemhuis.info>
+Message-ID: <alpine.DEB.2.21.2609071332380.46717@angie.orcam.me.uk>
+References: <20260801201244.4421-1-andiwild@gmail.com> <331e97c7-e422-420d-9f3e-5d9f734464b3@axtjblog.cc> <20260808063103.10940-1-andiwild@gmail.com> <ae819bec-9c2b-47b5-be5e-3c65fea12da1@axtjblog.cc> <20260811064233.11315-1-andiwild@gmail.com>
+ <7742d556-e878-4893-8b6d-d6039ddba544@leemhuis.info> <20260825070527.8481-1-andiwild@gmail.com> <alpine.DEB.2.21.2608251117260.44766@angie.orcam.me.uk> <fdbe2872-6fe3-4746-9d10-1ccef3a3e88d@leemhuis.info>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260905171757.ba8b0f8f0f18ebd04418bfeb@linux-foundation.org>
+Content-Type: text/plain; charset=US-ASCII
 
-On Sat, Sep 05, 2026 at 05:17:57PM -0700, Andrew Morton wrote:
-> On Fri, 4 Sep 2026 17:01:37 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
->
-> > Andrew - could you swap the patch out in-place with below? Thanks!
-> >
->
-> np.
->
-> > Currently MADV_WILLNEED treats file-backed and pure anonymous mappings
-> > entirely separately - using POSIX_FADV_WILLNEED (equivalent of a readahead)
-> > for the former and a tree walk and swap in to swap cache for the latter.
-> >
-> > MAP_PRIVATE-file backed mappings straddle the two and currently get treated
-> > as if they were purely file-backed, meaning any swapped out private pages
-> > remain swapped out.
-> >
-> > Resolve the issue by explicitly checking for CoW'd MAP_PRIVATE-file backed
-> > mappings and performing both walks in this case.
-> >
-> > Since the logic checks for vma->anon_vma this means un-CoW'd
-> > MAP_PRIVATE-file backed mappings retain only the single file walk.
-> >
-> > Reported-by: Mike Kaplinskiy <mike@recall.ai>
-> > Closes: https://lore.kernel.org/all/CABeknB_S2XJSHFgnHdgnN0rjzHhH4oQJs_APq9fvxHztQ_pgiA@mail.gmail.com/
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->
-> The failure mode looks pretty obscure, so I'm thinking that no backport
-> is needed.
+On Wed, 2 Sep 2026, Thorsten Leemhuis wrote:
 
-Well it's not even really a failure mode so much as a 'known limitation' :)
-So yeah agreed.
+> Thx for the clarification. Would afaics be really good to get that fix
+> in to solve that problem. Bjorn, is this somewhere on your todo list?
+> >  I'd be happy to hear any results of your posted HASD check though.
+> There is another report from Mich (now CCed). Mich, can you maybe test
+> that if you haven't yet (your report is really verbose, which makes
+> things somewhat hard to follow)?
 
---
-Cheers, Lorenzo
+ Thank you for the update.  I'm back from holiday today and will review
+the situation in detail in the coming few days.
+
+  Maciej
