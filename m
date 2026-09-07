@@ -1,235 +1,255 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011053.outbound.protection.outlook.com [40.107.74.53])
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCBDF481648;
-	Mon,  7 Sep 2026 12:53:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788785586; cv=fail; b=tp2p2AGYit3Cdge2RoaDEOEgbp80RJC2FHtXwofVxmB0g5TN08lMTyt9JfU8IbVK8t2gHALlwGEBUtwTtRUEFiFS2/enm4nOPRzz/czBYw5MXctJXU9apazT2H71NFs0zk2E1/U1DtAldkRvBBnCoRQt+Yv3xj2zPpawVfMUY64=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788785586; c=relaxed/simple;
-	bh=JJCOyA9RirjMbREuS+ZAaiUmsGvnhAu5lC/hwvpi6xA=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=dR9LipwVtr0OGjLFNCorTvQ2vrfu2/JlTCHMqgSoI//RyQKPtnhzr6YdGZOIQNpmes92EQnFMSmIlh/sKhygpNqZRSBujoRd9Pd7X+ZubMXnzKLKk2xHT5hbnt+CsMMDl1WrttDhEW3qnT8UntoyKjqVZfNCq8RBar0HBzX+X54=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=atmi+SL6; arc=fail smtp.client-ip=40.107.74.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A82664C6EFA;
+	Mon,  7 Sep 2026 12:53:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788785611; cv=none; b=Jh0z7gB98XjbX3Uh/DWxEL+ttDpuza0DlrOJd4uJ9ja3cJL5Z92kvIp0KcSyXsBnv0rp9+phAq9lT0ycCmEBpsDlr9w0P3JGgrnhxx5sC4rwwu6YAevPsPJKTkTEw3mh3cPGSGHpF/Exam5ChtuhcBo/YKufScmGAyBJodcPpQA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788785611; c=relaxed/simple;
+	bh=oCyl+szGpwo0XkyjytuAzra3J1YK5nmPJlE+V2xiG68=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=SDHHQqwuE3cMJZTO3Kg7c8J5M4FnMiDUthIJyjHHWE60vJ7N3BxYX6WsfrT0/mvOEnER/X4VgnelomZ2d8vHxYHZj70tTe+oiNBnYz+YkLxegvnQLi/c99mGTiBTZ9yuzvOZuCLhgpSwHVNSfSv2GYGGzvLx7nPGXoCHmaFHauw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=ThNMN+Fx; arc=none smtp.client-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="atmi+SL6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DribS7WwXYs0ZNunQbrMJ6FEULe8i+28WoVObzdqeSEv2hV29N2dKRjwCY01ld0EiYikf9bR+tj/nLWYXwnkq1hqhAI/uYcmvr+aaxjrBXP26MRPKP6rc+6myepM0rfjydYRDY4GzuWk8SL2KaMwP4MiIMAlsga2kH5F7CFIj3ly9hpfu1M0fGjJsfMS6do/nd9QNaLx6XPwkHV7GhDXeZN3EmPKm/7lzAJd7Dn66EPVm+pKjcEHQbXtK8ACk7D9t8GWru3t/jvo3Y94KaLwYmoH4nyHnrjr+eHgD1dq33qdI9wYv9YqneabhSRhJ9Q7WHqZciOappYLZ9yGZsS5Ew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JJCOyA9RirjMbREuS+ZAaiUmsGvnhAu5lC/hwvpi6xA=;
- b=GgR0uI0Wjlf0To/i5f85ZZJgVxOHYWiDIXevkz+P9mGXqGzPtz2liGJGbk5GOJtrmnPZxZJZ7SEgE6HIf+ZgreKonK5Hi9bbQpmwcLPpD2QzXZUc1JEZpEraG3UuCS4GS9Vo+Jq/W5yLsyFpHPBl3fFmVsBiSwKJRTet/NVZbzrJXHlG3Zc+7ezVrG91F577yKZuGU+/UpaOQPJXuru0WHFOLMtogV4+HXZD9iAitDgqhhplH76UsHUnPjMGAJjin7qqWO8uedXZb5TL+bXpB8Nw7dex0iyxht/iX3YnNr4KNXe3V+UmFAQH6LudZDHoFWBBsjRtmfWgTbc6OXeEQQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JJCOyA9RirjMbREuS+ZAaiUmsGvnhAu5lC/hwvpi6xA=;
- b=atmi+SL6eFIZqPZmMomYXhp3D3UpivWsVlZvX/Y/nNDxVl/wnvuwG4v6jOY77A+vF6DhHtEwTkDrDVRr/wvCnpaS7l5nFAnKpCTbF/BGOJItAbeBYVqOHp2qujIL89x4IgAlZZexZK1CxJeuPUIY3UdZsiIrsWqth5bDyX7o9A0=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by OS9PR01MB15831.jpnprd01.prod.outlook.com (2603:1096:604:3ce::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 12:53:01 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
- 12:53:01 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: wsa+renesas <wsa+renesas@sang-engineering.com>, "biju.das.au"
-	<biju.das.au@gmail.com>
-CC: Ulf Hansson <ulfh@kernel.org>, "linux-mmc@vger.kernel.org"
-	<linux-mmc@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org"
-	<linux-renesas-soc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: RE: [PATCH v24 11/15] mmc: renesas_sdhi: Add RZ/G3L SDHI support
-Thread-Topic: [PATCH v24 11/15] mmc: renesas_sdhi: Add RZ/G3L SDHI support
-Thread-Index: AQHdMMfBiC8we42goU2GQ1SEBj5j7ba81lqAgAY7w/A=
-Date: Mon, 7 Sep 2026 12:53:01 +0000
-Message-ID:
- <TY3PR01MB11346596836AD38371FC3568A86B22@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20260820171657.62815-1-biju.das.jz@bp.renesas.com>
- <20260820171657.62815-12-biju.das.jz@bp.renesas.com>
- <aplhlynkb_LUiVhS@shikoro>
-In-Reply-To: <aplhlynkb_LUiVhS@shikoro>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OS9PR01MB15831:EE_
-x-ms-office365-filtering-correlation-id: 57b7ec34-feb4-475c-67a9-08df0cdef32a
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|38070700021|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- eUmN5DMxjoY7MXXt4/gOov46AYTcK2pFKsJkKNa07hSE/zcCCUYyOJGOIxTg8G2rv0QIOQrqYKjmQWQVEG3iBElH7fBckCkP4D6mtbu5+Jzwl1X4L4W2ieo502iBlZqUnYAh1KxHPjTO9GUMf/izuws5/U8S9VGkQVaIgPxjDjUcK9QxRSeob7cd3FzqOYadk4rQRym9dEpp92Ig9N8Tx0CrlCG9MG2C7o3ql+naiofdHT8Q3ANqosmAnzrZWkGw7eQnYsg+PoB5xzR1nu6J5eHO0vXcM6mT7+rUsatbTP+Vsj3rd6nzjwqk5NynwWMcDiwxGUadt4MI2y4sB/xTGu9l6IXiUGBDW12UezDyurcYRTONzjrGai3yqV/3S2XQDx2lSaIuPdmwBlLWxhCrzFXfq4UMbsLq6HIcLB9Brlsq4HxuM7RgmtIoAieyzupfq+uqOQYE3A35R/inG7E770oU+6o2f5g/8SLtgH1Aa8BcFCOVnHyUx4WdSiVbX/dLuNk3TqSyZPStGYnPC9NV/pCzLSHnxwxbDITP1oIH9n6Koz/IRyO6+mgW6d7MF3RK6oxlGzKjXC2F6uhMca+BsZYK2cQ3qm8Hv0CW6eRbVzG2RdtBS0tlC9MWAaa6aSs8FCGeLT+ITCtrhvD4j8MeJau1kTU5AEhhnraCsUfyi32f3rGemHtXNpcdKgzMds6lDASjBJ+g1ybngk2d6dE7NS/uiKDj+Wi7REokPFhWZwI=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(38070700021)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?a0FLVWZ2NTlDUnRTb2pycUlydDFCQ0MwclVKRFUyUFRBK2VCVDFTWm1mMmVV?=
- =?utf-8?B?VndoL0lxYUk5dmI4WHhtMTF1UHY2c2RKbWJMbis1a0pCNGhWRmRPbTBnR25V?=
- =?utf-8?B?Z005STNUZkFsNFlZUC84bDM0Q3J0MmNiKzZoOVVCQVBPNERDWThhcXBtRmxl?=
- =?utf-8?B?Rk41VFZZQ3QyOHlWUU5ualRaakFGL2wxcWlESDY5dGhKaHF2NlV0ZjR0V291?=
- =?utf-8?B?M2M1SjlCd0IvbWpndS9wY0xJZXV1dXNpVWJSM1Z4Yml6TjZHUHBtUUpzclNN?=
- =?utf-8?B?L0VMQjJrL2U0bkVleDdNQi83NmM3M2NqOE1vdlZiNnRYbVJ2ZDFBSnc0V0ZU?=
- =?utf-8?B?UlpGVFpXcGJzM0FCalZRd2k3eTlacGJFT2t6dVAxSWlKL2JLSG1GandhZE9O?=
- =?utf-8?B?cFRONm52cnh5ZmttVmducHdZQyt4Vjh0VFRtaXVCa3ZFR3ZWMENCVUkxeFhV?=
- =?utf-8?B?cXJLRzc5UmNmcEVvV3NpcU50bmtrQ1FoWnlQTmprbkVCdUFrVFcvNkZCT3R2?=
- =?utf-8?B?cjlFUGtRTzBzNEowdmh5SWZlMWE5cjU1MkQzd25Yd2JiVEZGRnVBK0xQTEJt?=
- =?utf-8?B?UmxqSlcrcGU2LzJ3ZnVRUk55SXJFUGZwb2ozcTh2RFN1YzdnWVQvNjJIRWl0?=
- =?utf-8?B?R0t5M0duWFo1OUpxWnZGSTRNR2hEc05hWHNnMjVIYTltRk9TN1YxdElTUnZX?=
- =?utf-8?B?L1Q2MTI2NHdjV0x2a0FFL3VoRnJ2RXFjazZKaHp1bVNqeng4cXhvRzdHVVMy?=
- =?utf-8?B?eTQ1VlRhQVFla3RxRG9OYlZPemlsRzdlUE1aTC9GY1U4M0Q3T01GZHJ6SlU4?=
- =?utf-8?B?NCtPUkZhV3JkTU1TVUVQcnRNcUx2dXFESm8rU0d0ZWw2YWo0MGlHUElsNHZa?=
- =?utf-8?B?VDNxRWdiMGRYazNQemNURFZKcUVERUtUYXhVYWlUdlFYc2pUTU9iWHJWWFFC?=
- =?utf-8?B?YWh1M2YrbENabTFsMU81aTM1QTBYR085SGhnTm96Wk5LbHRSZmMwZkpVOTcr?=
- =?utf-8?B?eTc0MWtjUjBkMmh3Vm56LzBkaTFmcHJiclQ0L3ZadGNYLzhDSnlYaThDbTV5?=
- =?utf-8?B?QlQwWlM1RkU2SFlVUnNSWFZCQ3JiQU1PZjI5c1BGbGtTRkdZcCtGcjFEd1k0?=
- =?utf-8?B?MHNTZUtjNkM0ekpURFpSZWZHNWJ5N1pUK1NVaFpsbkh5S2ZEeEV6ZHBBVzRI?=
- =?utf-8?B?ejRHQWtSb2NRcHhIZCswNk1oUzBwb3FCVEhIcnFvcFlBOGVaQWxwa1l6ZDhU?=
- =?utf-8?B?NXIrVmlua0RidmJKcENhQTNUNEZsa0FGNVpYWUVSMlZ3RllWcFBjcFlmRHBm?=
- =?utf-8?B?dmhlc1dibFpnYUxtQnBLTVhNUnY5dkMrejNBWW01RVZ6VUJ2aHJVUVpZSFdq?=
- =?utf-8?B?NkRNVi84QVBXbk5vOWhYQjl6UXI3OVd5eW16ZUJ1U3JtQVdpbHE2WFdUTllW?=
- =?utf-8?B?T00xd1doeDFlaldySDQzMnJYS09KckJ3ZnN2NTdzSmorQWNzQndVV2tTM1RC?=
- =?utf-8?B?TldMVENjK1owMi9HdEM0T2xhcVByRHFXcUtmSFZ6RUFrOHlBTkFlV0s1RnBi?=
- =?utf-8?B?VEFWa29oRW1MMVEwZU1NZEYrVUovNXVRQTRVbVQxa2lkSW1BTTdaNk5xTlRx?=
- =?utf-8?B?UGZqTXl2b2kvaDBEcjl1UGxENkhqTktIWG0rMmxoM0FyM1pndWJ0N0xpVHBC?=
- =?utf-8?B?c0VFc1NENTFtZzFLYk9aanIrZkh0bFc2Mkd1ZjI2VTltV3NSUVN1a1RNU20v?=
- =?utf-8?B?VU0zM3gxOEFJdmxNcU5kRHFMWStzb1JIRSt2TXFCL2FWY2xBWTlyckFtaFZX?=
- =?utf-8?B?UUxyWXNDcFQ0eWE1TXlTZnBJWk5VajFzOU1tZDBUMjB3aHZhVHBmNlE3N3ZL?=
- =?utf-8?B?VXpqN24vM0ZoN2dQK3BJNHdrUlQyQ2ppN1h3OGJqb2NYcFFMWE9udU9hR3pv?=
- =?utf-8?B?S1BSamFPUVhoaittMS8vdmtBM2d4SUs1U0JJcXE0SE1KSm50Mjg2V3FYdUZh?=
- =?utf-8?B?SE1Ta2hUQU1tdDVhYmNoRk9sZWtqd2NYUnI1aHFkbzA2aDY0RWhOY0dDQWNQ?=
- =?utf-8?B?a2J2TGFnQ1VKeElvdjBPR251YlF2NFFMWG1KRTMrcTJLM3FDKzFYdGVVaTE0?=
- =?utf-8?B?Z1I3enBvTC84dS9ONDJPU3pIeTlESEJneUhEaWVsaU1VTDFNOXk0K25aUFdT?=
- =?utf-8?B?c0gza0t3RzNESmhyNmJFR2phOTVyS2pOdUhtWXlsTTJtODdqN2s2YnFrZ2RS?=
- =?utf-8?B?YzUzdzNCVzFLMnIwTHc0eHJPTWRoMHVOYTd0VUxFNmh2c1hHcmFUNGR6WTE5?=
- =?utf-8?B?QlF5RG0rSzNGSXhVRDluMTQ5MUt2bzc0N1Q4M0VuQkVaalVxczdRdz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="ThNMN+Fx"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=ZLAu/+PwlI/1vW7fBJWuLttLveuekpMudYT1PoA2XHk=;
+	b=ThNMN+FxBCdWIa3igRbbj3G4vQna3kUdvEh4a4qbZ0YMCNk7MjR4gE1Ej8z5O9+GNqSc8wX9Z
+	efxFd1I75WLYQaLT2MtzBZWRLgwFD+Qk0ky9w9w5LjP6zI9mZSdY4qgvBxbxfy2Jl3mJQTWzwsu
+	apWZ3rKo5PKl0vlDknsCkXM=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hdmst1j7Jz1T4Fq;
+	Mon,  7 Sep 2026 20:41:54 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 134E540575;
+	Mon,  7 Sep 2026 20:53:23 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 7 Sep
+ 2026 20:53:21 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
+	<mpe@ellerman.id.au>, <npiggin@gmail.com>, <chleroy@kernel.org>,
+	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <akpm@linux-foundation.org>,
+	<baoquan.he@linux.dev>, <rppt@kernel.org>, <pasha.tatashin@soleen.com>,
+	<pratyush@kernel.org>, <ruirui.yang@linux.dev>, <kees@kernel.org>,
+	<ruanjinjie@huawei.com>, <thuth@redhat.com>, <jic23@kernel.org>,
+	<tan.shaopeng@jp.fujitsu.com>, <zengheng4@huawei.com>, <james.morse@arm.com>,
+	<ardb@kernel.org>, <leitao@debian.org>, <yeoreum.yun@arm.com>,
+	<sourabhjain@linux.ibm.com>, <robh@kernel.org>, <coxu@redhat.com>,
+	<tangyouling@kylinos.cn>, <hbathini@linux.ibm.com>, <adityag@linux.ibm.com>,
+	<djbw@kernel.org>, <seanjc@google.com>, <liaoyuanhong@vivo.com>,
+	<vishal.l.verma@intel.com>, <fuqiang.wang@easystack.cn>, <makb@juniper.net>,
+	<piliu@redhat.com>, <ebiggers@kernel.org>, <jbouron@amazon.com>,
+	<mclapinski@google.com>, <me@linux.beauty>, <graf@amazon.com>,
+	<bgwin@google.com>, <takahiro.akashi@linaro.org>, <palmer@rivosinc.com>,
+	<x86@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <loongarch@lists.linux.dev>,
+	<linuxppc-dev@lists.ozlabs.org>, <kexec@lists.infradead.org>,
+	<linux-fsdevel@vger.kernel.org>, <linux-mm@kvack.org>
+Subject: [PATCH v4 00/12] crash: Rework and add arm64 crash hotplug support
+Date: Mon, 7 Sep 2026 20:53:52 +0800
+Message-ID: <20260907125404.922123-1-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 57b7ec34-feb4-475c-67a9-08df0cdef32a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Sep 2026 12:53:01.1454
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0toFlbqAODVOc8n1BK4ewqeYAaIB/EnLfXT6kWwQFcBtrFOmjGm28jZym6F8a5JgvKdQ5y2VjxgZjLrmx8KyteaPV8UeMfjnO2URp7Y3jLQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9PR01MB15831
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-SGkgV29sZnJhbSwNCg0KVGhhbmtzIGZvciB0aGUgZmVlZGJhY2suDQoNCj4gLS0tLS1PcmlnaW5h
-bCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogV29sZnJhbSBTYW5nIDx3c2ErcmVuZXNhc0BzYW5nLWVu
-Z2luZWVyaW5nLmNvbT4NCj4gU2VudDogMDMgU2VwdGVtYmVyIDIwMjYgMTM6MDINCj4gU3ViamVj
-dDogUmU6IFtQQVRDSCB2MjQgMTEvMTVdIG1tYzogcmVuZXNhc19zZGhpOiBBZGQgUlovRzNMIFNE
-SEkgc3VwcG9ydA0KPiANCj4gDQo+IE9rYXksIGxldCdzIHN0YXJ0IHRoaXMgb25lIGhpZ2ggbGV2
-ZWwuLi4NCj4gDQo+IE9uIFRodSwgQXVnIDIwLCAyMDI2IGF0IDA2OjE2OjQxUE0gKzAxMDAsIEJp
-anUgd3JvdGU6DQo+ID4gRnJvbTogQmlqdSBEYXMgPGJpanUuZGFzLmp6QGJwLnJlbmVzYXMuY29t
-Pg0KPiA+DQo+ID4gUlovRzNMIChyOWEwOGcwNDYpIGhhcyBhbiBTREhJIGNvbnRyb2xsZXIgdGhh
-dCBkaWZmZXJzIGZyb20gZXhpc3RpbmcNCj4gPiBwbGF0Zm9ybXMgaW4gY2xvY2sgZGl2aWRlciB3
-aWR0aCwgYSBzZWNvbmQgSFcgYWRqdXN0bWVudCByZWdpc3RlciwgYW5kDQo+ID4gYW4gZXh0cmEg
-dHVuaW5nIHJlZ2lzdGVyLg0KPiA+DQo+ID4gQWRkIFRNSU9fTU1DX0hXQURKIHRvIG1hcmsgY29u
-dHJvbGxlcnMgd2l0aCBhIHNlY29uZCBIV0FESjIgcmVnaXN0ZXINCj4gPiAob2Zmc2V0IDB4MDEw
-KSwgcHJvZ3JhbW1lZCBieSByZW5lc2FzX3NkaGlfc2V0X2h3X2FkanVzdG1lbnRfZGVsYXkoKQ0K
-PiA+IGFsb25nc2lkZSBUTVBQT1JUMiAoMHgzRkZGIGF0IDMuM1YsIDB4RkYgYXQgMS44VikuIENs
-ZWFyIHRoZSBuZXcNCj4gPiBIV0FESjQgcmVnaXN0ZXIgKDB4MDIyKSBhdCB0dW5pbmcgc3RhcnQg
-d2hlbiBUTUlPX01NQ19JTlRFUk5BTF9ESVZJREVSDQo+ID4gaXMgc2V0Lg0KPiA+DQo+ID4gVXBk
-YXRlIHJlbmVzYXNfc2RoaV9zZXRfY2xvY2soKSB0byB3cml0ZSB0aGUgY2xvY2sgY29udHJvbCBy
-ZWdpc3Rlcg0KPiA+IHdpdGggYSAzMi1iaXQgYWNjZXNzIHdoZW4gbWF4X2RpdmlkZXIgaXNuJ3Qg
-dGhlIGRlZmF1bHQsIG1vdmluZyBiaXRzDQo+ID4gWzk6OF0gb2YgdGhlIGNsb2NrIHZhbHVlIGlu
-dG8gYml0cyBbMTc6MTZdIG9mIHRoZSByZWdpc3RlciDigJQgbmVlZGVkIHRvDQo+ID4gZHJpdmUg
-UlovRzNMJ3Mgd2lkZXIgMTEtYml0IGRpdmlkZXIgZmllbGQgdmlhIHRoZSBtYXhfZGl2aWRlci8N
-Cj4gPiBjbGtfZGl2X21hc2sgc3VwcG9ydCBhZGRlZCBlYXJsaWVyIGluIHRoaXMgc2VyaWVzLg0K
-PiA+DQo+ID4gQWRkIFNESElfVkVSX1JaX0czTF9TRE1NQyAoMHhjZTEwKSBhbmQgaGFuZGxlIGl0
-IGluDQo+ID4gcmVuZXNhc19zZGhpX3NkYnVmX3dpZHRoKCkuIEFkZCBvZl9kYXRhX3J6ZzNsIHdp
-dGggUlovRzNMJ3Mgd2lkZXINCj4gPiBjbGtfbWFzaywgYW4gMTEtYml0IG1heF9kaXZpZGVyIG9m
-IDIwNDgsIGEgZGVkaWNhdGVkIHRhcCB0YWJsZSwgYW5kDQo+ID4gdGhlIHJlbGV2YW50IGZsYWdz
-IGluY2x1ZGluZyBUTUlPX01NQ19JTlRFUk5BTF9ESVZJREVSIGFuZA0KPiA+IFRNSU9fTU1DX0hX
-QURKLiBXaXJlIGl0IHVwIHZpYSBvZl9yemczbF9jb21wYXRpYmxlIChmaXhlZF9hZGRyX21vZGUN
-Cj4gPiBxdWlyaykgYW5kIHJlZ2lzdGVyIHRoZSAicmVuZXNhcyxzZGhpLXI5YTA4ZzA0NiIgY29t
-cGF0aWJsZSBzdHJpbmcuDQo+IA0KPiBBZnRlciBhcnJpdmluZyBhdCBwYXRjaCAxMSwgSSBmZWVs
-IGEgc2lnbmlmaWNhbnQgbG9zcyBpbiBtb3RpdmF0aW9uIHRvIHJlYWQgdGhpcyBwYXRjaCBkZXNj
-cmlwdGlvbi4gSXQgaXMNCj4gdmVyeSB3b3JkeSwgaW5jbHVkZXMgYSBsb3Qgb2YgdGhlIFdIQVQs
-IGhpZGluZyB0aGUgV0hZLiBNYXliZSB5b3UgY2FuIGFkanVzdCB0aGUgcHJvbXB0LCBidXQgSSB3
-b3VsZA0KPiBzdWdnZXN0IHRvIHdyaXRlIGl0IHlvdXJzZWxmLg0KDQpPSywgd2lsbCBmaXggY29t
-bWl0IG1lc3NhZ2UgaW4gbmV4dCB2ZXJzaW9uLg0KDQo+IA0KPiA+IC0Jc2RfY3RybF93cml0ZTE2
-KGhvc3QsIENUTF9TRF9DQVJEX0NMS19DVEwsIGNsb2NrKTsNCj4gPiArCWlmIChob3N0LT5wZGF0
-YS0+bWF4X2RpdmlkZXIgIT0gU0RISV9NQVhfRElWSURFUl9ERUZBVUxUKSB7DQo+ID4gKwkJdTY0
-IHRtcDsNCj4gPiArDQo+ID4gKwkJdG1wID0gRklFTERfR0VUKFJaRzNMX0NMS19DVExfRElWOV9E
-SVY4X1NSQywgY2xrKTsNCj4gPiArCQljbG9jayB8PSBGSUVMRF9QUkVQKFJaRzNMX0NMS19DVExf
-RElWOV9ESVY4LCB0bXApOw0KPiA+ICsJCWNsb2NrICY9IH5SWkczTF9DTEtfQ1RMX0RJVjlfRElW
-OF9TUkM7DQo+IA0KPiBJIGFtIGNvbmZ1c2VkLiBCaXQgOCs5IGFyZSBhbHdheXMgemVybz8NCg0K
-Tm8uDQoNCmZvciAoY2xrID0gaG9zdC0+cGRhdGEtPmNsa19tYXNrOyBuZXdfY2xvY2sgKyBjbGtf
-bWFyZ2luID49IChjbG9jayA8PCAxKTsgY2xrID4+PSAxKQ0KCQljbG9jayA8PD0gMTsNCg0KY2xr
-IHdpbGwgaGF2ZSBhIHZhbGlkIHZhbHVlLg0KDQpjbG9jayA9IGNsayAmIGhvc3QtPnBkYXRhLT5j
-bGtfZGl2X21hc2s7DQoNClNvIGluaXRpYWxseSBiaXQgOCs5IHdpbGwgaGF2ZSBhIHZhbHVlLiBU
-aGlzIHdpbGwgYmUgbW92ZWQgdG8gYml0IDE2ICsgMTcgZmlyc3QNClRoZW4gd2UgY2xlYXIgdGhl
-IGJpdHMgOCArIDkuIEJpdDgoU0NMS0VOKSBhbmQgQml0OShTRENMS09GRkVOKQ0KDQo+IA0KPiA+
-IC0jZGVmaW5lIFNIX01PQklMRV9TREhJX1NDQ19UTVBQT1JUMgkweDAwRQ0KPiA+ICsjZGVmaW5l
-IFNIX01PQklMRV9TREhJX1NDQ19UTVBQT1JUMgkweDAwRSAvKiBHM0w6IFNEbV9TQ0NfSFM0MDBN
-T0RFMSAqLw0KPiA+ICsjZGVmaW5lIFJaRzNMX1NESElfU0NDX0hXQURKMgkJMHgwMTANCj4gDQo+
-IERvZXMgUlpHM0wgaGF2ZSBhIGRlZGljYXRlZCBuYW1pbmc/IEknZCBndWVzcyAqX0hXQURKMS4g
-SSB3b25kZXIgaWYgaXQgbWFrZXMgc2Vuc2UgdG8gaGF2ZSBhIGRlZGljYXRlZA0KPiBkZWZpbmUg
-Zm9yIGl0LiBJIHRlbmQgdG8gdGhpbmsgc28uDQoNClRoZXJlIGlzIG5vICpfSFdBREoxIG1lbnRp
-b25lZCBpbiBIVyBtYW51YWwuDQpIYXJkd2FyZSBtYW51YWwgbWVudGlvbiB0aGlzIHJlZ2lzdGVy
-IGFzICJTRG1fU0NDX0hXQURKMiINCg0KPiANCj4gPiArCQlpZiAoaHdhZGoyKQ0KPiA+ICsJCQlz
-ZF9zY2Nfd3JpdGUzMihob3N0LCBwcml2LCBSWkczTF9TREhJX1NDQ19IV0FESjIsIDB4M0ZGRik7
-DQo+ID4gKwl9IGVsc2Ugew0KPiA+ICAJCXNkX3NjY193cml0ZTMyKGhvc3QsIHByaXYsIFNIX01P
-QklMRV9TREhJX1NDQ19UTVBQT1JUMiwgMHgxKTsNCj4gPiArCQlpZiAoaHdhZGoyKQ0KPiA+ICsJ
-CQlzZF9zY2Nfd3JpdGUzMihob3N0LCBwcml2LCBSWkczTF9TREhJX1NDQ19IV0FESjIsIDB4RkYp
-Ow0KPiANCj4gTWFnaWMgdmFsdWVzPw0KDQpIVyBtYW51YWwgbWVudGlvbnMgdGhlIGZvbGxvd2lu
-ZywNCg0KSFdBREoyWzE1OjBdIDFGRmggSGFyZHdhcmUgQWRqdXN0bWVudC4NCkZvciAxLjhWIG9w
-ZXJhdGlvbiwgc3BlY2lmeSAwMEZGaC4NCkZvciAzLjNWIG9wZXJhdGlvbiwgc3BlY2lmeSAzRkZG
-aC4NCg0KSXMgdGhlIGJlbG93IG1hY3JvcyBvayBmb3IgcmVwcmVzZW50aW5nIG1hZ2ljIHZhbHVl
-cz8/DQoNClNEX1NDQ19IV0FESjJfMV84ViAweEZGDQpTRF9TQ0NfSFdBREoyXzNfM1YgMHgzRkZG
-DQoNCg0KDQo+IA0KPiA+ICAJaWYgKHByZXNlcnZlKSB7DQo+ID4gIAkJY2FyZF9vcHQgPSBzZF9j
-dHJsX3JlYWQxNihob3N0LCBDVExfU0RfTUVNX0NBUkRfT1BUKTsNCj4gPiAtCQljbGtfY3RybCA9
-IHNkX2N0cmxfcmVhZDE2KGhvc3QsIENUTF9TRF9DQVJEX0NMS19DVEwpOw0KPiA+ICsJCWlmICho
-b3N0LT5wZGF0YS0+ZmxhZ3MgJiBUTUlPX01NQ19JTlRFUk5BTF9ESVZJREVSKQ0KPiA+ICsJCQlj
-bGtfY3RybF8zMiA9IHNkX2N0cmxfcmVhZDMyKGhvc3QsIENUTF9TRF9DQVJEX0NMS19DVEwpOw0K
-PiA+ICsJCWVsc2UNCj4gPiArCQkJY2xrX2N0cmwgPSBzZF9jdHJsX3JlYWQxNihob3N0LCBDVExf
-U0RfQ0FSRF9DTEtfQ1RMKTsNCj4gPiArDQo+ID4gIAkJaWYgKGhvc3QtPnBkYXRhLT5mbGFncyAm
-IFRNSU9fTU1DX01JTl9SQ0FSMikNCj4gPiAgCQkJc2RpZl9tb2RlID0gc2RfY3RybF9yZWFkMTYo
-aG9zdCwgQ1RMX1NESUZfTU9ERSk7DQo+ID4gIAl9DQo+ID4gQEAgLTIxNyw3ICsyMjIsMTEgQEAg
-c3RhdGljIHZvaWQgdG1pb19tbWNfcmVzZXQoc3RydWN0IHRtaW9fbW1jX2hvc3QNCj4gPiAqaG9z
-dCwgYm9vbCBwcmVzZXJ2ZSkNCj4gPg0KPiA+ICAJaWYgKHByZXNlcnZlKSB7DQo+ID4gIAkJc2Rf
-Y3RybF93cml0ZTE2KGhvc3QsIENUTF9TRF9NRU1fQ0FSRF9PUFQsIGNhcmRfb3B0KTsNCj4gPiAt
-CQlzZF9jdHJsX3dyaXRlMTYoaG9zdCwgQ1RMX1NEX0NBUkRfQ0xLX0NUTCwgY2xrX2N0cmwpOw0K
-PiA+ICsJCWlmIChob3N0LT5wZGF0YS0+ZmxhZ3MgJiBUTUlPX01NQ19JTlRFUk5BTF9ESVZJREVS
-KQ0KPiA+ICsJCQlzZF9jdHJsX3dyaXRlMzIoaG9zdCwgQ1RMX1NEX0NBUkRfQ0xLX0NUTCwgY2xr
-X2N0cmxfMzIpOw0KPiA+ICsJCWVsc2UNCj4gPiArCQkJc2RfY3RybF93cml0ZTE2KGhvc3QsIENU
-TF9TRF9DQVJEX0NMS19DVEwsIGNsa19jdHJsKTsNCj4gPiArDQo+IA0KPiBXZSBzaG91bGQgaGlk
-ZSB0aGlzIGNvbXBsZXhpdHkgaW4gYSBmdW5jdGlvbiwgSSdkIHNheS4gVG8gbWFrZSBzdXJlIGZ1
-dHVyZSB1cGRhdGVzIG1vZGlmeWluZw0KPiBDVExfU0RfQ0FSRF9DTEtfQ1RMIHdpbGwgaGF2ZSBp
-dCBlYXN5Lg0KDQpPSy4NCg0KPiANCj4gPiArLyogU29tZSBjb250cm9sbGVycyBoYXZlIGh3IGFk
-anVzdG1lbnQgZGVsYXkgKi8NCj4gPiArI2RlZmluZSBUTUlPX01NQ19IV0FESgkJCUJJVCgxNSkN
-Cj4gDQo+IEkgd29uZGVyIGhvdyBsaWtlbHkgaXQgaXMgdGhhdCBhIFNESEkgdmFyaWFudCBoYXMg
-ZWl0aGVyIG9ubHkgdGhpcyBvciBvbmx5IFRVTklOR19ERUxBWS4gRG8geW91IGtub3cgb2YNCj4g
-b25lPyBXaGF0IHdvdWxkIHlvdSB0aGluayBhYm91dCBtZXJnaW5nIHRoZSB0d28/IFlvdSBrbm93
-IHRoZSBSWiBTREhJIG11Y2ggYmV0dGVyLi4uDQoNCkhXQURKMiBwcmVzZW50IG9ubHkgb24gUlov
-RzNMLA0Kd2hlcmVhcyBUVU5JTkdfREVMQVkgcHJlc2VudCBvbiBib3RoIFJaL0cyTCBhbmQgUlov
-RzNMLg0KDQo+IA0KPiBJIHdpbGwgc3RvcCByZXZpZXdpbmcgYXQgdGhpcyBwYXRjaC4gVGhlcmUg
-YXJlIGVub3VnaCBpc3N1ZXMgdG8gdGFja2xlLCBJJ2QgdGhpbmsuIE9uY2Ugd2UgZ290IHRoaXMN
-Cj4gcmlnaHQsIHdlIGNhbiBpbXByb3ZlIEhTNDAwIG9uIHRvcCBvZiBpdC4NCj4gDQo+IE1ha2Vz
-IHNlbnNlIHRvIHlvdT8NCg0KWWVzLiBJIGhhdmUgcmVzcG9uZGVkIHRvIGFsbCB5b3VyIGNvbW1l
-bnRzLiBQbGVhc2UgcHJvdmlkZSBzdWdnZXN0aW9ucy4NCg0KTG9va2luZyBmb3J3YXJkIHRvIGhl
-YXJpbmcgZnJvbSB5b3UuDQoNCkNoZWVycywNCkJpanUNCg0K
+When CPU or memory hotplug events occur, the elfcorehdr in the kdump
+image becomes stale, potentially leading to incomplete crash dumps.
+
+Currently, userspace udev rules reload the entire kdump image upon such
+events, which is inefficient and leaves kdump inactive for a long time.
+
+Commit 247262756121 ("crash: add generic infrastructure for crash hotplug
+support") introduced a kernel mechanism to update only the elfcorehdr.
+This patch set implements crash hotplug support for arm64.
+
+As Baoquan and Catalin suggested, it also addresses and fixes several
+pre-existing code issues found by Sashiko AI [1][2].
+
+The major improvements and fixes included in this series are:
+- Fix several memory leaks for arm64, and similar issues on LoongArch.
+- Fix TOCTOU race in crash memory range collection
+- Simplify arm64 load_other_segments().
+- Implement infrastructure for arm64 crash memory hotplug support.
+
+This patch set is rebased on v7.3-rc1.
+
+TESTING
+=======
+
+Only kexec_file_load path has been tested; kexec_load is expected to
+work via KEXEC_CRASH_HOTPLUG_SUPPORT flag but not yet verified.
+
+Tested on an arm64 guest using KVM-QEMU[3] with the following
+configuration:
+        -M virt,acpi=on,highmem=on
+        -m 4G,slots=256,maxmem=16G
+        -smp cpus=4,maxcpus=8,cores=4,threads=2,sockets=1
+
+1. Memory Hot-Add Test
+
+[Step 1] Load kexec first:
+        ./kexec --kexec-file-syscall ...
+
+[Step 2] Hotplug and online 128M memory and trigger crash:
+        (qemu) object_add memory-backend-ram,id=mem1,size=128M
+        (qemu) device_add pc-dimm,id=dimm3,memdev=mem1,addr=0x160000000
+        echo 1 > /sys/devices/system/memory/memory44/online
+        echo c > /proc/sysrq-trigger
+
+[Step 3] Verify vmcore layout in the secondary kernel:
+        readelf -l /proc/vmcore
+
+The newly added 128M memory segment (0x160000000) is successfully
+recognized and populated as a LOAD segment:
+
+        LOAD 0x... 0x0000000160000000 0x08000000 0x08000000 RWE 0x0
+
+2. Memory Hot-Remove Test
+
+[Step 1] Add memory device and online 128M memory first:
+        (qemu) device_add pc-dimm,id=dimm3,memdev=mem1,addr=0x160000000
+        echo 1 > /sys/devices/system/memory/memory44/online
+
+[Step 2] Load kexec, offline memory, and crash:
+        ./kexec --kexec-file-syscall ...
+        echo 0 > /sys/devices/system/memory/memory44/online
+        echo c > /proc/sysrq-trigger
+
+[Step 3] Verify vmcore layout:
+        readelf -l /proc/vmcore
+
+Result: The 0x160000000 segment is cleanly excluded from the vmcore
+        program headers, and the dump completes without any hang.
+
+3. CPU Hot-Add Test
+
+[Step 1] Load kexec first:
+        ./kexec --kexec-file-syscall ...
+
+[Step 2] hotplug and online one CPU, then crash:
+        (qemu) device_add driver=host-arm-cpu,core-id=2,thread-id=0,id=cpu4
+        echo 1 > /sys/devices/system/cpu/cpu4/online
+        echo c > /proc/sysrq-trigger
+
+[Step 3] Verify notes count:
+        readelf -n /proc/vmcore | grep -w CORE | wc -l
+        5
+
+Result: Crash hotplug responds correctly; the newly plugged CPU4 is
+        tracked, and 5 NT_PRSTATUS notes are generated.
+
+4. CPU Hot-Remove Test
+
+[Step 1] Add CPU device and online it first:
+        (qemu) device_add driver=host-arm-cpu,core-id=2,thread-id=0,id=cpu4
+        echo 1 > /sys/devices/system/cpu/cpu4/online
+
+[Step 2] Load kexec, remove CPU, and crash:
+        ./kexec --kexec-file-syscall ...
+        (qemu) device_del cpu4
+        echo c > /proc/sysrq-trigger
+
+[Step 3] Verify notes count:
+        readelf -n /proc/vmcore | grep -w CORE | wc -l
+        4
+
+Result: Crash hotplug automatically updates the headers upon CPU
+        eviction; only 4 online CPUs are registered in the vmcore.
+
+[1]: https://lore.kernel.org/all/20260601094805.2928614-1-ruanjinjie@huawei.com/
+[2]: https://sashiko.dev/#/patchset/20260729031235.2840255-1-ruanjinjie%40huawei.com
+[3]: https://github.com/salil-mehta/qemu.git virt-cpuhp-armv8/rfc-v2
+
+Changes in v4:
+- Rebased on v7.3-rc1.
+- Update the kexec_core code as Mike suggested.
+- Update the LoongArch subject as Huacai suggested.
+- Drop crash_dump_dm_crypt patch which will be fixed by Coiby in [4] as
+  Sourabh suggested.
+- Drop x86 related patches because of branch conflict, which will
+  be done later.
+- Drop the incorrect CRASH_MAX_MEMORY_RANGES patch.
+- Handle elfcorehdr_index in arm64 arch code.
+- Link to v3: https://lore.kernel.org/all/20260826092541.3905933-1-ruanjinjie@huawei.com/
+
+[4] https://lore.kernel.org/all/20260828084900.1496839-2-coiby.xu@gmail.com/
+
+Changes in v3:
+- Handle "KEXEC_CRASH_HP_REMOVE_MEMORY" action.
+- Fix several pre-existing code issues reported by Sashiko AI review [3].
+- Introduce crash_extra_elfcorehdr_size() and elf64_phdr_size() helper.
+- Rework related crash and arch code.
+- Add test method.
+- v2: https://lore.kernel.org/all/20260729031235.2840255-1-ruanjinjie@huawei.com/
+
+Changes in v2:
+- Split out Powerpc bugfix patch as Mike suggested.
+- Use phys_to_virt() instead of __va() in update_crash_elfcorehdr().
+- Convert pnum_hdr_sz() to a function.
+- Only assign elfcorehdr_index after kexec_add_buffer succeeds, considering
+  crash_handle_hotplug_event() already performs validity check on
+  elfcorehdr_index:
+  - We can safely remove the check for CPU hotplug
+    in arch_crash_handle_hotplug_event().
+  - The elfcorehdr_index's segment mem will be valid in
+    update_crash_elfcorehdr(), so we can safely remove the NULL check.
+- Simplify the commit message.
+- v1: https://lore.kernel.org/all/20260723131242.1537633-1-ruanjinjie@huawei.com/#t
+
+Jinjie Ruan (12):
+  kexec: Record allocated CMA pages to fix release size mismatch
+  kexec: Extract kexec_free_segment_cma() from kimage_free_cma()
+  arm64: kexec_file: Fix CMA page leaks in segment placement retry loops
+  arm64: kexec_file: Fix elf_headers memory leak in retry loop
+  LoongArch: kexec_file: Fix CMA page leaks in segment placement retry
+    loops
+  LoongArch: kexec_file: Fix elf_headers memory leak in retry loop
+  crash: Extract crash_get_memory_ranges() helper
+  crash: Fix TOCTOU race in crash memory range collection
+  elf: Introduce elf64_phdr_size() helper
+  crash: Introduce crash_extra_elfcorehdr_size() helper
+  arm64: kexec_file: Simplify load_other_segments()
+  arm64: crash: Add crash hotplug support
+
+ arch/arm64/Kconfig                         |   3 +
+ arch/arm64/include/asm/kexec.h             |  11 ++
+ arch/arm64/kernel/Makefile                 |   2 +-
+ arch/arm64/kernel/crash.c                  | 167 +++++++++++++++++++++
+ arch/arm64/kernel/kexec_image.c            |   1 +
+ arch/arm64/kernel/machine_kexec_file.c     |  63 +++-----
+ arch/loongarch/kernel/kexec_efi.c          |   1 +
+ arch/loongarch/kernel/machine_kexec_file.c |  10 +-
+ arch/powerpc/kexec/crash.c                 |   2 +-
+ arch/powerpc/kexec/file_load_64.c          |  19 +--
+ arch/powerpc/platforms/powernv/opal-core.c |   3 +-
+ arch/x86/kernel/crash.c                    |  12 +-
+ fs/proc/vmcore.c                           |   6 +-
+ include/linux/crash_core.h                 |  21 +++
+ include/linux/elf.h                        |   4 +
+ include/linux/kexec.h                      |   3 +
+ kernel/crash_core.c                        |  50 +++++-
+ kernel/kexec_core.c                        |  26 ++--
+ kernel/kexec_file.c                        |  13 +-
+ 19 files changed, 326 insertions(+), 91 deletions(-)
+ create mode 100644 arch/arm64/kernel/crash.c
+
+-- 
+2.34.1
+
