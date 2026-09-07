@@ -1,133 +1,116 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DFBA476CCC
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:01:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7C463B9D86;
+	Mon,  7 Sep 2026 11:02:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788778888; cv=none; b=ZYJlKcConXWggNFHTzpo1lvpmiLoH0Z4u3zWlvwQ6kvw8uJjrVAsl53nax7v4wWMNinWvG2wt7wAqE7TZUIt9rqNBYZzwWteFHoEgPBdz+REUHTHn2hFVa52rMaPzDcCBj0GihiXya3CEzF2i6+4qQaDo3tSFRDkvhfT4IFl/DY=
+	t=1788778929; cv=none; b=bUNeKfde08I+NJrf9aEZHzL0VEx/lgSq1XvfUlYnD+Uta3NmLHxh/8yxqwZYlfuTFyR7XJsRkp9YlxwIaOz5IIj9FvzzhlZFs7IeB0yTVNveVqqKMJtaYyL/OVlDKxhoIlFWZ/hf9ZpNh7can9HMx02G+SLmjGTdxjzlQARAqCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788778888; c=relaxed/simple;
-	bh=XibBSg31sYhIfm9WILqIX5SvAFSJu4FQUUdGCpnT4H4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n6AsniqRFWT5dB4DKgaGx6ZoSF9KUmOx/gGvks+bgbzY50Pcf2swdIotbzxE7iyRA6xOOp1MFukQoZcHKvXX9aB1e6HqI7CnBD283F15Pouvu0N2v8vfpbvug7LRAcpej1WOiMe/5E9sDp4eUE986vAkLQQjmROYW6bLVBYlIEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T11HSpV1; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788778929; c=relaxed/simple;
+	bh=3C84IEMFAiiWfWQ9rsDQ9T4zHS6EtLuWEEHMX862IJA=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ma0KuobrOjtvFHG/LGN3zYuU4ZaT09VeyoYf/og8O1LHg3dCJBYy2c67gIlv8Qbqx9j/Ex99tnHhPhKPzuAVx/vqOBdLzNgK1gIIFZAijuDXWTfjz6XEpY8NFHrexwZou/ylUAtont07LIutdB2boS3ziuZtvThEGiag8YtKzCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=IsCs3eAR; arc=none smtp.client-ip=67.231.156.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T11HSpV1"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-499db1a5b5eso676425e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 04:01:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788778885; x=1789383685; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hmQkGxTXpbepXYDRQ84g3dgJxZsX5xz0ouxxoFxBPoQ=;
-        b=T11HSpV1nGW+Gb+zKZ6ehZQU5einRXbQMi+gPUCKJkxc/P9FPyxUq8kFRFziumkteJ
-         2aBDU85rvWg6OadekmLqF/pnVtxJ72aU3+dXEEalhbg+e04PxiGGbWSlPBmEt7vVacCN
-         r0IymrRikrMRyq23bvzWdutYfUy9HisZgBRLho38YmRdlCyS1n31RO5BPBHFx7ycWS6U
-         BNBJVjKKqSrAoPi3vABPpOoYeBh62jDQkbCpyCRRQToETnUio62lqSrGo9XJS9+laC6d
-         6mNqHY5Yxohy7xLEoFhdhwe2KgpJmbFssTefLmKAet5regwIii7r7bjL2wqo1wZENKZa
-         ZB0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788778885; x=1789383685;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hmQkGxTXpbepXYDRQ84g3dgJxZsX5xz0ouxxoFxBPoQ=;
-        b=PMivB2/hMEJnz6ynqFG7OwXRAw9xPR2NulRQ55euPcsn8RjJorFVq5B5X1LBkgm3nJ
-         YjwAjOHwHmfv6DGjUso5z43ik4M/NrguvCZE74SxN4IsOJku9C8pna08EhNc0isEyxTi
-         9hwe0Epa4/0a6mIfmbe9ujRRV8sQ1JArBjnBpoIH4xqH4/jN+N/p4e4GJ25MqYRMVy/l
-         oIHW6hDXNwxNvk46GN6gBGLAAhsBKoDRZHCjVuyAt65b+yphISDJ27XjH9SZ/MjnYNER
-         iW3i9/UMWQ4BFvc3/jQ0Y1m8rD/SR1aXpWIHrzSz6NsB4QAeEtBcf4nnyRvT803ZmQBk
-         cx6g==
-X-Forwarded-Encrypted: i=1; AKwUvByBBEt5eAPSWBCkg8odU39nITRTen1AdEA4mCA9ZSxdn1KW2WjdqwjIF0p3wLcRq19yPWwpEwd4PztG6xc=@vger.kernel.org
-X-Gm-Message-State: AFuF++ke1Z2PPvusTtDxXRjI27oDmicVweT36wM9Vt40zsoosdocdRIf
-	/oCTqbLhWJorkk6GKBp4ReNF+EZZRehK5YEcmZ04EMkEHQkI8/H08Ipj
-X-Gm-Gg: AYBFou3ejA2pCTEQyS/ahoXX1JfUUdY8HUBSyDgUO9JEFccxMeDHZk301sYfjEZGiG/
-	1/LXgwtJzeaJduTF+7mvzr+E5EMrk6Vdw5X9NP4/XIaY/IilW6ZJjmgNQC18jA7LlXxUm/314li
-	74KoqdkKp1ph5PqMjamVI0oXaHo+aPQUKxmD9YwvNSHM6XqoiiqNSQE9oFrqlVWljYgHF+76JQC
-	h/PpTY2DawU/YEM8+UB472Zf0l1AooZV0JDzMRl3YryRct/GXfRG+VU1oWPUy5a1774VR2XE5wW
-	QdSGv5gh9XNp3rYw1UXRu0u5HWEzmmCDc1Jg5JhTn7Gz7vqjrrhkedffXcREK/Tnwa2mSPnpgkZ
-	iRShUSAAF+AC+8A8its3lnaiIx3lc6ro2G2B0Iz0qJsApWPVSGVeCVnTEvDzGcNQCYTFQh2ddsu
-	y4m2cniYEsaQ/QZ0Kpe7QCxTjPWBfMo1FWoLiDQVqetomeB9U+4w==
-X-Received: by 2002:a05:600c:a012:b0:49c:eac2:ddad with SMTP id 5b1f17b1804b1-49d01dc0137mr124980435e9.1.1788778885385;
-        Mon, 07 Sep 2026 04:01:25 -0700 (PDT)
-Received: from skbuf ([2a02:2f04:d006:ef01:8e86:58dc:206e:83a0])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885be1c1sm27074419f8f.32.2026.09.07.04.01.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 04:01:23 -0700 (PDT)
-Date: Mon, 7 Sep 2026 14:01:21 +0300
-From: Vladimir Oltean <olteanv@gmail.com>
-To: Inochi Amaoto <inochiama@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH v2 1/4] phy: core: Add common helper to add phy phandle
- device link
-Message-ID: <20260907110121.hfrblphv5vhzobj7@skbuf>
-References: <20260904083709.425893-1-inochiama@gmail.com>
- <20260904083709.425893-1-inochiama@gmail.com>
- <20260904083709.425893-2-inochiama@gmail.com>
- <20260904083709.425893-2-inochiama@gmail.com>
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="IsCs3eAR"
+Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
+	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687Ap5uh2654431;
+	Mon, 7 Sep 2026 04:01:56 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pfpt0220; bh=W4R0+d+WUbd6nGaO245VWULp6
+	Ck4ivLU3Nq5ngnHZCY=; b=IsCs3eARAPTiMtO6amGrfatUDqa8qketK+EX/YIAK
+	9Wk/NR8I8ucWVHGhDLzxJyFKpqqC1PYOUOb8AZpMSUDzTvpvIIWNLaiE9hi+YR5u
+	ssHuZWOroopLL7yNAg25hwH4irtYQjZlxsSS1kNnacvnggB8hRWSN5Zn23j9uJIq
+	l5om0l5YOFAP03pE6RKQZ0DSmacjiZ+UWRqiIvWQ8bAu/XBWjjn1P4TxvYSB9KDe
+	z1GImr3rjaA2U4Fct5uzU9hFcPs0e3DCuxkorHNg/dERFh/kO2Qpmr6Maupnjvdg
+	/6a2PTUHLv+EKPKfw7JtHXnfPlZAr7BZnArQ5Qqsv+L0g==
+Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
+	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4ghupy81y3-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 07 Sep 2026 04:01:56 -0700 (PDT)
+Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
+ DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Mon, 7 Sep 2026 04:01:55 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
+ (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
+ Transport; Mon, 7 Sep 2026 04:01:54 -0700
+Received: from rkannoth-OptiPlex-7090 (unknown [10.28.36.165])
+	by maili.marvell.com (Postfix) with SMTP id C290F3F704D;
+	Mon,  7 Sep 2026 04:01:51 -0700 (PDT)
+Date: Mon, 7 Sep 2026 16:31:45 +0530
+From: Ratheesh Kannoth <rkannoth@marvell.com>
+To: Leon Romanovsky <leon@kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+        <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+        <kuba@kernel.org>, <pabeni@redhat.com>, <sgoutham@marvell.com>,
+        "Hariprasad
+ Kelam" <hkelam@marvell.com>
+Subject: Re: [PATCH v2 net-next] octeontx2-pf: report port connector type in
+ ethtool link ksettings
+Message-ID: <ap6ZmZ4SwFa4Xf4_@rkannoth-OptiPlex-7090>
+References: <20260907042827.4077114-1-rkannoth@marvell.com>
+ <20260907072315.GG13683@unreal>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20260904083709.425893-2-inochiama@gmail.com>
- <20260904083709.425893-2-inochiama@gmail.com>
+In-Reply-To: <20260907072315.GG13683@unreal>
+X-Authority-Analysis: v=2.4 cv=AYyB2XXG c=1 sm=1 tr=0 ts=6a9e99a4 cx=c_pps
+ a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=l0iWHRpgs5sLHlkKQ1IR:22 a=QXcCYyLzdtTjyudCfB6f:22 a=VwQbUJbxAAAA:8
+ a=M5GUcnROAAAA:8 a=-yquJuTKTeUr1aoEfloA:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
+ a=OBjm3rFKGHvpk9ecZwUJ:22 a=lhd_8Stf4_Oa5sg58ivl:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDEyMSBTYWx0ZWRfX2+2BGVNUvRP0
+ EOhZjw4YnyvcLeCMzA/2dZPNNNhixFQk6lWvr8UgjYjsqkN09PBV0LDpUdg4aq1iib7A8w3PyTZ
+ algoWZeRjZXMP7Ugfd4fq+zk8boJr2i9HVeC1bq8dtfyJZQy8/SfizxtU258+eVjA1QiaIN6LCn
+ 8fJw25j/H0FTaR+M9MXntr9vrzZYoaVIWhm9XaPpoF19jSvrtMZ/gmTuzYlmF/BKkvVXP7oKow0
+ j7r9zQ5++8rE5BEZW18YtYZ6356zl8KF8Oqxka8QSRE3oMqBwd0qrlVJYpPv99/LfpGgL+Hie1h
+ Ze9ENEjlOnUm4VwJNK91oEdf2G1UEbZaiTGlbxjS+EYNAD7crc1Fxomcn7J/SKqZip+SBlyxm9d
+ YCt2573J/Yu4+yrGSy9f4I98JpJmamTeUYKMmY3K24p5AJEvck9YkhM5Fro7+E/yxzV/4WDtXf8
+ kcjqDfuaO7+HqwKOa/g==
+X-Proofpoint-ORIG-GUID: toM_TnWfbVdUtfGK-sK5cO3lOLc702Jy
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDEyMSBTYWx0ZWRfXxy+F58UpH5Wn
+ KQ62sJCZmShm0wqT4C8pG+SPrPwi0au1xZHHjOF2k0ewZB4sJEsPeAhpsRhy26fB6JEWN8s2Nvc
+ h8VK2w03apBdg9wEi9D+3sz/7w2WqUc=
+X-Proofpoint-GUID: toM_TnWfbVdUtfGK-sK5cO3lOLc702Jy
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_03,2026-09-07_01,2025-10-01_01
 
-On Fri, Sep 04, 2026 at 04:37:05PM +0800, Inochi Amaoto wrote:
-> It is very common for adding a device link for phy phandle
-> for device managed phy helper functions. So add a common
-> helper for future reuse.
-> 
-> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
-> ---
->  drivers/phy/phy-core.c | 38 +++++++++++++++++++++++---------------
->  1 file changed, 23 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
-> index 21aaf2f76e53..ea79913fbb87 100644
-> --- a/drivers/phy/phy-core.c
-> +++ b/drivers/phy/phy-core.c
-> @@ -606,6 +606,26 @@ int phy_validate(struct phy *phy, enum phy_mode mode, int submode,
->  }
->  EXPORT_SYMBOL_GPL(phy_validate);
->  
-> +/**
-> + * phy_add_device_link() - Associate the phy with the device
-> + * @dev: the device to link the phy
-> + * @phy: the phy to associate
-> + *
-> + * Associate the phy with the device by using device link.
+On 2026-09-07 at 12:53:15, Leon Romanovsky (leon@kernel.org) wrote:
+> On Mon, Sep 07, 2026 at 09:58:27AM +0530, Ratheesh Kannoth wrote:
+> > From: Hariprasad Kelam <hkelam@marvell.com>
+> >
+> > +++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ethtool.c
+> > @@ -1231,6 +1231,8 @@ static int otx2_get_link_ksettings(struct net_device *netdev,
+> >  				OTX2_MODE_SUPPORTED, cmd);
+> >  	otx2_get_fec_info(rsp->fwdata.supported_fec,
+> >  			  OTX2_MODE_SUPPORTED, cmd);
+> > +
+> > +	cmd->base.port = (u8)rsp->fwdata.port;
+>
+> You should declare identical fields with the same type and avoid silently
+> casting variables.
+>
+> Thanks
+You are suggesting to split rsp->fwdata.port to  u8 port + 7-byte pad ?
+Currently FW is writing as 64bit.
 
-I guess it would be good to specify somewhere "consumer" device, because
-there are multiple devices involved.
-
-> + */
-> +static void phy_add_device_link(struct device *dev, struct phy *phy)
-> +{
-> +	struct device_link *link;
-> +
-> +	if (!phy)
-> +		return;
-> +
-> +	link = device_link_add(dev, &phy->dev, DL_FLAG_STATELESS);
-> +	if (!link)
-> +		dev_dbg(dev, "failed to create device link to %s\n",
-> +			dev_name(phy->dev.parent));
-> +}
-> +
->  /**
->   * _of_phy_get() - lookup and obtain a reference to a phy by phandle
->   * @np: device_node for which to get the phy
+>
+> >  	return 0;
+> >  }
+> >
+> > --
+> > 2.43.0
+> >
+> >
