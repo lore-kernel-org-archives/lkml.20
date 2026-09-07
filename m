@@ -1,104 +1,118 @@
-Received: from e234-51.smtp-out.ap-northeast-1.amazonses.com (e234-51.smtp-out.ap-northeast-1.amazonses.com [23.251.234.51])
-	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79D1A3859C3;
-	Mon,  7 Sep 2026 05:44:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.251.234.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE70B372058;
+	Mon,  7 Sep 2026 05:45:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.126.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788759846; cv=none; b=U/ny2N9XVfVjvfT2LGCCh+sTM6iKqIIuYNKurZfCR+StRskGrEGnWsrx4zFVNkjmXYB2iVR/YkLF60zfVbow7z4OmUPYOTnPnQ5NX994auOfO3MZmf3yPsHzifAQfEpvF2iWcnplAMasBfTjObT3qQE97DqzPYXPe9Rw1AlDIeY=
+	t=1788759923; cv=none; b=JziXG8pyz1qu99eJTCXUSB7/carrkDGw98mIToRfCi6MHAhNxgC2SIG5BzIRbgrWkVYawFPG8AuPy8718Q32bxcJrRvnfjWwmy1cuo8NajkQC91EL1TdC7dcH5aLUiKvvTm4MBG5RlKO/8LsprIDThHUNnxXsL6+hm6cLHMiB/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788759846; c=relaxed/simple;
-	bh=YFLTYkpMiuMdIxB0n7Vn5+y+Fe4rF3hmPAxf5YUS2/o=;
-	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Date:
-	 MIME-Version:Content-Type; b=K5pXlbVHGWUtsdg9fQy7toC1qcxEzA6rpGd3TpcwjHAMmk7mtVJ++yyDizNFOEK0TN6dpgqEeXurkO8Q76R34ImgOFyR2wE1/C3SVq/09gRUDlEvFI756nCHBpL6v6E29+2CoMbb3aaRQIs5KW8iRmyphpvKbFpsO750K8cL+OA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz; spf=pass smtp.mailfrom=send.fqwqf.xyz; dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b=Kn1eaz8Q; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=gPlvdSVr; arc=none smtp.client-ip=23.251.234.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
+	s=arc-20240116; t=1788759923; c=relaxed/simple;
+	bh=74OyWk+S1XapnZa91tZh7QGJ8Z65Zq0I4MGM9fNJNk4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=pnYsu32y/UGohjb1L0aJl4bFlHxdoxkZq9hwn6Vi2Tq8BAdR9aIT599d8SuF3NJJRm2nP7QOWhNoHOVitt6X0vW7EmMMjWEMbzQMm+ba2u/5K+2+CRptOJrZEkWkDLd6FMXq58XunGNRz5Ad6VvGibA8NoPU2pV8wMB8udJYYVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net; spf=pass smtp.mailfrom=weissschuh.net; dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b=A6HY3cV7; arc=none smtp.client-ip=159.69.126.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b="Kn1eaz8Q";
-	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="gPlvdSVr"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
-	d=fqwqf.xyz; t=1788759844;
-	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=YFLTYkpMiuMdIxB0n7Vn5+y+Fe4rF3hmPAxf5YUS2/o=;
-	b=Kn1eaz8QVaIvotpu5FYm4ZDskPlZL1Qj1pfTBGh56GNqXUQbd5a2ZTBO0xlP/PEm
-	9yXm0CilFJ0/c09AfqnQUuLVIwKlMMqhIj4I5ACHwRq8tsuOnx/U5UXcRhPwvk6uGQC
-	F81U+brIQsiXj9y+io1Fi7uTrLitO7aFQCmMOAig=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1788759844;
-	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=YFLTYkpMiuMdIxB0n7Vn5+y+Fe4rF3hmPAxf5YUS2/o=;
-	b=gPlvdSVrNtcB7IDovzAJao8VeXerF8IiNfdzyCSYvq08X/0Ka3g+Ti012iCsYz0C
-	HUcA5P0FYhRWPLQcQPt/52tavJq8ewodPrVBHGwTVe3Ha7EIuF/cnEjxkz6yMPrPd17
-	ZIYypiQPUU88HVVAK8bpn56+HqNEY3gbvcYtxnsk=
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907054339.12409-1-fqwqf@fqwqf.xyz>
-References: <20260907054339.12409-1-fqwqf@fqwqf.xyz>
-From: fQwQf <fqwqf@fqwqf.xyz>
-To: devicetree@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org, 
-	bentiss@kernel.org, jikos@kernel.org
-Subject: [PATCH 2/2] arm64: dts: qcom: microsoft-romulus13: enable
- touchscreen
-Message-ID: <010601a07a6524b4-0bac871e-cea3-4cbe-9a33-111003dd4808-000000@ap-northeast-1.amazonses.com>
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 7 Sep 2026 05:44:04 +0000
+	dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b="A6HY3cV7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+	s=mail; t=1788759912;
+	bh=74OyWk+S1XapnZa91tZh7QGJ8Z65Zq0I4MGM9fNJNk4=;
+	h=From:Subject:Date:To:Cc:From;
+	b=A6HY3cV701dgp4nehXyHi0uuEnDYEsK/ruMG+iGzYoQjZUV/M7TXnif6yPqj1WCHf
+	 u6SwqmxYz6xiFp1/Wb0+Xphev6GzjL+dE1p6VSs5jEWoFF42oV7/2jf4QHzK47dG/q
+	 rSXkrDVQq0zPLslfyMEAaaLBw5epZDE/IPsbgxso=
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Subject: [PATCH v2 0/3] driver core: Constify the signature of
+ device_show/store_*()
+Date: Mon, 07 Sep 2026 07:45:00 +0200
+Message-Id: <20260907-sysfs-const-attr-dev_ext_attr-v2-0-bf53afe57071@weissschuh.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
-X-SES-Outgoing: 2026.09.07-23.251.234.51
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WOyw7CIBBFf6Vh7RjAitGV/2GapoVBcEENQ7FN0
+ 3+3j7h2eZKbc+7ECKNHYrdiYhGzJ9+FBeShYNo14YngzcJMcqn4RUigkSyB7gIlaFKKYDDXOKR
+ 6h9YqdbXGmhLZ4nhHtH7Y/I9qZ+rbF+q0SteF85S6OG4Hslh3v1b5p5UFcFCt1Lw8nY2S4v5BT
+ 0Ta9e4YMLFqnucvwCtUS+EAAAA=
+X-Change-ID: 20260712-sysfs-const-attr-dev_ext_attr-dbf669fdfd4e
+To: Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>, Will Deacon <will@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Jonathan Cameron <jic23@kernel.org>, 
+ Yushan Wang <wangyushan12@huawei.com>, Jijie Shao <shaojijie@huawei.com>, 
+ Khuong Dinh <khuong@os.amperecomputing.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>
+Cc: linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, 
+ linux-cxl@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, driver-core@lists.linux.dev, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788759912; l=2248;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=74OyWk+S1XapnZa91tZh7QGJ8Z65Zq0I4MGM9fNJNk4=;
+ b=XvYmhK8g23TtkqqxN7yFFdmL3QKRYan/Vq1gOpl1Rbpx5vGwB2eFDVQ3yILkyDbE08ZBxinF5
+ wad1OfZF2tjA5gvkgXhlADqWAri64DSYcu+XOo2XcNPH3zmUHKsUZII
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 
-The 13.8-inch Surface Laptop 7 has an ITCH MSHW0468 touchscreen
-connected to QUP1 SE0 at I2C address 0x34. Describe the controller,
-interrupt, reset GPIO, and HID descriptor register so i2c-hid can
-enumerate the touchscreen.
+Prepare for the constification of 'struct dev_ext_attribute' instances
+by changing the signature of the standard callback functions.
+The first two patches prepare some drivers to handle both the const and
+non-const callback variants.
 
-The HID descriptor is located at register =
-0x0000 rather than the default
-0x0020.
+Intended for the driver-core tree.
 
-Tested-by: fQwQf <fqwqf@fqwqf.xyz>
-Signed-off-by: fQwQf <fqwqf@fqwqf.xyz>
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
 ---
- .../dts/qcom/x1e80100-microsoft=
--romulus13.dts     | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+Changes in v2:
+- Rebase on v7.3-rc1.
+- Cover a few more drivers in drivers/perf/.
+- Link to v1: https://patch.msgid.link/20260714-sysfs-const-attr-dev_ext_attr-v1-0-6b2c0435d621@weissschuh.net
 
-diff --git a/arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus13.dts =
-b/arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus13.dts
-index eb7580dd9..76d143943 100644
---- a/arch/arm64/boot/dts/qcom/x1e80100-m=
-icrosoft-romulus13.dts
-+++ b/arch/arm64/boot/dts/qcom/x1e80100-microsoft-ro=
-mulus13.dts
-@@ -11,3 +11,18 @@ / {
- 	model =3D "Microsoft Surface Laptop 7 =
-(13.8 inch)";
- 	compatible =3D "microsoft,romulus13", "qcom,x1e80100";
- };
-+
-+&i2c8 {
-+	clock-frequency =3D <400000>;
-+
-+	status =3D "okay";
-+
-+	touchscreen@34 {
-+		compatible =3D "hid-over-i2c";
-+		reg =3D <0x34>;
-+		hid-descr-addr =3D <0x0000>;
-+
-+		interrupts-extended =3D <&tlmm 38 =
-IRQ_TYPE_LEVEL_LOW>;
-+		reset-gpios =3D <&tlmm 31 GPIO_ACTIVE_LOW>;
-+	};
-+};
---=20
-2.53.0
+---
+Thomas Weißschuh (3):
+      x86/mce: Use __DEVICE_ATTR() macro to initialize dev_ext_attribute
+      drivers: perf: Use __DEVICE_ATTR() macro to initialize dev_ext_attribute
+      driver core: Constify the signature of device_show/store_*()
+
+ arch/powerpc/perf/hv-24x7.c                 |  2 +-
+ arch/x86/kernel/cpu/mce/core.c              |  6 +++---
+ drivers/base/core.c                         | 30 ++++++++++++++---------------
+ drivers/perf/alibaba_uncore_drw_pmu.c       |  2 +-
+ drivers/perf/arm-cci.c                      |  2 +-
+ drivers/perf/arm-ccn.c                      |  2 +-
+ drivers/perf/arm_cspmu/arm_cspmu.h          |  2 +-
+ drivers/perf/arm_dsu_pmu.c                  |  2 +-
+ drivers/perf/arm_spe_pmu.c                  |  6 +++---
+ drivers/perf/cxl_pmu.c                      | 10 +++++-----
+ drivers/perf/fsl_imx8_ddr_perf.c            |  2 +-
+ drivers/perf/fujitsu_uncore_pmu.c           |  2 +-
+ drivers/perf/hisilicon/hisi_pcie_pmu.c      |  2 +-
+ drivers/perf/hisilicon/hisi_uncore_pmu.h    |  6 +++---
+ drivers/perf/hisilicon/hns3_pmu.c           |  6 +++---
+ drivers/perf/nvidia_t410_c2c_pmu.c          |  2 +-
+ drivers/perf/nvidia_t410_cmem_latency_pmu.c | 12 ++++++------
+ drivers/perf/qcom_l3_pmu.c                  |  8 ++++----
+ drivers/perf/starfive_starlink_pmu.c        |  2 +-
+ drivers/perf/xgene_pmu.c                    |  2 +-
+ include/linux/device.h                      | 14 +++++++-------
+ 21 files changed, 61 insertions(+), 61 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260712-sysfs-const-attr-dev_ext_attr-dbf669fdfd4e
+
+Best regards,
+--  
+Thomas Weißschuh <linux@weissschuh.net>
 
