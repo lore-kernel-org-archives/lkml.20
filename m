@@ -1,201 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF21739184C;
-	Mon,  7 Sep 2026 06:14:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 208B4391E7C
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:15:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788761682; cv=none; b=UhdYNuv3+vcfCW62lx3uk1ROHTlHQ03yQn1UNH6U64ypU0MNcPV1irJR3x3fkhpLVqw0PRl5mnOnLkhdsQup1rYlD5kpicFf/zqLUwcFGPRGjH74M15Doc2cS4v8QWTD1mnguQ2VpP6YJeiQbToH8Vq01T79WPCrWBy7rewCNeY=
+	t=1788761719; cv=none; b=BBwKPrq5xDIniPA1U7T678AtzpgpQ+XztCSBhPC2KMACLzPFPNujNrofaA+PWj8bIyhU6rp48Fl51v+96kMfnP3PJQdDZSlQeOSYRQHVpx4bRjfDfosL3DZWkqvZ27sHLAb6uVRv0pxMHPGNSEw+GDvF78GdYSszB3tbJNAo7FQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788761682; c=relaxed/simple;
-	bh=TiVHv/STHBIw8eR5i80gmB9GwLFXKqEbVozeatIRsEI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jtb+71Z7cuZ2MlmN41DSKAKDOvb8vvovVZjJ9gDVLX9WOjasGFDfQHwf9AV9ssnjWSXe7s8k4U6OIx5B0DmuOOyvcdfqL3meM8C5YWXqF7vI0YEb7JZOYL9OUVEPkG/HxQ7DSLXWTeJE6AFy6yzLfhhhiu+NVlgJuf2RYDmKwBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c9/ITiTQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788761719; c=relaxed/simple;
+	bh=O1v7h0Glt9tec5AHuLUy0WkK7jpV3Eob1sB7vRLAoEI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IFiw7u76om4km82hHr9DHqPAUp+G3R57SnDgWpihCPPWLdiCj44VMfn1S7T3ouYdsNbdj7bSfVRJKXhjLjrGdMPo3AdqdKF5xj3hPU0b0Ug5EPyKjyXKY8TxcAgGA37YtSTN7nXKMXJZtESQ6VkHgrSv0W/KnuhQLrdd/5hWY9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QUYpZcHY; arc=none smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c9/ITiTQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCA4B1F00A3A;
-	Mon,  7 Sep 2026 06:14:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788761680;
-	bh=JZTKe9MJ+8Ne0cG3esO2PW7HkDItB6o5bu1JnsMRmlI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=c9/ITiTQoZ6Qlw4geQCT+G4Suuaf8253KOUsEFb7F2SmRxb6U7fzBqToA2GuohsXI
-	 H/xUg/CtyQpn2KA9o4kJgzBW1MXPDmtUG2a7CstATKAnybGL42Ti/DNWk8/9GKU25q
-	 v9rxWpcPELC5M4k3Bpy+nHllrJ9bsuID0DNvdGlwwW3rCssx7YyJ46gDYDv6aET64y
-	 9ni9j1IOzqq4W8R/i2Wf4izxHDslIYi8Fy0f5VeRv51Dq6oDrDdcsFVhgDLg1ZPAuO
-	 p6pQi3BNQZlU34NqFNXECU1LZ/06KQXRE0taVlrdN/l6VkM+sWJ2v3vAIJBnsxneRF
-	 hfGvEElztxAQw==
-Subject: Re: [PATCH net] wireguard: wait for per-peer crypto during removal
-From: netdev-bot+sashiko@kernel.org
-To: carges@cloudflare.com
-Cc: Jason@zx2c4.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- wireguard@lists.zx2c4.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel-team@cloudflare.com
-Date: Mon, 07 Sep 2026 06:14:39 +0000
-Message-ID: <178876167936.219967.11338017664970925838@kernel.org>
-In-Reply-To: <20260902-fix-wg-peer-removal-v1-1-7a0190f5cdb1@cloudflare.com>
-References: <20260902-fix-wg-peer-removal-v1-1-7a0190f5cdb1@cloudflare.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QUYpZcHY"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc147d86bebso2830001a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:15:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788761716; x=1789366516; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XBOjAJZv7VoWT7HeRN3N+zGKpkHHnMAZ/hXhWpBPzzM=;
+        b=QUYpZcHYmP1XqpvAX9edhGvDmrzD9h7wd3wliWV6JL4nyNmPLzt2EeeFa/lMdIrFyp
+         F4xAFw1LlQe89pnVhZxmAx341XTO/cdRgIQUR3kMNFx/gOq/l/4OyhGz2JEOCjIJY+Kn
+         fe6FvCgWNq1haUwvcamBb4M1+i7ZqDbEaWV+qGh7/GYrWvt5eX7u/IG7vAhGSmdXAibS
+         rVAdfmhz6DNE9Sv8FGTxyjddAas8qINRPPcGrZ97M7T3R1oYeDRjAbpYAXGmEZxK/DHM
+         7c4fJoacPZ+m0rCch/0q9KLVoxHhO1uAg0GHj/1aMuKmw70NhR+nj4Xuy/oXfhM7v7Jt
+         wxsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788761716; x=1789366516;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XBOjAJZv7VoWT7HeRN3N+zGKpkHHnMAZ/hXhWpBPzzM=;
+        b=EcupTPI6Kdfo8IOuYT8ASoUewPhduLiGKl2bb5bzMG04UmNiiEWhqbWmnR/hjptoI/
+         l6LCqFx8f061NXdyobRkeI02gfvdbeNsayn1JI8JW1dYzN3xKdE42snfXNugl/R+eiWX
+         0DgiWO+Fs+9bIiUdZ8D1NirBmen3E91Ui+LhneVJvxiQoJ/1O2p+dCrZbDskh2y0mVYc
+         69tWfBbS/LjsLVmJR/IoeWiMQPNR1tbig3IzF6WqFFVG+L3ew1CfQiRZWUh/CdXoxK5I
+         s69qua8jZPmPyh23S81u3wfOUghb1Qy9KzXk88T/nX1xCC/uPyoGT6bVcVucRK+TZiEy
+         ugvg==
+X-Forwarded-Encrypted: i=1; AKwUvByVb9CTVTt9adf92t7XOf+rbxRpC5uFi6XTcgT1Ho9F3sw+vL8JhW+xEpFv0Wj23p0erIkjVkl1aQi/8uE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mAqAx+lgCg8wSFRKtvJSKnCfw2PSHIn62PNG/yAXoe87CRYOBn
+	Yrzni3xVEnIr0qMj1a8WN8nrfjIyVoc18TipqvnI/oKWD1ctxEskWjea
+X-Gm-Gg: AYBFou12fbAugpaziWba/LqfTX+3h7nsjplIpGYyrHxpsi2lZpqttx+NdpRBBuDDc8T
+	EYRicqOPgwGwaC7tN/qNQUBzCgStEJr52cvFX+7amB5/kqXxOhnnLr5r4yuCCrS6Wk9uTudphm/
+	akiG6HDT9Ioc1ZsRF2irbmVG9E1155y7nGNOo2Mc8NX7ZAou0E0fGU9eg1I7DBuvP5gU/oHHLNW
+	M9DdwK6qFwYDq//JsJT3XllIJf+eJTNKNjNptZbcZqZwvA4HoqLA101/HoNyx7cMp3hlEX3LkTO
+	f89PyjgBSpKNL9+RjOQkoKAGnC+mZyMb7343wTWDqhXKp8niIhF0NM+oEzNwmPfPatPtDSjhaS8
+	jU4SdfaEGdNwM03+SW050bS0s6QztdxOw0goetMPSKnsFQoXH5fEECpqQxb4YLZaieQSiLzWlf+
+	mqhq7BQJBP5oi5PpllM5OSuLVs4PiE1eZExuuqmp1aT6gmZoXgkuvOcQUgCR3mF92JZE8MqLKFb
+	d3Iv7MGg9UMdg==
+X-Received: by 2002:a05:6a21:3292:b0:3cb:b6b0:1b83 with SMTP id adf61e73a8af0-3da214199afmr26825240637.9.1788761716261;
+        Sun, 06 Sep 2026 23:15:16 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14340a69666sm4657413c88.9.2026.09.06.23.15.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 23:15:15 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>
+Cc: netfs@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] netfs: fix repeated words in comments
+Date: Mon,  7 Sep 2026 11:45:11 +0530
+Message-ID: <20260907061511.35092-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+Drop words accidentally written twice, reported by checkpatch.pl as a
+possible repeated word.  Only touches comments, no code changes.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ fs/netfs/direct_write.c | 2 +-
+ include/linux/netfs.h   | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-- [High] Teardown can strand decrypted packets in `peer->rx_queue`,
-  permanently leaking the skbs and the peer.
-
---
-
-wireguard: wait for per-peer crypto during removal
-
-This replaces the two device-wide flush_workqueue(packet_crypt_wq) calls and
-the flush_workqueue(handshake_send_wq) call in peer_remove_after_dead() with
-a new per-peer packet_crypt_pending counter plus flush_work() on the peer's
-own transmit_packet_work and transmit_handshake_work.
-
-> diff --git a/drivers/net/wireguard/peer.c b/drivers/net/wireguard/peer.c
-> index 1cb502a932e0..f7a9c437b5b8 100644
-> --- a/drivers/net/wireguard/peer.c
-> +++ b/drivers/net/wireguard/peer.c
-
-[ ... ]
-
-> @@ -105,28 +108,27 @@ static void peer_remove_after_dead(struct wg_peer *peer)
->  	 */
->  	wg_timers_stop(peer);
->  
-> -	/* The transition between packet encryption/decryption queues isn't
-> -	 * guarded by is_dead, but each reference's life is strictly bounded by
-> -	 * two generations: once for parallel crypto and once for serial
-> -	 * ingestion, so we can simply flush twice, and be sure that we no
-> -	 * longer have references inside these queues.
-> +	/* Lookup removal and is_dead prevent new packets from entering the
-> +	 * parallel crypto queues after synchronize_net() waits for pre-existing
-> +	 * submission paths. Drop the initial count and wait for existing packets
-> +	 * to finish scheduling their serial TX work or RX NAPI processing.
->  	 */
-> +	atomic_dec(&peer->packet_crypt_pending);
-> +	wait_var_event(&peer->packet_crypt_pending,
-> +		       !atomic_read_acquire(&peer->packet_crypt_pending));
-> +
-> +	flush_work(&peer->transmit_packet_work);
->  
-> -	/* a) For encrypt/decrypt. */
-> -	flush_workqueue(peer->device->packet_crypt_wq);
-> -	/* b.1) For send (but not receive, since that's napi). */
-> -	flush_workqueue(peer->device->packet_crypt_wq);
-> -	/* b.2.1) For receive (but not send, since that's wq). */
->  	napi_disable(&peer->napi);
-
-[Severity: High]
-Can this leave entries in peer->rx_queue when the peer is torn down, and
-leak both the skbs and the wg_peer itself?
-
-The new counter is decremented in wg_queue_enqueue_per_peer_rx() only after
-the packet has been put on peer->rx_queue and NAPI has been scheduled:
-
-drivers/net/wireguard/queueing.h:wg_queue_enqueue_per_peer_rx() {
-	atomic_set_release(&PACKET_CB(skb)->state, state);
-	napi_schedule(&peer->napi);
-	if (atomic_dec_and_test(&peer->packet_crypt_pending))
-		wake_up_var(&peer->packet_crypt_pending);
-	wg_peer_put(peer);
-}
-
-So packet_crypt_pending reaching zero means "handoff done, NAPI scheduled",
-not "rx_queue drained".  For an rx-only peer flush_work(&peer->transmit_packet_work)
-is a no-op, so napi_disable() can now run immediately after the last decrypt
-handoff while up to MAX_QUEUED_PACKETS entries are still queued.
-
-If wg_packet_rx_poll() consumes exactly budget entries it breaks out without
-calling napi_complete_done():
-
-drivers/net/wireguard/receive.c:wg_packet_rx_poll() {
-	...
-		if (++work_done >= budget)
-			break;
-	}
-
-	if (work_done < budget)
-		napi_complete_done(napi, work_done);
-
-	return work_done;
-}
-
-and __napi_poll() then takes the completion path rather than a repoll,
-because napi_disable_locked() has already set the disable-pending state:
-
-net/core/dev.c:__napi_poll() {
-	...
-	if (unlikely(napi_disable_pending(n))) {
-		napi_complete(n);
-		return work;
-	}
-
-so napi_disable()/netif_napi_del() finish with a non-empty rx_queue, and
-is_dead plus the completed counter wait mean nothing schedules the NAPI
-again.
-
-Each stranded skb still holds the peer reference taken by
-wg_peer_get_maybe_zero() in wg_packet_consume_data() and a keypair
-reference, and those are only dropped at the next: label of
-wg_packet_rx_poll():
-
-next:
-		wg_noise_keypair_put(keypair, false);
-		wg_peer_put(peer);
-
-Is there any other consumer of peer->rx_queue that could drain it?  If not,
-the peer kref never reaches zero, so kref_release()/rcu_release() never run
-and the skbs, the wg_peer, its dst_cache and the staged queue are never
-freed.  That also means the existing safety net in rcu_release():
-
-	WARN_ON(wg_prev_queue_peek(&peer->tx_queue) || wg_prev_queue_peek(&peer->rx_queue));
-
-can never fire to report it.
-
-The pre-patch code did not strictly guarantee the drain either, but the two
-flush_workqueue(peer->device->packet_crypt_wq) calls being removed blocked
-for as long as the shared crypt workers kept running, which is exactly the
-heavy-traffic case where rx_queue gets deep, and in practice gave the NAPI
-softirq time to drain it.  Would it make sense to have the teardown path
-wait for the rx_queue to actually empty (or purge it explicitly) rather
-than only for the handoff counter?
-
-> -	/* b.2.1) It's now safe to remove the napi struct, which must be done
-> +	/* It's now safe to remove the napi struct, which must be done
->  	 * here from process context.
->  	 */
->  	netif_napi_del(&peer->napi);
-
-[ ... ]
-
-> diff --git a/drivers/net/wireguard/queueing.h b/drivers/net/wireguard/queueing.h
-> index 79b6d70de236..fdd34f0f15a6 100644
-> --- a/drivers/net/wireguard/queueing.h
-> +++ b/drivers/net/wireguard/queueing.h
-
-[ ... ]
-
-> @@ -194,6 +198,8 @@ static inline void wg_queue_enqueue_per_peer_rx(struct sk_buff *skb, enum packet
->  
->  	atomic_set_release(&PACKET_CB(skb)->state, state);
->  	napi_schedule(&peer->napi);
-> +	if (atomic_dec_and_test(&peer->packet_crypt_pending))
-> +		wake_up_var(&peer->packet_crypt_pending);
->  	wg_peer_put(peer);
->  }
-
+diff --git a/fs/netfs/direct_write.c b/fs/netfs/direct_write.c
+index c16fbad286a1..634a860f3ebb 100644
+--- a/fs/netfs/direct_write.c
++++ b/fs/netfs/direct_write.c
+@@ -247,7 +247,7 @@ ssize_t netfs_unbuffered_write_iter_locked(struct kiocb *iocb, struct iov_iter *
+ 		/* If this is an async op and we're not using a bounce buffer,
+ 		 * we have to save the source buffer as the iterator is only
+ 		 * good until we return.  In such a case, extract an iterator
+-		 * to represent as much of the the output buffer as we can
++		 * to represent as much of the output buffer as we can
+ 		 * manage.  Note that the extraction might not be able to
+ 		 * allocate a sufficiently large bvec array and may shorten the
+ 		 * request.
+diff --git a/include/linux/netfs.h b/include/linux/netfs.h
+index f837a501008c..fc6e76102642 100644
+--- a/include/linux/netfs.h
++++ b/include/linux/netfs.h
+@@ -627,7 +627,7 @@ static inline void netfs_write_zero_point(struct inode *inode,
+  * @inode: The inode to access
+  * @i_size: Where to return the local file size.
+  * @remote_i_size: Where to return the size of the file on the server
+- * @zero_point: Where to return the the point beyond which the server has no data
++ * @zero_point: Where to return the point beyond which the server has no data
+  *
+  * Read remote_i_size and zero_point safely without the potential for tearing
+  * on 32-bit arches.
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260902-fix-wg-peer-removal-v1-1-7a0190f5cdb1%40cloudflare.com
+2.48.1
+
