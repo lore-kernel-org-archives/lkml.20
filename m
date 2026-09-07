@@ -1,210 +1,298 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E4C138D3EB
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:05:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 20CCD389453;
+	Mon,  7 Sep 2026 06:05:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788761114; cv=none; b=tXwQlKZ3cEVZ9Ag5/g1yvsAKaGh/pskRsuFbx5VTH0doj4TWsoRJUxR4edxF3GoXFGquBL220SX+RAhmLfdClIY0DmeNtJ2hvknoEPkWq0q91ZjHc0bcHC8Rf8wIp+0tFYbbk5gFfpZYHOedNpTbdZ8PEnDfbD7ihpjX8YmerZM=
+	t=1788761133; cv=none; b=tlnn2rl5s6MEVlJIWdU5q2zmoICwpj6jKsvgm4pDKGyqKoAKgMr112BftjNQPL5KAHyuhUFwsTDCjtRDXyhLwC0FvjErNphQGBem1P+QNpyras65Yu6/nuH7oXeiEmWLyg8+l3vbcoxA+Etc6OpA3Sn8ZzLlR/eaLTWnEU2Ihy4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788761114; c=relaxed/simple;
-	bh=PeVF7rfbc1vL6HV1/pZH3WhjqloYpkjKYKlN73g3pcs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PxJoJp2p8jtTqUhPDO49d791otWDg2cCOAx7nMnh84raVzlJWOvbBkFdN5JkiILMIYpi0Q+eTQaQF3sNwhQLhuVebLe+SVCFEhUIyAZ+SyN0zGDY0oIwXW6HWjrOeCviqhONQrHfYIuRt9QCxZTjysZp5D28xNEazfwHnKB/6Fs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XljyG4bv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cRg5bEFo; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XljyG4bv";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cRg5bEFo"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6873kpxE4041576
-	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 06:05:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fkyS4nCwMvydVoM0dGZ5wVM6t+b0Z+k7G6cMlo0p/XY=; b=XljyG4bv8BYyhBtW
-	PsorMgjRIWQaRYAFt8JkxlwJdm6L5qmLNFW8+Q435hGiBIV0g+If09I/0xO+i/zD
-	UvNOprL/EKCAbhWoQfYITAukKi7cwfi4pJT5lfILLr6HOVPodM3eG5ieO/Z+r6KR
-	vysH5MBzf5MrZOyiD0jmkglXdxgeV1dGk2V5CLJ2WeBCWztNhuyHg1/eS81YkByx
-	cd7Wk2ZxcIfmdWAL9Gal6/J1wr1veZIVLn9O2WHyQ5YjaBj+v1SMAKFqQh649Fsh
-	sTJ6mSuBXbPawHU6r1Yz0ZdTDS8eY3+xaietlQQtlKH2+2LtlUceh0iLNPQtfxwv
-	DiordQ==
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gg8sd5qmu-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:05:12 +0000 (GMT)
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b28d9206f8so1436968b6e.0
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:05:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788761111; x=1789365911; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fkyS4nCwMvydVoM0dGZ5wVM6t+b0Z+k7G6cMlo0p/XY=;
-        b=cRg5bEFoBbi5jr8Ym5mPO4rSt4+UQ9zhZiukU0y4nKLeSvpKZwRVLev1QuPlEE+t+m
-         jtmffjAa61QQ0KMQ4X6D7y2jPxAEFXq+GydcDmcM4eY+fitUFy249+I1PmCjaZ8KrBYS
-         9NmYOksAINeAIpcjSDaQKKYnwpZ5p/sZJzfQyH8kJF5peGXu1g03yOfO4aGgu9wRHnmW
-         YQafsJ9Fe5upHdwKoGIJTVhS4XDaUuTGm7dNaK5/AQKpY6IQbosTJe/UhrMTZvn0UNrS
-         yQn2cE5lqYX29XstosOWE5vWsYLKWg/VPQnYAFdyV8R5irTTl7lWBXuHq7eF3rmMarGF
-         VgDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788761111; x=1789365911;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fkyS4nCwMvydVoM0dGZ5wVM6t+b0Z+k7G6cMlo0p/XY=;
-        b=Oa9F5vZoQAaCebmIC3lg+vMCbGmeeUWz7ykNZmlug51b1/HAR3wKJ2mzc1fD0M7Hwk
-         B8rVvNkX3RmSjFZoGWOhnY+2Xhhw4cCd1FXUdArE1Irguf/ZpFTc7HevenVpgTaTmniI
-         hP72NmpAqt5O3SqBvAJzUk+38KVuC8Eob2af3WxuW+VKO74newkn1AXR/8RsMRccBIb2
-         Ky3yuDNJuaxcDQKL8oeodfzVEw45X4Tg45PDrP77yrSCW859GkOt63CfTfwecUGVLHmd
-         LpuT9VTu5PYIxrx+74frB8OsfPzt7Ca1yniL+O78kKpo9tKiuQ7aWP0AtHkIRymqEoRm
-         SmUA==
-X-Forwarded-Encrypted: i=1; AKwUvByN032bwaZI3SUJkSjagVcdl7oc+IsaqUp5tNP9KBxeJnxdV5nECAH8ipbmb+jrRkvr9TLxkdvyqGW+aqo=@vger.kernel.org
-X-Gm-Message-State: AFuF++ksMsh5wprWtHkODnxMwZdV+K4TdgS15cGqef3r7VyJAsKP8G1Q
-	kapCDGafKRFPLzl9Fn/anXT3iW43d7+aFVh9YHh7UH/SydwEGKVnmMluaIKx7zuBrFYtupw7Jvr
-	qQT/fUiIsovjJUtcA+2XrAlqHPSiIg7mfLrLBFCk9lRql1drKaKjYqqAxONvqg8dBl1M=
-X-Gm-Gg: AYBFou2RG+neuvyE/yhuvcPfrXCb3lUFqpG8xgjJtKu24f0mxytGj6Hg7IX3O5+ptaR
-	eJb/3NGzvZrev73UWLZzP4lm1wZOHqlHjf4qRrhj+FqrRdMENK6or0rDbedOMQxl+iqFU+lU0u6
-	OuZQ7bUarOzSdC1yEF/eqhvrbIEvMcL5hI95tUfx9S6G9YH9+iYhaJTVrmraQbYbQ/kQovJV1l0
-	5I5KZp21jieWKgeYx65c88bhO/yTd/DdLAq+bOtAMMvdPXqsafBEDYjYNn+GMf7yEujGblFgUPj
-	ZvCGbfJ3qnGbNiEJLEXezVSgTNLxbGhbyEHdPNGn4aJGxuGNXNENGV+RwbXtayYOGZchkEm9AFn
-	wnUEYoE2L/G7znios2uD42UDnfbJ0UuzkAg==
-X-Received: by 2002:a05:6820:4c86:b0:6b7:8396:f3d9 with SMTP id 006d021491bc7-6b78396f8c4mr8986138eaf.59.1788761111362;
-        Sun, 06 Sep 2026 23:05:11 -0700 (PDT)
-X-Received: by 2002:a05:6820:4c86:b0:6b7:8396:f3d9 with SMTP id 006d021491bc7-6b78396f8c4mr8986121eaf.59.1788761110920;
-        Sun, 06 Sep 2026 23:05:10 -0700 (PDT)
-Received: from [10.217.219.15] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143240d86c3sm22142550c88.0.2026.09.06.23.05.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 06 Sep 2026 23:05:10 -0700 (PDT)
-Message-ID: <6c9f2a00-281f-4400-94b1-55034ca9d472@oss.qualcomm.com>
-Date: Mon, 7 Sep 2026 11:35:03 +0530
+	s=arc-20240116; t=1788761133; c=relaxed/simple;
+	bh=hBPwP8hp9KnGpZiFqIkc4EiMciV273dLIcexWcmIMBU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dVzEqB3W/K6gSaBVxaltCQ6O/bubrnVGs/SKaL22CpH96ZK991IeW7qiRUom0h7fbwsKTn4gOjgdGyaxhtlhP155x2EXMnJjQDCKMf8lupafDygTKu5z4QKcc40lR2o9m/gClCZiJEOikPXbcyw4Rm4dsnGRxF8APl2KvPHUJLY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.75.44.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wAn0zwXVJ5q93T5AA--.14170S3;
+	Mon, 07 Sep 2026 14:05:12 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app4 (Coremail) with SMTP id zi_KCgDH+TAWVJ5qo3ygAw--.7687S2;
+	Mon, 07 Sep 2026 14:05:11 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: thomas.lendacky@amd.com,
+	john.allen@amd.com
+Cc: herbert@gondor.apana.org.au,
+	davem@davemloft.net,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	Song Li <songl@zju.edu.cn>
+Subject: [PATCH] crypto: ccp - Fix use-after-free in backlog cmd advancement
+Date: Mon,  7 Sep 2026 06:04:15 +0000
+Message-Id: <20260907060415.575656-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/3] i2c: qcom-geni: Add bus recovery support for FIFO
- mode
-To: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>,
-        Aniket Randive <aniket.randive@oss.qualcomm.com>,
-        Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-        Andi Shyti <andi.shyti@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org
-References: <20260826-i2c_bus_recovery-v1-0-203f0ec76f84@oss.qualcomm.com>
- <20260826-i2c_bus_recovery-v1-2-203f0ec76f84@oss.qualcomm.com>
- <990a4ab8-bd03-415c-ae95-008cee7740df@oss.qualcomm.com>
-Content-Language: en-US
-From: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-In-Reply-To: <990a4ab8-bd03-415c-ae95-008cee7740df@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 08-TAGccZioYT5LR5O8PyuW4bys3vzsv
-X-Proofpoint-ORIG-GUID: 08-TAGccZioYT5LR5O8PyuW4bys3vzsv
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA2MyBTYWx0ZWRfX5HBqQfm+ySeO
- ehZWLMF6wHGPuQqCn6U2Y1uEafPGvc2/RLw/xG8J59QVEDOjmYna/Jc5IZxV9QOQOCzQ8oFx6z7
- fOFSsEqZQPV/XUaKwU3pmaAdjSKSi2E=
-X-Authority-Analysis: v=2.4 cv=dfmwG3Xe c=1 sm=1 tr=0 ts=6a9e5418 cx=c_pps
- a=WJcna6AvsNCxL/DJwPP1KA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=feSLNv-d2_yk1Zcgl2UA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=_Y9Zt4tPzoBS9L09Snn2:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA2MyBTYWx0ZWRfXxTGK1xViNqGa
- SHh6yw6lgKSe1dyeFLywsQLA4x+1qCc/+0JrlaSriPQE4hOz7/BcyPn28n387+EEnUD963s9UdB
- t/ZnDUT4mlwQWAf//o0gYv5DbEV/43+0Xm+TRdEi68YSW6Y/ELY4/DBmXQ83b2bNNJLoHzaY92d
- 9QqAyfqLytfGlGuGmL+SGpYRfViBRK4EbnJ7DygD3M7pgIdypKF3EnSwAdM4yeFE6UR2VWc1nOC
- hZUV12DSNXRtEC8STSxyvsIN7B7NEiatLso4Z7fKAAv5Q6S6MOK3ZuUwqWIC27lzfOvydCzKl+P
- 03YTL1ogsEP+bt0NULGu3zzfi0UT8OQ5LhrmjBQnkQwy2/UVdhsL+ZIwfsH36AtE/a3V8Dem6yF
- Ty2Aqv/WBbhx0FB4hOmnLpppxzLx98xxSIsCyhdch6piZUsKgQYtPIEAPje0NbOgQgbbK/pFEJQ
- cKHu01CGJ9PDcI2Q7JA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-07_01,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 priorityscore=1501 spamscore=0 malwarescore=0
- lowpriorityscore=0 bulkscore=0 phishscore=0 suspectscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070063
+X-CM-TRANSID:zi_KCgDH+TAWVJ5qo3ygAw--.7687S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?50IpDgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnXz+g1OQfMo27QHy5TwQyZy/t4PGctaocqOsNIP6GE/UUmFCxnK2Sp8FNgLAUIiRKKN7
+	iy/VYjujIOzmHLN18sIB5rM+H8XhqwExY4Cjs2QP
+X-Coremail-Antispam: 1Uk129KBj93XoW3Xw4UWr1xZFWDuFWDAr15WrX_yoW3Cryrpa
+	1rJry5trWvqr47G3y3Zw4UXryfXFsYva4DK3yxW3WFkw15tFWFgrWfGFWjya4UZFykuF17
+	JFW7uFy5Cr4IywcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
+	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
 
+CCP_CMD_MAY_BACKLOG commands are removed from ccp->backlog by a
+queue kthread and advanced asynchronously by ccp_do_cmd_backlog().
+The promoted command is no longer on either command list.
 
+During device removal, ccp*_destroy() stops the queue kthreads and
+flushes the lists, but does not wait for a promoted work on system_wq.
+That work can subsequently access the devm-allocated ccp_device after
+it has been released, and wake a queue kthread whose task_struct
+kthread_stop() has already released.
 
-On 9/3/2026 9:47 PM, Jyothi Kumar Seerapu wrote:
-> 
-> 
-> On 8/26/2026 3:21 PM, Aniket Randive wrote:
+Use a per-device workqueue for backlog advancement and destroy it after
+stopping all queue kthreads, so every promoted work has completed before
+the command lists are flushed. The queue kthreads are the only source
+of backlog works, so no new work can be queued once they are stopped.
+Individual cancellation is not possible because a promoted command is
+no longer reachable from either list.
 
-[...]
+Mark the device as halting before teardown. A draining backlog work
+then completes its command with -ENODEV instead of re-queuing it.
+Keep the halting check and the kthread wake under cmd_lock so teardown
+cannot stop the selected kthread between them.
 
->> diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/ 
->> i2c-qcom-geni.c
->> index 658636c1ee0e..9fa1a8ac400c 100644
->> --- a/drivers/i2c/busses/i2c-qcom-geni.c
->> +++ b/drivers/i2c/busses/i2c-qcom-geni.c
->> @@ -138,6 +138,7 @@ struct geni_i2c_dev {
->>       u32 num_msgs;
->>       struct geni_i2c_gpi_multi_desc_xfer i2c_multi_desc_config;
->>       const struct geni_i2c_desc *dev_data;
->> +    struct i2c_bus_recovery_info rinfo;
-I could not find this structure being utilized in generic way for gpi 
-mode. So is this specific to non gpi mode ?>>   };
->>   struct geni_i2c_err_log {
->> @@ -956,6 +957,90 @@ static int geni_i2c_fifo_xfer(struct geni_i2c_dev 
->> *gi2c,
->>       return num;
->>   }
+This issue was found by an in-house static analysis tool.
 
-[...]
+Fixes: 63b945091a07 ("crypto: ccp - CCP device driver and interface support")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ drivers/crypto/ccp/ccp-dev-v3.c | 19 +++++++++++++++++++
+ drivers/crypto/ccp/ccp-dev-v5.c | 18 ++++++++++++++++++
+ drivers/crypto/ccp/ccp-dev.c    | 33 ++++++++++++++++++++++++++++-----
+ drivers/crypto/ccp/ccp-dev.h    |  4 ++++
+ 4 files changed, 69 insertions(+), 5 deletions(-)
 
->> +
->>   static int geni_i2c_xfer(struct i2c_adapter *adap,
->>                struct i2c_msg msgs[],
->>                int num)
->> @@ -981,6 +1066,25 @@ static int geni_i2c_xfer(struct i2c_adapter *adap,
->>       else
->>           ret = geni_i2c_fifo_xfer(gi2c, msgs, num);
->> +    if (!gi2c->gpi_mode &&
->> +        (ret == -EPROTO || ret == -ETIMEDOUT || ret == -EAGAIN)) {
-Could not see similar call after gpi_xfer failure which invokes recovery 
-mode. Thinking if design can be symmetrical here for both the modes.>> 
-+        /*
->> +         * Only attempt recovery if SDA is stuck low. -EPROTO and
->> +         * -ETIMEDOUT indicate bus errors where the target may be
->> +         * holding SDA low. ARB_LOST (-EAGAIN) on a single-controller
->> +         * bus indicates a stuck target, not a real arbitration loss.
->> +         * GPI DMA mode extends this trigger separately.
->> +         */
-
-[...]
-
->> @@ -1188,6 +1292,11 @@ static int geni_i2c_probe(struct 
->> platform_device *pdev)
->>       if (ret < 0)
->>           return ret;
-
-one  line Comment here how gpi mode handles ?
-I would suggest to keep geni_i2c_recover_bus() as common for both.
-Review how we can invoke this in generic way for any mode.
-else geni_i2c_recover_bus() should  have _fifo.
-
->> +    if (!gi2c->gpi_mode) {
->> +        gi2c->rinfo.recover_bus = geni_i2c_recover_bus;
->> +        gi2c->adap.bus_recovery_info = &gi2c->rinfo;
->> +    }
-
-
-> In geni_i2c_xfer(), geni_i2c_recover_bus() is invoked directly, then why 
-> do we need this ?> +
->>       ret = i2c_add_adapter(&gi2c->adap);
->>       if (ret)
->>           return dev_err_probe(dev, ret, "Error adding i2c adapter\n");
->>
-> 
+diff --git a/drivers/crypto/ccp/ccp-dev-v3.c b/drivers/crypto/ccp/ccp-dev-v3.c
+index fe69053b2394..b84ac117ea25 100644
+--- a/drivers/crypto/ccp/ccp-dev-v3.c
++++ b/drivers/crypto/ccp/ccp-dev-v3.c
+@@ -460,6 +460,14 @@ static int ccp_init(struct ccp_device *ccp)
+ 		tasklet_init(&ccp->irq_tasklet, ccp_irq_bh,
+ 			     (unsigned long)ccp);
+ 
++	ccp->backlog_wq = alloc_workqueue("%s-backlog", WQ_MEM_RECLAIM, 0,
++					  ccp->name);
++	if (!ccp->backlog_wq) {
++		dev_err(dev, "unable to allocate backlog workqueue\n");
++		ret = -ENOMEM;
++		goto e_irq;
++	}
++
+ 	dev_dbg(dev, "Starting threads...\n");
+ 	/* Create a kthread for each queue */
+ 	for (i = 0; i < ccp->cmd_q_count; i++) {
+@@ -501,10 +509,15 @@ static int ccp_init(struct ccp_device *ccp)
+ 	ccp_unregister_rng(ccp);
+ 
+ e_kthread:
++	ccp_halt_cmds(ccp);
++
+ 	for (i = 0; i < ccp->cmd_q_count; i++)
+ 		if (ccp->cmd_q[i].kthread)
+ 			kthread_stop(ccp->cmd_q[i].kthread);
+ 
++	destroy_workqueue(ccp->backlog_wq);
++
++e_irq:
+ 	sp_free_ccp_irq(ccp->sp, ccp);
+ 
+ e_pool:
+@@ -520,6 +533,9 @@ static void ccp_destroy(struct ccp_device *ccp)
+ 	struct ccp_cmd *cmd;
+ 	unsigned int i;
+ 
++	/* Complete pending backlog cmds instead of executing them */
++	ccp_halt_cmds(ccp);
++
+ 	/* Unregister the DMA engine */
+ 	ccp_dmaengine_unregister(ccp);
+ 
+@@ -546,6 +562,9 @@ static void ccp_destroy(struct ccp_device *ccp)
+ 
+ 	sp_free_ccp_irq(ccp->sp, ccp);
+ 
++	/* Drain promoted backlog commands before flushing the command lists. */
++	destroy_workqueue(ccp->backlog_wq);
++
+ 	for (i = 0; i < ccp->cmd_q_count; i++)
+ 		dma_pool_destroy(ccp->cmd_q[i].dma_pool);
+ 
+diff --git a/drivers/crypto/ccp/ccp-dev-v5.c b/drivers/crypto/ccp/ccp-dev-v5.c
+index 7b73332d6aa1..307a408eff89 100644
+--- a/drivers/crypto/ccp/ccp-dev-v5.c
++++ b/drivers/crypto/ccp/ccp-dev-v5.c
+@@ -943,6 +943,14 @@ static int ccp5_init(struct ccp_device *ccp)
+ 		ccp->cmd_q[i].sb_ctx = ccp_lsb_alloc(&ccp->cmd_q[i], 2);
+ 	}
+ 
++	ccp->backlog_wq = alloc_workqueue("%s-backlog", WQ_MEM_RECLAIM, 0,
++					  ccp->name);
++	if (!ccp->backlog_wq) {
++		dev_err(dev, "unable to allocate backlog workqueue\n");
++		ret = -ENOMEM;
++		goto e_irq;
++	}
++
+ 	dev_dbg(dev, "Starting threads...\n");
+ 	/* Create a kthread for each queue */
+ 	for (i = 0; i < ccp->cmd_q_count; i++) {
+@@ -989,10 +997,14 @@ static int ccp5_init(struct ccp_device *ccp)
+ 	ccp_unregister_rng(ccp);
+ 
+ e_kthread:
++	ccp_halt_cmds(ccp);
++
+ 	for (i = 0; i < ccp->cmd_q_count; i++)
+ 		if (ccp->cmd_q[i].kthread)
+ 			kthread_stop(ccp->cmd_q[i].kthread);
+ 
++	destroy_workqueue(ccp->backlog_wq);
++
+ e_irq:
+ 	sp_free_ccp_irq(ccp->sp, ccp);
+ 
+@@ -1009,6 +1021,9 @@ static void ccp5_destroy(struct ccp_device *ccp)
+ 	struct ccp_cmd *cmd;
+ 	unsigned int i;
+ 
++	/* Complete pending backlog cmds instead of executing them */
++	ccp_halt_cmds(ccp);
++
+ 	/* Unregister the DMA engine */
+ 	ccp_dmaengine_unregister(ccp);
+ 
+@@ -1047,6 +1062,9 @@ static void ccp5_destroy(struct ccp_device *ccp)
+ 
+ 	sp_free_ccp_irq(ccp->sp, ccp);
+ 
++	/* Drain promoted backlog commands before flushing the command lists. */
++	destroy_workqueue(ccp->backlog_wq);
++
+ 	/* Flush the cmd and backlog queue */
+ 	while (!list_empty(&ccp->cmd)) {
+ 		/* Invoke the callback directly with an error code */
+diff --git a/drivers/crypto/ccp/ccp-dev.c b/drivers/crypto/ccp/ccp-dev.c
+index 246801912e1a..b8eeaf0c3c95 100644
+--- a/drivers/crypto/ccp/ccp-dev.c
++++ b/drivers/crypto/ccp/ccp-dev.c
+@@ -177,6 +177,15 @@ void ccp_del_device(struct ccp_device *ccp)
+ 	write_unlock_irqrestore(&ccp_unit_lock, flags);
+ }
+ 
++/* Mark the device halting so draining backlog works complete with -ENODEV. */
++void ccp_halt_cmds(struct ccp_device *ccp)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&ccp->cmd_lock, flags);
++	ccp->halting = true;
++	spin_unlock_irqrestore(&ccp->cmd_lock, flags);
++}
+ 
+ 
+ int ccp_register_rng(struct ccp_device *ccp)
+@@ -349,6 +358,20 @@ static void ccp_do_cmd_backlog(struct work_struct *work)
+ 	unsigned long flags;
+ 	unsigned int i;
+ 
++	spin_lock_irqsave(&ccp->cmd_lock, flags);
++	if (ccp->halting) {
++		spin_unlock_irqrestore(&ccp->cmd_lock, flags);
++
++		/* The device is being removed; the cmd can no longer be
++		 * executed, so complete it with an error like the cmds
++		 * still queued on the cmd and backlog lists
++		 */
++		cmd->callback(cmd->data, -ENODEV);
++
++		return;
++	}
++	spin_unlock_irqrestore(&ccp->cmd_lock, flags);
++
+ 	cmd->callback(cmd->data, -EINPROGRESS);
+ 
+ 	spin_lock_irqsave(&ccp->cmd_lock, flags);
+@@ -364,11 +387,11 @@ static void ccp_do_cmd_backlog(struct work_struct *work)
+ 		break;
+ 	}
+ 
+-	spin_unlock_irqrestore(&ccp->cmd_lock, flags);
+-
+-	/* If we found an idle queue, wake it up */
+-	if (i < ccp->cmd_q_count)
++	/* Keep this under cmd_lock so teardown cannot stop this kthread first. */
++	if (!ccp->halting && i < ccp->cmd_q_count)
+ 		wake_up_process(ccp->cmd_q[i].kthread);
++
++	spin_unlock_irqrestore(&ccp->cmd_lock, flags);
+ }
+ 
+ static struct ccp_cmd *ccp_dequeue_cmd(struct ccp_cmd_queue *cmd_q)
+@@ -410,7 +433,7 @@ static struct ccp_cmd *ccp_dequeue_cmd(struct ccp_cmd_queue *cmd_q)
+ 
+ 	if (backlog) {
+ 		INIT_WORK(&backlog->work, ccp_do_cmd_backlog);
+-		schedule_work(&backlog->work);
++		queue_work(ccp->backlog_wq, &backlog->work);
+ 	}
+ 
+ 	return cmd;
+diff --git a/drivers/crypto/ccp/ccp-dev.h b/drivers/crypto/ccp/ccp-dev.h
+index 83350e2d9821..91b303ec46a9 100644
+--- a/drivers/crypto/ccp/ccp-dev.h
++++ b/drivers/crypto/ccp/ccp-dev.h
+@@ -374,6 +374,9 @@ struct ccp_device {
+ 	struct list_head cmd;
+ 	struct list_head backlog;
+ 
++	struct workqueue_struct *backlog_wq;
++	bool halting;
++
+ 	/* The command queues. These represent the queues available on the
+ 	 * CCP that are available for processing cmds
+ 	 */
+@@ -630,6 +633,7 @@ struct ccp5_desc {
+ 
+ void ccp_add_device(struct ccp_device *ccp);
+ void ccp_del_device(struct ccp_device *ccp);
++void ccp_halt_cmds(struct ccp_device *ccp);
+ 
+ extern void ccp_log_error(struct ccp_device *, unsigned int);
+ 
 
