@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3645E484241;
-	Mon,  7 Sep 2026 15:28:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 777E64908B0
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:29:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788794892; cv=none; b=rMXVPKD3snr/fUIRaEM62RGDpuGrXd/Z3QokC7GwmOFFQgWr9WYhlLouErgKH9rWoTC4RUzUqhwx2OJ03UkvyF9z3AkySA2oUc26Ay91RnEDKKcIM6PaUbuA3U0qFPzxxFnjz1omHdA8fYCDlBV9ZsdCorwhxee7aFtfzXU3Ekw=
+	t=1788794988; cv=none; b=LYNhIXRGggl2b9924mfGHOoislzLMaEgG7kLLQVf543WKkerhfYA5F2EEWNknQjfVGc4yasBH11tWIpyBoyuA5g4gYeJ0Z+NZEdLgFBjtoDMEvh9jJdiJsLTweyOVpbYnLEsOaZm3wLkm7feS0VehYWkMGvvW1ARoCaeCFg/Mrw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788794892; c=relaxed/simple;
-	bh=bywWFiLcxkxeOK/eyKKv3p5JTmujYS/7prgmbbOhHOw=;
+	s=arc-20240116; t=1788794988; c=relaxed/simple;
+	bh=VNNJaMv7+hXXos69y/SfKUSWLDxluqHo/2Ekexo2LrE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AN6STGYhcuLDCJAgaxU5TZ/q8YclgDH+IjM1oUwEN/xslTwwBUnIlOfxmK0I0kzdaxH92PYkYBQJszwNFo8MxFRE71VEObCGPVd1BsottCa9qxiTsxHfl1XuVYespBhdnSG37jc8TdN6JbdpJGf2sjEwbGvJu2XT51cJls2XiEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kZdmbe2s; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=D0s0/qS1AvwtU3fu5U3ZLEw4PCooY9pNVQrH9f9JRsdC1vCPcJFzkG8pjs3TiJr2uLJr0rjARto8TkxjxQfA3rOm3vHb2dXoEFuRK7dHZiI6/w89OmLbnOmxDj7yxwxH25yrCDmM4J1Y7juh/RuTSldLDHRAt6TlkYRoA45mC+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hVL1qCoE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kZdmbe2s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8286D1F00A3A;
-	Mon,  7 Sep 2026 15:28:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hVL1qCoE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93FC41F00A3A;
+	Mon,  7 Sep 2026 15:29:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788794890;
-	bh=mK+98jg5dsyflCRW6hzeWdXYj+TcG2jQV+y1BsFx2KU=;
+	s=k20260515; t=1788794987;
+	bh=9SJTzceowrNohQipk3v/6QfqCF0/MRLk5RUcto72/EU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=kZdmbe2sBK7NcmlkxFNm48D+xjmNl7z46UL/QAb6geywyDhI6XiYzRxG0YTUPacBB
-	 oiF6MbRR5QldkE3rFwxN2ukKMilg/N8ceaWW4dygot3vp2d0fvU5kIyIPxjsctcf6R
-	 kKUeNZ3lkJOQ3XkH1UFChklewhrIS8S7L81EaBS3Z0bqup4yM5hFeIEUhZEEGYXZFP
-	 J+NLtmtVpgAuC5YO0iP9AB6vClWrdekVdoimyJG8TfpNqtNzafvIFhy3pR2wJrUOFB
-	 92AAh6FXgfbbbBRwYy6rw3/nk24XygJ8rlO+3l6+e1y/wx5DAdnF3PXvXVtNCtjv5D
-	 1CQ+31IH0razA==
-Message-ID: <502b573e-592b-46e5-96e4-c089329e7aee@kernel.org>
-Date: Mon, 7 Sep 2026 17:28:06 +0200
+	b=hVL1qCoESBzyncNyjZOjHebgaRnwQq7OTLas7qK5ytnPnGT/qVnxaJ8epup1Q3Gnv
+	 3fZX01jlfiPJ8xBm8egrhGjOfsoBy6lwtuUjXreRoArmc78LQGYhgHobBdJ4/YJBrl
+	 88oaQeAmO1iosbVzMtlohN2iPpfueXA873ipSpOYerzdG7DTRR15+OHWjaDCDBz7lE
+	 UHO5/LG7wcW8TivdO2WWQzflga8qsaBF/kT3ZIZ6NqVWme8+uvxZtG22o+Xxxtf4fk
+	 4rIHo7Kw7SC1kQhcu+DXKFWKfR+7s5udZgXs0KgtmTycvUOn5Sztcy/nehHBUGvPXB
+	 5/wzFQCynHLjA==
+Message-ID: <47a6817e-e98e-4a00-8e2c-6a66d15ddb37@kernel.org>
+Date: Mon, 7 Sep 2026 17:29:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,11 +35,12 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/memory_hotplug: factor out node_is_memoryless()
-To: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org
-Cc: linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
- kernel-team@meta.com, osalvador@suse.de, akpm@linux-foundation.org
-References: <20260902195507.88655-1-gourry@gourry.net>
+Subject: Re: [PATCH] mm/hugetlb: fix overbroad MMU notifiers for unshared PMDs
+To: Andrew Morton <akpm@linux-foundation.org>, Li Zhe <lizhe.67@bytedance.com>
+Cc: muchun.song@linux.dev, osalvador@suse.de, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, aiqi.i7@bytedance.com
+References: <20260831091023.66581-1-lizhe.67@bytedance.com>
+ <20260831173220.72ab28190a44a305dacf4d04@linux-foundation.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -86,26 +87,40 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260902195507.88655-1-gourry@gourry.net>
+In-Reply-To: <20260831173220.72ab28190a44a305dacf4d04@linux-foundation.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/2/26 21:55, Gregory Price wrote:
-> A memoryless node neither spans present pages (populated or ZONE_DEVICE)
-> nor has an offline-but-added memory block still linked to it in sysfs.
+On 9/1/26 02:32, Andrew Morton wrote:
+> On Mon, 31 Aug 2026 17:10:23 +0800 "Li Zhe" <lizhe.67@bytedance.com> wrote:
 > 
-> try_offline_node() presently open-codes this memoryless check.
+>> Hugetlb currently expands MMU notifier ranges to PUD boundaries whenever
+>> PMD sharing is possible. That is only needed when huge_pmd_unshare()
+>> actually detaches a shared PMD page table, because clearing the PUD
+>> invalidates the whole PUD-sized virtual address range.
+>>
+>> For hugetlbfs hole punch and MADV_DONTNEED, a shared mapping can pass
+>> the "PMD sharing is possible" range test in function
+>> adjust_range_if_pmd_sharing_possible() even when the PMD table covering
+>> the target 2M page is not shared. KVM then receives a 1G invalidation for
+>> a 2M operation and zaps unrelated secondary mappings, so the guest has to
+>> fault them back in.
+>>
+>> Fix this by using the existing cheap "sharing possible" test only as a
+>> gate, then inspect the candidate PMD tables under the locks held by the
+>> hugetlb unmap paths. The notifier is expanded only for PUDs whose PMD
+>> table is actually shared, while the other callers keep the existing
+>> conservative expansion.
 > 
-> Pull that into a node_is_memoryless() helper and pull the existing
-> check_no_memblock_for_node_cb() helper ahead of the add/online path
-> so it's clearer what is happening here.
+> Thanks.
 > 
-> No functional change.
+>> On a Redis-in-VM workload that punches cold 2M hugetlb pages, this
+>> patch improves P99 QPS stability while punching pages, reducing the QPS
+>> degradation ratio from 7.09% to 1.45%.
 > 
-> Signed-off-by: Gregory Price <gourry@gourry.net>
-> ---
+> So a modest performance improvement?
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Is that worth the complexity, though?
 
 -- 
 Cheers,
