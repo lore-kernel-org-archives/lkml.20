@@ -1,153 +1,99 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 624C8440641;
-	Mon,  7 Sep 2026 09:09:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 653F04477FE;
+	Mon,  7 Sep 2026 09:10:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788772176; cv=none; b=pSmJoJs6Flbr29D4RqdIgtoVaODlYo0L7TOIOozcp5yk+imCgIj1Bt4e3U8f/+MqKDq60kwjBJknDUxoqW0I8wzmGuqBHxI5chuLuNoNUXICgau7Cz6zj8hUP2q8Tg+F7GlLGRZ1GuDsVETQukGkSf49ULbrIV1xUF9BwzpcFYo=
+	t=1788772218; cv=none; b=HouH/Ksa59o2dqj0hJK7y1NihQu/gTeEKYAm5ArQ45RJFz08Bwp1MJpzLPPZYfHXy/AYjUFjN3oCEjODjFIWcD844hHiJAHI/EUCnE2Y8N9uPlkVIzj4Fhjrbu2LF+lS+p9TB7L3JyBONcfdKV9tbCk+Dcz7TYQ0ck5TD8EPHIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788772176; c=relaxed/simple;
-	bh=a5yTJl1mTRNz/JnJGETtgRbZibZXhJy1nbc0Lpub2jM=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ww4K9c6DAL9VNAY1GDrNTGB4YIKQQxrBp663qNCocyr6TrxxpnCntcdBRYMjfLkXnIC7OxDGPaZdhR9+ckpw/L/50fFNLmkOXEFx/29WJWjrFZuYsnlDJDhx+WDDg6cb1ikXPEPNPuEr3y88kEhWvRLm8LPIeRAjzHUUZun79B8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=RxmycdbA; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=MLkoViF3; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=EYS0JhIM; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ZFqKzuHP; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1788772218; c=relaxed/simple;
+	bh=mbxKEGoFYvjtDaAhmiOJVGF7Zj5q6Op8IccCyO/qPW4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E7HFkOjShCukuo8jdcyylp4T26S1xAPTnoXjn+zv3DyD7p0HJ1FGA/sWIQQGab6ZIRYn1KsknS5nUOqynzHxpBK3FAJHyBph/7IU97A7DhnaEqctAdDaxE/kTAl5PQQF2Dd16Srygca5isYnz8QIVsDZP0SUjF3XpiLeaza8zes=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bbEABYk1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="RxmycdbA";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MLkoViF3";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="EYS0JhIM";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ZFqKzuHP"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 1D93E1F453;
-	Mon,  7 Sep 2026 09:09:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788772169; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+ayhPQCbhnor1lPCivHrHnj/zJ7ZNSLcLh+xD4A7yX4=;
-	b=RxmycdbAIO4OVyCEIL9O0pfCvwDurOi1D6P2DoJBgwPq3Tut6eHaRtriZJHJUkZgMw8WrQ
-	SExGba1NQAHUqo4JSr5yal2OTJ1zPC8gOAMEJihO3p/wVdQKm+DpZ2sINpDaDyuWP1jRup
-	t8vuwpKxPg5IFTdg2cM6ceed+h4nhu8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788772169;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+ayhPQCbhnor1lPCivHrHnj/zJ7ZNSLcLh+xD4A7yX4=;
-	b=MLkoViF3YX+tUsoMfLapzh0/Nmt1Om7/HXDHRhI8X0xzs8FgIpbdyhE/KWysQU8AIG0Jw0
-	Tl6qVYDRt08leKDQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788772165; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+ayhPQCbhnor1lPCivHrHnj/zJ7ZNSLcLh+xD4A7yX4=;
-	b=EYS0JhIM7+I5nJqqJSCPUZul5E5jtOxOY8dxW/DR7vV8qItmL99TfLU7v86sySDTr6xAfB
-	zRSfmXm87SL1Rzx/HJSA1F4GU72HX/0L0tuXGCIqEPDbHbDHb7w7TFKkkcXeBf9ORbs+AM
-	Me0eVmCeCe43pwyam5CQAsvfQjpT2zY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788772165;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+ayhPQCbhnor1lPCivHrHnj/zJ7ZNSLcLh+xD4A7yX4=;
-	b=ZFqKzuHPDLBuoB4hA18WebMRzpdcA+vsdAajgcFWSY3+a2sVA8Bh6Mz69QhV6gfnW3K2E5
-	wXzgGhD6uc1mcHAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 79FA613432;
-	Mon,  7 Sep 2026 09:09:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id a6NmHER/nmoyaQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 07 Sep 2026 09:09:24 +0000
-Date: Mon, 07 Sep 2026 11:09:23 +0200
-Message-ID: <8733vltol8.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Jaroslav Kysela
- <perex@perex.cz>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Maciej Strozek <mstrozek@opensource.cirrus.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Takashi Iwai <tiwai@suse.com>,
-	Faiz Nabi Kuchay <fkuchay@oss.qualcomm.com>,
-	Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
-	patches@opensource.cirrus.com,
-	linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 01/11] ASoC: SDCA: allow building without ACPI
-In-Reply-To: <b1eb306a-ca6b-4fb5-93c6-7890a88e2689@opensource.cirrus.com>
-References: <20260907083727.733705-1-srinivas.kandagatla@oss.qualcomm.com>
-	<20260907083727.733705-2-srinivas.kandagatla@oss.qualcomm.com>
-	<b1eb306a-ca6b-4fb5-93c6-7890a88e2689@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bbEABYk1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D5771F00A3A;
+	Mon,  7 Sep 2026 09:10:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788772216;
+	bh=qO1o8A20WwuxzTdItOHMbelkygBgtuXCBMOMdofNeh0=;
+	h=From:To:Cc:Subject:Date;
+	b=bbEABYk1aQWzaiQFlEYMl4fDKkcaOp1rgrWnyYq0mVv3G0dLN6fP9d2jkWPmNuB46
+	 GnhA5xCYf9L19R/qTRCBVqDOrql9MUN+fYMlWf5HsV7Q36Lp3cfYZW6lfkaGW2nzuE
+	 A+fGaBUlAwWUBADVWpcMPgT9c0kENUQjyrgAl3IZot27KorzGcgXLJudrNdH2cRRKI
+	 bzEutkV3wcHYKSk9tspN/D5pT69Sqi4w61eGCS2++w5+hbRhZRlEML4ZjoiRMk3efE
+	 UPcLssAm++05qUHjBWx+Bit4KoNgVbl8IzuwXn/vlYhj5ODZXBB0GSi5VteMwwDNRT
+	 AE1aTqLSXGM1A==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Kent Gibson <warthog618@gmail.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	linux-kernel@vger.kernel.org,
+	linux-mips@vger.kernel.org,
+	linux-sh@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-wireless@vger.kernel.org
+Subject: [PATCH 0/2 v7] gpiolib: finish the legacy cleanup
+Date: Mon,  7 Sep 2026 11:09:54 +0200
+Message-ID: <20260907090956.2825703-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Level: 
-X-Spam-Score: -1.80
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-1.80 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	TAGGED_RCPT(0.00)[dt];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[20];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[oss.qualcomm.com,kernel.org,opensource.cirrus.com,linux.intel.com,perex.cz,gmail.com,linux.dev,suse.com,catcrafts.net,vger.kernel.org];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, 07 Sep 2026 10:54:08 +0200,
-Richard Fitzgerald wrote:
-> 
-> On 07/09/2026 9:37 am, Srinivas Kandagatla wrote:
-> > The SDCA class driver is useful on non-ACPI platforms where the
-> > topology is supplied statically via sdca_class_hw_ops.get_function_data.
-> > 
-> > Drop 'depends on ACPI' from SND_SOC_SDCA and guard the
-> > ACPI-parsing implementations in sdca_device.c and sdca_functions.c
-> > with IS_ENABLED(CONFIG_ACPI), providing empty stubs when ACPI is off.
-> 
-> Would it be better to use IS_REACHABLE(CONFIG_ACPI)?
+From: Arnd Bergmann <arnd@arndb.de>
 
-CONFIG_ACPI is a bool, so it's equivalent.
+These two patches are left from my cleanup series, finishing off the
+work to turn off CONFIG_GPIOLIB_LEGACY by default, and removing the
+include/linux/gpio.h header.
 
+I had originally planned to send these during the merge window after all
+the prerequisites made it in, but didn't finish that before my vacation,
+so I'm sending it now.  I suppose this makes them 7.4 material now,
+but at least the first one could stil be fast-tracked to 7.3 if there
+is a good reason.
 
-thanks,
+The second patch has to remove a few more leftover <linux/gpio.h>
+inclusions that made it into 7.3-rc1 either from new code or from
+conflicts with other changes.
 
-Takashi
+Arnd Bergmann (2):
+  gpiolib: turn off legacy interface by default
+  gpiolib: remove linux/gpio.h
+
+ MAINTAINERS                                  |  1 -
+ arch/mips/txx9/rbtx4927/setup.c              |  2 +-
+ arch/sh/boards/mach-rsk/devices-rsk7203.c    |  2 +-
+ drivers/gpio/Kconfig                         |  9 +++++++-
+ drivers/gpio/TODO                            |  4 +---
+ drivers/gpio/gpiolib-cdev.c                  |  2 +-
+ drivers/gpio/gpiolib-legacy.c                |  3 +--
+ drivers/gpio/gpiolib.c                       |  2 +-
+ drivers/net/wireless/morsemicro/mm81x/hw.c   |  1 -
+ drivers/net/wireless/morsemicro/mm81x/yaps.c |  1 -
+ include/linux/gpio.h                         | 22 --------------------
+ 11 files changed, 14 insertions(+), 35 deletions(-)
+ delete mode 100644 include/linux/gpio.h
+
+-- 
+2.53.0
+
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Cc: Kent Gibson <warthog618@gmail.com>
+Cc: Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-mips@vger.kernel.org
+Cc: linux-sh@vger.kernel.org
+Cc: linux-gpio@vger.kernel.org
+Cc: linux-wireless@vger.kernel.org
+
