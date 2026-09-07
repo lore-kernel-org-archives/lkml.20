@@ -1,64 +1,64 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C054E37C0E5
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:52:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A26A37DEAB
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:52:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788756759; cv=none; b=o3hkKoFqr3nESbd64wP4+HQvBL+02dPjh7HvKAmxPFL7VzCrjqEeP9Gt7QJ/5XkjgPyV2rpcR10q96NGZAqesIlXRh47owRV3D/IM3T8HA6ZvyvSnD77VQ2zNA1l8qufiWpDoAcbtDm6LPsSNm7wRczoL3qQbiWyIfCZoNZudDs=
+	t=1788756767; cv=none; b=ZJSnkDCmsu92bPJePcvZhVRN8NA+RVHnH6O6v5zxHjvWdzlqU+937uXke6KXEM7PDR2AH+CkIYrRximIGVNc3Pq1xwbHVE4jvDzDSQzlgQGQcf7jtX9/yMa9qURpxoWf1thRXQDnSezXKBkhKrMIK1AOtB7ln68ZrN3sVysJzfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788756759; c=relaxed/simple;
-	bh=gzMW80CjGFwMFzpHisixnilwRNm+5xQBt6SorGvCuho=;
+	s=arc-20240116; t=1788756767; c=relaxed/simple;
+	bh=IflaxgY21z66DMaOOZlOWT+BhylVWMmRJyvAy9IC2jA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PrkTOQASUVwCUv3CXdDMDICjRJhhazRvZc7zEIuD8KS/qj+QJ34TVBsrWhBbmCsor4OxSnpBaLTlLuug8MXIOiyrTosS9AnwYAP2vNPvvROOXpoOVafEp8sDckv/It9cWD2Gs0MGvUAqrl+lkT0Sj3EcD7pLVJcCMbjN5cVkx3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sdST4BeZ; arc=none smtp.client-ip=209.85.215.179
+	 MIME-Version; b=QSYXMstF0RMGv9N5YPVTrs6SN7QFXU5E2uUIu0D9z/zhenj1sAqaiFEWqGoKrPuMEddCCHFdJdzikGNjh3jsbHHF7/MhoajtCSTuMBLi5hnAi7PRnfEQAiSgWS6I9MAllGbNYla/ljeqzVfllwMEoSEAFhRrqiGII5/2jkJKusk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=abHd90rA; arc=none smtp.client-ip=209.85.216.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sdST4BeZ"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc1d57602e8so2758005a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 21:52:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="abHd90rA"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-39675172593so2451699a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 21:52:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788756757; x=1789361557; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788756766; x=1789361566; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Fv/8WAsrrZD9Z6WoNFeiwDVhsb+FhzzkoAYrTP/tCf8=;
-        b=sdST4BeZFCtcWiOr6aBdIvksM3gW6Ne/O5+asnsg+4QyJC8CHyWu4KMB4hHdlWhRQj
-         EiZ05wDWBCibNWFR9Qk2l4e6l/Se9fILCGCzuQbRN/nasMWpajXBgErE2iyuKbN9eKoo
-         Zt/4//V0haMkAh5B0laGV32l/8StRIWp5bJjcUhLm26UYHKfrsUMWq445A2U7l1qxA3m
-         HxNagJ+qOh8pYjYz9KmjwcfYGO2CdC3Gi8LCGiHgKfrsW584ZBoOW5fIWTUrR/UF5W1C
-         NGKfwIuOYo+6j4aw5pP8xxdTYYB5S2BZuV6pc+XHBEX3GHyfQqXpiIYcNr7NNY3DJ1/Z
-         8obw==
+        bh=nKUvGXFfM1WSd/D5lDioUe9VV0OdsRUwt1UqjYJjYJI=;
+        b=abHd90rAF3IlWFVEB7jrLxGffw01oAOFvKp5hc6KNHh4FgBxwdwLXsNDID0lKxi2+E
+         bx1wDeu3DP0raHfsq+yA5Vg8+Ku2oHG2TDcTDk3BddTgR4eD9zgZ5t4R+kaWGQU8wIlk
+         F4bgIc/U1Yb3bhbg3IzXkrLzFWvavX+MrvZewKs6KzV/w+XyDivxwPv1aqxlVk4aI+Cp
+         YzkzXMwcMavR0QsFH50j4xJatGAIVJiijuFtsmbMr0sdB9MtknZ0uwm7onYcu7AqsfQg
+         O/s3bNwYwtP+MmkF++GOcqpafdi5IN17CejEuLGp0GqDyJUDcPJxfz6IQWCFeCnVE3Eq
+         ZXMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788756757; x=1789361557;
+        d=1e100.net; s=20251104; t=1788756766; x=1789361566;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Fv/8WAsrrZD9Z6WoNFeiwDVhsb+FhzzkoAYrTP/tCf8=;
-        b=lMIVY/6EQ8BpxqMcwNVzF4LdM9+Lu+d347eOjFQ10HtbEejKA0Lx2JeKHaU6kJJDvW
-         tVLuGAKhgJzxphOJKovD7RLbfYyPt8elDUjoz4QBc/+QlQT34Ad050E4RLZ7iX58HLAp
-         +dvcCvHY8LtFyrtokHvi9nke6kFffRXL3UHonVUs+8DV3adrd7+v1/WD0EUy+ZF6lS+D
-         8c7N7ZpjIhFzwKDzm/UT89R86nbo/E8wZU4nlkaZNwY085zqO+OKtbSiSQgsXY3RVKHN
-         MIMHpw7CmIscTVZZREnnsrgQd43yorF0h9wwGDRECddd9RJGnF7VcCQPFaIwBupX3giP
-         AkCw==
-X-Forwarded-Encrypted: i=1; AKwUvBw/9TlokMC/qqi3W54vKA/bLdra0ds8M068Tpj8o0U8T/adKga3ZdBeBQVNo/u38xNxyfntfI0OgJz2KSc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kWyDlBZswG6oQxfbwDc2AO2Uwv6y69jnvnh4o+Knr4Ydzp5QzB
-	kZA4jgPGEpJd9IV9fd6VVM703eCtMY1eHPXduRhuzwYNT9U0zowKiMQ8
-X-Gm-Gg: AYBFou3EvWv5/q7D3xlsjWPnYuirf4drN2fa+4dTJGuLjBT2smL1haf8jdDtbP7DJZ6
-	0Y/9A9E6jTg2uD4Dk7Jp9PVpvlVYFZ08kdS1WY/glrU8ZtGhQpR478jL5MF7esAH4Ok994RZF5m
-	d8qmAqAJk/lwHkGYCDuITSTLmshNbmxtq9NaYV+ljWRkz9DjHAWoU/t1sB8d5ldu3EClHulItwd
-	cHFoPGyQVBe+esPbthRMe3QWbdTh///UNOPIS6gpjzpkcaGzUf1cHFBmC6XBt/C4JVAQLGz56eY
-	1q/InvnyU30B1AlGDiVblTtFjFHWWI7zO73MvHMyQVs8bZhvwthhrktQq4p0hN1ZBuL4FEi8QCb
-	/zcRDBOmySYV8y18V1wSu5cF+ou4eJRO2xCRc2FcG+EiKLXsHsDCuqNPNTcCR7ftUNSZ6ntfeNi
-	xk0hV/3/2f0OX69az+v6T3O/qypwUfGPjgmR3pVDf95BdsTK+ktTxXc5jyr+HSSdN1xyhQY76aS
-	WMOwVArS2oyyw==
-X-Received: by 2002:a05:6a20:72a6:b0:3d1:e510:905f with SMTP id adf61e73a8af0-3da39b3a6b3mr28486268637.1.1788756757103;
-        Sun, 06 Sep 2026 21:52:37 -0700 (PDT)
+        bh=nKUvGXFfM1WSd/D5lDioUe9VV0OdsRUwt1UqjYJjYJI=;
+        b=XpKtwUnqyvbAq3tuQJkCOCzW3aqAM51WUHdL5khN8vQhhT0+DlywrS7uqCEeQHGcaI
+         IxZr5LJsThkFkTfrifQ4J5moRNb2S8d/sDapxIl5OajllDSEB4S5y8DxP5QBj4WBj7mO
+         EtsBQSD7KNI7//wOFrXdxDvAaaMgTKvL9JgmfBl9h4QZgpfEuwXYOngLCSlflcSk4yvW
+         tenh+uPoPdkN0sLDfFBFXS06yHLwr71Afqom6l8+Azh/tUvml/3UKCTk4utrMhgo0Cb9
+         k8sq7m6QthdbPruZOkGcvWKVgPXoCCFii4PqyUgDQoAUavCE8NPyWNM4MqUFhtt8jQ09
+         3lZg==
+X-Forwarded-Encrypted: i=1; AKwUvBz6Jc9SGOMrjIbTvsblbJGu8aB5O0yUyVxt6/0XK14naMBy39s7MiE8d8a70c4wQVtj4jYKm2CtpASfSMw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kUmM1cCw8sFke5lCN9GMNKwSqD1u0MiY7gYQiMtej7cJU7+G+W
+	tdNb/2YN4sjiN1VAcdc8t98m1QmvGeCahcYChT55oAggudeYRWc4MePS
+X-Gm-Gg: AYBFou3ume4v+bhrqDM0K38UCQ5b/DeHDHauI1Z8yAe8xdjYuHUU3awJaZ4ZE4fzSfQ
+	U6E0qVexhf2U+H+WX5n5LSXnFO/sDDr+8QeEcR0nGfTIVaTFgGJkX+OX1tZlSOjVMCKmhtrxBV6
+	1pRPQRoux5zcUBy6rPFJJ8SHW3UB8xcHVkXpwG0UhYZAPWC+ioieoPzFG67H0RSP8cclkJncQac
+	af3eNXFQxj+2h0iwTjr1ToifMg/09R+zRmBP+m8XGZxma3yE6rxeIhTR0R8026zJCDJmjDFZHDP
+	1ZqeV5FTTGeYbm8JIQOI9Vsr/IBxvgLuyoGVKxCEfnb2CwQOZhVJvYjUA2t8TrtGsu7aZ93mET3
+	eAwfh4U2RmUQdLMKSB5N8V0mXE9M8JUFGkPK8yF3jOQIAUezLhGpGI66PJRga7G3N9RLL6U16Me
+	KGtPvnbJNEgrlZE3vJqKy8mQK74hCxW58p3I54m3hBDAetYs+FXidUiJdzzSVx1eTN7yOi6E7Sy
+	IJH2WAswKHI5A==
+X-Received: by 2002:a17:90a:1c81:b0:39b:2c00:c3f5 with SMTP id 98e67ed59e1d1-39b2c00ed40mr18971030a91.18.1788756765648;
+        Sun, 06 Sep 2026 21:52:45 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14324410092sm21979675c88.14.2026.09.06.21.52.28
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14324410092sm21979675c88.14.2026.09.06.21.52.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 21:52:36 -0700 (PDT)
+        Sun, 06 Sep 2026 21:52:45 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
 To: Alexei Starovoitov <ast@kernel.org>,
 	Daniel Borkmann <daniel@iogearbox.net>,
@@ -89,9 +89,9 @@ Cc: bpf@vger.kernel.org,
 	linuxppc-dev@lists.ozlabs.org,
 	linux-kselftest@vger.kernel.org,
 	sparclinux@vger.kernel.org
-Subject: [PATCH v2 6/7] libbpf: Fix typos in comments
-Date: Mon,  7 Sep 2026 10:21:34 +0530
-Message-ID: <20260907045135.13317-7-hemanth.selam@gmail.com>
+Subject: [PATCH v2 7/7] selftests/bpf: fix repeated words in comments
+Date: Mon,  7 Sep 2026 10:21:35 +0530
+Message-ID: <20260907045135.13317-8-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20260907045135.13317-1-hemanth.selam@gmail.com>
 References: <20260907045135.13317-1-hemanth.selam@gmail.com>
@@ -103,53 +103,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix typos in comments, reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+Drop repeated words in comments, reported by scripts/checkpatch.pl.  Only
+touches comments, no code changes.
 
-The subject changed since v1, from "tools/lib: fix typos in comments":
-both files are under tools/lib/bpf/, where the prevailing form is
-"libbpf: Fix ...".
+The subject prefix changed since v1, from "selftests: bpf:" to
+"selftests/bpf:", to match the rest of the history in this directory.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- tools/lib/bpf/btf.c  | 4 ++--
- tools/lib/bpf/usdt.c | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ tools/testing/selftests/bpf/libarena/src/asan.bpf.c | 2 +-
+ tools/testing/selftests/bpf/progs/iters.c           | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/tools/lib/bpf/btf.c b/tools/lib/bpf/btf.c
-index 8417de92d028..c1745bee37c0 100644
---- a/tools/lib/bpf/btf.c
-+++ b/tools/lib/bpf/btf.c
-@@ -3843,7 +3843,7 @@ static int btf_dedup_remap_types(struct btf_dedup *d);
-  * types, in general, can form graphs containing cycles, not just DAGs.
-  *
-  * While algorithm does deduplication, it also merges and resolves type
-- * information (unless disabled throught `struct btf_opts`), whenever possible.
-+ * information (unless disabled through `struct btf_opts`), whenever possible.
-  * E.g., in the example above with two compilation units having partial type
-  * information for structs `A` and `B`, the output of algorithm will emit
-  * a single copy of each BTF type that describes structs `A`, `B`, and `S`
-@@ -5644,7 +5644,7 @@ static int btf_dedup_resolve_fwds(struct btf_dedup *d)
-  *
-  * After we established for each type its corresponding canonical representative
-  * type, we now can eliminate types that are not canonical and leave only
-- * canonical ones layed out sequentially in memory by copying them over
-+ * canonical ones laid out sequentially in memory by copying them over
-  * duplicates. During compaction btf_dedup->hypot_map array is reused to store
-  * a map from original type ID to a new compacted type ID, which will be used
-  * during next phase to "fix up" type IDs, referenced from struct/union and
-diff --git a/tools/lib/bpf/usdt.c b/tools/lib/bpf/usdt.c
-index 2e56e3ab5b6c..c0933580930b 100644
---- a/tools/lib/bpf/usdt.c
-+++ b/tools/lib/bpf/usdt.c
-@@ -144,7 +144,7 @@
-  * about. This state has to be maintained per-BPF object and coordinate
-  * between different USDT attachments within the same BPF object.
-  *
-- * Spec ID is the key in spec BPF map, value is the actual USDT spec layed out
-+ * Spec ID is the key in spec BPF map, value is the actual USDT spec laid out
-  * as struct usdt_spec. Each invocation of BPF program at runtime needs to
-  * know its associated spec ID. It gets it either through BPF cookie, which
-  * libbpf sets to spec ID during attach time, or, if kernel is too old to
+diff --git a/tools/testing/selftests/bpf/libarena/src/asan.bpf.c b/tools/testing/selftests/bpf/libarena/src/asan.bpf.c
+index 5135d5c72a46..158d95c2520b 100644
+--- a/tools/testing/selftests/bpf/libarena/src/asan.bpf.c
++++ b/tools/testing/selftests/bpf/libarena/src/asan.bpf.c
+@@ -221,7 +221,7 @@ static __always_inline bool check_asan_args(s8 __arena *addr, size_t size,
+ 		goto confirmed_valid;
+ 
+ 	/*
+-	 * Wraparound is possible for values close to the the edge of the
++	 * Wraparound is possible for values close to the edge of the
+ 	 * 4GiB boundary of the arena (last valid address is 1UL << 32 - 1).
+ 	 *
+ 	 *
+diff --git a/tools/testing/selftests/bpf/progs/iters.c b/tools/testing/selftests/bpf/progs/iters.c
+index 62d7df9e80be..340670e89ba9 100644
+--- a/tools/testing/selftests/bpf/progs/iters.c
++++ b/tools/testing/selftests/bpf/progs/iters.c
+@@ -1511,7 +1511,7 @@ __naked int checkpoint_states_deletion(void)
+ 	 * would get equal to one of the explored states and thus loop
+ 	 * exploration would be finished (at-least for a specific path).
+ 	 * Verifier evicts explored states with high miss to hit ratio
+-	 * to to avoid comparing current state with too many explored
++	 * to avoid comparing current state with too many explored
+ 	 * states per instruction.
+ 	 * This test is designed to "stress test" eviction policy defined using formula:
+ 	 *
