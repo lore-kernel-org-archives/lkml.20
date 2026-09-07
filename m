@@ -1,188 +1,127 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E52B395ACC;
-	Mon,  7 Sep 2026 19:57:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48B2D395ACC
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 19:57:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788811025; cv=none; b=g9BD3gkcmfr+ggDBRU3w75Y6i3tSwcMuVsmQcMMdPr8CrUKchXiuVcMaMB5tNO6oTCqFQCBA7u7gw3JoWxQEYJ8x8SmdfoKRpspU4bxzlZoRMrT9pi5eCV1s9QQmgBSTAE34OEooeeDktM+vakt9Kkm5ywzj+o5FZ4BTkuJpQ/c=
+	t=1788811045; cv=none; b=tdZ0r/x9uDeUbFFvdXy7nNMm9IJPFEI28YFc5Y5Cq7Mkl3YF0Xh957BATY/i8n6HgOnEA21RUg+5k3/b5hSI5P9itN7gpHXQJn8pmXDkHgwEa3Q5dFBmnGGnDX/z6PMOc3Kt4mMDQrRUkUZh5Sv0lBfw5+xht8KM9gVmlkR09rQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788811025; c=relaxed/simple;
-	bh=b3UCEhQ3Ny1Yb8/Kr5Ss7x2pIj1yiWeZOYv3UnFdBsM=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=AYm1dg1jFlU8CF12dhfIjW2nv/FO0QBsXzTEEl3lEsjm9JfZws1cBjq1JeYplb3A/z0Ld9fSNoe3hw17/LRyR2xjaLglpvdt7al13K7SObnXk9MIvz+n5IYV5uLEpFuFs7QfZTPl5aF7rtHLfmIqONZIdUVPLvPV3xXgMXw5s/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Eeo78cw1; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=fEZUoVjq; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788811045; c=relaxed/simple;
+	bh=pmzPkbLlyTmES8XmDeuFHlp7lwmpmOCWjET1zO3XDZc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UGdV4/biXs12hUT2P+tlTuTk9mpozfevHAKOAogqAAJQal4i01PgXwDTVw6huMz5TjGvcokebucZhDS/zOyuwbjgp6qZ7lBbuesXvJ94vLrrIfg4sm6AygdqHQsIz8NYGoFiLyMbeC4BtHMjto7DAD4UKiDaFeKehbugKq3ABg4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AZARGJ3J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Eeo78cw1";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="fEZUoVjq"
-Date: Mon, 07 Sep 2026 19:56:59 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788811021;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yXreyWHGrAqrSjarZl4/3x3sJa774oc3lKWjuD5gbH8=;
-	b=Eeo78cw1fYmw7t0v2JFLcQJYXPyMAK/WdUqaFoBPw8PXxqRkrWSn/DMhpop1UvH/P5rb6+
-	Rut/TantcxZ9RXpqMWbeR/GpQgyZzt69Fvkc5V33aJ3y8X4jLdqKC1j3Hp0f7BFoMNMoOx
-	kra3Wz4dxytae0LnFxw/fKJk7faiteb912bWT7ei3iuFDyVlX9X3I9jzKxsvULHQo3dOo1
-	qx8JoDgOTV5tjgN8fIiAgCX9mfvavy0pbrfX5ZXxRV3k8akOpBEVzb8gDy7ezYtmYqHW/8
-	zH+nDGA5gRtvjIPFfDn0/ScHqlXHPUwLZS68YGe+6nsKCvcDEx1Tp+3kUlkTUA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788811021;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yXreyWHGrAqrSjarZl4/3x3sJa774oc3lKWjuD5gbH8=;
-	b=fEZUoVjqEjWZSwAS3JIYyu39osqTynSU+1a0giNGR4Lc6rEEI1lCnHg9ihIIJdymC4fntX
-	rcPOYmUlLi5ZfYAw==
-From: "tip-bot2 for Adrian Ng Ho Yin" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: irq/drivers] irqchip/gic-v3: Add Altera SoCFPGA Agilex5 GIC600
- DMA32 erratum workaround
-Cc: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
- Thomas Gleixner <tglx@kernel.org>, Marc Zyngier <maz@kernel.org>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: =?utf-8?q?=3Cfc927e43892b86200e157fa303b0d1dd344caffd=2E1788751?=
- =?utf-8?q?033=2Egit=2Eadrian=2Eho=2Eyin=2Eng=40altera=2Ecom=3E?=
-References: =?utf-8?q?=3Cfc927e43892b86200e157fa303b0d1dd344caffd=2E17887510?=
- =?utf-8?q?33=2Egit=2Eadrian=2Eho=2Eyin=2Eng=40altera=2Ecom=3E?=
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AZARGJ3J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E8011F00A3A;
+	Mon,  7 Sep 2026 19:57:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788811043;
+	bh=Ylyz7JcmYkU0yb1cgId3V0zysqw0fNg7C175grvf9jg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=AZARGJ3JcXho1RUsuyVjdmvbw7j//GWeTKUnmTOOqDFrcOb04DLK8M888yegbgDba
+	 TNvNHKASvFgEcGqWmxxzq9lXwHll1f5YIeaR2WhL9E2qg78UYK0aGBvv1oLRZwWi/0
+	 Mk91K5b4/ffwjyre8FM4CTxP1xyPKR/GnNEvtliQY+j2NzaQEuKcDzVnWcPbtnLQ4i
+	 jgf6ef91TYslZRHYwaUBvvaPl8hRYVEnt5vib+qNBBI+sZCCSZLxOziGhKTqsU8/D8
+	 dp8/E8NQiSSiLITWhTBKL9k1gC9ujUM677udJZTURt7n8NdTW44lhgEL5FvxlyEqNM
+	 F7McwFdaL8gpg==
+Message-ID: <53e7992c-5319-4533-a0d2-d0fb55cebc25@kernel.org>
+Date: Mon, 7 Sep 2026 21:57:16 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178881101929.623050.5833110394894249071.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/huge_memory: add folio_reset_partially_mapped()
+To: Kiryl Shutsemau <kirill@shutemov.name>, akpm@linux-foundation.org,
+ ziy@nvidia.com, hannes@cmpxchg.org
+Cc: ljs@kernel.org, usama.arif@linux.dev, lance.yang@linux.dev,
+ baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev,
+ ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
+ kasong@tencent.com, hughd@google.com, balbirs@nvidia.com,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+References: <20260907183340.1446132-1-kirill@shutemov.name>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260907183340.1446132-1-kirill@shutemov.name>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The following commit has been merged into the irq/drivers branch of tip:
+On 9/7/26 20:33, Kiryl Shutsemau wrote:
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> 
+> __folio_unqueue_deferred_split() and __folio_freeze_and_split_unmapped()
+> both clear PG_partially_mapped and take the folio out of
+> MTHP_STAT_NR_ANON_PARTIALLY_MAPPED with the same five lines.
+> 
+> Move the block into folio_reset_partially_mapped() and call it from both
+> places.
+> 
+> The helper asserts what both callers rely on: the folio is frozen, so
+> deferred_split_folio() cannot set the flag again under it, and the folio
+> is already off the deferred split queue. The list check sits behind the
+> flag test because order-1 folios have no _deferred_list.
+> 
+> folio_order() is safe to use at this point in the split process: it
+> still shows the pre-split order.
+> 
+> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> Assisted-by: Claude-Code:claude-fable-5-1
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-Commit-ID:     0c65a1331928d0207c385f03fb5eba0cfecce0e6
-Gitweb:        https://git.kernel.org/tip/0c65a1331928d0207c385f03fb5eba0cfec=
-ce0e6
-Author:        Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-AuthorDate:    Mon, 07 Sep 2026 16:22:59 +08:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Mon, 07 Sep 2026 21:53:05 +02:00
+Thanks!
 
-irqchip/gic-v3: Add Altera SoCFPGA Agilex5 GIC600 DMA32 erratum workaround
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Agilex5 integrates GIC600 with an ACE-lite interface limited to a 32-bit
-address bus, so the ITS can only access the first 4 GB of physical address
-space. Register intel,socfpga-agilex5 on the existing
-dma_32bit_impaired_platforms list so ITS allocations use GFP_DMA32.
+-- 
+Cheers,
 
-The workaround is guarded by ALTERA_ERRATUM_AGILEX5_2_1_23, which is
-selected by ARCH_INTEL_SOCFPGA as all Agilex5 devices are affected.
-
-This limitation is documented as Agilex 5 ES Device Errata 2.1.23 (825514).
-
-Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Marc Zyngier <maz@kernel.org>
-Link: https://docs.altera.com/r/docs/825514/current/agilex-5-es-device-errata=
--and-user-guidelines/hps-gicv3-its-and-lpi-unable-to-access-physical-memory-l=
-arger-than-32-bits-causing-msi-x-interrupt-failure
-Link: https://lore.kernel.org/linux-arm-kernel/372f059069a5551ea1096015f855cc=
-306dbd7cd4.1747368554.git.adrianhoyin.ng@altera.com/ # v1
-Link: https://lore.kernel.org/linux-arm-kernel/6a44509ca0edaabc17e59d2e27fef1=
-c782183456.1751618484.git.adrianhoyin.ng@altera.com/ # v2
-Link: https://lore.kernel.org/linux-arm-kernel/20260622024945.21354-1-muhamma=
-d.nazim.amirul.nazle.asmade@altera.com/ # v3 (untagged)
-Link: https://lore.kernel.org/all/20260904091114.2259616-1-adrian.ho.yin.ng@a=
-ltera.com/ #v4
-Link: https://patch.msgid.link/fc927e43892b86200e157fa303b0d1dd344caffd.17887=
-51033.git.adrian.ho.yin.ng@altera.com
----
- Documentation/arch/arm64/silicon-errata.rst |  3 +++
- arch/arm64/Kconfig                          |  9 +++++++++
- arch/arm64/Kconfig.platforms                |  1 +
- drivers/irqchip/irq-gic-v3-its.c            |  3 +++
- 4 files changed, 16 insertions(+)
-
-diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch=
-/arm64/silicon-errata.rst
-index ac3248b..25afa79 100644
---- a/Documentation/arch/arm64/silicon-errata.rst
-+++ b/Documentation/arch/arm64/silicon-errata.rst
-@@ -53,6 +53,9 @@ stable kernels.
- | Allwinner      | A64/R18         | UNKNOWN1        | SUN50I_ERRATUM_UNKNOW=
-N1     |
- +----------------+-----------------+-----------------+----------------------=
--------+
- +----------------+-----------------+-----------------+----------------------=
--------+
-+| Altera         | SoCFPGA Agilex5 | 2.1.23          |ALTERA_ERRATUM_AGILEX5=
-_2_1_23|
-++----------------+-----------------+-----------------+----------------------=
--------+
-++----------------+-----------------+-----------------+----------------------=
--------+
- | Ampere         | AmpereOne       | AC03_CPU_38     | AMPERE_ERRATUM_AC03_C=
-PU_38  |
- +----------------+-----------------+-----------------+----------------------=
--------+
- | Ampere         | AmpereOne       | AC03_CPU_57     | N/A                  =
-       |
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index b5a51b0..d25c77a 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -1427,6 +1427,15 @@ config NVIDIA_OLYMPUS_1027_ERRATUM
-=20
- 	  If unsure, say Y.
-=20
-+config ALTERA_ERRATUM_AGILEX5_2_1_23
-+	bool
-+	help
-+	  The Altera SoCFPGA Agilex5 GIC600 SoC integration has ACE-lite
-+	  addressing limited to the first 32bit of physical address space,
-+	  so the ITS cannot access memory above 4GB.
-+
-+	  Selected by ARCH_INTEL_SOCFPGA, as all Agilex5 devices are affected.
-+
- config RENESAS_ERRATUM_GEN4GICITS1
- 	bool "Renesas R-Car Gen4: GIC600 can not access physical addresses above 4 =
-GiB"
- 	default y
-diff --git a/arch/arm64/Kconfig.platforms b/arch/arm64/Kconfig.platforms
-index d2acfac..07127f7 100644
---- a/arch/arm64/Kconfig.platforms
-+++ b/arch/arm64/Kconfig.platforms
-@@ -361,6 +361,7 @@ config ARCH_SEATTLE
-=20
- config ARCH_INTEL_SOCFPGA
- 	bool "Intel's SoCFPGA ARMv8 Families"
-+	select ALTERA_ERRATUM_AGILEX5_2_1_23
- 	help
- 	  This enables support for Intel's SoCFPGA ARMv8 families:
- 	  Stratix 10 (ex. Altera), Stratix10 Software Virtual Platform,
-diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-it=
-s.c
-index b0fdc2b..b6509b4 100644
---- a/drivers/irqchip/irq-gic-v3-its.c
-+++ b/drivers/irqchip/irq-gic-v3-its.c
-@@ -4896,6 +4896,9 @@ static bool __maybe_unused its_enable_quirk_hip09_16210=
-0801(void *data)
- }
-=20
- static const char * const dma_32bit_impaired_platforms[] =3D {
-+#ifdef CONFIG_ALTERA_ERRATUM_AGILEX5_2_1_23
-+	"intel,socfpga-agilex5",
-+#endif
- #ifdef CONFIG_RENESAS_ERRATUM_GEN4GICITS1
- 	"renesas,r8a779f0",
- 	"renesas,r8a779g0",
+David
