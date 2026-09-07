@@ -1,487 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70B5448B38F;
-	Mon,  7 Sep 2026 17:13:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 795DC466B5D
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 17:15:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788801227; cv=none; b=oZhGKSmMJxmHLTqSwOPWtgu2C1V54jck8JwLRZVThM2dIjMBUGb+9Zg5KHL6FZ6ST7FDV1I+OD2X6YdBSfM0tNwP1btG3aHK7g9vvV82QpVYnk/ePDjvdeyvCxzCNwmWDlkFWxOY+51at1eeNOloODtKZ3HicktgvOIujXmFdYo=
+	t=1788801350; cv=none; b=eblDcRQGvyKqcESB/mqmdls21Z6QxunZX35xpFdvm44q1M6m1HAJVe9+WbBpVImFgELSaxS5niPqRIp365TimH8A+DrNFyuqtGQtntINqIC71H95i3o/GTCkoKT4A/iVaTXnbmP+rbN6GvkTnVf4CZUXXautPCsZMm2Vo08GTL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788801227; c=relaxed/simple;
-	bh=nJKus2djH1zK9J1haOpRK3yBSc4tcQyXDESf73LHgRo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=H5O9/KrZPIBmbjw77DmYpVCX6CjnNMkAa7s9n2pLp9x3Dz1FBOZPfgcpDi0FQdzv0bPoWDl4UILFkGB6kxj0Sq1Cx7eUzio5vPU+O6Fzf2BkjSz6PFnzsqlK9nQ/gh19lZGaN0BvpJCLoZ0Wp4OwTZ47T8SGLITx+q+5R92G1vQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SFdsiah1; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788801350; c=relaxed/simple;
+	bh=iSu4vq8VUVlCBKz4VBKaC288diGMbFIF0yqfvtN0i1E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Wh8yR8wJhoevGLL4SIbvxniHETfD8066VJAQ4YsHQqIw/TYrBC8SLK0UEmq1fS61UtENRSI74OSUcru0Y91HJg4XXFOHA5+dqCLBWe226LdRAFITqO3WFVzDW8ce+iZpVFe3QmE0hKPmNm3yCPq8aULrc0RKJeHqsVEwiD++iuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P3vvqsDh; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SFdsiah1"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 39975C2BD01;
-	Mon,  7 Sep 2026 17:13:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788801227;
-	bh=nJKus2djH1zK9J1haOpRK3yBSc4tcQyXDESf73LHgRo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=SFdsiah17A3wWJdloy3Ke8ay0gTxZGyGhwi9WhvyCRIIU8wTfOO/0F7ftu5ni5KXj
-	 EHYqk9zc9OIysXswVS1+0RMRPvb7aDOuPz2Dukr1q7MHrIwv+yeWs7yhC/ZCudUwEu
-	 Azt5JMtx8N2qaH46/Zc5j4kOnQmbJEGPN5NUQEh5QLrzkdZOOWk6JO92SzU8KDv7wL
-	 TVyaRoIfNVX3nFtCsdaGtcIq44bOyzlB8w8TBqHF0JshUQxCA9CtO71WBnOqiQfhON
-	 q+3L5SKE1ULpbcEVIkkVNyu76SacQljEdZ5epBASECXFEzY3vF//CZCnU7p9e7ISJP
-	 +bff+nljZhN3w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2157FC79FAA;
-	Mon,  7 Sep 2026 17:13:47 +0000 (UTC)
-From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Date: Mon, 07 Sep 2026 19:13:41 +0200
-Subject: [PATCH v2 3/3] arm64: dts: freescale: add Nodebox v3 CPU Module
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P3vvqsDh"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d71ae3455aso55919005ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 10:15:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788801349; x=1789406149; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DZk48Va2SslQwatjNk2SlZrPKFFZPysGFpwSLXm49Bw=;
+        b=P3vvqsDhLFjGXIWqhaM4DXqBq79l1/wCZKOrGlQA+9vVCAvu66TquATU1LJw5XAfwf
+         gU97Oeia1JPuoQRn6f1j0WdQeGWnNCCg6mMild3plf4otNyedsqkLyxtkTOiWI3H+zsb
+         ePU59yC1yrt8tK2cx/4kYKRL6c24hqUsy74I+OSKgXQVC+Lh4eQfyyrzU8h1M6URtJvO
+         UOYsnEirDImb5KmdsJUlobcvSsBXzV6wHyaYjJG20Z+K518G83SYUhvdGtY+G+YzhDzV
+         G/mjgo0Oq1HlS3ZE8682rJsckYC3MzZlkTGbfU7/mKwk222upxozOMgyCUu+WpcEo+7P
+         LUXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788801349; x=1789406149;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DZk48Va2SslQwatjNk2SlZrPKFFZPysGFpwSLXm49Bw=;
+        b=HGqvHFS57l6g6MnaExFUsTs/6zgKe40qCn9Hm06l3HPMq3AD2XC+q5GJ5JhJfsSOBV
+         HBypuLanfCYpUMCm24gdOkQ8du4+hBGaBNl8XsueqSbQytK7ym+uzsXRLbUfxkEQXG3G
+         3NS+FN8vTYxRPgvxde88xJxFAJkfev4gvlMwayiOglXvVJAWsyV+7RfHzPFrzsj8gpst
+         KxdH8tBqgmG421ZxcebbHJCSW7oCJ4WaKPn62donwxHKPQUkxVBsWt2/ht3DflBROBLV
+         MwYsEMoA4Re0DuGLAIAjIhyay+cCcPBZWNlgAAvPt1AzQ66sUWA5rK6+gmDF9XMyvfUT
+         CZrA==
+X-Forwarded-Encrypted: i=1; AKwUvBxzVHgN0ZoklxPn6LYmm0dLzS4rKoV4GjYkBHYMjkWen5g6tkDSuRFkOCV7QPxrklN2HRBopk62kqTLRNI=@vger.kernel.org
+X-Gm-Message-State: AFuF++m29Mn/EqnFHLIotH87rtt8/5bYcF5vf6Zbgkdg5LECVLOGr1iQ
+	UosqE4Fhiv/0Q+gRmN05tr8MdXF3pf9BrkXekSMISd8TWBd+bonOevus
+X-Gm-Gg: AYBFou0jjpOJ/bwLG4lcULxETB57t1Gf5Z5P9q0HIbRgOAS9mJ5fLryUu2sSU8dV43i
+	6SBRsjNi5cV2dsOfDbYsYiJKAVm2+9MyQS+dkjI8l1mtJ+NE1fomuj+ifryn4G9IagL9oMEFFjX
+	ArvI9Ghc9TgZOP1jOe+PSFuRBqdUqymWhs7kE3Qjwm0/mVB95GXLTmGSWrgMp2EcjrxIWGNWt1g
+	R3VhgC14QWtIhFuryPL+kiSX/tq6lSif8+KelFezwtP/oCKIwF0HuvraPLe8K7SUdpvuujcZ5nA
+	rm92GwmFXa8xr/DyNGo/y17k1opK7UrAOpjUDHkQ76xPRd1mroja3Uphp1/4KK+P1NRQe2oThj0
+	x0UGV/OilfJGM6jsOAt8NLJfgK6KQnhLJJFNA6b7+eB4BrBYRIP4Q9JW+YK1xjoXiKpS5PrAVb5
+	KNu7V/l0sTEA9yodpLJZJ8Bl934/WNFxdnjBsnPQH5vjpG7NZEYjXwpkfpoQ5s1CWCaTOfBlyjk
+	Q+hVhU3
+X-Received: by 2002:a17:902:7788:b0:2d7:4cd4:5a7f with SMTP id d9443c01a7336-2db127c0b20mr262194895ad.12.1788801348608;
+        Mon, 07 Sep 2026 10:15:48 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d38:5c70:ab3b:f926:2655:db37])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14ae85eesm45963195ad.82.2026.09.07.10.15.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 10:15:48 -0700 (PDT)
+From: ThangNN99 <ngocthang2710.1999@gmail.com>
+To: Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Yangtao Li <frank.li@vivo.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+f8ce6c197125ab9d72ce@syzkaller.appspotmail.com
+Subject: Re: [PATCH] hfsplus: fix recursive tree_lock in hfsplus_file_extend()
+Date: Tue,  8 Sep 2026 00:15:43 +0700
+Message-ID: <20260907171543.8175-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <56524bbf4d0a08e932f9cea18861538151a89534.camel@dubeyko.com>
+References: <56524bbf4d0a08e932f9cea18861538151a89534.camel@dubeyko.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-for-upstream-nbxv3-dts-v2-3-6b4afd36180b@free.fr>
-References: <20260907-for-upstream-nbxv3-dts-v2-0-6b4afd36180b@free.fr>
-In-Reply-To: <20260907-for-upstream-nbxv3-dts-v2-0-6b4afd36180b@free.fr>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- Vincent Jardin <vjardin@free.fr>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788801225; l=9574;
- i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=dtME2Z4lywIdPgaB64n3Osfz0XLTwyOvRhWPjRF6ztw=;
- b=CsMBWhXC5SQr2Jzbt0CqodWftf3w82IuOF2bnHT/Lm/LaNVml6FB2R8YISwV5KjJ6LYmdfD0U
- mKmT5hF6ce/BukqKcp+mVXXSWOWE8rM7cwn6QioC2sSPxL6EHRqiFJM
-X-Developer-Key: i=vjardin@free.fr; a=ed25519;
- pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
-X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
- auth_id=871
-X-Original-From: Vincent Jardin <vjardin@free.fr>
-Reply-To: vjardin@free.fr
+Content-Transfer-Encoding: 8bit
 
-From: Vincent Jardin <vjardin@free.fr>
+Hi Slava,
 
-The Nodebox v3 is a Free Mobile CPU module built around the NXP
-LX2160A (16x Cortex-A72, DPAA2).
+Thanks for looking at this.
 
-The same .dtsi is used by the U-Boot port, so both Linux and
-u-boot should not drift.
+> Could you please explain the use-case or workload that is trying to
+> claim more blocks that fork can include for Extents Overflow file?
 
-Signed-off-by: Vincent Jardin <vjardin@free.fr>
----
- arch/arm64/boot/dts/freescale/Makefile             |   2 +
- .../arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dts |  34 ++
- .../boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi      | 342 +++++++++++++++++++++
- 3 files changed, 378 insertions(+)
+It is not a normal workload -- it requires a corrupted/adversarial
+on-disk volume, e.g. a loop-mounted image (removable media, a
+downloaded .img/.dmg, or a fuzzer). Per Apple's TN1150 ("HFS Plus
+Volume Format"):
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index 95ae85ab4adf5..faab8bf0e1676 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -55,6 +55,8 @@ DTC_FLAGS_fsl-lx2160a-half-twins := -Wno-interrupt_map
- dtb-$(CONFIG_ARCH_LAYERSCAPE) += fsl-lx2160a-half-twins.dtb
- DTC_FLAGS_fsl-lx2160a-honeycomb := -Wno-interrupt_map
- dtb-$(CONFIG_ARCH_LAYERSCAPE) += fsl-lx2160a-honeycomb.dtb
-+DTC_FLAGS_fsl-lx2160a-nbxv3 := -Wno-interrupt_map
-+dtb-$(CONFIG_ARCH_LAYERSCAPE) += fsl-lx2160a-nbxv3.dtb
- DTC_FLAGS_fsl-lx2160a-qds := -Wno-interrupt_map
- dtb-$(CONFIG_ARCH_LAYERSCAPE) += fsl-lx2160a-qds.dtb
- DTC_FLAGS_fsl-lx2160a-rdb := -Wno-interrupt_map
-diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dts b/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dts
-new file mode 100644
-index 0000000000000..b07e9def0a529
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dts
-@@ -0,0 +1,34 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Free Mobile Nodebox v3 CPU Module (LX2160A)
-+ *
-+ * Copyright 2026 Free Mobile, Vincent Jardin
-+ */
-+
-+/dts-v1/;
-+
-+#include "fsl-lx2160a-rev2.dtsi"
-+#include "fsl-lx2160a-nbxv3.dtsi"
-+
-+/ {
-+	model = "Free Mobile Nodebox v3 CPU Module (LX2160A)";
-+	compatible = "freemobile,nbxv3", "fsl,lx2160a";
-+};
-+
-+&fspi {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&fspi_dqs_sck_cs10_pins>, <&fspi_data30_pins>;
-+};
-+
-+&gpio1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&gpio1_31_28_pins>;
-+};
-+
-+&pcs_mdio13 {
-+	status = "okay";
-+};
-+
-+&pcs_mdio14 {
-+	status = "okay";
-+};
-diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi b/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi
-new file mode 100644
-index 0000000000000..3357f1beddac9
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi
-@@ -0,0 +1,342 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Free Mobile Nodebox v3 CPU Module (LX2160A)
-+ *
-+ * Copyright 2026 Free Mobile, Vincent Jardin
-+ *
-+ * This file is shared by the Linux kernel and U-Boot.
-+ */
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+
-+/ {
-+	aliases {
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	gpio-restart {
-+		compatible = "gpio-restart";
-+		gpios = <&gpio1 8 GPIO_ACTIVE_LOW>;
-+		priority = <128>;
-+	};
-+};
-+
-+&crypto {
-+	status = "okay";
-+};
-+
-+&dspi0 {
-+	status = "okay";
-+
-+	dpll@0 {
-+		compatible = "microchip,zl30733";
-+		reg = <0>;
-+		spi-max-frequency = <12500000>;
-+	};
-+};
-+
-+&dspi2 {
-+	status = "okay";
-+};
-+
-+&dpmac13 {
-+	status = "okay";
-+	phy-handle = <&lan8023_phy_s0>;
-+	phy-connection-type = "10gbase-r";
-+};
-+
-+&dpmac14 {
-+	status = "okay";
-+	phy-handle = <&lan8023_phy_s1>;
-+	phy-connection-type = "10gbase-r";
-+};
-+
-+&dpmac17 {
-+	status = "okay";
-+	phy-handle = <&rtl8211fd>;
-+	phy-connection-type = "rgmii-id";
-+};
-+
-+&emdio1 {
-+	status = "okay";
-+
-+	/* Microchip LAN8023 dual 10G PCS/retimer, Clause 45 only, one address per slice */
-+	lan8023_phy_s0: ethernet-phy@2 {
-+		compatible = "ethernet-phy-ieee802.3-c45";
-+		reg = <2>;
-+	};
-+
-+	lan8023_phy_s1: ethernet-phy@3 {
-+		compatible = "ethernet-phy-ieee802.3-c45";
-+		reg = <3>;
-+	};
-+
-+	rtl8211fd: ethernet-phy@6 {
-+		compatible = "ethernet-phy-id001c.c916";
-+		reg = <6>;
-+	};
-+};
-+
-+&emdio2 {
-+	status = "okay";
-+};
-+
-+&esdhc1 {
-+	status = "okay";
-+	bus-width = <8>;
-+	non-removable;
-+	mmc-hs200-1_8v;
-+	mmc-hs400-1_8v;
-+};
-+
-+&fspi {
-+	status = "okay";
-+
-+	/* GigaDevice GD55LB02GF, 256 MiB boot NOR */
-+	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		spi-max-frequency = <150000000>;
-+		spi-rx-bus-width = <1>;
-+		spi-tx-bus-width = <1>;
-+	};
-+};
-+
-+&fsl_mc {
-+	status = "okay";
-+};
-+
-+&gpio0 {
-+	status = "okay";
-+	gpio-line-names =
-+		"", "",
-+		"altfn:iic1-sda", "altfn:iic1-scl",
-+		"altfn:uart4-sin", "altfn:uart4-sout",
-+		"altfn:uart2-sin", "altfn:uart2-sout",
-+		"altfn:uart3-sin", "altfn:uart3-sout",
-+		"altfn:uart1-sin", "altfn:uart1-sout",
-+		"altfn:spi3-pcs3", "altfn:spi3-pcs2",
-+		"altfn:spi3-pcs1", "altfn:spi3-pcs0",
-+		"altfn:spi1-sck", "altfn:spi1-sin",
-+		"altfn:spi1-pcs2", "altfn:spi1-pcs1",
-+		"altfn:spi1-pcs0", "altfn:spi1-sout",
-+		"altfn:iic6-sda", "altfn:iic6-scl",
-+		"altfn:spi3-sin", "altfn:spi3-sout",
-+		"altfn:iic4-sda", "altfn:iic4-scl",
-+		"altfn:iic3-sda", "altfn:iic3-scl",
-+		"altfn:iic2-sda", "altfn:iic2-scl";
-+};
-+
-+&gpio1 {
-+	status = "okay";
-+	gpio-line-names =
-+		"", "", "", "", "", "",
-+		"cfg-rcw-src2", "cfg-rcw-src3",
-+		"reset-req-b",
-+		"altfn:sdhc2-clk", "altfn:sdhc2-ds",
-+		"altfn:sdhc2-dat0", "altfn:sdhc2-dat1",
-+		"altfn:sdhc2-dat2", "altfn:sdhc2-dat3",
-+		"altfn:sdhc2-dat4", "altfn:sdhc2-dat5",
-+		"altfn:sdhc2-dat6", "altfn:sdhc2-dat7",
-+		"altfn:sdhc2-cmd",
-+		"cfg-svr1",
-+		"altfn:xspi1-cs0", "altfn:xspi1-sck",
-+		"thermtrip",
-+		"altfn:xspi1-data0", "altfn:xspi1-data1",
-+		"", "",
-+		"flash-reset#", "pltrst#", "", "ethsw-reset#";
-+
-+	pltrst-hog {
-+		gpio-hog;
-+		gpios = <29 GPIO_ACTIVE_LOW>;
-+		output-low;
-+		line-name = "pltrst#";
-+	};
-+
-+	thermtrip-hog {
-+		gpio-hog;
-+		gpios = <23 GPIO_ACTIVE_HIGH>;
-+		output-low;
-+		line-name = "thermtrip";
-+	};
-+
-+	/* Boot NOR reset, released: electrical high */
-+	flash-reset-hog {
-+		gpio-hog;
-+		gpios = <28 GPIO_ACTIVE_LOW>;
-+		output-low;
-+		line-name = "flash-reset#";
-+	};
-+
-+	/* Ethernet switch reset, released: electrical high */
-+	ethsw-reset-hog {
-+		gpio-hog;
-+		gpios = <31 GPIO_ACTIVE_LOW>;
-+		output-low;
-+		line-name = "ethsw-reset#";
-+	};
-+};
-+
-+&gpio2 {
-+	status = "okay";
-+	gpio-line-names =
-+		"lan8023-mdint",
-+		"i2c2-alert#", "i2c4-alert#", "i2c6-alert#",
-+		"u800-tca9539-int#",
-+		"spi3-alert#",
-+		"wake0", "wake1",
-+		"carrier-hot#",
-+		"u1300-rtl8211fd-int#",
-+		"ethsw-int#",
-+		"", "",
-+		"u1700-zl30733-clk-gpio0", "u1700-zl30733-clk-gpio1",
-+		"u1700-zl30733-clk-gpio2", "u1700-zl30733-clk-gpio3",
-+		"", "", "", "", "", "", "", "",
-+		"", "", "", "", "", "", "";
-+};
-+
-+&gpio3 {
-+	status = "okay";
-+	gpio-line-names =
-+		"altfn:ec1-txd3", "altfn:ec1-txd2",
-+		"altfn:ec1-txd1", "altfn:ec1-txd0",
-+		"altfn:ec1-tx-en", "altfn:ec1-gtx-clk",
-+		"altfn:ec1-rxd3", "altfn:ec1-rxd2",
-+		"altfn:ec1-rxd1", "altfn:ec1-rxd0",
-+		"altfn:ec1-rx-clk", "altfn:ec1-rx-dv",
-+		"", "",
-+		"ptp-refclk-in",
-+		"", "", "", "", "", "", "", "",
-+		"u1700-zl30733-pps-out",
-+		"",
-+		"ethsw-mdio-en",
-+		"usb01-oc#",	/* USB1_PWRFAULT and USB2_PWRFAULT share one net */
-+		"",
-+		"usb01-oc#",
-+		"altfn:spi3-sck",
-+		"", "";
-+
-+	/* Low enables the carrier-side EMDIO2 level translator */
-+	ethsw-mdio-en-hog {
-+		gpio-hog;
-+		gpios = <25 GPIO_ACTIVE_LOW>;
-+		output-high;
-+		line-name = "ethsw-mdio-en";
-+	};
-+};
-+
-+/* On-module management bus */
-+&i2c0 {
-+	status = "okay";
-+
-+	eeprom@52 {
-+		compatible = "atmel,24c32";
-+		reg = <0x52>;
-+		pagesize = <32>;
-+	};
-+
-+	/* Board ID straps */
-+	gpio@74 {
-+		compatible = "ti,tca9539";
-+		reg = <0x74>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+		gpio-line-names =
-+			"boardid-0x0001", "boardid-0x0002",
-+			"boardid-0x0004", "boardid-0x0008",
-+			"boardid-0x0010", "boardid-0x0020",
-+			"boardid-0x0040", "boardid-0x0080",
-+			"boardid-0x0100", "boardid-0x0200",
-+			"boardid-0x0400", "boardid-0x0800",
-+			"boardid-0x1000", "boardid-0x2000",
-+			"boardid-0x4000", "boardid-0x8000";
-+	};
-+
-+	u800: gpio@75 {
-+		compatible = "ti,tca9539";
-+		reg = <0x75>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+		interrupt-controller;
-+		#interrupt-cells = <2>;
-+		interrupt-parent = <&gpio2>;
-+		interrupts = <4 IRQ_TYPE_LEVEL_LOW>;
-+		gpio-line-names =
-+			"carrier-gpio0", "carrier-gpio1",
-+			"carrier-gpio2", "carrier-gpio3",
-+			"carrier-gpio4", "carrier-gpio5",
-+			"carrier-gpio6", "carrier-gpio7",
-+			"carrier-gpio8", "carrier-gpio9",
-+			"carrier-gpio10", "carrier-gpio11",
-+			"", "", "",
-+			"lan8023-rst";
-+	};
-+
-+	/* +0V8_VDD core rail, MPS MPQ8646 (MPQ8785 core) over PMBus */
-+	vdd08: regulator@10 {
-+		compatible = "mps,mpq8646";
-+		reg = <0x10>;
-+	};
-+
-+	/* SO-DIMM SPD temperature sensors */
-+	temperature-sensor@18 {
-+		compatible = "jedec,jc-42.4-temp";
-+		reg = <0x18>;
-+	};
-+
-+	temperature-sensor@19 {
-+		compatible = "jedec,jc-42.4-temp";
-+		reg = <0x19>;
-+	};
-+};
-+
-+&i2c1 {
-+	status = "okay";
-+};
-+
-+&i2c2 {
-+	status = "okay";
-+};
-+
-+&i2c3 {
-+	status = "okay";
-+};
-+
-+&i2c5 {
-+	status = "okay";
-+};
-+
-+&pcie3 {
-+	status = "okay";
-+};
-+
-+&pcie4 {
-+	status = "okay";
-+};
-+
-+&pcie5 {
-+	status = "okay";
-+};
-+
-+&pcie6 {
-+	status = "okay";
-+};
-+
-+&uart0 {
-+	status = "okay";
-+};
-+
-+&usb0 {
-+	status = "okay";
-+};
-+
-+&usb1 {
-+	status = "okay";
-+};
+  "The extents overflow file also stores additional extents for the
+  special files except for the extents overflow file itself."
 
--- 
-2.43.0
+So by design the extents overflow file must always be fully described
+by the eight extents in its own fork record; it can never legitimately
+need an overflow extent of its own. The syzbot reproducer mounts an
+image whose volume header sets the Extents File fork's total block
+count higher than what its eight direct extents describe, which puts
+hip->alloc_blocks != hip->first_blocks for HFSPLUS_EXT_CNID -- a state
+the volume header alone can force without the extents tree itself
+being touched. hfs_btree_open() doesn't currently validate this fork
+against the invariant above.
 
+Once mounted, a plain pwritev2() to a regular file (call it FILE_A)
+that already has extents cached from a previous lookup is enough to
+hit it:
 
+> Could you please share the call trace for the issue?
+
+  pwritev2
+   -> hfsplus_get_block(FILE_A)
+   -> hfsplus_file_extend(FILE_A)
+   -> hfsplus_ext_read_extent(FILE_A) -> hfs_find_init(ext_tree)   [tree_lock acquired]
+   -> __hfsplus_ext_cache_extent(FILE_A): FILE_A's cached extent is dirty
+   -> __hfsplus_ext_write_extent(FILE_A): needs to insert a new record
+   -> hfs_bmap_reserve(ext_tree): ext_tree itself is out of free nodes
+   -> hfsplus_file_extend(ext_tree->inode)          <- now growing the tree's own file
+   -> hfsplus_ext_read_extent(ext_tree->inode) -> hfs_find_init(ext_tree)  [tree_lock again -> deadlock]
+
+Full syzbot lockdep report for reference:
+
+WARNING: possible recursive locking detected
+6.16.0-rc7-syzkaller-00120-g5f33ebd2018c #0 Not tainted
+--------------------------------------------
+syz-executor310/5840 is trying to acquire lock:
+ffff88807fe920b0 (&tree->tree_lock/1){+.+.}-{4:4}, at: hfsplus_find_init+0x15a/0x1d0 fs/hfsplus/bfind.c:28
+
+but task is already holding lock:
+ffff88807fe920b0 (&tree->tree_lock/1){+.+.}-{4:4}, at: hfsplus_find_init+0x15a/0x1d0 fs/hfsplus/bfind.c:28
+
+5 locks held by syz-executor310/5840:
+ #0: sb_writers#8, at: vfs_writev+0x288/0x960 fs/read_write.c:1055
+ #1: &sb->s_type->i_mutex_key#14, at: generic_file_write_iter+0xe3/0x540 mm/filemap.c:4252
+ #2: &hip->extents_lock, at: hfsplus_file_extend+0x1fc/0x1990 fs/hfsplus/extents.c:458
+ #3: &tree->tree_lock/1, at: hfsplus_find_init+0x15a/0x1d0 fs/hfsplus/bfind.c:28
+ #4: &HFSPLUS_I(inode)->extents_lock, at: hfsplus_file_extend+0x1fc/0x1990 fs/hfsplus/extents.c:458
+
+Call Trace:
+ hfsplus_find_init fs/hfsplus/bfind.c:28
+ hfsplus_ext_read_extent fs/hfsplus/extents.c:216 [inline]
+ hfsplus_file_extend+0x416/0x1990 fs/hfsplus/extents.c:462
+ hfsplus_bmap_reserve+0x122/0x500 fs/hfsplus/btree.c:358
+ __hfsplus_ext_write_extent+0x28d/0x5b0 fs/hfsplus/extents.c:104
+ __hfsplus_ext_cache_extent+0x89/0xe30 fs/hfsplus/extents.c:186
+ hfsplus_ext_read_extent fs/hfsplus/extents.c:218 [inline]
+ hfsplus_file_extend+0x444/0x1990 fs/hfsplus/extents.c:462
+ hfsplus_get_block+0x411/0x1530 fs/hfsplus/extents.c:245
+ __block_write_begin_int+0x6b2/0x1900 fs/buffer.c:2151
+ block_write_begin fs/buffer.c:2262 [inline]
+ cont_write_begin+0x789/0xb50 fs/buffer.c:2601
+ hfsplus_write_begin+0x66/0xb0 fs/hfsplus/inode.c:46
+ generic_perform_write+0x2c4/0x910 mm/filemap.c:4112
+ generic_file_write_iter+0x10f/0x540 mm/filemap.c:4255
+ do_iter_readv_writev+0x56b/0x7f0 fs/read_write.c:-1
+ vfs_writev+0x31a/0x960 fs/read_write.c:1057
+ do_pwritev fs/read_write.c:1153 [inline]
+ __se_sys_pwritev2+0x179/0x290 fs/read_write.c:1202
+
+(full report: https://syzkaller.appspot.com/text?tag=CrashReport&x=172748a2580000)
+
+hfsplus_get_block() already refuses HFSPLUS_EXT_CNID for the lookup
+direction (extents.c:261: "if (inode->i_ino == HFSPLUS_EXT_CNID)
+return -EIO;"). This patch adds the same refusal on the grow path in
+hfsplus_file_extend(), which is the one hfs_bmap_reserve() can reach
+with tree_lock already held. It doesn't fix the underlying corruption,
+just stops it from self-deadlocking the tree_lock; a hfs_btree_open()
+check that rejects such a volume outright at mount time would close
+the hole earlier and I'm happy to send that as a follow-up if you'd
+rather validate it there instead.
+
+I have not personally observed the crash on current mainline: I
+rebuilt the syzbot C reproducer, and hfs_btree_open(HFSPLUS_CAT_CNID)
+now rejects the image at mount (silently) -- it's a 2022-era fuzzed
+image and mainline has since gained catalog b-tree validation
+(node-size sanity check, record-offset table validation, etc.) that
+this image no longer passes. The analysis above is derived from source
+plus the syzbot-provided trace, not from a reproduced local crash.
+
+Thanks,
+Thang
