@@ -1,75 +1,217 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp-8fa8.mail.infomaniak.ch (smtp-8fa8.mail.infomaniak.ch [83.166.143.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 097D744CF40;
-	Mon,  7 Sep 2026 11:15:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E619C46C823
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:15:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788779754; cv=none; b=CJ9W1rCJqTuEDlSybOjUJKIk1HT3UmY1W9sySiEiDGxzO7uC+jnn/TQmJeHfYbVhJVNihTM+7dqQrnxPp7gVl/a0z7IXjMiN9c4dkD85RIx66UdQre3pDSwj2Yj9paGSHO4KbPzKVfvX4iqzPeGKhJajgmrgk3le97VhJemg6T0=
+	t=1788779758; cv=none; b=atHvGbaN9DBNjddPERo9KovEsoW+YEASou1J98zQRgm/jtFgEDrswPaknnES2Fz9iGIIKz7Hk8ySct4qJPg8iErHMRuj2SONQHLYQsdd7GfhThItea4YOSSQiypYueEKP2cI/iqeoIkH7gqzMZUrNIoqDEGy0hD/m5RsQsLKTPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788779754; c=relaxed/simple;
-	bh=h+2s+Xw/h9/je+iABWJCZDtu0+WoHElWKFdKIZs7low=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LvZZaStvQYlfGyYtkwmaASeabeDTF15Dn5C4x43IRffiW5MauB7PSeUTnjDZUzh4cmIKshRiUVz2oZ9X9VOlh408TNIoL9z/JSaoeHjSnr04Z48M/8VzdBi7bpt4v1S86BAWLGiDleTcFqXqyJcuu740/JxbG++tU4b66XCAJ+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YmJ4K1ai; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788779758; c=relaxed/simple;
+	bh=7Kj36trCE2ZexYtNjOMWQeI7ABrUJhCBRYvenZ81KpQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NC6WFmMDaT/5k40ZU5St1i31sJYFb8LW7wjDcPiXBWh9M5eo+clBd2apvnDpr2WH/z5AtUQxF9hkLStyE17SUZUy3usUuOWKUtP06mtaO61dABXr8KspQx0Vqa5vkSb4SY6Xif89eVKkyvuCHljXBZFdQNemyUpADJqmsaZt2BA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cinemaone.ch; spf=pass smtp.mailfrom=cinemaone.ch; dkim=pass (2048-bit key) header.d=cinemaone.ch header.i=@cinemaone.ch header.b=oD/6lwNf; arc=none smtp.client-ip=83.166.143.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cinemaone.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cinemaone.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YmJ4K1ai"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4F031F00A3A;
-	Mon,  7 Sep 2026 11:15:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788779752;
-	bh=jRla1z+WYCdfeApqJTPNn3t2SfBB6tcNgfV7C84Hzhw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YmJ4K1aiRhIV31XeZXsOupoj7L8JIdHZSSTxTtffcaF5sF1yZRycMMxYBZ9DC8sNR
-	 psO00+u1vn4gQvPP4H9ZV508o9wHTtaohmSQhsIErD3Xu6AX05CibGCAWzyVSRHAAj
-	 e+rVnIUXk3wRwScSqCNLEQhDWFbYG8BGC5zCVyoz+XXOoEAk7vlJfcUDq6//6HI0BT
-	 PQl7hBRQJ1lKjg6olL7WFxCUsINmQh3yIn6+e16rfzevAmdS3tIePMjdroQlpqu3p1
-	 VtrqNDFq89hOQC03BiTXiM2LF+jbQ/ieomamL2zcXEj9S44FMdyzOFhZITjE6bJWzw
-	 xo0u3Z5aB3fRw==
-Date: Mon, 7 Sep 2026 13:15:42 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: george.moussalem@outlook.com
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Praveenkumar I <praveenkumar.i@oss.qualcomm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, 
-	Nitheesh Sekar <quic_nsekar@quicinc.com>, Wesley Cheng <quic_wcheng@quicinc.com>, 
-	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
-Subject: Re: [PATCH v3 04/12] phy: qualcomm: qcom-uniphy-pcie-usb3-28lp:
- Refactor init regs table definitions
-Message-ID: <6ewdlgcazt3ucqlxgqwwtcp2gvhcreoh5tk3vs5pbulrv5t2ih@uccgtpzvizyy>
-References: <20260825-ipq5018-usb3-v3-0-39be0955a6aa@outlook.com>
- <20260825-ipq5018-usb3-v3-4-39be0955a6aa@outlook.com>
+	dkim=pass (2048-bit key) header.d=cinemaone.ch header.i=@cinemaone.ch header.b="oD/6lwNf"
+Received: from smtp-4-0000.mail.infomaniak.ch (unknown [IPv6:2001:1600:7:10::a6b])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hdjR538Wmzq8b;
+	Mon,  7 Sep 2026 12:06:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cinemaone.ch;
+	s=20250113; t=1788775617;
+	bh=zkVn1mTqiQPg1HIrNqylrZy//1NdkfS7RjgFs8gMWv0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=oD/6lwNfqVL3f/74v0o7mz99bym3DwgddTtoYJ/+t3ZJNowUJpVxAE/gv16AtUQ1B
+	 ru9qgrgoDujfLhlelGSrwB0XLU9ToEwPdGKte/NUSECL5UywCc6Ic0OLLC2hzU+hDS
+	 jw6wUxQW847FB6sqdUdzZLyFJVkuoWSOMnUAAjpXKhGVkcFkC49tGhc3gCUX3tHBgn
+	 YFS30yp6Q9f6bPZuBpS7PjKIgmJey3mfzkU3e1/9QgLX9aM3vNRvKXzA9Kc5ddDxfi
+	 pGN7lCEebuO6Kede5/+zwgRx2r5xbZLdtFhZePADXj2mQci0iVjrmRL8Yzotb2KXLA
+	 LKzf2O+e0Y5yQ==
+Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4hdjR45MHXzYr2;
+	Mon,  7 Sep 2026 12:06:56 +0200 (CEST)
+From: Adrian Betschart <adrian.betschart@cinemaone.ch>
+To: Harry Wentland <harry.wentland@amd.com>,
+	Leo Li <sunpeng.li@amd.com>,
+	Rodrigo Siqueira <siqueira@igalia.com>,
+	Alex Deucher <alexander.deucher@amd.com>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/3] drm/amd/display: support HDMI 1.4 3D modes on HDMI connectors
+Date: Mon,  7 Sep 2026 12:06:24 +0200
+Message-ID: <20260907100626.54465-2-adrian.betschart@cinemaone.ch>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260907100626.54465-1-adrian.betschart@cinemaone.ch>
+References: <20260907100626.54465-1-adrian.betschart@cinemaone.ch>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260825-ipq5018-usb3-v3-4-39be0955a6aa@outlook.com>
+X-Infomaniak-Routing: alpha
 
-On Tue, Aug 25, 2026 at 04:37:21PM +0400, George Moussalem via B4 Relay wrote:
-> From: George Moussalem <george.moussalem@outlook.com>
-> 
-> Refactor the IPQ5018/IPQ5332 UNIPHY PCIe init data by introducing a
-> helper macro for register/value entries and converting open-coded struct
-> initializers to the compact form.
-> 
-> Also remove an unused include, drop unused macro register definitions,
-> and rename the IPQ5332-specific PHY CFG register macros to make their
-> combo PCIe/USB3 scope explicit.
-> 
+Allow the stereo modes drm_edid derives from a sink's HDMI VSDB on
+HDMI connectors, and drive them the way a 2D stream is driven: the
+source (compositor or media player) lays both views out in the frame
+itself - side by side, top and bottom, or the doubled frame-packing
+timing with the 45-line active space between the eyes - and the only
+3D-specific output is the HDMI vendor infoframe that tells the sink
+how the frame is laid out.
 
-These should be part of a separate change. A patch should only do one thing, not
-multiple.
+Keep the DC timing at TIMING_3D_FORMAT_NONE for all of them. Any DC
+stereo timing format, including the SW_PACKED variants, makes the
+hardware treat the surface as two views: the pipe is split and both
+view addresses point at the same surface, so the whole frame ends up
+in each half of the output. The new vsif_3d_format stream field
+carries the layout to mod_build_hf_vsif_infopacket() instead, so the
+VSIF is right and stays right when the freesync code rebuilds it for
+ALLM.
 
-- Mani
+Frame packing needs the doubled CRTC timing; pass CRTC_STEREO_DOUBLE
+wherever amdgpu_dm recomputes the CRTC fields itself.
 
+Limit stereo_allowed to native HDMI connectors: on the DP-to-HDMI
+converter paths link validation rejects the 3D timings.
+
+Tested on a Radeon RX 7600 (DCN 3.2.1) driving a JVC DLA-RS4100
+projector through an HDFury VRROOM, with Kodi rendering the packed
+frames: frame packing, top-and-bottom and side-by-side at
+1920x1080p24, RGB 12 bpc, all engage the projector's 3D mode with
+correct per-eye geometry and eye assignment (checked with per-eye
+test patterns through shutter glasses).
+
+Signed-off-by: Adrian Betschart <adrian.betschart@cinemaone.ch>
+---
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   | 41 +++++++++++++++++--
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |  7 ++++
+ .../display/modules/info_packet/info_packet.c |  3 ++
+ 3 files changed, 48 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index 0e71ba498..7a2beb175 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -851,6 +851,25 @@ STATIC_IFN_KUNIT bool adjust_colour_depth_from_display_info(
+ }
+ EXPORT_IF_KUNIT(adjust_colour_depth_from_display_info);
+ 
++/*
++ * 3D layout to announce in the HDMI vendor infoframe for a DRM 3D mode. The
++ * stream timing itself stays 2D (see fill_stream_properties_from_drm_display_mode).
++ */
++static enum dc_timing_3d_format amdgpu_dm_vsif_3d_format(unsigned int mode_flags)
++{
++	switch (mode_flags & DRM_MODE_FLAG_3D_MASK) {
++	case DRM_MODE_FLAG_3D_FRAME_PACKING:
++		return TIMING_3D_FORMAT_SW_FRAME_PACKING;
++	case DRM_MODE_FLAG_3D_TOP_AND_BOTTOM:
++		return TIMING_3D_FORMAT_TB_SW_PACKED;
++	case DRM_MODE_FLAG_3D_SIDE_BY_SIDE_HALF:
++	case DRM_MODE_FLAG_3D_SIDE_BY_SIDE_FULL:
++		return TIMING_3D_FORMAT_SBS_SW_PACKED;
++	default:
++		return TIMING_3D_FORMAT_NONE;
++	}
++}
++
+ STATIC_IFN_KUNIT void fill_stream_properties_from_drm_display_mode(
+ 	struct dc_stream_state *stream,
+ 	const struct drm_display_mode *mode_in,
+@@ -887,7 +906,15 @@ STATIC_IFN_KUNIT void fill_stream_properties_from_drm_display_mode(
+ 	 */
+ 	timing_out->pixel_encoding = requested_encoding;
+ 
++	/*
++	 * The source packs both views into the frame itself (side-by-side,
++	 * top-and-bottom, or the doubled frame-packing timing), so the display
++	 * core scans it out as a plain 2D stream and only the HDMI vendor
++	 * infoframe tells the sink how the frame is laid out. Any DC stereo
++	 * timing format would make the hardware treat the surface as two views.
++	 */
+ 	timing_out->timing_3d_format = TIMING_3D_FORMAT_NONE;
++	stream->vsif_3d_format = amdgpu_dm_vsif_3d_format(mode_in->flags);
+ 	timing_out->display_color_depth = amdgpu_dm_convert_color_depth_from_display_info(
+ 		connector,
+ 		(timing_out->pixel_encoding == PIXEL_ENCODING_YCBCR420),
+@@ -1451,6 +1478,9 @@ create_stream_for_sink(struct drm_connector *connector,
+ 	struct dc_sink *sink = NULL;
+ 
+ 	drm_mode_init(&mode, drm_mode);
++	/* frame packing scans out both views plus the active space in one frame */
++	if (mode.flags & DRM_MODE_FLAG_3D_FRAME_PACKING)
++		drm_mode_set_crtcinfo(&mode, CRTC_STEREO_DOUBLE);
+ 	memset(&saved_mode, 0, sizeof(saved_mode));
+ 
+ 	if (connector->connector_type != DRM_MODE_CONNECTOR_WRITEBACK) {
+@@ -1530,7 +1560,9 @@ create_stream_for_sink(struct drm_connector *connector,
+ 	}
+ 
+ 	if (recalculate_timing)
+-		drm_mode_set_crtcinfo(&saved_mode, 0);
++		drm_mode_set_crtcinfo(&saved_mode,
++				      (saved_mode.flags & DRM_MODE_FLAG_3D_FRAME_PACKING) ?
++				      CRTC_STEREO_DOUBLE : 0);
+ 
+ 	/*
+ 	 * If scaling is enabled and refresh rate didn't change
+@@ -2449,7 +2481,9 @@ enum drm_mode_status amdgpu_dm_connector_mode_valid(struct drm_connector *connec
+ 	if (!test_mode)
+ 		goto fail;
+ 
+-	drm_mode_set_crtcinfo(test_mode, 0);
++	drm_mode_set_crtcinfo(test_mode,
++			      (test_mode->flags & DRM_MODE_FLAG_3D_FRAME_PACKING) ?
++			      CRTC_STEREO_DOUBLE : 0);
+ 
+ 	stream = amdgpu_dm_create_validate_stream_for_sink(connector, test_mode,
+ 						 to_dm_connector_state(connector->state),
+@@ -3143,7 +3177,8 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+ 	aconnector->dc_link = link;
+ 	aconnector->base.interlace_allowed = false;
+ 	aconnector->base.doublescan_allowed = false;
+-	aconnector->base.stereo_allowed = false;
++	/* HDMI 1.4 3D only; DP-to-HDMI converters reject the timings in link validation */
++	aconnector->base.stereo_allowed = connector_type == DRM_MODE_CONNECTOR_HDMIA;
+ 	aconnector->base.dpms = DRM_MODE_DPMS_OFF;
+ 	aconnector->hpd.hpd = AMDGPU_HPD_NONE; /* not used */
+ 	aconnector->audio_inst = -1;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+index 934ae381e..e6fd75b87 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+@@ -235,6 +235,13 @@ struct dc_stream_state {
+ 
+ 	enum view_3d_format view_format;
+ 
++	/**
++	 * @vsif_3d_format: 3D layout announced in the HDMI vendor infoframe when
++	 * the source packs both views into the frame itself and the timing is
++	 * therefore left at TIMING_3D_FORMAT_NONE.
++	 */
++	enum dc_timing_3d_format vsif_3d_format;
++
+ 	bool use_vsc_sdp_for_colorimetry;
+ 	bool ignore_msa_timing_param;
+ 
+diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+index 32b697f46..13478b8bd 100644
+--- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
++++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+@@ -536,6 +536,9 @@ void mod_build_hf_vsif_infopacket(const struct dc_stream_state *stream,
+ 		format = stream->timing.timing_3d_format;
+ 		if (stream->view_format == VIEW_3D_FORMAT_NONE)
+ 			format = TIMING_3D_FORMAT_NONE;
++		/* a 2D scanout of a frame the source packed itself */
++		if (format == TIMING_3D_FORMAT_NONE)
++			format = stream->vsif_3d_format;
+ 
+ 		if (stream->timing.hdmi_vic != 0
+ 				&& stream->timing.h_total >= 3840
 -- 
-மணிவண்ணன் சதாசிவம்
+2.43.0
+
