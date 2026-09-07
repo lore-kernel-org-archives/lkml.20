@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B77043CE489
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 20:54:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D6713F6C59
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 20:54:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788814491; cv=none; b=FCWRyDttU5xOJnaptlZhpKy23/XblTWUUpfONP14ZsL30aMwknScdiiwVb95WUBObRsoHWtAk5RbPNcbraF559zmNZXdkFTvO65+vonHkp+WPvEVi0y6TTb50jd2YQ25ObyDdBZYvdjr/sbvL81oMzQx8Xl+LgEemydMSaTPIV0=
+	t=1788814494; cv=none; b=PzZbv7WTsgGMbMDgpv3hXpHBJJcD5YcqpfimqS3g94cfjPvQCwW+JKy2lF9JbgkQ23SkqyZBA1g7ldD699d1OirsWZuqKI0jFQ+HNw+NIIY4ZHQvmPdenH8A7KqQGYPpoy7yLPE4y/ZckrHBSgtcrDX3WHc/xDZIP6vPN9Nsr7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788814491; c=relaxed/simple;
-	bh=cum+47r16b68MtM6VnR2vZxJVMDw9iNibIPc0nbZVi0=;
+	s=arc-20240116; t=1788814494; c=relaxed/simple;
+	bh=Gys3WzWdLtuvmle5dtTIppXoUEEmGA5cXZxMxR3XyjA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LyTfrijPyrGYzRL/p2n7uCxr8WsOuzWVOG0YWWQtt9Cws0Ym1bj8AWAiADL9f+hydGXBs/GthYFFrXNDnFWkDaBcmZI16ZfR0v69kBnqyWuK40K3MDSeY1buss+6780Ra/s7HkPdnlpHguZO+prn0H1gq6UI/E7hl3yqtp+PV2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dRIpg4+c; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=j66uKorbzUVDgsIiZ+ty9BZ/uuJq1PavrSScTF6q5kOoBG0kEAfT70B3VXxOg3bJ6Aae/184gna6KuGKe6H9VtGxGBSf7qlgzgidcqlV9rp9qDlEZrQ26VMFPX8WMxpT44pxbVgvCeclU3+TsGWXzxYzKzXY6+vEqfM3Hb/2X9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z4FETxB0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dRIpg4+c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D63AC1F00A3A;
-	Mon,  7 Sep 2026 20:54:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z4FETxB0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4D451F00A3D;
+	Mon,  7 Sep 2026 20:54:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788814490;
-	bh=xd5tQKQxHFRGotFcOXdpLOZw0W1C2jHEVuOQdyASEiE=;
+	s=k20260515; t=1788814493;
+	bh=FgoYoVZdcP9kjl2wNHg9gnlsTZhvaykO0axbADxgLJ4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dRIpg4+cjz/LJPp8MxUEYl3ZCRk1kb+/hn7o8I3Rc1wGT/1J2IDbk56aw2K+lcBac
-	 yafINQoKso2O6Q/7xNS4cbMVeKmgKpR3qfHSPYrxL/4/+TsLwDUiw3lU5lZdf+FQSZ
-	 TKZnGZDqoaY9J8/k/mYa9qHtG71FFF0iDyH9O9gH0LKfTVdRET2SUkCn5mhuzKDJ6K
-	 0SnAmUCtjFC/VxPqlUrqMpAH8Znz1bVd4yCuA9BnM2FyQy0loCHmm+j48ko7R2MRTw
-	 LMnx/hVUyDicyrMmJODphzbjIwSoN8rGjkzUGA4CuCM74CRBxnXyeOij3pfIqHFlT7
-	 Lsd0SKDWI2ilg==
+	b=Z4FETxB0RgG54eaNNPhjCZ7ewA2helATk7xF4l4Ulxg1+f6KPsttv+y5GMJlao3Cv
+	 IwQtVkNSyB8wYkQUCibA7FJqcy+7Fp+qwjfBtKt22/akKKh0+53IA4BlRehlJrWxF2
+	 /j8x7W01gEM5cqb2DaECFoO4UdXHuKCPReXftDbQLfSuoQxLxXnhPyZzf5Ig4bKSDf
+	 hXr6IWcl2iTJOtpf8QkJQt0VR6q/79OSjPbj4EOoh5xjhT1eXqCO7Y7lu3CYP6Pfml
+	 CZohrRzSSNPcTfasUyJLKNgTvRyX2yVX0kbSSGgGdFeS0GaOHDMC+yF/+bsVCzia2l
+	 gN4lhThYKK9WA==
 From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-To: Qiang Zhao <qiang.zhao@nxp.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Cc: linuxppc-dev@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org,
+To: Ioana Ciornei <ioana.ciornei@nxp.com>,
+	Hemanth Selam <hemanth.selam@gmail.com>
+Cc: Christophe Leroy <chleroy@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH] soc: fsl: qe: Fix sparse warnings in GPIO
-Date: Mon,  7 Sep 2026 22:54:35 +0200
-Message-ID: <178881446326.32908.2707847448430333820.b4-ty@kernel.org>
+	linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH 2/3] bus: fsl-mc: fix repeated word 'for' in comment
+Date: Mon,  7 Sep 2026 22:54:36 +0200
+Message-ID: <178881446327.32908.13049803708638296590.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <6a84b38e766729676b375c93bf54c67ea455288d.1786080840.git.chleroy@kernel.org>
-References: <6a84b38e766729676b375c93bf54c67ea455288d.1786080840.git.chleroy@kernel.org>
+In-Reply-To: <20260904124540.7652-3-hemanth.selam@gmail.com>
+References: <20260904124540.7652-1-hemanth.selam@gmail.com> <20260904124540.7652-3-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,45 +45,21 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2343; i=chleroy@kernel.org; h=from:subject:message-id; bh=6z7FgiQsA83jfG1X90ruIg/3wydjhrS28CflV2+zQjk=; b=owGbwMvMwCV2d0KB2p7V54MZT6slMWTNV+n3Z41iYHt67/Gh932K3ulPhB07Lqy7cM195tIEM U3/3+8udpSyMIhxMciKKbIc/8+9a0bXl9T8qbv0YeawMoEMYeDiFICJvF7G8FcuXuXU+Ve+axhf 63c8L41hj42PT376i7mr7Z+DbHfVFS9GhinVXzsvdkidUdg9aVGx7K4Sjalf53MeLXHd5mFqEj3 /Nj8A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=397; i=chleroy@kernel.org; h=from:subject:message-id; bh=kKWlvlmIFd+90igX+YxUUgDgdw4Cabj9IAKtxaYDjek=; b=owGbwMvMwCV2d0KB2p7V54MZT6slMWTNV5my/lfYVy/FnxwSn/p2agbNO/l8yRSF1VlKNecMN kovtPQ411HKwiDGxSArpshy/D/3rhldX1Lzp+7Sh5nDygQyhIGLUwAm8teOkeHalh+Ftb4CL02l TndrVlVp5ESGMmbfmsejtzto/dWkKWqMDBNc5ltX9O7WOtErrOE398Ql6eUtk+U+PJ/LdOTK4xu xnuwA
 X-Developer-Key: i=chleroy@kernel.org; a=openpgp; fpr=10FFE6F8B390DE17ACC2632368A92FEB01B8DD78
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 07 Aug 2026 07:35:52 +0200, Christophe Leroy (CS GROUP) wrote:
-> A C=2 build on mpc83xx_defconfig provides following warnings:
+On Fri, 04 Sep 2026 18:15:36 +0530, Hemanth Selam wrote:
+> Drop the second 'for', reported by checkpatch.pl as a possible repeated
+> word.  Only touches a comment, no code changes.
 > 
->   drivers/soc/fsl/qe/gpio.c:44:34: warning: incorrect type in assignment (different base types)
->   drivers/soc/fsl/qe/gpio.c:44:34:    expected restricted __be32 [usertype] cpdata
->   drivers/soc/fsl/qe/gpio.c:44:34:    got unsigned int [usertype] cpdata
->   drivers/soc/fsl/qe/gpio.c:45:34: warning: incorrect type in assignment (different base types)
->   drivers/soc/fsl/qe/gpio.c:45:34:    expected restricted __be32 [usertype] cpdir1
->   drivers/soc/fsl/qe/gpio.c:45:34:    got unsigned int
->   drivers/soc/fsl/qe/gpio.c:46:34: warning: incorrect type in assignment (different base types)
->   drivers/soc/fsl/qe/gpio.c:46:34:    expected restricted __be32 [usertype] cpdir2
->   drivers/soc/fsl/qe/gpio.c:46:34:    got unsigned int
->   drivers/soc/fsl/qe/gpio.c:47:34: warning: incorrect type in assignment (different base types)
->   drivers/soc/fsl/qe/gpio.c:47:34:    expected restricted __be32 [usertype] cppar1
->   drivers/soc/fsl/qe/gpio.c:47:34:    got unsigned int
->   drivers/soc/fsl/qe/gpio.c:48:34: warning: incorrect type in assignment (different base types)
->   drivers/soc/fsl/qe/gpio.c:48:34:    expected restricted __be32 [usertype] cppar2
->   drivers/soc/fsl/qe/gpio.c:48:34:    got unsigned int
->   drivers/soc/fsl/qe/gpio.c:49:33: warning: incorrect type in assignment (different base types)
->   drivers/soc/fsl/qe/gpio.c:49:33:    expected restricted __be32 [usertype] cpodr
->   drivers/soc/fsl/qe/gpio.c:49:33:    got unsigned int
->   drivers/soc/fsl/qe/gpio.c:297:17: warning: restricted __be32 degrades to integer
->   drivers/soc/fsl/qe/gpio.c:299:17: warning: restricted __be32 degrades to integer
->   drivers/soc/fsl/qe/gpio.c:302:17: warning: restricted __be32 degrades to integer
->   drivers/soc/fsl/qe/gpio.c:304:17: warning: restricted __be32 degrades to integer
->   drivers/soc/fsl/qe/gpio.c:308:18: warning: restricted __be32 degrades to integer
->   drivers/soc/fsl/qe/gpio.c:314:9: warning: restricted __be32 degrades to integer
 > 
-> [...]
 
 Applied, thanks!
 
-[1/1] soc: fsl: qe: Fix sparse warnings in GPIO
-      commit: 5af2ccc8ec749d98d3d0bed4b9df25781d7f2d46
+[2/3] bus: fsl-mc: fix repeated word 'for' in comment
+      commit: bada60f2d98c7cf252b1f8214e5b6ec96c429588
 
 Best regards,
 -- 
