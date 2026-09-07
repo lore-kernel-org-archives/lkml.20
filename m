@@ -1,154 +1,209 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D0F4EE853
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:21:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0252647126F;
+	Mon,  7 Sep 2026 15:21:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788794478; cv=none; b=hCfSC1UqDZt1vdZBBIA18RcyPVU9iaoQuNyRzVqTUAoomRGjEBvSADaoc0N/wn2fQwDsq1Ea69VTNKIo9DB9F+DKn2a0QUoj6sLpY0oYnt0yh7VLIz2QijpLZ/7XWKEkqMvhddPLetXMY0eNxjC0PmrGZns8uYRNPz8+b1tT4RI=
+	t=1788794512; cv=none; b=GZKANFpuykTszqysrFkmjz/YFkqKXbuWuR1OhR7YLOL4ahY4aR0BWvhdSB+FfmeiPnBoUMkGft51hCriFOsvQ49rliG8JdjteMMm3thw//NrGIDIjCmoE1bcWHZXlcQv+9FDoEKLkpX286JtuYhQPM4LdIwLo5RG9lMtXXCz/3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788794478; c=relaxed/simple;
-	bh=Je540+x0RLBrjADL4XgLC8DmzHI3N9G0dzH+bqi3T4k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qt2KLvOBKv9FMCB7naTRYl2RU3jyDikhlkRLA1t/T2SwIWbB4zGWVy/x4IwEEVNnkVQKE4j4WNAwazQaNjPt4b6cDLjpS/uWkO8eBtYXCky4zThEZog4mGVHrDMegtFNcPzcZX1KUjfedCNNdyKOApgNSPMW7FIbY//oUUz93r8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TW5UwvgY; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788794512; c=relaxed/simple;
+	bh=gbkKpIew57EIPW7i4koNPoT1xxuDhPfRv78v7DQZwg0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kdFbjlq+vQNWGYO77xXp/BlB8MIhKvMrfoaj4BOwE2M8VFDzMCeyVav+9+dSoXRRzTRua0NIIcs2B4yvByvUpGS8ZUpmTV40VOROa9E0zhc4uT+dA6mzI8i0p76snpvzJi5kN8G5Kj29rbauEj52cvGqn+fo4zqWUn0aXoz82Nw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ogz4sWjT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TW5UwvgY"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49ccfbe062eso34978345e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:21:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788794475; x=1789399275; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Je540+x0RLBrjADL4XgLC8DmzHI3N9G0dzH+bqi3T4k=;
-        b=TW5UwvgYd+Z348/MHCluzx9vWPmvDNgx4x6AbxBsWhekm1fWz+2pAJi3B5LfRIX9t+
-         9WwnWxIJpefDD8b3o+1R53IMplrjBCjlr2g3R7A79yHUbMnPusTe9z2VSfvHctolgAJK
-         JcC0G4SEskUIBG/HRBwXnjpssbMtKxmXM94vT/Lg9cDLglCP4ItN5KE6GMsRMzm8pJ95
-         2grcrZVMKTS0ck6kI8XaI5fHAQILxZlwbAfR/FEhzlkCCHEVT9kFB88zL0Aab2RQZS0M
-         +R43XbWo15LUv8/EeQdtg013BBYKPNGv4ecYMy4kR7knTXqDOboWG4DQJy7kqAX+Ymbe
-         x8Ww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788794475; x=1789399275;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Je540+x0RLBrjADL4XgLC8DmzHI3N9G0dzH+bqi3T4k=;
-        b=sbznO4Cp+lmzpBKIPBm1UBaGVaHYLrK0tC/B1Kln/nh4jJc+t1ROUW0Xw5VM00GW7r
-         hGkE058DNXoFhrXaU0d6JnEDO5El7Nn1kFDdinnKE6Qjb4xkIxVgOgoXORWZ/7zgI8JO
-         nXjezXxKEqTMsJrT4iUj7FIKGJEucnrsWHyp3WkhwMMF4csDuRpCXHwHPqFxQqaLsVWD
-         L6Fuufye1nohJBNV4chxXJ2aRNXzT0pyAi5z8AumlfSt5lPm+m5+bqZzVqPKeDcpZrtO
-         LCU5SXxxoxuvJLsmZz3+z3hVvp1z4hWHgsHFRdjEUTLylorxvy+wjEepRy4qDhvl7DxC
-         aQ4w==
-X-Forwarded-Encrypted: i=1; AKwUvBx4NP7bP7mXHGALEJRqtTx6E2fqQMHAa9vyOtwzhuIVM0HNHO1OIVdAbBV7CrtXO07pFUSu/+/xDmGa2Us=@vger.kernel.org
-X-Gm-Message-State: AFuF++kqqw/45ihWmkZIuR8ESgGNUteAVhIxbOEUR0bYSEUa6HLg4QB8
-	dBSd7sI9vDrAjr8Tp0HwP3LN01iaXxn7EWnZXHplZiCh4AP6q9j8pk7b
-X-Gm-Gg: AYBFou1WNV7+BGfdEM7d4Fsx6uF2GEsIL5dsDfiUt3wLymlOK8/Hhf7pnJPtgvVap86
-	GAAbE/ZAmgKQ6gDxfW6GAvKB7jo6kQiCtUs58UY7TPC9JmYSMtZ9MJAZGPpSPcyQ40qG4saj0PO
-	Uh9uvdBu+Fxa001FENQzC4BjSxGnfMjqy/gslUDluHV1t1Yq89Vc41rJBkR7K60PMmuRbTyDuh9
-	QgSv9Ty7cs+QMouP+0enosgzKxhvCs9ak400XB1QTlAEz4VMrZiTTKsL1n0TjAYeHoZK74TVVCX
-	/32T9jTSL5gi1CGcvqiKqUi0aIrFV10oq+gxdM96x/bnkHI80JhGVYf52+tE35ySwSEZnjIGQ/t
-	F0x1U4bdif7JHKzfQy2mSAoQt263btg1ExuewsojrkuR86pcYWWYndJfldJuHMMSQP7eUGqmdxo
-	62oTC7dxOrqhoIu+rsEKH/kFJU8/CdSWnc/IuIdvWZ/V41wjZOJrLfLf/K6pY+mC7Ww1JtC+nU8
-	PGhd6U5xEwnDkMmP5WnarV+/UYifINK0zwXjumPNA==
-X-Received: by 2002:a05:600c:3f08:b0:49c:fa20:cc04 with SMTP id 5b1f17b1804b1-49cfa20cd10mr195270575e9.27.1788794474776;
-        Mon, 07 Sep 2026 08:21:14 -0700 (PDT)
-Received: from flaviu-Aspire-E5-572G.. ([93.122.248.115])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7740d44sm695732295e9.15.2026.09.07.08.21.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 08:21:14 -0700 (PDT)
-From: Flaviu Nistor <flaviu.nistor@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	Nuno Sa <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Flaviu Nistor <flaviu.nistor@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: adc: ti-ads1015: Add support for label
-Date: Mon,  7 Sep 2026 18:21:10 +0300
-Message-ID: <20260907152110.4934-1-flaviu.nistor@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260905030114.21de1faf@jic23-huawei>
-References: <20260905030114.21de1faf@jic23-huawei>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ogz4sWjT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 212B91F00A3A;
+	Mon,  7 Sep 2026 15:21:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788794510;
+	bh=a+5RFC0Baa759aALArIRHXad42pi6d3/PpgEA3XTA2c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Ogz4sWjTJY5QbcKXGIExzvS5zIXOtlYSUNoeRn8Gs93j+EAHKuN84lMLMFlibCZgH
+	 3kPwDtLwZFAH9heyTvxgLQ0aLlzeNS2IAIQLQs+vj1aq6tchv0Zb/TDF3oI2zdvdOp
+	 TFuU3M4PuHIbaD5rqiRoU1ghaOz1/qSAYUUdbAOLCkfMrf64E+8gPhciMPX1r5uNVa
+	 5MtfZPBfI6uhUbgig8EIvl53OwNiNwbHTWg5AOcatks4ZCei+zWkEvsUc0R7nF2Zej
+	 VbC5JRUpGfPDpWhyIoHW5PTPkXU6wIIy+/CA5KBRCMFgR1kmBiRGygqD/RY9YUT4jd
+	 UbbhET7ejLVCg==
+Message-ID: <5d4c247c-b8ea-4d3f-b2b9-d442d372fd03@kernel.org>
+Date: Mon, 7 Sep 2026 17:21:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/8] mm/page_owner: Add PID/TGID/COMM and cgroup
+ filtering
+Content-Language: en-US
+To: "zhen.ni" <zhen.ni@easystack.cn>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R . Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Steven Rostedt <rostedt@goodmis.org>
+References: <20260903041819.1776630-1-zhen.ni@easystack.cn>
+ <a6ce8684-116b-42f2-a88c-154eb86bad59@kernel.org>
+ <a98bde94-d1fb-4246-b7c6-e64303d8388a@easystack.cn>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <a98bde94-d1fb-4246-b7c6-e64303d8388a@easystack.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 5, 2026 at 5:01 AM, Jonathan Cameron wrote:=0D
->On Thu, 3 Sep 2026 22:03:55 +0300=0D
->Andy Shevchenko <andriy.shevchenko@intel.com> wrote:=0D
->=0D
->> On Thu, Sep 03, 2026 at 06:16:27PM +0300, Flaviu Nistor wrote:=0D
->> > On Thu, Sep 3, 2026 at 9:18 AM, Andy Shevchenko wrote: =3D20=0D
->>=3D20=0D
->> ...=0D
->>=3D20=0D
->> > Since the iio core exposes in sysfs the in_volatagex_label=0D
->> > for all channels, there are 3 situations: =3D20=0D
->>=3D20=0D
->> > 3. The channel is not defined in the dts (in_voltagex_label is still v=
-i=3D=0D
-sible=0D
->> > in the sysfs), and reading the label will cause "(null)\n" to be print=
-e=3D=0D
->d in=0D
->> > the console (as indicated also by Sashiko boot), since the default "" =
-v=3D=0D
->alue=0D
->> > is not assigned during device_for_each_child_node_scoped(). I think th=
-i=3D=0D
->s is=0D
->> > not an issue since is just the way sysfs_emit() handles an NULL string=
-.=3D=0D
-> =3D20=0D
->>=3D20=0D
->> Is this current state of affairs?=0D
->>=3D20=0D
->> If so, the patch must not change that =3DE2=3D80=3D94 it's an ABI now an=
-d (null=3D=0D
->) is valid=0D
->> response from the user space point of view.=0D
->>=3D20=0D
->> > What would you prefer? Any further suggestions? =3D20=0D
->>=3D20=0D
->Unfortunately we never defined what should happen this way explicitly.=0D
->In practice assumption is that this is a corner case we probably won't=0D
->see. People don't tend to want to label just one random pin, they tend=0D
->to label the lot. =3D20=0D
->=0D
->So go with whatever is most common in other drivers,=0D
->=0D
-=0D
-Hello, I took some time and went through all of the drivers that use read_l=
-abel()=0D
-to get the most common solution. Most of the drivers only use datasheet_nam=
-e and only=0D
-a few actually get the label (if present) from the device tree during probe=
-.=0D
-I now have the best solution (from my point of view), which covers all (3) =
-cases. If=0D
-the label string is present in the device tree it will be use and printed i=
-n the console=0D
-in user space. If label not present or channel is not defined at all in the=
- dts, the=0D
-datasheet_name will be used similar to most drivers. I will send a v3.=0D
-=0D
-PS: many thanks for everybody for pushing for a better solution.=0D
-=0D
-Best regards,=0D
-Flaviu=0D
-=0D
->Jonathan=
+On 9/7/26 06:08, zhen.ni wrote:
+> 
+> 
+> 在 2026/9/4 16:25, Vlastimil Babka (SUSE) 写道:
+>> On 9/3/26 06:18, Zhen Ni wrote:
+>>> This patch series adds process and memory cgroup filtering support to
+>>> page_owner. Following the previous series that introduced print_mode and
+>>> NUMA node filters:
+>>>    https://lore.kernel.org/linux-mm/20260707115411.1714314-1-zhen.ni@easystack.cn/
+>>>
+>>> This series adds filtering capabilities to page_owner, allowing users to
+>>> filter output by specific processes and memory cgroups. Users can now
+>>> filter page_owner output by PID, TGID, COMM (with wildcard support), and
+>>> memory cgroup path. This makes page_owner debugging more focused and
+>>> efficient for tracking memory allocations in specific contexts.
+>> 
+>> I wonder about the usefulness of all the new filters. In my experience
+>> page_owner is useful to find a kernel memory leak code, and for that the
+>> stacktraces are most useful. Dealing with things like pid/tgid/comm/cgroups
+>> sounds more like your aim is to profile and optimize particular userspace to
+>> use less kernel memory? In that case, isn't it rather the area of memory
+>> allocation profiling (or maybe tracing with bpf), not page_owner?
+>> 
+>> Moreover, tracing or bpf can already do such kind of filtering and AFAIK
+>> ftrace filters for tracepoints are nice and generic, while this is adding a
+>> bunch of custom parsing and filtering. So that makes me somewhat sceptical.
+>> 
+> 
+> Thanks for the review, and the scepticism is fair - let me first
+> clarify where I agree with you, then explain the niche I think these
+> filters fill.
+
+Sorry but your whole reply reads like a LLM slop. It took a lot of mental
+effor to actually try and engage with it.
+
+> In memory usage source analysis and memory leak analysis, I believe
+> page_owner has its own unique niche:
+> 
+> 1. Nearly all historical allocation records are queryable. Dynamic
+>     tracing tools (bpf, ftrace) cannot do this.
+
+This seems totally the opposite. page_owner gives you the current allocation
+snapshot. Tracing can provide the full historical record of allocation and
+freeing, which can be also postprocessed for snapshots.
+
+> 2. The full allocation stack is recorded via stackdepot. Memory
+>     allocation profiling as a code-tagging technique cannot do this.
+
+I think there's some extension (or plan for it), Suren would know better.
+
+> 3. Zero extra usage cost (works as long as page_owner is enabled) and
+>     a low barrier to entry (one echo line versus writing a bpf
+>     program).
+> 
+> On the pain points that motivated the series. On production machines
+> with large memory configurations (e.g., 250GB+):
+> 
+> 1. Collecting page_owner information takes minutes to tens of minutes.
+> 2. The output is several gigabytes to over 10GB.
+> 
+> That makes the raw output nearly unreadable and forces post-processing
+> with tools/mm/page_owner_sort.c, adding further workload. The root
+> causes are:
+
+the "workload" is just cpu time though
+
+> 1. The PFN scan itself - unavoidable, it is the price of page_owner's
+>     core function of covering every page.
+> 2. Printing every stack for every page - this dominates the cost and
+>     is avoidable. stackdepot already deduplicates stacks and keeps a
+>     refcount per unique stack; page_owner then re-prints the same stack
+>     once per page, and page_owner_sort deduplicates it all over again
+>     in userspace.
+
+Since it's avoidable, why mention it at all? Oh I know, LLM slop.
+
+> The filters target exactly this waste: they keep page_owner focused on
+> the user's area of interest instead of paying the full print cost.
+> 
+> On the overlap with dynamic tracing and allocation profiling: the
+> features do look similar, but the usage scenarios differ. page_owner
+> is not enabled by default on production systems, so most developers
+> rightly reach for the lighter-weight tools first - dynamic tracing or
+> allocation profiling.
+
+Good! That's an argument against.
+
+> But when page_owner is already enabled, or the
+> lighter-weight tools cannot solve (or cannot conveniently solve) the
+
+Adding custom filtering code to kernel vs user convenience is a trade-off.
+
+> problem and enabling page_owner is an option, the advantages above
+> kick in: the historical snapshot is filterable in place, and the
+> filtered output is small enough to read directly.
+> 
+> So I see the filters as completing page_owner for the scenarios where
+> it is the right tool, rather than competing with the profiling and
+> tracing tooling.
+
+I'm not convinced it's worth it.
+
+>>> Targeted filtering provides significant performance benefits on large memory
+>>> servers by reducing both execution time and output size. By filtering at the
+>>> kernel level before reading, only relevant page allocations are processed,
+>>> dramatically reducing the amount of data that needs to be handled in userspace.
+>>>
+> 
+> Thanks,
+> Zhen Ni
+
