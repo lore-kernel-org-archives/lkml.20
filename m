@@ -1,83 +1,46 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D96A3C5DD4
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:51:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A784145041C;
+	Mon,  7 Sep 2026 09:51:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788774712; cv=none; b=pDYa5Vup8GkCp32EWTGDhX+PFHmUmAwKnHkB5ddDWsnLSx6aDD+BLfcaAOc4ygEMaVLcCWfXEf9A5B/oJneboGCAhIZ2PYbqj3Lc+9n0PN2CudDa0cMMo6kQ7KC4UHgYK8u6w5773rlfRyPf3Nmt8TyIqG7qxubzhtt3JRPJcH0=
+	t=1788774715; cv=none; b=M+YbEo4b/iNnueLpSc+6WUqC2vHJ+4Ix738RggMHNY21V5iJxX4+RtUGy6Enwv4wyB1DJphruq6mjG93ID0L3TjivJVwdp/l3+suCZS19o4W+O6GM2HcapiMZB4VMknN1aD6QqanOT49dwvtt/z1mb52vyQTrDYgk6N2aAQD4OI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788774712; c=relaxed/simple;
-	bh=IEyCsBsVSwIqhPWSmr79dEU7ej538Sv/hLVY3DGEtxE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FMb7n22GzqD1/kJJZcJ/Ix7Uikn7kMVjsfvgZxA9PYDSNJTujNtBcVp92d3TSVytwgBlhEGzvPZhASC8+pk/q4FICpUFJXYNf7IYWUc9iKJ2bjyw3qkuUTLX9Mx19R/KtS0Oiu5U5CbRNjsk+WH7co7rsTcD3WOCt9K/ux+7v8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gKpV+ffu; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788774715; c=relaxed/simple;
+	bh=eq5BwWiyHB30dDI1F4cffK8njPC5VBf2pkAM6IIBxz0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eKP6Sm2Wl1JttMs6NvdD1DHkB1H8YvkYDuuFfT0prV7LddJYLtMIlpFQMZVH8iaLrOOXBRyjdpQxesxjd/gqDuhnFdpyBcNvUNakuZutfb+B2YatwoM/4+6dvfkATYjc3/+1bMBnAF98E2SSgLu2wG3BX4jo4X4lTZym1mkzMpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kaEnn1/K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gKpV+ffu"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-39b24d114d4so3419947a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:51:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788774704; x=1789379504; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NuRDS27i5Np0POtdxR7TxWtwB4SFITDFQVIRdqIJzqo=;
-        b=gKpV+ffuY1srLKj4mECxg6FBBdseA2QmvFdbHr/w+LoUwUaQXXBxL9Ysrm0fqoEK3H
-         rVoOWzDJb5vZ4uTPNbzyZsoXmOVjY+GUnYzUVRZSN8U6sPuNReJlU2viEuXOtGFmavvZ
-         gZjjQTeDK5jzKq63O7T5BZArTrxbLXXC+ghdvBAPa/Zo4VEZmRCjGLzZ8Hl7oRcVC8RI
-         PMlTgjhpzlrre9X9j5h5jx3DHz/SFI2HYunPI4dmZomq0zPXhkGU4CyOMqXYVyo8gbcV
-         UbB5KpHoH4Mp5VMbA+JCYvTCzfIBsO7IHW3SL2qlQHB24BCzUHg44Ih8fpDn9mKR3VOP
-         Ch9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788774704; x=1789379504;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NuRDS27i5Np0POtdxR7TxWtwB4SFITDFQVIRdqIJzqo=;
-        b=d5ryEDCLlqJLYdOM7rn3/f9aL3495HrCwuQX/d7hQbCUjKQKThj3SHo0V3zIq30Kl3
-         /LZC+IfgL39Za7StSo7xh5nNFVlAvpVu6k/DE39xAHSJUL6Y/WozZ1BPGYk88U6neulA
-         tE0FEfg+ZTYma1cm12zE1HrnQiKojQMQC7rD3k05kZ2vlclbhnI7a//+rFDto+sAgIM3
-         eIkNtXCRIjwVQ/Fl3/fQBoMNv1XNEwRl6cQPqquV3jr7Icfp2FfLUiM7uwwlMcfYXkFr
-         vy9kxjD7kORaPktZ09c4J6BW2VsLPYd1G5GjQkA7p+dnXvKGZ+eKOPhNqlA5k6vmhrR6
-         z8lw==
-X-Forwarded-Encrypted: i=1; AKwUvBzJH3GVhpS/q5rlRwMPB09fG1QYxvGasul0P7GGbWrtwb/JfNjRaNO4INs5W4plGmXnkP4qcpAc7Zu0Jqo=@vger.kernel.org
-X-Gm-Message-State: AFuF++n/a8LfnCDaubnbxm60+s5SQdGeuKIB0SGO1n2o+TQlCBOg0Z0k
-	bUZGFrrhpjbaMvDYFGS/zMvzct4Rn1reociDorYX8UUXoyYvFe6PrMok
-X-Gm-Gg: AYBFou0Reo8fzGErwCeDbVLTK/5qVlBCMzxxuX6Jl/K+LCiiYR/S2IV5PCabLwW4Qln
-	0UPsIo9xRVRTf8voN/IlRmyidRY2KPwPKV9so85YiOS4MCs16CryBnmqpN5BwF8vxQRaPmYICSC
-	34eYVzCVmgbIYWYGlKa0FjlsqAmjuCJuUd5KKYgrfogrstXmkyyTqwlpJBT+ZMGn1BnGC/Am3K1
-	ttlo/4rpm+DofmPnwgYaCUnT3zkg0cfGv9hYP5VY3l9pU38sVGZYeH+PWLsLxbyO/LUSnnre3Fg
-	aPeAbgCyfq49f72tmhe48JXt2Tm0RReulvMbPWrFTL+v/3tMyfP+ndTx5Mclu+L23IRrc4AbSCi
-	g/m4zotUU8JMw/P6dWjr9UXgDQGNOUY+LuCG4e+ntZ4JVATBIz7RKeAs6hholUrsPESgLxcsO1L
-	G3zW1Z/qTHgdWFpkBNsMTl9ZwiN8ebhyDRd/RHRFOBHrFmQTVrMYJDaLNii0jGKJhzeyS79x2Se
-	93OH7i59kyV3t07gvowA8Hm
-X-Received: by 2002:a17:90a:51c6:b0:39b:29ca:3d23 with SMTP id 98e67ed59e1d1-39b29ca41d5mr20436117a91.17.1788774703600;
-        Mon, 07 Sep 2026 02:51:43 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885ca07sm30049167eec.1.2026.09.07.02.51.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 02:51:43 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Alexander Aring <alex.aring@gmail.com>,
-	Stefan Schmidt <stefan@datenfreihafen.org>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: linux-wpan@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH wpan-next v2 1/2] ieee802154: at86rf230: fix typo "upto" in comment
-Date: Mon,  7 Sep 2026 15:21:31 +0530
-Message-ID: <20260907095132.21244-2-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260907095132.21244-1-hemanth.selam@gmail.com>
-References: <20260907095132.21244-1-hemanth.selam@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kaEnn1/K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F00BE1F00A3A;
+	Mon,  7 Sep 2026 09:51:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788774705;
+	bh=VFweDQmpO9/uaET+6g5EHgUcto2UGa8pbMFyGmTkkfI=;
+	h=From:To:Cc:Subject:Date;
+	b=kaEnn1/Ko6oWquK9wsPqH61ikUDEpeoxEoHyL4boSJKnQeG0NLsORHW8ggU6GWXOZ
+	 uIS/hK7GT9hNRD5zJ8epeURzkM4L2S1UwPCQtekiyrcVF56iVSFF3M2MULuMSRFRTl
+	 Ww4Oxvzlf+jwgBWWzdToBSoFNiRLob5CNfIKkN33l/gijxQ+EuDBAkVvTVmb5aC0zd
+	 Usw4f5Dz5SvmlSYFtS8KR3ljS12akFtwpJikwDpTTHzp3Bnp1m1+HFIohO91oOUPED
+	 dSqzlNZjsl/KzCQKzqp2i3SH+JO/e+ldvgJhWYCkEj3LMyh6c5LnLVRp53f2yZfV6f
+	 Ih0T4xmyB46bg==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1x3W0s-00000000Xzi-1YPJ;
+	Mon, 07 Sep 2026 11:51:42 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Oliver Neukum <oneukum@suse.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Johan Hovold <johan@kernel.org>,
+	stable@vger.kernel.org,
+	Oliver Neukum <oneukum@suse.de>
+Subject: [PATCH v2] USB: cdc-acm: fix racy TIOCMIWAIT implementation
+Date: Mon,  7 Sep 2026 11:51:30 +0200
+Message-ID: <20260907095130.130636-1-johan@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,34 +49,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix a typo in comments, found with scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt. Only touches comments, no code
-changes.
+Check the wakeup condition after adding the task to the waitqueue and
+updating the task state to avoid missing a racing modem status update or
+disconnect.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+Store the old icount on entry and do not update it in the completion
+handler to avoid missing events or reporting spurious ones (due to modem
+status changes before TIOCMIWAIT was called).
+
+Fixes: 5a6a62bdb925 ("cdc-acm: add TIOCMIWAIT")
+Cc: stable@vger.kernel.org	# 3.14
+Cc: Oliver Neukum <oneukum@suse.de>
+Signed-off-by: Johan Hovold <johan@kernel.org>
 ---
 
-Notes:
-    v2: designate the patch to wpan-next and use a subject prefix naming the
-    component, as maintainer-netdev.rst asks; v1 went out with a bare
-    [PATCH] and a "net:" prefix. Rebased onto wpan-next, diff unchanged.
-    
-    v1: https://lore.kernel.org/all/20260907064346.3288-1-hemanth.selam@gmail.com/
+Changes in v2:
+ - store old icount on entry only
 
- drivers/net/ieee802154/at86rf230.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ieee802154/at86rf230.c b/drivers/net/ieee802154/at86rf230.c
-index 6156cf379916..f1adca942e3d 100644
---- a/drivers/net/ieee802154/at86rf230.c
-+++ b/drivers/net/ieee802154/at86rf230.c
-@@ -1370,7 +1370,7 @@ static int at86rf230_hw_init(struct at86rf230_local *lp, u8 xtal_trim)
- 	 *	  but this is different on each board setup. You need to fine
- 	 *	  tuning this value via CTRIM.
- 	 * CTRIM = variable capacitor setting. Resolution is 0.3 pF range is
--	 *	   0 pF upto 4.5 pF.
-+	 *	   0 pF up to 4.5 pF.
- 	 *
- 	 * Examples:
- 	 * atben transceiver:
+ drivers/usb/class/cdc-acm.c | 36 +++++++++++++++++++-----------------
+ drivers/usb/class/cdc-acm.h |  1 -
+ 2 files changed, 19 insertions(+), 18 deletions(-)
+
+diff --git a/drivers/usb/class/cdc-acm.c b/drivers/usb/class/cdc-acm.c
+index 7bc5329fa3ed..21417b4c5154 100644
+--- a/drivers/usb/class/cdc-acm.c
++++ b/drivers/usb/class/cdc-acm.c
+@@ -331,7 +331,6 @@ static void acm_process_notification(struct acm *acm, unsigned char *buf)
+ 
+ 		spin_lock_irqsave(&acm->read_lock, flags);
+ 		acm->ctrlin = newctrl;
+-		acm->oldcount = acm->iocount;
+ 
+ 		if (difference & USB_CDC_SERIAL_STATE_DSR)
+ 			acm->iocount.dsr++;
+@@ -1027,11 +1026,16 @@ static int wait_serial_change(struct acm *acm, unsigned long arg)
+ 	DECLARE_WAITQUEUE(wait, current);
+ 	struct async_icount old, new;
+ 
+-	do {
++	spin_lock_irq(&acm->read_lock);
++	old = acm->iocount;
++	spin_unlock_irq(&acm->read_lock);
++
++	add_wait_queue(&acm->wioctl, &wait);
++	for (;;) {
++		set_current_state(TASK_INTERRUPTIBLE);
++
+ 		spin_lock_irq(&acm->read_lock);
+-		old = acm->oldcount;
+ 		new = acm->iocount;
+-		acm->oldcount = new;
+ 		spin_unlock_irq(&acm->read_lock);
+ 
+ 		if ((arg & TIOCM_DSR) &&
+@@ -1044,22 +1048,20 @@ static int wait_serial_change(struct acm *acm, unsigned long arg)
+ 			old.rng != new.rng)
+ 			break;
+ 
+-		add_wait_queue(&acm->wioctl, &wait);
+-		set_current_state(TASK_INTERRUPTIBLE);
+-		schedule();
+-		remove_wait_queue(&acm->wioctl, &wait);
+ 		if (acm->disconnected) {
+-			if (arg & TIOCM_CD)
+-				break;
+-			else
+-				rv = -ENODEV;
+-		} else {
+-			if (signal_pending(current))
+-				rv = -ERESTARTSYS;
++			rv = -ENODEV;
++			break;
+ 		}
+-	} while (!rv);
+ 
+-	
++		schedule();
++
++		if (signal_pending(current)) {
++			rv = -ERESTARTSYS;
++			break;
++		}
++	}
++	__set_current_state(TASK_RUNNING);
++	remove_wait_queue(&acm->wioctl, &wait);
+ 
+ 	return rv;
+ }
+diff --git a/drivers/usb/class/cdc-acm.h b/drivers/usb/class/cdc-acm.h
+index 01f448a783c0..d245e60eb9f5 100644
+--- a/drivers/usb/class/cdc-acm.h
++++ b/drivers/usb/class/cdc-acm.h
+@@ -90,7 +90,6 @@ struct acm {
+ 	unsigned int ctrlin;				/* input control lines (DCD, DSR, RI, break, overruns) */
+ 	unsigned int ctrlout;				/* output control lines (DTR, RTS) */
+ 	struct async_icount iocount;			/* counters for control line changes */
+-	struct async_icount oldcount;			/* for comparison of counter */
+ 	wait_queue_head_t wioctl;			/* for ioctl */
+ 	unsigned int writesize;				/* max packet size for the output bulk endpoint */
+ 	unsigned int readsize,ctrlsize;			/* buffer sizes for freeing */
+-- 
+2.55.0
+
