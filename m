@@ -1,119 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA4373B0AE9
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:29:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 204AF3B14B3;
+	Mon,  7 Sep 2026 14:30:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788791388; cv=none; b=RIOQrPHX0x4+YNSq4Lm0wGEqphqjh6l9iY0ovnDHSIE4rVygcEtWO3bsajaYxoT1GYnB7uPKgjeECUQxsrY4MomTJIT6R1TFip1Nok15kGWEGV2ZloHTpmNQRJombkqA2Qn9XmjcewldE7tgzzuI7AravvOmWLVG8ZMamT+AVM4=
+	t=1788791411; cv=none; b=pr0ixZ7pZiNxUxnzEddVijLpCINEa1ExIO60Z+oyeV3nxuGUu4jHMfrpuUXIa+fOZzsC0Ulr9nHY4JrbKadNpvP0RMG397a7emqyHiQq8jAtXN0jC9+T4/FY8ZWXWNzq6zgVXVDUzkUD/5yEMgqlUK/gLzqWv3ML5BAmiwgjJvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788791388; c=relaxed/simple;
-	bh=upuTXnaAysxpYF/ejScXDyE5EwNXEFuCfx7PqGP7ZFo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LHJgqcOyKIKryuCy+npyhSPGwy237/EDzN5TyBuUBuLBCwXB/6UkAh7tEw39/8eSHdpkI263P30yjx7nDHGVEGqUltrIHcCh/gbiW9Lm9CjOKCt4XtK1g6SF2OTxNkyeLQPLo9tvLELaIACgDLnLo0IR4Ign0JnBW/EzURW2RE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mU+l3JyX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788791411; c=relaxed/simple;
+	bh=R6VPu7/qGU2BYSDwQ7+fgFxQjvHX8hCgZTCn+hEyGGA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=EQ/OKig+msMuHksmUeicX4lw+olRFxffrWL95gfbJFgTPDTvbW5k716MfxNZaFjo9aXeAm1J2FoUo5NSVl+DLlEspSDAP9Z0Viswi2ACezDnaKIgyOWimGxvjy4pHOEu7DH5NyJ9D2pD5wohmJR+IX6lRLIFVYg2w7NDoUgJncg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZLE35/Hd; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mU+l3JyX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B53081F00A3A;
-	Mon,  7 Sep 2026 14:29:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788791386;
-	bh=KAii27z2R3WgSqMKA8Gvau234+ZHaRSBQodcRzcwYBw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=mU+l3JyXv1lFF417mpUDg2GKxM4fbh9tRwzkGb6iqcgwGparR9k/Xj+qfJiSrIwm0
-	 OS8z1dLT62S8dUiFioRY6kaDWcxbqnR7gBA1w1ivIF90AeKnimZqD62rHchQEVDUS2
-	 cyNaheobD4eI0Wl/86XcysCssx5BfLCQL4kcX7keiqpdtP5Y0E26VQV8ciJVe5DuzO
-	 7sHid4cCgC16vkAqraTkVgnDOm2tEA774R+usebV1MYWqKS8aLfRHu7/cRPifxwpDB
-	 xgF+pWW7J6hSVGAWOq+hVzGvGLjUvi3GvplUZsf/rpA2ovFPF1CrwAilNxpe8SKpgs
-	 DF6KeggghiakA==
-Message-ID: <69100a2e-ffd0-4094-9999-910558807e4e@kernel.org>
-Date: Mon, 7 Sep 2026 16:29:40 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZLE35/Hd"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BD3ACC2BCFD;
+	Mon,  7 Sep 2026 14:30:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788791410;
+	bh=R6VPu7/qGU2BYSDwQ7+fgFxQjvHX8hCgZTCn+hEyGGA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=ZLE35/HdPpS4LBByktSN+jvhyRCgiE2Fq0cfylSnFkkLN+QIAvDy6JMnShUIG/n5g
+	 423Z3z54x0ROAyxBFI4D+uFwWdnKKcjGjE6Zqjxnv9z45W3oZF2lL0+SvR6h4gVDvQ
+	 RDwE5M3XJLTTuYQ9f5uHpS/CjiE3iDnI0ynHOuGzDqB4pEctjXpXB6ry9NMk5S5cc6
+	 9pARBp47YPOdc3VI141c/zxzrRJmXpQ9CM7YS935QyjldS7GNY1meR8td5Age2h+gp
+	 vCDENPX4aJbcugjPljFCt0JhAZxZkyDfilCpdckp6azfZVqzJWbEAFQB1LR/ZJLrgw
+	 GRTxUqz78SgIA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A065C79FA3;
+	Mon,  7 Sep 2026 14:30:10 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Date: Mon, 07 Sep 2026 16:27:38 +0200
+Subject: [PATCH 2/3] dt-bindings: arm: fsl: add freemobile,nbxv3 board
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: remove PageWriteback
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Tal Zussman <tz2294@columbia.edu>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Matthew Wilcox <willy@infradead.org>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20260905-remove-pagewriteback-v1-1-06f41c00db03@columbia.edu>
- <ap7FKO_9BdNymgsn@gremlin>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <ap7FKO_9BdNymgsn@gremlin>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260907-for-upstream-nbxv3-dts-v1-2-f43fd0028b78@free.fr>
+References: <20260907-for-upstream-nbxv3-dts-v1-0-f43fd0028b78@free.fr>
+In-Reply-To: <20260907-for-upstream-nbxv3-dts-v1-0-f43fd0028b78@free.fr>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788791274; l=1075;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=O8dCXA7+FxVb3qjlvlxUSE16nNAWYoDpG+zNdVfj+co=;
+ b=94RATUWJeloIqnP09OX1OLE4DlfY92svTyaPKrvKIrD8l6EMbja5kY/sQG+QnEY3Wn0JGx7gN
+ 6Q5qrDG58qMBCm6RyDpXGdSG4mO0KRjRlFcKBlKoF5HvYrUobo4dLlP
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
 
-On 9/7/26 16:08, Lorenzo Stoakes (ARM) wrote:
-> On Sat, Sep 05, 2026 at 03:08:30PM -0400, Tal Zussman wrote:
->> The last caller of PageWriteback() was removed in commit f75987e543c2
->> ("libceph: remove pinning assertion in ceph_msg_data_iter_next()").
->> This flag is now only used on folios, so we can remove all the page
->> accessors. folio_test_clear_writeback() is not used, so don't add
->> FOLIO_TEST_CLEAR_FLAG() for it.
->>
->> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
-> 
-> Nice! LGTM so:
-> 
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+From: Vincent Jardin <vjardin@free.fr>
 
-Indeed!
+Add the Free Mobile Nodebox v3 CPU module to the list of
+NXP, former Freescale, LX2160A-based boards.
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+The board's root is:
+  "freemobile,nbxv3", "fsl,lx2160a"
+and the DTS is at
+  arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dts.
+
+It is needed for
+  make CHECK_DTBS=y
+
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
+---
+ Documentation/devicetree/bindings/arm/fsl.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
+index 656f2596e1d53..baff4f4159b29 100644
+--- a/Documentation/devicetree/bindings/arm/fsl.yaml
++++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+@@ -1937,6 +1937,12 @@ properties:
+               - fsl,lx2162a-qds
+           - const: fsl,lx2160a
+ 
++      - description: Free Mobile LX2160A based Boards
++        items:
++          - enum:
++              - freemobile,nbxv3
++          - const: fsl,lx2160a
++
+       - description: SolidRun LX2160A CEX-7 based Boards
+         items:
+           - enum:
 
 -- 
-Cheers,
+2.43.0
 
-David
+
