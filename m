@@ -1,109 +1,130 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB0A847F768
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:38:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A769486E7D
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:39:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788781138; cv=none; b=Yn3kZAm+xhxTqTMvVwhJ6EisqkB6Vwsjqrk24LENwCC2JO7LMaLC5S0FPM8ZN0t5H6xdo1yEYBkZU+G0HpS9Nr7Tb9LYZdmFgCs0Jsp0GGFihyojKhbpELstnQEcAecT9zDdQjC2IPa8N2uZ1IYUUn+1Hl553lWYmhAfegNM/fU=
+	t=1788781146; cv=none; b=ncqq6sqE5ZBP2q71u653cQXKNsTpb1Sq0m9oGzSfDHIGs1Rk/Garj5sJz4homo48g7avuc8H3Lh02zduXwT067HpQZaUNZYG2zd78J6d93MP/2YYcXe8ZgBeY3ZVrxdIR06ApBTFK0QveLTBi73IT4Bap0w6tbg2StkLoHjM80A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788781138; c=relaxed/simple;
-	bh=7pSMEByB7R4uwEx4lR7TNQm7S98V/dF0hA7MZYBm4H8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Gr5vxDw32inRtbQbonlNIztoO5TBHvjSPfOlfQYkoIlfHkCKZ+CNesQvqZha1YNOHgoCswdIwa+aLjdTkaUOfK1oKi9G0LtzZAlWtef1TZvPQ6Te2O/+3LtrGmV5fG+KMnxiZzh7UiuRRSwYcCTpcheBFLOD3XZb3ebAkSro/R8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=D5apak0v; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788781146; c=relaxed/simple;
+	bh=hNd6bIyFAvlFxc6hjuFcDqVwVqg86Zvx1YHzqvt4tLo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=K+Ei0Y9j5r3LQoteXFpuKTtQjHhGL60+c1SyTKzJbK59X1Hbd1eqywnD7lR2hr8olGitL09G9xjIXfXt34toN5ZybLYB0sbYkgs5IM45kALGRys8EtmAM320/SFbZzDuf3Ykjs8PQTWIB+C6fjBVf1R2a6VR6UsuVK80MesiomE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Nch8TyND; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="D5apak0v"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49d0726ccc2so12549575e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 04:38:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788781135; x=1789385935; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JTxWf7Z9THbI+LNbFW3uX14W5LzvtbTTU9b0mD+aQ5s=;
-        b=D5apak0vWBt2mSW5LrB0IjvQ8rYPxzo2Gd8GBTp7qwtCbCTtDjzWEPAkbqIrhEsGRs
-         exfS3GQQK9vrTxWQGPaL44stBDoH16b5GuYR6bThLiVwIK7xUhIx7ufkbZD2uDOen7ak
-         1yKeobsRxqP7UpWfLwG7fUknB6Ja4Kc0VWOkQiUH5Q547VUSov7F3B8hyIkx+1zKQrU9
-         Vt0SzWfPhWr5y1jwClX2WVeszlH8/IinQvu8/HmHwjwFdhIwyQmRRMsL+wM+nlEFQAHJ
-         MwMQXlvhYgNI6Yhn/bbbepFL5bVg8OOwlzZQcxHyzxGwLI1/J5Zryx+Z3/HRehIeEVaX
-         EP4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788781135; x=1789385935;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JTxWf7Z9THbI+LNbFW3uX14W5LzvtbTTU9b0mD+aQ5s=;
-        b=R99Nxr+eeHv/ygNiqnOy9VPF/xBEBKWWMs3+WcSLagRDlgZc3t9eSIiTZpd1fHrIbT
-         sGk/+8x+mGyrZk64fibE1Z6L541yHB2cDKWH78rAl5yfc5F7qqhLFtTInBuw9aHrS/AO
-         RsoP/axOoYByAHbRCqgtYf4R8/HJpm7BkmE7NA82azXBJCNoMrfCz3GTRbr94Mef5QgA
-         fFizOvwxcVIL6vT85a2bVAQilsBOWO2XDlcPLTNNp3X12Vo+Df+QpoLPayPPJo/qaQye
-         nOpHQhZTkmSrnNtRx5jOZYkYgSHFMnqtrHDqSi22z8ttY8P26RVo8/7Fr+v0vFE6xJEB
-         +zsw==
-X-Forwarded-Encrypted: i=1; AKwUvBxi401b61yVyZ9mZ9ekXNHAzeuZrZJeQiFiHpPnILR5cc8E78MnVdoLwQXfPPKvdxOcdovwuK4ulEyVxq8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nyEEXO0SG1DwJVj5ctsWINd0hQEjxbZhDE6C5czSdW18JItLyG
-	K9Nr1OmWKgaYjCsPRbF+x6F2ucgl1Q1jgmh72zNf8fO9gFFjfVDne9XtQPOT2Il6TlM=
-X-Gm-Gg: AYBFou3KojtTV2DWs38RP5vXLLCtWQzBe75l8odkQEuOBmjxgO75hsAdvI5o6AifqQ1
-	faX5IIcX7rLM+Yp+RCTiAvhGoYTFMzDtx6te9JOTy9CSA/AiYZ0aFajRDLsV44ZhGfqJ3Wm18jm
-	SuBkSMIoHLlIEImb8CnHu1/r80CB1RyOqX1Hs9GotFoBsvuifq6Wmt3RDUhcq9PF3z09LRLmLja
-	8jgA9IYghFBZBcqd59J61fZ/xJRiS6Hef9VE3xubCjEK1OGjeJ3LxbXY9NCzXCf5xa622m9CYcq
-	edPpv1/xUwE3JAL/1Q3MdaEhOjNNfkLIZo0/cc7j4VVLQyx58SxfngonxUYqFRKsXC4VEbA/+kN
-	+Ayg1nCeeLY0TMmffY2nlpOnglJs/q0Np16naEZJZbKUYoEm6YtAtTGQNABvLlyLObyRaLII2wG
-	BWvt9CfF0yAqQIPPfYW4tqgP/dADqiPFnSZUXEUBBcQXrsx1oK9p60Yv+dgVH8yCtUhW4UTsOVy
-	oWat2OrW2W7/T34gt2x0ihWI1Q=
-X-Received: by 2002:a05:600c:3507:b0:499:a5c8:c6f3 with SMTP id 5b1f17b1804b1-49cf7fe6900mr417183625e9.3.1788781134823;
-        Mon, 07 Sep 2026 04:38:54 -0700 (PDT)
-Received: from ?IPV6:2001:a61:1340:dc01:654b:3cf0:59cd:498? ([2001:a61:1340:dc01:654b:3cf0:59cd:498])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfd3f8192sm264862305e9.3.2026.09.07.04.38.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 04:38:54 -0700 (PDT)
-Message-ID: <6e0dbfed-cadd-4274-8165-886725413d0f@suse.com>
-Date: Mon, 7 Sep 2026 13:38:53 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Nch8TyND"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788781143;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HHCKmh+GTex17viqHU7+p3b1kZPrhM46bDIsKbGkEho=;
+	b=Nch8TyNDlnwLos5cevYWHtv6Dk8AHrv6EQM1q10NAs8gzZC+VPgYEV7tyqGPk6Z/CvUrlE
+	tyDs7uG8Y2PSOMymOWqdeWGi6B52Ms5ceX/J/dkQrJTIzPLMIPUIuhHcHeMqqAoplw+iiB
+	6cE7g5p9iRolU8Ddc5CSGvt+FSENxgI=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-264-3OA5z2N7Niam5fyVXGe7bA-1; Mon,
+ 07 Sep 2026 07:38:59 -0400
+X-MC-Unique: 3OA5z2N7Niam5fyVXGe7bA-1
+X-Mimecast-MFC-AGG-ID: 3OA5z2N7Niam5fyVXGe7bA_1788781138
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CC0BD19540DE;
+	Mon,  7 Sep 2026 11:38:57 +0000 (UTC)
+Received: from warthog.com (unknown [10.44.32.158])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 89F2530001A2;
+	Mon,  7 Sep 2026 11:38:53 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: netdev@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-afs@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Seungwon Bae <qotmddnjs@ajou.ac.kr>,
+	stable@vger.kernel.org
+Subject: [PATCH net v9 13/14] rxrpc: fix use-after-free in rxrpc_poke_conn()
+Date: Mon,  7 Sep 2026 12:37:40 +0100
+Message-ID: <20260907113743.1453210-14-dhowells@redhat.com>
+In-Reply-To: <20260907113743.1453210-1-dhowells@redhat.com>
+References: <20260907113743.1453210-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] usbnet: fix smp_processor_id() use in preemptible
- context
-To: =?UTF-8?Q?=C3=96mer_Mete_Kaya?= <omermetekaya0@gmail.com>,
- netdev@vger.kernel.org
-Cc: oneukum@suse.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- syzbot+04cd90bb99c6ef81a65d@syzkaller.appspotmail.com
-References: <20260903165456.498079-1-omermetekaya0@gmail.com>
- <20260905224553.595766-1-omermetekaya0@gmail.com>
-Content-Language: en-US
-From: Oliver Neukum <oneukum@suse.com>
-In-Reply-To: <20260905224553.595766-1-omermetekaya0@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
+From: Seungwon Bae <qotmddnjs@ajou.ac.kr>
 
+rxrpc_poke_conn() takes a reference on the connection with no liveness
+check, unlike its sibling rxrpc_queue_conn() which gates on
+atomic_read(&conn->active) >= 0.  The per-connection timer is armed with
+no reference held for it, and rxrpc_put_connection() cancels it with a
+non-synchronous timer_delete() only after the refcount reaches 0.
+refcount_t saturates rather than resurrecting, so the connection can be
+kfree()d while still linked in local->conn_attend_q (nothing in teardown
+unlinks attend_link).  The rxrpc I/O thread then performs a UAF write
+(list_del_init) plus UAF reads and indirect calls through conn->security.
 
-On 06.09.26 00:45, Ömer Mete Kaya wrote:
-> usbnet_skb_return() and tx_complete() call this_cpu_ptr() before
-> disabling IRQs, which triggers a BUG when running with PREEMPT_FULL:
-> 
->    BUG: using smp_processor_id() in preemptible code in tx_complete
-> 
-> Fix by saving IRQs first with local_irq_save(), then calling
-> this_cpu_ptr() and using the non-irqsave variants of u64_stats
-> update helpers, since IRQs are already disabled at that point.
+Reproduced on a KASAN + PREEMPT kernel: 56 "refcount_t: addition on 0"
+saturations at load, escalating to
 
-Hi,
+  BUG: KASAN: slab-use-after-free in rxrpc_io_thread   Write of size 8
 
-thank you for the patch. However, if the problem is preemption,
-when not simply preempt_disable()/peempt_enable()?
-Why is it necessary to switch off interrupts?
+AF_RXRPC socket creation (rxrpc_create) has no capability check, so this
+is reachable by an unprivileged user.
 
-	Regards
-		Oliver
+Guard rxrpc_poke_conn() with the same liveness/refcount check the sibling
+rxrpc_queue_conn() uses before taking the poke reference, so a connection
+past its last-active point is not poked/requeued after teardown began.
+
+Verified before/after on KASAN+PREEMPT at equal timer volume: 56
+saturations + 15 KASAN reports unpatched vs 0 and 0 patched.
+
+Fixes: f2cce89a074e ("rxrpc: Implement a mechanism to send an event notification to a connection")
+Signed-off-by: Seungwon Bae <qotmddnjs@ajou.ac.kr>
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: Eric Dumazet <edumazet@google.com>
+cc: "David S. Miller" <davem@davemloft.net>
+cc: Jakub Kicinski <kuba@kernel.org>
+cc: Paolo Abeni <pabeni@redhat.com>
+cc: Simon Horman <horms@kernel.org>
+cc: linux-afs@lists.infradead.org
+cc: stable@vger.kernel.org
+---
+ net/rxrpc/conn_object.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/net/rxrpc/conn_object.c b/net/rxrpc/conn_object.c
+index 0ece717db0f8..1be50e0c9cee 100644
+--- a/net/rxrpc/conn_object.c
++++ b/net/rxrpc/conn_object.c
+@@ -34,7 +34,10 @@ void rxrpc_poke_conn(struct rxrpc_connection *conn, enum rxrpc_conn_trace why)
+ 	spin_lock_irq(&local->lock);
+ 	busy = !list_empty(&conn->attend_link);
+ 	if (!busy) {
+-		rxrpc_get_connection(conn, why);
++		if (!rxrpc_get_connection_maybe(conn, why)) {
++			spin_unlock_irq(&local->lock);
++			return;
++		}
+ 		list_add_tail(&conn->attend_link, &local->conn_attend_q);
+ 	}
+ 	spin_unlock_irq(&local->lock);
 
