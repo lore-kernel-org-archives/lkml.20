@@ -1,112 +1,93 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E8E446EF96
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:07:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788790079; cv=pass; b=P4UGFWGqGkHwqA5Bgs5xXJ0FXN4wTHU/4g8pFmIPnSdnldoRxS35xQUIWu7X9S6m0H8KZi4Fwe6fe2OjSgJFhKPacTJmk/Xbi3V4lU/E3op/ar+tb/8NRcJ+6TPzPBuykV2TdNK88TJ3T3PEUGIoWVpx85wFYgG9pDDVjl3ycyo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788790079; c=relaxed/simple;
-	bh=ubuG3vWt66GZSV+kOwsDiCQ+xW4RvslssDZ/+nQg+ao=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LjCAoxW3m2oFnKPuwzCVoHqBpYX8+LeucCK1rHSbTfnZIBzBD19Xq0XM4UodixWGTZy9wQCYk4+pwXScaONfE1zR1EWzQU6vStafQrByW0qEQ5ooqstZRvzN9SGCR8JTYA87l+tMjdcAg14o40o64w0PZZk6hajf6Ae94w6jYAQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=PjuUDZvI; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC1F4E56E7
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:08:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788790098; cv=none; b=NYTl7jmMH2gvLNgwUNgNp7Bc5BxkTfjtwbeYI2hWn4cPHZY6z5U1r/aPCD5qkJLaMjjR3mdyOU5WppluincWs/Q1LgYYkQCg8jvZwlP7PQHKa2BLU40c/SwMHcimoN04V/xuJcnX1/Qzdnlh1T3ZvL3IHTjegNsLcyWBLTJqkUo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788790098; c=relaxed/simple;
+	bh=GhuLAYWZOWjLtDee5I+ZRCQi/tLTvHJC8QEGn7BeFik=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dPJ/r8lX4hPkRs1ElqSVwZz3ZbtiUD5QZDGFULTl4P+n17XpNsriE5zkuIIlmiJb8hZearSZDcZ05i/qqJ39+hnlYJP4s6CECc3vCDebeD/9j5E8ixqy+M6Ruaq+o+RbU0TJMGTP+0ed0jp8/q/3t4K9LugegyB9GUateyZtJzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=haoLa08h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="PjuUDZvI"
-ARC-Seal: i=1; a=rsa-sha256; t=1788790048; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Kpz2kvN63OIHbP4Y/doeEX+OXusagVwQBCM7Y1oI7lJCAn0Gt1aBRu6NtyPi3ixIALnk2JL4b34PLODI+pnGns2PAZF+YEjt1+SR5AQdsXJaTiwJG2lP8j6ZNCCO7gFAIo5xmDZK2saTWcpgc8H5dpXNvSv/O36D7r+DK+GfdY4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1788790048; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=DCz9i2reWsrpFYk13e0Qo4NLX16nsUoQAAk500fgnYA=; 
-	b=RDVu7FebuL7wRhe94McVXXZCT3JbVxpEp56t7taUClHyFIFBi6VdyN1Pv1RVXCKwNKG1fGPOR1RL1KHAWR8dr+ljMFeCDjJD/bAxMANazFl25woJM2GpZhvqyx3CwTW969lavf3xTuTmXu2FQFs3XgDwyvtr7eKiF1pmxWJi/x4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788790048;
-	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=DCz9i2reWsrpFYk13e0Qo4NLX16nsUoQAAk500fgnYA=;
-	b=PjuUDZvIpUc7A6wDhfGdbbMeVQ2gG78lA2xzPukD+VsLrJI+jdCERPNqQv5Mt0W9
-	uoG5WfLzJzuGr+yMQU/5T3iNrOxkNpagZ7qG8Lj55hr/oa5IP5rrBMaLkUz9jYGv0nn
-	c54FbGO0xK9Tb4gBpbHZyuDIjM7c9BGUQkquIRrc=
-Received: by mx.zohomail.com with SMTPS id 1788790047477485.6602521989356;
-	Mon, 7 Sep 2026 07:07:27 -0700 (PDT)
-Message-ID: <55240372-c265-4b38-be94-f29a58ddbb22@collabora.com>
-Date: Mon, 7 Sep 2026 17:07:22 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="haoLa08h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 538431F00A3A;
+	Mon,  7 Sep 2026 14:08:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788790096;
+	bh=sr+QCo6xQfPXgTOYYqw51EOYZ9lBSMZUZXOTHvbB0K8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=haoLa08happTKU0G+mwZmJ7e2zLqMXgmLLUYGwLe8QtCs/8rKatRIntZSZEPGeMvm
+	 ijISDt+qEL98Z+wDxJCetyAx+Ork/d2fDcc1LhG6HDOv0eyR5iQ4IOfdrfyn4284kB
+	 pZrTbEfNoRr2sdFJ4oeglkhWSAIjA8KZ5JZinI4qg4DJ7dmDN5t05MKKsHnh738rEC
+	 n77KBxq13Wp8PaKgb1w2YwnM3zlPITTFXNFN92tmfXlIg4/U2fB99MAASYFlYFA5bp
+	 xQF3upyDcsWkSJSlX+dGB5XuC0jjb3CZsd61Q7zF0elIIHUyiuET/Iy7emZoWoe02t
+	 nOhGbTja7PbIw==
+Date: Mon, 7 Sep 2026 15:08:10 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Matthew Wilcox <willy@infradead.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm: remove PageWriteback
+Message-ID: <ap7FKO_9BdNymgsn@gremlin>
+References: <20260905-remove-pagewriteback-v1-1-06f41c00db03@columbia.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/virtio: fix object leak when drm_gem_handle_create()
- fails
-To: moonafterrain@outlook.com, David Airlie <airlied@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>, Dave Airlie <airlied@gmail.com>,
- "Michael S. Tsirkin" <mst@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>
-References: <20260815-virtgpu-gem-create-leak-v1-1-a4e9fb18caa3@outlook.com>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20260815-virtgpu-gem-create-leak-v1-1-a4e9fb18caa3@outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260905-remove-pagewriteback-v1-1-06f41c00db03@columbia.edu>
 
-On 8/15/26 09:16, Junrui Luo via B4 Relay wrote:
-> From: Junrui Luo <moonafterrain@outlook.com>
-> 
-> virtio_gpu_gem_create() owns the reference taken by
-> virtio_gpu_object_create(). On the drm_gem_handle_create() error path it
-> calls drm_gem_object_release() instead of dropping that reference.
-> 
-> drm_gem_object_release() is the inverse of drm_gem_object_init() and does
-> not touch the reference count or call obj->funcs->free(), so it is only
-> correct as the last step of a destructor, as in
-> virtio_gpu_cleanup_object(). Using it here leaves the bo at refcount 1
-> with no remaining reference, so virtio_gpu_free_object() never runs and
-> the shmem pages, sg table and virtio_gpu_object are leaked. Since
-> virtio_gpu_object_create() has already set bo->created,
-> VIRTIO_GPU_CMD_RESOURCE_UNREF is not queued either, leaking the host-side
-> resource and the resource id.
-> 
-> drm_gem_handle_create_tail() drops the handle reference on all of its
-> internal error paths, so the caller only has to drop its own. Use
-> drm_gem_object_put(), matching the success path below.
-> 
-> Fixes: dc5698e80cf7 ("Add virtio gpu driver.")
-> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+On Sat, Sep 05, 2026 at 03:08:30PM -0400, Tal Zussman wrote:
+> The last caller of PageWriteback() was removed in commit f75987e543c2
+> ("libceph: remove pinning assertion in ceph_msg_data_iter_next()").
+> This flag is now only used on folios, so we can remove all the page
+> accessors. folio_test_clear_writeback() is not used, so don't add
+> FOLIO_TEST_CLEAR_FLAG() for it.
+>
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+
+Nice! LGTM so:
+
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
 > ---
->  drivers/gpu/drm/virtio/virtgpu_gem.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_gem.c b/drivers/gpu/drm/virtio/virtgpu_gem.c
-> index 66c3f6f74e9c..d2f0b8a3f172 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_gem.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_gem.c
-> @@ -45,7 +45,7 @@ static int virtio_gpu_gem_create(struct drm_file *file,
->  
->  	ret = drm_gem_handle_create(file, &obj->base.base, &handle);
->  	if (ret) {
-> -		drm_gem_object_release(&obj->base.base);
-> +		drm_gem_object_put(&obj->base.base);
->  		return ret;
->  	}
-Could you please fix all other occurrences reported by bot in a v2?
+>  include/linux/page-flags.h | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
+> index 3dc79c0c5adf..86dd0470da11 100644
+> --- a/include/linux/page-flags.h
+> +++ b/include/linux/page-flags.h
+> @@ -588,8 +588,8 @@ FOLIO_FLAG(owner_2, FOLIO_HEAD_PAGE)
+>   * Only test-and-set exist for PG_writeback.  The unconditional operators are
+>   * risky: they bypass page accounting.
+>   */
+> -TESTPAGEFLAG(Writeback, writeback, PF_NO_TAIL)
+> -	TESTSCFLAG(Writeback, writeback, PF_NO_TAIL)
+> +FOLIO_TEST_FLAG(writeback, FOLIO_HEAD_PAGE)
+> +	FOLIO_TEST_SET_FLAG(writeback, FOLIO_HEAD_PAGE)
+>  FOLIO_FLAG(mappedtodisk, FOLIO_HEAD_PAGE)
+>
+>  /* PG_readahead is only used for reads; PG_reclaim is only for writes */
+>
+> ---
+> base-commit: b733fe31e781ed45c56d2ec561dbb61a903693c8
+> change-id: 20260904-remove-pagewriteback-69d2aa5b3ee9
+>
+> Best regards,
+> --
+> Tal Zussman <tz2294@columbia.edu>
+>
 
--- 
-Best regards,
-Dmitry
+--
+Cheers, Lorenzo
