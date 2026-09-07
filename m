@@ -1,130 +1,109 @@
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290B44CA78C
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:26:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E53304FDE51
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:27:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=121.127.44.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788787603; cv=none; b=NTO40yXg/hRLQqkZ07srR84iY0odiuQraYfZoSXeg7JlQVr4V6vCRi0TvCYJfllrlQ/wnN2H2nQJS2uTt+PUIeV2FcMQwsnNjnJptZPXMj7evMmOs1lxO4KPCXmO8Tke47s9S84uHPV8Ibh1kq9lcuq6Rk6RUew8eawdg94PAJw=
+	t=1788787639; cv=none; b=DD3HTnMgiFLA3LQRgCx3T/K36JH2NlZ1Ajh4nBufqRo6MMhbmVG/YSs6PT2ShCLigwDGXhTGzZ+woILS7jVidFh6R+wRuhJoH/rJ3TFZtfxXO/pHvo6IpHIIdN5YTHLq90D6Sy3WJIhdUmPiSqSLBB1y/nLIXAF4FPDq8XrC494=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788787603; c=relaxed/simple;
-	bh=bNTT1MFk41AEn9RggYQGn5+f0aqUw5g1TGoWu75TN+s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YmwIynC4vT8fCTNth5LGvsb/Qo2LDH1MB/v0NR4nYGSYIZOgvUodp3TvniSFY0KhJzFDMdmOrArG64lP0v51/poLOQVZlH8FLzESYAqG2q0XfXq8LI3SmKUst+G08S3Jav5IkXB8BIqxg5XGAYiuuaKwRCadQNu/ib+79kvp3bw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=JAgKE5Y3; arc=none smtp.client-ip=209.85.218.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
+	s=arc-20240116; t=1788787639; c=relaxed/simple;
+	bh=BfSa8Qa4HHA9XdtDni3WI6484fC1X2X/LXoDqzeOHac=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=LDejR2+6JgFoNtaGYGtAUaD7K8diD9cA9Mnp6xg8bWoJL8+KPryJJPb3ZboD8I31vTXFUuPqwk+1nKWYlo3eez7QOSmnmVWZJJ6KaY103d/baq4wZ0SoztfDi/87loZOTpE8rFPqiVD+CNod9/ysBXBJwcoo7Tmd/7nRGNlBmKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com; dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b=SLHkxs4N; arc=none smtp.client-ip=121.127.44.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="JAgKE5Y3"
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c2530cabcf4so542982366b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:26:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1788787594; x=1789392394; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3wiaJ1NmJWhdrraZpEMlSTMQ/v3zrFTCeXquYFCuY5U=;
-        b=JAgKE5Y3TJ6H68yzHS2XnWNLOLt9h/pp0SU8VKgzJ5TB12ija7GQSjYnsF04TebhfG
-         f8/lfbu3aNq/2A+qnl1i/pp6jlqLgbIW8sY89rD/0K84CLDiOp3vzRM9gLMhewjGwksk
-         JGsxy3FyDFvvq85ZxY+pBCG5QxlrnHA4xpsXXIkW6QavpKLwH2CEufU8OMGdsc2/ukVG
-         oyMH/HeZZYlA5SHnuJJtyPKFvHo86OIiWUIP/iZCztMW2qmrU0HklhjwByHL89utxUml
-         JblB9xCNQIytMex2LEhWdn8Wk6Pn80LqOQIhHSjmqldHoP/Vz1B6MnenYslBgYlBN52F
-         8SIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788787594; x=1789392394;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3wiaJ1NmJWhdrraZpEMlSTMQ/v3zrFTCeXquYFCuY5U=;
-        b=KFhBkg9VNDP1xqMdNBaO0K9zA8LXPqK6c5U2xFVDruelxqh5Pna0wiipFdWEYtyK8Z
-         fBTWnlxAqVFLmJEvSmWtmt78X/ZBqjP/As38x6CczlZue2p+5XQLyTLD6UzBYQv9wYOW
-         8kWCJFdDTWbMEruu0D87aZGBW50UkOT0fXxOoce7EtvDcq9XKMYOWdqhUM+zCz7lL86c
-         ZBA6eb/FxsVBpw2Rg3MLN8aa/ds1gHlNFo52yhM0t7BFYCch4coSN6z7ZMUW7u+Fgb4S
-         ME1U8TW3+qGFMl8kyMAHXpQ241DlKBn+5y/cHCcAD7DpQ+9r8NY/s4GyzG8952poEy0J
-         6oLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxaHwJ0j4ZV/lHDTUchDT3NLwy85K71GMXyJhs0/O7Qj3rG2OFi/zmPRb9xYyh76n09bLGN87Zd0nbNgqs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lu0fvUARzls+2LYWwqBji5echU1I3B4mcN1PTxLyWJn0KfsqX1
-	59CR4LoWqXevdA2j9zCaE/fTh/YKZmcoXRq5SQQ4gCwJ8Wc9USP4/3KSdeVkET3ZWSE=
-X-Gm-Gg: AYBFou3u92imJxGmbjr9CojXek4DRjruk12LLv3IQGQNUzHjGeWoAGnKkKsDLrvPHHX
-	Zzt9bWmOq9usnF0mmS2XQPF2FRF71nNSBuHYceTHN28FKP3yIVNEJN/G8cuFCrsFCAtGECM+tb4
-	Wqx+k0NhczwKiO/Jxh+omiNgTkWTvexv0v5uWjQg6hW4W5cu4a0JfLD5HW3Y9DtVYpaUKQXIllU
-	Qk2QCtR49VRnrfqAfs1wNy6MZml6ZoZHag7vQjKg5jOtkWk+E9AXNqgOGwkf0z1ERBgLBu4+Ivz
-	gi4F2eUQoE7tQtXzEd3K4wUnaYGWKMEF820zHkwSigl+ekyVCyTtnmMetazRwbL0afflGgnzF8K
-	csAmP1m511KZWBihIxqmT2KibOSjTYe9uOwKfmjzjuCrjEQYPnIUizKaDbIf7H5eUdGS3hTJtEL
-	TE/yk42EWloAD2Dc3BJod1i00NdrMdw69d895aaKGtzlMVh0olwiR6kDKRXV1lLfh3YoziU4AWe
-	GtCeYstwb5VjlLmHFM+IbWrS5+UWCpCsPQ7hXmrtvg7mG65KACxvEKtzUZ6SbzqyJMQ+myA7peQ
-	XbzzfgnAIC+0NGB8n4g40cRlyl6xvkKDhPdKqO/9Jrs5I7Lm
-X-Received: by 2002:a17:907:d87:b0:c25:504a:1e25 with SMTP id a640c23a62f3a-c260cbd2d02mr1532301766b.13.1788787594351;
-        Mon, 07 Sep 2026 06:26:34 -0700 (PDT)
-Received: from threadripper-fedora-workstation (cpe-94-253-164-142.zg.cable.xnet.hr. [94.253.164.142])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2622a7c677sm366362766b.9.2026.09.07.06.26.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 06:26:33 -0700 (PDT)
-From: Robert Marko <robert.marko@sartura.hr>
-To: ulfh@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	nicolas.ferre@microchip.com,
-	alexandre.belloni@bootlin.com,
-	claudiu.beznea@tuxon.dev,
-	adrian.hunter@intel.com,
-	aubin.constans@microchip.com,
-	ehristev@kernel.org,
-	linux-mmc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: luka.perkov@sartura.hr,
-	Robert Marko <robert.marko@sartura.hr>
-Subject: [PATCH v2 3/6] mmc: sdhci-of-at91: add LAN969x support
-Date: Mon,  7 Sep 2026 15:25:31 +0200
-Message-ID: <20260907132617.1198548-4-robert.marko@sartura.hr>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260907132617.1198548-1-robert.marko@sartura.hr>
-References: <20260907132617.1198548-1-robert.marko@sartura.hr>
+	dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b="SLHkxs4N"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
+ h=In-Reply-To: References: To: From: Subject: Cc: Message-Id: Date:
+ Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
+ s=fe-953a8a3ca9; t=1788787629;
+ bh=y7VvGigwn27AdfNBSG1mKimtn1nQapTyJ3WDolaxsys=;
+ b=SLHkxs4NlzrmlyfZ2WpbSBRvHgFQxrXhaDrbuE5q6jnKx/xZlm2hlzutAYFKlMiTCehLNx+AE
+ 1zzh3UI2LAQc7xSVNDDzsSBUSKAdWHuyGFCVoKRxlFccKBLIubxW9Y35K0H/XnTW+Oc5rg8pt2k
+ LusVPcJnhPtINoYJsIZ2z9LUgkaLyoz3WAwy0A0Irf0MLkXV5feD//lx5UCjFA2MvfpJCRAN790
+ a6AFrbdAFw0/ZO9ApJCQvi7qy0f8BlEzHLA7s+vJOe57hZK6NSf+3fxEEx9NkUDlGvVXHzPDKm+
+ OV/84Z7Kvqzm8n1WscaszCrww9OSYt9AIDYG7qkD7APA==
+X-Forward-Email-ID: 6a9ebbaa16171017b32ba5b2
+X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
+ 121.127.44.73
+X-Forward-Email-Version: 2.14.2
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8; format=Flowed
+Date: Mon, 07 Sep 2026 09:27:04 -0400
+Message-Id: <DL94AI9QUZEG.LE27ALKI8UIX@ubuntu.com>
+Cc: "Konrad Dybcio" <konradybcio@kernel.org>, <linux-usb@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <asahi@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [PATCH v2 01/22] usb: typec: Add alternate mode state notifiers
+From: "Joshua Peisach" <jpeisach@ubuntu.com>
+To: "Sven Peter" <sven@kernel.org>, "Heikki Krogerus"
+ <heikki.krogerus@linux.intel.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Janne Grunau" <j@jannau.net>, "Neal Gompa" <neal@gompa.dev>, "Andreas
+ Noever" <andreas.noever@gmail.com>, "Mika Westerberg" <westeri@kernel.org>,
+ "Yehezkel Bernat" <YehezkelShB@gmail.com>, "Philipp Zabel"
+ <p.zabel@pengutronix.de>
+X-Mailer: aerc 0.21.0
+References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
+ <20260906-b4-apple-soc-tbt-v2-1-1f80085f93fb@kernel.org>
+In-Reply-To: <20260906-b4-apple-soc-tbt-v2-1-1f80085f93fb@kernel.org>
 
-LAN969x uses the same internally generated base clock layout as SAM9X60,
-but its SDMMC controller stops responding when runtime PM gates its clocks.
-Software resets then fail to complete and the internal SDHCI clock never
-stabilises, causing subsequent I/O requests to time out.
-
-Add LAN969x-specific SoC data using the SAM9X60 clock layout and select the
-option to leave its clocks enabled across runtime suspend.
-
-Signed-off-by: Robert Marko <robert.marko@sartura.hr>
-
- drivers/mmc/host/sdhci-of-at91.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/mmc/host/sdhci-of-at91.c b/drivers/mmc/host/sdhci-of-at91.c
-index b7e2a89da348..e7affca8da25 100644
---- a/drivers/mmc/host/sdhci-of-at91.c
-+++ b/drivers/mmc/host/sdhci-of-at91.c
-@@ -158,9 +158,17 @@ static const struct sdhci_at91_soc_data soc_data_sam9x60 = {
- 	.divider_for_baseclk = 2,
- };
- 
-+static const struct sdhci_at91_soc_data soc_data_lan969x = {
-+	.pdata = &sdhci_sama5d2_pdata,
-+	.baseclk_is_generated_internally = true,
-+	.keep_clks_on = true,
-+	.divider_for_baseclk = 2,
-+};
-+
- static const struct of_device_id sdhci_at91_dt_match[] = {
- 	{ .compatible = "atmel,sama5d2-sdhci", .data = &soc_data_sama5d2 },
- 	{ .compatible = "microchip,sam9x60-sdhci", .data = &soc_data_sam9x60 },
-+	{ .compatible = "microchip,lan9691-sdhci", .data = &soc_data_lan969x },
- 	{}
- };
- MODULE_DEVICE_TABLE(of, sdhci_at91_dt_match);
--- 
-2.55.0
+On Sun Sep 6, 2026 at 2:36 PM EDT, Sven Peter wrote:
+> The Apple Silicon USB4/Thunderbolt driver needs to be made aware of
+> cable details and whenever USB4 or Thunderbolt is entered. The cable
+> details are already available as part of the typec subsystem but there
+> is no way to get a notification on typec_altmode_update_active() so
+> far.
+>
+> Add a blocking notifier chain to each alternate mode and call it
+> whenever the mode is activated or deactivated right next to the already
+> existing sysfs and kobject_uevent notifications. Replay activations when =
+a
+> notifier is registered.
+>
+> Signed-off-by: Sven Peter <sven@kernel.org>
+> ---
+>  drivers/usb/typec/bus.h   |  6 +++++
+>  drivers/usb/typec/class.c | 59 +++++++++++++++++++++++++++++++++++++++++=
+++++++
+>  include/linux/usb/typec.h | 16 +++++++++++++
+>  3 files changed, 81 insertions(+)
+>
+> diff --git a/drivers/usb/typec/bus.h b/drivers/usb/typec/bus.h
+> index 7df5deb1dd3a..4dc60c48c91e 100644
+> --- a/drivers/usb/typec/bus.h
+> +++ b/drivers/usb/typec/bus.h
+> @@ -3,6 +3,8 @@
+>  #ifndef __USB_TYPEC_ALTMODE_H__
+>  #define __USB_TYPEC_ALTMODE_H__
+> =20
+> +#include <linux/mutex.h>
+> +#include <linux/notifier.h>
+>  #include <linux/usb/typec_altmode.h>
+> =20
+>  struct typec_mux;
+> @@ -23,6 +25,10 @@ struct altmode {
+> =20
+>  	struct altmode			*partner;
+>  	struct altmode			*plug[2];
+> +
+> +	/* Serializes active state changes and notifier registration. */
+> +	struct mutex			state_lock;
+> +	struct blocking_notifier_head	state_notifier;
+>  };
+> =20
+space/tab formatting
