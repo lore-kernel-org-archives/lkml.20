@@ -1,134 +1,167 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA53451D50C
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:53:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1595751E443;
+	Mon,  7 Sep 2026 16:52:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788799982; cv=none; b=esoGxNNmFC4XeGSDgBmFFUbjWMl1tTHNzSiU13pmJvDtfgNrmO8fLig9GwMqYCTl3+1VWXqMV/8/U5MlQ/oDnvb2/VyTAsYi+8qLuinJx4aEwq7SLtd4boPrqMnkfR8K+yZjzbe8x6lQ0/HaImlzZ9ulevIGPXTtS2geRl7sQ30=
+	t=1788799982; cv=none; b=Rz4jbnHR76rtx6y4XUqv2tsmTyL0J5C6j7C/m+KfcKUxriE3fAGW9cWpWTMU9jd8Cz23JenjlADXq59Dz4lhlxMkySOzdp7g6jEWptICRyZnxXpk8dubBPACN2nEHA1qokioL6DYhzufRhyyHs6FdRJDF1XZ/gGf9W0ylIYHZc8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788799982; c=relaxed/simple;
-	bh=oxBm833C8T+jxHgAdbU6D4xcv4E4TYoli1xZPpTW0yQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UR+7urHHRZ3wFwEf4LAZTj3QIQnFRKaUVZU+xX0D+SKUP98jEDi3nY1FGB7paYvwvHZTEpt82yHzDNhgVvJfFtV1rq/PhugMI3p+VutqXKoYI6lmo9q1FQtkvrkZr+g3P+PRMeC+OomnaxPTNNYVwpB2anN/9//D+HsKxqHYcDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jfBW7WzR; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=bBRbQ94ZOEkSEakBN1pIgYkF19BeSbsVt2yRQi0m7k0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BnE3i4dHhrVpKTjDackQXHV/8EpNZK2wQQtzblMjlagrsMYHs02Q6j89HQudACE0I8RsnXBn4c7mcG8Q6yOr801J0YazmpGUNmBjZZ2ogcB3eDGyQJRQ/kz9sybwRaa8Rk3+cLvVMN1w+n6nJ2oPHCBK4s2Ycpi4Byw7qSY5aAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=z42pw5VT; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jfBW7WzR"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso40194165e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 09:53:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788799978; x=1789404778; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BcITG13Gvl8i0HA4g724jWVmnWns/ceZ5ECxTEaQlok=;
-        b=jfBW7WzRy1LDdYAfQnEc9I7mCDw90Ps5LjnC8imAutx+H5oG0GQNtSpUarqQPRbWvc
-         dXgYKxKmJTx1ZVCWaubdw1ZKolpVgVxr9pwoO+RzGUkmtSW4oHtHB4vFDCKUt83lUEsq
-         0krNRDpkkYQXu+QbiTCavOwrrSvxY34ZRAzpqMYg8VtF/rw+efZUbxzwmd89/4R2xULf
-         ZSrFj+ctcmCm+CrY1oAN9JEugFOMgn/8aX1C4MZXxLia6XQqpjKnZn1iUf/2O0La3qk9
-         SwjoKhy6G2allTRGy4WXZDkcM3J8l59twAQOMwYkWiM7O1rxm59RVwsjW1yHieQ/nk6D
-         68QA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788799978; x=1789404778;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BcITG13Gvl8i0HA4g724jWVmnWns/ceZ5ECxTEaQlok=;
-        b=clUG/6ICWOowL4yT25UnJ0i96wD6FdU7E5TTkViAzSR4fEUYe5FAgcONJwnMPNsi5r
-         v1w020czD0dc/lNWddRiV6IRCzKHdLTNf9AJu5p7t3jNddi8l/X7oOfkhXK95nEZT0ul
-         sFNz5OPLOyK0wUK5Zi3NuvG4lk+E+lyOQU/LkIkLLCYIf/PaTGhcWWuMZzscD4sCtsr0
-         aptzHsjV85Gq3aTqXq/OqWg6Z+vproAhtPJ9TOFtxXW4z78kXrbzNUMs0ufB9gTOgBED
-         lsudym+l5hBE+EfkWv1BY9Tpy1UyB+vKlZZjOZH+l7eZkjn0cacmT4EIV5hsQc2QBMXE
-         U9nQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwBsKeseLManG4bmIfaDCTT7jmOmbfEsOmBYDKqI4DctrJW5fIiG13AbAd6D7taC/Ce6qib8tdf2ao2N0E=@vger.kernel.org
-X-Gm-Message-State: AFuF++mP+XpAUZUcPKUh2Kwb49WhjBeHDj/rLZt0vSia7Zwog3kQ0JWZ
-	sVBurojF3WbGJ9EK2cBO25OqlYXpB1nEcS7qHWX4bJLKB8PzPbXA7Ztf
-X-Gm-Gg: AYBFou0V/18DWILo2JRBBQB9YSd088Qg7jjtYhEykDScnma8fMqKOrSVe1niNzgnbSQ
-	MBTd96kAIzT3DfTYCCHu+V2VGGGiX/XMeLxiq3TvwyjMnpfFfQUiXV7Mdm6wlsBcto5Aj58K9cm
-	pBCkTqF1OPmwG465WSX+6/j4Tx8ZSe+JzMYE7d9WzvX0LNOwJ+u8S8jmQQXXh4O8YhJjVNRWrfD
-	9Vxd1iqznVMw1EwXk8QHH0cAJcw0wI6ByIPc3MrYq8omRaOb5oIS7CFAmvqfEGY6kG4miKcwTHi
-	PiJHKeCNCEvYexp9znp6bQcepybxb9e0ROQyxHHRc7U0RsXo67ox/GV/WvGLTim8jEoCC0oH3vU
-	t3MmAEluVP62jmzGRUhgujLxnue00HHUp5e/mNUUVNj0tfomKVtoNwHUKRuhg/7ag+CZYDMLlUH
-	dJJLVhvq2qjlHFyj9vUhzBRFpGGz47k1wWcQI66HC223su6TvhZ3JTtRWh1UaXBH+fWMbh8RFlh
-	g==
-X-Received: by 2002:a05:600c:8b6d:b0:499:a277:e8b5 with SMTP id 5b1f17b1804b1-49cf7fdd67emr472395245e9.3.1788799978274;
-        Mon, 07 Sep 2026 09:52:58 -0700 (PDT)
-Received: from dell-desktop ([2a02:587:4b5f:900:ef25:2f4:1792:4e6f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d03543064sm233022415e9.13.2026.09.07.09.52.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 09:52:57 -0700 (PDT)
-From: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
-To: bpf@vger.kernel.org
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	david@kernel.org,
-	akpm@linux-foundation.org,
-	andrii@kernel.org,
-	ast@kernel.org,
-	brauner@kernel.org,
-	daniel@iogearbox.net,
-	eddyz87@gmail.com,
-	kpsingh@kernel.org,
-	ljs@kernel.org,
-	matt@bobrowski.net,
-	memxor@gmail.com,
-	song@kernel.org,
-	sun.jian.kdev@gmail.com,
-	tasos.papagiannnis@gmail.com,
-	utilityemal77@gmail.com,
-	viro@zeniv.linux.org.uk
-Subject: [PATCH bpf-next v5 2/7] exec: Clear bprm->mm before dropping its reference
-Date: Mon,  7 Sep 2026 19:52:15 +0300
-Message-ID: <20260907165220.52431-3-tasos.papagiannnis@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260907165220.52431-1-tasos.papagiannnis@gmail.com>
-References: <20260907165220.52431-1-tasos.papagiannnis@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="z42pw5VT"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 3B3C44E41575;
+	Mon,  7 Sep 2026 16:52:58 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 0CC2360383;
+	Mon,  7 Sep 2026 16:52:58 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CC4B411C7A34F;
+	Mon,  7 Sep 2026 18:52:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788799977; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=SaxvEmxspb626SKeKU9mGlI9YVMzBYhU6QaMsiPoRkw=;
+	b=z42pw5VT/hKkzDp1oZOWeeLe8QHIWVUwnodkcevKFLGyygzG2ttmLhuahw9f2l8O+qheKo
+	KrSY7uRg5oyLcgUD7CNvQ+kpLfRFV8upBGS8anhHtMKLaSUvSV6epFhOwHCIeNX0yVsvH+
+	RGpluv3ZTz5OCfneviWZDiCX2hjhkR4cMThml22MJZn5ypHKr7puyrumT+QB4n7ZUe6cXa
+	/hobKyvbhZFpif7b/rRVYBaJ9+/66u/Q0XNAJl+z1n5kOa752D0RItCG3AeHM5mffBX8IT
+	QW0hA9LrWMRfmYzpbIu3qKbZJVM8jRZqOchau2KEQsANi/mIIGr6oS18LANS3Q==
+Message-ID: <e01d0dc2-a1e5-415d-9126-fbf2344e6b7d@bootlin.com>
+Date: Mon, 7 Sep 2026 18:52:49 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2] net: stmmac: propagate PTP init failures in
+ __stmmac_open() and stmmac_resume()
+To: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Rayagond Kokatanur <rayagond@vayavyalabs.com>,
+ Thierry Reding <treding@nvidia.com>, Russell King <linux@armlinux.org.uk>
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260907-stmmac-ptp-error-propagate-v2-1-4a2e8e41e860@oss.qualcomm.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260907-stmmac-ptp-error-propagate-v2-1-4a2e8e41e860@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Once mmput() drops the final reference to bprm->mm, the pointer must no
-longer remain accessible through struct linux_binprm.
+Hi,
 
-The successful exec path and the bprm initialization error path already
-clear bprm->mm when ownership is transferred or released. Do the same in
-free_bprm() before calling mmput().
+On 9/7/26 13:50, Lorenzo Bianconi wrote:
+> stmmac_setup_ptp() returns void and swallows both PTP setup errors:
+> the PTP reference clock enable and stmmac_init_timestamping()
+> failures are logged but never propagated. When they fail, the MAC
+> system time counter is left in its post-reset, non-running state,
+> while the driver keeps operating as if timestamping were up.
+> This matters for TAPRIO/EST qdisc offloading, which derives the EST
+> base time from the hardware timestamp counter: arming the gate list
+> against a non-advancing time base would leave the schedule permanently
+> stuck.
+> 
+> Make stmmac_setup_ptp() return an error code and propagate the
+> failure in __stmmac_open() and stmmac_resume(), stopping the DMA
+> engines when PTP setup fails.
+> 
+> Extend the same error propagation to the timestamping counter
+> initialisation: stmmac_update_subsecond_increment() and
+> stmmac_init_tstamp_counter() now return the addend and system time
+> programming errors instead of discarding them, so a counter that
+> cannot be configured is reported as a failure rather than silently
+> left non-running.
+> 
+> While at it, factor the timestamping availability check into a
+> stmmac_check_timestamp_cap() helper that requires both the hardware
+> timestamping capability and a valid PTP reference clock rate. This
+> keeps the interface operational on platforms with PTP-capable
+> silicon but an unconfigured PTP clock, where timestamping cannot be
+> enabled: those are treated as PTP-less rather than failing to open
+> or resume. Apply the same helper to the hwtstamp get/set paths so
+> they consistently report -EOPNOTSUPP when timestamping is not usable.
+> 
+> Fixes: 92ba6888510c ("stmmac: add the support for PTP hw clock driver")
+> Fixes: 0ad2be79f254 ("net: stmmac: Balance PTP reference clock enable/disable")
+> Signed-off-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+> ---
+> Changes in v2:
+> - Check clk_ptp_rate value in stmmac_check_timestamp_cap().
+> - Return error code in stmmac_update_subsecond_increment() and
+>   stmmac_init_tstamp_counter().
+> - Rely on stmmac_check_timestamp_cap() in stmmac_hwtstamp_set() and
+>   stmmac_hwtstamp_get().
+> - Link to v1: https://lore.kernel.org/r/20260904-stmmac-ptp-error-propagate-v1-1-80f01b03dafa@oss.qualcomm.com
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 96 +++++++++++++++--------
+>  1 file changed, 64 insertions(+), 32 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 07a6fab6460e..99d4fbccc300 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -601,7 +601,7 @@ static void stmmac_get_rx_hwtstamp(struct stmmac_priv *priv, struct dma_desc *p,
+>  	}
+>  }
+>  
+> -static void stmmac_update_subsecond_increment(struct stmmac_priv *priv)
+> +static int stmmac_update_subsecond_increment(struct stmmac_priv *priv)
+>  {
+>  	bool xmac = dwmac_is_xmac(priv->plat->core_type);
+>  	u32 sec_inc = 0;
+> @@ -625,7 +625,18 @@ static void stmmac_update_subsecond_increment(struct stmmac_priv *priv)
+>  	 */
+>  	temp = (u64)(temp << 32);
+>  	priv->default_addend = div_u64(temp, priv->plat->clk_ptp_rate);
+> -	stmmac_config_addend(priv, priv->ptpaddr, priv->default_addend);
+> +	return stmmac_config_addend(priv, priv->ptpaddr, priv->default_addend);
+> +}
+> +
+> +static bool stmmac_check_timestamp_cap(struct stmmac_priv *priv)
+> +{
+> +	if (!priv->dma_cap.time_stamp && !priv->dma_cap.atime_stamp)
+> +		return false;
+> +
+> +	if (!priv->plat->clk_ptp_rate)
+> +		return false;
+> +
+> +	return true;
+>  }
+>  
+>  /**
+> @@ -653,7 +664,7 @@ static int stmmac_hwtstamp_set(struct net_device *dev,
+>  	u32 ts_master_en = 0;
+>  	u32 ts_event_en = 0;
+>  
+> -	if (!(priv->dma_cap.time_stamp || priv->adv_ts)) {
+> +	if (!stmmac_check_timestamp_cap(priv)) {
 
-This is required for BPF kfuncs where bprm->mm is either NULL or points
-to a live mm_struct to ensure safe access.
+This isn't equivalent, as here we check for adv_ts. adv_ts is more restrictive than
+just checking the atime_stamp cap, as on dwmac1000 we need both extend descriptors
+and atime_stamp capa to set adv_ts.
 
-Signed-off-by: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
-Reviewed-by: Sun Jian <sun.jian.kdev@gmail.com>
----
- fs/exec.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+Now we do have a discrepancy between the _set and _get timestamping ops, as the _get
+part only checks the atime_stamp capa.
 
-diff --git a/fs/exec.c b/fs/exec.c
-index 745f6eb5279e..4ddd403fd91c 100644
---- a/fs/exec.c
-+++ b/fs/exec.c
-@@ -1456,9 +1456,12 @@ void bprm_drop_loader(struct linux_binprm *bprm)
- 
- static void free_bprm(struct linux_binprm *bprm)
- {
--	if (bprm->mm) {
-+	struct mm_struct *mm = bprm->mm;
-+
-+	if (mm) {
- 		acct_arg_size(bprm, 0);
--		mmput(bprm->mm);
-+		bprm->mm = NULL;
-+		mmput(mm);
- 	}
- 	if (bprm->user_ns)
- 		put_user_ns(bprm->user_ns);
--- 
-2.55.0
+It seems to me that your fix is the correct one though.
 
+To me the patch looks OK,
+
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+
+Maxime
