@@ -1,332 +1,276 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010008.outbound.protection.outlook.com [52.101.61.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2E8448399;
-	Mon,  7 Sep 2026 08:29:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788769773; cv=fail; b=CDrjfHMieIMFu9FAy+lihhwdgCkoauQuSWcD+B0mP3gn7T9x7VjMytGkGbhY3O+cXBcXyuaEhPRD8SJJsoQSfhBsacO9eidkxpffjqxnqsb841eo8/9J4D7KtqGZUNWqfQi6FAmPk/rjB/UA+sGVxMYro25v+DJEuwK0SdYudNE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788769773; c=relaxed/simple;
-	bh=gI3JNoWGbuclnklgauIuzyum56MCYo3DcatLCITsXu0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=tRaCoYhtFpI1T6hRRgIhwOnxn5fA+13v0EwKUieMF1+wlcN7UcivxYPmIBq6feRow7lr85r+zRnvUcrikFxauPMvwDASkc6Vza0WA/s7jZmAHQHvJ0ts4/opMwYwVY5seaISiuyrc/e4dmgXa5p+O5E0lQawhStSBXcWBShvTDQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=NfMX7qMz; arc=fail smtp.client-ip=52.101.61.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BABD43DA50
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:29:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788769794; cv=none; b=ICJEWTkM6gyOrxznG0GDe5jn0o2yMj+kY2q4JDA8Gu3V5fFCHgxSgyFlVnQ/hKPKE+j3FO96HJYGv7musMvAA7yeyBbk22GfIqNiIoj+RN4FgUYCowJjlBR+v7EyzEGo9hZKLESC9jd9FjDX2ttP1o5Jn5WcT0GQs0C9WoNjZPg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788769794; c=relaxed/simple;
+	bh=TZrwy/NjU9/0FRm7wXLGa46VFJ9KrkhU1oIMHOXFlUw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q0JXClcFhrLuAtmVz8yHND6Api2S7/fH6r1AKUzvKz6HxKJWwMlBXfpOVHj4drlehAmbKANg7lc/cireVcUezslAodl9GR9f4rt0l+KwRG+2gL8tWjisriGjmlz4I+pIjzxSxSIjElF+VNF807EZ3e+X67b5wxSKumTHiH7L9Uw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HT/EzZ4y; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="NfMX7qMz"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=i6ZRCSfPgtmqoTf8GQEW88CGuloHTHlJbOE7M/vTRdwX0QJoz1xZte4/ZovQjl7hNNH93sSZAs9VweBLyKeS4dxUoZRezsuu64moXOVxfHDPrA6PEERIc0Qey/oLnfkfs6SfkRaUa/JKAgGlxDiworCfOlBK2LZlC1DmKki2pX+GSbzmvqkNYu/eAb1fB/cgxBWM7M1Fr2wnej3WvRrATCw+iiCA7+3J7G+E7KSxyUUfCDHL46bi0bYgki3TKnvZcXLgKLq9NlaLQT0t+PCSSENB1jXWaEjbgOFMNKoTGmVdZnT+g1rQZYe977yNQYaDrkxyPKAjepCwe9Po4+AYSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+RfoZJlWax6qqGP3EUxzt8uht6KP1PvZjATXl+dBTcY=;
- b=mTf+0C1NyBpfhCZtOBE0IIeaV7dFfO8NGbDcO1ija9+8yvCH9e5/P+FO1wbIw6Ef1WG4JD0zziVtChXGDopNoMiGhA24PG52ez9TI6S5gorFPwFP04GwTS+POahru2vURWNNP+xuuVrx3ZYXeROw+8MlW9634+5wTh/024LvBIv05o9HHsJPuaUQWyEGPhqV62aibDnOpm4pZa0npFE35sYAwEfKcth3CJ23n6VKjjw8+PhL3NF9XqEahpRrS1BKclSTh4mbY1288IEHJYQzvPCLUeUyWSx9kJHt+QSOvnxmNZBvbYrjXgDUGqC1KYTVYkZHjWN9L+LpgRbKsF/D8g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+RfoZJlWax6qqGP3EUxzt8uht6KP1PvZjATXl+dBTcY=;
- b=NfMX7qMzBzQXF5FnhX7fNe369pmQyCWhBLdBsFpiXE3fKPOyxnWX8vKEJU5RQdkCnIHH7WXDK+zJQE64wZtWycKM1KGYumoVYpfthGumspCzA0+GW3wKlHOAr3mtdsZSjbf+TofzVh++X6tquzzBsgFkwK/h7qc4epGuAGwFG7FRfA+x83JMuWDRKTvD8mSciqoE2GJ3TMUGvRhlNZMF4iNYif9haJxSSl19xNcDAQiYavVNVBhnZIUdaUQM/NNcQNemjxmVlKlNsLDlxzmOXtcwEE1Fh6Yiq7rsrLPNLrYzfKvZVrV4sRW/GsZflpqRLTRt5hirazLHDLuGugjHZg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from DM8PR03MB6230.namprd03.prod.outlook.com (2603:10b6:8:3c::13) by
- DS2PR03MB8372.namprd03.prod.outlook.com (2603:10b6:8:32f::22) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.15; Mon, 7 Sep 2026 08:29:27 +0000
-Received: from DM8PR03MB6230.namprd03.prod.outlook.com
- ([fe80::abad:9d80:7a13:9542]) by DM8PR03MB6230.namprd03.prod.outlook.com
- ([fe80::abad:9d80:7a13:9542%3]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
- 08:29:27 +0000
-From: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-To: dinguyen@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-Subject: [PATCH v3 4/4] firmware: stratix10-svc: enable Agilex5 SMMU support in probe
-Date: Mon,  7 Sep 2026 16:20:27 +0800
-Message-ID: <20260907082203.2639395-4-adrian.ho.yin.ng@altera.com>
-X-Mailer: git-send-email 2.49.GIT
-In-Reply-To: <cover.v3.git.adrian.ho.yin.ng@altera.com>
-References: <cover.v3.git.adrian.ho.yin.ng@altera.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ2PR07CA0011.namprd07.prod.outlook.com
- (2603:10b6:a03:505::20) To DM8PR03MB6230.namprd03.prod.outlook.com
- (2603:10b6:8:3c::13)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HT/EzZ4y"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38511175ad3so2818560a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:29:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788769792; x=1789374592; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZdJ+RvEPX0GBiCRnCQpssUOHlseb9BpuN1eXq/NMOjs=;
+        b=HT/EzZ4yVt/MQzBFdKbs4V709OZmaV3k1/FRD5kyLjgZn6xoAiLPq+1J68FrQNJcAn
+         +4s0rYqKYt3rlKcxPuYGdhye9fYs7wMXlVBoRjl06YsGAkaAjgJo2TGAkqgNQepkm0kY
+         4g5q/8kAmhNLAY94iBZBPY16/HN1/ay9DiT8B340dIOcChJnopH6ROYFMBjPlCXDV3VS
+         xT2T1u9fGTDTwOXBgcoJDTAP0a6gKGz06cjoc3dlrU2oaLbmQxBgPKJ4n/Umoxbzisnj
+         9gNJWkpcIdbirpTEWA3PA45HesHIcc4rfULgeu/chx43OeqVYTrI2WnDLyYnySGbHZKt
+         ku5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788769792; x=1789374592;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZdJ+RvEPX0GBiCRnCQpssUOHlseb9BpuN1eXq/NMOjs=;
+        b=VJoi+lqIm+KUrtm+MRzfCXhfTWW9DMSoQECr5wf0TEyMcqNOmZsM/Tqpeh3Frg4vIv
+         qPP0QNbJVER1cBI3pZpgKez57GizcRZJktxR4lhobnLvLnj8USu0a6j5zwurLMAz8FLh
+         B5nnZGijedbjqy2d1z7o6TgwVk21QIxAknnNih4jnI6BXm0uMEbI5qb3t2p6R0shUOlh
+         Fp1sHI+kCUQAncHAIq4e7SeHcD5OykExyw2RFTAsBAxTWEUbC+xI1ax5JnIkSMm/HgxY
+         y1yrKWNWWiwCVOohGy7CD35UEFlAYKvR1cE0ixMXt2U5NPIRoL0l34JlAvZHCHCvE+MD
+         FDww==
+X-Forwarded-Encrypted: i=1; AKwUvBwfoXRvpt0ZAaaucRPhKncTuzZgrxj8/wpEQmi9dzAlUPG614VemAtw4dBROR5SH6/7QvzjPAhfPvZjyhI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nPGrkMKM6Vfk9CxyGE0r6YQU5eXWY6tAPWpleGFC/YucWBFJq6
+	AGdvBymlru7aVoiDW4G52nM/v/ghnWuamPUz4IH5p5Cg3iXqrqnOKV7a
+X-Gm-Gg: AYBFou0pgzrc5EFN47Y6lyE+kzG4/KLdZs0yQAhLN5J4tWm8TEa04C5arevVo5EFnFe
+	B+rCqbGGAcGja62buKCVZkiTQcFBaFvIHvgUdgvnk0J3GUMj+rgdkG+XwoOA2BcOMKa0wKbnXd7
+	rHKO8wdG4up+Sa5zlMC5BRSqSVOgXW3Pty2m3XV2kJwT7ekJ2V6mPoO8zfY8bFFqS+0MdwnWqLG
+	EhAuT6zKOH1Kfv+DwSeSgF103QNIhzMWHH9z/sz70MnaW2YLnlvY8heoh/T2aSHLICr3gNUV/e/
+	2UbkU+ANpwehXuL5vvtwIK7XOWQ1hVzwKRFtSqbi+AZHnVVithDalQ7VsNAfzIq8fquqSST0dGL
+	12v5xL1RUdGmHh2+Y22WgrYEPKUAH3GWNwWBQGkwqjsGXzTONG0s+dEdZKnwKFZoWVezjsKHebk
+	pZ8d82y78XFXF6pn81NmdfWXzMd1VMs97j65py4lhPPDd94N9s0L/b4Q1RdokA9bvGqzkNJ/+Ry
+	ip+yhOV84k=
+X-Received: by 2002:a17:90b:4a49:b0:392:ca3b:370a with SMTP id 98e67ed59e1d1-39b26100cd2mr31547094a91.2.1788769791656;
+        Mon, 07 Sep 2026 01:29:51 -0700 (PDT)
+Received: from u.. (61-222-64-201.hinet-ip.hinet.net. [61.222.64.201])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b2612ba2bsm18848285a91.14.2026.09.07.01.29.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 01:29:50 -0700 (PDT)
+From: Tim JH Chen <tim770802@gmail.com>
+To: netdev@vger.kernel.org
+Cc: pabeni@redhat.com,
+	simon.horman@ghnetworks.de,
+	haijun.liu@mediatek.com,
+	chandrashekar.devegowda@intel.com,
+	ricardo.martinez@linux.intel.com,
+	loic.poulain@oss.qualcomm.com,
+	ryazanov.s.a@gmail.com,
+	johannes@sipsolutions.net,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	tim.jh.chen@wnc.com.tw,
+	Chih.Hung.Huang@wnc.com.tw,
+	Tim JH Chen <tim770802@gmail.com>
+Subject: [PATCH net v5] net: wwan: t7xx: fix race between TX path and system PM suspend
+Date: Mon,  7 Sep 2026 16:29:38 +0800
+Message-ID: <20260907082938.7500-1-tim770802@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM8PR03MB6230:EE_|DS2PR03MB8372:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6bf40da7-7094-4f1b-c2e9-08df0cba20fb
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|6133799003|10067099003|56012099006|5023799004|11063799006|22082099003|18002099003|55112099003;
-X-Microsoft-Antispam-Message-Info:
-	twtWOsRqE6Kb3YS5kBGwf4MQipSdpoK0WccA+M8zeyY61B6ea8jIegk6BX/8sgHB75072Nz0awFdSipuSVrHCC0g+4c1AkPXncHaxxdROonTM7wvY5RNfy4v+3lIcOO56bqT/k+EcMwuyrp1KFn7ua7vEPJVRPCqPTQiHPGsatPBIusWULS7GGE6i7a/9eQSixLczcKs1IpcUP6//QQTsLnXcQdRzYd4A2dabKfIMRr0rePFDGfBhMl8iTfbl5uCtXYP3R2s8jCavutvF6fYzF90pXIrrAjvivcN+pJM0R+jPHfRbGDgjZhuxpNp8Voj71mKeAxN83MpC8proeaOOpy54Js41/+I79kXc3ehDiIfVSCFLttDUL2EOfhofBsKsRo1rJih5Vb2bpgmVJVxKXZyFkSB8wiPao5oU64bNYLqRF1MjBPYsPlGHomX1dyUAF0fsxUQPdbXXse2Q4N9IshoCjqc0tsooHDP9S2fpuUutA+fFFFsLzxIFxT119zRoG2sYnslv20+K0QgVkzmXnJtdhb9V7b0UjhXumj3kw5vLXKFVaZ/yBcoXqwB3aCBjozKkJUlGn3p+jAE94WCswegpKiTqgsUxQkSWbxn++eLQdtkt08MfvP+B7LHiJUSbEv/MjrQ/Iu9dn58QNjEZtrVcW+ivUD7gBnvmhGQZCc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM8PR03MB6230.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(6133799003)(10067099003)(56012099006)(5023799004)(11063799006)(22082099003)(18002099003)(55112099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Ct9Y7uMt4EWFhpOwXaq3v3Jh9R8TnCa/eB5Pj/2mTcTUqDozknTrZwTaaBMJ?=
- =?us-ascii?Q?8U143SFy5M9DDKUcqN8ZZRsOyReDS+XgA/ocYQKf2QbsVT9cYUxL4BIqOx36?=
- =?us-ascii?Q?z7iAplQW1WiusQpW09t0fCAPZCVFh5jKelXIxgcEbSo90T4ZJ7uXrasuw1zs?=
- =?us-ascii?Q?McGXfB58Hb7si75N85P/qDtnhEuPs5saqnsnvVeqDxedtG38nC/LMJzuNqI9?=
- =?us-ascii?Q?GIXpKdjJKxZT6uTqhozzf3qjnhUHMJrgpMXbVDnueH89NgW20pg4iHnaTdtJ?=
- =?us-ascii?Q?SO0sMB3I8RmnPJ2VXwOLbxjg32Xbn5Onfglr4g3ELeR+umTBpSehfY+h2c7s?=
- =?us-ascii?Q?AqoxSkl4Zbg1yuX8Ut18Tcz3C1LVgYr3c8GEN3ncAidh/9KTFA8g2iiayab8?=
- =?us-ascii?Q?iwRY68rCm6xkLPOSGvvEJwKypfj7YPEVofC0AsYeDx/AtmB5wk697cvebRAZ?=
- =?us-ascii?Q?h01hiP8tHugRxDr8YSc+OK5xT5jyqDqGQMoju4Tcp0QORgg8LCz+hcmRxlJH?=
- =?us-ascii?Q?xhBqEjLl4t1mf2VsBgbSadsQJQfsJnwdrj6WGapUqWhQ4KZ85BaWWKbIV20B?=
- =?us-ascii?Q?9TWSuMX03U3ZCa0tZJT5LsG2VVLzJEZdgIEu4jqns+r03j6005HKxLEBIVUF?=
- =?us-ascii?Q?XDbNzcvDyI0S8jatpZEVrmzRmcsWoYYpFXYNj8W8KS1D5lpG/5Z2STuz9dgJ?=
- =?us-ascii?Q?kEg0ubGQ6MWAM9Qgcc4Vauj0GIRvdCqLoN0f06xGAv1qvp31EU/PJR/DOn1F?=
- =?us-ascii?Q?1qk9jAqdU+q5BJkKoCs0TqUjkxXxy4M269IIiNxQ6Ifly+4WZljY3vvtUHU1?=
- =?us-ascii?Q?hOHOOfkq5HbrfG5CdhTFkmLK+6s/DO6o5cbYS6zjCSLu/UNlygBmG1Z4/616?=
- =?us-ascii?Q?xO1/5maP1CPeAPszLciPxnDraL0HCdUuurwNSl3aaF333+KBVQLJreQxqITW?=
- =?us-ascii?Q?smeUwDwme72E0xOa4HvVUJAmufYhIlMct4k10ZdyxzYyTm4upmRV2sQebATx?=
- =?us-ascii?Q?zFG9zDABcrzmfBzF9xlTTm9OuTEynt2k1EZLgCl8NpOBmEGOnQL+VGMrWU7V?=
- =?us-ascii?Q?EXMTQ9HQ0/eey7yd/HFsR71XyeatkkwOApxGOM9ULY5KeUM1ba7QHx3dCbXP?=
- =?us-ascii?Q?GLcfgSgpg/JPqpt0Uxjs4BUAILRbZUXN3GCV3qDPMIWo1g34mWZTDqYVi1id?=
- =?us-ascii?Q?fwwGvd4g2bqNdW/4IhRcLNAhKnbMRrYyxbAXzi4JGaly8efcEKiHhQQTFlZt?=
- =?us-ascii?Q?LwVHmzexpoPxJ5tu1VzQm8h/HC2H5mB2eF2fS+gPlfNKRRt9Bu3sDpm+IlRv?=
- =?us-ascii?Q?DJUo4KUbA/grBHtIc+1+R3z+Yne5Zo8q9hiRl0pTEzuUGnHm96vitACGfYJY?=
- =?us-ascii?Q?Iu9+2ALvw8rJlRyYm4Espy4wUXWhi83LVIMDZYVNQltSTUWFEx5vt+YVF8Az?=
- =?us-ascii?Q?PbempbPSKuCneRis6HWOoQyuNIvovZJKg39Fma8Gg4GpfTENdiNP12nuN5An?=
- =?us-ascii?Q?UCv9iumfzgZqw0J6w/Pll5QuaPEv11D6Gn2vqtO6HOWrbNiXewTZAp1w8NKO?=
- =?us-ascii?Q?kLNMpUnKKJ/wwNFFDLk9SbfAPQwMuB9K1ymnuvBkahjCY7+9gHtM/G+en4S/?=
- =?us-ascii?Q?TZiLqVK28627SvE99j0pj5sRp22RRuSE09QvAVrdt2wAOhmME86up+eE1v1l?=
- =?us-ascii?Q?ABo4fDlpIq9ls17r+7Sh7JzPX4r9rpn6aM5dSKwKSs63YOZiujrsxW59jSfE?=
- =?us-ascii?Q?3INXK0Cgyj/pNHVjY4vgK2udLokXal0=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6bf40da7-7094-4f1b-c2e9-08df0cba20fb
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR03MB6230.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 08:29:27.1287
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8vbAYX7UN9/MWxRDVMr5arfXVgt9EpxSsZUu9It5MwvwzuxuQhKIAN8dhPLvC0BGeANPQS2hxk1DZQPiicyTE7wt527rvnQqXDVo0478JlM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR03MB8372
+Content-Transfer-Encoding: 8bit
 
-Wire up the Agilex5-specific path in stratix10_svc_drv_probe().
+Several driver contexts call pm_runtime_resume_and_get() and then access
+hardware registers without being quiesced during system suspend. System
+suspend does not honour the runtime PM reference they hold, so they can
+touch the hardware while the device suspend callbacks tear it down. With
+ASPM L1 enabled and repeated suspend/resume cycles this ends in a CPU
+soft lockup:
 
-Add INTEL_SIP_SMC_SDM_REMAPPER_CONFIG to stratix10-smc.h and issue
-INTEL_SIP_SMC_SDM_REMAPPER_BYPASS from probe. On Agilex5 REV B the
-hardware SDM address remapper must be bypassed when the SMMU is active
-so no extra offset is applied on top of the IOVA translation.
+  watchdog: BUG: soft lockup - CPU#N stuck for 26s! [dpmaif_tx_hw_pu]
+    __pm_runtime_resume+0x5b/0x80
+    t7xx_dpmaif_tx_hw_push_thread+0xc4 [mtk_t7xx]
 
-Extend stratix10_svc_pdata with use_dma_mem and add intel,agilex5-svc to
-the of_device_id match table with that flag set. Probe reads the flag via
-of_device_get_match_data() so it shares the same pdata mechanism used for
-needs_psci_cpu_off.
+Runtime suspend is already safe: while any of these contexts holds its PM
+reference the runtime suspend callback cannot run. Only system suspend,
+which ignores that reference, is exposed.
 
-On Agilex5, DDR starts at 0x8000_0000 which is outside the SDM's
-addressable range, making the SMMU mandatory. Fail probe with -ENODEV
-if no IOMMU domain is attached to the device.
+Quiesce all hardware-accessing contexts with the PM freezer, which runs
+before dpm_suspend() invokes the device suspend callbacks.
 
-Register svc_data_mem_cleanup() as a devm action on the DMA path to
-free any buffers leaked by service clients on driver unbind. Guard
-err_destroy_pool against NULL genpool for the early-exit DMA path.
+The TX push kthread (t7xx_dpmaif_tx_hw_push_thread):
+  - Call set_freezable() at thread start.
+  - Replace wait_event_interruptible() with wait_event_freezable() so the
+    idle wait is also a freeze point.
+  - Add try_to_freeze() before the pm_runtime_resume_and_get() / MMIO
+    section so continuous TX traffic still reaches a freeze point.
+  - Add a freezing(current) check inside the DRB-ring-full retry loop in
+    t7xx_do_tx_hw_push(). When the TX-done workqueue is frozen first, it
+    stops draining completed DRBs; the ring stays full and the kthread
+    loops in the retry branch indefinitely, never reaching the
+    try_to_freeze() above. Returning from t7xx_do_tx_hw_push() on
+    freezing(current) lets the caller release the PM sleep lock and the
+    runtime PM reference before the kthread is parked at try_to_freeze().
 
-Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+The TX-done (md_dpmaif_tx*_worker), BAT-release
+(dpmaif_bat_release_work_queue), CLDMA TX (md_hif*_tx*_worker), and
+CLDMA RX (md_hif*_rx*_worker) workqueues:
+  - Mark all four WQ_FREEZABLE so the workqueue freezer drains and parks
+    their pending work before the device suspend callbacks run.
+
+Tasks and work items are thawed only after the resume callbacks have
+re-armed the hardware, so none of these contexts can issue MMIO against
+a torn-down or not-yet-rearmed device. No lock is shared with the PM
+callbacks, so this cannot deadlock.
+
+Tested with 500+ suspend/resume cycles, SIM registered and ASPM L1 enabled.
+
+Fixes: 46e8f49ed7b3 ("net: wwan: t7xx: Introduce power management")
+Signed-off-by: Tim JH Chen <tim770802@gmail.com>
 ---
- drivers/firmware/stratix10-svc.c             | 83 +++++++++++++++++---
- include/linux/firmware/intel/stratix10-smc.h | 23 ++++++
- 2 files changed, 94 insertions(+), 12 deletions(-)
+v4 -> v5:
+  - Fix freeze deadlock in t7xx_do_tx_hw_push(): when the TX-done
+    workqueue (WQ_FREEZABLE) is frozen first it stops draining the DRB
+    ring; the kthread then loops indefinitely in the ring-full retry
+    branch and never reaches try_to_freeze(), causing a freezer timeout
+    and suspend abort. Add a freezing(current) check in that branch so
+    the kthread returns to its caller, which releases the PM sleep lock
+    and runtime PM reference before try_to_freeze() parks the thread.
+    (Simon Horman)
+  - Extend WQ_FREEZABLE to the BAT-release workqueue
+    (dpmaif_bat_release_work_queue) and the CLDMA TX/RX workqueues
+    (md_hif*_tx*_worker, md_hif*_rx*_worker), which also access hardware
+    registers and must not run after dpm_suspend() tears the device down.
+    (Simon Horman)
+  - The -EACCES usage-count underflow in pm_runtime_resume_and_get()
+    callers and the stale kthread pointer on early thread exit are
+    pre-existing issues; they will be addressed in a separate series.
+v3 -> v4:
+  - Drop the tx_pm_lock / state-snapshot approach entirely and use the PM
+    freezer for both TX contexts instead. The previous approach deadlocked
+    through the runtime PM wait queue (t7xx_dpmaif_suspend() is also the
+    .runtime_suspend callback) and opened ISR windows by writing
+    dpmaif_ctrl->state in suspend/resume.
+  - Also cover t7xx_dpmaif_tx_done() (WQ_FREEZABLE), which has the same
+    pm_runtime + MMIO pattern as the kthread.
+  - Trim the changelog/commit message.
+v2 -> v3: process fixes (Fixes tag, changelog placement).
+v1 -> v2: save/restore pre-suspend state; wrap pm_runtime with a mutex.
 
-diff --git a/drivers/firmware/stratix10-svc.c b/drivers/firmware/stratix10-svc.c
-index d790ae239cf4..fa2335378536 100644
---- a/drivers/firmware/stratix10-svc.c
-+++ b/drivers/firmware/stratix10-svc.c
-@@ -122,12 +122,17 @@
+ drivers/net/wwan/t7xx/t7xx_hif_cldma.c     |  4 ++--
+ drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c |  2 +-
+ drivers/net/wwan/t7xx/t7xx_hif_dpmaif_tx.c | 26 +++++++++++++++++-----
+ 3 files changed, 24 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/net/wwan/t7xx/t7xx_hif_cldma.c b/drivers/net/wwan/t7xx/t7xx_hif_cldma.c
+index e10cb4f9104e..3d7712126761 100644
+--- a/drivers/net/wwan/t7xx/t7xx_hif_cldma.c
++++ b/drivers/net/wwan/t7xx/t7xx_hif_cldma.c
+@@ -1313,7 +1313,7 @@ int t7xx_cldma_init(struct cldma_ctrl *md_ctrl)
+ 		md_cd_queue_struct_init(&md_ctrl->txq[i], md_ctrl, MTK_TX, i);
+ 		md_ctrl->txq[i].worker =
+ 			alloc_ordered_workqueue("md_hif%d_tx%d_worker",
+-					WQ_MEM_RECLAIM | (i ? 0 : WQ_HIGHPRI),
++					WQ_MEM_RECLAIM | WQ_FREEZABLE | (i ? 0 : WQ_HIGHPRI),
+ 					md_ctrl->hif_id, i);
+ 		if (!md_ctrl->txq[i].worker)
+ 			goto err_workqueue;
+@@ -1327,7 +1327,7 @@ int t7xx_cldma_init(struct cldma_ctrl *md_ctrl)
  
- struct stratix10_svc_pdata {
- 	bool needs_psci_cpu_off;
-+	bool use_dma_mem;
- };
- 
- static const struct stratix10_svc_pdata psci_cpu_off_pdata = {
- 	.needs_psci_cpu_off = true,
- };
- 
-+static const struct stratix10_svc_pdata agilex5_pdata = {
-+	.use_dma_mem = true,
-+};
-+
- typedef void (svc_invoke_fn)(unsigned long, unsigned long, unsigned long,
- 			     unsigned long, unsigned long, unsigned long,
- 			     unsigned long, unsigned long,
-@@ -2169,6 +2174,7 @@ static void psci_cpu_off_teardown(struct stratix10_svc_controller *ctrl)
- static const struct of_device_id stratix10_svc_drv_match[] = {
- 	{ .compatible = "intel,stratix10-svc", .data = &psci_cpu_off_pdata },
- 	{ .compatible = "intel,agilex-svc",    .data = &psci_cpu_off_pdata },
-+	{ .compatible = "intel,agilex5-svc",   .data = &agilex5_pdata },
- 	{},
- };
- 
-@@ -2179,14 +2185,38 @@ static const char * const chan_names[SVC_NUM_CHANNEL] = {
- 	SVC_CLIENT_HWMON
- };
- 
-+static void svc_data_mem_cleanup(void *data)
-+{
-+	struct stratix10_svc_controller *ctrl = data;
-+	struct stratix10_svc_data_mem *pmem, *tmp;
-+
-+	guard(mutex)(&svc_mem_lock);
-+
-+	list_for_each_entry_safe(pmem, tmp, &svc_data_mem, node) {
-+		dev_warn(ctrl->dev, "leaked svc buffer %p, freeing on unbind\n",
-+			 pmem->vaddr);
-+		if (ctrl->use_dma_mem) {
-+			dma_free_coherent(ctrl->dev, pmem->size,
-+					  pmem->vaddr, pmem->dma_addr);
-+		} else {
-+			gen_pool_free(ctrl->genpool,
-+				      (unsigned long)pmem->vaddr, pmem->size);
-+		}
-+		list_del(&pmem->node);
-+		kfree(pmem);
-+	}
-+}
-+
- static int stratix10_svc_drv_probe(struct platform_device *pdev)
+ 		md_ctrl->rxq[i].worker =
+ 			alloc_ordered_workqueue("md_hif%d_rx%d_worker",
+-						WQ_MEM_RECLAIM,
++						WQ_MEM_RECLAIM | WQ_FREEZABLE,
+ 						md_ctrl->hif_id, i);
+ 		if (!md_ctrl->rxq[i].worker)
+ 			goto err_workqueue;
+diff --git a/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c b/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c
+index 5af90ca6e063..0fe2dd1363a4 100644
+--- a/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c
++++ b/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c
+@@ -1088,7 +1088,7 @@ static void t7xx_dpmaif_bat_release_work(struct work_struct *work)
+ int t7xx_dpmaif_bat_rel_wq_alloc(struct dpmaif_ctrl *dpmaif_ctrl)
  {
- 	struct device *dev = &pdev->dev;
- 	struct stratix10_svc_controller *controller;
--	struct gen_pool *genpool;
-+	struct gen_pool *genpool = NULL;
- 	struct stratix10_svc_sh_memory *sh_memory;
- 	struct stratix10_svc *svc = NULL;
- 	const struct stratix10_svc_pdata *pdata = of_device_get_match_data(dev);
-+	struct arm_smccc_res res;
-+	bool use_dma_mem = false;
+ 	dpmaif_ctrl->bat_release_wq = alloc_workqueue("dpmaif_bat_release_work_queue",
+-						      WQ_MEM_RECLAIM | WQ_PERCPU,
++						      WQ_MEM_RECLAIM | WQ_PERCPU | WQ_FREEZABLE,
+ 						      1);
+ 	if (!dpmaif_ctrl->bat_release_wq)
+ 		return -ENOMEM;
+diff --git a/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_tx.c b/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_tx.c
+index 236d632cf591..cce71c827e7b 100644
+--- a/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_tx.c
++++ b/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_tx.c
+@@ -22,6 +22,7 @@
+ #include <linux/dma-direction.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/err.h>
++#include <linux/freezer.h>
+ #include <linux/gfp.h>
+ #include <linux/kernel.h>
+ #include <linux/kthread.h>
+@@ -421,6 +422,12 @@ static void t7xx_do_tx_hw_push(struct dpmaif_ctrl *dpmaif_ctrl)
  
- 	svc_invoke_fn *invoke_fn;
- 	size_t fifo_size;
-@@ -2197,18 +2227,38 @@ static int stratix10_svc_drv_probe(struct platform_device *pdev)
- 	if (IS_ERR(invoke_fn))
- 		return -EINVAL;
+ 		drb_send_cnt = t7xx_txq_burst_send_skb(txq);
+ 		if (drb_send_cnt <= 0) {
++			/* If a freeze is pending the TX-done worker may already be
++			 * frozen and unable to drain the DRB ring; return to the
++			 * caller so PM resources are released before try_to_freeze().
++			 */
++			if (freezing(current))
++				return;
+ 			usleep_range(10, 20);
+ 			cond_resched();
+ 			continue;
+@@ -447,19 +454,28 @@ static int t7xx_dpmaif_tx_hw_push_thread(void *arg)
+ 	struct dpmaif_ctrl *dpmaif_ctrl = arg;
+ 	int ret;
  
--	sh_memory = devm_kzalloc(dev, sizeof(*sh_memory), GFP_KERNEL);
--	if (!sh_memory)
--		return -ENOMEM;
-+	use_dma_mem = pdata && pdata->use_dma_mem;
- 
--	sh_memory->invoke_fn = invoke_fn;
--	ret = svc_get_sh_memory(pdev, sh_memory);
--	if (ret)
--		return ret;
-+	if (use_dma_mem) {
-+		if (!iommu_get_domain_for_dev(dev)) {
-+			dev_err(dev,
-+				"SMMU is required for agilex5-svc but no IOMMU domain found\n");
-+			dev_err(dev,
-+				"Ensure the SMMU node is enabled in the device tree and 'iommus' is set for this node\n");
-+			return -ENODEV;
-+		}
++	set_freezable();
 +
-+		invoke_fn(INTEL_SIP_SMC_SDM_REMAPPER_CONFIG,
-+			  INTEL_SIP_SMC_SDM_REMAPPER_BYPASS,
-+			  0, 0, 0, 0, 0, 0, &res);
-+
-+		ret = svc_setup_dma_memory(pdev);
-+		if (ret)
-+			return ret;
-+	} else {
-+		sh_memory = devm_kzalloc(dev, sizeof(*sh_memory), GFP_KERNEL);
-+		if (!sh_memory)
-+			return -ENOMEM;
+ 	while (!kthread_should_stop()) {
+ 		if (t7xx_tx_lists_are_all_empty(dpmaif_ctrl) ||
+ 		    dpmaif_ctrl->state != DPMAIF_STATE_PWRON) {
+-			if (wait_event_interruptible(dpmaif_ctrl->tx_wq,
+-						     (!t7xx_tx_lists_are_all_empty(dpmaif_ctrl) &&
+-						     dpmaif_ctrl->state == DPMAIF_STATE_PWRON) ||
+-						     kthread_should_stop()))
++			if (wait_event_freezable(dpmaif_ctrl->tx_wq,
++						 (!t7xx_tx_lists_are_all_empty(dpmaif_ctrl) &&
++						  dpmaif_ctrl->state == DPMAIF_STATE_PWRON) ||
++						 kthread_should_stop()))
+ 				continue;
  
--	genpool = svc_create_memory_pool(pdev, sh_memory);
--	if (IS_ERR(genpool))
--		return PTR_ERR(genpool);
-+		sh_memory->invoke_fn = invoke_fn;
-+		ret = svc_get_sh_memory(pdev, sh_memory);
-+		if (ret)
-+			return ret;
-+
-+		genpool = svc_create_memory_pool(pdev, sh_memory);
-+		if (IS_ERR(genpool))
-+			return PTR_ERR(genpool);
-+	}
+ 			if (kthread_should_stop())
+ 				break;
+ 		}
  
- 	/* allocate service controller and supporting channel */
- 	controller = devm_kzalloc(dev, struct_size(controller, chans, SVC_NUM_CHANNEL),
-@@ -2223,9 +2273,17 @@ static int stratix10_svc_drv_probe(struct platform_device *pdev)
- 	controller->num_active_client = 0;
- 	controller->genpool = genpool;
- 	controller->invoke_fn = invoke_fn;
-+	controller->use_dma_mem = use_dma_mem;
-+	controller->dma_addr_offset = use_dma_mem ? SVC_SDM_DMA_ADDR_OFFSET : 0;
- 	INIT_LIST_HEAD(&controller->node);
- 	init_completion(&controller->complete_status);
++		/* Freeze here, outside the runtime-PM and MMIO section below, so
++		 * the system suspend freezer parks this thread before the device
++		 * suspend callbacks tear the DPMAIF hardware down.
++		 */
++		if (try_to_freeze())
++			continue;
++
+ 		ret = pm_runtime_resume_and_get(dpmaif_ctrl->dev);
+ 		if (ret < 0 && ret != -EACCES)
+ 			return ret;
+@@ -617,7 +633,7 @@ int t7xx_dpmaif_txq_init(struct dpmaif_tx_queue *txq)
+ 	}
  
-+	if (use_dma_mem) {
-+		ret = devm_add_action_or_reset(dev, svc_data_mem_cleanup, controller);
-+		if (ret)
-+			goto err_destroy_pool;
-+	}
-+
- 	if (pdata && pdata->needs_psci_cpu_off) {
- 		controller->psci_reboot_nb.notifier_call =
- 			psci_cpu_off_reboot_notifier;
-@@ -2333,7 +2391,8 @@ static int stratix10_svc_drv_probe(struct platform_device *pdev)
- err_free_notifier:
- 	psci_cpu_off_teardown(controller);
- err_destroy_pool:
--	gen_pool_destroy(genpool);
-+	if (genpool)
-+		gen_pool_destroy(genpool);
- 
- 	return ret;
- }
-diff --git a/include/linux/firmware/intel/stratix10-smc.h b/include/linux/firmware/intel/stratix10-smc.h
-index 366309260121..b0d42d585a75 100644
---- a/include/linux/firmware/intel/stratix10-smc.h
-+++ b/include/linux/firmware/intel/stratix10-smc.h
-@@ -813,4 +813,27 @@ INTEL_SIP_SMC_FAST_CALL_VAL(INTEL_SIP_SMC_FUNCID_FPGA_CONFIG_COMPLETED_WRITE)
- #define INTEL_SIP_SMC_ASYNC_FUNC_ID_RSU_NOTIFY (0xEC)
- #define INTEL_SIP_SMC_ASYNC_RSU_NOTIFY \
- 	INTEL_SIP_SMC_ASYNC_VAL(INTEL_SIP_SMC_ASYNC_FUNC_ID_RSU_NOTIFY)
-+
-+/**
-+ * Request INTEL_SIP_SMC_SDM_REMAPPER_CONFIG
-+ *
-+ * Sync call to configure the SDM address remapper. On Agilex5, the remapper
-+ * must be bypassed when the SMMU is active to avoid conflicts with IOMMU
-+ * address translation.
-+ *
-+ * Call register usage:
-+ * a0: INTEL_SIP_SMC_SDM_REMAPPER_CONFIG
-+ * a1: INTEL_SIP_SMC_SDM_REMAPPER_ENABLE or INTEL_SIP_SMC_SDM_REMAPPER_BYPASS
-+ * a2-7: not used
-+ *
-+ * Return status:
-+ * a0: INTEL_SIP_SMC_STATUS_OK
-+ * a1-3: not used
-+ */
-+#define INTEL_SIP_SMC_FUNCID_SDM_REMAPPER_CONFIG	513
-+#define INTEL_SIP_SMC_SDM_REMAPPER_CONFIG \
-+	INTEL_SIP_SMC_FAST_CALL_VAL(INTEL_SIP_SMC_FUNCID_SDM_REMAPPER_CONFIG)
-+#define INTEL_SIP_SMC_SDM_REMAPPER_ENABLE		0
-+#define INTEL_SIP_SMC_SDM_REMAPPER_BYPASS		1
-+
- #endif
+ 	txq->worker = alloc_ordered_workqueue("md_dpmaif_tx%d_worker",
+-				WQ_MEM_RECLAIM | (txq->index ? 0 : WQ_HIGHPRI),
++				WQ_MEM_RECLAIM | WQ_FREEZABLE | (txq->index ? 0 : WQ_HIGHPRI),
+ 				txq->index);
+ 	if (!txq->worker)
+ 		return -ENOMEM;
 -- 
-2.49.GIT
+2.43.0
 
