@@ -1,234 +1,164 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7463C43F4BA
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:23:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788772987; cv=none; b=D8ECQcljUYI1V4svrt5Ix0TpoVnxi96eNuqcXwfbNlhvs5EIuriik01/xCrRLJaunz0E4aaqyRJIYwRlVEw2i0YYJQ/19wKZzZpah8oLYluNDAxd44ziKzVEkEkBE0aPL2vpFWWzioa+OuxeZUjz4lUJ+HxbyX/AozDy5BeuOAg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788772987; c=relaxed/simple;
-	bh=O9E5UU7KDMg1prlzm9x6rf/L2j9ojB1u4O+i5dh5pe0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B91bb1wlc9d4s4dkfLqtFIuGVt6nP3XXY7q5ic5o7hPC6m4r6SvlT16mdc6c82v9JxqggTFqqLI/xuwoVk99exCcL6gQoX8yx3OvL6w3/TzWXXF/eKib/e2LOaxbEFNAZQolOtGn+/LmrfrBt+kVm4Scsvwy7CIrrPnzNvwAq0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SGks5zDb; arc=none smtp.client-ip=209.85.210.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E5844237C
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:24:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788773079; cv=pass; b=jmxd9tCio4sXiJoySSCezZmFIoSnn4UOGUVOG4Rc53bhin6mK9OCG8mlhRSP3pdEil+AOshzHIOtFoj4kTYxgyAp0y0yyZ3E3BwppcGvNz72TATosbFQ/sxN/8QeONHEJ5vVj8LhsS2q7TWocO9664IDxwJel66EdnspDF3bwR8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788773079; c=relaxed/simple;
+	bh=cSfmMGgIFwjjaaI7Bk9duU/SsMv1zgWa3X4ow3p9Z0U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KU8RfTaGEiKFuH21zYwqVvFj/HXO54ClMLJLv5GGRVlxFYl3sxbXySK3EMupr1xjP8leFVsLnvgBu51YfnHnqpmZLBVpse4S72pArGrth4Ug2mV4tXDBQJNj1eZcO1ter/sd0F6PTFfiZVrNPF+HxEJ4k/omXe+vVx0zpufHWh4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bYzWZS6h; arc=pass smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SGks5zDb"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-84e04df8c46so3728955b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:23:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bYzWZS6h"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-485843aeab8so3687551f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:24:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788773075; cv=none;
+        d=google.com; s=arc-20260327;
+        b=S49IkCzeCA3wAQ7BBZgBhaktUZyiKgOdRkaIK9zPCO4Ctzo4iXqn11e0kjkKM8SqV/
+         NWmst7OvwLaUBthBwIdVwuqSJ1EP2CObREAVXqWbeDZNxShMm0DNHhI9zs+YRgdqwuDs
+         idqtAR4bxsPvSXqw3uJkUNowVcP2FFA+pKXvSpNNSSYXm+NyIXCCjsFPBffcqjmyi9sL
+         8eQupDdk5JmrhDcFL+H0nThy5BnlIQQiFPsqAcP9uk8vvRnkJUl6COjYt5IHdQ9u6A2I
+         7nVgp+08oCx2oMvLz8fozdl6whrA8HtZc2uAAZKINJDwROW91GRo9l8gqkApBZuv4S42
+         oIIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=hfGjfP8T35WEV6rGIAsKY4f5Rwo6my7dAG0voowddxQ=;
+        fh=fyJAzwYp1TUZ4vMmjQWS7CWYlqO3Kg2S0B2yZM7qIfo=;
+        b=Ajz+nMIGJjj7eu0G7hFEIfPmRrXz11MeoWdvzdxLdLJt2tOCwSeApMdIUmwWFwVDS8
+         hqJqg0VgTCTw6zpShdQ0ZUUoSl+MtMS6LXoNHAJPbt/wNS1ZPhcLHLOTdP3NVjKjBzjR
+         1W4pWL04Rd+1M4/0s0EwM4yA1JShysqXhCM33VoTkrhB6AUNCrpYg0aeWr9dQEDjTnHM
+         fyo8B+b9wG9PB3FMJeyLpCXM3rnCk94vBF/r4u3GyM6I5yjBkySROOqPfe9EOzrwH0+n
+         BOgKAxWuYw5J9c8oqRsGSVIo8iyZRiv2zABEywRez0VQmK5vyIP9E028vk2CwmtV4Ose
+         GZVw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788772984; x=1789377784; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=779V8up9UUbTfdCTWD8dD075WrCFiRj+sKr7et++Wgw=;
-        b=SGks5zDbOINN+NZ1/N1WH3ZRHpheVJvMxIlFdnPhEcKZXszAs4Sd6bzKXBtb6ndQAl
-         MQVfdGXjfO/0OQR4AKIGPQ/RMOHuN5qcbWbIO2vO+/SOm1Xxd0r57xcA9KvvCn1vj04h
-         lqWhb3RaOq9Ix0q94V685WCJcH/bor9Q/he+w2WyhVCqIUcqA2dSsqTM1RNyXGHeLGgd
-         eaPYXg6krhWLeMoXM8ubQAi4/tzaQUMGqslvzZErAh+v40//dEd4XAV/qO0uTkO39mrP
-         tPGQZ2MtO1qLkbds21LeAI0boKlN69Jvz4w0Ia7GYIcMQC0z62+WIDLzd0qoj0hxl/TM
-         Q3Ww==
+        d=google.com; s=20251104; t=1788773075; x=1789377875; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hfGjfP8T35WEV6rGIAsKY4f5Rwo6my7dAG0voowddxQ=;
+        b=bYzWZS6hvyblgTmL2WcmqKBFUHHD7UV1gkXyod2CvfAo9EbydIVeGF++9jABbnZPte
+         ys7ocRIu1X8wdEIGp96wY0ZJwuX9iep0RRInWAVJmxBvFDn1O/SCyei+2Uu4DEx9EFWy
+         Ju0SX+/3BqiQeyfykHFwlXZNMjTYSHT9Hz+p1tge65xlQefntxQdIOB//wajbELDPR6l
+         bZSz7BV5hpdU91s0tZALuvzT0BaGoZvdwZ+37h8mSbXVV8RthaPq9o6xvdh7qixRCia5
+         5aTu+haqTXNlK7d6WQD6MLUT44ym0DOgw7EgnQhTgLv5A9qh2xRN6Nek2Upj1f/kRQ35
+         VQFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788772984; x=1789377784;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=779V8up9UUbTfdCTWD8dD075WrCFiRj+sKr7et++Wgw=;
-        b=Bpw1nvjicUwcMEoXNgOgD/M7EENXtqvTAye3j/FLEZSOm6b/S56POhfbE244Wob5hL
-         TSixI10R7OpNGiLQgZ/NETdLfKT1NUF5nMWIb3yHZt2DGbFZq6AGM5hvL+/vW1bHbFG9
-         7DQ81UGsV6DUzSRZlR89WZEaizEpIoTlxJ1YsojlCGTzFtHUi8YpLIWfd0UCQbMkmVI5
-         V95gvmhELbNttlCfVfhgCll+IDRRSjEoJHxDpTVOtOpriKrWdKHmTxzwXNwINl0mCX6b
-         XzDS4D+mhUfyGgeZ6zxcwqVMSJYrG2xfeacCU3AgFf/11vdSfV3gWStkvVpEBpueAKBH
-         I80g==
-X-Forwarded-Encrypted: i=1; AKwUvBwNVMSsge/fCIx6I4p/HpUheEp/U5X99ldNOkEQNe/DQVWYiUCGzm+WmbJ39C+UrrzIzOSxD4nfsTGJ5Xg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kZ42SVo2XZh91okQMJb4yvCRw24OB1Dg1OLiDuPSK18poCy78P
-	hRtSpIFleZblKrjEQIGqgUAfYzAinPcUG+WEu3ZmrFFMc+maA95+IDcv
-X-Gm-Gg: AYBFou3lADq53eYERcB0KXPUKEEHZI/oa25pYHm/ia0dwwVcVaf1mzhhPaRJcLLgDdB
-	khbSWP4kooL3DqfWGSfH7t1mh6OLA4wexv0S4cBgBdPcMgB8Ux4XzYS6FSxhIa0AEn5EDUXSgXK
-	9k1h1laHUkhZZOmM8ioGuy5F/B8V5QpFJxKSpYMiDWzPSiTYFmZmwBvbvJhff2IfDygP+7IrzXV
-	wmYROv/J/0I1UxdgajpkswPxZ4/Rj0RENAahzBWpxxbNG/wB8Mha2R0GMFJX0ndclSu6pgxwIom
-	2RaYf4hXqaed2dJT71fmewHvYmUNxu+r2JdQFCrNPnS7i1KOPgkLUff7Hwp74B9ULyFjFJIGPtY
-	lqVVzUGWa5ElO9FWiE+/AYLinAtzTZ3EXA4Cv7bEgEg9U4n58ZpXUb/DRBLzWG9MWaJo3HACnpJ
-	ew5L4HVI9yGsQUD4y5RKVtq3SNTipvqhIHcnc96l7nC1Nehfw4hQWn95JKo1IGjHV+tu99bm2RA
-	kGU133gQahlM3IaW5U+oSpTJBK6nAW3Yw==
-X-Received: by 2002:a05:6a00:f0d:b0:848:4faa:480b with SMTP id d2e1a72fcca58-8616ba5f20fmr31101318b3a.12.1788772983589;
-        Mon, 07 Sep 2026 02:23:03 -0700 (PDT)
-Received: from [10.0.2.15] (KD106167137155.ppp-bb.dion.ne.jp. [106.167.137.155])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-864782f0be1sm1477885b3a.41.2026.09.07.02.23.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 02:23:03 -0700 (PDT)
-Message-ID: <4608104c-7075-43cd-adaf-c15ef09cec54@gmail.com>
-Date: Mon, 7 Sep 2026 18:23:00 +0900
+        d=1e100.net; s=20251104; t=1788773075; x=1789377875;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hfGjfP8T35WEV6rGIAsKY4f5Rwo6my7dAG0voowddxQ=;
+        b=S8RpwfMXdrTIL31JTnPlqGiutvqRttx02nwuKK6yu7+2hHBUY1doeXWRJX2kQ/yLjU
+         29JELfCQa6GYNebBQlzUyiFuSi3YcrzbJzdE64B2a23wcQsU+8DLxLt3V5vJ1i+X0A7r
+         +OeZDruydIPoGgG+7LIV4h5kpHS7BLQRQwZJdxe6cEjGlVBrrQkdKoLIXcSbt0059uUg
+         vOHjgvDXS2+JgPYlkQzji8158DHgdHJrxTL9YKoWwHPbVuts8A5nuA6jrUxGogsdN6vh
+         yGGOPFCHeQstfIyZF+j9HZNRnufTqyMytb5/BtliU8gUGAOPuHxNL4Dm7r5yJhrFj9vf
+         jarQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxz/6Br9V6Xp1uVMUzYUh97veLqMh95COybYBoVniQcZkdXqPUq+D9TpvlsKdx46PI+5+tv73EqKa+ysII=@vger.kernel.org
+X-Gm-Message-State: AFuF++npInDTDQs9A5dO8nZZQ2h3+G1mkKrtAZK7hJeVYrfteRTdFFHx
+	gJHQKiQ3odn8Kmw+UGNQAa8YbhxNPsE07qM3A/eegO4d6yLd/3sraUbEm3HbqkjD220mM1yAzGW
+	pPlMGPNnpKsvPaavJk8Gk8Fyvk74gfuqSjwCMW92i
+X-Gm-Gg: AYBFou1IAkshXnsbmtxIHjYMrLDDJT5JITvwRctEQSPoftb2w3AtJJOfn07nwgULT9Z
+	3n/suUt4COtn7iT3LTCF/SOyq1Jl/5PpWeg945WVhyGe9l2o4+OFsnkosu/F875hbI2pYkmJJ4Q
+	cP5Ya9iWHnkawGUX40V/X7mmiw1WvcrVxqw9DWEFm3JEUgU4NrHQ4XVjKYLmgPCNbHgk/WB3Vzr
+	oa8/490TREvEtSB3StNaMkp1uQARQNqjpL+UjOMVbMxRTudOj3t3yUXbGYb2QWYurWpvWosKmw8
+	dKLxUBRHPZfxGofJkTDRTNRbzCEyj3cVroo00n2Aqg9eihJ/MUO3QllVkwxZzdKUIaxbx8sQvFP
+	RDr5KkwKhMvKeBMwo4HRXcnm+JeHMtSM=
+X-Received: by 2002:a05:6000:430b:b0:485:8ad6:3752 with SMTP id
+ ffacd0b85a97d-4858ad63a6fmr37026021f8f.5.1788773074197; Mon, 07 Sep 2026
+ 02:24:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs/ja_JP: translate submitting-patches.rst (review and
- report tags)
-To: Akiyoshi Kurita <weibu@redadmin.org>
-Cc: skhan@linuxfoundation.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, corbet@lwn.net,
- Akira Yokosawa <akiyks@gmail.com>
-References: <20260903020356.1055420-1-weibu@redadmin.org>
-Content-Language: en-US
-From: Akira Yokosawa <akiyks@gmail.com>
-In-Reply-To: <20260903020356.1055420-1-weibu@redadmin.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260824-unique-ref-v20-0-490735672187@kernel.org>
+ <20260824-unique-ref-v20-4-490735672187@kernel.org> <ao2WubjLtDuHvRzx@google.com>
+ <DL894TFXM5AT.2QOXN683UKXIF@garyguo.net>
+In-Reply-To: <DL894TFXM5AT.2QOXN683UKXIF@garyguo.net>
+From: Alice Ryhl <aliceryhl@google.com>
+Date: Mon, 7 Sep 2026 11:24:21 +0200
+X-Gm-Features: AcwNN1V4plkowyMHAsnIxTQwxzR-aYAz331pg1N8okzwNx7uKX70uWh-YG4Yx6I
+Message-ID: <CAH5fLggAMfBcxprKJxs4JbieKadC_mKg4B0xNETOH1QUi72UGQ@mail.gmail.com>
+Subject: Re: [PATCH v20 4/8] rust: page: convert to `Ownable`'
+To: Gary Guo <gary@garyguo.net>
+Cc: Andreas Hindborg <a.hindborg@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Lyude Paul <lyude@redhat.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	=?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
+	Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
+	Carlos Llamas <cmllamas@google.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
+	Paul Moore <paul@paul-moore.com>, Serge Hallyn <sergeh@kernel.org>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+	Igor Korotin <igor.korotin@linux.dev>, Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, Michal Wilczynski <m.wilczynski@samsung.com>, 
+	Ira Weiny <iweiny@kernel.org>, Philipp Stanner <phasta@kernel.org>, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, driver-core@lists.linux.dev, 
+	linux-block@vger.kernel.org, linux-security-module@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-pci@vger.kernel.org, 
+	linux-pwm@vger.kernel.org, linux-usb@vger.kernel.org, 
+	Asahi Lina <lina+kernel@asahilina.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Kurita-san,
+On Sun, Sep 6, 2026 at 3:02=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
+>
+> On Tue Aug 25, 2026 at 2:20 PM BST, Alice Ryhl wrote:
+> > On Mon, Aug 24, 2026 at 01:17:56PM +0200, Andreas Hindborg wrote:
+> >> +        // SAFETY: We just successfully allocated a page, so we now h=
+ave ownership of the newly
+> >> +        // allocated page. We transfer that ownership to the new `Own=
+ed<Page>` object.
+> >> +        // Since `Page` is transparent, we can cast the pointer direc=
+tly.
+> >> +        Ok(unsafe { Owned::from_raw(page.cast()) })
+> >
+> > This doesn't satisfy the safety requirements of Owned::from_raw()
+> > because the page may be used with vm_insert_page(), which increments it=
+s
+> > refcount and causes it to be shared the vma system, and this occurs
+> > before Page::release() is called.
+>
+> I suppose the existing vm_insert_page() abstraction we have is already
+> problematic, because it uses `&Page`?
+>
+> Maybe we want to change the API to use `ARef<Page>` so it already has to =
+be
+> shared? Conceptually it takes a reference count from a `&Page`, which isn=
+'t
+> possible because `Page` is not `AlwaysRefCounted`, so it needs a `&ARef<P=
+age>`
+> to be able to do that op.
 
-First of all, this email has a lot of bogus @www.redadmin.org addresses
-in To: and Cc:.  Please don't do that.
+Honestly, the problem is the safety requirements of Owned::from_raw().
+Pages have a "special" main reference, and free_page() does more than
+put_page(). It even does something when the refcount does not hit
+zero.
 
-On 9/3/26 11:03, Akiyoshi Kurita wrote:
-> Translate the section describing Reported-by, Tested-by, Reviewed-by,
-> Suggested-by, and Fixes tags into Japanese.
-> 
-> This includes the Reviewer's Statement and the guidance on adding or
-> removing review and testing tags in subsequent patch versions.
-> 
-> Keep the Japanese submitting-patches documentation aligned with the
-> corresponding English section.
+The correct behavior for Page is to allow the user to hold one
+Owned<Page> whose drop calls free_page(), *plus* any number of
+ARef<Page> references that invoke put_page() on drop. This way, the
+owned page controls the special drop codepath.
 
-Inline comments below.
-
-> 
-> Signed-off-by: Akiyoshi Kurita <weibu@redadmin.org>
-> ---
->  .../ja_JP/process/submitting-patches.rst      | 91 +++++++++++++++++++
->  1 file changed, 91 insertions(+)
-> 
-> diff --git a/Documentation/translations/ja_JP/process/submitting-patches.rst b/Documentation/translations/ja_JP/process/submitting-patches.rst
-> index 797b70b97fa7..0b4e22b015d7 100644
-> --- a/Documentation/translations/ja_JP/process/submitting-patches.rst
-> +++ b/Documentation/translations/ja_JP/process/submitting-patches.rst
-> @@ -573,3 +573,94 @@ Acked-by:、Cc:、Co-developed-by: を使用する場合
->      Signed-off-by: From Author <from@author.example.org>
->      Co-developed-by: Submitting Co-Author <sub@coauthor.example.org>
->      Signed-off-by: Submitting Co-Author <sub@coauthor.example.org>
-> +
-> +
-> +Reported-by:、Tested-by:、Reviewed-by:、Suggested-by:、Fixes: の使用
-> +---------------------------------------------------------------------
-> +
-> +``Reported-by:`` タグは、バグを発見して報告した人の功績を示すものであり、
-> +今後も再び協力してもらうきっかけになることが期待されます。このタグは
-> +バグを対象としています。機能追加の要望に対する功績を示すためには
-> +使用しないでください。報告が Web 上で参照できない場合を除き、
-> +``Reported-by:`` タグの後には、その報告を指す ``Closes:`` タグを
-> +付ける必要があります。パッチが報告された問題の一部だけを修正する場合は、
-
-   付けてください。報告された問題の一部だけを修正するパッチの場合は、
-
-> +``Closes:`` の代わりに ``Link:`` タグを使用できます。なお、
-> +``Reported-by:`` は、名前を記載される本人の明示的な許可なしに
-> +使用できる可能性がある三つのタグのうちの一つです。詳細については、
-> +後述の「人をタグ付けするには許可が必要」を参照してください。
-> +
-> +``Tested-by:`` タグは、記載された人が（何らかの環境で）パッチを
-> +正常にテストしたことを示します。このタグは、何らかのテストが
-> +実施されたことをメンテナーに知らせ、将来のパッチでテスターを
-> +探す手段を提供するとともに、テスターの功績を記録します。
-> +
-> +一方、``Reviewed-by:`` は、パッチがレビューされ、以下の
-> +レビュー担当者の声明に従って受け入れ可能と判断されたことを示します::
-> +
-> +        レビュー担当者による確認声明
-
-You used "レビューア" for "reviewer" in your earlier submissions.
-Is there any reason for the different word/term ?
-
-Also, "Reviewer's statement of oversight" is similar to the DCO.
-I think it should be translated in a way so that it looks like
-a legal statement.
-Especially, I'd use "だ体", or formal style.
-
-I would rather put the original English text here, and append the
-translation as a 試訳 (or 訳例).
-
-> +
-> +        ``Reviewed-by:`` タグを付けることにより、私は以下を表明します:
-> +
-> +         (a) このパッチがメインラインカーネルへの取り込みに適切であり、
-> +             その準備が整っているかを評価するため、技術的なレビューを
-> +             行いました。
-> +
-> +         (b) パッチに関する問題、懸念、または質問はすべて提出者に
-> +             伝えられています。私は、自分のコメントに対する提出者の
-> +             回答に満足しています。
-> +
-> +         (c) この提出物には改善できる点が残っている可能性がありますが、
-> +             現時点では、(1) カーネルに対する価値のある変更であり、
-> +             (2) 取り込みに反対する理由となる既知の問題がないと
-> +             考えています。
-> +
-> +         (d) 私はこのパッチをレビューし、妥当であると考えていますが、
-> +             別途明示されていない限り、そのパッチが記載された目的を
-> +             達成すること、またはいかなる状況でも正しく動作することを
-> +             保証するものではありません。
-> +
-> +``Reviewed-by:`` タグは、そのパッチが重大な技術的問題を残していない、
-> +カーネルに対する適切な変更であるという意見を表明するものです。
-> +必要なレビューを行った既知の身元を持つ人であれば、関心のある
-> +レビュー担当者は誰でもパッチに ``Reviewed-by:`` タグを付けられます。
-> +このタグは、レビュー担当者の功績を示すとともに、どの程度のレビューが
-> +行われたかをメンテナーに知らせる役割を果たします。対象分野を理解し、
-> +十分なレビューを行うことで知られているレビュー担当者が付けた
-> +``Reviewed-by:`` タグは、通常、パッチがカーネルに取り込まれる
-> +可能性を高めます。
-> +
-> +``Tested-by:`` と ``Reviewed-by:`` の両方のタグは、メーリングリスト上で
-> +テスターまたはレビュー担当者から受け取った後、次のバージョンを
-> +送信するときに、作者が該当するパッチへ追加する必要があります。
-> +ただし、次のバージョンでパッチが大幅に変更された場合は、これらのタグが
-> +適用できなくなる可能性があるため、削除する必要があります。
-> +通常、誰かの ``Acked-by:``、``Tested-by:``、または ``Reviewed-by:`` タグを
-> +削除した場合は、その理由をパッチの変更履歴で説明する必要があります
-> +（``---`` 区切りの後）。
-> +
-> +``Suggested-by:`` タグは、パッチのアイデアが記載された人によって
-> +提案されたことを示し、そのアイデアに対する功績を記録します。
-> +アイデアを提案した人の功績をきちんと記録すれば、今後も再び協力して
-> +もらうきっかけになることが期待されます。なお、これは、名前を
-> +記載される本人の明示的な許可なしに使用できる可能性がある三つの
-> +タグのうちの一つです。詳細については、後述の
-> +「人をタグ付けするには許可が必要」を参照してください。
-> +
-> +``Fixes:`` タグは、そのパッチが以前のコミットにあるバグを修正する
-> +ことを示します。これは、問題がどこで発生したのかを容易に特定できる
-> +ようにし、バグ修正のレビューに役立ちます。また、このタグは stable
-> +kernel チームが、どの stable kernel バージョンに修正を適用すべきかを
-> +判断する際にも役立ちます。パッチが修正するバグを示す方法としては、
-> +これが推奨されています。詳細については :ref:`describe_changes` を
-
-This will point the original (English) section.  File-local reference
-can be made by:
-
-                        詳細については `変更内容を記述する`_ を
-
-> +参照してください。
-> +
-> +注意: ``Fixes:`` タグを付けても、stable kernel rules の手順や、
-> +stable 向けパッチ候補すべてで ``Cc: stable@vger.kernel.org`` を
-> +指定する要件がなくなるわけではありません。詳細については、
-> +Documentation/process/stable-kernel-rules.rst を参照してください。
-> +
-> +最後に、タグを付けることは歓迎され、通常は非常にありがたいものですが、
-> +署名者（すなわち、提出者およびメンテナー）は、提示されたタグを
-> +適用するかどうかを自身の判断で決めることができます。
-
-This label is not needed in this patch/file ...
-
-> +
-> +.. _tagging_people:
-
-Thanks, Akira
-
+Alice
