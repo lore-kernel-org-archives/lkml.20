@@ -1,142 +1,138 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33213481665;
-	Mon,  7 Sep 2026 12:36:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C554A49A7
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:36:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788784566; cv=none; b=FiUIkPGew55t0aWFRiQDJjBldOSaBm76X0f8jcrOPi01riKOWR34Hz1yF8jkBuJjpl1l5Xm1JSzYwS2xb/C1WIiXgeo+kLkgD9PMl835K46jZLR+prdnHIA+vP1Co0NM3zyJi9nvDVHBZTv7SgffDVBOezRyOrUrXTFOZ1vpLuY=
+	t=1788784605; cv=none; b=Co6f45v5WWBL5FNb+YMSau/hriFhx0CQ/lrZSZHHrcY3luv8bgTExRSENN2pd50a8PyUuTyge+XuNpTxyn5nDXzYAuv2+1KqC22hiUYk4zrPy2z8PvpZKJXj1nw0s+MXmmyIKue4+Y1YaqsXPm9EGeOPM7YfhX8V9mAmkDL2M4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788784566; c=relaxed/simple;
-	bh=FcK8ECtyHz/1bCKBWJbMe804PvZEKCJiARxb2edenec=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PHGDe3zLIGf+NcQkmXXEo5L8vWXRZ3CyVzRKSE9K7WtCAEHMMnpaApn4jB9PVlHDEitcr38JDNLkrSz7ZhZmLDxZfN5d9EE2k5knEoCfH2BmNc1mmN4W1DUMllIloPyFrrE+U5PpV6GZMlXlRo9Hm/FudidgQbk/Zf+jTjyJvas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=KjzMLEJ4; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=GuIq4xeG; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=pWOKiedL; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=9Cmaa5de; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1788784605; c=relaxed/simple;
+	bh=Kg43AYryMmN+CWyBfh8cVUlzZCMg6Afm99f7xYj/Vs0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DPJdJI8bg34FpBCruVObsVF2Wmly73xsEFz9ReRg3TzZBUSpJ6P7/w0rEPjJDEiLrOAhoALD6PigmBa3yU4KeePWfrbnpb/Cl8Ueg+DdYyi0L02qXPHH2F8mcJlnmuvIyOMiOerHKg1GJd7CnUoYPbPcno6iVLeHrLkA41uAV/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oCmkiCjG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="KjzMLEJ4";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="GuIq4xeG";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="pWOKiedL";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="9Cmaa5de"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D2BF31F393;
-	Mon,  7 Sep 2026 12:35:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788784559;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ed8/rSn/tadqDWXWLwChn47Bl+pOCC0z2dFG2zTtTGk=;
-	b=KjzMLEJ4s3Ytv1uRKnNBXyiAsbYwPImqXVv2KiGBwiae2uPP0LpHo5ETOfclVi4KNjWhR0
-	q/UbsJqs6sO5x389/fBjTkTs1VWRSAq+qqXxSZxTenEdT/Ou+XApe7Nfpjl2StlLge1EyK
-	p3ElH0p1TD6xkKaLLMgJESR82byH0fo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788784559;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ed8/rSn/tadqDWXWLwChn47Bl+pOCC0z2dFG2zTtTGk=;
-	b=GuIq4xeGZS1B/EQsV36QVxk9KsVH2EByQmY/X3JrbfLT240+lB0mt4gJjoFPwPMcVg0kHC
-	VntjWbnfytlqs7AA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=pWOKiedL;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=9Cmaa5de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788784554;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ed8/rSn/tadqDWXWLwChn47Bl+pOCC0z2dFG2zTtTGk=;
-	b=pWOKiedLRF3TTgSXCvthDvu4Sb8HmW/NM9kdpuaD+NCEcAMU1wKyip5i7gN8xfRzlL+/rG
-	G27K1ZJ9y5HtuhSmqXtBVcRizO6nb1bxKYtM9SVEDqdAa7NNF0LBI6/qHegw2BrgmFWEFq
-	i10h03OeMnjT0PYF9mpaguHtrgGBWSo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788784554;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ed8/rSn/tadqDWXWLwChn47Bl+pOCC0z2dFG2zTtTGk=;
-	b=9Cmaa5deXc3zxzRlWq2qAnnfIBnjpEgavEPN29dwUkYio0L7mE0bazGD7laRrW8YUdqpOM
-	VNKBU9497WMWFKDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AF5081339B;
-	Mon,  7 Sep 2026 12:35:54 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id +O+XKqqvnmpJNgAAD6G6ig
-	(envelope-from <dsterba@suse.cz>); Mon, 07 Sep 2026 12:35:54 +0000
-Date: Mon, 7 Sep 2026 14:35:49 +0200
-From: David Sterba <dsterba@suse.cz>
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: David Sterba <dsterba@suse.com>, Daniel Vacek <neelx@suse.com>,
-	Chris Mason <mason@kernel.org>, linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] btrfs: reflow comments left awkward by the typo fixes
-Message-ID: <20260907123549.GW9053@twin.jikos.cz>
-Reply-To: dsterba@suse.cz
-References: <20260907114153.39900-1-hemanth.selam@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oCmkiCjG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F2ED1F00A3A;
+	Mon,  7 Sep 2026 12:36:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788784604;
+	bh=NiAfvUfU16Fbk/i6m8tmsKk9M6uO5GP022sgVAPPefA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=oCmkiCjGU2CzuKmMRmxVdk2YPKXOh7BCzakTnHcrwrmNMIA57A14Z+iJJy/7rw6AI
+	 lcS3X6cWk3xhYkfT9k3yWTMd6RyC2t6wVdQvSVs0f4uzcERZmptdtUaaedlgrNDKtJ
+	 I/ijEZiV9jJruxmgPfYEwfFEOfuZLSif9+Ky1LNvzaLpFDUoqPXulExLJMB8PeWNwZ
+	 zgSnmNNSBjGOnjMRYLiadlvxZBGD/UaaIW3XQoxJGMEO7NS++3maj5EngPLv1Donsw
+	 V4c9YRRekgmQA5zdqSHxRxmGVad8RRrixthi4L6AFd6XAOswPHhzBLNvCD//Mz9kS2
+	 jfupjHBbpRS0g==
+Message-ID: <6e85fde9-9314-4854-99fb-3582b13486fd@kernel.org>
+Date: Mon, 7 Sep 2026 14:36:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907114153.39900-1-hemanth.selam@gmail.com>
-User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
-X-Spam-Score: -4.21
-X-Rspamd-Queue-Id: D2BF31F393
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.21 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	HAS_REPLYTO(0.30)[dsterba@suse.cz];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	REPLYTO_ADDR_EQ_FROM(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TAGGED_RCPT(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[twin.jikos.cz:mid,suse.cz:dkim,suse.cz:replyto,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
-X-Spam-Flag: NO
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 09/18] mm/huge_memory: move anon_vma and filemap
+ management into split helpers
+To: Kairui Song <ryncsn@gmail.com>
+Cc: kasong@tencent.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
+ Shivam Kalra <shivamkalra98@zohomail.in>
+References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com>
+ <20260821-swap-thp-cleanup-v3-9-9b43f5163238@tencent.com>
+ <acdfa561-0690-4c78-bc50-92d308f4dca0@kernel.org>
+ <apRHC9Hk9Ve1gO0o@KASONG-MC4>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <apRHC9Hk9Ve1gO0o@KASONG-MC4>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 07, 2026 at 05:11:53PM +0530, Hemanth Selam wrote:
-> Removing the repeated words in rbio_orig_end_io() and
-> rmw_assemble_write_bios() left two comments reading oddly: one now starts
-> its second sentence in lower case and wraps early, and the other fits on a
-> single line.  Reflow both, as Daniel Vacek pointed out.
+On 8/30/26 17:23, Kairui Song wrote:
+> On Thu, Aug 27, 2026 at 06:36:18PM +0800, David Hildenbrand (Arm) wrote:
+>> On 8/20/26 20:55, Kairui Song via B4 Relay wrote:
+>>> From: Kairui Song <kasong@tencent.com>
+>>>
+>>> Only anon split needs vma info, and only file split needs the filemap
+>>> handling. Move the related code into separate helpers so they are
+>>> genuinely more self-contained.
+>>
+>> This patch seems to do more than that, like relocating the
+>> folio_expected_ref_count check (and duplicating it, which is not so nice).
 > 
-> Comments only, no functional changes.
+> We can keep it where it is right now, but this patch is moving the
+> anon_vma_lock_write and i_mmap_lock_read into the two anon / file
+> helpers seperately, so keeping the folio_expected_ref_count check
+> outside and before the helper call will cause a potential higher
+> false positive / negative rate of this check? Leads to unnecessary
+> call to unmap_folio.
 > 
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+> How about moving the folio_expected_ref_count check into
+> unmap_folio since the purpose of the ref check is to avoid
+> unnecessary unmap? No more duplication that way.
 
-No need to send such patches if thery're an immediate followup, the
-change can be done at commit time. This saves time on both sides.
+I think the crucial part (for anon folios) is to also check after we unmapped.
+
+See __folio_migrate_mapping(), where we don't do the !folio_ref_freeze() in case
+we tun into the !mapping scenario.
+
+-- 
+Cheers,
+
+David
