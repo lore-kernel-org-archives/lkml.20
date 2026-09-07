@@ -1,168 +1,115 @@
-Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com [157.90.84.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6158747D440;
-	Mon,  7 Sep 2026 16:30:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=157.90.84.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5D82477299
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:30:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788798636; cv=none; b=L5USyqZ4uciCbO7Xg/QLHweyxaC1hiPNQr/4KzYz3MCAkNbQPQrfUXtlraIFtQvTxT/PQSxlYhIsflDfiCXjqP9GxpzX7UNi26Zq0fKvhtYMj/M5CW7aKwQfIwg6LnWhnmnnvhC8oRsynldkIRzECfhFxOZR6sUAnR7HBlrG1AY=
+	t=1788798641; cv=none; b=sr+3JQtLQXrJNz3YAZ6MxDkWR8/gbkjp4D6s9lVmn5uyJqLq+FxbQjSTiZdbRGYwnlZ8+i88bVExqWaEinXgae7SHwb7goEeT4bjCGzZjylVeaJ3JBg97Xoz0LDE/pbFPI5Zr5x3B6LVeNmATdf2fE0eQjzwqqRfLUvvK63SsFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788798636; c=relaxed/simple;
-	bh=4X4SIdVVAuOxNnHzWOlA4cEwHj8Nt+dyfR2oBYBjSAw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jOfTZXxEFqvJ734WzsRcTZ4GKAB/uw1oQCLKKTmjUDiWjnwpJJJ19MTkk/uYQruukjo3aBBSpvUMmHJoxnoakosRjAktvxVp6AKkERprY2weYDNAuIhafi12rKiXftthAsyTMgWtvYr1Ri2O2aChou2hA+rCZVqmaMLFFPcDM9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com; spf=pass smtp.mailfrom=tuxedocomputers.com; dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b=Ig9hUdbL; arc=none smtp.client-ip=157.90.84.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxedocomputers.com
+	s=arc-20240116; t=1788798641; c=relaxed/simple;
+	bh=WBKBczPmnFNqn4oIBcLRMTmSwk8E7CwqvkPMeqXkv/g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dGCQr10pqlA9UUx+1v4ISvUfyDTPF0UFI4XfaOPNXy4n80YDvQjB+Ni2tddd3zHAiQB78X2kOcwiwDOSEjr4j77ePa65++22hc0PhzOvzGYdP5fYRm/rHRLbFvLo3ndeRHrZLpXiEVnl6s9KYC+SSa8jm888zXTNTxejMofMdys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=SrVgf5A7; arc=none smtp.client-ip=212.27.42.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="Ig9hUdbL"
-Received: from [192.168.178.102] (p4fc02130.dip0.t-ipconnect.de [79.192.33.48])
-	(Authenticated sender: a.erhardt@tuxedocomputers.com)
-	by mail.tuxedocomputers.com (Postfix) with ESMTPSA id 83F302FC0076;
-	Mon,  7 Sep 2026 18:30:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
-	s=default; t=1788798626;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JmzR8zxR3+L2Kdy2MjR6S9xbOlFXwTSnTQaZ/pIGBhs=;
-	b=Ig9hUdbLT6Cpzz8t3SOWmv0FGMYqmF9yirSzYjbjc8XGwmN167aE6qLjqkeSBd1iigcMnH
-	6CVhS6/Wd9D4I17WXj5vSNk7V+fC3S0iuHb6P/rQ9rVZlugssDlv31irDm6kKvMdtmDHm0
-	8OAe4L2/+LvtkXIuyyOR7wos9mT37Gw=
-Authentication-Results: mail.tuxedocomputers.com;
-	auth=pass smtp.auth=a.erhardt@tuxedocomputers.com smtp.mailfrom=aer@tuxedocomputers.com
-Message-ID: <a62d1907-73cb-4cfd-98b1-7cdce3b37541@tuxedocomputers.com>
-Date: Mon, 7 Sep 2026 18:30:26 +0200
+	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="SrVgf5A7"
+Received: from L30177.local (unknown [213.36.7.12])
+	(Authenticated sender: vjardin@free.fr)
+	by smtp6-g21.free.fr (Postfix) with ESMTPSA id CBF1F780333;
+	Mon,  7 Sep 2026 18:30:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1788798627;
+	bh=WBKBczPmnFNqn4oIBcLRMTmSwk8E7CwqvkPMeqXkv/g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=SrVgf5A7eKYt7GcaIfUWEc2J962GNTRiqS4oleuwDrm0Q81xaxIZ+6YgQQ1Kh5ECi
+	 8Hi3DwQR1SgbwCldFJ6RnfI9F51NAqShrz9BM7OpxWOfAPu3RWpcl+ffU59PP3hvyI
+	 Avxgz7X6z2iXrwAQkIgNa6JHNzIOr4ygSO3ac2nERcIRpc+ADW0kSnwM7RigCaRgjz
+	 OcxEUl2LkMsX7sPMJ/wkSlnEckqLCoetx+FSnDVabZmhCibG/8LO79WNf7NS6yUnbP
+	 PVad2zu6mtidc84Npf65aHE1KAZQ6Zmv7YCI2C5b4ZRJ6UBeskblftFbxlsfBgWy/1
+	 EluxjPQQ4xkrw==
+Date: Mon, 7 Sep 2026 18:30:17 +0200
+From: Vincent Jardin <vjardin@free.fr>
+To: Ioana Ciornei <ioana.ciornei@nxp.com>
+Cc: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Laurentiu Tudor <laurentiu.tudor@nxp.com>,
+	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable+noautosel@kernel.org
+Subject: Re: [PATCH] bus: fsl-mc: register the object drivers after
+ misc_class exists
+Message-ID: <ap7mmR_4QV0k88dK@L30177.local>
+References: <20260901-for-upstream-fsl-mc-initcall-order-v1-1-36ffe48f767d@free.fr>
+ <fmmf72ypmmooyxszz3l47xabdhvetowgvbmbjmvj6bumuh5onh@pntmny63urbg>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/2] HID: generic: add LampArray support via
- hid-lamparray helper
-To: Armin Wolf <W_Armin@gmx.de>, Jiri Kosina <jikos@kernel.org>,
- Benjamin Tissoires <bentiss@kernel.org>
-Cc: wse@tuxedocomputers.com, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260903073602.3815258-1-aer@tuxedocomputers.com>
- <456191a9-f914-4bb3-8cb8-90ed25a13b94@gmx.de>
-Content-Language: en-US
-From: Aaron Erhardt <aer@tuxedocomputers.com>
-In-Reply-To: <456191a9-f914-4bb3-8cb8-90ed25a13b94@gmx.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fmmf72ypmmooyxszz3l47xabdhvetowgvbmbjmvj6bumuh5onh@pntmny63urbg>
 
-Am 04.09.26 um 22:49 schrieb Armin Wolf:
-> Am 03.09.26 um 09:35 schrieb Aaron Erhardt:
+Hi Ioana,
+
+> Do you mean that the above error messages are triggered by an unbind and
+> bind sequence like below?
 > 
->> Add a new hid-lamparray helper module and integrate it with the
->> hid-generic driver.
->>
->> While more complex lamparray handling should be done in userspace via
->> hidraw, providing a small module to add basic lamparray support makes it
->> possible for userspace software to interact with lamparrays by simply
->> using well-known APIs of the LED subsystem. One use-case would be to
->> enable desktop environments to support keyboard backlight control out of
->> the box for HID lamparray devices without having to implement the whole
->> HID protocol themselves.
->>
->> This patch is based on previous discussions:
->> https://lore.kernel.org/all/1fb08a74-62c7-4d0c-ba5d-648e23082dcb@tuxedocomputers.com/
->>
->> The helper provides basic support for devices exposing a
->> Lighting/LampArray application collection (usage page 0x59) and
->> registers a single-zone RGB LED representation via the LED
->> subsystem.
->>
->> hid-generic now checks for LampArray support after hid_parse() and
->> optionally registers a lamparray instance. Failures in the helper
->> do not abort device probe to keep the driver logic otherwise unchanged.
->>
->> LampArray resources are released on driver remove.
->>
->> This commit was successfully tested on the Microsoft MacroPad reference
->> implementation (https://github.com/microsoft/RP2040MacropadHidSample
->> 1d6c3ad) and in combination with the tuxedo_nb04_wmi driver, albeit
->> only fully functional with a recent fix posted to the LKML
->> (https://lore.kernel.org/all/20260826081149.235487-2-aer@tuxedocomputers.com).
-> 
-> Nice work, it works on my ASUS Prime B650-Plus. However the behavior of the brightness
-> attribute is a bit strange:
-> 
-> - manually setting "brightness" does not change anything (max. is 1)
-> - setting RGB to "0 0 0" causes "brightness" to become 0
-> - setting RGB to a non-zero value causes "brightness" to become 1
-> 
-> Any idea why this happens? I can check if the same problems also exists under Windows,
-> if requested.
-> 
-> Thanks,
-> Armin Wolf
-> 
+> $ echo dprc.1 > /sys/bus/fsl-mc/drivers/fsl_mc_dprc/unbind
+> $ echo dprc.1 > /sys/bus/fsl-mc/drivers/fsl_mc_dprc/bind
 
-It is completely normal for LampArray devices to only offer two brightness
-values (1 and 0) for turning the whole LED on and off. Since a lot of
-userspace software seems to never use brightness (it is more convenient to
-adjust the RGB channels directly), this was not even properly implemented in
-the MacropadHidSample until recently:
-https://github.com/microsoft/RP2040MacropadHidSample/commit/cfc29120a3910c5772976da29ecd57392dfd44d6
+Yes, same sequence on the root DPRC
 
-Thus, I think it is likely, that the implementation is broken and simply
-ignores brightness. The driver just forwards this to the device.
+> I am asking this because I cannot seem to trigger it myself. There is a
+> misc_deregister() which should remove the char device upon unbinding the
+> root DPRC.
 
-However, the RGB values (aka. multi_intensity) should not interfere with the
-brightness. Yet, I wasn't able to reproduce this on the Macropad. Capping the
-brightness to 1 is normal on the other hand, at least if that's the
-maxIntensity reported by your device.
+It does for every normal misc device, but not for this one, because the
+root DPRC's misc device is created classless.
 
-So the only really odd thing for me would be the RGB values influencing the
-brightness. Please provide more detailed feedback if you can since I can't
-reproduce this on the hardware available to me.
+You can check the states with:
+    grep dprc /proc/misc   # e.g. "256 dprc.1"  -> registered
+    ls /sys/class/misc/ | grep dprc
 
-If you want to investigate the LampArray capabilities of your device, you're
-probably better off with userspace tooling like my lampctl fork:
-https://github.com/tuxedo-aer/lampctl
+If dprc.1 shows in /proc/misc but is absent from /sys/class/misc, its
+misc device is classless and the unbind/bind should collide. If it is
+present under /sys/class/misc, it was created after misc_class and the
+sequence is clean on your setup.
 
-You can adjust the hardcoded brightness here to see whether your device honors
-the brightness value or not:
-https://github.com/tuxedo-aer/lampctl/blob/main/crates/lamparray/src/hid.rs#L36
+fsl_mc_bus_driver_init() is a postcore_initcall, it registers both the
+platform and the dprc drivers.
 
->> v5:
->> - Proper hardware detection (no quirks necessary anymore)
->> - Add documentation for new sysfs knob
->> - Pass limits of the device to sysfs (intesities & brightness)
->> - More flexible Kconfig (use tristate)
->> - Improved locking
->> - Several memory leak and (de-)initialization fixes
->> - Don't read current color values from hardware (the HID spec does not
->>    offer this option)
->> - Remove redundant report dump functionality
->> v4:
->> - Restrict CONFIG_HID_LAMPARRAY to built-in configurations only to fix
->>    additional randconfig build errors
->> v3:
->> - Squash V1 and V2 into one patch
->> v2:
->> - Fix Kconfig to avoid build errors when LEDS_CLASS_MULTICOLOR is
->>    disabled
->>
->> Aaron Erhardt (2):
->>    HID: lamparray: add new LampArray helper module
->>    HID: generic: add LampArray support via hid-lamparray helper
->>
->>   .../ABI/testing/sysfs-driver-hid-lamparray    |  16 +
->>   drivers/hid/Kconfig                           |  18 +
->>   drivers/hid/Makefile                          |   2 +
->>   drivers/hid/hid-generic.c                     |  38 +
->>   drivers/hid/hid-lamparray.c                   | 812 ++++++++++++++++++
->>   include/linux/hid-lamparray.h                 |  88 ++
->>   6 files changed, 974 insertions(+)
->>   create mode 100644 Documentation/ABI/testing/sysfs-driver-hid-lamparray
->>   create mode 100644 drivers/hid/hid-lamparray.c
->>   create mode 100644 include/linux/hid-lamparray.h
->>
-> 
+The fsl-mc DT node is populated at arch_initcall_sync, so the root DPRC
+probes synchronously.
 
+dprc_setup() -> fsl_mc_uapi_create_device_file() -> misc_register() runs
+before misc_init() does class_register(&misc_class) at subsys_initcall.
+
+misc_register() does not fail in that window: device_create_with_groups()
+with an unregistered class creates the device with no misc_class
+membership and still returns 0.
+
+-> So at unbind, misc_deregister() -> device_destroy(&misc_class, devt)
+cannot find the device within misc_class, it returns without removing it,
+and then it leaks the device + its /sys/dev/char/10:<minor> link while freeing
+the minor. The next bind reuses the minor and dies on the
+duplicate /sys/dev/char/ entry.
+
+I guess, from my setup, it happens when the root DPRC's misc device is
+created during the early probe, which needs CONFIG_FSL_MC_UAPI_SUPPORT=y,
+fsl-mc built in (not a module), and the root DPRC probe not going through
+EPROBE_DEFER.
+
+If it defers, the retry runs after subsys_initcall, misc_class exists,
+and unbind/bind is clean -> which is probably what you are seeing.
+
+I started to face this issue when I did try to restart
+the MC from Linux userland instead of uboot in order to be able to adapt
+with some DPC changes during the runtime.
+ see https://github.com/vjardin/lx2160-sdx/blob/main/src/lx2160-mc.c
+But I guess this issue should be quite generic.
+
+best regards,
+  Vincent
