@@ -1,105 +1,578 @@
-Received: from va-2-41.ptr.blmpb.com (va-2-41.ptr.blmpb.com [209.127.231.41])
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 606AA37B40A
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:49:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788756553; cv=none; b=nxNOw5BIa5a2a09nYlM1+GOCUJiySFrIYn41gCGctR9jQ8h8BYbpS7LfE6nHily1ctfgjZ2oT0u/TYA42gbRoTN7nHBRWYmPWrBmUtGqgsm7GxJwLf881aQj9QmbkFxnoyio6OYtcLBMm8m4JUMVg+IZLYNxUdvXNIawmkucm1w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788756553; c=relaxed/simple;
-	bh=crTNUsjPG1QiBt7ClQwttBThqcJhYP4ZOoQdLEw/Tug=;
-	h=Subject:Mime-Version:Content-Type:In-Reply-To:Cc:From:Date:To:
-	 Message-Id:References; b=u3xS0BQWDzARJVE5yznRKOQWCRF0GIykDblbMl9Caj9F+u/FdqRQg6wZuxbkSAjjg2Ljd/oWlpy3RhRcsbODGfAyl6v/ABfYZLE4cNOqNV3x4tu210rv42roRstJ/QCIIQ9lgYG511tUs2N8Q/AV8f3XEy9IY2mi+oFV2G/SK60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=ANT2XpbV; arc=none smtp.client-ip=209.127.231.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 410B12DC79F
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:49:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.173
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788756562; cv=pass; b=QQIfg+q2Ptn9QqdmS9XugEfefb6znJbdiSwM64GIxqY1cbgVgvBvoqlG3BT25C51KKjAInUWFDYqkAaWb1g98fJ9nByxlLOkGhCkSKfW4uPfNF2f0q+OOtNTDdvj88JCcdId/Thgqd1bQyWBfSJteiFCmuU3X0UH+jTyThrFkKM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788756562; c=relaxed/simple;
+	bh=4a+m0nUMf7To+f+QbBYuCxxGnkIf/JVqeGIfkyRz3gw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=d7PulTGsk136LJngKb9uxsmXocHgIAi+neRHEuIfIk2JxtoGASk4tTLYG/5EAZpHnI9Q1jjPdu1AUojG6RhMFlKZifU6B6SItdu8g9brOLVQae6sx172X0ypIKTnBrH6OhBuBSyZ89EUeJ+0aS7LZQAgwqHmZwl+zaXI1ez4Ai0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=Qz2wQrJR; arc=pass smtp.client-ip=209.85.208.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="ANT2XpbV"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1788756546;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=crTNUsjPG1QiBt7ClQwttBThqcJhYP4ZOoQdLEw/Tug=;
- b=ANT2XpbVP8okQ8rZUgEYE0CCoqGxKaQF31iTTiwgXwlGesShqe8uNpziOmqXKNmHTQefAv
- 28iacJCrG79wWjYJKEFhfQ/Fagi54VUu2JQr4KI6livCm3yp+fMABg4aujVUyi4zzbFcl5
- AmJiw9v3wBpeh8det6i9aUT02vc9R5fy7dOKG5TQ1PXN/L5ofFJn9+Py0GI59IMVsZnCkT
- Iq0/az/NxwstfjjbBAdiQQ5gwzV3i41syXJ4e9rNVxUIitH7ygk48jtd4Za8kH+a+LSXm8
- eOXMngWsZt78kzy2D2gYtRBNJglnCXaDVBSYt4CvAMZqU935e+onTfBL4icn7Q==
-Subject: Re: Forwarded: [PATCH] check keys size before checksum calculation
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="Qz2wQrJR"
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3a20f06cce6so32036471fa.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 21:49:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788756558; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qhh3G50ZnuVYykZeI3QXqkdmUqP7LAgz73cTV2cXJHEoFmWwZprIJ0yy1xGCh4KTKW
+         XYcfpZxxeaYj0+krZJUFknQ6YgOSbD7lq01rzpmq7TV73f2fkfaBrButn215kdzFs6ZK
+         A5LK4aST5EaHn5/O9bkZJJj8h8m0OC2RkzdRgwhFqWXTmGoENBGgh6paW1WzakjKL2CU
+         hc/k/s7kWhYsOn9hy3yVDi1cuvG6Veuk5twMXAwckonAHVNbTNNhsVsYTZP2tmndkmkr
+         yQxsmbI8YQ2hGntFB0oFR5smqG2zLpmFev512NkFrFdx6AxYaZA0E1wMSiCzNAk+kjjr
+         l05Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=BHVfyifgaW3rIwFNS4IEU0sZK0EOa76cPRMqsXLt5dE=;
+        fh=30CTIFic3LwSwHzfgcsEdyiGz1t4RQpb6sLvCRt66uA=;
+        b=PTDcw4LVseybE7MO9E2dQ6xEd9P/HjXDdiiFNtASVZu2YiMH4f6Tb3qNv4asKfZ0No
+         C6pyoopxR/2pZ28R6hpH6vjfgfnGwHwoiuDEYx4TOjsPjcAfCQpjUZlS4XD8ZBcc4IrO
+         5CZlJvL6D/iRcHvx0F1P4kKDuJUGvjoDnteMXeRXCNez7PlFZZuFS2hiXSIy6Zo1zSid
+         w0C4ieFQA60K6rjDTGFa90QLPJorWxzi4MTcyV65wERX1EntrhPa9KNJAoU8jHjXf24v
+         03thqaJNtWCS5Qcbdkp0NpMP1hrqXVb043b+b5rZZ9ynNGGiTtdETbIGx63mQ4dJnjfb
+         j8Fg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1788756558; x=1789361358; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BHVfyifgaW3rIwFNS4IEU0sZK0EOa76cPRMqsXLt5dE=;
+        b=Qz2wQrJRwvwxLE/BppooxKPzmK6flSw1cINUXUDwi60RlDPBMa2QUR9HfpFxjomWYr
+         wYU3VSiLQErsMcqyWYeM1xVhJ20+6/j5/RUEELOSsR5mvSO+rDBYlKWvGiulOX4S/Ltt
+         smiFMD0DfP93gLWyBtpk/T7naRDCOPhtbCJLiYyjTcyjrPsiGL4NT+Mn5LH2L7SGilet
+         c//Fu4+LIjCBQiYzlXX6vU8ch8SZm5q7Fl/o9JxGxER0YOlOu//O+NQcvsl01xY5M+j1
+         5tJHkV6gIdmEUgYtXNVbjyj0qsSEgAPgFeDY+6wfbSKLG3fVsd/m+qRr9QAXKhiPc6oj
+         ZxpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788756558; x=1789361358;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BHVfyifgaW3rIwFNS4IEU0sZK0EOa76cPRMqsXLt5dE=;
+        b=kKXhRl4iiwxHSa4tsy1cFDESwJ/psykzJuqi+xHkLhOVvCHHoa1T1YZXdDyUKjSbLN
+         0ngf1cSdZH1L8ib/4d7357z/muQ7kNQSovadDGfcStVgb5TgYx06WzQM9BgdtK8H7Qky
+         3AKiteGQvNDgAkIVRUEkLU8yBjmlNsJOw2bPf5F2tOLSA0fY4R3NmBhrhRKFQoU30VKu
+         vRHgghuBFtyWiAYR3ThFqivGT0cUMkA4pga4vnNCXyxugERVtL//gq6NMMC8wvqtlPJV
+         cJCfvSH80Mf9qKplmLCCG2fcBMPrIkBvSz6HOpXUvY4mpdWncjhXbSb8x9x/39tyWYsJ
+         +3Yg==
+X-Forwarded-Encrypted: i=1; AKwUvBwxA/2vMjoAbJnICV00PD8Gxn4NU29RJsOrUitsTfiQ/Ri6w5v2K+OG5wBy34+VUR5OyeVDaziNOiwuJQ4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mOuQzyDyMw4/L+aqVUluBytomlkPusJwPg621auY1Uh6DMgGq/
+	ljVqy952GtKv6dY4dK3n9J3UUYmqfc8r79QTpxFUnElxzF0Qz68dSVCRQnqe2jy46fx1an1x8yT
+	xTntp/TxE+uKIffhgmzMT65eT5CkHkmXd/Fp+tzkPuYo=
+X-Gm-Gg: AYBFou3Zx8iUSHoY3Fz6shIQSI/fB/jWCg1t16p1N6lbnvTcu8WbBgkjIdcM+ud2SgJ
+	iqT7HiS2Uj98xG7jeSAB174FO1FTWPKKyE6+gAwSSqPVHodO/GqIAKYeNtRpnC6oAhJf27h00vA
+	12LLUyjVF7rcRR6bC4T5dMosHiC1Tb+DxGcGgaEWjUeEvI3rVU+p7YOWKbMLmcmGl2rZclw6y52
+	J8OBUZGpji7fUr9OWA/JCWqD30Wav7pIyn537w8NhGWrTMfgx/3nh5vDtrwxtrlp6+EgzTQQ3kH
+	mMtYAKWmKpfudcp/mlBzXhwhnqe3023rWFtUkqfMXcAMR9KCmCETkthF+OOev5DEtamMO+8Qe0k
+	=
+X-Received: by 2002:a2e:a808:0:b0:3a3:364:f783 with SMTP id
+ 38308e7fff4ca-3a35b5ee8dcmr27990621fa.11.1788756558095; Sun, 06 Sep 2026
+ 21:49:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Lms-Return-Path: <lba+26a9e4242+1479d9+vger.kernel.org+colyli@fygo.io>
-In-Reply-To: <6a8018bc.10853dc7.22f513.0008.GAE@google.com>
-Cc: <linux-kernel@vger.kernel.org>, <syzkaller-bugs@googlegroups.com>
-From: "Coly Li" <colyli@fygo.io>
-Date: Mon, 7 Sep 2026 12:48:52 +0800
-X-Original-From: Coly Li <colyli@fygo.io>
-Received: from smtpclient.apple ([120.245.64.136]) by smtp.larksuite.com with ESMTPS; Mon, 07 Sep 2026 04:49:05 +0000
-X-Mailer: Apple Mail (2.3864.700.51.1.1)
-To: "syzbot" <syzbot+cb5b32abe226710cdd8a@syzkaller.appspotmail.com>
-Message-Id: <16EE1A57-5223-45AF-B459-F79D9E74BF58@fygo.io>
-References: <6a8018bc.10853dc7.22f513.0008.GAE@google.com>
+MIME-Version: 1.0
+References: <db1f34ca8461c7b0dc5ec504ea1b99c24b909e34.1788248601.git.zihanx@nebusec.ai>
+ <178875495568.219967.11621753663025675535@kernel.org>
+In-Reply-To: <178875495568.219967.11621753663025675535@kernel.org>
+From: zihan xi <zihanx@nebusec.ai>
+Date: Mon, 7 Sep 2026 12:49:07 +0800
+X-Gm-Features: AcwNN1V2ewuj06MBLkUFsxxzuExG1XuLJXINLUPg6wVvERHAMZf95XYnMI64nCU
+Message-ID: <CAANe3eTFpY9i9xoVK1zsX+uSxUjGG-jH9RP7xNEofHbK1Zfxkw@mail.gmail.com>
+Subject: Re: [PATCH net v2 2/2] mptcp: diag: bound listener bucket lock hold
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	mptcp@lists.linux.dev, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, ncardwell@google.com, 
+	kuniyu@google.com, matttbe@kernel.org, martineau@kernel.org, 
+	geliang@kernel.org, gnault@redhat.com, fw@strlen.de, stable@vger.kernel.org, 
+	vega@nebusec.ai
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-> 2026=E5=B9=B48=E6=9C=8815=E6=97=A5 15:43=EF=BC=8Csyzbot <syzbot+cb5b32abe=
-226710cdd8a@syzkaller.appspotmail.com> =E5=86=99=E9=81=93=EF=BC=9A
->=20
-> For archival purposes, forwarding an incoming command email to
-> linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
->=20
-> ***
->=20
-> Subject: [PATCH] check keys size before checksum calculation
-> Author: subasris1210@gmail.com
->=20
-> #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git =
-ba5cc80fd32665ed609037ff30ede8d194f24aab
->=20
-> Signed-off-by: Subasri S <subasris1210@gmail.com>
+On Mon, Sep 7, 2026 at 12:22=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
+te:
+>
+> Thank you for your contribution! Sashiko AI review found 6 potential
+> issue(s) to consider:
+>
+> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 3 =C2=B7 Low: 2
+>
+> - [High] Use-after-free introduced by the new deferred processing loop in
+>   mptcp_diag_dump_listeners().
+> - [Medium] The patch silently changes which MPTCP listeners the dump
+>   reports, and the commit message does not mention it.
+> - [Medium] mptcp_diag_dump_listeners() mixes two incompatible counting
+>   bases for the resume index diag_ctx->l_num.
+> - [Medium] mptcp_diag_dump_listeners() performs all
+>   identity/authorization checks on the parent MPTCP socket=E2=80=A6
+> - [Low] Commit message of "mptcp: diag: bound listener bucket lock hold"
+>   carries Fixes: 4fa39b701ce9 + Cc: stable + Reported-by:, but never=E2=
+=80=A6
+> - [Low] In the new post-lock loop of mptcp_diag_dump_listeners()
+>   (net/mptcp/mptcp_diag.c), `tmp =3D ctx ?
+>
+> --
+>
+> mptcp: diag: bound listener bucket lock hold
+>
+> This reworks mptcp_diag_dump_listeners() so that the listener bucket lock=
+ is
+> only held while collecting up to MPTCP_DIAG_BULK_SZ referenced listener
+> sockets, with the ULP/property re-checks, the parent msk reference and
+> sk_diag_dump() moved outside the lock.  A referenced dump cursor is kept =
+in
+> cb->data so later batches resume after the previous listener instead of
+> rescanning the bucket prefix.
+>
+> v1 Link: https://lore.kernel.org/all/cover.1785307984.git.zihanx@nebusec.=
+ai/
+>
+> > diff --git a/include/linux/inet_diag.h b/include/linux/inet_diag.h
+> > index 6ccd32bc48f91..4859e77a28c7a 100644
+> > --- a/include/linux/inet_diag.h
+> > +++ b/include/linux/inet_diag.h
+> > @@ -39,6 +39,7 @@ enum inet_diag_dump_cursor_type {
+> >       INET_DIAG_DUMP_CURSOR_TCP_LISTEN,
+> >       INET_DIAG_DUMP_CURSOR_TCP_BIND,
+> >       INET_DIAG_DUMP_CURSOR_TCP_EHASH,
+> > +     INET_DIAG_DUMP_CURSOR_MPTCP_LISTEN,
+> >  };
+>
+> [Severity: Low]
+> Two questions about the changelog for this one.
+>
+> First, the message says the lock hold time "can therefore grow with the
+> number of sockets visited", but it never states the observed symptom.  Wa=
+s
+> this a soft lockup, an RCU stall, or measured contention on ilb->lock?  G=
+iven
+> the Fixes: 4fa39b701ce9 and Cc: stable tags plus the Reported-by:, could =
+the
+> symptom be spelled out?
+>
+> Second, could the backport dependency be mentioned?  enum
+> inet_diag_dump_cursor_type does not exist in the tree this applies on top=
+ of:
+>
+>   git grep inet_diag_dump_cursor_type <base>   -> no match
+>
+> The whole enum, cb_data->dump_cursor, dump_cursor_slot, dump_cursor_type =
+and
+> inet_diag_dump_clear_cursor() come from the immediately preceding patch o=
+f
+> this series, "tcp: diag: bound bucket lock hold in tcp_diag_dump()".  Sta=
+ble
+> trees carrying 4fa39b701ce9 cannot take this patch on its own, and nothin=
+g in
+> the message says so.
+>
+> > diff --git a/net/mptcp/mptcp_diag.c b/net/mptcp/mptcp_diag.c
+> > index 136c2d05c0eeb..37b33ea5d79de 100644
+> > --- a/net/mptcp/mptcp_diag.c
+> > +++ b/net/mptcp/mptcp_diag.c
+> > @@ -12,6 +12,19 @@
+> >  #include <net/netlink.h>
+> >  #include "protocol.h"
+> >
+> > +/* Process a bounded number of listeners per bucket lock hold. */
+> > +#define MPTCP_DIAG_BULK_SZ 16
+> > +
+> > +static void mptcp_diag_save_cursor(struct inet_diag_dump_data *cb_data=
+,
+> > +                                unsigned int slot, struct sock *sk)
+> > +{
+> > +     sock_hold(sk);
+> > +     inet_diag_dump_clear_cursor(cb_data);
+> > +     cb_data->dump_cursor =3D sk;
+> > +     cb_data->dump_cursor_slot =3D slot;
+> > +     cb_data->dump_cursor_type =3D INET_DIAG_DUMP_CURSOR_MPTCP_LISTEN;
+> > +}
+> > +
+>
+> [ ... ]
+>
+> > @@ -84,64 +98,102 @@ static void mptcp_diag_dump_listeners(struct sk_bu=
+ff *skb, struct netlink_callba
+> >       hinfo =3D net->ipv4.tcp_death_row.hashinfo;
+> >
+> >       for (i =3D diag_ctx->l_slot; i <=3D hinfo->lhash2_mask; i++) {
+> > +             struct sock *tmp, *sk, *sk_arr[MPTCP_DIAG_BULK_SZ];
+> >               struct inet_listen_hashbucket *ilb;
+> > +             int num_arr[MPTCP_DIAG_BULK_SZ];
+> >               struct hlist_nulls_node *node;
+> > -             struct sock *sk;
+> > -             int num =3D 0;
+> > +             int accum, idx, num, ret;
+> > +             struct sock *cursor;
+> > +             bool use_cursor;
+> >
+> > +resume_listen_walk:
+> > +             num =3D 0;
+> > +             accum =3D 0;
+> >               ilb =3D &hinfo->lhash2[i];
+> > +             ret =3D 0;
+> >
+> >               rcu_read_lock();
+> >               spin_lock(&ilb->lock);
+> > -             sk_nulls_for_each(sk, node, &ilb->nulls_head) {
+> > -                     const struct mptcp_subflow_context *ctx =3D mptcp=
+_subflow_ctx(sk);
+> > -                     struct inet_sock *inet =3D inet_sk(sk);
+> > -                     int ret;
+> > -
+> > -                     if (num < diag_ctx->l_num)
+> > -                             goto next_listen;
+> > -
+> > -                     if (!ctx || strcmp(inet_csk(sk)->icsk_ulp_ops->na=
+me, "mptcp"))
+> > -                             goto next_listen;
+> > -
+> > -                     sk =3D ctx->conn;
+> > -                     if (!sk || !net_eq(sock_net(sk), net))
+> > -                             goto next_listen;
+> > -
+> > -                     if (r->sdiag_family !=3D AF_UNSPEC &&
+> > -                         sk->sk_family !=3D r->sdiag_family)
+> > -                             goto next_listen;
+> > -
+> > -                     if (r->id.idiag_sport !=3D inet->inet_sport &&
+> > -                         r->id.idiag_sport)
+> > +             cursor =3D cb_data->dump_cursor;
+> > +             use_cursor =3D cursor &&
+> > +                          cb_data->dump_cursor_type =3D=3D
+> > +                          INET_DIAG_DUMP_CURSOR_MPTCP_LISTEN &&
+> > +                          cb_data->dump_cursor_slot =3D=3D i &&
+> > +                          inet_sk_state_load(cursor) =3D=3D TCP_LISTEN=
+ &&
+> > +                          !hlist_nulls_unhashed(&cursor->sk_nulls_node=
+) &&
+> > +                          cursor->sk_nulls_node.pprev !=3D LIST_POISON=
+2 &&
+> > +                          inet_lhash2_bucket_sk(hinfo, cursor) =3D=3D =
+ilb;
+> > +             node =3D use_cursor ? cursor->sk_nulls_node.next :
+> > +                                 ilb->nulls_head.first;
+> > +             hlist_nulls_for_each_entry_from(sk, node, sk_nulls_node) =
+{
+> > +                     if (!use_cursor && num < diag_ctx->l_num)
+> >                               goto next_listen;
+>
+> [Severity: Medium]
+> Are the two resume mechanisms here using the same counting base for
+> diag_ctx->l_num?
+>
+> This test counts entries from the bucket head, but at resume_listen_walk =
+num
+> is reset to 0 and, when use_cursor is true, the walk starts at
+> cursor->sk_nulls_node.next, i.e. mid-bucket.  The values stashed in num_a=
+rr[]
+> and later stored are therefore cursor-relative and bounded by 0..15:
+>
+>         if (ret >=3D 0) {
+>                 ret =3D sk_diag_dump(tmp, skb, cb, r, net_admin);
+>                 if (ret < 0)
+>                         num =3D num_arr[idx];
+>         }
+>         ...
+>         if (ret < 0) {
+>                 diag_ctx->l_slot =3D i;
+>                 diag_ctx->l_num =3D num;
+>                 return;
+>         }
+>
+> Walking a bucket with more than 16 matching listeners:
+>
+>   batch 1: 16 listeners dumped, cursor saved on e15
+>   goto resume_listen_walk with diag_ctx->l_num =3D 0, use_cursor true, so=
+ num
+>     now counts from e16
+>   skb fills at idx 5, so diag_ctx->l_num =3D 5 while the real bucket offs=
+et
+>     is 21
+>   the cursor socket is closed before the next recvmsg(), use_cursor becom=
+es
+>     false, and the walk resumes at bucket position 5
+>
+> Does that re-emit e5..e19, and, if entries were removed in the meantime a=
+nd
+> positions shifted, silently drop listeners that were never reported?
+>
+> The peer implementation of the same cursor protocol from the preceding pa=
+tch,
+> tcp_diag_dump(), zeroes the positional counter when the cursor is unusabl=
+e:
+>
+>         node =3D use_cursor ? cursor->sk_nulls_node.next : ilb->nulls_hea=
+d.first;
+>         if (!use_cursor)
+>                 s_num =3D 0;
+>
+> Should mptcp_diag_dump_listeners() do the same so the two bases are never
+> mixed?  The intra-call restart also forces diag_ctx->l_num =3D 0 before g=
+oto
+> resume_listen_walk, so a cursor invalidated between lock drops restarts t=
+he
+> bucket at the head within a single dump call.
+>
+> >                       if (!refcount_inc_not_zero(&sk->sk_refcnt))
+> >                               goto next_listen;
+> >
+> > -                     ret =3D sk_diag_dump(sk, skb, cb, r, net_admin);
+> > -
+> > -                     sock_put(sk);
+> > -
+> > -                     if (ret < 0) {
+> > -                             spin_unlock(&ilb->lock);
+> > -                             rcu_read_unlock();
+> > -                             diag_ctx->l_slot =3D i;
+> > -                             diag_ctx->l_num =3D num;
+> > -                             return;
+> > -                     }
+> > -                     diag_ctx->l_num =3D num + 1;
+> > -                     num =3D 0;
+>
+> [Severity: Medium]
+> Removing this "l_num =3D num + 1; num =3D 0;" pair changes which listener=
+s the
+> dump reports, and the changelog does not mention it.
+>
+> In the pre-patch loop the skip test was "if (num < diag_ctx->l_num)" whil=
+e
+> num was reset to 0 after every successful dump and l_num kept growing, so=
+ for
+> a bucket e0..e6 the emitted set was e0, e1, e3, e6:
+>
+>   e0 dumped -> l_num =3D 1, num =3D 0 then ++num =3D 1
+>   e1 dumped -> l_num =3D 2, num =3D 1
+>   e2 hits 1 < 2 and is skipped
+>   e3 dumped -> l_num =3D 3
+>   e4, e5 skipped
+>
+> The new code keeps num monotonic and applies the skip test only in the
+> non-cursor fallback, so every collected listener is processed.  Is that t=
+he
+> actual user-visible defect being fixed here?  ss -Ml output changes (more
+> listeners reported) on any host with three or more MPTCP listeners hashin=
+g
+> into the same lhash2 bucket, and this seems worth stating in the message,
+> along with whether it belongs in the same patch as the lock-hold change.
+>
+> > +                     num_arr[accum] =3D num;
+> > +                     sk_arr[accum] =3D sk;
+> > +                     if (++accum =3D=3D MPTCP_DIAG_BULK_SZ)
+> > +                             break;
+> >  next_listen:
+> >                       ++num;
+> >               }
+> >               spin_unlock(&ilb->lock);
+> >               rcu_read_unlock();
+> >
+> > +             for (idx =3D 0; idx < accum; idx++) {
+> > +                     const struct mptcp_subflow_context *ctx;
+> > +                     const struct tcp_ulp_ops *ulp_ops;
+> > +                     struct inet_sock *inet;
+> > +
+> > +                     sk =3D sk_arr[idx];
+> > +                     rcu_read_lock();
+> > +                     ctx =3D rcu_dereference(inet_csk(sk)->icsk_ulp_da=
+ta);
+> > +                     ulp_ops =3D READ_ONCE(inet_csk(sk)->icsk_ulp_ops)=
+;
+> > +                     inet =3D inet_sk(sk);
+> > +                     tmp =3D ctx ? ctx->conn : NULL;
+>
+> [Severity: High]
+> Can this read freed memory?  The rcu_read_lock() here is entered after
+> spin_unlock(&ilb->lock) and rcu_read_unlock() above, so it cannot extend =
+a
+> grace period that already started.
+>
+> The collection loop only took sk_refcnt on the listener subflow, which do=
+es
+> not keep the ULP context alive:
+>
+>   __tcp_close()
+>     tcp_set_state(sk, TCP_CLOSE)
+>     inet_unhash(sk)               /* takes ilb->lock, free once diag drop=
+s it */
+>     inet_csk_destroy_sock()
+>       sk->sk_prot->destroy(sk)
+>         tcp_v4_destroy_sock()
+>           tcp_cleanup_ulp()
+>             subflow_ulp_release()
+>
+> and net/mptcp/subflow.c:subflow_ulp_release() drops the msk reference and
+> frees the context:
+>
+>         sk =3D ctx->conn;
+>         if (sk) {
+>                 ...
+>                 sock_put(sk);
+>         }
+>         mptcp_subflow_ops_undo_override(ssk);
+>         if (release)
+>                 kfree_rcu(ctx, rcu);
+>
+> net/ipv4/tcp_ulp.c:tcp_cleanup_ulp() clears only icsk_ulp_ops:
+>
+>         if (icsk->icsk_ulp_ops->release)
+>                 icsk->icsk_ulp_ops->release(sk);
+>         module_put(icsk->icsk_ulp_ops->owner);
+>
+>         icsk->icsk_ulp_ops =3D NULL;
+>
+> icsk_ulp_data is never unpublished on this path (subflow_ulp_fallback() d=
+oes
+> rcu_assign_pointer(icsk->icsk_ulp_data, NULL), this path does not).  If
+> kfree_rcu(ctx) was queued before this loop iteration re-entered
+> rcu_read_lock(), the grace period does not cover this reader, so
+> rcu_dereference(inet_csk(sk)->icsk_ulp_data) can return a freed and reuse=
+d
+> slab object, and ctx->conn is dereferenced before the !ulp_ops guard is e=
+ven
+> evaluated.
+>
+> The loop is also preemptible for up to 15 preceding sk_diag_dump() /
+> inet_diag_bc_sk() invocations with request-supplied bytecode, which widen=
+s the
+> window.  Does the commit message claim ("After dropping the lock, read
+> icsk_ulp_data with rcu_dereference()") hold here, or do ctx and the paren=
+t msk
+> reference have to be acquired while ilb->lock is still held, as the pre-p=
+atch
+> code did?
+>
+> [Severity: Low]
+> Separately, is it intentional that ctx->conn is loaded before the check t=
+hat
+> the ULP is actually "mptcp"?  The collection loop under ilb->lock no long=
+er
+> filters by ULP at all, so listeners with a foreign ULP context now reach =
+this
+> loop, and the read happens at offsetof(struct mptcp_subflow_context, conn=
+)
+> inside an object of an unrelated type.
+>
+> net/xfrm/espintcp.c:espintcp_init_sk() publishes its own object with
+> rcu_assign_pointer(icsk->icsk_ulp_data, ctx) and, unlike tls_init(), has =
+no
+> TCP-state restriction, so an unprivileged setsockopt(TCP_ULP, "espintcp")
+> followed by listen() puts such a socket into lhash2.
+>
+> struct espintcp_ctx is larger than that offset today, so the read stays i=
+nside
+> the allocation and the loaded value is discarded by the failing strcmp().
+> Still, the pre-patch code did the strcmp() first and never touched a fore=
+ign
+> context.  Could the ctx->conn load be moved after the ULP name check?
+>
+> > +                     if (!ctx || !ulp_ops || strcmp(ulp_ops->name, "mp=
+tcp") ||
+> > +                         !tmp || !net_eq(sock_net(tmp), net) ||
+> > +                         (r->sdiag_family !=3D AF_UNSPEC &&
+> > +                          tmp->sk_family !=3D r->sdiag_family) ||
+> > +                         (r->id.idiag_sport !=3D inet->inet_sport &&
+> > +                          r->id.idiag_sport) ||
+> > +                         !refcount_inc_not_zero(&tmp->sk_refcnt)) {
+> > +                             rcu_read_unlock();
+> > +                             goto processed_listener_sk;
+> > +                     }
+> > +                     rcu_read_unlock();
+> > +                     if (ret >=3D 0) {
+> > +                             ret =3D sk_diag_dump(tmp, skb, cb, r, net=
+_admin);
+> > +                             if (ret < 0)
+> > +                                     num =3D num_arr[idx];
+> > +                     }
+> > +                     sock_put(tmp);
+>
+> [Severity: Medium]
+> Does this need a re-validation after refcount_inc_not_zero(&tmp->sk_refcn=
+t)?
+>
+> All the identity and scoping checks on the parent msk (net_eq(sock_net(tm=
+p),
+> net), sdiag_family, idiag_sport) run before the reference is taken, and
+> nothing is re-checked afterwards.  mptcp_prot uses SLAB_TYPESAFE_BY_RCU:
+>
+> net/mptcp/protocol.c:
+>         .slab_flags     =3D SLAB_TYPESAFE_BY_RCU,
+>
+> so rcu_read_lock() only guarantees type stability, not identity.  If
+> subflow_ulp_release() already dropped the last reference via
+> sock_put(ctx->conn), the object can be recycled as a different MPTCP sock=
+et
+> inside this reader's RCU section, refcount_inc_not_zero() then succeeds, =
+and
+> sk_diag_dump(tmp, ...) serializes that socket's addresses, ports, uid, co=
+okie
+> and state into the reply, possibly from another namespace.
+>
+> The in-tree pattern for this slab, net/mptcp/token.c:mptcp_token_get_sock=
+(),
+> re-checks after the acquisition:
+>
+>         if (!refcount_inc_not_zero(&sk->sk_refcnt))
+>                 goto not_found;
+>
+>         if (READ_ONCE(msk->token) !=3D token ||
+>             !net_eq(sock_net(sk), net)) {
+>
+> Should the same re-check be done here?  Pre-patch the conn read and the m=
+sk
+> refcount acquisition both happened under ilb->lock with the subflow still
+> hashed, so the reference held by ctx was still alive.
+>
+> > +processed_listener_sk:
+> > +                     if (ret >=3D 0)
+> > +                             mptcp_diag_save_cursor(cb_data, i, sk);
+> > +                     sock_put(sk);
+> > +             }
+> > +
+> > +             if (ret < 0) {
+> > +                     diag_ctx->l_slot =3D i;
+> > +                     diag_ctx->l_num =3D num;
+> > +                     return;
+> > +             }
+> > +
+> >               cond_resched();
+> > +
+> > +             if (accum =3D=3D MPTCP_DIAG_BULK_SZ) {
+> > +                     diag_ctx->l_num =3D 0;
+> > +                     goto resume_listen_walk;
+> > +             }
+> > +
+> > +             inet_diag_dump_clear_cursor(cb_data);
+> >               diag_ctx->l_num =3D 0;
+> >       }
+> >
+> > +     inet_diag_dump_clear_cursor(cb_data);
+> >       diag_ctx->l_num =3D 0;
+> >       diag_ctx->l_slot =3D i;
+> >  }
+>
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/cover.1788248601.git.zihanx%40nebusec.ai
 
-The above content seems not like a formal commit log? It is too simple, no =
-explicit clue and
-connection to the following change.
-
-> ---
-> drivers/md/bcache/super.c | 5 +++++
-> 1 file changed, 5 insertions(+)
->=20
-> diff --git a/drivers/md/bcache/super.c b/drivers/md/bcache/super.c
-> index 97d9adb0bf96..49b3a2231820 100644
-> --- a/drivers/md/bcache/super.c
-> +++ b/drivers/md/bcache/super.c
-> @@ -204,6 +204,11 @@ static const char *read_super(struct cache_sb *sb, s=
-truct block_device *bdev,
-> if (memcmp(sb->magic, bcache_magic, 16))
-> goto err;
->=20
-> +
-> + err =3D "Too many journal buckets";
-> + if (sb->keys > SB_JOURNAL_BUCKETS)
-> + goto err;
-> +
-> err =3D "Bad checksum";
-> if (s->csum !=3D csum_set(s))
-> goto err;
-
-
-Normally if bcache works correctly, the journal blocks record will always b=
-e correct. How do you trigger
-this condition to happen? If it is from a corrupt super block, this check d=
-oesn=E2=80=99t make sense, because the
-next one is to verify the checksum, checking super block members before ver=
-ifying its checksum doesn=E2=80=99t
-help IMHO.
-
-Or any information that I missed?
-
-Thanks.
-
-Coly Li
+- UAF on icsk_ulp_data/ctx after dropping ilb->lock: valid
+- mixing cursor-relative and absolute l_num: valid
+- dropping "l_num =3D num + 1; num =3D 0" changes the reported set:
+  valid as a behavior change, not a regression
+- no re-check after msk refcount_inc_not_zero(): valid for the
+  lockless path
+- changelog/stable dependency on 0001: valid as documentation
+- loading ctx->conn before the ULP name check: valid as ordering,
+  not currently an OOB
