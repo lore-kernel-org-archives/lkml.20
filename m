@@ -1,123 +1,175 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5C75353A6F
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:53:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B494156DA
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:53:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788767589; cv=none; b=VkCx+7iOVQCqAKFyCVXEQyBTtVknAvGo5wcpUjKSGwuphziJJDtH7i0l+Re6gDPgW4KFOl5O0GnwmgwYi0g8M/6Y4vHpmC5UQ5LacNjqvCWjVA2ZaZnLTwiq4BNqLRlOVcI03xvvkBBowYW77n3Og1m6LzAJI8AydPJw9vXKj5g=
+	t=1788767598; cv=none; b=mHvdPMctJCMTTQa31N4RITfwZzEtBwFBdR8FHSI36Zr6lAXNty1wvNM0PZWJH3ZRmS1RemsxaTrEZivdBDm0m6/YQr3+Ra2tTb4xTeF0mP6DC9mxzaiaqDW2Xe0I8jSOH3d9sT8jYABAwf0CD4V2izEAnZ1QOPaVxBMu0VQ+dWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788767589; c=relaxed/simple;
-	bh=8xX4xD5K8txlJzZzy3xE60HFJ1/eyfY0yVprq5JvpsE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=UZ+Kfglm/SGfvnSgrTA8joHHAIwvg40pegQRCZQTXF6Iuj4y8M0I1A/e/YuSwemLAXgdxGzxY5CV8poA1fRjwaq32clHDu1n1PYZsfA7WO2yjMgMvCnxB+mu3ZM/cMkPjwgC6VuYPVsWvneOWKjgOZ7Kch+S/y4aqKjUQY1PTfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ep1Tx18j; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1788767598; c=relaxed/simple;
+	bh=smhBSOCgTJhbT/0tl4vdE8GcuFKDdQa/HesmddcZaEI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=S/HLZbBfwY5GKnKNXyOI3sID04FzrcpX1szC6j/474zKNLl5f4eMmfd60P/EaWMUyvjJ9bcsmwgB8mNqha/C8G3vHbJPiVAjq0NBDZLwrPzP4zGO1aBZZx9jEogfNz3qMbFdh/jjT5NurkehhoWL0X5U5mdf9opn1ZiyleP/nFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ep1Tx18j"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48436251906so3668105f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 00:53:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788767586; x=1789372386; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=LWm7EBXqtORA9y3VkC/oQd5/rS2zUBKOaOuWn3r0D+g=;
-        b=ep1Tx18jyIQPuEw0cQvZ2oukB+zqkafC8tXbTcETS1G6khgPISddG83yOZrQkg7JDl
-         1novmlb5MWM/0NWKXZABckTuALgUHzLoQzpw+knGslzU/zOa4qRo9aEUgXwxxo2G7/N6
-         0XtCbt6VMjoovgLMf7ejhhubVFDU3FEGPoKS5cX9wnoZc0h7tzeI6H+RowGvuRVSFM2j
-         OngLXlLKpRfuZ6ok4kvi+soTyU4qByLLerVrlidGLSy8tss6PShsyL4CCshCiY/qWQKe
-         W4U0DqzRUGH8gSjwJZMDO0kQKCuvhNJ8QA3835TsaGWou6zZ4nfH1g1t4OxcJQy7SFWq
-         hMoQ==
+Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-97ca74bd6e0so609193241.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 00:53:16 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788767586; x=1789372386;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=LWm7EBXqtORA9y3VkC/oQd5/rS2zUBKOaOuWn3r0D+g=;
-        b=obqMofeYV4k24e3Lwxg8c12R54jEm4Gc4jD7Q2bdxcmOxItB0wnO7erontDA1H9m8C
-         opyFrSsngOcbcuDdv654vgXGgmuOHDReZQQlFHlURpKiwafKPgsNosXMkW40B839EGXg
-         VVtN5tSyJNXcLIzIZX7IjRhEVkZx8pmCmJ0z6A0MTfEAdgjdzzqox0BIVQ/uD+zmS+jH
-         ddBJ2ET+YoSvrFuwkQYjdIYiajqn11wAZShvAFDVneM6pFPj5Nm/0DIh/MeNqwh1aZyZ
-         6GEj4WSRvv9YQYxNQr/Papap6PFof4dNMY8wa85z0C23+ijXC/qMy5l019lQZVcQ+qqK
-         VRaw==
-X-Forwarded-Encrypted: i=1; AKwUvBxSJi3ScjXbQ6B+CXDvEO3t0ONA/2pVqiSzaKXgOqy/B4g2HArQ7ltVWa8BBfiSxlrS7EkwFZf0NMjrnLE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mpT5c4Yx2UXBdbgZ4BS0y6Fobo2w/UiLJBXuer/oKofynfv3ga
-	KvtgJG0/myxQs+osovlgL0TnXgZgE45H+0Z8B+ByeRKJi3aGSD7IW6Fr
-X-Gm-Gg: AYBFou34qXCOqWLQlwfmTim560oN78LARhCXqpu/hXfNha93g6D2iuqUE5lkjxG4SGN
-	UZsqUMNeHP1wLE8nXF1h9zcVJtTJqbuDc6jsYXJqdpOT27vwmfpqXvC6kc4huWMAQtuyp28AIA/
-	HWQdfTkKNBnURrVeI8JRhULAgnyFNnU6cFkBeEysE58Us6t1qfQoKg7i2NxlLDZuNR3Qt9Okbny
-	J2dDEaoalnVrRwjbYw9CiAyx6/0p3c2Urse0QfYU29HWZ7zkwLS/bV6spj3DFGc5mZ1OXpZPCZd
-	l1CaFITMOChgDJND8dlrKetcE11RCBoiab+DhK+dPnXOf4dXTAhsZuC6Vdhw+4f3jlWPw/6oMdo
-	7fWeG6bjGP1zbjW6Kquxm0sRLFvdxigJjjv5GjR0+/rhPTU5cnZ8UZYgyClOL7TxdpHQmwrld3v
-	Xxm9MZt03GtqNOGAu+s2il+B201VH9Zib60aeGiEJSyN/QkHJG/x7ZCKdPO1erdMdstH1CUPViI
-	osAGsxFHJbonQ4UMQu4ws86vxdjIhjB1W3dlyOBShAKr1g=
-X-Received: by 2002:a05:600c:3f12:b0:49c:c8de:96a9 with SMTP id 5b1f17b1804b1-49cf7fdd2dfmr411193075e9.2.1788767585604;
-        Mon, 07 Sep 2026 00:53:05 -0700 (PDT)
-Received: from [127.0.1.1] (lmontsouris-656-1-83-121.w82-127.abo.wanadoo.fr. [82.127.110.121])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cffdb2c40sm168377745e9.1.2026.09.07.00.53.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 00:53:05 -0700 (PDT)
-From: Amin Gattout <amin.gattout@gmail.com>
-Date: Mon, 07 Sep 2026 09:52:45 +0200
-Subject: [PATCH] media: synopsys: hdmirx: Remove redundant dev_err_probe()
+        d=1e100.net; s=20251104; t=1788767595; x=1789372395;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xuQ9W/PlY4yeKBUrhKIeC1+yJYAlbcdcEFZm5XOVUho=;
+        b=VLVAPTCLvHgZ55MUdcE+V5KIIoouLEmYCapLq1t86YPSZSf0Ro7825mcGGQ10HYgDK
+         0IT2tS5PPtD9SIOBCQz8wVERZ2bdPQII2z+kww4N2JEVbQ4YEQFYhcT1mY8RsXiUuW0j
+         fEwMm31A0J+EUtz1h/+mzNfJ4h+SbgLKxu7T0l3xUFqipejtJ0Th0GyvyaQoQSWy3868
+         dSSR1KA1CVuZZojGIEVEWrYjg7yoZAH9bL0z8nohss/dg1p5mGJrdlUJTAPieKNUd+xG
+         uScqNwwt/mFFst0xcUwSa9NOB9BzvwMaLRpaiuuY//WGxGfRbrgzv9Ss/6R3Dkd10RiU
+         +9pw==
+X-Forwarded-Encrypted: i=1; AKwUvBxe/s5eArgRNOhDBx6Dej7/U4Co3VFepk3wcLmODdZdpNcg/4FwIXNugOhy2GjVjks9PQxY/Tf5V5CW2BI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kTr7BcaULAy0trEseVwcFVMX7kW7KjNGUxdBSrmxwspZQyQ1lZ
+	0BTmiMV4W8he/r+BVdQiAHMkBQe1oU1P4td7ixaHbUP2FGecONrRHsei50z3WldA
+X-Gm-Gg: AYBFou0j9Ar0/79sGTpjP6YUvltP3Dq00YLudQjIKE0wrYlpxu4Nd0kw/uRHSZfa20m
+	Ob+ep/Rj9ZRDazzPWRcohFwiI2Vis2MWeUVl+aP8mVUknBLERd4ZcDCCWt0MTQMym1ph9Ba3VSH
+	H9bhZbuRZCSe4arhiHYJscdeRwh+Q+ce+0K4mTSNrl85hfHVdmzP/+xsYQeiDE2GFh1b13l4enH
+	G8uJnFajq/fsyHqtI1kI6gYQVRr8hRsV21cIkMxUxyaTfG5zFCVDmRuMlHe8FfBNEbzhtpcZgSW
+	hBkKy62R1JT51zNtixp9DewgvEpFmSl+akKhrRrP2w+CPC/gS8INCMhZWIwYY3LCcuwEwk59BNu
+	0prAG1i4HTBPCszoI0m8jpPKLNbS2duDJwezTktKtKy1TrSiqB4geN9QwykHxibjuLOSUHR57az
+	phB503UB62+Sxy2SlwUkrEz534EsPfmec/d56CqVXMnlTw4mY5jrx/3DWaLHJzDq5TkSy5/VY9k
+	FLnDFgiK8XV3hE3SvtH0sovIg==
+X-Received: by 2002:a05:6102:41a9:b0:784:4d38:ef58 with SMTP id ada2fe7eead31-78a4a57f683mr6536415137.0.1788767595081;
+        Mon, 07 Sep 2026 00:53:15 -0700 (PDT)
+Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com. [209.85.217.51])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-78a47a76512sm6564499137.4.2026.09.07.00.53.14
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 00:53:14 -0700 (PDT)
+Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-785d603efdeso1049230137.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 00:53:14 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwHvg0M4w7RZ3JnKlR8Jsv8M3h0qscMbv+4oCJG/1x4ONzCcumqHfNbU9RXBYp/q+oKGcqCTGELrSsPfdM=@vger.kernel.org
+X-Received: by 2002:a05:6102:160f:b0:781:210d:28aa with SMTP id
+ ada2fe7eead31-78a4a8be7c5mr7302331137.2.1788767593777; Mon, 07 Sep 2026
+ 00:53:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-snps_hdmirx-v1-1-760dccc4664c@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAExtnmoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDSwNz3eK8guL4jJTczKIKXfNEY4Pk5GRTs0QTSyWgjoKi1LTMCrBp0bE
- QfnFpUlZqcgnICKXaWgBTN6fBbwAAAA==
-X-Change-ID: 20260907-snps_hdmirx-7a30ccc56a49
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, kernel@collabora.com, 
- linux-kernel@vger.kernel.org, Amin Gattout <amin.gattout@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788767584; l=1228;
- i=amin.gattout@gmail.com; s=20260818; h=from:subject:message-id;
- bh=8xX4xD5K8txlJzZzy3xE60HFJ1/eyfY0yVprq5JvpsE=;
- b=hgTm6Y51CD9FAcrGJmyN5tMTgy6Mf3aon2rY7fbe7pVWabcFvJdMBlZcx/ANLnHPglvXUOfPS
- UknZVY669m+AZRFG7zeDvPD8F7iEvqWiBO7523gnxTyI+PZeDY/lf6r
-X-Developer-Key: i=amin.gattout@gmail.com; a=ed25519;
- pk=MSIqDPkCOkwtyP8Fns1m+KFU9SgqoDl2mpLe18vL+hQ=
+References: <20260704151521.211335-1-marek.vasut+renesas@mailbox.org>
+ <20260704151521.211335-2-marek.vasut+renesas@mailbox.org> <CAMuHMdUapaP-8kkWT5cXtEO1h58aAzzm34XqO_mcrgbVSyXEwg@mail.gmail.com>
+ <b516bf77-fb15-41f2-80ac-b80c621fedd1@mailbox.org>
+In-Reply-To: <b516bf77-fb15-41f2-80ac-b80c621fedd1@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 7 Sep 2026 09:53:02 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWb2Qk=heWhwFh4TsEggHOmzTd4Lj-vG6kXjRVMDDUG2A@mail.gmail.com>
+X-Gm-Features: AcwNN1WhmE54lrhOaJPOpMY7QFz8OZQIiZjO28-2Vei5FzrroiSGFpU4hWAgaFM
+Message-ID: <CAMuHMdWb2Qk=heWhwFh4TsEggHOmzTd4Lj-vG6kXjRVMDDUG2A@mail.gmail.com>
+Subject: Re: [PATCH 2/2] gpio: rcar: Add R-Car X5H (R8A78000) support
+To: Marek Vasut <marek.vasut@mailbox.org>
+Cc: linux-gpio@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The devm_request_threaded_irq() function now automatically logs detailed
-error messages on failure. This eliminates the need for driver-specific
-dev_err_probe() calls that print generic messages.
+Hi Marek,
 
-Signed-off-by: Amin Gattout <amin.gattout@gmail.com>
----
- drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+On Sat, 5 Sept 2026 at 23:57, Marek Vasut <marek.vasut@mailbox.org> wrote:
+> On 9/4/26 1:15 PM, Geert Uytterhoeven wrote:
+> >> +++ b/drivers/gpio/gpio-rcar.c
+> >
+> >> @@ -65,14 +66,59 @@ struct gpio_rcar_priv {
+> >>
+> >>   #define RCAR_MAX_GPIO_PER_BANK         32
+> >>
+> >> +static inline int gpio_rcar_remap_offset(struct gpio_rcar_priv *p, int *offs)
+> >
+> > IMO passing a pointer to offs complicates the code.  Perhaps pass offs
+> > by value, and return the adjusted offset or a negative error code?
+>
+> I want to avoid that, since if I only return error value, I can then do
+> simple:
+>
+> ret = gpio_rcar_remap_offset(...);
+> if (ret)
+>    return ret;
+>
+> in gpio_rcar_read() and gpio_rcar_write(), which are the only two call
+> sites of this function.
 
-diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-index 25f8ca0d6d94..b456138c381a 100644
---- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-+++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-@@ -2595,10 +2595,8 @@ static int hdmirx_setup_irq(struct snps_hdmirx_dev *hdmirx_dev,
- 	ret = devm_request_threaded_irq(dev, irq, NULL, hdmirx_dma_irq_handler,
- 					IRQF_ONESHOT, "rk_hdmirx-dma",
- 					hdmirx_dev);
--	if (ret) {
--		dev_err_probe(dev, ret, "failed to request dma irq\n");
-+	if (ret)
- 		return ret;
--	}
- 
- 	irq = gpiod_to_irq(hdmirx_dev->detect_5v_gpio);
- 	if (irq < 0) {
+gpio_rcar_read() and gpio_rcar_write() do not return error codes.
+I was thinking of
 
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260907-snps_hdmirx-7a30ccc56a49
+    offs = gpio_rcar_remap_offset(p, offs);
+    if (offs < 0)
+            return 0;
 
-Best regards,
---  
-Amin Gattout <amin.gattout@gmail.com>
+which is almost the same, but avoids passing offs by address.
 
+> >> +{
+> >> +       /* R-Car Gen4 and older do not need any offset remap. */
+> >> +       if (!p->info.has_layout_gen5)
+> >> +               return 0;
+> >> +
+> >> +       /*
+> >> +        * R-Car Gen5 register layout is slightly different and the offsets
+> >> +        * that have to be added to or subtracted from each register offset
+> >> +        * can be divided into five groups, listed below.
+> >> +        */
+> >> +       switch (*offs) {
+> >> +       case IOINTSEL...OUTDT:
+> >> +               return 0;
+> >> +       case INDT:
+> >> +               *offs += 0x10;
+> >> +               return 0;
+> >> +       case INTDT...EDGLEVEL:
+> >> +               fallthrough;
+> >> +       case BOTHEDGE:
+> >> +               *offs += 0x70;
+> >> +               return 0;
+> >> +       case OUTDTSEL:
+> >> +               *offs -= 0x34;
+> >> +               return 0;
+> >> +       case INEN:
+> >> +               *offs -= 0x38;
+> >> +               return 0;
+> >> +       default:
+> >> +               /*
+> >> +                * This here must never be reached, if this is reached, that
+> >> +                * means there is a catastrophic failure in the driver. Skip
+> >> +                * any IO read/write to prevent further damage.
+> >> +                */
+> >> +               WARN_ON(1);
+> >
+> > A build-time failure would be better.  I tried BUILD_BUG() instead,
+> > but unfortunately gcc is not smart enough to notice this case is
+> > never reached.  __always_inline doesn't seem to help either.
+> I had one more idea -- how about we convert the driver to mmio regmap,
+> use opaque register numbers throughout the driver to identify registers
+> to the regmap (maybe not a great idea), and then implement .read/.write
+> callbacks in the regmap_config which instead of doing plain
+> readl()/writel() for register IO would instead do this remapping ?
+> Regmap could validate that the opaque register numbers are only the
+> expected register numbers and reject all the others. Maybe the opaque
+> register numbers could instead of Gen4 register offsets. What do you think ?
+
+That's similar (but more complex?) than the array look-up
+in drivers/tty/serial/sh-sci.c I pointed to before.
+drivers/i2c/busses/i2c-riic.c uses the same method.
+
+I.e. just convert the existing register defines into an enum, and use
+that to index a table with the family-specific offsets?
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
