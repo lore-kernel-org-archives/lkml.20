@@ -1,127 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D5A4B04B1;
-	Mon,  7 Sep 2026 15:22:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40AA44FDE7F
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:22:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788794559; cv=none; b=YbZT/Zc2ZRlxEX+q9Ak6G90vmRbuqt0a80yogx0bN1qfHNobD5df34bAv9FQE0VAblrTTEp+T34JuNJvTHZ1LSULU9ExEla30xdOgg29a8yUfSnKkVcT0nxFneDwrzKL2WdbFRrymM3gcrGMwLamnaN0ASfXT+pcZMoWjzXqhHU=
+	t=1788794567; cv=none; b=lEDk6QkSNTD7mR9MFMUOV+/lt9znY0qZF254utSkbVFP3ppSsIkfV3NuVVvAkEs4cNS7mA1MKLELFqPKfSAONOkNWE3+vkVW1ykl/MdjXRK0JWaTUfYqLcadSxqbo/11+z9WfceN5x2jsBAOVSYE8sGmM2odNRNWD1HGuT6bBzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788794559; c=relaxed/simple;
-	bh=/zl2YhCLLLy2wvwRTZfecyIW1kR5dLGkCPYLV+rUE4M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UQ61uMQRi60ksnJ+WP2e9n5SFnmzMUp+yau6/egI5weJJcjHfwgtQZR4OVIM28MQGaJaDKU4H6SEmJlGSZtIWxI4v5SrqH1P2+5YlTuoC3bwO+6ktOG5ING031KYAI0GzAm0YcW5pwlK/rZGz7u9KAOX+SVHw9pHWTGo8EjkMJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KNF6zczO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788794567; c=relaxed/simple;
+	bh=jmfCKOrsEAkeGu4GxNdLlIPtSWNSStX+SxoQ8W3mBP0=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=HKhg43pdxN4yDpCyOIPJOx1EUp/eP3sS/L79spQ39kqUp8ZZgzp2aKTxGzQlcnpzhUipZKfe/ZmJ+fi5CWFpnc+yr1S0YZivKAqcAWFflq2RDUY4osXpZX1lrF8B69fyef74UZblhh70A7E7lxXHESjMBQQ8gPVs0zCyCQVuGBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Zyr6KoKX; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KNF6zczO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 486461F00A3A;
-	Mon,  7 Sep 2026 15:22:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788794557;
-	bh=2iV4wmxbLboD5m61BUcdgszYN9JR7rqtg6uMfGNK+Pw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=KNF6zczOnUC280nScMOfHKGnsEhksMAL+0VbRvZvnl4CSfyvRBZbv2thM+uYmElMw
-	 6DuJILmh6kZ9mgi6RDXXkSy9Q4WY/oeLwkQyCHgkxziG2LrqrmgxJ9fijG3M+wFwt7
-	 Ao+SfjuFlLDZ0v0q7wt7jwoLje4eyliSQI4M2b8Yj0u5MLpzWywWt43ICRi0wfHGHZ
-	 aE+nmclaBKRvpV1ZduOdoBjPHJqU3xePzHjV5pWdXZ1qzVjYh5rptcD/EDOuVu1ya8
-	 CjTE1/jpB71QuGqq9f9mkKTkpPxAVDGuu78RBjrCNGSExCcA+6N6tvD+Ndn7fDl0T5
-	 WNI4EWfCcaAKA==
-Message-ID: <9a21fc3c-1ca9-42a3-a044-6421f20341f6@kernel.org>
-Date: Mon, 7 Sep 2026 17:22:32 +0200
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Zyr6KoKX"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49b8eeb3ff2so34639245e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:22:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1788794564; x=1789399364; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=X5xsM2PpkE3MzX+tsKcHsoYtIZRtT3xChs4/YMhT9N0=;
+        b=Zyr6KoKX5ns6XsCuWwRXFOJKSZPUFP6fwJXE+ITi7WYbpdwS3OyZb69/QQDCJCv45y
+         HE0VinUJs/LVdoloKO/xinKV0fVZrXAKeGKw/DNEUzvrmQgqETkg+BjEC5dWyLPC/LrL
+         YJO82YnwdUMpfvmLW27beD/qceIQ3hVXZUD7QxEIcB+C9Dz615RbpUzjbKydkyaxmbZd
+         5NF+ooQNYF+3y+UTuiGP0HDhcktm0qQpBLY8//QqJgz/5gte3NLrncqGKTdQp2kou4fC
+         LkO3KuXeNxjYjxu4WD1G/O3LHpA0wIWSUEhQkyLIaCogfVyawL5ToZpd0o4OrFqdeBur
+         oh4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788794564; x=1789399364;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X5xsM2PpkE3MzX+tsKcHsoYtIZRtT3xChs4/YMhT9N0=;
+        b=ll0XHbBQlj9xAk+6eB+cP/TIRXdY3i/ZS0gkGD4xaMkeEXgUqipSi/9FVqoNZwdRer
+         g6PBI8ur/YLMZzBtMv2zRtcwkOwgw+JsurgM18CbGet6nqMOkgk11Ae2KiByzizy8unT
+         jnidnPW7QFgd0t5IZGJsFf5NKDvUJKACLfbZ7B1cFf4MK4FieAPO7VIfsFqgR3BV6/mg
+         2wlfRSNAV6hcy2MaZSHBac3lnWq6A745BgWdkeyt5VqYVMFmT+12Nv6F3CjRe3kNg1/2
+         9WoocT+0ZtOQrvzWTgv2P2HprH11C+jCoDoKWaeprCcUTAu/aSwQX7xXicZ/pjjSx6ZK
+         1g1w==
+X-Forwarded-Encrypted: i=1; AKwUvByidoAqLLWNLczY7NvQ9+GKALSO/bO1uHljD4U+EhP1TBTnm6TjTMjsWlvefXFPgnSJfdHIDwvrMpopnPk=@vger.kernel.org
+X-Gm-Message-State: AFuF++l/Vyo8fgnFI+q5YQ8eD/odcshbAtnirThqbsEGpAc5j3UWTEDU
+	X8n/WU/tMlURLxhOILhAgb1gyic/15eq9H67M1Gz7KaXuGRGN0KQN5vcXB6rT/AMAek=
+X-Gm-Gg: AYBFou21CiJTgRKoKEz16uDyZim3x6H9l8esp2sVmQTPumieiGRkunKf+5GMPWOu8Qf
+	Jw6DTTcjtzk/4qSw+kwySpKqxLl8rF1EJgPVlEfmcL9He4yHwhpkvei7lnngJGd4/CW8p6IbhVQ
+	iedRQap4u0NqscoroRqXN7h8vkcupUtsdflcy4HLAsIA0cIOmrO2jTKnUBcvweyN7CapEpDnlPA
+	G2uhGFsfskZsjKYK+cwiLp9XHz8zI2hR78Y0r5DFdwYExYZnxzw7yFmJvT6WNXZK6FPWjuPTBmJ
+	wrAWA5wT12758jFNA62vMW2HHvURwbvRepi2eA9prbz8GeqtDIvRsZfJnt2w89nFSVwdC7odInk
+	3IUfk+qqvIJdrWmIo+3MmPPPyHoeGZ5BnRDODPur2iP136p1xh6hCof7hOOEKAfoA7YEAzylBwz
+	f5zvQbI1JxCA4X/XdwpMfvsYxEWiN+ZP/WCj1d1kWuOgX3suOiEqGUCv2uqWv1W5K8oSJi+dfVq
+	tErHcY6okOhU6ozkIqwCndmmP2JsGru
+X-Received: by 2002:a05:600c:3b99:b0:499:bf0e:95c8 with SMTP id 5b1f17b1804b1-49cf81fb72amr250088355e9.1.1788794564491;
+        Mon, 07 Sep 2026 08:22:44 -0700 (PDT)
+Received: from [192.168.7.218] (82-230-44-19.subs.proxad.net. [82.230.44.19])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49cfbdacc45sm288319375e9.11.2026.09.07.08.22.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 08:22:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] selftests/mm: fix size truncation in pagemap_ioctl test
-To: Zenghui Yu <zenghui.yu@linux.dev>, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
- vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
- shuah@kernel.org
-References: <20260907135613.68692-1-zenghui.yu@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260907135613.68692-1-zenghui.yu@linux.dev>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 3/4] pwm: meson: use bulk API for per-channel clocks
+From: Alexandre Mergnat <amergnat@baylibre.com>
+To: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Cc: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org
+In-Reply-To: <20260827-s6-s7-pwm-v4-3-d28a2015177d@amlogic.com>
+References: <20260827-s6-s7-pwm-v4-0-d28a2015177d@amlogic.com>
+ <20260827-s6-s7-pwm-v4-3-d28a2015177d@amlogic.com>
+Date: Mon, 07 Sep 2026 17:22:44 +0200
+Message-Id: <178879456435.2256446.2005394820666057840.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2432; i=amergnat@baylibre.com;
+ h=from:subject:message-id; bh=jmfCKOrsEAkeGu4GxNdLlIPtSWNSStX+SxoQ8W3mBP0=;
+ b=owEBbQKS/ZANAwAKAStGSZ1+MdRFAcsmYgBqntbFBsgbKyAhkkOJh84p2SvPyoyzSRQxstw9D
+ 3A9Z/x836eJAjMEAAEKAB0WIQQjG17X8+qqcA5g/osrRkmdfjHURQUCap7WxQAKCRArRkmdfjHU
+ RemCD/9wGgVpKIFJRn8V0zICx86yvsAf6Pfmw2+t+HFAw/vPmcYJU+bEl+gXhNs+6LadQTaWZgP
+ Vf5un+G+NE2CloSjsUmEkSlIUP2vxAhKXYup9NC3Lq399aqtzRnP5BqTrJp2rQQ/JeX5s0fDCna
+ 4EdhFl0ZMgzvr32vurCm44ZywSUGEWiKuGh6t5/0ApKOt0hubBGyc5h8jB5cxAumR9ovgGQ8xUy
+ a0dKoglN5NWtk5FQNyrkDOKGIGoPTv7FBx7/ejivTWfRVvmA3EszeGZZ0SGykbdPVj0a9B5vnQE
+ agxxO7E1xb7Uxlc9y7Dfgspf3eNU+8j8vIitR0BGPubc+0g1M/X1nwiBLcGCdnqcG83PZgnTuhg
+ lxf9rLZcSQTDlxb7016YbagASF6TYHqdoRpHvg5olFqs+3+Xi4Qzd6Y768geLSEsb0J15Xg6+9o
+ ytO7ADXO155fq9rdpIZBvIDekDlvfTGW91Naur8Qb3jAAq7NHTVvAkRkUeMRPgz7R6egwCGaGoS
+ NX0uBEDW1vmlya4cdM5iMGhR1Jq5javGzdX5N1mF5gxmCiFjpkCMYLG6h6KedB0wg9SRRtm+p03
+ VKjXhlKgR9SKCbnjfFZFUUOlugy5dbqSGld55eFhblnv4GNTPndXjvQ49fK9A64ZuhFLSAsdBVt
+ 9XRe2nETnLlSo1Q==
+X-Developer-Key: i=amergnat@baylibre.com; a=openpgp;
+ fpr=231B5ED7F3EAAA700E60FE8B2B46499D7E31D445
 
-On 9/7/26 15:56, Zenghui Yu wrote:
-> From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
+> The S4 PWM driver currently gets each channel clock individually with
+> of_clk_get() and uses a custom cleanup action to release the clocks.
 > 
-> On arm64 with 64K base pages, the huge page size is 512 MiB, and
-> hpage_unit_tests() builds a 5 GiB range (10 * 512 MiB) for its tests.  This
-> exceeds the range of the int size parameters of gethugepage(),
-> wp_addr_range() and pagemap_ioctl().  The implicit truncation to 1 GiB
-> makes gethugepage() allocate a too small buffer, while the callers keep
-> operating on the original 5 GiB range, resulting in spurious failures or
-> SIGSEGV.
+> Use devm_clk_bulk_get_all() instead to retrieve all per-channel clocks
+> at once. Verify that the number of clocks matches the number of PWM
+> channels and assign each clock to its corresponding channel.
 > 
-> Change those size parameters to size_t.
+> This also allows the per-channel clock initialization code to be shared
+> by Meson PWM variants using one clock per channel.
 > 
-> Fixes: 46fd75d4a3c9 ("selftests: mm: add pagemap ioctl tests")
-> Assisted-by: GLM-5.3 OpenCode
-> Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
-> ---
+> Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+>
+> diff --git a/drivers/pwm/pwm-meson.c b/drivers/pwm/pwm-meson.c
+> index 22cefc6d5dd0..6f151464d7cc 100644
+> --- a/drivers/pwm/pwm-meson.c
+> +++ b/drivers/pwm/pwm-meson.c
+> @@ -497,33 +497,25 @@ static int meson_pwm_init_channels_meson8b_v2(struct pwm_chip *chip)
+>  	return meson_pwm_init_clocks_meson8b(chip, mux_parent_data);
+>  }
+>  
+> -static void meson_pwm_s4_put_clk(void *data)
+> -{
+> -	struct clk *clk = data;
+> -
+> -	clk_put(clk);
+> -}
+> -
+> -static int meson_pwm_init_channels_s4(struct pwm_chip *chip)
+> +static int meson_pwm_init_channels_per_channel_clk(struct pwm_chip *chip)
+>  {
+>  	struct device *dev = pwmchip_parent(chip);
+> -	struct device_node *np = dev->of_node;
+>  	struct meson_pwm *meson = to_meson_pwm(chip);
+> -	int i, ret;
+> +	struct clk_bulk_data *clks;
+> +	unsigned int i;
+> +	int num;
+>  
+> -	for (i = 0; i < chip->npwm; i++) {
+> -		meson->channels[i].clk = of_clk_get(np, i);
+> -		if (IS_ERR(meson->channels[i].clk))
+> -			return dev_err_probe(dev,
+> -					     PTR_ERR(meson->channels[i].clk),
+> -					     "Failed to get clk\n");
+> -
+> -		ret = devm_add_action_or_reset(dev, meson_pwm_s4_put_clk,
+> -					       meson->channels[i].clk);
+> -		if (ret)
+> -			return dev_err_probe(dev, ret,
+> -					     "Failed to add clk_put action\n");
+> -	}
+> +	num = devm_clk_bulk_get_all(dev, &clks);
+> +	if (num < 0)
+> +		return dev_err_probe(dev, num, "Failed to get clocks\n");
+> +
+> +	if (num != chip->npwm)
+> +		return dev_err_probe(dev, -EINVAL,
+> +				"expected %u clocks, got %d\n",
 
-Looking at pagemap_ioctl.c ... I think most functions should actually be "static".
+Small style nit: the continuation arguments are not aligned with the open
+parenthesis, whereas the dev_err_probe() just above and the rest of the driver
+do align them. Can you fix it please ?
 
-
-Using size_t is ok. But then we should also change "unsigned long long mem_size"
-to size_t, no?
-
-Also, in wp_free() we are suddenly using "long size". In pagemap_ioc() we're
-also still using "int len".
-
-Can we consistently use one type please?
+After that,
+Reviewed-by: Alexandre Mergnat <amergnat@baylibre.com>
 
 -- 
-Cheers,
-
-David
+Alexandre Mergnat <amergnat@baylibre.com>
