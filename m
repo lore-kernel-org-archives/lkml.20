@@ -1,97 +1,94 @@
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 874ED1E3DDE
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:01:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56A993EC81F;
+	Mon,  7 Sep 2026 04:02:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788753720; cv=none; b=qzcWhkEAfGJg5frZIuD4GnS6lmZ37rkDqXvAZWGavb7ZJ81h5fzwLgWsouc91BjE3Nqa35+IbQIkeyVVDZJSe9HQ4g4d6SvVow5ZujyZ8h0y+vKgGhIte+KHtO3Wa6cH9ghp+cVlKgl37lJeY7EifW70UZ6wk5NOzm9eLHCL70g=
+	t=1788753771; cv=none; b=WHoJ5fSov0C/TeWJEelZYNVB2ebT+FHpVBhIr/A7n6LtuA+6pmeiD44KJFPjxL0cdnu25hcIamUuxU8xE76gYRdF3bCqk+typA8WT2ga7jU2Toc/RoGpgOIMY3iE16elbUaFbxkYmhQV7XC1Kdyw/5MjKqcsmiDmFRF3KUF1ny4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788753720; c=relaxed/simple;
-	bh=295eWmKjjJSsf2Qb21fsc0R7caj2Ox8IuLV/wjJRXIE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BgzksxIfYM/UQbN251QU2qTD25/yN0PTMhl2Gl/ealjybOGilUTiXOitX2xA7KYRiH+kqNJbVN4wY1qUFl/GTPTaviTpu7Rn9/ulLPXps6W9xymXtsh2LHEJ80HeUucz9aXy4LndHBP9N6OQr5qmDlkmhdBaXiDzAf120dtWIZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GtTz7Ll+; arc=none smtp.client-ip=209.85.167.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788753771; c=relaxed/simple;
+	bh=7bZ9ueJcnettW+aBUjwEodtcUi8JIXG3WGgB1oFPyk8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=IwxMIrQJEMkaAs2HwmMIat7qJKyeHAd+Ha3tz9Wzj0wqNH+QuWHf20pKfFUeAeXZ3q6Lx5i3zg3C0QBSQ1riBSrsNf8UdEp7i/bEtGRRdjordZU1weMlqcrOD6I9RdITRsb3e0cBMcl3AhOeuIfvUFwrsUUbq2Z0WJ23hWYOaxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=a2y2BKYP; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GtTz7Ll+"
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b4a95ab94fso3984511e87.0
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 21:01:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788753717; x=1789358517; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YJSxnvBJYF8uc7sGAY2P+/nrv3c6F1c5XrQLy8OPO8I=;
-        b=GtTz7Ll+++qA5Ak0AqBb5mkv1FwdLgtsNCFUPoa3ZACT4aAHNxonlAHyDtVBaNIHlp
-         gAkIDLI9w+MLtMrYtjkLKsIObMQTd7/E4jzYMQ//CRbRaLEIA3oywI2u0Hkm7IfpMf6A
-         ek04n/AYu+0Xo3g+vgCX6k5ZThK+bH6ovkpzYvdNSM3fqmUfyZ8WCTQJXi4skBXT66b8
-         Yrr5GY/8EnNqNUnvB7ptpIVlhQ1IN9x84RL4bUaCwoDaj6BjMWG/z95EbRsFa8Rq0EIv
-         pEaBESN1m3kJpNaeZkravSisq2Pv+Q/sh5PjyZFdl/hWaeaMjhXNveAJNZsEOx7Bvc97
-         LL6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788753717; x=1789358517;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YJSxnvBJYF8uc7sGAY2P+/nrv3c6F1c5XrQLy8OPO8I=;
-        b=W3PbFh6Uf9Hyj06za6VsrS/jBtf7LpbBPU5foACR5gyL72Qwb2vbmD+kEWEpiR52Do
-         TgsMAT7mYCMW+F+LHO78EglNKIkf3l3KWGwLstA2ucDRavh9J3etIArd9LqjgkFHZBdV
-         Db5K/Ny6fm4Dz6ofjjXHVP6vOHA9Q5+dse+hMjohQayGTDRnDAa+KBKpVy+vipUC3Z5x
-         J+wqpcFUuxnvq314VvuU5p24VLYogmIh8dHcuT1DIoz4k0sTenIsvASvTn0ZxAUS7ah1
-         JxphyRXNcLQvCtZUGR/Ej2BADQoWg6jQ+zRV+zn1yXCWEXiZTKNmNCwUpdGfVL5eHOPM
-         z19A==
-X-Forwarded-Encrypted: i=1; AKwUvBwA8xsZr2xiTGpgRZB6koGezfSH7sh8KviEwUfIr2r5fIBPMdKhjo8piQvK8AWLYksdITxVrw1S2ICSZB4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nWH0381oF+ifO2JSat+BDgP9aPq06mbGE1dYI9eGMiiMhuyDtg
-	rYEyz5Iv98vMKnlyAVqn2xWbmJYW5oplBwn9MK2wwuAz+FFHhk++BDsKiqVjUNSlcxoh1A==
-X-Gm-Gg: AYBFou0TShxmiuT0TdW+FmjD0dQzSeOPQf96bfpSuMC0UHsxdWlOgEUqTJkKEY8isHR
-	eM0vfJWQz8Gmea4+IIarxwuO+4oCxVmUKT9gp/EDEH5uNXInFK60OuMoNECu5MLDNbKYdIlobhj
-	1HClJADNMMPBNjHgVm2Jz21HDOcv6hSNFk5lKRt/MSyauLbw5bOYzdNrK+4rrwdUPzk+q2J2IRs
-	X0iA6+14/zZpsunW/u78RWR3xjpVdcGJesM2zcMYdacBtbG9XPQ4wV9rZhHVgcOmMjjFP7R7UkV
-	PHmyuDjyIQNexaZLpodlqpp8+DHhXGlKgfYo52wwXjwS+cDq6zLp1uBlD52xn9Dh07qRfBqr/m7
-	h7e0h3sQne0olpo0aRiWORgLvmZe9/wrh7H5UvgNVpVgF39U+PV7d3hmzZOsiVlZK1l7GevAvya
-	YWjozY9l7pLEoHpviqcjHICDNp6s2oRABViyNYR0xKmbBGEDA/9RvVPqUE+xffCQC0Hf2v0Vuxh
-	hZv
-X-Received: by 2002:a05:6512:128a:b0:5b6:10bc:b869 with SMTP id 2adb3069b0e04-5b6177bf69bmr2695515e87.23.1788753717151;
-        Sun, 06 Sep 2026 21:01:57 -0700 (PDT)
-Received: from localhost.localdomain ([80.66.93.99])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b61669abd4sm2123344e87.5.2026.09.06.21.01.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 21:01:56 -0700 (PDT)
-From: Maxim Skokov <skokovmaksimevg@gmail.com>
-To: pkshih@realtek.com
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] wifi: rtw89: fix typos in comments, debug messages and struct field
-Date: Mon,  7 Sep 2026 07:00:33 +0300
-Message-ID: <20260907040138.4321-1-skokovmaksimevg@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <8094bfc474e34b2f826b9487e49bd601@realtek.com>
-References: <20260904222548.19732-1-skokovmaksimevg@gmail.com> <8094bfc474e34b2f826b9487e49bd601@realtek.com>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="a2y2BKYP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1788753770; x=1820289770;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=7bZ9ueJcnettW+aBUjwEodtcUi8JIXG3WGgB1oFPyk8=;
+  b=a2y2BKYPbRq7nRhptGqN24A6YPByRAQHs0g9IkmDlW6o0o68X2zuaQHX
+   QTbx9/Wp/QiSoxlGjByBIQBIn6pvCFa1f6Rrc7t8fbd54BwNFATe275iQ
+   /d37qprnr5yt0OYqHi/5xagpxrbVQVWxFGpWLGuHZoTl/3Sa8ISL2JNZB
+   y23ssHT5SymxRe7wH8Hoz7IVfY589T1xc0cRhjzgWtSLz2G3tA8erPXpA
+   W4CZDaSyGYJBqiUF2mmikedj5B9sHHVxq4/vCP4rT3D1fTg+1hvflV1Xt
+   eJkrF8SHyUu87hLPQk9LzUGJ2WxOJWI1kGpEVo2u5T8zAi8qvryvT+mNp
+   w==;
+X-CSE-ConnectionGUID: BWI1/n8BQXWiufWaVsbH9A==
+X-CSE-MsgGUID: BiJKOKs4Q7CMxtZ8J5CiFw==
+X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; 
+   d="scan'208";a="63233718"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 06 Sep 2026 21:02:44 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Sun, 6 Sep 2026 21:02:43 -0700
+Received: from [10.40.24.197] (10.10.85.11) by chn-vm-ex01.mchp-main.com
+ (10.10.85.143) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Sun, 6 Sep 2026 21:02:39 -0700
+Message-ID: <23c470ae-95b8-4391-a3a1-0c9996ce48dc@microchip.com>
+Date: Mon, 7 Sep 2026 09:32:38 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH net-next 2/3] net: ethernet: oa_tc6: deliver the PHY
+ interrupt to phylib
+To: Andrew Lunn <andrew@lunn.ch>
+CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+	<kuba@kernel.org>, <pabeni@redhat.com>, <hkallweit1@gmail.com>,
+	<linux@armlinux.org.uk>, <netdev@vger.kernel.org>,
+	<UNGLinuxDriver@microchip.com>, <linux-kernel@vger.kernel.org>
+References: <20260901130948.212914-1-parthiban.veerasooran@microchip.com>
+ <20260901130948.212914-3-parthiban.veerasooran@microchip.com>
+ <713d8963-6aa6-460e-83dc-157d37d66662@lunn.ch>
+ <624254b3-2aa3-47e9-aae1-d62b2dc3f5f7@microchip.com>
+ <2d313e42-3fbe-4fc9-bd57-23a951d997b9@lunn.ch>
+ <a01b3780-b36d-4544-a372-9daa3be20a9f@microchip.com>
+ <844a369e-3e52-4489-b8b1-d359789bfcb3@lunn.ch>
+Content-Language: en-US
+From: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
+In-Reply-To: <844a369e-3e52-4489-b8b1-d359789bfcb3@lunn.ch>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Ping-Ke Shih <pkshih@realtek.com> wrote:
-> Acked-by: Ping-Ke Shih <pkshih@realtek.com>
->
-> Add a tag like  Assisted-by: LLM codespell ?
->
-> Just reply this mail, no need to resend v2.
+On 04/09/26 6:37 pm, Andrew Lunn wrote:
+> EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
+> 
+>> +     /* Populate all irq[] entries before registration so
+>> +      * phy_device_create() picks up the virtual IRQ regardless of
+>> +      * the PHY's MDIO address.
+>> +      */
+>> +     for (i = 0; i < PHY_MAX_ADDR; i++)
+>> +             tc6->mdiobus->irq[i] = tc6->phy_virq;
+> 
+> Yes, or just a memcpy().
+Thank you for the suggestion and confirmation. I do not think memcpy() 
+would fit here since we are assigning the same value to all entries 
+rather than copying from another buffer. But I will also check whether 
+any helper would be appropriate here. If not will keep this loop as-is.
 
-Yes, thanks, that is the right tag and it matches the format documented in
-Documentation/process/coding-assistants.rst.  Please add:
+Best regards,
+Parthiban V>
+>       Andrew
 
-Assisted-by: LLM codespell
-
-The note below the --- line can be dropped, since the tag now says the same
-thing in the commit message.
-
-Thanks for the review.
-
-Maxim
