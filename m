@@ -1,199 +1,253 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 826983B14D1;
-	Mon,  7 Sep 2026 20:15:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788812118; cv=none; b=IBtDI4JR0a+xjmPcQbrqFI3UZEg5sVdga5cjhIuk8OiXITnD8ceGihjL9rh481wqMPnhWO4t0hVf9BNv833xoOm2n9PHa5v0X1ncQmWPSH04ZFiO5pz549gwlvP8zJDlhkH9iFN+dR94gi6Sg8aTxnp0NNm4LF4j2k2cZd7Ezxc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788812118; c=relaxed/simple;
-	bh=zvCrV5OW3Ij4RNFWmI9bMKD+1/mIRvO5n8/sA7pCzVg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tdZZMGsSAzx1ivbfEP4T37O66CsiVynb39PNruLleUgWpfsRYZnCpX4Mqlt6p4DAZMLswbURdcz0YodfgzME2/N58C+S7bAf7fLfLx6wNWO7zzFgy8a+RjCWkmofUOcQ8Q3/qWsIzcYimeflrZF0Z1SwIeggpIAb+HjI2I8oGr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R0N7zsqe; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4641E3839B3
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 20:17:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788812230; cv=pass; b=DgMMcZdnYq7/h1r8GLbjF/d/Ic68oRJC6WKkUG15cckqttCQ+/uf610Mgf8NV8WloGxJz4ncI/hWDyo2DxyLbIX/LkDC0d3LGfr815LZjUxcK4lFSa+ThoQzUAxYRM5KmWfbrAZtms8tga7y0OXqPgOvDw8QIdHU/UVeGY7A/qg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788812230; c=relaxed/simple;
+	bh=Fw+pEp91dA7obohAWpnhT9o4vjgtW35KWbqZzipARa8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=I3zx+8qaYHLWzvJIFP3aXK1I7MHl6FGlpgAUptVKs5jQ4SlVL04VHVJBzNpSgV7QQbaHOt7A6jr2U+Tf1RveNbhiNwrAWRFdQS6NSu7YcRy8XCf7pO+yZknfam0/gfRxeKCifSY3TmYDUqOUeDNqRjpxS1CJh1JbAy86+LTjXoc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=FS/t2oQg; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R0N7zsqe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A848B1F00A3A;
-	Mon,  7 Sep 2026 20:15:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788812117;
-	bh=XKmOrRGwVI6oRygbDD+Nz06kpJ89aQIlbxw5wMUhI4g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=R0N7zsqeYlOgN4l3GiIhWcWwm9MaDKreUjYiIBDHN/w7PkaTI3U5ve8mMNNl69ar5
-	 +aQtlwijdM7tr+0UsOpEDewv0JDmGUwTojgOofYx7pQiGZqyGb8Cnp+6RE5pZHQsRQ
-	 U32W6Viw4zeIJk9SpdkOMQmqwucORhCvaVu0sN4DCeImlseHdC3H224Eo4XGmqF5N7
-	 eH76yVOSVD9zPce5+n3ncPlzwgbSV4NWAR1XJzU/Ziwb25WT7C8TTdhINSfGvz0EuJ
-	 p/refrB5fQAmfnIGasQ6igWX3zLXtcFRuFWt8xiszYEMUwqBF9he4kaQH3TO2THBjU
-	 eiOMFzIpp1FcQ==
-Date: Mon, 7 Sep 2026 22:15:14 +0200
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>,
-	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
-Subject: Re: [patch V2 1/8] signal: Prevent exec() race
-Message-ID: <ap8bUiYYwQT1nVg5@pavilion.home>
-References: <20260905181551.738186850@kernel.org>
- <20260905185839.667208455@kernel.org>
- <ap6urw5aAxrKO3Ck@localhost.localdomain>
- <87ik4h2icz.ffs@fw13>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="FS/t2oQg"
+ARC-Seal: i=1; a=rsa-sha256; t=1788812184; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Ew42n71Vzh717kdpmNMyGJLNpyPrIPYHqTSBmhJrCABm6mpBmoIge5YrigvMCYVH0Z0Mmu1Lqa2v/f+WrjFO2MlT3bZSD5vC8/sg069KMSfzjoZ7E7+g2QIqjqU+y4n8HWmkSL9iQH1WUqgC2jRO1gkxxl6rb0rG0hW1uZ5Uu5o=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788812184; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=JDUEV1gvHja4fWSVHWE1yshZgxKxjnzS5u6zcvauO/E=; 
+	b=aSrHoXUCoTqwLlb2SihH/vMG6XOUKVDMShW7lUVEQY0daMz7oUGbo4xr4GD7T30Pfv24yCyqliRYi9LWF9rJM7zjIMejRiOiXwvEFbH5sK2trYtbJW03NjKj6j0u0KdtlCNTvDRcOvSYdxwO/9l1/q0i3S5vzmliVcVf7dW2lIs=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788812184;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+	bh=JDUEV1gvHja4fWSVHWE1yshZgxKxjnzS5u6zcvauO/E=;
+	b=FS/t2oQg/+RGcBqHJpPoUDFdaEfQ8VH+PGVKKocDisuGYkHNrqgMyQt8hoDwcAox
+	CyBR34YebSnNeGLCf2S5fyCoho5vds19ozHL8kF+zzacXOFZP++ieDiYE9yIa6Z7OmF
+	c9ruuT5zeZCrEgdf8BBNlh30ce5fXSOicFMmuPms=
+Received: by mx.zohomail.com with SMTPS id 1788812183730149.07471808885703;
+	Mon, 7 Sep 2026 13:16:23 -0700 (PDT)
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Date: Mon, 07 Sep 2026 21:16:10 +0100
+Subject: [PATCH v8 01/16] drm/panfrost: Move shrinker initialization and
+ unplug one level down
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <87ik4h2icz.ffs@fw13>
+Message-Id: <20260907-claude-fixes-v8-1-c2bcb5e82184@collabora.com>
+References: <20260907-claude-fixes-v8-0-c2bcb5e82184@collabora.com>
+In-Reply-To: <20260907-claude-fixes-v8-0-c2bcb5e82184@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Faith Ekstrand <faith.ekstrand@collabora.com>, 
+ "Marty E. Plummer" <hanetzer@startmail.com>, 
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6327;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=Fw+pEp91dA7obohAWpnhT9o4vjgtW35KWbqZzipARa8=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqnxuL9aGBZRBKe+kFgPuI8gbUU8QzA7IBKe6lb
+ c8SzQr3y2CJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCap8biwAKCRAOJn5M7lND
+ PbniC/9BY3m/3Vj03PvkeFobg3xxZtV0zFNBmxF36pcc13aZwtZnjk5NektcS8EyGli3JfYzMYM
+ rsZ6KpofxBlpkDF44wVZ8bMbzSeFl5L2lo6o078KU3i3oMQHtXQXNV3/saeqzx9MuVo+TF7eq2o
+ ZO5SdEkYuNsqE6uIRVDuctPqbmADu5TRFtVo9v5PZJB3Kj5ylmNh72+TdbVGdpF2i0Wfh4ir78K
+ MBuxQk2a7FgQL4sUOrmONIyWI+KQkExsJtrRCbua2mLi+a+rQoftTk+Yd78uGzGTwlw0J8f+TzX
+ 3vGAqablhWL4c5OWl/jn73vJca5z1ylaKz/sFeuW+EKbTHPF8vq1SrhDh1mVr98OkLMlJW0RzKe
+ +cmUufBpBgvR8thM3qrHQfgMHowgV7wngus07FvSr4oqGiSBZBSX/jU5/WFdn27pjssRIV7AgiY
+ pT9xOHGlbyoFHHbKUpnoepmPXGW1404syCQAN0muTOvMnkHZhUpzjNNPRPvgZ3NB7qZVs=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-Le Mon, Sep 07, 2026 at 05:26:04PM +0200, Thomas Gleixner a Ècrit :
-> On Mon, Sep 07 2026 at 14:31, Frederic Weisbecker wrote:
-> > Le Sat, Sep 05, 2026 at 08:59:01PM +0200, Thomas Gleixner a Ècrit :
-> >> -out:
-> >> -	spin_unlock_irq(&tsk->sighand->siglock);
-> >> +	flush_sigqueue_list(&sigq_list);
-> >
-> > It probably doesn't matter in practice, I don't know feel free to ignore,
-> > but FWIW it looks like it's still vulnerable to the theoretical far fetched
-> > race I described. The head is moved under the lock but individual nodes are
-> > deleted without the lock.
-> >
-> > CPU 0                                CPU 1                   CPU 2
-> > -----                                -----                   -----
-> >
-> > exit_signals()
-> >    spin_lock(sighand)
-> >    tsk->flags |= PF_EXITING;
-> >    list_splice_init(&queue->list, head);
-> >    spin_unlock(sighand)
-> >
-> >    list_for_each_safe(head, node)
-> >       list_del_init(node)
-> >          node->next = node // A
-> >          node->prev = node // B
-> > ...
-> >                                      de_thread()
-> >                                         // acquired tsk->flags
-> >                                         // and signal flushed
-> >                                         // through tasklist_lock
-> >                                         transfer_pid() // C
-> >                                                            
-> >                                                            posix_timer_fn()
-> >                                                               posixtimer_send_sigqueue()
-> >                                                                  // OBSERVES C
-> >                                                                  t = posixtimer_get_target(tmr)
-> >                                                                  lock_task_sighand()
-> >                                                                     // OBSERVES A
-> >                                                                     if (!list_empty(q))
-> >                                                                        // BUT NOT B
-> >                                                                        list_add_tail(q) // D
-> >
-> > Then who knows which write wins, B or D?
-> 
-> For a moment you almost convinced me, but that's not possible:
-> 
->     de_thread()
->         ....
-> 
-> 	if (!thread_leader()) {
->             wait_until(old_leader->exit_state);
-> 
->             transfer_pid();
-> 
-> old_leader sets the exit_state in exit_notify():
-> 
->     do_exit()
->       exit_signals()
->         lock(sighand)
->           old_leader->flags |= PF_EXITING;
->           head = remove_signals()
->         unlock(sighand)
->         flush_list(head)
->      ...
->      exit_notify()
->        old_leader->exit_state = EXIT_XXX;
-> 
-> From a program order POV the flush is completed _before_ the new leader
-> can observe old_leader->exit_state and swap TIDS. exit_notify() and the
-> wait in de_thread() are serialized via tasklist_lock.
+Since the moment we call drm_dev_register() the device should be in a
+position to accept jobs, so it's best if the shrinker is already
+initialized by then.
 
-Yes on that side all is program order. But the ordering is not mirrored on
-the other side (at this stage of the patchset).
+On top of that, make shrinker functions take an panfrost_device pointer
+like other functions in the same sequence and rename them accordingly.
 
-> 
-> The signal is either dropped before transfer_pid() is observable due to
-> PF_EXITING on the old leader or queued on the new leader and then
-> discarded in posixtimer_exit() -> flush_itimer_signals().
-> 
-> The only valid question is whether it is guaranteed that on a weakly
-> ordered system the stores in flush_sigqueue_list() are visible _before_
-> transfer_pid() is visible to the third party.
-> 
-> It's not obvious of course and might deserve a comment.
-> 
->       exit_signals()
->         lock(sighand)
->           old_leader->flags |= PF_EXITING;
->           head = remove_signals()
-> #1      // RELEASE: PF_EXITING must become visible
->         unlock(sighand)
->         flush_list(head)
-> 
->      ...
->      posixtimer_exit()
->        posix_cpu_timers_exit_task()
->         lock(sighand)
->         ...
-> #2      // RELEASE: The stores in flush_list() must become visible
->         //          They might be already in case of preemption
->         //	    or due a RELEASE operation in seccomp_filter_release()
->         unlock(sighand)
+Essentially mimic the init/fini behaviour in Panthor.
 
-That second step only appears at the end of the patchset, right? Otherwise
-it's done on release_task(), which is after transfer_pid().
+Signed-off-by: Adri√°n Larumbe <adrian.larumbe@collabora.com>
+---
+ drivers/gpu/drm/panfrost/panfrost_device.c       |  8 +++++++-
+ drivers/gpu/drm/panfrost/panfrost_drv.c          |  6 ------
+ drivers/gpu/drm/panfrost/panfrost_gem.c          | 26 ++++++++++++++----------
+ drivers/gpu/drm/panfrost/panfrost_gem.h          |  7 ++++---
+ drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |  8 ++------
+ 5 files changed, 28 insertions(+), 27 deletions(-)
 
-> 
->     ...
->     exit_notify()
->       lock(task_list_lock)
->       exit_state = EXIT_ZOMBIE;
-> #3    // RELEASE: exit_state must become visible
->       unlock(task_list_lock)
-> 
-> So the new leader cannot proceed before #3 which means it can't swap
-> TIDs before that point. That requires task_list_lock so there is no way
-> that the TID swap can trickle before the lock is held and exit_state
-> being non-zero.
-> 
-> Though the important part is that the third party on CPU3 has to acquire
-> sighand lock in posixtimer_send_sigqueue(), which is an ACQUIRE
-> operation. That means _all_ accesses to tsk::flags and to the sigqueue
-> must happen _after_ the lock is acquired.
-> 
-> If it acquires it after #1 and before the TID swap it must observe
-> PF_EXITING and return immediately. So a concurrent modification of
-> timer::sigqueue in flush_list() or not-yet visible stores are
-> irrelevant.
-> 
-> If it acquires it after #2 it must observe the full writes to the
-> sigqueue. So after that point it does not longer matter whether the PID
-> resolves to T1 or T2.
-> 
-> No?
-
-At the end of the patchset yes. But it doesn't look that way in this
-very patch which is to be backported alone.
-
-Thanks.
+diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+index 485349faf251..05c40d5a20b5 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_device.c
++++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+@@ -280,9 +280,14 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+ 	if (err)
+ 		goto out_job;
+ 
+-	panfrost_gem_init(pfdev);
++	err = panfrost_gem_init(pfdev);
++	if (err)
++		goto out_perfcnt;
+ 
+ 	return 0;
++
++out_perfcnt:
++	panfrost_perfcnt_fini(pfdev);
+ out_job:
+ 	panfrost_jm_fini(pfdev);
+ out_mmu:
+@@ -304,6 +309,7 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+ 
+ void panfrost_device_fini(struct panfrost_device *pfdev)
+ {
++	panfrost_gem_fini(pfdev);
+ 	panfrost_perfcnt_fini(pfdev);
+ 	panfrost_jm_fini(pfdev);
+ 	panfrost_mmu_fini(pfdev);
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+index 96a66d673ba6..9882a3ede75f 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.c
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+@@ -1003,14 +1003,9 @@ static int panfrost_probe(struct platform_device *pdev)
+ 	if (err < 0)
+ 		goto err_out1;
+ 
+-	err = panfrost_gem_shrinker_init(&pfdev->base);
+-	if (err)
+-		goto err_out2;
+ 
+ 	return 0;
+ 
+-err_out2:
+-	drm_dev_unregister(&pfdev->base);
+ err_out1:
+ 	pm_runtime_disable(pfdev->base.dev);
+ 	panfrost_device_fini(pfdev);
+@@ -1024,7 +1019,6 @@ static void panfrost_remove(struct platform_device *pdev)
+ 	struct panfrost_device *pfdev = platform_get_drvdata(pdev);
+ 
+ 	drm_dev_unregister(&pfdev->base);
+-	panfrost_gem_shrinker_cleanup(&pfdev->base);
+ 
+ 	pm_runtime_get_sync(pfdev->base.dev);
+ 	pm_runtime_disable(pfdev->base.dev);
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
+index 3a7fce428898..f39c0f50ed4f 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gem.c
++++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
+@@ -15,20 +15,24 @@
+ #include "panfrost_gem.h"
+ #include "panfrost_mmu.h"
+ 
+-void panfrost_gem_init(struct panfrost_device *pfdev)
++int panfrost_gem_init(struct panfrost_device *pfdev)
+ {
+-	int err;
++	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) && panfrost_transparent_hugepage) {
++		int err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
++
++		if (drm_gem_get_huge_mnt(&pfdev->base))
++			drm_info(&pfdev->base, "Using Transparent Hugepage\n");
++		else if (err)
++			drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
++				 err);
++	}
+ 
+-	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
+-	    !panfrost_transparent_hugepage)
+-		return;
++	return panfrost_gem_shrinker_init(pfdev);
++}
+ 
+-	err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
+-	if (drm_gem_get_huge_mnt(&pfdev->base))
+-		drm_info(&pfdev->base, "Using Transparent Hugepage\n");
+-	else if (err)
+-		drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
+-			 err);
++void panfrost_gem_fini(struct panfrost_device *pfdev)
++{
++	panfrost_gem_shrinker_fini(pfdev);
+ }
+ 
+ #ifdef CONFIG_DEBUG_FS
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/panfrost/panfrost_gem.h
+index 79d4377019e9..5c823cdbd980 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gem.h
++++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
+@@ -129,7 +129,8 @@ drm_mm_node_to_panfrost_mapping(struct drm_mm_node *node)
+ 	return container_of(node, struct panfrost_gem_mapping, mmnode);
+ }
+ 
+-void panfrost_gem_init(struct panfrost_device *pfdev);
++int panfrost_gem_init(struct panfrost_device *pfdev);
++void panfrost_gem_fini(struct panfrost_device *pfdev);
+ 
+ struct drm_gem_object *panfrost_gem_create_object(struct drm_device *dev, size_t size);
+ 
+@@ -154,8 +155,8 @@ panfrost_gem_mapping_get(struct panfrost_gem_object *bo,
+ void panfrost_gem_mapping_put(struct panfrost_gem_mapping *mapping);
+ void panfrost_gem_teardown_mappings_locked(struct panfrost_gem_object *bo);
+ 
+-int panfrost_gem_shrinker_init(struct drm_device *dev);
+-void panfrost_gem_shrinker_cleanup(struct drm_device *dev);
++int panfrost_gem_shrinker_init(struct panfrost_device *pfdev);
++void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev);
+ 
+ void panfrost_gem_set_label(struct drm_gem_object *obj, const char *label);
+ int panfrost_gem_sync(struct drm_gem_object *obj, u32 type,
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+index 2fe967a90bcb..fefae87535d6 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
++++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+@@ -95,10 +95,8 @@ panfrost_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+  *
+  * This function registers and sets up the panfrost shrinker.
+  */
+-int panfrost_gem_shrinker_init(struct drm_device *dev)
++int panfrost_gem_shrinker_init(struct panfrost_device *pfdev)
+ {
+-	struct panfrost_device *pfdev = to_panfrost_device(dev);
+-
+ 	pfdev->shrinker = shrinker_alloc(0, "drm-panfrost");
+ 	if (!pfdev->shrinker)
+ 		return -ENOMEM;
+@@ -118,10 +116,8 @@ int panfrost_gem_shrinker_init(struct drm_device *dev)
+  *
+  * This function unregisters the panfrost shrinker.
+  */
+-void panfrost_gem_shrinker_cleanup(struct drm_device *dev)
++void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev)
+ {
+-	struct panfrost_device *pfdev = to_panfrost_device(dev);
+-
+ 	if (pfdev->shrinker)
+ 		shrinker_free(pfdev->shrinker);
+ }
 
 -- 
-Frederic Weisbecker
-SUSE Labs
+2.55.0
+
