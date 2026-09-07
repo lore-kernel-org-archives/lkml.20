@@ -1,70 +1,70 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAEE82F5495
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:21:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D961C3859C3
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:22:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788762074; cv=none; b=NzY1JlUIV/5wqMy4lxFr73LYfadk+8j8m+rm4zDknANpCnJ7t82YhMk/Fn4vOFXdpP/38Ltyln6sDwgiXVnYGF666Z36JBo6NYhAfzyke/T3KxAzzllk+i+wMBkqlayLFdlxb9LYrLtyIbnSGl2xLOUOSSYndGwYV/udRok1nN8=
+	t=1788762124; cv=none; b=GEztSYpS9NJRnrYasHqNAQ4Y9Fcm9r70XxT0bhQrnDYd2dju0lSHjo9cDjfX/RPqSQ85YXZmUcXir4235DL1DsJgfUkXZgAEPVS/zW79M/90jwci7AsZQ0vHzyiKyU+/+UoFwKsgWNOxxoVrwBMmKgj/TskFzApRt5MjHqw9GsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788762074; c=relaxed/simple;
-	bh=9XoIlqf40F9ERfOXTjyA1lCn/C+WtSDLODCelZg/niI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TqkHArYSZKSt7uYkCDCZJkjYoxEge0nJpj0GzEtEYCtKriwgwA88CECWJPFrcbGnzy9cGSlijhF2AcxGpH2VV7dilxqvMD/89/IGNW9iN4TFLrlnhcBWwsU27XDrP6zyzb/TtihCKCYV6IHMYoStH4C3+wTwvH0ON4E57IpATGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B7DBUiB+; arc=none smtp.client-ip=209.85.216.47
+	s=arc-20240116; t=1788762124; c=relaxed/simple;
+	bh=MeRW5bXEGeIEkp5gf8eUoDyMZ6P61cTaAQ2l91fGwJM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kBX/pCvY6c/qpfLWaYOHlcTJqgBTYIcirpTfW5Xk2XvrNYbpZAJrbpw52hhvLyzVHbGgWl4ojci+HBJaeHRdcPPyn/YnRYBBpKAcumUhI07sylu+RUlHje/DwiVy2dLQVdqBY7CXZmXPbWQ5E6MISDrF/iaMHY6vJZvYd33IgLA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tDJE1/hd; arc=none smtp.client-ip=209.85.216.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B7DBUiB+"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-39b2ad862bdso3389527a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:21:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tDJE1/hd"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38759bcd877so3171333a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:22:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788762072; x=1789366872; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788762122; x=1789366922; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bTn8RfNWMPERJ9eHXPlyufxsUVUk1MZYEguK7so9GjY=;
-        b=B7DBUiB+LjqDQMEVTR0W7Bz3F+leBziPWqt9TokZiLTsEuXjc8XeeLR85J+yEgTGU5
-         eWcTTBv1r0RX3KojPXcvkxNAd8ZQKSN9gHaIbpQCutDeURXR/3u2LfGt6J2hYSzcd3It
-         VEzpARDSL5xkBvrjKWwEZfgqYRV3vnef+IneNabBe0HtgbbiYKgdZkOvCQb6y9IA9C54
-         AShwWuRHplT2ZaP4Kvk9x/12oY7Tp1wsBMb/pQvTB+fOr1ALAZ4YMP4um4Crgurc1aFy
-         xz2QV67yVV9fcPNE2jDmq+zkuzRsjrWJlbC+8RoPZymP+fJaTP96iWrkTJeeK570xa7y
-         o/vw==
+        bh=pgQmB11lwCyevM+5cq0InhbT0EBZhc/NlddXm3mSXGc=;
+        b=tDJE1/hddIcwYHpeCVruCxw50WkQVGx1g9m2Tyq3Ee3sJAqqNqnmX28hz1A6FUOE9U
+         P8QUJYCtQfOO8patGcKhMExpoubuvMOjtdK64GPkNin/65D3iZO0O7lzSjzpanZn6vr2
+         kqCfCniNQ2UonG7T2piXVR9cWcxCym9Edmhsv0yaeeiAZKMXBtLndVS5390CJPF7l9b4
+         z7Xul5fvTZV6x2XOtaqm29/q5jSe3KrfkJGliphMGwUaQepCp6FHxWVYBQuk184Kyodw
+         FSPzi/yhWP6/mVSn/gZ+iHjwmBczsx5Dmw0z18rVIq0AxQD+qzKMRm8LOiyswBPMcWnl
+         Ma8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788762072; x=1789366872;
+        d=1e100.net; s=20251104; t=1788762122; x=1789366922;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bTn8RfNWMPERJ9eHXPlyufxsUVUk1MZYEguK7so9GjY=;
-        b=OBwTA7IxYy5IsuB5pNqI9wQdWphw3rbIXn3I81eSBBTmkKlNPahU/zbj67b3pQ1BtA
-         rLAyVSv7Cagf1d3HyjseQMfKurscAviLxuVEC1UHpWXaf6M6sbN3RERvjsoiUX5Mh+na
-         FJwLs2JeG6b96Rz24hRoUQ29Ub3CPy9dTJAVdqrzd9Q42pWw+eznH8bSglUrrfz8mfPB
-         Kn+gHsfhTTgt/rp/wPDBImxDPSzfsfYg4Y5s9iN3AU2VvwRNEBDLdmq4bNHLVdvxGgYw
-         TpDSnzBSHrTQ4RYaWj03PXeEnZdfGfZrmFFE+aufdAhxsz+RilX9i+PTngGvJKP5BiNe
-         g+8A==
-X-Forwarded-Encrypted: i=1; AKwUvBxCcf/lQetcggfXRW8YdRXk4xBz4FYz8C5HrSebljTQo5jIlXrQ6cu2eGv6PFb2ZOqAB7MUr2Ri0H/kf08=@vger.kernel.org
-X-Gm-Message-State: AFuF++ljHmAA9fhOTSxR2IOHFw2QXQMsvoiGQsIZcITSTN0Kio4mHgxS
-	9POGVVc8PuMoswEgpEpTe8GIB3QrKoSpr+hCmPAKBD9nSBcMiXPTpoUYTWd6/rfseuk=
-X-Gm-Gg: AYBFou0QX+pVUvG1aqlHD1vuPAo3EoddnWaqX8I9FtR38U+dprA7S5vssnl9XVJCRy8
-	dPZn239bGomSqqoHxJOevQobhWyXjrODpxgq5mU5943KbvDhmoB1fi0Zt2GjnGClnXoW9Eg3vM5
-	qIHROsTyn4PP4sNPl8oVdWVGbcT0IVhnDEA4VLtnuHRUl9Kt7U5sBtWrB3nwwqa6sio6Us/Zlj9
-	KHccnAUOFxtzJSk14BbLzO9OohhTjgQCGkL/rwl6lsT2FSQiI4negU6q6ELbZPPtJA3pLsh9xAs
-	75/+47wCBI8dbtEaOcBkilbM7uZ1+krYHB4eZkNTuO3V+xMbnUCoRRt31OJpAKt08IQv4txziRk
-	KpvDwmZwcyMDgKN/RHoILg+GMWBX1HlpY5NCUz7z5lW3LfqrXqvNlw/AsXj/oS7S0+3oGxBiNKJ
-	DVFSbW39A773jhYR46+EqAjeLl/VK++4LGmaq2z97yCTLUO0FBMBm7M8slXHprf0RF7RsNHyMBm
-	kFhOOzM5SKwfg==
-X-Received: by 2002:a17:90b:1c8b:b0:398:9bd5:490c with SMTP id 98e67ed59e1d1-39b26214502mr29650367a91.19.1788762072077;
-        Sun, 06 Sep 2026 23:21:12 -0700 (PDT)
+        bh=pgQmB11lwCyevM+5cq0InhbT0EBZhc/NlddXm3mSXGc=;
+        b=MJuL/XTVrb9WrbiaKiOBuv2ESBIhr0jB1+qSFxSLT07T7pKOFMQEeP7DSzgBzVfE+e
+         wcb2SO3rPIJ6Y/9doh0d7UDhED27VAEtgzAgk7+IIdVq6uids5I4pBb5YjkOPemYw+og
+         yPSbQaAGsCUh+WzFG1iljw52yfNTmDAMDQfbWCpSN8R8ZjoCt1jBc2s6nTRTRX3apJbF
+         b4m0N+Vs0An9XNiDyFCf/8GNVSE/I3Q3F9REz1anyUqx7d5I2kYy50hwfJw0bcjZalQA
+         W6c0b87dl4Jzf8NWcF2z4gZuJN89dubn3GQfNz2VUu2igPYYu8Xw+4SqDjA77XfWPufS
+         4ydw==
+X-Forwarded-Encrypted: i=1; AKwUvByaLYL70UUn4jSzV7n6ZidJhVHdwUNgASd68oYLC1o7gckVTaQTqUQ+52Iec+42AsclsRAPy4qwUhdtvQU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mlIy2XfsCcSyd/LiSA1dviz6mC+CjT/3RamFlRTsN+2e+Y6jlg
+	40m/ft/TV42nuMg8rfmhv9HHQJWEaRjP8GHOr5Z/PKvWC/gpUPl1F/pgq2PSBXrjVvA=
+X-Gm-Gg: AYBFou0x73U3uClqSQxkD2kzXrpZgwjnPb6XJTZ7ky25Lvvn2TVcfCvCJKyk4Ni7cFc
+	kVMzT2EVwT1efu0NsIzeFJASX8rq8BvDUIPeck8S5iloU0nYXhWWyBDnJf0NulHfy2Q5qaBgIMu
+	39V1/+ShGWL61yDcjvDWVol1XvCBaxlepQ2mF4tP+6LDeFIeWeAhj4p3KpxvYUdQA5rHkNXwJKj
+	P5K/47lull3qfOzzxduVI5kqaVDK0mIe5jSPwZayPJt7WIkQhCLJ5kUcq2JQlXd2GQBfvO2a0hb
+	VK+q6Hv8xws6PCI7l68xjGCpv9THHWAlNfr3YNmQXt7acwYOa6CuO1eqVMQf1QaivPZEvkvszy9
+	rM5Yrpw1Ts32yd0kZu1hGljS6giE+9vPiHAgVBN1Quz3V4LIGBB969S2B2mlvspeFH3YTeszMav
+	GpT04mMOFY3hwhxSB3C+vatC9KBDlS1FHJe7WBLwX8SJZu/tC5ofzOsua7ev6+iEq+mBJQZFHfd
+	BCnnvOagr3QBIFv66+fXMp7
+X-Received: by 2002:a17:90b:580e:b0:398:c3c9:d0ae with SMTP id 98e67ed59e1d1-39b25ee242bmr29928116a91.0.1788762122144;
+        Sun, 06 Sep 2026 23:22:02 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b9f68e4sm26261340eec.24.2026.09.06.23.21.10
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432441f5f2sm27532996c88.15.2026.09.06.23.22.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 23:21:11 -0700 (PDT)
+        Sun, 06 Sep 2026 23:22:01 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>
-Cc: linux-tegra@vger.kernel.org,
+To: Alexander Aring <aahringo@redhat.com>,
+	David Teigland <teigland@redhat.com>
+Cc: gfs2@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] soc: fix typos in comments
-Date: Mon,  7 Sep 2026 11:51:07 +0530
-Message-ID: <20260907062107.6859-1-hemanth.selam@gmail.com>
+Subject: [PATCH] dlm: fix typos in comments
+Date: Mon,  7 Sep 2026 11:51:57 +0530
+Message-ID: <20260907062157.8474-1-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -81,31 +81,36 @@ changes.
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- include/soc/tegra/bpmp-abi.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/dlm/ast.c  | 2 +-
+ fs/dlm/lock.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/include/soc/tegra/bpmp-abi.h b/include/soc/tegra/bpmp-abi.h
-index 5c64b3e02211..4766ca988b7d 100644
---- a/include/soc/tegra/bpmp-abi.h
-+++ b/include/soc/tegra/bpmp-abi.h
-@@ -76,7 +76,7 @@
-  * @ingroup MRQ_Format
-  *
-  * Request an answer from the peer.
-- * This should be set in mrq_request::flags for all requests targetted
-+ * This should be set in mrq_request::flags for all requests targeted
-  * at BPMP. For requests originating in BPMP, this flag is optional except
-  * for messages targeting MCE, for which the field must be set.
-  * When this flag is not set, the remote peer must not send a response
-@@ -2727,7 +2727,7 @@ struct mrq_abi_ratchet_request {
-  * @brief Response to #MRQ_ABI_RATCHET
-  *
-  * #ratchet shall be #BPMP_ABI_RATCHET_VALUE from the ABI header
-- * against which BPMP firwmare was compiled.
-+ * against which BPMP firmware was compiled.
-  *
-  * If #ratchet is less than the requester's #BPMP_ABI_RATCHET_VALUE,
-  * the requster must either interoperate with BPMP according to an ABI
+diff --git a/fs/dlm/ast.c b/fs/dlm/ast.c
+index 0fe8d80ce5e8..7dd38e15bd25 100644
+--- a/fs/dlm/ast.c
++++ b/fs/dlm/ast.c
+@@ -81,7 +81,7 @@ bool dlm_may_skip_callback(struct dlm_lkb *lkb, uint32_t flags, int mode,
+ 		 * Suppress some redundant basts here, do more on removal.
+ 		 * Don't even add a bast if the callback just before it
+ 		 * is a bast for the same mode or a more restrictive mode.
+-		 * (the addional > PR check is needed for PR/CW inversion)
++		 * (the additional > PR check is needed for PR/CW inversion)
+ 		 */
+ 		if (lkb->lkb_last_cb_mode != -1 &&
+ 		    lkb->lkb_last_cb_flags & DLM_CB_BAST) {
+diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
+index c381e1028446..1e1dc1909733 100644
+--- a/fs/dlm/lock.c
++++ b/fs/dlm/lock.c
+@@ -92,7 +92,7 @@ static void do_purge(struct dlm_ls *ls, int nodeid, int pid);
+ static void deactivate_rsb(struct kref *kref);
+ 
+ /*
+- * Lock compatibilty matrix - thanks Steve
++ * Lock compatibility matrix - thanks Steve
+  * UN = Unlocked state. Not really a state, used as a flag
+  * PD = Padding. Used to make the matrix a nice power of two in size
+  * Other states are the same as the VMS DLM.
 -- 
 2.48.1
 
