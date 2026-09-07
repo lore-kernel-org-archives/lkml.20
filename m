@@ -1,224 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E95684D8D97;
-	Mon,  7 Sep 2026 13:01:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF90B4E66A5
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:00:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788786080; cv=none; b=RvcP5L6HD/5sAw+aJH41peoAoNpbvN+8JFGYE6jrR9jKPYu0SF5ckkOWe0p8NlX5AeSyIc+6F9Sv9KSWWUS52RhJ4bZMKUiHySlvx8QIymCi47NG6mq9vwzDbCl6o3H7XhY0AgPzf59toVFqqLvnHENlZRVT4ue8DfAn9gI8UDs=
+	t=1788786071; cv=none; b=kBeWMlPTPviJq2sepKjhLlY1KmSoOpqg9j/vMvI/tCrXPKU2yMHE3ph/BknabydHXG3ck/tGou69aK4JwTOdZtHWxShttkakkqueCyw+NHvY1r1R33JrCVgEdFeT9twXxfDcWVNkxScP6P+dVnvOs/5JyUgb85IzGHSo1AmKC4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788786080; c=relaxed/simple;
-	bh=jG+DF0nd0wBkw7A7vMoguUP47Uwu6YTCNYtM17t+gIE=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:
-	 References:In-Reply-To; b=l79sZrzS5j2NiuQEO31QdoipxUZCInXg/t3zr6M0EA71KAPpfEkafkcAchTCs95LB3rWidgn10zFE0/ZEQ7N/RaSeVfolCmt+Vfz1cf4npwRAsOPg8WQ0Eu0pOlO6LJrRNILjQBf1Fb+cLKH0RgsxlVdNBRxWy8ljw+NBlG0Ti4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lXXFAFrM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788786071; c=relaxed/simple;
+	bh=I+KGJQSaFuiFQqaJd4WTbgyQakGdDL17bHCfV1O6JO0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TYGOpefR/asYBO/u8vBQ2oP6q2sEoESMMjzpFfDyYDH5a4cnYd7lTCkYai67LLuS8th/nDu+AVdsHeDJoA9z0YUVPP2U8tFtwyGqX7AXEA8NhiTSGQHHaR26W8Zdk90ZPfPvBRXvaQv8ykN8znv7aAHJ2ABAX9yk7HwMhz+au4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pm8IvzzT; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lXXFAFrM"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 48E861F00A3E;
-	Mon,  7 Sep 2026 13:01:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788786060;
-	bh=F4VPyTZ54caW5/2FxinE0de1h566CHchl8PU7RTCzwc=;
-	h=Date:Subject:From:To:References:In-Reply-To;
-	b=lXXFAFrMyZ9iKDuZFZc+3TX/Lq9T58AIoBg9QtiliUStbSJuHnH3Yra7cawchxONc
-	 O4kY5HVIfpMwr47rs4xxpDXqtpktWvgbvzG4EIsoU/GCNyr7J73CNyhrDtAV65us3e
-	 6vnJLJoU64Q4Ig23QTnsF6BAXMStV4cs9FmR3Il80hrD0E5D6plOYUWP4HD3J3eW2V
-	 6fl7sYBKhBdbOOavIU70LSIsaH1ublZBgOzdQ4JXqcVhooea+IZpPurqWGh/7o/xk6
-	 lEeOONnJcPoDBjBzw8ZJJQN8Q3jHPuEhOyes4E8fnutATQMJIaQdC3MzBx56TKDb1Z
-	 i3IYSINXbNXRw==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pm8IvzzT"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38759bcd877so3536357a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:00:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788786055; x=1789390855; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=y9lu9r4O1nlAVQeCkhUgitNF1/65fOde09LujJjN41A=;
+        b=pm8IvzzTSzy5aPq39JqDJoCwWDEhkseOSgxMmczsp3Pn3ZaEAF2/rw0TrG6MqJ1FMY
+         E4jvLB27CrkTNUjelmui01ELCISZlWDjEyIiqiKd7/tsYobWqwaCfX+0BttuQHeWPSci
+         s3TUP1k4TNKvos3mTo9E1LjCwWx+BnfF0oY00w2yel+wqXoVxYYF+sMIVP23z+BFbF4X
+         b0qOrAR5nO+Iap+YwFh0peFwST5qXUUFqPpL/7fuVp1lyRJIi19VMLe3+EZQblix1s97
+         UT1qi1Lf/hm9Qrpf4sYifM4cUVPDVG1WnFEXTrjRIAo6LYrFhAyEMEWYe5h+lgobSLQ2
+         ohnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788786055; x=1789390855;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=y9lu9r4O1nlAVQeCkhUgitNF1/65fOde09LujJjN41A=;
+        b=bfc1SYMp17/foZX/YrMqBjSBnajOEGRLSdtf6mVnzSM/0IXQoNcPdN6pKhvVDH2Ve0
+         6UjsuhJfxlXYdSukNVlOdXDtNGimqb3mIM2aVNrhpdoAnyEHodCJM4s87QiV3OUCheH1
+         P4ufXQj2exZ6S2wcMsDbs+60h9pQ0gP9btQXUyrY8UxzUWAEaLj2LI31PV/TsWR0Jz0J
+         FE0ZkHdc21trvsYw8HYlZtKFVkvOJ4FxYjKpoqZpd/pnUwph6EWysuFQvskeCIuZMTET
+         D8V5k1EpJ/RLJaO4sm4kS7anoerCaXbp48FLRBuYNp/mZTNgOdymkmlCMIqB2ggJuZU6
+         Do6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy/ZpQ97FfYdNu1awRRTyvTixpdO6Pjo5W5lfnMeyMr7ANrYiVrYzDNODzq3+mrn8focEt/Gw63MBxy7Ok=@vger.kernel.org
+X-Gm-Message-State: AFuF++n9rvIlCFq00keyxMv4+3GT3qm/lmTjROh5yuW6c6viDcVPfuPY
+	xaQKFCqvHWQfTM+7bEJckjhhRGoNX7IyfIOabfd+K3zBoHOz/tfG7aBU
+X-Gm-Gg: AYBFou0ZYFKKcYwDr5yEPP4/ujw8A6zhBDaIl2GvDJL72DdU9lCXPqog/m9iSKj4AOG
+	j2OBe/FW65OtYSThmPoGf/LiPl7JVUnOoPefoYIHvPVdvFsdkc+IvwqZXB2CGti4wzojEeXmZiE
+	HE/wqlgcJr4yZArx/WmJ4ZpELl5wU79K6pp2sa1smhPnWSeOaicYrXDaWvT3BdduL1MYW8Rv7a5
+	J9tDfigwK/TwsHnZO6DrugUNkrWctLEOwutDVeORXrLBP7B0Va+sSjPy7ko5nDKLs/9fyC7HTiP
+	b2x+Kd7Omw4xknvw0ecY5z8IWtjdoEUAC/wveZftacUBo958tv1DEh7BYOzYOVfHIFTfZD88PFB
+	e2fmUH17WRb+jXC0DdpBiBfmyuukb7wBcvx1VdOdJswow21Oh3BOmZW7WzfTRwH3BTwmJBnLXuQ
+	veW5vffCfNKVKFKo6eLLeiKCziHK1Cht/XYYQWuhIw3U/XNpZYGSiDT6jpLtOrJyHZtPXe+8O0i
+	oK9fO4=
+X-Received: by 2002:a17:90b:4d87:b0:380:540:d499 with SMTP id 98e67ed59e1d1-39b26100bfdmr31090249a91.6.1788786055275;
+        Mon, 07 Sep 2026 06:00:55 -0700 (PDT)
+Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae62a54f6sm10916296a91.1.2026.09.07.06.00.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 06:00:54 -0700 (PDT)
+From: Bo Zhang <zhangbo0325@gmail.com>
+To: aliceryhl@google.com,
+	gregkh@linuxfoundation.org,
+	cmllamas@google.com
+Cc: arve@android.com,
+	tkjos@android.com,
+	christian@brauner.io,
+	surenb@google.com,
+	baohua@kernel.org,
+	zhanghongru06@gmail.com,
+	linux-kernel@vger.kernel.org,
+	Bo Zhang <zhangbo0325@gmail.com>
+Subject: [RFC PATCH v4 0/2] binder: split alloc->mutex to improve performance
+Date: Mon,  7 Sep 2026 21:00:26 +0800
+Message-Id: <20260907130028.807366-1-zhangbo0325@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=cfe8a98efb2086f550102e1210fdc67d01fd1cb7f4b563889cc6dc1396e2;
- micalg=pgp-sha384; protocol="application/pgp-signature"
-Date: Mon, 07 Sep 2026 15:00:56 +0200
-Message-Id: <DL93QHVC01B9.3U3K1G8NC0MZA@kernel.org>
-Subject: Re: [PATCH v7 3/7] mtd: spi-nor: sfdp: expose the SFDP as a
- read-only NVMEM device
-From: "Michael Walle" <mwalle@kernel.org>
-To: "Manikandan Muralidharan" <manikandan.m@microchip.com>,
- <pratyush@kernel.org>, <mwalle@kernel.org>, <takahiro.kuwano@infineon.com>,
- <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
- <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <srini@kernel.org>, <nicolas.ferre@microchip.com>,
- <alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
- <linux@armlinux.org.uk>, <richardcochran@gmail.com>, <arnd@arndb.de>,
- <linusw@kernel.org>, <gregkh@linuxfoundation.org>,
- <mathieu.dubois-briand@bootlin.com>, <linux-mtd@lists.infradead.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <netdev@vger.kernel.org>
-X-Mailer: aerc 0.20.0
-References: <20260812104955.485667-1-manikandan.m@microchip.com>
- <20260812104955.485667-4-manikandan.m@microchip.com>
-In-Reply-To: <20260812104955.485667-4-manikandan.m@microchip.com>
-
---cfe8a98efb2086f550102e1210fdc67d01fd1cb7f4b563889cc6dc1396e2
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
 Hi,
 
-On Wed Aug 12, 2026 at 12:49 PM CEST, Manikandan Muralidharan wrote:
-> The SPI NOR core already reads the SFDP tables during enumeration and
-> caches them in nor->sfdp->dwords (see spi_nor_parse_sfdp()). Re-expose
-> that cached data as a read-only NVMEM device, in on-flash byte order,
-> rooted at the flash's SFDP child node (compatible "jedec,sfdp").
->
-> This lets NVMEM cells reference any SFDP data: a fixed-layout for
-> parameters at a known offset, or an nvmem-layout parser for vendor data
-> whose location must be discovered at runtime. The device is only register=
-ed
-> when an "sfdp" node is present in the device tree.
->
-> Signed-off-by: Manikandan Muralidharan <manikandan.m@microchip.com>
-> ---
->  drivers/mtd/spi-nor/core.c | 78 ++++++++++++++++++++++++++++++++++++++
->  1 file changed, 78 insertions(+)
->
-> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
-> index ccf4396cdcd0..0425af6e898f 100644
-> --- a/drivers/mtd/spi-nor/core.c
-> +++ b/drivers/mtd/spi-nor/core.c
-> @@ -17,6 +17,7 @@
->  #include <linux/mtd/mtd.h>
->  #include <linux/mtd/spi-nor.h>
->  #include <linux/mutex.h>
-> +#include <linux/nvmem-provider.h>
->  #include <linux/of.h>
->  #include <linux/regulator/consumer.h>
->  #include <linux/sched/task_stack.h>
-> @@ -3001,6 +3002,75 @@ static void spi_nor_init_fixup_flags(struct spi_no=
-r *nor)
->  		nor->flags |=3D SNOR_F_IO_MODE_EN_VOLATILE;
->  }
-> =20
-> +static int spi_nor_sfdp_reg_read(void *priv, unsigned int offset,
-> +				 void *val, size_t bytes)
-> +{
-> +	struct spi_nor *nor =3D priv;
-> +	struct sfdp *sfdp =3D nor->sfdp;
-> +	size_t sfdp_size =3D sfdp->num_dwords * sizeof(*sfdp->dwords);
-> +
-> +	if (offset >=3D sfdp_size || bytes > sfdp_size - offset)
-> +		return -EINVAL;
-> +
-> +	/* The cached SFDP is kept in on-flash (little-endian) byte order. */
-> +	memcpy(val, (u8 *)sfdp->dwords + offset, bytes);
-> +
-> +	return 0;
-> +}
-> +
-> +/**
-> + * spi_nor_register_sfdp_nvmem() - expose the SFDP as a read-only NVMEM =
-device
-> + * @nor:	pointer to a 'struct spi_nor'
-> + *
-> + * Expose the whole SFDP, in on-flash byte order, as a read-only NVMEM d=
-evice
-> + * rooted at the flash's SFDP child node (compatible "jedec,sfdp"). This=
- lets
-> + * generic (fixed-layout) or vendor (nvmem-layout) cells reference any S=
-FDP
-> + * data. The device is only registered when a child node with the "jedec=
-,sfdp"
-> + * compatible is described in the device tree.
-> + *
-> + * Return: 0 on success or if there is nothing to do, -errno otherwise.
-> + */
-> +static int spi_nor_register_sfdp_nvmem(struct spi_nor *nor)
-> +{
-> +	struct device *dev =3D nor->dev;
-> +	struct nvmem_config config =3D { };
-> +	struct nvmem_device *nvmem;
-> +	struct device_node *np;
-> +
-> +	if (!nor->sfdp)
-> +		return 0;
-> +
-> +	np =3D of_get_compatible_child(dev_of_node(dev), "jedec,sfdp");
-> +	if (!np)
-> +		return 0;
+This is v4 of the binder alloc lock optimization. Thanks to the Sashiko
+automated review for the feedback on v3, and to Alice Ryhl for the
+earlier reviews.
 
-What if there is no jedec,sfdp node? Should this be added anyways?
+The series splits the binder allocator lock into two, with distinct
+roles:
 
-> +
-> +	config.dev =3D dev;
-> +	config.of_node =3D np;
+  - alloc->lock (spinlock): owns the non-sleeping metadata - pages[],
+    the LRU list, the rb-trees and free_async_space. This is the hot
+    path hit on every binder transaction.
 
-What about just:
-	config.of_node =3D of_get_compatible_child(dev_of_node(dev), "jedec,sfdp")=
-;
+  - install_mutex: only serializes the sleeping PTE operations
+    (vm_insert_page vs the shrinker's zap_vma_range) for a given alloc.
 
-> +	config.name =3D "sfdp";
-> +	config.id =3D NVMEM_DEVID_AUTO;
-> +	config.owner =3D THIS_MODULE;
-> +	config.read_only =3D true;
-> +	config.word_size =3D 1;
-> +	config.stride =3D 1;
-> +	config.size =3D (int)(nor->sfdp->num_dwords * sizeof(*nor->sfdp->dwords=
-));
-> +	config.reg_read =3D spi_nor_sfdp_reg_read;
-> +	config.priv =3D nor;
-> +
-> +	nvmem =3D devm_nvmem_register(dev, &config);
-> +	of_node_put(np);
+pages[] and the LRU are always updated together under alloc->lock, so
+the buffer allocation path always observes a consistent state. The
+shrinker takes install_mutex with mutex_trylock() (skipping on failure),
+which avoids a self-deadlock when install-side reclaim re-enters the
+shrinker, and keeps the shrinker out of any blocking cycle with
+mmap_lock.
 
-This now leaves the nvmem device with a dangling pointer. What I
-meant in my previous reply, was that you'll add an of_node_get() to
-the nvmem_register(), so the nvmem subsystem will have its own
-tracking.
+Performance (binderThroughputTest, Qualcomm SM8850, 2 workers, 10 runs)
+under concurrent drop_caches:
 
--michael
+                    mutex (baseline)    spinlock + install_mutex
+  throughput:    27k-59k iter/s       84k-89k iter/s
+  average:       0.031-0.068ms        0.021-0.022ms
+  P99:           0.088-0.148ms        0.046-0.056ms
 
-> +	if (IS_ERR(nvmem)) {
-> +		/* NVMEM support is optional. */
-> +		if (PTR_ERR(nvmem) =3D=3D -EOPNOTSUPP)
-> +			return 0;
-> +		return dev_err_probe(dev, PTR_ERR(nvmem),
-> +				     "failed to register SFDP NVMEM device\n");
-> +	}
-> +
-> +	dev_dbg(dev, "exposed %d-byte SFDP as an NVMEM device\n", config.size);
-> +
-> +	return 0;
-> +}
-> +
->  /**
->   * spi_nor_late_init_params() - Late initialization of default flash par=
-ameters.
->   * @nor:	pointer to a 'struct spi_nor'
-> @@ -3204,6 +3274,14 @@ static int spi_nor_init_params(struct spi_nor *nor=
-)
->  		spi_nor_init_params_deprecated(nor);
->  	}
-> =20
-> +	/*
-> +	 * Expose the SFDP table as an NVMEM device only when
-> +	 * the flash actually provides one
-> +	 */
-> +	ret =3D spi_nor_register_sfdp_nvmem(nor);
-> +	if (ret)
-> +		return ret;
-> +
->  	ret =3D spi_nor_late_init_params(nor);
->  	if (ret)
->  		return ret;
+Changes since v3:
+- Fix an AA self-deadlock: the shrinker now uses mutex_trylock() on
+  install_mutex, so install-side vm_insert_page() recursing into direct
+  reclaim and re-entering the shrinker on the same thread no longer
+  deadlocks (Sashiko).
+- Fix a use-after-free: pages[index]=NULL is done under alloc->lock
+  (together with the LRU isolate) instead of under install_mutex, so
+  binder_lru_freelist_del() can no longer read a pointer the shrinker is
+  about to free (Sashiko).
+- Fix an RT-task livelock: since pages[] and the LRU are now consistent
+  under alloc->lock, list_lru_del() never fails and the -EAGAIN retry
+  path is removed entirely (Sashiko).
+- The mutex_trylock() also removes the ABBA concern with mmap_lock, so
+  the install side's mmap_lock fallback returns to a plain blocking
+  acquire (no more -EAGAIN/retry).
+
+Changes since v2:
+- Fixed the ABBA/-EBUSY/next-buffer issues raised on v2 (superseded by
+  the simpler v4 locking above).
+
+Changes since v1:
+- Dropped the spinlock-only approach that raced install against shrinker
+  zap; added install_mutex to serialize them (Alice).
+
+v3: https://lore.kernel.org/all/20260904110448.23086-1-zhangbo0325@gmail.com/
+v2: https://lore.kernel.org/all/20260831123545.3655557-1-zhangbo56@xiaomi.com/
+v1: https://lore.kernel.org/all/20260805152752.1924434-1-zhangbo56@xiaomi.com/
+
+Bo Zhang (2):
+  binder: switch alloc->mutex to spinlock for buffer metadata
+  binder: add install_mutex to serialize page install and shrinker zap
+
+ drivers/android/binder_alloc.c | 95 +++++++++++++++++++---------------
+ drivers/android/binder_alloc.h | 11 ++--
+ 2 files changed, 61 insertions(+), 45 deletions(-)
+
+-- 
+2.34.1
 
 
---cfe8a98efb2086f550102e1210fdc67d01fd1cb7f4b563889cc6dc1396e2
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCap61iBIcbXdhbGxlQGtl
-cm5lbC5vcmcACgkQEic87j4CH/icDAF/VWHm4cvVi6eH69TujKUb5gNmCdX4yjPu
-yiP2Tou8p7PZd9X/jzhrqIfV0NcAs73vAX4yR4pFZ09gnQn+PF04tW9ejbu3Ytxe
-rKK0mE3hj2BhqFjwL4hmXUDfY7oWmgCUgvc=
-=u9Aa
------END PGP SIGNATURE-----
-
---cfe8a98efb2086f550102e1210fdc67d01fd1cb7f4b563889cc6dc1396e2--
