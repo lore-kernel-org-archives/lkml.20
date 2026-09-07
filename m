@@ -1,57 +1,84 @@
-Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 354693B3888
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:14:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.252
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE8044C65C
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:14:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788779661; cv=none; b=XdjDhneAIm6kggOYoe1ykwBKuzFFjUadjZpbXzgzsvZ7wEGZFGWTafzTQtbu0SazX7rkHcqewgFCPakt2KihPz4Rzc2KG/SSUwhjMrpoCah4E+NawRFLntM1ZHa1Sddbnp+jN5jm4BlYGMpyOjewXhQJNYBIGw5op1NTY5nAtTU=
+	t=1788779666; cv=none; b=pWGzl8Ri2/PrwQiADuY4ZEV62arKlTuzPhrbeJgNXvEBD8iVT5ixb9Zp5GtR1FrZbmO5L/IYW6n5uzAOn5YLUxoJl/ezxLabB1DFwrPD9UdqG8PvZTAg0JiTnaec+Rlq1VdC2MHt8V1xHU3z93yEfdHUEvjnXktg8N5KoATJcVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788779661; c=relaxed/simple;
-	bh=RC3Jgc99iSA9eJvklt/OtPcuaDvB1zAVs8QSaV/2TbY=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=TNfyIA3WzFwuYdKT4TCqyThRgT9ZYGPd+GTqA5OmbibYwRBgq5nOImjIY6UHRJxpTTEPnbCzQlSN0NtBdVC32CsR1YBSlWvazL2fcGxrxGfXhGM+5qHYt2b3oZ7MoaH6JmK4FatOCCU1jbIh9JsJHBHwYUX/uIo38ehtC/Fjyxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=V9L3sOTc; arc=none smtp.client-ip=162.62.57.252
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1788779666; c=relaxed/simple;
+	bh=8W6Bv7KpERuwJUntqKnAFvzQpKJjMvVzAdtpot6zh1I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fx2yQgA6+8yBLCJf2ZfyAqMxVMDov0Dd4dF+iS7nX2j4lcALxt72e6zdMy0v00IyQQ6BL2n0eV490aXSzuccESahWbqGRjwJBWDk+h8O7v/bf/Jopt4kKuQLl8rPM9CqyMyClCX0Fz9nNOS0W9prFIanoVItw7/3zaDCcxXzcus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S+O1lNHx; arc=none smtp.client-ip=74.125.227.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="V9L3sOTc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1788779654; bh=fSVzpKS/YYyYMMxwPPQTSDGVAtpZRqUa8+PAUJd3p7k=;
-	h=From:To:Cc:Subject:Date;
-	b=V9L3sOTcz9KwUUG/bbNtFGjICkn4jGRJrwYX60PAmT1zCqEVy8LmFYD/jjVblkTfk
-	 wsdVNP+GypFw3ZAckXVkVuFh9MqxScH8+DphQ4wZzD5Nc0azVX96g8i4+L26btspYn
-	 oUgmTp216v3Y2LOVzX9Z4VNIdrtckFqKbCO5jzL0=
-Received: from localhost.localdomain ([223.166.55.8])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 2A9A9AD8; Mon, 07 Sep 2026 19:10:41 +0800
-X-QQ-mid: xmsmtpt1788779441tsoomyqxn
-Message-ID: <tencent_219EED44C45D6CEC1D6B6724343E13733005@qq.com>
-X-QQ-XMAILINFO: OVFdYp27KdlJA6P4cVAkZA6LcNH7n20/3XC+huFHXppZr3uXt/jzf5GJfzgxsS
-	 5Lypkzs9aujCfK+BAYwhnne7SByB8krRwAwgBTu67RPGojCJN4X3ZHzR+XL4Iv84mTWKOvJhDBBO
-	 PEAdX5DC6mgV6j/U66DM3v850TvI/pkbdrmElpwaYlaiYjAMaz+thlZx9ux/YTFIQm96L28XMxNm
-	 p0y+wTtOJJUyJajXhRdvNsiwObXIVvZOogeMvO+npgfhzI2rhVfMU0EuZZad9KWewax/O/EERI47
-	 8c4BhW1XGK6ZPr582H1Qr0beV0FrD+edPpXZMFtWKhOoR7KTf2RvNmOTRMDJRhS/qiAc6cPjb98W
-	 p0UX35Rfv7GEjRg8r92Q+iAFYbHvFoPg7Vvq4QQ+/xDg7AyXsRNDxDSD/nkCDhZ70ev9xDhATZ7S
-	 Oceuik5LFjpwoNBxQpWbFtPBnt2iMW0tdaowMVzTSsmvVy6vbZEkRoVvWgVKKZJJRoDtjbZXzblT
-	 yXRaoRtfPY8a3R1WkppdtOTBgKoCfJf84qGZ0ZmDLlHg2YFi35umOIUQ84+FOVI/0ydA62pMkKxD
-	 smlcnQEMCfQG5Yt2Us/rps0R9FmvyJuBEVMihLD0gZfJj8TeUTz0ZZEdoTULCpc/QTpju8sX/BYo
-	 cOrCFYgGs72FCSxipzVdFhs5ldkEr/AFQGJ89xpDbnlKDETPgVP9IJW0RD1UU3Tr94SPOt4iMpn6
-	 gJmeXL5KaMdVsqoPnif8QVJUsbMy664Ix/DdOipSL99v/G+hpd/MawS61gv4WIwg3gP2p5TmWCmb
-	 yNiJmD3ibU/OFaAp0k0pz4lvDIaxeKREIm8D9Boy/lknaLnSYW25T7KwdxjRp1JwtSp35LAduivE
-	 fVbi2QUJYTQtPMg/gdcvAVRqclyGeYQi9zdUugaVDOozG0C/1hmpAWNVXGV9UG3zOK3dnIUfw/ua
-	 4e+poXpssmuOSVGMlnItKL9dJk5UdIPmdWdScpQjdC7IRTWZ+5gMexnrgLpCw70OW0FX6P8Qg=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-From: fzz <1768315307@qq.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Vignesh Raghavendra <vigneshr@ti.com>
-Cc: Richard Weinberger <richard@nod.at>,
-	linux-mtd@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S+O1lNHx"
+Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-396a51b2605so1371662a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 04:14:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788779664; x=1789384464; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8W6Bv7KpERuwJUntqKnAFvzQpKJjMvVzAdtpot6zh1I=;
+        b=S+O1lNHxLaXXPxX33C8hQ9ZrXhTMpw+O8zqV6Y4e4Ng147z2O9lmf28iXGj5EiWpc2
+         etoDj/FbcrAbmtT0GeVPMn1ZtCwI/nD/aE6Z5TTxvXLvySr+La7bgcsrFHa2A5AvbQ+o
+         //KUDo7VsrFY9cTmX2prNe2MAe1UglK3E6A99sYk/YXqsmWVlVxZAbKjE/fLIa+VL+hg
+         6XR/zBZ6XA7YJyo9ZxxB6LWfo8c+xCnvkncCq2AkanBbbqvSQRkaGYQbxccVjHeLDVAD
+         L+eVrMnfDEYGMzHHVZt7VzqmjJppQ4qOvpKNw5AA/FLttwzocTcfld7b46v1822yfmH+
+         zorQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788779664; x=1789384464;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8W6Bv7KpERuwJUntqKnAFvzQpKJjMvVzAdtpot6zh1I=;
+        b=DbUopFEcBaGpWBjmmgxdxnOxq9U8pz8CNqr2/j1WqdlW17u4Z3IZqHs4xh6uw4XyZh
+         xzDx5cfTHoV6xYuk41v7eNutssjsN+ykwM0kP+c/tvtC1tpUSkYD5D76n3k8+BrzDOTD
+         Wmsq0bzsgGOCD8ODRI537z15Jl5dluj3T7z+fkaQcxHU29HDK5B4YvrHfLhOQ9c6VOxz
+         46iiyxfdNa6ciDlKE8IT+D/dAc0RsTo/UG+Jt9JXMkUGSTfJ3TM3K60jWFaYwGXlcvfA
+         8Vxgp1sJ3FH3rcaXHM1znCGWOAj3Kv7gBqUcTszfhtxYNH4llGnh2zQ1Sm+ORv3tT4kN
+         iuSw==
+X-Forwarded-Encrypted: i=1; AKwUvBxf8h+RNMg2WW6Y5IiVnrqEEegFvJbwoeKJs9rvM4m2gvL3oHRG2I0pdM06fh+0krFWF6zZbTHVvMHZa4A=@vger.kernel.org
+X-Gm-Message-State: AFuF++nMX6K5+DbOIxOyEjzHty52vaIFxvEShDF59nvNifaxWF9jxDxX
+	j7R/0UK4FTANAnmPYkVsoEw262zeyoV5C1d1Df4i7IA0lZOkvC2cf6JY
+X-Gm-Gg: AYBFou0n75wxxqTd5dfXgOnNO8xzR0EQeMdj+gJA8faNZ8t+HbsDsP+3X7ObB4z5uWN
+	KJrlyIsYM1EpMFV7W/t93WJQg3WDTpb0isNWUPysXVqqboZLF3EXw8hB8dF8PE3pZ8HG0EkxDKe
+	f9n6aWMuD4brOfOClb5rqpctlv8NdwuREIgdjoB/D0wYIUyPXhlkzzrDcF1jrpJgFVUcf3uTu+z
+	Svrv6xeg7sZMIWwNGUyYCl+s0uZyQswG9MLmuQlSrAhn2q5JQqb61Gg0+d8Om32TiX4H8YOzaOD
+	wMS5Z9C5eX6Un/S5nWvonfRQrGvouhRBRT2+goF+kShKDzlSoYCyAwsu9CHT5K9r4aE8s/QU/rg
+	ikx5rAfBD0xxSblhWCbyylKpLogg5Z0Wf4SwgQwnbO+buZIZBaoI5YZK8OEBad0mTDV9CzDETWp
+	QjU8rjqOAjjYPmI+BG76u6iub7UE68y2pjWXb+uMm93WdKqk4e7LcJ402aVI4iefJL2eN1qBOxL
+	XjKvnfx9mgSzc1wJ0vGEWHGlQ==
+X-Received: by 2002:a17:90b:4e8f:b0:38e:5c6:4db9 with SMTP id 98e67ed59e1d1-39b261ba63bmr33887224a91.11.1788779663921;
+        Mon, 07 Sep 2026 04:14:23 -0700 (PDT)
+Received: from nzzhao-ThinkCentre-M760t.mioffice.cn ([43.224.245.179])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260fdf9asm20388323a91.9.2026.09.07.04.14.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 04:14:23 -0700 (PDT)
+From: Nanzhe Zhao <nzzhao.sigma@gmail.com>
+X-Google-Original-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+To: Chao Yu <chao@kernel.org>
+Cc: linux-f2fs-devel@lists.sourceforge.net,
+	Barry Song <baohua@kernel.org>,
+	Juan Yescas <jyescas@google.com>,
+	Pengfei Li <lipengfei28@xiaomi.com>,
+	Dev Jain <Dev.Jain@arm.com>,
 	linux-kernel@vger.kernel.org,
-	fzz <1768315307@qq.com>
-Subject: [PATCH] mtd: spinand: cache the last read page to avoid redundant SPI operations
-Date: Mon,  7 Sep 2026 19:10:40 +0800
-X-OQ-MSGID: <20260907111040.3305150-1-1768315307@qq.com>
-X-Mailer: git-send-email 2.25.1
+	David Hildenbrand <David.Hildenbrand@arm.com>,
+	Bo Zhang <zhangbo56@xiaomi.com>,
+	Kalesh Singh <kaleshsingh@google.com>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	Ryan Roberts <Ryan.Roberts@arm.com>
+Subject: Re: [f2fs-dev] [PATCH 13/14] f2fs: allow large folio support to writeable files
+Date: Mon,  7 Sep 2026 19:14:16 +0800
+Message-ID: <20260907111416.2522216-1-zhaonanzhe@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <6f138a9d-1428-4813-b102-caeab9591da4@kernel.org>
+References: <6f138a9d-1428-4813-b102-caeab9591da4@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -60,138 +87,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When squashfs reads files through mtdblock, the mtdblock layer
-splits I/O into 512-byte sectors. For a 4K-page SPI NAND, this
-means reading the same page 8 times (4096 / 512), generating 7x
-redundant SPI read-from-cache operations. Each such operation
-involves a full SPI bus transaction, significantly slowing down
-boot time and file access.
+On Mon, 31 Aug 2026 16:31:36 +0800, Chao Yu wrote:
+> We start to use blk-crypto rather than fs-layer file contents en/decryption
+> code, I think we update f2fs_mapping_set_large_folio() to allow encrypted
+> file to work w/ large folio.
 
-Cache the last successfully read page in spinand_device to avoid
-these redundant operations. When the same {target, eraseblock,
-page} is requested consecutively, the data is served directly
-from the bounce buffer (databuf) via memcpy, skipping the SPI
-transaction entirely.
+Oh, I missed that information. I'll remove the encrypted gate in
+f2fs_mapping_set_large_folio() in the next version.
 
-The cache is invalidated on write and erase operations. RAW reads,
-OOB reads, and continuous reads are excluded from caching to
-maintain correctness.
-
-Signed-off-by: fzz <1768315307@qq.com>
----
- drivers/mtd/nand/spi/core.c | 36 +++++++++++++++++++++++++++++++++++-
- include/linux/mtd/spinand.h |  9 +++++++++
- 2 files changed, 44 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
-index 8bf9301f25e7..fc082127bda8 100644
---- a/drivers/mtd/nand/spi/core.c
-+++ b/drivers/mtd/nand/spi/core.c
-@@ -557,7 +557,14 @@ static int spinand_read_from_cache_op(struct spinand_device *spinand,
- 						    req->ooblen);
- 		else
- 			memcpy(req->oobbuf.in, spinand->oobbuf + req->ooboffs,
--			       req->ooblen);
-+				req->ooblen);
-+	}
-+
-+	if (req->datalen && !req->continuous && !req->disable_ecc) {
-+		spinand->cur_target_cache = req->pos.target;
-+		spinand->cur_block_cache = req->pos.eraseblock;
-+		spinand->cur_page_cache = req->pos.page;
-+		spinand->cache_valid = true;
- 	}
- 
- 	return 0;
-@@ -833,6 +840,20 @@ static int spinand_mtd_regular_page_read(struct mtd_info *mtd, loff_t from,
- 		if (disable_ecc)
- 			iter.req.mode = MTD_OPS_RAW;
- 
-+		if (spinand->cache_valid && !disable_ecc &&
-+		    !iter.req.ooblen &&
-+		    iter.req.pos.target == spinand->cur_target_cache &&
-+		    iter.req.pos.eraseblock == spinand->cur_block_cache &&
-+		    iter.req.pos.page == spinand->cur_page_cache) {
-+			if (iter.req.datalen)
-+				memcpy(iter.req.databuf.in,
-+				       spinand->databuf + iter.req.dataoffs,
-+				       iter.req.datalen);
-+			ops->retlen += iter.req.datalen;
-+			ops->oobretlen += iter.req.ooblen;
-+			continue;
-+		}
-+
- 		ret = spinand_select_target(spinand, iter.req.pos.target);
- 		if (ret)
- 			break;
-@@ -1064,6 +1085,12 @@ static int spinand_mtd_write(struct mtd_info *mtd, loff_t to,
- 		if (ret)
- 			break;
- 
-+		if (spinand->cache_valid &&
-+		    iter.req.pos.target == spinand->cur_target_cache &&
-+		    iter.req.pos.eraseblock == spinand->cur_block_cache &&
-+		    iter.req.pos.page == spinand->cur_page_cache)
-+			spinand->cache_valid = false;
-+
- 		ret = spinand_write_page(spinand, &iter.req);
- 		if (ret)
- 			break;
-@@ -1188,6 +1215,11 @@ static int spinand_erase(struct nand_device *nand, const struct nand_pos *pos)
- 	if (!ret && (status & STATUS_ERASE_FAILED))
- 		ret = -EIO;
- 
-+	if (!ret && spinand->cache_valid &&
-+	    spinand->cur_target_cache == pos->target &&
-+	    spinand->cur_block_cache == pos->eraseblock)
-+		spinand->cache_valid = false;
-+
- 	return ret;
- }
- 
-@@ -2025,6 +2057,7 @@ static void spinand_cleanup(struct spinand_device *spinand)
- 	nanddev_ecc_engine_cleanup(nand);
- 	nanddev_cleanup(nand);
- 	spinand_manufacturer_cleanup(spinand);
-+	spinand->cache_valid = false;
- 	kfree(spinand->databuf);
- 	kfree(spinand->scratchbuf);
- }
-@@ -2044,6 +2077,7 @@ static int spinand_probe(struct spi_mem *mem)
- 	spi_mem_set_drvdata(mem, spinand);
- 	spinand_set_of_node(spinand, mem->spi->dev.of_node);
- 	mutex_init(&spinand->lock);
-+	spinand->cache_valid = false;
- 	mtd = spinand_to_mtd(spinand);
- 	mtd->dev.parent = &mem->spi->dev;
- 
-diff --git a/include/linux/mtd/spinand.h b/include/linux/mtd/spinand.h
-index 5f4c00ae72a7..887ef6d34a41 100644
---- a/include/linux/mtd/spinand.h
-+++ b/include/linux/mtd/spinand.h
-@@ -757,6 +757,10 @@ struct spinand_mem_ops {
-  *		   a command addressing a page or an eraseblock embedded in
-  *		   this die. Only required if your chip exposes several dies
-  * @cur_target: currently selected target/die
-+ * @cur_target_cache: target of the cached page
-+ * @cur_block_cache: eraseblock of the cached page
-+ * @cur_page_cache: page number of the cached page
-+ * @cache_valid: whether the cached page is valid
-  * @eccinfo: on-die ECC information
-  * @cfg_cache: config register cache. One entry per die
-  * @databuf: bounce buffer for data
-@@ -798,6 +802,11 @@ struct spinand_device {
- 			     unsigned int target);
- 	unsigned int cur_target;
- 
-+	unsigned int cur_target_cache;
-+	unsigned int cur_block_cache;
-+	unsigned int cur_page_cache;
-+	bool cache_valid;
-+
- 	struct spinand_ecc_info eccinfo;
- 
- 	u8 *cfg_cache;
--- 
-2.25.1
-
+Thanks,
+Nanzhe
