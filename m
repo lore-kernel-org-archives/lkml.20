@@ -1,77 +1,100 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 874FB483BE3
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:01:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 702CC46983C
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:01:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788782494; cv=none; b=nRzt7F5xdCq26GFOVAMUbvAHC+Ai+2uj8a7SnLYX+h2d0GRRfdbtvTlgy0thHntfI4p/wFLFzuPy0SZB2NbvT5gatJJuZB6gue9pQccmJejCx47lTYXNCCBg4g18Gv4zYCPOWxavBr5Fu6sGWvY153NywL5efPEG2Ffel3cZcxA=
+	t=1788782501; cv=none; b=E8ro8g6y6WnKUWG5Dp8ijlX8phf2CVBHKgnsupuaBblODcGmtPPpNWTsAMnDLWqc0/cLxBr082qlW7vHc2IE9W/PMXnGEg1ZIqdv0Ewlk24mYkXeZfp1ozVbwNIbyBfA9S326cy2U5aDyGOCQDui959ElKA6j3wqXIso5hnqhb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788782494; c=relaxed/simple;
-	bh=CrlhUJHxSyS7QTCXqZCtb5+kT27E/1q8+f1+oITtvvk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C2pFCR8M0hSZpbTUlzSrSA5x6eazuqoGZb6tncWwb1OZUGkQLVpkk1mM93WEBfv9Tygqd2D9hwfEkfQfELL1lETQJyUeUuzOfiBa/JsfTaxdZ303pFGGayaWddDXwuvSpYYxPOlTsJL1yZi74nm+z16zFbIloJGCFeiC/zT0Ex8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RrFcZrD8; arc=none smtp.client-ip=209.85.210.179
+	s=arc-20240116; t=1788782501; c=relaxed/simple;
+	bh=UErhiAlzr8WjMoBRENwt/AEHPbueyU1pd5tdq23Ux3s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CKh57PeepYBQj+Ij1XUl1wzZYolW21LGmd1VE+gpPyFLPykI3q+POJBp2/eLuY7GBGiHwFnoYRt9rfjQpLq2rMk2uVdF1EK7ON0x/Miv8hBlDO4y4YiZj8XYnearo2au21n/OcpUJtyYrUro/GF2LqQgFjYaoScSVaFkHgXtUuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MKLw3sWI; arc=none smtp.client-ip=209.85.210.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RrFcZrD8"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8520161fdb9so3672976b3a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:01:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MKLw3sWI"
+Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-7f4b94d72acso2946700a34.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:01:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788782492; x=1789387292; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fGYY8R1XstP8r1J3lVI69+hhzGANnc2NV65GGslrhcI=;
-        b=RrFcZrD8xsDPiRD6TavQjh34WzIa/Z4o3TI0KLV7iaPIIf98yFxHA2WOKCypkQ9Ivq
-         E5P2cd2TgqpfOFPvalE0a/OGTZLIiG2QPh5ESCTs1+oZYwDIavZ2zau0m+vRlVL5uZqT
-         UKjcomTy1b2FkPLqg49cyJo9QeDZBeMFsMdgP9q7LsB9NDrCIo3EbsMaqZkrW+8ZyqdC
-         QnxJJDuCK1hbUhUqsVh/OyJC+evGDSw+BSWYddyIOzvhKBSvMCLYZpDm4d0ejbSAxy5/
-         y2YR5KlQC0UOC30kugsrgUOEwUfkjx9jw6f+JoeZb9baQpYjfBqj2OYmAbQZSLEli6dB
-         O3CA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788782492; x=1789387292;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788782499; x=1789387299; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fGYY8R1XstP8r1J3lVI69+hhzGANnc2NV65GGslrhcI=;
-        b=WGXcTQqLgEHE7XSMUWh+Sg9A0RA1MDv+xj2QGZ2Q94tFSoFCsCEUnDosrhP5/5yvRG
-         c5wCMUZHOn/Rh5+kjaNy7UO1RzPbEoV9KShHzgAJD4qT6Q8l6k8C3ednMoHKIuDG+2By
-         YTTO5c+8ovKYoBobW6FP3RLXADbWlX8QAz0eDHdY1wV6aJ2Q/nAVoBXlvETLjTvXj8aq
-         uQQvOlgGhImTecUqnk+ayj0JP+qo5DuoVp9SNCivtwezPyVFh/V8pTBhzLXQvDlk+HLF
-         ldwa6BQ+VoNOGJWgog2wng/IbO0e3xeQ85LgluMCJE2mp4XQbsKaz5rHAgGY+5KHrR1c
-         v+fA==
-X-Forwarded-Encrypted: i=1; AKwUvBxBsx+k5YzHJ3Q/BIXVkcN259zaZoJUJAdFTKORZbK74J3qpIwcFATgdFTiqMuXHwCNHAkgdRWi7kgM/HI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kI55PlVP0nG6lFeyf0XeNgQ76QPJF82NlwjSlZTefbu3X+Pknj
-	smqfJP9FC8uyT4Nr1nfRTi2j5ytKRIVKL2CnzxFZskElnttsDal29kw=
-X-Gm-Gg: AYBFou18jowZUGuv7upD67VTjy5Y/qhTLkKvZb99S5AdZdzeo6YCIk9uwwHXzyOGFNH
-	LFQ6CmQSKjd9Ry9SgPQBSzsSsHdTyJJwkMhheq+YhlNNsMKC9m7zZdzZZpZVNzsJxhZwq4hiXhH
-	jmXAKMd5aECJFAcKye/GyXp5fYGwtUXZDWsTcpuxt6J1fS8FuOma/jgQGJIz9ioK+bzP0E3yA0g
-	LxMYo97qBLpShT5IZI7fACZFCvnDsQc9G7dMPDwUVmtqvvtvbjO9M5bYYC3UYu+mUtQUf8jYHCz
-	0pAZobf7StUpWcSklwmS2DHfIR8foTaYQXZf1/4CiuN79hhOZ7CZDmw3l71uMwytuFz3iNgYjHy
-	UmktHUmj6XE4JbsM7VUTo/lkS0PFCfIvuRhYtmflgrCNVknKdaXItwFVZ5FgmIvcYFZVpbJggfn
-	4CAoMQHUKUteQfvMWdbtiA5PuLb3NwuunK6nZ8PWKTkUFmKxaAyXZ7fDL2zP5uT2bHaw/rQ55/V
-	Dn8N5PuEI15wJeb
-X-Received: by 2002:a05:6a00:ac8b:b0:85f:2f32:7a53 with SMTP id d2e1a72fcca58-8616c546f9dmr33820834b3a.17.1788782491666;
-        Mon, 07 Sep 2026 05:01:31 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:6467:d689:c773:5f09:906c:a72b])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86153f417f2sm4148847b3a.58.2026.09.07.05.01.28
+        bh=/3KV6RuBnnb3kSlImB7scYqnTaYm6MjcG3VOHCy4kfM=;
+        b=MKLw3sWItGMWoBAJDSwPgLxNFsv4bLhi9OtS/fVxpEzCSQyNSELMl8Fa1ZaETi0Ttp
+         BZeRdVqlc9u9NzQPAK3QebtH7TuDpb2eG3alIPFZE8HvRzDGb7GFu2IJJbBPjQ8iq4h2
+         zxhmYjip+cmDvgUWDOv1BDb/oD4pb6KCe7fZFAKb6amOmcWm5dlLKqFwRYURIiiu2mpO
+         luN4hzCYHHDO91zmaRpsh+X3JSIbHcRfTHfsNj0/bpk/wE1b5C1pQbnY1RgV/uuHSc35
+         QS+FnoqEwAX7aVZq5jWBxQ6w+sesuRcV3TW/lXCEnQkMeGZ0xSdRhw9F8TWQHhWXWnhE
+         CgTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788782499; x=1789387299;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/3KV6RuBnnb3kSlImB7scYqnTaYm6MjcG3VOHCy4kfM=;
+        b=rKNpK9nPdNasJIDgcV0u3cz0M7zxB5lQM8sp1OnOIA3ieHzvcOV18jm6txscMy1iC5
+         trqElo6nkrJdeXKwMkVmhd8pVw3xoeQIqFAjJ6Espe/vAIT/MrfxL2VnfEen9ObSZLyF
+         LF7IsEf/hgKZ2xcHFg7Qjm2oGXNCsYsdO1maCFa5oCeQB3kEwrYM9CU7XpB9ySIistUR
+         fRmmSHQMzzrO/Xmj9uMCycwSiZTgxW6RCWr120CdC8+dwFbaQeO4MaMn89ueoCvG4gpk
+         Mt0LPBYNtXNo2etdrDaxDwch6NpHn+nSHWIvazjIPqleoXedfleoceogL5QNRbrUOB+4
+         ngQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwt8UI0ayxDmpMP4SEtv+VpJFO/4SzfKM07u18NB3Ss37L+Vkf5eyBY0gaGSAxX7DfwMJmxvqWuoz1FA2Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++n4a5SQFrzGVeKSQCTaiXwTSrEzGszu827qnRpN+1xrYevNEE90
+	f2FOncs/AoThojKdxaOdOPsmglF0BvUZHrWJVsreIeqMgeEXk/R+Kq6u
+X-Gm-Gg: AYBFou05277YDVcYlteJdlhtZ9wY1KWxLtrpLbq0sJEKz0X5CoLuUfO6EiW/YLaex8F
+	snR5TvpjmEA94i6MZmBwKcSe96ketB/8Qi3SQBSWwv/zQpNxTz0A4hBR5HqkbfbJxxmcZyGQchK
+	fwAPeBtqQw4Sx0e90LRI6awkrc41BBx26O7qA6mAU0DSwVUTFQpmLkIuRpBES7sy1q1OdI3f9Wr
+	WXZa4KEMB6UhaJ8Bd+1cccFxyQEbuDMPFaCER/O8afVM/ZdUMvaCoOLaEQfDpxLMQ3V2auXNibW
+	llLMaIz9gQhpQoZz4LIDE2IOmjDVQ0xQJ4Hh/pIbi3zyEsVw3WiVFYlU10Ua4IgIxJeC11ipwtS
+	oc6IKhgikT7KDyYjkijbLlPr6D9Chi475DXl8HL7zVhWPE5FY940//RbCx/zp0cUh+RFQcFF9Zz
+	2S0Q/BpHdM5jUtCE6pHlep8uUf4pPDVTEQdPou9isX8KEDP48J9P3X/EQAHrK3pQ2RZMPFlnhzX
+	QwU3irR0VJ/xw==
+X-Received: by 2002:a05:6820:c91:b0:6b1:535a:eb8 with SMTP id 006d021491bc7-6b6fa8e02aamr12552198eaf.2.1788782498996;
+        Mon, 07 Sep 2026 05:01:38 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885ca07sm31244462eec.1.2026.09.07.05.01.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 05:01:31 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: Marek Szyprowski <m.szyprowski@samsung.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Robin Murphy <robin.murphy@arm.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Sean Anderson <sean.anderson@linux.dev>,
-	iommu@lists.linux.dev,
-	linux-trace-kernel@vger.kernel.org,
+        Mon, 07 Sep 2026 05:01:38 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Russell King <linux@armlinux.org.uk>,
+	Puranjay Mohan <puranjay@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Hari Bathini <hbathini@linux.ibm.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Naveen N Rao <naveen@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Shuah Khan <shuah@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Andreas Larsson <andreas@gaisler.com>
+Cc: bpf@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	donggeunyoo.kernel@gmail.com
-Subject: [PATCH v2] dma-mapping: don't trace the DMA address when the allocation fails
-Date: Mon,  7 Sep 2026 21:01:24 +0900
-Message-ID: <20260907120124.603373-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kselftest@vger.kernel.org,
+	sparclinux@vger.kernel.org
+Subject: [PATCH bpf-next v3 5/7] sparc: net: fix typo "evalute" in comment
+Date: Mon,  7 Sep 2026 17:30:41 +0530
+Message-ID: <20260907120043.36894-6-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260907120043.36894-1-hemanth.selam@gmail.com>
+References: <20260907120043.36894-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,73 +103,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-dma_alloc_attrs() passes *dma_handle to trace_dma_alloc() without
-checking whether the allocation succeeded. No backend writes it on
-failure: dma_direct_alloc(), iommu_dma_alloc() and the dma_map_ops
-instances assign it only on the path that returns a buffer. Callers
-usually pass an uninitialized automatic variable, so a failed allocation
-records whatever the stack held, next to the virt_addr=(null) that marks
-the record as an error:
+Correct "evalute" to "evaluate", reported by scripts/checkpatch.pl using
+the misspelling list in scripts/spelling.txt.  Only touches comments, no
+code changes.
 
- dma_alloc: dmatrace dir=BIDIRECTIONAL dma_addr=deadbeefdeadbeef
- size=1099511627776 virt_addr=0000000000000000
-
-The device coherent pool path reaches the same call: a non-zero return
-from dma_alloc_from_dev_coherent() means the request was handled, not
-that it succeeded, so cpu_addr is NULL and dma_handle is untouched once
-the pool runs out.
-
-For an allocation event a NULL virt_addr already means the request
-failed, so the address field carries nothing. Report 0 for it in the
-event class rather than at each call site, which covers dma_alloc_pages()
-and dma_alloc_sgt_err() as well.
-
-Fixes: 038eb433dc14 ("dma-mapping: add tracing for dma-mapping API calls")
-Fixes: 68b6dbf1f441 ("dma-mapping: trace more error paths")
-Suggested-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
-v2:
-- report 0 in the event class instead of splitting the two call sites,
-  as suggested by Marek. kernel/dma/mapping.c is untouched now, so
-  debug_dma_alloc_coherent() keeps being called for a failed allocation
-  and decides for itself what to do with it.
-- tested on x86_64 rather than compile-tested only.
-v1: https://lore.kernel.org/linux-iommu/20260905071919.30784-1-donggeunyoo.kernel@gmail.com/
-
-Tested with a module that puts a known value in the caller's handle and
-then asks for 1 TiB from a 32-bit capable device, with the dma_alloc
-event enabled. Before, the record carries the caller's stale value; after,
-it carries 0:
-
- -dma_addr=deadbeefdeadbeef size=1099511627776 virt_addr=0000000000000000
- +dma_addr=0 size=1099511627776 virt_addr=0000000000000000
-
-A PAGE_SIZE request from the same device, as a control, reports its real
-address on both kernels, matching the handle the caller got back.
-
-This changes what the record contains, not what the caller does:
-*dma_handle is still read to build the tracepoint arguments, since those
-are evaluated before the static branch.
-
- include/trace/events/dma.h | 2 +-
+ arch/sparc/net/bpf_jit_asm_32.S | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/trace/events/dma.h b/include/trace/events/dma.h
-index 9df02c1511de..b06d8f99922d 100644
---- a/include/trace/events/dma.h
-+++ b/include/trace/events/dma.h
-@@ -134,7 +134,7 @@ DECLARE_EVENT_CLASS(dma_alloc_class,
- 	TP_fast_assign(
- 		__assign_str(device);
- 		__entry->virt_addr = virt_addr;
--		__entry->dma_addr = dma_addr;
-+		__entry->dma_addr = virt_addr ? dma_addr : 0;
- 		__entry->size = size;
- 		__entry->flags = flags;
- 		__entry->dir = dir;
-
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+diff --git a/arch/sparc/net/bpf_jit_asm_32.S b/arch/sparc/net/bpf_jit_asm_32.S
+index a2e28e0464a3..81430f065ac9 100644
+--- a/arch/sparc/net/bpf_jit_asm_32.S
++++ b/arch/sparc/net/bpf_jit_asm_32.S
+@@ -195,7 +195,7 @@ bpf_error:
+ 	/* Make the JIT program return zero.  The JIT epilogue
+ 	 * stores away the original %o7 into r_saved_O7.  The
+ 	 * normal leaf function return is to use "retl" which
+-	 * would evalute to "jmpl %o7 + 8, %g0" but we want to
++	 * would evaluate to "jmpl %o7 + 8, %g0" but we want to
+ 	 * use the saved value thus the sequence you see here.
+ 	 */
+ 	jmpl	r_saved_O7 + 8, %g0
 -- 
-2.53.0
+2.48.1
 
