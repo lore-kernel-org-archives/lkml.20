@@ -1,183 +1,143 @@
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9065F411F95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44A0435EF3
 	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:23:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788769430; cv=pass; b=Nls6eujBxm4557WWJuPIOleLN4Oqlf9C/WuPChAuP5h5AjqEfms7qMijOw97M5MuRdfxJWZxCupedtk87/A43FJRnQAm7Q2Ga4cxveKksOptBNLScFvcdyTCAQZnhZ4HzexEhnsNHRdeJYY9xYn9Tkp828W0y5fYWsJp1FIFKlE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788769430; cv=none; b=LZEJqwvbmwbxzFY6X8tmS+WDLcZ9H+RJ/i1eYkLvwVogIWGWC8gRlrzk6gMc8/RQ8z7Y9spjcQoBUaHAaIzPYsFN6x0YCvVvL+iQHqoljRtVqA2opALNi2eAPqrLAIbCQ0sU07S7Zkv9ZWOLXn62BshcIIkpMiKL2y9ALHlQ1/8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788769430; c=relaxed/simple;
-	bh=P73mL+NckPvwm0Z6UFZ/zOQtwW0DTrdvlGKhHJ+Uef8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DfrS3RmpXhQw05GIjs/VcG6XGNdHFwNG8rxUYUXcgRIDA2HPSCVse81Aq+hFTXDBZgUhsozv5lFIrIWHQLpiO0sTTPsQBLEaWm4i6h0hh4s3rBaTe13Y9ybzAl1JqHkJUbRQau2T0BCAUbMJ8uUGDLJQE+iXCeiOLoOHMSixCGE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YSNmaaK1; arc=pass smtp.client-ip=74.125.224.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=toPH+1ZArk/DDhOFULiU+peDd7xkrEZ/LBY2wlar/aY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=K0KNwmwd8u4S8Rphg1yBxdZsV4lMXzEfnxYcEAosKmEZRtw+OIxICBFlNHBaiFpJDp36maKE/bfAjaPgC9TngkFEZbNn/jna3gTafvrrveo4ZctGwzXANjoh9LtWnaEvPGwJ32+qEtnpFCEmS61lf/nq94lZ9CVGFHw5fzAf30c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=jSlQjCUU; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YSNmaaK1"
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-66dbce0b639so1945276d50.1
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="jSlQjCUU"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49d05d51553so12737715e9.2
         for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:23:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788769427; cv=none;
-        d=google.com; s=arc-20260327;
-        b=i8ocSiOWAzJbeRBnLfankKO/efmN4d0Ts3LWvMWYH+GLwIS2u+R6AOgirFlIcE6fON
-         GuqXwndOmFTBnUH29gijla6anZ/5kR0CWBKGwCCenn1RXreEcVXJCyPwkahekii22hQW
-         6dCZKQ2emVnR1S5AYuWDT0NhBhrlGPtn+a0mev1vAUnBP2kMjNwuh5BukJuLwVKg1ODZ
-         mvSM/MN/yFMYh3XQUhZnRcEW0fRDwvncF1Wzu5kmzVqtStce1AjjcjcC5Yir7qnSYmz/
-         Wpiaor74GLs8trLLtkpe31mphl6uxc2zrUPDSPdGQzMeun3PLFktiv+DyFNdXOUlgl5b
-         go/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1RaztqRxo0uD6ze9i74Ru/vD4EDfdRaHg25tJec+1a0=;
-        fh=ODqVBfiF2tLfRVEcPyaRQoFbDL5RGKDAKEt8JHksAU4=;
-        b=AaYBiFooNcj/qholpgvSZd/OJoiGot1ZJReY8Jjeq8ECZTlD3o6r/VyLUy/8wb/UpO
-         /Cwmnw0SkldpAQutxctWMP/6ifjfkLla5H2ijU98Txo8gfY9u8MNPlK43y0/GRyFiFtG
-         lJTnQ8FZrmqpJTOpm1Iyi6sqL1tltIAl42PY1IAEUkX4ZSrGVZnldN4Lghdxe1ligwny
-         /cq6FR0o/SVCP5ibo3iy9Hn2tyS9aSvNwLwcYlov8YKOBfGODc781QjdNgNwIdRxSBMj
-         Z/T1cu0lzRrOuUh8byi5Tow8rW8eSpe/olkmhoWt9ZZ+3hgqPEKn5X9tLM7moYVvssk+
-         rwYA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788769427; x=1789374227; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=baylibre.com; s=google; t=1788769427; x=1789374227; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=1RaztqRxo0uD6ze9i74Ru/vD4EDfdRaHg25tJec+1a0=;
-        b=YSNmaaK1uI9IYDuj/JisTR/jCngJDl2aHIP+seKT4edLPBjfkvyjQG4II3yh9gXsXg
-         2tSedZeX2VPsk//dedMvlmOxx9bPkKw5cLJn1klRtkfXNzppNC7Q++XZ395+K3vcSwUO
-         Tz0Aa47l7zg41gnC7b4TcG1VdgqGX7oyyUgRDkBV1yBOL1oij3gkHhII3QawgujYj70E
-         CJxrnkrewWV7dwiSTZ7yo0P2BLOy6YyTqiu6n0JMemginqkyq3zx8KyZns4mpKlyvwMP
-         cTzI9XROIMDiWFi86N4KzNwXfEwjS9Mu8lWtgFm+Cujyf8tIkQx/78I/xvtUDJEwFaBh
-         a45A==
+        bh=toPH+1ZArk/DDhOFULiU+peDd7xkrEZ/LBY2wlar/aY=;
+        b=jSlQjCUU8NaKB9qSeaTa8q2TcqNyVNCrH5YlPuPk+DVIxHacKi5p6my2jigEtg5oIi
+         9wK784TvLkbMNjSAntxrTLBgyrju0g47xM51ay4Tjpblbrt2f+ohxXEu8GyD7hvQq/Km
+         moG50Y+Mq1xJXGgOdgCyzuKcsZXuBNlsxIEyziqceVo1mnSm/xHAQVshhiDHK9cDqqqF
+         l7yMQz5PDsdkdt7uVESFiRElzKDLjBPSy+MvNh9MA8tIDpRSZGdIbTrRnqpzdrMG+MBy
+         Au7hifIfCvAk0cz0fzCADnRQl9C+KRNwmGSJ8fum+EvTYs2R0+ZmWboDBLG+5YyqgDmk
+         8nOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1788769427; x=1789374227;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1RaztqRxo0uD6ze9i74Ru/vD4EDfdRaHg25tJec+1a0=;
-        b=UugegELw30voTaQ6SqcoDGTJ54xOCB29CJ6KDi1ArjX8mL9lokqW7FolQ49xSL+xhc
-         1gXqBQ8BRKDghXlYOg8Sw3H4p0bU2C9DrGSqfI6kTOBZNaEoXbi03AJAYEf5TRYoN9qK
-         DXR37XR/9H0spd/tu5R7+3eJ4LPXqqQzdaZG51Q5i5dlmfaHAZdPRiQ3ih3DXrrzbQu5
-         HHLz2RUr8tSCvfoV9lrsipAzFKi2AztysZwOTe9soP2WSUPHdtw1odIce3WGe2yR15HO
-         3qCmBPI/Ypi/zWFbz0PrnnfwbOhHPXSYMkn1o/8Ol17tjaLFrm/TV5zOYTIb4GUqB0J9
-         ySRQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzuL8YpbuWEY7FVh1XanwuZhKRxUsvirhSzVhjHaLFf1bgyO3gjl1Vt4Xd4YIQ8LmgHzviOUs2cp5TEpo0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lv5datXAM9V6G9ejl4J+puiN9USpL684n/dFiye5DWEPXyjOyd
-	1o7jH80E/1s7NwgD/WPTnmPTP40O3DkNOcaQ2qwH7AYWXHR5qWb4V7wjHS10Bmo/2nkqxiu3WK0
-	eA5HzHX+Td7me7Y0BW0vKkjrALTRte3Q=
-X-Gm-Gg: AYBFou3pHX5XNFEeHVRwwQU1+3QVlgiUtOtgqrwYBTeuq/Cct65m2jRNzlqH2yX35Qj
-	TYCNf5k2ng275rZwwXRubyobB3CmDaLy8TDxYfiu1gdbRD4q1RmQEIKqSuoeK3kdr0hJg/yeu7Y
-	egCqTjf434hwM9MLMMJlS1nuQaiXMnTnPlJ5DiB3iq1fsrS5Qe6nN5Ved5Qvkr3anPafsRkYJGA
-	uPQDMa0oeM8T/A8908tgfl8Oq6SZ92fqxojkmFGF4mSmu/WK6WrHgjMG4qNHaov6/yewfMnA9fK
-	gZL52xv9AsQ5Mv7T3GK2SgS7VumvDMEfDua0VdIx68E1
-X-Received: by 2002:a05:690e:4010:b0:66f:a8e8:7140 with SMTP id
- 956f58d0204a3-66fb58e9544mr5610726d50.5.1788769427506; Mon, 07 Sep 2026
- 01:23:47 -0700 (PDT)
+        bh=toPH+1ZArk/DDhOFULiU+peDd7xkrEZ/LBY2wlar/aY=;
+        b=oXwAp2v528fIv7CFyv+zbfZYARC+jzYdaLExjQNmJtGl8iemRsPhB568fZilnqvlKI
+         BBPB7sP2E41kMVSqaKzdx0dactViDH2HHJqxQ7eMDydI+GQMTQ1XT8PjTKpjfL8vQZaU
+         cuTHNYHr4IcSFJgOaIBacnYjYFfTrMqfdAYHf/PbjjSb53rSPH/yK+VpwYNFiqFyZi2Y
+         7BT1BaHgcLGu4pX7/onNw+OtGKEqWQDJHm/8f1jG+o0OWm3vaZEg/I/g0NL/O8VgelDp
+         MS3rhPY25RnL+KUl+ZgRZsTHMSEb3fUGSoKXjQ+bvKGHW/AEXIzFWBJhioy3LPG668yd
+         rBmA==
+X-Forwarded-Encrypted: i=1; AKwUvBxljhUxAJ7AYYGhWK9LfiVgxFV5IdiSXco+wT8GfTZnYdWlqF/XemFiOzAuC/XKDmeThT+2c0sb1ILbITg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nvi6PGcUJuoTwuDLJtvcq7OnlIwcJSYsPFhYD1jVi9jgIuII7S
+	xVriTxx+IjvNQ2t5Y0/Yc4nulwfnbTJDtoGTqqpR1f27bzanz5DwjuiGjSBkIXiwVPE=
+X-Gm-Gg: AYBFou0v5nS82eC4NvtIdk8/2nLIpM0dzQejjKJOhlYa0Cx7CXenwa6ysagiVJy0Qlf
+	aOXXKZWnpYGJs8PdB9KflWp2/WUAxPSfR48GZJ5QD43FXJaok0WfFa+N89Ny18S3X9PfjHpmAPu
+	acNuhoaAdBaF2GIhKQf3crFRfRXE0Mv5zQUiTJjHbl97NRLBF17GrNfTvljSkw11GwEuZhZ9zN2
+	4qnsyptjFUPoap1sCiC9ZyT09FoU3iWEnkiyyyep34T1l93/FUS4LI2ej1FUYqZuUdhwtzdln7B
+	39scyJ2VVZC4ysKhawVSRCemUKFnvoMFlQxc8B4vi/VjQGlUqkak1R/EySG9r0XM6IjZMjrOjPE
+	H4qGa/TVkJHXBgEPK7CzDd7o7HcJTjzQ1Jl1af5gG0ubK1k6Xo244pz9YiYFUPkzEBDJAL1uvte
+	WFqIEeD5WWmlFCbZfT8RO5kjOjaACl3LFWn91HP6s+bxRWakMFcUrqoKPFVJRzjlXdlh4XubFay
+	bB+KB9I5y3YIeh6vXm6daHRlrK9xW+qWwnF21iF7TFcOUr9xitHLD2hpGpAnw==
+X-Received: by 2002:a05:600c:348e:b0:49d:622:df25 with SMTP id 5b1f17b1804b1-49d0622dff1mr104970285e9.1.1788769427009;
+        Mon, 07 Sep 2026 01:23:47 -0700 (PDT)
+Received: from localhost (p200300f65f19a9047ae53bb37ada872a.dip0.t-ipconnect.de. [2003:f6:5f19:a904:7ae5:3bb3:7ada:872a])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-485883953cfsm22327326f8f.13.2026.09.07.01.23.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 01:23:46 -0700 (PDT)
+Date: Mon, 7 Sep 2026 10:23:45 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Michal Wilczynski <m.wilczynski@samsung.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, 
+	Hal Feng <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+	Heiko Stuebner <heiko@sntech.de>, Conor Dooley <conor@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+	linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, 
+	Marek Szyprowski <m.szyprowski@samsung.com>, Maud Spierings <maud_spierings@murena.io>, 
+	Graham Markall <hello@big-grey.co.uk>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Subject: Re: [PATCH v3 11/19] soc: starfive: Add jh7110-hdmi-subsystem driver
+Message-ID: <ap50F4QOw7jbcvI6@monoceros>
+References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
+ <CGME20260904132729eucas1p1bd78eb90feaf90b6265c13fc7bf43ada@eucas1p1.samsung.com>
+ <20260904-jh7110-clean-send-v3-11-484f9ae72715@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907-nilfs2-dead-code-cleanup-v2-1-fa1ab5b0abd6@gmail.com>
-In-Reply-To: <20260907-nilfs2-dead-code-cleanup-v2-1-fa1ab5b0abd6@gmail.com>
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Date: Mon, 7 Sep 2026 17:23:28 +0900
-X-Gm-Features: AcwNN1UL-TBL1zVJ8oYPZu6IdEJ8j9pQrZKvKaogUfV_Im3LoHnPA17DgONGnVE
-Message-ID: <CAKFNMo=AHjHpQdzMXtH-TbE-1OFCRmRLaOcSm=87YJYHo2M=EA@mail.gmail.com>
-Subject: Re: [PATCH v2] nilfs2: remove '#if 0' code blocks
-To: Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: Joshua Crofts <joshua.crofts1@gmail.com>, linux-nilfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dohx7bkeczkqrdqr"
+Content-Disposition: inline
+In-Reply-To: <20260904-jh7110-clean-send-v3-11-484f9ae72715@samsung.com>
 
-On Mon, Sep 7, 2026 at 2:34=E2=80=AFPM Joshua Crofts wrote:
->
-> There are two instances of '#if 0' code blocks that are dead code.
-> Remove these code blocks.
->
-> Additionally, remove a commented out section containing similar code
-> as the '#if 0' block and unnecessary brackets around a single-statement
-> if per checkpatch rules.
->
-> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> ---
-> Changes in v2:
-> - remove block of commented out code (Ryusuke).
 
-Acked-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+--dohx7bkeczkqrdqr
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v3 11/19] soc: starfive: Add jh7110-hdmi-subsystem driver
+MIME-Version: 1.0
 
-Viacheslav, could you please apply this directly to your tree for the
-next cycle?
+Hello Michael,
 
-Thanks,
-Ryusuke Konishi
+On Fri, Sep 04, 2026 at 03:27:12PM +0200, Michal Wilczynski wrote:
+> +#include <linux/mod_devicetable.h>
+> [...]
+> +#include <linux/platform_device.h>
 
-> ---
->  fs/nilfs2/inode.c | 7 -------
->  fs/nilfs2/super.c | 8 ++------
->  2 files changed, 2 insertions(+), 13 deletions(-)
->
-> diff --git a/fs/nilfs2/inode.c b/fs/nilfs2/inode.c
-> index 34e6096069ad..778274203f4c 100644
-> --- a/fs/nilfs2/inode.c
-> +++ b/fs/nilfs2/inode.c
-> @@ -342,8 +342,6 @@ struct inode *nilfs_new_inode(struct inode *dir, umod=
-e_t mode)
->         ii->i_flags =3D nilfs_mask_flags(
->                 mode, NILFS_I(dir)->i_flags & NILFS_FL_INHERITED);
->
-> -       /* ii->i_file_acl =3D 0; */
-> -       /* ii->i_dir_acl =3D 0; */
->         ii->i_dir_start_lookup =3D 0;
->         nilfs_set_inode_flags(inode);
->         inode->i_generation =3D get_random_u32();
-> @@ -422,11 +420,6 @@ int nilfs_read_inode_common(struct inode *inode,
->
->         inode->i_blocks =3D le64_to_cpu(raw_inode->i_blocks);
->         ii->i_flags =3D le32_to_cpu(raw_inode->i_flags);
-> -#if 0
-> -       ii->i_file_acl =3D le32_to_cpu(raw_inode->i_file_acl);
-> -       ii->i_dir_acl =3D S_ISREG(inode->i_mode) ?
-> -               0 : le32_to_cpu(raw_inode->i_dir_acl);
-> -#endif
->         ii->i_dir_start_lookup =3D 0;
->         inode->i_generation =3D le32_to_cpu(raw_inode->i_generation);
->
-> diff --git a/fs/nilfs2/super.c b/fs/nilfs2/super.c
-> index 893a504cb80c..89fa6faa34d2 100644
-> --- a/fs/nilfs2/super.c
-> +++ b/fs/nilfs2/super.c
-> @@ -824,13 +824,9 @@ static int nilfs_setup_super(struct super_block *sb,=
- int is_mount)
->         max_mnt_count =3D le16_to_cpu(sbp[0]->s_max_mnt_count);
->         mnt_count =3D le16_to_cpu(sbp[0]->s_mnt_count);
->
-> -       if (nilfs->ns_mount_state & NILFS_ERROR_FS) {
-> +       if (nilfs->ns_mount_state & NILFS_ERROR_FS)
->                 nilfs_warn(sb, "mounting fs with errors");
-> -#if 0
-> -       } else if (max_mnt_count >=3D 0 && mnt_count >=3D max_mnt_count) =
-{
-> -               nilfs_warn(sb, "maximal mount count reached");
-> -#endif
-> -       }
-> +
->         if (!max_mnt_count)
->                 sbp[0]->s_max_mnt_count =3D cpu_to_le16(NILFS_DFL_MAX_MNT=
-_COUNT);
->
->
-> ---
-> base-commit: 4d7d9486c04d917265f64c55bd23b2cc4fe7749c
-> change-id: 20260905-nilfs2-dead-code-cleanup-cefbe2773172
->
-> Best regards,
-> --
-> Kind regards,
-> Joshua Crofts
->
+Please don't add includes for <linux/mod_devicetable.h> as it introduces
+many unneeded build dependencies. Either rely on
+<linux/platform_device.h> providing of_device_id (IMHO preferred), or
+include <linux/device-id/of.h> directly.
+
+The same applies to two more patches in this series.
+
+Best regards
+Uwe
+
+--dohx7bkeczkqrdqr
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqedI8ACgkQj4D7WH0S
+/k4SQAf+JxaOkTt0KXEdMeiFgnBOg/VvLQ2tgwyYbYV25ymCW6f+E/Oz3WAI4IDD
+S5sDwYSMfEN2g+u3IdIzE3kZhVEAdkv+iyA6MExPzaVz9qaS/A5RwGIGRO8EtmbY
+OnW/GTowIQWQH8Fs2w7pe+ITRAhjl+9OOwdM2Y5h4x+EZD4CUz4apRozxIz62mu0
+rv5S6v/JdJiz/WNpikSdNzKKIKdq56RUI2KHXKfjqnvCkAHwAVnPfgCH+HNcpJSX
+wljKv3FOemKlAJV4uNgIjZs2QqmcGZbZ0acdyNWZ++YujYR8wLjOkQ0loi8lNg/x
+i6GGu8ylq1Jcpp7HF98D268WTb+1Fg==
+=jV7I
+-----END PGP SIGNATURE-----
+
+--dohx7bkeczkqrdqr--
