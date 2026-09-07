@@ -1,135 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F94F48EBFA;
-	Mon,  7 Sep 2026 12:17:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 827E4472F74
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:18:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788783436; cv=none; b=aliVzqc8IjBqynbMXKC29OXuOpi4pPV2jAG473dEkE4uROIet0VmVN8JxaCeEyd3BH6cluPr1T6yGqn1LLs4btt3BW7my5YphdRT0DnYxsWUbTJjWef8hqxHRXxxTqkdHNCpWgzeL+l2ts3RH3wTMtb+JicrfgSJG8O/Se80EK0=
+	t=1788783482; cv=none; b=mP3GoHsJ41NNylDQV12+4DvDZTQa/+5VjHzKWJLxNWkmjWnIWtCFfZctADhPevVHyaBHZGwBV3+3tkD7MuDn19BvZYKpLIdixOP17w0n92JQJW1OMu470wxqtCeE/iXXeVFpNVye7QfV3tN2f2hLVA2Lu0Gdg0ymtFeNwlTTnbg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788783436; c=relaxed/simple;
-	bh=nWBULfK8y2v0QRWjN6ibtoFURwMhy0uin0KZEDFOc/A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oN89ny2cgzPQpStid9d8aQT1yLHgmubckOnLH8d9HU7VooPYj3jNQMQ3JF/Z8PSsYsKc4y+FooPdX1p7MOA8F/lMX5nx72MjxKfsgePucZjiWYrItCz/+CtTiaf/0wtVxEKmJ4fx+nT1QkVyR4tRltX4xAXAwDZsVZfy92zP0j8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=US4Y6yRf; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="US4Y6yRf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AA671F00A3A;
-	Mon,  7 Sep 2026 12:17:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788783434;
-	bh=EFpyEDVGGTVSZxluvQxTZCLyg4DEZrPQkbjN/ObOnlA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=US4Y6yRfSLPovFlPMRvrHE4OPetbvdPmaEJ7oH7Rrrb1RcxDOwbt+N5CsuCQHDSkM
-	 oLHb/DqPUI9P877SeMvZ88LWMwYsaiCfmvDFBUpcZrYxyDx9WOwXMfSDAOicwxqMkd
-	 TbopE+0PBNJgofHYGIJHW8k/jr2+kU/LjTIKRwG/UrX388ohjdKQC1qhs1OcCn8RIt
-	 1kPJqWS72GLQp8OfPOIuk55hiP75KT1Tzc9VHi5+JpkBw7HFITDvBaWpUBqT1cmcHP
-	 Y8nb9A05rId9aHKEMowRYbKOMvedhVchF/DNLK8QUDpq98k82XXHXZFd8Esa+p3Zv8
-	 HujZGDMEts5jw==
-Message-ID: <934b1e87-3ebe-4a6c-a925-6b3993cdcec7@kernel.org>
-Date: Mon, 7 Sep 2026 14:17:04 +0200
+	s=arc-20240116; t=1788783482; c=relaxed/simple;
+	bh=VEx282xJoSaEd9yFgg0bC7E3UZwOapIeeglnsmObeHE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MT//iz3oBbTX0AGqn3Uz3nedT+nAgj8HLpxg0GIREZChauqj5MfiWYqKMf4Cty2bs5iT6GUs762I4VzKu8d+jiYx9WjqZYcVC/3pDc28FgDBHQGrtuJ/sJLDBpXTWPFR7fYhTFA9W/t6s0Kfqg9Qa38rn8xI/TIQcYME9IqZjow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5c66eefc868so3468093e0c.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:18:00 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788783479; x=1789388279;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ICs1H2dY7Gpq4y5UR8p+p9hgLN+TaINBuRZGUQCEu4w=;
+        b=GjGFFyAvUm3cSJP5NClo6gns+ZcydP0cvC7sf2nLDss5ZnLQtKZzvAm23Ea1Dd/7i1
+         i1jGyPfLpiMxz+8TS5ViTuhJqAa1kleioPqiswHfo3/l2cxw6+AUtJttm3x6ommIjQY6
+         EPjtZgOD039QzA/Ovejeqyef4vOLo0BHQ1Lu98eCM2KrA4m+8nzhTBri7H2WSYDhAzeW
+         s0II6dK5hE5Fm9fqeHz6Y51gfgJsOaBWBJbckZzMGYqdydZxi42B8Sv10+jsuMBdO+Dt
+         KovJlsRliz3Stcr0l+Sr/2F9/tqrlafasav1vu5CEV1N3RELSRwpx2HSRpXBKGJeZLKP
+         EPLw==
+X-Forwarded-Encrypted: i=1; AKwUvByos2x1NhqlPRAgFaGsTs090pcOoKpUc4p9Gt16VCPaqhU07cHo+6hRQgPbWfFr9p6ydvSQRIrRlGTh6Po=@vger.kernel.org
+X-Gm-Message-State: AFuF++mkfYUs1aVpcTMRhLU+9zJ4J4Owa0CE7UTpLlJ90yFJyfXnCkUP
+	hIzjkWmWeXCrzBZ41HdhBsxRhaJ6hsyyy+hi6pxRgdxtyeCff8H4bFdoAh4M2C2W
+X-Gm-Gg: AYBFou33DgJAiCl2XeOewqtTYKl6SyIWHX+l6qo80Eu9w5QPa051joH3mWe/xSSYG66
+	kxeFavTrqgL0FvxQdJROOeqxNmplOt8fy7m5Zh6Km+yq7fA/1uL2/ojoaaT/3NjXdK+wotg6jlL
+	OKq1U3t5/KzF1KHs/XMwf8CR9JLkp03Qacy67azwbFarRPFg7pUAhFcgs9mdiZ03oSxQL7oeCUa
+	jwo56EyizwHc96qtF2EIgu4u7VtsESXayBgM992MJwyaArM8/XHEM0RZ/5B9kk0tv7Q9HgxKKc3
+	xQFTWftl5ZhdnY89NnIHYkUnIA7mgVvyBTVvQGrPlDzscIYM0PQooM4Bcy2LNstj2AvHyXC/eMl
+	2kgRKu+nkPiH15OrwRww6Cy2T3nxPExWmbiDfA71L4aaRXsiRCZgShpjNu+XnXXMKX63L8VB26w
+	DnpqO3xC/Yvqo7dEiYEJvZOC1j0TbKvMctbzz+rNRtekP8It3Y+qaKioLtwIOpBUt/4/NVbmtRD
+	bHFEUzTHy4cZmg0373PjOAJGw==
+X-Received: by 2002:a05:6122:da0:b0:5bd:a5e1:c7c7 with SMTP id 71dfb90a1353d-5c7ed485cdemr9897706e0c.1.1788783479314;
+        Mon, 07 Sep 2026 05:17:59 -0700 (PDT)
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com. [209.85.217.41])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ec24254fsm7485735e0c.10.2026.09.07.05.17.58
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 05:17:58 -0700 (PDT)
+Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-782af6c753cso3243692137.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:17:58 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByQFVXD6SlXYOyn47bgTXh62E5QNMZBlVi7CMDu7P/LwB4SXaIzf3e03b3KFRtMQbQf5zviK3LQS0nCjB0=@vger.kernel.org
+X-Received: by 2002:a05:6102:5126:b0:785:5a17:739b with SMTP id
+ ada2fe7eead31-78a4a4944femr9543602137.0.1788783478176; Mon, 07 Sep 2026
+ 05:17:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/10] ASoC: dt-bindings: qcom,shikra-qaif-cpu: Add
- binding
-To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
- Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
- Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-References: <20260903072902.3870009-1-harendra.gautam@oss.qualcomm.com>
- <20260903072902.3870009-2-harendra.gautam@oss.qualcomm.com>
- <20260907-arcane-sassy-fennec-afc02a@quoll>
- <CAC-tS8BVw6hbgA82V1mYL_3CG4Jdodr-DQbGfM4FzMMdCLbc0g@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CAC-tS8BVw6hbgA82V1mYL_3CG4Jdodr-DQbGfM4FzMMdCLbc0g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260816153809.7067-1-jakovnovak30@gmail.com> <aoLCr8JEYaYxcJcQ@hovoldconsulting.com>
+In-Reply-To: <aoLCr8JEYaYxcJcQ@hovoldconsulting.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 7 Sep 2026 14:17:45 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdU_Rx4ZGi9SsNxKUDyYmV-GbD8rD9NMVzYginBMXdZDMg@mail.gmail.com>
+X-Gm-Features: AcwNN1UGIwaDEpSQZPDqi3a020L7heHOErQjuz6sflvRFDaDCrMR20u-OR5PZhk
+Message-ID: <CAMuHMdU_Rx4ZGi9SsNxKUDyYmV-GbD8rD9NMVzYginBMXdZDMg@mail.gmail.com>
+Subject: Re: [PATCH] mmc: vub300: fix sleeping function call from invalid
+ context in vub300_inactivity_timer_expired
+To: Johan Hovold <johan@kernel.org>
+Cc: Jakov Novak <jakovnovak30@gmail.com>, linux-mmc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev, 
+	Ulf Hansson <ulfh@kernel.org>, Guangshuo Li <lgs201920130244@gmail.com>, 
+	Runyu Xiao <runyu.xiao@seu.edu.cn>, Shuah Khan <skhan@linuxfoundation.org>, 
+	syzbot+1ee4f3b9228e35f14677@syzkaller.appspotmail.com, 
+	Geert Uytterhoeven <geert+renesas@glider.be>
+Content-Type: text/plain; charset="UTF-8"
 
-On 07/09/2026 13:43, Harendra Gautam wrote:
->>> +  clock-names:
->>> +    description:
->>> +      The first five clocks are always required. Any further entries are the
->>> +      per-AIF bit clocks (aif_if<N>_ibit), supplied in order starting from
->>> +      AIF interface 0 for as many serial AIF interfaces as the board uses.
->>
->> Who provides these clocks? Your example DTS suggests that another SoC
->> block, so how these clocks could be optional? Either they are in the
->> hardware or they are not. Hardware is not really flexible.
-> The clocks are provided by the GCC/LPASS clock controller, referenced
-> via phandles in the DTS example. The distinction between required and
-> optional is based on usage, not hardware presence. The 5 required
-> clocks (lpass_config, lpass_core_axim, bus, dma, dma_mem) are needed
-> for any register access and DMA operation, the hardware block cannot
-> function without them. The per-interface bit clocks
-> (aif_if0_ibit..aif_if3_ibit) are only needed when the corresponding
-> AIF interface is actually used; a board may instantiate QAIF with
-> fewer than 4 active interfaces, in which case the unused interface
-> clocks need not be enabled. All four Shikra AIF interface clocks are
-> listed in the example because Shikra has 4 physical interfaces, but
-> the binding intentionally allows subsets for future SoCs or board
-> configurations where not all interfaces are wired up.
+Hi Johan,
 
-If the board does not need to enable them, then driver should simply not
-do that. The clocks are still there, so the clocks are required.
+On Mon, 17 Aug 2026 at 10:13, Johan Hovold <johan@kernel.org> wrote:
+> On Sun, Aug 16, 2026 at 05:38:09PM +0200, Jakov Novak wrote:
+> >  Currently, the function vub300_inactivity_timer_expired, which gets
+> >  called in a softirq context, calls a sleeping function in the following
+> >  call chain:
+> >
+> >  vub300_inactivity_timer_expired -> kref_put -> vub300_delete ->
+> >  mmc_free_host -> cancel_delayed_work_sync -> __cancel_work_sync ->
+> >  might_sleep -> BUG
+> >
+> >  Fix this by replacing kref_put(&vub300->kref, vub300_delete) with
+> >  vub300_queue_dead_work(vub300), which does the same thing, but in a
+> >  workqueue context.
+> >
+> > Fixes: 88095e7b473a ("mmc: Add new VUB300 USB-to-SD/SDIO/MMC driver")
+>
+> This isn't the commit that introduced the issue. The blocking call in
+> mmc_free_host() was added by commit 1036f69e2513 ("mmc: core: Cancel
+> delayed work before releasing host") in 2023.
+>
+> I didn't look at this in any detail, but having that call in
+> mmc_free_host() (e.g. rather than in mmc_remove_host()) looks wrong so
+> perhaps the fix really lies in MMC core.
 
-Best regards,
-Krzysztof
+mmc_remove_host() can only be called after a sucessful probe, while
+commit 1036f69e2513 fixed an issue where the last probe step failed
+with -EPROBE_DEFER.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
