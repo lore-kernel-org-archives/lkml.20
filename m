@@ -1,276 +1,163 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BABD43DA50
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:29:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 003BF443AA7;
+	Mon,  7 Sep 2026 08:30:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788769794; cv=none; b=ICJEWTkM6gyOrxznG0GDe5jn0o2yMj+kY2q4JDA8Gu3V5fFCHgxSgyFlVnQ/hKPKE+j3FO96HJYGv7musMvAA7yeyBbk22GfIqNiIoj+RN4FgUYCowJjlBR+v7EyzEGo9hZKLESC9jd9FjDX2ttP1o5Jn5WcT0GQs0C9WoNjZPg=
+	t=1788769810; cv=none; b=NRXAmYPQj5csjxgUWVE3eM10rw6zK+vPHiqlcNMC3ZS5ckD4Y1Dk+2b9s22wOXYl2zkZUsvB1HHA029iFT5v28Wk34wzILqNiNZ9/KIe+ZUl9mbOnSjyDx5q9PociBAnbgSNEAqMuHDHzT7pwi9Jm+F9y03jOEReG88wX+YYE7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788769794; c=relaxed/simple;
-	bh=TZrwy/NjU9/0FRm7wXLGa46VFJ9KrkhU1oIMHOXFlUw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q0JXClcFhrLuAtmVz8yHND6Api2S7/fH6r1AKUzvKz6HxKJWwMlBXfpOVHj4drlehAmbKANg7lc/cireVcUezslAodl9GR9f4rt0l+KwRG+2gL8tWjisriGjmlz4I+pIjzxSxSIjElF+VNF807EZ3e+X67b5wxSKumTHiH7L9Uw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HT/EzZ4y; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788769810; c=relaxed/simple;
+	bh=QAEt6P9ewAx4tLQ7zDcVEugSrb2nPpwxpUVMi3n1/+A=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=i/+h+FvD4mo6vOcTy7sKhGQnjg29/ycpqjWU5UFYCN5YM4smem/n1JkgLq8lW4roHrFCqdto5oJad/2zwYPXokBZwB9GCjn7NgWJOxMkiaI1Ec7rbNj6f9NYxVJcBOfYISRxg/L4THRjyrz2kRnu183C+xq7p0/FjVf9vLUMBlg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=oBR+IBXz; arc=none smtp.client-ip=54.254.200.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HT/EzZ4y"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38511175ad3so2818560a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:29:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788769792; x=1789374592; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZdJ+RvEPX0GBiCRnCQpssUOHlseb9BpuN1eXq/NMOjs=;
-        b=HT/EzZ4yVt/MQzBFdKbs4V709OZmaV3k1/FRD5kyLjgZn6xoAiLPq+1J68FrQNJcAn
-         +4s0rYqKYt3rlKcxPuYGdhye9fYs7wMXlVBoRjl06YsGAkaAjgJo2TGAkqgNQepkm0kY
-         4g5q/8kAmhNLAY94iBZBPY16/HN1/ay9DiT8B340dIOcChJnopH6ROYFMBjPlCXDV3VS
-         xT2T1u9fGTDTwOXBgcoJDTAP0a6gKGz06cjoc3dlrU2oaLbmQxBgPKJ4n/Umoxbzisnj
-         9gNJWkpcIdbirpTEWA3PA45HesHIcc4rfULgeu/chx43OeqVYTrI2WnDLyYnySGbHZKt
-         ku5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788769792; x=1789374592;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZdJ+RvEPX0GBiCRnCQpssUOHlseb9BpuN1eXq/NMOjs=;
-        b=VJoi+lqIm+KUrtm+MRzfCXhfTWW9DMSoQECr5wf0TEyMcqNOmZsM/Tqpeh3Frg4vIv
-         qPP0QNbJVER1cBI3pZpgKez57GizcRZJktxR4lhobnLvLnj8USu0a6j5zwurLMAz8FLh
-         B5nnZGijedbjqy2d1z7o6TgwVk21QIxAknnNih4jnI6BXm0uMEbI5qb3t2p6R0shUOlh
-         Fp1sHI+kCUQAncHAIq4e7SeHcD5OykExyw2RFTAsBAxTWEUbC+xI1ax5JnIkSMm/HgxY
-         y1yrKWNWWiwCVOohGy7CD35UEFlAYKvR1cE0ixMXt2U5NPIRoL0l34JlAvZHCHCvE+MD
-         FDww==
-X-Forwarded-Encrypted: i=1; AKwUvBwfoXRvpt0ZAaaucRPhKncTuzZgrxj8/wpEQmi9dzAlUPG614VemAtw4dBROR5SH6/7QvzjPAhfPvZjyhI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nPGrkMKM6Vfk9CxyGE0r6YQU5eXWY6tAPWpleGFC/YucWBFJq6
-	AGdvBymlru7aVoiDW4G52nM/v/ghnWuamPUz4IH5p5Cg3iXqrqnOKV7a
-X-Gm-Gg: AYBFou0pgzrc5EFN47Y6lyE+kzG4/KLdZs0yQAhLN5J4tWm8TEa04C5arevVo5EFnFe
-	B+rCqbGGAcGja62buKCVZkiTQcFBaFvIHvgUdgvnk0J3GUMj+rgdkG+XwoOA2BcOMKa0wKbnXd7
-	rHKO8wdG4up+Sa5zlMC5BRSqSVOgXW3Pty2m3XV2kJwT7ekJ2V6mPoO8zfY8bFFqS+0MdwnWqLG
-	EhAuT6zKOH1Kfv+DwSeSgF103QNIhzMWHH9z/sz70MnaW2YLnlvY8heoh/T2aSHLICr3gNUV/e/
-	2UbkU+ANpwehXuL5vvtwIK7XOWQ1hVzwKRFtSqbi+AZHnVVithDalQ7VsNAfzIq8fquqSST0dGL
-	12v5xL1RUdGmHh2+Y22WgrYEPKUAH3GWNwWBQGkwqjsGXzTONG0s+dEdZKnwKFZoWVezjsKHebk
-	pZ8d82y78XFXF6pn81NmdfWXzMd1VMs97j65py4lhPPDd94N9s0L/b4Q1RdokA9bvGqzkNJ/+Ry
-	ip+yhOV84k=
-X-Received: by 2002:a17:90b:4a49:b0:392:ca3b:370a with SMTP id 98e67ed59e1d1-39b26100cd2mr31547094a91.2.1788769791656;
-        Mon, 07 Sep 2026 01:29:51 -0700 (PDT)
-Received: from u.. (61-222-64-201.hinet-ip.hinet.net. [61.222.64.201])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b2612ba2bsm18848285a91.14.2026.09.07.01.29.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 01:29:50 -0700 (PDT)
-From: Tim JH Chen <tim770802@gmail.com>
-To: netdev@vger.kernel.org
-Cc: pabeni@redhat.com,
-	simon.horman@ghnetworks.de,
-	haijun.liu@mediatek.com,
-	chandrashekar.devegowda@intel.com,
-	ricardo.martinez@linux.intel.com,
-	loic.poulain@oss.qualcomm.com,
-	ryazanov.s.a@gmail.com,
-	johannes@sipsolutions.net,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	tim.jh.chen@wnc.com.tw,
-	Chih.Hung.Huang@wnc.com.tw,
-	Tim JH Chen <tim770802@gmail.com>
-Subject: [PATCH net v5] net: wwan: t7xx: fix race between TX path and system PM suspend
-Date: Mon,  7 Sep 2026 16:29:38 +0800
-Message-ID: <20260907082938.7500-1-tim770802@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="oBR+IBXz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1788769753;
+	bh=qWRgI9AOsx/PXxW+VxjVPzW5Qmp+SlNGLn4ruFkG9nE=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=oBR+IBXzLjBaJocWvo/zFzPA1ALw0ELmD/h6uUfAsTjuFLZwd/lKN0MUcbn7x9Cwm
+	 BvOd189qqOcCUHnyyXnYr1Dds5pWLW6/HtcJs1+bPK99cpJfVE36/CuzXBhlUcZwkk
+	 Y2Nt4nJ/A8V+vqhCgsEL/tu3B1MBo3UQKZiLGHn0=
+X-QQ-mid: zesmtpsz8t1788769746t20a8a9a2
+X-QQ-Originating-IP: wIBhlM3drIQ9Ntyumd1ujaGUl+998+uevieIExULl4I=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 07 Sep 2026 16:29:03 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 11320355853612536940
+EX-QQ-RecipientCnt: 20
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=c5ea966f1287d2fb0a065fbd8bfacc535291a111e20b04421be1800d226c;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Mon, 07 Sep 2026 16:29:01 +0800
+Message-Id: <DL8XYAR1UCMY.8XJN1LP6YQPE@linux.spacemit.com>
+Subject: Re: [PATCH 2/6] usb: chipidea: usb2: add optional reset support
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Junzhong Pan" <panjunzhong@linux.spacemit.com>, "Peter Chen"
+ <peter.chen@kernel.org>
+Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Yixun Lan" <dlan@kernel.org>, "Xu Yang"
+ <xu.yang_2@nxp.com>, "Peng Fan" <peng.fan@nxp.com>, "Philipp Zabel"
+ <p.zabel@pengutronix.de>, "Paul Walmsley" <pjw@kernel.org>, "Palmer
+ Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Alexandre Ghiti" <alex@ghiti.fr>, <linux-usb@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>, "Troy
+ Mitchell" <troy.mitchell@linux.spacemit.com>
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260812-b4-spacemit-k1-usb2-v1-0-f28cf29e522b@linux.spacemit.com> <20260812-b4-spacemit-k1-usb2-v1-2-f28cf29e522b@linux.spacemit.com> <an2UgcS8cHDGwzsO@hu-petche-lv.qualcomm.com> <870CB1C672C91040+8a75565f-344c-4f1e-aa69-33585a88c8e5@linux.spacemit.com>
+In-Reply-To: <870CB1C672C91040+8a75565f-344c-4f1e-aa69-33585a88c8e5@linux.spacemit.com>
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: Ni68Q0J6fxe2wIqzzpnjqZqcDXBL641bOrXTVUP6GxzUtXHWeJH1XJNw
+	8uKsDXFi4zyR4vFBMulVXHap12RAkqtvyG9DxflBI6RyYUFvGBl7SFTw7/75yvJ9hRmCvJA
+	WZx3zpUR3Dn+sQ0u44hOGt++j4pETwG/FrDRa6y2ESbwySpFmzfsYF4eMV12PS1YrrQ+L49
+	B3Jts8fd10gD1EfFazIDSc9sX356lJtVrUchFNYU6JvbPSUzqbSHIiEStuKhHTsvT9N2bKY
+	XMrnvaPar5DasCTpjLNQEGYAFGbI+qIKyoFw+bZdHCsXzYUQ3Ww8+MiwGm4rUUADFGlq9u4
+	+BsqwdCcup3GHypTe/xA6JbwzIpTlg6bZ9AP/sYRVn7akIXmOZg+i0xEu2eL2D53u5YmFip
+	v4Tcdg1zQedCwqg5nwWBvb1P9DV2i5/PH+gZumEY6HSIh1Jw6yU3GRHMKsdTvpc2jI7anKQ
+	Ss4v0I+jKIXE3ZGa5yruqkZUVfNgfPNHRRBw7+/ssnqL1X5LFSwFsZye2Vhx0VsDEHADvKR
+	TBgkfE+z69IJOtGxRC70kVCKDFbmK27FbuwuCF1uzqEkYg5VFP8lJUVRyWaVxSUC7ZBzpqd
+	in+ZQU4Qe8k95hZvcPKa1kozSvUllU4G2GU/Imz6ndTGL+2QCxnCfbuqsg5IlK6mPBb7GJG
+	YcB4IhV3wtqhzbXmUToTmwAC9kkLp3DL/wT8RBefcIkThHQnlq/dBm3z5EoaxtLH3rmJvlo
+	zUtLNqvqlb9SBFsfBhvd1P0Dz9Flu8LIuBXxuswhkp1zb9NY56bW+I7jD/+8gt/VMtPjNUb
+	z0vKiqyoMCfDAgPhBzuVIu6F2mhZwcF3zvxj84tQ0nZVtXGjZPVnzJnOX/LSkWPSvqs663/
+	9wf6bezEFVcJgsXtRIZ4tLu+Y2rGA/W9lq9zKuHYlnh2KVEv+BnkSzI4CMDqEtuhtZ2e707
+	KimJJxbiVLWCiQkl4eouU7flPQ5bHJ1j3v3bXZoZDLzwM/k8lyqYjICSvmhBCyu0goadn9p
+	gll/OuXn0/NC6Ocf8X78ReUuOuw+IMp81rppD13HmlhP5cZ3KcIiypggtBor3hUYV892mzY
+	A==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-Several driver contexts call pm_runtime_resume_and_get() and then access
-hardware registers without being quiesced during system suspend. System
-suspend does not honour the runtime PM reference they hold, so they can
-touch the hardware while the device suspend callbacks tear it down. With
-ASPM L1 enabled and repeated suspend/resume cycles this ends in a CPU
-soft lockup:
+--c5ea966f1287d2fb0a065fbd8bfacc535291a111e20b04421be1800d226c
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-  watchdog: BUG: soft lockup - CPU#N stuck for 26s! [dpmaif_tx_hw_pu]
-    __pm_runtime_resume+0x5b/0x80
-    t7xx_dpmaif_tx_hw_push_thread+0xc4 [mtk_t7xx]
+On Thu Aug 13, 2026 at 9:39 PM +08, Junzhong Pan wrote:
+> On 8/13/2026 5:55 PM, Peter Chen wrote:
+>> On 26-08-12 17:26:13, Junzhong Pan wrote:
+>>> The USB2 controller of SpacemiT K1 SoC requires reset support, to keep
+>>> compatibility, add optional reset support.
+>>>
+>>> Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
+>>> ---
+>>>  drivers/usb/chipidea/ci_hdrc_usb2.c | 8 ++++++++
+>>>  1 file changed, 8 insertions(+)
+>>>
+>>> diff --git a/drivers/usb/chipidea/ci_hdrc_usb2.c b/drivers/usb/chipidea=
+/ci_hdrc_usb2.c
+>>> index 8ffa1e95d8e8..00d575cd2955 100644
+>>> --- a/drivers/usb/chipidea/ci_hdrc_usb2.c
+>>> +++ b/drivers/usb/chipidea/ci_hdrc_usb2.c
+>>> @@ -12,6 +12,7 @@
+>>>  #include <linux/phy/phy.h>
+>>>  #include <linux/platform_device.h>
+>>>  #include <linux/property.h>
+>>> +#include <linux/reset.h>
+>>>  #include <linux/usb/chipidea.h>
+>>>  #include <linux/usb/hcd.h>
+>>>  #include <linux/usb/ulpi.h>
+>>> @@ -21,6 +22,7 @@
+>>>  struct ci_hdrc_usb2_priv {
+>>>  	struct platform_device	*ci_pdev;
+>>>  	struct clk		*clk;
+>>> +	struct reset_control	*reset;
+>>>  };
+>>> =20
+>>>  static const struct ci_hdrc_platform_data ci_default_pdata =3D {
+>>> @@ -80,6 +82,12 @@ static int ci_hdrc_usb2_probe(struct platform_device=
+ *pdev)
+>>>  		return ret;
+>>>  	}
+>>> =20
+>>> +	priv->reset =3D devm_reset_control_get_optional_exclusive_deasserted(=
+dev, NULL);
+>>> +	if (IS_ERR(priv->reset)) {
+>>> +		ret =3D PTR_ERR(priv->reset);
+>>> +		goto clk_err;
+>>> +	}
+>>> +
+>>=20
+>> You may update binding doc?
+>>=20
+>
+> Sure, I forgot it, will do in v2.
+>
+> Thanks.
 
-Runtime suspend is already safe: while any of these contexts holds its PM
-reference the runtime suspend callback cannot run. Only system suspend,
-which ignores that reference, is exposed.
+Is the reset required for K1? If not, no binding change is needed. I checke=
+d the
+binding, and it already defines resets as an optional property.
 
-Quiesce all hardware-accessing contexts with the PM freezer, which runs
-before dpm_suspend() invokes the device suspend callbacks.
+Reviewed-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
 
-The TX push kthread (t7xx_dpmaif_tx_hw_push_thread):
-  - Call set_freezable() at thread start.
-  - Replace wait_event_interruptible() with wait_event_freezable() so the
-    idle wait is also a freeze point.
-  - Add try_to_freeze() before the pm_runtime_resume_and_get() / MMIO
-    section so continuous TX traffic still reaches a freeze point.
-  - Add a freezing(current) check inside the DRB-ring-full retry loop in
-    t7xx_do_tx_hw_push(). When the TX-done workqueue is frozen first, it
-    stops draining completed DRBs; the ring stays full and the kthread
-    loops in the retry branch indefinitely, never reaching the
-    try_to_freeze() above. Returning from t7xx_do_tx_hw_push() on
-    freezing(current) lets the caller release the PM sleep lock and the
-    runtime PM reference before the kthread is parked at try_to_freeze().
+--=20
+Troy Mitchell
 
-The TX-done (md_dpmaif_tx*_worker), BAT-release
-(dpmaif_bat_release_work_queue), CLDMA TX (md_hif*_tx*_worker), and
-CLDMA RX (md_hif*_rx*_worker) workqueues:
-  - Mark all four WQ_FREEZABLE so the workqueue freezer drains and parks
-    their pending work before the device suspend callbacks run.
 
-Tasks and work items are thawed only after the resume callbacks have
-re-armed the hardware, so none of these contexts can issue MMIO against
-a torn-down or not-yet-rearmed device. No lock is shared with the PM
-callbacks, so this cannot deadlock.
+--c5ea966f1287d2fb0a065fbd8bfacc535291a111e20b04421be1800d226c
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Tested with 500+ suspend/resume cycles, SIM registered and ASPM L1 enabled.
+-----BEGIN PGP SIGNATURE-----
 
-Fixes: 46e8f49ed7b3 ("net: wwan: t7xx: Introduce power management")
-Signed-off-by: Tim JH Chen <tim770802@gmail.com>
----
-v4 -> v5:
-  - Fix freeze deadlock in t7xx_do_tx_hw_push(): when the TX-done
-    workqueue (WQ_FREEZABLE) is frozen first it stops draining the DRB
-    ring; the kthread then loops indefinitely in the ring-full retry
-    branch and never reaches try_to_freeze(), causing a freezer timeout
-    and suspend abort. Add a freezing(current) check in that branch so
-    the kthread returns to its caller, which releases the PM sleep lock
-    and runtime PM reference before try_to_freeze() parks the thread.
-    (Simon Horman)
-  - Extend WQ_FREEZABLE to the BAT-release workqueue
-    (dpmaif_bat_release_work_queue) and the CLDMA TX/RX workqueues
-    (md_hif*_tx*_worker, md_hif*_rx*_worker), which also access hardware
-    registers and must not run after dpm_suspend() tears the device down.
-    (Simon Horman)
-  - The -EACCES usage-count underflow in pm_runtime_resume_and_get()
-    callers and the stale kthread pointer on early thread exit are
-    pre-existing issues; they will be addressed in a separate series.
-v3 -> v4:
-  - Drop the tx_pm_lock / state-snapshot approach entirely and use the PM
-    freezer for both TX contexts instead. The previous approach deadlocked
-    through the runtime PM wait queue (t7xx_dpmaif_suspend() is also the
-    .runtime_suspend callback) and opened ISR windows by writing
-    dpmaif_ctrl->state in suspend/resume.
-  - Also cover t7xx_dpmaif_tx_done() (WQ_FREEZABLE), which has the same
-    pm_runtime + MMIO pattern as the kthread.
-  - Trim the changelog/commit message.
-v2 -> v3: process fixes (Fixes tag, changelog placement).
-v1 -> v2: save/restore pre-suspend state; wrap pm_runtime with a mutex.
+iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCap51zQ0caUB0cm95LXku
+b3JnAAoJEJgJ74D5MzQv9j0A/AuCeVJ9yE/gt/KfEJxLTBV6zSXK8wkfge0WTxJC
+wNLzAP9N5s2ZVrfHOn5l/94Qv1u5kJxbdnjE6iR9SbxpQB0UBg==
+=lw1Q
+-----END PGP SIGNATURE-----
 
- drivers/net/wwan/t7xx/t7xx_hif_cldma.c     |  4 ++--
- drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c |  2 +-
- drivers/net/wwan/t7xx/t7xx_hif_dpmaif_tx.c | 26 +++++++++++++++++-----
- 3 files changed, 24 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/net/wwan/t7xx/t7xx_hif_cldma.c b/drivers/net/wwan/t7xx/t7xx_hif_cldma.c
-index e10cb4f9104e..3d7712126761 100644
---- a/drivers/net/wwan/t7xx/t7xx_hif_cldma.c
-+++ b/drivers/net/wwan/t7xx/t7xx_hif_cldma.c
-@@ -1313,7 +1313,7 @@ int t7xx_cldma_init(struct cldma_ctrl *md_ctrl)
- 		md_cd_queue_struct_init(&md_ctrl->txq[i], md_ctrl, MTK_TX, i);
- 		md_ctrl->txq[i].worker =
- 			alloc_ordered_workqueue("md_hif%d_tx%d_worker",
--					WQ_MEM_RECLAIM | (i ? 0 : WQ_HIGHPRI),
-+					WQ_MEM_RECLAIM | WQ_FREEZABLE | (i ? 0 : WQ_HIGHPRI),
- 					md_ctrl->hif_id, i);
- 		if (!md_ctrl->txq[i].worker)
- 			goto err_workqueue;
-@@ -1327,7 +1327,7 @@ int t7xx_cldma_init(struct cldma_ctrl *md_ctrl)
- 
- 		md_ctrl->rxq[i].worker =
- 			alloc_ordered_workqueue("md_hif%d_rx%d_worker",
--						WQ_MEM_RECLAIM,
-+						WQ_MEM_RECLAIM | WQ_FREEZABLE,
- 						md_ctrl->hif_id, i);
- 		if (!md_ctrl->rxq[i].worker)
- 			goto err_workqueue;
-diff --git a/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c b/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c
-index 5af90ca6e063..0fe2dd1363a4 100644
---- a/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c
-+++ b/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c
-@@ -1088,7 +1088,7 @@ static void t7xx_dpmaif_bat_release_work(struct work_struct *work)
- int t7xx_dpmaif_bat_rel_wq_alloc(struct dpmaif_ctrl *dpmaif_ctrl)
- {
- 	dpmaif_ctrl->bat_release_wq = alloc_workqueue("dpmaif_bat_release_work_queue",
--						      WQ_MEM_RECLAIM | WQ_PERCPU,
-+						      WQ_MEM_RECLAIM | WQ_PERCPU | WQ_FREEZABLE,
- 						      1);
- 	if (!dpmaif_ctrl->bat_release_wq)
- 		return -ENOMEM;
-diff --git a/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_tx.c b/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_tx.c
-index 236d632cf591..cce71c827e7b 100644
---- a/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_tx.c
-+++ b/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_tx.c
-@@ -22,6 +22,7 @@
- #include <linux/dma-direction.h>
- #include <linux/dma-mapping.h>
- #include <linux/err.h>
-+#include <linux/freezer.h>
- #include <linux/gfp.h>
- #include <linux/kernel.h>
- #include <linux/kthread.h>
-@@ -421,6 +422,12 @@ static void t7xx_do_tx_hw_push(struct dpmaif_ctrl *dpmaif_ctrl)
- 
- 		drb_send_cnt = t7xx_txq_burst_send_skb(txq);
- 		if (drb_send_cnt <= 0) {
-+			/* If a freeze is pending the TX-done worker may already be
-+			 * frozen and unable to drain the DRB ring; return to the
-+			 * caller so PM resources are released before try_to_freeze().
-+			 */
-+			if (freezing(current))
-+				return;
- 			usleep_range(10, 20);
- 			cond_resched();
- 			continue;
-@@ -447,19 +454,28 @@ static int t7xx_dpmaif_tx_hw_push_thread(void *arg)
- 	struct dpmaif_ctrl *dpmaif_ctrl = arg;
- 	int ret;
- 
-+	set_freezable();
-+
- 	while (!kthread_should_stop()) {
- 		if (t7xx_tx_lists_are_all_empty(dpmaif_ctrl) ||
- 		    dpmaif_ctrl->state != DPMAIF_STATE_PWRON) {
--			if (wait_event_interruptible(dpmaif_ctrl->tx_wq,
--						     (!t7xx_tx_lists_are_all_empty(dpmaif_ctrl) &&
--						     dpmaif_ctrl->state == DPMAIF_STATE_PWRON) ||
--						     kthread_should_stop()))
-+			if (wait_event_freezable(dpmaif_ctrl->tx_wq,
-+						 (!t7xx_tx_lists_are_all_empty(dpmaif_ctrl) &&
-+						  dpmaif_ctrl->state == DPMAIF_STATE_PWRON) ||
-+						 kthread_should_stop()))
- 				continue;
- 
- 			if (kthread_should_stop())
- 				break;
- 		}
- 
-+		/* Freeze here, outside the runtime-PM and MMIO section below, so
-+		 * the system suspend freezer parks this thread before the device
-+		 * suspend callbacks tear the DPMAIF hardware down.
-+		 */
-+		if (try_to_freeze())
-+			continue;
-+
- 		ret = pm_runtime_resume_and_get(dpmaif_ctrl->dev);
- 		if (ret < 0 && ret != -EACCES)
- 			return ret;
-@@ -617,7 +633,7 @@ int t7xx_dpmaif_txq_init(struct dpmaif_tx_queue *txq)
- 	}
- 
- 	txq->worker = alloc_ordered_workqueue("md_dpmaif_tx%d_worker",
--				WQ_MEM_RECLAIM | (txq->index ? 0 : WQ_HIGHPRI),
-+				WQ_MEM_RECLAIM | WQ_FREEZABLE | (txq->index ? 0 : WQ_HIGHPRI),
- 				txq->index);
- 	if (!txq->worker)
- 		return -ENOMEM;
--- 
-2.43.0
-
+--c5ea966f1287d2fb0a065fbd8bfacc535291a111e20b04421be1800d226c--
