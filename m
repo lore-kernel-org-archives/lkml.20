@@ -1,169 +1,138 @@
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011044.outbound.protection.outlook.com [40.93.194.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD79D202C29
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 03:28:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788751686; cv=none; b=Hb24OYbBpkE0Gvikp5iLbNmBSthuVrxyINGVpHVWZrw3LG8PH0Ykp1DX9quRVuHNCMLV0y2130MKeKZ/M4kh8qorVFQNeOLYeBePVJRuQimJxvBsemiRuEBpL8Aoj8leKyImkCtAUGVdkbdscPPm+n9nRvGjsYmcU6mFhZP9f94=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788751686; c=relaxed/simple;
-	bh=OvBF/9Ta7XFsv+bIlEViYUIKZVq9jzWyT041tmx4yK8=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=KLUOp7E6ZN0m8cn7jCInt/33LpPGalEGhSUyaKtP1MU9rk5EjiKPn2coPxcGF6xiC+GtoITyHbBx6AE5leWkRklEgqi8UhrKXhfV5rfWn7OwIBf8KzLTGQmrBDXltN/PYwimidzOOn5M0MPWI3/gVi+Mn3ed8DWvpYYuJzy5Tc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7e9e2db9914so4389765a34.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 20:28:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788751684; x=1789356484;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=5acE/rB+8hP5Ojjgi1m4Jizbk24Y3VPuNS0WpCb5wHA=;
-        b=Vi2h7aRyWX5MNDayg8cuSoduBmtfw39O41l2vKulNQ5r9IWvftYkZdkYdgqQaMmZB1
-         RdQUvtl08TAqb7Nz/v1XYhb1LPKdGx6DFQ9N82u0+WKNhg6TxAf4AO7bHAjJyfzOfahe
-         /iyg7T3/xZW8dq5IdtIJCuLDYGc7ffbS88KTqL7xcWpd7D3F8+ZnXxIbImRRZ/neRcVA
-         G6btt54M8DzO9xwq9FVvsOcR7nblJ8HIKK1SGb1qUFSsbzBNBYaOJFTdsap25mumFg3h
-         OTfcTeE9TnozUMZVDQRarM+pBF4Ui0ettgiYmhWtxKLoTFlJZ9ruxZVQbqDwL0bMzpA+
-         SpXA==
-X-Gm-Message-State: AFuF++n3HIzWMQL9sHUTbY+b+38L4nwWj3Mb6Ktu/g8b1D6D8z7vF/jo
-	XsFRvfYTK2xR2jvZd7YAGIIkXAPpTCJV//Mo2DGa43JYwKWuvwrHX42+H0tpSpVXyN2ybdOLFEW
-	MYRUbv+auSMFHnHy4AbLnOTqWcRbAVZZybMM24HBg7tVrDm27jGXC9UR2qQA=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12A91202C29;
+	Mon,  7 Sep 2026 03:28:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788751711; cv=fail; b=id8Vjug6eyPw8ek3ASPnHKT6NoCw0ppdfy6gqEduXUss810IO4c/LZ2xnk8swCzoVG0kQRmo3bwXEEebkmhrYol4ua0nqLQDIQroocvCu6bBS/S+1MC5b7YgaU50lu8ksoj5Ik+p+FgJ/CL/Y2PeQC+vyceHge4Il/cWDc+v01Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788751711; c=relaxed/simple;
+	bh=U+PIBfsKByVAzH4OcwL+k6rnl29BP7N9MA2jA4EjYAs=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=HaZWranss3DGxAAyAGl5/4hgtp8nyFL8AafLOl4NihIeMji4a7E0826+oGwA7VRJJkj3y0tpywm7TDuRPYZ/D+MWzABNaz4YEyW4HhI8SXyzjJoLJuTt4Te8GSi7cJPP8138ZYjRJQ8P9Y+K+VsRt2XOtwZ/rUbc4QqfNNYpNcY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=U2ea3Y7G; arc=fail smtp.client-ip=40.93.194.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="U2ea3Y7G"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uYnYyKAFnA4AbRCmJ37hhTma4zcslgI5914tk2cmiJ58cYh6/+qeTOu0aSshipi1H8nTDPhy/ivmT+7EbBw8LhwRisq0ss0hcK0zcr3bMTgD3nz9Fkxa9pZZw4jd/AbC4FfpAKQv8b+28JdqKHbA0K/5/DihGDscRfFZPsOO+TwTqkzzz/6OARHIZV0cQaMRjSvzDtD2ktjhSEbX0GVTEOxpU0X59yh1qA2/n3awfJtbGfEM0Qml9zk3CLIv2ftBDiBlfYc1wqwJzKh9NoVBr+ueY1Xg9kdeBrYE4Szs7m2njld/ceN/zEYOVoM/e0Wuuz1Cf+F1eBkP4Z5nvuiUmw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=27GCsEGQ3krIha9FZyzU6lkdlVDTsv+Qg9bXIBHMw3E=;
+ b=fIrLcVVS4IW+zoVbMg5ZXaMoubmKsTsDnfRwLJHRoWTuAzoxFZLPwjP7Zs8ps7xjJxxEeqBIVE4Ao9Z/4m/do3sUS9ugUWL3pogsHx0auNzdimiBFZWfzqJQMaygUvaaLYQuNGaOtzVVwk5iEm7nCZ5Pj6h2Zp/pBUArZJ2RwbsGXdDOuzldXowvlaimc7kmb545kq3qNe9Pf2D4NRak/3A7EwvzSwrhkHCK0ix/GViRiQQdL7BcyFzmdFBq0oyITYXtTL9b5M8vqBpmRRr0ql/Hf2bi4tROEhsEPzBIt7sB0Fwea5uJ3b+JeiI0fHBKqmYm+jZgwpkSb46Xf5FnHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=27GCsEGQ3krIha9FZyzU6lkdlVDTsv+Qg9bXIBHMw3E=;
+ b=U2ea3Y7GqBiv7oIS/G7oF+QJcKer5BRu7e8NzEe0G1ABrW2p8TFBMsJOt2FiAd72uDZNEZjdvjmnEk2RLjUk5x1OlsvzP1pIaXvKWrP7hc7MBYhWr9DsmXbn90l/+gwQwMMIwc9E6+oy0V1PtYwYBY/q+E5oVPhacAPMlEBLTBA=
+Received: from SJ0PR13CA0073.namprd13.prod.outlook.com (2603:10b6:a03:2c4::18)
+ by SA1PR12MB7296.namprd12.prod.outlook.com (2603:10b6:806:2ba::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
+ 2026 03:28:26 +0000
+Received: from SJ1PEPF000037AF.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c4:cafe::8b) by SJ0PR13CA0073.outlook.office365.com
+ (2603:10b6:a03:2c4::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.6 via Frontend Transport; Mon, 7
+ Sep 2026 03:28:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF000037AF.mail.protection.outlook.com (10.167.244.187) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Mon, 7 Sep 2026 03:28:26 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Sun, 6 Sep
+ 2026 22:28:25 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Sun, 6 Sep
+ 2026 22:28:25 -0500
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Sun, 6 Sep 2026 22:28:23 -0500
+From: Colin Huang <colin.huang2@amd.com>
+Subject: [PATCH 0/2] Add driver for Infineon TDA38740/TDA38725
+Date: Mon, 7 Sep 2026 11:28:02 +0800
+Message-ID: <20260907-add-tda38740-and-tda38725-v1-0-e2db1b2566b1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:7145:b0:6ba:5f65:6e5c with SMTP id
- 006d021491bc7-6ba5f657d49mr1912952eaf.42.1788751683777; Sun, 06 Sep 2026
- 20:28:03 -0700 (PDT)
-Date: Sun, 06 Sep 2026 20:28:03 -0700
-In-Reply-To: <OSZPR01MB9313C6A272CD4ACAD2097CF0B2B22@OSZPR01MB9313.jpnprd01.prod.outlook.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9e2f43.a6639fcc.23b8b0.000f.GAE@google.com>
-Subject: Re: [syzbot] WARNING in usb_composite_setup_continue
-From: syzbot <syzbot+a83a5a1ba9ff57935171@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
-	tkdkei@outlook.jp
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEIvnmoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSwNj3cSUFN2SlERjC3MTA93EPBjHyFTX2CgpKcnA0jzFxDBVCai/oCg
+ 1LbMCbHZ0bG0tAPRtuhBrAAAA
+X-Change-ID: 20260903-add-tda38740-and-tda38725-32bbb097d41e
+To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: <linux-hwmon@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <colin.huang2@amd.com>, Colin Huang
+	<u8813345@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788751696; l=707;
+ i=u8813345@gmail.com; s=20260202; h=from:subject:message-id;
+ bh=U+PIBfsKByVAzH4OcwL+k6rnl29BP7N9MA2jA4EjYAs=;
+ b=5UM03Xm4YN54aWMpf6GmbTNFFc6fF0bOlBerq9ev9Rxm9TQrNPgyFUWsg6SRRF6X2Q+hkOAin
+ MZJl9W5bpU9DsrrG/NV0iYRw1b9L8ccNsY7wbV6Wn4IU3weLGH+6lXY
+X-Developer-Key: i=u8813345@gmail.com; a=ed25519;
+ pk=Zlg0WqpCw4qbswOqamTBTXIchwR/3SnYZpy7rjaGMdQ=
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037AF:EE_|SA1PR12MB7296:EE_
+X-MS-Office365-Filtering-Correlation-Id: aacadc96-071a-46f4-c460-08df0c901410
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|376014|23010399003|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	ilgfa43KRLOfSIpHXQu2k653qUkiOX5qso3TbQhKzLA2k2MAzANpPMMOOlx8yc8nUAhTiWg5kylOma/QH5vCw/M3zOgp7bfZtR3L9DzCQbxWYIuzzPZwdZFRUkhQve1s238zoQz+/9hXdf8JC7mkJJfKjH5hkvvxQMazG2h2E56s9DZGyV7tbNpLB5GrsDkzvfzz7IaY05JVvnzJrkN48jmY8CbJVwlEwdWjTtAYPmjQFoaLjQC9O7nFzGDFbk5QJOMBUQ/jHQ5yBW9DyibGl1VnrFRagr1YvrdctTcN4yz2BzogeinK8TWmvgf7KOsA9sxxtNGkPt9T+JGIUKLrNRbg1dMElQhjUE8npQ3LBUBN5moyz2J+s83qy8tXJiZQtJUMhbYVb7qYMcVZaxC3e9Eicc9p5noz2Kfct7TxvJhwbzA1li2Fn1MD9IZKKulg3qU73BSQ1S1A1Vh/HW4a2n8v9xvZU7FIWdQ7JEVNilL7at7r4FgSE+SReFXFoxNkBjuJ7wtfGIYQ7UtoW2rzvOjqi/JVJjym67mv6ZF6exAbmFg7HVHi5Y5UANMYZk1X9QFeqacCtO/ZMS0FtzBXMgVenOv9R+WEDwOXsNctQYVviRke1L3KpHOoTyC1zRStOFRTALqhLv7FUaznUa39HjVpYgHG3UOqunSQck0Incw8pqH92EZ2Wwn7NqY474Ep8voY4LTipWTdIuPbzzbE/g==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(23010399003)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	NbO9q2lBGEIT0guSByWltnf+twZXdHrVfNQC19YTBYum2Vkcpwxi+q3d89JdyE+A3uyBvIGRit1Bxmq4W3VjKP21L3EIicOJIEBVz5JfBGbayQVF0DzjBZXsTTLBlaG2HCEDDF+TTt8dvKGjqhIOH+rKbga1YiVAjFK+zEqdGyWzXsDZA1RDa1VCl5ZEyX7Q/bANepD8G5PaNRZLd6CMcrr2j/83yY2LjtxGRXAidQeA+sQ7fBj2Gua3wu/mMi9FOT+Yl7cd5KWKE/uWxZkZCKu8CmLxS40ae/x7tuFiE6cllcMlJnjhYxngPV+3AaETN2eRkKgu7l+NawivsfeDwfyPjuMclZmr3jDsjt/EhLIT2NhuP15c2LQ7qVXRQu0RKLH+r94YWLqgih9ci5NLrKITdplnTCtgDsqzXqRNVo4CRm1Zep6fWis9zSAGPuD3
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 03:28:26.0086
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: aacadc96-071a-46f4-c460-08df0c901410
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000037AF.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7296
 
-Hello,
+Signed-off-by: Colin Huang <u8813345@gmail.com>
+---
+Colin Huang (2):
+      dt-bindings: hwmon: pmbus: Add Infineon tda38740 and tda38725
+      hwmon: (pmbus/tda38740) Add driver for Infineon TDA38740/TDA38725
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-WARNING in __fsg_is_set
+ .../bindings/hwmon/pmbus/infineon,tda38740.yaml    | 79 +++++++++++++++++
+ drivers/hwmon/pmbus/Kconfig                        |  9 ++
+ drivers/hwmon/pmbus/Makefile                       |  1 +
+ drivers/hwmon/pmbus/tda38740.c                     | 98 ++++++++++++++++++++++
+ 4 files changed, 187 insertions(+)
+---
+base-commit: ba08432bda66a7889d8f3d1581dabf10f59b25eb
+change-id: 20260903-add-tda38740-and-tda38725-32bbb097d41e
 
-configfs-gadget.g1 gadget.2: common->fsg is NULL in fsg_setup at 466
-------------[ cut here ]------------
-1
-WARNING: drivers/usb/gadget/function/f_mass_storage.c:315 at __fsg_is_set.part.0.isra.0+0x2c/0x3a drivers/usb/gadget/function/f_mass_storage.c:315, CPU#0: syz-executor104/5934
-Modules linked in:
-CPU: 0 UID: 0 PID: 5934 Comm: syz-executor104 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
-RIP: 0010:__fsg_is_set.part.0.isra.0+0x2c/0x3a drivers/usb/gadget/function/f_mass_storage.c:315
-Code: 41 89 d4 55 48 89 f5 53 48 89 fb e8 9e f8 b6 00 48 8d bb d8 00 00 00 44 89 e1 48 89 ea 48 c7 c6 c0 82 dc 8c e8 25 61 eb ff 90 <0f> 0b 90 31 c0 5b 5d 41 5c e9 c6 f2 7b 0a e8 71 f8 b6 00 4c 89 e2
-RSP: 0018:ffffc90000007a40 EFLAGS: 00010082
-RAX: 0000000000000000 RBX: ffff88802b4f4c00 RCX: 0000000000000000
-RDX: ffff888035554b00 RSI: ffffffff81404f89 RDI: fffff52000000f38
-RBP: ffffffff8cdc9f60 R08: 0000000000000007 R09: 0000000000000000
-R10: 8000000000000101 R11: 0000000000000001 R12: 00000000000001d2
-R13: ffff88805c34ace8 R14: 0000000000000000 R15: ffffc90000007de0
-FS:  00007f788ec136c0(0000) GS:ffff888123b6f000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f788dc10ff8 CR3: 000000002cb70000 CR4: 00000000003526f0
-Call Trace:
- <IRQ>
- __fsg_is_set drivers/usb/gadget/function/f_mass_storage.c:864 [inline]
- fsg_setup.cold+0x38/0x4c drivers/usb/gadget/function/f_mass_storage.c:466
- composite_setup+0xad8/0x9290 drivers/usb/gadget/composite.c:2239
- configfs_composite_setup+0xfb/0x130 drivers/usb/gadget/configfs.c:1877
- dummy_timer+0x2039/0x3700 drivers/usb/gadget/udc/dummy_hcd.c:1951
- __run_hrtimer kernel/time/hrtimer.c:2067 [inline]
- __hrtimer_run_queues+0x462/0x9c0 kernel/time/hrtimer.c:2124
- hrtimer_run_softirq+0x1ca/0x360 kernel/time/hrtimer.c:2141
- handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
- __do_softirq kernel/softirq.c:679 [inline]
- invoke_softirq kernel/softirq.c:519 [inline]
- __irq_exit_rcu+0x194/0x210 kernel/softirq.c:767
- irq_exit_rcu+0x9/0x30 kernel/softirq.c:784
- instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
- sysvec_apic_timer_interrupt+0xa3/0xc0 arch/x86/kernel/apic/apic.c:1062
- </IRQ>
- <TASK>
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
-RIP: 0010:unwind_next_frame+0xcb6/0x2090 arch/x86/kernel/unwind_orc.c:610
-Code: 03 0f b6 04 02 4c 89 c2 83 e2 07 38 d0 7f 08 84 c0 0f 85 db 0d 00 00 0f b6 41 04 83 e0 0f 3c 09 0f 84 ef 0a 00 00 0f b6 41 05 <4c> 89 44 24 18 83 e0 07 3c 03 0f 84 cc 03 00 00 3c 04 0f 84 05 03
-RSP: 0018:ffffc900035ef768 EFLAGS: 00000292
-RAX: 0000000000000002 RBX: 0000000000000001 RCX: ffffffff9221d688
-RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000001
-RBP: ffffc900035ef820 R08: ffffffff9221d68c R09: 0000000000000007
-R10: 0000000000000200 R11: 000000000003e7cf R12: ffffc900035ef828
-R13: ffffc900035ef7d8 R14: ffffc900035efeb0 R15: ffffc900035efc38
- arch_stack_walk+0x94/0xf0 arch/x86/kernel/stacktrace.c:25
- stack_trace_save+0x8e/0xc0 kernel/stacktrace.c:122
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __do_kmalloc_node mm/slub.c:5414 [inline]
- __kmalloc_noprof+0x32f/0x840 mm/slub.c:5439
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- tomoyo_realpath_from_path+0xb6/0x690 security/tomoyo/realpath.c:251
- tomoyo_get_realpath security/tomoyo/file.c:151 [inline]
- tomoyo_path_number_perm+0x23c/0x580 security/tomoyo/file.c:728
- security_file_ioctl+0xd3/0x230 security/security.c:2512
- __do_sys_ioctl fs/ioctl.c:591 [inline]
- __se_sys_ioctl fs/ioctl.c:583 [inline]
- __x64_sys_ioctl+0xb7/0x210 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f788ec4f93b
-Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
-RSP: 002b:00007f788ec130d0 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007f788ec4f93b
-RDX: 00007f788ec13148 RSI: 000000004008550c RDI: 0000000000000003
-RBP: 000000008038550a R08: 0000000000000000 R09: 00007f788ec136c0
-R10: 0000000000000008 R11: 0000000000000246 R12: 0000000072062152
-R13: 00007f788ec13160 R14: 0000000000000000 R15: 0000000000000000
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	03 0f                	add    (%rdi),%ecx
-   2:	b6 04                	mov    $0x4,%dh
-   4:	02 4c 89 c2          	add    -0x3e(%rcx,%rcx,4),%cl
-   8:	83 e2 07             	and    $0x7,%edx
-   b:	38 d0                	cmp    %dl,%al
-   d:	7f 08                	jg     0x17
-   f:	84 c0                	test   %al,%al
-  11:	0f 85 db 0d 00 00    	jne    0xdf2
-  17:	0f b6 41 04          	movzbl 0x4(%rcx),%eax
-  1b:	83 e0 0f             	and    $0xf,%eax
-  1e:	3c 09                	cmp    $0x9,%al
-  20:	0f 84 ef 0a 00 00    	je     0xb15
-  26:	0f b6 41 05          	movzbl 0x5(%rcx),%eax
-* 2a:	4c 89 44 24 18       	mov    %r8,0x18(%rsp) <-- trapping instruction
-  2f:	83 e0 07             	and    $0x7,%eax
-  32:	3c 03                	cmp    $0x3,%al
-  34:	0f 84 cc 03 00 00    	je     0x406
-  3a:	3c 04                	cmp    $0x4,%al
-  3c:	0f                   	.byte 0xf
-  3d:	84                   	.byte 0x84
-  3e:	05                   	.byte 0x5
-  3f:	03                   	.byte 0x3
+Best regards,
+-- 
+Colin Huang <u8813345@gmail.com>
 
-
-Tested on:
-
-commit:         edc15184 usb: typec: hd3ss3220: Add support for supply..
-git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
-console output: https://syzkaller.appspot.com/x/log.txt?x=11e84a15580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=ec55b50193b453ea
-dashboard link: https://syzkaller.appspot.com/bug?extid=a83a5a1ba9ff57935171
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-
-Note: no patches were applied.
