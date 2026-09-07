@@ -1,155 +1,142 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E1CC4EC65D;
-	Mon,  7 Sep 2026 18:45:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 759413CC9E8;
+	Mon,  7 Sep 2026 18:45:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788806716; cv=none; b=LKKJSAQ42ZO+jUoelEqZYkgEINZ9Eo1IK9xyYUzqEOU5qlcuWmXT40otVSCDcQ7nXeW3Phn6icpvM+IxEPllz3/bgwjkXkxKKhVWTjLG4J5nJm+FThf2NdPcIff8zYj/MNw2hVOsIWMX2HXaecQIuuoX1TBq7zehCZSznKDWWDA=
+	t=1788806721; cv=none; b=AjAa5m3RA7NigOL2kP8bqzxts1EeiWpSS1Bu8hh0/t9GXjkQfZU1DuvLMB8JeDp/RO5m0VDmIQec+SO1RZxzHcAft4SHOvRDZOCmwrCbU273fnD8ZIBhL/1MU7UJehiN6aZV8YDuPfA8Uvp9nuxbV9ec+usOL2TdRskki8wEtKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788806716; c=relaxed/simple;
-	bh=6CwKBS4qBjkQ4IU7RRirgMZ2Hpl2yNN0/SRFA6QTGFg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T2TDqoX6pB9wtgfu73bf3oG6I+k3NEFNllADRP/DDQ+/gkyMPA9K+7cHLDk2uWBGebhBkbasqu2zJD7OQqrosDI88ESW5qI/Yp49LavOTm5BIF5EVMg7muB7CWiA1ZxZ5xJTqkIoRytivsMG58yCKjj2ARIFDsa4b6wzZIFujm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EHiwNtga; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788806721; c=relaxed/simple;
+	bh=VWbI0Lq48RF0MUVBhw5MfZQW3oTYpvelpaGyKhQcQ28=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MUSNbsEFhnkXEDsFxyBrHPkJDzu/Oorg43gZydxRVgsFCnCzUQFJKqhxxX4Sx0SNBMOBWO7y6rkj5CV+gIsKFHP3t3fJIJvGwHE3i4ZwNJYNDzJzbqQ6iLF5xhL1wcR8D6egrrAo9ZapMO4tmi9fBvR+MRjnUEXuypN1iT8rpIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TJU4FDa9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EHiwNtga"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 4F61F1F00A3D;
-	Mon,  7 Sep 2026 18:44:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TJU4FDa9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 453221F00AC4;
+	Mon,  7 Sep 2026 18:45:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788806700;
-	bh=4kL4fMGCj3SR3hY6TLqzXN2o5Y2eftf1hKQIXB63uPk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EHiwNtgahfVLLxqooLJy9yugeOedCoj0u/L/QLWi7R51lB73ZwzggqX1DEeIFcqSa
-	 +StBg2yUEY7/V0YAmw2I92dUjc1TyFKqMPUfFSp9lITzCSBHjFLObwV3M3NSjtCY/Z
-	 zFTxTkty8xZEpT57ICoM/7HQI3LX810s8aS3eQjeC503tQn0mdXt9kckxMY+XF3PQ9
-	 YrJdA8sr1HAh345kVuRLc7WAS3eT1Q2sRuzjc5cVOMbVs1pb64+txToCR5TjweYVdT
-	 Nq4rccYkzphu0psyJKuIOP69hzSnkoZg4LGViZL8iFB/pMyzqNuwox+qMLm2ThDf1g
-	 80/xWvfpQtNGg==
-Date: Mon, 7 Sep 2026 20:44:56 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Alexandre Mergnat <amergnat@baylibre.com>
-Cc: Xianwei Zhao <xianwei.zhao@amlogic.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org
-Subject: Re: [PATCH v4 3/4] pwm: meson: use bulk API for per-channel clocks
-Message-ID: <ap8FuWnIRVgcP98G@monoceros>
-References: <20260827-s6-s7-pwm-v4-0-d28a2015177d@amlogic.com>
- <20260827-s6-s7-pwm-v4-3-d28a2015177d@amlogic.com>
- <178879456435.2256446.2005394820666057840.b4-review@b4>
+	s=k20260515; t=1788806705;
+	bh=5nNjB7tNITzyN4A/hl1C+FjMGV9M7QT/Y7KKPldSYog=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=TJU4FDa9okpoJHDYPyMUEr0yoInPQRXICDaFQL7ypH+NmSu1tQ4t3jF6h9FFmP4VB
+	 l2D/sGq0KgzRjNXKf2taq6P+d1WO0b00JIehDNoFhviD5TM/kKULpCmaHEKilAghHk
+	 xYRHPCa5sRve8EzaeoGiYJfpA6cqDjkU0IsIHza5LPxMAjIpk3xHfXhz9ltCGB4fWM
+	 5RmIGICV0ReWY3h9ZgMUylhvvKk/g6slhjKBo0yJq2swA9B5qV89Tex51jhzrD7YPc
+	 dQbxeBCQqsxFGQmO/ZY8lDkIdwKEUDTFlM3HPOzCgaUs1d3cFNfR+UwwZv1tVfZWKO
+	 01gBERA5cpmGg==
+From: Leon Romanovsky <leon@kernel.org>
+To: Michael Margolin <mrgolin@amazon.com>,
+	Gal Pressman <gal.pressman@linux.dev>,
+	Yossi Leybovich <sleybo@amazon.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>,
+	Shiraz Saleem <shiraz.saleem@intel.com>,
+	Steve Wise <larrystevenwise@gmail.com>,
+	Firas JahJah <firasj@amazon.com>
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH rdma-next 1/2] RDMA/efa: Keep admin queues alive while IRQ is registered
+Date: Mon,  7 Sep 2026 21:44:46 +0300
+Message-ID: <20260907-use-after-free-of-admin-queue-struct-v1-1-dd9d9267fbf4@nvidia.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260907-use-after-free-of-admin-queue-struct-v1-0-dd9d9267fbf4@nvidia.com>
+References: <20260907-use-after-free-of-admin-queue-struct-v1-0-dd9d9267fbf4@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="t7gsagdcfeml35k4"
-Content-Disposition: inline
-In-Reply-To: <178879456435.2256446.2005394820666057840.b4-review@b4>
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.15-dev-18f8f
+Content-Transfer-Encoding: 8bit
 
+From: Leon Romanovsky <leonro@nvidia.com>
 
---t7gsagdcfeml35k4
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v4 3/4] pwm: meson: use bulk API for per-channel clocks
-MIME-Version: 1.0
+The management IRQ handler accesses both the admin completion queue and the
+async event queue. The driver registered the IRQ before constructing these
+queues and destroyed them before freeing the IRQ, so the handler's lifetime
+was not contained by the resources it accesses.
 
-Hello,
+Initialize the queues with interrupts masked, request the IRQ, and then
+switch to interrupt mode. On removal, reset the device and free the IRQ
+before destroying the queues. Also reset the device before destroying the
+queues if IRQ registration fails, because the device already has their DMA
+addresses.
 
-On Mon, Sep 07, 2026 at 05:22:44PM +0200, Alexandre Mergnat wrote:
-> > The S4 PWM driver currently gets each channel clock individually with
-> > of_clk_get() and uses a custom cleanup action to release the clocks.
-> >=20
-> > Use devm_clk_bulk_get_all() instead to retrieve all per-channel clocks
-> > at once. Verify that the number of clocks matches the number of PWM
-> > channels and assign each clock to its corresponding channel.
-> >=20
-> > This also allows the per-channel clock initialization code to be shared
-> > by Meson PWM variants using one clock per channel.
-> >=20
-> > Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
-> >
-> > diff --git a/drivers/pwm/pwm-meson.c b/drivers/pwm/pwm-meson.c
-> > index 22cefc6d5dd0..6f151464d7cc 100644
-> > --- a/drivers/pwm/pwm-meson.c
-> > +++ b/drivers/pwm/pwm-meson.c
-> > @@ -497,33 +497,25 @@ static int meson_pwm_init_channels_meson8b_v2(str=
-uct pwm_chip *chip)
-> >  	return meson_pwm_init_clocks_meson8b(chip, mux_parent_data);
-> >  }
-> > =20
-> > -static void meson_pwm_s4_put_clk(void *data)
-> > -{
-> > -	struct clk *clk =3D data;
-> > -
-> > -	clk_put(clk);
-> > -}
-> > -
-> > -static int meson_pwm_init_channels_s4(struct pwm_chip *chip)
-> > +static int meson_pwm_init_channels_per_channel_clk(struct pwm_chip *ch=
-ip)
-> >  {
-> >  	struct device *dev =3D pwmchip_parent(chip);
-> > -	struct device_node *np =3D dev->of_node;
-> >  	struct meson_pwm *meson =3D to_meson_pwm(chip);
-> > -	int i, ret;
-> > +	struct clk_bulk_data *clks;
-> > +	unsigned int i;
-> > +	int num;
-> > =20
-> > -	for (i =3D 0; i < chip->npwm; i++) {
-> > -		meson->channels[i].clk =3D of_clk_get(np, i);
-> > -		if (IS_ERR(meson->channels[i].clk))
-> > -			return dev_err_probe(dev,
-> > -					     PTR_ERR(meson->channels[i].clk),
-> > -					     "Failed to get clk\n");
-> > -
-> > -		ret =3D devm_add_action_or_reset(dev, meson_pwm_s4_put_clk,
-> > -					       meson->channels[i].clk);
-> > -		if (ret)
-> > -			return dev_err_probe(dev, ret,
-> > -					     "Failed to add clk_put action\n");
-> > -	}
-> > +	num =3D devm_clk_bulk_get_all(dev, &clks);
-> > +	if (num < 0)
-> > +		return dev_err_probe(dev, num, "Failed to get clocks\n");
-> > +
-> > +	if (num !=3D chip->npwm)
-> > +		return dev_err_probe(dev, -EINVAL,
-> > +				"expected %u clocks, got %d\n",
->=20
-> Small style nit: the continuation arguments are not aligned with the open
-> parenthesis, whereas the dev_err_probe() just above and the rest of the d=
-river
-> do align them. Can you fix it please ?
+Fixes: b7f5e880f377 ("RDMA/efa: Add the efa module")
+Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+---
+ drivers/infiniband/hw/efa/efa_com.c  |  4 +---
+ drivers/infiniband/hw/efa/efa_main.c | 15 +++++++++------
+ 2 files changed, 10 insertions(+), 9 deletions(-)
 
-No need to resend for that, I can fix that up while applying (after
-checking I don't have further concerns).
+diff --git a/drivers/infiniband/hw/efa/efa_com.c b/drivers/infiniband/hw/efa/efa_com.c
+index 583b1cf0d721..cb2d448db2d7 100644
+--- a/drivers/infiniband/hw/efa/efa_com.c
++++ b/drivers/infiniband/hw/efa/efa_com.c
+@@ -850,7 +850,7 @@ int efa_com_admin_init(struct efa_com_dev *edev,
+ 
+ 	aq->dmadev = edev->dmadev;
+ 	aq->efa_dev = edev->efa_dev;
+-	set_bit(EFA_AQ_STATE_POLLING_BIT, &aq->state);
++	efa_com_set_admin_polling_mode(edev, true);
+ 
+ 	sema_init(&aq->avail_cmds, aq->depth);
+ 
+@@ -868,8 +868,6 @@ int efa_com_admin_init(struct efa_com_dev *edev,
+ 	if (err)
+ 		goto err_destroy_sq;
+ 
+-	efa_com_set_admin_polling_mode(edev, false);
+-
+ 	err = efa_com_admin_init_aenq(edev, aenq_handlers);
+ 	if (err)
+ 		goto err_destroy_cq;
+diff --git a/drivers/infiniband/hw/efa/efa_main.c b/drivers/infiniband/hw/efa/efa_main.c
+index 4cd80727dcd2..b1df9bb8fac2 100644
+--- a/drivers/infiniband/hw/efa/efa_main.c
++++ b/drivers/infiniband/hw/efa/efa_main.c
+@@ -619,18 +619,21 @@ static struct efa_dev *efa_probe_device(struct pci_dev *pdev)
+ 	edev->aq.msix_vector_idx = dev->admin_msix_vector_idx;
+ 	edev->aenq.msix_vector_idx = dev->admin_msix_vector_idx;
+ 
+-	err = efa_set_mgmnt_irq(dev);
++	err = efa_com_admin_init(edev, &aenq_handlers);
+ 	if (err)
+ 		goto err_disable_msix;
+ 
+-	err = efa_com_admin_init(edev, &aenq_handlers);
++	err = efa_set_mgmnt_irq(dev);
+ 	if (err)
+-		goto err_free_mgmnt_irq;
++		goto err_destroy_admin;
++
++	efa_com_set_admin_polling_mode(edev, false);
+ 
+ 	return dev;
+ 
+-err_free_mgmnt_irq:
+-	efa_free_irq(dev, &dev->admin_irq);
++err_destroy_admin:
++	efa_com_dev_reset(edev, EFA_REGS_RESET_INIT_ERR);
++	efa_com_admin_destroy(edev);
+ err_disable_msix:
+ 	efa_disable_msix(dev);
+ err_reg_read_destroy:
+@@ -654,8 +657,8 @@ static void efa_remove_device(struct pci_dev *pdev,
+ 
+ 	edev = &dev->edev;
+ 	efa_com_dev_reset(edev, reset_reason);
+-	efa_com_admin_destroy(edev);
+ 	efa_free_irq(dev, &dev->admin_irq);
++	efa_com_admin_destroy(edev);
+ 	efa_disable_msix(dev);
+ 	efa_com_mmio_reg_read_destroy(edev);
+ 	devm_iounmap(&pdev->dev, edev->reg_bar);
 
-Thanks Alex for your review!
+-- 
+2.55.0
 
-Best regards
-Uwe
-
---t7gsagdcfeml35k4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqfBhsACgkQj4D7WH0S
-/k4H5gf/b2Cwr+NerQlDrFtCUTp4liuubWlge5tlRlMWOcb5v+9nUeJWlgs2tQvu
-yWPt8d+Zt+e3Ro1Lltt6/0z/V2EMCeWmtbyUAUgVB509psrAZq+tEvC5dPNMJOBJ
-1NdEPZSVCMSlaPKFFd7mmxORfZRVoOq328+Ou9pKtuvxRFAV20KwWw7SpdZnYNRZ
-HKdhlu0iIXKVC20ipM5jSoOuCBjbSyxUcFdlnQIR76rsUeFxWUSt98aAzTntv3YE
-G6TZefYdA0k3oSnyd0vQ3vc8zomM9PsuRxdGiyCICdF8NasUaM3sqWgH67mote90
-ROqVOOH2Xl9Lo70ugL/zbQq89aaHzA==
-=DC7A
------END PGP SIGNATURE-----
-
---t7gsagdcfeml35k4--
