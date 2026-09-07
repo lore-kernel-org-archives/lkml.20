@@ -1,71 +1,47 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+Received: from mta1.migadu.com (out-53.mta1.migadu.com [95.215.58.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E88611DB92C
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:54:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B86A3793D3
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:55:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788756883; cv=none; b=Pmd/fJoRoYZ+OIt6Gt9MrvO+Jsnv3rW9dCYTK4lS45sN7eD5nSy9j+/WKDuye1rA4BlR10dShQbQlajRIrZV/N42vq8o84PW80Z0UCss6sNoXPkIy+7WvsX0TMXf3loWOx9b7dIbom/pl9B+Iwo71eKTDs7dZtTOZ/MSFB2aMRU=
+	t=1788756932; cv=none; b=gyh0IKP7rCDdeCIwYVI8VJWZE5uKqv9pqXPosVJyhII3R0YT/Zv6OTkYGgyWgWIFE4XTZljhlk609I/NvCdiy7gKkkwd50tPIOlMCzb2EFyKESYUquYLbcbpcdzQPlKGB6YeiBUBNoREBLie80tR3tMLd+d6UJFE5GWTuMV4koE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788756883; c=relaxed/simple;
-	bh=nGLX54WD8ZYhwyYfjF+NbAYQqy/IWOhlM+QLKa4hUz0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PG2xWlV4+b3krtzT3PV0+kB3/87EWoi3oaEsXuD3/JN5GskrBAciEDM1dAxsvx/JQXnqAOSGk5jMApjMH4wVtA1vWrsM2BlWSSWlFGKNG+ud+ZxBnz1jyKkWGQLLtykextZqMUQwoRlVz9j9ZHoZ1QVFc0mnXJbDAkeENm1aNsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I2/54wA6; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788756932; c=relaxed/simple;
+	bh=u9/82jjn7HPYGB+0454M/+i3SLDdyKFmb/gGHFwv9Bk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CW2/dt4GGNVewyV9tU3raKFtD5++bX3VKgQ9zcQwU0E0uiRczRC5ZXUkvm2zR0Wbe6D8X7NDRAjjrgBoNkW8csXBYgnM4IIkww/mqaGljN9GuOchsYyRRWYHdEKiqpo84pVHq7yRFVsbz6ygWbCuN5CX30M/ZF4iYcFBK/sFS3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hsiZskD3; arc=none smtp.client-ip=95.215.58.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I2/54wA6"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2d58efc7356so38933295ad.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 21:54:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788756881; x=1789361681; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+H6PCme+LwtltvMdPx7okQil/u953epHJoMAFnFvfvA=;
-        b=I2/54wA6oB7qqEfNBCtUqeyMVqnmjFj+Jmg8oYx5HS3FZyhse00ea6VnfUdImwi7U1
-         7F0vo2NPMsGgN/ZAbIAxmh3mw0SZehnW94lr9j8oDvtHz8nIz5E3dUNk1d6Wk/VIl9pM
-         WsSWDHqdFDK/9UJmQ+DyjTNhkjkeL8XBokZJ02Z7VIyFGdPpSCQX31uW7LJGIyZ//RHF
-         KhWEw+xbWtlC2gUP/VvT8nz3XQy38STV2Ikldxf/254e9T395gqWNGzHYAq8JUD6fBcO
-         XdR0FlG+VPwwVgrBg9iQA1n/aSv+j4T4bY1kBSSKuReHt/jqleMh2VjE2RFyCgYhqBaZ
-         XbNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788756881; x=1789361681;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+H6PCme+LwtltvMdPx7okQil/u953epHJoMAFnFvfvA=;
-        b=LSSsLOCOVBkiJaAl3WX0jG9uVnCeP0oYppbnUfzpMLDV2qZzQX6iZ+DMA64ZZyGysg
-         sGgw259TJXUCZbimaYAGf/I7vg2SNa5sRwji1Zf3yjWo/ZkyyfF8+BjiM6eFdLZG/s1Z
-         UO5yiHz8r8sUP9HxSnlcZR9uUjqAo8plGPXdOO177uql7WBj4Ftc10/7dTPOPHZJQ6FK
-         P6A8jjDQGJYk9ejqV2XmQPx0ZjEW65Pma8/j178enm2adOrLR4EVBQ8P5paNt43e+CRF
-         jOZb+ueQV1IHfdsllui0FLNHsYh1mxehSqc1ozIAVQQz8OmNTXY7kaIzqX3fhQAmkY4o
-         7vgw==
-X-Forwarded-Encrypted: i=1; AKwUvByJfuht3hpBXpxe3F2RIQ9vQS8V6CZdFFyl9JZRWgUNELmcuP5vS3mddg/vbHSTW2kv+V4s36XltGOBrc8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lS+qbjafuSt+75yL6Ngi2pABMKBN9/bpD0DsV8tUN9lNkKguNH
-	+DxpArJXRD0EH1hfH4k7w551eP42DsjioJKRGMq+TyC84jreO8ZK8+jg
-X-Gm-Gg: AYBFou2/moYKQVCplf1qqzsZHVgFjcd5ReVEqZpSMVKNjAgcnZZQrsFyHEqu0HjNDkY
-	B5qHZJWU9aZondlw79lzHFimWqbnjChHAfbe5wDReTxNdPVKy8IUzcxK1uBxAAABFQdKsXjl1Nc
-	Qmm76zZrZQq+tVB19sgZFCD3I8Cd1/N4oIjXARbldc9Xu/iXbxcUUu7K5JM57Df7Rv0+9xZkELz
-	tq8E6EQg39nLHMztqneOmpneUTM6n9NuPGhy8E934es3gdQb1MVTRxqW6ZXOHYESpH9hPBuzbuX
-	9s4Hw1i9PElIh7EPDcM0lQlpoHscWbyzdXERvYEA1XNaatmNum9gKIZPU0aLsrlDaeB7D9Kvmfk
-	1EfEHoeCc9edVWKvQCD3cgyEeCrm0R59uSh0ox4ODzJAR3UYWXtjLTJSm7R/KWe9dVJSwiCl/x6
-	2uAecr3YMF3aSUyqHivN7ve6/l8+Q/EUxcfDiT2FmOMOEgHJm6xf75lA9iHqE3nZp3DgzxXrb7u
-	tbEs8KHNBEwCQ==
-X-Received: by 2002:a17:90b:2681:b0:38f:5801:dc0e with SMTP id 98e67ed59e1d1-39b261d52a4mr31580282a91.15.1788756881269;
-        Sun, 06 Sep 2026 21:54:41 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243f780csm21933483c88.13.2026.09.06.21.54.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 21:54:40 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>
-Cc: linux-leds@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] leds: ss4200: Fix typo "retrive" in comment
-Date: Mon,  7 Sep 2026 10:24:36 +0530
-Message-ID: <20260907045436.18039-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hsiZskD3"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=u9/82jjn7HPYGB+0454M/+i3SLDdyKFmb/gGHFwv9Bk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788756928; v=1; x=1789361728;
+ b=hsiZskD3WOcXtmYCxfYy+uaO7GW5b4bH6/gx7fE98Yf4nFfoMkbQuncaG6rVFHhn4r8Oi2Ns
+ O612/s/8h0ertqoTqCshvTHxKl9BZ2OzfX9uug12ZYNYZ2J/ZaIpBMXhiMvldW2IWYiqKG85Veu
+ xdwHygOIMQU7dw41PQlatq/k=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a71d6b4f24578b51;
+	Mon, 07 Sep 2026 04:55:26 +0000
+X-Mizu-Trace-ID: a71d6b4f24578b51
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: linux-unionfs@vger.kernel.org,
+	miklos@szeredi.hu,
+	amir73il@gmail.com
+Cc: andrealmeid@igalia.com,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	cui.tao@linux.dev,
+	Tao Cui <cuitao@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] ovl: clean up dir on casefold mismatch
+Date: Mon,  7 Sep 2026 12:55:17 +0800
+Message-ID: <20260907045517.1347518-1-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,29 +50,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Correct "retrive" to "retrieve", reported by scripts/checkpatch.pl using
-the misspelling list in scripts/spelling.txt.  Only touches a comment, no
-code changes.
+From: Tao Cui <cuitao@kylinos.cn>
 
-Since v1 the subject carries the driver name and a capitalised
-description, to match the LED subsystem convention.
+In ovl_create_real(), the S_IFDIR case checks after a successful
+ovl_do_mkdir() that the new directory inherited the expected casefold
+flag.  On mismatch, err is set to -EINVAL but the directory that was
+just created in the workdir or in the upper layer is left behind.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+The mismatch is reachable: ofs->casefold is fixed at mount time, but
+the casefold flag of the index dir can diverge.  With index=on, a
+pre-existing "index" directory with +F is accepted at mount, and every
+temp mkdir for an index entry inside it fails the check and leaks one
+directory.  Measured on an ext4 casefold upper: 100 directory renames
+left 100 "#nnnn" entries in the index dir, one per failed mkdir,
+growing without bound.
+
+Clean up the created directory with ovl_cleanup_locked() before
+returning the error.  All callers of ovl_create_real() arrive with the
+parent inode locked (via start_creating()), so the locked variant must
+be used; ovl_cleanup() would deadlock on inode_lock().
+
+Fixes: dfc7da402ccc9 ("ovl: Check for casefold consistency when creating new dentries")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tao Cui <cuitao@kylinos.cn>
 ---
- drivers/leds/leds-ss4200.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/overlayfs/dir.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/leds/leds-ss4200.c b/drivers/leds/leds-ss4200.c
-index f24ca75c7cb1..c782339b1330 100644
---- a/drivers/leds/leds-ss4200.c
-+++ b/drivers/leds/leds-ss4200.c
-@@ -339,7 +339,7 @@ static void ich7_lpc_cleanup(struct device *dev)
- 
- /*
-  * The OS has determined that the LPC of the Intel ICH7 Southbridge is present
-- * so we can retrive the required operational information and prepare the GPIO.
-+ * so we can retrieve the required operational information and prepare the GPIO.
-  */
- static struct pci_dev *nas_gpio_pci_dev;
- static int ich7_lpc_probe(struct pci_dev *dev,
+diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
+index 7beb0af26498..4e451bbd8f97 100644
+--- a/fs/overlayfs/dir.c
++++ b/fs/overlayfs/dir.c
+@@ -188,6 +188,7 @@ struct dentry *ovl_create_real(struct ovl_fs *ofs, struct dentry *parent,
+ 			if (!err && ofs->casefold != ovl_dentry_casefolded(newdentry)) {
+ 				pr_warn_ratelimited("wrong inherited casefold (%pd2)\n",
+ 						    newdentry);
++				ovl_cleanup_locked(ofs, dir, newdentry);
+ 				err = -EINVAL;
+ 			}
+ 			break;
+-- 
+2.43.0
+
