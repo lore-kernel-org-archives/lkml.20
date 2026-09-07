@@ -1,78 +1,344 @@
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64F6D2BDC1C
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 03:05:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.225
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788750340; cv=none; b=ZbMhpyw7McjK6IDPYXBEE3FCPlSrRWCG5c2Z5U7XdPiiT696G571RWTdpCOpHj2pPJm5q2LmOGgIRREwxDu95iVl16274Ftuc3fi3KDVlraBgF3dmdH1eRLxW7l6d55FE7nGTXQVX7/eBZwCrpPwY0FUDjPWJj76FF+EQVO9Ioo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788750340; c=relaxed/simple;
-	bh=dHqJWZUgXl3dGlbdWmNmBvbXc33kA1M/YhES/1zhvl0=;
-	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=TU4VDM1FhZdkRMzlhOhbVWlBAmt7rGCtlyf3HP+k4qt2P1qEKbYD7uad6BHeBlkF2tGfrOgXL2XjGLf5n2iAc0LL88gjyQj6BtHT+BFfPe8U9/aPr82OfX6Q4/HHJCP0Y0Z9CQS5lfz7IJv+X+7E3+rZ92ZHa4R1RTqAUbzJYjY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=PiC6HyEQ; arc=none smtp.client-ip=113.46.200.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 699002D0C89
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 03:05:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788750358; cv=pass; b=CINvV5oM3ERrF6bCkGXXVyOnp8MA/Jh51LCZpGI9dNqYlexGm4GcBXPktphDqLq/tN5fak3Knp6/XfO/j29rswTxmUu64ok6ySxVXCwuApBEo35XbYvw+00d7kBS4JWY0BqXLxh1UPPaIpdAhR1Ya+h+Wfwrq8JEYAnHMtItCCM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788750358; c=relaxed/simple;
+	bh=JjTBnWXYcPYPei20BQ2ElWZXSEdrjRdouifOfM3rT+Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rD6PG9rpp1jXaYh6tC4AFcFxFMkLK5lmJCTy3pCeY0k0elXeE4sslRYl1EX4K8MrtHk538RK8ZZbdEOnjhQEnMdMoJIv3pguKWyx9jzkx/RXJIr59mgvOJPeqI+djx3ZZeQltrWKsl5+cP1bE5P8L0FKQIiV2es3kH51ML3UJs8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lb7XK2Yn; arc=pass smtp.client-ip=209.85.222.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="PiC6HyEQ"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=qVlgjFyr8X3oCWakePj9eLcqUMiSwXFx9x+NdGeLY4I=;
-	b=PiC6HyEQi62P8vWr3VMiTe9VyyEKf6iXKJdsCLfQpnpObLXCcLee2cLRhB1uPrSv4MCnf/gwm
-	F5udepC2YFJ+PQ5fObcZpoHPX7VIW1qeuaT2XwFcMgbJgxWjk8F0EDIcA+a1XFYoKFowiTwOHRE
-	qfOuZ4rl2OjE4Vd6rnOOVgU=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4hdWrB1CZSz1K96b;
-	Mon,  7 Sep 2026 10:54:34 +0800 (CST)
-Received: from whupemk100004.china.huawei.com (unknown [7.152.185.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 4077540565;
-	Mon,  7 Sep 2026 11:05:27 +0800 (CST)
-Received: from [10.173.124.160] (10.173.124.160) by
- whupemk100004.china.huawei.com (7.152.185.74) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 7 Sep 2026 11:05:26 +0800
-Subject: Re: [PATCH 4/8] mm/memory-failure: convert process iterator to
- for_each_process_rcu
-To: Ye Liu <ye.liu@linux.dev>
-CC: Ye Liu <liuye@kylinos.cn>, Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	<linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, Andrew Morton
-	<akpm@linux-foundation.org>
-References: <20260904083001.553587-1-ye.liu@linux.dev>
- <20260904083001.553587-5-ye.liu@linux.dev>
-From: Miaohe Lin <linmiaohe@huawei.com>
-Message-ID: <cc748395-95ea-a7d7-d1c9-9678d2eaae21@huawei.com>
-Date: Mon, 7 Sep 2026 11:05:25 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lb7XK2Yn"
+Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-930f618435cso351223285a.3
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 20:05:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788750355; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QHHIxoaajIdZ9SxYIh5XA/tC8Mb3HHmoN5JjsygYXmm8sFVs9urqwaRaVqEeuqwShL
+         T96TaDEgAMw36v/Tc6H/wLVWPCRs3AuXGPkcjGqhAE5LRlZmNl9bdEAbtxzod4EPH2jN
+         BUczlHk4kxuLNk4hPKIwgDCVs4EBiVoPWLALd5KwkDQyZSQ7L04X+5ZlW7iJW4313S7Y
+         QzTn9um8E50j5qqBUcZegpd6TRT7sf2BKtJh5VQW6ula3wIu/AQ+qeKOivnRDE8vaTKN
+         LcpQlp6jDP8dGwtrqjc92hdjEy5pFAmxHX7XtzSFljo0m0I4sgmQZ8mME1mONeLXVZBO
+         CPxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vp6kqRH18z2BkXSeT4B0EuoiGVpEoZr0cYZ/GmzT9oY=;
+        fh=MrvJdxZ85Np9+5h7VO1HFJfZP1u+QreXVqxD6jCyNwM=;
+        b=kqe2SPG1pYgmA3xPjfXVULeNi9tV9iaDaxiG88NojGnHQ+FKehA8Yn/EdgprnW1b/O
+         VIaU1wBtzkUFyoPGzgZYWBdH0xSh1/sf2s/uRi1JsZsKlmUqgz1aZEOHZ2GQBvAgEo0v
+         n2BCiVE8uAa9OY/Tg9Qw9AWEYDH8z+3v6CitdJ1LoKZDGt3eIuJ8k7GpJEtGwiIdYCqP
+         G+84d57oCy4x0GE4f0V1cMHrFth2XtxQ4agYqzLlv7idRRRzfFVHIIF1O7pjUNwYbzXN
+         uHI881n5urtVP6qC2nKbqVECHrsGMm4LW8/J3sHrrG/FilqcZfZaYfuRNCWBXnxuMfNw
+         0BUA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788750355; x=1789355155; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vp6kqRH18z2BkXSeT4B0EuoiGVpEoZr0cYZ/GmzT9oY=;
+        b=lb7XK2YnsMtZrRT/UX0+h9qtswiC9rOSpUrlU1rK2RoOyXNWNxHuuR6ECTwTKiJq5f
+         UCTt1okVAZmiGSaoORqWS2UZ0OaiWafng3yHWqWXHxPQotOW4ZBJuv9RRiZ3WmW9YNPm
+         kcp/S/UwThhd27Z3ihFWqpn390AB0hhkHsHOVi3Yoq35YMkCp/G6aWszfzWYXOhGoSwb
+         tYojMmVtOtApShnyyLxc6o17Ag2OcAIX51jdzzrdgMrT3SPL2SyMOH3vZN80KH4OLFmb
+         LodAecxQJMRBKD7Akyl/rrSc8PpkPaIujYLmCv+VQ9SwayUOvr/g1nomNm4mCn+oQ8pb
+         E9jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788750355; x=1789355155;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vp6kqRH18z2BkXSeT4B0EuoiGVpEoZr0cYZ/GmzT9oY=;
+        b=NoDNppZsOXrujmNZGZU5yt8YiZhw9heZvowZLJzkRTgOF+46eCkTeESdQswItzEqvv
+         Kr4TcYr0R1IbseI8qUc7zCQXi+TYvvlhMG/sYFCaC/cXrHcBZ7d18y7LkWBQrzC44C+/
+         ecAvgAKbf9p2dFh+EzOkbJgZtjcHER9KDW9YIaBClxKTsbK5Nuj71ZeOHP0DCcu6AP6P
+         Bx7hGD4u4586/yaiye/e4q8cKXosUj3UhdZ6sYRo4ZQEix81veLrV6ZUb22i+jDVHtJg
+         1yVJweWo+UhA7lp2M1vZMlcF8QymkZCKydCjTg9AqJ5T2V7LpC8wckY/s25qpKs3x6Rj
+         gQQA==
+X-Forwarded-Encrypted: i=1; AKwUvBw2Hn8JsTGAcVp+CfNwx6rrz5G4SeaKiwbOVdUyxDI0NobWIKqk3XsTpyPk4qhfwHH4QcxgDNckwclszKM=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3gPD+h/mR44eAuAi5tNybLqScdPcOr8hQ9gv2Tei5OactzrVu
+	sBQ3s1m3bl1KQITM24CkosUH+ayf+PQicuu1PiCP35wCxImVlKnY8ECc9tHX02jyMoFkK27V2yY
+	WW4ZQA89K9cnCt6JeRWj1ctStWDsl6sQ=
+X-Gm-Gg: AYBFou1ybppjf5XYhInlIJpdeTDrp47P/kqooWjlMWDRqxhYEnjMPWQd4wXS7m5ceJW
+	9TERC0JVoW/xt6squPGfS5Og7HXjl5eAWgSthGggfnHlynzltYkS5seWhlr0fCPrf0kTKMi3++H
+	Ubkp+lRjZFvN5FxoHQGbnb4ZBMCHgo9/JkmFArW5pp/S/xaO++HC25bOFKAhZTmDeGcHA1QMJdi
+	XabWn8PzNzlOeptdneU0NBaOg0qijeFr1oXHPck9W25UTVE/LV7QjmO9llxs2/yQF7svZ+7KvJw
+	V/362IZgGrat9UNJ6LZzbe8WKqLNxJwbIYuV1hz8IJ2F
+X-Received: by 2002:a05:620a:2a14:b0:939:16f6:4d01 with SMTP id
+ af79cd13be357-93980371409mr1860789685a.21.1788750355107; Sun, 06 Sep 2026
+ 20:05:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260904083001.553587-5-ye.liu@linux.dev>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- whupemk100004.china.huawei.com (7.152.185.74)
+References: <20260906013659.517889-1-physicalmtea@gmail.com> <20260905234007-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20260905234007-mutt-send-email-mst@kernel.org>
+From: Jia Jia <physicalmtea@gmail.com>
+Date: Mon, 7 Sep 2026 11:05:18 +0800
+X-Gm-Features: AcwNN1VD3mXF6xsr3Q77Ee5e_NmlFL287LdrgSbhF2Hf-aI0ro1H1y2newXV4-0
+Message-ID: <CAJwVaMJcqOPPt6eQuVdySmwvjMz2Bh5dRPYidF+s8_1fNf2uiw@mail.gmail.com>
+Subject: Re: [PATCH v4] vhost/vsock: batch RX used-ring updates
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: sgarzare@redhat.com, stefanha@redhat.com, jasowang@redhat.com, 
+	eperezma@redhat.com, kvm@vger.kernel.org, virtualization@lists.linux.dev, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026/9/4 16:29, Ye Liu wrote:
-> From: Ye Liu <liuye@kylinos.cn>
-> 
-> Replace the manual rcu_read_lock()/rcu_read_unlock() pairs combined
-> with for_each_process() loop in mm/memory-failure.c with
-> for_each_process_rcu().
-> 
-> No functional change.
-> 
-> Signed-off-by: Ye Liu <liuye@kylinos.cn>
-
-With SJ's comment addressed:
-
-Acked-by: Miaohe Lin <linmiaohe@huawei.com>
-
-Thanks.
+>
+> On Sun, Sep 06, 2026 at 09:36:59AM +0800, Jia Jia wrote:
+> > vhost_transport_do_send_pkt() calls vhost_add_used() for every Guest RX
+> > buffer even though it delays the Guest signal until the worker finishes=
 .
+> > Each call publishes one used entry and updates the used index separatel=
+y.
+> >
+> > Collect the completed buffer heads in the arrays already allocated for =
+the
+> > virtqueue and publish them with vhost_add_used_n().  Bound the batch by=
+ the
+> > ring size and array capacity.  Flush when the batch reaches its limit o=
+r
+> > before leaving the worker.
+> >
+> > Each used entry describes one completed RX buffer and keeps its actual =
+used
+> > length, so set nheads to 1 for every entry.  This patch does not change
+> > negotiated features or compress multiple buffers into one used entry.
+> >
+> > This patch is limited to the current skb-based vhost-vsock RX path.
+> >
+> > Performance:
+> >
+> > The test used vsock_perf with a fresh Guest for each state and 20 paire=
+d
+> > runs. The Guest receiver used:
+> >
+> >   vsock_perf --port PORT --buf-size 64M --vsk-size 64M --rcvlowat 1
+> >
+> > The Host sender used:
+> >
+> >   vsock_perf --sender 3 --port PORT --bytes 1G \
+> >       --buf-size SEND_BUF --vsk-size 64M
+> >
+> > The table reports geometric mean Guest RX throughput.
+> >
+> >   SEND_BUF   baseline RX   batching RX   change
+> >              (Gbit/s)       (Gbit/s)
+> >   256 B      0.0795724      0.0831509      +4.497%
+> >   512 B      0.1194885      0.1210297      +1.290%
+> >   4 KiB      0.7208273      0.7242053      +0.469%
+> >   64 KiB     2.1712797      2.1951941      +1.101%
+>
+>
+> I will be frank I don't find the numbers compelling enough
+> to bother with this trickery.
+>
+> vsock wasn't optimized all that much for small packets -
+> first of all, it is doing most of its work in a work item
+> so we are already at the mercy of the scheduler.
+>
+> That's more work but you will see a much bigger win for bw and
+> latency by just handling small packets directly in the cb
+> if you can.
+>
+> Looking at batching: wakeup per packet in rx_work, lock_sock per packet,
+> sk->sk_write_space per rx packet are all high overhead things we are
+> doing in the data path that are likely easier to handle
+> and will give you more bang for the buck.
+>
+>
+>
+>
+>
+
+Thank you very much for giving such a clear direction!
+
+> >
+> > As supplementary data, perf stat measured the vhost worker cycles and
+> > instructions per GiB in 10 paired runs. The patched implementation
+> > reduced cycles by 3.846%, 2.162%, and 4.109%, and instructions by
+> > 2.548%, 2.084%, and 4.637% for 256 B, 4 KiB, and 64 KiB, respectively.
+> >
+> > An AF_VSOCK request-response latency test with 10 AB/BA pairs showed no
+> > consistent RTT change: -0.102% for 256-byte messages (4/10 pairs lower)=
+ and
+> > +3.281% for 4-KiB messages (5/10 pairs lower), using arithmetic mean RT=
+Ts.
+> >
+> > Signed-off-by: Jia Jia <physicalmtea@gmail.com>
+> > Acked-by: Eugenio P=C3=A9rez <eperezma@redhat.com>
+> > ---
+> > Changes in v4:
+> > - Simplify the performance description.
+> > - Add a brief AF_VSOCK RTT measurement.
+> > - Keep the batch limit within the used ring and scratch arrays, without
+> >   duplicating the worker weight limit.
+> > - Flush after adding a used entry when the batch reaches the limit, and
+> >   remove the redundant flush in the empty-queue path.
+> > ---
+> >  drivers/vhost/vsock.c | 47 +++++++++++++++++++++++++++++++++++++++++++=
+++--
+> >  1 file changed, 45 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/vhost/vsock.c b/drivers/vhost/vsock.c
+> > index 9aaab6bb8061..7a13abe73345 100644
+> > --- a/drivers/vhost/vsock.c
+> > +++ b/drivers/vhost/vsock.c
+> > @@ -103,12 +103,35 @@ static bool vhost_transport_has_remote_cid(struct=
+ vsock_sock *vsk, u32 cid)
+> >       return found;
+> >  }
+> >
+> > +static bool vhost_vsock_flush_used(struct vhost_virtqueue *vq,
+> > +                                unsigned int used_count)
+> > +{
+> > +     if (!used_count)
+> > +             return false;
+> > +
+> > +     vhost_add_used_n(vq, vq->heads, vq->nheads, used_count);
+> > +     return true;
+> > +}
+> > +
+> > +static void vhost_vsock_add_used(struct vhost_virtqueue *vq,
+> > +                              unsigned int used_count,
+> > +                              unsigned int head, unsigned int len)
+> > +{
+> > +     struct vring_used_elem *used =3D &vq->heads[used_count];
+> > +
+> > +     used->id =3D cpu_to_vhost32(vq, head);
+> > +     used->len =3D cpu_to_vhost32(vq, len);
+> > +     vq->nheads[used_count] =3D 1;
+> > +}
+> > +
+>
+>
+> flush where? add where? return what? these apis don't make it
+> easier to read code.
+>
+
+Thanks for pointing this out. If I understand correctly, the
+responsibilities, call sites, and return values of these helpers make
+the control flow harder to follow. I will be careful not to make the
+path more complicated for the sake of abstraction in the future.
+
+> >  static void
+> >  vhost_transport_do_send_pkt(struct vhost_vsock *vsock,
+> >                           struct vhost_virtqueue *vq)
+> >  {
+> >       struct vhost_virtqueue *tx_vq =3D &vsock->vqs[VSOCK_VQ_TX];
+> >       int pkts =3D 0, total_len =3D 0;
+> > +     unsigned int used_count =3D 0;
+> > +     unsigned int used_limit;
+> >       bool added =3D false;
+> >       bool restart_tx =3D false;
+> >
+> > @@ -120,6 +143,11 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vs=
+ock,
+> >       if (!vq_meta_prefetch(vq))
+> >               goto out;
+> >
+> > +     /* Keep the batch within the used ring and the scratch arrays. */
+>
+> what "the batch"? this is the 1st time code mentions any batch.
+>
+
+In the future, I will try not to introduce concepts used in a patch
+midway through the code. They should be explained when used.
+
+> > +     used_limit =3D min_t(unsigned int, vq->num, vq->dev->iov_limit);
+> > +     if (unlikely(!used_limit))
+> > +             goto out;
+> > +
+> >       /* Avoid further vmexits, we're already processing the virtqueue =
+*/
+> >       vhost_disable_notify(&vsock->dev, vq);
+> >
+> > @@ -150,9 +178,16 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vs=
+ock,
+> >
+> >               if (head =3D=3D vq->num) {
+> >                       virtio_vsock_skb_queue_head(&vsock->send_pkt_queu=
+e, skb);
+> > +
+> > +                     /* Flush completed buffers before re-enabling not=
+ifications. */
+>
+>
+> redundant - i can see this is what it does but why? and what does flush m=
+ean here?
+>
+
+I will pay attention to making the purpose of comments clear.
+
+> > +                     if (vhost_vsock_flush_used(vq, used_count)) {
+> > +                             added =3D true;
+> > +                             used_count =3D 0;
+> > +                     }
+> > +
+> >                       /* We cannot finish yet if more buffers snuck in =
+while
+> >                        * re-enabling notify.
+> >                        */
+> >                       if (unlikely(vhost_enable_notify(&vsock->dev, vq)=
+)) {
+> >                               vhost_disable_notify(&vsock->dev, vq);
+> >                               continue;
+> > @@ -230,8 +265,13 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vs=
+ock,
+> >                */
+> >               virtio_transport_deliver_tap_pkt(skb);
+> >
+> > -             vhost_add_used(vq, head, sizeof(*hdr) + payload_len);
+> > -             added =3D true;
+> > +             vhost_vsock_add_used(vq, used_count, head,
+> > +                                  sizeof(*hdr) + payload_len);
+> > +             used_count++;
+> > +             if (used_count =3D=3D used_limit) {
+> > +                     added |=3D vhost_vsock_flush_used(vq, used_count)=
+;
+>
+>
+> bitwise or on a boolean likely not what was intended.
+>
+
+Understood.
+
+> > +                     used_count =3D 0;
+> > +             }
+> >
+> >               VIRTIO_VSOCK_SKB_CB(skb)->offset +=3D payload_len;
+> >               total_len +=3D payload_len;
+> > @@ -264,6 +304,9 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vso=
+ck,
+> >                       virtio_transport_consume_skb_sent(skb, true);
+> >               }
+> >       } while(likely(!vhost_exceeds_weight(vq, ++pkts, total_len)));
+> > +
+> > +     added |=3D vhost_vsock_flush_used(vq, used_count);
+> > +
+>
+>
+> and here.
+>
+
+I will drop the current patch and try a new optimization direction.
+Thank you.
+
+> >       if (added)
+> >               vhost_signal(&vsock->dev, vq);
+> >
+> > --
+> > 2.34.1
+>
