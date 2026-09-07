@@ -1,169 +1,106 @@
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBAB83EB102
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:42:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 744E744063E
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:42:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788770565; cv=none; b=iqfcePm7HG9vs2sjS0yBumNOkO/RFYoc97FDJ3DYuUn8cnuOSIVgyulz402KnuAPCtPQ8DQNZ1t6JnNBIM1GOaOlQsZ9WLie9N9qJrzyAVeTkOOcUYTM1HMARutaTe6p4Vp5Vwm/wrAhbZL/7ilQVWe5bA5oi8Bakt3Mi61bs1o=
+	t=1788770566; cv=none; b=HaEfgnFY4a2IVN7FQmZKqFfriSATjoXmTgrJ+UgtMin3Tfa60NBxYRlG9K9gct8z/YsKK7Yi+raShvqtQ9ZGhVh6qzjCgOuBjAI2XYNXpz13rTH2Qjd5FOlqny9n+n237VOXA/0dUcScjOSv4qb+jK9S9UrRU0TtMvGz4GuxVRo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788770565; c=relaxed/simple;
-	bh=8vstMt/fxAgnN9Du+eQzLvJbYicuX/NvJg5yF+/b6Vs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oHMzxxigkE6xhrJColOg42RjisZyiwM/mw2NQOgFSIt7pyNnmb8rsbG1E6MLbHDU5ER3ETkF8BPpQrQnpV4CDnjdc+1NstpERDFgvgnKdHVeKwVtvN7VFJwcomo5Yf9Hu5+QrAu7IRGy29Aet0LEgZHwtzEpHE3YRhRMWL3hHjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HKPYKML5; arc=none smtp.client-ip=209.85.215.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788770566; c=relaxed/simple;
+	bh=bvgnRIDupB6q+uAT7fNeLBNHD/lrtfXyh4a6Y69o1ew=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hMsRW8bYbHI50fh/EL0E648d5HDvLOyAHrlcjgwbndbf9VsBnAQKZvnZPV3rb5M1DACgS9XXMHwzeUrZk2Xc9yEUPwQ90LcucWVC2UDu9PBjjZV3KbVFkZxopf3NoCJS15GYu22fqLhNuIknjrMXX56GM3ciznxlfmox53I2vAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nPGFXv9e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HKPYKML5"
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc1cb472b76so2635426a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:42:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788770563; x=1789375363; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WNalOX0xfMuYfJ3R8nNdE/5yHB2tJozrv9LQsSCEUqo=;
-        b=HKPYKML5a8CqNswGLtz1jF/loQulvp482nppUXALg7VcQax1zFQsBxEUvchfRSk0Kw
-         t1poeDIiVwkMNHhE+T1PVLXKEs06/VW34G9+EmPJrI+EMGQIhmumzbTwb5OGkOo4+W+w
-         rCi99DM/aPAWqSP5b8b6kjiSSa/mGp6lId67SryB42elXJf2/53OO/gHXtUhECcSVizL
-         JKpP+A6VIfqI1lkNk/bVrAFDTirAjOKti2JCbrWvNj9uezhJ8rygNVtj7OxP2G1xPPfl
-         hBv0PBAVCrQBnAco28+kgm9tyWmgB9Omx2Qo2stsVFZNCG1Ab2kTf+FN+4mU6ozffJuG
-         ntlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788770563; x=1789375363;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WNalOX0xfMuYfJ3R8nNdE/5yHB2tJozrv9LQsSCEUqo=;
-        b=WmJN8OjuModWmbOzGTnJtJFRf1yLN4aoOWvuf9m5EzSAe0KQebqTw4K2WIJ+uUPOVC
-         3UuabxRhjbBVXB/X8C2QM5jidQOCeZarp7u/6xm55XgnYIi72SkOztOAUDwb2V7CXd0B
-         Rp50aXxO3/IHhxDzg8s4vsYPoVBEqotf0oxWLf6NotTYEgOpiSfGwnRsAQGR0Jpn19Dx
-         T27cvmQXwMI5DAm0a4hukRb4ePM+V/4eqSAVrIP+5uSjtPzBssCL7CAQQ3vZR/4scMy4
-         M+Ed67eT9fSE3PUMwMh9t5BojtVel6qp4CoqeYzFuhtBaoWY/XJCGd4BJBY3GGOa6DQx
-         leHQ==
-X-Gm-Message-State: AFuF++kyCzoSPyYpaiFWZfhRdY8CydywJcwR5SH7BQuaoJbod7fduCXi
-	+Z5Hv1J5Fp+4zfnKSqoBC5atY1cSMoKPCSgyGFfyGeFypb62zpUyBkM/VoC6QYgj
-X-Gm-Gg: AYBFou3X+5ZGoQd2LgYACzWWEnppL+bWCy1xDoXVwrPgHW8g8vJw2JSawZdOBR9+M/z
-	mXAkGZWGozXFekLTVTn7Ur6oVKPfb+o/0OTgl8JhP0UArsLcx3qEJDSgfWh0d/vQTpTX7kY83Yf
-	rzFq25z3GTsr/UCK1ah12ndpxfpaoCGnzcba7lsYtowjzwXT8Y9xoVPVxLYkGCH0r0rCYkfQDyb
-	sNZAm3K3t1KLVsLuHxPRMA+dNpXl9WTzpFzmVSQke/kCLotp5pPL+GZEyGmvFh4Ou4rXPZggRKM
-	tmrYHppRUlDk6Yy4uSZvxyT4GL9VIsragsvjoKjCKOel3PgoLTGH9fMGZ7DjAEOP10xttLzQuXQ
-	9PsS0ouJ3QvIEhQnaz7fQlhz5u746N8ElfmEwSGZ8ijiEc/OdlAiUCe5VWL2Px3Jwi9vNdVmaTy
-	S2vJ6RKoWOx7CW+WlsxK41d9FvuJGqLKhJ/7tAK+nnhNuqTQVMw4oxr75U01GCrynpSLEScCF01
-	w==
-X-Received: by 2002:a05:6a20:a11f:b0:3cd:9bb1:c6f5 with SMTP id adf61e73a8af0-3da39cf4739mr30756902637.10.1788770563062;
-        Mon, 07 Sep 2026 01:42:43 -0700 (PDT)
-Received: from localhost.localdomain ([147.136.157.3])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc46b4cd51esm2519652a12.2.2026.09.07.01.42.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 01:42:42 -0700 (PDT)
-From: "brookxu.cn" <brookxu.cn@gmail.com>
-To: tglx@linutronix.de
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] lib/group_cpus: sequentially bind CPUs within node to groups.
-Date: Mon,  7 Sep 2026 16:42:38 +0800
-Message-ID: <20260907084238.101618-1-brookxu.cn@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nPGFXv9e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1768E1F00A3E
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:42:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788770565;
+	bh=FsL1JRBtjl14wKfbHM2QsZ2zNoKnZ1ubF74NM1A6Jzs=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=nPGFXv9ebB9LWaJ4ZpwBlxuZi9KUW/dyOfZkOUMsGz3kJUpXXasI3Ki32vsrg+Tqh
+	 VJMfCrM9GZD28QvyPaxqNPSe8KvY+jR7kX59lgynC/QpxlFaoEuQKZHDmK8160ETgv
+	 l3Ji2FlItbsgAMnZOLpWtvoim2FOo3IXOYOv9IZhAzLKUC9idQGf8vmSGBCLuFtiDl
+	 s+ApzFchXRZ1kye8xnkHXgmyc2kU09h9F6n2+K7GRc/9a5/GVjcBOmAs5LASnHPwcf
+	 o1269GRHN4hqcsu6tiI4EK6h3r7sfUXHBEElE0wjbOmlkrywYTt8ATUsxZ0U1V3Ysu
+	 iQOz01z1sYE4g==
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-39c95395230so29990661fa.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:42:45 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxnuEUniCXG8lVSnMLAGjSF9x/ewszwGlGc/bhRmpYzhGL3HQpxwJlhnw3qZTKIr0Ivf5GfPupol/KCFQ0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lgteHdoox7D+aGC3qFPi9wIJ26/CYveV48IfvErxx6STSO0v80
+	e231QrkOhlvypdcPtr1MuWH4CW7rtQjv4OXxash0uY9kpLicTPQ6AmnurHbAUsB+/lihrP18uKv
+	td/DSEtTk454YCOApLp0KFAz32uUUVfDLrWSRjnM+kg==
+X-Received: by 2002:a2e:b88f:0:b0:3a3:368:fb9f with SMTP id
+ 38308e7fff4ca-3a371f5630emr24940481fa.13.1788770563714; Mon, 07 Sep 2026
+ 01:42:43 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 7 Sep 2026 01:42:42 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 7 Sep 2026 01:42:41 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <0587c422-8279-491e-b377-af623e13366c@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260821070651.39763-1-vaknins33@gmail.com> <178827844334.39529.382963115769227795.b4-ty@oss.qualcomm.com>
+ <aplfrNXzNvgbMJf1@ashevche-desk.local> <CAMRc=Mck+ft9wmWQLcq4uFTvH9u_rB_bFQ6tGtG7YkYdbowJaw@mail.gmail.com>
+ <0587c422-8279-491e-b377-af623e13366c@kernel.org>
+Date: Mon, 7 Sep 2026 01:42:41 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MeDKQCuh683UVm1mZLa7gMfi9_q6nia6WFT_sZAPu4GnQ@mail.gmail.com>
+X-Gm-Features: AcwNN1WSwhJ1q6AAMkoDnQTqEurSzKK3a8rvISuNw7xwBUqiDTxxQZNMz_gWSlc
+Message-ID: <CAMRc=MeDKQCuh683UVm1mZLa7gMfi9_q6nia6WFT_sZAPu4GnQ@mail.gmail.com>
+Subject: Re: [PATCH] gpiolib: acpi: Add ignore_wake quirk for ASUS ZenBook UX425UA_UM425UA
+To: Hans de Goede <hansg@kernel.org>
+Cc: Mika Westerberg <westeri@kernel.org>, Kivan <vaknins33@gmail.com>, 
+	Linus Walleij <linusw@kernel.org>, Mario Limonciello <mario.limonciello@amd.com>, 
+	linux-gpio@vger.kernel.org, linux-acpi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Chunguang Xu <chunguang.xu@shopee.com>
+On Fri, 4 Sep 2026 09:56:58 +0200, Hans de Goede <hansg@kernel.org> said:
+> Hi,
+>
+> On 3-Sep-26 14:42, Bartosz Golaszewski wrote:
+>> On Thu, 3 Sep 2026 13:53:16 +0200, Andy Shevchenko
+>> <andriy.shevchenko@linux.intel.com> said:
+>>> On Tue, Sep 01, 2026 at 06:00:46PM +0200, Bartosz Golaszewski wrote:
+>>>>
+>>>> On Fri, 21 Aug 2026 10:06:50 +0300, Kivan wrote:
+>>>>> The ASUS ZenBook UX425UA_UM425UA (with AMD Ryzen 7 5700U SoC) fails
+>>>>> to stay suspended in s2idle (Modern Standby), prematurely waking
+>>>>> after 1-3 seconds with 0% hardware sleep achieved.
+>>>>>
+>>>>> In the laptop's ACPI SSDT tables (SSDT15), GPIO Pin 24 (hex 0x18) is
+>>>>> defined in _AEI as ExclusiveAndWake targeting the PCIe bridge device
+>>>>> \_SB.PCI0.GPP3:
+>>>
+>>> [...]
+>>>
+>>>> Applied, thanks!
+>>>>
+>>>> [1/1] gpiolib: acpi: Add ignore_wake quirk for ASUS ZenBook UX425UA_UM425UA
+>>>>       https://git.kernel.org/brgl/c/1900b5a41493e7050c68c1e62780d6fb9a209457
+>>>
+>>> I thought I am going to pick this up via my tree...
+>>> But okay, not a big deal, I don't expect any conflict in that area.
+>>>
+>>
+>> Oops, sorry. If any conflict does occur let me know, I can revert it or we can
+>> fix it in tree.
+>
+> Regardless of who's tree this goes through I would like to point out
+> that a quirk like this really should go through a fixes branch
+> for the current cycle (no idea if it already is on a fixes branch,
+> the "applied" message does not make that clear).
+>
 
-grp_spread_init_one() tends to bind adjacent CPUs to a queue, which may
-leads to performance regresstion in some case, such as SPDK, business
-often need to  bind SPDK to static CPUs to poll data, such as 3,4,5,6,
-this will result in some SPDK instance may only have one queue active.
-So I think we should tends to spread the CPUs within node to all queue
-sequentially as what we do before.
+It's queued for v7.4 alright.
 
-Signed-off-by: Chunguang Xu <chunguang.xu@shopee.com>
----
- lib/group_cpus.c | 42 +++++++++++++++++++++++-------------------
- 1 file changed, 23 insertions(+), 19 deletions(-)
-
-diff --git a/lib/group_cpus.c b/lib/group_cpus.c
-index 18d43a406114..b40e885f6fbf 100644
---- a/lib/group_cpus.c
-+++ b/lib/group_cpus.c
-@@ -11,19 +11,28 @@
- 
- #ifdef CONFIG_SMP
- 
--static void grp_spread_init_one(struct cpumask *irqmsk, struct cpumask *nmsk,
--				unsigned int cpus_per_grp)
-+struct node_groups {
-+	unsigned id;
-+
-+	union {
-+		unsigned ngroups;
-+		unsigned ncpus;
-+	};
-+};
-+
-+static void grp_spread_init_one(struct node_groups *nv, struct cpumask *irqmsk,
-+				struct cpumask *nmsk, unsigned int cpus_per_grp)
- {
- 	const struct cpumask *siblmsk;
- 	int cpu, sibl;
- 
-+	cpu = cpumask_first(nmsk);
-+
-+	/* Should not happen, but I'm too lazy to think about it */
-+	if (cpu >= nr_cpu_ids)
-+		return;
-+
- 	for ( ; cpus_per_grp > 0; ) {
--		cpu = cpumask_first(nmsk);
--
--		/* Should not happen, but I'm too lazy to think about it */
--		if (cpu >= nr_cpu_ids)
--			return;
--
- 		cpumask_clear_cpu(cpu, nmsk);
- 		cpumask_set_cpu(cpu, irqmsk);
- 		cpus_per_grp--;
-@@ -39,6 +48,10 @@ static void grp_spread_init_one(struct cpumask *irqmsk, struct cpumask *nmsk,
- 			cpumask_set_cpu(sibl, irqmsk);
- 			cpus_per_grp--;
- 		}
-+
-+		cpu += nv->ngroups;
-+		if (!cpumask_test_cpu(cpu, nmsk))
-+			return;
- 	}
- }
- 
-@@ -97,15 +110,6 @@ static int get_nodes_in_cpumask(cpumask_var_t *node_to_cpumask,
- 	return nodes;
- }
- 
--struct node_groups {
--	unsigned id;
--
--	union {
--		unsigned ngroups;
--		unsigned ncpus;
--	};
--};
--
- static int ncpus_cmp_func(const void *l, const void *r)
- {
- 	const struct node_groups *ln = l;
-@@ -320,8 +324,8 @@ static int __group_cpus_evenly(unsigned int startgrp, unsigned int numgrps,
- 			 */
- 			if (curgrp >= last_grp)
- 				curgrp = 0;
--			grp_spread_init_one(&masks[curgrp], nmsk,
--						cpus_per_grp);
-+
-+			grp_spread_init_one(nv, &masks[curgrp], nmsk, cpus_per_grp);
- 		}
- 		done += nv->ngroups;
- 	}
--- 
-2.43.0
-
+Bart
