@@ -1,172 +1,116 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD3883AE713
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 18:49:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788806993; cv=none; b=JcsVJO92MoBIqndOZqoh5ecR/Z+cz4XD//7OxzAAZSbq+kdoJ4dLZqC6Kh//8GDcjTKWkoX2woA3vJc2eS+hRZNLtnCc8imCAmJIHIko640s19NwvX9OQS3OASqog7kuTBwaFTTQ3YkLGEOUQGUGvVg9fiSRY/FmnsX2zXlhuOs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788806993; c=relaxed/simple;
-	bh=ZodpAMAOO7mx9Mr85gC+RHAPNg28jdl9sB2SgtEr+m0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ulWzrDYgK0kjVToEu26FwEI0c4fviiftvH1fnUA+zxutsNCTltiM5GEetUvkhklXwGPIGuiuNdjojvPfPNXeNmG6u3+wTwfVXZqJS1YY9I6lyLBukM245YjdvRvqK1MMkq/g7ZwNyGeYg/KkR/TwbNwKKnGDUjkNAC+LqJ9dpq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NZMUlvEU; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B863BB113
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 18:49:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788807000; cv=pass; b=nAXrtt50xBjw+Mtxjz6dXWjXMCUQYwfxpgbY7FYCNyBUbM5wuMQ73pnKsZuY0EOtxPw31npMlJxEIZ6cNIdqXPXWHwmZx6ie3Yew5HcMxInIDx9v9iVsnlkwyKBrIODf5HHVgQxnZCUgxM908DiyW6ZeGwWRoJVf4b0NhBcfFC8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788807000; c=relaxed/simple;
+	bh=JxSYqjpXn9L3rh86fmrKHlYewJDED4m/ZxVyWxEHBJY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OaDZwZ4l/hhN4lmG1qkuexEKaDeVkwovH8xOGZ4ylHnDBvN5bt+sOoSUvnFgd9ZjflTb9QNspdZVnjgQYsqQe7ZoA/lXyQlh/I9ur4PWnOeEshPooIpsifHEepnubq82h1KbYXEpFRz+S/EbPlbJX4SqnO4IoeT1UwbBrCzTqpc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U8F/bT2i; arc=pass smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NZMUlvEU"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2caced6038eso35521205ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 11:49:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U8F/bT2i"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1ceb47d55so75065a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 11:49:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788806991; cv=none;
+        d=google.com; s=arc-20260327;
+        b=B1CfpeFGsPUPli+XauudwgX++r+hWGHwz/6Y0s90FCRtgtmOYDJFd/7900e+FQFjQ5
+         qdBkzJ/XiNm3GHgSPcuCTs7f9YkXpv1EpmFlYjDKjHPZmEaCcMYUu/to1IkinJnIy5J7
+         Sx6psHM8BRQNmMw4oHPTMnD2SEsvny2zfXkfXXRQkpobdkcSw9+7PiiWwCYNwO76TX18
+         EdFNked0hNxeAMJAf1uPrS9YXqdcf9bTJBE6e3U3tCpyYyQrvfjdflUaGqdjmLdx/HDf
+         jDIZBtbxspBMYILPkzHHnGRz5TeP4KHMBl/M7X4RQcvlQocryaJ/q09NIqkWrtbD5/4H
+         FcxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=JxSYqjpXn9L3rh86fmrKHlYewJDED4m/ZxVyWxEHBJY=;
+        fh=9ynKo671uglfFd/fr8JlH8bsiV9yIV9shujqJR14vwI=;
+        b=Kh+hC2JqI889ijlILYllECjJqPlEaQxSA7k1rroLMqTmz+ZtBuH7JsGD5QYb6sI3ze
+         dP4hHgCfB3gEETlnl8OJZ+pUO8XfrWxXaUao2n7T9I30ZOVMkrQMuM6n3fv3Fq8tnujK
+         PbXcgLXBvEfXoh98GaKNRQ+1hRte7NZd/BvYh9vbksiw0kcq8+EhzqY6pWEgO3tVgvDs
+         2IFSQ0OaayJSxOw1toDNHFj5SGoAwCj79pqz2P+7Donsh+uNx9KNT5fli1q14K9WwlUT
+         9ZIF4Q3+VIANpc8euDmdI0Lm991bCT6NUbcT/73UBQm5JbHBwBTNXQHxDqjDFFuYQsLw
+         V8lQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788806978; x=1789411778; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ft7Aoft2D1ri5AKkzjC8MkTf0nQ/c5VUMxblaqJZWQA=;
-        b=NZMUlvEUTScp1kG8G4glfGADwfmmLxbh563OEo+mJI4f0/7+08U/JTolaACBnB9lL6
-         8SLcYEu8R1OCSvQIXvieuYCZzqf0Xh4gg/3LJO1q2QzBOy0McHJyqXDF84+d3YdP7C9N
-         hMs6cxM9CmDx/toLlH139tolaAbdhVPS2JEg4fQgSObwO90Q1agAK97+iTaEr6OfQrWC
-         NejSQ6T7rMyOuDyVpSnP5Y3oRBEiIRdadSAsn2KmPTxCavviZKlZo5xNzBjYNjzsGsOL
-         gxDMxfwwMr0lLsSSGaPthzAIQePyqm3RLdtpb5leGG7HunouK61fokpYOfXXwnP69vTR
-         CFhA==
+        d=gmail.com; s=20251104; t=1788806991; x=1789411791; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JxSYqjpXn9L3rh86fmrKHlYewJDED4m/ZxVyWxEHBJY=;
+        b=U8F/bT2iAgatXCDaxRWJimuXZFd6qj36FZLkafX5XeNt3CraQyeg1qPgTg0ZTQWOU0
+         Rd15N7i9wbKoW9DoB374WgVvFrNOQw2T9JbadeIEq7KYCP6p5zYWIlgPB/vYpQA5RMgI
+         h254YQl5mtncmZzZX0a0otB0QLWIoBzrFlrA6EaJ7Dbifb5gnXk5dB1FW1407kZhKTKR
+         zQ6L2EqX6o376I7wiZ+b+UdCcoa5WIknDnZvbJru/80tLeQJVOCDWnwPuswxyrqaRkvE
+         YE9Ka5tNMufOwq0bJc6AZc2qK90rpY6vNOmavv5jmczUD6etIZgAP7khi4Ud6TBTyFJx
+         o6RA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788806978; x=1789411778;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ft7Aoft2D1ri5AKkzjC8MkTf0nQ/c5VUMxblaqJZWQA=;
-        b=dYcsPYToChFae6G+wxoBCRZ1snB2NiSSV6J7P/rvz4ImrcnlE2Iw+luesVX51Yrbhi
-         kTOTTB7mLWKqftycnxPlmjXPyxyI+LbalTDvkvoZNT9c30mb4n0CaozvNKeTrgYdMu2a
-         KyycuxBxjWPhln45GbWSNfqQixn6dTGLwke/rw57oWI803mFL/R4bYidWtuMYLGsdIPr
-         ALOgXxo9Yt/5AEZEkf9QJfYze9UxyjoxHCc6aD372O5fD99ma1tNG4JeBXmPA5l4Pg69
-         qRmhKcaf7Rraw/ey6jy59X/jk63eUQZLpzfDRTRZofs0pmGUhcO5b9DzZokCfhaMq/J5
-         qRbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzucuUt/wGmn1X+LkpWguwCTaXVa+1FsUoGbDEEp3TPnaNfPLQ4iG9KtjlAgT5N/l0wsWVJVT0QhFXxXZU=@vger.kernel.org
-X-Gm-Message-State: AFuF++m7WChRTNQXK+OJ87HMSKl5cssKXS+OID2amm5ze0WSWNHyYUFr
-	Y8vmkjaHkQw39d2TuqhZT4fFGDBe/WVp4NCX/ffIUyeWOssm8/NMgsSO
-X-Gm-Gg: AYBFou15Edf8chgJMzj9EqOsLZ5wuU1lelz/L5I81p6fpVQbNPHXuEQmbfXOj/+NpFb
-	SXbRx61ze03/ZF+/SSj+kJ8Sso5VXsmYreZZQ62ezW5B473sTnn/ALXw8ZLLxe2fcLCTCCwTpYS
-	IR1gsEEBAItJvkTYJ8Y+9xyBGo7XYs+0SozDFRFk9WPNSUyHlOvO2+FNd5pWDh3TAQJ4LdhX2O2
-	7ppuOBQuDMifdMLwKH9r2SKsXjWfAarSH2OD9hhEvw1X/+Pn1tVsoMQqPib+WbT/d+zFGMd8bk+
-	fIj6/ymfSnpwcLyNzlvnULALB51A6P61naDTqMYY/xh8LnmQ6DZjDAaXj+oSZmuIN0UpUb5X8S9
-	rdvAa8qRxzHnP43t/+W+CemBMBF1trmKkoBAu1tZF06x/jSse05pNwL1MsAW4kCeDge7XYss0OS
-	TkkeRD1NdlrQ+u8fyTKcf7kWSlWm0Ul57U04bfVFyxX+pPw+CQqfv+hLTaTPr5Ke1/K4e6/KVTe
-	XeLzlp3pq/zZ+RBMuohqPnBoTJwPweQOyJxnmU=
-X-Received: by 2002:a17:902:f707:b0:2cf:6e5d:23e9 with SMTP id d9443c01a7336-2dafb0b191cmr286883345ad.14.1788806978362;
-        Mon, 07 Sep 2026 11:49:38 -0700 (PDT)
-Received: from localhost.localdomain (S0106bc4dfb582cc3.vn.shawcable.net. [50.68.124.218])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db149c3b80sm48545385ad.63.2026.09.07.11.49.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 11:49:37 -0700 (PDT)
-From: Berke Durak <berke.durak@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Berke Durak <berke.durak@gmail.com>
-Subject: [PATCH] HID: elecom: Add support for ELECOM M-XT4DRBK (018E)
-Date: Mon,  7 Sep 2026 11:47:19 -0700
-Message-ID: <20260907184719.25042-1-berke.durak@gmail.com>
-X-Mailer: git-send-email 2.47.3
+        d=1e100.net; s=20251104; t=1788806991; x=1789411791;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JxSYqjpXn9L3rh86fmrKHlYewJDED4m/ZxVyWxEHBJY=;
+        b=doBtPIQdQFtZ6s8A4S24BSVV9DefxmGkcNttAoOE7NTSooF3Jy1CdjGzp1uMcZbMiB
+         RGJtmsGWFJmacgt8pFrY12PYsPe9Vyv3Gk1qXtgz9zoH1upgvgg9XsjGa5jbKgA+PuuM
+         hR6AVV2T+mX2iP9TOHFB/gzbR0bG/jA2nIuLnqARfvpolBnQo8oPY72mie+k2NSqVF30
+         yfJUncAHF8A92gGhSZAZXyO9QufDW3TOV6zlw6/SBfxLa0w/IKwxdskVCjV/cw5cFW+K
+         CYvBucFHP3cuHgrkPWoCcu98OJnI9PyLxF05RQ7Xs2Od2A0foO9tmXhcbvvBPDxldPBo
+         WqJg==
+X-Forwarded-Encrypted: i=1; AKwUvBwuoJluLot7zo1f1kZS7iq0gAMfgA9P9GJepPfw0yg9erio+eDNxJgOOsCxeXi8TxBOtou5u0IdPKA0zhE=@vger.kernel.org
+X-Gm-Message-State: AFuF++n3D+nT2pQTCvo5PwVhPBSvhNF6wF7N9JW7Fq14EaxrleEayprZ
+	K9xgKbwEZ+yAzhqmXg9DjKngtBWZZNP8JvIL9gegIkV2VV0Ki+qzrt9RzBoz8BwgK0fj3MBznQg
+	72DC0vpMCgiyEFPe46utL21aJlXkrwLs=
+X-Gm-Gg: AYBFou1GFoguXmfFeVkfbXDMUOMaSUhaj1hexE6NA/j6csalexhfgIAxR8oBsbZVqWJ
+	ECexiOIyJlAWHIpAbGpmilThlkA4CuGc65nAGGp3u37VTNU9sUgityha4GSVU1TtH0bZe+24MdI
+	upSy2/XwQwj7x+uB7yw453LuDLCtCj1A1ICg+ZZSfbXxvAzPPYw+NAX6fEfIgQ/bS3E7aihucBU
+	EcnU7nQmE5WBLLKPJ048LHAeMcQTm4v1kPPkHJbYDSf/hoOxiXv0c3ubfdmrKJXqFo5EY34Vtor
+	LlbbzNSnJRUM53pNrDkDMtxWyVXggzxpdtAtkf1bautTnM97x1H/WKUKoLF0M012Yi98WvrS46S
+	C1y2iLHZrmrLVTuj06DjT9HZKU4nAY1600mOoTxo=
+X-Received: by 2002:a17:90b:5743:b0:38e:c232:9d2c with SMTP id
+ 98e67ed59e1d1-39b8bc9422emr2061387a91.2.1788806991520; Mon, 07 Sep 2026
+ 11:49:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260907163726.17104-1-will@kernel.org> <20260907163726.17104-3-will@kernel.org>
+In-Reply-To: <20260907163726.17104-3-will@kernel.org>
+From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Date: Mon, 7 Sep 2026 11:49:39 -0700
+X-Gm-Features: AcwNN1UCBGzNBkKYzPqBLzfBywiT6dWM48M5nh8JX2eYcmjL_a0phc-s34IGjM8
+Message-ID: <CAADnVQJN=9SMCoFyG1-hLMKyCdZ2mf0Xp63VZDNE2oddaeifFw@mail.gmail.com>
+Subject: Re: [PATCH v2 02/14] arm64: bpf: Remove big-endian support from the
+ JIT compiler
+To: Will Deacon <will@kernel.org>
+Cc: linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, 
+	LKML <linux-kernel@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Ard Biesheuvel <ardb@kernel.org>, Eric Biggers <ebiggers@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Alexei Starovoitov <ast@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, Marc Zyngier <maz@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The 2025 revision of the left-handed EX-G wireless trackball
-(M-XT4DRBK-G) reports USB ID 056e:018e instead of 056e:00fd. Its report
-descriptor declares an 8-bit button field (Report Count 8) but only five
-usages (Usage Maximum 5), so the sixth (Fn) button ends up as a
-duplicate of button 5 and is unusable.
+On Mon, Sep 7, 2026 at 9:37=E2=80=AFAM Will Deacon <will@kernel.org> wrote:
+>
+> Big-endian support on arm64 depends on BROKEN. In preparation for
+> removing the dead code altogether, remove the big-endian-specific
+> support from the arm64 BPF JIT backend.
+>
+> Acked-by: Catalin Marinas <catalin.marinas@arm.com>
+> Acked-by: Arnd Bergmann <arnd@arndb.de>
+> Acked-by: Marc Zyngier <maz@kernel.org>
+> Acked-by: Eric Biggers <ebiggers@kernel.org>
+> Signed-off-by: Will Deacon <will@kernel.org>
 
-The report descriptor has the same layout as the M-XT3DRBK 018C
-(button usage maximum at offset 16, button report count at 22, button
-report size at 24, padding report size at 30), so reuse that fixup.
-
-Rename the existing M_XT4DRBK define to M_XT4DRBK_00FD to match the
-convention used for the other EX-G revisions.
-
-Tested on a Raspberry Pi 5 with the same fixup in an         
-out-of-tree module on 6.12 (6.12.96+rpt-rpi-2712);
-all six buttons are reported after the fix, and they
-work (tested with xev as well).
-
-Report descriptor as sent by the device, pre-fix (056e:018e,
-215 bytes):
-
- 05 01 09 02 A1 01 09 01 A1 00 85 01 05 09 19 01
- 29 05 15 00 25 01 95 08 75 01 81 02 95 01 75 00
- 81 01 05 01 09 30 09 31 16 00 80 26 FF 7F 75 10
- 95 02 81 06 C0 A1 00 05 01 09 38 15 81 25 7F 75
- 08 95 01 81 06 C0 A1 00 05 0C 0A 38 02 95 01 75
- 08 15 81 25 7F 81 06 C0 C0 06 01 FF 09 00 A1 01
- 85 02 09 00 15 00 26 FF 00 75 08 95 07 81 02 C0
- 05 0C 09 01 A1 01 85 05 15 00 26 3C 02 19 00 2A
- 3C 02 75 10 95 01 81 00 C0 05 01 09 80 A1 01 85
- 03 19 81 29 83 15 00 25 01 95 03 75 01 81 02 95
- 01 75 05 81 01 C0 06 BC FF 09 88 A1 01 85 04 95
- 01 75 08 15 00 26 FF 00 19 00 2A FF 00 81 00 C0
- 06 02 FF 09 02 A1 01 85 06 09 02 15 00 26 FF 00
- 75 08 95 07 B1 02 C0
-
-Assisted-by: LLM
-Signed-off-by: Berke Durak <berke.durak@gmail.com>
----
-diff -urN a/drivers/hid/hid-elecom.c b/drivers/hid/hid-elecom.c
---- a/drivers/hid/hid-elecom.c
-+++ b/drivers/hid/hid-elecom.c
-@@ -79,7 +79,7 @@
- 	case USB_DEVICE_ID_ELECOM_M_XT3URBK_00FB:
- 	case USB_DEVICE_ID_ELECOM_M_XT3URBK_018F:
- 	case USB_DEVICE_ID_ELECOM_M_XT3DRBK_00FC:
--	case USB_DEVICE_ID_ELECOM_M_XT4DRBK:
-+	case USB_DEVICE_ID_ELECOM_M_XT4DRBK_00FD:
- 		/*
- 		 * Report descriptor format:
- 		 * 12: button bit count
-@@ -104,6 +104,7 @@
- 		mouse_button_fixup(hdev, rdesc, *rsize, 12, 30, 14, 20, 8);
- 		break;
- 	case USB_DEVICE_ID_ELECOM_M_XT3DRBK_018C:
-+	case USB_DEVICE_ID_ELECOM_M_XT4DRBK_018E:
- 		/*
- 		 * Report descriptor format:
- 		 * 22: button bit count
-@@ -148,7 +149,8 @@
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_XT3URBK_018F) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_XT3DRBK_00FC) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_XT3DRBK_018C) },
--	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_XT4DRBK) },
-+	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_XT4DRBK_00FD) },
-+	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_XT4DRBK_018E) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_DT1URBK) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_DT1DRBK) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_DT2DRBK) },
-diff -urN a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
---- a/drivers/hid/hid-ids.h
-+++ b/drivers/hid/hid-ids.h
-@@ -477,7 +477,8 @@
- #define USB_DEVICE_ID_ELECOM_M_XT3URBK_018F	0x018f
- #define USB_DEVICE_ID_ELECOM_M_XT3DRBK_00FC	0x00fc
- #define USB_DEVICE_ID_ELECOM_M_XT3DRBK_018C	0x018c
--#define USB_DEVICE_ID_ELECOM_M_XT4DRBK	0x00fd
-+#define USB_DEVICE_ID_ELECOM_M_XT4DRBK_00FD	0x00fd
-+#define USB_DEVICE_ID_ELECOM_M_XT4DRBK_018E	0x018e
- #define USB_DEVICE_ID_ELECOM_M_DT1URBK	0x00fe
- #define USB_DEVICE_ID_ELECOM_M_DT1DRBK	0x00ff
- #define USB_DEVICE_ID_ELECOM_M_DT2DRBK	0x018d
-diff -urN a/drivers/hid/hid-quirks.c b/drivers/hid/hid-quirks.c
---- a/drivers/hid/hid-quirks.c
-+++ b/drivers/hid/hid-quirks.c
-@@ -431,7 +431,8 @@
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_XT3URBK_018F) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_XT3DRBK_00FC) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_XT3DRBK_018C) },
--	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_XT4DRBK) },
-+	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_XT4DRBK_00FD) },
-+	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_XT4DRBK_018E) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_DT1URBK) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_DT1DRBK) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_DT2DRBK) },
+Acked-by: Alexei Starovoitov <ast@kernel.org>
