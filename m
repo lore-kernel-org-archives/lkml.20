@@ -1,92 +1,84 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.165])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 378F940B38C
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 19:22:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788808939; cv=none; b=pOQaaSvR+5//DB4pwRg/18ytBEt++2pnJwEgews/IwEhSaZVdaQn/wrUC6zOJIscQhYlts4ckjO9pqhBRVmQQik79rtEUr89QhbR1ed92WVmOygMKagJ/1kYbfWeQ0EakjsvRkdFFpO6Z5a/f+yIq5RH4s21RXsauavRvGYDntc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788808939; c=relaxed/simple;
-	bh=n/cGK7wH4GoYZ0duxKFHKYC6m0+42FSlU01hnzjtDIY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Cd3V9j9vWj3NeABimYT2hL08dXLTE1QOiGmxdKmklKd8gCzzCO+ptfjpSoshp38uqhkf2AlXUrhqhGcglXDKlzUU3/AGchj2v+5DtuDezA4rioyPcJFc9TyaC71RgdcVLI8ln3NFpeidDH5VILDdWZb3hMFiF++hLWreXZNEIm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cbLhcRp7; arc=none smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B50F393DD3;
+	Mon,  7 Sep 2026 19:22:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.165
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788808948; cv=pass; b=U1Alp9TQVq1omqja2i3EPfliis8iLY8EvUCV3zhHk4rDoRBx9YUqf0SZzfIcnkEAIzAp8XRU90vrKV104bWSlFvmfHYLd6uBectC0HxHbJFfjN0wkUXx/EY9zXjUZtfSCNLGHxRy5tpsCuFlYebIEljlLTLPhm3v79uWrESczRU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788808948; c=relaxed/simple;
+	bh=HhrAm9DJpRZhOpSMo0i3+dJ3oAcWSDgw4nmsP0UB8ng=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=JMLENVNVcud6v5mz9jYNyz8UuYwWGMADk7uto0VifYa632aSAQAOtOul7Bgt3yNtr5YiBz5Nas31C6GV52szyWfkJQ65JZp6KeI2yH8PXXjeKde1HNlkcWcqhBuO5t7KF3tEqn/Oa5spkUhJo/cK/dx+c/ZW0sYbWWNQ6Xi0MX0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=VHHUKBF9; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=/rn8fzBk; arc=pass smtp.client-ip=81.169.146.165
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cbLhcRp7"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38a0c7e841fso4919729a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 12:22:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788808937; x=1789413737; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/5a+7siNK0CHoxNAlmH1/vhMalrfMjpCZxPi0r21nxw=;
-        b=cbLhcRp7Mi6/5M2Mfa7q1qiVtPTepa66i9py4PDuu2KNNjFi/ooJcspxVB3+UfCUT1
-         fj5D8IImmsFbd8BTTR37MOqm3vN/DAwW5XW7C9QRZ2FRlMDnHzw57hk6Ui6Gx3O9ihL5
-         e1R0P6t10un1DQOSl7zAeOhIaJgmPOUB3RSYznQ4aDdrJsiCX5pBJmkZ38a8oR9x2Jwv
-         25Jpa1Dvp7gdPqpA6eQrjBo14hb6BxAeNLOsivgevSEXE2OFuMYk6KJxAgq6tlhTSYuA
-         OmN6fFD86M7rY7Wg/5LLWcDbMQBOUPSts84jgIMYkXgyYOSUtlhFu1w5j0hhkPUEiDJb
-         zkMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788808937; x=1789413737;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/5a+7siNK0CHoxNAlmH1/vhMalrfMjpCZxPi0r21nxw=;
-        b=asu9/MbKQhOAqNH5+Ou3Eaj0I7RhB8IgdLJbvq5jks8AhwKSXYgfEwYin5WoY7aux6
-         ht40p6p0XyCYV3YgtC+ObOSiY08Pw/eA4en5uT6MerOz0LCChf3DTM+8QX9I6JpJzD5s
-         nVZSIFw5gL4N51+zKK/0k9cSuV+f2U/VE95YPfqmvu0LbbkFTL11O6I1YJC/ERQT2gs3
-         u1Sys8uIxuh4n/bVgZZx8KaleouXOi9BTF8wc/Ie7NSoUxUCNeWxjWyRqWFlAhAlWfVB
-         DwqPGQY4dLJQxbe6LCWV6nWjA/+8gfwv2IKEWZbrQFIWa5ww9GA1NXyximh/iPJ0fS59
-         7wyA==
-X-Forwarded-Encrypted: i=1; AKwUvBwyabl4VIgaGXrhumz/FQ5BmnFolsDPME5coGOKi8gpprUznG2OV21tFoDU9yp/9kgQnepZz82t1v3xLww=@vger.kernel.org
-X-Gm-Message-State: AFuF++kQ7JlHRsnlECL+moIiKkiDKHXTp8HMd8v218VrgmxrU7sOMkoZ
-	8U0vMs1R+DmbxmonbkgZV/UZlxdUe5dr4szcE4+3LU3LQK7raW3YZ8k/
-X-Gm-Gg: AYBFou1iwmzKkw8e+pj7wPfHJiXw8DJLS1eiG1Z6+Td93WoFPjtlXlhA/JZCAnRBBPE
-	PQD8izO64d9/j760HmH8zcNTZ1BlN74vXd7at9elhzmbNaPQa80OKxCzHSIYmidVLB9C3Utju0M
-	sRWeLq6rjcN36E0NLBrpc3RBvf5CcMAVMNARTSgReTMzPz7JowoINE1er1r24GWdrprH7YUyOX3
-	nCr6TrGe5fJ/DsmwQQhD1Zh2OFcLtRUryVcDWs+dqvHvbiYIQhPJ2whvxF7XO9KouIxxdUV8RMo
-	4RLnLt+Hd3IeglP/L7Z8UHX1llLRA393oLeNtk48DiPoCgdFMKocAB+73odTjei2nF3kuAoxWYc
-	+/4kvAeTMDyIwNzY8rM/z58T4LmonBbDERchxJBmYO9koYvd2nLHfKCRRbJqOFOvzEo/d67XUZU
-	jrDGxWwzsS7e0xU88TwTkHN0zcI/OXI/WVbdDdMslFRw18PYqksLAT3Lf7y0Xnp8/3GtV9lfNWO
-	2kXcZgmrSeMAKEegOZe3DqEnIbtoxI=
-X-Received: by 2002:a17:90a:d647:b0:38e:70d5:b12d with SMTP id 98e67ed59e1d1-39b261074camr36014666a91.6.1788808937535;
-        Mon, 07 Sep 2026 12:22:17 -0700 (PDT)
-Received: from 192.168.50.3 ([183.193.115.0])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae60a8e61sm9991637a91.0.2026.09.07.12.22.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 12:22:16 -0700 (PDT)
-From: Weiming Shi <bestswngs@gmail.com>
-To: Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: bpf@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	co+adfca3e91be95776@bugs.sh,
-	Xiang Mei <xmei5@asu.edu>,
-	Weiming Shi <bestswngs@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH bpf] bpf: refresh seg6local SRH pointer after skb pull
-Date: Tue,  8 Sep 2026 03:21:30 +0800
-Message-ID: <20260907192129.557377-2-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="VHHUKBF9";
+	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="/rn8fzBk"
+ARC-Seal: i=1; a=rsa-sha256; t=1788808909; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=Z9yDJYfI0KrsO901DO0m4O75ss+U66DqChvVcs9euTXIA5QBm67e67Eiywq5LzBHHv
+    5J+pqnl39Yns7A850r9AQfA90PEIhU0NRFHXF03raFmkOMc8IQ9XehEtuv0XJssWbspG
+    KOGxY1gkBXx0c3r8Norq0JHt3ujkywmugs8qFmhU6cmCm7PPOKszozwxEIDGLhTDcKZU
+    bJH4fBHx2KJp6UMQB5Ug1nVgFlbW9VhpW3eBimsapXcMAe74bcwLLcFSS1GlWOMmeGLc
+    WGh74S96UJoR6vzlRv7mQzFeRi91CfrwxoC2e6xnPIyPkzE3c5UMEx/Ay428VnrHAsP/
+    EyDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1788808909;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=rTSqjvK3EbaHc/ippsBe5x4pRfP03d4sXgnLJ5qsaeE=;
+    b=RTuFZjnpxpXIayRupjyNuTf0kpccJsSjm0anhwSNFWCY+gcmN2c+Iccb2btRWQTCIq
+    Ape8aYDCoIibEcEWNUFcGGWkzpqDnmVSu9k1XWuczWD64vDdC6d1RXgxe3FAEOf7Fd9N
+    lPJ85sfnZ6WBvr9SCKXAnh2IuWNSzPnmlaJiEoQ/DqqS/9Bsd1eAwWnkmjlnFnuwofPR
+    LUSNiodoqDfH5kdtI/avwbVJxOTclWJIpvGKNySURFrbVVLaBYnJfZGQXh0aMFSTQxRb
+    J5a3W/gl7h6oZuuRd6TmgkhXuLm4yHl2W7/+f3aAAymV9kfsPiwQA5hiQrtRwEIhD6DX
+    EUmg==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1788808909;
+    s=strato-dkim-0002; d=iokpp.de;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=rTSqjvK3EbaHc/ippsBe5x4pRfP03d4sXgnLJ5qsaeE=;
+    b=VHHUKBF90upQzptUmbI+BgdnVGn6/pB2h08VnGPVtgHFa0TdQjBjpPqvEdPvkH6zK+
+    rXakp4Tic2QYCwEIsBV5J+Yz9NPt3eIa0PnJmzQ9vy/+MwNNeo2Ouk/PAlq5+oggBbZE
+    tR490GTwQqk6c55M/pi+T6+A/6gZlJsEXm1BZZbG/wDwaMznL2YyieypdpAhh47qbX4k
+    0F18McXiyoGCz3F7vL4G5PmuEtL1DpXswkxV0hAvKua1IvHQz+s+fylMcXbcz/PpL/XE
+    TsLn7O46yM1wzWUvhDWfRBRUQVHt9V/Vkzv819lyAnSvqJI3f1NkibcxhTXpgzsocsM7
+    TfMg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1788808909;
+    s=strato-dkim-0003; d=iokpp.de;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=rTSqjvK3EbaHc/ippsBe5x4pRfP03d4sXgnLJ5qsaeE=;
+    b=/rn8fzBkyjL4ng4VKxZwLkO+gX1BKXaJz0f+f8B7i5O4pAimbpurX29PKnmrmFjGlI
+    tT4j8pYGCPtc0Epvl1Cw==
+X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSfNuhhDSDt3O0JuBIIyqXfWze4EsqKg="
+Received: from Munilab01-lab..
+    by smtp.strato.de (RZmta 55.6.2 AUTH)
+    with ESMTPSA id ze37e1287JLmCsI
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Mon, 7 Sep 2026 21:21:48 +0200 (CEST)
+From: Bean Huo <beanhuo@iokpp.de>
+To: linux-pm@vger.kernel.org,
+	linux-scsi@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	MyungJoo Ham <myungjoo.ham@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	Chanwoo Choi <cw00.choi@samsung.com>,
+	"Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	Avri Altman <avri.altman@sandisk.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Stanley Jhu <stanleyjhu@google.com>,
+	Bean Huo <beanhuo@iokpp.de>
+Subject: [PATCH v2 0/4] devfreq: check the get_cur_freq() return value and use it in ufshcd
+Date: Mon,  7 Sep 2026 21:21:36 +0200
+Message-Id: <20260907192140.2701755-1-beanhuo@iokpp.de>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -94,87 +86,77 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 
-An LWT_SEG6LOCAL program can invalidate its cached SRH with
-bpf_lwt_seg6_adjust_srh() and then call bpf_skb_pull_data(). The latter
-may reallocate skb->head, leaving the per-CPU SRH pointer dangling.
-Post-program SRH validation then writes through that pointer.
+The devfreq core has three users of the optional ->get_cur_freq()
+callback. Two of them check the return value, the third one does not and
+passes an uninitialized frequency to the transition notifiers when the
+callback fails. Patch 1 fixes that.
 
-BUG: KASAN: slab-use-after-free in seg6_bpf_has_valid_srh (net/ipv6/seg6_local.c:1411)
-Write of size 1
- seg6_bpf_has_valid_srh (net/ipv6/seg6_local.c:1411)
- input_action_end_bpf (net/ipv6/seg6_local.c:1463)
- seg6_local_input_core (net/ipv6/seg6_local.c:1630)
- seg6_local_input (net/ipv6/seg6_local.c:1639)
- lwtunnel_input (net/core/lwtunnel.c:466)
- ipv6_rcv (net/ipv6/ip6_input.c:351)
+Patch 2 writes down what a driver is expected to return from the
+callback. Today this has to be found by reading the devfreq core.
 
-Give LWT_SEG6LOCAL its own bpf_skb_pull_data() implementation. Save
-the cached SRH offset before the skb operation and rebuild the pointer
-from the current skb->data afterwards. Since pulling data can replace
-storage but does not change packet layout, this preserves the identity
-of the cached SRH even when multiple Routing Headers are present.
+Patch 3 records the frequency the controller starts at.
+ufshcd_init_clocks() puts the controller at its highest frequency, but
+nothing writes that down, so clk_scaling.target_freq stays 0 and devfreq
+starts with previous_freq at 0 as well. With use_pm_opp this makes
+ufshcd_devfreq_get_dev_status() report 0 Hz, the ondemand governor then
+asks for the maximum frequency, and ufshcd_devfreq_target() runs a full
+ufshcd_devfreq_scale() that holds up the queue for up to a second only to
+set the same OPP and the same gear again.
 
-Refresh the pointer even on error because __pskb_pull_tail() can replace
-the head before a later step fails. Preserve the pending hdrlen and valid
-state so SRH validation semantics remain unchanged.
+Patch 4 adds the ->get_cur_freq() callback to ufshcd. Without it the
+cur_freq attribute shows the last frequency the governor selected, which
+is wrong whenever the controller is scaled outside the governor, for
+example after writing 0 to clkscale_enable.
 
-Fixes: 004d4b274e2a ("ipv6: sr: Add seg6local action End.BPF")
-Reported-by: co+adfca3e91be95776@bugs.sh
-Closes: https://lore.kernel.org/all/GCy0KRM2IcQGoJQTjJEU9D0maBxXzEDHuQpq@bugs.sh/
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:gpt-5
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
----
- net/core/filter.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+The patches touch two subsystems. Patches 1 and 2 are for the devfreq
+tree, patches 3 and 4 are for the SCSI tree. The two halves are
+independent, at build time and at run time, and can be applied in either
+order.
 
-diff --git a/net/core/filter.c b/net/core/filter.c
-index 61940e7535523..e61f9e9226b10 100644
---- a/net/core/filter.c
-+++ b/net/core/filter.c
-@@ -7162,6 +7162,32 @@ static const struct bpf_func_proto bpf_lwt_seg6_adjust_srh_proto = {
- 	.arg2_type	= ARG_ANYTHING,
- 	.arg3_type	= ARG_ANYTHING,
- };
-+
-+BPF_CALL_2(bpf_lwt_seg6_pull_data, struct sk_buff *, skb, u32, len)
-+{
-+	struct seg6_bpf_srh_state *srh_state =
-+		this_cpu_ptr(&seg6_bpf_srh_states);
-+	unsigned int srhoff;
-+	int ret;
-+
-+	lockdep_assert_held(&srh_state->bh_lock);
-+	if (!srh_state->srh)
-+		return ____bpf_skb_pull_data(skb, len);
-+
-+	srhoff = (unsigned char *)srh_state->srh - skb->data;
-+	ret = ____bpf_skb_pull_data(skb, len);
-+	srh_state->srh = (struct ipv6_sr_hdr *)(skb->data + srhoff);
-+
-+	return ret;
-+}
-+
-+static const struct bpf_func_proto bpf_lwt_seg6_pull_data_proto = {
-+	.func		= bpf_lwt_seg6_pull_data,
-+	.gpl_only	= false,
-+	.ret_type	= RET_INTEGER,
-+	.arg1_type	= ARG_PTR_TO_CTX,
-+	.arg2_type	= ARG_ANYTHING,
-+};
- #endif /* CONFIG_IPV6_SEG6_BPF */
- 
- #ifdef CONFIG_INET
-@@ -9052,6 +9078,8 @@ lwt_seg6local_func_proto(enum bpf_func_id func_id, const struct bpf_prog *prog)
- 		return &bpf_lwt_seg6_action_proto;
- 	case BPF_FUNC_lwt_seg6_adjust_srh:
- 		return &bpf_lwt_seg6_adjust_srh_proto;
-+	case BPF_FUNC_skb_pull_data:
-+		return &bpf_lwt_seg6_pull_data_proto;
- #endif
- 	default:
- 		return lwt_out_func_proto(func_id, prog);
+Patch was tested on a Radxa Dragon Q6A (1d84000.ufshc):
+
+  before "echo 0 > clkscale_enable":  cur_freq 75000000, target_freq 75000000
+  after  "echo 0 > clkscale_enable":  cur_freq 300000000, target_freq 75000000
+
+Without it both files report 75000000 and keep doing so for as long as
+clock scaling stays disabled. A 4 GiB direct read after enabling clock
+scaling again counted the transitions in trans_stat and attributed time
+to the 300000000 state, so the frequency the callback returns is one that
+devfreq recognises.
+
+One thing to be aware of: devfreq_monitor_resume() copies previous_freq
+from the callback, but it does not call devfreq_update_status(). A
+frequency change made while the governor was suspended therefore does not
+show up as a transition. That is how devfreq behaves today and this
+series does not change it.
+
+Changes since v1:
+- New patch 3, so that target_freq and devfreq's previous_freq are not 0
+  at boot (suggested by Stanley Jhu).
+- Patch 4: drop the !cur_freq check, it cannot happen any more.
+- Drop the now stale comment in ufshcd_devfreq_get_dev_status().
+- Patches 1 and 2 are unchanged.
+- The devfreq and the ufshcd patches no longer depend on each other.
+- Avri's Reviewed-by is on patches 1, 2 and 4. Patch 3 is new, so it does
+  not carry it. Avri, please note that patch 4 changed since you reviewed
+  it, the !cur_freq check is gone. Tell me if you want the tag dropped.
+
+
+Bean Huo (4):
+  PM / devfreq: Fall back to previous_freq when get_cur_freq() fails
+  PM / devfreq: Add more details to the get_cur_freq() comment
+  scsi: ufs: core: Record the frequency the controller starts at
+  scsi: ufs: core: Report the current clock frequency to devfreq
+
+ drivers/devfreq/devfreq.c |  5 ++---
+ drivers/ufs/core/ufshcd.c | 37 +++++++++++++++++++++++++++++++------
+ include/linux/devfreq.h   |  7 +++++--
+ 3 files changed, 38 insertions(+), 11 deletions(-)
+
+
+base-commit: e30626823a406725ce29bc75cb8ec467d3e1e326
 -- 
-2.55.0
+2.34.1
 
