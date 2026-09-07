@@ -1,36 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DB06384CD6;
-	Mon,  7 Sep 2026 17:10:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAC4A51C328;
+	Mon,  7 Sep 2026 17:10:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788801005; cv=none; b=tlAkTZbv50u0c7X1npo6mB+LmMCQUgPEeL3Sl9b30eQD5G2UihpRIvMzExRhHDmKCVq1ZFqIdyjEV58kZjrhQHVe1HiERsCBvfn31/S7yhjmbsDYMJUfsq46AfZKZWdx43eMRLfk8ZKglVOj5xrSPonJBuY9yfh9k/tWE78JEoo=
+	t=1788801043; cv=none; b=pFqmevwvYYuI8SI4BQTpW0S5i/G1GTRIea0HaHOgtbx8g+mkByhS4zilE0I0iumcIeoBpIK8iR34G8mAsouDOb+WnmmMy8HNnFaaXL+lD+3DL8TeTqMphgcbVzY+TJXiZ8f/mcUE3zs65JnmeQYb3lXj0IvQjjFp5m3eD8oBiEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788801005; c=relaxed/simple;
-	bh=QLLigvKNbAoCOKilh/bGZmAJfE7iEWK36qTCCItYVNQ=;
+	s=arc-20240116; t=1788801043; c=relaxed/simple;
+	bh=5B992ZLodQEYFevQE++ORu7IaxxUU9BNWcYUbUkSYRM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EFPb8N4gjZ/4NdoYIdeW9Q5PlZ8nzPVJWmuggRxM70syt96il49qZ9rCJnMIJ1tI3optArOGvzm8Bh6BU7ZHfzR+2y6rT5ICZ9KWcABj+sCOKzJleXhdlmUIFHRPG2TCnAgwlAXgz7/qzYjsR+1imdRk0dhI/ZqifluZaXfLkWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=owj98OfP; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=qp/cAEx0g7Kao5JN/GKbf5Q4bbLooFJkoCDy4L2ZaAD5ddB2ap/JHEY0R6fUPledJjkb49793O3C7QBAWAHDd8XSdfml/zayS6ZGpuXb5bSW3L+AX/tWfYqAGGdCA/Adj+UqQ5fecvZd/4HchsgaSLT0GxtBlqewrok+5S+E0hY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TPArTzTt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="owj98OfP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F2291F00A3A;
-	Mon,  7 Sep 2026 17:10:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TPArTzTt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D17831F00A3A;
+	Mon,  7 Sep 2026 17:10:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788801003;
-	bh=XBD8pjkl49jXk6ajkWsBSrezfGMEnjWuGImmb1IVsS0=;
+	s=k20260515; t=1788801041;
+	bh=ucLgd70em6PYrJ1O8hh/VS12De8eeEdBSNC0MnyAy3U=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=owj98OfPzHpf7poumZtjkOmlT4VMIBx+NqoC4mrrBTFwypnF6Xne+OwdM8BYfg5C5
-	 //Yhj5AMTa4PmENVlWFNitqn080py7h/LhDXG9Ix5sC4lm4q6wbpu6FX3wfQeKv9EP
-	 bZnFpvaTadNy2Erh0ykHYcNvD//gRyrVTRJ4NcOOzt3kV3mtMG3Lo/QOWnSjmFx5OO
-	 knuUzNO/BAkr/5fSIJA37+bf0TXI2nevsEqHUONhF9iaLL6lAcvJfztsbz8BgGSYpr
-	 cWGHZVRbl2JIcDoYx/2DkW04tZJBtjwl+aSt132tA1TN/jJfK2cv4L5yPX6qxoDay5
-	 59Av3EQvk3IEw==
-Date: Mon, 7 Sep 2026 18:09:57 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Conor Dooley <conor@kernel.org>
+	b=TPArTzTt+O1Cm16+j0b2rCBLXzK4ZaP1ANY3ZQG7ifrVF5hs5BkPtnsq6q7mEbvia
+	 VMAdo/cf4SUz2mtYVOtK2Ej98GygoOGD88nyZKVUeQxmhtIzTqVH+Whea+PTwQ+AbX
+	 G2P3dX+6MYh/cViWRZER1OqvZlctLR1o2xPd4BncbdtOJxYazwCLZqLpp8CjPShqz2
+	 EG4+cMaRFd5ClTUe0aB0yV2n6P+xGVJab46ecCkftaVlrsCaYdU+PdJsrvmnzChrti
+	 GHCcUa2C65slKEQB7Nv9679dHOQH6leWh0whmokC3fVtUFPaB2LFwTRGmqSYl9Q4zD
+	 5VeiS6WbLpG/Q==
+Date: Mon, 7 Sep 2026 18:10:36 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
 Cc: Shashank Maurya <shashank.maurya@oss.qualcomm.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Florian Fainelli <florian.fainelli@broadcom.com>,
@@ -41,12 +42,12 @@ Cc: Shashank Maurya <shashank.maurya@oss.qualcomm.com>,
 	linux-arm-kernel@lists.infradead.org,
 	venkata.valluru@oss.qualcomm.com,
 	Jessica Zhang <jesszhan0024@gmail.com>
-Subject: Re: [PATCH v2 2/2] regulator: rpi-panel-v2: Add required vcc-supply
- support
-Message-ID: <27fb1c11-c1eb-4494-ac38-d794baf80814@sirena.org.uk>
+Subject: Re: [PATCH v2 1/2] dt-bindings: regulator: rpi-panel-v2: Add
+ required vcc-supply property
+Message-ID: <20260907-atlantic-modular-8f3c1582635e@spud>
 References: <20260907-rpi_reg-v2-0-0c59aa60d31f@oss.qualcomm.com>
- <20260907-rpi_reg-v2-2-0c59aa60d31f@oss.qualcomm.com>
- <20260907-ensnare-wanted-e86eeaf770b0@spud>
+ <20260907-rpi_reg-v2-1-0c59aa60d31f@oss.qualcomm.com>
+ <CAPY8ntCF6e3FZPx0BwZKJimACwdUKwNSP+SPjNUE+1DgQC1=Qg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,48 +55,96 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="BHQstFVZMG9uADix"
+	protocol="application/pgp-signature"; boundary="32OBddDMqQq6s58k"
 Content-Disposition: inline
-In-Reply-To: <20260907-ensnare-wanted-e86eeaf770b0@spud>
-X-Cookie: Who's on first?
+In-Reply-To: <CAPY8ntCF6e3FZPx0BwZKJimACwdUKwNSP+SPjNUE+1DgQC1=Qg@mail.gmail.com>
 
-
---BHQstFVZMG9uADix
+--32OBddDMqQq6s58k
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 07, 2026 at 06:06:24PM +0100, Conor Dooley wrote:
-> On Mon, Sep 07, 2026 at 11:16:08AM +0530, Shashank Maurya wrote:
+On Mon, Sep 07, 2026 at 02:24:09PM +0100, Dave Stevenson wrote:
+> Hi Shashank
+>=20
+> (Apologies for the earlier HTML version of this - I thought I had my
+> mail client under control)
+>=20
+> On Mon, 7 Sept 2026 at 06:48, Shashank Maurya
+> <shashank.maurya@oss.qualcomm.com> wrote:
+> >
+> > Add a vcc-supply property to the Raspberry Pi 7" touchscreen panel V2
+> > regulator binding and mark it as required. The panel controller MCU
+> > needs an external power rail to be supplied before any I2C communication
+> > can take place.
+> >
+> > Signed-off-by: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
+> > ---
+> >  .../regulator/raspberrypi,7inch-touchscreen-panel-regulator-v2.yaml  |=
+ 5 +++++
+> >  1 file changed, 5 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/regulator/raspberrypi,7i=
+nch-touchscreen-panel-regulator-v2.yaml b/Documentation/devicetree/bindings=
+/regulator/raspberrypi,7inch-touchscreen-panel-regulator-v2.yaml
+> > index 37b9ed371b67..a6195e53be16 100644
+> > --- a/Documentation/devicetree/bindings/regulator/raspberrypi,7inch-tou=
+chscreen-panel-regulator-v2.yaml
+> > +++ b/Documentation/devicetree/bindings/regulator/raspberrypi,7inch-tou=
+chscreen-panel-regulator-v2.yaml
+> > @@ -35,6 +35,9 @@ properties:
+> >      const: 3
+> >      description: See ../../pwm/pwm.yaml for description of the cell fo=
+rmats.
+> >
+> > +  vcc-supply:
+> > +    description: Regulator supplying power to the panel controller.
+> > +
+> >  additionalProperties: false
+> >
+> >  required:
+> > @@ -43,6 +46,7 @@ required:
+> >    - gpio-controller
+> >    - "#gpio-cells"
+> >    - "#pwm-cells"
+> > +  - vcc-supply
+>=20
+> Adding a new property as "required" breaks all existing users. Adding
+> it as optional would be reasonable.
 
-> > +	vcc = devm_regulator_get(&i2c->dev, "vcc");
-> > +	if (IS_ERR(vcc))
-> > +		return dev_err_probe(&i2c->dev, PTR_ERR(vcc),
-> > +				     "Failed to get vcc supply\n");
+It can be made required here, but never in the driver. If it's actually
+required that something turn this on before the device can be used,
+making it required is probably correct.
 
-> This needs to be optional, because without it you'll break existing
-> devicetrees. Unless you can explain how all existing users are
-> nonfunctional (e.g. nothing ever enabled the supply, which seems
-> doubtful given this surely worked when it was added) this must remain
-> optional.
+>=20
+>   Dave
+>=20
+> >
+> >  examples:
+> >    - |
+> > @@ -55,6 +59,7 @@ examples:
+> >          gpio-controller;
+> >          #gpio-cells =3D <2>;
+> >          #pwm-cells =3D <3>;
+> > +        vcc-supply =3D <&vcc_reg>;
+> >        };
+> >      };
+> >
+> >
+> > --
+> > 2.34.1
+> >
+> >
 
-The core will stub in a dummy regulator for mandatory supplies that
-don't have anything mapped by firmware, otherwise essentially all
-regualtors would be optional and our error handling would be a disaster
-zone.
-
---BHQstFVZMG9uADix
-Content-Type: application/pgp-signature; name="signature.asc"
+--32OBddDMqQq6s58k
+Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqe7+UACgkQJNaLcl1U
-h9C9ZAf/f9QhYY7ZUT17BbKqAxAxlo1ULd1F9rHjyXoc7HkBdFzsnvVOtI+9RPlw
-KIkpIqJG2M/d30SnvXknr6HRcsg//ZdCcQddsJU6P92L+meFoLXELI0u/eepBDfM
-pGzm6sTtle3Cs5Zv0azKtUny0jDw5GFVehvW4V11+Orwmz5dkVma4VyLfycICYOE
-l/Fv38h86NoBBQnjErrgj7936F0uoyHelys4eaRadRqIAtcUTe5wRQxmKr4tSYn/
-6tR3fr5DKHM5vx6+chL2WTPWw6eUWcp3ZzOiSimKamoUIU9HYiaNsyOXQEgi/Lfj
-qeSGacc3WgWD0ZXr0oi2TsiujZaVTw==
-=P4QE
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCap7wDAAKCRB4tDGHoIJi
+0vWhAQCGzfAZab1fHmr4LYkebicDshj4RhoEc9b664Sq7qFecQD7BUQp91g+DoJF
+RmWqJEQKjHicetBNiCsgAjOA98EMhwc=
+=BfaY
 -----END PGP SIGNATURE-----
 
---BHQstFVZMG9uADix--
+--32OBddDMqQq6s58k--
