@@ -1,194 +1,91 @@
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 728C32E736A
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 03:29:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788751755; cv=pass; b=R3I0sM6pbtRUrFCHAPRjuqhmxkrlxE7HsPCyVab2i65CkuxEvkrRG30/Pi2770E5kbEx54cjG+VSZ6Ik+SnoPofqqJhRTeVP9VH7mcTJnVcAOJrFKYHdbC2aIgyFUOi3ziZAIB6aRZWxCLBHj89YXmunRU+BJcbvLXMrJedF9sw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788751755; c=relaxed/simple;
-	bh=GSAAlThqfE8mUuSgAVPRXZIyOsidSPdBFMqj2RYB3UA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZYAsIqeLAdhCw1CnfBCRtaNOtY6u375IEmk/Rrq5Vc6eNsmlHOi6ewe/Qby9/qVNaTla1ffWOgEAqE5IomfJ2cwZ0jeAhGhYQALtVyh5L4bKpGQ9P9ATGzqSTo2dBylwCaAOeI0IGhuSrWTVyTN/cKX+q0B6+5szo8zU/U3dp2E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=k1Jq6bFz; arc=pass smtp.client-ip=209.85.167.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BBB83E557C
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 03:29:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788751780; cv=none; b=f7e3aavNH7o9PoYA8daf/fmb4Vz9BIH313SyhGwXjze6hVwbTc2XT8ARNMVQEqQVW/Ghr4+7Me19JkB4tbq9y9xlFL46nZwNIBDz384F49JCdCnM8Fx7gmrs4rA21/06XP2KYnW+s/zNuEuFcnVABUJk+XJNWHi8nE1lVITbdI4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788751780; c=relaxed/simple;
+	bh=4Ckj7yFMx95H0KCiSg2hcbOFSkLKQLaM1kR53aZiEHE=;
+	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References; b=MSp+TI3WhTqk7NTQepmJetMeytlDguJVkDHvUt70L0fiAhKoQlKc0BiMKhIQySrPF4Xrg3GLg1M7LSMury5EAnk1d6VOz5RtAq8si3BlFiwQJZ8TB2Ssgeiegzb7Uf+PXOiCGmBaMi/iXxlrh0XeIYnT08ZKFe+bg8teQ5H0ANo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jg18rsmM; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="k1Jq6bFz"
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b6031cbc6bso2595063e87.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 20:29:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788751750; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XdE1sOMONSEBrJttrAu4nVrHdXItMf1vaLTHpuYA9QpDiiBBglBjzWPVeRFN1VTE2r
-         acPz3E5bRIguyqx48Olucw6sGezxLpPMBeWZA9i1Cjr8DwLo55rzNzWemWbCiZDF1PYn
-         0qWN+3rjpAsLu1GI5Kx3wTrekm/BDLoeeE9pBK7I16KgyFkX5vJU+S4IAUQWz3sfN0Pk
-         S4kegCaonbEKbllZRN5M/iDf4MZbjzxcS+aIpysJQH+p9njkBXb5ZSMuFpRcGLcVRRNN
-         xsFBWip5OHXb1EgEfQVGoA9qs+de4woN8i5rzAZf5vUwWxiIorpsUkRKsX3QtPfcbQIY
-         lY2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Uw7bun+2UCN5MoW38axYgFXx6bpXxJj3jRNtGXiPoTo=;
-        fh=BsJXBRz0bLxYzAKWb4sY1yZ76UiG0VZ8lgjIRHLbp1I=;
-        b=sPmqp5ScRqdavrE+RJZmN3LozZDajhv1HzuyfCKtCc+goSACPhBiLVsKNnzQtLYDC2
-         iv/g3MDASf07RAJ/Zd4w6LVMkLFRG895PkrljrMICR8065mGyHnzE/j0FpjfB47798YY
-         Hk4yFfkherKrpWEWTcS0wCJJYxQy1UPLvywmFbtMGZxap1Rs5sLf+pfaVfhkbPbKQms4
-         A8kd76FGzF8QXJKJbMlK2+zSFLfCvRj42QIqjWjPPJiixWJWVOl4xfdBx1pFr9pVRmqe
-         VGin2QugXzmW5IoZULbScEh+R1/4h59/frztaZYz2GtAYL8OJN+tXHpGUbgungqNsE+X
-         WqeQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jg18rsmM"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d6f9e2f681so33674175ad.3
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 20:29:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1788751750; x=1789356550; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Uw7bun+2UCN5MoW38axYgFXx6bpXxJj3jRNtGXiPoTo=;
-        b=k1Jq6bFzpt6yZigC9BWXTCg/ragq0H7SEQBUp/NcUNobqw1NFp0af6lWR8ThZ4lM1R
-         m5PZZvsnVyps/pOuezHF3EUc0waTGgJs6JNDG1vefH3qP61zQahKXXrnc+fgDVvry4Lm
-         hdmxDOKqjxnp91bvz4aR04Kki3VOe3oDo/+CC2FxnGhBquc9pXi2umy8H25jIN+FNcRP
-         XuYFX1OKdpmRH8+g0M2BXoTwNGEOB8Fh/D071eemYgclyUOEXsKWSSbG6zgGyAobNkTZ
-         AlKom8pbQnwn8sAvv7x2sQFN3bSH+1F1peCfWsL1V3R4C2Fv1mPPEHZMiPOY9gTf+Nxa
-         e/RQ==
+        d=gmail.com; s=20251104; t=1788751779; x=1789356579; darn=vger.kernel.org;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=tp0aJukw+a3PhmBQFaWxFKW7LFV2YBDjGrDn04/gkFg=;
+        b=Jg18rsmMNVbmVr1LugX8rWYlu2FQpdkSB2wuT67xjhX3SkNDOcshABjJiKjWS5reeC
+         g6osAXPF8/XsqZXrDcqOwLsMU38bfGljk1Rcv+HHkEA/nGJBUChgw04yyN16CnGAGhvq
+         yz5gT9V/yEeNWiQLB2DProA9EXu+MTfuz4rJaTyRmTsckd8Ebj59zXuTbzI+DrYA2wV4
+         wrbYA0xrLmJp+iQTEoXOv0CFjedKWGvygCCqi5of7f+GvhPfP1aqKCJvuu3xk+jVk3c1
+         yYlxUKvE+yqke7qtNwpaClQgVuBiGWMP8MVYqX5gIrNzOFW5ZkuECXqg9uhEZTfLAJA7
+         7+wQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788751750; x=1789356550;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788751779; x=1789356579;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Uw7bun+2UCN5MoW38axYgFXx6bpXxJj3jRNtGXiPoTo=;
-        b=rI7P0mJabBJm/NVJSwVL+LAKCJnUz8c2cJ4EbgXSiQkX9qt2lHKs5fKSE9y44Qn7yt
-         eJOzfxlFMD5I0IJjTEtxxgrFrfHNLozWBJQWKi+mgh60mK6pPMtsgw18SnGmwNDk30re
-         i8WV4VmeL17jamm2ismoOLkFLdySB/lv6wnyhor9X+Euch+8qxSUMmzyHsOxYU0GB6m1
-         0eXuuDenfJOs5l09H7CLZe3PjS5Ihf+DSAtrJ06d/MTmbQrIniqou9jpUiBOipX4nAH+
-         0u838VomZruEbltxEMdfc7DCkwTWK5OKcSg36dPfGve1z2wMGmKRlE9b+L1hmL9MujX7
-         Od5w==
-X-Forwarded-Encrypted: i=1; AKwUvBwB6mFIjSgEzoKXezwsLbDEAvn8avpY600UUlHH/O1tFayJDIxFzvqSwWWLKMlwNTjq9WsB08URKu7AmZI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJTu44yzb8hj9v6Rxl1eP79rF2dy+T/HUqiGEZDhM7X9NsJibn
-	RleHgrhgDm+NZGSNnAdETmqFcqYaXWpeywGk5cMBSr/lX9uPo6/sfCfYprX9Q58NhVvJRrZPasn
-	t1jyjvThSi1+rsulcigSMkFuJATqI9IjW4vp/yDz0w+s=
-X-Gm-Gg: AYBFou1TzktIN0C60D7ijFBk/EZLF9R9VbC8hxICWGgTnR8kL0T+cXkwpW5WefVi92h
-	66hNwSGWSUG7JjwTaaB9oVo1IGMz0YTuiUgoqrkageLsfeTNjXS/UKt2ytlCYR1UnDgEAnK+qdv
-	wl5nXxaVHjkkYZyQTUKled4tBbydjSeXnhXy3opjf7xe/HmH1Q6TF2ZfB2gJ+Lmxb2g5aRi+W3z
-	l38ExZmV96sc5gPsqkoaN1S9I2BEAJjNM8WcM8ZqrVmDJ3RJ/uULuiHnXRoJAgazZIMeCq9djNu
-	st2hYHmMcdkOXOYeBNr7EJstjraMHJ1wF7WoUxPScHJy1FsEoXLvPi2jOBY2rtoHgnxdB+R+EVw
-	=
-X-Received: by 2002:a05:6512:1325:b0:5b1:4caa:4b43 with SMTP id
- 2adb3069b0e04-5b616e53bfemr3832223e87.0.1788751750243; Sun, 06 Sep 2026
- 20:29:10 -0700 (PDT)
+        bh=tp0aJukw+a3PhmBQFaWxFKW7LFV2YBDjGrDn04/gkFg=;
+        b=B+8kOVkUVvTnJg4gzZy6AGBRF753VQ8EnO87148tdJSNESqilpGMcynr3AxnHagONe
+         D4PN77qUfM8gzWYOUTUgteOF1paXuSmPbSv1ek2tX2O7NdgiSj7neWvJX8dEcL3R1upF
+         J6ER9PhC9EscehHeqW7T1RW3a6GUWEQLVSxaI2fXlwxNVbEvaIUoA2cHr2s+pAxomteT
+         J1k5BcI9Xi5N/za3aSLD2TT6cA5YRF4a/4AIgU9cKGkcShnqwiSwFP3Uksn+clI1ZRR0
+         VZ+RHVDnPWmyfjfYqr+Hg6IuTRPKB1tgQNjvYyBdRube8iCOsIUbSCpNMEEjCSUWfPji
+         PbpA==
+X-Forwarded-Encrypted: i=1; AKwUvBxxcLOqXjHglP3giX/ruLn+Vb1EJ5tKl/EQfOaxZtd/x7Qwb0qp0e2rgYNXcJTdhjPTegiK5LVAg8YIVlU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lOGL04WKtlztF3x3daKuV2n4f0tvIxuauOrbHjENV8Gz/IMzBJ
+	t9lOiZV6FIzGyKvDjCmaqt75ssab4QSgt5tDE20IrDOHbGaLQ3m1LS6DuyHWESZv
+X-Gm-Gg: AYBFou01GgvjIlCmBp4pSH8D3SMp8YZgDFP3VhksBhqWROgGNktJIrXYNHm/rpAZjvp
+	zCREebc75dJAN0t7FsRYZDevzU9oOvg/mO+Hc+/rceBdZwhdGZ8I5zZAEBoLsZGJDE5jiSHeO31
+	h11RpSWVH5x7RV69ullkjJ0JMRvzZBk5NUlWEjsKWR/s4y0DSNLtgHqAPtFxTk4m2vd2BoU9rGN
+	q7YA0YrKHxcDIUj3ADDci1myxJA+Wqn4SP4+00prCJCTdrjLnwKqVCdQTjp3u4Tiy2lWjwryVKZ
+	xCUTIQvl9SppRhcXpWNCZQ58YIPBdijOpXbUviNvPtm6uh8IesBn2qhjy1M6FafsssmJgbK0NUw
+	eof5d0rblGkGWwV5HEsDVKBAZHR6gkGE3zlugjZUJGzQEeUN8DYAazvFom0QPSWTbcRO6ud9YHL
+	nxx0tksn9lpYieRw6Ku1tw3wRe0qdJk/eRnbVCn2y3cQg6P7nZnBk5luKse44f4wpvM1B0PQXq7
+	t335ezw6Z/AxhFjgtVhRFU+MYvFvSBQwnTlZlomzBADIA==
+X-Received: by 2002:a17:90a:d44b:b0:396:4cbf:45bc with SMTP id 98e67ed59e1d1-39b26203f11mr32745749a91.16.1788751778701;
+        Sun, 06 Sep 2026 20:29:38 -0700 (PDT)
+Received: from pve-server ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3369856a9f7sm6717453eec.5.2026.09.06.20.29.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 20:29:38 -0700 (PDT)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: Rosen Penev <rosenp@gmail.com>, linux-mtd@lists.infradead.org
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>, Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, "open list:LINUX FOR POWERPC (32-BIT AND 64-BIT)" <linuxppc-dev@lists.ozlabs.org>, open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] mtd: powernv_flash: fix kernel-doc for powernv_flash_release
+In-Reply-To: <20260907004821.225576-1-rosenp@gmail.com>
+Date: Mon, 07 Sep 2026 08:58:19 +0530
+Message-ID: <ik4h210s.ritesh.list@gmail.com>
+References: <20260907004821.225576-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <cover.1788622674.git.zihanx@nebusec.ai> <5fc14a8ba754126b6897939e11154167281d4c5f.1788622674.git.zihanx@nebusec.ai>
- <20260906181910.GA455897@shredder>
-In-Reply-To: <20260906181910.GA455897@shredder>
-From: zihan xi <zihanx@nebusec.ai>
-Date: Mon, 7 Sep 2026 11:28:57 +0800
-X-Gm-Features: AcwNN1Vs7jM1fB-2aADxommDInJ89MOY2aFrDlu6fxu3INigQ3uPZpKfJT-CguI
-Message-ID: <CAANe3eTObpyHno0X+aAgRBeWVSNgdQm4y4E5GAAUVevDf0sKGw@mail.gmail.com>
-Subject: Re: [PATCH net v2 1/1] ipv6: ip6mr: fix mr_table leak from MRT6_TABLE
-To: Ido Schimmel <idosch@nvidia.com>
-Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Patrick McHardy <kaber@trash.net>, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Vega <vega@nebusec.ai>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 7, 2026 at 2:19=E2=80=AFAM Ido Schimmel <idosch@nvidia.com> wro=
-te:
->
-> On Sat, Sep 05, 2026 at 04:30:07PM +0000, Zihan Xi wrote:
-> > MRT6_TABLE is supposed to select a multicast routing table id, but
-> > ip6_mroute_setsockopt() currently calls ip6mr_new_table() for every
-> > unseen id. The new mr_table is linked into mr6_tables and is only
-> > destroyed when the net namespace goes away.
-> >
-> > A raw ICMPv6 socket with CAP_NET_ADMIN can therefore loop
-> > MRT6_TABLE(fresh id) without MRT6_INIT, close the socket, and still
-> > leave the tables allocated. Repeating this grows unreclaimable slab
-> > until the machine OOMs.
->
-> Isn't the established way to deal with this sort of issue to simply
-> account for the memory and assume that the admin put some kind of a
-> memory limit on the container?
+Rosen Penev <rosenp@gmail.com> writes:
 
-Yes, that is the right approach. v2 tried to reclaim empty tables and
-that was the wrong direction.
+> The function is powernv_flash_release, not op_release. Update the
+> kernel-doc comment to match.
+>
+> Fixes W=1 warning:
+>
+> Warning: drivers/mtd/devices/powernv_flash.c:271 expecting prototype for op_release(). Prototype was for powernv_flash_release() instead
+>
+> Assisted-by: Opencode:BigPickle
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  drivers/mtd/devices/powernv_flash.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-I will send v3 based on your diff: GFP_KERNEL_ACCOUNT for mr_table and
-SLAB_ACCOUNT for the IPv4/IPv6 MFC caches.
+LGTM. Please feel free to add:
+Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
 
-Thanks,
-Zihan
->
-> See for example commit 6126891c6d4f ("memcg: enable accounting for IP
-> address and routing-related objects") and commit 5d26cff5bdbe ("net:
-> account alternate interface name memory").
->
-> This diff [1] accounts for the memory of both the multicast tables
-> and the multicast routes.
->
-> With your C reproducer and this diff I get:
->
-> # echo +memory > /sys/fs/cgroup/cgroup.subtree_control
-> # mkdir /sys/fs/cgroup/mrtest
-> # echo 64M > /sys/fs/cgroup/mrtest/memory.max
-> # echo $$ > /sys/fs/cgroup/mrtest/cgroup.procs
-> # unshare -Urn ./mrt_poc
-> allocated=3D1 current_table=3D1 maxrss_kb=3D1788
-> allocated=3D10001 current_table=3D10001 maxrss_kb=3D1788
-> Killed                     bash
-> # dmesg | tail -1
-> [   63.360047] Memory cgroup out of memory: Killed process 297 (mrt_poc) =
-total-vm:2424kB, anon-rss:92kB, file-rss:1448kB, shmem-rss:0kB, UID:0 pgtab=
-les:44kB oom_score_adj:0
->
-> [1]
-> diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-> index e5f2b1c6150d..b9c544d48c45 100644
-> --- a/net/ipv4/ipmr.c
-> +++ b/net/ipv4/ipmr.c
-> @@ -3376,7 +3376,8 @@ int __init ip_mr_init(void)
->  {
->         int err;
->
-> -       mrt_cachep =3D KMEM_CACHE(mfc_cache, SLAB_HWCACHE_ALIGN | SLAB_PA=
-NIC);
-> +       mrt_cachep =3D KMEM_CACHE(mfc_cache,
-> +                               SLAB_HWCACHE_ALIGN | SLAB_PANIC | SLAB_AC=
-COUNT);
->
->         err =3D register_pernet_subsys(&ipmr_net_ops);
->         if (err)
-> diff --git a/net/ipv4/ipmr_base.c b/net/ipv4/ipmr_base.c
-> index 867b24beded1..a0ec6d19a237 100644
-> --- a/net/ipv4/ipmr_base.c
-> +++ b/net/ipv4/ipmr_base.c
-> @@ -52,7 +52,7 @@ mr_table_alloc(struct net *net, u32 id,
->         struct mr_table *mrt;
->         int err;
->
-> -       mrt =3D kzalloc_obj(*mrt);
-> +       mrt =3D kzalloc_obj(*mrt, GFP_KERNEL_ACCOUNT);
->         if (!mrt)
->                 return ERR_PTR(-ENOMEM);
->         mrt->id =3D id;
-> diff --git a/net/ipv6/ip6mr.c b/net/ipv6/ip6mr.c
-> index 3f2ed9b77deb..9d8116b5edb1 100644
-> --- a/net/ipv6/ip6mr.c
-> +++ b/net/ipv6/ip6mr.c
-> @@ -1427,7 +1427,7 @@ int __init ip6_mr_init(void)
->  {
->         int err;
->
-> -       mrt_cachep =3D KMEM_CACHE(mfc6_cache, SLAB_HWCACHE_ALIGN);
-> +       mrt_cachep =3D KMEM_CACHE(mfc6_cache, SLAB_HWCACHE_ALIGN | SLAB_A=
-CCOUNT);
->         if (!mrt_cachep)
->                 return -ENOMEM;
