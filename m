@@ -1,165 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEFA838F250;
-	Mon,  7 Sep 2026 06:20:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81A8D31F996
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:20:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788762007; cv=none; b=s0kF1fzXuCmLfoob+Fd7FL1/ix+sFVCjwStUrJwptabGR1fnzjcdDXZUqxdOwSfjnEScEY7mRyZshJ+XAD+eP86fOB0bkP9J3PcOTetpSMyTdmtXQRnKbZk2kRuFpJSpHy7QPXsLUbmIrrUjk8KkWgpmcY4Aa/g/KENnfAUUKLY=
+	t=1788762023; cv=none; b=picj7UN7b8UfxSjnvmkQ3LM+RJqr75Am9L74ZzO3DbldJJQuBaHXx6H+QTg2na/F19onD35u2NGkCWyI1ZSHwPiK2+UbEy/LY6qcGw5iV62cXeww8GsVY8pPzqrnxLtWKZo/2QhQAk2xV8QH9AY72yRMLPOcEtXjz30PSvTK2/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788762007; c=relaxed/simple;
-	bh=EpTwUgzYUI+VT7l5NAx2oOc8rFo+fwEIT+ORuMKp3IY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aRRRHDePMQA0OpD0z7X3USH/rCXfShX+4/eSrizF9GYJ6KiSL4181SAtT9Iad26g4bhh1qHPCqV6D0oO/7iq1CJm2waU/XXXO5ICu2A5EdxME3p2H2e3oqSS6dQwiJIdAM4IObvRy6FOYwE+Hye0Icv1h9x0ZaLxJNAxRmifsHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LI/POFGs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788762023; c=relaxed/simple;
+	bh=KHPcOPB+gAXNZf9IV4HYUwlD099iefkEdhfeFBo8/TE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jhaUKhrbraODoEE1+NHpqmVy5U1nefy2uLYDykhmMqKpVUhN7mUEu2upmj+xvZ+2s5MrV2EAbBABue8BdoA6uNYLCD2X9KELJ2YU3jkMaOnxhLboJvE11f8DooTLzIzAOIv1BJF0StgCni/gd26X5ARGH6Ud8qTemN8u5O1f4QY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B1gRxzjV; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LI/POFGs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33EE91F00A3A;
-	Mon,  7 Sep 2026 06:20:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788762005;
-	bh=35m7H9HS+mlaq5Q27CFMZWaXSkYQOwdOB9qmm0HiASY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LI/POFGsueX5riioVdpleTGnencWxC/vTNfVOiQWHT3X0qAjKRMdBV8HHqf7LK0Yt
-	 Jfv9FI5tiVXuEIedXwdnLpWse0JgsEKIFjSAuwKW4+G+bISqZD0XqY7Ql/DS4Qrz9U
-	 mdTaVkAfcajYcRDevNVvGHClUFxV9EwOxrwSWEEHXnYu/lZckCH9BLXcEHEKTRyaDF
-	 YTvTivlXL4J5sp/Pe7ztmUMx6/THbSGvi9KOgqrV1jrm6rVAekL4Ug0gNRx2kqeHT6
-	 oMvr5lmbnxchEEVliPtD51Mz6B6e+dB+ShgK426RQ2+RjUzEJMMwEUpAHUQv8aYKN1
-	 OaidIP2SEAbnA==
-Date: Mon, 7 Sep 2026 08:20:00 +0200
-From: Carlos Maiolino <cem@kernel.org>
-To: Zizhi Wo <wozizhi@huaweicloud.com>
-Cc: dgc@kernel.org, djwong@kernel.org, hch@lst.de, 
-	linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org, yangerkun@huawei.com, 
-	chengzhihao1@huawei.com, wozizhi@huawei.com
-Subject: Re: [PATCH V2] xfs: remove several unused and never-implemented
- declarations
-Message-ID: <ap5XiYSFR93gZOGl@andromeda.toxiclabs.cc>
-References: <20260905010354.142327-1-wozizhi@huaweicloud.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B1gRxzjV"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2cfbbdfa60bso27862475ad.3
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:20:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788762022; x=1789366822; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uSNEtbWBmFFM0jB/F0sPboSagbEjgm4bGfRGjkQzdP8=;
+        b=B1gRxzjVgngWKFfadV8qbZzRhKJk4lcjMZ164mEQtSknzmZ2VtFUeWxK+c8J6rIqG2
+         XFu1a0Cph37OGvijV8sQyKRI51xmtj1/7Q/BOqikGnNUglqqY5cTlQnkPMvWWR3KrkP/
+         P9ZOfbBgvnlERqY71k8eI2vOnQyqfuggdRIfSIO5bOT0ZJHgPzGGd0tmJw3MDXkGwKf8
+         VkfJ7F/z3pZqtTWgAH9y6rQdQ5nWAAoiI2uPFI1OP31NIyGQTn707AuUN72cXnRdA/p5
+         NxsbODFR1rN82lMZtL1C8jp1lYfMknSKtbGKLkF5tipdzIAk0NXiP8tdgRx2ZAUkCK2I
+         2zpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788762022; x=1789366822;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uSNEtbWBmFFM0jB/F0sPboSagbEjgm4bGfRGjkQzdP8=;
+        b=nenS1yNX5j/X09N6EcXPO6PbM2U42P4T1o3u/oYpqh6gSsWQTK2E0qXnqAkTFjh7h9
+         1WeemQLNxFs+V9NLl9CifhDHkYFLtU6aOyC96hiFDluE0EAtWdcZEedv31DtEMq00Pu0
+         8ZuXpoxR6Dq0HQYIX4AYmEqDdopX5IrpLoj5mm5+71wOf4UpJKXr6auBWpoLjVt0CwiP
+         RrqjerH+okiseMozhDvMZIa4o+VY3raelR1l1pOm9zX01A8N7+XT4IdClE/BYc4IEUVx
+         M0DSWioTMseFJ70z47aw8b4qlHY6FvQX9wWOMU2RL8iv4xqn9g9Hl0TGE9s/Ht4gUd59
+         duAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy0MpXH9VzhY4dmTmkM9vRusHjKEwyOP8rriCzCdzCc9OtCicr2RiOx46htDQhOyCIMH0nbilS05vPt4KI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lrSw7FD4c8YVQsiRMPW0LqHltzYDOO4a/lE2eB8cCV2QhQmUZ8
+	cPmny+MzuCVzT6iB71jmZX5fn63OSLLuVGS14lxdn1GW1sIVND7elp7i
+X-Gm-Gg: AYBFou2Qp0O66XJKIGTQLldaW2IgWaHw01zHVlQ78L8VzJPdbTJTibTEApMPLJCQGol
+	RruWy9NmymrY1X+WSETYxIh/KAXEh2tlPbQMnNWmIZeIKZ7yLeQxrsm423rSsEfrYqudW80vV3X
+	muMXfeASO8kCOnMMA0mjOlqVxA58vXkD3ciC6U9+WKmypYnqzGxBQ8Z7iccnPKSn5m1Ut/vsiI7
+	yZK9N6M+15IloawWtBpxUt99oR5g7vWxCn8LLsUFQQiJ7mowJ7oY/VDfOmfDhrNBH33UJJfslbM
+	PIaTkiVV7gv2mq3sfbFTw7fzmPRv4K8u/aNj3BqjYm1aZIFMrujpfg+ZFPfEnmgz38WZ3v09wtu
+	WprgE/QlimQ4O3cSuz5pEL5AVC60/UUcvo+XkX3my5eQ0msrSOU9UTn4dSUhTnNaHPjk+0PA1cc
+	b/N/rEx2XkMMf8NfDwX3K+05NOcUDEb0x+RUlquPvNwiRIhmelzQ+q/HTgkKYWFCMnCaSYLtwaz
+	p5hrJFaI00NEg==
+X-Received: by 2002:a17:903:37c8:b0:2d9:50:a91b with SMTP id d9443c01a7336-2db12667eeemr304916435ad.16.1788762021826;
+        Sun, 06 Sep 2026 23:20:21 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3356dc5c04dsm14212740eec.8.2026.09.06.23.20.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 23:20:21 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] of: fix typos in comments
+Date: Mon,  7 Sep 2026 11:50:17 +0530
+Message-ID: <20260907062017.5881-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260905010354.142327-1-wozizhi@huaweicloud.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 05, 2026 at 09:03:54AM +0800, Zizhi Wo wrote:
-> From: Zizhi Wo <wozizhi@huawei.com>
-> 
-> Over time a number of function declarations in various headers have become
-> stale: either their implementations were removed when their last callers
-> went away, or they were never implemented in the first place. None of them
-> refer to anything anymore.
-> 
-> Remove the following dead declarations and the unused stub:
-> 
-> - xlog_assign_tail_lsn() and xlog_assign_tail_lsn_locked()
-> - xfs_iext_realloc()
-> - xfs_buf_iodone()
-> - xfs_scrub_tester() and xfs_scrub_setup_inode_bmap_data() (never
->   implemented placeholders)
-> - the !CONFIG_XFS_ONLINE_REPAIR stub of xrep_tempfile_iolock_both()
-> 
-> Signed-off-by: Zizhi Wo <wozizhi@huawei.com>
+Fix typos in comments, reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
-Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
-> ---
-> v2:
->  - Squash the individual cleanup patches into a single patch, as suggested
->    by Carlos.
->  - Drop the former patch 4, since an equivalent change has already been
->    merged upstream.
->  - Remove the "Assisted-by:" tag.
-> 
-> v1: https://lore.kernel.org/all/20260904060648.1966130-1-wozizhi@huaweicloud.com/
-> 
->  fs/xfs/scrub/common.h   | 1 -
->  fs/xfs/scrub/scrub.h    | 1 -
->  fs/xfs/scrub/tempfile.h | 4 ----
->  fs/xfs/xfs_buf_item.h   | 1 -
->  fs/xfs/xfs_inode.h      | 1 -
->  fs/xfs/xfs_log.h        | 2 --
->  6 files changed, 10 deletions(-)
-> 
-> diff --git a/fs/xfs/scrub/common.h b/fs/xfs/scrub/common.h
-> index 9d627fd50687..f0f073a93413 100644
-> --- a/fs/xfs/scrub/common.h
-> +++ b/fs/xfs/scrub/common.h
-> @@ -74,7 +74,6 @@ int xchk_setup_ag_rmapbt(struct xfs_scrub *sc);
->  int xchk_setup_ag_refcountbt(struct xfs_scrub *sc);
->  int xchk_setup_inode(struct xfs_scrub *sc);
->  int xchk_setup_inode_bmap(struct xfs_scrub *sc);
-> -int xchk_setup_inode_bmap_data(struct xfs_scrub *sc);
->  int xchk_setup_directory(struct xfs_scrub *sc);
->  int xchk_setup_xattr(struct xfs_scrub *sc);
->  int xchk_setup_symlink(struct xfs_scrub *sc);
-> diff --git a/fs/xfs/scrub/scrub.h b/fs/xfs/scrub/scrub.h
-> index 6d7d3523b71f..737a5d6db15f 100644
-> --- a/fs/xfs/scrub/scrub.h
-> +++ b/fs/xfs/scrub/scrub.h
-> @@ -261,7 +261,6 @@ static inline int xchk_nothing(struct xfs_scrub *sc)
->  }
->  
->  /* Metadata scrubbers */
-> -int xchk_tester(struct xfs_scrub *sc);
->  int xchk_superblock(struct xfs_scrub *sc);
->  int xchk_agf(struct xfs_scrub *sc);
->  int xchk_agfl(struct xfs_scrub *sc);
-> diff --git a/fs/xfs/scrub/tempfile.h b/fs/xfs/scrub/tempfile.h
-> index 71c1b54599c3..d44ed43bafe0 100644
-> --- a/fs/xfs/scrub/tempfile.h
-> +++ b/fs/xfs/scrub/tempfile.h
-> @@ -39,10 +39,6 @@ int xrep_tempfile_roll_trans(struct xfs_scrub *sc);
->  void xrep_tempfile_copyout_local(struct xfs_scrub *sc, int whichfork);
->  bool xrep_is_tempfile(const struct xfs_inode *ip);
->  #else
-> -static inline void xrep_tempfile_iolock_both(struct xfs_scrub *sc)
-> -{
-> -	xchk_ilock(sc, XFS_IOLOCK_EXCL);
-> -}
->  # define xrep_is_tempfile(ip)		(false)
->  # define xrep_tempfile_adjust_directory_tree(sc)	(0)
->  # define xrep_tempfile_rele(sc)
-> diff --git a/fs/xfs/xfs_buf_item.h b/fs/xfs/xfs_buf_item.h
-> index 3159325dd17b..28c79989d725 100644
-> --- a/fs/xfs/xfs_buf_item.h
-> +++ b/fs/xfs/xfs_buf_item.h
-> @@ -60,7 +60,6 @@ static inline void xfs_buf_dquot_iodone(struct xfs_buf *bp)
->  {
->  }
->  #endif /* CONFIG_XFS_QUOTA */
-> -void	xfs_buf_iodone(struct xfs_buf *);
->  bool	xfs_buf_log_check_iovec(struct kvec *iovec);
->  
->  unsigned int xfs_buf_inval_log_space(unsigned int map_count,
-> diff --git a/fs/xfs/xfs_inode.h b/fs/xfs/xfs_inode.h
-> index 34c1038ebfcd..1602027cd0aa 100644
-> --- a/fs/xfs/xfs_inode.h
-> +++ b/fs/xfs/xfs_inode.h
-> @@ -585,7 +585,6 @@ uint		xfs_ilock_attr_map_shared(struct xfs_inode *);
->  int		xfs_ifree(struct xfs_trans *, struct xfs_inode *);
->  int		xfs_itruncate_extents_flags(struct xfs_trans **,
->  				struct xfs_inode *, int, xfs_fsize_t, int);
-> -void		xfs_iext_realloc(xfs_inode_t *, int, int);
->  
->  int		xfs_log_force_inode(struct xfs_inode *ip);
->  void		xfs_iunpin_wait(xfs_inode_t *);
-> diff --git a/fs/xfs/xfs_log.h b/fs/xfs/xfs_log.h
-> index ca66429bf6c9..f715695e8fcb 100644
-> --- a/fs/xfs/xfs_log.h
-> +++ b/fs/xfs/xfs_log.h
-> @@ -105,8 +105,6 @@ int	  xfs_log_mount(struct xfs_mount	*mp,
->  			int		 	num_bblocks);
->  int	  xfs_log_mount_finish(struct xfs_mount *mp);
->  void	xfs_log_mount_cancel(struct xfs_mount *);
-> -xfs_lsn_t xlog_assign_tail_lsn(struct xfs_mount *mp);
-> -xfs_lsn_t xlog_assign_tail_lsn_locked(struct xfs_mount *mp);
->  void	xfs_log_space_wake(struct xfs_mount *mp);
->  int	xfs_log_reserve(struct xfs_mount *mp, int length, int count,
->  			struct xlog_ticket **ticket, bool permanent);
-> -- 
-> 2.52.0
-> 
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ drivers/of/base.c        | 2 +-
+ drivers/of/fdt_address.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/of/base.c b/drivers/of/base.c
+index d71ae0449360..9e249286be71 100644
+--- a/drivers/of/base.c
++++ b/drivers/of/base.c
+@@ -700,7 +700,7 @@ static struct device_node *__of_get_next_child(const struct device_node *node,
+ 	     child = __of_get_next_child(parent, child))
+ 
+ /**
+- * of_get_next_child - Iterate a node childs
++ * of_get_next_child - Iterate a node children
+  * @node:	parent node
+  * @prev:	previous child of the parent node, or NULL to get first
+  *
+diff --git a/drivers/of/fdt_address.c b/drivers/of/fdt_address.c
+index f358d2c80754..2e4e46a58cb6 100644
+--- a/drivers/of/fdt_address.c
++++ b/drivers/of/fdt_address.c
+@@ -172,7 +172,7 @@ static u64 __init fdt_translate_address(const void *blob, int node_offset)
+ 		goto bail;
+ 	bus = &of_busses[0];
+ 
+-	/* Cound address cells & copy address locally */
++	/* Count address cells & copy address locally */
+ 	bus->count_cells(blob, parent, &na, &ns);
+ 	if (!OF_CHECK_COUNTS(na, ns)) {
+ 		pr_err("Bad cell count for %s\n",
+-- 
+2.48.1
+
