@@ -1,229 +1,195 @@
-Received: from mta1.migadu.com (out-67.mta1.migadu.com [95.215.58.67])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94C6A31F996
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 02:10:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.67
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788747034; cv=none; b=jE1IaxrKyI3omtJiDt1RrLvhS4jnQAChDNEFSvpoeXgWjfpMHWf+XLp2/POwEI/KAaDenZCgra1wnlYK/OqK6+jYpNCw+miPMxZ1DIv0amMeeqUPknnDNb3MInF6OTCHf4y0ieab6OtiwImBr98Sk55C9IEXb7gLPP9/rFOcr4g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788747034; c=relaxed/simple;
-	bh=EbvF9Cfk/cA1UnK4pJESDFS+FSWdBEe7J8RaYNhSipA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QC9xy+kixu0qHQCKIFIQg/3HWKlN0xl6raXl+rKrVjudX/e63D+RVG2fDuzXzTppFrfm/J+T40WuEYWatm6Za8IQJc9JF+cLl8l9n0kjHnpfrQBqETuIFd6uJ90b1IJ6D6j5/4GGPwnWco4XSlTNUeF6WVgFX9pm9qnuTaOkK8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=KTOdsk2B; arc=none smtp.client-ip=95.215.58.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8867831F996
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 02:10:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.9
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788747041; cv=fail; b=YKCRaNXmxFBPFwF7rXsZrpGvOP5zDYu713O9BVwj0B7pp955IQ6a4H0D9AW6Mj5R9JOOppa7jZkiZkuR9cxagVgd5kohGZTM8s2MAkMLRaHvJfyxvOItbCMVj+JQ4XDuskO2/lXyCARdA/y/g8awIYZB/79qWyAFz+JBkJbbfdw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788747041; c=relaxed/simple;
+	bh=1WExr/2p7bByOM4i/WrfU0Yp1SjbkHe37ats1qzI9b0=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=d3e8+KB+vxt8ETehZa9ok12rOHDs6ewR0GJWrTvdmkGR16CHpP+OnvC0hV3oKzu1vsNAv/STzdl5NxLUbMdIaF4Zpg7BVK0qkDCeIyLTHqxA80oaCu+SXsOD0qVySmjXaSiNwLMkRhwYzNvkiksdnyECsPWbsabapPUIkIQEr+0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iSdVXYuZ; arc=fail smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="KTOdsk2B"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=EbvF9Cfk/cA1UnK4pJESDFS+FSWdBEe7J8RaYNhSipA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788747030; v=1; x=1789351830;
- b=KTOdsk2BPwPmMkX4vNr9rg9mvTfk+mNhEQ28HiFtEyVa3+JXcHcPDCTAfrjmaaHbfcb8t9H1
- QyZpSiEVUTYJrNffsKQv0HOOPGg3mCdHjk5o1+yIKqlSyYJ/EbQk98t3S19KMRsfoDHRsROW0KD
- g7dH8iKai+qqw/LRFC1nmdZw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 17ffc60dbd957c97;
-	Mon, 07 Sep 2026 02:10:30 +0000
-X-Mizu-Trace-ID: 17ffc60dbd957c97
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 7 Sep 2026 10:10:22 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: George Guo <dongtai.guo@linux.dev>
-Cc: rppt@kernel.org, pasha.tatashin@soleen.com, pratyush@kernel.org,
-	chenhuacai@kernel.org, ardb@kernel.org, shuah@kernel.org,
-	ilias.apalodimas@linaro.org, akpm@linux-foundation.org,
-	ruirui.yang@linux.dev, guodongtai@kylinos.cn, kernel@xen0n.name,
-	graf@amazon.com, liukexin@kylinos.cn, loongarch@lists.linux.dev,
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
-	linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
-	linux-efi@vger.kernel.org
-Subject: Re: [PATCH v5 0/5] LoongArch: add KHO support and selftests
-Message-ID: <ap4dDsKBo22t4_Jh@fedora>
-References: <20260904100852.26006-1-dongtai.guo@linux.dev>
- <ap4XzvnM3WUn5ard@fedora>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iSdVXYuZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788747040; x=1820283040;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=1WExr/2p7bByOM4i/WrfU0Yp1SjbkHe37ats1qzI9b0=;
+  b=iSdVXYuZgPhKGkyAlHO7EOASVaT1pWi/p/tr6SRkk4WZv4dT7FelvcOB
+   HAnRvSZEi4P2blQFTpzJsIBOUv8Mroas+Bpu4RFl0SC3XkcqBPhU2lHSw
+   yilSK83ZYEjoG943H+v24sdOw3j0RQbgZI/jSwQWzstrENusPrtWrhcu+
+   aG26mb1pE6FU4j6Q1eDZ0d03FJ7qZWap7uN8PEhInDuhQHpDwnaME7h7X
+   1zpUhd/RjgTS/cyLTE6JCV71Xd+DZ+b/cQXW+IKCnrSqh3bu8putte3e+
+   AyuIchKhqQxSzNiwi+zcolh4XEZV6DWpd0U2vxtDHooHeLeyNgZ4P3hXO
+   w==;
+X-CSE-ConnectionGUID: hFLLxTtoQcq8OaVA8D5Oaw==
+X-CSE-MsgGUID: UvVsVCBKRPqsQft9TxeX6w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="111924335"
+X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; 
+   d="scan'208";a="111924335"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 19:10:40 -0700
+X-CSE-ConnectionGUID: lbTsUWsqQPurTh3vV0sPfw==
+X-CSE-MsgGUID: RHP4m5n+S5K1OpNR2BNeLg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; 
+   d="scan'208";a="300468864"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 19:10:39 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Sun, 6 Sep 2026 19:10:38 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Sun, 6 Sep 2026 19:10:38 -0700
+Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.48) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Sun, 6 Sep 2026 19:10:38 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Qc6bZjKqraLktZ4q0CyO9bu59w9uXq/hjsCb/Z1I7K/cYirp7Rtm+A3wCkv7oRKv0mLZDuGe+4h/FDD4N7NF4nudxV/J2qXpI2SLj6ibo0kNCjiP+Tj1frg1Lp8hz5gzU9wZSA+omVW+pInq3DKFBXtN3f5zc2qYL1Y9tnp2I07bNilExH4pEXnvhP/fs526Uw7hvhaNPk5SEjaN3dJtekP2oaPAlHS/pr0RCyqRVVNyDKolzHVudrqPY72mzd37nfCXIlUs4zqV+73wY2vDz1BLgj33uAhuuAphQnzjWpWWuDahjkl4hGygIiHmb4zq8Rdz42GUBSANs6YNFJ6bPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KXJjW5ooA1Ej+756kKNkD/kdQ48ChoWkBvgqFZpptnI=;
+ b=ZV5tDqIq09mHmC8D2wHI6+/N6WeGp554EuBzB+g96MMj7njBLqdbKGB+u/p/vFNTEE0KDXctDnxEcp9ZUDxyHQr2POlcpejnGmsg6DE1i+4Cxi62gxS2HZbUnZuGTu6F6qqyamMFwI9Nv1k1r9lRzMA3RoqQgYZdQQFR5968tWTqgK7aPl64E8Nu8YKlxAW1oX/TVApNkt58Hfo1vAg3PBRR6JTuNnHhDzfOCIknxSgL16OMAlXlj8r3/Ma4vY+Rx8Vyw1jSH+05ILOx/sWaF7YdL5UJdZVBKvGkIg++Uv+tHaDxXN9Lt7QjzgPrJZdKzNsE3gStfqrO3Fo0yY1Gbg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DM4PR11MB6020.namprd11.prod.outlook.com (2603:10b6:8:61::19) by
+ PH8PR11MB8061.namprd11.prod.outlook.com (2603:10b6:510:250::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
+ 2026 02:10:36 +0000
+Received: from DM4PR11MB6020.namprd11.prod.outlook.com
+ ([fe80::3058:1480:e4ac:5765]) by DM4PR11MB6020.namprd11.prod.outlook.com
+ ([fe80::3058:1480:e4ac:5765%4]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
+ 02:10:36 +0000
+Message-ID: <425a1c9f-7051-4baf-a884-65524e8f4fe4@intel.com>
+Date: Mon, 7 Sep 2026 10:10:26 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/5] x86,fs/resctrl: Remove "arch_needs_linear"
+To: Reinette Chatre <reinette.chatre@intel.com>
+CC: <tony.luck@intel.com>, <ben.horgan@arm.com>, <james.morse@arm.com>,
+	<Dave.Martin@arm.com>, <babu.moger@amd.com>, <bp@alien8.de>,
+	<tglx@linutronix.de>, <dave.hansen@linux.intel.com>, <x86@kernel.org>,
+	<hpa@zytor.com>, <fustini@kernel.org>, <fenghuay@nvidia.com>,
+	<peternewman@google.com>, <linux-kernel@vger.kernel.org>,
+	<patches@lists.linux.dev>, <chen.yu@linux.dev>
+References: <cover.1788452481.git.reinette.chatre@intel.com>
+ <62904217290f2cd3225d8608c19e284d6dde3aec.1788452481.git.reinette.chatre@intel.com>
+ <apo3lSWAQRRK2W_r@fengwei-dev>
+ <35759986-3bd3-4ada-b2ce-434090cdc1cb@intel.com>
+Content-Language: en-US
+From: "Chen, Yu C" <yu.c.chen@intel.com>
+In-Reply-To: <35759986-3bd3-4ada-b2ce-434090cdc1cb@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI3PR01CA0013.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:296::12) To DM4PR11MB6020.namprd11.prod.outlook.com
+ (2603:10b6:8:61::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ap4XzvnM3WUn5ard@fedora>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR11MB6020:EE_|PH8PR11MB8061:EE_
+X-MS-Office365-Filtering-Correlation-Id: a0c18519-cd42-47a9-dd6e-08df0c853476
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|6133799003|10067099003|56012099006|4143699003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: /vLx0CYkCFUHS9Do5B3e/yyK5Ykq/cPbVbzAJLohPHuJmIZ6EQ5/uJP0Vza3YhgeYD/1k2Ms2qnyza5sETcOuifbMyJAG3fKYUt9AmrWUMUHx0dft0NzRbHsvJ1t1bvf53EWjNsj3VhuXxNXkKaREFi2yBQVdM371d2sQQcb3LJU2pFNjkbeZNN7ur0W9jmwiHeLrNr06vn3gYCqSheB7tZXEZzUjQ1t8O6xOh0F7RrnuNdeS3G0QfyhvIUvhaTkd9JB2i2OhY80iPilKz+LEUoD3asuHovOG8xAJ/QMQXvDLsiDSLEYul0qeo4HJvQPzpyVAOtx7Tk8JskYmLmIrKQfh1LtvgSbHRahdVihvjMp0CqKHO+1Z//zQ7ywlOQaWUuDYbX/Mu1SiBzF5X6LTr0TujmT5Gpy/Rx/64BwOblOGqRAH2Cei+4s2/x1RYJ7naI1AsSvjn5GC3sGCQB3eNnA7riKh3FDCJzT9w/XeBmFDiq99VYTi+DARNC7BMdplMM0x0iu0zYP5tA1BSmpcIWJ42OwVNtfXlW4lMSvCV/dWmxFWsK3SBP4t27fV1c1EuXXBadc3P8SvfQZ9Jfw5ljFv1jeysJ6iNPWPhJWVF9dFFOifDTrmZZIoFuwPmWSXPWRVcyEtMAjI9gGLe+FvuKo/galkCeWSBbIuLw1mAY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR11MB6020.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(6133799003)(10067099003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YmNid21HOEYreDl6TDNmeU1PU2pISGtIa3Jxdjh6WUZIZStZdTY4aXZPandB?=
+ =?utf-8?B?RHVkeHd0RVFzbWYyZ2daaUZmWHZTa3JxK2RKSWY4WDBuZ05acEg5UCtReFpJ?=
+ =?utf-8?B?eW9zSWpBcS9kS2RWWVJndkR1Y3ZScXlyTkp6Ris5cS8vS0VzcjRDaHpGSGxT?=
+ =?utf-8?B?Q0FzNUJWS2xFSUJYMXFYZGZhTlpxQSsrZjZkcUpWVjZJU25sd0hMSUlDZTdC?=
+ =?utf-8?B?WnprZjVyTGxxdVZ2RHRDOHVLSG12TVZvVmRuOURsRFVnN1BRWGwzRTU2YUZS?=
+ =?utf-8?B?d1FkSTk5R05QYlFWUEhJbXJMMUUvQlpZWEFNM0tBVnMyTmFQZkl0KzY5aVU4?=
+ =?utf-8?B?Q0ZNTU9ZTXNJd1duWTZpazdQZjJvMkdwZUdoNTVoSmFpOEhTVUlTSXhlK1ZL?=
+ =?utf-8?B?c3Bzd2l1V1NpZlZmNDU1cUxrMHhxWlNRZU1LNS9iL3lVRFVISDA2YTNsRzdq?=
+ =?utf-8?B?a01mYzlyMFNjdzRWcnRZQnNscnV4K0VqR0Rkb0VEQUFEWnJIMkZ0MzJBRmZq?=
+ =?utf-8?B?c1g5Z0t6d0VOcTR3eHRLdE9ZQWkxK3VjMnFBdytsSnpxMWcxNE1YMHpWbU9N?=
+ =?utf-8?B?aTlBNEw0ZXBTSjRTVHB6R0c2eXlSaUNoQkQ4ai9ONTVkWjR5MEI1LzZ2U0Zm?=
+ =?utf-8?B?Zy9ETTZxVXRDYzlOZGltMWhVeUJsU1krVXNsV3FOWXlZb1NSb2FMcGhpK2cy?=
+ =?utf-8?B?aWcxVlZvazhrdkQ1Zm9TTy9jdGFhZGVyMGNuQllCdHorM1V1UDBTTGJWWGFw?=
+ =?utf-8?B?QUFBZVVmYUhVMk5nN2hoeC9CWmwwQTJnVUNZNTkwNk9Na1dsQVN0RHYyazlE?=
+ =?utf-8?B?L2hKbmZIQjZyREZoMG9xY0ZSYUpBc0RUVWwwcmxLeGRDbnFKZENPSk4zWEpU?=
+ =?utf-8?B?WVI1d1ZFY2VidFFzcnIzdFlqbWpuYmlCbktndExLZkxaVkpRU01tRXd5emVR?=
+ =?utf-8?B?ZHRWV0ZycnZiOVhoNC9NQWdOazltVXVVRW1EM3BqUjJhTnp1N21GSU1FeHVT?=
+ =?utf-8?B?SGZ4SnpZcytMWTRtTHMwVlB2S2lTclcyaFdIcm5wV291aFhyLzBSOGlHbWR6?=
+ =?utf-8?B?S3NjQUR1Wm5EWFRCZ1M3NFJucHg3WFJDOVdidlU0RzM1cml1L1Z1MVdmbGdy?=
+ =?utf-8?B?VjZ6KysvWlI2dGxqR0IxWGhDcGViSnVsRFdOaGNNeUF3b20yNk9BeDBRRWdr?=
+ =?utf-8?B?V2wrUEVNQkdEZnRIbHB2bnNIb3p3bWlwL0FyckJQWkUrSHZXcUE4dVhFSzhL?=
+ =?utf-8?B?SFlFYkRaNGJWQk5TQ3liUkZzcXBzNjlxd2tKZmNpMDBscVVTMEdPamdybEJn?=
+ =?utf-8?B?OFpRR08vaDBqdG8yWHA2dkt2Z1RHZE43NGh5QWpyQlJNOHJnc3E0enhCelY4?=
+ =?utf-8?B?ejlmUU82SlRjRDkyaWdVNHhFaFEwdDVzd1M3THZsWkd0NFcxeVUrUFZ4dkdy?=
+ =?utf-8?B?SUp2T2Zmc3hOR1J6RENJb1drOEExSnRxLzlwMzJhNUFBUXRROUlGd3BRMHYz?=
+ =?utf-8?B?bjFIbHRiNjFRMXM2dFpPVnorOCtwQWl5QkVyUUd4bEVUaG1qRmlYcGkvQS91?=
+ =?utf-8?B?Q0dsNkZNRDRwZXdFV0NmaUliU0JhOWZzUGtoL29jQnpHdG5teVZha1JxMnli?=
+ =?utf-8?B?S2IvUUJwMWw0QW5rQXhrMWtDaGZnZjJteU1rOVNFb29ZN3g2ekR3WnVQR0wr?=
+ =?utf-8?B?WGJEb1pkUEZMWVgrOEJxSHdVWU5vekc2MCtxL2Y5bE1sRFg5ekJ3NVRhK3l2?=
+ =?utf-8?B?Z1Q3SVNaQzUrdDZqc3B2N0xVdGtHa0ZaKzlVUDJQcFB3bGFNTnFNVEo5TFpr?=
+ =?utf-8?B?WkU3Q09raDI5V1ZmMFRVT29jTXRRT0s2dlV4ZVkxY0pMaGwybFZGbkdWWEgy?=
+ =?utf-8?B?QWRwcHZaYkRFeExvNVBFYUcrMFJ0ZFZJK3BkL1dLRHVid0Fad2JwbTRMU3Er?=
+ =?utf-8?B?dURleU1SQmRFZE9KQVRldXk5QUFmeTRnak5MSEhEV0lOeGRrZDYyaEdVMlJI?=
+ =?utf-8?B?OVphd3RLV0pmLzh1Nit2ZWxBVWQyQzh5c2wySjhOZXRYZThDZ00wV0huOE8r?=
+ =?utf-8?B?eklDMDVsd1JWN0NYM2p6NVAyTmFQV0VETkZnTHhFQURqN3U1QW8rQXBMK0Qv?=
+ =?utf-8?B?NERRU0hJazFlZTlUMm1PYzB6emxNYmw3bUpxcjF1RVdsbmtJRi9oRis0UDh2?=
+ =?utf-8?B?YjlzNityR3ZtTUZYTU1CNUhucFpKdmVGeW5SNVA1TFhQcmFJcWZVWTNiWVhQ?=
+ =?utf-8?B?eXVHYll6THVWVXliQ0lCUkp4UDlhZTVuVUJ1aFMxOGk4ZGpkeW9iWndxVGx5?=
+ =?utf-8?B?UDhibWp0SFZpdm9aMkI5SGk0QlV6Ry9xL3JtZmpKNml6bkNMaEl5Zz09?=
+X-Exchange-RoutingPolicyChecked: MWWj5Nnc2R7ec4EyQXtUHyg9axKuj8nm3e78FDaOIpj8w3/HpP28OSc33if1fNrF8f5nd+b9sSQs5x+dMKLC4NZDv22xZmJmS1QDfYAyTTs7CIbGaxShFPFu/Rz3jggrYnQjIoL4UQxweCEY6E1IqQD7Uq+lLMvG5LekdqhF6MEvGj552ubdJdZ5GftMdNx8pC5djtCom0X1eaNdYSKIDwYvg0GBaz81mquQiYWdKpgODANCUpJAC5bqeZ84KV+HbAqj0b3itD46gEZ2j9xb9eE9fdlVokjksbXEOmHhnspyXasOyWsTJWF4nGR9hPoWXV0StgOF2aJAt6hYz6cJEA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: a0c18519-cd42-47a9-dd6e-08df0c853476
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6020.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 02:10:36.1378
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gMiOYvpefBS7Tmo1KFYRhYfO88c5fpMv1MwSzhFziqVmFAJHHWx7VaJn33+DRduJgeiAZzHHLQBa/NVyuQir5Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB8061
+X-OriginatorOrg: intel.com
 
-On 09/07/26 at 09:47am, Baoquan He wrote:
-> On 09/04/26 at 06:08pm, George Guo wrote:
-> > This series enables Kexec HandOver (KHO) on 64-bit LoongArch and adds
-> > LoongArch coverage to the KHO QEMU selftest.  KHO is the remaining
-> > architecture gate needed by Live Update (LUO) on LoongArch.
-> > 
-> > The transport is the central problem.  Arm64 and riscv can pass the KHO
-> > state FDT and scratch area through properties under /chosen in a boot
-> > FDT.  LoongArch boots through EFI without a boot FDT, so that path is not
-> > available.
-> 
-> I didn't look into your patchset very carefully, but I doubt you
-> are reinventing the wheel. X86 didn't have FDT, seems it introduces FDT
-> for KHO support. LoongArch doesn't have FDT, so you reworks the EFI
-> transport. Is there a reason you don't want to follow the standard KHO
-> way using FDT too?
-> 
-> Please correct me if I am wrong.
+Hi Reinette,
 
-I was wrong. x86 doesn't introduce FDT, it just adds a SETUP_KEXEC_KHO
-entry into setup_data in setup_kho(). Please forgot about it, and sorry
-for the noise.
+On 9/4/2026 11:50 PM, Reinette Chatre wrote:
+> Hi Chenyu,
+> 
 
+[ ... ]
+
+>>> +
+>>> +	if (!(ecx & MBA_IS_LINEAR))
+>>
+>> Maybe also print the following from rdt_get_mb_table()?
+>> 	pr_info("MBA b/w map not implemented for cpu:%d, model:%d",
+>> 		boot_cpu_data.x86, boot_cpu_data.x86_model);
+>>
+>> In the previous patch, a "Non Linear delay-bw map" warning is triggered
+>> during the actual write operation. Similarly, displaying such a message
+>> during bootup in this patch might also be helpful.
+> ok ... but who will the message be helpful to? This is a check of
+> hardware state, not x86 resctrl driver state as in the previous patch.
 > 
-> > 
-> > EFI KHO channel:
-> > 
-> > v5 reworks the EFI transport following Pratyush's and Huacai's reviews
-> > [1, 2].  Instead of rebuilding the EFI configuration table in
-> > LoongArch code and switching st->tables before kexec, the common EFI stub
-> > allocates and installs a persistent table under
-> > LINUX_EFI_KEXEC_HANDOVER_GUID.  This follows the model used by
-> > LINUX_EFI_MEMRESERVE_TABLE_GUID.
-> 
-> > 
-> > The common EFI table parser reserves the stub-allocated table, reads it
-> > during early boot, and calls kho_populate().  An early initcall keeps the
-> > table persistently mapped so it can also be updated on the crash kexec
-> > path.  The implementation is architecture-independent; LoongArch only
-> > selects EFI_KHO when KEXEC_HANDOVER is enabled.
-> > 
-> > The EFI table is global, but kexec can keep separate normal and crash
-> > images and can replace a loaded candidate.  Updating the table while a
-> > candidate image is being loaded could therefore leave it pointing at a
-> > failed candidate while the previously installed image remains the one
-> > that will be executed.  v5 records the KHO data in struct kimage and
-> > synchronizes the channel from the image selected for execution.  Images
-> > without KHO data, including legacy and crash images, clear the channel so
-> > the next kernel boots cold rather than reviving stale state.
-> > 
-> > The GUID name is changed to LINUX_EFI_KEXEC_HANDOVER_GUID as suggested by
-> > Huacai and Pratyush [3].  Existing x86 KHO support continues to use its
-> > setup_data transport.  Besides supporting non-UEFI boot, that entry is
-> > consumed by the x86 decompressor before normal EFI table parsing, so KASLR
-> > only uses KHO scratch areas and does not overwrite preserved memory.  The
-> > new channel is installed by the generic EFI-stub entry path and relies on
-> > EFI_GENERIC_STUB, which x86 does not select.  Moving x86 would therefore
-> > require installing the table from the x86-specific EFI stub and scanning it
-> > in the decompressor, not just selecting EFI_KHO.
-> > 
-> > LoongArch enablement and build fix:
-> > 
-> > The architecture patch now only enables ARCH_SUPPORTS_KEXEC_HANDOVER and
-> > selects the generic EFI channel.  No LoongArch setup reader, kexec writer,
-> > or EFI system-table replacement remains.
-> > 
-> > The linux/mm.h build fix is moved from luo_session.c to kho_block.c, where
-> > the virt_to_phys() and phys_to_virt() calls reside after the liveupdate
-> > refactoring.  This addresses Pratyush's review [4].  Adding linux/mm.h to
-> > asm/io.h was previously attempted, but creates an include cycle under
-> > CONFIG_KFENCE [5].  The fix precedes LoongArch enablement so every
-> > intermediate commit builds with CONFIG_KFENCE=y.
-> > 
-> > Selftest:
-> > 
-> > The LoongArch vmtest boots vmlinux.efi through EDK2 because the initial
-> > EFI stub invocation installs the channel being tested.  QEMU_EFI can
-> > override the firmware filename for distributions that install it under a
-> > different name or path.
-> > 
-> > CONFIG_ACPI_SPCR_TABLE lets the bare earlycon parameter obtain the UART
-> > description from EDK2's SPCR table.  CONFIG_PCI_HOST_GENERIC keeps i8042
-> > enabled while ensuring that the QEMU virt machine's PCI I/O space is
-> > mapped before the legacy fallback probe, addressing Huacai's concern that
-> > the same kernel configuration should remain usable for hosts and guests.
-> > 
-> > With EFI runtime reset services available, panic=-1 and QEMU's existing
-> > -no-reboot option terminate the test normally.  The generic QEMU runner
-> > therefore remains unchanged and does not mask failures by forcibly
-> > terminating QEMU after a timeout.
-> > 
-> > The LoongArch vmtest uses the default KHO scratch-sizing path.  This
-> > series is based on the generic fix that calculates per-node scratch sizes
-> > before scratch allocation [6].
-> > 
-> > The KHO vmtest passes on:
-> > 
-> >   * LoongArch with KVM using QEMU_EFI.fd from edk2-loongarch64.
-> >   * x86_64 with KVM, as regression coverage for the generic kexec/KHO
-> >     changes.
-> > 
-> > Patch layout:
-> > 
-> >   1. Add the generic EFI KHO channel and its ABI.
-> >   2. Synchronize the channel from the selected image at execution.
-> >   3. Fix the kho_block.c header dependency exposed by LoongArch/KFENCE.
-> >   4. Enable KHO on 64-bit LoongArch through the generic EFI channel.
-> >   5. Add LoongArch to the KHO QEMU selftest.
-> > 
-> > Changes since v4:
-> > 
-> >   * Allocate and install the KHO table from the common EFI stub, following
-> >     the EFI memreserve-table model (Pratyush).
-> >   * Parse, reserve, map, and update the channel in generic EFI code; remove
-> >     the LoongArch-specific reader, writer, and st->tables replacement
-> >     (Pratyush, Huacai).
-> >   * Synchronize the global channel at execution rather than image load;
-> >     clear it for cold and crash images and use the scratch payload size.
-> >   * Rename the GUID to LINUX_EFI_KEXEC_HANDOVER_GUID (Huacai, Pratyush).
-> >   * Move the linux/mm.h include from luo_session.c to the actual caller,
-> >     kho_block.c, and place the fix before architecture enablement
-> >     (Pratyush, Huacai).
-> >   * Boot the vmtest through EDK2, allow QEMU_EFI to override the firmware,
-> >     and use vmlinux.efi to exercise the EFI stub and channel.
-> >   * Keep i8042 enabled and select PCI_HOST_GENERIC instead of disabling
-> >     the host configuration in the selftest (Huacai).
-> >   * Enable ACPI_SPCR_TABLE and use the SPCR-provided early console.
-> >   * Exercise the default KHO scratch-sizing path in the LoongArch vmtest;
-> >     depend on the separately posted generic sizing fix [6].
-> >   * Drop the generic QEMU timeout now that EFI runtime reset services make
-> >     the LoongArch guest terminate normally.
-> >   * Rebase onto Linux 7.3-rc1.
-> > 
-> > [1] Pratyush Yadav:
-> >     https://lore.kernel.org/r/2vxzo6f96fmn.fsf@kernel.org/
-> > [2] Huacai Chen:
-> >     https://lore.kernel.org/r/CAAhV-H4PKRNCa4g=6TGepP+trtM82JiMoWgVr3O7PqbZYP9uGw@mail.gmail.com/
-> > [3] https://lore.kernel.org/r/2vxzse4m54nz.fsf@kernel.org/
-> > [4] https://lore.kernel.org/r/2vxzfr0l6fam.fsf@kernel.org/
-> > [5] https://lore.kernel.org/r/202605211925.DbDvQ6ii-lkp@intel.com/
-> > [6] https://lore.kernel.org/loongarch/20260904025101.9959-1-dongtai.guo@linux.dev/
-> > 
-> > Previous version:
-> > 
-> > v4: https://lore.kernel.org/loongarch/20260807103714.33074-1-dongtai.guo@linux.dev/
-> > 
-> > George Guo (5):
-> >   efi: add a KHO configuration table channel
-> >   liveupdate: synchronize EFI KHO channel at execution
-> >   liveupdate: kho_block: include linux/mm.h for virt/phys translation
-> >   LoongArch: enable kexec handover (KHO)
-> >   selftests/kho: add LoongArch vmtest support
-> > 
-> >  arch/loongarch/Kconfig                     |  4 ++
-> >  drivers/firmware/efi/Kconfig               | 12 ++++
-> >  drivers/firmware/efi/efi.c                 | 78 ++++++++++++++++++++++
-> >  drivers/firmware/efi/libstub/efi-stub.c    | 25 +++++++
-> >  include/linux/efi.h                        | 36 ++++++++++
-> >  kernel/crash_core.c                        |  7 ++
-> >  kernel/kexec_core.c                        |  5 ++
-> >  kernel/kexec_internal.h                    |  3 +
-> >  kernel/liveupdate/kexec_handover.c         | 33 +++++++++
-> >  kernel/liveupdate/kho_block.c              |  1 +
-> >  tools/testing/selftests/kho/loongarch.conf | 11 +++
-> >  tools/testing/selftests/kho/vmtest.sh      |  3 +-
-> >  12 files changed, 217 insertions(+), 1 deletion(-)
-> >  create mode 100644 tools/testing/selftests/kho/loongarch.conf
-> > 
-> > 
-> > base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> > prerequisite-patch-id: a2f06addb17cc379b9f98674f087a1642588dc6e
-> > -- 
-> > 2.53.0
+
+This can be used by the admin (not the driver) to query why MBA is not
+enabled by checking the boot message, IMO.
+
+thanks,
+Chenyu
