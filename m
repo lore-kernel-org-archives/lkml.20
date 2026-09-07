@@ -1,128 +1,180 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011047.outbound.protection.outlook.com [40.93.194.47])
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013029.outbound.protection.outlook.com [40.93.201.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8E4337106E
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 05:16:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0781D17C211
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 05:18:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.29
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788758202; cv=fail; b=R6sAYP0/0N8enisoqaxDBQ514OA/bWENQ2xV45OTpz7KpPE3gqAVxYSnz3zYrfg3gd6Hv+btuo3YTl09ZGxaHXZBlxoriAyA5Lfzq88yIcn37d+ZizdP5vA+MVo/nRrMTl5j+Z6n9MnrJCkZuAqbg6d4zJI3fDzdGEUDEMJtlZY=
+	t=1788758326; cv=fail; b=gR34Hmeu2rhH7y9R7uKbiRLDrdnVTcve9TGjiLCB67D+lxVopVpcB9HRMwS+vqLn3VyIXk3HGatXT4whw0PO1you/s2seDYZVU4cmbee1xaRbtx92+MjT64IzBb+boMP+2koRKbWAOypyqQXiugST2AJe4LBYjKDPI5gsP1lBK4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788758202; c=relaxed/simple;
-	bh=T3j80cFIo94f6isnw2dwYUBgShKP52ZWl2+5CuOeStI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=du03F80vAwRhCScfLNdtVg6HlPUtTcejuMgZCMc6QUGtLnmJnxbkqJN4UJcP6W+gYezAkjBDxgQr0qH58G3Ji0skoEkP27HV382XYsx9yZFozSXo+Q3LxenOvdTSIrpLu6VmMrnmg0gw2cwkbwMXUyLAsSpS6WtR4GxzJUH+ZVk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=cslZ8/Ky; arc=fail smtp.client-ip=40.93.194.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1788758326; c=relaxed/simple;
+	bh=5N5gOLcKYjscG4PTnug/wB6VtleNHIZGoY5pOmXYMsQ=;
+	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
+	 In-Reply-To:MIME-Version; b=Nw3zgSAv42jLaFPaX93Mv0OWIGc2qrdTrPIiwDe8iixEL8kwojkkneU+O+anbcF3E1xI/6C04thx+vq+FlbLZPWRX2i8hvSBHj8j4XvWJDWz9LrTY70zRT+hCIPLc7N3Ej6VZsXlLv0W9r4WZ8B5AUyhJ1SfF4iYPDTbemDfoX4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=fxgRzqRW; arc=fail smtp.client-ip=40.93.201.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="cslZ8/Ky"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="fxgRzqRW"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f1ge5A0ZFoQg+LrwgGOas6I11IKyRAJDcNYuii562hGON9bOA7fNaFwnSFpLbnv/rbdv9lb80h035FphtkdU2BOHR9LSSJss4BIffP+VM2kO1cnoLCnQIEDtSFaSInzy92Vl+qg7VHXMYkoWyFhLECmIkAuNzzy6tfv2Ia/wKI0VXhXc1DSwA8hEiXvp3YbZQvR1EEm/f8GoxVssTylX7h/JhEJJZLfR3/J9PT7r9r8g8WGRGuwBNMeL9jEy0o9/A/NI/EULALsud5uExWup4dqwxiqRp9bWOvZi4iyNlAc/kllZXlB72ba0Rd2iJwKw73Pv8aWHUp0dyRpg0ah9+w==
+ b=xRY0NxkID13KKpRD2E5veJ1VUYPdkWTCtf7wGQFohe2NlIiO3UzbE61KXIbmzJOnYDLhmtoEpHpRlwUc5cMiCIjLoajrIRmlGzQWtWaa00XemUvmJBhBvtWtqNKDAmmeHymmA3MDy3YZigcG32Lq8/lg/VLN3Gu/rcmWEMm+aupp1lxgID4YZk3DZW4Y1REVg+1vva4PUgNYZiSU01DpGIkQaDlC3QchJgBU/9d7Cf/zEDSTdNp9qu2qkGNBnKAZtw15pVDpWxcDDJu5A63QOiXfdHlcuIyXwAG+UXlFlhowbiPd3upj4PDiHY4XiG4eR+wKuH9uEjK9sSgpscmKzg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tJ7m4P1cB4/Z9XHqOkS/SvuMelPSWFeXATTX6n79OLw=;
- b=UhnQkB6Rnj9fm1RXBQ656iKr2DjB3YVGe9R+r5Kk+u66qaX3f1bskYCoXZOInMwt0p+gz1RMllkoGjE0VytCjHj7cfGxs7KPQl4vzntDA8EGRXIRqq9Guy5IhpuH55HghGaZW2bq5Q6MFSVIlU+dT8xNQHSX/z/2ETxnu+aFn7rWHd8QlyGfq+6nAUmHEGFt86sF4l0BSuh4V2CquSl2M6iTrJ2fhUseyxFc3piOIIQ0lAhzVousRAI2AmrDsnE2H1w27lIrmxs61dR8by+tIu6BD42qzx2JCNIg5mDruixLU+y7Z9JuhSCpw0zpUAFdG3khnjQmUX2D+pvukPLs3Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=5N5gOLcKYjscG4PTnug/wB6VtleNHIZGoY5pOmXYMsQ=;
+ b=ST6H2QkrFPDTCzlvQ6kyHQJm+qqosXn45TipuHsbL2sshUbGeWnjZQnEbnf8WQXSoT6yfAxtuNzB275QBIEqf8MzUcIH8IX5WN0CyuDK/4HfmWUu5JwVmvmMTnZVqnxnB3ICk0T2sF1PHJMtEJtemgmzZ3HjQNJ3yEuxqWs+8/Emi/cTXiX/Y8g1emjgb3S+nYUAiFjFwjTkwsTDhAWBGkzM+X1yg7E78659wsV/YCPMQL58fKMOKvGXS8ywUmGnxBDR2zlobRBKmCeTcz8qBOgdTMdeQe9/yovpWw7VNzinmUOQw+xxb0pP1NUN4wNDhq3g3IM3xMPs3SWXWnuWXw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tJ7m4P1cB4/Z9XHqOkS/SvuMelPSWFeXATTX6n79OLw=;
- b=cslZ8/Ky7aEVSjGjOM7U5TAvjlUAGgpP+yPuI3nbVMFyWrcfskZ+BwohZqKFkZAk+WWxFQwiEFQg2A655u5I5nRfziAyrH4tqpejiVS5Njc+QbgzkbqUFN9MI3fdWy1aHJuuiFeuTlHMU/du2ugIZomrRxak8di62OMU213PrxE=
-Received: from SJ0PR03CA0353.namprd03.prod.outlook.com (2603:10b6:a03:39c::28)
- by SA1PR12MB8641.namprd12.prod.outlook.com (2603:10b6:806:388::18) with
+ bh=5N5gOLcKYjscG4PTnug/wB6VtleNHIZGoY5pOmXYMsQ=;
+ b=fxgRzqRWfXLNdHY3/KdhYXWX7e5SSVdA1RCoyb0k7z+6DJv9Z4amXavA8Mk+vpp0x/ylm0kBoFwYUAiHWj8Uj+3ZFnZy+zGY1ptP/MSRBcczVj4+g4C3h//a/cdOTRZrNIPD1QGg3ruEAtm5fGp+R6ronwq8UyNypqoh4nJpynM+1h2/XhAvFpU7Me+2EctgzsEF7tzzUhXGjMEstJLq4Qev1HKgVyy2NU1gZj0iXZkqDzqfeCQDVcV99d3qMadnX1jsyjYgnqb7s5+jfGV6SrYRVCicvf93XlhpJYnn7ads0Rsk1mnltTJFonRvHnUy41JXfm1fX1wXs/q6K7jT9g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by IA0PPFF4B476A86.namprd12.prod.outlook.com (2603:10b6:20f:fc04::bea) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 05:16:37 +0000
-Received: from SJ1PEPF00002317.namprd03.prod.outlook.com
- (2603:10b6:a03:39c:cafe::ac) by SJ0PR03CA0353.outlook.office365.com
- (2603:10b6:a03:39c::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Mon, 7
- Sep 2026 05:16:37 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00002317.mail.protection.outlook.com (10.167.242.171) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Mon, 7 Sep 2026 05:16:36 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 7 Sep
- 2026 00:16:36 -0500
-Received: from [10.136.47.225] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Mon, 7 Sep 2026 00:16:33 -0500
-Message-ID: <765afc29-db88-4f70-9189-ab2532ad6439@amd.com>
-Date: Mon, 7 Sep 2026 10:46:27 +0530
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Mon, 7 Sep
+ 2026 05:18:40 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0382.007; Mon, 7 Sep 2026
+ 05:18:39 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 07 Sep 2026 14:18:35 +0900
+Message-Id: <DL8TWI24RH5Q.3HLILWI1D3YQC@nvidia.com>
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "John Hubbard" <jhubbard@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
+ "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex Gaynor"
+ <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 03/31] gpu: nova-core: extract radix3 page table into
+ its own module
+References: <20260822015448.238214-1-jhubbard@nvidia.com>
+ <20260822015448.238214-4-jhubbard@nvidia.com>
+ <DL8R8THTD7T4.260VNQOBXRHJM@nvidia.com>
+ <821c96ee-fab4-4dbb-96d2-b2446a38dade@nvidia.com>
+In-Reply-To: <821c96ee-fab4-4dbb-96d2-b2446a38dade@nvidia.com>
+X-ClientProxiedBy: OS7PR01CA0281.jpnprd01.prod.outlook.com
+ (2603:1096:604:259::17) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND v4 0/3] x86/apic: Add support for additional AMD
- EILVT registers
-To: "Naveen N Rao (AMD)" <naveen@kernel.org>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>
-CC: <linux-kernel@vger.kernel.org>, <x86@kernel.org>, Thomas Gleixner
-	<tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Manali Shukla
-	<manali.shukla@amd.com>, Nikunj A Dadhania <nikunj@amd.com>, "H. Peter Anvin"
-	<hpa@zytor.com>
-References: <cover.1788425679.git.naveen@kernel.org>
-Content-Language: en-US
-From: Bharata B Rao <bharata@amd.com>
-In-Reply-To: <cover.1788425679.git.naveen@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002317:EE_|SA1PR12MB8641:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9d19e9f7-c19b-4c10-51a2-08df0c9f30e4
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|IA0PPFF4B476A86:EE_
+X-MS-Office365-Filtering-Correlation-Id: 44c5287d-30d6-4dad-b1d4-08df0c9f79f4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|36860700016|23010399003|1800799024|13003099007|10067099003|56012099006|11063799006|18002099003|22082099003;
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|7416014|10070799003|4143699003|10067099003|56012099006|11063799006|18002099003|22082099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	Dr+O/UpV+1aHgIc5Z6GPzWXgbd6+/8sogdx/i44RE4Znac/CvhHOXZ4KmOdcdIaqCzqiVWo5kgpJIHp1DNtgfyQIvkvRZMx0YP5rV8NYi0KC2RVxtKe7l3A/Zo553SCppAL3HrOipT/t1q5B4ay8UIqYfEbKaMyjRSigKRT0WHxBay+9o4xXOHCMtRRqpvO0wQFCjIZhMNHv7I9GVz+dTLRip5mhCWMOWGuQ0FFGu4et/KBg+Yk3YbdlRwWOlG/fuH9G929i3Z84UpSfNTEpBpQGINEi5CNye/bd7jgkMrr79F9lL9b83jqX8drqWcM86wSEaTTuqn9GnWZOcJw608xUXIjMFEjA/d5soDapBkvHm0zjZt9c6qH1fQDX44NduFHvAd4sDVqtKzXBf2xqXlJ6R/I5Xiu0mqApLpbQLha/nfYaGNnWHkt0KHRSbvIOS1uSpf579PF6gG9nG4Z5rElYwh4BTPC47AXt4NArjbFBqhGF/cjuHQHUsCfHsgXDypiQFALW+WmJR4l5utRu+JvQercymFKY6MMC6T86TvwVfJXvUCdnjkk8KltqxyNH2sl94hdcqOI8Suq4ZyZTF9lpLDzWPRC+E7cOeQJJkiKXaUfcMyxpEGDrak4cxdBTaffEkrA2uSg4SQCwLUsmqEqkGGGT3zsvkcSyh/gUzTCQFveJRJvxgYjzwxdBbQ65iQOFwL1liIRUEZRzLSDqKg==
+	Wks2vslZOFSfhkibso39HMIJrX+hN4ggUQ9Rldx0MYtDI1nrchwvi5s6YF4G9Ln4Kr0NVssK8h9LRiPouQKqVbfzDBAat8T4UJFXCLo7jBqRG2BVEiUKdWKc/MiwgJ+bRg/Uj5z4l04YUUlhPl17sFTbMBVDM8EkoyjfZlrNiiKdIFwXIIYMQXgayN6XP8sd3uMDO8ScpfPvwD3RbJopdhf3TBNsmbCsWNSljGhC3wlVBYWtOXOKg24aNGbPIWtvM4ndLZE14mfc8/aKDQ3NeF/AA2+S4G/93BkBM88tDedA0CbT2rK8iqpYzeXR5PypxNAHnnFHe3MVVNzldw5mM4edytFZc16JrP70pro2PAZfjLaGJPWhPW3NsNhR/+ChKee1yjSBVlZdtlMTQo4zjMvmRjszscbjxyEOgyr5BpEkKstOM/GkpJHaPvkV7BUln1R5HkQKjKCAIOhYy7nKezG8NwsQtVZIgE18XxiIvDdCDb5bDKC7sGZIqp4IKPvGyTNySneFfq+KD9x9Hrt/W/2pqlvIsqbFekou2zn6+CmBspv7sb2HyBChZR2DMgSLwdXUGHRldfH+BAA0ZdHce5+pcOsoxCsmZpMfUavyCXMwO/vhtYPGbi/PHDT8jcxZI0ITrGNtmN8V3fOFFn7N/rWbX//lMPZTO60eiyqP96w=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(13003099007)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(7416014)(10070799003)(4143699003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	gNegXzjLcZ87VdmX3i3YmECdiiphj2xYqbDvrDhrsnPUlou5VoZqxCHNCneGc3vaixvIBU95HWyKpy3/286n4E53vEzoF20LoMzpXHViSVefBzivPlqM0xtFg8Y5AAAUOokN3oWLe78E36TbWL5SJC13LfpNKUNB5nF2XhPqIGGiZ2tvqeveOZfaAOG1U9fnDmXddH0g/fN0UXYARKSSqlFvO1bmjheT91hdmmLj3Y/udlE/fsZmb/2q1TgpFxCaaWiAwdYkxPj/uJ/9x2uHTrnjbH6pjTEh+ReNV5e2mEb2okEbGGotJDMi7ELbfGlfC7J0UYaFQFdroT7bfki8ZYNFgNOa/tt7lrHAioYNReJdl2ifh/qv0HZMM8Yc6GUO/LoRF179p+wuDyxT7OKlmOGz9f1OEb8kS13w146n3+g5bkr/UFpZBfdRvyHaepU1
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 05:16:36.8207
+	=?utf-8?B?dFRFK3ZBOWR1WHpxV3BhaTNnRmRWQzVDcVJjVHpYdnpkZCtNaWF5d211SVR4?=
+ =?utf-8?B?NElibGN0WnRSSVNVdGxzOVd3UnBrbzg5MVNpZHNTTkFlZE1PaTJ3anpMQTVB?=
+ =?utf-8?B?THZqaTU3WDg4bTNwSS9QMzNDQTEwclhOcmV3cGdTZk1oT05iZjJ4U0tLKzJs?=
+ =?utf-8?B?T1kzaGVrMzZuejduVW8vN25vMUZrMkxCR1IrS2RhRVpoUlh3NmlrUFJKSGtK?=
+ =?utf-8?B?NVllWWQ3SVN5ZkUya3BUTUJmUW9OSWFoSVNyZGg3Nm0reWIvTDF6ZHdXazVv?=
+ =?utf-8?B?WkZWZ2pXbE9hbXVBSjFnejZUMVlzdG1CbStPaXNtT3dRVWVJYytPcklYN2k0?=
+ =?utf-8?B?bW5MKzhsOWVNMElGV0NoNmFCMGJ3S3NZZjJzNjdrNVp1bHFnbmJZRUVzZXc4?=
+ =?utf-8?B?TVQzMjZtWlZIVDMwYlQrckM2VGZrNU5GaWFWNzRyV0hWQTBRWGkrekpIdThE?=
+ =?utf-8?B?Sk1FNVgvNGI4NkNudkkxV05nUlBuUzhjNE1SZTA2eTdKMXdMdXV4UXRSRXNF?=
+ =?utf-8?B?ZjY5ZmpSbnZXaU9EQkVUK1V6b3dlNjFRTnZMMnJ3dHZwYytPa3lJUzlwM1E2?=
+ =?utf-8?B?TkMrZGFqRkpiOS9kdjcxakpDTG5lbUp3dU9uZ01NalpGWmEvWW03MEZ5WXk2?=
+ =?utf-8?B?RFVvTnJiQXNDZ0ZjNG5tT2c4TWxRU1hOTkRxTDZUMGRuV1ZTZ3BMcWlFYlQz?=
+ =?utf-8?B?YStPZUc4c29wdm0yV1pkYktxRDQrT2k0Y1hDZG1CTURweUpuK3lKNzNORmd5?=
+ =?utf-8?B?TFV4SlQ4RVNLVk54bEtlbnduWE04YTFaRUdCQUdPRERTaFVwa1pmMVNDSGlL?=
+ =?utf-8?B?ME9qN3M2RnFSb0dPUUlua3RZakdjbUprZGFLYVdkU0x0RFRuS29ndnlaZk1p?=
+ =?utf-8?B?eWRibFk1TGNJWFplSys0RHNWN0o4Szg2TFJtelVEeDRYVk1PSWdwM1VqMzVS?=
+ =?utf-8?B?VCt5RTNrTG9WanZzKzVuYWtvN2VQQU5jbzJ1RktrYlZmdEU2bzlscEZyN0tr?=
+ =?utf-8?B?U2lFZlRmUkhuTldRZ2tYQmo2UXB6NW56K091aEdkb3JjZ3dHRkxIMHRFdHBP?=
+ =?utf-8?B?cG1pTldqaC9kWlFYaHJPRkpwa0dWak5ybSt3L2h0ZnNZa0Mya0VhN0pEdkd1?=
+ =?utf-8?B?cnp0VzE3aFM1Vk5yRnl0Q2U3OGtsZ3ZmYTRBWXdHcGJlemM1eVVHUkN2Z0VR?=
+ =?utf-8?B?KzF0VWdRQS9vYWdUcXBTZVl1ODVQNmtNSTR2c3pVSGJTdkhCVWRpa3ZJWVVX?=
+ =?utf-8?B?SjdIVGJzZi9iMG1EdzBJZHo4V2l5Vkh2QTZpOS9JMVdUZCtGVTU4SG9RVW5Q?=
+ =?utf-8?B?bUIvdmRTaEVEd3JRdlBEUm1OWEphVlAwMkNaQ2tvdXphVnZuaTNyQmF3eWty?=
+ =?utf-8?B?ZGRrZ0drbVpYeDQzRWdlcUhBbkpQYkhvWGNERGYwV29PNFJzUitqZHJYOFpq?=
+ =?utf-8?B?VE9iV2NWc01vSE1pMkpySEgrSDNOZmVwMGZ6QStYSWxUYy9DMGd1UmdBdlU3?=
+ =?utf-8?B?RXFsOTdzeVlMNmhZRXhnT0ZMQnN1Z0hSY0UxYXdsL0dqeU4xZERrcER4T3Bx?=
+ =?utf-8?B?UXZkY2xNYjNMT1Zlamp0OFFWL01oVmFoaUttbVl6NjduSlJwUm1FbkhKcGxV?=
+ =?utf-8?B?ZXdDVVM2SmhYd0ticWttWFJQUlJkellZSUd5UjhtcEtGUW9ndXQwTUpFOGha?=
+ =?utf-8?B?OXBjQWM5MFpBYTdkd29RdXhCNG42b2RMYjdKRkxRQzM3RDd0Yll4OUV0SVZK?=
+ =?utf-8?B?Tk1WSzh1bmh2WVdhYk5haFlhY3NwaFlkc3RLTFR6b3V6U3p4UEtHaDBLc2Q3?=
+ =?utf-8?B?MGc0dVNuVHBzdExTL2U4a0ovVWRzTmJhNUJBNVVlbk5iUzZQM20vbzJxRU1i?=
+ =?utf-8?B?KytCSTZZZGp0TjFObUZLenFsK1dpOG9hcDF2a0UzZjR1QUJHZUF2VS9uNUN4?=
+ =?utf-8?B?ZHNhNHVNZlhwV21DV3Fud3Y4d0JDVVdBbmdHckh2Q3JyUEs5YmlYTUJ6d3VU?=
+ =?utf-8?B?ZnFKc3JZRk0xV2VQbGhiVkphY3ZoQ2hTMDd6b2FUWmhUMjNXWE5zc0YvcE5Z?=
+ =?utf-8?B?QnBNMmtGMWlJVk5sNVRYSUthWVJibGw2L09DaFIrNllmNVZaRVFMTFNzdGI4?=
+ =?utf-8?B?dlFKdklLU2pPRUt1U1BXanNZNEN4bUVNZmNMYU5lU1VOZXUwTXFzaUxFUE5E?=
+ =?utf-8?B?Rjdsb2VlbmZSWGN4RXcvTFllck1HNXVSQkJJdTl4Qm83U2FLSmJwRlNtSnNy?=
+ =?utf-8?B?TmJQWTFIVklYekZCZERSQmVPeUtLQjkwUkY0RlJmN3BjUkptbEg4M1VlOXM2?=
+ =?utf-8?B?MWk4V1FtV1ExY0NPMHp0Qzk2R0F0NisvOFM4STRjOWNDVEpyTkNsNllWWXVF?=
+ =?utf-8?Q?bstRZ0TCgaqbj30wQKcc/ahHihbZwX9CzoHtsWTh4zuAm?=
+X-MS-Exchange-AntiSpam-MessageData-1: w7czP4nfUnbMew==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 44c5287d-30d6-4dad-b1d4-08df0c9f79f4
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 05:18:39.7709
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d19e9f7-c19b-4c10-51a2-08df0c9f30e4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00002317.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8641
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pArOSAIi4xcQPRhG/UOsWC8MiVgAF7/Lv3OGC648hfOyZDJaO7Bq+QYrhguLG71gONS6T4xfcLsuhh1ZNLksSQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPFF4B476A86
 
-On 03-Sep-26 2:58 PM, Naveen N Rao (AMD) wrote:
-> Add support for additional APIC EILVT registers being introduced in 
-> future AMD processors:
-> https://docs.amd.com/v/u/en-US/69205_1.00_AMD64_IBS_PUB)
-> 
-> This is a resend of v4, rebased on tip/master. Previous posting:
-> http://lore.kernel.org/r/cover.1784785046.git.naveen@kernel.org
+On Mon Sep 7, 2026 at 1:20 PM JST, John Hubbard wrote:
+> On 9/6/26 8:13 PM, Alexandre Courbot wrote:
+>> On Sat Aug 22, 2026 at 10:54 AM JST, John Hubbard wrote:
+>> <...>
+>> I was contemplating merging this patch early as it is a reasonable
+>> change on its own, but unfortunately these two introduced (and unused
+>> for now) members prevent me from doing so. They are also not related to
+>> moving the Radix3 code around. Can you introduce them when they are
+>> actually used?
+>
+> Sure.
+>
+>>=20
+>> This would allow me to merge this one and patch 6 (which btw is
+>> strangely not placed right after this one, with unrelated changes in
+>> between) early and lighten the series a bit.
+>>=20
+>> I think patch 11 can also go in early, but I refrained from picking it
+>> up now to spare you a conflict upon rebasing this series. Ideally this
+>> one would also have been at the beginning of the series.
+>
+> Don't worry about conflicts, because lately I can resolve those pretty
+> much automatically, with today's tools.
 
-This change is required by IBS memory profiler as well which is being posted as
-one of the hotness sources in pghot patchset
-(https://lore.kernel.org/linux-mm/20260728054356.291998-1-bharata@amd.com/)
+I do worry because today's tools tend to introduce churn when they meet
+a speedbump. :')
 
-Tested this series with pghot+ibs memory profiler.
+>
+> Should I sent a separate 2-patch series, with this patch merged in with
+> patch 6, and patch 11, then? I also would like this series to be
+> shorter, of course.
 
-For the series, Tested-by: Bharata B Rao <bharata@amd.com>
+A separate series would be the shortest course, I think we could merge
+it quickly in this case.
 
-Regards,
-Bharata.
+Let's keep the move to a new module and zero-padding as separate patches
+though, it makes the history cleaner.
