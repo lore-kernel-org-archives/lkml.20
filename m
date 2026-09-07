@@ -1,113 +1,148 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 193CC403E8A
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:41:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46D543845B0;
+	Mon,  7 Sep 2026 06:42:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788763315; cv=none; b=eGCe/mZqkrcHr0eL2cLLqhFIgIJ+fq7ErFcEclx3BvFLUf4mg0apLDEwqyT3b/q9Vt2LG3/v/HIzFmaa9Ogp2olYQoILgtpGjVROiuFEvfilDmLKGUlt/bxQI5g13Q0JOnvDSBgllLXMVgGKwkIjqWFzM2GWriCFPVPWKiE+QVQ=
+	t=1788763347; cv=none; b=l+kY6SWKVOoL0OUMNdJ7Mzt6R3DQ9rF+r+O8w+5PA21F6xViqG0di2cLDp7Cx6nOKBdqj4ckQ4tGOq+MOboXd0l0GoIvfMam/Hci53tSoNi3SDJaSgBdufUpEXvGdzKKbk69jWEPUrdmzsyDGniRi6Tpkjzs9M49aBAdY5gWGZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788763315; c=relaxed/simple;
-	bh=1cJY6sL+Q6oG2/VnhFlaXz7tgv3rZc5fSR5r9wiilcM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QSGvPbFgf8c2we8iW6zpYSPJek6YzEXp8SDr6E+nKJcxI9x61va8gBrSta/o1EIq91/Zf4WqMRUe0ynneK4YHdD8iP1vO/TrGQvx77+Dph3CL/9htUguKZoEdzxAZ+6O6dCwSThDLsiEqBIRXTFb+DtumSH3CImcWErD0sj7Igo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n9QbOWEP; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788763347; c=relaxed/simple;
+	bh=BOt0JM0ykbgk6R0bIWLPdl/vbv2tYWoVuu2Rm7dfXng=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=s84sFCr7C+pBk5auCSISfi70F0tieM3VFipyvpDnpR4rwODb0z2y8qI3s96puehmTtLKjUdmVm6Un2msYT02QLX90M7iOb4mvu1kd0FEJjIIrKcXScGiDQGp993VR3xA0wFM57cY/XhhPCr+ZabW3gj+Cr8GhFNRQZa23F3Q1RM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=TZTTF+4U; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=TVsmZmXr; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n9QbOWEP"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d58efc7356so40015095ad.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:41:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788763313; x=1789368113; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vvpO/+VHQl+z4w7f6yOyVn2oZshJZNt+Vlm/SjhRNLI=;
-        b=n9QbOWEPubRmudynV5jhJHNME6N0aBKMpxH7MFo7ob+wBluIf59xWfYxptknsKtU7r
-         c+zAKNtY9z1SzZT5AKfDujDWOOzvhw9/V/pedX7IvvtVuEzmZz/vg3BSlHDqA2KSLNar
-         fAF4SN/iq+xWTW4XORM8IoO7smJOiCMhb49Dd6qi/EL501Q1Ra1pGYpCn8lta5chuoac
-         eqxn9kSvTYnVzs1UG22fn+bAG1anA3N92RlXGR13p+rwHEQlhxSyF8GC9ZfKfECdh81r
-         2uMXtLI3+8ssDhVgsvxuplUgSfO8SEo3Grei6DwzzdXHmynuhM+Div8sFLqnIABf3Mik
-         b5FA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788763313; x=1789368113;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vvpO/+VHQl+z4w7f6yOyVn2oZshJZNt+Vlm/SjhRNLI=;
-        b=aLYJ0nDW9DfkjcZPXjOObQmbENygVMYNswOXjAideqSiAK2WtGQb8rAXhZBXbQiYpi
-         kXYcfn7A907OqIwKdi7HrvrnTNKiPLSnGaNMidv4Skc9PKaa6BdwccFX44t6YYFJ4jAf
-         +3bDfFay/4eV76lbUncV9Ontcie/u3paCnbNnM7WKzP/L084l8upF3A8dIFIr8zk0tpu
-         FiDsJ0f4x+53pwJ25oJATV8H/EA1zHsPt1Kv2rkgrZjS4deV+kw2BhjTNJbj8ojGxbt+
-         wtJhLlaFmXYlwk9Yx20Tss0oFfpBEZRGCigFvh8mkfVf4xBp9eNb+vf2yfwG7Rf1mV5l
-         /sHA==
-X-Forwarded-Encrypted: i=1; AKwUvBzfSWrJ2wDONcqUxUzcY7xp4wcK2Ku8sUjkNcJADf4eDucTmZtevFGqxMdtqvqGWkzO8vZWneuvhEQeoAY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lr89cnJdSrHaSz84xxqQzmD5NUgyZdQYhkTD6OUQoKocLbMfip
-	nAreNRpBEHkkc4HqqrVRvcIMTeyYChazznw9MSEx+2/r6a3ykp025OYM
-X-Gm-Gg: AYBFou1PEpV7IvxIAus1rg62ZerlgCQCy7pYWJ87s4GgcTcnem37qVNLHq6VaTuBYHW
-	AteswmqEFQ24cR+sj6aK4d7ibHo0ONVdCcrItW+AdPT66mDJ3OshYYYGwMVWe/Ehf3cTQM0aNjj
-	au0Oir1XXDaYud2b88KmIKugJJLl8DRwwpL7ouKJkLjljxTXE+cpfEMzhhc2kp4avPbvyn1/sCk
-	yoABUyBH8aK3oplDTQTOR4LulDGTIjgU5s+yfXs/cIBObj4v1dd8dKpFMkv3T5xtcpYqExthqqt
-	6t9gBgKTrzVqcavTdH7fCOQZJUgiCkva5DiVCRXUMKyeZ+E1CAVmWNCoDMO2tPKqjvzVD+gk5UF
-	rt7RiPksPAXRvkkA9U32tVC+Wjr5yBLNpCmepodyEVaGw7TZ1FbyOe52wxmkQzeoGgzW8sDFtWm
-	625tBzBPt8ygMWY8rMoXxE/dfjPuHBeMc1kvAFMhp74ktBAD+QY+daO9R9vOIdwWIDTiCjkoKhv
-	NIB7JKpNv3p+776FVwnMyuZ
-X-Received: by 2002:a17:90b:5905:b0:398:9bd5:490b with SMTP id 98e67ed59e1d1-39b262133ccmr31094553a91.18.1788763313430;
-        Sun, 06 Sep 2026 23:41:53 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143240d86c3sm22413038c88.0.2026.09.06.23.41.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 23:41:53 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Shuah Khan <shuah@kernel.org>,
-	Tony Luck <tony.luck@intel.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	x86@kernel.org,
-	Dave Martin <Dave.Martin@arm.com>,
-	James Morse <james.morse@arm.com>,
-	Babu Moger <babu.moger@amd.com>,
-	Ming Lei <tom.leiming@gmail.com>
-Cc: linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-block@vger.kernel.org
-Subject: [PATCH 2/2] selftests: core: fix repeated word 'and' in comment
-Date: Mon,  7 Sep 2026 12:11:38 +0530
-Message-ID: <20260907064138.38689-3-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260907064138.38689-1-hemanth.selam@gmail.com>
-References: <20260907064138.38689-1-hemanth.selam@gmail.com>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="TZTTF+4U";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="TVsmZmXr"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1788763321; bh=KtCwpxgTdgANQPuSDK+5DfN
+	OWiP7yAIRc/nEIcBZHLg=; b=TZTTF+4Uk9Y/sJ3vdSisQUNfb27IZfQpAJU9NWdNlqa3LJ6pji
+	Vt3aUtJIutlOLEaC3bIbvXTDUTcvx6krQ7fcmI5ViwrR7DIC3laA1TmzkT3luqgr3DrhKIATnFg
+	8sOAy+afDxAzVVMQRaqsVHwsM2xH3ShX63L4stvNDWsjoa/MkML0naZGvEv4qMZQsu4EnS+vXs0
+	nN5NSdTtMt9V4CKSVOnVdI7ijzPjv2v8ZltbRSLpmUoN6ZOkzX4FeRuMFvG9NXtN0L9hcHYXktH
+	LX35Mg5rifs6Ti5WU9xDNXrzJTFIg0IOQaqyuzVne0Wgco20yl71pKmtNci8Y+DgvNg==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1788763321; bh=KtCwpxgTdgANQPuSDK+5DfN
+	OWiP7yAIRc/nEIcBZHLg=; b=TVsmZmXrhFTjLfjFGybvwCYmglUBGxcNVWMTCLsRVSWXxcbk/3
+	yNl/U/jMmZ6pSiF0LkswmQQ8YzwZVblq3RCw==;
+Message-ID: <54719b3e-d882-4b0c-b477-1e12dcf65133@mainlining.org>
+Date: Mon, 7 Sep 2026 09:42:00 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 0/2] Novatek NT51021 DSI panel IC driver
+To: Ryan Brue <ryanbrue.dev@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>
+References: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
+ <20260907060129.120497-1-ryanbrue.dev@gmail.com>
+Content-Language: ru-RU, en-US
+From: Nickolay Goppen <setotau@mainlining.org>
+In-Reply-To: <20260907060129.120497-1-ryanbrue.dev@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Drop the second 'and', reported by checkpatch.pl as a possible repeated
-word.  Only touches a comment, no code changes.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- tools/testing/selftests/core/close_range_test.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+07.09.2026 09:01, Ryan Brue wrote:
+> Hi Nickolay,
+>
+> I sent a duplicate NT51021 driver on September 5th without finding
+> yours from the 29th first. That was my mistake, and I have withdrawn
+> mine. That's my bad, I'm new to kernel development :)
+>
+> Since I had the hardware set up, I tested your series on the device I
+> am working on: the Amazon Fire HD 10 (2017), an MT8173 tablet with a BOE
+> 1200x1920 NT51021 module, driven by mediatek-drm rather than msm. It
+> works.
+>
+> Concretely, on that panel:
+>
+>    - your 10.1" register sequence, timings and mode_flags, unmodified,
+>      bring the panel up correctly at your 60 Hz / 993.5 Mbps per lane
+>    - it also works with my vendor's own sequence and timings under your
+>      driver, at 62.5 Hz / 980 Mbps
+>    - verified across a cold boot, display off and on cycles and a
+>      suspend/resume, with the MIPI TX PLL reading back at the intended
+>      rate each time
+>
+> So, for what it is worth on hardware you cannot test:
+>
+> Tested-by: Ryan Brue <ryanbrue.dev@gmail.com>
+>
+> Two things I checked that might save you answering them later:
+>
+>    - The generic writes are right. Xiaomi's own panel dtsi uses dtype
+>      0x29, and this panel accepts both generic and DCS short writes, so
+>      nothing depends on the choice.
+>
+>    - prepare() never sending a set_display_on looked like an omission to
+>      me at first, but the 0x01 software reset at the head of the init
+>      restores it, and repeated off and on cycles pass. It may be worth a
+>      comment, since unprepare() does send set_display_off and the
+>      asymmetry invites the question.
+>
+> One question on the binding, which is as much about my patch as yours.
+> Where does "boe,tv101wum-nx0" come from? Xiaomi's panel dtsi
+> (dsi-panel-nt51021-boe-10wu-video.dtsi) gives only
+>
+>      qcom,mdss-dsi-panel-name = "NT51021_BOE_BOE10";
+>
+> with no part number, and the register sequence in your driver matches
+> that file byte for byte. TV101WUM-NX0 is a real BOE part, and its
+> datasheet active area of 216.576 x 135.36 mm agrees nicely with the
+> 135 x 216 in that dtsi, so the attribution looks reasonable. But if it
+> is inferred rather than read off the panel or a BOM, it may be worth
+> saying so in the commit message, or naming the compatible after the
+> board the way panel-novatek-nt36523.c does for
+> xiaomi,elish-boe-nt36523.
+>
+> I ask because my module has no identity I can establish at all. It
+> answers no DSI read, DCS or generic, before or after sleep-out; the
+> vendor kernel and bootloader name it only "BOE", chosen from two board
+> ID straps; and its vendor-declared physical height is arithmetically
+> impossible, since 1200/136 and 1920/221 disagree by 1.5%. So I am
+> naming mine after the board, and would rather not accidentally imply it
+> is or is not your part.
 
-diff --git a/tools/testing/selftests/core/close_range_test.c b/tools/testing/selftests/core/close_range_test.c
-index f14eca63f20c..88e7ce6ee977 100644
---- a/tools/testing/selftests/core/close_range_test.c
-+++ b/tools/testing/selftests/core/close_range_test.c
-@@ -506,7 +506,7 @@ TEST(close_range_cloexec_unshare_syzbot)
- 
- 	/*
- 	 * Create a huge gap in the fd table. When we now call
--	 * CLOSE_RANGE_UNSHARE with a shared fd table and and with ~0U as upper
-+	 * CLOSE_RANGE_UNSHARE with a shared fd table and with ~0U as upper
- 	 * bound the kernel will only copy up to fd1 file descriptors into the
- 	 * new fd table. If the kernel is buggy and doesn't handle
- 	 * CLOSE_RANGE_CLOEXEC correctly it will not have copied all file
+I've found these part numbers on the photos of a replacement panels from 
+the AliExpress.
+
+Also, for TV101WUM-NX0, I have a confirmation from Alexey Min, who 
+disassembled
+Xiaomi Mi Pad 4 Plus and took a photo of the panel's part number.
+
+> If it is useful, I have the Fire HD 10 panel ready as a variant on top
+> of your series: two patches, binding and driver, adding
+> amazon,suez-boe-nt51021. The only change it needs in your code is
+> making mode_flags per variant. My vendor asks for sync-event video mode
+> with a continuously running HS clock rather than burst, and your two
+> panels keep exactly the flags they have now. Burst worked on my panel
+> too, so this is about matching what the module is characterised for,
+> not a fix.
+I will try to do that. Can I add you to the maintainers of this panel 
+driver?
+> I will hold that until your v2, since Neil's renaming will touch every
+> identifier it adds. Happy to test v2 on this hardware when you post it.
+>
+> Thanks for doing this first.
+>
+> Ryan
+
 -- 
-2.48.1
+Best regards,
+Nickolay
 
