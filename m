@@ -1,152 +1,290 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mta1.migadu.com (out-151.mta1.migadu.com [95.215.58.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD9D3B14D5
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 18:50:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006413AA9CA
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 18:51:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788807018; cv=none; b=qJXxl1gfXyHem9je/voy99VyRfxOtCREwndFUoXI4fyNU2y8Dl0TgoRkBSJ7xCmtNW5zbuWaVWDP486V5sBFO99zuBL8DfzaO9z4kusDQx+HE7jAH/fMMB7tqZmgvy0dX709IQHhdpPuqgVFag3/gB3hZLgxc+GBG19JqpyrU/g=
+	t=1788807081; cv=none; b=HFfc6c7DmNAbktq3mp084qg96+7AGHnWoFB2Eehfk995eb2htrpqLRnC5nDp08dc72D82AbOgN2UzgRQzXmfID5e5IfplFObuKvPB9TIY8Q/ocuqI7nGWCdf20U2tAkMLGDnqy3T9VL0WpHSfBYllDKvtBIRs+6cHNxNSE9/1+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788807018; c=relaxed/simple;
-	bh=J9BZRX6oP1MPxPyLTPWVaWjRNa4HUnYcg26VY3Rb6Zo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Nwd2KZfT8hXlpki7H1t9f4EEz0PLLLx9kaCs+8SDU2W+EgAte5erNHRLLzhhniYXusXtTrLElSB4EGFYT/5QKt7R5qj+6nvsVIZM/m6cGWSJVQCSG4dmL7cBZWdKmMBb3s4Jz7xiecrQSI31jahyannWsGFzSrBEgm9cxiuIAv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JEJve51b; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788807081; c=relaxed/simple;
+	bh=NddO47tYxBI2h7DsCq/hs4VZYoZz/R9enIlpJ3TUNlw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Fd7U39Cv686fZAg/YW3aeORMBzweeWsNhXpnbwy6QCCUmY1myb/Bk05OTmLkBCJ4p4aSwWxHgNquSdEtkpgPyMg28j/hQA5aGe4zwWhbmi3gbvMwCMeQk/WgG9lqqgl+Bb2S89YIL7QE+NqfgAEhHe5umm8r4aKJlZysoV4tKMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=EcL5nzSM; arc=none smtp.client-ip=95.215.58.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JEJve51b"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843971bdd0so403430f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 11:50:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788807004; x=1789411804; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rOfBbKNvf4wumPkciSn2R6wvTiBsYFrhYc9rrrbfPSA=;
-        b=JEJve51ba4qmTYywtPrxmTgZDV+nx4L6v/EyhZZ1UBWMZDVUXMZVzNWpfZlfGkOm8B
-         htGgT+WhPbUI3EVRc9DhocNSUlJKktQPMiY/VWiGX9f3m93iMuTX5kwEaqr9Au1FfwGn
-         RoBHwY74HEhpMSUv8EdKs2wl62WkQ5TR/Ba4wwoSJxKes4avtnRDhky7RBRN6775U7ZE
-         pvRBoJKxtUYO6yCgep9dzxgjjQzAYh3bNV+VTQwLJ7mQPc87KPSJjJpG+Ifk+Ijk57kc
-         imjfcc/cw3VzI6iw0ZWzHJr4M/Z8RNDdAGh1NNfa2gvMIGpDgizfHFQt37sw5GobY+4X
-         Gr+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788807004; x=1789411804;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rOfBbKNvf4wumPkciSn2R6wvTiBsYFrhYc9rrrbfPSA=;
-        b=PP15FH0sD3K/rMu4dpcn7GQYYom9rMUV5t+0Z4vxKS815Qf+FCyOD1KHF9WV3e/VmU
-         /BdlaXlbgdwMyVqzxFS7vtCDkR7lfqsgJfIeZq89f6vEcm2qvlLb9pcjiPE8Ft0C+q7P
-         7J6Ity1TEFRM1lvzHMx2QFBXF3yIur5PihwSJTOCSKbvtFCqk+Jn4V3ss4fzDp/YNi9C
-         vce+E6THDZng2vmO8zF+KBk7O4ilsbOUJ29JBeA1lsKkEoaa9x8gSPK4tZ401IMB7b8V
-         lxxOzU2tx2ARIuLu71tbyBtXSQ5q5U2myieKUfnOuyT+TiX4938M+nHETxnQo308xdt4
-         qzMQ==
-X-Forwarded-Encrypted: i=1; AKwUvByGRUhOeBBUUvaHOIxN/9svQeJvER/0GI6aH3xNR3nOxSe9FbQ3lFUdq7WRt9ryVVa7uV8CjAfakzDwaiA=@vger.kernel.org
-X-Gm-Message-State: AFuF++n9EqMSUc98lAFaYrbiWkqMr6ZXGmcxctL8qc7aY9jPcWQounEA
-	T1teSDwIt7BsIVsZ20mT1y/+ZHL7NON/CqAw/fMN9589NUfDI28gYv6lEOWzrJLIo2iB/w==
-X-Gm-Gg: AYBFou3+halVSVKRj1vKm2zGdTWg1lE0PY0zJl1dj+HHphfsrNZuJZss+1y7bDeqTAM
-	qw2k1v0vo8UVCiNyqceJWgzWCG5Rth5qwlT1jwFkXUDgdP5q/kg44BBBWUYkTioFJj3g7ZXoPrL
-	gARO0s5D4I55xf5NvzQH6m8j2IfKKAR+MKBQa1PaWNO5lGOyTYoRyPcbZujHKAmL/Q50IwWK0eT
-	R6HA45xJ5+aORO3Yb6XfFTzP/Ae9tQBFg8jTMinqtxRUCUabvhyZ9lLACd7M2JzlVhi2JtQls/V
-	QM/mwI5gYA8uVsta3zP990dJ63HpaXD4VkK50f5iwEx5x3sG9XD/+XdXS8P3eSPV4AJlPGTL/8J
-	JlaMosw51akl1jSr9kvVnbBbpwy5wy5TLQIpRqQoaXtMq3Ol7iphGWdvozed70cVvMeCfw7oUhl
-	b/J9hc5GiNZM8Xp2k4UdCI3xZk4OQZ/lcdT1v18ZxNP5k4wkIWcQB+uotHZakg0IRsa5dJNngDx
-	MVmOCk0oEio3yMacjkg5M0diuTM3IYpYC7Neg/0MxcUnYfAVACkqkeGbN0adgOc3HVroMMWXCSD
-	Iy9P47LqzGY+ig==
-X-Received: by 2002:a05:600c:a305:b0:49c:ff81:e062 with SMTP id 5b1f17b1804b1-49cff81e076mr147773075e9.2.1788807003690;
-        Mon, 07 Sep 2026 11:50:03 -0700 (PDT)
-Received: from pop-os.. (98.102.222.87.dynamic.jazztel.es. [87.222.102.98])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce591f846sm203600315e9.1.2026.09.07.11.50.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 11:50:03 -0700 (PDT)
-From: Miguel Garcia <miguelgarciaroman8@gmail.com>
-To: stable@vger.kernel.org
-Cc: dmitry.torokhov@gmail.com,
-	gregkh@linuxfoundation.org,
-	pengpeng@iscas.ac.cn,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.6.y] Input: aiptek - validate raw macro indices before updating state
-Date: Mon,  7 Sep 2026 20:50:01 +0200
-Message-ID: <20260907185001.1567957-1-miguelgarciaroman8@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="EcL5nzSM"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=NddO47tYxBI2h7DsCq/hs4VZYoZz/R9enIlpJ3TUNlw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788807072; v=1; x=1789411872;
+ b=EcL5nzSMc/vm/90o63vsPdZHGM3U7c9pGvBSvfZmIIpjN9vH34WFfRrRdNfk2xBuYWbQ6Ckr
+ MeV4cOF0JgerKOzZLNevblkr8FTzqlzYmcJ1cbCFhA3P5a037/TPsO5vBCLIsmzoNgzHzwMK6Lp
+ mxU+qbAzF1dt6uO4RS6b8g68=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0ed654492ec4f958;
+	Mon, 07 Sep 2026 18:51:11 +0000
+X-Mizu-Trace-ID: 0ed654492ec4f958
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <6df0f368-0acb-49b4-8bf6-c82d3d2c79a1@linux.dev>
+Date: Mon, 7 Sep 2026 11:51:06 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next v8 1/2] mm/bpf: Add bpf_proactive_reclaim kfunc
+To: Hui Zhu <hui.zhu@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov
+ <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>,
+ Barry Song <baohua@kernel.org>, Geliang Tang <geliang@kernel.org>,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org
+Cc: Hui Zhu <zhuhui@kylinos.cn>
+References: <cover.1788764121.git.zhuhui@kylinos.cn>
+ <0f1e2b5408aef7baaacf7306dff5f6d4fb91e441.1788764121.git.zhuhui@kylinos.cn>
+Content-Language: en-US
+From: JP Kobryn <jp.kobryn@linux.dev>
+In-Reply-To: <0f1e2b5408aef7baaacf7306dff5f6d4fb91e441.1788764121.git.zhuhui@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Hi Hui,
 
-aiptek_irq() derives macro key indices directly from tablet reports and
-then uses them to index macroKeyEvents[]. Report types 4 and 5 also save
-the derived value in aiptek->lastMacro and later use that state to
-release the previous key.
+On 9/7/26 12:08 AM, Hui Zhu wrote:
+> From: Hui Zhu <zhuhui@kylinos.cn>
+> 
+> Add bpf_proactive_reclaim(), a sleepable kfunc which performs one
+> proactive reclaim pass on a given memory cgroup, similar to a write
+> to memory.reclaim but without retrying until the target is reached.
 
-Validate the raw macro index once before it enters that state machine, so
-lastMacro only ever stores an in-range macro key. Keep direct bounds
-checks for report type 6, which reads the macro number from the packet
-body and uses it immediately.
+The cover letter has the reasons why you're adding this kfunc. It should
+be included before this paragraph.
 
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Link: https://patch.msgid.link/20260329001711.88076-1-pengpeng@iscas.ac.cn
-[dtor: fix macro fallback in report 5s to use -1]
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-(cherry picked from commit 95dffe32a66cbed07fbfa7afed39d56d5014e04f)
-Signed-off-by: Miguel Garcia <miguelgarciaroman8@gmail.com>
----
- drivers/input/tablet/aiptek.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+> 
+> The kfunc is restricted to BPF_PROG_TYPE_SYSCALL so that reclaim
+> always runs in a clean process context. Generic sleepable programs
+> may execute with filesystem locks held or in NOFS/NOIO contexts,
+> where the reclaim path could deadlock in filesystem shrinkers. A
+> SYSCALL program can still drive reclaim asynchronously through
+> bpf_wq or task_work callbacks, which run in process context and
+> keep the SYSCALL program type, so they can call the kfunc too.
 
-diff --git a/drivers/input/tablet/aiptek.c b/drivers/input/tablet/aiptek.c
-index baabc51547b83..6210cd99d6291 100644
---- a/drivers/input/tablet/aiptek.c
-+++ b/drivers/input/tablet/aiptek.c
-@@ -658,6 +658,8 @@ static void aiptek_irq(struct urb *urb)
- 		pck = (data[1] & aiptek->curSetting.stylusButtonUpper) != 0 ? 1 : 0;
- 
- 		macro = dv && p && tip && !(data[3] & 1) ? (data[3] >> 1) : -1;
-+		if (macro >= ARRAY_SIZE(macroKeyEvents))
-+			macro = -1;
- 		z = get_unaligned_le16(data + 4);
- 
- 		if (dv) {
-@@ -699,7 +701,9 @@ static void aiptek_irq(struct urb *urb)
- 		left = (data[1]& aiptek->curSetting.mouseButtonLeft) != 0 ? 1 : 0;
- 		right = (data[1] & aiptek->curSetting.mouseButtonRight) != 0 ? 1 : 0;
- 		middle = (data[1] & aiptek->curSetting.mouseButtonMiddle) != 0 ? 1 : 0;
--		macro = dv && p && left && !(data[3] & 1) ? (data[3] >> 1) : 0;
-+		macro = dv && p && left && !(data[3] & 1) ? (data[3] >> 1) : -1;
-+		if (macro >= ARRAY_SIZE(macroKeyEvents))
-+			macro = -1;
- 
- 		if (dv) {
- 		        /* If the selected tool changed, reset the old
-@@ -737,11 +741,11 @@ static void aiptek_irq(struct urb *urb)
- 	 */
- 	else if (data[0] == 6) {
- 		macro = get_unaligned_le16(data + 1);
--		if (macro > 0) {
-+		if (macro > 0 && macro - 1 < ARRAY_SIZE(macroKeyEvents)) {
- 			input_report_key(inputdev, macroKeyEvents[macro - 1],
- 					 0);
- 		}
--		if (macro < 25) {
-+		if (macro + 1 < ARRAY_SIZE(macroKeyEvents)) {
- 			input_report_key(inputdev, macroKeyEvents[macro + 1],
- 					 0);
- 		}
-@@ -760,7 +764,8 @@ static void aiptek_irq(struct urb *urb)
- 				aiptek->curSetting.toolMode;
- 		}
- 
--		input_report_key(inputdev, macroKeyEvents[macro], 1);
-+		if (macro < ARRAY_SIZE(macroKeyEvents))
-+			input_report_key(inputdev, macroKeyEvents[macro], 1);
- 		input_report_abs(inputdev, ABS_MISC,
- 				 1 | AIPTEK_REPORT_TOOL_UNKNOWN);
- 		input_sync(inputdev);
--- 
-2.43.0
+I think this paragraph would read better if you inverted the decision
+and rationale. Something like:
+
+"Since some bpf program types may be invoked while holding fs locks,
+limit the kfunc to only syscall progs to avoid..."
+
+> 
+> The reclaim target of a single call is clamped to MEMCG_CHARGE_BATCH.
+> try_to_free_mem_cgroup_pages() takes nr_to_reclaim as a lower bound,
+> so nothing else limits how long one call scans. An unbounded call
+> stalls other work on a shared workqueue, and since lru_lock is held
+> with interrupts disabled the contention delays IPI handling and can
+> cause CSD lock stalls. MEMCG_CHARGE_BATCH is the bound already used
+> by high_work_func(), so each call becomes a bounded unit of work.
+
+It's not strictly speaking a bounded unit of work though. The scan work
+time can vary.
+
+The example of interrupt delay I gave on the prior rev is included here,
+unnecessarily increasing the verbosity. I think you can just say that
+you're following the precedent in high_work_func() which uses the same
+cap, but I would still emphasize like I said above that the actual
+scanning work is not bounded.
+
+> 
+> Reclaiming more than one batch is left to the BPF program. This is
+> documented in the kfunc rather than enforced: call the kfunc once
+> per bpf_wq callback and requeue the same work item for the next
+> batch instead of looping inside a callback, and give each target
+> memcg its own bpf_wq item. Keeping the policy in BPF lets a program
+> decide when to reclaim and when to stop, e.g. once the target cgroup
+> is dying.
+
+You should be explicit on the different calling contexts. This is one
+way to use it, but someone could still invoke it directly in the syscall
+program.
+
+> 
+> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+> ---
+>   mm/bpf_memcontrol.c | 94 ++++++++++++++++++++++++++++++++++++++++++++-
+>   1 file changed, 92 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/bpf_memcontrol.c b/mm/bpf_memcontrol.c
+> index 716df49d7647..74ccac30c011 100644
+> --- a/mm/bpf_memcontrol.c
+> +++ b/mm/bpf_memcontrol.c
+> @@ -6,8 +6,11 @@
+>    */
+>   
+>   #include <linux/memcontrol.h>
+> +#include <linux/swap.h>
+>   #include <linux/bpf.h>
+>   
+> +#include "internal.h"
+> +
+>   __bpf_kfunc_start_defs();
+>   
+>   /**
+> @@ -159,6 +162,71 @@ __bpf_kfunc void bpf_mem_cgroup_flush_stats(struct mem_cgroup *memcg)
+>   	mem_cgroup_flush_stats(memcg);
+>   }
+>   
+> +/**
+> + * bpf_proactive_reclaim - proactively reclaim memory from a memory
+> + *                         cgroup
+> + * @memcg: the target memory cgroup to reclaim from
+> + * @size:  the amount of memory to reclaim, in bytes, clamped to
+> + *         MEMCG_CHARGE_BATCH (64 pages)
+> + * @swappiness: the reclaim swappiness, in the range [0, 201] where 201
+> + *         means anon-only reclaim; a negative value means the memcg's
+> + *         own swappiness is used
+> + *
+> + * Trigger one proactive reclaim pass on @memcg, similar to a write to
+> + * memory.reclaim, but without retrying until @size is reached.
+> + *
+> + * @size is clamped so that one call is a bounded unit of work, matching
+> + * the memory.high workqueue fallback in high_work_func(). To reclaim
+> + * more, call this kfunc repeatedly instead of passing a larger @size.
+
+Again I think "bounded unit of work" is too strong here. The reclaim
+target is clamped but the scanning work/time will vary. Lets be explicit
+that we're only capping the reclaim target.
+
+> + *
+> + * This kfunc is restricted to BPF_PROG_TYPE_SYSCALL to ensure it runs
+> + * in a clean process context. The SYSCALL program can schedule the
+> + * actual reclaim work via bpf_wq or timers, which also execute in
+> + * safe process context (workqueue, task_work).
+
+"clean" and "safe" are ambiguous here.
+
+This is another example of mixing calling contexts. You should separate
+them. i.e. can I call this directly in a syscall prog? does it have to
+be async work? Also, as it reads, it makes it sound like calling the
+kfunc is ok in a timer program.
+
+> + *
+> + * When reclaim is driven from a bpf_wq, call this kfunc once per
+> + * callback and requeue the same work item for the next batch rather
+> + * than looping inside the callback: a long-running callback stalls
+> + * other work on the shared workqueue, and because lru_lock is held with
+> + * interrupts disabled the resulting contention also delays IPI
+> + * handling. Give each target memcg its own bpf_wq item, so that
+> + * reclaiming one memcg neither serializes behind nor piles up on top of
+> + * another. Deciding whether to submit the next batch is up to the BPF
+> + * program, which can stop at any point, e.g. once the target cgroup is
+> + * dying.
+
+If this is the intended usage, be more explicit on the recommendation.
+Reduce the verbosity on the interrupt delay here, similar to the advice
+on the changelog.
+
+> + *
+> + * Must not be called with a filesystem lock held: the reclaim path
+> + * may deadlock on it via filesystem shrinkers.
+
+This should move to the syscall-only prog rationale. Otherwise, it reads
+like something for callers to enforce.
+
+> + *
+> + * Return: The amount of memory reclaimed, in bytes, or 0 if @size is
+> + * smaller than a page, or (unsigned long)-1 if @swappiness is out of
+> + * range.
+> + */
+> +__bpf_kfunc unsigned long bpf_proactive_reclaim(struct mem_cgroup *memcg,
+> +						unsigned long size,
+> +						int swappiness)
+> +{
+> +	unsigned long nr_reclaimed;
+> +	unsigned long nr_pages;
+> +
+> +	if (swappiness < -1 || swappiness > SWAPPINESS_ANON_ONLY)
+> +		return (unsigned long)-1;
+> +
+> +	if (size < PAGE_SIZE)
+> +		return 0;
+> +
+> +	nr_pages = min(size / PAGE_SIZE, (unsigned long)MEMCG_CHARGE_BATCH);
+> +
+> +	nr_reclaimed = try_to_free_mem_cgroup_pages(memcg, nr_pages,
+> +						    GFP_KERNEL,
+> +						    MEMCG_RECLAIM_MAY_SWAP |
+> +						    MEMCG_RECLAIM_PROACTIVE,
+> +						    swappiness < 0 ? NULL :
+> +								     &swappiness);
+> +
+> +	return nr_reclaimed * PAGE_SIZE;
+> +}
+> +
+>   __bpf_kfunc_end_defs();
+>   
+>   BTF_KFUNCS_START(bpf_memcontrol_kfuncs)
+> @@ -171,22 +239,44 @@ BTF_ID_FLAGS(func, bpf_mem_cgroup_memory_events)
+>   BTF_ID_FLAGS(func, bpf_mem_cgroup_usage)
+>   BTF_ID_FLAGS(func, bpf_mem_cgroup_page_state)
+>   BTF_ID_FLAGS(func, bpf_mem_cgroup_flush_stats, KF_SLEEPABLE)
+> -
+>   BTF_KFUNCS_END(bpf_memcontrol_kfuncs)
+>   
+> +/*
+> + * Proactive reclaim needs a clean process context, so it is restricted
+> + * to BPF_PROG_TYPE_SYSCALL. The bpf_wq and task_work callbacks that a
+> + * SYSCALL program schedules run as the same program type, so they can
+> + * still invoke it; generic sleepable programs (e.g. fentry on reclaim
+> + * paths, inode_rmdir) cannot.
+
+This comment feels out of place here and is not buying much at this
+point. You already explained it in the kfunc comments, and the syscall
+only registration further down is explicit enough by now.
+
+> + */
+> +BTF_KFUNCS_START(bpf_memcontrol_reclaim_kfuncs)
+> +BTF_ID_FLAGS(func, bpf_proactive_reclaim, KF_SLEEPABLE)
+> +BTF_KFUNCS_END(bpf_memcontrol_reclaim_kfuncs)
+> +
+>   static const struct btf_kfunc_id_set bpf_memcontrol_kfunc_set = {
+>   	.owner          = THIS_MODULE,
+>   	.set            = &bpf_memcontrol_kfuncs,
+>   };
+>   
+> +static const struct btf_kfunc_id_set bpf_memcontrol_reclaim_kfunc_set = {
+> +	.owner          = THIS_MODULE,
+> +	.set            = &bpf_memcontrol_reclaim_kfuncs,
+> +};
+> +
+>   static int __init bpf_memcontrol_init(void)
+>   {
+>   	int err;
+>   
+>   	err = register_btf_kfunc_id_set(BPF_PROG_TYPE_UNSPEC,
+>   					&bpf_memcontrol_kfunc_set);
+> -	if (err)
+> +	if (err) {
+>   		pr_warn("error while registering bpf memcontrol kfuncs: %d", err);
+> +		return err;
+> +	}
+> +
+> +	err = register_btf_kfunc_id_set(BPF_PROG_TYPE_SYSCALL,
+> +					&bpf_memcontrol_reclaim_kfunc_set);
+> +	if (err)
+> +		pr_warn("error registering bpf reclaim kfuncs: %d", err);
+>   
+>   	return err;
+>   }
 
