@@ -1,281 +1,265 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4065931F9BD
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:37:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 826F431F9BD
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:37:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788817032; cv=none; b=BiWYAqaMVhBx67YgOLqJs3bsObMRVGSCy3GG+u50OQe/8dlz7siWGO38blp84H+UQvZY821A9tpiBBLNRfCvVC8UMVXMSfGAr2MPYlpgcvklGt1/flRWbECsrlXmoxHZ0RXBN0j8So+uEGo6IQ3dDvAcSYnhq+0iryvlDq8KSqg=
+	t=1788817065; cv=none; b=qmwirSxRQ2VN0LKkL9Z2sS6nvRXq8xctmQYtV3eaGNrfOqSndVDRb1qluKvGBRD7gdGAFp/BPvtCq2HQwl8JD7NhtFZHUqDMvXTGCiCNuVX+M2vu58f47Nss8S6NohEXzjAzyjUzC6ds2s3Wm1Lyt0l4xMowT6JGktRR9ntpKbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788817032; c=relaxed/simple;
-	bh=u9moGRlDLZ8iHd/B9nEQXt7hx/ef6HPudKfAAjLC8zY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AB5HSHDlqxrr6Arr8ngvzZa10cYtRXtTpJhaj9IYtHDsIGP7mLvx8occKBrgpCtKHZKaQQRCwM/g+tL7IstFgFRxpSxk3Vz4zunCTQz9i36KwGraO4hhlCseRuVrmaqsPnl1Edp/mPfXmrn9CYV9OHFDG3uc/B0eri3iBUcrKuI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KSU67eTq; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=t1o/rb21; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788817065; c=relaxed/simple;
+	bh=NYAddQT1zylz0fu0N8qSjao/dzUyNUqVQvfYZNLeK1g=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=n6ztwrG1p2WTygOkZMqL6wjFXu35cGNjJ4H1zqanQz4ZsIhT7yv2ryeFQZLS2eoZx9PoFkjMnNgw2/ThqT6qnV+zknJgdVgjOEKZEf+r9+obmtNywOoO18+cexaJ+eOePdO09UgmINORhavXbdxFhGsmYWPkU5DjR6ADbccDTos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=a6NpMmLS; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KSU67eTq";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="t1o/rb21"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788817028;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SrHtKsbOCKteoqWFV7lfV/tXkTEj1Fv0IcHEJx72zjM=;
-	b=KSU67eTqCZ1VIXK4VMFtF4Fh1kKEqB7M58KKmWSyWIB+k0qvqwC50tYX/9mviAK3Zs/ZJH
-	ZVZ9B/19MPedjFrfi8FnouKpVAIFf4LHyBI8XeJ0pIBsID3yBvWiEyrYYlNveRW9UJQfOG
-	JSqvoJh3tSyJMXfHdPgMnzbKEkca3eU=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-342-ZrivPekbPhuP9lyQLFnUUQ-1; Mon, 07 Sep 2026 17:37:07 -0400
-X-MC-Unique: ZrivPekbPhuP9lyQLFnUUQ-1
-X-Mimecast-MFC-AGG-ID: ZrivPekbPhuP9lyQLFnUUQ_1788817026
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-484362cb000so2651880f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 14:37:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788817026; x=1789421826; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SrHtKsbOCKteoqWFV7lfV/tXkTEj1Fv0IcHEJx72zjM=;
-        b=t1o/rb21F5Wjn2wBceJUmkjA25pu5UXVFpN9hWQjmAL3jHqg5BCcKSZcSXwncIUAvj
-         eH9yh2Ogtp7F2GdrWTuy3luH8enI/1c+03CLKkW8E3w7BZoTwfxkCqSRf2m9CIjDbhG8
-         4CtY7ZAcPjGDfwy0JXH5l6OrxvLr4UvzU1yYMDKgezNg2dh4zYv0MD6PAiOYVDsPjnjX
-         9kf/P3y4owYoQvA1+Euu+uC2+ZvLSHQpa5r5BHwBlS1tgahdiaz4TkSaAwbuXPXzkcyc
-         ZJLlVz6juZz0PmdWcxKBVZVmwvmihZ+RE/a/2wY2TbZ9eHqCeiuLjo++jQsKWHMMgJZi
-         AlXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788817026; x=1789421826;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SrHtKsbOCKteoqWFV7lfV/tXkTEj1Fv0IcHEJx72zjM=;
-        b=Znsf8PsqYq7Uxw4BV7UDlwIb5k/7E4agTFHHRCBFvh9F+Dysz6AT3v/D3Gv2t6qxhv
-         QGhGWTvyFZPnPqhf2uGWgN1JtLI6REpr60aq+2E3mAGffX5bLypwE8DA6K/DlclWUk9h
-         90GeQy4BHGtL78cONZ+NlNFfREFX2yhd+gnWjxl3zUSRHFGnPTuf1nowK4lurqBB0fTU
-         uPxn7cb/WnUzm0uS5VopBN/mHLUE7Aie7t8fTYblaZ6E/qMxlqNEpiN8/oEXgqF3E+8m
-         USaUqcVDeiewVlkIrxupB3bR3qwN0F4vIFotUunrRYkHxsdMZn8tD6Wxv+vD38pqGqI/
-         +nUg==
-X-Forwarded-Encrypted: i=1; AKwUvBxJkIDDIRXjFSD8ThEddQ/CNgLXIGFdMfVtJknQmA7d1nLhIIFuFK4rShfp9S8tQwKrfnDzIf6kABz+Ssw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nG6DK4L+kev53XYDtT6t6DcVBRyvTFfHV8eJ2oi3G1fwdKVuLZ
-	Fhcs8MYoDoX7BrkUL2vgNskPkOPv8cSsrdPJjbcjasAeMCx8dKyiedG+LCuhqO+DlcRAmpEdjSm
-	665yqzYrQ0YJ9gCB6xroOdEZiFSmZ5fEzsNZpLVhTjP4YG1rCzjl2Dy5Ft4u0CIb7PA==
-X-Gm-Gg: AYBFou0aQz2qNmt7+UL0ngvOpQHc2EXxILJR8BEonMlok9P4jbPglCeHitjFmJP8vnA
-	aAiMCQmIIvAgd0/ZgUTeceIB426x2basOJmV4k1RYk8cHabvMez96S7WHbWMN+we+oAtDF8g51k
-	s7fW0GBLzjDsCFYRnE02yhoHLoZZsh5hRmvp/KEW2O9KfLxNmo5V5Pwua1zoGrplEB4h0GoKOPT
-	o0w8YcA6tvZgU6APt6kcuXccZbQydF9gM0G8o8vF9pWWdiv7FtEpMFDK8xwDY7nWugx81JHu2CQ
-	4TYTHXPHvh931rAtJC7QDfIWePK1nT2Z4/WsaM2T+mV4Cb5JqllyUWvmLTWs2mocaGuXufAfv6c
-	bn9LZ0PLlkb9iiPlGoM9SfXY=
-X-Received: by 2002:adf:edc8:0:b0:482:e658:7a39 with SMTP id ffacd0b85a97d-4857e5171femr27162907f8f.11.1788817025783;
-        Mon, 07 Sep 2026 14:37:05 -0700 (PDT)
-X-Received: by 2002:adf:edc8:0:b0:482:e658:7a39 with SMTP id ffacd0b85a97d-4857e5171femr27162864f8f.11.1788817025220;
-        Mon, 07 Sep 2026 14:37:05 -0700 (PDT)
-Received: from redhat.com (IGLD-80-230-79-236.inter.net.il. [80.230.79.236])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883c6ba4sm35717372f8f.25.2026.09.07.14.37.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 14:37:03 -0700 (PDT)
-Date: Mon, 7 Sep 2026 17:36:59 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Jason Wang <jasowangio@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Rusty Russell <rusty@rustcorp.com.au>,
-	Pawel Moll <pawel.moll@arm.com>, Cornelia Huck <cohuck@redhat.com>,
-	Halil Pasic <pasic@linux.ibm.com>,
-	Eric Farman <farman@linux.ibm.com>,
-	Richard Weinberger <richard@nod.at>,
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Vadim Pasternak <vadimp@nvidia.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	virtualization@lists.linux.dev, linux-input@vger.kernel.org,
-	linux-s390@vger.kernel.org, kvm@vger.kernel.org,
-	linux-um@lists.infradead.org, platform-driver-x86@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] virtio: synchronize callbacks during device reset
-Message-ID: <20260907172202-mutt-send-email-mst@kernel.org>
-References: <20260905152059.89560-1-kmehltretter@gmail.com>
- <20260905152059.89560-2-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="a6NpMmLS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788817063; x=1820353063;
+  h=date:from:to:cc:subject:message-id;
+  bh=NYAddQT1zylz0fu0N8qSjao/dzUyNUqVQvfYZNLeK1g=;
+  b=a6NpMmLSfWJVG9OX2Ba643fet9q0InW03YiQH8CM8PACP0NSFh2yOtuu
+   ni6HsX1xWiX6jlPHreyaSo753H1M8S7SfJyZultIsdamCjit7lX5DFNQq
+   Ix2EuIOrZ200IRiVybu7NW0e41vuYSRFG12SBNc57M5G/NPA/FYwKKW73
+   N069sLY8LnP4VyC0Swd2Ut2I+bD+hbb+RIC9IgyUoRqFof1B804gW4e3J
+   opeyGLs5VvkYRiFxmHkVd6+w6LLNzjp6b/NY+nnkBwGhzT0hp04gZ5PXg
+   jm11/wPRKOZeXjwP/siS1DJw8Rub1fH2u2DBj8FxeGSDdwfRtEnYERlo7
+   g==;
+X-CSE-ConnectionGUID: Owwl0RgYTOq0KZYbeqgErA==
+X-CSE-MsgGUID: v9yAF1AbT3WbNoIrk2RVDQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="89342029"
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="89342029"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 14:37:43 -0700
+X-CSE-ConnectionGUID: g9XHYvzXSPiWbzEuum0waQ==
+X-CSE-MsgGUID: AL89tHLTS1GUENxGSUiDrw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="267122469"
+Received: from lkp-server01.sh.intel.com (HELO dff15f1b2031) ([10.239.97.150])
+  by fmviesa010.fm.intel.com with ESMTP; 07 Sep 2026 14:37:40 -0700
+Received: from kbuild by dff15f1b2031 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x3h21-000000001L7-3pw1;
+	Mon, 07 Sep 2026 21:37:37 +0000
+Date: Tue, 08 Sep 2026 05:36:46 +0800
+From: kernel test robot <lkp@intel.com>
+To: "GUO Ren (XuanTie)" <guoren@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ x86@kernel.org, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>, Anup Patel <anup@brainfault.org>
+Subject: [tip:irq/drivers 6/22]
+ drivers/media/platform/mediatek/vpu/mtk_vpu.h:63:2: error: redeclaration of
+ enumerator 'IPI_MAX'
+Message-ID: <202609080548.LJVHAwpC-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260905152059.89560-2-kmehltretter@gmail.com>
 
-On Sat, Sep 05, 2026 at 05:20:57PM +0200, Karl Mehltretter wrote:
-> virtio_reset_device() promises that vq callbacks have finished when it
-> returns. virtio-pci waits in vp_reset(), but other transports can return
-> with a callback still running.
-> 
-> Call virtio_synchronize_cbs() after config->reset() and drop the duplicate
-> waits from both PCI reset methods. Add the wait to virtio_device_shutdown()
-> too, since it calls config->reset() directly. Keep the pre-reset call under
-> CONFIG_VIRTIO_HARDEN_NOTIFICATION so callbacks see vq->broken.
-> 
-> Always take irq_lock in the classic virtio-ccw interrupt handler so it
-> pairs with synchronize_cbs even without notification hardening. Use
-> is_thinint to choose the lock: airq_info can stay allocated after a
-> fallback to classic interrupts.
-> 
-> The transport reset must still stop new callbacks before this wait.
-> 
-> Fixes: d9679d0013a6 ("virtio: wrap config->reset calls")
-> Suggested-by: Michael S. Tsirkin <mst@redhat.com>
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
->  drivers/s390/virtio/virtio_ccw.c   | 6 +-----
->  drivers/virtio/virtio.c            | 2 ++
->  drivers/virtio/virtio_pci_legacy.c | 2 --
->  drivers/virtio/virtio_pci_modern.c | 3 ---
->  include/linux/virtio_config.h      | 6 +++---
->  5 files changed, 6 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/s390/virtio/virtio_ccw.c b/drivers/s390/virtio/virtio_ccw.c
-> index bab6cad3fd5c..552d77998012 100644
-> --- a/drivers/s390/virtio/virtio_ccw.c
-> +++ b/drivers/s390/virtio/virtio_ccw.c
-> @@ -1062,7 +1062,7 @@ static void virtio_ccw_synchronize_cbs(struct virtio_device *vdev)
->  	struct virtio_ccw_device *vcdev = to_vc_device(vdev);
->  	struct airq_info *info = vcdev->airq_info;
->  
-> -	if (info) {
-> +	if (vcdev->is_thinint && info) {
->  		/*
->  		 * This device uses adapter interrupts: synchronize with
->  		 * vring_interrupt() called by virtio_airq_handler()
-> @@ -1204,13 +1204,11 @@ static void virtio_ccw_int_handler(struct ccw_device *cdev,
->  			vcdev->err = -EIO;
->  	}
->  	virtio_ccw_check_activity(vcdev, activity);
-> -#ifdef CONFIG_VIRTIO_HARDEN_NOTIFICATION
->  	/*
->  	 * Paired with virtio_ccw_synchronize_cbs() and interrupts are
->  	 * disabled here.
->  	 */
->  	read_lock(&vcdev->irq_lock);
-> -#endif
->  	for_each_set_bit(i, indicators(vcdev),
->  			 sizeof(*indicators(vcdev)) * BITS_PER_BYTE) {
->  		/* The bit clear must happen before the vring kick. */
-> @@ -1219,9 +1217,7 @@ static void virtio_ccw_int_handler(struct ccw_device *cdev,
->  		vq = virtio_ccw_vq_by_ind(vcdev, i);
->  		vring_interrupt(0, vq);
->  	}
-> -#ifdef CONFIG_VIRTIO_HARDEN_NOTIFICATION
->  	read_unlock(&vcdev->irq_lock);
-> -#endif
->  	if (test_bit(0, indicators2(vcdev))) {
->  		virtio_config_changed(&vcdev->vdev);
->  		clear_bit(0, indicators2(vcdev));
-> diff --git a/drivers/virtio/virtio.c b/drivers/virtio/virtio.c
-> index 75bb4ffe3b87..ad1c50b8a94e 100644
-> --- a/drivers/virtio/virtio.c
-> +++ b/drivers/virtio/virtio.c
-> @@ -264,6 +264,7 @@ void virtio_reset_device(struct virtio_device *dev)
->  #endif
->  
->  	dev->config->reset(dev);
-> +	virtio_synchronize_cbs(dev);
+Hi GUO,
 
-I guess we want the "Flush VQ/config" comment here?
+FYI, the error/warning was bisected to this commit, please ignore it if it's irrelevant.
 
->  }
->  EXPORT_SYMBOL_GPL(virtio_reset_device);
->  
-> @@ -424,6 +425,7 @@ void virtio_device_shutdown(struct virtio_device *dev)
->  	 * Some devices get wedged if this happens, so reset to make sure it does not.
->  	 */
->  	dev->config->reset(dev);
-> +	virtio_synchronize_cbs(dev);
->  }
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git irq/drivers
+head:   0c65a1331928d0207c385f03fb5eba0cfecce0e6
+commit: 1ae91dc397eb1dbc0f4fc6b96f2481cbc02fe0f9 [6/22] riscv: smp: Move enum ipi_message_type to asm/smp.h
+config: riscv-randconfig-r111-20260908 (https://download.01.org/0day-ci/archive/20260908/202609080548.LJVHAwpC-lkp@intel.com/config)
+compiler: riscv32-linux-gcc (GCC) 8.5.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260908/202609080548.LJVHAwpC-lkp@intel.com/reproduce)
 
-shutdown is different. vq callbacks are not the issue at all.
-but config callback potentially could be.
-So while we could keep this, with "Flush config" comment, perhaps
-preferably, disable config callbacks like we do
-for remove, before the callback:
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609080548.LJVHAwpC-lkp@intel.com/
 
-static void virtio_dev_remove(struct device *_d)
-{
-        struct virtio_device *dev = dev_to_virtio(_d);
-        struct virtio_driver *drv = drv_to_virtio(dev->dev.driver);
+All errors (new ones prefixed by >>):
 
-        virtio_config_core_disable(dev);
-
-        drv->remove(dev);
-
-....
-
-
-}
-
-
-
-
->  EXPORT_SYMBOL_GPL(virtio_device_shutdown);
->  
-> diff --git a/drivers/virtio/virtio_pci_legacy.c b/drivers/virtio/virtio_pci_legacy.c
-> index d9cbb02b35a1..8115aa39e01e 100644
-> --- a/drivers/virtio/virtio_pci_legacy.c
-> +++ b/drivers/virtio/virtio_pci_legacy.c
-> @@ -98,8 +98,6 @@ static void vp_reset(struct virtio_device *vdev)
->  	/* Flush out the status write, and flush in device writes,
->  	 * including MSi-X interrupts, if any. */
->  	vp_legacy_get_status(&vp_dev->ldev);
-> -	/* Flush pending VQ/configuration callbacks. */
-> -	vp_synchronize_vectors(vdev);
->  }
->  
->  static u16 vp_config_vector(struct virtio_pci_device *vp_dev, u16 vector)
-> diff --git a/drivers/virtio/virtio_pci_modern.c b/drivers/virtio/virtio_pci_modern.c
-> index 6d8ae2a6a8ca..c9e21317c51a 100644
-> --- a/drivers/virtio/virtio_pci_modern.c
-> +++ b/drivers/virtio/virtio_pci_modern.c
-> @@ -559,9 +559,6 @@ static void vp_reset(struct virtio_device *vdev)
->  		msleep(1);
->  
->  	vp_modern_avq_cleanup(vdev);
-> -
-> -	/* Flush pending VQ/configuration callbacks. */
-> -	vp_synchronize_vectors(vdev);
->  }
->  
->  static int vp_active_vq(struct virtqueue *vq, u16 msix_vec)
+   In file included from drivers/media/platform/mediatek/mdp/mtk_mdp_core.c:23:
+>> drivers/media/platform/mediatek/vpu/mtk_vpu.h:63:2: error: redeclaration of enumerator 'IPI_MAX'
+     IPI_MAX,
+     ^~~~~~~
+   In file included from include/linux/smp.h:119,
+                    from include/linux/lockdep.h:14,
+                    from include/linux/mutex.h:17,
+                    from include/linux/notifier.h:14,
+                    from include/linux/clk.h:14,
+                    from drivers/media/platform/mediatek/mdp/mtk_mdp_core.c:8:
+   arch/riscv/include/asm/smp.h:27:2: note: previous definition of 'IPI_MAX' was here
+     IPI_MAX
+     ^~~~~~~
+--
+   In file included from drivers/media/platform/mediatek/vcodec/common/../decoder/../common/mtk_vcodec_fw.h:9,
+                    from drivers/media/platform/mediatek/vcodec/common/../decoder/../common/mtk_vcodec_fw_priv.h:6,
+                    from drivers/media/platform/mediatek/vcodec/common/../decoder/mtk_vcodec_dec_drv.h:14,
+                    from drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_intr.c:10:
+>> drivers/media/platform/mediatek/vcodec/common/../decoder/../common/../../vpu/mtk_vpu.h:63:2: error: redeclaration of enumerator 'IPI_MAX'
+     IPI_MAX,
+     ^~~~~~~
+   In file included from include/linux/smp.h:119,
+                    from include/linux/interrupt_rc.h:17,
+                    from include/linux/spinlock.h:60,
+                    from include/linux/wait.h:9,
+                    from drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_intr.c:8:
+   arch/riscv/include/asm/smp.h:27:2: note: previous definition of 'IPI_MAX' was here
+     IPI_MAX
+     ^~~~~~~
+--
+   In file included from drivers/media/platform/mediatek/vcodec/encoder/venc/../../common/mtk_vcodec_fw.h:9,
+                    from drivers/media/platform/mediatek/vcodec/encoder/venc/../../common/mtk_vcodec_fw_priv.h:6,
+                    from drivers/media/platform/mediatek/vcodec/encoder/venc/../mtk_vcodec_enc_drv.h:12,
+                    from drivers/media/platform/mediatek/vcodec/encoder/venc/venc_vp8_if.c:12:
+>> drivers/media/platform/mediatek/vcodec/encoder/venc/../../common/../../vpu/mtk_vpu.h:63:2: error: redeclaration of enumerator 'IPI_MAX'
+     IPI_MAX,
+     ^~~~~~~
+   In file included from include/linux/smp.h:119,
+                    from include/linux/alloc_tag.h:14,
+                    from include/linux/percpu.h:5,
+                    from include/linux/context_tracking_state.h:5,
+                    from include/linux/hardirq.h:5,
+                    from include/linux/interrupt.h:11,
+                    from drivers/media/platform/mediatek/vcodec/encoder/venc/venc_vp8_if.c:8:
+   arch/riscv/include/asm/smp.h:27:2: note: previous definition of 'IPI_MAX' was here
+     IPI_MAX
+     ^~~~~~~
+--
+   In file included from drivers/media/platform/mediatek/vcodec/encoder/../common/mtk_vcodec_fw.h:9,
+                    from drivers/media/platform/mediatek/vcodec/encoder/../common/mtk_vcodec_fw_priv.h:6,
+                    from drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.h:12,
+                    from drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc.h:14,
+                    from drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc.c:13:
+>> drivers/media/platform/mediatek/vcodec/encoder/../common/../../vpu/mtk_vpu.h:63:2: error: redeclaration of enumerator 'IPI_MAX'
+     IPI_MAX,
+     ^~~~~~~
+   In file included from include/linux/smp.h:119,
+                    from arch/riscv/include/asm/mmiowb.h:12,
+                    from arch/riscv/include/asm/mmio.h:16,
+                    from arch/riscv/include/asm/clint.h:10,
+                    from arch/riscv/include/asm/timex.h:15,
+                    from include/linux/timex.h:67,
+                    from include/linux/time32.h:13,
+                    from include/linux/time.h:60,
+                    from include/linux/videodev2.h:59,
+                    from include/media/v4l2-event.h:16,
+                    from drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc.c:8:
+   arch/riscv/include/asm/smp.h:27:2: note: previous definition of 'IPI_MAX' was here
+     IPI_MAX
+     ^~~~~~~
+--
+   In file included from drivers/media/platform/mediatek/vcodec/decoder/vdec/../../common/mtk_vcodec_fw.h:9,
+                    from drivers/media/platform/mediatek/vcodec/decoder/vdec/../../common/mtk_vcodec_fw_priv.h:6,
+                    from drivers/media/platform/mediatek/vcodec/decoder/vdec/../mtk_vcodec_dec_drv.h:14,
+                    from drivers/media/platform/mediatek/vcodec/decoder/vdec/../mtk_vcodec_dec.h:14,
+                    from drivers/media/platform/mediatek/vcodec/decoder/vdec/../vdec_drv_if.h:11,
+                    from drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_h264_if.c:10:
+>> drivers/media/platform/mediatek/vcodec/decoder/vdec/../../common/../../vpu/mtk_vpu.h:63:2: error: redeclaration of enumerator 'IPI_MAX'
+     IPI_MAX,
+     ^~~~~~~
+   In file included from include/linux/smp.h:119,
+                    from arch/riscv/include/asm/mmiowb.h:12,
+                    from arch/riscv/include/asm/mmio.h:16,
+                    from arch/riscv/include/asm/clint.h:10,
+                    from arch/riscv/include/asm/timex.h:15,
+                    from include/linux/timex.h:67,
+                    from include/linux/time32.h:13,
+                    from include/linux/time.h:60,
+                    from include/linux/stat.h:19,
+                    from include/linux/module.h:13,
+                    from drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_h264_if.c:7:
+   arch/riscv/include/asm/smp.h:27:2: note: previous definition of 'IPI_MAX' was here
+     IPI_MAX
+     ^~~~~~~
+--
+   In file included from drivers/media/platform/mediatek/vcodec/decoder/../common/mtk_vcodec_fw.h:9,
+                    from drivers/media/platform/mediatek/vcodec/decoder/../common/mtk_vcodec_fw_priv.h:6,
+                    from drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h:14,
+                    from drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.h:14,
+                    from drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c:24:
+>> drivers/media/platform/mediatek/vcodec/decoder/../common/../../vpu/mtk_vpu.h:63:2: error: redeclaration of enumerator 'IPI_MAX'
+     IPI_MAX,
+     ^~~~~~~
+   In file included from include/linux/smp.h:119,
+                    from include/linux/interrupt_rc.h:17,
+                    from include/linux/spinlock.h:60,
+                    from include/linux/mmzone.h:8,
+                    from include/linux/gfp.h:7,
+                    from include/linux/slab.h:17,
+                    from drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c:9:
+   arch/riscv/include/asm/smp.h:27:2: note: previous definition of 'IPI_MAX' was here
+     IPI_MAX
+     ^~~~~~~
 
 
+vim +/IPI_MAX +63 drivers/media/platform/mediatek/vpu/mtk_vpu.h
 
+3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  11  
+3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  12  /**
+0f02beec61875e9 drivers/media/platform/mtk-vpu/mtk_vpu.h      Hans Verkuil   2021-03-11  13   * DOC: VPU
+0f02beec61875e9 drivers/media/platform/mtk-vpu/mtk_vpu.h      Hans Verkuil   2021-03-11  14   *
+3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  15   * VPU (video processor unit) is a tiny processor controlling video hardware
+3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  16   * related to video codec, scaling and color format converting.
+3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  17   * VPU interfaces with other blocks by share memory and interrupt.
+0f02beec61875e9 drivers/media/platform/mtk-vpu/mtk_vpu.h      Hans Verkuil   2021-03-11  18   */
+3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  19  
+bfb1b99802ef160 drivers/media/platform/mediatek/vpu/mtk_vpu.h Arnd Bergmann  2024-02-24  20  typedef void (*ipi_handler_t) (void *data,
+3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  21  			       unsigned int len,
+3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  22  			       void *priv);
+3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  23  
+3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  24  /**
+3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  25   * enum ipi_id - the id of inter-processor interrupt
+3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  26   *
+3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  27   * @IPI_VPU_INIT:	 The interrupt from vpu is to notfiy kernel
+e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  28   *			 VPU initialization completed.
+e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  29   *			 IPI_VPU_INIT is sent from VPU when firmware is
+e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  30   *			 loaded. AP doesn't need to send IPI_VPU_INIT
+e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  31   *			 command to VPU.
+e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  32   *			 For other IPI below, AP should send the request
+e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  33   *			 to VPU to trigger the interrupt.
+e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  34   * @IPI_VDEC_H264:	 The interrupt from vpu is to notify kernel to
+e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  35   *			 handle H264 vidoe decoder job, and vice versa.
+e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  36   *			 Decode output format is always MT21 no matter what
+e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  37   *			 the input format is.
+e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  38   * @IPI_VDEC_VP8:	 The interrupt from is to notify kernel to
+e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  39   *			 handle VP8 video decoder job, and vice versa.
+e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  40   *			 Decode output format is always MT21 no matter what
+e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  41   *			 the input format is.
+e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  42   * @IPI_VDEC_VP9:	 The interrupt from vpu is to notify kernel to
+e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  43   *			 handle VP9 video decoder job, and vice versa.
+e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  44   *			 Decode output format is always MT21 no matter what
+e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  45   *			 the input format is.
+3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  46   * @IPI_VENC_H264:	 The interrupt from vpu is to notify kernel to
+e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  47   *			 handle H264 video encoder job, and vice versa.
+3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  48   * @IPI_VENC_VP8:	 The interrupt fro vpu is to notify kernel to
+e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  49   *			 handle VP8 video encoder job,, and vice versa.
+737ea6cfd226312 drivers/media/platform/mtk-vpu/mtk_vpu.h      Minghsiu Tsai  2016-09-08  50   * @IPI_MDP:		 The interrupt from vpu is to notify kernel to
+737ea6cfd226312 drivers/media/platform/mtk-vpu/mtk_vpu.h      Minghsiu Tsai  2016-09-08  51   *			 handle MDP (Media Data Path) job, and vice versa.
+3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  52   * @IPI_MAX:		 The maximum IPI number
+3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  53   */
+3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  54  
+3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  55  enum ipi_id {
+3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  56  	IPI_VPU_INIT = 0,
+e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  57  	IPI_VDEC_H264,
+e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  58  	IPI_VDEC_VP8,
+e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  59  	IPI_VDEC_VP9,
+3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  60  	IPI_VENC_H264,
+3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  61  	IPI_VENC_VP8,
+737ea6cfd226312 drivers/media/platform/mtk-vpu/mtk_vpu.h      Minghsiu Tsai  2016-09-08  62  	IPI_MDP,
+3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03 @63  	IPI_MAX,
+3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  64  };
+3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  65  
 
+:::::: The code at line 63 was first introduced by commit
+:::::: 3003a180ef6b9462f3cccc2a89884ef2332d2a1c [media] VPU: mediatek: support Mediatek VPU
 
-> diff --git a/include/linux/virtio_config.h b/include/linux/virtio_config.h
-> index 69f84ea85d71..8684a1e268ee 100644
-> --- a/include/linux/virtio_config.h
-> +++ b/include/linux/virtio_config.h
-> @@ -71,9 +71,9 @@ struct virtqueue_info {
->   *	Returns 0 on success or error status
->   * @del_vqs: free virtqueues found by find_vqs().
->   * @synchronize_cbs: synchronize with the virtqueue callbacks (optional)
-> - *      The function guarantees that all memory operations on the
-> - *      queue before it are visible to the vring_interrupt() that is
-> - *      called after it.
-> + *      Wait for running callbacks to complete. Memory operations on the
-> + *      queue before this call must be visible to vring_interrupt() calls
-> + *      that follow it.
->   *      vdev: the virtio_device
->   * @get_features: get the array of feature bits for this device.
->   *	vdev: the virtio_device
-> -- 
-> 2.39.5 (Apple Git-154)
+:::::: TO: Andrew-CT Chen <andrew-ct.chen@mediatek.com>
+:::::: CC: Mauro Carvalho Chehab <mchehab@s-opensource.com>
 
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
