@@ -1,150 +1,158 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6705440DB3B
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:30:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B64140FDAD
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:30:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.176
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788766228; cv=pass; b=j0pb4QFEaBYqY41AjAuuU+fMqjdgjm56SkMhryMTQRJ+39ZxRU9ZxG8lVDTIEvFARVfgL1ZyxwDLKqYIEZ5t9Gn89TcyAPutoS97aM7OZwJIZdd44iIEzl9mYNm/FDFA5Gz/DF6kpd4UXYhy8vbqWQ5LKQcHq7jhA4WFHaGJu20=
+	t=1788766246; cv=pass; b=IiJSNtCQlKD2/mAjF5f+4Gdq46DB8HRRThz1PjZ2RsLRGe1ZrJloPcBYZfxBTnsCJDM/SegB6TushYxlEuC/f7XRbSnV9YN8vV2Ls/v0RcKHlj/DevCdOpWcI4mAgJRuZHnEdIY1Pm5C62NHGNjI3uKr0bSTCIfLvmhlIgG/EHQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788766228; c=relaxed/simple;
-	bh=gUujX7fW634HYARr37s4suMeomh5Vu3Ki++zKPfmHkY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u6BdWqhI95bwUAY72dhzgqI4Ux22dDLnDEfXLzTriNInmqjKIR3/SLz1iUjVe1k3DkqGck01NFgVOE1JtP1hfxBnb6uCRCt9cpVFf5a5p64st/HFXUdbmB9cys3YhHIa4zBWaw2ILMADeOKOrCvVYeNbYybqLB1A8C0bpMhuGqw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=benjamin.gaignard@collabora.com header.b=BilZhe1Q; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1788766246; c=relaxed/simple;
+	bh=ws1lt2A9wuTY0mZ//UjpSJvqUAKan2kCqa9w0DLo52c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=K81fd7YQbNYgb5ec+6LjJ/XV/yx4uYJR4YJ7QPEJqMGSH0rCd+XipCx0BO27lj43fu6sAENvh44QMNrziw6gTmG5BlCkylkqUmXcpx7UJoMfePkAkJicU9HM2YMTG9Jvy5cDkvRgI1Xbizkrl7XUzI1P3dOo9PYn20crAflnPMw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=r2xJc220; arc=pass smtp.client-ip=209.85.208.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=benjamin.gaignard@collabora.com header.b="BilZhe1Q"
-ARC-Seal: i=1; a=rsa-sha256; t=1788766213; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=FHeADlHqFwKW4xKPtaLytIBO9jj6vKHnaD/LzMNVv10bsRq5eEZ/CKlAMEJG6F7eEwpYb6Kh5hkWKqTGUdg44daQL0qg9c4xzjjdq2ZRhr6qFWqB6bOznLd+XuoglmV0LxplDd0D7+V+6MUzMytKPDPKzkEtnTFG/I44CmE36sk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1788766213; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=03amPyL4kdQy0Wn3WJ+VSO8pe9I6M+yzG5HGbJ1F2O8=; 
-	b=BKq+sSGMlfhizvCeFDEFO+RQrLWbbrfT5Pps+Go9i7mASHGT+xwAcq4mXFI75lLB11aHv4a3ksyD00E0K44JVNhSBu13tDTtDtTmTCpgius1teAL4lDOk3+t+eX5EE7gZLTtpmLvMcoSi5CvqEwVWSuCB4NA84K8HRk3LKmR8IQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=benjamin.gaignard@collabora.com;
-	dmarc=pass header.from=<benjamin.gaignard@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788766213;
-	s=zohomail; d=collabora.com; i=benjamin.gaignard@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=03amPyL4kdQy0Wn3WJ+VSO8pe9I6M+yzG5HGbJ1F2O8=;
-	b=BilZhe1QjaYMplVtS4sbYy4EF9HRBwPdfT3sZArka/c1Hyd0n6gIEx5Gk5wbUuNE
-	ApvMddbCBYDGXTeEygivu4FPaj0lct0eeMpnvvxxO5NRv9DSzmWrBxmTvNcOjuZ25oz
-	qmD6LkLdnphNDoRuRPgq1NaTRxk9QTgWavGtqwRw=
-Received: by mx.zohomail.com with SMTPS id 1788766211524608.4449046809453;
-	Mon, 7 Sep 2026 00:30:11 -0700 (PDT)
-Message-ID: <aa503065-cd97-47cd-894c-bd660e59f5f9@collabora.com>
-Date: Mon, 7 Sep 2026 09:30:09 +0200
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="r2xJc220"
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a1e9f55e03so28723541fa.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 00:30:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788766242; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QO+PNbJzVUAo4OH4d9LjoWIANng4GAa+NYO7j9o45u4iyYhgTWagOUyovDr0ZnZTgo
+         SpLXg2qmGL7mwFjWcovvUcM4qyc9WF+n3hgfknIVPNMeIjcn9up94Ajax5pObYgwJeUt
+         I8uNYrVaYqxoCXpHKGizsD3dqfinO2rsEo7u8DxlhWGVYSRhqj6FXXJVAixkpZtvUQpV
+         k8A+BlVq/K4eb753gF9ITjXyLIuYOTEFHdG6c0ovlP3mATla8YQJ3/XLX94Xd5HP5CHf
+         JOa3aovOcNpQ/AD44u+uEP1kqFLGxWxKQ3Z8CmmiHcsg8EslB00zUKtVvvLASNmY1h7X
+         7Riw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=K8pzZlzdqRIT/RWxSl/nFSJH5gf6fu3+T1v+V4JsYz8=;
+        fh=63x8HV10ZwKPdxJbYr0A8AqvWNZrL3rZPmwI85b4Kng=;
+        b=LwGAnlagwn0+aMCV9iyqT8fwqLe7grit5Tg/+PmD/3p/QoRLDBeVzpX8Od4sBbo3r4
+         CRlQpt7nIsM/hzzS16sr2M6KkGa32zZbNB7BcJ7TytJCeyzTl+RbR+d9Zm1jn1hK6v6z
+         ooIKc9Er3BeHYZ5FYXcuOgXk5u8Rb3ehiHE5fdu8yL82k4XUW6gvdwpreVHttON+/8zh
+         5UxDeVUcRY0oznROPh14pJS64JtRsh9wJ29rIladXb5KX3rUOW5L8Oi0ft3pHwp0fOkr
+         EAiIPa6gaE05wOr7vwwynXdZ8xBr152wt2h1OlvyPLPAxPiCsRkX1dPvPTO3a0lCKJAC
+         n7Ng==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1788766242; x=1789371042; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=K8pzZlzdqRIT/RWxSl/nFSJH5gf6fu3+T1v+V4JsYz8=;
+        b=r2xJc220Zc65Y7W2MaMaq3YAsTrjViOVCgIePlgRrEVuKOUCWhaobo2ZN7lFvrwJmH
+         jwhgA2Ey/xrqrDsX0hTrSZArRxWNUbTJ1BBoXFDAuqPVGWS3uzGaKwJtrj/Q46uRMssS
+         o1MQx7lWWvmkB+Y5OpNmQAepBU7XbVWnx3dk+9NRACPts7fAe4ufO3sOWgfakB6qSATi
+         BRw1VEHwqp+x4iOmusvYYb8A47gpu6ssJcKBZyybXPBYZQ2Kj63vfBr+ZkF2Or4l2THO
+         Q/7Q/eobjosfi0XLUIJxdEXDoTfrjgRLmSfIZn8te4/DI2fK1mfOnuavwXgBtxjZX36d
+         suxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788766242; x=1789371042;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=K8pzZlzdqRIT/RWxSl/nFSJH5gf6fu3+T1v+V4JsYz8=;
+        b=cLR1dfTQxgHV0FEcM7VAhPHXzFCAkBDuNmJYtiKhC//ex9K3efn5kNg3uXB88dsQDA
+         yWi7ShT+sGqJvr9qnjW0d8ZNbDJn7CWbXOc4rJ3ySO3fiDx3OUwPVnLC6nGc+vzW/SyN
+         dELUEIcDiBop32ayztXA6a/jMpn56QPgU6s/x/mk9qYPZ3I7TzjGYHWFzmEqR5ntl731
+         g9xB6PgjivyCuAfM2Qtec7UQMe3zGyg75mFAtmbK2ujBzW70Nywj/6lV2fZbKKoQCqGn
+         IaOb4hcU52+cMDoD4Par1U/iQL+sFZ2rTaC7Txa09aRBkV5vJ9xbdz0URGL1qfpDZ990
+         Wehg==
+X-Forwarded-Encrypted: i=1; AKwUvBxQGc4nMOXeaFV0BICFSfG6bKPNNZ1DvXf0mq9XSp78YYkpLvkcyidz3Yyvo45WEzXVFCiD7fZN9geeEkQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nYhjjU/msFPQ7VV7hp+4eeJlK8aW2j7+wT6RBWNUl+CraL7eV8
+	lUCfZq3oO/qw72856ezZFWiRMHmjSNUi3zidLcICbjbpzK5edIA2kMomZ/p2GFp92m9mxCeKPWI
+	CYaOYfxIEKaKmNfpcGXf9zngVkjR2EskCJPApczZ7g+s=
+X-Gm-Gg: AYBFou1fkPlfaGjLK857XhCWLQQe/pdVg5CoRdvMqMhgunIeEPrl3uj/lxbVTJdf5Hw
+	lHU1De0Db+cvt6k7TIG9wVhjPOutOZKD0oKJDbLs4fGvfzuTdeCIWPjwCPkxgmFUyJtRxN6i52T
+	es1lMJn2BbqC6Fb1jMz1ZgcfRTAsVjnIAcH8GhUHL9RqccN+VQnVQ+qPcToI5kK4e2s47EWSO12
+	nuOjaE71kJX0LnshhCMghAQX4wSY7x7rdOhmTPOb5HouJIKit4ArA6O9ZnQji1rM5R2SoLTstuS
+	iSRqUfh6eW4vCOST15Nyv2/cYi2cRH7z0UqiEm5cNMb03MwnP4FQaVj00+Jds2dPQpbq+1TmOFs
+	=
+X-Received: by 2002:a2e:be1e:0:b0:3a3:314d:1169 with SMTP id
+ 38308e7fff4ca-3a371b39b13mr25408981fa.1.1788766242436; Mon, 07 Sep 2026
+ 00:30:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] iommu/vsi: Fix use-after-free during module unload
-To: Yibo Tan <lhfff@tju.edu.cn>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Will Deacon <will@kernel.org>
-Cc: Robin Murphy <robin.murphy@arm.com>, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260905183834.3447662-1-lhfff@tju.edu.cn>
-Content-Language: en-US
-From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-In-Reply-To: <20260905183834.3447662-1-lhfff@tju.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <cover.1788668475.git.zihanx@nebusec.ai> <e8782427d0b3cd1854ab8d141eea224b53db55b9.1788668475.git.zihanx@nebusec.ai>
+ <CANn89iKdX2-a+VhWa4CyDODSZByk=r5VRq38yQhLYBFRQ1Wy3A@mail.gmail.com>
+In-Reply-To: <CANn89iKdX2-a+VhWa4CyDODSZByk=r5VRq38yQhLYBFRQ1Wy3A@mail.gmail.com>
+From: zihan xi <zihanx@nebusec.ai>
+Date: Mon, 7 Sep 2026 15:30:30 +0800
+X-Gm-Features: AcwNN1VDHzbFiSzp25pLBVGEmL8dzveakPy4WZ3YZpO1QfoeCh76H4bfuzwlclo
+Message-ID: <CAANe3eQpztNQF_e0qHXxAr+GM39tUdU0FS=1kO0h5LY+v-iVGw@mail.gmail.com>
+Subject: Re: [PATCH net v2 1/1] udp: diag: bound bucket lock hold time
+To: Eric Dumazet <edumazet@google.com>
+Cc: netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, Willem de Bruijn <willemb@google.com>, 
+	Pavel Emelyanov <xemul@parallels.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Vega <vega@nebusec.ai>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Sep 7, 2026 at 3:07=E2=80=AFPM Eric Dumazet <edumazet@google.com> w=
+rote:
+>
+> On Sun, Sep 6, 2026 at 12:35=E2=80=AFPM Zihan Xi <zihanx@nebusec.ai> wrot=
+e:
+> >
+> > udp_diag_dump() currently keeps the UDP hash bucket spinlock held while
+> > running the request's bytecode filter and filling a netlink response fo=
+r
+> > every socket in the bucket.  A large filter and a heavily populated buc=
+ket
+> > can therefore keep bottom halves disabled for an attacker-scaled amount=
+ of
+> > time.
+> >
+> > Collect at most SKARR_SZ matching sockets under the bucket lock, taking=
+ a
+> > reference for each socket, then run the filter and fill the response af=
+ter
+> > releasing the lock.  Resume with the existing (slot, s_num) dump state =
+so
+> > the next batch can skip already-walked sockets.  Leave bytecode filteri=
+ng
+> > until after unlock; unlike tcp_diag, a rejecting inet_diag bytecode pro=
+gram
+> > is the expensive part of this walk.
+> >
+> > Fixes: b6d640c2286d ("udp_diag: Implement the dump-all functionality")
+> > Cc: stable@vger.kernel.org
+> > Reported-by: Vega <vega@nebusec.ai>
+> > Assisted-by: LLM
+> > Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+> > ---
+> > changes in v2:
+> >   - Drop the hash-list cursor, dump_done callback, extra module
+> >     reference, and inet_diag core changes.  Dump state is only
+> >     (slot, s_num), so the existing handler get/put around dump() is
+> >     enough and udp_diag no longer manages its own module lifetime.
+> >   - Batch at most SKARR_SZ matching sockets under the bucket lock
+> >     like tcp_diag, and run bytecode filtering plus netlink fill after
+> >     unlock.
+> >   - v1 Link: https://lore.kernel.org/all/133b6aee9e2c908c9da37d5585b3d2=
+cd016906cd.1788187473.git.zihanx@nebusec.ai
+>
+> pw-bot: rejected
+>
+> Please limit the complexity of filters.
+>
+> Anywone needing complex filters will implement them in user space.
 
-Le 05/09/2026 à 20:38, Yibo Tan a écrit :
-> iommu_device_register() links the embedded iommu_device into the IOMMU
-> core's global device list. The VSI driver can be built as a module, but
-> has no remove callback to unregister the device before devres frees the
-> containing struct vsi_iommu.
->
-> With no attached consumer holding a module reference, unloading
-> vsi-iommu.ko succeeds. A later platform device registration enters the
-> IOMMU bus notifier and scans the stale list entry. KASAN reports a
-> slab-use-after-free in __iommu_probe_device().
->
-> The missing unregister operation on driver unbind was also noted during
-> review of the driver's fwnode lookup lifetime handling.
->
-> Add the missing remove callback. Unregister the IOMMU device and remove
-> its sysfs object while the provider is still alive. Release the exact
-> shared IRQ action before forcing runtime suspend, then unprepare the
-> clocks acquired during probe.
->
-> The failure was reproduced on the 2026-08-11 IOMMU next snapshot with
-> real module load and unload syscalls. With the same KASAN kernel, the
-> unmodified driver produced two invalid reads from the same freed list
-> entry. The patched driver removed the entry, completed the later device
-> registration and produced no KASAN, WARNING, Oops or panic.
->
-> The remove callback also builds with W=1 for arm64 with
-> ARCH_ROCKCHIP=y and CONFIG_PM=y, and for the arm64 COMPILE_TEST path
-> with CONFIG_PM=n.
->
-> A standalone reproducer, the vulnerable and fixed serial logs, and
-> their checksums are available at:
->
-> https://github.com/kimaiden1984-boop/linux-vsi-iommu-unload-uaf-reproducer
->
-> Fixes: 917ace84b770 ("iommu: Add verisilicon IOMMU driver")
-> Link: https://lore.kernel.org/0e405cb3-1227-4ad2-96ff-aa0db3124381@arm.com/
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:GPT-5
-> Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
-> ---
-> The QEMU helper supplies the platform device, MMIO resource, IRQ and
-> firmware node normally provided by RK3588 hardware. The failing access
-> occurs while the IOMMU core scans its provider list, before VSI register
-> access.
->
-> Not tested on physical RK3588 hardware: removal with an attached
-> decoder, a runtime-active device, or concurrent interrupt delivery.
->
->   drivers/iommu/vsi-iommu.c | 12 ++++++++++++
->   1 file changed, 12 insertions(+)
->
-> diff --git a/drivers/iommu/vsi-iommu.c b/drivers/iommu/vsi-iommu.c
-> index 42c424496..7fa7ee8cf 100644
-> --- a/drivers/iommu/vsi-iommu.c
-> +++ b/drivers/iommu/vsi-iommu.c
-> @@ -728,6 +728,17 @@ static int vsi_iommu_probe(struct platform_device *pdev)
->   	return err;
->   }
->   
-> +static void vsi_iommu_remove(struct platform_device *pdev)
-> +{
-> +	struct vsi_iommu *iommu = platform_get_drvdata(pdev);
-> +
-> +	iommu_device_unregister(&iommu->iommu);
-> +	iommu_device_sysfs_remove(&iommu->iommu);
-> +	devm_free_irq(&pdev->dev, iommu->irq, iommu);
+Agreed.  v2 tried to make the dump walk tolerate large bytecode;
+that was the wrong approach.
 
-I don't think devm_free_irq() is needed here.
-That said we need to fix the problem.
-Why not introduce devm_ functions for iommu_device_unregister(), iommu_device_sysfs_remove() and
-clk_bulk_unprepare() ? That could be useful for lot of drivers.
-
-Regards,
-Benjamin
-
-> +	pm_runtime_force_suspend(&pdev->dev);
-> +	clk_bulk_unprepare(iommu->num_clocks, iommu->clocks);
-> +}
-> +
->   static void vsi_iommu_shutdown(struct platform_device *pdev)
->   {
->   	struct vsi_iommu *iommu = platform_get_drvdata(pdev);
-> @@ -776,6 +787,7 @@ static DEFINE_RUNTIME_DEV_PM_OPS(vsi_iommu_pm_ops,
->   
->   static struct platform_driver rockchip_vsi_iommu_driver = {
->   	.probe = vsi_iommu_probe,
-> +	.remove = vsi_iommu_remove,
->   	.shutdown = vsi_iommu_shutdown,
->   	.driver = {
->   		   .name = "vsi_iommu",
+I will drop this patch and send a new series that rejects oversized
+programs in inet_diag_bc_audit().  Richer matching can stay in
+userspace.
