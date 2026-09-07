@@ -1,139 +1,102 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ADC53C0619
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:12:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B79374A01
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:12:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788815546; cv=none; b=bFgXcCdh68YJGz6OmER86H5O4IXmf6y0lBoDInPzxQxmzjvU24/ieo1SdDDZ/rq4vpC2Go8pbyoLW4/OfyPHO4M3P51BwQr7L8eGqCcv7lEPopG7limrivlYTrGDkblEctNtCThdzep2k2jJf1LAX/0v/XwkUkQ99AcHzKCuyRU=
+	t=1788815558; cv=none; b=jJSbvAHW0R19aNzxqjSMu8K2beF93iEBWCbKe2rA6PU/2K3ShL884KOlPesMGnzFeV91zhzovwakmH/MYFdJ1SgPVy5YDtD+rXxTWK2sJFOtLo3qUo66KnmsHsoPcFDb80bsAAkFKIhrHhnz9QfnY8TmkLnGMxeWJsXVZ2AMJ8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788815546; c=relaxed/simple;
-	bh=xiXIyUF728pdEMxBYCKoeOijmNpBaYqOiK2jGy8n+Bg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lsEPKua8W1O39wJTkQBzKEuf9cvFQxsKTv/MBpdFJXzcyQEIk3UDV10jg+fUTVSZxOYdRnoMbFiS9CcyqNeBRTA1CA/qxSs+FtKmC199s80g0voXW7N9x1vPuANARfPd8DVBMo2CbfkUGARUZPjX/zfK84rWDO3kG8BEA5W2dqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EhAnUDfD; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788815558; c=relaxed/simple;
+	bh=NYCUMwkBLkQcNyTjCTlYbmcKiGvbB0TC7/ARDkSatTM=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cDDKWWJQQYfCqE6Gjrk8TDrGKspObnaCG8WFGKK0nYL7YcqR3M1Q014SBhOhbn9QZCYFVvkDXwJn7gkpKdteCNd2JlZQhVrEQ5JD3LZPavmZHVhHJeDUY/7cB21DfK3GMQjumNyN0mWFvwPt5eGWbx8T3/gvSTTdnhVZFZygwJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WWZiaTDw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EhAnUDfD"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-499ae1c6471so38345945e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 14:12:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788815543; x=1789420343; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UJGLSFX8zrT7Q+dYaopHAkGvQp+bTwZKSJV0d+iSPkY=;
-        b=EhAnUDfDOZJ/X6HCxheW7bA2v03tKBBxA6oeVTBj4TYbDrVuTUTTWocm+cNIGKLpfX
-         rL8ijF/QapWvIMSBrhYsWrgQ7daxljq8CaCeNcjsyxds+mLsq0UIUlRhMTOx7aB6BieM
-         8Yqb1IrneKyDMvibYt73k7pl+V4R7wKko/UOMUYlzBka8kIZqhNm+htGW1ACChiPNpE7
-         F8r/by3u77t00tRsA4W1T1JsVGkPFjPtcJmHZSdAsccc7Pk44GJLJcErUtLeHYvnnwcQ
-         ttpC3kNUye+5tqdQKigpQZb+MyFUrynYdNsJvCiKPuDoG5eh3GRHwPrYnEpTUVuNWLO3
-         E1jw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788815543; x=1789420343;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UJGLSFX8zrT7Q+dYaopHAkGvQp+bTwZKSJV0d+iSPkY=;
-        b=VY6LlkNZIlScVTEKVKji5ka8lFb7NtmgZXDDqMPjuny8hXwwR11zZvsHws+euzOVlF
-         p6dOfVvKfQFDGRrem3efNP9GTOvnDjS01SUN+fbn+G4gA3dMLOQDpuGWX0IHuBg18bCe
-         4QvwuzcgLRfqz4n/LxX/8ugFI4KVj2JHMy8BwX1kAjDXAYAvPOK9hYD3vKeeF0mTihgx
-         Nf/S0bRqMy2Scc2dvKA0FogrqTzxXoydtOlXFbHuLL0wq+E4V5/KjzsfJyZl6GZvQGUT
-         QaG3S98AG+ioOc78igBMRWBSGOFqR5zGkqF1paxDqL9EJiACmNkbUZo35muZy0JZevaz
-         DgSg==
-X-Gm-Message-State: AFuF++mf7FQ+OIMgNIJ2fcFV0uQmF/d2QuJVei1fn5FTZonV1joanap4
-	ef2cbcIrcQ2reZzXKqpwa1aodTP+7idlQ5MwyQMGU9yTES9fyc4/lvKX
-X-Gm-Gg: AYBFou3iHKslXQYNtOuXdGIvRXUMxv3oU6hNy6IHihJx/BEzsM2A9JqJHF4jpENpYyU
-	NSMxoCu++v/AsiHEazjFCFkyNmNYoBbd3XswORIrIEXBEC6esT2pO1wU56Nfka3VxeFbEoDOhAl
-	isb5vJf7M90Xv10vYyoNcLlziqDC1aQpllEUZMFqVHQKANXciAPh+JAXJ4GE3rPjt/P1JUc7LLe
-	PwNFG2+RVcZrYXXcl4H6lJmPZaw7OFrLvMMoNWXTx+xD566AQaZMuzZRPOG+iVShbT9Q3X8i/aJ
-	FutRRVkY6ffDa0dd71sC1GhxJBYi0iHQ9oSLt0HUVa4dh82OHyFF0cbyzomDlk+LZ/cTr7fj1aL
-	QCktbl0F02+EsGJd9GStGFXA8JASHa0JgNS3jCojSkvGJpBKcucgYGPZ8JAY248Y6kFOegDhCNN
-	yX0EXdCByeIypPnDCq3kGOD8SaoXTyFxYUpfZl7sJn0qjwq2bM11UqiqPBX9rf93dSvZ+Q43CJ
-X-Received: by 2002:a05:600c:1990:b0:49d:1012:893a with SMTP id 5b1f17b1804b1-49d101289e2mr141469225e9.7.1788815543142;
-        Mon, 07 Sep 2026 14:12:23 -0700 (PDT)
-Received: from andreayoga.wind3.hub ([31.189.32.38])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee7fec25sm492052235e9.13.2026.09.07.14.12.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 14:12:22 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>
-Cc: linux-kernel@vger.kernel.org,
-	Andrea Parri <parri.andrea@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] hrtimer: Use hard expiry when updating timers on the same base
-Date: Mon,  7 Sep 2026 23:11:33 +0200
-Message-ID: <20260907211134.3854-1-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WWZiaTDw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1C421F00A3A;
+	Mon,  7 Sep 2026 21:12:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788815556;
+	bh=1Nq/CDy5eN1RWcjexAvJnY1EZmo2i1apDparjrqIaeU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=WWZiaTDwiVlQM0e9x7VrTL5KQeW7aBrDMJYJfILd5eYWhb/1qRKc0kz7g8gOF3umv
+	 UeJbFvCEFxUzDm5P8fNSmFdoQmtROpavrVzjoP8bmtd9p4RO/ui6Aaj6lGYuHfpJJw
+	 x//8HYNaOgU7wTZmBdweTpPmGRWQzqpHKOhR2c1XKkMZQtTkIJ8gwb3Uxf0Gn7zgZp
+	 qxCqcjeddfQx6BmxyOt2KQLrQAI9kC2cian7LL+JQp+NiQ7rhPjdS7dOp//5CM2m00
+	 e+R1oIOxeAEgWb3V9P4NhQZwUpT/O/ksD+cAZrhgeJ35J7h8PXl6uKsOd1uATehQl5
+	 lZhOgF4I2g06g==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x3gdm-00000005wXM-3R5X;
+	Mon, 07 Sep 2026 21:12:34 +0000
+Date: Mon, 07 Sep 2026 22:15:09 +0100
+Message-ID: <87ld9c4vc2.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Mostafa Saleh <smostafa@google.com>
+Subject: Re: [PATCH] interconnect: qcom: icc-rpmh: Add opt-out parameter for QoS settings
+In-Reply-To: <v2gxqazjoxe74q5364jucy4pjds6gx4gfdchgulekl5mwk2azk@we4ibolioibm>
+References: <20260907171729.1735641-1-maz@kernel.org>
+	<v2gxqazjoxe74q5364jucy4pjds6gx4gfdchgulekl5mwk2azk@we4ibolioibm>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: abel.vesa@oss.qualcomm.com, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, raviteja.laggyshetty@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com, abelvesa@kernel.org, andersson@kernel.org, smostafa@google.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Rearming a queued timer with nonzero slack can leave the timerqueue out
-of order. remove_and_enqueue_same_base() checks the new soft expiry
-against its neighbours' hard expiries, then stores the new hard expiry
-in the node without requeueing it.
+On Mon, 07 Sep 2026 21:21:44 +0100,
+Abel Vesa <abel.vesa@oss.qualcomm.com> wrote:
+> 
+> On 26-09-07 18:17:29, Marc Zyngier wrote:
+> > Recent addition of QoS configuration to the X1 variants resulted in
+> > systems that spontaneously reset at boot time or under load.
+> > 
+> > Given that this is both very unpleasant and hard to debug, give the
+> > affected user the option to survive such event with a module parameter.
+> > 
+> > Passing "icc_rpmh.enable_qos=0" to the kernel command-line will skip the
+> > offending QoS setup.
+> > 
+> 
+> Lets not start doing this, please.
+> 
+> Can we figure out which platform deosn't work and then maybe we can 
+> add a quirk in DT per platform?
 
-For example, with A at 10 and B at 20, rearming A at 11 with slack 30
-passes the neighbour check but leaves A's hard expiry of 41 before B's
-20. The same function also caches the soft expiry in base->expires_next
-when updating or inserting the first timer, giving next-event selection
-an earlier deadline than the queue head's hard expiry.
+We have at least 3 machines that are dysfunctional since [1] was
+merged (mini-x, sp12 and devkit). Probably some more, but I'm not
+going to be the one doing a survey.
 
-Compute the hard expiry with the same saturating addition used by
-hrtimer_set_expires_range_ns(). Use it for the in-place ordering check
-and both updates to base->expires_next.
+What really should happen is [1] to be reversed until QC figures out a
+set of parameters that actually works, instead of making this platform
+even more unreliable than it already is.
 
-Fixes: eddffab8282e3 ("hrtimer: Keep track of first expiring timer per clock base")
-Fixes: 343f2f4dc5425 ("hrtimer: Try to modify timers in place")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
----
- kernel/time/hrtimer.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+Just like [2] should have been reverted.
 
-diff --git a/kernel/time/hrtimer.c b/kernel/time/hrtimer.c
-index 530d61257b9a0..c5940323746db 100644
---- a/kernel/time/hrtimer.c
-+++ b/kernel/time/hrtimer.c
-@@ -1261,6 +1261,7 @@ static inline bool
- remove_and_enqueue_same_base(struct hrtimer *timer, struct hrtimer_clock_base *base,
- 			     const enum hrtimer_mode mode, ktime_t expires, u64 delta_ns)
- {
-+	ktime_t hard_expires = ktime_add_safe(expires, ns_to_ktime(delta_ns));
- 	bool was_first = false;
- 
- 	/* Remove it from the timer queue if active */
-@@ -1268,11 +1269,11 @@ remove_and_enqueue_same_base(struct hrtimer *timer, struct hrtimer_clock_base *b
- 		was_first = !timerqueue_linked_prev(&timer->node);
- 
- 		/* Try to update in place to avoid the de/enqueue dance */
--		if (hrtimer_can_update_in_place(timer, base, expires)) {
-+		if (hrtimer_can_update_in_place(timer, base, hard_expires)) {
- 			hrtimer_set_expires_range_ns(timer, expires, delta_ns);
- 			trace_hrtimer_start(timer, mode, true);
- 			if (was_first)
--				base->expires_next = expires;
-+				base->expires_next = hard_expires;
- 			return was_first;
- 		}
- 
-@@ -1291,7 +1292,7 @@ remove_and_enqueue_same_base(struct hrtimer *timer, struct hrtimer_clock_base *b
- 
- 	/* If it's the first expiring timer now or again, update base */
- 	if (timerqueue_linked_add(&base->active, &timer->node)) {
--		base->expires_next = expires;
-+		base->expires_next = hard_expires;
- 		return true;
- 	}
- 
+Until then, we'll have to paper over this stuff.
+
+	M.
+
+[1] https://lore.kernel.org/all/20260527-x1e80100_qos-v2-2-305c6539e6d2@oss.qualcomm.com
+[2] https://lore.kernel.org/all/20260203063244.1498699-1-xin.liu@oss.qualcomm.com
+
 -- 
-2.53.0
-
+Jazz isn't dead. It just smells funny.
