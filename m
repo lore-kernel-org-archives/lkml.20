@@ -1,144 +1,210 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mta0.migadu.com (out-45.mta0.migadu.com [91.218.175.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEB374119E3
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:00:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 104D940F72D
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:00:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788764454; cv=none; b=UhPON1K1tjPm289NqFb4FVTI3cLhTHbjtE2G1rdh174H/tbCVxtFW8qBTjiB4JwLcZRbTD0TArwy3YLtcBn9qj4Gzyem8DK62MqxTez1jNzaYfgzlsX3D9wFkBcb+l0uUaH2u0+hn63I8tgHFiHsxdCy/y3F87V3WaA4J4cpuN0=
+	t=1788764454; cv=none; b=QwtzoiLpo150p3cR77YwLAmswmETmRAM4GDMg/cSOs7YUensMs700YYQsahYCUXIy1oMODrgItJuDHDq6B3HQrUzuBk8pP2VgPXTT5MF/Vx6wNX2WuRA7QHIOlN2fpGX6KKR7bcFupRgIgKES49uHPFMdzECn3e9uqNxSakd4QQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788764454; c=relaxed/simple;
-	bh=sLQ3SwAUUXRzuIZz/i1Gx4vixDbuAVR782D36s6FlvI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VPUrxmPr5EoK5hA8/ehEfzMrqHIF0Wp2aCY3vADrwG0F8H0yzXglOoYA5cE09naDel/lz+3K6e2YSwllFOxPWR/odl40HvNpfBpkz29aQ86krQiSlxAOXv1dtDjta/bUIzS0RPrwEFBxzSqCQPaGPEagbTMiFFev3KQq5n4jCxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=nSd2cOng; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	bh=il04srBHnxBWpSw+vl62VbPSEc2pLy5hniPh6DBOpjc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=bl9OktCItUMiEqOFA8+pnBf7pVRwfom8o2HDEqWr9VjIL1TH4vEFXhKhNmiwXsr4US+xKsWXcpVDo/UsJ7xvIC5LkeIn5O55Qulyk+01o9pA/4ZehTvauWIqga/7/gxJDekZ14YrATwSYxWHFihsUlIFRXkJBsCj6KWMtE0cxno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DU23OkbV; arc=none smtp.client-ip=91.218.175.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="nSd2cOng"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38dfe910e9dso3489408a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 00:00:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788764452; x=1789369252; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q5WskygW+ceCXuqHmaYkYH5iopbTLupaw7gvlN5zYQE=;
-        b=nSd2cOng71Nr2G6pFLJhMItZAvtoUGdIn6dbSO87HaSfPToKEMoC7kxfHGwsrsLcGl
-         fd2emXb7j2WQNNAKp/OxuXneyon7eHDkuZVqt4ADTIlOXcWf0/dLPZzGWwlAN8yg7JnL
-         oJfBg5AFbUsRZJ5+g8jltthH87nrpMieYeLJQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788764452; x=1789369252;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=q5WskygW+ceCXuqHmaYkYH5iopbTLupaw7gvlN5zYQE=;
-        b=IgKV2CPN82vl4v3D0PXur4+dMc4HtlrZrtA6GRlU4RHwgcl2Nl+GjGSgSC5P0fXzGm
-         G8xeNq3RLZUeq7yK0fHwHiN01sGT7jZLjWo6ondObijuxR4zCaTsFka3eWfisEV4/+ZU
-         fGIA58F+SXpxeh0spLal9b1Ru2AiYlHVrBmebFkyAovrePs9sv7ei1W/HDlbJHC7jrmE
-         iFoX2hQQmBjxAIYy6TSq4WHTK6yUbJdLsBZXAR594/wRW2eerse0ouoRZi27fWz+G2ZO
-         3e4sDxvJFWOYIY+DU6V6PK2zfeHi5tCSyDEttu6Uc9rTw1UqvhqP3Fxp//8xGPEKVupm
-         zzSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz4G0XB+Z3zOmFnN6wJBV3vQhGVwzEMXH+7e7FBFdoShsVg2hjGkOfugeTC+BTN55gUAnLf1SKSUMxfUdE=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9hgBqqUhPCQnp3x5AfBW5NEhb5qAKOLFGvj6L81RbJB5/pMc4
-	f1XW2uYI+oEXpqqfvk4XJuBjWgDt4WJLVvxY2vrC3d+9HtpkEb4JrQLfOeP+gY8ILPj8Tz+wDuA
-	OuJxqkw==
-X-Gm-Gg: AYBFou2EcD/cAHHMMHwT9ezRdb6lBKdWSRYPTOKpi/ZeL8K6rm79AaO6Yj3A1hDA+mz
-	EA8tOtJTbeVQq4/Z2c0YufCApGIkWgfw4W7vTuJhba2Tg6FoWnoWx+BvQ4eB6j5BlkpV7HhfPS7
-	WRbp/xapGSUe7OCS0y/mqLaIZmFFwIyzmkPWu9fL8Nui6EjIBDRcm8E9M6mKMuvOJsK3cD9si+2
-	Zl8AlMXl+Csai2K4BykTAdg43V+nKXvWuu8iLMkemfghSQBui77e69IJ+Uu+MB1NruFaVfJNCcx
-	q8Jge9thTOXSp+WN7D6TfGbZgSFSEiAxYnmkZROcPCzXI/Hpo8ZXancmqEO4p9QGyTDkYc9iU/W
-	pGO3V5wTzn60qngLJpEvNhoTnw0aBcgrH5Dk9hBY4KWLvRaw/McaJDhH5B+fxYhT7pI4SP/m/dy
-	/kqp1pHjPg1vzMQms05GTCg8z48oZv+xlh0j1LqhBlCrw2YQk4TDhvVFuni5CwVtG5Byh2zr9fW
-	mysKI84oF+gZJZ/6aojHcgATS5xTD0=
-X-Received: by 2002:a17:90b:55cf:b0:396:b918:c2a with SMTP id 98e67ed59e1d1-39b261b1a52mr35231357a91.12.1788764451496;
-        Mon, 07 Sep 2026 00:00:51 -0700 (PDT)
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com. [209.85.214.177])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b2612ba2bsm18394903a91.14.2026.09.07.00.00.51
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 00:00:51 -0700 (PDT)
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d7200b2e15so33156495ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 00:00:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBze6ScA7Cn56RP/0XjOd2Y8v7hxMjTyXEot2/dKcXgCzX9dCsxLh4mcY3cO653zLBod1+S4xGrmr7jPDpM=@vger.kernel.org
-X-Received: by 2002:a17:90b:1343:b0:38e:9eb2:9d43 with SMTP id
- 98e67ed59e1d1-39b261b1bcfmr37283600a91.16.1788764448217; Mon, 07 Sep 2026
- 00:00:48 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DU23OkbV"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=il04srBHnxBWpSw+vl62VbPSEc2pLy5hniPh6DBOpjc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788764449; v=1; x=1789369249;
+ b=DU23OkbVg+BWFrcaYaPkuEg/skYvME+1ormGtVmhQECUZWxHiGlfL7bBElhQ2FWrjwUMaIMS
+ krOgzrAo9mUC5clFcD1e/S13pxyxqvqO6n5yeROpnk89DwcJd+b0Lo3cEgK5sZ1/SFmQhpkrf4u
+ /6XU4W7O/BLPYOOzjwFS7R50=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7979d0f1f2c79ca0;
+	Mon, 07 Sep 2026 07:00:49 +0000
+X-Mizu-Trace-ID: 7979d0f1f2c79ca0
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Quentin Perret <qperret@google.com>,
+	Fuad Tabba <tabba@google.com>
+Subject: [PATCH v2 06/17] KVM: arm64: Add system register reset framework for protected VMs
+Date: Mon,  7 Sep 2026 07:59:51 +0100
+Message-Id: <20260907070002.3333525-7-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20260907070002.3333525-1-fuad.tabba@linux.dev>
+References: <20260907070002.3333525-1-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907062819.2519878-1-98lawweijie@gmail.com> <20260907062819.2519878-2-98lawweijie@gmail.com>
-In-Reply-To: <20260907062819.2519878-2-98lawweijie@gmail.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 7 Sep 2026 09:00:35 +0200
-X-Gmail-Original-Message-ID: <CANiDSCtypCfEoZbRvdT7EoJdd2G8yOVcvxBoS5LcE60UjFQx2g@mail.gmail.com>
-X-Gm-Features: AcwNN1X7eNH4dgTPP7uE_95pl9LbXvmNZv7-4pX7KqzlKshUnu0bIwYnd8a9zmQ
-Message-ID: <CANiDSCtypCfEoZbRvdT7EoJdd2G8yOVcvxBoS5LcE60UjFQx2g@mail.gmail.com>
-Subject: Re: [PATCH 1/2] media: uvcvideo: Fix NULL deref on events for
- uninitialized controls
-To: Wei Jie Law <98lawweijie@gmail.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Wei
+Add kvm_reset_pvm_sys_regs() and the pvm_sys_reg_reset_vals[] table
+that drives it, and call it from init_pkvm_hyp_vcpu() for protected
+vCPUs. The table holds the registers sys_regs.c resets that
+__sysreg_restore_state_nvhe() loads for a protected vCPU. The rest of
+the context keeps the zero the donated hyp vCPU page is cleared to. A
+poison value stands in where sys_regs.c resets to UNKNOWN, and for
+VBAR_EL1 and CONTEXTIDR_EL1 in place of the 0 it uses. MPIDR_EL1 is
+derived from vcpu_id, as for any KVM guest. AMAIR_EL1 resets to 0
+where sys_regs.c reads the hardware: the host writes it freely before
+the hypercall, and it's loaded on every guest entry.
 
-On Mon, 7 Sept 2026 at 08:34, Wei Jie Law <98lawweijie@gmail.com> wrote:
->
-> A null-ptr-deref exists in v6.12.105 and upstream. KASAN crash log:
->
->   KASAN: null-ptr-deref in range [0x0000000000000080-0x0000000000000087]
->   Workqueue: events uvc_ctrl_status_event_work
->   RIP: 0010:uvc_ctrl_status_event+0x105/0x280
->    uvc_ctrl_status_event_work+0x82/0x240
->    process_one_work+0x66f/0x10b0
+Until the per-EC marshalling patch removes the host's full-context
+copy from flush_hyp_vcpu(), that copy overwrites these values on every
+entry, so this patch has no observable effect on its own.
 
-Could you provide more info on how you reproduced the error?
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+ arch/arm64/kvm/hyp/include/nvhe/pkvm.h |  1 +
+ arch/arm64/kvm/hyp/nvhe/pkvm.c         |  5 ++
+ arch/arm64/kvm/hyp/nvhe/sys_regs.c     | 73 ++++++++++++++++++++++++--
+ 3 files changed, 75 insertions(+), 4 deletions(-)
 
->
-> XU controls are initialized lazily, on the first UVCIOC_CTRL_MAP or
-> UVCIOC_CTRL_QUERY.  Until then ctrl->info is all zeroes, so
-> info.mappings is not a valid list head, list_empty() returns false, and
-> uvc_ctrl_status_event() walks it from a NULL next pointer.
->
-> Fixes: e5225c820c05 ("media: uvcvideo: Send a control event when a Control Change interrupt arrives")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wei Jie Law <98lawweijie@gmail.com>
-Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
-> Assisted-by: Claude:claude-opus-5
-> ---
->  drivers/media/usb/uvc/uvc_ctrl.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-> index 3ca108b83f1d..21802f9b1b61 100644
-> --- a/drivers/media/usb/uvc/uvc_ctrl.c
-> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
-> @@ -2209,7 +2209,12 @@ bool uvc_ctrl_status_event_async(struct urb *urb, struct uvc_video_chain *chain,
->         struct uvc_device *dev = chain->dev;
->         struct uvc_ctrl_work *w = &dev->async_ctrl;
->
-> -       if (list_empty(&ctrl->info.mappings))
-> +       /*
-> +        * An uninitialized control has a zeroed info struct, so its
-> +        * mappings list head is not a list: list_empty() returns false
-> +        * and the walk dereferences NULL.
-> +        */
-nit: I would not add the comment.
-> +       if (!ctrl->initialized || list_empty(&ctrl->info.mappings))
->                 return false;
->
->         w->data = data;
-> --
-> 2.43.0
->
->
-
-
+diff --git a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
+index 49a0a992047ba..a04b7c04d5135 100644
+--- a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
++++ b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
+@@ -95,6 +95,7 @@ bool kvm_handle_pvm_hvc64(struct kvm_vcpu *vcpu, u64 *exit_code);
+ bool kvm_handle_pvm_sysreg(struct kvm_vcpu *vcpu, u64 *exit_code);
+ bool kvm_handle_pvm_restricted(struct kvm_vcpu *vcpu, u64 *exit_code);
+ void kvm_init_pvm_id_regs(struct kvm_vcpu *vcpu);
++void kvm_reset_pvm_sys_regs(struct kvm_vcpu *vcpu);
+ int kvm_check_pvm_sysreg_table(void);
+ 
+ #endif /* __ARM64_KVM_NVHE_PKVM_H__ */
+diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+index e85f13233da08..af334318d0a03 100644
+--- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
++++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+@@ -551,6 +551,11 @@ static int init_pkvm_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu,
+ 		goto done;
+ 
+ 	ret = pkvm_vcpu_init_sve(hyp_vcpu, host_vcpu);
++	if (ret)
++		goto done;
++
++	if (pkvm_hyp_vcpu_is_protected(hyp_vcpu))
++		kvm_reset_pvm_sys_regs(&hyp_vcpu->vcpu);
+ done:
+ 	if (ret)
+ 		unpin_host_vcpu(host_vcpu);
+diff --git a/arch/arm64/kvm/hyp/nvhe/sys_regs.c b/arch/arm64/kvm/hyp/nvhe/sys_regs.c
+index 8758c68017765..03d2c2447e0fd 100644
+--- a/arch/arm64/kvm/hyp/nvhe/sys_regs.c
++++ b/arch/arm64/kvm/hyp/nvhe/sys_regs.c
+@@ -525,6 +525,66 @@ static const struct sys_reg_desc pvm_sys_reg_descs[] = {
+ 	/* Performance Monitoring Registers are restricted. */
+ };
+ 
++struct sys_reg_desc_reset {
++	int reg;
++	void (*reset)(struct kvm_vcpu *vcpu, const struct sys_reg_desc_reset *rd);
++	u64 value;
++};
++
++static void reset_mpidr(struct kvm_vcpu *vcpu, const struct sys_reg_desc_reset *r)
++{
++	__vcpu_assign_sys_reg(vcpu, r->reg, kvm_calculate_mpidr(vcpu));
++}
++
++static void reset_value(struct kvm_vcpu *vcpu, const struct sys_reg_desc_reset *r)
++{
++	__vcpu_assign_sys_reg(vcpu, r->reg, r->value);
++}
++
++#define RESET_VAL(REG, RESET_VAL) {  REG, reset_value, RESET_VAL }
++
++#define RESET_ZERO(REG) RESET_VAL(REG, 0)
++
++#define RESET_UNKNOWN(REG) RESET_VAL(REG, 0x1de7ec7edbadc0deULL)
++
++#define RESET_FUNC(REG, RESET_FUNC) {  REG, RESET_FUNC, 0 }
++
++/* Sorted ascending by reg; kvm_check_pvm_sysreg_table() enforces it. */
++static const struct sys_reg_desc_reset pvm_sys_reg_reset_vals[] = {
++	RESET_FUNC(MPIDR_EL1, reset_mpidr),
++	RESET_UNKNOWN(TPIDR_EL0),
++	RESET_UNKNOWN(TPIDRRO_EL0),
++	RESET_UNKNOWN(TPIDR_EL1),
++	RESET_ZERO(CNTKCTL_EL1),
++	RESET_UNKNOWN(PAR_EL1),
++	RESET_ZERO(DISR_EL1),
++	RESET_ZERO(CPACR_EL1),
++	RESET_VAL(CONTEXTIDR_EL1, 0x00000000dbadc0deULL),
++	RESET_VAL(SCTLR_EL1, 0x00C50078ULL),
++	RESET_ZERO(TCR_EL1),
++	RESET_UNKNOWN(AFSR0_EL1),
++	RESET_UNKNOWN(AFSR1_EL1),
++	RESET_UNKNOWN(ESR_EL1),
++	RESET_UNKNOWN(MAIR_EL1),
++	RESET_ZERO(AMAIR_EL1),
++	RESET_ZERO(MDSCR_EL1),
++	RESET_UNKNOWN(TTBR0_EL1),
++	RESET_UNKNOWN(TTBR1_EL1),
++	RESET_UNKNOWN(FAR_EL1),
++	RESET_VAL(VBAR_EL1, 0x1de7ec7edbadc000ULL),
++};
++
++void kvm_reset_pvm_sys_regs(struct kvm_vcpu *vcpu)
++{
++	unsigned long i;
++
++	for (i = 0; i < ARRAY_SIZE(pvm_sys_reg_reset_vals); i++) {
++		const struct sys_reg_desc_reset *r = &pvm_sys_reg_reset_vals[i];
++
++		r->reset(vcpu, r);
++	}
++}
++
+ /*
+  * Initializes feature registers for protected vms.
+  */
+@@ -550,16 +610,21 @@ void kvm_init_pvm_id_regs(struct kvm_vcpu *vcpu)
+ }
+ 
+ /*
+- * Checks that the sysreg table is unique and in-order.
+- *
+- * Returns 0 if the table is consistent, or 1 otherwise.
++ * Both tables must be unique and sorted ascending. pvm_sys_reg_descs.reg is the
++ * sys_reg() encoding, pvm_sys_reg_reset_vals.reg the vcpu_sysreg index, so they
++ * compare differently. BUG_ON() at __pkvm_init: fatal at boot.
+  */
+ int kvm_check_pvm_sysreg_table(void)
+ {
+ 	unsigned int i;
+ 
+ 	for (i = 1; i < ARRAY_SIZE(pvm_sys_reg_descs); i++) {
+-		if (cmp_sys_reg(&pvm_sys_reg_descs[i-1], &pvm_sys_reg_descs[i]) >= 0)
++		if (cmp_sys_reg(&pvm_sys_reg_descs[i - 1], &pvm_sys_reg_descs[i]) >= 0)
++			return 1;
++	}
++
++	for (i = 1; i < ARRAY_SIZE(pvm_sys_reg_reset_vals); i++) {
++		if (pvm_sys_reg_reset_vals[i - 1].reg >= pvm_sys_reg_reset_vals[i].reg)
+ 			return 1;
+ 	}
+ 
 -- 
-Ricardo Ribalda
+2.39.5
+
