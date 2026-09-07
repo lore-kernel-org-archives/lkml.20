@@ -1,143 +1,257 @@
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648764AA1ED
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:39:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9780D4A2E1A;
+	Mon,  7 Sep 2026 12:39:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788784743; cv=none; b=jVwffw9bxdrn0gvUXueNyMwF1G0EMRfgz3PVxQK0EYF0ltTBM1F8fpf+/zFGrtWT8HY/wheT7DrQ+NuY/50PvScK+T9xduGW0CmE0rcnxj8Mgr6dc/mNiEOLpOYfMrtcImaA1y8WMB1HsdF/y40arSwSTSZiquuNQB4vpYLQ7UQ=
+	t=1788784759; cv=none; b=SvCt9DuCj8dtN1RqAFQwJF9lwCq3woEzesZWzw58NtXU4u8LwAcX0Zap1j9lR6BmtkK/ak/VeRaIm7Rx5Sj93sYrh+yMumEkFLk9aCId0znYDhipWnWhj8A2erPCp2jq7EXaLsWIt+Ei0mTuMyHvDAPGLI3Z8ZiiRdefir1RjoU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788784743; c=relaxed/simple;
-	bh=QbAjqHnG5PX0RMNS9DTA+5ZjTR6u7O/LMsv2KE3YZoE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=E+Uo6UQIqYzgkKOCP7iJRDo7Rpdw9vJC5/zSVyxWHD5uJrBIF9nIUz7haYHZD73ab2d4jV/56ll/8/+w8vVTJFMcEdZvH2wz1VrXq2c/g2cnwQqLVkhLMSV2U36bRW2mFPRHeH/FPCt0vQir+qDg/jdbg3sXb/glqUXmBe4IBoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com; spf=pass smtp.mailfrom=arista.com; dkim=pass (2048-bit key) header.d=arista.com header.i=@arista.com header.b=ATyGn/es; arc=none smtp.client-ip=209.85.215.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
+	s=arc-20240116; t=1788784759; c=relaxed/simple;
+	bh=uISJ9qP33V7SWhzaum3QTgVRiEEYIZx6wSDPzqsQIKg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OUxAreMYTJtCOeRdpKugVKgXmGbEsYasH05ukJZcCr9X5DoyBmz6Xu1pnySIV9DwXQw58eFQVvqhXYzotHWQQzw544MFxhK6qw3duGEE2IWM67LgX4yoKJ+DqfY8CufuAX90e+LNmUodLa2kD1Xy7QzCw5TtBala/RCX0BCEB3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=vBYH8Qm3; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=mKLcAI8N; arc=none smtp.client-ip=103.168.172.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arista.com header.i=@arista.com header.b="ATyGn/es"
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc1c3c90074so2894027a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:39:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=arista.com; s=google; t=1788784740; x=1789389540; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LjLAogUswswy8RDvp093f2073XmPq8bwfDxqjR1LO1o=;
-        b=ATyGn/es5pKZD0w51HA5t2FdwxttO9YkucgoDmsezbVaNK5xhK+RiuE+UmR7uUmB/C
-         t1+XMz7w4nBduDVQfLQQXn0cthSU5Y3PZfRDjr6xk4tShnyEEc5mmnghS9xTlu6dMXzk
-         CogXvBXR3weNrosMuL6mIGuoA3bS7zjYUO0ch69r0j6V/icwd6eaafKo19FNPWyAFVmd
-         YnUiXMJ4jERPt3Qlm+4Oe8mujGDOGsT/wL7pwzhY8TV9nN3hDyj/85g80EoYe3EmpykS
-         /CX6Zw/ZmHo8XaLp9RXj7mlBjyDCRXGHM1M7MT7QtwaL+bXQVMxXRE7gNv6/SEtvgajB
-         FHWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788784740; x=1789389540;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LjLAogUswswy8RDvp093f2073XmPq8bwfDxqjR1LO1o=;
-        b=ZKIoslZPngw5zuAV9xTIuYsM74MqoWIuj4RrjcB9nSGIF7OXV39YXcN3SONdv64x+b
-         LVO6PTZjuh5tTgyl1T4KxpfTgUJRgzJ6RaNAuU8xfjTeTSnyevQl3c5oCgU2/OooCL9o
-         t3QLuYAlE+eVB4xAnUqLjNYeoh9aFk8aAjjdtIVRUg0Gx+GM85tBtnbEMp3N5xNq+flS
-         zFk6y89JvjD1YChl7c/pt7Hvp6tqWmfb3efAyWq0xAOvBzTMg20In5Bh2eHb19VkTeiX
-         MI6SoGeR2x5SoQKmuVVTe8YKCzqms0jetUzlYvk3yodTlYkhVPtGofiuFPDc5HZWXez4
-         K3Og==
-X-Forwarded-Encrypted: i=1; AKwUvBye41SnZBA+wet+VT1BQhK1XlV9c51iuHC/NKg6EK/WvAgiVWIg20zQXOIa4TuXNn+8IoP8JmWhT5lzCR8=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0Q6vz70WE4mvGsoOfTnGES0xNOsukmKZbYxVRRBKrybOxc/ah
-	u0Dqp1ew5zdLni5XU2OD4LcYKTK6mkosdzm4QDQsOg5K7t7g0coRkWMu1sLesbctoGD1GxRT8Gh
-	WBrs=
-X-Gm-Gg: AYBFou1BgPdcLkzKUCs3UjSjXUfCUFvRvqig1SCRgWMFr9YUEfO9/mPrNK0UUOpr8LR
-	Nf+JfTKI7f0kBhHonGyVXUjvi/B3AACqc+OWHyMEJSQyY8MEv0abV/j32oYdX8rZcJhrLSg7QFg
-	8xBGx4+BahH4aMFgO6+OwUXI8tWM/WGWE78N1PAXlEw6NsrXp/SnODc761iYmr97SKJt6R3gpvZ
-	gH2SKMRL8WkNuMpgWqfyU5gpG7KKfbTpGSm1Yd50Oq+o1NcoPI0gh2txHEk5fXAWBYxVIdpVJiM
-	fPi6fBhR0Oj/mEThXPISxp2z4iKhk1P+HbHopPCg2q6IHK98o+GJTrgsSu/kaT+5HICaQ/5IlG+
-	6fDrvwcc5G9o4dZqL9tbRvjmA8LT/TWEX7dzynfwN7/FL5KM5flr7/zeRnDbb62f+uXdpO+2NE8
-	L+ZAYDMQSh/TJY6Z36FzKpiium7xESE/1JZ7AM3EJ6yHu06r0ebbQVMm3I4/KPtKO3tprJ1ziR4
-	PuXB6rl69qWpV1WXIy1XVPDuIlA5S4=
-X-Received: by 2002:a05:6a20:4311:b0:3c3:bbe6:95de with SMTP id adf61e73a8af0-3da39eacfc8mr29164935637.6.1788784740385;
-        Mon, 07 Sep 2026 05:39:00 -0700 (PDT)
-Received: from yurypm-home-4hjc6.sjc.aristanetworks.com ([74.123.28.10])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-333c9db92b1sm27656024eec.9.2026.09.07.05.38.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 05:38:59 -0700 (PDT)
-From: Yury Murashka <yurypm@arista.com>
-To: bhelgaas@google.com
-Cc: lukas@wunner.de,
-	linux-pci@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="vBYH8Qm3";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="mKLcAI8N"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id 5E439EC024F;
+	Mon,  7 Sep 2026 08:39:15 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Mon, 07 Sep 2026 08:39:15 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1788784755;
+	 x=1788871155; bh=5DZCF1twmrzwfLe5XPOz5Dksr2g9I4SdtoS+oCPJi8E=; b=
+	vBYH8Qm3L1H2PnZLiaS3noCGVifg+sPJ2kwwGByz4Ey10wmVDeCh4XFewPn7bbB9
+	5FZ4hpkK8mkNGWJLi2PnOwzEPu3y1zh2PfG1FAGGHI7Erm7LCYNUggNGcXKGc1Bl
+	vWtduDfHAZplyxByjewbzMz43XWmorbI/DsPb/T82DZ6Vl4WN71FllWsFRXVTyJ6
+	E8o/C1/HT/3vRak6ZVsHaZKx+NR3sopGcH+BnYgznlkmS+zYxZVzN1yozMt241Ds
+	Zk7o4kyRB65WuSzf5oh4wY9JCdmmJ8pa0Df3K0IEjrpYwsizZ0JhQG2KMrCdWZdK
+	VeQ53orOg8j9draauyGSrQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788784755; x=
+	1788871155; bh=5DZCF1twmrzwfLe5XPOz5Dksr2g9I4SdtoS+oCPJi8E=; b=m
+	KLcAI8NnU0KYqaRb/0YfnzEuZsGsStB3BIuaj0/cP8a9be2PAoV5D4Gr8twuzJY9
+	zhQxfzyypkp0QYkGDvPWy04fu6n+Udb0fDxfcqzCXSNUcSdJAy/LkRrBdsASHnYl
+	FsXVz5BBpfM9xJfdB7p7VpHGZhthpqbsvLM3h5o7UuxwAN2Njc/+fEMoiZ6cHBP6
+	NJkpbEbkZ2qfYgBx11LKaw4yJLBa0FdPOTrpTXSJWeSTHK5ye4GqO4nbgIJysde/
+	Fy4cER7jNueo16CwXhyhSJVOgFTBDbRzWlKftHS3wOR1G3azq5+v+sggH+whsxfP
+	5evybh4sSBKJVYxzEAQ7g==
+X-ME-Sender: <xms:crCeanfuyUj8rQWo_y34mhYXU-HGCUjF8-sN8WME77f1GP6L8Lj10g>
+    <xme:crCeapxZuelpuNGXlOB30wsWlWxdzITBpc9-O-6uAg_dGMX9H_gSurdLozI4ii_yM
+    35VjNhwuqxH3X5KHZehhSKe-mJMqxGyTsBMK_JxDNZEKuDXcBDcz2je>
+X-ME-Received: <xmr:crCeak-I42Eai6OebIfawucc-cpE0np-jPlNQnraWwDMqEo0Lrg79H-dfJ-v6CnpFLwLWEA-bsl_GMx2m89LHI6JO2Vpl4k>
+X-ME-Proxy-Cause: dmFkZTFBpMu6DMMK7Oy5FOIeRWmRLpfD64ZVSzEY3/setiIxhXCYVC9ZfyAPjq+KgVtWpf
+    rrGfRuWyeuJSWrijjyDW7LcF2VXbROvANhgl/Cn5slLOIRfqZiSfheePndgnyMbpJU3sSb
+    xOX6NJUsOQvPfMTwFyX6hbokHwM6xECv/L76vX9umE52xD3RzNS2zeefHzTqcQyfIGPpWi
+    uJYB8egZe963zRvGdty6r+Hy5ebGLc3YkbrqxwwE4PXY+mXz2YNkVJvR9dlowu0rxcPUCX
+    sSnDygv9bMv/28Dphq1U80RX6Jja/c+9DuqjoqFIf8Jy7nKm3nWZOUIRH5vMRjdeeY5mOJ
+    1u1D5MQ16MlwNVgwTLXMxfJhl8vRO+4R/q9FLDkzCiPvAPGXmKaBqufJd9nm8huc4RU2w3
+    CWmZEkyTD+8gIkUXyrDr5gb7tyjyNUsWKoe4Z2OLT+mrMCft9KSALjV7+Oo1VgvUIBiDYg
+    dE14lxY++5tVZ0qNlf+Qxwt9ifbv1tpbrEt19OOCZLHwIoYyuzuapLxxRoeYOA8ICE8PVj
+    oaXDcv4OjY9DgXdJUoLqHlT589q0bk5VUGZkIb2MZXdqv1OwNNbuW8tfZop8L3bkvmHWnR
+    9h+M8b4J/yd4wRBIOAh5KNtAnoOYxJVLgdR3SY0R8SBpuGTKS71IJlHUhyQg
+X-ME-Proxy: <xmx:crCeavwEoXUeb6sI2eMbuXT0pnfgUoHrqh_jHJXotUVqagVSEmvE8w>
+    <xmx:crCeakpfdzwox-wLJxHz8sVNkjAZMOd5BoXlK6lLXbtsTssuNx9Xdw>
+    <xmx:crCeagqGqtsQpt8q9KLIlJjSfcFy5VRLg9pk6KFBUe9cBLv73hCXMQ>
+    <xmx:crCeakB3AI0r5Pyr_HHNK9IAHPxisMsQgPPZrBKXG1mP8vKL4YgIxw>
+    <xmx:c7CeakLNaO6JuUTmN2_4ttFZi4jQCAKKleNJouSNMps8ZLbyjh0h2ypX>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 7 Sep 2026 08:39:14 -0400 (EDT)
+Date: Mon, 7 Sep 2026 14:39:11 +0200
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Yury Murashka <yurypm@arista.com>,
-	James Sewart <jamessewart@arista.com>
-Subject: [PATCH v2] PCI: Stop waiting for link status after config read failure
-Date: Mon,  7 Sep 2026 12:38:53 +0000
-Message-ID: <20260907123853.1081635-1-yurypm@arista.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260904111318.1063858-1-yurypm@arista.com>
-References: <20260904111318.1063858-1-yurypm@arista.com>
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Subject: Re: [PATCH v6 05/11] media: rcar-csi2: Switch to Streams API
+Message-ID: <20260907123911.GF3497753@ragnatech.se>
+References: <20260617-rcar-streams-v6-0-1260eb72dff7@ideasonboard.com>
+ <20260617-rcar-streams-v6-5-1260eb72dff7@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260617-rcar-streams-v6-5-1260eb72dff7@ideasonboard.com>
 
-With a nested PCIe topology with multiple layers of hotplug, a link can go
-down near the bottom of the topology shortly before a link above it goes
-down. In that case, pcie_wait_for_link_status() can wait for the full
-timeout while every read of the link status register fails because the
-device has disappeared.
+Hi Tomi,
 
-Return immediately when the device is disconnected so event processing can
-continue.
+Thanks for your patch.
 
-Signed-off-by: Yury Murashka <yurypm@arista.com>
-Co-authored-by: James Sewart <jamessewart@arista.com>
----
- drivers/pci/pci.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+On 2026-06-17 14:54:58 +0300, Tomi Valkeinen wrote:
+> Switch to Streams API with a single hardcoded route.
+> 
+> For single-stream use case there should be no change in behavior.
+> 
+> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
 
-Changes in v2:
-- Check pci_dev_is_disconnected() before reading link status instead of
-  checking the return value of pcie_capability_read_word().
+Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
 
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index b2879a6be..a568d5ac1 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -4565,8 +4565,9 @@ static int pci_pm_reset(struct pci_dev *dev, bool probe)
-  * @use_lt: Use the LT bit if TRUE, or the DLLLA bit if FALSE.
-  * @active: Waiting for active or inactive?
-  *
-- * Return 0 if successful, or -ETIMEDOUT if status has not changed within
-- * PCIE_LINK_RETRAIN_TIMEOUT_MS milliseconds.
-+ * Return 0 if successful, -ENODEV if the device is disconnected, or
-+ * -ETIMEDOUT if status has not changed within PCIE_LINK_RETRAIN_TIMEOUT_MS
-+ * milliseconds.
-  */
- static int pcie_wait_for_link_status(struct pci_dev *pdev,
- 				     bool use_lt, bool active)
-@@ -4580,6 +4581,8 @@ static int pcie_wait_for_link_status(struct pci_dev *pdev,
- 
- 	end_jiffies = jiffies + msecs_to_jiffies(PCIE_LINK_RETRAIN_TIMEOUT_MS);
- 	do {
-+		if (pci_dev_is_disconnected(pdev))
-+			return -ENODEV;
- 		pcie_capability_read_word(pdev, PCI_EXP_LNKSTA, &lnksta);
- 		if ((lnksta & lnksta_mask) == lnksta_match)
- 			return 0;
-@@ -4603,8 +4605,9 @@ static int pcie_wait_for_link_status(struct pci_dev *pdev,
-  * according to @use_lt.  It is not verified whether the use of the DLLLA
-  * bit is valid.
-  *
-- * Return 0 if successful, or -ETIMEDOUT if training has not completed
-- * within PCIE_LINK_RETRAIN_TIMEOUT_MS milliseconds.
-+ * Return 0 if successful, -ENODEV if the device is disconnected, or
-+ * -ETIMEDOUT if training has not completed within PCIE_LINK_RETRAIN_TIMEOUT_MS
-+ * milliseconds.
-  */
- int pcie_retrain_link(struct pci_dev *pdev, bool use_lt)
- {
+> ---
+>  drivers/media/platform/renesas/rcar-csi2.c | 64 +++++++++++++++++++++++-------
+>  1 file changed, 50 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/media/platform/renesas/rcar-csi2.c b/drivers/media/platform/renesas/rcar-csi2.c
+> index f5d8b06dff51..91f713e1f8c2 100644
+> --- a/drivers/media/platform/renesas/rcar-csi2.c
+> +++ b/drivers/media/platform/renesas/rcar-csi2.c
+> @@ -1023,17 +1023,24 @@ static int rcsi2_calc_mbps(struct rcar_csi2 *priv,
+>  	 */
+>  	freq = v4l2_get_link_freq(remote_pad, 0, 0);
+>  	if (freq < 0) {
+> +		const struct v4l2_subdev_route *route;
+>  		const struct rcar_csi2_format *format;
+>  		const struct v4l2_mbus_framefmt *fmt;
+>  		unsigned int lanes;
+>  		unsigned int bpp;
+>  		int ret;
+>  
+> +		if (state->routing.num_routes != 1)
+> +			return -EINVAL;
+> +
+>  		ret = rcsi2_get_active_lanes(priv, &lanes);
+>  		if (ret)
+>  			return ret;
+>  
+> -		fmt = v4l2_subdev_state_get_format(state, RCAR_CSI2_SINK);
+> +		route = &state->routing.routes[0];
+> +
+> +		fmt = v4l2_subdev_state_get_format(state, route->sink_pad,
+> +						   route->sink_stream);
+>  		if (!fmt)
+>  			return -EINVAL;
+>  
+> @@ -1062,6 +1069,7 @@ static int rcsi2_calc_mbps(struct rcar_csi2 *priv,
+>  static int rcsi2_start_receiver_gen3(struct rcar_csi2 *priv,
+>  				     struct v4l2_subdev_state *state)
+>  {
+> +	const struct v4l2_subdev_route *route;
+>  	const struct rcar_csi2_format *format;
+>  	u32 phycnt, vcdt = 0, vcdt2 = 0, fld = 0;
+>  	const struct v4l2_mbus_framefmt *fmt;
+> @@ -1070,7 +1078,16 @@ static int rcsi2_start_receiver_gen3(struct rcar_csi2 *priv,
+>  	int mbps, ret;
+>  
+>  	/* Use the format on the sink pad to compute the receiver config. */
+> -	fmt = v4l2_subdev_state_get_format(state, RCAR_CSI2_SINK);
+> +
+> +	if (state->routing.num_routes != 1)
+> +		return -EINVAL;
+> +
+> +	route = &state->routing.routes[0];
+> +
+> +	fmt = v4l2_subdev_state_get_format(state, route->sink_pad,
+> +					   route->sink_stream);
+> +	if (!fmt)
+> +		return -EINVAL;
+>  
+>  	dev_dbg(priv->dev, "Input size (%ux%u%c)\n",
+>  		fmt->width, fmt->height,
+> @@ -1892,8 +1909,7 @@ static int rcsi2_set_pad_format(struct v4l2_subdev *sd,
+>  				struct v4l2_subdev_state *state,
+>  				struct v4l2_subdev_format *format)
+>  {
+> -	struct rcar_csi2 *priv = sd_to_csi2(sd);
+> -	unsigned int num_pads = rcsi2_num_pads(priv);
+> +	struct v4l2_mbus_framefmt *fmt;
+>  
+>  	if (format->pad > RCAR_CSI2_SINK)
+>  		return v4l2_subdev_get_fmt(sd, state, format);
+> @@ -1901,11 +1917,20 @@ static int rcsi2_set_pad_format(struct v4l2_subdev *sd,
+>  	if (!rcsi2_code_to_fmt(format->format.code))
+>  		format->format.code = rcar_csi2_formats[0].code;
+>  
+> -	*v4l2_subdev_state_get_format(state, format->pad) = format->format;
+> +	/* Set sink format. */
+> +	fmt = v4l2_subdev_state_get_format(state, format->pad, format->stream);
+> +	if (!fmt)
+> +		return -EINVAL;
+> +
+> +	*fmt = format->format;
+> +
+> +	/* Propagate the format to the source pad. */
+> +	fmt = v4l2_subdev_state_get_opposite_stream_format(state, format->pad,
+> +							   format->stream);
+> +	if (!fmt)
+> +		return -EINVAL;
+>  
+> -	/* Propagate the format to the source pads. */
+> -	for (unsigned int i = RCAR_CSI2_SOURCE_VC0; i < num_pads; i++)
+> -		*v4l2_subdev_state_get_format(state, i) = format->format;
+> +	*fmt = format->format;
+>  
+>  	return 0;
+>  }
+> @@ -1925,8 +1950,15 @@ static const struct v4l2_subdev_ops rcar_csi2_subdev_ops = {
+>  static int rcsi2_init_state(struct v4l2_subdev *sd,
+>  			    struct v4l2_subdev_state *state)
+>  {
+> -	struct rcar_csi2 *priv = sd_to_csi2(sd);
+> -	unsigned int num_pads = rcsi2_num_pads(priv);
+> +	static struct v4l2_subdev_route routes[] = {
+> +		{
+> +			.sink_pad = RCAR_CSI2_SINK,
+> +			.sink_stream = 0,
+> +			.source_pad = RCAR_CSI2_SOURCE_VC0,
+> +			.source_stream = 0,
+> +			.flags = V4L2_SUBDEV_ROUTE_FL_ACTIVE,
+> +		},
+> +	};
+>  
+>  	static const struct v4l2_mbus_framefmt rcar_csi2_default_fmt = {
+>  		.width		= 1920,
+> @@ -1939,10 +1971,13 @@ static int rcsi2_init_state(struct v4l2_subdev *sd,
+>  		.xfer_func	= V4L2_XFER_FUNC_DEFAULT,
+>  	};
+>  
+> -	for (unsigned int i = RCAR_CSI2_SINK; i < num_pads; i++)
+> -		*v4l2_subdev_state_get_format(state, i) = rcar_csi2_default_fmt;
+> +	static const struct v4l2_subdev_krouting routing = {
+> +		.num_routes = ARRAY_SIZE(routes),
+> +		.routes = routes,
+> +	};
+>  
+> -	return 0;
+> +	return v4l2_subdev_set_routing_with_fmt(sd, state, &routing,
+> +						&rcar_csi2_default_fmt);
+>  }
+>  
+>  static const struct v4l2_subdev_internal_ops rcar_csi2_internal_ops = {
+> @@ -2629,7 +2664,8 @@ static int rcsi2_probe(struct platform_device *pdev)
+>  	v4l2_set_subdevdata(&priv->subdev, &pdev->dev);
+>  	snprintf(priv->subdev.name, sizeof(priv->subdev.name), "%s %s",
+>  		 KBUILD_MODNAME, dev_name(&pdev->dev));
+> -	priv->subdev.flags = V4L2_SUBDEV_FL_HAS_DEVNODE;
+> +	priv->subdev.flags = V4L2_SUBDEV_FL_HAS_DEVNODE |
+> +			     V4L2_SUBDEV_FL_STREAMS;
+>  
+>  	priv->subdev.entity.function = MEDIA_ENT_F_PROC_VIDEO_PIXEL_FORMATTER;
+>  	priv->subdev.entity.ops = &rcar_csi2_entity_ops;
+> 
+> -- 
+> 2.43.0
+> 
 
-base-commit: a500db7819c50db59e55f1b4fa1c3baa5a2616f3
 -- 
-2.51.0
+Kind Regards,
+Niklas Söderlund
