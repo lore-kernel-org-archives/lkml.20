@@ -1,176 +1,232 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazolkn19013086.outbound.protection.outlook.com [52.103.46.86])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010068.outbound.protection.outlook.com [52.101.201.68])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 253DA248867;
-	Mon,  7 Sep 2026 02:42:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.46.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EF1E376BD9;
+	Mon,  7 Sep 2026 02:43:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.68
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788748962; cv=fail; b=DmyOzpWVGHrwrg5/G0ymzvdLRuedS/YOcoknAmfqvruDo4yX1Cqm9wSg0VYDzfoJDpjuwFHBvHlRUcoSby3P0OilahNFiaLUK+IsrE0gshy4UeDZtdJycoO+D7gTOnmuj5BO7j9k1LNxIj8SwvgHBcdNuN9wGGfwwLydnSQV8p0=
+	t=1788749035; cv=fail; b=XhLPeRfHNYz+bsrTNq8xOvc6Y+khwazz8Xg8PUevHDBsX30dGEvh+dYeuZANNpYwdhD+wwqPw8d6FPE+uFkF9Zep7441pBbreaiu/XpFJgg6kcxetkBL2wxFqYg7OhCewaX8x58NM0A+zRHbVS9fOr0BsVlkAHvUFmoOPm2vimw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788748962; c=relaxed/simple;
-	bh=Dl3smm+YGdxL89NrwdZY0QW/JiOvs6pd3T1jODznuT0=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=XpJI4eK5O8F1RoKHL//uvHHKsx/TZ+gKF0vjnD66Ek0XO0HSgndoS2Dux/MCVsraUV2Hzo7duSWo/fhjnLTx5ySV5kLSHFEYfqpLOTfdfK1QGY0k9fTofMLGl9hAVjKm6oabY2gT1c9C6bUFFbmE/ARQTNRU8zizr7pR4K19A2U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=OhmePvlz; arc=fail smtp.client-ip=52.103.46.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
+	s=arc-20240116; t=1788749035; c=relaxed/simple;
+	bh=dqMRE8dRNjoAhSZfQda2uWN+IBTX2ogDUUzfxiZCkic=;
+	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
+	 In-Reply-To:MIME-Version; b=Msm/qbLzFerYCRivZArSp36iwTXwY9Nimd253UmNRQkJVxdXeSFgrVkm6Nnd860CtMqIhYtv1K5HCxtK1YshqHTrk/tebJn3GC2WmbdeNpE+kr7GsVX+fXflGmv1Hl2Uu9ZW51RkYONm1A1csLOzHhZMbCCDY4DM5ZucdZtwiSA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=SPx2LmT1; arc=fail smtp.client-ip=52.101.201.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="OhmePvlz"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="SPx2LmT1"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=t6XGPomSASfeVwuBTI+ZaqrYjMd3OGDNp0zuwAryWOkypxX+ZIpaZ0VNW+wy3j9GYGacOCKnWdYESpQDIhkWfSbJ3690nVL4b84Mq3yXM0DcDsaZB4Oqvr0CfolYsOkSer7iiUjqtkEF6WaxEKEBb1eapKieFZJSMAP6xWlrYIuvoii+s++wBdgj4ozWG7oJtkAck8nugQpXLOUM3B7uDETIDd4HK9Pjn/wPIkRLINXPAyBFuL4KXSxHwJx1LR6zFM+g6FerKkHm5VfDMbQae9DoPEz/Wc0vUddvsEpRO7X4/EiWlbH6dIeFCFOF0c8m1TLjNHsw3kIdm7HvijqVDw==
+ b=x3+7E7VsLgE766eRm6zplGrm7tmsfLmhNWp+XN0D1fNjikX0lYELwXF2jDWe6xXMaL0Cwuoqb1JxDjwmS1DB12MI8ZWwit4K2t01HMGBkiUP35PQch5xbHXZhVY+M6ILh37tUu4MhHzhaYYMXMElJ5uDEnRYmYOYieq93qQHK4CsFQEdU5hBp5w140+r5g2VW72k6rIj4oEXdaQde0x+3pYocQXlmzcu0BqZjh+O80rtRit5JtZ/jVWe+Ze3wmUI+MCaHnsviGxEi+X200HinUV85s4tNYYSvDidcLMRHm9NeQz52B23zMynAF0yOP6ryMfJTUMHlwNhPcq2tqu9dg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0mLC9eqa2AYr/rm/AQppSP8vZ0b2S1ZCSDnPXCe4jLE=;
- b=LPZ8YhFErpBJSGuWKAUkD0mgxvv8MgdZh4dGmO1hsjST0tq/Kp2ctZ8Rnc+ke/KpoKB0WmAYwOC+Tbv5NYv2/AkuqGmhVeOLpwD7+wicDesJnsr3qGyZRPrXUtZr79Q2xGnnL2hpQNvBQq3LBgzU2FK9m8vC++UNLSwUK2urjiHIX8hh2OQZnYJIkNxWb0ZcELIXUQfiQC/Y4FO4EvprNkvtC1lV1rgaH7LlN4plJ/LB2ulc98kOYnIHtLYcHztMcmF59UB76so2M7qgExQjmKMnJtkhT4aLdLvTupoJ1jUl5GBbVT8pDct75QncAUnefkJmlESnLHBNUgswMdciBQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
- s=selector1;
+ bh=BhujsUq4hzQzlVL2oDvoIlBCEmSkojnM4GbWpRCzsyw=;
+ b=yQUDV+Idsu/L4Vd2QK1rY9w4T+f57GTixGqy1XaO+VBDtdNcj063N9egiibWgFpYOD8gPXfQMoDr12LoyuAKcbgImPHoLY+JaHGBvjKpZhUFqVQHfIibTOCf2irWqpStE5airvm0TlUPDjXlx+FEpTIaxEiJ1nssT5lDy6fXwGo7RvmhIl9lDvbvKg7xtYH4phAubxEB71TSJJjtq0G7Bz7AyYuz3f1Z7hPYiFHs7eL6+XM+tnWBPHj1sGVm/a00UouQ5db1hk9rXW8FuMidCvNJKuUbOd/Uy/el25zNP8dGgy7TDdqMQruqQDdeUHme/HRV9BRPQvdSmmJBl5Fnrw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0mLC9eqa2AYr/rm/AQppSP8vZ0b2S1ZCSDnPXCe4jLE=;
- b=OhmePvlzYlXte9HwdV5mvW7pLAtR3m9nBowLolhb+bdr3GSDIFVGLPUu/AEOtm4Kpvkipa1O/gBavuAaYDZ7tgJl77huIjZywJ2KTsZZc5jAP6sCcodwqVoX+4G/gLlal3b+kKDxfEY/7u6tYfuB/o6MLiK9U2BNH5KJDPI5X+OhwYyn6eJtWGdRzhXwuWdxVdYhO36LNw4nZG//2HNmuFwT94FWsaOcKVJl6jmdbCLcnxdWi6MbdSQ1zLgJIuPtIMlPAyuryW+kDd4oVSnEu+RnqPHZZTN4s2uGygagh9/1jOsMai/z3sgoMkOxss0TcZGon7NLFytZtPU2jw5WMQ==
-Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
- by DB9P251MB1131.EURP251.PROD.OUTLOOK.COM (2603:10a6:10:5e2::22) with
+ bh=BhujsUq4hzQzlVL2oDvoIlBCEmSkojnM4GbWpRCzsyw=;
+ b=SPx2LmT1DcMAHC8MfKhHmsf4tHQN4tgfIhBzEnR7nORo8FZCOb9yV2hrCEACDSCkKC0ZXw49dGnJSKqmxr+tpGmWepdApVQMPlMVrQauEtHoEvSsKbVWI88MMIqOZXiQpYEfLXaaZliXj50v/cNcO+k5Aj4NzGMx5/rD0tpKs201Td3OgmKV/vLlqheKOYmEZLgahpABZm6LA/JwcBechJn0apeoK4pJKKLBWTGB4TuJChmVN4hGbDwrj27jMBd7GD6CvSCUwpLQRh62I0TYHmnD+1FBr+3Y5A5Rdw3TT2V7Q7I2CnactHKTw00i9u0WntW5ozUbZkMVxnG4RjjnFg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by BY5PR12MB4068.namprd12.prod.outlook.com (2603:10b6:a03:203::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 02:42:38 +0000
-Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- ([fe80::2952:d4d0:4ba:8352%6]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
- 02:42:38 +0000
-From: Aamir Ahmed <elb12345@hotmail.co.uk>
-To: cai.huoqing@linux.dev
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	Aamir Ahmed <elb12345@hotmail.co.uk>
-Subject: [PATCH] net: hinic: fix mailbox segment buffer overflow
-Date: Mon,  7 Sep 2026 02:42:34 +0000
-Message-ID:
- <AS8P251MB0001AE870B09020B46B5D7DBC8B22@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: LO4P265CA0079.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2bd::12) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:344::22)
-X-Microsoft-Original-Message-ID:
- <20260907024235.503359-1-elb12345@hotmail.co.uk>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Mon, 7 Sep
+ 2026 02:43:49 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0382.007; Mon, 7 Sep 2026
+ 02:43:49 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 07 Sep 2026 11:43:46 +0900
+Message-Id: <DL8QLYLQJEL1.3F653J67DYZ47@nvidia.com>
+Subject: Re: [PATCH 2/2] rust: scatterlist: honor the device's maximum
+ segment size
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Matteo Kloiber" <kernel@matt3o12.de>
+Cc: <dakr@kernel.org>, <aliceryhl@google.com>, <ojeda@kernel.org>,
+ <airlied@gmail.com>, <simona@ffwll.ch>, <abdiel.janulgue@gmail.com>,
+ <daniel.almeida@collabora.com>, <robin.murphy@arm.com>,
+ <a.hindborg@kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Content-Transfer-Encoding: quoted-printable
+References: <20260831233215.287881-1-kernel@matt3o12.de>
+ <20260831233215.287881-3-kernel@matt3o12.de>
+In-Reply-To: <20260831233215.287881-3-kernel@matt3o12.de>
+X-ClientProxiedBy: TYCP286CA0059.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:2b5::16) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|DB9P251MB1131:EE_
-X-MS-Office365-Filtering-Correlation-Id: a4f898aa-015d-4ebf-488b-08df0c89adf6
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|BY5PR12MB4068:EE_
+X-MS-Office365-Filtering-Correlation-Id: 541488fe-e2bd-4091-cc53-08df0c89d87e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|41001999006|24021099003|25010399006|5072599009|4140399003|5062599005|25031999004|12121999013|15080799012|2604032031799003|8060799015|19110799012|23021999003|51005399006|55001999006|37011999003|26104999009|440099028|3412199025|40105399003|2607281247196008|1710799026;
+	BCL:0;ARA:13230040|10070799003|1800799024|7416014|376014|23010399003|366016|4143699003|56012099006|10067099003|11063799006|18002099003|22082099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?lRhN6RLP8yHrGdobI39d9QZD90rRFZKJ+H9ZUEUqLzXTStsm7wlebn0p0hV9?=
- =?us-ascii?Q?rVr+Ova0wAKL6oP9lNTxEeSXZwpvyTndT8TshQ51ZGe5QRYMF2f4WOYR/BpS?=
- =?us-ascii?Q?pviP0WYnec8GeR50jr3VsCrtth42yTRowu3b/w8GnWxrvl7zvT/ZbHea4gFM?=
- =?us-ascii?Q?sFLMZISt4OMVFCqhmgh0xt2XoxIpH39ku6bMgt/mGwF2sSFUPywbrQJQO+iM?=
- =?us-ascii?Q?yU0Klq1X8Yh69AeSUSd0xw9gpTkcEL2BkUPYG4wS7Po4JV9lQjPrR21heN9D?=
- =?us-ascii?Q?Vk+MSx/HJZ6jAbourh3spm29kUrHukCJ/B1oPS3GKbOb82cWvqG2hu4OQK1u?=
- =?us-ascii?Q?xczo9ZhMIAZDenH63LO/n9KWsLuc6uOR9PVbUIDP28FUHRIKY3XWbgIS2GOt?=
- =?us-ascii?Q?ktP/jNmgjtIZwafwGPCeYY+QGA0bODDUhsUAIW8PfUA6TQr7tgK3hI5cHkyF?=
- =?us-ascii?Q?G80x7gdF0YcSF5bZtsff4dl9PMmBdaBuLoPOz0Xdj7FNpI38c1v/Ob5NsgT5?=
- =?us-ascii?Q?qVM4W6mP/CR3F2f+b50CJ8Rgvw7xABjRC65FSXCifYUh7vDGEu6jwWrhspcd?=
- =?us-ascii?Q?LUJS9nOFM5Av5S+cZMKfYi06qlug5ApTbHg5pSnQnbJo9RV+sOUhz1ecxXdP?=
- =?us-ascii?Q?vt+IqcKQQIGOgCf/aDbc6qjT1dLwPXdl2vFPl6xmGogf3Ny46oTEOqVIJqW0?=
- =?us-ascii?Q?mAQ0XGq6qOdMvh3tTb+ZqDw7gGoJYpSQtYUWhQRfJq9dK0o4HwOCnUmgrk/w?=
- =?us-ascii?Q?njOoDBn/3M6OH+ZA2+qbD4dwtpWgwUnxINp32MT5dRGMwjTEIBcaZWyNrf8k?=
- =?us-ascii?Q?FnUIeqitrs7pSJAwlAEUQg2nw4DZpjq6qb59nuqQj0A3HUStM+oavGTB4Q2p?=
- =?us-ascii?Q?UkBbeODLfa2UA9/zRtkkzgjSB7AvvE5arp+/HQe3nGTJkR7jYZPiSA1SQHNa?=
- =?us-ascii?Q?FJW20IZ8HsmVhGu4i1fbhdmJV5a4nYS5Slt6K2CVu7knrUk3lwhAVx69uYn3?=
- =?us-ascii?Q?YGzFd4bl1h9BdAGz3vkvZS/m+V1UpOZaVAymjDWmxetoEAeWy1/705J40YHl?=
- =?us-ascii?Q?PPPCATc3iAZ3QwcCtd7JUMl4LoCQwcMpg3vudqZQ0J5IQTy8H2ppZcNfsmjv?=
- =?us-ascii?Q?+95oJ1595EfgOrfIWZ7f0n1vOOtakkfUWoBtCWNK4rO9gFYldeUeOE7bukaW?=
- =?us-ascii?Q?aQnY/nBuOEE1dnNa?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+	aUiTGCuKKphqJ3P9B3FVn+BbgvhwnXJ743M+RDF9p2TZq0of+pUdBl6zeefPGYP6Prj11019Wu2NH+2xVEkzCHrT4znMWyYiBTScaxDDnmBkcYCxlmyJ4ehrco6ieF+OWtsbnd6jPMaoL8KwqTYKMUXPz6OS6sn5FyLHT058osa2ehl7iS60YSp76WjxSFT5xiQwdjo4E0rD58Cgf+Q4KjboHQUS+IrDzpdIEJ+Mfs+St3UCfvUHN4hizatiMwBF1IizMyCycoDBJZ/mDkU81zUUkVYp8KCYUqPFXouD+9h7VPeUUv7WHA4pLY2JTNbdlMKt8/ppRQuefXtPDMQOKvrLWRXJ+6XT7334CXuI2RArG2fDJK+CZiW9Ya3ZMIcLwDDiosQSmsyzso9yJLJadmxhxc4RBe+JTU48Dw+pRgtMpl7hJNiCJ5hcBuDzdWhhhTxP4yBkvxLqzGj0v70IBzgkVivste1OWa0XDY+a+B5BrQFAU4CszszAGB+JzRJKcwfUDL86bF7smVC7Ywh9KZq+843ko32Rvig3TT0VlI5Ax8jKAYC2/zFxdUeSb0UI8yiwbum6nh90TDVITZhojVu+RK2l276YLWn05+aA7pOvrRJD/7qxnpeUQUKwPpd+8HuQlRINUj+1aqjIO0zgF2mQ2kST9HO8K6Bv+E7D5Ok=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(1800799024)(7416014)(376014)(23010399003)(366016)(4143699003)(56012099006)(10067099003)(11063799006)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?5pFfrmWWq1lheL1aVAn3r5h4hKiYr54fdJ8OjqHjlvUVaStShEk0Romp6aKX?=
- =?us-ascii?Q?RzUt5df6nk2bm6hEap3loBTR/TUnOhJergiU90VuiN9pVt8ZkqNkRCv/sXVH?=
- =?us-ascii?Q?MGCoDdu4htr+4u6YZaM5BY5fyaSs8MRy+Aq8KiX6bcEib1UO7ZhmU3rN20/h?=
- =?us-ascii?Q?oqLh0mObeK6OHAEvaIfrLea8tmU0vyYQSe5Q6YeydPVFcMgFCSuM6YFNPcno?=
- =?us-ascii?Q?buZApcGJYmZxEEaG0J6IsmQNFfSZ5BayyMhBOn6aKeyaaISQ0+8QVeRf5j0y?=
- =?us-ascii?Q?XFeTngPJfdAwOPTiD3mRlzRziaxv6VBKF9K3pg0gDm4XXIrhQ2AjjBultjpv?=
- =?us-ascii?Q?FRYZbm1W4vpcwc/7IpKQ9II7MQxsL4wVKN7yXiuUh57LO74KkDI0r7EUGVQw?=
- =?us-ascii?Q?tFljTlFgKwGbWgZo3IesSp1V5fnQycd7bSDx0IykQRhlR5tQY4KlD+hI8Pen?=
- =?us-ascii?Q?L6iiDGJ7QP/WlBx793s+ZPGkKqm+tGwIktOTvJsvcU2E3OfTT9I7JpyPF363?=
- =?us-ascii?Q?bol0KSvxGssfxIGXSsD1xBXfyxcFwsGcQgur3QhO9AG7p662vHPgW7GwD9Rm?=
- =?us-ascii?Q?YUD3X7172VoG2iMWvVWOSEp2M1TRgIuabzhhN0NzxLUJQrJga4mNbXi2f3C5?=
- =?us-ascii?Q?Js+modmrCQLYz58isyeRBgWsTKaNlscf6aFWVJ8aL2vBPMXtL9lE/5pX090h?=
- =?us-ascii?Q?2UVpzkUC08cIqgFEeQb+TtYvvwMoNFjoFcaj63Ac72YEtXhYLJNmk4PT9KQM?=
- =?us-ascii?Q?uLMW0LxxCL5xyv8YyvyJL4q5TE8wRWFo2s015ZVhCyNHfk/reQOTBjwy2lqV?=
- =?us-ascii?Q?eAGWUeIttaWbpX4SqLOhklcvakPh+V32STx0wvtnZIdtwXnEzpeBXBRi5CE0?=
- =?us-ascii?Q?wuWWS8NJFzUIeZiGRvAdT3+QOt1wD8Ig8CQedkJ1d3Vhgx4XFp7SEJTe9Ip6?=
- =?us-ascii?Q?JgynO7GLyHxPsmhlIRLM4qZSXnOg6Tc/HiMlGzuntoToillx1gZEJ9rCJUbf?=
- =?us-ascii?Q?QxMT3sfVKG9MWd7PPyxLom+hnjr13dn5xtCSJHpZRTKFpKtQDxWWXFHGd1Jc?=
- =?us-ascii?Q?KtYXtbpICsAr3iJ536PgVFum1vblhYe6pjZDb//6SChqiuRdnTdNCy7EK76i?=
- =?us-ascii?Q?OMdB1RtIkdKqnPbct2FRPATs+xMIIS1bRLIFRkY1kVgZCyG/BBnVMq2bdqxg?=
- =?us-ascii?Q?KAGlQ63BjmwKEb9ADoGrM3ZaNh8qqG8/imwIuxMNElJuGMK5y0bYsUlDFBXb?=
- =?us-ascii?Q?b/c8YWIQUYzRqKr83ayfaz0gkAJDaBdq2tb9JnAhTS3a9wkj1yt6/Ra4SQXk?=
- =?us-ascii?Q?lGJdsqrzOzLNvp+rz0wiQUpCI3AxSFQy+wtyEeuOEWF3L7nqIPfAD0u4/fs2?=
- =?us-ascii?Q?MNp8ZcWjwCoMxN62VdH7wrcm/xAmt+lBUzOjw5Jg1eT7WUt94J4yNNPB/Xoe?=
- =?us-ascii?Q?23obyWxHk+BPMEEpH22aSZAazUnfrO/m?=
-X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: a4f898aa-015d-4ebf-488b-08df0c89adf6
-X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+	=?utf-8?B?OFpJcFpLYUdremhkaXBkY1cwOEluVENUY29FbGY1ek14R2VianBWUFNlbzVl?=
+ =?utf-8?B?eWJ2N2N4TVRSZjBkRmxWTU5tMTVhUUJrUldKNE5Jb2RjNTRVSUhmc3ordmlK?=
+ =?utf-8?B?SnBQMDNZUm91WW9WOFdVakgxeWFwSTNWb0cwWUN5bDE5T0xQNVU1azFCK1hF?=
+ =?utf-8?B?S2t4NmxyUmFyaFhXY1ptNEV1WmdrRU84YzBkaWM2OEFOYkJ4SllQY2lHcldo?=
+ =?utf-8?B?bmVQczY2SmJRRHVrWDVadkc3QnZLUW9YV1VrQlBwV0pXcU0vK0F4d0Z5Y2w1?=
+ =?utf-8?B?czFCWGlqVklpZDloeUZhMm1WRDlqeG8wMjhHTm5Rc1pXNGdEaFRFYjZ1T0lG?=
+ =?utf-8?B?Ukl0MitqVmo5SG1LRTkzYkZoTmpVRjhHajBkYzUwbGs2eGpTL3Z0NHVNd2tV?=
+ =?utf-8?B?QzJ3UDcyV043dzZZaUliVGVvYk1NTERNZjZFd0dKUTA5M0JWTG9nZmJlcmpa?=
+ =?utf-8?B?ckdSMmNPdFhQQ0VvVjVOdWhjU0wveVlSTGJsM0VUTVBmZHlzTGJxWXgwTmI2?=
+ =?utf-8?B?OWtrNmxXMm1Ed0N4Zms2Z3ZuL1dOUm1UZWxCQUZSRXJkeGI5ZWZOci93ZmlJ?=
+ =?utf-8?B?WUJxMVBvZ05seFpBQ3QweTJYL1krZXdvWVlMNXdvaVdRaDFoQ0VYZGNVZFha?=
+ =?utf-8?B?UEFXeWM3cExDa1FlYm1yb25KK3B2UktBOUpwcDhCVnh3L09QOFl4QlgxTHNq?=
+ =?utf-8?B?aFB2cktXN2VVenJPZkhSZ2FlRUVXWWRzL0tDK1QwWTBlNUZEYTl3b2JYKy81?=
+ =?utf-8?B?b1dqWWV0UlphZW5qbDdBNEdTMnh6S2lNWUxMYk9CTWI4Nm0wRkoyUVp2SDZz?=
+ =?utf-8?B?MnFBN0RpTlowZGJSVDUrRWc1RWZNVzZuSDZSNC9ySXlWa3Q3Z1FrMTVDTlRD?=
+ =?utf-8?B?eUFIUzhPVVFIUHc1TUcyS0x4VXE5VFNuNSt3NDZNenhqRC9JMng4TTdDOWJ4?=
+ =?utf-8?B?MnFwRzJpd0NRRXhzZ1lZUlVBYW12c1lkaVhBMU80dS9EMnN3WjUyRVpKMVNz?=
+ =?utf-8?B?NTlYZzVlOWRPZHQ3WnFEYyt5cnZLQlowTHkyM1ViMHozV21ENG5wakg4RkQ2?=
+ =?utf-8?B?Nm9Jd2lTM0wxSExGUjJBNEFZQnJBVENDVlBTWDFEMGhiTzdtUE50TkdYRkUy?=
+ =?utf-8?B?ZDJ3NHdYZmJxbXZtR3V4bnpGUldQQVZva1NVQkRqTXR5cEFaTEI5RWZvd2d4?=
+ =?utf-8?B?elpTYUFnSUhHOXJaWWk5VFV1NFBPZ2ExQ1V5eHlEd2hmcG1aclNjQXBrcWZI?=
+ =?utf-8?B?UExDbCtpOUsxaUVsOHNHN21EK0NXdllzaytzS1QzVnRUbmRzTTdVYXlnNjFw?=
+ =?utf-8?B?Ukl3RFVacUNLTTNPM25vVkFYTTB0bkNWTTBoMnZtR0srK21jd0tNSFFRTUpR?=
+ =?utf-8?B?bzNkeGhlcGJRUktFeUxCc2JuOG03aVYwYnZqREo1d1BIWVVXZ3hrN3pKbVoz?=
+ =?utf-8?B?QnFjdENVQTBDK05xbnlFY3g2eGl2clFWUkE5RHZweFJiSXNoRXhyUjMwYnBF?=
+ =?utf-8?B?cVUzTkpKa2dPaUFpU2hWcHBQTnlJOWttNWZ3K2JoYnBiQVFDM0dsRmdXNVhn?=
+ =?utf-8?B?QUVmbjhNOFhVdUM2dFl1SnZkd0wyOHg1Vit1SXFNanBWRTBnTjR0UHhKSVNx?=
+ =?utf-8?B?TXNEL0ZkYjR5SVBJTnRSUkJha1NERTFXOXVSdWs5cmpxVXB1YW9RMExiRElY?=
+ =?utf-8?B?dkhRZ0txUnZ6ZDVUQ3A1bWJYa0t3U2dJTmNWN2xpZzZtWWJ1WlZLa2lhL04y?=
+ =?utf-8?B?bW9Vbm9vVUkya2RMY1ZNMlcwK2x3NE9RZU9YSXhiblpnd0s1ZG1DeTFRdXJm?=
+ =?utf-8?B?M2EzcEIvTVE2ZGdGMlh5cytrcDdGaGlTMVorRFFXY3Vac2dIY0U2V0s0c3Ay?=
+ =?utf-8?B?VXdsN0FxVDZjd3JPM0U0U3dDMWN4MkJlTS9Ed3J4THR0ZGt3ZFZ3OVUwcXU3?=
+ =?utf-8?B?QXdocy9CMlRRQ0VlaDlacnZQQXE1UVI4d1l2cnI4Rmg5SWVoSXQ3TEFBOEVN?=
+ =?utf-8?B?M08ydmZ1ak9SbjIvbVlWU3drK0QvVmVrUW05TjdYK2RNWHlCZHRnc3M0Vk85?=
+ =?utf-8?B?di9UQ0RaMWNLeHBGNjVoSWJ4RFgwYUhsUDVSTVV0aVFIOTE3VCs4UUNWNVZV?=
+ =?utf-8?B?YlFiUzdFZmRjQXU4aithaWt1bmZzUU1JdTY4SUZkSHFLNy91VkYybEhOOXBV?=
+ =?utf-8?B?NWdmejhXQk1EQ2x0Ym1FQU5NOFpqeGhFTit4a3RKWk1TSFQzVEI2bEdqamVU?=
+ =?utf-8?B?R0JIY3QyS3A1Y0FiZjlQSDcxdFc2WnlFSjRWNXJzbjUvYzEzTTVtclg1aGNa?=
+ =?utf-8?B?c1NuTSsrOHlRZUsrZjJjU1M4dXRXb0w3eFBYcERTRmtwblc2REFvb3YrNUZj?=
+ =?utf-8?Q?Go+ZSe8idf68mxryvLL8oCHGNnP1ulu4/2vytP4gcPUw+?=
+X-MS-Exchange-AntiSpam-MessageData-1: QWPXB4KDFFNXjQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 541488fe-e2bd-4091-cc53-08df0c89d87e
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 02:42:38.1885
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 02:43:49.5483
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9P251MB1131
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tyqualnZqErKemPbymW/0PHUFCYkPA/tO8p/jJMg2KE63+rBpGoWlVJDJBPrAsKFozzbrfpPmaG/v9G0uGK5xw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4068
 
-check_mbox_seq_id_and_seg_len() validates that seq_id does not
-exceed SEQ_ID_MAX_VAL (42) and seg_len does not exceed
-MBOX_SEG_LEN (48).  However, this allows the last segment
-(seq_id=42) to carry a full 48-byte payload, writing to offset
-42*48=2016 for 48 bytes (ending at byte 2064).  The receive
-buffer is only MBOX_MAX_BUF_SZ (2048) bytes, resulting in a
-16-byte heap buffer overflow.
+On Tue Sep 1, 2026 at 8:32 AM JST, Matteo Kloiber wrote:
+> SGTable::new() caps segment length at dma_max_mapping_size() only, which
+> limits the DMA mapping path (e.g. swiotlb), not the device itself. The
+> per-device limit from dma_set_max_seg_size() is ignored, so contiguous
+> page segments can be longer than the declared max segment size,
+> potentially causing problems for future drivers that use this
+> abstraction.
+>
+> nova-core declares an unlimited segment size, so this does not change
+> its behavior.
 
-The hinic3 driver already handles this correctly by defining
-MBOX_LAST_SEG_MAX_LEN and rejecting the last segment when it
-exceeds the remaining buffer space.  Apply the same fix to the
-hinic driver.
+I guess what this last paragraph wants to state is that no user is
+affected by this patch? There is another subtle user though: the Rust
+DMA sample.
 
-Fixes: a425b6e1c69b ("hinic: add mailbox function support")
-Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
----
- drivers/net/ethernet/huawei/hinic/hinic_hw_mbox.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+In any case, this patch without patch 1 wouldn't break either of those
+(only waste a bit more memory in SG entries with nova-core), so maybe we
+can skip it.
 
-diff --git a/drivers/net/ethernet/huawei/hinic/hinic_hw_mbox.c b/drivers/net/ethernet/huawei/hinic/hinic_hw_mbox.c
-index 2784127327e6..6e67a6c9578e 100644
---- a/drivers/net/ethernet/huawei/hinic/hinic_hw_mbox.c
-+++ b/drivers/net/ethernet/huawei/hinic/hinic_hw_mbox.c
-@@ -128,6 +128,7 @@ enum hinic_mbox_tx_status {
- 
- #define SEQ_ID_START_VAL			0
- #define SEQ_ID_MAX_VAL				42
-+#define MBOX_LAST_SEG_MAX_LEN			(MBOX_MAX_BUF_SZ - SEQ_ID_MAX_VAL * MBOX_SEG_LEN)
- 
- #define NO_DMA_ATTRIBUTE_VAL			0
- 
-@@ -372,7 +373,8 @@ recv_pf_from_vf_mbox_handler(struct hinic_mbox_func_to_func *func_to_func,
- static bool check_mbox_seq_id_and_seg_len(struct hinic_recv_mbox *recv_mbox,
- 					  u8 seq_id, u8 seg_len)
- {
--	if (seq_id > SEQ_ID_MAX_VAL || seg_len > MBOX_SEG_LEN)
-+	if (seq_id > SEQ_ID_MAX_VAL || seg_len > MBOX_SEG_LEN ||
-+	    (seq_id == SEQ_ID_MAX_VAL && seg_len > MBOX_LAST_SEG_MAX_LEN))
- 		return false;
- 
- 	if (seq_id == 0) {
--- 
-2.43.0
+>
+> Fixes: 05aa6fb1c21d ("rust: scatterlist: Add abstraction for sg_table")
+> Signed-off-by: Matteo Kloiber <kernel@matt3o12.de>
+> ---
+>  rust/helpers/dma.c         |  5 +++++
+>  rust/kernel/scatterlist.rs | 12 ++++++++++--
+>  2 files changed, 15 insertions(+), 2 deletions(-)
+>
+> diff --git a/rust/helpers/dma.c b/rust/helpers/dma.c
+> index 9fbeb507b08c..ff8f24dae9df 100644
+> --- a/rust/helpers/dma.c
+> +++ b/rust/helpers/dma.c
+> @@ -49,3 +49,8 @@ __rust_helper void rust_helper_dma_set_max_seg_size(str=
+uct device *dev,
+>  {
+>  	dma_set_max_seg_size(dev, size);
+>  }
+> +
+> +__rust_helper unsigned int rust_helper_dma_get_max_seg_size(struct devic=
+e *dev)
+> +{
+> +	return dma_get_max_seg_size(dev);
+> +}
+> diff --git a/rust/kernel/scatterlist.rs b/rust/kernel/scatterlist.rs
+> index b83c468b5c63..d677dcbe7aac 100644
+> --- a/rust/kernel/scatterlist.rs
+> +++ b/rust/kernel/scatterlist.rs
+> @@ -350,15 +350,23 @@ fn new(
+>              page_vec.push(page.as_ptr(), flags)?;
+>          }
+> =20
+> +        // Cap segments at both the DMA mapping-path limit and the devic=
+e's declared
+> +        // max segment size.
+> +        //
+>          // `dma_max_mapping_size` returns `size_t`, but `sg_alloc_table_=
+from_pages_segment()` takes
+>          // an `unsigned int`.
+>          //
+>          // SAFETY: `dev.as_raw()` is a valid pointer to a `struct device=
+`.
+> -        let max_segment =3D match unsafe { bindings::dma_max_mapping_siz=
+e(dev.as_raw()) } {
+> +        let max_mapping =3D match unsafe { bindings::dma_max_mapping_siz=
+e(dev.as_raw()) } {
+>              0 =3D> u32::MAX,
+> -            max_segment =3D> u32::try_from(max_segment).unwrap_or(u32::M=
+AX),
+> +            max_mapping =3D> u32::try_from(max_mapping).unwrap_or(u32::M=
+AX),
 
+nit: if we rename this variable, let's name it `max_mapping_size` for
+consistency.
+
+>          };
+> =20
+> +        // SAFETY: `dev.as_raw()` is a valid pointer to a `struct device=
+`.
+> +        let max_seg_size =3D unsafe { bindings::dma_get_max_seg_size(dev=
+.as_raw()) };
+> +
+> +        let max_segment =3D max_mapping.min(max_seg_size);
+
+This looks like the correct thing to do indeed.
+
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+
+(the following is a related thought, not a request for this patch)
+
+It also means that without patch 1, nova-core would split the firmware
+into hundreds of 64KB SG entries, which is not breaking but still
+something we want to avoid. The correct fix is to make sure that
+`dma_set_max_seg_size` is called by the driver, and while we are at it
+we also want every driver to call `dma_set_mask_and_coherent`. Ideally
+we would use the type system to make sure that both functions are called
+before any DMA operation can take place (using a safe interface), but
+I'm not quite sure yet how we can do this.
