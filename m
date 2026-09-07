@@ -1,115 +1,104 @@
-Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5D82477299
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:30:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8AF351C354;
+	Mon,  7 Sep 2026 16:30:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788798641; cv=none; b=sr+3JQtLQXrJNz3YAZ6MxDkWR8/gbkjp4D6s9lVmn5uyJqLq+FxbQjSTiZdbRGYwnlZ8+i88bVExqWaEinXgae7SHwb7goEeT4bjCGzZjylVeaJ3JBg97Xoz0LDE/pbFPI5Zr5x3B6LVeNmATdf2fE0eQjzwqqRfLUvvK63SsFM=
+	t=1788798652; cv=none; b=SRlnlIE8jmKRBZqJXFI8XOAriF4OqL0fi86Yum3ERGeLLjoansyZApEqROJZr0yXrzaHot+cIDv7kdf4Sh5WyuNa1VkTSxMXLy0bbhv6Lm5a213y3cnr+QXFPA5D3wlWYhfWsNOfQzZitgO+oZLUmfsCFUmeqDCyjIk0P/SjRvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788798641; c=relaxed/simple;
-	bh=WBKBczPmnFNqn4oIBcLRMTmSwk8E7CwqvkPMeqXkv/g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dGCQr10pqlA9UUx+1v4ISvUfyDTPF0UFI4XfaOPNXy4n80YDvQjB+Ni2tddd3zHAiQB78X2kOcwiwDOSEjr4j77ePa65++22hc0PhzOvzGYdP5fYRm/rHRLbFvLo3ndeRHrZLpXiEVnl6s9KYC+SSa8jm888zXTNTxejMofMdys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=SrVgf5A7; arc=none smtp.client-ip=212.27.42.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	s=arc-20240116; t=1788798652; c=relaxed/simple;
+	bh=7pVYL68lc4I7fP9BMITH+l1WpisGCrtkpYIvesSOJeo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CnZCSSAo5l+RYEC1mfrQXoXcjp85H1lYdjCKGbBQ2F2AiS9ttVpT/Fkie9vSPfA54e57WqPssnHKFsWI7KY1dhZH5KJ/ac8VzVbu4yYDKrgEiGDx0E5PYORtOvTQzysY3Hm2700j2KHk0swkCz+u01SqHp65DXL0TCgBdVHfeQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=07E+epDk; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="SrVgf5A7"
-Received: from L30177.local (unknown [213.36.7.12])
-	(Authenticated sender: vjardin@free.fr)
-	by smtp6-g21.free.fr (Postfix) with ESMTPSA id CBF1F780333;
-	Mon,  7 Sep 2026 18:30:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1788798627;
-	bh=WBKBczPmnFNqn4oIBcLRMTmSwk8E7CwqvkPMeqXkv/g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SrVgf5A7eKYt7GcaIfUWEc2J962GNTRiqS4oleuwDrm0Q81xaxIZ+6YgQQ1Kh5ECi
-	 8Hi3DwQR1SgbwCldFJ6RnfI9F51NAqShrz9BM7OpxWOfAPu3RWpcl+ffU59PP3hvyI
-	 Avxgz7X6z2iXrwAQkIgNa6JHNzIOr4ygSO3ac2nERcIRpc+ADW0kSnwM7RigCaRgjz
-	 OcxEUl2LkMsX7sPMJ/wkSlnEckqLCoetx+FSnDVabZmhCibG/8LO79WNf7NS6yUnbP
-	 PVad2zu6mtidc84Npf65aHE1KAZQ6Zmv7YCI2C5b4ZRJ6UBeskblftFbxlsfBgWy/1
-	 EluxjPQQ4xkrw==
-Date: Mon, 7 Sep 2026 18:30:17 +0200
-From: Vincent Jardin <vjardin@free.fr>
-To: Ioana Ciornei <ioana.ciornei@nxp.com>
-Cc: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Laurentiu Tudor <laurentiu.tudor@nxp.com>,
-	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable+noautosel@kernel.org
-Subject: Re: [PATCH] bus: fsl-mc: register the object drivers after
- misc_class exists
-Message-ID: <ap7mmR_4QV0k88dK@L30177.local>
-References: <20260901-for-upstream-fsl-mc-initcall-order-v1-1-36ffe48f767d@free.fr>
- <fmmf72ypmmooyxszz3l47xabdhvetowgvbmbjmvj6bumuh5onh@pntmny63urbg>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="07E+epDk"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 8B8FA4E4156A;
+	Mon,  7 Sep 2026 16:30:47 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 525CA60383;
+	Mon,  7 Sep 2026 16:30:47 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EA96111C7AF0B;
+	Mon,  7 Sep 2026 18:30:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788798646; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=4QlYBD4vc3WFr9t8sgXZFmBKf/SRXsQ3kb0DuYXLsEM=;
+	b=07E+epDknOTtGbbi0gcHpv/sb8Sv6hsDjjF2y9mVM8xJDvELdMt+L6SBJ4wixplQTh2zAJ
+	22q2V73Lyshb+Lck61UuXjKcPgrXCe48ywTVQ/Ks5IK1K/rqLTH64ndX6c1PUE3mBinvJQ
+	7faPnbp4mrCMEbwafITJ6EWUhTGJn1nPGAIkEtycCxBLmAOHz/e66Bc4R2qRGLmScSekSJ
+	75hUlU6Fqv446dwczT8Epb2A0/VVLjN+LfWoSxbf/pYFIvDA5hUJdsUt/ry0KjxAWknNIW
+	n31/PCEkblyGyFV7aPBYPiMOdk5DKjMmZOeFe8dARvXlMDHBR1c3Ag3LWfY+yA==
+Message-ID: <114c4ac7-a709-4e25-ba1b-0f705b400eb5@bootlin.com>
+Date: Mon, 7 Sep 2026 18:30:43 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fmmf72ypmmooyxszz3l47xabdhvetowgvbmbjmvj6bumuh5onh@pntmny63urbg>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 2/3] net: dsa: lantiq_gswip: handle SPEED_2500 in
+ gswip_port_set_speed()
+To: "Jan Havran (Advantech Czech)" <havran.jan@email.cz>,
+ Hauke Mehrtens <hauke@hauke-m.de>, Andrew Lunn <andrew@lunn.ch>,
+ Vladimir Oltean <olteanv@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@google.com>,
+ "David S. Miller" <davem@davemloft.net>
+Cc: Daniel Golle <daniel@makrotopia.org>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260907134818.16670-1-havran.jan@email.cz>
+ <20260907134818.16670-3-havran.jan@email.cz>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260907134818.16670-3-havran.jan@email.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Ioana,
+Hi,
 
-> Do you mean that the above error messages are triggered by an unbind and
-> bind sequence like below?
+On 9/7/26 15:48, Jan Havran (Advantech Czech) wrote:
+> The mxl-gsw1xx driver advertises 2500BASE-X on its SGMII port (via
+> supports_2500m and gsw1xx_phylink_get_caps()), but the shared
+> gswip_port_set_speed() has no SPEED_2500 case: at 2.5G every field keeps
+> its initializer, so mdio_phy = 0 pins the MDIO speed override to 10 Mbps
+> and no data passes.
 > 
-> $ echo dprc.1 > /sys/bus/fsl-mc/drivers/fsl_mc_dprc/unbind
-> $ echo dprc.1 > /sys/bus/fsl-mc/drivers/fsl_mc_dprc/bind
+> At the MAC/MDIO level 2500BASE-X is identical to 1 Gbps (same wide GMII
+> datapath, same speed override); the rate itself is set in the PCS and
+> SerDes, not here. This matches the boot loader's PHY_ADDR_4 = 0x32A4 for
+> the 2.5G strap ("1 Gbps or above"), whose SPEED field is
+> GSWIP_MDIO_PHY_SPEED_G1 (the field has no encoding above G1). Share the
+> SPEED_1000 arm via a stacked case label. Its mii_cfg value is a no-op
+> for 2.5G: gswip_mii_mask_cfg() writes it only for the RGMII port
+> (mii_cfg[SGMII port] == -1), which cannot reach 2.5G anyway.
+> 
+> Fixes: 22335939ec90 ("net: dsa: add driver for MaxLinear GSW1xx switch family")
+> Signed-off-by: Jan Havran (Advantech Czech) <havran.jan@email.cz>
 
-Yes, same sequence on the root DPRC
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
-> I am asking this because I cannot seem to trigger it myself. There is a
-> misc_deregister() which should remove the char device upon unbinding the
-> root DPRC.
+Maxime
 
-It does for every normal misc device, but not for this one, because the
-root DPRC's misc device is created classless.
+> ---
+>  drivers/net/dsa/lantiq/lantiq_gswip_common.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/net/dsa/lantiq/lantiq_gswip_common.c b/drivers/net/dsa/lantiq/lantiq_gswip_common.c
+> index 0e8eedf64d3a3..6150dc3ffb641 100644
+> --- a/drivers/net/dsa/lantiq/lantiq_gswip_common.c
+> +++ b/drivers/net/dsa/lantiq/lantiq_gswip_common.c
+> @@ -1339,6 +1339,7 @@ static void gswip_port_set_speed(struct gswip_priv *priv, int port, int speed,
+>  		break;
+>  
+>  	case SPEED_1000:
+> +	case SPEED_2500:
+>  		mdio_phy = GSWIP_MDIO_PHY_SPEED_G1;
+>  
+>  		mii_cfg = GSWIP_MII_CFG_RATE_M125;
 
-You can check the states with:
-    grep dprc /proc/misc   # e.g. "256 dprc.1"  -> registered
-    ls /sys/class/misc/ | grep dprc
-
-If dprc.1 shows in /proc/misc but is absent from /sys/class/misc, its
-misc device is classless and the unbind/bind should collide. If it is
-present under /sys/class/misc, it was created after misc_class and the
-sequence is clean on your setup.
-
-fsl_mc_bus_driver_init() is a postcore_initcall, it registers both the
-platform and the dprc drivers.
-
-The fsl-mc DT node is populated at arch_initcall_sync, so the root DPRC
-probes synchronously.
-
-dprc_setup() -> fsl_mc_uapi_create_device_file() -> misc_register() runs
-before misc_init() does class_register(&misc_class) at subsys_initcall.
-
-misc_register() does not fail in that window: device_create_with_groups()
-with an unregistered class creates the device with no misc_class
-membership and still returns 0.
-
--> So at unbind, misc_deregister() -> device_destroy(&misc_class, devt)
-cannot find the device within misc_class, it returns without removing it,
-and then it leaks the device + its /sys/dev/char/10:<minor> link while freeing
-the minor. The next bind reuses the minor and dies on the
-duplicate /sys/dev/char/ entry.
-
-I guess, from my setup, it happens when the root DPRC's misc device is
-created during the early probe, which needs CONFIG_FSL_MC_UAPI_SUPPORT=y,
-fsl-mc built in (not a module), and the root DPRC probe not going through
-EPROBE_DEFER.
-
-If it defers, the retry runs after subsys_initcall, misc_class exists,
-and unbind/bind is clean -> which is probably what you are seeing.
-
-I started to face this issue when I did try to restart
-the MC from Linux userland instead of uboot in order to be able to adapt
-with some DPC changes during the runtime.
- see https://github.com/vjardin/lx2160-sdx/blob/main/src/lx2160-mc.c
-But I guess this issue should be quite generic.
-
-best regards,
-  Vincent
