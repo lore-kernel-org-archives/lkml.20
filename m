@@ -1,98 +1,110 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AA3C2439F86;
-	Mon,  7 Sep 2026 08:41:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF9D844062B
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:41:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788770509; cv=none; b=e3Sb+iKNn2caUv2K62eJ2cDc4iDd449jhNDqYyRReCcqeUum7joDlK7q+hgDuRDzp2/2jbWgY9PubhpoMWxRzOzvx7WGYVWtzm9lr6JO10GS8BH43JeQnXjnKE3xQXKm7p6W0fuhX6+fsYe8zJV85+1mErpNdv4acwSc6Xubb4k=
+	t=1788770510; cv=none; b=tfDqvcxwuTYdAEZ0YO29RfA8wh2/bcfiT8O+l542e28T2yZz2TI0uzyH8LPQ84kVwZKlgP8MeWGxJe/7dTl2LG93rKym658lPbrxDhZJDkvTYAYGLEz51IT5gADoaZEL2NThjG+H4hn7OviIK/S2R9wIz3zPVpgfit/v2Tr8Szc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788770509; c=relaxed/simple;
-	bh=E/UIgNpc25GUSWm1XbC00DjUtLL27lOf+DtKpkc4ypo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Xvxwddi8yo8hZLnzoMiF+3z2bO1H1fxGEvjPSQU4VsZthSnhf/+K2xeoSqvCznR1yMMEzas/0sBoOVjKgQMeHheAa2LAF09OMFt0R45qpxDogK5Nudg43Z6iX5xgbPjrHn+Fb+Dm6uYqpqOEmzn44nCoX2EIzk1DfR2Z+sNIwC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=MLP/nXtF; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1788770510; c=relaxed/simple;
+	bh=uNFIzY4JXjCeEjBfCARmismymHNT0T9fxAim/+MPT5E=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DASijP9loUJ/GScFrMm48EmpUdEZDOtV0lWqouYWQ986nHlz77/geLqNffk1WqKg55oL/bMWNlqkXKdHxNQf/kOuXXHoe6C8Y5S3wyKcBL5Ha6WtxEJXo1B4UupoMTD359ElfEB5HvpHXvp48VZ2VfJisQ7QrrWLvrOfDIY+c0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d9upFHyB; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="MLP/nXtF"
-Received: from localhost (unknown [167.220.233.38])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 3129620B710C;
-	Mon,  7 Sep 2026 01:41:07 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 3129620B710C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1788770468;
-	bh=yR7782cSE2dRsdzPrK2mP3H/FNlWtg/vkjWXAGyEDv8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=MLP/nXtFx6zptvpPxsuQkjgkNMf9ZbnuxXGcMf0KttNVVB8AegKCpYdovLm9pw/Z6
-	 nyopZuhkxGgJvCKTEYsIA2pqY5smdVh+kjIQK9ttwBD79+iw/V4ZKve/bD4uD2q2MM
-	 RO9lo9DzJfwMbQWy3Mj1BmrxLk6Sl3SW/dX8TX88=
-Date: Mon, 7 Sep 2026 16:41:44 +0800
-From: Yu Zhang <zhangyu1@linux.microsoft.com>
-To: Mukesh R <mrathor@linux.microsoft.com>
-Cc: linux-kernel@vger.kernel.org, linux-hyperv@vger.kernel.org, 
-	iommu@lists.linux.dev, linux-pci@vger.kernel.org, linux-arch@vger.kernel.org, 
-	x86@kernel.org, wei.liu@kernel.org, kys@microsoft.com, haiyangz@microsoft.com, 
-	decui@microsoft.com, longli@microsoft.com, joro@8bytes.org, will@kernel.org, 
-	robin.murphy@arm.com, bhelgaas@google.com, kwilczynski@kernel.org, 
-	lpieralisi@kernel.org, mani@kernel.org, robh@kernel.org, arnd@arndb.de, jgg@ziepe.ca, 
-	mhklinux@outlook.com, jacob.pan@linux.microsoft.com, tgopinath@linux.microsoft.com, 
-	easwar.hariharan@linux.microsoft.com, baolu.lu@linux.intel.com, suravee.suthikulpanit@amd.com, 
-	vasant.hegde@amd.com
-Subject: Re: [PATCH v5 4/5] iommu/hyperv: Add para-virtualized IOMMU support
- for Hyper-V guest
-Message-ID: <re2lmz757bvtzbkylxtsj7zu2pjqz7ro752tcg7bpjaicuj6ml@mgsg6jnvgbyd>
-References: <20260904075512.174154-1-zhangyu1@linux.microsoft.com>
- <20260904075512.174154-5-zhangyu1@linux.microsoft.com>
- <af047ef8-91ef-7786-c230-25e28b1c8c04@linux.microsoft.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d9upFHyB"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-499ac87c92bso36795105e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:41:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788770506; x=1789375306; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3Z6RPCJ+oakT2xFF52e3X6co8pKDgzKRCpw/dv6H1tY=;
+        b=d9upFHyBVqcgQto8vWcJM3jfNEVmMI1nN5rOXqtIfoo2ghsmtd3b+I5NSXovEgGOwP
+         kxK1n4McPeCHaarFrJtTQV+LZDn7tdoGJ/ssqbeaitgZjIWIswP2QP76h6urug44ZOWw
+         o7EErzMGF8dVZWpxZayXd/DcAN2RoiqproHuGGrFmH/B4K3Sw4bXO0wQbjIXzyoYKyGk
+         SSiAKpj4NjYF6o+IwuEXn+p8yK42VomeiK0DmF6LzG2Nd0pO2yR40D6DNOyjCjob53fZ
+         CTZ4ouNkpp7wJdOgCX+YiEDr0/AGw3ihFDCq5vPQkJKwa9QYNbFrSUYjUjB3loB3/bKs
+         aGhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788770506; x=1789375306;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3Z6RPCJ+oakT2xFF52e3X6co8pKDgzKRCpw/dv6H1tY=;
+        b=IQZWLChV6bR+taqFtscrOHLueM9uJ7c/U4SzStUE7vMBzo8Wg3TK8SWgUflhk2sO/y
+         jWtF77wy3fi4U7yI781t44RB1BEjfZSQtKjKh6g4+gFZk32V4mJ68cRdP/hT3j3Ul2ow
+         XIwC/N+Sm5OCKdo8bJRXCXd5WyT55MMDnLIYrNh/xMFxu6+ZH3eM2jYl0+7lFPOzC0d2
+         NyB20RLdTeyoIZPTm5Hh99eT4rMvrHX7u79NFlD4fAv9LgKOhrA5Y9rMtJNYtsOKKCTH
+         7uG5cE29uE4lp5VvqiH4ZQnDsHikBwkdBup8Z3mTaxtdcj+Wgq3pprJnmBp21/ahsu+0
+         W1hw==
+X-Forwarded-Encrypted: i=1; AKwUvBwrVoSinGxpVumy3mqdaVhVCQsAmWO+mIw50wbJ9/iEbVLur+VLvHvPetZJ7ps9sjZj2L/XG21YZm6868k=@vger.kernel.org
+X-Gm-Message-State: AFuF++laYAN2Dlq+rfl40h2SVqye/H3aj9uWL0kkmH0quZhfED/4+AEp
+	VeHvwtkhSBI6IBUn5AgmIQz5d/B/wEU4dkQRiZUALFljitelxcjhZOT7
+X-Gm-Gg: AYBFou0Nch0xrGmyjuWUMq60n6jXvt8gjOS2BmS4EiMlk+8mEaVZCT+f55T+Q9ViJKG
+	XUysBBcmRrkea5BvBv3ocdxTIWgVfW5AcMNTwqwSwxogCjoBKLobrjR8SbxMA01HX1swy19D2Xi
+	lGX81pJpn+qq+L8kBuMF1gdnFlh01HF7posGvOWPleykWYqcix35ST2vxq0F5KkqMGa9O8QW/hJ
+	0ogmp6onknuiutGCGB8RTDVr/hbZbxjPat1pecterlhEnkdWCGkkBWCrnO46NMRvTcsK6YHcrzj
+	Wx1z22a5DVfNi5hqZWaPd5wSFS9L0IzFgifdxxyclsMj8onyfnK8G/iEEG3yPgJ42jUqRN23eBl
+	GMQ5eZzM2W/f30MZW+iKg3cP6NqRKo5M1YwtdIQzaJS+XCI2/0wC56ytNVJFarQffP9vIGvKtdX
+	RpM3FMv6NUd+Ih2AYDQjktn1tQHaiipd47YPgXrjkGeXsha0pQBy9oxgZjrBsws9QQqo395DdZS
+	+Oyne5kYnMMPe1NawMyj6wcdrXAbJHqZoJlpkUODxuXJg==
+X-Received: by 2002:a05:600d:848e:20b0:495:4d88:e630 with SMTP id 5b1f17b1804b1-49cf824f697mr151249175e9.10.1788770505776;
+        Mon, 07 Sep 2026 01:41:45 -0700 (PDT)
+Received: from snowdrop.snailnet.com (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885bbb51sm27883762f8f.30.2026.09.07.01.41.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 01:41:45 -0700 (PDT)
+From: David Laight <david.laight.linux@gmail.com>
+To: Waiman Long <longman@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Will Deacon <will@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Yafang Shao <laoar.shao@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>
+Cc: David Laight <david.laight.linux@gmail.com>
+Subject: [PATCH v4 next 0/9] locking/osq_lock: Optimisations to osq_lock code
+Date: Mon,  7 Sep 2026 09:41:24 +0100
+Message-Id: <20260907084133.3696-1-david.laight.linux@gmail.com>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <af047ef8-91ef-7786-c230-25e28b1c8c04@linux.microsoft.com>
+Content-Transfer-Encoding: 8bit
 
-<snip>
+This is a continuation of some patches I wrote over two years ago.
+They go a lot further and reduce the per-cpu data to a structure
+that only contains two cpu numbers.
 
-> > +{
-> > +	u64 status;
-> > +	u32 prefix;
-> > +	unsigned long flags;
-> > +	int ret;
-> > +	struct pci_dev *pdev = to_pci_dev(dev);
-> > +	struct hv_input_get_logical_device_property *input;
-> > +	struct hv_output_get_logical_device_property *output;
-> > +
-> > +	ret = hv_pci_lookup_dev_id(pci_domain_nr(pdev->bus), &prefix);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	local_irq_save(flags);
-> > +
-> > +	input = *this_cpu_ptr(hyperv_pcpu_input_arg);
-> > +	output = (struct hv_output_get_logical_device_property *)(input + 1);
-> 
-> Any reason for not using pcpu output arg like we do in all other places?
-> If there is a technical reason, please document it, otherwise when revisited
-> in future for re-design, anyone looking at this will be confused and
-> waste time investigating if there is anything different about this hypercall.
-> 
-> 
+I've fixed some broken/missing memory barriers but left the initial xchg()
+when acquiring the lock as a full barrier, I think it could be relaxed.
 
-Thank you, Mukesh. I had also incorrectly assumed that output required
-a separate page, which is why the RFC included a separate output-page
-allocation patch. Michael clarified during that review [1] that input
-and output can share a page as long as their buffers do not overlap,
-so I dropped that patch latter.
+Tested with a userspace harness that can conditionally sleep at various points.
 
-Actually, there's nothing specific to this hypercall here - it follows
-the existing usage. E.g., hv_pci_read_mmio() already uses such arrangement,
-as Michael noted in [2]. pvIOMMU queries fit within the existing per-CPU
-page, with output placed after input, avoiding an unnecessary allocation. 
-                                                                         
-[1] https://lore.kernel.org/all/SN6PR02MB4157C3EF6617A7BA4CA9E432D485A@SN6PR02MB4157.namprd02.prod.outlook.com/
-[2] https://lore.kernel.org/all/SN6PR02MB4157BF936EBDA23AD1EC5183D480A@SN6PR02MB4157.namprd02.prod.outlook.com/
-                                                                                                               
-B.R.                                                                                                           
-Yu 
+David Laight (9):
+  locking/osq_lock: Add some comments about how it works
+  locking/osq_lock: Save the cpu number for 'prev' not the node address
+  locking/osq_lock: Set prev_cpu=0 instead of locked=1
+  locking/osq_lock: Delete 'fast path' code from osq_unlock()
+  locking/osq_lock: Avoid writing to node->next in the osq_lock() fast
+    path
+  locking/osq: Use cpu number for 'next' pointer
+  locking/osq: Use 'unsigned int' for next/prev/tail
+  locking/osq: inline encode_cpu() and rename decode_cpu()
+  locking/osq_lock: Swap next<->prev and tail<->head
+
+ include/linux/osq_lock.h  |  10 +-
+ kernel/locking/osq_lock.c | 286 ++++++++++++++++++++------------------
+ 2 files changed, 154 insertions(+), 142 deletions(-)
+
+-- 
+2.39.5
+
