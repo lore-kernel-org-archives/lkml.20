@@ -1,102 +1,95 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 240E330EF91
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:16:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29BD0296BC8
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:17:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788769014; cv=none; b=W0sbHI8aoJVCXNgzDkMcjzS8sYMzDTNg5hZ4vbC/JU6xetQ/bFlf3mj6+spjrqQ72k/5uP6T/OjYsvVA6JWqGMlWJkbZPQgEMpTlrvF9PTCLgIwZwgxBSFe6V0Q1ZyU+Gbw0BFuhrhXKrJrc8lYilAGhtRKwOwL2v32GzgS7uus=
+	t=1788769065; cv=none; b=L4AfxDDthii7O7FNLMYpGBRm9p1P131lcEFKXhbHJ38RFZ5QZLNOvE4cXczUEhezMK4xyGyo56imJIlLvyTIKpeCRMEGrEBuO6YSJFrpIYBGqpoYfam/0DMQ/URKu1hyXhRtcOVg9nRkPjKY1agCIBxEQaU7Nf0N1YeGypHsEtU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788769014; c=relaxed/simple;
-	bh=7nowSITGcM1q970gApZvr6kZ03hlvDDs8a9iP9BMhhE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=u6gYUA2ythrUJnzgEm6+iSubM7EOan0uinhNH/kuOTvf/bBQ0hWfnhDkdKe7Db7WqEGr5wyTN8aNXJhyDLFV7gU3XdRbyJbbBRfAhRPQOniqyWQ1SBJdCjCCIZSh/J1XL6M2klBmxfs8PBsbbILjPTgir6G1NsjScoz22aHaW6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=u7Q2s1he; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1788769065; c=relaxed/simple;
+	bh=jFAWYKmVqe0Mh/SD/Y7hlGGG4XNWYE1a0HpQTiZyN3I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=p5mGVa1fQvsbSJnUiNaHHrvIPPs89ODN5zWmlKLPzD3V5hl7GK3Ersq7FrMqA2kD+p0Pn8cBRpqfS+lJ033NKMviORQ+3L34FTLxllriaNmB3WlCxIyy4dwULy8Qec2BXB7BfNk7eeHbkR4mJ3a8aurwOhvYcLE/7jewkyoSPEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=DgxSzYmq; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="u7Q2s1he"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260907081643euoutp02bd222900176b6d6b94bdbf2eae151202~S__6IjAE71433814338euoutp02d
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:16:43 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260907081643euoutp02bd222900176b6d6b94bdbf2eae151202~S__6IjAE71433814338euoutp02d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1788769003;
-	bh=C49HkmDVZ4lVjfKu187yKcJcfrFqGDQxUYYBb3LwzE4=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=u7Q2s1heUqMda6W5XRBhcPx+MTlXcqrDqyl2qmNV0zWDSSmMKI2HWoP4uLN9hOlvP
-	 XmXHSulGrzA4zdKuuUTjPC1zQMRUSzsgxpRcQp3nM6VrhekYpsbS0+5HfPckFaxkLm
-	 fErxQpxeu4pXfP+9s405Gr40nX1gdcKu3786lkHw=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260907081643eucas1p20588c21e5a4fc629f9ebc1f8f15c3522~S__54h-yh1075210752eucas1p2o;
-	Mon,  7 Sep 2026 08:16:43 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260907081643eusmtip2a290ef3efe626b53d73bbd7fd72e3e51~S__5ZfqCW0517005170eusmtip2N;
-	Mon,  7 Sep 2026 08:16:43 +0000 (GMT)
-Message-ID: <62afdbc4-f21a-477a-b0ab-de20c96b4b6d@samsung.com>
-Date: Mon, 7 Sep 2026 10:16:42 +0200
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="DgxSzYmq"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-4843e9c5960so3252878f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:17:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788769062; x=1789373862; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SpoPZ0fcd3JuJClRUUCxQoIFsxpcrKHbj5/qQhfrnoA=;
+        b=DgxSzYmq0osm/iHYnNMP1f9/uMVLPaPVWPb20EKfEk/mgFlLBpygD2bf9fTrQOHMkF
+         cwXgQWNX0YO47UbEBKy/xvUvPnM3ZUbi3aiD8pAl5xqRaz1wzoKEUminXhP++VTIfiW1
+         Ybe+QP0vn/NsvIKYUW1rpw+Y3pFw8OLrh7XWMzKx6+rb2TqR4MWttKTtehZ2P+ftE4cz
+         Pd+EAnATvNyd1tTo/GHpwPF1MlodOSYMMxz6X94oZfNwbOvQljXjv/Syfm3lVU/6RgdA
+         xXuKD6RgSPnrzypU20PzPQpMh2ZzAh/ETB9ocPeNtiaXvppGgzSzLhdVebhyIiouDcLT
+         8VkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788769062; x=1789373862;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SpoPZ0fcd3JuJClRUUCxQoIFsxpcrKHbj5/qQhfrnoA=;
+        b=qXfPTaSSu1s8BbgrX6ItDygIiEaFEhAmb70rPyknQdZKv7MslGabJbfCKR495EJdKl
+         nJQWijISpozsqfLd1X40kvjCNRrox60yC08h6HwbGPLQaYz3G+0VdYTGpCsA8o+Upbuw
+         JWkbU/YDPz14+K4GdWbkuYm58iXvDRAA/WUehYK8/TicWfkZAZ3br+fi4hGrWeTuOtAj
+         LDRuksJd7GIE6xBincDw3nVrQP392EjwL1TvouT3IqfppxdP6lrdstqfGAgxK1Pa3qsh
+         X9vDDgvP2II7vs+4V03dIptxVQ4XfqQVmIp3rTBoBEDTyAUTH7QII5cbrIvBcSnSZRFJ
+         kOuA==
+X-Forwarded-Encrypted: i=1; AKwUvBwX32HDCJCHsiivUPdEdlX4PuR8z8+wLb6mSJUC0VNzcWWKPOH5QMEqGwH9O3MSnNLu+HpDmEYfGmIl+Pw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nfqIs3uWVlwBHKDKyiDDMYUid8qazf7Ci8czR3aD5aHXE7tDOD
+	2jM4Ky2boevJFHpQsLXkMmo16cnB1heT54icrpXCQKKKKwzvsDUcZiXSSp3h73nkji8=
+X-Gm-Gg: AYBFou0wQs5WZkSDnrEeEzF91aBL5j2xJ6+pwBMjy25BItVUVsXFmyjFAj/9Ds29EOh
+	FFwAhkAMCbdN8s3XeF8oQM2r8tN9B/OY4cKafoS3bRfVmANF/VqDAa22gnMtcK0ZCSW/o4uCsfw
+	K1QQ2h1ttuGDcFIkZK6laGaG3LLnUb98FUU0UWGEP4ca8izodx83D/9LX89bv3mdzUwdPbMM4Ku
+	DxDPXv6DSIlEdzama5ETcjnpxPhKp2S5KZRSUt6JNMc8IstZiwiv0t6A7lT8jC2TKfR9G0xr/SK
+	Mze3dbddvgNcyZxMwfM1stQaYkuwXX7dw5zNyoJYb+YqXwIgKvNGHrFn9W2GSj+eGWAdQ1I2z++
+	B3+V6eIyh2G45VGWN27LAEJ5ddcsYdc3I8papvckFZMFyCMgxYR3VZ94c8atXn6BGxb76hcezri
+	G/qbOgII+lNbTAFUF9xxDBjesQQeGHaszxT+ZhT9ZiTgVToADuvuHStHVN5FZkWzRK0rLLirHh6
+	K2OUyA8dsmlrlQTu4TWpJngF7np+rgq
+X-Received: by 2002:a05:600c:34c2:b0:49d:10d6:fd55 with SMTP id 5b1f17b1804b1-49d10d6fdeemr36875255e9.1.1788769062392;
+        Mon, 07 Sep 2026 01:17:42 -0700 (PDT)
+Received: from ?IPV6:2a02:3033:28e:551d:9975:219f:1622:8b8d? ([2a02:3033:28e:551d:9975:219f:1622:8b8d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce58da3acsm802674335e9.0.2026.09.07.01.17.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 01:17:42 -0700 (PDT)
+Message-ID: <e231a7e9-7aa9-40ea-8ac6-57855b4ac811@suse.com>
+Date: Mon, 7 Sep 2026 10:17:38 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v2] ARM: dts: samsung: exynos4210-i9100: Enable RTS/CTS
- in Bluetooth node
-To: Paul Cercueil <paul@crapouillou.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar
-	<alim.akhtar@samsung.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] USB: cdc-acm: fix racy TIOCMIWAIT implementation
+To: Johan Hovold <johan@kernel.org>, Oliver Neukum <oneukum@suse.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260907065501.101013-1-johan@kernel.org>
 Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <1666390417d0d9b8f58a7bdad1b8ecb475ba0d4f.camel@crapouillou.net>
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260907081643eucas1p20588c21e5a4fc629f9ebc1f8f15c3522
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260829101532eucas1p29f4e04d4dfd169377793c276221059a6
-X-EPHeader: CA
-X-CMS-RootMailID: 20260829101532eucas1p29f4e04d4dfd169377793c276221059a6
-References: <CGME20260829101532eucas1p29f4e04d4dfd169377793c276221059a6@eucas1p2.samsung.com>
-	<20260829101509.138284-1-paul@crapouillou.net>
-	<6e319291-72b8-4a43-b953-8a9f0a6049c8@samsung.com>
-	<1666390417d0d9b8f58a7bdad1b8ecb475ba0d4f.camel@crapouillou.net>
+From: Oliver Neukum <oneukum@suse.com>
+In-Reply-To: <20260907065501.101013-1-johan@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 03.09.2026 15:29, Paul Cercueil wrote:
-> Le mercredi 02 septembre 2026 à 10:36 +0200, Marek Szyprowski a écrit :
->> On 29.08.2026 12:15, Paul Cercueil wrote:
->>> The BCM4330 is connected using CTS/RTS too, so add the 'uart-has-
->>> rtscts'
->>> property.
->>>
->>> Signed-off-by: Paul Cercueil <paul@crapouillou.net>
->> Indeed the CTS/RTS pins are used for BT on most of the ARM Exynos
->> boards,
->> as the "<&uartX_fctl>" property is assigned for pinctl-0. This is not
->> really
->> specific to i9100, so maybe this property should be added to other
->> dts?
-> I can add it to all exynos4 boards that use the "uartX_fctl" property.
->
->
->> However I wonder if Samsung UART driver actually use this "uart-has-
->> rtscts"
->> DT property? A quick "git grep uart-has-rtscts drivers/tty" shows
->> nothing
->> related to Samsung Exynos...
-> It looks like it does not. I still think the DT property should be here
-> but I won't fight over this.
-I also don't have strong opinion on this issue. Krzysztof: do You see
-any benefit from adding this "uart-has-rtscts" property, just to describe
-precisely the actual hardware, even if it won't be used by any driver?
+On 07.09.26 08:55, Johan Hovold wrote:
+> The wakeup condition needs to be checked after adding the task to the
+> waitqueue and updating the task state to avoid missing a racing modem
+> status update or disconnect.
 
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+I am sorry, but in this case I have to ask:
+Isn't TIOCMIWAIT inherently racy against the hardware?
+
+	Regards
+		Oliver
 
