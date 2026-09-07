@@ -1,133 +1,109 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A616F40BCBB
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:01:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE7C3C0619
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:01:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788814905; cv=none; b=RQB84LJ7Mdg7OrJXa3rIuX/BCDo2T4G5VaFQCn9sUbISZ02I7wvrN1NZCnISALKdqJjtxxJwVHgaWqVJEno2Vx3pGLDeAr7PE9wCnSYjjjnk6aYNMtgdMGzHzRQBJuOfU7Ys3peMmvXWEf9LLyJYYf6xyloFycDXDwzeGYMk/QY=
+	t=1788814915; cv=none; b=PznpLsVU7hqz0yErwYe2mXzfkigFt+H+Yc0NeDDcW13LdDY7bSiHdfNJbytNwZNbPRMCGT3Qb2BkdgG4gzmtMmzNLg1p42lP8bWCi4b+Xq/btevoORhk5Dh8ULVfGej6b2Uc+wNM8DXvtmfgb0jMKmIFO/u13Nh6/5NlsoSCv7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788814905; c=relaxed/simple;
-	bh=NBcfPz5Kg5pxUSo6iph13FYLp+Mgm5G1VrbxsH1itNw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B3LndL0Wxr0yvF48gofk7IgYlH+y/D7attpai8zQW2iWaiLAth/Wqh/WBHgzlAV67V6e9ahT4ywNHpa7YygVL8bzO6w69oxaNVYrGIJ3N9jI85cFWaq9PiC1+q9feZE3sHzKt+XrYjZz5iljudkW1DwRnvma1XArd7KBAPNPQfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ghebp8M5; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788814915; c=relaxed/simple;
+	bh=Hiyd+n9zj41GfYY2+DseKgKsmgTv+qy1m8+orHWzefY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qc5uY1ptwtcfAxtiClz4uKepAgXVLIZJ2Kax2o/UZPXQdx0pxXEl/6HMuolL3qcTcshpmbtICSPTCJawGMAqWAucm9UyVlce/j5sGmvpbMuIdCPvu8UYC2nzUkO0QndLUN2tciafKfsPUKCYF5fsT7UfeZi1YDXhldDdP/xc9vQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lR76VlK6; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ghebp8M5"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso17938765e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 14:01:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lR76VlK6"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff390a6cso131945ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 14:01:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788814902; x=1789419702; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0jKO+9sWDvAmMVaHnfnr4Hp4hjfEF0vm85uCtXj8WFQ=;
-        b=ghebp8M5VPbmNcaHHW7NTilf6ArvvK1Rw9d00eTsqMrk47ryKX5Lv5Ibv7wm50vSnk
-         PDernjrqC6K1ONjX7RuwGLKREynlU8grfvc5fKglYxmEXkEhtNol8pfQp/HxGmpvDPlq
-         b/4Vu1pJVyRZNTWVp9nhw+9jSf5Z35V7AG/m2v7ZQyx56/cw7pg3x8jjQkwIIrExYdeO
-         Phq/rYgdDwCAtYX+XpQQ4ehGl8U9RMjzF2mAkd4AM7CUaWEz0Un1U6HpiCqJTmimewO5
-         fLoE543d8kal8UHNI9FTJbNLdTU1Sf13fj2g1C0Y4aWqAKcc4p6mwQFbpARXlnAbClJo
-         pycg==
+        d=google.com; s=20251104; t=1788814914; x=1789419714; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TGJyWqg8b9I8pDWEAS1fAo54dmwDkCp8//1b4QCLnMM=;
+        b=lR76VlK6N5W4KsUEXS8GaNfKaVb1x7FCfRITFIn2pgrI55HJx6TQcjMaNdVA1D1jJv
+         PwgtRiR7eoYdPxSORWXleP0mA/MAMm1m0PDtekcYLKKn8L0Rs9S6JsJLiBas1tkUKdUK
+         zdKe10eq5t9RtSy5BUIpKzz2IJwLZt3ux9nAK9XxFlKxC4vBCPJW3Tefx3pwVVoerlK1
+         iqkTT2b6GH3UUAIfBq/hCO9nUtxfsaKvct+SmEKkOz+WCBY8oMcYkfBNnfh6QjsHKkbv
+         h8SwjtsB+1427fuYvxoYvGfRcEFCpMpdEbh4HoWaduQkOaiaWUHCm7RR6heyQFdQZxqC
+         0k/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788814902; x=1789419702;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0jKO+9sWDvAmMVaHnfnr4Hp4hjfEF0vm85uCtXj8WFQ=;
-        b=UKSrF2ub/YebGCohMv2Ky9nXQ0A6QfIS+vhL4acu+AWPeAXn425NzXN2Ws+X2HLH5v
-         m3EdknNub0mh+jqT38saxJmJbiaFwHamTIrjV4zlJjWviR7JA1zxq4XUwgydmjyO+g2o
-         y/tLfo65tnKOrKz20hsTyDF+9A5/0V7yFqqVYSmulHc8qGqJBe1BXhO+PNxHhF0WRten
-         zQMFb8UaQmC/LFNjoxyOxTHW1uqopwvEZuajzOl74LutS0U35fyZU66NkPNoCphQez3o
-         tqDtq/P0eh4X2/HT5k7E/nbICLSV5K6N6zaNxg9OHrgI5AFhpWPQFHwPKO4mI4yn5Pa8
-         +OOA==
-X-Forwarded-Encrypted: i=1; AKwUvBwMQcIflPnYFsr3hxLFGSDRU/ZIDvPaMypx6/OyQLbP1gguieZzyJPUYdMeCRKClZyrESIt6xenAkPa+Kg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mmoUHlYpRXIfzJo6Q9+PJnSwHeOwe5Rd3h4jsmEzADhijBAJWJ
-	7475R3jhB/eAKwLxnFtNmhqZC8YE4zT5Rtr/4V5HHnABXAaiggNO5weg
-X-Gm-Gg: AYBFou25fN9SusE+JkL54Y3Cpq4iQYZqejcnIxz+XonKOVo7qfOyS8kLiNCCV9NnRN6
-	ZJlhz7LG+M1kJ2Iht+XZYheWfmwc4/IWm2Kr4dWCcKvu76TPSeCpj1HXLRx4cWf09o/5/QiHonB
-	U/SocN7uyOgnk0FIAOUw+y1fjGSgKugydfszrM3uwKuVtBQMGExsnrUCNes8LanyqFm3Vp72mty
-	sut3bd+uO0yY4VCkrE+NWAZAd2FQU9Iuy1v8wWzKOpFUofefCPZh1ZImEb17d0yEKn0ULVKm+oL
-	0TIEd8Zh1zzRrD0bOTNAh9Hqve1advzR8nNsuEyPHF+6dT3ql32y8aMTuAJ0JVIN6vRYjwDzCTn
-	Wg+GDUrCnpn2MAvbwqar+Jc1iskOkhq8khECCgSVJ5G3y6DBlvixS6q7OH56zpYwxlOTMLsyf/y
-	iHShNjLqtE80AOcY68ECLsoeZztV5PHqEbNS3L03v+1b5WMQBvXb0YwpsldJl0MaVEUuhyqCnv
-X-Received: by 2002:a05:600c:1da8:b0:49c:cf18:494e with SMTP id 5b1f17b1804b1-49cf825a530mr297613755e9.12.1788814901592;
-        Mon, 07 Sep 2026 14:01:41 -0700 (PDT)
-Received: from [192.168.1.10] ([95.43.220.235])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49cf5135353sm299682235e9.2.2026.09.07.14.01.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 14:01:41 -0700 (PDT)
-Message-ID: <6fb14341-655f-4cd0-8704-50c8d2e5850d@gmail.com>
-Date: Tue, 8 Sep 2026 00:01:39 +0300
+        d=1e100.net; s=20251104; t=1788814914; x=1789419714;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TGJyWqg8b9I8pDWEAS1fAo54dmwDkCp8//1b4QCLnMM=;
+        b=bJp8/ezAc00u7cv2KjAOvDx1zqmcoYjnGnUWQhLFRjWRRCI0On+osSU2XHPLVOuLEL
+         Zz+SOa046pEViYeK85ss6qVLZFLA7poj7icUyBxYZRYT56h72yAIbDY5AXNv0VuVjEKP
+         eLNLBLh7zeaFhpwnI/OJOIS0wXq+6sI95VimhSulUtAS0hyyF8fjKdT2RaqPOnRxM38l
+         ZxTLpzvn99TXKUqI77nUEEOh1RCMoCmxU731kaMEAKzLtBpv6X+0QF45AGD5xgB2fEcG
+         vTon9yv+eOYMpQeIi4NmRReLzXWAJAewCLc5nzrywoFM0RZdZ0u5knKt9pBY1DnJsuhw
+         KnAw==
+X-Forwarded-Encrypted: i=1; AKwUvBzvu2Y9ZLu6oskPX8t5GQn41krfBD5CQ7hlJ858CVU0tTlharQhcWbTn/kqHJRijIonYvp8rUrNy/QuCVE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lMWNXnOXSmwsxEWitM25qK/yQAzPJ17tqSMSoDTbnqEH0tvXMG
+	ydfYfntbX4fLf68lei2FWzWMnsXD+/Ee03/wG05DMbWrvJ1vLF3hAwMVtZqqR0QlpQ==
+X-Gm-Gg: AYBFou2+aAp+5KOHN2vSYSer6l0xFcJZcOBzV28VWjukxFTXqEqBHm6SDUoWQBlAmha
+	rr7+2YQOLYvb9wdR71iEyT3Xvj1QTdJ3rxxVFWcAM2Raa2TDSyfZQH/ItZQhOzWYBZstjMyRWtK
+	tiBjxSTrwVAFmLDR+TXdEiNzh2ItF1XpPxg+8MsEshpOLhFBMF+0RwxTwopc7JQTTcVN5PwdLMf
+	KOIzAF/dtBzpbc2qUSKmDq9w02Nho0nYj0R99zx9dOIOD6/O9CJfwY7QZyZ9Lle1ERUThTFVNxG
+	LyxB4RXRVL4FOERQ7FAX6xQdkbvwJucSxjCwqPvIFnSYo2V4PJ4eyCAKneA4spV60e8MuwZ5Hk2
+	wmeyI9LVy4KjHM3b5A5zUG0bv73xlst4kOPdRUx/7XW6C62SbF9CNp21aYdwspMIQIb2dP2IXJ0
+	VEgTR81iyFTjcz8IfqZ3WwCWgtVmyRRE4Tz6tHngmPmFpMb1JP3c4sevl0mbW2BgrYD4Fuj4zla
+	f9iqAllETo/W1wsdKnnkAx6y7sBB/tYBUUur+34EaoDNHdK42WRem76Hes3tHq+M3hgYA==
+X-Received: by 2002:a17:902:e745:b0:2cf:4353:f117 with SMTP id d9443c01a7336-2db7773ef8bmr714085ad.0.1788814913291;
+        Mon, 07 Sep 2026 14:01:53 -0700 (PDT)
+Received: from google.com (210.87.127.34.bc.googleusercontent.com. [34.127.87.210])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae92c5d72sm8942409a91.4.2026.09.07.14.01.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 14:01:52 -0700 (PDT)
+Date: Mon, 7 Sep 2026 21:01:47 +0000
+From: Samiullah Khawaja <skhawaja@google.com>
+To: Mike Rapoport <rppt@kernel.org>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, Alexander Graf <graf@amazon.com>, 
+	David Matlack <dmatlack@google.com>, tarunsahu@google.com, open list <linux-kernel@vger.kernel.org>, 
+	"open list:KEXEC HANDOVER (KHO)" <kexec@lists.infradead.org>, "open list:KEXEC HANDOVER (KHO)" <linux-mm@kvack.org>
+Subject: Re: [PATCH 1/1] liveupdate: luo_file: Add documentation for
+ dependencies
+Message-ID: <ap3UCMlxUKU_DFDO@google.com>
+References: <20260904220555.589752-1-skhawaja@google.com>
+ <20260904220555.589752-2-skhawaja@google.com>
+ <178872718104.3691424.15410189304450384708.b4-review@b4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: ti: omap-hdmi: Fix build error from a merge commit
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>, Sen Wang <sen@ti.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- linux-sound@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-References: <20260903-omap-hdmi-fix-v1-1-b0447a1d35d5@ideasonboard.com>
-Content-Language: en-GB
-From: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-In-Reply-To: <20260903-omap-hdmi-fix-v1-1-b0447a1d35d5@ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <178872718104.3691424.15410189304450384708.b4-review@b4>
 
+Hi Mike,
 
+On Sun, Sep 06, 2026 at 11:39:41PM +0300, Mike Rapoport wrote:
+>Hi Sami,
+>
+>> Add documentation for dependencies between FDs preserved by File
+>> Handlers. This supplements the previously added
+>
+>Why capital F and H? :)
+>
+>I think we use "file handler" in the most places.
 
-On 3.09.26 г. 12:38 ч., Tomi Valkeinen wrote:
-> 'ad->card' was removed in commit 9af2c1d4f847 ("ASoC: ti: omap-hdmi:
-> remove unused *card"), but commit 699e5975e2a5 ("drm/omap: Report HDMI
-> hotplug events to the ASoC HDMI codec") moved that code line. These
-> commits were applied to different trees, and the merge was not quite
-> right: assignment to 'ad->card' from the latter commit was left in the
-> file, causing:
-> 
-> sound/soc/ti/omap-hdmi.c:408:11: error: ‘struct hdmi_audio_data’ has no member named ‘card’
-> 
-> Fix the issue by removing the line.
-> 
-> Reported-by: Mark Brown <broonie@kernel.org>
-> Closes: https://lore.kernel.org/all/apbbvQSfUbzYRFaw@sirena.org.uk/
-> Fixes: 1ae7fe832c2d ("Merge drm/drm-next into drm-misc-next")
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Ah, force of habit! You are right, it should be lowercased.
 
-Reviewed-by: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+Let me send a v2 for this patch with the capitalization fixed. I will
+check if I did the same in the source file also.
 
-> ---
->   sound/soc/ti/omap-hdmi.c | 1 -
->   1 file changed, 1 deletion(-)
-> 
-> diff --git a/sound/soc/ti/omap-hdmi.c b/sound/soc/ti/omap-hdmi.c
-> index c32ec7c0b0cf..2cabd4cc5b0b 100644
-> --- a/sound/soc/ti/omap-hdmi.c
-> +++ b/sound/soc/ti/omap-hdmi.c
-> @@ -405,7 +405,6 @@ static int omap_hdmi_audio_probe(struct platform_device *pdev)
->   	card->dev = dev;
->   
->   	atomic_set(&ad->jack_state, -1);
-> -	ad->card = card;
->   
->   	snd_soc_card_set_drvdata(card, ad);
->   	ret = devm_snd_soc_register_card(dev, card);
-> 
-> ---
-> base-commit: 97c594f71fa71dc30a0583a76d8b6ef5c5ea10b1
-> change-id: 20260903-omap-hdmi-fix-7f085e21b708
-> 
-> Best regards,
-> --
-> Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> 
+Thanks,
+Sami
+>
+>-- 
+>Sincerely yours,
+>Mike.
+>
