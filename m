@@ -1,110 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C77BA42FCBF;
-	Mon,  7 Sep 2026 08:00:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 886694252BE;
+	Mon,  7 Sep 2026 08:00:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788768005; cv=none; b=EcbOLkvsqJKGyqhr2rhxCFtGsLFCjERdNv0iDCHuVgU5lbbVMK2LanomCykFe0RWAZMoicESISKaZ/KAJcKwW3IXLMBs3ftSR+3aq6sxxtIYoTz+4mChk3YVjkVtOg3/3UFjvtVU6YNqxsCEWkrLjyGsWfng9by4oiZptj0s3bg=
+	t=1788768035; cv=none; b=mDiloaABpdWIvEarQw3K8pRnDzfgFsalGxamOPw9AiT8q2a0H4ZFmAuYEMomJu3d+FiIx71EkvGUHvEl00xFgyaLFos8K6fEwOKM9q86m6qBuRu3+A9QsUzIqKCbCH3pBKZW125Wcwk8OiSO+wLEdQO15jmQGLKZ+q68zs4KdEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788768005; c=relaxed/simple;
-	bh=h3WFXrx2EjpSSH8EOeN7N1Vyz6XlhpwWUwi+4XpdQ70=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A3QACkOA3IVRT17+i2ptauLDqmKKpQ301T2WaSzzGwCSrXU0LNBzwfLcuM3yBq91qEYKeqb95BVtocgbKNiuktMHtoQR9JDSBpJFl1PvL8mN+Zq6jwC6PzCMEW7lonttd0Sx+CBotrSDJtnTrNl3xGKlHM+FpLtqYWtMmUMMybQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bGQKKHnq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788768035; c=relaxed/simple;
+	bh=Tss0J1lzaawDO9UqsRhpXcAR6VYcF9+3RJb88LLnMxo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=F3rzptVmruRz83PhaNa+6spWipy2so0b6AL6oejnQhWer2oWgPZJas++dWu/BUuK+T7PDW2xuZd3PAtc+TmBaWfvn8hOFKzQVNqvLHCau1g2eZN+WU379y6GpEF3XWCOy7kgwbsa+tqYNR6OXTd7oErTEsgBEm8aC/sEvZth83o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Sw+OK71A; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bGQKKHnq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A9B01F00A3A;
-	Mon,  7 Sep 2026 08:00:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788768003;
-	bh=ynDRLViH04RclRGJqBCrPVaMpkrMgbaRYlnWLqlefjY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bGQKKHnqP4O+gTfX49A5woF3lGv3vUkC2MpX/xd3HsEuPLEBuedU3prgqxvjyLkHc
-	 0iBifv+aY7CzKHxRDNnFj929H6+2ZE5iG5eMi062HYlz1tB8hwHAqYUkq6BQGupj+5
-	 MH8OPduqu0IVIxXrgtHqC4wHupvQ9ag+u8soB2COlwZCbMTagNEvyZ+n5Z7SjHY3yL
-	 wNP1tWhVipTbpyLr9y2vhUxKLxhBi6ID0+Egw9TZbV/JpYHWMmMucLkoFQVnmLrjto
-	 RbW0G3btRm8wIuOXErTBvvLcZx4Q6QtpEuBfgA8/B3uEjcCchpI8I6L94RhBqedmgw
-	 zNdwp8NMvi7cQ==
-Date: Mon, 7 Sep 2026 09:59:58 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, 
-	Flaviu Nistor <flaviu.nistor@gmail.com>, Andy Shevchenko <andy@kernel.org>, Nuno Sa <nuno.sa@analog.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>, 
-	Antoniu Miclaus <antoniu.miclaus@analog.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-iio@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: adc: ti,ads1015: Add label
- property
-Message-ID: <20260907-elusive-sensible-rottweiler-0da0b4@quoll>
-References: <60dc58c6-dfe2-4377-9a73-f65cda56179c@baylibre.com>
- <20260903151939.5117-1-flaviu.nistor@gmail.com>
- <61d64649-603d-4a55-a789-babe655a2de8@baylibre.com>
- <20260905025612.09363f51@jic23-huawei>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Sw+OK71A"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 854951477;
+	Mon,  7 Sep 2026 01:00:28 -0700 (PDT)
+Received: from [10.57.7.146] (unknown [10.57.7.146])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DBFB43F7D8;
+	Mon,  7 Sep 2026 01:00:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788768032; bh=Tss0J1lzaawDO9UqsRhpXcAR6VYcF9+3RJb88LLnMxo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Sw+OK71AgW5+S/Uutbdw8ClQGjpTmQilmHgCX4W+nxWqS4hzGmXbWP+UBmQR+7oMD
+	 QzUm2Mjmfz9LdFB9dOnVC9CO9I8lyLBfpodwzgaY3H1uFNeB8ohO8rfU7WA0eBYtx/
+	 muNkM+ZNgkgwUSSbXK3GYvr7nuJbg6EIxkm0XGdU=
+Message-ID: <e8be7505-52a4-4c7f-9194-6e9124df6f2e@arm.com>
+Date: Mon, 7 Sep 2026 09:00:46 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260905025612.09363f51@jic23-huawei>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] thermal: gov_power_allocator: Use common error handling
+ code in power_allocator_bind()
+To: Markus Elfring <Markus.Elfring@web.de>
+Cc: LKML <linux-kernel@vger.kernel.org>, linux-pm@vger.kernel.org,
+ "Rafael J. Wysocki" <rafael@kernel.org>, kernel-janitors@vger.kernel.org,
+ Zhang Rui <rui.zhang@intel.com>, Daniel Lezcano <daniel.lezcano@kernel.org>
+References: <a3dc82f0-7333-465d-85b4-8034b1591442@web.de>
+Content-Language: en-US
+From: Lukasz Luba <lukasz.luba@arm.com>
+In-Reply-To: <a3dc82f0-7333-465d-85b4-8034b1591442@web.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, Sep 05, 2026 at 02:56:12AM +0100, Jonathan Cameron wrote:
-> On Thu, 3 Sep 2026 10:30:01 -0500
-> David Lechner <dlechner@baylibre.com> wrote:
-> 
-> > On 9/3/26 10:19 AM, Flaviu Nistor wrote:
-> > > On Wed, Sep 2, 2026 at 9:31 PM, David Lechner wrote:  
-> > >> On 9/2/26 12:22 PM, Flaviu Nistor wrote:  
-> > >>> Add support for an optional label property per channel similar to other adc
-> > >>> chips. This allows assigning distinct names for each channel which can
-> > >>> match the schematic signal name.
-> > >>>
-> > >>> Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>
-> > >>> ---
-> > >>>  Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml | 6 ++++++
-> > >>>  1 file changed, 6 insertions(+)
-> > >>>
-> > >>> diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml b/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml
-> > >>> index 718f633c6e04..777a75c21d7f 100644
-> > >>> --- a/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml
-> > >>> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml
-> > >>> @@ -66,6 +66,11 @@ patternProperties:
-> > >>>            - minimum: 0
-> > >>>              maximum: 7
-> > >>>  
-> > >>> +      label:
-> > >>> +        $ref: /schemas/types.yaml#/definitions/string
-> > >>> +        description:
-> > >>> +          A descriptive name for this channel, like "vcc_ram" or "CH3".
-> > >>> +  
-> > >>
-> > >> Apparently this chip has quite old dt-bindings. Normally, we would have
-> > >> included adc.yaml to get this and other channel properties.
-> 
-> Quite a lot of bindings predate that generalization work :(
-> 
-> > >>
-> > >> And we would have used diff-channels and single-channel from that to
-> > >> describe which pins are associated with which channel rather than having
-> > >> a magic number for reg. And the ti,datarate looks suspicious as sampling
-> > >> frequency is usually we control at runtime.
-> > >>
-> > >> Anyway, none of that is really relevant to this patch. We'll see what
-> > >> Jonathan says about using adc.yaml here vs. adding a label property.
-> 
-> Given it's only a single property and label is pretty universal
-> I'm fine with just adding it here without the reference to adc.yaml.
-> 
-> DT binding reviewers may disagree however!
 
-Yeah, I see how adc.yaml could be used here, but then it should disallow
-"diff-channels" to be explicit, that old "reg" style is used, so maybye
-not worth the effort.
 
-Best regards,
-Krzysztof
+On 6/10/26 10:30, Markus Elfring wrote:
+> From: Markus Elfring <elfring@users.sourceforge.net>
+> Date: Wed, 10 Jun 2026 11:20:37 +0200
+> 
+> Adjust labels so that a bit of exception handling can be better reused
+> at the end of this function implementation.
+> 
+> This issue was detected by using the Coccinelle software.
+> 
+> Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
+> ---
+>   drivers/thermal/gov_power_allocator.c | 11 +++++------
+>   1 file changed, 5 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/thermal/gov_power_allocator.c b/drivers/thermal/gov_power_allocator.c
+> index 37f2e22a999e..6b9450ffd5de 100644
+> --- a/drivers/thermal/gov_power_allocator.c
+> +++ b/drivers/thermal/gov_power_allocator.c
+> @@ -707,22 +707,20 @@ static int power_allocator_bind(struct thermal_zone_device *tz)
+>   	ret = check_power_actors(tz, params);
+>   	if (ret < 0) {
+>   		dev_warn(&tz->device, "power_allocator: binding failed\n");
+> -		kfree(params);
+> -		return ret;
+> +		goto free_params;
+>   	}
+>   
+>   	ret = allocate_actors_buffer(params, ret);
+>   	if (ret) {
+>   		dev_warn(&tz->device, "power_allocator: allocation failed\n");
+> -		kfree(params);
+> -		return ret;
+> +		goto free_params;
+>   	}
+>   
+>   	if (!tz->tzp) {
+>   		tz->tzp = kzalloc_obj(*tz->tzp);
+>   		if (!tz->tzp) {
+>   			ret = -ENOMEM;
+> -			goto free_params;
+> +			goto free_power;
+>   		}
+>   
+>   		params->allocated_tzp = true;
+> @@ -746,8 +744,9 @@ static int power_allocator_bind(struct thermal_zone_device *tz)
+>   
+>   	return 0;
+>   
+> -free_params:
+> +free_power:
+>   	kfree(params->power);
+> +free_params:
+>   	kfree(params);
+>   
+>   	return ret;
 
+LGTM. BTW, I like the 'free_power' label ;)
+
+Reviewed-by: Lukasz Luba <lukasz.luba@arm.com>
