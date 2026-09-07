@@ -1,176 +1,309 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013062.outbound.protection.outlook.com [52.101.83.62])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 093A735E953;
-	Mon,  7 Sep 2026 10:50:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.62
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E907046AA98
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:50:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.48
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788778206; cv=fail; b=Va5jV1nn5+mraK243rPZV488ZhbEDuKz0mFr228Rl2c1gq3hQJNu/HtU1tfhrQMJlWZl8nnZqHCbS6axCUMF24r4zs8yqR4foUZ4W0VNcUsHDhLqc9Y7AoRW47Phxa3gJlKU9AaVw7IcodTtCpRr20LsYNqsJp3VoHqRuaYqh5A=
+	t=1788778205; cv=pass; b=plvkU9nceqtLrL02osdpTGJ/SFIUFzuBBbsNHCJe1735WhBUI28uLP3iKiTPm9/aSIoRiNQymwI134765uWNLIHDaQdgObWV7gtrUo2TROY6u3CzI1c+GmG24/hTqSeBEWOzXXmkZRNLDemv53B6yBk5PIZWExbvr++dgoK1KIo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788778206; c=relaxed/simple;
-	bh=bQ0YpCqCtS05GiO3Zsae6jxSI6dq6iFoH7aSjBEUtpI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=fYdvjaE+oVjTOzWFM0IVgeWyCkLF8DHadTxvqCn2D4U16xeg/1aMxB8Gx5VwBtKM5gSTmgICc+X2ybBYmDioYj6Z+vFsK06g6sXXVk8oTTruFA8DDGsakLkK15Gm4ZZihpETEua9nj5gPuOCeX+0sh9lwXkKLrkjgW1XSz9+5Ks=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=upp/S3Rz; arc=fail smtp.client-ip=52.101.83.62
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1788778205; c=relaxed/simple;
+	bh=m2lih3NNM3nXZvl36JBb7wUDN3xChnmzMRftKfii0Ec=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=J2S5FufrqRcnUY27JGM3PlP7uBxCxhEh4MnFtFHAwDUlQ0smIdf00E2aZ4yBXF2Ti6hEQDwI8eY7jRrVUu/pYz79rauexiuLr/Zw2oS1Iu/9bzXa9+f5wfSGzgR35XlvYM+zQoLibMm5rLMY1796c+gn2FEyBZq41FlCASrOVn8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mihalicyn.com; spf=pass smtp.mailfrom=mihalicyn.com; dkim=pass (1024-bit key) header.d=mihalicyn.com header.i=@mihalicyn.com header.b=Pu5lgoDn; arc=pass smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mihalicyn.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mihalicyn.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="upp/S3Rz"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PAd2fUE5O4UtfsjABD4Ki6IF93c5PzarprSUSzPM6qS+aBRQHMQSpm9UD+JaP9Q5L6uhHb24cSf9232C5C3nBkXT7OciNK27vAwmX4lCAtcM0jIIczW9eI+doeYhxz+Q6AFpz4Tyb+fXF6JgPHNx90rwpqigYz2asTwJDpHSLS02HEZC89Pn0hZMJLdaUTwAxhjO2beijffm1Nu0URPRe6ZcDn1AYW+UDrfVrmYr8AXpK4KiSMbasTioWgUrD9/iPSMAXJGI7bKcFw/d8BmCuH87vjtizPosWC/rb9VlOvNZEhfKvdoAlc4d2Z/WPh1lTm1FFxYDYo9HqdJ4HggGFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q078mk27nv/IA37Knfv+c2HeolLnRl5HAWrW7WTYj0E=;
- b=s+vKh6CTpLmTfUpRo0r5l0jrip6DQhgHylbbW0X3rHNmIAGP5JDpD0H4cKhDNLyntQ9pS8u5VFNH/0eqmMQiX+wN95w2r+BPoqjXfWeUc+jggtRiTyEM5trcB+oKNcHuo+dSaqEPYA6Z2OCI7/Q8HhblBzi2EvyTpkqi7PQxcOzs+m0W1vM58Y8HEtdSRDfAuUoat6HOe0EEKlwYYcorggToIIcFy8krdCfzIG2dccju/Xp4IekS0y6ilYBkT02T+jydySaxqlZtm34jbc+8rWh4aG4z1OCixrW1h2mRpreQiGV00QCg9jZMjzhvUBvqrbVRZL8OdPyPulcARvIluw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q078mk27nv/IA37Knfv+c2HeolLnRl5HAWrW7WTYj0E=;
- b=upp/S3RzKSbSmwcJC+uIj33/B8OfvpZjJWQViHvixYr6vo1M5+tDanQSHo18StQZZqejQMEv5sRzmWkqlUktbvAANrKJAU4Y7+91yRX3LrnGDSc7t5TaYjOZ6e2UdnmxyW3nehPw/MO0pDR+v8HdGyEllwRUoq8gTocFqVKmke4VQoHTtfMmnASffEyrW+Yq/vrbMB+ZNo57MK/ZGeqo3iOMhaCrCy3bCtWBhQjmydzf9R7dLam8WsMPYZK1Wn3Ot2svgwAMhhMj8+oMdDYVJ9aEKLlC35JHk6cCz3mCuJ5a3Jo1N1Pz4qxHSHnARkQVoNcUQ3LNeMurpaj/u0hNEg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM0PR04MB5858.eurprd04.prod.outlook.com (2603:10a6:208:132::23)
- by DBBPR04MB7578.eurprd04.prod.outlook.com (2603:10a6:10:208::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 10:49:48 +0000
-Received: from AM0PR04MB5858.eurprd04.prod.outlook.com
- ([fe80::bdf4:c9d1:4e3f:68c6]) by AM0PR04MB5858.eurprd04.prod.outlook.com
- ([fe80::bdf4:c9d1:4e3f:68c6%3]) with mapi id 15.21.0382.007; Mon, 7 Sep 2026
- 10:49:48 +0000
-From: Ciprian Costea <ciprianmarian.costea@oss.nxp.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Kurt Van Dijck <dev.kurt@vandijck-laurijssen.be>
-Cc: linux-can@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	NXP S32 Linux Team <s32@nxp.com>,
-	Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
-Subject: [PATCH v5 3/3] can: gs_usb: check can_rx_offload_add_manual() return value
-Date: Mon,  7 Sep 2026 12:49:42 +0200
-Message-ID: <20260907104942.17089-4-ciprianmarian.costea@oss.nxp.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260907104942.17089-1-ciprianmarian.costea@oss.nxp.com>
-References: <20260907104942.17089-1-ciprianmarian.costea@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0138.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:96::7) To AM0PR04MB5858.eurprd04.prod.outlook.com
- (2603:10a6:208:132::23)
+	dkim=pass (1024-bit key) header.d=mihalicyn.com header.i=@mihalicyn.com header.b="Pu5lgoDn"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c2531f453eeso453050766b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 03:50:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788778201; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nOS15B9qkn4w+rwdyovddEM1Jz8O/S/t67u6kBWrNsB3FMdDMVH8DEh8lej2u8GReT
+         8FErtI7Fs9m1GAsTNq0LSU44sINJEDqcTZ5E4nFuycn5XU6YWgrd9p7wtLT+OHvUnzIG
+         F9351CgrLlQnK5RhuK1X9pPREjKxN8J4Zc+epwB8ygMGx+wO0iffhw0/1kDDG19LEQro
+         GJaH5oq5vgU3c/Gbxpz8DD7nd7xaZUJcQQBbf5gwAotn0jfagwhl8CUQ4DGWNU/e/DIM
+         rXgR1XwVzILgEYvaQDFP59T9kgVdLRb3eb8xdhI/Cg6zr8f8tHi/kp0l/1T0JcA8Egqz
+         dgeQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=pfguWzPzl853yJtKqzuKDZlU916kkLOBY67tJF8BgOw=;
+        fh=cStw7nZnIltgiQu7ucBtHZG+uvjmfCHD31n2nD7H4EM=;
+        b=S3w0INAZtXMROjKvVC2bKsHjJAezBuYZxujIepIZ+INpvcFQ75Ss4SjPb75LXnjVoO
+         rIhsecO5ZUVo9dUfuzDuy0Iq6GNKjn4VgHBeRkYARz1qO87wz4UgmZm23llIcx1pE8rf
+         4RE2jR2Cq/adFoBcq/THNj3oVSpriHyfrYEDp3NtsVUXm3bbY88aWvui+DKDLXoPfR6+
+         qU7SR8JVU7DWQkESoGACwNumozqiUAdqtVdpuZH6AztrVr/UF0nVs+g0Jzf++a25rcja
+         J9koY86VobdPU0V832wAvT3Q8t9uwJXwx5tNBwfXJcVz7sy265gvgqd+ftLe61QvgCy8
+         tsxg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mihalicyn.com; s=mihalicyn; t=1788778201; x=1789383001; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pfguWzPzl853yJtKqzuKDZlU916kkLOBY67tJF8BgOw=;
+        b=Pu5lgoDn/s8jglQTDKn/xOiSFI0BW86Brjgke+/IRuVylk89kYPoqL/KMCfiDJOVyW
+         HknKYo5kWB2oKPxlpMUehS47KJ+wHpbEKNtM9dXYciXK3dZ/oXiHIvfUKrjwvIN/frjE
+         wjLg6aR14MJzeEHvRv0Jq/Q5VYy4AgJkoSqaM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788778201; x=1789383001;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=pfguWzPzl853yJtKqzuKDZlU916kkLOBY67tJF8BgOw=;
+        b=aG/Y/ptjQ0wfcRQLeUOT8tv7gb/7V8tJkkUovRDIAtLxWl613o/T0QiJvWjPVvr7Uy
+         gyrGmeZiGby31s1eNZXrtVdoM9jcpYWwFMqMStvnsCTZeGE7jt6n9aQod/eEoCMJIyY5
+         FsbVl14rQtoNgKFPbT96lDlLmeO1t64zw9AQXnQbikAFktyNXFA5nm5spWbY588LireZ
+         GbJr4hb8qB8gjkY6worORJA5g0rQMPQDDlC001QPxtQsYKQa3OeUVTh9Zm8gt7YfSGHH
+         +GZ3UcVRXzz6uR86wPNYjPq1uASdIl5xjUip2M4Zu8b08g9zkgasGF4guWFTHVq9n3/+
+         LKKw==
+X-Forwarded-Encrypted: i=1; AKwUvBzi4MpW2Gp6wNeAri1mTyxd9iCRYgcATM65EI3L8gH8Hn2mz7bj9sADNH30FaFNqJU2hnQ1I+o6ysU31aM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mB5MiJiTSyAmGsYT19tTYw3OzoIGytRT0+1p2pcQO7WVsjZuXf
+	0/mLOk09yNHrV6ZfWFN9ORpBY1xiqLJtJPGIlrm94M28iTJ2DNyNop88RgyVnOWgAGuu20dQ9F5
+	kBxl5zgSJsk6bZLcpn2vH9NKWuQTZti0xBWAe+oUaLg==
+X-Gm-Gg: AYBFou2bCj0wObxM6kMbPjwBo/G2RlJp/OY7qQAcrp43GuyTQNmABRUYQSd2z+e/HmH
+	lejE44iVPbjIrTlEJ3wb2bcRnT36OceqRntGPRhLNGJ0aoxo9yiLt9Gav8vUPH+BdulE2PFgYa6
+	T9zDiP9XYkUM02wwXMJ5uYdtXCD+Qg3cerVAEyNIfkMmB7KFp/99Rn0aQKn5613yVri4PcP/7pK
+	I7h6Y60Pi2RwDMgSsdpqqtr/C4TYVVHQeuE8NXwdMx60we+8GF+E1aEMW++/k7P8N4JTnURM8f1
+	F1kiWDSjQF2RXHvjoBaqdM8SXd8QsYBPY4UikkoqutEAFBen/0e0vyMPsSzm/Rn9lCfH0Ua0cZC
+	dIXFslvx3Yw==
+X-Received: by 2002:a17:906:7956:b0:c16:84dc:9607 with SMTP id
+ a640c23a62f3a-c260ca323dcmr1544501166b.19.1788778200417; Mon, 07 Sep 2026
+ 03:50:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB5858:EE_|DBBPR04MB7578:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3c2a3220-5d42-4274-f624-08df0ccdbcba
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|19092799006|7416014|11063799006|56012099006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	HmphdOtHGITeR4gASindsa1vJfuq3sVsse9lo/DEIbFGNwyWgADNDNa16tBmqnNr5iPs9QShyEfBEvTdtWHnMbApKwhZ3B+XlHrcA83TRwCbmt6mUXkQOqtqVpO/ZdmPqGJRfZvoIecLdxQDjl8PksZITuZnjkJid3BuxvAiFjxaSZ4KVy//xkfIjhM9qPO8Ztidt0V1Urf6S83F73NEUKP3fCDq47Bj736vyYHHh1xJkhjaPyQp861sHRSDCBraP9bB22Y69/HkiUzOnNADc/hMYdrGisskzSXEney4MEmR9K0o2EAm5fSxxw0ImJcC2hqtBHLHqeZ34ypmQ4IePx7xIxGNkWm9E3lGZ0KCfz0pULQDDPMyDDoCdfvg8ReaWJc5VZHNmqzfODa6Zefh0PMBowxxkMOCHMwRPjoAy9BixeIjFws2ARvDWM8Ervyjg115OjlAY1YxGWPNhcBzKcHtXhP0LWIEKjsLf6ihc8pyRREH0SmCY0u1qEHr+pcCyrMvS0j3c0DFCrnQ1eAwiuqciQJ8mNX8hUxVFWky7jXQbqWpWjsVlvObEXa0350SlA3/8MCUFJ0lMlFW1lG2pfsMViblBaDhcneirXhIz9H7m3v/+ajvyKCYOrrIxIFEfFVNesPtsIlJ+MLVWkOXyHjaSuS6RM0ESR/Z9iqXlK0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB5858.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(19092799006)(7416014)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cmpKN09rNG1CT3VEcXYrTU1kV0pTVElhUnRGbHpFUXdTaWFlNE5LZmVndHJK?=
- =?utf-8?B?MXZ1MEpvY09KRlFVK1h3Rml3MlBMZElKS2ZwNUdFZFNrd1U2Zm90aEdnRFRt?=
- =?utf-8?B?TWYyY1RZdTNPQ1hRVUpIaXZXZkFKOVQvRW5BeXVTQms0SnpRRWtzNkc3anBs?=
- =?utf-8?B?M2V5WnpJWnVPVnMvMENNZ056MTA5ZU5QTVgxbGpsK3BDRlV0NmRMckFOOGxZ?=
- =?utf-8?B?LzBtS2Y4UmYyekJNVnh5c24rQWo0K1RXMmpVYzlDNWlNdkNkdHpCVUdweG04?=
- =?utf-8?B?elp6MmZiMUowNE9pUGMyVW8wd3hmWjBxRC9od2FwbG83U2djQXIwR3FLWUcy?=
- =?utf-8?B?bzdNRSs4Q3I3My85dWV2eXlPZ2psNGt5UENjcmNKbDhZNWZnY1VCYldDbFpB?=
- =?utf-8?B?dFllU0ZhZWRlTlVXckw1V0xkTXlVTjgySFRVZUFDYjRpeUhWZ1owYjU4Qlcy?=
- =?utf-8?B?QzZZWHdETmJXRmJEdkJ2QkRmaXJvWnNMR3Q2RXlsM3BBa1QwWDF0Y253VWkr?=
- =?utf-8?B?SjFNcW0xWUlsTEdGdWk0a2d3TnlmdDF3ZWhiWFVic0NpR3FCWkZmR1gyQ3ZR?=
- =?utf-8?B?U3lrbEQzV1JFUHFSVm9JTDhibEdFTWhPWUR5WHpmSERVMnFCU25wdXVRalNK?=
- =?utf-8?B?UEMyUGkxK0s3TSs4SWtmTTNnUDRiNWVETmRwSVUwNldqWjR0VEpuZnhiTk9q?=
- =?utf-8?B?dTFiSW1YcWxjZS85cGJLZ1FhVmZKaFBJUmVWQzBhRTJlcDh2TUpIcEZCVDNQ?=
- =?utf-8?B?all2YURZcnl0VCszaGNHd2gyVW1Nc3ZwcHBQN292RWMyb3padFVPcDFSQ3ht?=
- =?utf-8?B?b1pVUEtkWlZubG1KM2tUSTYzYWE2bEI4SWx1cktyd0duTDB6K29rUkw3eHJT?=
- =?utf-8?B?TmxMRW9xNEFGWS83aDRoWFlWYWlMTXI2emE2Q3NsRHE0aTZqMDkyMElqTXZl?=
- =?utf-8?B?RlhLUDlHenNSRlJwU1JuOU1aQTFEMHR6VklXL3RvR2twaEtHUFdsb3NJeWFL?=
- =?utf-8?B?Ri9pY2cyK2dxUDdWM0h3ajhhK3ozZzhiL283cm84c3RrMnpyb0hkZlM0Y1Jl?=
- =?utf-8?B?N1Ftd3hSdnNHZmNjTWJDa3k4Q1Zzd2xLWHlrTFpLYmhRWFhjUEdrUHZMMVpM?=
- =?utf-8?B?UDlXa1dHZDZqbEc4RDArVFZJVVFhcmU0MTZha3JyMkgwNU8vWXBoZzlNVHVS?=
- =?utf-8?B?MzdiSk92TmF6eTVWenNlbUJTQzI3WE5WRklnc2UzcmFmaHQwZDFkREhIVHlo?=
- =?utf-8?B?aWYzcWlBeHZISjI0czhidk5haDZKZ3pQVzFhVHM3andWQ0w3S015Z2I5Z0M5?=
- =?utf-8?B?aS9IWXRjWHJwU1RyQ2FiL0p6NDdacHJkaTlvamFONExrZ3JSZnNnRkRRRkRn?=
- =?utf-8?B?Q2xKWER5Vkl4b2QwM1pQZzVNNnhqQlRjNUpRNU5VWW9oZ3Z3ODBPSUpVMEJv?=
- =?utf-8?B?Zkc4MXc5L3g4aENZZHVOUjhhMytLNGxVbkNvbGs0MXNlUjJSa0Eyd2t2RnhY?=
- =?utf-8?B?Qk9OWjExczBFc3Z1QkY2b1lnMjdza0s5SHhuSUllUS8zMkR1NXk4a0J4RGYz?=
- =?utf-8?B?VEtZT2VCS3dyeEJiRWk5c3g4cDRxa0lrUTlyOUNNekljT2pOcktIbVlrYXdZ?=
- =?utf-8?B?NElPSnZzOGZGSHQ4SVBBNTluOEdLM21uVUFKU0VRR2EreDZHQlhCUFR6MGJm?=
- =?utf-8?B?ZUQxcWo2QTlFcmJ2UktEVFBtcUdqUVRxYWk4WmdXQWwxc2doayttZnVjWGRG?=
- =?utf-8?B?T2Q5aDFUa1VRKzNGL2Q2UnluVkVZNCtLRExFUHNobkRBMSt6My9HcUFPTzN3?=
- =?utf-8?B?ZmJpWW8rS2pjNmZqVHJNeUpGd1VZN3VXSnR5OW1uMTdHdkFvaEdQOHgxS0t5?=
- =?utf-8?B?YUtSSitxc3ZyTEJMSVhSalBzU1VrRkVUM1ZXczNQVGE1eFc1cmpjOUs3dEhu?=
- =?utf-8?B?RDZubTRsM2xMNXQrVUdxY3EwVTVkYlV0ODZvRGRvN0NpeUwyUlF1Y0NqQWI5?=
- =?utf-8?B?ZXZDUjA5cU9LWnRyV0hZd2EzL3c0U0hZc0VZVjVzUHh3VXQzalVJeEkrWElB?=
- =?utf-8?B?V3JOYmhMU1BaU2w3Y2o3UE1Yb2hUMWFvUmRjWGdVYjZXalJzL3hmM1M2dGRt?=
- =?utf-8?B?MEVNWmE0dFRpMnJSeUhOcWRJU1ZDbVY5S2ZvTitpRFFwYXFFeFJPT2diaUxG?=
- =?utf-8?B?QWxVWmYxc3ZMallWalo3NzgrZEYwWGZVZ1dsRXRleEFDcHM5Y1J4WjVjOTJO?=
- =?utf-8?B?NzRyZFNLcGVONmtiREpGdFFDTXIyOHpUU1ZVZzJFNEN0QlZTYjN4SDdzUGJk?=
- =?utf-8?B?cW9BMVYrZ2JjZ2s1TEFIOWxTSi9pZlFWZ1JQdzZUV1daZnJRYmdwRy9PRlp1?=
- =?utf-8?Q?LFk9xY4ZUPAhLmgM=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c2a3220-5d42-4274-f624-08df0ccdbcba
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB5858.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 10:49:48.5233
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /6OQowA/vzFPJ1ec3fV+yAOXn7PbJzrIoktLmd1q3IMjE0yDh7ZTTi1I5mS8Foakm2Kia7pwlgxuShj72Iey5chtjBgcLNkruLYcDv3BRA4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7578
+References: <20260831-work-unix-passpidfd-v1-0-70cbfda0c7ba@kernel.org> <20260831-work-unix-passpidfd-v1-7-70cbfda0c7ba@kernel.org>
+In-Reply-To: <20260831-work-unix-passpidfd-v1-7-70cbfda0c7ba@kernel.org>
+From: Alexander Mikhalitsyn <alexander@mihalicyn.com>
+Date: Mon, 7 Sep 2026 12:49:48 +0200
+X-Gm-Features: AcwNN1XRQbjmt8u40rEyLnoiU1YqH4VMsoGBtHpWSXaJltkwr5aTgGVxP_BPxtc
+Message-ID: <CAJqdLrr5PfwH2z6x-HK0z7bHGD0UQDY6QoY5Y=tmwcd_QQnO7A@mail.gmail.com>
+Subject: Re: [PATCH 07/10] net: add SO_PEERPIDFD_THREAD to get a
+ thread-specific pidfd
+To: Christian Brauner <brauner@kernel.org>
+Cc: Jakub Kicinski <kuba@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, Oleg Nesterov <oleg@redhat.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
+Am Mo., 31. Aug. 2026 um 13:21 Uhr schrieb Christian Brauner
+<brauner@kernel.org>:
+>
+> SO_PEERPIDFD hands out a pidfd for the thread-group that called
+> connect() or socketpair(). Enable workloads such as the coredump server
+> or a broker to get a pidfd of the specific thread that connected to the
+> socket.
+>
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-gs_make_candev() ignores the return value of can_rx_offload_add_manual().
-Once can_rx_offload's skb_irq_queue is made per-CPU, that call allocates a
-per-CPU queue and can fail with -ENOMEM, leaving offload->skb_irq_queue ==
-NULL.
+LGTM
 
-Check the return value and exit via the existing free_candev() on error
-path.
+Reviewed-by: Alexander Mikhalitsyn <aleksandr.mikhalitsyn@futurfusion.io>
 
-Fixes: 24bc41b45583 ("can: gs_usb: convert to NAPI/rx-offload to avoid OoO reception")
-Signed-off-by: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
----
- drivers/net/can/usb/gs_usb.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
-index 3b9b2f104d86..cac4ce323a1d 100644
---- a/drivers/net/can/usb/gs_usb.c
-+++ b/drivers/net/can/usb/gs_usb.c
-@@ -1487,7 +1487,10 @@ static struct gs_can *gs_make_candev(unsigned int channel,
- 		dev->can.fd.data_bittiming_const = &dev->data_bt_const;
- 	}
- 
--	can_rx_offload_add_manual(netdev, &dev->offload, GS_NAPI_WEIGHT);
-+	rc = can_rx_offload_add_manual(netdev, &dev->offload, GS_NAPI_WEIGHT);
-+	if (rc)
-+		goto out_free_candev;
-+
- 	SET_NETDEV_DEV(netdev, &intf->dev);
- 
- 	rc = register_candev(dev->netdev);
--- 
-2.43.0
-
+> ---
+>  arch/alpha/include/uapi/asm/socket.h  |  2 +
+>  arch/mips/include/uapi/asm/socket.h   |  2 +
+>  arch/parisc/include/uapi/asm/socket.h |  2 +
+>  arch/sparc/include/uapi/asm/socket.h  |  2 +
+>  include/uapi/asm-generic/socket.h     |  2 +
+>  net/core/sock.c                       | 87 ++++++++++++++++++++---------------
+>  net/unix/af_unix.c                    |  1 +
+>  7 files changed, 61 insertions(+), 37 deletions(-)
+>
+> diff --git a/arch/alpha/include/uapi/asm/socket.h b/arch/alpha/include/uapi/asm/socket.h
+> index bb3d534826bb..5d3524c26b2b 100644
+> --- a/arch/alpha/include/uapi/asm/socket.h
+> +++ b/arch/alpha/include/uapi/asm/socket.h
+> @@ -159,6 +159,8 @@
+>
+>  #define SO_PASSPIDFD_THREAD    86
+>
+> +#define SO_PEERPIDFD_THREAD    87
+> +
+>  #if !defined(__KERNEL__)
+>
+>  #if __BITS_PER_LONG == 64
+> diff --git a/arch/mips/include/uapi/asm/socket.h b/arch/mips/include/uapi/asm/socket.h
+> index 269badcaa086..245a43f52fb1 100644
+> --- a/arch/mips/include/uapi/asm/socket.h
+> +++ b/arch/mips/include/uapi/asm/socket.h
+> @@ -170,6 +170,8 @@
+>
+>  #define SO_PASSPIDFD_THREAD    86
+>
+> +#define SO_PEERPIDFD_THREAD    87
+> +
+>  #if !defined(__KERNEL__)
+>
+>  #if __BITS_PER_LONG == 64
+> diff --git a/arch/parisc/include/uapi/asm/socket.h b/arch/parisc/include/uapi/asm/socket.h
+> index 313aee10a52c..f23710e1c671 100644
+> --- a/arch/parisc/include/uapi/asm/socket.h
+> +++ b/arch/parisc/include/uapi/asm/socket.h
+> @@ -151,6 +151,8 @@
+>
+>  #define SO_PASSPIDFD_THREAD    0x4054
+>
+> +#define SO_PEERPIDFD_THREAD    0x4055
+> +
+>  #if !defined(__KERNEL__)
+>
+>  #if __BITS_PER_LONG == 64
+> diff --git a/arch/sparc/include/uapi/asm/socket.h b/arch/sparc/include/uapi/asm/socket.h
+> index bd3e69bcce7a..b35b25bdefc2 100644
+> --- a/arch/sparc/include/uapi/asm/socket.h
+> +++ b/arch/sparc/include/uapi/asm/socket.h
+> @@ -152,6 +152,8 @@
+>
+>  #define SO_PASSPIDFD_THREAD      0x005f
+>
+> +#define SO_PEERPIDFD_THREAD      0x0060
+> +
+>  #if !defined(__KERNEL__)
+>
+>
+> diff --git a/include/uapi/asm-generic/socket.h b/include/uapi/asm-generic/socket.h
+> index d1e5c6de146d..56fed7ab27ab 100644
+> --- a/include/uapi/asm-generic/socket.h
+> +++ b/include/uapi/asm-generic/socket.h
+> @@ -154,6 +154,8 @@
+>
+>  #define SO_PASSPIDFD_THREAD    86
+>
+> +#define SO_PEERPIDFD_THREAD    87
+> +
+>  #if !defined(__KERNEL__)
+>
+>  #if __BITS_PER_LONG == 64 || (defined(__x86_64__) && defined(__ILP32__))
+> diff --git a/net/core/sock.c b/net/core/sock.c
+> index 6ada7e7eb7d7..cb2ffd329bc6 100644
+> --- a/net/core/sock.c
+> +++ b/net/core/sock.c
+> @@ -1743,6 +1743,50 @@ static int groups_to_user(sockptr_t dst, const struct group_info *src)
+>         return 0;
+>  }
+>
+> +/* Hand out a pidfd for @type of the socket's peer via SO_PEERPIDFD*. */
+> +static int sk_getsockopt_peerpidfd(struct sock *sk, enum pid_type type,
+> +                                  sockptr_t optval, sockptr_t optlen, int len)
+> +{
+> +       struct file *pidfd_file = NULL;
+> +       unsigned int flags = 0;
+> +       struct pid *peer_pid;
+> +       int pidfd;
+> +
+> +       if (len > sizeof(pidfd))
+> +               len = sizeof(pidfd);
+> +
+> +       spin_lock(&sk->sk_peer_lock);
+> +       peer_pid = get_pid(sk->sk_peer_pid[type]);
+> +       spin_unlock(&sk->sk_peer_lock);
+> +
+> +       if (!peer_pid)
+> +               return -ENODATA;
+> +
+> +       /* The use of PIDFD_STALE requires stashing of struct pid on pidfs
+> +        * with pidfs_register_pid() and only AF_UNIX were prepared for this.
+> +        */
+> +       if (sk->sk_family == AF_UNIX)
+> +               flags |= PIDFD_STALE;
+> +       if (type == PIDTYPE_PID)
+> +               flags |= PIDFD_THREAD;
+> +
+> +       pidfd = pidfd_prepare(peer_pid, flags, &pidfd_file);
+> +       put_pid(peer_pid);
+> +       if (pidfd < 0)
+> +               return pidfd;
+> +
+> +       if (copy_to_sockptr(optval, &pidfd, len) ||
+> +           copy_to_sockptr(optlen, &len, sizeof(int))) {
+> +               put_unused_fd(pidfd);
+> +               fput(pidfd_file);
+> +
+> +               return -EFAULT;
+> +       }
+> +
+> +       fd_install(pidfd, pidfd_file);
+> +       return 0;
+> +}
+> +
+>  int sk_getsockopt(struct sock *sk, int level, int optname,
+>                   sockptr_t optval, sockptr_t optlen)
+>  {
+> @@ -1938,45 +1982,14 @@ int sk_getsockopt(struct sock *sk, int level, int optname,
+>         }
+>
+>         case SO_PEERPIDFD:
+> -       {
+> -               struct pid *peer_pid;
+> -               struct file *pidfd_file = NULL;
+> -               unsigned int flags = 0;
+> -               int pidfd;
+> -
+> -               if (len > sizeof(pidfd))
+> -                       len = sizeof(pidfd);
+> -
+> -               spin_lock(&sk->sk_peer_lock);
+> -               peer_pid = get_pid(sk->sk_peer_pid[PIDTYPE_TGID]);
+> -               spin_unlock(&sk->sk_peer_lock);
+> -
+> -               if (!peer_pid)
+> -                       return -ENODATA;
+> -
+> -               /* The use of PIDFD_STALE requires stashing of struct pid
+> -                * on pidfs with pidfs_register_pid() and only AF_UNIX
+> -                * were prepared for this.
+> -                */
+> -               if (sk->sk_family == AF_UNIX)
+> -                       flags = PIDFD_STALE;
+> +               return sk_getsockopt_peerpidfd(sk, PIDTYPE_TGID, optval, optlen, len);
+>
+> -               pidfd = pidfd_prepare(peer_pid, flags, &pidfd_file);
+> -               put_pid(peer_pid);
+> -               if (pidfd < 0)
+> -                       return pidfd;
+> -
+> -               if (copy_to_sockptr(optval, &pidfd, len) ||
+> -                   copy_to_sockptr(optlen, &len, sizeof(int))) {
+> -                       put_unused_fd(pidfd);
+> -                       fput(pidfd_file);
+> -
+> -                       return -EFAULT;
+> -               }
+> +       case SO_PEERPIDFD_THREAD:
+> +               /* Only AF_UNIX records the peer's connecting thread. */
+> +               if (!sk_is_unix(sk))
+> +                       return -EOPNOTSUPP;
+>
+> -               fd_install(pidfd, pidfd_file);
+> -               return 0;
+> -       }
+> +               return sk_getsockopt_peerpidfd(sk, PIDTYPE_PID, optval, optlen, len);
+>
+>         case SO_PEERGROUPS:
+>         {
+> diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
+> index d01ee76c8026..563d9827c5cc 100644
+> --- a/net/unix/af_unix.c
+> +++ b/net/unix/af_unix.c
+> @@ -1056,6 +1056,7 @@ static bool unix_bpf_bypass_getsockopt(int level, int optname)
+>         if (level == SOL_SOCKET) {
+>                 switch (optname) {
+>                 case SO_PEERPIDFD:
+> +               case SO_PEERPIDFD_THREAD:
+>                         return true;
+>                 default:
+>                         return false;
+>
+> --
+> 2.53.0
+>
