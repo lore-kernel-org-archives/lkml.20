@@ -1,147 +1,89 @@
-Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B0C3515EA;
-	Mon,  7 Sep 2026 03:03:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A7193E49FD
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 03:05:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788750222; cv=none; b=HEHrc1EfzRiU+2UJj80aLQdOWL+7CYMeKhNjhSoUVogQsjpAPzc+O7ltgBEpixqq3S4JEvAqcsPXQpk/4FsMZ4r2T4LVbfWa1kuKrBLePB4ZOTsjgUefifuuNeGC2R9ByjK+ByxQYZHVRTpQ2OwkTuNoXons3ggNbqhQ41ipXQY=
+	t=1788750309; cv=none; b=aiIva7ExHWXhLTMzvvSP3nYD+SLzgOe+TOJKkGJWaDDOeP9I+u9jkI2FFaL7mO9pvxv/jhyFSFt1a029ErCsrUeXsypLuU1p3T/1pfM1Z8wgeP1Dpo0N5f5j7qVBCZouxF+apD5LbM3ntrv3CiuT/OGbH21YzeW8Q2QgwR30Uco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788750222; c=relaxed/simple;
-	bh=LduGvaq2HkeHsnZIWAa7rOO3Ab/Ral7ZtalXFWrd6F4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DsMT9EX4HYvZYxKLIQf7FgWJMLVuqoceXiovG1SxklmGNQb6eKTbsHFa88KWLTW1sr6P/fvqotXoBeLyC3FrSA03ShYLlbiRjuySjBv28nc+yg4AbW/vCDbWaU8If8CGaV0/VQxHdaI+UArv1058AvLK3Kz4QxvCgd84N+qlXUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=anka1.top; spf=pass smtp.mailfrom=anka1.top; dkim=pass (1024-bit key) header.d=anka1.top header.i=@anka1.top header.b=m2SWZhT0; arc=none smtp.client-ip=54.207.19.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=anka1.top
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=anka1.top
+	s=arc-20240116; t=1788750309; c=relaxed/simple;
+	bh=jDwGIeZSxmQ+QLCqAsPbZtWRi3JWDzSBa7tgxRNC8D4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ArJxlX98QgAdPaUOKYuT5tPbjPZUVWzsrSbdDtRmLa6kKhVM1KmijGuU/2MorfN7pNlEUE6GYXXa2ppwO3Tw0AmupG0Y62EzDbglqDmOjG0VFjAUytgdXwT72FrlFSm+UsSuC9Njof7K5aDFxnLRCBiYKYLBS9vDhqV1lr+39IU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M7lKvrTD; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=anka1.top header.i=@anka1.top header.b="m2SWZhT0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=anka1.top;
-	s=fpjh2607; t=1788750178;
-	bh=Z6/MI7V3AAaJibCCjbTOdyrprCVn4ys5G848ohYzyL4=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=m2SWZhT0lAwCdcU/XGNUPyYAFmE+r3mS8Fhp5Grrrhk3ogTPwpu9YMO7m6k/zNnfw
-	 HLWvvZcSDNeuZnHgdqkeM6g7e9kRw1FLID8u8qk0bWvIcd4H/Ai7s+HotwNl8gqIWW
-	 IlDzB5eN4zcdABgndOlEN3tZmB3bGgcLx5KLL/HQ=
-X-QQ-mid: esmtpsz18t1788750177t1bebc041
-X-QQ-Originating-IP: mhudmuRK+jGUoQh3trioMNkllJpXhZrC6vtfn42PiQU=
-Received: from anka-20eya00ycd.localnet ( [110.188.68.77])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 07 Sep 2026 11:02:54 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 14547451761491214320
-From: =?UTF-8?B?5LiN5q276bifQW5rYQ==?= <businiaoanka@anka1.top>
-To: alexs@kernel.org, si.yanteng@linux.dev, dzm91@hust.edu.cn, corbet@lwn.net,
- skhan@linuxfoundation.org, linux-doc@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, wy@wyuan.org
-Subject:
- Re: [PATCH v5 0/5] docs/zh_CN: Add Chinese translations for five networking
- documents
-Date: Mon, 07 Sep 2026 11:02:53 +0800
-Message-ID: <0180CCC46BD8F82B+2856576.mvXUDI8C0e@anka-20eya00ycd>
-In-Reply-To: <20260824043806.46731-1-anka@stu.cdut.edu.cn>
-References: <20260824043806.46731-1-anka@stu.cdut.edu.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M7lKvrTD"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d6fe26ef1cso30328985ad.2
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 20:05:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788750307; x=1789355107; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jDwGIeZSxmQ+QLCqAsPbZtWRi3JWDzSBa7tgxRNC8D4=;
+        b=M7lKvrTDwucm7XxMywJCfAx5ed/rSba4V81Ds6CFJBLKVX7RAnZSk/3bvl6J7xMvnw
+         BnV5n2XiG+eYVSHIJHy5Ikb9pWTEMpdmGqVbkJMJDoIWrYs8RAiFPB1BVgB7psexciIH
+         eKUnaCTnTMTEOZpjRGNt2pbi866ALd4mDGw9CxvAGDIwYjVe78XHrARzsYY74Js4Y+zx
+         iYik848iU08B+3ziFaHF1GIwag7s2ixNOrQPFk6M7TD+Se/TpJr0c8rvqTvaz05EFdp9
+         LYCLyez9O5VDi1DCqyMqAyN/g6N4D0tVimc+D2t1xkd8RQRSTcIeSRuqprt/2mI23Av8
+         CnQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788750307; x=1789355107;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jDwGIeZSxmQ+QLCqAsPbZtWRi3JWDzSBa7tgxRNC8D4=;
+        b=edw9LszdROWbQKBjjedygm7i1sR7ac5/VR2gS+PVMZsqagR4/I2XbbL68kXdynPlpp
+         9Md2Qb40eKYaKezwuLRzBvM2gqugSPF8uqdWE5noS3nf+Sc3sq9GzwJZKvl+tf2C3XVr
+         2gIVuvyzrXWqrHXP6bix/J8QW9qW5w2noX4f1UkW30ScVPioiizqB2K3wCElhNaAl+qJ
+         IXoFqSzK5KdTYtMhL6Gm6TOGRj26QxgcxY4YQTHarna59fOpdufkHf4kvhhQwG0z1sGd
+         auJjvBBMmNVtfCGb1M+Cjt0qYejpCgMaqqS90j8YtkWffyvwY4j6WSgIOMDc3iKm5h06
+         0CgA==
+X-Forwarded-Encrypted: i=1; AKwUvBwa0nUg0W0sMjle6Bjix5sVS+W+VGCMxSU/MmSBooZrG4jU7tBVpwbW6T9frL+azOVE6Z4NvmuMkRvLRpo=@vger.kernel.org
+X-Gm-Message-State: AFuF++l2nslzgiZcEtued5GkMKruOzImo4gd8lOFEBAGUxReck+nqOxN
+	T+z6FcURvuEt4V66eWsmZDh0APFJvUrzIcHDb0/Lo95LeVoDkNu0qLJZSYPwSa38
+X-Gm-Gg: AYBFou3oHSQoSM6/sLCoVTysjCLL/vICeCnhhbe0A6Z0bybCbdP416ilE6b+XBnAGlK
+	iyiAl99+nsEurrOejsnsbS3IiuMKnnMF50ZEGTVzDbvrAtu/imqMLQYDcSXHrluMCxyFUub/wwD
+	0dghVhNimomdhcDSPu9Axz6AZGlKcEhXo86u88izO7uXsnTFtMISoPq+jX9cuzukFnx8/7bw1Qn
+	jj2s7maLCYOIVJEACXfyX9a9yv//HrrcRzsfQ9m6ABr5rmHHBYhiCXeNKzCyDFhLAOfMfXzwnA2
+	sDWY5QGncewOXY6SAhdW/G6lEZ16qHCvRJOB/MC7JNaKz8sakmeGGg2Bj299tumPGGME/Om2tnN
+	yElUuz0LDqGXtU/PHRZwa67AHgeJ94+zvvy4ATCz0FXBVas/RFYah+rbcOWDRsCz6Lyfzv1GRcn
+	o6xU1xB8s5M0yUMfLK9N1UPbX+J8y/a+F6QM52ExeOBJIsPeF2Y0RfAYDqrSj6xmK0kxO35/o9O
+	qdYhQnZ+9fvAf0=
+X-Received: by 2002:a17:902:930a:b0:2d6:e074:9cad with SMTP id d9443c01a7336-2db1236f4femr206645485ad.6.1788750307334;
+        Sun, 06 Sep 2026 20:05:07 -0700 (PDT)
+Received: from mi-ThinkStation-K.mioffice.cn ([43.224.245.235])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db148404b8sm38593825ad.2.2026.09.06.20.05.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 20:05:06 -0700 (PDT)
+From: yewentian395 <yewentian395@gmail.com>
+To: Oliver Hartkopp <socketcan@hartkopp.net>,
+	Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: yewentian395 <yewentian395@gmail.com>,
+	linux-can@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] can: isotp: implement N_Ar timeout handling for FC transmission
+Date: Mon,  7 Sep 2026 11:05:02 +0800
+Message-Id: <20260907030502.3049789-1-yewentian395@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <6ca3c6f6-91c4-4f0b-9136-9345dbaac1e0@hartkopp.net>
+References: <6ca3c6f6-91c4-4f0b-9136-9345dbaac1e0@hartkopp.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:anka1.top:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: NHu6THI/J1zcgw89oYmRv0hfritCjEkyivPDATEwraauh+N41KPgA/CF
-	mIcWjeCxLBhpqLO0dnmULj74cmsuMycrwew/Q+KBh/rpltSghSMujb3TWwOAYu+FYvl6xX4
-	RGQ1QC5bkvtuA2FTbnY+7VatQXzm+XOuJrtarWVVkhHA6WCXln+LMVHCFXY/s0BdcWHGjbt
-	ksT7lFcFdW/tFZHiGZVkCdyMSbByDmbftCYoxj07fo8KknMhGK106o3l8GW82T0XfU44kbl
-	mCSeJ0+j/5eq7PDyaqiEYTVlv8wwd+nypWgPktO9pJ/BNIjfx0l4vmvhf/x/JHD4V4ojJ7Z
-	Q47V6wgXFwGn+5pOa3mAF7Zy80VIhYVu5fmJbwC0b4bA08OjNZwu8kakvwdagEzr9sEkJqt
-	w0+FyAViA2Jl6OoDtWwuq+mfWAlJ6vIVZXztqCfidEjPjbCEaIJTWOJnNMC1RZdGCGOzIfa
-	KBSTgHXA8BdUYc9Pe2OgdBW5Fyo/11Bu9awkJQiN1/1izyqmDQw6E7s2v2HsU0J3P77V5+j
-	tV7rgbM4ejjOC56LylJQjaCZAZaO7kmy3oLeD6wh/TmiyCzjZNmbkaw5+kDoE7tIjSTzd8C
-	CuMQLRpC4D4jQ36E17E9x58vWUtmntqhEPJtc695c1lfb1PyjaLIiOEN2qRCcndhsi4CJDi
-	URKRo610FS+tBTwuo17HIYZLrH8FcoQZUqXU1YwPnUogF1AuOMsFkQ1SHns4XTse8H++CWr
-	ApII8FRf12Yke5mbvKx8bvf1lWp3oUuOVgGjBlqdmqZ8MSKqD6JSe76C44Uvt3iUkysw99m
-	Yvn+TgxFI8L8LdrBbSlQ6+GdynZDVSchsa2FSzv/YH3BCWFiY9UTQwQiv0XhNIPBUygwa/C
-	2qN6ksMlYlrY4mcL1LLIGstNZIHOpWpuSpv3/eMToI+6syt73Ur8HBMugEI5eXWzgdEzE5F
-	31ZS9nkKXmNNuH5qEjnu8gg1E46krfWKDYG4JQMnJW2ezoqGGCzWnRUe+6b6iTmVs1s+wxU
-	7v1dEy+/csG1KLRzYU
-X-QQ-XMRINFO: Mp0Kj//9VHAxywGQnE2EvByktjoVJQWl+g==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-=E5=9C=A8 2026=E5=B9=B48=E6=9C=8824=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=80 =E4=
-=B8=AD=E5=9B=BD=E6=A0=87=E5=87=86=E6=97=B6=E9=97=B4 12:37:59=EF=BC=8CSiwei =
-Chen =E5=86=99=E9=81=93=EF=BC=9A
-> From: Siwei Chen <businiaoanka@anka1.top>
->=20
-> This series adds Simplified Chinese translations for five documents
-> under Documentation/networking/:
->=20
->   - team.rst: Team devices driven from userspace via libteam
->   - sriov.rst: NIC SR-IOV APIs (switchdev model and legacy API)
->   - driver.rst: Softnet driver issues (probing, close/stop,
->     transmit path guidelines, and extack error reporting)
->   - ipv6.rst: ipv6 module parameters (disable, autoconf,
->     disable_ipv6)
->   - secid.rst: LSM/SELinux secid usage in the flowi structure
->=20
-> Changes in v5:
->   - Use direct link instead of ":ref:" to fix the warning of
->     "undefined label" in the translation of "sriov.rst" since "switchdev"
->     documentation has no translation in the same directory.
->   - Revise the commit title: "SeLinux" -> "SELinux".
->   - Translate "flowi structure" and "flow structure" into
->     "flowi structure" uniformly in the translation of "secid.rst".
->   - Link to v4:
-> https://lore.kernel.org/linux-doc/20260817021340.17318-1-anka@stu.cdut.ed=
-u.
-> cn/
->=20
-> Changes in v4:
->   - Fix two minor issues in the translation of "ipv6.rst" and "secid.rst".
->   - Link to v3:
-> https://lore.kernel.org/linux-doc/20260811071200.54062-1-anka@stu.cdut.ed=
-u.
-> cn/
->=20
-> Changes in v3:
->   - Remove spaces before and after "=EF=BC=88".
->   - Add a missing space after "IPv6".
->   - Update the translation of "secid".
->   - Link to v2:
-> https://lore.kernel.org/linux-doc/20260727073538.56951-1-anka@stu.cdut.ed=
-u.
-> cn/
->=20
-> Changes in v2:
->   - Add translated documents to corresponding index file.
->   - Link to v1:
-> https://lore.kernel.org/linux-doc/cover.1784866896.git.businiaoanka@anka1=
-=2Et
-> op/
->=20
-> Siwei Chen (5):
->   docs/zh_CN: Add networking team documentation Chinese translation
->   docs/zh_CN: Add NIC SR-IOV APIs Chinese translation
->   docs/zh_CN: Add Softnet Driver Issues Chinese translation
->   docs/zh_CN: Add ipv6 Chinese translation
->   docs/zh_CN: Add LSM/SELinux secid Chinese translation
->=20
->  .../translations/zh_CN/networking/driver.rst  | 138 ++++++++++++++++++
->  .../translations/zh_CN/networking/index.rst   |  10 +-
->  .../translations/zh_CN/networking/ipv6.rst    |  76 ++++++++++
->  .../translations/zh_CN/networking/secid.rst   |  24 +++
->  .../translations/zh_CN/networking/sriov.rst   |  34 +++++
->  .../translations/zh_CN/networking/team.rst    |  16 ++
->  6 files changed, 293 insertions(+), 5 deletions(-)
->  create mode 100644 Documentation/translations/zh_CN/networking/driver.rst
->  create mode 100644 Documentation/translations/zh_CN/networking/ipv6.rst
->  create mode 100644 Documentation/translations/zh_CN/networking/secid.rst
->  create mode 100644 Documentation/translations/zh_CN/networking/sriov.rst
->  create mode 100644 Documentation/translations/zh_CN/networking/team.rst
+Hi Oliver,
 
-Ping
+Thanks for sharing the patch and the context. Understood.
 
-
+Best regards,
+Wentian
