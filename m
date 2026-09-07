@@ -1,72 +1,108 @@
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m1973172.qiye.163.com (mail-m1973172.qiye.163.com [220.197.31.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D264F2222D9
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 03:20:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F33A638F65B;
+	Mon,  7 Sep 2026 03:21:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788751204; cv=none; b=SjAcKJ9MdPlBXv3cRoBnFs2HXpwXdzhuk6/ITLMiUyl1Wy+4xDCpV9qeeWnuZQ/bkOB58zPrqm7ay7s1v3lOnXjVo9I51YvXRtJjpGguVGKnwgkmTfQDePX8QdECnsRN3WXDi1nNPuDG1xvfvWTHKWXaIBVMr+pTX7bztJXhjiI=
+	t=1788751292; cv=none; b=BOkhfhtUhG6B5icoGxokTZzP50WLjUnJ60lntmpo44QdT0kBlerBjucBXEHGyUDLdKEAEChyAz92J8+wXk7cOAx62f4N/tMWNJ/YgvRhTX34fQm2iIHLcktCU0menda/3vGi8QcMhMa6m68Grz6exM7u/d/ZQ0SSv8k3nP4LRc8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788751204; c=relaxed/simple;
-	bh=fn+EU/NgixioDifXNzQfwNwO4hcz2S2Dy3tYlX0v7pA=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=lLxRsxwY5Pqz78TGMhU+khB8D4d/A3zVCUskXgz6CmcvxZFR4xKaRZnBfsteVngicW5rIfGsLUegJ2CcgqZLG3i4PDX580qNKlvxvy0/XvsjtVC4BazDIVht5emB8GFVXHXMZF9wPqGGkzVNjnTa2LRGfCoLZtrp9GaOBhWlz5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7f4e0b45e4bso3482085a34.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 20:20:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788751201; x=1789356001;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=qgLSqmjVG9++4Zf9PxueuTr/YGX63Pa9cbK9E94Lf9Q=;
-        b=e2R+RZe89x/M4xa4KjjPfOPCHbYxfW5Ns49sjaJyppoNzejC6dxFPdeUg2dDFwvM1Z
-         ObSVFIGkIoj+mxQjgpGUyEfGgqm/IJqhc9ujfPwMPlwyXd6KSKnLRJ4OFDHi0EyoX3V/
-         JYgylXzJxk+Wnb+ELzfktnRQWeC1PaEb17T66KJs3DVNKVaN6jaa8NWpkMqO38SplP/L
-         zAXOAH1nN3DYRrXaSGAfNjBcImBVDKGRzS2zXmk/Dewlb1VKH2GbVgJOeNXHzMy77MfE
-         SSDd+h2YdXL1y+YZDWxsZcTBvwozukNahcL9xttFZMaI2/cMeuYAxU8Lo0A3qNrFRp/V
-         5Vzg==
-X-Forwarded-Encrypted: i=1; AKwUvByODyWY4jd0amlx4gIYQNYYONDjeGQ3NJFkci/be0sGpaUJHRPqDVCbE6Pgm2wtxBI/V3ui218/viFsSR8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kPcVLhiqJpzAZwq0Rfs3Ed31K7wQ394SUm2HrDjtqkfu7io5fq
-	dYxw8AdBAGsfB4ywQ+gLQ0sce5J4NjI6SgtC4qOky5qHmnRp8ga252zy4Zi8RwYZBcG8EbKPG14
-	RHc25N/AjKOWd1vf+KSZkHAUeIm4xfDm/4FZqWEUmi1iBdvAnT8i44uIxMQE=
+	s=arc-20240116; t=1788751292; c=relaxed/simple;
+	bh=aKf8DhaQ5x5i8jhOQEfA7qapAwbpflbQ/fj5C6rVTU8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mzyayPuFzgboIBPvnkf/AhasYTOg7Iy671eEXowj0Qja9m6qTTooftuoupDkUie9bgeH3pw6m2fmcbUEbc1kI2e4Xzv90NLqoHU+qwqP1yoFwKy3pBzrYeZPXbHYAQjYI5DfXS8TErNKYVkiU1HxTzXL7plH+FSvDfav8ahjBDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=Ku4RR7ub; arc=none smtp.client-ip=220.197.31.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="Ku4RR7ub"
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4cbfa21e5;
+	Mon, 7 Sep 2026 11:16:05 +0800 (GMT+08:00)
+Message-ID: <d4cfd407-9cf7-4907-9ef9-8bb52b5ec669@rock-chips.com>
+Date: Mon, 7 Sep 2026 11:16:04 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:83d0:10b0:6ba:448c:4790 with SMTP id
- 006d021491bc7-6ba448c4a8fmr1949516eaf.27.1788751201776; Sun, 06 Sep 2026
- 20:20:01 -0700 (PDT)
-Date: Sun, 06 Sep 2026 20:20:01 -0700
-In-Reply-To: <20260906220911.103503-1-ayush37735@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9e2d61.a5e650b3.26d8a.0025.GAE@google.com>
-Subject: Re: [syzbot] [usb?] INFO: task hung in usb_register_dev (3)
-From: syzbot <syzbot+3bc656a9271e7c8a5c6b@syzkaller.appspotmail.com>
-To: ayush37735@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 15/19] phy: Add common Innosilicon HDMI PHY helpers
+To: Michal Wilczynski <m.wilczynski@samsung.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Emil Renner Berthing <kernel@esmil.dk>, Hal Feng
+ <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ Heiko Stuebner <heiko@sntech.de>, Conor Dooley <conor@kernel.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Dominique Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
+ Andy Yan <andyshrk@163.com>, Marek Szyprowski <m.szyprowski@samsung.com>,
+ Maud Spierings <maud_spierings@murena.io>,
+ Graham Markall <hello@big-grey.co.uk>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>
+References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
+ <CGME20260904132737eucas1p240d02860355b180ff9c5e8e4c6941ec0@eucas1p2.samsung.com>
+ <20260904-jh7110-clean-send-v3-15-484f9ae72715@samsung.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <20260904-jh7110-clean-send-v3-15-484f9ae72715@samsung.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa079ddac6403a7kunm8546d35235ff8c
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSEtCVkoZHU1OHUwdTx5OSFYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQkxVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=Ku4RR7ubhkME7SdU7Q1vR5N4bs9Jd9O9dvZ9PeeRSteOPVUkDArQId4e3ukUTnqz+qWufSkjKXJ2R4/U363WXT4BSsLmk0+jXlh+bAmQV7Motws9BeZFvlX3PDZsY+ze3KEL/3yqEcWz8+aHEvsZGtdV4HknbJNEDvGIuMZ8U48=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=+vkcaZtmTBN2qJZBZCZ7S5klbEWaaU26s6Uci6PmceU=;
+	h=date:mime-version:subject:message-id:from;
 
-Hello,
+Hello Michal,
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+On 9/4/2026 9:27 PM, Michal Wilczynski wrote:
+> The Innosilicon HDMI PHY IP is used by several SoCs. They differ in
+> where the PHY register block sits in the register space and in which
+> pixel clocks they support, but the pre-PLL programming sequence and the
+> layout of its registers are the same.
+> 
+> Add a small library holding that shared part: the pre-PLL configuration
+> table format, a lookup, clk_ops determine_rate and recalc_rate helpers,
+> and the pre-PLL register programming. Callers pass a regmap, a register
+> offset for the PHY block, and their own pixel clock table.
+> 
+> No driver uses it yet; the users are converted separately.
+> 
+> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+> ---
+>  drivers/phy/Kconfig               |   8 +
+>  drivers/phy/Makefile              |   1 +
+>  drivers/phy/phy-inno-hdmi.c       | 298 ++++++++++++++++++++++++++++++++++++++
+>  include/linux/phy/inno-hdmi-phy.h |  85 +++++++++++
+>  4 files changed, 392 insertions(+)
+Reviewed-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
-Reported-by: syzbot+3bc656a9271e7c8a5c6b@syzkaller.appspotmail.com
-Tested-by: syzbot+3bc656a9271e7c8a5c6b@syzkaller.appspotmail.com
+-- 
+Best, 
+Chaoyi
 
-Tested on:
-
-commit:         df290809 Linux 7.3-rc2
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=11791cf9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
-dashboard link: https://syzkaller.appspot.com/bug?extid=3bc656a9271e7c8a5c6b
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=13de9b49580000
-
-Note: testing is done by a robot and is best-effort only.
