@@ -1,141 +1,78 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40BD04908B4
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:21:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAAD0440A0F;
+	Mon,  7 Sep 2026 12:22:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788783710; cv=none; b=esnioc/GUyV7etPZ07vDn72ykWhB8ucfQHrxMQGkVVknWS6y5jwFxw6+usiwsZYMM31fLFjOskUJZ9IgN8AcgNwrhLWZr0wbC/FkCsRtdMEClhWogQxRt1d9DDiZLlMTk+Y3m161OGx2WSB8KvEy9w6acSsZCXUdPpl1gZ0/mmU=
+	t=1788783726; cv=none; b=ZG5I17EBSOA5FqoNafOdt75LvbS1XuxnKtgZ7lEz54PXgEDINfETIu5axjoODfB2NYap5qHx4zZI22mrVzR139m0rw70W4Rcy4Vq+TLifrGKDnZCmBymu6k+2wcghDMsPftH9HnLe1vG6ADrQ4r5l4OZbB0smGxOaOwacr1yFto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788783710; c=relaxed/simple;
-	bh=ys2RtTT2/y0lbuNZYqACtv7UnbI3tPaFnvr/VFM4wIU=;
-	h=From:To:Cc:Subject:MIME-Version:Content-Type:Date:Message-ID; b=A9fe+QDm8CGheHfMbJIdKFmBcZLbtkn/K5VA+njZNGiv8wJspi1qGU3bs0peC9+zIpnjpiqipnlbigliau8KQz2H/ePqn3ACRywNMRxYcpzFBIbcbSXIAyVw1mR9e1pgu2Hj20d84Q+QHjYfxUKgVVHF6nFa2vmjYugpeBzH77g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UcBSszRq; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788783726; c=relaxed/simple;
+	bh=qDnMEAWOKW9jufidJgQLa/RqSOYYfw1M7rAq1pL6kc4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TI6qkLs2ZrfmoPnN85RBaOnJbapGyAo+BA7xYguwIC2hy8+miT01/siD7ADni7a/bnYLZ2pe43DEBdxhzQ7/QCXte1Pr9/gtevAOLPRwmtYB/2KcLP25zJUm4DaN7IfStWs8FJ2o396+8+c1zSuvLVOm9JOu1XJA0HrkLtmcWq4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a6AvZgN3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UcBSszRq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788783707;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=v7/OknVUZyUNnRD+W4UfJIkatN/gArs6AZm+/kFGYCc=;
-	b=UcBSszRqnOoCPYrTRUKVrrvLb9yasKEg/dVzRd4yccwbkQ6Lx28tMkT2y5L/E7hfsl8IJt
-	wGLKpP/MRhL4a1cKuT3g0nLC7m3TOf0dN4IUykfFZam0yy8NoXLdPUICaIU5HJmnYhQQR1
-	pt+utWX3/84PShT7tfd/gNIunA2SeEA=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-480-hSxBCpqxN1K3cjr3LmQsPA-1; Mon,
- 07 Sep 2026 08:21:41 -0400
-X-MC-Unique: hSxBCpqxN1K3cjr3LmQsPA-1
-X-Mimecast-MFC-AGG-ID: hSxBCpqxN1K3cjr3LmQsPA_1788783700
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 97FFE180AE2D;
-	Mon,  7 Sep 2026 12:21:39 +0000 (UTC)
-Received: from warthog.procyon.org.uk (unknown [10.44.32.158])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E664830002F0;
-	Mon,  7 Sep 2026 12:21:35 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: dhowells@redhat.com, Keith Busch <kbusch@kernel.org>,
-    Hannes Reinecke <hare@kernel.org>, Christoph Hellwig <hch@lst.de>,
-    Alexander Viro <viro@zeniv.linux.org.uk>,
-    Paulo Alcantara <pc@manguebit.org>, netfs@lists.linux.dev,
-    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-    linux-kernel@vger.kernel.org
-Subject: [PATCH v3] block: Fix start and length check added to iov_iter_extract_bvecs()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a6AvZgN3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6A621F00A3A;
+	Mon,  7 Sep 2026 12:21:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788783724;
+	bh=Z5dMsJgOkpAowt+uKcJuy46JvhgdZiO/LaIkQAC/NDM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=a6AvZgN3ZlIdJ+lAGWpZ241rFPEhbbMAseDVBKov1HaC9IJUo8xpJtOwtwBpPYUB5
+	 BWnORYSW+go5KZGDzwDlfnt80FQo2dGOcUjkbpnlMgFB7Fk5y4KCDDBCDGLdY0Avfv
+	 z1w3dB80h6lNYelEEqQ7jVw0iWusZfn9leLFBEGjkvGQofWtJu+qx4Edv8MxWZu1B8
+	 0S0ygfedvP7zX6h7EqOuCU0lgKLMTWI0l4xfHjfYHJmN3m78iKWOKPhuw/Ja96Vuka
+	 ABmVflTy6nuxBgyMMoQQy5qdVhkYMUII1LrmEsn7Isz+r9j715rR/R/DBb2+d5w9Sr
+	 639H3L7g3lTaQ==
+Date: Mon, 7 Sep 2026 14:21:54 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: george.moussalem@outlook.com
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Praveenkumar I <praveenkumar.i@oss.qualcomm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, 
+	Nitheesh Sekar <quic_nsekar@quicinc.com>, Wesley Cheng <quic_wcheng@quicinc.com>, 
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
+Subject: Re: [PATCH v3 06/12] phy: qualcomm: qcom-uniphy-pcie-usb3-28lp:
+ Improve error handling in power_on
+Message-ID: <wb2tff2ljszeqld5yvxmurggp5fdh7vdmvij4vi5f7a7qld4jy@chyv3hpxj5h2>
+References: <20260825-ipq5018-usb3-v3-0-39be0955a6aa@outlook.com>
+ <20260825-ipq5018-usb3-v3-6-39be0955a6aa@outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <1456601.1788783694.1@warthog.procyon.org.uk>
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 13:21:34 +0100
-Message-ID: <1456602.1788783694@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260825-ipq5018-usb3-v3-6-39be0955a6aa@outlook.com>
 
-    =
+On Tue, Aug 25, 2026 at 04:37:23PM +0400, George Moussalem via B4 Relay wrote:
+> From: George Moussalem <george.moussalem@outlook.com>
+> 
 
-Commit 14b007e17881 added an address check using iter_iov_addr() and a
-length check using iter_iov_len() to iov_iter_extract_bvecs(), but these
-cannot be used so and are unsafe in this circumstance as the functions hav=
-e
-hardwired assumptions about the iterator type.  They should only be used
-with ITER_UBUF or ITER_IOVEC-type iterators; they shouldn't be used with
-ITER_BVEC, ITER_KVEC, ITER_FOLIOQ, ITER_XARRAY or ITER_DISCARD iterators.
+Subject should clearly mention that this patch is adding the missing PHY assert
+in err paths.
 
-This proves to be a problem for cachefiles as an iterator of type
-ITER_FOLIOQ is passed and iter_iov_addr() and iter_iov_len() both
-malfunction because iter->__iov in iter_iov() is not pointing to an iovec
-array.
+> When the PHY fails the enable clocks, it leaves the PHY out of reset.
 
-Fix this by using iov_iter_alignment() instead.
+s/the/to
 
-Fixes: 14b007e17881 ("block: validate user space vectors during extraction=
-")
-Signed-off-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Keith Busch <kbusch@kernel.org>
-cc: Hannes Reinecke <hare@kernel.org>
-cc: Christoph Hellwig <hch@lst.de>
-cc: Jens Axboe <axboe@kernel.dk>
-cc: Alexander Viro <viro@zeniv.linux.org.uk>
-cc: Paulo Alcantara <pc@manguebit.org>
-cc: netfs@lists.linux.dev
-cc: linux-block@vger.kernel.org
-cc: linux-fsdevel@vger.kernel.org
----
- lib/iov_iter.c |   18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+> Fix this by asserting the reset before returning the error.
+> 
+> In addition, language correct the error messages.
+> 
 
-diff --git a/lib/iov_iter.c b/lib/iov_iter.c
-index 6665372ecf71..5e9f9e2c30b1 100644
---- a/lib/iov_iter.c
-+++ b/lib/iov_iter.c
-@@ -1921,15 +1921,29 @@ ssize_t iov_iter_extract_bvecs(struct iov_iter *it=
-er, struct bio_vec *bv,
- 		unsigned short max_vecs, unsigned mem_align_mask,
- 		iov_iter_extraction_t extraction_flags)
- {
--	unsigned long start =3D (unsigned long)iter_iov_addr(iter);
- 	unsigned short entries_left =3D max_vecs - *nr_vecs;
- 	unsigned short nr_pages, i =3D 0;
- 	size_t left, offset, len;
- 	struct page **pages;
- 	ssize_t size;
- =
+Again, don't sneak changes in.
 
--	if ((start | iter_iov_len(iter)) & mem_align_mask)
-+	/*
-+	 * DMA engines typically have both memory address and length alignment
-+	 * requirements, so check these against the alignment mask.  For UBUF,
-+	 * IOVEC and KVEC, only the current segment will be drawn from; for
-+	 * everything else we might draw from multiple segments, so we need to
-+	 * check those too.
-+	 */
-+	if (likely(iter_is_ubuf(iter) ||
-+		   iter_is_iovec(iter) ||
-+		   iov_iter_is_kvec(iter))) {
-+		unsigned long start =3D (unsigned long)iter_iov_addr(iter);
-+
-+		if ((start | iter_iov_len(iter)) & mem_align_mask)
-+			return -EINVAL;
-+	} else if (iov_iter_alignment(iter) & mem_align_mask) {
- 		return -EINVAL;
-+	}
- =
+- Mani
 
- 	/*
- 	 * Move page array up in the allocated memory for the bio vecs as far as
-
+-- 
+மணிவண்ணன் சதாசிவம்
