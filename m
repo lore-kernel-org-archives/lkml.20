@@ -1,353 +1,113 @@
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f10.google.com (mail-oa2-f10.google.com [74.125.231.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F66933ADB3;
-	Mon,  7 Sep 2026 05:45:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.126.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5382529AB1A
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 05:45:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788759924; cv=none; b=Eiku3/bAW6PNjaNcvFpfaR2qVy7VZFaoN1tdGT+ocuJ0FWGe62jUigXQESxLn13lKf1ixb7gE1hgIeMT79hJUFBp4nHL9HPOjlE+LRo3u+YHXZ5262EqUUNQfPY4GRFjeTkoNs+mcefrodgvsFr0wxv8QqL7Z+bc2HXD5NFR1jU=
+	t=1788759935; cv=none; b=bYTkQ+5RontuHAUZsZgcFrG9fDaFClSTJE4kw9EgX9Gibs/evR+cH+ze60VhZvJLqG8U6E29jeWJCUwH7Hg7D7hJM/1bt9IftugT7xoNmfE1qoLWU75TgM5ZJnEfjAGMtWrDZGxDhj2HUiPtCHs2Y36YzOgSw0Fxz16UcJK7BPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788759924; c=relaxed/simple;
-	bh=QM1RaMRYf7ZAFUu0L56y/M+PpGDxYRKN1uJfvbRAwN0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hZvBjyUKCU7FZgQF/zmM1SjC3LmldG7/OOy2ebIQAh97pEqMRNwxsqmD8pJ2JASHlqFXZy+j8LghBXJymHH2s7LmyEiAO9jjZPzeVUy2fkns5uuXcyh28u8k8KStyQOBxoAozHU8pOji6D8E4t4h47RKzSMCoIZ7+pGFQBIZi2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net; spf=pass smtp.mailfrom=weissschuh.net; dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b=YPS8iNbN; arc=none smtp.client-ip=159.69.126.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
+	s=arc-20240116; t=1788759935; c=relaxed/simple;
+	bh=o5qbbR1yQ4iI2orK8p1mAk+KPmFDgRJcpOZbeD4+1ts=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=r7N7TL/OJ7ra+XtBedL4MTeU9SljIs+o94V6H7O5UKhQdxaQJDBSkfWeruykQux1MEpA1FCD34hcu8WvETJDqpaG/pd//PYqAY16fQE/hiVASwgTTVoAqdF8TFGeTcbi48Lg+6rPotQT62R2gnv3OPCpFq26b8xPo7GWOAIVx7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OzoHsfgK; arc=none smtp.client-ip=74.125.231.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b="YPS8iNbN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
-	s=mail; t=1788759912;
-	bh=QM1RaMRYf7ZAFUu0L56y/M+PpGDxYRKN1uJfvbRAwN0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=YPS8iNbNG9RvZGIDsyGJnqtiJcjBQYlGiwc1ROWqNmaL2IOvFrXvtFEUjjxoEc5oi
-	 095w1Ju927d8rJzJV5WIeUhrPdy5xmlAIANK0TFNoOSjrMMY0Pg58i2Aie0v3fkE2z
-	 tD6+HP/mVW8VGHcpqfadeNvmZxcxREwvMQMWaqIo=
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Mon, 07 Sep 2026 07:45:02 +0200
-Subject: [PATCH v2 2/3] drivers: perf: Use __DEVICE_ATTR() macro to
- initialize dev_ext_attribute
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OzoHsfgK"
+Received: by mail-oa2-f10.google.com with SMTP id 586e51a60fabf-46adea418f3so1086754fac.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 22:45:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788759933; x=1789364733; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o5qbbR1yQ4iI2orK8p1mAk+KPmFDgRJcpOZbeD4+1ts=;
+        b=OzoHsfgKSxlFS/vp8mQ2DIFeyaZaI/JWkEtasr3Yn2mTIqwE73jWgKbUpwUVdcarEe
+         6M+J+pOeoMbpNo0MYKzAuk3lhYUnZ+Qy6KEeVOMtuzVqS2Qat5xOBZTtVmcBWMdd2BRw
+         rF7G2Ax+iUzNfu9H+yWMImppDHtvtoyptHDEtQCtjEomlzeJS6jZVMvziFjQ5bNJavcg
+         4ojDBQhXohwo2fjOqAiTx+nOrxuC+ga+pkbO+vOZ7WGFeNbYmp95jIQIsYk69JddDs63
+         SAYWt1X1KHT9Hc+4xao5kLaB9Rs8mw1EzczV8TQB/zWfFr7qGnuE+IIup6xrMYEJ8Kgp
+         JbiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788759933; x=1789364733;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=o5qbbR1yQ4iI2orK8p1mAk+KPmFDgRJcpOZbeD4+1ts=;
+        b=Pl0s5AvDPbxIto5tLeVLdK1RG5negBwbMLV7fq4kZnh2CTFhktS38iOtqzgIPvRdD3
+         BQ2dYQtEG43gF4jEH6HgaDOOXFMAi7gJ6AOiPZUQOi17VpCC61fFGi5MPu4IbXkg2OcC
+         k5vQ7+MoS0p4wAp4zh6/pI9LiNGA8FqWD633+hTsWODj+FXxlII2mmHiSahD96H4aaYB
+         UtiV/TT9ZHiZ9l+OONlSiyyV5TUTRMvkaDICCH70K+mLRd6NGVynE5ugRwD7/KnOxWto
+         GQJowZ6QssmW0CPWRmYV48bPIlkOXlB/LSSYyODXMP3PmjNyxH+z7GFsDEu7e3gjws8w
+         lfBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzR3m04bQ6RFZfsFwWKYuu5oFR5AhjLEGyJg+yCwR4h+L07aZc/J2lXl9hP+vm+gYBkSoN5EmZ14vZCHJE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lyCIRToaQGnmWl0lR7WjOIet/Fb04Drp2gewFDwD/H8Sz1WMgQ
+	smnpcIHbC7AqqsWLsSJATwj2Ukcy8ZREeIp59O2JJFFExSieNoIcg5sH
+X-Gm-Gg: AYBFou2D8GIvlaG8x3bIlodldsEe22togA2ilClOF7bstOlDhyF2DK+xLLlQIvYZaHH
+	va+ZTosTtcSJWIVqnI/P68Wc8vWevaaqQxL6UfEQr9vRBKPhSAkAZ+3KoQlntu0nwLNE5Gt7Y56
+	nZX7VjvFRx6wFVLbwHqlkalmbi+Wvzmv7qay06HbY4P/ifUtEEy6orloz2Vf15TWe9ZF7kWSv7/
+	rbQ+JrKx+as6NtMhsvo4ayixpusROYZ5XaNHFFjJ+mD8bVVLm1Ep0bd7IyPeHNYTpg1GzcMi9Vp
+	oCjlbsrItl6bo8t3kgIf/ZHqHYeyw3musL4TAhtYVuxhYGJYL7YkH7LJVILhlHlHu/IOMeqfJvH
+	wLEcNZ+4B7we3dVuVRDKvxxDK3A1ZWrnLdOhSdL3zummdCv0n6Jv+pjlPzV5fS5Al+m+TUXQsIa
+	5viCiTjKkw2G20FFWPtDHvz4yO1QlN/6uDhLxGHYCfWn4aeJv1/tOse++1umfGZw==
+X-Received: by 2002:a05:6870:96a3:b0:440:67b1:b59b with SMTP id 586e51a60fabf-4754d5745e0mr13037030fac.0.1788759932942;
+        Sun, 06 Sep 2026 22:45:32 -0700 (PDT)
+Received: from ryan-dell ([2600:100b:b039:79f4:f7f:ccf7:cd6f:384])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-47989a71ebbsm204482fac.17.2026.09.06.22.45.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 22:45:31 -0700 (PDT)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Nickolay Goppen <setotau@mainlining.org>
+Subject: Re: [PATCH 0/2] drm/panel: add Novatek NT51021 1200x1920 DSI panel driver
+Date: Mon,  7 Sep 2026 00:45:06 -0500
+Message-ID: <20260907054509.118237-1-ryanbrue.dev@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260905-rbrue-drm-panel-add-novatek-nt51021-v1-0-939f59e89fc9@gmail.com>
+References: <20260905-rbrue-drm-panel-add-novatek-nt51021-v1-0-939f59e89fc9@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260907-sysfs-const-attr-dev_ext_attr-v2-2-bf53afe57071@weissschuh.net>
-References: <20260907-sysfs-const-attr-dev_ext_attr-v2-0-bf53afe57071@weissschuh.net>
-In-Reply-To: <20260907-sysfs-const-attr-dev_ext_attr-v2-0-bf53afe57071@weissschuh.net>
-To: Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>, Will Deacon <will@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, Jonathan Cameron <jic23@kernel.org>, 
- Yushan Wang <wangyushan12@huawei.com>, Jijie Shao <shaojijie@huawei.com>, 
- Khuong Dinh <khuong@os.amperecomputing.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>
-Cc: linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, 
- linux-cxl@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, driver-core@lists.linux.dev, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788759912; l=12208;
- i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=QM1RaMRYf7ZAFUu0L56y/M+PpGDxYRKN1uJfvbRAwN0=;
- b=ceDGkuw5FvCesHSl7AwX4c6GgQs4jtq7D8STBSAwXKPtd3kbTyAoZ4/HhjydwRLIcF5Cw/uGk
- gWDsUqgs8ddB7q6pRTxFHQAhBSLHxf/waF6uXNDoYT6xdoKfzu6hFHf
-X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
- pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 
-The upcoming constification of the device_show_*() callback
-signatures requires the users to handle the transition automatically.
+Please disregard this series.
 
-Switch to the __DEVICE_ATTR() macro which can do this.
+Nickolay Goppen posted an NT51021 driver a week before my patch, and I
+didn't catch it.
 
-Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
----
- drivers/perf/alibaba_uncore_drw_pmu.c       |  2 +-
- drivers/perf/arm-cci.c                      |  2 +-
- drivers/perf/arm-ccn.c                      |  2 +-
- drivers/perf/arm_cspmu/arm_cspmu.h          |  2 +-
- drivers/perf/arm_dsu_pmu.c                  |  2 +-
- drivers/perf/arm_spe_pmu.c                  |  6 +++---
- drivers/perf/cxl_pmu.c                      | 10 +++++-----
- drivers/perf/fsl_imx8_ddr_perf.c            |  2 +-
- drivers/perf/fujitsu_uncore_pmu.c           |  2 +-
- drivers/perf/hisilicon/hisi_pcie_pmu.c      |  2 +-
- drivers/perf/hisilicon/hisi_uncore_pmu.h    |  6 +++---
- drivers/perf/hisilicon/hns3_pmu.c           |  6 +++---
- drivers/perf/nvidia_t410_c2c_pmu.c          |  2 +-
- drivers/perf/nvidia_t410_cmem_latency_pmu.c | 12 ++++++------
- drivers/perf/qcom_l3_pmu.c                  |  8 ++++----
- drivers/perf/starfive_starlink_pmu.c        |  2 +-
- drivers/perf/xgene_pmu.c                    |  2 +-
- 17 files changed, 35 insertions(+), 35 deletions(-)
+https://lore.kernel.org/all/20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org/
 
-diff --git a/drivers/perf/alibaba_uncore_drw_pmu.c b/drivers/perf/alibaba_uncore_drw_pmu.c
-index fc934bccf4a6..5b6d3a4736da 100644
---- a/drivers/perf/alibaba_uncore_drw_pmu.c
-+++ b/drivers/perf/alibaba_uncore_drw_pmu.c
-@@ -135,7 +135,7 @@ static ssize_t ali_drw_pmu_event_show(struct device *dev,
- 
- #define ALI_DRW_PMU_ATTR(_name, _func, _config)                            \
- 		(&((struct dev_ext_attribute[]) {                               \
--				{ __ATTR(_name, 0444, _func, NULL), (void *)_config }   \
-+				{ __DEVICE_ATTR(_name, 0444, _func, NULL), (void *)_config }   \
- 		})[0].attr.attr)
- 
- #define ALI_DRW_PMU_FORMAT_ATTR(_name, _config)            \
-diff --git a/drivers/perf/arm-cci.c b/drivers/perf/arm-cci.c
-index f0ef0a679e74..71035227f58b 100644
---- a/drivers/perf/arm-cci.c
-+++ b/drivers/perf/arm-cci.c
-@@ -132,7 +132,7 @@ static ssize_t __maybe_unused cci_pmu_event_show(struct device *dev,
- 
- #define CCI_EXT_ATTR_ENTRY(_name, _func, _config) 				\
- 	&((struct dev_ext_attribute[]) {					\
--		{ __ATTR(_name, S_IRUGO, _func, NULL), (void *)_config }	\
-+		{ __DEVICE_ATTR(_name, S_IRUGO, _func, NULL), (void *)_config }	\
- 	})[0].attr.attr
- 
- #define CCI_FORMAT_EXT_ATTR_ENTRY(_name, _config) \
-diff --git a/drivers/perf/arm-ccn.c b/drivers/perf/arm-ccn.c
-index c40da3450c8f..e3411bdf5c7c 100644
---- a/drivers/perf/arm-ccn.c
-+++ b/drivers/perf/arm-ccn.c
-@@ -216,7 +216,7 @@ static void arm_ccn_pmu_config_set(u64 *config, u32 node_xp, u32 type, u32 port)
- 
- #define CCN_FORMAT_ATTR(_name, _config) \
- 	struct dev_ext_attribute arm_ccn_pmu_format_attr_##_name = \
--			{ __ATTR(_name, S_IRUGO, device_show_string, \
-+			{ __DEVICE_ATTR(_name, S_IRUGO, device_show_string, \
- 			NULL), _config }
- 
- static CCN_FORMAT_ATTR(node, "config:0-7");
-diff --git a/drivers/perf/arm_cspmu/arm_cspmu.h b/drivers/perf/arm_cspmu/arm_cspmu.h
-index c4058d602477..93d5b062de8b 100644
---- a/drivers/perf/arm_cspmu/arm_cspmu.h
-+++ b/drivers/perf/arm_cspmu/arm_cspmu.h
-@@ -23,7 +23,7 @@
- #define ARM_CSPMU_EXT_ATTR(_name, _func, _config)			\
- 	(&((struct dev_ext_attribute[]){				\
- 		{							\
--			.attr = __ATTR(_name, 0444, _func, NULL),	\
-+			.attr = __DEVICE_ATTR(_name, 0444, _func, NULL),\
- 			.var = (void *)_config				\
- 		}							\
- 	})[0].attr.attr)
-diff --git a/drivers/perf/arm_dsu_pmu.c b/drivers/perf/arm_dsu_pmu.c
-index bcbd19e075a5..8332eaca06dc 100644
---- a/drivers/perf/arm_dsu_pmu.c
-+++ b/drivers/perf/arm_dsu_pmu.c
-@@ -69,7 +69,7 @@
- #define DSU_EXT_ATTR(_name, _func, _config)		\
- 	(&((struct dev_ext_attribute[]) {				\
- 		{							\
--			.attr = __ATTR(_name, 0444, _func, NULL),	\
-+			.attr = __DEVICE_ATTR(_name, 0444, _func, NULL),\
- 			.var = (void *)_config				\
- 		}							\
- 	})[0].attr.attr)
-diff --git a/drivers/perf/arm_spe_pmu.c b/drivers/perf/arm_spe_pmu.c
-index b70f3fedf028..e298d6d6371e 100644
---- a/drivers/perf/arm_spe_pmu.c
-+++ b/drivers/perf/arm_spe_pmu.c
-@@ -172,9 +172,9 @@ static ssize_t arm_spe_pmu_cap_show_hex(struct device *dev,
- 	return sysfs_emit(buf, "0x%llx\n", arm_spe_pmu_cap_get(spe_pmu, cap));
- }
- 
--#define SPE_EXT_ATTR_ENTRY(_name, _func, _var)				\
--	&((struct dev_ext_attribute[]) {				\
--		{ __ATTR(_name, S_IRUGO, _func, NULL), (void *)_var }	\
-+#define SPE_EXT_ATTR_ENTRY(_name, _func, _var)					\
-+	&((struct dev_ext_attribute[]) {					\
-+		{ __DEVICE_ATTR(_name, S_IRUGO, _func, NULL), (void *)_var }	\
- 	})[0].attr.attr
- 
- #define SPE_CAP_EXT_ATTR_ENTRY(_name, _var)				\
-diff --git a/drivers/perf/cxl_pmu.c b/drivers/perf/cxl_pmu.c
-index 2c8a03cc11e4..a36cf792a2d0 100644
---- a/drivers/perf/cxl_pmu.c
-+++ b/drivers/perf/cxl_pmu.c
-@@ -216,11 +216,11 @@ static int cxl_pmu_parse_caps(struct device *dev, struct cxl_pmu_info *info)
- }
- 
- #define CXL_PMU_FORMAT_ATTR(_name, _format)\
--	(&((struct dev_ext_attribute[]) {					\
--		{								\
--			.attr = __ATTR(_name, 0444, device_show_string, NULL),	\
--			.var = (void *)_format					\
--		}								\
-+	(&((struct dev_ext_attribute[]) {						\
-+		{									\
-+			.attr = __DEVICE_ATTR(_name, 0444, device_show_string, NULL),	\
-+			.var = (void *)_format						\
-+		}									\
- 		})[0].attr.attr)
- 
- enum {
-diff --git a/drivers/perf/fsl_imx8_ddr_perf.c b/drivers/perf/fsl_imx8_ddr_perf.c
-index dd8046265584..7553c5872600 100644
---- a/drivers/perf/fsl_imx8_ddr_perf.c
-+++ b/drivers/perf/fsl_imx8_ddr_perf.c
-@@ -214,7 +214,7 @@ static ssize_t ddr_perf_filter_cap_show(struct device *dev,
- 
- #define PERF_EXT_ATTR_ENTRY(_name, _func, _var)				\
- 	(&((struct dev_ext_attribute) {					\
--		__ATTR(_name, 0444, _func, NULL), (void *)_var		\
-+		__DEVICE_ATTR(_name, 0444, _func, NULL), (void *)_var	\
- 	}).attr.attr)
- 
- #define PERF_FILTER_EXT_ATTR_ENTRY(_name, _var)				\
-diff --git a/drivers/perf/fujitsu_uncore_pmu.c b/drivers/perf/fujitsu_uncore_pmu.c
-index fa64146fcac6..db90e181b9a8 100644
---- a/drivers/perf/fujitsu_uncore_pmu.c
-+++ b/drivers/perf/fujitsu_uncore_pmu.c
-@@ -291,7 +291,7 @@ static void fujitsu_uncore_event_read(struct perf_event *event)
- 
- #define UNCORE_PMU_FORMAT_ATTR(_name, _config)				      \
- 	(&((struct dev_ext_attribute[]) {				      \
--		{ .attr = __ATTR(_name, 0444, device_show_string, NULL),      \
-+		{ .attr = __DEVICE_ATTR(_name, 0444, device_show_string, NULL), \
- 		  .var = (void *)_config, }				      \
- 	})[0].attr.attr)
- 
-diff --git a/drivers/perf/hisilicon/hisi_pcie_pmu.c b/drivers/perf/hisilicon/hisi_pcie_pmu.c
-index 0f55d871c67e..0a69d13fa453 100644
---- a/drivers/perf/hisilicon/hisi_pcie_pmu.c
-+++ b/drivers/perf/hisilicon/hisi_pcie_pmu.c
-@@ -110,7 +110,7 @@ static ssize_t hisi_pcie_event_sysfs_show(struct device *dev, struct device_attr
- 
- #define HISI_PCIE_PMU_FORMAT_ATTR(_name, _format)                              \
- 	(&((struct dev_ext_attribute[]){                                       \
--		{ .attr = __ATTR(_name, 0444, device_show_string, NULL),       \
-+		{ .attr = __DEVICE_ATTR(_name, 0444, device_show_string, NULL),\
- 		  .var = (void *)_format }                                     \
- 	})[0].attr.attr)
- 
-diff --git a/drivers/perf/hisilicon/hisi_uncore_pmu.h b/drivers/perf/hisilicon/hisi_uncore_pmu.h
-index 3ffe6acda653..a4cb9ed7ea20 100644
---- a/drivers/perf/hisilicon/hisi_uncore_pmu.h
-+++ b/drivers/perf/hisilicon/hisi_uncore_pmu.h
-@@ -27,9 +27,9 @@
- #define HISI_MAX_COUNTERS	0x18
- #define to_hisi_pmu(p)	(container_of(p, struct hisi_pmu, pmu))
- 
--#define HISI_PMU_ATTR(_name, _func, _config)				\
--	(&((struct dev_ext_attribute[]) {				\
--		{ __ATTR(_name, 0444, _func, NULL), (void *)_config }   \
-+#define HISI_PMU_ATTR(_name, _func, _config)				     \
-+	(&((struct dev_ext_attribute[]) {				     \
-+		{ __DEVICE_ATTR(_name, 0444, _func, NULL), (void *)_config } \
- 	})[0].attr.attr)
- 
- #define HISI_PMU_FORMAT_ATTR(_name, _config)		\
-diff --git a/drivers/perf/hisilicon/hns3_pmu.c b/drivers/perf/hisilicon/hns3_pmu.c
-index c157f3572cae..88a1129e9b90 100644
---- a/drivers/perf/hisilicon/hns3_pmu.c
-+++ b/drivers/perf/hisilicon/hns3_pmu.c
-@@ -405,9 +405,9 @@ static ssize_t hns3_pmu_filter_mode_show(struct device *dev,
- 	return len;
- }
- 
--#define HNS3_PMU_ATTR(_name, _func, _config)				\
--	(&((struct dev_ext_attribute[]) {				\
--		{ __ATTR(_name, 0444, _func, NULL), (void *)_config }	\
-+#define HNS3_PMU_ATTR(_name, _func, _config)				     \
-+	(&((struct dev_ext_attribute[]) {				     \
-+		{ __DEVICE_ATTR(_name, 0444, _func, NULL), (void *)_config } \
- 	})[0].attr.attr)
- 
- #define HNS3_PMU_FORMAT_ATTR(_name, _format) \
-diff --git a/drivers/perf/nvidia_t410_c2c_pmu.c b/drivers/perf/nvidia_t410_c2c_pmu.c
-index bff875f4f625..a41d5712da91 100644
---- a/drivers/perf/nvidia_t410_c2c_pmu.c
-+++ b/drivers/perf/nvidia_t410_c2c_pmu.c
-@@ -545,7 +545,7 @@ static struct attribute_group nv_c2c_pmu_peer_attr_group = {
- #define NV_C2C_PMU_EXT_ATTR(_name, _func, _config)			\
- 	(&((struct dev_ext_attribute[]){				\
- 		{							\
--			.attr = __ATTR(_name, 0444, _func, NULL),	\
-+			.attr = __DEVICE_ATTR(_name, 0444, _func, NULL),\
- 			.var = (void *)_config				\
- 		}							\
- 	})[0].attr.attr)
-diff --git a/drivers/perf/nvidia_t410_cmem_latency_pmu.c b/drivers/perf/nvidia_t410_cmem_latency_pmu.c
-index 6c8e41598ec1..da91a51fe29e 100644
---- a/drivers/perf/nvidia_t410_cmem_latency_pmu.c
-+++ b/drivers/perf/nvidia_t410_cmem_latency_pmu.c
-@@ -435,12 +435,12 @@ static struct attribute_group cmem_lat_pmu_identifier_attr_group = {
- 
- /* Format attributes. */
- 
--#define NV_PMU_EXT_ATTR(_name, _func, _config)			\
--	(&((struct dev_ext_attribute[]){				\
--		{							\
--			.attr = __ATTR(_name, 0444, _func, NULL),	\
--			.var = (void *)_config				\
--		}							\
-+#define NV_PMU_EXT_ATTR(_name, _func, _config)					\
-+	(&((struct dev_ext_attribute[]){					\
-+		{								\
-+			.attr = __DEVICE_ATTR(_name, 0444, _func, NULL),	\
-+			.var = (void *)_config					\
-+		}								\
- 	})[0].attr.attr)
- 
- static struct attribute *cmem_lat_pmu_formats[] = {
-diff --git a/drivers/perf/qcom_l3_pmu.c b/drivers/perf/qcom_l3_pmu.c
-index e18d0f94e8d8..d036fa05aeab 100644
---- a/drivers/perf/qcom_l3_pmu.c
-+++ b/drivers/perf/qcom_l3_pmu.c
-@@ -609,10 +609,10 @@ static void qcom_l3_cache__event_read(struct perf_event *event)
- 
- /* formats */
- 
--#define L3CACHE_PMU_FORMAT_ATTR(_name, _config)				      \
--	(&((struct dev_ext_attribute[]) {				      \
--		{ .attr = __ATTR(_name, 0444, device_show_string, NULL),      \
--		  .var = (void *) _config, }				      \
-+#define L3CACHE_PMU_FORMAT_ATTR(_name, _config)				        \
-+	(&((struct dev_ext_attribute[]) {				        \
-+		{ .attr = __DEVICE_ATTR(_name, 0444, device_show_string, NULL), \
-+		  .var = (void *) _config, }				        \
- 	})[0].attr.attr)
- 
- static struct attribute *qcom_l3_cache_pmu_formats[] = {
-diff --git a/drivers/perf/starfive_starlink_pmu.c b/drivers/perf/starfive_starlink_pmu.c
-index 98e5ccee2fdc..d9843645554b 100644
---- a/drivers/perf/starfive_starlink_pmu.c
-+++ b/drivers/perf/starfive_starlink_pmu.c
-@@ -51,7 +51,7 @@
- 
- #define STARLINK_FORMAT_ATTR(_name, _config)				      \
- 	(&((struct dev_ext_attribute[]) {				      \
--		{ .attr = __ATTR(_name, 0444, starlink_pmu_sysfs_format_show, NULL), \
-+		{ .attr = __DEVICE_ATTR(_name, 0444, starlink_pmu_sysfs_format_show, NULL), \
- 		  .var = (void *)_config, }				      \
- 	})[0].attr.attr)
- 
-diff --git a/drivers/perf/xgene_pmu.c b/drivers/perf/xgene_pmu.c
-index ab3623fab914..104cd0277b58 100644
---- a/drivers/perf/xgene_pmu.c
-+++ b/drivers/perf/xgene_pmu.c
-@@ -164,7 +164,7 @@ enum xgene_pmu_dev_type {
-  */
- #define XGENE_PMU_FORMAT_ATTR(_name, _config)		\
- 	(&((struct dev_ext_attribute[]) {		\
--		{ .attr = __ATTR(_name, S_IRUGO, device_show_string, NULL), \
-+		{ .attr = __DEVICE_ATTR(_name, S_IRUGO, device_show_string, NULL), \
- 		  .var = (void *) _config, }		\
- 	})[0].attr.attr)
- 
+I checked that there were no patches on the mailing list prior to
+working on it, and then forgot to check prior to sending mine. What are
+the odds, for an 8+ year old panel? :D
 
--- 
-2.55.0
+His covers more panels, but my panel seems to be slightly different
+from his, based on the vendor kernel I referenced for my bringup. I
+tested his driver on my hardware and it works; I'm going to make a
+reply on that thread, and I will set up the Amazon Fire HD 10 panel as
+a variant on top of his series instead.
 
+Sorry for the noise, I'm new to this and I hope to learn quickly.
+
+Ryan
