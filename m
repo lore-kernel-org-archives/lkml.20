@@ -1,223 +1,161 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazolkn19011037.outbound.protection.outlook.com [52.103.39.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-184.mta1.migadu.com [95.215.58.184])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEDCF248867;
-	Mon,  7 Sep 2026 02:29:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.39.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788748174; cv=fail; b=Rlr4ax34zeMxHnK0aoG0xOzFMSm+tRKA5wAuO9ykuxRNl7ik9mq+HOkyV0nnycsBucCRyWqiJSrTmMfs1U5NHDzuqO2Nmhk+uV4qa+jbsg2BBriWKfXBoRyesVh9hn+K+7arT3ZA6dRhJlzkoWmkTORagvpJoLRitzCMant3Fy4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788748174; c=relaxed/simple;
-	bh=u6Es2K/nr/KA+jfwTIu3Jj6ob/ZQhE9LSr0qRSuX1hk=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=lqqgN/DuofVACTFpRKxrwbRVwz90fIorxulV3JldNZiGp2xYvv/xIfHSSh1I7ba6Yy5O5w5WP4R0h/E9KIDB0tYsAmo7y7Uut6TCqHp5wJw2KrNqBxXoXMeOT4lTIwUZEnikIkjYO8v0OfN9iE6Ne+M8i+dXOtto8TBfvPBNrH4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=DxE4IPqP; arc=fail smtp.client-ip=52.103.39.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE2A18B0F
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 02:30:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.184
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788748234; cv=none; b=dFogCzRGYy/OY6/Gn6aI3YAUHn7r9yYlBzxx7wq4j2nw+eNwaGCByicKnOGcb3lMIplFnd7PSPBGk+fAr5HolR3PdniLLVSlQFmn9RPuE82lEVDJsur/nyITEsVFVwsbG9R+5X56SaT0zMiRDJMb8OW+x9DNyJE2VSRInuNS4PU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788748234; c=relaxed/simple;
+	bh=gGOR70RWSVNpIZlUx4mowRB4v72DW7/ACEGX60I3uQQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fx/jhwNBjbCf3gxdPrce/VtL7Cr+wybuFL3OhsLYnCNjUh21VXVnKKawrIO7LPd+i1G78GlNAPJXl3A48vKsA3EAGxd5tSdORQEjvwptU28AW/1JsDG8GEAOCfmff+BBUs0x9zJGNukOcFHcIuhavJ6b9I4RnpqfpAW9jBIVnM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=p755C2VN; arc=none smtp.client-ip=95.215.58.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="DxE4IPqP"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JLVA0QTd2WpTwd/Uh0VAuaZ7wRxh1sXH2RYCsyOsbJ4e4meTdw0042Fnn//hE4N00f7omb3AVWmD98h9FPf25WmG7BlHcnH7A5E1RSx1PwTa3i/zdVTeIPGl/N0g6iSEzNbk3aMuCCZ0PCr/2eGpEe3OvIOk8iNGZeZv4SGt9jQw+NOh7a2dclFz7UWTmoR7UzmlJ9Tlp3ZYI/dfQrkRSuYCr1bZKm9G6khx1dZEDfQ3iuZNOylOGBBD9uY4RAikOS8RlrUSsS23XcPfMjuUFKBGQQJpAHB3mdsOun5ue5qKr6vvlq3zGcQmBKJiKWZ0WJ53sFOiv6HXnTaOovrcAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Iis6Av/hG0iUXBwU34p/6HpL7U7dM/brQgeMGmYSXPM=;
- b=ruiI4fH7EfR/CuEjPZnNceYbLhEU09x9P+c06IyoanaIX621Ch95V0FlmuwS+PjgNd1lBa5ANvahgyNl5iyZW4wpGTuLuujEAiTGB6BYaTrF8SXYVekcCzKFLlj9WV6LGr/Q26tInTk4Pb/WXaEHIW/xcuslIFuxnMFxw1fFqRn4OP4LX3ELmNt7LoDpnlWOEXbGbqsU6qdeo8tD4e3tzooEeCiIqhQoSXyN5pPkh7z29qK2V4BNwa5UioRTYnjEb/6gLyeRMLXQwvnvq8sCwSOzM3BJfb7m5bPgZAP5iTHLhrGwGlCatL11Cm0pcbxg1EMg0C4IL0qnESkcc2JOww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Iis6Av/hG0iUXBwU34p/6HpL7U7dM/brQgeMGmYSXPM=;
- b=DxE4IPqPd2HHJJM8VzuOD8fj3Cv02sBfGJROVBlrxc+J1vq3Maxm1yti9ieNJdKwZGKlVNdg7/k0KrhsVxtJarSDhS2mr9M6gRuZ7vHKh4HXImw7MUOUXZfeLkeKWyTD9ipGI6SrEuHeie/S38cp3ZqqrAOvyaHv27P8tP6ykGTtO+TidVPGCY9gEGa+rLy8NdtcCebLF4OMimMnSGOd3cPApgtiM0EbwpKcGOhQFroIAdUehVOHnh1y3PDhyJQ6BYbVbzDVmRw4AfEEu5QBBsMvO4lADkZZZzKPlDRMhwhkC6YaaTjHfj5HCAsjk2ENgcV/bSYgUIwPJft/DtwyYw==
-Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
- by DB9P251MB0077.EURP251.PROD.OUTLOOK.COM (2603:10a6:10:2c9::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 02:29:30 +0000
-Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- ([fe80::2952:d4d0:4ba:8352%6]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
- 02:29:30 +0000
-From: Aamir Ahmed <elb12345@hotmail.co.uk>
-To: srini.raju@purelifi.com
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Aamir Ahmed <elb12345@hotmail.co.uk>
-Subject: [PATCH] wifi: plfxlc: validate received USB transfer length before processing
-Date: Mon,  7 Sep 2026 02:29:27 +0000
-Message-ID:
- <AS8P251MB00014A99D4C6A731FBCF5593C8B22@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: LO4P265CA0238.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:350::11) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:344::22)
-X-Microsoft-Original-Message-ID:
- <20260907022927.499358-1-elb12345@hotmail.co.uk>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="p755C2VN"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=gGOR70RWSVNpIZlUx4mowRB4v72DW7/ACEGX60I3uQQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788748229; v=1; x=1789353029;
+ b=p755C2VN8+m3g+jfNzJqfRl3eQjn8RpJ5Esi7LppET+FuR2iKcUJa63cUlSLDc6SQa6OHX58
+ DL1j2/viB5bgYAXrbsiLujKLbVbJ/f/HtpLd8bRVFIZsjK2uGQzCyKLdHgxZRnbXYLo2hE+VJot
+ oLhcD5AlqglnoTnlQJiWMTaA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 37145613f0e5f374;
+	Mon, 07 Sep 2026 02:30:29 +0000
+X-Mizu-Trace-ID: 37145613f0e5f374
+X-Migadu-Flow: FLOW_OUT
+From: Troy Mitchell <troy.mitchell@linux.dev>
+Date: Mon, 07 Sep 2026 10:30:24 +0800
+Subject: [PATCH v4] riscv: disable local interrupts and stop other CPUs
+ before reboot/shutdown
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|DB9P251MB0077:EE_
-X-MS-Office365-Filtering-Correlation-Id: 488311a9-454b-4520-d4fb-08df0c87d825
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|25031999004|23021999003|37011999003|12121999013|15080799012|2604032031799003|19110799012|8060799015|11091999009|51005399006|55001999006|24021099003|41001999006|25010399006|5072599009|5062599005|4140399003|40105399003|2607281247196008|3412199025|440099028|26104999009|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?yAcKzsX7JRkrBlvD0kV5tl4rg3v3jcnwkYrbT+QC+tlOSwol4ikUw9rgsYUE?=
- =?us-ascii?Q?g9l4298ye+wHwXgPauS6hdfTOTgIiy568ZpLT37hRTeYV7EkQm2XTCu4eETn?=
- =?us-ascii?Q?b9OJWeJOQNp+x+ty9Racj58kziEmYUEAOcuHySdWdWIWXcR2c8fZuhzT7LCj?=
- =?us-ascii?Q?gOfQdTreIuQ/kProSR3flDKXJPWm72vg2h1HRzf1GvpfmdK9QHniSXw+Yukj?=
- =?us-ascii?Q?fQWyMgHi9dRdvNF/4fyQ67DbnTMqMoyl573nIcpuCMevWRANBo0/7jgfRH8K?=
- =?us-ascii?Q?AElsaZ52hgUYEj2P/y75tRKJChmJ+8V7TfR9CCHOucZiHm/iTVUjslRH8rOw?=
- =?us-ascii?Q?8J7rYJk2aN9IAnIR5nYKE2WvMu019WkGWcgxy5ttFEkq8byHW/NXGRR7dMCd?=
- =?us-ascii?Q?xeVBvcV0ZAzypKQ7++WlGE2YD/5l66mGfoq4AeLz68k3Ar6PA4tOyTVRQNvp?=
- =?us-ascii?Q?pDlRNjzRNXixVqwuy+qtY41afBm9RVd4o+GUqz0CM/CTRynyhRC+vsxqPIpf?=
- =?us-ascii?Q?8u5k6DGP8QXpkQXg8WQXY59BjpKr0nrz/mCMQHlVa8LK/+9xFfFcV6yqkDtI?=
- =?us-ascii?Q?GYGk05hc1JivP75CkxwLrh4UkHkEW/1WSxdL4Tgd2piZEEYxso/UtTDZ27E1?=
- =?us-ascii?Q?LeA5j9yiuoS+tD8yzcRjP9mRM8QBNnDQasTQ6TdC0lEqIchMv4pDGf/oxesf?=
- =?us-ascii?Q?opsmOi5XrfnYj5TcEUIrCjDp5Hupwg6/yFYPbq0WQzJg+x6YjbWaKiwUNm5S?=
- =?us-ascii?Q?h7xycgaZJ0wfI/v8+5kQk+in5T+WmcAWWAw3lwnnWVcfODTnGjRmRVLZV+Xf?=
- =?us-ascii?Q?n+oFOizWEzSmy62sASchiMwKP0S/Ix6hLH/TiBpy0tjN7pNM1bwFuo2aYNh5?=
- =?us-ascii?Q?ntae+oh05ZFDddbKAUSpmGtQLsWnm1Igsz1be4n1nTMaF1H178XwanTTKVwz?=
- =?us-ascii?Q?CX+EFGsFWsvsxGWO6WRvK168KLlt1ApzK3SOdoKvB3AFE+L8yK3Ul7gBiCU1?=
- =?us-ascii?Q?6Ihm7DqiODGa2RgkBTDhX6oscP7QjCo3tD5aKbMvhBlkbgH2NHXi778J4Ph1?=
- =?us-ascii?Q?TyiBzDiWv68/bcsyg+3f8kTMXMdaPsGb8M9bdIk4MW5QjByppn62MndUqDHD?=
- =?us-ascii?Q?4kVaMdkOC6hAGiU3UUTNSRWLxO4tFkAppqYuASC3MRLKvnbk6k3SXebilgAh?=
- =?us-ascii?Q?86ARp4thn11BLf4ODtVmr+D/OfDzgGliScWIiZMmHW6LQKhiimop7RCUNcM?=
- =?us-ascii?Q?=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?241xc/XLrfoUJLZk4mR5+Jap/IquQT5jv70YPEQBq4yF5+Cgh69NV9bTY/Ex?=
- =?us-ascii?Q?8EbXT/fv1B/y8ssvMqgtBSE2xNHGLAWhGoFjtpJjfW8oh0Wttw8nwJVY/Rmx?=
- =?us-ascii?Q?vOmVXon8MWGdBPgK1j2HaGLo9CfmCFF4WE1aasrR9LVo5KJqy6h/iWM+oVDP?=
- =?us-ascii?Q?81And2j8G/kLVb+hP+DFOb86A7PkyEf+BmxOrFC2ID4SScOk/Ybq2g4mn/U6?=
- =?us-ascii?Q?X/7FJvFyiPOpCWx5E97fNyhOj/+3/+hfFGShj/Y2g8St+8vxO0a2dRXJB+2l?=
- =?us-ascii?Q?3IEvdF2hTZHLxk70j4tMu0M9TwbVLMRULHWbwT6Mh0kuJcgjJf1/4uaU8CbD?=
- =?us-ascii?Q?sEJS8Hf/7miTxGW57gDDVXZgRhT/0X0f3CVBwpNffx4Xf/Lfy4tjil9gT+St?=
- =?us-ascii?Q?WmqUBz8FyeG/zhfwUySCnIu/DfRXeFjC4U/5i9wcwbz98FrB+jGfY76PLRQ9?=
- =?us-ascii?Q?npYuyALcU7+WjQRr32Efw902ttG/Hi21yQ6FJP8DFbMsUdMnerZYkW6oE5Zo?=
- =?us-ascii?Q?9yz2l6jobpj/1DJA+coIn4dEtRMm01DyKfZ9Bs4v/X6k1N74tYkW35Mketg3?=
- =?us-ascii?Q?N+bqhYF4k236GOitDgAdTuqIGhKUfNCwEDN4jL14uEKp3WAvNlna9W8H5YQN?=
- =?us-ascii?Q?NdYRbvZnXRhpr36MB59mPXB8Dir+yiifssGF+OCRSo70mt3+xafmTK9zl8j2?=
- =?us-ascii?Q?9MGacE3hy+qF/KhKLNDowe+GVJgQ/7yD9a6fyuhK8uEWZgwnjK60Eywi0ogO?=
- =?us-ascii?Q?NlU2LYG671pcwVKYw0ptKPcR1gPu5E+Lb+2Z7iPD2x+AZe+qPP6KEGpaRHSy?=
- =?us-ascii?Q?Kucym41ybEMv+bahu3e5roqnud9YQQq5e1MFZs5YPCqPmiyjF7a4e6dwf33Y?=
- =?us-ascii?Q?Ci7PgkdZR6FNO2woUq4AMZXb8B8XPfcN18Y6LLq8lBER020qaHLCzAPL8Awx?=
- =?us-ascii?Q?8T7yEsX14cevCV/rrFaDOH5VfE14Pu8BiCiGLkD27A52Jzk1S9y9kwRzBgDQ?=
- =?us-ascii?Q?dBsEh8n2lYVN8bAW2tIw2uzkhgXItnA0Ow9nZKysisWe1reENXOxCSC1+qsE?=
- =?us-ascii?Q?SfQhW2KTr4J2y7ETQC2ao7ybGzhfcvRkmbGNuFfGs/VZbY7eMuUA9lfzXUFS?=
- =?us-ascii?Q?8TLIf5EKWZOIi+uSXsxadXjBr+0IauIx1ftDdGKTMfsyQms4t0EhZz0QM9Ib?=
- =?us-ascii?Q?29eJRuAGL6UQihJQ45l23YSxi+5uHVM0wwCXlljA0VVfAQj0I2SeKD0g3NcJ?=
- =?us-ascii?Q?RFwzY7JxFjbt/43QlukAsqBwqxqB5+tZ0Zy1Ot0+KXcYZmYYupfZM9OThT5c?=
- =?us-ascii?Q?az3w7fJYkFCFjICX3sDObTmCXdNrmnYfm81mO52cg1Z54XRwbpe5qA5pElKE?=
- =?us-ascii?Q?moFCYfi0pv3VCyQGJ2maN+SVW7II7A1Ay9PTZlH7KMx1e9KFdphSaqtdzcKH?=
- =?us-ascii?Q?QlEsRq9mojoto6xqBOSAE+5fBCzJ0wDW?=
-X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 488311a9-454b-4520-d4fb-08df0c87d825
-X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 02:29:29.8927
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9P251MB0077
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260907-v7-0-rc1-rv-dis-int-before-restart-v4-1-42bb460c4afe@linux.dev>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5XNu04DMRCF4VeJXDORx5c1UPEeKIU9OyYjkd3IN
+ laiaN8dC1FEVKE6+pvv3FTlIlzV6+6mCnepsi4j3NNO0TEuHwwyj1ZGm0lbROgBNBRCKB1mqSB
+ Lg8R5LQyFa4ulgU+WvYkuOXxRAzpKbWu5/nx0HPP+L64jICRyU3LWI0V6+5Tl67KfuavD4Lu5J
+ 8NDpBmkZqJnn1MKOf8l7R1p9UOkHaSP2oeQaUY7/ZL1HIlP0va0ntRh27ZvcGW5+XMBAAA=
+X-Change-ID: 20260311-v7-0-rc1-rv-dis-int-before-restart-5b3e52a4b419
+To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ spacemit@lists.linux.dev, Troy Mitchell <troy.mitchell@linux.dev>, 
+ Aurelien Jarno <aurelien@aurel32.net>, Anand Moon <linux.amoon@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3272;
+ i=troy.mitchell@linux.dev; h=from:subject:message-id;
+ bh=gGOR70RWSVNpIZlUx4mowRB4v72DW7/ACEGX60I3uQQ=;
+ b=owGbwMvMwCU2g/N9w09jE33G02pJDFnzFA8cei8r8T4i7E6z+DR9G8f9D1eeLxO86ejMtZ2Xd
+ 3vslVaTjlIWBjEuBlkxRZbuBzzbCnyibAsECn1h5rAygQxh4OIUgIlYnGBkuMk5f/Ik9etJR3ID
+ zqac2f9o4XO9h4t/+r3d22njvz/ugyLDP2OnGQzP4jKa1M46SnwufZi0ie28yCHNi7qSD2r2rd/
+ NzwcA
+X-Developer-Key: i=troy.mitchell@linux.dev; a=openpgp;
+ fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
 
-rx_urb_complete() was computing the received data length from a
-device-supplied field using le32_to_cpu(), but the protocol actually uses
-big-endian byte order.  More critically, this device-derived length was
-passed to plfxlc_mac_rx() without any validation against the actual USB
-transfer size (urb->actual_length), allowing a malicious or malfunctioning
-device to cause out-of-bounds memory access.
+Currently, the RISC-V implementation of machine_restart(), machine_halt(),
+and machine_power_off() invokes the kernel teardown chains (e.g.,
+do_kernel_restart()) with local interrupts enabled and other CPUs still
+running.
 
-Fix this by:
+This implementation fails to provide a deterministic execution environment
+for registered handlers in the restart or power-off notifier chains. These
+chains are intended to be executed in a strict atomic and single-threaded
+context.
 
-1. Using urb->actual_length in rx_urb_complete() instead of parsing a
-   length field from the device-supplied buffer with the wrong endianness.
+Specifically, under CONFIG_PREEMPT_RCU, rcu_read_lock() does not increment
+the preempt_count. If local interrupts remain enabled, the environment
+is not guaranteed to be atomic. This can lead to a context misidentification
+within generic kernel teardown code, causing it to incorrectly enter
+non-atomic paths (such as attempting to acquire sleeping locks), which
+results in fatal "scheduling while atomic" splats or system hangs.
 
-2. Adding minimum length validation in plfxlc_mac_rx() before accessing
-   the rx_status header and payload_length field.
+Additionally, stopping other CPUs ensures the primary CPU has exclusive
+access to the hardware state during the final teardown phase, preventing
+unpredictable interference from other active cores.
 
-3. Validating payload_length against the actual received length to prevent
-   buffer over-reads.
+Align RISC-V with other major architectures by disabling local interrupts
+and stopping other CPUs at the beginning of the shutdown sequences. This
+guarantees the architectural expectations of the kernel's restart and
+power-off handlers are met.
 
-4. Moving the plfxlc_filter_ack() call to after the buffer pointer has
-   been advanced past the rx_status header and length field, so it receives
-   a pointer to the actual 802.11 frame header instead of the rx_status
-   struct.  The old code passed the raw buffer (pointing to struct
-   rx_status) cast to struct ieee80211_hdr, which is a type confusion bug.
-
-Fixes: 68d57a07bfe5 ("wireless: add plfxlc driver for pureLiFi X, XL, XC devices")
-Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
+Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
+Tested-by: Aurelien Jarno <aurelien@aurel32.net>
+Tested-by: Anand Moon <linux.amoon@gmail.com>
 ---
- drivers/net/wireless/purelifi/plfxlc/mac.c | 17 ++++++++++-------
- drivers/net/wireless/purelifi/plfxlc/usb.c |  5 ++---
- 2 files changed, 12 insertions(+), 10 deletions(-)
+Changes in v4:
+- Rebase onto v7.3-rc1.
+- Link to v3: https://lore.kernel.org/r/20260330-v7-0-rc1-rv-dis-int-before-restart-v3-1-5a0577fcd136@linux.spacemit.com
 
-diff --git a/drivers/net/wireless/purelifi/plfxlc/mac.c b/drivers/net/wireless/purelifi/plfxlc/mac.c
-index a900421753ac..d2690cce796a 100644
---- a/drivers/net/wireless/purelifi/plfxlc/mac.c
-+++ b/drivers/net/wireless/purelifi/plfxlc/mac.c
-@@ -407,6 +407,9 @@ int plfxlc_mac_rx(struct ieee80211_hw *hw, const u8 *buffer,
- 	if (!mac->vif)
- 		return 0;
+Changes in v3:
+- add Aurelien's tag
+- Link to v2: https://lore.kernel.org/all/20260317-v7-0-rc1-rv-dis-int-before-restart-v2-1-0ecc85fbb7ff@linux.dev/
+
+Changes in v2:
+- expand the fix to cover machine_halt() and machine_power_off() for
+  architectural consistency.
+- update commit message
+- Link to v1: https://lore.kernel.org/r/20260311-v7-0-rc1-rv-dis-int-before-restart-v1-1-bc46b4351cac@linux.dev
+---
+ arch/riscv/kernel/reset.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/arch/riscv/kernel/reset.c b/arch/riscv/kernel/reset.c
+index 14eb08a6db85..ec84e3c94a3a 100644
+--- a/arch/riscv/kernel/reset.c
++++ b/arch/riscv/kernel/reset.c
+@@ -6,6 +6,7 @@
+ #include <linux/efi.h>
+ #include <linux/reboot.h>
+ #include <linux/pm.h>
++#include <linux/smp.h>
  
-+	if (length < sizeof(struct rx_status) + sizeof(u32))
-+		return -EINVAL;
+ static void __noreturn default_power_off(void)
+ {
+@@ -18,6 +19,9 @@ EXPORT_SYMBOL(pm_power_off);
+ 
+ void machine_restart(char *cmd)
+ {
++	local_irq_disable();
++	smp_send_stop();
 +
- 	status = (struct rx_status *)buffer;
+ 	/*
+ 	 * UpdateCapsule() depends on the system being reset via ResetSystem().
+ 	 */
+@@ -30,12 +34,18 @@ void machine_restart(char *cmd)
  
- 	memset(&stats, 0, sizeof(stats));
-@@ -425,19 +428,19 @@ int plfxlc_mac_rx(struct ieee80211_hw *hw, const u8 *buffer,
- 
- 	mac->crc_errors = be64_to_cpu(status->crc_error_count);
- 
--	/* TODO bad frame check for CRC error*/
--	if (plfxlc_filter_ack(hw, (struct ieee80211_hdr *)buffer, &stats) &&
--	    !mac->pass_ctrl)
--		return 0;
--
- 	buffer += sizeof(struct rx_status);
- 	payload_length = get_unaligned_be32(buffer);
-+	buffer += sizeof(u32);
- 
--	if (payload_length > 1560) {
-+	if (payload_length > 1560 ||
-+	    payload_length + sizeof(struct rx_status) + sizeof(u32) > length) {
- 		dev_err(plfxlc_mac_dev(mac), " > MTU %u\n", payload_length);
- 		return 0;
- 	}
--	buffer += sizeof(u32);
+ void machine_halt(void)
+ {
++	local_irq_disable();
++	smp_send_stop();
 +
-+	if (plfxlc_filter_ack(hw, (struct ieee80211_hdr *)buffer, &stats) &&
-+	    !mac->pass_ctrl)
-+		return 0;
+ 	do_kernel_power_off();
+ 	default_power_off();
+ }
  
- 	fc = get_unaligned((__le16 *)buffer);
- 	need_padding = ieee80211_is_data_qos(fc) ^ ieee80211_has_a4(fc);
-diff --git a/drivers/net/wireless/purelifi/plfxlc/usb.c b/drivers/net/wireless/purelifi/plfxlc/usb.c
-index 6d24086eb8b7..c33b9131bfdd 100644
---- a/drivers/net/wireless/purelifi/plfxlc/usb.c
-+++ b/drivers/net/wireless/purelifi/plfxlc/usb.c
-@@ -117,10 +117,9 @@ static void rx_urb_complete(struct urb *urb)
- 	}
- 
- 	buffer = urb->transfer_buffer;
--	length = le32_to_cpu(*(__le32 *)(buffer + sizeof(struct rx_status)))
--		 + sizeof(u32);
-+	length = urb->actual_length;
- 
--	if (urb->actual_length != (PLF_MSG_STATUS_OFFSET + 1)) {
-+	if (length != (PLF_MSG_STATUS_OFFSET + 1)) {
- 		if (usb->initialized && usb->link_up)
- 			handle_rx_packet(usb, buffer, length);
- 		goto resubmit;
--- 
-2.43.0
+ void machine_power_off(void)
+ {
++	local_irq_disable();
++	smp_send_stop();
++
+ 	do_kernel_power_off();
+ 	default_power_off();
+ }
+
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260311-v7-0-rc1-rv-dis-int-before-restart-5b3e52a4b419
+
+Best regards,
+--  
+Troy Mitchell <troy.mitchell@linux.dev>
 
