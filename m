@@ -1,116 +1,136 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE37B3A641D
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:24:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10E413A7193;
+	Mon,  7 Sep 2026 06:24:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788762282; cv=none; b=PrWcHXFVyUDv/Dexl5IUVJyjlMWIqPe0BXkdXVUDwJmChxf9FIyyaY90wkx3ourfkD5Ww7mlxML+gjxZe83rjyUzQq8/Mb/UEb3L3/+ijMnog0abCvNDdev7Vkt4mASk+jamw1Y9DP1oj7lGuKl5TgU3kPtGg+tvuO9TSxOq7Xc=
+	t=1788762302; cv=none; b=mtGpH8GVaCzhIWKayeyHF5j6AWKBPtpVzm/eeCftuU60yuKSxN/GAdqyrwEET+8bYG79cepF/lDWZW7K8inpaULCJk7+5MPtJSfQxaR9TfCZVpneu7AcOP3GQv2Jbwwqt42hFnf4W0yqMmKcI20olJv2COeFify6xJJ8ULV9yBI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788762282; c=relaxed/simple;
-	bh=VdkVJzDQO+OBjCF1MtCaPsN0N+KhAg88SDzZqzXyrPE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K7EW/xJ/fKRcX8K7XnsvAIH6iAYg2oMQfEz1//JohdAmgi6lQJm/m2WlKtDTuTMlZvxPr3fRJ7eKTALxmdMz8oGu7+btdb0NbnyP02NechRn+TGN5/F00QmtNWvY5nPB7SASHphRfE1+cWN0qrKixSIH4k9+6tgAjx7hiAYxd1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aL/B0RTb; arc=none smtp.client-ip=209.85.210.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788762302; c=relaxed/simple;
+	bh=CmxHwiGY44Ct/DwK/K2mbNhd/0rIQlcqBYb/wuafWwk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VCSADn8Rd1t6+TRQmpOrs1yi+1x1AKhKR8rgG2Lt6I2xo/9aINMSpH7X1ZERixe2LOOUyeLpYWOVQw49Cl3ytxk7UZLaknk0cxZ44On78mGdOPbXhWD2vwlJUizu/+QXWMu6JawEP8jK/rVyniCpGnGp+DiW2MUbi5SPNVN1yVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KNaYLp8s; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aL/B0RTb"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8535a9be75eso2370669b3a.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:24:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788762273; x=1789367073; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0IKKrl5YcZhRUUWHg2BiTHgq9GP40fvyQGauSEF11zQ=;
-        b=aL/B0RTbjA8QU/Wj/J1EEvMOo4iPvVjf1fhm9wfoPAwivwKtxnI7kwb+H5XhfXmgmc
-         R72NE15v7KEbpWqwlX4eoITOCE+pCdEUeNv/NcnJmlmzyX2ylBClII8FD4frNfwocmzC
-         LbaFRHJSU7CG5nligHfthJPPoSoQWNY81hozdDvPAiK9HDjAJE7jcVnHxcY1mbo2Eegb
-         jVbXcTGdiSY5wc0UssI1PPqJFj8hhSuh1c7bLRAayhcD0q0jo3M7MVr2fMcVkA/Ng74+
-         kdMq6Oxa9wL0fGm8v+lHAPv0sPqssyRyGNCH7TdeRA2yXsJkdLXyNpit91NuSRKaxRtP
-         f7QQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788762273; x=1789367073;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0IKKrl5YcZhRUUWHg2BiTHgq9GP40fvyQGauSEF11zQ=;
-        b=lkkggH0smoXt3VfsLT3ndyCmie0fb1iuzP8Dj9AnnOv7OWuxw4XFPCAkumI/WRvzVJ
-         kZOIeAzeCeCA3ucIVdTHyWunnVUr4rEEu92xHe6hDiUDcUotGTxrfDc3isUKWPvs6Bzn
-         S+7fcUXjRGSt1zPj9fIk39JVYYW3c+jtgozEyWZ12NTpI4OJ1vmvTdN1ObanisHow18i
-         jROrjH+K9Ded9OTyEUXLu2MlR3kwlaGve3miFPsReXGdWNcSBhTU8Y/vZpfJMAudIEd9
-         0pHYcFS7yogoO/ODeEc2N35guJvgQMmjGKFlLXrAD0VkIh1j4bnqV09n4dVzwZZEiUM6
-         ENzg==
-X-Forwarded-Encrypted: i=1; AKwUvBw2Vgl4YpIIQxHRDFosU9dlFDBBMP3ixjdLK2E2FxVv+zG/xeOFvOxQK4QmfKu0LaAMzjfQyJYVaJmE/nA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mchwTumkBg8VwktuAvdCa+d1T7axOrVidZ2NztUvCMePenRTG2
-	dU6TKM6UZ7XgRhyACkOnb13rqsQE5wOTNlrsITYNiEZLxqvuPJ5GSWUAzFTvx+aKZa0=
-X-Gm-Gg: AYBFou3JABUdrARkZW7yTBSe5MeWkqwotye/D/01lJaMA+XuxTvxbXoNCorwI2l6wXT
-	xvPY0789gdgUePmt5wgx2Uhi5vX0szUVnqmgYC4vNOStRqp9bJVWTpS8+IbhfWN//EReuDWgkhB
-	bHljI9Zwh3eFejkRttjXlBtP6tlRd+gUq5sDzqLU8l6Y5WtQ38YiE6uSEwllJhmniIVEGjNHF5J
-	3gKMBFsVC+b7nVfRrNafAcfebaCfef6BGj1SNp99G7dvMHhWzhoRi5Lb7dBVnlTjBd7NLFB6Y7E
-	tMT+nAplMT6pN6RrhxTnfIwPyrc1xuyShZ3FxMG0jRMh3jl0RuYZ4zrbH+2Qq/mCjDq3nloElqv
-	J2dnuS89UhQTWRbiraJWjrKqP8nsSOHZvWpfHp0wge8pOYxbVzj+t02BThoLW0N/gKhbsLzkL1N
-	ncy0Xm70nUtR5CCDiaZ/Vl5asz330O4Y9gTQYnnZ0785CDjfPpjLLQjnpAoM1Wz9XxCyhqyUMtL
-	6GzPDt0xGG/Qg==
-X-Received: by 2002:a05:6a21:e081:b0:3bf:6222:2e7e with SMTP id adf61e73a8af0-3da39b4390cmr31343540637.4.1788762272860;
-        Sun, 06 Sep 2026 23:24:32 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-333c9db92b1sm24622408eec.9.2026.09.06.23.24.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 23:24:32 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Ryusuke Konishi <konishi.ryusuke@gmail.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: linux-nilfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] nilfs2: fix typos in comments
-Date: Mon,  7 Sep 2026 11:54:27 +0530
-Message-ID: <20260907062427.11910-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KNaYLp8s"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788762297; x=1820298297;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=CmxHwiGY44Ct/DwK/K2mbNhd/0rIQlcqBYb/wuafWwk=;
+  b=KNaYLp8s1sfZ942pDkH9/UTxX4EM1eUBS7LN4IjSm7B4MpD3LqPvPiuv
+   UyQNrFWK8bpjLKTwDLxga7hPQV/bosQw+/7UXjjDc+qEDjhn22QG2x84F
+   lACzNYlL2jSCEY7h8bH6Z0Vl2EoVIyH35GiM5L1e7pwsQA1ANjWkiv0NU
+   vxNLp00YwT7qQEoxWM813yMDO0V5Bfe6z/E7/X2HHvLnDIxWwa+oBrMFa
+   07Jw3B3plIWZSyOrKyMk/aIDQmzSejUj2acbOJg3VULMAOuRkz9JalLPp
+   nfCAi2qZpPEhfqBUZNRI08JcOReLjaaRBQSgiLD9pfRbmn1x4kJCk9HTm
+   w==;
+X-CSE-ConnectionGUID: 4DlhooHpTCeBdSelZ/QirA==
+X-CSE-MsgGUID: iz+msFfAQpCkrGmHqvQ/fg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="89006516"
+X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; 
+   d="scan'208";a="89006516"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 23:24:54 -0700
+X-CSE-ConnectionGUID: bFKwFv7KTVO4D/oT8f7t0w==
+X-CSE-MsgGUID: UjEGOFZRTbGg5Q4Hjl2BkA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; 
+   d="scan'208";a="268885079"
+Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 23:24:51 -0700
+Message-ID: <cf756325-e7a3-4e8e-8bb8-6b2b820e584c@linux.intel.com>
+Date: Mon, 7 Sep 2026 14:24:49 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] perf: Fix null pointer access in
+ is_include_guest_event()
+To: Vinay Belgaumkar <vinay.belgaumkar@intel.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Andi Kleen <ak@linux.intel.com>, Eranian Stephane <eranian@google.com>
+Cc: linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ Alexander Kanevskiy <alexander.kanevskiy@intel.com>
+References: <20260904181625.1394082-1-vinay.belgaumkar@intel.com>
+Content-Language: en-US
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <20260904181625.1394082-1-vinay.belgaumkar@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Fix typos in comments, reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+LGTM. Thanks.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- fs/nilfs2/sufile.c | 2 +-
- fs/nilfs2/super.c  | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
 
-diff --git a/fs/nilfs2/sufile.c b/fs/nilfs2/sufile.c
-index eceedca02697..6918be6fce2e 100644
---- a/fs/nilfs2/sufile.c
-+++ b/fs/nilfs2/sufile.c
-@@ -1050,7 +1050,7 @@ ssize_t nilfs_sufile_set_suinfo(struct inode *sufile, void *buf,
-  * len:		number of Bytes to trim from start
-  * minlen:	minimum extent length in Bytes
-  *
-- * Decription: nilfs_sufile_trim_fs goes through all segments containing bytes
-+ * Description: nilfs_sufile_trim_fs goes through all segments containing bytes
-  * from start to start+len. start is rounded up to the next block boundary
-  * and start+len is rounded down. For each clean segment blkdev_issue_discard
-  * function is invoked.
-diff --git a/fs/nilfs2/super.c b/fs/nilfs2/super.c
-index 893a504cb80c..65f44ff6779e 100644
---- a/fs/nilfs2/super.c
-+++ b/fs/nilfs2/super.c
-@@ -654,7 +654,7 @@ static int nilfs_statfs(struct dentry *dentry, struct kstatfs *buf)
- 			/*
- 			 * If nilfs_palloc_count_max_entries() returns
- 			 * -ERANGE error code then we simply treat
--			 * curent inodes count as maximum possible and
-+			 * current inodes count as maximum possible and
- 			 * zero as free inodes value.
- 			 */
- 			nmaxinodes = atomic64_read(&root->inodes_count);
--- 
-2.48.1
-
+On 9/5/2026 2:16 AM, Vinay Belgaumkar wrote:
+> A typical module unload occurring event when there is an active perf
+> connection leads to freeing of the pmu pointer. The call log is something
+> like:
+>  ..
+>  __pmu_detach_event
+>  pmu_detach_event
+>  pmu_detach_events
+>  perf_pmu_unregister
+>  ..
+>
+> __pmu_detach_event() sets event->pmu to null. When the perf connection
+> finally is closed, the following stack trace is observed:
+>
+>  Oops: general protection fault, kernel NULL pointer dereference
+>  ...
+>  RIP: 0010:_free_event+0x3e/0x370
+>  ...
+>  Call Trace:
+>  ...
+>  perf_event_release_kernel+0x260/0x2d0
+>  perf_release+0x12/0x20
+>
+> A call to mediated_pmu_unaccount_event() inside _free_event() is the root
+> cause of this crash. Adding a check inside is_include_guest_event() ensures
+> we don't accidentally access a null pmu ptr. In addition to this, we will
+> now call mediated_pmu_unaccount_event() before clearing the pmu ptr so that
+> nr_include_guest_events counts are maintained correctly.
+>
+> Fixes: eff95e170275 ("perf: Add APIs to create/release mediated guest vPMUs")
+> Cc: Alexander Kanevskiy <alexander.kanevskiy@intel.com>
+> Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>
+> Assisted-by: Claude:Claude-Sonnet-5
+> Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+> ---
+>  kernel/events/core.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/kernel/events/core.c b/kernel/events/core.c
+> index a6c8e38a3110..7777e82aad5e 100644
+> --- a/kernel/events/core.c
+> +++ b/kernel/events/core.c
+> @@ -6350,6 +6350,9 @@ static DEFINE_MUTEX(perf_mediated_pmu_mutex);
+>  /* !exclude_guest event of PMU with PERF_PMU_CAP_MEDIATED_VPMU */
+>  static inline bool is_include_guest_event(struct perf_event *event)
+>  {
+> +	if (!event->pmu)
+> +		return false;
+> +
+>  	if ((event->pmu->capabilities & PERF_PMU_CAP_MEDIATED_VPMU) &&
+>  	    !event->attr.exclude_guest)
+>  		return true;
+> @@ -13002,6 +13005,7 @@ static void __pmu_detach_event(struct pmu *pmu, struct perf_event *event,
+>  	exclusive_event_destroy(event);
+>  	module_put(pmu->module);
+>  
+> +	mediated_pmu_unaccount_event(event);
+>  	event->pmu = NULL; /* force fault instead of UAF */
+>  }
+>  
