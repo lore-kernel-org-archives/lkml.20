@@ -1,154 +1,295 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013029.outbound.protection.outlook.com [40.93.201.29])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9905B4ADD88
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:07:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788793675; cv=none; b=Y/hKvGFcu5mWbTvN3xaN7m0cH/KiO3jS9QQ8Io1lKJH0Cy6w7f5IyXwbtgfpp8SlyKQ0LJYxHDzaYGDHnfugtADscL3xaEUBQ+qbrIcvFKTR9RbUSIXHbr3sA7xl2zl5jLrjSLdiMDkUj70Dm++Imh3NAhZb8OQfClvw0oFXUYQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788793675; c=relaxed/simple;
-	bh=QIW325cnNhaMcdbwLES3qKrrKOmDydBwFAQQk6R+p10=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YmCuYgA7guH55AOIFNkxqgPTMTN/IUVSrkd9UPZWob5aMvXU4g/dW1v6W+uxb62RlMFI/Y0oGmm62Egq6SEXNiX3e+WxxtpND09lPW1BTi9yrLutAmCFWp1+y/kYc0eeuYzyHP1j69xG1uotwBW9jsIrUtRoJPr1d/jX4mHCrQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iPQjYbIy; arc=none smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A355013B0;
+	Mon,  7 Sep 2026 15:07:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.29
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788793674; cv=fail; b=n12xEqvSzoRJ8p8k0JmT9i4SPumcS4Tfcqoz0ejs/inzBhLsSOFOXwMbxVoSSOFt5bYUS57sPuEEK0DvULjyQpx35mEXP0SxlPjRm+mnq0FhtVQ7RGfaQRTvDl13re+yT7QnC7GgIH2awNkycBhUkmcH6Nf9yYcDWHohCg3OOjE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788793674; c=relaxed/simple;
+	bh=tohPry0VHd0yALjSH39rCWpifVQaOCMt23uDweBJG+k=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=IEPQ/LCNFS1hCkWNA6efYU8smXsQ3b1hyB9sZKa1oi7GYgyIeE7g1MbWAzDVTf5q41xEtoB7uI1vd6sDqkhoS5zY+VPRyV0l27l3KF4Y6emtmwKgjWGSC8fhXWJeAXCl4f2ZBE9rJp497n9zNmZynGKT12KHYLvMmeev0VX+U7o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Lbd79j2+; arc=fail smtp.client-ip=40.93.201.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iPQjYbIy"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c253425b253so523820966b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:07:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788793672; x=1789398472; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=t0UFyMkj4yYcM7C9qagjMJD0/AtaB8gajsJEK2CwTCQ=;
-        b=iPQjYbIyxf73OTYkMOoCUR6O/68sStd2SWgDycwrJOfwuz85JadFOBl44GBZ4sgaER
-         DsPpT8R7dRjdthk3/ndAbKTvFSxvd+fIb8uYmgc2b/ghM17vWBibG7H+xaAm9+BlIZcV
-         uqO/0dfl94FIE19W4eGFq3QkxJnRSUTvTb2DAmy0OGQPkaLBxqk+coyzID1lqQ7vjOLY
-         0dYGoFlO0pIqT29rT038tAtbEMKSLVypSFipfJMYIIWl9iOFguhu/Ie86HUP0/aH8OpM
-         54rEeXIxOXIB4zXDPor8Uuuqp1q7OpFPnl9MT1fG0IQDV+IK4wB/AxypEAZlqka4fsSB
-         9Tcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788793672; x=1789398472;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=t0UFyMkj4yYcM7C9qagjMJD0/AtaB8gajsJEK2CwTCQ=;
-        b=bULjxVUqvsBYAOyxm38752MWKZeqVzKI6cSfrov6i4EEcaH7S2XnaQyjNvof4lAnnb
-         CN0LRQcVirEzXfW/a5toPBQqMndV002xaoPPWXJ4huLGTgoUM5gxj9tsTC1EsMmDYUgN
-         ir+V/RKp+rRJc6jH7vAvYrIyxAHk8lXm4ln6jTRhy3Kp9iukCPDw9mMd6uS0PKK85qrf
-         wcY9qEGZOqAw4FuurXtDHFIEK6u8suw8uyzFB02oiqfn/AGEp3QoHoJJjvSpHQLW7qOz
-         L8u1X5UWTFp2pDwZC15KVtyHvzWGtxbhAtHzOehJ/NMD7C1ehgKmpNhBOdlWnRBXegNX
-         Fo6g==
-X-Forwarded-Encrypted: i=1; AKwUvByhsCYuDz/roCVvDVYfalB4QumClIR+y3rwJQALrqK/WUCvlLBPTzKSFXKccZ3bHzuzR98nOXQaXI2zjYw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kibYuCrO09C7fzYItEVKkVlz9EFiUUbWQp/KUDSuoG/Rki7DpI
-	T+Jbvk7idjAMgUd/k9hsOrz40pOvJEZJgaRXuAiKl/8OzZYjU4W9uxBp
-X-Gm-Gg: AYBFou2w2WYdEUttVxl+sb2A4egan8QWMZK4Sle1nBNzxne4Dw8MNnrJXBmVyADxagz
-	Va8a37ngQjFO3pnIWlbvYdEiz1XiEuUt3Aq6uvspmz0xY7oNFRXV9qL0EE84HtYfmerbhcsXfYX
-	iiRgleq9Zf+zWTXaLqmeIlhunF4dd0LXoicDnkKwz19L2ClXLyZNTQZEPF/Vf0w+Q9gDVvqkBtU
-	IGiWjqPcxPxg3s3rhRkJOw9RSctgrNcO2+5GkHygNEpWg6+ltHTPwKgq23Y2kGl0iBoYeUvA0C/
-	0Waa3wClzEsTMCdTnjFztWAdRGilJ574RfhZa3NyekZyDNW/ISU4yOG4+O7U6EbwHr38X4GZM4j
-	7F9Mf/K1SumX+zJQ51fhAkC2bNusUbGmOkhJXLs6M5a2o/1VVNlFdh7dYx2VUrRA4u64RXZAr3V
-	OZi2A74WAoU7kquZDLV1XtQmGh56wIUnAjVKQQ7e7waqZlWfAp8xkETTfB
-X-Received: by 2002:a17:907:3d44:b0:c27:420b:7c90 with SMTP id a640c23a62f3a-c27420ba0camr424931166b.48.1788793671549;
-        Mon, 07 Sep 2026 08:07:51 -0700 (PDT)
-Received: from grower.astralinux.ru ([82.22.172.205])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d5773c5sm478376566b.40.2026.09.07.08.07.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 08:07:51 -0700 (PDT)
-From: Alexander Martyniuk <alexevgmart@gmail.com>
-To: sashal@kernel.org,
-	stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: alexevgmart@gmail.com,
-	karolherbst@gmail.com,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	mhiramat@kernel.org,
-	mingo@kernel.org,
-	nouveau@lists.freedesktop.org,
-	ppaalanen@gmail.com,
-	rostedt@goodmis.org,
-	tglx@linutronix.de,
-	Mark Rutland <mark.rutland@arm.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH v2 5.10 1/2] tracing/mmiotrace: Remove reference to unused per CPU data pointer
-Date: Mon,  7 Sep 2026 18:07:25 +0300
-Message-ID: <20260907150726.168416-2-alexevgmart@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260907150726.168416-1-alexevgmart@gmail.com>
-References: <20260903-daily-reply-0001-re-mmiotrace-null-check-5.10@kernel.org>
- <20260907150726.168416-1-alexevgmart@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Lbd79j2+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Mn1DFG68YjbC/P3XbelNDy5dV+uATiG0G45oQLKH8zb4zKzxneSK47cJxZixacXdYfsA7LqEuuRwPHxBXrp5dJDjUdD5/A4VRXvBfM6L8GqaZbj/xqzqXBo8AGxw89Ne/lOiBSTbKtSPssszIrUPVv6OaNruzppaJYqaJ6BgLmAat4ui0UOcOIf9v8QSM+wHhj4Ue2HOLZsJWUiLVN7SRx9t54JiFQ19+S3mhSVwut2/zxPlNsEUfNM+H4+TMnzMoD6RBqyjR0ncxZ/fxyWfV12qvCZ9YXmkSXsG/xJvnPYIUq5LzX+u0S+oAf0v6gLthSQa7rE0bT8hO/hRdCbpRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=t7gq0AS+Lf42T/2ZZxI6mmOhjSjVaehvWudNBlOrEvU=;
+ b=DCPIw7tuT2yqkvp79pIVvhm2buPSCD0MQu1Jm9/nRt/nwI6tQcnKfc92ava09pOTd91NsrpyGL2XedhsJQ/xknfd75HQljbsarNQ37+3hnN+AZQgK/PB8WHVyleohHgISP0n+2yg3w2EcoTiCIveDmlJYbjfdwWRYTiZTS1D2LF3hDgtifgq7KiFKJDaXziJ3gBZOKJFVZmBz/MC3hyAjDBUMsxn72+kD4WQJc2eOigs4oVYRYEhmze0v3gdaEVLY8yd5QmzKnhz3dAp3XJ5G7JT1t9tL94yCShoE6mp/AomrBbquYbED3lD6f+BzpFAsBOJ05Is867/dE3EWRmfNQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=t7gq0AS+Lf42T/2ZZxI6mmOhjSjVaehvWudNBlOrEvU=;
+ b=Lbd79j2+LzsbVxP1H2k/jR3RFi+miLVAy306rBsKVEVE8goJJR2CgqFKU1acaVlYsODYRxKnHmumbdrhvRx49JPlWezVGRWyztzcbyO7SPhtN7gg4xPS82a8YeMia3Ag5w4db0VNR+2e54BbzeMPki807dhlj/dHKxgIItAN9o+x/E648ajIOaZqp2Hyc2Hsasjy0j3N3+ymmKylkGmfQq7GGKmQE7cZR9IAW6E4MFZTVSQuNGV8ePQKeW0r7bWaXMuBevQwNkVCYP9XEfjMzxNJ5hvlJlEUh+AoFCNhTdOKuBY9ZdGu/ycyR/aVFhshXUobvS6LRe0N+rV3UIU6/g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by CY8PR12MB7754.namprd12.prod.outlook.com (2603:10b6:930:86::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
+ 2026 15:07:48 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0382.007; Mon, 7 Sep 2026
+ 15:07:48 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 08 Sep 2026 00:07:45 +0900
+Message-Id: <DL96FLHTRWOI.1FKOXD8RCXBUP@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
+ <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v2 4/8] gpu: nova-core: add NVKV encoder
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
+References: <20260827-b4-nvkv-v2-0-0de9d5c8658c@nvidia.com>
+ <20260827-b4-nvkv-v2-4-0de9d5c8658c@nvidia.com>
+In-Reply-To: <20260827-b4-nvkv-v2-4-0de9d5c8658c@nvidia.com>
+X-ClientProxiedBy: TY6PR01CA0012.jpnprd01.prod.outlook.com
+ (2603:1096:405:3bc::17) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CY8PR12MB7754:EE_
+X-MS-Office365-Filtering-Correlation-Id: 59d4b2db-a084-44f1-23c1-08df0cf1c76d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|10070799003|366016|23010399003|1800799024|6133799003|10067099003|56012099006|4143699003|11063799006|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	C/0KivCkH1V/1V3BhploUxDXwti686ZcaH1yhIsQD1Oou5W/1ZSgiyUi4KK6sga+njrB4Jr9J+pBaUorv6SZ1UxTo/nnBQxIwYEv7iGv2MSpO364PYFBIJEJ/DkfDtLdwqCqrqOZhe0yASX3nWLCvVtShUiOiVt7iHdxD8guE+y6z6Vtuc66sCC+/3yKmCIuQIfIW26Kt6TWeaqUF8x1Nq06X//dJC3OpIRqumem4IRm1+2zjJYQNQGxnyzDCIU+S/K0kxRzyOtx2f7JnJ2eVUe7C5yR/f3MCI9skXp560HDn0Z/r1L4d5ffbHMl3A4QsSwVwl5SXDc3BlxH8T1yJR1M/TFyOAmWNdhj4y9ybCNgJfZ7ZTpsCc5bi0hH+Exbj/1LPEZ2mJOCY6CKv9ngai6udATW7rQ+RywEY5rAgTosDaIXuoSgU+o2bIqgsBElajVFxHMrzali6VnDRLuIZayG3GqLCw6ZYjwWIyWydGz+4zOdaWmtqJi8rQKWLrIJalPDjxUotNUfyy4eRw6Zqhyqop+RPBh4iI/B4QZvszSSeCMNyIJv7Y9uZQsXDZFVlzSo4v6/ROfMplsxLoO+8ZHhLoLoo+kQx6ClEbbmmjiYWkGitY4ZtqWhP/tzo2rz03G0XumO3JuydP+Bjub322LdaTx/xq+W1dVPXpyMUp4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(10070799003)(366016)(23010399003)(1800799024)(6133799003)(10067099003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?a3R5OUd5MkVGSXBSeVVHNkx0bmVqbkpKVWFmYi9TaEF5UVZkWWFrWWpoL3Nx?=
+ =?utf-8?B?ZGNrMUIvNFllMktsOCt0blljTEliWngwcng3RkpNOTNHVVhJVXRSM1hmek1p?=
+ =?utf-8?B?VFlKamdQdk1nYkxKVk11UXhJdHFDMjV5OGVYeFp4UVlHWGtiYkNmNWZQUnFh?=
+ =?utf-8?B?VmpEdlY2ZlYwM1Nkbms4eCtVTVJ1ZFlaemhQd3Y2aDJ0TUNGVjArWVM5VldL?=
+ =?utf-8?B?QVgvK3FBYTRnUlc0SURaU2dHeC9KSmRDRHJuU0lnMVlIeW5SMUgyZzdvMXJG?=
+ =?utf-8?B?YWt4RXkxbkVRaVJheWpNVmZoRjZpb1N0djFwcUR4K3U1VVlKUGJ3YThteTRp?=
+ =?utf-8?B?ZlYybjNmaVhIVkdyVDBWNHRENVRKVXJpZlU3TVpSd2FKbnkyMjkvK3ZuSFRt?=
+ =?utf-8?B?akl4bEdUSVVkODU1Mkk0bkUwakdKSXlwR2toTm5kWGVKT2pQbW5sY2l1anVG?=
+ =?utf-8?B?cVZ2cGpORlR5ZGtSSXdyV2grTUxUN0tmcGxsQ1BZbGgzWG51VWRPNUlObkhJ?=
+ =?utf-8?B?Q3NzVTZwQ1c1T1kvbVdaQmR6UEh4RlVHdlk5TURDQmJUaFRPWkc0MVp0a2FZ?=
+ =?utf-8?B?N3VCU0c1STNNcndHR2JlT082c1Z1M2JjRVFDRUJYaFZIcUlBYVlrak1nSmdY?=
+ =?utf-8?B?bkdQK1haSGppbnlDTFdaNTloZFVUN1NJWUxlKzJVWFRPb1lOeDd0b0dFeGEr?=
+ =?utf-8?B?TnVjTlBGYkJHZW9obUVYVWRpekRUVm9ZT2pxeVdHb3FDY2hEcVFQQmdkVXRW?=
+ =?utf-8?B?UGh0elJDRHQyZHBzTGVabllyb0REZzFVbmpDWVJKZGsxYW15Z2VzQmFjSmFQ?=
+ =?utf-8?B?aWVlRGJPNUQybTZESVkwZnQzMmxuMHcrUnNsamdzZ21kOXMxSGpWOWJaS3Z1?=
+ =?utf-8?B?YWx3bWhhOEpBZmRWYmo1bGNxRWJNbUoyc20rSzRldHVFNTZaaTBscklrcDZN?=
+ =?utf-8?B?eEE3Vko3MzdETU9QcTBqVC9idXc3MzUrdDhvSW03dVZoV0h2ZnpFSzk2Wm91?=
+ =?utf-8?B?WXEyT3pPQ0MySTVWbTJhSHVxNmc1VXRYRDdQVWtnUWJhRC9Md1lGNVJYd0dJ?=
+ =?utf-8?B?UVpZb00yKzRJM0lJWUlNanZJVUg0cmlaQmVuckF3R3hsdkYzVFE3VEZ4U05H?=
+ =?utf-8?B?WWIvSjdBWDZQd0l6cDlnVmRxbjZ4ZURIZWZ5ZWRSOXJsa3Z0akoxRzVsT09G?=
+ =?utf-8?B?enZGdGdxajcvK0xPQjBPV3hiS1ZZYnVqK2V1SnNWR3BCYTRzUTV3bSs4c3hN?=
+ =?utf-8?B?bHl1dmRWTWJMZWt5WmpnaWNkL2ltYUFSVjhWNGFWYW9COEpsdittVlRPYUho?=
+ =?utf-8?B?dVhBaTRucTBaK2tLU1p2YWRVNGdqV0lVWEtCMjREcFdlQzNnR3pyZFgzaUU0?=
+ =?utf-8?B?RGc1Qy9zYTErSGNBQ0ZvNEwwbm9nU1RrSzVwanJVUXJ4dHllVTY0dVc0RXpG?=
+ =?utf-8?B?RDB5dmNtZzBrd2xBNWhKcWVkcDQrTU8ya3FHSHV0UXVWZUN0bzA5a3NwNDgv?=
+ =?utf-8?B?ZkpsQjR3U2RaQ2JkM0ZkRlNDWisrcnBDMWVtVUVkUEFzb1VOT0p2NFZPZkNP?=
+ =?utf-8?B?SjJETlJ1YW10R2grNkcrNEM1K2ZGcVBHR1h4ZDBZL1ZGNHdib25oV0ZORDMx?=
+ =?utf-8?B?OEd2MklRb0p1eVFkSU5OdFNTTHdnUGM4NWpUVjArL0ZpS2R2MzdYcEkxS2dP?=
+ =?utf-8?B?UUViUVdKbkwveFVhZGpybFpuMnVKcUZOK3I1L3lTZll4b3ZHUWczNmxhOUpj?=
+ =?utf-8?B?NURRTEtoSGppSEdhQTNWZ1NPTlRDcWJsNUdwOUoveXFXMjJaaDlXeGJ1TGg2?=
+ =?utf-8?B?ZWpnQURGNjBKeGIrRS81RjlGd2Fzb0RaWXU5Zk5ZY004ODhldWdkeSs2S0NG?=
+ =?utf-8?B?RGtaakRzWEFuZnpLdnlPU1ZLN0xSZFQ4Wm8yWFZ0UXpPM2lrNFZjdUVNdXlo?=
+ =?utf-8?B?SHBpeHlISVhVN3BGUDhKYlVyYTBpMUk3V2VNREhnZ0xYdks3ZXVWUXgyY0s3?=
+ =?utf-8?B?QU9YZWVrb0JMNllaSmRMZkJUaTgyRFBPUDg1US9MRjM4NFhrY25IUDVWL2l2?=
+ =?utf-8?B?dW10YnFHL08xOVJuaWJFWmRJbmNYQytPcTRLTm5FdnBIdWNteVp5eXlpaGNp?=
+ =?utf-8?B?c29GZWdPS1hWOXM0aGZkT0xQVWNueFVYQ0t1NHl1elh1S3VDOSt2ZE4zTFJI?=
+ =?utf-8?B?djUya29aakI2S21oOW9JNXViWnNnanVYdnVwblZoSDZzREhDbFlhLzlCZVor?=
+ =?utf-8?B?M3IzU0ZQeHdKOHdNeXErSTNPaGZ3VG1OYkw0VU5yd2xkWmJzaU0zRHpjdSty?=
+ =?utf-8?B?Wm5tUDlhdHgySTdEWFlLeW9telBreTFpOHJIU0ZVdXRtTzlxQWZ0eThDU09R?=
+ =?utf-8?Q?CMF1xsHHV94jxQrHSkT8DsRjim+eIGTrzjft78VwneLE3?=
+X-MS-Exchange-AntiSpam-MessageData-1: PvE3slR7rr+t9Q==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 59d4b2db-a084-44f1-23c1-08df0cf1c76d
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 15:07:48.4907
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Hp+3h6ywkFfzypro7PkHwfKPgGH1JyvnZt05/95UQua9xUsr8H+cfb76wVZqpvWsHIC0wdmVczLzI4Z7iCF4HA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7754
 
-From: Steven Rostedt <rostedt@goodmis.org>
+On Thu Aug 27, 2026 at 11:12 PM JST, Eliot Courtney wrote:
+<...>
+> +/// An encoded NVKV byte stream.
+> +///
+> +/// # Invariants
+> +///
+> +/// The byte length is always a multiple of `size_of::<u64>()`.
+> +pub(crate) struct EncodedStream(Vec<u8, StreamAllocator>);
+> +
+> +impl EncodedStream {
+> +    /// Creates an empty stream.
+> +    fn new() -> Self {
+> +        // INVARIANT: An empty stream's byte length is 0, a multiple of =
+`size_of::<u64>()`.
+> +        Self(Vec::new())
+> +    }
+> +
+> +    /// Appends a single `u64` to the stream.
+> +    fn push_u64(&mut self, value: u64) -> Result {
+> +        // INVARIANT: Appending `size_of::<u64>()` bytes keeps the byte =
+length a multiple of
+> +        // `size_of::<u64>()`.
+> +        Ok(self.0.extend_from_slice(&value.to_ne_bytes(), GFP_KERNEL)?)
+> +    }
+> +
+> +    /// Appends `data` as bytes to the stream, zero-padded to a `u64` bo=
+undary.
+> +    fn extend_with_padding<T: IntoBytes + Immutable + ?Sized>(&mut self,=
+ data: &T) -> Result {
+> +        let bytes =3D data.as_bytes();
+> +        let padded =3D bytes.len().next_multiple_of(size_of::<u64>());
+> +        // Reserve so that a failed allocation can't leave the invariant=
+ violated.
+> +        self.0.reserve(padded, GFP_KERNEL)?;
+> +        self.0.extend_from_slice(bytes, GFP_KERNEL)?;
+> +        // INVARIANT: The padding ensures the total length remains a mul=
+tiple of
+> +        // `size_of::<u64>()`.
+> +        Ok(self.0.extend_with(padded - bytes.len(), 0u8, GFP_KERNEL)?)
+> +    }
+> +}
+> +
+> +// The Deref to &[u64] relies on this alignment guarantee.
 
-commit 6936298393d8d8bc3cec6b704f6a774162cf9bd3 upstream.
+nit: `&[u64]`.
 
-The mmiotracer referenced the per CPU array_buffer->data descriptor but
-never actually used it. Remove the references to it.
+<...>
+> +/// Describes the format of the following NVKV operation.
+> +#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+> +#[repr(u8)]
+> +enum Opcode {
+> +    /// A 32-bit value in the op word.
+> +    Imm32 =3D 0,
+> +    /// 32-bit values for consecutive keys, starting at the op word's ke=
+y.
+> +    Seq32 =3D 1,
+> +    /// 64-bit values for consecutive keys, starting at the op word's ke=
+y.
+> +    Seq64 =3D 2,
+> +    /// An array of bytes.
+> +    Array8 =3D 3,
+> +    /// An array of 32-bit elements.
+> +    Array32 =3D 4,
+> +    /// An array of 64-bit elements.
+> +    Array64 =3D 5,
+> +}
+> +
+> +// TODO[FPRI]: This is a temporary solution to be replaced with the corr=
+esponding derive macros once
+> +// they land.
 
-Cc: Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Link: https://lore.kernel.org/20250505212234.696945463@goodmis.org
-Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
-Signed-off-by: Alexander Martyniuk <alexevgmart@gmail.com>
----
-Backport fix for CVE-2026-80689
- kernel/trace/trace_mmiotrace.c | 12 ++----------
- 1 file changed, 2 insertions(+), 10 deletions(-)
+Actually, can't you use the nova-core local `bounded_enum!` macro to
+define `OpCode`? This would generate the implementations below automaticall=
+y.
 
-diff --git a/kernel/trace/trace_mmiotrace.c b/kernel/trace/trace_mmiotrace.c
-index e8ae2d92a678..55ba76bea98b 100644
---- a/kernel/trace/trace_mmiotrace.c
-+++ b/kernel/trace/trace_mmiotrace.c
-@@ -294,7 +294,6 @@ __init static int init_mmio_trace(void)
- device_initcall(init_mmio_trace);
- 
- static void __trace_mmiotrace_rw(struct trace_array *tr,
--				struct trace_array_cpu *data,
- 				struct mmiotrace_rw *rw)
- {
- 	struct trace_event_call *call = &event_mmiotrace_rw;
-@@ -319,12 +318,10 @@ static void __trace_mmiotrace_rw(struct trace_array *tr,
- void mmio_trace_rw(struct mmiotrace_rw *rw)
- {
- 	struct trace_array *tr = mmio_trace_array;
--	struct trace_array_cpu *data = per_cpu_ptr(tr->array_buffer.data, smp_processor_id());
--	__trace_mmiotrace_rw(tr, data, rw);
-+	__trace_mmiotrace_rw(tr, rw);
- }
- 
- static void __trace_mmiotrace_map(struct trace_array *tr,
--				struct trace_array_cpu *data,
- 				struct mmiotrace_map *map)
- {
- 	struct trace_event_call *call = &event_mmiotrace_map;
-@@ -349,12 +346,7 @@ static void __trace_mmiotrace_map(struct trace_array *tr,
- void mmio_trace_mapping(struct mmiotrace_map *map)
- {
- 	struct trace_array *tr = mmio_trace_array;
--	struct trace_array_cpu *data;
--
--	preempt_disable();
--	data = per_cpu_ptr(tr->array_buffer.data, smp_processor_id());
--	__trace_mmiotrace_map(tr, data, map);
--	preempt_enable();
-+	__trace_mmiotrace_map(tr, map);
- }
- 
- int mmio_trace_printk(const char *fmt, va_list args)
--- 
-2.43.0
+> +impl TryFrom<Bounded<u64, 4>> for Opcode {
+> +    type Error =3D Error;
+> +
+> +    fn try_from(value: Bounded<u64, 4>) -> Result<Self> {
+> +        match value.get() {
+> +            0 =3D> Ok(Self::Imm32),
+> +            1 =3D> Ok(Self::Seq32),
+> +            2 =3D> Ok(Self::Seq64),
+> +            3 =3D> Ok(Self::Array8),
+> +            4 =3D> Ok(Self::Array32),
+> +            5 =3D> Ok(Self::Array64),
+> +            _ =3D> Err(EINVAL),
+> +        }
+> +    }
+> +}
+> +
+> +impl From<Opcode> for Bounded<u64, 4> {
+> +    fn from(value: Opcode) -> Self {
+> +        Bounded::from_expr(value as u64)
+> +    }
+> +}
 
+Sashiko has a point that `from` requires `#[inline(always)]`. Ideally,
+we prefer to avoid using `from_expr` when we can, which in this case we
+can by doing an exhaustive enumeration. Which is exactly what the
+`bounded_enum` does, so leveraging it also solves this issue. :)
+
+> diff --git a/drivers/gpu/nova-core/gsp/nvkv/encode.rs b/drivers/gpu/nova-=
+core/gsp/nvkv/encode.rs
+> new file mode 100644
+> index 000000000000..6c1a9cbd90e8
+> --- /dev/null
+> +++ b/drivers/gpu/nova-core/gsp/nvkv/encode.rs
+> @@ -0,0 +1,210 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFIL=
+IATES. All rights reserved.
+> +
+> +#![cfg_attr(not(CONFIG_KUNIT), expect(dead_code))]
+> +
+> +use kernel::prelude::*;
+> +
+> +use super::{
+> +    EncodedStream,
+> +    Index,
+> +    KeyId,
+> +    Op,
+> +    Opcode, //
+> +};
+> +
+> +/// An encoder for an NVKV stream.
+> +pub(crate) struct Encoder {
+> +    stream: EncodedStream,
+> +}
+> +
+> +impl Encoder {
+> +    /// Creates an empty encoder.
+> +    pub(crate) fn new() -> Self {
+> +        Self {
+> +            stream: EncodedStream::new(),
+> +        }
+> +    }
+> +
+> +    /// Returns the encoded data.
+> +    #[must_use =3D "encoded stream must be consumed"]
+> +    pub(crate) fn finish(self) -> EncodedStream {
+> +        self.stream
+> +    }
+> +
+> +    #[inline(always)]
+
+Unless not inlining implies a build error (as is the case for
+`Bounded::from_expr`), I think the convention is to stick to `#[inline]`
+for these.
+
+Same applies for other methods.
