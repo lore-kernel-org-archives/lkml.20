@@ -1,150 +1,411 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-00641c01.pphosted.com (mx0a-00641c01.pphosted.com [205.220.165.146])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51ACB44161B
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:52:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A8BF15FA81;
+	Mon,  7 Sep 2026 08:52:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.165.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788771140; cv=none; b=KuVoqxF1FR2D31WMKCN1lNVPHws5VDzOtzOh6KxUMKU46bZEExPtICRwzeOq+ZiDtNvSzrb6sJDf45rGwpylH2QbQLw63+iDq4KEeEfOhPiBPEyYacy7Rqo5qKbFr40862J6DeTzfHw/YMXhwC4JNQZZ76VvI3avABXptY/laL0=
+	t=1788771180; cv=none; b=g2g7w9Wraslo3HZisgyWut3NJzyy2crdrt13gUCKEW+/rpv+dN88hMdSqaQrK6uU6N7OY1/vkI0mpCaTDneEwydAY8w+l4XYWoSsGOLTRdb5LqRCFI5PZdPtYb+NQWFirZzHzoy+vvMtruc2HwXkUb/B68spgoKzLsjkFe/RDcg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788771140; c=relaxed/simple;
-	bh=3q6Z39zXu+sXz4L20YENV+ryY3+KVhZBD8nZWaT2u4k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WFxhWUvYZJUhQVvGxs09UwsW5MpEFLXJ4DDB/omnl5m4eIQ3UKvi6n9VtzyOQVpAl9jjQw10OC8L8mdK8gOQZQghxej7cm7iCrUrnFvhdTZhFAeZ8osa+e8cEz/trEAHU1PA+A6dnRfL1axtYUjnBW9ZLYvkcOHJoWFDkmiefYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jB3TrXkE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UBEgnkic; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788771180; c=relaxed/simple;
+	bh=HArkahUBkRsmYbLxBJx6vXqz9gnFThygyG/y/jl1ofA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PhLcNqjlSDqA8Ygjf1YVBlOWtxjWfPVi1jH5iYshPMRnqf46+TdoEkFpLuHIwlcvCv9g0it8HQE7SQ0m0a5lZ/vdJbM40Xkh+sdZyxrbH+/Piz1kuRO2xS6UCc6FvE1/Ps8LfgqseAZidd1jGnwlNqWOV+5qzTYIrH8rX9G43Oo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uw.edu; spf=pass smtp.mailfrom=uw.edu; dkim=pass (2048-bit key) header.d=uw.edu header.i=@uw.edu header.b=b2fbuoNQ; arc=none smtp.client-ip=205.220.165.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uw.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uw.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jB3TrXkE";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UBEgnkic"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68777en83903354
-	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 08:52:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	45cffnb6U5RjyHE1JFoKDcGtCi7FlACzCtxDXUL0umU=; b=jB3TrXkE1zwUtZjg
-	B2r8P8Xx5ngw3qziVapRbL2rKVCMvTdes+HAJ3MGDZcaMHufVkAdvjVkB42vkW4o
-	3r6eKQAS4wX9+KmbeRHIMlAscWH49dB+FOUMXLl2oHunWXNA2LuUHoywKreIn2/K
-	HqMnWpwmH3nDlHcfXWQ8w+gcXnuhP1RtR8M7eXqZzNMoad52sFE18AkvKMfR9oq3
-	nW5P5f2cnNF3CQy/Am4ORP3Cfvnlm0geT0gdB0JOGefj9neMZh64ARPZP7cxjr2J
-	K/c+oqeTELW+bQPhwkBfpXhiKiVY2/nUzC4fFWrIlUjn+XG6TB6+qaWEdHrmEuSz
-	ncqxvg==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ggany60dg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:52:12 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-91043af01d9so49458306d6.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:52:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788771127; x=1789375927; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=45cffnb6U5RjyHE1JFoKDcGtCi7FlACzCtxDXUL0umU=;
-        b=UBEgnkicoYYjdkta3FrgLNxvklmcus4rNA++qke/zEoq48dE0aD6gmL1anUW2kQklj
-         /zkmdILEKGj4rP4cozHyro4IGUubyHrhSR7hgSG85BQUmFOQOPUQSjC7CMC7qz/bzEfD
-         5AKdaH92Iu9LfSdpw3Wp/6FxMosVoTi5KbGaDIta6Kn/GFMvnmn9yLZ21eVT0K4CyZWV
-         udIjT31s0cHPbK4WdXhaE+efb7Tx3No8GNy579R2VWBJ9yelZzfY9feqiNmUZLMf3X+d
-         XkekIFxVgw754QshbqXedkr8IQRR05M6zjWVCiY6yHJg6TvPF4dRKgsu3M1Z3912wMZ6
-         dIdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788771127; x=1789375927;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=45cffnb6U5RjyHE1JFoKDcGtCi7FlACzCtxDXUL0umU=;
-        b=saS+I9lekVOK40tB411AAVtfSTY0iXvO4VwOy4vRVxzMt87NgES8Tamg4wdlmFA2jl
-         pGd9q1OgyFOXrP1+Jrrw5jrZWT3mqDyq6Bsx4ZfOW/jkrBfGNByXuZUVFCVkJ6U1denu
-         oqmi8nnD/MAqeN+yw31HRRzcY2uZZLK0Q6+7LRAAqM2yU2NXsyU4OUdVofiasCWn2GGO
-         ia6C443LQ6r1wxNIWp9S3ghjqhGMKVlIu7pXL78uDi9/99VMorKADGQJAxcp+vhXQRrs
-         OrwAFpxYFcZ8DHrOLZXLLCuCK31qFYAX+y7iIE6yOUyRqH04QGpXEj6VdX++W1+pTCbZ
-         I9jA==
-X-Forwarded-Encrypted: i=1; AKwUvBxLkiPutlnLiL9Cry0bGOD1o5YktEOfzQ51CgCdzg11vaPXmaN4rbw6iVZT7w1pskaNoVvBVeXNJWNzu5s=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwZdDypWU9kE4GTfAnBdfRfaGgbfxCQA+4j3DGSXxoP7cH6ogO
-	ae17tU2g1eQcTqr+F9SlTKFntsBs4Am8RZFn6deeIOXfW/mr7U1JeIksg3d1NXy31J8XkDvI6B+
-	s7PnHoRzsSzx8aV77iVY89isGcNsF9uVKd4JWoKYlhQRL5rayC76cL1N0SvOI7WnMrzI=
-X-Gm-Gg: AYBFou0lLAOFq7CkNDxOSm2OC0AcGIqxD7RsGOMjVIcQaMPS+CdxM4MeR/tXdN1OQf9
-	zVEbwWOV6NRBZVlOVupfy2IxwRyH2NnqG65FBA932q1FYw7CNVgsy6XYiSnV0wJtHFuDTh7+05I
-	g1L9fmafMPv6+hiy3iLDhFqo7qNPM6etf9JTJeT9mUp52IR/RxfpY3CrE5US6SvyIQ6MoVB73oC
-	kolyHtFl8Ezu/LJFHOzoIsTGAGDQwrI21FKrvWLE8PVno0rqFU/B2NpwMwGuw39n+Ti/gVA3zWE
-	TeC8733TfpiYRelLHCndQBuIVEgDiwMOeLXMrRnLNgV85lqcS5/mVETkdIhMxnD86ah0UnPvdqI
-	oFRRryl7k+cZvLJo3O9a5K8NvTA==
-X-Received: by 2002:a05:620a:2894:b0:937:11c9:37f1 with SMTP id af79cd13be357-939803455a3mr2211878285a.16.1788771126830;
-        Mon, 07 Sep 2026 01:52:06 -0700 (PDT)
-X-Received: by 2002:a05:620a:2894:b0:937:11c9:37f1 with SMTP id af79cd13be357-939803455a3mr2211874385a.16.1788771126413;
-        Mon, 07 Sep 2026 01:52:06 -0700 (PDT)
-Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:48dd:b57:9236:95f2])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfd3f815bsm207319055e9.4.2026.09.07.01.52.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 01:52:05 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>, "hpp.iscas" <hppiscas@163.com>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH] pinctrl: qcom: ipq5210: Publish the OF module alias
-Date: Mon,  7 Sep 2026 10:52:03 +0200
-Message-ID: <178877112161.9799.4801508873821815896.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260905134340.67477-1-hppiscas@163.com>
-References: <20260905134340.67477-1-hppiscas@163.com>
+	dkim=pass (2048-bit key) header.d=uw.edu header.i=@uw.edu header.b="b2fbuoNQ"
+Received: from pps.filterd (m0247475.ppops.net [127.0.0.1])
+	by mx0a-00641c01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6878gLiQ745451;
+	Mon, 7 Sep 2026 08:52:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uw.edu; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=Jan2024; bh=Q0Fwyvon/Ebohmfi/TF/umN/z5dQZcOyk2ffc
+	hsKWy8=; b=b2fbuoNQyKRzUdj8XBZKGKOnribur6PoFAwz/XYA21+HHhyeYWLXL
+	SFdYinjQADCFo86yBstiQUUvMp365bExVIRDjbOHKjH0kkCKRu6PCgzvdEYBM4Hm
+	JIOetbCcUtUZNdAcftmbAVlcxFZ5NnE89SaRzpXu+mNnC1zK7rvGfU2/T+8+qOCk
+	IykXKAd34tXzTqqbz07a29f8bSsvFNTg4vdXxlOnVjXnkNZyM2YYDjhSJAqfB/It
+	rA+5/xMdy3DWv1i9zRX1tQbWg6/GMVrcSke0ogTmfymixHwl937i1n7CdHF2yLDc
+	2wEq66etBuLTTvIfDb3qfok2X5VvwJGZw==
+Received: from mxout32.s.uw.edu (mxout32.s.uw.edu [128.208.61.12])
+	by mx0a-00641c01.pphosted.com (PPS) with ESMTPS id 4ghfv3hymg-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 07 Sep 2026 08:52:45 +0000 (GMT)
+Received: from smtp.washington.edu (smtp.washington.edu [128.208.60.132])
+	by mxout32.s.uw.edu (8.16.1+UW24.12/8.14.4+UW24.02) with ESMTPS id 6878qjUD008027
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 7 Sep 2026 01:52:45 -0700
+X-Auth-Received: from promaxgb10-6c88.manee-noodlefish.ts.net (c-73-42-166-56.hsd1.wa.comcast.net [73.42.166.56])
+	(authenticated authid=advaiv2)
+	by smtp.washington.edu (8.16.1+UW24.12/8.14.4+UW24.02) with ESMTPSA id 6878qIgL023143
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 7 Sep 2026 01:52:44 -0700
+X-UW-Orig-Sender: advaiv2@smtp.washington.edu
+From: Advaith Vecham <advaiv2@uw.edu>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Carlos Llamas <cmllamas@google.com>, Alice Ryhl <aliceryhl@google.com>,
+        Christian Brauner <brauner@kernel.org>,
+        =?UTF-8?q?Arve=20Hj=C3=B8nnev=C3=A5g?= <arve@android.com>,
+        Todd Kjos <tkjos@android.com>, Miguel Ojeda <ojeda@kernel.org>
+Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+        Benno Lossin <lossin@kernel.org>,
+        Andreas Hindborg <a.hindborg@kernel.org>, linux-kernel@vger.kernel.org,
+        rust-for-linux@vger.kernel.org, Advaith Vecham <advaiv2@uw.edu>
+Subject: [PATCH] rust_binder: add missing newlines to log messages
+Date: Mon,  7 Sep 2026 08:51:39 +0000
+Message-ID: <20260907085139.65576-1-advaiv2@uw.edu>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=X45i7mTe c=1 sm=1 tr=0 ts=6a9e7b3c cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=UYzP0Bt1LNVb4JyMi9kA:9 a=QEXdDO2ut3YA:10
- a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-ORIG-GUID: -jKrwcf-7FJK3BXRsyEzsS8bY_Umytup
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA5NiBTYWx0ZWRfX/864K7Ya5y0M
- L1Klf2RnBgz1WvJAI7DR3ixyGd/RxcdtpOKn1974kUYIglf9wOlJVX1N2XFiNXjx5lYIV1IOm7j
- dNBM9UMDXjzLruGfvH7BHXt0NNIGIKJpoaBmal56nEROEEdoqYi8bdCc62vjegPeN9Bot+3Icae
- th85P1DDtVjcDO9L8r5DgdTb+FXZhMx+cJljgqzj2WeCF++ulYehcHteJ3ht79QlH6QAX2n0Vam
- y6LyRegwSfzXul+IxryZviu9Qc6sbgSw2TU39Jm89ATZa8SfH0jU0SHIII5lO2bqPH7CIggSSsb
- qM0L1M+nVlvQ0kM3sw0idXLb/l+jeSmJyNwZ9vmlqx58kYIhVasfQZUPxn4gxw+eK3THyFcGkNJ
- nbhDXMf8nNTUReq5nvH46cTFkkmObe8gSZ0wr2fH96PMBwJU0BDXgmCL7sTsE8DqOPh/tPC1f13
- AImlOeFoEG4ibIDWiDQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA5NiBTYWx0ZWRfX9mDCCtX8OkkS
- pDlYGRTBDy5keW+DPMDwRpD/ckaMsvDURxbWMRWhU3WnDnD3O0qFJxyJhoaQBk2Qd8cHXU5dkTG
- rgJT8jGw/hIS1U8q5IX95koM9UJY2gQ=
-X-Proofpoint-GUID: -jKrwcf-7FJK3BXRsyEzsS8bY_Umytup
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA5NiBTYWx0ZWRfX5xueidsbJ/Wg
+ Zt5C0GJ/k/nDXB0RWIpNAg6d943lJzrmIDV/kl33Eiiz9zvVTqJAp4766OE0noDvD0+SRaMhsJq
+ bvgJDtFZVq/tkNAyic3J9KC3mXFSBZR+PUjLni/fyTg7crMpWXC+zG9vhGjdxcUsxSN2+n/tqGk
+ 1+rRgtwBlGLfrK/otHV26LXq0zleHVsYAdmQ9BCOtKza1x4LP4UI2VA83POrXQFD9Z2OThnBWYa
+ +rFP/VEZOxAqahN+eSM9MgmTM37yqkZPBmfvFSaflb3wh6H1MSNFpIuErBmiDaJIT+BXYcHQMvU
+ +59+H0r5NuYKBnY6Ir2YjRcqpX4dwyYwxjL22ZmbcrKr5sjBnSC/rwU6CL/HR+qM2HJAvviR0Ka
+ TcxWm8DVd45lSgYzQkL1ffN9ZTciQtUiyIl3+skLTzusJqCbU/QQ50Rs3sk8LKF9m75+QwL7DnF
+ DX5qv4yEUg2da2DCnVg==
+X-Proofpoint-ORIG-GUID: oprCEjqqWyVLOqQFz-xQuWl-JSWFczEB
+X-Authority-Analysis: v=2.4 cv=eZ0NubEH c=1 sm=1 tr=0 ts=6a9e7b5e cx=c_pps
+ a=L+to+3NMTQJ4N3HQ1s2NBA==:117 a=L+to+3NMTQJ4N3HQ1s2NBA==:17
+ a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=zXh4U7bod0xlW8uCmBq_:22 a=Y1F7kAEhTqD7p_ZpfYTa:22 a=NEAV23lmAAAA:8
+ a=VwQbUJbxAAAA:8 a=NuLZf8eL0ao_53MxyzkA:9
+X-Proofpoint-GUID: mcbcmx4zcYnAlhq8546tcfj4WBhKRVvH
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA5NiBTYWx0ZWRfX6RLlSMgA7RMW
+ i2BvA84uhw9g/bv57ef6sVhMxGD89+H0ooWCSnEjqI3CTNBU3LGjOe11/pnX2p9ACMOP9DhmB4O
+ pSfMLuSUMHWqZaNDa2hFGQCN1/rRdqMAuUDd4WU73ENRSQQIvxSw
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-07_02,2026-09-03_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 suspectscore=0 clxscore=1015 adultscore=0
- impostorscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0 phishscore=0
+ suspectscore=0 malwarescore=0 phishscore=0 bulkscore=0 priorityscore=1501
+ lowpriorityscore=0 adultscore=0 spamscore=0 clxscore=1011 impostorscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070096
 
+The kernel printing macros don't append a newline automatically (with
+the way pr_*!() works), so the error message gets concatenated onto the
+next line in the kernel log during these warnings, errors, etc. Add
+'\n' to the end of error, warning, and debug messages.
 
-On Sat, 05 Sep 2026 21:43:40 +0800, hpp.iscas wrote:
-> The IPQ5210 TLMM platform driver can be a module and matches through
-> ipq5210_tlmm_of_match. This table is not published for OF modalias
-> matching.
-> 
-> Publish the existing table, preserving arch_initcall ordering and
-> the shared MSM pinctrl probe.
-> 
-> [...]
+Suggested-by: Miguel Ojeda <ojeda@kernel.org>
+Link: https://github.com/Rust-for-Linux/linux/issues/1139
+Signed-off-by: Advaith Vecham <advaiv2@uw.edu>
+---
+ drivers/android/binder/allocation.rs       |  2 +-
+ drivers/android/binder/context.rs          |  6 +++---
+ drivers/android/binder/node.rs             |  2 +-
+ drivers/android/binder/page_range.rs       | 12 ++++++------
+ drivers/android/binder/process.rs          | 14 +++++++-------
+ drivers/android/binder/range_alloc/tree.rs |  2 +-
+ drivers/android/binder/thread.rs           | 14 +++++++-------
+ drivers/android/binder/transaction.rs      |  8 ++++----
+ 8 files changed, 30 insertions(+), 30 deletions(-)
 
-Applied, thanks!
-
-[1/1] pinctrl: qcom: ipq5210: Publish the OF module alias
-      https://git.kernel.org/brgl/c/818103dc7f5998a0d7957fb71d4deecdf4d579e1
-
-Best regards,
+diff --git a/drivers/android/binder/allocation.rs b/drivers/android/binder/allocation.rs
+index 165cb797e..3eb656eaf 100644
+--- a/drivers/android/binder/allocation.rs
++++ b/drivers/android/binder/allocation.rs
+@@ -286,7 +286,7 @@ fn drop(&mut self) {
+ 
+             if info.clear_on_free {
+                 if let Err(e) = self.fill_zero() {
+-                    pr_warn!("Failed to clear data on free: {:?}", e);
++                    pr_warn!("Failed to clear data on free: {:?}\n", e);
+                 }
+             }
+         }
+diff --git a/drivers/android/binder/context.rs b/drivers/android/binder/context.rs
+index ddddb66b3..7fdad5368 100644
+--- a/drivers/android/binder/context.rs
++++ b/drivers/android/binder/context.rs
+@@ -80,7 +80,7 @@ pub(crate) fn deregister(self: &Arc<Self>) {
+ 
+     pub(crate) fn register_process(self: &Arc<Self>, proc: Arc<Process>) -> Result {
+         if !Arc::ptr_eq(self, &proc.ctx) {
+-            pr_err!("Context::register_process called on the wrong context.");
++            pr_err!("Context::register_process called on the wrong context.\n");
+             return Err(EINVAL);
+         }
+         self.manager.lock().all_procs.push(proc, GFP_KERNEL)?;
+@@ -89,7 +89,7 @@ pub(crate) fn register_process(self: &Arc<Self>, proc: Arc<Process>) -> Result {
+ 
+     pub(crate) fn deregister_process(self: &Arc<Self>, proc: &Arc<Process>) {
+         if !Arc::ptr_eq(self, &proc.ctx) {
+-            pr_err!("Context::deregister_process called on the wrong context.");
++            pr_err!("Context::deregister_process called on the wrong context.\n");
+             return;
+         }
+         let mut manager = self.manager.lock();
+@@ -110,7 +110,7 @@ pub(crate) fn deregister_process(self: &Arc<Self>, proc: &Arc<Process>) {
+     pub(crate) fn set_manager_node(&self, node_ref: NodeRef) -> Result {
+         let mut manager = self.manager.lock();
+         if manager.node.is_some() {
+-            pr_warn!("BINDER_SET_CONTEXT_MGR already set");
++            pr_warn!("BINDER_SET_CONTEXT_MGR already set\n");
+             return Err(EBUSY);
+         }
+         security::binder_set_context_mgr(&node_ref.node.owner.cred)?;
+diff --git a/drivers/android/binder/node.rs b/drivers/android/binder/node.rs
+index 0a82af14c..0f70ea2d1 100644
+--- a/drivers/android/binder/node.rs
++++ b/drivers/android/binder/node.rs
+@@ -405,7 +405,7 @@ pub(crate) fn update_refcount_locked(
+             !is_dead && !state.has_count
+         } else {
+             if state.count < count {
+-                pr_err!("Failure: refcount underflow!");
++                pr_err!("Failure: refcount underflow!\n");
+                 return None;
+             }
+             state.count -= count;
+diff --git a/drivers/android/binder/page_range.rs b/drivers/android/binder/page_range.rs
+index 52ffbf350..531d4444d 100644
+--- a/drivers/android/binder/page_range.rs
++++ b/drivers/android/binder/page_range.rs
+@@ -212,7 +212,7 @@ unsafe fn set_page(me: *mut PageInfo, page: Page) {
+ 
+         // SAFETY: The pointer is valid for writing, so also valid for reading.
+         if unsafe { (*ptr).is_some() } {
+-            pr_err!("set_page called when there is already a page");
++            pr_err!("set_page called when there is already a page\n");
+             // SAFETY: We will initialize the page again below.
+             unsafe { ptr::drop_in_place(ptr) };
+         }
+@@ -300,11 +300,11 @@ pub(crate) fn register_with_vma(&self, vma: &virt::VmaNew) -> Result<usize> {
+         let num_pages = num_bytes >> PAGE_SHIFT;
+ 
+         if !ptr::eq::<Mm>(&*self.mm, &**vma.mm()) {
+-            pr_debug!("Failed to register with vma: invalid vma->vm_mm");
++            pr_debug!("Failed to register with vma: invalid vma->vm_mm\n");
+             return Err(EINVAL);
+         }
+         if num_pages == 0 {
+-            pr_debug!("Failed to register with vma: size zero");
++            pr_debug!("Failed to register with vma: size zero\n");
+             return Err(EINVAL);
+         }
+ 
+@@ -325,7 +325,7 @@ pub(crate) fn register_with_vma(&self, vma: &virt::VmaNew) -> Result<usize> {
+ 
+         let mut inner = self.lock.lock();
+         if inner.size > 0 {
+-            pr_debug!("Failed to register with vma: already registered");
++            pr_debug!("Failed to register with vma: already registered\n");
+             drop(inner);
+             return Err(EBUSY);
+         }
+@@ -380,7 +380,7 @@ pub(crate) fn use_range(&self, start: usize, end: usize) -> Result<()> {
+                 match unsafe { self.use_page_slow(i) } {
+                     Ok(()) => {}
+                     Err(err) => {
+-                        pr_warn!("Error in use_page_slow: {:?}", err);
++                        pr_warn!("Error in use_page_slow: {:?}\n", err);
+                         return Err(err);
+                     }
+                 }
+@@ -529,7 +529,7 @@ unsafe fn iterate<T>(&self, mut offset: usize, mut size: usize, mut cb: T) -> Re
+             // duration of this call to `iterate`, so nobody will change the page.
+             let page = unsafe { PageInfo::get_page(page_info) };
+             if page.is_none() {
+-                pr_warn!("Page is null!");
++                pr_warn!("Page is null!\n");
+             }
+             let page = page.ok_or(EFAULT)?;
+             cb(page, offset, available)?;
+diff --git a/drivers/android/binder/process.rs b/drivers/android/binder/process.rs
+index 5372bfbd9..5e2984bf1 100644
+--- a/drivers/android/binder/process.rs
++++ b/drivers/android/binder/process.rs
+@@ -324,7 +324,7 @@ pub(crate) fn death_delivered(&mut self, death: DArc<NodeDeath>) {
+         if let Some(death) = ListArc::try_from_arc_or_drop(death) {
+             self.delivered_deaths.push_back(death);
+         } else {
+-            pr_warn!("Notification added to `delivered_deaths` twice.");
++            pr_warn!("Notification added to `delivered_deaths` twice.\n");
+         }
+     }
+ 
+@@ -701,7 +701,7 @@ fn get_current_thread(self: ArcBorrow<'_, Self>) -> Result<Arc<Thread>> {
+         let id = {
+             let current = kernel::current!();
+             if self.task != current.group_leader() {
+-                pr_err!("get_current_thread was called from the wrong process.");
++                pr_err!("get_current_thread was called from the wrong process.\n");
+                 return Err(EINVAL);
+             }
+             current.pid()
+@@ -725,7 +725,7 @@ fn get_current_thread(self: ArcBorrow<'_, Self>) -> Result<Arc<Thread>> {
+                 Ok(ta)
+             }
+             rbtree::Entry::Occupied(_entry) => {
+-                pr_err!("Cannot create two threads with the same id.");
++                pr_err!("Cannot create two threads with the same id.\n");
+                 Err(EINVAL)
+             }
+         }
+@@ -861,7 +861,7 @@ pub(crate) fn insert_or_update_handle(
+                 match refs.by_handle.entry(res.as_u32()) {
+                     rbtree::Entry::Vacant(entry) => break (res, entry),
+                     rbtree::Entry::Occupied(_) => {
+-                        pr_err!("Detected mismatch between handle_is_present and by_handle");
++                        pr_err!("Detected mismatch between handle_is_present and by_handle\n");
+                         res.acquire();
+                         kernel::warn_on!(true);
+                         return Err(EINVAL);
+@@ -1101,7 +1101,7 @@ pub(crate) fn buffer_alloc(
+         ) {
+             Ok(()) => {}
+             Err(err) => {
+-                pr_warn!("use_range failure {:?}", err);
++                pr_warn!("use_range failure {:?}\n", err);
+                 return Err(err.into());
+             }
+         }
+@@ -1516,7 +1516,7 @@ pub(crate) fn drop_outstanding_txn(&self) {
+         let wake = {
+             let mut inner = self.inner.lock();
+             if inner.outstanding_txns == 0 {
+-                pr_err!("outstanding_txns underflow");
++                pr_err!("outstanding_txns underflow\n");
+                 return;
+             }
+             inner.outstanding_txns -= 1;
+@@ -1836,7 +1836,7 @@ fn new(thread: &'a Arc<Thread>, guard: &mut Guard<'_, ProcessInner, SpinLockBack
+             // It is an error to hit this branch, and it should not be reachable. We try to do
+             // something reasonable when the failure path happens. Most likely, the thread in
+             // question will sleep forever.
+-            pr_err!("Same thread registered with `ready_threads` twice.");
++            pr_err!("Same thread registered with `ready_threads` twice.\n");
+         }
+         Self { thread }
+     }
+diff --git a/drivers/android/binder/range_alloc/tree.rs b/drivers/android/binder/range_alloc/tree.rs
+index 48796fcdb..6f4fda66d 100644
+--- a/drivers/android/binder/range_alloc/tree.rs
++++ b/drivers/android/binder/range_alloc/tree.rs
+@@ -166,7 +166,7 @@ pub(crate) fn reserve_new(
+ 
+         let (found_size, found_off, tree_node, free_tree_node) = match self.find_best_match(size) {
+             None => {
+-                pr_warn!("ENOSPC from range_alloc.reserve_new - size: {}", size);
++                pr_warn!("ENOSPC from range_alloc.reserve_new - size: {}\n", size);
+                 return Err(ENOSPC);
+             }
+             Some(desc) => {
+diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
+index 18a14aa8a..155970253 100644
+--- a/drivers/android/binder/thread.rs
++++ b/drivers/android/binder/thread.rs
+@@ -339,7 +339,7 @@ fn push_reply_work(&mut self, code: u32) -> PushWorkRes {
+             work.set_error_code(code);
+             self.push_work(work)
+         } else {
+-            pr_warn!("Thread reply work is already in use.");
++            pr_warn!("Thread reply work is already in use.\n");
+             PushWorkRes::Ok
+         }
+     }
+@@ -350,7 +350,7 @@ fn push_return_work(&mut self, reply: u32) {
+             // Not notifying: Reply to current thread.
+             let _ = self.push_work(work);
+         } else {
+-            pr_warn!("Thread return work is already in use.");
++            pr_warn!("Thread return work is already in use.\n");
+         }
+     }
+ 
+@@ -884,7 +884,7 @@ fn translate_object(
+                     .read_all(&mut fda_bytes, GFP_KERNEL)?;
+ 
+                 if fds_len != fda_bytes.len() {
+-                    pr_err!("UserSlice::read_all returned wrong length in BINDER_TYPE_FDA");
++                    pr_err!("UserSlice::read_all returned wrong length in BINDER_TYPE_FDA\n");
+                     return Err(EINVAL.into());
+                 }
+ 
+@@ -999,7 +999,7 @@ pub(crate) fn copy_transaction_data(
+             let ctx = match security::SecurityCtx::from_secid(secid) {
+                 Ok(ctx) => ctx,
+                 Err(err) => {
+-                    pr_warn!("Failed to get security ctx for id {}: {:?}", secid, err);
++                    pr_warn!("Failed to get security ctx for id {}: {:?}\n", secid, err);
+                     return Err(err.into());
+                 }
+             };
+@@ -1233,7 +1233,7 @@ fn top_of_transaction_stack(&self) -> Result<Option<DArc<Transaction>>> {
+         let inner = self.inner.lock();
+         if let Some(cur) = &inner.current_transaction {
+             if core::ptr::eq(self, cur.from.as_ref()) {
+-                pr_warn!("got new transaction with bad transaction stack");
++                pr_warn!("got new transaction with bad transaction stack\n");
+                 return Err(EINVAL);
+             }
+             Ok(Some(cur.clone()))
+@@ -1562,7 +1562,7 @@ fn read(self: &Arc<Self>, req: &mut BinderWriteRead, wait: bool) -> Result {
+         let mut has_noop_placeholder = false;
+         if req.read_consumed == 0 {
+             if let Err(err) = writer.write_code(BR_NOOP) {
+-                pr_warn!("Failure when writing BR_NOOP at beginning of buffer.");
++                pr_warn!("Failure when writing BR_NOOP at beginning of buffer.\n");
+                 return Err(err);
+             }
+             has_noop_placeholder = true;
+@@ -1585,7 +1585,7 @@ fn read(self: &Arc<Self>, req: &mut BinderWriteRead, wait: bool) -> Result {
+                 Err(err) => {
+                     // Propagate the error if we haven't written anything else.
+                     if err != EINTR && err != EAGAIN {
+-                        pr_warn!("Failure in work getter: {:?}", err);
++                        pr_warn!("Failure in work getter: {:?}\n", err);
+                     }
+                     if initial_len == writer.len() {
+                         return Err(err);
+diff --git a/drivers/android/binder/transaction.rs b/drivers/android/binder/transaction.rs
+index 245f1556b..b90051aec 100644
+--- a/drivers/android/binder/transaction.rs
++++ b/drivers/android/binder/transaction.rs
+@@ -176,14 +176,14 @@ pub(crate) fn new(
+             Ok(alloc) => alloc,
+             Err(err) => {
+                 if !err.is_dead() {
+-                    pr_warn!("Failure in copy_transaction_data: {:?}", err);
++                    pr_warn!("Failure in copy_transaction_data: {:?}\n", err);
+                 }
+                 return Err(err);
+             }
+         };
+         if info.is_oneway() {
+             if from_parent.is_some() {
+-                pr_warn!("Oneway transaction should not be in a transaction stack.");
++                pr_warn!("Oneway transaction should not be in a transaction stack.\n");
+                 return Err(EINVAL.into());
+             }
+             alloc.set_info_oneway_node(node_ref.node.clone());
+@@ -224,7 +224,7 @@ pub(crate) fn new_reply(
+             match from.copy_transaction_data(to.clone(), info, info.debug_id, allow_fds, None) {
+                 Ok(alloc) => alloc,
+                 Err(err) => {
+-                    pr_warn!("Failure in copy_transaction_data: {:?}", err);
++                    pr_warn!("Failure in copy_transaction_data: {:?}\n", err);
+                     return Err(err);
+                 }
+             };
+@@ -384,7 +384,7 @@ pub(crate) fn submit(self: DLArc<Self>, info: &mut TransactionInfo) -> BinderRes
+                     return Ok(());
+                 }
+             } else {
+-                pr_err!("Failed to submit oneway transaction to node.");
++                pr_err!("Failed to submit oneway transaction to node.\n");
+             }
+         }
+ 
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+2.43.0
+
