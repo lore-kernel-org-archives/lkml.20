@@ -1,322 +1,152 @@
-Received: from mta1.migadu.com (out-250.mta1.migadu.com [95.215.58.250])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B93833F12EF
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:09:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.250
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86C9543935C;
+	Mon,  7 Sep 2026 08:09:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788768553; cv=none; b=SIK3U1jMJwwNOt3O7rH6oOJZBZmbbeZ9sBocQy7iGPbm46anfbd9JtxNQBmAgB9Tsy82wzafzAkHg0xC3fqz4L2gQHTKCNTxchlrUQaKtLLWoQX6qTpWUBPlpuhO+w8Um3qRNeCHXlnrMHVNqCK4XpAbU2XUhULogt0njg7mezM=
+	t=1788768571; cv=none; b=HyMCedVLC2tUIRybGc5gbkYMJcuSS41gFIZpcV54nac8V+MXi6Bk0xqX74pRcsfq4JE+nr0/OhYJqZJ4Ql4Xh7a5e5f6S3JBqkaB8QTHaY8vF/nF0P9bf+ADJk+2eblb9TxiuzFF8aYzNJD13xWR2qcwiOuiRMyK3Hl+gW+Hllc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788768553; c=relaxed/simple;
-	bh=8tQZIIqvG/6r+thQ5+8ZiHJ5p6+8/rFiEvfA+pAlwU0=;
+	s=arc-20240116; t=1788768571; c=relaxed/simple;
+	bh=WfIdmfDObgfwwf02sJRuNe7sZCz+Uu0/ZlVs9pKYyZ4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ObKXFsvw2ABTLvDB+ItMgjtw8GsfbT+GGqV/bWNZFM2ebgJs7xlOd62hSlcICTXSNOPklyUpt6lxDtiq5h2xNx5LfBRcDqP2pRJReQKeDq62WV93qSZVEZ71TqbDaYGAl3cY5CWEJdr2SUT4lPnVVbk9hSqQENEK4lsoehyko8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org; spf=pass smtp.mailfrom=wyuan.org; dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b=W3bBa6sY; arc=none smtp.client-ip=95.215.58.250
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=qxIuR1Bo/0DqLw5gax6/QDSSvxaYWETsQeC3jGUZ5EpntDvwly4E/qGWBKTQEnolUX8Xf6vImxoHV4/5E1LIAx8/rzebyJlMf1h9FZsCaykmSTp4g7asssgrdPNQDs3RGEh+8QSc7sIg9rBNNEkQ8aufgoQUhAGUG0sakZpJIRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=Jtfd/JJA; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=yB9JKPeJ; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=1cDgkDw0; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=B6KiCy5E; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b="W3bBa6sY"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=8tQZIIqvG/6r+thQ5+8ZiHJ5p6+8/rFiEvfA+pAlwU0=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788768546; v=1; x=1789373346;
- b=W3bBa6sYQ7EnQnNZjISCV7oV2kCjgejNHYMCBmPWPoZAlzMPsHYiK4RO1Hw/DGmxRaoMiqi7
- 8ll2k48YlxE5gFpEBfqOKp6/UeyjGAz1wmKuyMAYHERvpZYE80vqtSByFuJUrHb7A3Mv1IcjQqF
- Axh4cfEuvO/C2xkGHZr/Z7YFTYGd8g7ToZ9xV66eOe9CFxWj1Cfy7DRGlBFEUfJPIRjYs1htpDC
- YlcPuhPmIhR13L6UZiQF0LNQWdKwkXXrqioQ00yniU5QX3RDAavDyNMez8twqF2Qo/t83Y1TiZ/
- GvNB4ePaIQqBUxzbBNWOuATqPb9WjcCRUf8Dke1ey6snA==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3ca03628c687e3be;
-	Mon, 07 Sep 2026 08:08:56 +0000
-X-Mizu-Trace-ID: 3ca03628c687e3be
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 7 Sep 2026 16:08:50 +0800
-From: Weijie Yuan <wy@wyuan.org>
-To: Chen-Yu Yeh <chenyou910331@gmail.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Alex Shi <alexs@kernel.org>,
-	Dongliang Mu <dzm91@hust.edu.cn>, Yanteng Si <si.yanteng@linux.dev>,
-	Hu Haowen <srcres258@furdevs.cn>, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: Subject: [RFC] docs/zh_TW: defining a maintainable scope for the
- Traditional Chinese translation
-Message-ID: <ap5xEtMdwXS8Pvcf@wyuan.org>
-References: <CAKspUhJAbCWoxgh2eq8R5g_MiNK=oXgKPUWqGOpHh0w1-Fv74A@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Jtfd/JJA";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="yB9JKPeJ";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="1cDgkDw0";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="B6KiCy5E"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 3782C21AF2;
+	Mon,  7 Sep 2026 08:09:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788768563; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=y4vUVmFFBovQf0DjtO33NPPdFIZMgNa/F1VoWVVo1yA=;
+	b=Jtfd/JJA8vzcNeBwMOnG0UhaLMHxNNkHmi7vwDggzOsL9oif2CUV5H0G7uGCyB6COuWJ5D
+	SUdYaJsmG+1igX7S2C+tli3C2QDjfCzhtKK0EJuq/KIn42/IhZ/g4v33hIWtCxHEjNXtD+
+	wxwFKkYLfs1kEf/hjDwa4K99oRj3Duo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788768563;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=y4vUVmFFBovQf0DjtO33NPPdFIZMgNa/F1VoWVVo1yA=;
+	b=yB9JKPeJ1JqyRN8abB13X2+FRoa2U+3CDrgUIY06KAgDmePn0poY/Eez245GQVBQ7K7kTX
+	PqNNSQ/6IBaSXGAA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788768559; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=y4vUVmFFBovQf0DjtO33NPPdFIZMgNa/F1VoWVVo1yA=;
+	b=1cDgkDw06HhuSp/fqz/VmeMys12ywhzTtDVFA2mXdLiy6Vvp0P1J+dMZYMJZ2pZrrLmQcy
+	v53URvB2/P9tEjE7CpvAN72uO/PvKWAyQ0Un+VZMNhzVlKi+IoHzbBlGOqzFk2wrohLGYA
+	YLhTNGHPhcX9kPZnGgbAmGKi7BlI2Gc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788768559;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=y4vUVmFFBovQf0DjtO33NPPdFIZMgNa/F1VoWVVo1yA=;
+	b=B6KiCy5Ey3OXeG9vHVySGLWyg8PfWqHEp3ywxJ2yOXJeT02Lq2/8/Myis6DbfIgdYXSRg1
+	Gh0eJF2MDg4hmmDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 18F381368D;
+	Mon,  7 Sep 2026 08:09:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id SCkQBi9xnmoxLQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 07 Sep 2026 08:09:19 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id A4CB5A13B2; Mon, 07 Sep 2026 10:09:14 +0200 (CEST)
+Date: Mon, 7 Sep 2026 10:09:14 +0200
+From: Jan Kara <jack@suse.cz>
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: Jan Kara <jack@suse.cz>, Amir Goldstein <amir73il@gmail.com>, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH] fsnotify: fix typo "anonynous" in comment
+Message-ID: <pvrjx6ekuelhlibuvz3wyrgmshn5ymyfixwh33ertklthvyv6i@bqkjt2vjh2ra>
+References: <20260904121146.22419-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAKspUhJAbCWoxgh2eq8R5g_MiNK=oXgKPUWqGOpHh0w1-Fv74A@mail.gmail.com>
+In-Reply-To: <20260904121146.22419-1-hemanth.selam@gmail.com>
+X-Spam-Level: 
+X-Spam-Score: -3.80
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TAGGED_RCPT(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[suse.cz,gmail.com,vger.kernel.org];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
 
-On Sun, Sep 06, 2026 at 04:21:24AM +0800, 葉宸佑 wrote:
-> Hi all,
+On Fri 04-09-26 17:41:45, Hemanth Selam wrote:
+> Correct "anonynous" to "anonymous", reported by scripts/checkpatch.pl using
+> the misspelling list in scripts/spelling.txt.  Only touches comments, no
+> code changes.
 > 
-> Now that zh_TW has maintainers again, the next question is what we can
-> credibly promise to keep current.  The tree holds 97 files, and a survey
-> of them says: not all of them.  I would rather narrow the scope openly
-> than leave readers to find out which pages lie to them.
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 
-Yes.
+Thanks. I've added the patch to my tree.
 
-> This follows on from Jon's question in the contact-block cleanup thread
-> [1], where I said the wider question of what to do with the stale
-> translations deserved its own discussion.
+								Honza
 
-In general, my personal preference is to completely eliminate this mess,
-then reorganize the structure and align the English one.
-
-> 2. Translations whose original moved out from under them
-> ========================================================
+> ---
+>  fs/notify/fanotify/fanotify_user.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> This is the part that worries me most, because it is invisible to a
-> reader and to most tooling: the translation looks fine, but the English
-> document it mirrors has been relocated, so nobody working on the English
-> side has any reason to look at us.
+> diff --git a/fs/notify/fanotify/fanotify_user.c b/fs/notify/fanotify/fanotify_user.c
+> index a32c6634d592..63c9759fc3b0 100644
+> --- a/fs/notify/fanotify/fanotify_user.c
+> +++ b/fs/notify/fanotify/fanotify_user.c
+> @@ -1837,7 +1837,7 @@ static int fanotify_events_supported(struct fsnotify_group *group,
+>  	/*
+>  	 * mount and sb marks are not allowed on kernel internal pseudo fs,
+>  	 * like pipe_mnt, because that would subscribe to events on all the
+> -	 * anonynous pipes in the system.
+> +	 * anonymous pipes in the system.
+>  	 *
+>  	 * SB_NOUSER covers all of the internal pseudo fs whose objects are not
+>  	 * exposed to user's mount namespace, but there are other SB_KERNMOUNT
+> -- 
+> 2.48.1
 > 
->   ==================================  =========================================
->   zh_TW file                          English original now lives at
->   ==================================  =========================================
->   admin-guide/security-bugs.rst       process/security-bugs.rst
->   process/magic-number.rst            staging/magic-number.rst
->   dev-tools/gdb-kernel-debugging.rst  process/debugging/gdb-kernel-debugging.rst
->   arch/arm/Booting                    arch/arm/booting.rst
->   ==================================  =========================================
-> 
-> The moves upstream were:
-> 
->   2023-03-05  Documentation/security-bugs: move from admin-guide/ to process/
->   2024-06-24  Docs: Move magic-number from process to staging
->   2024-12-09  Documentation: move dev-tools debugging files to
-> process/debugging/
-> 
-> All three translations still sit in the old location, and all three are
-> still linked from a zh_TW index, so a reader is pointed at a file that
-> mirrors a document which has since been filed somewhere else.
-> 
-> Two more translate content that was restructured rather than moved:
-> 
->   - IRQ.txt renders an old version of core-api/irq/index.rst.  That file
->     is now a twelve-line toctree; the prose it translates lives in
->     core-api/irq/concepts.rst.
->   - io_ordering.txt is in the same position relative to
->     driver-api/io_ordering.rst.
-> 
-> Six files carry no :Original: field at all, so
-> tools/docs/checktransupdate.py cannot tell what they mirror and skips
-> them silently:
-> 
->   index.rst, arch/index.rst, disclaimer-zh_TW.rst,
->   dev-tools/sparse.rst, admin-guide/clearing-warn-once.rst,
->   admin-guide/cpu-load.rst
-> 
-> There is a second reason this matters.  Where the :Original: marker is
-> missing, checktransupdate.py falls back to comparing author dates, which
-> means any mechanical tree-wide pass over the translations resets the
-> apparent baseline: after such a pass the tool reports those files as up
-> to date, because the translation is newer than every English change.  I
-> ran into this while preparing this survey -- measured on top of my own
-> pending contact-block cleanup, which touches most of the tree, the
-> number of stale files drops from 51 to 2.  None of that staleness went
-> away; it just stopped being visible.  A tree without :Original: fields
-> cannot be measured reliably at all.
-> 
-> Whatever else we decide, I would like to fix these two classes first:
-> move the misplaced files so they mirror the current English layout, and
-> give every translation an :Original: field.  That is what makes the rest
-> of the tree checkable at all.
-
-
-My idea is: If the current translation quality is acceptable and it's
-not troublesome to move it, I think we can just move it. On the
-contrary, if the translation is significantly behind, there is no need
-to go through all the trouble, just delete them.
-
-Quoting Dongliang:
-
-| But for the current situation of zh_TW, re-translation may be more
-| efficient. -- Dongliang <45167b0a-4c60-43a4-9c3d-b8ddcbb8679c@hust.edu.cn>
-
-
-
-> 3. How far behind the rest is
-> =============================
-> 
-> Using tools/docs/checktransupdate.py over all 87 .rst files:
-> 
->   ============================  =====
->   Upstream commits not applied  Files
->   ============================  =====
->   1-3                              30
->   4-9                              13
->   10-19                             7
->   20 or more                        1
->   ============================  =====
-> 
-> 51 files are behind, by 245 commits in total.  The other 36 are level
-> with their originals only because those originals have not changed
-> either; nobody is actively keeping any of them current.
-> 
-> The process/ series currently on the list accounts for 66 of those 245
-> commits and brings all of process/ to zero.
-
-Yup, let's do this part later.
-
-And after process/, I'd like to do that part "Working with the
-development community".
-
-> Excluding it, the worst remaining cases are:
-> 
->   ===================================  ==============
->   File                                 Commits behind
->   ===================================  ==============
->   admin-guide/mm/damon/usage.rst                   33
->   filesystems/index.rst                            17
->   arch/arm64/elf_hwcaps.rst                        13
->   admin-guide/index.rst                            12
->   dev-tools/index.rst                              11
->   admin-guide/mm/damon/lru_sort.rst                10
->   ===================================  ==============
-
-Tricky?
-
-> 4. Documents no reader can reach
-> ================================
-> 
-> 18 files are not referenced from any toctree.  Sphinx still renders them,
-> but nothing links to them, so they are unreachable unless you already
-> know the URL:
-> 
->   - nine pre-RST files kept in the old plain-text format: IRQ.txt,
->     io_ordering.txt, arch/arm/Booting, arch/arm/kernel_user_helpers.txt,
->     arch/arm64/{booting,legacy_instructions,memory,silicon-errata,
->     tagged-pointers}.txt
->   - filesystems/ (5 files, one of which is a tenth plain-text file,
->     sysfs.txt) and cpu-freq/ (4 files), which have index.rst files of
->     their own that the top-level zh_TW index never links to
-> 
-> disclaimer-zh_TW.rst is also outside the toctree, but deliberately so:
-> it is marked :orphan: because it is included rather than linked.  It is
-> not counted above.
-
-So I would like to restate my point again: Completely reorganizing these
-structures is obviously much more convenient than handling them one by
-one.
-
-> 5. Per-area summary
-> ===================
-> 
->   ==============  =====  ===========  ======  ==============
->   Area            Files  Unreachable  Behind  Commits behind
->   ==============  =====  ===========  ======  ==============
->   process            27            0      14              66
->   arch               28            7      12              35
->   admin-guide        23            0      15              99
->   dev-tools           6            0       5              16
->   filesystems         5            5       3              21
->   cpu-freq            4            4       1               1
->   top level           4            2       1               7
->   ==============  =====  ===========  ======  ==============
-> 
-> Within those, admin-guide/mm/damon (5 files) accounts for 55 of
-> admin-guide's 99, and arch/arm64 (10 files) for 23 of arch's 35.
-> 
-> 6. Proposal
-> ===========
-> 
-> I would rather do one area properly than all of them badly, so I propose
-> we start narrow and grow the supported set as people show up.
-
-True. True.
-
-> 
-> Step 1, now: process/ becomes the supported set.
-> 
->   27 files, no unreachable documents, and the pending series already
->   brings it to zero commits behind.  It is also what a Taiwanese reader
->   starting kernel work reads first.  Committing to keep this current is a
->   promise we can keep today.
-> 
->   As part of this, fix the structural problems in section 2: relocate the
->   misplaced translations and add the missing :Original: fields, so
->   checktransupdate covers the whole tree.
-
-Yes.
-
-> 
-> Step 2, next: the 70 files outside process/ are marked as not currently
-> maintained.
-> 
->   That is most of the tree, so to be explicit about what it means: the
->   files stay where they are and readers can still find them, but each one
->   says plainly that it is not kept in sync and points at the English
->   original.
-> 
->   Rather than inventing a mechanism, reuse the one the tree has: a short
->   notice included at the top of the file, the way disclaimer-zh_TW.rst is
->   included today.  If people would rather leave the files untouched, the
->   same information could live in the index instead.
-
-I'm fine with both. However, the former might be clearer and more
-understandable for the readers. If it is only included in the index,
-some readers might not bother to look at it.
-
-> 
->   Areas would move out of this set as they find someone to look after
->   them, rather than being promised anything up front.
-> 
-> Step 3, to decide here: the nine unreachable plain-text files.
-> 
->   They are unreachable, they use a format the rest of the tree left
->   behind years ago, and two of them describe content that no longer
->   exists upstream in that shape.  I lean towards removing them: nothing
->   links to them, so no reader loses anything.
-
-Agreed, let's remove them.
-
-> 
->   filesystems/sysfs.txt is in the same old format but is reachable from
->   filesystems/index.rst, so I have left it out of this step.
-> 
-> Open question: filesystems/ and cpu-freq/ (9 files) are unreachable only
-> because the top-level index never links them.  We can link them and mark
-> them unmaintained, or drop them.  I lean towards linking, since the
-> translations themselves are not in bad shape.
-
-Fine. That's OK.
-
-> 
-> 7. What I am not proposing
-> ==========================
-> 
-> I am not proposing to touch zh_CN, and I am not proposing to remove
-> anything a reader can currently reach, apart from the nine plain-text
-> files in step 3.  I am also not asking anyone to review Chinese text; the
-> decisions here are about scope, not translation quality.
-
-;-o  ;-)
-
-> Sequencing: the two pending zh_TW series should land first, so this
-> discussion is not competing with them.  What I would like out of this
-> thread is
-
-> agreement on the shape 
-
-So ditto:
-
-If the current translation quality is acceptable and it's not
-troublesome to move it, I think we can just move it. On the contrary, if
-the translation is significantly behind, there is no need to go through
-all the trouble, just delete them.
-
-But hey, this is just my personal opinion.
-
-> after which I will send the relocations, the :Original: fixes, and the notices as separate series.
-
-Sure.
-
-Thanks.
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
