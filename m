@@ -1,156 +1,806 @@
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C936943D4E9
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:27:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2780043FD32
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:27:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788769680; cv=none; b=ZqLLq4VMFQenlvVMF9+lZc2wCRgU09HpuwVZ82kG3D6B5xGphtKrJZHxCvA/2H1oRLNaCGb/MKcg+YW/Dx56LB3ovTlNOOnrwxUZUaPDAqPzqRAY8U9Dux9Pgl6U402A6Hw26mgGMnkH/k+NE0zqID47SBkZ79ysw89rUUT/F04=
+	t=1788769678; cv=none; b=ORKOkFAUi5I1VuHpFuI8o63Z6CJYFvTdeb1sy7kPqtfQAUFlxokDAaE5UimXDro5Gs1C4qZLPTY6i5+9Z6XdxVw80f7vfpUS2MmTFfBYWbd9gzHR0GtL9vUwk14xEq090/XT36zrgWU6Wd2WWFlMrJlLgYWGR5RqczkyC7/a9KQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788769680; c=relaxed/simple;
-	bh=bd1ZOmzfRNiksu2tSl3817XFi3Z5T/Ia/NPjjGc0zfY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=M4o5s9xyR2CO4DnSlJwayyZFwyq9PWXytbcCV1aqVqQiafErw/V78Ue/IkCWKmmOwRUChpt5RP6w9TPY0YA6TDbZYlfBRkFUTPRnZwa7pM7LxnQNj447p56HYH/wvWWFQ8aW8xI0LgApmDRsQe2a+tuP7cjTfzPx384LIb4jr48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5c7afda4515so1921392e0c.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:27:58 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788769678; x=1789374478;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=utF5dLMYbyk9S0ybWArep5L2lR1m6zKBr7dnthB2I9w=;
-        b=gU3sBQS2Pqmiznhfu0H5cDkwWluFS6bY6escd2ZY9U72MyNc4Jm7njo7+z8/X987Ma
-         dC+1hEdU+ZrsNpRn400sHVWfkepxaexwanksa2rKm6oDKQgDTkxI/jOwMeM23t8GFF59
-         rmd+EZrYYgcJ2TEykCRhGWc6MSdv+LE1ggT3hKeFHbasUp4eVM57iIya3PCJIwwpC8K8
-         lGZUR7IUtkeQAso8km1rs12Syli/J7jwgC53E6yCH7kkn4m+olQkoZQ8NwW8fGkKZRxL
-         yrecafRg7eb6+Yj/nv9+xZma25Blp4jqNAgA1DqXSAKP6lFrK99myiHs0RhTg4pJrorB
-         t0ZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxAquId3yuSXhNRkeOD0Gh1Ab58GnaVtMTC8+ZAxNLZ7ZUIHY87vxiND7qSJEXlLiAE7c+sCcfZdEtMW1M=@vger.kernel.org
-X-Gm-Message-State: AFuF++nRuGFZ6Ihe/yoQp5NupfHDk25KTrLG3VJDYnfUvp3hk+eNzH7v
-	KQ/WQ1vtLw5Q0KQO4Vo/PO7RSlQj1iPxgSplLaKhwhctT3NQbtY1K1PcTBWj8PSL
-X-Gm-Gg: AYBFou2/SZsRHY/FI2QwzJvtkGNQeSNN+7bJtcb3FWS2Ah6xKdMIKAQ3Q+UPfCGlQNb
-	bS573E24BviFgmixFlQOZPd2LAd/YxuBT/+Soh084xnqYq+ERzj/pTRuQ4tYAmEGJOvox9kzgyV
-	pn6PX1BrJHxuUeoPeXvQhZu+prXkq+ytUYqUHCN/Kh/k5FetiYqaUm7tXEVuhDCmSRwGmnwlwhO
-	YsX7makYm3b0DCkYXitPqINsBqx02mprRYnk+jKFRa647gVpYmcqDvMSkVzMuNbd26NIc9FTi8F
-	VXZh76TZOuRWrRcD8eDdI4me0TXHnbCScou5mmpe8whx2H0If0ueMXqfcR74981hFSguqIuYYCI
-	TxgNtWo4S+MBK4kWxOOfghs7gk1edxe4j2J5GjNvWLQNBKHF2w7ntBwQZefcB4BO16fLfk2TNHW
-	BCmYqVwsQwFJo9BqxJTe/7/21OP3CGSd7abo2v3GVgottgPoc096eqa0PdfQk7ec833HFaT8wKB
-	FABe6w6a8GtCIXIpxNAFlMfZQ==
-X-Received: by 2002:a05:6122:6092:b0:5ab:26f:49e3 with SMTP id 71dfb90a1353d-5c7ed3a5771mr9396065e0c.3.1788769677540;
-        Mon, 07 Sep 2026 01:27:57 -0700 (PDT)
-Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com. [209.85.217.45])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ec1ef7a5sm7623917e0c.5.2026.09.07.01.27.55
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 01:27:56 -0700 (PDT)
-Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-745497ac8fcso666735137.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:27:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxMS11RAn9mhfJBZZz5cLA5j+ypDWCyF7LPWZoLDZv6If28pkrgY+ABE545DIGHiNhIPvkR7+1mbWg4m2g=@vger.kernel.org
-X-Received: by 2002:a05:6102:2d03:b0:77e:6f90:4aad with SMTP id
- ada2fe7eead31-78a4a67cb74mr6809332137.2.1788769675108; Mon, 07 Sep 2026
- 01:27:55 -0700 (PDT)
+	s=arc-20240116; t=1788769678; c=relaxed/simple;
+	bh=+qsJj9v557bytn+Oai0zMdDk0+2AG3OiUo+34cp7Njo=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=b+FmBsB930qETNhq7uq4AxWXOZkNXH5mOuytpTHHNBvnt37myWM1bq51rSJtRqlMboYQZrwlNZkNztudB9G6RPkk1YSlhBLolrys2Uyukgq1OIsCzgvXrlIZ6+6jjwfzoNnq/LbsWbYxNSQ8mM1OOuzv51MvKD4RMPM6y9SSPBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=fbvoa1HI; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=OIonDppS; arc=none smtp.client-ip=103.168.172.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="fbvoa1HI";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="OIonDppS"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id 730CCEC008A;
+	Mon,  7 Sep 2026 04:27:54 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Mon, 07 Sep 2026 04:27:55 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1788769673;
+	 x=1788856073; bh=xrztn4A6+QQSIphrkKKL6Tjrs10NSmgd8J3+pas7I2A=; b=
+	fbvoa1HItVPtK0WyULmWocqKaMvnwB7fz8ML/UvC3xijz7J4UYiLxtK5ePzg+bte
+	VtJMXX7EkUcZSxo92oma8OrmcM5v3XKBmVMUiTnegenpVxOK3gr/4FMybbS6gXZ3
+	Baw05JyTYSkwy6s835ctMlcDz5/wkJFuSV401SZQBidHHBGqA1fAg1mrpHEk6/o/
+	lNEr9QNfoq7WhdmUn2ObQ48eTEG9nW3gcQdpx3cvq2D+3Rm2auCqsP/2v0ELfqXi
+	aIoASp6NyApcmm2xC/CZ3eNFYuQTd9v27w8Qx2I8s04mJdlcsyuCFILXYafIUujh
+	B3NvQEI/K30PAa+0CjdyJg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788769673; x=
+	1788856073; bh=xrztn4A6+QQSIphrkKKL6Tjrs10NSmgd8J3+pas7I2A=; b=O
+	IonDppSB3hLCa5bb2MUP4nfUhzkr1ndlJjS/g6vheD8/WkDTDnm5/2p3hGm/3dOA
+	houQs50pBLuxnC3c6tCY17fyHgbQz0V+A9D9lOMBD3jskbUmmWmZLaF7j35HG/Ny
+	bnpR2WNQCEda0SQJctzFcf6dn8LEmWjyrkwKvrU6pSDusim/H0jBt0k23WzBMtW0
+	soO+EmUIuhRL5uF3vUISDi0XTvpdDJNuWZTp2v9uF0xjdLFPVBsskS9FvaXBORNm
+	4DMq6s4TZtVzFn7899e7G+b5ku41kBSSrZV8YDTuhCmRXND7doAaxTwfYF/NrPPT
+	+mgtdDBJ+Moo+L1ABMe1A==
+X-ME-Sender: <xms:hXWeagCqdXSJnqGWuM9OYvMxCVDSjWi8xatnc1ZsWXoliymK9Qr1YA>
+    <xme:hXWeatU1ZOBOibLbPB2sJQ348aX-Sxx3pXi-PS8OpkInZCBeLkbgL4WME1Xkq-6Nu
+    Sw2ICXSuEKtSEqLZYedbRcRmPQ2h5IzBRXq8voI-0Oy-JP2yX5RVGM>
+X-ME-Proxy-Cause: dmFkZTFIQ2G4f+I64qTo4U8ArAMDaS7ey4lbFsqh4Mes3y/kShyCiw8w1AQZ1Pu0Guny8q
+    gOoMmvJEf+4tOBjPr0YWAfMDlAAkA46QJ5Aery2Hq6yDD2Nh1Cf/VuK+tQkSFbVa2MHA3W
+    BWa/NedDKHO3E7TLGQJ9dFb29rxq7BLZcBfRj2ryddKNEjGBfK/I5bX294rzu6JhkZX9M+
+    MGw+nRM4HIP46FCH/k/uCxualmFFANG56mtm1vBhz051ykRIiUZdObZUWu3CGQ/0ZOVILs
+    S694g/BJmdwNnvlqGHVRWvER3RReTqtAV5jlJFxil4C7mEKXDiPGPP1MoKCxJddMZqrfCt
+    G+jT/rrOjMh6PHwMm+Uin1krUHfUXKRFPZ6OGo0pWR3WgGnAjZXluUrwpzDtVvUf7aIHeI
+    dQ3ArD92ZAGx8Xy9+Nrw4YxzDp1L57iQ8UoPJuRC/fvO8Es0ZMD1lq3GKYIS+Q81ZbECmK
+    A+TsmlIQl4fAnbW+qsmsmUfvo4+Yio56ggef43RJF0z1jZ4J++wTsbaf+P5kSAm2Y/oVm5
+    JllVzPOov9zGm7JFJcGp56Dy3ubYTsi6bRJISbNVE7Xa3VTMH1bHev3vxJ1kGw/YiRYnoJ
+    Z3PKG1rkbj0dOSQiMcbsnGAYEnnsNP6K4cHfsBTs+8OX7ksU90L0drhFZTpg
+X-ME-Proxy: <xmx:h3WealrsFMJthewHDOszBuPmF2M4VbJWjNAzgg0C2PvSFwEcNwFIpw>
+    <xmx:h3WeahvehrDoI0zpeKkOFgXWZM0sck4oW0zjx-FX71iVJ5Z3q02LNw>
+    <xmx:h3WeaiEvt_NWq295YUDo0IhHHx1rl-vYyK6qcYRgcBEhzJOGkox0og>
+    <xmx:h3WeaiayK_jQwEJGKpjuoa5da0DQCn36cc9BJDxCwWvIY0jCrUM1IA>
+    <xmx:iXWeasUvpguWJYHbaIXUpkxUR2PUIwuJw99AoXZm98-U3jEQvDYJ-4mx>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 6032F32A0078; Mon,  7 Sep 2026 04:27:49 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <upsCxxaJjg2FJWhfCx6KjFXLlh8o4IhaHKJi@bugs.sh> <CAMuHMdVVqfqvueX-jk_XfM5tE9XScZPe1OLqGw1MUC=Kd2reBQ@mail.gmail.com>
- <CAPpSM+TXw-BGgpdZtx-bH5GEQvzYHxj_wDkdPfUT3Tcn=mtmEw@mail.gmail.com>
-In-Reply-To: <CAPpSM+TXw-BGgpdZtx-bH5GEQvzYHxj_wDkdPfUT3Tcn=mtmEw@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 7 Sep 2026 10:27:43 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdW5Zux92WES0REoejf5FO2h9KgRDCcLbN-A_kyJyRTxCg@mail.gmail.com>
-X-Gm-Features: AcwNN1WIo7mZnWwKa-D0voA6hoQPT3vMh6LOKhf3kqZvob9B3oZdbUigh3yaAR0
-Message-ID: <CAMuHMdW5Zux92WES0REoejf5FO2h9KgRDCcLbN-A_kyJyRTxCg@mail.gmail.com>
-Subject: Re: [BUG] drivers/net: out-of-bounds in pcan_usb_decode_buf()
-To: Xiang Mei <xmei5@asu.edu>
-Cc: co <co+5e2bcf11e7027510@bugs.sh>, Vincent Mailhol <mailhol@kernel.org>, 
-	Petr Mladek <pmladek@suse.com>, =?UTF-8?Q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>, 
-	Oleg Nesterov <oleg@redhat.com>, Biju Das <biju.das.jz@bp.renesas.com>, Song Liu <song@kernel.org>, 
-	linux-kernel@vger.kernel.org, cedalion@bugs.sh, linux-can@vger.kernel.org, 
-	Marc Kleine-Budde <mkl@pengutronix.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-ThreadId: ABSAncyMfC9J
+Date: Mon, 07 Sep 2026 10:27:29 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Geert Uytterhoeven" <geert@linux-m68k.org>,
+ "Dave Airlie" <airlied@gmail.com>,
+ "Yogesh Mohan Marimuthu" <yogesh.mohanmarimuthu@amd.com>
+Cc: "Linus Torvalds" <torvalds@linux-foundation.org>,
+ "Sima Vetter" <sima@ffwll.ch>, dri-devel <dri-devel@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>
+Message-Id: <24509a57-4e83-4730-b0f7-aae21abd2ef9@app.fastmail.com>
+In-Reply-To: 
+ <CAMuHMdVyFiywZJyaRCRjdkVptfiFOk=wy5+sQ4Mb_BgF10Q=7Q@mail.gmail.com>
+References: 
+ <CAPM=9ty9kjb1bKFgjgBS1tgM3zP2tK+5qTFzT9-0t+1jykBDxw@mail.gmail.com>
+ <CAMuHMdUG7_7GDPhs3H7kiarqSYR1_gMD1onYu9Hzem-_a-ookg@mail.gmail.com>
+ <CAMuHMdVyFiywZJyaRCRjdkVptfiFOk=wy5+sQ4Mb_BgF10Q=7Q@mail.gmail.com>
+Subject: Re: [git pull] drm fixes for 7.3-rc2
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Hi Xiang,
+On Mon, Sep 7, 2026, at 09:38, Geert Uytterhoeven wrote:
+> Sorry, forgot to CC Arnd for the uapi breakage
 
-On Mon, 7 Sept 2026 at 00:19, Xiang Mei <xmei5@asu.edu> wrote:
-> On Sat, Sep 5, 2026 at 7:04=E2=80=AFAM Geert Uytterhoeven <geert@linux-m6=
-8k.org> wrote:
-> > On Fri, 4 Sept 2026 at 23:17, co <co+5e2bcf11e7027510@bugs.sh> wrote:
-> > > We found a bug reachable in:
-> > >
-> > >     path    drivers/net/can/usb/peak_usb
-> > >     crash   out-of-bounds in pcan_usb_decode_buf()
-> > >     commit  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.ke=
-rnel.org/pub/scm/linux/kernel/git/trace/linux-trace")
-> > >
-> > > Config, environment, the sanitizer report and a C reproducer follow.
-> > >
-> > > =3D=3D Notes =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > >     If you patch the bug based on our artifacts, a tag would be
-> > >     appreciated:
-> > >
-> > > Reported-by: co+5e2bcf11e7027510@bugs.sh
-> > >
-> > >     Everything in this mail is validated by the reproducer below.
-> > >
-> > >     We also hold an LLM-generated root-cause analysis and a candidate
-> > >     patch. The patch passes an A/B test: the same reproducer panics t=
-he
-> > >     unpatched kernel and runs clean on the patched one. Neither has h=
-ad
-> > >     human review, so both still require validation before you send or
-> > >     apply them. Available on:
-> > >
-> > >         patch.diff  https://bugs.sh/b/5e2bcf11e7027510/patch.diff
-> > >         report.md   https://bugs.sh/b/5e2bcf11e7027510/report.md
-> > >
-> > >     This is an open science project. The code and the full set of PoC=
-s
-> > >     are not public at this moment, as we intend to disclose our findi=
-ngs
-> > >     in an ethical way.
-> > >
-> > >     Happy to test patches. Complaints and suggestions about our work
-> > >     are welcome at:
-> > >
-> > >         cedalion@bugs.sh
-> >
-> > Please read Documentation/process/submitting-patches.rst, especially
-> > https://elixir.bootlin.com/linux/v7.2.2/source/Documentation/process/su=
-bmitting-patches.rst#L928
->
-> I checked the document and the related files, and I apologize for our
-> mistake. This email should not have been sent to you, as our system
-> failed to identify the correct maintainers for this submodule.
+Thanks!
 
-Thank you!
+> On Mon, 7 Sept 2026 at 09:36, Geert Uytterhoeven <geert@linux-m68k.org> wrote:
+>> On Fri, 4 Sept 2026 at 21:52, Dave Airlie <airlied@gmail.com> wrote:
+>> > amdgpu:
+>> >  - Fix for drm_amdgpu_info_device with mixed 64 bit kernel and 32 bit userspace
+>>
+>> This commit contains a "cherry picked from"-reference to a
+>> non-existing commit in upstream (it does exist in linux-next),
+>> and mentions a discussion between three people.
+>> It would have been better to include a link to that discusion:
+>> https://lore.kernel.org/20260820045438.3974-1-yogesh.mohanmarimuthu@amd.com
 
-> We have fixed the issue. Thank you for bringing it to our attention.
-> If you meant other issues, please let us know.
+Agreed, and at least mention that this breaks native x86-32
+binaries until a user space recompile. If we're breaking this now,
+I would also suggest adding corresponding padding at the end of
+drm_amdgpu_gem_metadata and drm_amdgpu_info_hw_ip to align
+the x86-32 ABI with the other architectures.
 
-There are other issues, like not sending patches inline, so they
-cannot be reviewed easily.
-Thanks again!
+As far as I can tell, drm_ioctl_desc is robust against padding
+at the end of a structure, but having different
+numeric values for DRM_IOCTL_AMDGPU_GEM_METADATA based on
+-m32/-m64 compiler flags is an unnecessary source of confusion.
 
-Gr{oetje,eeting}s,
+For references, see below for all structures in include/drm
+contain implicit padding, from my patch series to add -Wpadded
+and shut up known warnings. Most of these are already handled
+correctly in drm compat handlers, but a few may need to be
+addressed better:
 
-                        Geert
+- drm_i915_query_perf_config looks like it gets the wrong
+  data pointer, and may need a fix in the compat handler
+- drm_radeon appears to completely lack proper compat
+  structure conversion and just passes everything to
+  the native handler, which is broken on all compat
+  architectures in addition to the x86-32 padding issue
+- panfrost/v3d/vc4 can just make the implicit padding explicit
+  to avoid the -Wpadded warnings, since these are never
+  used on x86-32
+- hexagon is a special beast and may need a better global
+  fix to align with normal enum types.
 
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
+     Arnd
 
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 9f3090db2f16..0114289f8369 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -713,7 +713,8 @@ struct drm_amdgpu_gem_metadata {
+ 		__u64	tiling_info;
+ 		__u32	data_size_bytes;
+ 		__u32	data[64];
+-	} data;
++		__uapi_arch_pad32;
++	} __uapi_arch_align data;
+ };
+ 
+ struct drm_amdgpu_gem_mmap_in {
+@@ -1510,6 +1511,7 @@ struct drm_amdgpu_info_device {
+ 	__u64 high_va_max;
+ 	/* gfx10 pa_sc_tile_steering_override */
+ 	__u32 pa_sc_tile_steering_override;
++	__uapi_arch_pad32;
+ 	/* disabled TCCs */
+ 	__u64 tcc_disabled_mask;
+ 	__u64 min_engine_clock;
+@@ -1535,7 +1537,8 @@ struct drm_amdgpu_info_device {
+ 	/* Userq IP mask (1 << AMDGPU_HW_IP_*) */
+ 	__u32 userq_ip_mask;
+ 	__u32 pad;
+-};
++	__uapi_arch_pad32;
++} __uapi_arch_align;
+ 
+ struct drm_amdgpu_info_hw_ip {
+ 	/** Version of h/w IP */
+@@ -1553,7 +1556,8 @@ struct drm_amdgpu_info_hw_ip {
+ 	__u32  ip_discovery_version;
+ 	/* Userq available slots */
+ 	__u32  userq_num_slots;
+-};
++	__uapi_arch_pad32;
++} __uapi_arch_align;
+ 
+ struct drm_amdgpu_info_num_handles {
+ 	/** Max handles as supported by firmware for UVD */
+diff --git a/include/uapi/drm/armada_drm.h b/include/uapi/drm/armada_drm.h
+index af1c14c837c5..4cbec706d4f2 100644
+--- a/include/uapi/drm/armada_drm.h
++++ b/include/uapi/drm/armada_drm.h
+@@ -45,7 +45,8 @@ struct drm_armada_gem_pwrite {
+ 	__u32 handle;
+ 	__u32 offset;
+ 	__u32 size;
+-};
++	__uapi_arch_pad32;
++} __uapi_arch_align;
+ #define DRM_IOCTL_ARMADA_GEM_PWRITE \
+ 	ARMADA_IOCTL(IOW, GEM_PWRITE, gem_pwrite)
+ 
+diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
+index bc7ef7684099..2d18ccff8b62 100644
+--- a/include/uapi/drm/drm.h
++++ b/include/uapi/drm/drm.h
+@@ -87,8 +87,9 @@ struct drm_clip_rect {
+  */
+ struct drm_drawable_info {
+ 	unsigned int num_rects;
++	__uapi_arch_pad_long;
+ 	struct drm_clip_rect *rects;
+-};
++} __uapi_arch_align;
+ 
+ /*
+  * Texture region,
+@@ -122,13 +123,14 @@ struct drm_version {
+ 	int version_major;	  /**< Major version */
+ 	int version_minor;	  /**< Minor version */
+ 	int version_patchlevel;	  /**< Patch level */
++	__uapi_arch_pad_long;
+ 	__kernel_size_t name_len;	  /**< Length of name buffer */
+ 	char __user *name;	  /**< Name of driver */
+ 	__kernel_size_t date_len;	  /**< Length of date buffer */
+ 	char __user *date;	  /**< User-space buffer to hold date */
+ 	__kernel_size_t desc_len;	  /**< Length of desc buffer */
+ 	char __user *desc;	  /**< User-space buffer to hold desc */
+-};
++} __uapi_arch_align;
+ 
+ /*
+  * DRM_IOCTL_GET_UNIQUE ioctl argument type.
+@@ -142,6 +144,7 @@ struct drm_unique {
+ 
+ struct drm_list {
+ 	int count;		  /**< Length of user-space structures */
++	__uapi_arch_pad_long;
+ 	struct drm_version __user *version;
+ };
+ 
+@@ -192,8 +195,9 @@ enum drm_map_flags {
+ 
+ struct drm_ctx_priv_map {
+ 	unsigned int ctx_id;	 /**< Context requesting private mapping */
++	__uapi_arch_pad_long;
+ 	void *handle;		 /**< Handle of map */
+-};
++} __uapi_arch_align;
+ 
+ /*
+  * DRM_IOCTL_GET_MAP, DRM_IOCTL_ADD_MAP and DRM_IOCTL_RM_MAP ioctls
+@@ -209,8 +213,9 @@ struct drm_map {
+ 	void *handle;		 /**< User-space: "Handle" to pass to mmap() */
+ 				 /**< Kernel-space: kernel-virtual address */
+ 	int mtrr;		 /**< MTRR slot used */
++	__uapi_arch_pad_long;
+ 	/*   Private data */
+-};
++} __uapi_arch_align;
+ 
+ /*
+  * DRM_IOCTL_GET_CLIENT ioctl argument type.
+@@ -252,7 +257,12 @@ struct drm_stats {
+ 	struct {
+ 		unsigned long value;
+ 		enum drm_stat_type type;
+-	} data[15];
++		__uapi_arch_pad_long;
++#ifdef __hexagon__
++		/* hexagon uses short enums */
++		__u8 :8, :8, :8;
++#endif
++	} __uapi_arch_align data[15];
+ };
+ 
+ /*
+@@ -326,6 +336,7 @@ struct drm_buf_desc {
+ 		_DRM_FB_BUFFER = 0x08,	/**< Buffer is in frame buffer */
+ 		_DRM_PCI_BUFFER_RO = 0x10 /**< Map PCI DMA buffer read-only */
+ 	} flags;
++	__uapi_arch_pad_long;
+ 	unsigned long agp_start; /**<
+ 				  * Start address of where the AGP buffers are
+ 				  * in the AGP aperture
+@@ -337,16 +348,18 @@ struct drm_buf_desc {
+  */
+ struct drm_buf_info {
+ 	int count;		/**< Entries in list */
++	__uapi_arch_pad_long;
+ 	struct drm_buf_desc __user *list;
+-};
++} __uapi_arch_align;
+ 
+ /*
+  * DRM_IOCTL_FREE_BUFS ioctl argument type.
+  */
+ struct drm_buf_free {
+ 	int count;
++	__uapi_arch_pad_long;
+ 	int __user *list;
+-};
++} __uapi_arch_align;
+ 
+ /*
+  * Buffer information
+@@ -357,21 +370,23 @@ struct drm_buf_pub {
+ 	int idx;		       /**< Index into the master buffer list */
+ 	int total;		       /**< Buffer size */
+ 	int used;		       /**< Amount of buffer in use (for DMA) */
++	__uapi_arch_pad_long;
+ 	void __user *address;	       /**< Address of buffer */
+-};
++} __uapi_arch_align;
+ 
+ /*
+  * DRM_IOCTL_MAP_BUFS ioctl argument type.
+  */
+ struct drm_buf_map {
+ 	int count;		/**< Length of the buffer list */
++	__uapi_arch_pad_long;
+ #ifdef __cplusplus
+ 	void __user *virt;
+ #else
+ 	void __user *virtual;		/**< Mmap'd area in user-virtual */
+ #endif
+ 	struct drm_buf_pub __user *list;	/**< Buffer information */
+-};
++} __uapi_arch_align;
+ 
+ /*
+  * DRM_IOCTL_DMA ioctl argument type.
+@@ -388,10 +403,12 @@ struct drm_dma {
+ 	enum drm_dma_flags flags;	  /**< Flags */
+ 	int request_count;		  /**< Number of buffers requested */
+ 	int request_size;		  /**< Desired size for buffers */
++	__uapi_arch_pad_long;
+ 	int __user *request_indices;	  /**< Buffer information */
+ 	int __user *request_sizes;
+ 	int granted_count;		  /**< Number of buffers granted */
+-};
++	__uapi_arch_pad_long;
++} __uapi_arch_align;
+ 
+ enum drm_ctx_flags {
+ 	_DRM_CONTEXT_PRESERVED = 0x01,
+@@ -413,8 +430,9 @@ struct drm_ctx {
+  */
+ struct drm_ctx_res {
+ 	int count;
++	__uapi_arch_pad_long;
+ 	struct drm_ctx __user *contexts;
+-};
++} __uapi_arch_align;
+ 
+ /*
+  * DRM_IOCTL_ADD_DRAW and DRM_IOCTL_RM_DRAW ioctl argument type.
+@@ -434,8 +452,9 @@ struct drm_update_draw {
+ 	drm_drawable_t handle;
+ 	unsigned int type;
+ 	unsigned int num;
++	__uapi_arch_pad32;
+ 	unsigned long long data;
+-};
++} __uapi_arch_align;
+ 
+ /*
+  * DRM_IOCTL_GET_MAGIC and DRM_IOCTL_AUTH_MAGIC ioctl argument type.
+@@ -559,7 +578,8 @@ struct drm_agp_info {
+ 	/* PCI information */
+ 	unsigned short id_vendor;
+ 	unsigned short id_device;
+-};
++	__uapi_arch_pad_long;
++} __uapi_arch_align;
+ 
+ /*
+  * DRM_IOCTL_SG_ALLOC ioctl argument type.
+diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+index 381a3e857d4e..7da67277fb5f 100644
+--- a/include/uapi/drm/drm_mode.h
++++ b/include/uapi/drm/drm_mode.h
+@@ -350,7 +350,8 @@ struct drm_mode_get_plane {
+ struct drm_mode_get_plane_res {
+ 	__u64 plane_id_ptr;
+ 	__u32 count_planes;
+-};
++	__uapi_arch_pad32;
++} __uapi_arch_align;
+ 
+ #define DRM_MODE_ENCODER_NONE	0
+ #define DRM_MODE_ENCODER_DAC	1
+@@ -628,14 +629,16 @@ struct drm_mode_obj_get_properties {
+ 	__u32 count_props;
+ 	__u32 obj_id;
+ 	__u32 obj_type;
+-};
++	__uapi_arch_pad32;
++} __uapi_arch_align;
+ 
+ struct drm_mode_obj_set_property {
+ 	__u64 value;
+ 	__u32 prop_id;
+ 	__u32 obj_id;
+ 	__u32 obj_type;
+-};
++	__uapi_arch_pad32;
++} __uapi_arch_align;
+ 
+ struct drm_mode_get_blob {
+ 	__u32 blob_id;
+@@ -723,8 +726,9 @@ struct drm_mode_fb_cmd2 {
+ 	 * constants in ``drm_fourcc.h``. All planes must use the same
+ 	 * modifier. Ignored unless &DRM_MODE_FB_MODIFIERS is set in @flags.
+ 	 */
++	__uapi_arch_pad32;
+ 	__u64 modifier[4];
+-};
++} __uapi_arch_align;
+ 
+ #define DRM_MODE_FB_DIRTY_ANNOTATE_COPY 0x01
+ #define DRM_MODE_FB_DIRTY_ANNOTATE_FILL 0x02
+@@ -1078,7 +1082,8 @@ struct hdr_output_metadata {
+ 	union {
+ 		struct hdr_metadata_infoframe hdmi_metadata_type1;
+ 	};
+-};
++	__uapi_arch_pad16;
++} __uapi_arch_align;
+ 
+ /**
+  * DRM_MODE_PAGE_FLIP_EVENT
+diff --git a/include/uapi/drm/etnaviv_drm.h b/include/uapi/drm/etnaviv_drm.h
+index af024d90453d..abd0cafa231f 100644
+--- a/include/uapi/drm/etnaviv_drm.h
++++ b/include/uapi/drm/etnaviv_drm.h
+@@ -140,6 +140,7 @@ struct drm_etnaviv_gem_submit_reloc {
+ 	__u32 reloc_idx;      /* in, index of reloc_bo buffer */
+ 	__u64 reloc_offset;   /* in, offset from start of reloc_bo */
+ 	__u32 flags;          /* in, placeholder for now, no defined values */
++	__uapi_arch_pad32;
+ };
+ 
+ /* Each buffer referenced elsewhere in the cmdstream submit (ie. the
+@@ -263,7 +264,8 @@ struct drm_etnaviv_pm_signal {
+ 	__u16 iter;       /* in/out, select pm source at index iter */
+ 	__u16 id;         /* out, id of signal */
+ 	char  name[64];   /* out, name of domain */
+-};
++	__uapi_arch_pad16;
++} __uapi_arch_align;
+ 
+ #define DRM_ETNAVIV_GET_PARAM          0x00
+ /* placeholder:
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 535cb68fdb5c..13ff9be3db27 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -28,6 +28,7 @@
+ #define _UAPI_I915_DRM_H_
+ 
+ #include "drm.h"
++#include <linux/stddef.h>
+ 
+ #if defined(__cplusplus)
+ extern "C" {
+@@ -559,6 +560,7 @@ typedef struct drm_i915_batchbuffer {
+ 	int DR1;		/* hw flags for GFX_OP_DRAWRECT_INFO */
+ 	int DR4;		/* window origin for GFX_OP_DRAWRECT_INFO */
+ 	int num_cliprects;	/* mulitpass with multiple cliprects? */
++	__uapi_arch_pad_long;
+ 	struct drm_clip_rect __user *cliprects;	/* pointer to userspace cliprects */
+ } drm_i915_batchbuffer_t;
+ 
+@@ -820,6 +822,7 @@ typedef struct drm_i915_irq_wait {
+ struct drm_i915_getparam {
+ 	/** @param: Driver parameter to query. */
+ 	__s32 param;
++	__uapi_arch_pad_long;
+ 
+ 	/**
+ 	 * @value: Address of memory where queried value should be put.
+@@ -828,7 +831,7 @@ struct drm_i915_getparam {
+ 	 * compat32 code. Don't repeat this mistake.
+ 	 */
+ 	int __user *value;
+-};
++} __uapi_arch_align;
+ 
+ /**
+  * typedef drm_i915_getparam_t - Driver parameter query structure.
+@@ -857,8 +860,9 @@ typedef struct drm_i915_mem_alloc {
+ 	int region;
+ 	int alignment;
+ 	int size;
++	__uapi_arch_pad_long;
+ 	int __user *region_offset;	/* offset from start of fb or agp */
+-} drm_i915_mem_alloc_t;
++} __uapi_arch_align drm_i915_mem_alloc_t;
+ 
+ typedef struct drm_i915_mem_free {
+ 	int region;
+@@ -3422,7 +3426,19 @@ struct drm_i915_query_perf_config {
+ 		 * String formatted like "%08x-%04x-%04x-%04x-%012x"
+ 		 */
+ 		char uuid[36];
+-	};
++
++		/*
++		 * uuid is the longest field in the union but is not a multiple
++		 * of alignof(__u64) in size, which leads to a -Wpadded warning.
++		 * add an explicit union member here with the correct size on
++		 * the architectures that need padding or zero length on those
++		 * that do not.
++		 */
++		struct {
++			char __pad[36];
++			__uapi_arch_pad32;
++		};
++	} __uapi_arch_align;
+ 
+ 	/**
+ 	 * @flags:
+@@ -3447,8 +3463,11 @@ struct drm_i915_query_perf_config {
+ 	 *  - &drm_i915_perf_oa_config.n_boolean_regs
+ 	 *  - &drm_i915_perf_oa_config.n_flex_regs
+ 	 */
+-	__u8 data[];
+-};
++	union {
++		__uapi_arch_pad32; /* pad to alignof(__u64) */
++		__DECLARE_FLEX_ARRAY(__u8, data);
++	};
++} __uapi_arch_align;
+ 
+ /**
+  * enum drm_i915_gem_memory_class - Supported memory classes
+@@ -3867,7 +3886,8 @@ struct drm_i915_gem_create_ext_protected_content {
+ 	struct i915_user_extension base;
+ 	/** @flags: reserved for future usage, currently MBZ */
+ 	__u32 flags;
+-};
++	__uapi_arch_pad32;
++} __uapi_arch_align;
+ 
+ /**
+  * struct drm_i915_gem_create_ext_set_pat - The
+diff --git a/include/uapi/drm/ivpu_accel.h b/include/uapi/drm/ivpu_accel.h
+index 264505d54f93..f80a580a21bc 100644
+--- a/include/uapi/drm/ivpu_accel.h
++++ b/include/uapi/drm/ivpu_accel.h
+@@ -389,7 +389,8 @@ struct drm_ivpu_submit {
+ 	 * %DRM_IVPU_JOB_PRIORITY_REALTIME
+ 	 */
+ 	__u32 priority;
+-};
++	__uapi_arch_pad32;
++} __uapi_arch_align;
+ 
+ /**
+  * struct drm_ivpu_cmdq_submit - Submit commands to the VPU using explicit command queue
+@@ -488,7 +489,8 @@ struct drm_ivpu_metric_streamer_start {
+ 	__u32 sample_size;
+ 	/** @max_data_size: Returned max @data_size from %DRM_IOCTL_IVPU_METRIC_STREAMER_GET_DATA */
+ 	__u32 max_data_size;
+-};
++	__uapi_arch_pad32;
++} __uapi_arch_align;
+ 
+ /**
+  * struct drm_ivpu_metric_streamer_get_data - Copy collected metric data
+diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
+index 7f2e594be4eb..d5c6c9d40bc4 100644
+--- a/include/uapi/drm/msm_drm.h
++++ b/include/uapi/drm/msm_drm.h
+@@ -430,7 +430,8 @@ struct drm_msm_wait_fence {
+ 	__u32 flags;          /* in, bitmask of MSM_WAIT_FENCE_x */
+ 	struct drm_msm_timespec timeout;   /* in */
+ 	__u32 queueid;         /* in, submitqueue id */
+-};
++	__uapi_arch_pad32;
++} __uapi_arch_align;
+ 
+ /* madvise provides a way to tell the kernel in case a buffers contents
+  * can be discarded under memory pressure, which is useful for userspace
+diff --git a/include/uapi/drm/panfrost_drm.h b/include/uapi/drm/panfrost_drm.h
+index 50d5337f35ef..f5b1e3b56897 100644
+--- a/include/uapi/drm/panfrost_drm.h
++++ b/include/uapi/drm/panfrost_drm.h
+@@ -402,14 +402,16 @@ struct panfrost_dump_object_header {
+ 			__u32 gpu_id;
+ 			__u32 major;
+ 			__u32 minor;
++			__uapi_arch_pad32;
+ 			__u64 nbos;
+-		} reghdr;
++		} __uapi_arch_align reghdr;
+ 
+ 		struct {
+ 			__u32 valid;
++			__uapi_arch_pad32;
+ 			__u64 iova;
+ 			__u32 data[2];
+-		} bomap;
++		} __uapi_arch_align bomap;
+ 
+ 		/*
+ 		 * Force same size in case we want to expand the header
+diff --git a/include/uapi/drm/radeon_drm.h b/include/uapi/drm/radeon_drm.h
+index 490a59cc4532..95db5d8eea49 100644
+--- a/include/uapi/drm/radeon_drm.h
++++ b/include/uapi/drm/radeon_drm.h
+@@ -569,6 +569,7 @@ typedef struct drm_radeon_init {
+ 		RADEON_INIT_R300_CP = 0x04,
+ 		RADEON_INIT_R600_CP = 0x05
+ 	} func;
++	__uapi_arch_pad_long;
+ 	unsigned long sarea_priv_offset;
+ 	int is_pci;
+ 	int cp_mode;
+@@ -581,6 +582,7 @@ typedef struct drm_radeon_init {
+ 	unsigned int back_offset, back_pitch;
+ 	unsigned int depth_bpp;
+ 	unsigned int depth_offset, depth_pitch;
++	__uapi_arch_pad_long;
+ 
+ 	unsigned long fb_offset;
+ 	unsigned long mmio_offset;
+@@ -588,7 +590,7 @@ typedef struct drm_radeon_init {
+ 	unsigned long ring_rptr_offset;
+ 	unsigned long buffers_offset;
+ 	unsigned long gart_textures_offset;
+-} drm_radeon_init_t;
++} __uapi_arch_align drm_radeon_init_t;
+ 
+ typedef struct drm_radeon_cp_stop {
+ 	int flush;
+@@ -619,8 +621,9 @@ typedef struct drm_radeon_clear {
+ 	unsigned int clear_depth;
+ 	unsigned int color_mask;
+ 	unsigned int depth_mask;	/* misnamed field:  should be stencil */
++	__uapi_arch_pad_long;
+ 	drm_radeon_clear_rect_t __user *depth_boxes;
+-} drm_radeon_clear_t;
++} __uapi_arch_align drm_radeon_clear_t;
+ 
+ typedef struct drm_radeon_vertex {
+ 	int prim;
+@@ -645,10 +648,12 @@ typedef struct drm_radeon_vertex2 {
+ 	int idx;		/* Index of vertex buffer */
+ 	int discard;		/* Client finished with buffer? */
+ 	int nr_states;
++	__uapi_arch_pad_long;
+ 	drm_radeon_state_t __user *state;
+ 	int nr_prims;
++	__uapi_arch_pad_long;
+ 	drm_radeon_prim_t __user *prim;
+-} drm_radeon_vertex2_t;
++} __uapi_arch_align drm_radeon_vertex2_t;
+ 
+ /* v1.3 - obsoletes drm_radeon_vertex2
+  *      - allows arbitrarily large cliprect list
+@@ -662,10 +667,12 @@ typedef struct drm_radeon_vertex2 {
+  */
+ typedef struct drm_radeon_cmd_buffer {
+ 	int bufsz;
++	__uapi_arch_pad_long;
+ 	char __user *buf;
+ 	int nbox;
++	__uapi_arch_pad_long;
+ 	struct drm_clip_rect __user *boxes;
+-} drm_radeon_cmd_buffer_t;
++} __uapi_arch_align drm_radeon_cmd_buffer_t;
+ 
+ typedef struct drm_radeon_tex_image {
+ 	unsigned int x, y;	/* Blit coordinates */
+@@ -679,6 +686,7 @@ typedef struct drm_radeon_texture {
+ 	int format;
+ 	int width;		/* Texture image coordinates */
+ 	int height;
++	__uapi_arch_pad_long;
+ 	drm_radeon_tex_image_t __user *image;
+ } drm_radeon_texture_t;
+ 
+@@ -723,8 +731,9 @@ typedef struct drm_radeon_indirect {
+ 
+ typedef struct drm_radeon_getparam {
+ 	int param;
++	__uapi_arch_pad_long;
+ 	void __user *value;
+-} drm_radeon_getparam_t;
++} __uapi_arch_align drm_radeon_getparam_t;
+ 
+ /* 1.6: Set up a memory manager for regions of shared memory:
+  */
+@@ -735,8 +744,9 @@ typedef struct drm_radeon_mem_alloc {
+ 	int region;
+ 	int alignment;
+ 	int size;
++	__uapi_arch_pad_long;
+ 	int __user *region_offset;	/* offset from start of fb or GART */
+-} drm_radeon_mem_alloc_t;
++} __uapi_arch_align drm_radeon_mem_alloc_t;
+ 
+ typedef struct drm_radeon_mem_free {
+ 	int region;
+@@ -765,8 +775,9 @@ typedef struct drm_radeon_irq_wait {
+ 
+ typedef struct drm_radeon_setparam {
+ 	unsigned int param;
++	__uapi_arch_pad32;
+ 	__s64 value;
+-} drm_radeon_setparam_t;
++} __uapi_arch_align drm_radeon_setparam_t;
+ 
+ #define RADEON_SETPARAM_FB_LOCATION    1	/* determined framebuffer location */
+ #define RADEON_SETPARAM_SWITCH_TILING  2	/* enable/disable color tiling */
+@@ -816,7 +827,8 @@ struct drm_radeon_gem_create {
+ 	__u32	handle;
+ 	__u32	initial_domain;
+ 	__u32	flags;
+-};
++	__uapi_arch_pad32;
++} __uapi_arch_align;
+ 
+ /*
+  * This is not a reliable API and you should expect it to fail for any
+diff --git a/include/uapi/drm/v3d_drm.h b/include/uapi/drm/v3d_drm.h
+index d9b01f4c3a04..626e0619770d 100644
+--- a/include/uapi/drm/v3d_drm.h
++++ b/include/uapi/drm/v3d_drm.h
+@@ -354,6 +354,8 @@ struct drm_v3d_submit_csd {
+ 	__u32 cfg[7];
+ 	__u32 coef[4];
+ 
++	__uapi_arch_pad32;
++
+ 	/* Pointer to a u32 array of the BOs that are referenced by the job.
+ 	 */
+ 	__u64 bo_handles;
+@@ -379,7 +381,7 @@ struct drm_v3d_submit_csd {
+ 	__u32 flags;
+ 
+ 	__u32 pad;
+-};
++} __uapi_arch_align;
+ 
+ /**
+  * struct drm_v3d_indirect_csd - ioctl extension for the CPU job to create an
+diff --git a/include/uapi/drm/vc4_drm.h b/include/uapi/drm/vc4_drm.h
+index 2cac6277a1d7..bdfaabe35474 100644
+--- a/include/uapi/drm/vc4_drm.h
++++ b/include/uapi/drm/vc4_drm.h
+@@ -432,8 +432,9 @@ struct drm_vc4_perfmon_destroy {
+  */
+ struct drm_vc4_perfmon_get_values {
+ 	__u32 id;
++	__uapi_arch_pad32;
+ 	__u64 values_ptr;
+-};
++} __uapi_arch_align;
+ 
+ #if defined(__cplusplus)
+ }
+diff --git a/include/uapi/drm/vmwgfx_drm.h b/include/uapi/drm/vmwgfx_drm.h
+index 7d786a0cc835..11553d87e1b7 100644
+--- a/include/uapi/drm/vmwgfx_drm.h
++++ b/include/uapi/drm/vmwgfx_drm.h
+@@ -227,6 +227,9 @@ struct drm_vmw_surface_create_req {
+ struct drm_vmw_surface_arg {
+ 	__s32 sid;
+ 	enum drm_vmw_handle_type handle_type;
++#ifdef __hexagon__
++	__u8 :8, :8, :8;
++#endif
+ };
+ 
+ /**
+@@ -865,6 +868,9 @@ enum drm_vmw_shader_type {
+  */
+ struct drm_vmw_shader_create_arg {
+ 	enum drm_vmw_shader_type shader_type;
++#ifdef __hexagon__
++	__u8 :8, :8, :8;
++#endif
+ 	__u32 size;
+ 	__u32 buffer_handle;
+ 	__u32 shader_handle;
+@@ -941,6 +947,9 @@ struct drm_vmw_gb_surface_create_req {
+ 	__u32 format;
+ 	__u32 mip_levels;
+ 	enum drm_vmw_surface_flags drm_surface_flags;
++#ifdef __hexagon__
++	__u8 :8, :8, :8;
++#endif
+ 	__u32 multisample_count;
+ 	__u32 autogen_filter;
+ 	__u32 buffer_handle;
+@@ -1170,6 +1179,10 @@ enum drm_vmw_surface_version {
+ struct drm_vmw_gb_surface_create_ext_req {
+ 	struct drm_vmw_gb_surface_create_req base;
+ 	enum drm_vmw_surface_version version;
++#ifdef __hexagon__
++	/* hexagon uses short enums */
++	__u8 :8, :8, :8;
++#endif
+ 	__u32 svga3d_flags_upper_32_bits;
+ 	__u32 multisample_pattern;
+ 	__u32 quality_level;
