@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C9F351FCA4
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:43:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98AF451FCB1
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:43:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788799388; cv=none; b=E2Rbjbc/yn/TNmJVV0WJSbufuzGfl3Vm96PZ8urfM7A1+No0FZXDHKLLDwJkkdXUxD7OE2dyUjufRU6ymF7nUbDpXXC3n4L9SDTjDcg6Nqv6lB4L2kzIts0ZesWOmxdvO3Irmyfejg37rWvUo3Xu720pHEcpNb45nDJb2SUTiHc=
+	t=1788799391; cv=none; b=p/EtCRwyoOtjaWb1NuM/8lg+aT8OSH0XuBM0IUDaSIq8I0LK8iF6ymgi1xvYDLQF9sU6f+1YXwD4QkPg+PHiecExbY7+F+GFdqhZt8GRuKShBb1jLSdpGJFSSLXjLuQdJocDror4QLhPXYotBA/cgQ2jpTngQOwSktGQ7WwTmyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788799388; c=relaxed/simple;
-	bh=T0AGVyN1eYv+zr11+s5U3YSKlu3+XotRoLe2H25gaVY=;
+	s=arc-20240116; t=1788799391; c=relaxed/simple;
+	bh=2xoBQrYiLQhwyzzjlC/Rrs4JE7nEyMXez28Fj2eF4ag=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qVXqCa7coWC+Mr+Eol+eps6wmLRTW1D/P6qPt9XNHNhyU4uejgrkjGn0b5HMC3UWd/Adth82p0bhf+Wu2JsrQXHvb57AgL3x7qnLuTesS+5QC4FSwe/HA9m5/qL1VcWj8fxpgMvHABp9A7Xo9UmqbJw8WrexA+6Dxrm6bMZAk0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cr7pWeK6; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=IiX8DpAjtVIvHltMT1V1NgAdqOTdm2bEmdgVs/183t4XkfheKnF14bzYzefSznFzBl4cbNwzs590+lmcUpS5TtbpcQpP+LNoQ89Ggzk38d/YYiMCWveqa9P2XU70zjkksLL45k1jHHx5/J68lgD3kRaPnJ69rQQBCsp8gnrOsgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n7Tw5X7w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cr7pWeK6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AE131F00A3A;
-	Mon,  7 Sep 2026 16:43:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n7Tw5X7w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C05A1F00A3D;
+	Mon,  7 Sep 2026 16:43:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788799387;
-	bh=lMcv+fJIFUpeFRCmf9ya4J/neAxp4gqF2gal+tnA2+s=;
+	s=k20260515; t=1788799390;
+	bh=Fp1WUkxnhvJ5IR2eKQ3SMHt49du3trxxPvYQkmiNNK8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Cr7pWeK6EldNr1h/xUgngyA4ZLJ0dgvByNM6MeAoptHgqtSNTGn291nm6gxD7VRXg
-	 M+jZxwgy4hu2Cyk1NOmEKWjcKJHdSBJ2YlP+H1eBCz78ruzLy2/8XIbRc6kGTBRpqw
-	 LC2K8CyxlDoQYI/j+ULq7KdTDdKep4tSElijKtOQQzNAIqNpY1pg4A2qJ+n3uVW3yf
-	 n/yXMGHOAJkMycYxkwGOGoysHB1zhQUfpomZiVAY2DKQT10cMLFoECo8ZDp0Ozque9
-	 9mBnlbtRwC27zWvUlGOwPi5Fp0YAP/rNYk5Kye8CFPEUqlrW4wLeZy85Tgp0HYHMN1
-	 wnaRaZVmL657Q==
+	b=n7Tw5X7wmPClS1PfidWlMSSGzwE56Vyb+K07OW9TKFGgJ/1QxvCFZoKgfDEo4IsKp
+	 uPIWzntXgAWLL4aYjmXCXMiCzDQ9zEN+mQWDVqzPIqoYMhnVduceRNdLEq5GbWglKm
+	 3wYOGEQcyfNEC0iyBdCqh3WErPszKpUEgaW/42wJmPP7KbFvHFB/k8kuRoAaYQyExa
+	 BsJekbPdn/amcdakWif/SD0mswbdTyZxn7YKG1MzCx/dMhvX6zof29YelMhynlQ+Yf
+	 jADdEkNMyKYC+WvGrt/bNz9WDlU8EM78l7YYkczXS4yQqEbsizmeYBNCrP6+T1obHs
+	 Gqwi/u4rn4gtw==
 From: Will Deacon <will@kernel.org>
 To: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org,
@@ -42,9 +42,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Oliver Upton <oupton@kernel.org>,
 	Linus Walleij <linusw@kernel.org>,
 	Marc Zyngier <maz@kernel.org>
-Subject: [PATCH 02/21] arm64: entry: Only check for stack overflow on exceptions from EL1
-Date: Mon,  7 Sep 2026 17:42:27 +0100
-Message-ID: <20260907164247.17223-3-will@kernel.org>
+Subject: [PATCH 03/21] arm64: stackprotector: Temporarily disable per-task stackprotector
+Date: Mon,  7 Sep 2026 17:42:28 +0100
+Message-ID: <20260907164247.17223-4-will@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260907164247.17223-1-will@kernel.org>
 References: <20260907164247.17223-1-will@kernel.org>
@@ -56,54 +56,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Checking for kernel stack overflow on entry from EL0 is largely
-pointless and gets in the way of using SPSel to switch to the overflow
-stack. If the kernel stack overflows on entry from userspace, that
-implies that it was unbalanced on the last exception return which means
-we can't sensibly reason about the state of the system given that we
-could've returned to an arbitrary virtual address in an arbitrary mode.
-
-Remove the stack overflow check from the EL0 exception entry path.
+Per-task stackprotector relies on telling the compiler about the system
+register used to hold a pointer to the current task. As we're about to
+change that around, temporarily disable per-task stackprotector for now.
 
 Cc: Mark Rutland <mark.rutland@arm.com>
 Signed-off-by: Will Deacon <will@kernel.org>
 ---
- arch/arm64/kernel/entry.S | 6 ++++++
- 1 file changed, 6 insertions(+)
+ arch/arm64/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/kernel/entry.S b/arch/arm64/kernel/entry.S
-index 59f045e496ec..b5d8277f608a 100644
---- a/arch/arm64/kernel/entry.S
-+++ b/arch/arm64/kernel/entry.S
-@@ -54,6 +54,8 @@
- 	.endif
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+index b5a51b0ef944..b8270b301809 100644
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -2455,6 +2455,7 @@ config CC_HAVE_STACKPROTECTOR_SYSREG
+ config STACKPROTECTOR_PER_TASK
+ 	def_bool y
+ 	depends on STACKPROTECTOR && CC_HAVE_STACKPROTECTOR_SYSREG
++	depends on BROKEN
  
- 	sub	sp, sp, #PT_REGS_SIZE
-+
-+	.if	\el == 1
- 	/*
- 	 * Test whether the SP has overflowed, without corrupting a GPR.
- 	 * Task and IRQ stacks are aligned so that SP & (1 << THREAD_SHIFT)
-@@ -64,8 +66,11 @@
- 	tbnz	x0, #THREAD_SHIFT, 0f
- 	sub	x0, sp, x0			// x0'' = sp' - x0' = (sp + x0) - sp = x0
- 	sub	sp, sp, x0			// sp'' = sp' - x0 = (sp + x0) - x0 = sp
-+	.endif
-+
- 	b	el\el\ht\()_\regsize\()_\label
- 
-+	.if	\el == 1
- 0:
- 	/*
- 	 * Either we've just detected an overflow, or we've taken an exception
-@@ -96,6 +101,7 @@
- 	sub	sp, sp, x0
- 	mrs	x0, tpidrro_el0
- 	b	el\el\ht\()_\regsize\()_\label
-+	.endif
- .org .Lventry_start\@ + 128	// Did we overflow the ventry slot?
- 	.endm
- 
+ config UNWIND_PATCH_PAC_INTO_SCS
+ 	bool "Enable shadow call stack dynamically using code patching"
 -- 
 2.55.0.979.g7e5102b832-goog
 
