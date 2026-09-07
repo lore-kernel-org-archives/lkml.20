@@ -1,198 +1,117 @@
-Received: from mail-ej2-f7.google.com (mail-ej2-f7.google.com [74.125.228.135])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ironport.ite.com.tw (hc210-202-87-179.vdslpro.static.apol.com.tw [210.202.87.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00604402429
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:57:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBED238DC6F;
+	Mon,  7 Sep 2026 09:57:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.202.87.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788775057; cv=none; b=RVQ1HBgPNMmWCJphGxK0VLss0Xo8cvUeMvMhm+mqIVsL6m4bkw2vPezlQlblaRALjTHmEdQAz34qlRqsr4TUd+9yiw3A81Wbehq9v8qk7XeSFuRK3bOAzxXVTCRtplTidKCmGC5ipiTSRT/hsxD/Wr5CmFChR5LTTC0XDwd1P2U=
+	t=1788775072; cv=none; b=HjmwiZQSw8BUiYMaUnPnvuGRLo+6iROb4FSZLUS5u1L/MjNJ9Wz61iyvYKc51RVYEObOg7JQw2ZQaTlxZSz7hgJ9r8lU8NXullIo8uphF4ZnBWSFBCzBXapWWowNBuoNxqOmzTPpXcr7Fw9G+RD8/RTAtHa0GQJALi1fUoHMvDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788775057; c=relaxed/simple;
-	bh=vhWYZT5rtHpp1RsdL2F+vrHvIG+pLXc1kq9fh1aD3h8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N2uTBo9ayz0yCkJBya3+yKhPFU8RyF9W9ROqZcwXgI6UihNvQ3idFgZSinBG7c4+K/8bdsERB7aCZ7vAFbULf7rjJnE0lsaqgwD68QL6Q26VazD5Djw/7v26UnCuHkfoosOoxLjdD/vZDn1q80Yghv+wyOTPMG+WWKPtpoYdb7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.228.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej2-f7.google.com with SMTP id a640c23a62f3a-c28e3998eb7so74602766b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:57:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788775054; x=1789379854;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jUXGZANL0993PysSl5gghhV/fwlEARMhYop7oGVffdM=;
-        b=fdJYEfmdzv9JMoZqBzomgznvrN6mn8BppAnPN2y6qdWqWQNLX/Yzr08KoebW3Mr7Sq
-         O8/WJk0TRKan72bT0gL7OBH1iLzqRfs/V9Pb/W1o286je7LDjP0M9wT94Z9qEv+5fnWY
-         e/vkJ48jEpF+W+sVwumXXTyAiwWY3YkLTB+fSJFHl9eLmmdjquAVqLvkhThDvIefEiTv
-         hY7zFlOVnuBGp1tArYe2twCNG3jsdkKOtPU5uLvyMbmHPKFiPZrCAinrSheUc/YIQ9CX
-         bOquRDd7pReeGofyqrLHh/IFS+1fSuzGhz4VEfQl9Y6iP443vEQlPkpMJ5neq4cFEg5X
-         k/Yw==
-X-Forwarded-Encrypted: i=1; AKwUvBxSnzKlwnb8/fNzQlZOiIZrICyZX5NXnFzB8TtxTDUw9ALj0R3UHLY0dwnLQaPe5ljoso3z81xoH4akynE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kYp6YI42zJVEo5rwMdhe0+Mlw3YHUvaiAn5MHDVGpGRwU7fXrg
-	IExsbIRSSCLKAwlt0Qv8MpBDma89XBJ9OfNjqt9yyzUFGLZHvuUAggp1
-X-Gm-Gg: AYBFou2n/rFS2rWsRumT13w02Z5nKiQTMpqMS2BaSDZaONMQC9R2fo3pUp/kkFIg21f
-	WJv4ukifSt/cSpql9WzHymTydviyIEwyoMYvYz9alGjvIdeK0/kLNX/RRSxGRcwxXvAhoMByyXd
-	vBVXPn1382UjXozknqoBLGYEOxoP6IXw//BP/Oj953SI1kG+4ahOC4ojhm7V1r/SF9ZSxe5dvAa
-	lpeaKnsUmB9pmWMSI/OCOod2g22dEt6ZSt+fwg66UrGDCqqJ8BPG8oRSmlJVXHHBp0XON8BzKY0
-	VgxmUrWcX3xy2zWQQvKLFyyGW2Ogb1XixP01yFNvEeFUE2YIWH7BeF0yUbXanI/bOfAWo2Slu3o
-	tIaTnb4mlRa8KR07n/vpO6Ta24Hj6jK2CtM/+C1x+jzWd9VjWXr3cAV17TkUEOPGt+BBJW305uY
-	zHlaFn+QHfhtl/pRnbWC/7n5KvObJUeUjro3tM1SZ4ZjEqHAe5mE3jOYIz3JhuAjKOrp3ED9HTP
-	DAm5EpAhO+Kca0=
-X-Received: by 2002:a17:907:9405:b0:bec:64d4:3872 with SMTP id a640c23a62f3a-c260ca351e8mr820271566b.24.1788775053950;
-        Mon, 07 Sep 2026 02:57:33 -0700 (PDT)
-Received: from [192.168.88.241] (37-48-53-4.nat.epc.tmcz.cz. [37.48.53.4])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d4a98efsm452196766b.14.2026.09.07.02.57.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 02:57:33 -0700 (PDT)
-Message-ID: <0956bec0-163f-480d-ad31-5e547fbe0bab@ovn.org>
-Date: Mon, 7 Sep 2026 11:57:31 +0200
+	s=arc-20240116; t=1788775072; c=relaxed/simple;
+	bh=1CDclaGIO/MVfxbtzBCQq8Qz7CSilrxmrI5cOgKh0VU=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=l9I+0Nuh6obIKktEJLl6F39Pu0jqz43ooWWypbL5OO5BsHoi98H5AXRRqPYRwRwQ06weLqknGDmGo9kRUoSvlz+lbHhr9kUw/5SUpEeGigzPMzjj35Uekn5o5KX4c/NfZezqkmXOqzdvFsbUx6L4W8o749PBHv5fcC0wU18ErYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=oRh6CGeu; arc=none smtp.client-ip=210.202.87.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="oRh6CGeu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=ite.com.tw; s=dkim;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=1CDclaGIO/MVfxbtzBCQq8Qz7CSilrxmrI5cOgKh0VU=;
+  b=oRh6CGeuJE4fdsMklbmgzb/ojNPBHU2/t77GpRTD/ylMEXAFVck1+E2A
+   JwtJTZY3CabYRRYhEUicxmFYAdYrcWe7Dv5bEd5sYknd2vA2zCBv0esan
+   Kqq59X5YzU7OHJaR1S1Aj2/zNe/UrG10JJZFPCFkAqub+9rkvmlBj81FF
+   b1M0o+QV3Yb/eO9MnyTVV2cF5UwOZ8TRCGszThVlpWGJaPqg6qSL4+f4I
+   c6tjh3r/qB9janbSLC1lz/XizyzaOAxghrxWjuLZB9ELnU52qlzmKqlWn
+   mZAmYI47/xv8hZrES7JtCV8D+w+H3lQvAkntZLMp/CIqWZxw2UENL46hl
+   g==;
+X-CSE-ConnectionGUID: Mcfzc+A5TaOxaeYgk6popQ==
+X-CSE-MsgGUID: e4NPj+aDT3C8PIiHMqqOyQ==
+Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
+  by ironport.ite.com.tw with ESMTP; 07 Sep 2026 17:57:40 +0800
+Received: from hscmail1.internal.ite.com.tw (HSCMAIL1.internal.ite.com.tw [192.168.35.58])
+	by mse.ite.com.tw with ESMTP id 6879vZmL033368;
+	Mon, 7 Sep 2026 17:57:35 +0800 (+08)
+	(envelope-from amber.kao@ite.com.tw)
+Received: from HSCMAIL1.internal.ite.com.tw (192.168.35.58) by
+ HSCMAIL1.internal.ite.com.tw (192.168.35.58) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 7 Sep 2026 17:57:34 +0800
+Received: from HSCMAIL1.internal.ite.com.tw ([fe80::d4ad:7d1f:bb56:79ee]) by
+ HSCMAIL1.internal.ite.com.tw ([fe80::d4ad:7d1f:bb56:79ee%6]) with mapi id
+ 15.02.2562.046; Mon, 7 Sep 2026 17:57:34 +0800
+From: <amber.kao@ite.com.tw>
+To: <krzk@kernel.org>, <ite_pd@ite.com.tw>
+CC: <jeson.yang@ite.com.tw>, <Yaode.Fang@ite.com.tw>,
+        <gregkh@linuxfoundation.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+        <conor+dt@kernel.org>, <linux-usb@vger.kernel.org>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH] dt-bindings: usb: Add ITE IT5271/IT5272/IT5273/IT5274
+ support
+Thread-Topic: [PATCH] dt-bindings: usb: Add ITE IT5271/IT5272/IT5273/IT5274
+ support
+Thread-Index: AQHdO40ZV2swSIj+0E+i7ACu7C2xj7bCUiQAgACUjSA=
+Date: Mon, 7 Sep 2026 09:57:34 +0000
+Message-ID: <cc3a8a7133184decb06884d65c5f06c5@ite.com.tw>
+References: <20260903-it5271-binding-v1-1-1abd2c8cea85@ite.com.tw>
+ <20260907-bulky-adorable-agama-40ece9@quoll>
+In-Reply-To: <20260907-bulky-adorable-agama-40ece9@quoll>
+Accept-Language: en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-tm-snts-smtp: 4E88B76D177A4DDD2BD98574EC9A87729AC212AF02B79C41406C8C15C09E7D102002:8
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH nf-next] netfilter: conntrack: make filtering by zone
- discoverable
-To: Ilya Maximets <i.maximets@ovn.org>, netfilter-devel@vger.kernel.org
-Cc: netdev@vger.kernel.org, Donald Hunter <donald.hunter@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Pablo Neira Ayuso <pablo@netfilter.org>,
- Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
- Shuah Khan <shuah@kernel.org>, =?UTF-8?Q?Asbj=C3=B8rn_Sloth_T=C3=B8nnesen?=
- <ast@fiberby.net>, "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
- "Remy D. Farley" <one-d-wide@protonmail.com>, linux-kernel@vger.kernel.org,
- coreteam@netfilter.org, linux-kselftest@vger.kernel.org
-References: <20260904174452.1913072-1-i.maximets@ovn.org>
-Content-Language: en-US
-From: Ilya Maximets <i.maximets@ovn.org>
-Autocrypt: addr=i.maximets@ovn.org; keydata=
- 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
-In-Reply-To: <20260904174452.1913072-1-i.maximets@ovn.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MAIL:mse.ite.com.tw 6879vZmL033368
 
-On 9/4/26 7:44 PM, Ilya Maximets wrote:
-> Conntrack flush supports filtering by zone using CTA_ZONE, but this
-> attribute is really hard to use from user space applications.  The
-> reason is that it is not possible to tell if it's supported or not.
-> 
-> Older kernels silently ignore CTA_ZONE.  And in that case they just
-> happily flush all the entries from all zones breaking all the existing
-> connections.  So, applications have to infer support from the kernel
-> version.  While it works in most cases, it's not a particularly
-> reliable or desired way to check kernel capabilities from applications
-> that aim to be portable.  There should be a better way to probe or
-> discover features in the kernel.
-> 
-> The CTA_FILTER interface on the other hand is simple enough to probe.
-> We can check for NLM_F_DUMP_FILTERED in the dump to see if filtering
-> is supported.  And unknown sub-attributes in CTA_FILTER are rejected
-> explicitly since strict validation is in use there.
-> 
-> Let's add new CTA_FILTER_ZONE that signals that CTA_ZONE should be
-> filtered on.  It is a flag, since everything in the CTA_FILTER is a
-> bit mask, i.e., a form of a flag.  If set, it means that CTA_ZONE must
-> be present and be used for filtering.  If the flag is not set however,
-> the filtering on CTA_ZONE will still take place to ensure backwards
-> compatibility.  So, the flag doesn't really change the filtering
-> behavior, but it allows user space applications to properly discover
-> support for CTA_ZONE filtering without need to rely on kernel version
-> parsing or risk accidental flushes of the entire conntrack table,
-> and also without modifying the kernel state.
-> 
-> A new test variant is added to test with and without the new flag.
-> Since the setup code is moved into a shared function, expectations
-> replaced with assertions to bail early if the base setup fails to
-> avoid the cascade of secondary failures that can be misleading.
-> Error return is only for the SKIP cases.
-> 
-> Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
-> ---
-> 
-> One other alternative is to make CTA_FILTER_ZONE a U16 sub-attribute
-> instead of a FLAG and prioritize it over the CTA_ZONE.  But it feels
-> like a FLAG is better suited for the CTA_FILTER, even if it takes a
-> bit of extra space in the request.  Though I'm OK with reworking this
-> into U16 or some other mechanism that would make the feature
-> discoverable, if there are better ideas.
-> 
->  Documentation/netlink/specs/conntrack.yaml    |   5 +
->  .../linux/netfilter/nfnetlink_conntrack.h     |   1 +
->  net/netfilter/nf_conntrack_netlink.c          |  11 ++
->  .../net/netfilter/conntrack_dump_flush.c      | 143 ++++++++++++------
->  4 files changed, 115 insertions(+), 45 deletions(-)
-
-[...]
-
-> -FIXTURE_SETUP(conntrack_dump_flush)
-> +static int conntrack_zone_setup(struct __test_metadata *_metadata,
-> +				struct mnl_socket **sock)
->  {
->  	struct in6_addr src, dst;
->  	int ret;
->  
-> -	self->sock = mnl_socket_open(NETLINK_NETFILTER);
-> -	if (!self->sock) {
-> +	*sock = mnl_socket_open(NETLINK_NETFILTER);
-> +	if (!*sock) {
->  		perror("mnl_socket_open");
-> -		SKIP(return, "cannot open netlink_netfilter socket");
-> +		SKIP(return -1, "cannot open netlink_netfilter socket");
->  	}
->  
-> -	ret = mnl_socket_bind(self->sock, 0, MNL_SOCKET_AUTOPID);
-> +	ret = mnl_socket_bind(*sock, 0, MNL_SOCKET_AUTOPID);
->  	EXPECT_EQ(ret, 0);
-
-Sashiko-gemini (sashiko-nipa didn't run, probably because the patch was
-moved to changes-requested due to the CI issue) pointed out that I missed
-converting this expectation into an assert.  I can do that in v2 once
-the CI is working again.
-
-Best regards, Ilya Maximets.
+T24gTW9uLCBTZXAgMDcsIDIwMjYgYXQgMDU6MDM6MDBQTSArMDgwMCwgS3J6eXN6dG9mIEtvemxv
+d3NraSB3cm90ZToNCj4gT24gVGh1LCBTZXAgMDMsIDIwMjYgYXQgMDY6MTU6NDNQTSArMDgwMCwg
+QW1iZXIgS2FvIHdyb3RlOg0KPiA+IFRoaXMgYmluZGluZyBpcyBzdWJtaXR0ZWQgaW5kZXBlbmRl
+bnRseSBzbyBpdCBjYW4gYmUgcmV2aWV3ZWQgb24NCj4gDQo+IE5vLCBpdCBjYW5ub3QgYmUgcmV2
+aWV3ZWQgb24gaXRzIG93biwgYmVjYXVzZSBzcGxpdHRpbmcgaXQgbWVhbnMgeW91DQo+IGhhdmUg
+dW5kb2N1bWVudGVkIGNvbXBhdGlibGVzIGluIHRoZSBvdGhlciBwYXRjaHNldC4NCj4gDQo+IEFu
+ZCBpZiB5b3UgZG8gbm90LCB0aGVuIHRoZXJlIGlzIG5vIHVzZXIgZm9yIHRoaXMgYmluZGluZy4N
+Cj4gDQo+ID4gaXRzIG93bjsgb25jZSB0aGUgZHJpdmVyIHNlcmllcyBsYW5kcywgSVQ1Mjd4IHN1
+cHBvcnQgd2lsbCBiZSB3aXJlZA0KPiA+IGludG8gaXQgdGhlcmUuDQo+IA0KPiBUaGVuIHdoYXQg
+aXMgdGhlIHBvaW50IG9mIHRoaXMgYmluZGluZyBub3c/DQoNClVuZGVyc3Rvb2QsIHRoYXQncyBh
+IGZhaXIgcG9pbnQg4oCUIHJldmlld2luZyBhIGJpbmRpbmcgd2l0aG91dCBhIGRyaXZlcg0KdXNl
+ciBpbiB0cmVlIGlzIGEgd2FzdGUgb2YgZXZlcnlvbmUncyB0aW1lLiBJJ2xsIGRyb3AgdGhpcyBz
+dGFuZGFsb25lDQpiaW5kaW5nIHBhdGNoLg0KDQo+ID4gKyAgICAtIElUNTI3MTogc2luZ2xlLXBv
+cnQgdmFyaWFudCwgU1BSDQo+ID4gKyAgICAtIElUNTI3MjogdHdvLXBvcnQgdmFyaWFudCwgU1BS
+DQo+ID4gKyAgICAtIElUNTI3Mzogc2luZ2xlLXBvcnQgdmFyaWFudCwgRVBSDQo+ID4gKyAgICAt
+IElUNTI3NDogdHdvLXBvcnQgdmFyaWFudCwgRVBSDQo+ID4gKw0KPiANCj4gV2h5IGlzbid0IHRo
+aXMgZW50aXJlIGJpbmRpbmcgcGFydCBvZiB0aGUgb3RoZXIgZmlsZT8NCg0KSVQ1Mjd4IGFuZCBJ
+VDg4NXggYXJlIGRpZmZlcmVudCBoYXJkd2FyZSwgd2hpY2ggaXMgd2h5IHdlIGRlc2NyaWJlZA0K
+dGhlbSBpbiBzZXBhcmF0ZSBEVCBiaW5kaW5ncy4gSG93ZXZlciwgc2luY2UgdGhlaXIgVUNTSSBv
+cGVyYXRpb25hbA0KZmxvdyBpcyBzaW1pbGFyLCB0aGV5IHNoYXJlIHRoZSBzYW1lIGRyaXZlciAo
+dWNzaV9pdGVwZC5jKS4NCg0KPiA+ICtwcm9wZXJ0aWVzOg0KPiA+ICsgIGNvbXBhdGlibGU6DQo+
+ID4gKyAgICBvbmVPZjoNCj4gPiArICAgICAgLSBjb25zdDogaXRlLGl0NTI3MQ0KPiA+ICsgICAg
+ICAtIGl0ZW1zOg0KPiA+ICsgICAgICAgICAgLSBjb25zdDogaXRlLGl0NTI3Mg0KPiANCj4gZW51
+bQ0KDQpOb3RlZCwgd2lsbCBmaXggaW4gdGhlIG5leHQgc3VibWlzc2lvbi4NCg0KPiBJIGZpbmlz
+aGVkIGFjdHVhbGx5IGhlcmUsIGJlY2F1c3IgSSBzdGlsbCBmaW5kIHJldmlld2luZyBvdXRzaWRl
+IG9mDQo+IGRyaXZlciBhIHdhc3RlIG9mIG91ciB0aW1lLg0KDQpJbnN0ZWFkIG9mIHJlc3VibWl0
+dGluZyB0aGlzIGJpbmRpbmcgYWxvbmUsIEknbSBwbGFubmluZyB0byBzZW5kIGEgbmV3DQpzZXJp
+ZXMgY29udGFpbmluZyBib3RoIHRoZSBiaW5kaW5nICh3aXRoIHRoZSBlbnVtIGZpeCkgYW5kIHRo
+ZQ0KY29ycmVzcG9uZGluZyBjb21wYXRpYmxlIHN0cmluZ3MgYWRkZWQgdG8gdWNzaV9pdGVwZC5j
+LCBzbyB0aGVyZSdzDQphbHdheXMgYSBkcml2ZXIgdXNlciBmb3IgdGhlIGJpbmRpbmcgdW5kZXIg
+cmV2aWV3Lg0KDQpPbmUgdGhpbmcgSSdkIGxpa2UgdG8gY2hlY2sgZmlyc3Q6IHRoZSBiYXNlIElU
+ODg1MS9JVDg4NTMgc2VyaWVzIHRoaXMNCmRlcGVuZHMgb24gaGFzIGFscmVhZHkgcGlja2VkIHVw
+IFJldmlld2VkLWJ5IHRhZ3MgZnJvbSBIZWlra2kgS3JvZ2VydXMNCmFuZCBSb2IgSGVycmluZywg
+YnV0IGhhc24ndCBsYW5kZWQgaW4gbWFpbmxpbmUgeWV0LiBIZWlra2kgcHJldmlvdXNseQ0Kc3Vn
+Z2VzdGVkIGl0J3MgZmluZSB0byBzZW5kIGEgZm9sbG93LXVwIHNlcmllcyBiZWZvcmUgdGhlIGJh
+c2UgbGFuZHMsDQphcyBsb25nIGFzIHRoZSBkZXBlbmRlbmN5IGlzIG5vdGVkIGluIHRoZSBjb3Zl
+ciBsZXR0ZXIuIEdpdmVuIHRoYXQsDQp3b3VsZCB5b3UgYmUgb2theSB3aXRoIG1lIHNlbmRpbmcg
+dGhlIElUNTI3eCBkcml2ZXIrYmluZGluZyBzZXJpZXMgbm93DQp3aXRoIHRoYXQgZGVwZW5kZW5j
+eSBjYWxsZWQgb3V0LCBvciB3b3VsZCB5b3UgcHJlZmVyIEkgd2FpdCB1bnRpbCB0aGUNCklUODg1
+MS9JVDg4NTMgc2VyaWVzIGlzIGFjdHVhbGx5IG1lcmdlZCBmaXJzdD8NCg0KQmVzdCByZWdhcmRz
+LA0KQW1iZXIgS2FvDQo=
