@@ -1,90 +1,86 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1717618A6DB
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:47:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E5AE40EB8D
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:47:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788763664; cv=none; b=sL/pvSp9lFI4zPE6hiGMDEwEfn3Hb8/w2VIj8dw2xH7T1cj1LMiG4jACu/lBRU6kQP5epjgR0NRZoeVCJtIRmmP8fbjDOQDI6IGz8Z1rsTJKvtBBTWqGewl0vv26iH3GiKOmlW51Xo4+172i6ok/48mbfNjSnzV5PaKTzYaVnX8=
+	t=1788763666; cv=none; b=oEpGWuLIGNI2xbqtn9iWZ7dt2NXkDe01p5bLC9gpM7UIIAKywHxhUQiO7qBvmngk3yCEzS5+CQjfOCwdzgSZlEQNgk5WFueBvupSvT5cu8hlioDPhnDN8GJrjOAG/piVbxx2nhgCLdwdFcNBskKLohW4V+QpYBb+889oaEYb1ak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788763664; c=relaxed/simple;
-	bh=q7dejwismKGXipVTjxZMyp44RBiyx+EMiqVBHWCQVkE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fTPBlVNu3xPFm2PoprjJB21G6fBsLHzXo+9IgFUJmJzxAdTFJMZP2HbNO+ldGxaw/WINDcIjvTBhTqMpaU+w/QYRs43Z+MGOgkP8/L+i9/+Ah+VKU7p/rKGyFfwTmakr7iUY1fozX6naHAIhD3BYfkt0wzo7f8rL1On0lNJ8l74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ppvYUMSI; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788763666; c=relaxed/simple;
+	bh=MocLf3HnP4+qthNgKN4Yq2l2qafbC2+znsfUYos2kTo=;
+	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=BQjLM739vIUwIS91OXsz7sbpYkSq3c64HS5BhmL0L0o8XK+S2+Ma28P0P2mD82XIZ/fQFPQCmaigfANvlQ4t09avSWz0vcCqHve+BnQvbK1YKpNNRS3KBKpqZSNOPjI+ZulDo5tqlQWNd53VuoDC6r45KGMSHNvKs/xMW3SwBzo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=RnQKJ+Id; arc=none smtp.client-ip=113.46.200.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ppvYUMSI"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id CB3B51A1A1C;
-	Mon,  7 Sep 2026 06:47:38 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9790160383;
-	Mon,  7 Sep 2026 06:47:38 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 347FE11C7A2F3;
-	Mon,  7 Sep 2026 08:47:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788763654; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=jVKf/buKG28nI4K26HKG66HfBmfBPFACd6CZI6zEQtc=;
-	b=ppvYUMSIHbik51/JpBQ5yeYOZELCN5LD9bVv7F9ucIv/tB6jnyOxbJ9OLjGy8V/w2L/rXt
-	Akd3jmjc8ddbknsp0RipUqrFr8WaSEZ2i7OsOOTGWofTOWuYNR8h+tmNPS1tMskCBmI6lz
-	8iMr48zbQGtD5GS+yoPuAPunBBo5pHnU2NuViDgm6+tluYt7YT9nDu6P7pWG8SON8MYhof
-	kOTpeyhBNonYq+eg/3Br09vhk4XtEe9cMX30dRHyK3MuqzuY19efpXF7C8054RBT0ujFZu
-	sek3NkTDfnXGMlX61/HDhdaelGmIGd7EJvHMSUsBAGyP0hKHTfgz1hzwiLCV+A==
-Date: Mon, 7 Sep 2026 08:47:32 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Qingshuang Fu <fuqingshuang@kylinos.cn>
-Cc: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Andy
- Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] irqchip/lan966x-oic: Drop redundant
- IRQ_DOMAIN_FLAG_DESTROY_GC
-Message-ID: <20260907084732.6409f32d@bootlin.com>
-In-Reply-To: <20260907024046.28845-3-fuqingshuang@kylinos.cn>
-References: <20260907024046.28845-1-fuqingshuang@kylinos.cn>
-	<20260907024046.28845-3-fuqingshuang@kylinos.cn>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="RnQKJ+Id"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=fH2rWvrUYoJAcy+LEQqi2jnZ83+Fb9pIuufTdnEsnwo=;
+	b=RnQKJ+IdQcQIGA+6kd7JcPPOeg2u5ZT0Sr0Ar5DVNSSSm79brsGdzS4bCwH6vVOzxXG6h4x2m
+	TgN5lTU3dUSOvdmReB8ceyfA/Hx/PrU800oJBX+i9z3xG7SWbvx8BKzgCcoBUrhaXW/xStC7xcH
+	I+oczq85Zt3EIke+HoqfeIs=
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4hdclj6BmbzpT0h;
+	Mon,  7 Sep 2026 14:36:01 +0800 (CST)
+Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
+	by mail.maildlp.com (Postfix) with ESMTPS id 493462025F;
+	Mon,  7 Sep 2026 14:47:31 +0800 (CST)
+Received: from [10.174.178.46] (10.174.178.46) by
+ whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 7 Sep 2026 14:47:30 +0800
+Subject: Re: [PATCH] mtd: ubi: fix typo "occured" in comment
+To: Hemanth Selam <hemanth.selam@gmail.com>, Richard Weinberger
+	<richard@nod.at>, Miquel Raynal <miquel.raynal@bootlin.com>, Vignesh
+ Raghavendra <vigneshr@ti.com>
+CC: <linux-mtd@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20260907063111.19769-1-hemanth.selam@gmail.com>
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+Message-ID: <de859d54-615f-8e64-79df-9d207cde6d1b@huawei.com>
+Date: Mon, 7 Sep 2026 14:47:28 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <20260907063111.19769-1-hemanth.selam@gmail.com>
+Content-Type: text/plain; charset="gbk"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ whupemo200011.china.huawei.com (7.152.185.179)
 
-Hi Qingshuang
-
-On Mon,  7 Sep 2026 10:40:45 +0800
-Qingshuang Fu <fuqingshuang@kylinos.cn> wrote:
-
-> Now that __irq_domain_instantiate() automatically sets
-> IRQ_DOMAIN_FLAG_DESTROY_GC when dgc_info is provided, the explicit
-> flag in the irq_domain_info is redundant.  Remove it.
+‘⁄ 2026/9/7 14:31, Hemanth Selam –¥µ¿:
+> Correct "occured" to "occurred", reported by scripts/checkpatch.pl using
+> the misspelling list in scripts/spelling.txt.  Only touches comments, no
+> code changes.
 > 
-> Signed-off-by: Qingshuang Fu <fuqingshuang@kylinos.cn>
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 > ---
->  drivers/irqchip/irq-lan966x-oic.c | 1 -
->  1 file changed, 1 deletion(-)
+>   drivers/mtd/ubi/wl.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/irqchip/irq-lan966x-oic.c b/drivers/irqchip/irq-lan966x-oic.c
-> index 8af08d0e4182..5122f3f1b353 100644
-> --- a/drivers/irqchip/irq-lan966x-oic.c
-> +++ b/drivers/irqchip/irq-lan966x-oic.c
-> @@ -220,7 +220,6 @@ static int lan966x_oic_probe(struct platform_device *pdev)
->  	};
->  	struct irq_domain_info d_info = {
->  		.fwnode		= of_fwnode_handle(pdev->dev.of_node),
-> -		.domain_flags	= IRQ_DOMAIN_FLAG_DESTROY_GC,
->  		.size		= LAN966X_OIC_NR_IRQ,
->  		.hwirq_max	= LAN966X_OIC_NR_IRQ,
->  		.ops		= &irq_generic_chip_ops,
 
-Reviewed-by: Herve Codina <herve.codina@bootlin.com>
+Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
+> diff --git a/drivers/mtd/ubi/wl.c b/drivers/mtd/ubi/wl.c
+> index 5a0db928a90e..44237de52250 100644
+> --- a/drivers/mtd/ubi/wl.c
+> +++ b/drivers/mtd/ubi/wl.c
+> @@ -1486,7 +1486,7 @@ static bool scrub_possible(struct ubi_device *ubi, struct ubi_wl_entry *e)
+>    * @pnum: the physical eraseblock to schedule
+>    * @force: don't read the block, assume bitflips happened and take action.
+>    *
+> - * This function reads the given eraseblock and checks if bitflips occured.
+> + * This function reads the given eraseblock and checks if bitflips occurred.
+>    * In case of bitflips, the eraseblock is scheduled for scrubbing.
+>    * If scrubbing is forced with @force, the eraseblock is not read,
+>    * but scheduled for scrubbing right away.
+> 
 
-Best regards,
-Herv√©
