@@ -1,146 +1,143 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F4E1490BF1
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:30:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DB294908D5;
+	Mon,  7 Sep 2026 11:30:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780624; cv=none; b=BVlCQPTeuRo1mOvXAuRUo8nPQdWqxREvrJv4h+2QTMTQSvVkgeX4N5/EBle8/l2P67v3VicC2I2O39GzYI9VDzlabLiLQD02YtDKIReTVxBFZfdJAC+r1N1Z2SIXIL772orc6lJONCmeWsNR1au1b2kYer9ho1lGIKJYHf/bKn4=
+	t=1788780624; cv=none; b=DmYIP7srep3R8Fj0L6VK48IZqIJvDjtf3hgAfitSUHwOQ2q5Zy1iTYhPRi7EOBYgnyoT5SwsUxK6sLX1LiFWvs40w2GW4DFaGoORG+0kOTJUnRZEVvs+MxKBo1BPAMlmtkQiTEjYEo1jJTL5TlZt5kVu2ziu0y+TOggyJrKk6ow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788780624; c=relaxed/simple;
-	bh=9Fp98YdQtOLk474eiHI4efwe0tjU5d7lBfdYQ3oiqNY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MVHHT46lZuJZrzfO+8h6q5lGpSNMRdseKbIWD10WLPbMVwHRXEyjQ2t35is0GJBodgDl9lXEYuBMeEBs/DccrWTbj85v77UHT8uoUL0qCqSisZvT+6pFqI1s8kEUI1kOQuVXEF93lu2aNW03WAiDKKx1ekY6cmkA4U2WOiyFl4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ikHq3whE; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=fjPgW8McPvP1BSff//bHn6tp652LjyKmoz43tNtwYRo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uQAXYn89+QAMvrJDJf+ur+QM4oRYDozI1N3bo4SNbfHepjLpwmikd68Dx75EWT6rjoz+4Tkp/Ckb60DIIERnfwMe6znoMl29/tzxLqmxFvWSE7t4A2/79+2IYL6zVd51cJqODZJjmIgDcq0wduaZ9tQJrdr0n3l1DOD1FvBKXMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D0be+PQn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ikHq3whE"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2db710396ffso105095ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 04:30:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788780619; x=1789385419; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FU4CEbQdu8+Brk6sDGMvGiHki1B0bPVbshQiknk3v7k=;
-        b=ikHq3whESpmZRftj/S+nVFzpKKRYi6FZirG8cS0O/1Kv/PVNSCLnQzeM4t2w2pj1PO
-         fbzOmX4VxCOwUm8RpexFa+j+KlDsQAdaU7zqm2nRaOjAwW5MgLOE3pU4Q4AI+QO0dRKc
-         bAkhF7mMqbdimKukVxIgtS9rj/TLmOv7f/SIEzy5gKyRExsMqwJFwvPvgSWdiAMC6M+B
-         MiJD/wwmfB3a9b9IQpHCQIvOYRQfgLoZ0nmjS6DXa0g0dHSwyIJeAxHdHCUKfE8JCG3z
-         hZsc0fBM/xfnAA1hz6NfFUTuJpJJfvsqf72HKGDGXzuJ2mshgoVwgJXHmppAIsfSiZbK
-         uigA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788780619; x=1789385419;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FU4CEbQdu8+Brk6sDGMvGiHki1B0bPVbshQiknk3v7k=;
-        b=tKguRVxlSFIp92NhGi3wy+CBtWC4x2F2Q0H+MICkkX/TNVN5QtfwxVPhituELNKqmE
-         TJfC+pNNuwoC0JG21BfJm74LybdmYInhAHuGTPUTPz2xJKUYbZDE6SywpVeIhedfNRZE
-         gIeUcGU9tuAqyKKfxckzDu+B8B8q6MZf5yGJUbPMsklbOn7vEBIOhNgLqAHm02Ovxg82
-         5LRrm0xwlZodBNH3117pal33t9EhGQG7LvSCB2DiG7hHnobTO77wULyy/FJn2P3rGH59
-         NptDyuK2VgqmVKh2dGi2Nw8R0g705H+0aV7SPZMh8up0/GffpM9HPAdBWG5JAAGImESO
-         TIoA==
-X-Forwarded-Encrypted: i=1; AKwUvByqcPwx259qUrfPMTcXn1rzasAQTvWfx/xYHIIZlCbjJ0p6mgbAbRRM7CpRs0H0TvfyxCcHmskNdclzNd8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lqPIeINzynAJXU7o4yAYCUyGq8p36Bf/MAYAgcaxLYlPzx3B7j
-	FG7rDOLIU1PIdDd2L9EF8tdr7Z2Lbp5yJ3kbS1I041Lolbbtce699PuL
-X-Gm-Gg: AYBFou2hgZByEdi4na0VIRIWdnVBnXI/Vvgq8wNAHegbNIi2W8MH6iTXEJIgB2hVeIp
-	IJSULtjMey0gvQJp7z5VXeWoqzAVPO4yh8YSKaTD8cbkQMC/pXfxNUYtEQyL1FrWAB8UDLkE8mV
-	MAG0I0+dQ1AB1tPuEnikPKbPTlSVg9K7ZCsLXrsh1wkWbQYpKhCSNU4OhSuJ9MMnM061VOtuHav
-	byAbovrBMGXyHVGUjlLKyTNk4BXNeUw2bbxyXLTUWrZdNOOe8RvhYDH1/+wHlQAcCpjTBgO0ntQ
-	QDE3Khzf3wvYppym3+oDZ/6m3bfzMYdmWYbjIo3UbvU8eIjQxrOEsHeVy9Nb7O8kkQSfqLkeADp
-	Qw7Nn02OkBDUs3xEukrPTfm3vN2rt/pn5nPK/RS2FiDOUgW0OuyZRndY5Mo4wdQ2XV/6jWoiBmJ
-	pR2GyUcrSolItWtEf1SL79s5J4inctyYjvMKn3oSm5IC3ChLF1PAL/zgRirnQ=
-X-Received: by 2002:a17:902:c951:b0:2d9:2b1b:878a with SMTP id d9443c01a7336-2dafaf60ec2mr266366025ad.10.1788780618646;
-        Mon, 07 Sep 2026 04:30:18 -0700 (PDT)
-Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1497d455sm45019245ad.30.2026.09.07.04.30.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 04:30:18 -0700 (PDT)
-Date: Mon, 7 Sep 2026 19:29:49 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Vladimir Oltean <olteanv@gmail.com>, 
-	Inochi Amaoto <inochiama@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH v2 0/4] phy: core: Add phy bulk helpers support
-Message-ID: <ap6fcP7Oct109dkY@inochi.infowork>
-References: <20260904083709.425893-1-inochiama@gmail.com>
- <20260907102849.w7yn43x6m3f2rnuj@skbuf>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D0be+PQn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24E5F1F00A3A;
+	Mon,  7 Sep 2026 11:30:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788780619;
+	bh=1Df9Vs2CsLw1K3pBOS28/RnLUuS1VBAgN7vqlEKdpBU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=D0be+PQnzcjaosyF+C2OgofVECAhlkIznofOYF2lXaw7UWLmROnusM8RC/F15P8YI
+	 /XcfgqV8RqudIXVBRYFXDzM5BGBuPMZZeT2tzlmZP840yDtx4VKqKAxvWo1ieldneE
+	 2K90uN/I0meOvnPlvsq3qAuYV9DJS2Yxfnqjw+Rn/1Hz5dxvSFGbf2aMVzU4pKuzV3
+	 vg7Pefe7ZBLfub/+b/BHOg2CGrk4CIEAL9NbKjA0Io4zzDsrQePpkLJYwR1+5elO87
+	 QDruieoxO/+Qvr7hYjvIVwDRS3wTwDccVbD7prhdJwsO7Bv51WKBfn6pp7IGC84ojh
+	 gE5Xn5zC8uqXg==
+Message-ID: <5fdb3777-95a2-48f9-bb38-aa4ba3c96a81@kernel.org>
+Date: Mon, 7 Sep 2026 13:30:07 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907102849.w7yn43x6m3f2rnuj@skbuf>
+User-Agent: Mozilla Thunderbird
+Subject: Re: Path forward for Virtualized Swap?
+To: Nhat Pham <nphamcs@gmail.com>, Kairui Song <kasong@tencent.com>
+Cc: Chris Li <chrisl@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+ YoungJun Park <youngjun.park@lge.com>,
+ Chengming Zhou <chengming.zhou@linux.dev>,
+ "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport
+ <rppt@kernel.org>, =?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?=
+ <surenb@google.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>,
+ Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>,
+ Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>,
+ Meta kernel team <kernel-team@meta.com>,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-doc@vger.kernel.org,
+ "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
+References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 07, 2026 at 01:28:49PM +0300, Vladimir Oltean wrote:
-> Hi Inochi,
-> 
-> On Fri, Sep 04, 2026 at 04:37:04PM +0800, Inochi Amaoto wrote:
-> > As discussed in [1], some drivers may do not care the difference between
-> > phys. Instead, they only need to treat them as a group and operate them
-> > together. This means a bulk operation is needed.
-> > 
-> > Add some bulk helper functions for phy core by referencing the design of
-> > clock/reset subsystem. This can relieve the driver owners' life who needs
-> > to handle many phys, as well as each phy error reporting.
-> > 
-> > [1] https://lore.kernel.org/linux-pci/ak9KzNFF26B0Kttz@ashevche-desk.local/
-> > 
-> > Changed from v1:
-> > - https://lore.kernel.org/linux-phy/20260831025319.94886-1-inochiama@gmail.com/
-> > patch 1:
-> > 1. Update document.
-> > patch 2:
-> > 1. Fix document format.
-> > 2. Fix several document description.
-> > patch 3:
-> > 1. Split into two patches: one for non devm helpers, one for devm helpers.
-> > 2. All the bulk helper now use unsigned int for counts.
-> > 3. Fix multiple the while loop statement.
-> > 4. Rename of_phy_get_parent_count() to of_phy_get_count().
-> > 5. Fix some 80 line function problems.
-> > 6. Use PTR_ERR_OR_ZERO() to simplify the error handle.
-> > 7. Fix zero value in the document
-> > 8. Use two separate release function for devm helpers.
-> > 
-> > Inochi Amaoto (4):
-> >   phy: core: Add common helper to add phy phandle device link
-> >   phy: core: Add common helper for get phy phandle by index
-> >   phy: core: Add phy bulk data helper functions
-> >   phy: core: Add managed phy bulk data helper functions
-> > 
-> >  drivers/phy/phy-core.c  | 700 +++++++++++++++++++++++++++++++++++++---
-> >  include/linux/phy/phy.h | 186 +++++++++++
-> >  2 files changed, 850 insertions(+), 36 deletions(-)
-> > 
-> > --
-> > 2.55.0
-> 
-> Please include a user of this API in the next patch submission.
-> We should avoid, as much as possible, to introduce unused code.
-> 
+On 9/4/26 23:14, Nhat Pham wrote:
 
-Yes, I have one for it. This is the spacemit pcie driver.
-https://lore.kernel.org/linux-pci/20260907112606.465778-1-inochiama@gmail.com/
+Hi,
 
-But it only uses a few of these helpers. So should I remove all the
-things that are not directly used, and let others add these if they
-need?
+> To Kairui, Johannes, Yosry, Chris, David, Andrew, and other (z)swap folks -
+> I need some help here.
 
-> Also, please address Sashiko's feedback (excluding the pre-existing
-> issues).
-> 
+I'll mostly ignore swap-related stuff because (a) -EBUSY and (b) we have quite
+some swap experts around :)
 
-Yes, I will, thanks.
+Reading below, I do wonder if the swap subsystem needs some more coordination
+and collaboration?
 
-Regards,
-Inochi
+For example, maybe having bi-weekly/monthly meetings to get everybody aligned
+and uptodate could be something reasonable?
+
+This approach has proven fairly helpful in areas where (1) multiple companies
+are involved (2) many concurrent development is happening, and (3) people have
+different priorities and requirements.
+
+Is there already something like that to organize development? Should we get
+started with that?
+
+-- 
+Cheers,
+
+David
