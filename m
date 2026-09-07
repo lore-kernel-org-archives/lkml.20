@@ -1,148 +1,181 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEBA2424D48
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:58:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ACAA41DEF7
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:58:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788767925; cv=none; b=N3Nsv3EEU73wryYoiQJipqNiHeQfCQiodF0rYCgBmqCVTDcUYCCejti1k2t+lvltBad79bYNWSLNsXNXjpfoTthJGjdiGyS64Kg5IWCVGtiDjcClV8iJ5KSBMofhynbWWYM14USeaM2MXuOra7gBvf0915Rt/V+ge1dmzNmkFPw=
+	t=1788767931; cv=none; b=lRlxLGWqmRxLR6te4drsxfFxFHXVX5baxuFVIWpUo5Zs4DjwfT5jYHwp1wnJT0N8q6NSMUwKl/CMagD/RLcFq1WMenx8pChxVpMiJ9uNqCKg84FiyjXLgl6EiBbUuaPtAw2SzYHhR2XWCkhZS4eRcrsJOG5XN9OKzcjunOIjVfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788767925; c=relaxed/simple;
-	bh=jSc7C8ZJcDVkcNRqrrJ4QnBpEFpFa2UDV+efPMqFo6U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=em2IUQR7scmBFx/UvI5Qa0OAJcIWVgvyXDpJu9uLI7o8DuBHwVo2GyyDP/Zd5f2mZ40AXeff+R36GpdOUz8WyF0VgIJwdQwp7PEoflBhLhu7YmgR5s9ZVVF6Mfpu3XI/9oyy5meQJ8vME+t9Eed66mscos9FK5snrbfxDlSdg2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SK6Jt41p; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hc68eTSV; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788767931; c=relaxed/simple;
+	bh=TCCpXwnmodeVmKo1E6y7S918XFzRwDxpNrXxJ9AKFVc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QKelLs9A5ngp4MtJkaSeAT/65IsOF8wbqrYuTJ+TnH3dJO6fYoG53PnTf88oW17le/9TaSsEnoCOyFqT4NmRFeLNuIv4K0IkAloId9WK6TP4FvJwVBX3jcrdoAWUbCvJ/LTVLuz5agJ+6YGnNdNyUsjmxuNPsa4t4x4VyLfOHYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SG1bOGsB; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SK6Jt41p";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hc68eTSV"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68777LKA3363366
-	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 07:58:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	jSc7C8ZJcDVkcNRqrrJ4QnBpEFpFa2UDV+efPMqFo6U=; b=SK6Jt41peFnEKklZ
-	MZIfxW83AXd4tDGM/eGeoAVKYkx18F6RuWpl/6H6xJmBCVa65ChCm1DB5zjT5PPA
-	BeNr00BsxHkuUrb0YXqE0WIwsVpdTGTqyjuKHzbfMR91CSTIyB51WhLhxmznhTiR
-	k32xORYaQc4cLmcWyge4Og+Z494LGL+bxH9ABTHR9vLWBe+l0LWj1JcRZPhNW/NM
-	62y1fUoaaH9PmCvuqEBHzrixuX8Hs5MYigNzBPd4my6R7HiIKhtZevIz+Vg4GuYZ
-	p+H12KsorqBQlJmhA696cpob40Oy4Cb8ej4WdctFAtXt8VsRyu48KvJRU0Z3PnFD
-	vv6JPA==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghnmj0we0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 07:58:42 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51ca37ce4c3so5184421cf.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 00:58:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SG1bOGsB"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d6d28aa26cso18961335ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 00:58:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788767922; x=1789372722; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jSc7C8ZJcDVkcNRqrrJ4QnBpEFpFa2UDV+efPMqFo6U=;
-        b=hc68eTSVByMcEH2YjuUGjbI/7m4Eldmg78GwRdoH5uBrAHzu3riNn+ozFsPhjHd5o4
-         usX7cYIgbEVkYlCgqkqnZoUQrUL4QlJG/rAwvMEE6Y30rBNBUJCM1lDIBsZMGbCzhR+X
-         HNwbTwoR9x5A521Dxo6X6a+6pjTYCyAqufYg2kziDi9/6XTze3RODOH/HjKbVsXWHT7R
-         /FoEKDX5erQWyV6/qvhmuYT9N7O6GVsmdElrUmDlqaLTU6U+YMsxXfzdUYVCPFm7fb96
-         at00q3BeOcEeh3LP4CZ3NDqxMs1TxVO9urc7y3IYHV1V2LDFbwGdd1t/ss6WDVfON9mQ
-         2q6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788767922; x=1789372722;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788767927; x=1789372727; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jSc7C8ZJcDVkcNRqrrJ4QnBpEFpFa2UDV+efPMqFo6U=;
-        b=ZP9tx5VNM2Xt+hRJSSmInn/VajVcTAU/azH489Bp5wiYhIESNENgeXVmd3VIK9Z6++
-         gQcpr1uT9DXRZzsNLJ/PMew/PffZIDzc5UV6JtxxREtspyE6j7qZ+Fj4Qx44rfLTNtap
-         GlnBqzNVg09LeFj8JpX08k4/g6hGXGwl1WDzIEOO9SYx/9+VcZeCW1i2z5QihicKrfCN
-         umzGPEM4hC39jw06Lk3JO1K2Jq7QOkQt6A6q8FVratjqhxUe0scXaptlPUP3GvKQ/Fuc
-         5qpb5L7O2OX9ajpTS9GO7GPIBDCOdlliaZhrDjBn3I4yEGEU3RvbOr8Ml4mkwlpUK3K1
-         /VRA==
-X-Forwarded-Encrypted: i=1; AKwUvBwuyYiqqEl80PCzR594ZYuphDjIJPKuCqiVakgV6uljF4VgpLustzMXnmGucGJvrILFXxyJ7x0vQMitLkM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kyu6Q+YqcZonV9V0lQlg2gY+7UGWED56hzzZjX6bC02moAhOP/
-	NDb76z6AwD/hzT7qvQJ4HcBBE7LkrNkq30S3CU3BRyhf1z84x8Ba4x/X5jnskV0ti72cz+1RwQi
-	kwm7iT8kSlm4xsyEvijQTqGUyKODupGhpCu4EIvrMBLMfiz1CzyBZmLgL07i0cYO3t9M=
-X-Gm-Gg: AYBFou3NwzBMg/V/R6L8D6q27PcFNJkgSX7YEwlFOQqeCpQcWqHehC2vP7+53F4gO8W
-	/6NOtdpVhiplBQ8a6iVxD8asJUDgoE64oFjg554AlcJNARBG0xddeUPao/tgoWCTuSPaMTYAxWE
-	QVDi90Qm4UMEjBvyoV8r1UjAkRfG5NZVXT105qIHQtR3Q6qlVNTp1HVXnLFFshDki6UfDfap0lm
-	6SGxFnjWDJG9c3ewElOdJNh7o6sWYtDvVMrMZjUKCImL/OVw5nCXs8UFKJEuZu4yR/Nyx+FgO1V
-	3uU03shguob2e0+6tUt1Hy7TyfGO+zCttgg83pTe86sxgrms1QblDEZPghe5cpelT2mB8Yakqk0
-	R/2lw77OTLnri6Q/cG6Q8+g==
-X-Received: by 2002:a05:620a:4409:b0:939:8bc:8826 with SMTP id af79cd13be357-93991702d25mr1143695785a.2.1788767921890;
-        Mon, 07 Sep 2026 00:58:41 -0700 (PDT)
-X-Received: by 2002:a05:620a:4409:b0:939:8bc:8826 with SMTP id af79cd13be357-93991702d25mr1143692585a.2.1788767921300;
-        Mon, 07 Sep 2026 00:58:41 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2637005036sm231540366b.20.2026.09.07.00.58.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 00:58:40 -0700 (PDT)
-Message-ID: <16ec601e-68a2-4793-8639-b899f31ff819@oss.qualcomm.com>
-Date: Mon, 7 Sep 2026 09:58:38 +0200
+        bh=kkKaVITt+/rz08+YgC0jvTu5c22naN5LQ082iYcixrU=;
+        b=SG1bOGsBqe8CnfPDXvaR6Qj4r+mDvEJoZMa9O2M+gLVJ7ZY2308DAh0NvCM4ntJMW/
+         j1ugl2zMkmizJtVEr4fQQZNRUaqikpEFbYIvsG9X+rZt94v6ZZBATyNFfhsKcmgvK7H6
+         yBGOHkrIENzwALIheKqd0lsRh6pmnXLonLqARhh8UoXgb28NODO/rLYOrBTXqV2uF2wl
+         j7CXxx6bB7ME2nVGDegZCdbpcsF0Q+l1tgmZ2aLoLfrB9uDPCvTUJun/9KoZjHJngbfD
+         Xbf9E9o0L3VimHI3Y/MHJcwhTuzCHli++grhfDm2OE8D6+IO4sK23who2PQF4eVce3AK
+         m1KA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788767927; x=1789372727;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kkKaVITt+/rz08+YgC0jvTu5c22naN5LQ082iYcixrU=;
+        b=X/Zpb5z19YeoG2e0PpU4gP8qCR+AGSk8Cj8/N+qNcBvpLlRVnkhZvpZwdK4M+n070E
+         35RTP7zF1is/OvCAmBgZu2kvSx4Pi3T3OZkI8sEe9gwNEXQGKzCNQEtpcaPIlYAU3Yse
+         2ibApcf6zJXfqKYMSOgp764ybyaA5x/h+3mikIKmvcSs9a86jElVD7O9xwOMB/aaYOqB
+         PI+oo1Dewsr45gLh5N4UDKTwqETFLea8ntji4A76a4jU7XpnU1f8NPzHYwTf+xR8VQOl
+         i9TrETXRmaZq65fgFTVZ1sF/7ufBZPc1tivyE+C4ro1si1audEh379eneFiLCNyOMLRT
+         RRDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw4nIIjiRvgRyf2Uj30mF29mJTL6wL1wqsd4eaQ8GfBU8oUSGeXMWhjTf1byN3G5msMzUFbemCA27cRHaI=@vger.kernel.org
+X-Gm-Message-State: AFuF++llLw3rf1ciZOi71MW6MRmxibrAP3n1y+Fgi1ap8++OyzMDrtwq
+	4WU3SLALMzLLb0TPTWkwzLbFTVrooAqS59KkPI0/ySYjlfQyV797sq4p
+X-Gm-Gg: AYBFou200TcEPgGzJzsjBxpTspZnc2rjCGp57oL4aXaS163tXK/8wLY4bL4Ns6QwU9d
+	6wXFTylc0FIx6wQxe1WSInP3j9SLSD/KFloD1KEaLVp1dzoKPgDp7HExNoIC1oiKzpBiREIUJzb
+	ClHcYKAtgPOsWFsKmKhwtR5QTnb5kSuBmVG6VXlAnC9esXTm60Mwa/jA2GbHb/HPiy9077QYnhE
+	qZO0CQ+8zSjXGxOvygE4Dvlm6FNoY3Q1bo+w7kSo1knwtFcaKkB3fFVCvITB5G0uowPs+cqc2v+
+	7rh4j90MKsjkw3TuZMEkEsvyeJDbTFvbDsnFXUtV2tm1+QjoIJ1dvYtpWbWTbqxEpOhpdYMsH9x
+	keL5zE5As0yTNAWppymyZzpEapLCiCzcRQvGL/L4q2U7BQWRVU34TcZL2ELlXmA6xN8bQkq3zzF
+	sN6gpu00HakdnDERY0G+sylctiw4wLM8tDhGrK3LdqWD6BdGqd/jr0vzewX/aiJnRpo8ChGRZRx
+	eRTZhgw
+X-Received: by 2002:a17:903:2383:b0:2d8:d4ce:9f35 with SMTP id d9443c01a7336-2db12757af4mr288425665ad.19.1788767926938;
+        Mon, 07 Sep 2026 00:58:46 -0700 (PDT)
+Received: from kernel.tail6741c6.ts.net ([185.220.238.35])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14ae7637sm40945595ad.79.2026.09.07.00.58.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 00:58:46 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+X-Google-Original-From: Kunwu Chan <kunwu.chan@linux.dev>
+To: paulmck@kernel.org,
+	jiangshanlai@gmail.com,
+	josh@joshtriplett.org
+Cc: rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com,
+	rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kunwu Chan <kunwu.chan@gmail.com>
+Subject: [PATCH 01/13] litmus: Add SRCU fastpath anchor-before-scan test
+Date: Mon,  7 Sep 2026 15:58:17 +0800
+Message-ID: <20260907075829.2073224-2-kunwu.chan@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260907075829.2073224-1-kunwu.chan@linux.dev>
+References: <20260907075829.2073224-1-kunwu.chan@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] dt-bindings: clock: qcom: Add TCSR_UFS_CLKREF_EN
- definition
-To: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260905-glymur-ufs-clk-changes-v1-0-cdff2c67a8c2@oss.qualcomm.com>
- <20260905-glymur-ufs-clk-changes-v1-1-cdff2c67a8c2@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260905-glymur-ufs-clk-changes-v1-1-cdff2c67a8c2@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA4NSBTYWx0ZWRfX42cud8UauryW
- vHYppfO4bCUSaAlz9NvaN9VAXfsC9Mj6WNdgKbNOJf2JILGA9KHPsOxu308l/O0pIkRkBtCD3nK
- W9yAw5oVjSlQf3ExYpMT+r7VO8sMO18YrKZeNcw8R5r+Rn1szBwERye9YDtMjeE6N5kV67ZM/F1
- bH+G7PnfmvSJ7XNgvdOzxfUgWTOgmHgddxUKU00U0zIgvHa0SGwQJFSNHaAQN9d2JwMiE8xGmDj
- 5Y1Vzz9rDXHzVXgn5cownZjoN3XvVGF7HTc5qOQlunISrpVzCsNAbGoufuF/AiWVknq+UjUfXC+
- yx4+2RReiTj2/ndS93TiFdeI8nWrOOkD5mXQjE1NBddID2Vxt6xiZDt6d6q1U9DGSlzwiUw4Tla
- pBbPpB+FbEVvs4Fvy5C4UYAAZtJOeUUhR3pNpFq6yvxhO1d3GXYWOBSJMi6IIfw4FIKlXEFJjq8
- 7ovXqKJZVP/IgjYlvHQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA4NSBTYWx0ZWRfXy6MH1F6sTFs7
- AzRkDeLxg6T/87sSbZ70ZMhrHDIu6IIdcaVxtMQ8TgouJvMJxYKuW14++287xvxPA2gZqzmiIa1
- qqNrRIt4cTS5SeSyEt1vQAXEgU7En2I=
-X-Proofpoint-ORIG-GUID: nIbdCNIDonZYpGzmKRdvL9ARh8p7Dr4u
-X-Proofpoint-GUID: nIbdCNIDonZYpGzmKRdvL9ARh8p7Dr4u
-X-Authority-Analysis: v=2.4 cv=LZYMLDfi c=1 sm=1 tr=0 ts=6a9e6eb2 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=IufcnN8YJO9jMoX16S4A:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-07_02,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 malwarescore=0 suspectscore=0 impostorscore=0
- lowpriorityscore=0 phishscore=0 bulkscore=0 clxscore=1015 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070085
+Content-Transfer-Encoding: 8bit
 
-On 9/4/26 8:50 PM, Jagadeesh Kona wrote:
-> UFS and PCIE_4 share the same clkref enable on Glymur. Hence define
-> TCSR_UFS_CLKREF_EN as an alias of TCSR_PCIE_4_CLKREF_EN for UFS consumers
-> to reference the shared clkref on Qualcomm Glymur platform.
+From: Kunwu Chan <kunwu.chan@gmail.com>
 
-If it's the same clock, then just pass it directly where it belongs
-and leave a comment to clarify it's intentional
+synchronize_srcu_atomic() may end its grace period immediately when
+its scan of the per-CPU lock counters finds no readers.  Correctness
+requires the grace-period anchor written by srcu_gp_start() to precede
+the smp_mb() ordering the lock scan.  This ordering ensures that any
+reader whose lock increment is missed by the scan cannot have
+incremented its lock counter before the grace-period anchor, and
+therefore cannot be a pre-existing reader of this grace period.
 
-Konrad
+This litmus test models the key ordering between the grace-period
+anchor and the lock counter scan, where "seq" models the
+grace-period anchor in ->srcu_gp_seq and "ctr" models the per-CPU
+->srcu_ctrs[].srcu_locks counter.  P0 writes the anchor before the
+smp_mb() and the lock scan.  P1 models the reader-side counter
+increment, with the smp_mb() of __srcu_read_lock() following the
+increment.  P2 models an observer that sees the reader's increment
+before seeing the anchor.
+
+The outcome is forbidden by LKMM, and herd7 reports "Never".  See
+SRCU-fastpath-scan-before-anchor.litmus for the reversed ordering,
+which permits this outcome.
+
+Tested with herd7 7.58 using linux-kernel.cfg.
+
+Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+---
+ .../SRCU-fastpath-anchor-before-scan.litmus   | 56 +++++++++++++++++++
+ 1 file changed, 56 insertions(+)
+ create mode 100644 tools/memory-model/litmus-tests/SRCU-fastpath-anchor-before-scan.litmus
+
+diff --git a/tools/memory-model/litmus-tests/SRCU-fastpath-anchor-before-scan.litmus b/tools/memory-model/litmus-tests/SRCU-fastpath-anchor-before-scan.litmus
+new file mode 100644
+index 000000000000..8200a75e15ef
+--- /dev/null
++++ b/tools/memory-model/litmus-tests/SRCU-fastpath-anchor-before-scan.litmus
+@@ -0,0 +1,56 @@
++C SRCU-fastpath-anchor-before-scan
++
++(*
++ * Result: Never
++ *
++ * The synchronize_srcu_atomic() fastpath may end its grace period
++ * immediately when its scan of the per-CPU lock counters finds no
++ * readers.  Correctness requires the grace-period anchor written by
++ * srcu_gp_start() to precede the smp_mb() ordering the lock scan.
++ * This ordering ensures that any reader whose lock increment is missed
++ * by the scan cannot have incremented its lock counter before the
++ * grace-period anchor, and therefore cannot be a pre-existing reader
++ * of this grace period.
++ *
++ * This litmus test models the key ordering between the grace-period
++ * anchor and the lock counter scan, where "seq" models the
++ * grace-period anchor in ->srcu_gp_seq and "ctr" models the per-CPU
++ * ->srcu_ctrs[].srcu_locks counter.  P0 writes the anchor before the
++ * smp_mb() and the lock scan.  P1 models the reader-side counter
++ * increment, with the smp_mb() of __srcu_read_lock() following the
++ * increment.  P2 models an observer that sees the reader's increment
++ * before seeing the anchor.
++ *
++ * The outcome is forbidden by LKMM, and herd7 reports "Never".  See
++ * SRCU-fastpath-scan-before-anchor.litmus for the reversed ordering,
++ * which permits this outcome.
++ *)
++
++{}
++
++P0(int *seq, int *ctr)
++{
++	int r2;
++
++	WRITE_ONCE(*seq, 1);
++	smp_mb();
++	r2 = READ_ONCE(*ctr);
++}
++
++P1(int *ctr)
++{
++	WRITE_ONCE(*ctr, 1);
++	smp_mb();
++}
++
++P2(int *seq, int *ctr)
++{
++	int r3;
++	int r4;
++
++	r3 = READ_ONCE(*ctr);
++	smp_mb();
++	r4 = READ_ONCE(*seq);
++}
++
++exists (0:r2 = 0 /\ 2:r3 = 1 /\ 2:r4 = 0)
+-- 
+2.43.0
+
