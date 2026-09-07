@@ -1,156 +1,112 @@
-Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.avm.de (mail.avm.de [212.42.244.120])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 572CF43C7A4
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:05:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56A7B43C7A4;
+	Mon,  7 Sep 2026 09:05:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.120
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788771929; cv=none; b=rHIlzZN2/ruz89fshv4HjQKOIZKtNgkwwjCtyL+inrItbr4Xg/vGaVpHKr7s2TnZgbeRXUvyAx1l068hEfyh0gDvHmHSDvnQzsAiheFeW7gg0xWTkvXIbZUFPtDzqCE5mYASowxNfFOXGZXL6jSe2ovL+Rg2K7SqBEp2gYZ8ZJE=
+	t=1788771940; cv=none; b=c/RWvzVw8wLOf7zqDRk4XFZ9+4LgKRkgvKlCqWYmmoUGrpAMddCK16nZNPu75Rwf6vzTBOyor1odTnqIM51rgGDXJf/CBZELCs1+jnTNiY8l2K8pnAEMJtg5OUEXz3m0DwRhiC6PWMRnRoQ3WBPoXA0zcstRgpAAjvvYTqzPLto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788771929; c=relaxed/simple;
-	bh=UuIuOOxi8bfnc8Lb0Mu/ijec5Oa1N7wL+MXGpFAC/Yc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fLkcJ5xqQY1bNS/T25B0gX0x8kO/qda2bV3RMWGQJaauiYquOg9kRs65Y3LqHYLhZCXPbHXrwOUkkXi62Yan74OHlHq+jOBa8dedXBMu6cgtPmx9Pb7V5mB8CkiZ8iS9Zj6RebVOk7VUcp+nYhrNeJmywDSQIeBjVZGKUR8iK3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=UMTDEUl6; arc=none smtp.client-ip=115.124.30.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788771940; c=relaxed/simple;
+	bh=Fzi5ANYeX9FFNpk/BMwZy3bmirTTtD4/9jhTXqNFNqw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jcvE2ZXu63fKtvAu10Q2Diud+YocRMd0fcwO5VpdyBYQUjivwfyJf+3gXNd9KOr71A3kiKwf907j23zXA9bBkadHnwIH37M7K/7G6mtkQE2V2g4K8rmevngYDw6YTkmlk0PTc9T60A81GYqjfbQTKpnT3PDlNb3yc/Jk4ZdaRq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b=D1IGK4Dd; arc=none smtp.client-ip=212.42.244.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="UMTDEUl6"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788771923; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=iXvYn9pGOWVNNZIM5zX5lrQlK0lUQ4h6ryyAL9cZz38=;
-	b=UMTDEUl6Snp69Cm8KDWIa3eRoJL90tTSlSNrZKwYH6WcWjwL5FqWpSIk5LZrbWozQFxDMnuA/pxKahntGYDVodAV2JqqgYbukmoY2xs7ous9i7maK1KD4NI1lrdFP8OBRM6nfgfzz0mLsjrvEwMjjcGjdB7q4HcRVUaMOaolc4k=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=18;SR=0;TI=SMTPD_---0XATAmni_1788771920;
-Received: from 30.74.144.134(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XATAmni_1788771920 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 07 Sep 2026 17:05:21 +0800
-Message-ID: <c070e67a-4c1e-478f-aa28-09fb88f8a786@linux.alibaba.com>
-Date: Mon, 7 Sep 2026 17:05:19 +0800
+	dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b="D1IGK4Dd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fritz.com; s=mail;
+	t=1788771934; bh=Fzi5ANYeX9FFNpk/BMwZy3bmirTTtD4/9jhTXqNFNqw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=D1IGK4DdjPiIcOQhah2F496yr+e6KgZeQER0ZyjN0mJW+c6gxu7OF5tEwTH+BNlw+
+	 WeOoJUNfneXs2Izp8tI1oHX5ot4WZKwwIb4tQcfIxge2Rg1TAyj5U4k5uhB+d9M0X3
+	 kQws6lUSCCYohvWRnaNsF7oI3jUM2Xd+mJO27NCdz25jNVFnZwmcFIf6EI478Q0c90
+	 xRee8vGARZdyi6BTsE1rVqRF9VPmfinNAfVTcQElSi4VAUpKBDrUX2FzeaPKTsBbn3
+	 qCTxrojpqjDia6BPB5WohYivBzspYi4UcEm3vlKxN2jGXAVZU27KrYJU6PIFCzRcSn
+	 HEW+kdFeiNkiw==
+Received: from [2001:bf0:244:244::78] (helo=mail.avm.de)
+	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
+	(envelope-from <n.schier@fritz.com>)
+	id 6a9e7e5e-0472-7f0000032729-7f000001b990-1
+	for <multiple-recipients>; Mon, 07 Sep 2026 11:05:34 +0200
+Received: from mail-auth.fritz.com (unknown [IPv6:2001:bf0:244:244::78])
+	by mail.avm.de (Postfix) with ESMTPS;
+	Mon,  7 Sep 2026 11:05:34 +0200 (CEST)
+Date: Mon, 7 Sep 2026 11:05:34 +0200
+From: Nicolas Schier <n.schier@fritz.com>
+To: Manuel Ebner <manuelebnerli@mailbox.org>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, workflows@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH] v2 Docs: changes.rst: introduce optional column
+Message-ID: <20260907-classy-crafty-clam-a9c0b7@l-nschier-aarch64>
+References: <20260831151605.638172-2-manuelebnerli@mailbox.org>
+ <20260831152523.638881-1-manuelebnerli@mailbox.org>
+ <20260904-stirring-zircon-frog-ea6949@l-nschier-aarch64>
+ <a2066238d2be3cfd36cd6ea3a7bf11206cb0a02a.camel@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/12] mm/collapse: state what a collapse may do in the
- policy
-To: Kiryl Shutsemau <kirill@shutemov.name>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
- Zi Yan <ziy@nvidia.com>, "Liam R . Howlett" <liam@infradead.org>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
- "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-References: <cover.1788533997.git.kas@kernel.org>
- <b01681c3cc945a7f7c3c7ca1de502f7cc0e93fe8.1788533997.git.kas@kernel.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <b01681c3cc945a7f7c3c7ca1de502f7cc0e93fe8.1788533997.git.kas@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <a2066238d2be3cfd36cd6ea3a7bf11206cb0a02a.camel@mailbox.org>
+Organization: FRITZ! Technology GmbH
+x-ms-reactions: disallow
+X-purgate-ID: 149429::1788771934-5759895E-5B3E56C7/0/0
+X-purgate-type: clean
+X-purgate-size: 1088
+X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
+X-purgate: clean
+X-pfmilter: host: postfix-mx-01  mail-id: AB326A0161  external: no
 
-
-
-On 9/4/26 11:10 PM, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+On Fri, Sep 04, 2026 at 07:02:52PM +0200, Manuel Ebner wrote:
+> On Fri, 2026-09-04 at 18:11 +0200, Nicolas Schier wrote:
+> > On Mon, Aug 31, 2026 at 05:25:22PM +0200, Manuel Ebner wrote:
+> > > The optional tag isn't obvious nor defined. Therefore replace with column.
+> > 
+> > Why do you throw away the 'Command to check the version' column?  
 > 
-> Tests scattered through the collapse path decide what a collapse is
-> allowed to do by asking whether khugepaged started it.  Between them they
-> settle:
+> I would do this to get some space for the optional column and have
+> the version commands in ./scrips/ver_linux . See below.
 > 
->   - which VMAs are eligible, and how hard to try for a folio;
->   - how many empty, swapped-out or shared PTEs a window may contain, and
->     whether a sub-PMD window is held to a stricter rule than a PMD;
->   - whether a range has to look used, and whether a MADV_FREE'd page is
->     left alone;
->   - whether the PMD is mapped as part of the request, and whether dirty
->     pages are worth writing back and retrying.
+> > At 
+> > work, we have a script that uses these commands to check the actual 
+> > tooling versions.
 > 
-> None of those is a fact about khugepaged.  Each is something the caller
-> decided before asking, and the collapse code should not have to look up
-> who called to find out.
+> Well, I don't want to break that.
 > 
-> Add struct collapse_policy for the caller to fill: khugepaged from its
-> own settings, MADV_COLLAPSE from the fact that a user asked explicitly.
-> Every test becomes a read of a field, and cc->is_khugepaged goes, having
-> no reader left.
+> > If there is a reason for change, please document it in the commit 
+> > message.
 > 
-> khugepaged fills the policy once per scan pass, MADV_COLLAPSE once per
-> call.  That is the one change in behaviour.  The max_ptes_* limits and the
-> defrag setting behind the allocation mask are sampled once per pass rather
-> than on every table.  A table scanned early in a pass and one scanned late
-> are then judged alike.
-> 
-> collapse_file() also drops a NULL check on the collapse_control.  It has
-> one call site, reached only from collapse_single_pmd(), which dereferences
-> cc unconditionally, so the check was already dead.
-> 
-> Assisted-by: Claude-Code:claude-opus-5
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> ---
->   mm/collapse.h   |  40 ++++++++++++++++-
->   mm/khugepaged.c | 114 ++++++++++++++++++++++++++----------------------
->   2 files changed, 102 insertions(+), 52 deletions(-)
-> 
-> diff --git a/mm/collapse.h b/mm/collapse.h
-> index 1c40229b9554..05282eed9a35 100644
-> --- a/mm/collapse.h
-> +++ b/mm/collapse.h
-> @@ -48,8 +48,46 @@ enum scan_result {
->   	SCAN_PAGE_DIRTY_OR_WRITEBACK,
->   };
->   
-> +/* What a collapse is allowed to do, decided by the caller that asks for it */
-> +struct collapse_policy {
-> +	/* Limits, stated per PMD; HPAGE_PMD_NR means "no limit" */
-> +	unsigned int max_ptes_none;
-> +	unsigned int max_ptes_swap;
-> +	unsigned int max_ptes_shared;
-> +
-> +	/*
-> +	 * Hold a sub-PMD window to a stricter rule than a PMD: no swapped-out
-> +	 * and no shared PTEs at all, and max_ptes_none as
-> +	 * collapse_max_ptes_none() scales it.
-> +	 */
-> +	bool strict_sub_pmd;
+> Will do.
 
-This is a bit confusing to me. Actually, the check for mTHP collapse is 
-stricter.
+oh, I'm sorry.  I wasn't aware of scripts/ver_linux at all.  A good 
+reason for removing the 'Command to check the version' column is the 
+redundancy with scripts/ver_linux as having these infos in two places 
+will almost always lead to inconsistencies.
 
-How about naming it 'allow_mthp_collapse'? That way we can keep the most 
-original comments for the collapse_max_ptes_xxx() functions, which is 
-clearer to me.
+Please, break my script and keep on removing the column.
 
-If others have a better name, please ignore my comment.
-
-> +	/*
-> +	 * Collapse only where it looks worth doing: require some sign the
-> +	 * range is in use, and leave clean lazyfree folios for reclaim rather
-> +	 * than collapsing them into a folio that is not lazyfree.
-> +	 */
-> +	bool skip_lazyfree;
-> +	bool require_referenced;
-> +
-> +	/*
-> +	 * Finish the job rather than leaving it half done for a fault to pick
-> +	 * up: map the PMD over a file collapse before returning, and write
-> +	 * dirty pages back and retry once instead of refusing them.  Both cost
-> +	 * latency the caller has to be willing to pay.
-> +	 */
-
-Can you simplify theses comments? I think the 'install_pmd' is easy to 
-expalain. :)
-
-> +	bool install_pmd;
-> +	bool writeback_dirty;
-> +
-> +	/* How hard to try for a destination folio */
-> +	gfp_t gfp;
-> +
-> +	/* Which VMAs are eligible, as thp_vma_allowable_orders() spells it */
-> +	enum tva_type tva_type;
-> +};
+Kind regards,
+Nicolas
