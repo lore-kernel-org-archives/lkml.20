@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DD2404503EB;
-	Mon,  7 Sep 2026 10:00:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E21D046A604;
+	Mon,  7 Sep 2026 10:00:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788775210; cv=none; b=RwwcqTfvPs4I7s4O2OmfjpCYYgyJtxO3B0ZSxbSKw4IVJPvvVxU/Z7vt6oeO9mfLsqYfDBfjD0UpZCTomwlLgtSOjSZKbK9Is4qPpxTUpwkb18wnKh+VnE9g9/Ydly51MSOhOd2uFP4S1goiamLh9EbRnvK0aNiYkRSZl1lZluQ=
+	t=1788775216; cv=none; b=oQ05wn4yBSS7P4IbrruVsMxUHxp3hDyueXQNyrfvcmbpUJSqpZ41KJ9fCvO57i2Hj8qihBv7UmfQstnEUA97R/fEnC8kEhkGTO0a1lzkHRzdckgroUEg2zP+zW06EvXRYHKMM9Hgz9T1MaxGrKjbcGiCWwE2S7X9eWR4PqRbavc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788775210; c=relaxed/simple;
-	bh=+Wef5eEgQduEiDa1tV8XW5jWMF2Z9IL+jMT+GW+PGLA=;
+	s=arc-20240116; t=1788775216; c=relaxed/simple;
+	bh=3REQ5jWF12CkaqiVLtnquClwniilkFTh6i4V9X/W8Gs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lVUiECWh+7RemtGVzJ530fIJvhgiaWZ/0Ood+YzyXkhu06vTt3ONxOeYq99J8k1KIrYn3uOu/r75DqkVn4CYBVtrJmUUH11k9lGW5IeUuhTc0/XgKZRy7ub4KBIAzUXOWE8aIoc/EujYJqFQvNeNF3pHWJ2PCpaZY5FZ1V0jUww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jQpfArcJ; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=NSgfLDrPxR9LeECGIBhISVbLRBwCv+a6jf7juqlBqO9F9uTZ1ImwlgDKAwA4TK3HQqcBljFhN2W+v3KTdDEpkDw+TWq5pOD8CovISBvPZXx1t7aBTDDOyIT6gmz1WIA/VFN7PZsaW+1M+und84pq7paFAUkx3HdFLsRypM7ewKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=o0NNnupV; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jQpfArcJ"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="o0NNnupV"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 549641476;
-	Mon,  7 Sep 2026 03:00:04 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 915ED1476;
+	Mon,  7 Sep 2026 03:00:10 -0700 (PDT)
 Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 410193F7B4;
-	Mon,  7 Sep 2026 03:00:05 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 805B03F7B4;
+	Mon,  7 Sep 2026 03:00:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788775208; bh=+Wef5eEgQduEiDa1tV8XW5jWMF2Z9IL+jMT+GW+PGLA=;
+	t=1788775214; bh=3REQ5jWF12CkaqiVLtnquClwniilkFTh6i4V9X/W8Gs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=jQpfArcJNK14BqrE92Ldp01QPPFr6TyiIvwNP777zdWog7UVwfxqzWITJ+l/tW7eE
-	 rLkG1biGLRUcNJLia/dMMEpIGEkCRvie29sxlD2TzB5kKL+QkSJVoJcTbqE4AOcli3
-	 E4SZrAHma4XIdc+dJikuynjKrqTlHOs53UDoQyQg=
+	b=o0NNnupVWVetQC/vx9RJ9UwpkUGwpzRnsMh/ZRIvgHt+mOk9nl819dKIE+ZvGQhUy
+	 BQply/fsvQkQWNz+OxKAzFYILQkAcFFFc62hn3afjNrGmhfiyPdqPrmw4a1knt1Oo8
+	 +EeUQ0bCZdi67lxEO0ZhxGXTqxCelNU1w59Qv6Js=
 From: Suzuki K Poulose <suzuki.poulose@arm.com>
 To: kvm@vger.kernel.org,
 	kvmarm@lists.linux.dev
@@ -50,9 +50,9 @@ Cc: maz@kernel.org,
 	lpieralisi@kernel.org,
 	enju.kohei@fujitsu.com,
 	Suzuki K Poulose <suzuki.poulose@arm.com>
-Subject: [PATCH v17 3/7] firmware: arm_rmm: Configure the RMM with the host's page size
-Date: Mon,  7 Sep 2026 10:59:37 +0100
-Message-ID: <20260907095942.1140734-4-suzuki.poulose@arm.com>
+Subject: [PATCH v17 5/7] firmware: arm_rmm: Activate the RMM
+Date: Mon,  7 Sep 2026 10:59:39 +0100
+Message-ID: <20260907095942.1140734-6-suzuki.poulose@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260907095942.1140734-1-suzuki.poulose@arm.com>
 References: <20260907095942.1140734-1-suzuki.poulose@arm.com>
@@ -66,124 +66,71 @@ Content-Transfer-Encoding: 8bit
 
 From: Steven Price <steven.price@arm.com>
 
-RMM v2.0 brings the ability to set the RMM's granule size. Check the
-feature registers and configure the RMM so that it matches the host's
-page size. This means that operations can be done with a granularity
-equal to PAGE_SIZE.
+Activate the RMM after the basic configuration. This is a memory transferring,
+stateful operation.
 
 Signed-off-by: Steven Price <steven.price@arm.com>
 Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
 ---
- Changes since v15:
-  * Actually check the feature register for the host's page-size support.
- Changes since v14:
-  * Move the implementation into drivers/firmware/arm_rmm.
- Changes since v13:
-  * Moved out of KVM.
+Changes since v16:
+ * Split into a new patch
 ---
- drivers/firmware/arm_rmm/rmi.c | 58 ++++++++++++++++++++++++++++++++++
- include/linux/arm-rmi-cmds.h   | 17 ++++++++++
- 2 files changed, 75 insertions(+)
+ drivers/firmware/arm_rmm/rmi.c | 17 +++++++++++++++--
+ include/linux/arm-rmi-cmds.h   | 11 +++++++++++
+ 2 files changed, 26 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
-index 008a783407b4e..76f91c145e1fd 100644
+index 42c973c3a98bb..d969c8738efde 100644
 --- a/drivers/firmware/arm_rmm/rmi.c
 +++ b/drivers/firmware/arm_rmm/rmi.c
-@@ -77,6 +77,60 @@ static int rmi_read_features(void)
- 	return 0;
- }
+@@ -641,7 +641,8 @@ static int rmi_configure(void)
  
-+static int rmi_configure(void)
-+{
-+	unsigned long granule_feature;
-+	unsigned long granule_size;
-+	int ret = 0;
-+	struct rmm_config *config;
-+
-+	switch (PAGE_SIZE) {
-+	case SZ_4K:
-+		granule_size = RMI_GRANULE_SIZE_4KB;
-+		granule_feature = RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_4KB;
-+		break;
-+	case SZ_16K:
-+		granule_size = RMI_GRANULE_SIZE_16KB;
-+		granule_feature = RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_16KB;
-+		break;
-+	case SZ_64K:
-+		granule_size = RMI_GRANULE_SIZE_64KB;
-+		granule_feature = RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_64KB;
-+		break;
-+	default:
-+		BUILD_BUG();
-+	}
-+
-+	if (!(rmi_feat_reg(1) & granule_feature)) {
-+		pr_err("RMM does not support %luKB granules\n",
-+		       PAGE_SIZE >> 10);
-+		return -ENXIO;
-+	}
-+
-+	config = (struct rmm_config *)get_zeroed_page(GFP_KERNEL);
-+	if (!config)
-+		return -ENOMEM;
-+
-+	config->rmi_granule_size = granule_size;
-+
-+	/*
-+	 * For now we set the tracking_region_size to 0 which is the only option
-+	 * for 4KB PAGE_SIZE (1GB for 4KB PAGE_SIZE, 32MB/512MB for 16KB/64KB).
-+	 * TODO: Support other tracking sizes via Kconfig option for other
-+	 * PAGE_SIZES
-+	 */
-+	config->tracking_region_size = 0;
-+
-+	ret = rmi_rmm_config_set(virt_to_phys(config));
-+	if (ret) {
-+		pr_err("RMM config set failed\n");
-+		ret = -EINVAL;
-+	}
-+
-+	free_page((unsigned long)config);
-+	return ret;
-+}
-+
  static int __init arm64_init_rmi(void)
  {
- 	int ret;
-@@ -90,6 +144,10 @@ static int __init arm64_init_rmi(void)
+-	int ret;
++	int ret = 0;
++	struct rmi_sro_state *sro = NULL;
+ 
+ 	/* Continue without realm support if we can't agree on a version */
+ 	ret = rmi_check_version();
+@@ -656,7 +657,19 @@ static int __init arm64_init_rmi(void)
  	if (ret)
  		return ret;
  
-+	ret = rmi_configure();
-+	if (ret)
-+		return ret;
+-	return 0;
++	/* Activate the RMM */
++	sro = kmalloc_obj(*sro);
++	if (!sro)
++		return -ENOMEM;
 +
- 	return 0;
++	ret = rmi_rmm_activate(sro);
++	if (ret) {
++		pr_err("RMM activate failed\n");
++		ret = ret < 0 ? ret : -ENXIO;
++	}
++
++	kfree(sro);
++	return ret;
  }
  
+ /*
 diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
-index 2fb1f7f86d71e..9aa27697e2377 100644
+index fed0f3421895d..dea7c7004d35f 100644
 --- a/include/linux/arm-rmi-cmds.h
 +++ b/include/linux/arm-rmi-cmds.h
-@@ -12,6 +12,23 @@
- 
- unsigned long rmi_feat_reg(unsigned long id);
+@@ -64,6 +64,17 @@ static inline int rmi_rmm_config_set(unsigned long cfg_ptr)
+ 	return res.a0;
+ }
  
 +/**
-+ * rmi_rmm_config_set() - Configure the RMM
-+ * @cfg_ptr: PA of a struct rmm_config
++ * rmi_rmm_activate() - Activate the RMM
++ * @sro: Preallocated SRO context to be used
 + *
-+ * Sets configuration options on the RMM.
-+ *
-+ * Return: RMI return code
++ * Return: 0 on success, positive RMI result code or negative Linux error code
 + */
-+static inline int rmi_rmm_config_set(unsigned long cfg_ptr)
++static inline long rmi_rmm_activate(struct rmi_sro_state *sro)
 +{
-+	struct arm_smccc_res res;
-+
-+	arm_smccc_1_1_invoke(SMC_RMI_RMM_CONFIG_SET, cfg_ptr, &res);
-+
-+	return res.a0;
++	return rmi_sro_memxfer_cmd(sro, GFP_KERNEL, SMC_RMI_RMM_ACTIVATE);
 +}
 +
  /**
