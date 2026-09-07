@@ -1,148 +1,194 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 762A8493626
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:36:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D98468C3D;
+	Mon,  7 Sep 2026 13:38:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788788172; cv=none; b=njhZIHF9UX/PdUt2VBTSFqI5AHGU2SCMXcQUVq21KPmDFAWIYCbIptpZqeywORFtyjVUAZFJpJOpVHc/EJEQbWpqmB1pwBBxzOnGqAofkmdWVuSLfeJtHAuMVQDI44JhZBw/Ij510BRj24yKGA6TNul5ToAEEblmz586MscBQyU=
+	t=1788788298; cv=none; b=kaJqo7sHBqZiwaFsew1WEclFgYZ1VFfvxj+ZEMudp5C/x3fIeW7LE1XlaqLvG0WDv2ctdDfROiRTzxkjf9B3y4C8zjzFCeetWA3kMsbs7TV3scX8cJD7zynNEM8Btm93JO+4CIa25MtFJRZwFdHlQ/1I7RR5Nda4GoFw2woCH28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788788172; c=relaxed/simple;
-	bh=+Yek63hwngBoHzkEu5P22GU6w+61FzkkWtJrWAOnZzw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mz7OBRNJc7ATWUtan3nWhyGJrb8jdIP47gVXUm1E/DoEJAIRxYB46gnC/p1ZQgP65qFCwzIKLbSEVyjJcJB1vkMgohXZUGz4yB9eg6q1RRGpIOzPkvvWCcwTmcEl1YA0ndNT15vsnwuBolpsP7esOj23fFEVAVo43p7OMH4Tv54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nH1jhzRb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=C1t7bDuu; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nH1jhzRb";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="C1t7bDuu"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687AnRs9217671
-	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 13:36:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=Nuvly24FDGwG7YRRA/F0rHJ3
-	9EVW+7Vo3RK8fyPQ74U=; b=nH1jhzRbtI+Me0pUZo4bAJgTrabfxd4do6hTkdzn
-	CNSg6oZ+w3dOACONJ5DLmhE51DKP2wUIjEhZNlHpm1NSCs+5J9UWQuun6gbwcNGC
-	SMkjg3E9wSo02jH2lDjrPygg9IHsAjtO2aegPRXTqej/GG6ACyJOm2+jGLm+fu7N
-	e513f2BElebzGgcJjS7T7MtvplFbO0lwUtvx1dgGx8lTmf79yfGd9lOFngpWz9ZF
-	9sZBtbPwehxNQxBWDoFT9CF34x6kmDLRQrAUKw50RfyKztLG3dSswH5o7c7pkFr3
-	cuP9ITJbDDhVeuHXQ7GnPJ451ERS7kkkYsOIR0ESsIdLKQ==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghtdqh0xa-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 13:36:10 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-756261d422dso2629880137.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:36:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788788170; x=1789392970; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Nuvly24FDGwG7YRRA/F0rHJ39EVW+7Vo3RK8fyPQ74U=;
-        b=C1t7bDuu/jPHKwlM/qiljKRXrNcVQ1ku08EYWs/SqXQdr6Ygq/PymgS2lyU3KJli7u
-         w3WHAWbSSBt13VczXDGbapkp3js3QbzGF068c+Kr+GEjV+KL/0EAOlC3xBe91VkEaQi1
-         4dEErhQxmn9TOdPjAKHzfZ5QDG4Xx9VLJ+qosPWojBgr7HNMQt4SdEieCcWb36F6DUA7
-         epp4VIuDFKSeN957mOY2YI4kLe1keidztqowwhMoGM7NKvFdp2U5ASTZp6PanaAzyG0U
-         Oo8cPDUG5g9OX+qTNWQrHVHhl/0uNir4CmMLsmMW2u3jf+8/GvYWGRl3DFk9tzZjU+hD
-         7alA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788788170; x=1789392970;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Nuvly24FDGwG7YRRA/F0rHJ39EVW+7Vo3RK8fyPQ74U=;
-        b=MF5jhmdeAOOxawXg5mLHvR2+3sFDNhZh1i+mEsaeWzH8VV/NudNcXtpQ6iX7hpac0N
-         HwQKyl2gydVjcD7ajsa9e1FBYoBhFi/GoLmVpNJZr03vKSHtY8FpfDdgLi7iEBscmvMJ
-         r5D+KmRjyVxPRLqPOAmbkMY6WZd6R17oK+xfdQsvB3tjanaRCs8fR8qw+7xP5GgLVVuU
-         di1LY5Ldm3q1fvNuck3MVxZQreFyLaAwW05yAhowzYp+SoI6dqFZv9h2MaEzF6ar6u+I
-         n+RNPUjD/fTm2k2YFuI1UVFCP26+CUxhmfragIzyxfne9/6rALFqUAXwnOAElEHNGjtB
-         R99g==
-X-Forwarded-Encrypted: i=1; AKwUvBxHrnFS1ERkZR5QZsAS6xNu96AWPUZ+kyaEQ72jKtneJnEY7BIGkXEZ+cJmJATlcVtwTmrX7D6bLHVtAG4=@vger.kernel.org
-X-Gm-Message-State: AFuF++k+00S5oK8wG1v2RvdUiUBw6QGAlmHORSHLbA3+qDHKQSgcYC7z
-	NLp1/wyIxWlKNRDIjJjnRPc2Q8vexeA19gHSctmdm9kMUu5Oy3Ug96xQO8PzpWFVdpcOYolJZyH
-	D+K8YqZfHNx+clSzJJkrPvDM7pE6bocSfjnnyamufVDr8Vi+ZnuNOEfjpNkgxgONVNgE=
-X-Gm-Gg: AYBFou1IW/djCwtH7xgjuDBY1uAA/Gchc3fu4eJEIXohvEg0u3UHxqCW8Lh9KcOawoc
-	6/kZlE1oJxPPgjtzLrloykhARPhdPOVBsc+3ESIOeuACbkQoaMzwnCSx3pQhvZas8glZZnAue8F
-	EolzT/dtXJxJNkyr6BvmzCqMrLuE1WSFLTRa1Xn5g7a2v9B/l+7nJJIm/rWjsg5MMxRXbErSLAB
-	z873BCHebr0k0u+BmZRzf91z11J8rl+U42jCBvCoYBuYZeCjw0G+1msGSgb7GSZPptIe9abJLMx
-	9sUVEtWlYZf2N2raenmEO4o7ZtfcRGSHnDpFMaMCympCsyioT7INhvFI+DXK3KvhpfQg2cbFL9s
-	LzGpoWb7EWJId
-X-Received: by 2002:a05:6102:570f:b0:785:e444:15de with SMTP id ada2fe7eead31-78a4a8b86c6mr9600148137.6.1788788169546;
-        Mon, 07 Sep 2026 06:36:09 -0700 (PDT)
-X-Received: by 2002:a05:6102:570f:b0:785:e444:15de with SMTP id ada2fe7eead31-78a4a8b86c6mr9600123137.6.1788788169077;
-        Mon, 07 Sep 2026 06:36:09 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885be1c1sm28060777f8f.32.2026.09.07.06.36.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 06:36:07 -0700 (PDT)
-Date: Mon, 7 Sep 2026 16:36:05 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Archit Taneja <architt@codeaurora.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 5/7] drm/msm: Properly handle msm_ioremap() without
- name
-Message-ID: <d256qsfz2rs5rdbfvmrxi5m5oitu4266ybhfx44gd7biuaykxm@tfhjzjxqh644>
-References: <20260907-drm-msm-hdmi-fixes-before-eliza-v2-0-b097cf1eac77@oss.qualcomm.com>
- <20260907-drm-msm-hdmi-fixes-before-eliza-v2-5-b097cf1eac77@oss.qualcomm.com>
+	s=arc-20240116; t=1788788298; c=relaxed/simple;
+	bh=LXlYr5wjTtWJeb/u23lfMUCNT/kRQcGzVA30Txxnwco=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=cpUOBeq+LEKcrZ/733xm/L5PahvP3ST64LlDRrkL4mpqEUdZ4sbqcx17mzQBdklYxuyweCpAd6lEdNvDV3/3cujUIZG/4TjmipR5mb+VFoqHw+oKY3rvuwI8wyRUkU+tjR2/KRxbfHlsZGwZgMLqe7SzRbXRxGeZgSphvctkZQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=hisilicon.com; spf=pass smtp.mailfrom=hisilicon.com; arc=none smtp.client-ip=113.46.200.222
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=hisilicon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hisilicon.com
+Received: from mail.maildlp.com (unknown [172.19.162.92])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4hdntG3nhbzLlXX;
+	Mon,  7 Sep 2026 21:27:18 +0800 (CST)
+Received: from kwepemf200017.china.huawei.com (unknown [7.202.181.10])
+	by mail.maildlp.com (Postfix) with ESMTPS id B67EE40565;
+	Mon,  7 Sep 2026 21:38:11 +0800 (CST)
+Received: from [10.67.121.58] (10.67.121.58) by kwepemf200017.china.huawei.com
+ (7.202.181.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Mon, 7 Sep
+ 2026 21:38:10 +0800
+Message-ID: <ba883461-aa7c-49ac-b7c8-79e0d41fc086@hisilicon.com>
+Date: Mon, 7 Sep 2026 21:38:10 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907-drm-msm-hdmi-fixes-before-eliza-v2-5-b097cf1eac77@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDE1MCBTYWx0ZWRfX6ri8+IS8KuGu
- A4q2v0Y6CI/NU4zv1xxFUgb1y4AEFpr0NgZiY4/OfrzusgmOdruZ/pUWdXajKkZxWpbOFMK3pUo
- gvjVpECDFbhSJHMHplRL1Yt5ghbPTvFH2VXgMXc5GNPnfHd1Tuq+LtQJRozsl/D4lXLzdueqgcM
- kDj/wEWul4LXT+peUCLxp+IlN8hmfW4XdCTDr1OeVCtn5AycqSHZFyMHui0is2FFgbcqoOTli/T
- XTtOP7moGMPJFC+ScWvinSBSpyALIdIdGmE25rIM6lyc+JB8jwq79pNlYLPoxretTD9hRjUrUI0
- Oa89GIsUuwgUMdFMAKlVISepyy2D3WVLk9xgr0ELAJQ5NHof4RRiizAutLQLqBwC547dvCCfJi4
- HQsflXvPRYBPAms8uElvQS4mUbVTvpSQOCAJaMu0W9RP+9ceCtcjK1HnM/Uam1QpuyMyzxo6HJF
- ur60Kj2nFkJpjWuIILA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDE1MCBTYWx0ZWRfX4FknIavCu+Oj
- CgfafBkq7SjrH464RcRftal7iplak4VoDXFJVEFbDH9b1h5qbP5A+m+XA34bDIY7FHYM2lbuqUL
- 4eYnU694m07g345Zri3ezkCqsOJiwRk=
-X-Proofpoint-ORIG-GUID: k367Z4CYKtmxXXnTvBkHMLkAsUIsevZR
-X-Authority-Analysis: v=2.4 cv=U6aiy+ru c=1 sm=1 tr=0 ts=6a9ebdca cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=q7XEBjOi5DRkXzmV0jSBjQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=YrmjDuPctlhI2Ist5Y4A:9 a=CjuIK1q_8ugA:10
- a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-GUID: k367Z4CYKtmxXXnTvBkHMLkAsUIsevZR
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-07_03,2026-09-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 impostorscore=0 phishscore=0 clxscore=1015
- lowpriorityscore=0 malwarescore=0 priorityscore=1501 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609070150
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ACPI: RISC-V: CPPC: Implement cpc_read_ffh_fb_ctrs()
+To: Yicong Yang <yang.yicong@picoheart.com>
+CC: Yufan Dou <douyufan@picoheart.com>, Sunil V L <sunilvl@ventanamicro.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Paul
+ Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	<linux-acpi@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <yuchao.46@picoheart.com>,
+	<geshijian@picoheart.com>
+References: <20260902083450.2348-1-douyufan@picoheart.com>
+ <d48e5c92-f666-44e0-8375-9772d95065b5@hisilicon.com>
+ <37731989-e1f1-4dc9-944d-2544ce8e9302@picoheart.com>
+Content-Language: en-US
+From: Jie Zhan <zhanjie9@hisilicon.com>
+In-Reply-To: <37731989-e1f1-4dc9-944d-2544ce8e9302@picoheart.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemf200017.china.huawei.com (7.202.181.10)
 
-On 26-09-07 15:00:19, Krzysztof Kozlowski wrote:
-> msm_ioremap() accepts being called without name of the region to map and
-> in such case maps by index 0.  However error paths still use the name in
-> error message.
+
+
+On 9/7/2026 9:17 PM, Yicong Yang wrote:
+> On 9/7/26 7:29 PM, Jie Zhan wrote:
+>>
+>>
+>> On 9/2/2026 4:34 PM, Yufan Dou wrote:
+>>> On RISC-V, each cpc_read_ffh() for a CSR-type FFH register sends a
+>>> separate IPI to the target hart via smp_call_function_single().
+>>> cppc_get_perf_ctrs() therefore samples the delivered and reference
+>>> counters in two separate IPIs, at two different instants. The skew
+>>> between the two sampling points distorts the delivered/reference
+>>> ratio and thus the frequency reported by cpufreq.
+>>>
+>>> Implement the cpc_read_ffh_fb_ctrs() hook to read both CSR counters
+>>> back-to-back in a single IPI, which narrows the sampling window to a
+>>> few instructions and halves the number of cross-CPU calls. This
+>>> improves the accuracy of the reported frequency in the same way as
+>>> the arm64 implementation of the hook, which reads both AMU counters
+>>> in a single counters_read_on_cpu() call.
+>>>
+>>> SBI-type FFH registers still fall back to individual reads, since
+>>> pairing them would not reduce the number of SBI calls on the target
+>>> hart.
+>>>
+>>> Testing was performed while CPU1 was kept busy with:
+>>>
+>>>   # stress-ng --cpu 1 --taskset 1
+>>>
+>>> On a CPU with cpuinfo_max_freq of 3000000 kHz:
+>>>
+>>> Before:
+>>>
+>>>   Maximum observed cpuinfo_cur_freq: 3201369 kHz
+>>>   Maximum observed error:            +201369 kHz (+6.71%)
+>>>
+>>> After:
+>>>
+>>>   Maximum observed cpuinfo_cur_freq: 3009646 kHz
+>>>   Maximum observed error:              +9646 kHz (+0.32%)
+>>>
+>>> The maximum observed error is reduced by 95.2%.
+>> Glad to see that works for RISC-V as well.
+>>>
+>>> Signed-off-by: Yufan Dou <douyufan@picoheart.com>
+>>> ---
+>>>  drivers/acpi/riscv/cppc.c | 47 +++++++++++++++++++++++++++++++++++++++
+>>>  1 file changed, 47 insertions(+)
+>>>
+>>> diff --git a/drivers/acpi/riscv/cppc.c b/drivers/acpi/riscv/cppc.c
+>>> index 42c1a9052470..2ca98fa69e9a 100644
+>>> --- a/drivers/acpi/riscv/cppc.c
+>>> +++ b/drivers/acpi/riscv/cppc.c
+>>> @@ -85,6 +85,20 @@ static void cppc_ffh_csr_write(void *write_data)
+>>>  	data->ret.error = -EINVAL;
+>>>  }
+>>>  
+>>> +struct sbi_cppc_fb_ctrs_data {
+>>> +	struct sbi_cppc_data first;
+>>> +	struct sbi_cppc_data second;
+>>> +};
+>>> +
+>>> +static void cppc_ffh_csr_read_fb_ctrs(void *read_data)
+>>> +{
+>>> +	struct sbi_cppc_fb_ctrs_data *data = read_data;
+>>> +
+>>> +	cppc_ffh_csr_read(&data->first);
+>>> +	if (!data->first.ret.error)
+>>> +		cppc_ffh_csr_read(&data->second);
+>>> +}
+>>> +
+>>>  /*
+>>>   * Refer to drivers/acpi/cppc_acpi.c for the description of the functions
+>>>   * below.
+>>> @@ -125,6 +139,39 @@ int cpc_read_ffh(int cpu, struct cpc_reg *reg, u64 *val)
+>>>  	return -EINVAL;
+>>>  }
+>>>  
+>>> +int cpc_read_ffh_fb_ctrs(int cpu, struct cpc_reg *reg1, u64 *val1,
+>>> +			 struct cpc_reg *reg2, u64 *val2)
+>>> +{
+>>> +	struct sbi_cppc_fb_ctrs_data data;
+>>> +	int ret;
+>>> +
+>>> +	if (WARN_ON_ONCE(irqs_disabled()))
+>>> +		return -EPERM;
+>> AFAICS, this may cause CPPC FIE to constantly fail to read counters because
+>> FIE runs in hardirq context.
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> I suppose it's mainly due to the smp_call_function_single() cannot work
+> with irqs_disabled().
+> 
+> seems we need to do the similar handling like arm64's
+> counters_read_on_cpu() - read the counters locally when irqs_disabled()
+> if local cpu is the target cpu.
+Exactly.
+> 
+> so is cpc_read_ffh() of riscv. but I suppose this should be a fix of below
+> commit, as it were in the kthread for FIE...
+> 997c021abc6e ("cpufreq: CPPC: Update FIE arch_freq_scale in ticks for non-PCC regs")
+> 
+The fix on riscv has been posted.
+https://lore.kernel.org/all/20260609192856874Y8AaPpKL5TnmbgiWI8DI3@zte.com.cn/
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+cpc_read_ffh_fb_ctrs() and cpc_read_ffh() both call counters_read_on_cpu()
+on arm64, so fixing counters_read_on_cpu() is fine.
+But the two ABIs are implemented separately here on riscv, so copy the same
+fix to cpc_read_ffh_fb_ctrs() or factor out a common process.
+>> Any test on CPPC FIE?
+>>> +
+>>> +	/* Only CSR counters can be paired within a single IPI. */
+>>> +	if (FFH_CPPC_TYPE(reg1->address) != FFH_CPPC_CSR ||
+>>> +	    FFH_CPPC_TYPE(reg2->address) != FFH_CPPC_CSR)
+>>> +		return -EOPNOTSUPP;
+>>> +
+>>> +	data.first.reg = FFH_CPPC_CSR_NUM(reg1->address);
+>>> +	data.second.reg = FFH_CPPC_CSR_NUM(reg2->address);
+>>> +
+>>> +	ret = smp_call_function_single(cpu, cppc_ffh_csr_read_fb_ctrs,
+>>> +				       &data, 1);
+>>> +	if (ret)
+>>> +		return ret;
+>>> +
+>>> +	if (data.first.ret.error)
+>>> +		return data.first.ret.error;
+>>> +	if (data.second.ret.error)
+>>> +		return data.second.ret.error;
+>>> +
+>>> +	*val1 = data.first.ret.value;
+>>> +	*val2 = data.second.ret.value;
+>>> +
+>>> +	return 0;
+>>> +}
+>>> +
+>>>  int cpc_write_ffh(int cpu, struct cpc_reg *reg, u64 val)
+>>>  {
+>>>  	struct sbi_cppc_data data;
+>>>
+>>> base-commit: 89a312991dc6e638a36adc43ccb91dbc25504c04
