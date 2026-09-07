@@ -1,88 +1,88 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B20063A48C8
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 20:33:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12DFA526AA9
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 20:33:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788813228; cv=none; b=dL7BUDSQjQ09s2tbXWZsSqxmGE++CozIoLrne7bz7h8dz6kl0zBVamiY0szNf13oGbCyyp08ZUIwdRgxlylZ9/EO9kngMN0Vlm8xj1ezx0r5VYDXeEJiDyouoQ3p5HtQQPfZsl/sd6LeGJHHgoccdlXszENLrrdl3xywrp250mU=
+	t=1788813231; cv=none; b=HsPJg8ZXb7XBu4+nOBSDEU4inA52ZuqEvyI3cVJjTnu8rwSQPO8s9OzI/1yOQfbI6uMBOE/1nddTCfCYT8X/+v9B1x0216DkIkT/vt2yL+aylndmdScJte6Z0S+SQAuNXvJwFfg5/yenldPdXUHn19oX3lH9wmoKO9/sIDal8SI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788813228; c=relaxed/simple;
-	bh=0W1QH4oNYlUdeirmNfFD+jmPU+kApot3zeq7C9nGrDE=;
+	s=arc-20240116; t=1788813231; c=relaxed/simple;
+	bh=86w9hu+WJ1z3hy9Or+mlRGtKjgaxVht0KJsSe0k3fEg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hgTQxIZQCK3wED4xoxyLMJA85Ft9gI9ArrDZgs46UqOzw2QlFA6h2xVxoQNHVoz9sb/xcazn7IgKgoh2gZRufgrekzDkaHVA9C6daHRwUKt9ruwW0MPmwDPbMwksMsStzxw0wEuhGBL5jlx83orlCCKpUazcT7lT+8Jhg9Cyd3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NY01dkMU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aJIXhnBc; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=G/wQewBxYP+o5F90753XJgJeuvbXPfr2dXwvutI2snt/xaJbzM4/rNRiktO9YJA0Xo+KTepdebNxubJBOhjgbhkb5dn9FDr1PPDJMHWYHKdzjlrPfcww5GJX/88D2IJ8rYyCDI7GxuFN9XWZOXCgJoXtHnz+9O/nNCzWrYwEuwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RAVSusNU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ihQU8Mzt; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NY01dkMU";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aJIXhnBc"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687HWK7I564883
-	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 20:33:45 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RAVSusNU";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ihQU8Mzt"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687H85s1838247
+	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 20:33:49 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	afmJcrxX+TSrqMPN9T48TbSokMooP/JVAehCZMO0dOc=; b=NY01dkMUuSYhOXER
-	ImJuqCMOr0uUYuAT3XfBpLEgLCvR69bW6FH/FiSJZRgWw3jtNBjcTqIwfI9Vtjfs
-	0gvYcoW5CU9mQyUZO+9UqgbP62Zr2QP8vE/nnEQb5AxtG42HuoLGgun2IOEnqsvR
-	eAJwUjU3IdsgMfpmNS7OcDNOYvq4LmJFkCUjsyq66aSVxppcaqjZb6AuoU6cVXaI
-	LRpNbJTUu/vRE7O3frZ9XlyFM2E+6Hmmzlb320IYoIIujC3dH9teTPgWtVmgzTSW
-	YQ+wzLCJxQq+yflgzJU2NxZNiAaJzIZVTnHDJX5oD8x31PYneH8q3wNwLHYr9Me1
-	MIcuwQ==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gj1rrgfts-1
+	gofo4g5PMnVYPHJH99bL1SwGrtDr+P/qsI5BTGGqohw=; b=RAVSusNUGqWXGM24
+	HXFfHQS0H6iLEF2X3JaSi5NtkAfaOD/wCk32AQbYBtjiqEShavXWh/YEjt9oJ/4M
+	55a8JsB1m5mJsCB9l3G3GjctySL9GZ+JckPHVOFEG7XnqpVxD4EMR2zNu5m3lMeE
+	CQ83XH89MZuXpY7G/ZjKrrDLC9BM3k+0PWyz21WSVUJgx4NZxCkcN39rqE1y97hK
+	dIxKv7xGU2HVnrWi2b0+knt7OTlqX5j2gCFS9B1hIbCr9oGWufb6B+SzoRZfrq3l
+	PrQLe6ySXkdHhZ1RNaDaaRcYapqMX4tpOcS3vgla0AvhcbciX3rJFWSXWhoe1rDU
+	E3u1bw==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghssg2j26-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 20:33:44 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39b90cc0d5cso287265a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 13:33:44 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 20:33:48 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-385d2703b64so4864362a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 13:33:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788813224; x=1789418024; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1788813228; x=1789418028; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=afmJcrxX+TSrqMPN9T48TbSokMooP/JVAehCZMO0dOc=;
-        b=aJIXhnBc8bxbrCXNaBbYJ6eRdUj91WtI5sgSn+W+s4yShcxlTDGkJ16FJJFgmbZ2Rq
-         xiX00TuQeKtMmiNdDr5Qo5k7zYaFiz92F2RmYlOHFPWWyntGOtPjiIZVoslvy6rRCRTX
-         EyY6RXHf5yT7guulfd11+ZZ1KaBSFrcS1P/4POJ0U+WfX9vlubXZ06lQtnyq8jHPqBkz
-         bZBNimf33kZP2Oe8gIOTxkYdm4lxsUHbIzVCjIqn8EvUqiFHaHOluA3xF+OuArsCUzZe
-         7zZIcrGLyEutQ6KKVFAGEr/OSjBU5uEvLooZuoXpQLkVwuj8VJOg47Z6/pqm5NnnQXkS
-         lxNw==
+        bh=gofo4g5PMnVYPHJH99bL1SwGrtDr+P/qsI5BTGGqohw=;
+        b=ihQU8MztNpQ5CWHSj9SaMdxQCZIBVBdOBkwnTVqaw+DK4Cyge3kAFsjPQjFObhNJnH
+         sCdKWPXELq6EJtjHFcM6M+CSuDO3Soy2LLsOPy7UD1ZbvvFm5lzAaU4L8FJhiB1qDPK5
+         CrQveQX3Ml0NzR1KIWSQTqISloRHRiKgntxXrr9AYvkCNm0J1mvvYY+WtLbJG2vbWY4L
+         ZuJi+YI06HlpC6qbJYfOu9+rk4UuVhJte7PDL31IPkaM0mCfVm88F52CmFPsw422Decr
+         Pb5iX800ql/5rfQj0tnTPuCNdTDkcqWdnHgnDZFGHWP85fyCNzUVw5Iy46WqF8QoxWgw
+         qwlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788813224; x=1789418024;
+        d=1e100.net; s=20251104; t=1788813228; x=1789418028;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=afmJcrxX+TSrqMPN9T48TbSokMooP/JVAehCZMO0dOc=;
-        b=bU62+LTmxuvL/bxeFHpmxOC9AJf+fe5AbO4e2TqjGiOX1MIWSmIx9z1fcBzrQEgMx8
-         CAb5nB5T8sOqwIV5Hh+648NpbnjFqJA5GrOaJ5rksi+byH+rAOj7AdDC43PAdmclnLJJ
-         nXQlDgfjNz5oKL0N2E81EEQK6mkJ/vFpGPGX2QlIOiIhxpM6KFqV97hVuu5HFSAYtz0+
-         9Jc/5nMaFzZSGJMlAc3+k4W5bZTueg+Epor67PrJudROe4oWaV3X64owdm2eGpff6Ah4
-         fKZ8mCLbno62KbR+BRkizltqbg4zDywHr4G9YyvMW374z3v3J3DiSiUOSrnwLDe277QK
-         BHKg==
-X-Gm-Message-State: AFuF++nYH1RDpj2eniVq27OT3RL4TaH7hESVGygVpBPmaZLlj/Uj1wzT
-	x34SV+rJYQ1oZ0QwuUhrGzX/+6CoF0VsFPFOOBjO2ZWHG7dDJD/2GQFRhP8skrNYNcTUm/5c1RK
-	/+NINePi4gcjc848ODNzDFZm3ZHjwUR5qPzv+wXY7Eg15aYmJAy6JDkeApY4c2k9AkQ==
-X-Gm-Gg: AYBFou36YuFEQjl6V82pi7Qk1fHye4ECfsuiWciiLHg80SKwUFb9QICLSyt/0qpZb9q
-	w69qI+pjgU2c0Oq+b+mIUHCwhY/iywfMuuWQENwVsLoJRC6ugdVNM0CGNMqZAVYoDIMPqFYh66F
-	+GJJQeqN2nQ6WrPgjDD21tRuhXkKGakiEcWnATGfFBmq9Y7OJ0xzY4te3MQKwjpc8FhDD0c0dPp
-	5ci24+tJho2PfqghrBabeAyfkjsmu97PC8C7F1Ya8RMPdN2a8IzALDdaDsXO9zZ1KkFSw3Bt3Z3
-	qH1UMpEyXqDTG9vLYigKJCm3YVhC0QyJigXM66PNnwx1pXX8Ti6JqVlruEJJNFf4FyYbhSRkCoL
-	NysVIO6NX4YMIpDh6fFnnrjzDocyH2s9wp5t75HNMlV6kpKyS6iaHCnQpri9hC8ptsGJkXz6WcO
-	2BQfDNRSkgCx/uX55ZChGYEA==
-X-Received: by 2002:a17:90b:2f87:b0:38e:250b:122f with SMTP id 98e67ed59e1d1-39b261e75femr37290940a91.16.1788813224002;
-        Mon, 07 Sep 2026 13:33:44 -0700 (PDT)
-X-Received: by 2002:a17:90b:2f87:b0:38e:250b:122f with SMTP id 98e67ed59e1d1-39b261e75femr37290895a91.16.1788813223395;
-        Mon, 07 Sep 2026 13:33:43 -0700 (PDT)
+        bh=gofo4g5PMnVYPHJH99bL1SwGrtDr+P/qsI5BTGGqohw=;
+        b=SCQPXlmsDh2GlyvFQ5tXgFkFSgg7Jnn58czYYTwemP3awof3LPnTZfESxMlQIPAeBH
+         qbODA9GpEDMui0GTjeCtG0nwAGdm5mk7HrKX0fyGRjfkBVPU+T27nNObuTa3BH/Cv39s
+         tiXDgOT+dy+5U2VAKaEESOf89M2dKybzHrdcv/Edq0Asr94MVgMo7Q8lOE4T0n3d6Fxr
+         MkLxq94qps+e+exSJl7rehpmS+HAwK7xSfqn4pYge2V20DiqEALWRQYYYwO4mln3eaUR
+         BqdKQoaCSXTxBWY1DPzzALqo4/3TGoyXL11M3QNA2h+cQU+EK0XSMXwgy/SDl2z7D7Ja
+         EgAw==
+X-Gm-Message-State: AFuF++nNqs9Ff333xgEOAVIHhZ5gH7DnvZrPR42DD+qi9W2+z2YdqRwX
+	ZzX9X9Kh8vlKm7pef6vK+IqG58b6A3K+lOLiyaALjDc2GqnCNa1v4HQG5MQCZHbvPU+9RPsfXxd
+	JHjjJvqfskq12FVCAkdOB3qT0qUxyq8htSItdNCiWbQn0rk8gmnBR2WVzRGaHP9OJAQ==
+X-Gm-Gg: AYBFou2nWdpQ8ApkOb6gJ7BekDsLC4X+x8EfLowNZoz5OhiuJnA5g2zEHcQKQ7dnpld
+	X/H8bmXdL9EJUbG4vig+/xXTBVODz8eNXZRRjClZlybA5HRHgQ7ztV85NKeohrxYxwbJL/32b+r
+	C2NiU3X+UiS7UQsy4pfRJPDTCgPTKPZa0RUjDOznw+hOe+pZld0q60hMWAGiuHGjkZAUYzXNp+l
+	laO9qj3RWEewcKZb+6LwEyYaQL+GrMoxOXARyMVGE2tGxt8RhK7r08o/BDO7QLqMH1UGTuxORMb
+	Uq0QGGW93KJwEfYqdSpAC7DiftLAD93pmaZ7SbX2CR//kl1FztAb8QiSHdP9Us6ZhYUTVt35wn8
+	KUAvHsX6LED/OUXekczf0boKSO/FgSaE5Hd4CA6t6z7173qtJK5oB56Db/XRptnhUw/77VwGDFd
+	NVvrL1ugrdVRnNcIhM1Ax3gQ==
+X-Received: by 2002:a17:90a:f945:b0:395:8124:ac53 with SMTP id 98e67ed59e1d1-39b8bd31191mr2581274a91.6.1788813227998;
+        Mon, 07 Sep 2026 13:33:47 -0700 (PDT)
+X-Received: by 2002:a17:90a:f945:b0:395:8124:ac53 with SMTP id 98e67ed59e1d1-39b8bd31191mr2581239a91.6.1788813227557;
+        Mon, 07 Sep 2026 13:33:47 -0700 (PDT)
 Received: from hu-pooventh-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm47841297eec.16.2026.09.07.13.33.39
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm47841297eec.16.2026.09.07.13.33.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 13:33:42 -0700 (PDT)
+        Mon, 07 Sep 2026 13:33:46 -0700 (PDT)
 From: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
-Date: Tue, 08 Sep 2026 01:59:17 +0530
-Subject: [PATCH wireless-next 08/18] wifi: mac80211: Add driver_op for SMD
- substate changes
+Date: Tue, 08 Sep 2026 01:59:18 +0530
+Subject: [PATCH wireless-next 09/18] wifi: mac80211: Send BlockAck policy
+ in AMPDU action
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,7 +91,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-smd-v1-8-65ad4ab30fbd@oss.qualcomm.com>
+Message-Id: <20260908-smd-v1-9-65ad4ab30fbd@oss.qualcomm.com>
 References: <20260908-smd-v1-0-65ad4ab30fbd@oss.qualcomm.com>
 In-Reply-To: <20260908-smd-v1-0-65ad4ab30fbd@oss.qualcomm.com>
 To: "David S. Miller" <davem@davemloft.net>,
@@ -102,503 +102,128 @@ Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
         linux-wireless@vger.kernel.org,
         Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDIyNiBTYWx0ZWRfXzc28pBfCqPqO
- qrMbZSbi+xoG1eo9DnMaXtjA57fl+0SElU6wrTNzLKSdfdumHYw28GJ0gVpVX5IOr7RwQICPfE6
- qTr2UzXBGsxbl/S1p9/tMAyQdFkzrSI=
-X-Proofpoint-GUID: -_w61rYJW1W8T1ElV0VcWSoBmC7OkF4Y
-X-Authority-Analysis: v=2.4 cv=NsjhtcdJ c=1 sm=1 tr=0 ts=6a9f1fa8 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDIyNiBTYWx0ZWRfX6Oo4bNfu59jD
+ F4kv+VwAKL+Lpx4oAoAwQ8TZcuxBQPjF70cQVMVR5GBXhdgrW/Ryom9cfhtahrb0Q4mWMu0jJrH
+ jGv6atIBzGOdqH2cT6BdV6sv6I3y+GMV6NgRAb1s8Zsn11LoX/ySUS4sepgeAuiraKp5V6tVeKv
+ TvcA727ylNx/91JVUxqA9JbPO1n/K2xurX4Lypi8bYI/LmetcA1LNeG/Ex7+ku3rajKiNK303b3
+ geYe/GZ7794v5Elrx/oyUtllfS4GX0xEK1ew7fvw6+JUBR3h1uOHJdwFF6zACDsMfXTwJH/Zzei
+ tQeXStI2O9R2GcyjtUWC6gQHswVLnXvu3PrWfPGFD3GrE2gr1khwNHy9e09JDsNQ9wR2RPEx1LM
+ Ot1KWn5NiPXy6ImY0my6FmmB/fNpE9RhzkyC7Q7Xhm0fKX11YbHMPS808nhl3bur8d2V8FkJXTA
+ auD99PpUH0+eu1sSOPg==
+X-Authority-Analysis: v=2.4 cv=MrJiLWae c=1 sm=1 tr=0 ts=6a9f1fac cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=uScroKfZLg1nAwDi7sIA:9 a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDIyNiBTYWx0ZWRfX7jaflDyqCil8
- HqcgE2QP3khGVO9hxtl6S2xeAC7O1eE8+V9VMVo89pwelRH+ihEhVr4+KpOdvK4huQNQ7sc56pe
- H5zHLQsX5eO9DHgFHLEzwNSTKl7ySEpeFcMWkd3HO/KR4IXoJwQ86LRbZtlIOxR5mM//2lNu9he
- PMdzQKISDyxgH6CcIcbZqKM4vmEWnhgll0dGAqX6+Vy/yzWikP0HuHJe2MUhhZfSIub1c18CHSP
- K9jXvb8yxdfgKLhTGNBDnyh1ytV+OnbVEzH+LYc7dZ8OuRbAMJOxHnKZeufbmFExEqklj/gHplZ
- AfhufBwvLRTRlhxf5zoeY07gXx3Hu8y/HNe8PzhQSkKslk/kp0mRAWh7s3XZEb03iVqAAMQ4I1F
- 7ZBUrwERUDuaacmcrPutbMBkds95uOXfxdH6LofMIrtmXkILynWZdU70zwioIlsqpwZmyLaPISY
- OuJ66dayIgQsoUdaMag==
-X-Proofpoint-ORIG-GUID: -_w61rYJW1W8T1ElV0VcWSoBmC7OkF4Y
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=poGJry9enlaRV4ryzAsA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-ORIG-GUID: UL2AetTouuvLhLjeIbAkDrrqDquPYKFj
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDIyNiBTYWx0ZWRfXzEF3SKmPc+ni
+ 38M6T/Bl1+FV8kSEB9bCPZ33xOAcmVf7bQiDwgT48++AVOUJ/hjleR8H5M3Tt5qnd9pbf6qCc5s
+ nZJaN8D/ZYCvnGI3gLip2qsmqGw/yeo=
+X-Proofpoint-GUID: UL2AetTouuvLhLjeIbAkDrrqDquPYKFj
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-07_05,2026-09-07_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 clxscore=1015
- priorityscore=1501 spamscore=0 adultscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070226
+ lowpriorityscore=0 malwarescore=0 phishscore=0 clxscore=1011
+ priorityscore=1501 impostorscore=0 suspectscore=0 adultscore=0 bulkscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609070226
 
-During SMD BSS Transition, a non-AP MLD cycles through sub-states 4a,
-4b, and 4c that impose different frame-filtering rules on the AP MLD.
-mac80211 tracks these sub-states in STA flags but has no mechanism to
-propagate the transitions to the driver, so hardware-level queue
-gating and frame-filtering cannot follow the SMD state machine.
+While sending AMPDU action hints to wireless drivers, mac80211 does not
+currently send the BlockAck policy extracted from ADDBA frames. Send the
+BlockAck policy as well so that drivers have complete information about
+the negotiation. Policy is valid only for IEEE80211_AMPDU_RX_START.
 
-Add a new driver op that mac80211 calls on each sub-state transition.
-This lets drivers perform the necessary hardware queue and filtering
-adjustments at each phase of the SMD BSS Transition.
-
-Valid transition order:
-  NONE  -> PREP  (ST preparation completed at the target AP MLD)
-  NONE  -> EXEC  (ST execution in progress at the current AP MLD)
-  EXEC  -> DRAIN (DL drain period started at the current AP MLD)
-
-Suggested-by: Rohan Dutta <drohan@qti.qualcomm.com>
 Signed-off-by: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
 ---
- include/net/mac80211.h    |  26 +++++++++
- net/mac80211/cfg.c        |  59 ++++++++++++++-----
- net/mac80211/driver-ops.c |  24 ++++++++
- net/mac80211/driver-ops.h |   6 ++
- net/mac80211/sta_info.c   | 140 ++++++++++++++++++++++++++++++++++++++++++++++
- net/mac80211/sta_info.h   |   9 +++
- net/mac80211/trace.h      |  33 +++++++++++
- 7 files changed, 284 insertions(+), 13 deletions(-)
+ include/net/mac80211.h | 15 +++++++++++++++
+ net/mac80211/agg-rx.c  |  1 +
+ net/mac80211/trace.h   |  8 +++++---
+ 3 files changed, 21 insertions(+), 3 deletions(-)
 
 diff --git a/include/net/mac80211.h b/include/net/mac80211.h
-index d8f5e5d8a021..9b5fa6d6281b 100644
+index 9b5fa6d6281b..32b9b7cd1685 100644
 --- a/include/net/mac80211.h
 +++ b/include/net/mac80211.h
-@@ -4077,6 +4077,24 @@ struct ieee80211_prep_tx_info {
- 	int link_id;
- };
+@@ -3964,6 +3964,19 @@ enum ieee80211_ampdu_mlme_action {
+ #define IEEE80211_AMPDU_TX_START_IMMEDIATE 1
+ #define IEEE80211_AMPDU_TX_START_DELAY_ADDBA 2
  
 +/**
-+ * enum ieee80211_sta_smd_state - SMD BSS Transition sub-state
++ * enum ieee80211_ba_policy - BlockAck Policy
 + *
-+ * Tracks the 802.11bn SMD BSS Transition sub-state (IEEE P802.11bn/D2.0,
-+ * Aug 2026, subclause 11.3.1) for a specific (non-AP MLD, AP MLD) association.
++ * @IEEE80211_BLOCKACK_DELAYED: Block ACK sent to the BAR sender in next TXOP
++ * @IEEE80211_BLOCKACK_IMMEDIATE: Block ACK sent to the BAR sender immediately
 + *
-+ * @IEEE80211_STA_SMD_NONE:  Plain State 4. No sub-state active.
-+ * @IEEE80211_STA_SMD_PREP:  State 4a. STA prepared at the target AP MLD
-+ * @IEEE80211_STA_SMD_EXEC:  State 4b. ST execution active at the current AP MLD
-+ * @IEEE80211_STA_SMD_DRAIN: State 4c. DL draining period at the current AP MLD
++ * This field is valid only for %IEEE80211_AMPDU_RX_START.
 + */
-+enum ieee80211_sta_smd_state {
-+	IEEE80211_STA_SMD_NONE,
-+	IEEE80211_STA_SMD_PREP,
-+	IEEE80211_STA_SMD_EXEC,
-+	IEEE80211_STA_SMD_DRAIN,
++enum ieee80211_ba_policy {
++	IEEE80211_BLOCKACK_DELAYED,
++	IEEE80211_BLOCKACK_IMMEDIATE,
 +};
 +
  /**
-  * struct ieee80211_ops - callbacks from mac80211 to the driver
+  * struct ieee80211_ampdu_params - AMPDU action parameters
   *
-@@ -4743,6 +4761,9 @@ struct ieee80211_prep_tx_info {
-  * @set_eml_op_mode: Configure eMLSR/eMLMR operation mode in the underlay
-  *	driver according to the parameter received in the EML Operating mode
-  *	notification frame.
-+ * @sta_smd_state: Notifies low level driver about IEEE 802.11bn SMD substate
-+ *	transition of a station. It must not fail while transitioning down.
-+ *	The callback can sleep.
-  */
- struct ieee80211_ops {
- 	void (*tx)(struct ieee80211_hw *hw,
-@@ -5144,6 +5165,11 @@ struct ieee80211_ops {
- 			       struct ieee80211_vif *vif,
- 			       struct ieee80211_sta *sta,
- 			       struct ieee80211_eml_params *eml_params);
-+	int (*sta_smd_state)(struct ieee80211_hw *hw,
-+			     struct ieee80211_vif *vif,
-+			     struct ieee80211_sta *sta,
-+			     enum ieee80211_sta_smd_state old_state,
-+			     enum ieee80211_sta_smd_state new_state);
+@@ -3976,6 +3989,7 @@ enum ieee80211_ampdu_mlme_action {
+  * @buf_size: reorder buffer size  (number of subframes). Valid only when the
+  *	action is set to %IEEE80211_AMPDU_RX_START or
+  *	%IEEE80211_AMPDU_TX_OPERATIONAL
++ * @policy: BlockAck policy of type &enum ieee80211_ba_policy
+  * @amsdu: indicates the peer's ability to receive A-MSDU within A-MPDU.
+  *	valid when the action is set to %IEEE80211_AMPDU_TX_OPERATIONAL
+  * @timeout: BA session timeout. Valid only when the action is set to
+@@ -3987,6 +4001,7 @@ struct ieee80211_ampdu_params {
+ 	u16 tid;
+ 	u16 ssn;
+ 	u16 buf_size;
++	enum ieee80211_ba_policy policy;
+ 	bool amsdu;
+ 	u16 timeout;
  };
- 
- /**
-diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
-index 69b3ac0b48f3..0ea8b610a771 100644
---- a/net/mac80211/cfg.c
-+++ b/net/mac80211/cfg.c
-@@ -2459,7 +2459,9 @@ static int sta_apply_smd_state_flags(struct sta_info *sta,
- 	u32 expected_mask = BIT(NL80211_STA_FLAG_SMD_PREP_TARGET) |
- 			    BIT(NL80211_STA_FLAG_SMD_EXEC_CURRENT) |
- 			    BIT(NL80211_STA_FLAG_SMD_DL_DRAIN);
-+	enum ieee80211_sta_smd_state new_ss;
- 	u32 smd_flags;
-+	int err;
- 
- 	if (!(mask & expected_mask))
- 		return 0;
-@@ -2479,6 +2481,22 @@ static int sta_apply_smd_state_flags(struct sta_info *sta,
- 	    (smd_exec_current || smd_dl_drain))
- 		return -EINVAL;
- 
-+	if (smd_prep_target)
-+		new_ss = IEEE80211_STA_SMD_PREP;
-+	else if (smd_exec_current)
-+		new_ss = IEEE80211_STA_SMD_EXEC;
-+	else if (smd_dl_drain)
-+		new_ss = IEEE80211_STA_SMD_DRAIN;
-+	else
-+		new_ss = IEEE80211_STA_SMD_NONE;
-+
-+	if (new_ss == sta->smd_state)
-+		return 0;
-+
-+	err = sta_info_move_smd_state(sta, new_ss, true);
-+	if (err)
-+		return err;
-+
- 	if (smd_prep_target) {
- 		clear_sta_flag(sta, WLAN_STA_SMD_EXEC_CURRENT);
- 		clear_sta_flag(sta, WLAN_STA_SMD_DL_DRAIN);
-@@ -2578,26 +2596,17 @@ static int sta_apply_parameters(struct ieee80211_local *local,
- 		sta->sta.spp_amsdu = set & BIT(NL80211_STA_FLAG_SPP_AMSDU);
- 
- 	if (mask & BIT(NL80211_STA_FLAG_SMD)) {
--		if (set & BIT(NL80211_STA_FLAG_SMD))
-+		if (set & BIT(NL80211_STA_FLAG_SMD)) {
- 			set_sta_flag(sta, WLAN_STA_SMD);
--		else if (test_sta_flag(sta, WLAN_STA_SMD))
-+		} else if (test_sta_flag(sta, WLAN_STA_SMD)) {
-+			sta_info_reset_smd_state(sta, true);
- 			clear_sta_flag(sta, WLAN_STA_SMD);
-+		}
- 	}
- 
- 	if (params->smd_params.smd_sta)
- 		sta->sta.smd_params = params->smd_params;
- 
--	/*
--	 * SMD BSS Transition sub-states (IEEE P802.11bn/D2.0, Aug 2026,
--	 * subclause 11.3.1).
--	 * Only meaningful for SMD-capable stations (WLAN_STA_SMD set).
--	 */
--	if (test_sta_flag(sta, WLAN_STA_SMD)) {
--		ret = sta_apply_smd_state_flags(sta, mask, set);
--		if (ret)
--			return ret;
--	}
--
- 	/* mark TDLS channel switch support, if the AP allows it */
- 	if (test_sta_flag(sta, WLAN_STA_TDLS_PEER) &&
- 	    !sdata->deflink.u.mgd.tdls_chan_switch_prohibited &&
-@@ -2699,6 +2708,17 @@ static int sta_apply_parameters(struct ieee80211_local *local,
- 			return ret;
- 	}
- 
-+	/*
-+	 * SMD BSS Transition sub-states (IEEE P802.11bn/D2.0, Aug 2026,
-+	 * subclause 11.3.1).
-+	 * Only meaningful for SMD-capable stations (WLAN_STA_SMD set).
-+	 */
-+	if (test_sta_flag(sta, WLAN_STA_SMD)) {
-+		ret = sta_apply_smd_state_flags(sta, mask, set);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	/* Mark the STA as MLO if MLD MAC address is available */
- 	if (params->link_sta_params.mld_mac)
- 		sta->sta.mlo = true;
-@@ -2783,6 +2803,19 @@ static int ieee80211_add_station(struct wiphy *wiphy, struct wireless_dev *wdev,
- 	 */
- 	if (!err && sdata->vif.type == NL80211_IFTYPE_NAN_DATA)
- 		ieee80211_nan_update_ndi_carrier(sta->sdata);
-+
-+	/*
-+	 * SMD sub-state was set in sta_apply_parameters() before the station
-+	 * was inserted so drv_sta_smd_state() was skipped (WLAN_STA_INSERTED
-+	 * was not yet set). Walk the driver step-by-step to the target state.
-+	 */
-+	if (!err && test_sta_flag(sta, WLAN_STA_SMD) &&
-+	    sta->smd_state != IEEE80211_STA_SMD_NONE) {
-+		err = sta_info_move_drv_smd_state(sta);
-+		if (err)
-+			WARN_ON(__sta_info_destroy(sta));
-+	}
-+
- 	return err;
- }
- 
-diff --git a/net/mac80211/driver-ops.c b/net/mac80211/driver-ops.c
-index 49753b73aba2..d77a5a80f06e 100644
---- a/net/mac80211/driver-ops.c
-+++ b/net/mac80211/driver-ops.c
-@@ -633,3 +633,27 @@ int drv_change_sta_links(struct ieee80211_local *local,
- 
- 	return 0;
- }
-+
-+int drv_sta_smd_state(struct ieee80211_local *local,
-+		      struct ieee80211_sub_if_data *sdata,
-+		      struct ieee80211_sta *sta,
-+		      enum ieee80211_sta_smd_state old_state,
-+		      enum ieee80211_sta_smd_state new_state)
-+{
-+	int ret = 0;
-+
-+	might_sleep();
-+	lockdep_assert_wiphy(local->hw.wiphy);
-+
-+	sdata = get_bss_sdata(sdata);
-+	if (!check_sdata_in_driver(sdata))
-+		return -EIO;
-+
-+	trace_drv_sta_smd_state(local, sdata, sta, old_state, new_state);
-+	if (local->ops->sta_smd_state)
-+		ret = local->ops->sta_smd_state(&local->hw, &sdata->vif,
-+						sta, old_state, new_state);
-+	trace_drv_return_int(local, ret);
-+
-+	return ret;
-+}
-diff --git a/net/mac80211/driver-ops.h b/net/mac80211/driver-ops.h
-index f1c0b87fddd5..ce11a723ec36 100644
---- a/net/mac80211/driver-ops.h
-+++ b/net/mac80211/driver-ops.h
-@@ -1814,4 +1814,10 @@ drv_nan_peer_sched_changed(struct ieee80211_local *local,
- 	return ret;
- }
- 
-+int drv_sta_smd_state(struct ieee80211_local *local,
-+		      struct ieee80211_sub_if_data *sdata,
-+		      struct ieee80211_sta *sta,
-+		      enum ieee80211_sta_smd_state old_state,
-+		      enum ieee80211_sta_smd_state new_state);
-+
- #endif /* __MAC80211_DRIVER_OPS */
-diff --git a/net/mac80211/sta_info.c b/net/mac80211/sta_info.c
-index fdf00cbf49d8..5aa6f5b481e3 100644
---- a/net/mac80211/sta_info.c
-+++ b/net/mac80211/sta_info.c
-@@ -701,6 +701,7 @@ __sta_info_alloc(struct ieee80211_sub_if_data *sdata,
- 	ieee80211_init_frag_cache(&sta->frags);
- 
- 	sta->sta_state = IEEE80211_STA_NONE;
-+	sta->smd_state = IEEE80211_STA_SMD_NONE;
- 
- 	if (sdata->vif.type == NL80211_IFTYPE_MESH_POINT)
- 		sta->amsdu_mesh_control = -1;
-@@ -1527,6 +1528,20 @@ static int _sta_info_move_state(struct sta_info *sta,
- 		WARN_ONCE(err,
- 			  "Driver is not allowed to fail if the sta_state is transitioning down the list: %d\n",
- 			  err);
-+
-+		/* revert SMD states if STA has transitioned down */
-+		if (new_state == IEEE80211_STA_AUTH &&
-+		    sta->sta_state == IEEE80211_STA_ASSOC) {
-+			if (test_sta_flag(sta, WLAN_STA_SMD) &&
-+			    sta->smd_state == IEEE80211_STA_SMD_PREP)
-+				sta_info_reset_smd_state(sta, true);
-+		} else if (new_state == IEEE80211_STA_ASSOC &&
-+			   sta->sta_state == IEEE80211_STA_AUTHORIZED) {
-+			if (test_sta_flag(sta, WLAN_STA_SMD) &&
-+			    sta->smd_state != IEEE80211_STA_SMD_NONE &&
-+			    sta->smd_state != IEEE80211_STA_SMD_PREP)
-+				sta_info_reset_smd_state(sta, true);
-+		}
- 	}
- 
- 	sta->sta_state = new_state;
-@@ -3883,3 +3898,128 @@ bool ieee80211_link_sta_update_rc_bw(struct ieee80211_link_data *link,
- 
- 	return true;
- }
-+
-+int sta_info_move_smd_state(struct sta_info *sta,
-+			    enum ieee80211_sta_smd_state new_ss,
-+			    bool notify)
-+{
-+	enum ieee80211_sta_smd_state old_ss = sta->smd_state;
-+	struct ieee80211_local *local = sta->local;
-+	bool notify_driver;
-+	int err;
-+
-+	might_sleep();
-+
-+	if (old_ss == new_ss)
-+		return 0;
-+
-+	switch (new_ss) {
-+	case IEEE80211_STA_SMD_NONE:
-+		if (old_ss != IEEE80211_STA_SMD_PREP &&
-+		    old_ss != IEEE80211_STA_SMD_EXEC &&
-+		    old_ss != IEEE80211_STA_SMD_DRAIN)
-+			return -EINVAL;
-+		break;
-+	case IEEE80211_STA_SMD_EXEC:
-+		if (old_ss != IEEE80211_STA_SMD_NONE)
-+			return -EINVAL;
-+		break;
-+	case IEEE80211_STA_SMD_DRAIN:
-+		if (old_ss != IEEE80211_STA_SMD_EXEC)
-+			return -EINVAL;
-+		break;
-+	case IEEE80211_STA_SMD_PREP:
-+		if (old_ss != IEEE80211_STA_SMD_NONE)
-+			return -EINVAL;
-+		break;
-+	default:
-+		sdata_err(sta->sdata, "invalid smd state %d", new_ss);
-+		return -EINVAL;
-+	}
-+
-+	sta_dbg(sta->sdata, "moving STA %pM SMD state %u -> %u\n",
-+		sta->sta.addr, old_ss, new_ss);
-+
-+	notify_driver = notify && test_sta_flag(sta, WLAN_STA_INSERTED);
-+
-+	if (new_ss > old_ss && notify_driver) {
-+		err = drv_sta_smd_state(local, sta->sdata, &sta->sta, old_ss,
-+					new_ss);
-+		if (err)
-+			return err;
-+	}
-+
-+	if (new_ss < old_ss && notify_driver) {
-+		err = drv_sta_smd_state(local, sta->sdata, &sta->sta, old_ss,
-+					new_ss);
-+		/* driver should not fail moving down SMD states */
-+		WARN_ONCE(err,
-+			  "Driver should not fail moving down SMD states: %d\n",
-+			  err);
-+	}
-+
-+	sta->smd_state = new_ss;
-+
-+	return 0;
-+}
-+
-+void sta_info_reset_smd_state(struct sta_info *sta, bool notify)
-+{
-+	if (sta->smd_state == IEEE80211_STA_SMD_NONE)
-+		return;
-+
-+	/* DRAIN -> NONE, EXEC -> NONE or PREP -> NONE */
-+	WARN_ON_ONCE(sta_info_move_smd_state(sta, IEEE80211_STA_SMD_NONE,
-+					     notify));
-+
-+	clear_sta_flag(sta, WLAN_STA_SMD_PREP_TARGET);
-+	clear_sta_flag(sta, WLAN_STA_SMD_EXEC_CURRENT);
-+	clear_sta_flag(sta, WLAN_STA_SMD_DL_DRAIN);
-+}
-+
-+int sta_info_move_drv_smd_state(struct sta_info *sta)
-+{
-+	enum ieee80211_sta_smd_state new_ss = sta->smd_state;
-+	struct ieee80211_local *local = sta->local;
-+	int err = 0;
-+
-+	if (!test_sta_flag(sta, WLAN_STA_INSERTED))
-+		return 0;
-+
-+	switch (new_ss) {
-+	case IEEE80211_STA_SMD_PREP:
-+		err = drv_sta_smd_state(local, sta->sdata, &sta->sta,
-+					IEEE80211_STA_SMD_NONE,
-+					IEEE80211_STA_SMD_PREP);
-+		if (err)
-+			goto rollback;
-+		break;
-+	case IEEE80211_STA_SMD_EXEC:
-+	case IEEE80211_STA_SMD_DRAIN:
-+		err = drv_sta_smd_state(local, sta->sdata, &sta->sta,
-+					IEEE80211_STA_SMD_NONE,
-+					IEEE80211_STA_SMD_EXEC);
-+		if (err)
-+			goto rollback;
-+
-+		if (new_ss == IEEE80211_STA_SMD_DRAIN)
-+			err = drv_sta_smd_state(local, sta->sdata, &sta->sta,
-+						IEEE80211_STA_SMD_EXEC,
-+						IEEE80211_STA_SMD_DRAIN);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	if (!err)
-+		return 0;
-+
-+	/* if EXEC -> DRAIN failed in the driver, notify EXEC -> NONE */
-+	WARN_ON_ONCE(drv_sta_smd_state(local, sta->sdata, &sta->sta,
-+				       IEEE80211_STA_SMD_EXEC,
-+				       IEEE80211_STA_SMD_NONE));
-+
-+rollback:
-+	sta_info_reset_smd_state(sta, false);
-+	return err;
-+}
-diff --git a/net/mac80211/sta_info.h b/net/mac80211/sta_info.h
-index 89137b18a862..bdc021675727 100644
---- a/net/mac80211/sta_info.h
-+++ b/net/mac80211/sta_info.h
-@@ -721,6 +721,7 @@ struct ieee80211_sta_removed_link_stats {
-  *	would be assigned to link[link_id] where link_id is the id assigned
-  *	by the AP.
-  * @rem_link_stats: accumulated removed link stats
-+ * @smd_state: Sub-state for STAs in SMD BSS Transition
-  */
- struct sta_info {
- 	/* General information, mostly static */
-@@ -797,6 +798,8 @@ struct sta_info {
- 	struct link_sta_info __rcu *link[IEEE80211_MLD_MAX_NUM_LINKS];
- 	struct ieee80211_sta_removed_link_stats rem_link_stats;
- 
-+	enum ieee80211_sta_smd_state smd_state;
-+
- 	/* keep last! */
- 	struct ieee80211_sta sta;
- };
-@@ -1169,4 +1172,10 @@ static inline u32 sta_stats_encode_rate(struct ieee80211_rx_status *s)
- 	return r;
- }
- 
-+int sta_info_move_smd_state(struct sta_info *sta,
-+			    enum ieee80211_sta_smd_state new_ss,
-+			    bool notify);
-+void sta_info_reset_smd_state(struct sta_info *sta, bool notify);
-+int sta_info_move_drv_smd_state(struct sta_info *sta);
-+
- #endif /* STA_INFO_H */
+diff --git a/net/mac80211/agg-rx.c b/net/mac80211/agg-rx.c
+index 9629e00069a1..2d67fd883146 100644
+--- a/net/mac80211/agg-rx.c
++++ b/net/mac80211/agg-rx.c
+@@ -289,6 +289,7 @@ void __ieee80211_start_rx_ba_session(struct sta_info *sta,
+ 		.amsdu = false,
+ 		.timeout = timeout,
+ 		.ssn = start_seq_num,
++		.policy = ba_policy,
+ 	};
+ 	int i, ret = -EOPNOTSUPP;
+ 	u16 status = WLAN_STATUS_REQUEST_DECLINED;
 diff --git a/net/mac80211/trace.h b/net/mac80211/trace.h
-index 562a4964afa3..294a8a44a125 100644
+index 294a8a44a125..63838a6d5d07 100644
 --- a/net/mac80211/trace.h
 +++ b/net/mac80211/trace.h
-@@ -3403,6 +3403,39 @@ TRACE_EVENT(drv_nan_peer_sched_changed,
- 	)
- );
+@@ -116,6 +116,7 @@
+ 				__field(u16, ssn)					\
+ 				__field(u16, buf_size)					\
+ 				__field(bool, amsdu)					\
++				__field(u8, policy)					\
+ 				__field(u16, timeout)					\
+ 				__field(u16, action)
+ #define AMPDU_ACTION_ASSIGN	STA_NAMED_ASSIGN(params->sta);				\
+@@ -123,12 +124,13 @@
+ 				__entry->ssn = params->ssn;				\
+ 				__entry->buf_size = params->buf_size;			\
+ 				__entry->amsdu = params->amsdu;				\
++				__entry->policy = params->policy;			\
+ 				__entry->timeout = params->timeout;			\
+ 				__entry->action = params->action;
+-#define AMPDU_ACTION_PR_FMT	STA_PR_FMT " tid %d, ssn %d, buf_size %u, amsdu %d, timeout %d action %d"
++#define AMPDU_ACTION_PR_FMT	STA_PR_FMT " tid %d, ssn %d, buf_size %u, amsdu %d, policy=%u, timeout %d action %d"
+ #define AMPDU_ACTION_PR_ARG	STA_PR_ARG, __entry->tid, __entry->ssn,			\
+-				__entry->buf_size, __entry->amsdu, __entry->timeout,	\
+-				__entry->action
++				__entry->buf_size, __entry->amsdu, __entry->policy,	\
++				__entry->timeout, __entry->action
  
-+TRACE_EVENT(drv_sta_smd_state,
-+	TP_PROTO(struct ieee80211_local *local,
-+		 struct ieee80211_sub_if_data *sdata,
-+		 struct ieee80211_sta *sta,
-+		 enum ieee80211_sta_smd_state old_state,
-+		 enum ieee80211_sta_smd_state new_state),
-+
-+	TP_ARGS(local, sdata, sta, old_state, new_state),
-+
-+	TP_STRUCT__entry(
-+		LOCAL_ENTRY
-+		VIF_ENTRY
-+		STA_ENTRY
-+		__field(u32, old_state)
-+		__field(u32, new_state)
-+	),
-+
-+	TP_fast_assign(
-+		LOCAL_ASSIGN;
-+		VIF_ASSIGN;
-+		STA_ASSIGN;
-+		__entry->old_state = old_state;
-+		__entry->new_state = new_state;
-+	),
-+
-+	TP_printk(
-+		LOCAL_PR_FMT VIF_PR_FMT STA_PR_FMT
-+		" smd_state: %d->%d",
-+		LOCAL_PR_ARG, VIF_PR_ARG, STA_PR_ARG,
-+		__entry->old_state, __entry->new_state
-+	)
-+);
-+
- #endif /* !__MAC80211_DRIVER_TRACE || TRACE_HEADER_MULTI_READ */
- 
- #undef TRACE_INCLUDE_PATH
+ /*
+  * Tracing for driver callbacks.
 
 -- 
 2.34.1
