@@ -1,155 +1,99 @@
-Received: from sender5-pp-f112.zoho.com (sender5-pp-f112.zoho.com [165.173.182.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBD7237C91B;
-	Mon,  7 Sep 2026 11:02:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788778948; cv=pass; b=VicISUaZLA4+mVaKPi6pqiB6xV0eiUhjngRw8YcSi7BVKlBT9ncCF6jHTqcNdtcq6palUexQjHwV08MrKW1Zf9N9S+6AMrztxqvy876J5GX7o0majrvw/jLpxxk7GLOzHF3mr9cidSOZC+2Qb7H5yFGQUDyvO7wpq4dWiD9akuM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788778948; c=relaxed/simple;
-	bh=pu9o2xF7Z8ois1PlGcOBKA3kGQqV1WVXVphUKnGrqF0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Jhpxc5ZlwQ0LsXldVZMwFULDq5YuEFtUPIjLVmMS+WAbwacGoKRivpDNB9ZGaGH+xRwq/5onndkvBwFKryuysfNnx5yZLxvywdn7lQzDm6LpoQcHK5drsBJ2LerJqbDSYTK4K0rh6TQXMPEDLnmTZgwsyy1JS16a/JiPcbxFIN4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b=OfTx4OYB; arc=pass smtp.client-ip=165.173.182.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CCCC477991
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:02:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788778959; cv=none; b=n2O5sAgM+5KtxAtsWxGHQkkK49nD3D3vI4YK5oGlkJ4b0EtsdRPj6dVO6cfZnyzTKdg0LFUYrsLS8pq3HYZ6/f9eqF+GdCfejCp2H3vhHQ5WYMfXTUKZbhad7+4CrUvYPzt9IxLot6tE5UuQlrgJf96aj2JhLYb+QdwM8GwsVt4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788778959; c=relaxed/simple;
+	bh=cyNAgS+LY6NkA7zAwdAWlAf0LD7Ox1jZEAYPWX/rymc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=leakmBjPbXr4SWd98KICL4PH5CrIxgz8udiI10cVevpSNDhUJGFN0+JQBu8e5kvW7x4rpYBdAX6pMU5e51JsMxFIY9jdrCAOLuUJWXwiri0p4x5hEtayFR1J3A8RSd8E4ML/XPZYKNJpk/K+6etqD06enLE2zRIPIUtsVlvPJSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QNI1e1Rv; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b="OfTx4OYB"
-ARC-Seal: i=1; a=rsa-sha256; t=1788778937; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=cEkx9n2gZuP37kraYeyo8ckYdvOQw3Bks6OBB3ybxuaeCa9v2srFeNcZe3RspQphrarocYxCysSzUQTmaWLTO8qJyH8CHJdIAIN9mDB334Zi7RAqvL9QtWpullrdkw/FRLGnQK1iku1WExCBmy/PDM99t8s2yB+MJqlhJGjcr3Y=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1788778937; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=cC9s+xjh/N6rSZarsENmP07faEM7u9hQPQhDsNCtyb0=; 
-	b=nokuVz3EzgMlIDAQQD0EyZ/sgynSKqUBe1CtThToD87q8rWS1oqPeTjTeos41lM5gE58dvkaWBn2gUQUMBYHVYncglSkyxBw0j2VOFFhT2WWTlN9LPIiYToFbq2SH7uZPfWx8CdhTubspYR5Y5hoaA4/IpQXPQ2YSQU4/Yy3tCw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
-	dmarc=pass header.from=<michael.riesch@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788778937;
-	s=zohomail; d=collabora.com; i=michael.riesch@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=cC9s+xjh/N6rSZarsENmP07faEM7u9hQPQhDsNCtyb0=;
-	b=OfTx4OYBkz+3DmyYt2yyy3sr1yA5iGgH6LnzNJFIqlMOPD+1y9nrk0MGJ8Dvvy8E
-	2ntbXswE9cxAu1B1JMFu9iBBekfkhKsqXoQ7NlixIR89DMKl4/IqqxJDKIy8ZKzDZTN
-	UmUfVJW8XldqdvY1VzKB6OWAC5JWccpXdWCVPl48=
-Received: by mx.zohomail.com with SMTPS id 1788778934224927.534650195504;
-	Mon, 7 Sep 2026 04:02:14 -0700 (PDT)
-Message-ID: <0ab0b4f4-ab5d-413b-9446-5d747c59a32a@collabora.com>
-Date: Mon, 7 Sep 2026 13:02:09 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QNI1e1Rv"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-482f9309813so3022578f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 04:02:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788778955; x=1789383755; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cyNAgS+LY6NkA7zAwdAWlAf0LD7Ox1jZEAYPWX/rymc=;
+        b=QNI1e1RvhVFJrPOS0JzMSgIwXf8xVKmc+kpVePpDmIZnaf0IaK/8ojO6m/TqlWzlaS
+         tI95bf/DXhKaDgY09pF+4GAcl6yUh+WH0KXjjZpHYPdYjAxB+I/grCh/lw0QigdALGrQ
+         2K96dg1HrFQ9A89xfnIwQfDpaKUvWzOOEBNNN6h5npeLsn3EChPPaoZbygbW4UnRVU+E
+         e+1ASwWCIq22Gapv4o8S+ubSIMo82r9sEaDYko4c+Dr/uZpikNQh17FhY8MIijujP4j/
+         2Mkj5d4fM6qbFf98T5FBH7fzhZTwsVeyZy6o97Ubj1c3aHuuk4bvP/KOjNrRbcWrQWOg
+         iQEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788778955; x=1789383755;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cyNAgS+LY6NkA7zAwdAWlAf0LD7Ox1jZEAYPWX/rymc=;
+        b=jmU0846oyMhwcwPAUHhX74mxIYxznbHiqukS54s2AcoYWXT/ClJf78+fA0M7SuH4mE
+         pdxqOBGGybDeA1eVsIoGLHQ2+TvuxY/03VJ0LXStrCxzZY+Ula51Y7OPvEiIEGb/Ou5+
+         XhaswL+K/lvs2dktBUXiABVsmcazaBV1LArmk4qcjoggcVa419xeP/pdWoi+TOW1qk2D
+         AzSr4J4pezDpspYWAtrSGie5h0bRwkJLrwxD9bOjLZjMRW8PwcLQnHrG9VpkTTq1IpCQ
+         WOimgjWDgO0GxulqpOT2Ov52OmB4PNmrmxqy+DAnIiiY7GVGq56EqGNvRqp/0yHcU0Wc
+         ta0g==
+X-Forwarded-Encrypted: i=1; AKwUvBwff6aARs1Qqj7oXApxXQJ0OcTSekSDlqafpeZOSZeteH5H4jzOnoRh5Y6LndcH8D62GEPyB6WwHyG3kUM=@vger.kernel.org
+X-Gm-Message-State: AFuF++myvj3CWV+/POjVe9GbE2waIHjZ1y7wqqFTA3NhZBl7yIveMDDw
+	lFqzHnmBqfzlNr6HQNWq8RUAnQuOPImJYfJ3BJEknffdL9EpK4snfJ6X
+X-Gm-Gg: AYBFou2rzt+Vol0if89HtF7IxiPmptJV+dNJIhLvqYdMHO0LRNYCWRqZWEvkujDAOXU
+	ddzy/Sk/d3RXxxYmpqHvfqQtk9VY19IpVUDr0nqWr4p/sjym/J+y2WmBAtU8BKRWUmuboLHVOnD
+	MLhMamT+Rqnq8gUkgY96NMTZIyNBbifNQAEB2HmzWN9tiSn/Th/CfE9gJkSgIi5630nsMqUjHD1
+	b4xsPJqzpRhIOe9dS/TU5nBijtuReEBhGK9rv/gEaZfbJoqZFxs6Z9gmWkUoQDwHjiioIXMMVDY
+	Kezte1YoWUeeFRPc9BizxKmS4F50wGRhVapay8QMIwT6cGtm/wfUWvyvii9Ss/BMbbUwey2TED/
+	6JxtbOcLRqsT25d0ZhOlZM+dce/WJIe8IBYXr5Vd+k+Ev1VZMSHS6xNSfeCMKXqWVi30hzIoqwn
+	wvKpNbNaJ0cC/kaO6GciJrkrvybx+kS0LDQPSvTClxUXSMuSqdI5CIABrvV/nACUbWngRirGaaV
+	3miwVVvRFxgI0h4UQn7BXpRUjk2Hi6juvkf6dXNDfVGhBUx8qKrlpKlyTHM32ruZ8xAZ1JkwKF5
+	lWEtiCphsA==
+X-Received: by 2002:a05:6000:4812:b0:485:8c16:5ee9 with SMTP id ffacd0b85a97d-4858c1661f7mr19695223f8f.35.1788778955023;
+        Mon, 07 Sep 2026 04:02:35 -0700 (PDT)
+Received: from kdev ([81.56.8.150])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858bc74298sm24660979f8f.6.2026.09.07.04.02.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 04:02:34 -0700 (PDT)
+From: Fabio Cesari <fabio.cesari@gmail.com>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] iio: light: isl29028: fix runtime PM reference leak on error paths
+Date: Mon,  7 Sep 2026 13:02:26 +0200
+Message-ID: <20260907110226.244314-1-fabio.cesari@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260907091938.00006748@gmail.com>
+References: <20260906131203.125407-1-fabio.cesari@gmail.com> <20260906223737.206730-1-fabio.cesari@gmail.com> <20260907091938.00006748@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] phy: rockchip: phy-rockchip-inno-csidphy: add support
- for rk3576 variant
-To: Amin Gattout <amin.gattout@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org
-References: <20260820-rk3576-dphy-v1-0-70e25e8d5e78@gmail.com>
- <20260820-rk3576-dphy-v1-3-70e25e8d5e78@gmail.com>
-Content-Language: en-US
-From: Michael Riesch <michael.riesch@collabora.com>
-In-Reply-To: <20260820-rk3576-dphy-v1-3-70e25e8d5e78@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-Hi Amin,
+Hi Joshua,
 
-Thanks for your patches!
+On Mon, 7 Sep 2026 09:19:38 +0200
+Joshua Crofts <joshua.crofts1@gmail.com> wrote:
 
-On 8/20/26 16:01, Amin Gattout wrote:
-> The two RK3576 MIPI CSI-2 DPHYs can be supported using the existing
-> phy-rockchip-inno-csidphy driver, the notable difference with the
-> RK3588 variant being that each PHY instance only has an APB reset
-> line.
-> 
-> Signed-off-by: Amin Gattout <amin.gattout@gmail.com>
-> ---
->  drivers/phy/rockchip/phy-rockchip-inno-csidphy.c | 22 ++++++++++++++++++++++
->  1 file changed, 22 insertions(+)
-> 
-> diff --git a/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c b/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
-> index c79fb53d8ee5..24aefdcd6361 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
-> @@ -30,6 +30,7 @@
->  #define RK3568_GRF_VI_CON0		0x0340
->  #define RK3568_GRF_VI_CON1		0x0344
->  
-> +#define RK3576_CSIDPHY_GRF_CON0		0x0000
+> Please don't send a new version as a reply to the previous version,
+> it breaks certain tooling and workflows (b4 for example).
 
-This, ...
+Understood. v3 will go out as its own thread, with links to the previous
+versions in the notes below the ---.
 
->  #define RK3588_CSIDPHY_GRF_CON0		0x0000
->  
->  /* PHY */
-> @@ -119,6 +120,12 @@ static const struct dphy_reg rk3568_grf_dphy_regs[] = {
->  	[GRF_DPHY_CSIPHY_CLKLANE_EN] = PHY_REG(RK3568_GRF_VI_CON0, 1, 8),
->  };
->  
-> +static const struct dphy_reg rk3576_grf_dphy_regs[] = {
-> +	[GRF_DPHY_CSIPHY_FORCERXMODE] = PHY_REG(RK3576_CSIDPHY_GRF_CON0, 4, 0),
-> +	[GRF_DPHY_CSIPHY_DATALANE_EN] = PHY_REG(RK3576_CSIDPHY_GRF_CON0, 4, 4),
-> +	[GRF_DPHY_CSIPHY_CLKLANE_EN] = PHY_REG(RK3576_CSIDPHY_GRF_CON0, 1, 8),
-> +};
-> +
+Thanks for the heads up,
 
-and this look pretty identical to RK3588, can't we just drop these two
-and ...
-
->  static const struct dphy_reg rk3588_grf_dphy_regs[] = {
->  	[GRF_DPHY_CSIPHY_FORCERXMODE] = PHY_REG(RK3588_CSIDPHY_GRF_CON0, 4, 0),
->  	[GRF_DPHY_CSIPHY_DATALANE_EN] = PHY_REG(RK3588_CSIDPHY_GRF_CON0, 4, 4),
-> @@ -403,6 +410,17 @@ static const struct dphy_drv_data rk3568_mipidphy_drv_data = {
->  	.resets_num = ARRAY_SIZE(rk3368_reset_names),
->  };
->  
-> +static const struct dphy_drv_data rk3576_mipidphy_drv_data = {
-> +	.pwrctl_offset = -1,
-> +	.ths_settle_offset = RK3568_CSIDPHY_CLK_WR_THS_SETTLE,
-> +	.calib_offset = RK3568_CSIDPHY_CLK_CALIB_EN,
-> +	.hsfreq_ranges = rk1808_mipidphy_hsfreq_ranges,
-> +	.num_hsfreq_ranges = ARRAY_SIZE(rk1808_mipidphy_hsfreq_ranges),
-> +	.grf_regs = rk3576_grf_dphy_regs,
-
-... use rk3588_grf_dphy_regs here?
-
-> +	.resets = rk3368_reset_names,
-
-So that the reset names are the only difference to RK3588 (which seems
-to be the case as per commit message)?
-
-> +	.resets_num = ARRAY_SIZE(rk3368_reset_names),
-> +};
-> +
->  static const struct dphy_drv_data rk3588_mipidphy_drv_data = {
->  	.pwrctl_offset = -1,
->  	.ths_settle_offset = RK3568_CSIDPHY_CLK_WR_THS_SETTLE,
-> @@ -435,6 +453,10 @@ static const struct of_device_id rockchip_inno_csidphy_match_id[] = {
->  		.compatible = "rockchip,rk3568-csi-dphy",
->  		.data = &rk3568_mipidphy_drv_data,
->  	},
-> +	{
-> +		.compatible = "rockchip,rk3576-csi-dphy",
-> +		.data = &rk3576_mipidphy_drv_data,
-> +	},
->  	{
->  		.compatible = "rockchip,rk3588-csi-dphy",
->  		.data = &rk3588_mipidphy_drv_data,
-> 
-
-Apart from that LGTM!
-
-Best regards,
-Michael
-
+Fabio
