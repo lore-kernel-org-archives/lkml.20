@@ -1,174 +1,178 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011020.outbound.protection.outlook.com [52.101.52.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F117439F86;
-	Mon,  7 Sep 2026 08:40:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.20
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788770456; cv=fail; b=LNO2Qp/4jRu+g7nAZYKYhVUqhyaizVNy50MZwn5Ps/3FjOfHyZFPszLdOZ1/VWVRMHM+jtanp/WruLXItteUeLcYF/UhI7/fUXU0wPTw8Lb58AD5Y/qIfef/tRMd5B5UHKzakNjNaaBudhsIZ8B726znd7E4RGNErxcOCi4uEeQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788770456; c=relaxed/simple;
-	bh=DsqIaWyKZUnzcG836d85O8JJSqMdKFyfNJDsgd+9lKs=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ip4w7VRuZU/USTuxmdUs7wEnNVYYAn47yMGeI1EoeeCe9NCOXYO1OUFS03Jg5fmtfcWo5XH7PDZqg3UuPF4TLfZuoqANwjOv2CbiM4ZccTJq7tRtD9qnfUpeQ6V2CQt2YgqfqMT/5VT/I/Dn38qWIHsHoVwGA8MzjDQ/IfeHL4k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=khIGDFRq; arc=fail smtp.client-ip=52.101.52.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E05144063B
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:41:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788770490; cv=none; b=t8ml2hVuwZAxobrySZeNpY8P8vv5vswTDJY4Zz7xYqsEus8Sxxgya9t54HU1rYWDQa0VmJQ5hEtYcfq26yrotgiEUazJ8kuvudt+ZE3mnSaDGHhOtslkSxTuoHTvvGtR291CdcJA51bO3IqSTqLItWWhds+LQZgkAmVthyLtHrQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788770490; c=relaxed/simple;
+	bh=A6UKEG9tjljy5BO29IM2NVDCr1jF0sWllS0wIOUNkIE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=c56ctl+vU54THqJLjD7FdTbQK4qK1fb3P0PXu/NhreapzS4Gnnp2p9bhhCAIKoHrEkLkq9AbIzJnJZ7SBnUmxU/D9piNd9mwq3hvMsBa/0mR0f34zvsV7CwwlGmOXdg676ZmzUsRmx8JAZQz+PowEO7Ltm9hsiUc+GTr/xaLwXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MSb8yF1c; arc=none smtp.client-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="khIGDFRq"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FhbwyLrK0f/zChPd0CKADHGxpyyRk8fiKPCDUpxjEHDvBQqAH/pkd0tIMnsdnBC4afY5jMk1aYW1xOZRj4I7RtJlXB3n3aiUNctnfNXs0kg9bRlN4YrHGI3xHhbC2eNa3mezl8Tdk08ldShoA6j/vSiYwW4IPAXuSok9D4r1ocKRNSlDLaoygPtoC58aOy5bUQG+2ducT1G4+H2PDC9J4QPq/IYUCFKhw4q7kBim6e4WRTb6IRTcwX44s7Vp9FGAWnG65l4sZE5ky6MBPiqLgADpZxsRsbnFtO+A9Qra1BNWa39OzbKXqwytbP/W7BIN8T/Bu8VZEMgNK5ta2ZLDUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=n4c6kIdoJVWS3Tp9s5rJYWnT1An7o6hkaAqoxayuqUA=;
- b=J2Yk6iobL7Gmv/Zi2BguCbbNcbDIZZqsckLo1TBd5xBTxuimxTqY5+uzMDu6GEmlfeBi0EEnWGypiXbxNOcb+O9Lc+BWxN+44tYU273qFrIM5lbwxlawWRtZjjsE/2C2biyegN7DZnYEmQs8YUYKwepWUVPB26wzS3oE+Bn7eUdAcXr9GFWY2BJCjDAPbzZUxucbPghaqCxbpguCaSGmJrOniT/QUqBgsi09Qo0zghy67sIb5okye6+BaFG+ooyph3JrvViNRK1EaGam63LQlvtnwtM0VxJv6A0pzkwvBiZ0yUs4bt5aoOXOFQ7yPCxjngN7Ulx1hUxecyDiUgb+cQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n4c6kIdoJVWS3Tp9s5rJYWnT1An7o6hkaAqoxayuqUA=;
- b=khIGDFRqymmCSKPsG3tW6Qsq1AEb7VOveEbyggjew16hLH1h1B9MQK/yhvumAaUaXoLACpmKThExYvBdZnFJKipycUy/CM9lXyiU3EM8jiKB/qo5dG+mox3pgL9k+67qRbq7WPhqiHaMHHzE5GSAG4u3mHyXyPziMKGv1CcjFLlkURqEjpQ7E6DsLxlzeoR3xTJrOj4K/gbHBEtpM+YG386Y3NVU9zb3aY2g71xRW12O0C+/V4c+m/0TzCUKXYvZUJ7Wx3Cwy1ncWx1CyYzUk+tfZJcrgcsAUJKDvIHqGZX8NvvW6QGsAxmNAUkpLcORRwJ4+fpNw2NQWrcCqdrcqw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW6PR12MB7086.namprd12.prod.outlook.com (2603:10b6:303:238::20)
- by DS7PR12MB5958.namprd12.prod.outlook.com (2603:10b6:8:7d::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 08:40:50 +0000
-Received: from MW6PR12MB7086.namprd12.prod.outlook.com
- ([fe80::4eb8:7fcb:fe8d:e95e]) by MW6PR12MB7086.namprd12.prod.outlook.com
- ([fe80::4eb8:7fcb:fe8d:e95e%5]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
- 08:40:49 +0000
-Message-ID: <33de3b17-8492-4eda-bb39-22d82e7b880c@nvidia.com>
-Date: Mon, 7 Sep 2026 11:40:43 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 09/14] net/mlx5: Remove obsolete 32-bit DMA mask
- fallback
-To: Ruizhe Zhou <zhouruizhe@resnics.com>, Saeed Mahameed <saeedm@nvidia.com>,
- Leon Romanovsky <leon@kernel.org>, Mark Bloch <mbloch@nvidia.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-rdma@vger.kernel.org
-References: <20260903084339.870562-1-zhouruizhe@resnics.com>
- <20260903084339.870562-10-zhouruizhe@resnics.com>
-Content-Language: en-US
-From: Tariq Toukan <tariqt@nvidia.com>
-In-Reply-To: <20260903084339.870562-10-zhouruizhe@resnics.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0120.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a3::18) To MW6PR12MB7086.namprd12.prod.outlook.com
- (2603:10b6:303:238::20)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MSb8yF1c"
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc2276e6daeso2251288a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:41:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788770488; x=1789375288; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gD95xacnSwO5QNP7UhKSOo6QX3f1oTJ0b9N0SjSezHA=;
+        b=MSb8yF1cqkrIM/JKPG4bMygRmz7myz0SeiknyjQ6IllPJXpYyVDCxrp9sM6XI39yFN
+         VbNmEm1Kd5kWHIs4dJy1UIaOKtdoM9X6DPnUfdyYGpisjwqYStXVkx9+/NYM5il5nEMX
+         DUoYDtU1E5k/GWEadmtd84BT995w821gEkLX1BJYr1FM4sJMDAVz8AJfXX+8fIe2nl4g
+         Ny9OIgkVAnNT+/s7iZrOdHlX/p84Zto8+/7T0sTvuOBLm3BevWKlXfiN5fPRUdvnyoYM
+         FwORJ2hncBcOzyeaPekAKIOGBu2C4j50O+3vKi4aZqb5YTVtcbPf8yc55YAXXrXS1b1O
+         Ni9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788770488; x=1789375288;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gD95xacnSwO5QNP7UhKSOo6QX3f1oTJ0b9N0SjSezHA=;
+        b=ln7t/OsxZ1epjqmEzKCuW+XXM1UVoPKMZChgI38797BfkTtWNM9YnInGrjc08bdspn
+         Ua16dsArjJiMd3FY8Kza+7agZMaknf/sGNsATXqL6A5p+IIahw/J7NocvGS0wDEHn4Up
+         HvNsEKttt9wj4UAzfksUKgQOKtJ1/XjB0ecFNyZ8N974wZFgdO4zSg7etcihozwRbvh2
+         pZWF4XeYITw5Thv9NryYeRK3RD9VgOEwCagtLnufU/nGrEHThIDSsv9xWDWXc4E/R3Un
+         fkp2bQ24sff+lIf+NR5rNU4SqvqBQMfHOVvBDlS+LnVAWrGIk2QoJyG5Kmp4bV86oUEi
+         HFHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx1xF3yA3fQk8ctW9ZNcFgCI/ioNyyZxgjACVb9QZw1Ucrly8tdSnI3IKdVd4c46XrXyD5sgd3dNC5aI5A=@vger.kernel.org
+X-Gm-Message-State: AFuF++kVTMK5Iq4EktEiUrQe0LqkT7gNFeuXNWa5cd+AmYb9Wfa1yryZ
+	3CzRN2BdozJLYkSpJ9heXjWJaovjjImqlhRioQgAo6Gs4k4iEhPJA40s9ZATcw==
+X-Gm-Gg: AYBFou00uC0584s/Q8q3vXKIs+FN0+Zd15ZnP4stGCopb8St5FH6b0fDZoTfuAtDYS/
+	xUwf0rUJw1uupmq7Uzca6zYrxeEOxsaKrzUIuAbblwwoL3A5Gr3VdrMjv07JGpoNDM06yvj6hja
+	tpO+n+EZ6xfBDET+zLzlPVx9p2jeqfKY0rs5OUHFybBitXcUKgWdsIgI2ddOoPY0FdRAml8YPxd
+	t8rE9HhuoUOoTuoi7vG2cXMFNp9eHzfE/0Wqv6L1Fa1ugOpLvKVGqh+rfpgesuTBWn8/IEG9a/7
+	YG6o5vP0MORTqjrOhfJZtphT28sNM33aQc21PwuiDBIaW/uDXBF9P/aONLwd42JEv0y1GbZ7jQx
+	edFR06hthdMXqkh19+QPIL2WGHTT4ZQ09+6Xf2aDX/12QMeWtpch5os0Vq1uUjcXC1bnu+yrGHD
+	HvXHI+3uPNPToO+DfzwtfRER9w/wwSqu8Np+RcRZF2y96XIy0+byOizZeVvFpfQdc2GAbRexzgw
+	ofqXf+ZveYv1WiWT9XrdQ8x
+X-Received: by 2002:a17:90b:510c:b0:398:9be6:f999 with SMTP id 98e67ed59e1d1-39b262e27a9mr35876536a91.24.1788770488465;
+        Mon, 07 Sep 2026 01:41:28 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2039:4:e8d1:b40d:5214:17c0])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c39227sm25947600a91.9.2026.09.07.01.41.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 01:41:28 -0700 (PDT)
+Date: Mon, 7 Sep 2026 16:41:25 +0800
+From: Kuan-Wei Chiu <visitorckw@gmail.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Georgi Djakov <djakov@kernel.org>, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] interconnect: Add kernel-doc for devm_of_icc_get(),
+ icc_enable() and icc_disable()
+Message-ID: <ap54tQSLFZs4N_KU@google.com>
+References: <20260907020504.24783-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW6PR12MB7086:EE_|DS7PR12MB5958:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0413ee0e-c30f-4556-6246-08df0cbbb80e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|6133799003|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	4UVVNb6EXNzlFS2X4RG6eEo0EJ6gPsMlmgluWxV3T3S9pKBEs4G1xC4gpweY6AjOEChhSoG6vzlCdjfQrSnW3ME30LpFS3zxAzP3UiUMvrOzgd6evt6rIwU4zYIeJBkgXwRYZtMoc3soWg6u2LGtz8R9IR8zrNH5cP8V0/vgHe4a1JusMZy0QQpOAkHB4WgkhDhrYADbUuj/utIPKMq5n0OWJe1/Ct+vpGhJ1ryrWJRdUbQi7PNEOe8jvI9iJGQUHjO8t/3XhTfxXt5xGwoQLLha91Zdr6U1jcZROnalFl1M1EvMG0NypE9RdtA4FnXRr0dAPCtEpAA2q5qNk4/aWF8Re0iEphgFjrDiKqdtzOr//yCYIUooEiesOnqpb4lNpVsR6vfZkpWINTMgIdBYICsFUS1iAx1HPhsffLLFKJmGz/CT6UkVbUgdjm0iMG2xIo6b7xj96CvaVO1suRHjtpmmGcxV7v8qazdOD8R/bK0EmxDEIAIMSVEe3Qttj3UopxkyUXPS3Qg4p4etfyH8sCuAxyEw7TNwCx44ouRMCxM9jIeJgb77gpFx2QERGG+Ybt4SpDkn+LliAXpx5hIfOswWjn/mXSyseTtuLB+pAJPWb48cZKt2aaGfG3U36XzKdMqjcq54XCoIQ3hbBTVeI71QzYSf1oG5kn1OM4VkUWw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW6PR12MB7086.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(6133799003)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?enh2aG5yaERMSFhkYjlpakYxMjNydnpyNk5pcUdUUEg0Z0psdExSQ0J0VSt5?=
- =?utf-8?B?NGJranJ5OXE1MmIxeUhDMHk1UTVkUVZlSmx0T0Jab0RtNW5hUGFHRmpTK043?=
- =?utf-8?B?aEwzaDZlYXFVWGZPZU90QjdTWEpHM2JoWUJiajVsYndpK3J0dUUxc0FsTTFa?=
- =?utf-8?B?bFBBSHlyNTNsdGdDUmRRRGpUSXpBU3Z5TjdqVTFwSVF5MTNNQjZkT3FaeGNQ?=
- =?utf-8?B?ZTFrM1BZNy8rVWMvZXFTZmZ6c2JZckxaVm5uenNrSmNqK0RYNEs5SlpWZjRw?=
- =?utf-8?B?Qm4yd3JsRDhsL29GdGFGeEw0eVBOdURYczNHMXpBN2hIcGVwSWxHY0VJU0gw?=
- =?utf-8?B?a25CZzZsL2R2cmNKTmE4SnhVU3Z5RDQvaDFyZ0o3YXh0cW5ESmhLYlJpOVo5?=
- =?utf-8?B?RXU3RXdsTjFTRmx3L2pqYWtwUXNxME04UTVlemdtcnBsNkpQK090a0VLeVZq?=
- =?utf-8?B?cjZBeVRhSHdzVzNDRmg1S2N1elBURXNXdCtHVFdqa3ZNdXl6bzR3SVBra0Rp?=
- =?utf-8?B?VS85VG42UWxLaEJUbXdOcFpFL1dtQUFYNkNMR0oxOHk1OVNycUVKWlErMjNI?=
- =?utf-8?B?ODBoVlVDazNMbEQ1dSt6Y3NWYmszQkNSTzByUm1zUEpCa3UrQTZjTGJsY1NS?=
- =?utf-8?B?NE9rV2kzaXBzV3Y1OElZRHNTaWpCUC9iWWVBV2JBS2N0bXBEelZ4L0ZkWXJW?=
- =?utf-8?B?S2E0RnBNZTJERHdCNk9veFluWjlBR3Y3cFlLUy9VSlAxY2RCZ1ArZk13KzFa?=
- =?utf-8?B?d2xkU0dCRHNaTDE3bDdhcFowSVBTdVRWczBuc3NJRzI5R1hzWUtsd0lHZXlW?=
- =?utf-8?B?NzA5K0kweVpITHRmcUQrdCtoK3FncjNQN2Y2bUhOUjF0K01wdjYwTHd4eHdG?=
- =?utf-8?B?QU1WKzFLQUdRdGJ3bGxRSGJ6UHNtSnFhczhLekdiNi9wKzVnK2NDbVI2OXd5?=
- =?utf-8?B?aUgzYnJmZjRtRUJ3eDdVWTFsQjkwSWpwQkt5d2xyMWxoeGFDMGlnU0MzUXND?=
- =?utf-8?B?dEJvQUovbVZsbzFKNTMzMEVnU28rd0d0U05NM1paNjJXUmxnQWxqL3RldzA2?=
- =?utf-8?B?b1NmenU3Vm5yR0NqUHNtam9NZzhwcjJqQWdHQlVxdHNtdFFFQVAraC9lTU5N?=
- =?utf-8?B?eW5QdnVEU1VBYURnUERBYlhjZktVQ3k4RTVYalFHU0dpd1hMa05ZR2dwWENI?=
- =?utf-8?B?ZjVyb3RwbklEV0ZNbGtFTXRDSldPNlk2dUFib2cySDc2aVQ4Q0w1cmxtN29H?=
- =?utf-8?B?SXNKWjZwQUpFK1J4TnVTdldteWFrb2ZWb05yRmNXbmhGNHZ2d3QrWXg3Y0k2?=
- =?utf-8?B?TUxyVk43ZVdYTjVFYnVIOWJuQkE0Q2p2d0syUCtCUFBHUmorZy8vejNoNjBD?=
- =?utf-8?B?cldNV3hmNlFHK0I2MkpzUTZXQ0ZqL0Vjb0ZUOHVQWnMrZ3BxaXY5Ti91UVRK?=
- =?utf-8?B?RmZCRkpMNGNJS09NSjdnSlk5ZWlua3dibmMrUXZ5aEtYZFhlSUhaQTVPdXBo?=
- =?utf-8?B?U1dNRDM4Znk2YjVRNW9PeVZ2N09HL2E5aWY5ZUVSbkFYd1VFb1RrRkF5bWM2?=
- =?utf-8?B?VE9yRllDTW95WTBtdW52cTVEWHZMclBjSWFVTnJVR0dwb1BwbmJMQVNuTGYr?=
- =?utf-8?B?RTdoUW04NHZtY2kyRlF5RS92Sk4rcW5NY0IxTkRsUGN4UUxxR0F4Q3NDVWdN?=
- =?utf-8?B?WmE5UzM2SFM5UWQ5bUZCVzIxT2NpN1FtS0VSeHR1OFZ0NkdSUWJYUHQ4UUpt?=
- =?utf-8?B?UExiZWZVWml4OGNTaGFKTzBybTJucW1TcXBnSmw0WnpLVUE2SXdlejM0WTdJ?=
- =?utf-8?B?Mm9jeGNHaTNvM09ITENaTWt1WFpHcDZnWUpSenFpdUYrT1hyVlU3aWFlSDF1?=
- =?utf-8?B?Q09BMzUwa3BoRnlxVDdVbWVsVUhBSTVPQk5FWExYTVhieFhQQ0pPN2lCWUVY?=
- =?utf-8?B?Y3hsMWExeFZZNVgrMmEzbXNhb252elV4ZmlmQnNiSUxwc2JhbktWWWp4aEM4?=
- =?utf-8?B?eVd4MGF1SlRkbmhsbEIrUmlYdDJlSFkzTFM0TVNrdDhzQ3FieGVmcmpNdXhq?=
- =?utf-8?B?VFphNUNSUHdYaTRxbFV5bnY2U2ZOYktHVWVPVFk0ZXdvZTB0ckpUK0ljUlpG?=
- =?utf-8?B?VDQ1NW9PNWdEYTJ2QjAwMXFOYUNiVjdwOEZYVXZ6aVRaUHpRbWlWc25QUFpi?=
- =?utf-8?B?YzVKWE02b0RjUE45MUpYVTArYTNkSFZpT1A1Y2R5N3JETlBrV0dHcVMzTE9s?=
- =?utf-8?B?RkEzL0xjV3MxZGF5b1c1aGZhWjNiQ0x0cCtTbWxaRFFuNW8yWTBKTEZTY01I?=
- =?utf-8?B?RytvVjhSVlZWeFdrUituWVMraDF5WjNoNy9yVjJFeWdNVzdQNkpOZz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0413ee0e-c30f-4556-6246-08df0cbbb80e
-X-MS-Exchange-CrossTenant-AuthSource: MW6PR12MB7086.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 08:40:49.7784
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7SYSTGQAG9VH3dleVFncJaGaWwfGm36R+iKBzFqCS9QoA+r6h3WJ8xd6O0LF1sU+oNBdgC+geEkVuoDfG3HvBQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5958
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907020504.24783-1-kmehltretter@gmail.com>
 
+Hi Karl,
 
-
-On 03/09/2026 11:43, Ruizhe Zhou wrote:
-> The DMA API guarantees support for masks of 32 bits or wider and
-> explicitly identifies retrying a 32-bit mask after a 64-bit request as
-> incorrect:
-> https://docs.kernel.org/core-api/dma-api-howto.html#dma-addressing-capabilities
+On Mon, Sep 07, 2026 at 04:05:04AM +0200, Karl Mehltretter wrote:
+> Documentation/driver-api/interconnect.rst lists devm_of_icc_get(),
+> icc_enable() and icc_disable() in its kernel-doc directive for
+> drivers/interconnect/core.c, but none of the three functions has a
+> kernel-doc comment. The directive silently produces nothing for them, so
+> the consumer API section of the rendered documentation never shows
+> them.
 > 
-> Remove the obsolete fallback while retaining the error check so that a
-> genuine DMA setup failure is still reported and aborts initialization.
+> Add kernel-doc comments in the style of the neighbouring functions.
 > 
-> Signed-off-by: Ruizhe Zhou <zhouruizhe@resnics.com>
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 > ---
->   drivers/net/ethernet/mellanox/mlx5/core/main.c | 8 ++------
->   1 file changed, 2 insertions(+), 6 deletions(-)
+>  drivers/interconnect/core.c | 31 +++++++++++++++++++++++++++++++
+>  1 file changed, 31 insertions(+)
 > 
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/main.c b/drivers/net/ethernet/mellanox/mlx5/core/main.c
-> index 5f28d906c35b..3a3b0ec4aad1 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/main.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/main.c
-> @@ -184,12 +184,8 @@ static int set_dma_caps(struct pci_dev *pdev)
->   
->   	err = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(64));
->   	if (err) {
-> -		dev_warn(&pdev->dev, "Warning: couldn't set 64-bit PCI DMA mask\n");
-> -		err = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
-> -		if (err) {
-> -			dev_err(&pdev->dev, "Can't set PCI DMA mask, aborting\n");
-> -			return err;
-> -		}
-> +		dev_err(&pdev->dev, "Can't set PCI DMA mask, aborting\n");
-> +		return err;
->   	}
->   
->   	dma_set_max_seg_size(&pdev->dev, 2u * 1024 * 1024 * 1024);
+> diff --git a/drivers/interconnect/core.c b/drivers/interconnect/core.c
+> index 4aa991a54101..6f854375201d 100644
+> --- a/drivers/interconnect/core.c
+> +++ b/drivers/interconnect/core.c
+> @@ -423,6 +423,17 @@ static void devm_icc_release(struct device *dev, void *res)
+>  	icc_put(*(struct icc_path **)res);
+>  }
+>  
+> +/**
+> + * devm_of_icc_get() - get a path handle from a DT node based on name
+> + * @dev: device pointer for the consumer device
+> + * @name: interconnect path name
+> + *
+> + * This function is the resource managed version of of_icc_get(). The path
+> + * is released with icc_put() automatically when @dev is unbound.
+> + *
+> + * Return: icc_path pointer on success or ERR_PTR() on error. NULL is returned
+> + * when the API is disabled or the "interconnects" DT property is missing.
+> + */
+>  struct icc_path *devm_of_icc_get(struct device *dev, const char *name)
+>  {
+>  	struct icc_path **ptr, *path;
+> @@ -786,12 +797,32 @@ static int __icc_enable(struct icc_path *path, bool enable)
+>  			  path->reqs[0].peak_bw);
+>  }
+>  
+> +/**
+> + * icc_enable() - enable a path
+> + * @path: reference to the path returned by icc_get()
 
-Reviewed-by: Tariq Toukan <tariqt@nvidia.com>
+Since a path can also be obtained from other functions like
+of_icc_get() or of_icc_get_by_index(), maybe it would be better to
+describe it simply as:
 
+* @path: interconnect path
+
+This would also keep it consistent with neighboring functions such as
+icc_set_bw() and icc_get_name().
+
+
+> + *
+> + * Mark all requests on the path as enabled and reapply the bandwidth that
+> + * was last set with icc_set_bw(). A NULL @path is ignored.
+
+Since __icc_enable() explicitly returns 0 when path is NULL, it might
+be a bit clearer to mention the return value explicitly, e.g.:
+
+Passing a NULL @path is a no-op and returns 0.
+
+Regards,
+Kuan-Wei
+
+> + *
+> + * Return: 0 on success, or an appropriate error code otherwise.
+> + */
+>  int icc_enable(struct icc_path *path)
+>  {
+>  	return __icc_enable(path, true);
+>  }
+>  EXPORT_SYMBOL_GPL(icc_enable);
+>  
+> +/**
+> + * icc_disable() - disable a path
+> + * @path: reference to the path returned by icc_get()
+> + *
+> + * Mark all requests on the path as disabled, so that they no longer count
+> + * towards the aggregated bandwidth, and reapply the constraints. The
+> + * requested bandwidth is kept and restored by icc_enable(). A NULL @path is
+> + * ignored.
+> + *
+> + * Return: 0 on success, or an appropriate error code otherwise.
+> + */
+>  int icc_disable(struct icc_path *path)
+>  {
+>  	return __icc_enable(path, false);
+> -- 
+> 2.53.0
+> 
+> 
