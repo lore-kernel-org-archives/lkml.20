@@ -1,84 +1,90 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 173403546CD;
-	Mon,  7 Sep 2026 05:23:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A6C3612E0;
+	Mon,  7 Sep 2026 05:23:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788758616; cv=none; b=fhE0eCqLPLQ4EVcADowa7TGblWGYHtbucvcwHYM1LQSJ9IZGtAu7RSPhRa06/BpR0IGGGukGv1DHS6LjqNCHp8qJMvgCy4J8L/zSY9MO7iTBbfiI1CAiQvDIHE70g4Mh+GeAaIENEuZb6xR7pLSxh9ogPpORvLP/WpkJOVHFvIY=
+	t=1788758635; cv=none; b=ZieA/8KeIFjKqgJ5SL2bB7uXnd9hySNltDf87aKR2RLL8c8gAodUxBPkfgCIYxr9DWfqcgOWp0H6vSO6Xra0LR4V1K/fM8uXlPXqloO0/ReP0PZ0WdmBflFOYCiFYXTP5A0YXAeIey2O1s+Sus69fqGwzHSDRtOiTP4uvnoSeqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788758616; c=relaxed/simple;
-	bh=eB9Pl6Q11aJArxZRKKzawMrVEOVQjJuD8+PgwBbou6w=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=fULONilhbD/tL4G1ulmBOHpJ5fDdTazc0XhK4hLiCofcWEjWBpjFedUAHlQJoJblbH7ah7gZF28R1zeBlgbQ/Vz4c3nNlLFLh2uPCmhtHR6FjOPDKRTX3tD50jYS2fiWPL8ttTCYEQXe3AjW3WAbTOD+xh2br8WHrqiwDbl+05E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=Ubu0XgAH; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1788758635; c=relaxed/simple;
+	bh=jN8tNgG+4eAZHHUwLyYepmeoqakwtx30pP0hoIMJAok=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=g+Ygr/N+NERRkdP2cbw2wG0Z4sGSXRbFlpDC/KriA9Ejqae12tRUIqe70fTawSor7Y1+ni5tM8R6ie5+8rGYOVjEeV4sc32rk2L1L1DyqLR1NtWndS7rhrvmDhJ2TvUqXmaBqtfB9NsH+Q3mWB2BwC9F38SAIzhBXJhojpU4b8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=NnzKiFkl; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="Ubu0XgAH"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6875NTAg82520796, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1788758609; bh=Ok80kb5roUvAaiIkrHRCm9qOh6Hb4ZGxc+WOMYsVDPc=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=Ubu0XgAHK9w8wWhWAUz/EEFvxNWjGiQPUCrjq5ZClnZiwip9yTTdOIU/+K2qNYhFv
-	 j4zEWV3SHwBQxjL7lCzitM/vSrQAQjALdvg24M7XwdItAq74wuwBDRGjzna4ZTj/wh
-	 yt8wZKEUbZXqi3b0T724jJrGiAsTznmXU/m2osNols7kVkSFei8yjwUVOPyRp54nZe
-	 mvysQAYfQWf8z45Lg1SPi0A62i861Uu0XiuRIwZqBJfmXaP2UcMBrw9zaeJuKRuuwt
-	 NifVDRncBQ7yrVsAOlCwZt/lz2Y9hPuyHh0VaLcRehhZKfvmot+TCN6yfzrrJeaJ/v
-	 xaJd/bsvG/TMA==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6875NTAg82520796
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 7 Sep 2026 13:23:29 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Mon, 7 Sep 2026 13:23:29 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::126f:59ad:658:674d%10]) with mapi id
- 15.02.2562.043; Mon, 7 Sep 2026 13:23:29 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Hemanth Selam <hemanth.selam@gmail.com>, Jes Sorensen
-	<Jes.Sorensen@gmail.com>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v2 2/2] wifi: rtlwifi: fix typos in comments
-Thread-Topic: [PATCH v2 2/2] wifi: rtlwifi: fix typos in comments
-Thread-Index: AQHdPoQ1ettOZJIOSkiNZzoxbW1mbrbClIag
-Date: Mon, 7 Sep 2026 05:23:29 +0000
-Message-ID: <c43ea8c573b64074897f7e955f902008@realtek.com>
-References: <20260907044851.9884-1-hemanth.selam@gmail.com>
- <20260907044851.9884-3-hemanth.selam@gmail.com>
-In-Reply-To: <20260907044851.9884-3-hemanth.selam@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="NnzKiFkl"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=LuC27taB2IF/lU1JfOMklqbdMtf+CtnMNlFmlDqS2xk=; b=NnzKiFklyBnI4Q669S0R3Gq7wk
+	3ur8B+BIYTS1fwd78a8vOFUlPSLfd0e8NlifcyfKsKfnbJHtnwd9Oc/D7TcnW1C3PEaluo4jccZC6
+	/AJ2w+4KBifSGh/4L5paMvQ4ucdrkeri077AxYFw38IaV+//BRzYud5qUrfHupHoWtswLTYVaALAl
+	DTBmrDqMGBzQHtte+6EI0QzqazBS/Y9+0m/IecdwVBN4Dq+V326wU/MOlIKvoC4fznBvgtf38V8EG
+	8QPaCIbViER/z3twAFp8B306fw4k9gdE1CKJ/ZDmpeFHdksUraGA0l0sTFOxQBdh7Tq9MsYmPRgUs
+	IqygTlag==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x3Rpb-00000005va7-32Y0;
+	Mon, 07 Sep 2026 05:23:47 +0000
+Message-ID: <273db26b-2485-4614-9045-97ac7ce5a009@infradead.org>
+Date: Sun, 6 Sep 2026 22:23:46 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] Documentation/arch: fix typo "initalised" in comment
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org
+References: <b7b77956-591f-4282-aaad-04c9f7899413@infradead.org>
+ <20260907043933.33452-1-hemanth.selam@gmail.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260907043933.33452-1-hemanth.selam@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hemanth Selam <hemanth.selam@gmail.com> wrote:
-> Fix typos in comments, reported by scripts/checkpatch.pl using the
-> misspelling list in scripts/spelling.txt.  Only touches comments, no code
-> changes.
->=20
-> Since v1 this is split out of a single "wifi: realtek:" patch, and the
-> single-line comments it touches now carry exactly one space after "/*"
-> and before "*/", as Ping-Ke Shih asked.  Comment blocks are left alone.
+Hi,
 
-Same here.
+On 9/6/26 9:39 PM, Hemanth Selam wrote:
+> Thanks for the pointer, and you are right to raise it - I checked and this
+> patch does fall foul of that rule.
+> 
+> The word in Documentation/arch/arm64/booting.rst is "zero-initalised", and
+> I changed it to "zero-initialized", which quietly moves the file from
+> British to American spelling.  The minimal fix is "zero-initialised".
+> 
+> I followed checkpatch here, and checkpatch is following the dictionary:
+> 
+>   scripts/spelling.txt:875:initalised||initialized
+>   scripts/spelling.txt:874:initalise||initialize
+> 
+> Those are the only two entries in the file that map a British form to an
+> American one, and by the rule you quoted they should read
+> 
+>   initalise||initialise
+>   initalised||initialised
+> 
+> so that the misspelling is corrected without changing the variety of
+> English in the file.  arch/arm64 currently has 58 uses of "initialised"
+> against 132 of "initialized", so both spellings are clearly in use there.
+> 
+> I will send a v2 that uses "zero-initialised".  Would a separate patch
+> fixing those two spelling.txt entries be welcome, or is that better left
+> alone?
 
->=20
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+IMO the 2 entries in spelling.txt should be corrected.
 
-Acked-by: Ping-Ke Shih <pkshih@realtek.com>
-
-
-
+thanks.
+-- 
+~Randy
 
