@@ -1,89 +1,71 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC4C2DC765
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:45:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 040F436D9E0
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:45:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788756302; cv=none; b=ZKi72oUEziVqbVy3t+lQYMlhWMAPUHTpIpS9nbYEaWj08JP9zCR4/ecMoganokBsUpFR9aRk28WfdTVvugPBE3s9dPIv0Luyhixng5EleC0v6PolmdvehxuxGyRK/YESwG7rMNInOBp8iuhgVZVhbr+jc94pghHe2DBVpGxJK4k=
+	t=1788756352; cv=none; b=ALMSWMBHwomBY1oYkHYARUT3u4jRVL6f1Sgv7U7MgiJc1goJyzgOSAQNma4RgjkPwG8LnecbuRt88FgNl24NQnuxbHQPZrqM33MZC7G6CaEQdICMyffc5T68zDxpiCOPzAHpe439HWxB6zapKWKeMmipc6W6Mclcyw80rm8K3Ok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788756302; c=relaxed/simple;
-	bh=GXik8XMFxKlyNr0DJa0gcBwazjCkzO5/wY0cetFN0QA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ViQImQqwNrWUpTEGSWa4ShRhZSwpWARFJfIpCz0sTl1jYVocEGDxTP9U1wAljr2MP7Uz6APthcI8v+SWP/dYpdnNfE7VuGP3ex3DjD6752B8TfTmBJRh8AB8RDotLh7DXQDHx/QV5tn53WgYLK0Fitdj92t6RTertdxITt5TCVM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UduKfR+1; arc=none smtp.client-ip=209.85.216.41
+	s=arc-20240116; t=1788756352; c=relaxed/simple;
+	bh=o7CbGYsOIDmcanU8fUfnUx3eOhhddfQxRpFPLq1F7Kg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=a1hp0dlaEh63WuhX9n0tuPdG9ok5jVfJjAAXcqnnI1PxsT0ef4QrFuE2UHrIuPNThBx9J0iq8BE2BoFgXlp37695ybv8G00hUzjyEILULFyxhZ7m7MyAe9lENETMsLXX+5OhSftz9ORIoDi7ImdT6Aq5Rjh5z181+Fb1BSxGV6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XD9NSTxB; arc=none smtp.client-ip=209.85.216.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UduKfR+1"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-39675172593so2448146a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 21:45:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XD9NSTxB"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38759bcd877so3097799a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 21:45:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788756300; x=1789361100; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DnvU2vBpS7iNRhfGmKqIjpkiFHsnHeHr6qR8QCexTas=;
-        b=UduKfR+1N4SjTzicVqtQ7dHRjtahTW1A0ApwsHPX2zyd3lfkI0jGvOTnxmzXvuP/G9
-         mwlueZJw2W3YsaKBGi+U0RIAXIBIDitwU87vnlpWN54rq7tdpZr8MR2JwvO/ZmCTQIA1
-         ewmQXm9C6aj7p1pi8JwyIszxmIfs57JUvyH25z5gtpEHVkVOT1uXS3Be4okQ+Pr2ApNO
-         cbNYVvPX5bSDb03qd5BsuTBI9fts2WYvgwmeIFSF2IXkvfZqxJ57uKkpVZErWOMRre1y
-         ciEredKNxmWXaMetxPSs46mMVrKpSEIPC0IWuIDQnuRgStupTxbtpkjOrMVGjhP6Bnyk
-         pfcQ==
+        d=gmail.com; s=20251104; t=1788756350; x=1789361150; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=D5L23rxTi9KX1MKDBMSVdzl0h+OzIwSK7RKLIboLG0w=;
+        b=XD9NSTxBY4/cnkdJUnDz8x7omMSnP5X3VA9zpaKDxY7LuFezIeUySSTYWAnmP+o7mg
+         OQXL2QZYUe0aER3BZvDVAVPpC/hcu8HjSc2BU8gEss2FTuauNxxac5IkUdGKAmYQfiN3
+         ESaw1EuXmwYXHSq3MtmhOf+g92GbeEH7zlvi3UxR1KkPkeAZdIJ4CZmQuGFAf6/vvRtx
+         rjenA8OS4Q1+C2kJOmV+DIbY0i0fzpdIbc2s2wiM3Smp6EGbsrW75I3QLwjKbEK74+y4
+         bAoXthv4kNZLb0pLxFBqCm+X0PZP6JPWKBbP3K673zdVsePhRX0Xi8cJH08Qxfsoo+iG
+         VMUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788756300; x=1789361100;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DnvU2vBpS7iNRhfGmKqIjpkiFHsnHeHr6qR8QCexTas=;
-        b=QlAYE7JaxInCIIgqajHWtYxojpIM+wTPK2fzLVbLkk74XzT5ofubTCuJs1iCh/jOaC
-         bapBqLOG+5CDEBHGUgkviX9gJ8dZVEbvTPOccwinERp9Y/7u1gdgV9zE/xyGFUIMhrT/
-         7HZFw8WsxMsX4hcX1/LQNrwhykqA+um4qV0zmvNgIaCdJtam/pAyk5hzxo0+I+8RFzdy
-         hqrX3LyaanC8rVINI/ikiG16YKBJXl09iRfhLYODcNvR/qIE/LhjYZJdx1W5rGpdf//P
-         pzFzyRLR1I0xi3fF6wHupyxS0XxeIPm9CIb4FKeghl3w1MhwC6jsCNr0sk+jV2sC0RVu
-         tjzA==
-X-Forwarded-Encrypted: i=1; AKwUvBy3/aNtyPldgm7qLd9LBml50I0dVDFotpqRDi9J9++FLEjzswNilUKYkseBDOxvJNV/jVglmwg3TDDYBG4=@vger.kernel.org
-X-Gm-Message-State: AFuF++k5IIEZULWadjQKg/k3Z79yaxo7zEG27yMyIPBUzRlJNZxlj/5i
-	7JE9yEzcONkAM3bbPMkq6cVatu1XNWr0tC8FZYKBBWS4mh5L8tD5taHx
-X-Gm-Gg: AYBFou0khbd5Di/kgP7r99ZqiH868EOn89p8vxBVnsY5eE7q84/ORWPEdLHmRJaju8d
-	UgLLw5Am/LmHjbVIZNAsNi/+LMV6LTimyDCrwFT2qecKFh6AlS8lOaf7b3qA4ej3VXWLdSEytRB
-	qrEAZhX98aqCAao1vRZOjM+vWz02YqUNiOCZyEuKaSpk1Y75iuURoyP90YBq//9b+oM0S6amxDy
-	qomEzKCYRP2PwXQaky13GCjYWErFHydGFztcybVQwfQXV3DtctVaD4bhYwt03QuuQ+3O4STIPm4
-	XzeGpKgid79f1XFk6SyN/k/uJqlhRPPSRpApSjXprX80vdDREXmLC+6SW+FNn68C52bV4BzROrh
-	7Rq1X1DRTlGnNO2+kr43oAMe/6L6MCvljhLkc+9r5NN6AIsMioItblfsvcHJvKg1TsZ3cHFIs97
-	gRXgvDaQ8Wm7oKz6MeRsvgWH7ckI0EcdNjSHfEwpp/eWc+Be23V0B0RLg0PLtRub9eF6mRt0qII
-	HY6LYd7bcVH3Q==
-X-Received: by 2002:a17:90b:268f:b0:398:c3a3:dbd0 with SMTP id 98e67ed59e1d1-39b2612eb96mr32751634a91.8.1788756300129;
-        Sun, 06 Sep 2026 21:45:00 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788756350; x=1789361150;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=D5L23rxTi9KX1MKDBMSVdzl0h+OzIwSK7RKLIboLG0w=;
+        b=T9mHj1zz/mvMZggsaTkELCy65yfaCQI/i43zZLK7fpp3sAxusxBV14li3FsHfTBsFG
+         iKmieEKM/JiqhYrIIC+3hvqHNYqwjHXqXd+cmfh0E+oAr9g5FBBAX2/OX7BNzK/UbWjI
+         ksd0g7yb/Y6Z+U06gcJ3rzj/iPEO3CfBDkKvMkuyUwvfj80sKGod3BriOcCphFJHqPJD
+         asayj5Dbr3GJPQsjpeEKnlL9wZlGJPDT1oWNU53ujeEsW7uL1ZGFVa5nH9m31Ji12wlB
+         45K4aZaM9nzdnhZQ+uNmuxcrRlbGPsq9UjUSq+2/0jrTbu8XBh/Bu1l93iXG4iKdSvRj
+         4eLA==
+X-Forwarded-Encrypted: i=1; AKwUvBzhV63wVdg6IZLPaGNOoVBF2jmdC5bfel/xUDhQaXLSKtbCprifNAAoZcnK8QovkhLGvrLTMX+vG0tdDZw=@vger.kernel.org
+X-Gm-Message-State: AFuF++n7n3SrhMa9WnbF2llu9x8Y19qRlY6HFB7xchg2FxhVlLGrgD9a
+	LvoAPOxfVjyJ/FbaMd0mGUS0Yub/f6COv00wlk+6B3q8KnKzyWkKM7j+p1ffaHjzODg=
+X-Gm-Gg: AYBFou1PUk4PSR67CY1ncIYvSRAlbmLPGSAJMLUnxL8x8YQ9eYdNtLcO9+NZbHGT7XJ
+	DJwFT4KyTEYm3Pu+YEwP5mdeGPjv221DGw6dO+fs8DDsJPHajVopz93JlcQDOS9kw69ksKO7Lpi
+	LCQrzz3aVozL/+TqSYhg5hqlZCNOWddgEi8AmstQVXjIO8ePlG2lEls8eoU/qltOAftXtMwU44T
+	NQEMd3T1U0NoVvotJZZVmheZryUxixqZXfamj12t0GNzK10RfmXPna3m1ZypfP7EvWRMhPkFP9h
+	VMhEvuYMJSwMSf6mVhwCaxXDko0Ll/JbmdLPiggcR6lqZhZAhkYHgck+/OVN9eD3SpFlEvqu6iY
+	iuzH6f3iTZkbLAv3jDtKdd8C5lvSMbHSj7JVcggIoGeznGz6n4V9BcPDfK02ldU1W2aQJp94NZn
+	Kv3zgNZ3xFdXSgOEG1O/GSocAmPH8+fqMwh4cwBrX3trs0OTslOZWMT/03uVUJpZN1ToQFJRAo7
+	q8L/oJv0y5u/Q==
+X-Received: by 2002:a17:90b:2b4e:b0:38c:a59b:5189 with SMTP id 98e67ed59e1d1-39b261d0d8emr32120271a91.15.1788756350296;
+        Sun, 06 Sep 2026 21:45:50 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm37823751eec.16.2026.09.06.21.44.54
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b9f68e4sm25491660eec.24.2026.09.06.21.45.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 21:44:59 -0700 (PDT)
+        Sun, 06 Sep 2026 21:45:49 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Shuah Khan <shuah@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH v2 3/3] arm64: kvm: fix typo in pauth.c comment
-Date: Mon,  7 Sep 2026 10:14:34 +0530
-Message-ID: <20260907044434.4682-4-hemanth.selam@gmail.com>
+To: Greg Ungerer <gerg@linux-m68k.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: linux-m68k@lists.linux-m68k.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] m68k: coldfire: fix typos in reset.c comment
+Date: Mon,  7 Sep 2026 10:15:45 +0530
+Message-ID: <20260907044545.6187-1-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260907044434.4682-1-hemanth.selam@gmail.com>
-References: <20260907044434.4682-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -92,30 +74,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The comment reads "This code assumes that is is run from EL2".  The first
-"is" is not a repetition, it should be "it".
+Correct "reseting" to "resetting" and "ColdFure" to "ColdFire".
 
-v1 deleted the second "is" instead, which left the sentence without a
-subject.  Fuad Tabba pointed out the correct reading.
+v1 fixed only "reseting", which checkpatch had flagged, and left
+"ColdFure" two words earlier untouched.  Josh Juran spotted it.
 
 Only touches a comment, no code changes.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- arch/arm64/kvm/pauth.c | 2 +-
+ arch/m68k/coldfire/reset.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/kvm/pauth.c b/arch/arm64/kvm/pauth.c
-index d5eb3ae876be..bb6c42e78058 100644
---- a/arch/arm64/kvm/pauth.c
-+++ b/arch/arm64/kvm/pauth.c
-@@ -5,7 +5,7 @@
-  *
-  * Primitive PAuth emulation for ERETAA/ERETAB.
-  *
-- * This code assumes that is is run from EL2, and that it is part of
-+ * This code assumes that it is run from EL2, and that it is part of
-  * the emulation of ERETAx for a guest hypervisor. That's a lot of
-  * baked-in assumptions and shortcuts.
-  *
+diff --git a/arch/m68k/coldfire/reset.c b/arch/m68k/coldfire/reset.c
+index 6e5f8ab39f32..079c92593eff 100644
+--- a/arch/m68k/coldfire/reset.c
++++ b/arch/m68k/coldfire/reset.c
+@@ -16,7 +16,7 @@
+ #include <asm/mcfsim.h>
+ 
+ /*
+- *	There are 2 common methods amongst the ColdFure parts for reseting
++ *	There are 2 common methods amongst the ColdFire parts for resetting
+  *	the CPU. But there are couple of exceptions, the 5272 and the 547x
+  *	have something completely special to them, and we let their specific
+  *	subarch code handle them.
