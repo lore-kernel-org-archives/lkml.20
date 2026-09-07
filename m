@@ -1,149 +1,119 @@
-Received: from mail-oo2-f2.google.com (mail-oo2-f2.google.com [74.125.231.130])
+Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com [209.85.160.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC31B47143E
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:21:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788787305; cv=none; b=KjOKncPEHMOUVq/FoiW46Dd8HOXtEGopZH00B408ZLkQ4zm7pEpoy86RFkcxVpL8lxFXMzKHtQgGBLuXvG4gB8gn++h/3Rn1E/V62tWqyeLm/ZzEinngUEK/sv9+HJYv9qKDEas2AiwHX9ImX3HbkC5VCdObrgjT0Y1NujVe8Nk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788787305; c=relaxed/simple;
-	bh=T1GH6hItrh3S2bTGYxMz3vhBOz0FujXzWdtsg4c5ifg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=lNPkNlpW1jDnnsjq/3s0S0bUYQOer0+KD1aFTXpmOL42C9xAbQOxF49lmlpFr4bmGMkzmryBJtKDtM8q29DxjsprNUMCzTRHAoB5sjOg3gdfwYZE5bHxByMbGBi/7GkuQ01cjvHRvJMMnYWkGZ8uUPgX9euo+ENKmuig8eo+z2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RtK5B++0; arc=none smtp.client-ip=74.125.231.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 319534CB8AA
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:21:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788787311; cv=pass; b=Jr1kIpTL5FUJg1JXwaZbK5SFINgKlk4dYr8GqkYm/taBlUecFdkkufT2c5rjxHGE8topdMWTNxuxe/TuLK9UrJrEmSdL4MxOV8xlUqSEijLkH2BOrk6hBPhOfSaeS1PONO7MU6Jpac4ppH4fcSsTYiCO7LPGRwnuOaEo2p4gTEo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788787311; c=relaxed/simple;
+	bh=CHUkEQtNUff9f43STraSTOkBZzhBtKghb6R0F9+EaY4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nN/Wh31dY3sHo3GzIaU5qzIGaVCWaT31bgf2Lsdk1l68/VFTWTebgHyOLZkhQgvENnD9AKMSK6I+MOTcGsST4zymMDtxpIdq6IyDUGfEycKa0wavRvECrDKiahqx4bhHUrcmG2bf6f+q/wyk5Uw1etpiw4iwBU39eslzTdakwkU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=jtbUGUUa; arc=pass smtp.client-ip=209.85.160.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RtK5B++0"
-Received: by mail-oo2-f2.google.com with SMTP id 46e09a7af769-7f9cc0e524aso978588a34.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:21:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="jtbUGUUa"
+Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-43b7e186a0cso1768877fac.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:21:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788787305; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MRwiyvLEEJIflZGJl0a4A+DgyoLzbIiWhzinMJ9UpLeUNEQ+0FaFvKKQPc7yjvjnfO
+         4lsP+NC2/0JgsNrLxcLGPbUO27l/QnzxyXbe7MmP0W+3Ip5N77JyfQmTItsg8BCKLYUv
+         8tChc3RkFepbIoSTzyoe5dK9/FvxH+EpJ8SfB632ra/5woEwlWiUTeco+YT1pwwiROS/
+         Na9aNUIuJgICfriqzgzLZfBut0gcLrmaH4XoR5Af9iys7x3ZUWbbWTAJsm0F1NPmoeYE
+         1AB0uz/OU+3wEJCStJi8/L2jpT9ilfi/isxh/r90KdWhW5si2SJ4MCjIcbpbDnYo+0Z1
+         9O9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=sDVpkGpPT9f+QkSpaGU/N7GberUiTv3c8xueZiAFOlI=;
+        fh=ZalwygbmG5veqVd8qJSPJbQp1lwc0p4oq5mSwz3GbLo=;
+        b=Nqn3ykh8MQZZy0g3jyLd+WvBIwJmR1n5Y5lsRDdy/wU1SqO7aBmuE/kB1ZB9zOuVYb
+         KuyQb+xVkARkdQlk0UUQAAacDsKRnJ8nGEhSBDvyC2J8/jYJIdS/5GmU7XBAH1jqovrS
+         UFvs23h5453Df5Rj6I2HJFNdHztpxj68D8r4+3zILR8Qdsevi0/ROHOio5ULZhpht6iT
+         pRvYj/SBNikyXE1YwpFBIgrVpaT6Nxja2gK7ENlHU9k04WK9iqT4Aj7/nAHV120fC09T
+         THxRIxGXpOkU6ofls2+8s0qX73P21WXIP7rDqVv6Pm2si/lRu9HYchFp5G3oOOg9d6PP
+         qjvQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788787298; x=1789392098; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QSUCkb2IsxXPufzfD2+/6w1ZlHPJoyK0t/kGTCdaAqA=;
-        b=RtK5B++0oE1HuOhYXf4gzgj8BsCro4V6Xj/h3QKp4ZORZsksRt+6lqMFIHqpSjtvo/
-         YD8OHYwhUppB/qp+gAbFcdaqJNDSXdUDfsHgQj1zz5fOndzoHPKdUCefaS3n8SHVB9aH
-         /Ea3c+pyCXFhKaqui4sLTNZdAC1x7r9h5VOb+ctqGY82CLpbewpcX4IGb1Nm8ArKN9tT
-         pRYTR0wfc5qoerDQu7kGnazuugDc6GfLi3k2LRxloQdsZwzh0USFdoCT3iEU5meUDQkl
-         uPSvaw9PyBe01tFy4P974Tg5SdCl/BqVwS9oORg0NKhTxffL5ypzRnnDT0aueZz1lyku
-         Dswg==
+        d=raspberrypi.com; s=google; t=1788787305; x=1789392105; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sDVpkGpPT9f+QkSpaGU/N7GberUiTv3c8xueZiAFOlI=;
+        b=jtbUGUUaZC5ow/po8qHVo8OL2XYXgT6i1+9BYK5eIdamcKvb+ugHpEXjo0KskF00T0
+         g3VqNMpVs7sWAImV6+vQ+F2UfXUP52Z4wGBYdSOEujiNKDuZVXnfKzn9ytl6xOG3w7PE
+         O9BHdnZCePbA0FQxgAVuIEHNGlEFtesyAAv7V2Ng1KYAUeq9MLUiWxIN8g+JOst6ffWZ
+         jbh4ryFBiFGfILc4B6OThu3sIHv+mn/nWNb0PrLrxD5VfPNIq1j08kJMpItIIn83AJ4C
+         TwPE83pX6eXr2WMs6h5nW3d8yID8qQsaqnq7+OwCcRyvRRLbLEyVVFmKTNXrSMJDCfQQ
+         Oj9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788787298; x=1789392098;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QSUCkb2IsxXPufzfD2+/6w1ZlHPJoyK0t/kGTCdaAqA=;
-        b=jLmdJ2FFrA9Bcrw8jzEHydc23U1N+Bs5XVxhdWb7SON92xdx7vy68W4qX97nHLPriL
-         4/3J9cLuAbjxd1+tj23vOkhw4ATW/k6nZgT80oGi41UiT9QKC4CaI+HnwGtb0qzUotxO
-         RK0EOJP2iZcQGonr913SWzG9fIrcPmeSuiNZuoVHGC35xcJvIsyFowYuGvpVhXFp/ove
-         7k3HfqeMckIQDRo4P/gMuOKGI3yr1tKo6jzKgcaQnkePfk353+tyEf5MDod/BkJpF9Ha
-         hJjbUw6rg7kvAMNsNLZdyPQJ2xDEWaN3VhGp0wFxdzaI5xT2Bb80ofmaVHeB0U1DKFfP
-         410Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxxvpNlF/xWDNJA8KqHA8Je+UgZBrzjUhdnR3/oWVDdl8EoqQF+rYaJkjFOrNyjJ6FHQQVj0Woyb5dc+tU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nDh46ZoMFczKIMbBuwHTOWMzoQcdAzm8jfQV+nKF5OSbF2u5z2
-	FrDhRiJO5u/UXqCcRSjFdV7DJhKJY4GhdgBMlHHtoDFfoUfb0lpvTvKa6A6c48QJsnA=
-X-Gm-Gg: AYBFou23wRItTD5IQ/dBrNu6nNHCD1sTuFzO+u+Gzf6Vz8eOpZwsLP9vvCnncpWfIOa
-	3iNjUeM106PfrrMr0MZxEx5RMEoXABqF4OHD1sJHdmPON7DKPefRSorecWNTnPsna5D9ah+D2+k
-	SaHnvAS/0Rw6yy0SMX6G1JnXgwNWlifX4TSTk4/3vtT7CseBpFEapWobNdfO6FJLMGPj8xNGqbd
-	EAilmc3ibLh8ZrQkDCSgkd86hvroyTM7UBzesI7mMK7uVhRr8y5wTbwezBeWD1TsYON7zAgEISf
-	Sy3lxjztFUNMBk/SB4ueIU1f9dN/aHfToa6J70m8P/hXTD8AmeRFAdstPDB+n5GfTIJf0QSAeg5
-	Kr93d6VjA2+sj8Ws3tLozdtaJLR67V7HD7hnfxi/AaRBHWelSjiUA4GPcbDfQA2HTj6H3JrnO0x
-	DztC1m9OhUcoS73AaTp71YrLKC/zMG32xFhwIznBD3+oSJHIcBeq15e8eWobsVHBDsT1X3fPAl6
-	/SLEQzXkNn1Xjs7jWV+rC5bYzUmbRgDrrOTr39r
-X-Received: by 2002:a05:6820:2004:b0:6b9:2d62:960c with SMTP id 006d021491bc7-6b92d629902mr6339050eaf.68.1788787298260;
-        Mon, 07 Sep 2026 06:21:38 -0700 (PDT)
-Received: from HXDQXTDYHN.bytedance.net ([139.177.225.231])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339bbf1feesm28284062eec.26.2026.09.07.06.21.34
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 07 Sep 2026 06:21:37 -0700 (PDT)
-From: Jinmeng Zhou <jinmengzhou22@gmail.com>
-X-Google-Original-From: Jinmeng Zhou <zhoujinmeng@bytedance.com>
-To: Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
-	David Hildenbrand <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Wupeng Ma <mawupeng1@huawei.com>
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Jinmeng Zhou <zhoujinmeng@bytedance.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] mm/hugetlb: fix subpool minimum reservation rollback
-Date: Mon,  7 Sep 2026 21:20:55 +0800
-Message-Id: <20260907132055.26696-1-zhoujinmeng@bytedance.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        d=1e100.net; s=20251104; t=1788787305; x=1789392105;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=sDVpkGpPT9f+QkSpaGU/N7GberUiTv3c8xueZiAFOlI=;
+        b=YLRvVcpGV/eFA2Azr8gpbl4+MwfrKlmPk6h3KvIs3rDUTVtmLhMbkXxFyx6WmB+kKe
+         2TzSV3zbC7cwx48DRJsIyHuFII3GAssnD0u8tOtV92ksjkB0GzUcPcsHeLNE1G/9QrEt
+         hARYA6Wgc8Oph9jIiiiNcPjFpvYOMA7DVOHzYbZVGDDFCCDeJxLxAPAg4DhY7bjrsDUk
+         p4pVNEBQ7VxWhGmoNJKCj/kZIp0qr7hZ6cWYgUJGHvqaoRTMy1kdi+VXRp1aSeI6GMIS
+         vbXtXUjwODKc1iqq+SHJCA9P7Vdmae2Tfc3WQBi561UaMilSmRdRm1tgOeAUY3G3dIe1
+         66UA==
+X-Forwarded-Encrypted: i=1; AKwUvByAZ0xiBZ9IyeEMEFWDQ32z/WbZqo/9AmCUUWpsXOD/t7infuGGGw/pSd5YhBVuxFFNa1MAfW/ZtIVxyQs=@vger.kernel.org
+X-Gm-Message-State: AFuF++ko2GKtjbKprZQK0TgTHoIDlZ/sgAsVlQC8Dqf4v95M1zo1XmWO
+	r7jtBjKlVT1vXip3G+zmjYy3YpLETJd/TFAsp5ze0fu1J/kj3NWi3sQ51vpSq8VoH2GzI3Bx6pc
+	40d9EHE6dv2Oa+wN4qcB7Duo0WEWRjQhN3Kl8/mQcvknJyWU0h3+e0u8=
+X-Gm-Gg: AYBFou1cbE0+tWvEWqehLpBt1ZbmGKt2aJn4qsG1WC64xxejlA3lTjdyqdY9FrWYsjs
+	NvTv4VZOSBUJu/mamGJXB2L9XMhRPb2x4FrufKCAe/kBf5Cfpw6I5Hu2H38yRomS+UOi2HRiyWC
+	Ja26ucsFnjw3GjE2hUn+KuG4jN/f4j3YsRNUVMYK3cS42BX3m7B5CAWLkfOp1RLSgi2Uok+eoQf
+	yKUd1cLf5GVavLPmzCZ8EceN9pdXscxk1zn/a+MhYT12sMZcVrW6arsyIwTKSUWWmJu3bOTmK5U
+	Vysy41jZC9GsvE75TDvjMp4hzRrbqPuECtuN4lukDrkr6yqVcreIZXj8DfVHSYLdQiZQi78gXB0
+	FCCn39T6Sq8RGsCLHDBpxNwY5tX/b9ymag6uArBYQ05gNSbXyAXfkMctm8TYq
+X-Received: by 2002:a05:687c:408e:b0:475:a112:1272 with SMTP id
+ 586e51a60fabf-475a1124b00mr10850018fac.31.1788787305186; Mon, 07 Sep 2026
+ 06:21:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260907-rpi_reg-v2-0-0c59aa60d31f@oss.qualcomm.com>
+ <20260907-rpi_reg-v2-2-0c59aa60d31f@oss.qualcomm.com> <6c47f4e0-bcd3-4349-b8d6-a3889e08370d@mailbox.org>
+In-Reply-To: <6c47f4e0-bcd3-4349-b8d6-a3889e08370d@mailbox.org>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Mon, 7 Sep 2026 14:21:29 +0100
+X-Gm-Features: AcwNN1Vp8fXipQwCEjEj0y3FUJRvMgZ_G3DM3P8aQK-4PYEHw2tOLnsqDspjVww
+Message-ID: <CAPY8ntCwUjFQcobRYbgo1G-nuO1Sug3i8Krjau1AnD4Nszvc+Q@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] regulator: rpi-panel-v2: Add required vcc-supply support
+To: Marek Vasut <marek.vasut@mailbox.org>
+Cc: Shashank Maurya <shashank.maurya@oss.qualcomm.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, venkata.valluru@oss.qualcomm.com, 
+	Jessica Zhang <jesszhan0024@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-When a reservation request is partially covered by a subpool minimum and
-the remaining global reservation fails, the error path first calls
-hugepage_subpool_put_pages() for the subpool-backed portion. It removes the
-failed global portion from used_hpages only afterwards.
+Hi Shashank and Marek
 
-hugepage_subpool_put_pages() uses used_hpages to decide whether rsv_hpages
-should be restored. Since used_hpages still includes the global portion, it
-can remain at or above min_hpages and prevent that restoration. It then
-reports the subpool reservation as releasable, causing
-hugetlb_acct_memory() to incorrectly decrement h->resv_huge_pages.
+On Mon, 7 Sept 2026 at 07:12, Marek Vasut <marek.vasut@mailbox.org> wrote:
+>
+> On 9/7/26 7:46 AM, Shashank Maurya wrote:
+> > The Raspberry Pi 7" touchscreen panel V2 MCU requires an external power
+> > rail to be enabled before any I2C register access is attempted. Use
+> > devm_regulator_get() to obtain the vcc supply and enable it at the
+> > start of probe.
+> Which power rail is this ?
 
-This was reproduced with four 2 MB huge pages and a hugetlbfs mount with
-size=10M,min_size=8M. After a successful three-page reservation, a two-page
-reservation which needed one subpool page and one global page failed with
--ENOMEM. HugePages_Rsvd incorrectly dropped from four to three even though
-the subpool minimum was still four pages.
+It'll be the 3.3V rail on the FFC which is used for the MCU, touch
+controller, and LCD controller.
+The separate 5V supply on the V2 panels is only used for the backlight.
 
-Roll back the failed global portion from used_hpages first, so that
-hugepage_subpool_put_pages() evaluates the minimum reservation against the
-current usage and returns the correct global adjustment.
-
-Fixes: a833a693a490 ("mm: hugetlb: fix incorrect fallback for subpool")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jinmeng Zhou <zhoujinmeng@bytedance.com>
----
- mm/hugetlb.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
-
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 785772845795..3e3cda181e72 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -6808,15 +6808,6 @@ long hugetlb_reserve_pages(struct inode *inode,
- 
- out_put_pages:
- 	spool_resv = chg - gbl_reserve;
--	if (spool_resv) {
--		/* put sub pool's reservation back, chg - gbl_reserve */
--		gbl_resv = hugepage_subpool_put_pages(spool, spool_resv);
--		/*
--		 * subpool's reserved pages can not be put back due to race,
--		 * return to hstate.
--		 */
--		hugetlb_acct_memory(h, -gbl_resv);
--	}
- 	/* Restore used_hpages for pages that failed global reservation */
- 	if (gbl_reserve && spool) {
- 		unsigned long flags;
-@@ -6826,6 +6817,15 @@ long hugetlb_reserve_pages(struct inode *inode,
- 			spool->used_hpages -= gbl_reserve;
- 		unlock_or_release_subpool(spool, flags);
- 	}
-+	if (spool_resv) {
-+		/* put sub pool's reservation back, chg - gbl_reserve */
-+		gbl_resv = hugepage_subpool_put_pages(spool, spool_resv);
-+		/*
-+		 * subpool's reserved pages can not be put back due to race,
-+		 * return to hstate.
-+		 */
-+		hugetlb_acct_memory(h, -gbl_resv);
-+	}
- out_uncharge_cgroup:
- 	hugetlb_cgroup_uncharge_cgroup_rsvd(hstate_index(h),
- 					    chg * pages_per_huge_page(h), h_cg);
--- 
-2.39.5
-
+  Dave
