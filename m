@@ -1,166 +1,112 @@
-Received: from mta0.migadu.com (out-86.mta0.migadu.com [91.218.175.86])
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFDD4442B08
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:49:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546E5220F2D
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:49:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788774580; cv=none; b=U/K7lI6kpFLCob8CllscmHZinxQFgOs+8ra1+OqyeHWhlfwCtDBbO/oeZUUtwi6qOTxWYF3c1k5YAP+ge+VWs0fkRsx3YbdBU46rlHC1DrL9UrJBoRnnWDFayOcYRw8+faZCISU8S6FjbhxLGG32TX3PiR7z8e3PNNIGrAc3A0c=
+	t=1788774598; cv=none; b=oak1DmazQr4VvGT0dCZ/L6wiqt7iwdIFtG45XftGtwekSB1MdbRyYuqxImMSwZMZjM4Mv78qlcoGPecF5s/c5vBPx5EygOMtcz9xmjBMEparU5KCijvijP40gACVvJgxNffYA6XeYuZ1J0aiTEqgM4Nz4L6uCvKYnyJfUkCvY1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788774580; c=relaxed/simple;
-	bh=t2+0co3fzvxeaEJHbfwWsKcqp6Nn3NIHJcXvO57XezE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cfmf0/opJhZc2kQ5/YSNP0zce9etYn4R5694ZHC4sdcx7dWDZ1Mf00Akl4hdONMv+D7gYbvx8OiD+2Yt5cF01QdF1jmG50on9wLxk2q3EDw7W1ojxw2gNpMyeQpDRW482qGw7EL6F6kBghfpOjfGd7QR9nSLN5z85qeZoxMllHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tLx4KX+s; arc=none smtp.client-ip=91.218.175.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788774598; c=relaxed/simple;
+	bh=iLBB57PZ5U3pb7SS7fqcg5Rhd7j7cnvqUvLtPUqFASA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hSlnHPcMZGFgW2t2XFLqXyeM4/+J/92C7UO+47MImDQC3UX2doJvYG6oB+gGeCm7hUUbvpwaHEDSb1FVrhka3FtdkH0hWsOtkYVJ2uVFZd76NM4AO+GY/EV5VjJqsAGF1S7fnEjCnnHbF1jUf/4Wnkz5GDy5PbJBrwmcyPnr/Fg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MTJPYR6i; arc=none smtp.client-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tLx4KX+s"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=t2+0co3fzvxeaEJHbfwWsKcqp6Nn3NIHJcXvO57XezE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788774576; v=1; x=1789379376;
- b=tLx4KX+shIYuVExR7q8DaRd/7a86OAkHmM5dELdVLPcUsR8ZY3gGuso4yTzamQ6lLopxopLK
- x4fVFV+viZslbr+u7wTXQMn79GXbB8z+0IPg4iUBKhhEcJu0QvyU4938eTRNrMj35CcuLHzeRiW
- pCFzMsak9BpgSH3SMdBxm2CE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 75d4c3b96a4b6372;
-	Mon, 07 Sep 2026 09:49:36 +0000
-X-Mizu-Trace-ID: 75d4c3b96a4b6372
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <fe0c93af-5562-44fe-8aee-328c4a450a9b@linux.dev>
-Date: Mon, 7 Sep 2026 17:49:32 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MTJPYR6i"
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc1c73645a1so2483492a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:49:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788774597; x=1789379397; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4Rc67cTd4W9vIL1rwpsbclZB6rOxxrOtQ39JEau+6IA=;
+        b=MTJPYR6iIZnbMO0pBe1GEdvXpBh2rVdKqq8goORy7mrna5xJVfjce6p3wg1Pltt3uB
+         yaWCW6gDSoy6pWE1s2KO+WcyTVLFuEbHbCsEiJkICimER/QsMNcCKk5k/LsyWDrvYCwd
+         zwcilDBQNDBTLhH2mLAOeaowZucrOSkvajay2vq5mQ+gYfig4DgN/A/egf53LIChqAyU
+         khlOP4ZsRlTkElqaTD5vkDCD1PTFNLacLTZRx6HTMDQQTufbKgL1ZMp4O+G4OkNM3tvC
+         g0nH7whtxHkOo4oXx7OWRA1i4O2FwAEeJIRBVDEH7rpApkuTkq+3lvWyZEdJOjaPAFh4
+         Abtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788774597; x=1789379397;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4Rc67cTd4W9vIL1rwpsbclZB6rOxxrOtQ39JEau+6IA=;
+        b=eyStVAhtO5hftD7+bsEodtsCJx4qyIXmyiXboMfzeCj8lx7x+K4sI2hAQOFpeuU9Xd
+         qp8M37kYNh1DoXsppXYApYTlo8eH/bCetOfloLvPA6ij1Mu3m7r8giSlopjEqgFnXy7A
+         sNCapZ4mJ27NgxQC535zvEQ/f/t5AzQY6Pm8YpmtEvtNdRc6lXRKp5tD239Wso0+7oGk
+         LlDyWt+GtnC9OHAUxUGZULQJXQbGGWIt/w3U2aXJpcAPB3eJ+MJfmuz0by03Kr+ORwDf
+         KeJqTZxIlpgiFUIWwQVe7/OAseYtwn/8MqtPDzI4rkgdyEml93lWPCX5rtTnzpo834Et
+         EhHA==
+X-Forwarded-Encrypted: i=1; AKwUvBz8i7D6BSq0suKDxweMgpw+H+MXZKj42Kn50DGX+xgneT19Z1754zLU9OJpSS+QRcXyOLqX5jRkni/rtXs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKisQkrQLpEjA34dm5NbfFkUQdapDZ7EeUdcU7v3iI9GoQOJNi
+	pr/QgQyCTCFz9ZpqT4eKJ9PojWYTkR8RW6GHK+7SJJLmL6bH166Ic/KR
+X-Gm-Gg: AYBFou1a0DhydF6CR9Ma3zTVz7JJjcoOOPJ8ctS4G82+Q0V9g4rjA5mxTmQzDEOnnR0
+	WK4/uY/2thgrEErLk43gger53lOlqQLi7kARaAEZeRuU9Zbhg265XhbhAvIAkLD/+A/uHPVgwyX
+	Pfot4CpPtgd7i2TMKPwHFXalbl5Qrh17DTgFdcngRdWRKMQPGpd0FVHFzOCnbZGI8f+EygM4Qu/
+	2Z88F2F3oe3i02G/pItWszIi3esjsptkplDYzkAk4/goevrW/0ALKHispVY3nnBEhY86+0MbfmE
+	qn0nLFwESGHvxjZIqhxOwMOi7Zy6CiuXuKCFFUsbLZUD4qN8taTdyHPZMju6B+AihBiFa6mby4/
+	Ct2ImKFJ+7UHL7B9kSTXUVCA2qw9r2x+9YuoO7GRggGrZNKC07QqUXwRiG7bcmOSDJ2a+/SM4Mw
+	myowyUPBdBlC5LxT/XVk/1XdXtJIsjZbeefu3CkRD42+++c4p8UI3bUh6wDY6NF6kaxlvXma6Sj
+	QLRyw3LGSbcyA==
+X-Received: by 2002:a05:6a21:828c:b0:3d1:39e9:b267 with SMTP id adf61e73a8af0-3da39b721f7mr33007088637.3.1788774596398;
+        Mon, 07 Sep 2026 02:49:56 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339ac24d7esm41895888eec.15.2026.09.07.02.49.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 02:49:56 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Harald Welte <laforge@gnumonks.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: osmocom-net-gprs@lists.osmocom.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v2] gtp: fix repeated word 'to' in comment
+Date: Mon,  7 Sep 2026 15:19:50 +0530
+Message-ID: <20260907094950.18606-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/7] cgroup/cpuset: Factor out child partition
- validation
-To: Ridong Chen <ridong.chen@linux.dev>, Waiman Long <longman@redhat.com>,
- cgroups@vger.kernel.org
-Cc: tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Guopeng Zhang <zhangguopeng@kylinos.cn>
-References: <20260902102615.79189-1-guopeng.zhang@linux.dev>
- <20260902102615.79189-2-guopeng.zhang@linux.dev>
- <5842edcd-9283-4a87-afc9-50e51962368e@redhat.com>
- <5e0d1386-b094-4d4e-8569-e6b584f955c5@linux.dev>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <5e0d1386-b094-4d4e-8569-e6b584f955c5@linux.dev>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+Drop the second 'to', reported by checkpatch.pl as a possible repeated
+word. Only touches a comment, no code changes.
 
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
 
-在 2026/9/4 09:25, Ridong Chen 写道:
-> 
-> 
-> On 9/4/2026 2:33 AM, Waiman Long wrote:
->> On 9/2/26 6:26 AM, Guopeng Zhang wrote:
->>> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
->>>
->>> compute_partition_effective_cpumask() checks whether each valid child
->>> partition remains covered by the parent exclusive CPU mask and whether it
->>> would consume all remaining CPUs of a populated parent.
->>>
->>> Factor these two checks into child_partition_error() so the same rules can
->>> be reused when evaluating a proposed parent configuration. This is a
->>> preparatory refactoring with no intended functional change.
->>>
->>> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
->>> ---
->>>   kernel/cgroup/cpuset.c | 38 +++++++++++++++++++++++++++++---------
->>>   1 file changed, 29 insertions(+), 9 deletions(-)
->>>
->>> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
->>> index 8f24171b6055..6994dc75d940 100644
->>> --- a/kernel/cgroup/cpuset.c
->>> +++ b/kernel/cgroup/cpuset.c
->>> @@ -2085,6 +2085,26 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->>>       return 0;
->>>   }
->>> +/*
->>> + * Return the error that will invalidate a child partition under a proposed
->>> + * parent partition configuration.
->>> + */
->>> +static enum prs_errcode
->>> +child_partition_error(struct cpuset *child,
->>> +              const struct cpumask *partition_cpus,
->>> +              const struct cpumask *remaining_cpus,
->>> +              bool parent_populated)
->> I think you should add some functional comments on what "partition_cpus" and "remaining_cpus" are supposed to be so that caller knows what to pass into this helper.
-> 
-> Would it help to rename them to excpus and local_excpus?
-> local already implies "excluding children" (just like cgroup.stat.local), so I think that makes the intent clearer.
-> 
+Notes:
+    v2: designate the patch to net-next and use a subject prefix naming the
+    component, as maintainer-netdev.rst asks; v1 went out with a bare
+    [PATCH] and a "net:" prefix. Rebased onto net-next, diff unchanged.
+    
+    v1: https://lore.kernel.org/all/20260907063804.26581-1-hemanth.selam@gmail.com/
 
-Ridong, thanks for your review.
+ drivers/net/gtp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Renaming the masks would help, but I think `local_excpus` may be slightly misleading here. When the helper is called, the mask may still contain active CPUs assigned to the current child and to children that have not yet been visited. It excludes only the CPUs of previously visited children that remain valid under the configuration being evaluated, and the mask itself is restricted to active CPUs.
-
-In addition, "local" already has the local-versus-remote partition meaning in cpuset.
-
-Would `parent_xcpus` for the complete effective exclusive mask, which may include offline CPUs, and `remaining_ecpus` for the remaining active CPUs before evaluating the current child be clearer? I will also document both parameters explicitly.
-
-Thanks,
-Guopeng
-
->>> +{
->>> +    if (!cpumask_subset(child->effective_xcpus, partition_cpus))
->>> +        return PERR_INVCPUS;
->>> +
->>> +    if (parent_populated &&
->>> +        cpumask_subset(remaining_cpus, child->effective_xcpus))
->>> +        return PERR_NOCPUS;
->>> +
->>> +    return PERR_NONE;
->>> +}
->>> +
->>>   /**
->>>    * compute_partition_effective_cpumask - compute effective_cpus for partition
->>>    * @cs: partition root cpuset
->>> @@ -2121,6 +2141,8 @@ static void compute_partition_effective_cpumask(struct cpuset *cs,
->>>       rcu_read_lock();
->>>       cpuset_for_each_child(child, css, cs) {
->>> +        enum prs_errcode child_err;
->>> +
->>>           if (!is_partition_valid(child))
->>>               continue;
->>> @@ -2129,15 +2151,13 @@ static void compute_partition_effective_cpumask(struct cpuset *cs,
->>>            * partition root.
->>>            */
->>>           WARN_ON_ONCE(is_remote_partition(child));
->>> -        WRITE_ONCE(child->prs_err, 0);
->>> -        if (!cpumask_subset(child->effective_xcpus,
->>> -                    cs->effective_xcpus))
->>> -            WRITE_ONCE(child->prs_err, PERR_INVCPUS);
->>> -        else if (populated &&
->>> -             cpumask_subset(new_ecpus, child->effective_xcpus))
->>> -            WRITE_ONCE(child->prs_err, PERR_NOCPUS);
->>> -
->>> -        if (child->prs_err) {
->>> +        WRITE_ONCE(child->prs_err, PERR_NONE);
->>> +        child_err = child_partition_error(child, cs->effective_xcpus,
->>> +                          new_ecpus, populated);
->>> +        if (child_err)
->>> +            WRITE_ONCE(child->prs_err, child_err);
->>> +
->>
->> You can ignore the inital PERR_NONE write and always write the child_err value into child->prs_err.
->>
->> Not big issue, just some nits.
->>
->> Cheers,
->> Longman
->>
->>> +        if (child_err) {
->>>               int old_prs = child->partition_root_state;
->>>               /*
->>
-> 
-
+diff --git a/drivers/net/gtp.c b/drivers/net/gtp.c
+index 69fe5717846b..4aff23bcfdd1 100644
+--- a/drivers/net/gtp.c
++++ b/drivers/net/gtp.c
+@@ -770,7 +770,7 @@ static int gtp_parse_exthdrs(struct sk_buff *skb, unsigned int *hdrlen)
+ 	 *
+ 	 * This length field includes length field size itself (1 byte),
+ 	 * payload (variable length) and next type (1 byte). The extension
+-	 * header is aligned to to 4 bytes.
++	 * header is aligned to 4 bytes.
+ 	 */
+ 
+ 	do {
