@@ -1,60 +1,33 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF7F36165E;
-	Mon,  7 Sep 2026 06:03:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F29E33845AC;
+	Mon,  7 Sep 2026 06:04:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788761033; cv=none; b=rEtxc99y+4lww8m66Af5FWUxK+EiY0kSyZYkr7uWwZDy2Sl2xJBA1iB9veEz/Y12ZWmVL+60PVRi+oPRwY98iL64jraQkXLv99uv/Lzu3HHAcLcnP+FowWVCrAxFXvMeh6wvbelDyie8QUTMJ7mO7sLCxT0VSi6s3z7uEpNfQ5A=
+	t=1788761096; cv=none; b=PvE6D1mhqaHH8A7nbyv/WTbdxnLhd0bZldoLAboY1AhEa9pPWDDT6RxyqrfyU3blCKp07q7zZX5o0SGy2FH8YvFSJxyAd6R0FtdK6AFXegOiZULc/QzAsucZGfnKclcYGcx2SzHcUHY1oHO1mTM/W943yUHJswqXQeHlXla8pUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788761033; c=relaxed/simple;
-	bh=rPRFh+npbncxIb5/WeLVPv9dtkEn3Fd7H/t9nDTS8Mw=;
+	s=arc-20240116; t=1788761096; c=relaxed/simple;
+	bh=WdI/RXGUI++cbePcXT91BjzMzUzWC12GQt5G0Az4qws=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JVJ57N8rNwKpHARr2D0/JovQw6gak2wy7lCFu5rdefYr5VEhzSeC2mLSN8ms2AwyT/+mbfExVbgGPh66lny3tbvk3z6xPcKPHn9bLpgAc0mcIR4ZroqTcJQDnKk8vTJPvWjugbaTXsLGT798wOGd7lGwa+pYnCjTO1o+ENnB3O4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=k6q7up2c; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	 In-Reply-To:Content-Type; b=WgQDvggE/X97WfAfRGR5EIc0IHcEjDWU6bNVTYcf08zjq9zItB6POZayRRvqvYsMpBVaQRJ02TNFWKTff+o9NO4wgL57gZecE+QgbB7tHweDj+wDUDMlckoOWZoyGTnSf6ZA71PPOfXUrVjSyZVK4nn60Gp2vR3LyYNaS1/NrlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OmYYWaRu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="k6q7up2c"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68741iLQ821207;
-	Mon, 7 Sep 2026 06:02:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=ksb5J1
-	kFmRG7IMX5VJXWmuOrTscqVKlwxv+1yj74CUg=; b=k6q7up2cShkCwnKg3qcM+J
-	3OKFVGYl5ffUd5g4riCP2Lq9CxtBm4aCnITrClbP6nXXQXVz/sWejThstwiSnmwZ
-	poAYZdJsAZ3Wd97mtVzgA7TRScDZIc5UfrX0GroHiY7DdZtT/WFxT12yDhHN18Zs
-	216pm3b7xsRslesr8WcyrzJmMCoFl8upWjSFtiDOP2OK1LOQWzIKaZgCeq8bvevH
-	MFy4zH422iwJw0j1aebibAxZ2MZT0qkMOZ0XOGmXs1c+Rp68zxfAb+W95e6SU/7D
-	pPxp+VfMb1kKp1P2qDD3hBcl4aNs839+0UXPrjiNgHkqHHnkymLQdChmIytgrhHg
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbheprn1-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 07 Sep 2026 06:02:36 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6875uP9b030858;
-	Mon, 7 Sep 2026 06:02:36 GMT
-Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ggxwgv5ay-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 07 Sep 2026 06:02:36 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
-	by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68762ZOB43254018
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 7 Sep 2026 06:02:35 GMT
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8375E5805D;
-	Mon,  7 Sep 2026 06:02:35 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A18D458053;
-	Mon,  7 Sep 2026 06:02:19 +0000 (GMT)
-Received: from [9.123.7.57] (unknown [9.123.7.57])
-	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  7 Sep 2026 06:02:19 +0000 (GMT)
-Message-ID: <a123f309-6ec7-470f-b5b0-f08cca6d2627@linux.ibm.com>
-Date: Mon, 7 Sep 2026 11:32:18 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OmYYWaRu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 339571F00A3A;
+	Mon,  7 Sep 2026 06:04:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788761094;
+	bh=/JthDeUP09hbFsgQEoxZI/CGVwcHhBO3IqKRGJEIc58=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=OmYYWaRuco8c/bJcqounVq2b9LSV2IB6GMTMEfSwHfV5SWiwTQNp5VwwpVVeSVicL
+	 HPldi2Ro29hsBQNAjdH/OCe/7N0nNyYnJsd9TS49JQth87jdjd1sV+pW7ua+SQ5RP0
+	 3V9EECTgt5sF/Gkg0yT02BpgDqo1E4Ti4CwUZAbMEzKJQdOCGRJT7iBSc8cIKmg9SE
+	 iNaLWkEnuQr0yTuplFTdBdagN41GeE8DGk1v+izDGA3gwMaut8Mw01vUvCbPXVrZ3D
+	 0GK8Cj9E96QGxcd7LK1C1Z/CZapHQl+y2CNnVeWB4FEuruO+/7uUmwrha2Nx/LB4OL
+	 dIac9HcwgIvgQ==
+Message-ID: <8cf1aebb-9f9c-4bce-8c19-3514c1dae7e8@kernel.org>
+Date: Mon, 7 Sep 2026 08:04:48 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,156 +35,77 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] blk-cgroup: store blkcg in bio instead of blkg
-To: yukuai@fygo.io, Yu Kuai <yukuai@kernel.org>, Jens Axboe
- <axboe@kernel.dk>,
-        Tejun Heo <tj@kernel.org>, Josef Bacik <josef@toxicpanda.com>,
-        Johannes Weiner <hannes@cmpxchg.org>,
-        =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: Christoph Hellwig <hch@lst.de>, Tao Cui <cui.tao@linux.dev>,
-        Jan Kara <jack@suse.cz>, Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>, Coly Li <colyli@fygo.io>,
-        Kent Overstreet <kent.overstreet@linux.dev>,
-        Alasdair Kergon
- <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
-        Mikulas Patocka <mpatocka@redhat.com>,
-        Benjamin Marzinski <bmarzins@redhat.com>, Song Liu <song@kernel.org>,
-        Li Nan <magiclinan@didiglobal.com>, Xiao Ni <xiao@kernel.org>,
-        Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
-        Dan Williams <djbw@kernel.org>,
-        Vishal Verma <vishal.l.verma@intel.com>,
-        Dave Jiang <dave.jiang@intel.com>,
-        Alison Schofield <alison.schofield@intel.com>,
-        Ira Weiny
- <iweiny@kernel.org>,
-        Andreas Gruenbacher <agruenba@redhat.com>,
-        Matthew Wilcox <willy@infradead.org>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
-        Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
-        Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
-        Youngjun Park <youngjun.park@lge.com>, cgroups@vger.kernel.org,
-        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
-        dm-devel@lists.linux.dev, linux-raid@vger.kernel.org,
-        nvdimm@lists.linux.dev, virtualization@lists.linux.dev,
-        gfs2@lists.linux.dev, linux-fsdevel@vger.kernel.org,
-        linux-mm@kvack.org
-References: <20260823133045.970199-1-yukuai@kernel.org>
- <20260823133045.970199-3-yukuai@kernel.org>
- <49d724b8-57c6-48fc-8099-69cd1b072351@linux.ibm.com>
- <befbc177-f7f5-4c44-b02e-20a99fc64c0c@fygo.io>
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: microsoft-romulus13: enable
+ touchscreen
+To: fQwQf <fqwqf@fqwqf.xyz>, devicetree@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+ bentiss@kernel.org, jikos@kernel.org
+References: <20260907054339.12409-1-fqwqf@fqwqf.xyz>
+ <010601a07a6524b4-0bac871e-cea3-4cbe-9a33-111003dd4808-000000@ap-northeast-1.amazonses.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Nilay Shroff <nilay@linux.ibm.com>
-In-Reply-To: <befbc177-f7f5-4c44-b02e-20a99fc64c0c@fygo.io>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: im8OC1-EmKXczbx-h1qS5bOwxgKAaWN6
-X-Authority-Analysis: v=2.4 cv=RIaD2Yi+ c=1 sm=1 tr=0 ts=6a9e537d cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=3B2c1Lu2D3hCyOpHH_4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA2MyBTYWx0ZWRfX41bv8i9Ji5b5
- khAXgMgA4wj06LIds34mWjHokFZI5htPa3CcCYMzkMltQ3HbC8kwOJZUNARuqYjQ3TPdyG/HODX
- vLmFSG4SdgheEUgTIxq9rj8tvz9D58I=
-X-Proofpoint-ORIG-GUID: n5OGK1j4LYtHzHpx4KZ2qyT0H7DzsKco
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA2MyBTYWx0ZWRfX9PiRfBZRsKiO
- CX+4bhydjMEyqMW0Fa1P0zb0/Vxvvu/ZGl5CDMSuLOs4q5kXF+sZXNNrsiWxNvPLt0ZTPCvf3W2
- FEYMlSilDZFBf/kwoTaf//bU8y9gtYJCCdWiXQ6p1bQzQzFsYfVQUiW2EzalUnnNiv84ndOnn/T
- 8sIQWvaEanwTKBCDHqXfyMrixhlF2BR+HrNKLL1mZtiUePnF9Q0oxzWRf6p+VmRwInrlXDOFnkG
- icAa0fFzxWnAr5o7Kp+y441RcyP59HAkDdqe0ASiFnLmKSzzBo4GBekCkFm7orKjID5F7VHBMHs
- PYHJHFkgCC9CVBXXx86BkHmuSi3otCFap/OIt6bBQ4pYSs+wIuRJh5PMGVzAQZIkUIlXtMNl7xE
- g1lLq/MfjeBSh1A/urFKfg+cWYG/vs3riyno/UMGvCo2gk5S8kVNYKHIH6GtDFcpMH4I5pmYDgE
- +V28/ums8ewFhwRZIeg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-07_01,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 bulkscore=0
- adultscore=0 phishscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070063
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <010601a07a6524b4-0bac871e-cea3-4cbe-9a33-111003dd4808-000000@ap-northeast-1.amazonses.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 9/6/26 5:09 PM, yu kuai wrote:
-> Hi,
+On 07/09/2026 07:44, fQwQf wrote:
+> The 13.8-inch Surface Laptop 7 has an ITCH MSHW0468 touchscreen
+> connected to QUP1 SE0 at I2C address 0x34. Describe the controller,
+> interrupt, reset GPIO, and HID descriptor register so i2c-hid can
+> enumerate the touchscreen.
 > 
-> 在 2026/9/6 18:56, Nilay Shroff 写道:
->> On 8/23/26 7:00 PM, Yu Kuai wrote:
->>> @@ -257,20 +262,21 @@ static inline bool
->>> bio_issue_as_root_blkg(struct bio *bio)
->>>     * @blkcg: blkcg of interest
->>>     * @q: request_queue of interest
->>>     *
->>>     * Lookup a blkg for the @blkcg - @q pair, whether it is online or
->>> dying.
->>>     *
->>> - * Must be called in a RCU critical section.
->>> + * Must be called with either RCU read lock or queue_lock held.
->>>     *
->>>     * This does not acquire a reference.  The caller must already hold
->>> one, or
->>>     * have the blkg pinned by I/O.
->>>     */
->>>    static inline struct blkcg_gq *blkg_lookup_any(struct blkcg *blkcg,
->>>                               struct request_queue *q)
->>>    {
->>> -    RCU_LOCKDEP_WARN(!rcu_read_lock_held(),
->>> -             "blkg_lookup_any() requires an RCU read lock");
->>> +    RCU_LOCKDEP_WARN(!rcu_read_lock_held() &&
->>> +             !lockdep_is_held(&q->queue_lock),
->>> +             "blkg_lookup_any() requires an RCU read lock or
->>> queue_lock");
->>>          return rhashtable_lookup(&q->blkg_hash, &blkcg->css.id,
->>>                     blkg_hash_params);
->>>    }
->>
->> The changes look good to me. However, rhashtable_lookup() is annotated
->> with __must_hold_shared(RCU). Since we now officially support Clang
->> context annotations in the block layer, compiling with the latest
->> Clang/LLVM generates a number of context warnings, for example:
->>
->> block/blk-cgroup.h:277:9: warning: calling function 'rhashtable_lookup'
->> requires holding __ctx_lock_RCU 'RCU' [-Wthread-safety-analysis]
->>    277 |         return rhashtable_lookup(&q->blkg_hash, &blkcg->css.id,
->>        |                ^
->>
->> The same warning is reported from several other block layer source
->> files that include blk-cgroup.h.
->>
->> This indicates that rhashtable_lookup() requires the RCU read lock
->> from Clang's context-analysis perspective. Looking at the call paths of
->> blkg_lookup_any(), it appears that not all callers hold
->> rcu_read_lock() when invoking it.
+> The HID descriptor is located at register 0x0000 rather than the default
+> 0x0020.
 > 
-> I was not aware of the above clang warning, this should not be a real problem
-> because queue_lock should have the same protection as rcu, and I was trying
-> not to make this patch too complex.
-> 
-I agree that this is not a runtime correctness issue when the lookup is already
-protected by q->queue_lock.
+> Tested-by: fQwQf <fqwqf@fqwqf.xyz>
 
-> I add the rcu_read_lock() in the following patch to covert queue_lock to blkcg_mutex:
-> 
-> [RFC PATCH v3 3/6] blk-cgroup: protect blkgs with blkcg_mutex - Yu Kuai <https://lore.kernel.org/all/20260823152926.1043863-4-yukuai@kernel.org/>
-> 
-> Since this is related to compile warning, I'll move the rcu protection to this
-> patch.
-> 
-Since rhashtable_lookup() is annotated with __must_hold_shared(RCU), Clang's
-context analysis still reports warnings for these call paths. While this
-doesn't cause a build failure (and only generates warning) when CONFIG_WERROR
-is not enabled, it could do so for configurations that enable CONFIG_WERROR=y.
+Drop. Why would you send untested code otherwise?
 
-So IMO, moving the rcu_read_lock() protection into this patch makes sense.
-This would avoid introducing the Clang warnings/errors in this patch, and then
-you may accordingly adjust your subsequent series where the q->queue_lock protection
-is removed and the blkg lookup paths are protected by RCU.
 
-I also noticed that some paths already take q->queue_lock followed by rcu_read_lock(),
-so adding the RCU protection here should be consistent with those existing paths.
-
-Thanks,
---Nilay
+Best regards,
+Krzysztof
