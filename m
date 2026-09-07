@@ -1,126 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40EDE51FCA5
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:43:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3227851FCA1;
+	Mon,  7 Sep 2026 16:43:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788799436; cv=none; b=PhPnsbKvTjtE0J5snwqgpAaBj97AuSuuaduL7tc07NUTJq+qvP2FikC1fvK2BVGVtQkWdI+oCFa0Sry43EiVEU7eKV47tns8H7XxDEX7ZnNOvq8wh1RVAeQGM6Dk4EAAFED4ieFU+dS7oKLuEgs6zDuKcsGsmpPSZSuCygv5828=
+	t=1788799437; cv=none; b=HMOJOCpgHZOzr2XftH9GB3Ryy+4+0DyLj4y8pq1UhCdnWUl1CS9OifIhzthekFYow45IVxi+48E4a2Nyjf2n3jXhSinhfAlW+GHlSqh06cakP9Yg6mnBxwP+NvaRItKwP0ndJcCRQNjSI7uCU4Xxm3HDvKHAsVmpQN62DWt14fs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788799436; c=relaxed/simple;
-	bh=OjwrxO+Yb3VNhrFuMQv9vy/22rWY6qBRMH79RZf/xZM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ejnya2wV0eYU4Duavo9BCYSH4nGQO1IafchEKI3mWmCBCH+SIsF7QsGdcGpzUhCBDFXG9UW+0ZEB+OR1wXdyF2Cas5npDfe+UrURnhrjH43GKlLpqHULnIH/W7i0K1sG4cR9fiI7kUv+my27IOvASMnMt4zogM8SbtS12CJOe9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZoqkleTP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788799437; c=relaxed/simple;
+	bh=IfHy69F3LNBHuqhe6lfIEmqVttTdL9xWfYuaxgoZJ5I=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=UlCsnxXti7e4Gqtx+UzY3qyoAu7ly9Vge9ldvhk+wpw7B371E7SNaLeHmdr0ZfT7BMCBZAIUiXF+MRM/Kp921DjRlgLbkxzMzXzfTO+TQHMoHmpUmaXaM3BGn5jTgPCowPfOpQxyvX+BPBtKe0G6ZrteqhSBiskPFXeQh5XGLbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=j2vLVAu8; arc=none smtp.client-ip=45.79.88.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZoqkleTP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 014211F00ACA;
-	Mon,  7 Sep 2026 16:43:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788799434;
-	bh=4B7ig5JOoqM/sFSoDwiMA77B2+r7GUXRB2lSds3AJ1E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZoqkleTPnHZFWHuFBC5xHFyP3BP9O1hjKw2d5rYkM2MLLe3ztBAyg38Gruwde31aS
-	 jWJRkAiHsf7M7fxkT743JrzWBtbXc7avZ6a3lIOMUjP+4MUWi/DF+pYEn87+RJxXTR
-	 CbmjaGIyGsemrCX2J59wRJx953ODDyyNCEvjMNyYdCBvbQztdnNuzYh1AEnN8cuzbI
-	 XZluHaDSekTuobMXbIG7FeQkQUliobvqTwa8p49dDI2DkKbphNiqxzhHMudrp6w1Dd
-	 lwTb+jrLO3mkW7qape3i59DZkmdj5UVmLv50Mp27xt6I8D9KttLFsOBPcEmpnD1dAZ
-	 3+xisjdqBFSuA==
-From: Will Deacon <will@kernel.org>
-To: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org,
-	Will Deacon <will@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Ada Couprie Diaz <ada.coupriediaz@arm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Vladimir Murzin <vladimir.murzin@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Mostafa Saleh <smostafa@google.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Marc Zyngier <maz@kernel.org>
-Subject: [PATCH 16/21] arm64: entry: Implement EL1t exception handlers for overflow stack
-Date: Mon,  7 Sep 2026 17:42:41 +0100
-Message-ID: <20260907164247.17223-17-will@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260907164247.17223-1-will@kernel.org>
-References: <20260907164247.17223-1-will@kernel.org>
+	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="j2vLVAu8"
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 6A072408FF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+	t=1788799435; bh=K1QoYSkh0C9sSQm+kvMmLkOqIVg1cx7vAvkOyyyUjv8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=j2vLVAu8BUfrPUfw0IoMLttB9KWrQwcIEceYhLSk9uQ5Z0ckEPVfOfscBHEcW87ni
+	 hmLInIrqLiwmZau8RpCopP0torx5zxcmYmnd8yNCifCDJ9w29pnYUhYWaLbp0pcmmI
+	 K2EpC+wXJqbVWmqIDrNUlyN7cb+dQaEa6MBWRXOQDvNzkMu2svKs+2K1aRQnRpKccs
+	 Bbt88ebw4fXNUuc5uDyjITojN/i8rhtRuLeabCSaYLpQLF1zP4BoWQ4u58OIZ/tQRo
+	 JVnPV0O3/+B5SOZ8lZUwSg+I+zq3l/9klm1cKAo6XqVrn/6ohtHCdsYDF3+NSB07BI
+	 bj19j/y/E5ZhA==
+Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id 6A072408FF;
+	Mon,  7 Sep 2026 16:43:55 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Manuel Ebner <manuelebnerli@mailbox.org>, "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>, Jan Kara <jack@suse.cz>, Shuah Khan
+ <skhan@linuxfoundation.org>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>, linux-fsdevel@vger.kernel.org,
+ linux-mm@kvack.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] docs: locking: Fix bracket
+In-Reply-To: <20260902143936.703665-4-manuelebnerli@mailbox.org>
+References: <20260902143936.703665-4-manuelebnerli@mailbox.org>
+Date: Mon, 07 Sep 2026 10:43:54 -0600
+Message-ID: <87cxupovud.fsf@trenco.lwn.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-In preparation for using EL1t to handle exceptions taken whilst running
-on the overflow stack, implement some simple wrappers around the EL1h
-handlers which perform a best-effort stack overflow check before
-proceeding.
+Manuel Ebner <manuelebnerli@mailbox.org> writes:
 
-Cc: Mark Rutland <mark.rutland@arm.com>
-Signed-off-by: Will Deacon <will@kernel.org>
----
- arch/arm64/kernel/entry-common.c | 43 +++++++++++++++++++++++++++++---
- 1 file changed, 39 insertions(+), 4 deletions(-)
+> Remove needless '(' from code block.
+>
+> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+> ---
+> Should I also replace ')(' with ') (' as it is in the second code block?
+> It would improve readability in my opinion.
+> ---
+>  Documentation/filesystems/locking.rst | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/Documentation/filesystems/locking.rst b/Documentation/filesystems/locking.rst
+> index 844d65eb4..1598cf555 100644
+> --- a/Documentation/filesystems/locking.rst
+> +++ b/Documentation/filesystems/locking.rst
+> @@ -27,7 +27,7 @@ prototypes::
+>  	int (*d_init)(struct dentry *);
+>  	void (*d_release)(struct dentry *);
+>  	void (*d_iput)(struct dentry *, struct inode *);
+> -	char *(*d_dname)((struct dentry *dentry, char *buffer, int buflen);
+> +	char *(*d_dname)(struct dentry *dentry, char *buffer, int buflen);
+>  	struct vfsmount *(*d_automount)(struct path *path);
 
-diff --git a/arch/arm64/kernel/entry-common.c b/arch/arm64/kernel/entry-common.c
-index 72c03ccea59f..9738142780df 100644
---- a/arch/arm64/kernel/entry-common.c
-+++ b/arch/arm64/kernel/entry-common.c
-@@ -327,10 +327,45 @@ static void debug_exception_exit(struct pt_regs *regs)
- }
- NOKPROBE_SYMBOL(debug_exception_exit);
- 
--UNHANDLED(el1t, 64, sync)
--UNHANDLED(el1t, 64, irq)
--UNHANDLED(el1t, 64, fiq)
--UNHANDLED(el1t, 64, error)
-+static void noinstr el1t_64_check_overflow_stack(struct pt_regs *regs)
-+{
-+	unsigned long sp = kernel_stack_pointer(regs) - sizeof(*regs);
-+	unsigned long ovf_stack = (unsigned long)this_cpu_ptr(overflow_stack);
-+
-+	/*
-+	 * We're in big trouble if we've overflowed the overflow stack
-+	 * so perform a best-effort check before we proceed. If our SP
-+	 * is outside of the overflow stack for this CPU then presumably
-+	 * we're already corrupting memory, so park ourselves here in an
-+	 * attempt to contain the damage.
-+	 */
-+	if (sp < ovf_stack || sp > ovf_stack + OVERFLOW_STACK_SIZE)
-+		cpu_park_loop();
-+}
-+
-+asmlinkage void noinstr el1t_64_sync_handler(struct pt_regs *regs)
-+{
-+	el1t_64_check_overflow_stack(regs);
-+	el1h_64_sync_handler(regs);
-+}
-+
-+asmlinkage void noinstr el1t_64_irq_handler(struct pt_regs *regs)
-+{
-+	el1t_64_check_overflow_stack(regs);
-+	el1h_64_irq_handler(regs);
-+}
-+
-+asmlinkage void noinstr el1t_64_fiq_handler(struct pt_regs *regs)
-+{
-+	el1t_64_check_overflow_stack(regs);
-+	el1h_64_fiq_handler(regs);
-+}
-+
-+asmlinkage void noinstr el1t_64_error_handler(struct pt_regs *regs)
-+{
-+	el1t_64_check_overflow_stack(regs);
-+	el1h_64_error_handler(regs);
-+}
- 
- static void noinstr el1_abort(struct pt_regs *regs, unsigned long esr)
- {
--- 
-2.55.0.979.g7e5102b832-goog
+Applied, thanks.
 
+jon
