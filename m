@@ -1,75 +1,78 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 574603FD12A
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:40:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8204C3AA4EB
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:41:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788763254; cv=none; b=kdTV3/8ENsh5jQF2nNeCUrv/otUCO/pcmtI0AXPhLD659aapVqhMJyv7WK5SkonEP4XDxmnbgPxpXsLfqVZnmz+lI3lNQo/vw4nh3CoA7Sd7c+AkVn8HakPFwR5VCdJ9xPKEXRJn86R7Hn5rDtoGVcpDsvQU/iuwYdBRYCtqej4=
+	t=1788763307; cv=none; b=MGjjmSmzg7q6ZUer+bXyd7KUp4pn1p3FoZ/92NF7PrwpxOSRzsj4fqcAYGM9WyyfsktiVXVdRinEXUKSNCutZEQJ1LEGK7nRXOMVszgnbeoZFhbcFhzftxhtJxqGZGMJJn5Xczv6++hgGZW3+hKuSigiSWEoYFuQMB643iDnnUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788763254; c=relaxed/simple;
-	bh=zECSL8mnlm24myrmAvLalG+mV0LLL/8FWL+o1Vt9amA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qLNtR7cWWe5tNZ3za9F8816KiBY2vY0i6+9E6xtgGwkMtaZwdZCkNCK0Vv0poH8kgIDelt5Faopfx3lo7NgKBa9euM+RskHfmB0D3+izmB02UNBkKWyM3AnspalseBU7LhAADA8bit8pg/937SSkNS8omsr56LHjEbUVRzNb1iM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bF6qOaSc; arc=none smtp.client-ip=209.85.216.49
+	s=arc-20240116; t=1788763307; c=relaxed/simple;
+	bh=HYQYm7Ol+ajDdBWB8eOE9bTzmYQUN/ysOtKPbk0gEOk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EX8pDffeMN7EHHEo675RvpizbLilO8a3tTnpOh5TJbGe24p2qtnNFFxVbyYHavbzA0v5DD9ibP59f/Bw+//kwB5C/JsLT8j35KKPTratt/14HR374zYfECymQEK7qdeC+iILbl7hzHRVQByIE+yf5dGZRrJ6ipHJMNxmuJwcSgE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XCoMdSi3; arc=none smtp.client-ip=209.85.216.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bF6qOaSc"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so2485415a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:40:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XCoMdSi3"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-398b3d66515so3065159a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:41:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788763253; x=1789368053; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788763305; x=1789368105; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jzhAqXJ9vWQk0Vlafubd998WTycCm4mOzi94WOJ1k/U=;
-        b=bF6qOaScE1cOWWpDDRthBmN0e1HGSBO7yXejvGGTdhLqJ4idLkWYhHT4RBooANz81W
-         TU0F+PMKgeXFLnYWa13LxU6i/GxIhX+MjfIkhHtYhxOB5RRJo+hmh3ti9Lfl/Z4F+ot/
-         7yWAMpW3yPDzeYUfDIp8KwATPWfDwcvwL14WmOFn7oIffQy4J70/h2YwRG3zioxEQ2Ae
-         AMN1GREuE08JCvXOVlSV0bD3gu0K27ymT4kmLixo9jdAeyLn8Rw6YAoAfKVRTJ71Ilcl
-         HmwXE0lCa7adf4vbbSgK2ONRxVUgz3X5l4qWOg0zrNaA+J82st95/Mgi9/GLXwdDHRYo
-         j7zA==
+        bh=zflL+q58grc4cagGW8mHiAFMNdUiRsMqNFtJfF7Dmyo=;
+        b=XCoMdSi3c4YjOmIc/sur3cFNq1AvOqkdb+tGIpYoz74r0V1Z8RY9sR4YTs0dDd8WWo
+         5y0Xk+/kCDlfF0T9KerCa7DzftYkq7EJO7RErTOU7v0clnI8TR23SMCrLKSVsxbbHXee
+         /LqrAJTKxoolta6oUyvZUwoAWZ4VT9CDPuxhQOfiwPcsSR7t8ZtBblwqJVPNSZsFOLo7
+         Zx6zuL5D/f+Wm5kHFe+LBy++U5iJ32SX6WUbDAoj+PhmOPR26RZcXI1JPMhkKyvXqrNw
+         BYM5aH2rkcwiNTX/uxAsO76DJB0YzFMoEYNJMW02kTP82EEaV6Jl+XpZ5cQYUhBcKtb9
+         HBTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788763253; x=1789368053;
+        d=1e100.net; s=20251104; t=1788763305; x=1789368105;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jzhAqXJ9vWQk0Vlafubd998WTycCm4mOzi94WOJ1k/U=;
-        b=QJo5lRrbiZHwelgeIAiP+ICj5kS+saDIBgIms7/TInggGHYIsvVYlUugQvIVwVMosA
-         1EuiL5aFGbrNnGF8NWk+KLX8cH0rPXXZDWL+7cQytD6wH/tGpJQmYgboT0tVWiXY71pI
-         mFfQ04Zam3BKweAaYQ0DWRU64jw+cVIeVIjGpxbMYSYt/+dYO6TBj5NQhruJTPx971ZB
-         p51VJVHGsWOuY8UJdmSkrkHTjZTligQyGEI7Tf/I+xrvjBUj01GXvmt8UiGcqJ8YF+Rx
-         wwrMD7HGmyka7ORleJu3LrLLljGNwlBb34XNrbCqB9j69KVtHIdxlLTNliv5/AEwHiQD
-         Mo0Q==
-X-Forwarded-Encrypted: i=1; AKwUvByawDt4m18pu+vHk99Nfu26BkuXBzA309daBvv+w+8m1x02deWGbjMLonzi4rwCmNegTBhcGVDz/oBfgaw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mcS2QQEs9+eG/3yXq9fv2saPwquUxkFshmOAzQnRryX41yLfle
-	lqHzTTjo/dDLGST3wd9VRuoGA592b7AKvqU9E73nFrljsw/2zxW1snZg
-X-Gm-Gg: AYBFou07i3owOAz+rplm3oULJXrRPAPJJMqOsHmqTVJWXrB9aftxM6fhLZ5d2tj8hyc
-	w1KJGM/MIHLK/RPbP4yqQ3eaV9jgWV+/DE3vb3QBWBuyKbyjQ0SzU23BoA0qswnLQYY3wmL0+7o
-	zwVB5oV91L6n52CsdvjtNGYuao4uPGe02iAzmHujoBe/GE1RqFin7KYm7mlnEaM9qKos26xPmsj
-	Y0gLHusCXcmbdy/71dVullC/1ROrqDWlPYzST6hLKwJrqrYyqK901kcQ0VkaIS2jsoW0MoJRv9j
-	FncG4JTy70cstAfxA6Vw3ZTuAhJbaMVbqKdhz+lvxwBwIx0r3Gl5Jb5XDHdkqdmPdnGEBEIkz2O
-	u/075hezBwiKGSS8RxRDL4H8s+UzZBAr4PNVXRiE9nwY6bKfdDuYtIENQJa4NCCMgQ5LSuXv2/t
-	4GV3ByZhnZYc2KW+BXzHVSdiwYiHsZWKDDyd5DTNV+6ex8CXfdj1eOG1KhfmvJnLci758XeOFk5
-	IicHo/RX9g77g==
-X-Received: by 2002:a17:90b:2749:b0:398:d292:e6d5 with SMTP id 98e67ed59e1d1-39b26304385mr33393164a91.24.1788763252559;
-        Sun, 06 Sep 2026 23:40:52 -0700 (PDT)
+        bh=zflL+q58grc4cagGW8mHiAFMNdUiRsMqNFtJfF7Dmyo=;
+        b=tB2uTb4aEEwZz3XOQfbD4CsR/b+s8rq9JvtYHMz4rxQhAy37TOQzYIJOu6bcBipTk9
+         NAWTlV2BjfQxTiQ4rwXQFsszVk+WQo/tW8mUeeUPqE58TX2ZT3nUq7NrmwrtMl1LHMAz
+         VnuIe2GSY+HQGnK8EdkfOb6WsrGDlSO86dNdInM2+GetEw7yfyfSugjnl54wWBHgWALn
+         4Wwq+QDH3KRloOJ6+rUQvSjiuWYPf9tjdTXRFqCUFBX/CRqBfov82aZaSP4Hgcd0LCj0
+         6SRLGKcMuhqhLqdKDbAy3nVPsVQ8L8TybsG5zy+lX3esxg57EyNk0rusoeCABNACQepj
+         xIUA==
+X-Forwarded-Encrypted: i=1; AKwUvBzaYe9IMndKgqOZhFwe8r1Pd3G3yPFWa3biS6lYyhSdmWmZorfi+rL6Oqn3KL3b2ExEdyoZx9DaW/uyr38=@vger.kernel.org
+X-Gm-Message-State: AFuF++ndgj1TmgUqAvJ4rplzoYkuKdp98QY2+d1nHKxTDkYu7CvBgxM2
+	qI0cgOhIekyRGlXwZ0IFZfOVdnH5b6yzxeRVwEx76MQ+pe3tGAQpx+Lf
+X-Gm-Gg: AYBFou3ILCp50cu0K5I8e8NBdcwc0mHYwY3dhdsdEWI0N5n94FajTuSqsZVaeVq5duU
+	GLJ8Hlo14WTk8OlZAQOfDPduQRWMwPhfryxC+GdYJjj2jNyXcJ2NLpRAhxdPeqZ26SrYX4KzNE4
+	jXfTB4tIq48eIlvWtdKJvhWx9LLae96rxSLmpm1kHUAsdBD/QpIYbSWsTW60WgYMqcaEuylGXz8
+	7wBGSF8bJQlOaGBXIk+rAvYV5QzpqPVM9R/dWv/uZvpnSh2qhy6IMroZDVVEp7mQ9xsqHxzg54l
+	YRAz0+44z87HSpxkL+jN8rii4GCSaz+P88deMcwBAhPe5P1Qb+0cTTQ6IVOBChfdQBCjKeDgjYq
+	6ZukWHHw4w9PCD/TpRcG5HIeBYdS1GpWH3NlQ3MV9XzM/8Q6eWUEgWwpWr6RypqNcQWSedq+hEj
+	zerX9Lgdp6u9PDmFVvMR8i1+z5zbOzw6h1uixhWW9aeftzc6y/NniSxZNi3JD1JD1yi3AhSErXB
+	PKpzMksLwUw8Q==
+X-Received: by 2002:a17:90b:2f87:b0:38e:9045:bac0 with SMTP id 98e67ed59e1d1-39b260fe42amr31090592a91.5.1788763304914;
+        Sun, 06 Sep 2026 23:41:44 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b8f44d7sm24475545eec.22.2026.09.06.23.40.49
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143240d86c3sm22413038c88.0.2026.09.06.23.41.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 23:40:52 -0700 (PDT)
+        Sun, 06 Sep 2026 23:41:44 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Theodore Ts'o <tytso@mit.edu>,
-	Andreas Dilger <adilger.kernel@dilger.ca>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Jan Kara <jack@suse.cz>,
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Zhang Yi <yi.zhang@huawei.com>
-Cc: linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ext4: fix typos in comments
-Date: Mon,  7 Sep 2026 12:10:46 +0530
-Message-ID: <20260907064046.36515-1-hemanth.selam@gmail.com>
+To: Shuah Khan <shuah@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	x86@kernel.org,
+	Dave Martin <Dave.Martin@arm.com>,
+	James Morse <james.morse@arm.com>,
+	Babu Moger <babu.moger@amd.com>,
+	Ming Lei <tom.leiming@gmail.com>
+Cc: linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-block@vger.kernel.org
+Subject: [PATCH 0/2] selftests: fix typos and repeated words in comments
+Date: Mon,  7 Sep 2026 12:11:36 +0530
+Message-ID: <20260907064138.38689-1-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -79,97 +82,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix typos in comments, reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+This corrects 2 misspellings and repeated words in comments.  Each is a
+separate patch so that any one of them can be dropped without touching
+the rest.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- fs/ext4/extents.c | 2 +-
- fs/ext4/inode.c   | 2 +-
- fs/ext4/mballoc.c | 8 ++++----
- fs/ext4/mballoc.h | 4 ++--
- 4 files changed, 8 insertions(+), 8 deletions(-)
+Nothing outside comments changes.  Every touched C file was checked by
+dropping its comments, replacing each string literal with a placeholder
+and collapsing whitespace; what remained was identical before and after,
+so the compiled code cannot differ.
 
-diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-index 76038b6c3655..d5d7ee229e4a 100644
---- a/fs/ext4/extents.c
-+++ b/fs/ext4/extents.c
-@@ -3186,7 +3186,7 @@ int ext4_ext_zeroout(struct inode *inode, struct ext4_extent *ex)
-  * @handle: the journal handle
-  * @inode: the file inode
-  * @path: the path to the extent
-- * @split: the logical block where the extent is splitted.
-+ * @split: the logical block where the extent is split.
-  * @flags: flags used to insert new extent to extent tree.
-  *
-  *
-diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index bd4b778df9eb..e719fa3cbaaf 100644
---- a/fs/ext4/inode.c
-+++ b/fs/ext4/inode.c
-@@ -2163,7 +2163,7 @@ static bool mpage_add_bh_to_extent(struct mpage_da_data *mpd, ext4_lblk_t lblk,
-  * @bh - buffer we should start processing from
-  * @lblk - logical number of the block in the file corresponding to @bh
-  *
-- * Walk through page buffers from @bh upto @head (exclusive) and either submit
-+ * Walk through page buffers from @bh up to @head (exclusive) and either submit
-  * the page for IO if all buffers in this page were mapped and there's no
-  * accumulated extent of buffers to map or add buffers in the page to the
-  * extent of buffers to map. The function returns 1 if the caller can continue
-diff --git a/fs/ext4/mballoc.c b/fs/ext4/mballoc.c
-index 06171a11db12..47156ce9e5c0 100644
---- a/fs/ext4/mballoc.c
-+++ b/fs/ext4/mballoc.c
-@@ -234,7 +234,7 @@
-  *
-  * there are two types of preallocations:
-  *  - inode
-- *    assiged to specific inode and can be used for this inode only.
-+ *    assigned to specific inode and can be used for this inode only.
-  *    it describes part of inode's space preallocated to specific
-  *    physical blocks. any block from that preallocated can be used
-  *    independent. the descriptor just tracks number of blocks left
-@@ -2326,11 +2326,11 @@ static void ext4_mb_check_limits(struct ext4_allocation_context *ac,
-  *   stop the scan and use it immediately
-  *
-  * * If free extent found is smaller than goal, then keep retrying
-- *   upto a max of sbi->s_mb_max_to_scan times (default 200). After
-+ *   up to a max of sbi->s_mb_max_to_scan times (default 200). After
-  *   that stop scanning and use whatever we have.
-  *
-  * * If free extent found is bigger than goal, then keep retrying
-- *   upto a max of sbi->s_mb_min_to_scan times (default 10) before
-+ *   up to a max of sbi->s_mb_min_to_scan times (default 10) before
-  *   stopping the scan and using the extent.
-  *
-  *
-@@ -3029,7 +3029,7 @@ ext4_mb_regular_allocator(struct ext4_allocation_context *ac)
- 	 * is greater than equal to the sbi_s_mb_order2_reqs
- 	 * You can tune it via /sys/fs/ext4/<partition>/mb_order2_req
- 	 * We also support searching for power-of-two requests only for
--	 * requests upto maximum buddy size we have constructed.
-+	 * requests up to maximum buddy size we have constructed.
- 	 */
- 	if (i >= sbi->s_mb_order2_reqs && i <= MB_NUM_ORDERS(sb)) {
- 		if (is_power_of_2(ac->ac_g_ex.fe_len))
-diff --git a/fs/ext4/mballoc.h b/fs/ext4/mballoc.h
-index 39333ce72cbd..571d9bd93810 100644
---- a/fs/ext4/mballoc.h
-+++ b/fs/ext4/mballoc.h
-@@ -86,9 +86,9 @@
- #define MB_DEFAULT_LINEAR_SCAN_THRESHOLD	16
- 
- /*
-- * The maximum order upto which CR_BEST_AVAIL_LEN can trim a particular
-+ * The maximum order up to which CR_BEST_AVAIL_LEN can trim a particular
-  * allocation request. Example, if we have an order 7 request and max trim order
-- * of 3, we can trim this request upto order 4.
-+ * of 3, we can trim this request up to order 4.
-  */
- #define MB_DEFAULT_BEST_AVAIL_TRIM_ORDER	3
- 
+The mistakes were found with scripts/checkpatch.pl against the list in
+scripts/spelling.txt.  The scanning, the edits and the changelogs were
+produced with Cursor running the claude-opus-5 model, from a request to
+find and fix spelling mistakes across the tree, and every correction was
+then re-checked by the comparison described above.  Words that name an
+identifier were left alone deliberately, even when they read as typos,
+because correcting the prose would make the comment disagree with the
+code it describes.
+
+Tested by building x86_64 defconfig at v7.3-rc1-269-gbc35965f6940, which
+is clean.  Nothing else was built, so any patch touching code that
+x86_64 defconfig does not compile has been read but not compiled.
+
+Hemanth Selam (2):
+  selftests: fix typos in comments
+  selftests: core: fix repeated word 'and' in comment
+
+ tools/testing/selftests/amd-pstate/tbench.sh    | 4 ++--
+ tools/testing/selftests/core/close_range_test.c | 2 +-
+ tools/testing/selftests/proc/setns-dcache.c     | 2 +-
+ tools/testing/selftests/proc/setns-sysvipc.c    | 2 +-
+ tools/testing/selftests/resctrl/resctrlfs.c     | 6 +++---
+ tools/testing/selftests/ublk/kublk.h            | 2 +-
+ 6 files changed, 9 insertions(+), 9 deletions(-)
+
 -- 
 2.48.1
 
