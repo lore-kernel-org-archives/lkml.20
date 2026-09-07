@@ -1,100 +1,78 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3127648C8CD
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:01:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C5E44BCB8
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:02:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788782518; cv=none; b=qP32z2DdVMg+KWVTacU6iE4vQbdsuGsxgtxN9/x9QBgQEzc4nl7DkmjWjaw5aLk/MrvA/q81Q47IDDW8WFwuaTXMuTQ6sm/TIClEgDWUubDXuG3fW8ajejdUt2PvqGnIw/JamjYy5io1Ii0NaFWHmdCHi5Y+bzQ7YR5doJgE+Wg=
+	t=1788782524; cv=none; b=okVEC9QjWqjk01hGXLn8LdAY/h+7s/Q72VOAyAkhNHEg9euPlttSAEZ+XxqrbK14vGj4CpxLLVR8HkMt5ABD6vdd7suZ6xUf4qLXmYFkToHSCY2BIQHgG/1oQ8oSQ05lk009XaWqYjxU3AJknfER+6nV21s8+9I6x8KxELDmLRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788782518; c=relaxed/simple;
-	bh=kuRqLYU/bVAolAtuT0lNsNPBb3H44v+1z9+WGNYvrCw=;
+	s=arc-20240116; t=1788782524; c=relaxed/simple;
+	bh=e+LcscX4l8bSIJhRp6pj21O+RxjEFrIGAmY61xbEojg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Kw4OCSJKxktmdnGkCSE9mDN9YUepq4Uc8wXs/6BuwyMFz6hzJjBypsws6qWtTvP9Dg98dr5j/Odb6O2PpuAf0H/uTTQ25Q9+MGWawUDqOVjELigjkW2HYgPjpEScdhJ/SoSDBXsqZweOxzS8IiX0veRLpt+qQCGTYHWKTt57xTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=llQq4rCN; arc=none smtp.client-ip=209.85.214.170
+	 MIME-Version; b=NnxxKbJIiOI+T5sdoIJG7iRaIwPZ/4UZkbK5p7txevXuS9d3ffm31ElO4OmtMTa5vF2XavGFzB6HLG3bci/DkuVbN2llOKs7TI4jJBxONtAP9F9iqmKEHLK5Fy95wlzSd+B9BjKKlAeLynQG7Aq9cB+wF8j/bydyW9WweUFE6b8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bvdCMj5h; arc=none smtp.client-ip=209.85.216.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="llQq4rCN"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d9db539a54so27274745ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:01:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bvdCMj5h"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so2780155a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:02:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788782516; x=1789387316; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788782523; x=1789387323; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=iSdhcylG8upaYgz/wmJd+JoSvai0ylGkPowyAHHfN0o=;
-        b=llQq4rCNDIie0aaplpZeITjsw35VfD5OpFuAUrvDpjn+9fQNpLR8BLGukiX0GUqtpX
-         W5NgF6LTOVNHb2hcAwLOtRsN3/CDPjMxRlVPacxMFhyL24GquF4EHoE0BoL2dac164/y
-         UCjnF7EJptkI1as7n2b4vE5tfvc7LM16CptR9FbRcfElRWMANipKFCod6kA6J/+X1X4O
-         jxYp7syG4fxmIXhyyJpZoA52dQQxuQZ0Lsy8mIf2JgVf8Qmi1eKlwDif4XdixQ1GjjWs
-         /H9vB6agHHoFHXfjQBeLccQtOLlirEta9/fD9zceKkatvAeMl3F7fI8Sy039AkqXUpcr
-         wAsw==
+        bh=DWeanejvZj9bixBLqbHSIOUPluNyoy6AbNIxqL5gJ7A=;
+        b=bvdCMj5ho3+J4yrk1YCw1vP4VDJSNx/XSxEOa2jN+rpxzdklCFIwvzq95L1KWgNNK+
+         VDW/kDCKjm2KRLpexdRkYkLTkxJoCZ4VIzztI97excSB4dYpenCTkpKAiQGxR7m5tCXR
+         aLko0mFNXwSii7trpxil9P9xV6JI3L8TYb5hQUf+dX/cGMSR7i8rHxXnFfk6IDgWnnwH
+         OdrqG9vUC9ENBHRNT5Gg0V00b4eIybUubPfFXyg5+z4+3EEWLU1+Ofx5sjqCYNelZ/9z
+         yzHRKREDjc1MeEgJ2GFh65bzH/vMV61jA+CdDPMPs3hQS4qNgbauwg8DJWYZeeUgtMsl
+         drbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788782516; x=1789387316;
+        d=1e100.net; s=20251104; t=1788782523; x=1789387323;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iSdhcylG8upaYgz/wmJd+JoSvai0ylGkPowyAHHfN0o=;
-        b=nRxEdBy2RiK3w5u5uzdJzqY5OWaKamatK08qQndotyV7pHw/kNbh9/0H2TSIKH1o2J
-         l9qvF8XxXGSl5EyhsPBknpcfdo18PN5UBVc8Xr2UFoAoUqJp9KVjDPbiiKGy24gCWXyO
-         OtwbuhPZPbzRuHqKRTFhB1FFIghjCEoviqxDb3vyDhe5PtTs6lGV0qvDBChz9cr31I2R
-         5EfN//hTmF5kP9Bf+3lE00HsCp1M0DIPyeOicqWCVu9v9xQSbKj+CNwPSDgtrBJfpNix
-         8RMmUgfXeO0VfgdFfH1euc7IZ7z+2x7unW323Meci7Y/LtBli1iUrhCQUWK0jYOz9gQY
-         tvLA==
-X-Forwarded-Encrypted: i=1; AKwUvByGpahCyrVThDoFieJfEMgnRoSwa2zE4TVyA/HyeJLzxBNsjE0Bp9bVuNhc19a9vZRGg8zh+JBL6i+iCGU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kddoZWrlBgGUMtxVzufhRnx9NTBLA55FeO+5kqnPmDGhLg2ijq
-	Re6yZcx9jLlCd0EQRz1hG+HlUQmsn41Yerfj4+x6hE/FZEB7B8ZlrxsG
-X-Gm-Gg: AYBFou2aSTVUQOCEMC/aGF/5rG6mlC4SAw5J4+Qr8AzsfU/VRRdD2BA/Fme6IqVnmMe
-	DPlF3yP2I4/+C3Oj9pApSTwgH1sv1rKGXKagfTAlcMbR1PvxZaeY3d10CroIUXgK0Io4QfAJIur
-	kXwNTMFDhbTUZPWSDM8oCs+u3kAQuoqh9ycA3uhLZZ6McNEU4UBFulsiy5MhJu6mbRh0peNUzIh
-	ywTgirOJ19UvW6ARsBi6suJCbBoADlxNH9UUI0LoHwSD9sO1kVhqXlyMcwZKOnahihXg7GyX2m4
-	FA/ok4nLjqgEh96mLCpo/SMdwZW5Rq+XgzHz6MhQkJ4JDwwso6AU0yD/KzfJPg/mszjBNerLn2q
-	tBAa2B9rD9gkpH8A2uSM0nouJZpAJobJHuE7eLVYShgcaRVKGrZTKrUUwK4P5KBjNxqjThL9osp
-	rnLNBqTW04qm6Hjf0hi8Zuk+jrt1kAFvPQ+IMI9QdC6XDJl/X1ctx0yAjngdhOBYlogOLHW8+LG
-	T6AMRGliWRxYg==
-X-Received: by 2002:a17:903:3810:b0:2d6:3c22:99bf with SMTP id d9443c01a7336-2db124afcefmr348302995ad.9.1788782516134;
-        Mon, 07 Sep 2026 05:01:56 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885ca07sm31244462eec.1.2026.09.07.05.01.47
+        bh=DWeanejvZj9bixBLqbHSIOUPluNyoy6AbNIxqL5gJ7A=;
+        b=A948Bt223sIxjOe3ZadWAGFHQLVHoMuIvDYmPyA77fBxKwvb8vbUoRSrD7CLUoP97C
+         gMyIygytOm7Ei2D+l+po2dAy1xO72+dv4aGyL3GfiN8e6teUX+ZOkFdfmT7zvpGN3n/1
+         xtNMbvwOsDj2hm/3IiF66X0hxCprYlh6jUjxZ17eTpEReFLwAcF0lLlLjcCHKddP0NJj
+         9QAa19ahLmJZaSY6DtEu1vX8TNVWaW9kMA+8T/iBxYYWGUA/j8FHhRtukqP5jBQnGZ3J
+         7BAkMgNVNVk3BpUeRcv7/qaMJzbuSv5+hzFRY9FSvkp1aGiRvqdne4/6ofRiF6OTfZiR
+         66VQ==
+X-Forwarded-Encrypted: i=1; AKwUvByC8WWwhy2Vbqkqp4ObkrogK75RSuzV/XjU4FwG14aLp5snJUdUawqmTfMcccbPtjG8FQaUbLO5WdFasV4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAPYG0Hu6lNgOF8NsYgvUIfC4Vj0zJom0o34XhiBwYvucvrMY5
+	rKnz1OiZI5FPaM6/1VRtbwnOVwySRTwxx8Tz8KQq0MDD6YhBpZzk2Gc=
+X-Gm-Gg: AYBFou0ZNa13V2aVcvFmaIQUZIloZAZaU+ByKk3G49dWQIkJcCw5cJl+bJ49qcNx8QU
+	OA+SjdXJe5NUosbeXkPOQtXEza477NPSbkmjNP+Sx6jexnyT8ifR+IcZeWx9HGu4B/AkpJXurri
+	IMx/mi0hGmw8SORpx8zuVGh9pqW/1TxZV2MYkeEcSSfZpUGsQULwWyNUVF39FHjY5hHOln3aDw6
+	aMhqQHVbi5qVavmfHBRHKku007NL+Uwym4Y3vXo529ndC+2A3hferBAP6GlAiIv37VyRIVffnwK
+	PF/9jhvnaBth8fmFHfIImIc/ehfZKr+N4Dpjv9Q4hqugrZfPdxERitIG0NyPg2VnDWm3pVF1VSF
+	FZ4SYPEeOfDrBP9tgLABrwsn+L//lKgo75ptzYWXCRedGTeKsP7XTvUnxWFUn7ddwm0P48Rg+sV
+	qThrQoJWOBxYQYLT9q6zs6mpVuZiSL8FoxkMviOd+ijiy1hGu+pKahzBT3o4/0wLv2JG61inX9D
+	8NFrGo7vRQBl7B8
+X-Received: by 2002:a17:90b:54c3:b0:398:d6e8:f84e with SMTP id 98e67ed59e1d1-39b2612ecebmr35866634a91.9.1788782522669;
+        Mon, 07 Sep 2026 05:02:02 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:6467:d689:c773:5f09:906c:a72b])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c39227sm26976118a91.9.2026.09.07.05.01.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 05:01:55 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Russell King <linux@armlinux.org.uk>,
-	Puranjay Mohan <puranjay@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Hari Bathini <hbathini@linux.ibm.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Naveen N Rao <naveen@kernel.org>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Shuah Khan <shuah@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Andreas Larsson <andreas@gaisler.com>
-Cc: bpf@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+        Mon, 07 Sep 2026 05:02:01 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Robin Murphy <robin.murphy@arm.com>,
+	Sean Anderson <sean.anderson@linux.dev>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	iommu@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kselftest@vger.kernel.org,
-	sparclinux@vger.kernel.org
-Subject: [PATCH bpf-next v3 7/7] selftests/bpf: fix repeated words in comments
-Date: Mon,  7 Sep 2026 17:30:43 +0530
-Message-ID: <20260907120043.36894-8-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260907120043.36894-1-hemanth.selam@gmail.com>
-References: <20260907120043.36894-1-hemanth.selam@gmail.com>
+	donggeunyoo.kernel@gmail.com
+Subject: Re: [PATCH] dma-mapping: don't trace the DMA address when the allocation fails
+Date: Mon,  7 Sep 2026 21:01:56 +0900
+Message-ID: <20260907120156.603600-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <ff20483d-c701-4cdb-8db8-15aa79bc32cf@samsung.com>
+References: <20260905071919.30784-1-donggeunyoo.kernel@gmail.com> <ff20483d-c701-4cdb-8db8-15aa79bc32cf@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -103,45 +81,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Drop repeated words in comments, reported by scripts/checkpatch.pl.  Only
-touches comments, no code changes.
+On Mon, Sep 07, 2026 at 01:05:20PM +0200, Marek Szyprowski wrote:
+> Frankly speaking I would prefer to fix this in include/trace/events/dma.h with
+> __entry->dma_addr = virt_addr ? dma_addr : 0;
 
-The subject prefix changed since v1, from "selftests: bpf:" to
-"selftests/bpf:", to match the rest of the history in this directory.
+Agreed, that is better. It also covers dma_alloc_pages() and
+dma_alloc_sgt_err(), which share dma_alloc_class, and any caller added
+later.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- tools/testing/selftests/bpf/libarena/src/asan.bpf.c | 2 +-
- tools/testing/selftests/bpf/progs/iters.c           | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+> Here You remove the debug_dma_alloc call for the failed case. Right, it
+> is a noop now for the allocation failure, but it might be extended with
+> some kind of debugging in the future, so I prefer to keep the current
+> code here.
 
-diff --git a/tools/testing/selftests/bpf/libarena/src/asan.bpf.c b/tools/testing/selftests/bpf/libarena/src/asan.bpf.c
-index de656b69d13a..fb50ee4ad097 100644
---- a/tools/testing/selftests/bpf/libarena/src/asan.bpf.c
-+++ b/tools/testing/selftests/bpf/libarena/src/asan.bpf.c
-@@ -204,7 +204,7 @@ static __always_inline bool check_asan_args(s8 __arena *addr, size_t size,
- 		goto confirmed_valid;
- 
- 	/*
--	 * Wraparound is possible for values close to the the edge of the
-+	 * Wraparound is possible for values close to the edge of the
- 	 * 4GiB boundary of the arena (last valid address is 1UL << 32 - 1).
- 	 *
- 	 *
-diff --git a/tools/testing/selftests/bpf/progs/iters.c b/tools/testing/selftests/bpf/progs/iters.c
-index c6699159dacd..e44a979270ea 100644
---- a/tools/testing/selftests/bpf/progs/iters.c
-+++ b/tools/testing/selftests/bpf/progs/iters.c
-@@ -1511,7 +1511,7 @@ __naked int checkpoint_states_deletion(void)
- 	 * would get equal to one of the explored states and thus loop
- 	 * exploration would be finished (at-least for a specific path).
- 	 * Verifier evicts explored states with high miss to hit ratio
--	 * to to avoid comparing current state with too many explored
-+	 * to avoid comparing current state with too many explored
- 	 * states per instruction.
- 	 * This test is designed to "stress test" eviction policy defined using formula:
- 	 *
--- 
-2.48.1
+Fair enough. kernel/dma/mapping.c is untouched in v2.
 
+include/trace/events/dma.h is not covered by the DMA MAINTAINERS entry,
+only by TRACING, so v2 has Steven and Masami on To as well.
+
+v2, tested this time rather than compile-tested only:
+
+  https://lore.kernel.org/linux-iommu/20260907120124.603373-1-donggeunyoo.kernel@gmail.com/
