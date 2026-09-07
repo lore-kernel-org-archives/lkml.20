@@ -1,146 +1,102 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF44350AC0C;
-	Mon,  7 Sep 2026 15:39:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7DA738E8A7
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:40:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788795600; cv=none; b=l6qNWfGGCYLj3KCj2Ynb/geBI8r9TMYpo9KOBdlsMeWihUQ+HZEPbiSAVVVJxd7IYXvfdC/YZMBDvtsLEjv/Ub63UhNShc0zH0pUa8t/+MCy8+uyeWWjoIbdXZPNchBNn8tzXKGudSb/V5j2S53IOOoD1GWBQjO5E3xpYfKNJyU=
+	t=1788795608; cv=none; b=Jq9YPPnJxl1D5CupVpxVZsaeIu3n40XYKU2BXye9qUSHRiLaYKWBCFj34YTEyb99V6fZKphseM+Haa2scIhyPgKNp72rn/l7+iIKorDWd5VEXJlu/jtSuZoKy9lvCSsTL9z/grNEvGeGKoW7lCRCaSAKT/XTGCMbxNZc6cwVbyk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788795600; c=relaxed/simple;
-	bh=IPBkhQVHqxj0IfXD4Tzxx9fiJ4xFnHA/DZoHDEQrQYU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=livCQAhaiUPFH1M/FhKxaI7HvXheYQKkq6AxWmpLWuxipfrrm30wB5yaHzIGnMJelYCgksUiVOhLxq2LiYmYcUgiivGyLEbmkZgN+/lrr7w4rNCww8swnRy2s0U5KAy7SCntdyiGXf+y68Yw2pAdb3aHlAnwv9d4JbwfEl9RYvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=h1cXh30Y; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788795608; c=relaxed/simple;
+	bh=Jel4EndZbXb8x1Xk/74XCyhNv7WEnh2O+SP3vcyl++Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZFXs0Ma/lPXC1iwaQa98bf/EvpGWZMtYxkmGFi9BUVGcKx4wDFhBSS2tIKBn1iZjfdYZMGsYe3gP5nrgMgzSKUI27Rp0oYsU656LE2QOvswN5B4MF2b76DRpQGkQwVtL3NL8q2eXZAEkHmtxAnxsSU15chGTzCLBxCsKnnjXpik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=M1fjyC51; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="h1cXh30Y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788795598; x=1820331598;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=IPBkhQVHqxj0IfXD4Tzxx9fiJ4xFnHA/DZoHDEQrQYU=;
-  b=h1cXh30Ysxe/xPQs4fbRdv8IDmLJDCmlOKA+I9t9F9gqt4/eZp4H4UC9
-   845UIZMoZOpMCw+ouAHGRmYaW6Hbs0GJizBi7cFqtDC2fQJOzb2BdvkQu
-   Lxdg0HoqIqgf4RbVZuGGecycdidqSZw5WoTeqsnz2cHwR/T5niOsswmOr
-   gxoNEk3kngzPkINE9XN9uuspZjDusPhghWfL7/sm5BmZgwyMlVvpRXKNH
-   JOtwiU2DCA38IFmjmLVG7KqFk8oMjHH8zVwg9P0sYPq1G4hE/3gaVbYsH
-   SCiCswg2TBsXULhK3zT7SkhtLzyZDCcCxiS4ge9Egar0dJsxy9SxJ2kIV
-   A==;
-X-CSE-ConnectionGUID: Gnei4LQ7Sguh60PK1LXjEQ==
-X-CSE-MsgGUID: AiRkgqPyROukMaoOk2gp+g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="99858672"
-X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="99858672"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 08:39:57 -0700
-X-CSE-ConnectionGUID: JAB5ITPsSXSuPV3/WL147A==
-X-CSE-MsgGUID: iQtiMoMfQ8eKammQ1m0YiA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="276018594"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.229])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 08:39:53 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Albert Esteve <aesteve@redhat.com>, Harry Wentland
- <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira
- <siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>, Christian
- =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
- <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, Maxime Ripard
- <mripard@kernel.org>, Albert Esteve <aesteve@redhat.com>
-Subject: Re: [PATCH 3/3] drm/amd/display: drop INLINE_IFN_KUNIT
-In-Reply-To: <20260907-visibility-unification-v1-3-6a962e5b3351@redhat.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260907-visibility-unification-v1-0-6a962e5b3351@redhat.com>
- <20260907-visibility-unification-v1-3-6a962e5b3351@redhat.com>
-Date: Mon, 07 Sep 2026 18:39:50 +0300
-Message-ID: <6f3ee86ab60ed16348dc0ac252ba27596829dc19@intel.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="M1fjyC51"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=UKKWOnQCcoGtayn2pHOb7G8xUo0f1QkdSYMBVmDE/fE=; b=M1fjyC513h3nWasF84ID/8yH94
+	CzT/IvDHLCQw146LKf9PWfzJmPo1/gQf5Nhve0MA1acA9LgC6RG0tKVHYdWzux95LSH1YNSSZte1Y
+	W1YjWEH+n5iT5YONetchrdokxM7u8ZMfSlqYn3zwVK2vZthVAsikl6iCOwiCAftjYMpLCn1sApcAN
+	gU/ydiRMwptrw3IcLZ2qQsXdqiRBBH7Tv+KlbERnI4vB0KuywvhQzD1P/nP1z4xZGvKMGzioLsTs4
+	Opma2DuzMB6J10Tb/wWPkMaxe4iAUuegc98r0V5N6rvFMZZia4JInhzGOJfwhOZV02HQNN40ntTye
+	u6N/JKQw==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x3bRr-00000007Cy9-34n7;
+	Mon, 07 Sep 2026 15:39:58 +0000
+Message-ID: <22496d1a-eabe-4606-8619-391d96c124eb@infradead.org>
+Date: Mon, 7 Sep 2026 08:39:54 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-
-On Mon, 07 Sep 2026, Albert Esteve <aesteve@redhat.com> wrote:
-> This helper was originally static inline. INLINE_IFN_KUNIT only added
-> inline for KUnit builds, which dropped that hint from production.
->
-> There is no equivalent in kunit/visibility.h, and tests do not need
-> one: they call the exported symbol from another translation unit.
-> Use an unconditional inline with VISIBLE_IF_KUNIT instead so
-> production stays static inline.
-
-FWIW, using inline in a .c file is pointless in most cases, and the
-compiler usually does the right thing. It might inline at a better
-granularity than the manual one. (You could see what difference having
-the inline makes, if any.)
-
-BR,
-Jani.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] scripts/spelling.txt: keep British spelling for
+ "initalise"
+To: Hemanth Selam <hemanth.selam@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Joe Perches <joe@perches.com>, Colin Ian King <colin.i.king@gmail.com>,
+ Jonathan Corbet <corbet@lwn.net>, linux-kernel@vger.kernel.org
+References: <20260907091324.32211-1-hemanth.selam@gmail.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260907091324.32211-1-hemanth.selam@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
->
-> kernel-doc already strips inline, so the dedicated xform can go too.
->
-> Signed-off-by: Albert Esteve <aesteve@redhat.com>
+
+On 9/7/26 2:13 AM, Hemanth Selam wrote:
+> These are the only two entries in the file that map a British spelling
+> to an American one:
+> 
+>   initalised||initialized
+>   initalise||initialize
+> 
+> doc-guide/checkpatch.rst asks that British and American spellings be
+> left alone, so correcting the missing "i" should not also change the
+> variety of English.  Following checkpatch here silently rewrites
+> "initalised" to "initialized" in files that otherwise use British
+> forms; arch/arm64 alone has 58 uses of "initialised" against 132 of
+> "initialized", so both are clearly in use.
+> 
+> Map them to the British forms instead, so the misspelling is still
+> caught while the spelling variety is left to the author.
+> 
+> Suggested-by: Randy Dunlap <rdunlap@infradead.org>
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+Thanks.
+
 > ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 2 +-
->  drivers/gpu/drm/amd/display/dc/dm_helpers.h             | 7 -------
->  tools/lib/python/kdoc/xforms_lists.py                   | 1 -
->  3 files changed, 1 insertion(+), 9 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> index e3f4ee6e8380..eea7e7dcfa30 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> @@ -173,7 +173,7 @@ void amdgpu_dm_init_color_mod(void)
->  }
->  EXPORT_SYMBOL_IF_KUNIT(amdgpu_dm_init_color_mod);
->  
-> -VISIBLE_IF_KUNIT INLINE_IFN_KUNIT
-> +VISIBLE_IF_KUNIT inline
->  struct fixed31_32 amdgpu_dm_fixpt_from_s3132(__u64 x)
->  {
->  	struct fixed31_32 val;
-> diff --git a/drivers/gpu/drm/amd/display/dc/dm_helpers.h b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-> index 6d7cdab1006f..cabcbc2599e6 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-> @@ -194,13 +194,6 @@ void dm_helpers_mccs_vcp_set(
->  		struct dc_link *link,
->  		struct dc_sink *sink);
->  
-> -#if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
-> -#define INLINE_IFN_KUNIT inline
-> -
-> -#else
-> -#define INLINE_IFN_KUNIT
-> -#endif
-> -
->  bool dm_helpers_submit_i2c_over_aux(
->  	struct ddc_service *ddc,
->  	uint32_t address,
-> diff --git a/tools/lib/python/kdoc/xforms_lists.py b/tools/lib/python/kdoc/xforms_lists.py
-> index b49b81da74d9..cab4a49e4fc4 100644
-> --- a/tools/lib/python/kdoc/xforms_lists.py
-> +++ b/tools/lib/python/kdoc/xforms_lists.py
-> @@ -105,7 +105,6 @@ class CTransforms:
->          (CMatch("__attribute_const__"), ""),
->          (CMatch("__attribute__"), ""),
->          (CMatch("VISIBLE_IF_KUNIT"), ""),
-> -        (CMatch("INLINE_IFN_KUNIT"), ""),
->  
->          #
->          # HACK: this is similar to process_export() hack. It is meant to
+>  scripts/spelling.txt | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/scripts/spelling.txt b/scripts/spelling.txt
+> index 3372873cd7bb..9ec2529bc584 100644
+> --- a/scripts/spelling.txt
+> +++ b/scripts/spelling.txt
+> @@ -872,8 +872,8 @@ infromation||information
+>  ingore||ignore
+>  inheritence||inheritance
+>  inital||initial
+> -initalised||initialized
+> -initalise||initialize
+> +initalised||initialised
+> +initalise||initialise
+>  initalized||initialized
+>  initalize||initialize
+>  initation||initiation
 
 -- 
-Jani Nikula, Intel
+~Randy
