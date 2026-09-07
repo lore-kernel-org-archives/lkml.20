@@ -1,191 +1,180 @@
-Received: from sender5-op-o15.zoho.com (sender5-op-o15.zoho.com [165.173.182.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE5C8412280;
-	Mon,  7 Sep 2026 19:35:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBEFC4052AA
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 19:37:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.44
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788809719; cv=pass; b=ZeqobcmOm8t5MrVrUGuTXw7QYjyJfbfIjv5GIEHVrPqZITkawDcX/a1wt5Y20+/qGEw4LRuEG4vhvjXCHGSabXWN3+n8M0MB2QF9rkrALncgKMV91gLeeYYfwgErxwdeEOOwwigm10Nz1rZSRgHaxiIatJiGcjmdA9D3FIzVEtI=
+	t=1788809830; cv=pass; b=FtRilhKKTqy/1LjVUg9A8HnY9iM7uJcocd5qqOTbkz0ckg2p9OzTfK5PEq7stK43xHwvG0GezDzg6kz1YmNYAI9ZHYYKex5F92kwutB4tz7MH/phd/vcZDILwFLIL05cBKn8ll11syJHdhFJ23ERudUuIQCccx2bU7kpiqMZRYU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788809719; c=relaxed/simple;
-	bh=4Y8sx3ONZ3zL53OtxcsBEjCKaLvK0necxZ6DWhdZt7A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SnpNMeQc7qyRrp0HoFumnpHqED+JLxKms8EoxlKb030qbNHFL6797LIE9hdwe3TlaujX7F/MKSp6N92/9OhwGo1rc85JeHWYhOd2pfdZcj2rEMp2UY7L59U1E2uh4CfMAe/xQakofwyRohwNJuiwnV3LQajp0LJiFi/7PEXP04U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=W/B7zC+l; arc=pass smtp.client-ip=165.173.182.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	s=arc-20240116; t=1788809830; c=relaxed/simple;
+	bh=pAmDg64TOE5VZzyufwgiqVMUbG4l1wO3gZod6MM4Li4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tDgwNpnZD68N7QoKPcpLnPZ4tbigFP0n1mHU+M9cyYuCFsKWL3IAUQkfMtuHQC7ebVI05yxg5UV0zZNKobSmPVZ+CrZTqquNke69YraNXfOTdOsrZR15y/0P0TVHBRIhO087kk3joPD71RwPryes8ejTLYXjzxqraSXu4lAhX5U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kbGzL2Ns; arc=pass smtp.client-ip=209.85.208.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="W/B7zC+l"
-ARC-Seal: i=1; a=rsa-sha256; t=1788809698; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=c7FxL89vbCVHjrsYKcMiJ7t4cmhq+ZneHwhzqxWT3t/1D/B03bBs6Fk6BPAODfrTqmaOxXFkrP+CQ3x6TtQii9drdWeMl/IMD5ftvE4qc4Gd8bexL5rizTY2DWdgqOy97AolXGewc4mpY03x0L4cBQwdXSuNb2i20dsWMbCcQeQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1788809698; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=u/qHrBdVk/gn+RbDm+CHmVxzRHl6sCOs8xPOskDG3ok=; 
-	b=lRQiDdFgBXhtBOMHh8WLK+8eUIc2StPBFE2IdxWvi/IHnz7Smp7MQpEMUxFsIbweSVCI5PgPQvRwljaFG+RSY2Wu3U7H2U3M363cOZ9No6yTvt0ZQhX1xgq9MS7aBsWOyMti8WhZmi9MUHvmaLtacKcr8UivHQSCju4+oNkAIpA=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788809698;
-	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=u/qHrBdVk/gn+RbDm+CHmVxzRHl6sCOs8xPOskDG3ok=;
-	b=W/B7zC+l/WO2WGW00v2CWsFRYY6/enbm6X/3s0dtaZHvPD02fUr4pNhlCC3dyx8J
-	ZT3bExEAeqoBSBhNRQ9Iy174qqQNp8e3IYqBaK+kMsLh5BhZXhYFGtJx6jSGzo7YUbX
-	VP8PfpZOEJ51e4ZmNKCPdUuJ8eHXXCZAZ5ep8vSsNoEr4DI/MdaXX/j/FlwGY/sQlf7
-	N3zBBNs5RoJvX7XJ+Z2t76kzkF/Y+Uk44HddsfxUQssMPH5q99kYFgoZIeR4/cAT5Tm
-	GG4XiWUK3UZ9ydiuaRLG79/XlNS7wVat/GLir9NcK+molKrj0pGVXLxIRFmw3KZVay+
-	Go4rTOMhNA==
-Received: by mx.zohomail.com with SMTPS id 1788809695443853.7795859537737;
-	Mon, 7 Sep 2026 12:34:55 -0700 (PDT)
-From: Rong Zhang <i@rong.moe>
-Date: Tue, 08 Sep 2026 03:34:40 +0800
-Subject: [PATCH 2/2] ALSA: usb-audio: Add quirks for HP Elite x3 Lap Dock
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kbGzL2Ns"
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a6868f18aeso5643734a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 12:37:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788809827; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kYwM/+FHTX3zGO8USEA4KVnah8nMFL9lahRC6NmIdIjCbzEAIZDEwYuWH+GHu63VIK
+         ylb7xMsxlFArTAobcfKmuiFIjbbk9cy2Ryxp83MlCe5Vg0xaa/muuuqQl5NsVw90jjtc
+         ICkf/rGtLTD9A9Ku2TgGu8I+014ruQJCHfbj7J8zvkOMszxi0WSI1GADhfaybsH+h3+S
+         aM1Z+nBuokfa8Xgri3j5qLn0Escy5Qy3YyeZgrq8g/jN6RklA9C4qynYYkx3e6RXy115
+         zqSwwMbG6c4Y+dHiLvgCwcbeX/lHqNvS2CN5OEl7hMYMVq9x6orFqCNLX3AdHCmHJ/Gd
+         SAZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rCDQa/mg3a9yMD9wIkpq0CYkOHi539ohf0EULzMvUjA=;
+        fh=uAD/kYbb52s7fyNgeppJJ+fNCO4b1S8XktAWINlmR+k=;
+        b=eKcInpKo529J72I7ESNmYQ+hkFdBodiU1m3CN0dkS1iUnoAuQowJ4VRAH7O3jMZRga
+         bAtTNB/LrDZFsHNTwRbUjvu/dcavayOGPZh4I6Sdw4AVHUZLKqOdBaHmDimywvVnGwLs
+         8tpK3VDEmKJAo+QfEl7y9nQj81deInBjU+2r7L1lFC3MPCosoaoNza3/tbiS1J3fSyW+
+         Z4EDHxseXuabEO+nTk3d4k4qzv2cf/hFlCdJstOMMEuLVLY5zLR98ODmpk2haZmMd0yH
+         R04OR4APqLUWwHbnwF9k00KaLl7S/fAybwpl318p/jGEih2r1cvO0sNQH7tpPcuJZvVY
+         7YXA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788809827; x=1789414627; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rCDQa/mg3a9yMD9wIkpq0CYkOHi539ohf0EULzMvUjA=;
+        b=kbGzL2Ns0CHUX3ICTGFl4SwKJZmIKamaMD71JSD7X8oogUBsFR0S/K1fivQSlYOQXy
+         /JeqbVKvO1aXmRVW2pe3LMwILKLcMCCkD5Hve+w1oFyPCn27sTCjbZJBMPexVCs3jUcw
+         Xm38mGZVlotx2PiKMztwu6ENPqjPU3U3LSpKysf1vKsRXIUUCLiRt+4O3nCdnmGdu46W
+         77rsXx6dif9jWTG5xdcEPf1E/zPAjxp/Br/Fz+wkngv6icZ7hZgNFKuXfFdxzxzWh5w/
+         mn1+GRd7lRmN8RQYg1jsloLNAceOKokjcSJ+aP27J+ktNWUgRlTicRNI0+7B+qYvliiV
+         qIdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788809827; x=1789414627;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rCDQa/mg3a9yMD9wIkpq0CYkOHi539ohf0EULzMvUjA=;
+        b=Cm8wcFlSlCknLcYt9apPRqHjya8k+0746WeNkd73vvFRmFQUldteP3gTp4YCVOOkX2
+         Jftmu8gdI8oNXxIaKpz6kNmz3JJEKa2pzkaD4bw299NOnDYrYubioB5f2uOEBrvaXBql
+         +T7lYPXVS68z5FrBQiIRIgMQd1gNgZBYUdZ8EPzJ8nqiVF0rOhObK1vcfiJqX14Mz7R2
+         nDvC6LSiMv7+ExoSm58Ha18yPJZOo5QbCWfcVdIlaZZZ7ieykbERXvq4P4UoJY0543a0
+         QLIZmFZflOOleWifwP6F3Gnm1YzLEuEYwfs2DsXa/ynqbz8kro/WSLvpxdOx+FchQs5M
+         hUUw==
+X-Forwarded-Encrypted: i=1; AKwUvBy831hXGcnB71gwVAeH8pFLzCw0W+r9wPAPA+crHPZaOeNrvM+ybKNMGbvz8UG0PO0OgEw4Riwo+7XG+Lc=@vger.kernel.org
+X-Gm-Message-State: AFuF++m0NPRg4fTfXh6O5lzuopRTnxFL5tYzPUQqVHhIn41UeNR1SfIp
+	ZcZJkWxeuqcSZOxLMGigrk4RKgm4k0iT5UozWKrMSkcK+qRw1Z5naz5IOrlKkTsr/lnSPykMVIl
+	x1ct2LXKO1Wg8qL8mJwqn5/OegYdApX0=
+X-Gm-Gg: AYBFou2cDhhB/WfL85Z1ED3AMBe5GOsgvkgMjYMB0fFwv0ThRfqXxdMCsBs14OIz/o6
+	sBJjOdlzP66wr64FEj9oEqd211YSDc2XXcAnc2mBEg44d8UlcptNgKa/vlIkUDblozEMs9ZAyyj
+	vUE3R4Ghatyc80y9MnJKZ5QRNSI1Q0AS8bqbaTcovPnwXSQ0pif1c3iQyXfwvHkWK7FyqCXnu40
+	Ep9GVWy3aC4KznFmJNU+gC1EPdUxAZVRt9Ge1Ol6YV5fski98WZClLN6FGrecROXVjBU5AK9OtM
+	zBCc+XlJiCHDJGyUE7OI+4MfNG1zUHPSR21SFNi1Vk5WnHihskzl8x5xL795lBG5gNVHexUP3Oc
+	=
+X-Received: by 2002:a05:6402:5113:b0:6a7:ee55:dcd7 with SMTP id
+ 4fb4d7f45d1cf-6a7ee55dde4mr6871345a12.38.1788809826547; Mon, 07 Sep 2026
+ 12:37:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-uac-hp-elite-x3-lap-dock-v1-2-e226cfe4038e@rong.moe>
-References: <20260908-uac-hp-elite-x3-lap-dock-v1-0-e226cfe4038e@rong.moe>
-In-Reply-To: <20260908-uac-hp-elite-x3-lap-dock-v1-0-e226cfe4038e@rong.moe>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Rong Zhang <i@rong.moe>
-X-Mailer: b4 0.17-dev-1f2f7
-X-ZohoMailClient: External
+References: <20260904055359.327050-1-linmag7@gmail.com>
+In-Reply-To: <20260904055359.327050-1-linmag7@gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Mon, 7 Sep 2026 21:36:55 +0200
+X-Gm-Features: AcwNN1XKNSsHfM35Gym2RgpjA4w21sbKhoTs4rKY8si_jlYcMqJSokUdV6gGC_M
+Message-ID: <CA+=Fv5SvHh4Tjqchcfofi91ZArOGMROfVkKXDQCGrEwTUrwZgQ@mail.gmail.com>
+Subject: Re: [PATCH 0/2] sparc32: fix SuperSPARC SMP synchronization
+To: davem@davemloft.net, andreas@gaisler.com
+Cc: sam@ravnborg.org, sparclinux@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The HP Elite x3 Lap Dock is a laptop-like external display device with a
-FHD screen, a keyboard, and a MT touchpad. It can be connected via USB-C
-or Miracast. As an e-waste collector, I recently brought one for 69 CNY
-(10.2 USD). The price already indicates how broken the device's design
-and compatibility are ;-P
+On Fri, Sep 4, 2026 at 7:54=E2=80=AFAM Magnus Lindholm <linmag7@gmail.com> =
+wrote:
+>
+> Fill two gaps in the SuperSPARC/Viking SMP synchronization paths.
+>
+> This series is based on the three sparc32 relocatable-kernel fixes which
+> honour and derive phys_base and advertise the relocatable image. It does
+> not include those prerequisite patches.
+>
+> These patches can be found here:
+> Link: https://lore.kernel.org/sparclinux/20260816075141.3489194-1-linmag7=
+@gmail.com/T/#t
+>
+> The SuperSPARC Family User's Manual requires software to keep at most one
+> Demap operation in progress across the system. It also says that an MBus
+> system must ask every processor which can retain a stale translation to
+> perform its own local Demap [1, sections 8.5.3 and 9.8.2]. The Sun-4M
+> architecture specification likewise describes SRMMU flushing as local to
+> a module [2, section 7.1.4]. Patch 1 serializes each complete shootdown o=
+n
+> sun4m and invokes remote CPUs one at a time. sun4d already serializes its
+> Viking Demap operations.
+>
+> SuperSPARC maintains I-cache coherence by snooping, but FLUSH is still
+> required after modifying instructions. It drains the writer's unsnoopable
+> store buffer and clears local pipeline and prefetch state [1, sections 7.=
+4
+> and 10.2.5; 3, section A.8.2]. Patch 2 executes FLUSH first on the writer
+> and then on remote CPUs.
+>
+> The series was tested on a dual-CPU sun4m SPARCstation 20 with TI
+> SuperSPARC processors and Viking/MXCC:
+>
+>   - boot to multi-user with both CPUs online;
+>   - 200,000 concurrent mprotect iterations over a shared address space;
+>   - 12,000 executable-code rewrites checked on both CPUs;
+>   - removing flush_icache_range() reproduced a stale instruction on the
+>     first rewrite.
+>
+> [1] SuperSPARC Family STP1020 & STP1090 Series User's Manual,
+>     Revision 1.0, April 1994.
+> [2] Sun-4M System Architecture, Specification 950-1373-01,
+>     Revision 50, July 19, 1991.
+> [3] SuperSPARC II Addendum, Revision 1.3, December 1994.
+>
+> Magnus Lindholm (2):
+>   sparc32: serialize SuperSPARC demap operations
+>   sparc32: synchronize SuperSPARC instruction updates
+>
+>  arch/sparc/include/asm/cacheflush_32.h |   2 +-
+>  arch/sparc/mm/srmmu.c                  | 120 ++++++++++++++++++++++++-
+>  arch/sparc/mm/viking.S                 |   4 +
+>  3 files changed, 123 insertions(+), 3 deletions(-)
+>
+>
+> base-commit: e6de5705a9f0d81f67bdb2917108784b5839cecd
+> --
+> 2.43.0
 
-When connecting via USB-C, the video source is, of course, DisplayPort
-Alternate Mode. However, the audio source has nothing to do with the
-DisplayPort signal and is actually from a builtin UAC device.
+Hi,
 
-The builtin UAC device provides three Alternate Settings:
+I'll send a v2 of this series soon, simplifying patch 2 to use only
+a local FLUSH.
 
-- 1:1 - Capture, S16_LE, 8000/32000/44100/48000Hz
-- 2:1 - Playback, S16_LE, 48000Hz
-- 2:2 - Playback, S24_3LE, 48000Hz
+SuperSPARC maintains instruction-cache coherence through snooping.
+The writer's FLUSH provides the local synchronization needed after
+modifying instructions, including draining its store buffer. Remote
+FLUSH cross-calls are unnecessary.
 
-Unfortunately, the last one is broken because:
+My earlier justification based on instructions already in a remote
+CPU's pipeline was insufficient: a cross-call cannot prevent an old
+instruction from executing before it arrives. Callers modifying live
+text must themselves arrange safe execution during the update.
 
-- it doesn't accept SET_CUR(SAMPLE_RATE). QUIRK_FLAG_FIXED_RATE works
-  around it, however...
-- it constantly produces severe harmonic distortion once the capture
-  stream is also opened. The interface 2 must be closed and reopened to
-  make it recover. IOW, simply closing the capture stream makes no
-  difference.
+The v2 will retain the local FLUSH implementations for
+flush_icache_range() and viking_flush_sig_insns(), while dropping
+the remote cross-calls introduced by patch 2.
 
-Considering that S24_3LE offers no additional benefit on small speakers
-compared to S16_LE, and 2:1 is always usable as an alternative, skip 2:2
-to get rid of the trouble.
+Patch 1's TLB demap serialization is unchanged. Cache snooping does
+not invalidate another processor's TLB entries.
 
-Setting chip->setup to any non-default value disables the fixup and
-reenables 2:2 (in this case QUIRK_FLAG_FIXED_RATE is required).
-
-Quirky device sample:
-
-  usb 7-1.4: new full-speed USB device number 50 using xhci_hcd
-  usb 7-1.4: New USB device found, idVendor=03f0, idProduct=0c56, bcdDevice= 0.00
-  usb 7-1.4: New USB device strings: Mfr=1, Product=2, SerialNumber=0
-  usb 7-1.4: Product: HP Elite x3 Lap Dock
-  usb 7-1.4: Manufacturer: HP
-  usb 7-1.4: Found last interface = 0
-  usb 7-1.4: 1:1: add audio endpoint 0x81
-  usb 7-1.4: Creating new data endpoint #81
-  usb 7-1.4: 1:1 Set sample rate 48000, clock 0
-  usb 7-1.4: 2:1: add audio endpoint 0x1
-  usb 7-1.4: Creating new data endpoint #1
-  usb 7-1.4: 2:1 Set sample rate 48000, clock 0
-  usb 7-1.4: 2:2: add audio endpoint 0x1
-  usb 7-1.4: 2:2 Set sample rate 48000, clock 0
-  usb 7-1.4: 2:2: cannot set freq 48000 to ep 0x1
-  usb 7-1.4: [9] FU [Sidetone Playback Switch] ch = 1, val = 0/1/1
-  usb 7-1.4: cannot set ctl value: req = 0x4, wValue = 0x200, wIndex = 0x900, type = 4, data = 0x40/0x0
-  usb 7-1.4: [9] FU [Sidetone Playback Volume] ch = 1, val = -17664/0/128
-  usb 7-1.4: [2] FU [Headset Playback Switch] ch = 1, val = 0/1/1
-  usb 7-1.4: [2] FU [Headset Playback Volume] ch = 2, val = -18944/0/1
-  usb 7-1.4: [6] FU [Headset Capture Switch] ch = 1, val = 0/1/1
-  usb 7-1.4: [6] FU [Headset Capture Volume] ch = 2, val = -18944/0/1
-  input: HP HP Elite x3 Lap Dock Consumer Control as /devices/pci0000:00/0000:00:08.3/0000:c9:00.4/usb7/7-1/7-1.4/7-1.4:1.3/0003:03F0:0C56.0033/input/input129
-  input: HP HP Elite x3 Lap Dock as /devices/pci0000:00/0000:00:08.3/0000:c9:00.4/usb7/7-1/7-1.4/7-1.4:1.3/0003:03F0:0C56.0033/input/input130
-  hid-generic 0003:03F0:0C56.0033: input,hiddev100,hidraw8: USB HID v1.11 Device [HP HP Elite x3 Lap Dock] on usb-0000:c9:00.4-1.4/input3
-
-Signed-off-by: Rong Zhang <i@rong.moe>
----
- sound/usb/quirks.c | 38 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 38 insertions(+)
-
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 6e4808330a80..6462b8390106 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -1585,11 +1585,47 @@ static int s1810c_skip_setting_quirk(struct snd_usb_audio *chip,
- 	return 0;
- }
- 
-+static int hp_elite_x3_lap_dock_skip_setting_quirk(struct snd_usb_audio *chip,
-+						   int iface, int altno)
-+{
-+	/*
-+	 * 1:1 - Capture, S16_LE, 8000/32000/44100/48000Hz
-+	 * 2:1 - Playback, S16_LE, 48000Hz
-+	 * 2:2 - Playback, S24_3LE, 48000Hz
-+	 *
-+	 * 2:2 is broken because:
-+	 * - it doesn't accept SET_CUR(SAMPLE_RATE). QUIRK_FLAG_FIXED_RATE works
-+	 *   around it, however...
-+	 * - it constantly produces severe harmonic distortion once the capture
-+	 *   stream is also opened. The interface 2 must be closed and reopened
-+	 *   to make it recover. IOW, simply closing the capture stream makes no
-+	 *   difference.
-+	 *
-+	 * Considering that S24_3LE offers no additional benefit on small
-+	 * speakers compared to S16_LE, and 2:1 is always usable as an
-+	 * alternative, skip 2:2 to get rid of the trouble.
-+	 *
-+	 * Setting chip->setup to any non-default value disables the fixup and
-+	 * reenables 2:2 (in this case QUIRK_FLAG_FIXED_RATE is required).
-+	 */
-+	if (!chip->setup && iface == 2 && altno == 2) {
-+		usb_audio_info(chip,
-+			       "%d:%d: skipping broken altsetting on HP Elite x3 Lap Dock\n",
-+			       iface, altno);
-+		return 1;
-+	}
-+
-+	return 0;
-+}
-+
- int snd_usb_apply_interface_quirk(struct snd_usb_audio *chip,
- 				  int iface,
- 				  int altno)
- {
- 	switch (chip->usb_id) {
-+	/* HP Elite x3 Lap Dock: skip broken altsets */
-+	case USB_ID(0x03f0, 0x0c56):
-+		return hp_elite_x3_lap_dock_skip_setting_quirk(chip, iface, altno);
- 	/* quattro usb: skip altsets incompatible with device_setup */
- 	case USB_ID(0x0763, 0x2001):
- 		return quattro_skip_setting_quirk(chip, iface, altno);
-@@ -2215,6 +2251,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
- 		   QUIRK_FLAG_FORCE_IFACE_RESET | QUIRK_FLAG_IFACE_DELAY),
- 	DEVICE_FLG(0x0124, 0x0c21, /* Generic USB Headphone */
- 		   QUIRK_FLAG_FORCE_IFACE_RESET | QUIRK_FLAG_IFACE_DELAY),
-+	DEVICE_FLG(0x03f0, 0x0c56, /* HP Elite x3 Lap Dock */
-+		   QUIRK_FLAG_FIXED_RATE),
- 	DEVICE_FLG(0x03f0, 0x654a, /* HP 320 FHD Webcam */
- 		   QUIRK_FLAG_GET_SAMPLE_RATE | QUIRK_FLAG_MIC_RES_16),
- 	DEVICE_FLG(0x041e, 0x3000, /* Creative SB Extigy */
-
--- 
-2.55.0
-
+Thanks,
+Magnus
