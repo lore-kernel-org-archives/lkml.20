@@ -1,84 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C00D51FCA0;
-	Mon,  7 Sep 2026 17:12:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F61F47ECF7;
+	Mon,  7 Sep 2026 17:13:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788801149; cv=none; b=iqoMZQnTj6kh4XpgWOxQEOSlctYhGCCnb4iVD2N2WIK2Y0vk3MsaR3ybI65iqeIGn/2meRODf5S38uCjl5hYOHA5IMi/Y+OuK8IjQa1yygVgLC2VsINi8ms2a+Ql/P937nfwfoCPpGPfntZYHV5rnsJO2R/z4Lw0hrCQXIIMxeE=
+	t=1788801227; cv=none; b=YLlK2O1UKqAvC+qs2hG+41RNMJ5kkvSrqoKhsY25j3zQDJMYNuycyAQSTB9Xf3xVamMol9DytLiB/7DgK0oJdC4B2PjPyYnJ+6WkKZfTkGh80i1jUhln+81UyC4VWpvlcEBn3IDzq1LcITU3I4bIKV4bon90PsHewxEiEBZ+jjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788801149; c=relaxed/simple;
-	bh=+pwt7ytLNv7N/tXD0TT/aWOG89chC7GSwPZ5TDexaSo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FeAYNZArl/Bmzws60qcXnL2rugg52ah+YRqA8nwwXRI2USYHiazmjkKJ1Jre5Gvgeya3IO/GNBBL9tMUwMrFYX7kkSe5ffbXs8YhgmIh3YXrAyvAbS3aI7tIYwGiwbpHcBzeLd9kp5D3tp2ZsH0zWQFfCg0EQYiIy7N9MFmvkGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ULOcj1+A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788801227; c=relaxed/simple;
+	bh=4/PuKiP/f6DKzhRogjBKJ4XF4KWNFhhnnEYbXkWQ+qI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=J1hcVngFIB3EgzpN6frbQ5bA4J4tYg2lrMFDSGsBXZJ9CVw38hInohtepKjFauTJQ2R93VZCCuYRTeAUNNZsue0ZKyHWgI0LAHG35AqSJ3kCd6JM4EAVne+VltOM1f3OPZFEbuv14CreOsU7bGvDAaFlXC8Q8ZgTNaW9swRbxBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mvQ7KpIc; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ULOcj1+A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 547671F00ACF;
-	Mon,  7 Sep 2026 17:12:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788801147;
-	bh=3QelAmhdJ8KPxvwLkmNC9X/53BNSeYX//IkIfked+Kg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ULOcj1+AJUjnPLd17XkSPhcPcHUidVKWGqekiLNjlvxtZ3f+/XbjQoNwssXBu8OzU
-	 G3zcFDrA1JQRHS4fK21J8STziU+/+9C+Vqn/1qmxpGe8cM8YtTwrKVz9ayrRyRHkjl
-	 W5bCGu2n05qfFsaGOdhPfDz8v7BclHFLLwgr6zoyUPX7W1jedNkN7rgGGpp2FrgwcZ
-	 6YgBtAvzZlEEM1BqM8e2trpVuPTOJQbYGvsy0eCm7LoUmMzk+s4iR2LarRMAi/g2mY
-	 AYtqHxN6V8Wey793BFm5f+uhDMEEYTm5KIxG4KfdeP3UWnwssw4h6NxG+uBX+WiE05
-	 OYGzpEk1N4GhA==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	damon@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH v2 6/7] Docs/mm/damon/design: update for probe_hits_wsum DAMOS core filter
-Date: Mon,  7 Sep 2026 10:12:15 -0700
-Message-ID: <20260907171218.101430-7-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260907171218.101430-1-sj@kernel.org>
-References: <20260907171218.101430-1-sj@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mvQ7KpIc"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1BA55C2BCFC;
+	Mon,  7 Sep 2026 17:13:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788801227;
+	bh=4/PuKiP/f6DKzhRogjBKJ4XF4KWNFhhnnEYbXkWQ+qI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=mvQ7KpIcIo1NL/j0O52tOZTzoot6Cp2/HGxK7Oz5Ua5t+rHl1isz2OjoP3SlrAj5a
+	 eEVhEqRk5d0wks9/WljlE0/C/LAkEWLyjPqnJ253VB112dXfSe9XD6EP/9E1zXLOFl
+	 xAvXLmyvaijMwxB/JhXvfCN2z6CgkVtuBja58WttKNct62tYWGGMoEKuoGGdsV0orI
+	 /W5dcPOj0EzslnCW2fwjapywvChl9SJtW5Ok7nVmnAPaL2OlFEM+1m3es/ur9KzWX1
+	 GA3ZesivN3ZZ0Tc2hXdSGrncfQDi3Zai7W5bOIZZh+nwFIDJAmaLfVimV57HseGOIk
+	 B+ayPCHhLH1eQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EE87FC79FA0;
+	Mon,  7 Sep 2026 17:13:46 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Date: Mon, 07 Sep 2026 19:13:39 +0200
+Subject: [PATCH v2 1/3] dt-bindings: vendor-prefixes: add Free Mobile
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260907-for-upstream-nbxv3-dts-v2-1-6b4afd36180b@free.fr>
+References: <20260907-for-upstream-nbxv3-dts-v2-0-6b4afd36180b@free.fr>
+In-Reply-To: <20260907-for-upstream-nbxv3-dts-v2-0-6b4afd36180b@free.fr>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788801225; l=855;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=GS6HXtqxwlBUlcOkCxh64ErhDBGMmoQtgCG1FanLSW4=;
+ b=pZTrPdNKSAjqy369GEIvgRGDHKgqpAo5QEJdf9oK7rxagmgL1vFoiLjoIAGLGbVLJ7qjnLIY1
+ WWbzt14169QDNjfuiqgA0rx+QuTx4SouVvlwVwoaw1acfVo+wH8hKZk
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
 
-Update DAMON design document for the newly added probe hits weighted sum
-based DAMOS core filter type.
+From: Vincent Jardin <vjardin@free.fr>
 
-Signed-off-by: SJ Park <sj@kernel.org>
+Free Mobile is a French mobile network operator. Add its vendor
+prefix, used by the Nodebox v3 CPU Module (freemobile,nbxv3).
+
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
 ---
- Documentation/mm/damon/design.rst | 3 +++
- 1 file changed, 3 insertions(+)
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/Documentation/mm/damon/design.rst b/Documentation/mm/damon/design.rst
-index aac84de261aa8..8e980dde362de 100644
---- a/Documentation/mm/damon/design.rst
-+++ b/Documentation/mm/damon/design.rst
-@@ -822,6 +822,9 @@ Below ``type`` of filters are currently supported.
-         - Applied to pages that belonging to a given address range.
-     - target
-         - Applied to pages that belonging to a given DAMON monitoring target.
-+    - probe_hits_wsum
-+        - Matches to monitoring regions having a given range of :ref:`probe
-+          hits weighted sum <damon_design_attrs_only_monitoring>` value.
- - Operations layer handled, supported by only ``paddr`` operations set.
-     - anon
-         - Applied to pages that containing data that not stored in files.
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index ba20029693734..e467da45cd7ac 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -626,6 +626,8 @@ patternProperties:
+     description: Freebox SAS
+   "^freecom,.*":
+     description: Freecom Gmbh
++  "^freemobile,.*":
++    description: Free Mobile
+   "^frida,.*":
+     description: Shenzhen Frida LCD Co., Ltd.
+   "^friendlyarm,.*":
+
 -- 
-2.47.3
+2.43.0
+
+
