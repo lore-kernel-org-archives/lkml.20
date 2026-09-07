@@ -1,62 +1,73 @@
-Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF8C14CC26B
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 18:39:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91AEC4CA76E;
+	Mon,  7 Sep 2026 18:45:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788806396; cv=none; b=mi4tvta0HPR1+xlyo6cvF3Kw2tgJCAjJyjDT8dvkjNzu0pVE3M/3GnJ5PZ6/F8oFLKZ2Men42/FEzmVZXNeleuGaHb8J8bwXuaXlG8ti09aSOOqzZJOy+iVb0QMLXdtVq5UyImQcDGoIyqUaXgH4RE9u4bgDMpLaYPK+Kangj6g=
+	t=1788806710; cv=none; b=gfeqN3lHjqkaqF+mXso8H9MKKE+vbhB3SnvtfApEFSlZbJyhZzzXUP2vyMtztkNsuCiTjt7pDlPro0dGEOaJ6+5+t8eaqphf44D9JJt3ZLwYWCFfb06eM1lMyLdl+qdhSBTxuVbrRZWHzKrt73/lUMdmGF74i1qbKRAHdns1Gf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788806396; c=relaxed/simple;
-	bh=MCZnOTAXPYcO70rpe3t/5isXam3v/lFz//5KsYQgJ34=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=WYzZtlFHkAaT56ML09r5gpBbbYeXv/SXQoQbwUSW3iAFYFpiDRGKvkaLCxm2Mr+sZqZDWYgZNE+RXmUny+rh/nCJMtnm08hPfFoCaTghvXkVtoQwPGnM/XD67vCSOdTKAQXcdD+pwtor3P1mtbgP+3YkOw4CyS7OTW3BxIyH5B0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6b34e02c466so4240067eaf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 11:39:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788806387; x=1789411187;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=MCZnOTAXPYcO70rpe3t/5isXam3v/lFz//5KsYQgJ34=;
-        b=E/O5H9dLsbhrmSM178kWZax0dhKHZQ7hBA9Iae+eBG+k3RDlcLhNFmZ0mkhIkucCgF
-         3m+ptjZkkVxV7KVtVlvW6SJ39Fe5ilcHT06UtzcBbQanBfOX6rPaLb4CCRIY4ZzIHeZ3
-         jStCHcai1t0fFngDpYMHlg317zqNT3PVG6tMn8TLC8knSaoDpEMWEbF7jG2/y5ylZJb8
-         CTUKKAZ2Dmi7CQy5e5n3NpRH/f9JyeRcsabgmsHGq3yVNWyheQyNUPN/D+S95Z1glTPt
-         kZ2X5UyCVkLWtruNTBgAYwimnhy3SbMD214quVFApWyk5DErgt45PDqyIBR2tjiD/LJC
-         v7jg==
-X-Gm-Message-State: AFuF++k03T4eXL3pXkJxlJHUbpgfq/YpBdQRmKlTGSFESgy3cHzeLN1I
-	PfPxwFtadAz63/AU6rkzb8pqx0QW2q6FGljrvCV9IMDiAD9V1sfnfKCUh27XdEiPg9EhbKpB21P
-	K55Yd6zzGpyeMP/ecioDH/4ufbKdbd8P2ruPU5HF1BGhGHwIYkuYux4PVDJw=
+	s=arc-20240116; t=1788806710; c=relaxed/simple;
+	bh=101dLjuJxnbFZ4n42T4NCglck7JOmgKXdlLvMEHsTTE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=kixYP8GktYlGRphYUhW86upjSw9XOy6bbz6GNckGmTp78WYPgUJjn4HOzFf6HYRzmCDxkns0mGLwqwFUtLCdVi1MuPK8IQgXaQXvnDN8HY3wsd2+LpN6oqSr6Aof9HxpWsmjYgLAe17rZovtlZuwgy87qLrXaImbpYLMdklIbN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KNUN+DpX; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KNUN+DpX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6B411F00A3A;
+	Mon,  7 Sep 2026 18:44:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788806696;
+	bh=0wt9sWnJ/J/dmwG3JImQNAZGcvqroWlikEUzzJcdHDQ=;
+	h=From:To:Cc:Subject:Date;
+	b=KNUN+DpXnGtXHvNDdwfXVegvTQjU3C9Z/YCL/at+bJRWTtPvvYTX/1fxiD5BcZGrz
+	 Bdf2Rq8xBzw5+1z2bHOIfFJNlWf+C2HdJSbuvEglqbWvkR9fyFrUhu2RavYzUOij62
+	 eU5dbnjgnTD9vByVFoRkUwkVzSpxFoAOWLxOqCOhsphcD99/8UZ5q+wV99OYIIK9x+
+	 qLP4lZucTW8FSHvyGx4+mQTEkHAUwfIEty/hg2DEjdtNlC4Ug1y1hVnMsvXs/n632t
+	 GMOi4El724B5+UYfZp0lMEASDHW3AfeVjgHi63ygOV9Z7tZS6ZIBcfYADhyIHddF6w
+	 qHIDYiTCPXz/w==
+From: Leon Romanovsky <leon@kernel.org>
+To: Michael Margolin <mrgolin@amazon.com>,
+	Gal Pressman <gal.pressman@linux.dev>,
+	Yossi Leybovich <sleybo@amazon.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>,
+	Shiraz Saleem <shiraz.saleem@intel.com>,
+	Steve Wise <larrystevenwise@gmail.com>,
+	Firas JahJah <firasj@amazon.com>
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH rdma-next 0/2] RDMA/efa: Synchronize IRQ before freeing admin queue and EQ
+Date: Mon,  7 Sep 2026 21:44:45 +0300
+Message-ID: <20260907-use-after-free-of-admin-queue-struct-v1-0-dd9d9267fbf4@nvidia.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:f034:b0:6b9:3295:76fe with SMTP id
- 006d021491bc7-6b932957a7emr5099719eaf.8.1788806386843; Mon, 07 Sep 2026
- 11:39:46 -0700 (PDT)
-Date: Mon, 07 Sep 2026 11:39:46 -0700
-In-Reply-To: <6a9443c1.a8e469d2.cbf3.5609.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9f04f2.2bb5a69c.24b23c.0009.GAE@google.com>
-Subject: Forwarded: cx231xx: test I2C length fix on v7.3-rc2
-From: syzbot <syzbot+ddccc0c0dbc0a38ffccb@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+X-Change-ID: 20260907-use-after-free-of-admin-queue-struct-5c10e817ce3a
+X-Mailer: b4 0.15-dev-18f8f
+Content-Transfer-Encoding: 8bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+Two similar patches for pre-existing issues.
 
-***
+Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+---
+Leon Romanovsky (2):
+      RDMA/efa: Keep admin queues alive while IRQ is registered
+      RDMA/efa: Keep EQ resources alive while IRQ is registered
 
-Subject: cx231xx: test I2C length fix on v7.3-rc2
-Author: jcperdomo100@gmail.com
+ drivers/infiniband/hw/efa/efa_com.c  |  7 ++-----
+ drivers/infiniband/hw/efa/efa_com.h  |  1 +
+ drivers/infiniband/hw/efa/efa_main.c | 33 +++++++++++++++++++--------------
+ 3 files changed, 22 insertions(+), 19 deletions(-)
+---
+base-commit: 63367df6e7255067ad6a83abe0d2799dfa491876
+change-id: 20260907-use-after-free-of-admin-queue-struct-5c10e817ce3a
 
-#syz test: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-df2908090cda368b01ff43709f51890076c56157
+Best regards,
+--  
+Leon Romanovsky <leonro@nvidia.com>
+
