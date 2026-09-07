@@ -1,60 +1,52 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C443F1046;
-	Mon,  7 Sep 2026 02:44:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04A502D8385
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 02:47:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788749063; cv=none; b=ZSEWavwPxtE/NHLVdr+uE5720RwxtOu0JzOVFxsZ8tpbtjfse1OQsDfZbOjSBWUPGclNt4s2C4/SIqZaIXvB1C4Rina+6MnyVAB0VOd1vsTnANZjigIgaTZ3jqpl32iTOZcX7WITZTeBoWCFZhxsXxnAXchA0LopaVZl/Mkil7g=
+	t=1788749262; cv=none; b=rBVk2juZT3VQYdGUd6rkNWHeHP5oAIpukBatcy9Ma/i7w0C6bieclC0rpoFuNZkECkp0cAXuuceYap9EB+JAqX29UaefjXwv723/RXsk5GO9upvQcbkIgPOWhuOvAgvTLpEZLY1vWu3Aqg4xQgO/UYUdypWYHGbvtYN3ebUG24Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788749063; c=relaxed/simple;
-	bh=c8jW4Y3oIvOH/yBeYZIq2At8l4DS1lwDGk4khsrQ+pI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uonViX/1pzG1UYulCMmC7yNAz6MrvIRWaMmJOXfuQyTfjBqcdRD/tninl28ekb/xUAdAS9okuuIDxazVRgf/sY1BrWg873yBfVUhNYAIrnawbrIOBp6bXoUT2iQs4eU1pxcr+LEi1XoHDB6vxux4Q73ALVtLOH8q7Io8pAMSLAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Q/5OPeOd; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Q/5OPeOd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788749061; x=1820285061;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=c8jW4Y3oIvOH/yBeYZIq2At8l4DS1lwDGk4khsrQ+pI=;
-  b=Q/5OPeOdCnoKKQDICOzC+0bLYZPlPjXn1V26SiK51GKVbr23PJ124HpI
-   imDbYoF0DXKv4azfdZaFNNa8IwH93v/LgD/5a547j0TQikFEPCWd8mQON
-   Ds97LTEXDniHBOK5SOD7qJIvSCL27BiO/RiEqCyAASlX6yTxTO/i9tuZX
-   vqSFPOvHR0dQcoUuP2FJbFp515iQ+WQXLYLL2HbpsV6FMCGj7flbIeSv4
-   f7amDSH3anVYGDMR6wSqcm6SgrLdxszarCiX0pebnbJNrAbY5jPTFGm9C
-   GGjRWmGyLL0UeY5zEiSnvqfm2Ac8PSFCSdgrCaYJOTvwg7oWq7AfrsS4u
-   A==;
-X-CSE-ConnectionGUID: u533vQmAQrOg2NuGDjLClw==
-X-CSE-MsgGUID: UE8ctQJBQgqrhTXDjyT5Rg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="99744369"
-X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; 
-   d="scan'208";a="99744369"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 19:44:20 -0700
-X-CSE-ConnectionGUID: fEMTx9TfSCGvWZKSEo3n0w==
-X-CSE-MsgGUID: ncTqF6AcQdCwRDWuppDj6g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; 
-   d="scan'208";a="266901553"
-Received: from junjie-desk-dev.bj.intel.com ([10.238.152.71])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 19:44:18 -0700
-From: Junjie Cao <junjie.cao@intel.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: Marco Carvalho <marcocarvalho.web@gmail.com>,
-	linux-input@vger.kernel.org,
+	s=arc-20240116; t=1788749262; c=relaxed/simple;
+	bh=jZYY5NaJH+vzPmPiabk4EdnDnHng5JQYG4Vi0ch6uR4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=nzA3blaU+9UbNt2X11H2lzD5ROgxE54dpGTjeysgGJUtN96iM+RRVf5ycHpXvjna9pMMp1e5aCr/gXeKp9w62IGqdvwCJJBdI0TSSljk1CYua4UUMFA8pYtLMQHnEa46v6mz8S2fqyNFmW3EuEHD3ZFe41VLXTd8Gb+wYdAWmHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 7ae3ea62aa6611f19a56ed5b684f684d-20260907
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:c1e5e03d-6776-4f06-a688-68e4fb7cb5a4,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:56fa679ec0deb223dc4fca44739f3fbc,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
+	9,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,O
+	SI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 7ae3ea62aa6611f19a56ed5b684f684d-20260907
+X-User: gonglinkai@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <gonglinkai@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 74153910; Mon, 07 Sep 2026 10:47:35 +0800
+From: Linkai Gong <gonglinkai@kylinos.cn>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Keith Busch <kbusch@kernel.org>,
+	driver-core@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] HID: quirks: add ALWAYS_POLL quirk for SDINNOVATION gaming keyboard
-Date: Mon,  7 Sep 2026 10:44:08 +0800
-Message-ID: <20260907024408.482401-1-junjie.cao@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260824031419.316315-1-junjie.cao@intel.com>
-References: <20260824031419.316315-1-junjie.cao@intel.com>
+Subject: [PATCH v3] drivers/base/node: fix UAF on device_register() failure
+Date: Mon,  7 Sep 2026 10:47:32 +0800
+Message-Id: <20260907024732.1452228-1-gonglinkai@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260828012516.3591496-1-gonglinkai@kylinos.cn>
+References: <20260828012516.3591496-1-gonglinkai@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,5 +55,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Ping. Still applies to hid.git for-7.3/upstream-fixes and
-for-next as of 2026-09-06.
+node_init_node_access() frees the access node with kfree() if
+device_register() fails. After device_register() the embedded device is
+initialized and must be released with put_device() so that
+node_access_release() can free it.
+
+Fixes: 08d9dbe72b1f ("node: Link memory nodes to their compute nodes")
+Signed-off-by: Linkai Gong <gonglinkai@kylinos.cn>
+---
+v3:
+- drop both goto labels; the error paths just return (Danilo)
+
+v2:
+- rename the free_name error label to put_device (Danilo)
+
+ drivers/base/node.c | 17 ++++++++---------
+ 1 file changed, 8 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/base/node.c b/drivers/base/node.c
+index 3da91929ad4e..dcdc8626627a 100644
+--- a/drivers/base/node.c
++++ b/drivers/base/node.c
+@@ -167,20 +167,19 @@ static struct node_access_nodes *node_init_node_access(struct node *node,
+ 	dev->parent = &node->dev;
+ 	dev->release = node_access_release;
+ 	dev->groups = node_access_node_groups;
+-	if (dev_set_name(dev, "access%u", access))
+-		goto free;
++	if (dev_set_name(dev, "access%u", access)) {
++		kfree(access_node);
++		return NULL;
++	}
+ 
+-	if (device_register(dev))
+-		goto free_name;
++	if (device_register(dev)) {
++		put_device(dev);
++		return NULL;
++	}
+ 
+ 	pm_runtime_no_callbacks(dev);
+ 	list_add_tail(&access_node->list_node, &node->access_list);
+ 	return access_node;
+-free_name:
+-	kfree_const(dev->kobj.name);
+-free:
+-	kfree(access_node);
+-	return NULL;
+ }
+ 
+ #ifdef CONFIG_HMEM_REPORTING
+-- 
+2.25.1
