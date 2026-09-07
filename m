@@ -1,92 +1,95 @@
-Received: from mail-wm2-f11.google.com (mail-wm2-f11.google.com [74.125.225.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D3B48123D
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:47:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.139
+Received: from outbound.baidu.com (mx20.baidu.com [111.202.115.85])
+	by smtp.subspace.kernel.org (Postfix) with SMTP id 2E18B49EC46;
+	Mon,  7 Sep 2026 11:47:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.202.115.85
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788781682; cv=none; b=Jqmx7BLuA3Wv8VhLV1dRXsWr76/wVaOFla0Qw7U0mSDkA1cGy5OdkO9jH8OFG1uNr831nt2BG8VbOPKXkMFuzSw9WIa3OBuo+thRX+WrFyThskd3W7AxDQ3TYnt1e4U2jV/t85CVHJtJZdiNt38gpWV5GsXRbMkMi+7lXGOFxrQ=
+	t=1788781677; cv=none; b=ns2OAKSG+9Lsdb6d7w+8rLz1/cfuAcGJ2+xLp0n6Mobq9S7IK7MPmt5jGxpmtN47BZn4S6Pvgn81eD7gqsDY+sZThwqaQasKVUvW2W9u9Hc+c8gAFvxCQEQxc8tp3H5Hx8S9bWeuyFvKUchA32yrJPQdeRTFPJFfdFpqQvmdgKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788781682; c=relaxed/simple;
-	bh=zisK6DSZbOvLPwi/dAk2097X/6CPmHmVmuul8j51ByU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PTCMpftDMK4+D+5sgd4LNV2BImPFpRy36XKNyDjlqsQKrIJORFttyWPyQ/ED9wbuAzR7pakMZb6fEvEjnZE2egCadPBRhF8A1PPMzEsXScvoSmmsk/aRHQu1OJ5QRdC6EtQvCO+SwE0xyP7L4tLU6RZHEt4fSK/OLbpbMXyjt9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PzFMbc+H; arc=none smtp.client-ip=74.125.225.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788781677; c=relaxed/simple;
+	bh=OF12tUy46rA7F+/AsV/bZbNqxUDOIShGuxaQ8fUa4Ok=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=s2a/1K6cy4+JYTI/af+GDnxIcy0C8zvw0Wjhz8TQopcgOPnz0r4natyIC+IQ0WCCCiZteRMj28pVLczTCfCuAbv0WghOcJu+8u4wgZJVHWslNdNRvbniOAQjPDZpwODnyNwdZIrfvh3incaAcnVs5YycyF+QokazED6C1/q85ck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com; spf=pass smtp.mailfrom=baidu.com; dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b=WQgHHl/d; arc=none smtp.client-ip=111.202.115.85
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PzFMbc+H"
-Received: by mail-wm2-f11.google.com with SMTP id 5b1f17b1804b1-49ccf0fbf41so14044175e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 04:47:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788781678; x=1789386478; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zisK6DSZbOvLPwi/dAk2097X/6CPmHmVmuul8j51ByU=;
-        b=PzFMbc+HE71k5MHz+pMC4F2BIVMETuZRIYspiXiS/GSAaiGUNGZItVCmI23siOCgxA
-         WxJyZzagmKeANJoihEvf7l1YNuO3WAX7Hhca/d0xuvj8jj56uGRoiyINDGDQC1TuqjwR
-         LNsvnR/bgeaEevdjwC58Rm7QCbehCkQEgEHg/m3z3Eq+1HzYbjWEWRzHmUWgdkqVkGPv
-         kHGMUKSTiyL+TuJrVDdXO22KekmWm+JZpLSYnrQhXxz7OOVffY6EQib0rpq7y/9xx49P
-         Dbsu6zZIqa1JwE9x4wgf2IPAiVfaBHJg11GGFbu3zvQsfRz7J7zchnSaSgZcf48nFZCb
-         jUqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788781678; x=1789386478;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zisK6DSZbOvLPwi/dAk2097X/6CPmHmVmuul8j51ByU=;
-        b=by8DaD7cX0Kw39JF3UjzpdxdCg8OUOXRT0sEqYmhGkFilObygsHiUe9kBFSasU4ojz
-         hgBcFwlDrGoYrxHP2xZTCtWK3k2AjCy1Aa1Npt+z02paPl2wbf383M5fyLPQI0WfHZIX
-         nnS5OikZHoAhPRPfrV2OicgBbvZvLY0GL6M6K0XaS1SdLzE4IlqkmuMlCwV/NlSVYAL5
-         eEjTKaWm2hwyYc5ItAx+axPl/e6V7GcM8Zbn4FkBg3Q2/vKGhDsHi+LWRzXFj2J5+Gk3
-         k/meVrEmy7a8Ce2rUxvhSzU7LXRksrxiS1zEffro5mzwce1qGJEhnir9a0o1AqgBE3bi
-         t/GQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw7pA1r1QZt5lkgSrqCSr4slnMd9AL0gAkDvJAPAYv5D4HsNUslwZhRpaVCKBUpN0vSkrPEaTRXOBTSCnU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lqEramlqf6bQvTn36ykArdPKdk5wNXtOrmleRtqX5vk6TFs1Xp
-	4gcoSkwdGEKet3q3xuto+7BJ/hKOWSUYuU7mZMc6C2YREXSmY7Al7I4P
-X-Gm-Gg: AYBFou2hJeeU/LA0aAPFK1L5uCML+v5O7vIgpuCQCbON4rLXYVWim0WxImzTmCoDPEe
-	YhbXx5uXNr4EBE2TmsZ4eyCL9bvt59KN/HAmKERXl7snc3UFoMdOWSBr2kcXMmc4AOZ11kOurKV
-	kfatKRTk/HLjv47hY2lReE/g2rY7WrW/AB8hDIyrgzgquUk4zC7XX1YYGAlu/Yot4o+FW6fNIEx
-	c02MyQwL/uVUfzf7jmevc7gPOvwCKqtXnm6VyhAJHRV7q3T1KBS/0h2WYeWr71BxUhAqWlXmmLh
-	I+XJvGUggnTXUUjx1pfl3S6AglzIa4Jkjd1RDgxDOmLnrdHaAbs8b+RlSe38qi/vv/X94MqQOxn
-	tATPq2KmBXfSb6AbQVsv/c3ek+ndz2nEjpvHilsQQkdL+AkQKv3tvJogFKJ6uDekg43F4tWghCO
-	T50Tt8WwRnWQRcDY02n5kBdSFz8fW8WQga3WAPH4ShhsbdRZ+zgFbXQV1HxkNwZ5DOU9MNy6OaE
-	ywPe2B7okSXpBU=
-X-Received: by 2002:a05:600c:154f:b0:49c:fc6e:8cb5 with SMTP id 5b1f17b1804b1-49cfc6e8ee3mr219765505e9.25.1788781677871;
-        Mon, 07 Sep 2026 04:47:57 -0700 (PDT)
-Received: from serhat-ubuntu.home ([212.253.216.238])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee80eda4sm383491635e9.15.2026.09.07.04.47.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 04:47:56 -0700 (PDT)
-From: Serhat Kumral <serhatkumral1@gmail.com>
-To: leon@kernel.org
-Cc: bvanassche@acm.org,
-	jgg@ziepe.ca,
-	sagi@grimberg.me,
-	linux-rdma@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Serhat Kumral <serhatkumral1@gmail.com>
-Subject: Re: [PATCH v3] RDMA/srpt: Clamp the CQ size request to max_cqe
-Date: Mon,  7 Sep 2026 14:47:25 +0300
-Message-ID: <20260907114725.28908-1-serhatkumral1@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907063251.GE13683@unreal>
-References: <20260907063251.GE13683@unreal>
+	dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b="WQgHHl/d"
+X-MD-Sfrom: lirongqing@baidu.com
+X-MD-SrcIP: 172.31.50.47
+From: lirongqing <lirongqing@baidu.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Li
+ RongQing <lirongqing@baidu.com>, Yishai Hadas <yishaih@mellanox.com>,
+	<linux-rdma@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH] RDMA/uverbs: Reject WQ creation without a completion queue
+Date: Mon, 7 Sep 2026 19:39:18 +0800
+Message-ID: <20260907113918.2315-1-lirongqing@baidu.com>
+X-Mailer: git-send-email 2.17.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: bjhj-exc7.internal.baidu.com (172.31.3.17) To
+ bjkjy-exc3.internal.baidu.com (172.31.50.47)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
+	s=selector1; t=1788781169;
+	bh=LCK40fSz/LE22Gwcj/6/dDENH8nWeSNJGZCZ4WQ6gzU=;
+	h=From:To:Subject:Date:Message-ID:Content-Type;
+	b=WQgHHl/dvoXFELPtes6PIdsBPCE+/1bRR2Sm7E5BSKrxWJHGgNfEiLzMlvqN2lcqx
+	 J5FQrkhk6hZCboqq5B3i263QBhVspw/podz5gfCXqjlQueDanpDsc2rqXWuhkRpmZ/
+	 XRZZ8WQM+mpgiW8u2Iq5nfLYQIxgrprilqmeyuD/rtgWosFeqFM9FgfdJOhzHS0hl+
+	 NoFpF+dTb6CCVbWgzOolsCVrUz7iAv868Y/Z/yIyjWw1Wra8xUYLA2HEPtNLOeH0Fc
+	 Jby2zclyXACsZgKnUNzOUtXKkr5NY32/Z8VbbRBgJLZUKx5JXazbXMlUXTxFkRWLVu
+	 nzKQme6HLbxqA==
 
-On Mon, Sep 07, 2026 at 09:32:51AM +0300, Leon Romanovsky wrote:
-> All these Sashiko reports suggest that sq_size is being changed in the wrong
-> place. Can you check for the correct value in srpt_tpg_attrib_srp_sq_size_store()?
+From: Li RongQing <lirongqing@baidu.com>
 
-I think sashiko could be triggered again here due to theoretical max < sq+rq
-probability because in the default (4096) state of sq, store() is not called.
-max_cqe <= 127 and max_cqe < 4224 points to the same issue and it is not
-resolved at this layer either.
+UVERBS_ATTR_CREATE_WQ_CQ_HANDLE is declared UA_OPTIONAL in the ioctl
+method definition, so the mandatory attribute bitmap does not enforce
+its presence.  When userspace omits it, uverbs_attr_get_obj() returns
+ERR_PTR(-ENOENT) and the handler stores that error pointer into
+wq_init_attr.cq without validation.
+
+The bogus cq pointer is then passed to the driver's create_wq callback.
+In the mlx5 case, create_rq() calls to_mcq(init_attr->cq) which applies
+container_of to the ERR_PTR value, producing a near-NULL pointer.  The
+subsequent access in get_rq_ts_format() triggers a kernel NULL pointer
+dereference:
+
+  BUG: kernel NULL pointer dereference, address: 0000000000000296
+  RIP: 0010:create_rq+0x32/0x550 [mlx5_ib]
+  Call Trace:
+   mlx5_ib_create_wq+0x14a/0x210 [mlx5_ib]
+   ib_uverbs_handler_UVERBS_METHOD_WQ_CREATE+0x1f0/0x320 [ib_uverbs]
+   ib_uverbs_run_method+0x296/0x320 [ib_uverbs]
+   ib_uverbs_cmd_verbs+0x1a0/0x260 [ib_uverbs]
+   ib_uverbs_ioctl+0xa8/0x120 [ib_uverbs]
+
+A WQ without a CQ was never valid; the legacy write path always required
+one via uobj_get_obj_read() in ib_uverbs_ex_create_wq().  Add the missing
+IS_ERR check on the cq pointer to fail the ioctl early with -ENOENT.
+
+Fixes: ef3bc084a8ed ("IB/uverbs: Introduce create/destroy WQ commands over ioctl")
+Signed-off-by: Li RongQing <lirongqing@baidu.com>
+---
+ drivers/infiniband/core/uverbs_std_types_wq.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/infiniband/core/uverbs_std_types_wq.c b/drivers/infiniband/core/uverbs_std_types_wq.c
+index 7ded833..0308906 100644
+--- a/drivers/infiniband/core/uverbs_std_types_wq.c
++++ b/drivers/infiniband/core/uverbs_std_types_wq.c
+@@ -39,6 +39,9 @@ static int UVERBS_HANDLER(UVERBS_METHOD_WQ_CREATE)(
+ 	u64 user_handle;
+ 	int ret;
+ 
++	if (IS_ERR(cq))
++		return PTR_ERR(cq);
++
+ 	ret = uverbs_get_flags32(&wq_init_attr.create_flags, attrs,
+ 				 UVERBS_ATTR_CREATE_WQ_FLAGS,
+ 				 IB_UVERBS_WQ_FLAGS_CVLAN_STRIPPING |
+-- 
+2.9.4
+
