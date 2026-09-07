@@ -1,121 +1,115 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52152511E70
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:16:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F01AB4519A4
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:16:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788797762; cv=none; b=MTZ8PR1jZtHeBcRsCViYAoAU998G14c6/VU6ff97wPCNUJ8TlcUzwRNXsVweRTidaOxiJd58ZDtBSTCNSoGSXHPsgQfSJPbv+Cv+kRpVgBS/TlOf+f3rJlqe/7ykUq0HgeoupJq7cgo8W/IO78HC5I6jurbJ+ESuvOi3WTk5GG0=
+	t=1788797771; cv=none; b=VcJhgaQ6Z/en6Qe7l+BsvY2kxSv9BBBSe5YPtk5SMtCXT9OggQNkJUGns5kigz27w2YGtcZdgPO/Qa8nPKiQWQCbXu0GrDK+HEpd+50MRJTTO1r1xRuwOKwlx9hi/viUFZSBtYLGFHTg0ThwSob/7LxErZw82trRUdqDAj8H7MY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788797762; c=relaxed/simple;
-	bh=JCDusU5yMtFiNa58wXllxAjkEnKbfVExcumys8M0kbo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qeINPu0jm+bq6J5HKHkEJQ/FovoQq02C5l+02Rklm6Mv6krBMBONdZFj057IhEVDgYSA8GgKMgZ0tNZGotKWkWMl/bLLb+XjVgGVNLjoq6ggEMVld9yxknND+n2QWLMhb9Y9dwlKRBYVRmNc9tSIFPFSnnvksRZZs+JzcX5Se6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=C0Ae7Ftl; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788797771; c=relaxed/simple;
+	bh=XMupfO8dEQMJHwNh2LqDit3LdUgOU+ssjzYBvo16FW8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pY6mpioAsB05U4QzJ5Jxj9gVuCSBhXMbr5UnW6HG82uD6HvfQN6wbpHmYKyG2IgKRod9h88T+LZybS4cu+Nn42UrOxarYVERdJyPZKBee9MwgmII/jffjWoYG0mdN23HA//OkjlSKg0JzZadfXJIFeRuIyAgvxGTHpEtiA2PMwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HgkI3ujS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="C0Ae7Ftl"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843971bdd0so386455f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 09:16:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788797758; x=1789402558; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yRxj5rjaARLzRIcmrNAgb8kIoY2uZyj+0l3SvbMV904=;
-        b=C0Ae7Ftll6HczaF9OhbuBIySZtlvos+bU0XY2KcSjspOx03nstTWTXskLh1HFZvIXj
-         djOiJHvOmQDS4G/HO/Tq4GzhZNia3qv7h0BJpRswtP1fmt1X4tgDG7rfqlw89j4hYApy
-         2gyNsEpI2aR1tLt/AzY8ubJslK+Ozkm6AGC/Qm8CIRkG74NxCnUe1wcGMj17J1GiPOA6
-         qdCMUO80Gr35euUB6Gv6pdAvBJDI0VMPE6LCazCZ8AnWVlK9VdsDrAdr9z/suw+pCNaK
-         JjJEC9FULmfRCUkKkIkq9rtURUaryu/BiJHhKtP3fSqEPV1my0AYhe6fghGHkxm9F7FH
-         QeLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788797758; x=1789402558;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yRxj5rjaARLzRIcmrNAgb8kIoY2uZyj+0l3SvbMV904=;
-        b=sa6c3qGTqdl5cxshEI6BdwUA9lN+XlJwRori5r0Uobq4rfRCocN4FgfDetLx7F+7Sf
-         VvOmEgjQqcLe4ObXhtuD9kJD4UoQtpzMp5uLyCie/iIq1ayzBr/J6POBBQDIX1VvpIm6
-         HufQXR4v/eFzZ2TXENMruxb7Dvx7ONDHQYdgwj7Bv4JMqgpOIyVlY8rx2wngFqs7Uw8A
-         jq9jgdrAAyFHOy+d6UsSmzXAulzrHSQPPNSarIbGFnoB6fmkhJWG4967QqWucyCNGRrc
-         tjaG1Xgq7qEgAxddMyb7cDY3mABQDgM1PGP7SwdKz5R7s83JyAdGU/CDwiAdWV7dUT8U
-         fCGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwmKsWDngsGcghaJxCarmaN1vO8BWZeSv2FQzjBtNwslFwRVMq6QET0EYyeJDGR0VZRr2uw8UWIVotWGJM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nWSGuT7F+AFt4IedeXFqhnO1RhlMAtQEuBdffjJZR8ubWIKdbV
-	i/V50L8K2VmqDPJGkwCwcDToq+A4qT4e40tuSMueL/ZbAciTZoZWCSiRoBcnGmKEU/A=
-X-Gm-Gg: AYBFou1N5+6i1pWdjLIaD4/xGDM0heMnjTeMXEZquLI6Caj5+q5zCUr3ai98E0GP0Li
-	rkgtNj/sjTWb/te9+GLcOmXZMdBsKOF+y/P6AJdyfVf3Dn0LHLRLIilVaRSVUmxwuEo17GFLckY
-	n3/snHpBjWb+WkuIqQmRtsNJccpo6YQtDOOCJimEgoHinqmL+Li1nd9xDJW10UvAzJBfeC3AA9A
-	TCWaddlYvf9c2vHcZcQM8uiJCzWvfqL56bGcDiGxflJZmnqF8SZ1dkCiYWhDkz8O9/wo4UZwa0q
-	drpSPvBxbUPu27aS5ewKIAxkwqUo9OFS8Z7um72KHb2Er2YZhSJDu5D/K+U0P3uQc5ngE/vK/5C
-	j6GhyZPWnaxb0T1G+yOKudl4/D56CVxl7SdlKlCYmDTy0BYp2Itu0NuD6QhE2qRfxVH0T11+2z3
-	DW3BN5UaPFPmv5GdECWPefVp3UTLTZACihhoo1Sd20nniFR327sQWId+AbyZsTmGoMoYXAOuJqK
-	VaEn1dhngbpSm4UEk4UEJ6cBTPsqWjQhLxb
-X-Received: by 2002:a5d:6f1a:0:b0:485:8508:d510 with SMTP id ffacd0b85a97d-485892cc927mr23060856f8f.6.1788797758410;
-        Mon, 07 Sep 2026 09:15:58 -0700 (PDT)
-Received: from nicolas.morey.ovh (lfbn-ann-1-199-252.w86-200.abo.wanadoo.fr. [86.200.161.252])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858e239862sm24667614f8f.9.2026.09.07.09.15.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 09:15:58 -0700 (PDT)
-From: Nicolas Morey <nmorey@suse.com>
-To: Zhu Yanjun <zyjzyj2000@gmail.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>,
-	Tristan Madani <tristmd@gmail.com>,
-	linux-rdma@vger.kernel.org (open list:SOFT-ROCE DRIVER (rxe)),
-	linux-kernel@vger.kernel.org (open list)
-Cc: Nicolas Morey <nmorey@suse.com>
-Subject: [PATCH] RDMA/rxe: Use validated num_sge in local buffer
-Date: Mon,  7 Sep 2026 18:15:49 +0200
-Message-ID: <20260907161550.716670-1-nmorey@suse.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HgkI3ujS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ABB71F00A3D;
+	Mon,  7 Sep 2026 16:16:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788797766;
+	bh=g5gCMZVvjY3jhzdUCpCDafX4/mtwLtsEY0ulBAQJCZU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HgkI3ujS3x61Lys7IBDcKfnZgKKBvTApLki3mnSwXUmxqfz6CqjPvU1NQA6j82btv
+	 jMRP4VMJsfJwymk9nw3sWRpYbGIaHBOfkKvzZJIc7sOziuCS7LcFHK8+rZqb23OWO3
+	 WAyGllgUmjqFdSeWhdczaxfLv9CG0THqg8tDFq02+x3Lw4+99hqsAgzHK88YG5e5zx
+	 ZKGegeB1Jnyoix9YBlP04m9MjBd7Bk7Ky9A8o0MfbeaISnujnO3NpQ4uHQyoUPgTpX
+	 LoNfZt5Dx0XstG+CTE7ANmCMDtDJ1JMu48yAG3FWCI2m87j3FZO455jgs80AaoPdJk
+	 6D+HSQhT0EltQ==
+Message-ID: <47652536-6f87-4ade-9866-67a20da8772d@kernel.org>
+Date: Mon, 7 Sep 2026 18:15:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 00/18] mm: arm64: Add kernel replication feature
+To: Nikita Panov <panov.nikita@huawei.com>, cl@gentwo.org
+Cc: akpm@linux-foundation.org, artem.kuzin@huawei.com,
+ catalin.marinas@arm.com, liam@infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, linux@armlinux.org.uk, ljs@kernel.org,
+ mark.rutland@arm.com, mhocko@suse.com, rppt@kernel.org, surenb@google.com,
+ vbabka@kernel.org, wangkefeng.wang@huawei.com, will@kernel.org,
+ yang.shi@os.amperecomputing.com
+References: <f47c0ab3-6d78-fcdc-b7c0-cd3a7b5c8276@gentwo.org>
+ <20260829111953.893466-1-panov.nikita@huawei.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260829111953.893466-1-panov.nikita@huawei.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-For both SRQ and non-SRQ receive paths, the WQE is copied into a local
-buffer to provide a kernel-owned, validated copy. While calculating the
-memcpy size from the validated num_sge prevents overflow during the
-copy, memcpy() itself still copies num_sge from shared memory.
+> 
+> For me, it looks like the kernel text and rodata replication could be
+> adapted on top of the "Optimize this_cpu_*" patch set.
+> Problems with pgd synchronizations are the same and should be fixed as well.
+> Since vmalloc code is used for percpu memory allocations, module replication
+> might be supported, the only thing that should be taken into account -
+> data locality.
+> Consider all of this, we can focus on preparing the new patch series, on top of
+> the Yang Shi's patches and share it. If that path is ok, we will start.
 
-A concurrent userspace modification before or during memcpy() leaves
-an unvalidated num_sge in the local buffer, leading to potential
-out-of-bounds reads in rxe_resp_check_length() and copy_data().
+I would wait for feedback from arm64 maintainers before moving forward with this
+plan.
 
-Explicitly assign the validated num_sge to the local buffer after the
-copy to prevent this race.
-
-Fixes: 22b8fbded65b ("RDMA/rxe: Fix TOCTOU heap overflow in get_srq_wqe")
-Fixes: d6ab440240a0 ("RDMA/rxe: Copy WQE to local buffer in non-SRQ receive path")
-Signed-off-by: Nicolas Morey <nmorey@suse.com>
----
- drivers/infiniband/sw/rxe/rxe_resp.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/infiniband/sw/rxe/rxe_resp.c b/drivers/infiniband/sw/rxe/rxe_resp.c
-index 02b16e2b49b8..cd51042857d6 100644
---- a/drivers/infiniband/sw/rxe/rxe_resp.c
-+++ b/drivers/infiniband/sw/rxe/rxe_resp.c
-@@ -288,6 +288,7 @@ static enum resp_states get_srq_wqe(struct rxe_qp *qp)
- 	}
- 	size = sizeof(*wqe) + num_sge * sizeof(struct rxe_sge);
- 	memcpy(&qp->resp.srq_wqe, wqe, size);
-+	qp->resp.srq_wqe.wqe.dma.num_sge = num_sge;
- 
- 	qp->resp.wqe = &qp->resp.srq_wqe.wqe;
- 	queue_advance_consumer(q, QUEUE_TYPE_FROM_CLIENT);
-@@ -328,6 +329,7 @@ static enum resp_states rxe_get_recv_wqe(struct rxe_qp *qp)
- 	}
- 	size = sizeof(*wqe) + num_sge * sizeof(struct rxe_sge);
- 	memcpy(&qp->resp.srq_wqe, wqe, size);
-+	qp->resp.srq_wqe.wqe.dma.num_sge = num_sge;
- 
- 	qp->resp.wqe = &qp->resp.srq_wqe.wqe;
- 	return RESPST_CHK_LENGTH;
 -- 
-2.54.0
+Cheers,
 
+David
