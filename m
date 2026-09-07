@@ -1,80 +1,71 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 640873B992C
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:42:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B0A44C64C
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:42:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788792152; cv=none; b=AnsmP7cCZkyyBbm+NQOceHE7CgV3BxRNyeVybqPNXFU9CaWEvbg6Stsqq9YcrKPY1nFcSDz47H3IsOCWLdsjkBDsuswll5Tn8jdDw4Ea8nz5lMCLEp0ATLckiG8wDUnubBaAFII4l4yHD+0P1UC3k3BCgpOHc2ZYMIAEFiL5mF0=
+	t=1788792165; cv=none; b=JVkIg3ThW/2IfZA/zoRTVewZ72A9znjlRV2SOHHo2VBycHK8LDtWIKaGu6ESI0NTHvphN2qdWPqwu87/C6OwSr1eqDouzrnhDEsK4ALTOLpKnN61xRrqWuGQAlnCxty5aASPPTSwd2fgPToVX9xWeV9WZ811ozQ0nI4zAcWMB7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788792152; c=relaxed/simple;
-	bh=GNi77y7CCHtSiOeR3mrgA3qzYhq8zFe6d1+Esa22NQQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pH9aMfSvJVfuuLVEjmM6P1Xv2o9uwQ1RYk1CijH86QnQJFHfbPnRUrJQ0QUj5ohuhnTbSLoPwUXOnCxbauI0nERU4XqnUqDHbpvHCT03bu5eBRTlW1SMZriXOMHwG/qsDejpxxz3Kriljaf4L0l0Me7fGSnQhI1sphduxkUuQXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Edk5N/Wv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788792165; c=relaxed/simple;
+	bh=cwJlS380bn/S8RqjldQzmzYHlcULXzK6TylrksZVSrI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LYMBzKK23D0yLJhdXxQASZy7z55/w1ipWjHSJPvl9Tgyeg0fNdNskp9Tc+OQBnVYcpMV0pn3tqe+v+LHMCRS1ovihGGM99O0z2hR5L7kFoGj9dc+Q2u3D4NtMqv1DHM4gJ8Kgk5kpk22m+HEmY3U443FYaZSI/zJesnbLk11AyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mnpOrYKW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Edk5N/Wv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2054E1F00A3F
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:42:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788792151;
-	bh=QzDMGyQeKSoeHQ8krXZbsj0L74Zf8D5oR9RuktQ4ziQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Edk5N/WvBVBjmYbAhH1zh7Cra3Tebp01bM+rvVywgEgFAZ9aBich6Lm7VAmuSD837
-	 xMQ9eJqFwItmheWHGs8wj2tuisei6ds9iNFGDnZOS25O3mxRqT8FTmdOBimgjdBSA4
-	 jB0IENYTYKVKMaqxtgarkvUIZYtlV67VZiIYw7nCaU30tQkEoBvl3Qt35H8OUuaIWL
-	 KcNv4HND60xTLjjNHCChcOVMe/xz3Wn2p1X2rygIUgJJCmTqt3z8tOwEgQlfiF5tV7
-	 vFmXSc+Ihj3kk8f391ypabzdWT7TKjOCYgrhwIjPuY6A6VoJ1rNuD0Op5hYzFKeGYH
-	 0UdIWV+xKGIDw==
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c15e2dab83eso601007766b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 07:42:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx1d3jCIYo7wxwK290njPbJ6zddSUfzUZsI6lN208pKd7h9ARycf7odIA/5rHOhDZoXy6UMZIhekwlU2JM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lzrOx7P3A1n93tB1UkhmbW33P+TvV/P6piJTZyajJKGJ7/cqzK
-	qsMvmhyisi+ZJHzz2yoIZ1tQN6+swxjK1t18aEnJo3MAy2JTA2WJeg/TamL7CbUFLFOMp8vYk88
-	V+doeUbhPxmipWCvv6J3u28HQHXS82BM=
-X-Received: by 2002:a17:907:e00b:10b0:c26:2795:b4a0 with SMTP id
- a640c23a62f3a-c262795c180mr360010066b.47.1788792149765; Mon, 07 Sep 2026
- 07:42:29 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mnpOrYKW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C23D1F00A3A;
+	Mon,  7 Sep 2026 14:42:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788792163;
+	bh=hdT6u1gNNq87E/Xh1itonhXL5BkgCb8J/RAJ9RiAg6g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mnpOrYKWnzpUSewfqMNQbrrPQoJkKmSUNfHPj6wFWA1agrpWKktg4cocfkl3GQhLG
+	 WcfhhZg//ID6ozRlh9+PZ9zsLR5C6MKiD8gmG3oBiTmHldCQG1oEh83N0LWBM85aoi
+	 1tdB8LRQFEm6pRbuGg7PPWAwnLIh88wmIAhTWpLA=
+Date: Mon, 7 Sep 2026 16:40:38 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Sam Agazaryan <samagazaryan@google.com>
+Cc: linux-i3c@lists.infradead.org,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>, Arnd Bergmann <arnd@arndb.de>,
+	Vitor Soares <vitor.soares@toradex.com>,
+	Oleksandr Shulzhenko <oleksandr.shulzhenko.viktorovych@intel.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 3/3] i3c: add i3cdev module to expose i3c dev in /dev
+Message-ID: <2026090737-unicycle-imprudent-dcd2@gregkh>
+References: <20260906202747.4041389-1-samagazaryan@google.com>
+ <20260906202747.4041389-4-samagazaryan@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260905171043.922793-1-dxdt@dev.snart.me>
-In-Reply-To: <20260905171043.922793-1-dxdt@dev.snart.me>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Mon, 7 Sep 2026 23:42:16 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9_3579PDS_+w8waOJbaa8x1UFEdRXt+4B2Fma5icQA0Q@mail.gmail.com>
-X-Gm-Features: AcwNN1UXxZ4Y_vwg5VN5FNhvIEeiQ4L8Ek6dkwhEM-EGrPXyphDdjiR1UWYH_lA
-Message-ID: <CAKYAXd9_3579PDS_+w8waOJbaa8x1UFEdRXt+4B2Fma5icQA0Q@mail.gmail.com>
-Subject: Re: [PATCH v1 0/2] exfat: update percent_in_use, remove runtime
- integer division
-To: David Timber <dxdt@dev.snart.me>
-Cc: Sungjong Seo <sj1557.seo@samsung.com>, Yuezhang Mo <yuezhang.mo@sony.com>, exfat@lists.linux.dev, 
-	Hyunchul Lee <hyc.lee@gmail.com>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260906202747.4041389-4-samagazaryan@google.com>
 
-On Sun, Sep 6, 2026 at 2:11=E2=80=AFAM David Timber <dxdt@dev.snart.me> wro=
-te:
->
-> Changes from RFC v0:
->
->   - use mul_u64_u32_div() for 32-bit arch without 64-bit integer
->     division
->
-> mul_u64_u32_div() isn't so popular API, so I'm not sure it's available
-> on all arch.
->
-> I don't have a beefy machine to test my patches for all arch... If you'd
-> like to apply, I suggest waiting for the CI bots to finish testing. I
-> believe all submitted patches that apply to the master branch are tested
-> by the bots. I'll ping when the patches get a pass.
->
->
-> David Timber (2):
->   exfat: update percent_in_use field when updating volume flags
->   exfat: remove runtime integer division
-Applied them to #dev.
-Thanks!
+On Sun, Sep 06, 2026 at 08:27:47PM +0000, Sam Agazaryan wrote:
+> +/**
+> + * struct i3c_ioc_priv_xfer - I3C SDR ioctl private transfer
+> + * @data: Holds pointer to userspace buffer with transmit data.
+> + * @len: Length of data buffer buffers, in bytes.
+> + * @rnw: encodes the transfer direction. true for a read, false for a write
+
+You do not describe the "pad" variable.
+
+And why not call "rnw" "direction"?
+
+> + */
+> +struct i3c_ioc_priv_xfer {
+> +	__u64 data;
+> +	__u16 len;
+> +	__u8 rnw;
+> +	__u8 pad[5];
+
+You do not enforce that pad[5] MUST be set to all 0.
+
+thanks,
+
+greg k-h
