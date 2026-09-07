@@ -1,112 +1,116 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DD1F3043DB;
-	Mon,  7 Sep 2026 10:31:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788777113; cv=none; b=Dufai6N4WpggBLUUcVsKHEusI3VCU4HSwNknQIiVd9ZK5gvCZsxsfeiH4MfQzW15bWJ/LQbcwpE6VWWNx4f9lMC1605TR/ytn/wbMgZmm6AjVZ38sQPoL8ojoxXWT2+N9rVeAYMuW9qgS77F4s6H7QLy+1wroLx6lpnapzekIbk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788777113; c=relaxed/simple;
-	bh=izwwPFEZ2YDHlpNeAWpO9gjIXl3/uRvj1NTux/WAIB4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=JpBWGSyQ1is50/LCJV/BnPh07La3yXmmlhr8faGGzmCxFvVuZgzGHzXWTrK/XTgtHhfCrvpdtnB+hIFPuwa9rmHtT9i4l3ECW+Cn9dNpVv5rKjtO5ue2cFMIIRzpugtrAiUZUOtsGJUWmmmpG61JcEZ+99+a5P4vp+AR13teLZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=mz9s2nX1; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B5445FFDF
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:31:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788777118; cv=pass; b=QeSRCSYxFoeO+0KYd+RS/73Jjn8NiOFtnOCSivpBqgIZfBki851XSUUJH/T7NnHvZmNpOO47jY/2BA27VNNDJz4mAnrGIDUicFWXDsxqe6eKgKm0g7IAv5//cVwbg7iRUXsRmtxo8znIh6RNAxwhz6yrGT1OI2KbZZDtYcG6REU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788777118; c=relaxed/simple;
+	bh=Xw+HRlcvjW0U6P6qm17Nuk1JE3pIENaL9TJbCB4UHJk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Rna6tkOo7G6RlOEJnhAO2EF0g51TaNsYY1VSS8EFUJo3twT5UYqfmd26fu1WNADxvzwOkZwA/iGCZC6ujKYuqjMhrX2xTAdNsfVpd+WbTSdqd21s68323xRlZUVEcPaASoXq09l52IP6JbW/nGNH+7/e7MQcSnpnlVxGR1TY1HI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cwiq/BqH; arc=pass smtp.client-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="mz9s2nX1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=izwwPFEZ2YDHlpNeAWpO9gjIXl3/uRvj1NTux/WAIB4=; b=m
-	z9s2nX1g4LUKLmfdjmG1a2TzjIbwl9fjS8Zzru0oHZeUAVhTgNFR+KwATq79L4Fk
-	cCUPFv89OTZQN2C3/3Y3owqWbabwjWCnuFWjPlmttiAOCqb1SV5iSTO+ilfURmQA
-	JJJ5kFlAMZL8EiHr0W/BfDUxKNJ5obVNJgNP/TyEqs=
-Date: Mon, 7 Sep 2026 18:29:47 +0800 (CST)
-From: zl020895  <zl020895@163.com>
-To: "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>
-Cc: longzhao@ambarella.com, "Arnd Bergmann" <arnd@arndb.de>,
-	"Krzysztof Kozlowski" <krzk@kernel.org>,
-	"Alexandre Belloni" <alexandre.belloni@bootlin.com>,
-	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	"Rob Herring" <robh@kernel.org>,
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
-	"Conor Dooley" <conor+dt@kernel.org>,
-	"Michael Turquette" <mturquette@baylibre.com>,
-	"Stephen Boyd" <sboyd@kernel.org>,
-	"Linus Walleij" <linusw@kernel.org>,
-	"Bartosz Golaszewski" <brgl@kernel.org>,
-	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
-	"Jiri Slaby" <jirislaby@kernel.org>,
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	"Catalin Marinas" <catalin.marinas@arm.com>,
-	"Will Deacon" <will@kernel.org>, "Lee Jones" <lee@kernel.org>,
-	mfd@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re:Re: Re: [PATCH v6 08/13] gpio: regmap: support
- write_data_after_dir and girq
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <ap5BgWtHMAxl28wF@ashevche-desk.local>
-References: <20260904-cv75-v5-v6-0-e918514cb3b1@ambarella.com>
- <20260904-cv75-v5-v6-8-e918514cb3b1@ambarella.com>
- <apqxwRgi-uVKkOpr@ashevche-desk.local>
- <27a1901.423e.1a07a183bd4.Coremail.zl020895@163.com>
- <ap5BgWtHMAxl28wF@ashevche-desk.local>
-X-NTES-SC: AL_Qu2TCvucuUEj4SSaZ+kcn0wRhug/UMa4u/sm3YNXc+8GoC3f4joEek5lHXDK79C+JR6CqT2UbRFW0t1ffJNTQiBizjLGGro2SdHZZlp2GQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cwiq/BqH"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a7f5655823so2835986a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 03:31:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788777114; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aFAS0H3LN8+FEulNORq2Te5j80LEphU0apopjtMpzH4xAYScI1m5YfvZN7jffHVzL3
+         0mYJFKorFUOX13f+Ems5AJg0g1h3PtkZ5BS6/ohoKAFY4I2lKRiuLGjTZRSLrEZZhp+S
+         EqG0AwWudTH1x7u6J3qYVfn59fKPuwKuU7bRmBt2ERYP2xH6j3QcYXbDZwwaNcjpMhcl
+         SALaKSaJyhQZF45N2jX5SxEuoR2pEzDwFG/yxSOQ83SFyusBHBW6WpRnN4jWufKMugOk
+         +nZU2WFJz4aj8cZCxwrljDH9nqoFn3+m3F08+yBPqlQf7csZ78hilRhCVt22KOiV3OXa
+         e0Zg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Xw+HRlcvjW0U6P6qm17Nuk1JE3pIENaL9TJbCB4UHJk=;
+        fh=PYP9/VL9OK3quxfTerGk13DVQaVn3Oy0RlWV0h9N1zw=;
+        b=QWwfS3zUUf0jEGe40F7gVESkgW0J5GHyvxBNbOJU5Zuyy+9Ly8DoDdEjgSmVbL4x3u
+         BvKiYHaYX/e2+heimDjibAz/ZwIyY7p/S12wzZ2pHiF1vfz80tIKfaWDIycKJgs0Jq4/
+         mEwIFNwQdB5wu7feGVK9xncYqMP0Kg25LAq3jWLDldZy+v1ZBX0LX3kiymyzEqqYwZ9+
+         sSQgByMyk5uxBYNPZhRmk1xuEk9OJlq5X3NTwfCUgTBL4t/ylwbg9rAp3u+my9zOY2Np
+         RchdK/upsXl3l6+/m7xjufdgrRVLJBmTypGOIoMKGNHh4lyfTwp92EmdhO9sssyInodq
+         7Vtw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788777114; x=1789381914; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Xw+HRlcvjW0U6P6qm17Nuk1JE3pIENaL9TJbCB4UHJk=;
+        b=cwiq/BqHqSn+EpVYUEp2vsqmAtWZIr2X071/991/3p6FU1kQu0Sb6s1EK9i11exsqZ
+         7hVqvtkaDdnWFKvdYTUuJiBQEH2mkj3W851jsUhFcFIftFd60YILwZ84GOHtJBEfDQmC
+         FIykK08Cs6nSOu8rxsZJrmn2E3WuT0ArxkRnA3SKzN2JE2REoK3CZbh9tnTf8mqo3GH6
+         sFjzTWUqSRjxvVdILLSAcPwtKlyBPuCxwIUAgnpNalMYme+i+BmncE3HdheUq3duX+FJ
+         xhtNfMDgOoaWOBQzxxXUbGpyu/oYyZkhUAMJXjTR3fuaShjYcbv7aqhRXR9ywxVm9I2R
+         1o4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788777114; x=1789381914;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Xw+HRlcvjW0U6P6qm17Nuk1JE3pIENaL9TJbCB4UHJk=;
+        b=fc8aooBFyOTMTM+oon+5plwF2FaZWJFZo+1nvPmCTxOVF7gH+h6sPe0CElGrOudPj3
+         AUvcxk+bjgBlkEh+m7mQuIwNJuQTT16PUDkXcLJfrvrBtbNsGlgQ/eLSn6obmWr6kOSW
+         OD8SqPW/Bm8+oNa2dapfvqpbpTQRzFYFVtiywVdqBBU7/YChcCQUvCm0zw3G5+EE65S+
+         tt3VYsY5RmL/PvUMKFZSZ2+/J2kiJTmjtZzhUAX8mdeELl2WkvtNaXZ28sR3x6c8d16o
+         tXQ9TQBRJTjuaJ03bMidy750fUXHNaKsqESdv06YyH5PBWm3u/yXvh06Q86gQkXT3JiK
+         Ucxg==
+X-Forwarded-Encrypted: i=1; AKwUvBx2KBOKI04SmXHW1R3aD79c+ujwqWDsmKStB3cAfvPVHN7uueLXusp7NEjdt1SvAC2lGeFcJP67TMJgSBU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mK77w/XHgURB9W9m7poTLdzmbMHW/3zFpSyeu38keV4ybisH+x
+	M43P+NQJSl7r+sKgU5Vw52ahkHkTdOx88ynAHTsoJ3x5kXU9w1jpiKWAjwBnJNXWFPNAVIcTzuW
+	79V++86iLtbJqEGDmcrBUSP0VhuUb1m4=
+X-Gm-Gg: AYBFou1Z+BdRbHQb7P48ywxJpy5n8g6BPXQGBij3SXpbDU5XJNifEGCuxz5qJZcOk/U
+	p3ZeqdbAvVK/p28f9oz1O2MVihTcn54yFdyk2VGRSNbseANnZBZRZ9n6MCVsZD2tyf5PoiWw4Cd
+	x/1LJ5VUI6A4bGYyDNj+fmqwXrRv+HFnAv9k+8v8I/DUhi2K6o8o6clTeX4qTcoZml7QlL5ucvO
+	0SvZ5sPYrDkcDMVaDovJHOCMdj/cPO+7Irb1JSu9IMEvYNBqsqLoT3Enx7Z/TcbauZo/JfYPWTt
+	2HlYbwl6HblNoR8FxdrX/JuR3HIVFzzsg/7NjRKBxBDeRAlsxXxPTiYrFU4MX6BsfbCX8OzrLAy
+	YcV8kgJmPrBZ4/BnF+9P4tdNWvv4yhcaLp+Np6hQ9wDOLYgJ6bgujA7gZzvPsQq+ar6PzWy3Amn
+	T+p84VRNUL3+yvXodRo6sbszCm0Hgv+fw=
+X-Received: by 2002:a17:907:3f98:b0:c26:19e3:e988 with SMTP id
+ a640c23a62f3a-c2619e3ef32mr701672366b.40.1788777114250; Mon, 07 Sep 2026
+ 03:31:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <6ca46138.9970.1a07b6abb25.Coremail.zl020895@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:kygvCgD3P+kbkp5qdBRBAA--.16072W
-X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbCxhvsXmqekhuDRgAA3X
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+References: <20260907084319.351688-4-blum@kernel.org> <20260907084319.351688-5-blum@kernel.org>
+In-Reply-To: <20260907084319.351688-5-blum@kernel.org>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Mon, 7 Sep 2026 13:31:17 +0300
+X-Gm-Features: AcwNN1XM3d4ZDElQn3iIlQ6JTOd1vgZ6JbjOD4PpwcxjalKvdLb1jFd3p8gSdWc
+Message-ID: <CAHp75VfwuHeoLhj1NHUMNTAjih=runLhp89-k=NgUWGA0RLiAw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] lib/string_choices: Add str_supported_unsupported()
+ helper
+To: Thorsten Blum <blum@kernel.org>
+Cc: Mark Pearson <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+	Henrique de Moraes Holschuh <hmh@hmh.eng.br>, Hans de Goede <hansg@kernel.org>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, platform-driver-x86@vger.kernel.org, 
+	ibm-acpi-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-SGkgQW5keSwKClRoYW5rcyBmb3IgdGhlIGJ4dHdjIHBvaW50ZXIuCgpJIGxvb2tlZCBhdCBtYXBw
-aW5nIFBMMDYxIG9udG8gcmVnbWFwLWlycS4gU3RhdHVzL21hc2svYWNrIChNSVMvSUUvSUMpCmNv
-dWxkIGZpdCwgYnV0IFBMMDYxIHN0aWxsIG5lZWRzIHRoZSBjaGFpbmVkIGRlbXV4IHBsdXMgSVMv
-SUJFL0lFViB0eXBlCnByb2dyYW1taW5nIChpbmNsdWRpbmcgRURHRV9CT1RIKSBhbmQgdGhlIGV4
-aXN0aW5nIGdwaW9jaGlwIGltbXV0YWJsZQpoZWxwZXJzLiBUaGF0IGxvb2tzIGxpa2UgYSBwb29y
-IGZpdCB2ZXJzdXMgaWRpLTQ4L2J4dHdjLXN0eWxlIGNoaXBzLCBhbmQKc3dpdGNoaW5nIHRoZSBs
-b25nLXN0YW5kaW5nIEFSTSBQTDA2MSBwYXRoIGZyb20gY2hhaW5lZCB0byB0aHJlYWRlZApyZWdt
-YXAtaXJxIHNlZW1zIHJpc2t5LgoKV2hhdCBJIHBsYW4gZm9yIHRoZSBuZXh0IHJvdW5kICh3aXRo
-b3V0IGV4dGVuZGluZyBncGlvLXJlZ21hcCB3aXRoIGdpcnEpOgprZWVwIHRoZSBjdXN0b20gaXJx
-Y2hpcCArIGNoYWluZWQgaGFuZGxlciwgY3JlYXRlIHRoZSBpcnFfZG9tYWluIGluCmdwaW8tcGww
-NjEsIGFuZCBwYXNzIGl0IHZpYSBjb25maWcuaXJxX2RvbWFpbiB0byBncGlvLXJlZ21hcC4KCkRv
-ZXMgdGhhdCBtYXRjaCB3aGF0IHlvdSBoYWQgaW4gbWluZCwgb3IgZG8geW91IHN0aWxsIHByZWZl
-ciBhCnJlZ21hcC1pcnEtYmFzZWQgYXBwcm9hY2g/CgpCZXN0IHJlZ2FyZHMsCkxvbmcgWmhhbwoK
-QXQgMjAyNi0wOS0wNyAxMjo0NTo1MywgIkFuZHkgU2hldmNoZW5rbyIgPGFuZHJpeS5zaGV2Y2hl
-bmtvQGxpbnV4LmludGVsLmNvbT4gd3JvdGU6Cj5PbiBNb24sIFNlcCAwNywgMjAyNiBhdCAxMjoy
-MDowM1BNICswODAwLCB6bDAyMDg5NSB3cm90ZToKPgo+PiA+IEFyZSB5b3UgZ29pbmcgdG8gZml4
-IHRoaXMgSFcgaW4gdGhlIG5leHQgdmVyc2lvbiBvZiB0aGUgU29DPwo+PiBObyDigJQgQW1iYXJl
-bGxhIGRvZXMgbm90IHVzZSB3cml0ZV9kYXRhX2FmdGVyX2Rpci4gSXQgb25seSBwcmVzZXJ2ZXMg
-dGhlCj4+IGV4aXN0aW5nIEFSTSBQTDA2MSBxdWlyayBhbHJlYWR5IGRvY3VtZW50ZWQgaW4gZ3Bp
-by1wbDA2MSAoZGF0YSB3cml0ZXMKPj4gaWdub3JlZCB3aGlsZSB0aGUgcGluIGlzIHN0aWxsIGFu
-IGlucHV0KS4gT25seSBwbDA2MV9hcm0gc2V0cyB0aGUgZmxhZy4KPgo+QWgsIHRoaXMgaXMgYSBn
-b29kIG5ld3MhCj4KPkluIGFueSBjYXNlIHdoZW4gZG9jdW1lbnRpbmcgdGhhdCBmbGFnLCBwbGVh
-c2UgYWxzbyBtZW50aW9uIHRoYXQgYW55IG5ldyBIVwo+c2hvdWxkIG5vdCB1c2UgaXQgYXMgaXQn
-cyBjb25zaWRlcmVkIGJ1Z2d5IChnbGl0Y2hlcyBkdXJpbmcgZGlyZWN0aW9uIGNoYW5nZQo+YXJl
-IGd1YXJhbnRlZWQpLgo+Cj4+IEkgd2lsbCBhbHNvIG1ha2UgdGhlIGZpcnN0IGdwaW9fcmVnbWFw
-X3NldCgpIGNvbmRpdGlvbmFsIHNvIHRoZSBxdWlyawo+PiBwYXRoIHdyaXRlcyBvbmNlIGFmdGVy
-IGRpcmVjdGlvbl9vdXRwdXQsIG5vdCB0d2ljZS4KPgo+SSBzZWUgdGhhdCBvcmlnaW5hbCBwbDA2
-MSBhY3R1YWxseSB3cml0ZXMgdHdpY2UuIFRCSCBJIGRvbid0IGtub3cgdGhlIGJlc3QKPmVmZm9y
-dCBoZXJlIGFuZCBpZiBpdCdzIHJlYWxseSByZXF1aXJlZCB0byBkbyBzby4gUHJvYmFibHkgb3Ro
-ZXJzIGhhdmUKPmJldHRlciBpZGVhcy4uLgo+Cj4+ID4gVGhpcyBuZWVkcyB0byBiZSBpbiBhIHNl
-cGFyYXRlIHVwZGF0ZS4gQWxzbyB3ZSBuZWVkIHRvIHVuZGVyc3RhbmQgd2h5Cj4+ID4gaXQgaXMg
-cmVxdWlyZWQuCj4+IE9LLCBnaXJxIHdpbGwgYmUgYSBzZXBhcmF0ZSBwYXRjaC4gUEwwNjEga2Vl
-cHMgYSBjdXN0b20gY2hhaW5lZAo+PiBpcnFjaGlwIChub3QgcmVnbWFwLWlycSk7IGdwaW9fcmVn
-bWFwIHRvZGF5IG9ubHkgdGFrZXMgaXJxX2RvbWFpbiBvcgo+PiByZWdtYXBfaXJxX2NoaXAsIHNv
-IHdlIHBhc3NlZCBnaXJxIHRvIGtlZXAgdGhlIHVzdWFsIGdwaW9faXJxX2NoaXAgKwo+PiBncGlv
-Y2hpcF9hZGQgZmxvdy4gT3BlbiB0byB1c2luZyBhIGNhbGxlci1jcmVhdGVkIGlycV9kb21haW4g
-aW5zdGVhZCBpZgo+PiB5b3UgcHJlZmVyLgo+Cj5JZiB0aGVyZSBpcyBhIGNoYWluZWQgSVJRLCBs
-b29rIGhvdyBQTUlDIGRyaXZlcnMgdXN1YWxseSBkbyBzaW1pbGFyIHNldHVwcy4KPkZpcnN0IHdo
-YXQgY29tZXMgdG8gbXkgbWluZCBpcyBkcml2ZXJzL21mZC9pbnRlbF9zb2NfcG1pY19ieHR3Yy5j
-Lgo+Cj4tLSAKPldpdGggQmVzdCBSZWdhcmRzLAo+QW5keSBTaGV2Y2hlbmtvCj4K
+On Mon, Sep 7, 2026 at 11:44=E2=80=AFAM Thorsten Blum <blum@kernel.org> wro=
+te:
+>
+> Add str_supported_unsupported() to return "supported" or "unsupported"
+> depending on the boolean argument. Also add the inverse
+> str_unsupported_supported().
+
+Reviewed-by: Andy Shevchenko <andy@kernel.org>
+
+--=20
+With Best Regards,
+Andy Shevchenko
