@@ -1,135 +1,142 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011017.outbound.protection.outlook.com [40.107.130.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99FFE4E3ED4
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:28:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788794882; cv=fail; b=sMU3dhS8x9NsfPgwwrXNwJUaFVC/w2mtSTGqaOziQp42N8POrcCUMyHdf7z3Yetw/859s35myi0RLx/Rh0fe+Ej6iakRrayfxlBirZRSTm8B/5LqWdVknOdDAnBW7tK+PG+ZIWqxW6xwZHGNkt5cr3SRn5D9/7CrQ5VGZzlPV1Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788794882; c=relaxed/simple;
-	bh=BffQqDWCqWnC6O4dWGuGiBYapiP1+otsr1PEj6+CJiY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=hXXWJCRLTLxGNzj8FQiLJmQUy/oYJ8CgRVPq4T3tfJClxfUZnIOJQFIO4yvY3ELwFD7PAnQXy5kDvevnA9KVbDDCk8eKyNcjglzR4E3juU5g1f+wlYpa1T4typZD4zmw7K77B6mL5/b1Gm3nleky0R1/h6EpBwc3CShwJ8dB058=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=lS50wBo/; arc=fail smtp.client-ip=40.107.130.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ED3C4EA38E
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:28:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788794885; cv=none; b=hlQ3tCC9fz3AZ+S7Jc6n9wjrJjnUMII6gr7npEysnsMliGfILbgCxWhMrHo3wIJnUuU/Su4+KpR9zCD3IgTwzqysRWF08PRyCTNTWPfFnuBwrCEJDNHOjDz9DgHBBAk/s4FKiAg9uhx4Wp0ylq5VxuV2VBU/Fp+45byO2+wuosM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788794885; c=relaxed/simple;
+	bh=vhajuZrsqmCwOt5dYh0K0ju9UJkTcDDqh+0g8hbzEHc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TXCqK5nyi1YBh8HO0kBilwZihbJvDJN2ME5WUGoRcVH+wHjx37vxlQOecB37qHY6RdVe3oYUnEf9Q51zOoBoApJstUFGGfc8QjGM3Rn1+N6J2qvzpJq2S00boIdH59Y3AA6v9zLthNZM1iD2u9PDPfZjG9JSBEmO4cdYnarUxvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oNeULgsG; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="lS50wBo/"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PT6iiWh3q7F5Gu4mkMkIMPdn9uhsbTflmelZszHhyQx4ZnLYW95WEcF6GV0j8OGAd18zkgh0B0FBG/ZSW2/4X46RLNuREyPK52qS/HiHYWOPt8ryFT2qHgjVEm3393rQ+NqJehReul5m6/xnFBMjRcEMwhBQEZ3lOzSp6Sp6v1ORIanq+v7ycxxrAEwpAQ1TlRobmxSAmx+CH6Iw/3egIqzZ5lKiy9q4viIj49HWe3laFL674pGTnzdP1QGIsZxMQ8IU8R2CKaaYMjWdtlf9HAkt7Oe3NQjb6IKITHiia4DEwjB0le6YVHjkHCoVgS2J92cZ4LfAnq4s0KTzzLjcCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VMacvcgL+lgBM2lkkuooDpurCkxBdStmRSqghi+FONo=;
- b=sEuIRn8eAc5rre3m3txRVBflc6qHjMiiFhBVdZZ4Gsxx506bRasC4IDQ622dVhkcOUtXdba6uONSVNKhBow1grwbzyESu2NPgB6l2NfS9PbggMq+bSxLiDtBHDK82orvGAhZ1fpkV2+1O31urexy+9b7uaSBTLlWWpQWifzcyWdlyghorUW9GW1bTmFPc84zNSVH6b89Wug6xGAHiDCWZ66NgaVbpm6YvF3olkt6kUcc3KPiCKhGgAN4mqxJG+Uaud/pLHJ2/HHy0h0k1OLDzN5ODbhn46NMWOw5+sjAoNVY0JJZ9Bw5PCX+gNU7MpzD0TBhqXE21XkT9SL+i60IGA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VMacvcgL+lgBM2lkkuooDpurCkxBdStmRSqghi+FONo=;
- b=lS50wBo/RrvoUj7zU4Y9OGELz/sSrSHdA1XVXcXKbXilEcMbayyXt+eM5YwXKYZEc0bNyKc+geDicTTjgrDLk2qipdDdjBHaqULTlsDly9eeY/HVXFGTPSROOQio0PuZoU6zR8EyVkgTbZsS39XYT6M5HSfMcoJNHvs8CIq4iicHEW/FfGev36v40fNJiDdFEWiGbdT+tv1ASPTSSWhjG2Pb+1QPF7DLzhFJfXO6F4o6g+BsqdccfR7Het7vNMBJCtNM3wzWS8+tRSR7mw/prWTuWTVR3wm4tQbqfDcLNlpdhzgKLjq34j5TxuAXHDbrPcvrsIv2AO1auZ6tcYbGzg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from GVXPR04MB12290.eurprd04.prod.outlook.com
- (2603:10a6:150:319::13) by PA4PR04MB7805.eurprd04.prod.outlook.com
- (2603:10a6:102:c2::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 15:27:56 +0000
-Received: from GVXPR04MB12290.eurprd04.prod.outlook.com
- ([fe80::1739:3404:2175:33dd]) by GVXPR04MB12290.eurprd04.prod.outlook.com
- ([fe80::1739:3404:2175:33dd%3]) with mapi id 15.21.0382.012; Mon, 7 Sep 2026
- 15:27:56 +0000
-Date: Mon, 7 Sep 2026 18:27:52 +0300
-From: Ioana Ciornei <ioana.ciornei@nxp.com>
-To: vjardin@free.fr
-Cc: Laurentiu Tudor <laurentiu.tudor@nxp.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Bogdan Purcareata <bogdan.purcareata@nxp.com>, 
-	Stuart Yoder <stuyoder@gmail.com>, linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] bus: fsl-mc: set dma_mask for the DPRC devices
-Message-ID: <gzcfhpyhe5bds5wwywzmlnxeg23v7vut723vjc5sz32p45hqlg@ogycqou76743>
-References: <20260731-for-upstream-fsl-mc-dprc-dma-mask-v2-1-ea7058b90f06@free.fr>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260731-for-upstream-fsl-mc-dprc-dma-mask-v2-1-ea7058b90f06@free.fr>
-X-ClientProxiedBy: FR0P281CA0201.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ad::10) To GVXPR04MB12290.eurprd04.prod.outlook.com
- (2603:10a6:150:319::13)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oNeULgsG"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4858595f997so2198696f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:28:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788794882; x=1789399682; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+ZQ7Pm71SixvZJgMI4PIPsvZ2aqIswjWhqrRzsbUnlg=;
+        b=oNeULgsG+OmZ+vwrMoX/PW+Y1cfCIc+lj3pg0/j8kZ9oxqT1J+Xthr/6QEBKed7PqE
+         7xy99b9Cw9R4jS3WZaV8O7mJFuF1kSriJbWNRorIgEaO3KoXEiQPZeXm2sdln2tvN8EC
+         CWxwCpq0Bn+vVsrTJ3JAWbBBF7s0u/PXL2XOCukzCkg2RGUuCnELFzjcKgRhG5zU/ngm
+         3MhgcyQ0pxW3SG9Mhc7YC7krgjlhAxdrSebOo6tYoxlvcTsh+BLacIDkNFqwAGYKD/fK
+         1WeoPyvHKr0ybFe2JgramOyysm6wCK3M10YjcotPPJFMN6rF1lYCpx/FD6M8PZ6p3ZvF
+         04Sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788794882; x=1789399682;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+ZQ7Pm71SixvZJgMI4PIPsvZ2aqIswjWhqrRzsbUnlg=;
+        b=psVOe/kNuqSaY5g4GdEBidCTHXs2H6IUN3i7kEidw/ZrANFSZ0eemArRfPfbM9GJ9V
+         /vokZ1dpQh3/du8GTnExJyy7d7PBotaBWzCp2f97wtIsPV6kM6ORSoH/XaTTYerqq72d
+         LxmiGVhD2iP/4DbgHmOV+3OwKjb8DHwUyLR4oKI87eXLFoXUfG8LrXcKQjjaouF2GA+U
+         55Y1Mc0AoIMeAnkgYSgtWKze98Z2VLj6GP3Ge3FKNBMNwUzSRGNlWUkqstBfpt2MfanD
+         7yXFI/EpJ8Qki509Df6yDPLUJ1wZhxqDHUn5Qtxzm/jC1tIdS7U02WBwrZWyxfs4bDBq
+         dzrw==
+X-Forwarded-Encrypted: i=1; AKwUvByzDx3mkiD06hfJy2o6h4IZu+JxbkAQEWx5T3uZPsMjvoR5swwrok1Hx5Tl/TvtiKMBZeLYwMmRdTzkyZk=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4HwM5pWldKVXDGVlzvRR+3EYGqB3p5i31qjQogQ361mtgrfHp
+	kYYWf2go998ZD5XlLdRouDHTiTL90RLQNWburhBLiQbCTeoGE8cJw8Da
+X-Gm-Gg: AYBFou2ai7ydvFa7vJT0xHg3w5WMuRaIeffXHQDI7fMWeFggXzfsIJC8AdqpMve8aBA
+	H8Fh1mzb9pmI6VizuigLiBtpU9bNFiyCe6cuVj0Dnd7KpO+LEAqsnhf+eQ3maeUM1B5vKI8fvi1
+	t8TPTx3uuZpHKsXCijpJGCgfNc7RH2aBH5biApJogtyRQwFDc0HhVA8s9H7jdJLMpEfIbsIkZ+z
+	oxTIIeV3ZEALk0uPskWhcJI4jOk15rX6p7Jxz8UM7JIGsInyWGIwpZ6bsGDf7cUJJ5mKIYwOeYi
+	wEcR2Q4Sq3JjITVCkWaCAziS2u0UnjkbpXHKpN2QLePs5hz1+nXRXrMaxEDxiY/pXVJFiblMobH
+	vV5aJRDhHeuMPzaJrOvZHhZRna35N0BC253/TIfKXNdlKQHSdMKbTFUTgPaHTLSrvgbZr1dvqAs
+	TqbT6Y6PG3u6jJFJabqhzBQWU8pF/U16aFYpRt2kTqt1RZIWbf4f4MX6vThjRx+Hclk5mHKcNm1
+	6bYFrxL51TzcDZ9cebvR/VaskMmVrJ+PrqmWi2zADLsJzF8WidzY9wVaU3qCC8bsWVBe2T8H6bZ
+	d04=
+X-Received: by 2002:a05:6000:470a:b0:485:8101:dc40 with SMTP id ffacd0b85a97d-48587057037mr38784665f8f.9.1788794881422;
+        Mon, 07 Sep 2026 08:28:01 -0700 (PDT)
+Received: from MYL150-3871.localdomain (80.151.89.79.rev.sfr.net. [79.89.151.80])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883c074asm28525915f8f.23.2026.09.07.08.28.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 08:28:01 -0700 (PDT)
+From: Nicolas Thibert <nithibert@gmail.com>
+To: gregkh@linuxfoundation.org,
+	jirislaby@kernel.org
+Cc: linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] serial: 8250_of: set UART_CAP_NOTEMT for rts-gpios RS485 direction
+Date: Mon,  7 Sep 2026 17:27:44 +0200
+Message-Id: <20260907152744.1084359-1-nithibert@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GVXPR04MB12290:EE_|PA4PR04MB7805:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9ed42124-4c75-41a8-e94c-08df0cf49760
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|19092799006|6133799003|10067099003|56012099006|11063799006|22082099003|18002099003|41080700001|15866825006;
-X-Microsoft-Antispam-Message-Info:
-	eaU0WCNOb4FsLr3GHCEq8bPWyTgz5JCnxSGIQkE6YeKJzeP8bBXqW/djMmNlxV/kC1YLXvXYvqTBp6QUKd4lU22pU07O65L4Oz1MnMyW4op38uXf2SE8R6s47zPUM9bAOa1NzZwmpb9Tu26nhd5ZNhxErTFOHOjiLf9dgIQTS7irPW/Nujz0sfFVE9Y6xhGNI8FsVmhUURAUG+XHOYEfUuzH3afap05VQ3clUh6vPB//fNqTO4Oce0iYYrlj+YbEje+1uMQV+z2HLp2kR/znn+Gyp4li/szOTYW9DSeLbiASHa58aM8yXLaWftRySPSp+uu29YaWb5QpsoLsTp247yOAuzLX/AikksMPEvIMuV9CKLuh75WM29TVDS/F/6YvE+3a3uH658Bxo4ysxmcQxjXTmcCR/gS+xXo9D/CveT5aJi0mIAkbhOIp1IhlQr1WkVFsUpotTgTDg9D6tvLYiciCUK8BhSczMAJUkw8UwO1c+K08KfsqqHgZDXBmhoNZKC3mK2rRvD39KeURrzHLSXWvUW/X7JK71N8mCkIGiVm0YyF18nayjcrFUkHf30VNo/Dvgu8Frwc8Cg7kEgB3qYO9ceo0KahQ75zH3VrF+52CQACUqi2fAd3PGxac+lK/x96gJux9S64NqFbYqRaPjHcaqthhYMKHhzzWIWsXquHAZIt0I911gz7LReVe7HaGB65nbCMVUnGVkmBjf46SGcw1e8r1Y2mGYtwMIwhSNggp16L3kkq2Wjxk3iU7RKSa
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB12290.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(19092799006)(6133799003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003)(41080700001)(15866825006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?3a7OlFgC04Wxq5nkmNYTvEHfxUNpr7/JgPXgBw4CMIAyt2jKeEppC8hUCmd8?=
- =?us-ascii?Q?Xjtj0L8gbnR4SsLXYYNHAMEJ8HSXpIhYlzys50WMfNYcSFKbo1GiOUgM0fJy?=
- =?us-ascii?Q?UTaXck7NC7fZkxGlxvQMzcXhT472Px7RtNEiZzikQy/HBYjj8emqh3i1fhxO?=
- =?us-ascii?Q?t6DqEFskB7LLr0OYP++++zzK4LFogqX7mAywQSwluCJPrmwupHHR4tZZmStI?=
- =?us-ascii?Q?m1hnZYSv80EGCwjj2e4rr1tWELHqF8tpMeXHjU6hHQ7BIIvzrahj3kt6HHTZ?=
- =?us-ascii?Q?diWd3kvx4Y3Yy5G8OExujcAj/ZFSbgN5wrGjTOPO70ku/TR7UlIctne5h1Rg?=
- =?us-ascii?Q?f3q4NXVUox8qlZyF0JVEY4/tiK70WgYIJMTwFlPY8atPe49Bhqg+L9wPBknF?=
- =?us-ascii?Q?JZhpOIVO/P6mJGFVfkAE8nuNbxcSv5vMwKbpg1fllLHlw06vCsgHyIVROfsL?=
- =?us-ascii?Q?2dRHI4ktbps3nz0rdtnW0s6gIX9kwCtSJfR6S9i2W30gQp36ZV2O24ll/7WM?=
- =?us-ascii?Q?+Fh2F/RWhTw2DjvbEDFVeRneurz5RrXI8Yg5jWibvlKH+rnADXuPUuRbDcvR?=
- =?us-ascii?Q?jE9lxNSX7NoIAIZdBFF7RR8HLzZCYvT5no0zUDJtYKu3lLRnPeXm+RpjI5S+?=
- =?us-ascii?Q?X7PHS30fHwhHeQvwYo/WfnmL6EP7o+kWuxFUqnavfVBzkt4JL7hhj4BKcg2r?=
- =?us-ascii?Q?HYynIMWr5IuOedMpoXe5Xpd0f894WD3FhUN70m6SHGuBNGwjYRABAvDtBOem?=
- =?us-ascii?Q?tOfTZTgrpJY34LmYIDeBiAu+68sNn8y86T+/xBeRn+pVgZJKXPBKOx6LUbfs?=
- =?us-ascii?Q?e+t+RHMNfteGC/ZzRZqbICgm7I+6MYKEh4X9yv/iHt+V/Re6cHTXAvZewP2h?=
- =?us-ascii?Q?9xnBvP1JIBx0MfW4vjFg9d9eETFNNhbpRPpH665klFCU/R/d91mXzmZeWd0y?=
- =?us-ascii?Q?nJF8K5b8sfyVY1X3wopCrlbKXRzma7mDlGsrR5rFhy1utByHG7PCj2MCr2m0?=
- =?us-ascii?Q?VHbNSs1JIURiBMtuKPCYSBqkYMIDOvy186wVN4wyg1lqWgrzw8Yvzo1Ldb4N?=
- =?us-ascii?Q?O+AbqfRkZ+ttFRggQ4hhF838jBVLQiY15yE766yhQlORd+Q1LK4DWNIFZbVQ?=
- =?us-ascii?Q?2hygoYO0rx6eI4WQxnweMr+XRXjggTn8UZ82V0CEPJsSSQCKWPRjYKC8Ggul?=
- =?us-ascii?Q?NQk4q5dR4ZayoUzpKqqA0QkCMAC6P9Uu/6MMmvuW6M8cJj7ytoMTMGZgzo45?=
- =?us-ascii?Q?9n0Nx0cvJCwWZQeWfApNaVUrzWtvG660ljp1z27lcDwlmrSKi//OCNYiCHau?=
- =?us-ascii?Q?SQqwmq4AAV3lpGQSQ53rfmm2+DHWUtCL5+wN27jyUawzPAf/c4KtnmbLiu1o?=
- =?us-ascii?Q?9GEBj8CeZPWzzBMzy/GqhRTr4FUv0Miiqc519b9FqQ04VJfXRW1Pk43wCpbg?=
- =?us-ascii?Q?DgsT9q62DOmeVjNM5AkDQJ1Z+Bt0T6ZfSySS3XaTyMFBOZsr92/kTfqjXsZT?=
- =?us-ascii?Q?q5vgnuVssRyqI659nirI84W6IxMIIu5ay5mJ2DWJtd4NxZ5RcFY6hFZZLH3x?=
- =?us-ascii?Q?vdDzMq9IaFfU2OKg1zrsk3T9I2Gk5qPC2w/RXB1Wu3lhW4pw10r3KqgC6aho?=
- =?us-ascii?Q?szG/DnqE69wxCF/+72FDHvv96DWa3HDEeh8l6M34bpRigJyevmR/VeZMdjZh?=
- =?us-ascii?Q?s82MZaQGfdUr9N0tGOpoAPMdj5GSfY8J+hPS2MW3Lem2cFomCzBvZVoT18Jt?=
- =?us-ascii?Q?C1d69wrvNA=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ed42124-4c75-41a8-e94c-08df0cf49760
-X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB12290.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 15:27:56.2118
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0woecg4/GRjy4quKsJOJOAFNyc4zo6qhzKmasUwj6g/9TZlRFqAIlab1GkmzShCyqOgjmt47OB8VUKuO6NMSXQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7805
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jul 31, 2026 at 10:13:49PM +0200, Vincent Jardin via B4 Relay wrote:
-> From: Vincent Jardin <vjardin@free.fr>
-> 
-> On Layerscape platforms when SMMU is disabled by ATF, the root DPRC probes
-> with its dma_mask pointer unset which leads to a notification:
->   "DMA mask not set"
-> so the device is left with a zero DMA mask instead of a sane default.
-> 
-> Let's seed the masks for all cases.
-> 
-> It was tested on LX2160A with no SMMU on the MC domain: the warning is gone
-> and the DPAA2 children probe unchanged.
-> 
-> Signed-off-by: Vincent Jardin <vjardin@free.fr>
+__stop_tx() (8250_port.c) only calls the RS485 rs485_stop_tx() hook
+(which de-asserts the direction GPIO/RTS line) once it has observed
+both UART_LSR_THRE and UART_LSR_TEMT for the last byte. If TEMT is
+never seen and the driver hasn't set UART_CAP_NOTEMT, the function
+returns without scheduling any retry -- the direction line is left
+asserted (driver enabled) forever, with nothing to un-stick it short
+of another kernel-visible LSR event.
 
-Reviewed-by: Ioana Ciornei <ioana.ciornei@nxp.com>
+of_platform_serial_setup() unconditionally wires up the generic em485
+GPIO-RTS RS485 support (rs485_config/rs485_start_tx/rs485_stop_tx) for
+every port it registers, but never sets UART_CAP_NOTEMT, so any board
+using this driver whose 16550-compatible core doesn't reliably surface
+TEMT for its shift register hits the stuck-direction-GPIO case above.
+
+Confirmed live on an ath79 QCA9531 board (SoC-internal ns16550a-
+compatible UART, RS485 transceiver DE/RE tied together on a GPIO via
+rts-gpios, linux,rs485-enabled-at-boot-time): the direction GPIO
+correctly asserts for the duration of a transmit, but never
+de-asserts afterwards -- confirmed by sampling the GPIO's debugfs
+state through and after a multi-hundred-byte write, on both the first
+transmit and repeated back-to-back transmits. Setting
+UART_CAP_NOTEMT, which makes __stop_tx() fall back to a frame-time-
+based timer instead of waiting indefinitely on TEMT, makes the
+direction GPIO reliably return low right after each transmit
+completes.
+
+Scope the fix to ports that declare a GPIO-controlled direction line
+(rts-gpios), rather than setting it unconditionally for every port
+this driver registers: this is the class of hardware actually
+affected (RTS state has to be explicitly un-stuck by software, unlike
+a UART's native RTS pin), and it avoids adding the extra frame-time
+margin to ports relying on the native RTS pin, which has not been
+observed to need it.
+
+Signed-off-by: Nicolas Thibert <nithibert@gmail.com>
+Assisted-by: LLM (Claude Sonnet 5, Anthropic)
+---
+ drivers/tty/serial/8250/8250_of.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+--- a/drivers/tty/serial/8250/8250_of.c
++++ b/drivers/tty/serial/8250/8250_of.c
+@@ -156,6 +156,22 @@ static int of_platform_serial_setup(struct platform_device *ofdev,
+ 	up->rs485_start_tx = serial8250_em485_start_tx;
+ 	up->rs485_stop_tx = serial8250_em485_stop_tx;
+
++	/*
++	 * This generic driver never enables a dedicated line-status
++	 * interrupt on TEMT, so for ports whose RS485 direction is
++	 * controlled via a GPIO (rts-gpios) rather than the native RTS
++	 * pin, __stop_tx() (8250_port.c) can see THRE without TEMT on the
++	 * last byte and bail out without ever retrying -- leaving the
++	 * direction GPIO stuck asserted after the last byte sent, on
++	 * hardware whose shift register doesn't reliably surface TEMT.
++	 * UART_CAP_NOTEMT makes it fall back to a frame-time-based timer
++	 * instead of waiting on that interrupt. Scoped to rts-gpios users
++	 * only, to avoid changing timing for ports relying on the native
++	 * RTS pin, which this has not been observed to affect.
++	 */
++	if (of_property_present(np, "rts-gpios"))
++		up->capabilities |= UART_CAP_NOTEMT;
++
+ 	switch (type) {
+ 	case PORT_RT2880:
+ 		ret = rt288x_setup(port);
