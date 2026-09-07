@@ -1,38 +1,47 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A77593876CD;
-	Mon,  7 Sep 2026 18:05:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 803A83783AC;
+	Mon,  7 Sep 2026 18:05:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788804307; cv=none; b=fnXElyTehbbf3mKjNeam+hu9VPWXgFnVYY0cS2PeH7zXmsGjSXlU7mHSuifGMvJPnf9yeddcmShN23iETpw7fWrVZrAEf9LJSfhX/hukVnym7MytiWIvveWy0QwOcADQxu6DutTyHifPO8/dPO+zMuJstjYbwkhk2VPU4s5Z//E=
+	t=1788804316; cv=none; b=QLskv/EnEwHb/lCaXshpc802vA+PKRuRYTxBNbxYW+psMEs+cWkqE07LAfpOXMNHqGQ2NwXWs53FVKeZXYDOat9YYCP+mUlxVRCEx/0jXqyI/tGE7YiJtdxTBvdUyr/1xWZdZsTJKE8MCOlrF1HPoLqCi5lSkQi3DZmfZSB4N7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788804307; c=relaxed/simple;
-	bh=jz1YYHTKBXvQwwbmdKRil+VbegnbS6yrMzLj3JzOLPM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=UNYyGlksLkNt4NLBxHkzWOxynjRNirPoxs5EM7qtVjvXG05jHAl0TdrC5KloW4VG/0FtQpFaQudOVkq7hVGV0pbbg+dC2fZGckxYWwWoVQQ8LShoz4m8dycgTtwPd9Qu8epOVP403iH2m1BbaI7Z4Lp7tmH0/PqFHS6c5TCgf1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q+UOjU4O; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788804316; c=relaxed/simple;
+	bh=NMZfQ5bfQM09rdoZBXeRzwZXUo+EmSk4CAgXJqAHtlY=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=o0BtmUsTchzg6r9+6/HLZCI8LM1s/wEPwZoFvsmMFWBuKLPkceFFu8N37siEod9m9WDDRjaXqn+avYzZxrf0I954mjGyO8qhXOrZCmhCS1AQHkXqIT+SQlSuKUnFIYjw0m+9IErmy1nI/+fW5aRJ/zOFsHRKL92k+K8BOXRNiZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k+P4t6ob; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q+UOjU4O"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 65D11C2BCFD;
-	Mon,  7 Sep 2026 18:05:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788804307;
-	bh=jz1YYHTKBXvQwwbmdKRil+VbegnbS6yrMzLj3JzOLPM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Q+UOjU4O830yvA5yRRsyWV0K0UlpAKnYieatc9t6AOW89sU3UlRz6KseAXqpCuQQs
-	 QIFYDdtv1cOvdK96ZJR6hFms0+l9xAd29CF4tiVkRqfP+8lzFcdm8TkigVWGEjgBv1
-	 ZmBLJuBW2KHf5eyfOvtDpARmPtp5bbjAVuBPxtPrsqpFdlqDMCznMKQJopv7o728Nx
-	 Gkw/WSCYHLZKjhEINVozDvthBGQ3QhkMY5fIaUyL111AswE1vABRWtuHHoT9lakCeM
-	 FL0s6D0e+SyssSSUZAT0Fye258Fodwzv9UD3jA9jgGPx+oWbrrzxINSPWmgL2vomXe
-	 PMGSG8lwC7bgg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 47A87C79F9F;
-	Mon,  7 Sep 2026 18:05:07 +0000 (UTC)
-From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Mon, 07 Sep 2026 21:03:06 +0300
-Subject: [PATCH v2 2/3] soc: mediatek: cmdq-helper: add legacy GCE ISA
- support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k+P4t6ob"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EC1A1F00A3A;
+	Mon,  7 Sep 2026 18:05:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788804314;
+	bh=OUE7j0R6gxhq5aQdtj+7Hn/pY4EoWtTKh2Wgd0Uir4w=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=k+P4t6obRmHxnBXbDp8SM5b5PnFsGmYWkJBzKEeBS0vUXVenye0WuGYNDlHNBllaW
+	 N7J6bbT6076XZJGek+JA+LLVeEtWVgBIG5B9uyuZFdDqpqWtXqWYEr+lqnTXGFG4wf
+	 OHFZr1IxiGIpzVZxXE9NSbf2KOF/pxgWZlZ+282p0u7Hh10i8kkEgbJH4J4ItH+Sn3
+	 Q3qJJlheix9T4KM9Kubvr49aLsE7Fe2Tdu476xaF/im0vW6KK5VALYc09COvDlmYeA
+	 3YFMD2nC/muXcRmcrOYUDGVFBy2N07iff+CnH6Vs3BjGPDpE7X0y1zz142vLgFhvok
+	 QHob5ujfCI3Og==
+From: Mark Brown <broonie@kernel.org>
+To: Cezary Rojewski <cezary.rojewski@intel.com>, 
+ "hpp.iscas" <hppiscas@163.com>
+Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>, 
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
+ Bard Liao <yung-chuan.liao@linux.intel.com>, 
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Vinod Koul <vkoul@kernel.org>
+In-Reply-To: <20260905133133.63661-1-hppiscas@163.com>
+References: <20260905133133.63661-1-hppiscas@163.com>
+Subject: Re: [PATCH] ASoC: Intel: SST: Publish the PCI module aliases
+Message-Id: <178879976813.118202.1166467548793009182.b4-ty@b4>
+Date: Mon, 07 Sep 2026 17:49:28 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,167 +50,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-6572-gce-v2-2-412a5b037290@protonmail.com>
-References: <20260907-6572-gce-v2-0-412a5b037290@protonmail.com>
-In-Reply-To: <20260907-6572-gce-v2-0-412a5b037290@protonmail.com>
-To: Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Houlong Wei <houlong.wei@mediatek.com>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- Roman Vivchar <rva333@protonmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788804305; l=3889;
- i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=Uu3P5wuRY5/ZH17+b4JdmrxQxerJafFFRwJH5TYZehQ=;
- b=op39buDZAmJXgQKhtDaF+BBWSb5/59ftXLIn4uk1/rRHSDVAcd2MP8LZBqLZo5x0gvsWCF3RI
- QYmIsKafIvgAeYjaZyc3uedOWfGMF47v0yrrO2G/mQ82kf/6JSmXgii
-X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
- pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
-X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
- auth_id=777
-X-Original-From: Roman Vivchar <rva333@protonmail.com>
-Reply-To: rva333@protonmail.com
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1111; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=NMZfQ5bfQM09rdoZBXeRzwZXUo+EmSk4CAgXJqAHtlY=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqnvzV+47xynTTcM3tK6VrWglLRi6j5uyy4Z6yR
+ tZ7vfI8BYWJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCap781QAKCRAk1otyXVSH
+ 0CuYB/4wwD1sAt4gA+NYnxc9CU/Z3iccfAZ+Uvy6s8+XREopB7BmCfDdHJU4FvoKUDHfTNHVnle
+ 4h/iCF94yeA3d75LCSInuTaoCDj1POqQsjUu/+nNuuD1VXATK0ltXGgk4kftJhcUMAarDRM+5MT
+ +FM+TmvZ/qiut9sFgAbYgIRDc7bsBCjgK2YI0EuvwkdwvFFfbp5t3uE/6VdFaZQwgRbZipd+gEj
+ Wp8rd5w88PlXnLP/KayClqJSCx3Ozo+IM/abOIuLR/DiRfjjMGEC1yuUjwhB3SKayt3NwWwXVT9
+ 9keCCaat/1s4pm5n2Uop1vVaI1K+2OnbrTVobur5thid35sN
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-From: Roman Vivchar <rva333@protonmail.com>
+On Sat, 05 Sep 2026 21:31:33 +0800, hpp.iscas wrote:
+> ASoC: Intel: SST: Publish the PCI module aliases
 
-Some SoCs, such as mt6572, have different WRITE and POLL instruction
-encoding. Instead of 16-bit offset and 8-bit subsystem ID, old GCEs have
-22-bit offset and 2-bit subsystem ID.
+Applied to
 
-Extend cmdq_instruction struct with additional union and struct to hold
-the legacy format of instruction encoding. Add legacy_isa to select
-legacy GCE ISA when writing instruction. Finally, add special handing
-for legacy_isa cases.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
 
-Also correct comment about PA writes, because it's incorrect for legacy
-ISA. Only v2 (mt8167, 8173) and v3 (mt8168, 6768, 6779, 6785, etc) have
-GPRs and SPRs for PA writes.
+Thanks!
 
-While mt6572 GCE supports 22-bit offsets, the parameter type for offset
-remains 16 bit, because all mt6572 GCE mmsys consumers are in the 0xffff
-range.
+[1/1] ASoC: Intel: SST: Publish the PCI module aliases
+      https://git.kernel.org/broonie/sound/c/d112159df5c6
 
-Signed-off-by: Roman Vivchar <rva333@protonmail.com>
----
-This change doesn't bring any functional change for mt6572. mt6572 uses
-subsystem ID 0 for display, alongside with 16-bit offsets, so layout is
-still compatible with v2/v3 GCEs. However, it's better to properly
-describe layout.
----
- drivers/soc/mediatek/mtk-cmdq-helper.c   | 57 ++++++++++++++++++++++----------
- include/linux/mailbox/mtk-cmdq-mailbox.h |  1 +
- 2 files changed, 40 insertions(+), 18 deletions(-)
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-diff --git a/drivers/soc/mediatek/mtk-cmdq-helper.c b/drivers/soc/mediatek/mtk-cmdq-helper.c
-index f8ee6c9ade89..fb82f2a85a21 100644
---- a/drivers/soc/mediatek/mtk-cmdq-helper.c
-+++ b/drivers/soc/mediatek/mtk-cmdq-helper.c
-@@ -31,18 +31,27 @@ struct cmdq_instruction {
- 		};
- 	};
- 	union {
--		u16 offset;
--		u16 event;
--		u16 reg_dst;
--	};
--	union {
--		u8 subsys;
- 		struct {
--			u8 sop:5;
--			u8 arg_c_t:1;
--			u8 src_t:1;
--			u8 dst_t:1;
--		};
-+			union {
-+				u16 offset;
-+				u16 event;
-+				u16 reg_dst;
-+			};
-+			union {
-+				u8 subsys;
-+				struct {
-+					u8 sop:5;
-+					u8 arg_c_t:1;
-+					u8 src_t:1;
-+					u8 dst_t:1;
-+				};
-+			};
-+		} __packed;
-+
-+		struct {
-+			u32 offset_legacy:22;
-+			u32 subsys_legacy:2;
-+		} __packed;
- 	};
- 	u8 op;
- };
-@@ -86,7 +95,7 @@ int cmdq_dev_get_client_reg(struct device *dev,
- 		client_reg->subsys = CMDQ_SUBSYS_INVALID;
- 
- 		/*
--		 * All GCEs support writing register PA with mask without subsys,
-+		 * GCE v2/v3 support writing register PA with mask without subsys,
- 		 * but this requires extra GCE instructions to convert the PA into
- 		 * a format that GCE can handle, which is less performance than
- 		 * directly using subsys. Therefore, when subsys is available,
-@@ -219,10 +228,16 @@ int cmdq_pkt_write(struct cmdq_pkt *pkt, u8 subsys, u16 offset, u32 value)
- {
- 	struct cmdq_instruction inst = {
- 		.op = CMDQ_CODE_WRITE,
--		.value = value,
--		.offset = offset,
--		.subsys = subsys
-+		.value = value
- 	};
-+
-+	if (pkt->priv.legacy_isa) {
-+		inst.offset_legacy = offset;
-+		inst.subsys_legacy = subsys;
-+	} else {
-+		inst.offset = offset;
-+		inst.subsys = subsys;
-+	}
- 	return cmdq_pkt_append_command(pkt, inst);
- }
- EXPORT_SYMBOL(cmdq_pkt_write);
-@@ -459,10 +474,16 @@ int cmdq_pkt_poll(struct cmdq_pkt *pkt, u8 subsys,
- {
- 	struct cmdq_instruction inst = {
- 		.op = CMDQ_CODE_POLL,
--		.value = value,
--		.offset = offset,
--		.subsys = subsys
-+		.value = value
- 	};
-+
-+	if (pkt->priv.legacy_isa) {
-+		inst.offset_legacy = offset;
-+		inst.subsys_legacy = subsys;
-+	} else {
-+		inst.offset = offset;
-+		inst.subsys = subsys;
-+	}
- 	return cmdq_pkt_append_command(pkt, inst);
- }
- EXPORT_SYMBOL(cmdq_pkt_poll);
-diff --git a/include/linux/mailbox/mtk-cmdq-mailbox.h b/include/linux/mailbox/mtk-cmdq-mailbox.h
-index 07c1bfbdb8c4..9fcebc4ca864 100644
---- a/include/linux/mailbox/mtk-cmdq-mailbox.h
-+++ b/include/linux/mailbox/mtk-cmdq-mailbox.h
-@@ -72,6 +72,7 @@ struct cmdq_cb_data {
- 
- struct cmdq_mbox_priv {
- 	u8 shift_pa;
-+	bool legacy_isa;
- 	dma_addr_t mminfra_offset;
- };
- 
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
--- 
-2.55.0
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
