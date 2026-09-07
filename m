@@ -1,121 +1,90 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C464F40DB52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1717618A6DB
 	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:47:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788763662; cv=none; b=BTG0w5l+dCSX+sMJhgnv7K+EB5IfDM8Sc3m4fJ4BHc5qIeBH1FBtJNZX8aK4W41cn67TtUyyJAWY80c2vsJqwHXXpCxZDDDbzj7Tdg7ue60NT5gR33C7GV+DbCd62bpbOXpTFewnw+fqGBYjm+gm6wN7Nw70jlHsTjDabIT/6+Q=
+	t=1788763664; cv=none; b=sL/pvSp9lFI4zPE6hiGMDEwEfn3Hb8/w2VIj8dw2xH7T1cj1LMiG4jACu/lBRU6kQP5epjgR0NRZoeVCJtIRmmP8fbjDOQDI6IGz8Z1rsTJKvtBBTWqGewl0vv26iH3GiKOmlW51Xo4+172i6ok/48mbfNjSnzV5PaKTzYaVnX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788763662; c=relaxed/simple;
-	bh=Q3bBIxz90yEEYsWH5ikWyXfUpYba5QGg5QwQbHT02IE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WcW7QqxIXcUyie08QGbmiQwdCti3YS0b0iYMGeIOgPcs4p6dZRw3CY96b+60c2g4o0ICxz6XmiSWe7mSDyL2gAhnwrXzsfL917CMWN0Lor698xG2RIM0zo7Tp3pp/HUxuHlVmzCYPn4qdGGBr5jVa0vTIUGb5L879QwWSmuY+as=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KAZsVs8m; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788763664; c=relaxed/simple;
+	bh=q7dejwismKGXipVTjxZMyp44RBiyx+EMiqVBHWCQVkE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fTPBlVNu3xPFm2PoprjJB21G6fBsLHzXo+9IgFUJmJzxAdTFJMZP2HbNO+ldGxaw/WINDcIjvTBhTqMpaU+w/QYRs43Z+MGOgkP8/L+i9/+Ah+VKU7p/rKGyFfwTmakr7iUY1fozX6naHAIhD3BYfkt0wzo7f8rL1On0lNJ8l74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ppvYUMSI; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KAZsVs8m"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-39682983a0fso3467232a91.3
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:47:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788763660; x=1789368460; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Rh6WnyF7wCSbyOvDJNwh7JY6+tMlKujEj6rsY7bD4mU=;
-        b=KAZsVs8mh7GDKrQAO6O6sFD1lealyJfsfycKd4Cq8TDv5qJRo2Xv0wNqiSeksip3Jo
-         bwaG3maYCK0tnc5KilVd1m53J6omDjYYFBn71RxoIQn2CjnFrZid49ZKQGlVORxQXQ4w
-         3EuR+ppm5eOflUmC3jMnalDFXyARUu58qNYhC6WPGNF3VwWzx6L02Cx+4pq2qxgM6SbI
-         GRZZgP026U+q7V9bSSs7Kb2SDFe+0hz87+JGgLz9N6gsHe4Cy7Xg9Uu/nYOxbahxER4q
-         PD9R9MH5gP9ZU/kkKV1i5mf2HjR19R+PZXTecqVEkWMSuD7YDtCw/JMxaIZ3gYBTtH32
-         0YUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788763660; x=1789368460;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Rh6WnyF7wCSbyOvDJNwh7JY6+tMlKujEj6rsY7bD4mU=;
-        b=GVM38/2OhcB1kCcvbaon6ZaR/eGnvjB0N+yki/ULO3epoiJPvhLM8nbq/eGVnybLQo
-         O3EggMn5lvjWv75eK7idD1yObAGSEPUU8areWIolpDXp00gr10mYOlY/2kwWAxsc+FgM
-         GfUvX556Wbt/5BB1IyHUwdCYmiLlr5e8d6atNh1HBPVejOqWiOTbpA88n9jF4Gu/RowY
-         LpldfeRb921PZ4h0JMYuxq6he0cutD/eqGgqcr7jajAWs4D0pAcMtJG94da7IFbj3CT6
-         aoxP6JXf+ux5ZsYpHeeu/ZrjGPiXKyg0GddfkmfCMxAB1Ph/iuAivASg/6/eX6uptkal
-         4wSA==
-X-Forwarded-Encrypted: i=1; AKwUvBwoNbcMfgxoo6q915qrhQzWqbTVSZ/5Vn1vt2MIIArBnfcXMbIRm2a5tSHGcUPwK1Soqj8VHkQkFVjwjF0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kyeVDqwNDw2Vy1dyJQ8Q8hOq06BWyTlAgF8FZ4nk+eOrhGVazd
-	XVBJv0MpfNIIQWksmPgBqAzg1utbaMNuQOcesH7LZQWX9d1xQzL5SetI
-X-Gm-Gg: AYBFou3JstrgyE0VLb4T/08iZuQtIwclasWiKaRhKJwhhasxiNEirkMjNxgA2K90rg8
-	uV+B0/1qU6yobJ85xgUdqKGiSJaT9fSu78vmDk93I57EbGg5SATlFfSrr4BhQs8Tlt8/u5eSFtT
-	/dVheNnfwqB5SU4ceU9gqNfVacQnZwRyuUHibVpmaO/BnUXUOO9sZJNHTDRlqzrn4ZzHM+p857Z
-	pWcuc/FXrqFn/P/AMI1Q7G3K1F/KnMN4Z+KTy50kzf148rs/s66AtDpjELul3VDWIS5eFibneZ4
-	UbTpXpr1FKePanTL3VWGvAQzfoPPK8ml2g29UN0fDdkl4KlfAfKUTCxdbU9PARQojuzhKGCOeMJ
-	77f7usFKL69mb48rYEh1zg+Vh4ZiY1IgiL6P+hlA+u/NQvv9jY5NkbEQfdLM9oc/xNk2pwtwztP
-	6+UcYhmEHtdWdMACCvJIBzFskhUuBBFOCorsm24rRGm0q6Nmu/Doo1/gtVozlm2zYS838IdhYKa
-	ihEUg+LXvdo3A==
-X-Received: by 2002:a17:90b:5790:b0:398:9bd5:4910 with SMTP id 98e67ed59e1d1-39b2624f0ffmr31452068a91.23.1788763659995;
-        Sun, 06 Sep 2026 23:47:39 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-333c9db92b1sm24811158eec.9.2026.09.06.23.47.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 23:47:39 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	Eduardo Valentin <edubezval@gmail.com>,
-	Keerthy <j-keerthy@ti.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>
-Cc: linux-pm@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-omap@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-acpi@vger.kernel.org
-Subject: [PATCH 1/5] driver core: fix typo "sucessfully" in comment
-Date: Mon,  7 Sep 2026 12:17:21 +0530
-Message-ID: <20260907064725.10686-2-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260907064725.10686-1-hemanth.selam@gmail.com>
-References: <20260907064725.10686-1-hemanth.selam@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ppvYUMSI"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id CB3B51A1A1C;
+	Mon,  7 Sep 2026 06:47:38 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9790160383;
+	Mon,  7 Sep 2026 06:47:38 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 347FE11C7A2F3;
+	Mon,  7 Sep 2026 08:47:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788763654; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=jVKf/buKG28nI4K26HKG66HfBmfBPFACd6CZI6zEQtc=;
+	b=ppvYUMSIHbik51/JpBQ5yeYOZELCN5LD9bVv7F9ucIv/tB6jnyOxbJ9OLjGy8V/w2L/rXt
+	Akd3jmjc8ddbknsp0RipUqrFr8WaSEZ2i7OsOOTGWofTOWuYNR8h+tmNPS1tMskCBmI6lz
+	8iMr48zbQGtD5GS+yoPuAPunBBo5pHnU2NuViDgm6+tluYt7YT9nDu6P7pWG8SON8MYhof
+	kOTpeyhBNonYq+eg/3Br09vhk4XtEe9cMX30dRHyK3MuqzuY19efpXF7C8054RBT0ujFZu
+	sek3NkTDfnXGMlX61/HDhdaelGmIGd7EJvHMSUsBAGyP0hKHTfgz1hzwiLCV+A==
+Date: Mon, 7 Sep 2026 08:47:32 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: Qingshuang Fu <fuqingshuang@kylinos.cn>
+Cc: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Andy
+ Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] irqchip/lan966x-oic: Drop redundant
+ IRQ_DOMAIN_FLAG_DESTROY_GC
+Message-ID: <20260907084732.6409f32d@bootlin.com>
+In-Reply-To: <20260907024046.28845-3-fuqingshuang@kylinos.cn>
+References: <20260907024046.28845-1-fuqingshuang@kylinos.cn>
+	<20260907024046.28845-3-fuqingshuang@kylinos.cn>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Correct "sucessfully" to "successfully", reported by scripts/checkpatch.pl
-using the misspelling list in scripts/spelling.txt.  Only touches comments,
-no code changes.
+Hi Qingshuang
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- drivers/base/power/clock_ops.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Mon,  7 Sep 2026 10:40:45 +0800
+Qingshuang Fu <fuqingshuang@kylinos.cn> wrote:
 
-diff --git a/drivers/base/power/clock_ops.c b/drivers/base/power/clock_ops.c
-index 59bb37e8244c..3b8ba27802a8 100644
---- a/drivers/base/power/clock_ops.c
-+++ b/drivers/base/power/clock_ops.c
-@@ -250,7 +250,7 @@ EXPORT_SYMBOL_GPL(pm_clk_add);
-  *
-  * Add the clock to the list of clocks used for the power management of @dev.
-  * The power-management code will take control of the clock reference, so
-- * callers should not call clk_put() on @clk after this function sucessfully
-+ * callers should not call clk_put() on @clk after this function successfully
-  * returned.
-  */
- int pm_clk_add_clk(struct device *dev, struct clk *clk)
--- 
-2.48.1
+> Now that __irq_domain_instantiate() automatically sets
+> IRQ_DOMAIN_FLAG_DESTROY_GC when dgc_info is provided, the explicit
+> flag in the irq_domain_info is redundant.  Remove it.
+> 
+> Signed-off-by: Qingshuang Fu <fuqingshuang@kylinos.cn>
+> ---
+>  drivers/irqchip/irq-lan966x-oic.c | 1 -
+>  1 file changed, 1 deletion(-)
+> 
+> diff --git a/drivers/irqchip/irq-lan966x-oic.c b/drivers/irqchip/irq-lan966x-oic.c
+> index 8af08d0e4182..5122f3f1b353 100644
+> --- a/drivers/irqchip/irq-lan966x-oic.c
+> +++ b/drivers/irqchip/irq-lan966x-oic.c
+> @@ -220,7 +220,6 @@ static int lan966x_oic_probe(struct platform_device *pdev)
+>  	};
+>  	struct irq_domain_info d_info = {
+>  		.fwnode		= of_fwnode_handle(pdev->dev.of_node),
+> -		.domain_flags	= IRQ_DOMAIN_FLAG_DESTROY_GC,
+>  		.size		= LAN966X_OIC_NR_IRQ,
+>  		.hwirq_max	= LAN966X_OIC_NR_IRQ,
+>  		.ops		= &irq_generic_chip_ops,
 
+Reviewed-by: Herve Codina <herve.codina@bootlin.com>
+
+Best regards,
+Hervé
