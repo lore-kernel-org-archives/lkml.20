@@ -1,177 +1,177 @@
-Received: from mta0.migadu.com (out-72.mta0.migadu.com [91.218.175.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D3FE44AB8A
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:36:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4454441619;
+	Mon,  7 Sep 2026 10:37:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788777404; cv=none; b=btfRBT9w+0dQAfg1bZIuli9PHHUjQu/2vQTAVE97TOGMcJkJzU+zDrtI82kUo/SU/QQDUeTiIkSFk3qhp9aqdHwnR+66xAhFDnzWCgMfVpdOML59ZSdKL+69KFgm93HcQKFX1QlVZjsUNSZimxXir/UMoru0zvCG3H+hvTkkRpE=
+	t=1788777432; cv=none; b=kR2SNzzKI/FgmmoKw9QREoZ6KSi80wTUU+A3k+mASwW111NdgJt52b8nfK2in7HccIxAt/OhMcdagHrgVCXHix8TS+UO2hzisrjuK4q7IElbR3ncOa59y1tdKzKBlWjisVTTwFIbBcMV8HEZBQ2W3RV5+MP0BPVSwRa2Uv0jeg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788777404; c=relaxed/simple;
-	bh=knLSy+tAiOCBjiiSkaNUjr38e019JvyDKoSRtCD7jXc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=L9CKy8K1QXgW9Z1CNkEYu0qWpcjxNuCr4fOEpEt2D60s2RW9K8spBsA9Hxin27kSofbfysITlhfy11X3I3x/IE5K2oMAeX682QVVMTb/kiYV0klURhzc/3NRkxPEUX6GQEOEgUgl+zivp7236/y4HNcI6VUfLOFekro/q6vj5bg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=iyMOof7P; arc=none smtp.client-ip=91.218.175.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788777432; c=relaxed/simple;
+	bh=46nYrYnJykDFPs7U5HfbzgYezgCMlDwK7ZpRjXxnBCA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KxXmzvyfhKI1EwlbHzQfkq92l/DA7sTaptC75EG6MinRiie9F3PC8kXTM9KcIPAph67e1m0c6bUMIgWs9TbP3tNA6xX7djqh9B83d5Fw26NVrXIYP12E7OGnPKFmk2zG4mo/FSh94rJBTl2gpjsOXuTTBlBCAN/GBQDwhF2qe7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A3u8x6ke; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="iyMOof7P"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=knLSy+tAiOCBjiiSkaNUjr38e019JvyDKoSRtCD7jXc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788777400; v=1; x=1789382200;
- b=iyMOof7Pvy6wg2VkzREjxcMYjNsEeclp7fWL22uIxKwu2ZHW7AR+dFw4Y65M96k7Rwpk7XTt
- x7kFoend80i3V3whXlAS5PGSJZSdHcDOT+ggdURcAhlMC4Qho1AgBJESi0h60NhJd6GEhUMkC9+
- 2OgzQPm8u3JZEny1EpE5CpOU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3a07dd903fbf59a0;
-	Mon, 07 Sep 2026 10:36:40 +0000
-X-Mizu-Trace-ID: 3a07dd903fbf59a0
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b384c4so7477e87.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 03:36:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzaxNcIH+vdXzdryG6H2K/OwcRVJxwjob6Rp9LWW10aVDPMF1gggqxorn8r3z2M3AGnxL74KSyA4clbdkI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nTmxhyZmndnPFYyhd5eS6uSWNkLvJ+BnBIfOfNHZuaX6ZjZd4n
-	4UO8ZwU+JQZCQBELExFtWGtT2sICVas/SLS1YuAQmOTJGFTLZEMN0iFM3PqGf4BO6QBpWV+RI6A
-	xTHoY705OwzmYn4qJv3Mqzecz0ouOsYpwBkMCTgcE
-X-Received: by 2002:a05:6512:114d:b0:5b4:9dba:7401 with SMTP id
- 2adb3069b0e04-5b74d456083mr154509e87.11.1788777394103; Mon, 07 Sep 2026
- 03:36:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A3u8x6ke"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDBCC1F00A3A;
+	Mon,  7 Sep 2026 10:37:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788777430;
+	bh=1ay/TaukY/LyaVP7DBcuF1uWpTQzsI+J3Bq6x+EimT0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=A3u8x6keI4v25E4vtBZVtD0H3+5k550B50BsTtvbaR5/p7rBZ0KVpCtJNKEzJZIuk
+	 spNhOqRc4GDWIEIKAMi47ne8APPtDSID83h5Sd/bLHCvgDeJecP4+wrj9f+fOcHP5f
+	 7lBTnSC2HvQvQsQQFbSG5vDVslDlWYkgNWR8Zkj/H4NLs+Bz8G0Q/mL5sY1GGLn3CO
+	 yKE1NmiD6pMCb33uBRJYi/cZgBSHZjcJDZOQ4H73mdObUj9gnX4y8AHDtybm5Pd6gw
+	 EXOhcLWuWH2ZAp/QLPZ5o1Piib2ZTl+K7nxpN7IB8016b3uSpHUkwV4QYa3QNgzcAQ
+	 eTTsho6kKUoKw==
+Date: Mon, 7 Sep 2026 12:37:05 +0200
+From: Joel Granados <joel.granados@kernel.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Gregory Price <gourry@gourry.net>, 
+	Peter Zijlstra <peterz@infradead.org>, Andy Lutomirski <luto@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Oleg Nesterov <oleg@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Mark Brown <broonie@kernel.org>, 
+	Stephen Rothwell <sfr@canb.auug.org.au>, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-next@vger.kernel.org
+Subject: Re: [PATCH] syscall_user_dispatch: Use CONFIG_SYSCTL for sysctl guard
+Message-ID: <rvsksbxeput4impcquq3kjxg6pv3ixovpk5or2mgtuifsu65fh@wuoukaeelovg>
+References: <20260813062039.14567-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904103131.627392-1-fuad.tabba@linux.dev> <966b103e-dc9e-479a-ba6c-e8e6727e1bd7@arm.com>
-In-Reply-To: <966b103e-dc9e-479a-ba6c-e8e6727e1bd7@arm.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Mon, 7 Sep 2026 11:35:57 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTy6kbVHKpW+jLHfdpMr16+OrGaCRyt_xEpP_6aQwKv5Yg@mail.gmail.com>
-X-Gm-Features: AcwNN1WVZ2rRbHW0_CvMjthG_1fXG-hc0avpc71bJuZRUt-gMT5OfwZEJAwht6A
-Message-ID: <CA+EHjTy6kbVHKpW+jLHfdpMr16+OrGaCRyt_xEpP_6aQwKv5Yg@mail.gmail.com>
-Subject: Re: [PATCH v2] arm64: mpam: Document when to set arm64.nompam
-To: Ben Horgan <ben.horgan@arm.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	James Morse <james.morse@arm.com>, Xi Ruoyao <xry111@xry111.site>, Marc Zyngier <maz@kernel.org>, 
-	Bradley Morgan <brads@mainlining.org>, linux-arm-kernel@lists.infradead.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="m5nzjk7zgbmhn6w6"
+Content-Disposition: inline
+In-Reply-To: <20260813062039.14567-1-kmehltretter@gmail.com>
 
-Hi Ben,
 
-On Mon, 7 Sept 2026 at 10:44, Ben Horgan <ben.horgan@arm.com> wrote:
->
-> Hi Fuad,
->
-> On 04/09/2026 11:31, Fuad Tabba wrote:
-> > arm64.nompam skips the MPAM2_EL2 and MPAMHCR_EL2 writes in
-> > finalise_el2_state and leaves the ARM64_MPAM cpucap unset. Where EL3
-> > firmware has cleared MPAM3_EL3.TRAPLOWER, the EL2 trap controls are
-> > left unwritten, at reset values that are UNKNOWN, and KVM still hides
-> > MPAM from the guest but no longer enables the traps that stop a guest
-> > from using it. KVM never saves or restores MPAM0_EL1 and MPAM1_EL1, so
-> > what one guest writes reaches the next guest and the host. Nor can the
-> > kernel make the EL2 writes unconditionally: they trap to EL3 on the
-> > firmware the option exists for, and TRAPLOWER cannot be read below EL3.
-> >
-> > Say so in mpam.rst, and add the rule and a pointer to the
-> > kernel-parameters entry.
-> >
-> > Suggested-by: Ben Horgan <ben.horgan@arm.com>
-> > Link: https://lore.kernel.org/all/CA+EHjTxeWxZiuSmnKLGLxTBXP4oJT7-LuffbPAyCSZZ5TW=5Ew@mail.gmail.com/
-> > Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> > ---
-> >
-> > Notes:
-> >     Changes since v1, the first three from Ben Horgan's review:
-> >      - Put arm64.nompam under a new "Command line parameters" section.
-> >      - Separate MPAM3_EL3.MPAMEN from TRAPLOWER, which v1 conflated.
-> >      - Add that KVM does not save or restore MPAM0_EL1 and MPAM1_EL1.
-> >      - Drop "No functional change intended." from the commit message.
-> >
-> >     Bradley Morgan's Reviewed-by on v1 is not carried over: both
-> >     paragraphs, the section heading and the commit message changed.
-> >
-> >     v1: https://lore.kernel.org/all/20260903084809.2027326-1-fuad.tabba@linux.dev/
-> >
-> >  .../admin-guide/kernel-parameters.txt         |  3 ++-
-> >  Documentation/arch/arm64/mpam.rst             | 25 +++++++++++++++++++
-> >  2 files changed, 27 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-> > index 68647ff4bdd24..e6d543de3cde5 100644
-> > --- a/Documentation/admin-guide/kernel-parameters.txt
-> > +++ b/Documentation/admin-guide/kernel-parameters.txt
-> > @@ -575,7 +575,8 @@ Kernel parameters
-> >                       Set instructions support
-> >
-> >       arm64.nompam    [ARM64] Unconditionally disable Memory Partitioning And
-> > -                     Monitoring support
-> > +                     Monitoring support. Only for a machine that does not
-> > +                     boot without it. See Documentation/arch/arm64/mpam.rst
-> >
-> >       arm64.nomte     [ARM64] Unconditionally disable Memory Tagging Extension
-> >                       support
-> > diff --git a/Documentation/arch/arm64/mpam.rst b/Documentation/arch/arm64/mpam.rst
-> > index 67fe515ed501c..e66b1359d1282 100644
-> > --- a/Documentation/arch/arm64/mpam.rst
-> > +++ b/Documentation/arch/arm64/mpam.rst
-> > @@ -87,6 +87,31 @@ The supported features are:
-> >    MBWU monitors can be exposed to the user after support for more monitoring
-> >    scopes is added to resctrl.
-> >
-> > +Command line parameters
-> > +=======================
-> > +
-> > +arm64.nompam
-> > +------------
-> > +Firmware controls MPAM through two bits of MPAM3_EL3. MPAMEN enables
-> > +it: while set, the PARTID and PMG in the MPAMn_ELx registers label the
-> > +CPU's memory requests. TRAPLOWER, which resets to 1, traps accesses to
-> > +the MPAM system registers from the lower exception levels to EL3.
-> > +Firmware must clear it, or handle the trap and emulate MPAM as disabled.
-> > +Where it does neither, the CPUs still advertise MPAM in the ID registers,
-> > +the kernel's MPAM register accesses trap to EL3, and the boot fails.
-> > +``arm64.nompam`` exists for that firmware: it makes the kernel treat the
-> > +CPUs as not implementing MPAM, so no MPAM system register is accessed.
-> > +Set it only on a machine that does not boot without it.
-> > +
-> > +It is not a way to turn MPAM off. Where firmware has cleared TRAPLOWER,
-> > +the option leaves the trap controls in MPAM2_EL2 and MPAMHCR_EL2
-> > +unwritten, and their reset values are UNKNOWN. KVM still hides MPAM from
-> > +guests but no longer enables the traps that stop a guest from using it,
-> > +so a guest may be able to read and write MPAM0_EL1 and MPAM1_EL1. KVM
->
-> As you are listing registers, MPAMSM_EL1 can go here too.
+--m5nzjk7zgbmhn6w6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I can respin a V3 with this added.
+On Thu, Aug 13, 2026 at 08:20:39AM +0200, Karl Mehltretter wrote:
+> sysctl-next removes CONFIG_PROC_SYSCTL because it mirrors CONFIG_SYSCTL.
+> When combined with the syscall user dispatch sysctl in linux-next, the
+> stale guard prevents registration of kernel.syscall_user_dispatch.
+>=20
+> syscall_user_dispatch_allowed defaults to true. SUD therefore remains
+> available, but administrators cannot disable new activations.
+>=20
+> Use CONFIG_SYSCTL for the guard and documentation.
+>=20
+> Fixes: 5b6e32ba7b59 ("syscall_user_dispatch: Add kernel.syscall_user_disp=
+atch sysctl")
+> Assisted-by: Codex:gpt-5.6-sol
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+> The conflicting sysctl-next commit is currently:
+>=20
+>   8d75c338f0bc ("sysctl: remove CONFIG_PROC_SYSCTL, it just mirrors CONFI=
+G_SYSCTL")
+>=20
+> This is a cross-tree integration fix intended for the tip tree. It has
+> no functional effect in tip/master, but restores the sysctl when
+> combined with sysctl-next.
+>=20
+> Verified in linux-next with an x86_64 object build using
+> CONFIG_SYSCALL_USER_DISPATCH=3Dy and CONFIG_SYSCTL=3Dy.
+>=20
+>  Documentation/admin-guide/sysctl/kernel.rst | 2 +-
+>  kernel/entry/syscall_user_dispatch.c        | 4 ++--
+>  2 files changed, 3 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/Documentation/admin-guide/sysctl/kernel.rst b/Documentation/=
+admin-guide/sysctl/kernel.rst
+> index b6328cd0f43e9..ffea61d448ebb 100644
+> --- a/Documentation/admin-guide/sysctl/kernel.rst
+> +++ b/Documentation/admin-guide/sysctl/kernel.rst
+> @@ -1416,7 +1416,7 @@ Controls whether userspace may arm Syscall User Dis=
+patch via
+>    =3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> =20
+>  Only present when the kernel is built with ``CONFIG_SYSCALL_USER_DISPATC=
+H``
+> -and ``CONFIG_PROC_SYSCTL``.
+> +and ``CONFIG_SYSCTL``.
+> =20
+> =20
+>  sysctl_writes_strict
+> diff --git a/kernel/entry/syscall_user_dispatch.c b/kernel/entry/syscall_=
+user_dispatch.c
+> index 2002c7aae4358..59c861866941d 100644
+> --- a/kernel/entry/syscall_user_dispatch.c
+> +++ b/kernel/entry/syscall_user_dispatch.c
+> @@ -178,7 +178,7 @@ int syscall_user_dispatch_set_config(struct task_stru=
+ct *task, unsigned long siz
+>  					      (char __user *)(uintptr_t)cfg.selector);
+>  }
+> =20
+> -#ifdef CONFIG_PROC_SYSCTL
+> +#ifdef CONFIG_SYSCTL
+>  static const struct ctl_table syscall_user_dispatch_sysctls[] =3D {
+>  	{
+>  		.procname	=3D "syscall_user_dispatch",
+> @@ -195,4 +195,4 @@ static int __init syscall_user_dispatch_sysctl_init(v=
+oid)
+>  	return 0;
+>  }
+>  late_initcall(syscall_user_dispatch_sysctl_init);
+> -#endif /* CONFIG_PROC_SYSCTL */
+> +#endif /* CONFIG_SYSCTL */
+>=20
+> base-commit: 98292902c7108717c4f4bea7226520b336f9a8bc
+> --=20
+> 2.53.0
 
-> Generally, I think this documentation change looks good now but holding off on a tag for the moment
-> in case anything comes up from your MPAM trapping change [1].
->
-> [1] https://lore.kernel.org/linux-arm-kernel/20260903160819.831518-1-fuad.tabba@linux.dev/
+I don't see this in 7.3-rc2. Did we miss pushing this in? At the moment
+I see that syscall_user_dispatch.c is still using CONFIG_PROC_SYSCTL
+which is never defined anywhere.
 
-The trapping respin doesn't reach the nompam path: the override skips
-the finalise_el2_state writes whether they clear the traps or set
-them, so nothing here needs changing.
+Two questions:=20
 
-Cheers,
-/fuad
+1. Did I miss anything. Is this not supposed to be upstreamed at the
+   end?
 
->
-> Thanks,
->
-> Ben
->
-> > +does not save or restore them, so what one guest writes is still there
-> > +when the next guest runs on that CPU, and when the host does. With MPAMEN
-> > +set, EL0 and EL1 requests then carry that PARTID and PMG.
-> > +
-> >  Reporting Bugs
-> >  ==============
-> >  If you are not seeing the counters or controls you expect please share the
->
+2. Anyone opposed to me sending this upstream?
+
+Best
+
+
+
+
+
+
+
+
+
+
+
+
+
+--m5nzjk7zgbmhn6w6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmqek8kACgkQupfNUreW
+QU8zHQv/SZEAqeTo8WbywGd+WkiXgkg+bI5hSmGkUyoxe+Y6ZXufW7CtExJOFYhA
+ds4z9bdT3XbsAq4P5NAALy35uUWxtEwxOJu5O0kmz7stxVOiopFHt6+50lFkYVZF
+1gI3yfI/BbMyFMLBD2oCQOJHDuHkKCPx5Ev+VIZbInxRwOH9/gZTr8jDtW3aI4tB
+Gwq5LmP2NvaGuj1LEdemKxAl74kQEQEGKb7jV8iF9RK2WFvhN7b9/Qw3O147M/7J
+Id3xqVuozeI5sy3IRMCD9XzSrYMEgi39JMzB0xefslOJpbWMCcTWeMk0he9GKnbi
+1T0fTF7gEj6XcicAHWRf3uN1e2LN0wY2QnBtOfKVN1HKfIimtN5kQkCRbJ0OgDSA
+NUyoKXph+rxO/DNIZAsyUdyJNrrnQIenyTVs/L2C9Yptyf0e6HoHyn9nSGNRoBPK
+JjbjG6RFn9CO7mGGYwOl08T8BeISglPn6QGPQwrQUAt2mS/oEJH+qLKhwr2/tHRp
+6F66U/vq
+=6/h7
+-----END PGP SIGNATURE-----
+
+--m5nzjk7zgbmhn6w6--
