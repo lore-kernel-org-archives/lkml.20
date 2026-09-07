@@ -1,199 +1,171 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013006.outbound.protection.outlook.com [52.101.83.6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E8C488763;
-	Mon,  7 Sep 2026 12:07:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.6
-ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788782839; cv=fail; b=OVXIovDsxNu/Hd++RRHwz5EYXlVj0cYbIR8FcAZad6plhQONa5KiSCFchrhA2mNNX0XTSHJo+2o2b04tWi86J3ia/zuhvujkE/pG5uUepkRewkGcyznYV0p4zyIzYKJI0pUOn5NuV7zY3RYK85XDSmwQKG6w+TPYCp67sPk3Bps=
-ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788782839; c=relaxed/simple;
-	bh=RWMy4ADCkdNla0FvYrUNHfUKqa5Bn1j9Ag8eeOgfoIc=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Y+ecC65LS+OCCEnheT5EU/t9kixLUgmvRbUeudBkfHJ3Go9gPO+hB814N0PivvIctjOX7Zm9gcVjUla6q9TTkV0KrDMXcerOosK4JvR++Fi0Gixsq4oqT7yZAKz7roVCSDpynLrZidnAXgNxKlvsjYLau71WZtGOr1w5T1TqBj8=
-ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=GjrVPEj8; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=GjrVPEj8; arc=fail smtp.client-ip=52.101.83.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A97DF48A2CE
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:07:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788782847; cv=none; b=QSCqrulZK2MNy8c9gWqE6jKqH+iJ1vfWFz3Bs12svtBwsDgM7P14DG9zOHNYBO5c87xOYqI7NXyvhH6iqnbQDYMOC6KfaeFNz8KTeYWWuMOFicFNBRp0bmwcQ1y+C7M5h/iefbxjDnA6YJWhMtENumXTQMb+XtFs1nVp+AcL8D4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788782847; c=relaxed/simple;
+	bh=P7CaDYp4Md1JqTyutqJPlck3ggTW3k80tlDn2jcOYR8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bC/01DlwbfcvYgpnge/cXETT0+QUZn924y26sjKDSC35OgnawzV+GXW0J13vXq9NfJ9UCsQINTZP5/EtaIFrwsJnBvyBcypLBSbcWEEp4E5fmly6iLr1ViN6aJW3YU1p1SXRX9vxGAF/EOtefokl1nKFE4yAxxrWvsm1tFizFoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yuc1wh8Z; arc=none smtp.client-ip=209.85.161.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="GjrVPEj8";
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="GjrVPEj8"
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=yYHNraNKIquKGFFmQHBT36ZJaWLEECFHVunE0R4GV2GqpFNseiRZT7nhT/rZD9lV4EZDtGS3IpTH0SILyr3ehZPVr2npD5rjKFED+SgQsrSA+dRARjJa80zOdY15nDC1k0/Rk2lMBxfPkNLXR1cK7PNdmwIhwFAX5muHoFYv5EUIoTjOdwnRwWumLmoHt0tPoQ4vBVZMh2peCZHkqyNxGJrQ6ki87YJpfEcKr4n3z3TYyXqKukA5Rn+JoijLQb/pY26pI5xLnasZfPygy5qW/zGdNgIUZhe7not4zNJtX71UPo0ZOsdf9OQkPNyVqQ5300j+8/rg0TxT/edOhS3bTA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oVcsfhwrEthpQbjqa0/IPKQxhj1FPIzOGUNKhA/6R7g=;
- b=nhy0y2eHIEcPSBhes4ZCJibKaQ9JyMyHoR1vEEbrGMO+5ge7WYKwrm0pF4koEg6YR2ZgqgoFfB7wnVcLOQoJwVYMbMVmziDtYer7sc4PYfH99mj2MAxV731PoZVPgSTt7B1wQkuDnBIG1fTeP27pICAeDq15Ok9jw6hNbY/Fg+WFnedB0dkspZQ3hyyEM/3tXPaA5qYAV9o51SsvdIYl5OS30O97S9m5Te2OBy05DT3o12oBOMDUvw7+1fWqOIDLILvqOBJ8sRV827hFX4+2HQle7GPON2h95SFeyRQO8SqniF2DOn1Hy5BvzA0ZMcN93/YZriCYa1kX5FKlu1MEeA==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=alien8.de smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oVcsfhwrEthpQbjqa0/IPKQxhj1FPIzOGUNKhA/6R7g=;
- b=GjrVPEj8W987WO1yD1I5gySPHXAern42O72p/cymBV3/Yl6w1BQQ6s4+kil5iRq8sx2VoHx3IyNGDLcQIOhii0d8XNklmTBFHz7KcCty1xs4OHWHUpeXxZ2z4C3ZMzdqDzklDjenpHNxih1EUu1mkkr5jqzWUQL04t0dzkTzUIo=
-Received: from PAZP264CA0051.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1fc::11)
- by DU0PR08MB9725.eurprd08.prod.outlook.com (2603:10a6:10:447::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.6; Mon, 7 Sep 2026
- 12:07:06 +0000
-Received: from MI3PEPF0000847E.eurprd02.prod.outlook.com
- (2603:10a6:102:1fc:cafe::57) by PAZP264CA0051.outlook.office365.com
- (2603:10a6:102:1fc::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Mon, 7
- Sep 2026 12:07:06 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- MI3PEPF0000847E.mail.protection.outlook.com (10.167.240.165) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.5
- via Frontend Transport; Mon, 7 Sep 2026 12:07:06 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rCQv3jESKNrDxjaVhzImfg/V8G58xh3+kqSosEPBnYrEbVpZs20/hH/hB6P+Xdt01QsZRgZg8ofKP3eMdKI775a99YhwL/PyqduwOCzsbZq83PBO80q02ddhrZtSHegYZRoGEnLd2nB5tZ6lfIZNvHRFZvAcs/YIth7Q0sN9uhJ7kOXCKtKcoiMEKi44qq8MUMfd1IfO922eIodvJOc3rtstX3ScR70UNlfSqmN2V6OMHEFv4bjxmN5vWXNqSpAGNCXsrxY5n3kHJNKPgNM9yJ7gP55rBGjsnmPJspm0QUjXNE4OITWrgp88ez+P4s949vP4kSu/4c9hRGljDbe8cA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oVcsfhwrEthpQbjqa0/IPKQxhj1FPIzOGUNKhA/6R7g=;
- b=tjdGD+mn77EV2dZrZ4s4Y0wG0UtWxESUeEjcxifIpL4D1KeccigyDQ3NkjPdTE9jXm+TejWppW6Vb++Mnekyd+0odkvv7sVKX0veXWwycMph+HnFQXZKPMosPbAKVY/jZT1qnxl7latose+jVFMl2w8xfCJV5WBQ52BvfE7n59RKY2QStnuo1CV2BA2O2Kwg9N0maXsTjW/WXeKCpAO3qwda3jJ0w43DumKcQOrOKcBRVpeAuBTB1eWr4AnPg+f975/6bNNreT+Qi6gFpqjovEpADdPpvWINRh9d/3v2vSlOk5UcxY99jwppte5Rvw/uUDeMI3Ew+VjHGptU/eQ2iQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oVcsfhwrEthpQbjqa0/IPKQxhj1FPIzOGUNKhA/6R7g=;
- b=GjrVPEj8W987WO1yD1I5gySPHXAern42O72p/cymBV3/Yl6w1BQQ6s4+kil5iRq8sx2VoHx3IyNGDLcQIOhii0d8XNklmTBFHz7KcCty1xs4OHWHUpeXxZ2z4C3ZMzdqDzklDjenpHNxih1EUu1mkkr5jqzWUQL04t0dzkTzUIo=
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from VI0PR08MB11823.eurprd08.prod.outlook.com (2603:10a6:800:324::5)
- by DU0PR08MB8116.eurprd08.prod.outlook.com (2603:10a6:10:3ec::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.1; Mon, 7 Sep 2026
- 12:06:30 +0000
-Received: from VI0PR08MB11823.eurprd08.prod.outlook.com
- ([fe80::694c:3790:be1a:8ddd]) by VI0PR08MB11823.eurprd08.prod.outlook.com
- ([fe80::694c:3790:be1a:8ddd%7]) with mapi id 15.21.0406.002; Mon, 7 Sep 2026
- 12:06:28 +0000
-Message-ID: <9af92fe1-e5ec-49f9-a85b-e36888f566c9@arm.com>
-Date: Mon, 7 Sep 2026 13:06:25 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 00/10] ACPI: APEI: share GHES CPER helpers and add DT
- FFH provider
-To: Borislav Petkov <bp@alien8.de>, "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Tony Luck <tony.luck@intel.com>, Hanjun Guo <guohanjun@huawei.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Shuai Xue <xueshuai@linux.alibaba.com>, Len Brown <lenb@kernel.org>,
- Saket Dumbre <saket.dumbre@intel.com>, Davidlohr Bueso <dave@stgolabs.net>,
- Jonathan Cameron <jic23@kernel.org>, Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>,
- Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>,
- Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
- Oliver O'Halloran <oohall@gmail.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev,
- linux-cxl@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
- linux-edac@vger.kernel.org, linux-doc@vger.kernel.org, Dmitry.Lamerov@arm.com
-References: <20260708-topics-ahmtib01-ras_ffh_arm_internal_review-v7-0-8b3a85216cef@arm.com>
- <20260723055347.GHamGsaxesLkMbSnfR@fat_crate.local>
-Content-Language: en-GB
-From: Ahmed Tiba <ahmed.tiba@arm.com>
-In-Reply-To: <20260723055347.GHamGsaxesLkMbSnfR@fat_crate.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P265CA0323.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:390::11) To VI0PR08MB11823.eurprd08.prod.outlook.com
- (2603:10a6:800:324::5)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yuc1wh8Z"
+Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6b1b233ca98so2586669eaf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:07:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788782843; x=1789387643; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mdcXJNy9L8Tsu/vg5VhZVH08lUj+s69BRMYHBDv7fJk=;
+        b=Yuc1wh8Z2allQOLB1X+Fx8FWuKZ9jaW8Lh7xou61YWzz3lO+uabc6Fl9TG83LeKekz
+         6+MNdBUVZSggZBpYunxV33ysEZNSbfBd9m8WdOtkxQu5PeMT/9GgOjg3gI2ZE5sCuJOD
+         mgzoQMwSttI9X7DE6LeCICS1aEJh+9jxajwxhzalbCwbJ0ldoDads6KxxuYrsqcxG8jJ
+         Cpay2A6v1eDJhteL7+3nk3JTd0VkGEyylaC6iRkJv4HQ/nxxRQPLhb0wHYnOcYyXsWc6
+         kEk5P1Rd6r/XKorsx4LxLoH1NIJR2ufvsAOWwVhTi6vNa/TfVQF4bq54wdId70MMjlrg
+         6BvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788782843; x=1789387643;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mdcXJNy9L8Tsu/vg5VhZVH08lUj+s69BRMYHBDv7fJk=;
+        b=Ez3SJ8dBlvpezUOedO6NnEatH6oCg9IrGL3WxQcvNMq+cHq6oCuprf30e/CBw2ROKi
+         SJ3FijcX+VpEIAWXktBT6TgIw87o/sVHB9jWHL4k/71P+k5M/AOw1tY7glCrFbqDFdnC
+         cbYCHa0XiI3Nd7h/w3oGjxVQ9+hhW4o7PIBHPXluFjjZpRHPeTic0d5hpyxaEDFTkxS/
+         qCc54ZW4oPhozSQuFU6MAIlj0YvHptsrbx30bLTwKr34T86mpCifbTNb/2dD3/JQhYRs
+         p2q02vZlOVkfFuxYnDBwyILipg+HJ9LndgFufYEhrChhxM4vTPGEluJZs8BjI6LtaJ+V
+         AmYA==
+X-Forwarded-Encrypted: i=1; AKwUvByo3uAyeJTQI9UUaesQxmS91sVKLGK24fzhOGfArXbdRmjpZPiEBLuz8Q4dOKaqojt0hF3rdj523rQ0njQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mUSNCoY7x8kxOhLOVGNf0TiYFWSoWTVtQt3fdx8SCD3LShl67i
+	QV66J7leG3xD/wYd2C155j/dr5ZnEjIt996sCVoPoQpHHdICoOjELVCD
+X-Gm-Gg: AYBFou3ero/53uNtU6GpS00msCd2IdCkeE7TjKCWfFOH7bn1KpNOu0rD9bWYsh1npS7
+	o5P7Qzl3VvDJ++CUGsCieiubYEu7Qp/CXnLZCTPZ6qXRousarBT6015bUoXzN1xKuRFFA8XE1Gc
+	Q2xm8o9dXU1y7ga7uxrIBYDZa9Sq64/vDHULlmOhSJ/ovXoxh7L5gI3krdevYJWAP0UjYmt3Iz6
+	kTFZW62nmyhG5fl5TDg00ZUMJbBy+3CpqMdX4eKcp/9rtp+q0lWPaK1G7L0qosRKjLfRB9SatQf
+	M8crTMJu/La07HBMIK3uUp6LCTgpmF4DJt3PJ/TZvi3YDlqTY8b896Myrt2jYL4eUuPTcFZX7XX
+	etL1okByXvRItg/vR8yAUvycQggQpfSlVkg77VbPjFh8NSPATfla5vuwK9dVth5yiSDNLolTtgl
+	VAsBUsU82EPcmrch1GdT3qXEm95TGN+HAzvHc7d6P0PKhJHhRqEc39rYt/EZWA83RiZ/IXAefbf
+	4vQoTba0YAwQlg7meZhoKL4
+X-Received: by 2002:a05:6820:6ae7:b0:6b9:3295:7704 with SMTP id 006d021491bc7-6b9329579e2mr5576998eaf.52.1788782843391;
+        Mon, 07 Sep 2026 05:07:23 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa37dbdsm23658592eec.11.2026.09.07.05.07.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 05:07:23 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Shuah Khan <shuah@kernel.org>,
+	Thomas Renninger <trenn@suse.com>
+Cc: Shuah Khan <skhan@linuxfoundation.org>,
+	"John B. Wyatt IV" <jwyatt@redhat.com>,
+	John Kacur <jkacur@redhat.com>,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] cpupower: monitor: Show how a counter value is exported
+Date: Mon,  7 Sep 2026 17:37:17 +0530
+Message-ID: <20260907120717.35503-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic:
-	VI0PR08MB11823:EE_|DU0PR08MB8116:EE_|MI3PEPF0000847E:EE_|DU0PR08MB9725:EE_
-X-MS-Office365-Filtering-Correlation-Id: cb0cc1c9-b761-40fc-0400-08df0cd88911
-X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|11063799006|10067099003|4143699003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info-Original:
- WoSMxl1/4uHVH7cVFWun6At9WCM+jsYiQ6ctu82UA9E3c8g2Y2t1SRF55ZWVLknG1DBiyTuIpGcRgkIRKr3kN/xEFkxxCtLp1AY5SBR+hh94likgtr5kjoud2HZz24OYIQS8f9d44Ev+LiuqW8+wgInQb0gWrplIwdqKT+QvAXc+rM8n6IICLkQGZzo6nM/GqZCwLB3O9XbRnNEvAa7WKrRO5yeDQt2qFeccKYKJ4vFkK38ZfTQbH9DBlQ3BEsmoXYgqehfCKDWxY1PXro3X5shV6hH2229CldelZu3QZw5jGPNUtFAjLfHJgvJRANuhdzxUNVHoHwi4GRW/bBIsQHtm0+ghuZ7UjNRYroRfUydI8Xx3ruAfqa37vsEe6EFIUBun/wz+8gcY6A6YgbX8hr9oK8ckOsG9GW/PBWPWZKQyi9HAU8k8he2qW5eQgC+lRLNPM7Kg6gGDIHCAo6FXPsSxg39jSt4ny9+y8mbmb2HFKgXBv+Weak7DWyxmBLiEzNy68klVRzG8cAXQvn1JWQScKHFT0L6ZTI0us42AdHyk3QunuQPlgTJB02YcGQywNMAWIko6mjPNX4YMSb0x0YGK/HKuLv1XW/AlxAEzZeE=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI0PR08MB11823.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(11063799006)(10067099003)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-Exchange-RoutingPolicyChecked:
- Ax5UrOKk7+o0kiaA7rBnrjj4WDu16ZmpV1I4bT5bOtp90x27yTu0NwahSFnIxkujnlf4SWsNCAKFHDrCsX886eqFcHbEIc5M79mjitI7bL1XZrctpiosmM4Pb775XF9vq8ZsSI8XKkZ7i/+9Qg82dYyzMQeU7SYmbWNTdiXseFnEn20jFq8akxfNlah574IiO6FJLBYs92+0AULwOtw3qi0hjtreTN1MGJcPabPvKf5o3jvGJWhnp2BfWKzQUYLq7JrlSM8sKc1CRGSPez5evL4UcLulk/94p48ON6Nd0LDZ2jKCTKMZlXbT+2C6ghdtOfid9WMrv4SrHihv4728SQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB8116
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- MI3PEPF0000847E.eurprd02.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	a2ae8ed7-7dff-482e-86c9-08df0cd87263
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|35042699022|82310400026|14060799003|36860700016|23010399003|1800799024|376014|7416014|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	CjNl7YrWfKSemhO+eTHBiy8ieZ3Awd1n/7haPtPhLwCami8qO+tS8qlz5V+IauNgWm0vcb4FJANvlmMF/KnLOZuYTMclQMoG+N0fGWY45p/XH5xC0vU98PnrXgOjKB3Wa6TncK/WBga2qd0+ubep4XAcJNWI0C8qVdYEVln0fC1hi5cgpzVDwwn4DULSRRw+Rbjqqhe/58m+V5fLxVSmV2/xqMhBsNDUa/YBTh6Oi38iFZYQx5bEwf9oySf78kqSHoz7dWk6d/4Fz0Xli9ZhKdnyf1/7YvCj1JbHQjSlM52tYRpr2Tciz2Ggk3u8YqopPwJAoNMbxFAKDE+SAiUGHGVwdBIOgiwdMLC7EUy2owwSajMx8YFOiUrE0S8sB2bkNphSH3f5Rtrgf1iVMrbTZ3DFSobcraRhkShpfc4R64bp2b8Apjrw6uWqP79XqjPe1RoQVbBSdrrEQwh5C7Kweamsza1SsZVsQu/ipT1SJVSybQA5eXAiG1KdSAa9o/Bq85nD6xF4+iq4ENkbSEVGTC6L9DlaQxlLeyUuzUXC6wv2zb9nnnQUBTO+yCSAn5UZjnEIlndOWlzYsbNQXC2PZ7ldAqrpJoZ/RChcvfK4jMqxPN4qZTsa9E7QDgvOlbFJ+53wsE7ljDuXZVRRIL6yZQ==
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(35042699022)(82310400026)(14060799003)(36860700016)(23010399003)(1800799024)(376014)(7416014)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	OlKjjU84V+Ye/CJq/JOfU+91kTbpadoZu5AvoRdiz9saVnKvr331fpzBDq0bSfAt7Zu1xLtk+nT4L+8jSyyA40wBXnEVHrK3F7kFuX/YpRKksSl3RbfnfDa2cJ7hsI5OvPxeUP1Vl8VNnpb1Mfnry4E/1pM7wZ0BnA0XkaiMO+07IYteXqitlFAJZLdk/+ACTqMGOmPXu0Tx+BLpIoqE7OGM91tY3A9c9c7TrhnraMJH9UxYcDE0V4Ov0U7gvx487UEIavMcNHmokEld08RFFpduMSjf6cd/TXhC1SbB5CebtEmDHdSVC4/mjCxV2pTBPPikO+kDDvEPQTXGBlPUQGauhuacoCbk20K28La7EpyzRFLMs2fW8VGbErmNzvc+88M2zVGs7qLpzGozL23xup2ZfXJD4jCw2fZkdFRekB4sEjSp3PKHozoMugJgYKdk
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 12:07:06.0838
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cb0cc1c9-b761-40fc-0400-08df0cd88911
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MI3PEPF0000847E.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB9725
+Content-Transfer-Encoding: 8bit
 
-On 23/07/2026 06:53, Borislav Petkov wrote:
-> On Wed, Jul 08, 2026 at 02:58:59PM +0100, Ahmed Tiba wrote:
->> This is v7 of the GHES refactor series. Compared to v6, it addresses
->> the Sashiko-reported issues including pre-existing ones and fixes
->> the ACPI-disabled cper-x86 build break.
->>
->> The DT firmware-first CPER provider is intended for the upstream zena-css
->> platform. Validation so far has been on FVP.
->>
->> Changes in v7:
->> - Address Sashiko-reported issues for this series, including pre-existing ones.
-> 
-> And Sashiko flagged more:
-> 
-> https://sashiko.dev/#/patchset/20260708-topics-ahmtib01-ras_ffh_arm_internal_review-v7-0-8b3a85216cef%40arm.com
-> 
-> I'd leave this to Rafael to decide but I would fix them all first before we go
-> and carve out things. Maybe we can share the effort and such. I see an EDAC
-> one which I wanna take a look when I get a chance.
-> 
-> Thx.
-> 
+"cpupower monitor -l" lists the name, the processor hierarchy level and
+a description of every counter, but not how its value is exported. Some
+counters are a percentage of the time spent in a state, others are
+absolute values with their own unit, for example the Mperf "Freq"
+counter reports MHz and the RAPL zones report micro Joule. Both cannot
+be told apart from the listing.
 
-Hi Boris, Rafael,
+Show the value type behind the hierarchy level and document it:
 
-Following up on this series, could you please advise how you would like 
-to divide the remaining fixes?
+  [%]   The counter is a percentage of the time spent in the state.
+  [abs] The counter is an absolute value, its unit depends on the
+        counter, MHz for "Freq" or micro Joule for a RAPL zone.
 
-Boris, did you get a chance to look at the EDAC issue?
+Before:
 
-Please let me know which issues I should take. Once we agree on the 
-scope, I will address those and prepare v8.
+  $ cpupower monitor -l
+  Monitor "Mperf" (3 states) - Might overflow after 922000000 s
+  C0	[T] -> Processor Core not idle
+  Cx	[T] -> Processor Core in an idle state
+  Freq	[T] -> Average Frequency (including boost) in MHz
 
-Thanks,
-Ahmed
+After:
+
+  $ cpupower monitor -l
+  Monitor "Mperf" (3 states) - Might overflow after 922000000 s
+  C0	[T] [%] -> Processor Core not idle
+  Cx	[T] [%] -> Processor Core in an idle state
+  Freq	[T] [abs] -> Average Frequency (including boost) in MHz
+
+The check mirrors the one print_results() already makes when it decides
+how to read a counter, so no new helper is needed.
+
+The time granularity part of the ToDo needs a new cstate_t member every
+monitor has to fill in, keep it noted.
+
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+
+Notes:
+    Changes since v1:
+     - drop the value_abbr() helper and check s.get_count_percent inline at
+       the printf, as Shuah Khan asked; it matches what print_results()
+       already does a few lines above
+
+ tools/power/cpupower/man/cpupower-monitor.1              | 8 ++++++++
+ .../power/cpupower/utils/idle_monitor/cpupower-monitor.c | 9 ++++++---
+ 2 files changed, 14 insertions(+), 3 deletions(-)
+
+diff --git a/tools/power/cpupower/man/cpupower-monitor.1 b/tools/power/cpupower/man/cpupower-monitor.1
+index 89af019f8dc4..c8008919627c 100644
+--- a/tools/power/cpupower/man/cpupower-monitor.1
++++ b/tools/power/cpupower/man/cpupower-monitor.1
+@@ -51,6 +51,14 @@ coverage in square brackets:
+ .IP \(bu
+ [M] \-> Machine/Platform wide counter
+ .RE
++.IP \(bu
++How the counter is exported, in square brackets behind the hierarchy level:
++.RS 4
++.IP \(bu
++[%] \-> Percentage of the time spent in the state
++.IP \(bu
++[abs] \-> Absolute value, the unit depends on the counter
++.RE
+ .RE
+ .RE
+ .PP
+diff --git a/tools/power/cpupower/utils/idle_monitor/cpupower-monitor.c b/tools/power/cpupower/utils/idle_monitor/cpupower-monitor.c
+index e8b3841d5c0f..df00e82eb820 100644
+--- a/tools/power/cpupower/utils/idle_monitor/cpupower-monitor.c
++++ b/tools/power/cpupower/utils/idle_monitor/cpupower-monitor.c
+@@ -284,10 +284,13 @@ void list_monitors(void)
+ 		for (state = 0; state < monitors[mon]->hw_states_num; state++) {
+ 			s = monitors[mon]->hw_states[state];
+ 			/*
+-			 * ToDo show more state capabilities:
+-			 * percent, time (granlarity)
++			 * ToDo show the time granularity of a counter, this
++			 * needs a new cstate_t member every monitor has to
++			 * fill in.
+ 			 */
+-			printf("%s\t[%c] -> %s\n", s.name, range_abbr[s.range],
++			printf("%s\t[%c] [%s] -> %s\n", s.name,
++			       range_abbr[s.range],
++			       s.get_count_percent ? "%" : "abs",
+ 			       gettext(s.desc));
+ 		}
+ 	}
+-- 
+2.48.1
+
