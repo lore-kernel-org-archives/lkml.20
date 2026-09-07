@@ -1,72 +1,205 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62E8A13790B;
-	Mon,  7 Sep 2026 02:20:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F9D92517A5
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 02:26:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788747642; cv=none; b=LJwEfPbcyqNQPCpPFevpXsaz1h1UsDVqq/s06WlQofrDgDjsB37VJDzyIhQUqoKNR3ok7ESZInauT+czcBPtkSAhWv6VrxWgPCLzCaOyVGFYCoT4KTyL8olHo55+mWZ8oWMbWi+rrbS07SwavpxkSI74u5AQcSxz5vhXa667mg0=
+	t=1788747977; cv=none; b=MJvALORvVz+ZXCFuHEe9sh1x1C4p4T1y0S9E9r8KW6oS7jo2h2XAzkJOei5UDHywnCVegYzlHsYwD8yPsU3WYAp3eL20yAODP4WY6QcpWrGP3Cv1NsaxFEOne5vcx4VpdCNMtmGOI4RmWTho6ykTCTsHfvkIysLp201mABXsV1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788747642; c=relaxed/simple;
-	bh=hSKy8Fhim6gOjn+u8OKIe0rp7G+0D3nfuAmvvbax7kU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Qjm1FK4YjYqI3WMVU0C7lMAPPlL48hwSMWTj1N4Y3NDlKjd0HHyf3D8sx8qj8MC6b4TZ5O0s0dG0GxcfMQfSGRC3EKkyP7QXxddjSGAipc/IJZ1ZxO3FOP7oOHOL79NZMINE1OreAh/MCNwGZAcxrIkB5jMti52yk9OByXbLkos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DCoxQXF9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788747977; c=relaxed/simple;
+	bh=SqngItBzZRRemQ7Z7f4iOSqEU5Kl028KrDmgh47NvwU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DJ1a9dc94aDUrx99NdNA5jpgoypc/iJHa4CwvGVZOTR6Ib02jC06Wnuq812/BNt7Cv4GQPKqUWg60RlsmDztfKqDh3rweDVKQqNjPdfOezm3m1SI+zRcg+R9E0I1Aq6YsZvNIqXzx2evtOBVgeGArKbJPzuIEkT2f1O/85DgP40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YcdFf4wH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kJoEwNys; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DCoxQXF9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 624451F00A3A;
-	Mon,  7 Sep 2026 02:20:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788747641;
-	bh=HV/tFkxWGTXlhJ0ISNKA8q4/L9JDlzze0Q4zK1q9mN4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=DCoxQXF92jSYPa1pzCANJiVdWOM+2ixwyWvqHqNmBxl/OnoxVF1KvNnUxufHf4lQC
-	 wwWgkAyXjSr9BjOjtwDQ8yQ/yZfoaqtDI1bzSXi6CItvddp++vhl8td6rihuz0rmJL
-	 Cx8xz70BM1i07lCczLKfpPDJMTKF5t8SpvQPgpQIW4DdspdzcYrYcUZjcJ4emMNNzw
-	 /eVapFbglDEV3rQmGmMXTX2iGe4zDqwSsYmxOAR+OroPpnonDPFilAahl9SD5YCeRe
-	 ve6XxTj0SdHBSXo6QaBwsV1wCpZnKuHx1RIspGUrNLziaccOJJFIio9N78z2V8YZV3
-	 q5haVmZpujGyQ==
-Date: Mon, 7 Sep 2026 03:20:36 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Salah Triki <salah.triki@gmail.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- linux@analog.com, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: imu: adis16400: Check return value of spi_setup()
-Message-ID: <20260907032036.15a115fe@jic23-huawei>
-In-Reply-To: <apl3pwAZezUgEs0e@ashevche-desk.local>
-References: <20260903122733.67109-1-salah.triki@gmail.com>
-	<apl3pwAZezUgEs0e@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YcdFf4wH";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kJoEwNys"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6872O7bt3863816
+	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 02:26:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=n0jUTNNzExuLuTq0dCzLcka2
+	2DJ7rjiceOe/URuM9WY=; b=YcdFf4wHGK9LHBWgjYX3BMyydcOUxhu32MqWOv22
+	iOKFSgTSTQCWH3YTlOduJREptzNaFQAO6+x7KF16tVBEFORC7+qU9X5DLtbTqjW3
+	bJ3XeqHrYqBOSs+qj2tQr3/n5BwhRAPZCYMgXpYw/2MPPgxVoIAxdjWwpeq5aOls
+	+Dym7x9+W1ndeo7PN41gqnjR8QESG5pgrO7CBuFHbwvriTdbJdfZ5skC62F3yfuq
+	1tjJHPXnqN/zUCGFLmTpPUnujJCUSkqn88ZLzgJRgD07AnJLhtsXUvDXYj+qVVBJ
+	097VYMPrgBX2aMBCkOi6QGhX8CWc2nOcdZ+aLQeZT9Ovsw==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gg8sd5478-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:26:14 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1c18c775eso4289762a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 19:26:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788747974; x=1789352774; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=n0jUTNNzExuLuTq0dCzLcka22DJ7rjiceOe/URuM9WY=;
+        b=kJoEwNys0efcFG/oxH3KE/2qb89kUAg7PcEhU0N9KUzfdq7jjjTdK7uGw0CweyIv9d
+         l0lt2bS8RRlA/M+SQKiKwYpMsJMQMDjmjMoyr9SRfulS9PzerHQem5aBMxisLFHGm+Y6
+         c/BiStf0gNlc/9BUoZpmtV/K5ZUJr2Jlcsci9oeRdoftSjkKt+2r+iLIQm/GWEYiKNyr
+         0ORFyKLr+hxtnXDcFOmT1TjiwQcGK1mG/kZjt9o5FqJ6cY51s5ZeXUPIMSNXrY9p/fOD
+         BroWmptKTn1RqjKTLvTq/mqznu2UvtBAWQhcr7oR+/QiOnV4LNW5kIr2kJ7UYX4Nb656
+         wp1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788747974; x=1789352774;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=n0jUTNNzExuLuTq0dCzLcka22DJ7rjiceOe/URuM9WY=;
+        b=iRtXjvVx4kFotYOBp7pIprHj/oIF5cW8Q+WrIcATRind+wG1w/XKafcOypUVAWrWJ+
+         cYiUAti1fDx9LvNLwc6oarqsxWVC+AdpQTkVbTFKrhpszB62HkFNVV4eOc8TpIQFSZQq
+         qdcp0/aiuOYTLn2z8I5vFT4ihTK3SI8Nd/moYOKfzMEx4KnpS8jWWcdPluDoudfF5AqF
+         T9c5t66jWsmcHDk/fyaLqeV0fpQYN8+KF4ENbzhlg6JLDV8q6Sk3GFiMJ7EsK9RbaexA
+         QrP9quv6uGGFTuDPGGTuneKwDrXkRimLvKMTSsxlfhh48hK+2+YfHgYnnS8nui04rDXD
+         2sVw==
+X-Forwarded-Encrypted: i=1; AKwUvByCqkv+8Qez961+qOjsgaCqXlI1Pcn0C3oIWPsdFe/9LL1fFXlRJW8EzzpBQdiX/6rD8zRBk4dIusgXm2w=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3XTFHI1Bs9MSGpF4fliYMYRMOFKXp13fxso97HGkbEfH+39ab
+	Wu2scTA8XXy67Z4O88kXo72uKtuVCHHMleR4mo71c4dENdG1COEPzeF3BLArEXAdl7E7DXtMgB+
+	9Du9bG3j+m8lpR/56pvfKX0U8au/cAk7abpsu0KT2yGCylV1oPlls3VtTdKnQS1wVQZ8=
+X-Gm-Gg: AYBFou2rCZ3okSVjf5nEzt02UNqTvk+2cvWB0P1ElBJyT5Hu00xh3kM8+JgFwhtbvRz
+	2m5wTLALjgkNmIPgP559YhaShstB5nfwiHxP1U3G8sXUtQJ11Hel7Tl1DDGNcdQEYg429UvX/fv
+	sTojYFTYCPf24reJjMxcTDtMJQlwK6kNBp1outhtCtaaDwVj4MqGlyBd+KOvwU68cjhU0zbPf9c
+	ftbz0nhE+44Gab3dnWZuKRJ5cE6DQzBhdQ7qh7R6riOyUJlXFZlR3QlMHZA3S3V2m4cT9MlGnfF
+	GUTlZQVKASwFOMr8/Qk2tprYji7PcHz7Pwb66yMTEAcdtYSy2WnC7dqqS2YaCtR4nnNw/+I/SAc
+	fqAk9RGbYzUvQdQ3BZda3+uH4yILPnJPOPunCFJCOeV+YlYA=
+X-Received: by 2002:a17:90b:5745:b0:396:669c:b5f6 with SMTP id 98e67ed59e1d1-39b0803accdmr28515621a91.12.1788747969554;
+        Sun, 06 Sep 2026 19:26:09 -0700 (PDT)
+X-Received: by 2002:a17:90b:5745:b0:396:669c:b5f6 with SMTP id 98e67ed59e1d1-39b0803accdmr28515586a91.12.1788747969120;
+        Sun, 06 Sep 2026 19:26:09 -0700 (PDT)
+Received: from hu-qianyu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14324356931sm33810559c88.4.2026.09.06.19.26.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 19:26:08 -0700 (PDT)
+Date: Sun, 6 Sep 2026 19:26:06 -0700
+From: Qiang Yu <qiang.yu@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+        Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Bjorn Helgaas <bhelgaas@google.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Maxime Chevallier <maxime.chevallier@bootlin.com>,
+        Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] dt-bindings: phy: qcom: add Nord QMP PCIe PHY
+ binding
+Message-ID: <ap4gvmokukHV1RHT@hu-qianyu-lv.qualcomm.com>
+References: <20260828-nord-v2-0-18bf59d19d6f@oss.qualcomm.com>
+ <20260828-nord-v2-1-18bf59d19d6f@oss.qualcomm.com>
+ <aabdae7c-5294-4789-b123-4fcff8a733e0@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aabdae7c-5294-4789-b123-4fcff8a733e0@oss.qualcomm.com>
+X-Proofpoint-GUID: sBiuZ2PCCBHfotQNpHp1cmCzlLv8rnM9
+X-Proofpoint-ORIG-GUID: sBiuZ2PCCBHfotQNpHp1cmCzlLv8rnM9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDAyMSBTYWx0ZWRfX9wfFsgNY6xQ1
+ q0ySwMUbYeQxnmeKn/K2LOxMHPaZafeA38he5F7XZEbCSssJuF3sL4bGTo92HwuRAE4qzSvDhYS
+ MBtRHYDccrLlG83zvMuWPy/oflbvJPQ=
+X-Authority-Analysis: v=2.4 cv=dfmwG3Xe c=1 sm=1 tr=0 ts=6a9e20c6 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=MuNgaGKqo7zVGC3JrMAA:9 a=CjuIK1q_8ugA:10
+ a=x9snwWr2DeNwDh03kgHS:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDAyMSBTYWx0ZWRfXyv6Xdj4fM4iM
+ mg6VJCzo7ZDAPeNP0fE+CJhVzW6tV0/kFrSde6txq2fWchg4DWTwFM5zjQ/cMO1U19bAiFYBZC+
+ N2gN+OxXv8o+D8qlx7eTwiZhWv5xyLq5xRPR6+8lJb6jKG/rlfWUhq0iDOoP5b2gNerwSDZ0BZo
+ nw+Z4Y9TS8/foaAWl3TgpFWM+JzLXqlmxviur4ln5Gg704pLZnAxNaO1IZlsca39R73EHEKXCCQ
+ ZQWmDytseZ/sfAvNzaYQAiAXoLBFJrTpFKi8PjJXgxXaZvVNmEkpdIfyR05u5zuAlobZApU1uBE
+ AAEhv0tVNtSdlbuuYOeYNmgxE0YLsHX4h8n1sYUYO7pJFvlL/wRWqm438CFC/kgLeJYjsS5sO5x
+ 71rllqyvyIb5zYBUnnIrQns8oatPggNZbu8jvTtJrAHWbYG0w3Tcaht/J0drrIXrlDZd0ckMl7u
+ kB2yK6VdBBYVSgljoyQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-06_04,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 priorityscore=1501 spamscore=0 malwarescore=0
+ lowpriorityscore=0 bulkscore=0 phishscore=0 suspectscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070021
 
-On Thu, 3 Sep 2026 16:35:35 +0300
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
-
-> On Thu, Sep 03, 2026 at 01:27:33PM +0100, Salah Triki wrote:
-> > In adis16400_initial_setup(), the return value of spi_setup() was ignored.
-> > If SPI configuration fails, the driver would proceed with the
-> > initialization anyway, leading to undefined behavior or silent failures
-> > during device setup.
+On Mon, Aug 31, 2026 at 09:54:40AM +0200, Konrad Dybcio wrote:
+> On 8/28/26 10:43 AM, Krishna Chaitanya Chundru wrote:
+> > Document the PCIe PHY found on the Qualcomm Nord platform.
 > > 
-> > Check the return value of spi_setup() and return the error code immediately
-> > if it fails.  
+> > Nord has a Gen5-capable QMP PCIe PHY that can operate in multiple
+> > lane configurations using four PHY segments (A/B/C/D). The active
+> > topology is selected by firmware through a TCSR configuration
+> > register and may be configured as x16, x8+x8, x8+x4+x4, or
+> > x8+x4+x2+x2.
+> > 
+> > The binding describes the register regions, clocks, resets, power
+> > domains, regulators, PHY provider interface, clock provider interface,
+> > and the qcom,link-mode property used by the driver to discover the
+> > active lane configuration programmed by firmware.
+> > 
+> > Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+> > ---
+> >  .../phy/qcom,nord-qmp-gen5x16-pcie-phy.yaml        | 276 +++++++++++++++++++++
+> >  1 file changed, 276 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/phy/qcom,nord-qmp-gen5x16-pcie-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,nord-qmp-gen5x16-pcie-phy.yaml
+> > new file mode 100644
+> > index 000000000000..37198f82c611
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/phy/qcom,nord-qmp-gen5x16-pcie-phy.yaml
+> > @@ -0,0 +1,276 @@
+> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/phy/qcom,nord-qmp-gen5x16-pcie-phy.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Qualcomm Nord QMP Bifurcated PCIe PHY
 > 
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> Quadfurcated, perhaps? Is there a word in the spec that doesn't get too
+> detailed about the number of effective slots that the PHY is divided into?
+>
+
+What about multiple link-mode PHY?
+
+- Qiang Yu
+
+> [...]
 > 
-
-I assume in practice this never fails, so treating this as hardening
-rather than an urgent fix.  Applied to the testing branch of iio.git
-
-Thanks,
-
-Jonathan
-
+> > +  vdda-phy-a-supply: true
+> > +
+> > +  vdda-phy-b-supply: true
+> > +
+> > +  vdda-phy-c-supply: true
+> > +
+> > +  vdda-phy-d-supply: true
+> > +
+> > +  vdda-pll-a-supply: true
+> > +
+> > +  vdda-pll-b-supply: true
+> > +
+> > +  vdda-pll-c-supply: true
+> > +
+> > +  vdda-pll-d-supply: true
+> 
+> I'm really surprised they aren't all connected to the same pair but oh well
+> 
+> Konrad
+> 
