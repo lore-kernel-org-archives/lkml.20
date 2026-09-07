@@ -1,64 +1,64 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 058602DC765
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:44:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC4C2DC765
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:45:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788756296; cv=none; b=KVeN6qosD/i8BLMtO202o9NPl8fzRGjuV7kIBX4jytlyuGuZlbh2wsZ+gxN9vVdWv4XpsWZ2F49yJFtcDwvMgxPOkH5pjmjlYjL4cfmRdrrFhrsqgmP+XDD7Qr5XmDaj+2yVr5blcvP4Iov6lZVCdw3MDNd5VEj6Hef/LNxPBMI=
+	t=1788756302; cv=none; b=ZKi72oUEziVqbVy3t+lQYMlhWMAPUHTpIpS9nbYEaWj08JP9zCR4/ecMoganokBsUpFR9aRk28WfdTVvugPBE3s9dPIv0Luyhixng5EleC0v6PolmdvehxuxGyRK/YESwG7rMNInOBp8iuhgVZVhbr+jc94pghHe2DBVpGxJK4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788756296; c=relaxed/simple;
-	bh=q/VShi8y2Rb70ozxxxWRAtjTcKmlnjijX7MzBXAKbSQ=;
+	s=arc-20240116; t=1788756302; c=relaxed/simple;
+	bh=GXik8XMFxKlyNr0DJa0gcBwazjCkzO5/wY0cetFN0QA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XTRtUMwQm1t6KXhiVRAsoTpgxh+5AE38fNMQFotu5rYxQZ1de59jb4FcjKCY68TuCX1sIkyATObPp/CjPYjaXW1yByoaY3DrBqqfTjxpTuMyV5NqmAJyRrejNhDVPeikbvIWgpbw0VJE498GNW5z3SbveqVN96QXUrtkyRqNcyQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P5IsOPr7; arc=none smtp.client-ip=209.85.210.171
+	 MIME-Version; b=ViQImQqwNrWUpTEGSWa4ShRhZSwpWARFJfIpCz0sTl1jYVocEGDxTP9U1wAljr2MP7Uz6APthcI8v+SWP/dYpdnNfE7VuGP3ex3DjD6752B8TfTmBJRh8AB8RDotLh7DXQDHx/QV5tn53WgYLK0Fitdj92t6RTertdxITt5TCVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UduKfR+1; arc=none smtp.client-ip=209.85.216.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P5IsOPr7"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-84f3ab8750cso2194318b3a.0
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 21:44:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UduKfR+1"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-39675172593so2448146a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 21:45:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788756294; x=1789361094; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788756300; x=1789361100; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NsCXtS0F1ozalP9OgDEtI+4ABXzVdG2gEkR2YSb8sls=;
-        b=P5IsOPr7ey12N0SLpLU8R7dFfBG24Y8XVzaq90vJAudj1+lE+7w4p233O+kZfwPKDl
-         xcpRHbVUF/3cIOD4OvyU1ufn+QiRQnJ/O8nR9i5N07a4lKIWadHnKDA+raavd/UQJJsC
-         0NFt3+PFYxJ0QmeHu6VEQ0vvAqYj1VZLL9JJiBrhqOJ4F31oc+jzIwXsvA/Kz9l8+0bK
-         0nEpVDbW/p1nHKxHUG6+Q0ZErT/Q3cw5Mzj9/UYYa/LDamfL8zbihPojcos7R8jirCE/
-         swz4mufNnOeYDGhdq3qD/QtzPWnRuH6Tb6yuItwigqf7/tqTEV5WrL/TIuus+ImpO6LM
-         grhg==
+        bh=DnvU2vBpS7iNRhfGmKqIjpkiFHsnHeHr6qR8QCexTas=;
+        b=UduKfR+1N4SjTzicVqtQ7dHRjtahTW1A0ApwsHPX2zyd3lfkI0jGvOTnxmzXvuP/G9
+         mwlueZJw2W3YsaKBGi+U0RIAXIBIDitwU87vnlpWN54rq7tdpZr8MR2JwvO/ZmCTQIA1
+         ewmQXm9C6aj7p1pi8JwyIszxmIfs57JUvyH25z5gtpEHVkVOT1uXS3Be4okQ+Pr2ApNO
+         cbNYVvPX5bSDb03qd5BsuTBI9fts2WYvgwmeIFSF2IXkvfZqxJ57uKkpVZErWOMRre1y
+         ciEredKNxmWXaMetxPSs46mMVrKpSEIPC0IWuIDQnuRgStupTxbtpkjOrMVGjhP6Bnyk
+         pfcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788756294; x=1789361094;
+        d=1e100.net; s=20251104; t=1788756300; x=1789361100;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NsCXtS0F1ozalP9OgDEtI+4ABXzVdG2gEkR2YSb8sls=;
-        b=b7uvoR3YpJ0dUzpTXPV6wKkn4alsw8DZ1Is0T6iRswbVhK+9HEGBHrw5ypJvBYcUZY
-         6td1D3sQ0DjVdwTXuO6+dqfwg4EmyM5o4utW5sb8eZ/XioMEsal82YPy4lfLmPxH4WYi
-         qg17oaNNMMcMsb/9qgdi/xz8YuJNMOB69QAieCQCXKEwO9+gus/FwVWJc4iwyeWa/SKP
-         mwhcmgIuK+PpDoL3Sor0e9Pr4KJIBuMBZzWsKDhWNu1bAYVwMQgH/BxY+4UWN1NNXI/z
-         hRAJbakXP4TLAKZgwjjAJdga867kXAVtju1lr2js4qGOhe5y/z4Ec5ZCc2waf+Qhs9Zi
-         OE3A==
-X-Forwarded-Encrypted: i=1; AKwUvByQHRBVXoqVv6NX9iwsi17V2Fu4aVZU9ImiLoJDs8bQcKo+D+nb2xno72ftg+Jty1VJyWNOHNa3jmmXWH8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUiYwEZHXJna/mKjQ3R5J8RIzklO2xMPYlABnN7DHAaENxv9jg
-	4uyzNU5d9oJpYbNQfYOW5ofMG+Zc9FSm3M7w1IDJvh3hoGpA+QC5LU1F
-X-Gm-Gg: AYBFou2uASXw6Jsc1LYphnUu3DPKkmqb9VIXSipp8PfVkHcgM8vYhZDhPk8vPMcHFzm
-	LVPB/oh4srnILR5SECnUx4qqctkJ+avFwR+exBUIFc+G1zjDluvw+46Z4gCPmC9VKmeavcgUoD0
-	xsdJz7sNp63zLPjCYNAqJaFT/GgI2aG4nFcVqyv+xLTRsORsHVAkMAqPTr82tRWqMBoSGwOcdYH
-	MK+M80o3IiUGyszGrOaTBI263xLWov/NM5B/EqAP56bGcFvxOKeG/M3hdBtsyx0RgJqBB7oHC9q
-	VZ/pHki4V+pjJWijr0ALXFlp3GFYMSyAABGE8liGZxdBuMbEhHmHbgA9+PDmRAtd2qSQYIy1e4X
-	C7dhRKAaq8yRK0a+8iE1W6z4PqpkROsus5G/o7GQfJ/rDU68mmUo7NSMNHSFFxZwjRo7Qshy/F/
-	STzsYFhmgu8RGbh6NH137XG61NMCRAYB9aFvtWshLCe8S7duEBkvHy8i9cJ9/KLkw1D5kJSOXqx
-	mpt9aJFeRGD6Q==
-X-Received: by 2002:a05:6a20:9630:b0:3cd:9f0b:f7a2 with SMTP id adf61e73a8af0-3da39ee15d0mr32834555637.11.1788756294346;
-        Sun, 06 Sep 2026 21:44:54 -0700 (PDT)
+        bh=DnvU2vBpS7iNRhfGmKqIjpkiFHsnHeHr6qR8QCexTas=;
+        b=QlAYE7JaxInCIIgqajHWtYxojpIM+wTPK2fzLVbLkk74XzT5ofubTCuJs1iCh/jOaC
+         bapBqLOG+5CDEBHGUgkviX9gJ8dZVEbvTPOccwinERp9Y/7u1gdgV9zE/xyGFUIMhrT/
+         7HZFw8WsxMsX4hcX1/LQNrwhykqA+um4qV0zmvNgIaCdJtam/pAyk5hzxo0+I+8RFzdy
+         hqrX3LyaanC8rVINI/ikiG16YKBJXl09iRfhLYODcNvR/qIE/LhjYZJdx1W5rGpdf//P
+         pzFzyRLR1I0xi3fF6wHupyxS0XxeIPm9CIb4FKeghl3w1MhwC6jsCNr0sk+jV2sC0RVu
+         tjzA==
+X-Forwarded-Encrypted: i=1; AKwUvBy3/aNtyPldgm7qLd9LBml50I0dVDFotpqRDi9J9++FLEjzswNilUKYkseBDOxvJNV/jVglmwg3TDDYBG4=@vger.kernel.org
+X-Gm-Message-State: AFuF++k5IIEZULWadjQKg/k3Z79yaxo7zEG27yMyIPBUzRlJNZxlj/5i
+	7JE9yEzcONkAM3bbPMkq6cVatu1XNWr0tC8FZYKBBWS4mh5L8tD5taHx
+X-Gm-Gg: AYBFou0khbd5Di/kgP7r99ZqiH868EOn89p8vxBVnsY5eE7q84/ORWPEdLHmRJaju8d
+	UgLLw5Am/LmHjbVIZNAsNi/+LMV6LTimyDCrwFT2qecKFh6AlS8lOaf7b3qA4ej3VXWLdSEytRB
+	qrEAZhX98aqCAao1vRZOjM+vWz02YqUNiOCZyEuKaSpk1Y75iuURoyP90YBq//9b+oM0S6amxDy
+	qomEzKCYRP2PwXQaky13GCjYWErFHydGFztcybVQwfQXV3DtctVaD4bhYwt03QuuQ+3O4STIPm4
+	XzeGpKgid79f1XFk6SyN/k/uJqlhRPPSRpApSjXprX80vdDREXmLC+6SW+FNn68C52bV4BzROrh
+	7Rq1X1DRTlGnNO2+kr43oAMe/6L6MCvljhLkc+9r5NN6AIsMioItblfsvcHJvKg1TsZ3cHFIs97
+	gRXgvDaQ8Wm7oKz6MeRsvgWH7ckI0EcdNjSHfEwpp/eWc+Be23V0B0RLg0PLtRub9eF6mRt0qII
+	HY6LYd7bcVH3Q==
+X-Received: by 2002:a17:90b:268f:b0:398:c3a3:dbd0 with SMTP id 98e67ed59e1d1-39b2612eb96mr32751634a91.8.1788756300129;
+        Sun, 06 Sep 2026 21:45:00 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm37823751eec.16.2026.09.06.21.44.48
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm37823751eec.16.2026.09.06.21.44.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 21:44:54 -0700 (PDT)
+        Sun, 06 Sep 2026 21:44:59 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
 To: Marc Zyngier <maz@kernel.org>,
 	Oliver Upton <oupton@kernel.org>,
@@ -78,9 +78,9 @@ Cc: linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org,
 	linux-kselftest@vger.kernel.org
-Subject: [PATCH v2 2/3] selftests: kvm: fix typos in comments
-Date: Mon,  7 Sep 2026 10:14:33 +0530
-Message-ID: <20260907044434.4682-3-hemanth.selam@gmail.com>
+Subject: [PATCH v2 3/3] arm64: kvm: fix typo in pauth.c comment
+Date: Mon,  7 Sep 2026 10:14:34 +0530
+Message-ID: <20260907044434.4682-4-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20260907044434.4682-1-hemanth.selam@gmail.com>
 References: <20260907044434.4682-1-hemanth.selam@gmail.com>
@@ -92,43 +92,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix typos in comments, reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+The comment reads "This code assumes that is is run from EL2".  The first
+"is" is not a repetition, it should be "it".
+
+v1 deleted the second "is" instead, which left the sentence without a
+subject.  Fuad Tabba pointed out the correct reading.
+
+Only touches a comment, no code changes.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- tools/testing/selftests/kvm/arm64/debug-exceptions.c | 2 +-
- tools/testing/selftests/kvm/arm64/hypercalls.c       | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ arch/arm64/kvm/pauth.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/kvm/arm64/debug-exceptions.c b/tools/testing/selftests/kvm/arm64/debug-exceptions.c
-index 7dc5f0b4f6ad..9da6dc5bcfe6 100644
---- a/tools/testing/selftests/kvm/arm64/debug-exceptions.c
-+++ b/tools/testing/selftests/kvm/arm64/debug-exceptions.c
-@@ -387,7 +387,7 @@ static void guest_code_ss(int test_cnt)
- 		 * Enable Single Step execution.  Note!  This _must_ be a bare
- 		 * ucall as the ucall() path uses atomic operations to manage
- 		 * the ucall structures, and the built-in "atomics" are usually
--		 * implemented via exclusive access instructions.  The exlusive
-+		 * implemented via exclusive access instructions.  The exclusive
- 		 * monitor is cleared on ERET, and so taking debug exceptions
- 		 * during a LDREX=>STREX sequence will prevent forward progress
- 		 * and hang the guest/test.
-diff --git a/tools/testing/selftests/kvm/arm64/hypercalls.c b/tools/testing/selftests/kvm/arm64/hypercalls.c
-index 5d96cdf382c4..a24becda9e62 100644
---- a/tools/testing/selftests/kvm/arm64/hypercalls.c
-+++ b/tools/testing/selftests/kvm/arm64/hypercalls.c
-@@ -1,9 +1,9 @@
- // SPDX-License-Identifier: GPL-2.0-only
- 
--/* hypercalls: Check the ARM64's psuedo-firmware bitmap register interface.
-+/* hypercalls: Check the ARM64's pseudo-firmware bitmap register interface.
+diff --git a/arch/arm64/kvm/pauth.c b/arch/arm64/kvm/pauth.c
+index d5eb3ae876be..bb6c42e78058 100644
+--- a/arch/arm64/kvm/pauth.c
++++ b/arch/arm64/kvm/pauth.c
+@@ -5,7 +5,7 @@
   *
-  * The test validates the basic hypercall functionalities that are exposed
-- * via the psuedo-firmware bitmap register. This includes the registers'
-+ * via the pseudo-firmware bitmap register. This includes the registers'
-  * read/write behavior before and after the VM has started, and if the
-  * hypercalls are properly masked or unmasked to the guest when disabled or
-  * enabled from the KVM userspace, respectively.
+  * Primitive PAuth emulation for ERETAA/ERETAB.
+  *
+- * This code assumes that is is run from EL2, and that it is part of
++ * This code assumes that it is run from EL2, and that it is part of
+  * the emulation of ERETAx for a guest hypervisor. That's a lot of
+  * baked-in assumptions and shortcuts.
+  *
