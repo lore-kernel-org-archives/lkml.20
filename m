@@ -1,62 +1,62 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41E67448BA3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E35DB448D0C
 	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:41:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788770520; cv=none; b=WGJdE3ww69zmCYVUYEcCnfGEL2gd/Rlzi31x+KYDa7Yd9bP2YsR7qmPumuDowyG7GSqWH26niT0W3DVP0YCKgu1OJYyiVoNBhzCB86vDA2uYHb5yQmoZRka7lgJL5Ev0R+v/kPnt5s9Hag59PUkeZ3XGKAkMOij4ncM9uasjb2A=
+	t=1788770521; cv=none; b=PEZx8R0wykR/SzFmY2ludVIsYnk0JQop9+4Qbf2NAZIx5TSvbkjYxawnrVYchKjN7KdT2Sz68bTX98ggjoXHprwRL5/N4eVs7FquaWtl28XImT0FFYk//KvcJQJQwWx6Sl13URjyrfVYXXxbnP1n+PyDkLxLSmA0W4usicuj//Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788770520; c=relaxed/simple;
-	bh=ZTmmndy7/AcjbfShhrBZFEsnXBPekn0HGXjSLaxXqJQ=;
+	s=arc-20240116; t=1788770521; c=relaxed/simple;
+	bh=i1nvPkZL8AYjVqF81FIyYnrrcNRmKU4Rb1W27F5h+8g=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Ph4savWCErgAE2wmrznXm0bAOxtqmgALZETbHAYyfRb7bl2SEkw6v6PHTjl7oCnaPK/tkWJzbM2yPnixooeMh6OiRCGYQs+BqGssB62cOtd9fVbMLUnOLXpa/A3cNOOItaum9++0q9dQVhbIspmure9EBMX31YFcZLsRmYiFlIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TQDJs4WU; arc=none smtp.client-ip=209.85.221.46
+	 MIME-Version; b=NjUNpK+T4AinYnuIVbnCKzvqbMMGFI3u3RJGiwgevlP+fCyXZwTkVvFkxM1M3uHMloe/1k7POb2XM7xG/141K/gNFRR2RfcIPVaLpwUISMl0rSNXyhNojta/YBEEabaAaJoZ5+347x53BFyT57oXiJYlbIP3FA+QcjvXEP44uFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q4vrBGJm; arc=none smtp.client-ip=209.85.221.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TQDJs4WU"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48586861639so2403725f8f.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q4vrBGJm"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-4843f205a5bso1832036f8f.1
         for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:41:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788770516; x=1789375316; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788770517; x=1789375317; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tH/kRPPDD2gV1vMx/S94hLYP+9/dPU1ymPrzNYM8wtg=;
-        b=TQDJs4WUSr5+TPt3zpY5rOWZpcV5bM935d68lM1XOHz5qNX3W3eXESHHiwUemH/KSB
-         TcmTeNYMCSty8pzGKl2Txbt/Wb/sY5r8hCUzLcepg94OEW4MJtO3Ln229n1BZMEFT6y4
-         DGwZ6F4gcxIiJelOgb/Pbx5aHZGgzbHjkyqCcWC7ZUw/A4c+wVO+ae7ouesJrj+fDjTX
-         dm5F3uRzcEvf9ENTvj9u4qcicI0L6W9eKjBK/Qiv5//ECUFrMgrQl488qGhcdPY97TJF
-         8va9td9AyjIBMQchuV2T7eyqMCu4K+kn+aISMzUznexW5b4P3dN7IMn/+JFpufachwuC
-         RGCw==
+        bh=aebnt8Kz95RzOuAHiVC9YDlZSkH27kAJite7oJqhniU=;
+        b=Q4vrBGJmWjwtww+BUWpv/8w6JiSYu+NbnnOW+fX+NcvbKWVGz82harEIoNP3zvgznj
+         OZ0ohv3xFp92bIur1ULntY7YMkupH/SfdcThKw4Km7ZR4kvuHEoAqhF3hnyfWX9OeIOt
+         swSATzVf+JXUcz3qHlWTmSKst7SI7VZm9bMOdkXjZRnoSN+5IJnLG+eU4etKp1gnJHJF
+         qfO3YkfewAkUTMWPQUx2cMXcTlXJVe4uvdwJF2lcro83m5k6mqP42eYY7TSBSiTK5E2d
+         fJXYScq8Ebe9HS/oBABxaDJp8E63481qRG7QYyj759hdJze1/wNf9B9Ed6Xt/g1KKClP
+         d9Mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788770516; x=1789375316;
+        d=1e100.net; s=20251104; t=1788770517; x=1789375317;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tH/kRPPDD2gV1vMx/S94hLYP+9/dPU1ymPrzNYM8wtg=;
-        b=lKApyoKUYMzTwSCFMAAHsiXTjtWwEOTeEdlTdsSE8v+AmLOBalmm3obrkyrmhVFclg
-         3zRnK3zDwsgGzR8LVqoEz/0BElt9APcXRRqTCrHuYvNgAL0Gok+1DkoetTQAtqNizJ4o
-         eiWM4+HI7YLf+1I5unBPKIC/bGZPhu7kMjVMXE8Cx4ywNt1yIUmOPiz4Q1CA1usPP0wo
-         sK3h70HUaS8va6XbAeKa4hXWQXLp/GEe6/N58hxSLTg9Jdip05OvhJ8XJMar0W7q7wGf
-         DNuDOhEUCrhj/cTjjzMSedbQOCUQ14apbhkCARQZ9VaD4y5EOdhlWRDCwfvwbIwpL091
-         xQPA==
-X-Forwarded-Encrypted: i=1; AKwUvBwyjvyl0wfl0Mx0YnBYYghHgas//rHJg25KjsiAf8Lq5Kqx9i7Oq5Bp/VVwIVkJ7SkUb1N4xE/d6VdiZ0E=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJUXwPvh8bswJPtoSVNpXJ8f0yJi9quRNF4TDz3Ir+4Z63CK36
-	hd86GI/OJK+IaPvF1NqK81QbutoM7U3ITLnZAqEmRfzigDLNI4nZm8Bl
-X-Gm-Gg: AYBFou0q9Oj3AkFnREiwuXFOERzcKpMmWj9Uy5c/+NDR+LEQVfjBZIBuFM6Xic1cvDh
-	DE3tqUKV0Tgff5awQ7hWN9MhRPOPrYr3tk7NNDi2NAg0QGWOuCbThp0AFJr16FDruWP15Mjy0jl
-	grWcBHftWNpB6eY/brvWablZv5SRdJWmEDRmtMnGhZOCMT60XkkzcLgnn22FQlEEKSTl+5lh3Rf
-	7G44vH026IP0A3tGLinedCTniIAt0b+5b+a4hocLtSiMTgVn4ZdsDACC6qvFJ7PgsJpilLGVxtq
-	d9IWT3iRkNRue9GDrYr2VOdfomRRRRgQJ7rBI4xCoIE6AuKaVOEOJLMG+ljlB/Cn7y8oY2KJQTY
-	gYzKQ6wD/3QrgBlgLfvAUg+AkXQ5cCy8kZStXuviiAiVanhDLsTLHcJvIWaYNHjXiW9BY9F+qkx
-	l8EPwEAWfZFQwdZksyvqyahW5qxC9LbGMQRFMshksfA+pipZ/If0B0SDKHXaK8DhJ8a2eEVAFVq
-	AqZm4l4ujCWiec0GUeB7Kt58vhre0p7opDjrzgnWslG0w==
-X-Received: by 2002:adf:edc8:0:b0:482:e658:7a39 with SMTP id ffacd0b85a97d-4857e5171femr23993264f8f.11.1788770516418;
+        bh=aebnt8Kz95RzOuAHiVC9YDlZSkH27kAJite7oJqhniU=;
+        b=D1VWO8pmTtJUkG+4MCJyyrjHo8jUb27uRsFhDWN/hsC5S+95iN1yqj5IkWdXLFoaFn
+         QmmoQb75kdFtRcHfyR6JKRz1JLdPUJebR6mW00CiIT1AvVDlzSOjwJOtcZMUB3fSEOZg
+         d66gkZ8oJRJhw8kZgH7weU+qRQyNUFYcwM1hk91hza1QqIuTx/KNwXL9PTv1HTVzFN7l
+         DMyKB5SuGadilgoNYPgU3sv6YDh3fWDTuK2FRbCLSyf+qTQiEjqlIpfhM9lpvf8+ubH6
+         FPulHkwkUiyeeCdMMuQ5i5oB5vlOwhaOa0fQ5vSinWNyzKR9gfh/8yB1sp/G3hNb6QXM
+         y9PA==
+X-Forwarded-Encrypted: i=1; AKwUvBzMmTbyg2Y/lGer2/ydtbdNsfr6Sj5iHSEjNIGQga2pfyHkOV015attVwps0KMtNuA92ejB/gLRcYGi6hE=@vger.kernel.org
+X-Gm-Message-State: AFuF++l1FBurq5yjXS9sBdUwFvz8Cpo1lNB++AnHH63xLE6XbUe8UVmC
+	kYZ9DkUV5ZAEI8eBBLyWJ9Rfzdu5szv4o64Rbr77e9qjuLD2smfNfN0s
+X-Gm-Gg: AYBFou10A9ix7AU0KSCBvuKImjKaedlp6YB2ZnDLFxX3GNVHF2ccF/5ca9eDiLYxsc4
+	dvs9WZvHvngHtsGGDGQrnCPymbH9CONyq46ECIOJ2afyoOSrcBCI4R9W1feZ/t+a0n/2i3Bq+n/
+	8iVLHkJtnmOenlFFf26WdKtTeUH1rsFkwT//ZcQEJNYTfFL/A+BpYLePHnXS6RrHJMjMxpXzdz4
+	3uJ1gp4dXLOpp0QdKsNpBPSwbyUQSv1kVpaA/wxKPVNGHgvJlfti93OGAsaeMv81X/zVSVDgZjA
+	zG9kLb81bl2kD85mYYFY+8Rup07hsvqhXPuTXQFTpAHIqO/8ogq5/seawvkrpRclmxFnU2X36jp
+	HjLBq1meGEMJdJ0+7n3S5b4/nTYZcpinzdTyNzPAZdVSYt70k6zKr/S1qierSgkGDrcV8FL2VtJ
+	bY0YEP0MQFbzizRM1qXgqAK+0fzT1XA97hR4dSXc9e6jD/oI5D5sBbsjyAN8nCeUFw0iRdpiNM7
+	cvfA6/bObZMtrx3Y9S4fCFndYMLDQnpb8m6KBf8FjrfaSdcjAwN92Cr
+X-Received: by 2002:a05:6000:2508:b0:485:8e8b:7bf4 with SMTP id ffacd0b85a97d-4858e8b7c78mr18050026f8f.33.1788770516952;
         Mon, 07 Sep 2026 01:41:56 -0700 (PDT)
 Received: from snowdrop.snailnet.com (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885bbb51sm27883762f8f.30.2026.09.07.01.41.55
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885bbb51sm27883762f8f.30.2026.09.07.01.41.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Mon, 07 Sep 2026 01:41:56 -0700 (PDT)
 From: David Laight <david.laight.linux@gmail.com>
@@ -70,9 +70,9 @@ To: Waiman Long <longman@redhat.com>,
 	Yafang Shao <laoar.shao@gmail.com>,
 	Steven Rostedt <rostedt@goodmis.org>
 Cc: David Laight <david.laight.linux@gmail.com>
-Subject: [PATCH v4 next 7/9] locking/osq: Use 'unsigned int' for next/prev/tail
-Date: Mon,  7 Sep 2026 09:41:31 +0100
-Message-Id: <20260907084133.3696-8-david.laight.linux@gmail.com>
+Subject: [PATCH v4 next 8/9] locking/osq: inline encode_cpu() and rename decode_cpu()
+Date: Mon,  7 Sep 2026 09:41:32 +0100
+Message-Id: <20260907084133.3696-9-david.laight.linux@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260907084133.3696-1-david.laight.linux@gmail.com>
 References: <20260907084133.3696-1-david.laight.linux@gmail.com>
@@ -84,130 +84,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Consistently use 'unsigned int' for all the 'offset by 1' cpu numbers.
-This makes the code only use one set of xchg primitives.
-The unsigned type gives marginally better code inside per_cpu_ptr().
+Having a function to add the 1 offset to the cpu number doesn't
+make the code any easier to read.
+Just use smp_processor_id() + 1.
+
+Rename decode_cpu() to cpu_spin_node() to match what it does.
+
+No functional change.
 
 Signed-off-by: David Laight <david.laight.linux@gmail.com>
 ---
- include/linux/osq_lock.h  |  8 ++++----
- kernel/locking/osq_lock.c | 31 +++++++++++++++----------------
- 2 files changed, 19 insertions(+), 20 deletions(-)
+ kernel/locking/osq_lock.c | 23 +++++++----------------
+ 1 file changed, 7 insertions(+), 16 deletions(-)
 
-diff --git a/include/linux/osq_lock.h b/include/linux/osq_lock.h
-index ea8fb31379e3..9e637e265189 100644
---- a/include/linux/osq_lock.h
-+++ b/include/linux/osq_lock.h
-@@ -12,17 +12,17 @@ struct optimistic_spin_queue {
- 	 * Stores an encoded value of the CPU # of the tail node in the queue.
- 	 * If the queue is empty, then it's set to OSQ_UNLOCKED_VAL.
- 	 */
--	atomic_t tail;
-+	unsigned int tail;
- };
- 
- #define OSQ_UNLOCKED_VAL (0)
- 
- /* Init macro and function. */
--#define OSQ_LOCK_UNLOCKED { ATOMIC_INIT(OSQ_UNLOCKED_VAL) }
-+#define OSQ_LOCK_UNLOCKED { OSQ_UNLOCKED_VAL }
- 
- static inline void osq_lock_init(struct optimistic_spin_queue *lock)
- {
--	atomic_set(&lock->tail, OSQ_UNLOCKED_VAL);
-+	WRITE_ONCE(lock->tail, OSQ_UNLOCKED_VAL);
- }
- 
- extern bool osq_lock(struct optimistic_spin_queue *lock);
-@@ -30,7 +30,7 @@ extern void osq_unlock(struct optimistic_spin_queue *lock);
- 
- static inline bool osq_is_locked(struct optimistic_spin_queue *lock)
- {
--	return atomic_read(&lock->tail) != OSQ_UNLOCKED_VAL;
-+	return READ_ONCE(lock->tail) != OSQ_UNLOCKED_VAL;
- }
- 
- #endif
 diff --git a/kernel/locking/osq_lock.c b/kernel/locking/osq_lock.c
-index 0f68ee017b54..144eb446c867 100644
+index 144eb446c867..8dfd729d1a81 100644
 --- a/kernel/locking/osq_lock.c
 +++ b/kernel/locking/osq_lock.c
-@@ -34,8 +34,8 @@
-  */
- 
- struct optimistic_spin_node {
--	int next; /* CPU number offset by 1, 0 if no next */
--	int prev; /* CPU number offset by 1, 0 if lock held */
-+	unsigned int next; /* CPU number offset by 1, 0 if no next */
-+	unsigned int prev; /* CPU number offset by 1, 0 if lock held */
- } __aligned(8);
+@@ -40,19 +40,10 @@ struct optimistic_spin_node {
  
  static DEFINE_PER_CPU(struct optimistic_spin_node, osq_node);
-@@ -44,16 +44,15 @@ static DEFINE_PER_CPU(struct optimistic_spin_node, osq_node);
-  * We use the value 0 to represent "no CPU", thus the encoded value
-  * will be the CPU number incremented by 1.
-  */
--static inline int encode_cpu(int cpu_nr)
-+static inline unsigned int encode_cpu(unsigned int cpu_nr)
- {
- 	return cpu_nr + 1;
- }
  
--static inline struct optimistic_spin_node *decode_cpu(int encoded_cpu_val)
-+static inline struct optimistic_spin_node *
-+decode_cpu(unsigned int encoded_cpu_val)
- {
--	int cpu_nr = encoded_cpu_val - 1;
+-/*
+- * We use the value 0 to represent "no CPU", thus the encoded value
+- * will be the CPU number incremented by 1.
+- */
+-static inline unsigned int encode_cpu(unsigned int cpu_nr)
+-{
+-	return cpu_nr + 1;
+-}
 -
--	return per_cpu_ptr(&osq_node, cpu_nr);
-+	return per_cpu_ptr(&osq_node, encoded_cpu_val - 1);
+ static inline struct optimistic_spin_node *
+-decode_cpu(unsigned int encoded_cpu_val)
++cpu_spin_node(unsigned int offset_cpu_num)
+ {
+-	return per_cpu_ptr(&osq_node, encoded_cpu_val - 1);
++	return per_cpu_ptr(&osq_node, offset_cpu_num - 1);
  }
  
  /*
-@@ -72,17 +71,17 @@ static inline struct optimistic_spin_node *decode_cpu(int encoded_cpu_val)
-  * When a lock request is being cancelled the caller needs 'next' to
-  * set node->prev->next = next.
-  */
--static inline int
--osq_unlink_from_next(struct optimistic_spin_queue *lock, int prev)
-+static inline unsigned int
-+osq_unlink_from_next(struct optimistic_spin_queue *lock, unsigned int prev)
+@@ -74,7 +65,7 @@ decode_cpu(unsigned int encoded_cpu_val)
+ static inline unsigned int
+ osq_unlink_from_next(struct optimistic_spin_queue *lock, unsigned int prev)
  {
--	int curr = encode_cpu(smp_processor_id());
-+	unsigned int curr = encode_cpu(smp_processor_id());
+-	unsigned int curr = encode_cpu(smp_processor_id());
++	unsigned int curr = smp_processor_id() + 1;
  	struct optimistic_spin_node *node;
--	int next;
-+	unsigned int next;
+ 	unsigned int next;
  
- 	for (;;) {
--		int tail = atomic_read(&lock->tail);
-+		unsigned int tail = READ_ONCE(lock->tail);
- 		if (curr == tail &&
--		    atomic_try_cmpxchg_release(&lock->tail, &tail, prev)) {
-+		    try_cmpxchg_release(&lock->tail, &tail, prev)) {
- 			/*
- 			 * We were the last queued, lock->tail now references
- 			 * prev (or is 0 if the list is now empty).
-@@ -127,8 +126,8 @@ osq_unlink_from_next(struct optimistic_spin_queue *lock, int prev)
+@@ -118,7 +109,7 @@ osq_unlink_from_next(struct optimistic_spin_queue *lock, unsigned int prev)
+ 	 * When called while unqueueing in osq_lock() this completes the
+ 	 * backwards link, the forwards link is done by the caller.
+ 	 */
+-	WRITE_ONCE(decode_cpu(next)->prev, prev);
++	WRITE_ONCE(cpu_spin_node(next)->prev, prev);
+ 
+ 	return next;
+ }
+@@ -126,7 +117,7 @@ osq_unlink_from_next(struct optimistic_spin_queue *lock, unsigned int prev)
  bool osq_lock(struct optimistic_spin_queue *lock)
  {
  	struct optimistic_spin_node *node, *prev_ptr;
--	int curr = encode_cpu(smp_processor_id());
--	int next, prev;
-+	unsigned int curr = encode_cpu(smp_processor_id());
-+	unsigned int next, prev;
+-	unsigned int curr = encode_cpu(smp_processor_id());
++	unsigned int curr = smp_processor_id() + 1;
+ 	unsigned int next, prev;
  
  	/*
- 	 * We need both ACQUIRE (pairs with corresponding RELEASE in
-@@ -136,7 +135,7 @@ bool osq_lock(struct optimistic_spin_queue *lock)
- 	 * the node fields we just initialised) semantics when updating
- 	 * the lock tail.
- 	 */
--	prev = atomic_xchg(&lock->tail, curr);
-+	prev = xchg(&lock->tail, curr);
- 	if (prev == OSQ_UNLOCKED_VAL)
+@@ -140,7 +131,7 @@ bool osq_lock(struct optimistic_spin_queue *lock)
  		return true;
  
+ 	node = this_cpu_ptr(&osq_node);
+-	prev_ptr = decode_cpu(prev);
++	prev_ptr = cpu_spin_node(prev);
+ 	node->prev = prev;
+ 
+ 	/*
+@@ -189,7 +180,7 @@ bool osq_lock(struct optimistic_spin_queue *lock)
+ 			/* Lock acquired */
+ 			return true;
+ 
+-		prev_ptr = decode_cpu(prev);
++		prev_ptr = cpu_spin_node(prev);
+ 
+ 		if (data_race(prev_ptr->next) == curr &&
+ 		    cmpxchg(&prev_ptr->next, curr, 0) == curr)
 -- 
 2.39.5
 
