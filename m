@@ -1,92 +1,131 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB574CA797;
-	Mon,  7 Sep 2026 13:32:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98CF42D24B7;
+	Mon,  7 Sep 2026 13:32:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788787953; cv=none; b=cNOCtSY67jXtJWBk1GbiccCobfevN+E8eYwqgUCJZ1cVgFrQdTEQLoLgvMWxH1DHglOwy/PsE2zAAPxf+R2sKdfwFiDJM62wG7WT2ZZBc7O899lcHEHdqB9sqhLhmac6iynqpABG6HdcleLbuqGQN9nljonKd7CRneWj8V3HEtk=
+	t=1788787958; cv=none; b=gB1t7rgk3GTtqrVjTVwd+PJOYINZZx81VrTuQW1+47r6F/OJUnp/Jv9uDh063OyJWixl9Ilwf8nJJ1qDYaAQTDGlzAngNtxYbjQh6wtPNQExuLFAhdd4MWuus0GCyDaSLiQvojBljaRMtUfHBzk0ue/0VjWRCUlykpt6Dt92vVk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788787953; c=relaxed/simple;
-	bh=VVw4k2oa1IX13m5I8l1jeY9GfX+eJrls5NCdzQjJZt4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aXFsRGbjBlGDlunT4Lch5fk1+zDidA/ST9s8Mlp5/X97bpUOUxQ4q5d5LWmLDp0iFFnHeop4mG9lliDJ9OefR5HL010VqDvmmbc6SgNtnmUwClW8pxR6qWiLeQu+699BL0bKXIGNNFuFJzZg22IQku4fujueRmUupCBF0Zjdt/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=I6ZIRVuW; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=wN0QeEMw; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1788787958; c=relaxed/simple;
+	bh=3i6Li0CU7l1Rgh4uuZwdFPUNMOb7xsjWR2nwI5ss26o=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=ScLXZKpvaLOPazy7QTmuurRgKVAs6PI8YqxeelAUoSLvM4sui0LjJvPDdmO8oY53CWZtk43Lpe1VQH2zaOjRwA0VglKWlnIrEPg6jOwjUnxwi5PXB8VZiaCwHDwdI7hsNV4SCQ2fD4iAM3Ywsg223RKkv50K4rUu3S3DfOdfprI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=ATOFK7Fm; arc=none smtp.client-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="I6ZIRVuW";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="wN0QeEMw"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1788787939; bh=mWb+v9ELHieEJdI9V8la+OB
-	UPpFF5NV2q9OjdTiSJRg=; b=I6ZIRVuWQTrHnmLYkzd0a2rXsx57mBERzFqNVyIR8/qE9hbIIu
-	/wUXBGFjz62Ychb83zt7mLt0fGHgjSCCCj5VY6WK6dMaxYwZ1DJS3uV2/GpFZvzbH4RFlShSvsR
-	T2QYFCVJk6aXnO65rLz8CKy3ONovyxOEk0zk56xwox9JmLQI1hIUJrbnwR3TSK23Ls5CVX1Kz0G
-	CfD7zvNZz5ysB8vBpiSg4/S8ql7F3du4znpqH/gjHQV7Q7NfUfMXDdBsCpyQ4W+yEWMX4N632+5
-	8q+A/R3vXTSEP4mGbgfQ2gyEoG5gK5kWqCa1gnK0jGuzqYrpS7FofToqpfwL4byhGsw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1788787939; bh=mWb+v9ELHieEJdI9V8la+OB
-	UPpFF5NV2q9OjdTiSJRg=; b=wN0QeEMwNYOv0lBrLNHEI+Z8DyN58jT5ql8slkTjedrB4jQgUt
-	vSodLOREhskQ+Jbwy0BxVrg7BnCMPLozraCw==;
-Message-ID: <f27df150-f21f-4721-9fbc-1bea7dd0f05e@mainlining.org>
-Date: Mon, 7 Sep 2026 16:32:17 +0300
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="ATOFK7Fm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1788787922;
+	bh=ZEmTXG6leUP5+XNZaiVeMKV7GEDu10lUOnGjhlOkZ80=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=ATOFK7Fmp3+8oquUQnZNWWDy00kGt6G6B9KKAojNCtgMgjvilBGkiqqQtdX/VM7bS
+	 Qny5tGPuwWHTIBLMPPGOQ2/5QqDd/JQlIqMNfEgmKkvL5zfs4s16LRNRcAB5GFetsx
+	 BWuuEbo4aMiBkOIozdAZ+6oMDMmki2oEnlgSoHGg=
+X-QQ-mid: zesmtpgz6t1788787916t2f3c7b81
+X-QQ-Originating-IP: DhRg0CY9j8rF7xBTdDpxxmzAqLri0Yhao2WsHTrpQ5o=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 07 Sep 2026 21:31:54 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 6993455425184562689
+EX-QQ-RecipientCnt: 15
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] pinctrl: qcom: Add MSM8952 tlmm pinctrl driver
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Rob Herring <robh@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260904-msm8952-pinctrl-v4-0-671475ed1397@mainlining.org>
- <20260904-msm8952-pinctrl-v4-2-671475ed1397@mainlining.org>
- <ef41a092-cd83-4e65-a16a-7a8b838bcb63@oss.qualcomm.com>
-Content-Language: en-US
-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
-In-Reply-To: <ef41a092-cd83-4e65-a16a-7a8b838bcb63@oss.qualcomm.com>
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=0df6a61c8d280515c2d06d561c7b93a1a3918a190afb8b3df4ba229d5f70;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Mon, 07 Sep 2026 21:31:51 +0800
+Message-Id: <DL94E69AG90Y.5UYVE3ZUKVM6@linux.spacemit.com>
+Subject: Re: [PATCH] riscv: dts: spacemit: k3: Drop guest properties from
+ M-level IMSIC
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Junhui Liu" <junhui.liu@pigmoral.tech>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Yixun Lan" <dlan@kernel.org>, "Paul
+ Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
+ Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Guodong
+ Xu" <guodong@riscstar.com>
+Cc: <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>, "Troy Mitchell"
+ <troy.mitchell@linux.spacemit.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260729-k3-mimsic-fix-v1-1-368c0aec04b9@pigmoral.tech>
+In-Reply-To: <20260729-k3-mimsic-fix-v1-1-368c0aec04b9@pigmoral.tech>
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: MQYXLRAkMyae3pVoiCdb0fzUjtNonytBusSUVbGa3KtvMbgahI9KN3Cb
+	/wzfNSJJHgKZ6sjTZcS7C6gzmBOXBgP/UqYOA2/O9+lANzlylMU14Om8aN670g/ffxXzxRO
+	yQ68XdGZJfbuBLdSBucq00IX5pUCVURfrCK7C+EJTlrNix0GtmgCsIVX3hZzjREi8fULxtv
+	H0JD1azVO4sFIXnAq3j8CBICTKjLSsO/1Ys1gNxCVdo5O3KSPcVj6lSvqi0UQZ/GWLjuiR8
+	eUKjhAzU5hFUf/PevgCVMxjpJf6irjpA/2jk1KPulQnu/cC7TEfY8/d2ij/D40B5szm0OPJ
+	Oigzh1xnTWO7wNr2Q2rlAOpJDbVlg1xFdjsuE41nxT9hGl6mYeF7quRnbHmPFBG/PK5dXxh
+	p++ww0tMDBkrowlsrO5WPyzQtwcQds3asYrDXomlrMPjGdvYQiEVoUvmJhYRAACMB02CgN2
+	8vgAuZEFbd8DkwW2eSOZbCQU7ocJGVpvnH9ZGOYRNDYVVZGutMzu80uOdSqDvi6vQlFqCYY
+	/BLZaafrl/h/rV0/jmMvvBqMiiOX0LdCvkBfveo+Tz0jQJObJ0ZdnixNuOOgH/dZFiGDQ84
+	/mf8broAcBEZoAGpaNSgnTD2iH7lVXbmlL8i96hXbSnqh2TOrkHZQLZ9cgFHpq70WIMaDj4
+	e8DmjfgVgSz6yUdZhsEzrPF2aseHkoeq/lc7HeCpUwuMDnSeBFTIacy1aJaH5NPN4uPCfn7
+	GGy3Uwkt3hMVMSYaSQtRImIXMaVljBlU1Y26e0YzDUW8FsiGtx70NVKffw4JdJMoXQA67VP
+	QjlMAG33Ees2OvRD2bhXvApWW8PdzajTirqINrGmcj2aYy5NhLEx/Z+0aTJ97tHNZBLZe/3
+	XwPfww3Pix4B2HnGMznLB63Bkr4f61Iq/KHCTO+jZ/beBZSox4qZNUzBiQi9WcOyVR8Zwde
+	LYskDz0lPz7rW4iC0jYD7WkmUqMb8oQFIZlIvpo742a0Zo0ExnfURP9IAt2jVbMcEWtwez2
+	CosBKe/LdNaBvlhVQ2GenlW1BPJJTzQmzX9/D7McDN6BxkmCke3VrRKnUZgMARNnfHCwPhn
+	O2X6HBgD/7zf6eATG5M2UdnnY4aIxPgICA0KFlnIRRvy2eRemJNNwijjYb7rulHE3Hh70yN
+	fSuf7U+7DI36c+wpC3lXPcGRyMT3r9jhT7G8
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
+
+--0df6a61c8d280515c2d06d561c7b93a1a3918a190afb8b3df4ba229d5f70
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-Hi Konrad,
+On Wed Jul 29, 2026 at 12:40 AM +08, Junhui Liu wrote:
+> The mimsic node describes the machine-level IMSIC, whose MMIO region is
+> 0x10000 (64 KiB) for all 8 harts. However, the node also specifies
+> riscv,guest-index-bits =3D <6>, and per the AIA specification the
+> per-hart stride is 2^(guest-index-bits + 12) bytes when guest interrupt
+> files exist, i.e. 2^(6 + 12) =3D 256 KiB per hart and 2 MiB for all 8
+> harts. The described region cannot hold even a single hart's files, so
+> the node contradicts itself. OpenSBI enforces exactly this constraint in
+> imsic_data_check() and rejects the node with -EINVAL, preventing the
+> M-level IMSIC from initializing:
+>
+>   fdt_driver_init_by_offset: interrupt-controller@f1000000 (riscv,imsics)=
+ init failed: -3
+>   init_coldboot: irqchip init failed (error -3)
+>
+> Moreover, guest interrupt files exist to act as the supervisor-level
+> interrupt files of virtual harts; there is no machine-level counterpart.
+> riscv,num-guest-ids is equally meaningless for the machine-level IMSIC.
+>
+> Drop both "riscv,guest-index-bits" and "riscv,num-guest-ids" properties
+> from the mimsic node so the node matches the actual hardware layout.
+>
+> Fixes: 56f37e391a62 ("riscv: dts: spacemit: add initial support for K3 So=
+C")
+> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+Reviewed-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
 
-On Mon, 7 Sep 2026 14:04:59 +0200, Konrad Dybcio wrote:
-> On 04-Sep-26 14:55, Muzaffer Kadir via B4 Relay wrote:
-> I told the robot to take a look again (and again and again
-> a couple more times until it stopped complaining)..
-> 
-> The following feedback is meaningful:
-> 
-> Hi Muzaffer,
-> 
->   `qdss_tracedata_b_groups` advertises GPIOs that cannot actually select
->   the function. Please populate the corresponding PINGROUP slots:
-> 
->     GPIO8:  mux 11
->     GPIO9:  mux 12
->     GPIO12: mux 12
->     GPIO13: mux 12
 
-I will add these to their pins by sending v5.
+--=20
+Troy Mitchell
 
-But also I want to ask,
-does atest_combodac_to_gpio_native
-have any mux on gpio12/13/20/21/29/30 ?Or are they wrongly set ?
 
-> 
->   Minor nit: use MODULE_LICENSE("GPL") to match the nearby Qualcomm
->   pinctrl drivers. // and checkpatch will ask you to do the same
+--0df6a61c8d280515c2d06d561c7b93a1a3918a190afb8b3df4ba229d5f70
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Some of the upstream pinctrl drivers were
-using "GPL v2", so I wasn't sure about that.
-I will change this to GPL in v5.
-Thanks a lot for review.
+-----BEGIN PGP SIGNATURE-----
 
-Best regards,
-Muzaffer Kadir
+iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCap68xw0caUB0cm95LXku
+b3JnAAoJEJgJ74D5MzQvldUBAJ6M7+KX40iCUzFCv5w47J6P/N3znLSudDzUSWro
++szzAQCKafnfOzZlrLTMIbBAaDUGndm9JQ6yL6H0DXT5m2mFDg==
+=Saha
+-----END PGP SIGNATURE-----
+
+--0df6a61c8d280515c2d06d561c7b93a1a3918a190afb8b3df4ba229d5f70--
